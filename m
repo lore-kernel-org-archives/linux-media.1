@@ -1,107 +1,76 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F58471D0B
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 08:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4583ACF02
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449733; cv=none; b=obMvmTxm24YpTJF+d30ML26ciL2EhLm5O/M7BKWE5UGsqHM795ZkRHGVnstsIJAKejaa6VKwq3uaxHRx+oHpzmPvwwI8UBfPaaRURfQCGGeG4I4yigTTN9kTSuFbqU8Dzt8UEhKJFQblo1X5xgQK5RN/fBSKxVR4tvgVi7VDjco=
+	t=1791451611; cv=none; b=VKlxjhLh35aR6qY0fccDcNiLe8cQw4VHu2Y0Ntj2T23lkuc5m7xHciEPBoyFO8WAbU9jt7oZBF2DiEw6vUaHvVfVPL090x7N7MZa2ui7MF1Vw6AGzOoZT0t7Z7lRSTDNDRlg4GT36W0JkGXiTMXO1LMG/iWRo+Gktnwh0TDpRVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449733; c=relaxed/simple;
-	bh=D+cwtxqHhKxmzq3opSJuVD16vC2LYHjmKeGRQkDf078=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=upyQjlkqH2FXx30XkZqq1VVoRNZGPgn6hKnl4XOpKGhFfL71n11Cg0Fj/KhgFRf5SIj/FIwg9WrhGVe/Aa2JnBmPOLr/XKppZnMwAD4kQ23SvX4YP5jsS5/sgG2I0sFbWpMFNukuxuFll0vh2EP+URUpwoiNt5kqBMBlNOVEGNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aIvpEREB; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791451611; c=relaxed/simple;
+	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MLzH4mlaumbUR03Avyt+vDpPvrGL0mNWdv8sZQ+uiYE4AzhPxfinB4PLf6wvcwo3oHz+t9yV0xIcXEFifta795+AIlEnqGIoutil3mBXShPi10AOVocRGVT8RTmvA/dYEWnBfdEccqKITA40bK9L4yDOnrKrZKWmxrbB1C9GKlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjz5do9c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aIvpEREB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791449730; x=1822985730;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=D+cwtxqHhKxmzq3opSJuVD16vC2LYHjmKeGRQkDf078=;
-  b=aIvpEREBci/jzkvuxC8ua3xZT2vXdEugSO1HVs4ZZlkRrHJkudWHw//G
-   JX5ImZvziYdW1AEAd5vNP+a1qsnDokuIX9i0ED1aVcgRGFwTKejj/C/In
-   +KpRwunTsrZyXHl+ndj5EJM55/whcMGoocncswJkoS4ZBbtPB4NcNO8IT
-   nBR65t/xRq59oDki9/wC9hm7y2HIA23U0uyyW/yRNsoFh0KL7jHO4C7fa
-   LuN1l2dU0iNmlldZAzDDhL+trMGmBLbHGbYgI5gG0ui0uNcCeHcE7inzX
-   IOeGwYCqHt0kv24AOp1y/7I4ob6Neh/bfxdrx2EWPaAHCAlbIWPEcOZ5P
-   Q==;
-X-CSE-ConnectionGUID: nSL20G8hS2W+9Ms1LmEFVA==
-X-CSE-MsgGUID: hIl3DGC6Tcas8YcfGHOnNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="233673"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="233673"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:55:27 -0700
-X-CSE-ConnectionGUID: MOp1sbxtT/eU35nP/LrtfQ==
-X-CSE-MsgGUID: WXDGTLdMQf64pEFgVRNlww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="86318"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.95])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 01:55:24 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 50774121BC0;
-	Thu, 08 Oct 2026 11:55:25 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xEjrr-00000003Ldw-3D9i;
-	Thu, 08 Oct 2026 11:52:47 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: "Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"Bajpai, Manik" <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	"Yao, Hao" <hao.yao@intel.com>
-Subject: [PATCH 2/5] media: ipu6: Tell about not being able to obtain frame descriptor
-Date: Thu,  8 Oct 2026 11:52:44 +0300
-Message-ID: <20261008085247.798156-3-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261008085247.798156-1-sakari.ailus@linux.intel.com>
-References: <20261008085247.798156-1-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjz5do9c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815C51F008A3
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791451610;
+	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=mjz5do9cqfDHvrm+G7S07/jhE6GVNePDHu+bXqvTdKUk+YIB8+NfkjYZOfMPvHPe1
+	 SHZmL8QQ4DUuoF2rZY2XEEv6l+rltbK7ZK/9GTUVpIwoqWz7xBZuncJXupRoUEmMjs
+	 nKvVLlYS1E62dlGwRCCpSqmnLZt7fGjsFn2E3eRZuwPyWVVbhD1fummMM8cvy2DEsd
+	 TCF53VHltwQx9u/Y00sj0cukczKm1wSDeFVOet1JjtEDTyH2++rh9dbjPjEPT20Xvk
+	 PhhFn7/5C5VBM8AvxzPhyHxgx7Vtm0G11uT8APuZhrzHyI2NRNdUiu8T2xkW+j8KEF
+	 4N5RAXcFbZsqw==
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-475920b9ca2so845243fac.1
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 02:26:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzwktjJRpAABcUBhknDJAlKlYryMCxuah5mxf6u9DStK9XXpf9UvPY7mTpftn5/F9by0c5NcEr0SGNhcg==@vger.kernel.org
+X-Gm-Message-State: AFuF++kadFS/K/Gyb/Zq/BwjmKdvtEH+Wz9Tb+8BdAbWqk1bcswKU1QQ
+	5VddtYr4THTpm6MNiKo95rs1mhhb4q6hUDe+0TkaHvoZlgLibgoWDavIFBXeFzBh9vNRl7K/Z2Q
+	O95r45jpmwkzDfcR4fRJ/SZ0jPtKpzWA=
+X-Received: by 2002:a05:6871:3869:b0:49c:3eca:25ef with SMTP id
+ 586e51a60fabf-4a2591d9e5dmr3983078fac.8.1791451609827; Thu, 08 Oct 2026
+ 02:26:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org> <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
+In-Reply-To: <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 11:26:34 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
+X-Gm-Features: AclHuK-KUSWV_pbziOSS0NdajQVOl_Xc-5mQYGJWfN3ER9TYzr2GWSy9oAbKNzg
+Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
+Subject: Re: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Not being able to obtain a frame descriptor is a fatal error at this
-point. The frame descriptor should be stored for the duration of the
-streaming operation.
+On Tue, Oct 6, 2026 at 1:43=E2=80=AFPM Lad, Prabhakar
+<prabhakar.csengg@gmail.com> wrote:
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> Can you please share the dependency patches or branch, as these don't
+> apply cleanly. I tried the latest 'next' and 'media/next' branches
+> with no luck.
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-index 152545427930..3e9bfda2a8b9 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-@@ -749,8 +749,10 @@ static int ipu6_isys_csi2_disable_streams(struct v4l2_subdev *sd,
- 	lockdep_assert_held(&csi2->isys->stream_mutex);
- 
- 	ret = ipu6_isys_get_frame_desc(remote_sd, remote_pad->index, &desc);
--	if (ret)
--		return ret;
-+	if (ret) {
-+		dev_err(sd->dev, "cannot obtain frame descriptor\n");
-+		return 0;
-+	}
- 
- 	sink_streams =
- 		v4l2_subdev_state_xlate_streams(state, pad, CSI2_PAD_SINK,
--- 
-2.47.3
+They are just based on a clean v7.3-rc1 from Torvalds:
+https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-integrator.git=
+/log/?h=3Db4/mali-c55-irq-supend-resume
 
+I can rebase on media/next and resend if that's desirable?
+
+Yours,
+Linus Walleij
