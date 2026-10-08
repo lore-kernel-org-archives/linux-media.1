@@ -1,79 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A4F4477F3
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:18:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C69450410
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465531; cv=none; b=JqmuKY/tzSJm+efbq8t42lvvG9UyErKVVPWoLeMouwqaLUcIcpGxTxhJUfXkUK4+FrXjZifZ/sapB4oIHGelNUfBjZFmcQ0tynP6g2EeUoZZdvruF0aO0v/o9OiAj4s/UQ8BrfOEjJ1mMrncAZG/nReVx8hDHgePlCHk7/KbrPg=
+	t=1791465755; cv=none; b=gbOK8sNbofyuToyzLsOyLbPzVGmTE80wt2t/wrjM4aTRg0q29KNKQQ8XYLRf+4Yy4c2ckW1H7HHq3Njgv1Hi3gwr6TDjINRedKL6gjUIHqwGNnQpEkgSFf6XdKVpW7eNdHfRSNLCGhYynHgmQFhmyU1hP7OPfGtByVPgk7T7NmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465531; c=relaxed/simple;
-	bh=ICxTRZjzMmg9IW7Nrm6IGPlTPk9a2fAORh0DakTW7Ek=;
+	s=arc-20240116; t=1791465755; c=relaxed/simple;
+	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bL/lYd+ZVNMLJyxRcwCt8PtYYc8JLtvn8gpwij9o4YA38LIO22tg40cq5/GE3bmkQkyev9BKZjBfTDFDWc1bNXOrwde60emwc2YvkxbZV45xVAmJfab5X7QyQudMDP1mPSRUWrMwH531P+i8iTOs46poI/gZ53qlDBN5eP4eRFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXVBQBsg; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=axKvx3DzxMmshe4MWG1lfhm/USkaN1/ylsGMMctJ6++W1KxARqrOPUumYAPLw/44qGtMMbJ/Ch6JSinag0dj0sylu0LCOQtMdvCIOjdtZODGw3iAPe7+c8w8kI5jtWPpF6SvnUFyswWZ0zjsJ7azk8zZUk1wbwmAs6uIS8awUXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVrQodrv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXVBQBsg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A9ED1F00893
-	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:18:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVrQodrv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42BE71F0089D
+	for <linux-media@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791465530;
-	bh=ICxTRZjzMmg9IW7Nrm6IGPlTPk9a2fAORh0DakTW7Ek=;
+	s=k20260515; t=1791465754;
+	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bXVBQBsgo/q53L78ozjnffsymfm9EZyIbLG+iFL2fgqdUJZsc0wcRQpjiYlyZXckd
-	 uZ+kTz/68x3V8B9t/KT9AwlywkTa5adSu5o54S73XIOhk+LS+4FlpK9wEJ4hJFy54U
-	 M8TBHQdE9tPdo3TgSSwfdndbuoHKaBZiClrEJqDVJ/znq8idGPvmKzLX60i91k/d+S
-	 5Hp/lsK41tgRtY3eKfGtJVrqZIPbUg/ORX/5aWC9ZNfFD+mA9i9c/dkThtCe84fy62
-	 nvwz74I+fMRG76RUc8UUQu9JprRBst0ecIx3/kRJS/TGH7BUxN63yWN46f4eTi7RTE
-	 qdy37bMTyHpUw==
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-4949f037131so1654997fac.3
-        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:18:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxGIRloGOtjZF5vYx+vY+95iYXaz0i9YNgun5ULOHRlauP0pz0JTdHI9cNT5PXIvDm+NbsNqr6/YBuqUA==@vger.kernel.org
-X-Gm-Message-State: AFuF++l0p86x2rIaYS/Gw2e8EJ8MxdPdhhd/Lz345SUpBnVdAgf9QGhC
-	V+m3cNOd3voHVae2xXbYVQFN5wzjP0ESVN6XDMEhqMixEtqDIB3gXg6Kt2Oa8MuGlZc6CkATg3c
-	RNFgfGeOXHkp5BnHHvcqckX52txNYufI=
-X-Received: by 2002:a05:6870:41d4:b0:48f:e363:5cc6 with SMTP id
- 586e51a60fabf-4a25959a053mr4909766fac.52.1791465529385; Thu, 08 Oct 2026
- 06:18:49 -0700 (PDT)
+	b=RVrQodrvfX8BLyPmA1KAw/5Y8/NZCTIw0S/hv0SelcX3h92+ckfFvi3SAWVX9htgu
+	 7/yfEZ35v95BqA1MUxukZ5fT9oUbyhyh0o4YaElq7FA9/tjWLkxRU4t3zf8Ebdb2GU
+	 3QLPD8+N+jVA156qJUZZaZlrRQ401v5ICeC7wQPC74dRUVukh9SnOQEfFPz/hN1dEw
+	 oqOYyfg+11CnADhC4GoieryKVucWfk6FQZ579l7iwN/Aip/moNIvSySf0M5E8BeNW7
+	 w75KP5Y5VgjEXZZIgBIZSSHkKkGPOkwQ1Rz7ZrUwDE82UpH4cjh8KiBWk8rSKESKqg
+	 0qpIhEv4IsVTA==
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-49e18e5583eso858497fac.2
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 06:22:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwxl2PMK2YNbxaprWYcs9P/ErxirH/lcmKUo2UwzvwykVOGDCSSxYXH/jewEjUYfgnA6M4/oFl8NfoSfQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++kbB7Lft4TtHAA2ECgHI7tOkg5N77+A/ot6wR5k4sgfyQxobDaI
+	sIsaRyMsQkxlz6qHe1iSW/PqUX3BNQdiouEUt7XBBa4+sPyOwMIPCPivTOc35ytAr+T6EFZjN7y
+	Vdogzb1YSpRUZpOD5hiHPzdtFYmdV9Ik=
+X-Received: by 2002:a05:6871:b2c:b0:47d:a12f:3951 with SMTP id
+ 586e51a60fabf-4a259661200mr4847200fac.39.1791465753534; Thu, 08 Oct 2026
+ 06:22:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org>
- <20260928-mali-c55-renesas-dts-v3-5-2cf7eb746ebb@kernel.org> <CA+V-a8uam6zpuFoJURO+YuiYLeckAYvEAOpF5cZsH2buBsfLBg@mail.gmail.com>
-In-Reply-To: <CA+V-a8uam6zpuFoJURO+YuiYLeckAYvEAOpF5cZsH2buBsfLBg@mail.gmail.com>
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
+ <20260929-mali-c55-irq-supend-resume-v1-1-e3af34afff12@kernel.org> <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
+In-Reply-To: <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 8 Oct 2026 15:18:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkN+o=0GAvX=Tij9+qNSJ83HNSd+u+3W1gTbfM3GMwqUA@mail.gmail.com>
-X-Gm-Features: AclHuK_x2nw4wjrzHuerUcvWMuYeScfPfZjk2PzThc5BYhH3QlGqIjY3dXHMudw
-Message-ID: <CAD++jLkN+o=0GAvX=Tij9+qNSJ83HNSd+u+3W1gTbfM3GMwqUA@mail.gmail.com>
-Subject: Re: [PATCH v3 5/5] arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add
- ISP and IVC nodes
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+Date: Thu, 8 Oct 2026 15:22:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
+X-Gm-Features: AclHuK8rWtCgLBExYEFVtV6YJ_L_wVK9_y0rwU4QnsM7FeH0zmh-80QUTN8UTes
+Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: media: mali-c55: Allow wakeup source
+To: Dan Scally <dan.scally@ideasonboard.com>
+Cc: Li Youhong <dayou5941@163.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
 	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Prabhakar,
+On Wed, Oct 7, 2026 at 11:29=E2=80=AFAM Dan Scally <dan.scally@ideasonboard=
+.com> wrote:
 
-On Tue, Oct 6, 2026 at 8:33=E2=80=AFPM Lad, Prabhakar
-<prabhakar.csengg@gmail.com> wrote:
+> On 29/09/2026 13:02, Linus Walleij wrote:
+> > The Mali-C55 interrupt can be wired as a wake source on platforms that
+> > support it. Use the standard wakeup-source property.
+>
+> That's interesting! How's that work, though? In the RZ/V2H particularly t=
+he ISP is in an offline
+> mode, so I'm struggling to see how one could trigger the interrupt whilst=
+ the device is suspended,
+> since you'd need to instruct the IVC to queue a frame.
 
-> I was trying this on 20261006 as soon as I start camshark I get the
-> output below. Im using IMX708 sensor on the RZ/V2H EVK. Are there any
-> additional patches required for this to work (any sepcific version of
-> v4l-utils/libcamera) ?
+The implementation is IP-neutral and doesn't really ask this question.
 
-Do you also have these patches queued as fixes?
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/dri=
-vers/media/platform/arm/mali-c55
+The typical silicon solution would be if the IP was synthesized into
+and always-on power domain on the chip. This means the CPU
+which runs Linux is powered off, while the ISP is still powered
+on, and could generate a wakeup IRQ. This is how e.g. GPIO
+units that can wake up the system work: they are always
+powered in some sense.
+
+I don't know if that makes any *sense* from a system engineering
+point of view, but it is something that can be done.
 
 Yours,
 Linus Walleij
