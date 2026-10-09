@@ -1,63 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ssl01.alldomains.hosting (ssl01.alldomains.hosting [213.145.224.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6FC244E65F;
-	Fri,  9 Oct 2026 23:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222F635C6B8
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 23:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.145.224.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791588580; cv=none; b=n69iMHQ7ZBLyEfxo+UqD2yLRARTtQ6VOIZQhrOfUh3VAjfJ9A80XlSqvWr2+ErH52Nr8s/9x1jgoM5adPajKqMitO7mVQK9WTHBqIN4oX+0NUN4sUXAfN4lz0/ugcW6802muYmV/uWhxQOaxLG0YmRji6rJWFYLgW57V3z6OMYo=
+	t=1791589948; cv=none; b=l3tKK0IUeYBgveEbwpqBCt6mGnJAzXnZGTZcxM4APkhUZLXHkwuv/4q+flu/K+2iyziBX3USCzjMqwTile30N0wPLa5ydWpBnJ6BAZrCrgSycxhLJTAFZ+CX07UINJka8rIf8QKmHuaNcDvjUSxySYNJKpt3j//0IHBBZ/abMkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791588580; c=relaxed/simple;
-	bh=y9ygZ5PjWOgZpr9lE72PVwsUfhclgJ2p8WcJ+3KJgiw=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=JdaVQQjP5t48duet8TffK9csuwbwqICm7YTTBI9gl688CezLJEdi7ix+orM4wlxorTlP1B9B4p9Smpcv9l1YZhpR1JqD5Hx9jyINEbJfj0xLt9Z+dtfI+qvvCmSegYhrQFe5/PD8ne0WKCq1iRAAWnxsLx7NzCzif6C5fylhXYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AExyRT7S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791589948; c=relaxed/simple;
+	bh=ebnU1WDVM7H+Bg+SOCH5165cqGGSS5oLr0S5gsA3+eU=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
+	 MIME-Version:Content-Type; b=XzSeYyOG3UusUOsGMjX8/y21jw6WVVO6K6YhX6lLbN9c9aCQUq+47ei+4CR4XbK2rnXHHB561nx1tjmI+j6wCfpru4S1u+73nj9UpBFFgWIF12UXC9/jvL5f8p6cQ8h48uIm+scIzXwGXZolnfd9Xp82UhpQiquAm3RDQx5MzcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dittrich.top; spf=none smtp.mailfrom=dittrich.top; dkim=pass (2048-bit key) header.d=ssl01.alldomains.hosting header.i=@ssl01.alldomains.hosting header.b=LvGfq6IP; arc=none smtp.client-ip=213.145.224.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dittrich.top
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dittrich.top
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AExyRT7S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822E71F000FF;
-	Fri,  9 Oct 2026 23:29:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791588579;
-	bh=ChgA0oN7VteR7IVoSiywjMgZQcOFQuk6uTh9yr1prwM=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=AExyRT7SEIxhObN7x/aCBQY8PkrC6DqxIGcPIKs1M4lV0xf4w04yYfhqgrqhkf9s3
-	 EZRqpKCqRwhmNlG10GIQy1aOmOIOYwXm18CiiqObUkVugRCWkbqviK9pIjUFLFYyI8
-	 fQ0VOZbVHoWv63YfBF0BLyasEzWwGI6tjJQuiFvgZG9/ztFyg8efEo9eMSc1YHhXDx
-	 zS4P4iXN/4YJF/kGpmZ1pe5IPLxuiwQpq/2W30wovOGlVGv6SHjt/4emhn+xO96jaH
-	 aSci6F8Hljip3xtI4ywmmCb+cXxt8gG5mLHnClRL36ZGT/Gn072q7WGuSAcN2oz+vl
-	 gn+CMHFcRTG8Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 785EB39263A7;
-	Fri,  9 Oct 2026 23:29:39 +0000 (UTC)
-Subject: Re: [GIT PULL for v7.3-rc7] media fixes
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20261009174146.0d324c14@foz.lan>
-References: <20261009174146.0d324c14@foz.lan>
-X-PR-Tracked-List-Id: <linux-media.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20261009174146.0d324c14@foz.lan>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git media/v7.3-3
-X-PR-Tracked-Commit-Id: 2579cbe68005f46fc7f8f95364f6b101b07b9d1c
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: f7bec60381da152e110bb71358c0903f9bc1826e
-Message-Id: <179158857838.1045673.6733666314685294352.pr-tracker-bot@kernel.org>
-Date: Fri, 09 Oct 2026 23:29:38 +0000
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, Linux Media Mailing List <linux-media@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=ssl01.alldomains.hosting header.i=@ssl01.alldomains.hosting header.b="LvGfq6IP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ssl01.alldomains.hosting; s=dkim; h=From:Sender:To:Cc:
+	References:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type:Content-Transfer-Encoding:X-Mailer:Thread-Index:
+	Content-Language; bh=jlrehCtVYfO3G6hQE6eg6Itx+bK/RnGOlKLN7ylpNTQ
+	=; b=LvGfq6IPgenjH32crku0yNNqC6y+9pG72HXoo/NBaITHN5LtB3t9IAejK1P
+	EvW9mUF38FOscOYBnnQWmMVR834eIPrxmRz12jPeJPV00Zf1s9FLo1UsgmEghgDY
+	9EvtHOYeDtTm4c4j3kyNPLjv0MH9RzDRLKHjt0fs1+kF5VnGiBYgv2R3kg8R0Ukq
+	S4509gi3M5Y+UDp7lJmUUDlZS2smWFWwqexM+mlhPWvLhJDkYC/PGEciZLBv3rOi
+	cn6h7S36Cd/i2v/ALN+JRUAF5QYVGOXNcFrIbO4Xxg6XVkS0QqqL8sBMhyJ9BH4g
+	l88uLTTwt6yeubIsH3q5f1HGqaA==
+Received: (qmail 1703242 invoked by uid 7799); 10 Oct 2026 01:45:40 +0200
+Received: by simscan 1.4.0 ppid: 1703216, pid: 1703233, t: 0.0846s
+         scanners: clamav: 1.4.3/m:63/d:28148
+Received: from unknown (HELO ROG) (michael@dittrich.top@94.31.113.139) by ssl01.alldomains.hosting with SMTP [4863]; 10 Oct 2026 01:45:40 +0200
+From: <linux-media@dittrich.top>
+Sender: "Michael Dittrich" <michael@dittrich.top>
+To: <linux-media@vger.kernel.org>
+Cc: <mchehab@kernel.org>,
+	<nibble.max@gmail.com>,
+	<linux-kernel@vger.kernel.org>
+References: 
+In-Reply-To: 
+Subject: [RFC PATCH v2] media: smipcie: validate DMA lengths and avoid stale work
+Date: Sat, 10 Oct 2026 01:45:40 +0200
+Message-ID: <041301dd5848$4af6c9c0$e0e45d40$@dittrich.top>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: Ad1YQlcidfEawcyUSqGHVs4pTbRUcQ==
+Content-Language: de
 
-The pull request you sent on Fri, 9 Oct 2026 17:41:46 +0200:
+smi_dma_xfer() passes a register-derived length to the DVB demux without
+checking it against the 192,512-byte DMA buffer. A zero register value
+is interpreted as 4 MiB, allowing the demux to read beyond the buffer
+if that completion is processed. Reject oversized lengths on both channels.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git media/v7.3-3
+smi_start_feed() also unconditionally queues work without refreshing
+_int_status. Clear the saved status and enable work before IRQ/DMA;
+let a new IRQ queue the completion work.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/f7bec60381da152e110bb71358c0903f9bc1826e
+A VDR 2.8.2 restart with two DVBSky S952 V3 cards caused a panic on
+Debian 6.12.107-1 in the unmodified driver:
+  RIP: dvb_dmx_swfilter_packets+0x5d/0x90 [dvb_core]
+  Call Trace: smi_dma_xfer+0x154/0x210 [smipcie]
+The exact IRQ sequence and DMA length at the crash were not captured,
+so the connection to stale completion work remains a hypothesis.
 
-Thank you!
+Fixes: d32f9ff7376c ("[media] smipcie: SMI pcie bridge driver for DVBSky S950 V3 dvb-s/s2 cards")
+Fixes: 1021dd010d21 ("media: Convert from tasklet to BH workqueue")
+Reported-by: Michael Dittrich <linux-media@dittrich.top>
+Closes: https://lore.kernel.org/r/000001dd4e71$a853ad30$f8fb0790$@dittrich.top
+Cc: stable@vger.kernel.org
+Assisted-by: LLM sparse smatch
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Signed-off-by: Michael Dittrich <linux-media@dittrich.top>
+
+---
+v2: Correct the wrapped inline diff from the original report; code unchanged.
+
+Base: media-committers next, checked on 10 October 2026:
+d7e7bca7169873b46e857c025c10f3336c1258d8
+
+The equivalent Debian fix passed ten VDR restarts and a reboot.
+A stubbed test of the current source passed all 22-bit lengths on both
+DMA channels and checked startup queuing/status. It does not test IRQ races.
+Built on the above base as an x86_64 module with W=1 and section checks.
+Sparse and Smatch found no smipcie diagnostics, as did the compiler.
+The kernel build completed with warnings in unrelated, unchanged code.
+No mainline hardware test or standalone mainline reproducer;
+restart script and full trace are available to maintainers on request.
+
+checkpatch --strict --no-signoff: one CHECK for existing finishedData;
+retained to avoid unrelated renaming. AI assisted with source review,
+the patch, tests and this message.
+
+ drivers/media/pci/smipcie/smipcie-main.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/media/pci/smipcie/smipcie-main.c b/drivers/media/pci/smipcie/smipcie-main.c
+--- a/drivers/media/pci/smipcie/smipcie-main.c
++++ b/drivers/media/pci/smipcie/smipcie-main.c
+@@ -310,8 +310,15 @@
+ 				"DMA CH0 engine complete length mismatched, finish data=%d !\n",
+ 				finishedData);
+ 		}
+-		dvb_dmx_swfilter_packets(&port->demux,
+-			port->cpu_addr[0], (finishedData / 188));
++		/* Reject lengths exceeding the DMA buffer. */
++		if (finishedData > SMI_TS_DMA_BUF_SIZE)
++			dev_warn_ratelimited(&dev->pci_dev->dev,
++					     "DMA CH0 invalid length %u, dropping completion\n",
++					     finishedData);
++		else
++			dvb_dmx_swfilter_packets(&port->demux,
++						 port->cpu_addr[0],
++						 finishedData / 188);
+ 		/*dvb_dmx_swfilter(&port->demux,
+ 			port->cpu_addr[0], finishedData);*/
+ 	}
+@@ -333,8 +340,15 @@
+ 				"DMA CH1 engine complete length mismatched, finish data=%d !\n",
+ 				finishedData);
+ 		}
+-		dvb_dmx_swfilter_packets(&port->demux,
+-			port->cpu_addr[1], (finishedData / 188));
++		/* Reject lengths exceeding the DMA buffer. */
++		if (finishedData > SMI_TS_DMA_BUF_SIZE)
++			dev_warn_ratelimited(&dev->pci_dev->dev,
++					     "DMA CH1 invalid length %u, dropping completion\n",
++					     finishedData);
++		else
++			dvb_dmx_swfilter_packets(&port->demux,
++						 port->cpu_addr[1],
++						 finishedData / 188);
+ 		/*dvb_dmx_swfilter(&port->demux,
+ 			port->cpu_addr[1], finishedData);*/
+ 	}
+@@ -821,9 +835,11 @@
+ 	if (port->users++ == 0) {
+ 		dmaManagement = smi_config_DMA(port);
+ 		smi_port_clearInterrupt(port);
++		/* Clear stale status; let the IRQ queue work. */
++		port->_int_status = 0;
++		enable_work(&port->bh_work);
+ 		smi_port_enableInterrupt(port);
+ 		smi_write(port->DMA_MANAGEMENT, dmaManagement);
+-		enable_and_queue_work(system_bh_wq, &port->bh_work);
+ 	}
+ 	return port->users;
+ }
+
