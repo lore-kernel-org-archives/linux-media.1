@@ -1,106 +1,154 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFC43839B3
-	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 04:47:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5394A3E16B9;
+	Fri,  9 Oct 2026 05:20:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791521222; cv=none; b=LKXyYkYeEScr7mWkwc6LqaoTJtF015H0Y92UFM/oqEip20Ggsp1XzMhQN5fvuHxFNRbori2WQBwHWhdKzECu5JPj43e2EGzLgRxXs0L87qnp+XhtvIZvhJ3kjHeRYfY5sNw+kIo/STwHq+L0xU1RuoGOfWv799fLxKAYdlrj7+A=
+	t=1791523239; cv=none; b=lQS2t3afvDyy9MzqJyTs4sg3ZlsQwfGrYBV9gT4POPJkTKgAJ5PvHzmq596TdX4FVfoOqCStBXet71SA5u4uWeQr9RDOGcrZcmVu4YP/FaoEdCQfmudCOQQq/Z1lRc3elDvmb/meFSCAwGNB9MedhcTkDlMWIw6K2ChKeKilgAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791521222; c=relaxed/simple;
-	bh=hYEcRZfNO0ZIL03cS/C0g3gPMWns4wpZXwJgVX+O4lY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MFKGLLfCu4KQthqBJiwjUTDJvLfKY1G/cw0bmyywqQo9GL6zasiOIAf64wUYzX2u+2/nwzxfT4nWFf/oonRig3A1octgcqwoLWMD1rJ53ZpTNph08gh5c05PcC47vV3mcRRupgf8hfisGW0rH1dIKwxD+BsKWgFNFKiPEJD5oE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VfoqvXMw; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791523239; c=relaxed/simple;
+	bh=aP0fEHvQ/QaAgLAQCsKU0lla8LGEEkXic5qJRlIA+0w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iXUGmk8TUydBjO0Ft9guQOciOAF2LEICyNVT5hXVULHOUrvVIh14T+y110/V8lIroTNal+2mluY0eVBYkpjheoEMGtcGUNeeg9LBX+M26UAYhUPBZeW2wPjxuAgSTrFGxU8xoXaSsCbgK2gm2TwoDOg0KQO81FWeaES8MInisfY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YGWJwEQp; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VfoqvXMw"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so5910949a12.2
-        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 21:47:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791521219; x=1792126019; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x7hgxnnVrOAesdTxc+DeNAbIYuClRLjoTwntAP7fngE=;
-        b=VfoqvXMwVVUZAe1JyUgKnXJeppTUDsNU++4LDA+C6LND2eDYgkfqJjGTOWGghlOZhN
-         Z2tYl6Re77IVibSSaQED1JthBveDpWl+WYZfmXA8XYXZe1clluNlDi5B7FpKhCv/dw9O
-         OdTupRoJEtBSSnzYGtMYiG8t9qeoVSBAIXpGT/BQ7bzpC3kJx/iYSAgS1rRTAeWyLFL9
-         Gfv5+Ql6XswV/oI45VR3P0OaPrxjOJ6eg67yWc8fE4LOK2r8Pczh1ZcZ/P5aKTKDjLWO
-         c/9lZsM39s7aH1Ew5J6oVHG9odreNDuew3j3eboSzjbxpRME29o4GbZwnjITsNRrOCf2
-         Dflg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791521219; x=1792126019;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x7hgxnnVrOAesdTxc+DeNAbIYuClRLjoTwntAP7fngE=;
-        b=YRfCBZ3YWZbIb1MxfJvPAD+XjsYihzttJgtkK+/JsuSryb55ehKR4YhMwLRLdVPnDy
-         zDnEvA7LTV7g7MhMpyW9excvkqEWt58liVPaaNRCl+WiZebgHzr8clnEYzXa/myOV2Mj
-         yh/ergettAmF2b1xOciZPBio4Px6PHNt+N1Wt9FENb4mtDYCpPc7b4325FHbAo5jDKOj
-         1DUnQpeXxY2ax6DYdBdkP0uYLEVjlqIGugkyi/zgAAYH8vuNpl2CQQeDU/iTRsculI+P
-         NFHFXRl0RX3zJNve7nu9hZeBQYq+zwFTxKA9JrS0xUjauIfn689ut1/YvP9Og1rNTjeG
-         Ke1A==
-X-Forwarded-Encrypted: i=1; AKwUvBzCXDZlgyp6WV+PB2Gqq8DLa1eb6pHx0iY9ZNMnFcblIkkP52wKZyIYWmAoZsyf28L1QxgqYPP0WOXumw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWbX4q2bhpo1plbjRDRRT7ugwkbuzCE88xUr9YrOfUdFECjRP0
-	vQAOnf6VR2RHHU47HJY+xKu+A/+OXAMy0x/+eruU7dDt4knSvrSgfnxl
-X-Gm-Gg: AYBFou3Rm7cKxTswreW2jGSg28MVNv/lwzHuzCWdJ5NDcBpdlZzPNX67eIxvG+S6Mbg
-	vxPangkiCoI3pcnYE6+4iWHOE9D5wSs/evKTj9BLIH0EQuFIkjNdzMK18UJCrgAPvOoadC/rRFR
-	jgWMFxbWteotrFsthRSOWTsusa+yYptZyhmjwkK7Lwk3KcBCNytBO591Gpk7czx5xphpqGRC2gB
-	Pc6d+JYkMDd6f/AP4kiAwx6Vobb9j6ksctihRmGPFjMRQ4fu9PLRgLsKWYc43NDd4ZLk0pOI6qu
-	KdptIJo1Cdq05bQV0LGg5rquezaVKakorjgWDrRSArdwnZyK5gdDkCJZ46mrDLFrjiQVZeu4d6e
-	3a7+CIsW3wH5YBLET0gsJhWv1ZsyuPNtxWj0pSyQzff4JtQEivbqHNXH/JAetLzWS7BPmMTNjko
-	oJ5MCpPV9LwAIVqNUjG2K8HfYNMtiEWFXxqE/qnbw8+IVnLaau33TF63JB4tj/drW32B8aOrUer
-	ZeeCueaPKNCX11/1lma5EIs44Ixlivw9LGhBxdcf7Io7NYJMaGmt2JDbdE=
-X-Received: by 2002:a05:6402:5189:b0:6aa:f809:ef44 with SMTP id 4fb4d7f45d1cf-6b17c296a4bmr407721a12.19.1791521219033;
-        Thu, 08 Oct 2026 21:46:59 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b178d1605fsm504745a12.2.2026.10.08.21.46.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 21:46:58 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org
-Cc: himanshu.bhavani@siliconsignals.io,
-	hardevsinh.palaniya@siliconsignals.io,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH] media: i2c: imx576: Fix line length register
-Date: Fri,  9 Oct 2026 05:46:55 +0100
-Message-ID: <20261009044655.7586-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YGWJwEQp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791523238; x=1823059238;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=aP0fEHvQ/QaAgLAQCsKU0lla8LGEEkXic5qJRlIA+0w=;
+  b=YGWJwEQpfU9iqTwi38TTksMnzz7ydWNynqOIueVdNG+lHRALRl1ofH1j
+   iRSrrEgfoFWcZ9veOC+B7NiK3gOP7kS4vFtEmyWFynAUZLRZxO3ZmpDX6
+   ZkSGmKLWMaWhDYu+6/m+6Z4W7nwX6+sYnbEXZs3KteZFtdhKnjrM14yD3
+   pAgaCS/sVCkKx1JdyvXxgypsFO7TbsgTDDn59GtdF4fVVFU8izg/5ONer
+   edih4fB35h6aRfwzDApAzYXq9BXkmjFfIirOOxk7b4Tfv8Q0rcl6y8zzK
+   mNWKtLN7fBHgml85Oq0Beda4+HGO+NtTehZ/tZvIhF4KHseaoa9wPU+sn
+   A==;
+X-CSE-ConnectionGUID: uimerN2FTgiJ8HDqyruP6Q==
+X-CSE-MsgGUID: 8Y8J6HiFQdaMkbPgaLYMeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="324351"
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="324351"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 22:20:37 -0700
+X-CSE-ConnectionGUID: j7B2XznQQtaMjYvr1OiqTw==
+X-CSE-MsgGUID: 9HTjMy3mRw6qtewz3yxe3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
+   d="scan'208";a="181331"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 08 Oct 2026 22:20:33 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xF31y-000000005Lo-1rmo;
+	Fri, 09 Oct 2026 05:20:30 +0000
+Date: Fri, 9 Oct 2026 13:20:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Bryan O'Donoghue <bod@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Keke Li <keke.li@amlogic.com>,
+	Richard Acayan <mailingradian@gmail.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
+	Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Milen Mitkov <quic_mmitkov@quicinc.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 19/74] media: qcom: camss: vfe: Represent output as an
+ array instead of a singleton
+Message-ID: <202610091311.xZd9hTAf-lkp@intel.com>
+References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611@kernel.org>
 
-The line length is written to FRAME_LENGTH_LINES instead of
-LINE_LENGTH_PCK. The value is later overwritten by the VBLANK control,
-so the sensor runs with its default line length while the driver
-reports HBLANK and PIXEL_RATE computed from IMX576_LINE_LENGTH.
+Hi Bryan,
 
-Fixes: ee2e9bf41d3e ("media: i2c: add imx576 image sensor driver")
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- drivers/media/i2c/imx576.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+kernel test robot noticed the following build errors:
 
-diff --git a/drivers/media/i2c/imx576.c b/drivers/media/i2c/imx576.c
-index 3fcd28d18a51..6243683302c7 100644
---- a/drivers/media/i2c/imx576.c
-+++ b/drivers/media/i2c/imx576.c
-@@ -507,7 +507,7 @@ static int imx576_set_window(struct imx576 *imx576,
- 	format = v4l2_subdev_state_get_format(state, 0);
- 
- 	/* Line length */
--	cci_write(imx576->regmap, CCS_R_FRAME_LENGTH_LINES, IMX576_LINE_LENGTH,
-+	cci_write(imx576->regmap, CCS_R_LINE_LENGTH_PCK, IMX576_LINE_LENGTH,
- 		  &ret);
- 
- 	/* Imaging area */
--- 
-2.55.0
+[auto build test ERROR on 8d3ae59288f1e7d58d76558a6ee96d533bc5019f]
 
+url:    https://github.com/intel-lab-lkp/linux/commits/Bryan-O-Donoghue/media-qcom-camss-vfe-Rename-gen3-back-to-vfe780/20261005-191331
+base:   8d3ae59288f1e7d58d76558a6ee96d533bc5019f
+patch link:    https://lore.kernel.org/r/20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611%40kernel.org
+patch subject: [PATCH 19/74] media: qcom: camss: vfe: Represent output as an array instead of a singleton
+config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20261009/202610091311.xZd9hTAf-lkp@intel.com/config)
+compiler: sh4-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091311.xZd9hTAf-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610091311.xZd9hTAf-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/media/platform/qcom/camss/camss-vfe-17x.c: In function 'vfe_get_output':
+>> drivers/media/platform/qcom/camss/camss-vfe-17x.c:395:16: error: assignment to 'struct vfe_output *' from incompatible pointer type 'struct vfe_output (*)[1]' [-Wincompatible-pointer-types]
+     395 |         output = &line->output;
+         |                ^
+
+
+vim +395 drivers/media/platform/qcom/camss/camss-vfe-17x.c
+
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  385  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  386  static int vfe_get_output(struct vfe_line *line)
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  387  {
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  388  	struct vfe_device *vfe = to_vfe(line);
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  389  	struct vfe_output *output;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  390  	unsigned long flags;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  391  	int wm_idx;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  392  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  393  	spin_lock_irqsave(&vfe->output_lock, flags);
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  394  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16 @395  	output = &line->output;
+8ce158c1be981b drivers/media/platform/qcom/camss/camss-vfe-170.c Milen Mitkov 2022-12-09  396  	if (output->state > VFE_OUTPUT_RESERVED) {
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  397  		dev_err(vfe->camss->dev, "Output is running\n");
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  398  		goto error;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  399  	}
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  400  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  401  	output->wm_num = 1;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  402  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  403  	wm_idx = vfe_reserve_wm(vfe, line->id);
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  404  	if (wm_idx < 0) {
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  405  		dev_err(vfe->camss->dev, "Can not reserve wm\n");
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  406  		goto error_get_wm;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  407  	}
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  408  	output->wm_idx[0] = wm_idx;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  409  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  410  	output->drop_update_idx = 0;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  411  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  412  	spin_unlock_irqrestore(&vfe->output_lock, flags);
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  413  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  414  	return 0;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  415  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  416  error_get_wm:
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  417  	vfe_release_wm(vfe, output->wm_idx[0]);
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  418  	output->state = VFE_OUTPUT_OFF;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  419  error:
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  420  	spin_unlock_irqrestore(&vfe->output_lock, flags);
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  421  
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  422  	return -EINVAL;
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  423  }
+7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  424  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
