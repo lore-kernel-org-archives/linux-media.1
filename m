@@ -1,154 +1,187 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5394A3E16B9;
-	Fri,  9 Oct 2026 05:20:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57037448B81
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 06:34:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791523239; cv=none; b=lQS2t3afvDyy9MzqJyTs4sg3ZlsQwfGrYBV9gT4POPJkTKgAJ5PvHzmq596TdX4FVfoOqCStBXet71SA5u4uWeQr9RDOGcrZcmVu4YP/FaoEdCQfmudCOQQq/Z1lRc3elDvmb/meFSCAwGNB9MedhcTkDlMWIw6K2ChKeKilgAg=
+	t=1791527689; cv=none; b=C1vg7Oh8GOxSWlIEztO3gDJUcHg9+a9rG+FQhPTruQhQwEs/qCFcG7mPeIQ9aHHzUVHRYGymnxjV4n/igo61A4ZCfFfdL6ZT3QkSOTi4xI9mO9owMXhDLBc2TatS6mQu5b+QkhpWbwb4yO+Z62WrDGhROgf9uL3hm5/ACNTI53c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791523239; c=relaxed/simple;
-	bh=aP0fEHvQ/QaAgLAQCsKU0lla8LGEEkXic5qJRlIA+0w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iXUGmk8TUydBjO0Ft9guQOciOAF2LEICyNVT5hXVULHOUrvVIh14T+y110/V8lIroTNal+2mluY0eVBYkpjheoEMGtcGUNeeg9LBX+M26UAYhUPBZeW2wPjxuAgSTrFGxU8xoXaSsCbgK2gm2TwoDOg0KQO81FWeaES8MInisfY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YGWJwEQp; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791527689; c=relaxed/simple;
+	bh=ro/ic/vsKCEpCz/T2m2SZHX3DPlyK7OVbpXKy10IK+s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LMVlwOUBa7p7WLY8TeMIuk5akIvULqOq1oZAZx6HFQPr3Kc9G+1xOZMCwNHw698uwKlr4TITTEuKfyJ++EDazeiomfZhtTJWeUNqlEykpq+P/2I+ubySaf0rewBdF21Kmt9zK3xrtDXEoSjny2FPqEVg8bfMY3LJTIP1OvfKqk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mNok3SbP; arc=none smtp.client-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YGWJwEQp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791523238; x=1823059238;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aP0fEHvQ/QaAgLAQCsKU0lla8LGEEkXic5qJRlIA+0w=;
-  b=YGWJwEQpfU9iqTwi38TTksMnzz7ydWNynqOIueVdNG+lHRALRl1ofH1j
-   iRSrrEgfoFWcZ9veOC+B7NiK3gOP7kS4vFtEmyWFynAUZLRZxO3ZmpDX6
-   ZkSGmKLWMaWhDYu+6/m+6Z4W7nwX6+sYnbEXZs3KteZFtdhKnjrM14yD3
-   pAgaCS/sVCkKx1JdyvXxgypsFO7TbsgTDDn59GtdF4fVVFU8izg/5ONer
-   edih4fB35h6aRfwzDApAzYXq9BXkmjFfIirOOxk7b4Tfv8Q0rcl6y8zzK
-   mNWKtLN7fBHgml85Oq0Beda4+HGO+NtTehZ/tZvIhF4KHseaoa9wPU+sn
-   A==;
-X-CSE-ConnectionGUID: uimerN2FTgiJ8HDqyruP6Q==
-X-CSE-MsgGUID: 8Y8J6HiFQdaMkbPgaLYMeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="324351"
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="324351"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 22:20:37 -0700
-X-CSE-ConnectionGUID: j7B2XznQQtaMjYvr1OiqTw==
-X-CSE-MsgGUID: 9HTjMy3mRw6qtewz3yxe3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,147,1787036400"; 
-   d="scan'208";a="181331"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 08 Oct 2026 22:20:33 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xF31y-000000005Lo-1rmo;
-	Fri, 09 Oct 2026 05:20:30 +0000
-Date: Fri, 9 Oct 2026 13:20:06 +0800
-From: kernel test robot <lkp@intel.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Keke Li <keke.li@amlogic.com>,
-	Richard Acayan <mailingradian@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Gjorgji Rosikopulos <quic_grosikop@quicinc.com>,
-	Radoslav Tsvetkov <quic_rtsvetko@quicinc.com>,
-	Robert Foss <rfoss@kernel.org>,
-	Milen Mitkov <quic_mmitkov@quicinc.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 19/74] media: qcom: camss: vfe: Represent output as an
- array instead of a singleton
-Message-ID: <202610091311.xZd9hTAf-lkp@intel.com>
-References: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mNok3SbP"
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3115c4451c8so5211278eec.1
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 23:34:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791527687; x=1792132487; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iUpYYLLItdOrvPTmFBwuTL2yJS4jOONcdBareKtSIxE=;
+        b=mNok3SbPp3ormoDDiRS9hnpMA7mssCyREiYLPCWFi6rmn4nYx/I+rkkiyK3nFpTT3L
+         bZEhOc1Td0zdF4BaG7i8O01P362rKCEINM2MPmyOjn9SQ1W8mWTHM2xHq3+Nt7ZzqdBo
+         zEsGO6KP2lGOHx/9AIdz8jHHxOS0EYYlS9ACNRI9n61CrHS7Js6wDSMjzZrxgnr+rgH9
+         y4tZaT57HpIIeP3heunkg+07DJJXBL+mrq+mwYtQ38//bSkb++9mI+NaLK6favQolMMJ
+         HrCsYfoE4VlL36bG8nhawZlH3YnUYLCNHqISQGgEF0F2vrv8sQjJ3P/TIFrQFrYz1H2J
+         VsJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791527687; x=1792132487;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iUpYYLLItdOrvPTmFBwuTL2yJS4jOONcdBareKtSIxE=;
+        b=LAlI8B1dlAsTYnA2CaAtHyVvWwLOSe4dA76lZoBBJIWUrx55GGRsK8VhCeInKdRIN2
+         i1um0tw/bxA+0wNXHzUdOBGgJH+b6/NJHItqjJZAKUIkKbfhNzGAecoqGnZ5Gi14eS9R
+         tffmV6ZLlWa9F8yHM+0TgCRUmqdEriePfFhQurS/pcmMoklvrD1EWcUBvqrIyFF7Pj72
+         ObdYXh3s9tp+lwvNmPy9hiLG3lJXeq9TMpdrsBZ/YISbQdHOTxslajIsfNmIFNDHNEr0
+         YNrm8yecV3ok9ioY76/T2PsxE8ePM5Yd01pjOHyL6p0s9we0EFQBs5GS9TE6Y1noWrjD
+         JTtg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUrpth2eNHwM58zL9IdInTP4Y8EYZefmF5PsjPhJRN6B//zPcu7Zk1IEUpXr73vxl9iSlqXX7ZW3iR0A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYQDeKrzjQYwXxIrkVjNq7/o7cfgYitesSHzO3UdJGsXIEVaqT
+	4h0DSGR1jAX7e2yQaw6wsjvWtU5zPfI7gUVXhEpW/1lu69WYMulBOzqU
+X-Gm-Gg: AYBFou0Wc0ZQ11n+1tOwPr8WpH2qojIIzlA7v1kfQasLcHFjcukibc9HFCdjFqWlXG5
+	dExT7rHQ354L6GBFPk/D5qCP8SWWjSHZPRUyK8fxk2/r7Xq8b1TzqJZjp+lLi9DT0pYpC2Zphnr
+	xorDaDseSSwrjE3qanrkYm+QIOXHmBcDkFtxEaCkiAWNNFb9ozm46onDkitanmsUvFuN1GIqT1+
+	hy/Xe7qTKO4zFNcBTdBHmR4VKvzCfSf2bfKdrlrRQNStCAm1FZJouRCrIztHY6H5AAzR+LYiRy5
+	+Y/ZwLeBV1r28a475oyU3y6MSIy5NVtlvKu+LkQS4lGqB3oN1exQK9r6qKWLk/4bSgqP+h+4tGg
+	7WpGp2srubGgOv4gv8J2nz87TVdu2+YPmYOf1113B9QhBvMfizvRptNbRmPgIpt+uwqpCHv+Fp0
+	VRXQF9iWTbN/XkjHEm4smSGK16buQk9bes4lsIINpsAUCHBWUm4xUDxEWyVOiZ2sxHldaFpLL1Z
+	Vsb41pxdCj9F4m2r1Aznms=
+X-Received: by 2002:a05:7301:144a:b0:351:7cfd:21d4 with SMTP id 5a478bee46e88-3537dfb8620mr1449268eec.8.1791527687198;
+        Thu, 08 Oct 2026 23:34:47 -0700 (PDT)
+Received: from XP-PC-huhb1.xiaopeng.local ([98.98.112.197])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca67b21sm4127080eec.11.2026.10.08.23.34.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 23:34:46 -0700 (PDT)
+From: Hongbing Hu <huhb04@gmail.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org
+Cc: mchehab@kernel.org,
+	kieran.bingham@ideasonboard.com,
+	ribalda@chromium.org,
+	linux-media@vger.kernel.org,
+	linux5-kernel@vger.kernel.org,
+	Hongbing Hu <huhb04@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4] media: uvcvideo: defer cancelled buffer completion until copies finish
+Date: Fri,  9 Oct 2026 14:34:32 +0800
+Message-Id: <20261009063432.1781-1-huhb04@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Hi Bryan,
+The UVC driver processes frames in URBs. A frame usually is divided
+into multiple URBs. The URB handler parses the header and the
+metadata, but leaves the expensive memcpy to a workqueue.
 
-kernel test robot noticed the following build errors:
+At any given moment, while streaming we will have:
+- the current frame with (0-N) async memcpys waiting to happen. The
+  current frame is in queue->irqqueue. It has a refcnt of 1 + N memcpys
+- Previous frames with (N) async memcpys waiting to happen. They are
+  not in queue->irqqueue. They have a refcnt of N memcpys
 
-[auto build test ERROR on 8d3ae59288f1e7d58d76558a6ee96d533bc5019f]
+With the current behaviour, when a URB completes with an error we flush
+the queue->irqqueue irrespective of whether the buffers have any
+pending memcpys.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Bryan-O-Donoghue/media-qcom-camss-vfe-Rename-gen3-back-to-vfe780/20261005-191331
-base:   8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-patch link:    https://lore.kernel.org/r/20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-19-ed985aefd611%40kernel.org
-patch subject: [PATCH 19/74] media: qcom: camss: vfe: Represent output as an array instead of a singleton
-config: sh-allmodconfig (https://download.01.org/0day-ci/archive/20261009/202610091311.xZd9hTAf-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091311.xZd9hTAf-lkp@intel.com/reproduce)
+There can be situations where the memcpy occurs after we have flushed
+the frames and they are returned to the user. Instead, we should
+exploit the refcnt mechanism to return the frames only after the memcpys
+have been completed.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610091311.xZd9hTAf-lkp@intel.com/
+Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongbing Hu <huhb04@gmail.com>
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+v4:
+- Reworded the commit message as suggested during review.
+- Documented in uvc_queue_buffer_complete() that it may be called with
+  queue->irqlock held when buf->cancelled is true.
 
-All errors (new ones prefixed by >>):
+ drivers/media/usb/uvc/uvc_queue.c | 24 ++++++++++++++++++++++--
+ drivers/media/usb/uvc/uvcvideo.h  |  1 +
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-   drivers/media/platform/qcom/camss/camss-vfe-17x.c: In function 'vfe_get_output':
->> drivers/media/platform/qcom/camss/camss-vfe-17x.c:395:16: error: assignment to 'struct vfe_output *' from incompatible pointer type 'struct vfe_output (*)[1]' [-Wincompatible-pointer-types]
-     395 |         output = &line->output;
-         |                ^
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f44..c491735cfe 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -122,6 +122,7 @@ static int uvc_buffer_prepare(struct vb2_buffer *vb)
+ 
+ 	buf->state = UVC_BUF_STATE_QUEUED;
+ 	buf->error = 0;
++	buf->cancelled = false;
+ 	buf->mem = vb2_plane_vaddr(vb, 0);
+ 	buf->length = vb2_plane_size(vb, 0);
+ 	if (vb->type != V4L2_BUF_TYPE_VIDEO_OUTPUT)
+@@ -289,10 +290,17 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+  */
+ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+ {
++	struct uvc_buffer *buf;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&queue->irqlock, flags);
+-	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
++	while (!list_empty(&queue->irqqueue)) {
++		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
++		list_del(&buf->queue);
++		buf->error = 1;
++		buf->cancelled = true;
++		uvc_queue_buffer_release(buf);
++	}
+ 	/*
+ 	 * This must be protected by the irqlock spinlock to avoid race
+ 	 * conditions between uvc_buffer_queue and the disconnection event that
+@@ -350,13 +358,25 @@ static void uvc_queue_buffer_requeue(struct uvc_video_queue *queue,
+ 	uvc_buffer_queue(&buf->buf.vb2_buf);
+ }
+ 
++/*
++ * kref release callback for uvc_buffer.
++ *
++ * If buf->cancelled is true, this function may be called with
++ * queue->irqlock held, as uvc_queue_cancel() releases the queue's
++ * reference on cancelled buffers while holding the lock.
++ */
+ static void uvc_queue_buffer_complete(struct kref *ref)
+ {
+ 	struct uvc_buffer *buf = container_of(ref, struct uvc_buffer, ref);
+ 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
+ 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
+ 
+-	if (buf->error && !uvc_no_drop_param) {
++	/*
++	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
++	 * errors. They must not be requeued by the corrupted-frame policy even
++	 * when buf->error is set.
++	 */
++	if (!buf->cancelled && buf->error && !uvc_no_drop_param) {
+ 		uvc_queue_buffer_requeue(queue, buf);
+ 		return;
+ 	}
+diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
+index b6bcee4a22..1b611715fa 100644
+--- a/drivers/media/usb/uvc/uvcvideo.h
++++ b/drivers/media/usb/uvc/uvcvideo.h
+@@ -317,6 +317,7 @@ struct uvc_buffer {
+ 
+ 	enum uvc_buffer_state state;
+ 	unsigned int error;
++	bool cancelled;
+ 
+ 	void *mem;
+ 	unsigned int length;
+-- 
+2.34.1
 
-
-vim +395 drivers/media/platform/qcom/camss/camss-vfe-17x.c
-
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  385  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  386  static int vfe_get_output(struct vfe_line *line)
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  387  {
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  388  	struct vfe_device *vfe = to_vfe(line);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  389  	struct vfe_output *output;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  390  	unsigned long flags;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  391  	int wm_idx;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  392  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  393  	spin_lock_irqsave(&vfe->output_lock, flags);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  394  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16 @395  	output = &line->output;
-8ce158c1be981b drivers/media/platform/qcom/camss/camss-vfe-170.c Milen Mitkov 2022-12-09  396  	if (output->state > VFE_OUTPUT_RESERVED) {
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  397  		dev_err(vfe->camss->dev, "Output is running\n");
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  398  		goto error;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  399  	}
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  400  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  401  	output->wm_num = 1;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  402  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  403  	wm_idx = vfe_reserve_wm(vfe, line->id);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  404  	if (wm_idx < 0) {
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  405  		dev_err(vfe->camss->dev, "Can not reserve wm\n");
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  406  		goto error_get_wm;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  407  	}
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  408  	output->wm_idx[0] = wm_idx;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  409  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  410  	output->drop_update_idx = 0;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  411  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  412  	spin_unlock_irqrestore(&vfe->output_lock, flags);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  413  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  414  	return 0;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  415  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  416  error_get_wm:
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  417  	vfe_release_wm(vfe, output->wm_idx[0]);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  418  	output->state = VFE_OUTPUT_OFF;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  419  error:
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  420  	spin_unlock_irqrestore(&vfe->output_lock, flags);
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  421  
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  422  	return -EINVAL;
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  423  }
-7319cdf189bb64 drivers/media/platform/qcom/camss/camss-vfe-170.c Robert Foss  2021-03-16  424  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
