@@ -1,66 +1,66 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C17261B71
-	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 00:21:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D76478F2B
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 00:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791505292; cv=none; b=V4PyDjuLO6SuUVj4Fu/0njHPZDRTHfS4sxCOkTAU/4PFwdS2jlrLfHA/rFtlpImEv+Q3OZJz1kAR8Qb9nsRAKkgqPI6leT8wliOoOc1l+OPNrq3Mt8em/13vx/uMtYfmByLqZtjI0wjX5rRovlv27arObQKP1gX9JToxBkYdMq4=
+	t=1791505294; cv=none; b=LzFe/rZXAjVB6jiSFdeJ7oElCoFGcLn5LWTpJ85Xr2DxnfKZ4efMZVjz8fQiLTUDsYZOt+dAQ3Fs+RdlFTGyPI8LuZ4Ha29p2eljkLo+Ob2q+gBUir1wuYPGS/LSQ5eftDeAhd8lcqB9pFrE+DjL1Pytd2v03FQbwBvcFe4fk6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791505292; c=relaxed/simple;
-	bh=81q18fEwGnKX+7eGBet0/jWI0M1XpVvgscSWDRtUeFM=;
+	s=arc-20240116; t=1791505294; c=relaxed/simple;
+	bh=NVIDiLXAJf3+ZJHF4QiA1R4ioaT/JGKrOJyAdNKIbc4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Y2bwCEQ0s0Wb/iYkNEhLC/dHKGxOZY9VbglsUorKO6UUIctNrEkFWloEQUFFrMJ7/5fvGUhOvprN2d6NM4k+5Vgwk51Tz8jiJluwm3/lhnG4XIx4vVCJfhq1JQucObBGVzJtZOgwG4WZZiNSzTLuFlmJFA/Zx4QWDOE/NKTleYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bT8DjquL; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=bDRl8XGdOZFt+yWUhu4RmhhQeF1fsWBTQO72Yo0utnDLP1f5ISGF8eyCVBYq8r2pPtcei0UbQm5Jt6xrF6z49cyj8lArwKCg6z6dlcihzk83yIPzSzx2zMcytqYxpnVhuaxfpPwQV7fyqPdB7uW/Pf7vrKtp6HOFlJsuJq1cGdk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AsZsNgD3; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bT8DjquL"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c45111bebso2293441f8f.0
-        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 17:21:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AsZsNgD3"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a020e65269so26900965e9.2
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 17:21:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791505289; x=1792110089; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791505291; x=1792110091; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SuA9XknANPL6VvC11pYgn0IAp4/AWH6zzAsKWJ2B0W4=;
-        b=bT8DjquLVvE8YNwnDr2zyxOECWjkCOUYIepqC15KkBnBkyedkEKguwiGwB3iYAgWuP
-         kqo0ynvFwzxQEuO30PQy47nTfxitgDKzUWHwDGyU5UW/luLN6lvWDfInAWn5gX0TT6NE
-         uaMEQWMSbl0nL+InlPRmXjMqFG07nebA9oD9wPxb0XJD/uWbQfaqdWLPYuwO8APYtm77
-         CObeuCFc3Zvhw2dReYUus2/rcaHafV/UknLYDZY7OmWAtUqnnM7J5RTYwqhpdjAzOTEE
-         LK5TBG5Jf/EZHsosBuOqTXZ2pMiZaIrY7UfrPTBPoyizfjKm1ytDvO4ES77ewp7jLK32
-         mB7A==
+        bh=kIz/qZTA1DVdo8Wv1KvtH0Jov9NyNDxXYjGr4vU3wa4=;
+        b=AsZsNgD3nHdz21PLQgZ9iXPTrTocPQsn3eJA3Ub4TWfW2i7ZuU8DZOKbOJv0EciY8c
+         knP1v5LY/Wd2wcDJac3mImvkpuGHCWeKc/Jf0FLed+EXrBO40BmHp4sOhfixNyiy+4y7
+         kx2da2PAZ4xHnYCrgkSntSSB2F3odSDqx8tADYOuP09hHVhI7y6UiuWfACa/BZRvqWlC
+         VlHgoMAQF9YTuZOzD4+cxu0ozPjiYHkU5wbRC62uw4b6v4Km8KC7s8bksKJKDSaMlDgJ
+         ACFlkOUNqABrYCdq6PK18x/tolT4fa/NkILv130RmoYQBD3x+si/m9IZuAr4OHafjTkP
+         Dhkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791505289; x=1792110089;
+        d=1e100.net; s=20260707; t=1791505291; x=1792110091;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SuA9XknANPL6VvC11pYgn0IAp4/AWH6zzAsKWJ2B0W4=;
-        b=LlqrqJewYRJD54XTcXWALi/cujGrexfDPOVRCTN3cx4NzGt3cteZ35x3LVY0IW+yuO
-         x3tGMbnvdVKU1v0AncmBEodv3DHLF0bFy6RTv/EnQxiWAaeDAZXUfK0c37mYRmXn94rP
-         2ppkC9YtKvWM9tY+c2PIHo3jinxtuKvhHT34zKFBjwd2xwKFGpOhPxDGoLD3BLjpSksO
-         CEFaLaaj35POTOn/b9TpS06UttpNed3OzvKdsG1ndsrCcO/Rd7ZmoUo+fqyDO5D7oQ1d
-         47NLvZs7nuN2TtCsncmE1xWKHfv7AB84y9XnSjcTsZKbMgeRCgoIyuh+drt0fYiZ3K2V
-         18WA==
-X-Forwarded-Encrypted: i=1; AKwUvByH1BgJtjeY7VuXQ5VtiUNvJRAZgGY9IGx1Xvcico49Ce+Zy9Ex7yBLt8rUAxjycNWZe22V1fIcoFH5uA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lzOIzCT/9O37jQXPFZp7DlNrRfObjgImyRHj58lAjTc+Kpt86e
-	rS/o/ztG7NA6UWHPHsw4gGZbq59UJl3UxpmGmHPJKhfBC2YA1GgByVCJ
-X-Gm-Gg: AYBFou1rbKhM0Xd2SsKV8JF5+QD7BqlVJt069T59KX0FEd5jhzn7XuB5INESxM7hKBt
-	UtNHue8PxNhhx4FTKqV+PC+UTtQM5leqAV2Fa4Aset52dcdYQbFKEhhXPZh0dktx68i1j+Ln+Vz
-	pub8Rf7t6rl9AQTNgnj7mGqgZU293PnO0UBUBVW2b/e7CJjMP8Vg3W16nrfCKTJLEl5jeik7eGC
-	+Dg8MqKHfYQjsf68lCuhOcru3gO58y9Tb/Jj5NZzVwJzpnwc7XvdKyRcHRvfAmLIoHH8spAS903
-	LAxAolQ18aXeWYv5mNmBufW2ZywHmlYlFFb4MQI/oyayA+9qfiNDqzPrvIRsOngCmhY5SJJtEng
-	7M68QGhxBuVcSJEguR8hRAKzUJ0jImNx12HaZW8/PC5LPKM3aLKGkvY8FHRSC6xPeAO/kb8z89M
-	SBS26izBnkcGdu4J2qC1oFhyCFqC88fN84h+dZksLUiVHfMLhOzfvzS2KWJUF2UjuYiBaPjwdAj
-	xrn2NF+xmna5Lnmk7x28PCaERz/hMolobMlMLKgSVDWm0J9CqxGG99sd7Nhyc1DLnsZ21g2aoGH
-	vlf7APMwuTj7vcxFrQKvu7n5SLtaXx963QkBvA19wROJUPmJ8Np3KtO2tMltO7A4kURNG59TiYO
-	0cFAm/DM=
-X-Received: by 2002:a05:600c:8706:b0:4a0:1efa:c74a with SMTP id 5b1f17b1804b1-4a18e4b0f6amr2065355e9.20.1791505289240;
-        Thu, 08 Oct 2026 17:21:29 -0700 (PDT)
+        bh=kIz/qZTA1DVdo8Wv1KvtH0Jov9NyNDxXYjGr4vU3wa4=;
+        b=WBnaC/abf5iUlJnaevf0EChH2BYHeYB9rfda8MNmg8TKOlRr5KY25NdgQRvnZwt+cG
+         xLj5kehqqw8enjm+hu6DAZjJFp/mSJTQ8YwZeRQbmC8RMfaB3otXF5CWAOh4NGCoH8Zr
+         3cG2nogTlitv4vOam4JvFruwJWDyxt6TQwsJUj+yDIQ22ocOzMD0sFnqvovZCZSbtevq
+         8BzOo1nMzXEFQBmeQSF+E2yuUJL56q7jDXOB6ro3aqztaI+iG9vtfqO424fv3usNiGqi
+         bgKly/kTpYz1hi1W3DI4Ih+fMVXhPFRafUuWjYTsxrohwzlQwMaH1JpWvY1E2eVGh+B5
+         wpSQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTlP4dY2epN67gYZlLp5uLU8HgBWjU1QdTDpOQzwQCxCz/4Ru7ZSEfK1UuBvGQjK8dkoRqw8pSdpS+YA==@vger.kernel.org
+X-Gm-Message-State: AFuF++l7kjvoL1RK1sHuRlJVeHLSmuDmLbIjV42hBmDm9B+6cets6jRt
+	Z7ekLJtDlfXRpGJE1tr2rM2s4R04afXkR/QC31mM2hAUCsm76F9fpjo0
+X-Gm-Gg: AYBFou0VcMV3j62i572h1aPm9X4mSmKh0ID1Wuj2g5idSf8rBCCPmNozHDG/Xy4xxVF
+	uxcZtuRsdfv04V/aAFD9GivbKoYyF4CyQ/YIC1brvvcuQtPitbE/pQt2ZVKnNjr40p9ddo7iv3x
+	XFtbpc3izb8pkszKqBF5S7CUX+w9IGgv2AtQriGyhvtLim2ROMH65+Wxte8owXGWDgyCjlEyiBO
+	3I7tG3oll8r18ZFuTAI3VUpfBQKAZii4Ow97GE/GOJ7aNWA8dQ/dEwIF9ySt+DTrVFEKVI/uP4j
+	jgKh2gYnzVfe0iAwiZ+MXCnc/OuBQbzE6W6/YJhSc628MVXv334JSlzv1ng487y4wxPBJqEPQAj
+	lHVHetpshGCOQsKMaWIvaQRY0hqKXb3Z02GacY0VOdyr4H05jbkRInxX9wm3UUdAk+OGYT1YYXZ
+	AxgDhC3bYvryXIfbE/Je7VWRyCMGbvrTPieuKtulRQEfeMwBWXK3mV9n3WT8wnzo9Y3sJpCzkY/
+	3HKJIrR0Fk2pOIdqW5SbAs7dsJKl+BnuhZfNOZyZ2fH9WP9I/MRIIpHX36ziC/CQQh33/lEahyi
+	hdbtHZ4cFnb4DgrDvBhRg6MyclZ9J55IebMRlHWbKMkEeeUgmYsT4kLd7XWUtGBzahGPUTmcAZr
+	gqR3rtms=
+X-Received: by 2002:a05:600c:6990:b0:4a0:1ea1:477a with SMTP id 5b1f17b1804b1-4a18e4d8bbamr2152055e9.27.1791505291199;
+        Thu, 08 Oct 2026 17:21:31 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-ad61-5a01-743c-891f-b33c-cae7.310.pool.telefonica.de. [2a02:3100:ad61:5a01:743c:891f:b33c:cae7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4987casm3364605e9.1.2026.10.08.17.21.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4987casm3364605e9.1.2026.10.08.17.21.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 08 Oct 2026 17:21:27 -0700 (PDT)
+        Thu, 08 Oct 2026 17:21:30 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: iommu@lists.linux.dev,
 	dri-devel@lists.freedesktop.org
@@ -88,9 +88,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-rockchip@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 1/2] iommu: Add iommu_map_sgtable_dma()
-Date: Fri,  9 Oct 2026 02:21:13 +0200
-Message-Id: <20261009002114.67851-2-kmehltretter@gmail.com>
+Subject: [RFC PATCH 2/2] drm/rockchip: Map imported buffers from DMA addresses
+Date: Fri,  9 Oct 2026 02:21:14 +0200
+Message-Id: <20261009002114.67851-3-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261009002114.67851-1-kmehltretter@gmail.com>
 References: <20261009002114.67851-1-kmehltretter@gmail.com>
@@ -102,197 +102,78 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DMA-BUF attachments provide DMA addresses, not CPU-side pages.
-iommu_map_sgtable() needs those pages, so private-domain importers such
-as Rockchip cannot use it with strict DMABUF_DEBUG.
+rockchip_gem_prime_import_sg_table() uses iommu_map_sgtable(), which reads
+CPU-side pages and lengths. DMABUF_DEBUG clears these fields, causing
+the RK3588 import failures reported by Diederik de Haas.
 
-Add an iommu-dma helper to map a live attachment into another domain by
-translating through the device's default DMA domain. Roll back target
-mappings on error. This still recovers physical addresses internally.
+The attachment's DMA addresses belong to the VOP's default domain,
+while scanout uses a separate DRM domain. Use iommu_map_sgtable_dma()
+to copy the live mapping into that domain.
 
-Only non-bounced iommu-dma mappings are supported. Other DMA backends,
-marked bus addresses and zero translations return -EOPNOTSUPP, as does
-the IOMMU_DMA=n stub. A zero lookup cannot distinguish a hole from PA0.
-Reject bounce slots because a second mapping cannot keep them in sync
-with writes to the original buffer.
+Keep native allocations unchanged. Unsupported imports still use the
+old page-based path and remain unfixed under strict DMABUF_DEBUG.
+This RFC retains reverse translation rather than sharing the DMA domain.
 
-DMABUF_DEBUG currently drops DMA flags from its copy, so the bus-address
-check depends on the input retaining that mark.
-
+Reported-by: Diederik de Haas <diederik@cknow-tech.com>
+Link: https://lore.kernel.org/r/DLR74W1U9YPC.375IK0HOYHDIG@cknow-tech.com/
+Link: https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/iommu/dma-iommu.c | 131 ++++++++++++++++++++++++++++++++++++++
- include/linux/iommu.h     |  12 ++++
- 2 files changed, 143 insertions(+)
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 58c624513cd4..b9a1f91ec5db 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -38,6 +38,137 @@
- #include "dma-iommu.h"
- #include "iommu-pages.h"
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+index 9a1dc9f12072..501c94cb921a 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+@@ -20,7 +20,8 @@
+ #include "rockchip_drm_drv.h"
+ #include "rockchip_drm_gem.h"
  
-+/**
-+ * iommu_map_sgtable_dma - map the DMA side of an sg_table into a domain
-+ * @domain: domain to map into
-+ * @iova: IOVA of the first byte
-+ * @dev: device for which @sgt is mapped
-+ * @sgt: live DMA-API mapping for @dev, backed by non-bounced RAM
-+ * @prot: IOMMU protection flags
-+ *
-+ * Translate the DMA addresses through @dev's default iommu-dma domain and
-+ * map the backing memory into @domain without reading the CPU side of @sgt.
-+ * Direct DMA and other DMA backends are not supported. Entries marked as
-+ * PCI P2P bus addresses and SWIOTLB bounce buffers are also not supported.
-+ *
-+ * The caller must keep the source mapping, DMA backend and default domain
-+ * unchanged until the target mapping is removed. This function may sleep.
-+ * DMA addresses and lengths must be aligned to the smaller of the source
-+ * and target domains' minimum page sizes. @iova and the total length must
-+ * be aligned to the target domain's minimum page size.
-+ *
-+ * A zero reverse translation is unsupported: iommu_iova_to_phys() cannot
-+ * distinguish an absent mapping from a mapping to physical address zero.
-+ *
-+ * Return: the number of bytes mapped, -EOPNOTSUPP for unsupported source
-+ * mappings or source alignment, or another negative errno on error. Any
-+ * target mappings installed by this call are removed on error.
-+ */
-+ssize_t iommu_map_sgtable_dma(struct iommu_domain *domain, unsigned long iova,
-+			      struct device *dev, struct sg_table *sgt,
-+			      int prot)
-+{
-+	struct iommu_domain *dma_domain;
-+	size_t len = 0, mapped = 0, total = 0;
-+	struct scatterlist *sg;
-+	size_t granule, target_granule;
-+	phys_addr_t start = 0;
-+	unsigned long last_iova;
-+	unsigned int i;
-+	int ret;
-+
-+	if (!domain->pgsize_bitmap)
-+		return -EINVAL;
-+
-+	target_granule = 1UL << __ffs(domain->pgsize_bitmap);
-+	if (!use_dma_iommu(dev))
-+		return -EOPNOTSUPP;
-+	dma_domain = iommu_get_dma_domain(dev);
-+	if (!dma_domain || !dma_domain->pgsize_bitmap)
-+		return -EOPNOTSUPP;
-+	granule = min(target_granule,
-+		      1UL << __ffs(dma_domain->pgsize_bitmap));
-+
-+	for_each_sgtable_dma_sg(sgt, sg, i) {
-+		dma_addr_t last_dma;
-+		size_t dma_len = sg_dma_len(sg);
-+
-+		if (sg_dma_is_bus_address(sg))
-+			return -EOPNOTSUPP;
-+		if (!dma_len || !IS_ALIGNED(sg_dma_address(sg), granule) ||
-+		    !IS_ALIGNED(dma_len, granule))
-+			return -EOPNOTSUPP;
-+		if (check_add_overflow(sg_dma_address(sg), dma_len - 1,
-+				       &last_dma) ||
-+		    check_add_overflow(total, dma_len, &total))
-+			return -EOVERFLOW;
-+	}
-+	if (!total)
-+		return 0;
-+	if (total > SSIZE_MAX || !IS_ALIGNED(iova, target_granule) ||
-+	    !IS_ALIGNED(total, target_granule))
-+		return -EINVAL;
-+	if (check_add_overflow(iova, total - 1, &last_iova))
-+		return -EOVERFLOW;
-+
-+	for_each_sgtable_dma_sg(sgt, sg, i) {
-+		dma_addr_t dma_addr = sg_dma_address(sg);
-+		size_t dma_len = sg_dma_len(sg);
-+
-+		while (dma_len) {
-+			phys_addr_t next;
-+			phys_addr_t phys;
-+
-+			phys = iommu_iova_to_phys(dma_domain, dma_addr);
-+			if (!phys || swiotlb_find_pool(dev, phys)) {
-+				ret = -EOPNOTSUPP;
-+				goto out_err;
-+			}
-+
-+			if (len && check_add_overflow(start, len, &next)) {
-+				ret = -EOVERFLOW;
-+				goto out_err;
-+			}
-+			if (len && phys != next) {
-+				ret = iommu_map_nosync(domain, iova + mapped,
-+						       start, len, prot,
-+						       GFP_KERNEL);
-+				if (ret)
-+					goto out_err;
-+				mapped += len;
-+				len = 0;
-+			}
-+			if (!len)
-+				start = phys;
-+			if (check_add_overflow(len, granule, &len)) {
-+				ret = -EOVERFLOW;
-+				goto out_err;
-+			}
-+			dma_addr += granule;
-+			dma_len -= granule;
-+		}
-+	}
-+
-+	if (len) {
-+		ret = iommu_map_nosync(domain, iova + mapped, start, len, prot,
-+				       GFP_KERNEL);
-+		if (ret)
-+			goto out_err;
-+		mapped += len;
-+	}
-+
-+	ret = iommu_sync_map(domain, iova, mapped);
-+	if (ret)
-+		goto out_err;
-+
-+	return mapped;
-+
-+out_err:
-+	iommu_unmap(domain, iova, mapped);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(iommu_map_sgtable_dma);
-+
- struct iommu_dma_msi_page {
- 	struct list_head	list;
- 	dma_addr_t		iova;
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index ac43b8b93f14..95d90c7f953b 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -1604,8 +1604,20 @@ static inline void iommu_debugfs_setup(void) {}
- #endif
- 
- #ifdef CONFIG_IOMMU_DMA
-+ssize_t iommu_map_sgtable_dma(struct iommu_domain *domain, unsigned long iova,
-+			      struct device *dev, struct sg_table *sgt,
-+			      int prot);
- int iommu_get_msi_cookie(struct iommu_domain *domain, dma_addr_t base);
- #else /* CONFIG_IOMMU_DMA */
-+static inline ssize_t iommu_map_sgtable_dma(struct iommu_domain *domain,
-+					    unsigned long iova,
-+					    struct device *dev,
-+					    struct sg_table *sgt,
-+					    int prot)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline int iommu_get_msi_cookie(struct iommu_domain *domain, dma_addr_t base)
+-static int rockchip_gem_iommu_map(struct rockchip_gem_object *rk_obj)
++static int rockchip_gem_iommu_map(struct rockchip_gem_object *rk_obj,
++				  struct device *dma_dev)
  {
- 	return -ENODEV;
+ 	struct drm_device *drm = rk_obj->base.dev;
+ 	struct rockchip_drm_private *private = drm->dev_private;
+@@ -40,8 +41,16 @@ static int rockchip_gem_iommu_map(struct rockchip_gem_object *rk_obj)
+ 
+ 	rk_obj->dma_addr = rk_obj->mm.start;
+ 
+-	ret = iommu_map_sgtable(private->domain, rk_obj->dma_addr, rk_obj->sgt,
+-				prot);
++	if (dma_dev) {
++		ret = iommu_map_sgtable_dma(private->domain, rk_obj->dma_addr,
++					    dma_dev, rk_obj->sgt, prot);
++		if (ret == -EOPNOTSUPP)
++			ret = iommu_map_sgtable(private->domain, rk_obj->dma_addr,
++						rk_obj->sgt, prot);
++	} else {
++		ret = iommu_map_sgtable(private->domain, rk_obj->dma_addr,
++					rk_obj->sgt, prot);
++	}
+ 	if (ret < (ssize_t)rk_obj->base.size) {
+ 		DRM_ERROR("failed to map buffer: size=%zd request_size=%zd\n",
+ 			  ret, rk_obj->base.size);
+@@ -131,7 +140,7 @@ static int rockchip_gem_alloc_iommu(struct rockchip_gem_object *rk_obj,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = rockchip_gem_iommu_map(rk_obj);
++	ret = rockchip_gem_iommu_map(rk_obj, NULL);
+ 	if (ret < 0)
+ 		goto err_free;
+ 
+@@ -457,7 +466,7 @@ rockchip_gem_iommu_map_sg(struct drm_device *drm,
+ 			  struct rockchip_gem_object *rk_obj)
+ {
+ 	rk_obj->sgt = sg;
+-	return rockchip_gem_iommu_map(rk_obj);
++	return rockchip_gem_iommu_map(rk_obj, attach->dev);
+ }
+ 
+ static int
 -- 
 2.53.0
 
