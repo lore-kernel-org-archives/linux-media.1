@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCBA49B5DC;
-	Fri,  9 Oct 2026 09:45:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA4F3A2572;
+	Fri,  9 Oct 2026 09:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791539112; cv=none; b=pUDAbwTZmusKsG2Dh7j8oBFvJ31WkXM/YPZVstj2LflFDcRmlIR4bqAsc4J8vVgLA+3DIzTInhdN4WPTO0KIldtPuqKhve/hOKtVw5VJwHGZOmgdlMZYb9q7IWM0sI7At/xzQxcdrmmeLjkAFAOc3F/2bd7qbaskIJeapJd2H9Y=
+	t=1791539201; cv=none; b=AIykYzRKMeBpmkR0C9PlVJVAiS1PjCRLhjpVFcnGqyR4sp5Xqa4rZ1O4MYX64v8auc0iMuFrXqbs2RrdFvHGygF0SL8jMYev+8fAD38iVBbEwBQcrqN9KD/mIgyZKrf5fG7YL6ue/0Z5GVaVEyshfDS8+Zo1GgaRGQahgBEBiHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791539112; c=relaxed/simple;
-	bh=W+OpUYVaObeQvg2V1FcZRef5Mtxyekw/dfptGniFQ24=;
+	s=arc-20240116; t=1791539201; c=relaxed/simple;
+	bh=1njo2TJtWy+BvJe0zwGCEK+mas3Hn8jAsrwNaSuqVn4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o2+0fNmrGTba0wPRvuyY2eLHsteexGk0zhFdYP1UJOeiNs2rmA8i7wKIDE6qNkIOv6NwYUyoRTDTJ3+ONXEbjqxbK/cHWhg85l6h7MZIFrWrvDOUmnkDdb7gso6XHN2DuKhikwz4SauLGebXV3mhzOF4cqSgB3kUlAlKa4HzhoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jLiGiXnp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=TGd5eErOLD9an2zUzAGALz2ysUo4jmBQ+hnnZmeGV085aXDrr0jEMwuUH6Dcrg3njXWJTC2PYm0Tq+q0A8E7YchGytvS6wOMicNiqvY0M+h0tkFxq2aPfLvSI/41W5lsLoRB+ptX0BPU4+7XueWY7tTtylU9zNgd33E0/K+5ANY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1zK0Zsx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jLiGiXnp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9970F1F000FF;
-	Fri,  9 Oct 2026 09:45:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1zK0Zsx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FF091F00893;
+	Fri,  9 Oct 2026 09:46:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791539105;
-	bh=Yy805cyGAP0RH2LKAc31ElB7Tdaflkp+eIqPuDPNnV4=;
+	s=k20260515; t=1791539196;
+	bh=SfUliCtvkX/s0890PejxBlK3+HjZuFrnVJ8DjoIrU/0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jLiGiXnpejmyRPlElDEVZoalnE/LCFki7V1fnGYVHZfAe4rMcb3oQIMRHZJiFa6KU
-	 wSj7EYp8GC0xXHaF+Rg9/zpaH8qKcQPOoKyiS9NuKSGa2BS4VoQsSdwZifGtC6ppiK
-	 6Z4cIZvP5g9kSlc4VyJs7M6neor8/3FoTtSbOMlp05ump/lQXWsGyd6SLThvK5JYNm
-	 gpbQdpxAS/4YD7pGb6oYkK31kMK/mQDNIXhxqjPerG6Rnrr1V+Hoap/DVOCBFXPYI4
-	 l2NPE7MOCbCV92d4iQfyUmTSJOzSxI4UpbWqDOZosjnu72hlPsA+qPYN3bNQ+spTez
-	 fHr5m+nU256ZA==
-Date: Fri, 9 Oct 2026 11:45:02 +0200
+	b=a1zK0Zsx7ZXb8d6gZbaaeN2GDdXoNvpTmhx3ruZrW2/wTXpnNNSYskxUliqNa+KSA
+	 cdiLwp67xRkq/juybDXEjPH4KtywsiXhiAjl0xAQd9s5ixejNCC0mOFFFXhIyVcEZh
+	 28+dzn9b7WG/joBBY5pw3MFtDGZyAh12NzRFfjgwJiSXyedRY5qD7ETXtgO69s+7bf
+	 e0Js+kthH5d3BrIiWz5LIJvzr9WJeqVAyZeufeKMefD8h9Gvo0I/UNhUjOwyWdKgw1
+	 NkckqdI6rL9yjhPPIDeFpiXPSk9FnIN28W5ngz3mVWG98QT6U0IoU+ws8mJDI8iKrh
+	 pDR4dNwHIVZwQ==
+Date: Fri, 9 Oct 2026 11:46:33 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -43,12 +43,12 @@ Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Jai Luthra <jai.luthra+renesas@ideasonboard.com>, Robert Foss <rfoss@kernel.org>, 
 	hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com, 
 	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND 02/45] dt-bindings: media: qcom,sm8250-camss: add
+	linux-kernel@vger.kernel.org, Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND 25/45] dt-bindings: media: qcom,sa8775p-camss: add
  pixel path variant
-Message-ID: <20261009-curious-witty-numbat-6cce4c@quoll>
+Message-ID: <20261009-imposing-spaniel-of-tempering-e32e30@quoll>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20261007090041.3732717-3-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20261007090041.3732717-26-gjorgji.rosikopulos@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -57,38 +57,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261007090041.3732717-3-gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20261007090041.3732717-26-gjorgji.rosikopulos@oss.qualcomm.com>
 
-On Wed, Oct 07, 2026 at 11:59:58AM +0300, Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+On Wed, Oct 07, 2026 at 12:00:21PM +0300, Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
 > From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 > 
-> Document the qcom,sm8250pix-camss compatible for CAMSS configurations
-> that use the IFE pixel path. It uses the existing CAMSS property
-> layout without additional properties.
+> Document qcom,sa8775p-camss-pix for CAMSS configurations that use IFE
+> pixel paths. Keep qcom,sa8775p-camss for the legacy VFE resources.
 > 
+> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+> Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 > Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-I do not see improvements.
+
+No improvements.
 
 > ---
->  .../devicetree/bindings/media/qcom,sm8250-camss.yaml          | 4 +++-
+>  .../devicetree/bindings/media/qcom,sa8775p-camss.yaml         | 4 +++-
 >  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
-> index a509d4bbcb4a..d561179be48c 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8250-camss.yaml
-> @@ -14,7 +14,9 @@ description: |
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> index 48f280e99809..9206c7cfe197 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
+> @@ -14,7 +14,9 @@ description:
 >  
 >  properties:
 >    compatible:
-> -    const: qcom,sm8250-camss
+> -    const: qcom,sa8775p-camss
 > +    enum:
-> +      - qcom,sm8250-camss
-> +      - qcom,sm8250pix-camss
+> +      - qcom,sa8775p-camss-pix
 
-Same device, same compatible. You don't get a new one.
+No, same reason.
 
-Best regards,
-Krzysztof
-
+> +      - qcom,sa8775p-camss
+>  
+>    reg:
+>      maxItems: 22
+> -- 
+> 2.34.1
+> 
