@@ -1,351 +1,231 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013014.outbound.protection.outlook.com [40.107.201.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C384EE846;
-	Fri,  9 Oct 2026 16:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.14
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791562862; cv=fail; b=HPX+HRLTS90R57WqxU7KFAv6QUOkcWxis7CBaoNQOOiv2JnIGROscMGpmFBEzEnVy/OsjX9svtb2UZZr23zvqxvjxhxeeTsCm/VMX7Cm7FkD2dNKu+cPo2EF0TLBbhPrO6svwpvtPnjW1mpBx8zLDT9iN6NAufYrJUI8o2z/upk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791562862; c=relaxed/simple;
-	bh=mo64RBUbG3UmJPIciFI+b2Pkpm35QMiwWJ1aOJV54i0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=DpPgTCkLdT5v1QxCLDtHO5hCaOCHlW1AtbJxbdB4yVr6d5+zOiBYHW9VQZa3AJV9Y/O9s6SzKkX1N6fMh29jvFiah5kLe8YFYS7+qNjizPNyvW1zzaJWjjIhn0gBm1ji9N0mLvzUrAA5z5XvC4W0DDxwWkrGkI499fih6QzjX74=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2sFyRdpL; arc=fail smtp.client-ip=40.107.201.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A2B392C46
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 16:53:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791564791; cv=none; b=Nvjnpa+qMtuewH0zIJFsDyr4Dr0j3ar6rDa1Ucab5xAlkV06tixmPc+3q57xIr/94f+Uds+ULjYIdOKWYfHqHzh31M3TGjcjNTJpZ7/mhyDqsww1rKYgxRLZu+tiaUQ3LW3/Ad9V8x+XLn1qKoQQpAj6u6vU4TiFLnR1ilV6/zE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791564791; c=relaxed/simple;
+	bh=QBL0TY8X6rW1meEWbVMRvokKL0iKFyYwpS2d3APzTEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=im0fJifnCzQ6GeltuDrrfqcIT1I0UdIXXOedrEgNsgIVgZmvsB+FKWDFIHzYKByVo1xkhNtdSFJkpVPnZrYB9FzdmlboozedQJh3NX3wzvwu9SHolRc2n3o1iPjFQk4ce6kXkM03FM59rJft6vXIvSdVVpcrzLFpFgdgy4CaXPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TwIZ+4pe; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2sFyRdpL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U7uRQ//I0oiMC8cVczldn5oDhKWXDtPgf26dD2TftYMGZkuLzJw48GMI1iaIyEqkeKR2T6AA5tjVoQw/z6Mct2q7H5QFY6vGVuO2AQ+va7vjmZhvL70rht9RMps96Z1r3lUpMz7Ns4SPh1M7GLkHo8ta2wwjsddRT8js612EXVLl7TG7yJzb01T7h2vQAXLy+xJ6jw3l64opZlxKxvT6SJYHsID/tLnIvBHyohqp7GnWZcP6XmMcVb0D77OpDCPY4V1ch0pjV5FrRLvGYRKtvXHTZE6YlYE+zct01Ke75bCCuiYpv0Ti/PrUFMOipwJSx4o0bb6msTujzqbiWdZ9PA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rffRKC3Z6j1S3o6d+vcUWE7lCuQ38c2SzCuBdgrWDfA=;
- b=Vid9omPiHRklCIOj1hfBb/1zl6IALfZPRQzn7TA+oEXNkneb7ePTqwaIR/mF+E/A5mUx5sUpjzfQgxQP2GYrlV5zgDRYg4TLpX4XLCje0nXhn+p3PM/3djU9FlYRwdZPNQFr38mOih+TV8t4vQrOD7z1c0a0l3WR6MQwSW4k8z7tsW2Rt8XShz6eblYUwTR6+cxpNrT8Rr9OTeJtjcJi5hf101fUX0R1/rjsHgN41DB6nDQTLuDZ+S73vZoFePyloGPrFWAWwTuqRLE86EK4PrvuJHX4NW3+He+6V1lEbw4rL/chLfkVtALf0ZvVOwdic7jR31/1GN+4lvS+8gfHQQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rffRKC3Z6j1S3o6d+vcUWE7lCuQ38c2SzCuBdgrWDfA=;
- b=2sFyRdpLyudIjpGlR32sjh4OscQzeRBoR9vhj1VE15s7/4U+5z+QS7N5H1oy5a/LG8uUH0KPcWb3Er2d87nPUQiNigvdinQAuIJ/0/N9/vcOxYiSqczirM5FwhrdMsO5tKe6WUz61y4Xk+vNAlRaxVn8Ukl5GXp+LfVbJpj+9MU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com (2603:10b6:408:105::23)
- by MW3PR12MB4362.namprd12.prod.outlook.com (2603:10b6:303:5d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 16:20:55 +0000
-Received: from BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::8e9c:2f3d:9679:942e]) by BN9PR12MB5356.namprd12.prod.outlook.com
- ([fe80::8e9c:2f3d:9679:942e%5]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 16:20:54 +0000
-Message-ID: <c32ca676-8c0b-4ba2-9403-33643818e863@amd.com>
-Date: Fri, 9 Oct 2026 21:50:44 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] soundwire: amd: Add BRA/BPT firmware download
- support
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, vkoul@kernel.org
-Cc: broonie@kernel.org, Sunil-kumar.Dommati@amd.com,
- vijendar.mukunda@amd.com, Mario.Limonciello@amd.com,
- venkataprasad.potturu@amd.com, yung-chuan.liao@linux.intel.com,
- anson.tsao@amd.com, Liam Girdwood <lgirdwood@gmail.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Simon Trimmer <simont@opensource.cirrus.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- "open list:SOUNDWIRE SUBSYSTEM" <linux-sound@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "moderated list:SOUND - SOUND OPEN FIRMWARE (SOF) DRIVERS"
- <sound-open-firmware@alsa-project.org>,
- "open list:BPF [MISC]:Keyword:(?:\\b|_)bpf(?:\\b|_)" <bpf@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <linux-media@vger.kernel.org>,
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <dri-devel@lists.freedesktop.org>,
- moderated "list:DMA" BUFFER SHARING
- "FRAMEWORK:Keyword:\\bdma_(?:buf|fence|resv)\\b"
- <linaro-mm-sig@lists.linaro.org>
-References: <20261005091620.1390916-1-syed.sabakareem@amd.com>
- <20261005091620.1390916-5-syed.sabakareem@amd.com>
- <b8ab667c-8de2-47db-8fac-49faddd18f1a@linux.dev>
- <87dff7bd-fa1d-4153-8dd1-75947a25a466@amd.com>
- <f6790e78-8432-4bab-8363-501a2fb9783d@linux.dev>
-Content-Language: en-US
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-In-Reply-To: <f6790e78-8432-4bab-8363-501a2fb9783d@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN2PR01CA0188.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:e8::11) To BN9PR12MB5356.namprd12.prod.outlook.com
- (2603:10b6:408:105::23)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TwIZ+4pe"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ff680331aso485155e9.3
+        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 09:53:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791564785; x=1792169585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zFXJJInvw5I6uRMUagtc3BrGnLk84OWcEEWnPfiITzY=;
+        b=TwIZ+4pelWF+DIuWpm9HiXuwZ+v5xcpeXf5Sp7pUgFIBYvMRs0Dg7fEYijZIKLYzPK
+         usy6kqGjxNMPdvNbat0PBWXesi4eMYA4oIzaFthvEyc940Dr3hnST3YVfJrLnWX5V4j4
+         JEc3qX4nRN+7CnhRF430UYIfcSow7J2HMKvZm1exYrdw6/lA6xLenECTzmpbODCls52w
+         /qCtvTqqVQLJdODYXPbL8T/BVn0PFuQC0iigMpJNtaFSBBzrkaBtc2P6lzldn3LOldt3
+         gHX3OmFhHhCGoucPTkwEaz1CJcsZVHzJozqbo/R9j5QJWlbUyuWIaNwe4UXZ2wyGA6yA
+         R7Eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791564785; x=1792169585;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zFXJJInvw5I6uRMUagtc3BrGnLk84OWcEEWnPfiITzY=;
+        b=Cr3BVtKCapL6Px7IHsde6XaQaj+k2fSVNZrniE0hVluMK0mvWXdtPHqOf9QY2pz5f3
+         h2J7v9QNue/9yKiRXZxCfjdZmg8QMqZ3g7AodOzBHhInYPMN6au/fTqKeaHA+0h/1cxj
+         3MfYfzo9x59Z9+3CPCdHB60fWS3RJUg/UJs76a6edByospLINd87rbC5TKZiTa4Hgl7v
+         /psAGM3uGuHbhUgVFyCrxxcRONVB3i56RjhFdYquJJINm1KFXe0yLIzwYbwtaw5UYmK7
+         b3twOPXPDj32rcNnMTknLfiWFMRHpnVI+LQg98U8o8Knxzi9Sg1zc/JmsGkMLVwsWgni
+         Rc2w==
+X-Gm-Message-State: AFuF++lEtJqSNzWM68t/ZbqkbBtET8LDY86DIC1Fjjt/T2VfJSLYk8j9
+	H11KtyAMXYeEG2iQIe6GXKRTeyTpPTDHGIDPNa1cydNDepJPE8vjepjuVfgydHSp
+X-Gm-Gg: AYBFou21rnZAjCGd2rWz5mDV8eQjJVrzfchQh+FWQfsFH//gUGFkjXIiuyJKkFuuG+K
+	vrqpYnqY1ipBuP8OXxwqjnyXWVCDgC0m+rKrnp3GvZL3ryIm8lG/KWbDxLpn0awPG3Keu/DbHgX
+	Sn7ceSZ6pigDZnMt0QAup0O58Zxud153LqfVr/qTwL1vwE+12eHyLXu7vr001XrArzscV/7Yhkn
+	XAE2yV3I533VaawxzLkdS+jqMPtj/jmMZVM5fWU1n9J0jlMoHOV1VFtpsoxh/xUFb66xwoktZmX
+	/wqeuoaXSrBk+ylfu0GlVaBXL3xiQvjNacX9uUIFBaWNxREmytf6xRS6H1QuaqaWvu4vtpK4pEX
+	Hb6NVc6bK37UZpNkrRmupJbv/UAukpPnfJXil76G/tKLYp6eFufZZafYB0YKnU/hHZ4pqImPntN
+	VS0ZSqBA6VYuoWZjIFbsvEMrJetoPO695QDWuHcQIebQ0E8z/Ialv0ikpYLuyEaa8=
+X-Received: by 2002:a05:600c:524c:b0:4a1:825a:5726 with SMTP id 5b1f17b1804b1-4a18e4aeaffmr50919865e9.31.1791564785375;
+        Fri, 09 Oct 2026 09:53:05 -0700 (PDT)
+Received: from fedora ([39.51.119.74])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18ee9bd19sm44880755e9.1.2026.10.09.09.53.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 09:53:04 -0700 (PDT)
+From: Muhammad Waleed Badar <walid.badar@gmail.com>
+To: linux-media@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Muhammad Waleed Badar <walid.badar@gmail.com>
+Subject: [PATCH] media: uvcvideo: Handle payloads starting in the middle of a bulk URB
+Date: Fri,  9 Oct 2026 21:52:48 +0500
+Message-ID: <20261009165248.56440-1-walid.badar@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN9PR12MB5356:EE_|MW3PR12MB4362:EE_
-X-MS-Office365-Filtering-Correlation-Id: 25337edf-be53-4d1c-1146-08df26214ae5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	u1daaACOUNqMJFj+8Eh0e3YACVTL8sTe3r12j1ZejzKWGBVo3zOylAY3r63dFQTTJ6dA7zNvLIT8dEH3HbAcvzLWAwkRAGvNAeiGGhLni4TcxRb4SAvIofOCOXKxW9rI6lPDrzsKVea3oTl+IAdKqNRlGy1qBUzbqgSEUo20S6/pXRIzx89CqHE+Lfc6sDv+4F1luXkX19jPxmlsyx3SznaMuG8VWt9+zZdGXlITqWKyC4+fmX/q1cdzU6EIt3O4btbOTvGT90E8ENxXdJ0rK3xN3LisFgF+63IWqvXzOqrkKW1tRZsYu93+dpwNpir2D0kBNeZ5Ah+e6Io7308h8TDHZ5MXhya2JklhSpXtz6I9fCspx+UtdiFPSliMeftLyf/ESnL88Qe7iDB3DOy4AQppwxcnQwYBViwBSyX89ZCrDdcktUTzpAq3D+d3bAl92b5S53XrIB5j5qMWY8z+FUFm3oK3GHc4ZIvCJQSRUIkcWn4s/aidhk1mEbJHpz88cgVHdLRTjjM0jJiEYpwDyUPzshbeQMqdwsa7yKEhmevMMRYpSr2+KjL+quJSlqZqUsIRZYAFkWpVyxn97IEqabazhRmS7U15UGDSW3fwx2LIo+gZ/EWmvwrZca+XEQw4PnO1Ay4QzPyOnKwy9fvSEACjBA3mRENh9A2neOFz5BE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5356.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OHhWRCtUR2gwOUdiTmc1TzFWckNqV2pNWXhZSVh5UkQ1VDZDNFc3NDdiaGZa?=
- =?utf-8?B?Zkt6ZWl5OUJQUDVIR2RROWZLNHk4TXphQnlhWUFlYnVoYXRaQ3poRjUyWlE5?=
- =?utf-8?B?UlFUT3JCVUhkTXhWYkRmNWZwTWNjYzRkclNOSElGamFneE1XVnhpN3QvUTJm?=
- =?utf-8?B?blFUTXdSMTBQWUJFcHBKWUpLcDU3NzVPWG9ZQ09SdUR0RDZuMDlCMkUxT0Zh?=
- =?utf-8?B?TUVqejNrRktWU2c4bDAxQ1crMkZjaWdCRnRsNDdLVFBuMEhCVFlSMzFpdVIx?=
- =?utf-8?B?Zm5nVDVMaE45ZFQ4QmM0Q2ovVzF1Y3JZWTBpa2tuSEtRM2VKWGh3aUFhbDBi?=
- =?utf-8?B?QlR4TWY1R2hQejgxSkE3TE9yZ2ZlMWxwKzVWVEVycC9oVk1nL1VQVituQzNq?=
- =?utf-8?B?TFF6WURYM2ZoT2dsS2N1M0Q2UlI0amlmaS9WUCtvS3FFTWs0c3ozdlNVK2tN?=
- =?utf-8?B?ZHpSTWNTYklSd1VTd2ZqV0JWa0FBS05HRGRrMUZyd1ZybnZtSlM1SUFFanBy?=
- =?utf-8?B?eVZxZ1lPTUhyNmY0Ty9aVXQ1YVR5R0NvNkJoa01qMXZzTXlUSEtDbjkrTm5J?=
- =?utf-8?B?OTJINGZFY09JMmYrUVI0SStNbXNjejdHMWVldXFMN3lpcU4xcUFqT2gvSU13?=
- =?utf-8?B?WTN4V3lqcjBrYjNyaGlVdFFJNEUwMmlJcW52b1BMRlA2NWV3U1pnNW1vY0Zv?=
- =?utf-8?B?UjB3dGZOendFWFRXZWJlek13MmtYVTBwTHdueGhXRkJ6T1Z6OGlhcGdlcVZl?=
- =?utf-8?B?SXFzNEJ5djdNTlhTTmJUcFh2YjBrQ2RyTnNyZytkSFhHWVovSE5sbUJ5NHln?=
- =?utf-8?B?NVFWN0lnSTR6Vk5rcHgrRkU5SVVaYnMzU0VOOXNvYTF1TVJnSmF0VlBqSFlT?=
- =?utf-8?B?b1BZbjR2NFB3ZzRqM2ZLOGkxQnptUGgvcnJwdWZVWkRtclNwd09zdWdUYVBu?=
- =?utf-8?B?MUc1QWo0Wi91MFV4alBBNm1uaXJyZ2hVNk1NMlNQSHI2L3BwejI3OTlqeXll?=
- =?utf-8?B?OGVrVjdXNnEwQUZMRTN6Yis1WkhmZUx4UVpxYWlBYXlUeDE4cmR3OFBOcVg3?=
- =?utf-8?B?SDRwUmJXaU5OV3d6c1g5dzl0U3RwanpLdG9OQll6RmE2WVIzMytla3JvVlNW?=
- =?utf-8?B?NEFwOWdSWlhJRmZPendaVy9pZm16cURXRlBjNlhHTlJveUkreDBoeThkSWdV?=
- =?utf-8?B?ZldJR0d5QnVXbkIxK09IZW9ua1d4K0g3RkM5eUNwM3RxVE5yczdadEk0NEpl?=
- =?utf-8?B?TnhCR1g3NGxpbDhBQktqV2Jpd2RETEVPSzhzNUVDZXFKN3MzZCthRWxVKzhQ?=
- =?utf-8?B?STBlcnZKS09SKzVDVmdDOWxMdm5CeElBSldnWkpqN0VqemljMzlGNUhqQW0y?=
- =?utf-8?B?OS9VYzVlZFBMZTFtcFRQN3ozZGU2RWNRNWRuUENZRG5wd3czZ3R3RURQMUEw?=
- =?utf-8?B?ckxreGowcGZlYmVsVFJ4dDU0UUV4bjBDcFNJOUtacHQ5UEptNDBQbXhzdWYz?=
- =?utf-8?B?Qmlxc2Q4RXBqR3QzRTdVVEVRTUhkUzllMnFWY0MvWHp0S01zY2dIK3NHbTht?=
- =?utf-8?B?TG9sUW9RUFhDN1dWclR0Zndhd3djeW9OV1RvdjkxZENFOHZONTF3ejNtRnUr?=
- =?utf-8?B?T2hJK3V1NExweWNjUzBHSHFuQ2VUaDlEK1FLc2hMZ0xMc3liQmFndEd6VVNK?=
- =?utf-8?B?ZW1RZm1zSzBTUFNrbHo2VVZXKzQxZmJZN1BCd0dhYnl6VE1yKzAwd3k0bk1I?=
- =?utf-8?B?eE5zUDNkeHc4dlY3bEkwNWNxdENmbTQwVkVNaFp5MDNsL0FMT0xWdHFqNW1R?=
- =?utf-8?B?UE9XeXVXYktEYXVPOVBDd0c4Y3g0bHJwT1JJWE1kaXo4Uyt4SUdtV2RUd3d1?=
- =?utf-8?B?ZlNOREZNdDVqOWVnTk9rL2g1L0pmZDJoUllOazhaY2FmY2NIZFRmUkgvUGxQ?=
- =?utf-8?B?RTZVeEgwUzYreW5zeVRqa0NkZ1BidGZsTzFFNE5PTU13c0ZyekNHblN1ME8z?=
- =?utf-8?B?WVkvd2gwZ3J1VHRmQTU0di9NTTcyeGt1UEd4N2ZCZzJEVzduZk4vOVVWQ1FW?=
- =?utf-8?B?MFV2Mlp6dUJKQzQ4ejc2SkVjZk5Va2d1NHZIcWpQYk5QclpQVWJaK2RmSWFt?=
- =?utf-8?B?Q2hKZHFiNXdJcGNyQy9Eb1NPTExnYlU1emsyYXY3ZjhnM1pBMVB6ZlVDTWF6?=
- =?utf-8?B?UitMZzJXdzdxaFBCZG85UUlRcEhaZmdSUUs3TWlRTlFwNXJ6NWNKV01SWVRB?=
- =?utf-8?B?cUdJbGJsczJlRWl1TWhETXVmN29RWksrNTZTQ05oUG5sR0lCVTI1U1VHZ3hK?=
- =?utf-8?B?YWxjK3dzcnFNTklYaTJtNG5BaGxEaEo5emxSRkJ0TzUrU1ZyNStXQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25337edf-be53-4d1c-1146-08df26214ae5
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5356.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 16:20:54.6602
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i99WZ8+J0edaPXmZatiNHMRC97ET/nw1hCezHJ8cs71xUluROrxNof8vHAVkigP51T5qouwGvLBq3HDmMAWVUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4362
+Content-Transfer-Encoding: 8bit
 
+The bulk decoder assumes that every payload starts at the beginning of
+a URB. It detects the end of a payload either by a short URB or by the
+accumulated payload size reaching dwMaxPayloadTransferSize, and then
+decodes the start of the next URB as a new payload header.
 
-On 10/7/26 21:45, Pierre-Louis Bossart wrote:
->>> general comment: this patch is quite complex, with code needed for the
->>> BTP side as well as the DMA side, only interleaved. Is there a way to
->>> have a 'cleaner' split between DMA functionality on the ACP side and BPT
->>> on the SoundWire bus side?
->>>
->>> Likewise the parts dealing with contiguous and non-contiguous parts of
->>> the firmware should be handled at a higher level using DMA/BTP support
->>> lower-level routines.
->> Agreed, I'll restructure this into three layers for v5: ACP BRA /DMA/
->> primitives (configure descriptor, arm, poll/wait, disarm, deconfigure)
->> with no SoundWire-stream knowledge; SoundWire /BPT/ primitives (open/
->> close stream, enable/disable);
->> and a higher-level orchestrator with a dispatcher for the contiguous
->> (single-buffer) vs non-contiguous (per-section loop, with the small-
->> section sdw_nwrite/nread fallback) cases.
-> Sounds good.
->
->> One hardware detail I'll preserve and document along the way: the
->> SoundWire bank switch is itself the BRA DMA start trigger,and correct
->> teardown requires disarming the DMA before the disable-path bank switch.
-> That sounds fine, provided that hardware pushes a invalid BPT frame on
-> the link in the time window between the disarming and bank switch.
-> Otherwise the peripherals might receive garbage BTP data, no?
-You're right to flag this. The early disarm only runs on the error path 
-— it's gated on the transfer having already timed out or failed (if (ret 
-< 0) before sdw_disable_stream()),
-so on a normal completion it's skipped entirely and there's no 
-disarm-before-switch window on a good transfer (the ordering is in Q2).
-On the error path the transfer is already being failed back to the 
-caller and the firmware download is retried/aborted, so its result is 
-never relied upon.
-I also keep the error interrupt masked (ACP_SW_ERROR_INTR_MASK) and the 
-error-reason registers cleared across the teardown, so the expected 
-teardown error isn't mis-reported as a fresh failure.
-If it helps, I'm happy to add an explicit note in the comment that the 
-error-path frame is discarded by the retry rather than relied upon.
->> So the orchestrator still sequences an ACP call and a SoundWire call in
->> a fixed order — the layering makes each side independently readable and
->> testable while keeping that ordering contract explicit.
->>
->>>> +static int amd_sdw_execute_bra_transfer(struct amd_sdw_manager *amd_manager,
->>>> +					struct sdw_slave *slave,
->>>> +					bool *dma_unsafe)
->>>> +{
->>>> +	struct sdw_bus *bus = &amd_manager->bus;
->>>> +	u32 i2s_err_offset;
->>>> +	u32 saved_intr_mask;
->>>> +	u32 reg_addr, len;
->>>> +	u32 val;
->>>> +	int ret, ret_disable;
->>>> +
->>>> +	/* Read descriptor regs before enabling the DMA engine. */
->>>> +	reg_addr = readl(amd_manager->mmio + ACP_SW_BPT_PORT_FIRST_BYTE_ADDR);
->>>> +	len = readl(amd_manager->mmio + ACP_SW_BRA_TRANSFER_SIZE);
->>>> +
->>>> +	i2s_err_offset = (amd_manager->instance == 0) ?
->>>> +			 ACP_SW_I2S_ERROR_REASON : ACP_P1_SW_I2S_ERROR_REASON;
->>>> +
->>>> +	/*
->>>> +	 * Save and disable the error interrupt mask for manual error
->>>> +	 * checking.  acp_bra_lock is held across the whole BPT sequence by
->>>> +	 * amd_sdw_bpt_wait(), which serialises this shared-register
->>>> +	 * read-modify-write against the other manager instance.
->>>> +	 */
->>>> +	saved_intr_mask = readl(amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
->>>> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_INTR_MASK);
->>>> +	writel(0, amd_manager->acp_mmio + i2s_err_offset);
->>>> +	writel(0, amd_manager->mmio + ACP_SW_ERROR_REASON1);
->>>> +
->>>> +	/* Arm the ACP BPT DMA engine */
->>>> +	writel(1, amd_manager->mmio + ACP_SW_BPT_PORT_EN);
->>>> +
->>>> +	/*
->>>> +	 * Use the framework's sdw_enable_stream() to write CHANNELEN and
->>>> +	 * perform a bank switch.  The ACP BPT hardware uses the bank switch
->>>> +	 * as the trigger to start the DMA transfer.  The framework manages
->>> do you mean to say
->>> a) the DMA transfer was armed and started ealier, and the bank switch
->>> unblocks it, ob
->>> b) the DMA starts fetching data from memory when the bank switch happens?
->>>
->>> the latter case would be quite racy and dependent on the time needed to
->>> access memory..
->> It's (a). The BRA descriptor (BASE_ADDRESS/TRANSFER_SIZE/FRAME_FORMAT)
->> is fully programmed in amd_sdw_config_bra_descriptor(),
->> and the engine is armed with ACP_SW_BPT_PORT_EN=1, both before
->> sdw_enable_stream().
->> The bank switch is only the trigger for the already-armed engine — it
->> doesn't start a cold engine, so there's no memory-latency race on the
->> switch.
-> ok
->
->> Once triggered the engine runs autonomously frame by frame, and any
->> stall/underrun surfaces as a BRA/I2S error (ACP_SW_I2S_ERROR_REASON /
->> ACP_SW_BRA_RESP), not silent corruption.
-> but then if I follow your explanations above, if you stop the DMA first
-> don't you get a systematic xrun error before the bank switch happens?
-That would be true if the engine were still running, but on the normal 
-path it has already finished before we stop it. The order is:
+Some devices, such as the Realtek USB Camera (0bda:579f) integrated in
+Razer Blade laptops, send payloads of dwMaxPayloadTransferSize bytes
+back to back without aligning them to URB boundaries. When a frame
+spans more than one payload, the next payload header lands in the
+middle of a URB. The driver then copies that header and the data that
+follows into the current frame, and parses frame data at the start of
+the next URB as a header. This shows up as "Marking buffer as bad
+(error bit set)" and "Dropping payload (out of sync)" trace messages,
+and most frames larger than one payload are returned empty or
+truncated. On this camera every MJPEG mode above 1280x720 is affected.
 
- 1. arm (ACP_SW_BPT_PORT_EN=1, armed but idle)
- 2. sdw_enable_stream() — the bank switch triggers the armed engine
- 3. poll ACP_SW_BRA_DMA_BUSY to zero (transfer completes)
- 4. ret == 0, so the early PORT_EN=0 is skipped
- 5. sdw_disable_stream() — bank switch, CHANNELEN=0
- 6. PORT_EN=0 on an already-idle engine (a no-op)
+Fix it by splitting URBs at payload boundaries and decoding each part
+separately, so that a payload ending in the middle of a URB is
+completed and the remainder of the URB is decoded as a new payload.
+Devices whose payloads end on URB boundaries are unaffected, as the
+whole URB is then processed in a single iteration.
 
-So there's no "stop a running engine, then switch" on the normal path, 
-and hence no xrun. The early disarm only runs on an already-failed 
-transfer, where the xrun is expected and is masked/cleared as above.
->> This is also why, on an aborted or timed-out transfer, the teardown
->> clears PORT_EN before the sdw_disable_stream() bank switch — otherwise
->> that switch
->> could re-trigger the armed engine into a buffer we're about to free.
->> I'll reword the comment to say the engine is armed here and the bank
->> switch only triggers it.
-> ok
->
-> [...]
->
->>>> +	/*
->>>> +	 * The ATU GRP_1 and scratch PTE registers programmed here are
->>>> +	 * ACP-global and shared by both SoundWire manager instances, as is the
->>>> +	 * BRA DMA engine that reads through them.  bpt_lock is per-manager and
->>>> +	 * does not serialise across instances, so hold the ACP-wide
->>>> +	 * acp_bra_lock across the whole configure -> transfer -> deconfigure
->>>> +	 * sequence to stop the other instance reprogramming the shared PTEs
->>>> +	 * mid-transfer.
->>> In that case, what is the point of having a per-instance btp_lock as well?
->>>
->>> It seems from the comment that only *one* BTP transfer can take place
->>> across all manager instances, which defeats the purpose of a
->>> per-instance lock, no?
->>> What I am missing?
->> You're right that the transfer itself is serialized ACP-wide: that's
->> acp_bra_lock, held only across configure → transfer → deconfigure,
->> because the ATU PTEs and
->>   the BRA DMA engine are single resources shared by both links. bpt_lock
->> is per-link and has a different scope rather than a different transfer
->> window:
->>
->>    * It guards bpt_disabled, which is per-link suspend/clock-stop/
->>      runtime-PM state — each link's amd_suspend()/clock-stop
->>      sets it and amd_resume_runtime() clears it under bpt_lock. A per-
->>      link flag doesn't belong under an ACP-global lock.
->>    * It serializes multiple BPT requests to the same link and lets that
->>      link's suspend path drain an in-flight transfer, without reaching
->>      for the global lock.
->>    * It keeps acp_bra_lock's hold time minimal: the per-link setup/
->>      teardown (open_stream, dma_alloc, the PM get/put, the bpt_disabled
->>      check) runs
->>      under bpt_lock but outside acp_bra_lock, so the other link contends
->>      for the global lock only during the actual shared-hardware window,
->>      not the whole sequence.
->>
->> Folding everything onto acp_bra_lock would mean the global lock has to
->> cover each link's full transfer path including its runtime-PM callbacks,
->>   i.e. one link's PM transitions would serialize against the other link's
->> transfer — a scope mismatch and a longer global hold time.
->>   So the two are intentionally different scopes: bpt_lock = per-link
->> lifecycle/PM, acp_bra_lock = ACP-global shared hardware. Today the
->> comment only documents acp_bra_lock; I'll expand it to cover both.
-> The explanation make sense... but I am not fully clear on why you'd need
-> to protect the BPT state for link-based pm_runtime. Presumably a BPT
-> transfer would happen with a device reference held to prevent it from
-> suspending? Something's not right if you need to drain a BPT transfer in
-> a pm_runtime suspend, that suspend shouldn't happen in the first place...
-You're right, and thanks for catching it — I described this poorly 
-earlier. A BPT transfer takes pm_runtime_get_sync() in 
-amd_sdw_bpt_wait() and holds the reference until the matching put after 
-the transfer,
-so usage_count stays > 0 and runtime suspend can't be entered while a 
-transfer is in flight. amd_suspend_runtime() doesn't touch bpt_disabled 
-at all — there's no draining of a runtime-PM suspend.
-The mutex_trylock(&bpt_lock) there is only belt-and-braces for that 
-invariant.
-bpt_disabled exists only for the case the held reference can't cover: 
-the system-sleep path. There runtime PM is disabled, so a BPT request's 
-pm_runtime_get_sync() returns -EACCES instead of resuming the device,
-and it would otherwise proceed with the bus clock stopped. That's a real 
-scenario for us — the power-off-mode resume-time firmware re-download 
-runs while userspace is still frozen.
-  So amd_suspend() latches bpt_disabled under bpt_lock before 
-amd_sdw_clock_stop(), any such request bails out with -ESHUTDOWN, and 
-amd_resume_runtime() clears it once the clock is back.
-amd_sdw_manager_remove() latches it for the same reason against 
-sdw_bus_master_delete().
-So the scope is really: bpt_lock = per-link serialization of BPT 
-requests against that link's system suspend/resume clock-stop and driver 
-removal (not runtime PM); acp_bra_lock = ACP-global serialization
-of the shared BRA engine/ATU across the two links. I'll fix the comment 
-that currently implies bpt_lock covers runtime-PM state — thanks for 
-pointing it out.
+Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=207045
+Assisted-by: LLM
+Signed-off-by: Muhammad Waleed Badar <walid.badar@gmail.com>
+---
+
+Notes:
+    Tested on a Razer Blade with the integrated Realtek 0bda:579f camera
+    (bulk endpoint, wMaxPacketSize 512), on Fedora kernel 7.1.10 with the
+    patch applied to the matching uvcvideo sources. 150 MJPEG frames were
+    captured per mode with ffmpeg and checked for a valid JPEG EOI marker:
+    
+      mode        before          after
+      1920x1080   25-36 valid     150 valid
+      1280x1024   37 valid        150 valid
+      1280x800    38 valid        148 valid
+      1280x720    150 valid       150 valid
+      640x480     150 valid       150 valid
+    
+    GNOME Snapshot (PipeWire) no longer reports JPEG decode errors at
+    1920x1080. The patch also builds against 7.2.8. It has not been tested
+    on other bulk-mode UVC cameras.
+    
+    The root cause analysis and the patch were produced with an AI coding
+    assistant (Claude Code) and reviewed by me.
+
+ drivers/media/usb/uvc/uvc_video.c | 70 ++++++++++++++++++++++++-------
+ 1 file changed, 54 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index fc3536a43..fe1714ccc 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1612,27 +1612,20 @@ static void uvc_video_decode_isoc(struct uvc_urb *uvc_urb,
+ 	}
+ }
+ 
+-static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+-			struct uvc_buffer *buf, struct uvc_buffer *meta_buf)
++static void uvc_video_decode_bulk_chunk(struct uvc_urb *uvc_urb,
++					struct uvc_buffer **bufp,
++					struct uvc_buffer **meta_bufp,
++					u8 *mem, int len, bool short_urb)
+ {
+-	struct urb *urb = uvc_urb->urb;
+ 	struct uvc_streaming *stream = uvc_urb->stream;
+-	u8 *mem;
+-	int len, ret;
+-
+-	/*
+-	 * Ignore ZLPs if they're not part of a frame, otherwise process them
+-	 * to trigger the end of payload detection.
+-	 */
+-	if (urb->actual_length == 0 && stream->bulk.header_size == 0)
+-		return;
++	struct uvc_buffer *buf = *bufp;
++	struct uvc_buffer *meta_buf = *meta_bufp;
++	int ret;
+ 
+-	mem = urb->transfer_buffer;
+-	len = urb->actual_length;
+ 	stream->bulk.payload_size += len;
+ 
+ 	/*
+-	 * If the URB is the first of its payload, decode and save the
++	 * If the chunk is the first of its payload, decode and save the
+ 	 * header.
+ 	 */
+ 	if (stream->bulk.header_size == 0 && !stream->bulk.skip_payload) {
+@@ -1671,7 +1664,7 @@ static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+ 	 * Detect the payload end by a URB smaller than the maximum size (or
+ 	 * a payload size equal to the maximum) and process the header again.
+ 	 */
+-	if (urb->actual_length < urb->transfer_buffer_length ||
++	if (short_urb ||
+ 	    stream->bulk.payload_size >= stream->bulk.max_payload_size) {
+ 		if (!stream->bulk.skip_payload && buf != NULL) {
+ 			uvc_video_decode_end(stream, buf, stream->bulk.header,
+@@ -1684,6 +1677,51 @@ static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+ 		stream->bulk.skip_payload = 0;
+ 		stream->bulk.payload_size = 0;
+ 	}
++
++	*bufp = buf;
++	*meta_bufp = meta_buf;
++}
++
++static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
++			struct uvc_buffer *buf, struct uvc_buffer *meta_buf)
++{
++	struct urb *urb = uvc_urb->urb;
++	struct uvc_streaming *stream = uvc_urb->stream;
++	bool short_urb = urb->actual_length < urb->transfer_buffer_length;
++	u8 *mem;
++	int len;
++
++	/*
++	 * Ignore ZLPs if they're not part of a frame, otherwise process them
++	 * to trigger the end of payload detection.
++	 */
++	if (urb->actual_length == 0 && stream->bulk.header_size == 0)
++		return;
++
++	mem = urb->transfer_buffer;
++	len = urb->actual_length;
++
++	/*
++	 * Some devices (such as the Realtek 0bda:579f) start the next payload
++	 * immediately after the previous one instead of in a new URB, so a
++	 * payload boundary can fall in the middle of a URB. Split the URB at
++	 * payload boundaries and decode each piece separately.
++	 */
++	do {
++		int chunk = len;
++
++		if (stream->bulk.payload_size + chunk >
++		    stream->bulk.max_payload_size)
++			chunk = stream->bulk.max_payload_size -
++				stream->bulk.payload_size;
++		if (chunk <= 0)
++			chunk = len;
++
++		uvc_video_decode_bulk_chunk(uvc_urb, &buf, &meta_buf, mem,
++					    chunk, short_urb && chunk == len);
++		mem += chunk;
++		len -= chunk;
++	} while (len > 0);
+ }
+ 
+ static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+-- 
+2.55.0
+
