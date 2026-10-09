@@ -1,110 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83BD342514;
-	Fri,  9 Oct 2026 09:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1531C48FF75
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 09:34:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791538056; cv=none; b=WEwhbkYQC7xYxGebHzBYWMI3EWyhrVn1Rm1MljwRYqaMDA3s4eQfP97q2VAFPGvuckXpI6PHecSz7pd0vd4lW03YwH4IgH1Fwl0TJtbv2tBre6/FOYBUk+UCOFcvpHByZie/h1b80mBzIp58tW9a7++raCBKK+TIuA3QZ6nWd5I=
+	t=1791538497; cv=none; b=YdiZ1I9QhmPEzuVhhdgfHV69AfkjOe2CORiAHlOgIAKqajEYUL+GNlOdrsdU9KNRhZyrmINynfmzDQjuKk0Yud4kMG6Els37HHZVo9Th+mL7kGyWeV13X2kfE1HT5nvoh4pk160kbO/qWpWUnh0hl2RbNDR9MXAfGG8vwszW4cE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791538056; c=relaxed/simple;
-	bh=VzHE6sfBCfn7lqlC5cHQiEZhMNffUx9scn7YhfPiWwQ=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=CZpCR4hHvmJ4HJq+b8UMfxyFjbD6zw3xDEbh2JIhXz/pkQBQXQx/rMjFhaJyzMXG4H2jlzmBFV/iRzQJIRZDk/V8/ICQQZJCch8y47UkAf4ip2MikuFauGInHMmjfEKWyDvbsO98iGCtjerNalGYix6G9iKU3mYPzQZCVNy0LYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPuqMM3d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791538497; c=relaxed/simple;
+	bh=EDYdEF76cbZtYwTqWb3FpsRDvwvS5PfzYr80BjgY2o8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Z9C2TXGMMQAqdUgTu/Ny1BFPN4dQSbGSSj1YTutz+xbER905zbEsZDmfLLYpkEob4FLUned5jmRaPQjWl+xWKabjkdKxWB4INWysrHh9j5G7VUg0xuzM61hbS+8/KAYu0FzjJ09BfJBs109EmG0t/mazMDPvM1n8VJ8jfw6lcfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d3tEKiq8; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPuqMM3d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CFD01F000FF;
-	Fri,  9 Oct 2026 09:27:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791538055;
-	bh=gbs+O3il6AZ+b47/QZ+p2Di1T0JcIDp2VboXRYCu+d0=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=XPuqMM3d1Qi1aZndxPFwZ/pv1ON3DCmT9vbtpoTfmZ0DbNrNzqxp9MmQtN0N7lPNw
-	 82MbsFLUXNFWqsLNWTIeQyabxtAvVTfoXJGUWI+AEpbGGxxMYAER/TX8+e1lW6nMPY
-	 Jzx+LAcudYMXMgCVaPA4JZlnN7gZ4Z9vrrMzeksTa7H2qjblAzli0MZl2d8uE1qyQA
-	 QckkWsP64wDafUqmti14ZWy3t5vdgAWbtsI+W9V5u9ZNXGpnZXPlB2CD6N4kH31aog
-	 QRwhOHIfnFKlitWENMC4AFSdg3vcgV5ShD6F3ddnUt1h0UiRZaVgs4xHLx2iud6clQ
-	 OmtlkWckQ1HDA==
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d3tEKiq8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791538494; x=1823074494;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=EDYdEF76cbZtYwTqWb3FpsRDvwvS5PfzYr80BjgY2o8=;
+  b=d3tEKiq8sEaVwCCU+tdWa8Wz2TbBE7EcER5bspshBBYKlZdskTRiBnrD
+   mxc8cvSxatSp8IWY31hu+h/92zp40HT6VRVA/4Zgm9ww45c/rlLt9eJbs
+   xb3fvVFElzn9N72hAxfw5QxaCgCProFLwyc05EEe5HGeQSKkun/bmGMbD
+   lWS4wFC2YPnno0OD+OKm3chJCjAJRsdwWw+dZRBZKARkudpsTq0JmZHXZ
+   bV/Th7ELlBWEuN2LR9WWMT/zavcpbud5MDM2jHEHqkEW8Pr6aOQOnM6Qd
+   M8thkrZfrNHp/xDUGuOHDXiIckh8fIpxVDjt/EZeqhgPEdH/8gOmZWUeA
+   w==;
+X-CSE-ConnectionGUID: UJbODqRhS7SkkNCRFjOrLQ==
+X-CSE-MsgGUID: skB1nQTZQ0OmOFqQtNhnJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="229300"
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="229300"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:34:51 -0700
+X-CSE-ConnectionGUID: QKGyTcaQSbqvIhZU3ly1Aw==
+X-CSE-MsgGUID: bFtYediAQKqHrNbBe23smg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
+   d="scan'208";a="596346"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.16])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 02:34:49 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id D54AF121D31;
+	Fri, 09 Oct 2026 12:34:51 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xF6xc-00000009Fj3-1Mxs;
+	Fri, 09 Oct 2026 12:32:16 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	Tarang Raval <tarang.raval@siliconsignals.io>,
+	"hao.yao@intel.com" <hao.yao@intel.com>,
+	"dongcheng.yan@intel.com" <dongcheng.yan@intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>
+Subject: [PATCH v3 3/4] media: ov05c10: Power management fixes
+Date: Fri,  9 Oct 2026 12:32:15 +0300
+Message-ID: <20261009093216.2205375-4-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261009093216.2205375-1-sakari.ailus@linux.intel.com>
+References: <20261009093216.2205375-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 04/13] iommu: of_iommu: Add support for
- "iommu-ranges" on a device node
-From: bod@kernel.org
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev, 
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
-Date: Fri, 09 Oct 2026 10:27:28 +0100
-Message-Id: <179153804819.2596899.5363254526911327543.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e5aa4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1488; i=bod@kernel.org;
- h=from:subject:message-id; bh=VzHE6sfBCfn7lqlC5cHQiEZhMNffUx9scn7YhfPiWwQ=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqyLOAWpqazRvXBDloXY25XV4lXHcaFmGj5ELii
- bSVcf0LYN2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasizgAAKCRAicTuzoY3I
- OmPGEACoJWqpXTUeA2xXyByyk9UwsfAtwy0Vci6LkFvoGik4pIdt3Mj4H0QrW47lTxZQbZrz13o
- JgNkLcd3oIfuAo6ClboHAkkNAWgCXKUMzeRo4J1UMDkdJ6Oos2J+IB5oPdk9AIGa6GsvHdVn5mV
- 1zDuC/YO7yEB7+bjoe4WODTac1W2RPHYoH5PnUxA/Kx2CoJTMXWjQD56zxjS7ZRHChW6ZOtloB0
- 2OtXE3dokqWksorCZmRcY7f1dvo7TiMpt+5s1pVYEgf9yI2NBDeJrjxE0sZWJsqwTodfjYHHvZy
- zC7J2NqUfsGpAA3QMVWOIXaPTdl3k/7VTW4H+3l9px4EbzrBYLWalfCfDJzq5SHEmyKb14NcBT8
- 73rAofB5fr34cxBEHNbTAmR3m5P2ZqClcj1nHmWLMad9utVP/qLJfTzBb/X67GXBLSBp8Sz1VG9
- 3XzRJkoGTejRplbYuqqWowxbZxmyzSOP/qrs1KyuH4JBHzkggwdjk4qymT1fyd58ICBWSucqxXN
- C5dNV0/VqAO8mknnCZnvpu/2lKDak0StqWY/ae3Ngo+nNdU5lOCDHSSSkh/5sZwke/JtDPh4vUh
- BxQZdZMH+44CGjw/y4osw/pd/RGobUggsnXRy/WJSl1xec+fF6XURJzss778pS7dh1yl4fH4ice
- m0C+Fa086hPiOTw==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-26 12:04 +0530, Vikash Garodia wrote:
-> Reserving an IOVA address using "iommu-addresses" requires it to be
-> placed in the reserved-memory node. But when "iommu-addresses" is the
-> only property being described and there is no backing "reg" (i.e. no
-> actual reserved system memory), it does not really belong under
-> /reserved-memory. A device IOVA range is specific to its own address
-> space, and does not describe the system physical memory to make it
-> qualify under reserved-memory. Given this, place "iommu-addresses"
-> inside reserved-memory only when it is paired with a "reg", otherwise,
-> define it within the device own node. It was discussed here:
-> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
-> 
-> Existing "iommu-addresses" property expects a phandle, which does
-> not make sense when the property is defined within the device node.
-> Introduce a new property, "iommu-ranges", to specify the device
-> specific IOVA ranges when there is no backing "reg".
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+If the device wasn't powered on in probe(), probe failure led to it still
+being powered off. Also the device's PM runtime status was left active
+when sub-device registration failed and autosuspend was left enabled after
+unbind. Fix all three issues.
 
-I think we need to get buy-in from the IOMMU people on this change before
-we commit to bindings that may be affected by a rejection.
-
-i.e. There's no point in absorbing potentially DOA bindings.
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
 ---
-bod
+ drivers/media/i2c/ov05c10.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/ov05c10.c b/drivers/media/i2c/ov05c10.c
+index d6d7ced4beb6..692474cbe84b 100644
+--- a/drivers/media/i2c/ov05c10.c
++++ b/drivers/media/i2c/ov05c10.c
+@@ -910,6 +910,8 @@ static int ov05c10_probe(struct i2c_client *client)
+ 	return 0;
+ 
+ probe_error_rpm:
++	if (full_power)
++		pm_runtime_set_suspended(&client->dev);
+ 	pm_runtime_disable(&client->dev);
+ 	v4l2_subdev_cleanup(&ov05c10->sd);
+ 
+@@ -920,7 +922,8 @@ static int ov05c10_probe(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(ov05c10->sd.ctrl_handler);
+ 
+ probe_error_power_off:
+-	ov05c10_power_off(&client->dev);
++	if (full_power)
++		ov05c10_power_off(&client->dev);
+ 
+ 	return ret;
+ }
+@@ -934,6 +937,7 @@ static void ov05c10_remove(struct i2c_client *client)
+ 	v4l2_subdev_cleanup(sd);
+ 	media_entity_cleanup(&ov05c10->sd.entity);
+ 	v4l2_ctrl_handler_free(&ov05c10->ctrl_handler);
++	pm_runtime_dont_use_autosuspend(&client->dev);
+ 	pm_runtime_disable(&client->dev);
+ 
+ 	if (!pm_runtime_status_suspended(&client->dev)) {
+-- 
+2.47.3
 
