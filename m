@@ -1,635 +1,308 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAD3344DB9
-	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 02:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791514792; cv=none; b=PNYOzCYAuYNJzEDjQ0KLJPslFMga2xND0ufmERcN4X0mVfGwKOkBSrzPNEum1r7joutuwG5HRV08JYJf2zCLsXYJhfiujlUpaU4x3wpCjy9PBHoqBT8Ds7b3fQRsoJYG4wnF5n+orGLQ0hvxJeRz8pLPbvHeNTMBjDKcHWm2Kt0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791514792; c=relaxed/simple;
-	bh=Pj1D424HdPi1o96MPV2dHpKL6ipxjN7SrENqKwqWdAY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HOybsO3RDTbR5Bu/WRyZKlI6zr9JVeMn0SyWdMmK1BIuEgUmqe+9R0Za6fm2g/KSvETl/RllGpR5bRyM1uORvtN0SMIlGX74rTluwjxmJe8Pbptjit/Fd7LSBro8WE6jZtyPSvHHISAe45e6uQ43KrRMuF/DOvhp6hepZyuIZ7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DAT3oF7Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eTRmfbNK; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FC632E68D
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 03:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791515238; cv=pass; b=eudAmA7kbffBTJOx/We/ntWezZOgKi4Q6ws9GkM5R89ItbmZzvkzEg2eunSjV12Gdq5dtlWkoLFt0158uiYodSjjICoVCUoaj2w60498iHa4lgSbrMSUeHBPcMHbmPoblEqGHhv69SE1gtAJjyKdFHv5YoC7fG2KruWSOrZsC1Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791515238; c=relaxed/simple;
+	bh=zDKS9rz00duNFZF5gv/ESxyG1+2Q6cK08UzUnwjYz7w=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=BNREzcnS7zhK5wyIq5yKLdeBloAwvFzok+ymRFaO9Ysj8lxXchRye/YUs2UKztsIh/IZiVo+pQi3ZsoLLo56mvRHr+WFs/dUiwjTFVOaqNXDyg31n01yncVMJsV/pSMdGDGY6SszAMLqzlgPyJr8IymWvATWrSI8Lh/cYINj/Jk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J7eVoyRI; arc=pass smtp.client-ip=74.125.82.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DAT3oF7Y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eTRmfbNK"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6990Q8mO3405064
-	for <linux-media@vger.kernel.org>; Fri, 9 Oct 2026 02:59:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yt7/BWKDmiLx79NY+lUATumh3FrLQFNgexHb5QKZXno=; b=DAT3oF7YYBIXZGVH
-	6O9QUWXjSYsD3vfOsBIzSrQO2zUh9rLNnWAPJEoB/ZPCWIpE82Tjt5jxyf/U4Jzg
-	yAUg1RNyrdgY05/XGi7IjRvAGaEct1yh0uYw343e1ew/iN7erdKkRjwxwGsERlu1
-	siyLivEol7jaIIMkrEfPbIIE70is0UoNgpr+QloTJKTY/4y5fb+yv3/vOj6JdDJj
-	YFE+VVS0qq87w+PEpFCnMjmv5hn0ej+DeLbv1gA5JQBPneQgB1NiuGLs2ds6EMpH
-	+L5ANTlnK5tXBlfFZno8D8dZ6aZOIl7KLCimjUJaP16Vsx38NFIwlgPfExJCFv4b
-	L+vaZg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxu1jsj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 02:59:49 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2df375fb9b2so62980215ad.2
-        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 19:59:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J7eVoyRI"
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15ea896ddc8so5476895c88.0
+        for <linux-media@vger.kernel.org>; Thu, 08 Oct 2026 20:07:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791515236; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KjsFaX8oTddJnFocZxfJg3aLJNMUBxnFVfOs1Zt8W0bTaBlVNnn6B2Sp2IWx8n582l
+         TzFiw6idPS7zpKzXLyvPiUitoSkmb9q0QjiZi316jT1qVf4zDn2MWNLDX1as/yOypMS8
+         wHvt2Sx7431IGKm3zb2BV6VTJe0RR888V26JX+njmheHdjn7yYRmBW4GYeUC9gNe/N9z
+         C93RwQJbXu1Fd8o1WBqhYzSc8BeYhJzMl+H56QB2KCSoTIYy7ex8C32jcrO3rRaajPkQ
+         NeUe9bV4H3DkNasJ3TSiEK3P4evGif02C1l1wP+SG5NWrEmUi58HRgvVVxF/LIucbKV9
+         RC2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=bIvB+xdhyRTjlF9aB3Qta8cJj/Plqc9s8QlU4Iabrhw=;
+        fh=uAgTQZPrgi4lQ4hk8zNuTHJJNEHEttbn3MhR0UveTL4=;
+        b=LN2tr69rv1x1MBNu/P7uuz3VXuThui4DHQZF1dynraWblNl+6elBaxyYLtl2sVVXcs
+         cQI12TSN1v6HdwMCqbnBfOgJEzVl17y3VFDqK1EFtptSxXIehYnb+tCTjZRWhCxzKaGV
+         ARayE6sv5mDwT05288UlFwxDflW8YAQC2CqCkTT/1zXSJzlSgSlfa/jz8VlxTbvRP6XY
+         ykGywAKwWjxEyrVyigkSj3ao7cvQu1dR662WHtbyywBMRJRH6eMd79iSkLoU1hpgoUUt
+         jV5BB7PLdG5wGWTaSPWlt3vz6mef3ZPRSomcELmlNAFWDGJC6mbbp3N1ClrmhGuep6nw
+         J2TA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791514788; x=1792119588; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yt7/BWKDmiLx79NY+lUATumh3FrLQFNgexHb5QKZXno=;
-        b=eTRmfbNKITQoIRbGTZG76W65vwt/gEqL5SSm9O49ZqqG69qYkSsBy30+KvOcGJCi4+
-         B6+bPL29Rf4XL53h5dwPPESiwxeY2wEIwUFdMoLuw6z0v0YR20fMkgZkheqEZ1+XpNmI
-         22t83muMr0Lo0zmObvYHA/pK6Ka0WpefUoh2fDThrAGwrrv9WAVihZHgIyBal+SQwfPW
-         MMA+rXhhQ6r/xpekxgHWZA3EA1LZU0HUFCEWKC62Is6/duGJekocg2AmJTQsEaNHjGBz
-         qFaT2nH6IRnYH4hnkp97D7DbXBKuRhPMniKuixR0DvVQmNtnYpsK7bNTVG+vMaRjGZPK
-         psIg==
+        d=gmail.com; s=20251104; t=1791515236; x=1792120036; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bIvB+xdhyRTjlF9aB3Qta8cJj/Plqc9s8QlU4Iabrhw=;
+        b=J7eVoyRIRpnE4ZVb20IZB2VQ7u+hngYYNPjp0/2S/Fd3WM983vcG3rq98UCJu2FRrR
+         U6P2GLUTdH3hiUZRWsf40vMPItozh418+qtDguYgw1aZU8Jv1+L0Y4XxKf1dWqEIPcGz
+         MQ/TpEfaPKS/EN4m2ltspdnrXpMQUB66LtBbqcExMlnC0bAJUBNpEw6Feic8exsGoYE+
+         Q8Kh+PskdfHb54/UbF/xNbJheTTf7pnyeMm7dHLNMuZBYfkzBgr35g16h3uf9EVUWN4g
+         WqJPY9KWWRv3miZOyxFWpz20TAlqhGF1/AKGjXA/bmvVsjBWzadDAF4B8QdocOoZgobi
+         ox1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791514788; x=1792119588;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yt7/BWKDmiLx79NY+lUATumh3FrLQFNgexHb5QKZXno=;
-        b=HUjhZ/CotFl7VetywetMYiIUjICoI4EvVhUdjUUZD2OQK2Afh0jLjmvWXJ6rfJuF58
-         FO/4JSAqqrDRu5qd9Oeh+7jw5W1+p5U24XtzAaPfdMC3NthAMStlIC5R3rAXvO7fpDEk
-         +hv2SY3Nd2fBgmLIq1ucqBw0iC0jZ0TvS+QyFkcXr8ce9xA6k9lIXLSdp3+cOIlrb73I
-         DZnssjgL2wKvpTLlfi1iT9XuY0uq4EXHCyWf164GzznTa4rg07Nn1iok6QYx0i8FcmJF
-         ZexEJWVF5HVfX9+EvhrgpgD+i5jvK6pRwv7a+OWfXtEzfQGmk0pAivWaEMMvKIUjgJUl
-         hcNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5unF98luGgRWqN0GXgSbPZEveL4c3mUOmSKnpPJAxK6BoqORbch+u4h0MMLZM+MLjhCMDmqjhYHSHSw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhmCZgkb1JHQ2DTCOLC1bqzznlG8uqOMcbCePIM+PXtlgfi+xc
-	VU3BKW2JU1gcFBfGmkrRKQx0lR98mspTQK0M9/8V4oGwCYfhnoPGzg4eyuKyXVqsi0PMPzXrzjw
-	ZA+5FrJjrjWBJxKpCGUnUvDXszT5ykYuYjPQGMdyeoea1TVNMh9D2dIXILXGneXY58Q==
-X-Gm-Gg: AYBFou00ebISJw0whs0p4coP4Mkr98oPWh1CtUUILNkGdIn8jgfaNzeneeOMzgeYJ6q
-	F4sY3yDRPDvoT0kodNPHEMZdaprW8oeW6F7L8IWxhjeMDMiC0WxaPVOUQnhSRuQQnqLJtaWWZBE
-	xpMcDCPLTjvTyFK4fBrjH1xzdygumZp3+8D2nsU5CrkGEgVWXcNvyMt7/iflSh1uB+yXTNAiboa
-	Gtgjz49Hc5ukBRMr0cVTvug69sUaWIUTqLC/Sc0vHs6lxgcIc/Pzk2CesM15zK8gPineyPkK7nn
-	qxbsqKB1yj68a+o0L950XM6Y0IuVJ1yRtolcslDz/ZLDVJAztJXMjBEq/0uyiOUhz9YuxcsButB
-	EA7Nf856xmhTuD5maKxE8FzeNqH0ejRW37hMjYTFYFOhQOc7VGY7KbVtZM/VOnNs=
-X-Received: by 2002:a17:902:cec2:b0:2dd:c0ff:e72b with SMTP id d9443c01a7336-2e842e02a57mr4447045ad.61.1791514788010;
-        Thu, 08 Oct 2026 19:59:48 -0700 (PDT)
-X-Received: by 2002:a17:902:cec2:b0:2dd:c0ff:e72b with SMTP id d9443c01a7336-2e842e02a57mr4446595ad.61.1791514786997;
-        Thu, 08 Oct 2026 19:59:46 -0700 (PDT)
-Received: from [192.168.1.6] ([117.143.161.217])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e82asm2257855ad.14.2026.10.08.19.59.41
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 19:59:46 -0700 (PDT)
-Message-ID: <7452d85d-83a8-493c-8d74-5020ab72982d@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 10:59:39 +0800
+        d=1e100.net; s=20260707; t=1791515236; x=1792120036;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bIvB+xdhyRTjlF9aB3Qta8cJj/Plqc9s8QlU4Iabrhw=;
+        b=h2phIsQojNaiBkxXzXf6V6R2g/pSR+T6uR/VzzchG2GaNs3YXHWe7njlet+mM+Oajx
+         78rmo/Uvp2CAtPLDTe68EA+gKACfJVLrvcRgU9iDdh6sFAvVWUN+gvtsPpc2Re98oJTp
+         HXnvFWxb3Pnw3DsbrqxfR5lQCkiGlkZ0DD4qiPVlq9QenDixPgUv6VlcX5PwjknjAjE6
+         ZlQkGXalL2+HCIQBkQR0Zr7ldgTB50uQRrkNnQnZdxCbHeslUSpkeZwvZW6y2meaSrbk
+         Mr/csw6/wz0rxOD7l41ZK/j3aMoVb/c+SkG9TXEQ6j00eUJBW/gHoe6kUJZzZUGBaJrn
+         3Wzg==
+X-Forwarded-Encrypted: i=1; AKwUvBwogMtvy848YOQ7RJE8nr73DHblKufU1y4K35/qIYX3H7jUNZmy/q406pU6QDNm0VC5d8Zb95C0v5T2rQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++kQFaoHYckzugS9b8uCOs7QP/AWhjSi1sc1FRBbwqtJTTUe8iuw
+	jfuiDoQNcZelhU+++LZ8N2RNs2epfyesFvQDo7jvf2bNoH6TxRxprI37ybu2KnoLWHqTKR1zVO+
+	c4bn/58WI/PZOOe4hlBWNuKOijWQrCkI=
+X-Gm-Gg: AYBFou1kwP/BsLtSqoE7W7DrwPT4a+faiyIUqYCpFUBAjSSNWo3orIC5TIioZgowMiU
+	HfDNGs3cvwH1BMY0yh50DhlS52u9qfcv14BRKlVPq1+QA6BzM1GAHe0lhXqua7hqxtoyNDzUxWW
+	4nuLq2YZunX8/TKwFihlTRc+4vD5XehJq2FCC8LTDbO/VTQ1XnSMYFWyYqBhhsETkv8PEOsZtTE
+	/D7/+w+dXibYWKCa65JTRQbu0qjkGTl/p+EtQDXvBqZnDD2cw+OCXNA6vv05BmdAOik25eXY9Xl
+	Fw3Y15AKOf5oBdxBImKscz6QQveE0F0ECRTRlMAgooNdXBKTuUEJKqkDE1iM2lyGk0cJOe3c0Ml
+	HV5AUg+Yt1CciuwxzCBXG45fAYGZHzxz4HJ86VePI03GuUBrH3JMu07Fzt2Add0/e/MsqhFNOsA
+	==
+X-Received: by 2002:a05:7023:a56:20b0:15d:d124:b7c7 with SMTP id
+ a92af1059eb24-16a5e49fd65mr646815c88.10.1791515235633; Thu, 08 Oct 2026
+ 20:07:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v19 08/12] media: qcom: camss: vfe: Add support for VFE
- 1080
-To: bod@kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
- <179149982796.2596899.756044515233442982.b4-reply@b4>
-Content-Language: en-US
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-In-Reply-To: <179149982796.2596899.756044515233442982.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAxMSBTYWx0ZWRfX0zNm2k9dZQQL
- 44aJUB5HiqtuWhKc7GV/HfQ34lmiI0uDb9yOdNk1EaW6oXqJOMAaj8EFr2kkrtqdRXsvQ0l/ZDQ
- kG/y/uTiSD3khY4I0oR3EbwAWE1RQiWxiH5im+4SuWP57AraNVoVjqg9rG6uKeeumOLIr+ekHQr
- x/bq1J2Ljqg6wHoSGxIy76myLBrzF945iDd6JYUlNfcfWh8Csou5C0GbMYMdgBeQPwePVB1v5zW
- k5voeCGPOnGa9TRcecoaPGVW5QIp30zDYaBo4FWsuqgMePkBZnnsjGkkqKYqKwJhHlNWBox3vrZ
- TG16fQhCv7Dv7J9YV7Z8LP+nzI6B8Zu6bjcJnsFDWDHgbaWE2QReKfITSowbOfW/no8tdMxoxUN
- asfD8udp+4kCok8W0UQr0LKQlwfADnbODjdUXnFMbNrJg1zfd6w7D3hIAbh4V26ThUBbYaZ0Uyq
- ZjDFzxFW6t9vT+cT8zA==
-X-Authority-Analysis: v=2.4 cv=QbjzLcbv c=1 sm=1 tr=0 ts=6ac858a5 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=K/RrOd38U9TixX+j9hIN8g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=m0hzp7Y7Gn0FhK7fvfQA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: i2nIi8oM4ix_gXnJ0zztSouQYa6pja0n
-X-Proofpoint-ORIG-GUID: i2nIi8oM4ix_gXnJ0zztSouQYa6pja0n
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAxMSBTYWx0ZWRfX4JyCx16BxE3d
- ZuB4TpFrshzNuVIk3LtrYwfl3v12uSaTsACpXEczgCI92779UV5yEm2khXYjeQ4u9uSqqtwstJR
- p0OjYaMuKt/2XbKNYmfdi+S0gD1djlE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_01,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- bulkscore=0 phishscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090011
+From: Alexander Patrakov <patrakov@gmail.com>
+Date: Fri, 9 Oct 2026 11:06:47 +0800
+X-Gm-Features: AclHuK-Zf6wXUp4jdkPZ0-p3mUAFC-5OPkQlIA75FwpuE5aMMTTuMIc5lxv57TI
+Message-ID: <CAN_LGv0qkxARw4bxO8K-1hUkWNg2ts6q50dooCB5UM5en=bo0w@mail.gmail.com>
+Subject: int3472: GPIO type names disagree with Intel's Windows driver
+To: Hans de Goede <hansg@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, Leif Skunberg <diamondback@cohunt.app>, 
+	Sahan Nissanka <adee.sahan@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/9/2026 6:50 AM, bod@kernel.org wrote:
-> On 2026-10-08 00:14 -0700, Hangxiang Ma wrote:
->> Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
->>
->> In the Kaanapali camera subsystem, the front-end blocks are referred to
->> as TFEs (Thin Front Ends). This driver continues to use the VFE naming
->> in some places to preserve consistency with the existing code and avoid
->> unnecessary renaming. Support is currently limited to three output lines,
->> matching the constraints of the CAMSS framework.
->>
->> Kaanapali requires REG_UPDATE and AUP_UPDATE to be issued only after all
->> CSID configuration has completed. In addition, the number of AUP_UPDATE
->> requests must match the number of buffers queued to the write master
->> while it is being enabled.
->>
->> Although real-time TFE traffic is routed through RT_CAMNOC, both
->> camnoc_rt_axi and camnoc_nrt_axi clocks must be enabled. This ensures
->> that the PDX_NOC, which sits downstream of both RT and NRT NOCs, exits
->> reset in a fully idle state.
->>
->> Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
->> Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
->> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
->> ---
->>   drivers/media/platform/qcom/camss/Makefile         |   1 +
->>   drivers/media/platform/qcom/camss/camss-vfe-1080.c | 197 +++++++++++++++++++++
->>   drivers/media/platform/qcom/camss/camss-vfe.c      |   9 +-
->>   drivers/media/platform/qcom/camss/camss-vfe.h      |   2 +
->>   drivers/media/platform/qcom/camss/camss.c          | 153 ++++++++++++++++
->>   5 files changed, 360 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
->> index 218ba3a95939..42a14e8fe1b7 100644
->> --- a/drivers/media/platform/qcom/camss/Makefile
->> +++ b/drivers/media/platform/qcom/camss/Makefile
->> @@ -26,6 +26,7 @@ qcom-camss-objs += \
->>   		camss-vfe-340.o \
->>   		camss-vfe-480.o \
->>   		camss-vfe-680.o \
->> +		camss-vfe-1080.o \
-> 
-> Can't say I'm 1000000% clear on when reg_update() is supposed to happen in
-> the flow of the logic you have here.
-> 
-> I'm a bit suspicious of adding a new flag which skips the update but
-> assumes some other bit of code executes later and does that update.
-> 
-> Can you explain this some more please.
-> 
+Hi,
 
-Thanks for the review. These points were discussed in an earlier 
-revision, but I should have explained them directly in this version.
+Disclosure: I used Claude Code for the table extraction, for the Windows
+driver disassembly, and for drafting this email.
 
-Vijay once clarified that the configuration principle became more strict 
-since Kaanapali. We can back to 
-<https://lore.kernel.org/all/662a21a3-de8b-406f-a15d-b8a572aa79ab@oss.qualcomm.com/> 
-for more details.
+This is a report, not a patch. While I was getting the front camera of a
+Lenovo Yoga Duet 7 13ITL6 to work, Claude Code found that Intel's Windows
+control logic driver carries a table of names for the INT3472 _DSM GPIO
+types. It names three types that matter for discrete-INT3472 designs, one
+of which Linux already handles under a different name. I do not see a
+clean way to turn that into a patch, so I would like to put the facts in
+front of you and ask how you want them handled.
 
-In short, the hardware guidance asks to issue the REG_UPDATE after all 
-of the CSID configuration registers are written. Kaanapali seems to have 
-very strict dependency in the hardware about this sequence and with the 
-original sequence, no RUP DONE or BUF DONE events are received at all. 
-While other chipsets can work normally.
+The table
+---------
 
->>   		camss-vfe-gen1.o \
->>   		camss-vfe-gen3.o \
->>   		camss-vfe-vbif.o \
->> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
->> new file mode 100644
->> index 000000000000..016857cd1025
->> --- /dev/null
->> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
->> @@ -0,0 +1,197 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * camss-vfe-1080.c
->> + *
->> + * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module 1080
->> + *
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +#include <linux/interrupt.h>
->> +#include <linux/io.h>
->> +#include <linux/iopoll.h>
->> +
->> +#include "camss.h"
->> +#include "camss-vfe.h"
->> +
->> +/* VFE-1080 Bus Register Base Addresses */
->> +#define BUS_REG_BASE				(vfe_is_lite(vfe) ? 0x800 : 0x1000)
->> +
->> +#define VFE_BUS_WM_CGC_OVERRIDE			(BUS_REG_BASE + 0x08)
->> +#define		WM_CGC_OVERRIDE_ALL			(0x7FFFFFF)
->> +
->> +#define VFE_BUS_WM_TEST_BUS_CTRL		(BUS_REG_BASE + 0x128)
->> +
->> +#define VFE_BUS_WM_CFG(n)			(BUS_REG_BASE + 0x500 + (n) * 0x100)
->> +#define		WM_CFG_EN				BIT(0)
->> +#define		WM_VIR_FRM_EN				BIT(1)
->> +#define		WM_CFG_MODE				BIT(16)
->> +#define VFE_BUS_WM_IMAGE_ADDR(n)		(BUS_REG_BASE + 0x504 + (n) * 0x100)
->> +#define VFE_BUS_WM_FRAME_INCR(n)		(BUS_REG_BASE + 0x508 + (n) * 0x100)
->> +#define VFE_BUS_WM_IMAGE_CFG_0(n)		(BUS_REG_BASE + 0x50C + (n) * 0x100)
->> +#define		WM_IMAGE_CFG_0_DEFAULT_WIDTH		(0xFFFF)
->> +#define VFE_BUS_WM_IMAGE_CFG_2(n)		(BUS_REG_BASE + 0x514 + (n) * 0x100)
->> +#define		WM_IMAGE_CFG_2_DEFAULT_STRIDE		(0xFFFF)
->> +#define VFE_BUS_WM_PACKER_CFG(n)		(BUS_REG_BASE + 0x518 + (n) * 0x100)
->> +
->> +#define VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(n)	(BUS_REG_BASE + 0x530 + (n) * 0x100)
->> +#define VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(n)	(BUS_REG_BASE + 0x534 + (n) * 0x100)
->> +
->> +/* VFE lite has no such registers */
->> +#define VFE_BUS_WM_FRAMEDROP_PERIOD(n)		(BUS_REG_BASE + 0x538 + (n) * 0x100)
->> +#define VFE_BUS_WM_FRAMEDROP_PATTERN(n)		(BUS_REG_BASE + 0x53C + (n) * 0x100)
->> +
->> +#define VFE_BUS_WM_MMU_PREFETCH_CFG(n)		(BUS_REG_BASE + 0x560 + (n) * 0x100)
->> +#define VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(n)	(BUS_REG_BASE + 0x564 + (n) * 0x100)
->> +
->> +/*
->> + * IFE write master client IDs
->> + *
->> + * VIDEO_FULL			0
->> + * VIDEO_DC4_Y			1
->> + * VIDEO_DC4_C			2
->> + * VIDEO_DC16_Y			3
->> + * VIDEO_DC16_C			4
->> + * DISPLAY_DS2_Y		5
->> + * DISPLAY_DS2_C		6
->> + * FD_Y				7
->> + * FD_C				8
->> + * PIXEL_RAW			9
->> + * STATS_AEC_BG			10
->> + * STATS_AEC_BHIST		11
->> + * STATS_TINTLESS_BG		12
->> + * STATS_AWB_BG			13
->> + * STATS_AWB_BFW		14
->> + * STATS_AF_BHIST		15
->> + * STATS_ALSC_BG		16
->> + * STATS_FLICKER_BAYERRS	17
->> + * STATS_TMC_BHIST		18
->> + * PDAF_0			19
->> + * PDAF_1			20
->> + * PDAF_2			21
->> + * PDAF_3			22
->> + * RDI0				23
->> + * RDI1				24
->> + * RDI2				25
->> + * RDI3				26
->> + * RDI4				27
->> + *
->> + * IFE Lite write master client IDs
->> + *
->> + * RDI0			0
->> + * RDI1			1
->> + * RDI2			2
->> + * RDI3			3
->> + * GAMMA		4
->> + * STATES_BE		5
->> + */
->> +#define RDI_WM(n) ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
->> +
->> +static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
->> +{
->> +	struct v4l2_pix_format_mplane *pix =
->> +		&line->video_out.active_fmt.fmt.pix_mp;
->> +
->> +	wm = RDI_WM(wm);
->> +
->> +	/* no clock gating at bus input */
->> +	writel(WM_CGC_OVERRIDE_ALL, vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
->> +
->> +	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
->> +
->> +	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
->> +	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
->> +	writel((WM_IMAGE_CFG_0_DEFAULT_WIDTH & 0xFFFF),
->> +	       vfe->base + VFE_BUS_WM_IMAGE_CFG_0(wm));
->> +	writel(WM_IMAGE_CFG_2_DEFAULT_STRIDE,
->> +	       vfe->base + VFE_BUS_WM_IMAGE_CFG_2(wm));
->> +	writel(0, vfe->base + VFE_BUS_WM_PACKER_CFG(wm));
->> +
->> +	/* no dropped frames, one irq per frame */
->> +	if (!vfe_is_lite(vfe)) {
->> +		writel(0, vfe->base + VFE_BUS_WM_FRAMEDROP_PERIOD(wm));
->> +		writel(1, vfe->base + VFE_BUS_WM_FRAMEDROP_PATTERN(wm));
->> +	}
->> +
->> +	writel(0, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(wm));
->> +	writel(1, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(wm));
->> +
->> +	writel(1, vfe->base + VFE_BUS_WM_MMU_PREFETCH_CFG(wm));
->> +	writel(0xFFFFFFFF, vfe->base + VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(wm));
->> +
->> +	writel(WM_CFG_EN | WM_CFG_MODE, vfe->base + VFE_BUS_WM_CFG(wm));
->> +}
->> +
->> +static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
->> +{
->> +	wm = RDI_WM(wm);
->> +	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
->> +}
->> +
->> +static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
->> +			  struct vfe_line *line)
->> +{
->> +	wm = RDI_WM(wm);
->> +	writel(addr >> 8, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
->> +
->> +	dev_dbg(vfe->camss->dev, "wm:%d, image buf addr:0x%x\n", wm, addr);
->> +}
->> +
->> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
->> +{
->> +	int port_id = line_id;
->> +
->> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
->> +}
->> +
->> +static inline void vfe_reg_update_clear(struct vfe_device *vfe,
->> +					enum vfe_line_id line_id)
->> +{
->> +	int port_id = line_id;
->> +
->> +	camss_reg_update(vfe->camss, vfe->id, port_id, true);
->> +}
->> +
->> +static const struct camss_video_ops vfe_video_ops_1080 = {
->> +	.queue_buffer = vfe_queue_buffer_v2,
->> +	.flush_buffers = vfe_flush_buffers,
->> +};
->> +
->> +static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
->> +{
->> +	vfe->video_ops = vfe_video_ops_1080;
->> +}
->> +
->> +static void vfe_global_reset(struct vfe_device *vfe)
->> +{
->> +	vfe_isr_reset_ack(vfe);
->> +}
->> +
->> +static irqreturn_t vfe_isr(int irq, void *dev)
->> +{
->> +	/* nop */
->> +	return IRQ_HANDLED;
->> +}
->> +
->> +static int vfe_halt(struct vfe_device *vfe)
->> +{
->> +	/* rely on vfe_disable_output() to stop the VFE */
->> +	return 0;
->> +}
->> +
->> +const struct vfe_hw_ops vfe_ops_1080 = {
->> +	.global_reset = vfe_global_reset,
->> +	.hw_version = vfe_hw_version,
->> +	.isr = vfe_isr,
->> +	.pm_domain_off = vfe_pm_domain_off,
->> +	.pm_domain_on = vfe_pm_domain_on,
->> +	.reg_update = vfe_reg_update,
->> +	.reg_update_clear = vfe_reg_update_clear,
->> +	.subdev_init = vfe_subdev_init,
->> +	.vfe_disable = vfe_disable,
->> +	.vfe_enable = vfe_enable_v2,
->> +	.vfe_halt = vfe_halt,
->> +	.vfe_wm_start = vfe_wm_start,
->> +	.vfe_wm_stop = vfe_wm_stop,
->> +	.vfe_buf_done = vfe_buf_done,
->> +	.vfe_wm_update = vfe_wm_update,
->> +};
->> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
->> index 2680a9914765..3acef6ba97dc 100644
->> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
->> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
->> @@ -353,6 +353,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
->>   	case CAMSS_8550:
->>   	case CAMSS_8650:
->>   	case CAMSS_8775P:
->> +	case CAMSS_KAANAPALI:
->>   	case CAMSS_X1E80100:
->>   		switch (sink_code) {
->>   		case MEDIA_BUS_FMT_YUYV8_1X16:
->> @@ -525,7 +526,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
->>   
->>   	spin_lock_irqsave(&vfe->output_lock, flags);
->>   
->> -	ops->reg_update_clear(vfe, line->id);
->> +	if (ops->reg_update_clear)
->> +		ops->reg_update_clear(vfe, line->id);
-> 
-> What's this ? Modification to the VFE core for a callback you guys have - enumerated.
-> 
-> If this is to be treated as optional then, submit a patch justifying that
-> change as a standalone thing.
->   
+iactrllogic64.sys holds an array of 22 pointers to GPIO function names.
+Index and name:
 
-Thanks for pointing out this.
+  0x00 Reset       0x08 Power1         0x10 Avdd
+  0x01 Enable      0x09 Standby        0x11 Core
+  0x02 Strobe      0x0a WriteProtect   0x12 Handshake
+  0x03 Torch       0x0b PowerEn        0x13 HDMI_INT_IO
+  0x04 Flash       0x0c Mclk           0x14 HDMIDetect
+  0x05 LedRear     0x0d PrivateLED     0x15 Reserved
+  0x06 LedFront    0x0e AF
+  0x07 Power0      0x0f IO
 
-I think this is oneline redundant code left over since v2, where you 
-asked for consistence clear operation for both CSID and VFE. It's safe 
-to remove this as all platforms use _clear_ operation.
+Every type drivers/platform/x86/intel/int3472/discrete.c handles today
+sits under a matching name at its own index: reset, strobe, power enable,
+clock enable, privacy LED, handshake, hotplug detect. That is why I take
+the index to be the _DSM type.
 
->>   	if (output->state > VFE_OUTPUT_RESERVED) {
->>   		dev_err(vfe->camss->dev,
->> @@ -552,7 +554,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
->>   		output->gen2.active_num++;
->>   		ops->vfe_wm_update(vfe, output->wm_idx[0],
->>   				   output->buf[i]->addr[0], line);
->> -		ops->reg_update(vfe, line->id);
->> +
->> +		if (!vfe->res->reg_update_after_csid_config)
->> +			ops->reg_update(vfe, line->id);
->>   	}
->>   
->>   	spin_unlock_irqrestore(&vfe->output_lock, flags);
->> @@ -2013,6 +2017,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
->>   	case CAMSS_8550:
->>   	case CAMSS_8650:
->>   	case CAMSS_8775P:
->> +	case CAMSS_KAANAPALI:
->>   	case CAMSS_X1E80100:
->>   		ret = 16;
->>   		break;
->> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
->> index ae9dad353a37..118cac5daf37 100644
->> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
->> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
->> @@ -133,6 +133,7 @@ struct vfe_isr_ops {
->>   
->>   struct vfe_subdev_resources {
->>   	bool is_lite;
->> +	bool reg_update_after_csid_config;
->>   	u8 line_num;
->>   	bool has_pd;
->>   	char *pd_name;
->> @@ -248,6 +249,7 @@ extern const struct vfe_hw_ops vfe_ops_170;
->>   extern const struct vfe_hw_ops vfe_ops_340;
->>   extern const struct vfe_hw_ops vfe_ops_480;
->>   extern const struct vfe_hw_ops vfe_ops_680;
->> +extern const struct vfe_hw_ops vfe_ops_1080;
->>   extern const struct vfe_hw_ops vfe_ops_gen3;
->>   
->>   int vfe_get(struct vfe_device *vfe);
->> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
->> index 261e6c837dd4..5cd9641fea94 100644
->> --- a/drivers/media/platform/qcom/camss/camss.c
->> +++ b/drivers/media/platform/qcom/camss/camss.c
->> @@ -156,6 +156,157 @@ static const struct camss_subdev_resources csid_res_kaanapali[] = {
->>   	}
->>   };
->>   
->> +/* In Kaanapali, CAMNOC requires all CPAS_TFEX clocks
->> + * to operate on any TFE Full.
->> + */
->> +static const struct camss_subdev_resources vfe_res_kaanapali[] = {
->> +	/* VFE0 - TFE Full */
->> +	{
->> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
->> +			   "vfe0_fast_ahb", "vfe0",
->> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
->> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
->> +		.clock_rate = { { 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 360280000, 480000000, 630000000, 716000000,
->> +				  833000000 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 200000000, 300000000, 400000000, 480000000 },
->> +				{ 0 },
->> +				{ 0 } },
->> +		.reg = { "vfe0" },
->> +		.interrupt = { "vfe0" },
->> +		.vfe = {
->> +			.line_num = 3,
->> +			.is_lite = false,
->> +			.reg_update_after_csid_config = true,
->> +			.has_pd = true,
->> +			.pd_name = "ife0",
->> +			.hw_ops = &vfe_ops_1080,
->> +			.formats_rdi = &vfe_formats_rdi_845,
->> +			.formats_pix = &vfe_formats_pix_845
->> +		}
->> +	},
->> +	/* VFE1 - TFE Full */
->> +	{
->> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
->> +			   "vfe1_fast_ahb", "vfe1",
->> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
->> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
->> +		.clock_rate = { { 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 360280000, 480000000, 630000000, 716000000,
->> +				  833000000 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 200000000, 300000000, 400000000, 480000000 },
->> +				{ 0 },
->> +				{ 0 } },
->> +		.reg = { "vfe1" },
->> +		.interrupt = { "vfe1" },
->> +		.vfe = {
->> +			.line_num = 3,
->> +			.is_lite = false,
->> +			.reg_update_after_csid_config = true,
->> +			.has_pd = true,
->> +			.pd_name = "ife1",
->> +			.hw_ops = &vfe_ops_1080,
->> +			.formats_rdi = &vfe_formats_rdi_845,
->> +			.formats_pix = &vfe_formats_pix_845
->> +		}
->> +	},
->> +	/* VFE2 - TFE Full */
->> +	{
->> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
->> +			   "vfe2_fast_ahb", "vfe2",
->> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
->> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
->> +		.clock_rate = { { 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 360280000, 480000000, 630000000, 716000000,
->> +				  833000000 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 200000000, 300000000, 400000000, 480000000 },
->> +				{ 0 },
->> +				{ 0 } },
->> +		.reg = { "vfe2" },
->> +		.interrupt = { "vfe2" },
->> +		.vfe = {
->> +			.line_num = 3,
->> +			.is_lite = false,
->> +			.reg_update_after_csid_config = true,
->> +			.has_pd = true,
->> +			.pd_name = "ife2",
->> +			.hw_ops = &vfe_ops_1080,
->> +			.formats_rdi = &vfe_formats_rdi_845,
->> +			.formats_pix = &vfe_formats_pix_845
->> +		}
->> +	},
->> +	/* VFE3 - IFE Lite */
->> +	{
->> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
->> +			   "vfe_lite_ahb", "vfe_lite",
->> +			   "cpas_vfe_lite", "camnoc_rt_axi",
->> +			   "camnoc_nrt_axi", "qdss_debug_xo" },
->> +		.clock_rate = { { 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 0 },
->> +				{ 266666667, 400000000, 480000000 },
->> +				{ 0 },
->> +				{ 200000000, 300000000, 400000000, 480000000 },
->> +				{ 0 },
->> +				{ 0 } },
->> +		.reg = { "vfe_lite0" },
->> +		.interrupt = { "vfe_lite0" },
->> +		.vfe = {
->> +			.line_num = 3,
-> 
-> The line count on the lites looks wrong here.
-> ---
-> bod
+The same table is in two builds:
 
-The line count of three for the TFE resources is intentional.
+  DriverVer 08/23/2021,60.22000.0.11   shipped for the Yoga Duet 7 13ITL6
+    sha256 28b0ce9cfabc2bd6b1cd11d3bfbffa792f0fab785dc52fcaf21b9f7e100982f8
+  DriverVer 07/20/2023,63.22000.3.13186  shipped for the ThinkPad X1 Fold
+    16 Gen 1, in Lenovo's camera package n3lce16w.exe
+    sha256 fd1db239a9a48671f571080fb5d6c068c50f2196f807ef20cbe6fdbf12f40455
 
-Although the Kaanapali TFE hardware provides 5 RDI ports for FULL and 4 
-RDI ports for Lite, the current CAMSS framework supports only three RDI 
-paths for this driver: RDI0, RDI1 and RDI2. Setting line_num to 5/4 
-would expose a fourth or fifth path and causes the CAMSS validation to fail.
+The Yoga driver came with the tablet.
 
-Therefore both the full VFE and TFE Lite resources use line_num = 3 in 
-this series. This limits the currently exposed CAMSS output paths and 
-does not describe the complete number of RDI ports implemented by the 
-hardware. This has been discribed in commit message as well.
+The ThinkPad driver was downloaded from
+https://pcsupport.lenovo.com/us/en/products/laptops-and-netbooks/thinkpad-x-series-laptops/thinkpad-x1-fold-16-gen-1-type-21es-21et/downloads/driver-list/component?name=Camera%20and%20Card%20Reader&id=B7FF933A-6722-4635-9471-39DF68737A1D
 
----
-Best Regards,
-Hangxiang
+How to reproduce
+----------------
 
+1. Lenovo's packages are Inno Setup installers that can be extracted on Linux:
+
+     innoextract n3lce16w.exe
+     # -> code$GetExtractPath$/x64/iactrllogic64.sys
+
+2. The names are plain ASCII, stored one after another in this order.
+   "AF" and "IO" are two characters long, so ask strings for short ones:
+
+     strings -n 2 iactrllogic64.sys | grep -x -B13 -A8 PrivateLED
+
+   (In the 2023 build "Reset" shows as "wZReset": two stray bytes sit
+   directly in front of it.)
+
+3. That the order is an index and not an accident of layout shows in the
+   pointer array: 22 consecutive 64-bit pointers (image base 0x140000000)
+   to those strings, at file offset 0x21060 in the 2021 build and 0x21c60
+   in the 2023 build. The script at the end of this mail finds the array
+   and prints it.
+
+What this says about Linux
+--------------------------
+
+Read as rails, the three are:
+
+  0x0f IO     digital I/O supply    (dovdd)
+  0x10 Avdd   analog supply         (avdd)
+  0x11 Core   digital core supply   (dvdd)
+
+The Yoga Duet 7 has exactly these three behind its INT3472, next to a
+reset and a privacy LED pin: 0x0f on pin 322, 0x10 on pin 321 and 0x11 on
+pin 332. Linux handles 0x10 and warns about the other two, so the sensor
+never gets all of its supplies.
+
+Linux calls 0x10 DOVDD. That comes from commit 2a7b7652b1bb
+("platform/x86: int3472: Handle GPIO type 0x10 (DOVDD)"), added for the
+ThinkPad X1 Fold 16 Gen 1. Neither the commit nor its review says how the
+meaning was established, and Intel's driver for that same machine has it
+as Avdd. Leif, do you remember what it was based on, and which other GPIO
+types that machine's INT3472 reports?
+
+As far as I can tell the name has done no harm. Each such GPIO becomes a
+regulator that supplies the sensor under the chosen name; sensor drivers
+ask for all of their supplies and enable them together (ov5675 does a
+regulator_bulk_enable() over avdd, dovdd and dvdd); and a supply that
+nothing provides resolves to a dummy regulator on ACPI systems. So the
+GPIO is switched at the same moment whichever of the three names it
+carries. It would only matter to a driver that sequences its supplies or
+does not ask for the name the GPIO was given.
+
+Two more names look wrong against the table. Linux gives type 0x0b the
+supply name avdd and type 0x12 the supply name dvdd. Intel calls them
+PowerEn and Handshake, a general enable and a handshake signal, neither
+of them tied to a rail; the names avdd and dvdd belong to 0x10 and 0x11.
+I would treat those two as misnamed as well. They have worked for the
+same reason as above.
+
+Why I am not sending a patch
+----------------------------
+
+Giving 0x0f, 0x10 and 0x11 their proper names, while 0x0b and 0x12 keep
+the ones they have, means two names end up on two types each:
+
+  avdd   0x0b (PowerEn) and 0x10 (Avdd)
+  dvdd   0x11 (Core) and 0x12 (Handshake)
+
+A system whose INT3472 declares both members of a pair for one sensor
+would ask for two regulators supplying the same name, and the second
+regulator_register() fails with -EBUSY. No type shares a default name
+with another in mainline today. I do not know whether such a system
+exists; Intel's 2021 build handles Core and Handshake as separate steps,
+so the firmware vocabulary at least allows it.
+
+The ov5675 driver asks for avdd, dovdd and dvdd, and all three are
+already the default names of 0x0b, 0x10 and 0x12. So I see no way to add
+0x0f and 0x11 as general types without reusing a name, whatever is done
+about 0x10.
+
+For the Lenovo Yoga Duet 7 13ITL6 tablet the three GPIOs do power the
+sensor with a local copy of the driver that maps 0x0f and 0x11 to the two
+names 0x10 does not use, for this model only. The sensor is an OVTI5678,
+the RGB-IR variant of the OV5675 that Sahan's Dell Latitude 7320
+Detachable series is about:
+
+  https://lore.kernel.org/linux-media/20260809042540.15849-1-adee.sahan@gmail.com/
+
+Its sensor-side patches are on hold over the ability to describe the 4x4
+RGB-IR sensor pattern, so there is no in-tree user for these types yet
+either.
+
+Windows driver logic
+--------------------
+
+Claude Code says the following about what the Windows driver does with
+these types, and I have not verified it. It comes from reading a
+disassembly (objdump -d -M intel iactrllogic64.sys) of the power-on
+routine, which can be found through its trace string,
+"discrete::DiscreteControl::SensorOn".
+
+  2023 build (X1 Fold): switches Enable, Power0, Power1, PowerEn and
+  Avdd (0x10) in that order, then handles the handshake, Reset and Mclk,
+  with waits of 2 to 5 ms between steps. It does not touch 0x0e, 0x0f or
+  0x11 anywhere.
+
+  2021 build (Yoga Duet 7): switches Mclk and Reset, then Avdd (0x10),
+  Core (0x11), IO (0x0f) and AF (0x0e) back to back, waits 2 ms, then
+  Reset again and Handshake. The power-off routine switches the same
+  four off together.
+
+If that is right, both builds treat 0x10 as a supply and the older one
+treats 0x0f and 0x11 the same way.
+
+Question
+--------
+
+How should this proceed, given the misnamed GPIO types in Linux and the
+name conflicts that would follow from attempts to fix them?
+
+Thanks,
+Alexander Patrakov
+
+---- int3472-gpio-names.py ----
+#!/usr/bin/env python3
+"""Print the GPIO function name table of Intel's iactrllogic64.sys.
+
+    int3472-gpio-names.py iactrllogic64.sys
+
+The driver has an array of pointers to short names ("Reset", "Enable", ...).
+This finds the array by looking for a pointer to "Reset" followed by a pointer
+to "Enable", and prints every name with its index.
+"""
+import struct, sys
+
+d = open(sys.argv[1], 'rb').read()
+pe = struct.unpack_from('<I', d, 0x3c)[0]
+nsec, optsize = struct.unpack_from('<H', d, pe + 6)[0],
+struct.unpack_from('<H', d, pe + 20)[0]
+base = struct.unpack_from('<Q', d, pe + 24 + 24)[0]            #
+ImageBase of a PE32+ file
+secs = [struct.unpack_from('<IIII', d, pe + 24 + optsize + 40 * i + 8)
+for i in range(nsec)]
+
+def name_at(va):
+    """The string a virtual address points to, if it is a short
+printable one."""
+    for vsize, rva, rawsize, raw in secs:
+        if base + rva <= va < base + rva + max(vsize, rawsize):
+            off = raw + va - base - rva
+            end = d.find(b'\0', off)
+            s = d[off:end]
+            return s.decode() if 1 < len(s) < 24 and all(32 <= c < 127
+for c in s) else None
+
+for off in range(0, len(d) - 16, 8):
+    if name_at(struct.unpack_from('<Q', d, off)[0]) == 'Reset' and \
+       name_at(struct.unpack_from('<Q', d, off + 8)[0]) == 'Enable':
+        print('pointer table at file offset 0x%x' % off)
+        i = 0
+        while (n := name_at(struct.unpack_from('<Q', d, off + 8 *
+i)[0])) is not None:
+            print('  0x%02x  %s' % (i, n))
+            i += 1
+        break
+else:
+    print('no table found')
