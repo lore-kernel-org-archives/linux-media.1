@@ -1,262 +1,181 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011048.outbound.protection.outlook.com [52.101.52.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86097423E9C
-	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 14:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555816; cv=none; b=eH6Bv+9/aIj1sbmVvZbk9vjVcT2ahyx2bETIJD0NXG7iIvodnQhhJ9S+9qx6WXe6GOAmHopLRCpUgWxUgX3wQUzi0LC327fPTnDYc/oX44m+sVhfE7lUq+Y9WzOuMiCUymh+LXRB63L2n7d7zU4oW0VbWBlzNpijWFNe3qd3CnQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555816; c=relaxed/simple;
-	bh=/6LUW+j3zISrC3zDmKTf2zpa7V849gZv42gCk7LOMFg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=begDbE2/odBVgIeGEez13T8FqBVCoRZIVBDMUcs1ESAZfObisi8xLGZXH9j4WKaVUhLwyTKVzCl1CIDUElD2WpEHx/KxjR8uaNeEZCkg6LLQpAHNzC8DkfSuL7w9Sdz1vdJzZHp8T9083SIhVY3ckNMW6Ds/u/1yMAM00Am+5mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hjCGqSyF; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D972D8DC4;
+	Fri,  9 Oct 2026 14:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791555886; cv=fail; b=dz2OpjlCdjIZf9qSuiXCadLOCxmAmfauJUmkOSbjsgkEiN1Jy1duQZpkCWRYGegK12/QfOhLB5Ow2BZYGN/lXNg43/xru3qY/Md2s+dNWHaKoOJEUzrC5LUy11l4PFnctH/DKmYgj5+m2BEHHB7a8PR+ne6ozyd4jlUD2nNEt4g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791555886; c=relaxed/simple;
+	bh=0TRMIxSwychNOXQof+znV1CTNX5Gkn6BEL78rpBMbsA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=dTTluNrPIHkzsIqOpu7iygpTKUsb9b4NhZd9JRSuWIXLM0SnN86+m5tRO+XNqYXypy7sJq+uKkqzHqX20qlppH7c9m734CvCzs9HnTNZiH22U5A0uCzn/16pdOFHdhdlD58TB+MKM7iArAiNKlxgE7g/qOBmR6ELt9CiHsyVBMg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=EIKFDnP4; arc=fail smtp.client-ip=52.101.52.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjCGqSyF"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1649612eec.0
-        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 07:23:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791555814; x=1792160614; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fj5ZGPYDc8+BnuBTFqzv+vqOHduFDbEPmpj8Sqnl360=;
-        b=hjCGqSyFNHYM0cVzrncPkI+H7hZLfcNe0/gNtA/H58I00uiMzg7qzmSkxLj9b+4jAF
-         F2Kray2RN4UgdB31bkxac+nKT5JL+TJNc1zyM4tpyplyZcvyY+ReKipYSMOBWf0BBrl2
-         NEsvuuU32XS6nv1cUcWn/bHWUfCmx0LOZJ30ewPYtYKu42Z3zvCVI4mdpn4HfJkdzwqA
-         YBN4n/iimsNLIBw7EooLDTULTU28g/pdUAxxVxr+d3HuqRuvwt2BOlu0DfDv12HjS10n
-         elkFLLilk1nj+DtTsXfz12R8XQG0dPohSNSEh0BJ63szg3Cr0WWDUWjqVE2UrFa0xGdC
-         9gOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791555814; x=1792160614;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fj5ZGPYDc8+BnuBTFqzv+vqOHduFDbEPmpj8Sqnl360=;
-        b=n0penx2gIhLupAVJ/knx4uwshuRSGwSXLaZDmfk8XYf3eGjq8mvnELOsulkyTdrSan
-         FIHj7c52tz2uDjtRhFqUX558OBePPm+CLeIh+vFO9DcX8nW2/wKHz3lKnHt5cqA31bY2
-         iASi3/QtGwqjzK2aAZvgLNcNIO0ZYzA81RXZ2BCbJWxrqP8S47cuupEYPQ3y/bfn3FYu
-         exWnW36In3YnPVYKifCV8JjBxieyT34A5EU3yU5DBlg2JSfQ5WQMKSbj+oSeB3rnTJcF
-         237jqaR4Rx+ryJGGB2Q2vE7FVEytj9HCVs+Iz9eTBFBCc2D/Ja7t7GgvmfcmDzwbJ4ce
-         ynFw==
-X-Gm-Message-State: AFq9FYKwmND/vIKEJxVelpZoLZH5X7HBRph6rJzocaOGTUcTkW0afc0A
-	oRkeCRN3goaCuYAmmlZtJOm8MSJs9671AP3HwfXebZgALr0rGQsAQx3rzIrpCg==
-X-Gm-Gg: AYBFou1Cx13MY2DCtsHdTlOSOWtcN3s5lE0AWBpmcGiyZDQN5649wuh52bNr41IDFo4
-	znmp5Bgjc3B0dBeB+1KkGeKSN8GWXfzg7aqlYnmNmTv1mhPiHc7N2F+V4vr+tbE0rSsBxdo02PO
-	JTpCHs4lWtHicqwM4eLPVOVjwd1yks3vBf1BZ9wPyJ3kyq05kiUnnq8ThlKExzWR9Efw3rzfDBi
-	NPJgkWhdlPbl4eWidpC9qkhQTHEvnJm3MEVmJQNMZxN+urgRQSOD4SdQ92wYz1ojILAFRKiXnhQ
-	xinm8C1VPmXOVOhJsf2gun6o9urlWzGkbHvlM7WFMS8H+/p/TCDN0DOpTSmhPb4iTLC3X+0DDvk
-	hnIRqxmb2oC/XWMCS4AbNsh0veA/oW7GO9K49tDScbpGtOeDW861ijnIKAexesnmNJWB3Ug6jLa
-	/qvJv51EVKU7VK1x0SOVzMllTEk02lbcIaeJxn48eW/H8oa4qWyzEGRC1++SiGgPoNS6kFq+Wf5
-	GC7yoV791tB9slodWcnDvQ=
-X-Received: by 2002:a05:7301:797:b0:353:7e28:9c58 with SMTP id 5a478bee46e88-3537e289d93mr2932453eec.41.1791555805307;
-        Fri, 09 Oct 2026 07:23:25 -0700 (PDT)
-Received: from fedora.tail44843d.ts.net ([2406:b400:66:1bba:a266:257f:3c5c:90be])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb68e56sm6534357eec.29.2026.10.09.07.23.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 07:23:24 -0700 (PDT)
-From: Mirza Ishan Beg <seedandsyntax@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Slawomir Stepien <sst@poczta.fm>,
-	Mirza Ishan Beg <seedandsyntax@gmail.com>,
-	syzbot+6102f1c3a0ea8073fd64@syzkaller.appspotmail.com
-Subject: [PATCH] media: dvb-core: fix OOB read in dtv_property_process_get()
-Date: Fri,  9 Oct 2026 19:53:03 +0530
-Message-ID: <20261009142303.166373-1-seedandsyntax@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="EIKFDnP4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wcDM862P/jjvN3R7nW1Zvt9q1v5tX/E4sNEE56rNrn1ZwVbgq6Wt0MZom0cRnOuGB7FB5mh5OgvMIZXczuqDDO7LuVooQqb+j6k8snZUPMk+or2mGlObqUKOSYhOheUEWS7AtwcWllfWCOCS6uJS59BN5Ys36KYerDdkN4q+bMRtz2/uSOISOgtewj7Vi4GP0CEwCpvmG63ywp7tGRxwi/Mxx/SmNzEPdJnAIuCA1WRqzmzRJMs/Kj62oyP1QjE924vBMjcMXFTggFUPunRbLGgJQ4oG/KSsNgPujlJVAJ5+rig+XeO22TTbvl8arIcSEZr2/id6lN2Of2L8SLxoUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rmFH5aasguRf7nvWPjzZYqBZc7VMhhWgnZHTn3qHuEo=;
+ b=T2pD5NG2cZz8cingK0CBYb2ckHtO9OjtvMSiNIDWixbJhl0oLkCcx93ZRpttcKiXD9MTen+WfdcWfmNEmqlIYS13uaaZuAKfRoqzU65HCrdFOqu1OWHD0/j91sIdCcnnV6qiK06h9FFFGr7PeCe/KXUYK3Mt4Hxg6K2ewuIY7sLe7bfuXrOkPix818CUYUju/CNDMKKTQrAK5u4A7UAa/NSo9NH+3AvhZB9ajAawvt15rf58/SCvZuEfgGrfEoCSUbTBU3RrYvOBMIBKYkDRMbwQEMDjabX0bjO+PPnJv1wltLuHsLjFu0V7/OT8IfwkOXjvhZshhA+DmK16SEkPeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rmFH5aasguRf7nvWPjzZYqBZc7VMhhWgnZHTn3qHuEo=;
+ b=EIKFDnP41v6WeoZWbFhgDc4Ca4b4jmrnLmAmYpPAavatfFOUXlIHIhZ1QW+2Ct4CXLWtHzNBQ5ThFBTaBiidcCHle1FwBTpSVM9guX4SdWAWEtETV4hKuYEpOroNIm8I4OwrPT1rEKrTKO/h2PV0KMAuLkPNvroWVRWP9GmSaM84B7HSfkKVWZDy3sHHWtN5r5DJtRZua4JA5fBSyFajzyTnbG+czv+zV0QYknF1rPGWPB5HOC1naN2kwhoQ1TA7cl1HIOt0XTfreUbD5JgQCL8hz0G7Cz/bL0U8Rzq+a/9VhdwJTcllSNvXwubR0pEjxkUGHOfMO7SUNSDVBzVVdA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by DSVPR12MB213845.namprd12.prod.outlook.com
+ (2603:10b6:8:4ff::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 14:24:39 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
+ 14:24:39 +0000
+Date: Fri, 9 Oct 2026 11:24:38 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Diederik de Haas <diederik@cknow-tech.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Jianfeng Liu <liujianfeng1994@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org, Alistair Popple <apopple@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>
+Subject: Re: [RFC PATCH 2/3] dma-buf: add a warn-only mode to DMABUF_DEBUG
+Message-ID: <20261009142438.GD13920@nvidia.com>
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <20261005064133.7305-3-kmehltretter@gmail.com>
+ <DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com>
+ <20261009125338.GB13920@nvidia.com>
+ <50f74418-a1b9-4d93-a9a9-02bb7cbf4544@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <50f74418-a1b9-4d93-a9a9-02bb7cbf4544@amd.com>
+X-ClientProxiedBy: YT4P288CA0037.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d3::19) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DSVPR12MB213845:EE_
+X-MS-Office365-Filtering-Correlation-Id: 92498108-6d14-45eb-599b-08df26110dba
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|366016|6133799003|18002099003|10067099003|22082099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	7Iv0CdW8UdCsEks1EdJ9Q0DOvGyPR6DGoh9hzmBi/MigqAuTVv6GKq9rGmxNH5AHegBLeoYULHKtgnCmUT4wbA88BY3HZ3Z5+1zBaANCefLBcuhErXN4AuJ6pSY1OpBER5VD7cSPTH2RZjnz5kaEKBHhqspJmcn7DAVUODH59ffWNk8INrbbFWQMeWjGJJfHCWL8slGFgh+kyLIMLkvl83L08p03amhewjF4VyCu/0x6eRNvgx8qYzWwYbeRJJtrArz0eqpSgfRrAGWc/XUeO1OoMkAcel6XI817dYjdqtq0q0j5gvHkxhXUa16Be+IPIHisomhUJTKQGNLMblGUmA5blLORqkjVoyq1kAg+86vTr1bn6Z4fVFwYJGlIJykjRnN83gvyUckuKOHgnYypugrkHD25wHonxu9KGJBWkupXwGHa4KBW3BeERsyJMfvsL64M4YwZfJiz/BfyxzyeBhjNZQwJP/0dvHppms1GbGjGBxhw4lxdBJe/BCe4F1mIL3KOAK90QnoHgM6Ck0oXJjpivaSkwRDgNrw7KyIPubyCH9HOgu+6KOGb6auJ4ZT+9yI4WEFqWe0CNfPv8YU4Gj3IQSV26TGI/f83dQhxgKw50CZTIcp2aXXq3AY72EZWa5Y3gtkWeyOj7LmHwGOvMboUF0FzGMtMy/gaJzt1mbU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(366016)(6133799003)(18002099003)(10067099003)(22082099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RWcwazlHRm0rQUIwZ3dDK2VKcnlDUFdCMEVZaUVYMDNLc09Xb0xtMmQrbC9r?=
+ =?utf-8?B?L1hybm1hNStIMlpRZTVSdHJWSzRkWEl2RjNnYmhWbm04aElNbTZmcUxlZUhN?=
+ =?utf-8?B?Q203R2Z1eEQwa0tEZnhmRFVPRkZ4V2ZlSXJrQUo1c2xZNGVhZEswVmxrbS9t?=
+ =?utf-8?B?L1A0eUNnb29NYTdsVXVqMVpFa1lhbnNXcEtISkJManpDVVlRdCt5V0xvNU1H?=
+ =?utf-8?B?dk9qdmZ3RW1EY0NWY0tKNCsxcTdkTGN4bFVmdUFJREtMajZLK0pRZlo0ZVN5?=
+ =?utf-8?B?VkUyamVPZExEbjZFZmZqSmp0cTBmRmU3Yk5wN2RxN29tRXJkRnYzNVdRV282?=
+ =?utf-8?B?ejJNWUVpQlM1c2hDSksxeDl4Y1pZT2MwUVB5ak1VcU1hNXBDTzI0VldVUEZJ?=
+ =?utf-8?B?WkhQNXdHMkNZZzlNNjZPcWU5Y0pVY3pNUlZkUTFDaDVQUW9HOHNLZURvTWNP?=
+ =?utf-8?B?WTFnYmlhKy82eTF0a2YrRHJ6eGJqSTh4b0NFbmRKYUoybkFLT3dGemVZVjFX?=
+ =?utf-8?B?YnU0ZzhGZCtxNk1sZ2IxRVVDY1BVZEM2NTFoUlYyL285VVY5d0t6Tnk5NXFt?=
+ =?utf-8?B?VHRBalUxbzF2ZVl5dUtQRzBYTG5XZDJoRVNQaFFlWHJpVFZod0dUSW80bytX?=
+ =?utf-8?B?bkVaNG9DWWFSSjNKSFNSeUIvUlh2MFd2aUtFaHBsM05xamkrSENwQmRXdWMw?=
+ =?utf-8?B?ZVRKL2t5WlZ5emtFMjduL3UrQ1R5QjRxZU5xZkxIRWlBSlBvdVFtanRKenNo?=
+ =?utf-8?B?b1o2bkh6UExRY2g2ejB4SCtXR2F1V2pBMEFRQ2RCcE1JRE1KbU95anpoMmZB?=
+ =?utf-8?B?VG1HNXZFR2hhZGNIb2FiTGk0Tm8xanFNS0hRUHBkTkdOY0JNVzhqTzJoRnRx?=
+ =?utf-8?B?RksyOUNiYlFIbkVJS0k4Nk0vWmRCNHE2a1JXSzBybnJkS2FpL21ycXUrR01l?=
+ =?utf-8?B?cHFlSVdwenYrMm5LdTdYRlE5TDB3SjJ6UDhGNWFKTGJWbGo0alVyTzlWRDJO?=
+ =?utf-8?B?OVBzSmFqZmNwbXRvbDd2cXgyRktzSkVjYTA4QUJuY3BxMlJPN25CL3lhSWZM?=
+ =?utf-8?B?YXJYQWhERmtTU1p6WHoyWklaVm5vd1JLYVV3bjJORDlqRHRMZUFodXhDTHJ2?=
+ =?utf-8?B?Qy90eEI0c1B6SFpPc29EMXVZdUhzNTVFL2wwd1ZWbWloQ2Z5eEh5K0hiVGZt?=
+ =?utf-8?B?bnBwT2FFY21rYmtnNmlUcjJndWNlVjNhVlFURnJDd1JzY21TVlVRcndZV3lN?=
+ =?utf-8?B?dkpuMDJLeURsWEZiVzg3QjZWaUpoQmRqVHpoVTRXbk96U1NHLzIzbG54SkFH?=
+ =?utf-8?B?TnliaVhMcm1ORlFJbTZ3UXZLK3BDYzBPVXd6MCtIZ0pYdHplbzJpU0pIWjNZ?=
+ =?utf-8?B?V245UVY2Y2ZyZVdoRVFpV05YekZ5Y0ZWbVN2ajFMZmx0QkJ5d001MS9YRlly?=
+ =?utf-8?B?T1lpUzZvaU0wQzR2MmNiYm40NGdhZUVYWFlRV0FUS0YzNGZBZzBORXRSZHhu?=
+ =?utf-8?B?VzRtVWJrNG9LVEthQlFma3AzQU0vdnhHNWNqM0haTDQ0VXBUWVpTbTcrNVdp?=
+ =?utf-8?B?Y0ZDT0xQeXh0UUp1bU45QVExRExFRVFNZTRNSXhtc1k3U0daMkI5MWZGckwz?=
+ =?utf-8?B?dTdLVjc3ejlNVHlmQjFhaldGWDhKajJoUW9ORDVNRERmVDVyVU03elVycld4?=
+ =?utf-8?B?ZC8zKy85K1dKbnZUTmRQdkR2MkhSQXBiRTZKeHRLRVFoMGdQcS9TcW1xR0JP?=
+ =?utf-8?B?Z0VpMXpUM0NoQ2I2eHU3TTZTckZMY0hNVXZieUtyZWVNSkYvMFNPbTFjMUVj?=
+ =?utf-8?B?Mk5qelM2bEw5MTA0WXNaNlZjbEZ2bUVtbG9QZkI5UmxqWW5rTEJtSVZMM0lh?=
+ =?utf-8?B?M0tRVk5ETkNnU2ttRWljc2ZSckJJZmpLcmhnK3NnQThFSk5wY1hpa3VQOXU0?=
+ =?utf-8?B?Mmp4eVhRL1RIK1Q4Ny80TE1HL0hTV0hkOTVHRW5DeHNUeU9CVlRZSWxqZU84?=
+ =?utf-8?B?MDRUK0Q2VStKQTNkMGpZNzhkZmxJV203alVjaFNOVkRoR0F2bmZZRFJFR3Ux?=
+ =?utf-8?B?YlRyMDFLK2Z0YjhORnhOYWRMM0R6cVBzb2pkaWNTSEVrQ1VvT2hzMHhNTUVH?=
+ =?utf-8?B?WmN6WFBCUGZRK2p0bW00UEVkT0U3eHBLL0c2MGRxMXRNK3l6NVdnTWJXalI1?=
+ =?utf-8?B?YTBFVGo3cXdhdHVXMEtEMytrbkRvUDFZazZ4VTRqNXkvTTRFVUF5alpVcjFu?=
+ =?utf-8?B?UHhwU0pnSWRzV25WclZHTENuR1JtbHBnRlEwQWptYUcyM2lWKzVCT0VLQjdF?=
+ =?utf-8?Q?6w+Eu/PavwkaiACuRX?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 92498108-6d14-45eb-599b-08df26110dba
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 14:24:39.7890
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 53k9rrDwLdhE3WhxBI/3bK3qmhf/mfDfa6DMj3OMJ6rxWZ+BcUJgb3/+ebbiDegx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB213845
 
-dtv_property_process_get() switches on 'tvp->cmd' and, in each case,
-writes a different member of the union 'u' in struct dtv_property.
-'u.data' carries the scalar commands, while u.st carries the
-'DTV_STAT_*' commands, and u.buffer only DTV_ENUM_DELSYS.
+On Fri, Oct 09, 2026 at 03:21:47PM +0200, Christian König wrote:
 
-After the switch, a single shared dev_dbg() reads 'u.buffer.len'
-and 'u.buffer.data' via %*ph, regardless of which member the case
-wrote.
+> >> [ 1268.968710] CPU: 6 UID: 1000 PID: 29025 Comm: sway Not tainted 7.3-rc6+unreleased-arm64-cknow #1 PREEMPTLAZY  Debian 7.3~rc6-3
+> >> [ 1268.968715] Hardware name: FriendlyElec NanoPC-T6 Plus (DT)
+> >> [ 1268.968717] Call trace:
+> >> [ 1268.968719]  show_stack+0x20/0x38 (C)
+> >> [ 1268.968726]  dump_stack_lvl+0x60/0x80
+> >> [ 1268.968730]  sg_dmabuf_cpu_access_warn.part.0+0x24/0x30
+> >> [ 1268.968734]  sg_dmabuf_cpu_access_warn+0x34/0x38
+> >> [ 1268.968739]  iommu_map_sg+0xc8/0x1e0
+> >> [ 1268.968745]  rockchip_gem_iommu_map+0x8c/0x128 [rockchipdrm]
+> >> [ 1268.968757]  rockchip_gem_prime_import_sg_table+0x58/0x160 [rockchipdrm]
+> >> [ 1268.968761]  drm_gem_prime_import_dev+0xa8/0x1d0 [drm]
+> >> [ 1268.968776]  drm_gem_prime_fd_to_handle+0x1a4/0x280 [drm]
+> > 
+> > So.. This is the exact same thing I need for iommufd.
+> > 
+> > rockchip is managing its own iommu domain and you cannot map to an
+> > iommu domain without using a physical address.
+> > 
+> > Of course it is *completely* illegal to call iommu_map_sgtable() in the
+> > importer side of a dmabuf.
+> 
+> Yeah we are deprecating this for the last ~5 years now. This bubbled
+> up because I change to DMA-buf debug code to be enabled by default
+> on DEBUG_KERNEL.
+> 
+> Rob is now working on a solution right now for MSM which should be
+> used for rockchip as well.
 
-struct 'dtv_property' is 76 bytes and union 'u' begins at offset 16:
+So is Rob's plan is to remove the iommu_domains, somehow? Lately we've
+been NAK'ing alot of the DT hacking that people have been doing in
+other devices along those lines, so I wonder what that will look like.
 
-    u.data      : 4 bytes at 16
-    u.st        : 37 bytes at 16
-    u.buffer    : 56 bytes at 16 ('data[32]' at 16-47, 'len' at 48-51)
+It is probably easier to just fix things so the importer can get
+things into an iommu_domain..
 
-For commands that only write 'u.data', 'u.buffer.len' is never set by
-the kernel and keeps whatever userspace supplied to FE_GET_PROPERTY,
-because dvb_get_property() copies the array in with
-memdup_array_user() and does not clear the union. A large value (the
-reproducer uses 1163001896) makes vsprintf() emit "field width ...
-out of range" and hex_string() clamp the length to 64 bytes. The
-read starts at 'u.buffer.data', offset 16, so 64 bytes reach offset 80
-and KASAN reports a slab-out-of-bounds read past the 76-byte object.
-
-The DTV_STAT_* cases hit the same shared print. 'u.buffer.len' overlaps
-'u.st.stat[3].uvalue', so the debug output is meaningless even when the
-read stays in bounds. The same applies to the clamp added by
-60f0618d157b, which writes to 'u.buffer.len' and therefore into the
-just-written stats payload.
-
-Fix by storing the point of writing which union member each case
-populated, and by branching the final dev_dbg() on that stored point.
-Add a local enum 'dtv_get_shape' with values 'SHAPE_DATA', 'SHAPE_ST'
-and 'SHAPE_BUFFER', initialised to 'SHAPE_DATA' and set in the
-'DTV_ENUM_DELSYS' and 'DTV_STAT_*' cases. The final print then reads only
-the member the case actually wrote, and every branch stays inside the
-76-byte object. The clamp and the now-unused 'len' variable are removed.
-
-Fixes: 60f0618d157b ("media: dvb-core: frontend: make GET/SET safer")
-Suggested-by: Slawomir Stepien <sst@poczta.fm>
-Reported-by: syzbot+6102f1c3a0ea8073fd64@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6102f1c3a0ea8073fd64
-Link: https://lore.kernel.org/all/2a5ea27d-445e-4ffe-9447-9d7bfccd4a36@mail.kernel.org/
-Signed-off-by: Mirza Ishan Beg <seedandsyntax@gmail.com>
----
- drivers/media/dvb-core/dvb_frontend.c | 73 ++++++++++++++-------------
- 1 file changed, 38 insertions(+), 35 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index 0286da57f..f4b599a1a 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -1342,13 +1342,19 @@ static int dtv_get_frontend(struct dvb_frontend *fe,
- static int dvb_frontend_handle_ioctl(struct file *file,
- 				     unsigned int cmd, void *parg);
- 
-+enum dtv_get_shape {
-+	SHAPE_DATA,
-+	SHAPE_ST,
-+	SHAPE_BUFFER,
-+};
-+
- static int dtv_property_process_get(struct dvb_frontend *fe,
- 				    const struct dtv_frontend_properties *c,
- 				    struct dtv_property *tvp,
- 				    struct file *file)
- {
-+	enum dtv_get_shape shape = SHAPE_DATA;
- 	int ncaps;
--	unsigned int len = 1;
- 
- 	switch (tvp->cmd) {
- 	case DTV_ENUM_DELSYS:
-@@ -1358,7 +1364,7 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
- 			ncaps++;
- 		}
- 		tvp->u.buffer.len = ncaps;
--		len = ncaps;
-+		shape = SHAPE_BUFFER;
- 		break;
- 	case DTV_FREQUENCY:
- 		tvp->u.data = c->frequency;
-@@ -1536,51 +1542,35 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
- 	/* Fill quality measures */
- 	case DTV_STAT_SIGNAL_STRENGTH:
- 		tvp->u.st = c->strength;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	case DTV_STAT_CNR:
- 		tvp->u.st = c->cnr;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	case DTV_STAT_PRE_ERROR_BIT_COUNT:
- 		tvp->u.st = c->pre_bit_error;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	case DTV_STAT_PRE_TOTAL_BIT_COUNT:
- 		tvp->u.st = c->pre_bit_count;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	case DTV_STAT_POST_ERROR_BIT_COUNT:
- 		tvp->u.st = c->post_bit_error;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	case DTV_STAT_POST_TOTAL_BIT_COUNT:
- 		tvp->u.st = c->post_bit_count;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	case DTV_STAT_ERROR_BLOCK_COUNT:
- 		tvp->u.st = c->block_error;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	case DTV_STAT_TOTAL_BLOCK_COUNT:
- 		tvp->u.st = c->block_count;
--		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
--			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
--		len = tvp->u.buffer.len;
-+		shape = SHAPE_ST;
- 		break;
- 	default:
- 		dev_dbg(fe->dvb->device,
-@@ -1588,15 +1578,28 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
- 			__func__, tvp->cmd);
- 		return -EINVAL;
- 	}
--
--	if (len < 1)
--		len = 1;
--
--	dev_dbg(fe->dvb->device,
--		"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
--		__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
--		tvp->u.buffer.len, tvp->u.buffer.len, tvp->u.buffer.data);
--
-+	switch (shape) {
-+	case SHAPE_BUFFER:
-+		dev_dbg(fe->dvb->device,
-+			"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
-+			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
-+			tvp->u.buffer.len, tvp->u.buffer.len,
-+			tvp->u.buffer.data);
-+		break;
-+	case SHAPE_ST:
-+		dev_dbg(fe->dvb->device,
-+			"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
-+			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
-+			tvp->u.st.len, (int)sizeof(tvp->u.st),
-+			&tvp->u.st);
-+		break;
-+	case SHAPE_DATA:
-+		dev_dbg(fe->dvb->device,
-+			"%s: GET cmd 0x%08x (%s) = 0x%08x\n",
-+			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
-+			tvp->u.data);
-+		break;
-+	}
- 	return 0;
- }
- 
--- 
-2.56.0
-
+Jason
