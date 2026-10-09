@@ -1,169 +1,218 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011026.outbound.protection.outlook.com [40.93.194.26])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C830B503916;
-	Fri,  9 Oct 2026 18:37:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571030; cv=fail; b=X1waEHQSt+Pp8Mc2GzmMzDEpptMlQQAAEryXEAcP1fuhDrq4SQLII4zaRXz3amWopn/LOgROmbVrtWpHEOQHMJzyBFm6n7liNsNAmSpZVqu76FJodB2vzxd/lU+8lhZp2iR0yNLGuOHjIYcOmjbblCfeF+uInNXIT0Tb7VCvyFU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571030; c=relaxed/simple;
-	bh=Fq6JF1lWlhKnGXCpsu5PMV8+HXW1WNOhzcrWx6fLyRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=PxnKTuX0RFnyePXzjo2hfeUc2V2DcE+Pm2Jgh4gjNvC7OW5y+APN679aElotR4vUWmDTRK2LFKEELrEPIsa10D2DirTePE16vwCp1v5HQyq8NyA2MlVs+KHy6fgfuOEGy7xLlzZ3FVnH75kO96C13ZUf6DhHuMv96bg1y01EyQo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=n+o+S6Ar; arc=fail smtp.client-ip=40.93.194.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32893370ADF;
+	Fri,  9 Oct 2026 19:14:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791573263; cv=none; b=euyecMQJ+GEg+WAFqC7HOQ46N8uPDbr9ql6ZGm0uhHWEogGO0upI7s973a09I8/12r8V6gobN2psR/+qFjhzeucyeP6bmzbuYC1zdNeUd4q/HOMuEXIeQDX/A+5Ea6rg33TiNuPYsVC+SBU5LtT+B1Mg3shOCVtZeZ7Hy5n8Y/s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791573263; c=relaxed/simple;
+	bh=PaJ+bjf5cXPQt8v2NED6VlP2B10dezo8OtC8JhgSl8g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WGPiGuS+nk6Bblze+poLnSgi/zSvBLpvG6uC3UiEVfdmPfeJBBr9FS1HZ1G6P+NMM2CJNCn3BDfh2Y4dmJHJtdNDmFE7ES+7z+eWyyGERhr+OnXBT+EQJabXKmLNfFbmxphKIWU+2NqSDofFObuAkAvYQiUiz84RMWk+14u0N78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ummxtshc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="n+o+S6Ar"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TafDH/81RbSKx0kxoeDzQIh3oc3HnIhhz5nZTYM+IG26WWwvqktx+ENDIDdj6F0QSBezNuN4Q5LvJESSe3VUXZ9Xq7qHmBvCSPelaZQatcFZtybU+Rrup/UEtH3+LvOPjrOquWwhjWUTf4UaBRGEyPLO1NfEw0LSf+A8vawXEmflyrFQ0iSPL9dRyaKUt3VvNHZHY50L77CDKJoRVNUuXn0H7zCK2rso6EakJ9i9hy0E8B+uL2lQDZUsm09/s2OZ+yczeApZPk53HeTmPY4ANf06H/rWP9xo3ANbV+bD7a7c3n6X8c6ysH1l20dCQ/YAMgmCnLP6bGhI8CQ2l0vzAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HfNKJ8sCBjWvornIx0UlgvyXvNY6iQltqHxScjoCUZ8=;
- b=vfshPYhn7goXh4pYVEDhsILqc0pYQ5T7KP8o8eCRKCakQ4zXoZ/bceVVW2xTyHP111mMIMcJxDmbIR+Shai1DMD8P+me+ZK5DsSdQwQqxCDjeBUJGSeZcN+37Ka9ci1jHe6Oc1feHUe8Of0NJ82WOEB9sT7Y7RZY5kJyufcORN8zVrvZ2y0REBWAh3+7jscpzOilCKJKGjUSXbpI5VMxk2vThwLqku9RpeT/G8ACDv/n4n93sgDVrm0QmdtCGSqI8nMW02Gsc7CLLQdS/0bg6m3hcJfKAEFIysW/CiKSvM3VnmtbuLRxTZZ3xYyEaSVAQersfPqCkGYwsfIrGGyWnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HfNKJ8sCBjWvornIx0UlgvyXvNY6iQltqHxScjoCUZ8=;
- b=n+o+S6ArDZZiVnfICsy4CDXvMFt/Eu2VclsUSk5IlXbntBzz+ypxgIvH3gwJspRRPEM6MLIFT8ISMFEAoPB0upzstXRH3vKL2YKhmjVFaMnaB1wXXjyXkcZkWVCpApeqm9VN6qwl4dBzRA2kA0yiEQHl4Auh7BUNvtGLZxQd5/cwRG4k6GLsJFhfXVSuXeFDBQy+ato3DapWX7/bZETR9o72YwqbVjF+37H4ZMJFpxXVcjEz8H1D6tz/upTJUuwvdEkq4vyRZgf693nF+JidQ54+/2ql4ye2hIkyPpyZgTx+VXxvxntESVn49h/ja86BQluITvoD/qPjiBTjXyVWKg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by BL3PR12MB6570.namprd12.prod.outlook.com
- (2603:10b6:208:38d::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Fri, 9 Oct
- 2026 18:36:56 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0496.015; Fri, 9 Oct 2026
- 18:36:56 +0000
-Date: Fri, 9 Oct 2026 15:36:52 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T . J . Mercier" <tjmercier@google.com>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Russell King <linux@armlinux.org.uk>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] dma-buf: heaps: cma: respect the device's maximum
- segment size
-Message-ID: <20261009183652.GF13920@nvidia.com>
-References: <20261005064640.7776-1-kmehltretter@gmail.com>
- <20261005064640.7776-4-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005064640.7776-4-kmehltretter@gmail.com>
-X-ClientProxiedBy: BL1P221CA0044.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:5b5::16) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ummxtshc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAB661F000FF;
+	Fri,  9 Oct 2026 19:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791573261;
+	bh=rzSDMH69NxsZdNIquyU3ZY3vMVEbvlrwHE+qRvxpOMc=;
+	h=From:To:Cc:Subject:Date;
+	b=UmmxtshcNAxTTdjud/u87Thw45aFVt8fpAK0hwEZ1RWKWibNrh1UzZNfRUtGTR8FP
+	 IyoKunbuqT9ESuGgFGt3JlNuOHsqyn4oOuIoVe3xsB+MDIFkrcMGKdZzr0zyLf9wfg
+	 YXhluaHTz1db4D3+Xg4fvN3pe8oUh/VDxkv4/6T6pDX6rmh2TE9u2rkmOrENW+RBg7
+	 eoLpHTrkg3r6XnneSBCZh1DPezUS2s4o/Usn2484+8s42s92n6JCYC3p97OuU4s6Vi
+	 j/Xp/bvYmJvajOYXIsII86i+/vC8Pxs9bq1PmMyW47jJMU1au3YE5rbAueqJRuHa+b
+	 DJLOWDb2i+2xg==
+From: Philipp Stanner <phasta@kernel.org>
+To: Danilo Krummrich <dakr@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	John.harrison@igalia.com,
+	da.gomez@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	rust-for-linux@vger.kernel.org
+Subject: [RFC PATCH v5 0/6] rust: Add drm::JobQueue
+Date: Fri,  9 Oct 2026 21:11:18 +0200
+Message-ID: <20261009191124.1022902-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|BL3PR12MB6570:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5cc10797-a497-4777-162f-08df26344a33
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|5023799004|11063799006|56012099006|4143699003|10067099003|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	yRBdblmxRwMTzs419OuG6x9SM5C2AcgCXhGYuiHwAi5p8zasio68D24iB3+eFvVmXqPZ2Cv5qZwTPmVM1SpyodarM8I254SFKQdV40WsZJbkQi80jPjgTCrxyi6+xQYxhm2c5VPKaCe2X7/n4dZxK+IqbWna58LWRFzIYNwavELH8A9MQDJ/j4TYypXdw7Xcl0HVMhOzcmgrq2YeAP5QyWfVDrFuGndlZLdB/0Fq1veD5zQWVikeG4LDSfZJvrbwUK8eJ4x0+ZRqfovXqoHTtBHt5SDjlXW3KZAjuaOvDtgph+dl25MuwPeSSux1Huqgf/nVSh7InqDgdFBOjP3E/NeY9XlSOokd4pdy0R7EAR0rSZAY/MUsnmR/Z6iqHCCxzk5z9hThC9hVpF7xHz+Z+/C2Ye1B8yWvvy8urI5TJcVUggol2TO9vheddQ+kdz0GeQJgGZ3lDO5qWGgX7PL0v7VjrWqcSH0etI3OGkKTKWN2FQKkh0dC8aEOzMAAiBjodrNb8pTksNHoxVEgK+JzgRtyWlv08hD5Wbxdb0xk781n2DGGCs+1I7BOTCNTclr2x0YhdYCSmGCemRWR36kbgm65RQ3eFV8KrRGrUu4t4YfRS5rFXDIFvKTiI5WJNcm9hJflIEWXWFv7qiTPmaSiEa/ygtZNI8KRatPkoFzMKj8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(5023799004)(11063799006)(56012099006)(4143699003)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?wbTnF8lJzRoHFaHLiVY4TF3wxq+QJbonCEATORAvcRJ3c1YnrUXV0jwzCfJA?=
- =?us-ascii?Q?mba2cBtYfOhh1vpVDdLkxnf8ZeBg6Aun5pduOG4p+gfoXJfnkUwpQzWPIDnz?=
- =?us-ascii?Q?VtPLwyUx71UT5JWX4zVgB3GhfFuGgd+5f3A4wm3Y7d6zHHl7uQ4EqvD1Z+DL?=
- =?us-ascii?Q?WW3gcmRrYgwo9lA+aCbHwvYqymfXmFYRAkJroY1hdlfJhNUY2/9Ss0Jh4hGc?=
- =?us-ascii?Q?A4wWdRIeouXQo9+nHIdl+N9ODwB3FRk9BnOcXdEYGoFdhJG1b9qZZk+Waw+o?=
- =?us-ascii?Q?sdUXEchoVphnNBAnlSGxAfLxAKEfzmKSK1QDQgKiBZS54J7rw1Q3+tzlCz/2?=
- =?us-ascii?Q?MaDZan8wtBJa9TLNXpqbk1Z9AXbHGU7lRlIhBlGK7ZAx3oIvIMTyR/epZBBu?=
- =?us-ascii?Q?4ZqmYxZsC2qi8LfT4UFhIDXl6uKQkpSI9KngQWSJjGtMD4z8rThD0w1Fa3tC?=
- =?us-ascii?Q?1WI3EVDZ8cCLmYUeB09c1IaPR7kd+gYBzumdSR3Yyqju2nFT2qNIZ5KpZs9j?=
- =?us-ascii?Q?gs73YUJKV0snkSALx0uds2EwvjGxXeIMFzVNUoGcXMA6RABP4O7PK2Hlm9kk?=
- =?us-ascii?Q?hDrTYbRwDW0mIUiKUIadt6m8vZYENXaaYZAyqvo8EqY88sLWCx3F8OBGFR+f?=
- =?us-ascii?Q?kVqEDI9cqd9f7HkiW26NKks1N4BEqyswwTm5NNTTpJJyYi6hY2kveqmwT0FX?=
- =?us-ascii?Q?Jlm0EUyKWloklrNtN+sc6AVDSWwx7NuSiC3RMNMZjtY2sLntliFBp/bjImbR?=
- =?us-ascii?Q?NYEMrYGm/KXr/WRHYoiDXLIXeSWCzH6nlJTz/vZcAIGkeNaP26/80zv1kKQ2?=
- =?us-ascii?Q?D7H73plez9dzipPvX7KfiTq4k9maaunPh+kl2I6QlgVnSaMTQEIXfyIvMQKF?=
- =?us-ascii?Q?Z/ENK8ZYvk+dc/iw+4WFmfUVLrvTbHzdIqJp+ugQ4UJzZT98UiNqMMNPCRJb?=
- =?us-ascii?Q?MsN5F3OmYbkZX1eqD1gI2u44PfLCWhLj1vlBlG7MtyCR6Nx+FiTggyiBdp+Y?=
- =?us-ascii?Q?xZz6oFzd6q0fQ/6haeaSU7iSelKp7L41c+0ayWg10SAnKyZOJSrgMTXu5UAD?=
- =?us-ascii?Q?XLlMIQDaJYf3TMrdTqbzWkZ9tjrlcL+r7RRr73p5LDgaqL44g+AxSlGUaic0?=
- =?us-ascii?Q?DnZNaBb423bkwF49eG76/pXNAwAbphFPTDTu+Gsi7C8wStcQZInTouoZcctX?=
- =?us-ascii?Q?iMd6d011R/MY0namoyWp5rtReuEbY4PvihWrC24x/mkCm6j7yqs0KcFXWQNZ?=
- =?us-ascii?Q?eQp1bRijo4uP53EoQdiJw5/L7FZtrtXacV1AUUaLxSZ1LXZZq7aN750iVntA?=
- =?us-ascii?Q?Jf9FQjHEu6tt7pyne4WusPOyvd5w1fxzXdfLsH6lwuhICejMGgRE9A54DHGM?=
- =?us-ascii?Q?WIz5GhAY5xTQLDB/uN2i4octyZEcYTcB36CDdD20YiM39F0zHvPSZLzZ5d2Y?=
- =?us-ascii?Q?RoGaDtIe9XFcDXUesjmGqUXHmAeGA/LgBXCtHjua7FiyuXYJMv4t3NJ1YUoX?=
- =?us-ascii?Q?gvfFNICfYr9jE1daJ0hluLByDOu90Eu6kAj7Dvb9ZQhidZRF2hDiKASBQe+f?=
- =?us-ascii?Q?M7Y5GjSNN0KHiT3/00r3Wezkyj+Et0wnlE6+wkknkbLEJg1ZXwbwotW7wSrt?=
- =?us-ascii?Q?NUsaXj0jibM+g3IT9YyYoDe5ocrdbS/t8lH5LnpqC/wBa5+atTxUR/Li/s6n?=
- =?us-ascii?Q?Hp3EKtAH26HPjHiKW0Qei6Vg47PmAwf/3DAOQaErCzhGMfkv?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5cc10797-a497-4777-162f-08df26344a33
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 18:36:53.5968
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C+8690C9lSRZND+obH/PuHqyy4BL3DWR5QkLU+QDGb39FQFy4eC78qKDApdTx3eI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6570
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 05, 2026 at 08:46:40AM +0200, Karl Mehltretter wrote:
-> diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
-> index 3fb4b946c91a..9d61d14688b8 100644
-> --- a/drivers/dma-buf/heaps/cma_heap.c
-> +++ b/drivers/dma-buf/heaps/cma_heap.c
-> @@ -58,16 +58,22 @@ static int cma_heap_attach(struct dma_buf *dmabuf,
->  {
->  	struct cma_heap_buffer *buffer = dmabuf->priv;
->  	struct dma_heap_attachment *a;
-> +	unsigned int max_segment;
->  	int ret;
->  
-> +	max_segment = dma_get_max_seg_size(attachment->dev);
-> +	/* The SG allocator requires a segment limit of at least PAGE_SIZE. */
-> +	if (max_segment < PAGE_SIZE)
-> +		return -EINVAL;
+Changes in v5:
+  - Add back the Revocable<JobQueueInner…> from my earliest RFCs. Reason
+    is still the same: JQ dropping while dependency fences signal could
+    deadlock. Similarly, this solves a dependency kicking of the work
+    item again while drop() is running.
+  - Do not call run_job() with a lock held, since run_job() might sleep.
+    AFAICS, this also makes the proposed XArray solution impossible and
+    demands that we use a list.
+  - Re-add the earlier credit-count-system, so that run_job() is
+    infallible. Simplifies the design quite a bit. (Danilo)
+  - Drop jobs in a deferred manner through the work item so that job
+    payload data can do atomic-hostile stuff.
+  - Because of the point above, I suggest that we stop dropping a
+    DriverFence on signal (Danilo's and my idea). It has no real
+    advantage, and getting rid of it allows for better controlling what
+    drops when through JobQueue. For fence it's only relevant that there
+    is an RCU grace period, thus:
+  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
+    would, therefore, demand that everyone who's got a problem with the
+    delay drops via work item.
 
-This seems like unnecessary AI paranoia.. If something like this
-should exist it should be inside sg_alloc_table_from_pages_segment().
+This can still not be tested as I'm blocked by pin-init vs self-ref.
+Just FYI.
 
-I guess pretty much every DRM user has this latent issue? Given few
-importers even seem to use the segment size, it would be nicer to
-solve it by just not using segment size here.
+I would appreciate confirmation of these following thoughts on locking
+design:
 
-This is possible with the new dma api, and adding a new
-dma_buf_pages_to_sgt() using that approach looked OK from an AI draft.
+1.
+I believe that callers of jq.new_job() and jq.submit_job() do not need
+an outer serialization mutex. Reason is that JQ serializes with its
+internal lock. Sequence numbers cannot take over older seqnos because it
+is submit_job() who sets the seqno.
 
-However, the dma_sync_sgtable_for_device() in the heap doesn't seem to
-have a straightforward conversion.. We never made streaming functions
-for the new dma api, and drivers are not permitted to call the cache
-flushing functions by themselves.
+2.
+I, furthermore, believe that a driver will not need to hold a
+driver-lock while calling jq.complete_jobs_up_to_seqno().
 
-Something to think about at least.
+IOW, I am suggesting that a driver can always safely use JQ without an
+outer lock, and actually *should* do so to avoid potential locking
+issues.
 
-Jason
+Reason:
+
+let driver_stuff = foo.lock();
+let current_gpu_seqno = driver_stuff.get_seqno();
+drop(driver_stuff);
+jq.complete_jobs_up_to_seqno(current_gpu_seqno);
+
+Thus, I believe that it is OK for me to take the JQ lock in
+jq.complete_jobs_up_to_seqno().
+
+Please correct me if I'm missing something.
+
+Should I be wrong and a lock inversion could occur, then we could
+hypothetically add a fence Signaler object, with which we could signal
+fences with a different lock. Similar to how drm_sched does it with the
+hardware_fence.
+
+
+Regards
+P.
+
+
+====
+
+Cover letter from v4:
+
+As the commit messages and code comments detail, progressing JobQueue is
+currently somewhat blocked because of an issue with self-referential
+PinInit, which Gary generously offered to investigate.
+
+This code compiles, but the example does not because of the
+aformentioned issue. Nevertheless, I wanted to provide another RFC here
+so that we can move our discussions forward in the meantime, especially
+since very much about JobQueue has changed.
+
+Our, now upstreamed, DmaFence abstractions informed some of the notable
+changes in JobQueue. Most notably, JobQueue now owns the FenceContext,
+Jobs are created on the queue and own the DriverFence. Jobs, again, are
+owned by the JobQueue. We hope to enforce correct behavior that way,
+having FenceContext, JobQueue and firmware ring all correspond with each
+other 1:1:1.
+
+I suspect that a potential deadlock on JQ drop still exists. I
+previously solved that with Revocable, which I tend to think will also
+be the way to go here.
+
+(One very great news btw is that we almost magically solved a number of
+issues with the new DmaFence design – in combination with this JobQueue
+design, for the first time it would be possible to fully support the
+dma_fence backend_ops. The driver-unload-problem previously had most
+users use intermediate fences, like the drm_sched_fence, which means
+that callbacks, e.g. from userspace, could not be passed through to the
+driver. Now, with FenceContextOps <-> JobQueueOps, we can theoretically
+support all of them)
+
+The differences between this draft and Daniel / Tyr's prototype which
+probably are most noteworthy are the different lock design
+("Philipp"-JobQueue has one big lock, wheres Tyr-JobQueue has 2, 3 if
+you count the XArray lock) and the used data structure.
+
+The presented solution uses lists over XArray because:
+  1. XArray is semantically more complex and has an additional lock.
+  2. An Xarray-as-ringbuffer needs own algorithms for index tracking,
+     wrapp around etc. With list you enqueue into a waiting list, and
+     for running you move into the running_list.
+  3. The memory reservations we need for pre-allocating everything for
+     our job-submission path are solved in one go with list, because a
+     job simply contains a list head.
+  4. Most notably, it is unclear how XArray behaves for ever-increasing
+     indices with a sliding window, whereas the list semantic is well
+     understood and deterministic.
+
+I obviously don't claim to own all the wisdom in that regard; it's just
+that I still propose this solution because these arguments make me
+believe that it is the right one.
+
+Since all the list handling is done with iterators, there is currently
+no unsafe needed.
+
+
+I hope we can discuss many things here before we, hopefully soon, can
+address the lifetime issue and move to a v1.
+
+
+This is based on drm-rust-next (10a6623a24a8), plus Danilo's ScopedWork
+[1] and my patches [2][3] regarding 'static and lock errors.
+
+Regards,
+Philipp
+
+[1] https://lore.kernel.org/rust-for-linux/20260807165252.3849875-1-dakr@kernel.org/
+[2] https://lore.kernel.org/rust-for-linux/20260922083631.444614-2-phasta@kernel.org/
+[3] https://lore.kernel.org/rust-for-linux/20260924085523.2620704-2-phasta@kernel.org/
+
+Philipp Stanner (6):
+  rust: DmaFence: remove static lifetime
+  rust: DmaFence: Implement Deref for FenceContext
+  rust: DmaFence: Don't drop on signal
+  rust: DmaFence: [RFC] Add Signaler
+  rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+  rust: drm: Add JobQueue
+
+ rust/kernel/dma_buf/dma_fence.rs | 139 ++++----
+ rust/kernel/drm/job_queue.rs     | 525 +++++++++++++++++++++++++++++++
+ rust/kernel/drm/mod.rs           |   4 +
+ 3 files changed, 606 insertions(+), 62 deletions(-)
+ create mode 100644 rust/kernel/drm/job_queue.rs
+
+-- 
+2.55.0
 
