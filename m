@@ -1,114 +1,175 @@
-Received: from meesny.iki.fi (meesny.iki.fi [195.140.195.201])
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B6404156C6
-	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 10:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=195.140.195.201
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540669; cv=pass; b=McdVrG6KlcTwh/u/lQtlfD7gFZzHKswIt5ttQTadsKQ2R1P7ZTEQWrxYUlA17UndcPuodEn1iVRaKm9nBYaufy54fkEANqQyCjydWvZbgil98cSK54NE4hEPWDgGgZg9KrjLUjwvkdsXD1hMLPpb8qmqCnly5Favc/EVlTVsEPA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540669; c=relaxed/simple;
-	bh=v7iJmty2kXgIegOHVpCdc922Bn4Tmq1n5G/dQmoYvtE=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Vu5bc8GFIoifJretl9kwL0/W3b9Mx0fQLDLf7FOyXOKQFrpFQmcVHudVRG1UtMHSR9V2KWJC+COnaRu1jxBrToUJYJcSVLhLNd51L7ybexIzXL81oNA8gUV2XxMxBPpD6nNvkfKFv4ly+BZzNkFtZUHjqcx7CUiCe9XzBhWPZvg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b=RNGH3E3C; arc=pass smtp.client-ip=195.140.195.201
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E9F49C4CF;
+	Fri,  9 Oct 2026 10:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791541708; cv=none; b=o/17+Tg1DkKrp/OvBtFyK0zyBtNdvx14QBEGrufFYnj0WikRWpgEEhXERHJ7M+KacEfeCH0M2QTRR2VupkotFkI6Lq+vMI6tvfiHWM9I9ED/aoOnS458J+O0XlVlBjD83hzVFnf5EChgWKVTLhQ3rvESZf/JzBTChPaF0v7cinw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791541708; c=relaxed/simple;
+	bh=gCmo322zPZhuZrFVIHE5omiAr9tTS6EMZFdCxsL2IUc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=KbH4InbqAJorhofyClcaR9eUqcLOQfFJQtDdFtU3Jsp0D1NhWIb4TNFpqeCNDGAqdn71v075mnCQBIr4wO5EKTp7stjCRJwBrquzAEQxKvtdQdWZdZn/GSycV6q+Y6awbU8mdoU+YNR9sbt31EChWc5j4nG5Zbk2bXqV0A1/n1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=b4n64V+7; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=iki.fi header.i=@iki.fi header.b="RNGH3E3C"
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by meesny.iki.fi (Postfix) with ESMTPSA id 4j1N0v0ym3zySX;
-	Fri, 09 Oct 2026 13:10:54 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=meesny;
-	t=1791540655;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=ASlQ7P+AaXI9VBArCGLHpF+8NCmTfUz4F5wK1xkxgRA=;
-	b=RNGH3E3ClOWlkHgivSh4CcodLiI+uxCklO8ZS8NGQI2h2Dut2ZW16YXOU06t51ufodCx7U
-	ZMvWsgYhrPo/QYGpDwim8F3wNtRALWXpm+IBSRvoB54iwGCBUYZSSxDH37Q9TfveMNCKB4
-	HTDHsNg4VmM1FZ5aWMPuEp8KfJiW/Kw=
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=meesny; cv=none; t=1791540655;
-	b=RW2Stta8T2ao20UnQmZSRSy30SFBeQaNoIRnPpMMETEy/WzuMTAhPbZORg0EI0i2cEyWX0
-	hnW4OpFiCQs+kFCoXLmZbkgUPeRLLBzkAZrWF8i2wKfV7lPWj4Ta356eROK/C0upIo14vb
-	r67uKosO4NhvvRz/zSdPwLTHeEFwB1o=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=meesny; t=1791540655;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=ASlQ7P+AaXI9VBArCGLHpF+8NCmTfUz4F5wK1xkxgRA=;
-	b=yFpA7veiH2RKzXe3kf5wBFkqbIMDztRiftpEkBi3AY6YWlAOv62heMICUPV8SpM9j989fn
-	90R/oQtZs6uL7evPB32dpeB9AcdPUwdd00fbUR3AIlpSJ+alnaieE4Lh6ZDnnuAn+q1ete
-	FmhpLhfdtskukil8gJfc1tNhA5/3cLo=
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id 81A87634C4E;
-	Fri, 09 Oct 2026 13:10:54 +0300 (EEST)
-Date: Fri, 9 Oct 2026 13:10:54 +0300
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: linux-media@vger.kernel.org
-Cc: hans@jjverkuil.nl
-Subject: [GIT FIXES FOR 7.4] INTERNAL pads, sensor driver fixes
-Message-ID: <asi9rkESsh8EAMbO@valkosipuli.retiisi.eu>
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="b4n64V+7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=b+nkozeMc8Anems3UTAjU2E/aolXRQlogxYreGJDYhc=; b=b4n64V+7PtGcy2uAZ1n6hEA0II
+	6xeQXHF4evgdz22VHUPR0wH55YHFiAGWOJ41eM6V+tT5HK9JKCmG8UJ2Znd9LFwE7E7iGAVpC5yX3
+	k1u+lGMZaa3IV9Z8HQXSUNnkmnnSY9C3ebYpAi6QqvSAv27P+WRFzw5RhJZnuYxMoMOQeHok2apxJ
+	pAQsRw3SitlNCKeJ1+WMC0xkW+buPqu1qlAOrEIc4FeMzQgOhqobvtEEmua5SVZ1L5bLJirUkgACo
+	YVhEoOnpbWxKRnvNJm+F1FPSPm7gugHiYMu65YVxdvBVoroghRtS/roqaA/b3STp4Hhsnn3ALY80k
+	tBV2KJSg==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:58316 helo=localhost.localdomain)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <primoz.fiser@norik.com>)
+	id 1xF7pu-0000000BsVC-1xhD;
+	Fri, 09 Oct 2026 12:28:18 +0200
+From: Primoz Fiser <primoz.fiser@norik.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	upstream@lists.phytec.de
+Subject: [PATCH 2/3] media: mt9v032: Add control for row noise correction
+Date: Fri,  9 Oct 2026 12:28:16 +0200
+Message-Id: <20261009102817.2421388-3-primoz.fiser@norik.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261009102817.2421388-1-primoz.fiser@norik.com>
+References: <20261009102817.2421388-1-primoz.fiser@norik.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
+X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-Hi Hans, Mauro,
+From: Jan Luebbe <jlu@pengutronix.de>
 
-Please pull.
+The sensor's row noise correction algorithm was previously always
+disabled by unconditionally writing 0 to MT9V032_ROW_NOISE_CORR_CONTROL,
+with no way for userspace to enable it.
 
+Add a V4L2_CID_ROW_NOISE_CORRECTION boolean control so userspace can
+toggle the model-specific enable value (MT9V032_ROW_NOISE_CORR_ENABLE /
+MT9V034_ROW_NOISE_CORR_ENABLE) at runtime. Default to disabled to
+preserve existing behaviour.
 
-The following changes since commit f39567cc92272f987c056d8c92f7c93f3fdf53ef:
+Signed-off-by: Jan Luebbe <jlu@pengutronix.de>
+Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
+---
+ drivers/media/i2c/mt9v032.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
-  media: i2c: imx576: select VIDEO_CCS_PLL to repair build error (2026-10-09 10:18:37 +0200)
-
-are available in the Git repository at:
-
-  git@ssh.gitlab.freedesktop.org:linux-media/users/sailus.git tags/fixes-7.4-2
-
-for you to fetch changes up to 6293ca903d3e6bd2452b728980a74f1be731d9bc:
-
-  media: i2c: imx576: Fix line length register (2026-10-09 13:03:51 +0300)
-
-----------------------------------------------------------------
-V4L2 fixes for 7.4:
-
-- Various ov05c10 fixes
-- Fix for imx576 using wrong register for line length
-- Make MEDIA_PAD_FL_INTERNAL kernel-only for now
-
-----------------------------------------------------------------
-David Carlier (1):
-      media: i2c: imx576: Fix line length register
-
-Sakari Ailus (6):
-      media: mc: Keep INTERNAL pad flags just for the kernel, for now
-      media: maxim-serdes: Disable test pattern generator for now
-      media: ov05c10: Small cleanups
-      media: ov05c10: Set reset GPIO high when acquiring it
-      media: ov05c10: Power management fixes
-      media: ov05c10: Remove duplicated writes to analogue gain register
-
- drivers/media/i2c/imx576.c               |  2 +-
- drivers/media/i2c/maxim-serdes/max_des.c |  9 ++++--
- drivers/media/i2c/maxim-serdes/max_ser.c |  9 ++++--
- drivers/media/i2c/ov05c10.c              | 55 ++++++++++++++------------------
- include/uapi/linux/media.h               |  6 ++++
- 5 files changed, 45 insertions(+), 36 deletions(-)
-
+diff --git a/drivers/media/i2c/mt9v032.c b/drivers/media/i2c/mt9v032.c
+index 5da10fe42552..d8e34e128d77 100644
+--- a/drivers/media/i2c/mt9v032.c
++++ b/drivers/media/i2c/mt9v032.c
+@@ -167,6 +167,7 @@ struct mt9v032_model_data {
+ 	unsigned int pclk_reg;
+ 	unsigned int aec_max_shutter_reg;
+ 	const struct v4l2_ctrl_config * const aec_max_shutter_v4l2_ctrl;
++	unsigned int row_noise_enable;
+ };
+ 
+ struct mt9v032_model_info {
+@@ -231,6 +232,7 @@ struct mt9v032 {
+ 	u32 sysclk;
+ 	u16 aec_agc;
+ 	u16 hblank;
++	bool row_noise_corr;
+ 	struct {
+ 		struct v4l2_ctrl *test_pattern;
+ 		struct v4l2_ctrl *test_pattern_color;
+@@ -356,11 +358,6 @@ static int __mt9v032_set_power(struct mt9v032 *mt9v032, bool on)
+ 			return ret;
+ 	}
+ 
+-	/* Disable the noise correction algorithm and restore the controls. */
+-	ret = regmap_write(map, MT9V032_ROW_NOISE_CORR_CONTROL, 0);
+-	if (ret < 0)
+-		return ret;
+-
+ 	return v4l2_ctrl_handler_setup(&mt9v032->ctrls);
+ }
+ 
+@@ -679,6 +676,10 @@ static int mt9v032_set_selection(struct v4l2_subdev *subdev,
+  * Maximum shutter width used for AEC.
+  */
+ #define V4L2_CID_AEC_MAX_SHUTTER_WIDTH	(V4L2_CID_USER_BASE | 0x1007)
++/*
++ * Row Noise Correction enable.
++ */
++#define V4L2_CID_ROW_NOISE_CORRECTION	(V4L2_CID_USER_BASE | 0x1008)
+ 
+ static int mt9v032_s_ctrl(struct v4l2_ctrl *ctrl)
+ {
+@@ -770,6 +771,11 @@ static int mt9v032_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		return regmap_write(map,
+ 				    mt9v032->model->data->aec_max_shutter_reg,
+ 				    ctrl->val);
++	case V4L2_CID_ROW_NOISE_CORRECTION:
++		mt9v032->row_noise_corr = ctrl->val;
++		return regmap_write(map, MT9V032_ROW_NOISE_CORR_CONTROL,
++				    mt9v032->row_noise_corr ?
++				    mt9v032->model->data->row_noise_enable : 0);
+ 	}
+ 
+ 	return 0;
+@@ -850,6 +856,16 @@ static const struct v4l2_ctrl_config mt9v032_aegc_controls[] = {
+ 		.step		= 1,
+ 		.def		= 2,
+ 		.flags		= 0,
++	}, {
++		.ops		= &mt9v032_ctrl_ops,
++		.id		= V4L2_CID_ROW_NOISE_CORRECTION,
++		.type		= V4L2_CTRL_TYPE_BOOLEAN,
++		.name		= "Row Noise Correction",
++		.min		= 0,
++		.max		= 1,
++		.step		= 1,
++		.def		= 0,
++		.flags		= 0,
+ 	}
+ };
+ 
+@@ -1246,6 +1262,7 @@ static const struct mt9v032_model_data mt9v032_model_data[] = {
+ 		.pclk_reg = MT9V032_PIXEL_CLOCK,
+ 		.aec_max_shutter_reg = MT9V032_AEC_MAX_SHUTTER_WIDTH,
+ 		.aec_max_shutter_v4l2_ctrl = &mt9v032_aec_max_shutter_width,
++		.row_noise_enable = MT9V032_ROW_NOISE_CORR_ENABLE,
+ 	}, {
+ 		/* MT9V024, MT9V034 */
+ 		.min_row_time = 690,
+@@ -1257,6 +1274,7 @@ static const struct mt9v032_model_data mt9v032_model_data[] = {
+ 		.pclk_reg = MT9V034_PIXEL_CLOCK,
+ 		.aec_max_shutter_reg = MT9V034_AEC_MAX_SHUTTER_WIDTH,
+ 		.aec_max_shutter_v4l2_ctrl = &mt9v034_aec_max_shutter_width,
++		.row_noise_enable = MT9V034_ROW_NOISE_CORR_ENABLE,
+ 	},
+ };
+ 
 -- 
-Sakari Ailus
+2.34.1
+
