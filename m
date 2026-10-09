@@ -1,105 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27ED149EC5D;
-	Fri,  9 Oct 2026 10:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3AF46AED3
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 10:37:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542122; cv=none; b=HRHmTLs121HUymaUBa3iS9nPtRDr2YoBgtOWubIW+taIlAvHL8YQxzvjxq7JMDFxaxn5CJ3AoSKiYlOjqM7TgEIVQDStmxMDtT19zN72pN9l6hA/EQ9c3mLXgg2+PE7+qoJBAgg2JcfSRKqmJU9aTUPRDduGO++hcWNfvwX8mSY=
+	t=1791542236; cv=none; b=kYS+3CnKtInwj/CFwIaLEzwGXPCcPhoJh/ZThTfQLTrCG3LsmlEz5OiYS/1pOqmocZ+73lXv/vH+vOPlapRY6TYGVbxr+gVQAiT0dONIhLDYE2HN/rQ4S0Ycb2uJJwFaYYURIKcOH1UcYznHAZHafQcasrOV7zDgw8tQI3c+KOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542122; c=relaxed/simple;
-	bh=MdDd40xdrLHiIdxTsGMSfQgOcKsmowKhQAg2xWrd3YE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d/HQepdyLld547FoWND7ZALMGKK+z3UuCo9O5mcfvuF6ZN0p+C7gr4QikOYT5ud2DjR9Ya3gaD8CcVO6xrKXOlk5XkIZDoY7ODaFyjYpAfeKBBslDIKOizKMj9WJPz3NDkf9UFXRD4uOccirOnTxf6QvSmRiB74kGVe6o/XaV4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gtaMZMIi; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791542236; c=relaxed/simple;
+	bh=au83E6cj4XNqKpfN//WcBuWpGmATxX/UcHGyxZyiyE0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=l12HpRq18kvnPS5Rl/IqThAQ5MDOvTHbcJHgNChrvfXTz9bAvvZiGXIdPhLvLoBWAplpKsrIiHO7swLcPIl5Afgl652e6nwlFVS6z2/mYxH0vRY96Szdo2pPDwZtBErXVDPqNnl+urKuIb87CO0N4RqnnwbGJ7O4bEVdBWA9Y2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7SDseb1; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gtaMZMIi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791542119; x=1823078119;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MdDd40xdrLHiIdxTsGMSfQgOcKsmowKhQAg2xWrd3YE=;
-  b=gtaMZMIi3we3JbpQQdyOY5kDWPAftT/FnhfLp6212nj6pV/gJcx74ckL
-   fgrFbI0QMem0oUj5OCldMjzFAkb3P+LyVvBdkJn84MkxGZPQWoK1VU9LM
-   VYgITGrYEkqkVnpejev0uXHGApXnkKcQwMh0PtuOSwD8YgcuWwFbuMKHy
-   WLDQRDDUqrTj9AcjMM6ZF2mcJgbjEmCy1GSNKQSp6ggGUcdtbcgoAc6sJ
-   CiaA/k6eaMibX/nBaetIOr/2dDmdu3U2JaM3mzoCmTfqkj5Rj9xMJvHrP
-   Ze6xyl1r60Dt9/xkBKRUXYJ5CHw+4/Yo8MHX3JBmErX1s+rQl0idZ55W6
-   w==;
-X-CSE-ConnectionGUID: jR5e6h61RTiTYR13C42K/Q==
-X-CSE-MsgGUID: 3I8MS9RtT+G71OnXMLkK/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11929"; a="226350"
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="226350"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Oct 2026 03:35:18 -0700
-X-CSE-ConnectionGUID: Foae2iWPT5KceI19Zc9wqQ==
-X-CSE-MsgGUID: F6X5ZtNWRK6CM62SdzeM9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,148,1787036400"; 
-   d="scan'208";a="605296"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 09 Oct 2026 03:35:11 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xF7wR-000000005dY-2o3F;
-	Fri, 09 Oct 2026 10:35:07 +0000
-Date: Fri, 9 Oct 2026 18:35:01 +0800
-From: kernel test robot <lkp@intel.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Florian Echtler <floe@butterbrot.org>,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
-Message-ID: <202610091847.RMZt5Cy1-lkp@intel.com>
-References: <20261007054430.40155-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7SDseb1"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso1138262f8f.0
+        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 03:37:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791542233; x=1792147033; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=au83E6cj4XNqKpfN//WcBuWpGmATxX/UcHGyxZyiyE0=;
+        b=r7SDseb1abLqSR04jGlSS/VZnarXVYfFHgY78Zc3GYoSO46jV/vm7CRKAcWyAXlFUE
+         5+c+hQDvM7eFIMmL0+O/MYwHLxuiL0ZU2+vzJtKOSVFQw9u94lNxExjkKUxXy25zhxk2
+         U6Q4XqHieBurdPQhUZSy09AVnu+Ny4jEPzP+GNw0uSHpd0B6ovVjePOp1NgKghQ/UmX8
+         Zrw1bAOwEU7CHet6CJiVWTN6+Ao8ApEMzYRBf1Ukp/suEqL5WE+Af2lk1P8+JwI0EImJ
+         egBnFHRlCqWFZZG9ED7Z05wl6gJM5+tM/CPqBBHIeRiD5maJrLEgf/79QOnZ5ktswzst
+         JHZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791542233; x=1792147033;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=au83E6cj4XNqKpfN//WcBuWpGmATxX/UcHGyxZyiyE0=;
+        b=WuT8EEc1YlhdrVaHourrb7trtd8g3bNSOPUUbF/SG9NnsrP2VguIPyO+vUxKmZJW8/
+         m8KXUKMmTenzG8H++bpErK0JN341mBMmp3NZhvZEFhdPy4F9bAlZu4tE+HLy73sScBY6
+         q/Azsiz1Ji1q4Km9BAQjsRbf065hIPNi14ihd4fe46BJjpUf5fiXIyvzoUu19xY/fezv
+         Byz7z4FfiUaj6StjCDGJDJxJ+qmBm0BZEbtJ+9Iz1qZD5XRLwJjC5tG6UxDlulaZGgRx
+         GT8FjeTmgR3F8VTr/6XeuLuXI7QkLFo3jqwuXpEYhAyfGWvPMJqxUlXTZW1MjIB2h3qp
+         tV5g==
+X-Forwarded-Encrypted: i=1; AKwUvBwjHf5x5CMKbyN6YfkbVcqkYWj8xUx0YgoRLsQxXwXprw+bHpjRU6fWz7tEy8882Tu4KFGOR42HFKVJ/w==@vger.kernel.org
+X-Gm-Message-State: AFuF++mTD++0VKtMcwC/PN16YDhKe7AFtPwBO7SX37XIvDj5QZFY47+W
+	405fpBAAS/LAItR13Uk5ukEa4f9GGq/fDPkD15eO3mNcNzFuS5AiJ/DV
+X-Gm-Gg: AYBFou1trLECfaC2+bi3GMrrEGtVleR+NgqPbr1XTyt7C8YZ9jhNGBZYcBdT3LBre5z
+	46bS6N/njUMB+bEc0Tj8CJzU68+cKXosIJizgUwSHkjesy/uF5RDAKJW2Tk6w+CkIihcBIzvYH7
+	jMsjMdFLTIP3IpqtWOhxEp63y34v1cuW6AMx27E0JpjHmRJXS96I0Jthk5GhXxUvlGGzjmwLWkd
+	jSSDxYcC45uqDweyg82PUrZz4ku3yZPIiXzXkYjWSfzNfq0wvhs7pVYg2ydv2Sjn+83/NzA9C3w
+	bM7FTCnqrIJkQN/8+w+vHEah0SRZ21QB5HocEUIjYMTlZc+t+QffcSqShV8SlOENJWIy2cUxzfP
+	1Vml2Y5PbaBliCBqWCxuPBb6dSR+xelckFGrmrk6oGmCTqqgYyZygoW721XhAI2Li3zkkM17aFV
+	LGgUPMhUbUW8oNo4k8fMW4O8PdUJnFCLfNYhj7pNITCjmj7x/olR+OtPxlPpVIL6pZR13FUU1iP
+	wfOqPXWOEkqHptgr5LdAB6rYvsp7ZouREWSqfmLYAp5ayaZRVER5m597ng2YxQuSjeDu9GxasYv
+	HQF638ayMyb8Fd7p0tiqXwqVak9naEz9nydHdr3U+V5KhbHXl/s2Sxd0FhFQvLwceDg6fmuyt0e
+	eGaHkFhuS/6NWnOCp9CszaHJUdArioPZuPxMMyMky
+X-Received: by 2002:a05:600c:810a:b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a18e3ef100mr23787335e9.0.1791542233252;
+        Fri, 09 Oct 2026 03:37:13 -0700 (PDT)
+Received: from [127.0.1.1] (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf135fasm43824715e9.5.2026.10.09.03.37.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 03:37:12 -0700 (PDT)
+From: Nicola Fiorillo <nicfio@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, mchehab@kernel.org,
+ hverkuil@kernel.org, ngocthang2710.1999@gmail.com,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, nicfio@gmail.com
+Subject: Re: [PATCH v3 1/2] media: v4l2-subdev: Fix NULL pointer dereference
+ in subdev_open()
+Date: Fri, 09 Oct 2026 12:37:11 +0200
+Message-ID: <179154223159.24434.8243590649181320964@gmail.com>
+In-Reply-To: <20261009094810.GA716311@killaraus.ideasonboard.com>
+References: <20261008042600.275884-1-nicfio@gmail.com>
+ <20261008042600.275884-2-nicfio@gmail.com>
+ <20261008054842.GB683793@killaraus.ideasonboard.com>
+ <179144316198.13032.1846729931094664641@gmail.com>
+ <20261009094810.GA716311@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007054430.40155-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-Hi Karl,
+Hi Laurent,
 
-kernel test robot noticed the following build errors:
+On Fri, Oct 09, 2026 at 11:48:10AM +0200, Laurent Pinchart wrote:
+> On Thu, Oct 08, 2026 at 09:06:01AM +0200, Nicola Fiorillo wrote:
+> > On 6.12.86: agreed, that line does not belong in the commit message.
+>
+> Why was it there in the first place ? It gives me very little confidence
+> on the quality of your contribution.
 
-[auto build test ERROR on 2c3418fffa9d037b2038a6db48be63f9e2291806]
+Sorry, that was my mistake. The sentence came from v1. I first hit the
+oops on the 6.12.86 kernel I use every day on the tablet. When I
+repeated the tests on media next, I updated the cover letter but not
+the commit message, and the sentence went unchanged into v2 and v3. I
+did not catch it when I reread the patch.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Karl-Mehltretter/Input-sur40-fix-DMA-handling-in-video-capture/20261007-074430
-base:   2c3418fffa9d037b2038a6db48be63f9e2291806
-patch link:    https://lore.kernel.org/r/20261007054430.40155-1-kmehltretter%40gmail.com
-patch subject: [RFT PATCH] Input: sur40 - fix DMA handling in video capture
-config: arm-randconfig-1003-20261009 (https://download.01.org/0day-ci/archive/20261009/202610091847.RMZt5Cy1-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610091847.RMZt5Cy1-lkp@intel.com/reproduce)
+The GC5035 and GC8034 drivers I sent today were developed and tested
+only on media next (8e26d4c20), on the tablet.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610091847.RMZt5Cy1-lkp@intel.com/
+English is not my first language: I write in Italian and translate
+with the help of an LLM.
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: drivers/input/touchscreen/sur40.ko: module uses symbol 'dma_buf_begin_cpu_access' from namespace 'DMA_BUF', but does not import it.
->> ERROR: modpost: drivers/input/touchscreen/sur40.ko: module uses symbol 'dma_buf_end_cpu_access' from namespace 'DMA_BUF', but does not import it.
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Nicola
