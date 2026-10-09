@@ -1,63 +1,65 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B873914E2
-	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 07:27:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962F64756CE
+	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 07:27:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530875; cv=none; b=FzZekPRUrqh1CbxsqqFiOOCyknY29J1g34zYD3EnIcItuowmnMNLyjnyfoP+y0yjQ7McwKA1HT+TNVxnbwVBLcPPnCDntqna4sifMeg3qI5A51C87SNINxvxVlgueRHj7nhsU7UkzOuP9LOjHSwm4rAFRI1OB2qyg7iCwaEgKfM=
+	t=1791530877; cv=none; b=sUOgIyIBowQqS+4wGllXJ+riM9Mv/nSOgmJr2y9utPqJmFZfsQfq5vKFEFxLMo8FrSDXUNPyLq4AovnHuiNU1INkY7VkOCpcL/q0klV8+WtrvWYvf5xC4MWkAfFsp0LpXFsvwBNfdV3w6pvGBMP3KV5nhOtfhypSGTSepJhlHCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530875; c=relaxed/simple;
-	bh=hAbUZwuj3Le1qOhcA4KwdsAZIxEY2ntll6qIGO2qBFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JizWWD8jYVGkGN3AlGN7+kkGXchG4pr/Ed/iGLFgtR3oD086cGw4ajCqAfUjPadv0pxyt4CQV28iIgk9cycjthp1Pewws6Nd5gM7FvZc6mfGh9T4FQOd6N+DSSfAq9G0nGFkuQKk14AMmeRcr1DEjliS3Chv3wv3ImlvNNdXraw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FuqNwq7u; arc=none smtp.client-ip=209.85.128.50
+	s=arc-20240116; t=1791530877; c=relaxed/simple;
+	bh=s+7nb6AqeCRgF6gcWvS0HgvSFHsLhz1t41JmnU5alWM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=svy/YQJxdm4OZN7nsuFm2S7Kn3nvMjy9ijzjNibqslrOZ6EgGY7QNXQQWzmWIEUI48uMeI9JGOh4oYEeEFU+kwi/kBthOl5h8hfM1Iiq5OpX2w0lhWo9h510VodB4Cf1oZkjX4bDQyOn8J+l37IfmbCiCr+bLc9wzAxN4b/Id24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fUqgLFwB; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FuqNwq7u"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so9955775e9.1
-        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 00:27:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fUqgLFwB"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49ff680331aso65072135e9.3
+        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 00:27:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791530872; x=1792135672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IfvBkAbgi6hNYJ2Pfy9m5gY/SS7LE/POyUTc/Wa2L5U=;
-        b=FuqNwq7uPB/jS1TEFnpPkWPg+KpK1jhXpnQwWNESMkLbU4di5uMo9MRt6dp3P3lid/
-         ZfgD2z1sWePMGyefM78YaT60RnONi1Kw7W5oxcG8zOeQPgGBucjNgcCFGWHfNyz6CjC7
-         ujSEnPqiE0Tug/TXFD+DoG91Do8x+Ysev9LPN3xFpriTI3zy7a8rbB2uMbkPZ10UCHtM
-         u8Ob/K6GL+MOkMdjjVAT9AkkRgvz2JNyf9wOblNZ/iIDH71aGqPTXnLk1AMWPV0qIjCr
-         7qQg0wC0eUMkGwDUzC5SVaMJewVSrLcoFnF55Jfurro3A3s2T/TqZ3CsnQC3w0yI+CAs
-         V7SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791530872; x=1792135672;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791530873; x=1792135673; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IfvBkAbgi6hNYJ2Pfy9m5gY/SS7LE/POyUTc/Wa2L5U=;
-        b=qERbVyYBciRoyN45tZ/Fp87c2QdlcVLKxTF522XMT8VrRj8rg7ojPayKk/6AFwEvDO
-         hxdRFfWQ1uiU1BjrTdxdaoUMh/NIrlm/eB35Akdtv59EK+ghOYu3Pv2rP0y4DGU8+L76
-         aMbzSpDZ5mh6uxZ955WHcc35FtkSmOfcp2TyQlMNniZpoUX3pRCc/5XDRRVZVA/t+McE
-         SOeAbb2eHTLMUHmnCQGd9YuPKQXD5q7AHxr2kaOwzQY9ghegV4HEz5HhPqM0aQ3P5hB0
-         BFM7/AcZ2SRJFr/igR0+sbSEscH/6lM//bmuLBLw/h3EdiJsTXqkTCwuwRXvxAbHXgcX
-         Z8NQ==
-X-Gm-Message-State: AFuF++lp7woqRIX8hzwNS5bK3fUe284+yHLEyb3Vj27A/1haAGcXvGUt
-	LyInQCJRIYRNirQJLXKPDrF5NWWhmataRQkbsf4+yfPwqfIxMv+DLsccAOaLR62T7Ws=
-X-Gm-Gg: AYBFou3EqNebX/lwrQtR7WU3dy0EnVpM3fN3aiatQPIeut118NFs1eQB+jse0JIlGU0
-	z8c+vJGUaIV9AOGiQw218Q51WS70rv54NkJHDLBfL8KxjpLR6qgI7RsrYxfBV8osejzsiiyT1vW
-	W1++DYBMRRHQXheCQZm0K9IYMM/yio7x4A7zHaN0MmXqAPgk/nqkcH+tffjTKCtcVxTVxeDqU1c
-	/EyoODXhr7L1qlbYRz79/Yi2aMiR47YX01HHTWIx45YAwQarA1xlzp4pUagkAz6oNdS9FptER2+
-	Dawz17OsAtb+7tSMJNX4sP6OyxSuy8mThUBazlzA8Pf7KwX0BtYUfLkESqI4WfVXaH2+1TbzlMY
-	L8HXUIdsd2iNoe2jkPoOCmEQcl42MX5pwFtWwi+BetTa8e6DaagLzhPtp41NAWNxZHJv6ruKuPd
-	6uRLPrs/iJt5tOWmWv9se/PZ/dWUwdMvGqUk1Zn4dmSs+tuMMXIKSW/2C9RHzeTrxAloEC6MD7c
-	dzkxB8uBExAP1NX6pkV8JtoKJkg+hw9HDsLZ/+dugbKjntVrXAm9oa/9w0u+af+R6bWbksbK4Mn
-	gpLc7IQXQd/Wmvr2SX5CARK2mpbPTFcGddvzVBYnXqAnzvKUZYBL2kEt0XUtY1QnKI5ee0dEMG/
-	6PM1W4W1ucW9KPgjd2PjAjpoeRdoRp7H7Ct3fv95Rcfw/K0a2YBvFnA==
-X-Received: by 2002:a05:600c:3b2a:b0:4a0:2540:b46 with SMTP id 5b1f17b1804b1-4a18e4aca94mr16192385e9.12.1791530871388;
-        Fri, 09 Oct 2026 00:27:51 -0700 (PDT)
+        bh=+ss38TYl7bbRxbCTyutr4nKbZqlcd4SChFjsZBiuWzc=;
+        b=fUqgLFwBsZwo2/3EtoixBjROOzYpBksdFRP1AzLwJZ+J6zFs2nrvgekaNl4j0Mpnsr
+         dPGA4yB94eFj7iDdmQkE8dp7yOYBQ9BIwNvasHubb8QXiZr13ejBTE2hDmVVOjipWgJF
+         yu+xeoOAW+8VqUsfxcldz5rpG7LBUgXdTa5e3TbgppAJD8dEyBQ/tz6uXB1gWL2Vcdoc
+         Hjfy9iCcddo49H5Gw3vGOM2zliTnKokUhoWRlP8gGOXT4u0NAFqgJAKvmRQTvvGLz8Tb
+         6l+Kb3/abQJ5lWYbHFZ6pyk9VbGMF7B3bIVdyfRPgHfMdZC1FAobO9MwFhY3QNAWSsQS
+         h50A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791530873; x=1792135673;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+ss38TYl7bbRxbCTyutr4nKbZqlcd4SChFjsZBiuWzc=;
+        b=Z89HkSzExPtJQQGQ7zg+hc/8Xk/4KbrfZm5qdSIdX5+quzd1e5WNt3L8C/vPjO0wJz
+         iud9d0zkq4P+qb8hXtcv4jL+dbRGVY+s9D+EyQKW5byIHYlEAiftiTHl5DGztt8aCQJv
+         4BEGvTHXKt8nxMGoaIOQcLDV90Q8fpmmNwIqKZUTI9+FA7HZEru/4c0GOMpz23NIy/R1
+         tmtsqYYd9T3xlPmhtHYcs+MwAaE9+uhExkNnHU3vaRWLtcUH5Ibi/EsRat5ND0dcBLYK
+         jGKqjk2vzzZw8zfYwZOthcuGBBN/9nkojbkiwFVr+Q7GEqZ06vRmMK3q93ryX1Iy+pIv
+         yCeQ==
+X-Gm-Message-State: AFuF++njoTFlI3Io7t9zvkaj324HrgbKQyEoF3GiwGq1KHO4+9B2eIFz
+	NizcL0E7ltbHLqgqY1UQH5dAalb1IuFiP5HOWF3IaqyTcCkgfFofr8GlMejwZy79cnE=
+X-Gm-Gg: AYBFou3Oojmua7uM2Teo9v5jHZVOpnAppFYBVZ6xwvBjjh5UgWj/UMozptPmxY2zyml
+	kIvBDmGtrQZE4r1NTOBrYkf4V6U78zdjJnlhTB1VofaUVfIauEJ/PeF8aD7eW8G5Mqw+lk/lWx9
+	ZwVBZhIs8qz2yRwcwZ5Tehd6AwIUYx6APEePUVX8e0shuaeDEwkab55H9r1zSTcapjLR6J5vOac
+	EX0XsgD7Zcoos3/igr+kHAL5XzEXgX9vbe1RMWXCfnh6g++HLaRoNLEBSBcO8PWO6eo5oJJCf7N
+	IZ6vLYaEVbV0hLEBHqz0yUWXrv/oH9FDVa6f40C+eosqSUdv+ghWeIHyzy74hA/J6N5QjMcqpyS
+	59crWuhTUBFi5puB3v8lI+77AYY/8A7g2y8RKaHUFQ+kVs8duGAFC6ZwVXe9M1HQ0xCCtxVyxC3
+	/Rq4Z/MFLECh8UjRukHk3/L8fH/LKYUKiEWerp0npfdePh0j0r4/xF5gB4/zsTVaPh04U9BdCh+
+	ETEoMI8CzlawVspSwv9uU4sMvPTw5+4fQKZOm7QudQi30VTrhhBIj7fGTXRWex62RQUpnwKSjhY
+	dndBBIT8Z2RN5WngdBxD8Na9Uf6oz6JRhPxxsLx+CQLi+zNIIzJbrRsPaTt/2TbPonXS7mZAFxd
+	MpuyhF1H4Vl+1Gn8p9clD2z0U9tmlabWtp7+N+LdocF/XLsSqSd6DTw==
+X-Received: by 2002:a05:600c:4593:b0:4a1:7ed5:99e8 with SMTP id 5b1f17b1804b1-4a18e49bffbmr16670035e9.22.1791530872716;
+        Fri, 09 Oct 2026 00:27:52 -0700 (PDT)
 Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bbbdd75sm32598895e9.1.2026.10.09.00.27.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bbbdd75sm32598895e9.1.2026.10.09.00.27.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 00:27:50 -0700 (PDT)
+        Fri, 09 Oct 2026 00:27:52 -0700 (PDT)
 From: Nicola Fiorillo <nicfio@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -68,10 +70,12 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans de Goede <hansg@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	Nicola Fiorillo <nicfio@gmail.com>
-Subject: [PATCH 0/3] media: Add GalaxyCore GC5035 and GC8034 sensor drivers
-Date: Fri,  9 Oct 2026 09:27:30 +0200
-Message-ID: <20261009072733.39877-1-nicfio@gmail.com>
+Subject: [PATCH 1/3] media: i2c: Add GC5035 image sensor driver
+Date: Fri,  9 Oct 2026 09:27:31 +0200
+Message-ID: <20261009072733.39877-2-nicfio@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261009072733.39877-1-nicfio@gmail.com>
+References: <20261009072733.39877-1-nicfio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -80,368 +84,1033 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series adds drivers for the GalaxyCore GC5035 and GC8034 raw Bayer
-sensors, and the ipu-bridge entries needed to use them on Intel IPU6. Both
-are found on the CHUWI Hi10 X1, an Intel N100 (Alder Lake-N) tablet:
+Add a driver for the GalaxyCore GC5035, a 5 Mpixel raw Bayer sensor with
+a two lane MIPI CSI-2 interface. The driver supports a single 2592x1944
+mode, and the exposure, analogue gain, vertical blanking and test pattern
+controls.
 
-  GC5035, 5 Mpixel, front, 2 CSI-2 lanes, ACPI HID GCTI5035
-  GC8034, 8 Mpixel, rear,  4 CSI-2 lanes, ACPI HID GCTI8034
+The register tables come from the Alder Lake-M driver in
+intel/ipu6-drivers, which derives from the ChromeOS driver posted in 2020.
 
-The drivers are ACPI only. I have no device tree system with either sensor,
-so I have not added bindings I cannot test.
-
-Link frequencies
-----------------
-
-Both drivers accept only the 19.2 MHz external clock they have been tested
-with. The link frequencies in the vendor code are for a 24 MHz clock:
-
-  - GC5035: Intel's 438 MHz is correct with a 24 MHz clock. For 19.2 MHz
-    Intel changed the PLL but not the constant. With the new PLL the link
-    frequency is 422.4 MHz, which matches the measurement.
-  - GC8034: the vendor code declares 336 MHz for a 24 MHz clock. At
-    19.2 MHz everything scales by 0.8: 268.8 MHz, and 24 fps instead of
-    30.
-
-The same values are used in the ipu-bridge entries in patch 3.
-
-Gain, power sequencing and geometry
------------------------------------
-
-V4L2_CID_ANALOGUE_GAIN is the index of the analogue gain step, 17 steps
-on the GC5035 and 7 on the GC8034, and the digital gain is left at the
-1.0x the register tables program. The vendor drivers fill the gap between
-two steps with digital gain; that is left to userspace.
-
-No datasheet is available for either sensor. The GC5035 power sequence
-follows the one Tomasz Figa described in the 2020 series (IOVDD first,
-MCLK cycles before the first I2C transaction and after streaming stops),
-the GC8034 one follows the Rockchip driver. On this machine only AVDD is
-a real, GPIO switched regulator: DVDD and DOVDD are dummies, and the
-GC8034 has no reset or powerdown GPIO.
-
-The register tables read out a window slightly larger than the output
-size and crop it: 2608x1960 cropped at (8, 8) on the GC5035, 3284x2464
-cropped at (9, 8) on the GC8034. The size of the full pixel arrays is not
-documented, so the readout windows are reported as the native sizes.
-
-The GC8034 blanking register holds the frame length minus the height
-and 36 lines. The 36 lines value comes from the Rockchip driver, and is
-confirmed by the measurement with VBLANK set to 2000: the difference is
-less than one line.
-
-Provenance
-----------
-
-The GC5035 register tables come from the Alder Lake-M driver in
-intel/ipu6-drivers, which derives from the ChromeOS driver posted in 2020
-by Tomasz Figa [1]. That series got as far as v4 and was not merged. The
-GC8034 register tables come from the Rockchip BSP driver (rockchip-linux
-kernel, develop-5.10). The copyright lines of the original authors are
-kept in both files. The register tables have been shortened: the GC5035
-one from 323 to 160 writes, the GC8034 one from 233 to 182. Registers
-written twice and those already written by the controls have been
-removed. The final register state is identical to the one of the original
-tables. There is no public documentation for the PLL and CSI-2 settings.
-
-The driver code follows gc05a2.c and gc08a3.c: CCI helpers, subdev active
-state, enable_streams/disable_streams and runtime PM with autosuspend.
-
-Use of an LLM
--------------
-
-I speak Italian and I use Claude to translate.
-
-I used an LLM (Claude Opus 5.5) to collect the main points of the sensor
-driver reviews posted to this list recently. Claude wrote the driver code
-and updated it based on those points, and wrote the test scripts. I ran
-the tests on the tablet with the hardware, and the results are listed
-below. The code, the measurements and the notes (in Italian) are at
-https://github.com/nic-fio/chuwi-hi10x1-cameras
-
-The use of LLMs follows Documentation/process/coding-assistants.rst and
-generated-content.rst.
-
-Not covered
------------
-
-  - One mode per sensor: 2592x1944 on the GC5035, 3264x2448 on the GC8034.
-    The binned modes of the vendor drivers have not been tested and were
-    left out.
-  - The sensor OTP is not read. On the GC5035 it holds factory register
-    settings and defect pixel tables, which the 2020 series applied.
-  - The GC8034 module has a dw9714 VCM, instantiated by ipu-bridge; focus
-    has not been tested.
-  - Tested on one machine, with one sample of each sensor.
-
-Testing
--------
-
-Based on media-committers next, commit 8e26d4c20ed2 ("media: hantro:
-disable runtime PM before hardware teardown"), and tested on the CHUWI
-Hi10 X1 with that kernel and these patches:
-
-  - both sensors stream at full resolution
-  - frame rate: the frame rates expected from the driver match the
-    measured ones: 28.82 fps on the GC5035, 24.01 fps against 24.00 on
-    the GC8034. They also match with VBLANK set to 2000: 14.67 fps on
-    the GC5035 and 13.47 fps on the GC8034.
-  - analogue gain, from the first to the last step: 15.6x requested and
-    15.35x measured on the GC5035, 7.66x requested and 7.74x measured on
-    the GC8034.
-  - GC5035 test pattern: two consecutive frames are 100% identical.
-  - v4l2-compliance from git (1616bf9e3c81), run with -z on the media
-    device: 54 out of 54 tests pass on both sensors, with 2 warnings on
-    S_SELECTION. The warnings are there because the crop is fixed;
-    imx219, gc05a2 and gc08a3 do the same. Output below.
-
-[1] https://lore.kernel.org/linux-media/20200902224813.14283-1-tfiga@chromium.org/
-
-GC5035:
-
-v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
-v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
-
-Compliance test for intel-ipu6 device /dev/v4l-subdev4:
-
-Driver Info:
-	Driver version   : 7.3.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : intel-ipu6
-	Model            : ipu6
-	Serial           :
-	Bus info         : PCI:0000:00:05.0
-	Media version    : 7.3.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.3.0
-Interface Info:
-	ID               : 0x030000f5
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x000000e9 (233)
-	Name             : gc5035 2-003f
-	Function         : Camera Sensor
-	Pad 0x010000ea   : 0: Source
-	  Link 0x020000eb: to remote pad 0x1000096 of entity 'Intel IPU6 CSI2 2' (Video Interface Bridge): Data, Enabled, Immutable
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev4 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-	test VIDIOC_QUERYCTRL: OK
-	test VIDIOC_G/S_CTRL: OK
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 13 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 2
-
-GC8034:
-
-v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
-v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
-
-Compliance test for intel-ipu6 device /dev/v4l-subdev5:
-
-Driver Info:
-	Driver version   : 7.3.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which Media Driver Info:
-	Driver name      : intel-ipu6
-	Model            : ipu6
-	Serial           :
-	Bus info         : PCI:0000:00:05.0
-	Media version    : 7.3.0
-	Hardware revision: 0x00000000 (0)
-	Driver version   : 7.3.0
-Interface Info:
-	ID               : 0x030000fb
-	Type             : V4L Sub-Device
-Entity Info:
-	ID               : 0x000000f7 (247)
-	Name             : gc8034 1-0037
-	Function         : Camera Sensor
-	Pad 0x010000f8   : 0: Source
-	  Link 0x020000f9: to remote pad 0x100008c of entity 'Intel IPU6 CSI2 1' (Video Interface Bridge): Data, Enabled, Immutable
-
-Required ioctls:
-	test MC information (see 'Media Driver Info' above): OK
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev5 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Sub-Device ioctls (Source Pad 0):
-	Try Stream 0
-	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
-	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	Active Stream 0
-	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-		warn: v4l2-test-subdevs.cpp(566): VIDIOC_SUBDEV_G_SELECTION is supported for target 0 but not VIDIOC_SUBDEV_S_SELECTION
-	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-	test VIDIOC_QUERYCTRL: OK
-	test VIDIOC_G/S_CTRL: OK
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 12 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for intel-ipu6 device /dev/v4l-subdev5: 54, Succeeded: 54, Failed: 0, Warnings: 2
-
-Nicola Fiorillo (3):
-  media: i2c: Add GC5035 image sensor driver
-  media: i2c: Add GC8034 image sensor driver
-  media: ipu-bridge: Add GalaxyCore GC5035 and GC8034
-
- MAINTAINERS                          |  12 +
- drivers/media/i2c/Kconfig            |  20 +
- drivers/media/i2c/Makefile           |   2 +
- drivers/media/i2c/gc5035.c           | 953 ++++++++++++++++++++++++++
- drivers/media/i2c/gc8034.c           | 969 +++++++++++++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c |   4 +
- 6 files changed, 1960 insertions(+)
+Assisted-by: claude-opus-5-5 coccinelle sparse smatch
+Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
+---
+ MAINTAINERS                |   6 +
+ drivers/media/i2c/Kconfig  |  10 +
+ drivers/media/i2c/Makefile |   1 +
+ drivers/media/i2c/gc5035.c | 953 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 970 insertions(+)
  create mode 100644 drivers/media/i2c/gc5035.c
- create mode 100644 drivers/media/i2c/gc8034.c
 
-
-base-commit: 8e26d4c20ed218db6c3123480a4a4e2545680566
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6bdc32e7c..c4d5f81f4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -10875,6 +10875,12 @@ T:	git git://linuxtv.org/media.git
+ F:	Documentation/devicetree/bindings/media/i2c/galaxycore,gc2145.yaml
+ F:	drivers/media/i2c/gc2145.c
+ 
++GALAXYCORE GC5035 CAMERA SENSOR DRIVER
++M:	Nicola Fiorillo <nicfio@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	drivers/media/i2c/gc5035.c
++
+ GATEWORKS SYSTEM CONTROLLER (GSC) DRIVER
+ M:	Tim Harvey <tharvey@gateworks.com>
+ S:	Maintained
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index b9961f77f..bde998fca 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -110,6 +110,16 @@ config VIDEO_GC2145
+ 	  To compile this driver as a module, choose M here: the
+ 	  module will be called gc2145.
+ 
++config VIDEO_GC5035
++	tristate "GalaxyCore GC5035 sensor support"
++	select V4L2_CCI_I2C
++	help
++	  This is a Video4Linux2 sensor driver for the GalaxyCore GC5035
++	  5 Mpixel camera.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called gc5035.
++
+ config VIDEO_HI556
+ 	tristate "Hynix Hi-556 sensor support"
+ 	help
+diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
+index 351c41ef2..c3a7f39bd 100644
+--- a/drivers/media/i2c/Makefile
++++ b/drivers/media/i2c/Makefile
+@@ -42,6 +42,7 @@ obj-$(CONFIG_VIDEO_GC0310) += gc0310.o
+ obj-$(CONFIG_VIDEO_GC05A2) += gc05a2.o
+ obj-$(CONFIG_VIDEO_GC08A3) += gc08a3.o
+ obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
++obj-$(CONFIG_VIDEO_GC5035) += gc5035.o
+ obj-$(CONFIG_VIDEO_HI556) += hi556.o
+ obj-$(CONFIG_VIDEO_HI846) += hi846.o
+ obj-$(CONFIG_VIDEO_HI847) += hi847.o
+diff --git a/drivers/media/i2c/gc5035.c b/drivers/media/i2c/gc5035.c
+new file mode 100644
+index 000000000..95d83cde8
+--- /dev/null
++++ b/drivers/media/i2c/gc5035.c
+@@ -0,0 +1,953 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Driver for GalaxyCore GC5035 image sensor
++ *
++ * Copyright (c) 2020 Bitland Inc.
++ * Copyright 2020 Google LLC.
++ * Copyright (c) 2022 Intel Corporation.
++ * Copyright (C) 2026 Nicola Fiorillo <nicfio@gmail.com>
++ *
++ * The register table comes from the GC5035 driver in intel/ipu6-drivers by
++ * Liang Wang <liang1.wang@intel.com>, derived from the ChromeOS series by
++ * Tomasz Figa <tfiga@chromium.org>.
++ */
++#include <linux/array_size.h>
++#include <linux/clk.h>
++#include <linux/container_of.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/err.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/math.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/pm_runtime.h>
++#include <linux/property.h>
++#include <linux/regulator/consumer.h>
++#include <linux/time64.h>
++#include <linux/types.h>
++#include <linux/units.h>
++
++#include <media/mipi-csi2.h>
++#include <media/v4l2-cci.h>
++#include <media/v4l2-common.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-fwnode.h>
++#include <media/v4l2-subdev.h>
++
++/*
++ * The GC5035 uses 8 bit register addresses with banked pages: register
++ * 0xfe selects the page. Every register below is on page 0 unless noted
++ * otherwise. The vendor sequence also writes 0x10 to register 0xfe, which is
++ * not a page number and is not documented, so the pages are not handled with
++ * regmap ranges.
++ */
++#define GC5035_REG_PAGE_SELECT		CCI_REG8(0xfe)
++#define GC5035_PAGE_0			0x00
++#define GC5035_PAGE_1			0x01
++
++/* readable on any page */
++#define GC5035_REG_CHIP_ID		CCI_REG16(0xf0)
++#define GC5035_CHIP_ID			0x5035
++
++#define GC5035_REG_EXPOSURE		CCI_REG16(0x03)
++#define GC5035_REG_LINE_LENGTH		CCI_REG16(0x05)
++#define GC5035_REG_WIN_TOP		CCI_REG16(0x09)
++#define GC5035_REG_WIN_LEFT		CCI_REG16(0x0b)
++#define GC5035_REG_WIN_HEIGHT		CCI_REG16(0x0d)
++#define GC5035_REG_WIN_WIDTH		CCI_REG16(0x0f)
++#define GC5035_REG_STREAM		CCI_REG8(0x3e)
++#define GC5035_STREAM_ON		0x91
++#define GC5035_STREAM_OFF		0x01
++#define GC5035_REG_FRAME_LENGTH		CCI_REG16(0x41)
++#define GC5035_REG_DIGITAL_GAIN	CCI_REG16(0xb1)
++#define GC5035_DIGITAL_GAIN_1X	0x100
++#define GC5035_REG_ANALOGUE_GAIN	CCI_REG8(0xb6)
++#define GC5035_REG_PLL_MULT		CCI_REG8(0xf8)
++
++/* page 1 */
++#define GC5035_REG_TEST_PATTERN		CCI_REG8(0x8c)
++#define GC5035_TEST_PATTERN_ON		0x11
++#define GC5035_TEST_PATTERN_OFF		0x10
++#define GC5035_REG_CROP_TOP		CCI_REG16(0x91)
++#define GC5035_REG_CROP_LEFT		CCI_REG16(0x93)
++#define GC5035_REG_OUT_HEIGHT		CCI_REG16(0x95)
++#define GC5035_REG_OUT_WIDTH		CCI_REG16(0x97)
++
++/*
++ * The sensor reads out a 2608x1960 window starting at (3, 4) and crops
++ * 2592x1944 from it at (8, 8). The size of the full pixel array is not
++ * documented, so the readout window is reported as the native size.
++ */
++#define GC5035_WIN_LEFT			3
++#define GC5035_WIN_TOP			4
++#define GC5035_NATIVE_WIDTH		2608
++#define GC5035_NATIVE_HEIGHT		1960
++#define GC5035_CROP_LEFT		8
++#define GC5035_CROP_TOP			8
++#define GC5035_WIDTH			2592
++#define GC5035_HEIGHT			1944
++
++/* The line length register counts units of 4 pixels. */
++#define GC5035_HTS			2920
++#define GC5035_VTS_DEF			2008
++
++#define GC5035_EXP_MIN			4
++#define GC5035_EXP_STEP			1
++#define GC5035_EXP_MARGIN		16
++#define GC5035_EXP_DEF			984
++#define GC5035_VTS_MAX			0x3fff
++/* The sensor rounds the frame length to a multiple of 4 lines. */
++#define GC5035_VBLANK_STEP		4
++
++/*
++ * The register table has only been tested with a 19.2 MHz external clock. The
++ * link frequency is the external clock multiplied by the PLL setting and
++ * divided by 4: 422.4 MHz.
++ */
++#define GC5035_XCLK_FREQ		(19200 * HZ_PER_KHZ)
++#define GC5035_PLL_MULT			0x58
++#define GC5035_LINK_FREQ		(GC5035_XCLK_FREQ * GC5035_PLL_MULT / 4)
++#define GC5035_DATA_LANES		2
++#define GC5035_RGB_DEPTH		10
++#define GC5035_PIXEL_RATE		(GC5035_LINK_FREQ * 2 * \
++					 GC5035_DATA_LANES / GC5035_RGB_DEPTH)
++
++/*
++ * No datasheet is available. From the GC5035 driver posted by Tomasz Figa in
++ * 2020: IOVDD at least 50 us before AVDD and DVDD, at least 1200 MCLK cycles
++ * before the first I2C transaction, and 2000 MCLK cycles after streaming stops
++ * before the clock is switched off. From the intel/ipu6-drivers driver: the
++ * clock is enabled before reset is released and disabled after reset is
++ * asserted, and 5 ms elapse before the first I2C transaction, which also
++ * covers the 1200 cycles.
++ */
++#define GC5035_IOVDD_DELAY_US		50
++#define GC5035_RESET_DELAY_US		(5 * USEC_PER_MSEC)
++#define GC5035_STOP_DELAY_US		DIV_ROUND_UP(2000 * USEC_PER_MSEC, \
++					     GC5035_XCLK_FREQ / MSEC_PER_SEC)
++
++#define GC5035_MBUS_CODE		MEDIA_BUS_FMT_SGRBG10_1X10
++
++static const s64 gc5035_link_freq_menu[] = {
++	GC5035_LINK_FREQ,
++};
++
++static const char * const gc5035_test_pattern_menu[] = {
++	"No Pattern",
++	"Test Chart",
++};
++
++/* DOVDD (IOVDD) comes first: it has to be enabled before the others. */
++static const char * const gc5035_supply_name[] = {
++	"dovdd",
++	"avdd",
++	"dvdd",
++};
++
++/*
++ * V4L2_CID_ANALOGUE_GAIN is an index into this table of register 0xb6 values,
++ * one per analogue gain step. The digital gain is left at the 1.0x the register
++ * table programs.
++ */
++static const u8 gc5035_again_code[] = {
++	0,	/*  1.000x */
++	1,	/*  1.180x */
++	2,	/*  1.398x */
++	3,	/*  1.660x */
++	8,	/*  1.961x */
++	9,	/*  2.340x */
++	10,	/*  2.801x */
++	11,	/*  3.301x */
++	12,	/*  3.898x */
++	13,	/*  4.699x */
++	14,	/*  5.602x */
++	15,	/*  6.680x */
++	16,	/*  7.801x */
++	17,	/*  9.199x */
++	18,	/* 11.000x */
++	19,	/* 12.961x */
++	20,	/* 15.602x */
++};
++
++struct gc5035 {
++	struct device *dev;
++	struct v4l2_subdev sd;
++	struct media_pad pad;
++
++	struct clk *xclk;
++	struct regulator_bulk_data supplies[ARRAY_SIZE(gc5035_supply_name)];
++	struct gpio_desc *reset_gpio;
++	struct gpio_desc *powerdown_gpio;
++
++	struct v4l2_ctrl_handler ctrls;
++	struct v4l2_ctrl *exposure;
++
++	struct regmap *regmap;
++};
++
++/*
++ * The register sequence is the vendor one for the 2592x1944 mode, without the
++ * registers written by the controls. No register documentation is available:
++ * the names of the geometry registers are inferred from their values.
++ */
++static const struct cci_reg_sequence gc5035_regs[] = {
++	/* System */
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ GC5035_REG_STREAM, GC5035_STREAM_OFF },
++	{ CCI_REG8(0xfc), 0x01 },
++	{ CCI_REG8(0xf4), 0x40 },
++	{ CCI_REG8(0xf5), 0xe9 },
++	{ CCI_REG8(0xf6), 0x14 },
++	{ GC5035_REG_PLL_MULT, GC5035_PLL_MULT },
++	{ CCI_REG8(0xf9), 0x82 },
++	{ CCI_REG8(0xfa), 0x00 },
++	{ CCI_REG8(0xfc), 0x81 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0x36), 0x01 },
++	{ CCI_REG8(0xd3), 0x87 },
++	{ CCI_REG8(0x36), 0x00 },
++	{ CCI_REG8(0x33), 0x00 },
++	{ GC5035_REG_PAGE_SELECT, 0x03 },
++	{ CCI_REG8(0x01), 0xe7 },
++	{ CCI_REG8(0xf7), 0x01 },
++	{ CCI_REG8(0xfc), 0x8f },
++	{ CCI_REG8(0xfc), 0x8f },
++	{ CCI_REG8(0xfc), 0x8e },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0xee), 0x30 },
++	{ CCI_REG8(0x87), 0x18 },
++	{ GC5035_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x8c), 0x90 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	/* Analog & CISCTL */
++	{ GC5035_REG_LINE_LENGTH, GC5035_HTS / 4 },
++	{ CCI_REG8(0x9d), 0x18 },
++	{ GC5035_REG_WIN_TOP, GC5035_WIN_TOP },
++	{ GC5035_REG_WIN_LEFT, GC5035_WIN_LEFT },
++	{ GC5035_REG_WIN_HEIGHT, GC5035_NATIVE_HEIGHT },
++	{ GC5035_REG_WIN_WIDTH, GC5035_NATIVE_WIDTH },
++	{ CCI_REG8(0x11), 0x02 },
++	{ CCI_REG8(0x17), 0x80 },
++	{ CCI_REG8(0x19), 0x05 },
++	{ GC5035_REG_PAGE_SELECT, 0x02 },
++	{ CCI_REG8(0x30), 0x03 },
++	{ CCI_REG8(0x31), 0x03 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0xd9), 0xc0 },
++	{ CCI_REG8(0x1b), 0x20 },
++	{ CCI_REG8(0x21), 0x40 },
++	{ CCI_REG8(0x28), 0x22 },
++	{ CCI_REG8(0x29), 0x56 },
++	{ CCI_REG8(0x44), 0x20 },
++	{ CCI_REG8(0x4b), 0x10 },
++	{ CCI_REG8(0x4e), 0x1a },
++	{ CCI_REG8(0x50), 0x11 },
++	{ CCI_REG8(0x52), 0x33 },
++	{ CCI_REG8(0x53), 0x44 },
++	{ CCI_REG8(0x55), 0x10 },
++	{ CCI_REG8(0x5b), 0x11 },
++	{ CCI_REG8(0xc5), 0x02 },
++	{ CCI_REG8(0x8c), 0x1a },
++	{ GC5035_REG_PAGE_SELECT, 0x02 },
++	{ CCI_REG8(0x33), 0x05 },
++	{ CCI_REG8(0x32), 0x38 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0x91), 0x80 },
++	{ CCI_REG8(0x92), 0x28 },
++	{ CCI_REG8(0x93), 0x20 },
++	{ CCI_REG8(0x95), 0xa0 },
++	{ CCI_REG8(0x96), 0xe0 },
++	{ CCI_REG8(0xd5), 0xfc },
++	{ CCI_REG8(0x97), 0x28 },
++	{ CCI_REG8(0x16), 0x0c },
++	{ CCI_REG8(0x1a), 0x1a },
++	{ CCI_REG8(0x1f), 0x11 },
++	{ CCI_REG8(0x20), 0x10 },
++	{ CCI_REG8(0x46), 0x83 },
++	{ CCI_REG8(0x4a), 0x04 },
++	{ CCI_REG8(0x54), 0x02 },
++	{ CCI_REG8(0x62), 0x00 },
++	{ CCI_REG8(0x72), 0x8f },
++	{ CCI_REG8(0x73), 0x89 },
++	{ CCI_REG8(0x7a), 0x05 },
++	{ CCI_REG8(0x7d), 0xcc },
++	{ CCI_REG8(0x90), 0x00 },
++	{ CCI_REG8(0xce), 0x18 },
++	{ CCI_REG8(0xd0), 0xb2 },
++	{ CCI_REG8(0xd2), 0x40 },
++	{ CCI_REG8(0xe6), 0xe0 },
++	{ GC5035_REG_PAGE_SELECT, 0x02 },
++	{ CCI_REG8(0x12), 0x01 },
++	{ CCI_REG8(0x13), 0x01 },
++	{ CCI_REG8(0x14), 0x01 },
++	{ CCI_REG8(0x15), 0x02 },
++	{ CCI_REG8(0x22), 0x7c },
++	{ CCI_REG8(0x91), 0x00 },
++	{ CCI_REG8(0x92), 0x00 },
++	{ CCI_REG8(0x93), 0x00 },
++	{ CCI_REG8(0x94), 0x00 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0xfc), 0x88 },
++	{ GC5035_REG_PAGE_SELECT, 0x10 },	/* not a page */
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0xfc), 0x8e },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0xfc), 0x88 },
++	{ GC5035_REG_PAGE_SELECT, 0x10 },	/* not a page */
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0xfc), 0x8e },
++	/* GAIN */
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ CCI_REG8(0xb0), 0x6e },
++	{ GC5035_REG_DIGITAL_GAIN, GC5035_DIGITAL_GAIN_1X },
++	{ CCI_REG8(0xb3), 0x00 },
++	{ CCI_REG8(0xb4), 0x00 },
++	/* ISP */
++	{ GC5035_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x53), 0x00 },
++	{ CCI_REG8(0x89), 0x03 },
++	{ CCI_REG8(0x60), 0x40 },
++	/* BLK */
++	{ GC5035_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x42), 0x21 },
++	{ CCI_REG8(0x49), 0x03 },
++	{ CCI_REG8(0x4a), 0xff },
++	{ CCI_REG8(0x4b), 0xc0 },
++	{ CCI_REG8(0x55), 0x00 },
++	/* anti_blooming */
++	{ GC5035_REG_PAGE_SELECT, 0x01 },
++	{ CCI_REG8(0x41), 0x28 },
++	{ CCI_REG8(0x4c), 0x00 },
++	{ CCI_REG8(0x4d), 0x00 },
++	{ CCI_REG8(0x4e), 0x3c },
++	{ CCI_REG8(0x44), 0x08 },
++	{ CCI_REG8(0x48), 0x02 },
++	/* CROP */
++	{ GC5035_REG_PAGE_SELECT, 0x01 },
++	{ GC5035_REG_CROP_TOP, GC5035_CROP_TOP },
++	{ GC5035_REG_CROP_LEFT, GC5035_CROP_LEFT },
++	{ GC5035_REG_OUT_HEIGHT, GC5035_HEIGHT },
++	{ GC5035_REG_OUT_WIDTH, GC5035_WIDTH },
++	{ CCI_REG8(0x99), 0x00 },
++	/* MIPI */
++	{ GC5035_REG_PAGE_SELECT, 0x03 },
++	{ CCI_REG8(0x02), 0x57 },
++	{ CCI_REG8(0x03), 0xb7 },
++	{ CCI_REG8(0x15), 0x14 },
++	{ CCI_REG8(0x18), 0x0f },
++	{ CCI_REG8(0x21), 0x22 },
++	{ CCI_REG8(0x22), 0x06 },
++	{ CCI_REG8(0x23), 0x48 },
++	{ CCI_REG8(0x24), 0x12 },
++	{ CCI_REG8(0x25), 0x28 },
++	{ CCI_REG8(0x26), 0x08 },
++	{ CCI_REG8(0x29), 0x06 },
++	{ CCI_REG8(0x2a), 0x58 },
++	{ CCI_REG8(0x2b), 0x08 },
++	{ GC5035_REG_PAGE_SELECT, 0x00 },
++	{ GC5035_REG_STREAM, GC5035_STREAM_OFF },
++};
++
++static inline struct gc5035 *to_gc5035(struct v4l2_subdev *sd)
++{
++	return container_of(sd, struct gc5035, sd);
++}
++
++static int gc5035_set_page(struct gc5035 *gc5035, u8 page)
++{
++	return cci_write(gc5035->regmap, GC5035_REG_PAGE_SELECT, page, NULL);
++}
++
++static int gc5035_power_on(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct gc5035 *gc5035 = to_gc5035(sd);
++	int ret;
++
++	ret = regulator_enable(gc5035->supplies[0].consumer);
++	if (ret) {
++		dev_err(dev, "failed to enable dovdd: %d\n", ret);
++		return ret;
++	}
++
++	fsleep(GC5035_IOVDD_DELAY_US);
++
++	ret = regulator_bulk_enable(ARRAY_SIZE(gc5035_supply_name) - 1,
++				    &gc5035->supplies[1]);
++	if (ret) {
++		dev_err(dev, "failed to enable regulators: %d\n", ret);
++		goto err_dovdd;
++	}
++
++	ret = clk_prepare_enable(gc5035->xclk);
++	if (ret) {
++		dev_err(dev, "failed to enable clock: %d\n", ret);
++		goto err_regulators;
++	}
++
++	gpiod_set_value_cansleep(gc5035->powerdown_gpio, 0);
++	gpiod_set_value_cansleep(gc5035->reset_gpio, 0);
++
++	fsleep(GC5035_RESET_DELAY_US);
++
++	return 0;
++
++err_regulators:
++	regulator_bulk_disable(ARRAY_SIZE(gc5035_supply_name) - 1,
++			       &gc5035->supplies[1]);
++err_dovdd:
++	regulator_disable(gc5035->supplies[0].consumer);
++
++	return ret;
++}
++
++static int gc5035_power_off(struct device *dev)
++{
++	struct v4l2_subdev *sd = dev_get_drvdata(dev);
++	struct gc5035 *gc5035 = to_gc5035(sd);
++
++	fsleep(GC5035_STOP_DELAY_US);
++
++	gpiod_set_value_cansleep(gc5035->powerdown_gpio, 1);
++	gpiod_set_value_cansleep(gc5035->reset_gpio, 1);
++	clk_disable_unprepare(gc5035->xclk);
++	regulator_bulk_disable(ARRAY_SIZE(gc5035_supply_name) - 1,
++			       &gc5035->supplies[1]);
++	regulator_disable(gc5035->supplies[0].consumer);
++
++	return 0;
++}
++
++static int gc5035_enum_mbus_code(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_mbus_code_enum *code)
++{
++	if (code->index > 0)
++		return -EINVAL;
++
++	code->code = GC5035_MBUS_CODE;
++
++	return 0;
++}
++
++static int gc5035_enum_frame_size(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *sd_state,
++				  struct v4l2_subdev_frame_size_enum *fse)
++{
++	if (fse->code != GC5035_MBUS_CODE)
++		return -EINVAL;
++
++	if (fse->index > 0)
++		return -EINVAL;
++
++	fse->min_width = GC5035_WIDTH;
++	fse->max_width = GC5035_WIDTH;
++	fse->min_height = GC5035_HEIGHT;
++	fse->max_height = GC5035_HEIGHT;
++
++	return 0;
++}
++
++static void gc5035_fill_state(struct v4l2_subdev_state *state)
++{
++	struct v4l2_mbus_framefmt *fmt;
++	struct v4l2_rect *crop;
++
++	crop = v4l2_subdev_state_get_crop(state, 0);
++	crop->left = GC5035_CROP_LEFT;
++	crop->top = GC5035_CROP_TOP;
++	crop->width = GC5035_WIDTH;
++	crop->height = GC5035_HEIGHT;
++
++	fmt = v4l2_subdev_state_get_format(state, 0);
++	fmt->width = GC5035_WIDTH;
++	fmt->height = GC5035_HEIGHT;
++	fmt->code = GC5035_MBUS_CODE;
++	fmt->field = V4L2_FIELD_NONE;
++	fmt->colorspace = V4L2_COLORSPACE_RAW;
++	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
++	fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
++	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
++}
++
++static int gc5035_get_selection(struct v4l2_subdev *sd,
++				const struct v4l2_subdev_client_info *ci,
++				struct v4l2_subdev_state *state,
++				struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		sel->r = *v4l2_subdev_state_get_crop(state, 0);
++		break;
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sel->r.top = GC5035_CROP_TOP;
++		sel->r.left = GC5035_CROP_LEFT;
++		sel->r.width = GC5035_WIDTH;
++		sel->r.height = GC5035_HEIGHT;
++		break;
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++		sel->r.top = 0;
++		sel->r.left = 0;
++		sel->r.width = GC5035_NATIVE_WIDTH;
++		sel->r.height = GC5035_NATIVE_HEIGHT;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int gc5035_init_state(struct v4l2_subdev *sd,
++			     struct v4l2_subdev_state *state)
++{
++	gc5035_fill_state(state);
++
++	return 0;
++}
++
++static int gc5035_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
++				 struct v4l2_mbus_frame_desc *fd)
++{
++	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
++	fd->num_entries = 1;
++	fd->entry[0].pixelcode = GC5035_MBUS_CODE;
++	fd->entry[0].stream = 0;
++	fd->entry[0].bus.csi2.vc = 0;
++	fd->entry[0].bus.csi2.dt = MIPI_CSI2_DT_RAW10;
++
++	return 0;
++}
++
++static int gc5035_test_pattern(struct gc5035 *gc5035, u32 pattern)
++{
++	int ret;
++
++	ret = gc5035_set_page(gc5035, GC5035_PAGE_1);
++	if (ret)
++		return ret;
++
++	ret = cci_write(gc5035->regmap, GC5035_REG_TEST_PATTERN,
++			pattern ? GC5035_TEST_PATTERN_ON :
++				  GC5035_TEST_PATTERN_OFF, NULL);
++
++	/* Back to page 0 even on error, the other controls expect it. */
++	return gc5035_set_page(gc5035, GC5035_PAGE_0) ?: ret;
++}
++
++static int gc5035_set_ctrl(struct v4l2_ctrl *ctrl)
++{
++	struct gc5035 *gc5035 =
++		container_of(ctrl->handler, struct gc5035, ctrls);
++	const struct v4l2_mbus_framefmt *format;
++	struct v4l2_subdev_state *state;
++	s64 exposure_max;
++	int ret;
++
++	state = v4l2_subdev_get_locked_active_state(&gc5035->sd);
++	format = v4l2_subdev_state_get_format(state, 0);
++
++	if (ctrl->id == V4L2_CID_VBLANK) {
++		exposure_max = format->height + ctrl->val -
++			       GC5035_EXP_MARGIN;
++		ret = __v4l2_ctrl_modify_range(gc5035->exposure,
++					       GC5035_EXP_MIN, exposure_max,
++					       GC5035_EXP_STEP, GC5035_EXP_DEF);
++		if (ret)
++			return ret;
++	}
++
++	if (!pm_runtime_get_if_active(gc5035->dev))
++		return 0;
++
++	ret = gc5035_set_page(gc5035, GC5035_PAGE_0);
++	if (ret)
++		goto out;
++
++	switch (ctrl->id) {
++	case V4L2_CID_EXPOSURE:
++		ret = cci_write(gc5035->regmap, GC5035_REG_EXPOSURE,
++				ctrl->val, NULL);
++		break;
++	case V4L2_CID_ANALOGUE_GAIN:
++		ret = cci_write(gc5035->regmap, GC5035_REG_ANALOGUE_GAIN,
++				gc5035_again_code[ctrl->val], NULL);
++		break;
++	case V4L2_CID_VBLANK:
++		ret = cci_write(gc5035->regmap, GC5035_REG_FRAME_LENGTH,
++				format->height + ctrl->val, NULL);
++		break;
++	case V4L2_CID_TEST_PATTERN:
++		ret = gc5035_test_pattern(gc5035, ctrl->val);
++		break;
++	default:
++		ret = -EINVAL;
++		break;
++	}
++
++out:
++	pm_runtime_put_autosuspend(gc5035->dev);
++
++	return ret;
++}
++
++static const struct v4l2_ctrl_ops gc5035_ctrl_ops = {
++	.s_ctrl = gc5035_set_ctrl,
++};
++
++/* Only ever called from probe, with the sensor powered up. */
++static int gc5035_identify_module(struct gc5035 *gc5035)
++{
++	u64 val;
++	int ret;
++
++	ret = cci_read(gc5035->regmap, GC5035_REG_CHIP_ID, &val, NULL);
++	if (ret)
++		return ret;
++
++	if (val != GC5035_CHIP_ID)
++		return dev_err_probe(gc5035->dev, -ENXIO,
++				     "chip id mismatch: %x != %llx\n",
++				     GC5035_CHIP_ID, val);
++
++	return 0;
++}
++
++static int gc5035_enable_streams(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *state,
++				 u32 pad, u64 streams_mask)
++{
++	struct gc5035 *gc5035 = to_gc5035(sd);
++	int ret;
++
++	ret = pm_runtime_resume_and_get(gc5035->dev);
++	if (ret < 0)
++		return ret;
++
++	ret = cci_multi_reg_write(gc5035->regmap, gc5035_regs,
++				  ARRAY_SIZE(gc5035_regs), NULL);
++	if (ret)
++		goto err_rpm_put;
++
++	ret = __v4l2_ctrl_handler_setup(&gc5035->ctrls);
++	if (ret)
++		goto err_rpm_put;
++
++	ret = cci_write(gc5035->regmap, GC5035_REG_STREAM,
++			GC5035_STREAM_ON, NULL);
++	if (ret)
++		goto err_rpm_put;
++
++	return 0;
++
++err_rpm_put:
++	pm_runtime_put_autosuspend(gc5035->dev);
++
++	return ret;
++}
++
++static int gc5035_disable_streams(struct v4l2_subdev *sd,
++				  struct v4l2_subdev_state *state,
++				  u32 pad, u64 streams_mask)
++{
++	struct gc5035 *gc5035 = to_gc5035(sd);
++	int ret = 0;
++
++	/* cci_write() logs errors, nothing else can be done about them. */
++	cci_write(gc5035->regmap, GC5035_REG_PAGE_SELECT, GC5035_PAGE_0, &ret);
++	cci_write(gc5035->regmap, GC5035_REG_STREAM, GC5035_STREAM_OFF, &ret);
++
++	pm_runtime_put_autosuspend(gc5035->dev);
++
++	return 0;
++}
++
++static const struct v4l2_subdev_video_ops gc5035_video_ops = {
++	.s_stream = v4l2_subdev_s_stream_helper,
++};
++
++static const struct v4l2_subdev_pad_ops gc5035_pad_ops = {
++	.enum_mbus_code = gc5035_enum_mbus_code,
++	.enum_frame_size = gc5035_enum_frame_size,
++	.get_fmt = v4l2_subdev_get_fmt,
++	.get_selection = gc5035_get_selection,
++	.get_frame_desc = gc5035_get_frame_desc,
++	.enable_streams = gc5035_enable_streams,
++	.disable_streams = gc5035_disable_streams,
++};
++
++static const struct v4l2_subdev_ops gc5035_subdev_ops = {
++	.video = &gc5035_video_ops,
++	.pad = &gc5035_pad_ops,
++};
++
++static const struct v4l2_subdev_internal_ops gc5035_internal_ops = {
++	.init_state = gc5035_init_state,
++};
++
++static int gc5035_parse_fwnode(struct gc5035 *gc5035)
++{
++	struct v4l2_fwnode_endpoint bus_cfg = {
++		.bus_type = V4L2_MBUS_CSI2_DPHY,
++	};
++	struct device *dev = gc5035->dev;
++	struct fwnode_handle *endpoint;
++	unsigned long link_freq_bitmap;
++	int ret;
++
++	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
++						   FWNODE_GRAPH_ENDPOINT_NEXT);
++	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &bus_cfg);
++	fwnode_handle_put(endpoint);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to parse endpoint\n");
++
++	/* The register table configures the CSI-2 transmitter for 2 lanes. */
++	if (bus_cfg.bus.mipi_csi2.num_data_lanes != GC5035_DATA_LANES) {
++		ret = dev_err_probe(dev, -EINVAL,
++				    "unsupported number of data lanes %u\n",
++				    bus_cfg.bus.mipi_csi2.num_data_lanes);
++		goto done;
++	}
++
++	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
++				       bus_cfg.nr_of_link_frequencies,
++				       gc5035_link_freq_menu,
++				       ARRAY_SIZE(gc5035_link_freq_menu),
++				       &link_freq_bitmap);
++
++done:
++	v4l2_fwnode_endpoint_free(&bus_cfg);
++
++	return ret;
++}
++
++static int gc5035_init_controls(struct gc5035 *gc5035)
++{
++	struct v4l2_fwnode_device_properties props;
++	struct v4l2_ctrl_handler *ctrl_hdlr;
++	struct v4l2_ctrl *link_freq, *hblank;
++	s64 exposure_max;
++	int ret;
++
++	ret = v4l2_fwnode_device_parse(gc5035->dev, &props);
++	if (ret)
++		return ret;
++
++	ctrl_hdlr = &gc5035->ctrls;
++	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
++
++	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
++					   ARRAY_SIZE(gc5035_link_freq_menu) -
++					   1, 0, gc5035_link_freq_menu);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
++			  GC5035_PIXEL_RATE, GC5035_PIXEL_RATE, 1,
++			  GC5035_PIXEL_RATE);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops, V4L2_CID_VBLANK,
++			  GC5035_VTS_DEF - GC5035_HEIGHT,
++			  GC5035_VTS_DEF - GC5035_HEIGHT +
++			  round_down(GC5035_VTS_MAX - GC5035_VTS_DEF,
++				     GC5035_VBLANK_STEP),
++			  GC5035_VBLANK_STEP, GC5035_VTS_DEF - GC5035_HEIGHT);
++
++	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
++				   GC5035_HTS - GC5035_WIDTH,
++				   GC5035_HTS - GC5035_WIDTH, 1,
++				   GC5035_HTS - GC5035_WIDTH);
++
++	exposure_max = GC5035_VTS_DEF - GC5035_EXP_MARGIN;
++	gc5035->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops,
++					     V4L2_CID_EXPOSURE, GC5035_EXP_MIN,
++					     exposure_max, GC5035_EXP_STEP,
++					     GC5035_EXP_DEF);
++
++	v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
++			  0, ARRAY_SIZE(gc5035_again_code) - 1, 1, 0);
++
++	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &gc5035_ctrl_ops,
++				     V4L2_CID_TEST_PATTERN,
++				     ARRAY_SIZE(gc5035_test_pattern_menu) - 1,
++				     0, 0, gc5035_test_pattern_menu);
++
++	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &gc5035_ctrl_ops, &props);
++
++	if (ctrl_hdlr->error)
++		return v4l2_ctrl_handler_free(ctrl_hdlr);
++
++	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++
++	gc5035->sd.ctrl_handler = ctrl_hdlr;
++
++	return 0;
++}
++
++static int gc5035_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct gc5035 *gc5035;
++	unsigned long freq;
++	int ret;
++
++	gc5035 = devm_kzalloc(dev, sizeof(*gc5035), GFP_KERNEL);
++	if (!gc5035)
++		return -ENOMEM;
++
++	gc5035->dev = dev;
++
++	v4l2_i2c_subdev_init(&gc5035->sd, client, &gc5035_subdev_ops);
++	gc5035->sd.internal_ops = &gc5035_internal_ops;
++
++	ret = gc5035_parse_fwnode(gc5035);
++	if (ret)
++		return ret;
++
++	gc5035->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
++	if (IS_ERR(gc5035->xclk))
++		return dev_err_probe(dev, PTR_ERR(gc5035->xclk),
++				     "failed to get clock\n");
++
++	freq = clk_get_rate(gc5035->xclk);
++	if (freq != GC5035_XCLK_FREQ)
++		return dev_err_probe(dev, -EINVAL,
++				     "external clock %lu Hz not supported\n",
++				     freq);
++
++	gc5035->regmap = devm_cci_regmap_init_i2c(client, 8);
++	if (IS_ERR(gc5035->regmap))
++		return dev_err_probe(dev, PTR_ERR(gc5035->regmap),
++				     "failed to init CCI\n");
++
++	gc5035->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						     GPIOD_OUT_HIGH);
++	if (IS_ERR(gc5035->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(gc5035->reset_gpio),
++				     "failed to get reset GPIO\n");
++
++	gc5035->powerdown_gpio = devm_gpiod_get_optional(dev, "powerdown",
++							 GPIOD_OUT_HIGH);
++	if (IS_ERR(gc5035->powerdown_gpio))
++		return dev_err_probe(dev, PTR_ERR(gc5035->powerdown_gpio),
++				     "failed to get powerdown GPIO\n");
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(gc5035_supply_name); i++)
++		gc5035->supplies[i].supply = gc5035_supply_name[i];
++
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(gc5035_supply_name),
++				      gc5035->supplies);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to get regulators\n");
++
++	ret = gc5035_power_on(dev);
++	if (ret)
++		return ret;
++
++	ret = gc5035_identify_module(gc5035);
++	if (ret)
++		goto err_power_off;
++
++	ret = gc5035_init_controls(gc5035);
++	if (ret) {
++		dev_err_probe(dev, ret, "failed to init controls\n");
++		goto err_power_off;
++	}
++
++	gc5035->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	gc5035->pad.flags = MEDIA_PAD_FL_SOURCE;
++	gc5035->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
++
++	ret = media_entity_pads_init(&gc5035->sd.entity, 1, &gc5035->pad);
++	if (ret < 0) {
++		dev_err_probe(dev, ret, "failed to init media entity\n");
++		goto err_ctrl_handler_free;
++	}
++
++	gc5035->sd.state_lock = gc5035->ctrls.lock;
++	ret = v4l2_subdev_init_finalize(&gc5035->sd);
++	if (ret < 0) {
++		dev_err_probe(dev, ret, "failed to finalize subdev\n");
++		goto err_media_entity_cleanup;
++	}
++
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++	pm_runtime_set_autosuspend_delay(dev, 1000);
++	pm_runtime_use_autosuspend(dev);
++
++	ret = v4l2_async_register_subdev_sensor(&gc5035->sd);
++	if (ret < 0) {
++		dev_err_probe(dev, ret, "failed to register subdev\n");
++		goto err_rpm;
++	}
++
++	pm_runtime_idle(dev);
++
++	return 0;
++
++err_rpm:
++	pm_runtime_disable(dev);
++	pm_runtime_dont_use_autosuspend(dev);
++	pm_runtime_set_suspended(dev);
++	v4l2_subdev_cleanup(&gc5035->sd);
++
++err_media_entity_cleanup:
++	media_entity_cleanup(&gc5035->sd.entity);
++
++err_ctrl_handler_free:
++	v4l2_ctrl_handler_free(&gc5035->ctrls);
++
++err_power_off:
++	gc5035_power_off(dev);
++
++	return ret;
++}
++
++static void gc5035_remove(struct i2c_client *client)
++{
++	struct v4l2_subdev *sd = i2c_get_clientdata(client);
++	struct gc5035 *gc5035 = to_gc5035(sd);
++
++	v4l2_async_unregister_subdev(sd);
++	v4l2_subdev_cleanup(sd);
++	media_entity_cleanup(&sd->entity);
++	v4l2_ctrl_handler_free(&gc5035->ctrls);
++
++	pm_runtime_disable(&client->dev);
++	if (!pm_runtime_status_suspended(&client->dev)) {
++		gc5035_power_off(&client->dev);
++		pm_runtime_set_suspended(&client->dev);
++	}
++	pm_runtime_dont_use_autosuspend(&client->dev);
++}
++
++static const struct dev_pm_ops gc5035_pm_ops = {
++	RUNTIME_PM_OPS(gc5035_power_off, gc5035_power_on, NULL)
++};
++
++static const struct acpi_device_id gc5035_acpi_ids[] = {
++	{ "GCTI5035" },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, gc5035_acpi_ids);
++
++static struct i2c_driver gc5035_i2c_driver = {
++	.driver = {
++		.name = "gc5035",
++		.acpi_match_table = gc5035_acpi_ids,
++		.pm = pm_ptr(&gc5035_pm_ops),
++	},
++	.probe = gc5035_probe,
++	.remove = gc5035_remove,
++};
++module_i2c_driver(gc5035_i2c_driver);
++
++MODULE_AUTHOR("Nicola Fiorillo <nicfio@gmail.com>");
++MODULE_DESCRIPTION("GalaxyCore GC5035 sensor driver");
++MODULE_LICENSE("GPL");
 -- 
 2.47.3
 
