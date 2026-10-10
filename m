@@ -1,157 +1,122 @@
-Received: from ssl01.alldomains.hosting (ssl01.alldomains.hosting [213.145.224.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222F635C6B8
-	for <linux-media@vger.kernel.org>; Fri,  9 Oct 2026 23:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.145.224.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6BE3806B5
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 02:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791589948; cv=none; b=l3tKK0IUeYBgveEbwpqBCt6mGnJAzXnZGTZcxM4APkhUZLXHkwuv/4q+flu/K+2iyziBX3USCzjMqwTile30N0wPLa5ydWpBnJ6BAZrCrgSycxhLJTAFZ+CX07UINJka8rIf8QKmHuaNcDvjUSxySYNJKpt3j//0IHBBZ/abMkE=
+	t=1791600935; cv=none; b=dErJGgkgdRy2/bsF2zI0r5/WeKXbpnYuvxUvfruzpFDY5AHk6qcSlsHyqcs/qumxK1YZ2QFTSjwTNuhUTpEyUZBZQgSotN/z9+EDVpwEGypvjul4CpbEiZFtZeHyd4Lqlk+DrbT2NH0orUNrqmAD04z26eZnAm2/Te8HadsqmX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791589948; c=relaxed/simple;
-	bh=ebnU1WDVM7H+Bg+SOCH5165cqGGSS5oLr0S5gsA3+eU=;
-	h=From:To:Cc:References:In-Reply-To:Subject:Date:Message-ID:
-	 MIME-Version:Content-Type; b=XzSeYyOG3UusUOsGMjX8/y21jw6WVVO6K6YhX6lLbN9c9aCQUq+47ei+4CR4XbK2rnXHHB561nx1tjmI+j6wCfpru4S1u+73nj9UpBFFgWIF12UXC9/jvL5f8p6cQ8h48uIm+scIzXwGXZolnfd9Xp82UhpQiquAm3RDQx5MzcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dittrich.top; spf=none smtp.mailfrom=dittrich.top; dkim=pass (2048-bit key) header.d=ssl01.alldomains.hosting header.i=@ssl01.alldomains.hosting header.b=LvGfq6IP; arc=none smtp.client-ip=213.145.224.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dittrich.top
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dittrich.top
+	s=arc-20240116; t=1791600935; c=relaxed/simple;
+	bh=VMCiLqz8s5cgM7chlWJoua61lHqDxDcPc8Jd9fXrkb4=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=JB57IdaKh44MH6CHLQ58HuRCXmnlvuvU/zsv8ZEG8TcPqWRYkq8tKt3d6SEZYKk2h8pFK7SknDwDu4AmZQW9ZDXKvAhJDzP/7tMw/yK0PifFGX9HGCMQO1HVK3bO+qdKGcb8PHuvgLhJ4BRBcHExNO2n4GJhmpeD3s4j7WFdmV8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UrXHUco/; arc=none smtp.client-ip=74.125.82.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ssl01.alldomains.hosting header.i=@ssl01.alldomains.hosting header.b="LvGfq6IP"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UrXHUco/"
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so795215eec.1
+        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 19:55:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ssl01.alldomains.hosting; s=dkim; h=From:Sender:To:Cc:
-	References:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type:Content-Transfer-Encoding:X-Mailer:Thread-Index:
-	Content-Language; bh=jlrehCtVYfO3G6hQE6eg6Itx+bK/RnGOlKLN7ylpNTQ
-	=; b=LvGfq6IPgenjH32crku0yNNqC6y+9pG72HXoo/NBaITHN5LtB3t9IAejK1P
-	EvW9mUF38FOscOYBnnQWmMVR834eIPrxmRz12jPeJPV00Zf1s9FLo1UsgmEghgDY
-	9EvtHOYeDtTm4c4j3kyNPLjv0MH9RzDRLKHjt0fs1+kF5VnGiBYgv2R3kg8R0Ukq
-	S4509gi3M5Y+UDp7lJmUUDlZS2smWFWwqexM+mlhPWvLhJDkYC/PGEciZLBv3rOi
-	cn6h7S36Cd/i2v/ALN+JRUAF5QYVGOXNcFrIbO4Xxg6XVkS0QqqL8sBMhyJ9BH4g
-	l88uLTTwt6yeubIsH3q5f1HGqaA==
-Received: (qmail 1703242 invoked by uid 7799); 10 Oct 2026 01:45:40 +0200
-Received: by simscan 1.4.0 ppid: 1703216, pid: 1703233, t: 0.0846s
-         scanners: clamav: 1.4.3/m:63/d:28148
-Received: from unknown (HELO ROG) (michael@dittrich.top@94.31.113.139) by ssl01.alldomains.hosting with SMTP [4863]; 10 Oct 2026 01:45:40 +0200
-From: <linux-media@dittrich.top>
-Sender: "Michael Dittrich" <michael@dittrich.top>
-To: <linux-media@vger.kernel.org>
-Cc: <mchehab@kernel.org>,
-	<nibble.max@gmail.com>,
-	<linux-kernel@vger.kernel.org>
-References: 
-In-Reply-To: 
-Subject: [RFC PATCH v2] media: smipcie: validate DMA lengths and avoid stale work
-Date: Sat, 10 Oct 2026 01:45:40 +0200
-Message-ID: <041301dd5848$4af6c9c0$e0e45d40$@dittrich.top>
+        d=google.com; s=20251104; t=1791600933; x=1792205733; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nr/wh3D04jCOdxRooqTq4ckJalsK9oapi786CLs1riY=;
+        b=UrXHUco/3NRy22zwvjKYutqE/fV4ssA3HCwJttKHUkuFZmVCczj1C4GGgIPRkcznip
+         rSu51g/2g5wkLzKKpxLwfztRfMph+fGSOuvKKqyRwfgapL7j5ZjPoa8Ihb4u2aDGwK7O
+         CQv3GWLWhlu4jOK+pXkOI2sz8FQ+p3qYUExCI0Cdpp7hPhGBurhf8cAv3pYigXr+hjMp
+         vEfxjiBaheeVN1tIvyDDl12jFXx5HPH+/dogcF4AFVjRON47D0Iscki2kNSduFsdgKn8
+         Ei9S7mqiIwMTbPaoPe+XZ4XIIpCf5ywkpNDROCBsOtarZqpMo2ar5/sievTDH6cGtscA
+         14yQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791600933; x=1792205733;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nr/wh3D04jCOdxRooqTq4ckJalsK9oapi786CLs1riY=;
+        b=xGn2pP916MGwyTvYr8s9os1qzfc3rMl4ZV5aefGSDMiwfT19a1zwkhfY1+9171EeBO
+         cLPOWyzeI2kXaWbSIm6cCbgN8IdjEGyfYIYUscFwu9EIn+1GuwCSpwwqU5DbIV92N9k6
+         aO/peHDDc14auV+5skWwmJtJnJia/XqNcjgjGTvML+cHtvFv/H44ZvposL1rLyXruJ1m
+         N5D4dl0FJT6MxFAsKgqBvZF4RkMrvs8JnuU06xlj3XDL1Av+SEkxBFpVmMHAxC5cwbxn
+         HDG1IPoBih1XRmA4/oHEoi6KOeMG+ZZxmQekFgrnHBYj2nc/us+myqGWcMRbvgQRTLwK
+         r1Bg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhcdMbrj3bucoGtkFTqZxF8b2kRUtmoLPQnYjSoygnYfx72IEN76FJAoqP1CZ0rYwoOZM2+LTHlaYlBA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+sgi2wQzl5GGFPR65R+hKUU/qy/IxOoR9x4SKoz0NQjUlPHi6
+	iIO1DuV7v972YKwQ1lfpw3oP+1n9RGe7vOJuRKmVndpqrdzARJelT1JggKiDyILQoQ/n1ztC9B6
+	DPt7JgyHYDtKFt906tRlf2b3T3w==
+X-Received: from dlbqs7.prod.google.com ([2002:a05:7023:d07:b0:146:59b2:8236])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:4211:10b0:14a:a6dc:9cd7 with SMTP id a92af1059eb24-16a57a16ef2mr4717399c88.2.1791600933127;
+ Fri, 09 Oct 2026 19:55:33 -0700 (PDT)
+Date: Sat, 10 Oct 2026 02:55:12 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: Ad1YQlcidfEawcyUSqGHVs4pTbRUcQ==
-Content-Language: de
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261010025532.839559-1-almasrymina@google.com>
+Subject: [PATCH net v1 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, David Wei <dw@davidwei.uk>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>, 
+	Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-smi_dma_xfer() passes a register-derived length to the DVB demux without
-checking it against the 192,512-byte DMA buffer. A zero register value
-is interpreted as 4 MiB, allowing the demux to read beyond the buffer
-if that completion is processed. Reject oversized lengths on both channels.
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-smi_start_feed() also unconditionally queues work without refreshing
-_int_status. Clear the saved status and enable work before IRQ/DMA;
-let a new IRQ queue the completion work.
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
+   preventing slab-use-after-free in dma_unmap_sg_attrs() when the netlink
+   socket closes after dma_dev is freed.
 
-A VDR 2.8.2 restart with two DVBSky S952 V3 cards caused a panic on
-Debian 6.12.107-1 in the unmodified driver:
-  RIP: dvb_dmx_swfilter_packets+0x5d/0x90 [dvb_core]
-  Call Trace: smi_dma_xfer+0x154/0x210 [smipcie]
-The exact IRQ sequence and DMA length at the crash were not captured,
-so the connection to stale completion work remains a hypothesis.
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Add net_devmem_dev_unregister() on NETDEV_UNREGISTER to fully detach and
+   unmap TX bindings when binding->dev unregisters, or clear binding->vdev
+   alone when only a virtual device unregisters while binding->dev lives.
 
-Fixes: d32f9ff7376c ("[media] smipcie: SMI pcie bridge driver for DVBSky S950 V3 dvb-s/s2 cards")
-Fixes: 1021dd010d21 ("media: Convert from tasklet to BH workqueue")
-Reported-by: Michael Dittrich <linux-media@dittrich.top>
-Closes: https://lore.kernel.org/r/000001dd4e71$a853ad30$f8fb0790$@dittrich.top
-Cc: stable@vger.kernel.org
-Assisted-by: LLM sparse smatch
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
 
-Signed-off-by: Michael Dittrich <linux-media@dittrich.top>
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
 
----
-v2: Correct the wrapped inline diff from the original report; code unchanged.
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
 
-Base: media-committers next, checked on 10 October 2026:
-d7e7bca7169873b46e857c025c10f3336c1258d8
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
 
-The equivalent Debian fix passed ten VDR restarts and a reboot.
-A stubbed test of the current source passed all 22-bit lengths on both
-DMA channels and checked startup queuing/status. It does not test IRQ races.
-Built on the above base as an x86_64 module with W=1 and section checks.
-Sparse and Smatch found no smipcie diagnostics, as did the compiler.
-The kernel build completed with warnings in unrelated, unchanged code.
-No mainline hardware test or standalone mainline reproducer;
-restart script and full trace are available to maintainers on request.
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  21 +++--
+ net/core/devmem.c                        |  68 +++++++++++++-
+ net/core/devmem.h                        |   5 ++
+ net/core/netdev-genl.c                   |   1 +
+ tools/testing/selftests/net/nl_netdev.py | 108 ++++++++++++++++++++++-
+ 6 files changed, 192 insertions(+), 12 deletions(-)
 
-checkpatch --strict --no-signoff: one CHECK for existing finishedData;
-retained to avoid unrelated renaming. AI assisted with source review,
-the patch, tests and this message.
 
- drivers/media/pci/smipcie/smipcie-main.c | 26 +++++++++++++++++++++-----
- 1 file changed, 21 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/media/pci/smipcie/smipcie-main.c b/drivers/media/pci/smipcie/smipcie-main.c
---- a/drivers/media/pci/smipcie/smipcie-main.c
-+++ b/drivers/media/pci/smipcie/smipcie-main.c
-@@ -310,8 +310,15 @@
- 				"DMA CH0 engine complete length mismatched, finish data=%d !\n",
- 				finishedData);
- 		}
--		dvb_dmx_swfilter_packets(&port->demux,
--			port->cpu_addr[0], (finishedData / 188));
-+		/* Reject lengths exceeding the DMA buffer. */
-+		if (finishedData > SMI_TS_DMA_BUF_SIZE)
-+			dev_warn_ratelimited(&dev->pci_dev->dev,
-+					     "DMA CH0 invalid length %u, dropping completion\n",
-+					     finishedData);
-+		else
-+			dvb_dmx_swfilter_packets(&port->demux,
-+						 port->cpu_addr[0],
-+						 finishedData / 188);
- 		/*dvb_dmx_swfilter(&port->demux,
- 			port->cpu_addr[0], finishedData);*/
- 	}
-@@ -333,8 +340,15 @@
- 				"DMA CH1 engine complete length mismatched, finish data=%d !\n",
- 				finishedData);
- 		}
--		dvb_dmx_swfilter_packets(&port->demux,
--			port->cpu_addr[1], (finishedData / 188));
-+		/* Reject lengths exceeding the DMA buffer. */
-+		if (finishedData > SMI_TS_DMA_BUF_SIZE)
-+			dev_warn_ratelimited(&dev->pci_dev->dev,
-+					     "DMA CH1 invalid length %u, dropping completion\n",
-+					     finishedData);
-+		else
-+			dvb_dmx_swfilter_packets(&port->demux,
-+						 port->cpu_addr[1],
-+						 finishedData / 188);
- 		/*dvb_dmx_swfilter(&port->demux,
- 			port->cpu_addr[1], finishedData);*/
- 	}
-@@ -821,9 +835,11 @@
- 	if (port->users++ == 0) {
- 		dmaManagement = smi_config_DMA(port);
- 		smi_port_clearInterrupt(port);
-+		/* Clear stale status; let the IRQ queue work. */
-+		port->_int_status = 0;
-+		enable_work(&port->bh_work);
- 		smi_port_enableInterrupt(port);
- 		smi_write(port->DMA_MANAGEMENT, dmaManagement);
--		enable_and_queue_work(system_bh_wq, &port->bh_work);
- 	}
- 	return port->users;
- }
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
+2.56.0.385.gd3acb90ef8-goog
 
