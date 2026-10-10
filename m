@@ -1,145 +1,108 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43103.protonmail.ch (mail-43103.protonmail.ch [185.70.43.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A22A35AC14
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 14:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A19B483BDA
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 14:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791640953; cv=none; b=gsWPN1bk4GOFiFZi/7MmNaLtyhG5iHys7TOB5j/uOiO8edsyC5P7JMYUe/YZOv0uF+XEPwRTLRRCJUkOBiMTmFXoHmIY+jx88nHsYS1EZ0krfROlGZvWqYNLXhINlxhbGhbVrtPxysHgXpTLhvpfb0NFEY+ORewPWaNQpDz7YjA=
+	t=1791642065; cv=none; b=oVu0CQkPKQtPuFzmUK4AxPP6hpW+8IKni2pGa4M2l9F7ALyoDWhFv0MPP0hX1FMKu80vRYHSj5gxSPOcAa8PFbp9CuO3RQs96S3Ilgfvn1UkMmX0O+OEEvGBBh52pKp8b5mXBDEFqVD/GiiSu5qHi7f23eQJhWhBgwD3quUX0C4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791640953; c=relaxed/simple;
-	bh=1nn/gxCVP607cWus+kYr5yIsKr+fX0D4lXIQhCvbtzw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oRfhVCXUwB3OCmELxoVpqzaMh8iXmkT634l+dXghAQdQtTO2B+6LyHrXyg723BzqRJw91lgAJPyCbsu4nGZ7UW3A2snjUUY6pSSijHKnCskLQXjdHXF7wdsbT47dqL7RbAj82pKfq7oGibRNX091MLGnp67eoriZ+sYmK8KogXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qDSQdYr2; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791642065; c=relaxed/simple;
+	bh=wmj7guVz0/VeKewTNjtjnpkDMkgB0uDZrnGDY/6dXTM=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=tbkiQOfQa/Vjsg7dD8TJkGrvrhyBeP5nOmMJAA+E7L+BzDaJ4ajJ2chBdCnsd8hTiVWu/W4LJ7lFj5PUp66YORU4rHBMk9p4qTWg3yqqbHU5DrUlMP8meHS2N6LlYELFNYO1Aws+gn4gsW825376E+nKjVVpBcWSdx72pnLcUEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=svHI33TR; arc=none smtp.client-ip=185.70.43.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qDSQdYr2"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso541609f8f.1
-        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 07:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791640950; x=1792245750; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7F23FNsErj3fpOWKD/UF72cX4yQCCC/yv71F53gfj74=;
-        b=qDSQdYr2Z/+mdWr5U9bMM5gDAIS4cjZD0yDeCyIfsFfHYpIe/gYGLc/dT9OQDe5ZyM
-         pr1zGnzEzFNtrH3AraRLJ6Ba7MLXvgw8eAvI2boZA1c+xLYps7STj05CZ2fsPMO1pFEs
-         nXqebZNvonbBefAXm8QHluLwoyANWBzBWD2LAoyzeIuVMJRSXsczb6rAIB2iefqSw1e+
-         QadP+/LKkS0pvPI4VX4T5PfEo0OuISIWLLWf+iqvMkOG29pP1YKP9igsoEcRVEjjDIyV
-         K3PQn1aap2b2S6seVp+UJo6X/+taOuJZj0PqkoCpHWbR1SQkTGsaOB1LGjaoGFe+MiDC
-         H1wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791640950; x=1792245750;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7F23FNsErj3fpOWKD/UF72cX4yQCCC/yv71F53gfj74=;
-        b=zJ6Qr5bvmjjaX9aaKqOnKdZ8dFcFP7j4cDBYd64BJBYfcCj5ESBooH49U8ZbZjJezn
-         9q7WRGIrqy3Y8FDGRDKRU7Y5h/iAK8x9D0FW5V0Pr8hT9KS4RMu9//XIIscO7LSu55NP
-         QB3TwMSmuQ9IPswIrwgf3XLGUG4pFQJSZ/sLRMg3jY9PNaUA8paLnZd0nKV+29GBYkH3
-         j+xGKWW7UP1OqvGXi6amXSnRkn0SQQ0kIvnrNEqoO+RGLkuMdnmnp3uVklPkkm3hw7Qn
-         rXzNtnq7ugsD7fZfksYaCw5JqHZ5GBLb55IXU6JdoGy1j2hW4j6P3Azr/5j85ebGkmNA
-         XlWA==
-X-Forwarded-Encrypted: i=1; AKwUvByAlADN9jMKeXqyy3t3eFB0zKWq19sxzd9wlLwSxHcMgSb+lOxyP/xYuSk+C5eqDCjPXsSqo30e8QE/EA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNy5k939CRg8p+jVmQO9l3zBZkH69yGnpS0yWtsc4YfhCKyEbv
-	K6pCGzySh1Cmtxzx9CK3r2ZBeAIPSjYK2+8FPt3CyI4zFYLnUJbOx0ka
-X-Gm-Gg: AYBFou1UdJUhjck4pWrBGv2V1KsmvmejCQyqH7+G2rj34kzKR48ZLTA/E8aAKNwviV7
-	FwVdL3A3rnn3XtOFJNSt00med0V9UuDZ8KcCAFEZtDYWOCmYHyvzDRDfk/3bG4GQcBn9rvP0PXv
-	eJQsabRiUgxwzV8eNssXqZzHo/t2psYoWma5HjLFwmM0anBtXQTmPT6ZXcTKVw0gfC5Dnh5xP0T
-	qMup1cv7ZF6CPoNIXdD0YJjpVvIApknTqiBzjfoHPTsHvr/LTMDX3VAbe0ZRNMahPwniMLyih5a
-	MY5NwXC4S9DkMp1Xhu+ri3ZkFUXFhedsU8CPij99F4c0K1LE1vEEy1K1SlBcHNJPrBkdr3KZAxs
-	Jejc5UGEDYsqzovlIJ0G4X2vQGxslqSYE5H7g7VFsVVripdthb7IK8VS+aOvNQrLmzjU6N1+1lf
-	eUxaI9oZz+5sQm9MaSjlELU+IveYVsrQk4wofH/62DNm9Cl8IS3dvzaFuC5vXi7a6uwbzb4i/La
-	MGS586e6r8N7v97tKTRF+2DBo+gUDDuJDHUmahodQsJIrcl+Qd21gYlz34wUo8bbT8Zsx3CDn5o
-	nw2qer0hcXqpzzaqTx732ECYOpEMndgSljrkBneOuKiyVjk9
-X-Received: by 2002:a5d:6992:0:b0:48c:49bd:62df with SMTP id ffacd0b85a97d-48dba77d1ddmr7509477f8f.1.1791640950478;
-        Sat, 10 Oct 2026 07:02:30 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9463499sm8727077f8f.3.2026.10.10.07.02.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 10 Oct 2026 07:02:29 -0700 (PDT)
-Message-ID: <12d8d2fc-6b3a-432f-b27d-e27bea01d697@gmail.com>
-Date: Sat, 10 Oct 2026 15:02:26 +0100
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="svHI33TR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791642058; x=1791901258;
+	bh=ELRzMF7PowDnre2U30VE7cr11G7OIFQwAe+fmSqK0p4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=svHI33TR0L6bp/Y6xEJwjsWSLm+Cev6pTkzFCau9+oNvVwmYPII3S4bVH0jfiuLw4
+	 NudlUlOh75gFM8Wvlqm9MGaxPWmFIuOxHQoh7y/KMyzJzbeUNsPaH60B2WhzPujK7H
+	 GQ+YCyBurpftBd9/XihO2b7r/G0+PQWdtlDS6osutWvwQ/SmjLjriddqCxPDfH08wU
+	 ffzH7yjq1fpWlwvCRQRiLbrIBGpROgDYF3W8uw25SgZVyODliSclM9/j+DzenDOjWc
+	 QcH4yBk6YPErO0ZyOBca6Zf6mpzPN3ko5QdcU35ffmxz5p6WN7YwM22JDUZMcgDRqq
+	 AUw815QTnO56A==
+Date: Sat, 10 Oct 2026 14:20:54 +0000
+To: Daniel Scally <dan.scally@ideasonboard.com>
+From: Simon Kruse <simon0x+git@proton.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: ov5693: Support control events
+Message-ID: <20261010142042.23253-1-simon0x+git@proton.me>
+Feedback-ID: 50827409:user:proton
+X-Pm-Message-ID: 87b0d29f18153cf8e5ddc32eaef4a2ae19c518da
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v1 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-To: Mina Almasry <almasrymina@google.com>, Jakub Kicinski <kuba@kernel.org>,
- David Wei <dw@davidwei.uk>, Taehee Yoo <ap420073@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>,
- Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman
- <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>,
- Kaifeng Wang <kaifengw@google.com>
-References: <20261010025532.839559-1-almasrymina@google.com>
- <20261010025532.839559-2-almasrymina@google.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20261010025532.839559-2-almasrymina@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/10/26 03:55, Mina Almasry wrote:
-> When a bound net_device is unregistered while userspace still holds a
-> netlink or TCP socket reference on a devmem binding,
-> mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
-> netdev_nl_sock_priv_destroy() will not touch the unregistered
-> net_device, but leaves the dma_buf attachment mapped until
-> __net_devmem_dmabuf_binding_free() runs later on socket close.
-> 
-> Because dma_buf_attach() does not take a reference on dma_dev, device
-> removal frees dma_dev while the attachment is still mapped. Closing the
-> netlink socket afterwards triggers a slab use-after-free in
-> dma_unmap_sg_attrs():
-> 
->    BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
->    Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
->    Workqueue: events __net_devmem_dmabuf_binding_free
->    Call Trace:
->     dma_unmap_sg_attrs+0x76/0x2b0
->     unmap_udmabuf+0x8e/0x100
->     dma_buf_unmap_attachment+0x145/0x330
->     dma_buf_unmap_attachment_unlocked+0x96/0x130
->     __net_devmem_dmabuf_binding_free+0x156/0x2e0
->    Freed by task 9:
->     kfree+0x1b8/0x550
->     nsim_bus_dev_release+0xe/0x60
->     device_release+0xcf/0x250
-> 
-> Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
-> and null out binding->sgt and binding->attachment after unmapping so
-> unmapping is idempotent across queue uninstall and deferred binding
-> destruction. Call it synchronously when the last bound RX queue is
-> uninstalled in mp_dmabuf_devmem_uninstall().
-> 
-> Fixes: f8350a4358fc ("net: page_pool: add a mp hook to unregister_netdevice*")
+The sensor subdev exposes controls but does not implement the control
+event operations, so VIDIOC_SUBSCRIBE_EVENT fails and v4l2-compliance
+reports:
 
-It looks more like 170aafe35cb98e0f3fbacb446ea86389fbce22ea
-("netdev: support binding dma-buf to netdevice"). The one in the
-tag didn't do anything interesting.
+  fail: v4l2-test-controls.cpp(1128): subscribe event for control 'User Con=
+trols' failed
+  test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
 
-The fix looks good as well, might be a good idea to clear
-net_iov's dma_addr as well.
+Add the standard control event subdev operations and set
+V4L2_SUBDEV_FL_HAS_EVENTS.
 
-Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
+Signed-off-by: Simon Kruse <simon0x+git@proton.me>
+---
+Tested on a Microsoft Surface Pro 9 (Intel Alder Lake, IPU6, OVTI5693) with
+media-committers next at d7e7bca71. v4l2-compliance 1.32.0 on the sensor
+subdev node: 45/46 without this patch, 46/46 with it.
 
--- 
-Pavel Begunkov
+ drivers/media/i2c/ov5693.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+index 56599f9ca..5cddd46b3 100644
+--- a/drivers/media/i2c/ov5693.c
++++ b/drivers/media/i2c/ov5693.c
+@@ -26,6 +26,7 @@
+ #include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
++#include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
+=20
+ /* System Control */
+@@ -1095,7 +1096,13 @@ static const struct v4l2_subdev_pad_ops ov5693_pad_o=
+ps =3D {
+ =09.get_frame_interval =3D ov5693_get_frame_interval,
+ };
+=20
++static const struct v4l2_subdev_core_ops ov5693_core_ops =3D {
++=09.subscribe_event =3D v4l2_ctrl_subdev_subscribe_event,
++=09.unsubscribe_event =3D v4l2_event_subdev_unsubscribe,
++};
++
+ static const struct v4l2_subdev_ops ov5693_ops =3D {
++=09.core =3D &ov5693_core_ops,
+ =09.video =3D &ov5693_video_ops,
+ =09.pad =3D &ov5693_pad_ops,
+ };
+@@ -1336,7 +1343,8 @@ static int ov5693_probe(struct i2c_client *client)
+ =09=09return dev_err_probe(&client->dev, ret,
+ =09=09=09=09     "Error fetching regulators\n");
+=20
+-=09ov5693->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE;
++=09ov5693->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE |
++=09=09=09     V4L2_SUBDEV_FL_HAS_EVENTS;
+ =09ov5693->pad.flags =3D MEDIA_PAD_FL_SOURCE;
+ =09ov5693->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
+=20
+
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+--=20
+2.53.0
+
 
