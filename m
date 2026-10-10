@@ -1,70 +1,81 @@
-Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278E243B4A2;
-	Sat, 10 Oct 2026 09:24:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5141495047
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 11:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791624274; cv=none; b=gDO16CRnpx0eEbbjpilaV5aVMSoOK+oaaJTxibj1JdD3Hd1qvbQDgJH3j/tbJzcZ9+lCPrS6pLoPIKwDH+CTij3Z6Z4qUhsDfHpzyX46NQAffO7agt25x4tbprrWrXZNe7vTQ/pg0e3sv0MIQOD2icWoT3TOmk+5ER98U8JptyA=
+	t=1791631889; cv=none; b=iIUCd+CBtlYe7BE90Wf/Nj8EPysmcRgGRvpddz58EywxkeCx8QdF9+Jrs1YbP/sleEAg+IqaeErTMSdOh7chyhJ6ANpUIETbjF1/QlX/kfCVmzXF5JKw6KCNjUaDQzkjR56gm2oiAIlDPXcszOgp2xghEP2y4VSfdXlRVAeia7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791624274; c=relaxed/simple;
-	bh=QF7lJK0e5XHyDs7kyvkAGHxq8jXoAnossab8vqIwaks=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LJNdfKm+i6imBr8mwR/T66DW5doehTL2wSki0UHD/uyj9XCbvTGdYy5iWtpJIBCLLszfnsI6obvo6O10deV+Idh85qf3SlUWKHP75T0Liuf8/zW+W3Yef0waBaQ+FH6lghp4ZZ/xGaeel2VULpjhRONWYF1H4tJ3y+jtSUC9reA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=FmAl0OR0; arc=none smtp.client-ip=60.244.123.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	s=arc-20240116; t=1791631889; c=relaxed/simple;
+	bh=Es+dBV7DIZIeEMX6pKpx1DQ3lWrpAte1IyrZLYZ2vJ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZH/DNI8Uzm0wW/TdI/sOyvmayT4C6APskwllv/J857kipH1BUt2lO34EhT2Fs34xveF3SPfC+gMaYXjRBndNkbiNfvR+x1F3yNOjHhE51HFbWe1VJ4LixKXNkasaWFeHJMwsA6YIKCxgPlZjRFslC4vhf+lsSBXltUiYoSSYJPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZSnd7Upb; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="FmAl0OR0"
-X-UUID: 5c441740c48c11f1b1788b6acf885367-20261010
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Vvf7eU6u7K/tzymPRpeR28++AoANVXw5uyTQacZXMLU=;
-	b=FmAl0OR0qIEWVmCL3sT9w9T1y48VL6EpwkZaed4AhF8WdTWiR+EumWlbfNfzkyDVtMkmrMXyAwEiswKyRQwePuXJpUOZH5DsDwubqzjYXrtNNfte9zBeONgwd7A3S34LMXz+tyWgm+lQSf9F5S6EYf7BK4QBGBZ+yLrrN2hSkGg=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:a648f43f-187f-45fc-87f8-863a4f8c286c,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:291e20b,CLOUDID:fac82c20-2f17-48f6-b8a0-2bb5971c52b4,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5c441740c48c11f1b1788b6acf885367-20261010
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw01.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1050067361; Sat, 10 Oct 2026 17:24:14 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Sat, 10 Oct 2026 17:24:14 +0800
-Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Sat, 10 Oct 2026 17:24:12 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
- Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
-	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
-CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
-	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
-Subject: [PATCH v11 10/10] media: mediatek: encoder: Add MT8189 encoder compatible data
-Date: Sat, 10 Oct 2026 17:23:58 +0800
-Message-ID: <979dd8756daf34346dc015767622e6e42057dd7c.1791623423.git.kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1791623422.git.kyrie.wu@mediatek.com>
-References: <cover.1791623422.git.kyrie.wu@mediatek.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZSnd7Upb"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so5104285e9.1
+        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 04:31:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791631885; x=1792236685; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Es+dBV7DIZIeEMX6pKpx1DQ3lWrpAte1IyrZLYZ2vJ0=;
+        b=ZSnd7UpbfCXgZqmFdH7yiOsV5Op7IkwIarhwClaWT2TKvXPxl52KnmclpSBeMehD3W
+         3ztxGtskF17bKD1Fgnn8kQfPEPxVzKPmBVYsu5u3Hv9JuXMSAw4kHWl9tmfBP9hgPfFq
+         S3tZoD6EJVlB0aVCma7ajJW1W7kvnwOdjJQ8lQWzjtMuZqBu5xEIM+dguSRHJSNia6y9
+         j/2ZGEh5tlRHcCgapyeikF8qJ0J1CXxAcGjcWJ6xHAbyqwej3pu73pNlATVuaTI27R8h
+         /pFMcBjNxWQnsn/Z2wXK79BLjNZf3W150w8qpxHNG1s4PifQlmWRpFV3kG/I9Qx4eXts
+         Shkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791631885; x=1792236685;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Es+dBV7DIZIeEMX6pKpx1DQ3lWrpAte1IyrZLYZ2vJ0=;
+        b=Gf3B823SsNfE3b3uafdssvlDqoKF0+PlRDkp93cyVz8r9QbxVDeyLXWivX/rUiX2ew
+         uRwibf12RUhlfugQCAyAUMHWTQGNX9Gizx6C/8ZrkY4/YOUPucJ42an9naEFu2BWsCuj
+         afEdDTNektyGNdzXMGpHWrBDw7A1TFvGtQCXpCXoN6T/anjPUAVQ1I1QOA2+5WznaTgo
+         +eXLcGfQS6I+3qAfPahp+5MrQjKFo1j6m/N839CIjJ3Ndpd9KbXiCVWubQpVmPrIOhZN
+         NZXAVj2Z2/+3T2h3Lb8kBMZdfjZE9xsNDw8uVQzVWkOkKFv3CPJPS8INrSMxFHJo4KmM
+         5fDA==
+X-Forwarded-Encrypted: i=1; AKwUvBzW3KBUNZ/i3pLZALBcB5k9ExU6KmE46jh3QHs3r9nDkwrTaOxPe+/JRKJZCxCj1bYxq08diOXOiRL7Gw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzGe2PZ+sSwOuDKe0+AsbMeUt52PY4t7CvEgllPNDAGFopYvJE
+	vhDrUiMK8u3hewom5Q5OJbX3a1f6zp4XU7QtBTkp6l/On+gvXYJ7JQoE
+X-Gm-Gg: AYBFou0QzblDz5gU+86IvZp5sHGlzGgwnp1eSBeCc159e+kudPgCjv/Hf2ietBE3X3a
+	pZJGhZ9dAFWVy/n9jxJGXY9zO62wQabR/uNLVT0YCC6tccILdvcy5ChI8qlAJaKySVdsXOb+oQi
+	4GjFomnv4dsOCu42+TyXzeolLE4i32mGas8gyeb/AU1TbH4HCIQZEPEj26MwPUDlvO9fjtR4M+a
+	Ifqw2MJgAEt9JiR4G2bG8s5X4tF72BokzmfqKlZqcNaKxhmUwvpDfbapm/VhOco6GGDYomZ99eS
+	JjWVgI+MdkJ8XiD2KPkyOoankohXf7TGQUKevdaXMADsoVLS53xju8t0j3yVXcy9fZ2P1yvXeQR
+	jaUTpfib1Y+d3x/jMXC6jJNjeDWgTW28x3gG8xSWPrNjyH5TZ7veDFmkhHnNw/o/peBgh4CW+3x
+	wiwJvXIXThMyBbGjbcvVF3GcFnhe9stJJviYrfFaZnx/8OXKu0uWUKpaCxpqSz24bTbHkEEv5uD
+	v5rQUdagI4iCGMK4FMIsicvj5XzgW9BwFUKuVwyysQTPcg=
+X-Received: by 2002:a05:600c:4f46:b0:49f:cbf1:e77b with SMTP id 5b1f17b1804b1-4a18e4a5355mr105108215e9.10.1791631884527;
+        Sat, 10 Oct 2026 04:31:24 -0700 (PDT)
+Received: from Cachy-OS (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2e0dbsm133458045e9.11.2026.10.10.04.31.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 04:31:24 -0700 (PDT)
+From: German Pablo Lindo <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: dan.scally@ideasonboard.com,
+	dev@berg.pm,
+	hansg@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	German Pablo Lindo <germanpapulindez@gmail.com>
+Subject: Test for [PATCH v3] media: i2c: ov13858: add regulator, clock and reset GPIO handling
+Date: Sat, 10 Oct 2026 13:30:55 +0200
+Message-ID: <20261010113055.31715-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260831130312.26296-1-lsa.uz@pm.me>
+References: <20260831130312.26296-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,52 +83,7 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
 
-add MT8189 compatible data to initialize platform data for encoder.
+As discussed in https://lore.kernel.org/linux-media/20260913144127.17995-1-germanpapulindez@gmail.com/ this patch is necessary for the proper functioning of the camera ov13858 but not the only one needed for this camera to work
 
-Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
----
- .../vcodec/encoder/mtk_vcodec_enc_drv.c         | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-index 716ae8dc..a4cc5f2a 100644
---- a/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.c
-@@ -483,6 +483,22 @@ static const struct mtk_vcodec_enc_pdata mt8196_pdata = {
- 	.ipi_id = VCP_IPI_ENCODER,
- };
- 
-+static const struct mtk_vcodec_enc_pdata mt8189_pdata = {
-+	.venc_model_num = 8189,
-+	.capture_formats = mtk_video_formats_capture_h264,
-+	.num_capture_formats = ARRAY_SIZE(mtk_video_formats_capture_h264),
-+	.output_formats = mtk_video_formats_output,
-+	.num_output_formats = ARRAY_SIZE(mtk_video_formats_output),
-+	.min_bitrate = 64,
-+	.max_bitrate = 100000000,
-+	.core_id = VENC_SYS,
-+	.uses_common_fw_iface = true,
-+	.set_dma_bit_mask = true,
-+	.fw_type = SCP,
-+	.fw_init = mtk_vcodec_fw_scp_init,
-+	.ipi_id = SCP_IPI_VENC_H264,
-+};
-+
- static const struct of_device_id mtk_vcodec_enc_match[] = {
- 	{.compatible = "mediatek,mt8173-vcodec-enc",
- 			.data = &mt8173_avc_pdata},
-@@ -493,6 +509,7 @@ static const struct of_device_id mtk_vcodec_enc_match[] = {
- 	{.compatible = "mediatek,mt8192-vcodec-enc", .data = &mt8192_pdata},
- 	{.compatible = "mediatek,mt8195-vcodec-enc", .data = &mt8195_pdata},
- 	{.compatible = "mediatek,mt8196-vcodec-enc", .data = &mt8196_pdata},
-+	{.compatible = "mediatek,mt8189-vcodec-enc", .data = &mt8189_pdata},
- 	{},
- };
- MODULE_DEVICE_TABLE(of, mtk_vcodec_enc_match);
--- 
-2.51.0.windows.2
-
+Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
