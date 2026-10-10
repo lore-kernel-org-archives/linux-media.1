@@ -1,231 +1,147 @@
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEB325785C
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 02:55:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5D1F376466
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 04:59:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791600951; cv=none; b=LGnMTCBf2PUgiLEGWjdTmO3Yg22xAOu8rI7BXI/egVKnhor0UFpMNq2eqWypEgLd+e7x///Q9nc7rPLY5gIHdqgFzU0EPR5zHWpc9RXC9fMmkhXWhQcpV206WGGxohx/bg5dF8qUlllE2xtVBiJmMjhPGNe+pE5/O2Jkg6VxZrI=
+	t=1791608369; cv=none; b=FsTUZXULlNcEy/j7NtoZX/a9mTn1pQYgIDNWF6d1P8I/t1jfZB6kAjnMqVzb+I64H2hbJ4v3uPk77LLwkvJYiKWl51iJ/aBDxjpvts4V1fW9IHKCTRWNZUhGJpgTqs75wn6jXc0OWdScrzIOJRZ8NdEj+xqHPd3QoIrZzY1gJZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791600951; c=relaxed/simple;
-	bh=6gGUo5bfHG056Upj0Wv3RVCBcYSHTIx2FpNy0nwC6/4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=i8CksU5pG4VrEjJT5sY6Sli5KYguXMZteGL2s5wuTIorPxOTG+v3N9e6+PJOqfGYL/UdiT3eCif22SkU6mvoHNUBsSDkMCMzOGMzEYZ5YiiUhISbcDqzXqD3BVJf4TXkAxPfvYkLVjM+tp3eQ4UPe/feH5syl7aWL0cFmVGUMpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fN+DxHhx; arc=none smtp.client-ip=74.125.82.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791608369; c=relaxed/simple;
+	bh=P7yCH5kYXrmTKOJ0FGZzZuy+blQgstUKAmh/g+oX51s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EFt5Thjxg/+9t91n0GlqZUw/H/KWNkHoOpU5/fuLIaTFhbSOu2KUIVH7hIcSye5Czo/6pz3DMoEaIfKwi3ES3+T/lbxxmTBbVG8ctnTxiJngaQ7+TZ+qlthpXeUejegaCHVuwfoA76OTnK9udImcc7BW3qyDv3mCY98QkQsafl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=ncNbsusu; arc=none smtp.client-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fN+DxHhx"
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-139b62317d0so1542129c88.0
-        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 19:55:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="ncNbsusu"
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e706a6ba9so43602585a.2
+        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 21:59:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791600938; x=1792205738; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0d9kx5oWqQ1CybegjOdsNGS+P/geGKBslG4tLGyxeVI=;
-        b=fN+DxHhxImxuPdY0qJfuRumNvnkLcVwJruiyjK86iWKDOhmcw7zzOrtMfuwb2ahvor
-         lSlpftunEv+Tn+68w/orjJo5giKkjhQlRDZ/9YZa1u9KKRRo0k/hsoVLGnam4nl4mTGU
-         ndwnhCUKNEiPxJhMYHQjER4xqdCaIGP4XPOE66DuPdbOG4eyt/OuaxkonloC7/Ptq6LQ
-         4o7aqleGxL4TWWaeeAXIw9PDUY6Hcj4ACVWVB6kAvBa0RgrXbA9FGZKAtvwIdUmfCNyF
-         8h+bYE1pxUIb75eXeP0YiGk8NbFyHA+De5Xf4yx/W19+u5wMC5E8hJ2LpvPIMVMuxqyN
-         vlbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791600938; x=1792205738;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791608365; x=1792213165; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0d9kx5oWqQ1CybegjOdsNGS+P/geGKBslG4tLGyxeVI=;
-        b=X0I5GcHz7Z7syhm43QlgoEMfCvQUHe3lMceS9Oib4Js2sjOqh4Dgj3AvcC/Pja0c8k
-         D2psUH+r6NtlV32JOBy91+oGpoZlVlt/fo1a1EG4JJZJB0f5mik2Hi35ah42AK7eABjn
-         P63EdWTuc8bfgWnrTechn023+cXhjblHeElGp7vbqT5nq7NNFXt78UCK69jvwfL5pZnj
-         9Fmh20Sg6sAK1QMbJV7iBUl2tDPFU0q1YeLZWOPzB0Pj0S5ggguR6RGeMiCkPWtZjnbX
-         Bd0e8DPtu843gdYk2LXCuiapGQe5oghRRrPmFqoI6cb++OfIOlEEkbSeV6BqEbP8RV7T
-         /tIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxmKDi+TVo07SnYKmX70Ex4MySxO1kTMb0riQaaCVsjCmgLUYSQkfXQO/CoJj7PfROgCHCLzYMYSHCNZw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIb6Qr99z/Yp3l6SkMHVEGTvxO8DbcHbPi0C1BNZoHVRUYccOuD
-	+FMHQJ/p3o/SiMF4Zn0ZZRBNLQpghLXP322mIX3KFogMWLYMane2oQJbBnzg4iF/ScOQFR2+YXM
-	Z4fHAjwXMAbHwzm8ECvEPBCVl1w==
-X-Received: from dyvj1-n2.prod.google.com ([2002:a05:693c:87c1:20b0:355:5354:7d27])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:895a:20b0:351:f762:a10c with SMTP id 5a478bee46e88-3537dc3ca81mr5067199eec.0.1791600937866;
- Fri, 09 Oct 2026 19:55:37 -0700 (PDT)
-Date: Sat, 10 Oct 2026 02:55:16 +0000
-In-Reply-To: <20261010025532.839559-1-almasrymina@google.com>
+        bh=8nRDOlvFA2YLyiFZW2o7vc4YCb0RwgsJ9ji12ZBwLmc=;
+        b=ncNbsusu7y+0/8uWqVIiOntLT/54Az/z+wnfEmqhHHpJyAZ3/WQzXQ6wcBAnqOU5C8
+         mjxK7KJuCrBPKYj++Un1y+/uO2v9VfByLOwPPEJorxl+w4njSQG/OA1xKKHqYOoDlX+b
+         OGro8H+/vrYLmahe7fJ/I1BuaeqGWLLUWg+P+b5yGTYtMQmejNSO0nyZwHYrQN5I9CUQ
+         +e3e5otVB50XgEa5QmwV1j/+VuiWRb5djsV5LYl6BG0kBoWmDd0qpUZ5FMucXkAZqRZM
+         +A0ckSzeNkuSHRhB+UQttiOvFBJRG4pNzp/qK4rep9nHkYJXUMsL9l/Szvfl5EK6gE1K
+         q19Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791608365; x=1792213165;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8nRDOlvFA2YLyiFZW2o7vc4YCb0RwgsJ9ji12ZBwLmc=;
+        b=g/Mgp8CLj7DWCQp9Z1uFRFg0rq+WTRBr6btIfsdiQOrDxiaIruKKWG0Agdh9k0z18N
+         PfFiKUNfihlcMU0vr6KxpkQeD5zv4BcXtcL4kXQ8z4CKlMkYuzGGaBGdhR25x7NBIAuH
+         DsdH7vcSuZ/3I/ZgmbWJdoHmh1IBLxLYOg9F5exXir5zWbT8hEtpKDTYGyy+tzLjtYa4
+         F6CgPI/M0bNCnWmfN+Qd8oTnnyi+V4ty/F4WrXbdCWU70zjd25bLUt5HVJCRfcx47S8K
+         dmn/37lokTyqwVScm0HwqJBE81JBYilVMomTCg7gY06LR7ZBdXjR9UErNhY3KsvIfpjg
+         it4g==
+X-Forwarded-Encrypted: i=1; AKwUvByPhEf7wWgc3We9VVae8FobcX3mUeOgKsn5NuGw23y7gqb1Fzb3xgn1Q9OP3MREOcMxN4j/cxR4+Rc46w==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKAaF5oT6uy87hhq+u3tAeXaoJA9hg0Yvy+H5W/dan672ubAf9W
+	GUUq9sV55KH5OtNafKwlghNCCV9nVkCuqoBZXoLocYyFtlNA+MBeQN6gdD51Dw17NPI=
+X-Gm-Gg: AYBFou3qD1s+EL/jipEEEg+1f+GeaEnKXIk+MLZHaJgSYSpcemsFcc10kX3V9XfMzEr
+	ZU0W3CxKyVkd9JbTuzlZB+vl+3DWO1h4uBMV8CeEpgQyEaHwtj5Aubxd69UxtUVePEV/ElTQ/X2
+	nKZ/lcaYJJJ9d6k3iwHefgxUQ/eTGAi1zacYoLYjnmBa/XYfcjHW6aoDnLED87ORXAW64xVU2Fd
+	XmpxU2RHdkdcQpi4n3EAjxjF3xT4jkIDMdK6t5BCkOiMIrPvqDFvM6gKAENMeVRYP12QcVd+661
+	m9Vtuy6CwjlkOAzwLuVhat3bAEon5kMWjzgQCXYNXwgdiLNBXs1E55btNE3OyHNIHZjtVge0FVF
+	oOweXijsaRlTnXmM1wEy8ChMEBv3ADFGvqhe4mlJiB5079rIqGfGGNHNVj9CUoGcc2n49sdZlFN
+	6Bjb3h/2Rrm/5AmIxDPblENxBL81IpfRNpFk2vpPZFOUAhMxC4rljAmU5mQib9PBoVEQV7X9IqU
+	p19+fdbdVBiRnjkEZa+VpEu4b+nADTf1v8EhCUS3o7m7tzIjXdYz/SrC2w8Xy3eTFMxEa4aCdmt
+	OWCZNFPwqZowFJK3ncjxj8QSmpZnV7YufkyU9egA/e5JZ/QfTQ/+KE6M0iXHYry6+ISA
+X-Received: by 2002:a05:620a:261d:b0:93e:49eb:a274 with SMTP id af79cd13be357-93ebd225724mr641879885a.23.1791608365448;
+        Fri, 09 Oct 2026 21:59:25 -0700 (PDT)
+Received: from jake-laptop ([153.67.39.44])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b550887ebsm35827736d6.33.2026.10.09.21.59.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 21:59:24 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: Ramshouriesh R <rshouriesh@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] media: hm1092: Intel IPU (ACPI) support on top of v6
+Date: Sat, 10 Oct 2026 00:59:20 -0400
+Message-ID: <cover.1791608336.git.j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
+References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261010025532.839559-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261010025532.839559-5-almasrymina@google.com>
-Subject: [PATCH net v1 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: Mina Almasry <almasrymina@google.com>
-To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, David Wei <dw@davidwei.uk>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>, 
-	Kaifeng Wang <kaifengw@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+Hi Ramshouriesh, Sakari,
 
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
----
- tools/testing/selftests/net/nl_netdev.py | 108 ++++++++++++++++++++++-
- 1 file changed, 105 insertions(+), 3 deletions(-)
+These two patches make the HM1092 usable on Intel IPU laptops, where the
+sensor is described in ACPI as HIMX1092. They apply on top of
+"[PATCH v6 0/2] media: Add Himax HM1092 mono NIR sensor driver".
 
-diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-index ceb44c8e1fec5..bad230ee9dcd2 100755
---- a/tools/testing/selftests/net/nl_netdev.py
-+++ b/tools/testing/selftests/net/nl_netdev.py
-@@ -6,10 +6,14 @@ Tests for the netdev netlink family.
- """
- 
- import errno
-+import fcntl
-+import mmap
-+import os
-+import struct
- from os import system
--from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_run, ksft_exit, KsftSkipEx
- from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
--from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
-+from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
- 
- 
- def empty_check(nf) -> None:
-@@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
-     ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
- 
- 
-+def _create_udmabuf(num_pages=64) -> int:
-+    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-+    if not os.path.exists("/dev/udmabuf"):
-+        raise KsftSkipEx("/dev/udmabuf is not available")
-+
-+    size = num_pages * mmap.PAGESIZE
-+    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-+    os.ftruncate(memfd, size)
-+    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
-+    devfd = os.open("/dev/udmabuf", os.O_RDWR)
-+    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-+    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
-+    os.close(devfd)
-+    os.close(memfd)
-+    return dmabuf_fd
-+
-+
-+def _dmabuf_attached_devs():
-+    """Return attached device names from debugfs dma_buf/bufinfo if available."""
-+    path = "/sys/kernel/debug/dma_buf/bufinfo"
-+    if not os.path.exists(path):
-+        return None
-+    with open(path, "r", encoding="utf-8") as f:
-+        text = f.read()
-+    attached = []
-+    in_attached = False
-+    for line in text.splitlines():
-+        if line.strip() == "Attached Devices:":
-+            in_attached = True
-+            continue
-+        if in_attached:
-+            if line.startswith("\t") and line.strip():
-+                attached.append(line.strip())
-+            else:
-+                in_attached = False
-+    return attached
-+
-+
-+def devmem_bind_rx_unregister_check(_nf) -> None:
-+    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-+    dmabuf_fd = _create_udmabuf()
-+    nf_priv = NetdevFamily()
-+    ef = EthtoolFamily()
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    ef.rings_set({"header": {"dev-index": nsim.ifindex},
-+                  "tcp-data-split": "enabled"})
-+    nf_priv.bind_rx({
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+        "queues": [{"id": 1, "type": "rx"}],
-+    })
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_ge(len(attached), 1)
-+
-+    nsimdev.remove()
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_eq(len(attached), 0)
-+
-+    del nf_priv
-+    os.close(dmabuf_fd)
-+
-+
-+def devmem_bind_tx_unregister_check(_nf) -> None:
-+    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
-+    dmabuf_fd = _create_udmabuf()
-+    nf_priv = NetdevFamily()
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    nf_priv.bind_tx({
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+    })
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_ge(len(attached), 1)
-+
-+    nsimdev.remove()
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_eq(len(attached), 0)
-+
-+    del nf_priv
-+    os.close(dmabuf_fd)
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
-     nf = NetdevFamily()
-@@ -379,7 +479,9 @@ def main() -> None:
-               page_pool_check,
-               page_pool_dump_ifindex,
-               page_pool_ifindex_leak_check,
--              page_pool_stats_ifindex_check
-+              page_pool_stats_ifindex_check,
-+              devmem_bind_rx_unregister_check,
-+              devmem_bind_tx_unregister_check
-               ],
-              args=(nf, ))
-     ksft_exit()
+Patch 1 is for the sensor driver. v6 cannot bind on x86: there is no
+ACPI match table, the 19.2 MHz clock these machines supply is rejected,
+and the only mode is the 24 MHz one. The patch selects the configuration
+from the clock rate and adds the 19.2 MHz / 648x368 / 180.48 MHz one.
+The 24 MHz path is functionally unchanged. Ramshouriesh, feel free to
+fold it into a v7 if you prefer that to a follow-up.
+
+Patch 2 is independent of the sensor. The IPU7 capture nodes have no
+pixel format for MEDIA_BUS_FMT_Y10_1X10, so no monochrome sensor can be
+captured, whatever its driver.
+
+Tested together on a Dell XPS 16 DA16260 (Panther Lake), kernel
+7.3-rc5, with the ipu-bridge entry that is already in media/next:
+
+  intel_ipu7_isys.isys intel_ipu7.isys.40: bind hm1092 17-0024 nlanes is 1 port is 2
+
+  link_frequency  180480000
+  pixel_rate      36096000
+  exposure        min=2 max=719 default=360
+
+  Y10   648x368, 1344 bytes per line, 10 frames, 4945920 bytes
+  Y10P  648x368,  832 bytes per line, 10 frames, 3061760 bytes
+
+  exposure 100: mean level  59
+  exposure 700: mean level 198
+
+Two things worth knowing when reviewing patch 1:
+
+- The 19.2 MHz configuration reads X 0..1293 and Y 0..733, which is the
+  full 1296x736 array including the dummy border. That is what the
+  vendor sequence programs, so the crop rectangle reports it as is, and
+  it lies outside the 1280x720 crop bounds v6 defines. I left the
+  bounds alone. Say if you would rather have them widened.
+
+- The 24 MHz configuration is compile-tested only here. I have no
+  devicetree hardware with this sensor.
+
+Regards,
+Jake
+
+Jake Steinman (2):
+  media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz
+    configuration
+  media: staging/ipu7: Add 10-bit greyscale capture formats
+
+ drivers/media/i2c/hm1092.c                   | 363 ++++++++++++++++---
+ drivers/staging/media/ipu7/ipu7-isys-video.c |   4 +
+ 2 files changed, 321 insertions(+), 46 deletions(-)
+
 -- 
-2.56.0.385.gd3acb90ef8-goog
+2.56.0
 
