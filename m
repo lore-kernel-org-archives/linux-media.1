@@ -1,102 +1,124 @@
-Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D041B3264F9
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 08:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9A0331A48;
+	Sat, 10 Oct 2026 08:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791619332; cv=none; b=PDaHyZzqnO2tN/rwFf+7VgX7A14h4M/TAeJYbL6+eJ6tz6yn22D4RM6h+ZdOKg3q8WI9n8kb0se//d+veN6gX+G/d5UCGzynjRvbkXSBNAM66NBFxscqqksSAbMy1bdVlf+UXNVNXSFYOd/huF1cVMV6bY+g876QcGfXRfvVYD4=
+	t=1791619656; cv=none; b=bPa9KQnNlgTxaXvVomW6NLM3KAC2HPZSPn+Ej2/HIb9yEuu2WxqhoX5Fl66uvIOI6hLIsrSLDR9PYXUmJh29hz5B9amf6N6IHXz1gJHFj8356UK7jhgKBVALpfj52MhSjSfUzGPyriLeKPX6g1LFOzlFapzu8zlx9o+ifIN+X9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791619332; c=relaxed/simple;
-	bh=1iNm0gD4JZpQNgpNgc6CPJoa3+agOCU2DAeYLJQvsKw=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E6PdINX/I0fMqNNQt/KDcIfWoCXORz7z7W1ZlP9beFfpWRoKL0pEerk1udgOxDsc+hRqi0Edml7Q/YRy5BoCkc3pEpicQpsr4g0O7NUHLiriXu+QTpb7nVpNO56abg33KufKCsCAiKxbPen5mehD+qZ+9eM5AC3O7n/xdhUBwxI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cohunt.app; spf=fail smtp.mailfrom=cohunt.app; dkim=pass (2048-bit key) header.d=cohunt.app header.i=@cohunt.app header.b=fmV7eOAs; arc=none smtp.client-ip=185.70.43.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cohunt.app
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=cohunt.app
+	s=arc-20240116; t=1791619656; c=relaxed/simple;
+	bh=vu3p4W7aAj9mh53qXhauZbdrOSKYuhqaGHIB/OebTVg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WhY+pq5JLrJL+uTNfQW87tHhxBaeNQ4u0GkVnBnHQzbCcvfHHO4qx6V9pTxHRdvUnQOQV7OXGnlOAj7uA12cakxA6F2o5LVU6KZyLDjWzLfQDTYQrBrj4iS5eXdMCH8snvj42r38BdvvWksCLQCo0NntDtkig2QEL08NdxPTIuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ZzwzWNUg; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cohunt.app header.i=@cohunt.app header.b="fmV7eOAs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cohunt.app;
-	s=protonmail; t=1791619321; x=1791878521;
-	bh=YrIz78TRvuSe9iB5ZaSVi24QzCijOQm8jbMInELzL98=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=fmV7eOAsA1JPkXVJqBy6zKVKnZQsclQV4px/MQImXzbX5L9W4QObf5cqiKJQe4kWd
-	 5OnzTfntJ8vZ9B8dH4CqqekdPYYcN/lxcvwljnr8IOdEMrycSPZeZW2FR+eCHe9vkd
-	 Tsmc0Orl/Dw3QyaaJ81eLrq5j5814GPG7bnKHd6jv99Om6gcydkxqL5kRLDF0fT+tQ
-	 O6Y751GAo97UYrzmZQJ5/gw5lPalLW4BY3IJs1FMfwTPreZwXQBa34PBv1y46kxFQf
-	 w5Yj8EuPxH0C54HYaIIL5fO3Qt7lvfv64XNOVWXos1HeVEu4OfQTvNzhh5ZSbJg5bh
-	 /wxPrQr4R3riQ==
-Date: Sat, 10 Oct 2026 08:01:57 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: diamondback <diamondback@cohunt.app>
-Cc: Alexander Patrakov <patrakov@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>, Sahan Nissanka <adee.sahan@gmail.com>
-Subject: Re: int3472: GPIO type names disagree with Intel's Windows driver
-Message-ID: <lVgzYFlB_DT3TKJryx4Et9QF3-oqL7pSNP37e4tUENOuzf7sLRLshnvAkcz1jYpd6NCOqlqowIFv1Di9Ddo2Io1_K3HC5gjylmd-kuDLJv8=@cohunt.app>
-In-Reply-To: <aslsXPVJIuYRrgKv@kekkonen.localdomain>
-References: <CAN_LGv0qkxARw4bxO8K-1hUkWNg2ts6q50dooCB5UM5en=bo0w@mail.gmail.com> <d9a37aff-3b4d-467c-825d-5473b4c1bbb4@ideasonboard.com> <CAN_LGv0nBTkVmxbuK+_O1v5Z_OZqQz5LgEZdL1_37otsei36fQ@mail.gmail.com> <aslsXPVJIuYRrgKv@kekkonen.localdomain>
-Feedback-ID: 140204222:user:proton
-X-Pm-Message-ID: 60d033a518ee166797fb3eeff3129473157ec720
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ZzwzWNUg"
+X-UUID: a197539ec48111f1b1788b6acf885367-20261010
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=2Q9o8X67cLcd5wpuB8jLL9VwIWbBM83PwmCeCDKeN9I=;
+	b=ZzwzWNUgFfyJdjXyqb61zo7C4mxdqvlqkKSvl4d4S9QmdzKh4+Lclud4OzBOf+AdKTlbUmdKocDGjVZ2DvMB/khFzhaDytWx2YennmohhlM4f4R97CSFTvZFKwutWfwQVnCWOY0d+cTuJkvUsISIaPIl5JY1xC6QcZIhKZqDEJo=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:b7855261-9ec1-48ea-9cf2-ff8a91140058,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:291e20b,CLOUDID:6c882e95-3103-4fdb-b79c-08de0e281a5d,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a197539ec48111f1b1788b6acf885367-20261010
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 55151695; Sat, 10 Oct 2026 16:07:26 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Sat, 10 Oct 2026 16:07:25 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Sat, 10 Oct 2026 16:07:24 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>,
+	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil
+	<hverkuil@kernel.org>, irui wang <irui.wang@mediatek.com>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Kyrie Wu <kyrie.wu@mediatek.com>
+Subject: [PATCH v18 03/13] media: mediatek: jpeg: fix buffer structure size and layout
+Date: Sat, 10 Oct 2026 16:07:07 +0800
+Message-ID: <70578cea826dc419f3d754f1288eafca2cdd331f.1791614327.git.kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791614327.git.kyrie.wu@mediatek.com>
+References: <cover.1791614327.git.kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-On Saturday, October 10th, 2026 at 12:36 AM, Sakari Ailus <sakari.ailus@lin=
-ux.intel.com> wrote:
-=20
-> The GPIO naming in Windows drivers is also an abstraction while Linux
-> drivers typically use datasheet names of regulators, which are sensor
-> specific. The handshake GPIO shouldn't exist with the regulators so it
-> should be possible to map the rest independently of that. Changing the
-> default mapping would also be possible, in principle, but that'd still
-> require ensuring all sensor drivers still get the required regulators. I'=
-m
-> not sure it's worth it.
+Updates the `buf_struct_size` in the JPEG driver to use the correct
+structure `mtk_jpeg_src_buf` instead of `v4l2_m2m_buffer`, ensuring
+proper handling of source buffers. The previous buffer size led to
+mismatches and potential issues during video buffer handling.
 
-Answering Alexander's question to me from the first mail:
+Moves `frame_num` in the `mtk_jpeg_src_buf` structure to align with
+other members appropriately. The first field of the driver-specific
+buffer structure must be the subsystem-specificstruct
+(vb2_v4l2_buffer in the case of V4L2).
 
-On 09/10/2026 04:06, Alexander Patrakov wrote:
-> Leif, do you remember what it was based on, and which other GPIO
-> types that machine's INT3472 reports?
+Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 2 +-
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-It was based on inference. My notes from February only say "likely
-DOVDD": the ov5675 driver asks for avdd, dovdd and dvdd, 0x0b and 0x12
-already had avdd and dvdd, so 0x10 got the remaining name. v1 already
-called it DOVDD; Hans only asked me to drop the OVTI5675 quirk entry and
-spell the con_id "dovdd" instead of "vio". In hindsight, my commit
-message should not have stated it so concretely.
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 3413570..7856a55 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1092,7 +1092,7 @@ static int mtk_jpeg_queue_init(void *priv, struct vb2_queue *src_vq,
+ 	dst_vq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+ 	dst_vq->io_modes = VB2_DMABUF | VB2_MMAP;
+ 	dst_vq->drv_priv = ctx;
+-	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
++	dst_vq->buf_struct_size = sizeof(struct mtk_jpeg_src_buf);
+ 	dst_vq->ops = jpeg->variant->qops;
+ 	dst_vq->mem_ops = &vb2_dma_contig_memops;
+ 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+index 6be5cf3..148fd41 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+@@ -85,10 +85,10 @@ struct mtk_jpeg_variant {
+ };
+ 
+ struct mtk_jpeg_src_buf {
+-	u32 frame_num;
+ 	struct vb2_v4l2_buffer b;
+ 	struct list_head list;
+ 	u32 bs_size;
++	u32 frame_num;
+ 	struct mtk_jpeg_dec_param dec_param;
+ 
+ 	struct mtk_jpeg_ctx *curr_ctx;
+-- 
+2.51.0.windows.2
 
-What the Fold declares (from _DSM and the BIOS pin fields):
-
-  INT3472:00 (\_SB.PC00.DSC0), all sensor-on value 1:
-    0x00  reset    pin 335
-    0x0b  PowerEn  pin 140
-    0x10  Avdd     pin 164
-  INT3472:01 (\_SB.PC00.DSC1): no _CRS, zero pins.
-
-No 0x0f, 0x11 or 0x12. And a correction: that INT3472 is not the
-OV5675's. The OV5675's _DEP names only the IVSC device, it uses dummy
-regulators for all three supplies, and the supply map shows both
-regulators going to the IR sensor:
-
-  INT3472:00-avdd -> i2c-SMO55F0:00.avdd
-  INT3472:00-dovdd -> i2c-SMO55F0:00.dovdd
-
-So 0x10 on the Fold is a VD55G0 pin, not an OV5675 one.
-
-I can confirm the table from the same package (iactrllogic64.sys,
-same sha256, 22 entries at 0x21c60, 0x10 =3D Avdd). The same names were
-also posted on this list in September, so this is the third sighting.
-
-Dan's suggestion makes sense to me, the Fold is a good test unit: it
-declares 0x0b and 0x10 for the same sensor, so renaming 0x10 to avdd
-across the board would make INT3472:00 fail to probe here (-EBUSY).
-Happy to test whatever you send.
-
-Leif
