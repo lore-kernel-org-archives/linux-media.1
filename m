@@ -1,94 +1,102 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FF0364949
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 07:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D041B3264F9
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 08:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791618961; cv=none; b=ftlPflfYtQuiYXZwuBhL4A3eWFmBGVXX4HRKHZTq+ekoVcOqo9WhJap6vztfE9j+KVszKe2uz+yTyPLA8gyVQG3qfgJ7nOzJGkySqtn+/VXrffIA7mFgZO6p9QmQfYr6o7mhWQL5qIbr15JarF6upuwcDDs8qWoOu7sNs4rgW98=
+	t=1791619332; cv=none; b=PDaHyZzqnO2tN/rwFf+7VgX7A14h4M/TAeJYbL6+eJ6tz6yn22D4RM6h+ZdOKg3q8WI9n8kb0se//d+veN6gX+G/d5UCGzynjRvbkXSBNAM66NBFxscqqksSAbMy1bdVlf+UXNVNXSFYOd/huF1cVMV6bY+g876QcGfXRfvVYD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791618961; c=relaxed/simple;
-	bh=Cafm1R3+L2oUTrGOudgtt9cCYD/nT/nJTwjhiLYVvUc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JryEXHNHPd+fQDEVuEL6UMb5YAwisictu7T5dmSwtIpAs/5dh0l6BBsJCHHWXkOw8qVcJ2dlKnQqTdJz54/xCziiAHdUwwxOEufk3nTXyI5R5qj3EOMl1TlVBXfb3fuLNNxRjdLM23nEEjJ2OOeeSlBIDJoWjA6ETofkfoBZN2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nI8HnDbj; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791619332; c=relaxed/simple;
+	bh=1iNm0gD4JZpQNgpNgc6CPJoa3+agOCU2DAeYLJQvsKw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E6PdINX/I0fMqNNQt/KDcIfWoCXORz7z7W1ZlP9beFfpWRoKL0pEerk1udgOxDsc+hRqi0Edml7Q/YRy5BoCkc3pEpicQpsr4g0O7NUHLiriXu+QTpb7nVpNO56abg33KufKCsCAiKxbPen5mehD+qZ+9eM5AC3O7n/xdhUBwxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cohunt.app; spf=fail smtp.mailfrom=cohunt.app; dkim=pass (2048-bit key) header.d=cohunt.app header.i=@cohunt.app header.b=fmV7eOAs; arc=none smtp.client-ip=185.70.43.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cohunt.app
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=cohunt.app
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nI8HnDbj"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a168355946so452295e9.0
-        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 00:55:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791618956; x=1792223756; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Cafm1R3+L2oUTrGOudgtt9cCYD/nT/nJTwjhiLYVvUc=;
-        b=nI8HnDbjXlXdKPTrYt5khjXRtFYSuj5TWMI9CIkHUt6XIkrwNsWVamA1z4BoIJmYCC
-         zdd1zhA8Ka/pT+Gx4/9F2ve+kYPlMU0q34oHuohP9mGLgHLgNfeMl4iU+hqiTWIsvjwt
-         4YnIS6IGDvKq8Z+CNPXRqkMGHARFq+PFJnPORvPvhwxSmhjAfiKqFu26jv75MviRAmAf
-         xDaHQKALT2PhUwN1SX6wmbCBSTqADTIHOT6oy23fLPoAXTODBsoJUpI1FAtnqmR8nesX
-         d/gLVTh1WkOuOM2lYIHpDoRuIlALg47QI2ZAJH+hZkDj24iHImbjExQNbEyIJuR/IKUV
-         j6Sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791618956; x=1792223756;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cafm1R3+L2oUTrGOudgtt9cCYD/nT/nJTwjhiLYVvUc=;
-        b=Zu4SOAfqujz5LPDkY5YUYriOsAsDh/H5WUy4vasuxKk9S7DywmgLZrbTWreM+6TKGE
-         UE2432F38nP4aU1GbCgfUkZxfor3oJU80cQfen9wcEna1nGY+nrGF6APiFy8sigChUZz
-         92EKxOZULGfhgD3V5bGrDFwLkuJRj28oZUg8o20WC4HbexNwTJMW6BETkZ+XhxFJLzqw
-         yXzPNCITlL0I+PdufdkJtjTq+IUMiXOoWnG2ZP6VPihv+8SjmgC5y1oaTYut7EW7nrkU
-         5O324Zt/vGo5fF8RiYQVAN9YG/xm2ZM8EZhiVJzPtzJcAcXh3VxW0KzIcjbiase8l11D
-         Liig==
-X-Forwarded-Encrypted: i=1; AKwUvBzF63J0K4JvEtzC+j3/b6AE7BXaFjZUl7LYidwHuSk+JgByVu1m7x6jiaxfoK9nTJhcV+KklJbZ7hJlNQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKuDU8uxLfQBcbiBhXAk/0Lw/xY+eB96ch6hD/Xy84ohADDkXE9
-	5ikUxPjToymw7Q20JuEEjt8wVEcaVuQrmyqofRymL1EM58XuIahRkPCs
-X-Gm-Gg: AYBFou2UM8V54HPS+pcBxYWfUR7AcRyRgOQhF/RvJkKAI2MkuoNoplIzl8yQcS6QLAx
-	ZF5CkMBdciVyoWkstODrSRvJpIL0Ej4iLT7LqUZ76yPW9UZL52V4F1gG8eD3zVtJt9uz74pifUs
-	h9529hqT1OTO+QzY8IX68hDHeuD0KQZA1DRqHMltGBbN7fYYXY6V0ibjbEjhZSPu9K6I8bpa9ID
-	6i/pWF1IHZSyFu8qV0OrowqMEJSWpdwIWQ37JOOWSqsZW0tNxNQq13XH0rDI7X3hFSzb4x8SMGq
-	jeM7C9x/uyPcpuKJrguIim/dnb2INTKr0YkcLpkbARf8jo9GqmOB/FoSFSAR9bDUgayo0kE4TAV
-	+KYGbw/sqX+ccbHQ+yU/w0qxQ2PGCdoPKyPbMN/IIdtfAGsasRp5VkNjkgJVyeN7QCv+e1g9Bqh
-	iBUL2+8zbrZ6nN0/jav/RSVUm0s68HoTw2yV6Pk1LUCgQKaARaOrpzFfl3rK9QSfmIyudO7c8fA
-	tbDlgmUf4WnjYEzKPi3v9joHJdYciYs0MN9E4YiNvLspwY=
-X-Received: by 2002:a05:600c:4e91:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4a18e4f56bcmr86747895e9.33.1791618956290;
-        Sat, 10 Oct 2026 00:55:56 -0700 (PDT)
-Received: from Cachy-OS (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e48db03sm159234285e9.3.2026.10.10.00.55.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 00:55:56 -0700 (PDT)
-From: German Pablo Lindo <germanpapulindez@gmail.com>
-To: lsa.uz@pm.me
-Cc: antti.laakso@linux.intel.com,
-	bingbu.cao@amd.com,
-	germanpapulindez@gmail.com,
-	gregkh@linuxfoundation.org,
-	hverkuil@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com
-Subject: Test for [PATCH] media: staging/ipu7: snoop ISYS writes to capture buffers
-Date: Sat, 10 Oct 2026 09:55:07 +0200
-Message-ID: <20261010075507.19629-1-germanpapulindez@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261007183311.24637-1-lsa.uz@pm.me>
-References: <20261007183311.24637-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=cohunt.app header.i=@cohunt.app header.b="fmV7eOAs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cohunt.app;
+	s=protonmail; t=1791619321; x=1791878521;
+	bh=YrIz78TRvuSe9iB5ZaSVi24QzCijOQm8jbMInELzL98=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=fmV7eOAsA1JPkXVJqBy6zKVKnZQsclQV4px/MQImXzbX5L9W4QObf5cqiKJQe4kWd
+	 5OnzTfntJ8vZ9B8dH4CqqekdPYYcN/lxcvwljnr8IOdEMrycSPZeZW2FR+eCHe9vkd
+	 Tsmc0Orl/Dw3QyaaJ81eLrq5j5814GPG7bnKHd6jv99Om6gcydkxqL5kRLDF0fT+tQ
+	 O6Y751GAo97UYrzmZQJ5/gw5lPalLW4BY3IJs1FMfwTPreZwXQBa34PBv1y46kxFQf
+	 w5Yj8EuPxH0C54HYaIIL5fO3Qt7lvfv64XNOVWXos1HeVEu4OfQTvNzhh5ZSbJg5bh
+	 /wxPrQr4R3riQ==
+Date: Sat, 10 Oct 2026 08:01:57 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: diamondback <diamondback@cohunt.app>
+Cc: Alexander Patrakov <patrakov@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, platform-driver-x86@vger.kernel.org, Linux Media Mailing List <linux-media@vger.kernel.org>, Sahan Nissanka <adee.sahan@gmail.com>
+Subject: Re: int3472: GPIO type names disagree with Intel's Windows driver
+Message-ID: <lVgzYFlB_DT3TKJryx4Et9QF3-oqL7pSNP37e4tUENOuzf7sLRLshnvAkcz1jYpd6NCOqlqowIFv1Di9Ddo2Io1_K3HC5gjylmd-kuDLJv8=@cohunt.app>
+In-Reply-To: <aslsXPVJIuYRrgKv@kekkonen.localdomain>
+References: <CAN_LGv0qkxARw4bxO8K-1hUkWNg2ts6q50dooCB5UM5en=bo0w@mail.gmail.com> <d9a37aff-3b4d-467c-825d-5473b4c1bbb4@ideasonboard.com> <CAN_LGv0nBTkVmxbuK+_O1v5Z_OZqQz5LgEZdL1_37otsei36fQ@mail.gmail.com> <aslsXPVJIuYRrgKv@kekkonen.localdomain>
+Feedback-ID: 140204222:user:proton
+X-Pm-Message-ID: 60d033a518ee166797fb3eeff3129473157ec720
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-As Sergey Lebedev, i experienced the same error in the same hardware regarding the IR camera, for some reason, the image displayed had horizontal lines from the previous frame, ruining the image
+On Saturday, October 10th, 2026 at 12:36 AM, Sakari Ailus <sakari.ailus@lin=
+ux.intel.com> wrote:
+=20
+> The GPIO naming in Windows drivers is also an abstraction while Linux
+> drivers typically use datasheet names of regulators, which are sensor
+> specific. The handshake GPIO shouldn't exist with the regulators so it
+> should be possible to map the rest independently of that. Changing the
+> default mapping would also be possible, in principle, but that'd still
+> require ensuring all sensor drivers still get the required regulators. I'=
+m
+> not sure it's worth it.
 
-I have tested this patch and i havent seen the error again in qcam, i have also tested the patch on howdy (wich after the needed configuration and tweaking, now seems more precise or at least more responsive in detecting the user even in positions different from the original one configured) and if it had affected the other IPU7 cameras of the device (The other two cameras stayed as previous versions without the patch)
+Answering Alexander's question to me from the first mail:
 
-Reported-by: German Pablo Lindo <germanpapulindez@gmail.com>
-Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+On 09/10/2026 04:06, Alexander Patrakov wrote:
+> Leif, do you remember what it was based on, and which other GPIO
+> types that machine's INT3472 reports?
 
+It was based on inference. My notes from February only say "likely
+DOVDD": the ov5675 driver asks for avdd, dovdd and dvdd, 0x0b and 0x12
+already had avdd and dvdd, so 0x10 got the remaining name. v1 already
+called it DOVDD; Hans only asked me to drop the OVTI5675 quirk entry and
+spell the con_id "dovdd" instead of "vio". In hindsight, my commit
+message should not have stated it so concretely.
+
+What the Fold declares (from _DSM and the BIOS pin fields):
+
+  INT3472:00 (\_SB.PC00.DSC0), all sensor-on value 1:
+    0x00  reset    pin 335
+    0x0b  PowerEn  pin 140
+    0x10  Avdd     pin 164
+  INT3472:01 (\_SB.PC00.DSC1): no _CRS, zero pins.
+
+No 0x0f, 0x11 or 0x12. And a correction: that INT3472 is not the
+OV5675's. The OV5675's _DEP names only the IVSC device, it uses dummy
+regulators for all three supplies, and the supply map shows both
+regulators going to the IR sensor:
+
+  INT3472:00-avdd -> i2c-SMO55F0:00.avdd
+  INT3472:00-dovdd -> i2c-SMO55F0:00.dovdd
+
+So 0x10 on the Fold is a VD55G0 pin, not an OV5675 one.
+
+I can confirm the table from the same package (iactrllogic64.sys,
+same sha256, 22 entries at 0x21c60, 0x10 =3D Avdd). The same names were
+also posted on this list in September, so this is the third sighting.
+
+Dan's suggestion makes sense to me, the Fold is a good test unit: it
+declares 0x0b and 0x10 for the same sensor, so renaming 0x10 to avdd
+across the board would make INT3472:00 fail to probe here (-EBUSY).
+Happy to test whatever you send.
+
+Leif
