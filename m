@@ -1,64 +1,67 @@
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6BE3806B5
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 02:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0DC3BCD37
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 02:55:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791600935; cv=none; b=dErJGgkgdRy2/bsF2zI0r5/WeKXbpnYuvxUvfruzpFDY5AHk6qcSlsHyqcs/qumxK1YZ2QFTSjwTNuhUTpEyUZBZQgSotN/z9+EDVpwEGypvjul4CpbEiZFtZeHyd4Lqlk+DrbT2NH0orUNrqmAD04z26eZnAm2/Te8HadsqmX4=
+	t=1791600937; cv=none; b=UjYHLZa7e8vvXzZpPhhUBAGyu8fLFlZwDXkKXX6UxjcT+YaMp7cKvJSz/mMvUAyX2AWc7m7XjZjYi264Ecjb2canKdh20pgtyS1zR029PCFG0Af+T93zcLEY9apqZqoMvqpm1NV6QYI3tTJ44xDVPH9qKnrri3/kiZfM45xKLPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791600935; c=relaxed/simple;
-	bh=VMCiLqz8s5cgM7chlWJoua61lHqDxDcPc8Jd9fXrkb4=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=JB57IdaKh44MH6CHLQ58HuRCXmnlvuvU/zsv8ZEG8TcPqWRYkq8tKt3d6SEZYKk2h8pFK7SknDwDu4AmZQW9ZDXKvAhJDzP/7tMw/yK0PifFGX9HGCMQO1HVK3bO+qdKGcb8PHuvgLhJ4BRBcHExNO2n4GJhmpeD3s4j7WFdmV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UrXHUco/; arc=none smtp.client-ip=74.125.82.198
+	s=arc-20240116; t=1791600937; c=relaxed/simple;
+	bh=2y6NI7EUqJ+hcZcVtV22rapOiLANuA8VNaJVLpW5Bgk=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=E4sYDz7R03xbvTibb0eZl8nbZTC35XuwUdQnIkacG42Lx8jO9deKsjUUpifpTsDaxyW5YOucG6EC5fqWyqd8/PazyygWPd/k/C9oax6YajYZJdztIKRrUYGVOC6CXOCyFaP1BVewBJ0Cwl3wlir0BLtyD4eEZDxU1RlD08ovW0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qzK2lcl1; arc=none smtp.client-ip=74.125.82.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UrXHUco/"
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so795215eec.1
-        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 19:55:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qzK2lcl1"
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3552883bd19so1325186eec.1
+        for <linux-media@vger.kernel.org>; Fri, 09 Oct 2026 19:55:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791600933; x=1792205733; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nr/wh3D04jCOdxRooqTq4ckJalsK9oapi786CLs1riY=;
-        b=UrXHUco/3NRy22zwvjKYutqE/fV4ssA3HCwJttKHUkuFZmVCczj1C4GGgIPRkcznip
-         rSu51g/2g5wkLzKKpxLwfztRfMph+fGSOuvKKqyRwfgapL7j5ZjPoa8Ihb4u2aDGwK7O
-         CQv3GWLWhlu4jOK+pXkOI2sz8FQ+p3qYUExCI0Cdpp7hPhGBurhf8cAv3pYigXr+hjMp
-         vEfxjiBaheeVN1tIvyDDl12jFXx5HPH+/dogcF4AFVjRON47D0Iscki2kNSduFsdgKn8
-         Ei9S7mqiIwMTbPaoPe+XZ4XIIpCf5ywkpNDROCBsOtarZqpMo2ar5/sievTDH6cGtscA
-         14yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791600933; x=1792205733;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791600935; x=1792205735; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nr/wh3D04jCOdxRooqTq4ckJalsK9oapi786CLs1riY=;
-        b=xGn2pP916MGwyTvYr8s9os1qzfc3rMl4ZV5aefGSDMiwfT19a1zwkhfY1+9171EeBO
-         cLPOWyzeI2kXaWbSIm6cCbgN8IdjEGyfYIYUscFwu9EIn+1GuwCSpwwqU5DbIV92N9k6
-         aO/peHDDc14auV+5skWwmJtJnJia/XqNcjgjGTvML+cHtvFv/H44ZvposL1rLyXruJ1m
-         N5D4dl0FJT6MxFAsKgqBvZF4RkMrvs8JnuU06xlj3XDL1Av+SEkxBFpVmMHAxC5cwbxn
-         HDG1IPoBih1XRmA4/oHEoi6KOeMG+ZZxmQekFgrnHBYj2nc/us+myqGWcMRbvgQRTLwK
-         r1Bg==
-X-Forwarded-Encrypted: i=1; AKwUvBwhcdMbrj3bucoGtkFTqZxF8b2kRUtmoLPQnYjSoygnYfx72IEN76FJAoqP1CZ0rYwoOZM2+LTHlaYlBA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+sgi2wQzl5GGFPR65R+hKUU/qy/IxOoR9x4SKoz0NQjUlPHi6
-	iIO1DuV7v972YKwQ1lfpw3oP+1n9RGe7vOJuRKmVndpqrdzARJelT1JggKiDyILQoQ/n1ztC9B6
-	DPt7JgyHYDtKFt906tRlf2b3T3w==
-X-Received: from dlbqs7.prod.google.com ([2002:a05:7023:d07:b0:146:59b2:8236])
+        bh=BuyDELz7hhEuCW2YvtmlqnI82KO/2H6a0eJ5B6jjRa4=;
+        b=qzK2lcl1bbvky3IyseZC+/uz3dS0wvMDdyDw5T3U+KXuMp+ImAWoDrZOhTCg8tN9UU
+         al+WQyBcak5WIoIOgXY9IcA/MU+rAcuAJoNtKKB+G2jUJpeHBx6OEgrPLUTBqE95Xv9x
+         QmtZNrmDelZu9zr4j0eviBgXVhzGI7ZDqFq7L69mHZg9//x11MRw+wwmZuhEworuCkQX
+         TXlLKQF125fQRaRAYK4VHNv6tCFLvsODr/z7hSUmbSDTS+LdyY/b9Ks2ETGSFTYTVt/E
+         Mpa3+pIF3UYI2aRsaC08iFivhgTuixsrX33wZ4z3XjeHBVO2JFTZt+q4A79r34MFuOg5
+         BTIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791600935; x=1792205735;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BuyDELz7hhEuCW2YvtmlqnI82KO/2H6a0eJ5B6jjRa4=;
+        b=W4PDRpiB5oQksxlu7NdDinOFL6kfEMLcxBE2Ewki6cEpMf/rXZZwPk3VBWmn9LHd/5
+         JB3WSBsSAuiU1UGwB6J5RmsphNlFlL8t6YP0KZRJi7rSlHFh+ci1lsJfBt4cGFmadvvj
+         EREqb4H1bvoujV2vEOPTJHFYAd6V1WepXmihh2TINlX34y9VgBG2jNJcDBXGmDCjn5zK
+         YrcOEjbRsOPNhpYApHLy7cAhMDsHEWV2bS6hersBFuQfBOK2Pl96bhM7PJAYHziKI2rx
+         2Y0rdruQQp83VtHrJ1h+GZsd2MQWALSJMY1Idh97MfA2asWNQ/PA/mbJjK064mA2uexL
+         h1rw==
+X-Forwarded-Encrypted: i=1; AKwUvBy977+slA8jBIyhLyuXr0faNjThCat17QatLlCRwx13ckwo3Yfl9rWW6gu8IHKHDpWOPcYUolIe2Kwk8Q==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIGl9HkdwRGAFTQLH+rtFGXY3FwzEV3ce9OPnM4tFs3O2IRaJr
+	RZZO9KFnzHN+JAq00RjnZyliqIh0lOlYLdp4uvh1DX7e0eznyJx3sYlcvoH5ZBQ3lXdehGRf3z4
+	cBnW+RMyucOOOqgYD9Cmfy+TnSQ==
+X-Received: from dyaz17-n2.prod.google.com ([2002:a05:693c:6391:20b0:34b:4d35:2884])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:4211:10b0:14a:a6dc:9cd7 with SMTP id a92af1059eb24-16a57a16ef2mr4717399c88.2.1791600933127;
- Fri, 09 Oct 2026 19:55:33 -0700 (PDT)
-Date: Sat, 10 Oct 2026 02:55:12 +0000
+ 2002:a05:7301:78ca:b0:351:750d:dd3b with SMTP id 5a478bee46e88-3537dde75a7mr5327189eec.4.1791600934160;
+ Fri, 09 Oct 2026 19:55:34 -0700 (PDT)
+Date: Sat, 10 Oct 2026 02:55:13 +0000
+In-Reply-To: <20261010025532.839559-1-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20261010025532.839559-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261010025532.839559-1-almasrymina@google.com>
-Subject: [PATCH net v1 0/4] net: devmem: fix RX and TX binding teardown on
- device unregistration
+Message-ID: <20261010025532.839559-2-almasrymina@google.com>
+Subject: [PATCH net v1 1/4] net: devmem: unmap dma_buf synchronously on queue uninstall
 From: Mina Almasry <almasrymina@google.com>
 To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, David Wei <dw@davidwei.uk>, 
 	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
@@ -74,49 +77,97 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>
 	Kaifeng Wang <kaifengw@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
-add netdevsim support plus selftests covering both RX and TX device
-unregistration:
+When a bound net_device is unregistered while userspace still holds a
+netlink or TCP socket reference on a devmem binding,
+mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
+netdev_nl_sock_priv_destroy() will not touch the unregistered
+net_device, but leaves the dma_buf attachment mapped until
+__net_devmem_dmabuf_binding_free() runs later on socket close.
 
-1. net: devmem: unmap dma_buf synchronously on queue uninstall
-   Synchronously unmap and detach binding->attachment under binding->lock
-   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
-   preventing slab-use-after-free in dma_unmap_sg_attrs() when the netlink
-   socket closes after dma_dev is freed.
+Because dma_buf_attach() does not take a reference on dma_dev, device
+removal frees dma_dev while the attachment is still mapped. Closing the
+netlink socket afterwards triggers a slab use-after-free in
+dma_unmap_sg_attrs():
 
-2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
-   Add net_devmem_dev_unregister() on NETDEV_UNREGISTER to fully detach and
-   unmap TX bindings when binding->dev unregisters, or clear binding->vdev
-   alone when only a virtual device unregisters while binding->dev lives.
+  BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
+  Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
+  Workqueue: events __net_devmem_dmabuf_binding_free
+  Call Trace:
+   dma_unmap_sg_attrs+0x76/0x2b0
+   unmap_udmabuf+0x8e/0x100
+   dma_buf_unmap_attachment+0x145/0x330
+   dma_buf_unmap_attachment_unlocked+0x96/0x130
+   __net_devmem_dmabuf_binding_free+0x156/0x2e0
+  Freed by task 9:
+   kfree+0x1b8/0x550
+   nsim_bus_dev_release+0xe/0x60
+   device_release+0xcf/0x250
 
-3. netdevsim: support devmem RX and TX bindings
-   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
-   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
-   can be exercised in software selftests.
+Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
+and null out binding->sgt and binding->attachment after unmapping so
+unmapping is idempotent across queue uninstall and deferred binding
+destruction. Call it synchronously when the last bound RX queue is
+uninstalled in mp_dmabuf_devmem_uninstall().
 
-4. selftests: net: add devmem RX and TX netdev unregister tests
-   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-   to tools/testing/selftests/net/nl_netdev.py.
-
+Fixes: f8350a4358fc ("net: page_pool: add a mp hook to unregister_netdevice*")
+Fixes: 0afc44d8cdf6 ("net: devmem: fix kernel panic when netlink socket close after module unload")
+Cc: Taehee Yoo <ap420073@gmail.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
 Cc: Tariq Toukan <tariqt@nvidia.com>
 Cc: Kaifeng Wang <kaifengw@google.com>
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+---
+ net/core/devmem.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-Mina Almasry (4):
-  net: devmem: unmap dma_buf synchronously on queue uninstall
-  net: devmem: detach TX bindings on NETDEV_UNREGISTER
-  netdevsim: support devmem RX and TX bindings
-  selftests: net: add devmem RX and TX netdev unregister tests
-
- drivers/net/netdevsim/bus.c              |   1 +
- drivers/net/netdevsim/netdev.c           |  21 +++--
- net/core/devmem.c                        |  68 +++++++++++++-
- net/core/devmem.h                        |   5 ++
- net/core/netdev-genl.c                   |   1 +
- tools/testing/selftests/net/nl_netdev.py | 108 ++++++++++++++++++++++-
- 6 files changed, 192 insertions(+), 12 deletions(-)
-
-
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index f4d60654ce7fd..5e4070b82df44 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -58,6 +58,21 @@ static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
+ 	schedule_work(&binding->unbind_w);
+ }
+ 
++static void
++net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
++{
++	lockdep_assert_held(&binding->lock);
++
++	if (!binding->sgt)
++		return;
++
++	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
++					  binding->direction);
++	dma_buf_detach(binding->dmabuf, binding->attachment);
++	binding->sgt = NULL;
++	binding->attachment = NULL;
++}
++
+ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+ {
+ 	struct net_devmem_dmabuf_binding *binding = container_of(wq, typeof(*binding), unbind_w);
+@@ -74,9 +89,10 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+ 		  size, avail))
+ 		gen_pool_destroy(binding->chunk_pool);
+ 
+-	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
+-					  binding->direction);
+-	dma_buf_detach(binding->dmabuf, binding->attachment);
++	mutex_lock(&binding->lock);
++	net_devmem_dmabuf_binding_unmap(binding);
++	mutex_unlock(&binding->lock);
++
+ 	dma_buf_put(binding->dmabuf);
+ 	xa_destroy(&binding->bound_rxqs);
+ 	percpu_ref_exit(&binding->ref);
+@@ -535,6 +551,7 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+ 				mutex_lock(&binding->lock);
+ 				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+ 				WRITE_ONCE(binding->dev, NULL);
++				net_devmem_dmabuf_binding_unmap(binding);
+ 				mutex_unlock(&binding->lock);
+ 			}
+ 			break;
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
