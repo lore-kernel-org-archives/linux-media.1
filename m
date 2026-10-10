@@ -1,62 +1,64 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956D732B130
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 18:07:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0386352031
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 18:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791655644; cv=none; b=VUI69JeN6e1MAhfXyJ1jgJSEiMfS4+tLkXSf86lMXRpvkLWSeqf7jzdWl2stBorhCNLL3wv7i637lNS+P1mbGRjlu31GaTSTK4o0MfQUPGIDxrVztyld/pjfB0buELrh7u7T5L7tvtYIs0iEXjMRDPLSsHpJtduH6kLkwCxCfYE=
+	t=1791655645; cv=none; b=cB5EEb0aL0sVF4Oa+zybQbXL6Wo2bx6CDlz0prNFai8vn7NdtuFWLld28OUho2XFyauWLdV4Qvy1pdfGV65TZdQjz/hiZ5vpG5MSWrbrAuFboXiUu7GCtErFMH2O9eYU0aRSHtDPO6huL6BmIACDbzMmtuNdpJyS3dQQ2sC5ZCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791655644; c=relaxed/simple;
-	bh=guuZHgZIre0K9WaJ16eHsfAxkl9kf4eu16+X0nvMOxY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jC+GfeZRHSjv9zYWVI7AGTRoLrWrMGO3WajUuAq0AIDnq/7Ce79/1UMm+GyuCLnh1feUQ1ga5hfbrEk4RrBvn0sXaGIg6rnmbeJujto6JMxQj4CeS0iB/hlecOENMLctm5KcOymkm9Fxi5k4hNRxOMKtv4Kn02Zk2owYAROMB60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E7IxqH9B; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1791655645; c=relaxed/simple;
+	bh=OT+LcZq2po57Ea10ACMyNoXnTz+fxCL0TXrerpq9LqU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fQQAml0PcWfcECKz/MrqZDKejY3ie6ndzRX+G3QUx1kKBE6ie4XgW7OsbVUhpYwa/e4i4jPCOix5MsYFImMOVLSrlviNjYpo+9QZKzQazP6w6lZgSxdvIVGlkkplqb0tPRF3VKBVhCDAK28QUvKUyajW9aT121wYbEchnWjuEgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HoKFs75C; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E7IxqH9B"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so5519135e9.3
-        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 11:07:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HoKFs75C"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so4433615e9.3
+        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 11:07:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791655641; x=1792260441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4cQOSGMTi903DsbkZFEEk4+RD6TWLVh4oE9VBqnyk1A=;
-        b=E7IxqH9BgblFykQqUVe/WNGNaJBKMfzq5PrnKmEcueKqcYCHFQH675yyiCTYZHxSSD
-         8M4ixZCFiOEqJVQWNXo1Gk5Yly/fctYVIDDmM9yn6tHRwPkqmFSSTv+p2Krt58Ji+Mw/
-         tIEicbQnYy+q54M8PuvkiXj38ViwmI/hxnuDPzhuVvUfuNYUdfu4Vm24ghHrKtp/Z6ax
-         SVkjj/3RIuaB4n48LHlJ5vdI4xQ9ygfXhHdofjr3Pe7NhSAULzllMy0Bx6GsCwkb+ers
-         pA2hxqBPrY6xRbqIQ6v2FLWp67s5EwBLeIefo1GwqyVkKGT0i2Ioyf2QtdaUUZ8vlsnF
-         a1ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791655641; x=1792260441;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791655642; x=1792260442; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4cQOSGMTi903DsbkZFEEk4+RD6TWLVh4oE9VBqnyk1A=;
-        b=JxrN7Djb5Ls1FYay8LfNCAAHQV8dBGoKFDhUriy23ojrh60Hj3wRWMgvf7TpiF+Ppr
-         mU0jWyqv8NQTyfauQJCnPnO9GWXLU5iHBXJSejVfQg57VOUyjZuUqzqPOER8RJHITzI0
-         aa0B/Ue6emqC38RUOnnclkDxLTd0nad4l1B8e8OuZqpKUIOXizRp6xA9d7i66ua1UMFB
-         qUD3CkFOuoGRW5EQmF6U5vg6gH2v67E960KgGw1ybsNJHKWq/RBEgL1pV1Gbzv2PhQZI
-         ZVchdEDK/XaypfCdef/ZZOIwvO/bT3HpQy/ZGrOZMg3oIexobq/NcM5gcCZFUx66ie1G
-         d04A==
-X-Forwarded-Encrypted: i=1; AKwUvBzaqJ7RjbhAULnIChQfVrHV2Vs/u2wRi1uEH5E3c/1IqVZhnGOFvpbbNPUe8qbS9FInzu5mgLXxTGi4aA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFkQseVuoSR5CgcoKSHg2eU8gn++Zsze18LX/4FH8M41vK42vu
-	0aWgPm+Csng+zVFoB6wuHyay3CNPjrU2CgzaSa8PNHDb/RoDmshf/POg
-X-Gm-Gg: AYBFou2pSLQQUy2vKXpebTiCg+7F1x72DHMG7nDgcPSwvzoXuOSLTuisRHyeWlWzN++
-	5hdnWDspGyHGwLWaQZ5UMq3O4vNa7dE0SFFhSfJDwXw5nZev0Ddf51V2joFE0PGMmvFo396Ntfi
-	Sa2BVE2ueCwjh6Un6tf45JLEr3r+psyCB8N2D9lRA0//P8KvyWn68D4LfBtG6nLOQOR2MkHeZFN
-	BAXJ4ozDqZ+8jIWhwsmzcSIL8ArKNlB303i9M0KfoojkgAWWoou+t2aZdD660BjTmwGnqrM+rhc
-	0bX1haLMOguJ8kmRRWQ5w1BEFtmKCC8g9V5UdVkLCgv8i6jedZZ8w/ztMLvwe2Lx2Ng+0tV3XGh
-	ntrYfRl1o4x+mYfewBpYqsxe/0mssB7NkWBjj7clVhbY/fWimFErxbOSqIJ7p7o8jWCDv8aZ24L
-	aE/VqeHt4KnOAVZ52jMkA5I/c/A66XD9o8OkZoGkd1QAtFT8/+V0G9bZQj7kZ1U8cTAJSzFnIkG
-	tqfWN3NPgyAxKJwWRKiVr4VqUD8d0Ls4E6GNEap4zE5Ai5B9Szntg==
-X-Received: by 2002:a05:600c:4e8a:b0:4a1:78dd:dd28 with SMTP id 5b1f17b1804b1-4a18e4d2b31mr106881115e9.27.1791655640518;
-        Sat, 10 Oct 2026 11:07:20 -0700 (PDT)
+        bh=+5j1pSqblDdPaBPvCTrZnRaS3nxEgPKJ9d7lIX0F3CQ=;
+        b=HoKFs75CN/raWrbhTBegomfkfXMQkNZjcQF7N0H9hwx7pgHYrNZpkcMMA3ZeqgDAwK
+         dIzZuPwzqmf+sIsxd8JGQdLQNglDmDZABQM1MOpXjkGw0cnWFDszZlRGunulhSYRHNAx
+         Wfpvs3+WxUd3q93nK09Qd0cSrMSWFFwPDfgB0/IcOgB3Ce3wtnEVpcjBHsGcwnTntprD
+         4b5wN21ATbdS486azBwSVfUFVNf/TFAKJF507tbhT9qk3abjo3uYiHCnb8KleK0hksl3
+         hr2hpsTgwfywtbbR7USr3+ndm5qdoXKJgb02+06Tc6Wp+Gvy0hjtyr3nzcrM7ik4XFYO
+         xt2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791655642; x=1792260442;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+5j1pSqblDdPaBPvCTrZnRaS3nxEgPKJ9d7lIX0F3CQ=;
+        b=w+UZEezhNXF63UN1Li4k/wO606gJkId+i27uFGd2w+ZJjEDS1j0/gkCQUGXayfqqWw
+         ypN4EWyVx45XPoXXLu/bCX6YltC2mnqkM5HyQxhQcGNL1lvx1mHdkPhJWI0U7bM3U2Gd
+         tqQNdOfhrlZ5q9bQWkE/bkbZo9JTrP+CYmhtGwz3oNS3l+xOO7zNlLARemA7XNefZMAx
+         3UDtnulOJCPzhQBnM/nCLIBVlmxtwMoBOAuqw36TpB6ej1l35pWs52cQOPseICJSyueM
+         p2YBj1JFELb2IUHhGyg0Qc/wG9C9Nlw1LlVd8HaSeeWhE9XXEWS8EbtiMNijeev3m92s
+         M16A==
+X-Forwarded-Encrypted: i=1; AKwUvBw7E1rkWb7FfegIh8F8K+G5+IfgWPuhFakDawoTOzbXdta3eMCxTQa5OLrxQljOzj98D4/DaYTZc+n97w==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZbI4MOL1XpHWhZxusJXbg4HZ2m0p7ipoHVuTKWuljjW7YqCVa
+	j2SELszuTxmdTHCKQp5JmyURWLQrTXS3QTlV/8hEW+yUfRxK1NLUsRQW
+X-Gm-Gg: AYBFou0j6DIDwltQXLoDB/Cvv9zCf0hNjXmCsEviglp/NDfqx78A8YNh4NrmlMoTuUI
+	yAG3IFoZYNJ3KiLc46fTgAPu/Ozgv03LGKbuefrbaRpZoXz9ljyQk+JXVTecpaU9RDSYYBOiYI7
+	5+1HTH+n52BRv55+buSviWj7394cEfMuhCDIH8iukrDW7N7Hib4/QGgwiP4HYbUDFEBtA0mpDIT
+	9NaIZ0krQ7iRDSjhYjwlbDoxU7ckUFuTm845bEMRtB4iNkiAs0GTJ/dV1bHayQA54gGnVPgyxkt
+	Pwkr3KOKAmLfTXvMG3IbK/mMhW5MM1JZhRNau0f7wUeFyQChH8E44YVy4jhSOjkMWmCc88SgRXs
+	gaU861L2RPjR1aZIe3VTH39VDkib2scChz6bX/A+Xz242qzNq+/RujQ/WpXpmsC6LMpfmnp2fJ5
+	gW7ySEQ6GKOck/tO5uEITe5B6/fMaAp7Vg2Rb3dFrCDvZxxeXW9KXNFMLx8k2aB5IZDpNQgMthu
+	Mt8B6FhXx7b44BsndkGOevF0m321a8PiIv+mtpSXgc=
+X-Received: by 2002:a05:600c:64c8:b0:49d:1df6:2592 with SMTP id 5b1f17b1804b1-4a18e4c41b0mr91571535e9.21.1791655641777;
+        Sat, 10 Oct 2026 11:07:21 -0700 (PDT)
 Received: from desk (ip87-106-117-14.pbiaas.com. [87.106.117.14])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e530esm9617208f8f.13.2026.10.10.11.07.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e530esm9617208f8f.13.2026.10.10.11.07.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 11:07:20 -0700 (PDT)
+        Sat, 10 Oct 2026 11:07:21 -0700 (PDT)
 From: Julian Orth <ju.orth@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -72,10 +74,12 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	Julian Orth <ju.orth@gmail.com>
-Subject: [PATCH 0/2] drm/syncobj: fix sync_file import into timeline points
-Date: Sat, 10 Oct 2026 20:07:09 +0200
-Message-ID: <20261010180711.1548333-1-ju.orth@gmail.com>
+Subject: [PATCH 1/2] drm/syncobj: fix fence and syncobj leak in drm_syncobj_import_sync_file_fence
+Date: Sat, 10 Oct 2026 20:07:10 +0200
+Message-ID: <20261010180711.1548333-2-ju.orth@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261010180711.1548333-1-ju.orth@gmail.com>
+References: <20261010180711.1548333-1-ju.orth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -84,32 +88,52 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Importing a sync_file into a timeline point
-(DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE |
-DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE) has two bugs since
-c2d3a7300695:
+If dma_fence_chain_alloc() fails, the function returns -ENOMEM without
+dropping the references to the imported fence and the syncobj.
 
-1. The fence and syncobj references leak if dma_fence_chain_alloc()
-   fails.
-2. A sync_file that contains a dma_fence_chain (e.g. one exported from a
-   timeline point) is wrapped in another chain and triggers the
-   WARN_ON in dma_fence_chain_init(). I reported this on 2026-05-20.
+Fixes: c2d3a7300695 ("drm/syncobj: Extend EXPORT_SYNC_FILE for timeline syncobjs")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Julian Orth <ju.orth@gmail.com>
+---
+ drivers/gpu/drm/drm_syncobj.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-These patches were developed completely autonomously by AI. I have
-reviewed them, but they have not been tested at runtime. They are only
-compile-tested.
-
-Julian Orth (2):
-  drm/syncobj: fix fence and syncobj leak in
-    drm_syncobj_import_sync_file_fence
-  drm/syncobj: flatten chains when importing sync_file into timeline
-    point
-
- drivers/gpu/drm/drm_syncobj.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
-
-
-base-commit: 6ccf996a0dec1852dab94ad865f27b4904750e12
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index c23a5de27..5ca5163d0 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -730,6 +730,7 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
+ {
+ 	struct dma_fence *fence = sync_file_get_fence(fd);
+ 	struct drm_syncobj *syncobj;
++	int ret = 0;
+ 
+ 	if (!fence)
+ 		return -EINVAL;
+@@ -743,17 +744,20 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
+ 	if (point) {
+ 		struct dma_fence_chain *chain = dma_fence_chain_alloc();
+ 
+-		if (!chain)
+-			return -ENOMEM;
++		if (!chain) {
++			ret = -ENOMEM;
++			goto out;
++		}
+ 
+ 		drm_syncobj_add_point(syncobj, chain, fence, point);
+ 	} else {
+ 		drm_syncobj_replace_fence(syncobj, fence);
+ 	}
+ 
++out:
+ 	dma_fence_put(fence);
+ 	drm_syncobj_put(syncobj);
+-	return 0;
++	return ret;
+ }
+ 
+ static int drm_syncobj_export_sync_file(struct drm_file *file_private,
 -- 
 2.56.0
 
