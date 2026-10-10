@@ -1,193 +1,129 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F8493955E2
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 08:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7CD431A4A
+	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 09:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791621777; cv=none; b=JunvIaRLy1iGKIxbihQrt4KKr9hy1UyjECaNyHe6CWbcoEaljTmcNveOANOKycpW+ZpwfOfJg2opsSZTDQhd84Z3kRZqpgyOIbrtebRNFNrvSfjhmph8o6ZKALZ+xVV3ciS7QE3U1hPVhhjJx9fzwCOJ8reivPj2ySI3sOvImDk=
+	t=1791623730; cv=none; b=pcVdskedXndTA27+fMR8d59Yq1NfQDuTF68pfqtFNMSvXsSkcuGM/Mtz6AOfT83mCV6qCtiTD2Df5GjvNprYs9YQRP1QSOlZQNZKN+w+LEmKznXCOOlP7ZowO0MXa1qSU+0d0F4gKnfjl7bR1dEbAyyeaCRMYfZfOwPRqJgEiDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791621777; c=relaxed/simple;
-	bh=T0cHhk3sVg14STn5ch68EKKiVtS63d3OH+IINR9SoUw=;
+	s=arc-20240116; t=1791623730; c=relaxed/simple;
+	bh=pMBstT9/Xhd7MIwl1B19jAdAsHKIbsnScIIiwKmVBc8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DmbMndmfyyFe2hx9LI/2YTfMRIgCznKX6cYx/zPH5rMjqdUTul2OrXyyJ+iKKeAXWA9PQdJA8+SEHSH1Xbjwyps6zcka3VoDMZ/Q0WDHr0Hp7rPGHiaiEN5jPAyJhS6F0A7oneksELp0qx0Mzxg5ZOY2/QfVXWV1LzCVE7FFybk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Fo5lzCKR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U60NLG4u; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 MIME-Version; b=egY4ye4VYUtg9NJ64yWezBjrCEZki99MTUh6T9VGDt1/j3q+mUNZMrzCIkoC6u7DMnifAmuLvuU0bOUagw6lg8qbUbvuhBv4sIm5HRBwnxo37UjZoesrKuhZDLdLFI5AiLr57HviOEePgAtL+xhpzqYAUFK9yf1wn6B/1Fxa9kg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gTD3CkkT; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fo5lzCKR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U60NLG4u"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69A2eSoU3439135
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 08:42:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IqymoQ2HDibV8WA0yhfluVKdlQdB/7YbmVl1gD2ORD8=; b=Fo5lzCKR6ouvQqMF
-	AfXvk7qHNy+UGr0uB/I75FzhO/oHguIgOagvJ50C1NXQUikQfyJk79H9vjFIlnjB
-	bgTjhV8vSzS4dPkTiu8g6i4oO5GZS5Hbva9CkwhMzsCPgcJ3se2tzthEO1U0YM/h
-	qqKO+KNKfG+Bwtqnb1VFRRoze4vVy6qBoY+WTKXije/fNbbTy3NigBrpI1x3+A0r
-	uIlAHrfVf71v/5ji4yntBkpw+jq2Bhy0bKyGz9N8eUDWvzrEPHJpKe+wvJJZUPau
-	BceKIvfkXsLXb5ZCrcR4QKdS/cROb9qNkdQ3r4GI9dt4fqy1ey8vUMAPPuUjd38K
-	cYoPsA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7aqms0sy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 08:42:52 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93c5ab5c136so77915485a.3
-        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 01:42:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gTD3CkkT"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a02718da81so3712705e9.1
+        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 02:15:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791621772; x=1792226572; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IqymoQ2HDibV8WA0yhfluVKdlQdB/7YbmVl1gD2ORD8=;
-        b=U60NLG4u3jcimbiOPlvSarsUzmhvlmXgWTlCnjWhoSzx88fR7emY9fIESym/zdGUq9
-         TNqkL1VvcZpcVAOR2d75f+VHusG0uKzayhYghy0XhqAtPCcUVqxqlegihXsG0HXI6xyp
-         qSW8SyjefBsBO27P6SuVQQuDa+hrf5kWcfDK+2AtBQVgNJzbFVqK050FmZ96UD5WkbZp
-         Ml0T1i/PBshz87SgQX8AC6OWBuRoAaJRucuP+cLWifmRn0lagzyOrl/uufGfCP4uejlj
-         3DWhGJt3gJfXxk2HiHSGYABaNDXmUoutJyX3nS99GpYu8bL3Mjb9AFmlXt+5QOAqh06n
-         bVkA==
+        d=gmail.com; s=20251104; t=1791623727; x=1792228527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ORCsaPkxBXAIwv8e2nVnJgx67e0gWCZdbaFEBMdQuEI=;
+        b=gTD3CkkTXhmUCku4Aet0xs78MwE85y4wAtcB2ASSVV3f4Qy3hbtcZrt1tyCgCqVHjn
+         MgZzzyRiC2IGNb4ltSH3qvpo19RAIgmKL/y9UXFHVX1yM3lHbFfg5E1juiqKrc7XsoLX
+         sT2YUanD4ghCa4ZsCe17bn6Dd+6d8XsfDemhCFYjCkEoIo/G0z7p/WHAkVcTkYeIxuts
+         7BVkdmI7AaE5ReK5+r1NLhsZQvMRYZd5cR01YSeNhJ+9dZf8cZL92Rw7EA7w8BOr9Jyj
+         NxtAI06DUM3rDzBdXwcEn9S6z+vQS7155CVRBjWcPw4m32PbeFncObMIOHix+xW3hEPQ
+         vUWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791621772; x=1792226572;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IqymoQ2HDibV8WA0yhfluVKdlQdB/7YbmVl1gD2ORD8=;
-        b=h6lwnGaOADaSuCDS5H4EzMsIgFIIs6PaeQIjc0ZNGRb9egJU/3geFFCTjvCp1Jd4Wc
-         ltgvhWokR4eRn0WoLH3BnJaEU7oHGnsDDATFYz/Go71XbI/xbbaqqTnbve5kI28AV8Zb
-         lBwl7fz47r5DFCOblHlC3AcwYsgebSMWLf47UK2xy76YCy7G6i9IA/RUlxfcpLKv0Zbu
-         RkZIVHp41gziEE+vW5GAubfZPZGJ2UPxNQk456TGve6nzs9Jgh41ANJc3RYlfv195MLI
-         jHwky20Wys0Tu66wlnoCltkZgvqNI2sy2JVH/AJByJdKwTV6sAe8Y9MMCaU05LhyowF6
-         P81w==
-X-Forwarded-Encrypted: i=1; AKwUvByqsadHOD5jUtsgzWDgBdisAT7dI6LJD8nsMOzfBImfqzw6t73JhmN1OqMDi9W2ceht3emzFZ80Z3z6vw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYNT09TG7tzig+COpdgy+FAk7W/pq55Q57oueJLiCVGwM73DYd
-	xgIfOhhsji5QTKH91kkyxVjrQG/BqWSOt6E77KMaLmGwimMavyv27y3s/16hxQ/qWIcqhg7HaBG
-	1WHTZvkOPnntGTaH0KxfnS7AkOinNbUd8DtRiEIzVCiKMgHKX614hxjshzP3fpnh2EQ==
-X-Gm-Gg: AYBFou0OOldnKWrnPhSeK0YBqg/pCkJovSZg2jpD6U4zdwNYLnSZUqJbUxUoWmC77KT
-	uey89M+SULNWy3ElxPtAxv8w/S4HYjRy8aMn9ftAb4YBtJ7QQeaZOKkjp7rfoPByrdrg+0BDw8F
-	YA9VjEwlBk9ePD5ieNRJ/sHCCQWLI4H5CDPXM5xAivpW6tNHnsN6hf6IUkYlhiiovarSU6wyveP
-	PDzWNLccDA7fhLFxB0deG8mXotVPFz4WIeFsBH6d6JU3+rTxRb+JkmZHNqjqgxuZR1UcGYx7H1o
-	d5md5pYFWsFft0ofSQLvOcCsONCxyF1k7UYTh3X8w4nAFCzV2Do7rLzzgT/DLSFEOeUO2rPK9cD
-	Mf+WJjngdBcdOA+XSdwB8bgSNKAGd9ud+VsX/8FGP+zhJejbqN9s=
-X-Received: by 2002:a05:620a:4146:b0:93e:5929:f012 with SMTP id af79cd13be357-93ebd1bb215mr668129485a.18.1791621771776;
-        Sat, 10 Oct 2026 01:42:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:4146:b0:93e:5929:f012 with SMTP id af79cd13be357-93ebd1bb215mr668125985a.18.1791621771276;
-        Sat, 10 Oct 2026 01:42:51 -0700 (PDT)
-Received: from brgl-qcom.local (126.171.88.92.rev.sfr.net. [92.88.171.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a192d3efb6sm49065585e9.1.2026.10.10.01.42.39
+        d=1e100.net; s=20260707; t=1791623727; x=1792228527;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ORCsaPkxBXAIwv8e2nVnJgx67e0gWCZdbaFEBMdQuEI=;
+        b=RqyMl3bymzzjN7FRGYfY1CP3LZva6QB0QHFu8bLgWOJIQdREZlUq5z5WrBQmrs9rmy
+         LH3wPV+3/cJ4aAxD2x2AfdMOHNKagZPBKC5TDD6ih8FupZFZoLMAjUXenHC4J3wrdQuG
+         4vZv//lpqDVaXFGfEeBjuxT2iudlKoHzEiMyxc0jPuE+WQ2XuYUXqpndSN9Wq6nfIviV
+         2rDB3faD9z+CpZ9TbTyGIrJcMvt42Q6+EwdBcIoT/dAlM3zp/2ldKE1Z98vy7SPgg0LC
+         Wah9alfSx9komuwUn2I+Izzyu1jgDYsXd+/jiv7ScfpSJfL2YLi7BIZ2PZemNl3YumEl
+         0ktQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlQuggn+IA8bvR4+MF0Hb5GgP6YyactxfLIBUeSWmgR617llo57lKbRp/ux+cgavYUZVLpljefiCN9hA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeEd8xSqa6RbspmJKmdH3RqtV8sAIIHQZw5kSbWM0A+ztCvznd
+	NxQMteXoEuGbWnur4nRmcpFDKRm3PZ2Sjb7C0+vn0plOO9RAH/4TmeoT
+X-Gm-Gg: AYBFou2Qv/bh+kkiOEjZn3ZAyn9MWB/jegCGPE9pdFTZ5wiY703yn/ZRj8KoBf8i4j5
+	6cdTqXy7b1YUwX+kHrU7RM+zMRNBNnfNZr3M4nIHUdvuiUucv9rzg8eGGgzxulpaouVhKXhilHz
+	Hay8C+C5O9eUskeS9NHRoiCusaZO+Y7jXlH6ZuaycSietDxoj9jCMoRZdi3ZKacShdXQS/JcC/P
+	x2sQs6oj5JcDjwpMKrKJ6IZcZRsN4+TL+xUzNVcKE4SbxCT1FZYK/IDAmFgFYtYLiINM67yPcbv
+	x1S1G4jCtXxqmQj/FmL7g6e1dswVYaJ/Y14+AxeZvVeLJEtV/aXx8Saen1inUxEWInw2PZLUkbd
+	7sqx3FZbvIHXiVFo/u6MDW6fN56AiapKJt+BrWIMR9EKvlfEM+0ZeDzHUoSoMUkyTv0+Z6e8JYu
+	XV1NzBOFIEb3cNd8Tk29DQN+GOO8mCdzZSyS9Eu2aHvgusOzafshkdFV1gTDJ9Ugzs2IN+x7qtH
+	qduw73fsRM/L5izXPpWNmk9NPM=
+X-Received: by 2002:a05:600c:4747:b0:4a1:80d8:aed0 with SMTP id 5b1f17b1804b1-4a18e4a9862mr85422695e9.15.1791623726602;
+        Sat, 10 Oct 2026 02:15:26 -0700 (PDT)
+Received: from ekulyk (78-80-42-240.customers.tmcz.cz. [78.80.42.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c198134sm118773235e9.15.2026.10.10.02.15.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 01:42:50 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-        Brian Norris <briannorris@chromium.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-pm@vger.kernel.org, Ulf Hansson <ulfh@kernel.org>,
-        linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>,
-        =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-        Alex Elder <elder@kernel.org>, Andy Shevchenko <andy@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Cezary Rojewski <cezary.rojewski@intel.com>,
-        Daniel Baluta <daniel.baluta@nxp.com>,
-        David Lechner <dlechner@baylibre.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Hadar Gat <hadar.gat@arm.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        Jaroslav Kysela <perex@perex.cz>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
-        Jyri Sarha <jyri.sarha@iki.fi>,
-        Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        Liam Girdwood <liam.r.girdwood@linux.intel.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Marek Vasut <marek.vasut+renesas@mailbox.org>,
-        Mark Brown <broonie@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Maxime Ripard <mripard@kernel.org>, Melissa Wen <mwen@igalia.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Olivia Mackall <olivia@selenic.com>,
-        Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        Rui Miguel Silva <rmfrfs@gmail.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Takashi Iwai <tiwai@suse.com>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        dri-devel@lists.freedesktop.org, greybus-dev@lists.linaro.org,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-        linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-staging@lists.linux.dev, sound-open-firmware@alsa-project.org
-Subject: Re: (subset) [PATCH 00/13] PM: runtime: Convert pm_runtime_put_autosuspend() and friends to a void function
-Date: Sat, 10 Oct 2026 10:42:36 +0200
-Message-ID: <179162175231.5836.15015381844446264252.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261006231900.3230373-1-briannorris@chromium.org>
-References: <20261006231900.3230373-1-briannorris@chromium.org>
+        Sat, 10 Oct 2026 02:15:26 -0700 (PDT)
+From: Eduard Kulyk <kulikeduard89@gmail.com>
+To: j@metarealtyinc.ca
+Cc: Ramshouriesh R <rshouriesh@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
+Date: Sat, 10 Oct 2026 11:15:24 +0200
+Message-ID: <20261010091524.1390879-1-kulikeduard89@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca>
+References: <cover.1791608336.git.j@metarealtyinc.ca> <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAzNCBTYWx0ZWRfXyZqj1EG3olaw
- nGbPjupto9w1RzMHH7AVXMTtv2XAoesK06a6/yVuQAYfyzGPYqh1kLVh+J4FI5PNrRAsG4guhTH
- pwPXX1dFGHjgp7t8eUGTcRXelNMJQbI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAzNCBTYWx0ZWRfX6pPESociAdAV
- lk/aS+dvQj6gtbXVFMfiBWAC+LURDsMTdAD/eSRZ5mFclyap18KiwJCKjRYS20SirCo5i/4ogQi
- txHvbyrsYvZP1RkgV3ZTQQgrPcuDK1BtYCXO194C/owUQPADdMwxWA4dM6MeY3D3GV04g6GviHr
- dSnrxb/S9WbDF4Ksy46MwXGRyvFZUNnWL4X7nJLdd2SqO0gFld+X/PnPHMXtPPEJb7xRtQpbc/C
- VHyy3lr2QWZaK+DNdO0ElSD84v1XO1OUGQLyviMuO4ZbM4AaBu+wTjSKSxMvO0Yz9HUNC9wTtV0
- 3JoBg3Z392W8yhac/X055gLvDjUKCOF8aGQVO0Z9dG5R+YJMbAygD/7m0Pr3OgenvM4gI90dyiB
- fLuRxzk8XBBFsFO79ih2BwgO0oLGOJP3aTqIKT9XXAI0F5Rf8OuhQ5zAC3TI+90XqfRBfj7/sKF
- itiW0pFFBKORSQQgNCA==
-X-Authority-Analysis: v=2.4 cv=Uq32pOwB c=1 sm=1 tr=0 ts=6ac9fa8c cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=3oaWUOhNWTYPA9BJS75j6A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rmSHi3-zQwwJBmM97rsA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: KRxublX-0lmbtVGvNPy2I182UQR3JAMS
-X-Proofpoint-GUID: KRxublX-0lmbtVGvNPy2I182UQR3JAMS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100034
 
+Hi Jake,
 
-On Tue, 06 Oct 2026 16:13:28 -0700, Brian Norris wrote:
-> Similar to this effort:
-> 
->   Subject: [PATCH v1 00/23] PM: runtime: Convert pm_runtime_put() to a void function
->   https://lore.kernel.org/all/6245770.lOV4Wx5bFT@rafael.j.wysocki/
-> 
-> i.e., commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void") and friends.
-> 
-> [...]
+Tested v6 plus this patch on a Dell Latitude 7350 (Meteor Lake, IPU6),
+kernel 7.2.3, with an out-of-tree ipu-bridge that has the HIMX1092
+entry. Patch 2 is not needed there, IPU6 already has Y10.
 
-Applied, thanks!
+The sensor binds as hm1092 i2c-HIMX1092:00 and streams Y10 648x368
+(1344 bytes per line) through IPU6 CSI2 4 at link frequency 180480000.
 
-[05/13] pinctrl: qcom: lpass-lpi: Discard pm_runtime_put_autosuspend() return values
-        https://git.kernel.org/brgl/c/9bcd1725b0cc7954525e3d0d02fecaec7c7aab33
+- v4l2-compliance 1.32.0 on the subdev: 46 tests, 0 failures,
+  0 warnings
+- 300 frames at 30.11 fps, 20 start/stop cycles without errors
+- runtime PM: suspended when idle, active while streaming
+- streams again after s2idle suspend/resume
+- exposure and analogue gain behave as expected (analogue gain
+  0/32/64/128/255 gives mean levels 16/31/45/73/113)
+- IR flood LED (INT3472) off/on/off at exposure 700: mean levels
+  9/117/9, clean IR image with the LED on
+- the crop rectangle reads (0,0)/1294x734 against bounds
+  (8,8)/1280x720, as you described
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+One issue, which I think comes from v6 rather than this patch:
+digital_gain is advertised as 256..4095, but only the low 10 bits
+seem to take effect. At exposure 100:
+
+  256  -> 15     1024 -> 8 (black frame)
+  512  -> 22     1280 -> 15
+  768  -> 29     2048 -> 8 (black frame)
+  1023 -> 36     4095 -> 35
+
+So 1024 behaves like 0 and 1280 like 256. Perhaps the maximum should
+be 0x3ff, but I don't have the datasheet to confirm.
+
+Thanks a lot for your work on this. If you need anything else tested on
+this machine, feel free to contact me.
+
+Tested-by: Eduard Kulyk <kulikeduard89@gmail.com> # Dell Latitude 7350 (IPU6)
+
+Regards,
+Eduard
