@@ -1,121 +1,120 @@
-Received: from e234-58.smtp-out.ap-northeast-1.amazonses.com (e234-58.smtp-out.ap-northeast-1.amazonses.com [23.251.234.58])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C980437845;
-	Sat, 10 Oct 2026 09:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.58
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B588A3B3BE1;
+	Sat, 10 Oct 2026 09:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791624202; cv=none; b=dL28veGCdPPvCbUxPS0K4+Z0jL0DZabMi2SqHpS5BAd8awef5pXkGiTonrVpNzlL2ep9GL5t3DwdGpDiKj6swZ01NCfGIve8yFWUPjs2r7afLoLZmnZ63gx7a8V80ToJnntQ58fMKmlH/sxDZjGp7TxiZ6zgaNKv1gDvgCLD/dI=
+	t=1791624252; cv=none; b=jdG6RJvQUFgTVbMaLc6spfZX5P+40vjJT3/mPb2a3Few1NtyyhKlpAY+gc7hOs+jgp8Y6rRW62ubsMubquvpVAcfCqcd1G5ezeJka2OXLxGcBVBkLKSOL8UDnBtOSPCnC0OGo0z0vowd8KjQRAU0ZnX+MIAuZ1L5zruoeRZJWEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791624202; c=relaxed/simple;
-	bh=delSSJoOAFqL+sKNM3FQb+5AQMHdDkVqX01un2hNa8g=;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=aRTlc+YuR+GWH7Yke8iqFXaMdA/7K9mcq1aOfjnShP5lP9tgfw5qjWRF/SCJtMuChDuh0Dvts5S1dR1GmGJ/A/+X7VXmE110QH59FARVNC37qJcnqw+ifWh+yMN2IbGd/ITP9PmR3hPeQWYJYDoobXMHm2/AXAoO08XVBUCO110=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=1FnM/bEJ; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=ko6mhqii; arc=none smtp.client-ip=23.251.234.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	s=arc-20240116; t=1791624252; c=relaxed/simple;
+	bh=PuDA6rK5fAkUaPeSWE5PbU7R40+FRptqs3cpAUdGCN8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ejj1zQVuWibICswXcGS2XTiKXoVvgwhDaLQ3qFUM6jjqV/LCPq4rGrrz3MDAXOG17ojpMAHK+JzkUdnKGIjbnDKu7nUFNyYj5oWqKjGUvxLT23G9TB6H1Vvz8VklbsQcZvl8fJwIVGq7P1TLn7eH9KaVP0TY8/CN2d7ySBSjXVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=GgtiOfOV; arc=none smtp.client-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="1FnM/bEJ";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="ko6mhqii"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1791624200;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=delSSJoOAFqL+sKNM3FQb+5AQMHdDkVqX01un2hNa8g=;
-	b=1FnM/bEJtzJVyqRS3XRX0ifd8/iAnJSVSCQzuKrLpP50oXOM39TDs61SXQ1wcArz
-	l/vUg/LTuyxRf1KPt6jTpIi5gSBuuZa22zqvdFHNW5c9QshxguY8IfZjr9rxRlJiHEQ
-	WiaiNJjQKGFjKnMUPGV5c/GU+b+ENb9BY5jWiS5s=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791624200;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=delSSJoOAFqL+sKNM3FQb+5AQMHdDkVqX01un2hNa8g=;
-	b=ko6mhqii+ZshFLCKilIR4Jh0hzjcGt6IKOVeQHKtmnzBlH2bybjYvNsmxS8GJvQG
-	wQUklJ99Sst7AoWvdfdSjnInBT/y27E96pLni8rVfAijPaHJuzx0j99Y4AIk/dVB7n5
-	IiQvJQjlirScbd+pyt45oCfDu/7DZ0MAGQrsvWok=
-In-Reply-To: <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
-References: <20260917-x1e-csi2-phy-v18-2-6515b5255fa9@linaro.org>
-X-Mailer: git-send-email 2.53.0
-From: fQwQf <fqwqf@fqwqf.xyz>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: [RFC PATCH] phy: qcom-mipi-csi2: round the requested settle
- interval up
-Message-ID: <010601a1251fbfb9-9afc4070-5194-4714-86b1-5358791e7770-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 09:23:20 +0000
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="GgtiOfOV"
+X-UUID: 558db618c48c11f18dc8c9802ae25ab1-20261010
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=rXh109/op7sj0mSpIgJfGBFMzWHZfPW0nwTrz4Ec6Ks=;
+	b=GgtiOfOV/Q45Fhqx4jl3byw9I8XxsKxrVyod1EBAEo0ja87d7jQmJm74F6PzxM0+2QRpDocb20jNTdX4G32/HJVxdCB3qqxHG1l1RJLmsjgaRhZbQvLnaidtENuStBPHgXUq7MHkMNT4Q85NdlXEch0dgrraraTBL1nxVHvABvo=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:1c6f1252-9e5d-42f3-9970-c246809eff76,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:82f82e95-3103-4fdb-b79c-08de0e281a5d,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 558db618c48c11f18dc8c9802ae25ab1-20261010
+Received: from mtkmbs14n1.mediatek.inc [(172.21.101.75)] by mailgw02.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 844022293; Sat, 10 Oct 2026 17:24:03 +0800
+Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
+ MTKMBS09N2.mediatek.inc (172.21.101.94) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Sat, 10 Oct 2026 17:24:02 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Sat, 10 Oct 2026 17:24:01 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Kyrie Wu <kyrie.wu@mediatek.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, Nathan Hebert <nhebert@chromium.org>, Arnd
+ Bergmann <arnd@arndb.de>, Irui Wang <irui.wang@mediatek.com>, George Sun
+	<george.sun@mediatek.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Neil Armstrong <neil.armstrong@linaro.org>, Andrzej Pietrasiewicz
+	<andrzejtp2010@gmail.com>, Yilong Zhou <yilong.zhou@mediatek.com>
+Subject: [PATCH v11 01/10] dt-bindings: media: mediatek: decoder: Add MT8189 mediatek,vcodec-decoder
+Date: Sat, 10 Oct 2026 17:23:49 +0800
+Message-ID: <951691c0a3d4ccf1cdfbeaead6d576145c731520.1791623422.git.kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791623422.git.kyrie.wu@mediatek.com>
+References: <cover.1791623422.git.kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.10-23.251.234.58
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-The settling counter represents the requested interval in timer ticks,
-with the existing six-tick hardware offset. Truncating the division
-programs fewer ticks than requested when the interval is not an exact
-multiple of the timer period.
+Add compatible for video decoder on MT8189 platform. Compared with
+former ICs, the MT8189 decoder use iommu to instead of smmu, and
+use scp architecture, the frequency is only 406MHZ, and cannot reach
+more than 700MHZ. It uses only one clock. At the same time, the decoder
+supports the vp9 decoding protocol for the first time in single IC.
 
-At a 402 MHz link frequency and a 100 MHz =
-timer, the existing calculation
-requests 92458 ps but programs nine ticks =
-(90000 ps). Round up to ten
-ticks instead. Preserve the existing =
-minimum-counter handling and
-hardware offset.
-
-Signed-off-by: Jizhou Tong =
-<fqwqf@fqwqf.xyz>
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 ---
-Incremental change against media-next at ee2e9bf41d3e=
-, which includes
-the v18 CSI2 PHY driver. The settle calculation still =
-truncates.
+ .../bindings/media/mediatek,vcodec-subdev-decoder.yaml       | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Original series:
-https://lore.kernel.org/all/20260917-x1e-csi2-=
-phy-v18-2-6515b5255fa9@linaro.org/
+diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
+index d8f25ccd..50321824 100644
+--- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
++++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
+@@ -75,6 +75,7 @@ properties:
+       - mediatek,mt8192-vcodec-dec
+       - mediatek,mt8186-vcodec-dec
+       - mediatek,mt8188-vcodec-dec
++      - mediatek,mt8189-vcodec-dec
+       - mediatek,mt8195-vcodec-dec
+       - mediatek,mt8196-vcodec-dec
+ 
+@@ -137,11 +138,11 @@ patternProperties:
+           Refer to bindings/iommu/mediatek,iommu.yaml.
+ 
+       clocks:
+-        minItems: 4
++        minItems: 1
+         maxItems: 5
+ 
+       clock-names:
+-        minItems: 4
++        minItems: 1
+         maxItems: 5
+ 
+       assigned-clocks:
+-- 
+2.51.0.windows.2
 
-An extracted-function test checks 7105 =
-link/timer combinations. The
-previous calculation violates the computed =
-lower bound; rounding up
-passes those cases. This validates the arithmetic,=
- not the electrical
-timing model.
-
-I am sending this as an RFC to confirm =
-that rounding up is appropriate
-for the hardware counter and its existing =
-six-tick offset. This change
-has been used in my SL7 camera stack, but I =
-have not isolated its effect
-on capture reliability from the other camera =
-changes.
-
- drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git =
-a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c =
-b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-index 966d79c98f..ce1de1a689 100644
---- a/drivers/phy/qualcomm/phy-qcom-mip=
-i-csi2-3ph-dphy.c
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-@@ -236,7 +236,8 @@ static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 =
-link_freq, u32 timer_clk_rate)
- 	if ((t_hs_settle_ps / timer_period_ps) < =
-6)
- 		return 0;
-=20
--	settle_cnt =3D t_hs_settle_ps / timer_period_ps - 6;
-+	/* Do not round the requested settling interval down. */
-+	settle_cnt =3D DIV_ROUND_UP(t_hs_settle_ps, timer_period_ps) - 6;
-=20
- 	return settle_cnt;
- }
---=20
-2.53.0
