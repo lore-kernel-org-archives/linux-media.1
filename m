@@ -1,39 +1,39 @@
 Received: from mail-07.mail-europe.com (mail-07.mail-europe.com [37.187.220.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E405F27F4F5
-	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 14:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884A73B71D1
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 14:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=37.187.220.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791729347; cv=none; b=I3HOxdYCGyIFgJB0FqGJHujKxSXrve6Dzyx5BTAhR2Tby1O4eg7+NU3rd4sy7ycme7huGI++yax7PFj7FheyDufl9SAlCMnNmwxUkdGUpYmSC4Vrdf9817sKHil3hskgccBiOqe/xp+PNXIBwpKQKPHm+eJU0DDAdJqPKOr6mwA=
+	t=1791729423; cv=none; b=HfX2SVLRC7hi2dAf8/cbii0cZiMpDmNDks1/YDAg5HQ7vgaz+aJn60/j7kgtk2kzmtNzUs1xNnF8lFat+9Epgu3Rdu9ATyg4+en5x/IKxl0spxIGhyhiMZKao8h84ivyqftoxL3clMOm4r1dDQT+J0KPwjPrRfuXtFAdi95+tTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791729347; c=relaxed/simple;
-	bh=BroYAduwm+MJQ4itRjwhCzEUYqWX2V49y22W7H+Wuqs=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=kzN/LcZ8ZGDWTg2LHeCf/1Xl1JDzPkfVf8ky262e0+n4uUvAJ+lTgnHwC+/C2uXO8a/xfLiagBdHkd52j+G3kQjfSYdRq9ul6LAXmlfFo8u/eGh2BaECzo/uTYkV/5qVvv1P+uxBP9suWVnz6viL9kPeeR9L0LjChZCA84JxXSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=IUHOP4UX; arc=none smtp.client-ip=37.187.220.204
+	s=arc-20240116; t=1791729423; c=relaxed/simple;
+	bh=se6fKeRhgXXcELW4RDZMsrYG17JUun+8tLaBFLla7vk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=eMHQ6vCelGMLn0WnAye8GHUhQE96+IZO4OZIPWhlukR3ZDFXA/I4xJIcTfV5Hs2Gdy2ESPX81Il1ohp+6W04LQW05ZgrX+B9qIkxydT0fLR/veVGHDJxnExFEveMPspyDn2CB5QGqD7UPA7Z/PWbbicqA6OoTLwW3ve+51XXdLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=bbA61uFw; arc=none smtp.client-ip=37.187.220.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="IUHOP4UX"
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="bbA61uFw"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791729325; x=1791988525;
-	bh=kXKFfmYKGdgEHX4E+PYBKctPZ2xIQRwFvnVVjxxO/no=;
+	s=5udre3qyy5blbj4uczpsetrpfi.protonmail2; t=1791729410;
+	x=1791988610; bh=nAbC89YIYioeHNTle/BEEPAY7+rybWu+m1Jk+hucJsg=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=IUHOP4UXITr0Ge7+i0phQb+csruXRsir94E25sPKIQkTUNX2mvadt2cs9Q4NNa6h7
-	 WQDVceoHdV2TiLyAxu7J5QvF3W3C11PrGBwBRN0pJD8XImcmU3UqhcTsgL/gJZ428w
-	 eDnh1r/epRucoQ0YppHLOW5hKO/z5amQeNyZHoGxDmo7Q2ElmW6fgWF+e2eLasR4y2
-	 V6vxLabvJrtsIyV/VVIXfkB8A64Q0qbM9xYcM7UyaoFAJnyUzWAAMvUH4WXamIVKxM
-	 iKMM67bgLcKd7sInf2FIxBKbEtbZ3mZ3ZUYmr5wSLXXMXHUq/RVPUFGbLmQt6wOSfC
-	 2EPvdR5p443MQ==
-Date: Sun, 11 Oct 2026 14:35:21 +0000
+	b=bbA61uFwrccIJ3uQRFl7cuTd4/6zZyjEUVY49Po0lcCyFHPenCBoqITE6egPsRJtQ
+	 1K4Q1HcMj4ipzei5WcckPRPSMxIinat/stVCHGi8bWAM5YpY0iEw7C1c0AitoOVWP7
+	 w2fnglNtP++AlbwVK7+j0ZxFv6B/lyeZ14D2/j90JuWFB7Ue8fW4Pat9y4yo00QcvG
+	 aF5IdSwXT7uXzom7CY/ymk/68x9PTq0376YVhjPaZzio4H+8i6uya5AvZX93asmoX5
+	 e7BoyjeMeYGR2WIbq94NSr2Vbxoq5iLls0vTF5mYtD7sxrFWNqmJX80LQdCXOMia2y
+	 qQttZ5uH30IiA==
+Date: Sun, 11 Oct 2026 14:36:45 +0000
 To: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 From: Ruslan Bay <ruslanbey@proton.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>, Ruslan Bay <ruslanbey@proton.me>
-Subject: [RFC PATCH 04/12] media: ipu6: Add IPU4P ISYS firmware ABI definitions
-Message-ID: <h67Um68BP1VslpsztVmKAyUu6AoQcVo4s_A0r3mDfxX_hG-qeXrzlJHcZqfJcoK0AXLB82AzrcDCtXrFt7PkSdzfSC53YU4mboVhmLgFIZU=@proton.me>
+Subject: [RFC PATCH 05/12] media: ipu6: Support DMEM-based SysCom in ipu6-fw-com
+Message-ID: <D98zVcRARn0XXtZcVi6dXIENC8N8r72pzCQc66b1D5Uu9kzeCoRde-LXLTYyzf80C89KnvzmjnkM-VXs7CMkjOZivins9P1Vgly8l_ytmtE=@proton.me>
 Feedback-ID: 183606634:user:proton
-X-Pm-Message-ID: c4b2788d5acf53cac689a5a05a35832abba217fe
+X-Pm-Message-ID: 71d54fa1a3224c7336d6c7ac175029f6ee554694
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -43,461 +43,135 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Add IPU4P ISYS firmware ABI structures, enums, constants, and limits
-used by the firmware interface. Explicitly align 64-bit fields to keep
-the wire layout stable on 32-bit x86 builds.
+Handle the IPU4P DMEM-based SysCom register layout and lifecycle in the
+existing firmware communication layer.
 
 Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
 ---
- drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h | 408 +++++++++++++++++++
- drivers/media/pci/intel/ipu6/ipu6-isys.h     |   5 +
- 2 files changed, 413 insertions(+)
- create mode 100644 drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h
+ drivers/media/pci/intel/ipu6/ipu6-fw-com.c | 51 ++++++++++++++++++++--
+ drivers/media/pci/intel/ipu6/ipu6-fw-com.h |  1 +
+ 2 files changed, 48 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h b/drivers/media/p=
-ci/intel/ipu6/ipu4p-fw-isys.h
-new file mode 100644
-index 000000000000..afc288b939bd
---- /dev/null
-+++ b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h
-@@ -0,0 +1,408 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/* Copyright (C) 2026 Intel Corporation */
-+
-+#ifndef IPU4P_FW_ISYS_H
-+#define IPU4P_FW_ISYS_H
-+
-+#include <linux/build_bug.h>
-+#include <linux/irqreturn.h>
-+#include <linux/stddef.h>
-+#include <linux/types.h>
-+
-+struct ipu6_bus_device;
-+struct ipu6_fw_isys_ops;
-+struct ipu6_isys;
-+struct ipu6_isys_video;
-+struct ipu6_isys_stream;
-+struct ipu6_isys_buffer_list;
-+struct isys_fw_msgs;
-+
-+#define IPU4P_ISYS_MAX_STREAMS=09=09=098U
-+#define IPU4P_MAX_IPINS=09=09=09=094U
-+#define IPU4P_MAX_OPINS=09=09=09=096U
-+#define IPU4P_NOF_SRAM_BLOCKS_MAX=09=098U
-+#define IPU4P_DEV_SEND_QUEUE_SIZE=09=098U
-+#define IPU4P_ISYS_SIZE_RECV_QUEUE=09=0940U
-+#define IPU4P_ISYS_SIZE_SEND_QUEUE=09=0940U
-+#define IPU4P_ISYS_SIZE_PROXY_RECV_QUEUE=095U
-+#define IPU4P_ISYS_SIZE_PROXY_SEND_QUEUE=095U
-+#define IPU4P_ISYS_OPEN_RETRY=09=09=092000
-+#define IPU4P_ISYS_CLOSE_RETRY=09=09=092000
-+
-+#define IPU4P_BASE_PROXY_SEND_QUEUES=09=090U
-+#define IPU4P_BASE_DEV_SEND_QUEUES=09=091U
-+#define IPU4P_BASE_MSG_SEND_QUEUES=09=092U
-+#define IPU4P_BASE_PROXY_RECV_QUEUES=09=090U
-+#define IPU4P_BASE_MSG_RECV_QUEUES=09=091U
-+#define IPU4P_N_MAX_RECV_QUEUES=09=09=092U
-+
-+#define IPU4P_ISYS_CROPPING_LOCATION_MAX=094U
-+#define IPU4P_ISYS_RESOLUTION_INFO_MAX=09=092U
-+#define IPU4P_ISYS_QUEUE_TYPE_MAX=09=093U
-+
-+enum ipu4p_fw_isys_resp_type {
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE =3D 0,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_START_ACK,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_ACK,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_STOP_ACK,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_CLOSE_ACK,
-+=09IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_READY,
-+=09IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_WATERMARK,
-+=09IPU4P_FW_ISYS_RESP_TYPE_FRAME_SOF,
-+=09IPU4P_FW_ISYS_RESP_TYPE_FRAME_EOF,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE,
-+=09IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_SKIPPED,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_SKIPPED,
-+=09IPU4P_FW_ISYS_RESP_TYPE_FRAME_SOF_DISCARDED,
-+=09IPU4P_FW_ISYS_RESP_TYPE_FRAME_EOF_DISCARDED,
-+=09IPU4P_FW_ISYS_RESP_TYPE_STATS_DATA_READY,
-+=09N_IPU4P_FW_ISYS_RESP_TYPE
-+};
-+
-+enum ipu4p_fw_isys_send_type {
-+=09IPU4P_FW_ISYS_SEND_TYPE_STREAM_OPEN =3D 0,
-+=09IPU4P_FW_ISYS_SEND_TYPE_STREAM_START,
-+=09IPU4P_FW_ISYS_SEND_TYPE_STREAM_START_AND_CAPTURE,
-+=09IPU4P_FW_ISYS_SEND_TYPE_STREAM_CAPTURE,
-+=09IPU4P_FW_ISYS_SEND_TYPE_STREAM_STOP,
-+=09IPU4P_FW_ISYS_SEND_TYPE_STREAM_FLUSH,
-+=09IPU4P_FW_ISYS_SEND_TYPE_STREAM_CLOSE,
-+=09N_IPU4P_FW_ISYS_SEND_TYPE
-+};
-+
-+enum ipu4p_fw_isys_queue_type {
-+=09IPU4P_FW_ISYS_QUEUE_TYPE_PROXY =3D 0,
-+=09IPU4P_FW_ISYS_QUEUE_TYPE_DEV,
-+=09IPU4P_FW_ISYS_QUEUE_TYPE_MSG,
-+=09N_IPU4P_FW_ISYS_QUEUE_TYPE
-+};
-+
-+enum ipu4p_fw_isys_stream_source {
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_0 =3D 0,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_1,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_2,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_3,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_4,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_5,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_6,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_7,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_8,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_9,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_10,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_11,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_12,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_13,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_14,
-+=09IPU4P_FW_ISYS_STREAM_SRC_PORT_15,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_0,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_1,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_2,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_3,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_4,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_5,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_6,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_7,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_8,
-+=09IPU4P_FW_ISYS_STREAM_SRC_MIPIGEN_9,
-+=09N_IPU4P_FW_ISYS_STREAM_SRC
-+};
-+
-+enum ipu4p_fw_isys_mipi_vc {
-+=09IPU4P_FW_ISYS_MIPI_VC_0 =3D 0,
-+=09IPU4P_FW_ISYS_MIPI_VC_1,
-+=09IPU4P_FW_ISYS_MIPI_VC_2,
-+=09IPU4P_FW_ISYS_MIPI_VC_3,
-+=09N_IPU4P_FW_ISYS_MIPI_VC
-+};
-+
-+enum ipu4p_fw_isys_frame_format_type {
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_NV11 =3D 0,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_NV12,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_NV12_16,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_NV12_TILEY,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_NV16,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_NV21,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_NV61,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YV12,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YV16,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV420,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV420_10,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV420_12,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV420_14,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV420_16,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV422,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV422_16,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_UYVY,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUYV,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV444,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_YUV_LINE,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_RAW8,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_RAW10,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_RAW12,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_RAW14,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_RAW16,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_RGB565,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_PLANAR_RGB888,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_RGBA888,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_QPLANE6,
-+=09IPU4P_FW_ISYS_FRAME_FORMAT_BINARY_8,
-+=09N_IPU4P_FW_ISYS_FRAME_FORMAT
-+};
-+
-+enum ipu4p_fw_isys_mipi_data_type {
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_FRAME_START_CODE =3D 0x00,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_FRAME_END_CODE =3D 0x01,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_LINE_START_CODE =3D 0x02,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_LINE_END_CODE =3D 0x03,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_EMBEDDED =3D 0x12,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_YUV420_8 =3D 0x18,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_YUV420_10 =3D 0x19,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_YUV422_8 =3D 0x1e,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_YUV422_10 =3D 0x1f,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RGB_565 =3D 0x22,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RGB_888 =3D 0x24,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RAW_6 =3D 0x28,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RAW_7 =3D 0x29,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RAW_8 =3D 0x2a,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RAW_10 =3D 0x2b,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RAW_12 =3D 0x2c,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RAW_14 =3D 0x2d,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_RAW_16 =3D 0x2e,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF1 =3D 0x30,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF2 =3D 0x31,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF3 =3D 0x32,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF4 =3D 0x33,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF5 =3D 0x34,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF6 =3D 0x35,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF7 =3D 0x36,
-+=09IPU4P_FW_ISYS_MIPI_DATA_TYPE_USER_DEF8 =3D 0x37,
-+=09N_IPU4P_FW_ISYS_MIPI_DATA_TYPE =3D 0x40
-+};
-+
-+enum ipu4p_fw_isys_pin_type {
-+=09IPU4P_FW_ISYS_PIN_TYPE_MIPI =3D 0,
-+=09IPU4P_FW_ISYS_PIN_TYPE_RAW_NS,
-+=09IPU4P_FW_ISYS_PIN_TYPE_RAW_S,
-+=09IPU4P_FW_ISYS_PIN_TYPE_RAW_SOC,
-+=09IPU4P_FW_ISYS_PIN_TYPE_METADATA_0,
-+=09IPU4P_FW_ISYS_PIN_TYPE_METADATA_1,
-+=09IPU4P_FW_ISYS_PIN_TYPE_AWB_STATS,
-+=09IPU4P_FW_ISYS_PIN_TYPE_AF_STATS,
-+=09IPU4P_FW_ISYS_PIN_TYPE_HIST_STATS,
-+=09IPU4P_FW_ISYS_PIN_TYPE_PAF_FF,
-+=09N_IPU4P_FW_ISYS_PIN_TYPE
-+};
-+
-+enum ipu4p_fw_isys_isl_use {
-+=09IPU4P_FW_ISYS_USE_NO_ISL_NO_ISA =3D 0,
-+};
-+
-+enum ipu4p_fw_isys_mipi_store_mode {
-+=09IPU4P_FW_ISYS_MIPI_STORE_MODE_NORMAL =3D 0,
-+=09IPU4P_FW_ISYS_MIPI_STORE_MODE_DISCARD_LONG_HEADER,
-+=09N_IPU4P_FW_ISYS_MIPI_STORE_MODE
-+};
-+
-+enum ipu4p_fw_isys_link_id {
-+=09IPU4P_FW_ISYS_LINK_OFFLINE =3D 0,
-+=09IPU4P_FW_ISYS_LINK_MAIN_OUTPUT =3D 1,
-+=09IPU4P_FW_ISYS_LINK_PDAF_OUTPUT =3D 2,
-+=09N_IPU4P_FW_ISYS_LINK_ID
-+};
-+
-+enum ipu4p_fw_isys_error {
-+=09IPU4P_FW_ISYS_ERROR_NONE =3D 0,
-+=09IPU4P_FW_ISYS_ERROR_FW_INTERNAL_CONSISTENCY,
-+=09IPU4P_FW_ISYS_ERROR_HW_CONSISTENCY,
-+=09IPU4P_FW_ISYS_ERROR_DRIVER_INVALID_COMMAND_SEQUENCE,
-+=09IPU4P_FW_ISYS_ERROR_DRIVER_INVALID_DEVICE_CONFIGURATION,
-+=09IPU4P_FW_ISYS_ERROR_DRIVER_INVALID_STREAM_CONFIGURATION,
-+=09IPU4P_FW_ISYS_ERROR_DRIVER_INVALID_FRAME_CONFIGURATION,
-+=09IPU4P_FW_ISYS_ERROR_INSUFFICIENT_RESOURCES,
-+=09IPU4P_FW_ISYS_ERROR_HW_REPORTED_STR2MMIO,
-+=09IPU4P_FW_ISYS_ERROR_HW_REPORTED_SIG2CIO,
-+=09IPU4P_FW_ISYS_ERROR_SENSOR_FW_SYNC,
-+=09IPU4P_FW_ISYS_ERROR_STREAM_IN_SUSPENSION,
-+=09IPU4P_FW_ISYS_ERROR_RESPONSE_QUEUE_FULL,
-+=09N_IPU4P_FW_ISYS_ERROR
-+};
-+
-+enum ipu4p_fw_proxy_error {
-+=09IPU4P_FW_PROXY_ERROR_NONE =3D 0,
-+=09IPU4P_FW_PROXY_ERROR_INVALID_WRITE_REGION,
-+=09IPU4P_FW_PROXY_ERROR_INVALID_WRITE_OFFSET,
-+=09N_IPU4P_FW_PROXY_ERROR
-+};
-+
-+struct ipu4p_fw_isys_resolution {
-+=09u32 width;
-+=09u32 height;
-+};
-+
-+struct ipu4p_fw_isys_isa_cfg {
-+=09struct ipu4p_fw_isys_resolution
-+=09=09isa_res[IPU4P_ISYS_RESOLUTION_INFO_MAX];
-+=09u32 cfg_fields;
-+};
-+
-+struct ipu4p_fw_isys_cropping {
-+=09s32 top_offset;
-+=09s32 left_offset;
-+=09s32 bottom_offset;
-+=09s32 right_offset;
-+};
-+
-+struct ipu4p_fw_isys_input_pin_info {
-+=09struct ipu4p_fw_isys_resolution input_res;
-+=09u8 dt;
-+=09u8 mipi_store_mode;
-+=09u8 bits_per_pix;
-+=09u8 mapped_dt;
-+};
-+
-+/**
-+ * struct ipu4p_fw_isys_output_pin_info - IPU4P output pin configuration
-+ *
-+ * Unlike the IPU6 ABI, IPU4P ends this structure at reserve_compression;
-+ * snoopable and sensor_type are not part of the IPU4P firmware wire forma=
-t.
-+ *
-+ * @link_id: PPG link; zero selects offline capture
-+ */
-+struct ipu4p_fw_isys_output_pin_info {
-+=09struct ipu4p_fw_isys_resolution output_res;
-+=09u32 stride;
-+=09u32 watermark_in_lines;
-+=09u32 payload_buf_size;
-+=09u8 send_irq;
-+=09u8 input_pin_id;
-+=09u8 pt;
-+=09u8 ft;
-+=09u8 link_id;
-+=09u8 reserve_compression;
-+};
-+
-+struct ipu4p_fw_isys_stream_cfg {
-+=09/* Preserve the firmware ABI slot; ISA is disabled by this driver. */
-+=09struct ipu4p_fw_isys_isa_cfg isa_cfg;
-+=09struct ipu4p_fw_isys_cropping crop[IPU4P_ISYS_CROPPING_LOCATION_MAX];
-+=09struct ipu4p_fw_isys_input_pin_info input_pins[IPU4P_MAX_IPINS];
-+=09struct ipu4p_fw_isys_output_pin_info output_pins[IPU4P_MAX_OPINS];
-+=09u32 compfmt;
-+=09u8 nof_input_pins;
-+=09u8 nof_output_pins;
-+=09u8 send_irq_sof_discarded;
-+=09u8 send_irq_eof_discarded;
-+=09u8 send_resp_sof_discarded;
-+=09u8 send_resp_eof_discarded;
-+=09u8 src;
-+=09u8 vc;
-+=09u8 isl_use;
-+};
-+
-+struct ipu4p_fw_isys_output_pin_payload {
-+=09__aligned_u64 out_buf_id;
-+=09u32 addr;
-+=09u32 compress;
-+};
-+
-+struct ipu4p_fw_isys_param_pin {
-+=09__aligned_u64 param_buf_id;
-+=09u32 addr;
-+};
-+
-+struct ipu4p_fw_isys_frame_buff_set {
-+=09struct ipu4p_fw_isys_output_pin_payload
-+=09=09output_pins[IPU4P_MAX_OPINS];
-+=09struct ipu4p_fw_isys_param_pin process_group_light;
-+=09u8 send_irq_sof;
-+=09u8 send_irq_eof;
-+=09u8 send_irq_capture_ack;
-+=09u8 send_irq_capture_done;
-+=09u8 send_resp_sof;
-+=09u8 send_resp_eof;
-+=09u8 frame_counter;
-+};
-+
-+struct ipu4p_fw_isys_error_info {
-+=09u32 error;
-+=09u32 error_details;
-+};
-+
-+struct ipu4p_fw_isys_resp_info {
-+=09__aligned_u64 buf_id;
-+=09struct ipu4p_fw_isys_output_pin_payload pin;
-+=09struct ipu4p_fw_isys_param_pin process_group_light;
-+=09struct ipu4p_fw_isys_error_info error_info;
-+=09u32 timestamp[2];
-+=09u8 stream_handle;
-+=09u8 type;
-+=09u8 pin_id;
-+=09u8 acc_id;
-+=09u8 frame_counter;
-+=09u8 written_direct;
-+};
-+
-+struct ipu4p_fw_isys_proxy_error_info {
-+=09u32 error;
-+=09u32 error_details;
-+};
-+
-+struct ipu4p_fw_isys_proxy_resp_info {
-+=09u32 request_id;
-+=09struct ipu4p_fw_isys_proxy_error_info error_info;
-+};
-+
-+struct ipu4p_fw_isys_send_token {
-+=09__aligned_u64 buf_handle;
-+=09u32 payload;
-+=09u16 send_type;
-+=09u16 stream_id;
-+};
-+
-+struct ipu4p_fw_isys_recv_token {
-+=09struct ipu4p_fw_isys_resp_info resp_info;
-+};
-+
-+struct ipu4p_fw_isys_proxy_send_token {
-+=09u32 request_id;
-+=09u32 region_index;
-+=09u32 offset;
-+=09u32 value;
-+};
-+
-+struct ipu4p_fw_isys_proxy_recv_token {
-+=09struct ipu4p_fw_isys_proxy_resp_info proxy_resp_info;
-+};
-+
-+struct ipu4p_fw_isys_buffer_partition {
-+=09u32 num_gda_pages[IPU4P_ISYS_MAX_STREAMS];
-+};
-+
-+struct ipu4p_fw_isys_fw_config {
-+=09struct ipu4p_fw_isys_buffer_partition buffer_partition;
-+=09u32 num_send_queues[IPU4P_ISYS_QUEUE_TYPE_MAX];
-+=09u32 num_recv_queues[IPU4P_ISYS_QUEUE_TYPE_MAX];
-+};
-+
-+/*
-+ * These structures are copied directly to and from the IPU4P firmware que=
-ues.
-+ * Keep the 64-bit fields 8-byte aligned; the firmware ABI depends on the
-+ * exact sizes and offsets below.
-+ */
-+static_assert(sizeof(struct ipu4p_fw_isys_output_pin_info) =3D=3D 28);
-+static_assert(offsetof(struct ipu4p_fw_isys_output_pin_info, link_id) =3D=
-=3D 24);
-+static_assert(offsetof(struct ipu4p_fw_isys_output_pin_info,
-+=09=09       reserve_compression) =3D=3D 25);
-+static_assert(sizeof(struct ipu4p_fw_isys_stream_cfg) =3D=3D 316);
-+static_assert(offsetof(struct ipu4p_fw_isys_stream_cfg, output_pins) =3D=
-=3D 132);
-+static_assert(offsetof(struct ipu4p_fw_isys_stream_cfg, compfmt) =3D=3D 30=
-0);
-+static_assert(offsetof(struct ipu4p_fw_isys_stream_cfg, src) =3D=3D 310);
-+static_assert(sizeof(struct ipu4p_fw_isys_frame_buff_set) =3D=3D 120);
-+static_assert(sizeof(struct ipu4p_fw_isys_resp_info) =3D=3D 64);
-+
-+extern const struct ipu6_fw_isys_ops ipu4p_fw_isys_ops;
-+
-+#endif /* IPU4P_FW_ISYS_H */
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/i=
-ntel/ipu6/ipu6-isys.h
-index 8674c041b994..3a91f6a34c5a 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
-@@ -19,6 +19,7 @@
- #include "ipu6.h"
- #include "ipu6-fw-isys.h"
- #include "ipu7-fw-isys.h"
-+#include "ipu4p-fw-isys.h"
- #include "ipu6-isys-csi2.h"
- #include "ipu6-isys-video.h"
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-com.c b/drivers/media/pci=
+/intel/ipu6/ipu6-fw-com.c
+index 51567c5fc139..e1bc047bdbdf 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-com.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-com.c
+@@ -97,6 +97,7 @@ struct ipu6_fw_com_context {
 =20
-@@ -179,6 +180,10 @@ struct isys_fw_msgs {
- =09=09=09struct ipu7_fw_isys_frame_buff_set frame;
- =09=09=09struct ipu7_fw_isys_stream_cfg stream;
- =09=09} ipu7;
-+=09=09union {
-+=09=09=09struct ipu4p_fw_isys_frame_buff_set frame;
-+=09=09=09struct ipu4p_fw_isys_stream_cfg stream;
-+=09=09} ipu4p;
- =09};
- =09struct list_head head;
- =09dma_addr_t dma_addr;
+ =09unsigned int buttress_boot_offset;
+ =09void __iomem *base_addr;
++=09bool dmem_syscom;
+ };
+=20
+ #define FW_COM_WR_REG 0
+@@ -118,6 +119,17 @@ enum regmem_id {
+ =09SYSCOM_QPR_BASE_REG =3D 4
+ };
+=20
++enum ipu4p_regmem_id {
++=09IPU4P_PKG_DIR_ADDR_REG =3D 0,
++=09IPU4P_SYSCOM_CONFIG_REG =3D 1,
++=09IPU4P_SYSCOM_STATE_REG =3D 2,
++=09IPU4P_SYSCOM_COMMAND_REG =3D 3,
++=09IPU4P_SYSCOM_IRQ_REG =3D 4,
++=09IPU4P_SYSCOM_VTL0_ADDR_MASK =3D 5,
++=09/* CNL B0 ISYS firmware reserves registers 6-7 for dual contexts. */
++=09IPU4P_SYSCOM_QPR_BASE_REG =3D 8,
++};
++
+ #define BUTTRESS_FW_BOOT_PARAMS_0 0x4000
+ #define BUTTRESS_FW_BOOT_PARAM_REG(base, offset, id)=09=09=09\
+ =09((base) + BUTTRESS_FW_BOOT_PARAMS_0 + ((offset) + (id)) * 4)
+@@ -179,6 +191,7 @@ void *ipu6_fw_com_prepare(struct ipu6_fw_com_cfg *cfg,
+ =09ctx->cell_ready =3D cfg->cell_ready;
+ =09ctx->buttress_boot_offset =3D cfg->buttress_boot_offset;
+ =09ctx->base_addr  =3D base;
++=09ctx->dmem_syscom =3D cfg->dmem_syscom;
+=20
+ =09/*
+ =09 * Allocate DMA mapped memory. Allocate one big chunk.
+@@ -241,7 +254,8 @@ void *ipu6_fw_com_prepare(struct ipu6_fw_com_cfg *cfg,
+=20
+ =09/* initialize input queues */
+ =09offset +=3D specific_size;
+-=09res.reg =3D SYSCOM_QPR_BASE_REG;
++=09res.reg =3D ctx->dmem_syscom ? IPU4P_SYSCOM_QPR_BASE_REG :
++=09=09=09=09     SYSCOM_QPR_BASE_REG;
+ =09res.host_address =3D (uintptr_t)(ctx->dma_buffer + offset);
+ =09res.vied_address =3D ctx->dma_addr + offset;
+ =09for (i =3D 0; i < cfg->num_input_queues; i++)
+@@ -265,6 +279,21 @@ EXPORT_SYMBOL_NS_GPL(ipu6_fw_com_prepare, "INTEL_IPU6"=
+);
+=20
+ int ipu6_fw_com_open(struct ipu6_fw_com_context *ctx)
+ {
++=09if (ctx->dmem_syscom) {
++=09=09if (!ctx->cell_ready(ctx->adev))
++=09=09=09return -EIO;
++
++=09=09writel(SYSCOM_STATE_UNINIT,
++=09=09       ctx->dmem_addr + IPU4P_SYSCOM_STATE_REG * 4);
++=09=09writel(SYSCOM_COMMAND_UNINIT,
++=09=09       ctx->dmem_addr + IPU4P_SYSCOM_COMMAND_REG * 4);
++=09=09writel(ctx->config_vied_addr,
++=09=09       ctx->dmem_addr + IPU4P_SYSCOM_CONFIG_REG * 4);
++=09=09ctx->cell_start(ctx->adev);
++
++=09=09return 0;
++=09}
++
+ =09/* write magic pattern to disable the tunit trace */
+ =09writel(TUNIT_MAGIC_PATTERN, ctx->dmem_addr + TUNIT_CFG_DWR_REG * 4);
+ =09/* Check if SP is in valid state */
+@@ -295,6 +324,17 @@ int ipu6_fw_com_close(struct ipu6_fw_com_context *ctx)
+ {
+ =09int state;
+=20
++=09if (ctx->dmem_syscom) {
++=09=09state =3D readl(ctx->dmem_addr + IPU4P_SYSCOM_STATE_REG * 4);
++=09=09if (state !=3D SYSCOM_STATE_READY)
++=09=09=09return -EBUSY;
++
++=09=09writel(SYSCOM_COMMAND_INACTIVE,
++=09=09       ctx->dmem_addr + IPU4P_SYSCOM_COMMAND_REG * 4);
++
++=09=09return 0;
++=09}
++
+ =09state =3D readl(BUTTRESS_FW_BOOT_PARAM_REG(ctx->base_addr,
+ =09=09=09=09=09=09 ctx->buttress_boot_offset,
+ =09=09=09=09=09=09 SYSCOM_STATE_ID));
+@@ -326,9 +366,12 @@ bool ipu6_fw_com_ready(struct ipu6_fw_com_context *ctx=
+)
+ {
+ =09int state;
+=20
+-=09state =3D readl(BUTTRESS_FW_BOOT_PARAM_REG(ctx->base_addr,
+-=09=09=09=09=09=09 ctx->buttress_boot_offset,
+-=09=09=09=09=09=09 SYSCOM_STATE_ID));
++=09if (ctx->dmem_syscom)
++=09=09state =3D readl(ctx->dmem_addr + IPU4P_SYSCOM_STATE_REG * 4);
++=09else
++=09=09state =3D readl(BUTTRESS_FW_BOOT_PARAM_REG(ctx->base_addr,
++=09=09=09=09=09=09=09 ctx->buttress_boot_offset,
++=09=09=09=09=09=09=09 SYSCOM_STATE_ID));
+=20
+ =09return state =3D=3D SYSCOM_STATE_READY;
+ }
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-com.h b/drivers/media/pci=
+/intel/ipu6/ipu6-fw-com.h
+index b02285a3e43e..226a4713d6f2 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-com.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-com.h
+@@ -29,6 +29,7 @@ struct ipu6_fw_com_cfg {
+ =09void (*cell_start)(struct ipu6_bus_device *adev);
+=20
+ =09unsigned int buttress_boot_offset;
++=09bool dmem_syscom;
+ };
+=20
+ void *ipu6_fw_com_prepare(struct ipu6_fw_com_cfg *cfg,
 --=20
 2.55.0
 
