@@ -1,259 +1,158 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0315D339B41
-	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 16:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AF7337699
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 18:10:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791737043; cv=none; b=D29a/Agb7OA18gD30dynNV6+dPnqxo3XqbRE6FX94+3lp0yBSOnwlhje/ASH4ryY6Kf0+/44EtxV5cLUiKvENj6umcSDRfcczzmhetu6iQIl9tUbkvGXP/KfUwaRKUjhoLLXtaAuu0Cy1F2kIBbOKOlHaNA+g95zJZOuLKXpouQ=
+	t=1791742215; cv=none; b=dsM6DD+Eb823s+oKE6HdXEa8ep1QHMDOuXyNnUwemAZ83l2MpuUbGueZIwMc9PI6ildUserNUpXMPEjWMv8VJOwtoowBRNi+YHQGaGb4A9BklZBsCCn/gUgxNcpMUC8n/jorYaOUdYAa5w7+RkpYpvQmAQWAAxXYHIrZ+4EpEyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791737043; c=relaxed/simple;
-	bh=E8tZ5lUlseQoTfyzAEiS4kQKBq8AJNkclMabbzbLPFQ=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=NSNtQehI4+Lr00NBi0/6q9ujfy+HJc+fmsUrbzYR6sIItdPd+kQV+uDjslAklkJKRDqSuazKYVoGyRyUIdbVY1k+nXBhl2ZUFK1J9ullVqiL0GvbPoND5dY1QKowWmPz/0lIhNrM4xTQb7QF4q7tQofnQl0evK8Zk4r68vNvGvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S7MfuUbO; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791742215; c=relaxed/simple;
+	bh=+N0EYqnh9d3SdN0JXchYO51KoW25AszZPqV7SMJpVmU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sw/1ilVfcFNxApR1EyKYaYWrm2XdOfSIMB+5WFbm/DHHSFRtH9smZ9L3VYf4ZAl4AKNw4YM1wBnKsehw9MV2TVVCyTu5vZsalvGwXfn8GYShBYDvlfuu23irmy0k4hXr7Bj3X7laLsFSOUFLLxm+241/U0B1/NaYg0A8bhdXN8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kHMeamzs; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S7MfuUbO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791737042; x=1823273042;
-  h=date:from:to:cc:subject:message-id;
-  bh=E8tZ5lUlseQoTfyzAEiS4kQKBq8AJNkclMabbzbLPFQ=;
-  b=S7MfuUbOBljjxoGOJPwsy77igT1lg94Pc8o4ZnQ4V+E/4XirdviNoxpb
-   hDBdTLahnmiD7AchUP6GX4F5FqVfiEFrFGVC7Tdb5i4GKSDe5lxkp53wm
-   d/0U3+ff1ykjGkDkzF/2IZVzhD/b5/KQzjhad834TZs+eOeRpF1KbRTvv
-   u4FCC5F3XrZX0Wq4xMTUUW20llGa9QL4xrgxblx2fA2L3xLOBDNaRJKeI
-   d9B3GU+D3/f15R3zE0uh2q4yZQocQgjX666hVomHhy8PvXpu/4vkS5eWc
-   CifPPDzlVcrq4M5d0oZVk5naejyD2oYUO+BzyMWT8NEhlikhncPr36WlS
-   g==;
-X-CSE-ConnectionGUID: BOirQBSpTBGPcHg7abB6xg==
-X-CSE-MsgGUID: LumP3sBWQxyCCy1JgB6jHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="568622"
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="568622"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 09:43:59 -0700
-X-CSE-ConnectionGUID: EjM3HFAyTNqXXG6L/L3IFw==
-X-CSE-MsgGUID: aJz6sYIxRL6OHQvcgHVCMQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,151,1787036400"; 
-   d="scan'208";a="1172695"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa010.jf.intel.com with ESMTP; 11 Oct 2026 09:43:58 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xFweR-00000000Aci-0jJR;
-	Sun, 11 Oct 2026 16:43:55 +0000
-Date: Mon, 12 Oct 2026 00:43:34 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:master] BUILD SUCCESS
- f39567cc92272f987c056d8c92f7c93f3fdf53ef
-Message-ID: <202610120003.9Gt5zmMb-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kHMeamzs"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2533d83e3bso191495466b.2
+        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 11:10:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791742212; x=1792347012; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5FJfsAWa2Tg0a7RAVRgcsQ8tBnMmp27HrWsnWumyp4U=;
+        b=kHMeamzs1Rq4K718jEcImPzAJjoU/3SAHczsnExFXL6A/e0OxVGFynZdGiTP2LQbLW
+         wCxoy8voHln3DybrjFy2D7G88G6hTCgqW2/YWq3RGKVEDYT/CfdG8RD8Gw7N/iwYq6bR
+         OlPoTpbf7rzPH7azCIdC3IyGug5AfL0yMM+H3b+gYPSnmN+p7+cD6s/2J43YXQzgZz2p
+         ea6s/YsVhQjaySGaxnkM8c0THhZ01fTkuMrFGGs5eQIKp/cLNMvmd+9eOMqAcK8UQsQb
+         M0+M+bdipm94ZdavUyVQDr66Og2gZkiphVIaxHwIWQezvtt5n8pIJqFaIIGUqQccRSXL
+         GT1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791742212; x=1792347012;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5FJfsAWa2Tg0a7RAVRgcsQ8tBnMmp27HrWsnWumyp4U=;
+        b=owGNuL0jtDUdADEPmrQ0qfvMp2oTT/BjUR9iYHI9u7fT3R92Ii37AjGQvnjOAwnn5z
+         +1Mg3ec9HuvHsoLsI+w2mwLTgA+OlbHDeLDmF7HWN7Zyq6cmqjyndcYdye3Q6nL8ezP/
+         lXwJwPkeadnaejEQSHr1jkxfZq+EJXoXJ6gBTg92GF1oHarKocG3YgdnLTqk1fRPtkGH
+         k4WgZx4z2fjh7KTJ5JCPRkyJVp5RZa4O+G/Dzh7kjQw7mMZfibZKWQzOY+oSjXmWrnUS
+         P9q3IJSbH5fluvxoFB0ykQKVzk59SCsJ3EhU962Ey6ZdGcAH4X8gZsKzUeCYqiJV3NhI
+         XvsQ==
+X-Gm-Message-State: AFq9FYK8lxvmouxtPeIf39Rup0L5qN0qgnrMv4gRLczx5KTGrCOLFqg+
+	5IHSy4evfFPkAGD2TElcOSTqbTB4Mo3pa8SJWZGO9zGYiwEQbrpXRnnW
+X-Gm-Gg: AYBFou3zrmWfcY7Q5LUbAu+fmlbuxjj8UAeegUMH1UmP9snRaaFxKSKQQaOCzE2H3wD
+	Em0OE1FbComvLxg2/qjzsDHxS9CoFGDVmUkCDrPZx6rj6pYPt46eZV2+Gxj4yWFUgnaJEZuZChn
+	BPbTxA1sXk1LPogWs3IeDxluYeIdc3E7Lp4j4tBU8txbWamAcAc5CP7/PwlnHa7wS759ZvkvOS3
+	tkoNojGLTkPuuYqMckFgfuaOYB9ICp4Tfr+QCsTy82iNv+8xr+RpvqkbjphwAY6ldmV41j/kCRn
+	1EtCdIRAdYiVr9BrTDa4yxcTEwnG1WAdqqTSFQu30Y2b9O0vkz4t1nOwEZVggAX+dJYnvi9TaMK
+	Pm1vxLzdcfhQ43Ux0j/NaHs22xwlHxryUgr8wi/t3JBEn2AN+55LJAMeIMYCQXcRnV8EoWAa4Fv
+	dS+8VTLg+qmC9Nt7d5YXqHLf+poaO4oGjH/XEQXOFH+r00bErf4ZWXqdcLjtHKtzFmVfTToM7TD
+	kSbjlspjYFu6tH6RUae
+X-Received: by 2002:a17:907:e158:b0:c34:e9fe:82ed with SMTP id a640c23a62f3a-c34e9fe8db4mr54546766b.28.1791742211560;
+        Sun, 11 Oct 2026 11:10:11 -0700 (PDT)
+Received: from fedora (staticline41082.toya.net.pl. [85.89.166.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c355555f483sm3542866b.23.2026.10.11.11.10.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 11:10:11 -0700 (PDT)
+From: Konrad Papaj <konrad.papaj@gmail.com>
+To: Miguel Vadillo <miguel.vadillo@intel.com>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Papaj <konrad.papaj@gmail.com>
+Subject: [RFC PATCH] media: cvs: do not announce host privacy LED ownership on SVP7xxx
+Date: Sun, 11 Oct 2026 20:08:30 +0200
+Message-ID: <20261011180830.9799-1-konrad.papaj@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git master
-branch HEAD: f39567cc92272f987c056d8c92f7c93f3fdf53ef  media: i2c: imx576: select VIDEO_CCS_PLL to repair build error
+The quirk entry for the Synaptics SVP7xxx bridge (06CB:0701) sets
+ICVS_HOST_PRIV_CTRL, which makes cvs_configure_dev_caps() add
+ICVS_HOST_ID_PRIVACY_LED to the host id sent to the CVS firmware via
+ICVS_SET_DEV_HOST_ID, i.e. it tells the device that the host gates the
+privacy LED.
 
-elapsed time: 2116m
+On the Dell Pro 14 Plus PB14250 the host has no privacy LED to gate:
 
-configs tested: 182
-configs skipped: 10
+ - the only enabled INT3472 device (INT3472:0c) belongs to the IR
+   camera HIMX1092:00 and registers HIMX1092_00::ir_flood_led.  The
+   remaining INT3472 devices are disabled, so the LED lookup done by
+   v4l2_subdev_get_privacy_led() finds nothing for the RGB sensor;
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+ - the _CRS of \_SB.PC00.CVSS declares four GPIO resources (wake
+   0x00D4, rst 0x0037, req 0x0000, resp 0x0007), none of which is an
+   LED;
 
-tested configs:
-alpha                              allnoconfig    gcc-16.1.0
-alpha                             allyesconfig    gcc-16.1.0
-alpha                                defconfig    gcc-16.1.0
-alpha                                defconfig    gcc-16.1.0
-alpha                randconfig-r2101-20261009    gcc-10.5.0 cocci
-alpha                randconfig-r2102-20261009    gcc-8.5.0  cocci
-arc                               allmodconfig    clang-24
-arc                                allnoconfig    gcc-16.1.0
-arc                               allyesconfig    clang-24
-arc                               allyesconfig    gcc-16.1.0
-arc                                  defconfig    gcc-16.1.0
-arc                      haps_hs_smp_defconfig    clang-17
-arc                   randconfig-1000-20261011    clang-24
-arc                   randconfig-1001-20261011    clang-24
-arm                                allnoconfig    gcc-16.1.0
-arm                               allyesconfig    clang-24
-arm                                  defconfig    gcc-16.1.0
-arm                           exynos_defconfig    gcc-16.1.0
-arm                   randconfig-1000-20261011    clang-24
-arm                   randconfig-1001-20261011    clang-24
-arm                   randconfig-1002-20261011    clang-24
-arm                   randconfig-1003-20261011    clang-24
-arm64                             allmodconfig    clang-24
-arm64                              allnoconfig    gcc-16.1.0
-arm64                                defconfig    gcc-16.1.0
-arm64                                defconfig    gcc-16.1.0
-arm64                 randconfig-1000-20261011    gcc-11.5.0
-arm64                 randconfig-1001-20261011    gcc-11.5.0
-arm64                 randconfig-1002-20261011    gcc-11.5.0
-arm64                 randconfig-1003-20261011    gcc-11.5.0
-arm64                randconfig-r2107-20261009    gcc-9.5.0  cocci
-csky                              allmodconfig    gcc-16.1.0
-csky                               allnoconfig    gcc-16.1.0
-csky                                 defconfig    gcc-16.1.0
-csky                  randconfig-1000-20261011    gcc-11.5.0
-csky                  randconfig-1001-20261011    gcc-11.5.0
-csky                 randconfig-r2100-20261009    gcc-16.1.0 cocci
-hexagon                           allmodconfig    gcc-16.1.0
-hexagon                            allnoconfig    gcc-16.1.0
-hexagon                              defconfig    gcc-16.1.0
-hexagon               randconfig-1000-20261011    clang-24
-hexagon               randconfig-1001-20261011    clang-24
-i386                               allnoconfig    gcc-16.1.0
-i386        buildonly-randconfig-1000-20261011    clang-22
-i386        buildonly-randconfig-1001-20261011    clang-22
-i386        buildonly-randconfig-1002-20261011    clang-22
-i386        buildonly-randconfig-1003-20261011    clang-22
-i386        buildonly-randconfig-1004-20261011    clang-22
-i386        buildonly-randconfig-1005-20261011    clang-22
-i386                                 defconfig    gcc-16.1.0
-i386                  randconfig-1007-20261011    clang-22
-i386                  randconfig-1008-20261011    clang-22
-i386                  randconfig-1009-20261011    clang-22
-i386                  randconfig-1010-20261011    clang-22
-i386                  randconfig-1011-20261011    clang-22
-i386                  randconfig-1012-20261011    clang-22
-i386                  randconfig-1013-20261011    clang-22
-loongarch                         allmodconfig    clang-24
-loongarch                          allnoconfig    gcc-16.1.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-1000-20261011    clang-24
-loongarch             randconfig-1001-20261011    clang-24
-m68k                              allmodconfig    gcc-16.1.0
-m68k                               allnoconfig    gcc-16.1.0
-m68k                              allyesconfig    clang-24
-m68k                                 defconfig    clang-24
-m68k                        m5275evb_defconfig    gcc-16.1.0
-m68k                         mvme16x_defconfig    gcc-16.1.0
-m68k                 randconfig-r2104-20261009    gcc-16.1.0 cocci
-m68k                 randconfig-r2105-20261009    gcc-8.5.0  cocci
-microblaze                         allnoconfig    gcc-16.1.0
-microblaze                        allyesconfig    gcc-16.1.0
-microblaze                           defconfig    clang-24
-microblaze                       mmu_defconfig    gcc-16.1.0
-microblaze           randconfig-r2106-20261009    gcc-16.1.0 cocci
-mips                              allmodconfig    gcc-16.1.0
-mips                               allnoconfig    gcc-16.1.0
-mips                              allyesconfig    gcc-16.1.0
-mips                           ath79_defconfig    gcc-16.1.0
-mips                          db1xxx_defconfig    gcc-16.1.0
-mips                   decstation_64_defconfig    gcc-16.1.0
-mips                           eyeq6_defconfig    gcc-16.1.0
-mips                       malta_kvm_defconfig    clang-17
-mips                       maltaaprp_defconfig    clang-17
-mips                 randconfig-r2103-20261009    gcc-9.5.0  cocci
-nios2                             allmodconfig    clang-20
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-1000-20261011    clang-24
-nios2                 randconfig-1001-20261011    clang-24
-openrisc                          allmodconfig    clang-20
-openrisc                           allnoconfig    clang-24
-openrisc                             defconfig    gcc-16.1.0
-parisc                            allmodconfig    gcc-16.1.0
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                               defconfig    gcc-16.1.0
-parisc                randconfig-1000-20261011    clang-24
-parisc                randconfig-1001-20261011    clang-24
-parisc64                             defconfig    clang-24
-powerpc                           allmodconfig    gcc-16.1.0
-powerpc                            allnoconfig    clang-24
-powerpc                       arches_defconfig    gcc-16.1.0
-powerpc                    lite5200b_defconfig    gcc-16.1.0
-powerpc               randconfig-1000-20261011    clang-24
-powerpc               randconfig-1001-20261011    clang-24
-powerpc64                         alldefconfig    clang-17
-powerpc64             randconfig-1000-20261011    clang-24
-powerpc64             randconfig-1001-20261011    clang-24
-riscv                             allmodconfig    clang-24
-riscv                              allnoconfig    clang-24
-riscv                             allyesconfig    clang-24
-riscv                                defconfig    gcc-16.1.0
-riscv                 randconfig-1000-20261011    clang-17
-riscv                 randconfig-1001-20261011    clang-17
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                              allyesconfig    gcc-16.1.0
-s390                           debug_defconfig    clang-17
-s390                                 defconfig    gcc-16.1.0
-s390                  randconfig-1000-20261011    clang-17
-s390                  randconfig-1001-20261011    clang-17
-sh                                allmodconfig    gcc-16.1.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                                   defconfig    gcc-14
-sh                 ecovec24-romimage_defconfig    clang-17
-sh                    randconfig-1000-20261011    clang-17
-sh                    randconfig-1001-20261011    clang-17
-sh                    sh7724_generic_defconfig    clang-17
-sparc                              allnoconfig    clang-24
-sparc                                defconfig    gcc-16.1.0
-sparc                 randconfig-1000-20261011    gcc-9.5.0
-sparc                 randconfig-1001-20261011    gcc-9.5.0
-sparc                        sparc32_defconfig    clang-17
-sparc64                           allmodconfig    clang-20
-sparc64                              defconfig    gcc-14
-sparc64               randconfig-1000-20261011    gcc-9.5.0
-sparc64               randconfig-1001-20261011    gcc-9.5.0
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                                allyesconfig    gcc-16.1.0
-um                                   defconfig    gcc-14
-um                              i386_defconfig    gcc-14
-um                    randconfig-1000-20261011    gcc-9.5.0
-um                    randconfig-1001-20261011    gcc-9.5.0
-um                            x86_64_defconfig    gcc-14
-x86_64                             allnoconfig    clang-24
-x86_64      buildonly-randconfig-1000-20261011    gcc-14
-x86_64      buildonly-randconfig-1001-20261011    gcc-14
-x86_64      buildonly-randconfig-1002-20261011    gcc-14
-x86_64      buildonly-randconfig-1003-20261011    gcc-14
-x86_64      buildonly-randconfig-1004-20261011    gcc-14
-x86_64      buildonly-randconfig-1005-20261011    gcc-14
-x86_64                               defconfig    gcc-14
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1000-20261011    gcc-14
-x86_64                randconfig-1001-20261011    gcc-14
-x86_64                randconfig-1002-20261011    gcc-14
-x86_64                randconfig-1003-20261011    gcc-14
-x86_64                randconfig-1004-20261011    gcc-14
-x86_64                randconfig-1005-20261011    gcc-14
-x86_64                randconfig-1012-20261011    clang-22
-x86_64                randconfig-1013-20261011    clang-22
-x86_64                randconfig-1014-20261011    clang-22
-x86_64                randconfig-1015-20261011    clang-22
-x86_64                randconfig-1016-20261011    clang-22
-x86_64                randconfig-1017-20261011    clang-22
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                            allyesconfig    clang-20
-xtensa                           iss_defconfig    gcc-16.1.0
-xtensa                   nommu_kc705_defconfig    gcc-16.1.0
-xtensa                randconfig-1000-20261011    gcc-9.5.0
-xtensa                randconfig-1001-20261011    gcc-9.5.0
-xtensa                     xip_kc705_defconfig    gcc-16.1.0
+ - the platform's own privacy hardware reports [Camera Shutter]
+   [unsupported].
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+The indicator therefore stays dark for the whole duration of RGB
+streaming.  The firmware stops driving it once the host claims it, and
+the host has nothing to drive.
+
+Measured on the affected machine with 30 s of continuous streaming,
+800 frames captured in both runs:
+
+  quirks 0x7a (ICVS_HOST_PRIV_CTRL set)      indicator dark
+  quirks 0x3a (ICVS_HOST_PRIV_CTRL removed)  indicator lit
+
+Camera operation is unaffected: the sensor and CVS bind as before, the
+media graph is unchanged and libcamera still enumerates the camera.
+
+This is sent as an RFC because the quirk is keyed on the bridge
+VID/PID, while the presence of a host-driven privacy LED is a board
+property.  Dropping the flag unconditionally would regress designs
+that use the same Synaptics bridge and do wire the LED to the host.
+Announcing ICVS_HOST_ID_PRIVACY_LED only when a host-side LED is
+actually available, or keying this flag on DMI, both look more correct
+to me, but I do not know which Intel intends.
+
+Signed-off-by: Konrad Papaj <konrad.papaj@gmail.com>
+---
+Tested on:
+  Dell Inc. Dell Pro 14 Plus PB14250, BIOS 2.7.4
+  Intel(R) Core(TM) Ultra 7 265U
+  IPU6 8086:7d19, subsystem 1028:0ce8
+  Synaptics SVP7500 bridge, USB 06cb:0701, bcdDevice 84.95
+  CVS INTC10E0:00 on i2c-15, sensor OVTI05C1:00 (OV05C10) on i2c-16
+  kernel 7.2.8-200.fc44.x86_64 (Fedora 44)
+  libcamera 0.7.1, "simple" pipeline handler + ipa_soft_simple
+
+Disclosure: the OV05C10 sensor driver is not upstream, so the sensor on
+this machine is driven by an out-of-tree ov05c10 module built from
+intel/ipu6-drivers with local fixes.  The LED behaviour reported here is
+independent of that: the indicator is gated by CVS firmware based on
+ICVS_SET_DEV_HOST_ID, and the quirk flag was the only variable changed
+between the two measurements in the commit message.
+
+Reproduction:
+  1. boot with the in-tree intel_cvs, confirm "Quirks: 0x7a" in dmesg
+  2. stream from the RGB camera for 30 s, indicator stays dark
+  3. apply this patch, confirm "Quirks: 0x3a"
+  4. repeat the 30 s stream, indicator is lit for the duration
+
+ drivers/media/i2c/cvs/core.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+index fe9e59a..fafa2dc 100644
+--- a/drivers/media/i2c/cvs/core.c
++++ b/drivers/media/i2c/cvs/core.c
+@@ -70,7 +70,6 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
+ 	},	/* Lattice NX33 */
+ 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
+ 			  ICVS_HOST_SENSOR_PWR_CTRL |
+-			  ICVS_HOST_PRIV_CTRL |
+ 			  ICVS_FW_BUF_SIZE_256 |
+ 			  ICVS_FW_HEADER_SIZE_256
+ 	},	/* Synaptics SVP7xxx */
+-- 
+2.56.0
+
