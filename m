@@ -1,166 +1,121 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3C544F54F
-	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 13:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8209D2BEC2A
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 14:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791724526; cv=none; b=JUY8xPx0Uv4ajFq3wi6QPNYPfKTXVo6g0gh1bYy+7w//qsRoYgDoTBsUPC+ZiPNV/t1EsTZ4ynKW8iC1LiNoQQGfEJth54KF0u2MWsPladzCcYTQLnGd4fceAUw6AlkBnpYasdk6+kdtkM66Rd0d+S2sbvJSwkGu72GA46njC9M=
+	t=1791728675; cv=none; b=DJHxwmmXq3uluW9ANUlAbtIkxxjPLgMS17aWinAJDaz0oau4rJr6pOucBaWg64PsfJU97j6qwf3MPeuVEpnVi4bHLAqB083qPhe/txzbd8MOT7tL9TnwxVpXn53dHZDkMML6meocfnO08zL1vPyaCj3wskKsz8Y8XzFk9RGDcCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791724526; c=relaxed/simple;
-	bh=9B9X/gIi5DrIUQeFLc+juPsb6YF4O294TU63QHC/mw0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zsrfky82DahjXgpoxlSw1yxhWZLcGPlGLsmMbYq78EJZxpTvmwGP8/iRx6PH+kS9B50UyPyeRErAnbeeeQ3WpWux4pee5itqJHViJ8WNjNM4vhAeBmSDYD4sS/52/nqb3lo53pT8RQgZ1gyocBOOi7PQ3MeD4pA91AEi9qf32eU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P+qjTGbr; arc=none smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791728675; c=relaxed/simple;
+	bh=x9wNfludcXEkqtEmZ8x+yTRNpQORzxVzq7h2z5osZwA=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=KX6430Bzd70mdxu2COjRiNiuEWVi12Ar1ELdqzW0Fk1OQjcdzavKuMyRFkFSTdkP9UYL9pC7bN2i8g8ZBl7h3uS+SXHf7p49zk+E4Je4kk6HZNpXOHLARotbHsJNcd9ROVQe5E5lbBtaBMHkS3Rg0aySxM5YU6kUWouz0XLP8B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=efklaRUZ; arc=none smtp.client-ip=185.70.43.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P+qjTGbr"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so1638859a12.2
-        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 06:15:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791724523; x=1792329323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n6tSFeETOL0w0YG7EtJiKwNHh1JrtAxAwON5yzkpP6k=;
-        b=P+qjTGbrEVSI9Z/xYVdhSc2Kkt6fxjlTjlSBBUtd5+0Mv6yQXzoeXRP0aB9p11/mNq
-         LaQx0FmnZw4/NyUwrU9PqXkMLATPQC4iUnGiz2sSyVQSbWUTQR4wqkzWlLFLliEo8nBe
-         bRAJmOTKKrHBkhlNcUxQ9hGU25aGC0r/Di1Ma8xUw0rzj0WVMiUiK0AQrs+cXnWzxswN
-         ZXIPKHMml9i/oviTeAg8XbNzhfnAFVnqXvOvZ8vRcsemURSVfm4QsWGSyUCR+EQE85iX
-         DhfK1c9216QYJM5xvyOwBAM5PubOAotmSoGnQiDxSF40FR8OMEAtJB2xeqLk4r9EXGyR
-         JV/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791724523; x=1792329323;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n6tSFeETOL0w0YG7EtJiKwNHh1JrtAxAwON5yzkpP6k=;
-        b=YF+MB8uhz6kNlyEa3+B9gC5rXkG0cptwUsOCDmq1pHfZb/t3oBzTFEAgOPmGEC//k8
-         OmQLkHzG7YO403wjuMPavV+mXlSOgiSejbVKyxT8CbRcv+xHb007cRvtoP48KlysJbqO
-         1ncxebYBEE6w3ubaS0yPyYXHkIuB+HC2AOWr2EYq+yoKu3R9cIrkOgNgik/AOLjvZKw+
-         lkaFbUWT4ZuMZ/mokNtLuwtDKaNCs6xiULnhe8h330iVjS9qQRpuj66+0NT7nJE3M61s
-         vYoVngaE7iEmSNNmf5IfrjvrjZnt8Rl2CxV8xW+xVxcFlgeQo9HCXhIJEHD8aywjYFd0
-         UqZA==
-X-Forwarded-Encrypted: i=1; AKwUvByWENQQsEFIwFx0Qw8bbpHotxCfoTVFVxQWxqwVL4Z2HipLY+tnecN2zdN+GfgmfmgVtrnARpRghQN4Qg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI6xu1jN4wZEyFqpNLuB4N5sVkLtDc5K00VlRYlGaZho1WkPaJu
-	ax2igNwLX+HwTMTZhiCcE+72N01F3dyvjWKMnn27iKwkmAg6YuneK4nz
-X-Gm-Gg: AYBFou1MLEw08VJKJiJcoglY4tMe7+1jGwV9QQxoWSXm9iEVE22G+X43bw6afda0XSu
-	XbQgGgQrFCunroBg2efui3rQJT6a6DClyQzCJicq5wDPs4FHIxlU+zUXbT+gR/INCJQxdXKyabh
-	zUdgysQVCHRZl0Xzg5K1VDM1RDv8qj2FZ0MIwkaZIF4TuKMonbIcZppfbSm7G+jJPzA3T/SQTfR
-	fbrN9pcbdRfiLal4f29jzGkRAeAQxFycl+iN2cx/TMOO3MEiLaveOuQEzUGvY/JhkNJ1tkk/c5v
-	tbfgZOpyZC1KZnpgdGMoXEk0ilXYRlvf8Y51bm1EiQBaubw2bzz7q0P1pV8TIIYN1989P5TbClX
-	oW8KWdK7/jbpKkCjK12J1yA3lsFdqvfhBZ8aXETBq6NPqLfTIXB9HnKQu3SlY6DFksXXWNkzJMi
-	m/W1LHUL9lr+GBAjX6tILa2nGOTV1uKUKcTXnrKGNnPK1tncCmtY6F0Qyfym7VyNOErupHXJ1Em
-	UNHGW4OCCOaQWs=
-X-Received: by 2002:a05:6402:24a5:b0:6a7:ee55:dcc9 with SMTP id 4fb4d7f45d1cf-6b17c29d39dmr6011742a12.24.1791724523262;
-        Sun, 11 Oct 2026 06:15:23 -0700 (PDT)
-Received: from pythagoras.home ([178.226.135.249])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b1aaec1b9dsm1026665a12.0.2026.10.11.06.15.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 06:15:22 -0700 (PDT)
-From: Eduardo Ruiz Duarte <toorandom@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	bingbu.cao@intel.com,
-	djrscally@gmail.com
-Cc: andriy.shevchenko@linux.intel.com,
-	heikki.krogerus@linux.intel.com,
-	tian.shu.qiu@intel.com,
-	lixu.zhang@intel.com,
-	linux-media@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eduardo Ruiz Duarte <toorandom@gmail.com>
-Subject: [PATCH] media: ipu-bridge: hold a reference on the IVSC software node
-Date: Sun, 11 Oct 2026 15:15:18 +0200
-Message-ID: <20261011131518.48838-1-toorandom@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="efklaRUZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791728662; x=1791987862;
+	bh=04E/rl0hIQdarmYsQj9SmUFdRDlopPSrLbR7a7KPUcg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=efklaRUZTzfUu/nG6kKeg6HaEVq8yrTDPgKS/SPjHQZ5C6xvlniWEUR/kHmOGTwuK
+	 VWn4Yb4gv4NaLagyxh7F38GXZUZ7JQy0tYWHseWLhFukg23x5kv4A77ayiH6G7yM9H
+	 z+vcCoghGQ3DbD33px1GrC9Xeot1Z2ATzKPEgeKjp7Fyc/hTNjExBAn1CmCniIt3nT
+	 FqyiuMv/PthoUIAfYSAFUl0L/psBJ/IyNM1bu6TKHoBeM9Z8DbBPCZkfIjZZpm2ks9
+	 lsioRd4VIMshTw8QNxoOyMMEVOwbKdTjtSFRdYghdPt49mRv7FVbK/BYUBZWISZIwr
+	 g1yLMqSZOYFDQ==
+Date: Sun, 11 Oct 2026 14:24:15 +0000
+To: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+From: Ruslan Bay <ruslanbey@proton.me>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>, "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>, Ruslan Bay <ruslanbey@proton.me>
+Subject: [RFC PATCH 00/12] media: ipu6: Add support for IPU4P hardware
+Message-ID: <5oAFQQK4aV42L5EWnypG-lloKyb1XF33Qcd8JU3xf9Ik0JjBNXuPkx0f5mvFZzd4jDkt7orjqgppZJJUrH2UePK9HvAfIYfxyWVG4HYl7rU=@proton.me>
+Feedback-ID: 183606634:user:proton
+X-Pm-Message-ID: 792e835293b2cdb88b1e305af8cddea6e1aefad0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-ipu_bridge_instantiate_ivsc() attaches the IVSC software node to the mei-csi
-device with set_secondary_fwnode(), but never takes a reference on it, while
-the driver core unconditionally drops one when that device goes away.
+This series adds IPU4P support to the upstream IPU6/IPU7 driver.
 
-device_add() calls software_node_notify(), which does a kobject_get() on the
-swnode behind dev_fwnode(dev). device_del() calls
-software_node_notify_remove(), which does the matching kobject_put() -- and
-that put sits *outside* the "if (swnode->managed)" block, so it runs for every
-device whose fwnode is a software node, managed or not:
+Most of the groundwork was done by Antti Laakso in the IPU7 support
+series [1]. I added the IPU4P-specific parts, using Intel's downstream
+driver as a reference [2]. Development was assisted by GPT-5.6 Luna.
 
-	sysfs_remove_link(&swnode->kobj, dev_name(dev));
-	sysfs_remove_link(&dev->kobj, "software_node");
-	kobject_put(&swnode->kobj);
+Image capture works with front and rear cameras, but a
+rear-camera stream-off timeout remains under investigation [3].
 
-	if (swnode->managed) {
-		set_secondary_fwnode(dev, NULL);
-		kobject_put(&swnode->kobj);
-	}
+The media device name is intentionally kept as "intel-ipu6" so the
+unmodified libcamera Simple pipeline handler can recognize it [4].
 
-csi_dev is the mei-csi device, which the MEI client bus has already added by
-the time ipu_bridge_instantiate_ivsc() runs. The add-side get therefore never
-happens for this node, but the del-side put always does.
+Tested on a Surface Pro 7 (Ice Lake, i5-1035G4).
 
-On hardware where the MEI bus resets -- which it does on every s2idle and S4
-resume on a Dell XPS 13 9340 -- mei-csi is destroyed and recreated each cycle,
-so the node loses one reference per resume. INTC10CF-N starts at 3: one for its
-own registration plus one for each of its two port children, since
-kobject_add() of a child takes a reference on the parent. The third resume
-therefore frees it, software_node_find_by_name() starts returning NULL, and
-isys walks the fwnode graph into freed memory:
+Review and feedback are welcome.
 
-  refcount_t: addition on 0; use-after-free
-  WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x7e/0xb0
-   kobject_get+0x94/0xb0
-   software_node_graph_get_port_parent+0x89/0xd0
-   fwnode_graph_get_port_parent+0x70/0xd0
-   fwnode_graph_get_endpoint_by_id+0x93/0x280
-   isys_notifier_init+0x92/0x180 [intel_ipu6_isys]
-   isys_register_devices+0x3c9/0x4e0 [intel_ipu6_isys]
-   isys_probe+0x3df/0x500 [intel_ipu6_isys]
-   auxiliary_bus_probe+0x4c/0x70
-   ...
-   deferred_probe_work_func+0xa5/0x110
+Thanks to the linux-surface community and the libcamera developers for
+testing the downstream driver and sharing their findings.
 
-followed by an underflow and a saturate on the same kobject, and the camera
-never comes back.
+Links:
+[1] https://lore.kernel.org/all/20260907113004.2489993-1-sakari.ailus@linux=
+.intel.com/
+[2] https://github.com/intel/linux-intel-lts/tree/lts-v5.15.195-android_t-2=
+51103T063840Z/drivers/media/pci/intel
+[3] https://github.com/ruslanbay/ipu4-drivers/tree/c8176a3656a98552bed3703a=
+edeeb8aa4c40a869/assets
+[4] https://github.com/libcamera-org/libcamera/blob/8103c3f29fba61dbd1d3bbf=
+1a099280c5f3217e3/src/libcamera/pipeline/simple/simple.cpp#L261
 
-Take a reference so the attachment owns one, balancing the put the core will do
-when csi_dev is destroyed. Where csi_dev is never destroyed this leaks a single
-kobject reference, which is what the lifetime of the node already assumes.
+Ruslan Bay (12):
+  media: ipu6: Add helper to identify IPU4P
+  media: ipu6: Add IPU4P MMU support
+  media: ipu6: Add IPU4P buttress support
+  media: ipu6: Add IPU4P ISYS firmware ABI definitions
+  media: ipu6: Support DMEM-based SysCom in ipu6-fw-com
+  media: ipu6: Add firmware-specific ISYS response dispatch
+  media: ipu6: Add IPU4P ISYS firmware operations
+  media: ipu6: Add IPU4P CSI-2 register definitions
+  media: ipu6: Add IPU4P ISYS ISR handling
+  media: ipu6: Add IPU4P CSI PHY driver
+  media: ipu6: Work around IPU4P CSI-2 port 2 timing
+  media: ipu6: Enable IPU4P PCI device
 
-Found while making the camera survive hibernation on a Dell XPS 13 9340
-(ov02c10 behind an INTC10CF IVSC); with suspend-then-hibernate the first cycle
-burns two resumes, so the failure consistently showed up on the second
-hibernation. Tested on 7.0.0-1015-oem: two consecutive hibernations with the
-node alive throughout and no refcount warnings, where before the second one
-hung the machine.
+ drivers/media/pci/intel/ipu6/Makefile         |   2 +
+ drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c  | 688 ++++++++++++++++++
+ drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h  | 411 +++++++++++
+ .../media/pci/intel/ipu6/ipu4p-isys-csi-phy.c | 207 ++++++
+ .../pci/intel/ipu6/ipu4p-isys-csi2-regs.h     |  64 ++
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c  |  48 +-
+ drivers/media/pci/intel/ipu6/ipu6-fw-com.c    |  51 +-
+ drivers/media/pci/intel/ipu6/ipu6-fw-com.h    |   1 +
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   |  41 +-
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.h   |   3 +-
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  93 ++-
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |   2 +
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    |   8 +-
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      | 139 +++-
+ drivers/media/pci/intel/ipu6/ipu6-isys.h      |  27 +
+ drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c    | 109 +++
+ drivers/media/pci/intel/ipu6/ipu6-mmu.c       |   7 +-
+ drivers/media/pci/intel/ipu6/ipu6-mmu.h       |   1 +
+ .../intel/ipu6/ipu6-platform-buttress-regs.h  |  32 +
+ .../media/pci/intel/ipu6/ipu6-platform-regs.h |  17 +
+ drivers/media/pci/intel/ipu6/ipu6.c           |  48 ++
+ drivers/media/pci/intel/ipu6/ipu6.h           |   5 +
+ include/media/ipu6-pci-table.h                |   2 +
+ 23 files changed, 1957 insertions(+), 49 deletions(-)
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h
 
-Signed-off-by: Eduardo Ruiz Duarte <toorandom@gmail.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+--=20
+2.55.0
 
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -765,6 +765,15 @@
- 	if (!fwnode)
- 		return -ENODEV;
- 
-+	/*
-+	 * Balance the kobject_put() that software_node_notify_remove() will do
-+	 * on this node when csi_dev is destroyed. That put is unconditional,
-+	 * while the matching get in software_node_notify() only happens at
-+	 * device_add() time -- and csi_dev was added before we got here, so it
-+	 * never ran for this node.
-+	 */
-+	fwnode_handle_get(fwnode);
-+
- 	set_secondary_fwnode(sensor->csi_dev, fwnode);
- 
- 	return 0;
--- 
-2.51.0
+
