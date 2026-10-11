@@ -1,319 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E623BFADD;
-	Sun, 11 Oct 2026 03:38:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4993E2771
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 06:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791689910; cv=none; b=iBRS7Sqlf4CWsLRySYBJH9kHz4CS7RlOD3OfZIp/tyovuboFR9hNJn+A9l9r08M2ZbFml95HBCLL/BJyxel/bkMS4CqlnOaIRfnC8gEA1e4/A56QenemIbChn0JnqoDP4tdd+LV+fWYPA24btVnCDyko+XhzxsTVnxdTr03K3/E=
+	t=1791700809; cv=none; b=A0xnQ/rBm+jk8hkxc9TWLFPzw3wUYPysBePQQ66MZfwuzkuE42o/pY9HSwPDkpTwtu0SsNA5zZx5cSTktFaOyUIg+xMTdibxBFKTSSmS4IdAfIl8Vtd3dVyS7Cp9jI1E7DqGWWh/hIYvX26Z+6v001cZxhmT7tP4AJuybYF2IJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791689910; c=relaxed/simple;
-	bh=2xrZX45iucc6IrSrbF9YcOlGiPMVSZSHJtoWydcngZ4=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=R/RMAy7mJpAYAlSvgaAz/fIpzZubOUzoAMk/8GsQcCfPzVq/icX9GMO9KLP2l5aLiMI42kuMIxEdlFY+xmQB1EsFt8wUpCYuqvLNYFpg5yGuieCobCvTDRZ2DSj5SaN5hxK6gdeSOCoBRIXr0YdcrLsjr7ud1Yypou8D6W+tdbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LSHJfP/I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791700809; c=relaxed/simple;
+	bh=/ttv6f6dsluA5uZThmcG7fwuw5ldScTyjNi0Up5a3ck=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hdWGHfhD1fa2r17acSdqKFaZQtFr5oeexWAnWgItua1QbfsvHAIpXX5FrKQaru1iBlp2+BC8u7amfM/v/7De9J0+jy0hnladTAZ1cRruuJaK4pZX2dyLzWsR6eQbs9Q9H0e3dQi4GH3BpmQ1NkpBSeEsVju4HozMR5FeHiAS8JY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J2YPTxyF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WSROKTHQ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LSHJfP/I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E54211F00893;
-	Sun, 11 Oct 2026 03:38:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791689904;
-	bh=DhT2Sc1qZOsPqVuOtTlejOzafSl9/+wC5w47v4hyl3w=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LSHJfP/IDboyc/VdiFW0S5vIbArmrOGlWGu/rf8Sh8b+nve3NdVCJHXsysp4l9xaH
-	 tD4nZz3H2ZukItiafHfTQjAnJmrAdmTRwxKLV3nJR4XGcpWcLGef/wR8PqhWRPI5HR
-	 muaHaCh6nYMsarMSJlbuwA114GYKMFTPCUSkucosh0wzaDPMJgqlyUFHLFhy2jma/j
-	 a2KBtbQ/hC3yjjj2yu6EILi7ByOptub1AdzKbl62tWxeRgpvpM3S5S6OD0a0VY2PAV
-	 obgXc63PF1EQDAttMzuZo4oAgEmdZUlABXqaqErfF06EHfxtqUsjKEqS31zb4sEcD6
-	 FIqE/AFVbfJMg==
-Subject: Re: [PATCH net v1 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
- ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
- bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
- razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com
-Date: Sun, 11 Oct 2026 03:38:22 +0000
-Message-ID: <179168990244.434549.3313221235274785716@kernel.org>
-In-Reply-To: <20261010025532.839559-5-almasrymina@google.com>
-References: <20261010025532.839559-5-almasrymina@google.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J2YPTxyF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WSROKTHQ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B50Ixe3122319
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 06:40:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	lxQNniTxfj5zZUHLI+CqiLbzb4mfvWapYlrk/rSG0wY=; b=J2YPTxyFIOo2TrpD
+	r6YHmsOhuEbaG2hf9Yvwb8aB4R8LB6HY5rgVme7XpOYln1z43cg7I+iuWtZQk2Iz
+	aXOb0eyiKCqexF4Ysip33quqVJ1McbKX+5x8hcz+20uy+hOc78CQXYw7EIPo439/
+	LZNCaem63jM+IKY9bkRmP28tguo8dXvztuoHTGy4ciAxtbQ+ZqCpym4xCQ/8wtE+
+	sxsiiZY4u0q9BQMzGYLptCDIZrDe7mnqXjk4fPx2B1oQmTNxwWaqC2DNdgEmrFHs
+	mUha1aWg/XI9Xy75N0rPjdA+//5OWw/jHjP8noDyqS9Zq10Kf2lrh1UD95YskNeA
+	t3shVQ==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7cxxjmhn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 06:40:05 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3592749a017so542454eec.1
+        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 23:40:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791700805; x=1792305605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lxQNniTxfj5zZUHLI+CqiLbzb4mfvWapYlrk/rSG0wY=;
+        b=WSROKTHQIT5OB0H9zCRSmMFt4qDNg048xKQgiTDQcMGTk6OShzz/fB8YREVs7U/Zv4
+         XhTHFyZXuQmkEhgurUohTQjKY0ogZCEc+OvZLOFdgPtZflDcEvrOMOkyg4ow/ccbl6u/
+         TdeKHsTugjTcJ0/y9byvfKBi83qf0CRUco4KCz1Jnd5aoaeC20vDyAaJyahCAjvmui8N
+         yLHUTR1VUWZKns6RJSvbQQktU01QP5ewMOrwgtFzuxSDHS6ot8/zyL+if6KjN7Y068OT
+         +l0K67LxZi2QvPpETn9fuqU7qOU276x9SMp9ldd90FqpOVpnG2zSzVPf+ksc9Twl/RIt
+         MoVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791700805; x=1792305605;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lxQNniTxfj5zZUHLI+CqiLbzb4mfvWapYlrk/rSG0wY=;
+        b=nYCPGQxwuiQ52OurZBAWl2gl/B2FNEvrqT0b3eCXM03UdA2OtBfGlg843Eg32x8eDd
+         JoVjhED9yYFOjuBgyXAlWXBzFYIZpW//0TAiocrbPpBzZBSEP3uHNxrlAmX0gMGCRn6w
+         xdlWeYxdZkPXckajD9X9dkvJivGgWA0rKXl0jCWG706E4v7zDpcWP6d/L62RHmVWhEv/
+         uF3QPN33I39513GXVG6TTc5ctSHnK3tnybYURpoKlxd8iJTI/kPGoGUZpWACT8pVT7CD
+         Dr0w5zUkf2kolIDe+288b7l5HS/oWKdI+TVyStEHMh/e233UjV0BNpw3WxO88Ra7HiWm
+         iFIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx9YkN9lhIOlW8PLIKISZIcwlnLbRFZtdd2JwkxEYD7W5RAhpwpX9YKdkVl9SjylVcojzoeqZmjgL8Eqg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9NpzpccKaSsgtUBTxxJnt7DMGSczmfYP/7QFZoYSLHwVxN7Qy
+	clSph+XzyspkLfp6OKG7eJu2S6TQ5Roq1zSUDRgYMm47eE7mlX2vfZyOkfVwXSJ8CFJdF4MbHHv
+	V7eKWD7A82G0MYb+rNuNPHmvUy6YAuQ1BYEQPSJ5HWspnrUkaATM5P3yoXaiNjJRi5A==
+X-Gm-Gg: AYBFou38TMcMwyUyJMnv5TmElI5QiElNtG26S4d2lw8R5H/sT7E1Jr3PP1hLDraajz2
+	uaqWS6mEI3QW94bPmf8cPFHvqp5X0qqMztf+as5R6XrX+Q+HAs7GGDa9BR6v3DoeoMGvZQAKSjz
+	zaiyjVB/6fngGM3LDoZp8fyUrDwVC9YjPD+or2QGTQwnTInuF4zkDSs3rkjX2XmV8Gwy2iMi9Mz
+	3gFfq7nuf9jzzovy2+6E75PwXYP2lxXS8fasncUIvkgOjxSlO/1qEI3AIj+KxuEq057/j8Kp0vd
+	DwOp4QQc4aPWUgwXFWmoW/szh3bjwfnh7sTYA9ZcCIHwijCMSDKiTC2wlyo/eIqZS1/r85a1Ta4
+	d549u8vL3Z9WAdY0FQHJ72Y+FZ/gYRA==
+X-Received: by 2002:a05:7300:fb8a:b0:353:82a3:eb86 with SMTP id 5a478bee46e88-35382a3ef76mr11703226eec.0.1791700804434;
+        Sat, 10 Oct 2026 23:40:04 -0700 (PDT)
+X-Received: by 2002:a05:7300:fb8a:b0:353:82a3:eb86 with SMTP id 5a478bee46e88-35382a3ef76mr11703162eec.0.1791700803560;
+        Sat, 10 Oct 2026 23:40:03 -0700 (PDT)
+Received: from [192.168.0.8] ([183.83.143.210])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c61eaa0sm24442161eec.0.2026.10.10.23.39.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 10 Oct 2026 23:40:03 -0700 (PDT)
+Message-ID: <9eff23cd-9f9b-e57a-9e50-a09a9e3520ed@oss.qualcomm.com>
+Date: Sun, 11 Oct 2026 12:09:55 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion
+ during power-off
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com>
+ <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+ <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
+Content-Language: en-US
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <CAGEkeHd_KRRUZ8Kqvmf2BWF8stVg=_FSbx701ibS=KdoAy4FZw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: XsCl9nHzNvImpZPj6FZ0_ezVXlfWvSp8
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDAyNiBTYWx0ZWRfX8gujkkFpA3av
+ 312m/ioBtPnSJwQu0/yIOYciHBMa9wVkWFUcjdHPpqCSit0K+76XGlQQoFQDsDf4Jzcq2nF3mhH
+ Z7D/I8+74L2a/L0SckRN3dMKCG8KTjo=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDAyNiBTYWx0ZWRfX3Gff3rbJevP2
+ ajC4eJT+gC6eqyzntytQ7KM+jLAYiqrokjPqk1h/3RLg23ZmV5v5KnNW27LQOBLgPwPaQNgNuPD
+ pHfPxyR6Xa20LVXm568QwJWEYlWIju3HMxnjPef/7LleQbFNDyMnvt4L8yQhm3I1DtyAH+ZDpGc
+ Lr4aRd0uOCAMb//Z3RjshgJ9PWjfTtWRKjpoRURYQC11Bj87sO4ldyHavHNDW8xtMC/LC/px7LJ
+ rIiv3bH//PPwxjdmco/vw2ivFT/PTLBr9CpdRdPL0FjZtVPx9nBmu1m/IGvRYLr0HYReDiUDMZj
+ 5c5aFvwUXQ7DplngKRktIpWaIR+GKvWAZPv2kdK61Jhkvwl3qlT4OS26wZALNHbvmRfYdKE2dh1
+ QEiJnh8JWo4OaTlPJsMRoNSlicwlcDYRxFApuCpQ9L0/dgrGsuYKEHwgeYKVsCF0ajN9Lk6V0On
+ NBu8tZJT4I52BIsiSKA==
+X-Authority-Analysis: v=2.4 cv=AsJ7T+9P c=1 sm=1 tr=0 ts=6acb2f45 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ijl8aQlCsSTD5cfZelNzAA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=pGLkceISAAAA:8 a=wXOP9t3OkE-NeulZwrQA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: XsCl9nHzNvImpZPj6FZ0_ezVXlfWvSp8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-11_02,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
+ adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110026
 
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 5 · Low: 2
+On 10/7/2026 10:59 PM, Hungyu Lin wrote:
+>> +       if (!iris_vpu_watchdog(core, core->intr_status))
+>> +               iris_vpu_disable_irq(core);
+> If the IRQ thread records a watchdog after this check, while
+> disable_irq() is waiting, it skips enable_irq(). The hard handler and
+> helper would then have disabled the IRQ twice, but the next power-on
+> only enables it once.
+>
+> Could the helper recheck the watchdog after disable_irq() returns and
+> core->lock is reacquired, then call enable_irq() once to balance its
+> extra disable in that case?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This patch is not about the IRQ disable depth. Its purpose is to make sure
+the threaded handler has finished before the VPU is powered down.
 
-- [Medium] In devmem_bind_rx_unregister_check() and
-  devmem_bind_tx_unregister_check()…
-- [Medium] The new tests need /dev/udmabuf (CONFIG_UDMABUF) and debugfs
-  (CONFIG_DEBUG_FS, for the bufinfo assertions).
-- [Medium] _dmabuf_attached_devs() (nl_netdev.py:390-408) collects the
-  'Attached Devices' entries of every dma_buf in the system, not only…
-- [Medium] devmem_bind_rx_unregister_check() (lines 413-439) and
-  devmem_bind_tx_unregister_check() (lines 444-466) do not use `with…
-- [Medium] _create_udmabuf() (nl_netdev.py:384) passes the hardcoded
-  number 0x40187542 as UDMABUF_CREATE.
-- [Low] In both new tests, the only check for the behaviour the
-  docstrings claim ('Verify RX devmem bindings detach dma_buf…
-- [Low] _create_udmabuf() (nl_netdev.py:379-387) closes memfd and devfd
-  only on the success path.
+Re-enabling the IRQ here, during driver shutdown or removal, could let a
+watchdog interrupt fire and reschedule the sys_error_handler work, which
+can lead to a use-after-free once the core is torn down.
 
---
+For that reason I would prefer not to add the enable_irq() recheck in this
+patch.
 
-selftests: net: add devmem RX and TX netdev unregister tests
+Regards,
+Vishnu Reddy.
 
-This adds two tests to nl_netdev.py. Each one creates a udmabuf, binds it
-to a netdevsim device for devmem RX or TX through the netdev netlink
-family, and then removes the netdevsim device. The tests check debugfs
-dma_buf/bufinfo to confirm that the attachment is gone, and expect the
-netlink socket to close cleanly afterwards.
-
-> diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-> index ceb44c8e1fec5..bad230ee9dcd2 100755
-> --- a/tools/testing/selftests/net/nl_netdev.py
-> +++ b/tools/testing/selftests/net/nl_netdev.py
-
-[ ... ]
-
-> @@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
->      ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
->  
->  
-> +def _create_udmabuf(num_pages=64) -> int:
-> +    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-> +    if not os.path.exists("/dev/udmabuf"):
-> +        raise KsftSkipEx("/dev/udmabuf is not available")
-
-[Severity: Medium]
-Will these tests ever run in CI that builds from the net config fragment?
-
-The only related entry in tools/testing/selftests/net/config is:
-
-CONFIG_NETDEVSIM=m
-
-It enables neither CONFIG_UDMABUF nor CONFIG_DEBUG_FS. So
-_create_udmabuf() would always raise KsftSkipEx here, and both new tests
-would always skip.
-
-tools/testing/selftests/drivers/net/hw/config and drivers/dma-buf/config
-both set CONFIG_UDMABUF=y. Should the net config fragment add
-CONFIG_UDMABUF=y and CONFIG_DEBUG_FS=y too?
-
-> +
-> +    size = num_pages * mmap.PAGESIZE
-> +    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-> +    os.ftruncate(memfd, size)
-> +    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
-> +    devfd = os.open("/dev/udmabuf", os.O_RDWR)
-> +    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-> +    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
-
-[Severity: Medium]
-Is 0x40187542 the right request number on every architecture?
-
-The uapi header defines it as:
-
-include/uapi/linux/udmabuf.h:
-#define UDMABUF_CREATE       _IOW('u', 0x42, struct udmabuf_create)
-
-0x40187542 is the asm-generic encoding. Alpha, mips, powerpc and sparc
-define _IOC_WRITE as 4U with 13 size bits, and parisc defines it as 2U.
-On all of these the write bit lands at 0x80000000, so the request number
-becomes 0x80187542.
-
-On those architectures udmabuf_ioctl() hits its default case:
-
-	default:
-		ret = -ENOTTY;
-
-Nothing catches the resulting OSError from fcntl.ioctl(), so both devmem
-tests would fail instead of running or skipping.
-
-> +    os.close(devfd)
-> +    os.close(memfd)
-> +    return dmabuf_fd
-
-[Severity: Low]
-Does this leak memfd and devfd on the error paths?
-
-If os.ftruncate(), the F_ADD_SEALS fcntl() or os.open() raises, memfd is
-never closed. If the UDMABUF_CREATE ioctl raises (the ENOTTY case above,
-for example), both memfd and devfd stay open. ksft_run() catches the
-exception and keeps the process running.
-
-A try/finally around these calls would close both.
-
-> +
-> +
-> +def _dmabuf_attached_devs():
-> +    """Return attached device names from debugfs dma_buf/bufinfo if available."""
-> +    path = "/sys/kernel/debug/dma_buf/bufinfo"
-> +    if not os.path.exists(path):
-> +        return None
-
-[Severity: Low]
-What happens when bufinfo is missing (CONFIG_DEBUG_FS off, or debugfs not
-mounted)?
-
-Both tests guard every assertion with:
-
-    if attached is not None:
-
-With None they run no assertions at all. ksft_run() then records them as
-pass, not skip.
-
-The tests still exercise nsimdev.remove(), but they would pass even if
-the dma_buf stayed attached after unregister. Should this raise
-KsftSkipEx instead of returning None?
-
-> +    with open(path, "r", encoding="utf-8") as f:
-> +        text = f.read()
-> +    attached = []
-> +    in_attached = False
-> +    for line in text.splitlines():
-> +        if line.strip() == "Attached Devices:":
-> +            in_attached = True
-> +            continue
-> +        if in_attached:
-> +            if line.startswith("\t") and line.strip():
-> +                attached.append(line.strip())
-> +            else:
-> +                in_attached = False
-> +    return attached
-
-[Severity: Medium]
-Does this count attachments from every dma_buf in the system, rather than
-only the udmabuf this test created?
-
-dma_buf_debug_show() walks the whole dmabuf_list and prints one block for
-each buffer:
-
-drivers/dma-buf/dma-buf.c:dma_buf_debug_show() {
-    ...
-		seq_puts(s, "\tAttached Devices:\n");
-		attach_count = 0;
-
-		list_for_each_entry(attach_obj, &buf_obj->attachments, node) {
-			seq_printf(s, "\t%s\n", dev_name(attach_obj->dev));
-    ...
-}
-
-The parser collects entries after every header, so the result is a total
-for the whole host.
-
-This has two effects:
-
-- ksft_eq(len(attached), 0) after nsimdev.remove() fails whenever any
-  other dma_buf (GPU, display, V4L2) has an attachment, even if the
-  kernel detached this one correctly.
-- ksft_ge(len(attached), 1) passes even if this binding never attached.
-
-An attachment left behind by the RX test would also make the TX test
-fail.
-
-Could this filter on the inode of dmabuf_fd (os.fstat(dmabuf_fd).st_ino)
-or on the netdevsim device name?
-
-> +
-> +
-> +def devmem_bind_rx_unregister_check(_nf) -> None:
-> +    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-> +    dmabuf_fd = _create_udmabuf()
-> +    nf_priv = NetdevFamily()
-> +    ef = EthtoolFamily()
-> +    nsimdev = NetdevSimDev(queue_count=2)
-> +    nsim = nsimdev.nsims[0]
-
-[Severity: Medium]
-What happens to the netdevsim device if anything between here and
-nsimdev.remove() raises?
-
-The ip link set call, ef.rings_set(), nf_priv.bind_rx() or ksft_ge()
-could all raise. ksft_run() catches the exception and moves on, but
-nsimdev.remove() is never reached.
-
-NetdevSimDev only cleans up through remove() or __exit__ and has no
-__del__. So the device stays in the kernel after the selftest exits.
-dmabuf_fd stays open, and if the bind succeeded, the dma_buf attachment
-stays live too.
-
-The other netdevsim tests in this file use "with NetdevSimDev(...)" or
-defer(). Could these do the same? devmem_bind_tx_unregister_check() has
-the same pattern.
-
-> +
-> +    ip(f"link set dev {nsim.ifname} up")
-> +    ef.rings_set({"header": {"dev-index": nsim.ifindex},
-> +                  "tcp-data-split": "enabled"})
-> +    nf_priv.bind_rx({
-> +        "ifindex": nsim.ifindex,
-> +        "fd": dmabuf_fd,
-> +        "queues": [{"id": 1, "type": "rx"}],
-> +    })
-> +
-> +    attached = _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_ge(len(attached), 1)
-> +
-> +    nsimdev.remove()
-> +
-> +    attached = _dmabuf_attached_devs()
-> +    if attached is not None:
-> +        ksft_eq(len(attached), 0)
-> +
-> +    del nf_priv
-> +    os.close(dmabuf_fd)
-
-[Severity: Medium]
-Does del nf_priv actually close the netlink socket that holds the
-binding?
-
-YnlFamily.__init__() stores, on self, a partial for every op that refers
-back to self:
-
-tools/net/ynl/pyynl/lib/ynl.py:YnlFamily.__init__() {
-    ...
-        for op_name, op in self.ops.items():
-            bound_f = functools.partial(self._op, op_name)
-            setattr(self, op.ident_name, bound_f)
-    ...
-}
-
-That is a reference cycle, so refcounting never frees the object. del
-only drops the local name, and self.sock stays open until the cyclic GC
-happens to run. That could be during the next test, or at process exit
-after ksft_exit() has already printed the results.
-
-So the step the commit message describes, closing the socket after
-unregister and reaching netdev_nl_sock_priv_destroy(), does not happen
-at a fixed point inside this test. A failure on that path could be
-blamed on another test, or show up after this one already reported ok.
-
-YnlFamily already provides close() and __enter__/__exit__. Would
-nf_priv.close(), or "with NetdevFamily() as nf_priv:", be better here?
-The same applies to devmem_bind_tx_unregister_check().
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010025532.839559-1-almasrymina%40google.com
+> If you use this approach for the watchdog fix, could you also add:
+>
+> Suggested-by: Hungyu Lin <dennylin0707@gmail.com>
+>
+> Thanks,
+> Hungyu
