@@ -1,171 +1,190 @@
-Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EC5438F95B
-	for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 23:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.193
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791676533; cv=none; b=WNgge1a0hNMFOQ96wB3YUlMJv5j4k1/whMf+PA9uWQ5QFP5x5H4rK6tJ7ViQh7SG9Inc9y5COnZl5SCJg3h2M4YtVDnh51S5ck/vQrjIPbLe+itpEmwBW4YkiQYY2i4/cM6YPjtJgZ/9XyQX5JwEN+j8axBj6FbKU6CKYCrZ6Ro=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791676533; c=relaxed/simple;
-	bh=lUHNvRVVJKsGAF3s179NCWP69O/w7AOonPfBpTHjQoU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pro/UJS/giTfuYHRC8cakA68VHuCYVldlSfBbBBfXjTjdbLMHru6sTeGwAhiR1FKvZOIw2We99o3gD1j128j9Yo0pgnVrCV33oBWWN7j6hbs57nbx5qVjUbD3jobhN9f2yrQ5gRuAoF7LaTFjyavuU+qxQEIhMavEleIOPUmFk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DW9kK6Jk; arc=none smtp.client-ip=74.125.230.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E11547048;
+	Sun, 11 Oct 2026 00:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791678177; cv=pass; b=LUJMoDpr8F/9IX3fveT1RRrd/d/2xDIdiQWpaLiCeJ8RaclhpFNjuly/j+Xj9aZHRfwMQMnqfER8SA3Tocik86EFWP1w40F+hbrG8qiqAij7P6kD8eQdToda61rmG7/zciqoly+TGf9tUS1pY/cB/01t4gbvIPwATKgtHKbg6ZA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791678177; c=relaxed/simple;
+	bh=Acju+NYKc71KbUWbzzblBaRW/DvVGpydE4PkEIgrI/k=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=eLa6yUiB4OewmzyJCyJtGyheoLx4JG02I8hlhhJr4HMdCLZv88HQkejSYMu/jlymcjlVSO9AboJfaWTP24/WXlcK4uCc8p8Q5UeTsnp+CDLhDL/bhQn34lQK/y0wGI5GV+FZUdRYQ1/Z+/p/e8wPBuSXDJh6t1y+IsvT4FpRZMw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=i1bSzKdE; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DW9kK6Jk"
-Received: by mail-qk2-f1.google.com with SMTP id d75a77b69052e-5338e85255dso8441871cf.0
-        for <linux-media@vger.kernel.org>; Sat, 10 Oct 2026 16:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791676531; x=1792281331; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9FybNLzC2qT6eMhACQiNU/7Tni+cNIjGAb7dFyWED4A=;
-        b=DW9kK6JkRcb1S1Fa2ZPI37/h5voOXN1Z9hSyPRJkSoi6luWeA/ChLB+TRBvvVE0Hrp
-         pxaFVQR7A2F63X7xs0yUyy/pZkWK6F2EcIbSeYmzH81A0OpXje8UQnJBvHQ8iTUYZegj
-         rxZuJtjOYuHNlOn9IZDNy9YzmNzilIYNnT8+Nd0VQVKUsMFtU5YndsP0ccAGsv7tcGi1
-         cb+kKWxjd9CUIQ0WmvntF6cuf2PXnmAzaQtDyQYsHPtcyv/TNlsZiujANWs5zsD9Gy+P
-         5X7WAoaqzVHOih0KNK8Qwlvxtv99hG7dAxDwjgX/o2emFcMMHLCRoyesp+mNNZezMDqr
-         VRyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791676531; x=1792281331;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9FybNLzC2qT6eMhACQiNU/7Tni+cNIjGAb7dFyWED4A=;
-        b=hvLjjMJLWi8Ao2Mk+pgdZIbfziTvjljlNz4/VQCos6Va8S3n4hAqKubzh5qk3mXpkK
-         9CIAi8lYpPTNp9JEWxtuPXTFZ2K6Tb7U0m/WJLGbA5qpYryluhqDguvPFinrfacn/LFP
-         QbsQ7sMOzTlJaGFXJkz8oyQM52sXTBTvoDN6lbIgvwySQCKVyScw93X4KcDV2pV4flsm
-         MA7v6FiMH9uYVMV1/dwI8Sq7ggjoTrVJ0QYYlEas/gpJGzapbEdSchknLvfNvRMB7qhF
-         PlZvoGygUxnS/wED+3Y1lkdM8Nzf2DhsPOtCQNO0PfV28vV/gYpnNCcX1/vsEQfv9uOA
-         iMHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzlyqnXRR13iyMuFsOYXrXm8bntjAMPqCSOdHaSu5si9Zc21Z6AQPfgqPHVW/oNcgZtLLrUqPxEmofueA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAxgrcnJ9iddWhsq/NYMnKN2rveg4s4XaF46YY8rwrESAvJ3VB
-	F9d9iN+WsLL7P/ArgU3A3I2i75HG63QyNh9Rn73SZskewwd+wkh9eXDq
-X-Gm-Gg: AYBFou3lIikQkev1TL0I5CesYsMb2BjY2KAXwlD1nNFLN8pMYkSZJSSURcljIuF0Fg3
-	Dg4S2T4bFYAsA6CGqelXo+/0N6Eys4JRfEtbipArkSxB4f30+cj69YnO3t489ef+UlVpGNBc4cN
-	vXQeHVZx5nHzDRQ7iVgdDIczJQyFLS34O9cYbYFz4s7d3Y0yw4AenfgIyGlnGKbR8s1JVf126Jf
-	bjKytGD8rosLjFG/vAlEW5kff7NvDGyGgVi0Z6h2Zmvt3kugLnhqprzk8GDVWb2Yx4p/B0QMO1F
-	zk4jEK2QTtApGC5O1nDdVYaPsrBGeow/8VtUqqqPZaC6+3Ej6vczreBB+aEzPI28G6XAOgT5iSc
-	TOuREzoFfZcWg0FjsYzZ+um95L0WPn8yresQ6WxMQhAEE1rdrVtLSd4b64hdooSMJgG4fmjPyEe
-	W0iOdXhp2Ik4mSVzKzd3L3MOg4oKy4Mh/kyEKBSOol9cggIwQZJcn2jlShzRFPHNU2WWU=
-X-Received: by 2002:a05:622a:1f8b:b0:533:96b4:8dd1 with SMTP id d75a77b69052e-5359faeacd8mr96963691cf.26.1791676530862;
-        Sat, 10 Oct 2026 16:55:30 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b755c35sm49184081cf.15.2026.10.10.16.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 16:55:29 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: Kyrie Wu <kyrie.wu@mediatek.com>
-Cc: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Nathan Hebert <nhebert@chromium.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Irui Wang <irui.wang@mediatek.com>,
-	George Sun <george.sun@mediatek.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
-	Yilong Zhou <yilong.zhou@mediatek.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v11 00/10] Enable video decoder & encoder for MT8189
-Date: Sat, 10 Oct 2026 19:55:18 -0400
-Message-ID: <20261010235518.1078376-1-agentzoan@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1791623422.git.kyrie.wu@mediatek.com>
-References: <cover.1791623422.git.kyrie.wu@mediatek.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="i1bSzKdE"
+ARC-Seal: i=1; a=rsa-sha256; t=1791678148; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=RtJ+Y5yFVjFpWdC4PqXJ7qZsJRqt8s6mwjSC0jSNde3JeYg219d/VgxrUKF8IAf3bxHe95paI5drCSe/jLqlJQCwF/6bYhAohXQPunz1GKUr+BsQd8G/nynoLf1rtVP74bcs134HxJOX/cNib4k8dU5H7hgAIUHR6tFmcLTcwpE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791678148; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=41dPddWoQKnpWMYRbAvh5x0oiXREGVQ4pqzdMYi7w6A=; 
+	b=Veop6pQhMd+18pin7jk2NMYmbcPRgtECUcTTV/a9KOkS2qDWYPcdO7gHXjOxJqn5KMMlMaPVBd1mKrb6VqfmtUzKz75CNhPJy1tjmVOmftgZsmT+AWU0DlM7eVVrInQpDabyDMfdj3UmvsnQyWFnqb43asqy5V4jLoAsGaPDxDs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791678148;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=41dPddWoQKnpWMYRbAvh5x0oiXREGVQ4pqzdMYi7w6A=;
+	b=i1bSzKdEqE/viofxpvNNSpKDshCMhnIEq1x9CfVhyWXrx8UtAC5hT/f322iQi9Ru
+	XoukuCzrdcAcQ2apBzDoBeljfkSo7mzKO20Aiyzd6hq1NZxpyTUB9DmiIQhN18wO+yV
+	NE0Sfm0cZf/lMw21NX2dKZ6tJWpVYjZFgfqmVn9Q=
+Received: by smtp.zohomail.com with SMTPS id 1791678146138728.6489422256464;
+	Sat, 10 Oct 2026 17:22:26 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.11\))
+Subject: Re: [RFC PATCH v5 0/6] rust: Add drm::JobQueue
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20261009191124.1022902-2-phasta@kernel.org>
+Date: Sat, 10 Oct 2026 21:22:07 -0300
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ John.harrison@igalia.com,
+ da.gomez@kernel.org,
+ linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <F09C7397-AF97-4947-89D5-759498BCF7B0@collabora.com>
+References: <20261009191124.1022902-2-phasta@kernel.org>
+To: Philipp Stanner <phasta@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.11)
+X-ZohoMailClient: External
 
-Hi Kyrie,
+Hi Philipp,
 
-Thanks for the series. Test report from an MT8189 Chromebook (Lenovo
-IdeaPad Slim 3 Chromebook, board "quigon" of the skywalker family):
-next-20261008 with the other posted MT8189 series and this board's DT,
-plus MT8196 decoder v8, MT8196 encoder v8 and this v11 on top, and
-linux-firmware's mediatek/mt8189/scp.img (FW version e3c0782 Jan 30
-2026; identical to the image ChromeOS ships).
+> On 9 Oct 2026, at 16:11, Philipp Stanner <phasta@kernel.org> wrote:
+>=20
+> Changes in v5:
+>  - Add back the Revocable<JobQueueInner=E2=80=A6> from my earliest =
+RFCs. Reason
+>    is still the same: JQ dropping while dependency fences signal could
+>    deadlock. Similarly, this solves a dependency kicking of the work
+>    item again while drop() is running.
 
-VP9 decode: 240/240 frames bit-exact (1080p test stream through
-libva-v4l2-request, checked against software decoding).
+Can you expand a bit on this? IIUC the problem is introduced by trying =
+to take
+the jq lock on signal? If so, this could be avoided by queuing the =
+worker from
+that path instead?
 
-H.264 decode: the SCP hangs (watchdog timeout) and every frame is wrong.
-The firmware has 'reserved' at the end of struct
-vdec_h264_slice_info_ext (after crc[8]), not after 'timeout'; with the
-current layout every slice parameter lands 8 bytes early. With only
-this change on top of v11, H.264 decodes 240/240 frames bit-exact:
+>  - Do not call run_job() with a lock held, since run_job() might =
+sleep.
+>    AFAICS, this also makes the proposed XArray solution impossible and
+>    demands that we use a list.
 
-  	u16 timeout;
- -	u32 reserved;
-  	u64 vdec_fb_va;
-  	u32 crc[8];
- +	u32 reserved;
-  };
+Can you expand on this a bit?
 
-I don't know which layout the MT8188/MT8195 firmware uses, so this may
-need to depend on the platform or the firmware.
+>  - Re-add the earlier credit-count-system, so that run_job() is
+>    infallible. Simplifies the design quite a bit. (Danilo)
 
-HEVC: MT8189 is pure single core, but the firmware capability makes the
-driver advertise HEVC_SLICE (and AV1). The HEVC backend only implements
-the LAT + core flow, and setting an HEVC format (here libva-v4l2-request
-probing its profiles when ffmpeg opened the VA-API device) sends an
-init message that crashes the SCP:
+What is AGX=E2=80=99s position on this? IIRC, this credit system could =
+not represent
+their submission model exactly, like it can for others.
 
-  mtk-scp 1c400000.scp: SCP watchdog timeout! 0x0
-  remoteproc remoteproc0: crash detected in scp: type watchdog
-  scp ipi 14 ack time out !
-   scp_ipi_send+0x2ec/0xd5c [mtk_scp_ipi]
-   vpu_dec_init+0xe0/0x29c [mtk_vcodec_dec]
-   vdec_hevc_slice_init+0x88/0x250 [mtk_vcodec_dec]
-   vidioc_vdec_s_fmt+0x2a8/0x450 [mtk_vcodec_dec]
 
-Not advertising HEVC and AV1 on MTK_VDEC_PURE_SINGLE_CORE (clearing
-MTK_VDEC_FORMAT_HEVC_FRAME and MTK_VDEC_FORMAT_AV1_FRAME from
-dec_capability after reading it from the firmware) avoids it; that's
-what I run.
+>  - Drop jobs in a deferred manner through the work item so that job
+>    payload data can do atomic-hostile stuff.
+>  - Because of the point above, I suggest that we stop dropping a
+>    DriverFence on signal (Danilo's and my idea). It has no real
+>    advantage, and getting rid of it allows for better controlling what
+>    drops when through JobQueue. For fence it's only relevant that =
+there
+>    is an RCU grace period, thus:
+>  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
+>    would, therefore, demand that everyone who's got a problem with the
+>    delay drops via work item.
 
-H.264 encode (patches 9 and 10 on MT8196 encoder v8): works. A 720p30
-test pattern at 4 Mbit/s through ffmpeg's h264_v4l2m2m gives valid High
-profile H.264, 60/60 frames, about 49 dB PSNR against the source on the
-first frames.
+I will get back to you.
 
-For patches 9 and 10:
-Tested-by: zoan37 <agentzoan@gmail.com>
+>=20
+> This can still not be tested as I'm blocked by pin-init vs self-ref.
+> Just FYI.
+>=20
+> I would appreciate confirmation of these following thoughts on locking
+> design:
+>=20
+> 1.
+> I believe that callers of jq.new_job() and jq.submit_job() do not need
+> an outer serialization mutex. Reason is that JQ serializes with its
+> internal lock. Sequence numbers cannot take over older seqnos because =
+it
+> is submit_job() who sets the seqno.
 
-Two board-side notes from bringing this up, in case they help whoever
-writes the MT8189 DT and multimedia clocks: the VDE0 power domain needed
-the larb4 gate as a subsys clock ("vdec-0", as in ChromeOS's
-mt8189.dtsi), otherwise only the first decode after VDE0 powered up
-worked; and the VEN1 clock controller must not use runtime PM (VEN0
-then failed to prepare its subsys clock with -EACCES in the noirq resume
-phase, genpd marked it on anyway, and every resume warned about
-"already disabled" clocks).
+I guess this makes sense, so long as submit_job() doesn=E2=80=99t take =
+&mut self?
 
-The board's patches and notes are at
-https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
+Also, submit_job() assigning seqnos is not compatible with the XArray =
+IIRC.
+Fine if going with lists, I suppose.
 
-The testing and the fixes were done with help from an AI assistant
-(Claude).
 
-Thanks,
-zoan37
+>=20
+> 2.
+> I, furthermore, believe that a driver will not need to hold a
+> driver-lock while calling jq.complete_jobs_up_to_seqno().
+
+In tyr, we hold _no_ locks. The driver signals the fences, and this will
+enqueue the worker thread.
+
+>=20
+> IOW, I am suggesting that a driver can always safely use JQ without an
+> outer lock, and actually *should* do so to avoid potential locking
+> issues.
+>=20
+> Reason:
+>=20
+> let driver_stuff =3D foo.lock();
+> let current_gpu_seqno =3D driver_stuff.get_seqno();
+> drop(driver_stuff);
+> jq.complete_jobs_up_to_seqno(current_gpu_seqno);
+>=20
+> Thus, I believe that it is OK for me to take the JQ lock in
+> jq.complete_jobs_up_to_seqno().
+>=20
+> Please correct me if I'm missing something.
+>=20
+> Should I be wrong and a lock inversion could occur, then we could
+> hypothetically add a fence Signaler object, with which we could signal
+> fences with a different lock. Similar to how drm_sched does it with =
+the
+> hardware_fence.
+>=20
+>=20
+> Regards
+> P.
+>=20
+>=20
+
+I will have a more thorough look this week :)
+
+=E2=80=94 Daniel
+
+
