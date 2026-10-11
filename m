@@ -1,109 +1,282 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999893612FE;
-	Sun, 11 Oct 2026 19:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EDA38D3EE;
+	Sun, 11 Oct 2026 19:55:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791747221; cv=none; b=OkEkYYTaQ7F9m7suxfOuqhPmtfIs+As9ZkSa/XG3jxgtTdVZGAX1EtTiazrPXe9iHTYh6Y0a1KSilWpae8D0+jeogrcb8VloiZmaSWl8kjX8CTapo9gwLZb0fuq8ekgBAfn9YPpCIbtaHDB9hUz8nGb3DW+0s6YvN9MEkdg1CA0=
+	t=1791748533; cv=none; b=qs+D31s+tCIGYMQSp46A1Aj4iAnd5LEiM9hChxc/kBAFhRCe1iyDjp+9LXxnvTvyeTQun7HEZWLSjO5J/+tufgyOKhrKkWReYTqsrnUmjRVvq3/Z+rqLb1Q+u1t+E/Xa5aLO1g9U4CcGRT97pJM3EQgbJwgk8y0u9Bhp41UQRxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791747221; c=relaxed/simple;
-	bh=JwYgkiZmS1XwdOWdA9rHlulsRAp9V+0YFE2N5hdb5bo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hhPBVUJu2qAQW9vf25DrfrisLWFkQnr1SW5mHIN7CYWDOccYvu7hj1AhIRiE+/l1ZG5Yp6dnbfRg+ks3G82WisEC+Kpyot02Ui2clAkDvh/SepeSl6rzM96zQwkZgX3P0OlcXHA75JxEts5SMuSouZH5e6KtkHHYqRB8tbyAJys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fyf39hDf; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791748533; c=relaxed/simple;
+	bh=bM5l5rkNiU9f12LqX0//ap6AJwoy3BA5LTW0gXRcHj4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=bHWOJzzDaQ51QBVFKobKyWN3LZ4IffwxQwuXFzBluRdALlvRpHfvsoWVr7GEdQgj6CulAplSeUXqN6XN7xfU+RrcmAN3G2nwMTbztrJUCV1lrVfD4fwCuBCc/mFzeSkZv0nez1btCQee+oABZSyC21Et8g8qD6eZTv8zndsM9cc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATfMjVd5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fyf39hDf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791747220; x=1823283220;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JwYgkiZmS1XwdOWdA9rHlulsRAp9V+0YFE2N5hdb5bo=;
-  b=fyf39hDfUpdsM3Fq1jDA8zOc1SPEsvMGT0px1cIfv+AuJT0GoKz+WW8x
-   rbk6nifxMpztePtqTf55cnkfz9ffSf21R0ejDWmk9atiuAVv8E0zLS3gw
-   N2g8D/F0i+3dDCy86f9smd8yG4NYwF355MrxYvWWEfbOSGVRABDebZ4YF
-   sdcy8GFf0OXdzvq+c9kyMEOQB99WrnwMWqUY7Zw4LxLq/Yo2tqsfmGNlK
-   64/2MGip8guIM66yIPEoKD9nKXnstd3+hgb+PW60grl2jx7st9Rcjrg1S
-   hSFOQslgZvarudPp1UfpZTc2sPxS6pUgytKbdqYxjg5LdBgdhG4eOaetM
-   w==;
-X-CSE-ConnectionGUID: Wkr2QOUNRcS/XNjqSiKFOA==
-X-CSE-MsgGUID: UK8Pd9sTSsa8AMaJ1QzBKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="469130"
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="469130"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 12:33:39 -0700
-X-CSE-ConnectionGUID: KQdRUyh+RGC2WEgdyDvFPw==
-X-CSE-MsgGUID: skuB1+RRQtCMwbZbb1RTFw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,152,1787036400"; 
-   d="scan'208";a="1055775"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.126])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 12:33:38 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6507B120D25;
-	Sun, 11 Oct 2026 22:33:41 +0300 (EEST)
-Date: Sun, 11 Oct 2026 22:33:41 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Martin Hecht <mhecht73@gmail.com>
-Cc: linux-media@vger.kernel.org, michael.roeder@avnet.eu,
-	martin.hecht@avnet.eu, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] add V4L2_CID_USER_ALVIUM_BASE and request space for up
- to 128 controls
-Message-ID: <asvklbPb8PWcPp0W@kekkonen.localdomain>
-References: <20261009173826.968402-1-mhecht73@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATfMjVd5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 25E49C2BCF5;
+	Sun, 11 Oct 2026 19:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791748533;
+	bh=bM5l5rkNiU9f12LqX0//ap6AJwoy3BA5LTW0gXRcHj4=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ATfMjVd5X9sVGvYoljBrY3hIVtIw4njNlP482Ne/1HdWmyrIFTDbuLa0IkjHkciZ2
+	 XRmlE7fPxA+Aa15ifwRVvq+PlOd7uHJe5xbXJbKaw8WKbiqLUop8aoqvX86svYh9oZ
+	 IIhIyWyJVv4McitLGKPmPqMXi/KRAeVrW8SlyC4jxAw+PReYmGOzL8tpxizTDmTM3y
+	 Bage4DlbWZ86UOk8ykqyJb4Tfl/AIC2SgH71JpmlB7Q594evjCAK6I66v2NrBhgsmy
+	 03+vQNM3iKeboYNm2Oq89DH1Js4ZNtZcIeTEGSEm1JdXWQo+imU9NZv+9PSPgMQ8LX
+	 0UYT2iswKMyuQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 003B7CA9EBD;
+	Sun, 11 Oct 2026 19:55:32 +0000 (UTC)
+From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
+Date: Sun, 11 Oct 2026 21:55:23 +0200
+Subject: [PATCH] media: i2c: ov08d10: add get_selection support
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009173826.968402-1-mhecht73@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
+X-B4-Tracking: v=1; b=H4sIAKrpy2oC/x3MSwqAIBRG4a3EHXfBHPTaSjQw/bULUaERQbj3p
+ OEZfOelhChINFYvRdyS5NhLNHVFdjV7AIsrTVrpVg164ONWvWsUB1ycsMFeRbA1pltau/TOg4o
+ 9I7w8/3eac/4AdWH36mcAAAA=
+To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Max Bretschneider <max.bretschneider@leica-geosystems.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791748532; l=7199;
+ i=max.bretschneider@leica-geosystems.com; s=20260501;
+ h=from:subject:message-id;
+ bh=E3xQubIkPTvx2wL9DZkujO+3/+i9lmKaF0B4AxGybZA=;
+ b=9vswjrUEaoOtfN9mkxB9X5vc4a/hINTznbcg04kikaRCSeBHpfyUAEQdDzCBEEGd5wAhfhfQy
+ n7h2otlC6lPB7pUyUU9y8k2A6b1PpcCIgbHui3JhL6cxkzm+jzlbaRZ
+X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
+ pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
+X-Endpoint-Received: by B4 Relay for
+ max.bretschneider@leica-geosystems.com/20260501 with auth_id=1161
+X-Original-From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+Reply-To: max.bretschneider@leica-geosystems.com
 
-Hi Martin,
+From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
 
-On Fri, Oct 09, 2026 at 07:38:24PM +0200, Martin Hecht wrote:
-> That patch requests a continoous block of controls to enable various
-> features of the Alvium camera family. There are many features like
-> triggers, ROI for auto functions like AWB, auto gain and so on.
-> 
-> Signed-off-by: Martin Hecht <mhecht73@gmail.com>
+The driver does not implement .get_selection, so it never reports the
+analogue crop rectangle of the active mode. Userspace has no way to
+learn which region of the pixel array a given mode reads out, and
+cannot assume a fixed one, because the modes differ: the full mode
+reads 3280x2460 at offset (4,8), while the 3264x2448 and the 2x2
+binned 1632x1224 modes read 3264x2448 at offset (12,16).
 
-Thanks for the patch.
+Consumers that derive the sensor scale from the analogue crop and the
+output size therefore compute a wrong result for the cropped and
+binned modes, and may reject those configurations.
 
-Could you also include some patches for actual control definitions in the
-same patchset?
+Track the analogue crop rectangle per mode, store it in the subdev
+state when the format is set, and report it through .get_selection.
+Also report V4L2_SEL_TGT_CROP_DEFAULT, V4L2_SEL_TGT_CROP_BOUNDS and
+V4L2_SEL_TGT_NATIVE_SIZE from the pixel array geometry. Implement
+.init_state so a newly allocated state holds a valid format and crop,
+and add the v4l2_subdev_init_finalize() and v4l2_subdev_cleanup()
+calls required to use the subdev active state.
 
-> ---
->  include/uapi/linux/v4l2-controls.h | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
-> index d17e41d51d2e..5ed91c053617 100644
-> --- a/include/uapi/linux/v4l2-controls.h
-> +++ b/include/uapi/linux/v4l2-controls.h
-> @@ -255,6 +255,12 @@ enum v4l2_colorfx {
->   */
->  #define V4L2_CID_USER_IT6625_BASE		(V4L2_CID_USER_BASE + 0x1250)
->  
-> +/*
-> + * The base for Alvium CSI2 driver controls.
-> + * We reserve 128 controls for this driver.
-> + */
-> +#define V4L2_CID_USER_ALVIUM_BASE		(V4L2_CID_USER_BASE + 0x1260)
-> +
->  /* MPEG-class control IDs */
->  /* The MPEG controls are applicable to all codec controls
->   * and the 'MPEG' part of the define is historical */
+The pixel array geometry and the per-mode offsets are taken from the
+sensor datasheet and the recommended reference register sets.
 
+Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+---
+Tested on a Hexagon/Leica CS50 (i.MX8MP, rkisp1) running 6.16.12 with the
+equivalent of this patch applied, where it fixes configuration of the 2x2
+binned 1632x1224 mode with libcamera's rkisp1 CAC algorithm enabled.
+Compile-tested against media/next.
+
+Modelled on imx335.
+---
+ drivers/media/i2c/ov08d10.c | 74 ++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 73 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
+index 0710d2243cc0..b32a1246df45 100644
+--- a/drivers/media/i2c/ov08d10.c
++++ b/drivers/media/i2c/ov08d10.c
+@@ -65,6 +65,14 @@
+ #define OV08D10_REG_FLIP_OPT			0x32
+ #define OV08D10_REG_FLIP_MASK			0x3
+ 
++/* OV08D10 native and active pixel array size */
++#define OV08D10_NATIVE_WIDTH			3288
++#define OV08D10_NATIVE_HEIGHT			2476
++#define OV08D10_PIXEL_ARRAY_LEFT		4
++#define OV08D10_PIXEL_ARRAY_TOP			8
++#define OV08D10_PIXEL_ARRAY_WIDTH		3280
++#define OV08D10_PIXEL_ARRAY_HEIGHT		2464
++
+ #define to_ov08d10(_sd)		container_of(_sd, struct ov08d10, sd)
+ 
+ struct ov08d10_reg {
+@@ -110,6 +118,9 @@ struct ov08d10_mode {
+ 
+ 	/* Number of data lanes */
+ 	u8 data_lanes;
++
++	/* Analogue crop rectangle, in native sensor coordinates */
++	struct v4l2_rect crop;
+ };
+ 
+ /* 3280x2460, 3264x2448 need 720Mbps/lane, 2 lanes - 19.2 MHz */
+@@ -630,6 +641,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 0,
+ 		.data_lanes = 2,
++		.crop = { .left =  4, .top =  8, .width = 3280, .height = 2460 },
+ 	},
+ 	{
+ 		.width = 3264,
+@@ -643,6 +655,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 0,
+ 		.data_lanes = 2,
++		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+ 	},
+ 	{
+ 		.width = 1632,
+@@ -656,6 +669,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+ 		},
+ 		.link_freq_index = 1,
+ 		.data_lanes = 2,
++		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+ 	}}
+ };
+ 
+@@ -955,6 +969,36 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	return ret;
+ }
+ 
++static int ov08d10_get_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		sel->r = *v4l2_subdev_state_get_crop(sd_state, 0);
++		return 0;
++
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = OV08D10_NATIVE_WIDTH;
++		sel->r.height = OV08D10_NATIVE_HEIGHT;
++		return 0;
++
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.left = OV08D10_PIXEL_ARRAY_LEFT;
++		sel->r.top = OV08D10_PIXEL_ARRAY_TOP;
++		sel->r.width = OV08D10_PIXEL_ARRAY_WIDTH;
++		sel->r.height = OV08D10_PIXEL_ARRAY_HEIGHT;
++		return 0;
++
++	default:
++		return -EINVAL;
++	}
++}
++
+ static const struct v4l2_ctrl_ops ov08d10_ctrl_ops = {
+ 	.s_ctrl = ov08d10_set_ctrl,
+ };
+@@ -1194,6 +1238,9 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
+ 
+ 	mutex_lock(&ov08d10->mutex);
+ 	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
++
++	*v4l2_subdev_state_get_crop(sd_state, fmt->pad) = mode->crop;
++
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
+ 		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
+ 								fmt->format;
+@@ -1297,6 +1344,19 @@ static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+ 	return 0;
+ }
+ 
++static int ov08d10_init_state(struct v4l2_subdev *sd,
++			      struct v4l2_subdev_state *sd_state)
++{
++	struct ov08d10 *ov08d10 = to_ov08d10(sd);
++	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
++
++	*v4l2_subdev_state_get_crop(sd_state, 0) = mode->crop;
++	ov08d10_update_pad_format(ov08d10, mode,
++				  v4l2_subdev_state_get_format(sd_state, 0));
++
++	return 0;
++}
++
+ static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
+ 	.s_stream = ov08d10_set_stream,
+ };
+@@ -1306,6 +1366,7 @@ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
+ 	.get_fmt = ov08d10_get_format,
+ 	.enum_mbus_code = ov08d10_enum_mbus_code,
+ 	.enum_frame_size = ov08d10_enum_frame_size,
++	.get_selection = ov08d10_get_selection,
+ };
+ 
+ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+@@ -1315,6 +1376,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+ 
+ static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
+ 	.open = ov08d10_open,
++	.init_state = ov08d10_init_state,
+ };
+ 
+ static int ov08d10_power_off(struct device *dev)
+@@ -1470,6 +1532,7 @@ static void ov08d10_remove(struct i2c_client *client)
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+ 
+ 	v4l2_async_unregister_subdev(sd);
++	v4l2_subdev_cleanup(sd);
+ 	media_entity_cleanup(&sd->entity);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 	pm_runtime_disable(ov08d10->dev);
+@@ -1565,17 +1628,26 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	pm_runtime_set_active(ov08d10->dev);
+ 	pm_runtime_enable(ov08d10->dev);
+ 
++	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
++	if (ret) {
++		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
++		goto probe_error_media_entity_cleanup;
++	}
++
+ 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
+ 	if (ret < 0) {
+ 		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
+ 			ret);
+-		goto probe_error_media_entity_cleanup;
++		goto probe_error_subdev_cleanup;
+ 	}
+ 
+ 	pm_runtime_idle(ov08d10->dev);
+ 
+ 	return 0;
+ 
++probe_error_subdev_cleanup:
++	v4l2_subdev_cleanup(&ov08d10->sd);
++
+ probe_error_media_entity_cleanup:
+ 	pm_runtime_disable(ov08d10->dev);
+ 	pm_runtime_set_suspended(ov08d10->dev);
+
+---
+base-commit: 2dcdfb625c3b8fe87454e19dfbc54b3e3f0ad70e
+change-id: 20260929-ov08d10-get-selection-caa7b6cb8dfe
+
+Best regards,
 -- 
-Kind regards,
+Max Bretschneider <max.bretschneider@leica-geosystems.com>
 
-Sakari Ailus
+
