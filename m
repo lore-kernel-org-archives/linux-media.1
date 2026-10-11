@@ -1,277 +1,240 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25441A682C
-	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 02:29:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A1E2EEE65;
+	Sun, 11 Oct 2026 03:38:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791685802; cv=none; b=M46Hv3lwr/+olgrfuVF1d3Mls0Dc6lKBqmz6zp+rUr1m+SW7hpw/kev859UIyMOhQH/fHlpUHjd0T0OVY0zp3PdrSvMSFxjOKN72fqQDqMohLvBoaGSGTI/mAZLUsHVL8BSw0pYd0+Zh7sTmlaF3kzMxefG6T3HyjpXjVnoYYQY=
+	t=1791689899; cv=none; b=Obmse/WL8K3W/H7v49sQ6ahXvqBlwpxwApuHrhO0bZWW2zdb8mOcqEOJi/U2++HkAoH8dYNnPAwhKQnI0NXucDuRR80pq7d71Ky3PSDiCKPe8f34r9Wcs/VJgkA1YtO9Z0yIuksNyOBqApt75HZJyJKS0y4tEjMicEfoq2z94sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791685802; c=relaxed/simple;
-	bh=BpC5M7KLdgspVJTtgf0hCQfc1LbT/K3fiL260V06zJ0=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=rUlHzk9BKYa8kz+jVDns90kwBGraZzLC4duGPOMYOhzDlz0hOat2Ud6uatEQgnhQ2RvpXweIvPcelHm8BWzE9LZM+EzTfBFZ1bnDX1w5CcFGLw4WjTK/5MaSt1+Y/+Dxhv2000x+gnDHFxqxgSs8k97ey3tMGzEkQiD2HA4/QpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=R1D8DJ/L; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791689899; c=relaxed/simple;
+	bh=5xKbhOaGID9Pwo5cuLWrKk/sfw0dg/1AYDf7kuhse+4=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZiV7/lmYz0OANS2MBH+n5GqRamviIamYDSdia7Q6uTYdET19bzzOlZaMdOyUeU2Awxebf0h2vsYiWN4la9642ay1WqeLkKI9Q3pOygWwD7+mJ2s97zzVLcbRuxd7yvoCPF5dn5jlGXNZGUwiMYqtggcY+CyIyBxN1NvfV4C/XPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGinSXvX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="R1D8DJ/L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791685801; x=1823221801;
-  h=date:from:to:cc:subject:message-id;
-  bh=BpC5M7KLdgspVJTtgf0hCQfc1LbT/K3fiL260V06zJ0=;
-  b=R1D8DJ/Lv4PNqGDvY4d2nTzTKdayXXRih2SAPZOrA41iRZjCns+lObu4
-   PenlNw/gWx3PL3foARtFlOvoVFGSC23uBaY3gleFSbJiN/FYSmCSXilC1
-   2HRtIWXw7JfAsMjl9w8b9fhJAjC6KTW1KneEvKg8D8wRyM+jvWy0h/0h8
-   ZmgvnPencHzjjjyg0geqrRdIReS29cGKBUaNZ74lmPRVFFZGsfatve7Yr
-   BmLWubP77+WlLOEcmafKgq6ogQywm1HyBIGbs8yzskVjEn+ytAxZxauLy
-   lLqO4axUxqKCpspzCsuI++jA9f/+8wEgRNcHFUBNIbMZwEPi9H1Ocrbza
-   A==;
-X-CSE-ConnectionGUID: C3XAwDxpQWSfu+cQaPhC+A==
-X-CSE-MsgGUID: AIpOCL90T46F2Xp8ne+vZQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11931"; a="437436"
-X-IronPort-AV: E=Sophos;i="6.27,150,1787036400"; 
-   d="scan'208";a="437436"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 19:30:00 -0700
-X-CSE-ConnectionGUID: 0ngdZytiSKCDgKKnP6k8oQ==
-X-CSE-MsgGUID: 9DRlb7V3QeK5NNUdzkM7+Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,150,1787036400"; 
-   d="scan'208";a="607148"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 10 Oct 2026 19:29:59 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xFjK0-00000000AHP-0dwg;
-	Sun, 11 Oct 2026 02:29:56 +0000
-Date: Sun, 11 Oct 2026 10:29:27 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:ipu6-more] BUILD SUCCESS WITH WARNING
- 80de48e2cab73a7c38171de3de224456c804f6bc
-Message-ID: <202610111023.RHpOS7rr-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGinSXvX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2501F000FF;
+	Sun, 11 Oct 2026 03:38:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791689898;
+	bh=IHiq471lI34tMV6DI159H0HPk05JOLQKG1SqobU79J0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EGinSXvXpMfm+BKNZSmdSSntxAhl9mXZyU1CvvbHybYYrOFEAUplRFw93WoCpsrlz
+	 AE6R27g5xwx8YepMEIMSbWA4MwPWl6/taP2phdnYblY4lplz5F39EL9vjm/NrzR0vH
+	 5njyL8cZX7SFm8XCVC5pmp8CEKTWplmCsErFuEaqeCI+hDWFWthMtmM3gm1kEyxdA1
+	 QvgS9q1lBn6fRVzg44hJMFcLIz/pQbeSsYyWqnYyTtgVvZZ9DEFPX14XgsIaC6kigN
+	 vtr+AQJHdwJ+AFq19iQsmjkgkujLMqg0eVkTKkHpIgcK7BzaBC5kvk+hKgJTakkwig
+	 CU7u0yQ6Sk14Q==
+Subject: Re: [PATCH net v1 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
+ ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
+ bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
+ razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com
+Date: Sun, 11 Oct 2026 03:38:16 +0000
+Message-ID: <179168989611.434549.16378879758158058625@kernel.org>
+In-Reply-To: <20261010025532.839559-2-almasrymina@google.com>
+References: <20261010025532.839559-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git ipu6-more
-branch HEAD: 80de48e2cab73a7c38171de3de224456c804f6bc  media: ipu6: Return errors from stream stop and close
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider.
 
-Warning (recently discovered and may have been fixed):
+Critical: 0 · High: 2 · Medium: 0 · Low: 2
 
-    https://lore.kernel.org/oe-kbuild-all/202610110422.Ds1dqsa4-lkp@intel.com
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-    drivers/media/pci/intel/ipu6/ipu6-isys-queue.c:485:7: warning: variable 'ret' is used uninitialized whenever 'if' condition is true [-Wsometimes-uninitialized]
-
-Warning ids grouped by kconfigs:
-
-recent_errors
-|-- x86_64-allmodconfig
-|   `-- drivers-media-pci-intel-ipu6-ipu6-isys-queue.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-true
-|-- x86_64-allyesconfig
-|   `-- drivers-media-pci-intel-ipu6-ipu6-isys-queue.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-true
-`-- x86_64-randconfig-1009-20261010
-    `-- drivers-media-pci-intel-ipu6-ipu6-isys-queue.c:warning:variable-ret-is-used-uninitialized-whenever-if-condition-is-true
-
-elapsed time: 1262m
-
-configs tested: 187
-configs skipped: 2
-
-tested configs:
-alpha                              allnoconfig    gcc-16.1.0
-alpha                             allyesconfig    gcc-16.1.0
-alpha                                defconfig    gcc-16.1.0
-arc                               allmodconfig    clang-24
-arc                                allnoconfig    gcc-16.1.0
-arc                               allyesconfig    clang-24
-arc                                  defconfig    gcc-16.1.0
-arc                   randconfig-1000-20261010    gcc-8.5.0
-arc                   randconfig-1000-20261011    clang-24
-arc                   randconfig-1001-20261010    gcc-8.5.0
-arc                   randconfig-1001-20261011    clang-24
-arm                                allnoconfig    gcc-16.1.0
-arm                               allyesconfig    clang-24
-arm                                  defconfig    gcc-16.1.0
-arm                   randconfig-1000-20261010    gcc-8.5.0
-arm                   randconfig-1000-20261011    clang-24
-arm                   randconfig-1001-20261010    gcc-8.5.0
-arm                   randconfig-1001-20261011    clang-24
-arm                   randconfig-1002-20261010    gcc-8.5.0
-arm                   randconfig-1002-20261011    clang-24
-arm                   randconfig-1003-20261010    gcc-8.5.0
-arm                   randconfig-1003-20261011    clang-24
-arm                        spear13xx_defconfig    gcc-16.1.0
-arm64                             allmodconfig    clang-24
-arm64                              allnoconfig    gcc-16.1.0
-arm64                                defconfig    gcc-16.1.0
-arm64                 randconfig-1000-20261010    gcc-10.5.0
-arm64                 randconfig-1001-20261010    gcc-10.5.0
-arm64                 randconfig-1002-20261010    gcc-10.5.0
-arm64                 randconfig-1003-20261010    gcc-10.5.0
-csky                              allmodconfig    gcc-16.1.0
-csky                               allnoconfig    gcc-16.1.0
-csky                                 defconfig    gcc-16.1.0
-csky                  randconfig-1000-20261010    gcc-10.5.0
-csky                  randconfig-1001-20261010    gcc-10.5.0
-hexagon                           allmodconfig    gcc-16.1.0
-hexagon                            allnoconfig    gcc-16.1.0
-hexagon                              defconfig    gcc-16.1.0
-hexagon               randconfig-1000-20261010    clang-17
-hexagon               randconfig-1001-20261010    clang-17
-i386                              allmodconfig    clang-22
-i386                               allnoconfig    gcc-16.1.0
-i386                              allyesconfig    clang-22
-i386        buildonly-randconfig-1000-20261010    gcc-14
-i386        buildonly-randconfig-1001-20261010    gcc-14
-i386        buildonly-randconfig-1002-20261010    gcc-14
-i386        buildonly-randconfig-1003-20261010    gcc-14
-i386        buildonly-randconfig-1004-20261010    gcc-14
-i386        buildonly-randconfig-1005-20261010    gcc-14
-i386                                 defconfig    gcc-16.1.0
-i386                  randconfig-1000-20261010    clang-22
-i386                  randconfig-1001-20261010    clang-22
-i386                  randconfig-1002-20261010    clang-22
-i386                  randconfig-1003-20261010    clang-22
-i386                  randconfig-1004-20261010    clang-22
-i386                  randconfig-1005-20261010    clang-22
-i386                  randconfig-1006-20261010    clang-22
-i386                  randconfig-1007-20261010    gcc-14
-i386                  randconfig-1008-20261010    gcc-14
-i386                  randconfig-1009-20261010    gcc-14
-i386                  randconfig-1010-20261010    gcc-14
-i386                  randconfig-1011-20261010    gcc-14
-i386                  randconfig-1012-20261010    gcc-14
-i386                  randconfig-1013-20261010    gcc-14
-loongarch                         allmodconfig    clang-24
-loongarch                          allnoconfig    gcc-16.1.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-1000-20261010    clang-17
-loongarch             randconfig-1001-20261010    clang-17
-m68k                              allmodconfig    gcc-16.1.0
-m68k                               allnoconfig    gcc-16.1.0
-m68k                              allyesconfig    clang-24
-m68k                                 defconfig    clang-24
-microblaze                         allnoconfig    gcc-16.1.0
-microblaze                        allyesconfig    gcc-16.1.0
-microblaze                           defconfig    clang-24
-mips                              allmodconfig    gcc-16.1.0
-mips                               allnoconfig    gcc-16.1.0
-mips                              allyesconfig    gcc-16.1.0
-mips                          bigsur_defconfig    gcc-16.1.0
-nios2                             allmodconfig    clang-20
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-1000-20261010    clang-17
-nios2                 randconfig-1001-20261010    clang-17
-openrisc                          allmodconfig    clang-20
-openrisc                           allnoconfig    clang-24
-openrisc                             defconfig    gcc-16.1.0
-parisc                            allmodconfig    gcc-16.1.0
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                               defconfig    gcc-16.1.0
-parisc                randconfig-1000-20261011    clang-24
-parisc                randconfig-1001-20261011    clang-24
-parisc64                             defconfig    clang-24
-powerpc                           allmodconfig    gcc-16.1.0
-powerpc                            allnoconfig    clang-24
-powerpc                         icon_defconfig    gcc-16.1.0
-powerpc                     mvme5100_defconfig    gcc-16.1.0
-powerpc                        ppc64_defconfig    gcc-16.1.0
-powerpc                          ps3_defconfig    gcc-16.1.0
-powerpc               randconfig-1000-20261011    clang-24
-powerpc               randconfig-1001-20261011    clang-24
-powerpc64             randconfig-1000-20261011    clang-24
-powerpc64             randconfig-1001-20261011    clang-24
-riscv                             allmodconfig    clang-24
-riscv                              allnoconfig    clang-24
-riscv                             allyesconfig    clang-24
-riscv                                defconfig    gcc-16.1.0
-riscv                 randconfig-1000-20261010    clang-19
-riscv                 randconfig-1000-20261011    clang-17
-riscv                 randconfig-1001-20261010    clang-19
-riscv                 randconfig-1001-20261011    clang-17
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                              allyesconfig    gcc-16.1.0
-s390                                 defconfig    gcc-16.1.0
-s390                  randconfig-1000-20261010    clang-19
-s390                  randconfig-1000-20261011    clang-17
-s390                  randconfig-1001-20261010    clang-19
-s390                  randconfig-1001-20261011    clang-17
-sh                                allmodconfig    gcc-16.1.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                                   defconfig    gcc-14
-sh                              espt_defconfig    gcc-16.1.0
-sh                    randconfig-1000-20261010    clang-19
-sh                    randconfig-1000-20261011    clang-17
-sh                    randconfig-1001-20261010    clang-19
-sh                    randconfig-1001-20261011    clang-17
-sh                    sh7724_generic_defconfig    gcc-16.1.0
-sparc                              allnoconfig    clang-24
-sparc                                defconfig    gcc-16.1.0
-sparc                 randconfig-1000-20261010    gcc-16.1.0
-sparc                 randconfig-1001-20261010    gcc-16.1.0
-sparc64                           allmodconfig    clang-20
-sparc64                              defconfig    gcc-14
-sparc64               randconfig-1000-20261010    gcc-16.1.0
-sparc64               randconfig-1001-20261010    gcc-16.1.0
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                                allyesconfig    gcc-16.1.0
-um                                   defconfig    gcc-14
-um                              i386_defconfig    gcc-14
-um                    randconfig-1000-20261010    gcc-16.1.0
-um                    randconfig-1001-20261010    gcc-16.1.0
-um                            x86_64_defconfig    gcc-14
-x86_64                            allmodconfig    clang-22
-x86_64                             allnoconfig    clang-24
-x86_64                            allyesconfig    clang-22
-x86_64      buildonly-randconfig-1000-20261011    gcc-14
-x86_64      buildonly-randconfig-1001-20261011    gcc-14
-x86_64      buildonly-randconfig-1002-20261011    gcc-14
-x86_64      buildonly-randconfig-1003-20261011    gcc-14
-x86_64      buildonly-randconfig-1004-20261011    gcc-14
-x86_64      buildonly-randconfig-1005-20261011    gcc-14
-x86_64                               defconfig    gcc-14
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1000-20261011    gcc-14
-x86_64                randconfig-1001-20261011    gcc-14
-x86_64                randconfig-1002-20261011    gcc-14
-x86_64                randconfig-1003-20261011    gcc-14
-x86_64                randconfig-1004-20261011    gcc-14
-x86_64                randconfig-1005-20261011    gcc-14
-x86_64                randconfig-1006-20261010    clang-22
-x86_64                randconfig-1007-20261010    clang-22
-x86_64                randconfig-1008-20261010    clang-22
-x86_64                randconfig-1009-20261010    clang-22
-x86_64                randconfig-1010-20261010    clang-22
-x86_64                randconfig-1011-20261010    clang-22
-x86_64                randconfig-1012-20261010    clang-22
-x86_64                randconfig-1013-20261010    clang-22
-x86_64                randconfig-1014-20261010    clang-22
-x86_64                randconfig-1015-20261010    clang-22
-x86_64                randconfig-1016-20261010    clang-22
-x86_64                randconfig-1017-20261010    clang-22
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                            allyesconfig    clang-20
-xtensa                randconfig-1000-20261010    gcc-16.1.0
-xtensa                randconfig-1001-20261010    gcc-16.1.0
+- [High] Incomplete fix: a binding that has already been unbound (netlink
+  socket closed) but is still alive because a TCP socket or page pool…
+- [High] The patch unmaps and detaches the dma-buf in
+  mp_dmabuf_devmem_uninstall() as soon as bound_rxqs becomes empty.
+- [Low] The comment on struct net_devmem_dmabuf_binding::lock in
+  net/core/devmem.h still reads '/* Protect dev */'.
+- [Low] The comment on struct net_devmem_dmabuf_binding::ref in
+  net/core/devmem.h still says 'The binding undos itself and unmaps the…
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+net: devmem: unmap dma_buf synchronously on queue uninstall
+
+This patch adds net_devmem_dmabuf_binding_unmap(), which runs under
+binding->lock and clears binding->sgt and binding->attachment so that
+unmapping is idempotent. It is called from mp_dmabuf_devmem_uninstall()
+when the last bound RX queue is uninstalled, so the dma_buf is no longer
+unmapped against a freed dma_dev after device unregister.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..5e4070b82df44 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -58,6 +58,21 @@ static void net_devmem_dmabuf_binding_release(struct percpu_ref *ref)
+>  	schedule_work(&binding->unbind_w);
+>  }
+>  
+> +static void
+> +net_devmem_dmabuf_binding_unmap(struct net_devmem_dmabuf_binding *binding)
+> +{
+> +	lockdep_assert_held(&binding->lock);
+
+[Severity: Low]
+This isn't a bug, but the comment on binding->lock in net/core/devmem.h
+still reads:
+
+	/* Protect dev */
+	struct mutex lock;
+
+The lock now also protects binding->sgt and binding->attachment, and the
+lockdep_assert_held() here enforces that. Should the comment in the header
+be updated as well?
+
+> +
+> +	if (!binding->sgt)
+> +		return;
+
+[ ... ]
+
+> @@ -74,9 +89,10 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+>  		  size, avail))
+>  		gen_pool_destroy(binding->chunk_pool);
+>  
+> -	dma_buf_unmap_attachment_unlocked(binding->attachment, binding->sgt,
+> -					  binding->direction);
+> -	dma_buf_detach(binding->dmabuf, binding->attachment);
+> +	mutex_lock(&binding->lock);
+> +	net_devmem_dmabuf_binding_unmap(binding);
+> +	mutex_unlock(&binding->lock);
+
+[Severity: High]
+Can this deferred unmap still run against a freed dma_dev when the binding
+was already unbound before the device went away?
+
+The commit message says the fix covers unregister "while userspace still
+holds a netlink or TCP socket reference". However, the only synchronous
+unmap is in mp_dmabuf_devmem_uninstall(), and dev_memory_provider_uninstall()
+only reaches that for RX queues whose rxq->mp_params is still set.
+
+Closing the netlink socket does this, with no unmap:
+
+netdev_nl_sock_priv_destroy()
+  net_devmem_unbind_dmabuf()
+    xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+    netif_mp_close_rxq()
+      __netif_mp_close_rxq()
+        memset(&rxq->mp_params, 0, sizeof(rxq->mp_params));
+    percpu_ref_kill(&binding->ref);
+
+Other references can keep the binding alive past that point. On RX,
+unreturned devmem tokens keep the old page pool alive. On TX, unacked
+devmem skbs in a TCP retransmit queue hold refs taken via
+net_devmem_get_net_iov(). The TX binding can be created through
+netdev_nl_bind_tx_doit(), which does not check for CAP_NET_ADMIN.
+
+A later unregister then finds no installed provider, so
+mp_dmabuf_devmem_uninstall() is never called for this binding. After the
+parent device is freed (for example in nsim_bus_dev_release()), dropping
+the last reference goes through:
+
+__net_devmem_dmabuf_binding_free()
+  net_devmem_dmabuf_binding_unmap()
+    dma_buf_unmap_attachment_unlocked()
+      unmap_udmabuf()
+        dma_unmap_sg_attrs()    <-- freed attach->dev
+
+That looks like the same KASAN report quoted in the commit message.
+
+The follow-up commit "net: devmem: detach TX bindings on NETDEV_UNREGISTER"
+fixes the TX case while the netlink socket is still open. Its
+net_devmem_dev_unregister() only walks net_devmem_dmabuf_bindings, though,
+and unbound bindings are no longer in that xarray.
+
+A narrower variant needs no extra references. The unbind_w work queued by
+net_devmem_dmabuf_binding_release() runs asynchronously, and nothing makes
+it run before device removal.
+
+Would a complete fix need to track every binding that is still mapped
+against a device, and not only the ones installed on an RX queue?
+
+> +
+>  	dma_buf_put(binding->dmabuf);
+>  	xa_destroy(&binding->bound_rxqs);
+>  	percpu_ref_exit(&binding->ref);
+> @@ -535,6 +551,7 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  				mutex_lock(&binding->lock);
+>  				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+>  				WRITE_ONCE(binding->dev, NULL);
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+Is it safe to unmap here just because bound_rxqs became empty? Nothing
+here checks whether the hardware queue has actually stopped using the
+binding.
+
+On queue lease teardown the physical NIC is still registered and running:
+
+netkit_queue_unlease()
+  netdev_rx_queue_unlease()
+    netif_rxq_cleanup_unlease()
+      __netif_mp_close_rxq(phys_rxq->dev, rxq_idx, &p);
+      __netif_mp_uninstall_rxq(virt_rxq, &p);
+        mp_dmabuf_devmem_uninstall()
+          net_devmem_dmabuf_binding_unmap()
+
+If the reconfig fails, __netif_mp_close_rxq() only warns:
+
+	err = netdev_rx_queue_reconfig(dev, rxq_idx, &qcfg[0], &qcfg[1]);
+	WARN_ON(err && err != -ENETDOWN);
+
+netdev_rx_queue_reconfig() can fail in ndo_queue_mem_alloc() before
+ndo_queue_stop() is called. It can also fail in stop or start, with the
+old queue restored. In both cases the old devmem page pool keeps running,
+and its ring holds DMA addresses from binding->sgt.
+
+netif_rxq_cleanup_unlease() still calls uninstall unconditionally. The
+virtual rxq is the one recorded in bound_rxqs, so removing it empties the
+xarray. The dma-buf is then unmapped and detached while the NIC can still
+DMA into those IOVAs, and the pool can keep refilling from
+binding->chunk_pool.
+
+Before this patch the mapping lasted until __net_devmem_dmabuf_binding_free()
+ran, which only happens after every page pool has dropped its binding ref.
+The commit message only talks about unregistration. Was the lease
+teardown path also meant to unmap synchronously here?
+
+[Severity: Low]
+This isn't a bug, but the comment on the ref field of struct
+net_devmem_dmabuf_binding in net/core/devmem.h still says:
+
+	 * The binding undos itself and unmaps the underlying dmabuf once all
+	 * those refs are dropped and the binding is no longer desired or in
+	 * use.
+
+With this call, the mapping can go away while netlink, page pool or
+net_iov refs are still held. The follow-up commit "net: devmem: detach TX
+bindings on NETDEV_UNREGISTER" adds another early unmap in
+net_devmem_dev_unregister(). Should this comment be updated to match?
+
+>  				mutex_unlock(&binding->lock);
+>  			}
+>  			break;
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261010025532.839559-1-almasrymina%40google.com
