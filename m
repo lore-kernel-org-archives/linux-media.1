@@ -1,181 +1,127 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3218235C6BE
-	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 22:39:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79DF33F5BC
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 23:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791758400; cv=none; b=Zpkv1J+J+dyGtNNIL48GfAkzZK7j3BS5SZgW352g2fAUsvqv5ERQI1jlUgu7I2hTQ8vTcX8bjHkDJp8fIk9jlzMSxGlF/0wHNxSAoeuCoTfwSOlFMcwBdWzYKSN/Z7w2KxTP22sd8GTg3+1dyO+f0KNzfr9jArPIqztm5xvkd/c=
+	t=1791760408; cv=none; b=cqsHiWJhWxAGnfuZ/i1xKPYdijF1dHpnG/IZ0HMP+zFmyaGSUzY1gs/KaSRMUK1uPpn2nSeF+J1h5YdGLz7b1sJ+emcjnlTLtLx7d7DBAnx82lhef57MRm8D3CDoFWanulcngsCstydw/f28382Xr/1+t89rM2nuu9EyDRoHsWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791758400; c=relaxed/simple;
-	bh=xm7zmmCmvA/Kz7KfL1R9Yqv2NSWneryvUBrSk9xgCDo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qeepjrHdLz68v9PsIbPLx/xj7I66JezUXwGODB+e4XwfeVUBshwXv16btXwtpq0YRzgasxIseM+0xeSgRQ/JeB01EjK9kUFBXDgZkkf+5nxTzJ5iyPFIycBWeo8XTeCoBna7hFaQrfnpA5sQUuwGGEk3J3YlMtfL2FG8bSpwSVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=aRsPZtzM; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791760408; c=relaxed/simple;
+	bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bFaHzcWiyJ/0q+vga9W7sVyw/OEP7+/2HR/L3eiXwVyrr3WF0UgYzX8LgwiHXkbpVd2ShFim1YKBCbJ8rpmMBveLzE/En4vO39QD8FEXeX9dy/3argqAatmT0DHd/khmsxOOMUy0aDe9ZBJDv44W0V2qSnMS/Jzj9ul9+8y/Wr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QON8AQ/y; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="aRsPZtzM"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afbd2c386so563322f8f.3
-        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 15:39:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QON8AQ/y"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16c399641so13483345e9.2
+        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 16:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791758396; x=1792363196; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xwhYc9CDw7ZgP6emNisFG66EG4JKlhzFKT9RLmp7nJU=;
-        b=aRsPZtzM/CVizgyW5uQCYGYegHyHSxJeYwd1/FhVlRqINvK+hBr3CqxoH7xfFQli+5
-         dE8GFrQQX/R1ctL0DVZ0B/E2JCuaxOI7u09ahG+0jr0ZPkhM4Uf/rCch41mQ407bp9uQ
-         +MXoyeS+tp/86Tnf3/vGwJhMHvqoaLJBk4b0DeQtfVLRtrg4iEK/yGS/uWfba4iaN/NV
-         5st6YOpfeVGmXSzW28aHmMzWNnImutU7/DScP/VqSSkWNxyendDUeI7U/PGKnatC4Sab
-         0d8i1SQu/xuawj/IzUun+xXldnlN1EhtjrDBhK6S8P6eBbCfoMkbJNwHm1tNTb6DuhNr
-         fL8Q==
+        d=baylibre.com; s=google; t=1791760405; x=1792365205; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
+        b=QON8AQ/y9KiDFNy+It8hlob20YtDNppEISyizRYGEuYW850wo+nChbnur+Em+jCztB
+         /cfm0szmZIEThkdWA0vzorgpsLyHphoJCOGuoxSaxkHSTuVsUvYjbHMUvcpF1GSOvHQH
+         nHqOxVlwpTfrcZWDu4MicUvoyfJIZki6P55XjhS7hl7Jl2Y8eU8NAkukEuSWMuR6J5LH
+         EEwOvkvRhxkR8rbeLvDMsm2dFOwRHKntRAgG4wAZupdVfBeK4nCTZQCp461kYasoojZm
+         fq/V4bUMgkGW5XYnKG1N/OjUd3ViOc4KA1gjEfBNP9WJjIr+e0Yah3OW9cSPWGX7OIWt
+         IqgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791758396; x=1792363196;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xwhYc9CDw7ZgP6emNisFG66EG4JKlhzFKT9RLmp7nJU=;
-        b=gdJqv2QobLlVjTGwWkC13D0r46QSbfxsu4BAqylRbJGGq09eM21vFQlLVEjwKxAgro
-         /YAZMAbxJOidDxjQGo/BT3cHvkEfm1iz45Fdyyc67yQHj3owsj5ts4kHIBbjpFR0cTQO
-         9BVdmhew0GHe0kbr5AO7uud92X9TbS3V/LLSY4s7s/1Y0HV9xQ51P4yeL04wWeV/37Sd
-         KfywQYsZ1H5yJTOCmHknLyjDUAssLJ1Os0KCEri5wMkb6Qik/ZJ+/HVlxiOSWOTRHCzz
-         2AG43OnJ9036TUpPXKxYW49XVsHWDZBax2zbVx8G92en5bBBwMw5IYBQiXwxefjcjLP4
-         NDkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzbPWXY0xc7JSODLTr/ZPItzH9c+1CNoecYLg+E3Dy0IWaWq5mjtJGU5cTwwvo1Ntfpmuf1Cf0/aMPlog==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLNgvevlC30Vk4tf2yOYmaDEpN5o1/rX5FoNTLXoBqkVt5LmoGf
-	9n3pdbQPCVUY+rm/d0BfFSJ4NDddmxbuH/3oHfhoOAMoxF3HqAelKjZ5sO+s00DcQlE=
-X-Gm-Gg: AYBFou247ifD1aEdPMVT3I7qY680ddimI9IhHcql4/6F+jJpOzmZ5lZ33Q9RHZ9xLuQ
-	fijplC3em1Fed1N3nJ0rQYVFvrX+WdVHEzaRrVsT/rxNkbhQtyuD83ALBru10fDa8oeFhilmxwO
-	JJfARNXk2nbHLKNLmu04OyA43Kj6lFiARtgkXbKqP3FOqwNn5bFrd1o8j9ZfmWuz5+bBYSR7ulL
-	GTHHmImKHmYuahYU4S4Sfs1d6ZELemOcA6lfXhUi97Urs2Ywy/sDgjM4JdG/5+qE6zqO266jmzQ
-	3vPfdozVJ48cN/TaGaMj/HX0I8S/05/JLBWr/v+tPrcKdQKZCbjFTVUn1jK+DgCzy30yXo/WhVC
-	HP0xeOMwm2l9w0ZnFnWbplP2QLjdPlcM0XbDEFa2+YPZptN0fBY4jgSLtKQK8qu/tc76KuwTNGE
-	LTHhOXYS+d+qPUGUssnjYHWPjMaGWbJhkrdW/J0RsuAG9iBq3dOQxjwrrQlFQvtqfRsgwHjF/gl
-	cQ8IvEHLANtTQ==
-X-Received: by 2002:a05:6000:40e0:b0:48c:6a4d:3b67 with SMTP id ffacd0b85a97d-48dbaceb433mr14028801f8f.19.1791758396194;
-        Sun, 11 Oct 2026 15:39:56 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.165.237])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9463a9dsm16723214f8f.6.2026.10.11.15.39.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 15:39:54 -0700 (PDT)
-Message-ID: <5f238c7a-c17e-4127-afad-38eb2cea9c34@linaro.org>
-Date: Sun, 11 Oct 2026 23:39:53 +0100
+        d=1e100.net; s=20260707; t=1791760405; x=1792365205;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
+        b=EmKlLdPfwX3PTUY1PHAZb8imBqdnbs2xx4cKonrgr6eCDNrN14jzLYCSxjJCNpKLNe
+         GoZENE14MXePqrq3W/jMsmW/7uifPr8YUuY9RQSihgYC0jOPjX8ZEcc9mIPHyyJ4bLsr
+         HlZNA13FlSg3p6jmbBEkIKY+Ry4D82NBy57p9OJeDwgwI8s9tXxgKqrKWHhHciKBElmz
+         er5M5OnKo7eE4hmqSqqkr//H/cPeIbQe8xjd6tmSIgbn9l74MSQcDC8VC4hbpIiKUquA
+         dI/U9Z7Eb58ql2Ae6hU8dHXkX5fNbU73tpFw54Svn+KJUCQO4zF5quJe+hbEQUWgkiwa
+         jyiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1itMIPpw8ocYPvof3XdY5Y0Lf5/tQah8clM7hFDnx+/fE5nWB5OQ6ptn34psffVCCcXpiOqyERTFSiQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIL04ZqYVUML/IZcMYQJws5kTB2c3zDecUgkz5b+5qxE56gFcX5
+	dEyasBBWs7MZZKTa0PQaDo9nxGNPe3LPkcpSpPFtXctodkWoQdkDuuv3pDjnYqcaFlw=
+X-Gm-Gg: AYBFou23xhFbore7wB+bHBLxoT96TvyqOIopg3NaBXIq5Be6QPfWii834D9vxAwEP2a
+	2Pn/jD23oKNDVCJKZTAq7MBSLNp1KTKS3dUhqZD7j3A67Pa+KhSFu5Ld6TJhOUu53KMRJz6qm3g
+	h3clY4sK2mXmEnC8oTmg17pwDGy7CriHv34ExvyySE5iCHIbf1RcIOd5FIrn1WVwZMQEKFuXK3J
+	d4V59/+4UGtqCDU/MVmg6baJcb0z3pjv/CixSeQ4QiwgC6rvusSaYZns2itjTnzABQGOK98X94d
+	IHa2Xo+CrKcNp55Ykqjdsc3ae/VqgnsnkgX3hvAot0bt/gBMKuDpzvFOovqQESnqtY7O252xISi
+	NzK8FlVIxO1LFwwtU8lgjn7ywKcP/UBsqV5iyEr8PcQXCpACEg0umc21skVcrywnfoRWPVAUOmX
+	7ynFW132uV/BeTCcgBwdX9P1FduqVX59kCWxZGA6NF1q+fDQ38T92rAeUK03EIhp5wFVGMcjYpp
+	CY=
+X-Received: by 2002:a05:600c:3f0c:b0:4a1:85d9:13be with SMTP id 5b1f17b1804b1-4a18e498471mr165188775e9.20.1791760404876;
+        Sun, 11 Oct 2026 16:13:24 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18bea1021sm222382515e9.10.2026.10.11.16.13.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 16:13:24 -0700 (PDT)
+Date: Mon, 12 Oct 2026 01:13:23 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: sunxi: Add support for the D1 CSIC
+Message-ID: <aswXwdgpWTVoItYy@monoceros>
+References: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
+ <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] media: qcom: camss: Add streams API support for
- CSIPHY
-To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260911062213.195007-2-gjorgji.rosikopulos@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qngddyqnkwhditii"
+Content-Disposition: inline
+In-Reply-To: <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
 
-On 11/09/2026 07:22, 
-Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
-> From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-> 
-> Add the V4L2 subdev streams API to the CSIPHY driver: a passthrough
-> routing table (one VC per stream) and NO_STREAM_MIX routing validation.
-> 
-> enable/disable_streams pad ops track active streams per pad via a
-> per-pad enabled_streams[] bitmask, so that multiple source-pad
-> consumers can share a single propagated sink stream without redundant
-> or colliding propagation to the sensor. The shared D-PHY lanes are
-> enabled once, on the transition from no active streams to at least
-> one, and disabled once all streams have gone idle.
-> 
-> This is opt-in per CSIPHY instance via the new streams_enable resource
-> flag; no platform sets it yet, so CSIPHYs continue to use the legacy
-> non-streams subdev ops unchanged.
-> 
-> Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
-+ static const struct v4l2_subdev_core_ops csiphy_core_ops = {
-+       .s_power = csiphy_set_power,
-++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
-   };
 
-   static const struct v4l2_subdev_video_ops csiphy_video_ops = {
-@@@ -932,17 -981,17 +1133,30 @@@ int msm_csiphy_register_entity(struct c
-   {
-         struct v4l2_subdev *sd = &csiphy->subdev;
-         struct media_pad *pads = csiphy->pads;
-++<<<<<<< HEAD
-  +      struct camss *camss = csiphy->camss;
-  +      struct device *dev = camss->dev;
-  +      int ret;
-  +
-  +      if (camss->legacy_phy)
-  +              v4l2_subdev_init(sd, &csiphy_v4l2_ops_legacy);
-  +      else
-  +              v4l2_subdev_init(sd, &csiphy_v4l2_ops);
-  +
-  +      sd->internal_ops = &csiphy_v4l2_internal_ops;
-++=======
-+       struct device *dev = csiphy->camss->dev;
-+       bool streams_api = csiphy->res->streams_enable;
-+       int ret;
-+
-+       v4l2_subdev_init(sd, streams_api ? &csiphy_streams_v4l2_ops
-+                                             : &csiphy_v4l2_ops);
-+       sd->internal_ops = streams_api ? &csiphy_streams_internal_ops
-+                                       : &csiphy_v4l2_internal_ops;
-++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
-         sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+       if (streams_api)
-+               sd->flags |= V4L2_SUBDEV_FL_STREAMS;
-         snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d",
-                  MSM_CSIPHY_NAME, csiphy->id);
-         sd->grp_id = CSIPHY_GRP_ID;
-@@@ -968,22 -1025,16 +1190,35 @@@
-         ret = v4l2_device_register_subdev(v4l2_dev, sd);
-         if (ret < 0) {
-                 dev_err(dev, "Failed to register subdev: %d\n", ret);
-++<<<<<<< HEAD
-  +              goto media_entity_err;
-  +      }
-  +
-  +      if (!IS_ERR(csiphy->phy)) {
-  +              ret = phy_init(csiphy->phy);
-  +              if (ret) {
-  +                      dev_err(dev, "%s init fail %d\n", csiphy->name, 
-ret);
-  +                      v4l2_device_unregister_subdev(sd);
-  +                      goto media_entity_err;
-  +              }
-  +      }
-  +
-  +      return 0;
-  +
-  +media_entity_err:
-  +      media_entity_cleanup(&sd->entity);
-++=======
-+               goto err_v4l2_subdev_cleanup;
-+       }
-+
-+       return 0;
-+
-+ err_v4l2_subdev_cleanup:
-+       v4l2_subdev_cleanup(sd);
-+ err_media_entity_cleanup:
-+       media_entity_cleanup(&sd->entity);
-+
-++>>>>>>> media: qcom: camss: Add streams API support for CSIPHY
+--qngddyqnkwhditii
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/3] media: sunxi: Add support for the D1 CSIC
+MIME-Version: 1.0
+
+On Wed, Sep 30, 2026 at 10:48:34PM +0700, Nguyen Minh Tien wrote:
+> +#include <linux/mod_devicetable.h>
+
+Please rely on <linux/platform_device.h> to provide of_device_id and
+drop the inclusion of <linux/mod_devicetable.h> which does more harm
+than good.
+
+If you really want an include for of_device_id, use
+<linux/device-id/of.h>
+
+Best regards
+Uwe
+
+--qngddyqnkwhditii
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMGBAACgkQj4D7WH0S
+/k5tCggArhjqsIMxWZn1mdwNpWwWCgDbuq6GCyhWvxK6/4SoEqOcbECNykQJkcqM
+gvBI7Zcz8K+t3TTUvkpf5ten3RucpB85MIpw2zPZyT7UNFTU4XpVJ9KXFNT6G57g
+GknahtuMpdBREceO6pO3vd/yn8VMXV8clPTPXpgNywW5t6z3QOzEz0IcrZMJb8V6
+cSCkPm8gLqPQcJsxc5Jwdjzt/xaeUIEVlS9TgyVY6BrcotwmfGeJsCPubGsR35Dv
+rCHn8rkKSLOaUBG2rAWF26nch4TvC8JDsPDVi5/HJBfJhBqHK5hOi/Nri4WSmi8T
+kVp10DCvNgThgd+VEI82L4IL+a9Oig==
+=gnsw
+-----END PGP SIGNATURE-----
+
+--qngddyqnkwhditii--
