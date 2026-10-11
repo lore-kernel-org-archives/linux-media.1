@@ -1,39 +1,39 @@
-Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
+Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1AB45D929
-	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 14:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3713823392B
+	for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 14:42:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791729691; cv=none; b=pqzRohgaXt2d3oWIf7CZwnHNhjZORR5x7lRoMVD0KRve6cSciyvB+ptggRpJfppAXB3Nb8SA9MkYVDCNEWgxW8lWkAsIeoiZL3XFBUZx+nCRIX0LrlPPRuU1i3CO5wVTTYQsPz9ZL8QtjyxqUYWDTt8qT2eYXHgtx2XBU5STGu4=
+	t=1791729756; cv=none; b=RsXOB586qPThR3XdN1ETLWFAYfSZqHpdo8gEEm13GkNMMI39tjhzLPE2JvYIwKOvtdLA3Vtn1Y8kHcq3tqPEK/WdD9I/6x2hg6EIqfRz2Kc0t7SsBfdgzPBAJl+uiIhUhNgkj0uDHhwm1NauQY0XGrnDvzM0wGyWiZkGLMpvjIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791729691; c=relaxed/simple;
-	bh=UWU2B7DJSMXfVnK7JswC99XgVEbKmhJC2E9M2RdZQvc=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=R9KQ2D0ytVuNuXK/Hu4kdsIa2ex2POT8omFLp6j7r3CtHmigEjFUd5tXduz+S4i6FXwkrs/lIhAGa5uL1k3DNje9lbf4qXi/51xcYj7yY5gb2dx71vyL8ArSy0pBXsH3kxnKcElbD/kggJtC9M6iGZnY2lPl6b8ihpg/7HENfJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=UFWm+MSw; arc=none smtp.client-ip=185.70.43.25
+	s=arc-20240116; t=1791729756; c=relaxed/simple;
+	bh=OkOwIGEDuL4nX+OJREUb29rMP0+wfJdTKQzNubJSndY=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=epL7/xzQ1rkwU+VO+RgFe1rIMi2+/HonO6SXve1mJZ8ftb3jjXi7zd4PerGE6ASyTKZUWfDK/BBMP9jJ7rWfKM6C+1OwcdBwrM/3msMuLezQIKLnXtkGP1+LLi0EeMHXW1ZLRAIQzblv0sFOBztwqV2BtqOeHc2WrdgDk4RXmE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=cuXvavIS; arc=none smtp.client-ip=185.70.43.167
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="UFWm+MSw"
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="cuXvavIS"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791729681; x=1791988881;
-	bh=RfL8/EPGaAwRQtCU+oMtQec/nuYEd7bU+WcUcTUoY7k=;
+	s=protonmail2; t=1791729750; x=1791988950;
+	bh=pmV262LUGBihTBO+qzZ00UV+YuOiL4hFHJrhuIWcUxM=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=UFWm+MSwFRP9uO9tVPJG0PYKU35S+q/rtt8A0mC90RNg+G5BjaJs1gSjCc9xh4iQL
-	 BCqybHBwHcumVXGkKOsq7G2grcq9VBF0Zp5eKaRHkJP3Fv90r03QHf3f1rSNYeamIJ
-	 OUCN900yBx8FqOc5EFhCFgZwRyF7amZf9uXRuaPgsh+t/xayupErk2Ap+KEnwCT1n9
-	 hsVL3O4XaAOmLCTqXPr5YIkzPyAvKfuP5yOGXtRW/oamGJWR5k4LJs9SIYyBBIRITt
-	 aYusW+4VI7nMjMwRJH5l7bvVcEIHpGmNn2IVEcsfxFNgBM0EkVmNFD8S8W4nySALYO
-	 WMuPLaVMpD4KQ==
-Date: Sun, 11 Oct 2026 14:41:16 +0000
+	b=cuXvavISqWmWW3wvJXnb+Iogsi10h24aP3S30Nrgi9750zwxI407pi8e9Ji1yTIVG
+	 66F4fAWqeQTQSQa6FR+Zg/lETti8tIk3tGAp41TDuMDQgsCJRi34Z/DUI7veM+qK8a
+	 iE7z8H8Z+2XMKayoLBFl4bIQHetzyejEtkBEA4/cSy/0zvzAMeddnlXgJv/LdxOTr+
+	 2OkL/1aP9jATKC6iRdelnL1A4Mjp+KFDKOb5SPo2PHsRpZAsjn4w6Ilp/S3WPU1e4B
+	 qvdFWw1T0wgIQhWHqbWvjSMzshac4HqjUOubq9lxQuOfjeYcvQAER1eazlvpjT7BG9
+	 myP3ypFIzHKHg==
+Date: Sun, 11 Oct 2026 14:42:26 +0000
 To: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 From: Ruslan Bay <ruslanbey@proton.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>, Ruslan Bay <ruslanbey@proton.me>
-Subject: [RFC PATCH 09/12] media: ipu6: Add IPU4P ISYS ISR handling
-Message-ID: <IjwPOnBdNsWTsYf7NDlmfUuA5tZHup4NghQDillGZMDTGjBqLo-kW3mUX-FSA71Gh_ZxtpS9hiyzBMGt3lqRWKsAn7ecN6zMmvSOTGqJpsA=@proton.me>
+Subject: [RFC PATCH 10/12] media: ipu6: Add IPU4P CSI PHY driver
+Message-ID: <mCpc6C8bcDL02wCBRv96D0AqrxxKY2rRD2t2FzuH_I22RCO1HSNlNdhupxxCvAMOciPxALyypzlkKTuwcAwoueE6la5U-RP1P2Xgsd89NJI=@proton.me>
 Feedback-ID: 183606634:user:proton
-X-Pm-Message-ID: 67ca7b45c48d11c59688b5d492d197dd2bb22714
+X-Pm-Message-ID: f9af6e8218d8ffa4392fd9b0c6c119e3a7a77f41
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -43,386 +43,323 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Handle IPU4P ISYS software and CSI interrupts and dispatch firmware
-responses and CSI receiver errors to the appropriate handlers.
+Add IPU4P CSI PHY setup, power management, and interrupt handling.
 
 Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
 ---
- drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c  | 90 +++++++++++++++++++
- .../pci/intel/ipu6/ipu4p-isys-csi2-regs.h     | 38 ++++++++
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 74 +++++++++++++++
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |  2 +
- drivers/media/pci/intel/ipu6/ipu6-isys.c      | 14 ++-
- drivers/media/pci/intel/ipu6/ipu6.c           |  1 +
- 6 files changed, 217 insertions(+), 2 deletions(-)
+ drivers/media/pci/intel/ipu6/Makefile         |   1 +
+ .../media/pci/intel/ipu6/ipu4p-isys-csi-phy.c | 173 ++++++++++++++++++
+ .../pci/intel/ipu6/ipu4p-isys-csi2-regs.h     |   4 +
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |   8 +
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      |   3 +
+ drivers/media/pci/intel/ipu6/ipu6-isys.h      |   6 +
+ .../intel/ipu6/ipu6-platform-buttress-regs.h  |  12 ++
+ 7 files changed, 207 insertions(+)
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c b/drivers/media/p=
-ci/intel/ipu6/ipu4p-fw-isys.c
-index dfab6e570e51..6fbbe6376ef7 100644
---- a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
-@@ -4,8 +4,10 @@
-  */
+diff --git a/drivers/media/pci/intel/ipu6/Makefile b/drivers/media/pci/inte=
+l/ipu6/Makefile
+index 54b543ec5f52..43bc57ff1ab9 100644
+--- a/drivers/media/pci/intel/ipu6/Makefile
++++ b/drivers/media/pci/intel/ipu6/Makefile
+@@ -25,6 +25,7 @@ intel-ipu6-isys-y=09=09:=3D ipu6-isys.o \
+ =09=09=09=09ipu6-isys-mcd-phy.o \
+ =09=09=09=09ipu6-isys-jsl-phy.o \
+ =09=09=09=09ipu6-isys-dwc-phy.o \
++=09=09=09=09ipu4p-isys-csi-phy.o \
+ =09=09=09=09ipu7-isys-csi-phy.o
 =20
- #include <linux/cacheflush.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/device.h>
+ obj-$(CONFIG_VIDEO_INTEL_IPU6)=09+=3D intel-ipu6-isys.o
+diff --git a/drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c b/drivers/me=
+dia/pci/intel/ipu6/ipu4p-isys-csi-phy.c
+new file mode 100644
+index 000000000000..ec0a36069b01
+--- /dev/null
++++ b/drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c
+@@ -0,0 +1,173 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/* Copyright (C) 2026 Intel Corporation */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/errno.h>
 +#include <linux/io.h>
- #include <linux/slab.h>
-=20
- #include "ipu6.h"
-@@ -17,6 +19,7 @@
- #include "ipu6-isys-video.h"
- #include "ipu6-platform-regs.h"
- #include "ipu4p-fw-isys.h"
++
++#include "ipu6.h"
++#include "ipu6-bus.h"
++#include "ipu6-isys.h"
++#include "ipu6-platform-buttress-regs.h"
 +#include "ipu4p-isys-csi2-regs.h"
-=20
- static void start_sp(struct ipu6_bus_device *adev)
- {
-@@ -596,3 +599,90 @@ const struct ipu6_fw_isys_ops ipu4p_fw_isys_ops =3D {
- =09.dump_stream_cfg =3D ipu4p_dump_stream_cfg,
- =09.dump_frame_buf_set =3D ipu4p_dump_frame_buf_set,
- };
 +
-+void ipu4p_isys_irq_setup(struct ipu6_isys *isys)
++struct ipu4p_phy_bb_config {
++=09u8 bb;
++=09u8 crc;
++=09u8 drc;
++=09u8 afe;
++};
++
++#define IPU4P_CSI2_GPREG_CR_PORT_CONFIG_DEFAULT=090x3895
++#define IPU4P_CSI_BSCAN_EXCLUDE=09=09=09(BIT(9) | BIT(18) | BIT(27))
++
++static const struct ipu4p_phy_bb_config ipu4p_phy_bb_configs[] =3D {
++=09{ 4, 13, 32, 0x0f },
++=09{ 6, 13, 32, 0x15 },
++=09/* BB10 is part of the verified IPU4P PHY baseline. */
++=09{ 10, 13, 32, 0x15 },
++=09{ 12, 13, 32, 0x0f },
++=09{ 14, 13, 32, 0x15 },
++};
++
++static void ipu4p_isys_configure_phy_bb(struct ipu6_device *isp,
++=09=09=09=09=09const struct ipu4p_phy_bb_config *config)
 +{
-+=09static const u32 irq_offsets[] =3D {
-+=09=090x00, IPU4P_ISYS_IRQ_MASK_OFFSET,
-+=09=09IPU4P_ISYS_IRQ_ENABLE_OFFSET,
-+=09=09IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET,
-+=09};
-+=09const u32 isys_irq_mask =3D IPU4P_ISYS_UNISPART_IRQ_SW |
-+=09=09IPU4P_ISYS_UNISPART_IRQ_CSI2(0) |
-+=09=09IPU4P_ISYS_UNISPART_IRQ_CSI2(1);
-+=09const struct {
-+=09=09u32 base;
-+=09=09u32 mask;
-+=09} irq_config[] =3D {
-+=09=09{ IPU4P_ISYS_UNISPART_IRQ_EDGE, isys_irq_mask },
-+=09=09{ IPU4P_ISYS_ISA_ACC_IRQ_CTRL_BASE, 0 },
-+=09=09{ IPU4P_ISYS_A_IRQ_CTRL_BASE, 0 },
-+=09=09{ IPU4P_ISYS_SIP0_IRQ_CTRL_BASE, IPU4P_ISYS_SIP0_CSI2_IRQ },
-+=09=09{ IPU4P_ISYS_SIP1_IRQ_CTRL_BASE, IPU4P_ISYS_SIP1_CSI2_IRQ_MASK },
-+=09};
-+=09void __iomem *base =3D isys->pdata->base;
++=09void __iomem *base =3D isp->base;
++=09u32 value;
 +
-+=09for (unsigned int i =3D 0; i < ARRAY_SIZE(irq_config); i++) {
-+=09=09for (unsigned int j =3D 0; j < ARRAY_SIZE(irq_offsets); j++)
-+=09=09=09writel(irq_config[i].mask,
-+=09=09=09       base + irq_config[i].base + irq_offsets[j]);
++=09value =3D readl(base + IPU4P_BUTTRESS_REG_CPHYX_DLL_OVRD(config->bb));
++=09value &=3D ~GENMASK(6, 1);
++=09value |=3D FIELD_PREP(GENMASK(6, 1), config->crc) | BIT(0);
++=09writel(value, base + IPU4P_BUTTRESS_REG_CPHYX_DLL_OVRD(config->bb));
 +
-+=09=09writel(0xffffffff,
-+=09=09       base + irq_config[i].base + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
-+=09}
++=09value =3D readl(base + IPU4P_BUTTRESS_REG_DPHYX_DLL_OVRD(config->bb));
++=09value &=3D ~GENMASK(6, 1);
++=09value |=3D FIELD_PREP(GENMASK(6, 1), config->drc) | BIT(0);
++=09writel(value, base + IPU4P_BUTTRESS_REG_DPHYX_DLL_OVRD(config->bb));
 +
-+=09writel(0, base + IPU4P_ISYS_UNISPART_SW_IRQ_REG);
-+=09writel(0, base + IPU4P_ISYS_UNISPART_SW_IRQ_MUX_REG);
++=09value =3D config->afe | FIELD_PREP(GENMASK(30, 29), 2);
++=09writel(value, base + IPU4P_BUTTRESS_REG_BBX_AFE_CONFIG(config->bb));
 +}
 +
-+irqreturn_t ipu4p_isys_isr(struct ipu6_bus_device *adev)
++void ipu4p_isys_phy_setup(struct ipu6_isys *isys)
 +{
-+=09struct ipu6_isys *isys =3D ipu6_bus_get_drvdata(adev);
++=09struct ipu6_device *isp =3D isys->adev->isp;
++=09void __iomem *isys_base =3D isys->pdata->base;
++
++=09writel(IPU4P_CSI2_GPREG_CR_PORT_CONFIG_DEFAULT,
++=09       isys_base + IPU4P_ISYS_GPOFFSET +
++=09       IPU4P_CSI2_GPREG_CR_PORT_CONFIG);
++=09writel(IPU4P_CSI2_GPREG_CR_PORT_CONFIG_DEFAULT,
++=09       isys_base + IPU4P_ISYS_COMBO_GPOFFSET +
++=09       IPU4P_CSI2_GPREG_CR_PORT_CONFIG);
++=09writel(IPU4P_CSI_BSCAN_EXCLUDE,
++=09       isp->base + IPU4P_BUTTRESS_REG_CSI_BSCAN_EXCLUDE);
++
++=09for (unsigned int i =3D 0; i < ARRAY_SIZE(ipu4p_phy_bb_configs); i++)
++=09=09ipu4p_isys_configure_phy_bb(isp, &ipu4p_phy_bb_configs[i]);
++}
++
++static void ipu4p_isys_csi_irq_enable(struct ipu6_isys *isys,
++=09=09=09=09      unsigned int port)
++{
 +=09void __iomem *base =3D isys->pdata->base;
-+=09u32 status, sip0_status, sip1_status;
++=09u32 offset =3D IPU4P_ISYS_CSI_IRQ_CTRL_BASE(port);
++=09u32 offset0 =3D IPU4P_ISYS_CSI_IRQ_CTRL0_BASE(port);
++=09u32 mask =3D IPU4P_ISYS_CSI_ERROR_MASK;
 +
-+=09guard(spinlock)(&isys->power_lock);
++=09writel(IPU4P_ISYS_CSI_IRQ_ACTIVE,
++=09       base + offset);
++=09writel(0, base + offset + IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET);
++=09writel(0xffffffff, base + offset + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
++=09writel(IPU4P_ISYS_CSI_IRQ_ACTIVE,
++=09       base + offset + IPU4P_ISYS_IRQ_MASK_OFFSET);
++=09writel(IPU4P_ISYS_CSI_IRQ_ACTIVE,
++=09       base + offset + IPU4P_ISYS_IRQ_ENABLE_OFFSET);
 +
-+=09if (!isys->power)
-+=09=09return IRQ_NONE;
++=09writel(mask, base + offset0);
++=09writel(0, base + offset0 + IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET);
++=09writel(0xffffffff, base + offset0 + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
++=09writel(mask, base + offset0 + IPU4P_ISYS_IRQ_MASK_OFFSET);
++=09writel(mask, base + offset0 + IPU4P_ISYS_IRQ_ENABLE_OFFSET);
++}
 +
-+=09status =3D readl(base + IPU4P_ISYS_UNISPART_IRQ_STATUS);
-+=09sip0_status =3D readl(base + IPU4P_ISYS_SIP0_IRQ_CTRL_STATUS);
-+=09sip1_status =3D readl(base + IPU4P_ISYS_SIP1_IRQ_CTRL_STATUS);
-+=09if (!status && !sip0_status && !sip1_status)
-+=09=09return IRQ_NONE;
++static void ipu4p_isys_csi_irq_disable(struct ipu6_isys *isys,
++=09=09=09=09       unsigned int port)
++{
++=09void __iomem *base =3D isys->pdata->base;
++=09u32 offset =3D IPU4P_ISYS_CSI_IRQ_CTRL_BASE(port);
++=09u32 offset0 =3D IPU4P_ISYS_CSI_IRQ_CTRL0_BASE(port);
 +
-+=09do {
-+=09=09writel(status, base + IPU4P_ISYS_UNISPART_IRQ_CLEAR);
++=09writel(0, base + offset + IPU4P_ISYS_IRQ_MASK_OFFSET);
++=09writel(0, base + offset + IPU4P_ISYS_IRQ_ENABLE_OFFSET);
++=09writel(0xffffffff, base + offset + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
 +
-+=09=09writel(sip0_status, base + IPU4P_ISYS_SIP0_IRQ_CTRL_CLEAR);
-+=09=09writel(sip1_status, base + IPU4P_ISYS_SIP1_IRQ_CTRL_CLEAR);
++=09writel(0, base + offset0 + IPU4P_ISYS_IRQ_MASK_OFFSET);
++=09writel(0, base + offset0 + IPU4P_ISYS_IRQ_ENABLE_OFFSET);
++=09writel(0xffffffff, base + offset0 + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
++}
 +
-+=09=09for (unsigned int i =3D 0;
-+=09=09     i < isys->pdata->ipdata->csi2.nports; i++) {
-+=09=09=09bool port_irq =3D i ?
-+=09=09=09=09(sip1_status & IPU4P_ISYS_SIP1_CSI2_IRQ(i)) :
-+=09=09=09=09(sip0_status & IPU4P_ISYS_SIP0_CSI2_IRQ);
++/* IPU4P PHY building blocks remain configured until the ISYS power cycle.=
+ */
++int ipu4p_isys_phy_set_power(struct ipu6_isys *isys,
++=09=09=09     struct ipu6_isys_csi2_config *cfg,
++=09=09=09     const struct ipu6_isys_csi2_timing *timing,
++=09=09=09     bool on)
++{
++=09struct ipu6_isys_csi2 *csi2;
++=09void __iomem *base;
++=09u32 value;
 +
-+=09=09=09if (port_irq && isys->csi2[i].base)
-+=09=09=09=09ipu4p_isys_csi2_isr(&isys->csi2[i]);
-+=09=09}
++=09if (!cfg || cfg->port >=3D isys->pdata->ipdata->csi2.nports)
++=09=09return -EINVAL;
 +
-+=09=09writel(0, base + IPU4P_ISYS_UNISPART_SW_IRQ_REG);
++=09csi2 =3D &isys->csi2[cfg->port];
++=09base =3D csi2->base;
 +
-+=09=09if ((status & IPU4P_ISYS_UNISPART_IRQ_SW) &&
-+=09=09    !adev->auxdrv_data->fw_ops->isr_one(adev))
-+=09=09=09status =3D IPU4P_ISYS_UNISPART_IRQ_SW;
-+=09=09else
-+=09=09=09status =3D 0;
++=09if (!on) {
++=09=09value =3D readl(base + IPU4P_CSI2_RX_CONFIG);
++=09=09value &=3D ~(IPU4P_CSI2_RX_CONFIG_DISABLE_BYTE_CLK_GATING |
++=09=09=09   IPU4P_CSI2_RX_CONFIG_RELEASE_LP11);
++=09=09writel(value, base + IPU4P_CSI2_RX_CONFIG);
++=09=09writel(0, base + IPU4P_CSI2_RX_ENABLE);
 +
-+=09=09status |=3D readl(base + IPU4P_ISYS_UNISPART_IRQ_STATUS);
-+=09=09sip0_status =3D readl(base + IPU4P_ISYS_SIP0_IRQ_CTRL_STATUS);
-+=09=09sip1_status =3D readl(base + IPU4P_ISYS_SIP1_IRQ_CTRL_STATUS);
-+=09} while ((status & (isys->isr_csi2_bits |
-+=09=09=09    IPU4P_ISYS_UNISPART_IRQ_SW)) ||
-+=09=09 (sip0_status & IPU4P_ISYS_SIP0_CSI2_IRQ) ||
-+=09=09 (sip1_status & IPU4P_ISYS_SIP1_CSI2_IRQ_MASK));
++=09=09ipu4p_isys_csi_irq_disable(isys, cfg->port);
 +
-+=09return IRQ_HANDLED;
++=09=09return 0;
++=09}
++
++=09if (cfg->nlanes !=3D 1 && cfg->nlanes !=3D 2 && cfg->nlanes !=3D 4)
++=09=09return -EINVAL;
++
++=09if (csi2->phy_mode !=3D PHY_MODE_DPHY)
++=09=09return -EOPNOTSUPP;
++
++=09if (!timing)
++=09=09return -EINVAL;
++
++=09writel(timing->ctermen, base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_CLANE);
++=09writel(timing->csettle, base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_CLANE);
++
++=09for (unsigned int lane =3D 0; lane < cfg->nlanes; lane++) {
++=09=09writel(timing->dtermen,
++=09=09       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(lane));
++=09=09writel(timing->dsettle,
++=09=09       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_DLANE(lane));
++=09}
++
++=09value =3D readl(base + IPU4P_CSI2_RX_CONFIG);
++=09value |=3D IPU4P_CSI2_RX_CONFIG_DISABLE_BYTE_CLK_GATING |
++=09=09 IPU4P_CSI2_RX_CONFIG_RELEASE_LP11;
++=09writel(value, base + IPU4P_CSI2_RX_CONFIG);
++
++=09writel(cfg->nlanes, base + IPU4P_CSI2_RX_NOF_ENABLED_LANES);
++=09writel(0, base + IPU4P_CSI2_RX_ENABLE);
++
++=09ipu4p_isys_csi_irq_enable(isys, cfg->port);
++
++=09writel(IPU4P_CSI2_RX_ENABLE_ENABLE,
++=09       base + IPU4P_CSI2_RX_ENABLE);
++
++=09return 0;
 +}
 diff --git a/drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h b/drivers/=
 media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h
-index 7f41bdb4150a..1e1423869e21 100644
+index 1e1423869e21..8f2c760ab7ba 100644
 --- a/drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h
 +++ b/drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h
-@@ -4,6 +4,44 @@
+@@ -42,6 +42,10 @@
+ #define IPU4P_ISYS_CSI_ERROR_MASK=09=09=09GENMASK(15, 0)
+ #define IPU4P_ISYS_CSI_ERROR_BITS=09=09=0916U
 =20
- #include <linux/bits.h>
-=20
-+/* ISYS UNISPART and SIP interrupt registers */
-+#define IPU4P_ISYS_UNISPART_IRQ_EDGE=09=09=090x7c000
-+#define IPU4P_ISYS_UNISPART_IRQ_STATUS=09=09=090x7c008
-+#define IPU4P_ISYS_UNISPART_IRQ_CLEAR=09=09=090x7c00c
-+#define IPU4P_ISYS_UNISPART_SW_IRQ_REG=09=09=090x7c414
-+#define IPU4P_ISYS_UNISPART_SW_IRQ_MUX_REG=09=090x7c418
-+#define IPU4P_ISYS_UNISPART_IRQ_SW=09=09=09BIT(22)
-+#define IPU4P_ISYS_UNISPART_IRQ_CSI2(port)=09=09((port) ? BIT(4) : BIT(3))
-+#define IPU4P_ISYS_ISA_ACC_IRQ_CTRL_BASE=09=090xb0c00
-+#define IPU4P_ISYS_A_IRQ_CTRL_BASE=09=09=090xbe200
-+#define IPU4P_ISYS_SIP0_IRQ_CTRL_BASE=09=09=090x66d00
-+#define IPU4P_ISYS_SIP1_IRQ_CTRL_BASE=09=09=090x6ed00
-+#define IPU4P_ISYS_IRQ_MASK_OFFSET=09=09=090x04
-+#define IPU4P_ISYS_IRQ_CLEAR_OFFSET=09=09=090x0c
-+#define IPU4P_ISYS_IRQ_ENABLE_OFFSET=09=09=090x10
-+#define IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET=09=090x14
-+#define IPU4P_ISYS_SIP0_IRQ_CTRL_STATUS=09=09=090x66d08
-+#define IPU4P_ISYS_SIP0_IRQ_CTRL_CLEAR=09=09=090x66d0c
-+#define IPU4P_ISYS_SIP1_IRQ_CTRL_STATUS=09=09=090x6ed08
-+#define IPU4P_ISYS_SIP1_IRQ_CTRL_CLEAR=09=09=090x6ed0c
-+#define IPU4P_ISYS_SIP0_CSI2_IRQ=09=09=09BIT(3)
-+#define IPU4P_ISYS_SIP1_CSI2_IRQ(port)=09=09=09BIT((port) - 1)
-+#define IPU4P_ISYS_SIP1_CSI2_IRQ_MASK=09=09=09GENMASK(6, 0)
-+
-+/* ISYS per-port CSI interrupt controls */
-+#define IPU4P_ISYS_CSI_IRQ_CTRL_BASE(port)=09=09\
-+=09({ typeof(port) __port =3D (port); \
-+=09   __port ? (0x6cb00 + 0x800 * (__port - 1)) : 0x66300; })
-+#define IPU4P_ISYS_CSI_IRQ_CTRL0_BASE(port)=09=09\
-+=09({ typeof(port) __port =3D (port); \
-+=09   __port ? (0x6cc00 + 0x800 * (__port - 1)) : 0x66400; })
-+#define IPU4P_ISYS_CSI_IRQ_STATUS_OFFSET=09=090x08
-+#define IPU4P_ISYS_CSI_IRQ_CLEAR_OFFSET=09=090x0c
-+#define IPU4P_ISYS_CSI_IRQ_ACTIVE=09=09=09BIT(0)
-+/* CSI-2 frame events occupy bits 16-31 in the shared ctrl0 status. */
-+#define IPU4P_ISYS_CSI_ERROR_MASK=09=09=09GENMASK(15, 0)
-+#define IPU4P_ISYS_CSI_ERROR_BITS=09=09=0916U
++/* IPU4P ISYS GPREG windows */
++#define IPU4P_ISYS_GPOFFSET=09=09=09=090x66800
++#define IPU4P_ISYS_COMBO_GPOFFSET=09=09=090x6e800
 +
  /* CSI receiver registers */
  #define IPU4P_CSI2_RX_ENABLE=09=09=09=090x00
  #define IPU4P_CSI2_RX_ENABLE_ENABLE=09=09=09BIT(0)
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/=
 pci/intel/ipu6/ipu6-isys-csi2.c
-index 9e87750269d0..ea3817ef8ac8 100644
+index ea3817ef8ac8..1d4762758761 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-@@ -25,6 +25,7 @@
- #include "ipu4p-fw-isys.h"
- #include "ipu6-isys-subdev.h"
- #include "ipu6-platform-isys-csi2-reg.h"
-+#include "ipu4p-isys-csi2-regs.h"
- #include "ipu7-isys-csi2-regs.h"
-=20
- static const u32 csi2_supported_codes[] =3D {
-@@ -83,6 +84,25 @@ static const struct ipu6_csi2_error dphy_rx_errors[] =3D=
- {
- =09{ "HSIDLE detected", false }
- };
-=20
-+static const struct ipu6_csi2_error ipu4p_csi2_errors[] =3D {
-+=09{ "Single packet header error corrected", true },
-+=09{ "Multiple packet header errors detected", true },
-+=09{ "Payload checksum (CRC) error", true },
-+=09{ "FIFO overflow", false },
-+=09{ "Reserved short packet data type detected", true },
-+=09{ "Reserved long packet data type detected", true },
-+=09{ "Incomplete long packet detected", false },
-+=09{ "Frame sync error", false },
-+=09{ "Line sync error", false },
-+=09{ "DPHY recoverable synchronization error", true },
-+=09{ "DPHY non-recoverable synchronization error", false },
-+=09{ "Escape mode error", true },
-+=09{ "Escape mode trigger event", true },
-+=09{ "Escape mode ultra-low power state for data lane(s)", true },
-+=09{ "Escape mode ultra-low power state exit for clock lane", true },
-+=09{ "Inter-frame short packet discarded", true },
-+};
-+
- s64 ipu6_isys_csi2_get_link_freq(struct ipu6_isys_csi2 *csi2)
- {
- =09struct media_pad *src_pad;
-@@ -210,6 +230,39 @@ void ipu6_isys_register_errors(struct ipu6_isys_csi2 *=
-csi2)
- =09csi2->receiver_errors |=3D irq & mask;
- }
-=20
-+void ipu4p_isys_register_errors(struct ipu6_isys_csi2 *csi2)
-+{
-+=09void __iomem *base =3D csi2->isys->pdata->base;
-+=09u32 offset =3D IPU4P_ISYS_CSI_IRQ_CTRL0_BASE(csi2->port);
-+=09u32 status;
-+
-+=09status =3D readl(base + offset + IPU4P_ISYS_CSI_IRQ_STATUS_OFFSET);
-+=09writel(status, base + offset + IPU4P_ISYS_CSI_IRQ_CLEAR_OFFSET);
-+=09csi2->receiver_errors |=3D status & IPU4P_ISYS_CSI_ERROR_MASK;
-+}
-+
-+void ipu4p_isys_csi2_isr(struct ipu6_isys_csi2 *csi2)
-+{
-+=09void __iomem *base =3D csi2->isys->pdata->base;
-+=09u32 offset =3D IPU4P_ISYS_CSI_IRQ_CTRL_BASE(csi2->port);
-+=09u32 status;
-+
-+=09status =3D readl(base + offset + IPU4P_ISYS_CSI_IRQ_STATUS_OFFSET);
-+=09writel(status, base + offset + IPU4P_ISYS_CSI_IRQ_CLEAR_OFFSET);
-+=09if (!(status & IPU4P_ISYS_CSI_IRQ_ACTIVE))
-+=09=09return;
-+
-+=09/*
-+=09 * Frame SOF/EOF notifications are delivered by IPU4P firmware.
-+=09 * Do not also report the CSI frame-event interrupts here, as that
-+=09 * would account every frame twice and corrupt vb2 sequence numbers.
-+=09 *
-+=09 * Keep the CSI IRQ path for receiver error collection; errors are
-+=09 * consumed by ipu6_isys_csi2_error() when a firmware response arrives.
-+=09 */
-+=09ipu4p_isys_register_errors(csi2);
-+}
-+
- void ipu6_isys_csi2_error(struct ipu6_isys_csi2 *csi2)
- {
- =09struct device *dev =3D &csi2->isys->adev->auxdev.dev;
-@@ -217,6 +270,27 @@ void ipu6_isys_csi2_error(struct ipu6_isys_csi2 *csi2)
- =09u32 status;
- =09u32 i;
+@@ -313,6 +313,11 @@ static void ipu6_isys_csi2_stream_disable(struct ipu6_=
+isys_csi2 *csi2)
+ =09cfg.port =3D csi2->port;
+ =09cfg.nlanes =3D csi2->nlanes;
 =20
 +=09if (IS_IPU4P(csi2->isys->adev->isp)) {
-+=09=09ipu4p_isys_register_errors(csi2);
-+=09=09status =3D csi2->receiver_errors;
-+=09=09csi2->receiver_errors =3D 0;
-+
-+=09=09for (i =3D 0; i < IPU4P_ISYS_CSI_ERROR_BITS; i++) {
-+=09=09=09if (!(status & BIT(i)))
-+=09=09=09=09continue;
-+
-+=09=09=09if (ipu4p_csi2_errors[i].is_info_only)
-+=09=09=09=09dev_dbg(dev, "csi2-%i info: %s\n", csi2->port,
-+=09=09=09=09=09ipu4p_csi2_errors[i].error_string);
-+=09=09=09else
-+=09=09=09=09dev_err_ratelimited(dev, "csi2-%i error: %s\n",
-+=09=09=09=09=09=09    csi2->port,
-+=09=09=09=09=09=09    ipu4p_csi2_errors[i].error_string);
-+=09=09}
-+
++=09=09isys->phy_set_power(isys, &cfg, NULL, false);
 +=09=09return;
 +=09}
 +
- =09/* register errors once more in case of interrupts are disabled */
- =09ipu6_isys_register_errors(csi2);
- =09status =3D csi2->receiver_errors;
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h b/drivers/media/=
-pci/intel/ipu6/ipu6-isys-csi2.h
-index dbaaf00af623..b3eb702f1996 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-@@ -75,6 +75,8 @@ void ipu6_isys_csi2_sof_event_by_stream(struct ipu6_isys_=
-stream *stream);
- void ipu6_isys_csi2_eof_event_by_stream(struct ipu6_isys_stream *stream);
- void ipu6_isys_register_errors(struct ipu6_isys_csi2 *csi2);
- void ipu6_isys_csi2_error(struct ipu6_isys_csi2 *csi2);
-+void ipu4p_isys_register_errors(struct ipu6_isys_csi2 *csi2);
-+void ipu4p_isys_csi2_isr(struct ipu6_isys_csi2 *csi2);
- int ipu6_isys_csi2_get_remote_desc(u32 source_stream,
- =09=09=09=09   struct ipu6_isys_csi2 *csi2,
- =09=09=09=09   struct media_entity *source_entity,
+ =09writel(0, csi2->base + CSI_REG_CSI_FE_ENABLE);
+ =09writel(0, csi2->base + CSI_REG_PPI2CSI_ENABLE);
+ =09writel(0, csi2->base + CSI_PORT_REG_BASE_IRQ_CSI +
+@@ -347,6 +352,9 @@ static int ipu6_isys_csi2_stream_enable(struct ipu6_isy=
+s_csi2 *csi2)
+ =09if (ret)
+ =09=09return ret;
+=20
++=09if (IS_IPU4P(isys->adev->isp))
++=09=09return isys->phy_set_power(isys, &cfg, &timing, true);
++
+ =09mask =3D isys->pdata->ipdata->csi2.irq_mask;
+ =09nports =3D isys->pdata->ipdata->csi2.nports;
+=20
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/i=
 ntel/ipu6/ipu6-isys.c
-index 1f9809d1b138..6d10a427b4b6 100644
+index 6d10a427b4b6..12498748c8b6 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -41,6 +41,7 @@
- #include "ipu6-platform-buttress-regs.h"
- #include "ipu6-platform-isys-csi2-reg.h"
- #include "ipu6-platform-regs.h"
-+#include "ipu4p-isys-csi2-regs.h"
- #include "ipu7-isys-csi-phy.h"
- #include "ipu7-isys-csi2-regs.h"
- #include "ipu7-platform-regs.h"
-@@ -202,6 +203,10 @@ static void isys_csi2_unregister_subdevices(struct ipu=
-6_isys *isys)
-=20
- static int isys_csi2_register_subdevices(struct ipu6_isys *isys)
- {
-+=09static const u32 ipu4p_port_offsets[IPU4P_ISYS_CSI2_NPORTS] =3D {
-+=09=090x64300, 0x6c000, 0x6c100, 0x6c200,
-+=09=090x6c300, 0x6c400, 0x6c500, 0x6c600,
-+=09};
- =09const struct ipu6_isys_internal_csi2_pdata *csi2_pdata =3D
- =09=09&isys->pdata->ipdata->csi2;
- =09unsigned int i;
-@@ -217,6 +222,9 @@ static int isys_csi2_register_subdevices(struct ipu6_is=
-ys *isys)
-=20
- =09=09=09isys->isr_csi2_bits |=3D mask;
- =09=09=09isys->csi2[i].legacy_irq_mask =3D mask;
-+=09=09} else if (IS_IPU4P(isys->adev->isp)) {
-+=09=09=09base +=3D ipu4p_port_offsets[i];
-+=09=09=09isys->isr_csi2_bits |=3D IPU4P_ISYS_UNISPART_IRQ_CSI2(i);
- =09=09} else {
- =09=09=09base +=3D CSI_REG_PORT_BASE(i);
- =09=09=09isys->isr_csi2_bits |=3D IPU6_ISYS_UNISPART_IRQ_CSI2(i);
-@@ -892,6 +900,8 @@ static int isys_runtime_pm_resume(struct device *dev)
-=20
- =09if (IS_IPU7(isp)) {
+@@ -902,6 +902,7 @@ static int isys_runtime_pm_resume(struct device *dev)
  =09=09ipu7_isys_setup_hw(isys);
-+=09} else if (IS_IPU4P(isp)) {
-+=09=09ipu4p_isys_irq_setup(isys);
+ =09} else if (IS_IPU4P(isp)) {
+ =09=09ipu4p_isys_irq_setup(isys);
++=09=09ipu4p_isys_phy_setup(isys);
  =09} else {
  =09=09ipu6_isys_setup_hw(isys);
  =09=09set_iwake_ltrdid(isys, 0, 0, LTR_ISYS_ON);
-@@ -918,7 +928,7 @@ static int isys_runtime_pm_suspend(struct device *dev)
- =09isys->phy_termcal_val =3D 0;
- =09cpu_latency_qos_update_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
+@@ -1136,6 +1137,8 @@ static int isys_probe(struct auxiliary_device *auxdev=
+,
+ =09=09isys->phy_set_power =3D ipu6_isys_jsl_phy_set_power;
+ =09else if (IS_IPU6EP_MTL(adev->isp))
+ =09=09isys->phy_set_power =3D ipu6_isys_dwc_phy_set_power;
++=09else if (IS_IPU4P(adev->isp))
++=09=09isys->phy_set_power =3D ipu4p_isys_phy_set_power;
+ =09else
+ =09=09isys->phy_set_power =3D ipu6_isys_mcd_phy_set_power;
 =20
--=09if (!IS_IPU7(isp))
-+=09if (!IS_IPU7(isp) && !IS_IPU4P(isp))
- =09=09set_iwake_ltrdid(isys, 0, 0, LTR_ISYS_OFF);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/i=
+ntel/ipu6/ipu6-isys.h
+index 775b85396e6f..52d114caac93 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+@@ -259,4 +259,10 @@ int ipu6_isys_jsl_phy_set_power(struct ipu6_isys *isys=
+,
+ =09=09=09=09struct ipu6_isys_csi2_config *cfg,
+ =09=09=09=09const struct ipu6_isys_csi2_timing *timing,
+ =09=09=09=09bool on);
++
++int ipu4p_isys_phy_set_power(struct ipu6_isys *isys,
++=09=09=09     struct ipu6_isys_csi2_config *cfg,
++=09=09=09     const struct ipu6_isys_csi2_timing *timing,
++=09=09=09     bool on);
++void ipu4p_isys_phy_setup(struct ipu6_isys *isys);
+ #endif /* IPU6_ISYS_H */
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h b/d=
+rivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+index 6679a7d35e89..1830b127783b 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+@@ -6,6 +6,18 @@
 =20
- =09ipu6_mmu_hw_cleanup(adev->mmu);
-@@ -1177,7 +1187,7 @@ static const struct ipu6_auxdrv_data ipu6_isys_auxdrv=
-_data =3D {
- };
+ #include <linux/bits.h>
 =20
- static const struct ipu6_auxdrv_data ipu4p_isys_auxdrv_data =3D {
--=09.isr =3D ipu6_isys_isr,
-+=09.isr =3D ipu4p_isys_isr,
- =09.isr_threaded =3D NULL,
- =09.wake_isr_thread =3D false,
- =09.fw_ops =3D &ipu4p_fw_isys_ops,
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/=
-ipu6/ipu6.c
-index 417978bef3f7..3ebf2ff76200 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -399,6 +399,7 @@ static void ipu6_internal_pdata_init(struct ipu6_device=
- *isp)
- =09}
-=20
- =09if (IS_IPU4P(isp)) {
-+=09=09isys_ipdata.csi2.nports =3D IPU4P_ISYS_CSI2_NPORTS;
- =09=09isys_ipdata.num_parallel_streams =3D IPU4P_ISYS_MAX_STREAMS;
- =09=09isys_ipdata.max_streams =3D IPU4P_ISYS_MAX_STREAMS;
- =09=09isys_ipdata.sram_gran_shift =3D IPU4P_SRAM_GRANULARITY_SHIFT;
++/* IPU4P CSI PHY building-block registers */
++#define IPU4P_BUTTRESS_REG_CSI_BSCAN_EXCLUDE=09=090x100d8
++#define IPU4P_BUTTRESS_REG_CPHY0_DLL_OVRD=09=090x10100
++#define IPU4P_BUTTRESS_REG_DPHY0_DLL_OVRD=09=090x1014c
++#define IPU4P_BUTTRESS_REG_BB0_AFE_CONFIG=09=090x10174
++#define IPU4P_BUTTRESS_REG_CPHYX_DLL_OVRD(bb)=09=09\
++=09(IPU4P_BUTTRESS_REG_CPHY0_DLL_OVRD + ((bb) >> 1) * 0x100)
++#define IPU4P_BUTTRESS_REG_DPHYX_DLL_OVRD(bb)=09=09\
++=09(IPU4P_BUTTRESS_REG_DPHY0_DLL_OVRD + ((bb) >> 1) * 0x100)
++#define IPU4P_BUTTRESS_REG_BBX_AFE_CONFIG(bb)=09=09\
++=09(IPU4P_BUTTRESS_REG_BB0_AFE_CONFIG + ((bb) >> 1) * 0x100)
++
+ /* IS_WORKPOINT_REQ */
+ #define IPU6_BUTTRESS_REG_IS_FREQ_CTL=09=090x34
+ /* PS_WORKPOINT_REQ */
 --=20
 2.55.0
 
