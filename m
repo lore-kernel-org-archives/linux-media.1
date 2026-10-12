@@ -1,179 +1,280 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF3DB4D5A1
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 01:25:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6432833F8BE
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 01:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768359; cv=none; b=aCo5z9lUGt3c4sTk1VdXltN3Qf0waQuFTzWk3gYHiMnwUb40OtLSl+EKN25xiKWqvPz1fad+WZcdlvLRlB9Deku7f+VtTMqe3R9uKIHOs+1vyfiRjTgKzq5etLFFPaUGR3a9L+gbU3zVnZ+Dn+WxejVOscXCHqbIMhCcFn4AKbI=
+	t=1791770062; cv=none; b=UcoxD/iHl5nNoHd+RGoWsXdJZDcACZtax8ORiBUVkpjpjpwlbsXLYuZGKumNnwTal3YcPwLUeJTR9xwLBFHSq89e37p2+XX5T8Zv+ZL/5yWnp693blMDD3+wfPrqDslnNIdVneOJ8V8RxFqfHpKj0HFMXT0FHgz0AslgB3XF9F4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768359; c=relaxed/simple;
-	bh=WcXPQx7tMGheRDfYV1c8+KKHPrQsEAxtPxGqErtQJPA=;
-	h=Message-ID:Date:MIME-Version:From:To:Subject:References:
-	 In-Reply-To:Content-Type; b=LAOcGTVDWVktxBb28HC28saSD854dV8iys5V/2rFcofIS5Xyg7hgs3Pu0rnYd3Mxag1UKdItIIxb8WbKHUhIu7hrZjWely9nAY5a3kXpOTby2/tG5sybP6VC5FaWEZKtKCspfoBdaqqSWHhay2in4hOy7ED1hJ1GXYzMW/objvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ef2doeZT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SbmGox1E; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791770062; c=relaxed/simple;
+	bh=fuIFDJ09YT2y/gdrngPJBXsjaz5KcU6XyqRitxLnvns=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FmMLM8tX3tF2bj+xdYLFFzfXVaKom0qPltxuDq9cm9asC/FshaAdBlzQrIW/yS9UHM6JOpG9PvKaOBV8y/3NzOxGoHXr1JAY8ujZDWz3ffbrRH5dobW20EdlS/1JvFWx1TL3eqtnbbPLVIh3v2izMEDYRodWG0SJTcxmrysCYrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=NuleTeF8; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ef2doeZT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SbmGox1E"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69BMV944921344
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 01:25:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+SEuxb14RGNKNzw6OwUej2/dkzCU8mOD1TxdNQEWpLI=; b=Ef2doeZT40tKHpf/
-	gJ/AkFWnxyGdnVyMQA26UdzIFPCrlJ16TSSKJW8ShUPfKFtlqVwfMQehhlHxpa3b
-	f9ffnFbqpBfQb5kesV0FFIwwQiCuY/awgnDdmSzuJ/7TuAKssJzhfB082f+BLlA1
-	AHqK/W1IL6z4nX/bAhg7W/wbRrzNOt1K1kVfBYY1Ks4mVZuvOel9AG4fzFQzXTyB
-	Z5/YeHFA+azU6JJkntqaCjIUtkQj165Q//c3LjEyzs2c9IJkn0X6mtYGNzLoslxU
-	vSBBV5oYTAEpDgQp7ae3ppmfbjZwX1g5+BYB2M7HFl6qDNC6Fy+Z2RSsGIZkgmRh
-	HYItdg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7cc6ccxg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 01:25:56 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1a439db36so945582a12.2
-        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 18:25:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="NuleTeF8"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so1171875a91.2
+        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 18:54:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791768356; x=1792373156; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:references
-         :subject:to:from:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+SEuxb14RGNKNzw6OwUej2/dkzCU8mOD1TxdNQEWpLI=;
-        b=SbmGox1ENuMamfySzkpN36x9L9pubrSbLkRS7Hg7ZHX1CUEwX1D/P9oOJMnkS3wCAw
-         jzxCIiaGF79lfiMtTCCP2EM2C9S3bAnlyTJFItuC7q1Bw5mEVg1igDNEkATRU6rpoI/Q
-         CBU7ktpEzVI03wakKJTdT6NFG0II2j0v8ZBrCFvhxVrzf5Ar23Ko/HL4nZaS+KbT2qHo
-         MAgRi/UQbathWIyJKxTijJ/5qVPxXq1cPWaowNJonObkCZKA2YFPtuPh489HpZMSny62
-         dgOn/hbqCT0f2epaegRbgISnnXDcm3E/SVTTuvD5z7/g+U3uQ+gXm4+c47RNOQ9K4RmF
-         0V3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768356; x=1792373156;
-        h=content-transfer-encoding:content-type:in-reply-to:references
-         :subject:to:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1791770060; x=1792374860; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+SEuxb14RGNKNzw6OwUej2/dkzCU8mOD1TxdNQEWpLI=;
-        b=etOjzZUpCJSE2hsOCjZ0NFTkO7cVzTaR8WTy23HN2eHEgnGYamedC+fes5SQHOEh+Y
-         QSXa0+l1bLgmJOccTJlUfC6To5S6Lsu2OWlE9thUWSu1I9IlxUYqz1/nY3BVEn5ckZ4K
-         If91oA7DN41E7ZatsajnOTpLz6T0rccj/Jp1SzXLQn0iw3HhfVJUXER2Vdxdiy8oPyqv
-         hFK/VrmAlFdCwF7RGmy0dYrDeAsKUj9FoDv3jFfQxygOYmx31lWEmLXraDk9V2vOjy03
-         dG+eXLgUkN2Imrj8r88ZO/ApkxleULUTmhgv558XCUFZCxwuanxWKNwmG48xJuRegpST
-         d72g==
-X-Forwarded-Encrypted: i=1; AKwUvByAbIoQJp2HUsq5qcYi+40AAIS37r08egg8DFGUGMNNLJlSz1M8bIRB2R/mUWglsQlxLo98bTfhgUeQpQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIA/7cwla8htVmpffADjMu75dchqaM2CO/Er7hy44a//bOco+9+
-	u2IQyK2GizdddEve277hMXPmS5sKrVwzCTYSZugib7W7AEx3a+oN3Z06GiWITmu2CsGsNnHezIZ
-	ii7bpDEiiLpnTCzrYoz6YsGfr+MyDTdKr+4VWtVJ0cLvL5z3MdDQX57vvtIWVMWqFnQ==
-X-Gm-Gg: AYBFou2+Sb2vQ+z2yavAp/rufaPv2UxogdBwaV+mFOK2BnLZoVoClljpkACaWlpZQ7H
-	17pcn32Y59/Ia5Tq25b7ACr/XCh853Jdbwov88T4cFB59l6CIzy1MBgAClUAbsVBilAwc3H164i
-	dTayro6d9PhkcuVRvXF6RMWQdjLtjkdE2brGyYNn2MhZEcs3ReT/HEk876JX062KEztTHgXigW0
-	ArRf5GfHU+U+Y2GhqoYBC75U0A23Nl3llWBx3c6LJLn6wujWGf7yYdppbyiZ2OAikW5Xf05d1Yv
-	r/OFSOGkvcD8bq+/X4G1yyma22X5lRSLsInXzU3cwPL1bLGB9IDBs2cPEvqX2K4lUdY2Bjw8h/R
-	8W9vGhy/vHjlxGBAjcKd4le9dGrYtFeIFKXaK45vBKTprMRszQ+YU0P8ojJU8iBI=
-X-Received: by 2002:a05:6a20:4327:b0:3e1:4f30:fdd3 with SMTP id adf61e73a8af0-3e16c0b5110mr7383247637.66.1791768355520;
-        Sun, 11 Oct 2026 18:25:55 -0700 (PDT)
-X-Received: by 2002:a05:6a20:4327:b0:3e1:4f30:fdd3 with SMTP id adf61e73a8af0-3e16c0b5110mr7383226637.66.1791768355028;
-        Sun, 11 Oct 2026 18:25:55 -0700 (PDT)
-Received: from [192.168.1.6] ([117.143.161.217])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89928fd8469sm1622685b3a.61.2026.10.11.18.25.50
+        bh=TBRH9zb+DpmAXh0LEaeO6lRXEj5Ct3w3C8zKVqnBWE4=;
+        b=NuleTeF8OE3wSGNaauE2nHPenvQlN9J/dCv7K01KY7RsVj1Q6ihfVVrVNXFVnYK5AX
+         j72FyKA4YmPB/fFAuFQouS5n66/srM0GT1AuxB4POD1qxhz8krS5ESk27DPTJLHKmdod
+         p89R7t0y1u/4Rkcd+ktQhtvr4mD6kRvYMHDnQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791770060; x=1792374860;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TBRH9zb+DpmAXh0LEaeO6lRXEj5Ct3w3C8zKVqnBWE4=;
+        b=bJNYH5JAZrpLL2cdT4sqo0nGw114f0GjSEzUGd0e6FHZtRFC5eJw97OlFLJ0M1WXkZ
+         dWY5HV1kK90wKYEcMkiV41sS6BVPtJ6Gqcy09a00Kuj64lw7uohoViwtdxdtZ+FhIgJo
+         9z0vW5pKpmJBQp96j81tWdOTl/blIgHt95tbs9IZQKQes5SZS+29hVzVlg8IcFIZX0VK
+         Oy2mIEghKBuCES7OoU/XR/AXVIarpZXP7MO3eujh0hvXmLDHOIyiNUEUV+saYngr1QDv
+         HgcAfr3hrNPREoso41cBn826+lUKOjzzwV6tOm1GB35qEkDn8eb8iidkNhgSXuCk7yZf
+         7BUw==
+X-Gm-Message-State: AFq9FYL2QEY+WnDR/326NK6cVgfaXzMifvsM7yBZiSswSCDRw4c3Fs3Y
+	NhfWAhhF7LfhAZAdlYHzlMaIq0bh1NzeLQdkDLA2JKoK6qhd/Ax40giJsFKpr/oczlEtIvpv9HR
+	ei0UfIg==
+X-Gm-Gg: AYBFou2DhL2qAekLdTO5eYEoUwoFodRYRWl20vvZ80zzZdQ58ncPau2aO8+gQIjJL+H
+	jUeSSRRSDAv/ZyC3KWdnJblUp4Xv9gUnYgwmVuOjcunkwXmnLIlU2nOLz7vcSs/YjODF0rV1eeT
+	pq0WYijXQiRcdyUwaQLlPmztTH5x+MirQbSeJEffaqG5yVtmgWvJp8Q4+9rEAsvfetZSlB/27By
+	ZRmVg+rF9rurGbjf6DgHjw2cL4lOoB5n/kkmsIbPUzNzlJID/VSoHqVYiuxkfE0FEOtOUW5NMJX
+	Y1see4bqLcitbNbhSDudiaf5kZt5DM++PDHONFR2+ciSD26r9RshTQ1RezxMo/jov6Bcs4achXF
+	ISBsjWvkvssDYMTl7P5McgXsZYXtx36Nb+27ori0M9DQLvHN5ALU0rwpACvBC0JqhZCogHbRvHY
+	BC2R57LfBr5zOG78TluAqygZcSBSCBSXjtl7zrAfQA/OsYLSDNxJ2aWmBStV8dnq22eXTqm1/1c
+	X2Qx2EHYG7OljaFb2b08he/nRSU68Ic3BDoW4o=
+X-Received: by 2002:a17:90b:568f:b0:3a8:cc4f:3478 with SMTP id 98e67ed59e1d1-3ab3a3a1879mr8117314a91.8.1791770059514;
+        Sun, 11 Oct 2026 18:54:19 -0700 (PDT)
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com. [74.125.82.172])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b981b9sm14006702a91.5.2026.10.11.18.54.18
+        for <linux-media@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 18:25:54 -0700 (PDT)
-Message-ID: <5d4a3126-44c2-494a-938b-1887503c7a52@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 09:25:48 +0800
+        Sun, 11 Oct 2026 18:54:18 -0700 (PDT)
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33fb4680717so1702364eec.1
+        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 18:54:18 -0700 (PDT)
+X-Received: by 2002:a05:7022:7f1b:b0:15b:722b:4bfc with SMTP id
+ a92af1059eb24-16a6043ce08mr13693926c88.31.1791770057521; Sun, 11 Oct 2026
+ 18:54:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: hangxiang.ma@oss.qualcomm.com
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-Subject: Re: [PATCH v20 08/13] media: qcom: camss: vfe: Add support for VFE
- 1080
-References: <20261010-kaanapali-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com>
- <20261010-kaanapali-camss-v20-8-63e98ce9ac0c@oss.qualcomm.com>
- <a6e5dc34-c2e7-4a3c-a0e4-fb0a3a28cece@linaro.org>
-In-Reply-To: <a6e5dc34-c2e7-4a3c-a0e4-fb0a3a28cece@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: jDC3Ne5qXomwrCuDMwqqkPLVEMXLulwk
-X-Authority-Analysis: v=2.4 cv=XdQcX455 c=1 sm=1 tr=0 ts=6acc3724 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=K/RrOd38U9TixX+j9hIN8g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=KKAkSRfTAAAA:8 a=HmBDO3gPv43XiXRR4pAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAwNSBTYWx0ZWRfX1P+mnQmqBrSu
- FMtsY9uV0VZlAy5YuGlNF+87zjT3zkYfU8k9WPAsV4NaigPYCLmNMt5ikU0DPckNSJKggUlY4M2
- YqOt1ZGoiLtPgQ+OqixLqndw3j0lm+9ojPU/5B6u/hz7fX1rP7wSEr9Neh30BZ94YB665juPlmz
- a0DoNDdJ5/TpyiMX+pMro/KYONJYcw/nFhHVlPx8awt6H14wa+G1BU5fwH4JOA1gviTRu3H28k1
- acKSsMHCt0I38oYebfNe8B6MGoJx3PD0vkPN31qVcmK7UKhWdCi5mCSCbSAfgT5pGw07lcsNTVy
- QVApIo3YMPjO+mOlsrW7hnIWrQJzaoBOurAqPIqK2ydbcJvgBfXHXlf3h461Q4nM+FIJi+81d0b
- ik1sSz5Jkf0u7tqCOS8AIS4xgf7nbqhOJpoS8vojgkCYJ0RyOBoApXNzzU2g7Lpk5aP6RSILK/J
- pKydeMt80bqPPIVFifQ==
-X-Proofpoint-ORIG-GUID: jDC3Ne5qXomwrCuDMwqqkPLVEMXLulwk
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAwNSBTYWx0ZWRfXxDoUTKlvDJ2U
- mLus4N2B8VkFLIBwlfdZnGm1B5mE1mBA9Z7fsixi72mIckXNk/5mAGpOygV/2aGNBxAS+/gm8Ny
- dMLOijUX0VOHk/IYtiv9nMTLLYLfvWw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-11_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 spamscore=0 adultscore=0 phishscore=0
- bulkscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120005
+References: <20261009165248.56440-1-walid.badar@gmail.com>
+In-Reply-To: <20261009165248.56440-1-walid.badar@gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 12 Oct 2026 03:54:03 +0200
+X-Gmail-Original-Message-ID: <CANiDSCtSo2nmbjzWC8CC3GAg2vsh-OBBW1-Skogb4tFpZ240-w@mail.gmail.com>
+X-Gm-Features: AclHuK_S1QeR_jD5dyFFbqrBJmDHlUxppmKUPKoi59KTHhBZ-WyZFIAv6WQBKis
+Message-ID: <CANiDSCtSo2nmbjzWC8CC3GAg2vsh-OBBW1-Skogb4tFpZ240-w@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Handle payloads starting in the middle
+ of a bulk URB
+To: Muhammad Waleed Badar <walid.badar@gmail.com>
+Cc: linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/11/26 4:56 PM, Bryan O'Donoghue <bryan.odonoghue@linaro.org> wrote:
-> On 10/10/2026 17:01, Hangxiang Ma wrote:
-> > +        if (!vfe->res->reg_update_after_csid_config)
-> > +            ops->reg_update(vfe, line->id);
-> 
-> So I'd prefer to have a discussion about if we can move all of the 
-> updates to one method.
-> 
-> i.e. why should any of the updates happen before csid ?
-> 
-> Sure vfe 1080's documentation makes some sort of explicit statement 
-> about an update that has been implied for some time.
-> 
-> My question is why not gate all of the updates this way and make this 
-> not a flag but a global behaviour ?
-> 
+Hi Muhammad
+
+I understand that this is a RFC. Let's focus on the problem before we
+discuss the code.
+
+Currently, both for isoc and bulk, if the camera appends some data at
+the end of the frame (let's call it trailer data) it is silently
+discarded. With your proposal, this trailer data will be considered
+part of the next frame.
+
+The trailer data is out of spec (check figure 2-12 of the spec), but
+having multiple frames in the same bulk package is also out of spec
+(For some reason the bulk cameras are the worst at following the spec,
+no idea why).
+
+Your proposal (again, not looking at the code yet), will fix the
+problem for some of the broken cameras but ti will completely break
+the driver for other family of broken cameras (the ones that have
+trailer data).
+
+If we want to automatically handle your family of broken cameras we should:
+
+- Add heuristics to also handle the camera with trailer camera (does
+the extra data look like a uvc header?)
+- Add a non compliance warning so the vendors have some feedback about
+their wrongness.
+
+Regards!
+
+
+
+
+On Sat, 10 Oct 2026 at 00:58, Muhammad Waleed Badar
+<walid.badar@gmail.com> wrote:
+>
+> The bulk decoder assumes that every payload starts at the beginning of
+> a URB. It detects the end of a payload either by a short URB or by the
+> accumulated payload size reaching dwMaxPayloadTransferSize, and then
+> decodes the start of the next URB as a new payload header.
+>
+> Some devices, such as the Realtek USB Camera (0bda:579f) integrated in
+> Razer Blade laptops, send payloads of dwMaxPayloadTransferSize bytes
+> back to back without aligning them to URB boundaries. When a frame
+> spans more than one payload, the next payload header lands in the
+> middle of a URB. The driver then copies that header and the data that
+> follows into the current frame, and parses frame data at the start of
+> the next URB as a header. This shows up as "Marking buffer as bad
+> (error bit set)" and "Dropping payload (out of sync)" trace messages,
+> and most frames larger than one payload are returned empty or
+> truncated. On this camera every MJPEG mode above 1280x720 is affected.
+>
+> Fix it by splitting URBs at payload boundaries and decoding each part
+> separately, so that a payload ending in the middle of a URB is
+> completed and the remainder of the URB is decoded as a new payload.
+> Devices whose payloads end on URB boundaries are unaffected, as the
+> whole URB is then processed in a single iteration.
+>
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=207045
+> Assisted-by: LLM
+> Signed-off-by: Muhammad Waleed Badar <walid.badar@gmail.com>
 > ---
-> bod
-> 
+>
+> Notes:
+>     Tested on a Razer Blade with the integrated Realtek 0bda:579f camera
+>     (bulk endpoint, wMaxPacketSize 512), on Fedora kernel 7.1.10 with the
+>     patch applied to the matching uvcvideo sources. 150 MJPEG frames were
+>     captured per mode with ffmpeg and checked for a valid JPEG EOI marker:
+>
+>       mode        before          after
+>       1920x1080   25-36 valid     150 valid
+>       1280x1024   37 valid        150 valid
+>       1280x800    38 valid        148 valid
+>       1280x720    150 valid       150 valid
+>       640x480     150 valid       150 valid
+>
+>     GNOME Snapshot (PipeWire) no longer reports JPEG decode errors at
+>     1920x1080. The patch also builds against 7.2.8. It has not been tested
+>     on other bulk-mode UVC cameras.
+>
+>     The root cause analysis and the patch were produced with an AI coding
+>     assistant (Claude Code) and reviewed by me.
+>
+>  drivers/media/usb/uvc/uvc_video.c | 70 ++++++++++++++++++++++++-------
+>  1 file changed, 54 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+> index fc3536a43..fe1714ccc 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1612,27 +1612,20 @@ static void uvc_video_decode_isoc(struct uvc_urb *uvc_urb,
+>         }
+>  }
+>
+> -static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+> -                       struct uvc_buffer *buf, struct uvc_buffer *meta_buf)
+> +static void uvc_video_decode_bulk_chunk(struct uvc_urb *uvc_urb,
+> +                                       struct uvc_buffer **bufp,
+> +                                       struct uvc_buffer **meta_bufp,
+> +                                       u8 *mem, int len, bool short_urb)
+>  {
+> -       struct urb *urb = uvc_urb->urb;
+>         struct uvc_streaming *stream = uvc_urb->stream;
+> -       u8 *mem;
+> -       int len, ret;
+> -
+> -       /*
+> -        * Ignore ZLPs if they're not part of a frame, otherwise process them
+> -        * to trigger the end of payload detection.
+> -        */
+> -       if (urb->actual_length == 0 && stream->bulk.header_size == 0)
+> -               return;
+> +       struct uvc_buffer *buf = *bufp;
+> +       struct uvc_buffer *meta_buf = *meta_bufp;
+> +       int ret;
+>
+> -       mem = urb->transfer_buffer;
+> -       len = urb->actual_length;
+>         stream->bulk.payload_size += len;
+>
+>         /*
+> -        * If the URB is the first of its payload, decode and save the
+> +        * If the chunk is the first of its payload, decode and save the
+>          * header.
+>          */
+>         if (stream->bulk.header_size == 0 && !stream->bulk.skip_payload) {
+> @@ -1671,7 +1664,7 @@ static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+>          * Detect the payload end by a URB smaller than the maximum size (or
+>          * a payload size equal to the maximum) and process the header again.
+>          */
+> -       if (urb->actual_length < urb->transfer_buffer_length ||
+> +       if (short_urb ||
+>             stream->bulk.payload_size >= stream->bulk.max_payload_size) {
+>                 if (!stream->bulk.skip_payload && buf != NULL) {
+>                         uvc_video_decode_end(stream, buf, stream->bulk.header,
+> @@ -1684,6 +1677,51 @@ static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+>                 stream->bulk.skip_payload = 0;
+>                 stream->bulk.payload_size = 0;
+>         }
+> +
+> +       *bufp = buf;
+> +       *meta_bufp = meta_buf;
+> +}
+> +
+> +static void uvc_video_decode_bulk(struct uvc_urb *uvc_urb,
+> +                       struct uvc_buffer *buf, struct uvc_buffer *meta_buf)
+> +{
+> +       struct urb *urb = uvc_urb->urb;
+> +       struct uvc_streaming *stream = uvc_urb->stream;
+> +       bool short_urb = urb->actual_length < urb->transfer_buffer_length;
+> +       u8 *mem;
+> +       int len;
+> +
+> +       /*
+> +        * Ignore ZLPs if they're not part of a frame, otherwise process them
+> +        * to trigger the end of payload detection.
+> +        */
+> +       if (urb->actual_length == 0 && stream->bulk.header_size == 0)
+> +               return;
+> +
+> +       mem = urb->transfer_buffer;
+> +       len = urb->actual_length;
+> +
+> +       /*
+> +        * Some devices (such as the Realtek 0bda:579f) start the next payload
+> +        * immediately after the previous one instead of in a new URB, so a
+> +        * payload boundary can fall in the middle of a URB. Split the URB at
+> +        * payload boundaries and decode each piece separately.
+> +        */
+> +       do {
+> +               int chunk = len;
+> +
+> +               if (stream->bulk.payload_size + chunk >
+> +                   stream->bulk.max_payload_size)
+> +                       chunk = stream->bulk.max_payload_size -
+> +                               stream->bulk.payload_size;
+> +               if (chunk <= 0)
+> +                       chunk = len;
+> +
+> +               uvc_video_decode_bulk_chunk(uvc_urb, &buf, &meta_buf, mem,
+> +                                           chunk, short_urb && chunk == len);
+> +               mem += chunk;
+> +               len -= chunk;
+> +       } while (len > 0);
+>  }
+>
+>  static void uvc_video_encode_bulk(struct uvc_urb *uvc_urb,
+> --
+> 2.55.0
+>
+>
 
-Yes Bryan. That's a fair point.
 
-The reason I introduced the flag is that on VFE 1080 the documentation explicitly states that the register update should happen after the CSID configuration and it really follows the guidance, while older generations appear to have relied on the previous ordering implicitly.
-
-That said, I agree that if there is no functional requirement for some updates to happen before CSID configuration, having a single update path would be cleaner and easier to maintain. The flag was mainly intended to minimize behavior changes for existing targets until we have a better understanding of the dependency.
-
-I'll take another look at the update sequence and check whether other older platforms can safely move to the same post-CSID update flow. My colleagues who have such resource maybe can help me on this.  I can remove the platform-specific flag entirely and make this the common behavior if that holds.
-
-In this way, I think I need to raise a new series to collect changes among other CSID genN part and VFE framework part. Could I mark it as the dependency as this KNP series? Or functional dependency is enough? Thanks.
-
----
-Best Regards,
-Hangxiang
+-- 
+Ricardo Ribalda
