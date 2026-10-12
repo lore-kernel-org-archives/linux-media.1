@@ -1,87 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0854B446BF8
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECEE443C29
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:27:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789951; cv=none; b=VZRZyFqmb1TbFiRugUol7DdKKSuGOTGxszGmP3Kgz74a0J6XxgUUBeNoVH++R+dleMlrUsyMgapBiC9Q2uLtgKVyIxA/zMM8MdMslqIKlAwsuuKIf8JmPkTcylSTUghduEyGh3qpeJLJAoXiYGrTsXvcDBex4Jbq0Uaz0wtnKHw=
+	t=1791790036; cv=none; b=m3bgdz4vCbKgaF78aapxIoWGiy+abZF0wxBTLh2CzpDKrLzWBZRmSqhLUf1BLQtfvo+MW0R2uYHbzN455YqkxmCmdyDgQN+n4zC2xsEXKblf/Ng0uX85w73TjVGvBLvj1TE1bSR94a9W3YRAhug7u1xCG4dmKa4j9ExFwSqAp+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789951; c=relaxed/simple;
-	bh=2zyEq/VgBCcszsUxIMduV8bFDSXymxQnEYZbjCF+dpM=;
+	s=arc-20240116; t=1791790036; c=relaxed/simple;
+	bh=i4VKammu5buQoQJpeeXuROL/djsewq+/0g1Rk/STEME=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TtMBxKoCVnYTiOrEmELJcijFYMvB+U5bH3Aztoa5fCofRcM7gcRO565v2ZTX9fcYcUBui6Kw+1QiANbzsyn4DrlkhBpNlz+GGmZdVQA3yXrUM94hxMBEYy+qhwP1MNk1ruNZUU+UUACI/6R8fw3aOUhW+yWp5a/+TzguLf2/c30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YN13EJaI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fn6AMDbV; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=llFYdsu6jib4qOqZ5EsvMgBR+GfuHnKV9u14CUZfHzre3krmm2g/kRwuGq27A7KXOu5XnJUCG6T5XiiD89b/KBUNWoFTsJZ+hvo7lZhl9CFP+DsyJbDwZ5u5TjwqvOA+1XAJn/wEoH5v5TGcE0cbCWpYKJBMyZq0waueEXY8dxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bx6cXTta; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PmEgM6wO; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YN13EJaI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fn6AMDbV"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C55ugM4068700
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:25:47 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bx6cXTta";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PmEgM6wO"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C56Aq41002567
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:27:13 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eVrFzhkPhx/K8T47whMXfQOfvS7XMcsmwu6sHgWPleg=; b=YN13EJaIvp73y27D
-	Zh3me5UNfED3vH0Uxz/8SyqWMwoEJj6KnD2XLQoMmAJ5BI4VezkUmO5BwgUDnSXU
-	ANJBjSN+RB8Yjt/0CnOD89TKVnl095sjcE3vpUbsz97Om+pg7Xw6fKMdx8dxlGKY
-	Pycw7YF7B7aFQujH1w17S5dmkPvzIkxwzuP1/U/ca51JOfY0LZnPZKvKjKFyFy2d
-	kmQ2sMYa4cKe+tnspfFXqJ5QFR8g/CmzNjKf6nAH2qXjo/d9xCFOTCzS+s0SIqVf
-	/X9y9LyhPGnV5M8xvpTK+ScWcKNqB/hN0kEY55pQ8OuUwe1Z7aA07RmoDJ2Ra5Cp
-	sWefBQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjnbkn-1
+	C4fyEjrePybpWgh38Es527yBPdJjlebPtKOB1ktyX08=; b=bx6cXTtaP9nm0zq0
+	j8GTzMm0yPWTrSODa0JYEqS6RTFjREX/EAPhxjCh4mMmmgTPrWGYSOT5JJTc3kvc
+	l6stk64/Ysu1Kn6g7CT/AtoXnGbUJYXWNjWO/M1xWXNOXBqpb2D6M9SftbW91oFX
+	fzPT3ff6TmmHnHKZLszsecXzviWbuIgsPrGfJP8TKmGkaVRvjswIlvjB/oC7OIBL
+	sM7zfN9o36xbZbgMzhjH54N8ebZfeTlvPvgYqGPVcUuohP9nWbQlZTUlmC1v18ZJ
+	cUwyVP8ZG5z9NWAiIROd4PFQY98ljsOWrRY1RISe3/1R4DTk+m1v0AI+6lJ17h2a
+	1z1k7Q==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8qtkgt53-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:25:47 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93cb71b1443so354187785a.2
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 00:25:47 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:27:13 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e834ff4d0so489131385a.3
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 00:27:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791789946; x=1792394746; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791790032; x=1792394832; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eVrFzhkPhx/K8T47whMXfQOfvS7XMcsmwu6sHgWPleg=;
-        b=fn6AMDbVjs8D6KIImLZCQS/QigkBG4R6jZ1k6ARKZK34kfGWNZEs/T46uvskRfC/oC
-         yHgG5HnERcqvgLm+U4FNimuf1u4ctAdL4swQEi/qLM1rqLXltfdhz71JDu5ARAnRLm3I
-         XdyiN/HbXwaDmDQbIPGbo+9/xUYH2F7MYmuB8SYLcSwxlvYTcHOGMcmOEPbGrEQKM6rm
-         6g3j8qq8oeBk8Py4K0d+L4OveI2e153ivAJ2NpZQMLetMGKf2pF83bWaYKXviz91/yoI
-         fwm7Q1Tb2r4cXWpIsvmSz8RsPteGJHEzqUUyEJ03IAQbJuIwQYd/k9KYeZkQABm5wMdT
-         IWdQ==
+        bh=C4fyEjrePybpWgh38Es527yBPdJjlebPtKOB1ktyX08=;
+        b=PmEgM6wO5P09DBY4OwhjCm6nRSS/UjEjbnL6UAZMCojlGW0agDRrpGmxDHNPiJRcPK
+         ADaTeJMnbNgQzNz2V2zQ409sE6djO5rpa8GbfE9Ce4/noW/KIJraxm7UtK2PM5Xo+Tmf
+         brVqN7CASuOWWH7MpUZ+MNXXFOttN4toUOxuP25OT9khfrXww2PrQKM8ZhsMOiqg39zI
+         0DY8GA1Fld/krcnJS2KPxqMR1fFd3kz0bnSi/A2kOeejyB07WyZ0ArL+eG9rSjAjRphr
+         ummgdyWPIgKetFi7qqa0OGG7FavyUHaxi4C0BdUadkXYiGuyyO0B354k7/7WkkqMf1i9
+         sP0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791789946; x=1792394746;
+        d=1e100.net; s=20260707; t=1791790032; x=1792394832;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eVrFzhkPhx/K8T47whMXfQOfvS7XMcsmwu6sHgWPleg=;
-        b=Dz9UjFOkrWxwMHk/WEg5ZOKBEhPoqTVr+U35ttcHG2+vaYconkAZZ3mXulp7seFNIB
-         GvnN/rKVS/k2O+/5fxwdIddwonQWFVXHyp0hPABwK5S7XHPJKa+LNwvocIDOHTii8r8S
-         oLpM6C5QwRk8JCUVEqKIdmRvBTz2Qk0y7ZaBk62RzNfKIjhL1VLb96F4y4x/BFv5TlQB
-         7S5uj3BIzUtY+APd79FJEy20MRRhcAm6krlHH0o6SaNCxErycjGwdTSh823Tl7kVKMkz
-         TR1iKM3bh9qPYF8BqOTA0paUVPfBzcVnjwWrPoO1Rkkc2Gw2BIZfYXNFIRXb+1bK7k/E
-         rhXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9kkKseF8HUIiuYzeSUXauVE8GNM+RylvmPLz30UZuQ87y5++z/jTWhk1jmc3OG+jN0WGMAQP7SoFqkQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLq4z6EK/K81oUv//e3Pn8CGeJXli24/zTJgcgQT9whgs5GhAVj
-	riXw/k6kZoEbEXGDOKGG1UwrDYnB+CVxCAPYOLP2eq3TLxfGB4JRPRtp1Uk8eQDOhPDASNxoySY
-	SBuq/eYJ7Gfpwa52FjVkmzbSKpmT6Mm/jSCQ3RvwOV2WZZMDxGCLkQkfIL81SUJyFBA==
-X-Gm-Gg: AYBFou1tZuMJfh5MX8ZtkPg9Q9t0fSG1y1OaSZ6EIuunKJrzc1CxLHCaAXdeMWlXPwb
-	P+8hu5p7M1dabqA9y3xRTDMm7D93Ng7+9yCQ+wokpZSZGEnuNQDi1DQ/ORRMglD7JJtyGB6Z60M
-	PZOBnRlrJ6q68n/f++TAQKsUwoJE1Su5i7eZk+7sfrXTPxjafNrtRzBrFf+3zwpwaskzHsqHBxC
-	m8GkFeqqJUluUgnUXk8TE91+GUZv+OeY2dgevlqxvZ8Dp4Eo/261g4eqjVcuw9E9jq29PQ4HpDZ
-	MS5URPsB5fzsDXojb69QBCnVb2e66yJnTvkbIHtt+NkZGYJPmuw7XvF5MaaW0oZD5zcnJObE+Nr
-	JAy8WusgbeTNWpX/mgY3CGXlv12EyW/DSwW5l7b0=
-X-Received: by 2002:a05:620a:31a7:b0:939:c71d:8d15 with SMTP id af79cd13be357-93ebd229eb4mr1472632685a.14.1791789946176;
-        Mon, 12 Oct 2026 00:25:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:31a7:b0:939:c71d:8d15 with SMTP id af79cd13be357-93ebd229eb4mr1472629785a.14.1791789945613;
-        Mon, 12 Oct 2026 00:25:45 -0700 (PDT)
+        bh=C4fyEjrePybpWgh38Es527yBPdJjlebPtKOB1ktyX08=;
+        b=xWI3QxJwylzuJW8PpF6dcveX807H2JrVEnZvWpGOsJHLrciAJzmpNu2Knu5mv5JeuK
+         aSRjalaUReYYPZOCgiY8LkKjrPo9VyV1cDn0cuOwHMbSWMHpCBR9kLnqZMqs4XwsXHmA
+         b9iMU4IkPCZtZAyL8YZfp8V9youyLrSsJvXG/YnkNqNdJN+nOE/ZliCztYavWbFC0p4T
+         R2F2J9uB8xt+K3aVoayX28FP7jDad5iY930vGjw4T1A+Z+6nXhB7phhfoxOUnhv4whDh
+         ebIV7tPiCGRtPG7ZViRhfzmuyHVgzeN1u7eZ8ohfVuxOUWPTHpX9dw7sEnQSkmnspJEi
+         srEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxw/Vx+ftmvTgtjaNsEYjS+ZxOB8I4GeJh1T/NEL1lES77Rt6M0FyX3q+Di2/YmpxpqZhoVLHmvP6gLYw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0oJCmQg51vFQHYV77jyK0bK1JwS3raWlkKEP2S9GOIKEDoFkU
+	Y5nzFhXuVnzMflyqk1GasIMhfDiVGsMcXjpMvMJoFhoRZoMVE78TmFT+Zl9ShP6QOzELemmoHyZ
+	DU09QeIyZ86YLuy58DGQ6gwOSdnDhr2xUhB6xPV/O0FU6vxhqDBA07TBpk2sSedn9YQ==
+X-Gm-Gg: AYBFou3f4dAmuPjvuYx0/9nssWyPhWXroMO441SWu+I4Nqr6zlYYCLJXiifTzbR7m7T
+	Lu0Vd1tl7GUEvwqJyip3fojETNw6ILRUwNKPsRZLegYilskNT1uZFM8pryZFE8AuQXheKgfFHqp
+	JdlFIqPKNyA4M8JCE3r8FxMWyWLBsoEQaamnelc7xETPLO23/nKovLvhlSpo7mCR65+LCKxPdqb
+	EGSKsY3DR1Cz7pHD66dBpdqtgYhrEcd3k7Cosx0FHxhszoMJHEqNPR0i+5dyaND+IAAzhicTgAV
+	Yg37KaDlGmbVtXgf1JLQn9Mx1iJsaYalbleCIy0SzWmqDi6hRNCgDvsBt3wH93h8NxaSYvYRArZ
+	IYIsw+CdZgfKIl5o3Ok7RWZhMgv4WDF3TpdMOydc=
+X-Received: by 2002:a05:620a:2713:b0:93e:c12c:fbb8 with SMTP id af79cd13be357-93ec12d0844mr1554167285a.69.1791790032502;
+        Mon, 12 Oct 2026 00:27:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:2713:b0:93e:c12c:fbb8 with SMTP id af79cd13be357-93ec12d0844mr1554165685a.69.1791790031953;
+        Mon, 12 Oct 2026 00:27:11 -0700 (PDT)
 Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19f249692sm122840815e9.3.2026.10.12.00.25.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c198134sm267210535e9.15.2026.10.12.00.27.10
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 00:25:44 -0700 (PDT)
-Message-ID: <e8be3176-e2df-482f-ae84-bcab3d2f9fa7@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 10:25:42 +0300
+        Mon, 12 Oct 2026 00:27:11 -0700 (PDT)
+Message-ID: <f2f42426-16b8-41f5-8501-a01a1c33dc01@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 10:27:08 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,137 +89,212 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] media: qcom: camss: add V4L2 subdev streams API
- support
+Subject: Re: [PATCH v3 2/2] media: qcom: camss: Enable the streams API on
+ SC7280
 To: Hitesh Patel <hitesh@ebytelogic.com>
 Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
         Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
         Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
         Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
         Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org, ravi@ebytelogic.com
-References: <20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com>
- <20260915121515.17207-1-hitesh@ebytelogic.com>
+References: <20260915121536.19207-1-hitesh@ebytelogic.com>
+ <20260916065422.819512-1-hitesh@ebytelogic.com>
+ <20260916065422.819512-3-hitesh@ebytelogic.com>
 Content-Language: en-US
 From: "Gjorgji Rosikopulos (Consultant)"
  <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <20260915121515.17207-1-hitesh@ebytelogic.com>
+In-Reply-To: <20260916065422.819512-3-hitesh@ebytelogic.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfXw6i8YJcLlNUy
- 5O3ozBCGSjrtEYFRWIf211D+blb3Bk6kgDcbBsO8kwXCi0/tVwA1k+NQWXdrLth2ibz/p6+FUT+
- QyX3l+aezbR/y0V37PnY6Os1QArKKGi8jXDOmyUobHJw1V/hem23h0h0u1mKk9P134Gto+DJAR1
- 7fhv/brbKf2dRlsVO6BobMCHDFM9uVyvkM9lH/4dE/n6Aox1sTZaXwyibih9X2BoIbtqqEl4rle
- SLsM+Z/NYD0FNe7eaMbZVWt6nZMgtpRKm8Y1HKD5h63g+JPmOdhgYRDFYldQKEPg09/qEKTTCiQ
- kuEq3rPBTFDsMLUMQcBit7Fr31YapRsd2p2G7vKB+4ZHigNp/fwidhezIeC4u/H5X3PSJB+EanZ
- YpzVOsngDvowkjrTzMTXqDdvllUtfkoS9/+MQZSvArp82QYmNYtmasoHQqFRKGPOs9TxB5ylq15
- 4uGxO5hke6hnaSZkwZA==
-X-Proofpoint-ORIG-GUID: 4FD3oxQrrJ73gQqnD48UGcDjRfkO8Rbm
-X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6acc8b7b cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfXygJHBXJbYHIO
+ ARzwklrvYCWFNe6OJEFVTNXczMKe4tcDtUk77xx8xP4S8UB6GHJ+fFv4Ngnhyl6EkPM1zzjPRqu
+ kyoWsGamGcuYjqqboV1IJi/GwrVu+qpkBhWmjhMu7CgopVIkDFCRNCxT77ij9V5lLPlAs8fbDPl
+ wKzZGEXeYOCvlIPBGnIQdPbTQOxuFwVTNXV00AdgabirREHtdO8Me9ltuS+HZ01GnymxE3tr1ka
+ oh1sO994LmHhNbvT75jXLgozy1Cj2AVxIikPh0RjZ9rZ14hIn1vKzXgNiFj8Vr+uPasrhK/eVX1
+ IyNbBzqHgwVFocFiyIMtpyQ9TGYP92L+ToBq1Q+DkVMYIMUCxMMVzi93lR4uTVcDPZJSioDWJpf
+ 3YU+tCbvYoDS+5gl/uyq6l8ZiyAOaSp85tUosQYsf8C2TjTEqH6lsXSbyMFfJpi1FNpqADVO4OH
+ sZjhkZG0D1aF2eWKC+A==
+X-Authority-Analysis: v=2.4 cv=c8U+0h9l c=1 sm=1 tr=0 ts=6acc8bd1 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=ZovgdgjKAAAA:8 a=EEfcIT1LpWLEK3Zwr9YA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=VOxKbm1zgHvARWIDjr3b:22
-X-Proofpoint-GUID: 4FD3oxQrrJ73gQqnD48UGcDjRfkO8Rbm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfX2HFTho359XzA
- YLqeOGWabLkVdsNgFxRv0xWN2wP+rnqt4sFbh5zHeWz+ZtXthyvGwE2jx5TA7dem7R3M7L+DrB5
- Pg8Rs0csja8bVfY+mzJVFJ5iuJusWXc=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ZovgdgjKAAAA:8 a=XLtVEzLVMLZyz3yzeyUA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=VOxKbm1zgHvARWIDjr3b:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfX7MXpSGVIFU+d
+ i2Iiy9yNKFqiN12DisGWzt0F63aQR119dqykLp/fK3oWmrPuOPI7qoRjLDulNYWLHElOL1pCN/1
+ h41PU8z75rrIrvFSK+ASo6TKLhtnh1c=
+X-Proofpoint-ORIG-GUID: cFgGurh3-r52FGUgnzI1g414PjbhXkd7
+X-Proofpoint-GUID: cFgGurh3-r52FGUgnzI1g414PjbhXkd7
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120029
+ phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120029
 
 Hi Hitesh,
 
-Thank you for testing and verifying this—I really appreciate it. 
-I don’t have the SER/DES setup on my side, so I’ll rely on your verification.
-
-On 9/15/2026 3:15 PM, Hitesh Patel wrote:
-> Hi Gjorgji,
-> 
-> I tested this series on RB3 Gen2 (QCS6490 / SC7280) with two GMSL
-> cameras behind a MAX9296A deserializer, one camera per CSI-2 port, so
-> that the deserializer subdev heads two independent camss pipelines.
-> That is the case my own series [1] patches 6-8 tried to handle in
-> camss-video; with your series enabled on SC7280 they are not needed,
-> and I have dropped them from v2 of that series.
-> 
-> Results with streams_enable set on the SC7280 CSIPHY/CSID/VFE
-> resources (patch below):
-> 
-> - each camera alone, repeated start/stop: 5/5 and 5/5
-> - both cameras streaming at the same time: works
-> - the second camera started and stopped 8 times while the first one
->   keeps streaming: 7/8, the first camera never disturbed. The one miss
->   is a sensor/serializer settling issue we see on every kernel when
->   the second camera is started within ~2 s of the first, unrelated to
->   camss.
-> - CSID test pattern generator still works.
-
-Thanks good to hear.
-
-> 
-> One problem found, fixed by the first patch below: with the streams
-> API a non-lite CSID registers 4 pads, but camss_link_entities() still
-> links CSID source pad MSM_CSID_PAD_FIRST_SRC + j to line j of every
-> VFE. On SC7280 the non-lite csid0 is linked to vfe_lite0, which has
-> four lines, so it asks for source pad 4 and the driver fails to probe:
-> 
->   WARNING: drivers/media/mc/mc-entity.c:1150 media_create_pad_link
->   qcom-camss acb3000.isp: Failed to link msm_csid0->msm_vfe3_rdi3 entities: -22
-
-Hmm, i need to check, thank you for catching this.
-
-> 
-> SM8250 does not see it because of csid_vfe_fixed_pairing. You may
-> prefer to fold the guard into patch 4, or keep all MSM_CSID_PADS_NUM
-> pads for the non-lite CSID; either works for me.
-
-Yes i will take a look and verify with other boards i have. Bryan has comment
-for that as well and most probably will be removed in v2 since the 4'th line
-on full IFE will be functional soon.
-
-> 
-> A note on the test tree: the series applies cleanly to next-20260911,
-> but our board runs the qualcomm-linux qcom-next branch (v7.2), whose
-> camss-csiphy.c has a legacy/generic-PHY ops split that yours does not
-> know about. I ported the CSIPHY part by hand there (a second
-> csiphy_streams_v4l2_ops carrying the legacy core ops, and the
-> enable/disable_streams helpers calling csiphy_set_stream_legacy() when
-> csiphy->phy is not available). Worth keeping in mind if this series
-> is meant to land in qcom-next as well.
-> 
-> The three VFE fixes in [1] (buffer done gating, write master
-> selection on 17x, VFE reset with another line streaming) are needed
-> on top of your series too for two RDI lines on one VFE; they are
-> independent and I have kept them in v2.
-
-Maybe they will need small rework afterm stream_api flag is changes
-with list of SoC's which support stream_api.
-
-> 
-> [1] https://lore.kernel.org/linux-media/20260914133416.1030231-1-hitesh@ebytelogic.com/
-> 
-> Tested-by: Hitesh Patel <hitesh@ebytelogic.com>
-> 
-> Hitesh Patel (2):
->   media: qcom: camss: Do not link CSID source pads the CSID does not have
->   media: qcom: camss: Enable the streams API on SC7280
-> 
-> (the two patches follow as replies to this mail)
-
-Thanks i will look at them.
+Thanks i will try to include your changes in my next series,
+it will need verification from your side as well.
 
 ~Gjorgji
 
-
+On 9/16/2026 9:54 AM, Hitesh Patel wrote:
+> Set streams_enable on every CSIPHY, CSID and VFE line of SC7280, as
+> done for SM8250.
+> 
+> Tested on RB3 Gen2 (QCS6490) with two GMSL cameras behind a MAX9296A
+> deserializer, one camera per CSI-2 port, so two independent pipelines
+> share the deserializer subdev: both cameras stream concurrently, and
+> each can be started and stopped repeatedly while the other keeps
+> streaming, without the WARN in call_s_stream() and without the second
+> pipeline tearing the first one down that the legacy s_stream path
+> produces. The CSID test pattern generator keeps working.
+> 
+> This patch applies on top of Gjorgji Rosikopulos' series "media: qcom:
+> camss: add V4L2 subdev streams API support" (see Link below); it does
+> not build without it.
+> 
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+> Link: https://lore.kernel.org/r/20260911062213.195007-1-gjorgji.rosikopulos@oss.qualcomm.com
+> ---
+> v3: no code change. Reference the prerequisite series with a Link: tag
+>     instead of a long URL in the text (checkpatch line-length warning).
+> v2: no code change. Add the dependency to the commit message and as
+>     base-commit/prerequisite-patch-id trailers, so patchwork and the
+>     Media CI do not try to build the patches standalone.
+> 
+>  drivers/media/platform/qcom/camss/camss.c | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index 0201debd4..2023c0df2 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -2280,6 +2280,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+>  		.reg = { "csiphy0" },
+>  		.interrupt = { "csiphy0" },
+>  		.csiphy = {
+> +			.streams_enable = true,
+>  			.id = 0,
+>  			.hw_ops = &csiphy_ops_3ph_1_0,
+>  			.formats = &csiphy_formats_sdm845,
+> @@ -2298,6 +2299,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+>  		.reg = { "csiphy1" },
+>  		.interrupt = { "csiphy1" },
+>  		.csiphy = {
+> +			.streams_enable = true,
+>  			.id = 1,
+>  			.hw_ops = &csiphy_ops_3ph_1_0,
+>  			.formats = &csiphy_formats_sdm845,
+> @@ -2316,6 +2318,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+>  		.reg = { "csiphy2" },
+>  		.interrupt = { "csiphy2" },
+>  		.csiphy = {
+> +			.streams_enable = true,
+>  			.id = 2,
+>  			.hw_ops = &csiphy_ops_3ph_1_0,
+>  			.formats = &csiphy_formats_sdm845,
+> @@ -2334,6 +2337,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+>  		.reg = { "csiphy3" },
+>  		.interrupt = { "csiphy3" },
+>  		.csiphy = {
+> +			.streams_enable = true,
+>  			.id = 3,
+>  			.hw_ops = &csiphy_ops_3ph_1_0,
+>  			.formats = &csiphy_formats_sdm845,
+> @@ -2352,6 +2356,7 @@ static const struct camss_subdev_resources csiphy_res_7280[] = {
+>  		.reg = { "csiphy4" },
+>  		.interrupt = { "csiphy4" },
+>  		.csiphy = {
+> +			.streams_enable = true,
+>  			.id = 4,
+>  			.hw_ops = &csiphy_ops_3ph_1_0,
+>  			.formats = &csiphy_formats_sdm845,
+> @@ -2373,6 +2378,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+>  		.reg = { "csid0" },
+>  		.interrupt = { "csid0" },
+>  		.csid = {
+> +			.streams_enable = true,
+>  			.is_lite = false,
+>  			.hw_ops = &csid_ops_gen2,
+>  			.parent_dev_ops = &vfe_parent_dev_ops,
+> @@ -2392,6 +2398,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+>  		.reg = { "csid1" },
+>  		.interrupt = { "csid1" },
+>  		.csid = {
+> +			.streams_enable = true,
+>  			.is_lite = false,
+>  			.hw_ops = &csid_ops_gen2,
+>  			.parent_dev_ops = &vfe_parent_dev_ops,
+> @@ -2411,6 +2418,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+>  		.reg = { "csid2" },
+>  		.interrupt = { "csid2" },
+>  		.csid = {
+> +			.streams_enable = true,
+>  			.is_lite = false,
+>  			.hw_ops = &csid_ops_gen2,
+>  			.parent_dev_ops = &vfe_parent_dev_ops,
+> @@ -2430,6 +2438,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+>  		.reg = { "csid_lite0" },
+>  		.interrupt = { "csid_lite0" },
+>  		.csid = {
+> +			.streams_enable = true,
+>  			.is_lite = true,
+>  			.hw_ops = &csid_ops_gen2,
+>  			.parent_dev_ops = &vfe_parent_dev_ops,
+> @@ -2449,6 +2458,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
+>  		.reg = { "csid_lite1" },
+>  		.interrupt = { "csid_lite1" },
+>  		.csid = {
+> +			.streams_enable = true,
+>  			.is_lite = true,
+>  			.hw_ops = &csid_ops_gen2,
+>  			.parent_dev_ops = &vfe_parent_dev_ops,
+> @@ -2475,6 +2485,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+>  		.reg = { "vfe0" },
+>  		.interrupt = { "vfe0" },
+>  		.vfe = {
+> +			.streams_enable = true,
+>  			.line_num = 3,
+>  			.is_lite = false,
+>  			.has_pd = true,
+> @@ -2501,6 +2512,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+>  		.reg = { "vfe1" },
+>  		.interrupt = { "vfe1" },
+>  		.vfe = {
+> +			.streams_enable = true,
+>  			.line_num = 3,
+>  			.is_lite = false,
+>  			.has_pd = true,
+> @@ -2527,6 +2539,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+>  		.reg = { "vfe2" },
+>  		.interrupt = { "vfe2" },
+>  		.vfe = {
+> +			.streams_enable = true,
+>  			.line_num = 3,
+>  			.is_lite = false,
+>  			.hw_ops = &vfe_ops_170,
+> @@ -2551,6 +2564,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+>  		.reg = { "vfe_lite0" },
+>  		.interrupt = { "vfe_lite0" },
+>  		.vfe = {
+> +			.streams_enable = true,
+>  			.line_num = 4,
+>  			.is_lite = true,
+>  			.hw_ops = &vfe_ops_170,
+> @@ -2573,6 +2587,7 @@ static const struct camss_subdev_resources vfe_res_7280[] = {
+>  		.reg = { "vfe_lite1" },
+>  		.interrupt = { "vfe_lite1" },
+>  		.vfe = {
+> +			.streams_enable = true,
+>  			.line_num = 4,
+>  			.is_lite = true,
+>  			.hw_ops = &vfe_ops_170,
 
