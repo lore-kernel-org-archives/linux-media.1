@@ -1,245 +1,199 @@
-Received: from smtpo49.interia.pl (smtpo49.interia.pl [217.74.67.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011017.outbound.protection.outlook.com [52.101.62.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B04446820
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.74.67.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791790241; cv=none; b=UWXM/aWuxbPzxcjEyCBPQpSv0YrabtHhRdZzuLS9T89VIo/DNfbQC/H8Ei2zX6t3VIyVSSpozkYh0zJr2LiBLZHqYMZdIFdTpm2ZkjHdquI72OsFZ8BDCJ5soqx4cOF25AupkSCyiQ97pFE1AgLOY47+lRCId3WBVQxE84FRzWc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791790241; c=relaxed/simple;
-	bh=nefdXpyTjpgAvnb5sYYxsz/H3+G6J8C5YdjJn6IFld8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NIlV17yv07G/EIjKufui7+6cJkvvbpNfZSeE6PjW3tEDB7lczeifLakGTmnqjZYgffH8rfF2SkmOryGtsnf+nGMHPcNWnc8ncrHPsOyAY8TgjPrV36e2EggCnOl/eTssKhHjj04PcZHOk758yFgc88dyKTVCkLScglp3EUC8Hj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm; spf=pass smtp.mailfrom=poczta.fm; dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b=o4ZE3/0s; arc=none smtp.client-ip=217.74.67.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 103503603DD;
+	Mon, 12 Oct 2026 07:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791791186; cv=fail; b=gPEtUiXbORhe/4IHyTlFK6Ns71mTh4Aw8XwJ0lcd6hfBEs7NbCUMXze1TqO+MnYZ42Z3DX3uMtigF/PYjnZUDR5JtCZG1joI7+KrHqRFwFahA3E6FXGqYQeG42le/900RV6nmc8RUNCapysVZaJ1znyWjshlOkOrIEkmczR5AkM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791791186; c=relaxed/simple;
+	bh=EPSyc2lrJXc8YoIxIPaxlkTJcxEMUZjFYnvnuE6zAE0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ksKAQzaEKbW/fzzBPqZ9ddlikEYnu4tuGLf5aNa0qCGD92++DsRn9qDpnaCTw4ZvjnulVPI7/0h13pJBuc7e4Vna6IjfxqgVfaMK0KKGWL7apEVfIsIjwBb8/27RvOS/Jszfh3dyy3IHgi9yjzlIM6b7L/U17xU79qrPvoZvpPU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rUzwqx/x; arc=fail smtp.client-ip=52.101.62.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=poczta.fm header.i=@poczta.fm header.b="o4ZE3/0s"
-Received: from nr200 (unknown [80.68.231.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Mon, 12 Oct 2026 09:30:27 +0200 (CEST)
-Date: Mon, 12 Oct 2026 09:30:24 +0200
-From: Slawomir Stepien <sst@poczta.fm>
-To: Mirza Ishan Beg <seedandsyntax@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	syzbot+6102f1c3a0ea8073fd64@syzkaller.appspotmail.com
-Subject: Re: [PATCH] media: dvb-core: fix OOB read in
- dtv_property_process_get()
-Message-ID: <asyMkMz-T1LvvrFi@nr200>
-References: <20261009142303.166373-1-seedandsyntax@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rUzwqx/x"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=t0iNK6CUd16Xjz6OeBqMFxXqzbOsBZlVuRk+pSE3RfTDVkIkmb9GM/zaBK1tcNneY5MEAwPaAf5OeAy6pKKqQj0Sd231mRDI2KW/wv8FLVeZ1zWt8SxpXFX2Zj9eAyRvZz16ySPAXcpyiLg7OyhDVKtaz5KH9bILrM2Tx4ZfHkqbRMcQ/IztUnv/sFLMr92PG2bjauZYfI0g+saAwzyB5joLWst2nVAWujjXoRIEeDj35UXkgFp5btaALiwZk5MPnbLlMprDLAMlL/ZHHmPHJ4iTHBL9wGKP4E+SYewnPsf99EOdkAIQnyjaPE2uLKFhSPqIYldZ6EzFO6+LSB1D4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jvxbsG4Ah6ys6s8c0sfOCtK93SEUbedeGFP+sxzHJv0=;
+ b=IumADnIV2hMft/L9JAtPRZCb1VqtaBrtXI5B/4u3LFcHoqJclN9omOtMN3xf0D2xr3rwJtn8IqdC86MX6+kf7gDMwbdblSC+sTS17aHCNxkQU7l4j3NTj/hKOU0/aDz7waWTBipJGuxT/rZjymndw9Od2FAzWyTLoG1D/8hnzyBeZtDhaUQQPXUTaiJecEcS8IJ+C9ltd+UgFV3m9svDmgSPtBlRvrOa98S2GVBhrp72HnhgpA2vZplYl2wvHQXSO4o9CZ5aMlVP1k2GHb0FHRgq67A7c9iAgnGHDIykJVuhzZ3l4ygnyfuNi+dFfde+ziIF8PpIj+JATzD/L22csw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jvxbsG4Ah6ys6s8c0sfOCtK93SEUbedeGFP+sxzHJv0=;
+ b=rUzwqx/xic2ZiLHcTjf5CW73B//g1ngk+3swDwBabIVzX3CqBzxPHlI4/Talnnl0iJSN43t0G4TYWL73PcBbmhxbr5P4Bqk1IBfq3iKijCAKpxKwjXkMxbCEZE4srS9QC4SfvDpw9a51ZGSJINzwLcIUIgHL38i/OBX/WHR2In4=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB9164.namprd12.prod.outlook.com (2603:10b6:a03:556::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.20; Mon, 12 Oct
+ 2026 07:45:50 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 07:45:50 +0000
+Message-ID: <49d4f34d-6d27-4a70-88ad-a5e939eef084@amd.com>
+Date: Mon, 12 Oct 2026 09:45:45 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] drm/syncobj: fix fence and syncobj leak in
+ drm_syncobj_import_sync_file_fence
+To: Julian Orth <ju.orth@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20261010180711.1548333-1-ju.orth@gmail.com>
+ <20261010180711.1548333-2-ju.orth@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261010180711.1548333-2-ju.orth@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0110.namprd13.prod.outlook.com
+ (2603:10b6:208:2b9::25) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261009142303.166373-1-seedandsyntax@gmail.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1791790229; bh=OwsW1spIcVxZgAlzlVYhVWpbAMGWXja9Bxwr2TdjnAU=;
-	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	b=o4ZE3/0sj9UOzP5d0EM5Aukeq+epTK7fTbzbGi8F1b6iStX7bDlvHK+wrS6nQEStT
-	 5N6KCEqPR/wvb7AC9+pyi0A6LPylmSGiLRId0HYn79fLh4tcTZAw99sNOQctQDluYR
-	 K67OVInu9Bl9TgJa7X7UnDsSUkJRfNNxrMw5OBqY=
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB9164:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f076a09-172d-492b-112c-08df2834d60b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|10067099003|261009221227099003|261009223027099003|4143699003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	0OD9uSfJIy21P83+UpYidQ/4gzSvNN8C0oYTowr9vX87DxV1bvhBdGMwJhYsaFEk1vhmYYih93P8X+emBHGxA3/q2loGFP64ENthTZaq+onRMoiaIdOj96J3xD6Y4RbCzVw4Xb45/63psNfLfj4kZ7cKQZeZqaFrmvIduhIcflRtz+ZQ7eMaqTSYV7wcxvSbgw27d+vSXLV48+P+XJO+RgM4IKsll5UKwfblmDTxA77nEv+HsKymGuuCBd34iOLzP7DCPlXvpu8MM8SRYwprP0msZTRP3Qewzg9Ih+fvzCw7qvqzUKE+bdM4IIa4Ra2HOZwiJ0sI1dmpdPSDJfwHPRCqJ2bi77Mi3BI34GujZ5PQ1sfpjTZib2FhwbL3kxmU0jDlrwAWhTlyvJ5dhslbs6YzJ3oMczEzoLKuUOFMqIYbGLukA0NBu8W5lJ1uYrhvDE1fv0Y6bic4NUmO4DsR7qYS7lLLpsnWi/IFD0njZdwmXgWWDMzQdV3p3j/sP0coxtI7V1izLbC+eReerGXS29HfQlU8T/mhZF7tnkhQp1mxcOcFr0uIYNVxSnwdGm1AQ4td4T2FBtj/cwXYtr56GGgED+g8LtqYq+pisk1Id+IaKUbYDMw6hNKEyN8kt96giYAzMGGPCwCfT4KU+mEdANAd9LTDIYmt9brk3TzyJM4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(10067099003)(261009221227099003)(261009223027099003)(4143699003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NzlEZzVuUmJYL1J4a3M0SmZ5TGQwUWdGUUJaZFB0NVBDcEtnMEJ4ZDhTN2t0?=
+ =?utf-8?B?VUE3NE8rVU9zb2Ztc1RxNmxxQnhiMHgxT0NiVm9PNUIrdG9sT2RuREdqK1NS?=
+ =?utf-8?B?NnVZL2wzejQ2Ulo1TzNGODlGS05mL0xISXQ2VFpKSUZpL1EyZFpKYWZON28w?=
+ =?utf-8?B?THFoVEovMW9yS0NQcGkwcFU1cjQvdlRIYXZreWVXb0RobWZ1UE5kbUNhM1R4?=
+ =?utf-8?B?V29CUVhoNC9ta0d2SnVjL2F5bzY0aDhNNElPejRHb3RpNTVYMlk4aW5SK0lH?=
+ =?utf-8?B?N3ppU2ZrcEwwdURZVnpQcG9WSElrMHVUMkd6VXVaN0Y3Kys1QnJnVzBOWUZp?=
+ =?utf-8?B?S3FWb0FLdkRsMmlwSXAvQXcxZ3BQemlHbjd0TkY1Mnl3RHhrb0JIU2pJamdS?=
+ =?utf-8?B?RWdPNGp3ZGI0aHVQTFliT0QzK0JWc2dQZ3Y3b09sSXZpcnJseXJiYk15NUgw?=
+ =?utf-8?B?LzRnbmNpRTR0NC9ubWJDckpwMzl2VE5DZG53cFROL2g3U0N0TGQ0cmJUblVE?=
+ =?utf-8?B?MXIrR2ZrdXY4MGtjRnkyYnJKNkdjZHBkMkRSVzNLMElPY1V2d0xsb0ZIa3FW?=
+ =?utf-8?B?NUZpdXJjbHFZR0ZLeWxwcVV5MXlUT3FFQTlGWlljMjM4a1MxMXBWOU9VVTM1?=
+ =?utf-8?B?WDZpSlhZMDJUYzhMNjhSRWdpVmtoZ0c3WFR0U085RkgybVoveitiVFJTcDBR?=
+ =?utf-8?B?UVlGb3dhSmd6SVJJNnVEL00vTmVHWDU2M2EwclVTSlFXTVJia3FNK0Z0ZEg5?=
+ =?utf-8?B?SjIrS0hpc0RpSFI3Q1VtU2xrNDJFV2lqRURubFZpU0hFOExHMjRrZnQ0bits?=
+ =?utf-8?B?TTdoZkdISFkraWFVWjlXdUIwYmR6c2gwQmxlK0wyUWt5aVNFSDZLMmZiL0dB?=
+ =?utf-8?B?cEpVRHZmRlFwV1JYMHZkN2hpTW5zT296bjJZYW84NkhOVzB2QUVkcDBraXZM?=
+ =?utf-8?B?dDlRWitDMTU1QW5yZzZIQlRYbVRyTWRTUVVPWTU0MEJ3TFpFQ0hkaERrQnoz?=
+ =?utf-8?B?U0dHblNsTlMxMDBVYzc2cmtTMHN4SjZsRjNSS3U1V2Z2WTdLYjFjS0dOODVi?=
+ =?utf-8?B?Qm55QUxpR1A3VUxUbWNaYWtiU0cvQVhTT3hoMU1keHFoMHFOOWd0SndVclAw?=
+ =?utf-8?B?TFl3RzNCdTdMbjYwRVBaQTBMMkNpQzhNajgzeXZReFd0SVdaZzdQM3Q2WmZw?=
+ =?utf-8?B?bnYrSVRHRzJKdHZLR1RIcG5hWW1Hc0xUeTlOVkpwRmt4ZHBUL05TS0E2RE92?=
+ =?utf-8?B?dDJ3REc2UEgxcmxoL21QM2J0OXJMb3RzQWhTVkVVMkErKy95NDkwZXprMWEy?=
+ =?utf-8?B?cXBOS2h3a3o2a21WY0N2TTRqaksrS3I3WldoWFh5NW9lUEhxQmJrVTAwRVBi?=
+ =?utf-8?B?UlNkaHNtb1JuR1crWUlYd1RVTElmS3IrR2xWM2VsSmZ2bTJUNjlXZWtNcUgy?=
+ =?utf-8?B?UnJDWCtCUjdzMU1idDBwVkVxdCtqUHg1R3Y3TjVkMXJDYXFKQnhwOHZsSUN5?=
+ =?utf-8?B?WGI2cW5Kc056SGhEWTRmbVdabUk2L2NNSmZZNjBRbVo1SU5sN1dwTGVkZHNh?=
+ =?utf-8?B?aWNDRy9KRHp0NTBZQlJqUXM4OFRhc1BNSDc2MEJPR0JmM0Z2alpHNm1EUTRj?=
+ =?utf-8?B?aEZNY3kyRWw0OG15SHNod2hVRXZwNlVSU3BXU0hVSFZtemh1aHZTZllYandn?=
+ =?utf-8?B?emdpVnlaV3ozcGhIN1o0YkFjVUlQUVRLVUE4bW80d0doR0k0d25mOFZWSzg0?=
+ =?utf-8?B?QUpGdjBWaXZ3RDhKbFR0WjhnVkJpWUpZNlEwZ1IxaEk0QnMvdG8vWFlGK0pq?=
+ =?utf-8?B?U29MbWRFdjcvQ2lteWo1R3lkUG5DQ1JMK0FOaG5kd2xkZU5GVS9MTVRKbzhF?=
+ =?utf-8?B?dDBUNmxtcFZCV0N5UnozdnNHNnVpcnNsTDdqTFZBVjdoTXJoK3JZaEp2SCs3?=
+ =?utf-8?B?RWtPQlk5b0tXZEFXTUVVeFNIVTcwVXJSMjhCM2tvdW5uTnB6SFZiaytNTDds?=
+ =?utf-8?B?d0krU0lwZXgyR1RTdzJlQ2h1K0RDTW52V0xieTYydVlEYVdFRGJzd2ZkRzFV?=
+ =?utf-8?B?NFhPYWZGcmVYd0M4ckhZUGhsbHdpTFc5YUxVS1hORzBGdEpsNmJlQ1JGOHZY?=
+ =?utf-8?B?MnNDc1pWSFhVN1dtb2J1bWJXZi9TZVIyMG15YVJFZm1uOXNlbzg1c1RnMXJx?=
+ =?utf-8?B?NWxBb1g3UDN3Smdsc3VrTW14RGljSVNLNWl3WmpsS3lmUnhHRXlCbUMxRlJo?=
+ =?utf-8?B?UVZsaUMyLzVBUm8vcEt2V1JRVjdZNExPS1gwRVV2TEN4a3hxcGNZWE1kaDhn?=
+ =?utf-8?Q?1TpaEWKGmJMd5aLF5Z?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f076a09-172d-492b-112c-08df2834d60b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 07:45:50.6254
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jV67xmw12HnQribCEsLpSqAaWIITKReH8C4dhiqniZnm9kcijz33Im2wQ0CLR6ae
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9164
 
-Hi
 
-On paź 09, 2026 19:53, Mirza Ishan Beg wrote:
-> dtv_property_process_get() switches on 'tvp->cmd' and, in each case,
-> writes a different member of the union 'u' in struct dtv_property.
-> 'u.data' carries the scalar commands, while u.st carries the
-> 'DTV_STAT_*' commands, and u.buffer only DTV_ENUM_DELSYS.
-> 
-> After the switch, a single shared dev_dbg() reads 'u.buffer.len'
-> and 'u.buffer.data' via %*ph, regardless of which member the case
-> wrote.
-> 
-> struct 'dtv_property' is 76 bytes and union 'u' begins at offset 16:
-> 
->     u.data      : 4 bytes at 16
->     u.st        : 37 bytes at 16
->     u.buffer    : 56 bytes at 16 ('data[32]' at 16-47, 'len' at 48-51)
-> 
-> For commands that only write 'u.data', 'u.buffer.len' is never set by
-> the kernel and keeps whatever userspace supplied to FE_GET_PROPERTY,
-> because dvb_get_property() copies the array in with
-> memdup_array_user() and does not clear the union. A large value (the
-> reproducer uses 1163001896) makes vsprintf() emit "field width ...
-> out of range" and hex_string() clamp the length to 64 bytes. The
-> read starts at 'u.buffer.data', offset 16, so 64 bytes reach offset 80
-> and KASAN reports a slab-out-of-bounds read past the 76-byte object.
-> 
-> The DTV_STAT_* cases hit the same shared print. 'u.buffer.len' overlaps
-> 'u.st.stat[3].uvalue', so the debug output is meaningless even when the
-> read stays in bounds. The same applies to the clamp added by
-> 60f0618d157b, which writes to 'u.buffer.len' and therefore into the
-> just-written stats payload.
-> 
-> Fix by storing the point of writing which union member each case
-> populated, and by branching the final dev_dbg() on that stored point.
-> Add a local enum 'dtv_get_shape' with values 'SHAPE_DATA', 'SHAPE_ST'
-> and 'SHAPE_BUFFER', initialised to 'SHAPE_DATA' and set in the
-> 'DTV_ENUM_DELSYS' and 'DTV_STAT_*' cases. The final print then reads only
-> the member the case actually wrote, and every branch stays inside the
-> 76-byte object. The clamp and the now-unused 'len' variable are removed.
-> 
-> Fixes: 60f0618d157b ("media: dvb-core: frontend: make GET/SET safer")
-> Suggested-by: Slawomir Stepien <sst@poczta.fm>
-> Reported-by: syzbot+6102f1c3a0ea8073fd64@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=6102f1c3a0ea8073fd64
-> Link: https://lore.kernel.org/all/2a5ea27d-445e-4ffe-9447-9d7bfccd4a36@mail.kernel.org/
-> Signed-off-by: Mirza Ishan Beg <seedandsyntax@gmail.com>
 
-Tested-by: Slawomir Stepien <sst@poczta.fm>
-Reviewed-by: Slawomir Stepien <sst@poczta.fm>
-
-Thanks for adding me! I think this patch is better than the v2 generated by syzkaller.
-
+On 10/10/26 20:07, Julian Orth wrote:
+> If dma_fence_chain_alloc() fails, the function returns -ENOMEM without
+> dropping the references to the imported fence and the syncobj.
+> 
+> Fixes: c2d3a7300695 ("drm/syncobj: Extend EXPORT_SYNC_FILE for timeline syncobjs")
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Julian Orth <ju.orth@gmail.com>
 > ---
->  drivers/media/dvb-core/dvb_frontend.c | 73 ++++++++++++++-------------
->  1 file changed, 38 insertions(+), 35 deletions(-)
+>  drivers/gpu/drm/drm_syncobj.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-> index 0286da57f..f4b599a1a 100644
-> --- a/drivers/media/dvb-core/dvb_frontend.c
-> +++ b/drivers/media/dvb-core/dvb_frontend.c
-> @@ -1342,13 +1342,19 @@ static int dtv_get_frontend(struct dvb_frontend *fe,
->  static int dvb_frontend_handle_ioctl(struct file *file,
->  				     unsigned int cmd, void *parg);
->  
-> +enum dtv_get_shape {
-> +	SHAPE_DATA,
-> +	SHAPE_ST,
-> +	SHAPE_BUFFER,
-> +};
-> +
->  static int dtv_property_process_get(struct dvb_frontend *fe,
->  				    const struct dtv_frontend_properties *c,
->  				    struct dtv_property *tvp,
->  				    struct file *file)
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index c23a5de27..5ca5163d0 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -730,6 +730,7 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
 >  {
-> +	enum dtv_get_shape shape = SHAPE_DATA;
->  	int ncaps;
-> -	unsigned int len = 1;
+>  	struct dma_fence *fence = sync_file_get_fence(fd);
+>  	struct drm_syncobj *syncobj;
+> +	int ret = 0;
+
+Please don't initialize return values on declaration that is often considered bad coding style.
+
 >  
->  	switch (tvp->cmd) {
->  	case DTV_ENUM_DELSYS:
-> @@ -1358,7 +1364,7 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
->  			ncaps++;
->  		}
->  		tvp->u.buffer.len = ncaps;
-> -		len = ncaps;
-> +		shape = SHAPE_BUFFER;
->  		break;
->  	case DTV_FREQUENCY:
->  		tvp->u.data = c->frequency;
-> @@ -1536,51 +1542,35 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
->  	/* Fill quality measures */
->  	case DTV_STAT_SIGNAL_STRENGTH:
->  		tvp->u.st = c->strength;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	case DTV_STAT_CNR:
->  		tvp->u.st = c->cnr;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	case DTV_STAT_PRE_ERROR_BIT_COUNT:
->  		tvp->u.st = c->pre_bit_error;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	case DTV_STAT_PRE_TOTAL_BIT_COUNT:
->  		tvp->u.st = c->pre_bit_count;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	case DTV_STAT_POST_ERROR_BIT_COUNT:
->  		tvp->u.st = c->post_bit_error;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	case DTV_STAT_POST_TOTAL_BIT_COUNT:
->  		tvp->u.st = c->post_bit_count;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	case DTV_STAT_ERROR_BLOCK_COUNT:
->  		tvp->u.st = c->block_error;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	case DTV_STAT_TOTAL_BLOCK_COUNT:
->  		tvp->u.st = c->block_count;
-> -		if (tvp->u.buffer.len > MAX_DTV_STATS * sizeof(u32))
-> -			tvp->u.buffer.len = MAX_DTV_STATS * sizeof(u32);
-> -		len = tvp->u.buffer.len;
-> +		shape = SHAPE_ST;
->  		break;
->  	default:
->  		dev_dbg(fe->dvb->device,
-> @@ -1588,15 +1578,28 @@ static int dtv_property_process_get(struct dvb_frontend *fe,
->  			__func__, tvp->cmd);
+>  	if (!fence)
 >  		return -EINVAL;
+> @@ -743,17 +744,20 @@ static int drm_syncobj_import_sync_file_fence(struct drm_file *file_private,
+>  	if (point) {
+
+>  		struct dma_fence_chain *chain = dma_fence_chain_alloc();
+>  
+> -		if (!chain)
+> -			return -ENOMEM;
+> +		if (!chain) {
+> +			ret = -ENOMEM;
+> +			goto out;
+> +		}
+>  
+>  		drm_syncobj_add_point(syncobj, chain, fence, point);
+
+Allocation and adding the point is intentionally separated so that dma_fence_chain_alloc() can be called before looking up the syncobj or previous fence.
+
+I suggest to make use of that.
+
+Regards,
+Christian.
+
+>  	} else {
+>  		drm_syncobj_replace_fence(syncobj, fence);
 >  	}
-> -
-> -	if (len < 1)
-> -		len = 1;
-> -
-> -	dev_dbg(fe->dvb->device,
-> -		"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
-> -		__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
-> -		tvp->u.buffer.len, tvp->u.buffer.len, tvp->u.buffer.data);
-> -
-> +	switch (shape) {
-> +	case SHAPE_BUFFER:
-> +		dev_dbg(fe->dvb->device,
-> +			"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
-> +			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
-> +			tvp->u.buffer.len, tvp->u.buffer.len,
-> +			tvp->u.buffer.data);
-> +		break;
-> +	case SHAPE_ST:
-> +		dev_dbg(fe->dvb->device,
-> +			"%s: GET cmd 0x%08x (%s) len %d: %*ph\n",
-> +			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
-> +			tvp->u.st.len, (int)sizeof(tvp->u.st),
-> +			&tvp->u.st);
-> +		break;
-> +	case SHAPE_DATA:
-> +		dev_dbg(fe->dvb->device,
-> +			"%s: GET cmd 0x%08x (%s) = 0x%08x\n",
-> +			__func__, tvp->cmd, dtv_cmd_name(tvp->cmd),
-> +			tvp->u.data);
-> +		break;
-> +	}
->  	return 0;
+>  
+> +out:
+>  	dma_fence_put(fence);
+>  	drm_syncobj_put(syncobj);
+> -	return 0;
+> +	return ret;
 >  }
 >  
+>  static int drm_syncobj_export_sync_file(struct drm_file *file_private,
 
--- 
-Slawomir Stepien
