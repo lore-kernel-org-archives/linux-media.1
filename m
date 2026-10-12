@@ -1,100 +1,162 @@
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1400919D07E
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1C4B405F
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:57:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791822334; cv=none; b=WR+mrHUaMzuMPmu9yie+fuyegntTyrdJ17QGaAdE1y8Co+4V3+7P9CwjUhVUMXwEelumXL44K+EHqInBF8HZM7rWDsm/jTFxMER77gTmJokBP8bl59f8DtcFWf6IQLUnSQMBWUQmNczscCIURlN/cPUCb57BZN7Brol7HS9ur8w=
+	t=1791824282; cv=none; b=KC8/jPg5qN8LLWHvD17+o7ZElpZNvbc4HrvtQqdzK8e1qh1NwcJ023waXyt/hMH5xcQLdSmz6qeX8kZnH0zeFR1EjEI0jy2Ch13RVLX3g8ivIAEYd9zk0JSD9PSU9ePthMlJBlzEqDVqu8D2l27hT1nm2UJS8DCuHtUonDVYXzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791822334; c=relaxed/simple;
-	bh=pOL139YSGSBhxrg6OYdc84Mp53cxmG4PuuXyHGtCwLc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u5ItuCZ7GH9kFXbAaekJPRf36oUrZJcZ3FJ2SVwCt58WrkONCXunHerG6jDRxduNR485WNMJoAjl09/Ue2YxH0GQfiRSXJJ9dqrPxJ4YWDzUHdh82R/BeNPm78Lchf3/3JhOV9ZvcvxOzePMl/AiSW5em6iXwEvq7Q8LGiM3t00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=w5Y6fXaa; arc=none smtp.client-ip=209.85.219.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	s=arc-20240116; t=1791824282; c=relaxed/simple;
+	bh=jCrJHhg9LmoI7hpxLeknAoCWjFflwD4GcffxqEOx+x8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hsXOH/MbWzmjYmkU9U1ppKsCt3luJLZpQ/W8QoMut/F0qPKz0vfVCVEG0MSmxagnbsiVscNsWvUPXfIgFfuJFqzRLhoLmW4vk8a1YrdeKMzz3VmMfy8V8AErFe1ICaATucncVyzvCu2GH+j31T+d12QErAmD/lvZPkdJbf900KY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n7nzLGjr; arc=none smtp.client-ip=74.125.227.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="w5Y6fXaa"
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917a9f42283so24776856d6.0
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:25:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n7nzLGjr"
+Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2e831901331so15071065ad.1
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:57:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791822332; x=1792427132; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791824276; x=1792429076; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pOL139YSGSBhxrg6OYdc84Mp53cxmG4PuuXyHGtCwLc=;
-        b=w5Y6fXaa0UzM5PJUoxjjNU58kOaOSh7lfM6lGAXrDCliWuctBRyj9GTflFiSqvMhCv
-         tpx3ho7BrdG6qdLEU+QNloaOYPMuFfojWURAXqN7ecfO2ZOdQpg+BH/ZTQQZ+jBA0jAM
-         ACz1rKkiepVTZBUuc+N+OZLTQjRzO8xq8Ht+7dPaaGGQDPTDwJEF+AL0Rnc0Z8rfs+UE
-         ijouBvavCWeQ8GgZk+pbx9S/oKd4v3NSvmLE3piiHhAqIbAB57SXEIP7sUryISl12L2S
-         zdL5mwnJ1QRkqUCpQwMZu6AdRVA1xMFiLHoYulaVAZv5w9thabb2YDPb4Uku+PMEM8TO
-         mgNQ==
+        bh=lk3jyk+L25op/gK9ZsPi7IfvbejvW+IuaDGcTZaRnIE=;
+        b=n7nzLGjr0vi3iGJrn3PYjtRXP1XDVcaHTCsmZ78sppuyb0NJxCIh6daMJ07t8bPUSc
+         wVTr1p6r19yo6LrzbFaiMu5uP+P11/zoW7ldVBNCzspn0Yy4rrVWuS6qg95JnUBxDA6u
+         bQUiTt/BiOAKLzChwveHcWtvMox8QCJ23WUApozwGSMrZoC72VwAU/QQVCt4t1luncho
+         Ku8y2mNq0ZQyzZVZZOAXIAsaPq7HGXVzLhanZU5HdBNPQ3WNv69WjAfobctAWRTJrJjk
+         0UdL5RhO706ecw8NBJ40noo48dCZFL8PdgMN7Q0JUjmsWXfwd9vuLhnBcIDlitYFD9CS
+         LZ5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791822332; x=1792427132;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1791824276; x=1792429076;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pOL139YSGSBhxrg6OYdc84Mp53cxmG4PuuXyHGtCwLc=;
-        b=ORa2cfxBwVOTqoBEATUpCcNAu7fptHIAbUgDBtKC+rqBXkvIbJMFXeAMcWmnQlG3Zz
-         NAj4F5LOJ4/aN1YtBRfxaQblPKYfMzXmyq6EO5LuWTQGRs8AZ/iA4i2E9y6TcCDDwnii
-         pIV8BsPzOryC/jt/F05FWtsdh62hyq2sf/ORRfdg3WVPjm17hMsiwspQoOJk+Hqquj53
-         imVT/fcBF5SopbxZkR80SwDyPvIWxnwBH04mqamCBW2a3VRJBohwdplpAaSSPIT1fnPv
-         wDOAYxU6ayMrvsLWVZYxcOXtrBq92KoXRQzgFCVXfYBqoaYPmKynTTTEISrPrtY+rVw4
-         Z8jQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw3Ribl2Ig2ai1pv2dXL+r9VotoKAxWhSKM0Ga6FPP5+JkPpTLd+0fHNZuyxt3XGN6tYXMGNLwuhoYGyg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbIXN8+kBCo45aRwth2kDPihXE4ci2cDo8KOUoA1TdNoP52kY8
-	o6MpKkoz/QVIKgE71O4EHoe5517IwN+fb0Scn42ZwVvkIV7jWhfoD/wzrQqZb3HnUIU=
-X-Gm-Gg: AYBFou2bVCYGVWIhhcaDMWLoMro7wtDGIn0kyFgs9PU4zxj5aKs3/F1wSJ8BKTi1daN
-	UypyyBUZFh9RC3elBnsQgoAlDA5dA/0degjRwrFzjaRxiITB6VyIIrSokS/FyDUEef41I2uTY36
-	KjsbITfwjpKOgE0JkAedEh5qysO8NBABenm1P9eX83Z43QFA7vaxq/53qEq+2Pg9v6mg2ZUNmaZ
-	oSHVwXTV6PIPESbuy6fkO36gA2fOilYSS6b0+KTzU3OJPrRTM7rBwbz64IW7bsysb23ZZV+jkzz
-	+srgylIkMwt2j8HNPlFXLb0ougVv+EI9JlXgHKXc9A5e7rp64rzPqcP/meq+whMIiMrbkp2AsE6
-	ECM2ARqbxkn0856JBAi3uHPWXLnxiQwi/1R3hmMxIH5ES1cqOzSuPnBFg2I4ibpPYDzlRg21LOO
-	Ml2H/RR5jbUFXguRNNdFHCvpeAAG1D7KFvXE4zxgbBuVPNQ/SU10Zw3i9EZ4WTXq6cNo6bV+Su9
-	FwJNwnKY70opgyiQpNV/3RGKb4A3pmMhRU5qEME/V28RecC//2YEufh0pKNEtoKTD4AKTucSezo
-	zmOQx/U20ow+ljst4ZxTgTK5qghc2I4uXTsXPSvh9bDkA/j7ciRrK1XtnfRNPfnhewaYyQ==
-X-Received: by 2002:ad4:594b:0:b0:914:4464:41ac with SMTP id 6a1803df08f44-91b552fabcemr186665366d6.2.1791822331996;
-        Mon, 12 Oct 2026 09:25:31 -0700 (PDT)
-Received: from jake-laptop ([153.67.39.44])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c4044dsm1329536d6.46.2026.10.12.09.25.27
+        bh=lk3jyk+L25op/gK9ZsPi7IfvbejvW+IuaDGcTZaRnIE=;
+        b=NYdfTmNADmkD8XLIiHDCSNgD/5Ff6K3Lu6ZKoi2padee2l8geokaoI2PqBEjfee+We
+         Ej9DyxmRRzOe7+lqeLwVZfZo2SIiVaJYnqSiGb1x/NL13XoRyhq5rcU+4iOqGzXjvE05
+         0VeOiBC3Wzh5eSW+rp9Sg7Q0FqfnySyUOnbPuUWeOoKl9eOkxd2hG3oQ/cHQcZsC9RlH
+         zrxrJiFaSujJrzV4+3bd7XaUojBkToVJkplNU6so/V5vXT+cPwArB4hGx/jCJmWJbsZI
+         GVqIRq2CxuMxHW5OfzgxINRlouTBNagFeIy1XAQtzSLRTRnPQnOJ7XiArX34pDAk+2lW
+         ubVw==
+X-Forwarded-Encrypted: i=1; AKwUvBywvJ+mfRNAy+rnDVUE7YHEAJ4a0zR3XD+6v4CzKTf/y6/pTmym1i1LRQasOAoBoexxnu4rH7y6r4paHA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLSUC5Wn/bEqGRqG70qAd6ogotZ06IgLlYzn3l/LduLPLfgMR7S
+	EMPLhwwIHnCwVXbhfV18kWgvt/RvvxhUYUI9Kbylm5MDeocqB4gTtHah
+X-Gm-Gg: AYBFou27qkjJsBqtDnFNCOAuUHiXeMPBZeenRuA8sWs72EYApjDOgV64OuFt3QsBJ+N
+	VUXIdwN2Vgr2EZ2Vg6QT+Ks3NRXxGX/nUO90aeGqHEbJk1DBJaTXgfluFbyDC6eSNcya/xKisiT
+	yUa8KuNp0FGqY974F5mv49KR6xNtQOtEQ6wIWkOgDFVu87lJdf2eXa2zCvHb13Q9+oPeA+lumMc
+	7z5MgFFgDw5Js66ySg25en0SCnVtzzTSVI4KIHqBrm6FeRVe6qi3aPDYLzLnZADQuhGOi9Qruht
+	ehJWnSo9P0v9p+gxm4xdJdzLZN6qSD8ihVpXcB4am4GSQsOPQshVC7nFxyV0rlW6FE8mDupGYYW
+	f1aKfa1mcONvWU4EeGNN8D3+2OyRdkwiqJL7EEHo8eei1o42fHRngVSfy6y2AZxb1QF00soEF/+
+	L3o0EZLJblHwNztrFwqVnC5kRlKxsSBjPb8WGttPjkmUFaSRhJNlLibULK4YwRBIhl
+X-Received: by 2002:a17:903:1b6d:b0:2db:39da:90f2 with SMTP id d9443c01a7336-2e84280aed6mr90426765ad.8.1791824276254;
+        Mon, 12 Oct 2026 09:57:56 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:5e::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8dd5sm46996085ad.55.2026.10.12.09.57.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:25:29 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Ramshouriesh R <rshouriesh@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bingbu Cao <bingbu.cao@intel.com>,
-	Eduard Kulyk <kulikeduard89@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
-Date: Mon, 12 Oct 2026 12:25:26 -0400
-Message-ID: <20261012162526.2691144-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <asy-3JrGjoZCseXU@monoceros>
-References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com> <cover.1791608336.git.j@metarealtyinc.ca> <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca> <asy-3JrGjoZCseXU@monoceros>
+        Mon, 12 Oct 2026 09:57:55 -0700 (PDT)
+Date: Mon, 12 Oct 2026 09:57:50 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v1 2/4] net: devmem: detach TX bindings on
+ NETDEV_UNREGISTER
+Message-ID: <as0LL7IcZas6IPY2@devvm7509.cco0.facebook.com>
+References: <20261010025532.839559-1-almasrymina@google.com>
+ <20261010025532.839559-3-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261010025532.839559-3-almasrymina@google.com>
 
-Hi Uwe,
+On 10/10, Mina Almasry wrote:
+> TX devmem bindings (NETDEV_CMD_BIND_TX) have no bound RX queues, so
+> mp_dmabuf_devmem_uninstall() never runs when binding->dev or
+> binding->vdev unregisters. As a result, binding->dev and binding->vdev
+> dangle pointing to freed struct net_device memory, and the dma_buf
+> remains attached and mapped after device removal.
+> 
+> Closing the netlink socket after netdev unregistration dereferences the
+> freed struct net_device in netdev_nl_sock_priv_destroy():
+> 
+>   BUG: unable to handle page fault for address: ffff88824ca9b000
+>   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+>   RIP: 0010:netdev_nl_sock_priv_destroy+0xbd/0x1e0
+>   Call Trace:
+>    genl_release+0xf5/0x190
+>    netlink_release+0xd01/0x18d0
+>    __sock_release+0xb0/0x270
+>    sock_close+0x18/0x20
+> 
+> Add net_devmem_dev_unregister() called on NETDEV_UNREGISTER:
+> - When binding->dev (the physical DMA-capable device) unregisters,
+>   erase the binding ID, clear both binding->dev and binding->vdev, wait
+>   for in-flight RCU/TX readers via synchronize_net(), and unmap the
+>   dma_buf under binding->lock.
+> - When only binding->vdev (virtual device) unregisters while
+>   binding->dev lives, only clear binding->vdev so no new TX sends match
+>   the virtual device while allowing in-flight TX packets on binding->dev
+>   to finish DMA safely.
+> 
+> Fixes: bd61848900bf ("net: devmem: Implement TX path")
+> Fixes: 1abe839b34ae ("net: devmem: support TX over NETMEM_TX_NO_DMA devices")
+> Cc: Kaiyuan Zhang <kaiyuanz@google.com>
+> Cc: Stanislav Fomichev <sdf@fomichev.me>
+> Cc: Bobby Eshleman <bobbyeshleman@meta.com>
+> Cc: Tariq Toukan <tariqt@nvidia.com>
+> Cc: Kaifeng Wang <kaifengw@google.com>
+> Signed-off-by: Mina Almasry <almasrymina@google.com>
+> ---
+>  net/core/devmem.c      | 45 ++++++++++++++++++++++++++++++++++++++++++
+>  net/core/devmem.h      |  5 +++++
+>  net/core/netdev-genl.c |  1 +
+>  3 files changed, 51 insertions(+)
+> 
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index 5e4070b82df44..da7b3e8abaa13 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+> @@ -169,6 +169,51 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	percpu_ref_kill(&binding->ref);
+>  }
+>  
+> +void net_devmem_dev_unregister(struct net_device *dev)
+> +{
+> +	struct net_devmem_dmabuf_binding *binding;
+> +	unsigned long xa_idx;
+> +
 
-On Mon, Oct 12, 2026, Uwe Kleine-König wrote:
-> Please don't add new usages of <linux/mod_devicetable.h>. The subsystem
-> headers provide their respective *_device_id structures already.
+[..]
 
-Thanks. I will drop the include in v2, <linux/i2c.h> is enough here.
+> +	rcu_read_lock();
+> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> +		if (!percpu_ref_tryget(&binding->ref))
+> +			continue;
+> +		rcu_read_unlock();
 
-Jake
+You use net_devmem_dmabuf_binding_put below but do not use
+net_devmem_dmabuf_binding_get here.
+
+Also, I feel like rcu_read_lock/rcu_read_unlock dance is confusing. bindings
+are not following rcu lifetimes. Can we race with __net_devmem_dmabuf_binding_free
+here? (xa_for_each returns a valid binding, then before we do try_get it
+gets kfree'd)
