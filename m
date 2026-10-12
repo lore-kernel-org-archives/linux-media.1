@@ -1,224 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EACA4ABBD0;
-	Mon, 12 Oct 2026 13:09:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BF6369D64
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 13:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810560; cv=none; b=ngyOq6uVOSuhnR4Kv0Hezyi8MqtSQCp8IU0O2XvPZAUsRg5HObQprzln03yCqtHArPz33bXF2zaIeyYlxbcFb8sre6BNYoCxm0EhU9i7RHgndf1up5LT1QzdYd8JbjJ+C6Dg9hCJqpHbhNtSWF6VdrGi22k81zADPXjU/caEVv4=
+	t=1791812631; cv=none; b=uEAfZ4AQ2VL/jwLiXNSfKvklOS0r/IWdsZEfKB23e/6eXr744bJXOJ5deOXKufpdRbzKwYftTitSlCO5zsY1ZQVlFmL5O7VddOvFeJ0Bmb8cPwmZSYvJtfMnqrdXwtq1oAKA1BAgij24nS/wx49EUCZsiLoAxrR/hrRojh6Q8JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810560; c=relaxed/simple;
-	bh=f0HBW+3bS35Lhqm2afogYDGV9hYQQMdHZAdr1LJ5NpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kyjvWqTq2ABNLNcrUsLFzcAbEeoyZiR+s/4hzfZyqiZ+a3Gl3tfCgS2l3UelCzRaBHmZOoCOlRfP2SdbBr+hPD+l9t20/nJJvrcl9Cw9o6hP0isxvjnhGUB78K2s18u5BwwhoxEoN5pnCLedAEknN4VM/2SyTHkzfZa/4SRhA18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S6zfMWMd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791812631; c=relaxed/simple;
+	bh=klYpvtSOAIez44kpWs1v0eOeO3eNpRfwfPOMbeNagbw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fN1TQ+F+Mczk1eIS56gxMpxxaCZI4UiNa9NmgEOPxMO33ch8vXl0qqkyXv9gZDQkJm/DhS1sXSjCiQWj8ItHEHYd5oEIRcaBiq9jSi0JMfQRFnNR3CGl+pjuDnuV0D+z6nrz2WDXwml5+crSQ+e1ikhu6qSefqj8N5BOYNmXe3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=svmyrrrU; arc=none smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S6zfMWMd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9258E1F0089D;
-	Mon, 12 Oct 2026 13:09:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791810559;
-	bh=+jKubj65uWHyHuhINmm8dX2L5FXFqCsatavlO4ZKmv0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S6zfMWMdNdHOHkTQiXHRVg7jsoJXweWa7R4P95wOfh7A8fr0X+hHRC7CqpX/5kNtt
-	 tNNRfmNPnmMPM4F8y9SwKioOmH08XeC7wd4NxXcTBTNSs6q/yVaCSgIJaLbIkMQ5z7
-	 m79JK//BHacnYSsYuV9HCyOfBitsI8t1CxfAq/0/+ujk1WCDBnvVwYf7BlXDT8r+Nw
-	 waT/1NSV+u6c8ema/VO0o8Xoz4TkrEA+2c0xMirBbRcoJ8rWEj8P+FuCik0WnVFsXc
-	 T2B9MJHenYdRYJSjxQbta5OefQJi0cHQYF+smKife7ViI8m/JxcbI+5okOTeGo9NA3
-	 342xebs6t40tg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v10 17/18] PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
-Date: Mon, 12 Oct 2026 16:07:54 +0300
-Message-ID: <20261012-fix-p2p-acs-v4-0-v10-17-6ffe7b7a4517@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
-References: <20261012-fix-p2p-acs-v4-0-v10-0-6ffe7b7a4517@nvidia.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="svmyrrrU"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e43f3d1fdso259534466b.3
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 06:43:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791812627; x=1792417427; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oGwPh++pWh8JXmtP/Z4yTF2OlJIVwWazwmaj6HsGs3U=;
+        b=svmyrrrUo3IBwVUrHUz5XOIRL6IR4SKFPpuJiXCQocCfRp2ykDDOQxpdLn/6csAZs8
+         3snMICySepg7Usag21gkcq/lEWG8CPCQlQKbk5r/PrfRCCsMSTSsiSGolqAVdL5fw94b
+         eG3p8KkwqSZ8eEVJ6epsxq/tKief/HN6hotKiG7uZxZTnNtzDC6VVK3NCl0VOe5CqwnC
+         ZdQlUDrkS4T2A9sCLQzuQ4qWKGEBMUER16VTe5AzukvKY1579jmyIzZCzbHKWCof+6gF
+         xodnr6RguTZtOfamTlgIjp/Aiy641NmtRcW5rm+TKnXFYGQ74sVJBVFPXfSrCwz3zjIq
+         T6LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791812627; x=1792417427;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oGwPh++pWh8JXmtP/Z4yTF2OlJIVwWazwmaj6HsGs3U=;
+        b=BrfO191L3/6ZBfNEu8fFFBZOjNl05pRemPtVl0Ary1WMYQ21OwjKxExhZ2tTRrxQTK
+         K0i3FixHasmHX/MfQkcx2qb4Jx/dZOpimh7NTHLHz0iazH5BPtPysVsdEPT/6WxTRwvQ
+         ru90byDJrzpNiiQ/foj6BGAiEDSDF+THsmdzXY5M5bfamVoX/C9KmvRhyNs4dao47yuB
+         8VxeNMKiKs4DKyJmqYbdpIULkxPzii9ALnR0ExPlzHr+tPCWMGmBD4VmaWVaQIC6YVTV
+         UGAc0PSw/IQICzmYSi2EJ9M3zydXQ7xEXmptbycQN4DdElk0ifJZJrI9l7iD5Z8GUqTn
+         babA==
+X-Gm-Message-State: AFq9FYLSRIZykbsTIgaVwi/mum+jXm8kslY1jKPNj9bV0AgjgmK82jfG
+	957ArWmzIeNXs9sK7QeNtNfOmbUf7irmtD1dGbeffwjkpVEfVSQPbC+hggULnqqW0XqIMwWTplv
+	mlGnDid4=
+X-Gm-Gg: AYBFou2ngEMNRcU57ouFmvgdR5xwab8R/V+Q60GfP9bprUHubxf1Obfr99391cDG+O+
+	K2G4Swhm3h+wjNxveGLYUN9pDfBh06CfYSIBBFLdHO66klHMaURMbKfFNN2w1wQDliuTZ3jMNGN
+	jmEcGz65FopLFI0kUxrkC028qr8z1L2mlDGywdSjZn0caRNqJVekCReESuM+7zX0BYhIBcuiJAz
+	EsXycN7BQSRzn4kF60e2YmkjsnF74C5s/mRH5GgdGvLRVrhq2sBiUKS6Dsy4xFmwrmuQvjmObEY
+	KoI6de7HjKzvK50dsgIaPsf6pUmXgR3UKkdIuJE4P3ROQ8NZE7om5hqVlrGUMcO1xFyOC+oUDEm
+	2D1D5Lt8v2Vg8cPhOIl531AtNVjQGSkaMttoOOE5C3pVk70RcjD5njHyrrrR03gPg6DMgq0LAA3
+	qsNpQqv3uplKext/0QCkXSq8qmSosqmigB8PkMfRc9aIRHVdRi4PyP1fVBsMJy6ETZbww8ySXXn
+	WVRujQRsGo/13IcB05a/Us=
+X-Received: by 2002:a17:907:8687:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c31aa02a1ebmr897992966b.21.1791812627292;
+        Mon, 12 Oct 2026 06:43:47 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.202.22])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3456933dd1sm168189366b.50.2026.10.12.06.43.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 06:43:45 -0700 (PDT)
+Message-ID: <4ba1f9b2-c300-4942-b686-4bd690c57418@linaro.org>
+Date: Mon, 12 Oct 2026 14:43:44 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: media: qcom,sm8550-camss: Add the CSI
+ TPG regions
+To: William Bright <william.bright@imd-tec.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Depeng Shao <quic_depengs@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012-sm8550-camss-tpg-v1-0-620ab6f151dd@imd-tec.com>
+ <20261012-sm8550-camss-tpg-v1-1-620ab6f151dd@imd-tec.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261012-sm8550-camss-tpg-v1-1-620ab6f151dd@imd-tec.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
-
-P2PDMA assumes every client issues Untranslated Requests. A device with
-ATS enabled may translate any address it is handed, including a bus
-address, and Translation Blocking can reject its Translated Requests on
-a route the Untranslated answer called usable.
-
-Unless the client declared per-mapping ATS, take the Address Type from
-its ATS Enable bit. Never hand such a client bus addresses: only an IOVA
-survives translation, and whatever it issues untranslated goes through
-the host bridge, whose route must therefore be usable. Apply this after
-the cache, which keeps holding answers that depend only on the topology.
-
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- Documentation/driver-api/pci/p2pdma.rst |  8 +++++
- drivers/pci/p2pdma.c                    | 53 +++++++++++++++++++++++++++++++--
- 2 files changed, 58 insertions(+), 3 deletions(-)
-
-diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
-index 52725e58f656..72ef2df3340a 100644
---- a/Documentation/driver-api/pci/p2pdma.rst
-+++ b/Documentation/driver-api/pci/p2pdma.rst
-@@ -46,6 +46,14 @@ P2PDMA therefore decides each class of traffic separately, and
- ``pci_p2pdma_map_type()`` answers for the one a DMA mapping is built for:
- strictly ordered Requests carrying an Untranslated address.
- 
-+The PCIe ATS Enable bit covers the whole device, and most devices translate
-+any address they are handed once it is set. Unless a driver has declared with
-+``pcim_p2pdma_set_ats_per_mapping()`` that its device chooses ATS per mapping,
-+that bit decides which Address Type P2PDMA assumes, and a client with ATS
-+enabled is never handed a bus address, which it would translate as though it
-+were an IOVA. Its Translated Requests may still route directly, but anything
-+it issues untranslated reaches the host bridge, so that route has to work too.
-+
- The two directions are decided independently. Translation Blocking (TB),
- Direct Translated P2P (DT), Request Redirect (RR) and Egress Control (EC) on
- the Requester-side port decide the Request:
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index e38081f79761..a5fc622e3114 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -1602,6 +1602,41 @@ void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
- }
- EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
- 
-+static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-+						unsigned int tlp_flags)
-+{
-+	if (client->ats_enabled)
-+		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
-+
-+	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
-+}
-+
-+/*
-+ * A client that translates every address it is handed cannot be handed a bus
-+ * address, which it would translate as though it were an IOVA. Its Translated
-+ * Requests may still route directly, but a Request it issues without a
-+ * translation carries the IOVA to the host bridge, so that route has to work
-+ * as well.
-+ */
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
-+			   bool per_mapping, enum pci_p2pdma_map_type type)
-+{
-+	if (per_mapping || !client->ats_enabled ||
-+	    type != PCI_P2PDMA_MAP_BUS_ADDR)
-+		return type;
-+
-+	pci_dbg(client,
-+		"P2PDMA ACS: provider=%s bus address withheld; ATS is enabled for the whole client\n",
-+		 pci_name(provider));
-+
-+	if (cpu_supports_p2pdma() ||
-+	    host_bridge_whitelist(provider, client, false))
-+		return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-+
-+	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+}
-+
- /**
-  * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
-  * @provider: P2PDMA provider structure
-@@ -1616,6 +1651,11 @@ EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
-  * ACS routes a peer-to-peer transaction by the attributes its TLPs carry, so
-  * the answer depends on @tlp_flags. A caller that passes flags its traffic
-  * does not match gets a mapping the fabric will not deliver.
-+ *
-+ * Only a client whose driver called pcim_p2pdma_set_ats_per_mapping() takes
-+ * the Address Type from @tlp_flags. For any other client its ATS Enable bit
-+ * decides, and a client that translates every address it is handed never gets
-+ * %PCI_P2PDMA_MAP_BUS_ADDR.
-  */
- static enum pci_p2pdma_map_type
- pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
-@@ -1627,6 +1667,7 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 	struct pci_p2pdma *p2pdma;
- 	struct pci_dev *client;
- 	bool provider_state;
-+	bool per_mapping;
- 	int dist;
- 
- 	if (!pdev->p2pdma) {
-@@ -1646,6 +1687,9 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 	cache_index = map_types_idx(client);
- 
- 	rcu_read_lock();
-+	/* The declaration belongs to the client, the cache to the provider. */
-+	p2pdma = rcu_dereference(client->p2pdma);
-+	per_mapping = p2pdma && p2pdma->ats_per_mapping;
- 	p2pdma = rcu_dereference(pdev->p2pdma);
- 
- 	if (p2pdma)
-@@ -1653,6 +1697,8 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 					     cache_index));
- 	provider_state = !!p2pdma;
- 	rcu_read_unlock();
-+	if (!per_mapping)
-+		tlp_flags = pci_p2pdma_client_tlp_flags(client, tlp_flags);
- 	type = pci_p2pdma_map_types_unpack(cached, tlp_flags);
- 	pci_dbg(client,
- 		 "P2PDMA ACS: map lookup provider=%s index=%#lx tlp-flags=%#x cached=%s(%d) provider-state=%u\n",
-@@ -1660,10 +1706,10 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 		 pci_p2pdma_map_type_name(type), type, provider_state);
- 
- 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
--		return calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
-+		type = calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
- 					      true);
- 
--	return type;
-+	return pci_p2pdma_client_map_type(pdev, client, per_mapping, type);
- }
- 
- /**
-@@ -1672,7 +1718,8 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
-  * @dev: Client device that initiates the transfer
-  *
-  * Same as pci_p2pdma_map_type_tlp() for a client issuing strictly ordered
-- * Requests that carry an Untranslated address.
-+ * Requests. Their Address Type is Untranslated unless the client enables ATS
-+ * for the whole device.
-  */
- enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 					     struct device *dev)
-
--- 
-2.55.0
-
+On 12/10/2026 14:03, William Bright wrote:
+> SM8550 has three CSI test pattern generators next to the CSIPHYs.
+> Allow their register regions as optional trailing entries.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: William Bright <william.bright@imd-tec.com>
+> ---
+>   Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
+> index 4b9ab1352e91..05101dc97711 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
+> @@ -17,7 +17,8 @@ properties:
+>       const: qcom,sm8550-camss
+>   
+>     reg:
+> -    maxItems: 19
+> +    minItems: 19
+> +    maxItems: 22
+>   
+>     reg-names:
+>       items:
+> @@ -40,6 +41,10 @@ properties:
+>         - const: vfe2
+>         - const: vfe_lite0
+>         - const: vfe_lite1
+> +      - const: csitpg0
+> +      - const: csitpg1
+> +      - const: csitpg2
+> +    minItems: 19
+>   
+>     clocks:
+>       maxItems: 36
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
