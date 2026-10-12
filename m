@@ -1,68 +1,69 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344DE47C0F4
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 13:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2671048D879
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 13:52:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791813137; cv=none; b=hfN84YJTjOMGz7gioN2icq3h2wo8RFwBafzc3OeCTX5aGRLdVe3Qqk+pJdNWFEjkAnS0J8/NiiKtyJsGBGG58WFh20vPktpVIGF+q28MwQle589l6dZtlCgCdcnvF48EmaVpaXXcI6yN6XSijjZdqFJvBG2Gn5oLzCVY8StaIek=
+	t=1791813140; cv=none; b=INYeGWC3ZcFDeH/APDTSUNVe+c4ep2ZLWZrHH8HIeUUjhFLE4vE3vLtHfCqUX5xUZlmduR8ETE7f4mvtz9BwCjgpfqXx11lvWwfN/QTne+P9PBIQGdCfNnYxh80zMYbCT285zZxdmCqf2waAJldBRqB265SecjgQJgW2ZjLPbWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791813137; c=relaxed/simple;
-	bh=XvgF8W41tbW2lHMVahBlNpldH+YcMd6GhMO1LMhmmQY=;
+	s=arc-20240116; t=1791813140; c=relaxed/simple;
+	bh=jmnOUUfdHIW4UoVgCq1OlOIoITSusSw0zexra8ko+BQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EC3IezWLBcW4ALXAfsIq2QBQEXawBJdKAiWClTetSHU6E4I3723XscuLMpgagMZ1lb+R8wO9i2gdJrHh8fdNMeGE23zKHerLbx4WEuLfMX8BGTp4QLYb0QoDB1rcarLkx9z31+ypK/xR1ODxo6lv889WiVJJmKr1tskZGepGjow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=NesgzA9v; arc=none smtp.client-ip=209.85.221.49
+	 In-Reply-To:To:Cc; b=ULRCjCjCGjDqqzWJlCU2HWwrtStfLa1YujHEf4bk43ps1glw6UmTyx26V9iCYj/mxDhAXl9okdMtqVsOiPijqP8UUxSBJHnVocHLpW+sYR/k1ykJUi3gZScD7XoEMAgfuihydJ5GPejpQeLJ8gLZKe4uyOPCnWY24Db9Vn2rH/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=MZM/09ls; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="NesgzA9v"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so1092461f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 06:52:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="MZM/09ls"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4207ac26so1867651f8f.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 06:52:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1791813134; x=1792417934; darn=vger.kernel.org;
+        d=imd-tec.com; s=google; t=1791813136; x=1792417936; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AJMs8A9Ik9OWOlzlXjQ55DgLEVWbkbVkWzr7Q1/LXyI=;
-        b=NesgzA9vqb1/X6EzJJ1AiUpBokHcMgKVFQDgOFO/xHL/z9gbj/0hltm+1n5SWbO8A8
-         9zUGL0dyIA5XHmquCymv203Ko4rr9ItaNtKsGUDQF8AXm5t+VydPwWiVga9gC0PYpj7B
-         c2GlgT0qZxlqXKABanP23HXbiswZ0Xxkt1P5j99LOTASIWZx5ssqQYTqNV/LRmCd0jFd
-         9IRh8YaggtDrf+uXMqp7BDvzr0ThgtznI3dP+fsV69LPOI+K6XULXkFRHHLWQS+V4Erg
-         h/+TiZu1OSZRivIqBG057PPw4blkZT38tgthcyUU3Xxpgh8CM0nk/z3qPgzOLTqQHe9I
-         AqHg==
+        bh=Fm13zV7fU/tYSB8SyrRHgmdMzw/bsTAxkTm7l9ON6TQ=;
+        b=MZM/09lsT9mjPUi7/UosPBBGCd4RitSZSVanuT6qsJayyQ2yDP857ltXR+AbQc7GaC
+         s+q3LuN/w0VtkAxnAyJnzx6zddWs7Dp2TMdwsIBU5msWOKR0Jiyo2MXF/oB7TUK5VbNk
+         5jizdoVZ06Zl4jCWwC9dBXAApGDly8FTNRLplBSWMNkWqAAoUdwQS7xwE2Yo2xWWqPr/
+         Sve08sU0RELvh30bYCvqqryDWk4VQbX+W0Sy840Ctjpc1y+DNwnwgnVGMiooT3xw7FTy
+         QZ3ShY8dK87RYN+/3hpcedQMCvOmczBXm517gRm/OkSKUnl9l4NpGfIgH+wLwHb7U0h2
+         Poiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791813134; x=1792417934;
+        d=1e100.net; s=20260707; t=1791813136; x=1792417936;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AJMs8A9Ik9OWOlzlXjQ55DgLEVWbkbVkWzr7Q1/LXyI=;
-        b=QR5UKxs6y72B5hxViMH3mpLA1YMIr5d+ZAiTQlF/Yc3T/q56GdSndHnfwJqCzq4lX2
-         yrp/XgHd1RMAd+qjK6Z2fflxqNziDtpM7RBzoA4U2lVEZw2Q+tyR+j0cglTBAlflOzA3
-         8oggGnGbPdK4Kzb2FHFe0nvOKeqfe4CNj9NZXXnQh3PKdbuBvUp9FIhJj0u7h9HOgWC+
-         nFkezWeOscG/cOHjrxxZTvR5hEVduZCdyaDFXyidt+hhOGQWOSHHvZmWgX1LT5nJTfnp
-         4n0RTvD2B1nzK+2dwqfV/IEtA0QsNjYgxBLt/1+tXLVmJBgMwBG0kB8jKbiOcVexA9lo
-         KjKg==
-X-Gm-Message-State: AFq9FYInIl4V5P33X3QpyAImzH5ORES97XmuFDJuqBrm1DVBw6VzBOZS
-	CzCqV+NG2NVMxVdWjJ1lYnx5yi4izPOOoTAiYmPqQgFbzBNiURj3Q3v8/hUyJkCb2S8=
-X-Gm-Gg: AYBFou0jXrw93UsWWCc66BjyNlDLwOmoqLZaCCkmI8aKLUeL0vFmcHTx2oVzLDlo/YT
-	JX8vx2btPGiwyOSLN8NdXHXP+iFm4Y1g+8dWuvuThq0Pb3b8WaS//u/GbbcMLhOHjGk/K7CcWjs
-	Hjvzi2Fw3gaVbytZip89vE+yM0d+lsdH4rmAqlWSgxYlnIJgnrxlUYrPZuZz8e/bSe1QrCMqeSI
-	fUVWURWgiqZnDsP8jPKRhyboFr+/2VkVQoq5/sgAxoXKtC7lsKy4ZZrg2ulpA/TXwhPnzbhGFwO
-	UaYEtOrcnIhgzKCAcyQPlC1zCyppamIm9d3dfx1c9y6mz21VGFHXCa3mtQJvm46lRRAVN3/nqRS
-	tG2BO4Dnj+rdnCcreePQcbIIGVwPevdqyzI8zwumQBC3SDbEzntEKn7+vzcsHbasSD14HvIs83y
-	nkyceHTzO4En4R+y9Un3tV41MwxWSWME20LD9fH3wun6wweZMoS4dS/vm5BuLcxXbWFrd0Go/kg
-	OOZR7hlp4oi2DyF/pgxVLl3MwOo4SVa1FBiICWAcwPq43JkGhCCzMYQbPQgwN01GADPUO0fCw3O
-	e4rOmW4f968OW/i+23TtvQ==
-X-Received: by 2002:a05:6000:2002:b0:48d:b940:af77 with SMTP id ffacd0b85a97d-48dbace21ecmr16666213f8f.36.1791813134645;
-        Mon, 12 Oct 2026 06:52:14 -0700 (PDT)
+        bh=Fm13zV7fU/tYSB8SyrRHgmdMzw/bsTAxkTm7l9ON6TQ=;
+        b=lu7qkG7GNszjgfqzRQ2TtIaGo71HGJnMVwj5Rz+DJeOgjd2HiAu0wiKHGbAxHar/eU
+         zcKosdws0vkK/O7u3VezoXoyMDhMbZhJ7T4hhiDBAh6v2xVNY4B3gYbie8YOSbVtv+Vi
+         62jWGf7ZBwR9M2DlInxJT+UZT4l+NSSs42KcZRg83mb2Qki/oBanZHDTPwLTfWBXBhgB
+         03EH9rPcPhCkfPxujoBzfbIkhgxMzVxZIAz6lqWxUbCxcrca/KL2dz9E8Noj/E3KpiHW
+         dbxh9I3UMqR2+ShTMciMm0P2MXaF2cUuGLHS2AhqnaHpSYlshSw4JSb6X0fzdt+94CsW
+         9BmQ==
+X-Gm-Message-State: AFq9FYL8HA9ctrS0hJ7ju3jWBR2CtZbZ50kxUbMhclsnP7vB0nc+osUK
+	DfQo/EhydVxKLjAPQABDjwgH1rIlWIBJ04Iy9V8Ok93A/knqyrFXeSRIfAAp/40ruPs=
+X-Gm-Gg: AYBFou3stDSglzpct8PQxaz8M6UeUTZeQxqoDbdb85l1M9KYXxN8i4KpSTeoDQmyoWi
+	PuHmOxCobC1riT44D8EhPHSyseoxDTmT7uy9I5GqiF9ucfeGdZ3MUGmYgpaPEfpIfxvr/R5nuCJ
+	rOL83uUWdX6vZjUduZc9nSDFJJyrXWm0ba1oAfBFzc7mgbfuXtDz+uDaQfRHwf6V9UKPcRLa0cR
+	Qq7TLABj729Dgm+6Dey9/ns+p5dCKWc7M3CJnulNPnn5YZQDKkSoge7VR3NKjA5V6ZFGQPMEf2X
+	X+Mr5gIT0jmAE4JuhUSU0PzJvpAf7mHX/tQA5vbiXSKe5yHoaeIW55vNw7Ujh1lBplc+gQjVc5G
+	h+RZTnf+PGfIsZLk5//daow1eN1I9abgrLVm7u9YzorOJnNZSpovTgsnIOiTqdUvEW4kyIpXBlp
+	w2itMYlgIrgVy5LY6meKbcR21Tz5bWkkG1r1h5LVOuh8RSroVlDOwc7RcnS+WpCYwF5Y4mhWelr
+	PuATUWh/x2gfyjqd0SGdkjA7CoKj/tAWNXLMXmB8rKtyvlYzbeZDvaOL2YtOklYTbLOzYqKGU/2
+	ZuL17Dy9xOKXCO2+EojJtA==
+X-Received: by 2002:a05:6000:290b:b0:487:2805:6834 with SMTP id ffacd0b85a97d-48dbace156emr16771065f8f.42.1791813136282;
+        Mon, 12 Oct 2026 06:52:16 -0700 (PDT)
 Received: from [127.0.1.1] ([82.71.135.85])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e3519sm21355523f8f.16.2026.10.12.06.52.12
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e3519sm21355523f8f.16.2026.10.12.06.52.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 06:52:13 -0700 (PDT)
+        Mon, 12 Oct 2026 06:52:15 -0700 (PDT)
 From: William Bright <william.bright@imd-tec.com>
-Date: Mon, 12 Oct 2026 14:52:01 +0100
-Subject: [PATCH v2 2/3] media: qcom: camss: Add the SM8550 CSI TPGs
+Date: Mon, 12 Oct 2026 14:52:02 +0100
+Subject: [PATCH v2 3/3] arm64: dts: qcom: sm8550: Add the CSI TPG regions
+ to camss
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-sm8550-camss-tpg-v2-2-06dbbe36ecd2@imd-tec.com>
+Message-Id: <20261012-sm8550-camss-tpg-v2-3-06dbbe36ecd2@imd-tec.com>
 References: <20261012-sm8550-camss-tpg-v2-0-06dbbe36ecd2@imd-tec.com>
 In-Reply-To: <20261012-sm8550-camss-tpg-v2-0-06dbbe36ecd2@imd-tec.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -87,90 +88,45 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  William Bright <william.bright@imd-tec.com>
 X-Mailer: b4 0.15.2
 
-The SM8550 TPGs are hardware version 2.1.0, the same as x1e80100,
-so describe them with the gen1 TPG ops.
+Add the three CSI test pattern generator register regions to the
+camss node, matching the updated binding. The TPG blocks sit at
+0xacf6000, 0xacf7000 and 0xacf8000 and are used to generate test
+frames without a sensor attached.
 
 Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: William Bright <william.bright@imd-tec.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 50 +++++++++++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8550.dtsi | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 5128dae79103..70f327484503 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -3553,6 +3553,54 @@ static const struct camss_subdev_resources csid_res_8550[] = {
- 	}
- };
+diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+index d21c04b1a306..1270ea8e4fdd 100644
+--- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
+@@ -3862,7 +3862,10 @@ camss: isp@acb7000 {
+ 			      <0x0 0x0ac71000 0x0 0xf000>,
+ 			      <0x0 0x0ac80000 0x0 0xf000>,
+ 			      <0x0 0x0accb000 0x0 0x1800>,
+-			      <0x0 0x0accf000 0x0 0x1800>;
++			      <0x0 0x0accf000 0x0 0x1800>,
++			      <0x0 0x0acf6000 0x0 0x400>,
++			      <0x0 0x0acf7000 0x0 0x400>,
++			      <0x0 0x0acf8000 0x0 0x400>;
+ 			reg-names = "csid0",
+ 				    "csid1",
+ 				    "csid2",
+@@ -3881,7 +3884,10 @@ camss: isp@acb7000 {
+ 				    "vfe1",
+ 				    "vfe2",
+ 				    "vfe_lite0",
+-				    "vfe_lite1";
++				    "vfe_lite1",
++				    "csitpg0",
++				    "csitpg1",
++				    "csitpg2";
  
-+static const struct camss_subdev_resources tpg_res_8550[] = {
-+	/* TPG0 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+		},
-+		.reg = { "csitpg0" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+	/* TPG1 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+		},
-+		.reg = { "csitpg1" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+	/* TPG2 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+		},
-+		.reg = { "csitpg2" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+};
-+
- static const struct camss_subdev_resources vfe_res_8550[] = {
- 	/* VFE0 */
- 	{
-@@ -7245,12 +7293,14 @@ static const struct camss_resources sm8550_resources = {
- 	.legacy_phy = true,
- 	.csiphy_res = csiphy_res_8550,
- 	.csid_res = csid_res_8550,
-+	.tpg_res = tpg_res_8550,
- 	.vfe_res = vfe_res_8550,
- 	.csid_wrapper_res = &csid_wrapper_res_sm8550,
- 	.icc_res = icc_res_sm8550,
- 	.icc_path_num = ARRAY_SIZE(icc_res_sm8550),
- 	.csiphy_num = ARRAY_SIZE(csiphy_res_8550),
- 	.csid_num = ARRAY_SIZE(csid_res_8550),
-+	.tpg_num = ARRAY_SIZE(tpg_res_8550),
- 	.vfe_num = ARRAY_SIZE(vfe_res_8550),
- };
- 
+ 			clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+ 				 <&camcc CAM_CC_CPAS_AHB_CLK>,
 
 -- 
 2.43.0
