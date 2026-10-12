@@ -1,162 +1,107 @@
-Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1C4B405F
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:57:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C67E4BC007;
+	Mon, 12 Oct 2026 17:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824282; cv=none; b=KC8/jPg5qN8LLWHvD17+o7ZElpZNvbc4HrvtQqdzK8e1qh1NwcJ023waXyt/hMH5xcQLdSmz6qeX8kZnH0zeFR1EjEI0jy2Ch13RVLX3g8ivIAEYd9zk0JSD9PSU9ePthMlJBlzEqDVqu8D2l27hT1nm2UJS8DCuHtUonDVYXzQ=
+	t=1791825605; cv=none; b=HdCHhltu21Lgc1rnNtc/iHQbsURRs2tYHJlxaDF8U/dHWlx9geX5qDsoqukzmvLkS6DUoQJwILH0TijcS65ntMdDPovoQvIfq+HPckazTv5tPKXmo8HBmlDImmT15EXvawCb+pmiZpNaXV47MHN8lGZKxS2zoKUQv9k+qCHK7ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824282; c=relaxed/simple;
-	bh=jCrJHhg9LmoI7hpxLeknAoCWjFflwD4GcffxqEOx+x8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hsXOH/MbWzmjYmkU9U1ppKsCt3luJLZpQ/W8QoMut/F0qPKz0vfVCVEG0MSmxagnbsiVscNsWvUPXfIgFfuJFqzRLhoLmW4vk8a1YrdeKMzz3VmMfy8V8AErFe1ICaATucncVyzvCu2GH+j31T+d12QErAmD/lvZPkdJbf900KY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n7nzLGjr; arc=none smtp.client-ip=74.125.227.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791825605; c=relaxed/simple;
+	bh=ReC683xLMLHgfyjyrGz2xE73qadaayonBN5dJNWSGf0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uTvuKP9JLNvxADuICOqItQidaHR7dl8LQGc4coZc56OjyDP1Bhldpr9e0CODrwPbJ9RQKJ+Z1O/p1ewM1j7jI7X+Nm91fs/WS8ULwEU807yX1AL6sNaU99hTgp1/w9+qJBcSLg6rCI/ZFvixjIFO/MUO/2225T1gFeR0fQAWAd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCZIeTx4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n7nzLGjr"
-Received: by mail-pj2-f3.google.com with SMTP id d9443c01a7336-2e831901331so15071065ad.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:57:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791824276; x=1792429076; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lk3jyk+L25op/gK9ZsPi7IfvbejvW+IuaDGcTZaRnIE=;
-        b=n7nzLGjr0vi3iGJrn3PYjtRXP1XDVcaHTCsmZ78sppuyb0NJxCIh6daMJ07t8bPUSc
-         wVTr1p6r19yo6LrzbFaiMu5uP+P11/zoW7ldVBNCzspn0Yy4rrVWuS6qg95JnUBxDA6u
-         bQUiTt/BiOAKLzChwveHcWtvMox8QCJ23WUApozwGSMrZoC72VwAU/QQVCt4t1luncho
-         Ku8y2mNq0ZQyzZVZZOAXIAsaPq7HGXVzLhanZU5HdBNPQ3WNv69WjAfobctAWRTJrJjk
-         0UdL5RhO706ecw8NBJ40noo48dCZFL8PdgMN7Q0JUjmsWXfwd9vuLhnBcIDlitYFD9CS
-         LZ5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791824276; x=1792429076;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lk3jyk+L25op/gK9ZsPi7IfvbejvW+IuaDGcTZaRnIE=;
-        b=NYdfTmNADmkD8XLIiHDCSNgD/5Ff6K3Lu6ZKoi2padee2l8geokaoI2PqBEjfee+We
-         Ej9DyxmRRzOe7+lqeLwVZfZo2SIiVaJYnqSiGb1x/NL13XoRyhq5rcU+4iOqGzXjvE05
-         0VeOiBC3Wzh5eSW+rp9Sg7Q0FqfnySyUOnbPuUWeOoKl9eOkxd2hG3oQ/cHQcZsC9RlH
-         zrxrJiFaSujJrzV4+3bd7XaUojBkToVJkplNU6so/V5vXT+cPwArB4hGx/jCJmWJbsZI
-         GVqIRq2CxuMxHW5OfzgxINRlouTBNagFeIy1XAQtzSLRTRnPQnOJ7XiArX34pDAk+2lW
-         ubVw==
-X-Forwarded-Encrypted: i=1; AKwUvBywvJ+mfRNAy+rnDVUE7YHEAJ4a0zR3XD+6v4CzKTf/y6/pTmym1i1LRQasOAoBoexxnu4rH7y6r4paHA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSUC5Wn/bEqGRqG70qAd6ogotZ06IgLlYzn3l/LduLPLfgMR7S
-	EMPLhwwIHnCwVXbhfV18kWgvt/RvvxhUYUI9Kbylm5MDeocqB4gTtHah
-X-Gm-Gg: AYBFou27qkjJsBqtDnFNCOAuUHiXeMPBZeenRuA8sWs72EYApjDOgV64OuFt3QsBJ+N
-	VUXIdwN2Vgr2EZ2Vg6QT+Ks3NRXxGX/nUO90aeGqHEbJk1DBJaTXgfluFbyDC6eSNcya/xKisiT
-	yUa8KuNp0FGqY974F5mv49KR6xNtQOtEQ6wIWkOgDFVu87lJdf2eXa2zCvHb13Q9+oPeA+lumMc
-	7z5MgFFgDw5Js66ySg25en0SCnVtzzTSVI4KIHqBrm6FeRVe6qi3aPDYLzLnZADQuhGOi9Qruht
-	ehJWnSo9P0v9p+gxm4xdJdzLZN6qSD8ihVpXcB4am4GSQsOPQshVC7nFxyV0rlW6FE8mDupGYYW
-	f1aKfa1mcONvWU4EeGNN8D3+2OyRdkwiqJL7EEHo8eei1o42fHRngVSfy6y2AZxb1QF00soEF/+
-	L3o0EZLJblHwNztrFwqVnC5kRlKxsSBjPb8WGttPjkmUFaSRhJNlLibULK4YwRBIhl
-X-Received: by 2002:a17:903:1b6d:b0:2db:39da:90f2 with SMTP id d9443c01a7336-2e84280aed6mr90426765ad.8.1791824276254;
-        Mon, 12 Oct 2026 09:57:56 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5e::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8dd5sm46996085ad.55.2026.10.12.09.57.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 09:57:55 -0700 (PDT)
-Date: Mon, 12 Oct 2026 09:57:50 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
-Subject: Re: [PATCH net v1 2/4] net: devmem: detach TX bindings on
- NETDEV_UNREGISTER
-Message-ID: <as0LL7IcZas6IPY2@devvm7509.cco0.facebook.com>
-References: <20261010025532.839559-1-almasrymina@google.com>
- <20261010025532.839559-3-almasrymina@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCZIeTx4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195A71F0089B;
+	Mon, 12 Oct 2026 17:20:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791825604;
+	bh=/+kYat3Js03LLBNLv0RvM8p5SjFSuufv4UsSaTtr3vg=;
+	h=From:To:Cc:Subject:Date;
+	b=WCZIeTx48JYsbkqPJ8oGRb8Z6K0VhXDe7aglI7KhvjXQyj2HPezQGvCQXRlWz7804
+	 oE4iRPBXmYgyFKSCVRSoKRduwu69Gk+uz9eDqcPNFRnTgmAHK6GXE2iZsc6DlgcF18
+	 AilMXoUHzDoe82GDn6aFzLAZPLpa5waoW+EdBo1+cNL9PsrXc0kvTzlEp9bkw/p20i
+	 WG/QZabuOj+/PZjv2ozkwd2qRcRgRk5gxO3CaOuA2YAwsIBESkETY67uW9SejIjyhT
+	 zkqcFBLJrU73NjDg/vuLs8HWLVL2KDZqoxTc+PSPBKPg7GIBvaeCIWNEFuyd4ghqju
+	 J+xFKtK7Iv7Qw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	dakr@kernel.org
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
+Date: Mon, 12 Oct 2026 19:19:40 +0200
+Message-ID: <20261012171939.390365-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261010025532.839559-3-almasrymina@google.com>
+Content-Transfer-Encoding: 8bit
 
-On 10/10, Mina Almasry wrote:
-> TX devmem bindings (NETDEV_CMD_BIND_TX) have no bound RX queues, so
-> mp_dmabuf_devmem_uninstall() never runs when binding->dev or
-> binding->vdev unregisters. As a result, binding->dev and binding->vdev
-> dangle pointing to freed struct net_device memory, and the dma_buf
-> remains attached and mapped after device removal.
-> 
-> Closing the netlink socket after netdev unregistration dereferences the
-> freed struct net_device in netdev_nl_sock_priv_destroy():
-> 
->   BUG: unable to handle page fault for address: ffff88824ca9b000
->   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
->   RIP: 0010:netdev_nl_sock_priv_destroy+0xbd/0x1e0
->   Call Trace:
->    genl_release+0xf5/0x190
->    netlink_release+0xd01/0x18d0
->    __sock_release+0xb0/0x270
->    sock_close+0x18/0x20
-> 
-> Add net_devmem_dev_unregister() called on NETDEV_UNREGISTER:
-> - When binding->dev (the physical DMA-capable device) unregisters,
->   erase the binding ID, clear both binding->dev and binding->vdev, wait
->   for in-flight RCU/TX readers via synchronize_net(), and unmap the
->   dma_buf under binding->lock.
-> - When only binding->vdev (virtual device) unregisters while
->   binding->dev lives, only clear binding->vdev so no new TX sends match
->   the virtual device while allowing in-flight TX packets on binding->dev
->   to finish DMA safely.
-> 
-> Fixes: bd61848900bf ("net: devmem: Implement TX path")
-> Fixes: 1abe839b34ae ("net: devmem: support TX over NETMEM_TX_NO_DMA devices")
-> Cc: Kaiyuan Zhang <kaiyuanz@google.com>
-> Cc: Stanislav Fomichev <sdf@fomichev.me>
-> Cc: Bobby Eshleman <bobbyeshleman@meta.com>
-> Cc: Tariq Toukan <tariqt@nvidia.com>
-> Cc: Kaifeng Wang <kaifengw@google.com>
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> ---
->  net/core/devmem.c      | 45 ++++++++++++++++++++++++++++++++++++++++++
->  net/core/devmem.h      |  5 +++++
->  net/core/netdev-genl.c |  1 +
->  3 files changed, 51 insertions(+)
-> 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 5e4070b82df44..da7b3e8abaa13 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-> @@ -169,6 +169,51 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
->  	percpu_ref_kill(&binding->ref);
->  }
->  
-> +void net_devmem_dev_unregister(struct net_device *dev)
-> +{
-> +	struct net_devmem_dmabuf_binding *binding;
-> +	unsigned long xa_idx;
-> +
+dma_fence's backend_ops functions ops->wait() and ops->release() are
+problematic because they prevent fence producers from unloading.
+Moreover, they can easily be implemented through simpler means more
+aligned with the dma_fence contract.
 
-[..]
+Since the declared goal of dma_fence is to move towards an
+implementation that supports driver-unload in all circumstances, we must
+prevent more parties from implementing those callbacks.
 
-> +	rcu_read_lock();
-> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
-> +		if (!percpu_ref_tryget(&binding->ref))
-> +			continue;
-> +		rcu_read_unlock();
+Deprecate ops->release() and ops->wait() and document what users should
+do instead.
 
-You use net_devmem_dmabuf_binding_put below but do not use
-net_devmem_dmabuf_binding_get here.
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v2:
+  - Drop confusing sentence (Christian).
+---
+ include/linux/dma-fence.h | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Also, I feel like rcu_read_lock/rcu_read_unlock dance is confusing. bindings
-are not following rcu lifetimes. Can we race with __net_devmem_dmabuf_binding_free
-here? (xa_for_each returns a valid binding, then before we do try_get it
-gets kfree'd)
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..388c07d11e70 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -220,6 +220,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @wait:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Custom wait implementation, defaults to dma_fence_default_wait() if
+ 	 * not set.
+ 	 *
+@@ -243,6 +245,8 @@ struct dma_fence_ops {
+ 	/**
+ 	 * @release:
+ 	 *
++	 * DEPRECATED!
++	 *
+ 	 * Called on destruction of fence to release additional resources.
+ 	 * Can be called from irq context.  This callback is optional. If it is
+ 	 * NULL, then dma_fence_free() is instead called as the default
+@@ -254,6 +258,12 @@ struct dma_fence_ops {
+ 	 *
+ 	 * If the callback is implemented the memory backing the dma_fence
+ 	 * object must be freed RCU safe.
++	 *
++	 * Deprecated because it prevents the producer of a fence from
++	 * unloading. No new users must be implemented. Parties with a
++	 * hypothetical need for this callback can instead simply and directly
++	 * perform their custom release operations one RCU grace period after
++	 * they have signaled the fence.
+ 	 */
+ 	void (*release)(struct dma_fence *fence);
+ 
+
+base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
+-- 
+2.55.0
+
