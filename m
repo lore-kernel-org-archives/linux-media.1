@@ -1,62 +1,66 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA2C3EEAE7
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3836C4AB1D3
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821607; cv=none; b=iZfuTP1oltNEVdPkKxcdpHZIYM5rXRr5lk7h/aD2OxIHCqzkgwGKtszDHiuYt/JB/91CLD2NpdVrAgMAkXDQFlqN99/aJ3Wud+AnziWICrK8MWhwX5Ai8yDjRDQ/7gsvi894mbNSbtXOvGeScW5BaDNjXYxygbq88ZOfId+wVWc=
+	t=1791821612; cv=none; b=qUrGADnJB8dxggtXw7pakY+v0ELhR/Tun3qq2hVyB87WwO5+IggoZJE90ZX8+JJpIF75kNPsS1BsdJIHpKePOCq9eZnBjcvAA7dNZP+W5wEg+Si9nkpLGjNTQ3VsPqebxkPX7Mg1bBjq4in2X452PGTtmQKM6Ctkwuye68gynDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821607; c=relaxed/simple;
-	bh=hBFpiBsh1OJ7/0dcpT+PVUfIoV8PmYIo/FqAcvIJ30o=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=CrilQOob6nCK2fcnSFKbGQTkv0Oyfb1xtIVRoac8PtOF201dZClvbj76u0QJRKcKOnXyvQ623cGrg2YW45DxRPzvEKFgt74x4oIgGzAMlJwTexO/T3CN4B1COXM/Rka5Nisg6xotQFPcU9U3Zk9EP9MpbenA6jYcGDp0tNC9pp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--johnsingleton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OmcxGm9x; arc=none smtp.client-ip=209.85.210.71
+	s=arc-20240116; t=1791821612; c=relaxed/simple;
+	bh=RgV6tR5jcQa2cdmmaHtcrqW8KUs0QaaUYSr/3iY5+5c=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=SeqnxMAk+6Ik2QquXREX0NHa932DYGOjVjNJnmlGUY418vZbIHuiN5RRfxoUBtrOM2umJyYr0lYqT+CbNGj5oWnt6WUyWo/pq+5JwZ7AGsw5vHmZj8/9oAGs5+IAhZ3FIm202qCM3qFBrDoc/4Q6TyJlk0P9GLn9X1XpfzQ84CU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--johnsingleton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XF8gVgI+; arc=none smtp.client-ip=209.85.167.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--johnsingleton.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OmcxGm9x"
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-804e73b36eeso4580394a34.2
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:13:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XF8gVgI+"
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4db3db8687fso3472003b6e.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:13:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791821605; x=1792426405; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LBXNI3mtAkG5Ua6Q4/3lD9SCGWUQMAEPkEoP8hTTCsE=;
-        b=OmcxGm9xh/VTBp2h+tv0CPtHL5YBRX+XlhEGHXM1rwXVeeoOXtquy+nKHz99s+2FFl
-         SHzfaMEBSyxxomorm/dt8PiIk3Yc9QNfZyNC9/uoJp+FUvDQQZvbYoFEmKjY9K8QKDrv
-         6dLzL59hXEqYQe5myIwu0wQZMIWunZAhF2Jw237Nuy+toQI1/4Zo0dhUHUjyGCtzvwWN
-         kYRvio07Ww+esToKv73YQVqQchevGofmKOSyxSX7dp2F5b0M/k+M3l2yxiZOxnP3hEw6
-         WeedW4in4No9kYlYKkNAxUKtAWz3qeA7bpF5ANud4mQlP2c/57Zi1CXKtgySNPVLrZ6u
-         3h/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791821605; x=1792426405;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1791821608; x=1792426408; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LBXNI3mtAkG5Ua6Q4/3lD9SCGWUQMAEPkEoP8hTTCsE=;
-        b=p9t9fqrA3q4WPd/AxPginjn940RdUYaG7ALEZtqSwNVbKUzOGhLd75FTBUhtIkU62a
-         DiFWl5fUnwnOPpvr3oiLGHzYM1DXN7vOySnOaRS/1oLJGbtwEi4uUKHEtGfuf98TBZZm
-         mtSGwZzQDQFp5BBKRCdVBiAzAnUhSWO8n3EYOG51/3HM+Q7KD4gKYQzMfQrBBNYoRK8B
-         W/oWQFRnmavj11ce/FWGFT7FyK63HMliVO9PolUrTL1aTm/QmeD8o7TB9jT98qlIRhTl
-         Bi4PrT23yeI7emavu61nvYJNxUHzmM80NRGyao+y8eHS+ehngSCmoKVdNnkP6FmOp1Be
-         gaZg==
-X-Gm-Message-State: AFq9FYLMktwUqNBX0vJgLuh+U99cLs2MyweHIivAKZOOw7ROyGQvJBKK
-	PXbja/0WB/nSVExYt3UVy1t0Gob7ZJlZcwN4V/IUYo8dqIGgQIhTQoKqoRC7RvztxdeYrIib3V2
-	z1QQALv1SUJe009gz/mJpPhMrd8MA4/sc0Q==
-X-Received: from iljf6.prod.google.com ([2002:a05:6e02:c66:b0:50f:bbf:6e5a])
+        bh=Q5arXL8FFSiMk7enaPI4H1eACN8f2tsnY0z06uFeb7M=;
+        b=XF8gVgI+QEDKWvu3uaQmM/0jmutY2CQOwmcCoo8Y34D/enk2if9SVN1TcjsgGMH3c7
+         YtR+J3EtjsZkxBwfQLdpT6I6sNvzGpjNHlQDNYkUKEi73hpKzDPwSPoGtOq/NK5+jO/U
+         ZsjbfxScRhwodWUfC7tpnpzBoffLw6taRpNH2mPwmQ4ymItguA7Yz/vaf92z/MlGkKxa
+         ln6I5pzKHPFkLQvqCLP1oIOGNcwlhFcoULgvRXd3ml1ebE2F4XbxIOBCEw9i4CXSpFIx
+         1kyK8MnaTcfXeLGfds5nZvTUnUoxvZNLsUMqP4EYAniZL+ru5BmfEpW9nilCXfnaVfi7
+         i2Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791821608; x=1792426408;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q5arXL8FFSiMk7enaPI4H1eACN8f2tsnY0z06uFeb7M=;
+        b=tMtrKO5F5FpeYSiyofS8VZJYpjkvElBxBP6w1E31fFg5ED3/InWi7bqxBcsGtsCFyH
+         0HCUxhalNHb0hprQGqR4B8hAQXrZ6DM4Ij29rBXK2UCMiXV6OhjmPDVTcjdXEAznxLR1
+         HREEXOYTPu43J7oKqiqcKErocG1LEY7ZmVN9tVF76cthbhYOUFEjGyCUfWvdHW5jrnwt
+         ZJsS42d942ZuW7tNdjwsa7Ryf+SIyW0VAmdJwSpXHqyBlNdVv+k07qz8IiUd7+1g197u
+         czSJPR0HbXQudDxtIEzpjQuSmuld+xggcJKwSoI1QYM9d+oZnO34Zx3gnHIGfEDUxq9G
+         wB/g==
+X-Gm-Message-State: AFq9FYJND9f22Xd/TTBJ4GZJJykbzoqSujlszpmFW6L2w8JSkq/i0Gvb
+	S5UeLPbXqBVVCDGjO13kVhyY8GMq1b9AsjJOVc9j5qsyrK8FwaqdF35b0Mc77CScLxVCf702H7Y
+	Kr2f1Qr9YNsddH/F1iJd72vAAVgc63Y1Mbg==
+X-Received: from jaac27-n1.prod.google.com ([2002:a05:6638:c75b:10b0:60b:13bf:fe78])
  (user=johnsingleton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:1983:b0:4f9:595:b80c with SMTP id 5614622812f47-50c56bf8a1bmr10785057b6e.41.1791821604817;
- Mon, 12 Oct 2026 09:13:24 -0700 (PDT)
-Date: Mon, 12 Oct 2026 16:13:20 +0000
+ 2002:a05:6808:4f0a:b0:4ec:7639:2ad with SMTP id 5614622812f47-50c52471170mr8154333b6e.13.1791821607672;
+ Mon, 12 Oct 2026 09:13:27 -0700 (PDT)
+Date: Mon, 12 Oct 2026 16:13:21 +0000
+In-Reply-To: <20261012161322.930099-1-johnsingleton@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
+References: <20261012161322.930099-1-johnsingleton@google.com>
 X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261012161322.930099-1-johnsingleton@google.com>
-Subject: [PATCH 1/3] staging: media: atomisp: Make pmic_name array const
+Message-ID: <20261012161322.930099-2-johnsingleton@google.com>
+Subject: [PATCH 2/3] staging: media: atomisp: Remove extraneous dev_dbg
 From: John Singleton <johnsingleton@google.com>
 To: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
 	Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -65,28 +69,50 @@ Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org, John Singleton <johnsingleton@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add const to pmic_name[] as advised by checkpatch to ensure the
-pointer itself remains unmodified. The array is read and never
-modified, so this change safe.
+Remove dev_dbg calls that (per checkpatch) are duplicative
+wrt ftrace.
 
 Signed-off-by: John Singleton <johnsingleton@google.com>
 ---
- drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/staging/media/atomisp/pci/atomisp_cmd.c  | 2 --
+ drivers/staging/media/atomisp/pci/atomisp_v4l2.c | 4 ----
+ 2 files changed, 6 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c b/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
-index a1d3a16921ea..d628fe4dca6d 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_gmin_platform.c
-@@ -109,7 +109,7 @@ static enum {
- 	PMIC_CRYSTALCOVE
- } pmic_id;
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+index 6cd500d9fd26..a7c28c261320 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+@@ -262,8 +262,6 @@ int atomisp_reset(struct atomisp_device *isp)
+ 	/* Reset ISP by power-cycling it */
+ 	int ret = 0;
  
--static const char *pmic_name[] = {
-+static const char * const pmic_name[] = {
- 	[PMIC_UNSET]		= "ACPI device PM",
- 	[PMIC_REGULATOR]	= "regulator driver",
- 	[PMIC_AXP]		= "XPower AXP288 PMIC",
+-	dev_dbg(isp->dev, "%s\n", __func__);
+-
+ 	ret = atomisp_power_off(isp->dev);
+ 	if (ret < 0)
+ 		dev_err(isp->dev, "atomisp_power_off failed, %d\n", ret);
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+index 812230397409..d83c967fd125 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
+@@ -345,8 +345,6 @@ static int atomisp_save_iunit_reg(struct atomisp_device *isp)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(isp->dev);
+ 
+-	dev_dbg(isp->dev, "%s\n", __func__);
+-
+ 	pci_read_config_word(pdev, PCI_COMMAND, &isp->saved_regs.pcicmdsts);
+ 	/* isp->saved_regs.ispmmadr is set from the atomisp_pci_probe() */
+ 	pci_read_config_dword(pdev, PCI_MSI_CAPID, &isp->saved_regs.msicap);
+@@ -400,8 +398,6 @@ static int atomisp_restore_iunit_reg(struct atomisp_device *isp)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(isp->dev);
+ 
+-	dev_dbg(isp->dev, "%s\n", __func__);
+-
+ 	pci_write_config_word(pdev, PCI_COMMAND, isp->saved_regs.pcicmdsts);
+ 	pci_write_config_dword(pdev, PCI_BASE_ADDRESS_0, isp->saved_regs.ispmmadr);
+ 	pci_write_config_dword(pdev, PCI_MSI_CAPID, isp->saved_regs.msicap);
 -- 
 2.56.0.385.gd3acb90ef8-goog
 
