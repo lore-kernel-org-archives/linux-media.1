@@ -1,207 +1,336 @@
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.102])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777B2453A31;
-	Mon, 12 Oct 2026 08:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.102
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C68456DE9
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 08:21:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791793162; cv=none; b=e0+vBlmFliNPHY717l7frvhHiiju4ZHyAp9A09dnjhvRk3GrWWOMv+9LnooywiShg8ueMnv8rBy84pRjVLgsyszIqieRXeqXlpplZ7f0ZC1l0cUKpHSmePz/LZN21Tppl/GCRbqGXLd04T3bmKZ6317zozIw71mqZ0KAXLm1Zhc=
+	t=1791793272; cv=none; b=QE42MPVyCxZCEb98nStfO6niiFMTOZKrTCvK6cztnBJaUjZP4dnDQxFawDcc5g4eo6BghdpzCtP4Xlal2iUkcanGjCXEPHdiTVhiJN5GyViDkLX7xo55OVTJEX9vdAt4b81q/jWW1W838WC5CzTUgm4jy6Yu23kDQHkea1iTU3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791793162; c=relaxed/simple;
-	bh=8m/PI2rzRR7e4izvpKwNRDaoYx1A00e6WCIv/1VKjt0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=F5ynKK9uJw/aM9JIK4LN8QYk0PvjaXk4CNmpa/BUodXVqwB55WikM43B9sU/iqeL972PebLfV+AcwDk54aufTmB8EEbggLW98Ma1+gJV8+rpfL/qbYZjKkCK1rq3kiNTypusPCNRIZlJ1klNHBxpDhcKOMaTridUuoNFCkallp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=PTx6Ibnf; arc=none smtp.client-ip=188.68.63.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	s=arc-20240116; t=1791793272; c=relaxed/simple;
+	bh=1r1VXntgDxaY10OhKvueybPsqSAAsQZ3OJsrjWUjsjs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oQLPbhTDZh1gpDOg5CeFeoG7BnOfIkrvkOPZy5MeoSeiRVLISJ1YQtnXa2tDaMsysTQAXsSmj6Y4Rn5nAZDf2zslHYqHKUyqR5e97zNOmW/Fy1QB6vgD2FUDyEd/CyIs1n3rUADdOKPTR5sISX0fnfzm2RNAuMFn+Ed94hMEs5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U8poCUP+; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="PTx6Ibnf"
-Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4j39DW2Ng8z6KNr;
-	Mon, 12 Oct 2026 10:12:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1791792731;
-	bh=8m/PI2rzRR7e4izvpKwNRDaoYx1A00e6WCIv/1VKjt0=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=PTx6Ibnfz5eXEKUXAxXEsgBww+gw/0RXLy7t1V5r2qGbZ4a2vsSiRkVjXSW8rOMq6
-	 zMKhQMFNNq46CrUsQ8d8beTdzEwNsP9NSd/TCsyvAX/CHmfpTANxUcTD2zGgksEgri
-	 hUR/hZqC7Ub6DGv6NA8AsIm2JouIVxjJ5hooRJ4LNOwC7aT7DpM1JneG6wqezChCJ7
-	 qlqKOdtIpWiQ77BSu8V3JypSQeDQCM6YwLDFJuyFM30rEdGNkCxbdtHOwC7FIdNqAZ
-	 XnRueyYDCofKWFkdWUGCEzHAE+6GRvZgt7Ld9jpP8+gOFtUqvDc7QXfG5m97mdMBCZ
-	 wB5n1jWeZgJiQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4j39DW1djNz4xrZ;
-	Mon, 12 Oct 2026 10:12:11 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j39DT0hwsz8svZ;
-	Mon, 12 Oct 2026 10:12:08 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 89CBF5FA0A;
-	Mon, 12 Oct 2026 10:12:03 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
-Date: Mon, 12 Oct 2026 10:12:02 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U8poCUP+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791793269; x=1823329269;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1r1VXntgDxaY10OhKvueybPsqSAAsQZ3OJsrjWUjsjs=;
+  b=U8poCUP+S/XgipJj+wCKisfOKlA/ZJ+Vao/9jpBqAfCmRhvYf8pzOHK2
+   P5h9ghy92QLYt/gZfb4xr+/3le5nC/PFb/0/WmWIcnGGnbhwhtrNarN5l
+   jomRdm3W5pB60wlbYP/5+0ntt484k0IX3lgodPrS/kXKFS/PKt/SDiLHG
+   ZOQ4ZfvqUi5sCdrAX8O1a2/OHtaI5fnRFSdJqPoYWPcNNOkZu7FhGfCWD
+   wsdt/PPk902+xIG2Bc8A7X1Jb23XDbeM8cdQ/LLSA7HY9gdLDE/39XvZC
+   qcadOFrWx88iO+xNTXpw5KZF4Her1/pdifYfc4eXsMxvKBgjuVd4HAB+f
+   g==;
+X-CSE-ConnectionGUID: WO8TsNI2S+62fVpQvaXuyg==
+X-CSE-MsgGUID: 7g9ptdViScuY8/jwGv+fqQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="394215"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="394215"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 01:21:08 -0700
+X-CSE-ConnectionGUID: G2ekDaIxSbWxlylq1cyl7w==
+X-CSE-MsgGUID: FF0YDwoRSmKYqaa2CBnFfA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="1140549"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.165])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 01:21:05 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2F646121B9E;
+	Mon, 12 Oct 2026 11:21:08 +0300 (EEST)
+Date: Mon, 12 Oct 2026 11:21:08 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+To: Ruslan Bay <ruslanbey@proton.me>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Andreas Helbech Kleist <andreaskleist@gmail.com>,
+	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
+	"tfiga@chromium.org" <tfiga@chromium.org>,
+	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
+	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
+	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
+	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: [RFC PATCH 03/12] media: ipu6: Add IPU4P buttress support
+Message-ID: <asyYdEXPE7F5Wy8k@kekkonen.localdomain>
+References: <-QUv20vwP_Fvyx8GMeVsgtsHb5NwrrqqQdutzA6KHdba6DCLA3iNDRYsFUVx-_Ja9j0ak-LPvEIkN63hKhkdr2WvlTYBP5jh38cAyc6tuFU=@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Rob Clark <rob.clark@oss.qualcomm.com>,
- Jianfeng Liu <liujianfeng1994@gmail.com>,
- Diederik de Haas <diederik@cknow-tech.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20261005064133.7305-1-kmehltretter@gmail.com>
-Content-Language: de-DE, en-US
-In-Reply-To: <20261005064133.7305-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179179272424.2732199.1316107687235030751@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 89CBF5FA0A
-X-NC-CID: e7ESKfmUIpuYlmbQcZtXdDyJbZbz3Y/HlwjoxMOnU+MFOoIgJ9w=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <-QUv20vwP_Fvyx8GMeVsgtsHb5NwrrqqQdutzA6KHdba6DCLA3iNDRYsFUVx-_Ja9j0ak-LPvEIkN63hKhkdr2WvlTYBP5jh38cAyc6tuFU=@proton.me>
 
-On 10/5/26 08:41, Karl Mehltretter wrote:
-> With DMABUF_DEBUG, dma_buf_map_attachment() gives the importer a copy of
-> the exporter's sg_table without the struct pages and offsets, and
-> without the lengths where sg_dma_len() is a separate field. An importer
-> that uses those fields stops working. That is the point of the option,
-> but the failure usually shows up somewhere else and says nothing about
-> the cause.
-> 
-> Commit 143755bdabaa9 ("dma-buf: Make DMABUF_DEBUG default to y on
-> DEBUG_KERNEL kernels"), which I wrote, went into v7.3-rc4. It made the
-> default from commit 646013f513f3 ("dma-buf: enable DMABUF_DEBUG by
-> default on DEBUG kernels") take effect, and distribution configs
-> usually have DEBUG_KERNEL=y. Two reports followed:
-> 
-> - Jianfeng Liu: hardware video decode with drm/msm ends in GPU
->   translation faults [1]. He then sent a revert [2].
-> 
-> - Diederik de Haas: rockchip fails to import buffers when playing
->   video, on a config based on Debian's [3].
->
-> In [2] Rob Clark said the problem goes beyond msm and cannot be fixed
-> quickly,
+Hi Ruslan,
 
-What's the status here given that 7.3 will likely be released in a few
-days? Note, I can see from the discussion that this is a complex problem
-that can't be quickly solved. That's how it is sometimes. But I wonder
-if the current state of things is the best compromise for now or if
-Rob's revert or some other option would be better.
+Thank you for the set.
 
-Ciao, Thorsten
+On Sun, Oct 11, 2026 at 02:34:16PM +0000, Ruslan Bay wrote:
+> IPU4P uses different power FSM controls and frequency divisor
+> placement from IPU6, and has a different bootloader status register.
+> 
+> Add IPU4P-specific power management and firmware authentication handling
+> to the IPU6 buttress driver.
+> 
+> Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
+> ---
+>  drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 48 +++++++++++++++++--
+>  .../intel/ipu6/ipu6-platform-buttress-regs.h  | 20 ++++++++
+>  .../media/pci/intel/ipu6/ipu6-platform-regs.h |  6 +++
+>  drivers/media/pci/intel/ipu6/ipu6.c           | 40 ++++++++++++++++
+>  drivers/media/pci/intel/ipu6/ipu6.h           |  1 +
+>  include/media/ipu6-pci-table.h                |  1 +
+>  6 files changed, 113 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> index 105de1744dff..ae63a9238771 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> @@ -601,6 +601,43 @@ static int __ipu6_power(struct device *dev,
+>  	return ret;
+>  }
+>  
+> +static int __ipu4p_power(struct device *dev,
+> +			 const struct ipu6_buttress_ctrl *ctrl, bool on)
+> +{
+> +	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
+> +	u32 pwr_sts, val;
+> +	int ret;
+> +
+> +	if (!on) {
+> +		val = 0;
+> +		pwr_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
+> +	} else {
+> +		u32 shift = (ctrl->subsys_id == IPU_ISYS) ?
+> +			    IPU4P_BUTTRESS_IS_FREQ_CTL_RATIO_SHIFT :
+> +			    IPU4P_BUTTRESS_PS_FREQ_CTL_RATIO_SHIFT;
+> +
+> +		val = BUTTRESS_FREQ_CTL_START |
+> +		      (ctrl->ratio << shift) |
+> +		      FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK, ctrl->qos_floor);
+> +
+> +		if (ctrl->subsys_id == IPU_PSYS)
+> +			val |= BIT(IPU4P_BUTTRESS_PS_FREQ_CTL_OVRD_SHIFT);
+> +
+> +		pwr_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
+> +	}
+> +
+> +	writel(val, isp->base + ctrl->freq_ctl);
+> +
+> +	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
+> +				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
+> +				 100, BUTTRESS_POWER_TIMEOUT_US);
+> +	if (ret)
+> +		dev_err(&isp->pdev->dev,
+> +			"Change power status timeout with 0x%x\n", val);
+> +
+> +	return ret;
+> +}
+> +
+>  int ipu6_buttress_power(struct device *dev,
+>  			const struct ipu6_buttress_ctrl *ctrl, bool on)
+>  {
+> @@ -615,6 +652,8 @@ int ipu6_buttress_power(struct device *dev,
+>  	if (IS_IPU7(isp))
+>  		ret = on ? __ipu7_power_on(dev, ctrl) :
+>  			   __ipu7_power_off(dev, ctrl);
+> +	else if (IS_IPU4P(isp))
+> +		ret = __ipu4p_power(dev, ctrl, on);
 
-> and Christian König offered to set the default to N for
-> another few months [4]. I listed more importers that look affected and
-> mentioned this RFC in [5]. As of v7.3-rc6 the default is unchanged.
-> 
-> This series adds DMABUF_DEBUG_WARN as a sub-option of DMABUF_DEBUG. The
-> importer still gets a copy, but one that keeps the CPU side of the
-> exporter's table. The entries are marked with a new bit in dma_flags.
-> sg_page(), sg_nents_for_len() and sg_split() print a rate limited
-> message with a stack trace when they see the bit. These CPU-side
-> accesses can continue after the report instead of failing because the
-> fields were cleared. The report is not a WARN(), so it does not taint
-> and does not trigger panic_on_warn. Strict mode remains the default and
-> continues to remove the CPU-side fields.
-> 
-> Known limits:
-> 
-> - Only access through sg_page(), sg_nents_for_len() and sg_split() is
->   seen. sg_page() covers sg_phys(), sg_virt() and the page iterators.
->   An importer that reads sg->length or sg->offset directly is not
->   noticed.
-> 
-> - When the option is enabled, every sg_page() tests the flag.
-> 
-> - It selects NEED_SG_DMA_FLAGS, which adds dma_flags and may increase
->   the size of struct scatterlist. It also relies on dma_flags being
->   initialised, as the DMA mapping code already does.
-> 
-> - It finds importers. It does not fix them.
-> 
-> Question for the maintainers: could warn mode be what DEBUG_KERNEL
-> kernels get by default, with strict mode kept for CI? Or is an opt-in
-> sub-option all that is wanted, if anything? The series does not change
-> any default.
-> 
-> Testing, on the commits as posted:
-> 
-> - KUnit, the dma-buf suites, under UML and on x86_64 in QEMU, in strict
->   and in warn mode: 56 passed, 1 skipped (it needs 2 CPUs) each time.
-> 
-> - Builds: x86_64, arm64 and ARM926 with DMABUF_DEBUG_WARN=y, ARM926
->   without DMABUF_DEBUG. Without DMABUF_DEBUG the generated code of
->   dma-buf.o and lib/scatterlist.o is the same as before, except for
->   line numbers.
-> 
-> - IIO DMABUF capture on a Zynq in QEMU, with local device models. The
->   IIO dmaengine buffer calls sg_nents_for_len() on the attachment's
->   table. In strict mode with NEED_SG_DMA_LENGTH the capture fails with
->   -EBUSY. In warn mode it works, the kernel is not tainted, and the log
->   has:
-> 
->   DMA-BUF: importer used the CPU side of an exporter's sg_table
->   CPU: 0 UID: 0 PID: 48 Comm: iio-dmabuf Not tainted 7.3.0-rc4+ #2 VOLUNTARY
->   Call trace:
->    [...]
->    dump_stack_lvl from sg_nents_for_len+0xd8/0xe4
->    sg_nents_for_len from iio_dmaengine_buffer_submit_block+0x4c/0x33c
->    iio_dmaengine_buffer_submit_block from iio_dma_buffer_submit_block.part.0+0x5c/0x104
->    iio_dma_buffer_submit_block.part.0 from iio_dma_buffer_enqueue_dmabuf+0x68/0xa0
->    iio_dma_buffer_enqueue_dmabuf from iio_buffer_chrdev_ioctl+0x520/0x9a4
->    iio_buffer_chrdev_ioctl from sys_ioctl+0x460/0x914
-> 
-> - sur40 behind xHCI and intel-iommu on x86_64 in QEMU, with a one-line
->   test-only change in sur40. Here sg_page() is called in
->   iommu_dma_map_sg(), and the trace leads back to sur40_poll(). The
->   capture itself did not finish in that setup.
-> 
-> Details are in the notes on the patches. Not tested on hardware.
-> 
-> Based on v7.3-rc4-70-gfe2ec83746e5.
-> 
-> An LLM agent helped with the code and the testing.
-> 
-> [1] https://lore.kernel.org/r/20260923074256.9357-1-liujianfeng1994@gmail.com
-> [2] https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com
-> [3] https://lists.freedesktop.org/archives/dri-devel/2026-September/600904.html
-> [4] https://lore.kernel.org/r/50a9c1f1-6889-4bd5-b4f7-0500d30d3dd9@amd.com
-> [5] https://lore.kernel.org/r/arrAvk4aYQ4sDEzN@gmail.com
-> 
-> Karl Mehltretter (3):
->   dma-buf: keep the DMA flags in the DMABUF_DEBUG copy
->   dma-buf: add a warn-only mode to DMABUF_DEBUG
->   dma-buf: test the debug scatterlist wrapper
-> 
->  drivers/dma-buf/.kunitconfig |   1 +
->  drivers/dma-buf/Kconfig      |  23 ++++
->  drivers/dma-buf/Makefile     |   1 +
->  drivers/dma-buf/dma-buf.c    |  48 ++++++-
->  drivers/dma-buf/st-dma-buf.c | 253 +++++++++++++++++++++++++++++++++++
->  include/linux/scatterlist.h  |  26 +++-
->  lib/scatterlist.c            |  22 +++
->  lib/sg_split.c               |   2 +
->  8 files changed, 372 insertions(+), 4 deletions(-)
->  create mode 100644 drivers/dma-buf/st-dma-buf.c
-> 
-> 
-> base-commit: fe2ec83746e501645709761605c2464a44fd2929
+Please keep the order, i.e. 4P should be first.
 
+>  	else
+>  		ret = __ipu6_power(dev, ctrl, on);
+>  
+> @@ -824,6 +863,8 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
+>  
+>  	void __iomem *base = IS_IPU7(isp) ?
+>  			     isp->base + IPU7_BUTTRESS_REG_FW_BOOT_PARAMS7 :
+> +			     IS_IPU4P(isp) ?
+> +			     psys_pdata->base + IPU4P_BOOTLOADER_STATUS_OFFSET :
+>  			     psys_pdata->base + BOOTLOADER_STATUS_OFFSET;
+>  
+>  	ret = readl_poll_timeout(base, data, data == BOOTLOADER_MAGIC_KEY, 500,
+> @@ -1089,9 +1130,10 @@ int ipu6_buttress_init(struct ipu6_device *isp)
+>  		ipu7_buttress_setup(isp);
+>  		b->ref_clk = 384;
+>  	} else {
+> -		dev_dbg(&isp->pdev->dev, "IPU6 touch 0x%x mask 0x%x\n",
+> -			readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
+> -			readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
+> +		if (!IS_IPU4P(isp))
+> +			dev_dbg(&isp->pdev->dev, "IPU6 touch 0x%x mask 0x%x\n",
+> +				readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
+> +				readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
+>  
+>  		writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
+>  		writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+> index 57e661cc2177..6679a7d35e89 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+> @@ -330,4 +330,24 @@ enum {
+>  /* IPU7.5 */
+>  #define IPU7_BUTTRESS_SEL_PB_TIMESTAMP		BIT(9)
+>  
+> +/* IPU4P */
+> +#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_SHIFT	20
+> +#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_MASK	GENMASK(24, 20)
+> +#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IDLE	0x0
+> +#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IS_RDY	0xc
+> +
+> +#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_SHIFT	25
+> +#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_MASK	GENMASK(29, 25)
+> +#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_IDLE	0x0
+> +#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_PS_PWR_UP	0x10
+> +
+> +#define IPU4P_BUTTRESS_IS_FREQ_CTL_RATIO_SHIFT		1
+> +#define IPU4P_BUTTRESS_PS_FREQ_CTL_OVRD_SHIFT		7
+> +#define IPU4P_BUTTRESS_PS_FREQ_CTL_RATIO_SHIFT		8
+> +
+> +#define IPU4P_IS_FREQ_CTL_DIVISOR			4
+> +#define IPU4P_PS_FREQ_CTL_DEFAULT_RATIO			0x12
+> +
+> +#define IPU4P_BOOTLOADER_STATUS_OFFSET			0x8000
+
+Ditto.
+
+> +
+>  #endif /* IPU6_PLATFORM_BUTTRESS_REGS_H */
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h b/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
+> index f08e7e8fd87d..526b02309277 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
+> @@ -16,10 +16,16 @@
+>  
+>  #define IPU4P_ISYS_IOMMU0_OFFSET		0x000e0000
+>  #define IPU4P_ISYS_IOMMU1_OFFSET		0x000e0100
+> +#define IPU4P_ISYS_OFFSET			0x00100000
+> +#define IPU4P_ISYS_SPC_OFFSET			0x00000000
+> +#define IPU4P_ISYS_DMEM_OFFSET			0x00008000
+>  
+>  #define IPU4P_PSYS_IOMMU0_OFFSET		0x000b0000
+>  #define IPU4P_PSYS_IOMMU1_OFFSET		0x000b0100
+>  #define IPU4P_PSYS_IOMMU1R_OFFSET		0x000b0600
+> +#define IPU4P_PSYS_OFFSET			0x00400000
+> +#define IPU4P_PSYS_SPC_OFFSET			0x00000000
+> +#define IPU4P_PSYS_DMEM_OFFSET			0x00008000
+>  
+>  #define IPU4P_MMU_L1_STREAM_ID_REG_OFFSET	0x0c
+>  #define IPU4P_MMU_L2_STREAM_ID_REG_OFFSET	0x4c
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+> index 43d951735f72..789477e3829b 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6.c
+> @@ -140,6 +140,28 @@ static const struct ipu6_buttress_ctrl ipu7_psys_buttress_ctrl = {
+>  	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
+>  };
+>  
+> +static const struct ipu6_buttress_ctrl ipu4p_isys_buttress_ctrl = {
+> +	.subsys_id = IPU_ISYS,
+> +	.ratio = IPU4P_IS_FREQ_CTL_DIVISOR,
+> +	.qos_floor = 0,
+> +	.freq_ctl = BUTTRESS_REG_IS_FREQ_CTL,
+> +	.pwr_sts_shift = IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_SHIFT,
+> +	.pwr_sts_mask = IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_MASK,
+> +	.pwr_sts_on = IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IS_RDY,
+> +	.pwr_sts_off = IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IDLE,
+> +};
+> +
+> +static const struct ipu6_buttress_ctrl ipu4p_psys_buttress_ctrl = {
+> +	.subsys_id = IPU_PSYS,
+> +	.ratio = IPU4P_PS_FREQ_CTL_DEFAULT_RATIO,
+> +	.qos_floor = 0,
+> +	.freq_ctl = BUTTRESS_REG_PS_FREQ_CTL,
+> +	.pwr_sts_shift = IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_SHIFT,
+> +	.pwr_sts_mask = IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_MASK,
+> +	.pwr_sts_on = IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_PS_PWR_UP,
+> +	.pwr_sts_off = IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_IDLE,
+> +};
+> +
+>  static const struct ipu6_buttress_registers ipu6_buttress_regs = {
+>  	/* Registers */
+>  	.irq_status	= BUTTRESS_REG_ISR_STATUS,
+> @@ -375,6 +397,15 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
+>  		isys_ipdata.csi2.gpreg = IPU7_IS_IO_CSI2_GPREGS_BASE;
+>  		isys_ipdata.csi2.nports = 4;
+>  	}
+> +
+> +	if (IS_IPU4P(isp)) {
+
+Here, too. There are probably other locations as well.
+
+> +		isys_ipdata.hw_variant.offset = IPU4P_ISYS_OFFSET;
+> +		isys_ipdata.hw_variant.spc_offset = IPU4P_ISYS_SPC_OFFSET;
+> +		isys_ipdata.hw_variant.dmem_offset = IPU4P_ISYS_DMEM_OFFSET;
+> +		psys_ipdata.hw_variant.offset = IPU4P_PSYS_OFFSET;
+> +		psys_ipdata.hw_variant.spc_offset = IPU4P_PSYS_SPC_OFFSET;
+> +		psys_ipdata.hw_variant.dmem_offset = IPU4P_PSYS_DMEM_OFFSET;
+> +	}
+>  }
+>  
+>  static struct ipu6_bus_device *
+> @@ -631,6 +662,15 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  	psys_ctrl = &ipu6_psys_buttress_ctrl;
+>  
+>  	switch (id->device) {
+> +	case PCI_DEVICE_ID_INTEL_IPU4P:
+> +		isp->hw_ver = IPU_VERSION_4P;
+> +		isp->cpd_fw_name = IPU4P_FIRMWARE_NAME;
+> +		isp->cpd_metadata_cmpnt_size =
+> +			sizeof(struct ipu6se_cpd_metadata_cmpnt);
+> +		isp->buttress.regs = &ipu6_buttress_regs;
+> +		isys_ctrl = &ipu4p_isys_buttress_ctrl;
+> +		psys_ctrl = &ipu4p_psys_buttress_ctrl;
+> +		break;
+>  	case PCI_DEVICE_ID_INTEL_IPU6:
+>  		isp->hw_ver = IPU_VERSION_6;
+>  		isp->cpd_fw_name = IPU6_FIRMWARE_NAME;
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
+> index 2afbd70cae74..84a50fba1466 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6.h
+> @@ -26,6 +26,7 @@ struct ipu6_bus_device;
+>  #define IPU6EPADLN_FIRMWARE_NAME	"intel/ipu/ipu6epadln_fw.bin"
+>  #define IPU7_FIRMWARE_NAME		"intel/ipu/ipu7_fw.bin"
+>  #define IPU7P5_FIRMWARE_NAME		"intel/ipu/ipu7ptl_fw.bin"
+> +#define IPU4P_FIRMWARE_NAME		"intel/ipu/ipu4p_fw.bin"
+
+This may sound like a silly question, but where do you obtain this? It's
+not part of linux-firmware currently.
+
+>  
+>  #define IPU_VERSION_6		BIT(0) /* TGL */
+>  #define IPU_VERSION_6SE		BIT(1) /* JSL */
+> diff --git a/include/media/ipu6-pci-table.h b/include/media/ipu6-pci-table.h
+> index cacb8a3170d0..7369d46621af 100644
+> --- a/include/media/ipu6-pci-table.h
+> +++ b/include/media/ipu6-pci-table.h
+> @@ -16,6 +16,7 @@
+>  #define PCI_DEVICE_ID_INTEL_IPU6EP_MTL		0x7d19
+>  #define PCI_DEVICE_ID_INTEL_IPU7		0x645d
+>  #define PCI_DEVICE_ID_INTEL_IPU7P5		0xb05d
+> +#define PCI_DEVICE_ID_INTEL_IPU4P		0x8a19
+>  
+>  static const struct pci_device_id ipu6_pci_tbl[] = {
+>  	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6) },
+
+-- 
+Kind regards,
+
+Sakari Ailus
