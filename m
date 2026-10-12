@@ -1,303 +1,119 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B354E36DF
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 20:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836495; cv=pass; b=NhMa9MIYMeUMoVRw5w0swO4UxcCj87j4pHev3iqPGWdT41k/I8098k8i3dvxNTKwiTCaMDG3+/0oV70i3Huh/6RMt6UPMWFAsok+xLWOldXii/49arAUkbZwUXZ+f/zGIhhc86ad76ArlyMV1KbCRwZNNCrBErJetOxAWjv3/aM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836495; c=relaxed/simple;
-	bh=RCQSpzr//uy/KVkDYVkHMEFT4GgArym2rxeSz4PmqKI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JzrJ44WUh5XZ44igfBygHBfgV+fTN4lN3A7qmTcjFsyk1t0MK0ahgcoHEOLgV5dkDNDbGCPkD/WJdvF4m5PgaugsxtaUpQJsSL8pBI3lS1TxAuEp7IIQpLcVE2EIDGTXaWtiZSBw0zy2lP+PkwTAM27ys7LJhtFJPAlsvzGQ4nw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QUUg6g+M; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FB64AEBCE
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 20:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791836509; cv=none; b=Ey2T5K50S0fOO6Bv6bPyN+VWgurdDNPzCVpvaGbE0hObmowStJGQ9bQ5UkU9MZIO6zyS+e10z0jtBQEVjMMgcHl/w9i/Alh4zuPfCfyzS99I4U+jdaJR38oLGrvb2Ns+8FwfXPAKyOAWMTgZxxYpO4N0Fv0my0KjsYI2BKw0qQs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791836509; c=relaxed/simple;
+	bh=lli5ii/H/rCG9APVq9ZvpYJJiJuxiuQfHiO8zLh8fqI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oRGo8sYY9PyZ/SZKuql2RVxK6uvEQy7zGV2YOz1HJGX5H+/z8hEZo3M59wu1b6Hu0ggUhVBM0fsV9E65Mf9HqXSEaERGF2fd/sjibKY+2lBJKwefuRZ635bO1AwYtBDswZLBk8EdLcIkEXiQJEZxL5YuTcCFFe6QGHsNa3kzZ0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=gD/J06PY; arc=none smtp.client-ip=209.85.210.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QUUg6g+M"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c14a06c95so1715204f8f.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 13:21:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791836492; cv=none;
-        d=google.com; s=arc-20260327;
-        b=oM+N55bmLTbYtKMDtDb9D2zLtJbYUgYylO7UbYYlzhQqhZCbDmDnUBIYuihj0TNUNh
-         Zo61S9CYGWhSwLKyWCmsg6GHp0Oq/DXDbXOjrTIhZp1HNaisOU4XE6kEIsYy+UlAOj15
-         OSinSUo4XVStdAdza6A+5zvI6dwiSFSnO/0fV7GLJKAl3RlKgpm9Tp6hffAiG03yaMAp
-         X7FK11AajH3KHF0TX3neG8tEe/8SE9slQQBA7KidmNV9CTSr5l47OmEQ8HmgKPtiMLbm
-         DjKqX7neM8G9DCe/+ZPG7LwBkjCkosFmRIUb/XyDzXaSKHFmo6ZfKtjGt8jlMtiEUNyz
-         PfZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oFdrxz7IDO5EI0kw4vrk/ogosg+7aqS767pWdjMdgj0=;
-        fh=rrmVL4PkpNfJSpmRti1cxN59fjpMlohbOnXD996aPlc=;
-        b=mwSZaYFgeyOXcRxMs7PvDXthCp3zijmhSJvdFDLBnj9jQ4OtHOXnuHHSFRZgU0zufL
-         gZzRLkoNVQfnmCwjBllgcMGjN/1cc7bKV27LmivhALe4NB29GZhQYmZKabf5luW2AJvG
-         5orTnSzd5SuOwkXiFoy2NqMhWNc2l2+0r1eC0QE3zGWCe+Vb3jicXpWA4qNlCNlRpNuI
-         DYBvAjjK93yXxUhpBBNWnKV7jAP3gahlhGlgdlxfaWuJ3eC+RfIGjTZ9uzSvi6+FyqY6
-         LdEFyhnjpkJqr1epC3Uvet1XfLhu8dgoYtCvwI5xvbzLau2LjAZx1YFicbZQaB4bggC0
-         Ikfg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="gD/J06PY"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-8266c388b67so1981200a34.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 13:21:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791836492; x=1792441292; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oFdrxz7IDO5EI0kw4vrk/ogosg+7aqS767pWdjMdgj0=;
-        b=QUUg6g+MkTonjvrizNKgr6vgNwhUgts7WR9s1McXCqmcVgwdgc6sjgzWQIW0wmWIcH
-         SeThEWH4U+sirFCrJWP0UW407koSK2smZQxfHI2oNu/His2Zsat1g37mHrOUnZpw8tYm
-         bGgXU3xvw3j9S6R68kKuQUTDWV/FNbHkSTeJh+uFFGo/avE1530tr2uAD75VQzlWd/5M
-         elyOVqdQJfS2vdDiMuu4sLr+fbS3aPFtnB6V6jCtDT1raNKjcCAor79R4qg4D+Lg2X/1
-         J2FHCv1qmsvrVGEtNdXudXOmnaZajyfscWSCSUYdwais/rB+3ftwYP+FtgQuAvwJq4sD
-         6XLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791836492; x=1792441292;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791836507; x=1792441307; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oFdrxz7IDO5EI0kw4vrk/ogosg+7aqS767pWdjMdgj0=;
-        b=Izp2JLq1QcoJydKfXkSH2iK0uFtWCOh1x7ju/yEH04RieRJA60ShkDCnfQB8sdkRsd
-         qRgCr3tzqzdQXRBkvkAZx73aTbgCVl/MilZ3xO/gFBHTcszwOxbV/8MrygYLG9koxnWv
-         HhiFy41HFLNq0nuQ3mXZXNq3nVo6WuK1s68g+FpyMrABNiCiY1HrvbgSUoK9d7yYG3ZU
-         3O/zJOLne9DcQCjsu027XVHQO9WH7AZYDZyr4T2l7Ijjns5ZJB5AYTidPOToRYssSzXN
-         YnM9pZ8EWNc1mzDjlv3GXhAM/0G+XXW0uUnyAggWa5KTSzngOZd2Y2VyzPBa23dOj/dR
-         GrLw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRfdz3/LlyTIUVURGCPjyjX9h/wt8QKEOXqJOWa+A8JIVkEh75LV7L34ZNgHPW3ivNyfAMPMdJhL0QVg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZO+EpzxLJ29UpRQPrODo0RUHedYUgk2lpVoFgmMKlkOCTmq2H
-	rT9hO8zzg+REPdstYsYKcSKxwwiCvEPJUnxAlmhtwIiag6tjLQ2Otwdzbd7OOCaBwAreuG+tvvl
-	ane2vcuEaM9D2GO9Qchp2cZmLQIu3uPY=
-X-Gm-Gg: AYBFou3dzMI7zEZlmxY5zZQrJlOShnbJNKBb/sEj3ws1H3wqnn1JWuljWrGqxvvdsao
-	0cNBOQYWpLxmrYrrb3HGC/XdoLwSQD1qhnxcd2H2q2fwMGLur96JDmPhBfp6HolA6MeKfTpfz1N
-	y1ReVYuSQIpza7HsngRUz1XlsegIVOY26tCmq2p8m8s06wORcSIuGMNhVQBSbrvISpeAq/DloDT
-	G53jXIxWzKtgDN9LQjVfs4/jUOH19xDUqygNfVEYL95hK9nXHAat853+4Z/I0n1W0+23KsYb8ic
-	dDRi5dbOTwkUyAu3HLheOj/4m54+KEy28KsiT/taVYjzKpxA/wElcbnNNWQyuem49z1bbesL6XD
-	akrDpAUES8ijXYu7702tJtjsY5dSS3laefGHa/q7tKPs=
-X-Received: by 2002:a05:6000:3108:b0:486:f856:1975 with SMTP id
- ffacd0b85a97d-48dbaae5c02mr18183316f8f.22.1791836491382; Mon, 12 Oct 2026
- 13:21:31 -0700 (PDT)
+        bh=Z6hOwSLR8cfh8cDplIOaHfJc8wiTVy6P5jX2Jl3fTgI=;
+        b=gD/J06PYlcBk+mVRnraTNFIXOIJVOIGTOcTB1oa30DcyYN2svFooHy20btUglxMoyH
+         AEOEeaajtTdi16bz5YWVjnfOIhGw8pVwnpsgsnTmLwBCp6fdLqzotYGAPbVvezyD9W+V
+         xG5wVMa//0oST81G134fFyrpHC8Gj/W5sjwx121/kXfuHOXI8q9lU8Ml08zM+CI93n0h
+         9wT1MNs+CaI4/JUokTfBkMQRgSBMQPPgE2uLjHbdYK9i+QbIcFR1s4m5uUZrh2kKzDR0
+         GK5CNrF8M2H7zwCjmjdqP6theBogcsc4ctAS9pEtv1tFd6RJ4wv2meY2w4x4esC3M2tG
+         hEKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791836507; x=1792441307;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z6hOwSLR8cfh8cDplIOaHfJc8wiTVy6P5jX2Jl3fTgI=;
+        b=xd/Sf+QfkHVFdqWRtfBxbvRaI9GP/guEe3v7wSC9aZFEgL+7NKHjh/+X3kg8K/HFcG
+         J/0zd66oSyixJ3z5V4W4fZg36QlhXpJRNc9/8sYnPSEN5bDCvImNthhkIOYlmnTwwgiv
+         jkzJNVFhvaSNmmpMFMAlePzU51Z1ms0FGjIo3NC6bE34lNwyZ2hpIMnvlt/cM8G5tCMX
+         hyjJhVoPWygXcVzS1+alTVorc4yp5Gk/LFADGriUeoMrEKayKP0xVDqhxcwou1V1/YUu
+         KZC4mltjWIxIFvuCzQKF3zJtUv88z2Ec/2Wy7rHJQO0YXNlDYfwxhatvjcJfLsDltFuV
+         +sJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz5C5ZTv+3bDE1y2hGiFqzdkrBQXELKknT0HtiCob+CnxupNr01l9BkN8RsX2nHRwAyBuYSnL3difC2Tg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvBNLWMIT8pT754WXQS8dfwQavh8zpsDshRvc6ipdzZ+memc4P
+	8ySsbZlFqOU0jRSUcPGByqQ5IW14nRMRmrmqPfOYoCYOLl5YlPO72jEyzGahr+htk5M=
+X-Gm-Gg: AYBFou2VN0wEVkO6qqIOEbPa7fJA3R/svUpXyATGNnqm1oHB0Gv0970zjKBzsn5XVyc
+	/i7Iyeh/WvCuVmuoXQVi9j8axX9KLcqhe3iOAFKJc+2ziFu1X440RXxqJFSR4zyx5OEqpfqrIcl
+	huNT6NjfyytfC1cmYGg4X1f98SIg8mRfMRKPCYHujinRHps1SeDm2JigNgir6/135E5afqs+s5I
+	LcZ1g7DMnx3e6Vy8IVnNXGiuO2NV7/R+WZh8k334OwjgRW/ELSlF9uVK5ao5z6fhTcEjZFQKncT
+	GhFEQpsW2imOFubwzXUGzBczTFAe+EJGEPGnFVNOBfhkEBvfZTVjUn5w5nl9qfveLAkYCoNBN+h
+	+UnpR6oRfvGrEsr7A7aG1vuz8y3ZVvj73y97jtEAqLA+wWrno4YkfWOtusR6vpfmMb5Pm7tunY5
+	RrptlHcOHt/fEZ8pUU1fgu2SuzZyUPBcNrPSjPvt5mgUNT7UlZBQ3p6HtKYAYi1m0uLNh0QXZ1L
+	49th29XgTJphSooQne9V3auRErOdTws4zQwd0yvkPhiTatudxOoZe3wvA==
+X-Received: by 2002:a05:6808:f88:b0:4d7:17d5:6c9b with SMTP id 5614622812f47-50c40a3e034mr9500602b6e.9.1791836506735;
+        Mon, 12 Oct 2026 13:21:46 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c167544b5sm12396143b6e.3.2026.10.12.13.21.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 13:21:45 -0700 (PDT)
+Message-ID: <d00e43fa-8f5b-4a8b-8b83-421d637ba519@kernel.dk>
+Date: Mon, 12 Oct 2026 14:21:41 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
- <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org> <asz8oEtow_lrUU7K@zed>
-In-Reply-To: <asz8oEtow_lrUU7K@zed>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 12 Oct 2026 21:21:05 +0100
-X-Gm-Features: AclHuK-4f6aEgz84S7166QRmPA4srEwYSx_VGps7yC24cU0L6Xa5D_BUxV8o_-4
-Message-ID: <CA+V-a8tnYhY4cWjy+ddsptAwmRU0KmpuF_EJtxO2h6LmTgym5A@mail.gmail.com>
-Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Linus Walleij <linusw@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 00/13] Add dmabuf read/write via io_uring
+To: Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
+References: <cover.1791336930.git.asml.silence@gmail.com>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <cover.1791336930.git.asml.silence@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jacopo,
+On 10/6/26 7:42 PM, Pavel Begunkov wrote:
+> The patch set allows to register a dmabuf to an io_uring instance for
+> a specified file and use it with io_uring read / write requests. The
+> infrastructure is not tied to io_uring and there could be more users
+> in the future. A similar idea was attempted some years ago by Keith [1],
+> from where I borrowed a number of changes. Later it was brough back up
+> to life by Tushar and Vishal.
+> 
+> It's an opt-in feature for files, and they need to implement a new
+> file operation to use it. Only NVMe block devices are supported in this
+> series. The user API is built on top of io_uring's "registered buffers",
+> where a dmabuf is registered in a special way, but after it can be used
+> as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
+> requests. It's created via a new file operation and the resulted map is
+> then passed through the I/O stack in a new iterator type. There is some
+> additional infrastructure to glue it together, count requests, manage
+> lifetime and implement invalidation.
 
-Thank you for looking into this.
+I've queued this series up for some testing, in a separate branch. JFYI.
 
-On Mon, Oct 12, 2026 at 4:47=E2=80=AFPM Jacopo Mondi
-<jacopo.mondi@ideasonboard.com> wrote:
->
-> Hi Linus
->
-> On Mon, Oct 12, 2026 at 01:56:26PM +0200, Linus Walleij wrote:
-> > From: Daniel Scally <dan.scally@ideasonboard.com>
-> >
-> > Add the Input Video Control Block and Arm Mali-C55 ISP to the device
-> > tree file for the RZ/V2H(P) SoC.
-> >
-> > [Rebase onto v7.3-rc1, place the nodes in address order, add the missin=
-g
-> >  interrupts in binding order and name them. - Linus Walleij]
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
-> > Signed-off-by: Linus Walleij <linusw@kernel.org>
->
-> How was this patch tested ?
->
-> I am rebasing my rz/v2h tree on v7.2 and I've backported this patch.
->
-> Unfortunately I don't get any frame from the camera, but rather the
-> system hangs in unrecoverable state
->
-> > ---
-> >  arch/arm64/boot/dts/renesas/r9a09g057.dtsi | 47 ++++++++++++++++++++++=
-++++++++
-> >  1 file changed, 47 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi b/arch/arm64/bo=
-ot/dts/renesas/r9a09g057.dtsi
-> > index 639693d464a7..228155fa3c76 100644
-> > --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-> > +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-> > @@ -1839,6 +1839,53 @@ queue3 {
-> >                       };
-> >               };
-> >
-> > +             ivc: isp-input@16040000 {
-> > +                     compatible =3D "renesas,r9a09g057-ivc";
-> > +                     reg =3D <0 0x16040000 0 0x10000>;
-> > +                     clocks =3D <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0xe=
-4>,
-> > +                              <&cpg CPG_MOD 0xe5>;
->
-> Compared to Dan's original patch I was carrying my tree the first and
-> third ids of clock and reset properties in the ivc and isp nodes respecti=
-velty
-> are swapped
->
-> This patch
->
-> --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
-> @@ -1709,8 +1709,8 @@ ivc_out: endpoint {
->                 isp: isp@16080000 {
->                         compatible =3D "arm,mali-c55";
->                         reg =3D <0 0x16080000 0 0x80000>;
-> -                       clocks =3D <&cpg CPG_MOD 0xe5>, <&cpg CPG_MOD 0xe=
-4>,
-> -                                <&cpg CPG_MOD 0xe2>;
-> +                       clocks =3D <&cpg CPG_MOD 0xe2>, <&cpg CPG_MOD 0xe=
-4>,
-> +                                <&cpg CPG_MOD 0xe5>;
->                         clock-names =3D "vclk", "aclk", "hclk";
->                         interrupts =3D <GIC_SPI 859 IRQ_TYPE_LEVEL_HIGH>,
->                                      <GIC_SPI 865 IRQ_TYPE_EDGE_RISING>,
-> @@ -1719,7 +1719,7 @@ isp: isp@16080000 {
->                                           "fr_dma_writer_linetick_out",
->                                           "fr_uv_dma_writer_linetick_out"=
-;
->                         power-domains =3D <&cpg>;
-> -                       resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
-> +                       resets =3D <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3>;
->                         reset-names =3D "vresetn", "aresetn", "hresetn";
->                         status =3D "disabled";
->
-> Fixes the issue for me
->
-It also fixes the issues on my side; I tested it with the RZ/V2H EVK
-using the imx708 sensor,
-
-root@192:~# cam -c2 -C10
-[0:10:13.102940291] [1010]  INFO Camera camera_manager.cpp:330
-libcamera v0.0.0+5679-0b4b0ef3
-[0:10:13.136058708] [1013]  INFO Camera camera_manager.cpp:220 Adding
-camera 'mali-c55 tpg' for pipeline handler mali-c55
-[0:10:13.143446208] [1013]  WARN CameraSensor
-camera_sensor_legacy.cpp:354 'imx708': Recommended V4L2 control
-0x009a0922 not supported
-[0:10:13.143574833] [1013]  WARN CameraSensor
-camera_sensor_legacy.cpp:426 'imx708': The sensor kernel driver needs
-to be fixed
-[0:10:13.143612416] [1013]  WARN CameraSensor
-camera_sensor_legacy.cpp:428 'imx708': See
-Documentation/sensor_driver_requirements.rst in the libcamera sources
-for more information
-[0:10:13.147022541] [1013]  WARN CameraSensor
-camera_sensor_legacy.cpp:594 'imx708': Failed to retrieve the camera
-location
-[0:10:13.147073666] [1013]  WARN CameraSensor
-camera_sensor_legacy.cpp:616 'imx708': Rotation control not available,
-default to 0 degrees
-[0:10:13.254700791] [1013]  INFO Camera camera_manager.cpp:220 Adding
-camera 'imx708' for pipeline handler mali-c55
-Using camera imx708 as cam0
-[0:10:13.258077083] [1010]  INFO Camera camera.cpp:1214 configuring
-streams: (0) 1920x1080-RGB565/Unset
-cam0: Capture 10 frames
-613.444141 (0.00 fps) cam0-stream0 seq: 000000 bytesused: 4147200
-613.459953 (63.24 fps) cam0-stream0 seq: 000001 bytesused: 4147200
-613.478004 (55.40 fps) cam0-stream0 seq: 000002 bytesused: 4147200
-613.496112 (55.22 fps) cam0-stream0 seq: 000003 bytesused: 4147200
-613.514060 (55.72 fps) cam0-stream0 seq: 000004 bytesused: 4147200
-613.532173 (55.21 fps) cam0-stream0 seq: 000005 bytesused: 4147200
-613.550287 (55.21 fps) cam0-stream0 seq: 000006 bytesused: 4147200
-613.568400 (55.21 fps) cam0-stream0 seq: 000007 bytesused: 4147200
-613.586458 (55.38 fps) cam0-stream0 seq: 000008 bytesused: 4147200
-613.604489 (55.46 fps) cam0-stream0 seq: 000009 bytesused: 4147200
-root@192:~#
-
-I was also able to test this with camshark using my older setup.
-
-> Why is this an issue it's not 100% clear to me.
->
-> The driver handles both reset and regulators with the bulk API which
-> does not guarantee ordering (and no ordering is specified in the
-> datasheet as far as I can tell). All clocks and resets names are used,
-> so the ordering shouldn't make much difference as far as I can tell.
->
-Indeed.
-
-> I can't access the "additional documentation" from the Renesas website
-> where the clock/reset ids are reported. Could you please check ?
->
-I will also double check this.
-
-Cheers,
-Prabhakar
->
-> > +                     clock-names =3D "reg", "axi", "isp";
-> > +                     interrupts =3D <GIC_SPI 861 IRQ_TYPE_EDGE_RISING>=
-,
-> > +                                  <GIC_SPI 860 IRQ_TYPE_EDGE_RISING>,
-> > +                                  <GIC_SPI 864 IRQ_TYPE_LEVEL_HIGH>;
-> > +                     interrupt-names =3D "isp_vvalid_ifp", "isp_vvalid=
-_irp",
-> > +                                       "isp_int_fstop";
-> > +                     power-domains =3D <&cpg>;
-> > +                     resets =3D <&cpg 0xd4>, <&cpg 0xd1>, <&cpg 0xd3>;
-> > +                     reset-names =3D "reg", "axi", "isp";
-> > +                     status =3D "disabled";
-> > +
-> > +                     port {
-> > +                             ivc_out: endpoint {
-> > +                                     remote-endpoint =3D <&isp_in>;
-> > +                             };
-> > +                     };
-> > +             };
-> > +
-> > +             isp: isp@16080000 {
-> > +                     compatible =3D "arm,mali-c55";
-> > +                     reg =3D <0 0x16080000 0 0x80000>;
-> > +                     clocks =3D <&cpg CPG_MOD 0xe5>, <&cpg CPG_MOD 0xe=
-4>,
-> > +                              <&cpg CPG_MOD 0xe2>;
-> > +                     clock-names =3D "vclk", "aclk", "hclk";
-> > +                     interrupts =3D <GIC_SPI 859 IRQ_TYPE_LEVEL_HIGH>,
-> > +                                  <GIC_SPI 865 IRQ_TYPE_EDGE_RISING>,
-> > +                                  <GIC_SPI 866 IRQ_TYPE_EDGE_RISING>;
-> > +                     interrupt-names =3D "combined_interrupt",
-> > +                                       "fr_dma_writer_linetick_out",
-> > +                                       "fr_uv_dma_writer_linetick_out"=
-;
-> > +                     power-domains =3D <&cpg>;
-> > +                     resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
-> > +                     reset-names =3D "vresetn", "aresetn", "hresetn";
-> > +                     status =3D "disabled";
-> > +
-> > +                     port {
-> > +                             isp_in: endpoint {
-> > +                                     remote-endpoint =3D <&ivc_out>;
-> > +                             };
-> > +                     };
-> > +             };
-> > +
-> >               dsi: dsi@16430000 {
-> >                       compatible =3D "renesas,r9a09g057-mipi-dsi";
-> >                       reg =3D <0 0x16430000 0 0x20000>;
-> >
-> > --
-> > 2.56.0
-> >
->
+-- 
+Jens Axboe
