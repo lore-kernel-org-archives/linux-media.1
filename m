@@ -1,67 +1,67 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAB7337B019
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 13:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D57F383998
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 13:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812706; cv=none; b=SnWi39D85Txd4XwZWvodxCGcIppzFHwoQW5XY6y6TZ6tXRBRdjfOEkQPZ4u+Fd3jDYsx4CBt9gLu3029MtC1x30dvywQ1BbT0hcPgHRhvvMkc9zKQWVJCb6FjkQ9S50ywCN5N9lMZ4N131w2DwJXewHHW7fAWaJBzdqDC9xD2/Q=
+	t=1791812773; cv=none; b=rSlIXO1O7+9r0g5B4oW2U2hnYFzfLAOYbJuIg91rgbIKQyrRJaWvf/vnJZrBhgZb2cvJWNE/WJvYnv9/8sSJdMFV3Sud8940qXBY0N2Ord6zxxunMJ4OxL2aisEU1Cx7HXTCMP5idirystvsOjl6AOaqdUJ+0snhy7yauVs8Rnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812706; c=relaxed/simple;
-	bh=oQfRZHXjCLIjEYYPgdVCqgdBHbPItDrDGI1Z+Os6XYc=;
+	s=arc-20240116; t=1791812773; c=relaxed/simple;
+	bh=sTKTqMrlzRhmp4al7IjMezpQjYCs9jIcQILHVFsOG/0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LDB/fATSVyLn0LqphUOTk9QoG81DJ+u9NUxf4PvG5tme+BqdZLTmbkN5QUPq5k/TK5FpVA9o2/OvCUsfmTtEt9QxM8SNHOpzY59azjcNQARmAbRCM4sWceyZdUalur+NeF+rauN/xZEcNq/ONAWad1cQ4Z25Crg40M6gAeOyJ0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ELF4cBl4; arc=none smtp.client-ip=209.85.208.41
+	 In-Reply-To:Content-Type; b=QeCX25ClQ7CDHE85O3I+IVYMz99WGaHnRu+QjM+VlOJLjUYOho+RXsMhufPxRLVBIacqsqxU8RnOu87IeyaAhWv/qiA2k0d1Lq9ZFO5aOWAZLRU6Lbq2L8oF/DUJKtVFrTNlLqH5qM36UkFuR9cWv5hU3O4GHwH4Z7RgAVxP1ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=v32pJASl; arc=none smtp.client-ip=209.85.218.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ELF4cBl4"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6b1afcd2d23so1405934a12.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 06:45:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="v32pJASl"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c262f1186f0so249156266b.1
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 06:46:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791812703; x=1792417503; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791812767; x=1792417567; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=j2maByi8qUEGu8Db15iKgLtRhl323Oj4E0vQnTrhsX4=;
-        b=ELF4cBl4dRPQCPxVJyxjJjqlKlz5BlryGW8fKaSi1yQHaP7KAYq9uHO1c+VencSzGO
-         RIVy1BJBxgRKFrMmc/ta6RBiUvINiAqM6Odw9oNBDgjaeox+YdV3ie/PCLkxDwvqwRZ/
-         WDKakBbGwoPnuXTWTPXK49Qon7nR5eD4UaAdirVi/74ug3j3AUP6ODM41yZ9vj8HOWuU
-         Yf5QG/vFdffi9dpgpPnAX5Z+a+byLpIaRGfiLngu2RENMD+SevAiilAaOzdbdggOucQD
-         4aRD5b2VJSxd3pP9n30hjipAZbJz74lpNyRsAn7n135Z7nKul2SMst3jRF2cA9pY32je
-         HQuw==
+        bh=dHws0iegm7/ve8hvmLh8jfg8R/Vly+TZYm5WF3yIxo0=;
+        b=v32pJASlphSa6Mc89V8MioFyF5EVZhM/e69oceX53Cjv1k5O/2bMmiWbXXw1SWSF6V
+         flvswQn0nqa1+MUUbR4RHw6dNTwwOFMVd9swPn2GpX27dJbxAnnSBQB3fJVvisG8n2+r
+         s3fSSWjYvvNcnq7SreR7Zp4kHz4HWpv9XAbKVZeFdz09MO1IcsmhRrV2/MZ5h1loeA+L
+         TMTzR/9bLEQpq3tl7CJ42ap2UR2zI8J5vSYXxrs7UWX1eUiyJtrWoJbO83Ujdtq4GLtd
+         g3LJyAro0UbMPL5Ia+ycAfZuSELrzbsgK8UJjROALv4LV8D4+5dMZIYdHdfs+K6j3MJA
+         S2BA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791812703; x=1792417503;
+        d=1e100.net; s=20260707; t=1791812767; x=1792417567;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=j2maByi8qUEGu8Db15iKgLtRhl323Oj4E0vQnTrhsX4=;
-        b=MsffFY+kw7t4v9Gu8PKpC5Y3GzWGJLWHv5v+SBIpQ/+rVLFPikMr6UR4AF4z8PTNEl
-         ybZYgU9V7tSMcgZRtQpODKBOoLw3jxyDY741dANEkcFxg4vVoFIcvqQeAf7afW0B1VBe
-         fhNecfwI6NO1os7ix1Bp3eu/u/vmB8UY++Gxg1gGqKyPQJkBJq7zYcca3DRf/Yk6dPBP
-         1A1p4tObQlTH2QKMA7NJiE0cr4m6QO4x5ruDstDnE+g+kYp4jPo7f7FQzOKnOs27m+BY
-         FYnEiVC/PrTKuoL6zdnoi7NALDfAcfY66RrxmvgQjIGywZExhy64g3JDJQfslfB7jqar
-         5f5w==
-X-Gm-Message-State: AFq9FYKaOiJk03FrU/cLmN/gZyAwB/t6CoDK2ISvomjEWOoBdb5DFJ7g
-	G+YSGmFPCw/MVthJ1Cmerh+P6zRgwn1t1FTccbjpADtOtdWsjw980nsI++OJNpwUEtuN3s65iDU
-	p6qNTiQI=
-X-Gm-Gg: AYBFou0LJc49qzdHMM0TyyXx+K8FZpAD//RAvgKYBAQX1NUn0et5RXPUgxvERkfg+V6
-	KlDlCT1lsEjbciViE0XJGNlca3QMpFM7VqeZ1SHX5Yt35ZiAEtuO7uQ+JLQ6GMFv8d16fQCQvLp
-	KUkt3t+6KEDgNS8++s0eOKIkfMe4uyyhASA/R7Y4FRMfqJ41zQcZVY1zvXTc2oMkhqK2b9+OZ3O
-	Berg21LwhvlqbULOEuoNEOvYTJwF9uWE2lfraNsNJKq0H97Wxf9qRoyPdqwqupq39fXMr+E91ps
-	3gHBAFAYELpg723tzk0XxtKEy9Z3D0lzi1jmcRCGfFzNB84pNa/05fKLYJPqdb0vZG1TX7fZDS/
-	XpFcpuaMHbH3LkSkWmzOAyJSVkdNUjhMVtw2HSBULYk43lvioZnGBzYlzbPbxYvo9IxYeAAimh2
-	mCY4yeORp62kCp2ixFKlUiNP9z3dS14xgQZg9Z50dbP4s8Ch4KCh8U68w//1vDfGVYy7WfhQG4S
-	K0V26QnJyruLKewp0sRJQ==
-X-Received: by 2002:a05:6402:5285:b0:6b1:497d:1c64 with SMTP id 4fb4d7f45d1cf-6b17c293eccmr8596872a12.45.1791812702882;
-        Mon, 12 Oct 2026 06:45:02 -0700 (PDT)
+        bh=dHws0iegm7/ve8hvmLh8jfg8R/Vly+TZYm5WF3yIxo0=;
+        b=ukmOvqtuJ9nJsGUaQQbPMpOx9ahzXQTSF8V7KyfGsniWFDrPB2x/VdclVtslmCpXhp
+         mUtVtF/HiGsH2iniyJcaeAYbxg77lU1muY0LURDcOtg8ie5LTgj99guG/eqZcJ9pzOZs
+         atih9ua1p/ouvKPoAZPnwzPzwoyI00qvst7WE1gYykX9jwf3hP3fE9G2ApCn6mc6xizy
+         fiAZtMVP4Ja4m2OsMahkYDEyUMRXf+oiGpX1YReBmXZ4tIKQDpWcYijJis4cwidxaFHI
+         fnKytB/af9PD26+oj4Y7l2gJ/5IZcddha7HGXtzQFrYeODhcBtaVkFncxooFm5rwX2N1
+         vvWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwITYNNRsrs3UmCDY7QKAu5AEFKt09FbwxeO1FhKjTtBIhSUDuUFmr3FLTEZbShPRb9f0P9DbZvwfN6tw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYInlvPxkA0xx9qo3WvINSM+5kEOmyJQpEgNQ42JfD2n/2dPyswM
+	rWwMiFGWOOeWh3HmJdWXaiiDdFB+jE6t/R+s1psF/RaaJNimGB/NeJhV3Jx3oW/NC7E=
+X-Gm-Gg: AYBFou280DpZ2oZ9mxq2vlSTVnVdxsf1Kah4DqO1WRZVYPq/vYCN1D9lhTqAK9c42sK
+	ayIKP71Eg2917PnIwjFiCuIDVDlnpCUGj9Jg21I2mE83HiapJORrUQzQ3x1yGlewmx0C+qBMknF
+	mCb+oOVr8ypvjZdrJKUv0iZXAw9Zde/5BC5Y/57t8iAxYTOAJH2LHpklQeBikn/3uASdeSh671e
+	vbvmrtFWEceFi+NjBCCiZFZM+s5/q0tiuJFfMMtOf1BcIB7ZkOrM1GWhpq7lJqcoUh0C9zbXHNR
+	T4Wa17TFUcQr9DPULXWJn0LaFRUSFUmJSQ9IXu7zgtULQlvd3RL+j8Vjh/O18ULDWNYjBVspCqZ
+	wrqwqBtCuK3fzpk1K5BajTnE5ZzkdJ2qic9vXIfNWYNY20PL6tRV++aMFzT9DkOmUEdpD/DsWJy
+	eccjo/HstgyffD0nzksKYaEfL8U+y82LRMf7u+qohsmpOeQLMdgL4Qijofh+YhdcYsQ30D/969M
+	Q3n8O0XtBlK
+X-Received: by 2002:a17:907:2da4:b0:c2e:4705:467c with SMTP id a640c23a62f3a-c31a9fa2040mr978925866b.10.1791812767239;
+        Mon, 12 Oct 2026 06:46:07 -0700 (PDT)
 Received: from [192.168.0.167] ([109.77.202.22])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b1b3387932sm1932208a12.12.2026.10.12.06.45.01
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a38050sm470538266b.24.2026.10.12.06.46.06
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 06:45:02 -0700 (PDT)
-Message-ID: <bde5fe2d-1aa3-4990-9590-9d147a5d4d54@linaro.org>
-Date: Mon, 12 Oct 2026 14:45:01 +0100
+        Mon, 12 Oct 2026 06:46:06 -0700 (PDT)
+Message-ID: <6f40cf25-1967-4a7a-9952-a0fba3bb5fe6@linaro.org>
+Date: Mon, 12 Oct 2026 14:46:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,34 +69,47 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: sm8550: Add the CSI TPG regions to
- camss
-To: William Bright <william.bright@imd-tec.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Depeng Shao <quic_depengs@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261012-sm8550-camss-tpg-v1-0-620ab6f151dd@imd-tec.com>
- <20261012-sm8550-camss-tpg-v1-3-620ab6f151dd@imd-tec.com>
+Subject: Re: [PATCH v4 1/4] media: qcom: camss: csid: Match the current
+ set_fmt pad op signature
+To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com, bod@kernel.org, mchehab@kernel.org,
+ vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ dmitry.baryshkov@oss.qualcomm.com, atanas.filipov@oss.qualcomm.com,
+ jigarkumar.zala@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, ravi@ebytelogic.com
+References: <20261012120542.1140157-1-hitesh@ebytelogic.com>
+ <20261012120542.1140157-2-hitesh@ebytelogic.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20261012-sm8550-camss-tpg-v1-3-620ab6f151dd@imd-tec.com>
+In-Reply-To: <20261012120542.1140157-2-hitesh@ebytelogic.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 12/10/2026 14:03, William Bright wrote:
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: William Bright<william.bright@imd-tec.com>
+On 12/10/2026 13:05, Hitesh Patel wrote:
+> v4l2_subdev_pad_ops::set_fmt gained a
+> const struct v4l2_subdev_client_info * parameter, so
+> csid_streams_set_format() no longer matches the op it is assigned to
+> and the driver fails to build with -Werror=incompatible-pointer-types.
+> 
+> Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
 > ---
->   arch/arm64/boot/dts/qcom/sm8550.dtsi | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
+>   drivers/media/platform/qcom/camss/camss-csid.c | 1 +
+>   1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+> index 2559ebe98..991275398 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
+> @@ -1696,6 +1696,7 @@ static int csid_streams_get_format(struct v4l2_subdev *sd,
+>    * Return -EINVAL or zero on success
+>    */
+>   static int csid_streams_set_format(struct v4l2_subdev *sd,
+> +				   const struct v4l2_subdev_client_info *ci,
+>   				   struct v4l2_subdev_state *sd_state,
+>   				   struct v4l2_subdev_format *fmt)
+>   {
 
-Needs commit text.
+Please add an appropriate Fixes: tag and Cc: stable@vger.kernel.org
 
 ---
 bod
