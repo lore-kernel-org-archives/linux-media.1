@@ -1,143 +1,305 @@
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020076.outbound.protection.outlook.com [52.101.227.76])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDDF3AAF5F;
-	Mon, 12 Oct 2026 10:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799215; cv=fail; b=Kp5hkw/5Sjxd7JSV6HIrKxPQtRgtY/SqfB/SExZMcUXCrcJy5mLR6/itBS9mQEWLYWKOwQwKjnfZENUtj+M0+i63t+K7e7DNc3zi22h9scHxktrvL0Qx8VUzXKNed0izry9f7EvLpwufv+30F+c2eGDRVaQV9igUeh/4nZMCDrU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799215; c=relaxed/simple;
-	bh=iQDQn81bCnDzno1sZLrFmD16NN1sw6zigo5MVSU3EkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=N3HKyTTkEbLFjDkDfveeIUBIGTr+J5TLsDiDaVLv+4YrITh5cpFH1YSs98KX6mJGzkEKkCDVMXfYxp8vy/Ke5oalr4eSr4W+1+PsTRezc13G40UW/d5LJY2NyVe8GGHFFypTih+uMSMcEMK1F4bcJ4kAMw/c7LSq2xaYXkqP0mU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.227.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mAZSM/6VG9sW++tt1i+J857BOnZal0QJuvBAoMDtyEoBf8x2LCjg4qyobzTIx3KljkByeDGRrLgLER6dWsAsR0HemvSEmVdwwtZmzOWRz6zBOp/lDYk2PI8hATcnhgGhfMl2xGnF/fkVLvAz1AGlfyHhuYFkWjzPeYdLR42PtKvrxuzKGq5qRhToMWO4CVVjjd+iJ76ftJTg1VcPSxmrNDudafndIaluZo9Dwp2fDRwqlhf2Ga3S9hOQ0dyDSw8HykSXT9QnCdjh/AkUtepYElipxCuOVTFtiRbaa43VbrEAUDzS/DCrYQ0jk/SKjkpTY3xHpgI8rpOcO+32xAZnhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=za61V/DRrxDmSGTY2Lln46O9gnL9bGPevp19n6QWdps=;
- b=Jh7dGnaf/tgPLQU5YM15IYENXKHZPyMtVEvQgk4yXjg+kxEsNRcqKU3rojFZAp+2SMES47mS4CRG8YjYTJ5Kuz9Mp86u/ikYHwV0b35Kgvg4QMIlJhrq9sJInvyG5Np7QJW3OC5LZ5YuOAt9USILNwsukVii55oJRi/neYFpqb7Ak+iZnrHqrXHteAT4+ZMnLCZ9s0wITWTX+iNV0vySVQTPdHaraBxq8OKaS1Mx5q5Om36rzuCiT3f6BJU/4JNIJpbFW8XLPG7pPIAtSjW9OO+85QbmV0LdmEG+0nQQzwOWO9yZyS7hpUNfqF7zJdIFNn8ywrB16xch2J2y2jCR9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PN2P287MB0256.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:ef::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 10:00:09 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 10:00:08 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D85A3E168C;
+	Mon, 12 Oct 2026 10:01:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791799314; cv=none; b=TI/JmBJyHzu5Fm/2iEXcmhng1i1yINVHSP+FsOWVQhLl6/GXaoG0WOBe5bV2imzDJoHmDl9EEdkM60Je68ukLJCYs7TFBdkwTg0B16/mNUbrlMp/cmWdKtsMMI+DmaZ6lEfl16nuPr+8yE3xRwNBhuOTJ6XsyOi7iZKAMaS5j+w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791799314; c=relaxed/simple;
+	bh=mpuYQsI6xWk3hX2nX9RHy3ytd04GSKnCGPLAttYUXx4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sfcc0eE+Qtmk+IbLrP0IMTn8IDEsc91IJmFM944Y5tiSFJwZW7cFijZZNNrXNQXxbskZODd/mUkj5FxnxbXdXFFhYSNoyYyPCN/flTmt6TrC8tpRYXVtmVDCS69oAPj5GrwFsQZrzhw2z5VqSsjGcIJG9fjD3Ts2fhD/fJWW8JA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SgHLz8zQ; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SgHLz8zQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791799312; x=1823335312;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mpuYQsI6xWk3hX2nX9RHy3ytd04GSKnCGPLAttYUXx4=;
+  b=SgHLz8zQXbWeUJcpQcVqVf6YF/CxbN9ZiPZexpEQZ+zywrIb0o+c6L4Y
+   7ewOV7H7U4A5JVjxFd1AF/8vwW6IAqYGydv1jdK9P4DkoltQ2gl/98OOo
+   k7Ra/LdAUWm/D/cWQe9FSiclhEM8gseqBC1jDlTARF3ub5WLrZ8QT4ywQ
+   GPSRIR6smRw9/DKOFWeOlF1hk3YnSdB9B/fl0f54wufFl25IYc3SZaFuL
+   wtKVo2SKII0b9///kot8QcJ7ED5HvNsWcXY59i4tQQxxbSif86LsxK9Sk
+   AiTDazfnpmEu8MZ9Xm4j8YvbOwLdh8EM+qf2UvBfZN3suRp8+wsERD9Uf
+   Q==;
+X-CSE-ConnectionGUID: c7O2ngFaR2Gy8lNRJufXnw==
+X-CSE-MsgGUID: efrerJCtSVyHKDqbHKPoVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="528029"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="528029"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 03:01:46 -0700
+X-CSE-ConnectionGUID: m/KwgN84SPaRxWl5T2UkcA==
+X-CSE-MsgGUID: wRRGoWXGRlG3wnM+ClWRqw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="1163697"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.165])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 03:01:43 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 522AB121B9E;
+	Mon, 12 Oct 2026 13:01:46 +0300 (EEST)
+Date: Mon, 12 Oct 2026 13:01:46 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: max.bretschneider@leica-geosystems.com
+Cc: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com
-Subject: Re: [PATCH v5 0/6] media: qcom: camss: fixes for several cameras behind a CSI-2 bridge
-Date: Mon, 12 Oct 2026 15:30:00 +0530
-Message-ID: <20261012100000.316917-1-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260928121508.1404808-1-hitesh@ebytelogic.com>
-References: <20260928121508.1404808-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0118.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b3::16) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
+Message-ID: <asywCh3X0yJVcxRd@kekkonen.localdomain>
+References: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PN2P287MB0256:EE_
-X-MS-Office365-Filtering-Correlation-Id: 54065a3c-0103-4bda-ae78-08df284798b3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|52116014|376014|366016|10067099003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	0q2nVUAP/pPw+eZrEPbsKHGLiyverUWnicksqscjqHFazjlC1pLLX3pA6aodOKg0ZSDiMc3QdL3HfA5eWmZIb4i3ihJb2qcRaKbeBw3b8DCCtDMRYsMUmyE1NT/qbBdcP9qGIU7yR7nT1mD3GZA45shClZDXpOjk5e5FtjB4P42aaYf7YDfwTgLhE8XoFCPMk9VsgtOXrMi25+kEch8LBA/L9WQbolF8/WrnmBR++rlzBRHXBiEa9FggM+1o3IJirDQv5z1mD4ak4OJKgaWWnfkC220ma4zL4UTB+4FdnZh9e2mtYCBtYdqcTt7FMCmXmFqZJmKqWh1IET/2Q5pOTvoHWOG+gDZnPzqqMGPS0PgO9BnDv7mRhlM0L49jTrCfH1f1lK3al2xBQ2kYirm9OdkQlEvuxC06nd5miE/2WrpvMwo4PjtJFkpa7tfPnjE6hoh+ugHUXym27dmM6/1WOcOJpxMymcDJWxHSgB2OucJ8fRuj8f5ugY8zBqd0lQjk01vBUqFrgXqFamXh8LhYkzwdUmoM7ZkwdbtvqQgEajKJ+vsXW4E1OUvSp67kGzZQsFUVlP5nthEuYfbfL3GWe4LVZw74zSz3lytv3+AFWaYbdEdNt3jbcpuFplV66lLXW35tC7Xjl2c4zcbMJQNSmFRiI9IX9pcuDdNr5JnosiQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(52116014)(376014)(366016)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?j0AK7JBmg+WMRkn999epVOjAg2QVQ9DbOsdb4uFdea8DTi+2zoQsXDXPjild?=
- =?us-ascii?Q?SKoUjBa0s3Tg/Vb2m7iLqhdAY2R+WbPbKlJB2QVnTdwAmw/AFd1arOwSR/WE?=
- =?us-ascii?Q?kZo32e13kbbCXEpqg/zpkpbfPEJpSom9ZK8nBsnzSRGD1qXFCv+4okkTLc8b?=
- =?us-ascii?Q?epHim5bJEeUE7ZnTMiNKJ/EIyMgUiZMpdT2ElxOCVQphF0X88YjDUJRwnwRz?=
- =?us-ascii?Q?SdzxQnUqWyLBgLClgqoReJa4/02iRQlSeiZ27/3hp141CdBpbWsHBU09zqEW?=
- =?us-ascii?Q?Mv7RqRfEnDED19VEQHvEuaekMvLeh6KYvSyTXJjliBdNNa/5wQiLvFp0kWKS?=
- =?us-ascii?Q?80phZKGymfAgRKn3F31O0mT48PMUr79nDmAi6/OLKFF5U8U9D6Jk0qS+t2ym?=
- =?us-ascii?Q?stM0fJQEqa5mfyf45RawoUe9GqC3WwY0b+jdMfRQDyqUWp8S15GEl4GaM2ZV?=
- =?us-ascii?Q?1DNYpsjD1K3+vRBh8uWNjDp+Dy8rzo+4EMkerDxBBmXBPJV/e3zCgo7t9dnB?=
- =?us-ascii?Q?rMTOmkE4FbCoCBLf0dnyn7KY8GhB6FyWyo7TCLRQpmkVYQGxxqnrhcri1Jxt?=
- =?us-ascii?Q?5HRqUEtr6i6zTWAmastugSGD6glPwLP0W0G4LiqDJahYNR71pyUwOV7A4cFx?=
- =?us-ascii?Q?DA0Xy2Dyaogek+EauHEmoaysp3KZTrUuj1f/AnASsLWlxqxgqYLusSOPjYiy?=
- =?us-ascii?Q?Y4qXyPC59idsJx238E4mXzbkKNwJsc0Q6nTXo+4NaOoNb5YM7Tp7ez08n8QY?=
- =?us-ascii?Q?I0Tzgb44lbDX1rUfyOwd2+DxjWDPod2Q7tcqheV5GZm2fzwdQCmCQiTuDBxw?=
- =?us-ascii?Q?psLNud9txV2pK9Csd6tVQ+ImX9iLd/TBnTKeA5gJOqmipn8LX7h6CQ4P/HF1?=
- =?us-ascii?Q?MYWyn8wCg/l1B2XppcyPbbBC4rGytC3cEeWuheo64H+nRevTwG5IF8rXNiiV?=
- =?us-ascii?Q?iF2fzbwfiT7730iyzV/e5ldof9xPwD5dNWj1H+a8HjaWAsUutL+aYLfZAWX9?=
- =?us-ascii?Q?LoOh+FJvO3lPPYJI7eaXYSqATXQiC9lrm4fEbYaWlxfH70RxWF97XTTAaGF9?=
- =?us-ascii?Q?s2HY7V/udXlpEpQ/NW53rY/KKwOnp3QYjnXCR60hCFL4kXHPo6OGJLw35MQC?=
- =?us-ascii?Q?EwoijJIdCjdhF/uIPxyi1n0GrxdWGwcNgEe5IZQHP0wzqmgChgEBFL8XcUh9?=
- =?us-ascii?Q?wRRpHWS4+BGDRDfwDhZYtMbmCvx6ZzIYu7xw2X78w7RR0dLHN5rrSeXjbclS?=
- =?us-ascii?Q?hjCC5NMQAhgQSJiiNMu6n/gIQUh5kkXXtbkPJix1aIB2bh7UmCVOhZIywHp+?=
- =?us-ascii?Q?sodztZqXBTtTKAjTzPANmtrOcxI2t2MlVK3DIZC1Mi1iowHbEJ4xmhZbnAUf?=
- =?us-ascii?Q?a/bu7Y/Xhzdar6VYtQe980RqsY2wDJSLj1cKqSBjJxoUwGRJ2Q8oiYke+2Jt?=
- =?us-ascii?Q?5m8zpzYr7WKlyN9tqaN1K1sZHvWjM4A2l/EIlr2MmLMzDis4YmGCqhqtGZxm?=
- =?us-ascii?Q?Th+wvaOHpbM+K6xhx0WjhMcFG7A6KDvxCmeWbgRwLVj9MX0zNs2fsHA5Ec+2?=
- =?us-ascii?Q?ObBAKeiXYD/WAJztNXyvE8KEw5kP2ku0pfIquyatBjhyLWlOP1Tz9JcKvHUk?=
- =?us-ascii?Q?zQ9/asu88WS7j6Fl4apexsXX9Mh/YpfiizAnvUug8dREWN2pMWulZ3ApAzXT?=
- =?us-ascii?Q?x0dArUU0XdoAJpWQ2bgQuu/JdIsfnJCC1XIGwoRpmxxz9iIuBzlU88gWWhIw?=
- =?us-ascii?Q?15c4vmtrrI4dpAsoT6D9GOsV9Ef+LyIfvHLoat7ibaE50wWxd7MFsCrRSdCk?=
-X-MS-Exchange-AntiSpam-MessageData-1: Y0g8X9Y4RWHb1A==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54065a3c-0103-4bda-ae78-08df284798b3
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 10:00:08.2525
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KNTbIazyaDCL+4gPAjZ5sci7ovbkhOiCn/jdj0VvJFBZBiT8MU2QUgCJ2hR/dT5pjpnXT3j1zVRnCaNr4Co2JQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB0256
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
 
-Hi Bryan,
+Hi Max,
 
-Thanks for picking up 1/6, 2/6 and 3/6 - I can see all three in
-next-20261009, and the VFE reset fix is behaving as expected on the board.
+Thank you for the patch.
 
-A gentle ping on the remaining three, which are still at under-review in
-patchwork with no outstanding comments against them:
+On Sun, Oct 11, 2026 at 09:55:23PM +0200, Max Bretschneider via B4 Relay wrote:
+> From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+> 
+> The driver does not implement .get_selection, so it never reports the
+> analogue crop rectangle of the active mode. Userspace has no way to
+> learn which region of the pixel array a given mode reads out, and
+> cannot assume a fixed one, because the modes differ: the full mode
+> reads 3280x2460 at offset (4,8), while the 3264x2448 and the 2x2
+> binned 1632x1224 modes read 3264x2448 at offset (12,16).
+> 
+> Consumers that derive the sensor scale from the analogue crop and the
+> output size therefore compute a wrong result for the cropped and
+> binned modes, and may reject those configurations.
+> 
+> Track the analogue crop rectangle per mode, store it in the subdev
+> state when the format is set, and report it through .get_selection.
+> Also report V4L2_SEL_TGT_CROP_DEFAULT, V4L2_SEL_TGT_CROP_BOUNDS and
+> V4L2_SEL_TGT_NATIVE_SIZE from the pixel array geometry. Implement
+> .init_state so a newly allocated state holds a valid format and crop,
+> and add the v4l2_subdev_init_finalize() and v4l2_subdev_cleanup()
+> calls required to use the subdev active state.
+> 
+> The pixel array geometry and the per-mode offsets are taken from the
+> sensor datasheet and the recommended reference register sets.
+> 
+> Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+> ---
+> Tested on a Hexagon/Leica CS50 (i.MX8MP, rkisp1) running 6.16.12 with the
+> equivalent of this patch applied, where it fixes configuration of the 2x2
+> binned 1632x1224 mode with libcamera's rkisp1 CAC algorithm enabled.
+> Compile-tested against media/next.
 
-  4/6 media: qcom: camss: vfe: Remove unused frame-skip
-  5/6 media: qcom: camss: Take the link frequency from the CSI-2 transmitter
-  6/6 media: qcom: camss: Create the source to CSIPHY link per endpoint
+Can you test on a newer kernel? That being said, there are unlikely to be
+issues without that, but it's better to be sure.
 
-4/6 is Loic's own cleanup that I carried into the series, so it should be
-uncontroversial. If 5/6 or 6/6 need rework I am happy to respin them - I
-would just like to be sure they are not waiting on me for something.
+> 
+> Modelled on imx335.
+> ---
+>  drivers/media/i2c/ov08d10.c | 74 ++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 73 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
+> index 0710d2243cc0..b32a1246df45 100644
+> --- a/drivers/media/i2c/ov08d10.c
+> +++ b/drivers/media/i2c/ov08d10.c
+> @@ -65,6 +65,14 @@
+>  #define OV08D10_REG_FLIP_OPT			0x32
+>  #define OV08D10_REG_FLIP_MASK			0x3
+>  
+> +/* OV08D10 native and active pixel array size */
+> +#define OV08D10_NATIVE_WIDTH			3288
+> +#define OV08D10_NATIVE_HEIGHT			2476
+> +#define OV08D10_PIXEL_ARRAY_LEFT		4
+> +#define OV08D10_PIXEL_ARRAY_TOP			8
+> +#define OV08D10_PIXEL_ARRAY_WIDTH		3280
+> +#define OV08D10_PIXEL_ARRAY_HEIGHT		2464
+> +
+>  #define to_ov08d10(_sd)		container_of(_sd, struct ov08d10, sd)
+>  
+>  struct ov08d10_reg {
+> @@ -110,6 +118,9 @@ struct ov08d10_mode {
+>  
+>  	/* Number of data lanes */
+>  	u8 data_lanes;
+> +
+> +	/* Analogue crop rectangle, in native sensor coordinates */
+> +	struct v4l2_rect crop;
+>  };
+>  
+>  /* 3280x2460, 3264x2448 need 720Mbps/lane, 2 lanes - 19.2 MHz */
+> @@ -630,6 +641,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+>  		},
+>  		.link_freq_index = 0,
+>  		.data_lanes = 2,
+> +		.crop = { .left =  4, .top =  8, .width = 3280, .height = 2460 },
+>  	},
+>  	{
+>  		.width = 3264,
+> @@ -643,6 +655,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+>  		},
+>  		.link_freq_index = 0,
+>  		.data_lanes = 2,
+> +		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+>  	},
+>  	{
+>  		.width = 1632,
+> @@ -656,6 +669,7 @@ static const struct ov08d10_lane_cfg lane_cfg_2 = {
+>  		},
+>  		.link_freq_index = 1,
+>  		.data_lanes = 2,
+> +		.crop = { .left = 12, .top = 16, .width = 3264, .height = 2448 },
+>  	}}
+>  };
+>  
+> @@ -955,6 +969,36 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
+>  	return ret;
+>  }
+>  
+> +static int ov08d10_get_selection(struct v4l2_subdev *sd,
+> +				 const struct v4l2_subdev_client_info *ci,
+> +				 struct v4l2_subdev_state *sd_state,
+> +				 struct v4l2_subdev_selection *sel)
+> +{
+> +	switch (sel->target) {
+> +	case V4L2_SEL_TGT_CROP:
+> +		sel->r = *v4l2_subdev_state_get_crop(sd_state, 0);
+> +		return 0;
+> +
+> +	case V4L2_SEL_TGT_NATIVE_SIZE:
+> +		sel->r.left = 0;
+> +		sel->r.top = 0;
+> +		sel->r.width = OV08D10_NATIVE_WIDTH;
+> +		sel->r.height = OV08D10_NATIVE_HEIGHT;
+> +		return 0;
+> +
+> +	case V4L2_SEL_TGT_CROP_DEFAULT:
+> +	case V4L2_SEL_TGT_CROP_BOUNDS:
+> +		sel->r.left = OV08D10_PIXEL_ARRAY_LEFT;
+> +		sel->r.top = OV08D10_PIXEL_ARRAY_TOP;
+> +		sel->r.width = OV08D10_PIXEL_ARRAY_WIDTH;
+> +		sel->r.height = OV08D10_PIXEL_ARRAY_HEIGHT;
+> +		return 0;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>  static const struct v4l2_ctrl_ops ov08d10_ctrl_ops = {
+>  	.s_ctrl = ov08d10_set_ctrl,
+>  };
+> @@ -1194,6 +1238,9 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
+>  
+>  	mutex_lock(&ov08d10->mutex);
+>  	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
+> +
+> +	*v4l2_subdev_state_get_crop(sd_state, fmt->pad) = mode->crop;
+> +
+>  	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
+>  		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
+>  								fmt->format;
+> @@ -1297,6 +1344,19 @@ static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
+>  	return 0;
+>  }
+>  
+> +static int ov08d10_init_state(struct v4l2_subdev *sd,
+> +			      struct v4l2_subdev_state *sd_state)
+> +{
+> +	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+> +	const struct ov08d10_mode *mode = &ov08d10->priv_lane->sp_modes[0];
+> +
+> +	*v4l2_subdev_state_get_crop(sd_state, 0) = mode->crop;
+> +	ov08d10_update_pad_format(ov08d10, mode,
+> +				  v4l2_subdev_state_get_format(sd_state, 0));
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
+>  	.s_stream = ov08d10_set_stream,
+>  };
+> @@ -1306,6 +1366,7 @@ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
+>  	.get_fmt = ov08d10_get_format,
+>  	.enum_mbus_code = ov08d10_enum_mbus_code,
+>  	.enum_frame_size = ov08d10_enum_frame_size,
+> +	.get_selection = ov08d10_get_selection,
 
-All three still apply to next-20261009 and I can re-test on RB3 Gen2
-whenever that is useful.
+It'd be nice to have the same ordering as in the driver (and also not place
+the get_selection callback in the middle of control handling).
 
----
-Hitesh
+>  };
+>  
+>  static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+> @@ -1315,6 +1376,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+>  
+>  static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
+>  	.open = ov08d10_open,
+> +	.init_state = ov08d10_init_state,
+>  };
+>  
+>  static int ov08d10_power_off(struct device *dev)
+> @@ -1470,6 +1532,7 @@ static void ov08d10_remove(struct i2c_client *client)
+>  	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+>  
+>  	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(sd);
+>  	media_entity_cleanup(&sd->entity);
+>  	v4l2_ctrl_handler_free(sd->ctrl_handler);
+>  	pm_runtime_disable(ov08d10->dev);
+> @@ -1565,17 +1628,26 @@ static int ov08d10_probe(struct i2c_client *client)
+>  	pm_runtime_set_active(ov08d10->dev);
+>  	pm_runtime_enable(ov08d10->dev);
+>  
+> +	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
+
+Can you convert this driver to fully utilise sub-device state, as you're
+initialising it here?
+
+There's probably not much to do, but in particular the active format should
+be stored in sub-device state and the control handler's lock be used as the
+state lock. Also storing the active mode in the context struct would be
+nice to avoid. These should constitute a separate patch (that also includes
+init_finalize()/cleanup() calls) before this one.
+
+> +	if (ret) {
+> +		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
+> +		goto probe_error_media_entity_cleanup;
+> +	}
+> +
+>  	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
+>  	if (ret < 0) {
+>  		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
+>  			ret);
+> -		goto probe_error_media_entity_cleanup;
+> +		goto probe_error_subdev_cleanup;
+>  	}
+>  
+>  	pm_runtime_idle(ov08d10->dev);
+>  
+>  	return 0;
+>  
+> +probe_error_subdev_cleanup:
+> +	v4l2_subdev_cleanup(&ov08d10->sd);
+> +
+>  probe_error_media_entity_cleanup:
+>  	pm_runtime_disable(ov08d10->dev);
+>  	pm_runtime_set_suspended(ov08d10->dev);
+> 
+
+-- 
+Kind regards,
+
+Sakari Ailus
