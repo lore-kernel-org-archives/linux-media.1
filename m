@@ -1,66 +1,66 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D68A9490C0A
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 14:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC50E4908C4
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 14:35:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791815743; cv=none; b=kGmeWDuffHMkKsJF+UF2DszYO64mpO3cexQu1v9rXu2sNNwkKPN4fs7YsWHqDZz8v8FrrTh07P7U2S22LdjrxX7pq7TpoufEg6ARwvfoN+A0PqqxJFYOolLNpycCYMNuPuW1pFeJFFtK10su3L3m0vqaeE4a7AwMbRNxBnRokW0=
+	t=1791815743; cv=none; b=QF0ieGOKKogzzjbet/sP6t8/KpBm84+6aGLiThcx2jmnJJjm/2oTztaiUvlxaGviDNvPTqQl+imJUsK8oWOQ/pJAc/bg23RQ0BK+s7MyBY15DJue/yRNSgPDb6E76dNkQnQ/mW+62w5dvGvjQNsIRtZnB/KPi4/i0nD3Pi452QU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791815743; c=relaxed/simple;
-	bh=Ss47ZgD09dOj/UKeJPH9Y9COWloBGKnaLz+6F8Ki/do=;
+	bh=BGuAqFALStbwJAXCQzX/vqIyyIDX8IDokWJhJmnJrF4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GOSXVSmieS4QxZSfPIbvjd2YGK3V7T4hFUHnyCzoBpMuDITd+3j+Q451Pe3fcntLdqRrElKxXtnRgHOH3ZVf7wjnB55P0c9t1ZVSuwFmumK7HmR+lD7rV3Vw5r2TZG2NfwksFdxMaZdcx/VWdvaWe583G9cmbDie2OeMOpb/9iA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l5FbbveF; arc=none smtp.client-ip=209.85.221.52
+	 MIME-Version; b=TLc4We968AH91HOToliMNNDUTeP0v7aEYtUmJ/i48qyw4jWhrA/2x0S3LWUQOa0UwJqCjuyM01QgWw8bVjlkuttvbKp5BanKIujy7noG0iPLle3FMplfvMqC9pHdXWmGOGBYdUqf+GZvMapSDGiT8RNln/vV5mUh80MrS99hHSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CBN7ybMt; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l5FbbveF"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afe0081a6so1349035f8f.2
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:35:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CBN7ybMt"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48870973bddso1188625f8f.1
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:35:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791815737; x=1792420537; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791815736; x=1792420536; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yNPmkzGpWJi91RdX/MwSYm28MsounCEy4wd+YqulLmE=;
-        b=l5FbbveFlnegMr4GFNQXjN08h5GRPUaA7V7gzfD7tOPLsLET++xeaRjEPnpuaR1D5O
-         BDb5nnHSRP82LiLX/gXl1Xvjbh+8KN/LFsF51yY+NXAD8Nv5WfSFARRPOOxkZydxeduh
-         CgOC0MZYWTMoVAoEgobKtk6UbcbQ/Q4/ZA5yN1/pqPYQdCoj7a+liv6n/97FTySgqyGx
-         BG35W9WE/taS4t4jyWsHPgrvBvsmoYqvLts6WcNrqX/XMXAOnlH46sK2d2ecWcipPdiX
-         7YV1K1QiTUPDDrn9CsvgYyefrICREgWipZLNtNjM1ROd7owUoAyYWgr8rkQtfbbnd4D8
-         VKug==
+        bh=i/krusyMYMtVA3LOw6qRB390TfDai7JcLAM0jSVl7dQ=;
+        b=CBN7ybMtv7tNyn4Sc4J3V9zhkQ7nng+gnEt0rLNJ6ECm/xRHMnc/79AfeOUS/u+JHO
+         LXnlEZYzdOzQfnadkSrgZ10acVoR6FuWtjB42SKPigNgEkJYVeWUqs0qg5zZUMPszzeK
+         2AFQR7dY4mwNusTNd+xZ1Kr3qitw0kfYUAoTp+hgnTBnmQXVloDHQL8wN4s2DOjeURcd
+         pQpVrMoQh6H4q09AA2pGtfEhQsl7OkWTwN0NYIEqLKs6BJoPeohpdT4MCBv9HAlazmeU
+         Au0Upt1nUPv7PuxZHbrLlqTGOIsYUGU7k2SbD/iKnrBugQD8jJ/EPRmFADoI3FgWCWnJ
+         QsfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791815737; x=1792420537;
+        d=1e100.net; s=20260707; t=1791815736; x=1792420536;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yNPmkzGpWJi91RdX/MwSYm28MsounCEy4wd+YqulLmE=;
-        b=kAejMKfJypCbdjPoKTTSaF6/o4WwQVKl2/+jlU5QHzug9/aqeWFgRcflbGx21hecZE
-         tgsO3NE8yx1jdu+Xop8jE2baZ4qW5mIz+VEwegtW+cHGhci0U5wFn9FvkMs03FgYyQ7w
-         DiacTgnLZY8ST2xdaMaSFYqPg3zEMOTtr25b6bwi+MJDqV7EBiksJyZ1H1HMaCDwgtgK
-         m/FhnqDQtRkYRsDfYCl/IaXe8ZkMdIFfWWHEHyH8MynrHHvvXEes8DW3jCsiC7pNVuMk
-         EVfDOkpNyTLFYCRWz5NGbgSYyBm44s4bepLHMiEMGFP0P+QkTm93jPdiaDaxYapqFI1d
-         kN+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByJZm36whZoR+0qKqY3/ZbOs64uj+qECr1/KxE+dV4WfVYQLoYE9PCVI2zrQE1ZwhK0C/DZDajAyyeuEw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIA6wcFFARPkvXPjqTSbwN2RZVnziFgOSCjnGvESFvHGRo2NzJZ
-	4pBAJm8KRuV1MwxgoaMGUuW83S6C7vKKaz/ZRxAk884cIslj6IcSYEVc
-X-Gm-Gg: AYBFou0NXGdNKRbkmxXPl21Q05We4hPrmaCjHVloVfGeYqNQzWIJkAmMNsFsnqvV8xs
-	nzeq0gaF5+jNQZgmWg6tCtyXKi0tPDPSw7uw/xgHwbopHrVeBh2Si2BM+r88YGrU1exYmi9Wfqg
-	miRseAwoGskHfHoDoKiAB3ADe7lbZyQ523TzJoovfe7E1ZeugE88hSx7DyQm5kFswqPDV+NwnoR
-	n1TaPVDelL8w33Fk+XmHljgGZ3qSWe7a0tLwlDWZ2UAHaNN9AmjB5jdCTnirtbKJdd8lako0jS4
-	5Bla8uqfIYMIuxOMz9FG3NRut3Y7mPr9fhTrF/Pzh2JciFetJsXxS4Tu4UCpkM6aeQv/dF3OYDR
-	FR//AOyEhlR/UcG425WoG3/MalExD8+fCUa8ej/X+8vLv/G6xzFYQcLpPkCAbNfThHTjsycaNaQ
-	mSY4p5kWizU9o4LFU84kkXWO/4JVCea1mHRnb+kuTeV4z08dfq6xgbyDr8iD1611OCN3Kk/d+4F
-	cLwGw1K078hGNC4wyXPmlCLMLRnJ1UrPEeaMFY2TnsBWcBP8oKLjoOnZJMnjcz8V7RG0RYztIKM
-	C912eU5FYSFIaoWTg0a042r0cexnko09ZFQDTFZS6oHoE+ACQW9X5smnEWsG9+4K7jzMLyqV8Hx
-	+sLz6r5v/FreQktCaqt2ORiQrx+LmMfiS1wcVE1CMCr1/FC30+BaWmgw=
-X-Received: by 2002:a5d:4404:0:b0:488:8c99:fbc8 with SMTP id ffacd0b85a97d-48dbacec9c3mr13938633f8f.50.1791815736792;
-        Mon, 12 Oct 2026 07:35:36 -0700 (PDT)
+        bh=i/krusyMYMtVA3LOw6qRB390TfDai7JcLAM0jSVl7dQ=;
+        b=bUvTpXeEBWEJezOafrKaDRCwYG01oqzi2QFRA4LrfGAZbDZsgOs+/KP7cDGyaFhG9u
+         /2dkf2u4yx1f9CqEeGJUI/ZpfCt0XKucJQCOzKiGFtLnrDMA5yezfpJkmPASSLrig6vo
+         YWRw/9WHjCsg9vV4l7MmBAwSjwDdSdfH2Q6O0HNG7llSd9tjc33vJjE+900OlBdoc1oM
+         ObWtVDQmtEwO0eW/ZgafHWYQ+G86wu+vf3wGN3qDr9plAOjjmAgujOhtouY5StMSF13v
+         BaoWxckyZw78vdPeuBEauxEFf6Zc7WDoqf8KfdXPGoze7cxjZ8IWy8M+87ZtbCYyKZKR
+         Bz+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwx7l92bRumA7ssTZ8yckmszsg75+RMY2GObqkhcP4oXsPdx2hAZjRM6wYBXrcJI9Yx4gqUqRWOnQ3+jA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkH4O7Tn3lK3SBj/q5FLAcmcpHJo+CMzA4orVh5NXo4G9PK1RB
+	4jj1375DJtBdP7iV9HvunegBlNk03Ol1/C7gQlFRbHiwJWSxkfFacy52
+X-Gm-Gg: AYBFou2PKPEIzFIDojrscpYlUqA2GQRHuLuEeP2VCLgk9Zj95CAq09kkhET6JvWA19Q
+	4u8/Bpst8qQGEHm2BCv97C5yJpW+Dy5qOFjJCIewHfNAMrokOXRmqsDM8aLjUT4UW7Vf8DaUj8V
+	AmcGxluVtBOA7KB+EN2HliO+UNWBc/YLQJB4zXMFotZ0BvvxahqXiLw7I2oPs0UP3OSvUpHIfU2
+	GQE1phiICSLJ2v5Fn8uUS7ZCt922mww6x+Tz1SgtVtMwTaROLn7sJ790ZUL2fc0TJr1joVvecYJ
+	mUQvQK+64uBRp6equfqXhh6gwDYH630kfBBxUSBSzlG2vSm/lEmF3e8HKH67jqYQnrfdoxb4tm+
+	WjuaHeyjADYYsDN3VFVwi89g0v/K764CTEFxc0TctDrBDoDonJ9POGqdcgSyR6ARDVprISflLuC
+	63JBBQvVwJRMEr04yOBKgfTArgsi4lMxrH36LunEkqeEkx1qMeg2Pv8pZlnN4fQIhhgLzbyCMbP
+	lXGSvTE7M8mC4Q3LStkFju/M9iAreYjG0y+k15dRhXKIc5N2feaPEYhBzYvRG4octqdUJzJvVsQ
+	KzEKifz78he9FP5c9e7wOAkrU6Pgu11yrnaEd8HBPf7HfEHEzaRUv5Z/6YpOPnyL0oWDKeq9Uv/
+	2s/HxijwEO+81SuNH3UnOkG0sbvpdtEEy8E3h7a2b33D8uHPgjqJ7+g==
+X-Received: by 2002:a05:6000:438a:b0:48c:7dac:895a with SMTP id ffacd0b85a97d-48db940d2demr20638392f8f.1.1791815735444;
+        Mon, 12 Oct 2026 07:35:35 -0700 (PDT)
 Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm20899559f8f.9.2026.10.12.07.35.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm20899559f8f.9.2026.10.12.07.35.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:35:36 -0700 (PDT)
+        Mon, 12 Oct 2026 07:35:34 -0700 (PDT)
 From: Nicola Fiorillo <nicfio@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -71,9 +71,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/7] media: i2c: gc8034: Add crop support
-Date: Mon, 12 Oct 2026 16:34:41 +0200
-Message-ID: <20261012143443.34897-6-nicfio@gmail.com>
+Subject: [PATCH v2 4/7] media: i2c: gc5035: Add crop support
+Date: Mon, 12 Oct 2026 16:34:40 +0200
+Message-ID: <20261012143443.34897-5-nicfio@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261012143443.34897-1-nicfio@gmail.com>
 References: <20261009072733.39877-1-nicfio@gmail.com>
@@ -86,41 +86,44 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement the crop selection on the source pad, as for the GC5035: the
-vertical crop is done by the readout window, the horizontal crop by the
-sensor output crop, as the column start register only gives valid images
-at some values. Crop offsets are even, to keep the RGGB order, and sizes
-are multiples of 4. The width ranges from 512 to 3280: up to 384 columns
-the CSI-2 receiver gets corrupted frames, 448 worked and 512 is kept as a
-conservative minimum; an output as wide as the readout window causes
-CSI-2 errors. The height ranges from 64 to 2448: with readout windows
-taller than the vendor one (2464 rows) the frames get longer than
-computed.
+Implement the crop selection on the source pad. The vertical crop is done
+by the readout window, which shortens the frame: 640x480 runs at up to
+106 fps with the minimum vertical blanking. The horizontal crop is done by
+the sensor output crop, as a narrower readout window gives black images
+and the column start register only moves in steps of four columns, with
+even values giving corrupted images. Crop offsets are even, to keep the
+GRBG order, and sizes are multiples of 4, from 64x64 to 2608x1964.
 
-set_fmt and the vertical blanking behave as in the GC5035 driver.
+Without binning or scaling, the format size is the crop size. As in
+ov01a10, set_fmt centres the crop rectangle on CROP_DEFAULT for userspace
+that does not set the crop first, and setting the format or the crop
+rectangle resets the vertical blanking to its default. The crop and the
+format can't be changed while streaming.
 
-Tested in the same way as the GC5035: v4l2-compliance and crop rectangles
-at the bounds, in the corners, at the minimum size and in the centre.
+Tested with v4l2-compliance (54/54, no warning) and with crop rectangles
+at the bounds, in the corners, at the minimum size and in the centre: the
+position was checked to the pixel and the frame period is the computed
+one.
 
 Assisted-by: claude-opus-5-5 coccinelle sparse smatch
 Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
 ---
- drivers/media/i2c/gc8034.c | 168 +++++++++++++++++++++++++++++++++++--
- 1 file changed, 161 insertions(+), 7 deletions(-)
+ drivers/media/i2c/gc5035.c | 167 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 157 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/i2c/gc8034.c b/drivers/media/i2c/gc8034.c
-index c21fb8510..732ee6c78 100644
---- a/drivers/media/i2c/gc8034.c
-+++ b/drivers/media/i2c/gc8034.c
-@@ -8,6 +8,7 @@
-  * The registers and sequences come from the Rockchip BSP driver,
-  * rockchip-linux/kernel, branch develop-5.10.
+diff --git a/drivers/media/i2c/gc5035.c b/drivers/media/i2c/gc5035.c
+index 87c3742f1..b7190aa52 100644
+--- a/drivers/media/i2c/gc5035.c
++++ b/drivers/media/i2c/gc5035.c
+@@ -11,6 +11,7 @@
+  * Liang Wang <liang1.wang@intel.com>, derived from the ChromeOS series by
+  * Tomasz Figa <tfiga@chromium.org>.
   */
 +#include <linux/align.h>
  #include <linux/array_size.h>
  #include <linux/clk.h>
  #include <linux/container_of.h>
-@@ -17,6 +18,7 @@
+@@ -20,6 +21,7 @@
  #include <linux/gpio/consumer.h>
  #include <linux/i2c.h>
  #include <linux/math.h>
@@ -128,31 +131,16 @@ index c21fb8510..732ee6c78 100644
  #include <linux/module.h>
  #include <linux/pm_runtime.h>
  #include <linux/property.h>
-@@ -89,6 +91,12 @@
-  *
-  * The default crop rectangle is the 3264x2448 image of the vendor register
-  * sequence, at (8, 52) in the area.
-+ *
-+ * Output widths up to 384 pixels gave corrupted frames on the CSI-2 receiver,
-+ * 448 pixels and above worked; 512 is kept as the minimum. With a readout
-+ * window taller than the 2464 rows of the vendor sequence, the frames were
-+ * longer than the timing model below by the extra rows, so the output height
-+ * is limited to 2448.
-  */
- #define GC8034_AREA_WIDTH		3282
- #define GC8034_AREA_HEIGHT		2500
-@@ -102,6 +110,10 @@
- #define GC8034_CROP_TOP			52
- #define GC8034_WIDTH			3264
- #define GC8034_HEIGHT			2448
-+#define GC8034_MIN_WIDTH		512
-+#define GC8034_MIN_HEIGHT		64
-+#define GC8034_MAX_WIDTH		(GC8034_WIN_WIDTH - 4)
-+#define GC8034_MAX_HEIGHT		2448
+@@ -106,6 +108,8 @@
+ #define GC5035_CROP_TOP			8
+ #define GC5035_WIDTH			2592
+ #define GC5035_HEIGHT			1944
++#define GC5035_MIN_WIDTH		64
++#define GC5035_MIN_HEIGHT		64
  
  /*
-  * The frame is the readout window plus 20 lines plus the blanking register.
-@@ -210,6 +222,7 @@ struct gc8034 {
+  * The line length register counts units of 4 pixels. The frame length is the
+@@ -207,6 +211,7 @@ struct gc5035 {
  
  	struct v4l2_ctrl_handler ctrls;
  	struct v4l2_ctrl *exposure;
@@ -160,19 +148,19 @@ index c21fb8510..732ee6c78 100644
  	struct v4l2_ctrl *hblank;
  
  	struct regmap *regmap;
-@@ -487,14 +500,55 @@ static int gc8034_enum_frame_size(struct v4l2_subdev *sd,
+@@ -463,14 +468,58 @@ static int gc5035_enum_frame_size(struct v4l2_subdev *sd,
  	if (fse->index > 0)
  		return -EINVAL;
  
--	fse->min_width = GC8034_WIDTH;
--	fse->max_width = GC8034_WIDTH;
--	fse->min_height = GC8034_HEIGHT;
--	fse->max_height = GC8034_HEIGHT;
+-	fse->min_width = GC5035_WIDTH;
+-	fse->max_width = GC5035_WIDTH;
+-	fse->min_height = GC5035_HEIGHT;
+-	fse->max_height = GC5035_HEIGHT;
 +	/* The output size is the size of the crop rectangle. */
-+	fse->min_width = GC8034_MIN_WIDTH;
-+	fse->max_width = GC8034_MAX_WIDTH;
-+	fse->min_height = GC8034_MIN_HEIGHT;
-+	fse->max_height = GC8034_MAX_HEIGHT;
++	fse->min_width = GC5035_MIN_WIDTH;
++	fse->max_width = GC5035_AREA_WIDTH;
++	fse->min_height = GC5035_MIN_HEIGHT;
++	fse->max_height = GC5035_AREA_HEIGHT;
  
  	return 0;
  }
@@ -181,58 +169,60 @@ index c21fb8510..732ee6c78 100644
 + * Update the controls that depend on the output size. Called with the state
 + * lock held, which is also the control handler lock.
 + */
-+static int gc8034_update_ctrls(struct gc8034 *gc8034,
++static int gc5035_update_ctrls(struct gc5035 *gc5035,
 +			       const struct v4l2_mbus_framefmt *format)
 +{
-+	s64 exposure_max;
++	s64 vblank_max, exposure_max;
 +	int ret;
 +
-+	ret = __v4l2_ctrl_modify_range(gc8034->hblank,
-+				       GC8034_HTS - format->width,
-+				       GC8034_HTS - format->width, 1,
-+				       GC8034_HTS - format->width);
++	ret = __v4l2_ctrl_modify_range(gc5035->hblank,
++				       GC5035_HTS - format->width,
++				       GC5035_HTS - format->width, 1,
++				       GC5035_HTS - format->width);
 +	if (ret)
 +		return ret;
 +
++	vblank_max = GC5035_VBLANK_MIN +
++		     round_down(GC5035_VTS_MAX - format->height -
++				GC5035_VBLANK_MIN, GC5035_VBLANK_STEP);
 +	/*
 +	 * As in ov01a10, setting the format or the crop rectangle resets the
 +	 * vertical blanking.
 +	 */
-+	ret = __v4l2_ctrl_modify_range(gc8034->vblank, GC8034_VBLANK_MIN,
-+				       GC8034_VTS_MAX - format->height, 1,
-+				       GC8034_VBLANK_MIN);
++	ret = __v4l2_ctrl_modify_range(gc5035->vblank, GC5035_VBLANK_MIN,
++				       vblank_max, GC5035_VBLANK_STEP,
++				       GC5035_VBLANK_MIN);
 +	if (ret)
 +		return ret;
 +
-+	ret = __v4l2_ctrl_s_ctrl(gc8034->vblank, GC8034_VBLANK_MIN);
++	ret = __v4l2_ctrl_s_ctrl(gc5035->vblank, GC5035_VBLANK_MIN);
 +	if (ret)
 +		return ret;
 +
-+	exposure_max = round_down(format->height + gc8034->vblank->val -
-+				  GC8034_EXP_MARGIN, GC8034_EXP_STEP);
++	exposure_max = format->height + gc5035->vblank->val -
++		       GC5035_EXP_MARGIN;
 +
-+	return __v4l2_ctrl_modify_range(gc8034->exposure, GC8034_EXP_MIN,
-+					exposure_max, GC8034_EXP_STEP,
-+					min_t(s64, GC8034_EXP_DEF,
++	return __v4l2_ctrl_modify_range(gc5035->exposure, GC5035_EXP_MIN,
++					exposure_max, GC5035_EXP_STEP,
++					min_t(s64, GC5035_EXP_DEF,
 +					      exposure_max));
 +}
 +
- static void gc8034_fill_format(struct v4l2_mbus_framefmt *fmt,
+ static void gc5035_fill_format(struct v4l2_mbus_framefmt *fmt,
  			       const struct v4l2_rect *crop)
  {
-@@ -537,6 +591,102 @@ static int gc8034_get_selection(struct v4l2_subdev *sd,
+@@ -513,6 +562,98 @@ static int gc5035_get_selection(struct v4l2_subdev *sd,
  	return 0;
  }
  
-+static int gc8034_set_selection(struct v4l2_subdev *sd,
++static int gc5035_set_selection(struct v4l2_subdev *sd,
 +				const struct v4l2_subdev_client_info *ci,
 +				struct v4l2_subdev_state *state,
 +				struct v4l2_subdev_selection *sel)
 +{
-+	struct gc8034 *gc8034 = to_gc8034(sd);
++	struct gc5035 *gc5035 = to_gc5035(sd);
 +	struct v4l2_mbus_framefmt *format;
 +	struct v4l2_rect rect;
-+	u32 max_width, max_height;
 +
 +	if (sel->target != V4L2_SEL_TGT_CROP)
 +		return -EINVAL;
@@ -242,30 +232,27 @@ index c21fb8510..732ee6c78 100644
 +		return -EBUSY;
 +
 +	/*
-+	 * Even offsets keep the RGGB order. The width is a multiple of 4 so
-+	 * that RAW10 lines are a whole number of bytes; only heights that are
-+	 * multiples of 4 have been tested.
++	 * Even offsets keep the GRBG order. The sizes are multiples of 4: the
++	 * sensor rounds the frame length to a multiple of 4 lines.
 +	 */
 +	rect.left = ALIGN_DOWN(clamp(sel->r.left, 0,
-+				     GC8034_AREA_WIDTH - GC8034_MIN_WIDTH), 2);
++				     GC5035_AREA_WIDTH - GC5035_MIN_WIDTH), 2);
 +	rect.top = ALIGN_DOWN(clamp(sel->r.top, 0,
-+				    GC8034_AREA_HEIGHT - GC8034_MIN_HEIGHT), 2);
-+	max_width = min(GC8034_MAX_WIDTH, GC8034_AREA_WIDTH - rect.left);
-+	max_height = min(GC8034_MAX_HEIGHT, GC8034_AREA_HEIGHT - rect.top);
-+	rect.width = ALIGN_DOWN(clamp_t(u32, sel->r.width, GC8034_MIN_WIDTH,
-+					max_width), 4);
-+	rect.height = ALIGN_DOWN(clamp_t(u32, sel->r.height, GC8034_MIN_HEIGHT,
-+					 max_height), 4);
++				    GC5035_AREA_HEIGHT - GC5035_MIN_HEIGHT), 2);
++	rect.width = ALIGN_DOWN(clamp_t(u32, sel->r.width, GC5035_MIN_WIDTH,
++					GC5035_AREA_WIDTH - rect.left), 4);
++	rect.height = ALIGN_DOWN(clamp_t(u32, sel->r.height, GC5035_MIN_HEIGHT,
++					 GC5035_AREA_HEIGHT - rect.top), 4);
 +
 +	*v4l2_subdev_state_get_crop(state, 0) = rect;
 +	sel->r = rect;
 +
 +	/* No binning or scaling: the output size is the crop size. */
 +	format = v4l2_subdev_state_get_format(state, 0);
-+	gc8034_fill_format(format, &rect);
++	gc5035_fill_format(format, &rect);
 +
 +	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE)
-+		return gc8034_update_ctrls(gc8034, format);
++		return gc5035_update_ctrls(gc5035, format);
 +
 +	return 0;
 +}
@@ -276,12 +263,12 @@ index c21fb8510..732ee6c78 100644
 + * rectangle along that axis, within the area, for userspace that does not set
 + * the crop rectangle first. The default size gives the default rectangle back.
 + */
-+static int gc8034_set_fmt(struct v4l2_subdev *sd,
++static int gc5035_set_fmt(struct v4l2_subdev *sd,
 +			  const struct v4l2_subdev_client_info *ci,
 +			  struct v4l2_subdev_state *state,
 +			  struct v4l2_subdev_format *fmt)
 +{
-+	struct gc8034 *gc8034 = to_gc8034(sd);
++	struct gc5035 *gc5035 = to_gc5035(sd);
 +	struct v4l2_mbus_framefmt *format;
 +	struct v4l2_rect *crop;
 +	u32 width, height;
@@ -291,63 +278,71 @@ index c21fb8510..732ee6c78 100644
 +	    v4l2_subdev_is_streaming(sd))
 +		return -EBUSY;
 +
-+	width = ALIGN_DOWN(clamp_t(u32, fmt->format.width, GC8034_MIN_WIDTH,
-+				   GC8034_MAX_WIDTH), 4);
-+	height = ALIGN_DOWN(clamp_t(u32, fmt->format.height, GC8034_MIN_HEIGHT,
-+				    GC8034_MAX_HEIGHT), 4);
++	width = ALIGN_DOWN(clamp_t(u32, fmt->format.width, GC5035_MIN_WIDTH,
++				   GC5035_AREA_WIDTH), 4);
++	height = ALIGN_DOWN(clamp_t(u32, fmt->format.height, GC5035_MIN_HEIGHT,
++				    GC5035_AREA_HEIGHT), 4);
 +
 +	crop = v4l2_subdev_state_get_crop(state, 0);
 +	if (width != crop->width) {
-+		pos = GC8034_CROP_LEFT + (GC8034_WIDTH - (int)width) / 2;
-+		pos = clamp(pos, 0, GC8034_AREA_WIDTH - (int)width);
++		pos = GC5035_CROP_LEFT + (GC5035_WIDTH - (int)width) / 2;
++		pos = clamp(pos, 0, GC5035_AREA_WIDTH - (int)width);
 +		crop->left = ALIGN_DOWN(pos, 2);
 +		crop->width = width;
 +	}
 +	if (height != crop->height) {
-+		pos = GC8034_CROP_TOP + (GC8034_HEIGHT - (int)height) / 2;
-+		pos = clamp(pos, 0, GC8034_AREA_HEIGHT - (int)height);
++		pos = GC5035_CROP_TOP + (GC5035_HEIGHT - (int)height) / 2;
++		pos = clamp(pos, 0, GC5035_AREA_HEIGHT - (int)height);
 +		crop->top = ALIGN_DOWN(pos, 2);
 +		crop->height = height;
 +	}
 +
 +	format = v4l2_subdev_state_get_format(state, 0);
-+	gc8034_fill_format(format, crop);
++	gc5035_fill_format(format, crop);
 +	fmt->format = *format;
 +
 +	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE)
-+		return gc8034_update_ctrls(gc8034, format);
++		return gc5035_update_ctrls(gc5035, format);
 +
 +	return 0;
 +}
 +
- static int gc8034_init_state(struct v4l2_subdev *sd,
+ static int gc5035_init_state(struct v4l2_subdev *sd,
  			     struct v4l2_subdev_state *state)
  {
-@@ -750,7 +900,9 @@ static const struct v4l2_subdev_pad_ops gc8034_pad_ops = {
- 	.enum_mbus_code = gc8034_enum_mbus_code,
- 	.enum_frame_size = gc8034_enum_frame_size,
+@@ -724,7 +865,9 @@ static const struct v4l2_subdev_pad_ops gc5035_pad_ops = {
+ 	.enum_mbus_code = gc5035_enum_mbus_code,
+ 	.enum_frame_size = gc5035_enum_frame_size,
  	.get_fmt = v4l2_subdev_get_fmt,
-+	.set_fmt = gc8034_set_fmt,
- 	.get_selection = gc8034_get_selection,
-+	.set_selection = gc8034_set_selection,
- 	.get_frame_desc = gc8034_get_frame_desc,
- 	.enable_streams = gc8034_enable_streams,
- 	.disable_streams = gc8034_disable_streams,
-@@ -825,9 +977,11 @@ static int gc8034_init_controls(struct gc8034 *gc8034)
- 			  GC8034_PIXEL_RATE, GC8034_PIXEL_RATE, 1,
- 			  GC8034_PIXEL_RATE);
++	.set_fmt = gc5035_set_fmt,
+ 	.get_selection = gc5035_get_selection,
++	.set_selection = gc5035_set_selection,
+ 	.get_frame_desc = gc5035_get_frame_desc,
+ 	.enable_streams = gc5035_enable_streams,
+ 	.disable_streams = gc5035_disable_streams,
+@@ -799,12 +942,16 @@ static int gc5035_init_controls(struct gc5035 *gc5035)
+ 			  GC5035_PIXEL_RATE, GC5035_PIXEL_RATE, 1,
+ 			  GC5035_PIXEL_RATE);
  
--	v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops, V4L2_CID_VBLANK,
--			  GC8034_VBLANK_MIN, GC8034_VTS_MAX - GC8034_HEIGHT, 1,
--			  GC8034_VBLANK_MIN);
-+	/* Ranges for the default crop rectangle, see gc8034_update_ctrls(). */
-+	gc8034->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &gc8034_ctrl_ops,
-+					   V4L2_CID_VBLANK, GC8034_VBLANK_MIN,
-+					   GC8034_VTS_MAX - GC8034_HEIGHT, 1,
-+					   GC8034_VBLANK_MIN);
+-	v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops, V4L2_CID_VBLANK,
+-			  GC5035_VBLANK_MIN,
+-			  GC5035_VBLANK_MIN +
+-			  round_down(GC5035_VTS_MAX - GC5035_HEIGHT -
+-				     GC5035_VBLANK_MIN, GC5035_VBLANK_STEP),
+-			  GC5035_VBLANK_STEP, GC5035_VBLANK_MIN);
++	/* Ranges for the default crop rectangle, see gc5035_update_ctrls(). */
++	gc5035->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &gc5035_ctrl_ops,
++					   V4L2_CID_VBLANK, GC5035_VBLANK_MIN,
++					   GC5035_VBLANK_MIN +
++					   round_down(GC5035_VTS_MAX -
++						      GC5035_HEIGHT -
++						      GC5035_VBLANK_MIN,
++						      GC5035_VBLANK_STEP),
++					   GC5035_VBLANK_STEP,
++					   GC5035_VBLANK_MIN);
  
- 	gc8034->hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
- 					   GC8034_HTS - GC8034_WIDTH,
+ 	gc5035->hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
+ 					   GC5035_HTS - GC5035_WIDTH,
 -- 
 2.47.3
 
