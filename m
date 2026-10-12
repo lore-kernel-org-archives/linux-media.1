@@ -1,39 +1,33 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9A44A8FDC;
-	Mon, 12 Oct 2026 16:04:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3144A8A39;
+	Mon, 12 Oct 2026 16:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821049; cv=none; b=rNrpJ6NWOBk3ZFULlFpZMXYV4QsSe50uoXVxbUngOhYoUTx93cclOnnewKZ0fp5gAnT4+hRoJbtXzc/0EPrVNOKMtrwMSDarlm+CuCJdm8os8bDC8KC7ZlEx/rO/sJvUXgZ8b1zp49/RBd+mNA81eS2SqB7JKnO9zhYAJpSzXE4=
+	t=1791821464; cv=none; b=RBh94Z4sKcouGVpZPVd6Ll3r9heIDP4aOKz/ORIqGsa/CWgZW2Thjr7x7ZH0YzHXTWz2BnKjfN6uT5FSWvxfWLaLmK2fHWrOiBFTdXNlYSCONcttJDUHJaMDMbLgi9QhvviSS/1nRK0/zJ2PPu6/7mAqdk3+7mAu3QYvsC0msmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821049; c=relaxed/simple;
-	bh=wTnbn5tvk/R2ZDZcRuMHuvFaZmxMiTHvE9Q7sFopZMs=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=K5Q7yyz3yG/1Xt9IR4kMLvV5AqWZDw2J43k2LijUDFZW4IGVTnt1zzgSkBUmBpMqD/yvpd9ieAxIQqsyO1505RWFZGa/VHDSqAddqhSmEiL5/EKPqgyiaARopF3cs1WC37iKw3VQYGXAxusH8aiFjfTnFRQmloGA5cPJVlCu/og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=tGArUO0M; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1791821464; c=relaxed/simple;
+	bh=vl/hjzRGnuiTtGumcg1CAyiR9HJs/NjVOUgWTtvJkL4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N3ZdheqMBan6oiYAzmbOfHOVvO/8w4QSZRx1RiHRvsKZRgw07sxsPwAUd7VPRj0YmdF8tH/MiaMTbxbvqi7ydcb69AfCJYuPntsKV/bzzE9MU2QalO1t3A7WaweBjXZDR7RiNAux4PkDghQW6uY+wQyaM5NUfBp8ZTUhLhSkp20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X0wa1mSw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="tGArUO0M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1791821044;
-	bh=mOTVvbMzguCr0itsLPJfPjM4slEMMfKEWtMDQZarop4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=tGArUO0M+F9ccditeaf/9yzLO4TbPPnQuxNy2IaPxXImPRxBtkRXo15HwwD++1lW9
-	 FA8Q50lzIXUoB9SbUAaYJ/ckFtxD7/lXnKrI2orv2TFsBcepc7c7Qe9VnF73gPX91/
-	 N9g5mUejTU6u11+BgHImWdJFnGN7TkanYw/iSt6PcLyzjvb+5kOUt9KNO+PLCXDwAc
-	 x417Zdh+bf1wVXu/IHdebGgPMzg8asF/7jzvejEHCCMBHU9Zxt4bS+mjKOlYeN0g67
-	 8xGGH73cDLwMxCzFJxQFwxlcdOtI5RJJ9I2Jv6eAfxmdvn6eTg/aB1y6kL5V7iz4Dl
-	 T0hC+9by3qybg==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3Mhv4KfYz4w9g;
-	Tue, 13 Oct 2026 03:03:59 +1100 (AEDT)
-Message-ID: <e2171fff-62af-4185-a815-6293bea71220@ozlabs.org>
-Date: Mon, 12 Oct 2026 17:03:56 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X0wa1mSw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E10D1F0089C;
+	Mon, 12 Oct 2026 16:11:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791821462;
+	bh=T8t61L+WCKa76kfiPOzPjwOEc+4KwlYEFTiX3EF63ts=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=X0wa1mSwsg9gwsNFW6/V59dA+bSI5zsbJEpWGIw/xfNNySwg+T39Lc3NE1G27f5qh
+	 gY0LjW3SBBmcuFhWSN9jFuFSk6HHnhaxUVNF8ZWI2rKPyXQH2W6OIARQF5bZ39dtT4
+	 XqxEWZjRf90SUiEnpLyo0F037M0KdOnKZI2xSlB/OTKKv1MHBV5p2WAMV/BROWXYXd
+	 yVzV4SsJtbwdyHY5UP52XaelnexgqtLR4mgP3HAoc1FHRsjk11gFkSE+ubSZwOjfc1
+	 N2UXMsMprDNFFfTMDykTDar4XfVGRSSgwJyPxogf4Opo7o1cdmFIEk4rlamGbziXEI
+	 8OFbnE1EQ0T8Q==
+Message-ID: <1ab8b696-efe2-44d7-a440-bd54bd705232@kernel.org>
+Date: Mon, 12 Oct 2026 18:10:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,190 +35,163 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Annul dmabuf->file on file release
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>
-Cc: Zack Rusin <zack.rusin@broadcom.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>
-References: <f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org>
- <CABQX2QOOaxkxzREaDHY3iXHs0106u+F9JvQSTXCnA7AEjPPxuQ@mail.gmail.com>
- <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
-In-Reply-To: <fd564691-ca79-4fcb-80a7-8328c71ab322@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: int3472: GPIO type names disagree with Intel's Windows driver
+To: diamondback <diamondback@cohunt.app>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Alexander Patrakov <patrakov@gmail.com>,
+ Dan Scally <dan.scally@ideasonboard.com>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ platform-driver-x86@vger.kernel.org,
+ Linux Media Mailing List <linux-media@vger.kernel.org>,
+ Sahan Nissanka <adee.sahan@gmail.com>
+References: <CAN_LGv0qkxARw4bxO8K-1hUkWNg2ts6q50dooCB5UM5en=bo0w@mail.gmail.com>
+ <d9a37aff-3b4d-467c-825d-5473b4c1bbb4@ideasonboard.com>
+ <CAN_LGv0nBTkVmxbuK+_O1v5Z_OZqQz5LgEZdL1_37otsei36fQ@mail.gmail.com>
+ <aslsXPVJIuYRrgKv@kekkonen.localdomain>
+ <lVgzYFlB_DT3TKJryx4Et9QF3-oqL7pSNP37e4tUENOuzf7sLRLshnvAkcz1jYpd6NCOqlqowIFv1Di9Ddo2Io1_K3HC5gjylmd-kuDLJv8=@cohunt.app>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <lVgzYFlB_DT3TKJryx4Et9QF3-oqL7pSNP37e4tUENOuzf7sLRLshnvAkcz1jYpd6NCOqlqowIFv1Di9Ddo2Io1_K3HC5gjylmd-kuDLJv8=@cohunt.app>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi i915 folks,
+Hi,
 
-On 08/10/2026 14:41, Matt Evans wrote:
-> Hi Zack,
+On 10-Oct-26 10:01, diamondback wrote:
+> On Saturday, October 10th, 2026 at 12:36 AM, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+>  
+>> The GPIO naming in Windows drivers is also an abstraction while Linux
+>> drivers typically use datasheet names of regulators, which are sensor
+>> specific. The handshake GPIO shouldn't exist with the regulators so it
+>> should be possible to map the rest independently of that. Changing the
+>> default mapping would also be possible, in principle, but that'd still
+>> require ensuring all sensor drivers still get the required regulators. I'm
+>> not sure it's worth it.
 > 
-> On 07/10/2026 16:24, Zack Rusin wrote:
->> On Tue, Oct 6, 2026 at 3:15 PM Matt Evans <matt@ozlabs.org> wrote:
->>>
->>> The dmabuf release path is split between file and dentry release:
->>> dma_buf_file_release() is called shortly before the file is freed, and
->>> dma_buf_release() calls an exporter's dmabuf->ops->release when the
->>> dentry is freed.  However, the dentry can outlive the file (for
->>> example, if opened with O_PATH), meaning .release might be called some
->>> time after the file is freed.
->>>
->>> This presents a window, when closing a DMABUF file, in which
->>> dmabuf->file points to freed memory yet .release op has not yet been
->>> called.
->>>
->>> For VFIO, if a buffer's .release has not been called it's considered
->>> still active and subject to move/cleanup.  If so, it attempts to
->>> get_file_active() on dmabuf->file: a file close with dentry held open
->>> will call this function with a stale pointer, a UAF.
->>>
->>> To make this pattern safe, set dmabuf->file to NULL in
->>> dma_buf_file_release() to reflect that the associated file is now dead
->>> even if the DMABUF is not yet gone.  A get_file_active() ... fput()
->>> sequence concurrent with a file close will only execute as one of:
->>>
->>>    - Gets the file before file_ref_put() (dmabuf->file valid)
->>>    - Observes dmabuf->file pointing to a file, but it's DEAD (no file)
->>>    - Observes dmabuf->file = NULL (no file)
->>>
->>> Originally, drivers could assume dmabuf->file was valid until .release
->>> was called from fops->release.  This assumption was no longer valid
->>> after 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
->>> dentry_ops"), which moved the callback to the dentry release (by which
->>> point the file might have been freed).  With this commit, drivers must
->>> still consider that dmabuf->file could be NULL before .release.
->>>
->>> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to 
->>> dentry_ops")
->>> Signed-off-by: Matt Evans <matt@ozlabs.org>
->>> ---
->>>
->>> Hi,
->>>
->>> This issue was found (by Claude Opus 5.5) in the context of VFIO's
->>> DMABUF export path.  VFIO iterates live DMABUFs with a
->>> get_file_active()/fput() block, which now becomes safe if the file is
->>> closed (and memory freed!) yet DMABUF .release hasn't yet occurred.
->>>
->>> However, there are a couple of other places that directly use
->>> dmabuf->file and seem able to race a closing file (i.e. without holding
->>> the file reference)?  If this is so, they'd be a UAF today; with this
->>> patch that goes away, but instead of a stale pointer dmabuf->file could
->>> be NULL:
->>>
->>> 1. drivers/gpu/drm/vmwgfx/ttm_object.c:get_dma_buf_unless_doomed()
->>>
->>>    file_ref_get(&dmabuf->file->f_ref); on a non-refcounted DMABUF
->>
->> Yes, that's a real UAF today. vmwgfx relied on the exporter's
->> dma_buf_ops.release running inside __fput() before file_free(), which
->> stopped being true with 4ab59c3c638c and we missed it.
->>
->> But this patch on its own makes vmwgfx worse. In the ordinary case,
->> where closing the file drops the last dentry reference, a close racing
->> PRIME_HANDLE_TO_FD is safe today: ttm_prime_dmabuf_release() runs from
->> the same __fput() and blocks on prime->mutex, keeping the file
->> allocated, so file_ref_get() just fails on the dead refcount. With
->> this patch dmabuf->file is NULL in that window and we oops. So this
->> shouldn't go to stable without a vmwgfx fix.
->>
->> For vmwgfx we'd probably need this one line change in
->> drivers/gpu/drm/vmwgfx/ttm_object.c to accompany this patch:
->> @@ -471,7 +475,7 @@ void ttm_object_device_release(struct
->> ttm_object_device **p_tdev)
->>    */
->>   static bool __must_check get_dma_buf_unless_doomed(struct dma_buf 
->> *dmabuf)
->>   {
->> -     return file_ref_get(&dmabuf->file->f_ref);
->> +     return get_file_active(&dmabuf->file) != NULL;
->>   }
->>
->> under prime->mutex, which keeps the struct dma_buf alive. It needs the
->> NULL store from this patch to fix the existing UAF, since otherwise
->> the recheck can accept a recycled file through the unchanged stale
->> pointer.
+> Answering Alexander's question to me from the first mail:
 > 
-> Thanks for confirming!  Ah, so get_file_active() is good here, cheers. 
-> I'll repost as a 2-part series to first include this in vmwgfx and 
-> second add the anNULL.
+> On 09/10/2026 04:06, Alexander Patrakov wrote:
+>> Leif, do you remember what it was based on, and which other GPIO
+>> types that machine's INT3472 reports?
 > 
->>> The commit message of 90ee6ed776c0 ("fs: port files to file_ref") hints
->>> this might be more subtle than replacing it with a get_file() variant
->>> (so as to accept a NULL file *).
->>>
->>> 2. drivers/gpu/drm/i915/gvt/dmabuf.c:intel_vgpu_get_dmabuf()
->>>
->>>    gvt_dbg_dpy(... file_count(dmabuf->file) ...);
+> It was based on inference. My notes from February only say "likely
+> DOVDD": the ov5675 driver asks for avdd, dovdd and dvdd, 0x0b and 0x12
+> already had avdd and dvdd, so 0x10 got the remaining name. v1 already
+> called it DOVDD; Hans only asked me to drop the OVTI5675 quirk entry and
+> spell the con_id "dovdd" instead of "vio". In hindsight, my commit
+> message should not have stated it so concretely.
 > 
-> FWIW aside, I re-read this, and there does appear to be a ref held 
-> (dma_buf_export() has just happened, and dma_buf_fd() generated) so 
-> dmabuf->file is stable at that point.
+> What the Fold declares (from _DSM and the BIOS pin fields):
+> 
+>   INT3472:00 (\_SB.PC00.DSC0), all sensor-on value 1:
+>     0x00  reset    pin 335
+>     0x0b  PowerEn  pin 140
+>     0x10  Avdd     pin 164
+>   INT3472:01 (\_SB.PC00.DSC1): no _CRS, zero pins.
+> 
+> No 0x0f, 0x11 or 0x12. And a correction: that INT3472 is not the
+> OV5675's. The OV5675's _DEP names only the IVSC device, it uses dummy
+> regulators for all three supplies, and the supply map shows both
+> regulators going to the IR sensor:
+> 
+>   INT3472:00-avdd -> i2c-SMO55F0:00.avdd
+>   INT3472:00-dovdd -> i2c-SMO55F0:00.dovdd
+> 
+> So 0x10 on the Fold is a VD55G0 pin, not an OV5675 one.
 
-I think I was mistaken here:  the reference is moved to the file table 
-by dma_buf_fd(), and seems another thread could immediately close it.
+Thank you for providing this information.
 
-If so, there's an opportunity for userspace to (after this fix) cause a 
-NULL deref here.
+> Dan's suggestion makes sense to me
+I'm afraid that Dan's suggestion to:
 
-I'm about to repost the series but am happy to include a oneliner third 
-patch to mitigate this, if you feel appropriate.
+"I think that what probably needs to happen, really, is for
+skl_int3472_register_regulator() to look up its array of consumer_supplies (which
+maps sensor device name to regulator name) based on DMI matching just as
+int3472_tps68470_get_board_data() does for the TPS68470 IC version of the INT3472"
 
-Is file_count() still interesting here, i.e. do you expect it to be >1 
-immediately after export?  If still required, reading 
-file_count(dmabuf->file) before the dma_buf_fd() would be safe (printing 
-it later at the existing place).
+Is not going to scale we are seeing many many different laptop models using
+the discrete INT3472 devices, so we really need a generic solution here and
+so far the current code has been scaling reasonable well.
+
+The fact that currently we have a conflict between 0x0b poweren -> avdd
+and 0x10 Avdd -> dovdd is unfortunate. I would like to see 0x10 register
+the avdd regulator as per the Windows table, but that might cause
+breakage on some laptop models.
+
+For now the only laptop + sensor which we've seen use 0xf and 0x11 (+ 0x10)
+_DSM type GPIOs is Alexander's Lenovo Yoga Duet 7 13ITL6 with the OVTI5675
+sensor. The other laptop, diamond back's ThinkPad X1 Fold 16 Gen 1, which
+we know to use an OVTI5675 is behind a ivsc and does not claim any GPIOs at
+all.
+
+So for now I think it what should happen is:
 
 
-Matt
+1. An int3472 driver patch renaming INT3472_GPIO_TYPE_DOVDD to
+INT3472_GPIO_TYPE_AVDD, while keeping this mapped to dovdd with a remark
+that this is mapped to dovdd for historical reasons and cannot be easily
+changed because this might break support for some laptops
 
-> 
->>> Respective vmwgfx & i915 maintainers, what is your view?
->>> Or, indeed, if anyone sees any other questionable uses of dmabuf->file.
->>>
->>> Thanks,
->>>
->>>
->>> Matt
->>>
->>>
->>>    drivers/dma-buf/dma-buf.c | 6 +++++-
->>>    1 file changed, 5 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->>> index 4c9add51f9ef..726639130477 100644
->>> --- a/drivers/dma-buf/dma-buf.c
->>> +++ b/drivers/dma-buf/dma-buf.c
->>> @@ -193,11 +193,15 @@ static void dma_buf_release(struct dentry *dentry)
->>>
->>>    static int dma_buf_file_release(struct inode *inode, struct file 
->>> *file)
->>>    {
->>> +       struct dma_buf *dmabuf = file->private_data;
->>> +
->>>          if (!is_dma_buf_file(file))
->>>                  return -EINVAL;
->>>
->>> -       __dma_buf_list_del(file->private_data);
->>> +       __dma_buf_list_del(dmabuf);
->>>
->>> +       /* Must be observed by __get_file_rcu() before file_free() */
->>> +       smp_store_mb(dmabuf->file, NULL);
->>
->> I think Alex is right and dmabuf can be NULL here. An early if
->> (!dmabuf) return 0" will fix that.
-> 
-> Yep, on it.
-> 
-> Many thanks,
-> 
-> 
-> Matt
-> 
++ 2 new defines for DOVDD / DVDD, resulting in (combined)
+
+#define INT3472_GPIO_TYPE_DOVDD                                 0x0f
+#define INT3472_GPIO_TYPE_AVDD					0x10
+#define INT3472_GPIO_TYPE_DVDD					0x11
+
+So this basically syncs our defines with what we've learned from
+the Windows drivers, without changing any functionality.
+   
+
+2. A patch to add mappings for the new INT3472_GPIO_TYPE_DOVDD(0x0f) and
+INT3472_GPIO_TYPE_DVDD(0x11) values to dovdd resp dvdd regulators.
+
+This one just adds new mappings so should be safe to.
+
+
+3. A patch adding an entry for the OVTI5675 to int3472_gpio_map[] to
+actually map the new INT3472_GPIO_TYPE_AVDD (0x10) the avdd (on the
+OVTI5675 only)
+
+This might cause breakage if there is a laptop not on our radar
+with a OVTI5675 sensor using 0x0b (power-enable) + 0x10 (avdd) gpio
+types at the same time. But there is only one way to find that out
+really.
+
+
+4. A patch to change the mapping of the new INT3472_GPIO_TYPE_AVDD (0x10)
+to actually be mapped to avdd and mapping INT3472_GPIO_TYPE_POWER_ENABLE
+to dvdd instead of avdd + dropping the int3472_gpio_map[] added in
+the 3th patch.
+
+Yes this undoes patch 3, the idea being that we can easily revert patch 4
+if necessary.
+
+Note patch 4 can cause 2 types of problems:
+
+1. A name-conflict in the registered regulators. This would be a real
+problem and a reason to go with a revert.
+
+2. Some sensor drivers for sensors using INT3472_GPIO_TYPE_POWER_ENABLE
+GPIOs may only check for avdd and not dvdd (*), in that case we could
+extend the regulator handling in the sensor driver instead of reverting
+patch 4.
+
+I hope any problems with patch 4 will be of the second category so
+that we can keep it around and have straight forward mappings between
+the defines and the regulator names.
+
+Regards,
+
+Hans
+
+
+
+*) I'm pretty sure we likely have a few of those, bonus points for
+checking all sensor drivers for sensors listed in
+drivers/media/pci/intel/ipu-bridge.c and pro-actively adding "dvdd"
+support if they only support "avdd" atm
+
+
+
+
 
