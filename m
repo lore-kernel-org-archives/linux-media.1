@@ -1,188 +1,111 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1863515F2
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 14:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1987C48C3F2
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 14:18:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814290; cv=none; b=nTNmAyWxYQ5NmjGriTJ3PO0PgUEuMB/Tc6Ec9h23TELSBARCEjSbX+wFB87blKU02X4bMRM/LIcxid+IemlRSPwUz/YNn256EmhUJzfdFYoWKbUKfIFlWhL/0h/3IGmzICsUBR97Dx/kqvYkZh/O3NK20dQvrf14DT2xTJYQHlQ=
+	t=1791814734; cv=none; b=AvIk3eyPO6vATv7wUDvz5Zcv6rP2rZfQyzUGavtjYYOj0PSKckxg7enVnieCT+dUAt+W/8sZZfm95bRPF8lHh/aaH/DgSqiL/Oyhtxx9HWglF/6qne/HqUNPS7iVAkvmNjtHDQdzGddhis0ntHTlSlk2PAgQQeGO7jo9Z7a6lpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814290; c=relaxed/simple;
-	bh=aNOm/+TxAFaiqKxomJt7ACqEyLnaG9Nha0d2kUD/kl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bFOvgvzZFEUyEQ3iR6rLi2TJiOg9FVfwgzKjtpuMld3ciJGDaPSsOo8lvoxljPthhPTTZ+nMUgWQU0SCqCN3wmD4OKLe5Ds0yD7januJ9X2dTtfRylxX925xV74oMT1RhPJY0Y3ssJ0w94LM+vV+2vkidKhkbTEPDdsJwSw0GFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Cs1jhVqx; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791814734; c=relaxed/simple;
+	bh=WQ7XIboTR1vqgyYymKbjyKtfPl2jvwq3FcS6nVzEnJo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I/Urfjfj9ohU0oOKyIgBDPgjuAIwe0IpYr8G9MuNMvmCG78NpwR3XlJAleKEu6SSbJu7ZJd5lM2f8YUJp/Ok870bopOXfPZpsNdeNN87XGOEiaxiixRDIIHihlVnJ3dXF/BjCRJMMgRqTxym2Amx5e9BgGO6bEboNYSX7XsqOpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EkiyFwEK; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Cs1jhVqx"
-Received: from killaraus.ideasonboard.com (i68975AE2.versanet.de [104.151.90.226])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1D45E2F8;
-	Mon, 12 Oct 2026 16:09:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791814163;
-	bh=aNOm/+TxAFaiqKxomJt7ACqEyLnaG9Nha0d2kUD/kl8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Cs1jhVqxaBwSkOES3U9GrnPTaYrf1U05WkyHMMFXx7vh2yy5dePUWhgh9e1ABGq0l
-	 JmYuusiSrRvT7RwtTpHmP5e+b3K5t4tFewaCNnIsMQmLUo7k7/fq0lcmpxtjSMErgm
-	 QHaNI/lLxs6kn03BkBc3f7aEszM4bf5tTcnIKYcI=
-Date: Mon, 12 Oct 2026 16:11:22 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-Cc: Ruslan Bay <ruslanbey@proton.me>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH 11/12] media: ipu6: Work around IPU4P CSI-2 port 2
- timing
-Message-ID: <20261012141122.GB4214@killaraus.ideasonboard.com>
-References: <wHlhg4wMna8LgQHoqgFJxsJ3dL0clAd63yzOzr-vjRpkqq6WSPuzlLeYRGYHKwdl17CXzPVLFCWD6CNkI-BTMTd33QepNGnNWJZX6yvPAV4=@proton.me>
- <asy4k-Muh1acgU6s@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EkiyFwEK"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48af27fe287so1683624f8f.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:18:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791814731; x=1792419531; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IAnUXHOCv1N6NobyAvFYO3nNsMFXZ2Np3QhzZc1kV3Y=;
+        b=EkiyFwEK1I2hDwukikOC1NUvBdCQktGiY9FE2neq2wzpNAOzHFWLQuQoV37mIpekGt
+         aPZcoOYYqSAoVsfUqT//pwaDDryPn5IOAkbPun1smEp3v7Ads03OFO42VmEf9bK7beCl
+         aF/rOaFSEt7TjQBu300RLfAA65zp7AFn2kwc15eDiu6ymuiijjyjsn3Wb0y1Pjbmlz8g
+         MHMRK2+LlrF5E8s8XGVmgrFn3Ye+q3hN3eOv/GDqO7Y+tozahnYcWeRxWcvQcMeOBzLt
+         twbZBm6cNh+E3v/1gXHEb77kLtUsyE++lhyhc5eRFvuPWOrorCFGAAdKzxPrDGQ3pkCS
+         I+Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791814731; x=1792419531;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IAnUXHOCv1N6NobyAvFYO3nNsMFXZ2Np3QhzZc1kV3Y=;
+        b=PFVLNPik7L6PhV//E/r8qBgEP8goVGlDOrGMypUnkO7HHKbxo3LvuzVBDkUOg9LRFW
+         BM6+gSMnU5uk+KhgpNOJVBaOLLBShsiFsH1rOSEakvqD2ihwiPDH4Po7+DfAl31MKyir
+         lif8+AxBio4Slh+ew3KX63ZTBniPA+2IP+zPojHUD3zvLhtqtGtTY6IuZFDvJ05MPm7x
+         AadKK7OFYw3bYjoBFf2JmOVBy5r/xssQgN6eG3I8c2BV/A/sBjceiNlQvCuw1RgaJVnm
+         4uvQtfuC06Ro6Ob3N9ymtDrjqeutmA++N8z+VE1ZYmbIjE5I8BDLFPkxeyNnaGNqcr1a
+         KSDg==
+X-Forwarded-Encrypted: i=1; AKwUvBy8t6/XIMdwyIdFFBJbMU4qhNH10AItPkwZ+DROf30A+Xp66Bz/thZWtZ4IOVNbmLgqJfgrGsWhLwYK+Q==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUp+HBcXdPCYDK8x6YmGMxm75gmGgMKn0kk+n5ujyjOEvb12w7
+	oaI+TKkjlBeN+XOTjzksj7gdH8yEy0qDFp8rey2gDlCSaiP+O99ESc8xVF8N5/8mLu5udA==
+X-Gm-Gg: AYBFou1stANIN7lZNpwaDEycJHwlc6tLgDvXKzJgZmsmV6zJqUSYd0behtBStA1L6/X
+	vQJL05pV/ejatv8CjaGSXqutoLaVTaJXlY3vsDMAyjXYQ7O5otJYVojnb+Oe2N6KyyPXoOjPvP2
+	QqZ0ssCdx2Ezpf4Kl+c31lbpsePRImq6tv865yrn1QVjt5hvflSqnXPm4tgDvgTf7LCFZVM9zbZ
+	UnK+C9rI+TWjmPn6SWDeD2RySeqnUQhoDbWmXuqWwtOHW/LdBaCtQJmfKHPkvwdC96xcLkaR0AJ
+	RmTCP/B5gY6Dup0OK+6cIqR+lHr66N1RLsmvB8D7kIU87cEEY9G9I+clCkwkXNEn1USyt2UW+fs
+	MtIE/VP+VxjM+OXFylrgTMe15a0jumSgOsNFkA7GNclo/iZaxkGAvsGtTFHzy6V6XKdhO6TVATO
+	9u9wxmZ90PaDZppZK/KVTlXgcFMkpfwuCWOf9uv8FfO04DxoPHG3FwEPJi1ApQy3hn4lTgkauMH
+	SoB4imeB0q1h/kpVAArtjiTBw==
+X-Received: by 2002:a05:600c:5397:b0:4a1:7ba9:da2c with SMTP id 5b1f17b1804b1-4a18e4a7cacmr183870185e9.25.1791814730914;
+        Mon, 12 Oct 2026 07:18:50 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4778:c500:da28:f29d:be73:9231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf135fasm257034665e9.5.2026.10.12.07.18.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 07:18:49 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Mirela Rabulea <mirela.rabulea@nxp.com>,
+	linux-media@vger.kernel.org
+Cc: Ming Qian <ming.qian@nxp.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	imx@lists.linux.dev,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] media: imx-jpeg: propagate encoder command errors
+Date: Mon, 12 Oct 2026 17:18:24 +0300
+Message-ID: <20261012141824.497906-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <asy4k-Muh1acgU6s@kekkonen.localdomain>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 01:38:11PM +0300, Sakari Ailus wrote:
-> Hi Ruslan,
-> 
-> On Sun, Oct 11, 2026 at 02:43:16PM +0000, Ruslan Bay wrote:
-> > Use fixed timing values for the verified Surface Pro 7 front-camera
-> > configuration (CSI-2 port 2, firmware source 7, two lanes), including
-> > the lane-count programming order observed in Windows. Retain calculated
-> > timings and the existing initialization order for other configurations.
-> > 
-> > Tested on the Surface Pro 7 front camera; other IPU4P systems need testing.
-> > 
-> > Co-developed-by: supermepsipax <supermepsipax@github>
-> > Co-developed-by: thisiscamk <thisiscamk@github>
-> > Co-developed-by: ConsultingFuture4200 <ConsultingFuture4200@github>
-> > Co-developed-by: georgemihaila <georgemihaila@github>
-> 
-> Signed-off-by: is also required for these. But this isn't just about adding
-> the tag; please see Documentation/process/submitting-patches.rst on what it
-> means. A proper e-mail address is also required here.
+mxc_jpeg_encoder_cmd() returns success when
+v4l2_m2m_ioctl_encoder_cmd() fails. When an encoder command is issued
+while the mem2mem context is draining, the helper returns -EBUSY,
+but userspace sees success.
 
-As well as a real name.
+Return the helper error, as mxc_jpeg_decoder_cmd() already does.
+No obvious reason to clobber the error here.
 
-> > Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
-> > ---
-> >  .../media/pci/intel/ipu6/ipu4p-isys-csi-phy.c | 50 ++++++++++++++++---
-> >  1 file changed, 42 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c b/drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c
-> > index ec0a36069b01..ffa7d80cd5f2 100644
-> > --- a/drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c
-> > +++ b/drivers/media/pci/intel/ipu6/ipu4p-isys-csi-phy.c
-> > @@ -69,6 +69,22 @@ void ipu4p_isys_phy_setup(struct ipu6_isys *isys)
-> >  		ipu4p_isys_configure_phy_bb(isp, &ipu4p_phy_bb_configs[i]);
-> >  }
-> >  
-> > +/*
-> > + * Use fixed timing observed in Windows for the SP7 front camera:
-> > + * IPU4P CSI-2 port 2, firmware source 7, two-lane D-PHY.
-> > + */
-> > +static void ipu4p_isys_apply_fixed_2lane_timing(struct ipu6_isys_csi2 *csi2)
-> > +{
-> > +	writel(0, csi2->base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_CLANE);
-> > +	writel(1155, csi2->base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(0));
-> > +
-> > +	for (unsigned int i = 0; i < 8; i++) {
-> > +		writel(0, csi2->base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_DLANE(i));
-> > +		writel(1269,
-> > +		       csi2->base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(i + 1));
-> > +	}
-> > +}
-> > +
-> >  static void ipu4p_isys_csi_irq_enable(struct ipu6_isys *isys,
-> >  				      unsigned int port)
-> >  {
-> > @@ -118,6 +134,7 @@ int ipu4p_isys_phy_set_power(struct ipu6_isys *isys,
-> >  	struct ipu6_isys_csi2 *csi2;
-> >  	void __iomem *base;
-> >  	u32 value;
-> > +	bool fixed_timing;
-> >  
-> >  	if (!cfg || cfg->port >= isys->pdata->ipdata->csi2.nports)
-> >  		return -EINVAL;
-> > @@ -146,14 +163,30 @@ int ipu4p_isys_phy_set_power(struct ipu6_isys *isys,
-> >  	if (!timing)
-> >  		return -EINVAL;
-> >  
-> > -	writel(timing->ctermen, base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_CLANE);
-> > -	writel(timing->csettle, base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_CLANE);
-> > -
-> > -	for (unsigned int lane = 0; lane < cfg->nlanes; lane++) {
-> > -		writel(timing->dtermen,
-> > -		       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(lane));
-> > -		writel(timing->dsettle,
-> > -		       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_DLANE(lane));
-> > +	writel(timing->ctermen,
-> > +	       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_CLANE);
-> > +
-> > +	fixed_timing = csi2->port == 2 && cfg->nlanes == 2 &&
-> > +		       csi2->asd.source ==
-> > +		       IPU6_FW_ISYS_STREAM_SRC_CSI2_PORT0 + 7;
-> > +	if (fixed_timing) {
-> > +		ipu4p_isys_apply_fixed_2lane_timing(csi2);
-> > +		dev_dbg(&isys->adev->auxdev.dev,
-> > +			"using fixed SP7 timing for CSI-2 port %u, source 7, two lanes\n",
-> > +			csi2->port);
-> > +
-> > +		/* Windows configures the lane count before RX_CONFIG. */
-> > +		writel(cfg->nlanes, base + IPU4P_CSI2_RX_NOF_ENABLED_LANES);
-> 
-> Doesn't Surface Pro 7 work without these?
-> 
-> I can't recall if I commented this issue already, but I think this
-> information should be passed to the driver in form of endpoint properties,
-> stuffed in ipu-bridge based on DMI information.
-> 
-> The bindings for this should also be specified for DT, but perhaps that's
-> out of scope of the set -- as there remain a kernel interface only, changes
-> later on will be possible and fairly trivial.
-> 
-> > +	} else {
-> > +		writel(timing->csettle,
-> > +		       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_CLANE);
-> > +
-> > +		for (unsigned int lane = 0; lane < cfg->nlanes; lane++) {
-> > +			writel(timing->dtermen,
-> > +			       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(lane));
-> > +			writel(timing->dsettle,
-> > +			       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_DLANE(lane));
-> > +		}
-> >  	}
-> >  
-> >  	value = readl(base + IPU4P_CSI2_RX_CONFIG);
-> > @@ -162,6 +195,7 @@ int ipu4p_isys_phy_set_power(struct ipu6_isys *isys,
-> >  	writel(value, base + IPU4P_CSI2_RX_CONFIG);
-> >  
-> >  	writel(cfg->nlanes, base + IPU4P_CSI2_RX_NOF_ENABLED_LANES);
-> > +
-> 
-> Unrelated change. You could place it in the patch adding the adjacent
-> linest.
-> 
-> >  	writel(0, base + IPU4P_CSI2_RX_ENABLE);
-> >  
-> >  	ipu4p_isys_csi_irq_enable(isys, cfg->port);
+Fixes: 4911c5acf935 ("media: imx-jpeg: Implement drain using v4l2-mem2mem helpers")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+index e17085935435..5e466ea65a92 100644
+--- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
++++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+@@ -1726,7 +1726,7 @@ static int mxc_jpeg_encoder_cmd(struct file *file, void *priv,
+ 	ret = v4l2_m2m_ioctl_encoder_cmd(file, fh, cmd);
+ 	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
+ 	if (ret < 0)
+-		return 0;
++		return ret;
+ 
+ 	if (cmd->cmd == V4L2_ENC_CMD_STOP &&
+ 	    v4l2_m2m_has_stopped(fh->m2m_ctx))
+
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
