@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5E44734E5;
-	Mon, 12 Oct 2026 09:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C552D594F;
+	Mon, 12 Oct 2026 09:33:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797521; cv=none; b=GTKme2/9dwmmMzjGDCDkv+GSw6mN69Q5hRUZAv1iGQwovL8bHWst5L2eI4ofvwQ5BQfHZZBShPqtCLeJeCTe4z8R0JS9VJO7jCv6kecweUDaouekHK6QtARWsrYC3GAGTSuSnSlBytbaOgpfnHifDVbb7eceB6OUF7OeuqMwJco=
+	t=1791797604; cv=none; b=XSC0RFa0JPH4m2hbJ3lOrgNdaDXG7meex3pQLkmQJhy21Tp8gkfOvtAaYbM0n1c2/d05hLYNu79gYDMTx7LQAeV9rhiM+oejCMU/JbCS3MR7Gpf+Jr+yq/S4+oBm+oNF7GF0ShHwtOr2IpgV2sKy5CzsXYGZdXs0HhlcjGp4gMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797521; c=relaxed/simple;
-	bh=YlXB2sfR/8uHmt7u6McLV75lOgXzbBw1zIigD7BXieU=;
+	s=arc-20240116; t=1791797604; c=relaxed/simple;
+	bh=e8VPPlAfWahF7zgLAUVUYwlsb+VSvnH+lc7RJgI3mDE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JcXU21B6wpY+p5NyJGICrgh/i5ZONlQrz2rac/jUBCELvNP8ZVY4h9cCXQ/y+duNuwhN+hd4V+ZE8fU7RqEqTzZrX/eHry/Ayyd3nehkf+U7fLZOSFbgXlk3QbMGsJ8f98IwzSklu9mjv/9ecpPXy3e9CpzY6apLLUAP6CvNCcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cmqAbzqc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yu3e4NJjkMYAyblSIiNSMZBW38Wzhli0W+2O3mh1rJ2rwVTynoi2KwhcDGaEzhYjNTmZ3MQGSTP+nbbIPUMU4KZr5P4Q9VMjXYYg92wbFOsTc1pqtBk9USJaVZEbY5jlfOJyS0pTjlZnQFYFMBX5j/J/RDWT1+T5Q04uHG5J80g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/8tSBD7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cmqAbzqc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA4601F0089B;
-	Mon, 12 Oct 2026 09:31:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/8tSBD7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDC71F0089C;
+	Mon, 12 Oct 2026 09:33:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791797517;
-	bh=9H3LKXnRsRjgTOnxDKBRlZJ3/mRIKDiFks9Hh8YiVWg=;
+	s=k20260515; t=1791797602;
+	bh=NCBaLoV31wqphlVvEaFSt1x8hpc/UDTsLJLp1gfaYF4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cmqAbzqcGelilGuTJJ6bjDCEq00JPGjCkgjHDvwpLU0uf6s9uW1SO/JXMG7yFF3u1
-	 RkgTY1PpW9MgXdChn8b8XkoNTL019lOy9OJtHJQc0jWyLIQzZuoexjKVuri3ge1BQj
-	 oz+hn4nT+HIfRHkvCtXm8i3zL4SJP6Jj6hsyc7UVopcHddJShX+cfaJDb+ZDRYrYZG
-	 HIYsIwOf5OhmPGN5kHu5McqeuAyqVFY262E3xkO2ZER2l6SBco613s9IO3Ziu6+Zfi
-	 CfaCcViWqhonjPe2y+izstLmnQoR2zGWoY4EXC4UwYDwVvX8O8sNBuRuMYDoHnskqX
-	 e4IWc+YRzvKRQ==
-Date: Mon, 12 Oct 2026 11:31:53 +0200
+	b=B/8tSBD7dqH40URDKUKpPoZIengaDGRGdRz1+xBS2LOL9azOI1kKmuVSOvwWU5KGG
+	 Xs+2RnmVkSWCii6D+GiRhZfrEc/hx/giDzmIjfDMvl7cQlMSmKNyMjQMSAmYAdgTub
+	 GF1j7Fd/0Wr03jOGywP7OZoQTaQ0HAjlW7AdtT6H5HA6W5xw2xJvpNySrafXA1CPRx
+	 EPZWLx/UlYCeS8GT3/BvZ7OZ8hJ+yRYQYvVHUHw6pw/mRfmuVXvuncIW5u4XK5OvXv
+	 lswcFccpowIfqEAYHBfedmARXtfFsJP3dPUVHcU4JDHDw6bzxXJjFIm9uQAe2T950W
+	 xktXnnFJClkqg==
+Date: Mon, 12 Oct 2026 11:33:18 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Kyrie Wu <kyrie.wu@mediatek.com>
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -36,12 +36,13 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil <hverkuil@kernel.org>, 
 	irui wang <irui.wang@mediatek.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
 	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v18 12/13] dt-bindings: mediatek: Add MT8196 JPEG SMMU
- bindings
-Message-ID: <20261012-determined-magenta-camel-ff2ca8@quoll>
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Subject: Re: [PATCH v18 09/13] media: dt-bindings: mediatek,jpeg: Add
+ mediatek, mt8196-jpgdec compatible
+Message-ID: <20261012-original-visionary-gharial-ee41cc@quoll>
 References: <cover.1791614327.git.kyrie.wu@mediatek.com>
- <77ae5bfdedb1240420fd1aced446c9dfee38283e.1791614327.git.kyrie.wu@mediatek.com>
+ <016a61397c01b8745622ff54f1e27b5209b3f34d.1791614327.git.kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -50,50 +51,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <77ae5bfdedb1240420fd1aced446c9dfee38283e.1791614327.git.kyrie.wu@mediatek.com>
+In-Reply-To: <016a61397c01b8745622ff54f1e27b5209b3f34d.1791614327.git.kyrie.wu@mediatek.com>
 
-On Sat, Oct 10, 2026 at 04:07:16PM +0800, Kyrie Wu wrote:
-> Document the decoder and encoder phandles and describe the dedicated
-> JPEG SMMU configuration syscon for MT8196.
+On Sat, Oct 10, 2026 at 04:07:13PM +0800, Kyrie Wu wrote:
+> Compared to the previous generation IC, the MT8196 uses SMMU
+> instead of IOMMU and supports features such as dynamic voltage
+> and frequency scaling. Therefore, add "mediatek,mt8196-jpgdec"
+> compatible to the binding document.
 > 
 > Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-> ---
->  .../media/mediatek,mt8195-jpegdec.yaml        | 16 ++++++++
->  .../media/mediatek,mt8195-jpegenc.yaml        | 16 ++++++++
->  .../mediatek/mediatek,mt8196-jpeg-smmu.yaml   | 41 +++++++++++++++++++
->  MAINTAINERS                                   |  2 +
->  4 files changed, 75 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/mediatek/mediatek,mt8196-jpeg-smmu.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
-> index 28a9a9b..b1dccc3 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,mt8195-jpegdec.yaml
-> @@ -73,6 +73,22 @@ patternProperties:
->        power-domains:
->          maxItems: 1
->  
-> +      mediatek,smmu-config:
-> +        $ref: /schemas/types.yaml#/definitions/phandle
-> +        description:
-> +          Phandle to the MT8196 JPEG SMMU configuration syscon used to
-> +          program this decoder's GUSER_ID fields.
-> +
-> +    allOf:
-> +      - if:
-> +          properties:
-> +            compatible:
-> +              contains:
-> +                const: mediatek,mt8196-jpgdec-hw
-> +        then:
-> +          required:
-> +            - mediatek,smmu-config
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-Why are you adding incomplete hardware in one patch and then immediately
-fixing it later?
+So this has subject "media: dt-bindings:" but a new patch you added here
+has completely different subject prefix. Including the re-introduced
+nit, I am sure I already asked you.
 
-Please read writing bindings doc (and part about complete hardware
-support).
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+This is random way of coding, not even checking your git history before
+sending to lists.
 
 Best regards,
 Krzysztof
