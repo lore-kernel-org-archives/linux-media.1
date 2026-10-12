@@ -1,74 +1,82 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1987C48C3F2
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 14:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DEF148F02C
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 14:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814734; cv=none; b=AvIk3eyPO6vATv7wUDvz5Zcv6rP2rZfQyzUGavtjYYOj0PSKckxg7enVnieCT+dUAt+W/8sZZfm95bRPF8lHh/aaH/DgSqiL/Oyhtxx9HWglF/6qne/HqUNPS7iVAkvmNjtHDQdzGddhis0ntHTlSlk2PAgQQeGO7jo9Z7a6lpE=
+	t=1791815731; cv=none; b=CaMURhSPlJytByguolZG28J9HQcnijt/c6JRPIMUcZ7GKMx87wfERqSfw/i8aFelCWUs++zxBI0eTHQdVJiA+71ivlBJ/jgF2LqPKYCwubLZzpDsUNrGh25HMZNDVqRw7hpz52RDbQTvA73Yq0tfMhiIYSagjkiivpUxtpWaZOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814734; c=relaxed/simple;
-	bh=WQ7XIboTR1vqgyYymKbjyKtfPl2jvwq3FcS6nVzEnJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I/Urfjfj9ohU0oOKyIgBDPgjuAIwe0IpYr8G9MuNMvmCG78NpwR3XlJAleKEu6SSbJu7ZJd5lM2f8YUJp/Ok870bopOXfPZpsNdeNN87XGOEiaxiixRDIIHihlVnJ3dXF/BjCRJMMgRqTxym2Amx5e9BgGO6bEboNYSX7XsqOpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EkiyFwEK; arc=none smtp.client-ip=209.85.221.47
+	s=arc-20240116; t=1791815731; c=relaxed/simple;
+	bh=1sKl84+ZX0RE0clLN2hzi9Lgy8W0Y/335FJwMaJepSE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D3S0dVhN6w5C1BYlGd3lhoKjCKt3QG4Fmm5DBmMv0ite7skSn1hwJS4UUNE4wQAQ2o9vJn1L5eWtXldkXyQQ16ROn+FaRnGtFOWGNIPlBQhKjpZ+XvjIpNndHmpJ2uyyQuB9ftJJhkuWgqlTy1X3nvE2U7DdYaQyEJAZuhtM10M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XmITBXsl; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EkiyFwEK"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48af27fe287so1683624f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:18:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XmITBXsl"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b0584ad71so1049897f8f.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:35:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791814731; x=1792419531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IAnUXHOCv1N6NobyAvFYO3nNsMFXZ2Np3QhzZc1kV3Y=;
-        b=EkiyFwEK1I2hDwukikOC1NUvBdCQktGiY9FE2neq2wzpNAOzHFWLQuQoV37mIpekGt
-         aPZcoOYYqSAoVsfUqT//pwaDDryPn5IOAkbPun1smEp3v7Ads03OFO42VmEf9bK7beCl
-         aF/rOaFSEt7TjQBu300RLfAA65zp7AFn2kwc15eDiu6ymuiijjyjsn3Wb0y1Pjbmlz8g
-         MHMRK2+LlrF5E8s8XGVmgrFn3Ye+q3hN3eOv/GDqO7Y+tozahnYcWeRxWcvQcMeOBzLt
-         twbZBm6cNh+E3v/1gXHEb77kLtUsyE++lhyhc5eRFvuPWOrorCFGAAdKzxPrDGQ3pkCS
-         I+Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814731; x=1792419531;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791815727; x=1792420527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IAnUXHOCv1N6NobyAvFYO3nNsMFXZ2Np3QhzZc1kV3Y=;
-        b=PFVLNPik7L6PhV//E/r8qBgEP8goVGlDOrGMypUnkO7HHKbxo3LvuzVBDkUOg9LRFW
-         BM6+gSMnU5uk+KhgpNOJVBaOLLBShsiFsH1rOSEakvqD2ihwiPDH4Po7+DfAl31MKyir
-         lif8+AxBio4Slh+ew3KX63ZTBniPA+2IP+zPojHUD3zvLhtqtGtTY6IuZFDvJ05MPm7x
-         AadKK7OFYw3bYjoBFf2JmOVBy5r/xssQgN6eG3I8c2BV/A/sBjceiNlQvCuw1RgaJVnm
-         4uvQtfuC06Ro6Ob3N9ymtDrjqeutmA++N8z+VE1ZYmbIjE5I8BDLFPkxeyNnaGNqcr1a
-         KSDg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8t6/XIMdwyIdFFBJbMU4qhNH10AItPkwZ+DROf30A+Xp66Bz/thZWtZ4IOVNbmLgqJfgrGsWhLwYK+Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUp+HBcXdPCYDK8x6YmGMxm75gmGgMKn0kk+n5ujyjOEvb12w7
-	oaI+TKkjlBeN+XOTjzksj7gdH8yEy0qDFp8rey2gDlCSaiP+O99ESc8xVF8N5/8mLu5udA==
-X-Gm-Gg: AYBFou1stANIN7lZNpwaDEycJHwlc6tLgDvXKzJgZmsmV6zJqUSYd0behtBStA1L6/X
-	vQJL05pV/ejatv8CjaGSXqutoLaVTaJXlY3vsDMAyjXYQ7O5otJYVojnb+Oe2N6KyyPXoOjPvP2
-	QqZ0ssCdx2Ezpf4Kl+c31lbpsePRImq6tv865yrn1QVjt5hvflSqnXPm4tgDvgTf7LCFZVM9zbZ
-	UnK+C9rI+TWjmPn6SWDeD2RySeqnUQhoDbWmXuqWwtOHW/LdBaCtQJmfKHPkvwdC96xcLkaR0AJ
-	RmTCP/B5gY6Dup0OK+6cIqR+lHr66N1RLsmvB8D7kIU87cEEY9G9I+clCkwkXNEn1USyt2UW+fs
-	MtIE/VP+VxjM+OXFylrgTMe15a0jumSgOsNFkA7GNclo/iZaxkGAvsGtTFHzy6V6XKdhO6TVATO
-	9u9wxmZ90PaDZppZK/KVTlXgcFMkpfwuCWOf9uv8FfO04DxoPHG3FwEPJi1ApQy3hn4lTgkauMH
-	SoB4imeB0q1h/kpVAArtjiTBw==
-X-Received: by 2002:a05:600c:5397:b0:4a1:7ba9:da2c with SMTP id 5b1f17b1804b1-4a18e4a7cacmr183870185e9.25.1791814730914;
-        Mon, 12 Oct 2026 07:18:50 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4778:c500:da28:f29d:be73:9231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf135fasm257034665e9.5.2026.10.12.07.18.48
+        bh=xc2ZP2Mf8IeBEvBxsIEOfmMfh9NbACnb3aJjvNwqLoE=;
+        b=XmITBXslHD6ydAvaDpoh6hkTJcrvKa2K1RwxqesNqOtvthenRARzaWYUXrrr9kjdnG
+         wJaD7bq7j64J3TqqncrFx6Kf1yfziOBXJB+5pvmD5XD4kmemv3H8Gjgb6QI2kXSfVQyT
+         Vfk0m6zpGCJntpWQLmv//ZSarUyXsxj2JkDPMkdqDPg0hnsu/5IMqw6fdUbKAvY0fuHy
+         mFgNkvE3wgxeq8qm/dlYnczNBjpuVewFzWzjsBZyuC4Ib/NW5O1776wI7jpyWnzpwW0f
+         NRwIBSJDuLoAxQi7btawo4Xy1WI5ruxCvosKxuO4vY1r1NMOFe7Mw0yOlH0c1gaiZQ/3
+         H5DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791815727; x=1792420527;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xc2ZP2Mf8IeBEvBxsIEOfmMfh9NbACnb3aJjvNwqLoE=;
+        b=GbCbvsZGu+jNAOh6bT/9izMS4oZW22c/cWLBqp2VF3abi2TAJC8C9bQZCkrvzNpBNa
+         4QqlunRJVJmYaOclAWeE5/rFYqtXPMuzBve0ijogmEyPa6NtmyGzVy/JJD/ZoKO8sw1T
+         bfprQ/EF9qtmBm+pwxYPRHCUswb5ogUsgaiJ77ko26i8Qd/SiTvpxMnLNyDar2Y5okj6
+         vLaR/L7+Sp9LI6VgnwPyVTycPr2e29hLQRXFtZ7cLsx+38bDSl85q1jmkLqtvP8m/o1Z
+         ZdXNYHoxIRusKbY+sLfJ3I29Hg4LNO8V+zNV61gsrlKcCyU8O/WVEsj0CuUumoW/FkMG
+         VhEg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2tr/wYDBE1joylx8sGPn6C5TCbzgES+SFtApq+vTF1YnrS/DRN8z7JKEsubTnCTbZ6Dg10VdJ0MAyqQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuNvmIgfKEpHZEMgXUWdraZipPKUTYosssGROp14W/p0Rkonfk
+	rLmlOc8JYeNpmILM18u1revwsBSDDiL7RFJCtis0OOk9Xj5Kz/yzbncx
+X-Gm-Gg: AYBFou3z66RYRsNvDXWgXfkhHKGuz2oUfY5n7o9SYK3y+3h44ReihELknrjkBOhtBeR
+	gw7KDjzuAN1X1Xbj923yRcYA1VF/F/TuSNH2Zhv3SUPr6NlRb7GA98xXTQU9inzk5y4iGPa2zNC
+	YB9cKQJ+fHQ/gp1nq4po1/2C88/xpYcHvyppjpYhuZNtzj11AV+ZKyFIrSu5oX/+197qjIbIf/A
+	/JHr3YKOy06YxFi8PTiYIiiXvCfiPZrfnZy30QuIuLvok/ds/WZxbhMXHKVECM8SxrB5qtrUV8H
+	IWNH6+KPyZqlvRg8XC/IVEOtFi5Knt0dl3KB1TV/fRh7rh1iTHl7IDo+fJaLtBlmR1H2kJzse6Z
+	1OLyJ5H1Vv1uJoQBS67dYqnyPTx+fKWEEF3pagwZXIsPhx5x3KK0qoO4yLLsaIoU0mGcrdzighr
+	fAVq9rgBdiiOsPZ9/RGHeoV2c02Bw2rhYQwmtTC/J3HxYzX6DOB3WYRQ7osNCzeMM0zOU9jds2Q
+	0mfBmYqkZG5XbWUyHFhSA61NHEGCDt1LSob2FKxwQdlNr4+rQKMWg9lu/N/Rp6JUNMeJPfRpoT7
+	7Mx1pKIgpE0GyPfwKJlLARrT1I1INgL2qZWpO+KuaWCX9W3L4KwHWTBqKBaNPFA03fv0xHn8PMn
+	/3CUZdWnStJNvJRGPJBtp//9/zACBm0WWN6VrFiapBEUgazDsUc325kl7r2rwbIWt
+X-Received: by 2002:a05:6000:29d5:b0:48b:11d7:f3cf with SMTP id ffacd0b85a97d-48dbad4b747mr11642071f8f.54.1791815726973;
+        Mon, 12 Oct 2026 07:35:26 -0700 (PDT)
+Received: from localhost.localdomain (host-95-239-230-248.retail.telecomitalia.it. [95.239.230.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db94e33d2sm20899559f8f.9.2026.10.12.07.35.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:18:49 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Mirela Rabulea <mirela.rabulea@nxp.com>,
-	linux-media@vger.kernel.org
-Cc: Ming Qian <ming.qian@nxp.com>,
+        Mon, 12 Oct 2026 07:35:26 -0700 (PDT)
+From: Nicola Fiorillo <nicfio@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	imx@lists.linux.dev,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] media: imx-jpeg: propagate encoder command errors
-Date: Mon, 12 Oct 2026 17:18:24 +0300
-Message-ID: <20261012141824.497906-1-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/7] media: Add GalaxyCore GC5035 and GC8034 sensor drivers
+Date: Mon, 12 Oct 2026 16:34:36 +0200
+Message-ID: <20261012143443.34897-1-nicfio@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261009072733.39877-1-nicfio@gmail.com>
+References: <20261009072733.39877-1-nicfio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,35 +85,371 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mxc_jpeg_encoder_cmd() returns success when
-v4l2_m2m_ioctl_encoder_cmd() fails. When an encoder command is issued
-while the mem2mem context is draining, the helper returns -EBUSY,
-but userspace sees success.
+Hi all,
 
-Return the helper error, as mxc_jpeg_decoder_cmd() already does.
-No obvious reason to clobber the error here.
+this is v2 of the drivers for the GalaxyCore GC5035 (front camera, 2
+lanes) and GC8034 (back camera, 4 lanes) sensors of the Chuwi Hi10 X1
+tablet, with IPU6.
 
-Fixes: 4911c5acf935 ("media: imx-jpeg: Implement drain using v4l2-mem2mem helpers")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Laurent, on v1 you asked to make the drivers configurable, with analog crop
+and binning if the sensor supports it.
 
-diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-index e17085935435..5e466ea65a92 100644
---- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-+++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-@@ -1726,7 +1726,7 @@ static int mxc_jpeg_encoder_cmd(struct file *file, void *priv,
- 	ret = v4l2_m2m_ioctl_encoder_cmd(file, fh, cmd);
- 	spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
- 	if (ret < 0)
--		return 0;
-+		return ret;
- 
- 	if (cmd->cmd == V4L2_ENC_CMD_STOP &&
- 	    v4l2_m2m_has_stopped(fh->m2m_ctx))
+This version does the following:
+
+- No more mode tables for the geometry: the readout window and the sensor
+  output crop are computed from the crop rectangle every time streaming
+  starts (patches 1 and 2).
+- The crop is set with the CROP selection on the source pad (patches 4 and
+  5). Vertically it is an analog crop: the readout window gets smaller and
+  the frame gets shorter (the GC5035 at 640x480 runs at up to 106 fps).
+  Horizontally it is the sensor internal output crop instead: narrowing
+  the readout window horizontally gives black images on the GC5035, and on
+  the GC8034 it goes through a column register that gives corrupted images
+  at many values.
+- 2x2 binning is there on the GC5035 (patches 6 and 7): the 1296x972
+  format gives the average of four samples of the same colour, with the
+  same field of view as the default crop. The vendor sequence changes the
+  PLL, so I measured the link frequency in that mode: 176.3 +/- 0.9 MHz,
+  against the 175.2 MHz given by the PLL registers (with the same method,
+  at full resolution, 420.7 +/- 1.5 against 422.4). Patch 6 adds this
+  frequency to ipu-bridge. On the GC8034 binning only exists in the 2-lane
+  vendor sequences; with 4 lanes it breaks the CSI-2 stream, so it isn't
+  there.
+
+I kept the crop in patches 4 and 5 and the binning in 6 and 7, separate,
+because I saw that for the IMX908 you decided to postpone the crop until
+the common raw sensor model
+(<20261001133138.GM944070@killaraus.ideasonboard.com>). If you want to do
+the same here, patches 1-3 work on their own, at a fixed resolution like
+v1, and I'll redo crop and binning on the common model when it lands.
+
+Some choices you may disagree with, and that I'm happy to change:
+
+- set_fmt changes the crop: for userspace that does not set the crop
+  first, it centres it on the default crop, as ov01a10 does. And 1296x972
+  selects binning and sets the default crop back, unless the crop is
+  already 1296x972: libcamera first sets the largest size and then the one
+  it wants, and with binning tied to the current crop it never got it. If
+  you prefer binning through COMPOSE, or waiting for the common model,
+  I'll change it.
+- In binning the timings are in sensor lines (the sensor reads one row of
+  the array per line and outputs one every two lines): exposure and VBLANK
+  keep the register unit, with a one line step, and the frame period
+  computed from HBLANK and VBLANK is the measured one. This is why
+  PIXEL_RATE is 70.08 MHz, HBLANK 164 and VBLANK at least 1024.
+- enum_frame_size lists 1296x972 separately, although it is within the
+  full mode range, so that libcamera sees the binned mode.
+- The GC8034 PIXEL_RATE (256 MHz) is the one that gives the measured frame
+  periods with the sensor line length; it is more than the 4-lane link
+  carries (215 Mpixel/s), but over a whole line, blanking included, the
+  average is about 196 Mpixel/s.
+- The analogue gain is the index of the sensor gain steps, which are not
+  linear, as in the vendor code.
+
+I don't have the datasheets: I measured the geometry, the limits and the
+timings on the tablet, and the comments in the code say what is measured.
+In short:
+
+- The sizes reported as NATIVE_SIZE and CROP_BOUNDS (2608x1964 and
+  3282x2500) are the largest area that gives image data; around it there
+  are constant rows and columns. They are not the physical array, which is
+  not documented.
+- CROP_DEFAULT is the image of the vendor sequence, the same as v1: at the
+  default crop v2 produces the same image as v1.
+- The timings follow a model that matches the measurements from 64 lines
+  to the full height; for the GC8034 this corrected PIXEL_RATE to 256 MHz
+  (v1 declared 255.9 MHz).
+- The size limits (GC8034 at least 512 and at most 3280 wide, at most 2448
+  high; GC5035 at least 64x64) come from tests where outside those limits
+  the stream breaks or the timings leave the model.
+
+The series is based on media next (d7e7bca71). I tested it on the
+tablet, with a 7.3-rc1 kernel and the modules built from these patches:
+- v4l2-compliance from git (1616bf9e3c81) with -z: 54/54, no warnings, on
+  both, and on the GC5035 both at full resolution and in binning; full
+  output below.
+- A set of crop tests (default, bounds, centre, corners, minimum, requests
+  to be rounded or outside the area): rectangle applied, measured frame
+  period, complete frames and position to the pixel, all as expected, in
+  two runs per sensor.
+- Binning: controls, frame period (also with a long VBLANK and at the
+  maximum exposure), signal doubling with double exposure, output equal to
+  the per-colour 2x2 average of a full resolution frame with no offset, 20
+  starts and stops in a row, and switching from the full mode to binning.
+- libcamera (simple pipeline): 60 frames out of 60 in three
+  configurations per camera; on the GC5035 at 1280x960 it picks binning.
+- W=1, sparse, smatch, checkpatch --strict and coccinelle clean on every
+  patch; i386 build clean.
+
+Changes since v1:
+- Patches 1 and 2: geometry removed from the register table and computed
+  from the crop, all written as 16-bit values; NATIVE_SIZE and CROP_BOUNDS
+  are the measured area instead of the vendor readout window; the default
+  exposure no longer exceeds the maximum when VBLANK is reduced; GC8034:
+  PIXEL_RATE set to 256 MHz and the blanking register computed from
+  VBLANK; dropped linux/mod_devicetable.h and used a designated
+  initializer in the ACPI table, as Uwe asked.
+- Added Dan's Reviewed-by to patch 3.
+- Patches 4, 5, 6 and 7: new.
+
+I used a frontier LLM (Claude) to write the code and to do the
+measurements; I stated it in the Assisted-by tags. The English of this
+letter is a translation from my Italian.
+
+Nicola
+
+v4l2-compliance (git 1616bf9e3c81, -z PCI:0000:00:05.0 -u <subdev>):
+
+GC5035 (2592x1944):
+
+v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
+
+Compliance test for intel-ipu6 device /dev/v4l-subdev4:
+
+Driver Info:
+	Driver version   : 7.3.0
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which Media Driver Info:
+	Driver name      : intel-ipu6
+	Model            : ipu6
+	Serial           : 
+	Bus info         : PCI:0000:00:05.0
+	Media version    : 7.3.0
+	Hardware revision: 0x00000000 (0)
+	Driver version   : 7.3.0
+Interface Info:
+	ID               : 0x030001fd
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x000001f9 (505)
+	Name             : gc5035 2-003f
+	Function         : Camera Sensor
+	Pad 0x010001fa   : 0: Source
+	  Link 0x020001fb: to remote pad 0x1000096 of entity 'Intel IPU6 CSI2 2' (Video Interface Bridge): Data, Enabled, Immutable
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev4 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 13 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 0
+
+GC5035 in binning (1296x972), same output except:
+
+Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 0
+
+GC8034:
+
+v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
+
+Compliance test for intel-ipu6 device /dev/v4l-subdev5:
+
+Driver Info:
+	Driver version   : 7.3.0
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which Media Driver Info:
+	Driver name      : intel-ipu6
+	Model            : ipu6
+	Serial           : 
+	Bus info         : PCI:0000:00:05.0
+	Media version    : 7.3.0
+	Hardware revision: 0x00000000 (0)
+	Driver version   : 7.3.0
+Interface Info:
+	ID               : 0x03000203
+	Type             : V4L Sub-Device
+Entity Info:
+	ID               : 0x000001ff (511)
+	Name             : gc8034 1-0037
+	Function         : Camera Sensor
+	Pad 0x01000200   : 0: Source
+	  Link 0x02000201: to remote pad 0x100008c of entity 'Intel IPU6 CSI2 1' (Video Interface Bridge): Data, Enabled, Immutable
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev5 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Sub-Device ioctls (Source Pad 0):
+	Try Stream 0
+	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Try VIDIOC_SUBDEV_G/S_FMT: OK
+	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	Active Stream 0
+	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
+	test Active VIDIOC_SUBDEV_G/S_FMT: OK
+	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
+	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 12 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for intel-ipu6 device /dev/v4l-subdev5: 54, Succeeded: 54, Failed: 0, Warnings: 0
+
+
+Nicola Fiorillo (7):
+  media: i2c: Add GC5035 image sensor driver
+  media: i2c: Add GC8034 image sensor driver
+  media: ipu-bridge: Add GalaxyCore GC5035 and GC8034
+  media: i2c: gc5035: Add crop support
+  media: i2c: gc8034: Add crop support
+  media: ipu-bridge: Add the GC5035 binning link frequency
+  media: i2c: gc5035: Add 2x2 binning support
+
+ MAINTAINERS                          |   12 +
+ drivers/media/i2c/Kconfig            |   20 +
+ drivers/media/i2c/Makefile           |    2 +
+ drivers/media/i2c/gc5035.c           | 1351 ++++++++++++++++++++++++++
+ drivers/media/i2c/gc8034.c           | 1175 ++++++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c |    4 +
+ 6 files changed, 2564 insertions(+)
+ create mode 100644 drivers/media/i2c/gc5035.c
+ create mode 100644 drivers/media/i2c/gc8034.c
+
 
 base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
 -- 
-2.43.0
+2.47.3
 
