@@ -1,471 +1,295 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370993EEAD7
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 10:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CA2639184F
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 10:37:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791800951; cv=none; b=TZh9MXR5sdkci+9ka1kQdGmfj7z5GdhIggEmzbbRjk+KcY63vxz8iD3YL8A1ma8h8fTaoBO9dpYHdBeGOqYFGBQvuI7HBQUW0TN13Qf/iwTQoDXvLmhdqyyv9qOVEqN6V7c6qX47OOi014sktftKbERy9wa+gnkD/oM/kqunJO8=
+	t=1791801433; cv=none; b=hIXxW1eBcP+MgvthYPAQLNLQVGRWmZGDdnowu4lpEHCznHXtwUrUJ8Y820BE00rTJqXWIXk0CUw0efIoNTth7G62goRt3zwVgSvw8sHMXFWwbAOE8cLv8nYx1XjIW6dMj5b6HoXKPk+t/3cSw9jFicjBcT0tLjKlF0Nv1djUWc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791800951; c=relaxed/simple;
-	bh=KlDi19p/kte59rEEhKK5kqg2VwXGzrc9Z3sqqwQqYys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gat8iInBbXHhFYIjmKkD/B7qpa9uZreXH0DyjRi0tJvxBPc0v0fgf72vHSTpjwMr4g8KwXMw/gm4OSDORIzfKix65We+16ra5KwqPH4xiDvKuRbEA2RxbVANMarAJ7PZGS9gquFpaYd6WWW9Toq5fEsB+2mc3sRTfEAaAagTdsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HpNaA+GP; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791801433; c=relaxed/simple;
+	bh=bQ2VgwErdXzsUtcrHwFne66TL024RzFhVTV9iw7nNRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MQXzzJpdp/NfQDSfo0h8x1tB4FtsjThkzHiO14WlTUJGZStdoPwxoXo/3NqyrA0/o28oI5vdBTWOi0CDkQf5Afd4nlzStpMaPRoiIhSVpxkMwCDdvf2ujFS6TRYUoXw1/CkXekDtkzabj44VVu59y9Vyhyoe9G7QyopSHOqrjKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YiHz/O/k; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HpNaA+GP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791800941; x=1823336941;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KlDi19p/kte59rEEhKK5kqg2VwXGzrc9Z3sqqwQqYys=;
-  b=HpNaA+GPATquIvrr8M7kMwvbxJWtkAWzUxZ6NZKIAqx4uphIh4PkbLJK
-   1wP5vGJQ2q0OBSxEshC2PmzPkzYeiWnPrjEAUpE+TgJghIMeYqYl4Gz7b
-   qoD1kdPLpNSMiC2ayzYd5txw6qvUdKa9dzQFOwe37Y5S2cIyFIJefLxom
-   H69Ke3ka3q3NfShDfc4bnAoSEXC8cjR+6b0gpPwKzDzof9vamz0yjBUNY
-   wwpv/wGT6AgRRH77a2rZWbd5aPGdUdDkPARv5etVS06KLBOjz9BgnQKSe
-   mUKgZqPZ3GsgjVLfXVPa7fMZJzJyUrceevbdIWaI1U136+/G/aREkZJ1p
-   Q==;
-X-CSE-ConnectionGUID: 7Y/hx7DkTbyWYCKutl6ONA==
-X-CSE-MsgGUID: OuDK8ariQB22BOYnxvY9/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="514996"
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="514996"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 03:28:48 -0700
-X-CSE-ConnectionGUID: JGhCnsKPTB+lXuOMAU/GJA==
-X-CSE-MsgGUID: CPB/Oa1mR5ywX8+CgZtU9w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
-   d="scan'208";a="779194"
-Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.165])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 03:28:46 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id D0AC6121B9E;
-	Mon, 12 Oct 2026 13:28:47 +0300 (EEST)
-Date: Mon, 12 Oct 2026 13:28:47 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH 09/12] media: ipu6: Add IPU4P ISYS ISR handling
-Message-ID: <asy2X7Xz8uMTbXrn@kekkonen.localdomain>
-References: <IjwPOnBdNsWTsYf7NDlmfUuA5tZHup4NghQDillGZMDTGjBqLo-kW3mUX-FSA71Gh_ZxtpS9hiyzBMGt3lqRWKsAn7ecN6zMmvSOTGqJpsA=@proton.me>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YiHz/O/k"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b0946c2c2so950857f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 03:37:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791801430; x=1792406230; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5UwMCsUaPcuhIF4YQXXWs7svt+B6rufSHlmQNA2woxs=;
+        b=YiHz/O/kI9mNpixzZKD14T6PDnhYZUDoxLluOg/RViMKJcVIc9xwFGAYw4hMv9ERFl
+         Nqn0vE4uXcXzC8mXr/wklUJv9HKHdAvdeWsWtlWAhYppSewlTuHsVAuTuBzfbdiZxvMc
+         SjT6g82Jr0Pl6cASPPzhAZD8rZFBSXC4/POXExVrbgTPpYDrZQWcdCdAy/jupJq0HUx/
+         c2rq0tgbqBIJHsKc8Edxow/BXn91IHimMZ+2i0vm+teAX5ozSUjgqbqbf9WMYIAPC8Nb
+         q5Lc2t/gdbS8gYP6EAKvp1UYFv+297Ui5Wl64cG/9S8CE8W7KJA0Hr+1WRxNCjenvI3O
+         rU2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791801430; x=1792406230;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5UwMCsUaPcuhIF4YQXXWs7svt+B6rufSHlmQNA2woxs=;
+        b=DVf1al5aCA1dp9Of/e13Hx7zbvBpcLZO3OAorcB0RSyR1uymua7Ohpu+w3C1+UWviy
+         UEnX8ly0e+lX36qRbcAfDOk0XMVQuG2g8W3ac+mfG5rCtdjpv8oEvcT65os21Q9wcYlq
+         7nIEMISXdObBKf+aiX//Ucg7gZkstOLTSmxb7zKMj3bAqVOqnsH18yfZ2DKp80TcPCH/
+         9X/0GewvDYUbvOI0MojpPmT/OZ0iOAMy5PCzQvd8oVBSQN0UYqnTnGcSUzSBBB4X+aOI
+         agXT43jQ1wJgZhnwUMFj2TUe8ai+65eM+L0putOZs5b8ZK7KBIqsCF4VSG2eZGzOxXtB
+         6SQg==
+X-Gm-Message-State: AFq9FYJCQs6MYJowujpds/EIWk8yqnBK0iwK/dM908kd9W3tZsBtYCO2
+	EOoGb4WIDuoxWz1cyaL8aa5Lr4rN4ne5errHyGXssezAsvwJhvtG+yBS
+X-Gm-Gg: AYBFou3D/bn5ZZEqCrGVGqpcsm16t6rv2CijkyVYUfs3VvFduly9f/GrhsKX0WI2kZG
+	XVHCrDxEBzQkOoQZGGbf4Umapk4zQ9EmieshCgDtU0e/4APLsWOxpgUm9MJTsCk6VQHx2ViLhhT
+	bLiM/+uH8pSqwNQ4S0kni4DuSw0bPKoG7oJIeMcnl/UOE6wrhlJC1eFP8HgQQ9SpJDWRM0Z3AFK
+	a0mjA/gS1T/l+vSDqJEwzX0HHkTPl7jLbuY9tUxUD1wN+h2QBNZbRH7nEbT5snUjGH1O46XpUkZ
+	DqhDdFrpQ5yhMv459PzJC9pzGzo0SWKPcimAk8XSBT0utuw+zpBNJuYuJjNEgAryh1FB46a2eeF
+	hTj0qoqaCd/UunpjgFAWvW/AoertdtONw/DybwmhsTQNtszbUlX1+x4zG+DeALIhb3d5lxD8IYb
+	R77FrPY7lkAkp/5SyV+3wla8SZfHAA5nhIB1qNM8st3WYqXacLb6GqGT1h6maABOogOw==
+X-Received: by 2002:a05:6000:491c:b0:48c:7326:cf0b with SMTP id ffacd0b85a97d-48dbacfbafbmr15475205f8f.56.1791801429908;
+        Mon, 12 Oct 2026 03:37:09 -0700 (PDT)
+Received: from sparkle.lan ([86.33.83.51])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9acee65sm19443316f8f.49.2026.10.12.03.37.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 03:37:09 -0700 (PDT)
+From: =?UTF-8?q?Sini=C5=A1a=20Do=C5=A1en?= <snsdosen@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Sini=C5=A1a=20Do=C5=A1en?= <snsdosen@gmail.com>
+Subject: [PATCH] media: cx231xx: fix August VGB100 video and VBI capture
+Date: Mon, 12 Oct 2026 12:36:57 +0200
+Message-ID: <20261012103657.28574-1-snsdosen@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <IjwPOnBdNsWTsYf7NDlmfUuA5tZHup4NghQDillGZMDTGjBqLo-kW3mUX-FSA71Gh_ZxtpS9hiyzBMGt3lqRWKsAn7ecN6zMmvSOTGqJpsA=@proton.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Ruslan,
+Devices sold as the August VGB100 exist in at least two hardware
+revisions, although both use USB ID 1f4d:0102. The Windows driver INF
+also contains separate entries for two VGB100 revisions. The unit tested
+here reports bcdDevice 0x4002.
 
-On Sun, Oct 11, 2026 at 02:41:16PM +0000, Ruslan Bay wrote:
-> Handle IPU4P ISYS software and CSI interrupts and dispatch firmware
-> responses and CSI receiver errors to the appropriate handlers.
-> 
-> Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
-> ---
->  drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c  | 90 +++++++++++++++++++
->  .../pci/intel/ipu6/ipu4p-isys-csi2-regs.h     | 38 ++++++++
->  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 74 +++++++++++++++
->  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |  2 +
->  drivers/media/pci/intel/ipu6/ipu6-isys.c      | 14 ++-
->  drivers/media/pci/intel/ipu6/ipu6.c           |  1 +
->  6 files changed, 217 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
-> index dfab6e570e51..6fbbe6376ef7 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
-> @@ -4,8 +4,10 @@
->   */
->  
->  #include <linux/cacheflush.h>
-> +#include <linux/cleanup.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
-> +#include <linux/io.h>
->  #include <linux/slab.h>
->  
->  #include "ipu6.h"
-> @@ -17,6 +19,7 @@
->  #include "ipu6-isys-video.h"
->  #include "ipu6-platform-regs.h"
->  #include "ipu4p-fw-isys.h"
-> +#include "ipu4p-isys-csi2-regs.h"
->  
->  static void start_sp(struct ipu6_bus_device *adev)
->  {
-> @@ -596,3 +599,90 @@ const struct ipu6_fw_isys_ops ipu4p_fw_isys_ops = {
->  	.dump_stream_cfg = ipu4p_dump_stream_cfg,
->  	.dump_frame_buf_set = ipu4p_dump_frame_buf_set,
->  };
-> +
-> +void ipu4p_isys_irq_setup(struct ipu6_isys *isys)
-> +{
-> +	static const u32 irq_offsets[] = {
-> +		0x00, IPU4P_ISYS_IRQ_MASK_OFFSET,
-> +		IPU4P_ISYS_IRQ_ENABLE_OFFSET,
-> +		IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET,
-> +	};
-> +	const u32 isys_irq_mask = IPU4P_ISYS_UNISPART_IRQ_SW |
-> +		IPU4P_ISYS_UNISPART_IRQ_CSI2(0) |
-> +		IPU4P_ISYS_UNISPART_IRQ_CSI2(1);
-> +	const struct {
+Linux support for this USB ID was originally added for the Geniatech
+OTG102/EZGrabber2. A later patch fixed S-Video capture on an August
+VGB100 by correcting the input routing from the VGB100 and OTG102
+Windows INF files. That profile provides working video on an older
+VGB100 unit, but it does not initialize the 0x4002 revision correctly.
+The older unit also showed URB errors and could become unresponsive when
+capturing raw VBI.
 
-static const for all these?
+On the 0x4002 revision the generic profile leaves the analog front end
+with the wrong reference tuning, so the decoder cannot lock reliably to
+a PAL signal. Once that is corrected, cx25840 reports 720x572 while the
+bridge delivers complete 720x576 frames, causing applications to reject
+the captured buffers.
 
-> +		u32 base;
-> +		u32 mask;
-> +	} irq_config[] = {
-> +		{ IPU4P_ISYS_UNISPART_IRQ_EDGE, isys_irq_mask },
-> +		{ IPU4P_ISYS_ISA_ACC_IRQ_CTRL_BASE, 0 },
-> +		{ IPU4P_ISYS_A_IRQ_CTRL_BASE, 0 },
-> +		{ IPU4P_ISYS_SIP0_IRQ_CTRL_BASE, IPU4P_ISYS_SIP0_CSI2_IRQ },
-> +		{ IPU4P_ISYS_SIP1_IRQ_CTRL_BASE, IPU4P_ISYS_SIP1_CSI2_IRQ_MASK },
-> +	};
-> +	void __iomem *base = isys->pdata->base;
-> +
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(irq_config); i++) {
-> +		for (unsigned int j = 0; j < ARRAY_SIZE(irq_offsets); j++)
-> +			writel(irq_config[i].mask,
-> +			       base + irq_config[i].base + irq_offsets[j]);
-> +
-> +		writel(0xffffffff,
-> +		       base + irq_config[i].base + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
-> +	}
-> +
-> +	writel(0, base + IPU4P_ISYS_UNISPART_SW_IRQ_REG);
-> +	writel(0, base + IPU4P_ISYS_UNISPART_SW_IRQ_MUX_REG);
-> +}
-> +
-> +irqreturn_t ipu4p_isys_isr(struct ipu6_bus_device *adev)
-> +{
-> +	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
-> +	void __iomem *base = isys->pdata->base;
-> +	u32 status, sip0_status, sip1_status;
-> +
-> +	guard(spinlock)(&isys->power_lock);
+Raw VBI capture also exposes two bugs in the common cx231xx code. The
+parser stops making progress after discarding a surplus VBI line, which
+leaves readers waiting indefinitely despite continuing USB traffic. VBI
+URBs can also remain active while their vb2 buffers are returned during
+stream shutdown.
 
-Note that the power_lock went away recently. Please rebase.
+This change adds a board profile for bcdDevice 0x4002 while leaving the
+existing OTG102 profile as the fallback for the older revision. It uses
+the AFE reference tuning and frame geometry required by the new hardware,
+corrects the raw VBI parser state, stops URBs before returning buffers,
+and avoids reinitializing the analog path when userspace reselects the
+active input.
 
-> +
-> +	if (!isys->power)
-> +		return IRQ_NONE;
-> +
-> +	status = readl(base + IPU4P_ISYS_UNISPART_IRQ_STATUS);
-> +	sip0_status = readl(base + IPU4P_ISYS_SIP0_IRQ_CTRL_STATUS);
-> +	sip1_status = readl(base + IPU4P_ISYS_SIP1_IRQ_CTRL_STATUS);
-> +	if (!status && !sip0_status && !sip1_status)
-> +		return IRQ_NONE;
-> +
-> +	do {
-> +		writel(status, base + IPU4P_ISYS_UNISPART_IRQ_CLEAR);
-> +
-> +		writel(sip0_status, base + IPU4P_ISYS_SIP0_IRQ_CTRL_CLEAR);
-> +		writel(sip1_status, base + IPU4P_ISYS_SIP1_IRQ_CTRL_CLEAR);
-> +
-> +		for (unsigned int i = 0;
-> +		     i < isys->pdata->ipdata->csi2.nports; i++) {
-> +			bool port_irq = i ?
-> +				(sip1_status & IPU4P_ISYS_SIP1_CSI2_IRQ(i)) :
-> +				(sip0_status & IPU4P_ISYS_SIP0_CSI2_IRQ);
-> +
-> +			if (port_irq && isys->csi2[i].base)
-> +				ipu4p_isys_csi2_isr(&isys->csi2[i]);
-> +		}
-> +
-> +		writel(0, base + IPU4P_ISYS_UNISPART_SW_IRQ_REG);
-> +
-> +		if ((status & IPU4P_ISYS_UNISPART_IRQ_SW) &&
-> +		    !adev->auxdrv_data->fw_ops->isr_one(adev))
-> +			status = IPU4P_ISYS_UNISPART_IRQ_SW;
-> +		else
-> +			status = 0;
-> +
-> +		status |= readl(base + IPU4P_ISYS_UNISPART_IRQ_STATUS);
-> +		sip0_status = readl(base + IPU4P_ISYS_SIP0_IRQ_CTRL_STATUS);
-> +		sip1_status = readl(base + IPU4P_ISYS_SIP1_IRQ_CTRL_STATUS);
-> +	} while ((status & (isys->isr_csi2_bits |
-> +			    IPU4P_ISYS_UNISPART_IRQ_SW)) ||
-> +		 (sip0_status & IPU4P_ISYS_SIP0_CSI2_IRQ) ||
-> +		 (sip1_status & IPU4P_ISYS_SIP1_CSI2_IRQ_MASK));
-> +
-> +	return IRQ_HANDLED;
-> +}
-> diff --git a/drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h b/drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h
-> index 7f41bdb4150a..1e1423869e21 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h
-> +++ b/drivers/media/pci/intel/ipu6/ipu4p-isys-csi2-regs.h
-> @@ -4,6 +4,44 @@
->  
->  #include <linux/bits.h>
->  
-> +/* ISYS UNISPART and SIP interrupt registers */
-> +#define IPU4P_ISYS_UNISPART_IRQ_EDGE			0x7c000
-> +#define IPU4P_ISYS_UNISPART_IRQ_STATUS			0x7c008
-> +#define IPU4P_ISYS_UNISPART_IRQ_CLEAR			0x7c00c
-> +#define IPU4P_ISYS_UNISPART_SW_IRQ_REG			0x7c414
-> +#define IPU4P_ISYS_UNISPART_SW_IRQ_MUX_REG		0x7c418
-> +#define IPU4P_ISYS_UNISPART_IRQ_SW			BIT(22)
-> +#define IPU4P_ISYS_UNISPART_IRQ_CSI2(port)		((port) ? BIT(4) : BIT(3))
-> +#define IPU4P_ISYS_ISA_ACC_IRQ_CTRL_BASE		0xb0c00
-> +#define IPU4P_ISYS_A_IRQ_CTRL_BASE			0xbe200
-> +#define IPU4P_ISYS_SIP0_IRQ_CTRL_BASE			0x66d00
-> +#define IPU4P_ISYS_SIP1_IRQ_CTRL_BASE			0x6ed00
-> +#define IPU4P_ISYS_IRQ_MASK_OFFSET			0x04
-> +#define IPU4P_ISYS_IRQ_CLEAR_OFFSET			0x0c
-> +#define IPU4P_ISYS_IRQ_ENABLE_OFFSET			0x10
-> +#define IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET		0x14
-> +#define IPU4P_ISYS_SIP0_IRQ_CTRL_STATUS			0x66d08
-> +#define IPU4P_ISYS_SIP0_IRQ_CTRL_CLEAR			0x66d0c
-> +#define IPU4P_ISYS_SIP1_IRQ_CTRL_STATUS			0x6ed08
-> +#define IPU4P_ISYS_SIP1_IRQ_CTRL_CLEAR			0x6ed0c
-> +#define IPU4P_ISYS_SIP0_CSI2_IRQ			BIT(3)
-> +#define IPU4P_ISYS_SIP1_CSI2_IRQ(port)			BIT((port) - 1)
-> +#define IPU4P_ISYS_SIP1_CSI2_IRQ_MASK			GENMASK(6, 0)
-> +
-> +/* ISYS per-port CSI interrupt controls */
-> +#define IPU4P_ISYS_CSI_IRQ_CTRL_BASE(port)		\
-> +	({ typeof(port) __port = (port); \
-> +	   __port ? (0x6cb00 + 0x800 * (__port - 1)) : 0x66300; })
+The result was tested on the 0x4002 VGB100 with 720x576 YUYV video at
+25 fps and raw PAL VBI capture at 1440 samples over 36 lines per frame.
 
-You don't need this trickery to avoid a checkpatch.pl warning. Same
-elsewhere.
+Signed-off-by: Siniša Došen <snsdosen@gmail.com>
+---
+ drivers/media/usb/cx231xx/cx231xx-avcore.c | 14 +++++++++++++
+ drivers/media/usb/cx231xx/cx231xx-cards.c  | 24 ++++++++++++++++++++++
+ drivers/media/usb/cx231xx/cx231xx-vbi.c    | 18 ++++++++++++----
+ drivers/media/usb/cx231xx/cx231xx-video.c  | 12 +++++++++--
+ drivers/media/usb/cx231xx/cx231xx.h        |  1 +
+ 5 files changed, 63 insertions(+), 6 deletions(-)
 
-> +#define IPU4P_ISYS_CSI_IRQ_CTRL0_BASE(port)		\
-> +	({ typeof(port) __port = (port); \
-> +	   __port ? (0x6cc00 + 0x800 * (__port - 1)) : 0x66400; })
-> +#define IPU4P_ISYS_CSI_IRQ_STATUS_OFFSET		0x08
-> +#define IPU4P_ISYS_CSI_IRQ_CLEAR_OFFSET		0x0c
-> +#define IPU4P_ISYS_CSI_IRQ_ACTIVE			BIT(0)
-> +/* CSI-2 frame events occupy bits 16-31 in the shared ctrl0 status. */
-> +#define IPU4P_ISYS_CSI_ERROR_MASK			GENMASK(15, 0)
-> +#define IPU4P_ISYS_CSI_ERROR_BITS			16U
-> +
->  /* CSI receiver registers */
->  #define IPU4P_CSI2_RX_ENABLE				0x00
->  #define IPU4P_CSI2_RX_ENABLE_ENABLE			BIT(0)
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-> index 9e87750269d0..ea3817ef8ac8 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
-> @@ -25,6 +25,7 @@
->  #include "ipu4p-fw-isys.h"
->  #include "ipu6-isys-subdev.h"
->  #include "ipu6-platform-isys-csi2-reg.h"
-> +#include "ipu4p-isys-csi2-regs.h"
->  #include "ipu7-isys-csi2-regs.h"
->  
->  static const u32 csi2_supported_codes[] = {
-> @@ -83,6 +84,25 @@ static const struct ipu6_csi2_error dphy_rx_errors[] = {
->  	{ "HSIDLE detected", false }
->  };
->  
-> +static const struct ipu6_csi2_error ipu4p_csi2_errors[] = {
-> +	{ "Single packet header error corrected", true },
-> +	{ "Multiple packet header errors detected", true },
-> +	{ "Payload checksum (CRC) error", true },
-> +	{ "FIFO overflow", false },
-> +	{ "Reserved short packet data type detected", true },
-> +	{ "Reserved long packet data type detected", true },
-> +	{ "Incomplete long packet detected", false },
-> +	{ "Frame sync error", false },
-> +	{ "Line sync error", false },
-> +	{ "DPHY recoverable synchronization error", true },
-> +	{ "DPHY non-recoverable synchronization error", false },
-> +	{ "Escape mode error", true },
-> +	{ "Escape mode trigger event", true },
-> +	{ "Escape mode ultra-low power state for data lane(s)", true },
-> +	{ "Escape mode ultra-low power state exit for clock lane", true },
-> +	{ "Inter-frame short packet discarded", true },
-> +};
-> +
->  s64 ipu6_isys_csi2_get_link_freq(struct ipu6_isys_csi2 *csi2)
->  {
->  	struct media_pad *src_pad;
-> @@ -210,6 +230,39 @@ void ipu6_isys_register_errors(struct ipu6_isys_csi2 *csi2)
->  	csi2->receiver_errors |= irq & mask;
->  }
->  
-> +void ipu4p_isys_register_errors(struct ipu6_isys_csi2 *csi2)
-> +{
-> +	void __iomem *base = csi2->isys->pdata->base;
-> +	u32 offset = IPU4P_ISYS_CSI_IRQ_CTRL0_BASE(csi2->port);
-> +	u32 status;
-> +
-> +	status = readl(base + offset + IPU4P_ISYS_CSI_IRQ_STATUS_OFFSET);
-> +	writel(status, base + offset + IPU4P_ISYS_CSI_IRQ_CLEAR_OFFSET);
-> +	csi2->receiver_errors |= status & IPU4P_ISYS_CSI_ERROR_MASK;
-> +}
-> +
-> +void ipu4p_isys_csi2_isr(struct ipu6_isys_csi2 *csi2)
-> +{
-> +	void __iomem *base = csi2->isys->pdata->base;
-> +	u32 offset = IPU4P_ISYS_CSI_IRQ_CTRL_BASE(csi2->port);
-> +	u32 status;
-> +
-> +	status = readl(base + offset + IPU4P_ISYS_CSI_IRQ_STATUS_OFFSET);
-> +	writel(status, base + offset + IPU4P_ISYS_CSI_IRQ_CLEAR_OFFSET);
-> +	if (!(status & IPU4P_ISYS_CSI_IRQ_ACTIVE))
-> +		return;
-> +
-> +	/*
-> +	 * Frame SOF/EOF notifications are delivered by IPU4P firmware.
-> +	 * Do not also report the CSI frame-event interrupts here, as that
-> +	 * would account every frame twice and corrupt vb2 sequence numbers.
-> +	 *
-> +	 * Keep the CSI IRQ path for receiver error collection; errors are
-> +	 * consumed by ipu6_isys_csi2_error() when a firmware response arrives.
-> +	 */
-> +	ipu4p_isys_register_errors(csi2);
-> +}
-> +
->  void ipu6_isys_csi2_error(struct ipu6_isys_csi2 *csi2)
->  {
->  	struct device *dev = &csi2->isys->adev->auxdev.dev;
-> @@ -217,6 +270,27 @@ void ipu6_isys_csi2_error(struct ipu6_isys_csi2 *csi2)
->  	u32 status;
->  	u32 i;
->  
-> +	if (IS_IPU4P(csi2->isys->adev->isp)) {
-> +		ipu4p_isys_register_errors(csi2);
-> +		status = csi2->receiver_errors;
-> +		csi2->receiver_errors = 0;
-> +
-> +		for (i = 0; i < IPU4P_ISYS_CSI_ERROR_BITS; i++) {
-> +			if (!(status & BIT(i)))
-> +				continue;
-> +
-> +			if (ipu4p_csi2_errors[i].is_info_only)
-> +				dev_dbg(dev, "csi2-%i info: %s\n", csi2->port,
-> +					ipu4p_csi2_errors[i].error_string);
-> +			else
-> +				dev_err_ratelimited(dev, "csi2-%i error: %s\n",
-> +						    csi2->port,
-> +						    ipu4p_csi2_errors[i].error_string);
-> +		}
-> +
-> +		return;
-> +	}
-> +
->  	/* register errors once more in case of interrupts are disabled */
->  	ipu6_isys_register_errors(csi2);
->  	status = csi2->receiver_errors;
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-> index dbaaf00af623..b3eb702f1996 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h
-> @@ -75,6 +75,8 @@ void ipu6_isys_csi2_sof_event_by_stream(struct ipu6_isys_stream *stream);
->  void ipu6_isys_csi2_eof_event_by_stream(struct ipu6_isys_stream *stream);
->  void ipu6_isys_register_errors(struct ipu6_isys_csi2 *csi2);
->  void ipu6_isys_csi2_error(struct ipu6_isys_csi2 *csi2);
-> +void ipu4p_isys_register_errors(struct ipu6_isys_csi2 *csi2);
-> +void ipu4p_isys_csi2_isr(struct ipu6_isys_csi2 *csi2);
->  int ipu6_isys_csi2_get_remote_desc(u32 source_stream,
->  				   struct ipu6_isys_csi2 *csi2,
->  				   struct media_entity *source_entity,
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> index 1f9809d1b138..6d10a427b4b6 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-> @@ -41,6 +41,7 @@
->  #include "ipu6-platform-buttress-regs.h"
->  #include "ipu6-platform-isys-csi2-reg.h"
->  #include "ipu6-platform-regs.h"
-> +#include "ipu4p-isys-csi2-regs.h"
->  #include "ipu7-isys-csi-phy.h"
->  #include "ipu7-isys-csi2-regs.h"
->  #include "ipu7-platform-regs.h"
-> @@ -202,6 +203,10 @@ static void isys_csi2_unregister_subdevices(struct ipu6_isys *isys)
->  
->  static int isys_csi2_register_subdevices(struct ipu6_isys *isys)
->  {
-> +	static const u32 ipu4p_port_offsets[IPU4P_ISYS_CSI2_NPORTS] = {
-> +		0x64300, 0x6c000, 0x6c100, 0x6c200,
-> +		0x6c300, 0x6c400, 0x6c500, 0x6c600,
-> +	};
->  	const struct ipu6_isys_internal_csi2_pdata *csi2_pdata =
->  		&isys->pdata->ipdata->csi2;
->  	unsigned int i;
-> @@ -217,6 +222,9 @@ static int isys_csi2_register_subdevices(struct ipu6_isys *isys)
->  
->  			isys->isr_csi2_bits |= mask;
->  			isys->csi2[i].legacy_irq_mask = mask;
-> +		} else if (IS_IPU4P(isys->adev->isp)) {
-> +			base += ipu4p_port_offsets[i];
-> +			isys->isr_csi2_bits |= IPU4P_ISYS_UNISPART_IRQ_CSI2(i);
->  		} else {
->  			base += CSI_REG_PORT_BASE(i);
->  			isys->isr_csi2_bits |= IPU6_ISYS_UNISPART_IRQ_CSI2(i);
-> @@ -892,6 +900,8 @@ static int isys_runtime_pm_resume(struct device *dev)
->  
->  	if (IS_IPU7(isp)) {
->  		ipu7_isys_setup_hw(isys);
-> +	} else if (IS_IPU4P(isp)) {
-> +		ipu4p_isys_irq_setup(isys);
->  	} else {
->  		ipu6_isys_setup_hw(isys);
->  		set_iwake_ltrdid(isys, 0, 0, LTR_ISYS_ON);
-> @@ -918,7 +928,7 @@ static int isys_runtime_pm_suspend(struct device *dev)
->  	isys->phy_termcal_val = 0;
->  	cpu_latency_qos_update_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
->  
-> -	if (!IS_IPU7(isp))
-> +	if (!IS_IPU7(isp) && !IS_IPU4P(isp))
-
-I think we should add IS_IPU6() macro that matches with all IPU6s.
-
->  		set_iwake_ltrdid(isys, 0, 0, LTR_ISYS_OFF);
->  
->  	ipu6_mmu_hw_cleanup(adev->mmu);
-> @@ -1177,7 +1187,7 @@ static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data = {
->  };
->  
->  static const struct ipu6_auxdrv_data ipu4p_isys_auxdrv_data = {
-> -	.isr = ipu6_isys_isr,
-
-I don't think this should have been added in the first place by the earlier
-patches. As you don't have the IPU4* PCI IDs listed for the driver yet,
-this won't end up used yet in any case.
-
-> +	.isr = ipu4p_isys_isr,
->  	.isr_threaded = NULL,
->  	.wake_isr_thread = false,
->  	.fw_ops = &ipu4p_fw_isys_ops,
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-> index 417978bef3f7..3ebf2ff76200 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6.c
-> @@ -399,6 +399,7 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
->  	}
->  
->  	if (IS_IPU4P(isp)) {
-> +		isys_ipdata.csi2.nports = IPU4P_ISYS_CSI2_NPORTS;
->  		isys_ipdata.num_parallel_streams = IPU4P_ISYS_MAX_STREAMS;
->  		isys_ipdata.max_streams = IPU4P_ISYS_MAX_STREAMS;
->  		isys_ipdata.sram_gran_shift = IPU4P_SRAM_GRANULARITY_SHIFT;
-
+diff --git a/drivers/media/usb/cx231xx/cx231xx-avcore.c b/drivers/media/usb/cx231xx/cx231xx-avcore.c
+index 0a5c635..fb71e39 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-avcore.c
++++ b/drivers/media/usb/cx231xx/cx231xx-avcore.c
+@@ -348,6 +348,7 @@ int cx231xx_afe_update_power_control(struct cx231xx *dev,
+ 	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_PAL:
+ 	case CX231XX_BOARD_HAUPPAUGE_USB2_FM_NTSC:
+ 	case CX231XX_BOARD_OTG102:
++	case CX231XX_BOARD_AUGUST_VGB100:
+ 		if (avmode == POLARIS_AVMODE_ANALOGT_TV) {
+ 			while (afe_power_status != (FLD_PWRDN_TUNING_BIAS |
+ 						FLD_PWRDN_ENABLE_PLL)) {
+@@ -932,6 +933,18 @@ int cx231xx_set_decoder_video_input(struct cx231xx *dev,
+ 		status = vid_blk_write_word(dev, OUT_CTRL1, value);
+ 	}
+ 
++	/*
++	 * The generic setup derives TUNE1 from the reference clock and leaves
++	 * 0x42 here.  The VGB100 40.02 analogue front end requires 0xbe;
++	 * otherwise its decoder never acquires horizontal sync.
++	 */
++	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
++	    pin_type == CX231XX_VMUX_COMPOSITE1) {
++		status = afe_write_byte(dev, SUP_BLK_TUNE1, 0xbe);
++		if (status < 0)
++			return status;
++	}
++
+ 	return status;
+ }
+ 
+@@ -1729,6 +1742,7 @@ int cx231xx_dif_set_standard(struct cx231xx *dev, u32 standard)
+ 	case CX231XX_BOARD_CNXT_VIDEO_GRABBER:
+ 	case CX231XX_BOARD_HAUPPAUGE_EXETER:
+ 	case CX231XX_BOARD_OTG102:
++	case CX231XX_BOARD_AUGUST_VGB100:
+ 		func_mode = 0x03;
+ 		break;
+ 	case CX231XX_BOARD_CNXT_RDE_253S:
+diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
+index 69b2420..7ce160d 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-cards.c
++++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
+@@ -685,6 +685,28 @@ struct cx231xx_board cx231xx_boards[] = {
+ 			}
+ 		},
+ 	},
++	[CX231XX_BOARD_AUGUST_VGB100] = {
++		.name = "August VGB100",
++		.tuner_type = TUNER_ABSENT,
++		.decoder = CX231XX_AVDECODER,
++		.output_mode = OUT_MODE_VIP11,
++		.ctl_pin_status_mask = 0xFFFFFFC4,
++		.agc_analog_digital_select_gpio = 0x0c,
++		.gpio_pin_status_mask = 0x4001000,
++		.norm = V4L2_STD_PAL,
++		.no_alt_vanc = 1,
++		.external_av = 1,
++		.input = {{
++			.type = CX231XX_VMUX_COMPOSITE1,
++			.vmux = CX231XX_VIN_2_1,
++			.amux = CX231XX_AMUX_LINE_IN,
++		}, {
++			.type = CX231XX_VMUX_SVIDEO,
++			.vmux = CX231XX_VIN_1_1 |
++				(CX231XX_VIN_3_2 << 8),
++			.amux = CX231XX_AMUX_LINE_IN,
++		} },
++	},
+ 	[CX231XX_BOARD_HAUPPAUGE_930C_HD_1113xx] = {
+ 		.name = "Hauppauge WinTV 930C-HD (1113xx) / HVR-900H (111xxx) / PCTV QuatroStick 521e",
+ 		.tuner_type = TUNER_NXP_TDA18271,
+@@ -1061,6 +1083,8 @@ struct usb_device_id cx231xx_id_table[] = {
+ 	 .driver_info = CX231XX_BOARD_ICONBIT_U100},
+ 	{USB_DEVICE(0x0fd9, 0x0037),
+ 	 .driver_info = CX231XX_BOARD_ELGATO_VIDEO_CAPTURE_V2},
++	{USB_DEVICE_VER(0x1f4d, 0x0102, 0x4002, 0x4002),
++	 .driver_info = CX231XX_BOARD_AUGUST_VGB100},
+ 	{USB_DEVICE(0x1f4d, 0x0102),
+ 	 .driver_info = CX231XX_BOARD_OTG102},
+ 	{USB_DEVICE(USB_VID_TERRATEC, 0x00a6),
+diff --git a/drivers/media/usb/cx231xx/cx231xx-vbi.c b/drivers/media/usb/cx231xx/cx231xx-vbi.c
+index 338e101..63db257 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-vbi.c
++++ b/drivers/media/usb/cx231xx/cx231xx-vbi.c
+@@ -234,6 +234,8 @@ static void vbi_stop_streaming(struct vb2_queue *vq)
+ {
+ 	struct cx231xx *dev = vb2_get_drv_priv(vq);
+ 
++	/* Stop URB callbacks before returning their destination buffers. */
++	cx231xx_uninit_vbi_isoc(dev);
+ 	return_all_buffers(dev, VB2_BUF_STATE_ERROR);
+ }
+ 
+@@ -499,8 +501,12 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
+ 		cx231xx_reset_vbi_buffer(dev, dma_q);
+ 	}
+ 
+-	if (dma_q->current_field != field_number)
++	if (dma_q->current_field != field_number) {
++		/* Drop any incomplete surplus line from the previous field. */
+ 		dma_q->lines_completed = 0;
++		dma_q->bytes_left_in_line = _line_size;
++		dma_q->is_partial_line = 0;
++	}
+ 
+ 	/* get the buffer pointer */
+ 	buf = dev->vbi_mode.bulk_ctl.buf;
+@@ -514,9 +520,13 @@ u32 cx231xx_copy_vbi_line(struct cx231xx *dev, struct cx231xx_dmaqueue *dma_q,
+ 
+ 	if (dma_q->lines_completed >= dma_q->lines_per_field) {
+ 		dma_q->bytes_left_in_line -= bytes_to_copy;
+-		dma_q->is_partial_line =
+-		    (dma_q->bytes_left_in_line == 0) ? 0 : 1;
+-		return 0;
++		if (dma_q->bytes_left_in_line == 0) {
++			dma_q->bytes_left_in_line = _line_size;
++			dma_q->is_partial_line = 0;
++		} else {
++			dma_q->is_partial_line = 1;
++		}
++		return bytes_to_copy;
+ 	}
+ 
+ 	dma_q->is_partial_line = 1;
+diff --git a/drivers/media/usb/cx231xx/cx231xx-video.c b/drivers/media/usb/cx231xx/cx231xx-video.c
+index 70aa99f..4fd31ab 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-video.c
++++ b/drivers/media/usb/cx231xx/cx231xx-video.c
+@@ -912,6 +912,10 @@ static int vidioc_s_fmt_vid_cap(struct file *file, void *priv,
+ 	call_all(dev, pad, set_fmt, NULL, &format);
+ 	v4l2_fill_pix_format(&f->fmt.pix, &format.format);
+ 
++	/* The DMA engine keeps the requested 576-line PAL geometry. */
++	if (dev->model == CX231XX_BOARD_AUGUST_VGB100)
++		vidioc_g_fmt_vid_cap(file, priv, f);
++
+ 	return rc;
+ }
+ 
+@@ -1065,13 +1069,17 @@ int cx231xx_s_input(struct file *file, void *priv, unsigned int i)
+ {
+ 	struct cx231xx *dev = video_drvdata(file);
+ 
+-	dev->mode_tv = 0;
+-
+ 	if (i >= MAX_CX231XX_INPUT)
+ 		return -EINVAL;
+ 	if (0 == INPUT(i)->type)
+ 		return -EINVAL;
+ 
++	/* Reapplying the vendor profile disturbs an active raw VBI stream. */
++	if (dev->model == CX231XX_BOARD_AUGUST_VGB100 &&
++	    i == dev->video_input)
++		return 0;
++
++	dev->mode_tv = 0;
+ 	video_mux(dev, i);
+ 
+ 	if (INPUT(i)->type == CX231XX_VMUX_TELEVISION ||
+diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
+index 19f5036..1cb08ec 100644
+--- a/drivers/media/usb/cx231xx/cx231xx.h
++++ b/drivers/media/usb/cx231xx/cx231xx.h
+@@ -70,6 +70,7 @@
+ #define CX231XX_BOARD_THE_IMAGING_SOURCE_DFG_USB2_PRO 25
+ #define CX231XX_BOARD_HAUPPAUGE_935C 26
+ #define CX231XX_BOARD_HAUPPAUGE_975 27
++#define CX231XX_BOARD_AUGUST_VGB100 28
+ 
+ /* Limits minimum and default number of buffers */
+ #define CX231XX_MIN_BUF                 4
 -- 
-Regards,
+2.56.0
 
-Sakari Ailus
