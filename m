@@ -1,231 +1,109 @@
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999DB4C9DE8
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 17:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427763AFD19
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 18:51:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791826995; cv=none; b=JKwZBTfeSjZjBMNTmBzi3EWxZ97aRohy4MLIZ6I/GvTQJVLgYdeH2T2p/ptZ+cTqBZIIEnC0zCxEcehSLwEi8AtyLZxZBRqoiEkV4sINhXlMAammFiCBS1lrrhwot+tXEfJmyUmT7wacMLcayjMsjKAvcoIe0hBRIksHz97q7yg=
+	t=1791831098; cv=none; b=stDbp0atqfIq6s1xhm2A/GEYl4U3VtFumwrI1UXsxn6XjWdt79YpNTjcri9i3I2H0CJVi5Ai97V3gXR3F0i41SATntgvWJ6DIzreomH66O0TxjnrmUxtkz2FUfjiMlwI4bxu2aowhmI2uvD3m5x3jSP2aNi4DslNqhVt/t1FEXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791826995; c=relaxed/simple;
-	bh=6gGUo5bfHG056Upj0Wv3RVCBcYSHTIx2FpNy0nwC6/4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=pdfDc4Q5/TpmIeW5Mj9NX7HIgkqbogP+Lh0of81LEM+GUMAAiWqWJBtw/PL9uZsTq6oowEN6B/PBtHYDHqqxY52EaUAOnfBK88f25nMg1/VUe9jMF3pd1SpE9NV5NH69Ejq3Uga693e4hEU6n6lDneTB4wbbfV0nHLFC34j9gTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CWIzH4aw; arc=none smtp.client-ip=74.125.82.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791831098; c=relaxed/simple;
+	bh=eg8iQH53XMr6U9fhAElssnduDO8S6/m8PGLFcG3o0cI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JQGKMplMr6R9twWUlAsdPE+xpjCvx2yElbfjl9WRyD2jRaVAkibevEGrEyhs/sMaa+CrwxKuEutFaQNsGEXWr0n+i1KXwXuu3lUlDkP021v2FEjBHtS4WIvrSdVorTUJIF3LBPgm7HDD4AABxfOcjIwyLjDIOGbOs5xsF2KfjOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lwGfC4YE; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CWIzH4aw"
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35a4d2e39acso4727672eec.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 10:43:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lwGfC4YE"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so17580295e9.2
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 11:51:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791826992; x=1792431792; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0d9kx5oWqQ1CybegjOdsNGS+P/geGKBslG4tLGyxeVI=;
-        b=CWIzH4awYFaa2mmvUonfwfCckiw70n84q+KwhfRscqujCHcAEjCGHCHKHRpt8RZ13O
-         WdxAjrSFAWx5FUErFchNOgsom6yWfo14PsZQYXSST5yFKEbRfSUL2thpiYuVhuLGFRdQ
-         XBBiDMkXfBfJUbku8XAZlw9emTWylmxpbpnwhVzrU8DZ7n0vIgt/7vUxM/e4RoYKSEzU
-         ZFbfyGfrO8J7hBFAau+mIa8jfKn1zYI2xnqV+lpuNzv41+t9gzQOWQ1WnaeUmZKq+igf
-         D9xkYkKcJcLK0j7RkTf1YWL7Xhga0ABmZ/nbidJuCU0nO8msbrWLYxohZcBtbt9DjmFC
-         0TgA==
+        d=gmail.com; s=20251104; t=1791831095; x=1792435895; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ky+Mh+cO5xMBG7Bn/5pO6nl62hMlLNRWkoqZnT1lz8o=;
+        b=lwGfC4YEgmW6r/XCkNbkm5csRJAEQss0YAfp1aq8J+Q05zg9k4bDxhJz4i8/CsSZ2v
+         9S5afsOB/0wh9PfXzfeg2LlPX37+RnvsiiUrnBRtfUEyHkBYLXewq+y4BQqiFd2WPxSw
+         MdCWnwaVh2ySjc029S/kI4ZtQ48daDDf/hUEhsdkn2ceztQRNEIsu0UGYmiQze8G9v3U
+         CWykJ5OtElYSU7H5XrmfYuVh8EZ2GSFklVhzTjuiNQ+Ti6SpM6jLrQMFI4VoEOeDQTXG
+         7RPWgWcxQ/6jMynLAa3jLDTTXE+EiIkXY1sAqwd8u/ULqCaOaU42B7l2bA37tLJA5sz4
+         XkDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791826992; x=1792431792;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0d9kx5oWqQ1CybegjOdsNGS+P/geGKBslG4tLGyxeVI=;
-        b=JKu4cDJTXSEIPY7CKluQ9BfjIiPHyluglx8f5cR8tuWP3Vj39Qp32Rbb2yTS+PtMWt
-         ZrnILbJSCPbo6doj8WBMFEK+fjLBi0ZuHBWrnEP+A0pYox5ng8HDDO++p3Y3PjanAD9y
-         jUh/cZjKPN71pYjSHHwOIarxw+cKM8EbhQx64tYpQ2Pao1fhfFtyNKXGJ5VmcB5NFaoH
-         4LtQ3wFgyFdAsH67+8+ra6RSnOzzhtKpaHXYcjB9u379+EfdD9O1SY5Zlx72Y1B9mthU
-         iSTFG1gsqHlk4EiIiZavy2tniTiBG1past0BlMs4U6gbZhYS0v1i+7q21I8+SuGYQS1A
-         45/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzcEbcvQYiimM/MoivnXjBgBuSWDSudGVpekoJfMm/nGEfZ0KbY8q6UaRcMUnDJwTa29ZR344g2bIWD3w==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4QiHqixqHjLHwEMfLc4NK4ryngfT1p9GpmxlwOFFGKkuTily6
-	gDZ5akRjSfjHchkj46CF0x9YajUGuG1xLLwlGH+VNmAsHXC5INcIY1Cm9me5lMOQQldysZkbbCh
-	/GOyShcT+cu25SoeIsOkiLIQe1Q==
-X-Received: from dycnn12.prod.google.com ([2002:a05:7301:140c:b0:359:72f9:2aab])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:693c:810e:b0:359:861:7cbd with SMTP id 5a478bee46e88-35908617e44mr9474976eec.10.1791826988403;
- Mon, 12 Oct 2026 10:43:08 -0700 (PDT)
-Date: Mon, 12 Oct 2026 17:43:00 +0000
-In-Reply-To: <20261012174300.2338784-1-almasrymina@google.com>
+        d=1e100.net; s=20260707; t=1791831095; x=1792435895;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ky+Mh+cO5xMBG7Bn/5pO6nl62hMlLNRWkoqZnT1lz8o=;
+        b=xJcTs2q2y/bSWsyHNWAY9ZIxVtrg1QgQsMBoe6hC6Ueh/+CvqBlqiS0/tcXIHHW/q9
+         7S3UMI/uUlemNjIyOebB2Vp3dlHB0mftYgxWkV24Xk/sMKnH+ZRIc39vMxh3EbWEWBP2
+         6pv0U7RklHuvswXnZoJcKQuSfh8lAN4m9vcr+63uhsf5c6pcY6Wo7TWwz+JQOgYV0PJq
+         cZ0Fd/qLTwepi7CGNX3Sl6SGaT1/m/jFMLKtuLMT2mkcWYWBTENEXVxK7F0G8sSvYccU
+         dK+R0mQM92SB+LAneHham4hkd0hRqSSI0S59QomsiRwkkjIaostKF+dvZwxjBoUUSegh
+         eQ9g==
+X-Forwarded-Encrypted: i=1; AKwUvBzjLUWAmK5Jh2BKXIt4b/0sduyvzLLWPnYw7oqjTkHQLW8sGxkrYy/TuuIkVvBGP/fAyQn16LfGBqHchg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRDm/p0eBnJU0eDulF0tn/brVyF+uHWA/HjmWjn4qqy0/8H9Rg
+	5QUcDuGk4GPE1BBL8mR9eJpfS6v4EZiM63rwWlGnc6z2Se9Q3qGEo6s+
+X-Gm-Gg: AYBFou21KsF0T4sKB0SuP+4vcWU+rOSg19p5k41juejpW3m5ZJXbfUIBPwU3MCSdjs4
+	pksCru4DtggtS106Ls6gC24jHRpr9GLglCsqhfp4IcZZwi6UHk0lVbfyZoL/QOuI9M8P9jmJuHC
+	KKnFffte/Yr/TXC5baDB5PvxSZGmn7h9mW7gEfvjovjLtSKmEFPmFZBc9oaez4xK27VMLtwDCum
+	n7RVd2eCJE1Bd8HCH3jAhJVyx3VwCMUPPanBbbTIYKbwFw7OjLln41bt9dRAJue/0QZ15G4BvHE
+	QY46UbXMgXH+5WR50huiUG2J0XU+EvacWxVdkDSTb2Y2TYcEI2bX1p+NexCxYZ3A+cCuSq3k4j3
+	t5fXQX0doSMnpriLHTfTeCAIOGSGnrksGBwAa/LE2QV1RJrrpa4ryqiHwTp2R6ROvPAdNtc9Sfb
+	53QF9tT0RB+lTjwr5AErrWBjm+x/EIEnaPF9l15szyKMcwMtCkB0VCvQtXa1SJewfJ7ecsuFc/K
+	u7BIGwRABfsAgTB0mCyIxzo4v7WPs0PJXu6SUEzb+02qnnp1q2zp3QxwaD6PGF/GKzBx9kBMS3Y
+	b5+g5SY6DBjYwHof7OGoWxDqPlV9DHMXUj/DbMSNCY70NgFOJYGmBkOobm67RWmaKiiCEFw4Nuo
+	QSGinz4g=
+X-Received: by 2002:a05:600c:6297:b0:4a0:62d:4424 with SMTP id 5b1f17b1804b1-4a18e4a1756mr196491005e9.8.1791831095315;
+        Mon, 12 Oct 2026 11:51:35 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a8ab-0f01-016a-c770-797f-eaee.310.pool.telefonica.de. [2a02:3100:a8ab:f01:16a:c770:797f:eaee])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb68abfsm336946215e9.0.2026.10.12.11.51.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 11:51:34 -0700 (PDT)
+Date: Mon, 12 Oct 2026 20:51:33 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jason Gunthorpe <jgg@nvidia.com>, Rob Clark <rob.clark@oss.qualcomm.com>, 
+	Jianfeng Liu <liujianfeng1994@gmail.com>, Diederik de Haas <diederik@cknow-tech.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Vinod Koul <vkoul@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	Linux kernel regressions list <regressions@lists.linux.dev>
+Subject: Re: [RFC PATCH 0/3] dma-buf: warn-only mode for DMABUF_DEBUG
+Message-ID: <as0r7Q4dHt9gQm_8@gmail.com>
+References: <20261005064133.7305-1-kmehltretter@gmail.com>
+ <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261012174300.2338784-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261012174300.2338784-5-almasrymina@google.com>
-Subject: [PATCH net v2 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: Mina Almasry <almasrymina@google.com>
-To: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Mina Almasry <almasrymina@google.com>, 
-	Taehee Yoo <ap420073@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
-	Kaifeng Wang <kaifengw@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d1ef135e-1b5d-4656-9229-348c7029efbb@leemhuis.info>
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+On Mon, Oct 12, 2026 at 10:12:02AM +0100, Thorsten Leemhuis wrote:
+> 
+> What's the status here given that 7.3 will likely be released in a few
+> days? Note, I can see from the discussion that this is a complex problem
+> that can't be quickly solved. That's how it is sometimes. But I wonder
+> if the current state of things is the best compromise for now or if
+> Rob's revert or some other option would be better.
+> 
 
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
----
- tools/testing/selftests/net/nl_netdev.py | 108 ++++++++++++++++++++++-
- 1 file changed, 105 insertions(+), 3 deletions(-)
+I think reverting my commit 143755bdabaa ("dma-buf: Make DMABUF_DEBUG
+default to y on DEBUG_KERNEL kernels") is the best interim solution for
+v7.3.
 
-diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-index ceb44c8e1fec5..bad230ee9dcd2 100755
---- a/tools/testing/selftests/net/nl_netdev.py
-+++ b/tools/testing/selftests/net/nl_netdev.py
-@@ -6,10 +6,14 @@ Tests for the netdev netlink family.
- """
- 
- import errno
-+import fcntl
-+import mmap
-+import os
-+import struct
- from os import system
--from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_run, ksft_exit, KsftSkipEx
- from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
--from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
-+from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
- 
- 
- def empty_check(nf) -> None:
-@@ -366,6 +370,102 @@ def page_pool_stats_ifindex_check(nf) -> None:
-     ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
- 
- 
-+def _create_udmabuf(num_pages=64) -> int:
-+    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-+    if not os.path.exists("/dev/udmabuf"):
-+        raise KsftSkipEx("/dev/udmabuf is not available")
-+
-+    size = num_pages * mmap.PAGESIZE
-+    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-+    os.ftruncate(memfd, size)
-+    fcntl.fcntl(memfd, 1033, 0x0002)  # F_ADD_SEALS, F_SEAL_SHRINK
-+    devfd = os.open("/dev/udmabuf", os.O_RDWR)
-+    req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-+    dmabuf_fd = fcntl.ioctl(devfd, 0x40187542, req)  # UDMABUF_CREATE
-+    os.close(devfd)
-+    os.close(memfd)
-+    return dmabuf_fd
-+
-+
-+def _dmabuf_attached_devs():
-+    """Return attached device names from debugfs dma_buf/bufinfo if available."""
-+    path = "/sys/kernel/debug/dma_buf/bufinfo"
-+    if not os.path.exists(path):
-+        return None
-+    with open(path, "r", encoding="utf-8") as f:
-+        text = f.read()
-+    attached = []
-+    in_attached = False
-+    for line in text.splitlines():
-+        if line.strip() == "Attached Devices:":
-+            in_attached = True
-+            continue
-+        if in_attached:
-+            if line.startswith("\t") and line.strip():
-+                attached.append(line.strip())
-+            else:
-+                in_attached = False
-+    return attached
-+
-+
-+def devmem_bind_rx_unregister_check(_nf) -> None:
-+    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-+    dmabuf_fd = _create_udmabuf()
-+    nf_priv = NetdevFamily()
-+    ef = EthtoolFamily()
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    ef.rings_set({"header": {"dev-index": nsim.ifindex},
-+                  "tcp-data-split": "enabled"})
-+    nf_priv.bind_rx({
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+        "queues": [{"id": 1, "type": "rx"}],
-+    })
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_ge(len(attached), 1)
-+
-+    nsimdev.remove()
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_eq(len(attached), 0)
-+
-+    del nf_priv
-+    os.close(dmabuf_fd)
-+
-+
-+def devmem_bind_tx_unregister_check(_nf) -> None:
-+    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
-+    dmabuf_fd = _create_udmabuf()
-+    nf_priv = NetdevFamily()
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    nf_priv.bind_tx({
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+    })
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_ge(len(attached), 1)
-+
-+    nsimdev.remove()
-+
-+    attached = _dmabuf_attached_devs()
-+    if attached is not None:
-+        ksft_eq(len(attached), 0)
-+
-+    del nf_priv
-+    os.close(dmabuf_fd)
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
-     nf = NetdevFamily()
-@@ -379,7 +479,9 @@ def main() -> None:
-               page_pool_check,
-               page_pool_dump_ifindex,
-               page_pool_ifindex_leak_check,
--              page_pool_stats_ifindex_check
-+              page_pool_stats_ifindex_check,
-+              devmem_bind_rx_unregister_check,
-+              devmem_bind_tx_unregister_check
-               ],
-              args=(nf, ))
-     ksft_exit()
--- 
-2.56.0.385.gd3acb90ef8-goog
+Christian, Sumit, could one of you apply Jianfeng's revert before the
+final release?
 
+https://lore.kernel.org/r/20260926022026.10539-1-liujianfeng1994@gmail.com/
+
+Thanks,
+Karl
