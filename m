@@ -1,141 +1,130 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282D631E84B
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 04:47:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637DE393DF1;
+	Mon, 12 Oct 2026 06:27:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791780452; cv=none; b=WATQ6LP7fhQjh/HM2+VA/1n5VJzLnnaAAgVFCMTuZFzZqF5wJVoT5JFNCAwa4auNCH0VTpAC+hKWNlW1gGQldtOjK1WJ6MQssOtWndAEn3updE4/y4C1m7zH5aUwXAlqn6Um1lYHewXWY1XwMcmjT29BeNDpgZpLRfzUJi/I5bs=
+	t=1791786439; cv=none; b=GmyxvWZg4Sj5qRN2L7gRw+4rSRPveeNlPbD+hqZU5SkJSzMNYe+2yJNKYAKz71+9tZ9SCJvz4Yi7IOZ/H5++Y2WVfh8kr3k1a2ow2arSFH0OpHeE7Mt0dv4/g0mc/5EkdVdBYv4bS6eosZfCiCXzeZbzE7y02+TkcuNGxzlMRVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791780452; c=relaxed/simple;
-	bh=rHZ3blwmnCwtQE8g8vuh+GnhZEPjJ38mSCnJsVHGq0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PGVPK7NeSQIsQhU/Hozq7dUvMGCgKmH8vkuo1df16A2ZB+4yIihkUA2IckTBCY/A2/ZAVNCo788EchmYylSJYEq0AA/8V4Ud6q/WkQ7Cu+gB3RQWjXCXIedczRrNhEMp4IFlBGRb9WTrUVDqTyN0ErqCFqjCgNGOtotm+i2z5OQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OgLb3cIr; arc=none smtp.client-ip=209.85.219.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791786439; c=relaxed/simple;
+	bh=yWb5bwltfss4zISB8mgE9EbcfqTnGziOD4w5WerLJi8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BwOCshda8UQ+TupuYMm2E2Qd9fI8reuOYUOWTmtaeRLk5G/P4AH9CTo6Jb85b8CNRQr3S4NVjVALO1+n8Nyk4lAQfA9BCC4SZMIQrZoyhZ6mc0QOdw4WpynMxsl8qZugZvdXpLXgvq4h1k3fNKP7rjdupZkk62oTvUEXGChIQj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIsYZJYD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OgLb3cIr"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-917a9f42283so18561876d6.0
-        for <linux-media@vger.kernel.org>; Sun, 11 Oct 2026 21:47:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791780450; x=1792385250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pwHcr7X/ONR4Ul02KZqQ9Bn6G0VNj5fx1pck5G2EhHI=;
-        b=OgLb3cIrul9TRAghF8w2FppoB88m4wDGTQT8OBsjzxa9JUW4WgQVCFZUTC872/M6+M
-         wrbWHkTym3mjfLyjP2UKsa/XCRggTVehekziJnuDxa7gjGK1Q6BkSP89LMlrD1bvGyVc
-         PmLSMhRlnmDsnct5+YTiJqrhR+pREze/VtRRamLBOtT3s/ed6O1sC0xQMtHgHMKmonts
-         Pqtw1cx/kf/5E39QV2DsFevlrRqooBPXJXmNwimnQZ7HLQPBvTDeBUhnkfMT+q5Aqc7V
-         YP0g8cA7tBvo8e5zMV2VFGiKdSSDNxmH91+1EyKSo4/zh+051qMad9SBN10aRUuRtBMe
-         NiKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791780450; x=1792385250;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pwHcr7X/ONR4Ul02KZqQ9Bn6G0VNj5fx1pck5G2EhHI=;
-        b=uQLfUZmDE6h4KQ1Wt8hp/Qe9IRE8wc/OtS2pAXAVxgMFICsNdeH5BAqeLn81TJNwFH
-         3sOj6936bOdJaV6yuerr49GMU/S9hssH5HTmLnEYVBm297W03rjgwBuvJlFxtrHQaya6
-         p+bINkT+eKaAeDgLyRKinXcS4QziGqXJgoVc4/sQ280586qrQfJALUl/QD2DRnyJ8qpn
-         24wNmpx/ytGsOYcm4GtwICvlYxuS+uuMvR6aCmdBQTjTSQqJDHjNAvZEwhOasuhGkVY5
-         MA+HLzqdU+W7y5vrsitHIMocl4LrhM7hmmaWS8sfXLjpIxLySpta0q1vY80zMRhsh5pI
-         3N+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ+dOsZUAc4yXnSypd2mh4SOC2zzI345lbqX5qImDWM73iwY93qzIG1Imgps//izMm2r2X8KDTXpnvrg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhu4uDciWqWO6yUGkIBYr6+5jmJaIysKjZ98YYBTmy6XPcaRsc
-	mIJxGRHgAmbnc92oiJaWbHBCOrg68w5iz791FXxnrnX2Ki99b2NtlC0=
-X-Gm-Gg: AYBFou1TMIUB22AnARauugS6qyt//1DexN6Ck42rak82q7B8f74y0ZlI5jHw9lpeSd3
-	SRF/5GFB5EzUU//LExjGi32WTMTiXKD3M52QxW2Wo8t2oEqIeY6/fqfI180QX0L73/+HLkzpPEl
-	HbCg5jicz4E0IqSxyWvZJ6PecmrxF199r2E/ZhQjXW029mfX/rEicxIbAd26e/MRTKuyJ88wFk8
-	YrhuE/vBFzyP5zM5oG7Xd9lUe6iWVsD9T7pH+XQilc2eNEcua1ci2fpgnIn7nGY2trIb7s68b7B
-	/vFQ8zGbF9h3qekgFgmuqdUNUkzJlnzevjGxoxaGB9vWSCo2O+whTtzMP6ho7UTFX/pk76xwefv
-	xqATgRhYhRZEuwu9h5/HtFlXKfjNn0E0v2LB8hRoN/xR+H4KiZu6Zcg9zsmtYiAKnfToH/napBd
-	J+VDW//92DTbLx7taOkq46v9BE4HKjtHXIiRYiXLRhmGVjKxSP0u5Msnw41L4q7uiAqcAJ0pn4Q
-	j/lle9racoLVWhyQDXCcr/A8YF5T1PNWECmi4ngzTaiTYOUHQUpdTwNViVCi67yX9n65XNm775n
-	bkdUrh/pWncex8xy9sp33kEmbACmiA==
-X-Received: by 2002:a05:6214:85d2:20b0:91b:5e33:9858 with SMTP id 6a1803df08f44-91b5e3399d7mr99215696d6.54.1791780450035;
-        Sun, 11 Oct 2026 21:47:30 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b812ba8c7sm17513956d6.38.2026.10.11.21.47.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 21:47:29 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: atomisp: drain assert recovery before tearing down resources
-Date: Mon, 12 Oct 2026 00:47:24 -0400
-Message-ID: <20261012044724.160902-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIsYZJYD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 509791F0089B;
+	Mon, 12 Oct 2026 06:27:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791786438;
+	bh=3CseviqKwc3wAzIvwt9NHYniqDq3QffXVJkcA0Kx9js=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JIsYZJYDCoFa3Pon8+Oc1DTFqd09qDtMwHcMf/lV4SARJXBu2x5tNlQmbxr8lqnwF
+	 nLnbZPBn9oeKRTreqP74ML7MemI/rTwrQRnagjtkhiZVw1ugPeNb6SQKgpgLYMiJHp
+	 sPSgtAdu6NymWXLHJ38MHt3Avxfm6A9Gd3NHsgIbgURJY7UFxQD2TKXIA46P1QRutL
+	 t+CcwG6rOX/1ojcKfvGmgmTVx+Qpq8k0BCt1gurJO/Sd7jBssGjMekZIGmPZQgeS8L
+	 0I3Bs8jjFwy21xDzbQLGM+WUS7YLDuq5fCJxKsmRe+iYSd6BCRhB59PE/TU3bEM98m
+	 dspDIcYK5+axw==
+Date: Mon, 12 Oct 2026 09:27:13 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
+	Alex Mastro <amastro@fb.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Longfang Liu <liulongfang@huawei.com>,
+	Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v8 3/9] dma-buf: Provide dma_buf_set_name()
+Message-ID: <20261012062713.GE27033@unreal>
+References: <20261006193643.76330-1-matt@ozlabs.org>
+ <20261006193643.76330-4-matt@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006193643.76330-4-matt@ozlabs.org>
 
-The threaded IRQ queues assert_recovery_work, which can stop, reset and
-restart CSS. Removal currently tears down CSS and the CPU latency QoS
-request while recovery can still be running.
+On Tue, Oct 06, 2026 at 08:36:31PM +0100, Matt Evans wrote:
+> Allow exporters to set the name of buffers, during export or for
+> subsequent updates.  This is useful to express buffer-specific debug
+> information, indicate state particular to the exporter's usage, etc.
+> Only exporters and userspace are expected to set names; it isn't
+> sensible for importers to do it.
+> 
+> Originally, the static dma_buf_set_name() was used for
+> DMA_BUF_SET_NAME ioctls, taking a __user string parameter.  Export
+> this function as a generic set-name helper, taking a kernel-allocated
+> string.  The SET_NAME ioctls now locally duplicate the __user string,
+> and use the new function to set the name.
+> 
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/dma-buf/dma-buf.c | 84 +++++++++++++++++++++++++--------------
+>  include/linux/dma-buf.h   | 16 +++++---
+>  2 files changed, 64 insertions(+), 36 deletions(-)
 
-Disable and drain recovery before atomisp_pm_uninit(), keeping the IRQ
-available until recovery finishes. Then release the IRQ before CSS and
-firmware teardown. Apply the same ordering on probe failure, and skip
-the uninitialized recovery work in PM-only mode.
+<...>
 
-This issue was found by static analysis.
+> @@ -577,8 +549,19 @@ static long dma_buf_ioctl(struct file *file,
+>  		return ret;
+>  
+>  	case DMA_BUF_SET_NAME_A:
+> -	case DMA_BUF_SET_NAME_B:
+> -		return dma_buf_set_name(dmabuf, (const char __user *)arg);
+> +	case DMA_BUF_SET_NAME_B: {
+> +		char *name = strndup_user((const char __user *)arg,
+> +					  DMA_BUF_NAME_LEN);
+> +
+> +		if (IS_ERR(name))
+> +			return PTR_ERR(name);
+> +
+> +		ret = dma_buf_set_name(dmabuf, name);
+> +		if (ret)
+> +			kfree(name);
 
-Fixes: 93d3fb35aa10 ("media: atomisp: Remove watchdog timer")
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/staging/media/atomisp/pci/atomisp_v4l2.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+<...>
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-index 812230397409..768b35468380 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_v4l2.c
-@@ -1443,9 +1443,13 @@ static int atomisp_pci_probe(struct pci_dev *pdev, const struct pci_device_id *i
- 	return 0;
- 
- error_unload_firmware:
-+	disable_work_sync(&isp->assert_recovery_work);
- 	atomisp_pm_uninit(isp);
-+	devm_free_irq(&pdev->dev, pdev->irq, isp);
- 	ia_css_unload_firmware();
-+	goto error_unregister_entities;
- error_free_irq:
-+	disable_work_sync(&isp->assert_recovery_work);
- 	devm_free_irq(&pdev->dev, pdev->irq, isp);
- error_unregister_entities:
- 	hmm_cleanup();
-@@ -1464,15 +1468,19 @@ static void atomisp_pci_remove(struct pci_dev *pdev)
- {
- 	struct atomisp_device *isp = pci_get_drvdata(pdev);
- 
-+	if (!isp->pm_only)
-+		disable_work_sync(&isp->assert_recovery_work);
-+
- 	atomisp_pm_uninit(isp);
- 
- 	if (isp->pm_only)
- 		return;
- 
-+	devm_free_irq(&pdev->dev, pdev->irq, isp);
-+
- 	/* Undo ia_css_init() from atomisp_power_on() */
- 	atomisp_css_uninit(isp);
- 	ia_css_unload_firmware();
--	devm_free_irq(&pdev->dev, pdev->irq, isp);
- 	hmm_cleanup();
- 
- 	atomisp_unregister_entities(isp);
+> +int dma_buf_set_name(struct dma_buf *dmabuf, char *name)
+> +{
+> +	if (!name)
+> +		return -EINVAL;
+> +
+> +	/* dmabuffs_dname() won't use the string if the length
+> +	 * (including terminator) exceeds DMA_BUF_NAME_LEN:
+> +	 */
+> +	if (strlen(name) >= DMA_BUF_NAME_LEN)
+> +		return -E2BIG;
+
+BTW, in-kernel APIs generally avoid defensive programming, since it adds
+overhead for checks that callers are expected to perform. The caller is
+responsible for ensuring that the name is valid.
+
+Unless you're writing code specifically for out-of-tree use, which is
+also contrary to kernel rules.
+
+Thanks
+
+> +
+> +	spin_lock(&dmabuf->name_lock);
+> +	kfree(dmabuf->name);
+> +	dmabuf->name = name;
+> +	spin_unlock(&dmabuf->name_lock);
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(dma_buf_set_name, "DMA_BUF");
