@@ -1,157 +1,219 @@
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020092.outbound.protection.outlook.com [52.101.227.92])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CE7486E7E;
-	Mon, 12 Oct 2026 12:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.227.92
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806767; cv=fail; b=rpX+nYZRDi81PjhOIfU9FtFULR7QIDsY+DB4SdWWJMrddGtBi9CbdHkMVlwKFY4ak1FZTqm57Jt+QiJMknom5arahjTA/KbF213B3G+DzIyTOK3/L94+3gmjBsW7Hiy0VJbLhl7zICM6GdLd/gjumOouj7A98BP2scH9NXc3qgM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806767; c=relaxed/simple;
-	bh=YP6urko9OM0M67guE0P5qm5gU7Ofc9Ggr096FqnEvUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VsM50+J7nPpUjf+uoem2BkHU/NIJibx/TfewE1BeyUOw1TPyiOHLVNdf7be0e52Ix6mVJ9Az6t5mFSUG824vtK9pUlkoZat79B0FJtJ26oNEsbVJfD/IHhYLiGVTKYTfh5uGsQ2qOaNqNpSZ/DkPi4yqNftpuTjMzKIsMnAjPPA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.227.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uQECVY/VR1XeUa2LxMOtVEBpgg8ZfGrkZZwu7Eb6uAlhx+TZZt2z4qfjnmPMVCLW2CWWbsqzYtp/NP27fnl24av94mCWywogvV/2cQNiK/1hi5TSt/th3MFJiWNPl68qCY+XydpmfulQ8szA6AYR6H6f98M/ftrOAhzYbkUE7mZ3Ge3EmexyuaZm2RvQe/uGqFgF3pSfq5QcLLMOtTOBF3ASWwffzn3pF2pteMvZs4ERqvDhjpAKWFZIdNEXMuzienCe7KevVCQPuOInXd1OILqVci5HXb6B9i28lvwFOISjBqnJMgljQ8rFHTGPJnEkRwVByXllp1H1bsygwQWjqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x4GJbBCEfmXaCiEOxCF/3A3nvzFaU9cEREPVwIQyB80=;
- b=eKlhi9RLAw1C1Bu5GpEOI2s1F91RhMZpaIxtm5pouhyA2UUDPPgA/FcRtGdapvNfZhVLWYDOLuC6SK56rGch5i3God5eCPUbi/BdYMMW/cYvWYRxfwV04bqNlzhm3cZxgVX6CChGch8VdKhPJi7ZGCn/SWy6mAiJsUh1wdBo6OlAlfW4ZrCgjRqpWjmc4COtp+WWd8bDbNF0NcijiIGc9EnbroxtP2wPG8dc12Ov6qT6yGV2dJ5hWcjDnKaJv1Mv8psKljS23aMGBI1O69+0zSBnvTaAkVsY3MTrBUo6kfezYjvEla4n2FUtNkN+p84Jp8IbU5PahfvDzEHbBldjwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::104)
- by PN2P287MB1987.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1c2::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 12:05:56 +0000
-Received: from PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
- ([fe80::3a7f:fb1:6998:b89e]) by PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
- ([fe80::3a7f:fb1:6998:b89e%3]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 12:05:56 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com,
-	bryan.odonoghue@linaro.org,
-	bod@kernel.org,
-	mchehab@kernel.org,
-	vladimir.zapolskiy@linaro.org,
-	loic.poulain@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	atanas.filipov@oss.qualcomm.com,
-	jigarkumar.zala@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com,
-	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v4 3/4] media: qcom: camss: Enable the streams API on SC7280
-Date: Mon, 12 Oct 2026 17:35:41 +0530
-Message-ID: <20261012120542.1140157-4-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012120542.1140157-1-hitesh@ebytelogic.com>
-References: <20261012120542.1140157-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0057.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:23e::26) To PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::104)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E083E47887B
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 12:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791807631; cv=none; b=MMpPSenO/iMeVAJwL9K8HkVoSvrQea0nS7MTpb56lwnf3qTJmP5vtg7uwrxzOivMldxpzhFZr0Pzfbg3F04o83HxPH+knOfA0GgTI3PLPhfxXQE3NSwfcOiBrrPgp1smh9/JuXvZ2E5b9UNfsz3LzDIbIqnHJUkFKeEeBdiUmn8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791807631; c=relaxed/simple;
+	bh=FAE0h41Iyi8gh+VjC0qignrE6e4V88txlX8Sb9qoZw0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R5G7kXferjPC5eipXfACuuvWoSteAFE3+RTxXyq2Rcjj+RS1bOKx5ljMIg2FZaIdb+ycanTuqvzqTdZS1Px/g+HoxvC8Cf5633MwqP0x5rS30lVqlnblNuJSOsrCGFUaQzdXUZGDJSHl+Ul8rf1fIMeqe5r22YN7W8CwlPdI5y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dI2pny4j; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dI2pny4j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791807630; x=1823343630;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=FAE0h41Iyi8gh+VjC0qignrE6e4V88txlX8Sb9qoZw0=;
+  b=dI2pny4jZw6C2K1hPcIR1QpVcjdpYPtbzyoDZg6WhH2s/ZSyzbW2Uvo0
+   mI1ZBVFFNnE6/Yp+grMjGW7r1+GnvGuyGk5pGvds1koqeFoqfNxn/q0oF
+   44FtXuHijVoz8J8/i9XqHTAgELYtfFbCFRdzmiHBucZNJxjp2YopOxKK3
+   wiD3oZsUSqv2pXQPGCQC5gEy/iCe5pfgTecdBkSOOUyk6XijX5OJandOz
+   r1cdIeUO0KuvRhE8osG38w2z0xgCyGSZMKuQ/JfWsKwsxnvtQ5floPdYc
+   4zlKREXbhlxtLye+0x5UZIjhtFtn7JY5SNAFo6j0W4Xop2GMo1IIJfMP9
+   A==;
+X-CSE-ConnectionGUID: FPfxNbK2STa1wn7uqpx3Vg==
+X-CSE-MsgGUID: bawLX9P6SWO+Os5jvRt8/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11932"; a="388835"
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="388835"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 05:20:30 -0700
+X-CSE-ConnectionGUID: LgH91KESQq2gI3LavEJnZg==
+X-CSE-MsgGUID: aoBVz2hqT1ie8fAsuRkYwA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,153,1787036400"; 
+   d="scan'208";a="1212781"
+Received: from sghuge-mobl2.amr.corp.intel.com (HELO alaakso-desk) ([10.125.109.157])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 05:20:26 -0700
+Date: Mon, 12 Oct 2026 15:20:22 +0300
+From: Antti Laakso <antti.laakso@linux.intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, "Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
+	"Bajpai, Manik" <manik.bajpai@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	"Sapre, Sarang" <sarang.sapre@intel.com>,
+	"Yao, Hao" <hao.yao@intel.com>
+Subject: Re: [PATCH v2 5/5] media: ipu6: Return errors from stream stop and
+ close
+Message-ID: <aszQhtZDu6KDrt5C@alaakso-desk>
+References: <20261012114002.3970409-1-sakari.ailus@linux.intel.com>
+ <20261012114002.3970409-6-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN2PPF076CDA63A:EE_|PN2P287MB1987:EE_
-X-MS-Office365-Filtering-Correlation-Id: c60e65ad-6e45-4c1f-8601-08df28592bdb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|366016|23010399003|1800799024|10070799003|56012099006|18002099003|22082099003|261009223027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	u39gM/G0K1wIm7wcTSZZK4yccPOApOgT5PHyrdwrEgsl0PkbefWb1Ic316tngLDiLlj1YQ20NX/VXQkxlCMQyF6DgGrDmSl/CGbQXhFCINNtv3Ck6iRMBm6B9YYS8pMUFn0rQfbM0ZxlVAT7Wp0yBqR2asmh8H5FD8kl6VL+mIokDvsxJrotb6Q+RiF2z1EnB/z7rLerBsG1IvlHju1+6b7oDvUsCUOoYDuA6HWBqElX3ob+m+aSGy1oEveSZjSt9+MMWGcr36SdT9dBRTdrJ0LYGXsFArDoG94AxJyL92HSY6selRmQ9k0kju3/1ZRxO38Dl7Hvk+P5Uz8qzLbvCo4iH/2N4sH0knG93D/dD6OC0d9kR5X2Zu4qmsXwCzxhNb6Qe7qd2NoK8kS+WlrHUhhzez97cRQkSd0j6VOuFZi088EmtetJejRGueBhEM1y9B2LsMw6G8+dMWXagdYjzpaiUbDfGg8hefDAOiv415DRC3q1YugMkGXmWp58dLVfVPH8zXQs8tm6Nsf7k6zBkOdhOfPYJlm11AIyBQEvtTnGkwvNb9GWABnZ0XjEfpc864v4NjsSd9sODAeiOmaJmGPM9U1yg9QgpPdIShf1JZHElV1FfEF2aI0ucVHzLH4dOREdajGsUwtFx2ZbuMcSZrXiwYbk7FXXcXJPN1oXhtA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(23010399003)(1800799024)(10070799003)(56012099006)(18002099003)(22082099003)(261009223027099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7Xhyzj21ToZT24RU8opzhDXZXKY0xZz0V5JjGAI8yUXr8CIqCqTJ8fxSX3r+?=
- =?us-ascii?Q?7rsf5zumQjEJqOWA9OXNLTkQsTrWEeSF7UQQOIHjQxAnBQ5zD74TFmQPJ133?=
- =?us-ascii?Q?MtG4NC8O13sFEFp+I1GXKPvT60vSxNXpYsUWEzcSFsF/T0qVyo3dY7LU+kJ3?=
- =?us-ascii?Q?mAyu6FD5Q+chDqscN117754hYH9dMWT/k13o3FacGfOcNS6wcL1V4HnitELO?=
- =?us-ascii?Q?RRROy2UPsClOoz6Vhj9FNZ7Eqj1xQNoSS8Q5sSNzgJElieJOIaPCxToQkExW?=
- =?us-ascii?Q?u0gf25+cLrxOdL8eNI0CeY4HNjnmtdoKRuHoLQhIXB9O8HJSKxuH6DXlKDBe?=
- =?us-ascii?Q?0ABg7IVj/bVNI2C9txhHU+Fki/UHjajxsCzM0jdKYlUQ79wnOrMW1DPi/VhE?=
- =?us-ascii?Q?UYx0TGuLw2tdKUU4nmAD1qOMMgwV2GaF+ZtyJvqONeawzRB/B7z8zX2kAWhK?=
- =?us-ascii?Q?QdML3/uPAkAYEL4Zu9EhK5pmNW8XF1e3W3yM9oy+GoCoOeHtO5dMeQm/xSwb?=
- =?us-ascii?Q?Lt5389iX2kG9MZSFhP7VRPqgtmVK1IBLWl0iNXcnQ2xFV61pLiZfQJTtV4Ak?=
- =?us-ascii?Q?IOA+o0v83ij4YLI1Q+FCMetzoEob3RynGpsftZURDWlMJCJMtFuDzYNnT0IV?=
- =?us-ascii?Q?4KlVp35OCqOiUWFheK3D6NmtbVT8iwAGTkz4AgxNjQBWTvbjmM6mZ76gBb/x?=
- =?us-ascii?Q?vESwlV6qnHoXfSgPxRotget/SPp2g6ZaiJhHvIRaCjWJqQEjFoINrQ1/FcrH?=
- =?us-ascii?Q?phjUA0H0/E9CNqrm/PBq8+vfwsQEzwyGuWaeSGAi0E+4DquiyPJt46as2A6i?=
- =?us-ascii?Q?iVo4A+YWaUM+zK2TywNA/CSpNhZjp+3L5GBMPXVAPiM0GSs4iyGJ7VGM4vS1?=
- =?us-ascii?Q?oxkFLbBYuZP8w6FgbCMTVUT3XWrG9rLc8ffHojymxB+iAgHIWKzSec9l4UFK?=
- =?us-ascii?Q?LGLL6I7Nt7D/nATyQj0McWhv7CpcCz2GSnIvSW6ZBFCwZc0qdbsxh2TK4pQ5?=
- =?us-ascii?Q?+PPGlPSOxtF24XDBRdVivxsv93OBeRVdeMjzwzHuc3lvWQD4Bmb4cEATDRU1?=
- =?us-ascii?Q?Msr3JMaP73v4n04JW4622b/q/CHplUA9AueJ52+floKs6ASTEug5zLp3MgoD?=
- =?us-ascii?Q?C5kISVbb7yaHDA0GcjiHGFwaC8oKKgnIgV59rL6MoEaprrEJL/wZeBFUlZM0?=
- =?us-ascii?Q?hw7jVMiung6kyBPdB9OIW5snD/2KtMeaJRHwo6JgQ4auv9o31UWDW8GeROeO?=
- =?us-ascii?Q?lEhhcshgxh0JUY2hIxd1oH8SEBomc7dX/0ccodIYWF1kwqkoRWg7bSJY9cQ+?=
- =?us-ascii?Q?XyvT/y/Zh/90liTL7oQk83dwbIdlKipUncQT1PVPfSKcUJm9q3TSnNU51/9O?=
- =?us-ascii?Q?vWoBg1VXJa8WF/P59vEKIGdo4dFA2uDvUFMnolP6jDnEvNAR5/YNdGkM+GAT?=
- =?us-ascii?Q?2uUIiTvAwyx8ghdc3v63B27bJSnFiAe/T559P43X8NX+D+TPFNKZo7hoBOTa?=
- =?us-ascii?Q?trM0R8e0pw7uZv9asjbB1X3hf7sWameEyroU/pHS0BJ7xHoZL6LpM2O7W/b7?=
- =?us-ascii?Q?khaN7HaxLY4YhwB1MntN99o++oRTsfbIAfJJMgUocgKP6+1VP7mdkri8WNHQ?=
- =?us-ascii?Q?P452+01g1s0Lu/pzIxQ1VLk5aooSBZERxCXYpKhZZHiY5xWDRdJ34iM6CTeU?=
- =?us-ascii?Q?JjsueFm/mfo03loKuGz/YVj9B+T6y8vMmT/J1IJrVCW+80OHaAIGFKw32Dpz?=
- =?us-ascii?Q?A8DJtFtUfMhYlQZxYMxu6CesfdRGr7cFPCa8LY1n9/ukIj8gQ/nQSD1c5VPS?=
-X-MS-Exchange-AntiSpam-MessageData-1: NeEQHFZ+lu5/sg==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c60e65ad-6e45-4c1f-8601-08df28592bdb
-X-MS-Exchange-CrossTenant-AuthSource: PN2PPF076CDA63A.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:05:56.4917
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e7gPtZi11o+4+vYwm9y5HtbcYWy3YMdgovbC0J1JoWRjYHvLX96tkUcJ+AKT7sowYVW/tJoKZRZVlUa121P7dA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB1987
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012114002.3970409-6-sakari.ailus@linux.intel.com>
 
-Tested on RB3 Gen2 (QCS6490) with two GMSL cameras behind a MAX9296A
-deserializer, one camera per CSI-2 port, so two independent pipelines
-share the deserializer subdev: both cameras stream concurrently, and each
-can be started and stopped repeatedly while the other keeps streaming,
-without the WARN in call_s_stream() and without the second pipeline
-tearing the first one down that the legacy s_stream path produces. The
-CSID test pattern generator keeps working.
+On Mon, Oct 12, 2026 at 02:40:02PM +0300, Sakari Ailus wrote:
+> If the firmware fails to start, stop or close a stream, either by telling
+> about it with an error or due to a timeout, it probably requires a reset
+> before being operational again. Mark isys needing a reset in such cases.
+> 
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  .../media/pci/intel/ipu6/ipu6-isys-video.c    | 55 ++++++++++++++-----
+>  .../media/pci/intel/ipu6/ipu6-isys-video.h    |  4 +-
+>  2 files changed, 43 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+> index 44541aff79b3..799a4be3160b 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+> @@ -543,25 +543,31 @@ int ipu6_isys_start_stream_firmware(struct ipu6_isys_stream *stream,
+>  out_stream_close:
+>  	reinit_completion(&stream->stream_close_completion);
+>  
+> +	scoped_guard(mutex, &stream->isys->mutex)
+> +		stream->isys->need_reset = true;
+> +
+>  	retout = fw_ops->stream_close(stream->isys, stream->stream_handle);
+>  	if (retout < 0) {
+>  		dev_dbg(dev, "can't close stream (%d)\n", retout);
+> -		return retout;
+> +		return ret;
+>  	}
+>  
+>  	tout = wait_for_completion_timeout(&stream->stream_close_completion,
+>  					   IPU6_FW_CALL_TIMEOUT_JIFFIES);
+> -	if (!tout)
+> +	if (!tout) {
+>  		dev_err(dev, "stream close time out\n");
+> -	else if (stream->error)
+> +		ret = -ETIMEDOUT;
+> +	} else if (stream->error) {
+>  		dev_err(dev, "stream close error: %d\n", stream->error);
+> -	else
+> +		ret = -EINVAL;
+> +	} else {
+>  		dev_dbg(dev, "stream close complete\n");
+> +	}
+>  
+>  	return ret;
+>  }
+>  
+> -void ipu6_isys_stop_stream_firmware(struct ipu6_isys_stream *stream)
+> +int ipu6_isys_stop_stream_firmware(struct ipu6_isys_stream *stream)
+>  {
+>  	struct ipu6_bus_device *adev = stream->asd->isys->adev;
+>  	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
+> @@ -573,20 +579,30 @@ void ipu6_isys_stop_stream_firmware(struct ipu6_isys_stream *stream)
+>  	ret = fw_ops->stream_flush(stream->isys, stream->stream_handle);
+>  	if (ret < 0) {
+>  		dev_err(dev, "can't stop stream (%d)\n", ret);
+> -		return;
+> +		return -EBUSY;
+>  	}
+>  
+>  	tout = wait_for_completion_timeout(&stream->stream_stop_completion,
+>  					   IPU6_FW_CALL_TIMEOUT_JIFFIES);
+> -	if (!tout)
+> +	if (!tout) {
+>  		dev_warn(dev, "stream stop time out\n");
+> -	else if (stream->error)
+> +		ret = -ETIMEDOUT;
+> +	} else if (stream->error) {
+>  		dev_warn(dev, "stream stop error: %d\n", stream->error);
+> -	else
+> +		ret = -EINVAL;
+> +	} else{
 
-SC7280 has no camss child node named "phy", so camss_detect_legacy_phy()
-puts it in legacy PHY mode; the streams path dispatches the lane
-enable/disable accordingly.
+Space after else. With that:
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
 
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
----
- drivers/media/platform/qcom/camss/camss.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2c9c4ce50..a9bd79ca3 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5760,6 +5760,7 @@ static const struct camss_resources sc8280xp_resources = {
- 
- static const struct camss_resources sc7280_resources = {
- 	.version = CAMSS_7280,
-+	.streams_enable = true,
- 	.pd_name = "top",
- 	.csiphy_res = csiphy_res_7280,
- 	.csid_res = csid_res_7280,
--- 
-2.43.0
-
+>  		dev_dbg(dev, "stop stream: complete\n");
+> +	}
+> +
+> +	if (ret) {
+> +		scoped_guard(mutex, &stream->isys->mutex)
+> +			stream->isys->need_reset = true;
+> +	}
+> +
+> +	return ret;
+>  }
+>  
+> -void ipu6_isys_close_stream_firmware(struct ipu6_isys_stream *stream)
+> +int ipu6_isys_close_stream_firmware(struct ipu6_isys_stream *stream)
+>  {
+>  	struct ipu6_bus_device *adev = stream->asd->isys->adev;
+>  	const struct ipu6_fw_isys_ops *fw_ops = adev->auxdrv_data->fw_ops;
+> @@ -599,22 +615,33 @@ void ipu6_isys_close_stream_firmware(struct ipu6_isys_stream *stream)
+>  	ret = fw_ops->stream_close(stream->isys, stream->stream_handle);
+>  	if (ret < 0) {
+>  		dev_err(dev, "can't close stream (%d)\n", ret);
+> -		return;
+> +		goto out_cleanup;
+>  	}
+>  
+>  	tout = wait_for_completion_timeout(&stream->stream_close_completion,
+>  					   IPU6_FW_CALL_TIMEOUT_JIFFIES);
+> -	if (!tout)
+> +	if (!tout) {
+>  		dev_warn(dev, "stream close time out\n");
+> -	else if (stream->error)
+> +		ret = -ETIMEDOUT;
+> +	} else if (stream->error) {
+>  		dev_warn(dev, "stream close error: %d\n", stream->error);
+> -	else
+> +		ret = -EINVAL;
+> +	} else {
+>  		dev_dbg(dev, "close stream: complete\n");
+> +	}
+>  
+> +out_cleanup:
+>  	scoped_guard(spinlock_irqsave, &stream->isys->streams_lock) {
+>  		stream->isys->streams_by_handle[stream->stream_handle] = NULL;
+>  		csi2->streams_by_vc[stream->vc] = NULL;
+>  	}
+> +
+> +	if (ret) {
+> +		scoped_guard(mutex, &stream->isys->mutex)
+> +			stream->isys->need_reset = true;
+> +	}
+> +
+> +	return ret;
+>  }
+>  
+>  struct ipu6_isys_stream *
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
+> index 2821b9b1b943..2ab6f32716ad 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.h
+> @@ -99,8 +99,8 @@ int ipu6_isys_fw_pins_prepare(struct ipu6_isys_stream *stream,
+>  int ipu6_isys_start_stream_firmware(struct ipu6_isys_stream *stream,
+>  				    struct ipu6_isys_buffer_list *bl,
+>  				    struct v4l2_mbus_frame_desc *desc);
+> -void ipu6_isys_stop_stream_firmware(struct ipu6_isys_stream *stream);
+> -void ipu6_isys_close_stream_firmware(struct ipu6_isys_stream *stream);
+> +int ipu6_isys_stop_stream_firmware(struct ipu6_isys_stream *stream);
+> +int ipu6_isys_close_stream_firmware(struct ipu6_isys_stream *stream);
+>  struct ipu6_isys_stream *
+>  ipu6_isys_find_stream_firmware(struct ipu6_isys_csi2 *csi2, u8 vc);
+>  void ipu6_isys_free_stream_firmware(struct ipu6_isys_stream *stream);
+> -- 
+> 2.47.3
+> 
