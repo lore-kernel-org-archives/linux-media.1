@@ -1,107 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C67E4BC007;
-	Mon, 12 Oct 2026 17:20:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D339A4BF95B
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 17:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825605; cv=none; b=HdCHhltu21Lgc1rnNtc/iHQbsURRs2tYHJlxaDF8U/dHWlx9geX5qDsoqukzmvLkS6DUoQJwILH0TijcS65ntMdDPovoQvIfq+HPckazTv5tPKXmo8HBmlDImmT15EXvawCb+pmiZpNaXV47MHN8lGZKxS2zoKUQv9k+qCHK7ts=
+	t=1791826986; cv=none; b=qzQJHN2DbO2LcV7xVmGGjsYW0R/cwTEr/SMWktvy4sE2RD53pfzEIdaHaI91Qx7NCqrT3VkrzLLnHimNC2WLSf2ZN8Mhc5HrdZUqGuZnqJR0PVzoy/22/yD4pOhpyShArr1zYT1Iu8dFinqDwV2QqJFZoQiR8+xEs6HEA3/oCLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825605; c=relaxed/simple;
-	bh=ReC683xLMLHgfyjyrGz2xE73qadaayonBN5dJNWSGf0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uTvuKP9JLNvxADuICOqItQidaHR7dl8LQGc4coZc56OjyDP1Bhldpr9e0CODrwPbJ9RQKJ+Z1O/p1ewM1j7jI7X+Nm91fs/WS8ULwEU807yX1AL6sNaU99hTgp1/w9+qJBcSLg6rCI/ZFvixjIFO/MUO/2225T1gFeR0fQAWAd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCZIeTx4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791826986; c=relaxed/simple;
+	bh=w09JRa+8f6pKEl30DKJQ5yMAIvWJUIEbrFF0HQcgelU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=e1yScp5DuMlIlrAeYBfqSrkc1v9N9d4IAIvnR/yuKm+qiyS4qD/h0QAijJIFJjfbdGFK+sQUE3FEa8ZihusVQSc61CU99jIDZAtAt4Pzs3rHnhk7cpKkei5b5haZCRQs9YydLllYvPugcZ0qN9D3k9L7Lyv+sbqnmpU3g+sovWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S1tBKpJZ; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCZIeTx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 195A71F0089B;
-	Mon, 12 Oct 2026 17:20:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791825604;
-	bh=/+kYat3Js03LLBNLv0RvM8p5SjFSuufv4UsSaTtr3vg=;
-	h=From:To:Cc:Subject:Date;
-	b=WCZIeTx48JYsbkqPJ8oGRb8Z6K0VhXDe7aglI7KhvjXQyj2HPezQGvCQXRlWz7804
-	 oE4iRPBXmYgyFKSCVRSoKRduwu69Gk+uz9eDqcPNFRnTgmAHK6GXE2iZsc6DlgcF18
-	 AilMXoUHzDoe82GDn6aFzLAZPLpa5waoW+EdBo1+cNL9PsrXc0kvTzlEp9bkw/p20i
-	 WG/QZabuOj+/PZjv2ozkwd2qRcRgRk5gxO3CaOuA2YAwsIBESkETY67uW9SejIjyhT
-	 zkqcFBLJrU73NjDg/vuLs8HWLVL2KDZqoxTc+PSPBKPg7GIBvaeCIWNEFuyd4ghqju
-	 J+xFKtK7Iv7Qw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	dakr@kernel.org
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: [PATCH v2] dma-buf/dma-fence: Mark two callbacks as deprecated
-Date: Mon, 12 Oct 2026 19:19:40 +0200
-Message-ID: <20261012171939.390365-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S1tBKpJZ"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-357e2bc3b1bso3769828eec.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 10:43:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791826984; x=1792431784; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3iJ1fd8MwlejaVJSs6HGpqE749ZNI8lIjAO4rDvQDfA=;
+        b=S1tBKpJZr1sPP7TTsVyb7vPFN9irDROHI8VY4dGfBMdrDkI13ajaqpywDiVMCojI5g
+         a2zkzWT/J11D7UoUGY70CZ2QL+UC6XttvWWd+12ubnQ5it7nHHNi835t99h+2Bv60uCW
+         PijLs/XZhWHmjeG55ASwpS5S1sfhy8/WfT3P7gm9Jlos0aMooA2u3xP7uXXrYfx2BBpw
+         HyQLBosSyD4OwxUvZHAWqpoB8OyQTNeSGDPNYd6Ddj/9uGG9E0BYJH6m22JUpk+9iGiM
+         NRRg4vbPJy7G0YI9E4VldTHbht7SWLayh0ytclnZOhvlzmbDFR0IyVzkSdcEs+DT1YsL
+         U7ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791826984; x=1792431784;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3iJ1fd8MwlejaVJSs6HGpqE749ZNI8lIjAO4rDvQDfA=;
+        b=0sI4qxikqlHUHBKUxTmodvvBFcRfaz+tn4no0thbWEpWuP+IakAIglBV9YUKlmkT0n
+         NlFK8RUEKZS5mFlB2O8aIz9eTyVcRKPqRD0EXsbkS8xFeoilNktMrnYQFrEuTolvvjSa
+         YMzRRVdZ1D/sQzQvehYt0TgM2zG/tiaUOb/TpfpzE0e9o4/3XbUwERz5p4kLPGwJAWVa
+         5rdNZbOxmn5DCl8syK8z6tt2CqfOMj8aTquzo4QZbdNMl13rC0ibRDg68ZlIK9covUrW
+         lQLr//Bt7+lpoRl1ubz1UDdfIdzCXyzz2LKAG7bV4lXHGP8RSenQyzorBGm0Jl136mGp
+         ajUw==
+X-Forwarded-Encrypted: i=1; AKwUvBwM6EkEkQEYYB4lfEf8RZB9cgrC7FJtXBBQ3Q0ACvsk/+tD/Yl/KPaLS3V/aVMfBEhe3wRYG2qrWu7jVQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLKJ/gUQhZjm0VRSKiwlypJn3FxHcVXraZMgh9idiVWRNoWBeg
+	t9ef5byU0xvmkPaCUfC/tCYvsN0lYN0TiawPc3hyPVBP2vUfCVYYCrRIKLCbGleGQxCF0F7/E21
+	bXgV78Gtk357/2Y+Dzm6HE61kdA==
+X-Received: from dybfc20.prod.google.com ([2002:a05:7300:3e94:b0:35a:6ed3:3ee9])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7300:de49:b0:35b:b3fa:40f7 with SMTP id 5a478bee46e88-35bb3fa4218mr1447041eec.38.1791826981179;
+ Mon, 12 Oct 2026 10:43:01 -0700 (PDT)
+Date: Mon, 12 Oct 2026 17:42:56 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
+Message-ID: <20261012174300.2338784-1-almasrymina@google.com>
+Subject: [PATCH net v2 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Mina Almasry <almasrymina@google.com>, 
+	Taehee Yoo <ap420073@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
+	Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-dma_fence's backend_ops functions ops->wait() and ops->release() are
-problematic because they prevent fence producers from unloading.
-Moreover, they can easily be implemented through simpler means more
-aligned with the dma_fence contract.
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-Since the declared goal of dma_fence is to move towards an
-implementation that supports driver-unload in all circumstances, we must
-prevent more parties from implementing those callbacks.
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
+   and unmap RX bindings that were already unbound on NETDEV_UNREGISTER,
+   preventing slab-use-after-free in dma_unmap_sg_attrs() when the binding
+   is freed after dma_dev.
 
-Deprecate ops->release() and ops->wait() and document what users should
-do instead.
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
+
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
+
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+
 ---
-Changes in v2:
-  - Drop confusing sentence (Christian).
----
- include/linux/dma-fence.h | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
 
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dd07d128adc3..388c07d11e70 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -220,6 +220,8 @@ struct dma_fence_ops {
- 	/**
- 	 * @wait:
- 	 *
-+	 * DEPRECATED!
-+	 *
- 	 * Custom wait implementation, defaults to dma_fence_default_wait() if
- 	 * not set.
- 	 *
-@@ -243,6 +245,8 @@ struct dma_fence_ops {
- 	/**
- 	 * @release:
- 	 *
-+	 * DEPRECATED!
-+	 *
- 	 * Called on destruction of fence to release additional resources.
- 	 * Can be called from irq context.  This callback is optional. If it is
- 	 * NULL, then dma_fence_free() is instead called as the default
-@@ -254,6 +258,12 @@ struct dma_fence_ops {
- 	 *
- 	 * If the callback is implemented the memory backing the dma_fence
- 	 * object must be freed RCU safe.
-+	 *
-+	 * Deprecated because it prevents the producer of a fence from
-+	 * unloading. No new users must be implemented. Parties with a
-+	 * hypothetical need for this callback can instead simply and directly
-+	 * perform their custom release operations one RCU grace period after
-+	 * they have signaled the fence.
- 	 */
- 	void (*release)(struct dma_fence *fence);
- 
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
 
-base-commit: 3e32932d3626d0279f9b3531bd648f8c0a16cb08
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  21 ++--
+ net/core/devmem.c                        | 121 ++++++++++++++++++++---
+ net/core/devmem.h                        |  10 +-
+ net/core/netdev-genl.c                   |   1 +
+ tools/testing/selftests/net/nl_netdev.py | 108 +++++++++++++++++++-
+ 6 files changed, 236 insertions(+), 26 deletions(-)
+
+
+base-commit: 4f6ac74fa594a918d41255c941256e1d51592d3b
 -- 
-2.55.0
+2.56.0.385.gd3acb90ef8-goog
 
