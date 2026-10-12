@@ -1,471 +1,100 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AD6F4A49A3
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1400919D07E
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:25:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791821614; cv=none; b=H0o9pl92CSvFaO1I46i+357z2u9pusAC7VfTQHUq9mRCJQfwAO8bldriXU5JccFErq2FWX3DnoH1MgrPJFsX34oeeBCcZUYCxIN/eMKS74QWmjYBDF4qHVJvgHh6KCM2tu+t7JldOfwkGg3AcmB6LXRI9jFfakGvgd8Fqw83zKA=
+	t=1791822334; cv=none; b=WR+mrHUaMzuMPmu9yie+fuyegntTyrdJ17QGaAdE1y8Co+4V3+7P9CwjUhVUMXwEelumXL44K+EHqInBF8HZM7rWDsm/jTFxMER77gTmJokBP8bl59f8DtcFWf6IQLUnSQMBWUQmNczscCIURlN/cPUCb57BZN7Brol7HS9ur8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791821614; c=relaxed/simple;
-	bh=mRVuLrRypkEWhO6R0jqCs1LjAdbCnuRcJMMG86l2Ptk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=mXIsZb6zQ9uucojei5u8pZK/eZ+24AWUoC6VKnPbL7fc8Dho83J00RoLNYf+rdf01Y/ykor8/6/wJ8SVHMJQqzxwPL4V6W19oXfL6dj0cDu6Yr9uX0Ew2grx5VKK2RsTFvNrtWy34ef1JLbCHnTTMzX2v50QLxUYiR9XdxUudk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--johnsingleton.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qpkCUdOC; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--johnsingleton.bounces.google.com
+	s=arc-20240116; t=1791822334; c=relaxed/simple;
+	bh=pOL139YSGSBhxrg6OYdc84Mp53cxmG4PuuXyHGtCwLc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u5ItuCZ7GH9kFXbAaekJPRf36oUrZJcZ3FJ2SVwCt58WrkONCXunHerG6jDRxduNR485WNMJoAjl09/Ue2YxH0GQfiRSXJJ9dqrPxJ4YWDzUHdh82R/BeNPm78Lchf3/3JhOV9ZvcvxOzePMl/AiSW5em6iXwEvq7Q8LGiM3t00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=w5Y6fXaa; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qpkCUdOC"
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab8b4887d4so1727147b6e.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:13:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="w5Y6fXaa"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917a9f42283so24776856d6.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:25:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791821610; x=1792426410; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hcHBR6w/r+iCaRB31VpskZaNfVjVZKluZi2Tp8yT4OI=;
-        b=qpkCUdOCkCbMe7yuxSrjOQnPrdR5JPaOrXGk4UfomJk9QEiC7ZSXpeUll2edoBpAMa
-         aaihCs+AzlfUsP1rIaxFRuA4dv9hR8F+yVFSsnkfNAhJS/+9/nJjtkNo4tTZTnPkkT7t
-         RfU6TaqkOvxvktFFcIrOZvd/bGf3qXw3KC0py57sTan5A9le7MqureyW8Ch1rtz8gnuZ
-         64dx66sHOr7YfYDHRz11t5IMEOonVhN1U9cTFcxCdrV0TZ1VlBmG5uGoDPF/08yXKhdy
-         yvxBkjxY0apfve8jAapnzuV2LiQE3PdVpwAYIfFQHXjsMVmOZ/xwQuNlLAGz//97Vq/+
-         fikg==
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791822332; x=1792427132; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pOL139YSGSBhxrg6OYdc84Mp53cxmG4PuuXyHGtCwLc=;
+        b=w5Y6fXaa0UzM5PJUoxjjNU58kOaOSh7lfM6lGAXrDCliWuctBRyj9GTflFiSqvMhCv
+         tpx3ho7BrdG6qdLEU+QNloaOYPMuFfojWURAXqN7ecfO2ZOdQpg+BH/ZTQQZ+jBA0jAM
+         ACz1rKkiepVTZBUuc+N+OZLTQjRzO8xq8Ht+7dPaaGGQDPTDwJEF+AL0Rnc0Z8rfs+UE
+         ijouBvavCWeQ8GgZk+pbx9S/oKd4v3NSvmLE3piiHhAqIbAB57SXEIP7sUryISl12L2S
+         zdL5mwnJ1QRkqUCpQwMZu6AdRVA1xMFiLHoYulaVAZv5w9thabb2YDPb4Uku+PMEM8TO
+         mgNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791821610; x=1792426410;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hcHBR6w/r+iCaRB31VpskZaNfVjVZKluZi2Tp8yT4OI=;
-        b=VEK/FDTMWYg2gd9KGU7kNqx2NiPr/vKzR7ZhIMGg1xDflqBniVL811OdCGwge9IX/O
-         i/1OkWqvr/UacQzj0+jdCTI3y7zQDKP25y4wQ5qBPjSnT+2vDHwtz7158k3ZfEp45a5v
-         CJgpsDjRwjWIPapDkcPzOhdkfCfrqmU/YQUrg9ap+rT5ce1ZZIvrmPjKBLfpgAup/MYw
-         ysSvrgwj/hze7s4EnlaYu0c+Xfq3gKUFhrvGB3e5vUWd3WmN9zlrtLnWY574PKzJu1uM
-         joxRUcj3qJmk86bzhqQMykPIt6x+7WsjiAzefGU+0LkXAwj5wGBPY96sFmDIMKHTfV7c
-         in6A==
-X-Gm-Message-State: AFq9FYIC2w95QU9LtksSnlfv0ZVE4j8jYhzhqBYcFFTLQhfWDbL5oxMU
-	vSyj3lo0upNaw7HFNO/ZOUQOKNB9pKtTermf92BI2n/WQ+nXp4CXAkMa0ytz79Cb/14oWa3OHxA
-	SL1GDqAhbjOOpXmreD6GSsVXs2Y83W+Ozqw==
-X-Received: from jagd20-n2.prod.google.com ([2002:a05:6639:14:20b0:612:1b1a:654c])
- (user=johnsingleton job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:6617:b0:4d6:90f3:74b4 with SMTP id 5614622812f47-50c55b85e7emr8608012b6e.52.1791821609588;
- Mon, 12 Oct 2026 09:13:29 -0700 (PDT)
-Date: Mon, 12 Oct 2026 16:13:22 +0000
-In-Reply-To: <20261012161322.930099-1-johnsingleton@google.com>
+        d=1e100.net; s=20260707; t=1791822332; x=1792427132;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pOL139YSGSBhxrg6OYdc84Mp53cxmG4PuuXyHGtCwLc=;
+        b=ORa2cfxBwVOTqoBEATUpCcNAu7fptHIAbUgDBtKC+rqBXkvIbJMFXeAMcWmnQlG3Zz
+         NAj4F5LOJ4/aN1YtBRfxaQblPKYfMzXmyq6EO5LuWTQGRs8AZ/iA4i2E9y6TcCDDwnii
+         pIV8BsPzOryC/jt/F05FWtsdh62hyq2sf/ORRfdg3WVPjm17hMsiwspQoOJk+Hqquj53
+         imVT/fcBF5SopbxZkR80SwDyPvIWxnwBH04mqamCBW2a3VRJBohwdplpAaSSPIT1fnPv
+         wDOAYxU6ayMrvsLWVZYxcOXtrBq92KoXRQzgFCVXfYBqoaYPmKynTTTEISrPrtY+rVw4
+         Z8jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw3Ribl2Ig2ai1pv2dXL+r9VotoKAxWhSKM0Ga6FPP5+JkPpTLd+0fHNZuyxt3XGN6tYXMGNLwuhoYGyg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbIXN8+kBCo45aRwth2kDPihXE4ci2cDo8KOUoA1TdNoP52kY8
+	o6MpKkoz/QVIKgE71O4EHoe5517IwN+fb0Scn42ZwVvkIV7jWhfoD/wzrQqZb3HnUIU=
+X-Gm-Gg: AYBFou2bVCYGVWIhhcaDMWLoMro7wtDGIn0kyFgs9PU4zxj5aKs3/F1wSJ8BKTi1daN
+	UypyyBUZFh9RC3elBnsQgoAlDA5dA/0degjRwrFzjaRxiITB6VyIIrSokS/FyDUEef41I2uTY36
+	KjsbITfwjpKOgE0JkAedEh5qysO8NBABenm1P9eX83Z43QFA7vaxq/53qEq+2Pg9v6mg2ZUNmaZ
+	oSHVwXTV6PIPESbuy6fkO36gA2fOilYSS6b0+KTzU3OJPrRTM7rBwbz64IW7bsysb23ZZV+jkzz
+	+srgylIkMwt2j8HNPlFXLb0ougVv+EI9JlXgHKXc9A5e7rp64rzPqcP/meq+whMIiMrbkp2AsE6
+	ECM2ARqbxkn0856JBAi3uHPWXLnxiQwi/1R3hmMxIH5ES1cqOzSuPnBFg2I4ibpPYDzlRg21LOO
+	Ml2H/RR5jbUFXguRNNdFHCvpeAAG1D7KFvXE4zxgbBuVPNQ/SU10Zw3i9EZ4WTXq6cNo6bV+Su9
+	FwJNwnKY70opgyiQpNV/3RGKb4A3pmMhRU5qEME/V28RecC//2YEufh0pKNEtoKTD4AKTucSezo
+	zmOQx/U20ow+ljst4ZxTgTK5qghc2I4uXTsXPSvh9bDkA/j7ciRrK1XtnfRNPfnhewaYyQ==
+X-Received: by 2002:ad4:594b:0:b0:914:4464:41ac with SMTP id 6a1803df08f44-91b552fabcemr186665366d6.2.1791822331996;
+        Mon, 12 Oct 2026 09:25:31 -0700 (PDT)
+Received: from jake-laptop ([153.67.39.44])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c4044dsm1329536d6.46.2026.10.12.09.25.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 09:25:29 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+Cc: Ramshouriesh R <rshouriesh@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Eduard Kulyk <kulikeduard89@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
+Date: Mon, 12 Oct 2026 12:25:26 -0400
+Message-ID: <20261012162526.2691144-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <asy-3JrGjoZCseXU@monoceros>
+References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com> <cover.1791608336.git.j@metarealtyinc.ca> <b0d32a3b82eca233652f878b7ca91e4dc2d8e863.1791608336.git.j@metarealtyinc.ca> <asy-3JrGjoZCseXU@monoceros>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261012161322.930099-1-johnsingleton@google.com>
-X-Mailer: git-send-email 2.56.0.385.gd3acb90ef8-goog
-Message-ID: <20261012161322.930099-3-johnsingleton@google.com>
-Subject: [PATCH 3/3] staging: media: atomisp: Fix parameter indentation and
- block comments
-From: John Singleton <johnsingleton@google.com>
-To: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andy Shevchenko <andy@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, John Singleton <johnsingleton@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Replace leading spaces with tabs in function parameter lists and
-format multi-line comments according to kernel coding style.
+Hi Uwe,
 
-Signed-off-by: John Singleton <johnsingleton@google.com>
----
- .../staging/media/atomisp/pci/atomisp_cmd.c   |  21 +--
- .../media/atomisp/pci/atomisp_compat_css20.c  | 136 +++++++++---------
- .../media/atomisp/pci/atomisp_subdev.c        |   2 +-
- 3 files changed, 83 insertions(+), 76 deletions(-)
+On Mon, Oct 12, 2026, Uwe Kleine-König wrote:
+> Please don't add new usages of <linux/mod_devicetable.h>. The subsystem
+> headers provide their respective *_device_id structures already.
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-index a7c28c261320..9483113f6c44 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
-@@ -1883,8 +1883,8 @@ int atomisp_calculate_real_zoom_region(struct atomisp_sub_device *asd,
-  * Function to check the zoom region whether is effective
-  */
- static bool atomisp_check_zoom_region(
--    struct atomisp_sub_device *asd,
--    struct ia_css_dz_config *dz_config)
-+	struct atomisp_sub_device *asd,
-+	struct ia_css_dz_config *dz_config)
- {
- 	struct atomisp_resolution  config;
- 	bool flag = false;
-@@ -1918,8 +1918,8 @@ static bool atomisp_check_zoom_region(
- }
- 
- void atomisp_apply_css_parameters(
--    struct atomisp_sub_device *asd,
--    struct atomisp_css_params *css_param)
-+	struct atomisp_sub_device *asd,
-+	struct atomisp_css_params *css_param)
- {
- 	if (css_param->update_flag.wb_config)
- 		asd->params.config.wb_config = &css_param->wb_config;
-@@ -2518,9 +2518,10 @@ int atomisp_css_cp_dvs2_coefs(struct atomisp_sub_device *asd,
- 		if (sizeof(*cur) != sizeof(dvs2_coefs.grid) ||
- 		    memcmp(&dvs2_coefs.grid, cur, sizeof(dvs2_coefs.grid))) {
- 			dev_err(asd->isp->dev, "dvs grid mismatch!\n");
--			/* If the grid info in the argument differs from the current
--			grid info, we tell the caller to reset the grid size and
--			try again. */
-+			/* If the grid info in the argument differs from the
-+			 * current grid info, we tell the caller to reset the
-+			 * grid size and try again.
-+			 */
- 			return -EAGAIN;
- 		}
- 
-@@ -3893,9 +3894,9 @@ enum mipi_port_id atomisp_port_to_mipi_port(struct atomisp_device *isp,
- }
- 
- static inline int atomisp_set_sensor_mipi_to_isp(
--    struct atomisp_sub_device *asd,
--    enum atomisp_input_stream_id stream_id,
--    struct camera_mipi_info *mipi_info)
-+	struct atomisp_sub_device *asd,
-+	enum atomisp_input_stream_id stream_id,
-+	struct camera_mipi_info *mipi_info)
- {
- 	struct v4l2_control ctrl;
- 	struct atomisp_device *isp = asd->isp;
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-index 0ee52637ea30..73edf3dfab5c 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-@@ -532,9 +532,9 @@ void atomisp_destroy_pipes_stream(struct atomisp_sub_device *asd)
- }
- 
- static void __apply_additional_pipe_config(
--    struct atomisp_sub_device *asd,
--    struct atomisp_stream_env *stream_env,
--    enum ia_css_pipe_id pipe_id)
-+	struct atomisp_sub_device *asd,
-+	struct atomisp_stream_env *stream_env,
-+	enum ia_css_pipe_id pipe_id)
- {
- 	struct atomisp_device *isp = asd->isp;
- 
-@@ -552,14 +552,16 @@ static void __apply_additional_pipe_config(
- 	switch (pipe_id) {
- 	case IA_CSS_PIPE_ID_CAPTURE:
- 		/* enable capture pp/dz manually or digital zoom would
--		 * fail*/
-+		 * fail
-+		 */
- 		if (stream_env->pipe_configs[pipe_id].
- 		    default_capture_config.mode == IA_CSS_CAPTURE_MODE_RAW)
- 			stream_env->pipe_configs[pipe_id].enable_dz = false;
- 		break;
- 	case IA_CSS_PIPE_ID_VIDEO:
- 		/* enable reduced pipe to have binary
--		 * video_dz_2_min selected*/
-+		 * video_dz_2_min selected
-+		 */
- 		stream_env->pipe_extra_configs[pipe_id]
- 		.enable_reduced_pipe = true;
- 		stream_env->pipe_configs[pipe_id]
-@@ -1305,7 +1307,8 @@ int atomisp_css_get_grid_info(struct atomisp_sub_device *asd,
- 
- 	/* If the grid info has not changed and the buffers for 3A and
- 	 * DIS statistics buffers are allocated or buffer size would be zero
--	 * then no need to do anything. */
-+	 * then no need to do anything.
-+	 */
- 	if (((!memcmp(&old_info, &asd->params.curr_grid_info, sizeof(old_info))
- 	      && asd->params.s3a_user_stat && asd->params.dvs_stat)
- 	     || asd->params.curr_grid_info.s3a_grid.width == 0
-@@ -1392,7 +1395,8 @@ int atomisp_alloc_metadata_output_buf(struct atomisp_sub_device *asd)
- 	int i;
- 
- 	/* We allocate the cpu-side buffer used for communication with user
--	 * space */
-+	 * space
-+	 */
- 	for (i = 0; i < ATOMISP_METADATA_TYPE_NUM; i++) {
- 		asd->params.metadata_user[i] = kvmalloc(
- 						   asd->stream_env[ATOMISP_INPUT_STREAM_GENERAL].
-@@ -1554,10 +1558,10 @@ int atomisp_css_set_default_isys_config(struct atomisp_sub_device *asd,
- }
- 
- void atomisp_css_isys_two_stream_cfg_update_stream1(
--    struct atomisp_sub_device *asd,
--    enum atomisp_input_stream_id stream_id,
--    enum atomisp_input_format input_format,
--    unsigned int width, unsigned int height)
-+	struct atomisp_sub_device *asd,
-+	enum atomisp_input_stream_id stream_id,
-+	enum atomisp_input_format input_format,
-+	unsigned int width, unsigned int height)
- {
- 	struct ia_css_stream_config *s_config =
- 		    &asd->stream_env[stream_id].stream_config;
-@@ -1572,10 +1576,10 @@ void atomisp_css_isys_two_stream_cfg_update_stream1(
- }
- 
- void atomisp_css_isys_two_stream_cfg_update_stream2(
--    struct atomisp_sub_device *asd,
--    enum atomisp_input_stream_id stream_id,
--    enum atomisp_input_format input_format,
--    unsigned int width, unsigned int height)
-+	struct atomisp_sub_device *asd,
-+	enum atomisp_input_stream_id stream_id,
-+	enum atomisp_input_format input_format,
-+	unsigned int width, unsigned int height)
- {
- 	struct ia_css_stream_config *s_config =
- 		    &asd->stream_env[stream_id].stream_config;
-@@ -1592,9 +1596,9 @@ void atomisp_css_isys_two_stream_cfg_update_stream2(
- }
- 
- int atomisp_css_input_set_effective_resolution(
--    struct atomisp_sub_device *asd,
--    enum atomisp_input_stream_id stream_id,
--    unsigned int width, unsigned int height)
-+	struct atomisp_sub_device *asd,
-+	enum atomisp_input_stream_id stream_id,
-+	unsigned int width, unsigned int height)
- {
- 	struct ia_css_stream_config *s_config =
- 		    &asd->stream_env[stream_id].stream_config;
-@@ -1613,8 +1617,8 @@ void atomisp_css_video_set_dis_envelope(struct atomisp_sub_device *asd,
- }
- 
- void atomisp_css_input_set_two_pixels_per_clock(
--    struct atomisp_sub_device *asd,
--    bool two_ppc)
-+	struct atomisp_sub_device *asd,
-+	bool two_ppc)
- {
- 	int i;
- 
-@@ -1725,14 +1729,14 @@ void atomisp_css_preview_enable_online(struct atomisp_sub_device *asd,
- }
- 
- int atomisp_css_input_configure_port(
--    struct atomisp_sub_device *asd,
--    enum mipi_port_id port,
--    unsigned int num_lanes,
--    unsigned int timeout,
--    unsigned int mipi_freq,
--    enum atomisp_input_format metadata_format,
--    unsigned int metadata_width,
--    unsigned int metadata_height)
-+	struct atomisp_sub_device *asd,
-+	enum mipi_port_id port,
-+	unsigned int num_lanes,
-+	unsigned int timeout,
-+	unsigned int mipi_freq,
-+	enum atomisp_input_format metadata_format,
-+	unsigned int metadata_width,
-+	unsigned int metadata_height)
- {
- 	int i;
- 	struct atomisp_stream_env *stream_env;
-@@ -1822,8 +1826,8 @@ void atomisp_css_stop(struct atomisp_sub_device *asd, bool in_reset)
- }
- 
- void atomisp_css_continuous_set_num_raw_frames(
--     struct atomisp_sub_device *asd,
--     int num_frames)
-+	struct atomisp_sub_device *asd,
-+	int num_frames)
- {
- 	if (asd->enable_raw_buffer_lock->val) {
- 		asd->stream_env[ATOMISP_INPUT_STREAM_GENERAL]
-@@ -1850,8 +1854,8 @@ void atomisp_css_continuous_set_num_raw_frames(
- }
- 
- static enum ia_css_pipe_mode __pipe_id_to_pipe_mode(
--    struct atomisp_sub_device *asd,
--    enum ia_css_pipe_id pipe_id)
-+	struct atomisp_sub_device *asd,
-+	enum ia_css_pipe_id pipe_id)
- {
- 	struct atomisp_device *isp = asd->isp;
- 	struct camera_mipi_info *mipi_info = atomisp_to_sensor_mipi_info(
-@@ -2357,10 +2361,10 @@ int atomisp_css_video_configure_output(struct atomisp_sub_device *asd,
- }
- 
- int atomisp_css_video_configure_viewfinder(
--    struct atomisp_sub_device *asd,
--    unsigned int width, unsigned int height,
--    unsigned int min_width,
--    enum ia_css_frame_format format)
-+	struct atomisp_sub_device *asd,
-+	unsigned int width, unsigned int height,
-+	unsigned int min_width,
-+	enum ia_css_frame_format format)
- {
- 	__configure_vf_output(asd, width, height, min_width, format,
- 			      IA_CSS_PIPE_ID_VIDEO);
-@@ -2368,67 +2372,67 @@ int atomisp_css_video_configure_viewfinder(
- }
- 
- int atomisp_css_capture_configure_viewfinder(
--    struct atomisp_sub_device *asd,
--    unsigned int width, unsigned int height,
--    unsigned int min_width,
--    enum ia_css_frame_format format)
-+	struct atomisp_sub_device *asd,
-+	unsigned int width, unsigned int height,
-+	unsigned int min_width,
-+	enum ia_css_frame_format format)
- {
- 	__configure_vf_output(asd, width, height, min_width, format, IA_CSS_PIPE_ID_CAPTURE);
- 	return 0;
- }
- 
- int atomisp_css_video_get_viewfinder_frame_info(
--    struct atomisp_sub_device *asd,
--    struct ia_css_frame_info *info)
-+	struct atomisp_sub_device *asd,
-+	struct ia_css_frame_info *info)
- {
- 	return __get_frame_info(asd, ATOMISP_INPUT_STREAM_GENERAL, info,
- 				ATOMISP_CSS_VF_FRAME, IA_CSS_PIPE_ID_VIDEO);
- }
- 
- int atomisp_css_capture_get_viewfinder_frame_info(
--    struct atomisp_sub_device *asd,
--    struct ia_css_frame_info *info)
-+	struct atomisp_sub_device *asd,
-+	struct ia_css_frame_info *info)
- {
- 	return __get_frame_info(asd, ATOMISP_INPUT_STREAM_GENERAL, info,
- 				ATOMISP_CSS_VF_FRAME, IA_CSS_PIPE_ID_CAPTURE);
- }
- 
- int atomisp_css_copy_get_output_frame_info(
--    struct atomisp_sub_device *asd,
--    unsigned int stream_index,
--    struct ia_css_frame_info *info)
-+	struct atomisp_sub_device *asd,
-+	unsigned int stream_index,
-+	struct ia_css_frame_info *info)
- {
- 	return __get_frame_info(asd, stream_index, info,
- 				ATOMISP_CSS_OUTPUT_FRAME, IA_CSS_PIPE_ID_COPY);
- }
- 
- int atomisp_css_preview_get_output_frame_info(
--    struct atomisp_sub_device *asd,
--    struct ia_css_frame_info *info)
-+	struct atomisp_sub_device *asd,
-+	struct ia_css_frame_info *info)
- {
- 	return __get_frame_info(asd, ATOMISP_INPUT_STREAM_GENERAL, info,
- 				ATOMISP_CSS_OUTPUT_FRAME, IA_CSS_PIPE_ID_PREVIEW);
- }
- 
- int atomisp_css_capture_get_output_frame_info(
--    struct atomisp_sub_device *asd,
--    struct ia_css_frame_info *info)
-+	struct atomisp_sub_device *asd,
-+	struct ia_css_frame_info *info)
- {
- 	return __get_frame_info(asd, ATOMISP_INPUT_STREAM_GENERAL, info,
- 				ATOMISP_CSS_OUTPUT_FRAME, IA_CSS_PIPE_ID_CAPTURE);
- }
- 
- int atomisp_css_video_get_output_frame_info(
--    struct atomisp_sub_device *asd,
--    struct ia_css_frame_info *info)
-+	struct atomisp_sub_device *asd,
-+	struct ia_css_frame_info *info)
- {
- 	return __get_frame_info(asd, ATOMISP_INPUT_STREAM_GENERAL, info,
- 				ATOMISP_CSS_OUTPUT_FRAME, IA_CSS_PIPE_ID_VIDEO);
- }
- 
- int atomisp_css_preview_configure_pp_input(
--    struct atomisp_sub_device *asd,
--    unsigned int width, unsigned int height)
-+	struct atomisp_sub_device *asd,
-+	unsigned int width, unsigned int height)
- {
- 	struct atomisp_stream_env *stream_env =
- 		    &asd->stream_env[ATOMISP_INPUT_STREAM_GENERAL];
-@@ -2442,16 +2446,16 @@ int atomisp_css_preview_configure_pp_input(
- }
- 
- int atomisp_css_capture_configure_pp_input(
--    struct atomisp_sub_device *asd,
--    unsigned int width, unsigned int height)
-+	struct atomisp_sub_device *asd,
-+	unsigned int width, unsigned int height)
- {
- 	__configure_capture_pp_input(asd, width, height, IA_CSS_PIPE_ID_CAPTURE);
- 	return 0;
- }
- 
- int atomisp_css_video_configure_pp_input(
--    struct atomisp_sub_device *asd,
--    unsigned int width, unsigned int height)
-+	struct atomisp_sub_device *asd,
-+	unsigned int width, unsigned int height)
- {
- 	struct atomisp_stream_env *stream_env =
- 		    &asd->stream_env[ATOMISP_INPUT_STREAM_GENERAL];
-@@ -2613,8 +2617,9 @@ int atomisp_css_set_dis_coefs(struct atomisp_sub_device *asd,
- {
- 	if (atomisp_compare_dvs_grid(asd, &coefs->grid_info) != 0)
- 		/* If the grid info in the argument differs from the current
--		   grid info, we tell the caller to reset the grid size and
--		   try again. */
-+		 * grid info, we tell the caller to reset the grid size and
-+		   try again.
-+		 */
- 		return -EAGAIN;
- 
- 	if (!coefs->hor_coefs.odd_real ||
-@@ -3039,8 +3044,9 @@ int atomisp_css_get_dis_stat(struct atomisp_sub_device *asd,
- 
- 	if (atomisp_compare_dvs_grid(asd, &stats->dvs2_stat.grid_info) != 0)
- 		/* If the grid info in the argument differs from the current
--		   grid info, we tell the caller to reset the grid size and
--		   try again. */
-+		 * grid info, we tell the caller to reset the grid size and
-+		   try again.
-+		 */
- 		return -EAGAIN;
- 
- 	spin_lock_irqsave(&asd->dis_stats_lock, flags);
-@@ -3104,7 +3110,7 @@ int atomisp_css_get_dis_stat(struct atomisp_sub_device *asd,
- }
- 
- struct ia_css_shading_table *atomisp_css_shading_table_alloc(
--    unsigned int width, unsigned int height)
-+	unsigned int width, unsigned int height)
- {
- 	return ia_css_shading_table_alloc(width, height);
- }
-@@ -3394,7 +3400,7 @@ void atomisp_en_dz_capt_pipe(struct atomisp_sub_device *asd, bool enable)
- }
- 
- struct ia_css_dvs_grid_info *atomisp_css_get_dvs_grid_info(
--    struct ia_css_grid_info *grid_info)
-+	struct ia_css_grid_info *grid_info)
- {
- 	if (!grid_info)
- 		return NULL;
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_subdev.c b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-index 9de9cd884d99..700fcf88a886 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_subdev.c
-@@ -96,7 +96,7 @@ const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv(u32 code)
- }
- 
- const struct atomisp_in_fmt_conv *atomisp_find_in_fmt_conv_by_atomisp_in_fmt(
--    enum atomisp_input_format atomisp_in_fmt)
-+	enum atomisp_input_format atomisp_in_fmt)
- {
- 	int i;
- 
--- 
-2.56.0.385.gd3acb90ef8-goog
+Thanks. I will drop the include in v2, <linux/i2c.h> is enough here.
 
+Jake
