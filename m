@@ -1,93 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72118343D8A;
-	Mon, 12 Oct 2026 11:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD14E361961;
+	Mon, 12 Oct 2026 11:57:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806210; cv=none; b=N4g1IT1t6qltEo43fe84NbL5Pf9xjDOnlcTX3UlzqEUUuUsdlOc5AKKUWZU1tS7dJ4pyITt8mVqM1j0Wn3IvYiqq2yglXjmS1WsLrs8SlLd+oAvMlhcOFbk06qIEfvXL8v48Hl1C1DFWGofoGcfWVZE5omStkmLwu5uu7ZmVIIM=
+	t=1791806252; cv=none; b=pVSpt9HR3CJwOUWX62z54Ah6nIutD23qR+P3XgEaKFq4yytvZxpkFxqMGRr9A515Da7KQfj2p9ljG5abbhRhuERB+TySQ8LQzzN6xm60B9g3+ykV4zIln5wXLuqhLBFldkVlahWeIbDeecQEXI9MjPrh6jy8wJcDCilLHRVY5wE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806210; c=relaxed/simple;
-	bh=yb3ZwIvQAG+OUQLTF7/fDhsERkV6Gw8LesyFWW+8a0g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kQxPWi7hrVra/4BnJsbIDYzmyM5Y2u4XAbla3uGnRAwdrSRJ68NLtbQy4LfRXn4AAsQMhJzLCCDMrSB24vU5Rm5r/ZvemdFNZ29YN6iT77P26S+2DrQao3jFxinc6W+J/NOUgHrbrN04f4Iun4ZS2AhZn0xZgZ55/au6AduoAFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAgtRyjZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791806252; c=relaxed/simple;
+	bh=zHKVY/NJvHBNZ9hB3vMb1iEOuHc9AyYoNpqdlMl+GP4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I5vlnsC3kq/HEQMppNDlJjmRwHZ+PCH0iV8qlQBH/hHfx2vLfHb7UmKX61EQOKWBHdPyLqc7yRYOVchcC0LYUmf8bxlBmO3HSy147uWRkg57b9icJxKm4ZBHRGkzWI4xtL/MNPKCQNBbF/wWG8EEATX9ME04PBhtBhWOBUbfxgI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RXwZp/P7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAgtRyjZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CB111F0089C;
-	Mon, 12 Oct 2026 11:56:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RXwZp/P7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE761F0089B;
+	Mon, 12 Oct 2026 11:57:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806208;
-	bh=eCGm1F4SLPqeaXtlZ2bExvdoUVQeXMyO/NnRR8oI5bY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=fAgtRyjZ4oXWw0JxXjFmq9RD8yhJmGr7k2b83F3BE/fUVEr1N9gtYhKvi5tKuDNvj
-	 TEksnviOl0f6zpaXgVdqmDOU4kW3JEx9ov2Mp/r5VH0hQsGHhvlNxDA93thYsHN64Q
-	 E3F+4lZbZtc/2wiYpzma0pAo1Selg/9ygwVTkkjJd0MZeeRAP7WY68lqTgFwJTyqFn
-	 eu10zfgagdBEmaR47fxDcz2EfNHhg8a1ID0YCEsUN/8ReCWGzUxZmbE8HdXCGRIYkh
-	 ay6JHtUqdFfSATvmiVZht281uF/2aytz2OhDlt/o3lDUOeLDJ0KiYICJa6tEBuXTCt
-	 Qyicf3lAa0V0w==
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 12 Oct 2026 13:56:27 +0200
-Subject: [PATCH v4 5/5] arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add
- ISP and IVC nodes
+	s=k20260515; t=1791806250;
+	bh=dIdf0EGX3pGuBo+uaCGYdHblHIOFatYE3He9grPS0X0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RXwZp/P7uRNArmaAhe0CHt6e5o5jX04SLyCRKlf2SJazfM0blAKjm8KtZvox63ONT
+	 Reb4NOOE4ucQMY0rI7BcHL662fhJg6LRTFOcgaa9ZFldfLNDM1uP2lyc5/dIbBRde6
+	 FLipsxi0fmaesgVy06bTQkR9gCv3h51b8JbMGMyFpVueZ7YvGwFqQkPpjbaMWHfQLI
+	 bcAUtReyeQ0A5sQRVhlrk2EIf9dNtDmB5eCSdauNtFppTsAn+uwz9V6rXOyvUsxl/y
+	 CGJ+3BFX2IneJRacFb4dMFWzKpbojw0mDD8EmP6rHM22Rme7630rx+LR3QHJgSYJLK
+	 B2G/agcYNEbFQ==
+Date: Mon, 12 Oct 2026 14:57:27 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v9 07/18] PCI/P2PDMA: Answer routing per TLP class
+Message-ID: <20261012115727.GF219304@unreal>
+References: <20261001-fix-p2p-acs-v4-0-v9-7-1a8e0f50ddd9@nvidia.com>
+ <20261009212529.GA1086940@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-mali-c55-renesas-dts-v4-5-c410e280bf2d@kernel.org>
-References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
-In-Reply-To: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
-To: Daniel Scally <dan.scally@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261009212529.GA1086940@bhelgaas>
 
-From: Daniel Scally <dan.scally@ideasonboard.com>
+On Fri, Oct 09, 2026 at 04:25:29PM -0500, Bjorn Helgaas wrote:
+> On Thu, Oct 01, 2026 at 02:55:15PM +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > calc_map_type_and_dist() returns one mapping type per provider and client,
+> > valid only for strictly ordered Requests carrying an Untranslated address.
+> > Clients that use Relaxed Ordering or ATS cannot ask what the fabric would
+> > do with their traffic.
+> > 
+> > Add enum pci_p2pdma_tlp_flags to name a class and pci_p2pdma_map_type_tlp()
+> > to ask about one. The topology walk and the ACS Control reads do not depend
+> > on the class, so decide all of them from the one walk and cache them
+> > together, four bits each. Every class still answers alike; the controls
+> > that tell them apart come next.
+> > 
+> > Tested-by: Tushar Dave <tdave@nvidia.com>
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > ---
+> >  drivers/pci/p2pdma.c | 159 +++++++++++++++++++++++++++++++++++++++++----------
+> >  1 file changed, 128 insertions(+), 31 deletions(-)
+> > 
+> > diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> > index 841c86be31bb..43e225cc5735 100644
+> > --- a/drivers/pci/p2pdma.c
+> > +++ b/drivers/pci/p2pdma.c
+> > @@ -492,6 +492,33 @@ static struct pci_dev *find_parent_pci_dev(struct device *dev)
+> >  	return NULL;
+> >  }
+> >  
+> > +/**
+> > + * enum pci_p2pdma_tlp_flags - Properties of the TLPs a client will issue
+> > + *
+> > + * These describe the traffic rather than the topology, and select which ACS
+> > + * controls apply along the peer-to-peer path. A value of 0 means strictly
+> > + * ordered Requests carrying an Untranslated address.
+> > + *
+> > + * @PCI_P2PDMA_TLP_TRANSLATED: Requests carry an ATS Translated address. PCIe
+> > + *	r7.0 sec 6.12.3 routes those to the peer regardless of ACS P2P Request
+> > + *	Redirect and ACS P2P Egress Control wherever ACS Direct Translated P2P
+> > + *	is enabled.
+> > + * @PCI_P2PDMA_TLP_RELAXED_CPL: The provider returns Completions with the
+> > + *	Relaxed Ordering attribute set. PCIe r7.0 sec 6.12.1.1 never redirects
+> > + *	those, so ACS P2P Completion Redirect does not gate the path. The
+> > + *	Completer chooses this attribute and the specification does not require
+> > + *	it to copy Relaxed Ordering from the Request into the Completion, so a
+> > + *	caller passing this flag asserts that its provider does.
+> 
+> It doesn't sound right to me that Completers choose the attribute.  I
+> thought *Requesters* chose the RO attribute based on their design
+> (knowledge about which transactions require strong ordering) and their
+> Enable Relaxed Ordering bit.  Sec 2.2.9.1 says:
+> 
+>   - Completion headers must supply the same values for the Attribute
+>     as were supplied in the header of the corresponding Request,
+>     except as explicitly allowed:
+> 
+>     - when IDO is used (see § Section 2.2.6.4)
+> 
+>     - when RO is used in a Translation Completion (see § Section
+>       10.2.3)
 
-Add nodes to devicetree enabling the ISP and IVC that are found on
-the RZ/V2H(P) SoC.
+You are right, while the code is correct and we indeed expects from
+"Requester" to chose, the comment is not correct and needs to be
+changed.
 
-[Rebase onto v7.3-rc1 and sort the board overrides by label.
- - Linus Walleij]
-
-Assisted-by: LLM
-Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-index 637fc92dcc26..74b75be599ae 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-@@ -305,6 +305,14 @@ versa3: clock-generator@69 {
- 	};
- };
- 
-+&isp {
-+	status = "okay";
-+};
-+
-+&ivc {
-+	status = "okay";
-+};
-+
- &mdio0 {
- 	phy0: ethernet-phy@0 {
- 		compatible = "ethernet-phy-id0022.1640";
-
--- 
-2.56.0
-
+Thanks
