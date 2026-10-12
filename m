@@ -1,159 +1,114 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013033.outbound.protection.outlook.com [40.107.162.33])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F81238E129
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 18:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B85142900A
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 19:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831591; cv=fail; b=b87o3D6T5xGuAeukgXcUNCvRA5LZe1a72FO6xrvQygw4f27btvVxKpdVYeFeMwOoSJck5GG7nw+HEAFIvUdLc3x2JGK/egC2q2CPlPRn1Z3c5CVTQBZq6ITAjeLI004sTBoiviCZFIxN6MxMHcx9mfjjcCfWO5cLex2XnWAHTcM=
+	t=1791831938; cv=pass; b=dWgjaCOIu9q7bEpwClq823mBNvvJn3BaGC6nFfYmozkfTJkAnNhukjAHMrf6wE+grTMCtOCY+Rbe1VRD5Vizo6n2HFtDkxazOKPXiTnlr7uMWOtLoUAMSJNRXB56nZA1MSWAkY3Et4TloEZZX1wapfbrUW6wOyDOF6kJwfYihxE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831591; c=relaxed/simple;
-	bh=73MFIe1MXrWoGNzZx7UadsZ1x8qvRqrxe8VApk6j2K0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=h9HGAFCH8xgas2ZLW6vL/n8Vkvq7UhCNZIcgfHxn7ysGP+95rSaBmi5ZQ+HtWeCdd9avUNnXC1hLbbGvLdeXHcrgx2MYNMObUPSdEJdbD6O8KPe3x/j+FAbghyp9lnCaTxat+v/t1LSI3q5S31sWiK6JhVKsU5GmFeGHoGBdRGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=UOlk+bkN; arc=fail smtp.client-ip=40.107.162.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1791831938; c=relaxed/simple;
+	bh=Aqi0un3hL+gNhz2+Wwi0ZammzcYe8ZTBCivH1kqaYcM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cu8cKOuFTACWSG/H5t21752p5l3MWrEdZq4Fj5oceJYoVdm6bMg4/JUFmZMKtBP9y50tB1SbJyAqG4IOwM3bdT+tjAvSF9VdABPF/OCfc20DwqtG+klCa7Lg9Gqu5M84VozKZTpijf1wmCTVb5coxOBULn4M6kCaEP2SIL1LD54=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FAqr3BUU; arc=pass smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="UOlk+bkN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ETVRuAPO8KqSkouJQVyOY1g1Bu5+yQaiVKBOL7JDdEfS/hrrhgW4RWfYJ24tdtCgCPeSXGNdRjnvJvBPxSrLl+67Q/ZpZ73yVAkuw76CVMWkWzKMlkvAAhqw7s2/9R5wa7BXUZVgwmlnzBGH29TsweYZN703cRDvfPcVNDqog2apQqTe4Oig3qZKRsE0r5KxCok74AqAySeR2eBuXgiXYnvZz7rLGNPuP42DR3OGLBIPE5V7FuJUcjeDOt7rBKcf/Oblo3bQjbyBEjTHApUEkpaQqAiY9oxuez1vcrMVSwMEa/1tZ1Muw6I2w9mtcu7RdNfYDR6IxK0fRg9gK22ERw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=h1stCwJishCR00UFT9++IrdkwnmnpwDle1Z2By/KLZc=;
- b=N07OOqK2rkUInISl1Zt0wnh3F9N5j2drRPUuPp1Ja4Bpy37gA0EB+RrksWwzKy9RyvbYx7Nf35JcS0Tpk3kUO3aq7cg9Bk0/1Zz+ysZIpKvPsmrslm76YwbkBw6Nr5gcDIkPrL1R1Qrsrf/JldQLs25qLYbBhjT8fZKn/7ux1BegQvTh0RpgL6PVLbtFSEzP3BD0LmPTUzH5dGHb7JGV6389rV3Usjbn4ClweCGh5whIWbjUxr6lUWeAnBpXw8kjG/eIhU3RRyOX/UiDPwku3zLp6POMfBUdFawJ2EWM5BtzV8Nhzy/L3uynkDgdfhnq8pKEV6ZmugqznlaqiaZIog==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=h1stCwJishCR00UFT9++IrdkwnmnpwDle1Z2By/KLZc=;
- b=UOlk+bkNh85volsws78BZ7osBlJ4l9PvT+YzPgG67LgI5wKNLL85Yq80G78wGKsXtIh37UV0S28rMm9pxZFuN9EA0UatwupAM0+19TiNNHRLPJnOW+2/Hkyqw2GihdeMTah8UNdhINgfcuQETSeo2PvgwtgbQphZ6twVy4JdxvXdyuRDg3XtDlx7vaSF1HnIJamY91ZdMx81Cb6uAcZg104eQkfCAyIlTl8+Xsb2ZRMCwbG2oVtRvTGSNVX5qfVZata1+yQDa5BUFd/Jiqb886qvoobFOQTPF76CYXLYRk/GsuBG4XcEuoXZB9RYwa7PQbkoRiLPxD3azshdinyrGg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI1PR04MB9788.eurprd04.prod.outlook.com (2603:10a6:800:1d4::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.18; Mon, 12 Oct
- 2026 18:59:46 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.021; Mon, 12 Oct 2026
- 18:59:46 +0000
-Date: Mon, 12 Oct 2026 13:59:38 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Mirela Rabulea <mirela.rabulea@nxp.com>, linux-media@vger.kernel.org,
-	Ming Qian <ming.qian@nxp.com>, Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, imx@lists.linux.dev
-Subject: Re: [PATCH] media: imx-jpeg: propagate encoder command errors
-Message-ID: <as0uGtw28KYy_Tzo@SMW015318>
-References: <20261012141824.497906-1-thnkslprpt@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012141824.497906-1-thnkslprpt@gmail.com>
-X-ClientProxiedBy: CY5PR15CA0015.namprd15.prod.outlook.com
- (2603:10b6:930:14::29) To DU4PR04MB11791.eurprd04.prod.outlook.com
- (2603:10a6:10:623::11)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FAqr3BUU"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a9761758adso18362291fa.0
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 12:05:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791831935; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L/YrGgdoowaCavmLFCAD8KpP3r49FQQNg7MXJfS0X7nilKU2K9p3eAKQTWAc1yNfYx
+         6WDz2eISmS8AUAo6agcqCsyA4+bIqqEA4O4BiWv1/28YmSulnxG35tOlObki0MjwP7gL
+         iK6YNL6AmgcdW8PsTof2MJrNYAkoUoYtDJkVB6jJuLb4H6BhGzZDurkSnMZ0T2RgPlMF
+         y8TU3M0l9VDMSMLnrYaVsQRBpGoIzm2W5nlWOJRTZnJMUVZvwEyYAm4EWEHuwU7kthI1
+         1q14FLq2/riuYjbOwBFGZOInMJiGOjm7GRnKrQXZ+GaqVKLgJxnRFmjCVZSNyTy+zMth
+         s7cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Aqi0un3hL+gNhz2+Wwi0ZammzcYe8ZTBCivH1kqaYcM=;
+        fh=Jhcs1mmULRtlap7W60li0n4lkOHUNxrUPl4WkiLZjbw=;
+        b=k19iHuX12jTBSOFKjyz7agg39QONgbzGwlNTYSWAB1tdb71gaPgcuypSmpQ+hqWzms
+         IbDrF7zQD4AkVAe/1SUyaV86qfdjC253TBnAvSjPIqBiVcEgeNMd51+kVAiYBuOyk4ev
+         hRJSpawOBp7JiLTLSynCY+p4tQwC5rk4NfKdNtqhxKwjGHGcpa83WCgMhhJLOiF9R4wW
+         EzvAgxz5fuk9yx/5uBUuKNNs/LI/A1mHMhrkToG1SgDkNHgQwEgoZEhX9R99Di4li5pe
+         MpoK/qdZNx4DJMI8Qz1CB3Aoei2rgnuBHnbo751rcdqH5jCTrr+O7iO2KlmoUj9xn3dR
+         YqXw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791831935; x=1792436735; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Aqi0un3hL+gNhz2+Wwi0ZammzcYe8ZTBCivH1kqaYcM=;
+        b=FAqr3BUUMWJwgzdnWGvrciVz3t/J6zYXWtgtyYCUqqXpfRWh7EmMTWsJmvl2cEktON
+         9+Hb0yjeXZZPHbGO2ruBWCOC4CGgyCHNXG1tXx2g+rUy4EgczB7Di5j9TUKRd2+CDOM9
+         /2Q1AVDQqjIcanDav8/OWdYgn3/nxJyE+jzQQ4a+qQxjYY8hchTEm3W9L6goA++QH58E
+         yCrBiHZa/1agtlIrPD7UJZSf9F/6WUpTh476BC54kTVVSvKtqDQZ+TEc1x9GrohCcm/G
+         HvwgzqWyRZm+i9gg2vM+kwCaAkt9+uNgsXOkYN8D11wMfe7XSePAsqIYostMpScuNh8d
+         yrCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791831935; x=1792436735;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Aqi0un3hL+gNhz2+Wwi0ZammzcYe8ZTBCivH1kqaYcM=;
+        b=FaH2r1yBJR47T7NLhSyQAS0v131EOkm+lxpqPaQgJev3DS2QvZ5wTOqwaZ5tWKfXrr
+         7PLvJlfJdtt61CBuOTIALFVwEWgnO9BIA3UGj69ytS/urQZriFx7m5hu/AJ5nhkMRB9b
+         q+xpzYZbQHN8eaL2tLI+bt1b3IPeTR4Hl32RAEtyD4FptHesQ9dbncg5xly6zHVquX57
+         ix2Z7yavChLQ7iSzA8PpWz+lNNENvVTI66GzkNMY3VQWnwMu1Q1XRp+OwbTDpCkh0wmY
+         i4d35lO6bMaDEpI3Lv+L085SxOP1J4iUcqgCRbhgWcrR8mFin4DvNGQuEtdYLC2xN5wD
+         m0Bg==
+X-Forwarded-Encrypted: i=1; AKwUvByJoW7SlVETVE/kpK9H5crnkQN3TPQRjyt7Oao05PNRxJvEPMgEJHPqR/QS1TsfviIzcemLpilZK3cQlQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJsVJym6UamXpRnEgwSvdtVrthS2LUv4tHdOMb/RhOgJXl613+i
+	esBdF5j/bJxCDe1A3Asp7eqFm7zfCL3S45LMnT1bURcB2/BMATk7qltXX+A2y/Wt+kI+HhdcE0y
+	6GjENWTNXVrIymdHmi3MTXorrRDrtiCc=
+X-Gm-Gg: AYBFou0h2oRAaT8vioTve5xXu2N/PhgyDQsRfDQYm9R08fMQgl7TUh0Qjb0n8JdblGE
+	tTbK7vQAP41gXeUKuOTGL9JqGH5H2WBDi1Edkb43jH9prTh2b/ndRQ1GC+opyqy2iLikhfcobJn
+	9Mi9DYPN/50ct7FF8lbvdYLGTxHQCo9MG8I09KNDcgeHTKxnliD+nB4Y5rjCGb7l7vbqW28BAH6
+	c0fDkSHXCEDXVuBPYPoiZH8wBNXvhQ/zGjvertav8u//fBmJ4MSjO11YfImEMkbOvKRjm3psgi1
+	4RlWcVuiC8PQnSP37GBeHAeeB1Xc6ImUuPStJw5zmM0rDuHCh6F2HcKmCe3S1vDZrF6xqXrSQ6S
+	akF5Qq1KoKHibY70h4gODzcUDXdy4wArh6ZAVq9Pr9JWyoQu8eDGyQEdQe4WvEEguRMuwelXRLx
+	G8JZ0Bg0gkBDdq0Z3iaEUaa+jYJfa6ZyKZOXOplaFe
+X-Received: by 2002:a2e:a7cf:0:b0:3a9:d937:7533 with SMTP id
+ 38308e7fff4ca-3a9d9377a0emr13474991fa.8.1791831934709; Mon, 12 Oct 2026
+ 12:05:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB9788:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea6921ad-3fe1-4bbb-c1ba-08df2892fb66
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|19092799006|366016|1800799024|261009223027099003|11063799006|56012099006|260925022911599003|260925021911599003|260925021311599003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	OKdLuynpCASzFgWFFP4/a3OcOMYKTFbwmlf6SRG/c+64kcHoG+U5fbKtFaJf0XQGEOiaJbANYAbjcGHiYqq2JeVK1QEUFdBaohg2amhhpCniHiZvbvnHSDOd7rRIwP7wNmUnMJjr/juS+4MORuENtsd73al3xy371JqVK8Wzl/ogKLV9mmaikLsBOhrekYpqxOERoE/L/M/yaEvjYtxgHucR6a6iawmPtBZ3lVdgHASmrQarjf0R11J2Jzkk3uMxA0yzmOP66A/2/1HyFO3Ix3mb672dOzYZr88npzk608s9YAHA0OC+BfEBnaal9YY8M/ZbJOqDbMP+p654i2XJc4qiUiLtr52CPCTc4f+s120qIsiA1UMRr/tP1gJV7QJWc+hZZbaoDP+YmvXr05AioSATkdzMJW5RMuhyqekzpD18egIOwjIM2Rw1jzd7sZFMbMcoQrcszUPR8OMm5cXNfjy0vMXW/xOqOrZbAC38Hm6LHlZ2INvKbD4fQnWFyIm/4wYkRJxrMgSwDzykvBsU1jcSLlCBE3zVUvNAkbwGNMHCZTYgfp2i/T0lNuE6zVwqd4NNafkQVVgA1Cg+HfA+EjM18fND8gc4l988qpdsEuvVBSW/LzDxr8/xjH/4v5sp3+99DocTWoltCT/55kYdoErwzzqwAs6eq5ocaReX0cE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(19092799006)(366016)(1800799024)(261009223027099003)(11063799006)(56012099006)(260925022911599003)(260925021911599003)(260925021311599003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?hb2IeKCWoWsgqMgq5runi79ZRX8VF2FLSZB1jWJ2Gc7tQiV3DQr9Ibempm07?=
- =?us-ascii?Q?qYHPP4DEtgdJFxn74FXv6SuwIxw9X3iVy6SJ/rMQZ/vuHx+Hew5sKAQIuBQq?=
- =?us-ascii?Q?rJr2ctqTaZugiYU1a9BbnYE4QBs9KB4+h02obmrGV9Ft3Fk49BHMOeB81gzi?=
- =?us-ascii?Q?VV0hOCXQZbV0FWrZ4LyGwe21Sr265gVS2nmkfdanl90B9J+LcjWP1i5g79sa?=
- =?us-ascii?Q?vZnqTZMM9cyrL9d2Y7C83LeQOFthwZO0ph/9kLqy9aS+dyrUlEy0B9HiNJnf?=
- =?us-ascii?Q?3TEoXrygTTRllVLTq+0fkic2qAy7NdOR/8d8jRGEqzgHxZxkf29ZGHS0LZ8H?=
- =?us-ascii?Q?+qOjIo03+SPJUAdO7LTyeWLR17ovwAfWbOkxlCW904GFazigqBBD5aPS5EVm?=
- =?us-ascii?Q?G/X5/lY3pq573kShh9mSKyNb9XXMiRCo9dyD2Q3ho5maX5Ff6UP1ZSOvEwOZ?=
- =?us-ascii?Q?Ax4SdfaR+j6Vq9T0Np80k70nqhDSWtQSpRhTJKW4SveY+RtF0R2SjsAkcVJw?=
- =?us-ascii?Q?Tea//Jx3alNthd8wm8vfTtxb+uBt8fujBr8WBrnpOuehwd0a/WqtNEIc/b75?=
- =?us-ascii?Q?qiuf8wllG5HJtg/LguP+0OpZxsD/6Du5TxorauTelTrEuBeHsr/frfSC4Ivq?=
- =?us-ascii?Q?LseydqsQSqsbbzrLr7dbfZDgAP5x+SYPHZhzbs1T7j+KP51XDdUvMhffxgjU?=
- =?us-ascii?Q?LUi+TGLEGEx5WuQJbFxoB9HpxoWGYTjDfbCIr17hglY+LTOkmEAYcPfhTgx3?=
- =?us-ascii?Q?F4N1p/RKcOlyiZS7A905v+dvcW47gHKcXvbPnGStj2XUHpW4gGxvSWghfgh4?=
- =?us-ascii?Q?bSz7yxH+3ItvfJjA8aXcr0mzWvGPwl+AyJW8NdJluJUyheRBIFf26q3RVrRD?=
- =?us-ascii?Q?7gbBM+SNNAmJKdvkNrdbqfSlu4C7uaGW5YsihaPfXjDFh1SFcgURUGeKnR0N?=
- =?us-ascii?Q?Pv/9leS8uZ8ORpOsD1gs6n2cUOOM0toJKx/VbU8kkVn4WTYRcN86Nl97BHil?=
- =?us-ascii?Q?zsiAD9+GburBqxIyDjV+DZagnVrUu5eHjyMBcAekZ9OFfSF1K8YivqWGTlxS?=
- =?us-ascii?Q?F7W/YfpZu03rbfnMCfC6mWjgyOhxfzl7KEfRwEzBE2727D6b5dwIoQYspH5D?=
- =?us-ascii?Q?nXwh/9OM9uosVfqKiPCXbjb8VMeCm3r0sjXJ6n3h3FB5saJ5/ng525doyeq2?=
- =?us-ascii?Q?z29JQ6KzVhNmfjEoPTx/+G2jyJKCrcW7r/pCZJlShKrs1kJDL52IIxe0BRvz?=
- =?us-ascii?Q?ugz+EHujvarFfOExVSAvxgmF5vGpkuhzDsg9SpDBPeOr8xCEX1anBNX5IaUM?=
- =?us-ascii?Q?uY97OGeBVOFcNevr8uNncJTmu4HdkDgICZM30A1UhESG5SneFKEYXuG4EjUV?=
- =?us-ascii?Q?z+Kshjg+4RqWhUilKgtZrJkwHwZUc+NM/IqQF5SFEnlIWsHEq1ZQMHaOTvZM?=
- =?us-ascii?Q?Xaygbl5Kvpw3aDPv+ZJQGVhDrvyrEDfbHryKeuoRFuaduJuwyy9cNxYzlCVY?=
- =?us-ascii?Q?uItHeWPHvCXxk9LbCLbYs0PYoeouOFK6TCFEFuMBvI0ZV51T+3gUfMrnzCcH?=
- =?us-ascii?Q?r4v+NCASbAKB40zPhDNKgwNW1HdqjVEf9WPvldI0u7NT5FlaSptPPsci8xST?=
- =?us-ascii?Q?6CBYh2CegyyK0fKyhZIJKUBl8XLZB8Qu1xiMjB0r0hHGbecF6AwcVPT4o5MI?=
- =?us-ascii?Q?XPhQOguPMsUM8VPUZg/Rhv1WqU4w1WkLYzrMRSp3etIeOfY3qpsFQFjNANzH?=
- =?us-ascii?Q?4TDh47xx24QCJ+S6EX39Y8THLOjUcMamV4TA0tFPCuFECrYa1BXe?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea6921ad-3fe1-4bbb-c1ba-08df2892fb66
-X-MS-Exchange-CrossTenant-AuthSource: DU4PR04MB11791.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 18:59:46.7351
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wNawhBiopFhugPQq02HOKhMLvWtB4IY9VrWWw6sHFItS8G8x0/fmbpSAspTglXUjPCiaOdgu7KOHUitCtPYlaaDiHyjAjAJ0QZjNNrFKIhtZ9EExz4gsBDdJv825bT3c
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB9788
+References: <20261012161322.930099-1-johnsingleton@google.com> <20261012161322.930099-3-johnsingleton@google.com>
+In-Reply-To: <20261012161322.930099-3-johnsingleton@google.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 12 Oct 2026 22:04:56 +0300
+X-Gm-Features: AclHuK9f5aLsO6tRB8JPOO5i8tyqnBzEGNnnFSk4_j7LARmv2pkfbPldrYw1a8I
+Message-ID: <CAHp75VdjeG2kNzfRRAmHZp=++gOz48ifnKMCu0oPK=nZBewHPA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] staging: media: atomisp: Fix parameter indentation
+ and block comments
+To: johnsingleton@google.com
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andy Shevchenko <andy@kernel.org>, 
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 05:18:24PM +0300, Avi Weiss wrote:
-> [You don't often get email from thnkslprpt@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+On Mon, Oct 12, 2026 at 7:13=E2=80=AFPM John Singleton <johnsingleton@googl=
+e.com> wrote:
 >
-> mxc_jpeg_encoder_cmd() returns success when
-> v4l2_m2m_ioctl_encoder_cmd() fails. When an encoder command is issued
-> while the mem2mem context is draining, the helper returns -EBUSY,
-> but userspace sees success.
->
-> Return the helper error, as mxc_jpeg_decoder_cmd() already does.
-> No obvious reason to clobber the error here.
->
-> Fixes: 4911c5acf935 ("media: imx-jpeg: Implement drain using v4l2-mem2mem helpers")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-> ---
+> Replace leading spaces with tabs in function parameter lists and
+> format multi-line comments according to kernel coding style.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Please, read the mail archive to understand why this patch is no-go.
 
->  drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-> index e17085935435..5e466ea65a92 100644
-> --- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-> +++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
-> @@ -1726,7 +1726,7 @@ static int mxc_jpeg_encoder_cmd(struct file *file, void *priv,
->         ret = v4l2_m2m_ioctl_encoder_cmd(file, fh, cmd);
->         spin_unlock_irqrestore(&ctx->mxc_jpeg->hw_lock, flags);
->         if (ret < 0)
-> -               return 0;
-> +               return ret;
->
->         if (cmd->cmd == V4L2_ENC_CMD_STOP &&
->             v4l2_m2m_has_stopped(fh->m2m_ctx))
->
-> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-> --
-> 2.43.0
->
->
+--=20
+With Best Regards,
+Andy Shevchenko
