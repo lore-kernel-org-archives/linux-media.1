@@ -1,430 +1,133 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933163A4274;
-	Mon, 12 Oct 2026 22:17:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DB2321457
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 23:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791843482; cv=none; b=n+KuxlqtDiaLcXCN1DMrJJt3RsHhf5wXiq3kXBFFC9hI/He240S0bkEM+ksK9wfdw861i9TKZyWjHMhNM4/Lwn1i4zgdCuRXuP4qe11y+AQAFQ26C+ZvKN/nJX8CICYRDzxO56biT9A0Pi8Vu2APXdhjNFEByi+W0jfrPbpqVmA=
+	t=1791846518; cv=none; b=Grijt7KGiy1/0oTlDBBk0cq6EBMFucbNE1tJ8jLpWKhCITNCTLBkOOBtag/3LxL5Ar+WYPxQ4kTL+tYrzRgCWmOdPCHZdgNEqz/HgWs/fUoH/pz3edGkLzxrM3yOE5RpII3TcfC/hEl3PZUEYflxGrB8IgVyYdXUnxdxtXIEsZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791843482; c=relaxed/simple;
-	bh=H6XU54GjI8a1J5iog3yJ3YPePSfn1DViM/fO9P9xxcc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gVG9vQjC4RzwJFK8BDCOLTH294V4e02AZh179CnvBtrOCywQVvwPMy6KXrpDEwwFa44YAvUahkxF/fQJ9QMTcGjkGZwvdrnJKzsiUzuv/lM9DezynOwXBDnxUiJTplEbju2H908HdVwtbz2jK5SYIdGaXLgOC6Z1+vZ5Z7Jqvdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OTAXt/0i; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791846518; c=relaxed/simple;
+	bh=YRnZBWvvoL3gZ0b5c66VN59LYucaM/WJXc9j8W0cOFA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SbTX9OwKJywEJ72IYwHWy9gPeEkRRwKD2TLHz1GNgZKrTgkWAtIGzfMXG/nIBDj4mVHpQYK52F0wIzbwvJjjqRXHpY2qBqcrpTq1igDWkNcoMh2WOwmWTQa/mMXgtuDTmYPxrYBlTBamaM9XJlGBQW+SHUZdEyvlq9t6dIBqsmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JhdlDXaY; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OTAXt/0i"
-Received: from killaraus.ideasonboard.com (i68975AE2.versanet.de [104.151.90.226])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 52F734E6;
-	Tue, 13 Oct 2026 00:15:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791843356;
-	bh=H6XU54GjI8a1J5iog3yJ3YPePSfn1DViM/fO9P9xxcc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OTAXt/0iRokKTx1gT1k3F7xzJKJfQ6VAQFyhdXDshqU+iMd0fgZLdM3lEGciF75NB
-	 9ru3tgh4DFbehI95WtGW1oG8LUqpO9CuOTY3MYyJYX6oaf7GDhEGyi6ZTCEjOAHocY
-	 HS4fzR1SppZbPxPzU8c1cvJyM3Yd+wiJyxgglSRE=
-Date: Tue, 13 Oct 2026 00:17:56 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Nicola Fiorillo <nicfio@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JhdlDXaY"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso20762775e9.1
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 16:08:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791846515; x=1792451315; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AJ9Nma4YZ09TsegjNcwlomId4OFLBG68tURqtwyiYzk=;
+        b=JhdlDXaYZ1nwnrnYIvW9maoRK4NPXm+NxTySvBLFx6ytNBe4+cRErJEU0S9QJYJggg
+         m7Uv6ydXjzTKPqTF+Kqy4tAbWTpWgDQy8ENJuGQcA9hiH7GIy5lfQz6s2Sa8ZD21WiyR
+         7R8sheCd4oecSW5Gt1VZS7XDUxemKDTiLpZMHojWlDqZnTHR1T+HqAXuwBY9vZJxG7Rb
+         hQm4flRiV2pAOqNZuS+oeGWnlQKEGZfOn/u/l7V8C6Zly7frn+F+fvAKpwar3S4uFsS8
+         kFlRtib/0TR3bVoBNLjCU5IWp/kOGR6iqB81SDln7vxY4J63UcGjYNoaXJGyIBdAMqQI
+         JLVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791846515; x=1792451315;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AJ9Nma4YZ09TsegjNcwlomId4OFLBG68tURqtwyiYzk=;
+        b=AS+KFBR2cNB1Z5S7kXxw0CuffqgvxY6WxyP5uYsN3FZJ7fwzCVG1LCwpdDuBVJwI7F
+         p8xpn4PHrqggB8c50fTGvMZUA847Fq1DnhFfnpk2LmnIw74SFeMWidxMceH7Bvo2qh0C
+         5N64TKeO0AB59g5A6Oz64soTdLIKA1es5Ffv9tsOifogb7P1Ovs9M0JWpgmEb3fIh8lm
+         UbDHFTTrWUHcP/Jhthmcrdf//G9tP3Oup1FVPhHIJUbIAPEdEAEJJ1ozwqu9hxrGhYa3
+         kTITZq4oT0NOr4Tjv2dzisW2Sc30CHO9hhoYVQwXMR48OzkhZvwKX9ZTjX9CFp1C5jzq
+         XBQg==
+X-Forwarded-Encrypted: i=1; AKwUvBxeZerSY37ukoPxDfXgSib08/8zyduseglieejaevw/Sa36Pqgsm4ZJvUe+bJQFL83Cj9P244trGopbMA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLnKUAGdmuwKY+YOKY2ArzkkujIcRU1K8LobPOq/rD8/ABaSml
+	mEWHjE0ZYxu9LWruV5+hSrqzLw+oHwATD3dQx9gGW/GlWrwmInSjca/v
+X-Gm-Gg: AYBFou3E9EQR+34I+ETikUv/OzpYBO99KCf2asY9sT62zEXTPEaEAEW3SlcweXGg+DE
+	verfSOEYkRVKC669APnlXkGXAXBso0ZM85Op38UUvo5AsBKXmVSZXumFC3o9ou9IFOnGvcgHeAj
+	B59D4oLWhok/NUUJD3VyXS+kSy5bAMJQxZ08VTPRV+fmALA2Lo+deVsV/iTyxQg8S0qU9Oo9svX
+	M0L7dCh4zkh+ePbX9gulPWRD1O2mJgTDygBNSHkBuNlXZrN77wggtOCbND/FlSwJ/ObOZA3jU5m
+	scyaHLSh8NPzYEBRxmzoEsKsXEEjjbgHc6BeZegsdHLfLSa6hZExO0F84+M6UzFeQlSh8+x5+Su
+	4QL0WdljTh9bcgTkw4WwgjBBxyJ/vrgFquPTjIUH0EbnNFuccUSWmTZl5DWa0Ao3cd4BhC/2EpW
+	W6juFSHDz61mI9CF097c8PDSWl8uThEJ/EFry2wAwuNmxZoKP/NYHj0YUTX0MCQwXLdJV6C4lRN
+	flL4ePk/nZxjBXY/xAMhw==
+X-Received: by 2002:a05:600c:4ecd:b0:4a1:96cd:2f60 with SMTP id 5b1f17b1804b1-4a19ecf4c20mr85630695e9.3.1791846515354;
+        Mon, 12 Oct 2026 16:08:35 -0700 (PDT)
+Received: from ubuntu-4gb-nbg1-1.. ([2a01:4f8:1c19:b0ad::1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaa9f9sm1873928f8f.19.2026.10.12.16.08.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 16:08:33 -0700 (PDT)
+From: =?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/7] media: Add GalaxyCore GC5035 and GC8034 sensor
- drivers
-Message-ID: <20261012221756.GC56180@killaraus.ideasonboard.com>
-References: <20261009072733.39877-1-nicfio@gmail.com>
- <20261012143443.34897-1-nicfio@gmail.com>
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Rare=C8=99-Mihai=20Vladu?= <vladurares@gmail.com>
+Subject: [PATCH 0/4] media: atomisp: remove the circbuf library
+Date: Mon, 12 Oct 2026 23:07:49 +0000
+Message-ID: <20261012230754.1914517-1-vladurares@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012143443.34897-1-nicfio@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 04:34:36PM +0200, Nicola Fiorillo wrote:
-> Hi all,
-> 
-> this is v2 of the drivers for the GalaxyCore GC5035 (front camera, 2
-> lanes) and GC8034 (back camera, 4 lanes) sensors of the Chuwi Hi10 X1
-> tablet, with IPU6.
-> 
-> Laurent, on v1 you asked to make the drivers configurable, with analog crop
-> and binning if the sensor supports it.
-> 
-> This version does the following:
+Thanks to Andy for suggesting, in review of my earlier typedef
+patch [1], that I look at converting the custom circbuf code to
+circ_buf or kfifo.
 
-Sorry, this cover letter is too long. Please ditch the LLM and rewrite
-it manually, only including the important information. The series isn't
-reviewable as-is, it gives me no confidence you're understanding what
-you're doing. Same for commit messages and comments in the drivers,
-please rewrite them manually.
+While looking into it, it turned out that the circbuf API is only
+used by the local queue path, and ia_css_queue_local_init() has no
+callers, so that path is unused. The remote queues only need the
+descriptor and element layout shared with the SP firmware and a few
+small helpers.
 
-> - No more mode tables for the geometry: the readout window and the sensor
->   output crop are computed from the crop rectangle every time streaming
->   starts (patches 1 and 2).
-> - The crop is set with the CROP selection on the source pad (patches 4 and
->   5). Vertically it is an analog crop: the readout window gets smaller and
->   the frame gets shorter (the GC5035 at 640x480 runs at up to 106 fps).
->   Horizontally it is the sensor internal output crop instead: narrowing
->   the readout window horizontally gives black images on the GC5035, and on
->   the GC8034 it goes through a column register that gives corrupted images
->   at many values.
-> - 2x2 binning is there on the GC5035 (patches 6 and 7): the 1296x972
->   format gives the average of four samples of the same colour, with the
->   same field of view as the default crop. The vendor sequence changes the
->   PLL, so I measured the link frequency in that mode: 176.3 +/- 0.9 MHz,
->   against the 175.2 MHz given by the PLL registers (with the same method,
->   at full resolution, 420.7 +/- 1.5 against 422.4). Patch 6 adds this
->   frequency to ipu-bridge. On the GC8034 binning only exists in the 2-lane
->   vendor sequences; with 4 lanes it breaks the CSI-2 stream, so it isn't
->   there.
-> 
-> I kept the crop in patches 4 and 5 and the binning in 6 and 7, separate,
-> because I saw that for the IMX908 you decided to postpone the crop until
-> the common raw sensor model
-> (<20261001133138.GM944070@killaraus.ideasonboard.com>). If you want to do
-> the same here, patches 1-3 work on their own, at a fixed resolution like
-> v1, and I'll redo crop and binning on the common model when it lands.
-> 
-> Some choices you may disagree with, and that I'm happy to change:
-> 
-> - set_fmt changes the crop: for userspace that does not set the crop
->   first, it centres it on the default crop, as ov01a10 does. And 1296x972
->   selects binning and sets the default crop back, unless the crop is
->   already 1296x972: libcamera first sets the largest size and then the one
->   it wants, and with binning tied to the current crop it never got it. If
->   you prefer binning through COMPOSE, or waiting for the common model,
->   I'll change it.
-> - In binning the timings are in sensor lines (the sensor reads one row of
->   the array per line and outputs one every two lines): exposure and VBLANK
->   keep the register unit, with a one line step, and the frame period
->   computed from HBLANK and VBLANK is the measured one. This is why
->   PIXEL_RATE is 70.08 MHz, HBLANK 164 and VBLANK at least 1024.
-> - enum_frame_size lists 1296x972 separately, although it is within the
->   full mode range, so that libcamera sees the binned mode.
-> - The GC8034 PIXEL_RATE (256 MHz) is the one that gives the measured frame
->   periods with the sensor line length; it is more than the 4-lane link
->   carries (215 Mpixel/s), but over a whole line, blanking included, the
->   average is about 196 Mpixel/s.
-> - The analogue gain is the index of the sensor gain steps, which are not
->   linear, as in the vendor code.
-> 
-> I don't have the datasheets: I measured the geometry, the limits and the
-> timings on the tablet, and the comments in the code say what is measured.
-> In short:
-> 
-> - The sizes reported as NATIVE_SIZE and CROP_BOUNDS (2608x1964 and
->   3282x2500) are the largest area that gives image data; around it there
->   are constant rows and columns. They are not the physical array, which is
->   not documented.
-> - CROP_DEFAULT is the image of the vendor sequence, the same as v1: at the
->   default crop v2 produces the same image as v1.
-> - The timings follow a model that matches the measurements from 64 lines
->   to the full height; for the GC8034 this corrected PIXEL_RATE to 256 MHz
->   (v1 declared 255.9 MHz).
-> - The size limits (GC8034 at least 512 and at most 3280 wide, at most 2448
->   high; GC5035 at least 64x64) come from tests where outside those limits
->   the stream breaks or the timings leave the model.
-> 
-> The series is based on media next (d7e7bca71). I tested it on the
-> tablet, with a 7.3-rc1 kernel and the modules built from these patches:
-> - v4l2-compliance from git (1616bf9e3c81) with -z: 54/54, no warnings, on
->   both, and on the GC5035 both at full resolution and in binning; full
->   output below.
-> - A set of crop tests (default, bounds, centre, corners, minimum, requests
->   to be rounded or outside the area): rectangle applied, measured frame
->   period, complete frames and position to the pixel, all as expected, in
->   two runs per sensor.
-> - Binning: controls, frame period (also with a long VBLANK and at the
->   maximum exposure), signal doubling with double exposure, output equal to
->   the per-colour 2x2 average of a full resolution frame with no offset, 20
->   starts and stops in a row, and switching from the full mode to binning.
-> - libcamera (simple pipeline): 60 frames out of 60 in three
->   configurations per camera; on the GC5035 at 1280x960 it picks binning.
-> - W=1, sparse, smatch, checkpatch --strict and coccinelle clean on every
->   patch; i386 build clean.
-> 
-> Changes since v1:
-> - Patches 1 and 2: geometry removed from the register table and computed
->   from the crop, all written as 16-bit values; NATIVE_SIZE and CROP_BOUNDS
->   are the measured area instead of the vendor readout window; the default
->   exposure no longer exceeds the maximum when VBLANK is reduced; GC8034:
->   PIXEL_RATE set to 256 MHz and the blanking register computed from
->   VBLANK; dropped linux/mod_devicetable.h and used a designated
->   initializer in the ACPI table, as Uwe asked.
-> - Added Dan's Reviewed-by to patch 3.
-> - Patches 4, 5, 6 and 7: new.
-> 
-> I used a frontier LLM (Claude) to write the code and to do the
-> measurements; I stated it in the Assisted-by tags. The English of this
-> letter is a translation from my Italian.
-> 
-> Nicola
-> 
-> v4l2-compliance (git 1616bf9e3c81, -z PCI:0000:00:05.0 -u <subdev>):
-> 
-> GC5035 (2592x1944):
-> 
-> v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
-> 
-> Compliance test for intel-ipu6 device /dev/v4l-subdev4:
-> 
-> Driver Info:
-> 	Driver version   : 7.3.0
-> 	Capabilities     : 0x00000000
-> 	Client Capabilities: 0x0000000000000002
-> interval-uses-which Media Driver Info:
-> 	Driver name      : intel-ipu6
-> 	Model            : ipu6
-> 	Serial           : 
-> 	Bus info         : PCI:0000:00:05.0
-> 	Media version    : 7.3.0
-> 	Hardware revision: 0x00000000 (0)
-> 	Driver version   : 7.3.0
-> Interface Info:
-> 	ID               : 0x030001fd
-> 	Type             : V4L Sub-Device
-> Entity Info:
-> 	ID               : 0x000001f9 (505)
-> 	Name             : gc5035 2-003f
-> 	Function         : Camera Sensor
-> 	Pad 0x010001fa   : 0: Source
-> 	  Link 0x020001fb: to remote pad 0x1000096 of entity 'Intel IPU6 CSI2 2' (Video Interface Bridge): Data, Enabled, Immutable
-> 
-> Required ioctls:
-> 	test MC information (see 'Media Driver Info' above): OK
-> 	test VIDIOC_SUDBEV_QUERYCAP: OK
-> 	test invalid ioctls: OK
-> 
-> Allow for multiple opens:
-> 	test second /dev/v4l-subdev4 open: OK
-> 	test VIDIOC_SUBDEV_QUERYCAP: OK
-> 	test for unlimited opens: OK
-> 
-> Debug ioctls:
-> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
-> 
-> Input ioctls:
-> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-> 	Inputs: 0 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
-> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
-> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-> 	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-> 	test VIDIOC_G/S_EDID: OK (Not Supported)
-> 
-> Sub-Device ioctls (Source Pad 0):
-> 	Try Stream 0
-> 	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	Active Stream 0
-> 	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-> 
-> Control ioctls:
-> 	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-> 	test VIDIOC_QUERYCTRL: OK
-> 	test VIDIOC_G/S_CTRL: OK
-> 	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-> 	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-> 	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-> 	Standard Controls: 13 Private Controls: 0
-> 
-> Format ioctls:
-> 	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-> 	test VIDIOC_G/S_PARM: OK (Not Supported)
-> 	test VIDIOC_G_FBUF: OK (Not Supported)
-> 	test VIDIOC_G_FMT: OK (Not Supported)
-> 	test VIDIOC_TRY_FMT: OK (Not Supported)
-> 	test VIDIOC_S_FMT: OK (Not Supported)
-> 	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-> 	test Cropping: OK (Not Supported)
-> 	test Composing: OK (Not Supported)
-> 	test Scaling: OK (Not Supported)
-> 
-> Codec ioctls:
-> 	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-> 	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-> 	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-> 
-> Buffer ioctls:
-> 	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-> 	test CREATE_BUFS maximum buffers: OK
-> 	test VIDIOC_REMOVE_BUFS: OK
-> 	test VIDIOC_EXPBUF: OK (Not Supported)
-> 	test Requests: OK (Not Supported)
-> 	test blocking wait: OK (Not Supported)
-> 
-> Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> 
-> GC5035 in binning (1296x972), same output except:
-> 
-> Total for intel-ipu6 device /dev/v4l-subdev4: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> 
-> GC8034:
-> 
-> v4l2-compliance 1.33.0-5515, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: 1616bf9e3c81 2026-10-06 07:30:20
-> 
-> Compliance test for intel-ipu6 device /dev/v4l-subdev5:
-> 
-> Driver Info:
-> 	Driver version   : 7.3.0
-> 	Capabilities     : 0x00000000
-> 	Client Capabilities: 0x0000000000000002
-> interval-uses-which Media Driver Info:
-> 	Driver name      : intel-ipu6
-> 	Model            : ipu6
-> 	Serial           : 
-> 	Bus info         : PCI:0000:00:05.0
-> 	Media version    : 7.3.0
-> 	Hardware revision: 0x00000000 (0)
-> 	Driver version   : 7.3.0
-> Interface Info:
-> 	ID               : 0x03000203
-> 	Type             : V4L Sub-Device
-> Entity Info:
-> 	ID               : 0x000001ff (511)
-> 	Name             : gc8034 1-0037
-> 	Function         : Camera Sensor
-> 	Pad 0x01000200   : 0: Source
-> 	  Link 0x02000201: to remote pad 0x100008c of entity 'Intel IPU6 CSI2 1' (Video Interface Bridge): Data, Enabled, Immutable
-> 
-> Required ioctls:
-> 	test MC information (see 'Media Driver Info' above): OK
-> 	test VIDIOC_SUDBEV_QUERYCAP: OK
-> 	test invalid ioctls: OK
-> 
-> Allow for multiple opens:
-> 	test second /dev/v4l-subdev5 open: OK
-> 	test VIDIOC_SUBDEV_QUERYCAP: OK
-> 	test for unlimited opens: OK
-> 
-> Debug ioctls:
-> 	test VIDIOC_LOG_STATUS: OK (Not Supported)
-> 
-> Input ioctls:
-> 	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-> 	Inputs: 0 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
-> 	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-> 	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-> 	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-> 	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-> 	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-> 	Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
-> 	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-> 	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-> 	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-> 	test VIDIOC_G/S_EDID: OK (Not Supported)
-> 
-> Sub-Device ioctls (Source Pad 0):
-> 	Try Stream 0
-> 	test Try VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Try VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Try VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	Active Stream 0
-> 	test Active VIDIOC_SUBDEV_ENUM_MBUS_CODE/FRAME_SIZE/FRAME_INTERVAL: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FMT: OK
-> 	test Active VIDIOC_SUBDEV_G/S_SELECTION/CROP: OK
-> 	test Active VIDIOC_SUBDEV_G/S_FRAME_INTERVAL: OK (Not Supported)
-> 
-> Control ioctls:
-> 	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-> 	test VIDIOC_QUERYCTRL: OK
-> 	test VIDIOC_G/S_CTRL: OK
-> 	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-> 	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-> 	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-> 	Standard Controls: 12 Private Controls: 0
-> 
-> Format ioctls:
-> 	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-> 	test VIDIOC_G/S_PARM: OK (Not Supported)
-> 	test VIDIOC_G_FBUF: OK (Not Supported)
-> 	test VIDIOC_G_FMT: OK (Not Supported)
-> 	test VIDIOC_TRY_FMT: OK (Not Supported)
-> 	test VIDIOC_S_FMT: OK (Not Supported)
-> 	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-> 	test Cropping: OK (Not Supported)
-> 	test Composing: OK (Not Supported)
-> 	test Scaling: OK (Not Supported)
-> 
-> Codec ioctls:
-> 	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-> 	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-> 	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-> 
-> Buffer ioctls:
-> 	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-> 	test CREATE_BUFS maximum buffers: OK
-> 	test VIDIOC_REMOVE_BUFS: OK
-> 	test VIDIOC_EXPBUF: OK (Not Supported)
-> 	test Requests: OK (Not Supported)
-> 	test blocking wait: OK (Not Supported)
-> 
-> Total for intel-ipu6 device /dev/v4l-subdev5: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> 
-> 
-> Nicola Fiorillo (7):
->   media: i2c: Add GC5035 image sensor driver
->   media: i2c: Add GC8034 image sensor driver
->   media: ipu-bridge: Add GalaxyCore GC5035 and GC8034
->   media: i2c: gc5035: Add crop support
->   media: i2c: gc8034: Add crop support
->   media: ipu-bridge: Add the GC5035 binning link frequency
->   media: i2c: gc5035: Add 2x2 binning support
-> 
->  MAINTAINERS                          |   12 +
->  drivers/media/i2c/Kconfig            |   20 +
->  drivers/media/i2c/Makefile           |    2 +
->  drivers/media/i2c/gc5035.c           | 1351 ++++++++++++++++++++++++++
->  drivers/media/i2c/gc8034.c           | 1175 ++++++++++++++++++++++
->  drivers/media/pci/intel/ipu-bridge.c |    4 +
->  6 files changed, 2564 insertions(+)
->  create mode 100644 drivers/media/i2c/gc5035.c
->  create mode 100644 drivers/media/i2c/gc8034.c
-> 
-> 
-> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+So this series removes the unused local path, moves those few pieces
+into ia_css_queue_comm.h and drops base/circbuf/. Please let me know
+if you would prefer a different approach and I will rework it.
+
+Patch 3 only moves code, apart from dropping OP___assert(), so I did
+not touch the existing style issues there.
+
+Compile-tested only, as I don't have the hardware.
+
+This supersedes the typedef patch [1].
+
+[1] https://lore.kernel.org/all/20260918214132.1135549-1-vladurares@gmail.com/
+
+Rareș-Mihai Vladu (4):
+  media: atomisp: sh_css_mipi: include assert_support.h directly
+  media: atomisp: queue: remove unused local queue support
+  media: atomisp: queue: move circbuf types and helpers to queue_comm.h
+  media: atomisp: remove unused circbuf library
+
+ drivers/staging/media/atomisp/Makefile        |   2 -
+ .../base/circbuf/interface/ia_css_circbuf.h   | 363 ------------------
+ .../circbuf/interface/ia_css_circbuf_comm.h   |  56 ---
+ .../circbuf/interface/ia_css_circbuf_desc.h   | 160 --------
+ .../atomisp/pci/base/circbuf/src/circbuf.c    | 312 ---------------
+ .../runtime/queue/interface/ia_css_queue.h    |  29 --
+ .../queue/interface/ia_css_queue_comm.h       | 139 ++++++-
+ .../atomisp/pci/runtime/queue/src/queue.c     | 112 +-----
+ .../pci/runtime/queue/src/queue_access.c      |   1 -
+ .../pci/runtime/queue/src/queue_access.h      |   4 +-
+ .../media/atomisp/pci/sh_css_internal.h       |   2 +-
+ .../staging/media/atomisp/pci/sh_css_mipi.c   |   1 +
+ 12 files changed, 148 insertions(+), 1033 deletions(-)
+ delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_comm.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/interface/ia_css_circbuf_desc.h
+ delete mode 100644 drivers/staging/media/atomisp/pci/base/circbuf/src/circbuf.c
 
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
