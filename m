@@ -1,118 +1,141 @@
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B60C46EF7C
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791796827; cv=none; b=riflx6kn57437gVnvOpvLYLdnEwBMFdMGEZATzBcjMi6AJP3Zlg6K0hlngeUvow+M7F/LoG4F1iwfUhHpYClUg3Pl1AMjX57MpfmQqVRHWW/mRSQS9sdOCFgfYwSv1sdJKFOss4n2kbxX0iy5b/VBcXK16pNNZ+GAm3ZeLTKJdM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791796827; c=relaxed/simple;
-	bh=gxi33VLZ2gMppChwwo0+nFM5QmAtnoZp4a1bQT4ATik=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA791471244
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 09:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791796919; cv=pass; b=AsnK5jtfxX51DFgmVQ4urce/pPEBHMpZuY+k0/Bx0EjDAtvmWiiEflEe5/dvWaOIO2C2MLC8xh7cqRZzWQS+TDZBNSVyXsmbDiZhbnR+hLpjmQKAaTlccZvHCrFxYg3Sl6WZUlzufZ2VyOM2WEKlCwRYotUPYH9IsGmZaYb5w68=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791796919; c=relaxed/simple;
+	bh=HMgUswHA9/JW7E20urE69ecFRmmPCiIt6XwvKa2U4aU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tgoFoPyT1WCCtGDXg/yjX1fzsY2K5QA3160b57NeTnuVK2RaVq0Ouf/EfK6VfmCJSbfwPrSadnC5/yXj8PqSGR/asyr8JBQB0N2HPoUIa4ZEmyIkbFeA1W+jikUGRItNXMfC8qS/skc3rIXYMX9/JUxNeZzmUIsb71Lw7Xw5ybw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	 To:Cc:Content-Type; b=Hbvb4t1QZc3KWQhWfz4eMo6t5guaKnXdzAXwExhAuJNHHri/BbdNsnn1P29+QsCVhy6BnFhB14liZZPyFBRQsjH0yrdeewVkqIH7h3qsKZkuUMNZ3zYu1LS9T5quukNHr6IFdyEp3h/L6Bk7THaap6OKdU8dgCbDXFOr4k4cx+Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n+pySmuR; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-980c4f5c921so308691241.2
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 02:20:26 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n+pySmuR"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2533d83e3bso260553366b.2
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 02:21:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791796916; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oSyfOEuV5iZaYC2/P022U/rXgY3uGm8oO8E2Swkn3zZsV3xDqCppgYMluIAxjgnA5v
+         lVh18o79J0MhG4rlMo2JX3TZlENJVBomEa/PB1dLpRBQzm7lhqoSl4IOPyQCayyyVOiq
+         2zu+qCbKU5fNtZAvdGp1wxbVAu1hB1PdcKbbG01bTpir3qeWAeAHweNjgcu1mFmCY+6y
+         WY4Poc6P1AVYIACcoXifvLutuRFpkZtC+KebXJ8g3KqDqagwdU27kvXY8/FJGmGrRb8/
+         1NCwfndjPPX8kw1f2bsaafUnKlzXeQrcK0LTNX4v2zV/GJuC4Sp8IFwvAAAhiNbV0zqv
+         px1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=d00/PGVzqnOO3exQ/y/1tCNwmAX0u9uxnCPXmaeqvTE=;
+        fh=LdHAYfMTmT0pmFH0Wif2gbNJG0uUm+ewKzEIlOoc8Mo=;
+        b=IlpkIDmWlmYN+OjSxauT41nXwkGl7dKt/TSwCcI0zKUeaQa0O/VHJZ9N6FCH56rvp1
+         ej1H8xYMudgM3wpL/cUirKeYjjjE1NGivoqdaJbyP5BobtGTRTwuxSm4yeOrh0a426jM
+         A+Vs4BgTpikdWGq6TTy65ZyG3M/nDssbx+ZzQJntlDqG+/VyE8YQRMQLuYOPcDIySsIG
+         aCKDaj46fyM1OKA5lwwMPx1aTxUO7GSAhz9aMv8qj/QOHHtEWQMv99TRtBHluml+/Q0Z
+         t5vvsZfuBLVQ+w55ah3Xd/rIfK7RI2i/Ot4wZDKey7WXmPyoPa/EM2gy2vEReBlUJot1
+         RuWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791796916; x=1792401716; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=d00/PGVzqnOO3exQ/y/1tCNwmAX0u9uxnCPXmaeqvTE=;
+        b=n+pySmuRoWj3EdZu8a0WLkYYnm/urNB1fQn2a2TEt8nurHb+HpyPyTkqZ1rK9E/f+O
+         AU6QLh6Esq/7qd2EjhfWnTmFcc5Ld8n/NFNfNgB/O2n5KEef6zzMK2aypxLoKT2CYejU
+         zMpuAYXaTtaPgfXmLmf+bNtF8VmDIfICQunqW05IVIp6pihM48cUF7+MVbk8QZzrC4wq
+         Ti4TPJF7np2OngOTcw9nz7vzj0jIdwfYBX2araz33JfG/gseAbu0BwUUTywxdpVRFydY
+         zudlLmD+kOkTaStP8kKclpZZAvmJrL0wiZHJTQIszrzKtObwybyDF5NpiaI/PqwjTTQh
+         H77g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791796825; x=1792401625;
+        d=1e100.net; s=20260707; t=1791796916; x=1792401716;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7R9Z4v42/hEW06uLFS0AmempJdev8RXIeASGOWREk38=;
-        b=qi/cdTlQJTx4o/T7wN6E2KffBKneRme8vjxmQz2B3mFTwsazby0Zi989YgF7/PiGBk
-         V1wiwBm9eNgIGucIdp59LXx75C6EXGbXHl4hzkg/KzPb1IDPhu7UQJ/qL+1Cg9sjxKHd
-         rf3eVan5TQl8Vml4bUzI11FmGMX1WvgVy7TW7/u5CMY9ImiRw7a6vszjgGfiOwpHr3em
-         rCkWZbhgdmQOxDYZEL5qYiTpylhKk01jPxXWvaQei9HS1AIcLUTxcJ3/f+nT8S2fLNSv
-         k85I8d1VLzCsOWHJC9o3B9DJC55XzwNLEhxCQfCFlj3lqsfIyX64ODQqk8xWJ/UGfLwn
-         H2PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzKdPXWfpmDQVbJy3SR3UD3B4L1LF3/KyteT4dij5b3f4tt/YzNMfj55SVIXxNGdvcMaNwhmFYIzW57wg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYILXzHsWyEMqNWc0GeqQGcPrFKLGgG/x2j4klZEDBJX9UhmM+uf
-	plii1j8pN4OVZ7jbM/G80ovu+CkYMFz24qSzEeM4iGaKhzaNhe/FCjoUcvvM/Bs8
-X-Gm-Gg: AYBFou3kMjfG/5BwAbhXmQp7tlaLD+NhS/UElQmaDhh3O9LWvxavtpdmMjiAf5iE73m
-	7Akvx2eIOgyBnG1PSEVSxdZMCtzrnMIPzrgh3IxznRCnFyaRDm+ka+u8KkkjMu4YqHD79+FZ/R9
-	94ikLkOZJ/ZKdbIkfmPmVjVjYIOexDgyaO7GADAHn+uRar+Xajn2gJfjL+wfPurtINop+WR2/a5
-	ISgb2DQ58X/7fqdwyOpcrZFZFnJVjXdKl1DTpw/YVrpBt8tCBUmuFTwFZaB+Uxd+B5vnXxq+G5K
-	8PHSiyi3+/t8B4Gg3WrXRWiw8O7Ovu9kFKmW51boSHYyASDikhGk19syjOrvn5wsSDvaUvwbhcn
-	M3MWBKfTC/ZjOz4QXT51vvCjLuyPioBLfTXhw6DqH/m9CiywQsdmM1k23djeuIl0D3gL4vBU61K
-	4pHxLke+s/ayS+sKRnGkdIXw9GsAHibppXb3V3FuYdaW74wSmtXlTjDch5dqej+NixfEaMNFFA8
-	xY5c4VgG801632ZWlDQhHqlRFAecc97inUatxVpvHTNL471Wow=
-X-Received: by 2002:a05:6102:1624:b0:790:c7bb:43fd with SMTP id ada2fe7eead31-7cb372554admr2051175137.8.1791796825206;
-        Mon, 12 Oct 2026 02:20:25 -0700 (PDT)
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99007c130efsm5786780241.12.2026.10.12.02.20.24
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 02:20:24 -0700 (PDT)
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5e94120192dso510053e0c.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 02:20:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxqme0428Q8vmTy5lutWgiXlx8k+tXM/HQX3RmdEGjiRzdU7k9s+CklPkC8a9GUG0NmV8BeotHWb/dyaQ==@vger.kernel.org
-X-Received: by 2002:a05:6102:5088:b0:7cb:1df0:813a with SMTP id
- ada2fe7eead31-7cb369879damr2230386137.5.1791796823865; Mon, 12 Oct 2026
- 02:20:23 -0700 (PDT)
+        bh=d00/PGVzqnOO3exQ/y/1tCNwmAX0u9uxnCPXmaeqvTE=;
+        b=1wjzrlI79PfNfiX+SojEPsRlB+nesQuGXOBeG+x+C//GnyHZ5NGghsEfrqHcTo5fEV
+         R4rVvcHCZnV/89dB1Es8gVCULpwZO1xCWtC7ENRmdFzY2apPeWU18+j1sY4//NBgkgvI
+         UQFl6S1+AXNtsbllxj6SpaekCZdtyyArVHspiew50fBXDgRgSy9t1FkpK2iXRudEhex/
+         Pc9HiFuW8gEXMncpA8+0TD+5OlniYon3GggJpB3PbmNHg1twY7GiIJrzhfgBXghnkTKW
+         WmMH79zIkSpj1a6UCStCykdeyHggf2++wg5opAkD411TsTAqnlCjxqV/mGpYijf2SJy4
+         igkg==
+X-Forwarded-Encrypted: i=1; AKwUvBzh+cpzka5tIa95UfZf6yEar0JhQvl0thqH4eNZFelE7X+2N48UTHR47Hv+AQ5UonWu/JzqcyfGs1Btyg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIWN+sGz0Hy50muWXnzq0yQp3ZWIVT93YYRGG4lZztoiROpXhl
+	NveDxfbu5AN/Gu92q+esxH6pbJyamTpHBU4xdTBfD6bEmGAx3AjYi1MwbYG7jxg6BDBDymoxEEl
+	u4D3JlVJAt8pScF30FgQRtFBPe+Q1SFM=
+X-Gm-Gg: AYBFou3vtrKf8xNnd33C7ch3PWmamHf8hiWdxgGJZsWL3tW/3M4N9n8+NcxXiq7B+D7
+	fPu3ierGJfDvIDDYFuobBCj8WawB+ytHINfqBGTkKRX8+LxJR0pbB9P6xRqdQKr/T9Q/HIFbh26
+	BD479jqqaJP6JOyrVIz/ihA6ZhDaUYSC/o+XSI/46t7iSRF4lUCBnQwZv/NUAjLY46aTVmNzNDW
+	9rehUoZSlsqUhAmBGlwY/lY4KB5w4YQe/rT9Yz5+UqNVbxN9AC3PUAmOmQbtI2d1zJa58dConcZ
+	QjDfd0rWZtfRPgLn7EVMhX6yw59FWq3xXu5vMwUY3xJMW6YeEXRFBAPw+awBINySZm+5usw0R10
+	2o6Vr2wvT5X5O4J5a0v7HhCS9Jk4xeQrBOgLA8H5bV1qOKTpD7PG6/5PLKUiur58Ya7Xm3iXjMx
+	cp2ZQIdW3NdLo/Bmv8tqraBc+eVVaOI9FwqeKd+hDC
+X-Received: by 2002:a17:907:3d09:b0:c31:8cfe:9a25 with SMTP id
+ a640c23a62f3a-c31a9fd33dcmr927229366b.9.1791796915831; Mon, 12 Oct 2026
+ 02:21:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org> <CAD++jL=tRpv_uX8daZqK5+h_dTiUxQBYyNM2-Lb8L6n4azyfHw@mail.gmail.com>
-In-Reply-To: <CAD++jL=tRpv_uX8daZqK5+h_dTiUxQBYyNM2-Lb8L6n4azyfHw@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 12 Oct 2026 11:20:12 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUPXv9cw-obvxW6B6Y817VFkZZFzOjTWi3z_TpOnTJGxA@mail.gmail.com>
-X-Gm-Features: AclHuK9gy8WPXA70y2ILBUxdR_nY10la1SOqMg9bhKMA4oPFypGa7yRQ2ztCmtY
-Message-ID: <CAMuHMdUPXv9cw-obvxW6B6Y817VFkZZFzOjTWi3z_TpOnTJGxA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/5] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H EVK
-To: Linus Walleij <linusw@kernel.org>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20261012044724.160902-1-mhun512@gmail.com>
+In-Reply-To: <20261012044724.160902-1-mhun512@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Mon, 12 Oct 2026 12:21:17 +0300
+X-Gm-Features: AclHuK8b6tUYO5p5GU84erIeD1vnrAS30oFKa_UyF3wbpOcD8fRDiFjk41OAN6Q
+Message-ID: <CAHp75VcEZ0RiCYKde7aiw7tK=J1LEfSeA=91GOHdPK6479V=mA@mail.gmail.com>
+Subject: Re: [PATCH] media: atomisp: drain assert recovery before tearing down resources
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, 
+	Ijae Kim <ae878000@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Linus,
-
-On Tue, 6 Oct 2026 at 00:14, Linus Walleij <linusw@kernel.org> wrote:
-> On Mon, Sep 28, 2026 at 2:21=E2=80=AFPM Linus Walleij <linusw@kernel.org>=
- wrote:
-> > Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
-> > interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect t=
-heir
-> > video endpoints, and enable both blocks on the RZ/V2H EVK.
-> >
-> > After these patches, and enabling the right Linux drivers, we get
-> > this in the console:
-> > mali-c55 16080000.isp: Detected Mali-C55 ISP 9000043.31032022.0
-> >
-> > This was done in order to enable booting mainline with mainline
-> > device trees.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Linus Walleij <linusw@kernel.org>
+On Mon, Oct 12, 2026 at 7:47=E2=80=AFAM Myeonghun Pak <mhun512@gmail.com> w=
+rote:
 >
-> Rob ACKed the final DT bindings on this v3 patch series so maybe you
-> can apply it?
+> The threaded IRQ queues assert_recovery_work, which can stop, reset and
+> restart CSS. Removal currently tears down CSS and the CPU latency QoS
+> request while recovery can still be running.
+>
+> Disable and drain recovery before atomisp_pm_uninit(), keeping the IRQ
+> available until recovery finishes. Then release the IRQ before CSS and
+> firmware teardown. Apply the same ordering on probe failure, and skip
+> the uninitialized recovery work in PM-only mode.
+>
+> This issue was found by static analysis.
 
-Media DT bindings should go through the media tree.
-Thanks for your understanding!
+Nice, have you read the code that you sent?
 
-Gr{oetje,eeting}s,
+...
 
-                        Geert
+>  error_unload_firmware:
+> +       disable_work_sync(&isp->assert_recovery_work);
+>         atomisp_pm_uninit(isp);
+> +       devm_free_irq(&pdev->dev, pdev->irq, isp);
+
+^^^
+
+>         ia_css_unload_firmware();
+> +       goto error_unregister_entities;
+>  error_free_irq:
+> +       disable_work_sync(&isp->assert_recovery_work);
+>         devm_free_irq(&pdev->dev, pdev->irq, isp);
+
+^^^
+
+>  error_unregister_entities:
+>         hmm_cleanup();
 
 --=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+With Best Regards,
+Andy Shevchenko
