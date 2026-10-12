@@ -1,75 +1,73 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FDBE4908BB
-	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 14:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 298E049B5D0
+	for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 15:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816381; cv=none; b=sjG3K0w+BJJL5r+BY6Mb+umOUEF88ntpoXzm1xa5w7yhjH7zSONUo3eAnz4YxzGrhAmhXlnnvMDx4gSbHnUx/yNYOoFH3mBSNmkzb2lN2sdRJag53QWexVxcCTDGl6MPTpCRvEs7P+bWqT2MjZvtbzFqMou9F+T2LcoZRccKKP4=
+	t=1791818991; cv=none; b=HCscD2MUKuoqonM/DDyorC/mybf6KgW/9bCGf/S2ck7z/cjSw6DNyLm+bay/mmffJyrnXZbU15Gee7WKDo/h7IQJUwuAR7IY5458Tq0/iHKbritIpZB7PrbIA4SrO2S45cT5y8aIfH6uwXV3yHJfk5g413C+lcDojFA3H+M9sS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816381; c=relaxed/simple;
-	bh=YarLj6Tl5drs4d48GxIIPRySQhK4PE3lDvu4dKT16oE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=igwWgk+udOmpJPWEXTVBxzhg5VYUlrM7GDKE1GA1d3i5wls261cKJuaGtMNPUyEpHtSpLeUX2FeGkHdqYQh2rU/xOMxFv7AB4GJl1SMuFiUbafiUr/tuxK1/0XEaApQnry8ZnglSxG1eGUyuIbuA22W2QfpihsHkX7gLcfrobM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=Z66BZ70G; arc=none smtp.client-ip=209.85.160.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1791818991; c=relaxed/simple;
+	bh=S/6wBu1Qy0PjFWFsGd4NPUc2/G0ASzabS+h4tG5IOy8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZNtrMYVOsygzY03kfMHykQTr3rVVdgfRYBx1nVC6UCZeerzI1+kU1X3EN0kisE6OVRtTNbvT2BvZk6nujbCf8txXcnjPxK+Vb8nufUpyPRkrEPyQjfp5u5TpgtSdlDtln2W7+OxI0qveXnqZOtOMqyIbicuYsZKpcgRKarMlFRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m73PG3x6; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Z66BZ70G"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53397325663so21287221cf.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 07:46:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m73PG3x6"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso9572235e9.1
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 08:29:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1791816378; x=1792421178; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kVDh4BcUbgvIW1O8+CoyCzwwqxHQNia8D9+ovujPztQ=;
-        b=Z66BZ70GrL+G3fRSAa++wQ031ECfO0fS51Dh7ERYYOaggt42Ne8wL05RkyY1CINEJx
-         dAH4bDpFvoxbV3Nbjo3T5t/TWrmGZHrIaHJ9rcDe6CzZ9JrhHdcdLybNTy1l+a5THPKR
-         S8kXtrdBlOtRke0qkwgW0ZzCpt6Wqs/1kXrxSZcTNVeiBcEKEEZvvz/TgLuQTSihrHNf
-         WBCQjBquZ+J0ZmdWo4+Qm1Nuj90rzq5A1TlecjN39HHMKV8Q0WhqMj1Bjf/7FOQjpsJC
-         GuPr1dSttLysga5Bo4FH5pVFcvDbUY/9aZgigWdULgd+2dTZVipw3eKr12O3MtUUSavl
-         2fwg==
+        d=gmail.com; s=20251104; t=1791818988; x=1792423788; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dHaZjZ/K9HkcWHP0xoN3hdI7zGw/VH12N/DXI78bY9w=;
+        b=m73PG3x61KDHhuB9DVBfOJWPmuH8fpsxbuwo+uzeGLMXAJwi0r9Pruq63ReOCV5ghn
+         DJcxD9KJlFH8z2oHQsI0eaPD3ARFY88vIHcynvXnkdKSu6GckV2Vdf2Ew5gY3HpiUKgJ
+         YtvI4P228NiUf4X8SmWa4xcSQg5FZRLRPl03CO9mihO5i1UZDOCoZESurDyToeXEFZj2
+         EXCYCQuCEdtiZMQt1k7YkXtjJR/XC9gWogq1Faj/NEtcPeUmelClnala+Lq/kAPHVuO8
+         3EecEa8Gqz1LFhfWNFZtO5KHjyt2R5Nwm2FGpmu703LtgTfc5s68HRFSG4mlMdtuMivg
+         bpSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816378; x=1792421178;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=kVDh4BcUbgvIW1O8+CoyCzwwqxHQNia8D9+ovujPztQ=;
-        b=hu95RlHoti8tEpny5I+ZmU4DlhEiGDpHgR4Irrpc/6+UXUJEqmHil16qZWEAjYfXtM
-         YxrY9pUREiif0V0I0H88aMbItXcc4HROgQ/oO24e8x5/DCgDmY5Lm8J6pY7pC1O9CTpL
-         KcMI+x3cwS59Oe4h0JeQgC8zj13qqNTZ/4Dj7XfMnUcTdtgowtSQZcbHzBmeU4qqGeEL
-         EJOHquR5lc3E8jvAC7z5aGlkfrxpGR+ks5rUywa9YTi+aL1UvtWQy+7em//+Wy9zZRs9
-         2/BRDFi3TRIMTK2g2FS4r99SJ2wI6Sp1dJan2Hg2M6b6BEk6MTjv8Ms8ZO+NRvA/PjdK
-         RMyA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8X6ksebpz/42Cdf9d0AiiBXoTUgOXAPdMo9AjU4tCWWX5DZkEyuB5OAq9Z0CesgKvKRBdNRjfZTmGPQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3OOqnQvSpk8cBAPMt82WwRNIwH3r9H8XDkcx8Z4NkxQnRba1r
-	e0id36kSfOk9Wjt3DN7360oFbUqryP88OidV22c3RETutLXLz7dM21udsp64xPiS3z0=
-X-Gm-Gg: AYBFou13MVmH3r54DtCzk1XzCZtngTC5aDkemGWgEDJaAYZ1P1WMVGcOa0zWyH6D3G4
-	xDF0xolM9ZaUO03BOSqWoA+V4CiTMh6ktTm8oT7R9UAZ/rZy8khpMSJGEWLj2H5KWBv866Z1OYU
-	H8BMeJMl9Pv6cVCQZ8BMTPWkhwQ5dLw3SA+rxvajuJcUJh2vUkA9dhvXXlhQdI82O65h51k8UTJ
-	B6XH5xHA3ZQ+uPJLM8Zasc79bKcNxlG/WryDbZ7H4D7HKX+fKcuwk66+DalH3wsNJ1gtwB4WB0O
-	az6kFKLT4JIyoaRPA8AmxkaZRb8g0pAmiTH1DI/V4hEzc4YBo6erTycjCpFPC9NYz9j3ehZGNrH
-	Ixi82EyrL9x/ml386YGD4aQBM8SMlfAR3l4Arg3XifkYo4u/cbZsDA1eQHH8e555E30+8XMCu/r
-	/fHotCwWAljWhJTja1L+V13orBOg5wCxlj10dfWzrMCufsiNHlpN2rMJV/wqpQO/LgHChMa6Jc5
-	+JyYMWP83itC70RC/zOaWVx5v0Iltuk11DGvWH23b/4jnncZo+y77CB
-X-Received: by 2002:a05:622a:2487:b0:535:1134:91b with SMTP id d75a77b69052e-5359faead4bmr160454661cf.14.1791816378499;
-        Mon, 12 Oct 2026 07:46:18 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-535e652f3c7sm3157041cf.26.2026.10.12.07.46.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 07:46:17 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xGHI8-00000006SW2-2nlk;
-	Mon, 12 Oct 2026 11:46:16 -0300
-Date: Mon, 12 Oct 2026 11:46:16 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>,
+        d=1e100.net; s=20260707; t=1791818988; x=1792423788;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dHaZjZ/K9HkcWHP0xoN3hdI7zGw/VH12N/DXI78bY9w=;
+        b=Okx8hTHz0Iy7Ju/BOk7mM2HSIKo5yZu5cNclyqrnfOjQxXHJMpnq2c6Vc8mNEE9bgV
+         TeDOo74nG66aiE+NSQuQb8E0u9OdewlV7/NAyou60G6MXJ94p1aHEOPhRqeoSHys7Kca
+         3nTO1YCBsfR/Lumpx1tBFj/RjgYoyR0DcO2D0doySFvUMhx0s3gNfgdsw5cC9dESNj4u
+         hoR8OORdFl//s7tQcIUb1vGXDfNCdquksHRnqhJ7Qdo9qniIbXcHPaucWtX+VbCZzm+6
+         o9xlXgMOvA0ToQ5aJ5seJwZEFLzfXVl50kiVL7EaezWYLmb2hT2u6FAU1BPce1vSl/lp
+         u/2Q==
+X-Forwarded-Encrypted: i=1; AKwUvByHKToSiIx5a3gFQhiIyfO1B+bbCiLytZa0JvVFb1AgRZqL3/1SiMFeP5br2GksJF5lKWb7Ox7jO5slYQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIj0cxKlI3W1y01lBUyiILoLd1zH99Inb68ow+NgBb/nQ/85ZJQ
+	S91Z3X7S4YTmFMnL0AYObmmQZa0z2hg5ZN56yGbLfNn4Sa032zcT9d6Z
+X-Gm-Gg: AYBFou0C+ntlxpHbBwgCl4iIaDsai/TfEDDoX5IXSIyhTPWAQPTR1ODgAHmwFuVdDgB
+	kBmAnnLgW5rq8/vEpYIDaOgAJgiNuHMNERJ3OCrVyqfzvQL7AbeWs9PtcW+WxadOcPm5ic1DfvF
+	jkSU2Ql+pPvq41lCKs8nvpvqTH4F63kr2SvorgOAaqyBNKUUpZoF/g1rxcX5uK0YBwR4elbcGOj
+	zUYm93cd+l1GnmzEv1iE2zSGaX8N3u7nL0YsADHC5Bn09J1ydPLiSv6ABp/b1lNBMXj8ITwJkrE
+	qau94vGW5o+n4FLQlDoz2RExv7b7st/5SXqe2vvzqxMfvC1d3/TdIPuLR9ed6r/MBIcTS0Ltwj+
+	Fd4IDcQ5FqihWXdexZ6p+2qZ1ZpiGIbeNrRIgOacvdpMp1x/NT4DftEAVe9cc0+UhBhZH9dFt9X
+	CF8TD+Uuoiy6Db4I9SY52fZ5h9rHPckttoQ1EgQcO7DGuvZXigWd5vd/knU/gTKCPSOXoBmuvbH
+	DpT+8iCbkupmsVzQakykn7mu2rYuJkl/EI9ZUYT82K7SpZnY3NoP6Dk5sef7tjF00XlGt06Er4m
+	OHuW9FK1rmgtSHBlLms75U8N24b4k8c32ps=
+X-Received: by 2002:a05:600c:8105:b0:4a1:714d:eed with SMTP id 5b1f17b1804b1-4a18e4841c1mr177576875e9.14.1791818988354;
+        Mon, 12 Oct 2026 08:29:48 -0700 (PDT)
+Received: from dev-dsk-fgriffo-1c-93421965.eu-west-1.amazon.com (54-240-197-234.amazon.com. [54.240.197.234])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190344032sm299058135e9.15.2026.10.12.08.29.46
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Mon, 12 Oct 2026 08:29:47 -0700 (PDT)
+From: Fred Griffoul <griffoul@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
 	Sean Christopherson <seanjc@google.com>,
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
 	Kevin Tian <kevin.tian@intel.com>,
 	David Woodhouse <dwmw2@infradead.org>,
@@ -79,70 +77,78 @@ Cc: Fred Griffoul <griffoul@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>,
 	Zenghui Yu <yuzenghui@huawei.com>,
 	Steffen Eiden <seiden@linux.ibm.com>,
 	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Will Deacon <will@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>, Joerg Roedel <joro@8bytes.org>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Joerg Roedel <joro@8bytes.org>,
 	Robin Murphy <robin.murphy@arm.com>,
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+	Alex Williamson <alex@shazbot.org>,
+	Shuah Khan <shuah@kernel.org>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kselftest@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kselftest@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
 	x86@kernel.org
-Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical
- run
-Message-ID: <20261012144616.GF14213@ziepe.ca>
-References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com>
- <20261005132046.30025-1-griffoul@gmail.com>
- <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
+Subject: Re: [RFC PATCH 2/6] dma-buf: Add get_phys() to describe a physical run
+Date: Mon, 12 Oct 2026 15:29:46 +0000
+Message-ID: <20261012152946.63489-1-griffoul@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261012144616.GF14213@ziepe.ca>
+References: <a04f17cc-f59a-4240-81c8-29776eee3a2e@amd.com> <20261005132046.30025-1-griffoul@gmail.com> <f0077cec-10fe-400a-b229-f7434e297364@amd.com> <20261012144616.GF14213@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f0077cec-10fe-400a-b229-f7434e297364@amd.com>
 
-On Mon, Oct 05, 2026 at 04:53:34PM +0200, Christian König wrote:
-> > KVM gets its frames through the KVM-private guest_memfd provider
-> > interface from David's series. iommufd gets them through a private
-> > interface with the exporter, as it already does for vfio-pci. The new
-> > version adds a small registry in iommufd for that, which replaces the
-> > symbol_get() of the sample in David's series. The dma-buf is then only
-> > the handle and the existing revoke.
-> 
-> Yeah that approach sounds totally sane to me.
-> 
-> We have drivers which stuff all kind of resources, not just memory,
-> into a DMA-buf. That ranges from MMIO BARs to trigger FW operations
-> (doorbells) over full HW blocks (ordered appends, global wave sync
-> etc...) where two or more applications need to share which one is
-> used.
-> 
-> That you then have a exporter private interface is for accessing
-> this is perfectly ok.
-> 
-> The problem you are facing here is more that this is not limited to
-> one driver/module but multiple ones and you don't want module inter
-> dependencies because of the symbols.
-> 
-> So symbol_get() is probably the right thing to do as long as we
-> don't have something like weak symbols or similar.
+On Mon, Oct 12, 2026 at 11:46:16AM -0300, Jason Gunthorpe wrote:
+> I don't want to keep expanding this hack in iommufd. If dmabuf is to
+> be used then dmabuf needs to provide a pluggable way to fill the
+> iommu_domain that many exporters can plug into. I don't want to
+> hardwire every exporter into iommufd, that makes no sense.
+>
+> The existing arrangement is to motivate solving this problem
+> generically, not something to be expanded on.
 
-I don't want to keep expanding this hack in iommufd. If dmabuf is to
-be used then dmabuf needs to provide a pluggable way to fill the
-iommu_domain that many exporters can plug into. I don't want to
-hardwire every exporter into iommufd, that makes no sense.
+Agreed. The iommufd registry I mentioned above was never posted, and I
+have dropped it.
 
-The existing arrangement is to motivate solving this problem
-generically, not something to be expanded on.
+The series I posted since takes another route, without dma-buf:
 
-Jason
+  https://lore.kernel.org/all/20261006183235.16576-1-griffoul@gmail.com/
+
+It adds a small interface in mm for drivers that own memory. Such a
+driver hands out files, and for each page of a file it tells the caller
+which frame backs it. iommufd maps the file with IOMMU_IOAS_MAP_FILE and
+builds the iommu_domain itself, and the driver revokes a range when it
+changes. So iommufd never knows which driver it is talking to, and there
+is no symbol_get(). guest_memfd uses the same files for the guest. The
+iommufd part is patch 5:
+
+  https://lore.kernel.org/all/20261006183235.16576-6-griffoul@gmail.com/
+
+The iommufd part is mainly there to show the interface, and it needs
+more work. Its revoke unmaps and then remaps, so a device can hit a
+hole. I would rebuild it on the REPLACE operation David discussed with
+you at LPC, with the scratch page as a quirk on the IOAS.
+
+Is this the kind of generic interface you had in mind, or would you
+rather have it hang off dma-buf?
+
+Thanks,
+Fred
