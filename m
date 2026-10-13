@@ -1,117 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6860F3ED12C;
-	Mon, 12 Oct 2026 23:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60321D8E01
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 00:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791849434; cv=none; b=cfiw1/vZ37tJRjJPdoCpdhZEdLutJxn1d/0/5t7hsXH9JY5U0Wea9n67C/Nxt1WKjQjvchaUVfYv0XSTMKbkAqePijpgWCbd4RZg2mby56RMVNRu/AogzomuFJ0wShXCWbTGTKJMd35IoWw/GmteAl3w+NfvHUs5xZ9HoqdCSBI=
+	t=1791852654; cv=none; b=hPpksqeiovD05K1lj4c8EWomQVl3dkaU8yKChE1EeZ2H8oiv0oxiM7jYEb6AJuoM+PPabuq170Bj/vylc53F3EGKCGIqAS8Ks0MgTXM5GNp2TzEoJSNSEXTlZFeQfjTDeFMZEO6MctlT4nQQPexmHEqxrlH2+I4DygTnFZXLft0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791849434; c=relaxed/simple;
-	bh=m6EUhJBt6Aorqmdp15CSFGwH6955h1X3Y4u1DwvkJD0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VkKJVKO9tyo4UXNZdACjeK1rigzIDLtD5D8f0tcNHaU1Fk/9Q6B10bgX5B6Faw5PTJpsIWW9wgiPbtvB1FFy3IpNdPFmJ7HT3ase+RRfdYBeoqvwgQOP9YyyiJjDN9XzhWNWq3EBPvjVLbbEEMqLuiQqEeERAhUhPoMCfoiwNJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hPfp8Or2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791852654; c=relaxed/simple;
+	bh=7W28zXbAc258OscpulaQd9eVgbJEA5Vs10RJkU26jko=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=byx76lm6wg+NwYaeD8WPmkCEhmnjtFyIxPtvjtwNuUjy3RiBpNV3KnVi49d8VViSkAiMI/DFNck/EMLvvPGeFDeavbiEoYiP4Lmg+3oV4ZYzJWQmydjgaGAqtC45YZGdIhJb4a8X2gYlnLBablFRNWZaPVxaCnlplutjCJIPbAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=je0XxEVu; arc=none smtp.client-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hPfp8Or2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7601F0089B;
-	Mon, 12 Oct 2026 23:57:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791849430;
-	bh=c94c4wliHaWmcoOXtZ1pULeQxMhYJPO+hjijykxcXHM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hPfp8Or27RPDW2v2Mu3rSJE2D0ZCR7hw3hx2uQsfpoRtK3DH1xL2b6i2iduK7hQ+X
-	 EL4A5R+nQdcYHgI6MNZluAebevMvVDVlypapYKOVL7EMTacH1VW3YIWgVtoSpdsjHq
-	 EeJ2HbJKe2FlSrAN0hBGTB77EZkE1t5MGiErCS5bP97rDZa2o8DHPcWpFLoYKcgkYe
-	 W+0VFuNByGgbW4nHPHZNgbck9j37MVGSB37MbM+0/HZk1gY9fiLHkUs1MZFnZA6GtE
-	 B3Pf8/+BvDdF5/U7sE0ROfiyh39UnCSXeMramQl/FHviz8QgD1Rn7soZCETJK4tyL1
-	 HpE8B7gIl3PYQ==
-Message-ID: <fa4625a2-d6ea-4904-a381-82f7e0f6cdbb@kernel.org>
-Date: Tue, 13 Oct 2026 00:57:04 +0100
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="je0XxEVu"
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91054f537ccso29212336d6.1
+        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 17:50:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791852651; x=1792457451; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=06iyY89s7tmiZ8wG9TyA9bzi9/KFey6XFgp9yIv8oXE=;
+        b=je0XxEVutnRNhcTTovnB5BYs3hwL8hTDTBpamYvYm74eACOKI5GikQnMrrotvda4Mh
+         gNVONC5PVIn2QLjgPeF810EEVG/boJqclX+aiR1zOsVQgQ61KNJZhn6sl5BD664ZB1Bn
+         DkVOQBp8UdyDk/bujkJiJBB90o0i5MQhvB2NJbR4h5QEIK9LcGxWc411UHSmMP/GChIc
+         LGLqVFpMTME4Mgh4+uZCWrpO8JMG17VIBQ9aYgN+7unFO+mRfUc6bS/rLQFJWvEP1WjI
+         p18D+AETMd4+MsoSvBE850qSTP/xy3iMIfc7Y2Qco2eHxNQX07Q2ZjTvvPZIgzv/P5aU
+         nu5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791852651; x=1792457451;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=06iyY89s7tmiZ8wG9TyA9bzi9/KFey6XFgp9yIv8oXE=;
+        b=zVWMcpQAKKSZidTxVsOMdq4bZKHWg3c39Y8ffMrENqZEigIryV2YQ6UA8TenGb97s0
+         51OITOcAkPkimferf58dCn1ecQ3XANPZVpg/MkcvSgkSGUOoNZib9KuWAPDDeROtCPo0
+         Ct4axzEpm13MSiBQCGKeOb8AGbe1DIjWk/k+qJJ24E1EL2FKdfg3/kttZMH2wTzKXZJW
+         EfkvOj7kwlFyynz32qYGbBvHmA7V0IB/8uOh1RGq+It1GHF/yB/D3LZYgjepgELTQz72
+         CxEKqv2qYxaG4DvVFCH3ETy+qsrLG5nOp82yIBDQiDSvuJIQqv2AbUhZaIlqCaf43w2V
+         7uBg==
+X-Forwarded-Encrypted: i=1; AKwUvByYNfTR4vrfl/4lM/HnxGdHEaDb530gIKhES1hOQ2NaOSrZjU5BsEIsGFUGD64fcFb5QLGoIMkEA3PCiA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLt8nKEVUPI919EqiVNkRlxhjapw7gP80Xn6dwXYiSBCMGPNTvE
+	3qRlL70KOU53T92DPpbTdC/JQRnBnLvnKqUUSe4rFw4BoFbpLJ3XCDXZaZoVYT1Mhdc=
+X-Gm-Gg: AYBFou3nMMsfpDrj7ubpgQ2E9FWS9HD82dS7ZLKp24V02MHIU6i3fzxpKabik657KM+
+	xNNTew8ukRBII9lngQENUyNQPdRubMAW9d8bLS7XwJAiIMleSgt0NYHHGKbqGqaTP3A9ixHQrgQ
+	lALSgaNf7R3f7P3kDi99BTKhQNvm0OLjyUWmYHA5m64K1zS+6U5BsqTOZ22Z2yRy8hkM0UDb2P7
+	PQGveG1hBf8s4LJ3w4KyIzGOR/9zEMkMV+A2IQdWFkomJYqX1C4ny7PIdoSrqusD4p9qbSNyATC
+	vCZbBlWbXr5GXiWwrwdqZlHCm9D/onH1k8CxKksfMpJBBIJTSDNR8iY3zNVgGCBypEFOZmsWnIL
+	KXudUStXofeWM3a3tgpV93k0fGx4wstsUBo9OCuy+Lz/shQpEwkhWiQ/+vENyVy95XfNDlXTxnM
+	33yCoxGoa482mhFpr5KAjd7JnTj6uQmHdJ2frK3kZg9q4t9TxFMAHAh2Y69oxbw0B1YZ7JuD4mf
+	wO3+L5RiCvdELWdbyfR0x9byIVDPbvdpgU0JkPH6hkAuRWcZ/ZFhMUDM5DXb++9/YvWt8mAFyRw
+	yYoQ26wA3go58RykkuZbre99SzZ5bG/jqjQl2Z7L80YtcpTATrh9
+X-Received: by 2002:a05:6214:f09:b0:919:518f:3a92 with SMTP id 6a1803df08f44-91b5549984bmr185414706d6.17.1791852650672;
+        Mon, 12 Oct 2026 17:50:50 -0700 (PDT)
+Received: from jake-laptop ([2607:fea8:e5:500::662b])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b9ee98365sm704226d6.48.2026.10.12.17.50.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 17:50:50 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Bingbu Cao <bingbu.cao@intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Ramshouriesh R <rshouriesh@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH RFC] media: ipu6: Don't require an ISYS reset after stream stop on IPU7
+Date: Mon, 12 Oct 2026 20:50:48 -0400
+Message-ID: <20261013005048.8601-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/4] media: qcom: camss: Set the streams API flag per
- SoC
-To: Hitesh Patel <hitesh@ebytelogic.com>, linux-media@vger.kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com, bryan.odonoghue@linaro.org,
- mchehab@kernel.org, vladimir.zapolskiy@linaro.org,
- loic.poulain@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- atanas.filipov@oss.qualcomm.com, jigarkumar.zala@oss.qualcomm.com,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- ravi@ebytelogic.com
-References: <20261012120542.1140157-1-hitesh@ebytelogic.com>
- <dJh9MFGkVcRUJRGlgGGQ3ffpAvS2i7dAwvaxQeLGR8aE5QIDVHPibTk3DVe4cJHhPju3m3wgFnqlWKAinMRocQ==@protonmail.internalid>
- <20261012120542.1140157-3-hitesh@ebytelogic.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261012120542.1140157-3-hitesh@ebytelogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12/10/2026 13:05, Hitesh Patel wrote:
-> +	bool streams_api = csiphy->camss->res->streams_enable;
->   	int ret;
+On IPU7 every stream stop finds buffers on the active list in
+return_buffers(), so need_reset is set and this is logged each time:
 
-> @@ -2168,7 +2168,7 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
->   		pads = vfe->line[i].pads;
->   		video_out = &vfe->line[i].video_out;
-> 
-> -		v4l2_subdev_init(sd, vfe->res->streams_enable ? &vfe_streams_v4l2_ops
-> +		v4l2_subdev_init(sd, vfe->camss->res->streams_enable ? &vfe_streams_v4l2_ops
->   								   : &vfe_v4l2_ops);
->   		sd->internal_ops = &vfe_v4l2_internal_ops;
+  intel_ipu6_isys.isys intel_ipu6.isys.40: buffer list not empty, needs isys reset
 
-This is a pretty inconsistent pattern.
+It reproduces on Panther Lake (IPU 7.5) with a plain capture and no PSYS
+involved:
 
-If you're booling in a variable, then Boole in a variable *
+  v4l2-ctl -d /dev/video16 --stream-mmap --stream-count=10
 
+The frames themselves are fine. With a single camera the flag is cleared
+again right away, because the ISYS runtime suspends after the stream
+stops. When something keeps the ISYS powered, such as a second sensor in
+use or its PSYS child device, the flag stays set and every later open of
+any capture node fails with -EIO:
+
+  intel_ipu6_isys.isys intel_ipu6.isys.40: isys power cycle required
+
+The staging ipu7 driver has the same loop over the active list in
+return_buffers() but no need_reset. The IPU7 firmware apparently does
+not hand the queued buffers back on stop, so leftover buffers are the
+normal case there. Skip need_reset for IPU7.
+
+Tested on a Dell XPS 16 DA16260 with an OV08X40 and an HM1092: repeated
+start and stop of both sensors, alternating, with the PSYS in use for
+the OV08X40. No reset message and no failed open.
+
+Fixes: 3c2f7033a924 ("media: ipu6: Warn if the active list isn't empty when returning buffers")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
 ---
-bod
+
+RFC because I am guessing at the firmware behaviour from what the staging
+driver does. If the buffers are supposed to come back on stop on IPU7 as
+well, then the bug is elsewhere and this only hides it. Based on
+media-committers next d7e7bca71698.
+
+This came out of retesting the HM1092 on the ipu6 driver, as you asked in
+the other thread. The sensor itself works properly there: v6 plus my ACPI
+patch binds on CSI-2 port 2 and streams Y10 648x368 at link frequency
+180480000, and IR face authentication works on the frames. No ipu7 format
+patch is needed. One thing for Ramshouriesh: v6 no longer builds on
+media/next, set_fmt and get_selection need the new client_info argument.
+I will send v2 of the ACPI patch with these results.
+
+ drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+index 23d00e1..4a5f518 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+@@ -463,6 +463,13 @@ static void return_buffers(struct ipu6_isys_queue *aq,
+ 
+ 	spin_unlock_irqrestore(&aq->lock, flags);
+ 
++	/*
++	 * On IPU7 the buffers still queued to the firmware are left on the
++	 * active list by every stream stop. That is not an error there.
++	 */
++	if (IS_IPU7(av->isys->adev->isp))
++		need_reset = false;
++
+ 	if (need_reset) {
+ 		mutex_lock(&av->isys->mutex);
+ 		av->isys->need_reset = true;
+-- 
+2.56.0
+
