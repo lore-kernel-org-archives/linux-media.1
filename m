@@ -1,69 +1,69 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA9654489B
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 20:13:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E995753B5FA
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 20:20:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791922401; cv=none; b=FB6tvGqWw8F0luV3pGOO+mUwcIk14Bf7AQO9owNal9OzikJ1z+3vtL7MxzkaMK0zvnUDFBzyOQug7lOdp4NrFu4v/J5WSQldQh9a9yY7U7l1/ugx75vjn3ONZZmNd2crLZX5q5q0C4L3uYjpT1AI8uJUoZ4rcH6P8DRHTHKwUM4=
+	t=1791922833; cv=none; b=k0Kec1xjU09lurK4DqayD8SHVUk3LDdT6xp/Fbpwwy0af9LX16c9KiafNeXb7WYbzdTFU3/fOqKkvfZHz1DKpwf1itKwytBhFem/B+SijAiH+9P2DCJA9AFJrNkS4FEVj7dmdRnqbhva9AgfhNWCfgstpz/vJaMTuIPVdR3RhDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791922401; c=relaxed/simple;
-	bh=jhbx9laNPy92AqwKrICB3iCZDPZ5wNo0jYJGltxXPiA=;
+	s=arc-20240116; t=1791922833; c=relaxed/simple;
+	bh=52S8eIGd/kdNc5YUeahu1cnDerc/gG8vGqhjAz+A1V0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lOUzj3W/9C1XTk0B24ZwUmlgqpZv6F26oXJjx+4kaLGKBcOeIIZGC3q1ULwtYYYcbDuYtiBmxcHbTNKUN4PuDU8N5QgTafkzdKFyLp3tgONbBmHPxYws2jHHiVAsyfPKD6r88k13+1jx0dLGHD9GlRtju7TE6IoTafJLdjBOMaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ld3gp7MK; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:Content-Type; b=H0q4+2DRslegnG3eyCGxTEUOUacNWawoKZQGXeSYXWhXOjP8CjrTHauBT52zqVcneV6AsXIJ0Hp31nuFYGLBXvE/21ig1sTFpYiqaQgX2ywbZ2HTlM7lWDeVHb22gLigSJ1mlkg9ng4+EaFzYDzpSufsQd2FKx9DKZbjF2kCRWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UT5OjOJz; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ld3gp7MK"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so3542825e9.0
-        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 13:13:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UT5OjOJz"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso31587715e9.1
+        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 13:20:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791922397; x=1792527197; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791922829; x=1792527629; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Z2hIuYUY9dxFL1uM5B7+C8H4OaVqNBpDv98EiuOQjRo=;
-        b=ld3gp7MK5FcPklAwnoAExZfcQ0nj4/hfGddimZr3xS6GP0gYcjwgPTZDcP12Ee/g5o
-         YO474N/HuWU8J+zgOHBgDO5fU/OXrLAv0wx1SNXyUayt3524LMDm01VvpeRDkkPTjwKb
-         1BnUO6jONh/m02aBdswYTy46X8oyBXHiuLr6Ol6RI/rDWMfS2hfXlHNixSwsRvYg3sa2
-         ZVvgJNEOZA3rpauEkqTIFOaeJscyA8JJj8/MQ2Ll9WFGWmuvc14ROSKKPNBOJ5iHjl/a
-         6RlolqFpDWJX6FnIqK5R4k//PNcMKCrWFuMyRoqajPFt5NiFTscqn5N8zWmWhCk1LBA2
-         50HA==
+        bh=cFWmLiUqCazwiWkaP/d2QvvXVbxF3nnToJUN5Fd7XEc=;
+        b=UT5OjOJzidLKFj05iK9BuOurmL8Uy7CUWIVuguxc1JgXSg2hNlDZMtKm9doKnw6oO3
+         kNbLvL4Qq8q88Gqnb/+spB0G6J6pBDp0TQDv2ePCHeXCo89++B5/nWWFBLB0ROyYsz+n
+         SjMCdmZwi6AVTjJGBZr2ovMgkciMxK6/5L8uxL7691rIZ7Ru9pXBx5JDvcA4ZktJKwT1
+         0c0wbUI8DbdmOvZfzCL8fQD8zIivnfBNbg9vKCtVljI9d4l2VzIv2SoFefvb99VsUrb/
+         5MU+3aW9OrjhgiUZkULiycdJdAsQKRajaCALEXwleSDsZCtNM9+dHOS76uxMzmpad8d/
+         725Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791922397; x=1792527197;
+        d=1e100.net; s=20260707; t=1791922829; x=1792527629;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Z2hIuYUY9dxFL1uM5B7+C8H4OaVqNBpDv98EiuOQjRo=;
-        b=E8RGqSzWrmqRzeHi/mGeRFVkul5FcrW4HghhbPiHOt4lILzYtv3Vvv855ZbDsjfbUP
-         /Uz/6qPh/nx7c9rJwI6ramWZo67SIlIoAwtuU1S6Xf7zdAmu4gR5GbSsgG7k5yU4yLR4
-         RlgNiSIhyTVKSGL30h7XTys9x7SBahk3orS9mH1mWYegDEn0dYVB5VzO3gs3uHoFG3xd
-         NVarDV7+Kn2Zx2GlDYtBqm5hbrf+GBhpUsZEv67o6RF4nqSj+WYgeilk2Bzmh5xDnjlZ
-         bV/Z5RaqigkAYKL6hymXLVybhvLgkmsWHjGlGUFEEKYKsqD/eWdgglA5T9ctPJEauqLJ
-         /2zw==
-X-Forwarded-Encrypted: i=1; AKwUvBxXFJyQfDuCPuDIe4he1/+FkOWtPTZ47DIRjHpFS/YuErY9+jphEPvjj9KFVL9SHmZ/6l2Skm8GCNM8cg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKws1fL8/6VyfnFnpNwuLeWaDgTZnZn1QosC3ktmDpOqX1BktJQ
-	6EqE68orWdTPx/RDslcLmA01Oe1KJsTUZXzYiaS4qrZMECt0ZB7AuwlJ
-X-Gm-Gg: AYBFou1XarCW5QvjZfSJE0mxlxlka82jVb99OZyI+F62H9gXTVaPTR4SCn5rDgMcFi7
-	d7yynqZErU9V6/tRg9NJAGY0wG5eOnDuh4d0PcVe+IGtf0EqpH9+rmAZP6bM/vFST1m04gmRdZM
-	3YxKgAJJ90eIw84LvLH9RZuiPRsLwcrTVxRWXBZTmfGUnLjNK/jfVqsKIJDCQ68g45hXPyy7Tlm
-	+pi+HP3H70sZmPq7ydhu3QBNFDuE3mvzJPO5TqGdrbCszqjED1ER0O3zB9FrvbR44xi6U8CAkL3
-	jK/svsktaRLAiKxwP1UQ+Ez5tDEXIBk0IOzl5dm2TZxXnQLISEX0pvTp5k89838CNKX0ZjuSTxq
-	l+wQw9UVW8pMT92QpgBqiwHZQ5kCIgP7gmuLA0hWO2TpRUqkbXnyhRU8m1w1wKy5Qn5wVVW30uT
-	/knkAq3zGjbGR+wWFFHI/90QcjVnEiXgDhZq+hGY8/8OoxQerRqzXsUBXZUm2ZLPmNs2teJSjkF
-	MTJvt1A0Nqco9uR9YgAddBvGX13snXWUcVd+YW+DN+3cwfpiWEgN5M1O4stF8ucfjUO6FxAC/FT
-	IiAfnvtJFwqdf4aSWuYawfVgL6Neo3n6BjO+FiUBl51XPL6e
-X-Received: by 2002:a05:600c:4f42:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a18e3ecfc8mr324117205e9.0.1791922397398;
-        Tue, 13 Oct 2026 13:13:17 -0700 (PDT)
+        bh=cFWmLiUqCazwiWkaP/d2QvvXVbxF3nnToJUN5Fd7XEc=;
+        b=0Q95vYFA7tpQQci1Q+UF9nuHwpfNaJ7IAM5xTm9GyFDlwYgAxWULYfoPobqUqHZ7Ay
+         mUWkOtysp0FdupkW+HkxxsHKJlv+eV3NfsZ2uEXRKVOSrDjfmv00DYZFXO+F2hBzxp5M
+         q1uEpZTa4xwgIPUSmf1pDKJx8A+l4jBbR1nGO6m1Bq9MUEKhuebMUlW/XMQ2orQMeyiO
+         47enHS08XQEWnssbTabyYs+dShcLZHKiu8kgzxQg7cHHvfYR7ne/pb5erM/1J1EAPF3j
+         USZ7I9HoyWqjquDfVsVhiTs3AB8DWoI2Yg6ZDnHFhCcmkVUqPx/YywTSRRRkKijXYA09
+         dNsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzblEzazyilBtq0YKKHs7QlK4YLsrupOSrdiO6GnoiBY1GOt9s/GHQXyeG6nZl5pSnKmsrgCj8o3Wf5WQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJm4Vl0y2ZxFo0jK/PnS8U+ql2IoA3zSPxMzJJ6RzqXnfu/JbRj
+	Ra0lv2mE6Dfxz8MCjjrfYpV8Z+m5gccyA2xsRt7BedVLR4Ujy6IKtrD9
+X-Gm-Gg: AYBFou2N7NS8Civp8GKsRuTTTYxO5xRYgtaKuQUunazwewIdUuT/dg/+bsI8K3BJokz
+	ePPLgmuCNHrRyyhi5A29rYDy67BxZmUMoTdUgv+umkwf4TR5E2+I+6B+1SfrvTMdNG1UoVomda4
+	ELbELz9fI27dJgJJXHkkmbSK95HCiqm3Zb/DKCBgfznuto3ujHV/zFXv3UYRg+ncgJj6ybxGeGB
+	BfAeXtkX1vk+zIaS+FqvoEAAvo4m9X76XuGNty/vkx7aczCmqRrCG//4qgoAuTrV+AMt2uy1oug
+	2Y+01K+uzR7yUNa5PnxZSACsRUbncrxEgEZFMJgtVM9gzDefy0W38xqJMIL02mCf/qZHPmWpZkU
+	I6PdAZN4pjyUxHao87V2e2hAL7RyCcnY8uKNdAYAcEU1N7GsNtgRx0/OU/BjwQbLeY8fapo/3N4
+	OZ/ytUh031P/bznm45s5Zag1i2KC/jiPNMB20OmMyGhjx6uAgPhrtPbeEQAZ3+65rzSzV4ytKVM
+	Oy9wOaEO+AePuTUCaW79bz7itM4JoqASocLgLa7dy+n0+iIAxAtaCp/E/YWiCU2a0NssCXnzWD4
+	UM7mHcgR4JDd58gSZtr9GdQr9b8EGM+eFadDjTjcGsItL5Ac
+X-Received: by 2002:a05:600c:4594:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4a18e4d6ac3mr267044135e9.26.1791922829049;
+        Tue, 13 Oct 2026 13:20:29 -0700 (PDT)
 Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm608335675e9.8.2026.10.13.13.13.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2caf4sm426025355e9.10.2026.10.13.13.20.27
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 13:13:16 -0700 (PDT)
-Message-ID: <736950e0-c890-441e-bfa0-ef5d2b7b7d4a@gmail.com>
-Date: Tue, 13 Oct 2026 21:13:09 +0100
+        Tue, 13 Oct 2026 13:20:28 -0700 (PDT)
+Message-ID: <32a70bda-de28-416c-84d8-a56c261063dc@gmail.com>
+Date: Tue, 13 Oct 2026 21:20:20 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,51 +71,57 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 05/13] block: add dma-buf support for raw bdev
-To: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>, linux-block@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+Subject: Re: [PATCH v9 00/13] Add dmabuf read/write via io_uring
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
  Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>, Jens Axboe <axboe@kernel.dk>,
+ Andrew Morton <akpm@linux-foundation.org>,
  Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
  Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
 References: <cover.1791336930.git.asml.silence@gmail.com>
- <CGME20261007014324epcas5p2a7f3b03f118c9a1d1c633fe839ed1e46@epcas5p2.samsung.com>
- <af2b48a490186edf38f1d4a5dfd9513574f7a350.1791336930.git.asml.silence@gmail.com>
- <bbb87d6b-b7a3-487a-8be4-27f3f9ce4a1b@samsung.com>
+ <d00e43fa-8f5b-4a8b-8b83-421d637ba519@kernel.dk>
+ <20261013141046.GA12680@lst.de>
 Content-Language: en-US
 From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <bbb87d6b-b7a3-487a-8be4-27f3f9ce4a1b@samsung.com>
+In-Reply-To: <20261013141046.GA12680@lst.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/8/26 13:27, Anuj Gupta/Anuj Gupta wrote:
-> On 10/7/2026 7:12 AM, Pavel Begunkov wrote:
->> +static int blkdev_init_dma_buf_io_ctx(struct file *file,
->> +				      struct dma_buf_io_ctx *ctx)
->> +{
->> +	struct block_device *bdev = file_bdev(file);
->> +	struct gendisk *disk = bdev->bd_disk;
->> +
->> +	if (!(file->f_flags & O_DIRECT))
->> +		return -EINVAL;
->> +	if (!disk->fops->init_dma_buf_io_ctx)
->> +		return -EOPNOTSUPP;
+On 10/13/26 15:10, Christoph Hellwig wrote:
+> On Mon, Oct 12, 2026 at 02:21:41PM -0600, Jens Axboe wrote:
+>> I've queued this series up for some testing, in a separate branch. JFYI.
 > 
-> dma-buf doesn't work with PI: bi_dmabuf_map aliases bi_io_vec, and
-> blk_integrity_iterate() walks it as bvecs to generate/verify the
-> checksum. rw-dmabuf liburing test hangs on a PI enabled NVMe. Something
-> like below is needed:
+> More testing it obviously good.  I've been waiting for addressing
+> of the Sashiko comments on the nvme patches before doing more ACKs,
 
-Thanks, I already took it into v10! There is some some confusion
-with the branches, but will get incorporated in either case.
+The nvme array out-of-bounds one is sashiko getting confused, we
+check all sg chunks on alignment, and seems like sashiko ignores
+it.
+
+> and while I can't really judge the code those in the dma-buf code
+> also look somewhat serious.
+
+Should be false positives as well.
+
+   So it would be useful to get them addressed
+> and the series reposted.  Same for folding in the PI vs dmabuf fix
+
+I was going to repost, I guess Jens staged it before. I'll send
+v10 anyway, should be less confusing this way.
+
+> from Anuj, although making the combination work would of course be
+> even better.
 
 -- 
 Pavel Begunkov
