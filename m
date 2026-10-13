@@ -1,169 +1,222 @@
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020084.outbound.protection.outlook.com [52.101.225.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9833BB13F;
-	Tue, 13 Oct 2026 08:33:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791880411; cv=fail; b=dQCUrLF78xrTSruLbpRMuhZVSQ4ivOFAaPAbwhFMuQMFNX7OTJgzIMgk3bbrK4pByype9PYoErAYud9C+5wIjWV9trjKKvy1rWOQX1xdNe5aoFth95QG7Hq1e0rwQABA9cTVNwwrQTA1rEQ7akwCb01RDhy11D+PCFM5hfr6vv8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791880411; c=relaxed/simple;
-	bh=CzpcgKrgxbJMWmObGMkT92nKjmTQ+jrcNCioXz2sPBU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ELw2r9EKAUVpu6RgA8ypyHj8Vl4xxuR2Wayk57Qqy9pkjjpkh6Zdhc12QSJCZuHI4ra94TQ096N/nIduUM4XFEbS8AS/yUKlAQJxyrFdjCEaulnLZWdlIcZf0RuIH9nxBuGxEihecv5JB9rj0cP2HtP7TQkoRPf6zFUUiFV3kzU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com; spf=pass smtp.mailfrom=ebytelogic.com; arc=fail smtp.client-ip=52.101.225.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L19HxqGbfkNUzW4gf/81JdKavdhmjLUw+GLN8rbtreK4pqr8jidQ1xN/R6qNRyWvDbkxrne9uXp+lTS6/6jDtYOBwnYWahHt6aRHAsoB6lY6Id5Dth31NZgqz5hbCbLHeze37yo9xmFQjruXGH0eA54TiEvIY2/7UWoxnGdpXOVO29pd/B5kA+4U+Ak/Qwsg6ngvrCm5jvF3SAeBmfPnupt1hNM4teJI3iMgiE4eBufz6ozjvpdLV3TVrtUazqS4dMrsOSEw/072mf2h23KSxOgfNGPl84vyNPnIzpygN/JuhplHTVMrJx6dfnCnKyQUW7hpjCcrVkjwQ5hDZlKeOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HvFfR2URAFIUF/lV+6LIrgRLtDwMCAVp1KWThQLN6qg=;
- b=YZR9hjfZr5St+VrUSZKVr7yTb3v3vtG38vbVH52UHtZQu5Z0fYTyBms6o1Vax60HtWn0spRD2S2q3wOcPeGZBYN0KODf9WAXKiN96bN5ABWLfEmOn/h4DB0O4m0lWuxQAkIV7K27SJj1Xw7nSne/EQgd/q39wiTlaguE7or/12+DY2i81C8KtECdj4t63+sUCaFGK8guALqxlBYYmzwuXzJoJ8I4ZU5R6Y2Erjqh7kLyf8yZyRUMHgg/8g39owj5RHOFPqmkMLym5LiC5ts461dES4+yyIbAhESJYBuq/Vq4HrVAMM1wO0LA6U0CT+9U5cb1A17I+ochUPcADsNDuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by MAUP287MB4631.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:18d::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 08:33:23 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::df75:6e8c:7def:a08e%6]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
- 08:33:23 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com,
-	bryan.odonoghue@linaro.org,
-	bod@kernel.org,
-	mchehab@kernel.org,
-	vladimir.zapolskiy@linaro.org,
-	loic.poulain@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	atanas.filipov@oss.qualcomm.com,
-	jigarkumar.zala@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com,
-	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v5 4/4] media: qcom: camss: Do not link CSID source pads the CSID does not have
-Date: Tue, 13 Oct 2026 14:03:06 +0530
-Message-ID: <20261013083306.1132036-5-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261013083306.1132036-1-hitesh@ebytelogic.com>
-References: <20261013083306.1132036-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYPR01CA0051.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:25b::10) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C9B395AE4
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 08:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791881099; cv=none; b=ssDtNGjx73OITCcjA10LhJK2VPd/NmwAp37qLoqLPJN7aBMqPiNVRuT4FCCrmuG2cQ/nVEI1RX62GUmg61Y07LqvFNS/z7cVfDYX6D6eCuZ0RInZ3rgVdHwHH02QYa6MG2xZo8+4ufxrzUhTqEzeVgoH13Xt0/e1E9XKcle0T5Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791881099; c=relaxed/simple;
+	bh=fgcWuhWqbKq+G7VZsFTlr9r9FaqmS/HG5d+SVra0LIc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qV/noaxIBFNpWh7FHJrIlskmC8/29hAuMoCK/gztg88DUMAj7GJQGDQ7RVNUOg64hEnPNqxeizh5jYF1VRx729vf4zgQ7S92AlMtlk5bKNknHNcqboKlmB5jeqoL412l4E4zF12QWd7JSvWdUipnI+mSrD0nGeDhUHr+gA35utE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=GS8493R6; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="GS8493R6"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a17baef589so22063615e9.0
+        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 01:44:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=imd-tec.com; s=google; t=1791881095; x=1792485895; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sAQ/enMvzve+no+XLnLhYtDTqCf2p9kIi2WUjf2scRY=;
+        b=GS8493R6BdxeCJdIo2YMDyfK6YkXNHRID7gylk/u02ZM+I6MYX/e+Vn6fN2ddh73ac
+         q+wg9slX0EG8oh0gPee/jlyPKeaclO14tadVKyH92GKhVangsCpSaTjStyF5uUoFixg4
+         W4RrIpHYBASZlum8m08HNJLG45Eo3jbY0wIfb47e8+DHWHOIdWX0h/Lom4UQiAfxJLof
+         Xh4JthP8Uq2DebJRdPLzJL5K7o/NhDTUqwPljDxP/r0JlBzz9DUVi1rcUzErJWCWRCHg
+         P21Dj7BnJ30P8IUH+hQCo5pjGi8vpMAvt6pyc5vgrV+KMM7cURn4X0zWHdKVTSWq5YWk
+         wZGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791881095; x=1792485895;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sAQ/enMvzve+no+XLnLhYtDTqCf2p9kIi2WUjf2scRY=;
+        b=D7W2iPKwL0BJWQk/aX5AznTgyX6wS1cXRbuLdnHHAWLmXU118bSJHbgJAPhgz2+UoC
+         anxzcYrfSmHUFa2W+8mVl5dHXWr+I6AXxF5HwpLr1pjZ1ZgFdbA3XaXoITDwAAef+7rz
+         lGmENL6S5/9YotT3hQ2tDcrubTMKb8vYPHQLa0/k+DXDMTzyTc8IpaNnC3xvjRk+QGGI
+         VErfcT2w/d4aA3EVm7zE4mr29l+vFbM08Ozk3D7vz4WURyWKJgzGotX1+/g7RcFkjwCs
+         BqLaA0bUnM2DIicFozOX7IagQukLLLlC6VX3OcHpRIMRKnAvYKc2ZwAk2G/qStumxLEY
+         TV1Q==
+X-Gm-Message-State: AFq9FYLkjZFh8AR3+EGA3C76HUBPwlUDUh4+sHlecEcR4isFZselKwn6
+	srDZxYxq6PZWAdtT6iLQWo9HcghqPh9zFa1viDZe8H37vOaxuwJMYO8GPhI2I96BDjK751KbSPd
+	JU4I2Hb1aHQ==
+X-Gm-Gg: AYBFou1oOvVw7ZrHSOD1ASUUTdg3lmD7VfuDUwSFS3LkUPxUuMoxaXkUCbC4bNg5CgV
+	+r74EESBwA0Lwx0bubgZwrqdo58skbsLzZ/cuBSU/krMFYb0SX8WSZwewIvt/nw3dr7zmb+Z4ex
+	K4QO4Ld0vD7UVr+JbJmW6FiWb2brLmgnWWAeQ1b7x/J1Vk7rqfyObFjycE/YvKELy6zYAMCEy5k
+	KbIJWyoAxP3DhP1HnRH7NrHTKRm/OQUbcU7sWJRD0iL3lJHes9/xEIPnbyrOh2WYQwq92wbVKCz
+	X9v3xEPQ8O7gL7ge4Q10WWUoGDC8W5kV8mhubGg2+uF/fOZTfCUvN6GNjxNbUA4Yo7j1tnRXuyS
+	fnFSLjO9GQN0rwwVCArgcwk8SJZLjF5ruKBFqRHuXpqczxNj2C38Wg8p70M3xT1E2KErNe/daY6
+	AF6VsirWhEiPOagpoAek1Uz6zLek7XVXy/+7ifQsJl2cpVZbRbG4QNrxnJUmN+OWD/mXu0lcuFt
+	yB6om2QOONhjAKE8HUu8xWSS50m3hoUoD1F+JNPYaLY1D1P84+QQFyTe2K9MAfIb/g4G/78AZC1
+	kXLwB5KAHlb4r8SwGm01NMWxIG+ER5lGLLrFqw==
+X-Received: by 2002:a05:600c:871b:b0:4a1:a2f3:e6f7 with SMTP id 5b1f17b1804b1-4a1a2f3e8a9mr85953505e9.29.1791881094886;
+        Tue, 13 Oct 2026 01:44:54 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:23c6:273c:cd01:6dd2:be4f:50f7:7ed8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm271888055e9.2.2026.10.13.01.44.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 01:44:54 -0700 (PDT)
+From: William Bright <william.bright@imd-tec.com>
+Subject: [PATCH RFC 0/4] media: qcom: camss: Enable the IFE pixel path on
+ SM8550
+Date: Tue, 13 Oct 2026 09:44:43 +0100
+Message-Id: <20261013-sm8550-camss-ife-v1-0-d50de00077b7@imd-tec.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MAUP287MB4631:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd055732-f7dc-443e-01a9-08df2904a4a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|52116014|10070799003|56012099006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	x73kOnRfLLfFTwJf4YRfuablfVK2Iz+KTppAwywue2YEZmbX6qqvbmmTc6LMKDJVo5V9FU6uW3JiyQVSPAueX8DS6PxDVPKHn+0FKWgajUeeJ+1MTuxS4Y2ZWLW4tGF1b5HuRGiYgBb+ap990YdRgNeecxQBNuhbb0lIV0VkgfHfdhj2pGkn4PcPk0J4kpAgQ1rez1xY1b/Qryd1iKKt+1bwQqpeVPuTJK4V7GM0Ov31uz6K3Rx9Fz3htqkr71n1Lj/52UtaJyBMXF/D1n5ccEDFsqjTRNrwIO7DNaX8qeo09Ivpns4+El4JdxQpzfvWJMOeB4uwu6nZWy2A/zZ5SX1N4TBJ3Qrk+nIA8t1TdCRLdL3qQqUhYqpOFoiNzS1UgHYG+IsfUVgrzW2lP2HEn8Uf86itYT6q62oSwY9qBQKjZGrLFRPIpb85DFscpqxJH2FKvh4xi3W19W0cMIq62ziXuzg0x43x2CJQdIi8s08INY2mngdLommMbiwuEhGoyWDQ18wKKFAi9dO0y6VN+RnzXW4/Gkrhjm96QVYBTemHToqH0TTh8wgCP8LM45BfD9HEryeZnYrYo1AjtEJk2KQfz56eQ5yuxAFRiXm/01K2RrbNP9hxv18sQXpy5oPCZKjgkzdOaHfb7qJ1dOIMGTAkXTk6y2NRI2sVacHMH88=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(52116014)(10070799003)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nU54FgyoPjtC7+4HO80LqEk+chuQl+6P2RIo3pxKNVJKXbDjedaxfRfODKRQ?=
- =?us-ascii?Q?ucKlMbEbPlya66B6FGJggWNAkudcqPptyp6xQ+DYeTYnuRPp4Q3QL9RQE/aX?=
- =?us-ascii?Q?JGilpcwVIoJJmi25KXlMEc8r2Q/C5oYe8G0qfl7599A4RqcVe0QYGX/49Lb9?=
- =?us-ascii?Q?XQiklaYvsow0FHHxmom8ZHmowSBj+JtzmogYHexpf6Q6P9KcFBo/7tqpsYyU?=
- =?us-ascii?Q?Q1WA9U3+jJHqmR0Kj9p2bjhk75UXAc2gyUwrwyt1jT7uP914SgZQPniDj2aV?=
- =?us-ascii?Q?SqiQQaJyBJpCRNpX3AUvZcgSc8wz49MtCnT4MD1S6Gn+PW4Q8EqTbDo81em0?=
- =?us-ascii?Q?n3WMjOki/ZOzLZgmR/pV8NKzU0o1JEjSxdwgJkdEd1vZ6nX6E7wp9e1wodY4?=
- =?us-ascii?Q?ABnuKuL4jnCQu5mdHDOqz0FsdOyzBC1SInUGRHo7rOS2nxYFqt0p0hrMyDEM?=
- =?us-ascii?Q?e9DhAPMHSi4Yjq0EH9t+/lksQLqP4nelWWWZXIV2nfT8dSBCzZ4YvjUNu8yW?=
- =?us-ascii?Q?7MFmZoM29EImW9A006xpKw3oPRr5vD4kX5U94LvUm/pOP93LLkYjgV/BNA0n?=
- =?us-ascii?Q?7vh1UBXxO9rOVn4+L9vbPVBey5D5z/p/UOK/fqnAVinHkEIlGn0PidQD1qi2?=
- =?us-ascii?Q?IxyS6h/SF02gVjSCkWI7JDob7/wrY0x2LwQSwxPgUciagVpzSV5QRgd99e7e?=
- =?us-ascii?Q?faz8C5RgH6LhaAsLT6CmF94xIfOFfxflrzEAwOvaSLcR1v7IZ4lkqox0TTZg?=
- =?us-ascii?Q?1cU4ufdUXxMSWzUsyqWtnn0pAwM2ABE+RZSe7cgWogw5eRktFx+bNmQmZHWj?=
- =?us-ascii?Q?SqyeZ910Lwy9otER6flnKioiLTR/2IuqiT6SL6cpSf8RXmOdKXecBMeTcB86?=
- =?us-ascii?Q?XEPxzrWBtgZGETnut3sf5Oi2hZCFXtRLlpQa2/gz/cwGXTvN1/NjMyb67qVi?=
- =?us-ascii?Q?KSlqnksACsUSQCC6QDpgQvjBCCtW4IO4xM33tk6cWUVIwoZDPg1lgKZQnUMW?=
- =?us-ascii?Q?Gwi08ae/2tS4ecNju5JhvjdDiDGC1TctZh1eRXosJrbJabJd0Gym/aRD1YN1?=
- =?us-ascii?Q?809axU+pcWfEVKAK4qQaMgYn8EWOTzn3I1tWIvYOACBq+YvO9w33pCXr+Rup?=
- =?us-ascii?Q?xefqPnNprM/DoAPZ8wt4VcXxW6TWPHB1uEZGl+PSAxC5vs8UYnMsJ+ZNxQOj?=
- =?us-ascii?Q?E81YqHz1XqJuI6f8RbDMlc0OyrDY57qnKyHTnI61G+h9J9mc2kwQCApUj8Ao?=
- =?us-ascii?Q?qnpGKNLH/Uh8VgCK6DBrh6fD4Ys4g+Qt4QTeXCfLFyqrM+XzWDUxBtQCtR/O?=
- =?us-ascii?Q?wkK44fnomLH5jk8b/brSspWi1yavS80KPqgAcvaU7hlikfrTr03oB2+Zlwt3?=
- =?us-ascii?Q?3rnedzj4/SsNruU1vClXwulsiLisNLyB5lMrRrsOkxkzCtHofx9EL3GRWwQn?=
- =?us-ascii?Q?9JqXggWVS1gHHuer4shqkYyrEciLZGct/ot4GxQl7O/2fXTOhs5weDnK2i/D?=
- =?us-ascii?Q?+lU3Wm6bmekxf5ibNDEBm9Du+uSwSBacgB9xxjsv9BA9cSK7bz/OiBJ5XBR6?=
- =?us-ascii?Q?zeK7OSK/HSVPzrv2zUCfHcDiHu5s2Ab2SEqyjFriNQKzjtTkQqHxcBPLi1Vc?=
- =?us-ascii?Q?k5NTOFZxR4Y/agibTjhQdggvfIsDTX/fqT17aUe3KX7ZI2roz8Rqww/fREXm?=
- =?us-ascii?Q?Nu04opqwy1hDesy+71nnYBvzXnlP1zuyqCZOUcFncFEbvo3PnxoHVJgMblk7?=
- =?us-ascii?Q?v2nfUJDjGLeiIXNxp0xXSrtCXalWbI+A2Y0UXo48gagO9tUtx8dlhDdAttOO?=
-X-MS-Exchange-AntiSpam-MessageData-1: mSFtOYzHZT6USA==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd055732-f7dc-443e-01a9-08df2904a4a4
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 08:33:23.0712
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OfW3n9n0gnoBPeLAoCzGT2z0tSXTcA3wLwsptIvTk016vj4gqYVlDmYdC2LQe3IrIcvlCAmH7vYZoMTgrvXl1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB4631
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHzvzWoC/y2O3QqCQBCFX0XmuoldyZ8kIgh6gG6ji9Udc1PX2
+ lERpHdv026GOcOZ850ZmJwhhiyYwdFo2HTWC7kJoKiUfRAa7TWEIoylkCFym0aRwEK1zGhKwlz
+ sdBpqKeIkB//2clSaaYm8wfVyhvt65CF/UtH/wv42R+/BA/u/tyVmtQCz4LDyRISNscOErTLWb
+ 4QJLhViX6HSNbqyQIGj9IP0Po0UlTqW8lSTs9RsO/c4wv3z+QKJgjEr5wAAAA==
+X-Change-ID: 20261012-sm8550-camss-ife-b04d82d1067b
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, William Bright <william.bright@imd-tec.com>
+X-Mailer: b4 0.15.2
 
-A non-lite CSID registers MSM_CSID_PADS_NUM - 1 pads, one source pad per
-RDI0..2, while a lite CSID keeps all MSM_CSID_PADS_NUM pads:
+This builds on Bryan's RFC enabling the IFE YUV, stats and params paths
+for SM8650 [1] and switches the same path on for SM8550.
 
-  num_pads = csid_is_lite(csid) ? MSM_CSID_PADS_NUM : MSM_CSID_PADS_NUM - 1;
+The SM8550 IFE 780 shares the write master layout, the pixel pipe
+register map and two pixels per clock with the SM8650 IFE 880, so the
+first patch gives the full IFEs a PIX line and treats SM8550 like
+SM8650 in the pixel path helpers.
 
-camss_link_entities() still links source pad MSM_CSID_PAD_FIRST_SRC + j
-of every CSID to line j of every VFE. On SC7280 the non-lite csid0 is
-linked to vfe_lite0, which has four lines, so the loop asks for csid0
-source pad 4 and the driver fails to probe:
+Running the IFE 880 pixel pipe as is on the IFE 780 shows two
+differences, both found on hardware:
 
-  WARNING: drivers/media/mc/mc-entity.c:1150 media_create_pad_link
-  qcom-camss acb3000.isp: Failed to link msm_csid0->msm_vfe3_rdi3 entities: -22
-  qcom-camss acb3000.isp: probe with driver qcom-camss failed with error -22
+- The WB gain registers only take bits 31:17, so the 0x1000 written for
+  the IFE 880 reads back as zero and every frame is black.
 
-The pad count depends on lite-ness, not on streams_enable, so every
-platform that links all CSIDs to all VFEs fails to probe as soon as the
-CSID streams support is applied, whether or not the streams API is
-enabled for that platform. SM8250 escapes it only because
-csid_vfe_fixed_pairing links csid[i] to vfe[i] alone.
+- The demosaic leaks red and blue into green whenever green sits on a
+  black level pedestal. With the AR1335 100% colour bars magenta comes
+  out white and red and blue pick up half scale green. Subtracting the
+  black level in the demux + BLS block ahead of demosaic fixes it.
 
-Skip the VFE lines for which the CSID has no source pad.
+Every other register the pipe programs reads back as written on the
+IFE 780, so rather than fork the pipe the series keeps one and passes
+it a small per-IFE description. Patch 2 adds the description with the
+WB gain, patch 3 adds demux + BLS as an opt in stage and patch 4
+describes the IFE 780. Demux + BLS is likely useful on the IFE 880
+too, but stays off there until someone checks it on SM8650.
 
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
+Tested on a QCS8550 board with an AR1335 on CSIPHY0 into CSID0 and the
+IFE0 PIX line at 1920x1080 NV12. The sensor's colour bars come out with
+the right colours and full range, and the SM8550 CSI TPGs [2] give the
+same bar order as their RDI capture.
+
+Renaming the IFE driver to indicate that its for both the IFE 780 and
+IFE 880 hasn't been performed, I will leave it up to Bryan to decide on
+what should be done regarding this.
+
+[1] https://lore.kernel.org/all/20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org/
+[2] https://lore.kernel.org/all/20261012-sm8550-camss-tpg-v2-0-06dbbe36ecd2@imd-tec.com/
+
+Signed-off-by: William Bright <william.bright@imd-tec.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 3 +++
- 1 file changed, 3 insertions(+)
+William Bright (4):
+      media: qcom: camss: Enable the IFE pixel path on SM8550
+      media: qcom: camss: vfe: Describe the IFE pixel pipe per version
+      media: qcom: camss: vfe: Add the demux + BLS stage to the pixel pipe
+      media: qcom: camss: vfe: Add the IFE 780 pixel pipe description
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index a9bd79ca3..4b73f8862 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5028,6 +5028,9 @@ static int camss_link_entities(struct camss *camss)
- 					struct v4l2_subdev *csid = &camss->csid[i].subdev;
- 					struct v4l2_subdev *vfe = &camss->vfe[k].line[j].subdev;
- 
-+					if (MSM_CSID_PAD_FIRST_SRC + j >= csid->entity.num_pads)
-+						continue;
-+
- 					ret = media_create_pad_link(&csid->entity,
- 								    MSM_CSID_PAD_FIRST_SRC + j,
- 								    &vfe->entity,
--- 
-2.43.0
+ drivers/media/platform/qcom/camss/camss-vfe-780.c  | 12 ++-
+ .../media/platform/qcom/camss/camss-vfe-880-pp.c   | 89 ++++++++++++++++++++--
+ .../media/platform/qcom/camss/camss-vfe-880-pp.h   | 12 ++-
+ drivers/media/platform/qcom/camss/camss-vfe.c      |  6 +-
+ drivers/media/platform/qcom/camss/camss.c          | 12 +--
+ 5 files changed, 114 insertions(+), 17 deletions(-)
+---
+base-commit: c9579f4854ef36317a41e94961aa3aa4db578df0
+change-id: 20261012-sm8550-camss-ife-b04d82d1067b
+prerequisite-message-id: <20261005-linux-mainline-7-2-sm8650-hdk-rfc-0-v1-0-ed985aefd611@kernel.org>
+prerequisite-patch-id: 64a75eca8552f66cee41724c5ada63abf6280395
+prerequisite-patch-id: 8e2f527fde204b44afd266061097a276abe30b1f
+prerequisite-patch-id: 2939dff7f477209138725aa8d86318d6580f4ea3
+prerequisite-patch-id: f77370d8fc480b2e972a773f7d56f33ff1995eef
+prerequisite-patch-id: bd3b231bc86129d25fca4ae34408a61db43bf883
+prerequisite-patch-id: e44f05055f4bc9dc93ae6bd25af80c64f5ce627a
+prerequisite-patch-id: a5f27213eba078f7ed5420d90df3ecd45151219e
+prerequisite-patch-id: 9b2fbe610fb17689030c6da6c529f7db91b86d9c
+prerequisite-patch-id: 4beec7ce45b83b4b578e6ad599db250358e5563f
+prerequisite-patch-id: 5886e4828b6caaad3ae8ca243cdaf32bf9090f81
+prerequisite-patch-id: cc719744978fe0cc52164734307d2be5970091e6
+prerequisite-patch-id: 6acd149a1f7157d92adcf6607dafe14bc6dbae74
+prerequisite-patch-id: 953d1e2d1178270416b806663d67571785a161e2
+prerequisite-patch-id: ca55b5a758935241665519d91f22301df4baf77c
+prerequisite-patch-id: 18e2975827c1895069be22801a65299df994dbbc
+prerequisite-patch-id: 9c92f6844a2b65d01cbd678828e0104713e074fc
+prerequisite-patch-id: 36fc0614ad729c6c430197ed50cd3f7f007657dc
+prerequisite-patch-id: 98b149c4e58978cacf5f34c42449e008715ba8f5
+prerequisite-patch-id: e03bd72767b38302093640b678b733d4793f79c2
+prerequisite-patch-id: 0ac1a8f5230ac3570f284b2ce7beba19389838d7
+prerequisite-patch-id: 9f4bfb7c47e056a31ff6e077247b714309911f2b
+prerequisite-patch-id: 2333109e36a4f537899058a6d97b84297ce5d932
+prerequisite-patch-id: c6db7007451fc5cbca692e693eccdd431ac995bc
+prerequisite-patch-id: 40dacffb560cc55082680cc2d6aa07df96e494ac
+prerequisite-patch-id: 90e0149007368597c2f287c485ab8e2070d08bde
+prerequisite-patch-id: 5fd2587b4f5ede8b296f2e733b4a7fc77cb46383
+prerequisite-patch-id: 4d9281232ab5f7d64ba2f03e916cc09c831f062c
+prerequisite-patch-id: 065109c355b439aa41e071f16bcd9fab28da93c3
+prerequisite-patch-id: 62277591618c67366b2b80dcbdb77ac4cc834617
+prerequisite-patch-id: cd2e469e9cb0a1bf377f2efb77cf49ff292a3a5f
+prerequisite-patch-id: f115b9f075efde377d9cd71a41eb2b972ceaafb2
+prerequisite-patch-id: 2897e5a754aa5f57b514907cd28d7f36c07ee3f3
+prerequisite-patch-id: d3a5f38102f736ad90bec2758f51dfc689df4e0a
+prerequisite-patch-id: e0562876758c5e8d01fb3487a5ba76375de58284
+prerequisite-patch-id: 2f0f257fb5a5d5e653892a383df9ef45ab3cbe31
+prerequisite-patch-id: 694dba0efc7a4d072aeef8ce501c14f713d0e636
+prerequisite-patch-id: c5d81a83d05002a0b5cd6e1f580618baddc45536
+prerequisite-patch-id: d73c9933c3c03c4c6b11294b8c668f9082cadaff
+prerequisite-patch-id: 5035749ba44631c4a1fdf5cea695dec60a07d6b8
+prerequisite-patch-id: c77f30e0a0b4dc66c54b10be1e176623d4990d83
+prerequisite-patch-id: 19c6758625753d10a452ea2c71a7f663b62ac03c
+prerequisite-patch-id: def0ac8f21fd089b98c188ec6768d14d7bce38ed
+prerequisite-patch-id: 140465680122b74225af733643db4c1143fcbd9c
+prerequisite-patch-id: 0aa2a11f1dee7fdba5ed2e9bc01310b9e61d2f80
+prerequisite-patch-id: e74e90b951ad34860acfaaf0f8a9db75513bfcf8
+prerequisite-patch-id: 0cec71d3caa998e000e07edb17f20cd936186bdf
+prerequisite-patch-id: b5e6afef6deffbbf3b9332a05fc02f19bc5f40ba
+prerequisite-patch-id: afcfa6bfe37a51b433e08dcd43248a62c4417173
+prerequisite-patch-id: 8a25ed52545e0d89eb0f9b29fc6b088f8832c1ae
+prerequisite-patch-id: e6826a68e5b931fdfa938e5999593a1e345f05cf
+prerequisite-patch-id: 4f5d62856f7c713710db3925634b359580879d20
+prerequisite-patch-id: c0256114ac0ad258ebefea822af8d829f08e3951
+prerequisite-patch-id: dafe013ad950a725e272ec6431502b599bd86fb8
+prerequisite-patch-id: 4db85a01a9fd08b5341d8c52882dd647e92448e8
+prerequisite-patch-id: ac63cdfb7895dc182eb502a169ee642b78b03d54
+prerequisite-patch-id: 569f65af1580f1618e02cedc2e853617ce4c5109
+prerequisite-patch-id: 9271d8f8178c3e23fbdca5c479ffef9504e0bcfd
+prerequisite-patch-id: ed506a77a5fabb3fbaa54eb9962481eba5f0bfab
+prerequisite-patch-id: 75b355e6490207fb9f79bfddec0d1498ff5e2d24
+prerequisite-patch-id: 971c7c78690ea85fb2d31875ff530d86a7196cfb
+prerequisite-patch-id: 2019927f2b18310b8a1b20ffd19dee9cf6fd0499
+prerequisite-patch-id: 44010301d6cb283f688d868763177baa269b9c92
+prerequisite-patch-id: 7aec625fd5c85cef8056a54698e30285ad3bfecf
+prerequisite-patch-id: ec92b9680f7b8312879b820242b9b7acfd97a2de
+prerequisite-patch-id: 7be3efcaa0eed4a3e1248c063b746bf52df9d135
+prerequisite-patch-id: 133bfe82b6516894c003b74b44b66626a836bbc2
+prerequisite-patch-id: 1be12dc685f79f7194aa8c49087c3a48c8cba58c
+prerequisite-patch-id: 684d1fec1d0c3eb6017889609d26ad3467046295
+prerequisite-patch-id: c99c3dd7797223ae5a38baa7d8735f906ca9f073
+prerequisite-patch-id: 8bfccf3f3420113e977dbf0d68a29e343763d1b8
+prerequisite-patch-id: b81c5f643444ed9ba6714271bb5af2206deb757e
+prerequisite-patch-id: 91884344b76f679d11df2a0b354d0e4bbcd5e30c
+prerequisite-patch-id: cc4e1eb14b4520fbc00dcdc3dd5593b5d1551c05
+prerequisite-patch-id: 6a2314a098c5bbfffb52c1c728432d2595743d06
+
+Best regards,
+--  
+William Bright <william.bright@imd-tec.com>
 
