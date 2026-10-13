@@ -1,166 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098E65187F2;
-	Tue, 13 Oct 2026 14:26:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FBA35013B9;
+	Tue, 13 Oct 2026 14:47:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901611; cv=none; b=ZfGNX9RxW5dtxh40W1Lsd+ALeA/AVWnEx4p1+SRmxSZ4FOoJibFczGFNmYs9XD6IA7oNkayY1/GpqItBtC9cej55ggM3aXAXS2b4Tg9owi1mZ1Dlhs36oh5yTCvDOrjlBEhr0OkAbhXRgdi82hWqav2TOq1zwhKoxHQQR2t24FY=
+	t=1791902861; cv=none; b=JXyhOJuK5D40dhRygzAp96I5ZBA4TRdiF6GsjnTawF/+LMhqK/zHw893TIFCog1O2RFNJ4Qf2bKHT7KnA/6Z/r8IGxZFimk9KgkXK4YDoBqdbukeVmGD0vRd8zNfR8157WS9iH2W8YztlOViWPB9m6MSNM4xJxmqAvtiC1om2Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901611; c=relaxed/simple;
-	bh=Zm7YvLjSd928d55gJQhk1qII9rpJSTPjLjNHslHAa1M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LLts/z5ZPXHPfrUbWZ0XktrzqA9oKSFf3ZEoRKlaqND7UX/mHiOakVQ57PsEGG5AsAkUnXedBJMxSEi+ecATYh4uJfy0ReFpoXk/ae5oUat/2AoHSYYcA8iN5LWYVmHrru2jnJMuRqkxJ26QGvo2W5Q1xFcwQbudh13auGcrAqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBufTWZr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791902861; c=relaxed/simple;
+	bh=Tl8dWZ2c1JiqeuXayNIW3lODPyejvDXdZ9J6nROe4h4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SifCc3Tfg46ulr6NFHsTGc6gvO8q0RkyWdy5697zC3T3OegNHtVzysD7SXAp+nxuAeuPEVUtlfRmmT74FJgvhDP2q1+W6+0Z1lhFb149pCf00dhmUp0oPyzSOxKD6smackISUOsS5Xq5uBvjkVzObQB5tml2h3l93WhCe3LNHDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=jPbC3KAZ reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBufTWZr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C13521F0089C;
-	Tue, 13 Oct 2026 14:26:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791901609;
-	bh=G6+HXzTIsdMXUDkB87K1SqwkQ8xKxvMiZmAMjtsCQwY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OBufTWZrlibOe040ffQmM69yRylTDpkUoxGTJVtEhDmWx+4LCP+4Yg5ltBb7UcZTS
-	 Jy08ZMZVYk/HkcG8EwYDtLR96JATNGtZZpfGT8k/eq/g6Jss6LO6fS0jkunGihzrFl
-	 HyVvHTxNS+GNu7/xgJt58UjBFAexZ5+vzHL0VT+16bPvrkZnwFqyC46DfT5TIpoj8Q
-	 /0T6YW2Z6b64iz/te9Uq+7qi8DZpE+EfQpxLeUl9WG2iLlAGl331JithROmKCSanW6
-	 7bCXOPX7Ig1o/+DkQ8EEp0WYsH26NWoaU41xYFX4ASoL9HwVHZKuC7Tl/1kunRVSKl
-	 qk+I1qbzogTPg==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="jPbC3KAZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=aCbPFN9EmS
+	JHSCbJaRZ03CYLMK4KvH2MF1s9BptRg3E=; b=jPbC3KAZ3jrK7/Omhhl9MsMhuX
+	oWLRuOjRovL+ImdoHE+bZ04/x9Rjuyc5RusHQyFJIpUCdkMK9EQ1FrrE8h9oHK+/
+	xSWcUlaHBEVma79Spl+2N7BbG0d8rruiVar2wNRqbScfX8nZZpA27Po/WQTUnYWZ
+	3w11ophna+xslhuKY=
+Received: from localhost.localdomain (unknown [113.200.174.18])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDGzwKBRM5q9CWOAA--.34153S2;
+	Tue, 13 Oct 2026 22:47:31 +0800 (CST)
+From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v11 17/19] PCI/P2PDMA: Let a client declare that it selects ATS per mapping
-Date: Tue, 13 Oct 2026 17:25:25 +0300
-Message-ID: <20261013-fix-p2p-acs-v4-0-v11-17-72cf8c96e617@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013-fix-p2p-acs-v4-0-v11-0-72cf8c96e617@nvidia.com>
-References: <20261013-fix-p2p-acs-v4-0-v11-0-72cf8c96e617@nvidia.com>
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: az6007: stop CA thread on probe failure
+Date: Tue, 13 Oct 2026 22:47:17 +0800
+Message-ID: <20261013144717.1621-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkDGzwKBRM5q9CWOAA--.34153S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGw1xWryfWw1rAFW5KF1fXrb_yoW5Xw18pa
+	97KFWSkrWkXrsag3WUJw17Gry8Wa1kAr98Kry7Gw1ruF4Sk3WYkryFk3y8KF1UGrZ5AryS
+	qas3Xr17GF45CF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
+	0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
+	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ry5MxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v2
+	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb5fQtUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rOQtcCHAAAsh
 
-From: Leon Romanovsky <leonro@nvidia.com>
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-The PCIe ATS Enable bit covers the whole device, so P2PDMA cannot tell
-from it whether a client will translate a given address. Most devices
-translate any address once ATS is enabled, but some choose ATS per DMA
-mapping and can still use bus addresses for the rest.
+During device initialization, az6007_frontend_attach() calls
+az6007_ci_init() to start the EN50221 conditional access kernel
+polling thread via dvb_ca_en50221_init().
 
-Add pcim_p2pdma_set_ats_per_mapping() so the driver of such a device can
-declare that before P2PDMA starts treating clients with ATS enabled as
-translating everything. Keep it in the device's P2PDMA state, which
-already ends with the driver binding.
+However, if dvb_usbv2_probe() subsequently encounters a failure
+(for instance, in tuner_attach or dvb_create_media_graph), it
+enters the err_free_all error path in dvb_usb_core.c:
 
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+    err_free_all:
+        dvb_usbv2_exit(d);
+        if (d->props->disconnect)
+            d->props->disconnect(d);
+    err_kfree_priv:
+        kfree(d->priv);
+
+Because az6007_props does not set .disconnect, the active CA polling
+thread is never stopped. When d->priv (struct az6007_device_state)
+is freed, the still-running thread calls ca->pub->poll_slot_status()
+which accesses the freed state, resulting in a slab-use-after-free
+read or crash when dereferencing ca->data.
+
+Assign az6007_ci_uninit to the .disconnect callback of both az6007_props
+and az6007_cablestar_hdci_props. az6007_ci_uninit() invokes
+dvb_ca_en50221_release() to terminate the polling thread and tear down
+the CA interface before d->priv is freed. az6007_ci_uninit() is
+idempotent because it checks state->ca.data before releasing and zeroes
+the structure, so calling it from both the probe error path and normal
+disconnect is safe.
+
+Fixes: 962f8f67e486 ("[media] Add CI support to az6007 driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/pci/p2pdma.c       | 30 ++++++++++++++++++++++++++++++
- include/linux/pci-p2pdma.h |  4 ++++
- 2 files changed, 34 insertions(+)
+ drivers/media/usb/dvb-usb-v2/az6007.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 6a05a5019daf..144314ab5fae 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -26,6 +26,7 @@
- struct pci_p2pdma {
- 	struct gen_pool *pool;
- 	bool p2pmem_published;
-+	bool ats_per_mapping;
- 	struct xarray map_types;
- 	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
- };
-@@ -1750,6 +1751,35 @@ void pci_p2pmem_publish(struct pci_dev *pdev, bool publish)
- }
- EXPORT_SYMBOL_GPL(pci_p2pmem_publish);
- 
-+/**
-+ * pcim_p2pdma_set_ats_per_mapping - Declare per-mapping ATS for a client
-+ * @pdev: PCI device that initiates peer-to-peer DMA
-+ *
-+ * Declare that @pdev issues Translated Requests only for the DMA mappings its
-+ * driver sets up to use ATS, rather than for any address once ATS is enabled.
-+ * P2PDMA then routes this client's Requests with the Address Type each query
-+ * asks about, rather than the one its ATS Enable bit implies.
-+ *
-+ * Call it once pcim_p2pdma_init() has succeeded. Without P2PDMA state the
-+ * declaration is dropped and the ATS Enable bit keeps deciding.
-+ */
-+void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
-+{
-+	struct pci_p2pdma *p2p;
-+
-+	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-+	if (!p2p)
-+		/*
-+		 * ats_per_mapping is a performance optimization,
-+		 * if pcim_p2pdma_init() didn't set pdev->p2pdma pointer
-+		 * for some reason, let's simply use ATS global settings.
-+		 */
-+		return;
-+
-+	p2p->ats_per_mapping = true;
-+}
-+EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
-+
- /**
-  * pci_p2pdma_map_type_tlp - Determine the mapping type for P2PDMA transfers
-  * @provider: P2PDMA provider structure
-diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
-index dd17501ba1b6..ce389e18d023 100644
---- a/include/linux/pci-p2pdma.h
-+++ b/include/linux/pci-p2pdma.h
-@@ -82,6 +82,7 @@ struct scatterlist *pci_p2pmem_alloc_sgl(struct pci_dev *pdev,
- 					 unsigned int *nents, u32 length);
- void pci_p2pmem_free_sgl(struct pci_dev *pdev, struct scatterlist *sgl);
- void pci_p2pmem_publish(struct pci_dev *pdev, bool publish);
-+void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev);
- int pci_p2pdma_enable_store(const char *page, struct pci_dev **p2p_dev,
- 			    bool *use_p2pdma);
- ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
-@@ -138,6 +139,9 @@ static inline void pci_p2pmem_free_sgl(struct pci_dev *pdev,
- static inline void pci_p2pmem_publish(struct pci_dev *pdev, bool publish)
- {
- }
-+static inline void pcim_p2pdma_set_ats_per_mapping(struct pci_dev *pdev)
-+{
-+}
- static inline int pci_p2pdma_enable_store(const char *page,
- 		struct pci_dev **p2p_dev, bool *use_p2pdma)
- {
-
+diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
+index 65ef045b74ca..c4fdf437695c 100644
+--- a/drivers/media/usb/dvb-usb-v2/az6007.c
++++ b/drivers/media/usb/dvb-usb-v2/az6007.c
+@@ -906,6 +906,7 @@ static struct dvb_usb_device_properties az6007_props = {
+ 	.download_firmware   = az6007_download_firmware,
+ 	.identify_state	     = az6007_identify_state,
+ 	.power_ctrl          = az6007_power_ctrl,
++	.disconnect          = az6007_ci_uninit,
+ 	.num_adapters        = 1,
+ 	.adapter             = {
+ 		{ .stream = DVB_USB_STREAM_BULK(0x02, 10, 4096), }
+@@ -929,6 +930,7 @@ static struct dvb_usb_device_properties az6007_cablestar_hdci_props = {
+ 	.download_firmware   = az6007_download_firmware,
+ 	.identify_state	     = az6007_identify_state,
+ 	.power_ctrl          = az6007_power_ctrl,
++	.disconnect          = az6007_ci_uninit,
+ 	.num_adapters        = 1,
+ 	.adapter             = {
+ 		{ .stream = DVB_USB_STREAM_BULK(0x02, 10, 4096), }
 -- 
-2.55.0
+2.34.1
 
