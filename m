@@ -1,119 +1,153 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-43166.protonmail.ch (mail-43166.protonmail.ch [185.70.43.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B3053C3DB
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 19:16:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA20C53E30D
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 19:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791919010; cv=none; b=ORWJS7kY1plIuy/0Gqa5iGVSx03IJPKqAq6L+ucPTE4I7H34ICpe/tz/rX3kM1K4n4kSzLWRnMrL7ZRLuSij9xpo9POnttT2tJ9/GHGWXG3SSD8+9YPQ45bf1q5D/LmA1AkEwjyrSr89knca4F85vfpVsUKbBOntf3s6CeGRozs=
+	t=1791919069; cv=none; b=ffOxOL5lOejtHfZpwsxGtPgHdpI2IXUO+Q6zcjazQXIsxU0X9nAYhUNSHZiX5H5YrCnTGi+60wujGp/C4McDf5QjThLK2J40mPU6wucAXzbBbdiBirMvmyJm9KOjFMaqRezWBoC0TGQboBJBXTd2sE3aWP2hl29HqYZOIbjhhvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791919010; c=relaxed/simple;
-	bh=NZKCsIl+eMG9fGsQjejtk9lf0m8MqeFHKmqySR38f9M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AR88rFnKXOxnfr6bH+5rFKj3FE+azpViiHkHbSIJSkhuM2hCkE6uxXf4/MnltRzJeRymQHshehtoM6Y8og04MRGPI3VmQ1bFihOd5GlhW/h9RXe5GP6ofFXPD1qoLs0bWb5kbG4laXLjDwpAhXMXw1zXLfu1XF3dPsaSL6h82AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=tLLiJs/f; arc=none smtp.client-ip=209.85.161.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1791919069; c=relaxed/simple;
+	bh=1NySpLLFGvVo4/Pin/K69N9dDsuJ7353CdARx4xC5CY=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VhtdfvyzlXWahW88/zKovkSAT1+0NOcjk2wvY+6uJZHwRi96oZP90/aSk+U7iXGpgqA9dMIO+qcMCcIClhbGnQ4fMe8nPpkO7o39NOALciaNgBuCgaYlxzPW+r5ei9L5JStzHEPfQacwW3i+IqnVrMOM5SVOD2do9MS2H/L6lSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=bCKSEtmd; arc=none smtp.client-ip=185.70.43.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="tLLiJs/f"
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6deb848ddd7so195795eaf.0
-        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 12:16:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1791919007; x=1792523807; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9LMVzPqyuXj5ApWA2StVi76ci1CLBOXVU23pBi3Y7Tc=;
-        b=tLLiJs/fgjv16ZNdmzoHeA22l8fBTqjwKXQSZAxFHG0QrydUpQBIParCFiBt38o5bi
-         avBRxV7jzLlj1drEnH/C3aXXSrHbUvPukcZ0And3v0BpdgM2GhAoN/0UrJ0pxULVV/4R
-         0XJQckApncG0TFCW/WEefYFgNlswkWIv3OcnZxOph1q6iMbTiH1LettNuCThs+CovbvD
-         VDZs5MkJF2NF1h3FCJCmQ5ZqLfHKpHq71NftsCusCH5YgvB9EHiwuTPFaJ42dGJJjVwe
-         ALp1pTu1Zln74/r2cr1RCK4vy3EAGIG43BlFHNUY3zZYK32SrDiZAqpgCXr3kjiglDRT
-         jh5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791919007; x=1792523807;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9LMVzPqyuXj5ApWA2StVi76ci1CLBOXVU23pBi3Y7Tc=;
-        b=RRwEJvihTSo+4jh413M5KI04SI3HFlQ4mc4HZClzLQ8BVica4VzRcJJGQaDDBl5g3f
-         uab2FAfIy0g1cUU/JtwmYRZIqNyYjkPDfjbBwW1q7XMf7zR4QCNx+cXH6Puh1HlyLj7D
-         0A+04FJct/2HmZ+t3AjnRcYOylhX9P7KZN1AfeiuTf60y4TI/y6/qqdxoznHpcQzTbSI
-         osSTaqr+SEuVlvATViTROllgleYQtQOjRu6rnnPdd5AjyMT0uC2Id7E4Qevlq08+qLEp
-         z1Cc3o1seLAMCiiIH6G5XL+JcqSH02M8hMIt1FgeLiSMSUnGrdp2G5YGQjWf8lmdnfLh
-         vk3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxBhypRcSiuheExeV66EOk2UfX2PuEA1E/R0ASamahp22j49lRybQN283UviuUVddPq8xEzH3pw1doSHw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzWvNnh0/UYnCmV1gp9d0muID8vmsfcVFrDXB4BPM7GgMVqcbQ
-	7Up2mg7d/De4zalPe3SQihwilNtGuO1hHimywOWJ9yaOwSmXVGTncRmsNkrtW9jJKHw=
-X-Gm-Gg: AYBFou3OQdhqFrTsVW54Vm7rNqjJKwEEQg3oM8mNr3vi34WhFtNnez2Np8lBHAoUbPx
-	v9CG9B9N8yxLZCV48ggbGXk5H4xcR2dWFVmD3aJwrY7YiXgyPLYiRAlHC7oLZY+jvpiwdsoOqWn
-	m8boA3GYYCiKVXDjgN8taKtF85kaSxHplNEpslNZf8e03aawXm5FK43zThWX78PsXpAivfWAX88
-	i/Ux18sjKx5wxGwf8XN1GMblYxmRheO984ST4egO8mLHwslyRpWUV7B7Ck8EDg1tVJRBjBUms2l
-	6fJdPxcz9czmDRNsRvJ0PTL1oaEkK8T4Nh9CFlW2xUCPiOZzCgI48luE8HKhRJ+5NtqIKmE6qZH
-	P8xKhgKPDdpGu3DV6NJNDScdOzThYqfDN3Gqea+5/muKmuPPxStMmLGulSCMaYqJQeOtkL41VvI
-	dl3IYQI9TYTE+YaTdwpSJ4TArqeDytTD2t6c1NWSlsEoIUvZL4QHXEkjXPftJ/RPKyymXECzKqG
-	GXFrO97jarewkad54xyJpeqngHi+XXYVvJP1DrZAzvURloTOoQJdB123w==
-X-Received: by 2002:a05:6820:c8f:b0:6e2:2dcf:2cd4 with SMTP id 006d021491bc7-6ef0eec73fdmr9825677eaf.16.1791919007140;
-        Tue, 13 Oct 2026 12:16:47 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6ef023a1c1dsm12597782eaf.10.2026.10.13.12.16.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 12:16:46 -0700 (PDT)
-Message-ID: <baae166a-4464-4065-a642-348034cda28a@kernel.dk>
-Date: Tue, 13 Oct 2026 13:16:43 -0600
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="bCKSEtmd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791919056; x=1792178256;
+	bh=Cq4MORSb8hI/u7CDSQaYgsFtEmVgfHYVoEOaPjQr8hY=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=bCKSEtmdy7JV23HbskB5D/jCL7jb3hnjGPD7l0nMn2HjCwseG1XgjmdfoFiTry7bi
+	 bxpyIeNK5IQIde34IK6EBPOtHGu5suhlR3spkGE1HIm17h1Fkvpppi0vt0m+fK6fzN
+	 aLjGhROOJ38I99cnQQoG7oTE7k1gpC9KdQZjepH3A1Y4StPcCygWzkpE1tb7XejJVA
+	 owYvL/eX4WokE6ob6VPzKvkMQftI3ViZpCYifgL9h/DcCId4CFXaa/wR4g5+LE/UhE
+	 jzCvt1mwr9s72TEBHrUVBQ9iUFHEIeBtDclRMRZ68BDzdWn9lQfFJ5KFCaLmiQOtEW
+	 livRPefl4DFOg==
+Date: Tue, 13 Oct 2026 19:17:32 +0000
+To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+From: kerhunt <kerhunt@proton.me>
+Cc: "david@redhat.com" <david@redhat.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: =?utf-8?Q?[REPORT]_udmabuf:_unaligned_offset_with_hugetlb_memfd_mis-sizes_buffer_=E2=80=94_data_placed_at_wrong_folio_offsets?=
+Message-ID: <tx7v2Qaj_4HFdXLePQ7UNVmusSZDQ48wymOfejHx_hZ1OTEPORRFB1snkSp9jExhU4UrRXmiVmy0CdzTTot_iTVAf4Hw_NJ1pnd7THQ-9t4=@proton.me>
+Feedback-ID: 227694322:user:proton
+X-Pm-Message-ID: 0b48cf81c1e4bafcf9c11b04fb6e461daa0cf468
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 00/13] Add dmabuf read/write via io_uring
-To: Christoph Hellwig <hch@lst.de>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Keith Busch <kbusch@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev
-References: <cover.1791336930.git.asml.silence@gmail.com>
- <d00e43fa-8f5b-4a8b-8b83-421d637ba519@kernel.dk>
- <20261013141046.GA12680@lst.de>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20261013141046.GA12680@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 10/13/26 8:10 AM, Christoph Hellwig wrote:
-> On Mon, Oct 12, 2026 at 02:21:41PM -0600, Jens Axboe wrote:
->> I've queued this series up for some testing, in a separate branch. JFYI.
-> 
-> More testing it obviously good.  I've been waiting for addressing
-> of the Sashiko comments on the nvme patches before doing more ACKs,
-> and while I can't really judge the code those in the dma-buf code
-> also look somewhat serious.  So it would be useful to get them addressed
-> and the series reposted.  Same for folding in the PI vs dmabuf fix
-> from Anuj, although making the combination work would of course be
-> even better.
+Hi dri-devel,
 
-Agree on both of those (sashiko and folding the PI fix), but it's been
-forever and let's at least get some testing done. As mentioned, it's in
-a separate branch, easy to update. But if we were to have any hope of
-making 7.4 and also not missing yet another release, then it would
-basically have to happen asap.
+udmabuf_create() accepts hugetlb memfds (check_memfd_seals() in
+drivers/dma-buf/udmabuf.c:256-272 explicitly allows
+is_file_hugepages()), but the buffer fill logic mishandles
+offsets that are not aligned to the huge page size, causing the
+exported dma_buf to serve data displaced from what the caller
+requested =E2=80=94 and in a partial-fill case, a mismatch between the
+declared buffer size and the actually filled folio array.
 
--- 
-Jens Axboe
+=3D=3D AFFECTED =3D=3D
+
+- Linux 6.12.112 (linux-6.12.y stable), commit 7aba70ab
+- Linux mainline, HEAD 24a19b953e2a (torvalds/linux), as of this
+  report
+
+=3D=3D ROOT CAUSE =3D=3D
+
+memfd_pin_folios() (mm/gup.c:3700-3809) pins the folios
+overlapping the requested range and returns, per folio, the
+offset of the range start *inside* that folio
+(offset_in_folio(), gup.c:3777-3778). For a hugetlb memfd
+(huge pages, e.g. 2MB), a range starting mid-folio returns a
+large unaligned pgoff.
+
+The udmabuf fill loop (udmabuf.c:288-340) then does:
+
+    for each pinned folio:
+        subpgoff =3D pgoff;                  /* starts unaligned */
+        for (; subpgoff < folio_size(folio); subpgoff +=3D PAGE_SIZE) {
+                ubuf->folios[upgcnt] =3D folio;
+                ubuf->offsets[upgcnt] =3D subpgoff;
+                ++upgcnt;
+                if (++cur_pgcnt >=3D pgcnt) goto end;
+        }
+        pgoff =3D 0;    /* reset only from the SECOND folio on */
+
+Two consequences:
+
+1) The first (huge) folio fills only
+   (folio_size - unaligned_pgoff) / PAGE_SIZE slots instead of
+   folio_size / PAGE_SIZE =E2=80=94 so the accounting between
+   cur_pgcnt (pages of the requested range) and upgcnt (slots
+   filled) diverges from what the caller sized
+   (pgcnt =3D list[i].size >> PAGE_SHIFT, udmabuf.c:364).
+
+2) Subsequent folios restart their offsets at 0 (the pgoff
+   reset at udmabuf.c:334), so the resulting buffer maps the
+   folios with displaced data: the first folio serves bytes
+   from the requested offset, but later folios serve from their
+   own start =E2=80=94 the exported dma_buf does not contain the
+   contiguous range the caller asked for.
+
+Also, when cur_pgcnt reaches pgcnt early (goto end at
+udmabuf.c:324-325), upgcnt can end lower than the pgcnt the
+user requested in some unaligned configurations =E2=80=94 the declared
+buffer size (exp_info.size =3D pagecount << PAGE_SHIFT,
+udmabuf.c:281) then reflects the shortened fill.
+
+There is no alignment check on the requested offsets/sizes
+against the huge page size anywhere in udmabuf_create()
+(udmabuf.c:342-382) or check_memfd_seals() =E2=80=94 is_file_hugepages()
+is accepted with no hstate-size validation.
+
+=3D=3D IMPACT =3D=3D
+
+Data integrity: any consumer of the exported dma_buf (GPU
+render paths, virtio buffers, cross-process sharing) reads
+buffer contents displaced from the producer's layout =E2=80=94 silent
+data corruption within the buffer the caller created.
+
+Reachability: udmabuf_create is reachable from any process via
+/dev/udmabuf (misc device) with a memfd that it creates itself
+(memfd_create with MFD_HUGETLB) =E2=80=94 no special privileges.
+
+Not a privilege escalation: the defect corrupts/reads the
+caller's own buffer data, not kernel memory outside the pinned
+folios.
+
+=3D=3D PROPOSED REMEDIATION =3D=3D
+
+Either:
+
+(a) Reject unaligned ranges for hugetlb memfds in
+    udmabuf_create(): if is_file_hugepages(memfd), require
+    (offset % huge_page_size(memfd)) =3D=3D 0 for every list entry
+    (or round handling per the QEMU/KVM usage expectations);
+
+or (b) handle the first folio's unaligned pgoff consistently:
+    count the first folio's contribution correctly so pgcnt and
+    upgcnt stay in sync (the fill loop's cur_pgcnt accounting
+    against the range pages does not currently match the
+    folio-relative subpgoff walk).
+
+Option (b) preserves the ability to share sub-folio ranges.
+
+=3D=3D NOTES =3D=3D
+
+- Found by static analysis of the 6.12.y stable tree,
+  cross-verified against mainline. No dynamic PoC built; the
+  reproduction is a memfd_create(MFD_HUGETLB) + UDMABUF_CREATE
+  with an unaligned offset, then comparing the mmap'd buffer
+  content against the memfd layout.
+- Happy to test patches and send the formal fix.
+- Please credit "kerhunt <kerhunt@proton.me>".
+
+Best regards,
+kerhunt
