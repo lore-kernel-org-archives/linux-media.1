@@ -1,150 +1,232 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013055.outbound.protection.outlook.com [40.107.159.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60321D8E01
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 00:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791852654; cv=none; b=hPpksqeiovD05K1lj4c8EWomQVl3dkaU8yKChE1EeZ2H8oiv0oxiM7jYEb6AJuoM+PPabuq170Bj/vylc53F3EGKCGIqAS8Ks0MgTXM5GNp2TzEoJSNSEXTlZFeQfjTDeFMZEO6MctlT4nQQPexmHEqxrlH2+I4DygTnFZXLft0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791852654; c=relaxed/simple;
-	bh=7W28zXbAc258OscpulaQd9eVgbJEA5Vs10RJkU26jko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=byx76lm6wg+NwYaeD8WPmkCEhmnjtFyIxPtvjtwNuUjy3RiBpNV3KnVi49d8VViSkAiMI/DFNck/EMLvvPGeFDeavbiEoYiP4Lmg+3oV4ZYzJWQmydjgaGAqtC45YZGdIhJb4a8X2gYlnLBablFRNWZaPVxaCnlplutjCJIPbAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=je0XxEVu; arc=none smtp.client-ip=209.85.219.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A33F2D5408
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 01:15:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791854133; cv=fail; b=hmPGjvKvACSeEPbH8gx0QJSk8rr1oUEhRkaR/W1ohSGItjS4nm2DKpvi6A0qpkmYDmYr+33Qk2fMwiFK69eScHzG2fuAb9lvWrABERJXcq8D9QgiS/hdDsoO4sCb5cx4GEH/xxzZIpNDm3hmOjSugQA/uFGTmybPp3+xXO635ks=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791854133; c=relaxed/simple;
+	bh=LDd2ei0MbsgmSjF9wQFGroA2/LD8Bofd4L4aZopsLNo=;
+	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=iqvuUnpZdFFB+z7y6EWNsrhJgdDM1S0xYxL1Z2eXzG0wHL5hKiN1AWNdxU7RLh4K++9Xqnb/0HHvmUbAny0BxL/9b/+AK66F//0FQtciIYy2R2inT4U90ziu7t40jWReemjmatNZu1AZVbLRveJJWyMhSFC9Dvizp/tMPI2YWsQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=S5mkFL1V; arc=fail smtp.client-ip=40.107.159.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="je0XxEVu"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91054f537ccso29212336d6.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 17:50:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1791852651; x=1792457451; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=06iyY89s7tmiZ8wG9TyA9bzi9/KFey6XFgp9yIv8oXE=;
-        b=je0XxEVutnRNhcTTovnB5BYs3hwL8hTDTBpamYvYm74eACOKI5GikQnMrrotvda4Mh
-         gNVONC5PVIn2QLjgPeF810EEVG/boJqclX+aiR1zOsVQgQ61KNJZhn6sl5BD664ZB1Bn
-         DkVOQBp8UdyDk/bujkJiJBB90o0i5MQhvB2NJbR4h5QEIK9LcGxWc411UHSmMP/GChIc
-         LGLqVFpMTME4Mgh4+uZCWrpO8JMG17VIBQ9aYgN+7unFO+mRfUc6bS/rLQFJWvEP1WjI
-         p18D+AETMd4+MsoSvBE850qSTP/xy3iMIfc7Y2Qco2eHxNQX07Q2ZjTvvPZIgzv/P5aU
-         nu5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791852651; x=1792457451;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06iyY89s7tmiZ8wG9TyA9bzi9/KFey6XFgp9yIv8oXE=;
-        b=zVWMcpQAKKSZidTxVsOMdq4bZKHWg3c39Y8ffMrENqZEigIryV2YQ6UA8TenGb97s0
-         51OITOcAkPkimferf58dCn1ecQ3XANPZVpg/MkcvSgkSGUOoNZib9KuWAPDDeROtCPo0
-         Ct4axzEpm13MSiBQCGKeOb8AGbe1DIjWk/k+qJJ24E1EL2FKdfg3/kttZMH2wTzKXZJW
-         EfkvOj7kwlFyynz32qYGbBvHmA7V0IB/8uOh1RGq+It1GHF/yB/D3LZYgjepgELTQz72
-         CxEKqv2qYxaG4DvVFCH3ETy+qsrLG5nOp82yIBDQiDSvuJIQqv2AbUhZaIlqCaf43w2V
-         7uBg==
-X-Forwarded-Encrypted: i=1; AKwUvByYNfTR4vrfl/4lM/HnxGdHEaDb530gIKhES1hOQ2NaOSrZjU5BsEIsGFUGD64fcFb5QLGoIMkEA3PCiA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLt8nKEVUPI919EqiVNkRlxhjapw7gP80Xn6dwXYiSBCMGPNTvE
-	3qRlL70KOU53T92DPpbTdC/JQRnBnLvnKqUUSe4rFw4BoFbpLJ3XCDXZaZoVYT1Mhdc=
-X-Gm-Gg: AYBFou3nMMsfpDrj7ubpgQ2E9FWS9HD82dS7ZLKp24V02MHIU6i3fzxpKabik657KM+
-	xNNTew8ukRBII9lngQENUyNQPdRubMAW9d8bLS7XwJAiIMleSgt0NYHHGKbqGqaTP3A9ixHQrgQ
-	lALSgaNf7R3f7P3kDi99BTKhQNvm0OLjyUWmYHA5m64K1zS+6U5BsqTOZ22Z2yRy8hkM0UDb2P7
-	PQGveG1hBf8s4LJ3w4KyIzGOR/9zEMkMV+A2IQdWFkomJYqX1C4ny7PIdoSrqusD4p9qbSNyATC
-	vCZbBlWbXr5GXiWwrwdqZlHCm9D/onH1k8CxKksfMpJBBIJTSDNR8iY3zNVgGCBypEFOZmsWnIL
-	KXudUStXofeWM3a3tgpV93k0fGx4wstsUBo9OCuy+Lz/shQpEwkhWiQ/+vENyVy95XfNDlXTxnM
-	33yCoxGoa482mhFpr5KAjd7JnTj6uQmHdJ2frK3kZg9q4t9TxFMAHAh2Y69oxbw0B1YZ7JuD4mf
-	wO3+L5RiCvdELWdbyfR0x9byIVDPbvdpgU0JkPH6hkAuRWcZ/ZFhMUDM5DXb++9/YvWt8mAFyRw
-	yYoQ26wA3go58RykkuZbre99SzZ5bG/jqjQl2Z7L80YtcpTATrh9
-X-Received: by 2002:a05:6214:f09:b0:919:518f:3a92 with SMTP id 6a1803df08f44-91b5549984bmr185414706d6.17.1791852650672;
-        Mon, 12 Oct 2026 17:50:50 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::662b])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b9ee98365sm704226d6.48.2026.10.12.17.50.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 17:50:50 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Bingbu Cao <bingbu.cao@intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Ramshouriesh R <rshouriesh@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC] media: ipu6: Don't require an ISYS reset after stream stop on IPU7
-Date: Mon, 12 Oct 2026 20:50:48 -0400
-Message-ID: <20261013005048.8601-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="S5mkFL1V"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LDJqfvJhHwVEeAOmd2s7ZEO88jO5B63d+hX/f7aNGNjUxLqTvswPAnhCb+ZlKhSRsxY4EbuZxHOi1ROaAKKxRE38550GW0pLFhcf4R8v3XdXbmv/r9bVn+BXAYwBOG7CCT6vEWiGJXhe++u0BonKSAb5eK8xHtQWMwmQpfe+T4oW84ZKTWxZtH5b7dLe3zaWrOGLfxQJCkrWxTZINxAxcC/QCB2sUsX5lmuNjHCV2dIA6mnxQ6HdkoJJ7J2XYYVEr5pZ3xJu9TWELmsUf8nWurVktB+BLHxzCkuVgpBEUNZH+sJVs99bNdFu88eqYkn45j1eljhRco+SXJaiNkSORQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FYzJusnsgXkWyg7gk/uSwm5vtY95kMU8t2Q580DXFbw=;
+ b=jytzPN5McFUo50E/ESC06C7hQZP8i/P5pnffNIJ/EHtlU4rd7lm496Fu7s5eCbCn4Wsu4O+brLXHYe2z6bEbrG5BH9xacS2lgxUtKfp9nOiAISsl5WAF+fPQ7b+FH9Oc/h9Vm6FVy8tb793vaG6+Dlya7SMgSJDTL8XlgW82Ns0ZOV92//zJwyUFtMEQgZtNHxJKEvl8prAsWB1HJx33pxU2V4f0G+HCAvpufrtAOaOLjuLSn2FW93qG1/sfRZSaWs+dCaqXyQsfWnHuAC03fCPPWW5Ypg/ym6/gtZqWpZeJqXXxQDR9KsSWeSWvSv+zvaypVJJBNfuQFsLgCR7c1g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FYzJusnsgXkWyg7gk/uSwm5vtY95kMU8t2Q580DXFbw=;
+ b=S5mkFL1VkrAm+YH4u5LYoUXUGQlrg6x+xGt+Yq9IoVZpbANYxEd+ohlSJmaONZNSrSxQg9nAXH+I0wU8QYsnYB7eJkE3tD/15NLb3iL+02MxwBOveXsaCqDILrKsYl15Why4u4PuwZrivVAyS6qrAuvT0To2MkTYQwrJg/eAXrQk8i9zfVMD9bUiHIuGXq8exfn+j9Pp2aZzbcnssgZFdG0UssO7GdnD1OEx2YNiuyEdc4vTdIAaTg2teiUeijOJdLjMf6fPUzguIOASh1rhYz5z905lFXBbUkxYwW2cOZpEFUl9CO4gYpg7vKiQJZi2LcNKUupsUFwzjr4F+9Rqmw==
+Received: from AMBPR04MB335523.eurprd04.prod.outlook.com
+ (2603:10a6:20b:7db::5) by GV1PR04MB11061.eurprd04.prod.outlook.com
+ (2603:10a6:150:20d::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 01:15:26 +0000
+Received: from AMBPR04MB335523.eurprd04.prod.outlook.com
+ ([fe80::de1e:8baa:a70f:1813]) by AMBPR04MB335523.eurprd04.prod.outlook.com
+ ([fe80::de1e:8baa:a70f:1813%2]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
+ 01:15:25 +0000
+From: "G.N. Zhou (OSS)" <guoniu.zhou@oss.nxp.com>
+To: Martin Hecht <mhecht73@gmail.com>, "laurent.pinchart@ideasonboard.com"
+	<laurent.pinchart@ideasonboard.com>, "G.N. Zhou (OSS)"
+	<guoniu.zhou@oss.nxp.com>, "Frank Li (OSS)" <frank.li@oss.nxp.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, Tomi Valkeinen
+	<tomi.valkeinen@ideasonboard.com>, Tommaso Merciai <tomm.merciai@gmail.com>
+Subject: RE: looking for working dtb for imx8mp-evk with one cam
+Thread-Topic: looking for working dtb for imx8mp-evk with one cam
+Thread-Index: AQHdWi5dU92Wx2a5IkmYyELntMjSybb6qniw
+Date: Tue, 13 Oct 2026 01:15:25 +0000
+Message-ID:
+ <AMBPR04MB3355237A67AF9D2CC504A98548FA9E2@AMBPR04MB335523.eurprd04.prod.outlook.com>
+References: <2634d4f0-b5f0-419b-bdc7-56f8e761f140@gmail.com>
+In-Reply-To: <2634d4f0-b5f0-419b-bdc7-56f8e761f140@gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Enabled=True;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SiteId=686ea1d3-bc2b-4c6f-a92c-d99c5c301635;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_SetDate=2026-10-13T01:14:51.0000000Z;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Name=NXP
+ Public;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_ContentBits=3;MSIP_Label_f6375508-4f8d-4bf0-98ed-14865d40f2d8_Method=Privileged
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AMBPR04MB335523:EE_|GV1PR04MB11061:EE_
+x-ms-office365-filtering-correlation-id: 24859a57-42ab-4f95-d27a-08df28c7763f
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|6049299003|23010399003|19092799006|38070700021|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|4013099003|4053099003;
+x-microsoft-antispam-message-info:
+ 0UuB/UszixERE2vaOCd0liV7pA/s6nH0SsWuJB4IIHZDnXMG4IQQV3yjT7BHK/Ss3lTSuJdlxOdO39IfP/Dj+O0r6scH7T84xIyMyLDida9A5qkkzlQrocDIUPQDyw5H6KlrgjGDNVNn4jBjjhCCREomVJRWA6Mtl6I+nXglAum9GAUU6AojC9sLKakZx0n8ChPE/g8/7uc10hmzq6h/w/3L4MKQwuAN45YEArS8XzHNlpRWg+Z4AsSOAlTnbpnQMymS8ZxFju7WFmxDAolXRSKZ54Sl4qVG66ZPeS0Yjn5G6+it2digy97esHDwoYXwHgihXRL3xqboJv3IjdjXdiD8SkHAs/HH0qS3RTYLZ5nIn0od27ZBKwulN8LPn/5TN8oJC3Nq///+/DOWi9+zzDQzPwfhPacB0Kz1fGF0M7FbnrWsgJmZs/cDyEFnOCKCmn+4ZYpuW91V9pUMY1pqdu/jhZh3vRTjMNYqraoeTk0O6BJQfPC/MWuPRwKvsFeM66tgXfvir/zNEoMJbphIv9JEDnJ698A17fFQMZm7YoB4fK670/+TQh9xHe5gz0zm0LcA5JIPunx72LnS7Vl7Av5qG1mYxcGm1BLSm4EjUjpizcMM1BdGBrUmrTLdQDDyLXWOZLhJ+vZljUFfUhnNI5wh7fgYYyqZ92HXwcxSRB1FOd9mN2uhrIGpIGoLOBVdj9oejjwhJA8FA2embF0wSPZCPagTFyKzIniI+jFsoeo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB335523.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(6049299003)(23010399003)(19092799006)(38070700021)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(4013099003)(4053099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dTgrMWZCTmlLMjBocXU5Z3ZIMUlZTFhOVitubGxydkszZk9SZ0xadFVjQnFS?=
+ =?utf-8?B?ZlB5TEhHUWpZVENJUWE2TlBTQnhWVnFmWm1NNjM0Ymc1c1hXd2xJN0tPMDQw?=
+ =?utf-8?B?RzZ4TFRLU3Zob0dlWEt5S3UwVlBVcFV1eFZFY1FMYUhOcEM4eXdvU2JSUGx4?=
+ =?utf-8?B?UDBuSFZRV3JOSGFBSWZ0K0N0REl5U2RSY2V2TGMxZ0pocmt4RXlQMG5jSlor?=
+ =?utf-8?B?ZlQ5L2hrR3FZQVhjek13dGxQb1BEclk4bUN4bDcyVUJDcE5OT2lSTnluVTZt?=
+ =?utf-8?B?WUprb0pIMUNTZkpLWWwrSlNQUU9vZE8xMmpqZ0FWcUd3RU9XdUFMZzhvc2Zi?=
+ =?utf-8?B?Ym9TZEVEVXEzVlgvbFJ2dm8wOVNTVGtWNzFwdUtVWTRqcE5vbWRJTWZWVmh6?=
+ =?utf-8?B?UVp0aE9LTnpRVmNEZUVVSk1zb0V4M2owSEFKSVJxWkxOVmJZY1FZRHhsYXNs?=
+ =?utf-8?B?cFMzZlRGZmYzZnUrNTlxQmVGTUQ4N2ZaTWg0QjNVZzRCR0FKMUsrRDgzYmxs?=
+ =?utf-8?B?VzZRUVdwc2t6eTNCS1FoMFMyVTZqWkVyRUNQRHBvaXFFNGxES3NzTWw4NGlh?=
+ =?utf-8?B?S1ltdXpTbnVWaWdRYWZpeTAyNWxUajkvV1ZseEhwbDJhVDlyaDRBc2pYd1k3?=
+ =?utf-8?B?Ujl4VmlwVWdJdUNKWFFuMm11UkV4aWlvMER5SmlnRlRhU0tkemVxYmlOd1Nn?=
+ =?utf-8?B?V3A5M3Nvamo0bkduZFlWNTBYays0Ylk0N0NkUzgyNDdoTVhPWldKUFBiNG5G?=
+ =?utf-8?B?aFBud0tvekhIOThrMGMrQlpEZUpqZ1hadDc1cFB3OFkwdTg1cTJ0MXNsWHRq?=
+ =?utf-8?B?RTBFYUt5dUpxbmtQdzVrQkhsS2FWbVh6WTBWV1FDdmdZdWFWNDBmaEIvSmhh?=
+ =?utf-8?B?Z0JsSVhadXhzMDN1RWkwemtZUHVHemJPejBIdFRkcUdNejN3dkpRTXdNcjV4?=
+ =?utf-8?B?MjBXcSsyOEZ4OHZwbFZFRHBUMWkwMmZhYUpWYzh1MytnbEhZcWwzUWJIRXFC?=
+ =?utf-8?B?T2FHQ2RYeDFMSTdIKzdUSTN1dEhEcml4WXNLWW5ZQ2twd2lHMTVQTzNTNkZM?=
+ =?utf-8?B?WEh2eUFwNmZPQlNKeDVOTWlhWGM3THVXYVZwc0pYbWpkZ3dsdS9LdnpEOG0r?=
+ =?utf-8?B?OS94UlFsNnk5SGVSN2dYSHFqMTk2Qkh2MGhhRFBYT3hKRUt2K0VVbXZSemlG?=
+ =?utf-8?B?VTJQZnFHUy82Zkd0MkI3Z01xYlpPa2lvbTRjTGdFSzlBbjIySGhHWVZCNlhN?=
+ =?utf-8?B?bk40V3FlWU40VDQ5bEo5ZGlYcDdCY1dkUlFab2xoeER6dXdla1puRVZ4Nis0?=
+ =?utf-8?B?eVNQWDh1Q0FjREpvVEpIY2FxQWQ0bzRhT1FDNHMrMVk1aHhiM2F6WDlxSDdm?=
+ =?utf-8?B?OCtIZWJ5dEdTWHhBWWQ4a1BVU1M0SkxKMUJjdXVrcW1SSStoSHZ4S25yMHA1?=
+ =?utf-8?B?K2lYeWVhMmJGdHEza3RRMG5kQW4yRWx3RHBDNENMOFgvM0lDNjFGS3k5dndz?=
+ =?utf-8?B?eHVtL0dYRE0rNU04TnorQmFxNHBsaXRobGIzZFZyNFZydzlWakNpUzlYcE1E?=
+ =?utf-8?B?YU53VlkwUzRPTzFMeGdtdG1FOW1XYm9yd1VLYnQ2T0VYSERrdXFtUFRzL1B5?=
+ =?utf-8?B?ZTJYTHVsZFZtTkszaEJzcnlQaFhiOFMwRGdFYSs4d25uWHBWeGtNaEVuT253?=
+ =?utf-8?B?Z0VRRm85c25BbTRIdVJLSVdEK2I3eHNTb25PcVZDQVBLVE9OR2V2SEFydWlX?=
+ =?utf-8?B?ZWordUE1N2g5NVNMNkhya2VoeEV6Mys5UElvbkxQSDFRd0ZwQklUdStqZjRq?=
+ =?utf-8?B?M2dvQm0wNUtTdG1FcnNNSE9HTTZ6YTJxQ01aNnA0QUlrbG9SWXVPSzNnOXN3?=
+ =?utf-8?B?Q3NSYTZ5Y2pQcmdVaHoyYUdLUHRRWU9FY253OE1jeDJHQ2RLQXZQUTlVa0RX?=
+ =?utf-8?B?OTY3R2xEZmFrTUNleGlQTlBZRmcrVlpCMGFaRUpudkI4clptMndPQUEyaGZp?=
+ =?utf-8?B?L29JRVBNZzhhb0JHejlGNWdrdnk1eVdLdFhENkdBOWJkOWJEVHNpUFMyMFdz?=
+ =?utf-8?B?UnNzcnlzSTdoMFQ5U1RtQXFNcVlQMTZOZG9RR0xuRnBDQWJsSm5keEpKcktI?=
+ =?utf-8?B?WDFYSlpKUkF6aEtCMDRVaFJReFBrbUF2S0JUZTBIT0FwUGk1THZ2OEhRZG13?=
+ =?utf-8?B?cnl1NU9kUDlocTVYK0lKTVZUcWJ5YkYzUW1CNHlmSnppZkd0U3FuNDNJVTlU?=
+ =?utf-8?B?dEJzR2NBWUk1WUxpcjB0YU9BeDh4SE9YTFJpeEtyYytMbmtRQllobUJRZzN1?=
+ =?utf-8?B?NVdURXo4aGdPRmhGSTRBeWJBWHhMWVFROEo3c1NrQk9ZOUpGQUFvUT09?=
+Content-Type: multipart/mixed;
+	boundary="_003_AMBPR04MB3355237A67AF9D2CC504A98548FA9E2AMBPR04MB335523_"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AMBPR04MB335523.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24859a57-42ab-4f95-d27a-08df28c7763f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 01:15:25.7330
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4LUW5X5wOncUw2IcgLBmhx1bL6+BmruikEjPngX24X1PlUzVv5yeS6Pu/Zfqxc3LtgrX1EZcgYrQA0AD/d00Dw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB11061
 
-On IPU7 every stream stop finds buffers on the active list in
-return_buffers(), so need_reset is set and this is logged each time:
+--_003_AMBPR04MB3355237A67AF9D2CC504A98548FA9E2AMBPR04MB335523_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-  intel_ipu6_isys.isys intel_ipu6.isys.40: buffer list not empty, needs isys reset
+SGkgTWFydGluLA0KDQpGaXJzdCBvZiBhbGwsIHRoYW5rIHlvdSBmb3IgdXNpbmcgTlhQIHByb2R1
+Y3RzLg0KDQpCZWxvdyBhcmUgdGhlIHN0ZXBzIEkgdXNlZCBsb2NhbGx5IHRvIGdldCB0aGUgaS5N
+WDhNUCBJU0kgdmlkZW8gcGlwZWxpbmUgdXAgYW5kIHJ1bm5pbmcgc3VjY2Vzc2Z1bGx5Lg0KDQpL
+ZXJuZWw6IGh0dHBzOi8vZ2l0LmxpbnV4dHYub3JnL21lZGlhLmdpdC9jb21taXQvP2lkPWQ3ZTdi
+Y2E3MTY5ODczYjQ2ZTg1N2MwMjVjMTBmMzMzNmMxMjU4ZDgNCkRUQjogaW14OG1wLWV2ay5kdGIN
+Cg0KSGFyZHdhcmUgc2V0dXA6DQotIGkuTVg4TVAgRVZLDQotIE9WNTY0MCBjYW1lcmEgc2Vuc29y
+DQoNCktlcm5lbCBidWlsZDoNCiMgbWFrZSBkZWZjb25maWcgaXNpLmNvbmZpZw0KDQpUZXN0IHBy
+b2NlZHVyZSBhZnRlciBib290Og0KLSBWZXJpZnkgdGhhdCB0aGUgbWVkaWEgZGV2aWNlIGlzIGF2
+YWlsYWJsZToNCiAgICMgbHMgL2Rldi9tZWRpYTANCg0KLSBSdW4gdGhlIGF0dGFjaGVkIHNldHVw
+LnNoIHNjcmlwdCB0byBjb25maWd1cmUgdGhlIG1lZGlhIHBpcGVsaW5lLg0KICAgIyAuL3NldHVw
+LnNoDQoNCi0gU3RhcnQgdmlkZW8gc3RyZWFtaW5nIHVzaW5nOg0KICAgIyB2NGwyLWN0bCAtZCAw
+IC12IHdpZHRoPTE5MjAsaGVpZ2h0PTEwODAscGl4ZWxmb3JtYXQ9WVVZViAtLXN0cmVhbS1tbWFw
+DQoNCi0gRXhwZWN0ZWQgcmVzdWx0Og0KICAgcm9vdEBpbXg4bXBldms6fiMgdjRsMi1jdGwgLWQg
+MCAtdiB3aWR0aD0xOTIwLGhlaWdodD0xMDgwLHBpeGVsZm9ybWF0PVlVWVYgLS1zdHJlYW0tbW1h
+cA0KICAgPDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDwgMzAuMDAgZnBzDQogICA8PDw8
+PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PDw8PCAzMC4wMCBmcHMNCiAgIDw8PDw8PDw8PDw8PDw8
+PDw8PDw8PDxeQw0KDQpyb290QGlteDhtcGV2azp+IyB1bmFtZSAtYQ0KTGludXggaW14OG1wZXZr
+IDcuMy4wLXJjMS1nZDdlN2JjYTcxNjk4ICM2NCBTTVAgUFJFRU1QVCBUdWUgT2N0IDEzIDAxOjAy
+OjExIFVUQyAyMDI2IGFhcmNoNjQgR05VL0xpbnV4DQoNCkkgaG9wZSB0aGlzIGluZm9ybWF0aW9u
+IGNvdWxkIGhlbHAgeW91Lg0KDQpCZXN0IFJlZ2FyZHMNCkcuTiBaaG91DQoNCg0KDQoNCk5YUCBQ
+dWJsaWMNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogTWFydGluIEhlY2h0
+IDxtaGVjaHQ3M0BnbWFpbC5jb20+DQo+IFNlbnQ6IE1vbmRheSwgT2N0b2JlciAxMiwgMjAyNiA1
+OjQ1IFBNDQo+IFRvOiBsYXVyZW50LnBpbmNoYXJ0QGlkZWFzb25ib2FyZC5jb207IEcuTi4gWmhv
+dSAoT1NTKQ0KPiA8Z3Vvbml1Lnpob3VAb3NzLm54cC5jb20+OyBGcmFuayBMaSAoT1NTKSA8ZnJh
+bmsubGlAb3NzLm54cC5jb20+OyBsaW51eC0NCj4gbWVkaWFAdmdlci5rZXJuZWwub3JnOyBUb21p
+IFZhbGtlaW5lbiA8dG9taS52YWxrZWluZW5AaWRlYXNvbmJvYXJkLmNvbT47DQo+IFRvbW1hc28g
+TWVyY2lhaSA8dG9tbS5tZXJjaWFpQGdtYWlsLmNvbT4NCj4gU3ViamVjdDogbG9va2luZyBmb3Ig
+d29ya2luZyBkdGIgZm9yIGlteDhtcC1ldmsgd2l0aCBvbmUgY2FtDQo+DQo+IFtZb3UgZG9uJ3Qg
+b2Z0ZW4gZ2V0IGVtYWlsIGZyb20gbWhlY2h0NzNAZ21haWwuY29tLiBMZWFybiB3aHkgdGhpcyBp
+cw0KPiBpbXBvcnRhbnQgYXQgaHR0cHM6Ly9ha2EubXMvTGVhcm5BYm91dFNlbmRlcklkZW50aWZp
+Y2F0aW9uIF0NCj4NCj4gRGVhciBhbGwsDQo+DQo+IEknbSBzdHJ1Z2dsaW5nIGN1cnJlbnRseSBn
+ZXR0aW5nIHRoZSB2aWRlbyBwaXBlbGluZSBvbiBpbXg4bXAgd2l0aCBpbXg4LWlzaSB1cA0KPiBh
+bmQgcnVubmluZy4gU29tZXRoaW5nIGlzIG1pc3NpbmcgYW5kIHRoZXJlIGlzIG5vIG1lZGlhIGRl
+dmljZSB2aXNpYmxlLg0KPg0KPiBNYXkgSSBhc2sgeW91IGZvciBhbiBleGFtcGxlIG9mIGR0cy9k
+dHNpIHdoYXQgaXMgd29ya2luZyB3aXRoIGFueSBjc2kyIHNlbnNvciBpbg0KPiBpbXg4bXAgZS5n
+LiBpbXg4bXAtZXZrPw0KPg0KPiBJIGhhdmUgaXQgcnVubmluZyBidXQgd2l0aCB0aGUgb2xkIHBy
+b3ByaWV0YXJ5IGRyaXZlcnMgYnV0IEkgbmVlZCB0byBjb252ZXJ0IGFzYXANCj4gZm9yIHRlc3Rp
+bmcgd2l0aCBnbXNsLg0KPg0KPiBUaGFuayB5b3UgaW4gYWR2YW5jZS4NCj4NCj4gQlIgTWFydGlu
+DQo=
 
-It reproduces on Panther Lake (IPU 7.5) with a plain capture and no PSYS
-involved:
+--_003_AMBPR04MB3355237A67AF9D2CC504A98548FA9E2AMBPR04MB335523_
+Content-Type: application/octet-stream; name="isi.config"
+Content-Description: isi.config
+Content-Disposition: attachment; filename="isi.config"; size=1174;
+	creation-date="Tue, 13 Oct 2026 01:13:57 GMT";
+	modification-date="Tue, 13 Oct 2026 01:15:24 GMT"
+Content-Transfer-Encoding: base64
 
-  v4l2-ctl -d /dev/video16 --stream-mmap --stream-count=10
+Q09ORklHX01FRElBX1NVUFBPUlQ9eQpDT05GSUdfTUVESUFfUExBVEZPUk1fU1VQUE9SVD15CkNP
+TkZJR19WSURFT19WNEwyX0kyQz15CkNPTkZJR19WSURFT19WNEwyX1NVQkRFVl9BUEk9eQpDT05G
+SUdfVjRMMl9NRU0yTUVNX0RFVj15CkNPTkZJR19WNEwyX0ZXTk9ERT15CkNPTkZJR19WNExfUExB
+VEZPUk1fRFJJVkVSUz15CkNPTkZJR19WNExfTUVNMk1FTV9EUklWRVJTPXkKQ09ORklHX1ZJREVP
+X0lNWF9NSVBJX0NTSVM9eQpDT05GSUdfVklERU9fRFdDX01JUElfQ1NJUz15CkNPTkZJR19WSURF
+T19JTVg4X0lTST15CiNDT05GSUdfVklERU9fSU1YOF9JU0lfTTJNPXkKQ09ORklHX1ZJREVPX1ZJ
+UlRVQUxfU0VOU09SPXkKQ09ORklHX01FRElBX0NBTUVSQV9TVVBQT1JUPXkKCiMgRGVidWcKQ09O
+RklHX0RZTkFNSUNfREVCVUc9eQpDT05GSUdfRFlOQU1JQ19ERUJVR19DT1JFPXkKCkNPTkZJR19B
+Uk1fSU1YX0JVU19ERVZGUkVRPXkKQ09ORklHX0lOVEVSQ09OTkVDVF9JTVg9eQpDT05GSUdfSU5U
+RVJDT05ORUNUX0lNWDhNUD15CkNPTkZJR19WSURFT19EV0NfTUlQSV9DU0lTPXkKQ09ORklHX0dQ
+SU9fQURQNTU4NT15CkNPTkZJR19NRkRfQURQNTU4NT15CkNPTkZJR19GU0xfRURNQV9WMz15CkNP
+TkZJR19GV19MT0FERVJfVVNFUl9IRUxQRVJfRkFMTEJBQ0s9eQpDT05GSUdfVklERU9fSU1YOE1R
+X01JUElfQ1NJMj15CkNPTkZJR19SRVNFVF9JTVg4VUxQX0NTUj15CkNPTkZJR19JMkNfUlBCVVM9
+eQpDT05GSUdfVklERU9fSU1YOTVfQ1NJX0ZPUk1BVFRFUj15CkNPTkZJR19WSURFT19EV19NSVBJ
+X0NTSTJSWD15CkNPTkZJR19QSFlfRlNMX0lNWDlfRFBIWV9SWD15CkNPTkZJR19QSFlfRlNMX0lN
+WDkzX0RQSFlfUlg9eQpDT05GSUdfQ09ORklHX0lNWDlfQkxLX0NUUkw9eQpDT05GSUdfVklERU9f
+RFM5MFVCOTUzPXkKQ09ORklHX1ZJREVPX0RTOTBVQjk2MD15CgojIFNlbnNvcgpDT05GSUdfVklE
+RU9fT1Y1NjQwPXkKQ09ORklHX1ZJREVPX0FQMTMwMj1tCkNPTkZJR19WSURFT19PWDAzQzEwX0xJ
+Qj15CkNPTkZJR19WSURFT19PWDAzQzEwX0RSVj15CgojIFY0TDIgY29yZQpDT05GSUdfTUVESUFf
+Q09OVFJPTExFUj15CkNPTkZJR19WSURFT0RFVj15CkNPTkZJR19WNEwyX01FTTJNRU1fREVWPXkK
+CiMgSU1YOE1NCkNPTkZJR19WSURFT19JTVg3X0NTST15Cg==
 
-The frames themselves are fine. With a single camera the flag is cleared
-again right away, because the ISYS runtime suspends after the stream
-stops. When something keeps the ISYS powered, such as a second sensor in
-use or its PSYS child device, the flag stays set and every later open of
-any capture node fails with -EIO:
+--_003_AMBPR04MB3355237A67AF9D2CC504A98548FA9E2AMBPR04MB335523_
+Content-Type: application/octet-stream; name="setup.sh"
+Content-Description: setup.sh
+Content-Disposition: attachment; filename="setup.sh"; size=465;
+	creation-date="Tue, 13 Oct 2026 01:09:49 GMT";
+	modification-date="Tue, 13 Oct 2026 01:15:24 GMT"
+Content-Transfer-Encoding: base64
 
-  intel_ipu6_isys.isys intel_ipu6.isys.40: isys power cycle required
+IyEvYmluL2Jhc2gKCnNpemU9MTkyMHgxMDgwCm91dD0xOTIweDEwODAKCm1lZGlhLWN0bCAtbCAi
+J292NTY0MCAxLTAwM2MnOjAgLT4gJ2NzaXMtMzJlNDAwMDAuY3NpJzowIFsxXSIKbWVkaWEtY3Rs
+IC1WICInb3Y1NjQwIDEtMDAzYyc6MCBbZm10OiBVWVZZOF8xWDE2LyR7c2l6ZX0gZmllbGQ6bm9u
+ZV0iCm1lZGlhLWN0bCAtViAiJ2NzaXMtMzJlNDAwMDAuY3NpJzowIFtmbXQ6IFVZVlk4XzFYMTYv
+JHtzaXplfSBmaWVsZDpub25lXSIKbWVkaWEtY3RsIC1WICInY3Jvc3NiYXInOjAgW2ZtdDogVVlW
+WThfMVgxNi8ke3NpemV9IGZpZWxkOm5vbmVdIgptZWRpYS1jdGwgLVYgIidteGNfaXNpLjAnOjAg
+W2ZtdDogVVlWWThfMVgxNi8ke3NpemV9IGZpZWxkOm5vbmUgY29tcG9zZTooMCwwKS8ke291dH1d
+IgptZWRpYS1jdGwgLVYgIidteGNfaXNpLjAnOjAgW2ZtdDogWVVWOF8xWDI0LyR7b3V0fSBmaWVs
+ZDpub25lXSIK
 
-The staging ipu7 driver has the same loop over the active list in
-return_buffers() but no need_reset. The IPU7 firmware apparently does
-not hand the queued buffers back on stop, so leftover buffers are the
-normal case there. Skip need_reset for IPU7.
-
-Tested on a Dell XPS 16 DA16260 with an OV08X40 and an HM1092: repeated
-start and stop of both sensors, alternating, with the PSYS in use for
-the OV08X40. No reset message and no failed open.
-
-Fixes: 3c2f7033a924 ("media: ipu6: Warn if the active list isn't empty when returning buffers")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
----
-
-RFC because I am guessing at the firmware behaviour from what the staging
-driver does. If the buffers are supposed to come back on stop on IPU7 as
-well, then the bug is elsewhere and this only hides it. Based on
-media-committers next d7e7bca71698.
-
-This came out of retesting the HM1092 on the ipu6 driver, as you asked in
-the other thread. The sensor itself works properly there: v6 plus my ACPI
-patch binds on CSI-2 port 2 and streams Y10 648x368 at link frequency
-180480000, and IR face authentication works on the frames. No ipu7 format
-patch is needed. One thing for Ramshouriesh: v6 no longer builds on
-media/next, set_fmt and get_selection need the new client_info argument.
-I will send v2 of the ACPI patch with these results.
-
- drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-index 23d00e1..4a5f518 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
-@@ -463,6 +463,13 @@ static void return_buffers(struct ipu6_isys_queue *aq,
- 
- 	spin_unlock_irqrestore(&aq->lock, flags);
- 
-+	/*
-+	 * On IPU7 the buffers still queued to the firmware are left on the
-+	 * active list by every stream stop. That is not an error there.
-+	 */
-+	if (IS_IPU7(av->isys->adev->isp))
-+		need_reset = false;
-+
- 	if (need_reset) {
- 		mutex_lock(&av->isys->mutex);
- 		av->isys->need_reset = true;
--- 
-2.56.0
-
+--_003_AMBPR04MB3355237A67AF9D2CC504A98548FA9E2AMBPR04MB335523_--
