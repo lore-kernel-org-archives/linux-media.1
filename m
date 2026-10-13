@@ -1,69 +1,70 @@
 Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738913C2798
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 08:45:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C83C7DEB
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 08:45:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881102; cv=none; b=tSVOiPbKnl7HNCx5f4S8FoEogMZ7+g0Yo5jke3l9OhUL0DaOseMjqvgbRDilI3v6v3i+ureuQUj4N2eScbgxu/8auXks8oOmlIFNRXEzRhXtu/fREzyIPwXBoj3THC8HE//ujGBlHqiSI0cU9SO6KhYAe3Z8rp8YP+zkyzRVabk=
+	t=1791881103; cv=none; b=INBCM37eGGXdHYlSsZmHvTtlo82Kp14zix+iRnEaV7J5od2eqo9dQZ9mPcf4yX68fe4Dh9dr6/7/7qMCmXg7LyE9Ky5nBOB1mu4JN+h4oOPGJO12GZTXOWAEDx1g9LKLxDgMfDjhodYmHfNyYne/y3aGfOZnFqrpM8KFJg9i3PU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881102; c=relaxed/simple;
-	bh=Pd6u8RLrHaXG1wona1q5ggIAT5aAmSJZtCjssa6Afbc=;
+	s=arc-20240116; t=1791881103; c=relaxed/simple;
+	bh=TekHIbIv8db5iwFYYqhFScmNw3hVmutVMEA84Y+7mxk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Z3lFVxqVUQ3N2IwZdIFg/mZnazJRtAzHQCZLm5kSGPAb5tQLZF0A7dkuaKRSjhIz+DFBKm82bRcSJj6/TM/16Kc0zs/0grfQUm2adR1255Ye3JRfgaVsu0UCDq4kVc0zaMffWCSQBrxorL8/YEeooXG4zvCDQIuoOHzV+bZXQdU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=hBGXWWA0; arc=none smtp.client-ip=209.85.128.45
+	 In-Reply-To:To:Cc; b=M2rPTULp+7kPS9byRO13rnziYz8fAs5d+wTkaHCX20mwr05SI3aDIKEcIZXusfoi2fimjmdGNAAc2G2Pyak7PJCuuaokzmalpFtkDLKq75vjrRiy6QKpzykp30zrDA5fivYAxrHOTO3tuyxGlQlDGCR8j+mr27xdn7UUf0llzrQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=Epj5hsgH; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="hBGXWWA0"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so20059945e9.3
-        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 01:45:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="Epj5hsgH"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso24244645e9.1
+        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 01:45:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=imd-tec.com; s=google; t=1791881099; x=1792485899; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HsUeqRZhMwJScR6MzwSIxb67P9N3NsdpFvhaG5rq8Bw=;
-        b=hBGXWWA0X9VVPk9ov6D0o/AofVynfEcvZ6D72zZFx3raLqpfer0iUwc3gvkaShDthP
-         KognFRWAMADv9GVtzlCaXI6n3UaaFZkv/tkQAHxKAQTchcs7IiKfzesG7i1ESEE6jkNE
-         s2g1WGNZYOtr+O0PKITDjoFsD7HTlk6FMC41t//f4wCCHJjredDhjZ3eL3svkouSulec
-         SLibZhR8EwyUnbeaid5bMpgZmeVnshGNP48kYqDEKfD/UIePj8ycEpxqxiPbkEf6UZDD
-         0/h9WFWKyMN6I9xvVAhVdWTg7VRB/uVKqpgrfnXBGP3uj7mvi3mabKGwY+0Q5to7UpnM
-         5CHQ==
+        bh=5F8uP+QcKvbmyc1Lmz5UuDaLCd12tvjzDbK/HdI9dnE=;
+        b=Epj5hsgHGjmrnlNAyNsDuuhN7yD2ypOrg4aShe++FfkatrurwDl77/nzfd/V2r5Yzy
+         STLbyvwI7GNJxbaEWuJJBr3Dzb/kurST/FzawteRZKHSLuFSxx+WsTLfAqeAsJKJY2/z
+         ehj35RT2do3MmVieUFxtMHekfMJ4CockrqLqfG80upKu0kiJRajRiiLV2kggBw6XI8PC
+         rXlJFHzhZ8TCwhl17FJncfr1e1PTgMDf0GW9q8n5t/B15MacxOZNsgq17kE5Y8/Q9Cua
+         fifSn95OcAMAROMPTZU4qzeyL2w0Klo+QZxNgwqeIJaLZWfcqCll1O6jHE2sGI5Cs1ok
+         sVVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791881099; x=1792485899;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HsUeqRZhMwJScR6MzwSIxb67P9N3NsdpFvhaG5rq8Bw=;
-        b=dCq8z0Tzim7dUzoZS+/Dgke0EI/hgPjBmX5b3hcWv73FAsPCcihB24RZ8gyLbru6Jr
-         X4d9XCyzHKtm5tFDOPKoBCmi79+IcARunsSAG+05Z6sVsZUB79upnxyz8BBsmn1BImqZ
-         sivXQUHxkToqywxrk+LfynRB7moqnT7v5Db3s9WYuKL/ns+sSk4gF65MfTFDIducoGON
-         EtyYp/hN731aXERzCjzLacX5SgrkhnbyloznoXorPQ+ApaQfdsOyGAkSIx8ByMUhG5mR
-         oOWQKBuYZwjBUkBM1peeHfV4thDV+MxDwiVS9+o+MmTFNM25Ng6c31RCi45WwCzJyh5P
-         84mg==
-X-Gm-Message-State: AFq9FYJG8GbGqQ9y5mkW4q7GslXDS+o+GaSWJhqrod4hzI5W++REUV4n
-	AJXPCfhEHzpLXe0GXJOPQUJaTrxe9NZX1PsGdDZwJCdq3I3P3m2tu8WskqFZ9YKE3NE=
-X-Gm-Gg: AYBFou3tlbJmotiE4VHng4QIp5Cq3CXVd3sbDvGRWqIVs8ceDB0mUyZIqoNbKDtnrKX
-	9JYzT4WmKHd4Bnocme4Espup/8zj+Fp2KOa5MR0IFqceol5V2/N+LthD7h2GrfTAcWST5jZvQei
-	FYAHkKlxQgxLcuR4trj/y8v6EpSDSOLcotRr7TFe/zRxCrLex6FzFHB7/sWeAnR0dCIhbyYPgwN
-	ytneOSvbt23yro0Jv179Oct75a2UbscNPALXw0tVMr5/dpiTPj1Yozti/+yrsuILPO8YyCaEjyf
-	H3jFfss5yBRoqKpvulv7b/3qHjKdAFw59DixOrdjzPggO+Z7C1+d3q5nAP/Mt2JIA2fq27aHZSi
-	T+JMwRLt3jYhJFsKK5C/RxAN2PD6OceZxV4EAQ/LM3WxN1HjddVGHgfchLcLeLHCpDXxTV839dh
-	zZHFdbQDrONqYJLC/yTnrbnUaOrYfRmSpK4F7XUcOA3gudI7AmNg+iHwKx0TE6dCHhzr26ULt4y
-	NODbKbktH1KCbe24QhBkdmhsl7Q+d2S1gaBO1ynFI/sA0daaGVtpHpoNseE9ja4iDY9KDCepT3U
-	AKuiuDYZgfGEYw1/Amr30NZhIiY=
-X-Received: by 2002:a05:600c:5493:b0:4a1:78da:d271 with SMTP id 5b1f17b1804b1-4a18e4ee976mr259293435e9.30.1791881098577;
-        Tue, 13 Oct 2026 01:44:58 -0700 (PDT)
+        bh=5F8uP+QcKvbmyc1Lmz5UuDaLCd12tvjzDbK/HdI9dnE=;
+        b=XiqxTROjHwN98+BtlWqvwhZtkyAeSa2xrsWIUqwuihCTOUqU0oAeHzf0poIBLG+JLm
+         fZ4/wy89U20eQdM3rZLmzbkjYH6YByxTg7V8zWZkdH/QhwiNjj+3Foz3uT5NInNRMBbj
+         IaBNoUNnqR7IOBm4G2fSaKO2rACnjk+/t4wlBRhE41+bANvsI6TncH42Fzys6TKaq1bt
+         gqWUixNh4s04Y/3RG1HqHmb6IiNnzfiwEYIiAUUPdCr7ry0FEDOA3AOTAcW/Jj+voFOp
+         mxcsfkqVcvfWx9NJIVBFTRlr0baTVBs4kKTXRH7QtACiN8crPo4ENuuKfQ1jTbxzUaV9
+         I32Q==
+X-Gm-Message-State: AFq9FYK0vtj1tQHD/0rew8KVRO+xg7JSodNC6XPy1OKNtUDEmviN1mYP
+	kqI1Xgc0diRGUoIomqFM5ffjICkr14wOa/2A2F0Mphf+fI8IQFRKN6okoYoRQnvBxnNPKHPQgIH
+	Rf9zfo+qVZQ==
+X-Gm-Gg: AYBFou0KXrI1jdhP6B9zXG+++SuEmfcUAaiEAy/HpggfgLOpUqg9N7Bhj1UZl+cgWAN
+	pLQTeKMti3BId44tIAr+u7IBGu6V0gQjqYfOjl2dOcHfNpV6nM/0LMlTRPWFwuAAvZYTmtMolsh
+	1wy858ApmAwXoEwNa3B7YEErT7fOJBWoX+ZxupPfpUsFeiJSup+tCYBD0DC8c51+yy77oNKErpG
+	fwIEaH/7pz+AhKia5xFkV8+foM88q/ESFWC6mo3+cW0hCFECTv4CUWqQHOqrVR+KX7K1CBxCYmW
+	/ZFGCRWwG2kHSxkmylLon+AWDz8+xfxWCBy+pJE7WwgTxyClrxM9BhVZ1n8yvC1OD9PY5Kf93wM
+	vUmHC7nSduc15Q1c4IX6HBAj582+U+sX/n03zaihT7pLE6vBBP+KWhRkFuUxZEqp0S8kVzf2Mwx
+	hOPhDiIbYO0Zt1SlengfRMMnvtA2a8JdsCS7s56Q+8Rj4bhiK/0/gRXjjXoVuLuIDDu6kKq6D+P
+	41weo99t5Un5lZ/m5y+PnOy0pMmqJ4UvcpPm99395BRbLselHvhZgVT4vDjhnCHyUtxbSEm94AC
+	8AHlp03nTMzPrnqoKY9G/QB3fzQ=
+X-Received: by 2002:a05:600c:4688:b0:4a1:8d46:6228 with SMTP id 5b1f17b1804b1-4a18e4a9ba5mr244599695e9.14.1791881099676;
+        Tue, 13 Oct 2026 01:44:59 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:23c6:273c:cd01:6dd2:be4f:50f7:7ed8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm271888055e9.2.2026.10.13.01.44.56
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18c85009csm271888055e9.2.2026.10.13.01.44.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 01:44:57 -0700 (PDT)
+        Tue, 13 Oct 2026 01:44:59 -0700 (PDT)
 From: William Bright <william.bright@imd-tec.com>
-Date: Tue, 13 Oct 2026 09:44:45 +0100
-Subject: [PATCH RFC 2/4] media: qcom: camss: vfe: Describe the IFE pixel
- pipe per version
+Date: Tue, 13 Oct 2026 09:44:46 +0100
+Subject: [PATCH RFC 3/4] media: qcom: camss: vfe: Add the demux + BLS stage
+ to the pixel pipe
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +73,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-sm8550-camss-ife-v1-2-d50de00077b7@imd-tec.com>
+Message-Id: <20261013-sm8550-camss-ife-v1-3-d50de00077b7@imd-tec.com>
 References: <20261013-sm8550-camss-ife-v1-0-d50de00077b7@imd-tec.com>
 In-Reply-To: <20261013-sm8550-camss-ife-v1-0-d50de00077b7@imd-tec.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -83,111 +84,153 @@ Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, William Bright <william.bright@imd-tec.com>
 X-Mailer: b4 0.15.2
 
-The SM8550 IFE 780 runs the same pixel pipe register map as the
-SM8650 IFE 880 but holds its WB gain in a different format.
+The pixel pipe never subtracts the sensor black level, so blacks come
+out lifted and a demosaic that is sensitive to a green pedestal mixes
+colours.
 
-Pass the pipe a small description of what differs between the IFEs
-that run it, starting with the WB gain value for full scale, and keep
-the IFE 880 on its current 4.0. No functional change.
+Add the demux + BLS block ahead of demosaic as an opt in stage. It
+takes the CFA order from the sink format, subtracts a static black
+level and stretches the rest back to full scale. Its layout was worked
+out on the IFE 780 against CamX's demux + BLS 1.4.1 settings; the
+IFE 880 keeps it off until it is checked there.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: William Bright <william.bright@imd-tec.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe-780.c    |  8 +++++++-
- drivers/media/platform/qcom/camss/camss-vfe-880-pp.c | 20 +++++++++++++-------
- drivers/media/platform/qcom/camss/camss-vfe-880-pp.h | 10 +++++++++-
- 3 files changed, 29 insertions(+), 9 deletions(-)
+ drivers/media/platform/qcom/camss/camss-vfe-780.c  |  3 +-
+ .../media/platform/qcom/camss/camss-vfe-880-pp.c   | 65 +++++++++++++++++++++-
+ .../media/platform/qcom/camss/camss-vfe-880-pp.h   |  3 +-
+ 3 files changed, 68 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-780.c b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-index 6d483f917d15..c2ffe39f929a 100644
+index c2ffe39f929a..032786c4ed74 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-780.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-780.c
-@@ -236,12 +236,18 @@ static inline void vfe_reg_update_clear(struct vfe_device *vfe,
-  * Program the pixel pipe outside output_lock, before the write masters and
-  * the IPP reg update that latches both.
-  */
-+static const struct vfe_pp_desc *vfe_pp_desc(struct vfe_device *vfe)
-+{
-+	return &vfe_pp_desc_880;
-+}
-+
- static void vfe_line_prepare(struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix = &line->output[0].video_out.active_fmt.fmt.pix_mp;
-+	struct vfe_device *vfe = to_vfe(line);
+@@ -247,7 +247,8 @@ static void vfe_line_prepare(struct vfe_line *line)
+ 	struct vfe_device *vfe = to_vfe(line);
  
  	if (line->is_pix && pix->pixelformat == V4L2_PIX_FMT_NV12)
--		vfe_880_setup_pixel_pipe(to_vfe(line), pix->width, pix->height);
-+		vfe_880_setup_pixel_pipe(vfe, vfe_pp_desc(vfe), pix->width, pix->height);
+-		vfe_880_setup_pixel_pipe(vfe, vfe_pp_desc(vfe), pix->width, pix->height);
++		vfe_880_setup_pixel_pipe(vfe, vfe_pp_desc(vfe), pix->width, pix->height,
++					 line->fmt[MSM_VFE_PAD_SINK].code);
  }
  
  static const struct camss_video_ops vfe_video_ops_780 = {
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-index 9b4bdad6d396..f962016ef3c6 100644
+index f962016ef3c6..87e6a241ec05 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.c
-@@ -313,8 +313,13 @@ static void vfe_setup_chroma_downscale_nv12(struct vfe_device *vfe, u32 w, u32 h
+@@ -11,6 +11,7 @@
+ 
+ #include <linux/io.h>
+ #include <linux/kernel.h>
++#include <linux/media-bus-format.h>
+ 
+ #include "camss.h"
+ #include "camss-vfe.h"
+@@ -18,6 +19,17 @@
+ 
+ /* Register offsets, named as in the IFE register map */
+ #define IFE_TOP_CORE_CFG_0                                       0x00024
++#define IFE_DEMUX_BLS_MODULE_CFG                                 0x03b60
++#define		IFE_DEMUX_BLS_PERIOD(n)				((n) << 20)
++#define IFE_DEMUX_BLS_EVEN_CFG                                   0x03b68
++#define IFE_DEMUX_BLS_ODD_CFG                                    0x03b6c
++#define IFE_DEMUX_BLS_GAIN_CFG_0                                 0x03b70
++#define IFE_DEMUX_BLS_GAIN_CFG_1                                 0x03b74
++#define IFE_DEMUX_BLS_SUB_G_EVEN                                 0x03b78
++#define IFE_DEMUX_BLS_SUB_G_ODD                                  0x03b7c
++#define IFE_DEMUX_BLS_SUB_B                                      0x03b80
++#define IFE_DEMUX_BLS_SUB_R                                      0x03b84
++#define		IFE_DEMUX_BLS_SUB(v)				((v) << 20)
+ #define IFE_WB_GAIN_MODULE_CFG                                   0x04560
+ #define IFE_WB_GAIN_WB_CFG_0                                     0x04568
+ #define IFE_WB_GAIN_WB_CFG_1                                     0x0456c
+@@ -313,6 +325,55 @@ static void vfe_setup_chroma_downscale_nv12(struct vfe_device *vfe, u32 w, u32 h
  	writel_relaxed(0x00000000, vfe->base + IFE_DOWNSCALE_MN_C_VID_OUT_DOWNSCALE_MN_C_V_PHASE_CFG);
  }
  
--/* Demosaic + WB: sub offsets 0, gains 4.0, add offsets 0 */
--static void vfe_setup_demosaic(struct vfe_device *vfe)
-+/* IFE 880: Q10 gain of 4.0 */
-+const struct vfe_pp_desc vfe_pp_desc_880 = {
-+	.wb_gain = 0x00001000,
-+};
++/* 12 bit black level subtracted ahead of demosaic, 42 at 10 bit */
++#define IFE_780_BLACK_LEVEL	168
 +
-+/* Demosaic + WB: sub offsets 0, full scale gains, add offsets 0 */
-+static void vfe_setup_demosaic(struct vfe_device *vfe, const struct vfe_pp_desc *desc)
- {
- 	writel_relaxed(0x00000001, vfe->base + IFE_DEMOSAIC_MODULE_CFG);
- 	writel_relaxed(0x00000080, vfe->base + IFE_DEMOSAIC_INTERP_COEFF_CFG_0);
-@@ -322,9 +327,9 @@ static void vfe_setup_demosaic(struct vfe_device *vfe)
- 	writel_relaxed(0x00000040, vfe->base + IFE_DEMOSAIC_INTERP_CLASSIFIER_CFG_0);
- 	writel_relaxed(0x00000066, vfe->base + IFE_DEMOSAIC_INTERP_CLASSIFIER_CFG_1);
- 	writel_relaxed(0x00000001, vfe->base + IFE_WB_GAIN_MODULE_CFG);
--	writel_relaxed(0x00001000, vfe->base + IFE_WB_GAIN_WB_CFG_0);
--	writel_relaxed(0x00001000, vfe->base + IFE_WB_GAIN_WB_CFG_1);
--	writel_relaxed(0x00001000, vfe->base + IFE_WB_GAIN_WB_CFG_2);
-+	writel_relaxed(desc->wb_gain, vfe->base + IFE_WB_GAIN_WB_CFG_0);
-+	writel_relaxed(desc->wb_gain, vfe->base + IFE_WB_GAIN_WB_CFG_1);
-+	writel_relaxed(desc->wb_gain, vfe->base + IFE_WB_GAIN_WB_CFG_2);
- 	writel_relaxed(0x00000000, vfe->base + IFE_WB_GAIN_WB_OFFSET_CFG_0);
- 	writel_relaxed(0x00000000, vfe->base + IFE_WB_GAIN_WB_OFFSET_CFG_1);
- 	writel_relaxed(0x00000000, vfe->base + IFE_WB_GAIN_WB_OFFSET_CFG_2);
-@@ -611,11 +616,12 @@ static void vfe_setup_ds16(struct vfe_device *vfe, u32 w, u32 h)
- }
++/* Demux + BLS: CFA order from the sink format, black level subtracted */
++static void vfe_setup_demux_bls(struct vfe_device *vfe, u32 code)
++{
++	u32 even, odd, gain, bl = IFE_780_BLACK_LEVEL;
++
++	switch (code) {
++	case MEDIA_BUS_FMT_SRGGB8_1X8:
++	case MEDIA_BUS_FMT_SRGGB10_1X10:
++	case MEDIA_BUS_FMT_SRGGB12_1X12:
++	case MEDIA_BUS_FMT_SRGGB14_1X14:
++		even = 0xc9;
++		odd = 0xac;
++		break;
++	case MEDIA_BUS_FMT_SGBRG8_1X8:
++	case MEDIA_BUS_FMT_SGBRG10_1X10:
++	case MEDIA_BUS_FMT_SGBRG12_1X12:
++	case MEDIA_BUS_FMT_SGBRG14_1X14:
++		even = 0xca;
++		odd = 0x9c;
++		break;
++	case MEDIA_BUS_FMT_SBGGR8_1X8:
++	case MEDIA_BUS_FMT_SBGGR10_1X10:
++	case MEDIA_BUS_FMT_SBGGR12_1X12:
++	case MEDIA_BUS_FMT_SBGGR14_1X14:
++		even = 0xac;
++		odd = 0xc9;
++		break;
++	default:
++		even = 0x9c;
++		odd = 0xca;
++		break;
++	}
++
++	gain = DIV_ROUND_CLOSEST(0x400 * 4095, 4095 - bl);
++
++	writel_relaxed(even, vfe->base + IFE_DEMUX_BLS_EVEN_CFG);
++	writel_relaxed(odd, vfe->base + IFE_DEMUX_BLS_ODD_CFG);
++	writel_relaxed(gain << 16 | gain, vfe->base + IFE_DEMUX_BLS_GAIN_CFG_0);
++	writel_relaxed(gain << 16 | gain, vfe->base + IFE_DEMUX_BLS_GAIN_CFG_1);
++	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_G_EVEN);
++	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_G_ODD);
++	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_B);
++	writel_relaxed(IFE_DEMUX_BLS_SUB(bl), vfe->base + IFE_DEMUX_BLS_SUB_R);
++	writel_relaxed(IFE_DEMUX_BLS_PERIOD(1) | 1, vfe->base + IFE_DEMUX_BLS_MODULE_CFG);
++}
++
+ /* IFE 880: Q10 gain of 4.0 */
+ const struct vfe_pp_desc vfe_pp_desc_880 = {
+ 	.wb_gain = 0x00001000,
+@@ -617,9 +678,11 @@ static void vfe_setup_ds16(struct vfe_device *vfe, u32 w, u32 h)
  
  /* Called from vfe_line_prepare() for NV12, ahead of the write masters and the IPP reg update */
--void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, u32 w, u32 h)
-+void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, const struct vfe_pp_desc *desc,
-+			      u32 w, u32 h)
+ void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, const struct vfe_pp_desc *desc,
+-			      u32 w, u32 h)
++			      u32 w, u32 h, u32 code)
  {
  	vfe_setup_core_config(vfe);
++	if (desc->demux_bls)
++		vfe_setup_demux_bls(vfe, code);
  	vfe_setup_chroma_downscale_nv12(vfe, w, h);
--	vfe_setup_demosaic(vfe);
-+	vfe_setup_demosaic(vfe, desc);
+ 	vfe_setup_demosaic(vfe, desc);
  	vfe_setup_color_correction(vfe);
- 	vfe_setup_gamma_luts(vfe);
- 	vfe_setup_color_transform(vfe);
 diff --git a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h
-index e033880e5534..fe3a604c579d 100644
+index fe3a604c579d..0a5ee6d85312 100644
 --- a/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h
 +++ b/drivers/media/platform/qcom/camss/camss-vfe-880-pp.h
-@@ -6,7 +6,15 @@
+@@ -9,12 +9,13 @@ struct vfe_device;
+ /* What differs between the IFEs that run this pixel pipe */
+ struct vfe_pp_desc {
+ 	u32 wb_gain;	/* WB gain register value for full scale */
++	bool demux_bls;	/* subtract the black level in demux + BLS */
+ };
  
- struct vfe_device;
+ extern const struct vfe_pp_desc vfe_pp_desc_880;
  
--void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, u32 width, u32 height);
-+/* What differs between the IFEs that run this pixel pipe */
-+struct vfe_pp_desc {
-+	u32 wb_gain;	/* WB gain register value for full scale */
-+};
-+
-+extern const struct vfe_pp_desc vfe_pp_desc_880;
-+
-+void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, const struct vfe_pp_desc *desc,
-+			      u32 width, u32 height);
+ void vfe_880_setup_pixel_pipe(struct vfe_device *vfe, const struct vfe_pp_desc *desc,
+-			      u32 width, u32 height);
++			      u32 width, u32 height, u32 code);
  void vfe_880_set_aec_bhist_region(struct vfe_device *vfe, u32 h_offset,
  				  u32 v_offset, u32 h_num, u32 v_num);
  
