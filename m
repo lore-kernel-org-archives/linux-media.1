@@ -1,69 +1,68 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE9B52B1F6
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 15:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4305652BE44
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 15:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791904679; cv=none; b=jd7CPEGD0R4GfegYMw8dBqkXmJP0KnqVozvxUJINbvn5xndWhU9vicS3k+A2emmNqbmth/IABM2PFa4eBE2EYsGuxS2P9cgG9cSLbDltxyIS+gsX28NFIc0V8/c8fr9zlehDu035DuJY3ksu/G/RUSmP5BhasjdTbk11i+VqaiQ=
+	t=1791904679; cv=none; b=Wit9dV8OfUuisA7x7GFz+/TsBMMM1Bly8L/6evVbyFn5icNAWGO+q9KsNt69ulXLWSeb1QRo/q4QFRJQ0mEURWqtCSyrIBAV9hn3YtqsniG2vEBHmkPiYKOP2Wyg9yfWQhpB5ke7jmYglCVeo2AnZydmuK8G6pbSrOf/VodLxW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791904679; c=relaxed/simple;
-	bh=/Pg/lA+PGGTUTaRSb2VAfe+AADNa7ZquSZST8Ot6lWI=;
+	bh=12OGU20wVFWATYA2kfvxhJWWeinn6SJ4znCsidxX95o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VGbHvRnuerSadmqmj7sxuP8jf0AUSGzHEDSHt+loEo+XArTk5j2760GUX+Qu3MnKd9/F3PYF0Lv7BoFIPgavy/obSOBMiTtJE4/gMa7zykgOoHSu/V4TrakGki7gUK3tqeSDni5lxTvN6HSDOxo4t8JEjNxD5jmB/CvDYagrP5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=hIDLkT/L; arc=none smtp.client-ip=209.85.128.52
+	 In-Reply-To:To:Cc; b=cxwfJxm9kbmGUiKlTxNAS3NwQ7aIhPZArJOPPW7XvkxMrD6egwTXjoB6upPmXpfv51I8Ng9NDRDKDHs3U7v9VIqFFiYUZLDEnXGwrNyOh9LCpTkM7NVqH2Z4RgA8Bx2fwtZyVGPBX0asYgJ90Qj8zKelMLMyfp59m6dUL1U3W2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=HIkDc7RW; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="hIDLkT/L"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a16af2a232so25100975e9.1
-        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 08:17:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="HIkDc7RW"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a061a13884so27238795e9.3
+        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 08:17:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1791904672; x=1792509472; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1791904673; x=1792509473; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1awOQo0azi8UyO4z3KRKovMgsi0c6QrgcvRhbUh0t1Y=;
-        b=hIDLkT/L0Wnt4t9H3MJQkrIxFoT1xAtvPyarz3NLcZ+TqioNMsHEM1gGT/PnaCx8ct
-         bQZjRhnbjhWi+QAwfIqEj4uz4n1A5dgna2fhfEEMgci8+r5X9HDpwMeuxp5ELSCnG/0G
-         ejdKscrULw+HYGrHD60UME4XJQrBJI9tJ3lZCy/kM3ezxSelxRwhoslIDDOIdTWs57jd
-         atJlyNk5t9TDW/AkGO4csR3sduiQ/rk77//EhFcjpsseUpVHeaUNdAEsSLaBw+87NZ0E
-         bxedCG247AEZBtFNVKwjRFJ5wf4Ix1bODR68BVGmbny2rDQwvZyG9H0Y4LuuR4jyj0nH
-         k7AQ==
+        bh=IBSuaiNNdjAj6bHlEm/9ZPffT+jwzHXl+a5THJBnQMM=;
+        b=HIkDc7RW6tsSHTmMoCiLOqRsxzFhfzZSbHduKzCZv4/nXfvBxEjxz71AoYgASxi1Su
+         XutPjvLBI1GCMUAesHcDe5+Np4M7SfedgHRb7peGBNqTkbZkKInyuwKys4lsHcEpmMuo
+         xG2bTOoVYD+U5V83OAkU+AIDwpDMZYWaY5exMtcwF+oP6tnyrXYhxmf+PYi3hu77Xwhc
+         PAaOOcigPcSLn57Wx4fLrnQblS6YWbQaRpweVvJrt+/m/sxe+KxGYPDTCwS0CfTYx6r2
+         9ed/7l86y/EcARW/Aiyi1CS3OpzivJS4pbRpGciNPlv71Ai5BBa8R5zDm3kR1lqNWU0L
+         ug4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791904672; x=1792509472;
+        d=1e100.net; s=20260707; t=1791904673; x=1792509473;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1awOQo0azi8UyO4z3KRKovMgsi0c6QrgcvRhbUh0t1Y=;
-        b=Fz62CTj/UgGQ3IQejHDG088AtW3zsTo5lILJOGgNWqkrK+X+8fWWee+gf5C0on/ttD
-         j6wKz50ykpryLBtSZJ9TABrWxY63+g/4n9ySbHuHQH60OEsn80VYvjnPCJEOc7daTdxh
-         S3AGx41aaF2/VsksbBtLFZ85HVjsldjDqA5Dr9LW0PR3PAulhofq6buxqEVuCbq+7+N1
-         jNBGe0lyp9N62W9DhP/Eh1QMopo13FqfutzQkxePaseOMj0RFVEU+8HrIyRvciMeKRIC
-         ETEWm7hpO8mV/vtiDMnyVBWn4lGblx2BXRyG3PKyRJfbeqXXYOf42guHcfOLQ0PO7xNq
-         hitg==
-X-Forwarded-Encrypted: i=1; AKwUvBx7rRtcBiG4H/MAxqppUvf5kMJKcH71mkn9S4A+fyCFjh0dlbhbKCt8VK4yIc9eRqm3rsipoho6H601JA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLwF/CO4eRod/24kSDjCe7CtsTESVKFdCIWqQc826HvvZvORXK
-	G/TXJ+GxXW3HTA7iYTIIHEDdqLBRfk8TOX1RCm7fVUM8A7eQW0rmLh4zEr1HButF4Ew=
-X-Gm-Gg: AYBFou3struKqApmrvCh4MMEOImpO7CnV61PwqGP9sSKv/iDTiFZA8RIB1dcWwg5ozK
-	hVHpb+cYyjiNsnf2WNYzKyecYMXmHJqmF/FKRBLmfLW82uryVz8oLNNoCEGL/3iHRsgsw419d2O
-	2Cev/cFmKpq/EHseDE9gXK4j6wmBir9ogk9HNYkzhaBVjaHe/Shs2O33COuUWGHoTUCszJ2PGJE
-	OuYGzP1U0NNYTpN/0C7Gt9/PL/Wl6gqAbuWj247ycQ6gm65hKhyeuUma/BkF0+W8nC+Fz9Ml175
-	Uyz6M1dLr1ovXYOw11uGucryMsNPTsyACjs4nFxsSzxweYipJTGou1Yn9K4Bgz72Y+8WMbRwy2f
-	7xIUda1Stb5YLmFLNRvptm76rcIMDR5WBZHIYkztTANd0GKJyLU797IX1NWN9RaEHre6Y9tZ6Sj
-	HUtLqLDsvaBZyrzN2AxcThLFef8WFz34Otx41d+ICKbCCsoJ5fUAheW9l6zukWrNH57tEmlXAaJ
-	nQtGVp32nK4s7NM87ODeKlOqD3MizMEF2rF9oodtmucPCZMxQ==
-X-Received: by 2002:a05:600c:1e0f:b0:4a0:1f51:ba2d with SMTP id 5b1f17b1804b1-4a18e4adcbamr242423375e9.22.1791904672279;
-        Tue, 13 Oct 2026 08:17:52 -0700 (PDT)
+        bh=IBSuaiNNdjAj6bHlEm/9ZPffT+jwzHXl+a5THJBnQMM=;
+        b=iXPzCvPZoTZjahFDxFHBYrw43fX9J9HZXKiYqg1+JEIaZtpl6wyBAAMoFPfSZNzXfo
+         WMNsINMFupJeIkiUdots3QsArEkYbSJXH+vdFocepJJvHfAYOz/XCgQH+OhcRcnXNTI5
+         RcnSbM9AwkghnNbSjZiVHdY1R5sOGI0KFe9FMXjh3t44pdOmJA9erh1oG3nSOhlDb9D9
+         CjykWjHJM9j6xN7GRiLZ/HSfICmc54iZRZl91HIXcVdOw6zt2jarXn5bo+j///yp+TG/
+         BfZ9/bnMNweOekj/8HKeEglTRumeUlM4faYWs3MmeGWzd9ojJhOq/U/CNlrpDFxSmH7k
+         PIZg==
+X-Forwarded-Encrypted: i=1; AKwUvBxImSGmKppXFhm91LBhp70NfXbRQDydOvw5XdfbHgoP1BTjXZh+SPzzZdcfSXBSeku+DOvQeSoSHI8qKg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJt+E/HPs25eMoA+ldBMxjj0ni87bWFSWqM64Acef158vDEdJsV
+	ceTOSV6jdoXWeJIMRNtHPRyIzkMnpFPywTucfNEf+XGY27hUMXetbj/+SmQVPWAqfMQ=
+X-Gm-Gg: AYBFou1S07tsk9VicMpUlM67UPkcSjFSbVfPLFX0nTPZx3pX5NUGW3GLZKbhcuGfrYm
+	rMuASZf2gS5We7MRHByjZbhwjslXGT9YsvLKYa0ilcmfd9eoGmCbdvyY34CwwJkyOw6JG0yrHD3
+	1hp/tWRkJSkxVRHrGGVlsqHgeRmTOZM4U96/tp5MJzghBnQ9AMbf1TgOz3Iyowy2J9/vITWLQxo
+	ZsYb5tuQt9GtlFRoV18VkVCvbMUTp9CuDtRojF/RDXJbMQlyYJIwI0RK7B4hLSf2ejcKkM48dwg
+	lWiuJREvwuoKf1F9zU6SQD8rJHWOp0QdlKvazMgqhWD5jURpqc9TZYfPgTE/7Ff67mWb5ftWmT4
+	AWhncBlZa3jj4lIvoCwVzeH4L1xx47x6BHpSBEikZH6Iv3dOmXkcV7Awrp9yy4zMl2R+gLf0lvi
+	I+QUpujTdp8uQf+GQPjK5ZTsLcAYk3pdHbkVCrooAMZV4LcNp5FASHWpj+FHAoad9Yv3Q3NJKG+
+	lkikiWGiwsvU6rE55/qYU1xUek4moAZq/wpug/HnLTNy5kBJQA=
+X-Received: by 2002:a05:600c:4e55:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a18e49c008mr228788875e9.12.1791904673179;
+        Tue, 13 Oct 2026 08:17:53 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0aaabb8sm6529743f8f.15.2026.10.13.08.17.51
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0aaabb8sm6529743f8f.15.2026.10.13.08.17.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 08:17:51 -0700 (PDT)
+        Tue, 13 Oct 2026 08:17:52 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Tue, 13 Oct 2026 16:17:11 +0100
-Subject: [PATCH v2 12/13] media: sony-starvis2: Only update bits for window
- mode
+Date: Tue, 13 Oct 2026 16:17:12 +0100
+Subject: [PATCH v2 13/13] media: sony-starvis2: Add support for IMX585
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-media-starvis2-v2-12-3670722d250a@raspberrypi.com>
+Message-Id: <20261013-media-starvis2-v2-13-3670722d250a@raspberrypi.com>
 References: <20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com>
 In-Reply-To: <20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -86,40 +85,352 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-IMX585 requires bit 4 of the WINMODE register (0x3018) to be
-set, whilst the bottom nibble selects between all-pixel and
-window mode.
-
-Switch to using cci_update_bits so that only the bottom nibble
-is updated, thereby working on all supported Starvis2 sensors.
+IMX585 is an 8MPix Starvis 2 sensor, so add support for it.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/sony-starvis2.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/i2c/sony-starvis2.c | 302 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 302 insertions(+)
 
 diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index 1a2a5d45bcc5..1ce2b86c57ac 100644
+index 1ce2b86c57ac..c9a3dd4fe529 100644
 --- a/drivers/media/i2c/sony-starvis2.c
 +++ b/drivers/media/i2c/sony-starvis2.c
-@@ -88,6 +88,7 @@
+@@ -14,6 +14,8 @@
+  *         pixels.
+  * IMX832: Diagonal 6.45mm (Type 1/2.8) CMOS image sensor with 2.12 M effective
+  *         pixels.
++ * IMX585: Diagonal 12.84 mm (Type 1/1.2) CMOS image sensor with 8.40 M effective
++ *         pixels.
+  *
+  * Copyright (C) 2026 Ideas On Board Oy.
+  *
+@@ -1078,6 +1080,283 @@ const struct starvis2_variant imx832_variant_def = {
+ 	.hmax_min_pixel_array = 990,
+ };
  
- /* Crop */
- #define STARVIS2_REG_WINMODE		CCI_REG8(0x3018)
-+#define STARVIS2_REG_WINMODE_MASK	0x0f
- #define STARVIS2_REG_PIX_HST		CCI_REG16_LE(0x303c)
- #define STARVIS2_REG_PIX_HWIDTH		CCI_REG16_LE(0x303e)
- #define STARVIS2_REG_PIX_VST		CCI_REG16_LE(0x3044)
-@@ -1455,7 +1456,8 @@ static int starvis2_program_window(struct starvis2 *starvis2,
- 	int ret = 0;
++static const struct cci_reg_sequence imx585_common_regs[] = {
++	{ STARVIS2_REG_THIN_V_EN, 0x00 },
++	{ STARVIS2_REG_VCMODE, 0x01 },
++	{ CCI_REG8(0x306b), 0x00 },
++	{ STARVIS2_REG_GAIN_PGC_FIDMD, 0x01 },
++
++	{ CCI_REG8(0x3460), 0x21 },
++	{ CCI_REG8(0x3478), 0xa1 },
++	{ CCI_REG8(0x347c), 0x01 },
++	{ CCI_REG8(0x3480), 0x01 },
++	{ CCI_REG8(0x3930), 0x0c },
++	{ CCI_REG8(0x3931), 0x01 },
++	{ CCI_REG8(0x3a4c), 0x39 },
++	{ CCI_REG8(0x3a4d), 0x01 },
++	{ CCI_REG8(0x3a4e), 0x14 },
++	{ CCI_REG8(0x3a50), 0x48 },
++	{ CCI_REG8(0x3a51), 0x01 },
++	{ CCI_REG8(0x3a52), 0x14 },
++	{ CCI_REG8(0x3a56), 0x00 },
++	{ CCI_REG8(0x3a5a), 0x00 },
++	{ CCI_REG8(0x3a5e), 0x00 },
++	{ CCI_REG8(0x3a62), 0x00 },
++	{ CCI_REG8(0x3a6a), 0x20 },
++	{ CCI_REG8(0x3a6c), 0x42 },
++	{ CCI_REG8(0x3a6e), 0xa0 },
++	{ CCI_REG8(0x3b2c), 0x0c },
++	{ CCI_REG8(0x3b30), 0x1c },
++	{ CCI_REG8(0x3b34), 0x0c },
++	{ CCI_REG8(0x3b38), 0x1c },
++	{ CCI_REG8(0x3ba0), 0x0c },
++	{ CCI_REG8(0x3ba4), 0x1c },
++	{ CCI_REG8(0x3ba8), 0x0c },
++	{ CCI_REG8(0x3bac), 0x1c },
++	{ CCI_REG8(0x3d3c), 0x11 },
++	{ CCI_REG8(0x3d46), 0x0b },
++	{ CCI_REG8(0x3de0), 0x3f },
++	{ CCI_REG8(0x3de1), 0x08 },
++	{ CCI_REG8(0x3e10), 0x10 },
++	{ CCI_REG8(0x3e14), 0x87 },
++	{ CCI_REG8(0x3e16), 0x91 },
++	{ CCI_REG8(0x3e18), 0x91 },
++	{ CCI_REG8(0x3e1a), 0x87 },
++	{ CCI_REG8(0x3e1c), 0x78 },
++	{ CCI_REG8(0x3e1e), 0x50 },
++	{ CCI_REG8(0x3e20), 0x50 },
++	{ CCI_REG8(0x3e22), 0x50 },
++	{ CCI_REG8(0x3e24), 0x87 },
++	{ CCI_REG8(0x3e26), 0x91 },
++	{ CCI_REG8(0x3e28), 0x91 },
++	{ CCI_REG8(0x3e2a), 0x87 },
++	{ CCI_REG8(0x3e2c), 0x78 },
++	{ CCI_REG8(0x3e2e), 0x50 },
++	{ CCI_REG8(0x3e30), 0x50 },
++	{ CCI_REG8(0x3e32), 0x50 },
++	{ CCI_REG8(0x3e34), 0x87 },
++	{ CCI_REG8(0x3e36), 0x91 },
++	{ CCI_REG8(0x3e38), 0x91 },
++	{ CCI_REG8(0x3e3a), 0x87 },
++	{ CCI_REG8(0x3e3c), 0x78 },
++	{ CCI_REG8(0x3e3e), 0x50 },
++	{ CCI_REG8(0x3e40), 0x50 },
++	{ CCI_REG8(0x3e42), 0x50 },
++	{ CCI_REG8(0x4054), 0x64 },
++	{ CCI_REG8(0x4148), 0xfe },
++	{ CCI_REG8(0x4149), 0x05 },
++	{ CCI_REG8(0x414a), 0xff },
++	{ CCI_REG8(0x414b), 0x05 },
++	{ CCI_REG8(0x420a), 0x03 },
++	{ CCI_REG8(0x4231), 0x08 },
++	{ CCI_REG8(0x423d), 0x9c },
++	{ CCI_REG8(0x4242), 0xb4 },
++	{ CCI_REG8(0x4246), 0xb4 },
++	{ CCI_REG8(0x424e), 0xb4 },
++	{ CCI_REG8(0x425c), 0xb4 },
++	{ CCI_REG8(0x425e), 0xb6 },
++	{ CCI_REG8(0x426c), 0xb4 },
++	{ CCI_REG8(0x426e), 0xb6 },
++	{ CCI_REG8(0x428c), 0xb4 },
++	{ CCI_REG8(0x428e), 0xb6 },
++	{ CCI_REG8(0x4708), 0x00 },
++	{ CCI_REG8(0x4709), 0x00 },
++	{ CCI_REG8(0x470a), 0xff },
++	{ CCI_REG8(0x470b), 0x03 },
++	{ CCI_REG8(0x470c), 0x00 },
++	{ CCI_REG8(0x470d), 0x00 },
++	{ CCI_REG8(0x470e), 0xff },
++	{ CCI_REG8(0x470f), 0x03 },
++	{ CCI_REG8(0x47eb), 0x1c },
++	{ CCI_REG8(0x47f0), 0xa6 },
++	{ CCI_REG8(0x47f2), 0xa6 },
++	{ CCI_REG8(0x47f4), 0xa0 },
++	{ CCI_REG8(0x47f6), 0x96 },
++	{ CCI_REG8(0x4808), 0xa6 },
++	{ CCI_REG8(0x480a), 0xa6 },
++	{ CCI_REG8(0x480c), 0xa0 },
++	{ CCI_REG8(0x480e), 0x96 },
++	{ CCI_REG8(0x492c), 0xb2 },
++	{ CCI_REG8(0x4930), 0x03 },
++	{ CCI_REG8(0x4932), 0x03 },
++	{ CCI_REG8(0x4936), 0x5b },
++	{ CCI_REG8(0x4938), 0x82 },
++	{ CCI_REG8(0x493c), 0x23 },
++	{ CCI_REG8(0x493e), 0x23 },
++	{ CCI_REG8(0x4940), 0x23 },
++	{ CCI_REG8(0x4ba8), 0x1c },
++	{ CCI_REG8(0x4ba9), 0x03 },
++	{ CCI_REG8(0x4bac), 0x1c },
++	{ CCI_REG8(0x4bad), 0x1c },
++	{ CCI_REG8(0x4bae), 0x1c },
++	{ CCI_REG8(0x4baf), 0x1c },
++	{ CCI_REG8(0x4bb0), 0x1c },
++	{ CCI_REG8(0x4bb1), 0x1c },
++	{ CCI_REG8(0x4bb2), 0x1c },
++	{ CCI_REG8(0x4bb3), 0x1c },
++	{ CCI_REG8(0x4bb4), 0x1c },
++	{ CCI_REG8(0x4bb8), 0x03 },
++	{ CCI_REG8(0x4bb9), 0x03 },
++	{ CCI_REG8(0x4bba), 0x03 },
++	{ CCI_REG8(0x4bbb), 0x03 },
++	{ CCI_REG8(0x4bbc), 0x03 },
++	{ CCI_REG8(0x4bbd), 0x03 },
++	{ CCI_REG8(0x4bbe), 0x03 },
++	{ CCI_REG8(0x4bbf), 0x03 },
++	{ CCI_REG8(0x4bc0), 0x03 },
++	{ CCI_REG8(0x4c14), 0x87 },
++	{ CCI_REG8(0x4c16), 0x91 },
++	{ CCI_REG8(0x4c18), 0x91 },
++	{ CCI_REG8(0x4c1a), 0x87 },
++	{ CCI_REG8(0x4c1c), 0x78 },
++	{ CCI_REG8(0x4c1e), 0x50 },
++	{ CCI_REG8(0x4c20), 0x50 },
++	{ CCI_REG8(0x4c22), 0x50 },
++	{ CCI_REG8(0x4c24), 0x87 },
++	{ CCI_REG8(0x4c26), 0x91 },
++	{ CCI_REG8(0x4c28), 0x91 },
++	{ CCI_REG8(0x4c2a), 0x87 },
++	{ CCI_REG8(0x4c2c), 0x78 },
++	{ CCI_REG8(0x4c2e), 0x50 },
++	{ CCI_REG8(0x4c30), 0x50 },
++	{ CCI_REG8(0x4c32), 0x50 },
++	{ CCI_REG8(0x4c34), 0x87 },
++	{ CCI_REG8(0x4c36), 0x91 },
++	{ CCI_REG8(0x4c38), 0x91 },
++	{ CCI_REG8(0x4c3a), 0x87 },
++	{ CCI_REG8(0x4c3c), 0x78 },
++	{ CCI_REG8(0x4c3e), 0x50 },
++	{ CCI_REG8(0x4c40), 0x50 },
++	{ CCI_REG8(0x4c42), 0x50 },
++	{ CCI_REG8(0x4d12), 0x1f },
++	{ CCI_REG8(0x4d13), 0x1e },
++	{ CCI_REG8(0x4d26), 0x33 },
++	{ CCI_REG8(0x4e0e), 0x59 },
++	{ CCI_REG8(0x4e14), 0x55 },
++	{ CCI_REG8(0x4e16), 0x59 },
++	{ CCI_REG8(0x4e1e), 0x3b },
++	{ CCI_REG8(0x4e20), 0x47 },
++	{ CCI_REG8(0x4e22), 0x54 },
++	{ CCI_REG8(0x4e26), 0x81 },
++	{ CCI_REG8(0x4e2c), 0x7d },
++	{ CCI_REG8(0x4e2e), 0x81 },
++	{ CCI_REG8(0x4e36), 0x63 },
++	{ CCI_REG8(0x4e38), 0x6f },
++	{ CCI_REG8(0x4e3a), 0x7c },
++	{ CCI_REG8(0x4f3a), 0x3c },
++	{ CCI_REG8(0x4f3c), 0x46 },
++	{ CCI_REG8(0x4f3e), 0x59 },
++	{ CCI_REG8(0x4f42), 0x64 },
++	{ CCI_REG8(0x4f44), 0x6e },
++	{ CCI_REG8(0x4f46), 0x81 },
++	{ CCI_REG8(0x4f4a), 0x82 },
++	{ CCI_REG8(0x4f5a), 0x81 },
++	{ CCI_REG8(0x4f62), 0xaa },
++	{ CCI_REG8(0x4f72), 0xa9 },
++	{ CCI_REG8(0x4f78), 0x36 },
++	{ CCI_REG8(0x4f7a), 0x41 },
++	{ CCI_REG8(0x4f7c), 0x61 },
++	{ CCI_REG8(0x4f7d), 0x01 },
++	{ CCI_REG8(0x4f7e), 0x7c },
++	{ CCI_REG8(0x4f7f), 0x01 },
++	{ CCI_REG8(0x4f80), 0x77 },
++	{ CCI_REG8(0x4f82), 0x7b },
++	{ CCI_REG8(0x4f88), 0x37 },
++	{ CCI_REG8(0x4f8a), 0x40 },
++	{ CCI_REG8(0x4f8c), 0x62 },
++	{ CCI_REG8(0x4f8d), 0x01 },
++	{ CCI_REG8(0x4f8e), 0x76 },
++	{ CCI_REG8(0x4f8f), 0x01 },
++	{ CCI_REG8(0x4f90), 0x5e },
++	{ CCI_REG8(0x4f91), 0x02 },
++	{ CCI_REG8(0x4f92), 0x69 },
++	{ CCI_REG8(0x4f93), 0x02 },
++	{ CCI_REG8(0x4f94), 0x89 },
++	{ CCI_REG8(0x4f95), 0x02 },
++	{ CCI_REG8(0x4f96), 0xa4 },
++	{ CCI_REG8(0x4f97), 0x02 },
++	{ CCI_REG8(0x4f98), 0x9f },
++	{ CCI_REG8(0x4f99), 0x02 },
++	{ CCI_REG8(0x4f9a), 0xa3 },
++	{ CCI_REG8(0x4f9b), 0x02 },
++	{ CCI_REG8(0x4fa0), 0x5f },
++	{ CCI_REG8(0x4fa1), 0x02 },
++	{ CCI_REG8(0x4fa2), 0x68 },
++	{ CCI_REG8(0x4fa3), 0x02 },
++	{ CCI_REG8(0x4fa4), 0x8a },
++	{ CCI_REG8(0x4fa5), 0x02 },
++	{ CCI_REG8(0x4fa6), 0x9e },
++	{ CCI_REG8(0x4fa7), 0x02 },
++	{ CCI_REG8(0x519e), 0x79 },
++	{ CCI_REG8(0x51a6), 0xa1 },
++	{ CCI_REG8(0x51f0), 0xac },
++	{ CCI_REG8(0x51f2), 0xaa },
++	{ CCI_REG8(0x51f4), 0xa5 },
++	{ CCI_REG8(0x51f6), 0xa0 },
++	{ CCI_REG8(0x5200), 0x9b },
++	{ CCI_REG8(0x5202), 0x91 },
++	{ CCI_REG8(0x5204), 0x87 },
++	{ CCI_REG8(0x5206), 0x82 },
++	{ CCI_REG8(0x5208), 0xac },
++	{ CCI_REG8(0x520a), 0xaa },
++	{ CCI_REG8(0x520c), 0xa5 },
++	{ CCI_REG8(0x520e), 0xa0 },
++	{ CCI_REG8(0x5210), 0x9b },
++	{ CCI_REG8(0x5212), 0x91 },
++	{ CCI_REG8(0x5214), 0x87 },
++	{ CCI_REG8(0x5216), 0x82 },
++	{ CCI_REG8(0x5218), 0xac },
++	{ CCI_REG8(0x521a), 0xaa },
++	{ CCI_REG8(0x521c), 0xa5 },
++	{ CCI_REG8(0x521e), 0xa0 },
++	{ CCI_REG8(0x5220), 0x9b },
++	{ CCI_REG8(0x5222), 0x91 },
++	{ CCI_REG8(0x5224), 0x87 },
++	{ CCI_REG8(0x5226), 0x82 },
++	{ CCI_REG8(0x5b3c), 0x07 },
++
++	{ STARVIS2_REG_WDMODE, 0x00 },
++	{ STARVIS2_REG_MDBIT, 0x01 },
++	{ STARVIS2_REG_XXS_DRV, 0x00 },
++};
++
++static const u16 imx585_min_hmax_2lane[] = {
++	[STARVIS2_LINK_FREQ_297MHZ] = 2984,
++	[STARVIS2_LINK_FREQ_360MHZ] = 2464,
++	[STARVIS2_LINK_FREQ_445MHZ] = 2004,
++	[STARVIS2_LINK_FREQ_594MHZ] = 1512,
++	[STARVIS2_LINK_FREQ_720MHZ] = 1260,
++	[STARVIS2_LINK_FREQ_891MHZ] = 996,
++	[STARVIS2_LINK_FREQ_1039MHZ] = 856,
++	[STARVIS2_LINK_FREQ_1188MHZ] = 856,
++};
++
++const struct starvis2_variant imx585_variant_def = {
++	.name = "imx585",
++	.id_reg = CCI_REG16_LE(0x5a1d),
++	.id_mask = 0x3ff,
++	.id_value = 0x259,
++	.active_area = {
++		.top = 0,
++		.left = 0,
++		.width = 3857,
++		.height = 2201,
++	},
++	.active_area = {
++		.top = 20,
++		.left = 0,
++		.width = 3856,
++		.height = 2180,
++	},
++	.pixel_rate = 594000000,
++	.pix_per_clk = 8,
++	.common_regs = imx585_common_regs,
++	.num_common_regs = ARRAY_SIZE(imx585_common_regs),
++	.vmax_default = 2250,
++	.hmax_min_link_freq = imx585_min_hmax_2lane,
++	.hmax_min_pixel_array = 550,
++};
++
+ struct starvis2_model_info {
+ 	enum starvis2_type type;
+ 	const u32 *codes;
+@@ -1168,6 +1447,26 @@ static const struct starvis2_model_info imx832_autodetect_info = {
+ 	.auto_detect_mono = &imx832_amr_info,
+ };
  
- 	cci_write(starvis2->cci, STARVIS2_REG_ADDMODE, 0x00, &ret);
--	cci_write(starvis2->cci, STARVIS2_REG_WINMODE, 0x04, &ret);
-+	cci_update_bits(starvis2->cci, STARVIS2_REG_WINMODE,
-+			STARVIS2_REG_WINMODE_MASK, 0x04, &ret);
- 	cci_write(starvis2->cci, STARVIS2_REG_PIX_HST,
- 		  crop->left - starvis2->variant->active_area.left, &ret);
- 	cci_write(starvis2->cci, STARVIS2_REG_PIX_HWIDTH, crop->width, &ret);
++static const struct starvis2_model_info imx585_aaqj_info = {
++	.type = STARVIS2_COLOR,
++	.codes = codes_bayer,
++	.num_codes = ARRAY_SIZE(codes_bayer),
++	.variant = &imx585_variant_def,
++};
++
++static const struct starvis2_model_info imx585_aamj_info = {
++	.type = STARVIS2_MONOCHROME,
++	.codes = codes_monochrome,
++	.num_codes = ARRAY_SIZE(codes_monochrome),
++	.variant = &imx585_variant_def,
++};
++
++static const struct starvis2_model_info imx585_autodetect_info = {
++	.variant = &imx585_variant_def,
++	.auto_detect_colour = &imx585_aaqj_info,
++	.auto_detect_mono = &imx585_aamj_info,
++};
++
+ static const char * const starvis2_supply_name[] = {
+ 	"avdd",  /* Analog (3.3V) supply */
+ 	"dvdd",  /* Digital Core (1.1V) supply */
+@@ -1983,11 +2282,14 @@ static const struct of_device_id starvis2_of_match[] = {
+ 	{ .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
+ 	{ .compatible = "sony,imx832-amr", .data = &imx832_amr_info },
+ 	{ .compatible = "sony,imx832-aqr", .data = &imx832_aqr_info },
++	{ .compatible = "sony,imx585-aamj", .data = &imx585_aamj_info },
++	{ .compatible = "sony,imx585-aaqj", .data = &imx585_aaqj_info },
+ 	/* for non-conforming DTs that rely on runtime check */
+ 	{ .compatible = "sony,imx678", .data = &imx678_autodetect_info },
+ 	{ .compatible = "sony,imx675", .data = &imx675_autodetect_info },
+ 	{ .compatible = "sony,imx662", .data = &imx662_autodetect_info },
+ 	{ .compatible = "sony,imx832", .data = &imx832_autodetect_info },
++	{ .compatible = "sony,imx585", .data = &imx585_autodetect_info },
+ 	{ /* sentinel */ }
+ };
+ 
 
 -- 
 2.34.1
