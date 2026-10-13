@@ -1,103 +1,108 @@
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com [209.85.161.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314813C342F
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 04:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791864553; cv=pass; b=eE76GDcMglr62Ew31VgD308F630Z5cAYelcUd2egqZmiE7Buv/i6mbDRjM+9MGIGAc6T+JvY8+sCi3Z6glrKsGwqph1VE4V0T1A1qVHUcJFDBFDTcIcnqQsKMban6JcagA7f+upZsokE4p3goxZQjN5cZ0uSCTOniwDbPaDipKA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791864553; c=relaxed/simple;
-	bh=H9oHXOeow7etE2oz3wpLSTwBD2VuT9YN6Axe/CaEwSk=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=j7xHyGuw1rWsInlnvSRSrFehF7ZbB+Fcu7i+/P0STLolvP+d69+CaiTdmSotmhVyfbCzoNezMw8D95UTjbJOKL5WUQYzwUG+M15XHS2ln6eqfjBJ2Qo/7iTl8LYxxv1VYPdOwyRUUWWW9NztEV50WK1m8WajnWQVMlR2oGWVlI4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gAcCvK8Z; arc=pass smtp.client-ip=209.85.161.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E651A5BAE;
+	Tue, 13 Oct 2026 04:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791866261; cv=none; b=rFWJydTed7l6CKDUGnyEAkuYZC5COBaQLGr8OiZxqEM/KtxGg1uVYxc5bNvm0fdE/0mJ5dwEZzKcoqp/HJ9m+bJlRzpLSW6Ohl2T+9NFMoZEjuTWX/Z+XX+sQvZFVUXNRk0KhxqXb4mdF0fIQh82GpYI1HItjj4U2s5RoWpXbEg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791866261; c=relaxed/simple;
+	bh=+EKxkOcSK5DwijBLB3Lg5VbEWSiX/fTo+kjg3zmKP5g=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=Zp7jhgsX+hBHev+16t2DbCKyfGd+XO4syPlygI5Wb7RIIe5tFSQag4Y/C9bVatNVdCWPQxYxCo7yPvWzHM3AGJhdeCHXAaXDIlsVyeO/uGemGUQ10Ou/mZ0WEHCOLrA0AaUX7rwm2wN5lvs6bYYU9dARktgY38e8LeIfajyd/ic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=sQMWJfyf; arc=none smtp.client-ip=162.62.57.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gAcCvK8Z"
-Received: by mail-oo1-f44.google.com with SMTP id 006d021491bc7-6cfb1329979so1692077eaf.1
-        for <linux-media@vger.kernel.org>; Mon, 12 Oct 2026 21:09:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791864551; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hgwUbejFyIdfghAqUgGNUUQL0BPbw1czwsqMHTeMVjEgbH3GucUP5fwoMFL4n0uGFT
-         U2yGfqiynTzoLI/guDTQ+dGT/cxGCgz3/7o6vQUNReNXyZec9PdyZA52EZnP7pZxcQJf
-         Fgdb9I52d3tahJJq4Uz0LKl02d3RFcs77yxFyfxUmd2nHmQSiwBWHdfnVt3D36HcLTUA
-         NB8ZTq6wmTIsUehpRlL3qd9BwMTl1CkXTvu/ERo/tlw7FulheD+Z3axvmGYVpHo/Qe6B
-         ylujjj9CVtHMLJ0Pn7f59yeqF/Q5FCLRNbKmcaTxgdqsW7K0pcAw8Mzg5+hn7ZbmeH5S
-         Jp4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=SYymT3riQVadNN182lfr0tw+D5BlQUqx0Gbf8LTuo0M=;
-        fh=PJ5Tgo8HF1pu4S2QofADILq9X+y97AOzr2QgKAu3MOY=;
-        b=T7WnIuCo+lTmsqIAZZHhk4wy82/N2TGWAlLlOzCExg76GWRjk/QxH5TiYc7bZWLMFj
-         nLnskTGUUHe2nGQ5SskAvKZRGi9bceHFjPIPt8eOYR/492lkt2Wqbr3gW9+1kx4uTG74
-         tPMkPsY2Txiv03ix8blA84wTvUd9V75j4BYc+9sXz9nR2+ksKQOFyIDPP+mh+r0U0d5H
-         +lHx6qzVssQV2AavCUBOPVG3I62ZAUaRGT4sS4IG0NFAJv6Azs6wnEwN79NYEPNnXBut
-         MdcyWzFjr5Gy7F9eUkgp33mD9BubB08izyHOSaXpF3QJbHeL09l1+VXwfLR7tpLmWMZZ
-         l8/A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791864551; x=1792469351; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SYymT3riQVadNN182lfr0tw+D5BlQUqx0Gbf8LTuo0M=;
-        b=gAcCvK8ZWGbqeuaqUmhMV765QiBfWOeaKf1iCRATcabOcPp7XOyqiZ5NS3W7hcSIff
-         MD+sNmvRPwfZQT9OENBKcDn53y+A7Q6BmROVjgob9pVwFj2JzytWRCd4Krh+EMUtZemR
-         TRYjbtlTsmLRcG6D70AFDmzPolSHm4/kySh7/6k2mAfP5xmUN6BphHRGxfJUQJtJKjlt
-         o/wMbN4ygW5m2pHAYLx3OCekoUrW2Ew+0v+4chgbp5zAury63MowekIy8l4mZU3nwtRj
-         peMENM6tXX7oL+pBhRqTiRax4yBA5V9Ikg+SriAdwYesJF2SJW/Qzo+fPtKE/YkOS3+T
-         BTlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791864551; x=1792469351;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=SYymT3riQVadNN182lfr0tw+D5BlQUqx0Gbf8LTuo0M=;
-        b=aFymWctXbd15aP6kgzEp6QKaM41YmwmfN0/iULJZsjd5zo0A/81s/kETWg+6qnZa5D
-         OUkrPS2HkDuCvdrm9cuQlmXkvUIm5j/+8372riyGmyyn+U01laJy7gVLP+WWpW82g7bE
-         VdOOojtbhWksNw0U7s0oP0VxJx59Rz39MVb0Ns8iibU7Q16cKBD6lPiZn68FKXu0Rw7b
-         c5FxKJkHe50MFU7A8nzPOd0NRNzrAyYYgD3eiZBsYFhN8IU36JdioxuZ1qSODOSNS5Vd
-         EhGefAQuCguCA8HdxIg+rhUuuEkQ1+To4gcux4J9aeyO46xUO0KwmapzevEVYdIg+c+v
-         531Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy0lTAInKZ0nyKH8ufig7cgVObjJ+5wrKho00duaN1iD+gaEpwWU7BPsu4Lhp/4Ts9cvjtWWCjNj8+o+w==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK1V4FrhjArMppP1gkopgmiSouu0R7A5sqf94jID7sv33MOSsSO
-	/luZzfOriAgWi1EVrdcsCuWBJr4+m0uBJ3MsN9tqmmzd1bQdsS5k4YyXbVPLXkelum41LAIikyN
-	nV9GvYHSnOprZ5rnD5QSrwQEoD3UO5iM=
-X-Gm-Gg: AYBFou2eD+fGSObaW+nrVawZwcS73eY57OnaC8OD909s2pVe+IEXfNmMzoL2TujFEeW
-	3yRvAnMHX9i33zkNAeda/aa0+LBtOmWaiAZ5XNAsTd3HpeDU4ZJ0mtyHjUJ/MkmLxUBbL0QGWkk
-	L/BHpnRq75LUPgXkej6gcIUKWJrdAxILKxwrkF5mQt5kLWrbbRUMEzyQWBMpfubRRPj0bzq8jjF
-	A774rQI8uNd3bIyYtB8VDGa4A+cXXPQ5z9MtjkVGHTkBbpGYi+uSOrsaaI3kbRE6jKXn11L/zeU
-	pr7P8y61OE8f1rwwH7KkDv+xyhWqobBmOPCGZaTLWC9DrACM0tupT+d/ObUz3SJdO9y1Yok4RSa
-	TSNBngHH/6xBFaeHjUuiO7Gix6yjjKCb7pimn87vJZM6vSAEkB5VxiDDClz9xK/Qizm18jWB+CZ
-	fzw80Qh9cXwibMc2uhdVV+S3g7SStBw3KAhIc6EoZn/mgLYNf7Dhyr5lkZKj+ZKIMmpQ==
-X-Received: by 2002:a05:6820:82a:b0:6f6:3762:5f9c with SMTP id
- 006d021491bc7-6f637627061mr4081990eaf.11.1791864550970; Mon, 12 Oct 2026
- 21:09:10 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="sQMWJfyf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791866232; bh=WQcehZ9IwKm8l9MUszjnQ760m3chdg+rDSONdFpFgFo=;
+	h=From:To:Cc:Subject:Date;
+	b=sQMWJfyfDJNZXiQEYSYhT5B2N2KhosTvkCa0f06EU04iJlUEyjVarQ5o8/BlxDlK1
+	 yUXwbYFrWMXzNS6YpAOWJush5UmAUB/SvqlsTQJDNPKXUYpXRUMEzSnPDIhZy+Te1W
+	 0hOhnk1RdqjwzMmx7pVmVjZusqMp7vfS/GmNES+A=
+Received: from DiagonAlley ([120.253.195.162])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 9490E2CE; Tue, 13 Oct 2026 12:37:09 +0800
+X-QQ-mid: xmsmtpt1791866229tc2k0hjsy
+Message-ID: <tencent_FA6A841DD9155FEEBFDEA7FE7310568E4606@qq.com>
+X-QQ-XMAILINFO: OcN56dxiYj5TUkn5KxRP3KQxk83+pVt2J/55jzxgIu/vsud4H1w7sWyne92bA9
+	 4LQFWHUgHSt0aAoyc1roxGpGKFiT5YEbxuQEx+X52LmM+ja4+35lAE5rDt0D2xO4o5oaoIiRGSbs
+	 S6el1wYspHgv8h1nSDoK/9ax3HzBVKJuFdf7r6QLRYgkqYEl6iYM6bEG71sfOOXofD9U2ES2y2KO
+	 zbUAC03oY9I9WlLlYqWLVRtrCBZzprpww4r9gBjlry7Mlv6cxq3L7gnnpXdefZhHgby31SBoQHwo
+	 Fk2c8oKBv0hba6DciaI4GHFB+max08qFuBGOCIbrramihwx8vx1rFPlaN0yjQw31+LaCyft2eBsT
+	 1retIaxknl8NO5oVz9ANx/9YIMQYYoZtvl4GEpifR5jqzpkop43Vwe43iPbc6xPDfNoeK4hHPZci
+	 o2dpQEifGF8OUok/VfrBhf7Efe6uIRRBVtX5RViL8i+tvUeFjBGMxhco+EeBalM6yf7CAzzdxwio
+	 1RuRse9xlmjhzXbNc7jLCZQpnosDUykdVlYG2Yt+7Bff5aKuVDmSIMQEYUV9Efjp3+WxNQW8dbBm
+	 euoyyhNiJkbP/LJ77zIAFKtqwFuevhLf/CZjDd9NVoWByhozyGSwuVZyfE3W0KDbyDdVQmPmR61C
+	 84gj2XEVslCqLl6psQO8PsPOG/6nDmLidk5IJnmd2Ke/ifl7xskJzpNSrl4W3oxp8UNYhnuhxoEi
+	 /de/A5ZwL7UhuYK4ukUrQ3hdZF8Mf1diKKLdbHz4wM4PvHTOyp2P+vPQlILEC5nrTRrnFhfSR4Eg
+	 P4QwT+3z8yZHu8IcGmyniesnc4le+/JaFI7k4Q32weZRkC/QYKiC110ccOaWJ2bhqE48kMiXLsmR
+	 nnJPqaP0zoiObVNA4pIwPnI8Jk/GexZyBQCBzbOFFwB3uloM3DkA8OTLlu6TfXbkqdJthVdrpBpi
+	 UWnd/rBuzzyJV+AbyHVDa8XyB6hXZ2MombmQLiPDDcE5t1E7R7XuE3K7DA4YQljTfGM2OJ7zeZWy
+	 CWQnS6bPKo7MvAOin6uIuGZC507gBwORu46ob6GKj08osoDTzBxERcmN6W4+CI2CgFLo3LY5EanZ
+	 BPXqH9bqysZl3pxlsZ2y+SuqPa4A==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Mingxuan Guo <gmx472@qq.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mingxuan Guo <gmx472@qq.com>
+Subject: [PATCH v2] dt-bindings: media: i2c: dongwoon,dw9768: add Giantec GT9764
+Date: Tue, 13 Oct 2026 12:37:01 +0800
+X-OQ-MSGID: <20261013043701.1093897-1-gmx472@qq.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Nicola Fiorillo <nicfio@gmail.com>
-Date: Tue, 13 Oct 2026 06:08:59 +0200
-X-Gm-Features: AclHuK_betxHCyI4TIli2TPj6vrcBsVwnI89MwAoILwlOjGEgQ7aoJF_OGCoP5U
-Message-ID: <CAJn-UjW-tKNRWTjVOQPe9d-wh-Pdmnw8EEd1vmL8k=TQr--t=A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/7] media: Add GalaxyCore GC5035 and GC8034 sensor drivers
-To: laurent.pinchart@ideasonboard.com
-Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org, hverkuil@kernel.org, 
-	dan.scally@ideasonboard.com, hansg@kernel.org, u.kleine-koenig@baylibre.com, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Laurent,
+The GT9764 is one of Giantec's VCM driver parts and shares the register
+model of the GT9769 already covered by this binding: the vendor's VCM
+driver application note (AN971) covers GT9764, GT9767, GT9768, GT9769,
+GT9772 and GT9778, all built around the same 10-bit DAC with the AAC
+actuator-control extensions.
 
-  Sorry but I am not an engineer and I don't speak English. I only tried to help
-  solve a problem that has been around for a long time. If it can be
-  useful, the repository with the measurements and all the material is
-  available at https://github.com/nic-fio/chuwi-hi10x1-cameras
+Document it as a specific compatible that requires the GT9769 as its
+fallback, so the existing driver binds through the GT9769 entry and no
+driver change is needed.
 
-  (Translated from Italian.)
+Signed-off-by: Mingxuan Guo <gmx472@qq.com>
+---
+Changes in v2:
+- Use the GT9769 as a fallback compatible instead of a standalone driver
+  entry (Conor Dooley), and drop the driver patch accordingly; this also
+  clears the Media CI warning about the compatible being undocumented.
 
-  Nicola
+ Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+@@ -20,9 +20,13 @@ description: |-
+ 
+ properties:
+   compatible:
+-    enum:
+-      - dongwoon,dw9768 # for DW9768 VCM
+-      - giantec,gt9769  # for GT9769 VCM
++    oneOf:
++      - enum:
++          - dongwoon,dw9768 # for DW9768 VCM
++          - giantec,gt9769  # for GT9769 VCM
++      - items:
++          - const: giantec,gt9764 # for GT9764 VCM
++          - const: giantec,gt9769 # fallback, same register model
+ 
+   reg:
+     maxItems: 1
+
