@@ -1,97 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4EE321457
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 13:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92B8509EEB
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 13:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898032; cv=none; b=bktQroZ3Wj8/PfEirIigGl9lmqt1i4TgrDm6bcRwrOHTfXQviMsNu+9VqNb7T2bOwGFCsiqLzPiuUMXNQvGgzdYrtd74ai4pGx6C5EXcoS2QnHH3nbdJL7gJ8mxUES6RkxxEepy4atcMBKLPw6WR3xnsHWLcamCCAMPbjz8SslY=
+	t=1791898550; cv=none; b=TQzvRCVHIVMi+mDxUx2f6sR9k1ANp0wqflL2VAGZeFkaK59NwYfHXREzpJMCZK16IzX/UCJvjpegh4sLCNpIGhuMhpjL/NFFyD1zMbOS9IF/cxmazWi76w4G4qspodk15Qi0NT1kApEt0F6A2vUZdZPoUBkS4FrOWWCzjxr7op8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898032; c=relaxed/simple;
-	bh=gfcYEhJgPCJXlGknEv9Uw9pvG39mAtXg0fHzgYERYj8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ObEudxuPf04glFfLJONI05vbZhk8izl76kA1YIzSBEtM1LgBd5bZRXIdgAzs0ye3MFBBE8mXRQXWhHUWrRo7AnMS3jHJ6Fxan6oC6uENeYE3RW2j860OUR1D1YA8/53z20np4z2V0QMdG1eGwnH92yNJ7bxKpyCxYAkKuhH+3mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DLoe5HdA; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791898550; c=relaxed/simple;
+	bh=OQreSMZcizUiDdYivY39+NvIk9xrh+GNkFREYZHeZBA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CZ+TMbVheYoZmh8y++MY7PFj0ogXMbKqzTpwzOrReNqtLPazRIdrmsmnvpZGbJPz6HRQDD/GFQUoqBqe23gVWrDpTpCk7WGQuCYVqHWI3VdtGcT41wilMEWXGHx9j7a/E3FPfQNle7D/kYHN2prVHb0VdX+LqphLQdB/ilRgwLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iAXWEmq4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DLoe5HdA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791898031; x=1823434031;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gfcYEhJgPCJXlGknEv9Uw9pvG39mAtXg0fHzgYERYj8=;
-  b=DLoe5HdAkPXTUtmuZnQ91F/ngLKeBfNEi1z3UQpFMB5BKtNpzfAVh3b2
-   vJ0CbIlcLucLf5GvjCV0iJtwoqMaVlGqjxc78vUE6o2IP4xUXvNYDrfQ0
-   42XW1rxyPwO4E/84d7AaEWCLG4dV008Z96ieCJLjS7M08ZeCJGGTEPPT8
-   bIRPX5RcDcXH60VIx4T/AljJQQgZoRIauEe/vNWzJPr4R1/gmwuQExHSB
-   BH2xOO+lxivr8+Q/s3VngrdY9r5IbzxN8lM4JQ7w0SKPr/0owVcIxsYxk
-   vVb0GYm0nMdVWKhnd8VwezFjdSl5RfTXKOrmUs735Zh/jRUuDFPwjHJ2d
-   g==;
-X-CSE-ConnectionGUID: J/PUnYpoRE+jOzofgNNZWw==
-X-CSE-MsgGUID: GRTZwuweRIKk2twJ9hVfqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="653626"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="653626"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:27:10 -0700
-X-CSE-ConnectionGUID: ivW2T+4ARnulLCa2HdBjqA==
-X-CSE-MsgGUID: c1u8l+T/Q5KHW7EFZDofYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1132972"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 06:27:07 -0700
-Date: Tue, 13 Oct 2026 16:27:03 +0300
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH 12/12] media: ipu6: Enable IPU4P PCI device
-Message-ID: <as4xpwnJgk_E6QWQ@ashevche-desk.local>
-References: <O9-1Zx4ykYAqVbmmKdXWlV8znkPlWAssbXfVk-y48EcfJr2jUXDnwGULXfz8OtsKEOKcw-kG_0cr9A0H-7c4e17mnb-CycgRuTmN9eg82B4=@proton.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iAXWEmq4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790201F008A6
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 13:35:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791898549;
+	bh=OQreSMZcizUiDdYivY39+NvIk9xrh+GNkFREYZHeZBA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=iAXWEmq4fOp7iufBpwIRZp8Q/oZpUVrRQ9UZAUOeJiGuV6c0h3Ya8Mafdcgz/drBa
+	 22bRmdygV4uvvsyHt0c5TsL5UyDeBDSWTA6TffIBd4GmeP4ZhhuAjoHrOB7xbcPYcE
+	 eoer6fEuWwR+I3HwV7IYrbg1Zgk1UxpOmTG3QRpwzujN7EFQPWPvTXpPiT1lNXAiBE
+	 hoMnegD3N3xcSwmRI8TwiMKXxMx/UIE0rNMY8H3yf3NWdENi0IVdzd4e3HyHCp7gc3
+	 gjdMTtPsnpIs3DeS9M5ERUkyUmwN/FsE2Y+3kaoo81X3uKLRLnFvlEKeZTtvzUr8U0
+	 9N9CW0WGoUB8g==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a772ec8389so23588981fa.3
+        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 06:35:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxUhP0TzR8uALS4cUF8CLdehL9iZ/0RmRZVmTlLorRe7/HTU0NaRn1oZWB+clf9sOVLt+jjn8rparwsHg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOXwin0HS3ihNoCv1ewhJtK3r/BcOp26U4CW7gHsiYlNpdpMRC
+	reea++mmfFjOS+xLGg9p/8V6yNAKML+uL3D1p+QDHyiJtVdz2cOLqA8dsw+JfIBAEoiNvEPqwkv
+	dH2QMIE/qBFRMaO1/IPkTEVpB8V+ZdmJKob7tU5fMuA==
+X-Received: by 2002:a05:6512:3f21:b0:5ba:4472:75d4 with SMTP id
+ 2adb3069b0e04-5bcde6afa8cmr4940944e87.10.1791898548042; Tue, 13 Oct 2026
+ 06:35:48 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 09:35:43 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 13 Oct 2026 09:35:43 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <as4tep73cAI57Yk7@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <O9-1Zx4ykYAqVbmmKdXWlV8znkPlWAssbXfVk-y48EcfJr2jUXDnwGULXfz8OtsKEOKcw-kG_0cr9A0H-7c4e17mnb-CycgRuTmN9eg82B4=@proton.me>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+ <CAD++jL=prd1KDZQawqsRmW3qp1-cJ=18-yhp861CQirOOjE5Ag@mail.gmail.com> <as4tep73cAI57Yk7@ashevche-desk.local>
+Date: Tue, 13 Oct 2026 09:35:43 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mcc2b2Z0zrkNQ80NpV-H1MsihgeNtPD5dD5g9xcbiLg4w@mail.gmail.com>
+X-Gm-Features: AclHuK8ITRAMzeZzyYNFuZDUAjI2-0MeXgfOXBannT48q8bMwCyFujpuburhehY
+Message-ID: <CAMRc=Mcc2b2Z0zrkNQ80NpV-H1MsihgeNtPD5dD5g9xcbiLg4w@mail.gmail.com>
+Subject: Re: [PATCH v1 0/7] gpiolib: kill gpio_request_one()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bradford Love <brad@nextdimension.cc>, linux-gpio@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-media@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
+	Robert Jarzmik <robert.jarzmik@free.fr>, Russell King <linux@armlinux.org.uk>, 
+	Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026 at 02:44:09PM +0000, Ruslan Bay wrote:
-> Register IPU4P in the PCI ID table after its required MMU, buttress,
-> firmware, ISYS, and CSI PHY support is present.
+On Tue, 13 Oct 2026 15:09:14 +0200, Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> said:
+> On Fri, Jul 24, 2026 at 11:40:59PM +0200, Linus Walleij wrote:
+>> On Wed, Jul 15, 2026 at 8:51=E2=80=AFPM Andy Shevchenko
+>> <andriy.shevchenko@linux.intel.com> wrote:
+>>
+>> > This is the finilazation of the work announced in the commit 61e1fd2ab=
+ca4
+>> > ("gpiolib: legacy: Make sure we kill gpio_request_one() first"). With =
+this
+>> > small series we kill gpio_request_one() and leave only two legacy call=
+s
+>> > devm_gpio_request_one() and gpio_request(), where the managed one has =
+only
+>> > a few users and high chances to be killed soon as well.
+>> >
+>> > The series is supposed to go via GPIO tree (due to nature of the last =
+patch)
+>> > with possible immutable branch for others. Please, ack.
+>>
+>> The kernel is clearly a better place after these patches than before it,=
+ so:
+>> Reviewed-by: Linus Walleij <linusw@kernel.org>
+>
+> Thanks!
+> Bart, anything needs to be done for this series to go in?
+>
 
-...
+We don't have Acks from MIPS maintainers. :(
 
->  	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6EP_MTL) },
->  	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU7) },
->  	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU7P5) },
-> +	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU4P) },
-
-Please, order by the device ID name.
-
->  	{ }
->  };
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Bart
