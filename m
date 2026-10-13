@@ -1,86 +1,300 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA70751A127;
-	Tue, 13 Oct 2026 16:21:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7FC511E67;
+	Tue, 13 Oct 2026 18:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908500; cv=none; b=oxgfP5QJhww58otSviGPbuIFN7rHFyr0l0dtCAH6mkYNzZyNtUUt9aGZ3Ro60n2n58zzIEuZIHljHnh11UftMiFuzBHtUEuHpOSiO3C3N70zGV2hg5Y4LRP2yfz5EXv9canrt4kNHByvVkHl8dvk1cZDcN+Jpm8lmZB18EogGx0=
+	t=1791915266; cv=none; b=t3GgN4ReOEzZsL0HOYDPJ6Rfo6MUihsAqsjwZyizZtERx75it0RAsyzs7a9i9Ty/lKC86SL298WH1aEMCK2G7LVRe5cLBtPF+/2jnRHfzLu/+xJyNwuIxJh1W4NN++tTgBfEstx11CB4uMX1j1LSFVCWJE33XT2bKeP2cGoMOPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908500; c=relaxed/simple;
-	bh=2Fe1AEOYThce9q2HA6HMtcK+p+baE4P9xz4DhljZsbg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tyY/QABkDu2VuRSroAl28SSzCJ7cgLpHI86ljNyOWBD9Z6sd2WUH005gwhznhWxBykmGlyMoZ3rB1U4/i2ay7ZTfHu13003HxFN62uRrHhhwXCwltNtMTpdifCZST3tKW/0lUJvuuSn4jmAYsf+KfaOYxVwWzENMiue9Tn1+oa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i4EcfbAJ; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791915266; c=relaxed/simple;
+	bh=uuuUKWP9zxXdpASlKYdJf5W05tbr1qqJrePMhQlDgaM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ozf4ld3obvagiR661AQ/AylxiEBpSePTo3XA9nIk/ibFhcAukHBvBp+6VBE7BXUlLzWHcC786Rt9a0BWCyju+2JW7Kffe0AL1VKKDMddJDs8PuaFd8gypx3DgRDPqkAyY9dLYs51VqN2Gr5syrSnEnqB7Qk6FPRlokFnGZKFROE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TPD3wAWd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i4EcfbAJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791908500; x=1823444500;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=2Fe1AEOYThce9q2HA6HMtcK+p+baE4P9xz4DhljZsbg=;
-  b=i4EcfbAJ71aVv17VKfyDQLhgvXBIQthhSLHaNXW+Y1umKf/Aqnk5R04j
-   zrsEmZmm32BHFgvEy4ZkmSVRHlq+r7I4ZU6o5Xn+jYJgg3B4/XEKRO5Fl
-   L2BNgKhYaYBt6/Kg6sHFEA0VT+gvBvYOKcRNMRtsh2j5D0X1TUaogmRQm
-   mZmhT4niL5zx8xpdOn1KbyW2wU6ZZdqnub9bCFbVQE/M/hQxHQ0SEVZJI
-   8Pfd3thxXAmMJOv38Q5iBHgX40DWRoxWT9NEpY1DdTdpCxZq+ZkNKi4b2
-   XCghpr1uCFx5thXA6Una7722SmeTOgA7K9ZneLW2za3Su5TtTSqhn68WU
-   w==;
-X-CSE-ConnectionGUID: QKtkm9YCTTqQIeCuP43K+A==
-X-CSE-MsgGUID: UTqJHIB0SCGotdRrIGaXoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="671758"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="671758"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:21:40 -0700
-X-CSE-ConnectionGUID: tWpMIeioR06MVaRlpb3Shw==
-X-CSE-MsgGUID: kPcbyPKgQxySHPVNXw1EGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1524496"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:21:37 -0700
-Date: Tue, 13 Oct 2026 19:21:34 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] media: atomisp: remove unused circbuf library
-Message-ID: <as5ajhgIu-Mkdns_@ashevche-desk.local>
-References: <20261012230754.1914517-1-vladurares@gmail.com>
- <20261012230754.1914517-5-vladurares@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TPD3wAWd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8975D1F000FF;
+	Tue, 13 Oct 2026 18:14:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791915264;
+	bh=yRTW/dH5AcddNS+HWfKGncCOuxQwSkTjx47Dtov2j6k=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TPD3wAWdcLL9hitN4qecoU35ovIN01iCzNcwSSloL4Nog0YaTiD+Lbx5iolfN/7tG
+	 dwlY6AhShr8w7aI2MusDvnbR+JSTXDMf12b0bRZ2KaHZJ8xuyw1eTOvfXwSSpapG2s
+	 CC36fcB0/SCDtaycY0ThZ4O+wH2wym0YZJ55UFpPZQKPjeyBE6VGN4ko+w69FPF7Ks
+	 c2wwTNE1TyAQC+/kPveSHzwctGQpK038JoeEaxTRcXvyvfVqiwU2iQgIl/D1xLRSJ3
+	 NvO2HS15qlpZOhoWjvazmgjGMiIvDbHO1hhPNbcdU/R0jizuCtUeTaQI5GZKOJdGj3
+	 BwXRCInusU+MQ==
+Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: kuba@kernel.org, dw@davidwei.uk, asml.silence@gmail.com,
+ ap420073@gmail.com, sdf@fomichev.me, pabeni@redhat.com, kaiyuanz@google.com,
+ bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, razor@blackwall.org,
+ daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
+Date: Tue, 13 Oct 2026 18:14:22 +0000
+Message-ID: <179191526299.434549.7888465945343049764@kernel.org>
+In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
+References: <20261012174300.2338784-2-almasrymina@google.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261012230754.1914517-5-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 12, 2026 at 11:07:53PM +0000, Rareș-Mihai Vladu wrote:
-> After the previous changes nothing in the driver uses the custom
-> circular buffer implementation in base/circbuf/ anymore. Remove it
-> together with its Makefile entries.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-The best patch of the series!
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-(assuming it compiles and likely works)
+Critical: 0 · High: 2 · Medium: 0 · Low: 0 (1)
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The same dma_unmap_sg_attrs() slab-use-after-free the patch
+  claims to fix can still happen for RX bindings made on a virtual…
+- [High] net_devmem_dev_unregister_rx() adds a new writer of binding->dev
+  (and a new unmap).
+
+Pre-existing issues:
+- [Low] Not a valid finding against the final series state; kept only
+  because requires_validation=true.
+
+--
+
+net: devmem: unmap dma_buf synchronously on queue uninstall
+
+This adds net_devmem_dmabuf_binding_unmap(). The dma-buf attachment is
+now unmapped when the last bound RX queue is uninstalled, and also on
+NETDEV_UNREGISTER for unbound RX bindings, to avoid a use-after-free of
+dma_dev in dma_unmap_sg_attrs(). Bindings now stay in
+net_devmem_dmabuf_bindings until they are freed, and an xarray mark hides
+unbound ones from TX lookups.
+
+> diff --git a/net/core/devmem.c b/net/core/devmem.c
+> index f4d60654ce7fd..02d607cc87217 100644
+> --- a/net/core/devmem.c
+> +++ b/net/core/devmem.c
+
+[ ... ]
+
+> @@ -129,10 +151,11 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	unsigned long xa_idx;
+>  	unsigned int rxq_idx;
+>  
+> -	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
+> +	xa_clear_mark(&net_devmem_dmabuf_bindings, binding->id,
+> +		      NET_DEVMEM_BINDING_LIVE);
+>  
+>  	/* Ensure no tx net_devmem_lookup_dmabuf() are in flight after the
+> -	 * erase.
+> +	 * mark is cleared.
+>  	 */
+>  	synchronize_net();
+>  
+
+[ ... ]
+
+> @@ -153,6 +176,35 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
+>  	percpu_ref_kill(&binding->ref);
+>  }
+>  
+> +static void
+> +net_devmem_dev_unregister_rx(struct net_devmem_dmabuf_binding *binding,
+> +			     unsigned long xa_idx, struct net_device *dev)
+> +{
+> +	if (xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
+> +			NET_DEVMEM_BINDING_LIVE) ||
+> +	    READ_ONCE(binding->dev) != dev)
+> +		return;
+> +
+> +	mutex_lock(&binding->lock);
+> +	WRITE_ONCE(binding->dev, NULL);
+> +	if (!netif_is_queue_leasee(dev))
+> +		net_devmem_dmabuf_binding_unmap(binding);
+> +	mutex_unlock(&binding->lock);
+> +}
+
+[Severity: High]
+
+Can this race with net_devmem_unbind_dmabuf() and set binding->dev to
+NULL while the unbind is still walking bound_rxqs?
+
+net_devmem_dev_unregister() is called from netdev_genl_netdevice_event()
+before netdev_lock(netdev) is taken. That means this writer holds only
+RTNL, net_devmem_lock and binding->lock.
+
+The socket close path holds netdev_lock(dev) but not binding->lock:
+
+netdev_nl_sock_priv_destroy()
+    netdev_lock(dev);
+    net_devmem_unbind_dmabuf(binding);
+        xa_clear_mark(..., NET_DEVMEM_BINDING_LIVE);
+        synchronize_net();
+        xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
+            ...
+            netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params);
+        }
+
+Clearing the mark is what makes this walk treat the binding as unbound.
+At least two paths deliver NETDEV_UNREGISTER after the instance lock has
+been dropped and while bound_rxqs is still populated:
+
+- __dev_change_net_namespace() calls netdev_unlock_ops() after
+  dev_shutdown(), then call_netdevice_notifiers(NETDEV_UNREGISTER, dev).
+  It never calls dev_memory_provider_uninstall().
+
+- For a netkit leasee, unregister_netdevice_many_notify() runs the
+  notifiers after netdev_unlock_ops(). The bound rxq is only uninstalled
+  later, from ndo_uninit (netkit_uninit()->netkit_queue_unlease()).
+
+Suppose the unbind is sleeping in synchronize_net() during that window.
+This function then sees !LIVE and binding->dev == dev, and sets
+binding->dev to NULL. For a physical device it also unmaps the dma-buf
+while the binding is still the installed memory provider on the RX
+queues.
+
+The unbind loop then calls netif_mp_close_rxq(NULL, ...), which
+dereferences dev straight away:
+
+	if (WARN_ON_ONCE(rxq_idx >= dev->real_num_rx_queues))
+		return;
+
+Before this patch, binding->dev was only written by
+mp_dmabuf_devmem_uninstall() under the netdev instance lock. Does
+anything else serialize this walk with an unbind that is in progress?
+
+> +
+> +void net_devmem_dev_unregister(struct net_device *dev)
+> +{
+> +	struct net_devmem_dmabuf_binding *binding;
+> +	unsigned long xa_idx;
+> +
+> +	mutex_lock(&net_devmem_lock);
+> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
+> +		if (binding->direction == DMA_FROM_DEVICE)
+> +			net_devmem_dev_unregister_rx(binding, xa_idx, dev);
+> +	}
+> +	mutex_unlock(&net_devmem_lock);
+> +}
+
+[Severity: Low]
+
+This is a pre-existing issue, not one introduced by this patch, but only
+DMA_FROM_DEVICE bindings are handled here.
+
+After NETDEV_UNREGISTER, TX bindings created by netdev_nl_bind_tx_doit()
+still keep their dma-buf mapping. Their binding->dev also still points at
+the unregistered net_device, and netdev_nl_sock_priv_destroy() reads it
+later.
+
+The next patch in the series, "net: devmem: detach TX bindings on
+NETDEV_UNREGISTER", adds net_devmem_dev_unregister_tx() and an else
+branch here for TX bindings. That appears to resolve this by the end of
+the series.
+
+[ ... ]
+
+> @@ -529,16 +585,19 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
+>  	unsigned long xa_idx;
+>  
+>  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
+> -		if (bound_rxq == rxq) {
+> -			xa_erase(&binding->bound_rxqs, xa_idx);
+> -			if (xa_empty(&binding->bound_rxqs)) {
+> -				mutex_lock(&binding->lock);
+> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> -				WRITE_ONCE(binding->dev, NULL);
+> -				mutex_unlock(&binding->lock);
+> -			}
+> -			break;
+> +		if (bound_rxq != rxq)
+> +			continue;
+> +
+> +		xa_erase(&binding->bound_rxqs, xa_idx);
+> +		if (xa_empty(&binding->bound_rxqs)) {
+> +			mutex_lock(&binding->lock);
+> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
+> +			WRITE_ONCE(binding->dev, NULL);
+> +			if (!rxq->lease)
+> +				net_devmem_dmabuf_binding_unmap(binding);
+
+[Severity: High]
+
+Is the same use-after-free still reachable for RX bindings made on a
+netkit device that leases a queue from a physical NIC?
+
+In netdev_nl_bind_rx_doit(), dma_dev is resolved through the lease to
+the physical device's DMA device
+(netdev_nl_get_dma_dev()->netdev_queue_get_dma_dev()). However,
+binding->dev is the virtual netdev, and bound_rxqs holds the virtual rxq.
+
+The only uninstall this binding gets comes from the unlease path, and it
+runs while rxq->lease is still set:
+
+netkit_uninit()
+  netkit_queue_unlease()
+    netdev_rx_queue_unlease()
+      netif_rxq_cleanup_unlease()
+        __netif_mp_uninstall_rxq(virt_rxq, &p)
+          mp_dmabuf_devmem_uninstall()  <- rxq->lease != NULL, no unmap
+      WRITE_ONCE(rxq_src->lease, NULL);
+      WRITE_ONCE(rxq_dst->lease, NULL);
+      netdev_put(rxq_src->dev, &rxq_src->lease_tracker);
+
+So binding->dev becomes NULL and the unmap is skipped.
+
+net_devmem_dev_unregister_rx() doesn't catch it later either. On the
+virtual device's unregister it skips the unmap because
+netif_is_queue_leasee() is true. On the physical device's unregister,
+binding->dev is the virtual device or NULL, so it never matches.
+
+Once netdev_put() drops the lease's reference on the physical device,
+nothing holds dma_dev, since dma_buf_attach() doesn't take a reference.
+dma_dev can then be freed, for example by netdevsim del_device or PCI
+hot-remove. The later
+__net_devmem_dmabuf_binding_free()->net_devmem_dmabuf_binding_unmap()
+then unmaps against the freed device.
+
+The commit message says:
+
+  except when a leased queue is unleased: the physical device is still
+  registered and, if restarting its queue failed, may still be using
+  the binding.
+
+netkit_check_lease_unregister() triggers this unlease from inside the
+physical device's own NETDEV_UNREGISTER:
+
+	if (READ_ONCE(dev->reg_state) != NETREG_UNREGISTERING ||
+	    !dev->dev.parent)
+		return;
+	...
+	netdev_unlock_ops(dev);
+	unregister_netdevice_many(&list_kill);
+
+Is the physical device still registered in that case? Would this need to
+track the device that owns dma_dev, or hold a reference on dma_dev,
+instead of keying on binding->dev?
+
+> +			mutex_unlock(&binding->lock);
+>  		}
+> +		break;
+>  	}
+>  }
+
+[ ... ]
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261012174300.2338784-1-almasrymina%40google.com
