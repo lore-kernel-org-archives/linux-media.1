@@ -1,119 +1,133 @@
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B520443DEBA
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 10:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB2F4DF4DC
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 10:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887069; cv=none; b=DooQN9NRqvo4ew8xqLya9q9Jbr9KKpG4F3FwtDEaFbfF2NbuyE2SQkTv9m9pZKOgQCF/CI4WJ075f3AnzetPu3o8dEPtL7tcV0GyxIdVeVv9F3XSJ8GG/5sixATecpzn7fvxyLRWn01o20GJwUmkmfa6ru3ejSuROtYHWc2S2ww=
+	t=1791887452; cv=none; b=b6KXJfHRfbT2Kh7RRF3VDz004vWY9I/ZG8PLBbhCg0r1DwWxUNmtRsJW6yu/hP692PxiOJ5yogWSCKwYzcG6iD3dA1COTbxWdN7gt+t7mg4feA1/SuuUt2bWSjMzOyK5xH6cMy51TzwpThO7Ao9u0wQ8k+fmbfIqp655F16sxSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887069; c=relaxed/simple;
-	bh=km1G/HHhK4mc4byWSgOHYVTFBTlTfLPGrUqU5+gvS1U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tUpxm1oJ05eb2b60VmxsOj2+Wh4vR6XKenx3FpMKyZM8jQivRHwzfaJR4TPfsHsAW6++Zn4PDQTHGFdslxuPB2u8VrXt9qRZAVnmw/BRuXoXHRHASOKY9kdtYLG7rj4qHSzsGWqLIqXmgTzxRLB2irrlnC11aimR4lH93ZdLpo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1791887452; c=relaxed/simple;
+	bh=OFgV7Q+Q9m5bPZHtkc0vgB4UyPytyI7XAZBQBoWSxfU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=tabTqE2mPDRxT60OwkwfSg+8WlEYudblMjbFduHvrrVqWlDXWjzL3/dto+goLbTyCaTGf7LIDGIHjfZ4pBFuqge1CLGXwkyNdZtWr8uoymtuAPvM9ox9DYC3yymgUj3YxNHWFjwLB0Rz02RHZybDdrX2tQYzZN8oVVlA9p1RyKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hudshSSb; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5e9239c772cso2224487e0c.2
-        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 03:24:28 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hudshSSb"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1880e1bf1so25703915e9.1
+        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 03:30:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791887448; x=1792492248; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N6TD2JBSDx2Af9KVVYuH1Qa1LkplFUH+G2vte2t2dJ0=;
+        b=hudshSSbzyeMT04LStOk1D1MuK1AwmJV2UzjkLCFZ6cIPzWbGkLhppaQZQmraS2hkd
+         JamDSC6l4lDyEx10CvG2t7pH8wg4bm2aj39cxYg8fbRN3K4VOdvilUCJPnE133J25Y2T
+         S8+L/+XlxukfdHB4MhQ/tciygNI/SYxuUVfCDMJZV56/q9kuAksUkMEN66e3+FXfiLgy
+         evMibTL9HF4DhJOYxRtho9KP2kXmusZlxFPNdAtookxQKrXxxJPdHngJHLh++Qei5T5/
+         gCW8h2FPElZ+Ozy+24kJU5Uq6MHQIRsHXW26CjxpEb+T6njPDGYLm0GIsu4ZNov1/AAx
+         Bi1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791887067; x=1792491867;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mGQ/GpRO6vnxq7fb84hh6aj2KXsZIXY1TgeovdND5Hc=;
-        b=DZMX/0b9q5Qj+7WGxrrnHPncVYmGPQw+vNBDr84flEy3ZWy0fV7Gx5aej7ELAEIJ2T
-         10qRJmizQ8fCE8/HtHBn91o0MPJlM9BoFaTpprvJuxralYTm3OBqIXprvyH+N51ON1qO
-         8ByP+YcIiF+uem3YCAZkXMrWU1tb6iV11zG37/oihuJSAIBS0A//6I7xxuH+cu54Xih/
-         ZK+BD0LNp2f9p10DdqfNq2s5r4iE53smunHtHgyEFNll5wKIlrGjneiCfVhPK6CsKHwi
-         uvCJAP73VXKYqAD7SmZ29QoSVmyhp0ohpkwGn7QAiJ7JyNrY/L6+8g3+IdKp4spIHyUZ
-         ISqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwCaDTOylYkD1yw7HUzEtJdVMa5YpnGb+pKRec6A35HTW+yArvNREGY8lbrorcTmlwO4w6wRvGrL1lNww==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIts10vN3kTaE4v1uUlV5ts73RKnnGfdz5Ig7lRH9OG/NSJ32yR
-	PzB/KDP2CAWZ3IBfhEb0Heb8sXmqz3jRinr4Wy/qONZQw4Cfy0rF5j28r/p/5L3k
-X-Gm-Gg: AYBFou2nRbalf7CKwGcAMvGl7xlNeGPGA1UVslRJPHKMAUA6zt78t+yBbvL4WEmd6SA
-	bPrMJHezAsrUtDToOoKm+zy4fEJItVYXjc6cQ7GsJB3IqEdAoI9jFdTKHeKEiDKLNg6swfvgdea
-	7q8jjqPTHpMXK+ur7GrgQeTnQKnMKs0H4XEtmWtV7sJGd+4oTkZD8tbPfbWiJcTdJFhuwu2qsFq
-	WsbbtoxeNPLLLrbcZzWU/nwtah0NNI+t66SleSVLPVvBBVYZt/W4QdwNvC6enz2zxBilEzWvYGz
-	+zO1tbsoE81hpS474+WP+c4CvhXSy1fFxQ8q01BqyFTHYvQQ2B/bdNByvwcl+yUXfuZmBcBwZBP
-	JaGJXN8YVmtlNwaTF3w8za91lr0TM5D8PDUBz7hEpKbTY2SWi832LNDRDETWGqT2crj0osG7Vsi
-	/8U2FlqpC6rYjHok9HbRwZA/WuRGYZpRG8M/0r3hgmOZLoV7G+e3TRcdOxZQOfMi3Kfip1jecqL
-	42KBayMj99hPa7CBpAKwnwV9vp0BOo/UwoM
-X-Received: by 2002:a05:6122:179c:b0:5c2:b01f:e503 with SMTP id 71dfb90a1353d-5e91f43c7e3mr4366320e0c.7.1791887067599;
-        Tue, 13 Oct 2026 03:24:27 -0700 (PDT)
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com. [209.85.222.54])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e91cab499esm8647168e0c.4.2026.10.13.03.24.25
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 03:24:26 -0700 (PDT)
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-990148ce1f6so1104623241.3
-        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 03:24:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxdRLyTaUHX3uzJLbyZ1wqWWzqXrea8WvBbFsD8RlDr4UbPLfEyVlFDf+WxUjhgVWXRyyiYTj/M+92c0g==@vger.kernel.org
-X-Received: by 2002:a05:6102:149d:b0:7a7:ad9f:53e2 with SMTP id
- ada2fe7eead31-7cb36987a53mr4125862137.1.1791887065725; Tue, 13 Oct 2026
- 03:24:25 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791887448; x=1792492248;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N6TD2JBSDx2Af9KVVYuH1Qa1LkplFUH+G2vte2t2dJ0=;
+        b=qUMBR1z0ianQw2Rh06Wflu/JqeKDr7jE8K47by6SOO57qdEYgUum+/x4U+/zkvJy1V
+         4O+aWu/I11wYlgtrJQBFgXJQPFZTFXahkw5NA7QbVkc4b5/4jHSzjyQ66yig9xz7AC0v
+         GmpT5QdRVmSLIXpSraV/g+zZmXEwqMlaqS66+97oQPYmzzZWEdgsLFoNSwCS3Dm/1ybQ
+         uqZzaXbQHtpw2BB+nrfbm25YddjNmoM7oD7KYjGjOrqPbUOYNeDNacXRb/8bs99bnhPh
+         Ecxe7eidoVqNnAoodQ5PSxXmhdHCAal4A7yamHVSPZzFpyAERIoaN+uMQWc1oCqobvZR
+         jA7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBztqbi0ETOFwwIq76zaCbHUi9DOS3vEEnWdXDQu3xkgY0/5TvN8moWgLZbdYuSzRB2sE69WNWyA60y4ew==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPL/LT1hFUClYUBVpwDS/JlnYi95rJkYJSHKY4YIgmXsGTy1Nm
+	kuYyOgLeIfaQW1Tl3ZOiUJ09C2rELgVXDAFe39IhyAQxee/FmxR7DTQYtntid+e6GTo=
+X-Gm-Gg: AYBFou3Ld9yRuJDT2hu5Sbv/aing1rhwm0G1ew5VluzsyE35EqUG4Sr2niUs3ssQmw7
+	kr8zTFyGeRhvB+POZSfmdDW6CALuDZT+s50jfrZbvjBewQZOgqc28EsG0j5yxY4auY+dg5kRdyV
+	paMhwWR0MBKUH/gy0lHDd0sMarZ/ucPyxsmuss5QKgWiYxUGOng4IRp1u3AFQLCWA5A0UfHKKwC
+	3wNeMEYk3FtLKcSeTRLhvWiAFq8srSdMsxWeq/1BO8+pTEfhuFwXFuZbET04D0Lsyrsv4BfSDbO
+	Uoo/odWlqy9RCkXjo4Vw75PcVnFd6YShFUu8uF8etCPB/wqMYdaKs+RhIIsATHp6VD/YAdKLQAU
+	U4ZqpFFUCmH6MR2TZvQee148IcNIx+4VmSCpQjf+lUE55YXVdw5/348xb+w0jb8QtXyLfd/Aa6K
+	AOLZiFPMGEaMa9q/2sEAAaaH3zIawik3JS8HQsTcKjVYiAfu2LKRZqEOJbpc5IpEfpQ429/tpVA
+	91M1kPom+0Rwj8A/eRE4E75bZoiX3LewAwMQa5wCpezGpLAeShOn4W0ElCoS6C8ElyQz6n2I/QY
+	vka251BvU3EQDS25SkziokGQ+5MMwWGhQGsar9eX
+X-Received: by 2002:a05:600c:348f:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18e4c05e5mr243082755e9.19.1791887448077;
+        Tue, 13 Oct 2026 03:30:48 -0700 (PDT)
+Received: from my-vps.. (ip212-227-39-93.pbiaas.com. [212.227.39.93])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ae0c9fadsm49810175e9.4.2026.10.13.03.30.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 03:30:47 -0700 (PDT)
+From: Louis Clinckx <clinckx.louis@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Louis Clinckx <clinckx.louis@gmail.com>
+Subject: [PATCH v2] media: uvcvideo: reject bulk output payloads too small for the header
+Date: Tue, 13 Oct 2026 10:30:41 +0000
+Message-Id: <20261013103041.145445-1-clinckx.louis@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <LE-MESSAGE-ID-REEL-DE-TON-v1>
+References: <LE-MESSAGE-ID-REEL-DE-TON-v1>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20250718152500.2656391-1-demonsingur@gmail.com> <20250718152500.2656391-22-demonsingur@gmail.com>
-In-Reply-To: <20250718152500.2656391-22-demonsingur@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 13 Oct 2026 12:24:13 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXA83Dm=Mf9MFdGNH+-J6dPrZJGS0R_6hPNgC0x1suBHw@mail.gmail.com>
-X-Gm-Features: AclHuK9EzHrMNGZ9VqEt7mZlsF4wljWQ4a5mjitwSzx9DSYBvOK99D8Xhx8xmLo
-Message-ID: <CAMuHMdXA83Dm=Mf9MFdGNH+-J6dPrZJGS0R_6hPNgC0x1suBHw@mail.gmail.com>
-Subject: Re: [PATCH v7 21/24] arm64: defconfig: disable deprecated MAX96712 driver
-To: Cosmin Tanislav <demonsingur@gmail.com>
-Cc: Cosmin Tanislav <cosmin.tanislav@analog.com>, 
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
-	Julien Massot <julien.massot@collabora.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linus Walleij <linus.walleij@linaro.org>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Cosmin,
+A bulk video output stream prefixes each payload with a fixed 2-byte
+header written by uvc_video_encode_header(). The per-URB length counter
+in uvc_video_encode_bulk() is a signed int initialised to the URB size:
 
-On Fri, 18 Jul 2025 at 17:33, Cosmin Tanislav <demonsingur@gmail.com> wrote:
-> The staging MAX96712 driver will be removed as its functionality has
-> been moved to the MAX96724 driver which makes use of the Maxim
-> GMSL2/3 deserializer framework.
->
-> Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
+	int len = stream->urb_size;
+	...
+	len -= uvc_video_encode_header(...);	/* returns 2 */
 
-Thanks for your patch, which is now commit e8d5a57e6d0ce827 ("arm64:
-defconfig: disable deprecated MAX96712 driver") in media/master.
+An output device can describe a bulk endpoint with wMaxPacketSize 1 and
+negotiate dwMaxPayloadTransferSize 1, leaving stream->urb_size == 1. len
+then becomes -1, and uvc_video_encode_data() casts it to unsigned
+(nbytes = min((unsigned int)len, ...)), so (unsigned)-1 defeats the
+clamp and the following memcpy() copies the whole frame past the
+one-byte URB buffer.
 
-> --- a/arch/arm64/configs/defconfig
-> +++ b/arch/arm64/configs/defconfig
-> @@ -1300,7 +1300,6 @@ CONFIG_GREYBUS=m
->  CONFIG_GREYBUS_BEAGLEPLAY=m
->  CONFIG_STAGING=y
->  CONFIG_STAGING_MEDIA=y
-> -CONFIG_VIDEO_MAX96712=m
+Rather than guard the encode path, reject the invalid configuration when
+the stream is started: the negotiated maximum payload transfer size must
+be able to hold the 2-byte payload header. Requiring size >= 2 also
+guarantees urb_size = psize * npackets >= 2, so the encode path can no
+longer underflow.
 
-As Niklas has already pointed out in a reply to v5, you forgot to enable
-the replacement CONFIG_VIDEO_MAX96724, thus breaking operation.
+Signed-off-by: Louis Clinckx <clinckx.louis@gmail.com>
+---
+v1 -> v2: per review (Ricardo Ribalda, Laurent Pinchart), reject the bad
+          configuration at stream start in uvc_init_video_bulk() instead
+          of adding a guard to the encode path. Can move the check to
+          probe/commit (uvc_fixup_video_ctrl) if preferred.
 
->  CONFIG_VIDEO_MESON_VDEC=m
->  CONFIG_SND_BCM2835=m
->  CONFIG_CHROME_PLATFORMS=y
+ drivers/media/usb/uvc/uvc_video.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-Gr{oetje,eeting}s,
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1942,6 +1942,16 @@ static int uvc_init_video_bulk(struct uvc_streaming *stream,
+ 	size = stream->ctrl.dwMaxPayloadTransferSize;
+ 	stream->bulk.max_payload_size = size;
 
-                        Geert
-
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
++	/*
++	 * Output payloads start with a 2-byte header (see
++	 * uvc_video_encode_header()), so a device negotiating a maximum
++	 * payload transfer size smaller than that would make the encode
++	 * path underflow its signed length counter. Reject it here.
++	 */
++	if (stream->type == V4L2_BUF_TYPE_VIDEO_OUTPUT &&
++	    stream->bulk.max_payload_size < 2)
++		return -EINVAL;
++
+ 	npackets = uvc_alloc_urb_buffers(stream, size, psize, gfp_flags);
+ 	if (npackets == 0)
+ 		return -ENOMEM;
