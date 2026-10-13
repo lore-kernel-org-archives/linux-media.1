@@ -1,126 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688A84F30CF;
-	Tue, 13 Oct 2026 11:46:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1A05013A9;
+	Tue, 13 Oct 2026 12:02:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891996; cv=none; b=mKrLKdFIItoxHbdWB77f77yAvW+1+AWXGrA8ggsauJw0HPhbtwvDV80USEW8IN6A1jAJlGyFWUtvm56uPAZBICaBYf8S1PI6J4N/ioUPAW7EB3+NH3Gytk6YDk0FPSO3XYUBVSGqYr5x7ZKISYOLg1ppxTbMoM3K5lwnjFRBu+4=
+	t=1791892946; cv=none; b=TQKXCCJyMKRTjciqLQDaQ+3ynYuhdVE1wD9kb3IMRfwKknsZjptM+LRjH2S8Gn7pU6px0hbbrA5gXH2h9+Kkk3MqkJG+zLfOGDZDtdZRwim+4t1YfDenG0WBcDmin7IcN00iuM5igZ2Yo4Em5FzAVpnirpt41TCfomVFXRXc4oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891996; c=relaxed/simple;
-	bh=GaxSTJEKw7NrKNdnrf/rzftLsFSg4CQXyrj8J/GQoLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=QEFoS4Rt8pQ+47cmD/7c6S1z/KlIBM3aI+eQFYCr70WvA39JNDGqQSw5B2EBVBSfsx2NQNy12USgRzm1wqElsqZc5VjBg9UqCeCKroNs6DtH6YHMogkdxfCm83hhFWLQC5CDTt/EPaDCsmIZr8f4HkbzQHsPgn8GtZ9gmhgfjDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBf5KZ1c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791892946; c=relaxed/simple;
+	bh=QdGkPhAC1/6m5HyQ1tu625R5X6M3d1tzcI9w9kA8Cbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PSFAp/R5yqm2Qdodzy0gRg02FIBGKa8U28wrVcnJyE4XfhHUwmCaEc3G7ynjCiQn2L0zCRk56jlW0atLiGN/EX7TyRU6H7mJp074UEibIxhNk3UTX82MLztlEV/DJkqXpxwWzSqbvGGmt5O6YBAmleNPTDUMZdrWBHZeT4R9LOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=yK29tfkY; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBf5KZ1c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8038F1F00893;
-	Tue, 13 Oct 2026 11:46:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791891995;
-	bh=AyME3jR7BKGEt07ty8V+1z5F5uRyjmv3ys/agNuvJak=;
-	h=From:To:Cc:Subject:Date;
-	b=oBf5KZ1c8p5kslshibazXIXYaJWMCXDB18z0RZoGLnWIja2RtDgsWi/diPYpiGhgU
-	 QAy0oJ2giJIoc1VZK92U9LKttxCdHgisyfu8esfOk93E4Hsdv1WQfelvt7jPf86e/d
-	 XwYjXkba8mKOm6PK4VkdC5xB0NG9lZxmtfIG6hL+s5n6jZWPMCnJ509tayXYq7ZriO
-	 zZDseqi+1wlBQREF3iqu1eBAHBcSb5puBDRzvAfW9fi6YdjAW64nwbgoWf2UrzZ53a
-	 HsHF/38c55xe++N7gwH5sNbLc0U+Q3/Ru5N5Iz6Kl8QvHNey40mEZIILim9B4N4IvF
-	 9icEfONSczQlQ==
-From: Leon Romanovsky <leon@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Ankit Agrawal <ankita@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>,
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="yK29tfkY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1791892941;
+	bh=sMgJshZ5hw4sD5fYhOQLtNjG0zanLqPAEfZRG+FnFYQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=yK29tfkYLyEgf2odEJ7NSdt+DlcEF5Xs9eE9cjumvfGRHKDxeEqROVEPPVHPx1760
+	 dJTusL+jCcsdrEkdnXhNOVFjKhjJKl7n/V/OY4m9DBB+PYAJFbvNCl7RWgpjZqdptA
+	 PVB2EtvM066L9Mt1MnkKsd96tbd6zs6rAwcTSb9/h0ObrY30Ha5eo60M0qTPQHz4DZ
+	 fB+5SaORffiW0yOgYJVL48f3p58dmJopGEwfCxoOu6dcN29CJ3FNtrJdZNc6m6UV1W
+	 TM1dIoW8yrEcGzWreyk9y7V+WxZileGuRA5CsAiH8vA8jN2wGvReAL4h9DDUfCQpMI
+	 /irvJi/br4tNA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4j3tHZ5Tzwz4xgV;
+	Tue, 13 Oct 2026 23:02:18 +1100 (AEDT)
+From: Matt Evans <matt@ozlabs.org>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Zhenyu Wang <zhenyuw.linux@gmail.com>,
+	Zhi Wang <zhi.wang.linux@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: intel-gfx@lists.freedesktop.org,
 	linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] dma-buf: Restore the scatterlist entry count before freeing
-Date: Tue, 13 Oct 2026 14:46:24 +0300
-Message-ID: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
-X-Mailer: git-send-email 2.56.0
+	linux-kernel@vger.kernel.org,
+	Alex Mastro <amastro@fb.com>,
+	Alex Williamson <alex@shazbot.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>
+Subject: [PATCH v3 0/3] dma-buf: dmabuf->file release-time cleanup
+Date: Tue, 13 Oct 2026 13:02:03 +0100
+Message-ID: <20261013120211.135807-1-matt@ozlabs.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261013-dma-buf-fixes-99dd3fd00f48
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
 
-From: Leon Romanovsky <leonro@nvidia.com>
+Hi all,
 
-dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
-as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
-scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
-map/unmap cycle.
+A fix for DMABUF's file-release path, to set dmabuf->file = NULL when
+the struct file itself is being freed and avoid a stale pointer
+lingering.  Previously it could be assumed that dmabuf->file was
+always valid until .release was called, but commit 4ab59c3c638c6
+("dma-buf: Move dma_buf_release() from fops to dentry_ops") separated
+dentry release (calls .release) from file release (can happen before
+.release).  Setting the pointer to NULL clearly delimits the period in
+which it points to a valid struct file.
 
-Restore orig_nents from nents before freeing the table. The helper
-allocates the DMA list directly, so nents retains the allocation count,
-including for chained scatterlists.
+Raw dmabuf->file access is bad news unless the file is known to have a
+reference held (for example, during export).  A single-threaded
+problem scenario is a dentry held open (e.g. using O_PATH) but the
+file closed; .release is not called, so the exporter was unaware that
+dmabuf->file became stale.  Exporter activities using dmabuf->file
+then led to a UAF.  Or, threads racing concurrent access with a file
+closing.
+
+VFIO uses get_file_active(&dmabuf->file), which is a UAF when the
+pointer goes stale.  Alex Mastro has created a VFIO-centric reproducer
+[1], which shows up with KASAN.
+
+To fix, dmabuf->file is either valid or NULL.  get_file_active() is
+then safe and a recommended way to access dmabuf->file without an
+existing reference.  The only possible outcomes are for it to get a
+reference to the file, to observe a valid pointer but the file in the
+DEAD state (being closed, fail), or NULL (fail).
+
+Patch [3/3] sets the pointer NULL when the file closes, which
+get_file_active() handles correctly.
+
+vmwgfx was identified as doing a problematic dmabuf->file dereference.
+Although already a UAF, making dmabuf->file = NULL turns it into an
+oops.  So, patch [1/3] correspondingly converts vmwgfx to use
+get_file_active() too.
+
+i915 GVT unsafely dereferences dmabuf->file for a trivial debug
+printout after the file reference moves to the dmabuf's fd, so patch
+[2/3] dereferences in the safe window.
+
+Added comments to highlight that dmabuf->file could go away before
+.release, and to use get_file_active() if a reference isn't otherwise
+already held.
 
 
-The reported kmemleak output was:
+Thanks,
 
-KMEMLEAK LEAK: 2 driver-related leak(s)
-KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
-KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
-KMEMLEAK LEAK:   hex dump (first 32 bytes):
-KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
-KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
-KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
-KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
-KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
-KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
-KMEMLEAK LEAK:     0xffffffffa1ad21a8
-KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
-KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
-KMEMLEAK LEAK:     0xffffffffa138f8d2
-KMEMLEAK LEAK:     0xffffffffa1396abe
-KMEMLEAK LEAK:     0xffffffffa1331a5f
-KMEMLEAK LEAK:     0xffffffffa13320dd
-KMEMLEAK LEAK:     0xffffffffa1ad696d
-KMEMLEAK LEAK:     0xffffffffa1acecc7
-KMEMLEAK LEAK:     0xffffffffa1acfd17
-KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
-KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
-KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
-KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
-KMEMLEAK LEAK:   hex dump (first 32 bytes):
-KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
+Matt
 
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/dma-buf/dma-buf-mapping.c | 2 ++
- 1 file changed, 2 insertions(+)
+[1]: https://github.com/opsound/vfio-dmabuf-lab/blob/main/tests/vfio_dmabuf_opath_uaf_test.c
 
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 833be519e1e6..cbdf99cb0e05 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -251,6 +251,8 @@ void dma_buf_free_sgt(struct dma_buf_attachment *attach, struct sg_table *sgt,
- 				       sg_dma_len(sgl), dir, DMA_ATTR_MMIO);
- 	}
- 
-+	/* Restore the allocation count cleared for the DMA-only table. */
-+	sgt->orig_nents = sgt->nents;
- 	sg_free_table(sgt);
- 	kfree(dma->state);
- 	kfree(dma);
+Changes:
 
----
-base-commit: 39d3758108bb0ef9da484062d65288bbe9cada0e
-change-id: 20261013-dma-buf-fixes-99dd3fd00f48
+v3:
+ - Better comment for struct dma_buf's file (refer to synchronisation
+   against ->release).
+ - Added trivial i915 patch to remove unsafe debug dmabuf->file accesss.
 
-Best regards,
---  
-Leon Romanovsky <leonro@nvidia.com>
+v2: https://lore.kernel.org/all/20261009123601.94079-1-matt@ozlabs.org/
+
+"v1" was the single "dma-buf: Annul dmabuf->file on file release"
+patch:
+
+ https://lore.kernel.org/all/f8efaabd-c06e-4f04-8cfa-489c148e37ba@ozlabs.org/
+
+Matt Evans (3):
+  drm/vmwgfx: Use get_file_active() for dmabuf->file
+  drm/i915/gvt: Read dmabuf->file only while valid
+  dma-buf: Annul dmabuf->file on file release
+
+ drivers/dma-buf/dma-buf.c           | 21 ++++++++++++++++++---
+ drivers/gpu/drm/i915/gvt/dmabuf.c   |  5 +++--
+ drivers/gpu/drm/vmwgfx/ttm_object.c |  2 +-
+ include/linux/dma-buf.h             |  5 ++++-
+ 4 files changed, 26 insertions(+), 7 deletions(-)
+
+-- 
+2.47.3
 
