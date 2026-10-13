@@ -1,128 +1,133 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9FBA35013B9;
-	Tue, 13 Oct 2026 14:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902861; cv=none; b=JXyhOJuK5D40dhRygzAp96I5ZBA4TRdiF6GsjnTawF/+LMhqK/zHw893TIFCog1O2RFNJ4Qf2bKHT7KnA/6Z/r8IGxZFimk9KgkXK4YDoBqdbukeVmGD0vRd8zNfR8157WS9iH2W8YztlOViWPB9m6MSNM4xJxmqAvtiC1om2Cc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902861; c=relaxed/simple;
-	bh=Tl8dWZ2c1JiqeuXayNIW3lODPyejvDXdZ9J6nROe4h4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SifCc3Tfg46ulr6NFHsTGc6gvO8q0RkyWdy5697zC3T3OegNHtVzysD7SXAp+nxuAeuPEVUtlfRmmT74FJgvhDP2q1+W6+0Z1lhFb149pCf00dhmUp0oPyzSOxKD6smackISUOsS5Xq5uBvjkVzObQB5tml2h3l93WhCe3LNHDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=jPbC3KAZ reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013065.outbound.protection.outlook.com [52.101.72.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E0B403E8E
+	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 14:47:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791902869; cv=fail; b=XclJAQ2WYwV52NXGeV+BuWSZxvtefPtIzXo95kJdAh4tAvz8ye3IB4dmkWP/4HrYzpws0Jb1toQRPo2zzX24O08XwpS5iy1gEyWOqez+FnaruPBaTm+ivSQuWXAtGdjIzwvzRrau2l16R9DTSmRYMIhg4OsXIcCELSdD3qnVWVs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791902869; c=relaxed/simple;
+	bh=5AfHKPvz7FXaMmhMFjdTteRL8HNRGJfAV/2QxuQ21dw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=T0mCDH+apfDBtcLirpXuS2zKk4XBm3Ykw3PWbNkdayOfZG0NBzE1/EPTJCQ5IvJth/MycdhCq+7PwqHS6uT+zjJqA5xyA7efQtC9ZlDd9HR9sN1o75xfiyKU4pRCJWQ0xR6HONjp2SqomkeJkwtRLMfKrgg/x5LTeRg7SzrTVsE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EwYe+col; arc=fail smtp.client-ip=52.101.72.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="jPbC3KAZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=aCbPFN9EmS
-	JHSCbJaRZ03CYLMK4KvH2MF1s9BptRg3E=; b=jPbC3KAZ3jrK7/Omhhl9MsMhuX
-	oWLRuOjRovL+ImdoHE+bZ04/x9Rjuyc5RusHQyFJIpUCdkMK9EQ1FrrE8h9oHK+/
-	xSWcUlaHBEVma79Spl+2N7BbG0d8rruiVar2wNRqbScfX8nZZpA27Po/WQTUnYWZ
-	3w11ophna+xslhuKY=
-Received: from localhost.localdomain (unknown [113.200.174.18])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDGzwKBRM5q9CWOAA--.34153S2;
-	Tue, 13 Oct 2026 22:47:31 +0800 (CST)
-From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: az6007: stop CA thread on probe failure
-Date: Tue, 13 Oct 2026 22:47:17 +0800
-Message-ID: <20261013144717.1621-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EwYe+col"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uXN5E6mSe3TnNwZCN1J3PpMzYsOTfdyIIN1pO2cR1RASiWOHy1jixNxk3iLmeIirzA4u4a4qbkNTM54zEvHuwIJv417rgXMGS1ZXrnbSK6czpXD+DbPVZg/OBG3npnT5N7WgpEbJec73j2Qxb5d1MKnSCROMhhcZqJCbR8MneVrT+Bl6nSFYWOts+N5YYJVEq/EJNlVvjo+ZZOkuD8twNb0pj6Wa4qVi4rGLyhAzhs/WM3liiOniN6KY6XzwtjN4svuCZkp4gXFaM8AWDgK1H4lSCqcdXUh8agrIu+HrQJvaP3pFv880jsZF35cdWZjejVXdSNfyB3LT/H6kN1iwtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5AfHKPvz7FXaMmhMFjdTteRL8HNRGJfAV/2QxuQ21dw=;
+ b=CGR4Em+AY3QFoq+N+AE9aklJ84crua0vrtE1x5yr/35+uWhT0dQ9cKvsFWaUEA1A2CawelPeHS4tTQiwI7EvFkhisOhPX8Pkuu/uvqd4OD75K69+ES2HYSJ42CUM/d/lLq7uV3bC1Qaxh77GMVKK7GS39hLC1Y269WqhNPLSSwp9p2Orpk3LWwG/qDhJLaUjZ3Sj4xYJDATqiMjeUCyY8sQlj5QeeY+OdzLwW+Opurv3QkCivZmqzGBsjBmF4/Vm5OwFbnuz60LFSSGfXmJmf8SWqX1OAUjC9im25xXAK7Spirll5gMgDrsk++o1OVYvODCuoKeV5QkNHZZ74zH6Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5AfHKPvz7FXaMmhMFjdTteRL8HNRGJfAV/2QxuQ21dw=;
+ b=EwYe+colAK0VY0vN4KKU+Iu3tw37LtZkdoRGzRdaE8oH3eG6D18loS7pbrPHiapZGEUtEudKeF6b015bZzUr69drHUeJK694NVkX1Mrq3tlGt+Akz8xRO7HTzrAcp21I3JprB4DMO3jtacZLZS/HHt4DceKkEiW771M4ZyelSrzh3qNOvl8spmDMljbQGs/MwucrL6Bb0YUy5zLGsspaXU/VqhLoEUU0jSPGX7YatkkktRtyM0gjEW7xzZQIOO6brDMUZvPZ+FK7smXvhD303x9tajVW8cEbfTOi/5qnTf0g7gdmNZsxOZZ3IV54k5U46VOuoSYwhOw8Z3k0vfqLtg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV4PR04MB383982.eurprd04.prod.outlook.com (2603:10a6:150:3b2::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
+ 2026 14:47:45 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0522.011; Tue, 13 Oct 2026
+ 14:47:45 +0000
+Date: Tue, 13 Oct 2026 09:47:35 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Ming Qian <ming.qian@nxp.com>
+Cc: Avi Weiss <thnkslprpt@gmail.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	"imx@lists.linux.dev" <imx@lists.linux.dev>
+Subject: Re: [EXT] [PATCH] media: imx-jpeg: propagate encoder command errors
+Message-ID: <as5Eh10VGuASuixZ@SMW015318>
+References: <20261012141824.497906-1-thnkslprpt@gmail.com>
+ <DB9PR04MB979186D592F056313CE59920E79E2@DB9PR04MB9791.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DB9PR04MB979186D592F056313CE59920E79E2@DB9PR04MB9791.eurprd04.prod.outlook.com>
+X-ClientProxiedBy: PH7PR10CA0005.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkDGzwKBRM5q9CWOAA--.34153S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGw1xWryfWw1rAFW5KF1fXrb_yoW5Xw18pa
-	97KFWSkrWkXrsag3WUJw17Gry8Wa1kAr98Kry7Gw1ruF4Sk3WYkryFk3y8KF1UGrZ5AryS
-	qas3Xr17GF45CF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ry5MxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb5fQtUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rOQtcCHAAAsh
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV4PR04MB383982:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d3fc670-bc8c-4fe9-183a-08df2938f106
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|19092799006|376014|366016|10067099003|11063799006|4143699003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	sxJJh+OKgDJSv4U9PNUuYtMMTMEXaqIrteAQh13Qc6MEOCYKFxX1n9Bz4IAOV6rWkoGQardYqBYTOoWu+2qa2wc9n2MCOKR48om+YOtdxqAeqUnDmjeM4XPzH9U4IKkvgIzCA6f+wRlTQblzfnlvF7snE7Sa6lNoOqHZwObFgh038+sVVWNexm+dNQRuxmaL2JVPm8/KXcWnnbKaXYMJ5U4gKnpUJV5JboTHpPIY+qAX0O7tHoIRz2Gcpm5WKp3EnyDRuhNmHY4OL0mYtcTkP593+ZUio0blDBXFZcbtw59mFq4KkTmkUv2/tqwfbSP1D8y04sOFN3m8qoCzsxhJizGNerdMS6TTLNOp4mt/IkDqpV5JT7HCd0tqeb3njeU8gl3BtjRHkJ628PIU7QrPnzr/oyiGp8GODHSXQortFxFo2AaS/AP2Vs1orbFOS9gm1SqYFeG5YovWyDFGCy25ogKmQ9nHj8QiIxp/0P8YxoqHBoKZicT7Hl+orKOaYGFsqTFy3X90tLe8h8SKgYLVGvArHtMeOmOaCu54C9oWN/O76Xl1hmwnBKBBlgLOsti9cVaLinANLdzmlbzKFfZgXdcqhnp6yxSbME5rFyZjuFR9XE79uOPmAsANXI3QKxVWavPoQyCfnMaaJ0ieVcu4rsohDaXACiEuMBjrEHa9oV8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(19092799006)(376014)(366016)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?4E9XCLQJHKcJam413T2Wa3tab9SfaFCNuuUvt0EzuFS0ak2axF4eKIeAwwyK?=
+ =?us-ascii?Q?NROgKrCePoWVfE+898GfHoX0onUKNt9SvHHSeJjTIOldnKfy4V7c8P1nCNXe?=
+ =?us-ascii?Q?AgtPMfmGlqTOfta23Ix5NJpLFtIU4UxAdu/wvFA2dkNyCFfb1uUisT6rZZVl?=
+ =?us-ascii?Q?da9+cx7ufjXCQLKSpFrocAHbmVIFUQyQyhQkzdxBMlYS4lzOTXEoL4lU+VNQ?=
+ =?us-ascii?Q?a/v5JlpIFmTHop8b0vnllFP9u1duLBhYJhN6D7pNl0KnyC4BPkW5xzN6FaVz?=
+ =?us-ascii?Q?gq1b334HKnM0PLyCr/xoB6QmT9jRLnl1V47TLPBbL5+hXi8v5RUuJh5KjdEt?=
+ =?us-ascii?Q?0wXqk0/JwZx13Vim5FoE7SXjqv0HE9KrEXk/JrAFVt+O+Jqup+nPpb/g27RZ?=
+ =?us-ascii?Q?a80addySxKcQJTrd3x6leKY32xIrKFZhRR8ZS0U1+Ugh4vDRqfsmw7/YLmmh?=
+ =?us-ascii?Q?u5yJHEonob+xQ2KQ4SoDsqSSQuwyXFX8v99/MSNJeu/H9aQa1w3YFvb7YMJx?=
+ =?us-ascii?Q?ptPhmzf3OhK+1Es/yfKOIOCjmM8bjAVi3V3QqKBxiSiAdJ2uvs6MiTtQswGV?=
+ =?us-ascii?Q?sjUqSLsoFhMehvLUZVdP/Aif/fJOWtF9FhyJTJf26lFj0wLbC+heL+NNLusU?=
+ =?us-ascii?Q?Mv5MQBGDwUp8FvaXCXUMCmDREqbowznn1WmPUH83m+5B62hwW+qdk6zvo167?=
+ =?us-ascii?Q?foJ2lxBEJ0xgmPjZ+Vebgk7iirHDGC/YpCn+rFJg7JnczvPPWknLvsM42+pI?=
+ =?us-ascii?Q?3RjBS59W3pLRP4OGHvmpCjNc7EkFtTjk2mrOGDHhw2IOoiPmesxxUSgDFEEj?=
+ =?us-ascii?Q?v5vTnyDSpAIVKF0WlZBxZAk4xLk6xbVDjcp6TsYY1w0+YG6fu9QueDrHAuY1?=
+ =?us-ascii?Q?DpnxEqfe1KLquIeC35KPEOJTGmwY4OIm5lvk5SL5cDvgKItz57nqVs7N+aLP?=
+ =?us-ascii?Q?w6f6NRkTbh4YUj+DugDZf628k2AUi130GytuQJbOPav9CiUBvxz8EO90GYDC?=
+ =?us-ascii?Q?t6EdcjE/J0k/dYEE1iCCY793NORG6n4Q+TRn5oPk2cZK1TDA7X71HpvGIaB4?=
+ =?us-ascii?Q?vvFhwq9dmXhbp42lZyc8jFrsnTpO+WM9DP3rN3oZ3IvGL9yD4P4L/oubtko1?=
+ =?us-ascii?Q?WoWV9KspC/j9plRJXYerL6T3t1Y7jaJpxpB2v5VhBySiS0gvoeXQYcx97tNf?=
+ =?us-ascii?Q?x4IpfQHFIYutAaSfvS/LDuUbTDJ60FywlUxWSSNFcCJW7diPqAtC25M2e2iG?=
+ =?us-ascii?Q?2VGLvMXXb8ijX1VemTudswXjlqSdA/1BzariPR4r7Rcjtl6wch1zewEqBrdV?=
+ =?us-ascii?Q?13OE7hIQQrmBRVi3u4TWJNMLroK2ocKGEQj7tD2pLCsGFER28+15V2nnhK5B?=
+ =?us-ascii?Q?DTSU0wdkF0bjQGLVv5idFfypqxV1se2vpeu/PNqmL4Wy5Y2sqcsZb7gZEJ+C?=
+ =?us-ascii?Q?r8KiFr/PvsN8G3k/btP3pKkgW6kSGSnkFrEdgb8FjDxLn/k3sHIcuWZzgbam?=
+ =?us-ascii?Q?sZ7Vs+76LwVP5+Wr1Kb/ZJDhLRacXsCyi0z8CfwZKzRgdLL6CUYCGZt/04pB?=
+ =?us-ascii?Q?elODfg5iCTorxtnb4tkJf8gkeXGJ9FFemBshWlw2ZKJjI5SKTts/RMT/bPBT?=
+ =?us-ascii?Q?cIGUyhZ3rpmPxl3b4g1DsQuw0qr3qZwtCPH2jvtwMdujV+6jRsL/FUBocmRX?=
+ =?us-ascii?Q?fqKuDNfaqA2mTBwFype53D/OTZ06XIqVKLSSJGpS1JpqDJBjm4g/UJ4aD9KQ?=
+ =?us-ascii?Q?0HXe9hAi6/WdddSFxkJKb/HBdbiwrD4zezYQtMPZ5lkwSw/KGaj7?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d3fc670-bc8c-4fe9-183a-08df2938f106
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 14:47:45.0077
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: crjtMvIF1Tct2V9IiymeI9wwtxEhFQxU8Uo00Oe8HPDJQqZuv2SqkkieqSUYMq1q7dmWqKJTAteHCM7kSysMCiAbrov1TXEEYCL4aa799BfxKqL9IAyzFqPPZMq0bZZ+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB383982
 
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+On Tue, Oct 13, 2026 at 02:01:21AM +0000, Ming Qian wrote:
+>
+>
+>
+> NXP Confidential
 
-During device initialization, az6007_frontend_attach() calls
-az6007_ci_init() to start the EN50221 conditional access kernel
-polling thread via dvb_ca_en50221_init().
+Avoid use "NXP Confidential" for public mail list.
 
-However, if dvb_usbv2_probe() subsequently encounters a failure
-(for instance, in tuner_attach or dvb_create_media_graph), it
-enters the err_free_all error path in dvb_usb_core.c:
-
-    err_free_all:
-        dvb_usbv2_exit(d);
-        if (d->props->disconnect)
-            d->props->disconnect(d);
-    err_kfree_priv:
-        kfree(d->priv);
-
-Because az6007_props does not set .disconnect, the active CA polling
-thread is never stopped. When d->priv (struct az6007_device_state)
-is freed, the still-running thread calls ca->pub->poll_slot_status()
-which accesses the freed state, resulting in a slab-use-after-free
-read or crash when dereferencing ca->data.
-
-Assign az6007_ci_uninit to the .disconnect callback of both az6007_props
-and az6007_cablestar_hdci_props. az6007_ci_uninit() invokes
-dvb_ca_en50221_release() to terminate the polling thread and tear down
-the CA interface before d->priv is freed. az6007_ci_uninit() is
-idempotent because it checks state->ca.data before releasing and zeroes
-the structure, so calling it from both the probe error path and normal
-disconnect is safe.
-
-Fixes: 962f8f67e486 ("[media] Add CI support to az6007 driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/usb/dvb-usb-v2/az6007.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
-index 65ef045b74ca..c4fdf437695c 100644
---- a/drivers/media/usb/dvb-usb-v2/az6007.c
-+++ b/drivers/media/usb/dvb-usb-v2/az6007.c
-@@ -906,6 +906,7 @@ static struct dvb_usb_device_properties az6007_props = {
- 	.download_firmware   = az6007_download_firmware,
- 	.identify_state	     = az6007_identify_state,
- 	.power_ctrl          = az6007_power_ctrl,
-+	.disconnect          = az6007_ci_uninit,
- 	.num_adapters        = 1,
- 	.adapter             = {
- 		{ .stream = DVB_USB_STREAM_BULK(0x02, 10, 4096), }
-@@ -929,6 +930,7 @@ static struct dvb_usb_device_properties az6007_cablestar_hdci_props = {
- 	.download_firmware   = az6007_download_firmware,
- 	.identify_state	     = az6007_identify_state,
- 	.power_ctrl          = az6007_power_ctrl,
-+	.disconnect          = az6007_ci_uninit,
- 	.num_adapters        = 1,
- 	.adapter             = {
- 		{ .stream = DVB_USB_STREAM_BULK(0x02, 10, 4096), }
--- 
-2.34.1
-
+Frank
