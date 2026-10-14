@@ -1,150 +1,134 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6233566C69
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 23:14:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED14364935
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 02:49:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791933296; cv=none; b=BoF7L9rfmUmccbZKPcIJHK+P7EXj9gf7KRsJ+dXHN9pgsPvST0GDED0uAhC2krdqm4ueV5I3eAcHZ2+PBqjAMvND2tWuOjsd96AIICojIjf6wE0wzhdsBpxB3wBowpDXJIXlyW8mL+2pxpwpI+A5AxZv1Jf6X4ZTtxkbxdWl57g=
+	t=1791946161; cv=none; b=fHsPPO8+xfIvcOQtBxL0SKiNNQqRKdnQqyOpJNw2/yu0FsC5x1/yboDGR+FcD6RPKQC69GzxO+fNXn3wUSm4vzLcKG5u8/gdCfFsXJ6nPhy87w/az22AwiMbY9teVLiobIjzODcv/mqvSvEiUEEAbpW9ZIZlu3N8sgiSpFcmWgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791933296; c=relaxed/simple;
-	bh=BddERsuDP6R4Cbn9usKbmbzhf9XcSc5rHPxWpQU/TjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Zf8RfLJRhPDoNN3+AAdiMbkWKmohXZX2wRSPqX33BjViZGcp84lE3h5uMAOXIUv+i6Glr3DT7CSo1vu+LJsYcXR35Uv/dzmVdh7HoJaLEyL9Dl4VyTDr6FXPW5/4PS2otuALq5vTwk7Eazcym4H16DLFCBTWyufivJxxN7IfEa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=Jna4mtJc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ucvmNWWd; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1791946161; c=relaxed/simple;
+	bh=+3SLjeuMdrynz9l40dS2Jq5P89i68VuZOoPVhtkeOjE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EceNX5/GHQQo5UH7Qa8RCd7xO0NSuYdVvmE45zLrwLgNmlAbpDpeYQITMrU3vKGAnrRqNwkuhzlWPtKERYujSF3kv9ASI6V8tawE//3laBsftYXBU2sR5U5RthrSD+1QLGais9AF7inmjAH50VOFGS3GIGjQN1I+af2klymo6/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JalSAVTf; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="Jna4mtJc";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ucvmNWWd"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 523567A0276
-	for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 19:14:54 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 13 Oct 2026 19:14:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791933291;
-	 x=1792019691; bh=j3cnmPFN8rnj/dARNtFEfslM+rCB4ZDQFnUJp3HQPBE=; b=
-	Jna4mtJcwX4rVOYRRRKpXoeeKw0fTRAofebSwA9yGi9SKkraJWbjC5eXHJlPTndQ
-	7+NVUqGIi72qiLgtE6ukMy5AUrqRRrugxvcZblUdIDEZmX2ZLBuAQmrUSFdixwGs
-	/RJVuYj+7HYq1eN2ieBuEsdOdrsYGCunrlP+EnUDSf7JFuSdzVPT3pk59L2jGbPo
-	7IWzysvIZn0Rtv7T7WDftSxNQAeAKHrtRsfDyjy0Y15B0nabusTI+BgsG6ufwQ4/
-	tC29OE3NZDtKwvilkeJ8ueDtbed4egud8Sx5WC5ZamI9tBpm8j/7+jSGaEi2G8MW
-	TLj5lYJBeYN/Qt7IrUW8+A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791933291; x=
-	1792019691; bh=j3cnmPFN8rnj/dARNtFEfslM+rCB4ZDQFnUJp3HQPBE=; b=u
-	cvmNWWd8/liduv+SjZuZ3qy4YcSnDI0qAf/j0fJ6PR90se4nc3Al5diPQappmoqS
-	FPBhuKYyecriJkP/xv2hZeHInwCkcCwyQjOGurUDTcQ+rJAGwDSLSBomwChQHESy
-	lF0+5XAY805dFQpPzNFLEFxf2Y+XLVgU3mUyAnY1twrH6gTrR5wRrgrTQ5b6+iy2
-	NRvWsCn44t0aRycWhZ54qA6nGIh/cWtJNJM22bHrufflD9HHWsudt4bQ4Zg1NGn5
-	C0Sz5RiiRaiWc45pIWbhDVKeWif/DZWVZUIZKX+6rfrOoe1zUmlup7ZUNox0adTp
-	GXxZaYg9xNTEaVcA4PovQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791933291; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm1:rsa-sha256:VrIHaMKBTZqN7curpXMvEpi4tYvIVPMkXsvdnZh/BkZ7jGu
-	/+UiMCJRFdQJu20ep/SepAwxyYEENtcsoPiRizBkKfZXvdY+7V7+66GbEVbzXYFm
-	wTfH+MkTHSvgt8caLh4Bi4NhAjrC8NKZif0Ycv6EBrJfOovazuH0mLuv8WFISlhI
-	q1iDYaeu/RsYsn5Jrk8RDd4hbIhiz8629m/In2aPVwwSAe76xL1g+EwODfr1uexr
-	bjDY9bDbLZmtlAkagYV6kmUjZ15AOJ+pi07VTbd7UiZAkTUa1pei0lkLD5tabeqg
-	gf7eu9uJtXQ0VKbm89gfIxy4igO2R4hb72Apyiw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:vRLpZWNtBttavXmzypfYLdfdG9wLxAU8RaZwt2UIKnc=:BddERsuDP6R4Cbn9usKbmbzhf9XcSc5rHPxWpQU/TjY=;
-X-ME-Sender: <xms:a7vOah9I5zqNJKzctcF3W0Xj7hJbmaAwkLcW1Z-w-jBbh9JdbaAgog>
-    <xme:a7vOanWWolMPB0D3kiMX8xMmG6jspg7SpCRl8e2h9gNLLL3IqR72Wnc8jwasl6WPq
-    vKVC3jb1OpqEioSchldFQzA3zwvesPAldDbLj8gwg3d7pJOEEY-nUU>
-X-ME-Received: <xmr:a7vOajETBUAou0TnO7Xg-aGz8oxcL12EOvsYELAVOEa8oCxyjzz4xwStAlrVtg>
-X-ME-Proxy-Cause: dmFkZTGh5K968C2Cl84ptSi+4y/RZ/kVjRI/KuhQFT9EdVF+wlBRkUV3+MnA4Bw8USczqh
-    K75Ks9fzzqoUpxb7GlBjbnkhjHyFx4/Ig31C73IxKiEP0jiid6Tlem7NohMXSaR+5FMEhK
-    ifHB8gtzfUTonlinprF4mw7WPTut7T/J1hPsQXDLSJK0xqaYcZbKfDVq23wYMjW2iywqpO
-    ZIPaJ4ce5Zm6PCb9LkghPIarZYc8Qnu+WxwoCZiOXCKojQi16QdbuVc39mEboH71fqwON2
-    cQwxZsIGEE5+oDvRemv0bEM6otLHIcNZE8FD2rvXxw3NzcIK91ZKa9ZQuG1p86j7bXidXt
-    nx7oRau4R8ktjt8xx8AVoklGfCVCUxHEyEdb8WMKKkixyLlH5V1IUKqIe4eJkYIC24l2rI
-    5UqKe04Z75OhfULWpLV82UV6nELVelihusnkJWTnseeRdGPxuGOHNKLSkvPjdlOFeoQwcn
-    rEIWZtOghThAvgQM53yIkdrplLF3roKTrRNoUrCcM8AGtIAtpO3HsCkWRaTFsdJkRgPuSi
-    JpPJwpdKBrCZq2YJicn2NgChcQyy5Mrw196pPwc/ujnE7Pmkau5ZUb2vw1rDmaE1JxcU43
-    zYDiLC066uMCfXh+1iaphmES1zROZUOJLLKC2B4D0NzD32F86nz6vmPa3/VA
-X-ME-Proxy: <xmx:a7vOar7YpMZLQlbVw9ZBEctsj3C7fw0rEkZcBygNKb5GreUwA_tMEw>
-    <xmx:a7vOalKZDRDVNkrIVnmM5VOhJLsAqsB-RVeq2UJB4fOYaNTlqd0S0Q>
-    <xmx:a7vOamDncoN8UmEySaGSIpqISdYnhmvf-EnLb_sVh-3E4Jq4AWikyw>
-    <xmx:a7vOarTUeBiF4xaATUHEFU5CCp7poIlR5FiZKRzsXwBLw7keL19cVA>
-    <xmx:a7vOarekC7KfHIziycaViAjT5kDRe5G-6eH6pi73idtDOCOYQuHvqGDS>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Oct 2026 19:14:49 -0400 (EDT)
-Date: Tue, 13 Oct 2026 17:14:16 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
- Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
- Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
-Subject: Re: [PATCH v8 1/9] vfio/pci: Remove DMABUF export dependency on
- vdev->memory_lock
-Message-ID: <20261013171416.40b00e73@shazbot.org>
-In-Reply-To: <20261006193643.76330-2-matt@ozlabs.org>
-References: <20261006193643.76330-1-matt@ozlabs.org>
-	<20261006193643.76330-2-matt@ozlabs.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JalSAVTf"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so214200a91.2
+        for <linux-media@vger.kernel.org>; Tue, 13 Oct 2026 19:49:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791946158; x=1792550958; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G3ebFU2EzDxFvfDoimfKN4m5wsDUUHnrmGXuZIPxGIs=;
+        b=JalSAVTfuxJVerCPLf/hixYMHp/eir6oI9yL6lAw0lZHjloD18Ovur9U0zhypnOwup
+         wYSwAdwjYR66fRyqXXRbn89drNT7bCQz9tZ5rCwQfdFl2r78UijOD8bH8/hGe/2Kg3vC
+         jwQKLgs6+jmvjlH0vp0n36cyUbbbCIfJoKzq0gHJvoxjHtvs+pkYyzkbg+wB7Kfr7khp
+         4wv5RlhAXLXAQTF1PI+555QiTO93vyHVV/hwUuswl8fQ9duiiP7bjXC8eAn/roKpOCS+
+         z9/mpNX4OE88S1XmEvCj0xE9j2zyE+980DEefUAtAqE3O7OIyn4wyxD6LYnviYgTObwD
+         OgjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791946158; x=1792550958;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G3ebFU2EzDxFvfDoimfKN4m5wsDUUHnrmGXuZIPxGIs=;
+        b=aw23qySBcf69fcPUEyJubAP7/BJYdq9QrBz15J7MY+93e+suCgpthGnarwEdMho/3H
+         zW02boFOu2Xbo+PJ5l/ywnCYC/cDjqC3donVdSu/LC0NBA2JFb/Io3TEcUhiXIoQv0jF
+         olofrjFC7p7rZIQ4luvbshEJrMd4RuBNSWIYLIeub5v3tu9n2Mw2VcRdeAYc8hXp7n0o
+         r/2natKVhyKBJCfgoX857RkaZ8mW5XdrbHb9rkxop913PltzXUi0UPvK0fVyaajnsCK8
+         FhZg5VgSSTEAvBU2gLGFZRivFY+YXHtooZw9inaMLQ4UynvtjReNJ8cJX2Shee8kptnB
+         Hjgw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVa3kY1147ThDKUt/2YayKW1tac+/v834DPayqh054CkgmR5aiRS+oO4az/DIO2jhZmci4z5UlMjgx0g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ88muZXP8dGtd7ElFJsLpWsyLzmKmMkH0s0OdWzG9zaann2BGU
+	+KaSvHo83yLHAOuPajkGmhhJGS9NRX9+lAbQFiwcfHTCZAK9UfzIOF5T
+X-Gm-Gg: AYBFou0AaQRaUITbLctxTc5Y+/bEfppoAD9BIBfG5gWhSR1HPeP1gNVWYgAq/FR987A
+	u52ayNV6ZPw0ev06RXRw6GF5NljAGoetfbJ+dHjXjmm0WoFkFwWHwD+7NrZ2TT6OVUuLslvig1U
+	qYK/VEGn7VcCgjyz39/TfYxFayCsc9lcQD+thGKIhdKHQFas4nccqr/BqlXF9IPgKl4b5tTfl4e
+	x/mVlMK3VbKJILNO8cWD93JlNsM+JzTkfyoYwTc/WnS0ixaSEVQANBbVZFkM7qoleqd59rscd8m
+	m0Vcewy8VMkSUmUZPeylQN45c68khMP43vW2guqmi0GG76weSZLy6/uLLAlYVWB3RzVyjtxPfXW
+	JzW1VzdskPI3dF4yGtofNtw2FoGl8aftBenSxTtSwmg0MopO/I/VcOzfAHZXhvoVUyM8MzhIK5A
+	pik+WMh1ihzPCspAWvGI5DMFKuboQVv6QJ3Hrb3AsciLy3Ez/rbcZRvJ+w61t5iQP/LSFonPlwi
+	7wKXjxlg08KlIroYTKzt6FPONPR
+X-Received: by 2002:a17:90b:390d:b0:3a0:9fe0:3aaf with SMTP id 98e67ed59e1d1-3ab3a7a42bamr12455478a91.48.1791946157601;
+        Tue, 13 Oct 2026 19:49:17 -0700 (PDT)
+Received: from drobotics-thinkpad-t14p-gen-1.. ([183.243.208.130])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ac6069ca91sm2227687a91.12.2026.10.13.19.49.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 19:49:17 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: christian.koenig@amd.com
+Cc: sumit.semwal@linaro.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH v2] dma-buf/test: add KUnit case for dma_fence_dedup_array() empty input
+Date: Wed, 14 Oct 2026 10:49:09 +0800
+Message-Id: <20261014024909.1769215-1-shoubaineng@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260630060436.1527498-1-shoubaineng@gmail.com>
+References: <20260630060436.1527498-1-shoubaineng@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue,  6 Oct 2026 20:36:29 +0100
-Matt Evans <matt@ozlabs.org> wrote:
+Add a KUnit case verifying that dma_fence_dedup_array() returns 0,
+not 1, when called with num_fences == 0. This locks down the
+contract documented in the kernel-doc and prevents a regression
+of commit 77a9298741f8 ("dma-fence: Make dma_fence_dedup_array()
+robust against 0-count input").
 
-> The VFIO_DEVICE_FEATURE_DMA_BUF export previously used
-> vdev->memory_lock to protect VFIO's list of exported DMABUFs
-> (vdev->dmabufs) and their revocation status.  When adding a new
-> export, memory_lock was taken for write.
-> 
-> A future commit will refactor DMABUF export into a function used from
-> mmap(), which would create a new mmap_lock -> memory_lock dependency.
-> 
-> In preparation, this commit introduces a vdev->dmabuf_lock that
-> protects the dmabufs list, per-DMABUF revocation state, and a new
-> bars_revoked flag.  The flag tracks the device-wide BAR revocation
-> state set via vfio_pci_dma_buf_move() under dmabuf_lock, removing the
-> test of __vfio_pci_memory_enabled() and dependency on
-> vdev->memory_lock.
+Suggested-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+---
 
-There's a subtle change here that I'm not sure is worth mentioning, so
-I'll at least put it on the list for posterity.  The initial revoked
-state of a newly minted DMABUF is now governed by the device-wide BAR
-revocation state set via vfio_pci_dma_buf_move().  This is subtly
-different from the current behavior where the initial state is based on
-instantaneous BAR accessibility tested under vdev->memory_lock.  Thanks,
+Changes in v2:
+- Add Reviewed-by from Christian.
+- Rebase onto v7.3-rc7.
 
-Alex
+ drivers/dma-buf/st-dma-fence-unwrap.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-> This is a cleanup currently, but allows the future export path to
-> avoid holding memory_lock under mmap_lock and a therefore avoid a
-> deadlock scenario (a fault handler attempting to take mmap_lock in a
-> vfio-pci variant driver thread that holds memory_lock, vs another
-> thread doing an mmap/export holding them both in the other order).
+diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
+index 4d9d313b460c..c5353b36f0e4 100644
+--- a/drivers/dma-buf/st-dma-fence-unwrap.c
++++ b/drivers/dma-buf/st-dma-fence-unwrap.c
+@@ -370,6 +370,15 @@ static void test_unwrap_merge_seqno(struct kunit *test)
+ 	dma_fence_put(f1);
+ }
+ 
++static void test_dedup_empty(struct kunit *test)
++{
++	struct dma_fence *fence[1] = { NULL };
++	int ret;
++
++	ret = dma_fence_dedup_array(fence, 0);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++}
++
+ static void test_unwrap_merge_order(struct kunit *test)
+ {
+ 	struct dma_fence *fence, *f1, *f2, *a1, *a2, *c1, *c2;
+@@ -595,6 +604,7 @@ static struct kunit_case dma_fence_unwrap_cases[] = {
+ 	KUNIT_CASE(test_unwrap_merge_order),
+ 	KUNIT_CASE(test_unwrap_merge_complex),
+ 	KUNIT_CASE(test_unwrap_merge_complex_seqno),
++	KUNIT_CASE(test_dedup_empty),
+ 	{}
+ };
+ 
+-- 
+2.34.1
+
