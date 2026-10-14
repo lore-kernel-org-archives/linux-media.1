@@ -1,64 +1,62 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0A79460;
-	Wed, 14 Oct 2026 11:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0553B0585
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 12:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791977622; cv=none; b=EC1sTuwN5uXlQZPCOUTCgnJVQprJMFtEEzy4mvOxFfKYej+8wutt9ThKvr4dDDx6xqr9uBZiokKUAMu09trylKDCDB8tAknObitCcgbLQHkwfCnb0feDx9vUDHbmVrDI7oPsFsdyutNsuKF5aK63fF+slP7BqWP6ZAdXWiNkfHE=
+	t=1791980768; cv=none; b=lwrAJO4Cl8XEWgE/QhF19ReadndQpHVRrOK7UYfBk3h1yPYYEsHAMt++GIlPudjS0yjjoD9OCbjAcS2olKfvDFaVr70MWi2ql9iUnhfB014qIc2SgXZGku3vi3DPYSqC1QdddSJtNS9a02lOl5PT46dn9n3DxFcQlCJigw9lBJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791977622; c=relaxed/simple;
-	bh=tHNpA5vm1hV5Vdxxa9JWrHalQKkLQHjRt3V/whoWAyE=;
+	s=arc-20240116; t=1791980768; c=relaxed/simple;
+	bh=VUaLwXx7qdu6w8Hzzq2UIhVMGQvMtsb1X9HuorBBc1E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SK2Kno9WCvSU734MBwyHKZYxv0Jz2Uho13zozIm8N5o7+QexCmqpucKd8iMum/VzXH9H6f9KOqoY92JlL22vckVKcFjcj9W+xUqiTsBa6Br1XgEx4xfcbIX4dRm1Tpry4Gy3T51rKuZGYZEJAzvooSQbhBfOUlPsaFXDnpEIG3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M6apc+eh; arc=none smtp.client-ip=192.198.163.9
+	 Content-Type:Content-Disposition:In-Reply-To; b=pL2tl37iP0AcmVI62dUy8nGvHeSDGALkzD/oZTxN0aABtqrO4eQe5e8Woltsq4FjapC/o7CN5x7Qwup0QyWocefsZAxjxmwX3/8w/soGgFMxCF8p4zMhRo3P01Ek9FTIzCeXKgIulmHJY/glFsGqt/uqv4A4Y7Ya3IM/D6tU+mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CCV9M+k5; arc=none smtp.client-ip=198.175.65.16
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M6apc+eh"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CCV9M+k5"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791977621; x=1823513621;
+  t=1791980767; x=1823516767;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=tHNpA5vm1hV5Vdxxa9JWrHalQKkLQHjRt3V/whoWAyE=;
-  b=M6apc+ehid1JLLwKuyzERqFHXLLyJZgeLKX0wxKu9NiAPC1M1I7olI4c
-   w7crKpDerHX8Xv+Jo5WiRpeTl9kCjFXOcjdR4pKtd6oKEujpEo8bbFrq2
-   cIe6mtwZll078ogsobvHI4MmqOZsghq+B3OiVwlyea6HxJ0AYMXyrrZtx
-   jzBz+IkwUYMX+7deixdacmNaiwvaohWoMorLArF9y9d+4XB7TIhrHMn93
-   eaHBWO9yeSej2cZ1Mar8qI7SvSfLhQKAqMo/nS7Q3sRTcDNeUvjtCH33z
-   AIWiRBdJdwzmNPTyG5pOsDoIvc1FoaYzYjvZUOvHPc+tA344/dgo3C1Kx
-   g==;
-X-CSE-ConnectionGUID: nzfM6U6GQUq8+4TKfzp25A==
-X-CSE-MsgGUID: ebwpjNWZQp66dOB1S5QHXg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="619606"
+  bh=VUaLwXx7qdu6w8Hzzq2UIhVMGQvMtsb1X9HuorBBc1E=;
+  b=CCV9M+k50s2CTsMpXSu5AJ8/UtnL4oi0GvExJ/aTKgWSV7Pcr7FsyLeL
+   99qEBol5B8VMpJ5kcaMFZoer2uqNTpxscbB5DwQUzLdBEGpnFo0r8sQNC
+   mp2LrhHohowBuErdvkgvtOmc3y09tPjUyqKImnq655g5htFT83JN41NTv
+   xcU/4X91SCiodb2EPI1z+RZZGH+WGeoOCoT3lTaAAgfZThwNmm+Q1rFwf
+   6KJo+ivBZGttvwOVxgXM4S5lV62sixInuEX/4qqPdgYLz49TJbLmauiSO
+   hdL3Ulfy7ar2yGjnErjmNwIR3I3ZhJr+xMKJkTDsGytI/12yPFQTjfozx
+   w==;
+X-CSE-ConnectionGUID: hvvqjcqKSWOS5ZegmTc40Q==
+X-CSE-MsgGUID: GU5qMyOmTQCIIYKTxLsqAw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="713495"
 X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="619606"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:33:37 -0700
-X-CSE-ConnectionGUID: 2OiX4ZENRi+ntMyfpq4CEg==
-X-CSE-MsgGUID: 8SUYL8wfQsOTN99XjIOSLA==
+   d="scan'208";a="713495"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 05:26:06 -0700
+X-CSE-ConnectionGUID: qr25JEL9Sk2g4+j2Cbxsfw==
+X-CSE-MsgGUID: mqBBHdFiSvCp+Wa/QOxErg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1322273"
+   d="scan'208";a="1434363"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.210])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 04:33:35 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 05:26:05 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B311311FBA6;
-	Wed, 14 Oct 2026 14:33:38 +0300 (EEST)
-Date: Wed, 14 Oct 2026 14:33:38 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id DEEEF121B92;
+	Wed, 14 Oct 2026 15:26:07 +0300 (EEST)
+Date: Wed, 14 Oct 2026 15:26:07 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Cosmin Tanislav <cosmin.tanislav@analog.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: maxim-serdes: reduce
- max_des_update_streams() stack usage
-Message-ID: <as9okp5GgBgc5Hlp@kekkonen.localdomain>
-References: <20261014103201.859465-1-arnd@kernel.org>
+To: John Cronin <john@stromback.com>
+Cc: linux-media@vger.kernel.org, hpa@redhat.com, hansg@kernel.org,
+	john.cronin@opcenter.com
+Subject: Re: [PATCH v5] media: i2c: imx471: return 0 from get_selection after
+ filling crop
+Message-ID: <as9039ZI3Vo43DXX@kekkonen.localdomain>
+References: <20260816194259.151947-1-john.cronin@opcenter.com>
+ <20260824123348.3761049-1-john.cronin@opcenter.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -67,145 +65,101 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261014103201.859465-1-arnd@kernel.org>
+In-Reply-To: <20260824123348.3761049-1-john.cronin@opcenter.com>
 
-Hi Arnd,
+Hi John,
 
-On Wed, Oct 14, 2026 at 12:31:33PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Mon, Aug 24, 2026 at 08:33:48AM -0400, John Cronin wrote:
+> libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
+> 0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
+> rectangle then fell out of the switch and returned -EINVAL.
 > 
-> The function can break the stack frame warning limit in
-> some configurations:
+> Compute analog crop in set_pad_format: 2x binning, centered in the
+> native array, same idea as imx219. IMX471 2x2-binned 1928x1088 then
+> reports CROP as 3856x2176 centered in 4672x3512.
 > 
-> drivers/media/i2c/maxim-serdes/max_des.c: In function 'max_des_update_streams.isra':
-> drivers/media/i2c/maxim-serdes/max_des.c:2550:1: error: the frame size of 1648 bytes is larger than 1536 bytes [-Werror=frame-larger-than=]
->  2550 | }
->       | ^
+> Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7).
+
+Perhaps I'd leave this out of the commit message.
+
 > 
-> This is a simple large structure on the stack that shouldn't be
-> there. Move both instances into a dynamically allocated structure
-> instead.
-> 
-> Fixes: 22923bc4512c ("media: i2c: add Maxim GMSL2/3 deserializer framework")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Link: https://bugzilla.redhat.com/show_bug.cgi?id=2454119
+> Signed-off-by: John Cronin <john.cronin@opcenter.com>
+> Signed-off-by: John Cronin <john@stromback.com>
+
+Is there a Fixes: tag for this one? I think that'd be appropriate, and Cc:
+this to stable.
+
 > ---
->  drivers/media/i2c/maxim-serdes/max_des.c | 28 ++++++++++++++----------
->  1 file changed, 17 insertions(+), 11 deletions(-)
+> v5: drop extra braces; declare crop/bin vars at start of
+>     set_pad_format (sorted by line length); wrap to 80 cols;
+>     keep only the bug/feature in the commit log
+> v4: add Signed-off-by for john@stromback.com
+> v3: rebase on media-committers next
+> v2: compute analog crop in set_pad_format; return 0 after switch
 > 
-> diff --git a/drivers/media/i2c/maxim-serdes/max_des.c b/drivers/media/i2c/maxim-serdes/max_des.c
-> index 6b4ffd0e2415..4347ca24b5a1 100644
-> --- a/drivers/media/i2c/maxim-serdes/max_des.c
-> +++ b/drivers/media/i2c/maxim-serdes/max_des.c
-> @@ -2164,7 +2164,7 @@ static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
->  					struct v4l2_mbus_frame_desc *fd,
->  					unsigned int pad)
->  {
-> -	struct max_des_remap_context context = { 0 };
-> +	struct max_des_remap_context __free(kfree) *context = kzalloc_obj(*context);
->  	struct max_des_priv *priv = sd_to_priv(sd);
->  	struct v4l2_subdev_route *route;
->  	int ret;
-> @@ -2172,7 +2172,10 @@ static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
->  	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
->  	fd->num_entries = 0;
->  
-> -	ret = max_des_populate_remap_context(priv, &context, state);
-> +	if (!context)
-> +		return -ENOMEM;
-> +
-> +	ret = max_des_populate_remap_context(priv, context, state);
->  	if (ret)
->  		return ret;
->  
-> @@ -2187,7 +2190,7 @@ static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
->  		if (ret)
->  			return ret;
->  
-> -		ret = max_des_get_src_dst_vc_id(&context, hw.pipe->index, hw.phy->index,
-> +		ret = max_des_get_src_dst_vc_id(context, hw.pipe->index, hw.phy->index,
->  						hw.entry.bus.csi2.vc, &dst_vc_id);
->  		if (ret)
->  			return ret;
-> @@ -2450,18 +2453,21 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
->  				  u32 pad, u64 updated_streams_mask, bool enable)
->  {
->  	struct max_des_priv *priv = v4l2_get_subdevdata(sd);
-> -	struct max_des_remap_context context = { 0 };
-> +	struct max_des_remap_context *context __free(kfree) = kzalloc_obj(*context);
-
-max_des_update_streams() is used in implementing disable_streams()
-sub-device pad op where meaningful error handling isn't possible.
-
-It seems there are other ways it can fail but this adds one more.
-
-The bulk of the struct consists of the vc_ids_map unsigned int array, but
-the maximum value VCs can have is 31. Also the size of unsigned long
-depends on the architecture, so a fixed-size type would be probably a
-better choice.
-
-Also using bit fields instead of bool would save space.
-
->  	struct max_des_mode_context mode_context = { 0 };
->  	struct max_des *des = priv->des;
->  	unsigned int num_pads = max_des_num_pads(des);
->  	u64 *streams_masks;
->  	int ret;
->  
-> -	ret = max_des_populate_remap_context(priv, &context, state);
-> +	if (!context)
-> +		return -ENOMEM;
-> +
-> +	ret = max_des_populate_remap_context(priv, context, state);
->  	if (ret)
->  		return ret;
->  
-> -	ret = max_des_populate_mode_context(priv, &mode_context, state, context.mode);
-> +	ret = max_des_populate_mode_context(priv, &mode_context, state, context->mode);
->  	if (ret)
->  		return ret;
->  
-> @@ -2471,11 +2477,11 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
->  	if (ret)
->  		return ret;
->  
-> -	ret = max_des_set_pipes_phy(priv, &context);
-> +	ret = max_des_set_pipes_phy(priv, context);
->  	if (ret)
->  		goto err_free_streams_masks;
->  
-> -	ret = max_des_set_tunnel(priv, &context);
-> +	ret = max_des_set_tunnel(priv, context);
->  	if (ret)
->  		goto err_free_streams_masks;
->  
-> @@ -2483,7 +2489,7 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
->  	if (ret)
->  		goto err_free_streams_masks;
->  
-> -	ret = max_des_set_vc_remaps(priv, &context, state, streams_masks);
-> +	ret = max_des_set_vc_remaps(priv, context, state, streams_masks);
->  	if (ret)
->  		goto err_free_streams_masks;
->  
-> @@ -2502,7 +2508,7 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
->  	if (ret)
->  		goto err_revert_streams_disable;
->  
-> -	ret = max_des_update_links(priv, &context, state, streams_masks);
-> +	ret = max_des_update_links(priv, context, state, streams_masks);
->  	if (ret)
->  		goto err_revert_active_disable;
->  
-> @@ -2533,7 +2539,7 @@ static int max_des_update_streams(struct v4l2_subdev *sd,
->  	max_des_update_tpg(priv, state, priv->streams_masks);
->  
->  err_revert_links_update:
-> -	max_des_update_links(priv, &context, state, priv->streams_masks);
-> +	max_des_update_links(priv, context, state, priv->streams_masks);
->  
->  err_revert_active_disable:
->  	max_des_update_active(priv, priv->streams_masks, true);
+>  drivers/media/i2c/imx471.c | 23 ++++++++++++++++++++---
+>  1 file changed, 20 insertions(+), 3 deletions(-)
 > 
+> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+> index 4053aed84..0ea18fbb9 100644
+> --- a/drivers/media/i2c/imx471.c
+> +++ b/drivers/media/i2c/imx471.c
+> @@ -421,6 +421,8 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
+>  {
+>  	struct imx471 *sensor = to_imx471(sd);
+>  	const struct imx471_mode *mode;
+> +	u8 bin_h, bin_v, binning;
+> +	struct v4l2_rect *crop;
+>  	int h_blank, ret;
+>  
+>  	mode = v4l2_find_nearest_size(imx471_modes, ARRAY_SIZE(imx471_modes),
+> @@ -431,6 +433,18 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
+>  
+>  	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
+>  
+> +	/* Analog crop: 2x bin, centered in native array (imx219). */
+> +	crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
+> +	bin_h = min_t(u32,
+> +		      IMX471_PIXEL_ARRAY_WIDTH / fmt->format.width, 2);
+> +	bin_v = min_t(u32,
+> +		      IMX471_PIXEL_ARRAY_HEIGHT / fmt->format.height, 2);
+> +	binning = min(bin_h, bin_v);
+> +	crop->width = fmt->format.width * binning;
+> +	crop->height = fmt->format.height * binning;
+> +	crop->left = (IMX471_NATIVE_WIDTH - crop->width) / 2;
+> +	crop->top = (IMX471_NATIVE_HEIGHT - crop->height) / 2;
+> +
+>  	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+>  		return 0;
+>  
+> @@ -468,7 +482,7 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+>  		sel->r.left = 0;
+>  		sel->r.width = IMX471_NATIVE_WIDTH;
+>  		sel->r.height = IMX471_NATIVE_HEIGHT;
+> -		return 0;
+> +		break;
+>  
+>  	case V4L2_SEL_TGT_CROP_DEFAULT:
+>  	case V4L2_SEL_TGT_CROP_BOUNDS:
+> @@ -476,10 +490,13 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+>  		sel->r.left = IMX471_PIXEL_ARRAY_LEFT;
+>  		sel->r.width = IMX471_PIXEL_ARRAY_WIDTH;
+>  		sel->r.height = IMX471_PIXEL_ARRAY_HEIGHT;
+> -		return 0;
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+>  	}
+>  
+> -	return -EINVAL;
+> +	return 0;
+>  }
+>  
+>  static int imx471_init_state(struct v4l2_subdev *sd,
+> -- 
+> 2.55.0
 
 -- 
 Regards,
