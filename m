@@ -1,124 +1,109 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B1EB3ACF1C;
-	Wed, 14 Oct 2026 09:36:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFEA34F68D2
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:38:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970567; cv=none; b=sHD1FCFjVyLYU6yq6HZCvoCusIiVmsFFtwZD3+C8vvgUZ0jeEAdziD16b8vV7wFNacG5rrp7p/REjiSBV+Dn+NkWEjic6MORAA4jEaJg1v2Y9LkvhfwVwqvn1KD3IvJeOhizt3etiYn3jbMo3SkOHPberNlyv1U3ecv/UfNPwTU=
+	t=1791970688; cv=none; b=gKMNjwsZhZkNHifL2JdPxSRSdUWA9G/9R1guH2ZaFXPWsnseC8OBaXWlrbXthX1TlkfhswGdxTYVUZmzBqxAeZnF1D3cVI7m05YOC1bl0a0LjdlxmHdmlEIFqz/n4Al7p4Au9LQw4omlWF6ZHBN3DBqWzfbQL4+zxLBxwDseul4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970567; c=relaxed/simple;
-	bh=7giAKsjkqcXcQMqTVaB+qY7SM2CFaZrhkq5pTweff6M=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FfmI6dA6mP2Lhxegd8y3owkY+XagMQnVKwuPi6X61P7RCuhKiEd8YI5yuJBcNyfBmD86gd2Kv060yBzg1JESLTLJSCwTMBL1Ud4FwxTyofE2MaDrygRToKlp1mWgqC40R4dOpDmC/HlVsayORwqZrnKCU+UTaY1gNDtVnyJdTec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=DzrGzK2V reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1791970688; c=relaxed/simple;
+	bh=JAZDEVVWBpCzIsROIvJ7aOp+s0L8O8CrbhuQdamS+9Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A844MPYkMsNUg7VEc2EePZOqpBrjyOErm93ARSxgNfKVDA7RipFpwrd1GATJAahO5z+V2+w8Fhg5eFRJKCNQM8kICCTX8VDInPF6Hk7I4P1xmELM9Lbn1aCegLGEn+ubtGSipemt7301/5lxCUiLaVSbIRke3JdMVYvAkZIyo5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=D9TLTe3L; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="DzrGzK2V"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="D9TLTe3L"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso21408755e9.3
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 02:38:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=xZzsjjrfGk
-	WbbVv/YWH6P3DFGtqXahU/y5v14sh9hBM=; b=DzrGzK2VRKegLxlPlUdgcFFttL
-	YG+MWKqZiUD9+W4PdaC9y/FhVwM5coYUZEd38aiaNLM6EMs9Z6tQWFEimPURzt2G
-	wwIhT3836/+fedG+6oNlzIKp6Y+o5nFKBwx2Zh0DfC3jEJaIO7Q99bvArES3wRpO
-	ZpsHizPMnSJ+MDcS8=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.94])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGyP3uTM9qphCXAA--.48766S2;
-	Wed, 14 Oct 2026 17:35:43 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	=?UTF-8?q?David=20H=E4rdeman?= <david@hardeman.nu>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: rc: fix use-after-free of rc_map.name on register error path
-Date: Wed, 14 Oct 2026 17:35:41 +0800
-Message-Id: <20261014093541.16491-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=linaro.org; s=google; t=1791970681; x=1792575481; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gnTWC5fZozzSwkHK4q+Oqe31gSO1RQ9RdzCpCj2F8RY=;
+        b=D9TLTe3LV0X5U6WrodIJZ4Js9dABg9SPiO5halhg4sMS7y5xRqIJi15y/LSCfW/gff
+         3PPz0AbVI8KlZQMI+JMJ0zom3Z184cvYzFHfbRWzVs9fuw3xO47o+Fp/XoJq/BLEWRa8
+         GuhozyslteyFWi0slZ1rKsak4hUUaOGJTEdFluoNTO/4Yl+p3OYnm4dkMI/5HKoc+0qY
+         El/6gNKTJY3hyOBZIoIiE7jZvHXsvu7fHJVmHWedsjwzyI5M0+WRIVkGmvBDHLuUw78N
+         www8t0s04MAsGaGS+3oYPfFZwAZYYVBrW1XTiLUN6m23lwL9Tp+7Zkf6AAPHK1hOBCFK
+         BVxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791970681; x=1792575481;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gnTWC5fZozzSwkHK4q+Oqe31gSO1RQ9RdzCpCj2F8RY=;
+        b=HygD+wl/6c5XRkRxodifLaXkr0jK6vsZG5zP4EH5OuSJxpFevBLqXJdLdQ9/xVUegp
+         TVsQ35ZTPycRo6PXpLi/kE+zzeQ3pR4fnwq/RS5Lk6pEG/ReB7dZz+crA1cqJt4edgOn
+         LmtGRVJyIJTEhQPZChELh4Dxxv3ltlJ2N1O83Pdf44htvwcENfymX24QPBvCRgh5X5xP
+         sWSUi57zsu6VZH+mXpDabZAcV2/uMQmQwU7PRh6j+pmMPNYG/wIhfEEd3dLci4bq8Se7
+         R2+UiuslaUees0yUFcPVmLaSMz1GYh6Wmo4Z9LweMtNnDTQMkqXEct999DTplb4WTQwy
+         7xlw==
+X-Forwarded-Encrypted: i=1; AKwUvBxACKOTDpfUvCrwHfL2LbVuuM6eAFOnOFPeD5PGT417NtRnQP2K89sNJohgibmyniSRKh4m8KouiaggPA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAEfAKgsR/2zrOJDvcq4voJGbp2AqlgWrxDyBMEqU0xG3cBRBd
+	RbWdu3OvrVYTqlAQ2PFOPx02S0kkdAfogyMOvqfByhW5VU9EehJvpl1fkicyMCa9OYQ=
+X-Gm-Gg: AYBFou0RArF0xT/NGIDs0cSICeJACrBLtZ4lUBdE2lG+jySmjVP8uhQ2oYaYLUJWubE
+	6op1Ph3n1V7iGPDBLCLV81bfvZNVVpQncksFSQhe+5BsZ+bKO+Vfs7O3xVwaqyPwSl+ZYFIpfrL
+	Q9rVSypyQUSrQ3BKs5e3jUj1NCIdTLKfQvClyq+u//ZuOyy5To1Wpd/C9yn3gl/gSQZ5abvSXbe
+	ukGUVSFIgTqYe/SKiqlcUzWHxugtYsVotFB68nZOWeWnnJJhApZq7gu89nNFUyvIHqFTcSpl0zu
+	ArfX7j/sXUqKhW/Xxlhjr8sWNINCu9VC3+zOpPT37WQhPWr3/IJKJZFleykvxrbWPBKwLEkTFkq
+	tRHxQze7eCTmC9DzsETaGGNsR08cxl04pg0Na+XPaBrMM2WEw4FA7wQpSO5BGDnt4ALHZiDuJop
+	LCUiH+3haq3eEP7EaLzbiU8L8uPBLRDG0wObeZJFnWyXmDx+Fk8mm1mwnAug65g759gA2ovLkot
+	bLhWeOACpn8
+X-Received: by 2002:a05:600c:3e0f:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a18e4b60d8mr299229875e9.23.1791970680941;
+        Wed, 14 Oct 2026 02:38:00 -0700 (PDT)
+Received: from [192.168.0.167] ([109.76.126.202])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7273a0esm6026436f8f.29.2026.10.14.02.37.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 02:38:00 -0700 (PDT)
+Message-ID: <db980e07-adf9-464c-9fee-401581986508@linaro.org>
+Date: Wed, 14 Oct 2026 10:37:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCGyP3uTM9qphCXAA--.48766S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF1UXrWfGFW7Kw4kCF4fGrg_yoW8tF47pa
-	9I9FyYyFWjgF4DZrs8Xw42qa4rua1fJa98CryfJwn09w1rCFyayFWUtFWUuas8Ary8ZFy7
-	tFn8J3y8GrW5CF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_GFWl42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeF4EDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2rOS7xmRwABs9
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/8] dt-bindings: media: Add CAMSS device for Hawi
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org
+References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
+ <20261013-hawi-maili-camss-v2-3-fc93222da89c@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261013-hawi-maili-camss-v2-3-fc93222da89c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-If rc_register_device() fails after device_add() - for example when
-ir_raw_event_register() cannot create its kthread - the unwind path
-frees the keymap via rc_free_rx_device() while the device is still
-visible in sysfs, and never clears dev->registered.
+On 13/10/2026 12:02, Nihal Kumar Gupta wrote:
+> +
+> +  iommus:
+> +    maxItems: 1
 
-A userspace reader of the uevent attribute then enters
-rc_dev_uevent(), passes the registered check under dev->lock and
-dereferences the already freed dev->rc_map.name:
+Just the one iommu entry ?
 
-  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
-  lib/vsprintf.c:737
-  Read of size 1 at addr ffff888007ca9d80
-   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
-   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
-   uevent_show+0x1af/0x380 drivers/base/core.c:2756
+Please:
 
-Fix it the same way rc_unregister_device() does: take dev->lock,
-close the input device if it is still open and clear
-dev->registered before releasing any resources. rc_dev_uevent()
-then observes the cleared flag and returns -ENODEV instead of
-reading rc_map.name.
+- Make sure its just the one
+- Include a comment to name the one in this file
 
-Fixes: f56928abaa6d ("[media] rc-core: cleanup rc_register_device")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/media/rc/rc-main.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index dda3479ea3ad..903ae3d3441d 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1970,6 +1970,18 @@ int rc_register_device(struct rc_dev *dev)
- 	return 0;
- 
- out_rx:
-+	/*
-+	 * device_add() has succeeded, so userspace may read the uevent
-+	 * file and access rc_map.name. Take dev->lock and clear
-+	 * registered, as rc_unregister_device() does, before any
-+	 * resources are released below.
-+	 */
-+	mutex_lock(&dev->lock);
-+	if (dev->users && dev->close)
-+		dev->close(dev);
-+	dev->registered = false;
-+	mutex_unlock(&dev->lock);
-+
- 	rc_free_rx_device(dev);
- out_lirc:
- 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
--- 
-2.34.1
-
+bod
