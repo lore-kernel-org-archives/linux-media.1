@@ -1,291 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9973B83F9;
-	Wed, 14 Oct 2026 08:40:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6666547F3BD
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:20:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791967202; cv=none; b=oLlkmgbK9qdGquMKoN9IVmwg/w25ZE1c/qLJVeIF32ECcrzxbg8NR79vDBHATERHx+da2/87VRQzJKaIIFulmfJScyH65C/UVlnt0vOOdqiSMBHsK7Lk2Yn/IzIDYbCWKviJ8DoIgDWfdFPiWlO5A5R+TIlSpQScdiORSWW1suE=
+	t=1791969644; cv=none; b=llI3aXyfH3ViVYdVlSssbOLytkBPjTCDn+wEkL6MK1QavTDOZXttS3mEYSuJWNbOoD2s1MgqMujrRNwJew1pt+MFoeWJoMEwTE/BxQVrLIKXmM7WVIGvLceAmMYrIPh/YnHalY5XDtzb9SjGfO87unJHSfj38KVrK0rvIpENS9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791967202; c=relaxed/simple;
-	bh=bpPuIS3RC+fQbyWeH8q4nk9ocP5zYJlWV0tzJUaHRJA=;
-	h=From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:Date; b=Tw7+6jiY8MF54W33+g+W5ntzjvmrGLkDKEbx4tMxgqBmVQvIPERijwmAMsb1ObmlHX5US8LN33AGA2mYsilgeoBeZ2GalZChJUnhOnQyl9pn3G90daEbKaNhujD4950XETy5qtiW8xBhmrboRt9U2cD1L0glZiCV3VZlnV8oOlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g08pHBsx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791969644; c=relaxed/simple;
+	bh=t9l4cf/ejDslJkLGB4fjTNcS7dre+IaaCm+V3SX9DNg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Sg5yswhn/2fryg3fC1yUm/Laa79UotTBvZoC52RavMopT1orfFQs59J5HlbpR5+QlNPEx9qSx/TW50kvesQm1qF014fOsa1eUQhWtAAuCvADSJQlSSc4KfNEDLVXC6AC/QsEsQrF5vqAiujrpNDfi4tHa990GViTAmb67NOINXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=FGpaBhX3; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g08pHBsx"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5C1E91F000FF;
-	Wed, 14 Oct 2026 08:40:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791967200;
-	bh=ndSOnXH9akC/oEngD3YgzdbULw1ZSB1oMqmqeyzMUp8=;
-	h=From:To:Cc:Subject:Date;
-	b=g08pHBsxTdkCYpBKUreISzuC2WK7Jt7y0tyLiyEUvVbwW+L4zjM1f2quBezsJlc7R
-	 B23mwRgrr1jnMqBKPcbKzcKF56k9FPH3YzX1ly3GvZ7E1Hzs/JlxKHXekq3OxNIKPw
-	 IfEvSOFZmzRoYt17FcresdpX/hMqnZYhLMjFPImp2qlkIS/WRO7qU3ZrVo6o9G+gw2
-	 iGYMFkFhNJFt/EaHjZ9sVzOUn+Etv7y0aL00y+LKSnqpGhu4UiOjpjRE72fenA6GQ4
-	 d+jheMWD/zkD/CaaLfNSaAp6beOdRG/4RlmVkkudyLCBoHckeikm/umTkudPCfyvg9
-	 e6j8Eu4a5Bgwg==
-From: "syzbot" <syzbot@kernel.org>
-To: syzkaller-bugs@googlegroups.com, Krystian Kaniewski <krystianmkaniewski@gmail.com>, <linux-media@vger.kernel.org>, "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Linus Torvalds" <torvalds@ppc970.osdl.org>
-Cc: kees@kernel.org, linux-kernel@vger.kernel.org, syzbot@lists.linux.dev
-Subject: [PATCH] media: ttusb-dec: fix buffer overflow in ttusb_dec_send_command()
-Message-ID: <66cb7980-f474-41c8-bf2f-529ebfbdc62a@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="FGpaBhX3"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso27503135e9.1
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 02:20:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1791969639; x=1792574439; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DbipYcdBzgikA0RA56wnTn7ugEMIxXdTA2zCuwUQ6uU=;
+        b=FGpaBhX3QlXA8peWmQG5CavJ4WGoqMukjpJBRR+9oSvET/AgiZTqB20Ptg9vtNGDJt
+         UoWm69CladyDKPJ22Hlhp0+fmNEmY/eBgb/AohufCRojjAp9TJVCyyq9KrQwDB6jKQ9z
+         M26i7iCQCDtgvk92Tvz37zz9IELqnEThd0A555k2sk0lwrjhrdupzq4zsmpseoRG/IJ/
+         4f4oRfnHh7l8X/OttNTu50cpjwzk7zVnaBlVwWv2YwKbeRwkCGdZR31TvMT0lAPafXJD
+         p0eDPsQrsgdGB2xCJFxbm3+AmZ+E26VOcZj9YNyosD/aUQPVr3wbin05wnZKkROm7qpL
+         D1rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791969639; x=1792574439;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DbipYcdBzgikA0RA56wnTn7ugEMIxXdTA2zCuwUQ6uU=;
+        b=frmda6z6WMvow819at0M2CWabD0XrEwwSvJ63vPjNapQ9ayjPxoS0yY30pz2/gbGWY
+         jVyymKefkVz7mfn+D9y9g3SvidkzWAt1DCWrQneyRrOX40ttSHUmbSI0Q+MVx2uveV/U
+         m7vmySyZV8JJ0GXCZoVD0d8IhCb5S1OQd0kXdcAeRntEnBiE252sY0tVoDHHQ4g6+T49
+         87tpKSzkNmRVrYhlHG2IJjQueX9ppFB4IOJ3f1HGT8vtxL4InBCH11W9n42m8qx8oxdQ
+         nm46d8scYcosxT5sjWh0eqkjtGsgy3uoA3fQLJijUtGQMQI3qMPi3ZEc16gDOxRcq3qb
+         qAYA==
+X-Gm-Message-State: AFq9FYIGb2aZfw7u8kdrX+9P7FqM+aJf/FRWrHxv8WXXtruHF0lg0OEr
+	Zag+5mdmnnqgCADwVwXvxQZI8b7PD0N3R9yTUtvdK/6b4sHjEYwJDGMeOOdUAYyPFgJAAEoOqfc
+	u/YVTE+A=
+X-Gm-Gg: AYBFou0amrvMr2Dlvqo45h0zM9uJTlF+NnjEdIwlJYG/oScvZjWEj8Ltm9PMnx5RqSp
+	AjQ1+m1oeWB9FQHRWLNLB6vr80qZz0tz1mi0j5lSpnhe6Xhi74Ki/wPJWz2jKjtN4uGLHvxh1vI
+	1ZaB3xXyPIHrFBB0cn7NiR3Sr+76JgocWcAUnmVNBKF2OHHWQvfW62nisunXhsuR6rWSq8Vwels
+	U00/1fBJlTWT5HYhrrAj5RItNQrycvrrh1XimXi2Q/1tJhMqNDwjOjpqdZExHlq8pb7C5kpCPaf
+	/Al9/TcbBaOEVZJ/a8qH133Qf4rpezJ8uDXFABLikT2ry4xwC0ImTast2SYq8dryNxlMOuJGeCe
+	PXAj3ZsBJKl+TqBS4EPME9dNGDiFznQYy3XwC0ZMyfsveMfu1AzpIW2h9sTZ33l9Jykx3dEuDMD
+	gsMDF9OmjQ+96dQwS0WdKr/gtpKlNYTjC8iEo9WKk45v1xO95757OzDunz/uH65CT/qQU+eqcwV
+	BRPUtevUEFTiL7pWX+UHPPk9sjpLjrsNUKuXo0LTkO8EKm2Ig==
+X-Received: by 2002:a05:600c:c0c6:b0:4a1:96cd:2f6b with SMTP id 5b1f17b1804b1-4a196cd31fbmr189516745e9.2.1791969639499;
+        Wed, 14 Oct 2026 02:20:39 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0ab4e8csm9983503f8f.23.2026.10.14.02.20.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 02:20:39 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 14 Oct 2026 10:19:54 +0100
+Subject: [PATCH] media: pwm-ir-tx: Correct timer calculation
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Date: Wed, 14 Oct 2026 08:40:00 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261014-media-rc-pwm-ir-tx-v1-1-1ae862427fd2@raspberrypi.com>
+X-B4-Tracking: v=1; b=H4sIADlJz2oC/x3MPQqAMAxA4atIZgO24u9VxKHUqBlaSyoqSO9uc
+ fyG916IJEwRxuIFoYsjHz5DlQXY3fiNkJds0JVuVaVqdLSwQbEYbocseD44dMpqQ71dmxpyGIR
+ Wfv7pNKf0AUIQuPpkAAAA
+To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+ Thomas Gleixner <tglx@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Commit 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to
+hrtimer clockbase") converted a loop conditional from
+               now = timer->base->get_time();
+       } while (hrtimer_get_expires_tv64(timer) < now);
+to
+       while (hrtimer_expires_remaining(timer) > 0);
 
-In ttusb_dec_send_command(), a 64-byte buffer is allocated
-(COMMAND_PACKET_SIZE + 4, where COMMAND_PACKET_SIZE is 60) for sending a
-command to the USB device and receiving the response via usb_bulk_msg().
-After receiving the response, the fourth byte b[3] is treated as the
-payload length and used directly in memcpy(cmd_result, &b[4], b[3]) without
-validating it against the actual number of received bytes (actual_len), the
-allocated source buffer bounds, or the capacity of the destination buffer
-cmd_result.
+hrtimer_expires_remaining returns (expires - now), so the
+change has inverted the condition.
 
-During device probe in ttusb_dec_probe(), ttusb_dec_init_stb() calls
-ttusb_dec_get_stb_state() to query the device state. If the device returns
-a response with an untrusted payload length b[3] greater than
-COMMAND_PACKET_SIZE (e.g. 75), memcpy() reads past the end of the source
-buffer and overflows the caller's 60-byte destination buffer on the stack,
-triggering a FORTIFY_SOURCE buffer overflow failure ("memcpy: detected
-buffer overflow: 75 byte read of buffer size 60").
+Convert back to follow the original pattern, but using the
+proper API call.
 
-Moreover, other callers such as ttusbdecfe_dvbt_read_status() supply
-destination buffers as small as 4 bytes, which can lead to a stack buffer
-overflow even if the device returns fewer than 60 bytes. Additionally,
-param_length is copied into &b[4] without checking whether it exceeds
-COMMAND_PACKET_SIZE.
+Fixes: 44d7fb8acdf8 ("media: pwm-ir-tx: Avoid direct access to hrtimer clockbase")
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+Reported via https://github.com/raspberrypi/linux/issues/7678
+---
+ drivers/media/rc/pwm-ir-tx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Fix this by first verifying that param_length is non-negative and does not
-exceed COMMAND_PACKET_SIZE. Next, add a cmd_result_len parameter to
-ttusb_dec_send_command(), fe_send_command(), and struct
-ttusbdecfe_config.send_command to pass the destination buffer capacity, and
-update all callers accordingly. Finally, strictly reject malformed replies
-with -EIO if actual_len is less than 4 bytes, if the untrusted payload
-length b[3] exceeds the remaining received bytes (actual_len - 4), or if
-cmd_result is provided and b[3] exceeds cmd_result_len. This ensures that
-invalid replies fail safely and memcpy() never performs an out-of-bounds
-read or write.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Assisted-by: Gemini:gemini-3.8-flash syzbot
-Reported-by: syzbot+e1dbaae5eefaa2dfbc35@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e1dbaae5eefaa2dfbc35
-Link: https://syzkaller.appspot.com/ai_job?id=5d2e7c8a-5cf6-49fe-a6e9-124e4d1e051d
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+diff --git a/drivers/media/rc/pwm-ir-tx.c b/drivers/media/rc/pwm-ir-tx.c
+index 047472dc9244..bffdda489950 100644
+--- a/drivers/media/rc/pwm-ir-tx.c
++++ b/drivers/media/rc/pwm-ir-tx.c
+@@ -138,7 +138,7 @@ static enum hrtimer_restart pwm_ir_timer(struct hrtimer *timer)
+ 		hrtimer_add_expires_ns(timer, ns);
+ 
+ 		pwm_ir->txbuf_index++;
+-	} while (hrtimer_expires_remaining(timer) > 0);
++	} while (hrtimer_get_expires(timer) < hrtimer_cb_get_time(timer));
+ 
+ 	return HRTIMER_RESTART;
+ }
 
 ---
-diff --git a/drivers/media/usb/ttusb-dec/ttusb_dec.c b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-index 825a38759..524be8f10 100644
---- a/drivers/media/usb/ttusb-dec/ttusb_dec.c
-+++ b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-@@ -314,13 +314,17 @@ static u16 crc16(u16 crc, const u8 *buf, size_t len)
- 
- static int ttusb_dec_send_command(struct ttusb_dec *dec, const u8 command,
- 				  int param_length, const u8 params[],
--				  int *result_length, u8 cmd_result[])
-+				  int *result_length, u8 cmd_result[],
-+				  int cmd_result_len)
- {
- 	int result, actual_len;
- 	u8 *b;
- 
- 	dprintk("%s\n", __func__);
- 
-+	if (param_length < 0 || param_length > COMMAND_PACKET_SIZE)
-+		return -EINVAL;
-+
- 	b = kzalloc(COMMAND_PACKET_SIZE + 4, GFP_KERNEL);
- 	if (!b)
- 		return -ENOMEM;
-@@ -366,6 +370,12 @@ static int ttusb_dec_send_command(struct ttusb_dec *dec, const u8 command,
- 			       __func__, actual_len, b);
- 		}
- 
-+		if (actual_len < 4 || b[3] > actual_len - 4 ||
-+		    (cmd_result && b[3] > cmd_result_len)) {
-+			result = -EIO;
-+			goto err_mutex_unlock;
-+		}
-+
- 		if (result_length)
- 			*result_length = b[3];
- 		if (cmd_result && b[3] > 0)
-@@ -389,7 +399,8 @@ static int ttusb_dec_get_stb_state (struct ttusb_dec *dec, unsigned int *mode,
- 
- 	dprintk("%s\n", __func__);
- 
--	result = ttusb_dec_send_command(dec, 0x08, 0, NULL, &c_length, c);
-+	result = ttusb_dec_send_command(dec, 0x08, 0, NULL, &c_length, c,
-+					sizeof(c));
- 	if (result)
- 		return result;
- 
-@@ -448,7 +459,7 @@ static void ttusb_dec_set_pids(struct ttusb_dec *dec)
- 	memcpy(&b[2], &audio, 2);
- 	memcpy(&b[4], &video, 2);
- 
--	ttusb_dec_send_command(dec, 0x50, sizeof(b), b, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x50, sizeof(b), b, NULL, NULL, 0);
- 
- 	dvb_filter_pes2ts_init(&dec->a_pes2ts, dec->pid[DMX_PES_AUDIO],
- 			       ttusb_dec_audio_pes2ts_cb, dec);
-@@ -902,7 +913,7 @@ static int ttusb_dec_set_interface(struct ttusb_dec *dec,
- 			break;
- 		case TTUSB_DEC_INTERFACE_IN:
- 			result = ttusb_dec_send_command(dec, 0x80, sizeof(b),
--							b, NULL, NULL);
-+							b, NULL, NULL, 0);
- 			if (result)
- 				return result;
- 			result = usb_set_interface(dec->udev, 0, 8);
-@@ -1021,7 +1032,7 @@ static int ttusb_dec_start_ts_feed(struct dvb_demux_feed *dvbdmxfeed)
- 
- 	}
- 
--	result = ttusb_dec_send_command(dec, 0x80, sizeof(b0), b0, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x80, sizeof(b0), b0, NULL, NULL, 0);
- 	if (result)
- 		return result;
- 
-@@ -1056,7 +1067,7 @@ static int ttusb_dec_start_sec_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	memcpy(&b0[5], &dvbdmxfeed->filter->filter.filter_value[0], 1);
- 
- 	result = ttusb_dec_send_command(dec, 0x60, sizeof(b0), b0,
--					&c_length, c);
-+					&c_length, c, sizeof(c));
- 
- 	if (!result) {
- 		if (c_length == 2) {
-@@ -1114,7 +1125,7 @@ static int ttusb_dec_stop_ts_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	struct ttusb_dec *dec = dvbdmxfeed->demux->priv;
- 	u8 b0[] = { 0x00 };
- 
--	ttusb_dec_send_command(dec, 0x81, sizeof(b0), b0, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x81, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	dec->pva_stream_count--;
- 
-@@ -1135,7 +1146,7 @@ static int ttusb_dec_stop_sec_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	list_del(&finfo->filter_info_list);
- 	spin_unlock_irqrestore(&dec->filter_info_list_lock, flags);
- 	kfree(finfo);
--	ttusb_dec_send_command(dec, 0x62, sizeof(b0), b0, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x62, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	dec->filter_stream_count--;
- 
-@@ -1238,7 +1249,7 @@ static int ttusb_init_rc( struct ttusb_dec *dec)
- 	if (usb_submit_urb(dec->irq_urb, GFP_KERNEL))
- 		printk("%s: usb_submit_urb failed\n",__func__);
- 	/* enable irq pipe */
--	ttusb_dec_send_command(dec,0xb0,sizeof(b),b,NULL,NULL);
-+	ttusb_dec_send_command(dec, 0xb0, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -1354,7 +1365,7 @@ static int ttusb_dec_boot_dsp(struct ttusb_dec *dec)
- 	firmware_csum_ns = htons(firmware_csum);
- 	memcpy(&b0[6], &firmware_csum_ns, 2);
- 
--	result = ttusb_dec_send_command(dec, 0x41, sizeof(b0), b0, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x41, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	if (result) {
- 		release_firmware(fw_entry);
-@@ -1395,7 +1406,7 @@ static int ttusb_dec_boot_dsp(struct ttusb_dec *dec)
- 		}
- 	}
- 
--	result = ttusb_dec_send_command(dec, 0x43, sizeof(b1), b1, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x43, sizeof(b1), b1, NULL, NULL, 0);
- 
- 	release_firmware(fw_entry);
- 	kfree(b);
-@@ -1621,10 +1632,12 @@ static void ttusb_dec_exit_filters(struct ttusb_dec *dec)
- 
- static int fe_send_command(struct dvb_frontend* fe, const u8 command,
- 			   int param_length, const u8 params[],
--			   int *result_length, u8 cmd_result[])
-+			   int *result_length, u8 cmd_result[],
-+			   int cmd_result_len)
- {
- 	struct ttusb_dec* dec = fe->dvb->priv;
--	return ttusb_dec_send_command(dec, command, param_length, params, result_length, cmd_result);
-+	return ttusb_dec_send_command(dec, command, param_length, params,
-+				      result_length, cmd_result, cmd_result_len);
- }
- 
- static const struct ttusbdecfe_config fe_config = {
-diff --git a/drivers/media/usb/ttusb-dec/ttusbdecfe.c b/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-index 215221370..1c2892a1e 100644
---- a/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-+++ b/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-@@ -44,7 +44,8 @@ static int ttusbdecfe_dvbt_read_status(struct dvb_frontend *fe,
- 
- 	*status=0;
- 
--	ret=state->config->send_command(fe, 0x73, sizeof(b), b, &len, result);
-+	ret = state->config->send_command(fe, 0x73, sizeof(b), b, &len,
-+					  result, sizeof(result));
- 	if(ret)
- 		return ret;
- 
-@@ -85,7 +86,7 @@ static int ttusbdecfe_dvbt_set_frontend(struct dvb_frontend *fe)
- 
- 	__be32 freq = htonl(p->frequency / 1000);
- 	memcpy(&b[4], &freq, sizeof (u32));
--	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL);
-+	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -130,7 +131,7 @@ static int ttusbdecfe_dvbs_set_frontend(struct dvb_frontend *fe)
- 	lnb_voltage = htonl(state->voltage);
- 	memcpy(&b[28], &lnb_voltage, sizeof(u32));
- 
--	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL);
-+	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -149,7 +150,7 @@ static int ttusbdecfe_dvbs_diseqc_send_master_cmd(struct dvb_frontend* fe, struc
- 
- 	state->config->send_command(fe, 0x72,
- 				    sizeof(b) - (6 - cmd->msg_len), b,
--				    NULL, NULL);
-+				    NULL, NULL, 0);
- 
- 	return 0;
- }
-diff --git a/drivers/media/usb/ttusb-dec/ttusbdecfe.h b/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-index 73828bb22..96600ad4c 100644
---- a/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-+++ b/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-@@ -14,7 +14,8 @@ struct ttusbdecfe_config
- {
- 	int (*send_command)(struct dvb_frontend* fe, const u8 command,
- 			    int param_length, const u8 params[],
--			    int *result_length, u8 cmd_result[]);
-+			    int *result_length, u8 cmd_result[],
-+			    int cmd_result_len);
- };
- 
- extern struct dvb_frontend* ttusbdecfe_dvbs_attach(const struct ttusbdecfe_config* config);
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261013-media-rc-pwm-ir-tx-971c2ae8cf53
 
-
-base-commit: 93f51579e7df248780214094418f205253383cc5
+Best regards,
 -- 
-See https://goo.gle/syzbot-ai-patches for information about AI-generated patches.
-The person who has signed off on the patch is responsible for
-addressing comments.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Dave Stevenson <dave.stevenson@raspberrypi.com>
+
