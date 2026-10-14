@@ -1,131 +1,124 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5235E361946
-	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:35:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B1EB3ACF1C;
+	Wed, 14 Oct 2026 09:36:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970536; cv=none; b=J+5ficUV950yN3cB2KdKc9ohWgxUAoCz21mfsf/QJrMGt06CYPKOXyxAOlNBRSFND3iLQOsI6derhegSuhaAjP7wQH+NNODMj5dX79xdzlLcXgNROg1zrxHvSQpKxrDOYpzut6mjBIyDu1Sxc4NSFl67DvATkjRQn+jBtvzejLM=
+	t=1791970567; cv=none; b=sHD1FCFjVyLYU6yq6HZCvoCusIiVmsFFtwZD3+C8vvgUZ0jeEAdziD16b8vV7wFNacG5rrp7p/REjiSBV+Dn+NkWEjic6MORAA4jEaJg1v2Y9LkvhfwVwqvn1KD3IvJeOhizt3etiYn3jbMo3SkOHPberNlyv1U3ecv/UfNPwTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970536; c=relaxed/simple;
-	bh=EYa+RBPbeYiN3nxkpFWH16ycAxJKW6uP2elqjLvjqFI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N4+R49IdBcvrWjR048cHvUGw4N12erfK/L+sHQieOKW0qVqaa7ggjBJUzaQ/JxT7xNg4eN4MFdhq/9yVNsx1yZ1VFLsMfFgU43vEy7xBydpdaGTHC3czsBAxU0jT2luUMc0sLnQPLMAwQnT2FxWGPgJaz3h/y0DcTJdWEsrGtbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CcuwfIzK; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791970567; c=relaxed/simple;
+	bh=7giAKsjkqcXcQMqTVaB+qY7SM2CFaZrhkq5pTweff6M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FfmI6dA6mP2Lhxegd8y3owkY+XagMQnVKwuPi6X61P7RCuhKiEd8YI5yuJBcNyfBmD86gd2Kv060yBzg1JESLTLJSCwTMBL1Ud4FwxTyofE2MaDrygRToKlp1mWgqC40R4dOpDmC/HlVsayORwqZrnKCU+UTaY1gNDtVnyJdTec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=DzrGzK2V reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CcuwfIzK"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so5623241a12.0
-        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 02:35:35 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="DzrGzK2V"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791970533; x=1792575333; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kzIz0X6ttxgOxkC5LXT332DK567KH/TTx/ooIFt2UKA=;
-        b=CcuwfIzKEcmfnSDgOAP1fH4Gqvq1aJwKo8ozVxlTGIsCdF8ftuieVFM0HigI3/2hdq
-         8N82j7CZUlTKPP1eDAtGmR+k4j0TZ9TiVvlxoa+nb3egYr3nyEH18fza+g0bJM2ovUlp
-         1RrTKQgVlj1N+oMDYeqP3wLxHinDfZYnG6sfsiuusTkWV0HEu4W2FusY3oKoyLwvdCLO
-         LVNUepZ0+TE6/9t8Jq3vksMDJKOe5qRzl4FiQkGSRDmX1CK3dJNxBuLHGEO/MUZSPSRN
-         4oHo3QmKYMUPkSm9EaOSDv8yTohbp56u5qVrVMsLCR5BzIBH5L3mXPOkgTuqfFvUIy1s
-         XEZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791970533; x=1792575333;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kzIz0X6ttxgOxkC5LXT332DK567KH/TTx/ooIFt2UKA=;
-        b=FKUEZA0R4xoCNqbyUAk9lw8YFffSCNSPY+9S8+Xgo4A4taSMYhM8PJq6SZkck1yvY5
-         DlJxF2/4WlCE0wVMO44KsHGDOSDmVL3f7wDx3ZLOH84XOgUPsQmjeOFJd4ucXf7eZsTA
-         qzGgN6tSIre4LBPl586pV12CsRiLbg+xs0ENg4yfEr5ZRKtBdEx1ULuCy0HCa0XPhrKd
-         YiRwob5qOdLpedV6JRYW0rWKT3z+gKMwjU3AnBdL5zxnqdzmzSA0Mhu5j7Pq01OScPJS
-         TmFtJ3c4h7MR9jSnMk2txS5joHN7nz+Dp5FSAuBh4dP85DqoDjA8QCFDDu82SjucPvkL
-         Pzrg==
-X-Forwarded-Encrypted: i=1; AKwUvBzveGSz4dd0X2Bta86LKSKqs9M2Sgxi3MLMaA3hGxD6dmBxsRpS7CROV88S2mCljDKcWd9NW0cgbj2MpQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/nIWfOYOW4beqyeWukyoW6SgjlswSwWo2wMbpO1BfxPGrHQV0
-	5RDQns3DCNuxdxuIPtRTR7U77muakFyXYFz8Uf2epHHwjD19r8UQWGq+TOuLT4SC2hw=
-X-Gm-Gg: AYBFou0MoEzfVs/9/RB+PVEkP3deiZ24IFZUDRKvQxDIu0kfubJSWsqN5trBbKb61WF
-	OzbRDz5ZOu8DnZj79A3ohxbByc+aL7lmkLoPX+KjFb6+hRhTUEz41sC0n3brUP+bDOVvPn4QbnU
-	BFaHQ0qoMSdePtkiiPydHJzPnZp0v0j7bWkkP083j2mM162P/JM3bN2vYEZ2Ngsqa7Gf9TLd4EF
-	ddDTkGyyRIinb4O121u73xlfGAODgD6IdN0hmkdnG7E0p0uwzI3Ojt6GT0Vj1aIdj3RGYBEmnm+
-	EeqTQnPU9vP7BWJeoHJwCcmrhGXl7fvikW2tqPPvOD+ZRJ7qKJbg6/Nt238MmNoYdXi5gtR3qup
-	gvz0QlOlr+n1JoERF5Gke86wme7fhOaA1E3j6ale0XFwfrBznF5O02gEoo7Iu7O3PbePTM+iIrN
-	A6EhHqsJCF+M7cru5Sr3R/H9NPl63VCoh7VQnJtAR2m41eKHhEgZQDCltBSGDCgbSc4m0bWTeV1
-	YpvvJMNJeP5
-X-Received: by 2002:a05:6402:2351:b0:6b1:b626:5bd9 with SMTP id 4fb4d7f45d1cf-6b1b6265e2fmr7285065a12.0.1791970533495;
-        Wed, 14 Oct 2026 02:35:33 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.126.202])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b203839764sm943163a12.7.2026.10.14.02.35.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:35:32 -0700 (PDT)
-Message-ID: <8cb5164e-9f27-4e19-9f4a-37da35fe0770@linaro.org>
-Date: Wed, 14 Oct 2026 10:35:30 +0100
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=xZzsjjrfGk
+	WbbVv/YWH6P3DFGtqXahU/y5v14sh9hBM=; b=DzrGzK2VRKegLxlPlUdgcFFttL
+	YG+MWKqZiUD9+W4PdaC9y/FhVwM5coYUZEd38aiaNLM6EMs9Z6tQWFEimPURzt2G
+	wwIhT3836/+fedG+6oNlzIKp6Y+o5nFKBwx2Zh0DfC3jEJaIO7Q99bvArES3wRpO
+	ZpsHizPMnSJ+MDcS8=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.94])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGyP3uTM9qphCXAA--.48766S2;
+	Wed, 14 Oct 2026 17:35:43 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
+	=?UTF-8?q?David=20H=E4rdeman?= <david@hardeman.nu>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: rc: fix use-after-free of rc_map.name on register error path
+Date: Wed, 14 Oct 2026 17:35:41 +0800
+Message-Id: <20261014093541.16491-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/8] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Hawi
- and Maili compatibles
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
- <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org
-References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
- <20261013-hawi-maili-camss-v2-2-fc93222da89c@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261013-hawi-maili-camss-v2-2-fc93222da89c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkCGyP3uTM9qphCXAA--.48766S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJF1UXrWfGFW7Kw4kCF4fGrg_yoW8tF47pa
+	9I9FyYyFWjgF4DZrs8Xw42qa4rua1fJa98CryfJwn09w1rCFyayFWUtFWUuas8Ary8ZFy7
+	tFn8J3y8GrW5CF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
+	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr
+	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
+	x2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_GFWl42xK82IYc2Ij64vIr4
+	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
+	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeF4EDUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2rOS7xmRwABs9
 
-On 13/10/2026 12:02, Nihal Kumar Gupta wrote:
-> Hawi and Maili integrate the same CSIPHY IP as Kaanapali with an
-> identical register interface. Add qcom,hawi-csi2-phy and
-> qcom,maili-csi2-phy falling back to qcom,hawi-csi2-phy.
-> 
-> Co-developed-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 5 +++++
->   1 file changed, 5 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> index 6e9eb8e265df93b631101ae13f31f6365b6239b6..627aebc7cd9b7ca313457d3f70f72796e9671e8a 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> @@ -18,11 +18,16 @@ properties:
->     compatible:
->       oneOf:
->         - enum:
-> +          - qcom,hawi-csi2-phy
->             - qcom,kaanapali-csi2-phy
->             - qcom,x1e80100-csi2-phy
->         - items:
->             - const: qcom,glymur-csi2-phy
->             - const: qcom,x1e80100-csi2-phy
-> +      - items:
-> +          - enum:
-> +              - qcom,maili-csi2-phy
-> +          - const: qcom,hawi-csi2-phy
->   
->     reg:
->       maxItems: 1
-> 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+If rc_register_device() fails after device_add() - for example when
+ir_raw_event_register() cannot create its kthread - the unwind path
+frees the keymap via rc_free_rx_device() while the device is still
+visible in sysfs, and never clears dev->registered.
+
+A userspace reader of the uevent attribute then enters
+rc_dev_uevent(), passes the registered check under dev->lock and
+dereferences the already freed dev->rc_map.name:
+
+  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
+  lib/vsprintf.c:737
+  Read of size 1 at addr ffff888007ca9d80
+   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
+   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
+   uevent_show+0x1af/0x380 drivers/base/core.c:2756
+
+Fix it the same way rc_unregister_device() does: take dev->lock,
+close the input device if it is still open and clear
+dev->registered before releasing any resources. rc_dev_uevent()
+then observes the cleared flag and returns -ENODEV instead of
+reading rc_map.name.
+
+Fixes: f56928abaa6d ("[media] rc-core: cleanup rc_register_device")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/rc/rc-main.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index dda3479ea3ad..903ae3d3441d 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1970,6 +1970,18 @@ int rc_register_device(struct rc_dev *dev)
+ 	return 0;
+ 
+ out_rx:
++	/*
++	 * device_add() has succeeded, so userspace may read the uevent
++	 * file and access rc_map.name. Take dev->lock and clear
++	 * registered, as rc_unregister_device() does, before any
++	 * resources are released below.
++	 */
++	mutex_lock(&dev->lock);
++	if (dev->users && dev->close)
++		dev->close(dev);
++	dev->registered = false;
++	mutex_unlock(&dev->lock);
++
+ 	rc_free_rx_device(dev);
+ out_lirc:
+ 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
+-- 
+2.34.1
+
