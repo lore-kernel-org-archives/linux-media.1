@@ -1,49 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4534BF949;
-	Wed, 14 Oct 2026 11:18:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF8E4EFFB7;
+	Wed, 14 Oct 2026 11:27:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791976725; cv=none; b=Cq6ExM3flOiRfvqt0Uk+rhhln0wbKWW4KzvMGdRZDHo6/hoBWGdFJIzd3DajRQQvdeupsMeG8DTOoTR2MhMr6oy+vF1Y0y0/cXbZ8a0JTNkArioAHo0P/xu+rf154Q4W2X0gAVGZ/cfVYvWYlDFCoiQwkp6WlsJXJLJZvzzotpI=
+	t=1791977237; cv=none; b=qRu4zJskxyIQ/hioi38sbbOxe5xrNBrAdeufnK4hlS6DRHUo8PyVqWYNHJoOWjM8pk6SpxR6yO4vQEH2mwZiZ1SV16J80MVURqg1vey7HjrzRo7au57W7EQNKmWCYumXTQmYzkQ56C6sSsRoDHYKfKfvZP+1qeIDZGOJrtIiM+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791976725; c=relaxed/simple;
-	bh=Npw1DY01Uzp1+PRjHtJS+nGy9bWNU2adOVGxaiejamE=;
+	s=arc-20240116; t=1791977237; c=relaxed/simple;
+	bh=DZXj6cfyoSFJfGCTSH09og0CwhR90Nu5ZF0MvrJX5SE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZW68HW6kXPDy50KquaXDs8GsoUX02NeF7CekQ2Q2Ji8lTNWFcLxJ2sU4P/teZ8KhxA2AuCM6LNIj2OiEoLQ53FeVT/tRTdMvSQlccGOc2ubZhCwM66BPNLKW39HOKesQLmFqdjuyl2KBi8W+FyuzqpgpEsBcf6fmZ9v7MbTmtFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZEt0uCZZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QyURs/6edZuhl0ywlJfSyj9qVxZJ1wl9Ereppl7ny8659D6xgKd/OwBpY5ep8TS6Mevqv6K6gahugkj0wIy74vi6Af1jAR6tVhuvLwSi/tR1M7xyZW+E03hrwQmtsi3ygmfEE21bylVN2xaQbIfQQDohu7wcaR7iSgyMs9VclGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjxbY4NL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZEt0uCZZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF4281F000FF;
-	Wed, 14 Oct 2026 11:18:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjxbY4NL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 570B91F000FF;
+	Wed, 14 Oct 2026 11:27:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791976724;
-	bh=OKBnsnfCKN2fkgPqQiZ01j4m/ocO3oO730cJmnLZmLs=;
+	s=k20260515; t=1791977236;
+	bh=Vs2YSOCjr3xVmak5ziahA1zHaGFZLaSeGx6bxxkF+zc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZEt0uCZZCzFklz+3Iv/wUtjrvSv8fBfTd9psbtR0X6dSXTpfD84n7mH5F8Zv2qKpH
-	 g1vv5IF1XpbQFkeZwBOp4ikZ/4asARNBxwlnkIwghmH/cXj2vB588dS9G+WBd6jdqd
-	 +w1hclZjlO1Bd/KhFebLpCt3LhH3NY68jR59l8TFdKBNW+huvYhx/0hMLgqd6sPN0s
-	 pcW2uCE+T4L+DaSmMT+Gzl9JeZYMVwdwk1GqxmKnR3y5S2QhQBuAq7uCgphQ1hEBQ/
-	 UTuCs0nrpn8bUrI665g9LglexmRhIPJfzGwU7tqfFuI/oVB5pwD8gkeNehcOmFdqzy
-	 j5sLoPWIVdjHg==
-Date: Wed, 14 Oct 2026 13:18:41 +0200
+	b=LjxbY4NL+zzr8SqrIPm8KpFEvTUDwZt7ei8wBvZ3X0WOQhRC4luP4SlARkFORg8tr
+	 W++Wky8LNEX28Noo/6O0usUN0KfHyk1oxgQqwQ8RMfxju9iAr/ahpqvmyGCqBQ3xhP
+	 MB5uM4ToMHjKCHbUkrECB+Mk34LyXzRvl4WW/FVJ3+MuXB7AFNen7NQ6lJnZdpwIHz
+	 KaVzNjFTa9ljvrK7mQq4iYr11maFv1xdMh4MtcI/MLJbCePCRDLmcpSnxtQ8kQFXyT
+	 UpwVQFoXsslQf8NEBlanI6pfBjt+MPTFM+aTvJn0ayu6jHDs+C/f8bFcjcpV+IuqZd
+	 B5M3idJlG/5Pw==
+Date: Wed, 14 Oct 2026 13:27:12 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Suresh Vankadara <svankada@qti.qualcomm.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>, 
-	linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v2 2/8] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Hawi and Maili compatibles
-Message-ID: <20261014-satisfied-misty-scallop-a75fba@quoll>
-References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
- <20261013-hawi-maili-camss-v2-2-fc93222da89c@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 08/13] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+Message-ID: <20261014-amiable-pogona-of-growth-ab3a8c@quoll>
+References: <20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com>
+ <20261013-media-starvis2-v2-8-3670722d250a@raspberrypi.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -52,21 +48,27 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261013-hawi-maili-camss-v2-2-fc93222da89c@oss.qualcomm.com>
+In-Reply-To: <20261013-media-starvis2-v2-8-3670722d250a@raspberrypi.com>
 
-On Tue, Oct 13, 2026 at 04:32:44PM +0530, Nihal Kumar Gupta wrote:
-> Hawi and Maili integrate the same CSIPHY IP as Kaanapali with an
-> identical register interface. Add qcom,hawi-csi2-phy and
-> qcom,maili-csi2-phy falling back to qcom,hawi-csi2-phy.
-> 
-> Co-developed-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
+On Tue, Oct 13, 2026 at 04:17:07PM +0100, Dave Stevenson wrote:
+> +      - items:
+> +          - enum:
+> +              - sony,imx675-aamr
+> +              - sony,imx675-aaqr
+> +          - const: sony,imx675
+> +      - items:
+> +          - enum:
+> +              - sony,imx662-aamr
+> +              - sony,imx662-aaqr
+> +          - const: sony,imx662
+> +      - items:
+> +          - enum:
+> +              - sony,imx832-amr
+> +              - sony,imx832-aqr
+> +          - const: sony,imx832
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Please keep the list sorted by fallback compatible.
+
 
 Best regards,
 Krzysztof
