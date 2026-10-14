@@ -1,112 +1,123 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B985D4D9563
-	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 13:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FAFF481226
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 13:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791983128; cv=none; b=qfUiBVDY5CIAN/zZrvebdYuFZ+g8PHwrLhPXddHfWA4XR0lFmYdaeagmc8G7Tgsk4Ung9m8+avKR9UiPlCi1eo+9HLFRvX9U/mhTWhrRUcz95kCcQlGAAavpbtZ0nkYtm0kqEWdTmwOoESJf5SiB3sSFl5zXJmQ2us2ZuZEFcBI=
+	t=1791983225; cv=none; b=gKi1otC6drukPleusf+eks3Ot8XzYG+McGGtVTIv3ZbGatgTr6KJDQseRiiUZw0CKBCpOlO6FGxcZhNUWa+Ug2/8d7iIwD8+RFpE9fYwKAq20HU5rYPJeYia00dWKj6ug2LnHSevYsNoedQrrSzW1mVdIBwap+PleRemvm55wKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791983128; c=relaxed/simple;
-	bh=WDIrICH8ErmG3IAK1EILh2SPlKNRkyZjbz6C9IfwoRY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gmx6ERQ3w+Fm+F0LVyGnyYKwGc/XZi3iyi0Y/h6fb50PCdyqxB4GBmX8sW4P+Kw8qV23V8zfqLNg7cdZA/tVN6nDo1ECKqKT79I70uPRfFTgK/h4yxP4xzPatsL88zB2SFWM+gpNS23xpUk10eaw3dlo9TIkKzHcXW56bIktfqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I4nSSO8k; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791983225; c=relaxed/simple;
+	bh=OySODPiskWWvzQQMx1Yq/HwVMV7iyUkBWw0BjUbVY6s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PC/1zPuqx39FReeg2iFdrv6otBVGyoFDsEXYtyZzBPjoxx70G2QzL/hCZUqwAfcMrFpGhv8lkS9xWVKDJyjn7KJ/h9Vt68WVtcIpvjTr474HD5FmWpBuBTM9DUavNoJ3l9ZpnpOPHw0FWJJ3/HKPgrS+Dcv7k2NDQZBmLmG0or4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LttP+57Q; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I4nSSO8k"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791983126; x=1823519126;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WDIrICH8ErmG3IAK1EILh2SPlKNRkyZjbz6C9IfwoRY=;
-  b=I4nSSO8kcO1h7RhkiwoV36j8BryJ2XLO5kJ9iorDfix2nifQaR/iBVHJ
-   jzkfadmA734kCcawXQdWaR+nuhqcRHzBlFa4Xe6jtRRe6e46uC0Sub6mF
-   9UJK8KwV3EtkNNSz+Tsf871rm6xHfU7HykNPin5JUkqBUhgnWeu1KDEqi
-   vVtEPWUoeggS7Vb2Bcwtt2fFXpF2pYTJnG8J862dGjxc4tAVnA/u1kMO0
-   n8xNSuKkr3Gf5x+lgnS+15SxbNgHfjhkf92iBxlC0oHCu9Jj2X61bclu6
-   F24sZdwGlJbgwLvIxYyAZrMUd9PryWzHzDWJGn/qXbdlN8FxvyiujvwnE
-   Q==;
-X-CSE-ConnectionGUID: eX/xF0gRQ42RcS4g0+Bl3g==
-X-CSE-MsgGUID: gwAFCmZhS2ydjyWKphXkag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="826748"
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="826748"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 06:05:25 -0700
-X-CSE-ConnectionGUID: cWjrKkdTTnyDEz+po9wq8w==
-X-CSE-MsgGUID: fT6ZubusRomP/sFFFdMJAg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,157,1787036400"; 
-   d="scan'208";a="1498983"
-Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO alaakso-desk) ([10.125.110.19])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 06:05:19 -0700
-Date: Wed, 14 Oct 2026 16:05:15 +0300
-From: Antti Laakso <antti.laakso@linux.intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, "Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	"Bajpai, Manik" <manik.bajpai@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	"Yao, Hao" <hao.yao@intel.com>
-Subject: Re: [PATCH v2 0/5] IPU reset workaround changes
-Message-ID: <as9-C50a3C69v_al@alaakso-desk>
-References: <20261012114002.3970409-1-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LttP+57Q"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so35378505e9.2
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 06:07:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791983222; x=1792588022; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k5Xx2GBklmLYql9VZXZ+CeE2dU9lwoFm77pkgYHcd38=;
+        b=LttP+57QkPAzmVVgUvRW/Pp91UXzLM8OE6jaXUaXULC9NYjzeL97NCoVyX/bypkvRk
+         peQUYRfnh5Y7MVpWP9KRooCb+/mVQrAcK3pfdPbFtHqN7CieKU5nDRqxKJs4KaykY5Mp
+         47FHCnhxBfn95ZlIQUM5t5uirtgnxgVmEnAsTSU8pPnjLE6qTS4hZ3q7rZwFqBphpimm
+         LGq0XY1fMplM7a0KAexltkifQNpAVK1FaCAC4DdwrUBEjs104BAMvmB6DmZ+xRfXWIk2
+         z3vVscEpYOosS5Z8V4hkMt6vyU+dMBCChD6MxSCniSCY6yv2aP/zXSFRlHwh6OdTiP4w
+         tZAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791983222; x=1792588022;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k5Xx2GBklmLYql9VZXZ+CeE2dU9lwoFm77pkgYHcd38=;
+        b=PI0Ec+yEi2YLbG9gZIy4GDCS3nQWttjh8vadULiawf1cN9iw9/EiunMN/v9GPmEsqT
+         XTB8Bz+BmDNGW/5Fu5YPy3nGA/Xw2MXUvbCa+9QBrBl1ckD1ML1r4psifc2jvRtMCUVW
+         vID1pqH+1U2mazgJyf4TMlzKRmBxpKpdEGFpo87lJTD1QWKMejI6izp72nB5MnylMADx
+         Efo3MSC9+y6wuyZdlFrtwa78Yr4fTleJXmyb4Je8T1rpMYyVLzzNpFrwXu4CykGCK4l1
+         nxNVhnfv71laLpr+u1UeEGhoKvlwhcoXl7vUrmKfHSZoxu2AHN6eqjQmlpMPV8uRUu38
+         oKvg==
+X-Forwarded-Encrypted: i=1; AKwUvBygQz8kS9mPaNH+319Tf3z/ckCmMgSxSrf23wO6k4oLQaieVDioogzgcFc6ybN7xjwvartAGFJ+3tsE7A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6HQ8yNnAXfcneFDqLED4dTrXvLHekMqHUTMYguENDchJ3p0t+
+	1ZCfH1dG9A432CNE5O/4YkTnOTB26zgek/81bgBou7UgHG8q/BI7KmQy
+X-Gm-Gg: AYBFou2BzqJ1MzNjgnac/BIDBMwyRMvceft94cPYSko4hhbV+3+ICsOFwrXAuLmEL3B
+	WZn90wVyDpIEsTfn6t71pi2yq/umzTXyuF+4jk77j3UvW6WHFOTNJWEKn9J8VTlJSJVPVdT8QrU
+	G45VwNRXfkFM17FqbFnqmQc6KyKtd9rf1KouvIz4pGNJIBvYm5wCbDgz8fF+WBEkdiunbzvQUCV
+	QxuR4D4UvUyiIvarMkkuTQV7rQ3GhHO/0EKQ36pe8k8FdP36tx9Mn0IU+0ZpAZV9IMwSG2E08If
+	PVTGPcfLT4j0ZWbvtJqEhMatJsxydHqxfGCzrif1IB3bNAIHcvTd25fE3CDbZJZKVhhhaEfqA6a
+	+Twum2g5AhkU9HLo+q1atLBqFoPx7kR4bmed7MS+wWGDTI6DGUrozUVS0t0x07DeCffyxf7t3Ev
+	d3qeYj0eEqfNGfycOvDuwm6q9roUVb+3uh6/mLUUSp4pknjY/SFSUZMfJPGN3Z0sx/CzfqMjpTs
+	PF9bkxMNIrANOayQ2zJv9h4pWYVVDV587zA0Sn6EdFV3ZEmfV4MfVSFDboNBoBpTGctNkl60LhM
+	YzVighSPASAVGeWpG5W3UHPxcfD77EZnhc4B+NxNJ/17Udto+Q==
+X-Received: by 2002:a05:600c:6994:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-4a18e446f3bmr313643615e9.2.1791983221508;
+        Wed, 14 Oct 2026 06:07:01 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1b3602990sm52779585e9.0.2026.10.14.06.07.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 14 Oct 2026 06:07:00 -0700 (PDT)
+Message-ID: <8d0e7d1e-086b-413a-87de-20e21f519daa@gmail.com>
+Date: Wed, 14 Oct 2026 14:06:59 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012114002.3970409-1-sakari.ailus@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 01/13] dma-buf: introduce initial file I/O
+ infrastructure
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-block@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, dm-devel@lists.linux.dev
+References: <cover.1791975048.git.asml.silence@gmail.com>
+ <49e24334953262e85d5616c9afde88c680e4f3a3.1791975048.git.asml.silence@gmail.com>
+ <b461d367-8965-4798-b7ac-cffd4301cd1b@amd.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <b461d367-8965-4798-b7ac-cffd4301cd1b@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Sakari,
-On Mon, Oct 12, 2026 at 02:39:57PM +0300, Sakari Ailus wrote:
-> Hi folks,
+On 10/14/26 13:30, Christian König wrote:
+> On 10/14/26 13:01, Pavel Begunkov wrote:
+...>> +static void dma_buf_io_kill_map(struct dma_buf_io_ctx *ctx)
+>> +{
+>> +	struct dma_buf_io_map *map;
+>> +
+>> +	dma_resv_assert_held(ctx->dmabuf->resv);
+>> +
+>> +	map = rcu_dereference_protected(ctx->map,
+>> +				dma_resv_held(ctx->dmabuf->resv));
+>> +	if (!map)
+>> +		return;
+>> +
+>> +	rcu_assign_pointer(ctx->map, NULL);
+>> +	percpu_ref_kill(&map->refs);
+>> +	/* make sure the map is not visible via ctx->map */
+>> +	synchronize_rcu_expedited();
+>> +	wait_for_completion(&map->drained);
+>> +	dma_buf_io_map_release(map);
+>> +}
+>> +
+>> +int dma_buf_io_init_map(struct dma_buf_io_ctx *ctx, struct dma_buf_io_map *map,
+>> +			struct sg_table *sgt)
 > 
-> Maybe I should have labelled these as RFC instead... this set reworks based on
-> what the ISYS is reset and how that affects UAPI.
-> 
-> It seems there are some issues on IPU7; at times (around once in a few hundred
-> cases) streaming with yavta results capturing a single frame only and an ISYS
-> power reset is needed to recover from that. No reboot (or driver reload) is
-> needed with these patches though.
-> 
-> Similarly with these, an ISYS reset is avoided in regular streaming cases for 
-> IPU7. 
-> 
-> Comments are welcome (as always).
-> 
-> since v1:
-> 
-> - Fix error handling in start_streaming() in the 4th patch.
-> 
+> You somehow forgotten the kerneldoc I asked for here.
 
-Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+Ah yes, missed that function. I'll add it but perhaps in a separate
+patch, if you don't mind, depending whether we queue it for 7.4.
 
-> Sakari Ailus (5):
->   media: ipu6: Don't mark need_reset based on returned buffers
->   media: ipu6: Tell about not being able to obtain frame descriptor
->   media: ipu6: Prevent starting streaming if ISYS needs reset
->   media: ipu6: Remove need_reset check from video device open
->   media: ipu6: Return errors from stream stop and close
-> 
->  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  6 +-
->  .../media/pci/intel/ipu6/ipu6-isys-queue.c    | 18 ++---
->  .../media/pci/intel/ipu6/ipu6-isys-video.c    | 74 +++++++++++--------
->  .../media/pci/intel/ipu6/ipu6-isys-video.h    |  4 +-
->  4 files changed, 55 insertions(+), 47 deletions(-)
-> 
-> 
-> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-> -- 
-> 2.47.3
-> 
-> 
+> Apart from that still looks good, but I had only time to skim over it.
+-- 
+Pavel Begunkov
+
