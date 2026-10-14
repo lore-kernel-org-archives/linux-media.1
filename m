@@ -1,67 +1,67 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFEA34F68D2
-	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:38:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B854B95D3
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791970688; cv=none; b=gKMNjwsZhZkNHifL2JdPxSRSdUWA9G/9R1guH2ZaFXPWsnseC8OBaXWlrbXthX1TlkfhswGdxTYVUZmzBqxAeZnF1D3cVI7m05YOC1bl0a0LjdlxmHdmlEIFqz/n4Al7p4Au9LQw4omlWF6ZHBN3DBqWzfbQL4+zxLBxwDseul4=
+	t=1791970714; cv=none; b=jGfYzmcaUlCu/Fu+zDLz+AI+NJIAXVw0c9XlUmU3Zio6fX1AKLI5e4kLJOFDss7BLLETeaBjR8SJHC/ipqYfVYK+uGgUwSGsAzol6pko75424jQAV8EWsxmaKLMWeMlmUTQ5L0IiCTUR8ON9hun4ptrERS8RBIpAF0Nt/Vun4fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791970688; c=relaxed/simple;
-	bh=JAZDEVVWBpCzIsROIvJ7aOp+s0L8O8CrbhuQdamS+9Y=;
+	s=arc-20240116; t=1791970714; c=relaxed/simple;
+	bh=ieAQq8W05Ldh6ypvnca0o/oiaSqWrWwDpTTeoe4YWdo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A844MPYkMsNUg7VEc2EePZOqpBrjyOErm93ARSxgNfKVDA7RipFpwrd1GATJAahO5z+V2+w8Fhg5eFRJKCNQM8kICCTX8VDInPF6Hk7I4P1xmELM9Lbn1aCegLGEn+ubtGSipemt7301/5lxCUiLaVSbIRke3JdMVYvAkZIyo5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=D9TLTe3L; arc=none smtp.client-ip=209.85.128.41
+	 In-Reply-To:Content-Type; b=f0jVLLIqUMKoJnYF+1hQRHfilWKQvxE83418KPa3gGvHfC3T/bDSpeBdWWy5PucdC5s1p9XhZEx4xcXgSYBbaqwsN95dL2AZ3bOTgC0jOSuzpN7aItWMaJC7HU+xtlx5Jbw/zZ4bq5FFMFPknnaX66Tnl85VuS4smrTSlMt2wtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vE4seWoj; arc=none smtp.client-ip=209.85.218.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="D9TLTe3L"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a02753c04fso21408755e9.3
-        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 02:38:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vE4seWoj"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e8c710847so483152666b.0
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 02:38:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791970681; x=1792575481; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791970712; x=1792575512; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gnTWC5fZozzSwkHK4q+Oqe31gSO1RQ9RdzCpCj2F8RY=;
-        b=D9TLTe3LV0X5U6WrodIJZ4Js9dABg9SPiO5halhg4sMS7y5xRqIJi15y/LSCfW/gff
-         3PPz0AbVI8KlZQMI+JMJ0zom3Z184cvYzFHfbRWzVs9fuw3xO47o+Fp/XoJq/BLEWRa8
-         GuhozyslteyFWi0slZ1rKsak4hUUaOGJTEdFluoNTO/4Yl+p3OYnm4dkMI/5HKoc+0qY
-         El/6gNKTJY3hyOBZIoIiE7jZvHXsvu7fHJVmHWedsjwzyI5M0+WRIVkGmvBDHLuUw78N
-         www8t0s04MAsGaGS+3oYPfFZwAZYYVBrW1XTiLUN6m23lwL9Tp+7Zkf6AAPHK1hOBCFK
-         BVxA==
+        bh=g+phdlrYB/RD28JPtIDO6lYJBfhoxurBJxdEKdj89FI=;
+        b=vE4seWojajhrXAXU3xkwRJahawNuJ33pEC0+n+TRATlgWD9pK4vOTKM1Nl41iSYS6U
+         NVaLwS3CuoaOhOk47H8rHOk9ctsVFASx6ad2sXWx2MDFEtPIvFTS1r21sZyRcR/lNQaf
+         J5r4Flv4V2CoXYuuWIKCX8QdWLero6zPviAcFLQ2Xc/EOa+iXWaFmeIEaV8MdYtSgtuI
+         m6K4eA/mM5/hIaGSBnkVE/DkR1SZmWUWcs8gTQ4TQ/s8TFg8aQssW6bVe/grxJUrsn+2
+         nHIYaQTqeJ4t2pLmiWHdx42xejEQpS6jU4J48SCTFCfgEcG+Ntc2yFjk2lMSfUdTxpfl
+         J2Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791970681; x=1792575481;
+        d=1e100.net; s=20260707; t=1791970712; x=1792575512;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gnTWC5fZozzSwkHK4q+Oqe31gSO1RQ9RdzCpCj2F8RY=;
-        b=HygD+wl/6c5XRkRxodifLaXkr0jK6vsZG5zP4EH5OuSJxpFevBLqXJdLdQ9/xVUegp
-         TVsQ35ZTPycRo6PXpLi/kE+zzeQ3pR4fnwq/RS5Lk6pEG/ReB7dZz+crA1cqJt4edgOn
-         LmtGRVJyIJTEhQPZChELh4Dxxv3ltlJ2N1O83Pdf44htvwcENfymX24QPBvCRgh5X5xP
-         sWSUi57zsu6VZH+mXpDabZAcV2/uMQmQwU7PRh6j+pmMPNYG/wIhfEEd3dLci4bq8Se7
-         R2+UiuslaUees0yUFcPVmLaSMz1GYh6Wmo4Z9LweMtNnDTQMkqXEct999DTplb4WTQwy
-         7xlw==
-X-Forwarded-Encrypted: i=1; AKwUvBxACKOTDpfUvCrwHfL2LbVuuM6eAFOnOFPeD5PGT417NtRnQP2K89sNJohgibmyniSRKh4m8KouiaggPA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAEfAKgsR/2zrOJDvcq4voJGbp2AqlgWrxDyBMEqU0xG3cBRBd
-	RbWdu3OvrVYTqlAQ2PFOPx02S0kkdAfogyMOvqfByhW5VU9EehJvpl1fkicyMCa9OYQ=
-X-Gm-Gg: AYBFou0RArF0xT/NGIDs0cSICeJACrBLtZ4lUBdE2lG+jySmjVP8uhQ2oYaYLUJWubE
-	6op1Ph3n1V7iGPDBLCLV81bfvZNVVpQncksFSQhe+5BsZ+bKO+Vfs7O3xVwaqyPwSl+ZYFIpfrL
-	Q9rVSypyQUSrQ3BKs5e3jUj1NCIdTLKfQvClyq+u//ZuOyy5To1Wpd/C9yn3gl/gSQZ5abvSXbe
-	ukGUVSFIgTqYe/SKiqlcUzWHxugtYsVotFB68nZOWeWnnJJhApZq7gu89nNFUyvIHqFTcSpl0zu
-	ArfX7j/sXUqKhW/Xxlhjr8sWNINCu9VC3+zOpPT37WQhPWr3/IJKJZFleykvxrbWPBKwLEkTFkq
-	tRHxQze7eCTmC9DzsETaGGNsR08cxl04pg0Na+XPaBrMM2WEw4FA7wQpSO5BGDnt4ALHZiDuJop
-	LCUiH+3haq3eEP7EaLzbiU8L8uPBLRDG0wObeZJFnWyXmDx+Fk8mm1mwnAug65g759gA2ovLkot
-	bLhWeOACpn8
-X-Received: by 2002:a05:600c:3e0f:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4a18e4b60d8mr299229875e9.23.1791970680941;
-        Wed, 14 Oct 2026 02:38:00 -0700 (PDT)
+        bh=g+phdlrYB/RD28JPtIDO6lYJBfhoxurBJxdEKdj89FI=;
+        b=Lw50CnshUlZhtRpjEcIyBgXcqbNE8ymRPMIQaOsNRYIIMhUfoPw4UycJM6mmyu5alN
+         +QWkoyI5aBqEmExkQi1wNxl9jLl4Ua2DBFRCEztJvaOygQYtE648RzBHutrsLMTeC9Ux
+         iVwuDqqpcJWRPhL7q4xXF81vXjQay1NYdL5TnmqHqLl/pe0wA04sMre/NkiSoXHDPw8J
+         OaMjKXecDwtHuTXc+VHkeLAVbGmlJPnVlNDJ8DZNWTjt3oqQ7Tm3797TFDix4BPwkfrx
+         HQ43QzCJjm9we7x1rJ0/PVd1lynrxbDqcJCQ3wlR6gj/LWeyld+2RbHcmFrSBkxrVme0
+         g6JA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLueCuYjDWevInKlsMtt4MN/jz5+dCpsJVX9NrkYU1fspBrCGdvTs2as9yd2X+AlFIxar9lftTlul25g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGuJ7/hzAhIpY+bRQFpM2IdsnfhAM1x8xJJ3FAlCnXl/mSm/xH
+	i9ZAMl0+80qOrk8pPfR/W25GKjQNeNO0PJhkTLETD88xd/cuRrtDYuigaqciGtdggRs=
+X-Gm-Gg: AYBFou3ZUr3rI4/2IVB/8KFBwiRn0aIVEsYrXCKeewKxY8UIAhrGxQDKTLraOpgRsd+
+	uqZAMb5wFkTYG0HpP31soQSaMfWf6QOLh58A5pWEtU1orEKx+l+LhL6VAWSNZg6hmN6SwaeLyXc
+	/UcHujvQCl41Q3D4vazPvy/OIURl18/kfaPcxBd8wZNhj+TIMFFuqZpD7tTUenwm+5qNroCFRkF
+	8qrSR74XjuqZDhKC3K+3CxGRLo2LbUfBAurT5KlRmVyH+nei6yndxgDQ8wooSJrdCt1AAcCZh2q
+	Z1Hm2D4wO17TDrBdwSXdTf6PeRAexd10ubO3a6+HUcKBQRkmlToABAoXtsH+BL/Xoo4QXm+WpvN
+	KTLZVnxamKWL9jXSAN8PmTVcWN4QvshfmXDlTsJt6AD2hwJ6wMhpiCRv7Ijb2gZWA2u5op3BJt0
+	FTAo6l4aKOOB1iQO1Df98W3Vol6d0xx2hGgUEBaYAfI4PmUGVxrqY4LqiTSK8CUqFNS9M6ed+Gn
+	L1Q9DCtHypD
+X-Received: by 2002:a17:907:2d88:b0:c25:541:fd3a with SMTP id a640c23a62f3a-c31a9a07db1mr1358197766b.7.1791970711490;
+        Wed, 14 Oct 2026 02:38:31 -0700 (PDT)
 Received: from [192.168.0.167] ([109.76.126.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7273a0esm6026436f8f.29.2026.10.14.02.37.59
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9aa5953sm693842466b.58.2026.10.14.02.38.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 14 Oct 2026 02:38:00 -0700 (PDT)
-Message-ID: <db980e07-adf9-464c-9fee-401581986508@linaro.org>
-Date: Wed, 14 Oct 2026 10:37:58 +0100
+        Wed, 14 Oct 2026 02:38:31 -0700 (PDT)
+Message-ID: <47c2af33-05f1-41a2-958f-11ca13568acf@linaro.org>
+Date: Wed, 14 Oct 2026 10:38:29 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/8] dt-bindings: media: Add CAMSS device for Hawi
+Subject: Re: [PATCH v2 4/8] dt-bindings: media: Add CAMSS device for Maili
 To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
  Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
  <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
@@ -86,24 +86,50 @@ Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-media@vger.kernel.org
 References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
- <20261013-hawi-maili-camss-v2-3-fc93222da89c@oss.qualcomm.com>
+ <20261013-hawi-maili-camss-v2-4-fc93222da89c@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20261013-hawi-maili-camss-v2-3-fc93222da89c@oss.qualcomm.com>
+In-Reply-To: <20261013-hawi-maili-camss-v2-4-fc93222da89c@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 13/10/2026 12:02, Nihal Kumar Gupta wrote:
-> +
-> +  iommus:
-> +    maxItems: 1
-
-Just the one iommu entry ?
-
-Please:
-
-- Make sure its just the one
-- Include a comment to name the one in this file
-
----
-bod
+> Maili shares the same IP as Hawi. The only difference is
+> Hawi has six CSIPHY while Maili has five.
+> 
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>   Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
+> index 5bf0dca3d24621bfc4a09feb8e5037a925869751..d1d53d6f024cbf7d2a0f2525aa4040260353b200 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
+> @@ -4,17 +4,22 @@
+>   $id: http://devicetree.org/schemas/media/qcom,hawi-camss.yaml#
+>   $schema: http://devicetree.org/meta-schemas/core.yaml#
+>   
+> -title: Qualcomm Hawi Camera Subsystem (CAMSS)
+> +title: Qualcomm Hawi and Maili Camera Subsystem (CAMSS)
+>   
+>   maintainers:
+>     - Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> +  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+>   
+>   description:
+>     The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+>   
+>   properties:
+>     compatible:
+> -    const: qcom,hawi-camss
+> +    oneOf:
+> +      - const: qcom,hawi-camss
+> +      - items:
+> +          - const: qcom,maili-camss
+> +          - const: qcom,hawi-camss
+>   
+>     reg:
+>       maxItems: 13
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
