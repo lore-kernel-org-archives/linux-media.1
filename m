@@ -1,237 +1,143 @@
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE1F52CCFC
-	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 16:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18BB5592E0
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 16:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791994689; cv=none; b=nlIaZKE+JhJwmxbew9b2SbDQDSHWLIQQdTsMTZKJDfXNezg2VeMxRIONCs87xfSBZNNOd/zK5Wdry4XYUMeCvXmG9v45sEh0jJqHZsdOVnuv+9pdLnGRFBJYd7ctFefS+VIjHjHWeMsWNKVlxunEGKEbiHwMbiM5m8fqBLRH3Rs=
+	t=1791995640; cv=none; b=IrQcgQGaolsfT8GTcK91FGRwzOJKQu5E6T8N3WErW17rtj9bh79MDguYgJbGpL6XQuJbgcd1rm7jI+EqRXiObsuSokcmSu1hZo2tJIcAbARe+U0D27lLk35ETeWnUpBwLYOtRAor5Wdgv03KwoLmq8pzLu750K4sFZFyM7dOXSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791994689; c=relaxed/simple;
-	bh=vO6YEQIMsSYDbMWgTeXfd0RkPWpXF5baIQZyZXdCBFU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=fUMqgCi8uQbHUshyYbroGmtBM9rG7Y8YlQmyVQABK/re16PBbOkCJbE9MGcyHR937qRVXnXOzYbka0PVbJA8bfPT6FNtI85HySBGYzUo2diinq10kJPPfPPufuBo6PgHFuoRNOXqXB2lh3/13nhy2KSwZbvm9PZYtnkW4IdcOqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=u60jC2Lr; arc=none smtp.client-ip=74.125.82.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1791995640; c=relaxed/simple;
+	bh=03prvWYuPM9S8kmgrWoC3fCmFozkGleIo9XhNkVgCtI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=od1ODIx2Z8pVyFApgiwLAFDmdx5sXeTluMBhoVlEUyF8JB+CfFp6EuG8cfq3QA/xeIFdZxp9KeBRyEDFkZnboEGMhVJiPQBHgqYo6i8g0/o1WY5OjjI7f8SFxy3HH1F9SqLSwQ69Y5zToU+U1fzGAvY3xMysVq36x6INOWs/KuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pd7irBGa; arc=none smtp.client-ip=74.125.228.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="u60jC2Lr"
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-154e9d2d94fso1874598c88.0
-        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:18:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pd7irBGa"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cc790c60953so252208a12.1
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791994679; x=1792599479; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=01xy5PseRVpPPje1JnCly3s3YIplU78ERdCkYH+3Kds=;
-        b=u60jC2LrZnLVjsNpgSBwNsGCb+pDuHCqnJDjsjOmuV6t/YK8fv4GRcfPXvFkyAzhod
-         V3JXDO6sbpVcuGGjU6YwQfyaF7f0Fy4Hh2+eEIwIWfJ/Fd9DeNAQxDAcPBiCY/EhlaYd
-         7GAZjDcGGLEHBaP4l6ImBpMM6Px8QQq3VyDbD3MPylumTIl+XCB9rlaluSZx3q30MEeG
-         Mro5dR0F4B/KMJQhshU5IovZIyV39RHAt8imGJFa6B/o+MQe+8mWwiwFym5yyIZoEULo
-         DDxqtb5ra3CM+qfk3wcgsZ5CQ8+QVOUhYeKzJmUDMlKhYOo76ua8Tb04oHA10K8151vx
-         nxDQ==
+        d=gmail.com; s=20251104; t=1791995639; x=1792600439; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
+        b=Pd7irBGaIfGk47A4W8byWcdXxiyBIqvKEbA9YhOh3SRQ6mJyIKIRRLuIPMYQAvnKMs
+         TiiQbQe1X9LW8PMlgREmTed2G73VpjPu9b/hQC6M7174NlPobQQvYC7JbWww84NvkGVc
+         jaPpkkunMPeYYbs7LRpYE1NB3orJeiitk5w+ztYeo5vRK1StrQIIlrqN8LPbbwn/q7pl
+         LyTa9PdacwnhwmfVzvAYeCHjMCxA/kI1BexjubiZ4KYMJIByLay2i2hNOuiNpYiGNnZr
+         oredyfHyKPao1I1MMDdfl/UgbblGTGEjrFSK49edHqKhn/nAtTq070F5HAFN7V6SOwU9
+         2M8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791994679; x=1792599479;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=01xy5PseRVpPPje1JnCly3s3YIplU78ERdCkYH+3Kds=;
-        b=AO4tht8Y1dCsDF4AOlPwEN6F70Loa2ji9C0EBqEawpgq81GDmR3E3+TjU0BLXz20z5
-         ODJadBu+3GRSHaV16PC3/7+wYDN87rJSEcv5EjVdvYF84SS0dKoZGxCxb9nZKbWqKMma
-         8p3Xr3EJCxygxZyrttroa5Tnmv8TJwHAlkpl+7EoRU8oXgRzBjT7kynv+gn9WIsNk378
-         P9qtLBGqi/Z3UzcFE6crZFwyJHaoSaxA6ndOWHGeJiL0JAxNx3WEJILyjbP3CstVqBcU
-         Qhwn/Ha3AWkjQm+XHg1TeY+abR8xqn/RhezYX7OqxXc16sPpqsgLbKkKX8+iSrpORD+0
-         W5dw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdQ4DLqkY6UPAdFcCOC+9r77VEDhz/tm5dXA42HR2PeZmRJSJ5mKf5Dh6RhhwklnO0jG+4dKT0B4MxCA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwHaLI4lSXW2anlatsWSR76BclEsAXEE5kMvK6j/On34+zwG4R
-	RxacL8ATbExmcUK+eJpPNHpYmqcCygS8qfHA8Ck1cl9+fvaINYLYRZ/3CorSHbvlCPZigjJphn9
-	7QH78kZbJyDwXVusEH7pg6+sIag==
-X-Received: from dlcip5.prod.google.com ([2002:a05:7023:c085:b0:16b:e65c:ee1b])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:4541:10b0:144:ed03:8972 with SMTP id a92af1059eb24-16a5dee12c8mr21630544c88.16.1791994679033;
- Wed, 14 Oct 2026 09:17:59 -0700 (PDT)
-Date: Wed, 14 Oct 2026 16:17:53 +0000
-In-Reply-To: <20261014161754.3782346-1-almasrymina@google.com>
+        d=1e100.net; s=20260707; t=1791995639; x=1792600439;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gzw9aMKz/xODwzz6jPerfVV+ZDaTeiwtt+GIjli64uI=;
+        b=rX3cSAUUvLV6tSZ2XKIKco1/8m5kr0qJMXhbO6EC2OJLtNAC/T06wPxTBvEZZR5wL8
+         /V1TK4iS4vuUU2dTuVHtpR1h0BwPBMAVLZU9xpnlyF/ouIj0tuI2W+0PshI2YNqEC4zd
+         32hD6ikpBVoZNdo8BvdXyVRBBfSC67szq4abalADdVIeT2/CicCUzkXCB9A68o9JbEnp
+         ZOOuqnjUncq9yhvErPByKATv2aEnd9jYB/h3/L9nmDd+KDXlM4OfczGDbZ3CKz4H1Fdu
+         EdFmK4IbtoNM5o8mF/D+bBUMmq3Og7nZot5KQMpv8YswoLPLiNn5t8G/O7CGJBrvvyRK
+         q4nQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxiQWOt5vG19imY+nYQkFYu8kSjpAfnlPacW1rTnjpsQ8Cm94VGT/AGNZJxxM8jF908RMEe1OjXlC7XtA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsn/JD2hxEy/WUAmAHnDew1iGKvDHXhGs/bfAiffekzdb01CyC
+	heJndmjjwYCUkw4wASeNDD72ATJ07R6y4Q40Bt/k6McULyZYg7wtj0Ph
+X-Gm-Gg: AYBFou3jxpiTrTieuo8gQFyQ2v/AD38YP1dvB7bi7S+Ex8g+m951LoLtOYFkFT17/an
+	vQRFjtMJEynQRPgycZucQuOfyyk4YvL4J9odF7YVPQ+G4i6g+BO9MFahYQEiVegCmgYA915NmmY
+	DVXmvHlvE5G01LMtFTYnWipOrt+xkWm6kasV43hL2VGOTVKmx9FgQczt5rKnLYxTjy8FOBj4Y4J
+	Zp2IRYl7OPZFbZLCsn/SFL+yZEEqjBa7Ks+svPP1yk1c9tavhlKxm6eDHf4PJZO6x30P/d7XJYg
+	Ib2OfKz0hs2VD57wfwXxH74TxOm6VhmvpxfEBFknhaN0HGEhrH3C7yi2zXV0YkXPN7h1urpgSlS
+	lxETPJtZHcBFNVAuASELVwN5wcLsSaBnXbof7sBswB4kIBY/qwcmEtbmSVX1+y4V5n29ULpq0Oe
+	2yMhVNL0M0fCMJrkjLXYmdqKCJyxslzZakZ5u1oF7lrYfJ5gNtOnqH1qac0IBilCIb
+X-Received: by 2002:a05:6a00:8c4:b0:891:a63c:df97 with SMTP id d2e1a72fcca58-897c6443681mr15560946b3a.15.1791995639007;
+        Wed, 14 Oct 2026 09:33:59 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:59::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d80511d47sm1291926b3a.54.2026.10.14.09.33.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 09:33:58 -0700 (PDT)
+Date: Wed, 14 Oct 2026 09:33:38 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, David Wei <dw@davidwei.uk>, 
+	Pavel Begunkov <asml.silence@gmail.com>, Taehee Yoo <ap420073@gmail.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v2 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+Message-ID: <as-uBvRisS7HxLHJ@devvm7509.cco0.facebook.com>
+References: <20261012174300.2338784-1-almasrymina@google.com>
+ <20261012174300.2338784-2-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261014161754.3782346-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261014161754.3782346-4-almasrymina@google.com>
-Subject: [PATCH net v3 3/4] netdevsim: support devmem RX and TX bindings
-From: Mina Almasry <almasrymina@google.com>
-To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>, 
-	Kaifeng Wang <kaifengw@google.com>, Dragos Tatulea <dtatulea@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261012174300.2338784-2-almasrymina@google.com>
 
-Set a 64-bit DMA mask on nsim_bus_dev, enable NETMEM_TX_DMA on the
-netdevsim net_device, and configure page_pool instances with
-PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx, plus PP_FLAG_DMA_MAP |
-PP_FLAG_DMA_SYNC_DEV when CONFIG_HAS_DMA is set, so devmem bind-rx and
-bind-tx netlink operations can be tested against netdevsim in software
-selftests.
+On 10/12, Mina Almasry wrote:
+> When a bound net_device is unregistered while userspace still holds a
+> netlink or TCP socket reference on a devmem binding,
+> mp_dmabuf_devmem_uninstall() clears binding->dev to NULL so
+> netdev_nl_sock_priv_destroy() will not touch the unregistered
+> net_device, but leaves the dma_buf attachment mapped until
+> __net_devmem_dmabuf_binding_free() runs later on socket close.
+> 
+> Because dma_buf_attach() does not take a reference on dma_dev, device
+> removal frees dma_dev while the attachment is still mapped. Closing the
+> netlink socket afterwards triggers a slab use-after-free in
+> dma_unmap_sg_attrs():
+> 
+>   BUG: KASAN: slab-use-after-free in dma_unmap_sg_attrs+0x76/0x2b0
+>   Read of size 8 at addr ffff88810fae64b0 by task kworker/3:1/53
+>   Workqueue: events __net_devmem_dmabuf_binding_free
+>   Call Trace:
+>    dma_unmap_sg_attrs+0x76/0x2b0
+>    unmap_udmabuf+0x8e/0x100
+>    dma_buf_unmap_attachment+0x145/0x330
+>    dma_buf_unmap_attachment_unlocked+0x96/0x130
+>    __net_devmem_dmabuf_binding_free+0x156/0x2e0
+>   Freed by task 9:
+>    kfree+0x1b8/0x550
+>    nsim_bus_dev_release+0xe/0x60
+>    device_release+0xcf/0x250
+> 
+> Add net_devmem_dmabuf_binding_unmap() serialized under binding->lock
+> and null out binding->sgt and binding->attachment after unmapping so
+> unmapping is idempotent across queue uninstall and deferred binding
+> destruction. Call it synchronously when the last bound RX queue is
+> uninstalled in mp_dmabuf_devmem_uninstall(), except when a leased
+> queue is unleased: the physical device is still registered and, if
+> restarting its queue failed, may still be using the binding.
+> 
+> The same use-after-free happens when the netlink socket is closed
+> before the device is removed but RX tokens or the pending release work
+> keep the binding alive. Such bindings are no longer installed on any
+> queue and were already erased from net_devmem_dmabuf_bindings. Keep
+> bindings in net_devmem_dmabuf_bindings until they are freed, hide
+> unbound ones from TX lookups with an xarray mark, and on
+> NETDEV_UNREGISTER clear binding->dev of unbound RX bindings for the
+> device and unmap them, unless the device is a virtual device leasing
 
-The pp_hold debugfs file allocates pages from the queue 0 page pool, so
-refuse it when that pool is backed by a memory provider, and take the
-netdev instance lock there so a concurrent bind-rx cannot swap the pool
-in between. The software PSP path checksums the payload when the peer
-does not decapsulate, so drop unreadable skbs there.
+[..]
 
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Assisted-by: LLM
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
----
-v3:
-- Only request page pool DMA mapping when CONFIG_HAS_DMA is set
-  (Sashiko).
-- Refuse pp_hold on a page pool backed by a memory provider, under the
-  netdev instance lock (Sashiko).
-- Drop unreadable skbs in the software PSP path when it would have to
-  checksum the payload (Sashiko).
----
- drivers/net/netdevsim/bus.c    |  1 +
- drivers/net/netdevsim/netdev.c | 27 +++++++++++++++++++++------
- drivers/net/netdevsim/psp.c    |  5 +++++
- 3 files changed, 27 insertions(+), 6 deletions(-)
+> queues, for the same reason as above. net_devmem_lock serializes that
+> walk with the final free.
 
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index 5c55c308487b4..f87f5e037b6fb 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -462,6 +462,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
- 	nsim_bus_dev->port_count = port_count;
- 	nsim_bus_dev->num_queues = num_queues;
- 	nsim_bus_dev->initial_net = current->nsproxy->net_ns;
-+	dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64));
- 	/* Disallow using nsim_bus_dev */
- 	smp_store_release(&nsim_bus_dev->init, false);
- 
-diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-index b4a99f3ceac60..357ea9e5623b3 100644
---- a/drivers/net/netdevsim/netdev.c
-+++ b/drivers/net/netdevsim/netdev.c
-@@ -414,19 +414,27 @@ static int nsim_poll(struct napi_struct *napi, int budget)
- 	return done;
- }
- 
--static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
-+static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
-+				 struct napi_struct *napi, int idx)
- {
-+	struct netdevsim *ns = netdev_priv(dev);
- 	struct page_pool_params params = {
- 		.order = 0,
- 		.pool_size = NSIM_RING_SIZE,
-+		.flags = PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-+		.max_len = PAGE_SIZE,
- 		.nid = NUMA_NO_NODE,
--		.dev = &napi->dev->dev,
-+		.dev = &ns->nsim_bus_dev->dev,
- 		.napi = napi,
- 		.dma_dir = DMA_BIDIRECTIONAL,
--		.netdev = napi->dev,
-+		.netdev = dev,
-+		.queue_idx = idx,
- 	};
- 	struct page_pool *pool;
- 
-+	if (IS_ENABLED(CONFIG_HAS_DMA))
-+		params.flags |= PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
-+
- 	pool = page_pool_create(&params);
- 	if (IS_ERR(pool))
- 		return PTR_ERR(pool);
-@@ -450,7 +458,7 @@ static int nsim_init_napi(struct netdevsim *ns)
- 	for (i = 0; i < dev->num_rx_queues; i++) {
- 		rq = ns->rq[i];
- 
--		err = nsim_create_page_pool(&rq->page_pool, &rq->napi);
-+		err = nsim_create_page_pool(dev, &rq->page_pool, &rq->napi, i);
- 		if (err)
- 			goto err_pp_destroy;
- 	}
-@@ -762,14 +770,16 @@ nsim_queue_mem_alloc(struct net_device *dev,
- 	if (ns->rq_reset_mode == 1) {
- 		if (!netif_running(ns->netdev))
- 			return -ENETDOWN;
--		return nsim_create_page_pool(&qmem->pp, &ns->rq[idx]->napi);
-+		return nsim_create_page_pool(dev, &qmem->pp,
-+					     &ns->rq[idx]->napi, idx);
- 	}
- 
- 	qmem->rq = nsim_queue_alloc();
- 	if (!qmem->rq)
- 		return -ENOMEM;
- 
--	err = nsim_create_page_pool(&qmem->rq->page_pool, &qmem->rq->napi);
-+	err = nsim_create_page_pool(dev, &qmem->rq->page_pool, &qmem->rq->napi,
-+				    idx);
- 	if (err)
- 		goto err_free;
- 
-@@ -929,12 +939,15 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
- 		return ret;
- 
- 	rtnl_lock();
-+	netdev_lock(ns->netdev);
- 	ret = count;
- 	if (val == !!ns->page)
- 		goto exit;
- 
- 	if (!netif_running(ns->netdev) && val) {
- 		ret = -ENETDOWN;
-+	} else if (val && page_pool_is_unreadable(ns->rq[0]->page_pool)) {
-+		ret = -EOPNOTSUPP;
- 	} else if (val) {
- 		ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
- 		if (!ns->page)
-@@ -946,6 +959,7 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
- 	}
- 
- exit:
-+	netdev_unlock(ns->netdev);
- 	rtnl_unlock();
- 	return ret;
- }
-@@ -1051,6 +1065,7 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
- 	ns->netdev->netdev_ops = &nsim_netdev_ops;
- 	ns->netdev->stat_ops = &nsim_stat_ops;
- 	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
-+	ns->netdev->netmem_tx = NETMEM_TX_DMA;
- 	netdev_lockdep_set_classes(ns->netdev);
- 
- 	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
-diff --git a/drivers/net/netdevsim/psp.c b/drivers/net/netdevsim/psp.c
-index 6b3532b5e360d..908cc0d391dc6 100644
---- a/drivers/net/netdevsim/psp.c
-+++ b/drivers/net/netdevsim/psp.c
-@@ -86,6 +86,11 @@ nsim_do_psp(struct sk_buff *skb, struct netdevsim *ns,
- 		__wsum csum;
- 		int udplen;
- 
-+		if (!skb_frags_readable(skb)) {
-+			rc = SKB_DROP_REASON_PSP_OUTPUT;
-+			goto out_unlock;
-+		}
-+
- 		/* Do not decapsulate. Receive the skb with the udp and psp
- 		 * headers still there as if this is a normal udp packet.
- 		 * psp_dev_encapsulate() sets udp checksum to 0, so we need to
--- 
-2.56.0.176.g3575e65682-goog
-
+Can you explain net_devmem_lock a bit more? In
+net_devmem_dev_unregister, why can you not net_devmem_lookup_dmabuf and
+then rely on the binding->lock? The rest looks good, but the
+new lock seems a bit excessive?
