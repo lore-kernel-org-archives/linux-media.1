@@ -1,234 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D1E5581FD;
-	Wed, 14 Oct 2026 15:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586CF5226AE
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 16:17:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791991741; cv=none; b=XlssoLjSERcR1rVeDHR1dULEps+8+PEYtbXAYjQrdMMDYh3lVbstO/2Drem05YIJJf0HMfCUA9H7yiLLD/6w/eWC/RZ1B5WKQDpJCLKKb8bnMgnCgQhrjkf0+0mw+3ULuOGqQrwac3xhQpfQwaXdrgz1tQw4yDuMfzafNPVUYfU=
+	t=1791994682; cv=none; b=skUa1d4FeG4Sh5oTgN7n9b8MQVA5u3CEIWAkI9CccSyQfGl+CDQYZ+kM4euXg/Qm5f6mqPHH3qYSpGQncA/wDTg/Op1jz+9B7y3ChpTGyXXp0acnw5xXdSSgoL+vazcEARfAAmeuFhvjEpmcjlGxN8aurmE4ny+Xr3Vb5qKlyL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791991741; c=relaxed/simple;
-	bh=vpipXgID1hgJQwv0h+XWqavZq+CvRfkn+mxM2FNjym4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Slkp+nPHA5yUrWY/fSG12Nh8z8bPU/+FSvSZTbaROtVnj07BKAw9lCAyJgYS5Qj7bwDzp9tGvuMXXppeZrFWDcXHXZJThAiqV/QBJL9IQqA37Wd9eozc1B1XWCQeGXMQwbkrrMSMeccBsdhWqwV0OSKWN1nTMy0O03RfQKYfKII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IeVjX2lA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791994682; c=relaxed/simple;
+	bh=J2MF0CGvDZI2j5xp2f4Y/WWR7jUQb6b1+xx9/N78hek=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=SwSqG/kkPEHpVKN3OFYiexE1AQtYGFgS7WctdP/v9L2GdtUYaexg7mvDFHnhOOwGZzsACyj5mAlc54rxho5fzzD7t39A3WMxazH4rrhuiKG7ESTsC0m0x6iUbuTuc0/Z6QwOH86J4SfiSnFuWngQhARNBwxmsEVnssYRDrXWzcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=shVCgafj; arc=none smtp.client-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IeVjX2lA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 91D84C2BCF7;
-	Wed, 14 Oct 2026 15:29:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791991740;
-	bh=vpipXgID1hgJQwv0h+XWqavZq+CvRfkn+mxM2FNjym4=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=IeVjX2lAPX+EFhk/hDG/QYNAEwTIptOKeE0YPHMiFetMq3ZyQ16bzHVvV2uvS8/DS
-	 avbceYCfwRUOQYs6Omf5g6+i8hKeLPYGVSoX4APGuEbf9F9zEF+ezSvQlblc/pJ0F8
-	 Zb2SG6ZkWe/SB6nD0CupcVYI70q+ExBqKpRmcuBEvvH+wSSS1/cmoc/X5u7uEjop8G
-	 uTwlxXIPMbZT7rRjhkvJ5ev+Q6QswzTSZJPIZ0RQrQ1LCfzQ/aU/3IZbQUNvARIY6m
-	 5h0/bpntIw5doDChuDOi5s+ZE6YUHHV/mPr2tCkCeB9YvbAqPLnWccQ1y2yTQQM5+W
-	 IOqefVWVEhzcQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77F03CC6B24;
-	Wed, 14 Oct 2026 15:29:00 +0000 (UTC)
-From: Johannes Schrimpf via B4 Relay <devnull+johannes.schrimpf.blueye.no@kernel.org>
-Date: Wed, 14 Oct 2026 17:28:24 +0200
-Subject: [PATCH] media: uvcvideo: Release streaming interfaces at
- disconnect, not last close
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="shVCgafj"
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35c902e0da2so1464013eec.1
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 09:17:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791994676; x=1792599476; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BNYbIRDhdg/bji4iVF4z4GKSYuqq0SGaMYsIsVzbu+Y=;
+        b=shVCgafj6S7XxdeceaVQhwMGAdCYXxntKgyPwAzI+goiDOwO+xHN+i3yPCmFLoF/+b
+         0j3m4dWQPpJdUToFha/OJUg0wuNYaR0XReNsqaYBiZM412xsImvrfLhYPFIOhHOrbgJk
+         918Cgw5aBQbLwCzAoDYFmHVnLGiXOtyT0s/cPl9RohPNc8wh1HfcICC7MkCe60TDWZHI
+         SBpwvtWrHmF438drp/gn9qFJ98VyRkSS0rI73eKKMGWm9EnFQzuBnbH/LeKTaZec5HgQ
+         E4l+30cQQXwEB0RWNJP1D+nsTwKI5ovLQ8iZUESA1Q/IhuaBVktxst4s6LwWypfYkb3m
+         OxvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791994676; x=1792599476;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BNYbIRDhdg/bji4iVF4z4GKSYuqq0SGaMYsIsVzbu+Y=;
+        b=KPVbiQ+U8Av7FH34RreNjkoWGVGzHBQRywCfcQqYrQPHG8tj6LpK8x4EDMnLcvJOJZ
+         YgEJLylyuy4Th33ZHb+iuuZ5DgiDI4Mn/fTNKPFWWsMPmrNjbsM5sUzrwtr3HsIVJga8
+         Pp2YRBHwDdXieEfmTENqcSTMJQW4W2VNw1MvbdHfkBLzZ4MSzCUUKga5lO7j00E/sBDd
+         vBRsiy72nyE2Z9gF2Xpp/NETg9m2LUjcZuimnKiR9UXP7W0wELlAGBEmN3uLWBjIA9pH
+         UoSj1hqaq4j4XgoA4PAYuI06p4gG5Wh5CB2ZdmzKyXpjlsxXxbqoyCKUxg2gHcMIjrzp
+         aPKg==
+X-Forwarded-Encrypted: i=1; AKwUvByVy4o9QDVgtGwzhITwl0EKCCASRSmk1LibskD0QgosL7nRA2dNX2e8YKffDb+AiJY3lMn5/JFK2B2E0A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLq5LN//fxm7g7wlY7q9yT0ETfIvVM1rZXWCAKY0ErmZUmGh3iO
+	lXYFzLFbAk8eKZR+Me/uGpY1iR9ggJxpzrREQ4AMFs+T9vrXELKs31HJOH2jXEFWS/6YHC34q8+
+	wr4JvZcpPkxZVpL/Avw+PCDT9tQ==
+X-Received: from dli6-n1.prod.google.com ([2002:a05:7022:286:10b0:15e:bc16:429a])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:c84:b0:146:5f73:d45b with SMTP id a92af1059eb24-16a54fab691mr20502668c88.3.1791994675581;
+ Wed, 14 Oct 2026 09:17:55 -0700 (PDT)
+Date: Wed, 14 Oct 2026 16:17:50 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-uvc-release-intfs-v1-1-18d6e8dfaad8@blueye.no>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMUQqDMBCE4avIPjdgtEb0KsUHTSe6IqlkVQTx7
- qb6+DHMf5AgMITq5KCAjYV/PkK/ErJD63so/kZTlmZGp/qt1s2qgAmtxMkvTpRzVYG8NKbTBcX
- fHOB4v5uf5rGs3Qi7/EN0nheVwvsjdQAAAA==
-X-Change-ID: 20261014-uvc-release-intfs-ff95e3766b15
-To: laurent.pinchart@ideasonboard.com, hansg@kernel.org
-Cc: linux-media@vger.kernel.org, hverkuil@kernel.org, mchehab@kernel.org, 
- ribalda@chromium.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Johannes Schrimpf <johannes.schrimpf@blueye.no>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791991739; l=7663;
- i=johannes.schrimpf@blueye.no; s=20261014; h=from:subject:message-id;
- bh=vP7V2E0qAI4aNNnmf2u3d9XezDINZxpJYxAsVgid9s4=;
- b=dOkr7T7NsbBPHvdN0gPdn9whWbWpbp3z4PVEEOBydKxgmDhqBJBM59zTHH1QzN9laslaT4cyA
- +2isZG+nSQODmvWF6gijIYeK6wUtkHz9etQQqlb9yHHr2ehUY7TVWpq
-X-Developer-Key: i=johannes.schrimpf@blueye.no; a=ed25519;
- pk=900KgDI7vLhnD9R982XOT47UCm3e4vWxQWBC4jDCUPo=
-X-Endpoint-Received: by B4 Relay for johannes.schrimpf@blueye.no/20261014
- with auth_id=1178
-X-Original-From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
-Reply-To: johannes.schrimpf@blueye.no
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <20261014161754.3782346-1-almasrymina@google.com>
+Subject: [PATCH net v3 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Tariq Toukan <tariqt@nvidia.com>, 
+	Kaifeng Wang <kaifengw@google.com>, Dragos Tatulea <dtatulea@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-uvc_probe() claims the VideoStreaming interfaces with
-usb_driver_claim_interface(), but they are released by uvc_delete(),
-the kref release of the uvc_device. uvc_delete() runs when the last
-reference to the disconnected device is released, potentially on a
-later file close, long after uvc_disconnect().
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall(),
+   and unmap RX bindings that were already unbound on NETDEV_UNREGISTER,
+   preventing slab-use-after-free in dma_unmap_sg_attrs() when the binding
+   is freed after dma_dev.
 
-A USB reset turns this into a bug. uvcvideo has no pre_reset() and
-post_reset() handlers, so usb_reset_device() unbinds it from all the
-interfaces it is bound to and probes it again on the same struct
-usb_interface objects. A process that holds a file handle from before
-the reset keeps the old uvc_device alive. When it closes the handle,
-the old uvc_delete() calls usb_driver_release_interface() on
-interfaces that the new uvc_device has claimed meanwhile.
-usb_driver_release_interface() only checks that the interface is bound
-to the uvcvideo driver, not to which instance, so it unbinds them from
-the new device. usb_unbind_interface() disables the endpoints, the
-URBs of a running stream complete with -ESHUTDOWN, uvc_video_complete()
-marks the queue as disconnected, and every following VIDIOC_QBUF fails
-with -ENODEV. Nothing is logged, and the stream stays dead until the
-device is reset or plugged in again. The release from uvc_delete() also
-runs without the USB device lock that usb_driver_release_interface()
-requires.
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
 
-This was found with a Sonix camera (0c45:6366) on an i.MX6Q board,
-where a camera-control process kept a file handle open across a USB
-reset issued by the streaming process. The failure was traced and
-reproduced with the help of an LLM coding assistant. Reproduced on
-Linux 6.18.24 (linux-fslc-imx) as follows:
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
 
-  1. open() a video node of the camera and keep the file handle
-  2. reset the camera with USBDEVFS_RESET
-  3. stream from a video node of the re-probed device
-  4. close() the file handle from step 1
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
 
-The stream fails within a few milliseconds of the close(), in 4 of 4
-runs. The kernel emits one KOBJ_UNBIND uevent for each VideoStreaming
-interface; the VideoControl interface stays bound. Holding a node of
-the other streaming interface has the same effect. Without step 1 the
-stream survives.
-
-Release the streaming interfaces where the binding is still ours: in
-uvc_disconnect() for the VideoControl interface, which runs with the
-USB device lock held, and in the probe error path, in the same context
-as the claims in uvc_parse_streaming(). uvc_delete() then no longer
-releases any interface. This is the split usb-serial uses:
-usb_serial_disconnect() releases the sibling interface, and the kref
-release, destroy_serial(), releases no interface; it drops its
-interface reference with usb_put_intf(). With no file handle open,
-uvc_disconnect() already drops the last reference, and uvc_delete()
-runs synchronously from it, so on that path the interfaces are still
-released from within uvc_disconnect(), as before.
-
-Tested with this patch on the same i.MX6Q and kernel: the reproduction
-above with the file handle opened on either streaming interface or
-closed before the stream starts, a USB reset without a held file
-handle, sysfs unbind/bind of the VideoControl interface with and
-without a held file handle, and a second UVC camera (MJPEG and H.264
-at 1080p).
-
-The running stream survives in all four streaming runs, and none of
-the five stale-handle closes unbinds an interface; the close() takes
-0.13-0.23 ms instead of 38-42 ms (86 ms when no stream was running).
-USB-reset recovery and streaming from the second camera pass. Sysfs
-unbind/bind correctly releases and reclaims the streaming interfaces.
-
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-Cc: stable@vger.kernel.org # needs adjustments for <= 6.14: &uvc_driver.driver
-Assisted-by: LLM
-Signed-off-by: Johannes Schrimpf <johannes.schrimpf@blueye.no>
----
-Hi Laurent, Hans,
-
-Ricardo's "media: uvcvideo: Remove refcounted cleanup" (Nov 2024) would
-have moved all device cleanup, including this release, into
-uvc_disconnect(), and was NACKed because it fixed no concrete bug. This
-patch keeps the refcounted cleanup and moves only the release of the
-streaming interfaces, to fix the failure described in the commit
-message, which we hit repeatedly in integration testing.
-
-Tool use: this was developed with an LLM coding assistant, Claude Code
-running Claude Opus 5.5, as well as reviewed by GPT-6 Astra. Starting
-from stream failures in our bench logs, the assistant traced the code
-path, wrote the reproduction scripts, ran them and the tests above on
-the device, surveyed the upstream history and other drivers, built and
-checked the patch on media-committers next, and drafted the patch, the
-changelog and these notes. I reviewed the analysis and the patch.
-
-Test kernel: linux-fslc-imx 6.18.24 with three local uvcvideo patches
-(keep MJPEG frames recovered by MJPEG_NO_EOF, nodrop=0 by default, and a
-coherent_urbs parameter). None of them touches probe, uvc_disconnect(),
-uvc_delete(), the interface claim/release or uvc_video_complete().
-
-Not tested:
-- an unmodified uvcvideo, or any kernel other than linux-fslc-imx
-  6.18.24; on media-committers next this patch is build-tested only
-  (gcc and clang, arm, arm64 and x86_64, W=1, sparse, smatch)
-- a debug kernel: the test kernel is the board's production config
-  (SMP, PREEMPT; no lockdep, DEBUG_ATOMIC_SLEEP, DEBUG_MUTEXES,
-  SLUB_DEBUG, DEBUG_PAGEALLOC or KASAN)
-- unplug and replug, sysfs unbind of a VideoStreaming interface, and
-  the probe error path
-- frame delivery after a sysfs rebind: the Sonix camera delivers no
-  frames after any re-probe that does not follow a USB reset, with and
-  without this patch, so those runs check only the binding; the
-  second camera was not rebound
-- v4l2-compliance
-- any camera other than the two on this board
----
- drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index cbc1456..f71dfce 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1976,7 +1976,6 @@ static void uvc_delete(struct kref *kref)
- 		struct uvc_streaming *streaming;
- 
- 		streaming = list_entry(p, struct uvc_streaming, list);
--		usb_driver_release_interface(&uvc_driver, streaming->intf);
- 		uvc_stream_delete(streaming);
- 	}
- 
-@@ -2026,6 +2025,18 @@ static void uvc_unregister_video(struct uvc_device *dev)
- #endif
- }
- 
-+/*
-+ * Release the streaming interfaces here, not in uvc_delete(): after a USB
-+ * reset, a new uvc_device may already have claimed the same interfaces.
-+ */
-+static void uvc_release_streaming_intfs(struct uvc_device *dev)
-+{
-+	struct uvc_streaming *stream;
-+
-+	list_for_each_entry(stream, &dev->streams, list)
-+		usb_driver_release_interface(&uvc_driver, stream->intf);
-+}
-+
- int uvc_register_video_device(struct uvc_device *dev,
- 			      struct uvc_streaming *stream,
- 			      struct uvc_video_queue *queue,
-@@ -2356,6 +2367,7 @@ static int uvc_probe(struct usb_interface *intf,
- 
- error:
- 	uvc_unregister_video(dev);
-+	uvc_release_streaming_intfs(dev);
- 	kref_put(&dev->ref, uvc_delete);
- 	return ret;
- }
-@@ -2375,6 +2387,7 @@ static void uvc_disconnect(struct usb_interface *intf)
- 		return;
- 
- 	uvc_unregister_video(dev);
-+	uvc_release_streaming_intfs(dev);
- 	kref_put(&dev->ref, uvc_delete);
- }
- 
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>
 
 ---
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20261014-uvc-release-intfs-ff95e3766b15
+v3:
+- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
+  and skip it when the device only moves to another netns. (Sashiko)
+- 2/4: Detach all matching TX bindings, then synchronize_net() once
+  before unmapping them. (Sashiko)
+- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
+  pp_hold on memory provider pools, and drop unreadable skbs in the
+  software PSP checksum path. (Sashiko)
+- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
+  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
+  add the needed config options. (Sashiko, Dragos)
+- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
 
-Best regards,
---  
-Johannes Schrimpf <johannes.schrimpf@blueye.no>
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
 
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
+
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  27 ++++-
+ drivers/net/netdevsim/psp.c              |   5 +
+ net/core/devmem.c                        | 143 ++++++++++++++++++++---
+ net/core/devmem.h                        |  10 +-
+ net/core/netdev-genl.c                   |   1 +
+ tools/testing/selftests/net/config       |   4 +
+ tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++++++-
+ 8 files changed, 290 insertions(+), 26 deletions(-)
+
+
+base-commit: 513444cc62e231a11c9b15ea88de0890da9b2b4f
+-- 
+2.56.0.176.g3575e65682-goog
 
