@@ -1,188 +1,172 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010012.outbound.protection.outlook.com [52.101.193.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDEA4EB870;
-	Wed, 14 Oct 2026 12:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791981438; cv=fail; b=fTTHJjwBay1wNw+rjrixitlsgVTUleKyjZeS45KKcz9cYaqmX0y7R5fUL92Y6Kygw2u58T9RL0fSsurSNYua5MUnpqzxxFMdGgdca3GPfGArqZZVSDF4lsB6XYi6vCMMrJdg7tfCN+OqpfFvp1LwZF9tifBgO3TOHK+LWI4ognc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791981438; c=relaxed/simple;
-	bh=Fy/OaIxtH7eFpIUaxYqzqDC30k6nj4aFvfVIfF+XrDE=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=NhOi7Z+EPMDzd9EEdDAQcIxa/QPHuVYN45Emzh8HZPS5Mhvgi+Mn47Nz8XDSQtEz8he/vzfSkV2kiE1nT/AA2dPxiRNFE54UefRR3zZmymAup7aDQm8Etssu7fm/3OfVOGoxTMQyxbFMSOe02fJNXwyh84ckqlYg3+YEgPAG7ZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=isRy54UI; arc=fail smtp.client-ip=52.101.193.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2973850E5A3
+	for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 12:56:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.200
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791982582; cv=none; b=gYMUhxaTuR6shiU9uPfPwotY48sGY/b+uMeouArnwG++MwApLpUyLp7k/BxarAKNcpz48js8LfdQD1hSjWPDnN/8adEOH6SqtNrmGbWrzjy5RxBbWCune8qfzzlopp99iEgbXCTFEvAWT5ENRtpjN2PCfH/Nq4q/OInrDTZ7epI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791982582; c=relaxed/simple;
+	bh=ujR0Ao8Zsx56mkPeBslHepwaYTUlbN4DmdNIeSwQtjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ef8dhfd2CIqswcaWagt7ladXZrvv5xM06JvISXMBIPZ9eoTpUknaiiVgeCB1iF7GMbAnGGH1ZH9TcIbBeG3QRr3r62nCMl9SCQ15SniK/1lOV4pfgR8wCnrd/k3TNhvfEjIJTY5VA8iZvGy0txr/R7/TM18WNK+6sgncGOcRCLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com; spf=none smtp.mailfrom=stromback.com; dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b=bvwQ79GU; arc=none smtp.client-ip=74.125.230.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stromback.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="isRy54UI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ebBm5j+8i69OgxgPS/Pgp6x0ppn9vVmNGm6Z5MjNlGMkLN2r7T57gAjofYcDSvbz9B7p5nLAJzPBiEZD9k0XpIQDrWqSRP7feeN4y3fb2hyaACCdgN+/cmo9WMSw8rnq6PKy+ZyKgFSWTXnoOfrzZLCUV95qR6eTUU6DSl9piT/KhoFZuLlNch0KOB2MJSzlzPsZD6gBsZFY+uFhIIPGHUGrKncq1xc/sM/xoCReWU0ngfRuc3sgp6/CJLdE9uzaTdXjX/E6QOtDf5qK138emg6vM0WzrgHHrJ6SYasvPEewBuASvFmuSswHM2IeolafiPBZQjPVL+cF7JzEcarv/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zeA4qNXckNWoMyKSJ6jNtiW2yKjvewAObfxw15glUks=;
- b=cbOdCDNeFHjrWns2WMeXoBrE3vdImR9KHdUTHaQRuM+K93s5JG6mZZWP1e428HLvYyRhwVhmN7CbLoDj1x6JPeCcyrFMd2cv5V4nR4I8Yk9x4+V4CfOXBIyYJl4kCOrDSrhPLYx31XUl0fSIKFwD1dG5fJ0XOgBfx6covEvixr7GCt7aYSjbyAg/8cvD9sopaVcssk4NLlvyuLjYAU8T7ojEwalClgA4JUkAgO/IV5jOIxAb+1X8Nrm7X63Om1hHtNQ4lOsRQplDFrvj3gtfvyOVfYMQocJqKcXDKD8WbrcQiXWFljTFxQxaS9wO9lW32yWtHue9oMsGTnEdZWEihg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zeA4qNXckNWoMyKSJ6jNtiW2yKjvewAObfxw15glUks=;
- b=isRy54UIqOlvEMsHNAo1a+gSHf+m5PcxzxHbFRGGZyT+BfCHLEO3s13yrX6zS66SWCQn9qNgq/4xfZxLVvzHRggZTYJ3+DrQ+qzQAlwKlztkAf+63CXMMp2h/v0AZ9CZ4FUj3coWLrggwwJUuItzN9nMazsDOImzse0Gwa0EV5o=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ2PR12MB7868.namprd12.prod.outlook.com (2603:10b6:a03:4cd::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.24; Wed, 14 Oct
- 2026 12:37:08 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.011; Wed, 14 Oct 2026
- 12:37:08 +0000
-Message-ID: <8e1c50f7-8d1a-4b78-8524-2897c52ff384@amd.com>
-Date: Wed, 14 Oct 2026 14:37:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dma-buf/test: add KUnit case for
- dma_fence_dedup_array() empty input
-To: Baineng Shou <shoubaineng@gmail.com>
-Cc: sumit.semwal@linaro.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20260630060436.1527498-1-shoubaineng@gmail.com>
- <20261014024909.1769215-1-shoubaineng@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261014024909.1769215-1-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0076.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9a::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b="bvwQ79GU"
+Received: by mail-qk2-f8.google.com with SMTP id d75a77b69052e-53524092d9cso41118401cf.1
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 05:56:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=stromback-com.20251104.gappssmtp.com; s=20251104; t=1791982570; x=1792587370; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0Q+nDPtiFiTRu/6rqQEpn2KpK7KopfG0Bv6ggVQsS+Q=;
+        b=bvwQ79GU96PkDRgx5Aw/dLoJaEfRo/wj3EyEoH12bQy3q0vPMki/7jRcra8ft1jAB+
+         xtQ1hqzIMGp/s3RCJj1JPCzdKsq+JrZI0IGNc0PZvfTknyJ7ugRQKlm2K+vn4+uajeua
+         sOGplMtFk/dWfX6PMSvTxW7TI4lb4m1LhTlIMxJDvyXw2A3DlpoRMI94U98NhisAQs/P
+         IkNuEt7amYC3ApusBIPH2NeIoOUAyevU16hopUQmvtz6yh8vVh0WdLPB5UGci+hKu+lu
+         VEffZ5KCzXoU4aL/YFSPs9IkTXiZSz4M9lKcyk+Khk8bvx385EA3TGGcMZzpIEGdI6NJ
+         DjGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791982570; x=1792587370;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0Q+nDPtiFiTRu/6rqQEpn2KpK7KopfG0Bv6ggVQsS+Q=;
+        b=NltLD9l94Awv3QQwwiD4uw86+5/Tr7cssW0V7U4OpmVhDK6yUxMB3eDBbWApa5mNKD
+         vvvHpO+KlpGklDML5Z9jZePIWrXjHtsnmh6XUhq9I71iByW7suFPkfAP2Q4eThtD0d0m
+         kCjzj1+GmtWdf9aU2DGfn2IFBS31fUrpJyWX9NlKmqUMOw3s2fgD3JzPE1VGhlxZcyZQ
+         4jxopNTMRUYS/2+lD9GinF7jM2N756qpytB4yWD0D2momJOWSV/0ws9cI5h1XAJeR7+2
+         hRFbOKrpc37zRkVRaCn10ZEnYgFThgfUGEID/k/64tWNvm+3D0CSwM5iCDV69473A1P2
+         SmcA==
+X-Gm-Message-State: AFq9FYKNL1d7RjFvEUCVrWSzGpdTFu5dwI7XWTqbgOfBQmIZyK5WpFco
+	ojK1xWHNdaaXo9Uiwz2NVorWZY06vRiRXhhEtPU6w707bijulE/l1stN33XE2brwsILc3cx7GtK
+	WMe7KwCezZsfb
+X-Gm-Gg: AYBFou0cq4VoiBya7q0t0SFjfVEJKFwHbFotbNtKWIR6UFXRw15qODBrExh36qBQgR8
+	ZR9pUERSHbtxLRQSO2g4V/Q6HoCtaBiRhApZkQ9Clly73GtXS4o335c9LnFA9x76BhL/dQuH2WO
+	i5w44Ce1KEC2fFp5NoQdlZKNFMKC43tFtnei6GwxgG+n4xBBAR5Aist8onohsGw/r45eGj7VZVl
+	Kukfks1t7ewkfWUISGrQgBOuY3s3DJGqk5U6gVDSmZcCfL3cOgxrsaeXW99/5pPTtYS0xof0knK
+	yZa3Cml7/Fw8whXW4yMIM2BBqfZwgersRV+A5lEyM5oWqwNgXPrEjU9xZvppxNBctftOcGSnO+K
+	aHd/BwSNW+7nehx0ieGK1TgcNl39DF6A/SbXJXGqx+r0tndYvN8Y8mE0hVRRNNaAJwApPV9NAJL
+	6hS4gg4AGYcA5y5iEsp46MAiKwn1Lui1iA6oXZzTt7oj3Cpy4SIShmaBVW1aJK27W8tYFkKozgx
+	jMXwG1lZCr3WOz7+FlvRb4FJjHYweEpI+oaIXprkN16q0LmL6keRavhsfLsicsK9zynD0JraFkA
+	SMK4WW08RhQXGt6/SB8W9hPLx+Op2gk6lOHsAJoK0Al4avDBazCG6GjU/po71ni5dPVyg518fYh
+	+jJSdghhZbNYmzwCrZYvorjtdTXZSPlK7wn1sdDzLEiGvy/7KFuoqBr3wwmjOXw/wErgSMCt5ej
+	I3sYWIcr5xl/iEqdBgiiWyfbvZmp4+idzgty8oFl04A8zX48FYXXw1udbS64kKLfmypQ9mSryFf
+	3U/ZpNB6Gc=
+X-Received: by 2002:a05:622a:1f8b:b0:535:1d90:ebcd with SMTP id d75a77b69052e-5359fa71b46mr242740251cf.27.1791982570371;
+        Wed, 14 Oct 2026 05:56:10 -0700 (PDT)
+Received: from fedora.tail5f8cb3.ts.net (c-76-151-41-221.hsd1.va.comcast.net. [76.151.41.221])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b35e23sm52368836d6.17.2026.10.14.05.56.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 05:56:09 -0700 (PDT)
+From: John Cronin <john@stromback.com>
+X-Google-Original-From: John Cronin <john.cronin@opcenter.com>
+To: linux-media@vger.kernel.org
+Cc: hpa@redhat.com,
+	sakari.ailus@linux.intel.com,
+	hansg@kernel.org,
+	stable@vger.kernel.org,
+	John Cronin <john.cronin@opcenter.com>
+Subject: [PATCH v6] media: i2c: imx471: return 0 from get_selection after filling crop
+Date: Wed, 14 Oct 2026 08:56:08 -0400
+Message-ID: <20261014125608.1407042-1-john.cronin@opcenter.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <as9039ZI3Vo43DXX@kekkonen.localdomain>
+References: <as9039ZI3Vo43DXX@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB7868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7871badc-80bf-49f8-84c6-08df29efdc40
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|4143699003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	/VnGAc1eL5CkcpDZfQvJUYwqgGXTJ6Zzo2gHMfC86Xv2UlhaRg4VIYTq9ksZCYwQhJMT1dRy2+dncxEOkyB6YpCJZ4/Q6/k3nERoik92+gfwktZzWtzVcGmfw8ixLuuFYNoo3kxmGJyPFi06TSqiLLbwOmSw80mZbvUcIvSOwo1hh63BlKP6E8EV1G0wYglKu9zEzQZ6nXsDJpO2RfItld1kjdkDo3DobPEYpax+pkroV2+UdpBFC7jXWea9covDlw5bccvKAbtBlcS2G2QEDVdHNfEYnwXaqKjqo4VZK+CE31/axRFG6kpZscxBcag5lG3tU+yjnD+Gug+ob+Jtk4gMLQrfDGC4Zyu8LNIIp2ci2UX8KUsF5tK//Nhp30hLqhi12NbMBEb7EvO7z2B+c5bBgsJsx0AN8nqxFFaEsmvY3jM7Q886nzzRtzQeXQRlsyO/tKbTTAhHkiZcaezIKpWu9CCaMupc5rfFtSAis6St82wgWiq4lTmBvRRyOGcZ6ygOMiruWJApNAv3d2XQYaotTlJi1QekTGwV84z2UEcWqanyXjo91KdDfiG9g0JbY2v5376ea2VxKKXkv0KSTtv8bbAwKR2uMMDbpNWbqLU45q96rhQYQIUVOPM/MOeCIHxuXuqwfz+a4UfVpA1nk0aPojfvImHgRBJrNdiAc/E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(4143699003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?U0JhOUt2b0I4VFU2Ti9aaTZoREpWbmkwV1UrN3FKOHJNM1FwakJSVEFUUFFs?=
- =?utf-8?B?NHZFajBYcmd0K2JUNDVZdTk0Mm5BTVpxTXA5elU5dGREdnhaSDVKcFd6Q2ph?=
- =?utf-8?B?UDFic1djNzJIajJKK2p6S0g5M3g2MFo4Qk1BbXlHRU8xZW54a3ljQ1dRRWhv?=
- =?utf-8?B?dGtHZTRxc0pzMkFNTUh6ZlV0NXhGWXh5SVJCTmFZTjFSU1ZNaERySHdCZEVp?=
- =?utf-8?B?VDNaaXRya2JIQ2p0bXNyOEgvbzd5Y2R1cGVyVnNnZEMvUjUwK2xOMTZLZmFD?=
- =?utf-8?B?MC95bUt4NmEzRzFTM0d6YnA0d0M3NE5RK0Q0VVRKaGZ1bkp3U3A0WVN3SVlJ?=
- =?utf-8?B?ZWIvdnZZdXVta0xITkxBU2d1alRYVVRuK0l5Nm1FeVdJMWxITXEzZmpVaWx5?=
- =?utf-8?B?NVAzMmtIVGNnODRORHRKTWhNd1VmZHczbGtQT1FMYnJtSXdXMjIzOEd1S21o?=
- =?utf-8?B?L3duTlllZkR0TC8zRm5YVzVJclZ0ejQ2akx5YVJRZTNnWTJ3Tm92Vzh1WEJw?=
- =?utf-8?B?RC9RM0wzYWdDNm1aQ2RUNXJRMWhmOGJMajN6bmttUVU1SmdGRnVTZ1JCb0c4?=
- =?utf-8?B?RnExcUhESjZrdFFDeXU2WVY1UTR1aDNZL0VKWGo2L1FpZktIUUtqU3hYUXhE?=
- =?utf-8?B?WW5SUE5TdTYzdmk3aVZ6RWRkaXVLcW9FZ1NwR1I3ZnYzblVJcnpQVG5OY3VR?=
- =?utf-8?B?T1R6RXZCUHJUODVWODdBKzhjZ0VlQTZqL2tvS1V6SmdaelI2RWNZVGJ1YjNn?=
- =?utf-8?B?RVhwWElJd1krNDBuNFZtSW1FV09YODBVT2orMVdLQlREWHp6dlFNVUVQRUNO?=
- =?utf-8?B?dVhJeVR6bU5YYmx5VmRVU2FTNFZlVkU4MWxhWUhzZXFVNGNsaWhRcDNPcDl4?=
- =?utf-8?B?VVg3c0VCUm9KbWxBT0Z2ZDdHcnViSnFScEFucm1hRjk2RjZjb25wUFJVTU5E?=
- =?utf-8?B?dnlka0haRFhKRGZOYjRMSG83T1pieXZ5YTV2Q3RlZVVyZHE3VWlyckxoTzkw?=
- =?utf-8?B?SVNncllFbW5oZDg1UWl1WnlmTUpUalUvWU04OTZ5cmhoSGdNM0hnTVNzTVdU?=
- =?utf-8?B?cHN1NUt5bmNnSEZ5SkhjZlFBTTMvblJDNThaSG5LMWxXTmhERitLZWlVdFZk?=
- =?utf-8?B?OHA0NHFzalhVUFEvazJBK2lEYlNNWUJRUnJ5cmJGMjlabk1KMGhwYUhILzdo?=
- =?utf-8?B?OXFyUDVDV0RQUmZhL3A1MTREdDVBbUYxejdJTnZiRlpBVUg4OVFnbTkrVjRZ?=
- =?utf-8?B?MHROa3BpR1hzZnhVa3BwZmU0M3B0eGNZTlRVcVZVNGFlMUptN2Jtdnl4TlFl?=
- =?utf-8?B?QTJWZHVQOS9mT0orczlPS0FXWVN1SnBXZ0lBUmNWSFU3RmlCQk9GTW5IdHkr?=
- =?utf-8?B?NTVEZFNTQnQ5Yzd5d1gxaGNnTFY2OUFod0V4YUhXSE91anltWEp3SU9MdWVm?=
- =?utf-8?B?eHROREtjTlE1c2FvRVY1RHlrVGdvRjdpaFUwYkVYR3hZN2JYZzBjaS9tK00y?=
- =?utf-8?B?Y3ROZ25IMHFGOEFsVmZrbFRYQktPbVpkR2htUXl1MnYwdUg2UmFZdXZtdEZw?=
- =?utf-8?B?M2FwYmNMZjRWR09FeHp6bmZOZTNoU210cXRHbWFVa1QxQm1nVDk4ZGFXdllH?=
- =?utf-8?B?RmcrT2QrL3VRS05Gb05BOFl5RFErWTZWSUFtOGEwUGU5a3VBR2Z1QTRKZnV1?=
- =?utf-8?B?WGd2K1FLME5GOWVkN3ZXREhjL3ZwUEkwczNvcWxDTEd4SHN4b3NkQmVsN0lY?=
- =?utf-8?B?TFFSWG9ZZ3BzbTBSU3NwdUJtNVRIT3l6eFN5NlcwaGJobHdncEdYVG9qYmFp?=
- =?utf-8?B?OHRwVWNjeGRXQnVjU09MZC8wdVpHcVBJMld4ZUo3N3pTV3JXSnB6TGFQNFY3?=
- =?utf-8?B?Z2lYd2FhbzFoRUo5bWJjcEFRS0hWT20zYTV2NzZyTUQ0WDlPTDd5dWtYazBY?=
- =?utf-8?B?ZmNwdFZvVlhVNHgwS1I3S2ZTeTRyaE1nbE1aMUF3cVhmMmhtQURlWThTNjJl?=
- =?utf-8?B?N0NTWkEvVDJSUXdlVGFBdVpXZThyaVFzaG9IMVdzRlp0OWtnSGVNRmtqbW1P?=
- =?utf-8?B?dksrSHlMVGNkT1ZkWk9KMFlDNlpUL0FxZmJyMUpvTFVGUUFIV25lRzNPa0VH?=
- =?utf-8?B?Wk5vYXp6NmovNTBYcVk0clpBVWxNcUM4UHdpQTlpTFNkT0o4cVZ5TmVoOHpq?=
- =?utf-8?B?ZUd2c2hWYm9XYkZSVi9EcS9NMGQyQ1BGSGkxWEFBMWdtOHpuU0NDSkhhVGN0?=
- =?utf-8?B?NU5VVzdlU29lOVF5UE1kcmMrYXRVTWFuYXd0bnQwUDA2RThTOU5sTTVsM3Nt?=
- =?utf-8?Q?3VJQ84dYLDhvsX6PAI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7871badc-80bf-49f8-84c6-08df29efdc40
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Oct 2026 12:37:08.0677
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zqD6XWK9Yq7lMsjlrqYI1rqWvOXxBPYBxhykwr16nrrKfgXY4nMvJZnJah0LNboF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7868
+Content-Transfer-Encoding: 8bit
 
-On 10/14/26 04:49, Baineng Shou wrote:
-> Add a KUnit case verifying that dma_fence_dedup_array() returns 0,
-> not 1, when called with num_fences == 0. This locks down the
-> contract documented in the kernel-doc and prevents a regression
-> of commit 77a9298741f8 ("dma-fence: Make dma_fence_dedup_array()
-> robust against 0-count input").
-> 
-> Suggested-by: Christian König <christian.koenig@amd.com>
-> Reviewed-by: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
+0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
+rectangle then fell out of the switch and returned -EINVAL.
 
-Thanks for the reminder, I had to wait for the -fixes backmerge to push this.
+Compute analog crop in set_pad_format: 2x binning, centered in the
+native array, same idea as imx219. IMX471 2x2-binned 1928x1088 then
+reports CROP as 3856x2176 centered in 4672x3512.
 
-I've just pushed the patch to drm-misc-next.
+Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor driver")
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2454119
+Cc: stable@vger.kernel.org
+Reviewed-by: Kate Hsuan <hpa@redhat.com>
+Signed-off-by: John Cronin <john.cronin@opcenter.com>
+Signed-off-by: John Cronin <john@stromback.com>
+---
+v6: drop the tested-on line; add Fixes and Cc stable (Sakari)
+v5: drop extra braces; declare crop/bin vars at start of
+    set_pad_format (sorted by line length); wrap to 80 cols;
+    keep only the bug/feature in the commit log
+v4: add Signed-off-by for john@stromback.com
+v3: rebase on media-committers next
+v2: compute analog crop in set_pad_format; return 0 after switch
 
-Regards,
-Christian.
+ drivers/media/i2c/imx471.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
-> ---
-> 
-> Changes in v2:
-> - Add Reviewed-by from Christian.
-> - Rebase onto v7.3-rc7.
-> 
->  drivers/dma-buf/st-dma-fence-unwrap.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
-> index 4d9d313b460c..c5353b36f0e4 100644
-> --- a/drivers/dma-buf/st-dma-fence-unwrap.c
-> +++ b/drivers/dma-buf/st-dma-fence-unwrap.c
-> @@ -370,6 +370,15 @@ static void test_unwrap_merge_seqno(struct kunit *test)
->  	dma_fence_put(f1);
->  }
->  
-> +static void test_dedup_empty(struct kunit *test)
-> +{
-> +	struct dma_fence *fence[1] = { NULL };
-> +	int ret;
-> +
-> +	ret = dma_fence_dedup_array(fence, 0);
-> +	KUNIT_EXPECT_EQ(test, ret, 0);
-> +}
-> +
->  static void test_unwrap_merge_order(struct kunit *test)
->  {
->  	struct dma_fence *fence, *f1, *f2, *a1, *a2, *c1, *c2;
-> @@ -595,6 +604,7 @@ static struct kunit_case dma_fence_unwrap_cases[] = {
->  	KUNIT_CASE(test_unwrap_merge_order),
->  	KUNIT_CASE(test_unwrap_merge_complex),
->  	KUNIT_CASE(test_unwrap_merge_complex_seqno),
-> +	KUNIT_CASE(test_dedup_empty),
->  	{}
->  };
->  
-
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84..0ea18fbb9 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -421,6 +421,8 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
+ {
+ 	struct imx471 *sensor = to_imx471(sd);
+ 	const struct imx471_mode *mode;
++	u8 bin_h, bin_v, binning;
++	struct v4l2_rect *crop;
+ 	int h_blank, ret;
+ 
+ 	mode = v4l2_find_nearest_size(imx471_modes, ARRAY_SIZE(imx471_modes),
+@@ -431,6 +433,18 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
+ 
+ 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
+ 
++	/* Analog crop: 2x bin, centered in native array (imx219). */
++	crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
++	bin_h = min_t(u32,
++		      IMX471_PIXEL_ARRAY_WIDTH / fmt->format.width, 2);
++	bin_v = min_t(u32,
++		      IMX471_PIXEL_ARRAY_HEIGHT / fmt->format.height, 2);
++	binning = min(bin_h, bin_v);
++	crop->width = fmt->format.width * binning;
++	crop->height = fmt->format.height * binning;
++	crop->left = (IMX471_NATIVE_WIDTH - crop->width) / 2;
++	crop->top = (IMX471_NATIVE_HEIGHT - crop->height) / 2;
++
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+ 		return 0;
+ 
+@@ -468,7 +482,7 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+ 		sel->r.left = 0;
+ 		sel->r.width = IMX471_NATIVE_WIDTH;
+ 		sel->r.height = IMX471_NATIVE_HEIGHT;
+-		return 0;
++		break;
+ 
+ 	case V4L2_SEL_TGT_CROP_DEFAULT:
+ 	case V4L2_SEL_TGT_CROP_BOUNDS:
+@@ -476,10 +490,13 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+ 		sel->r.left = IMX471_PIXEL_ARRAY_LEFT;
+ 		sel->r.width = IMX471_PIXEL_ARRAY_WIDTH;
+ 		sel->r.height = IMX471_PIXEL_ARRAY_HEIGHT;
+-		return 0;
++		break;
++
++	default:
++		return -EINVAL;
+ 	}
+ 
+-	return -EINVAL;
++	return 0;
+ }
+ 
+ static int imx471_init_state(struct v4l2_subdev *sd,
+-- 
+2.55.0
