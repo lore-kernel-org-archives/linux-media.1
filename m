@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69C54A2A67
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F39B348C6D
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050056; cv=none; b=OY99PpWlwRpWiWHUOu91uF3Sa2uVHOZJuyk6/DOIfI8iTNrez/Y3YHugSRuOtBRj5ixrqBDQ8P/H1JDdDaZrR9aUiLlZxQcDMLQQD2R5KZ9xWN1Thw3CqfcugvqYdhKfFk8HGNbZ5XBCv3f/2yDO8OaqD/F1VRJm4+kVUcpsq6I=
+	t=1792050070; cv=none; b=b/ny/hQl+GwtD1546rSehqde86MjnjyKB2Vo1Dafgft88UZK6E7MOiPwnwvwUIUY3B30mVNjQNC53NZLBATyxhmxBXxsN1Fc+SiPBr+4TVdjpjj0N7JRU/OJ0TX2L0QjT9cpaxc0AmQ7zsAKHdbi2JpVFnrZuxWkHsP8N33sucM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050056; c=relaxed/simple;
-	bh=KTdIkjaGNgd8M+aQhN1Sliw179pZI7BN3p4JO2Z8Txw=;
+	s=arc-20240116; t=1792050070; c=relaxed/simple;
+	bh=QfsW7p+EnqCrkp5VxF7nJpn3yBDQp8WAB3SXDfvEA80=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KLKJFyRvtHqzFY9iwD/moQ4/ZQ9w3bX6GsVEBPYv85//vptMFiMjYnze/g6IS2oqo22xCT9qHYaoXE9CI+mxD2IoQF6A+9yIsFTcUJE3Bl3p6J3j8UUDFwW53IHsvkNyNQyHTIGfWsyWBGJyaeQ4CkLTQrqEkuy1lpcXjn0Bn50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PJvwGzEv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ws43ryG2; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=DNXKOaGB//t2DPNRABzGG8vfWMsyqP5tK5Y7K0TNDRZSf6rChknJ2lFatG8cXnzBt+VnKbzrtmyzPGWs9KTG2ojcBW9jto37/tIcM9GK9Eych2sDH8e47V9kL6yriSl3bGi3l8QlvzXaC+3DIUqc7lRgwil+6opBz4YEsAN0edk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TgTPp/fi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FHifKsCJ; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PJvwGzEv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ws43ryG2"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F6lZgu586364
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:40:52 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TgTPp/fi";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FHifKsCJ"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F6F3fm500329
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:41:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5cTNxoUZcqOAxt1GmGEc/9lBQ7YAHi80QYMo0vkxe24=; b=PJvwGzEvtYVYkYTp
-	SHinAg5IXPtETn3dk6XSbm/EZUHpWNF6wKR0V38xO96AqMtfvBZDEUTosHkxXwvT
-	iV82LGLxtfGUSppdy3nOYnyMBCagh2nxm5eODM+hqOyM0rW2diFTG1Gb4L1mMSYd
-	Qpqn1RnEwaEaRJVALNvpTF/1jm6ZbZ5/0+6/5ury5ytEu3L1bX7iWuM4Qb5VNNsW
-	Vngc4zM8WzTdjVfXn6kqPNusWUA7SgMrO+IvHU8J0ssKNKMQC37lYK5C91Gz5LKo
-	MWpm0nvD+NBYUOL1ZrENIRGv/QKDyavMBQjSOSDvGwW0n3PyOId2oTIjBwubkj49
-	JSapvA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hakdeskgt-1
+	ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=; b=TgTPp/fiRJ02OnRu
+	K6sP8iGeHpxZs7FtrEExFRzxz2OvdVxz7HKeaEOG5e++i4RD8tRD/diWI4ydxkp/
+	I4nGpFcSIj1e9UZeVtRQDYDAO6aeLHweGR90tTUY20TbcYh8XIeTFwwPsysK2SIu
+	k9xiLQYll0k+VsVISRPultioYj1jE9mLbrMLffAPRWWUu4ic2WMPqhcoME79hrTe
+	KLb9Ze6YupQ0TzCJyh7AL4eoen95eHVI/Lk/22GMC/HJrhPWRbMtQBibHLXJ4CRR
+	qULsSlnZo/UNM2Przc1S2/JE0obAq/1zDbIlKAtR6qxHBb6enil/2OEDXFxK1jKT
+	07BrkA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haagf3u8r-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:40:52 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3ab67ff8ec3so993845a91.0
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 00:40:52 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:41:01 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e8ad8c5f80so63103435ad.0
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 00:41:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792050051; x=1792654851; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792050061; x=1792654861; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5cTNxoUZcqOAxt1GmGEc/9lBQ7YAHi80QYMo0vkxe24=;
-        b=Ws43ryG2YN88J3WrCIwMvo7CLDreIOtlUeLwM3EfH0gZrzv44ownYZbShigvpUNO4D
-         7PyJ99QacsRm7cFLXl7cAXMG0yR2Bob+WAe0DAp4crPaoXzqWvKiE4g3Uvf/65ZzUsPk
-         ZMmJr0MGrJLQftgxjCUMRFcqPtm8JBzq0Tk+CqwLuxtrJhmjUSg8D2OcVWKYkmrdjINm
-         CKioJRYKSzzivYa1QSTrzFwhhjpiDSjXJdEJrxpr1RlzYsotbBLck/KG6XipzT4RaW/a
-         X1r3Ya6vxiS1RP8OUrwDB1wQMtiN6JF8jhjGdRPje1Wo64FTxmiluuRsV6MtX5K/vL1w
-         ewig==
+        bh=ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=;
+        b=FHifKsCJ/tEjjdRaDdw7gBC2Q89BdBZgAP36tRCS+6EuGybHyoR4MXVwJ577VwbfJN
+         atLgkhEvlMYmcwBeNIzJmRAvN7jEUfgSJwf2jkjeRurNda2mVixWYevIN5qhX5LqMWEM
+         am7q4fkH1OJCYNYJxHyX3890PPedMvCgOGy/j6/riq6PiKTho+IBvo4THIuh2xoyxCD/
+         OLqw0hXEMt9s5ahndk7Mp1m20Nhd2frcs59Am7SZYCg827wwXr6+Ott5HbqqM3uq1kAK
+         OmkvdDzfE9RNBqlho8w2M3NZDs8ZSd3PDJ+u6/s6/q2y9m0zGsUbh6sXseJYn5hwXeHu
+         K5LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792050051; x=1792654851;
+        d=1e100.net; s=20260707; t=1792050061; x=1792654861;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5cTNxoUZcqOAxt1GmGEc/9lBQ7YAHi80QYMo0vkxe24=;
-        b=1fv/3PZqlpDIC6SFBGbiwZREMK7l6tDrX2qraov8qOmrgUR+daVjj0xP/X2k/c8YDc
-         ruok7j4cRB7Y6RZwTjq69nVeEfPQydCPA0+lQO4DXhWYCQYn5No/wVlDYF3rq3Ax7bLt
-         h1NkB8eTStPBogA+E953VO+HdamsQ4HrdwN4JjS3ikm1SbukxZn+OCg/fPJ3ggrN7vJq
-         fZ4Guj9ScryP5JUno2FedIYnNm/TOMbcF3yUHdwRCxa/Kcf3CW+z5DQ1mqBEmbxgTyrx
-         zeYukfYbrWDJvcWfElCMjJkjmq3/OQcBUW+PMkyD0MA+Zz0cvI5xXXGZYCZ6pDl4Ukzk
-         AQhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwk0LJACyWLTTVTLi8lJie0R0cQikopRAsP5ehH/KvtE+sTdfI2ngt1OkJKz7t3KffWr7Qa4/HCTjVyhg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJszcZuckKWqNMkOWNdlV67UQ75iPNg/0gj3aiF8vJNBYwebNk
-	/XKAMZXzXuCW2tOfEH9s8UpeqfCLASihQmK8FhC9JDmvgtwf8QCtMDmO9wfehQofBKvbqsB8lA5
-	wyfJ4X/vAPd9hASKa5mJkdnSKfR18Mlr2dgfcj3qDi56Az2oMCwMARFNzeLElzgHwTQ==
-X-Gm-Gg: AYBFou0LwlLquF7ZqKa5MYQZPqNkBb5R18mtNlM6F68fPqYcf5RanRuMapjFItCShFf
-	FJ3cD2XRCEi1FjwBvEe6XRohfh2UZGJOG/5UhwfWFnH6d+ENv15D1uxySILAIa8Tl07M4AEHv8/
-	2FR7jtFwp4ELuWrYXpank5fEPkjuELrQMRsX1+q1eYYPwLJoZpazwnFZ9N9MqGDB/bww3J0pdxv
-	RE0CUDx573QOfpVUtK9XNaRM5SB5nUtIuiNHSP2VbsleBv5ZQcrTMzOv/+bdvlrWvA1UQSMaimB
-	dtn05ILkITg1QVKrUQrR23vzJgld7kQgb+AC4NIW+Z4odTPpo6sjRNQ1uVfuFtBW+dR1LhYcYjV
-	pitGZeyYV6v343O7ZXDeiVlWtsI3AfgXmpoM=
-X-Received: by 2002:a17:90a:d006:b0:3a7:bf13:6007 with SMTP id 98e67ed59e1d1-3ab3a9128c8mr15644345a91.14.1792050051170;
-        Thu, 15 Oct 2026 00:40:51 -0700 (PDT)
-X-Received: by 2002:a17:90a:d006:b0:3a7:bf13:6007 with SMTP id 98e67ed59e1d1-3ab3a9128c8mr15644306a91.14.1792050050596;
-        Thu, 15 Oct 2026 00:40:50 -0700 (PDT)
+        bh=ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=;
+        b=aC1j8W8vdlargIJcSJMi7GLGtX+I4QfdmK9UqpA2uAlGxsrBN952lS9xblYotBL+3i
+         WdpKnw/b6s3gXclnjpKsNPna1Wcb498xGHlPgDX6B+ztFqNJ7mTmedgLvMaUosP07xwL
+         +V8II/YHvjnJ8/W+yj4BQAm2FaXVO2gvFk62f7plbGL84fEocwbrErej/A4hsTeh7gUL
+         ugiK/XCa1CY1WcoHVYL0lcLjSLtbtb5nAEK3fpTFor0lMIpAgsjc10CinuWOaTFvngVZ
+         zBCxgpGtYb1N3gOunKPT+YjpkHdOpBnzfE3yOS4f0o5Z2Amzkw+9dbWIt8Of0+dJ9G5m
+         yxSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzloiCglINIIAnsorOh2Y0pSZqnig6Z0bUDps2slwtr5z7W2DX9uDARHhNWNIgMTe1xyvO47Ai8/WP8uw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrzJgm6BZjGsoLKPDnMo2xfiJr3VLksBiwFoEBo5Ao0la/YFtW
+	stM/I5qAE9W9OzQOVwLtJvAD5gSdUr5my3ttBDOKKyYyVl8c/2rCLGmtqWxcuuSYqFn8LApc0XS
+	0tSm16DadBcxzWbaNaOqBDM2TQJGQXfYq5A/QU0pus2vurk+J4odvIeMZ4P0jPXTgGw==
+X-Gm-Gg: AYBFou2sAqj5YaRL0szMjuHU/c/OJQvXRU+uISL87S/FWR3nCM713TxhZd1oh18Ev4q
+	E4/V+6e2L8ig6ym/iAVP/1Vgpk7d+XNq2FoCA/Q6pnUiXUK4fWa+im6A/ZAS7UWJRhW1yCBPrma
+	+keU0avxEAGYnNmPqWjxXbLfMSl1Sbq6JNx49+mnFg2BJ1noH9YoUjYPeC+Yl9igKQU+Tke5JKg
+	afvpXYwsu9q49iTWIlg5yzGAGW/ebFc/MydHL1+TV3I8MrQx1H5eJhTEDIFQGrsdWS9TbRz+QXN
+	QyW/y1G2ZzAHV8nEaj0K2KixNHG/MwaVOLtIrd2TX0h7MNnyHFVsxAsfgt4VFXPe8yc22CAnnbm
+	O4q97Xcok5bOSxAs4ddAJ4VJ87YUtrqcJQDc=
+X-Received: by 2002:a17:903:230c:b0:2df:4876:50d9 with SMTP id d9443c01a7336-2e8429a58b9mr173469225ad.18.1792050060836;
+        Thu, 15 Oct 2026 00:41:00 -0700 (PDT)
+X-Received: by 2002:a17:903:230c:b0:2df:4876:50d9 with SMTP id d9443c01a7336-2e8429a58b9mr173468885ad.18.1792050060272;
+        Thu, 15 Oct 2026 00:41:00 -0700 (PDT)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e944c23f17sm14014825ad.27.2026.10.15.00.40.41
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e944c23f17sm14014825ad.27.2026.10.15.00.40.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 00:40:50 -0700 (PDT)
+        Thu, 15 Oct 2026 00:40:59 -0700 (PDT)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 13:08:32 +0530
-Subject: [PATCH 12/13] drm/msm: Register the DCP backend
+Date: Thu, 15 Oct 2026 13:08:33 +0530
+Subject: [PATCH 13/13] arm64: dts: qcom: hawi: Add DCP support
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-jshekhar-drm-msm-dcp-v1-v1-12-48aad0fe4f72@oss.qualcomm.com>
+Message-Id: <20261015-jshekhar-drm-msm-dcp-v1-v1-13-48aad0fe4f72@oss.qualcomm.com>
 References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
 In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -119,96 +119,285 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
         linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
         Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792049920; l=1867;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792049920; l=6156;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=KTdIkjaGNgd8M+aQhN1Sliw179pZI7BN3p4JO2Z8Txw=;
- b=gZH8cI5MZKuwSBGLRmM9KBPrUf6xwCojXAgQ86ziJfC23p1ZjpMksabwSdcHJeay6I3FXyCi3
- zeauB9NbyiqBIdzvpbDLVgDbBWtAjLblZlEpRE2DFZ3R2V/NRucRNca
+ bh=QfsW7p+EnqCrkp5VxF7nJpn3yBDQp8WAB3SXDfvEA80=;
+ b=JxMeN+DmWGewFKBEVzcKUqFUkqoSyxqpGwErK350VoQIwFKd+fbhLmrtRxjrT83vph7NHMhD/
+ kefG95krZ7aB85pcavRl2PIXjyPSamuyWWB5KyY+6SVKlJroQsTCpRq
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Authority-Analysis: v=2.4 cv=OdENnRTY c=1 sm=1 tr=0 ts=6ad08384 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX9X0nBuXjbvoQ
+ 5wzOgty5Zv5epuCak/qKECCOoa93JV/YuJQx4FeaK32uTEtIxwNTNLHqn/bLwXjdtCPuK80t+al
+ zq/E7qzWDMj9q+JSHWrNjcz+KF/S7hvlxPh0qqCGavYvPmKU2jyAfxHb4aq7S4PrPaKM1u0vo2F
+ TFonAocpH+EwWxplZncg/8Nb318Xh26kXiuljKcq/NAl1xJgta6vMYi0OncldVGKx5p/V4McI78
+ oZK0MFDtwiBxCIQyvUs0qNvl2apvaHH0Xg4MxK+9ITLHpELsfsT8wyGAx459ost3flz9IYcBzyB
+ 1pqgR4K8+CoaBYA9vFXHItYoyvoAQ7+bxHNzkUjA27tq8ramhTTyJmIc5X8ni67IexhecarHXsG
+ ZBPjt2N5dtUVh1iQT67G4wkMNdlVxKg6PrTZZArkeekDwBddgyM4tlQ+HpvBg+VkQBVG98pGgPd
+ dqvOOT/1pa+cDIYYWdg==
+X-Proofpoint-GUID: 8JzmpLq708t3z1SCmcN5CBKLUEeCFjSy
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX2lSlSHcE1dlb
+ ZXYn/ETzIFe17ZVZL1o4MDtQ6Yfp38xNs+OZerQaUDbD4sA9wtM+lOhUn2jaOXmRL729S60gTIa
+ eJmGP5lh4rSx17cJHRl9uZnu5LYJ8xo=
+X-Proofpoint-ORIG-GUID: 8JzmpLq708t3z1SCmcN5CBKLUEeCFjSy
+X-Authority-Analysis: v=2.4 cv=V/noQuni c=1 sm=1 tr=0 ts=6ad0838d cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=lVH-uUz8Z5eEn0x1YxIA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: GCw56nN90qX1UpbnYQ1gqXIRTVgqHy0D
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfXy0Pu6z5TWjTw
- F9jTgqIUTEoEsAzxSON0A3L43sDFzKO39+IQjSIFL0PZ9jy/SNBP7YUcdVvKLByQsw1EBCkX7P+
- 2FYxOcl033PBOK8OFI3uOlgl1v3kILmWlLzO0ZUh/fHJE7Kb7+GDOJEemFxVOD3o0SZ0MOEKWAg
- CkoQNp0ospc8wjsuW1C35WiGI3qRISnfPeR1xBJLiND7kEYob7gfG/xtfNgXQjZ94p3RcLmSSQc
- hgh6TJV7eb5TJ17j+xJBVqSXfg7rPJJ4ALnNiBbC5QWlfFcuhQBGuRIdYsYKXXjS11atAbTzhtr
- RiFVase7JrS/oPBrYYLMyggkREaRFOzbjQUFJYKgLmu83eeXBKhn7Pp3IwOwpmxaEyl/plNPlli
- wPhTTlOLo39w7Y2UlWNP80mxWUvt4wZ8s+54KYMd9713qHpuJUYLX8eKLbO7xxAhXBiGVZqFOK+
- TiOoevjB+8l+VEUzDiA==
-X-Proofpoint-GUID: GCw56nN90qX1UpbnYQ1gqXIRTVgqHy0D
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX36+1AuX/0RBP
- QKOiLHAowGOY5w+UxjNwycr0N+2A8q8YQk9y/0PvLg4LDsZQv5/mMHuE5N/OG8QBqm4zz63JIrI
- SaEHOKH/LvUXxTdGaiJvIpggqXsx98U=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=_CzEFU3RdQMONSqgxRIA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 spamscore=0 impostorscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 malwarescore=0 adultscore=0
+ priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ bulkscore=0 adultscore=0 clxscore=1015 phishscore=0 spamscore=0
  suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
  definitions=main-2610150030
 
-The DCP platform driver provides an MSM KMS backend. Register it from the
-MSM DRM driver init and exit paths so the VirtIO driver can use the backend
-when the DCP function is discovered.
+Hawi display hardware is owned by DCP firmware, so the platform device tree
+must describe the VirtIO transport, firmware display function, power-notify
+channel, IOMMU contexts, and display graph used by the MSM DRM driver.
 
-Add DCP registration hooks with no-op stubs when CONFIG_DRM_MSM_DCP is
-disabled. This keeps backend registration consistent with the other MSM
-display backends while allowing DCP support to remain optional.
+Describe the DCP VirtIO transport and function, IPCC channel, IOMMU
+assignments, firmware-visible IOVA range, and DSI display endpoints on
+Hawi. Enable the DCP display device on the Hawi MTP platform.
 
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 Assisted-by: LLM
 ---
- drivers/gpu/drm/msm/msm_drv.c | 2 ++
- drivers/gpu/drm/msm/msm_drv.h | 8 ++++++++
- 2 files changed, 10 insertions(+)
+ arch/arm64/boot/dts/qcom/hawi-mtp.dts | 131 +++++++++++++++++++++++++++++++++-
+ arch/arm64/boot/dts/qcom/hawi.dtsi    |  59 +++++++++++++++
+ 2 files changed, 189 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-index f3d2eaa04f14..04c31596d6d4 100644
---- a/drivers/gpu/drm/msm/msm_drv.c
-+++ b/drivers/gpu/drm/msm/msm_drv.c
-@@ -1135,6 +1135,7 @@ static int __init msm_drm_register(void)
- 	DBG("init");
- 	msm_mdp_register();
- 	msm_dpu_register();
-+	msm_dcp_register();
- 	msm_dsi_register();
- 	msm_hdmi_register();
- 	msm_dp_register();
-@@ -1156,6 +1157,7 @@ static void __exit msm_drm_unregister(void)
- 	msm_dsi_unregister();
- 	msm_mdp_unregister();
- 	msm_dpu_unregister();
-+	msm_dcp_unregister();
- }
+diff --git a/arch/arm64/boot/dts/qcom/hawi-mtp.dts b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
+index 9c86e0477053..03e4cc117109 100644
+--- a/arch/arm64/boot/dts/qcom/hawi-mtp.dts
++++ b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
+@@ -36,6 +36,18 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
  
- module_init(msm_drm_register);
-diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/msm_drv.h
-index eb4bbae8557b..39954932b91b 100644
---- a/drivers/gpu/drm/msm/msm_drv.h
-+++ b/drivers/gpu/drm/msm/msm_drv.h
-@@ -415,6 +415,14 @@ static inline void msm_dpu_register(void) {}
- static inline void msm_dpu_unregister(void) {}
- #endif
- 
-+#ifdef CONFIG_DRM_MSM_DCP
-+void msm_dcp_register(void);
-+void msm_dcp_unregister(void);
-+#else
-+static inline void msm_dcp_register(void) {}
-+static inline void msm_dcp_unregister(void) {}
-+#endif
++	display_panel_vdd: regulator-display-panel-vdd {
++		compatible = "regulator-fixed";
++		regulator-name = "display-panel-vdd";
++		regulator-min-microvolt = <1100000>;
++		regulator-max-microvolt = <1100000>;
++		gpio = <&pmd8028_e1_gpios 2 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-boot-on;
++		pinctrl-0 = <&sde_disp0_vdd_active>;
++		pinctrl-names = "default";
++	};
 +
- #ifdef CONFIG_DRM_MSM_MDSS
- void msm_mdss_register(void);
- void msm_mdss_unregister(void);
+ 	clocks {
+ 		xo_board: xo_board {
+ 			compatible = "fixed-clock";
+@@ -261,6 +273,7 @@ sdcard_vdd_3p0: sdcard-vdd-3p0 {
+ 
+ 		vin-supply = <&vreg_bob1>;
+ 	};
++
+ };
+ 
+ &lpass_vamacro {
+@@ -271,7 +284,6 @@ &lpass_vamacro {
+ 	qcom,dmic-sample-rate = <4800000>;
+ };
+ 
+-
+ &q6apmbedai {
+ 	dai@40 {
+ 		reg = <SECONDARY_TDM_RX_0>;
+@@ -1277,3 +1289,120 @@ &usb_1_dwc3_hs {
+ &usb_dp_qmpphy_out {
+ 	remote-endpoint = <&pmic_glink_ss_in>;
+ };
++
++&dcp_dsi0 {
++	panel@0 {
++		compatible = "novatek,nt37801";
++		reg = <0>;
++
++		pinctrl-0 = <&sde_dsi_active &sde_te_active &sde_esync0_suspend
++			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
++			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
++		pinctrl-1 = <&sde_dsi_suspend &sde_te_suspend &sde_esync0_suspend
++			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
++			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
++		pinctrl-names = "default", "sleep";
++
++		vddio-supply = <&vreg_l12b_1p8>;
++		vci-supply = <&vreg_l13b_3p0>;
++		vdd-supply = <&display_panel_vdd>;
++
++		reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
++
++		port {
++			panel_dcp_in: endpoint {
++				remote-endpoint = <&dcp_dsi0_out>;
++			};
++		};
++	};
++};
++
++&dcp_dsi0_out {
++	remote-endpoint = <&panel_dcp_in>;
++	data-lanes = <0 1 2 3>;
++};
++
++&pmd8028_e1_gpios {
++	sde_disp0_vdd_active: sde_disp0_vdd_active {
++		pins = "gpio2";
++		function = "normal";
++		input-disable;
++		output-enable;
++		bias-disable;
++		power-source = <2>;
++		qcom,drive-strength = <2>;
++	};
++};
++
++&pmh0110_d_e0_gpios {
++	sde_mdp_vsync_p_1p2_active: sde-mdp-vsync-p-1p2-active-state {
++		pins = "gpio9";
++		function = "paired";
++		input-disable;
++		output-enable;
++		power-source = <2>; /* 1.2v */
++	};
++
++	sde_mdp_vsync_p_1p8_active: sde-mdp-vsync-p-1p8-active-state {
++		pins = "gpio10";
++		function = "paired";
++		input-enable;
++		output-disable;
++		power-source = <1>; /* 1.8v */
++	};
++};
++
++&pmh0110_f_e0_gpios {
++	sde_disp0_rst_1p2_active: sde-disp0-rst-1p2-active-state {
++		pins = "gpio9";
++		function = "paired";
++		input-enable;
++		output-disable;
++		power-source = <2>; /* 1.2v */
++	};
++
++	sde_disp0_rst_1p8_active: sde-disp0-rst-1p8-active-state {
++		pins = "gpio10";
++		function = "paired";
++		input-disable;
++		output-enable;
++		power-source = <1>; /* 1.8v */
++	};
++};
++
++&tlmm {
++	sde_te_active: sde-te-active-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_te_suspend: sde-te-suspend-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_esync0_suspend: sde-esync0-suspend-state {
++		pins = "gpio88";
++		function = "mdp_esync0";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	sde_dsi_active: sde-dsi-active-state {
++		pins = "gpio211";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	sde_dsi_suspend: sde-dsi-suspend-state {
++		pins = "gpio211";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++};
+diff --git a/arch/arm64/boot/dts/qcom/hawi.dtsi b/arch/arm64/boot/dts/qcom/hawi.dtsi
+index 0926d880cb0c..58fcf42cbaba 100644
+--- a/arch/arm64/boot/dts/qcom/hawi.dtsi
++++ b/arch/arm64/boot/dts/qcom/hawi.dtsi
+@@ -8235,4 +8235,63 @@ timer {
+ 			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+ 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
+ 	};
++
++	dcp: virtio@9be8000 {
++		compatible = "qcom,dcp-virtio", "virtio,mmio";
++		reg = <0x0 0x09be8000 0x0 0x1000>;
++		interrupts-extended = <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
++				      <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "virtio", "dcp_power_notify_irq";
++		iommus = <&apps_smmu 0x15a3 0x0>;
++		iommu-ranges = <0x0 0x84000000 0x0 0x04000000>;
++		dma-coherent;
++		mboxes = <&ipcc 13 5>;
++		mbox-names = "dcp-power-tx";
++
++		dcp-subsystem {
++			compatible = "virtio,device34";
++
++			iommus = <&apps_smmu 0x400 0x2>;
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@1 {
++					reg = <1>;
++					dcp_intf1_out: endpoint {
++
++						remote-endpoint = <&dcp_dsi0_in>;
++					};
++				};
++
++			};
++
++			dcp_dsi0: dsi@0 {
++				reg = <0>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++						dcp_dsi0_in: endpoint {
++							remote-endpoint = <&dcp_intf1_out>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++						dcp_dsi0_out: endpoint { };
++					};
++				};
++			};
++		};
++	};
+ };
 
 -- 
 2.43.0
