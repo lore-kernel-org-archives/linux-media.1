@@ -1,114 +1,167 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E271F4A482A
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 16:36:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BF2446BE0
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 16:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082183; cv=none; b=avEEMDM2DepXS0zpBJEWKvO+4PZu2HerZtsxW0Iq9zcr+9i+bWqxuwliEtpx7GJKe+IZEAbNqKalqSmSx831rIo7xw+1UCiiBFNufRixD9ZfNDKUi5Pf+e41X7Vq+fnqfIzeFUUnK0mEt5ye5ReMN9s3y/bOMnSSu3l++pWA1Ak=
+	t=1792082368; cv=none; b=UXZh1jVIZk2MINhWsMr8pTNVR549v2xBkSYnsrcxagJX9TGyTNN8d04BgJ/bDTUmWimzcsJJWvHpZ8/czceTTUuUqSYm5Y7ZZcf2RkYtrpKL+rALkDJerArdadWw3RieLleMXPKEFWgs8+Jc2ufipWaJVPi+hzgDfvIdKuGadFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082183; c=relaxed/simple;
-	bh=Xa7gc1Cb2AZVvx1vvgm0nrvmeU+/MARaO6KkTtVOHZs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=gZI3SUcQAa6YK5Q8W3ndF8wpjGVKnm0sFwzezQtuBrDEjjW7zW11Z66rBXuqLj00eFgeTcMT8GMNIFFe05Les1aVnKqjXwjOT3zx43MmGOYxQ5sjHwpZ9N7fge+uD+2GmpieEyn3iJ7Hr7IbAuksuY4ZZzZ0nyzoKgtgPolXq3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=n2KYXE55 reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1792082368; c=relaxed/simple;
+	bh=E+zSoTtuwkYhdpk9ljOm3Z9OJ5QmHoC4r8hcYNR5OJM=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=TFZw7HFj5J1evY1YO51WZOw571ZDs3sQxp8PhtnQMfRFGY066Om6Wgvz9VP7XYZErRfjET8V05Y9xahFp0D9rkmcZTLjsmaBgNwD3g7YyR1q1VSQkdO3tZree8wDxov6C2l5zX75p+937e1iE7wCblMjrfGTUfq8oORMoWwpEiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=XSSUXbK6; arc=none smtp.client-ip=74.125.82.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="n2KYXE55"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="XSSUXbK6"
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14364a88479so4524c88.1
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:39:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=+pXBKqBvYNPj5huxOC+avN4dmOZyhGkwrd
-	ge1wfduAM=; b=n2KYXE557YFVL6nBNDFKPM+7pb4CVQoQftLzGrxjiA3ByEs9y1
-	jHUSlTZizVyUfNS9BVfnL8m1gU1r6DXJAqzzt5lT40R4dUywITlPYFtHL5FGI8mn
-	A0pP9L5lOlxyMt9J2hT/jWITVf9xux8qraWDqYhXHSdEbVQ9p81BekSTw=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.59])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkCGjgHyANFqZd+kAA--.13770S2;
-	Fri, 16 Oct 2026 00:36:02 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: linux-media@vger.kernel.org
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	Patchwork Integration <patchwork@media-ci.org>,
-	Linux Media CI <media-ci@linuxtv.org>
-Subject: Re: [0/3] media: dvb: fix use-after-free family in dvb-core and dvb-usb disconnect paths
-Date: Fri, 16 Oct 2026 00:36:01 +0800
-Message-Id: <20261016005500.44231-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <6ab70048.a932eb10.38b8b.32d0@mx.google.com>
-References: <20260923092454.969-1-25031212351@stu.xidian.edu.cn> <6ab70048.a932eb10.38b8b.32d0@mx.google.com>
+        d=google.com; s=20251104; t=1792082357; x=1792687157; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
+        b=XSSUXbK6SPBy0cpT4zSFmyOcz1BG3NJbuSHIHTwgfwg38ivDGGFFtZg57kikXFOf86
+         Upbsf6HUZoHOSuCcGY/tdc8Tu6gn4zcSZNrAZKRD/rwYj8WV//kHq3PhNkXBWwU3pU4J
+         umYWCJ3bF6htuT9/rw3n4/SABRG0B1OFz4L5El1+nC2EcRo+PTRXk4luqVnpfPmk4j8B
+         27LkfEGiUvMOS987K3kCl0F7GFhTDc4yP1MWiECJY3HLisTpHhxMCF7D5HbB7d4wCYCz
+         uT2TkyjmSn7NDw2jOO9AIqd81fnJXuABDgz/mrqRAnUeL+2fn4MjXBxyU8433NasJlMP
+         Mnjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792082357; x=1792687157;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DD74npn17j4yI5LDxhcNiaGvijuuU+ohVy4Pfwe/27o=;
+        b=vQcv+INO2kWbkuaYGjFWrXuMyvMn9W8URujj0xxBE4Q+dSmL6/eaO2z6Cv4tmH0zFD
+         h+mA9hVVbMZBzNAb3HxH9GfVdrONO4YfDru9hTsDWvjO92JenR7VxVIDvs2AanoIO0Dw
+         tpE6NT7JFE7+XsVnJPYUKu/fNAEvvAhia0xjjI5TkL2tjDUeI1HV4i3VPsJYiD5yMb97
+         FWXbJ7SF/zVX4+bGjUKFazFW98WCbkFDwXjO/wfx9DrtM6jWm7afQzjjWELddWJCquyz
+         AZDZ9TERZuSjbBQuwJbUYvktBDxO2pBea1JHn+HkeV6FWqcu9+XRfYnSKMjTmSv18i1O
+         XnFA==
+X-Forwarded-Encrypted: i=1; AKwUvBynOdOpaZ/pZGRE7CVrtVuO5s3KJhF/rCfRq+CkU+ecGDX/mC2Ep9hl3W+2dEH2LQHU6+cTAEUP8LhCVQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeVG3XvwicHAVGX55ZqB/SauX9Pk/jaRO3SPwcyuB/zSL8b7Bs
+	00PYBoP+aK74/H31SVnexhp+7otUxlXjmLCNXSNbyuk4LiGoXQcUnbDz5M70lVUheIBU+GF25+5
+	x7FPrwpV+UsDDh674XZFpRIULig==
+X-Received: from dlbut14.prod.google.com ([2002:a05:7022:7e0e:b0:152:9a82:8c78])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7022:6b9b:b0:156:d588:c881 with SMTP id a92af1059eb24-182500534eemr688262c88.2.1792082356249;
+ Thu, 15 Oct 2026 09:39:16 -0700 (PDT)
+Date: Thu, 15 Oct 2026 16:39:11 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkCGjgHyANFqZd+kAA--.13770S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tF4UXrWxCrWUGw17AFyDAwb_yoW8tF1UpF
-	Z3tF13tFWUGr10vFWIyw18urn8Z3WrArW5GwnxJ3yDJF45GFySqFWvq3WDZryDKrs2934Y
-	vws0gay0kayUAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvq14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
-	6r4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwCY02Avz4vE14v_JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0x
-	ZFpf9x0pRKjgsUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUHD2rQ7rwN0wAAs5
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
+Message-ID: <20261015163915.1166043-1-almasrymina@google.com>
+Subject: [PATCH net v4 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
+	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>, 
+	Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Dragos Tatulea <dtatulea@nvidia.com>, 
+	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration:
 
-thank you for the detailed report on job 111198927.  Version 2 of the
-series has been posted; the findings split into two groups.
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall()
+   or closed in net_devmem_unbind_dmabuf(), and unmap unbound RX bindings
+   whose queue failed to restart on NETDEV_UNREGISTER, preventing
+   slab-use-after-free in dma_unmap_sg_attrs() when the binding is freed
+   after dma_dev.
 
-Caused by v1 of this series, fixed in v2:
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
 
-* cocci:test-coccinelle - the six "preceding lock" warnings in
-  dvb-core/dvb_frontend.c (lines 2899/2906 vs. the mfe_lock
-  acquisitions): v1 [PATCH 2/3] added an early "return ret;" on the
-  dvb_frontend_open() error path and in dvb_frontend_release(), which
-  skipped mutex_unlock(&adapter->mfe_lock) (and the frontend kref
-  drop) on those paths.  [PATCH 2/3] is reworked in v2: the extra
-  dvb_device reference is taken before dvb_generic_release() and
-  dropped again right after the ->users check, with no early return
-  anywhere, so the lock and kref control flow is identical to
-  mainline.
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
 
-* media-patchstyle:test-valid-ancestor - v1 was not based on a
-  media-committers branch.  v2 is rebased onto the `fixes` branch
-  (base 2579cbe68005f46fc7f8f95364f6b101b07b9d1c).
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
 
-Not caused by this series:
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>
 
-* bisect:0001, bisect:0002, build-basic:x86_64, build-basic:x86,
-  static:test-smatch and static:test-sparse all fail on
-  drivers/platform/x86/intel/int3472/discrete.c:346
-  ("'err_msg' undeclared"), before any code of this series is
-  compiled.  The series touches only drivers/media/dvb-core and
-  drivers/media/usb/dvb-usb.  On the media fixes base of v2,
-  skl_int3472_handle_gpio_resources() declares "const char *err_msg;"
-  (discrete.c:332) and the "Failed to register clock" assignment is
-  at line 398, so the CI tree appears to contain a different, broken
-  revision of that driver.
+---
+v4:
+- 1/4: Unmap RX bindings in net_devmem_unbind_dmabuf() once their queues
+  are closed, and make netif_mp_close_rxq() report queue restart
+  failures, so the NETDEV_UNREGISTER walk only handles bindings whose
+  queue failed to restart. Drop net_devmem_lock: walk the bindings under
+  the xarray lock and take the instance lock of binding->dev in the
+  final free. (Stanislav) Record a queue in bound_rxqs before opening
+  it. (Sashiko)
+- 2/4: Detach and unmap TX bindings directly from the walk, without a
+  grace period or a second pass. (Stanislav)
+- Link to v3: https://lore.kernel.org/netdev/20261014161754.3782346-1-almasrymina@google.com/
 
-* media-patchstyle:rc core - all 14 errors are in include/media/
-  rc-map.h and Documentation/devicetree/bindings/media/rc.yaml,
-  untouched by this series.
+v3:
+- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
+  and skip it when the device only moves to another netns. (Sashiko)
+- 2/4: Detach all matching TX bindings, then synchronize_net() once
+  before unmapping them. (Sashiko)
+- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
+  pp_hold on memory provider pools, and drop unreadable skbs in the
+  software PSP checksum path. (Sashiko)
+- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
+  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
+  add the needed config options. (Sashiko, Dragos)
+- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
 
-* static:test-smatch buffer-overflow reports (v4l2-dev.c, adv7604.c,
-  amlogic c3-isp, wave5, ipu3), static:test-sparse (atmel_mxt_ts.c)
-  and the remaining test-coccinelle warnings (helene.c, mali-c55,
-  iris) are in files that this series does not modify; the same was
-  true for v1, where checkpatch and the media-patchstyle style checks
-  passed.
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
 
-Please let me know if anything on the series side still needs work.
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
 
-Best regards,
-YuanZhe Liu
+ drivers/net/netdevsim/bus.c              |   1 +
+ drivers/net/netdevsim/netdev.c           |  27 +++-
+ drivers/net/netdevsim/psp.c              |   5 +
+ include/net/page_pool/memory_provider.h  |   4 +-
+ net/core/devmem.c                        | 157 +++++++++++++++++++----
+ net/core/devmem.h                        |  11 +-
+ net/core/netdev-genl.c                   |   1 +
+ net/core/netdev_rx_queue.c               |  26 ++--
+ tools/testing/selftests/net/config       |   4 +
+ tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++++-
+ 10 files changed, 314 insertions(+), 47 deletions(-)
+
+
+base-commit: aa07285705f8d5bac464eb1c5b7412f8e88b91e1
+-- 
+2.56.0.176.g3575e65682-goog
 
