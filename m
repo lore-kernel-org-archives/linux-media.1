@@ -1,135 +1,155 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF7350C2B4
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2912B4FDE75
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 10:06:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792057799; cv=none; b=l9K+AaqXpECSVI/U4rC5KnLgzr9rzJ6EKLgFAqKSJTYkKqYYOzYXTbvSqxqYfPguGJ/zTeu2udGGTTLKt+acLeDUuU9x59/zyxJk0kxQSur0AyXuBe6gA9lGvmo40w5aYbuqz1GciesLdAT95ffIIfTmdqXyO6Ks5BzWP9pxjEA=
+	t=1792058819; cv=none; b=hVZarbrOUWYm2pQprpZwQUDYWMQSkfuOjNL7A7vxFa3hmhTgwJrEmAvdoYaEpyhmG127U1Ss12ag1QZJ8utf9swXA77uYGXT2LxTMcSIx/B7sW2INXmtEYDaS8f6oyJyD5ouO+D3cHd1evyaxS81bQh5aTJmog1x+k5ZoB+pdOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792057799; c=relaxed/simple;
-	bh=ZOpltpafv/7LlNWra6wWjfFa96A+83F+yhqApR3l6JM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TmzZDhOxgANaT6vnPG3nvKg6Gx+m4Buux0vkrsmcoSWSq6HKYD2r4W46JyiyI09yDQiGFfrvHyq3TfPophe090dUSgt5h6ie74Hx3KdMb9QdO11oFFa2MyAoXODTAC+CN6aSX9LUQGkfLgLg+BdGnJbR06I3/yBrEzH2C2Y34b8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com; spf=pass smtp.mailfrom=imd-tec.com; dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b=KAa7pvlf; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imd-tec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imd-tec.com
+	s=arc-20240116; t=1792058819; c=relaxed/simple;
+	bh=+fR0ZbzGgBBtyDW1FmelvhNzuV28OiZnZPEUZH6twI8=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=IIiXDshwV8efMnkKfZcQaGx9035Wc1fi9seyj9Erx7HfNTzGRpn7Sgpoe8jT8kKgEcmlJ0aaF6EyES+xrzCFkGXc/JItqYEwJ+cQ51JxbN1CS0mOi9QYfmAEPWq4of1DNm9odtUvPU6EKCqwdVUsdJqQIDbOMMNVGfRRQL0SIck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=KB3wo2Jo; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=m1VlaiTS; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imd-tec.com header.i=@imd-tec.com header.b="KAa7pvlf"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48af27fe287so174162f8f.0
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 02:49:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=imd-tec.com; s=google; t=1792057794; x=1792662594; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bZtTPFUdhwPPjPop4o2Vw8B13QBJM3YcreGJyrx1Qvs=;
-        b=KAa7pvlfN9u1gjVrWFZ+5GeN+qfPSajRIwkJ7IzoTZjpdwy3h4vC0Z3Ws3h+3Y3OZD
-         tLDamhB/H4brlXm1u+0MG7S6yw0FM06O+6McvXfODyIb9sxhUwk4zEAUCUVLZNzAyF3a
-         vkToGr5ZQDTkUpYhEKs5GOcQkvlrtBn1Qo3XBWiEY2cxVZwp7xz8sOz3/MwPMu0Xn++/
-         Emgb8LgRZp5EovzWJqNdw64sWx9bWP0OCz5LRiLS+vy8AIqAm+GB5ZEeokOL+9NeBD5S
-         +1wDW9lXZD3CEQteiAwBmtpqZdgL3K3UB7zRdjnfguT55dh8bQpsU4JJlkveI9PWG0mu
-         OlIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792057794; x=1792662594;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bZtTPFUdhwPPjPop4o2Vw8B13QBJM3YcreGJyrx1Qvs=;
-        b=tiBmL+l+tZJANVouU8MW/4VsvazxEdv7oQuE+7eobswGUjC9hcjJO1/Cak54oEvyBj
-         lwoEJ2QePHsk2p18X474f2P+kBr6iozmy/FY8ypT/rKOQ93yRGtG0U6V03F7F+0bE0S6
-         CYmnz66TkORqUq+V8Sqzb6Z6oK4U4vAIoKGvVLy5izkXxiIw9W3tMwb/XB7lhWlrIGt1
-         NiUKE/6T90Fshm/uXVTh+bwXwQdSSMMwQmohngPJyN4pm2Lo0QAeuIBdQ4Hh/fAzlwW/
-         8qxIUbNCd7RpJQ8sp1XCX9JPM1Rj/PqBzP7NxU3bREzGagslOuk+hh+ycmzrBfbTuCBc
-         DgyA==
-X-Gm-Message-State: AFq9FYJlu+Nhj+Ez2A3L2o1uGAHaS5msSAxjbJ5y0xaqjQ7A8+1Gr0Wy
-	/hXdWk84YYHHiFEUMks2IDgUOA4g+H8/yQteCn8XGWTgM70olVlbl+NTMm6fdMjED+k=
-X-Gm-Gg: AYBFou3E9u7+vvcsS6BPFk5U07sCPgxR1EYqiTj32+Juqds9sMzufSf0Q/YsJFET9tx
-	ttKXsbE7YEEjA1Eo7N1zmOLSTk1Hzc/hRKa0wHCwmTWUc0KDGST4ccu7hdmyEU1IwjyxdYaxvAC
-	F5dPLc21M4eU60C6LAQ5rFfM/n8/Ayi5Na504cxMY780Kw+2Q1hP794aCs6Vbhb5E6LuTYkmCnQ
-	pt01veC0KI8hOlnEB3S1zP5bwMSxMWvD2ma4ro5T6tH0GY/Gu2jr7aThx9HT2vEK1yGyW9JTvO1
-	JILr5F0viwo+i9za8cVNdNAYzyUwGYgAfHNjDWppBsc4OI17r7vsk1tw06v8L7js3BU0u5HtfP/
-	WtsheYBtWPZYYFYYGANFoWw8LN87xqOgiH+p0VH3/8z91zM44qWdu4arC9Af9yWj2h3I77t9ExQ
-	PkK8fyaVC0vb76R+n8lPt11JvZigyNlukI+DYd6jZoZApI9Uk6b2banOKcfhFm7GqTnOGV7aA5Z
-	C6muRU8UB2UzejvkPTYz46xQmNQ/iKiU2waDykj696272nj3tkXELAuHvD/9+0J1Sz68V4+BIUk
-	Yyo0KXamzBKWNkcB80UZsvKWZ7Z4XYeaASGHxQ==
-X-Received: by 2002:a05:6000:40ce:b0:48d:bb54:77e7 with SMTP id ffacd0b85a97d-48dbb547b24mr36277483f8f.29.1792057793781;
-        Thu, 15 Oct 2026 02:49:53 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:23c6:273c:cd01:737a:1f7b:d586:a293])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc85b1sm16926246f8f.54.2026.10.15.02.49.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 02:49:53 -0700 (PDT)
-From: William Bright <william.bright@imd-tec.com>
-Date: Thu, 15 Oct 2026 10:49:32 +0100
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sm8550: Add the CSI TPG regions
- to camss
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="KB3wo2Jo";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="m1VlaiTS"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 3FF1E7A0149
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 06:06:57 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Thu, 15 Oct 2026 06:06:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792058811;
+	 x=1792145211; bh=k3bAN1K7IsDewyl4QIqTA/MPPVYd0C60WVWvSS6HY+s=; b=
+	KB3wo2JoOuDtpD6FV3b25qBoe0/nGtxMc/28QsHrXnkHUutDHkRmlrcQRihkLXzO
+	e1DpS2afTPgpq1wjlbOIxW/YrcFyeKkZw/Dnk6zX2UzHJqkR5SCen0R1kACQ/os/
+	34iV60cuMNLm/BXStbW/A8aDwFu2QHdmqjcQWiC4VXuTY04G/tXoQXjd9WgPYQ/r
+	q0l7D9IeFox4ULgt3tKtmx1EVBhVtOa6hwLTM0HXPeI2exsab0MCsEjmkaeo6Ykd
+	9a2QyUHHKIACb/Zu4+oBaGJz3sEJTvDZcAk1uQWOIX0Y+T4evyrGK/60GXPYACfi
+	2ORhvV+86BqJLsZ275ITUw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792058811; x=
+	1792145211; bh=k3bAN1K7IsDewyl4QIqTA/MPPVYd0C60WVWvSS6HY+s=; b=m
+	1VlaiTSqJ/5jfM/e2CqRXR6LPrON4JIk5vjl/wsXQj17OvG5+a0mUl1ADXJCMk8M
+	Bsy9fWMRHLw6zZTqD8qPBua041UUQgOkm49XbgT4EpWl9wPqOBuSuCbMgXU0SlAT
+	BMWqSK3Tl4xkWsUYaC1YUaC0ZAnWhYy+zeRfpgyQctnnmbifXar2/dJLixFNxK8y
+	s2q/ARuW5uAmxpvR57ekhQ+wMm6npbSIiE3wwVMbTJYaW8ciLfaPUmiQGCqtJXaw
+	8zKkse+ns0wN1k6bIls/AW35AKHbCdv67AAAyURdVGT5kpjQPu9bCXnKTQ0EHIjL
+	7bkf06zwrsNSuwdGPAmEg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792058811; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm1:rsa-sha256:dhkeGTXpjqimcZgoZWRdZOyf1+rukkFBmGcVcCkE8uWNNOM
+	QYuNNyuk3LZPsZX4HhqCAM3AL3sUWxvxR9YZ/fp0YK4yEitTwiJdqkrGeUvx+Coj
+	3aRuyhCe7SDcpQeFRtIrHwCSpyqrcw72gUqpTh+JUx5PUDO6SZ6aCDtYOe+QjPSZ
+	s7msZUvtrY46aqWJ7FfV/MDZ3BHc07fHpJsWfP+dsMJ3BnCq+VSpMphHYbr47zHy
+	ymEFdE6JwL2SZlr27xMk4in+Br0GbkgtdperkUF/YVmJ6cr8kPmOHkkyZCR/LYWp
+	rC5muObIdOla/ecWoN/WcdRLBNGpE5XCyUvhZNQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:nA2K+yhtgPYlOovE/LlZdkAM7ht1S4LCl9IfhDW9GNI=:+fR0ZbzGgBBtyDW1FmelvhNzuV28OiZnZPEUZH6twI8=;
+X-ME-Sender: <xms:uKXQag8wQowtjr8ooc87L-NLI0262fUDVWefYLaqSCCrrx5gM3zu1g>
+    <xme:uKXQajjEvlqGetYkxX49epGwOTBGx0a3juUKwc9sflxewBdCFIzv4k5tjZeqhh2JG
+    mlQh36SYoDM8TXArAjM6wAhz9ddqhwGnZYrLyAp50fQ2ExF_6t-jWA>
+X-ME-Proxy-Cause: dmFkZTF2yAXpWN90zCVz3ihDvHA8S8c661e3XHP95EHkBhbsO8yHdl5wASUyJfCJu5AuYH
+    tiGE/zFNrs+mhxG6IDJtPkC3VPS9znLTIkR7pmbhZVQuXx5FVsdTT86FyxBIXic4J2kAVV
+    Ht9EIqTL2GcwAMhke9NynXeWC11g8lnSSsj6bchl+a/mzjy6sg7U/yXLQ2JtKlQKOBDR7i
+    0/MID64vte8IGI6KUV86EgUXZ08D2Fm6oB80TkQU/TPR+coOSTxKLkqouD1ihdnZokjrbF
+    OQRKmP0lVY1T8uLkZw6G78xZLsCwsmDkM+SQRONmK+Evqa3TCvuORLX8eXIoaNEhRZWQf9
+    bg0HSEqmJ8aK9d+K8FjPajW37Gh0R3N6yKFmeXWgDIjunCI8y62ABR71zVC74jKO5syyUC
+    oZereyttvvnEROnPAkPfA3bgQlJOGPvefQgfv82UI9CbInU0tQDNFyUuLgdfg/xJ3a53MQ
+    UEaa7c4fWaPKmlNe9F1xAsKcmHUsUVkOMZobkVnklher/RcoNMOhZQZk+C1GpMnm5MJ7qU
+    Xkq//yL2AifJOMNSqzkYfr/+ZahhnGGG2Oy1pvIYuO+VbQ8as74wCW+KQENS3hxTSzcdaZ
+    DX8wbYpnocBC1JXrUyjAM973tDqoKQ/CE6q2TRgBQTcuP6Vkt4IxG8lXZVIA
+X-ME-Proxy: <xmx:uqXQats4Kr17dJJtlunkkvwW-6FoRCyD4lS5BG20lShQEa3-2dyBnw>
+    <xmx:uqXQapDXpgCK-ZMjig3lrw-vIVjy93UFHEk9eNLLJgEJvoT-bHRsbA>
+    <xmx:uqXQakb9kkw0d5PYURNyJk-mqmLsp9uOrSwIE8zZFcWRSeZUnRjmag>
+    <xmx:uqXQakVwN-gIAWDdiyO5D9b71vzIjlRyIkBhTZ2WlNqe2hNsstTTDQ>
+    <xmx:u6XQapoDKTNfw1Jx0k9R3jy6mF5ABBBUa6djLEKyT3kasuq6zb0HHALs>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id D500B32A008F; Thu, 15 Oct 2026 06:06:48 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: AQIkDqPSEdso
+Date: Thu, 15 Oct 2026 12:06:28 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Sakari Ailus" <sakari.ailus@linux.intel.com>
+Cc: "Arnd Bergmann" <arnd@kernel.org>,
+ "Cosmin Tanislav" <cosmin.tanislav@analog.com>,
+ "Mauro Carvalho Chehab" <mchehab@kernel.org>,
+ "Hans Verkuil" <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, "Ceclan Dumitru" <dumitru.ceclan@analog.com>
+Message-Id: <901b5203-7095-4c8f-8644-bef6847a8bf7@app.fastmail.com>
+In-Reply-To: <atCfd-drVomrTS5X@kekkonen.localdomain>
+References: <20261014103201.859465-1-arnd@kernel.org>
+ <as9okp5GgBgc5Hlp@kekkonen.localdomain>
+ <5b26153a-768a-4b33-bda3-19d3dea88634@app.fastmail.com>
+ <atCfd-drVomrTS5X@kekkonen.localdomain>
+Subject: Re: [PATCH] media: i2c: maxim-serdes: reduce max_des_update_streams() stack
+ usage
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-sm8550-camss-tpg-v3-3-00fe06a3c557@imd-tec.com>
-References: <20261015-sm8550-camss-tpg-v3-0-00fe06a3c557@imd-tec.com>
-In-Reply-To: <20261015-sm8550-camss-tpg-v3-0-00fe06a3c557@imd-tec.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Depeng Shao <quic_depengs@quicinc.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- William Bright <william.bright@imd-tec.com>, 
- Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
 
-Add the three CSI test pattern generator register regions to the
-camss node, matching the updated binding. The TPG blocks sit at
-0xacf6000, 0xacf7000 and 0xacf8000 and are used to generate test
-frames without a sensor attached.
+On Thu, Oct 15, 2026, at 11:40, Sakari Ailus wrote:
+> On Thu, Oct 15, 2026 at 08:45:26AM +0200, Arnd Bergmann wrote:
+>> On Wed, Oct 14, 2026, at 13:33, Sakari Ailus wrote:
+>> > On Wed, Oct 14, 2026 at 12:31:33PM +0200, Arnd Bergmann wrote:
+>> Right. I see there are more allocations in max_des_update_pipe_remaps(),
+>> and max_des_update_pipe_vc_remaps() called through max_des_update_links()
+>> that could fail as well, and may have the additional problem of
+>> leaking allocations every time a stream is enabled and disabled.
+>> 
+>> Can you tell if those should be fixed as well?
+>
+> There seem to be devm_*alloc*() functions being used but that doesn't look
+> like a memory leak -- there's devm_kfree() use as well for the same
+> pointers.
 
-Assisted-by: Claude:claude-opus-5-5
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
-Signed-off-by: William Bright <william.bright@imd-tec.com>
----
- arch/arm64/boot/dts/qcom/sm8550.dtsi | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+I see. Yes, that is a bit unusual but not a bug.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-index d21c04b1a306..1270ea8e4fdd 100644
---- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-@@ -3862,7 +3862,10 @@ camss: isp@acb7000 {
- 			      <0x0 0x0ac71000 0x0 0xf000>,
- 			      <0x0 0x0ac80000 0x0 0xf000>,
- 			      <0x0 0x0accb000 0x0 0x1800>,
--			      <0x0 0x0accf000 0x0 0x1800>;
-+			      <0x0 0x0accf000 0x0 0x1800>,
-+			      <0x0 0x0acf6000 0x0 0x400>,
-+			      <0x0 0x0acf7000 0x0 0x400>,
-+			      <0x0 0x0acf8000 0x0 0x400>;
- 			reg-names = "csid0",
- 				    "csid1",
- 				    "csid2",
-@@ -3881,7 +3884,10 @@ camss: isp@acb7000 {
- 				    "vfe1",
- 				    "vfe2",
- 				    "vfe_lite0",
--				    "vfe_lite1";
-+				    "vfe_lite1",
-+				    "csitpg0",
-+				    "csitpg1",
-+				    "csitpg2";
- 
- 			clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
- 				 <&camcc CAM_CC_CPAS_AHB_CLK>,
+Seeing that the max_serdes_vc_remap array is only eight bytes long, the
+devm_kzalloc() does seem like a very heavyweight operation here, that one
+can just go on the stack and into struct max_des_pipe in place of
+the pointer ;-)
 
--- 
-2.43.0
+>> Are ->enable_streams() and ->disable_streams() always serialized
+>> or can they be called concurrently on the same subdev? If there
+>> is only one of them at a time, the allocation could just be
+>> done ahead of time in max_des_allocate().
+>
+> Access to sub-device state which these ops operate on is serialised using
+> the sub-device state mutex i.e. these aren't called concurrently (on the
+> same sub-device).
+>
+> Also cc Dumitru.
 
+Ok, so maybe the easiest way would be to just put everything into 
+max_des_priv, including all the currently dynamically allocated
+arrays. Since all the maximum sizes are 4 or 8 in the driver
+and most of the structures are short, using fixed-length arrays
+will make it use less memory than the minimum of two cache lines
+per devres object.
+
+      Arnd
