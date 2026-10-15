@@ -1,66 +1,65 @@
-Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B814F6478
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 21:34:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875914F7CD8
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 21:34:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100099; cv=none; b=QDjRtWXjNUkjhS02aijkMAYB28gUeMuD07WqiAHRlvRyPOcng29X6C3Wd4xk625MlVZbSpEkZy4/xMcKKQT2tnrvbJVQ2mRifhHkb8kbRYQm30W5j/NvMMxJetH6Eya3WPN7hAX3KWEzxkL0loEYNS88rAGrTAuyjeyJxFu0cSc=
+	t=1792100102; cv=none; b=NCMtjXpmbCtmc31v0ZpQXIU+npvM24IItwBpw3fzczsXNBxufZA91Jwk8x5RBON4vrGpq2wN/RknW3eXfX8lYYJ7hRBvPBQDOcUqa5cji9g02Ke/9v4whyzDmad0pILvIELJB300eDBV0gCl6QzqprxQM5FwjpWhx01DDufuDQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100099; c=relaxed/simple;
-	bh=VN5kEFS4f3DhbQuQuGez9j6k054EcTB9lQZnc4iClK4=;
+	s=arc-20240116; t=1792100102; c=relaxed/simple;
+	bh=p1GOe0U0AvmHyfaWL4dZiAn0LDZMD/k/d2Jjq/xAvbc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ciuwAIIRyZcc8FnnOJhYUXl6QHgYaSn5MtF7WgHctgZd0pTGJ6uMHgjSldvzbP+nLqn/+GUIIfekhrlANeqa5gInnTtlunm/M6nt3t0w9sFRMJeNO0pvHNIrXWnJLt0JnDbtUB/IdX/BWgsq9tPpUoqyB8iSrl+dcptdCwlArjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q1x6Uo4w; arc=none smtp.client-ip=74.125.227.132
+	 Content-Type:Content-Disposition:In-Reply-To; b=rgvF6jzJWLtqZ8jmHD2GUmbS+1gbgZ1eBI1yxBDRbVZxtYe0IzeBOVFzkoW76Y5W5moUsUGJD9J4OUF4bk04K+YnOjW5NCXEea+24zXDHJohaD4z6Xie4U8ClaqpkfpDdoSZs7HJnSUNCUVvhEBQVxFpEIArdiJru1e8H+77JWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oz269ree; arc=none smtp.client-ip=74.125.227.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q1x6Uo4w"
-Received: by mail-pj2-f4.google.com with SMTP id d9443c01a7336-2e96b8bfb43so2543715ad.0
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 14:34:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oz269ree"
+Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac6fe4aff0so1419726a91.0
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 14:34:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792100098; x=1792704898; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792100099; x=1792704899; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=6tf5XWfDn7dzpD6pWKJEv/C/OLuu0jZ+hahvmMgLmFI=;
-        b=q1x6Uo4wWVxB8EiRjGzUXKX5bAHBK0k4IZzXfZ5oDFfLbAjHpXra+fLxkr88aGk4G3
-         qkTquQLck3AGtvdOkneWRyfhdWg7I/73gJB6r/UWhu9esKshFkod9Jpdryeo9YXDlEWJ
-         5MOgTzp8XBpPYgQmrwFz0XM/V1FjhdszX/LopIVKlZk/k4llXDwpk8B/LmHujpAz3gRI
-         0GrEpnDtC9s+GUJKvwPoSg9WrxxWOY9qtZCe8x+XIDUA1XkKMdc+mnST4XjMluqPbwVC
-         opdN6atnmS/P7nq8T9IvzyRC/ggx2jD9SoUOAmkrlqr9oeK7SrWcsTF92ZdQf9AsJlpt
-         nqNw==
+        bh=pQimVVD9drWSngFOzWOAmVd128tPGcg8NvVnNLLNcbY=;
+        b=Oz269ree3dZATYiimdp3jQcnAvwEyYVSMIy+rniSFMJDfm4J1MtCbzGWYkyA/TawLs
+         +K8FIxcmF9ZhQZcg/7lDQGHRuCFaR4/yqgkwoXMQgMDjAIoQCup7Lj/2SvQ7RpIsAGeF
+         jCU7hk+EJ8kCYj89Tc6gUEmb+TQjGhXskc+v23ACvxGFfyCqZ4y91bD34AYAg1Kg5cXR
+         dZAemonm1K56VRePTjO9G+RTvHj+LYXHJThN4bejVrFXiqmhjqUqOxzRcFWsdogAf434
+         pMsfOX2bzSiIhw9rumwGp+cefYPEGhiPG18AEsGvH8Hu7guVDQsVqpdu7G3CrsHNTJ0l
+         ApiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792100098; x=1792704898;
+        d=1e100.net; s=20260707; t=1792100099; x=1792704899;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6tf5XWfDn7dzpD6pWKJEv/C/OLuu0jZ+hahvmMgLmFI=;
-        b=zTsOCDwk+5q+jKrfONaVy/MKsx+y9y7YvPJOPS0/jfj3k5sKPjFk5mNgu/CSAk90DD
-         vTx2ya+aqI6tImzFATuRaD+EnFXLMcqb4x22JWJ99wN8Sm4vrMifCioNA8bvMC3FyQ8n
-         w2KAlDRTyNaLw9U9OJT3orvRbemSrrZYibdMlTjmNu/QypuWoc105fkv72UxgvNyQeoL
-         H+S2sS+IvmGDdhH30hsRyqyGfP+umA0fv8v41t5mJJsEZ+JklDBEyBdgFR81+dQONy7N
-         N4EIBdeFUQnvVQUEsmxraWI2aGcffLoPkF64PY86U7GvFMYkFRgyoBXjDQBXfi3SnZ/P
-         7hGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByo4uzqdITSMfypr3UocB9ujUZ6GD80TRoWWhPtwbnmf/sPchEe42sAnN6S44x0U9Tx5bnja/uaVHS1pg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6KYvkxZh5BMaAaisipvL8uyr/1X4Mb6IFJF/bFAdljbVoV8vC
-	xB6+cPyYvjNg4+df3n+oYx045A5edgKLHfdiCRoc5AnaqGxWJw/QWWEI
-X-Gm-Gg: AYBFou0I5PYyic8bvsiHwar95RIeJaijT8TE4xAjY75+rayv47+E5q25xT89YH90sgC
-	OstVqzpCYznpTFMeEK5K10oy75cBaZDEgwmR5t+OsLJr6viwXll83vJX0nojSojJWbIK3JbxjiF
-	03SoLukeJ0oLyGG2EpGl609JUZP2/82KJsfVCTwJKyBr3MzTGSmOM3D++AlgqBLehqs7OY0X0LW
-	6sGVB1tKQKsbVnjk7zC8oTtMaMpbzW9TZUlH4nP4np0/+nAbD8NnmpE4GPIQLr+0J8TRX2hfkAF
-	4EjdrVM9wlBpOyjyBFJoQ2cLnaINDlXeA53Fyr854mDY/hwyyvpWbqpxfQtTrVXlID3ef/CbnO2
-	dnWPUBfhxslMOgt8B+fGRFr5HXxQDSarc87/UpkaSk9OlytBCZugnX/Ms7DlS7VdNekWGTZU5ZB
-	bmw+FzCy97XLScN1+VKcKMNfKK1pvY4btICzUOv4KfkStD68uAuLskoxdESxL1yUXBgwKbp/qHT
-	ww=
-X-Received: by 2002:a17:90b:134c:b0:3a8:92a3:8baa with SMTP id 98e67ed59e1d1-3ab3a953bd3mr17162889a91.27.1792100097999;
-        Thu, 15 Oct 2026 14:34:57 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:58::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc4991b8asm847025a91.16.2026.10.15.14.34.57
+        bh=pQimVVD9drWSngFOzWOAmVd128tPGcg8NvVnNLLNcbY=;
+        b=2nZvJd0ESXIsc2J41QkR1aOVV89IwlTYNjBSa3lXjc5trMpQmsLkBucrUh5RGONiei
+         KUDKqNBS843qa3ItVR8jEFtgERwydPZoYKqVoiUnDN6VY4O8YavDnIBChQeFDEUJgAqt
+         E1PVj6MHuarUKI2fwi5OsguY8IF8i97pXq7M9zBRnKgechY5u6pWwFYcrD1Tb4Z+9IKZ
+         /65kvyDA7NkzG0ftk61THlRekovSGPq0RnuhY6BNR3fC6VaOpxQzac1zeXqlzkyDylnB
+         zCsGnzIFVJF2/7tpH9mUe3zrG4sGhqFHq0cZyzisoRkHpvcxRNC7o2wM9K2ThD6D8XwK
+         0Tbg==
+X-Forwarded-Encrypted: i=1; AKwUvBzeQLWxP1rnpB5x0QI1jb0B05qCwj3MU/Ua4fiaEOTuEHvMTV9QxapUlQPtUbE77wm6sM1aU237g9JKfw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK0s4VgjapjIywNWwoN3dmgAcbc57yB6cEw2i+V4npJFgFR5cFd
+	+jz6gyAyJXCUglmDwQMxNQxn01nUdpt9m23ngOj7nwtN2c9YxUtBZvv/
+X-Gm-Gg: AYBFou3LCqKXI4Hw5pXtx1kGhNVGMr2Zpt8fPku7mejtwjem8DBfoJeMt23mI1tOi4z
+	k4DOTRlNXXo8B+q44FMlBlU2VKH/oVm7WbJJbThg7QoKgurAGfcXIECaQInjjv9LwAttTlV/88b
+	akjHFXzY+7NMn2x6GlQcEp8sistkiUKt3k/Cy2byKDQq+KoHNmw998pN1txSXBP9+jbvT/pGWJ+
+	PZ0xpFRCHCt+Wk9B3KWg/LtQFVl5hW/eIc3YULq21oQ5efzCMYguTxWWS3qdzhrps2dLb4+n3pu
+	RwFwjVNLfN4glQx6QgPX7nVFXHjyr2+ZPEwg2ppQPzGIb49ZgZtFZD4kq7uIXXkj/xOW7rBXoEZ
+	xeBqiQAhWQidxx/ynlGXyU2c/LxpHUHU292ngpL8AO6gRdI/6Mr4l7vxUfRRFOSlLwh4w3YR9Rz
+	y1YQdksp/3H8xanNa98Ho55OkqvdKyFcttp0yYLz6L9nZEz3qeuuAFI2F746DTYOUahQ==
+X-Received: by 2002:a17:90a:ec8c:b0:3ab:24b2:9016 with SMTP id 98e67ed59e1d1-3ab3a9a8d8dmr19267667a91.25.1792100098937;
+        Thu, 15 Oct 2026 14:34:58 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:5a::])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549f175bsm119893a12.21.2026.10.15.14.34.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 14:34:57 -0700 (PDT)
-Date: Thu, 15 Oct 2026 14:34:36 -0700
+        Thu, 15 Oct 2026 14:34:58 -0700 (PDT)
+Date: Thu, 15 Oct 2026 14:34:45 -0700
 From: Stanislav Fomichev <sdf.kernel@gmail.com>
 To: Mina Almasry <almasrymina@google.com>
 Cc: Jakub Kicinski <kuba@kernel.org>, 
@@ -76,10 +75,11 @@ Cc: Jakub Kicinski <kuba@kernel.org>,
 	Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
 	Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
 	Kaifeng Wang <kaifengw@google.com>
-Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
-Message-ID: <atFG5qCMA4PugjFj@devvm7509.cco0.facebook.com>
+Subject: Re: [PATCH net v4 4/4] selftests: net: add devmem RX and TX netdev
+ unregister tests
+Message-ID: <atFG77ZcuGHOsKgW@devvm7509.cco0.facebook.com>
 References: <20261015163915.1166043-1-almasrymina@google.com>
- <20261015163915.1166043-4-almasrymina@google.com>
+ <20261015163915.1166043-5-almasrymina@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,21 +88,17 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261015163915.1166043-4-almasrymina@google.com>
+In-Reply-To: <20261015163915.1166043-5-almasrymina@google.com>
 
 On 10/15, Mina Almasry wrote:
-> Set a 64-bit DMA mask on nsim_bus_dev, enable NETMEM_TX_DMA on the
-> netdevsim net_device, and configure page_pool instances with
-> PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx, plus PP_FLAG_DMA_MAP |
-> PP_FLAG_DMA_SYNC_DEV when CONFIG_HAS_DMA is set, so devmem bind-rx and
-> bind-tx netlink operations can be tested against netdevsim in software
-> selftests.
+> Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+> to nl_netdev.py to verify that unregistering a netdevsim device while a
+> netlink socket holds an active RX or TX devmem binding synchronously
+> detaches the dma_buf attachment and cleanly closes the netlink socket
+> without use-after-free or page faults.
 > 
-> The pp_hold debugfs file allocates pages from the queue 0 page pool, so
-> refuse it when that pool is backed by a memory provider, and take the
-> netdev instance lock there so a concurrent bind-rx cannot swap the pool
-> in between. The software PSP path checksums the payload when the peer
-> does not decapsulate, so drop unreadable skbs there.
+> Add the dma-buf, udmabuf and devmem options the tests need to
+> tools/testing/selftests/net/config.
 > 
 > Cc: Tariq Toukan <tariqt@nvidia.com>
 > Cc: Kaifeng Wang <kaifengw@google.com>
