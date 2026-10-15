@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B4F427057D;
-	Thu, 15 Oct 2026 21:48:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D4D4F6485;
+	Thu, 15 Oct 2026 22:20:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100900; cv=none; b=tevlYR4SMvXteBUAX0XlL4dfJFibuUJZKVdnXjbe1wDvqsvwrDAXAtUf9t6MDEhX+fusc29w2k95aAlJyp4yUGp9U/7vwQzOyKcptTuQjQ8ta+KExMZYsW0Rzu1/BYzB2Gl8bqv/huKPQxAlRWNdOWMZk70qNrRXa9MurN3oKCs=
+	t=1792102837; cv=none; b=A4iIKRAYvXrD7Zn+f04egZiS5CpSJO2+tw+2QJ58i1L4qqd0UOPr8MWZNs5NG/BhlxkzQ7LXS63lmjlXn8XPUrUxA6Z6WqfNbRSQZPDjAPeKDD/qatrH8m8IFcSyJCpXOmKXrDpjxRoCXVi0n7KMO5IJo/SNhZJFkGWMUJ6CY2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100900; c=relaxed/simple;
-	bh=RW9U2SZdFY7DS+5Tb/YAcIDvtIQBs+/tfCRMI8fSSj8=;
+	s=arc-20240116; t=1792102837; c=relaxed/simple;
+	bh=opFYL6eJfRLIJ4Mi1M4Y9sNi8J7wJU4m5CxqbvcQwSE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pEd7DkYZ3aJp6VjpVoFNBU/ofGh1b1BOvDSWfj/BTERsfqhTNhQ+H25niw9GbeZncr2UT+y3RWH28wCTIBC7LSqxi4qAc9Igk/msWCSlYqvFTOHF+3cDOyYk743s5tUyr76nqPXlHpu1WpCs/FB4bh/xhs76gRIMIO/YIxuPohs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNv8UNnj; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=QR8bD/GK1PiV5WtchLg3xA3KetxYa9ALKhaQt0Wr52NWEwIf20vZm1icbV0elS7DaoZll0jc4xxNR8Yxnl+bdkh5IsaizPCDutkkJTF4EYG32NLwpxTaoHQLV+5knY3AvUx116XEtNimfHTH3Z+jRIirGR4yTNT3RxNyfwMxrKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KVCsrwuL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNv8UNnj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A08B5C2BCFB;
-	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KVCsrwuL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5B7FAC2BD01;
+	Thu, 15 Oct 2026 22:20:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792100899;
-	bh=RW9U2SZdFY7DS+5Tb/YAcIDvtIQBs+/tfCRMI8fSSj8=;
+	s=k20201202; t=1792102837;
+	bh=opFYL6eJfRLIJ4Mi1M4Y9sNi8J7wJU4m5CxqbvcQwSE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BNv8UNnjO2R/nXOn+r6B85YpQoHYilQtUmGM4txj4+i6Vsl4Wk1ASCaTEN/EvH0mV
-	 x8i9ATYRr8z1uZrytsNa6aJNUFpPyCaOHQuQ+kgy8kb1zB3lHkyfqGhydC0ejvl2rX
-	 WQNyQrvKhbraEINDqSq0Od76BgWuXQ1IhKy+ZDXU2ey1feHCBR0Z3cWQRPVnkIoDZA
-	 kru5tunWSWHttMfLHEvpzjEiLi4oEfsZ7vHAZ6jKEdwVTt6NmpDDtliibLJgKEp/II
-	 U4TFocWS3zvShTunKsYbEZjx2eBtxmYD1PHN3kBZVwDqnmhcQhy7cVIeCwusWQ8g4e
-	 U7K5YWc6G4g4w==
+	b=KVCsrwuL5n5Gkp2z4QRuS/+oBmW9JTe5uP0SYvQo+VeelwJPsaeGa6nzWZI378vbk
+	 D3vBZSTj46dTrub13+7ko9ZTR8wvC0cwi/UkbchCIatZxaB9bu24aF4HsEdZf1zFu3
+	 h7/Or0c/AFKhU3RsuFRzNd+dnr6+IzSfzQBNS6+CHzCW0O95gM9N4FNYFhXTh99PSZ
+	 2d95LvyR3ddJoNFtQNGXKLvHJ1FaalWzvYmlG4K/eRLqW049/ClNRg9pGxukDDJqd5
+	 1UtRe71e3kwUHO+vWRyDBnkodi1AgxBNBCh5+XGptgUOVe+PON/VBRzZT40bQ1diVp
+	 Nx9pm81b65f6w==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 80F6BCCA462;
-	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F5ABCCA46B;
+	Thu, 15 Oct 2026 22:20:37 +0000 (UTC)
 From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
-Date: Thu, 15 Oct 2026 22:48:19 +0100
-Subject: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
+Date: Thu, 15 Oct 2026 23:20:38 +0100
+Subject: [PATCH RFC 3/4] media: qcom: camss: csid-680: Select C-PHY in the
+ receiver
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,23 +41,24 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
-In-Reply-To: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>, 
- German Pablo Lindo <germanpapulindez@gmail.com>, 
- Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+Message-Id: <20261015-x1e-cphy-rfc-v1-3-1f3fa9af940a@gmail.com>
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
+In-Reply-To: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
+ David Heidelberg <david@ixit.cz>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org, 
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792100898; l=4043;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792102835; l=954;
  i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
- bh=3FW/YjSDKNEAYkV/4nSih2V8KIzb6+K0p4vWabSPpuA=;
- b=Hc5JaeeIV80AIOnfkGJtppqVcBdjdBCLmhvhSe07csJBWQEzmaVpmp+BTWnJu9Vz4ftUfJDa2
- fIbGTbpAK6OAP6slTYnjYjp8F6rC0kkG2dToATGry1t2zVcyeP1plxD
+ bh=zIA90Rl/gtkLGho4hrUCxdrlhc5niDyVArSGj4xfgdM=;
+ b=dxq1mf8fO50sxXqgXje86lxdhpWCCkmpix7jS568ln4jpofHpoSqOKdUHmWuSicEhghudMqwy
+ zROe31y06DkCFz0gFQ8ltbPCGY67/Y7Q6MEooCwAXKNVWlTfde6sBz0
 X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
  pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
 X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
@@ -66,152 +68,29 @@ Reply-To: geocausa@gmail.com
 
 From: George Neacsu <geocausa@gmail.com>
 
-The OV13858 is a 13 megapixel sensor with a four-lane MIPI CSI-2 D-PHY
-output. So far its driver has only been probed through ACPI. The
-Microsoft Surface Pro 11 with a Snapdragon X Elite uses it as the rear
-camera, and that machine describes it in the device tree.
-
-The supplies are the three the driver takes, and the reset GPIO drives
-the XSHUTDN pad.
+CSID 680 has a PHY type select in CSI2_RX_CFG0, next to the PHY number.
+The field is defined but never written, so the receiver always decodes
+D-PHY. Write phy_sel to it, as csid-gen2 does for C-PHY.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: George Neacsu <geocausa@gmail.com>
 ---
- .../bindings/media/i2c/ovti,ov13858.yaml           | 113 +++++++++++++++++++++
- MAINTAINERS                                        |   1 +
- 2 files changed, 114 insertions(+)
+ drivers/media/platform/qcom/camss/camss-csid-680.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
-new file mode 100644
-index 0000000..a1cbdb1
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
-@@ -0,0 +1,113 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ovti,ov13858.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: OmniVision OV13858 CMOS Sensor
-+
-+maintainers:
-+  - George Neacsu <geocausa@gmail.com>
-+
-+description:
-+  The OmniVision OV13858 is a 13 megapixel CMOS image sensor with an I2C
-+  control interface. It outputs 10-bit Bayer data over a four-lane MIPI
-+  CSI-2 D-PHY interface and takes a 19.2 MHz input clock.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ovti,ov13858
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    description: Input clock (19.2 MHz)
-+    maxItems: 1
-+
-+  avdd-supply:
-+    description: Analogue circuit voltage supply.
-+
-+  dovdd-supply:
-+    description: I/O circuit voltage supply.
-+
-+  dvdd-supply:
-+    description: Digital circuit voltage supply.
-+
-+  reset-gpios:
-+    description: Active low GPIO connected to the XSHUTDN pad of the sensor.
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+              - const: 2
-+              - const: 3
-+              - const: 4
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+    required:
-+      - endpoint
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - avdd-supply
-+  - dovdd-supply
-+  - dvdd-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@10 {
-+            compatible = "ovti,ov13858";
-+            reg = <0x10>;
-+
-+            clocks = <&cam_mclk>;
-+            assigned-clocks = <&cam_mclk>;
-+            assigned-clock-rates = <19200000>;
-+
-+            avdd-supply = <&vreg_cam_2p8>;
-+            dovdd-supply = <&vreg_cam_1p8>;
-+            dvdd-supply = <&vreg_cam_1p2>;
-+
-+            reset-gpios = <&tlmm 110 GPIO_ACTIVE_LOW>;
-+
-+            orientation = <1>;
-+            rotation = <0>;
-+
-+            port {
-+                endpoint {
-+                    remote-endpoint = <&csiphy1_ep>;
-+                    data-lanes = <1 2 3 4>;
-+                    link-frequencies = /bits/ 64 <540000000 270000000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5d39ec6..0cbb07e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20186,6 +20186,7 @@ M:	Sakari Ailus <sakari.ailus@linux.intel.com>
- L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media.git
-+F:	Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
- F:	drivers/media/i2c/ov13858.c
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-680.c b/drivers/media/platform/qcom/camss/camss-csid-680.c
+index 345a67c8f..16b199f06 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-680.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-680.c
+@@ -202,6 +202,8 @@ static void __csid_configure_rx(struct csid_device *csid,
+ 			<< CSI2_RX_CFG0_PHY_NUM_SEL;
+ 	}
  
- OMNIVISION OV13B10 SENSOR DRIVER
++	val |= phy->phy_sel << CSI2_RX_CFG0_PHY_TYPE_SEL;
++
+ 	writel(val, csid->base + CSID_CSI2_RX_CFG0);
+ 
+ 	val = CSI2_RX_CFG1_PACKET_ECC_CORRECTION_EN;
 
 -- 
 2.53.0
