@@ -1,86 +1,85 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33292517BA7
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:36:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BF451EE0F
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:42:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067779; cv=none; b=ZWv54sc+fB7TfB0dsXEr7GHR5TL2CeINbIcexwBoB65hfroB9cGucTlCvM3AYQHhtof0uPE7m7mV2X4HsGISrWetB4epo8FetdNTMXrlUurRXz6/aRB7P/O266WGiYKg3XEKSmdTjskJsYMVHHlPPTyTU8mjKyN9Qp4NN01oRXY=
+	t=1792068167; cv=none; b=sZKjbnFaZ68KhufJzthwVd3EvfnSjMs/2D0jAVili3+2pumRTCkJT54fbOWdr4c/nXL0k7TYW3815qS11/vlUsOqPTuk9o5/w4cpyJtNYVI5/2pOJPsRvzANDT815Rp+xU4SZx5xTRt/ItWX2ZYXC9kmAsrgxq957sKGN1qznKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067779; c=relaxed/simple;
-	bh=+GWXjO++bt445maJ7KXzjm7w6wD7rI3S41xAtt7oM+k=;
+	s=arc-20240116; t=1792068167; c=relaxed/simple;
+	bh=iue/25EugCeiP+JlUAe0+14oDJOn0PTFfLPEqbW/HRg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cwlDrpsgoPdZRxPpPEEO7FoFDCGbAzsDi9Wi4skTh2iDmXaeu+MitOvkemDfRZ4sh8spbekV2DyD8VRT1pL6PBvpjDCd5gzVJwSI/xMgZB3QL27r+ngtfH352OOWBxnD00RKVVORDjoZwZdVSJtcO/SbfDHD2uEcwWIMZI9UpP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f9ppO3g0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YXzXpQAc; arc=none smtp.client-ip=205.220.168.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=N8sTv49Tp1RzbE2yqbiWew0Ak/zSahy5JjkTHJ3SvT+FuF6cID6zZR7tQt1HrU6qUkXKGb6HPf7ufGg2+E2F/GXoBnO61iDue7ILUzt9hTsSflxmjRuoghgjjnOHM1W5H9wUQhSWFrGuk/vZnbPCdGuPGeqRkRra0ZuEYwiSVtQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R25y7Euu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LYig4MvF; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f9ppO3g0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YXzXpQAc"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jOvd2114165
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:36:17 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R25y7Euu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LYig4MvF"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F9jHgl4077449
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:42:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RRJYuqx0ug7Hndpab8ssF0q5Hh2eCFFk991vP6yPy4s=; b=f9ppO3g0mrHdBgBo
-	ooYckRIy+5fP91edAV5+PiqYRnUEmF4ipmNqlhz6UCNCsqJ9dGdUkbjziJefUwj1
-	EbGDoJhmduH7Xx0VGSka41zv1+jwJVeo4JYN0oUy2gJrG2e25mD5gnwgguMMaMAx
-	8nn5SIDXr1B9kgG/Ey9MxyNTHgiulS0y3s0eBJ3m2xkr4FlAwQeHzNc+lcq9Xi+L
-	nu+YdCQ4OeIxsfiS59kE+H5t7LCh0jEvtkkVYsuizh5ZLA5Ygd7e65f3Xdtqbgqo
-	FTxvBaYo3pifnwLh3/QPISDTxVgzQcGLnSnsYJkboBjqMuy3H4jVzE2+Op9mdlqh
-	6vCZxA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hajmyb1x0-1
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=KgCkbIqj+Xltp5HS/aMjiyIa
+	do5whRz2Y+pFV9bEePY=; b=R25y7EuuLXCZtzDPvFdgieK2SbIvfbN1jRnQW+Qg
+	Fl/7uNZi5zwoZ+YKQLCsVdTrDJsRk17T3DAN2EwcwCUKO/LlT8TQqVhK9UDPK0U2
+	TJ3d3+MRlCI/G8R7oYHaGKlRVl0MOyBheA1VVxEi/SP6hqGYhweHPCrFvwREJwTp
+	2dmXH0GtBhjZoAbTmWS6AXpvfkcckuC/C0JSfK+kM2OsVtXaoTG5oAOfbKngdpF5
+	glNu6K8EZSka/gEgk8RWDFzCZXU3bLT3j+Y0bhiJlKXH/u2WG9s5Iajflm0fiAQZ
+	joM1dWehim2el4uVZ9WnKB1NayqHPCRZkzRaKslfkNM3RQ==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4havbc0qtr-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:36:17 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ecdc701a2so193350585a.3
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 05:36:17 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:42:44 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9106fce784dso130864446d6.2
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 05:42:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792067776; x=1792672576; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RRJYuqx0ug7Hndpab8ssF0q5Hh2eCFFk991vP6yPy4s=;
-        b=YXzXpQAcCUcNNqF8TWwqs5Hc3ewvo3NmVAeAZkNmnoqeZuwAtegngU/ENsf/gs7Jeh
-         5rlZ3WmEtjTctJb5MngX56HcMeG7lA8oVV6W9rUYDLeOPK2kvZccX0LeyfSjarGezLwf
-         nJCqRLKC7SPkL8IEb2ugR/pxDNRVBe+D7fX/B9x7f7mAjeB7FxCwaeLD+Ze4704GXVLu
-         yDic0P/wgsPo1Qzw3dCMJN4/44Qmt6xIV+XBVs/D1WdUJf36HjE+pPMdaH6nrpl+xpK1
-         bZ8FukCet+RyUrNcgIo4teKDSZDp8/HzORFbWgaBaQTWEAFP1s67D/9wU7Tk/hYoC4GX
-         kSsQ==
+        d=oss.qualcomm.com; s=google; t=1792068163; x=1792672963; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KgCkbIqj+Xltp5HS/aMjiyIado5whRz2Y+pFV9bEePY=;
+        b=LYig4MvFwr+aBZqUIpLYUQdwgs+aVDoy8G3qeF8wWuWQEUHejwF8aR3hiwMFpil+rL
+         8ksc5hsKpk0CHEHWApe7mP87TMYHLaqqHi1AjJ6cBcXeUDeoBm2LoMDf2emLfpzAP+DB
+         9H1MZ+tT/o4ZYaJlgzDQsNlu06z0J44OBIxLQhVY9WLvHAnxHzLTPMbtMjnyuf9Pkv64
+         xWE/rA6n4ChkDBFSJKQOTD4ihM/crR7HWoC2UGvFbqM9RS2gne4N7dnLeW/NtdoIIWhu
+         vXYinkAnzUODKxHXXm30G7ugqeCjH8KrhVet1OD/okOglXyabGLdLRSG2KysecUkatSh
+         sBRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792067776; x=1792672576;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RRJYuqx0ug7Hndpab8ssF0q5Hh2eCFFk991vP6yPy4s=;
-        b=MrXF6uH68l6UqYP9HfmCeMBFt9Ynih8HjN6mHPOKLNO/v77mM1/Je9dsnMwCJahOYL
-         wqtofrkoZbtaZ+V135Ck+zr2qOlofnHXIyPVg969JTOjOuCT0SypZ2digOwIgPdOu9Nd
-         q0O/cr7vy32df3O7EnfQDGGbK/FwiQEfRvuQUr0KlT4M3/fNNpagoX28zizdnFQS+Vl7
-         O8nBzAUqCQy2as7Ste7AP4SwsQm7W3P5iqvsjV9W9O/LJDXRgER6Lq9o04DCCOVFkdSr
-         QTAcrtIXPzTtK6N5o1XvsIJcYO9WY6idSX33Oi0ggQMOfSqndplWeKyEB+SELOf8BxaN
-         akCA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKrRB+YhfEoi/poqAdyNXtYrL96r9ovUOLqwgpuVswHLGhBmn9GFNf/mVOq2Pj5b6UxoqcdDCPzW1qhw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsK0BNWftmzVMpgBCPK3gcK1cE0dAZY9yK9A1WpF7/LUne+vD/
-	3XeXcsROZmKMkCW74rvEYq4rtfl4jnEx56bF+jrFlY8mSydRZhWdmaH4XScz9ZNN2dhGu73kQmu
-	Um4lsd+IdSq4OB3pN2yztqUkesg+GY3XSaGuZ7QtVg4NTgpowGtGUqiKT6Lc6pVz5OQ==
-X-Gm-Gg: AYBFou1o7WG/+tWfBnsR1lCJKQC2yNE8dem3Q9EOg+JleWN+G0SKa6t32imZIthH//y
-	73LWzZMFREy0YCh2vRa02qKEKSxGpWn0Jcj7oRUkFPfC+ReIcjR6coKsOFa0DOWweXMgAfAXT+Y
-	9gOazta+VCH1zSiRRrHGb99aIuIy2Mk3T4uFd7cEZgkdd8F1i+PN3xHM05eC1KvVA1K1xDGLOt3
-	gY2pK+A2zdfTDV348rYS3bq/rlFr0jkxGu37qaEFzec3MQypFQ+LsP8w/BAuqg31fgWYSmZtCG1
-	DmV6uZ87apns2gqaku16Vpqr2PK0O262O7Ih/TUr0JXJE9cu6LL0JsM/y3AvIfw+P0IXdtwmD2T
-	tj5rbu/4SKXD+BpzB0axAGO7PIpERn+LgczCFt/5nvnUfYKvHW/ZBNjhsue8Dgc0TC4A1fs+3xU
-	J/+cYV8N3sxfEu
-X-Received: by 2002:a05:620a:178d:b0:93d:f7ac:4706 with SMTP id af79cd13be357-93ebd0bd260mr3010922685a.9.1792067776066;
-        Thu, 15 Oct 2026 05:36:16 -0700 (PDT)
-X-Received: by 2002:a05:620a:178d:b0:93d:f7ac:4706 with SMTP id af79cd13be357-93ebd0bd260mr3010913485a.9.1792067775224;
-        Thu, 15 Oct 2026 05:36:15 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792068163; x=1792672963;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KgCkbIqj+Xltp5HS/aMjiyIado5whRz2Y+pFV9bEePY=;
+        b=F5ETOKwrxE9Ysr1OW7D+Mt+h3XmOCCJ5fJSq4lB7bwWSMCkwPV89WJBFBV4epOqQ3c
+         z+3M9+Q63OjIe5ulHPn6quLFNFuZI63cE9DnVepqXZKdNFsayASOrv2JVmHdcZVur/AP
+         q4SQMWkFwSSMYI74MzUXMkeajf+Kl+IHfHb1N/nLM+8+rc2cpik6qcGcWguTUWE0krb3
+         XQkzah3Xw0MK+VVZtggLSNA41tgCR/MkqOuwsMEmS157JFMz1AV66qLpzjTc+XitHZEc
+         R47OiLBix5f7aLb2Vz5556/c/lP2oc7EaFuKXxzj8L5BgHe2qKGqWP26MedkwWSFog7Q
+         RmFg==
+X-Forwarded-Encrypted: i=1; AKwUvByxQIE0MHndHm46xU51rF8fe428GkP7FjG5WyZJD3NbQ3hEKeeHpGznCxV1/BuHg2QLyY8CvfwRxD5WsA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYISf8nQrriblkw7Ft1s81zTEFevjf62+TFZ8Ffnkt6WdV0/cHXC
+	IdEIdQ4L+0YEcVbQwjhU16UuDk9yFQFS/1LwsVDA+mXDEtsoRLsUp/6Pq/JIU9RKF9kv5KTvLiG
+	wo+Kk/JagUToI6nN4jx3qZswV2os/zU3jZVVsyQ6RYCneH/twlS2icAvNFxqAYRjgYg==
+X-Gm-Gg: AYBFou1uXRTliab/BFlYflc+/k4e3kUp6BY71HLaRKAcSP9ML38ZRAmSyXMqmzFHXPl
+	9qvoqT7BAE38w3KMywAW6XmUtcF3L9j685YOv6iNlqvAMlEBEHNtlEVY2N9EPtMS/I2E++U5lWz
+	E3V89hVZ1Thbpg4SJgrK/t5GIdD3wJNUizrs+FjGQn1slZYBhs3nTb80RzRrqWj63T/VIABJyZZ
+	/z2yMd7rRE8QJNVjv519cI7W0hT603pyZjt8q7T++3V2VYxUHwG7B0UCK33UeaNu+hOe0YmWUCv
+	GwzmPIAt9mC3zQX0wa/eWT1efclEZsP0WXoQhphOpeEzG4IevoDgP4xPbvvOWDUOZ6qC/FrKXhW
+	VHOeuc1NM8FIXQ9zEGtvRFzT/YgPD054oJuW9haF4Jcq6/xBdRoyAIOLqZCl6CEYdG7H2ZY6Mvw
+	OhKUrY4U4Hov8e
+X-Received: by 2002:a05:620a:4407:b0:93e:942f:b8b1 with SMTP id af79cd13be357-93ebd292a3fmr3061151085a.64.1792068163096;
+        Thu, 15 Oct 2026 05:42:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:4407:b0:93e:942f:b8b1 with SMTP id af79cd13be357-93ebd292a3fmr3061145985a.64.1792068162454;
+        Thu, 15 Oct 2026 05:42:42 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be33d704c1sm1293904e87.25.2026.10.15.05.36.12
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3aafdf4e5ebsm6660281fa.40.2026.10.15.05.42.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 05:36:13 -0700 (PDT)
-Date: Thu, 15 Oct 2026 15:36:11 +0300
+        Thu, 15 Oct 2026 05:42:41 -0700 (PDT)
+Date: Thu, 15 Oct 2026 15:42:39 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -107,477 +106,412 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
         iommu@lists.linux.dev
-Subject: Re: [PATCH 03/13] drm/msm/dcp: Add HFI transport over VirtIO
-Message-ID: <i2wnkjvzds5wqpvf6svghcwmg4l3muddf7ksieeadran2xd7jd@pvs7cavr3x5g>
+Subject: Re: [PATCH 04/13] drm/msm/dcp: Add IPCC power notification
+Message-ID: <u7pcn75yh435vuuwqezml37bqfzdztvrywggbmkydkilwe5yzp@myijo4wd2bob>
 References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-3-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-4-48aad0fe4f72@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-3-48aad0fe4f72@oss.qualcomm.com>
-X-Proofpoint-GUID: ZA_--SGGqjyyj3SEhHv0Inr6unYfu1vv
-X-Proofpoint-ORIG-GUID: ZA_--SGGqjyyj3SEhHv0Inr6unYfu1vv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfXwgBi+GqyLQT2
- Dej1DbiGYNicK2PfJdc3pgwzCXvnUPWlJavmrjxgymbCZPgGUOLJnKBZSN2qMbhAk+2ZRixVVoB
- G+UFeGJ7AB9BSqf4DG138muOiLBn2CU=
-X-Authority-Analysis: v=2.4 cv=TbQDJhQh c=1 sm=1 tr=0 ts=6ad0c8c1 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-4-48aad0fe4f72@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=QbvzLcbv c=1 sm=1 tr=0 ts=6ad0ca44 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=76646x4wTrqYLC7QdToA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX3jA0j3YS2LOu
- mkofOjATsHpk8L/F39RgSw8cJctJgqWblXTVSdRhHqH6Q8TZBb2h65hM3UKiqpGhZlUH+UfV3k2
- mwdkP+AUXzcNGwTF1qU55DWp9sBNJ1V0S7h2mEkDQACvb7cC85SjGeoUZJfWmRgoKKUi90mnCJ0
- f9sib7eQJirNl70YqBd5dUEXfAWzYrZdHUaIBtaPkmxMppEMx491rxdK5HBVz73VplCi0mU1Xys
- 9n2XJPQUtngqkuR0LZLwsKFyvJS7EJAtlfEkKWlvgsPweGDtj8tNGTZwnIyGAhZ0deMFDv3zMYV
- WxR+MJP92qwSzrhSleWyJ94LngeX9kvPNtsws1ZSoEgknYP7jMnSjMRVknfJ55tQKM8suf7JdAa
- xuIfeZ7h+WrWvaRwNgyT1C6n+r0cJwuS2q8ns0VLAbPwOkgyOHBAY9B9+cb8zVnmGY+rty38IpP
- Qd3ahRVPdtZWAUYNqPg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
+ a=CLenjPMy3891WX9YFLIA:9 a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX9jWI669nqklE
+ N0FXQh6w8vf5ehj8q8DirbqOckzQs7b1rTp2/ZF2ohFOfyEKYAbGRywN2yqoSOFuYn6E20FQAFb
+ YKos9DYf+6eCAOGSgettM5taqIvKR48=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDA1MCBTYWx0ZWRfX7ZULVzwYqMfn
+ VWot4ypO84qZwui2bKtpuSkEgDIHzyTyf3fs1k0r2MaIAAAW53Ytv/aLl9zqjoO+6kPTrxx7wpn
+ qfwNIANw3vdjAHXu0pv+ejKIjBm4icX3stLMY3w9uVT7ctLNzR0C0gXy1S4y28MtuQq/Y8t/yB3
+ NBjdPexYt16mSdXGAWjag6kuE4kzJvJSr/XtG7jUFP05Ro9FOXldz0XQ6wYJ32ANl+5jBGoMfkl
+ qCdiAe9ZjMN+soGoJWMqAUAqIIo/fUTssvD573WddVxByqYQanIQFvIBXJg5f9YRY6wqj0Cve6e
+ hVSOW/2xHAGp4Z5jk8jDEH8FDKABJvgC/2bEU6zAlZdP/xtfAbb6MBqa60VBMp2IFV+qSURO6Qo
+ Bd97EIW12K7C33IuXvcsyhfXJ6ybzWjFw7o2aI44wiurse6KUYOrzuu0/lmpRS/oVj2rR13vzk+
+ eBGHXGlzAcgpTJkJ2cg==
+X-Proofpoint-ORIG-GUID: AQX5URye0Rs34wOW-uTWSzZPnFy3d79H
+X-Proofpoint-GUID: AQX5URye0Rs34wOW-uTWSzZPnFy3d79H
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610150050
+ impostorscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150050
 
-On Thu, Oct 15, 2026 at 01:08:23PM +0530, Jayant Shekhar wrote:
-> DCP firmware owns the display hardware, so the MSM DRM driver needs a
-> transport for HFI commands, responses, and asynchronous display events.
+On Thu, Oct 15, 2026 at 01:08:24PM +0530, Jayant Shekhar wrote:
+> DCP may be power-collapsed while the VirtIO transport remains available.
+> The host therefore needs the platform IPCC channel to wake the firmware and
+> to receive notification that it can service HFI queues.
+
+Is it allowed per the VirtIO spec?
+
 > 
-> Add the VirtIO command and response queues used to communicate with DCP.
-> Allocate command, response, and capability buffers through the DMA API
-> using the firmware-visible IOVA window. Track synchronous commands and
-> asynchronous responses, dispatch HFI callbacks, and synchronize queue
-> teardown with in-flight transactions.
+> Add the IPCC mailbox client and power-notify interrupt handling. Wake DCP
+> before VirtIO queue activity, wait for the firmware acknowledgment, and
+> notify the response queue when the IPCC receive path completes.
+
+Don't describe patch contents. Describe your design decisions. The
+reasons for the flags, init/deinit functions, etc.
+
 > 
 > Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 > Assisted-by: LLM
-
-You haven't read Documentation/process/. Sad.
-
+> ---
+>  drivers/gpu/drm/msm/Makefile       |   1 +
+>  drivers/gpu/drm/msm/dcp/dcp_drv.h  |   1 +
+>  drivers/gpu/drm/msm/dcp/dcp_ipcc.c | 212 +++++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/dcp/dcp_ipcc.h |  56 ++++++++++
+>  4 files changed, 270 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index bdc34babfc21..4195bc0e1fc9 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -71,6 +71,7 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
+>  
+>  msm-display-$(CONFIG_DRM_MSM_DCP) += \
+>  	dcp/dcp_hfi_core.o \
+> +	dcp/dcp_ipcc.o \
+>  	dcp/hfi/hfi_packer.o \
+>  	dcp/hfi/hfi_unpacker.o \
+>  	dcp/hfi/hfi_utils.o
 > diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
-> new file mode 100644
-> index 000000000000..bf6c34af43a0
-> --- /dev/null
+> index bf6c34af43a0..af2db3cf9066 100644
+> --- a/drivers/gpu/drm/msm/dcp/dcp_drv.h
 > +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
-> @@ -0,0 +1,30 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#ifndef __DCP_DRV_H__
-> +#define __DCP_DRV_H__
-> +
-> +#include <linux/device.h>
-> +#include <linux/dma-mapping.h>
-> +#include <linux/notifier.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/virtio.h>
-
-Are all these headers required for this header?
-
-> +
-> +#include "dcp_hfi.h"
-> +
-> +struct dcp_dpu_kms;
-> +
-> +struct dcp_drv {
-> +	struct virtio_device	*vdev;
-> +	struct platform_device	*dcp_subsystem_dev;
-> +	struct device_dma_parameters dcp_subsystem_dma_parms;
-> +	struct device_node	*dcp_subsystem_node;
-> +	struct dcp_hfi		*hfi;
-> +	struct dcp_dpu_kms	*kms;
-> +	struct dcp_caps		 caps;
-> +	struct notifier_block	 panic_notifier;
-> +};
-> +
-> +#endif /* __DCP_DRV_H__ */
-
-
-
-> +
-> +#define DCP_MAX_DISPLAYS	4
-> +
-> +#define DCP_FEAT_DSC		BIT(0)
-> +#define DCP_FEAT_HDR		BIT(1)
-> +#define DCP_FEAT_SRC_SPLIT	BIT(3)
-> +#define DCP_FEAT_CURSOR		BIT(4)
-
-What kind of features are those?
-
-> +
-> +#define DCP_MAX_SSPP_COUNT	16
-> +#define DCP_MAX_VIG_PIPES	DCP_MAX_SSPP_COUNT
-> +#define DCP_MAX_DMA_PIPES	DCP_MAX_SSPP_COUNT
-> +
-> +#define DCP_MAX_BLOCKS			8
-> +
-> +/* Pipe indices encode the rectangle ID in bits 31:24. */
-> +#define DCP_REC_ID(x)		(((x) & 0xff000000) >> 24)
-> +
-> +/* Capabilities parsed from DEVICE_INIT responses. */
-> +struct dcp_caps {
-> +	u32 dcp_hw_rev;
-> +	u32 hw_rev;
-> +	u32 fw_rev;
-> +
-> +	u32 num_vig_pipes;
-> +	u32 vig_pipe_ids[DCP_MAX_SSPP_COUNT];
-> +	u32 virt_vig_count;
-> +	u32 vig_r1_indices[DCP_MAX_SSPP_COUNT];
-> +
-> +	u32 num_dma_pipes;
-> +	u32 dma_pipe_ids[DCP_MAX_SSPP_COUNT];
-> +	u32 virt_dma_count;
-> +	u32 dma_r1_indices[DCP_MAX_SSPP_COUNT];
-> +
-> +	u32 num_crtcs;
-
-CRTCs? Or mixers?
-
-> +
-> +	u32 dsi_count;
-> +	u32 dsi_indices[DCP_MAX_BLOCKS];
-> +	u32 max_dsi_resolution;
-
-If these are parsed, why is it still u32 rather than two resolutions?
-
-> +
-> +	u32 dp_count;
-> +	u32 dp_indices[DCP_MAX_BLOCKS];
-
-Unused, drop
-
-> +
-> +	u32 active_pipes_mask[DCP_MAX_DISPLAYS];
-
-Unused. Drop all unused fields.
-
-> +
-> +	u32 max_width;
-> +	u32 max_height;
-
-max width/height of... what?
-
-> +	u32 max_planes;
-> +	u32 features;
-> +	bool valid;
-
-How can it be invalid?
-
-> +
-> +	bool dyn_clk_support;
-
-??
-
-> +};
-> +
-> +struct dcp_hfi_buf {
-> +	void *data;
-> +	dma_addr_t dma_addr;
-> +	size_t size;
-> +	struct scatterlist sg;
-> +	struct dcp_hfi_completion *comp;
-> +	struct list_head node;
-> +};
-> +
-> +struct dcp_hfi_completion {
-> +	struct completion done;
-> +	int status;
-> +	void *resp_data;
-> +	size_t resp_len;
-> +	u32 packet_id;
-> +};
-> +
-> +#define DCP_HFI_RESOURCE_VOTE_BUF_SIZE	256
-> +
-> +/* Wire-format resource vote entry. */
-> +struct dcp_resource_vote_pair {
-> +	u32 key;
-> +	u64 value;
-> +};
-> +
-> +struct dcp_resource_vote_wire {
-> +	__le32 key;
-> +	__le64 value;
-> +} __packed;
-> +
-> +struct dcp_hfi {
-> +	struct device *dev;
-> +	struct dcp_drv *drv;
-> +
-> +	struct device *dma_dev;
-> +
-> +	struct virtqueue *cmd_vq;
-> +	struct virtqueue *resp_vq;
-> +
-> +	struct dcp_hfi_buf *cmd_pool;
-> +	struct list_head cmd_free_list;
-> +	/* Protects cmd_free_list and command buffer ownership. */
-> +	spinlock_t cmd_lock;
-> +
-> +	struct dcp_hfi_buf *resp_pool;
-> +	/* Protects response queue draining and power callback publication. */
-> +	spinlock_t resp_drain_lock;
-> +	struct list_head resp_repost_list;
-> +	struct delayed_work resp_repost_work;
-> +	struct xarray pending_xa;
-> +	/* Protects pending_xa. */
-> +	spinlock_t pending_lock;
-> +	atomic_t packet_id;
-> +	atomic_t shutdown_in_progress;
-
-This all demands at least some description or kernel docs.
-
-> +
-> +	struct work_struct resource_vote_work;
-> +	/* Protects resource_vote_buf, resource_vote_len, and callback state. */
-> +	spinlock_t resource_vote_lock;
-> +	u8 resource_vote_buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
-> +	u32 resource_vote_len;
-> +	u32 resource_vote_generation;
-> +	void (*resource_vote_cb)(struct dcp_drv *drv,
-> +				 const struct dcp_resource_vote_pair *pairs,
-> +				 u32 count);
-> +
-> +	/* Protects caps_cache pointer and its lifetime. */
-> +	spinlock_t caps_lock;
-> +	/* Serializes capability transactions and cache detach/free. */
-> +	struct mutex caps_cache_lock;
-> +	struct dcp_hfi_caps_cache *caps_cache;
-
-What's the point of keeping it as a pointer? Just embed it here and drop
-the locks. Read the caps while the devices is not visible so that there
-are no concurrent users.
-
-> +
-> +	void (*hotplug_cb)(struct dcp_drv *drv, u32 intf_idx, bool connected);
-
-Why do we need these callbacks? Can you call the functions directly?
-
-> +	void (*error_cb)(struct dcp_drv *drv, u32 display_id, u32 error_code);
-> +
-> +	void *power_control_priv;
-> +	void (*power_control_cb)(void *priv, u32 display_id,
-> +				 u32 power_mask, bool enable, u32 packet_id);
-> +};
-> +
-> +int dcp_hfi_init(struct dcp_drv *drv, struct virtio_device *vdev,
-> +		 struct virtqueue *cmd_vq, struct virtqueue *resp_vq,
-> +		 struct device *dma_dev);
-> +void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
-> +				  void (*cb)(void *priv, u32 display_id,
-> +					     u32 power_mask, bool enable,
-> +					     u32 packet_id));
-> +void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv);
-> +void dcp_hfi_stop(struct dcp_hfi *hfi);
-> +void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi);
-> +void dcp_hfi_deinit(struct dcp_hfi *hfi);
-> +
-> +void dcp_hfi_resp_callback(struct virtqueue *vq);
-> +void dcp_hfi_cmd_callback(struct virtqueue *vq);
-> +
-> +int dcp_hfi_send_sync(struct dcp_hfi *hfi, u32 cmd,
-> +		      enum hfi_cmd_buff_type cmd_type, u32 object_id,
-> +		      enum hfi_packet_payload_type payload_type, void *payload,
-> +		      u32 payload_size, u32 tx_flags, void *resp_data,
-> +		      size_t resp_len, unsigned int timeout_ms);
-> +
-> +int dcp_hfi_send_no_wait(struct dcp_hfi *hfi, u32 cmd,
-> +			 enum hfi_cmd_buff_type cmd_type, u32 object_id,
-> +			 enum hfi_packet_payload_type payload_type, void *payload,
-> +			 u32 payload_size);
-> +
-> +int dcp_hfi_send_no_wait_flags(struct dcp_hfi *hfi, u32 cmd,
-> +			       enum hfi_cmd_buff_type cmd_type, u32 object_id,
-> +			       enum hfi_packet_payload_type payload_type,
-> +			       void *payload, u32 payload_size, u32 tx_flags);
-> +int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi, u32 cmd,
-> +				      enum hfi_cmd_buff_type cmd_type, u32 object_id,
-> +				       enum hfi_packet_payload_type payload_type,
-> +				       void *payload, u32 payload_size, u32 tx_flags);
-
-You haven't really followed the internal review feedback. You have been
-asked to review the indentation. You didnt.
-
-> +#endif /* __DCP_HFI_H__ */
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/virtio.h>
+>  
+>  #include "dcp_hfi.h"
+> +#include "dcp_ipcc.h"
+>  
+>  struct dcp_dpu_kms;
+>  
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.c b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
 > new file mode 100644
-> index 000000000000..bf27cbf9b8a4
+> index 000000000000..e60a3ecbe3d8
 > --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-> @@ -0,0 +1,1198 @@
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.c
+> @@ -0,0 +1,212 @@
 > +// SPDX-License-Identifier: GPL-2.0-only
 > +/*
 > + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 > + *
-> + * DCP HFI core transport.
+> + * DCP IPCC power-notify mailbox client.
+> + *
+> + * The APSS-to-DCP channel must be signaled before a VirtIO queue kick.
 > + */
 > +
-> +#include <linux/completion.h>
-> +#include <linux/delay.h>
 > +#include <linux/device.h>
-> +#include <linux/kernel.h>
-> +#include <linux/unaligned.h>
-> +#include <linux/slab.h>
-> +#include <linux/scatterlist.h>
-> +#include <linux/spinlock.h>
+> +#include <linux/err.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/mailbox_client.h>
+> +#include <linux/mutex.h>
+> +#include <linux/of_irq.h>
+> +#include <linux/string.h>
 > +#include <linux/virtio.h>
-> +#include <linux/workqueue.h>
-> +#include <uapi/linux/virtio_mmio.h>
 > +
-> +#include "dcp_hfi.h"
-> +#include "dcp_hfi_priv.h"
-> +#include "dcp_drv.h"
-> +#include "hfi/hfi_packet.h"
-> +#include "hfi/hfi_packer.h"
-> +#include "hfi/hfi_unpacker.h"
-> +#include "hfi/hfi_commands_device.h"
-> +#include "hfi/hfi_commands_display.h"
-> +#include "hfi/hfi_commands_display_events.h"
-> +#include "hfi/hfi_defs_common.h"
-> +#include "hfi/hfi_defs_display.h"
+> +#include "dcp_ipcc.h"
 > +
-> +static void dcp_hfi_resource_vote_work(struct work_struct *work);
-> +static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi);
+> +#define DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS	10000
 > +
-> +u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi)
-> +{
-> +	u32 id;
-> +
-> +	id = (u32)atomic_inc_return(&hfi->packet_id);
-> +	if (id == 0)
-> +		id = (u32)atomic_inc_return(&hfi->packet_id);
-
-What if something looks at your counter inbetween? Two atomic operations
-aren't atomic.
-
-> +	return id;
-> +}
-> +
-> +#define DCP_HFI_BUF_ALLOC_RETRIES	3	/* Bound command-path stalls. */
-> +#define DCP_HFI_BUF_ALLOC_SLEEP_US_MIN	30000
-> +#define DCP_HFI_BUF_ALLOC_SLEEP_US_MAX	40000
-> +
-> +static struct dcp_hfi_buf *_dcp_hfi_buf_alloc(struct dcp_hfi *hfi,
-> +					      struct list_head *free_list,
-> +					       spinlock_t *lock,
-> +					       const char *pool_name)
-> +{
-> +	struct dcp_hfi_buf *buf = NULL;
-> +	unsigned long flags;
-> +	int retry;
-> +
-> +	if (atomic_read(&hfi->shutdown_in_progress)) {
-
-This is called drm_dev_get().
-
-> +		dev_dbg(hfi->dev,
-> +			"HFI shutdown in progress — refusing %s buffer allocation\n",
-> +			pool_name);
-> +		return NULL;
-> +	}
-> +
-> +	for (retry = 0; retry <= DCP_HFI_BUF_ALLOC_RETRIES; retry++) {
-> +		if (atomic_read(&hfi->shutdown_in_progress))
-> +			return NULL;
-> +
-> +		spin_lock_irqsave(lock, flags);
-> +		if (!list_empty(free_list)) {
-> +			buf = list_first_entry(free_list,
-> +					       struct dcp_hfi_buf, node);
-> +			list_del(&buf->node);
-> +		}
-> +		spin_unlock_irqrestore(lock, flags);
-> +
-> +		if (buf)
-> +			return buf;
-> +
-> +		if (retry < DCP_HFI_BUF_ALLOC_RETRIES)
-> +			usleep_range(DCP_HFI_BUF_ALLOC_SLEEP_US_MIN,
-> +				     DCP_HFI_BUF_ALLOC_SLEEP_US_MAX);
-> +	}
-> +
-> +	dev_warn_ratelimited(hfi->dev,
-> +			     "HFI %s TX pool exhausted after %d retries — command dropped\n",
-> +			     pool_name, DCP_HFI_BUF_ALLOC_RETRIES);
-> +	return NULL;
-> +}
-> +
-> +static void _dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf,
-> +			      struct list_head *free_list, spinlock_t *lock)
+> +static void dcp_ipcc_handle_rx(struct dcp_ipcc *ipcc)
 > +{
 > +	unsigned long flags;
 > +
-> +	buf->comp = NULL;
-> +	spin_lock_irqsave(lock, flags);
-> +	list_add_tail(&buf->node, free_list);
-> +	spin_unlock_irqrestore(lock, flags);
-
-Just call _dcp_hfi_buf_free_locked() under the lock.
-
-> +}
-> +
-> +static void _dcp_hfi_buf_free_locked(struct dcp_hfi_buf *buf,
-> +				     struct list_head *free_list)
-> +{
-> +	buf->comp = NULL;
-> +	list_add_tail(&buf->node, free_list);
-> +}
-> +
-
-[..]
-
-> +
-> +	case HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS: {
-> +		u32 intf_idx = pkt_info->id & 0xFFFF;
-> +		bool connected = false;
-> +
-> +		if (pkt_info->payload_ptr &&
-> +		    pkt_info->payload_size >=
-> +		    sizeof(struct hfi_display_hpd_status)) {
-> +			struct hfi_display_hpd_status *hpd =
-> +				pkt_info->payload_ptr;
-> +			connected = (hpd->dp_state ==
-> +				     HFI_DP_STATE_CONNECTED);
-> +		}
-> +		if (hfi->hotplug_cb)
-> +			hfi->hotplug_cb(hfi->drv, intf_idx, connected);
-> +		return true;
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	if (ipcc->shutting_down) {
+> +		spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +		return;
 > +	}
 > +
-> +	case HFI_COMMAND_DISPLAY_EVENT_PANEL_DEAD:
-> +		dev_err(hfi->dev,
-> +			"DCP: panel dead display %u\n",
-> +			pkt_info->id & 0xFFFF);
-> +		if (hfi->error_cb)
-> +			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 0);
-> +		return true;
+> +	if (atomic_xchg(&ipcc->power_notify_pending, 0))
+> +		complete(&ipcc->power_notify_done);
+
+Can there be more than one power notification pending? Can't we just
+call complete() here?
+
 > +
-> +	case HFI_COMMAND_DISPLAY_EVENT_HW_RECOVERY:
-> +		dev_err(hfi->dev,
-> +			"DCP: HW recovery display %u\n",
-> +			pkt_info->id & 0xFFFF);
-> +		if (hfi->error_cb)
-> +			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 1);
-
-Yep... Drop the callbacks. I think it was also a part of the review.
-
-> +		return true;
+> +	if (ipcc->resp_vq && virtqueue_kick_prepare(ipcc->resp_vq))
+> +		virtqueue_notify(ipcc->resp_vq);
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +}
 > +
+> +static irqreturn_t dcp_ipcc_power_notify_irq(int irq, void *data)
+> +{
+> +	struct dcp_ipcc *ipcc = data;
+> +
+> +	dcp_ipcc_handle_rx(ipcc);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static void dcp_ipcc_rx_callback(struct mbox_client *cl, void *data)
+> +{
+> +	struct dcp_ipcc *ipcc = container_of(cl, struct dcp_ipcc, client);
+> +
+> +	dcp_ipcc_handle_rx(ipcc);
+> +}
+> +
+> +int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev)
+> +{
+> +	int irq, ret;
+> +
+> +	if (!ipcc || !dev)
+> +		return -EINVAL;
+> +
+> +	memset(ipcc, 0, sizeof(*ipcc));
+> +	init_completion(&ipcc->power_notify_done);
+> +	mutex_init(&ipcc->power_notify_lock);
+> +	spin_lock_init(&ipcc->state_lock);
+> +	atomic_set(&ipcc->power_notify_pending, 0);
+> +
+> +	ipcc->client.dev          = dev;
+> +	ipcc->client.tx_block     = false;
+> +	ipcc->client.tx_tout      = 0;
+> +	ipcc->client.knows_txdone = true;
+> +	ipcc->client.rx_callback  = dcp_ipcc_rx_callback;
+> +
+> +	ipcc->power_chan = mbox_request_channel_byname(&ipcc->client,
+> +						       "dcp-power-tx");
+> +	if (IS_ERR(ipcc->power_chan)) {
+> +		ret = PTR_ERR(ipcc->power_chan);
+> +		ipcc->power_chan = NULL;
+> +		if (ret != -EPROBE_DEFER)
+> +			dev_err(dev, "IPCC: failed to get 'dcp-power-tx': %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	irq = of_irq_get_byname(dev->of_node, "dcp_power_notify_irq");
+> +	if (irq <= 0) {
+> +		ret = irq ? irq : -EINVAL;
+> +		ret = dev_err_probe(dev, ret,
+> +				    "failed to get required power notify IRQ\n");
+> +		goto err_free_channel;
+> +	}
+> +
+> +	ret = request_irq(irq, dcp_ipcc_power_notify_irq,
+> +			  0, "dcp-power-notify", ipcc);
+> +	if (ret) {
+> +		ret = dev_err_probe(dev, ret,
+> +				    "failed to request power notify IRQ %d\n", irq);
+> +		goto err_free_channel;
+> +	}
+> +	ipcc->power_notify_irq = irq;
+> +
+> +	ret = enable_irq_wake(irq);
 
-Can you split the patches? It really becomes troublesome to review.
+This is typically called from the suspend callback. Why are you calling
+it in init path?
+
+> +	if (ret) {
+> +		dev_err(dev, "failed to enable power notify IRQ wake: %d\n", ret);
+> +		goto err_free_irq;
+> +	}
+> +	ipcc->power_notify_irq_wake = true;
+> +
+> +	return 0;
+> +
+> +err_free_irq:
+> +	free_irq(irq, ipcc);
+> +	ipcc->power_notify_irq = 0;
+> +err_free_channel:
+> +	mbox_free_channel(ipcc->power_chan);
+> +	ipcc->power_chan = NULL;
+> +	return ret;
+> +}
+> +
+> +void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq)
+> +{
+> +	unsigned long flags;
+> +
+> +	if (!ipcc)
+> +		return;
+> +
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	if (!ipcc->shutting_down)
+> +		ipcc->resp_vq = resp_vq;
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +}
+> +
+> +void dcp_ipcc_deinit(struct dcp_ipcc *ipcc)
+> +{
+> +	struct mbox_chan *power_chan;
+> +	int irq;
+> +	bool irq_wake;
+> +	unsigned long flags;
+> +
+> +	if (!ipcc)
+> +		return;
+
+Oh, you again ignored the feedback. Can ipcc be NULL here? What would
+that mean?
+
+> +
+> +	mutex_lock(&ipcc->power_notify_lock);
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	ipcc->shutting_down = true;
+> +	ipcc->resp_vq = NULL;
+> +	irq = ipcc->power_notify_irq;
+> +	ipcc->power_notify_irq = 0;
+> +	irq_wake = ipcc->power_notify_irq_wake;
+> +	ipcc->power_notify_irq_wake = false;
+> +	power_chan = ipcc->power_chan;
+> +	ipcc->power_chan = NULL;
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+
+Ugh. No.
+
+> +
+> +	if (irq > 0) {
+
+Can it be 0 here?
+
+> +		disable_irq(irq);
+
+What for?
+
+> +		if (irq_wake)
+> +			disable_irq_wake(irq);
+
+It is enabled at this point. Drop the useless flags.
+
+> +		free_irq(irq, ipcc);
+
+We have devm_foo() functions to simplify the teardown. Can we use them
+here?
+
+> +	}
+> +	if (power_chan)
+> +		mbox_free_channel(power_chan);
+> +	mutex_unlock(&ipcc->power_notify_lock);
+> +}
+> +
+> +int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc)
+> +{
+> +	unsigned long flags, timeout;
+> +	int ret;
+> +
+> +	if (!ipcc)
+> +		return -ENODEV;
+> +
+> +	/* Wait for the doorbell acknowledgment before returning to VirtIO. */
+> +	mutex_lock(&ipcc->power_notify_lock);
+> +	spin_lock_irqsave(&ipcc->state_lock, flags);
+> +	if (ipcc->shutting_down || !ipcc->power_chan) {
+> +		spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +		ret = -ENODEV;
+> +		goto out_unlock;
+> +	}
+> +	spin_unlock_irqrestore(&ipcc->state_lock, flags);
+> +
+> +	reinit_completion(&ipcc->power_notify_done);
+> +	atomic_set(&ipcc->power_notify_pending, 1);
+> +
+> +	ret = mbox_send_message(ipcc->power_chan, NULL);
+> +	mbox_client_txdone(ipcc->power_chan, ret);
+> +	if (ret < 0) {
+> +		atomic_set(&ipcc->power_notify_pending, 0);
+> +		dev_err(ipcc->client.dev,
+> +			"IPCC TX: power notify failed: %d\n", ret);
+> +		goto out_unlock;
+> +	}
+> +
+> +	timeout = wait_for_completion_timeout(&ipcc->power_notify_done,
+> +					      msecs_to_jiffies(DCP_IPCC_POWER_NOTIFY_TIMEOUT_MS));
+> +	atomic_set(&ipcc->power_notify_pending, 0);
+> +	if (!timeout) {
+> +		dev_err(ipcc->client.dev,
+> +			"IPCC power notify acknowledgment timed out\n");
+> +		ret = -ETIMEDOUT;
+> +	} else {
+> +		ret = 0;
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&ipcc->power_notify_lock);
+> +	return ret;
+> +}
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_ipcc.h b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
+> new file mode 100644
+> index 000000000000..a3430e5cbe72
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_ipcc.h
+> @@ -0,0 +1,56 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * IPCC power-notify mailbox interface for DCP firmware.
+> + *
+> + * Channel 5 carries APSS-to-DCP wake notifications; responses arrive through
+> + * the mailbox client's RX callback.
+> + */
+> +
+> +#ifndef __DCP_IPCC_H__
+> +#define __DCP_IPCC_H__
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/completion.h>
+> +#include <linux/mailbox_client.h>
+> +#include <linux/mutex.h>
+> +#include <linux/spinlock.h>
+> +
+> +struct device;
+> +struct virtqueue;
+> +
+> +/**
+> + * struct dcp_ipcc - DCP IPCC power-notification state
+> + * @client: Mailbox client used for APSS-to-DCP notifications.
+> + * @power_chan: Mailbox channel carrying power notifications.
+> + * @resp_vq: VirtIO response queue notified by the IPCC receive path.
+> + * @power_notify_done: Completion for the firmware acknowledgment.
+> + * @power_notify_lock: Serializes power notifications and teardown.
+> + * @power_notify_pending: Indicates an outstanding acknowledgment.
+> + * @state_lock: Protects shutdown state and response queue access.
+> + * @shutting_down: Prevents callbacks from accessing teardown state.
+
+What is going to access it during teardown? Can we shutdown in a logical
+way, so that there are no accessors after starting the teardown?
+
+> + * @power_notify_irq_wake: Whether IRQ wake was enabled.
+> + * @power_notify_irq: Power-notify acknowledgment IRQ number.
+> + */
+> +struct dcp_ipcc {
+> +	struct mbox_client client;
+> +	struct mbox_chan *power_chan;
+> +	struct virtqueue *resp_vq;
+> +	struct completion power_notify_done;
+> +	/* Serializes power notifications and teardown. */
+> +	struct mutex power_notify_lock;
+> +	atomic_t power_notify_pending;
+> +	/* Protects shutdown state and response queue access. */
+> +	spinlock_t state_lock;
+> +	bool shutting_down;
+> +	bool power_notify_irq_wake;
+> +	int power_notify_irq;
+> +};
+> +
+> +int dcp_ipcc_init(struct dcp_ipcc *ipcc, struct device *dev);
+> +void dcp_ipcc_set_resp_vq(struct dcp_ipcc *ipcc, struct virtqueue *resp_vq);
+> +void dcp_ipcc_deinit(struct dcp_ipcc *ipcc);
+> +int dcp_ipcc_send_power_notify(struct dcp_ipcc *ipcc);
+> +
+> +#endif /* __DCP_IPCC_H__ */
+> 
+> -- 
+> 2.43.0
+> 
 
 -- 
 With best wishes
