@@ -1,72 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19703EFFA6;
-	Thu, 15 Oct 2026 12:35:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D843E95A0
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:36:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792067739; cv=none; b=dRApxgpnwZmWVAc1EX1HGWbcqFKQB+AIoDSCQzu+zxUYIQ6gRow1+7G6/H1OfNmbtsMfOsONXxBMShxVw8s6jSycCz2rXwmhuR1Wx96BiDJcqk5YooBABZkM9fgRcDKYooE8qlylLy3Au8LLc8eqMK0xFAENtYUVLeVt4FTljAk=
+	t=1792067775; cv=none; b=Eb2t5YzkzMrc0Hlg2rQXhYZddx/3nS/356bomAjqTw448iiOS0GNJ8PqyN2GgyIVWhRH6cgHFQCb3rMxLy1DLmTE1DuoHN+Bed572U2r7vOOGdbWHroqGvANB36o5dLdmighGZ3bp4m8hU4EWBOOjCks+OP5lmLLC1dFjm/Elh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792067739; c=relaxed/simple;
-	bh=10KcGlhH+sxjQwKLfJ38UlR5MoVIIqV+dyNBJmZ6BDw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=YrVSpuRr4fBtf1vcDvuTBWJDMOgXUttlHU3ne/FOOkd6lmHDiFFClWxgTN3iqAFa+sJsfOA7J89GYXDccJGmODNtSYGEMI7H9/gN8MpSBr7W6/VGNYJmis/W3H41GLqqk5LWnqch4HPm84ottZjJkw70od9jqcJemq9ruWqG72Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+QJGHWZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067775; c=relaxed/simple;
+	bh=HhSSj2Jpbd1NjgZWSsCYeRG5hiO72wvs6suPtxQRAvU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fDihfPq9bgXNA8HPoKEtKnJBd8TH74PrNge+qh2KzEHEt/ZDLoLEO2tV0T4ArKAF53upE+HDzXRF2obfeQQpKwc8IwwqrgiQF5lfRy+jrPcsPSiFU/iB1NaX7bJ64ZADNN92AVNet/6tLMbyvVun/8/59QouNctNvTG1kreU2Tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohw/PWHM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+QJGHWZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7B91F000C4;
-	Thu, 15 Oct 2026 12:35:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohw/PWHM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349B61F000CE
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:36:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792067738;
-	bh=10KcGlhH+sxjQwKLfJ38UlR5MoVIIqV+dyNBJmZ6BDw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=D+QJGHWZbpckHr726CHantgd1VlHyyrYohh2Jt7jth1cLZ0NAB53nJYmda4thNt58
-	 BDvhy/RlnZq15T5hrg02FSexSr+qHMv+LbeMT0O6PzY4gJJgcT633lRscigKHH8CXT
-	 vea+GZ7pLCfK/w7MJKiUZ9bm4L/ByNXAI0zNjBHVsy6N70QC/zVixd6cwIKz2amMhJ
-	 MY9ZpwYnjU25Nzd3qdk1gWK1RixRnGjiVwPg6rOXN+1p8o6s5qts4sbWWHp2MQ2L5P
-	 QZMidd+Zn+4fXmLDxD/pfzjz65MAxidh/vhp0yeufYN4HjVj6B6P9G2van7NFPPd0m
-	 A7blbHhDKMb1A==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Radu Rendec <radu@rendec.net>, Guo Ren <guoren@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
- Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
- <andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>,
- Minghsiu Tsai <minghsiu.tsai@mediatek.com>, Houlong Wei
- <houlong.wei@mediatek.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>,
- linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, "tip-bot2 for GUO Ren (XuanTie)"
- <tip-bot2@linutronix.de>, Nathan Chancellor <nathan@kernel.org>
-Subject: Re: [PATCH v2 0/6] riscv: Make IPI_MAX visible and use it consistently
-In-Reply-To: <6a4202752078c5f55882d3a4f5113829201dfb7b.camel@rendec.net>
-References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
- <81f0bf10b41dff85872487ab68c750471b7c2f89.camel@rendec.net>
- <CAJF2gTQZWfvN8c7E3+jcmzD0GqzYKzYO9vLd=eR36azKU1Uq5g@mail.gmail.com>
- <6a4202752078c5f55882d3a4f5113829201dfb7b.camel@rendec.net>
-Date: Thu, 15 Oct 2026 14:35:35 +0200
-Message-ID: <87o6cvdtuw.ffs@fw13>
+	s=k20260515; t=1792067774;
+	bh=UTsn5LMiWlp/JSayb2otn1OhoN0igsWzM/RgKJeMZww=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ohw/PWHMAwUiMqw43scdb8VM0PMHukFCIh7Ln2ZWhcEb59s1OgOklkNJBSBx624ha
+	 M6qzGVOE+wt3ZbKDcu1sdh53G+tXgi/8N1cwDhtS4x/xm1z8SeHDoUNWzH1gmVxFME
+	 OtNnTVWHbxbXabpRuvFmCYREyF+v91UqM4+sRl776qpvZgozBwwQ9ZHAnyoUROJXjP
+	 T9htrhJt/7WGUSldBETTPf0BzPj3UHKuZ4DIxcFMzsrEnjQb6N+5wZlXOxfypBP9CP
+	 97hCdEDFd+4IriUddB5BtDG6XRvu5fcZ1pbHMw+GNkaOakOukrw/Acw+4cbRzUTpgG
+	 7zCc4qZkSf4YQ==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be3db57938so519624e87.0
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 05:36:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz9N8vAFmSjkVYo+ysLG5lkmhJ1SxLzODjYA/q8B4TISl0MGk4ch7dwKYlsEVF3sBnYaPMa3jFU7trOyw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeb0hiNSrx/4vBuatiy59w16RptgNHyzFnaGKnXtTltvmwmuz6
+	M9GbdAWWj0wVNBCI/fWP1hF2kjmK4uBWKT0LHOhsqQGSEMyuWzMVzk2Y1toyb5U1Q5vWwm26jAN
+	jmUlygqZQYBZ8n560852Ym9vmkYEX99Q=
+X-Received: by 2002:a05:6512:438d:b0:5bc:e906:ad3 with SMTP id
+ 2adb3069b0e04-5bce9060f28mr5549281e87.14.1792067772827; Thu, 15 Oct 2026
+ 05:36:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
+ <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org> <asz8oEtow_lrUU7K@zed>
+In-Reply-To: <asz8oEtow_lrUU7K@zed>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 15 Oct 2026 14:36:00 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+X-Gm-Features: AclHuK-ulodNdbkzNaP_Y4BbHHTacK8pusSXYjUamTyP_Oq91RNTtepybaEU-JQ
+Message-ID: <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17 2026 at 21:38, Radu Rendec wrote:
-> I now realize that patch 1 (which introduces the conflicting change)
-> was picked up by Thomas via the irq/drivers tip branch, but patch 6 is
-> strictly a media subsystem patch, so I guess normally it should be
-> picked up by a different maintainer via a different tree.
+Hi Jacopo,
+
+On Mon, Oct 12, 2026 at 5:39=E2=80=AFPM Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
+
+> How was this patch tested ?
+
+I was using the TPG only so far, a camera module is in the mail.
+
+I do have the RPi camera module 3 but didn't get it to work, this
+may explain why...
+
+> > +             ivc: isp-input@16040000 {
+> > +                     compatible =3D "renesas,r9a09g057-ivc";
+> > +                     reg =3D <0 0x16040000 0 0x10000>;
+> > +                     clocks =3D <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0xe=
+4>,
+> > +                              <&cpg CPG_MOD 0xe5>;
 >
-> Thomas, are you willing to pick this up too? I'm thinking it could
-> avoid some pain if irq/drivers gets merged into mainline first, before
-> patch 6 makes it there through the media subsystem. Also, it's a pretty
-> "innocent" patch, it just renames an enum value, and it's contained
-> within that driver.
+> Compared to Dan's original patch I was carrying my tree the first and
+> third ids of clock and reset properties in the ivc and isp nodes respecti=
+velty
+> are swapped
 
-The media folks picked it up already.
+OK
+
+> -                       resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
+> +                       resets =3D <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3>;
+>                         reset-names =3D "vresetn", "aresetn", "hresetn";
+>                         status =3D "disabled";
+>
+> Fixes the issue for me
+
+OK
+
+> Why is this an issue it's not 100% clear to me.
+
+Can you try this?
+
+diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+--- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
++++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+@@ -703,6 +703,12 @@
+                return ret;
+        }
+
++       /*
++        * Allow the ISP's 2500-vclk reset recovery time.
++        * 200 us cover the RZ/V2H's documented minimum of 20 MHz.
++        */
++       usleep_range(200, 300);
++
+        /* Use "software only" context management. */
+        mali_c55_update_bits(mali_c55, MALI_C55_REG_MCU_CONFIG,
+                             MALI_C55_REG_MCU_CONFIG_OVERRIDE_MASK, 0x01);
+
+When we now retrieve the reset and assert it, it matters that
+we give the hardware time to recover. (If this works I will make
+a separate patch.)
+
+> I can't access the "additional documentation" from the Renesas website
+> where the clock/reset ids are reported. Could you please check ?
+
+These changes contradicts the manual so we can't change things
+like this unless we know more, it'd be too much trial-and-horror.
+
+The manual says:
+
+Video/ISP core
+0xe5, isp_sclk
+0xd3, isp_sresetn
+
+Register-interface bridge
+0xe2, reg_aclk
+0xd2, reg_aresetn
+
+Yours,
+Linus Walleij
