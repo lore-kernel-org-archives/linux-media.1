@@ -1,87 +1,35 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F39B348C6D
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:41:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FDD4AA1E4;
+	Thu, 15 Oct 2026 07:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792050070; cv=none; b=b/ny/hQl+GwtD1546rSehqde86MjnjyKB2Vo1Dafgft88UZK6E7MOiPwnwvwUIUY3B30mVNjQNC53NZLBATyxhmxBXxsN1Fc+SiPBr+4TVdjpjj0N7JRU/OJ0TX2L0QjT9cpaxc0AmQ7zsAKHdbi2JpVFnrZuxWkHsP8N33sucM=
+	t=1792050728; cv=none; b=f81olt32TBDRVMPVlYVmcXL166S63oVT46OZN7T276dKS4MZx5jzNjEhRYpdsZv1ptRZFD4QjGEKD5x7b4JiVg5tA1n6u8cIchfYVNsYiibWENPhCcbndAHE0VO53LLlomtJBc5m/mnGEmJKxeY8W+zcYuZOS4OSVwqs0BgUmiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792050070; c=relaxed/simple;
-	bh=QfsW7p+EnqCrkp5VxF7nJpn3yBDQp8WAB3SXDfvEA80=;
+	s=arc-20240116; t=1792050728; c=relaxed/simple;
+	bh=4Rir2O/SJYgRxfaFeRkPtzZ3fpUBeXF+MRaQx2U5Z38=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DNXKOaGB//t2DPNRABzGG8vfWMsyqP5tK5Y7K0TNDRZSf6rChknJ2lFatG8cXnzBt+VnKbzrtmyzPGWs9KTG2ojcBW9jto37/tIcM9GK9Eych2sDH8e47V9kL6yriSl3bGi3l8QlvzXaC+3DIUqc7lRgwil+6opBz4YEsAN0edk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TgTPp/fi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FHifKsCJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:To:Cc; b=M9ITM0loQpu81YlecEqA01H3ocIXkBoGUDN7P8xyWnKfGgUqIWPU8zzUMxcvqhoYGpEDIQKP5W/bTrU1Xv4Z5l2d08KP+IHG0WIsiRDuyI/FUPVCXZYCqFRLNKfeEop8dAqsG+nQcGCDNDixLfMMcgNK0t/0gpU2bIh7hOZzpXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=G4DFnAIr; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TgTPp/fi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FHifKsCJ"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F6F3fm500329
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:41:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=; b=TgTPp/fiRJ02OnRu
-	K6sP8iGeHpxZs7FtrEExFRzxz2OvdVxz7HKeaEOG5e++i4RD8tRD/diWI4ydxkp/
-	I4nGpFcSIj1e9UZeVtRQDYDAO6aeLHweGR90tTUY20TbcYh8XIeTFwwPsysK2SIu
-	k9xiLQYll0k+VsVISRPultioYj1jE9mLbrMLffAPRWWUu4ic2WMPqhcoME79hrTe
-	KLb9Ze6YupQ0TzCJyh7AL4eoen95eHVI/Lk/22GMC/HJrhPWRbMtQBibHLXJ4CRR
-	qULsSlnZo/UNM2Przc1S2/JE0obAq/1zDbIlKAtR6qxHBb6enil/2OEDXFxK1jKT
-	07BrkA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4haagf3u8r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 07:41:01 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e8ad8c5f80so63103435ad.0
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 00:41:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792050061; x=1792654861; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=;
-        b=FHifKsCJ/tEjjdRaDdw7gBC2Q89BdBZgAP36tRCS+6EuGybHyoR4MXVwJ577VwbfJN
-         atLgkhEvlMYmcwBeNIzJmRAvN7jEUfgSJwf2jkjeRurNda2mVixWYevIN5qhX5LqMWEM
-         am7q4fkH1OJCYNYJxHyX3890PPedMvCgOGy/j6/riq6PiKTho+IBvo4THIuh2xoyxCD/
-         OLqw0hXEMt9s5ahndk7Mp1m20Nhd2frcs59Am7SZYCg827wwXr6+Ott5HbqqM3uq1kAK
-         OmkvdDzfE9RNBqlho8w2M3NZDs8ZSd3PDJ+u6/s6/q2y9m0zGsUbh6sXseJYn5hwXeHu
-         K5LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792050061; x=1792654861;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZMJcSwYy1VxSlOobjS03qaCfSpehSXjZPpHWNlF8RAI=;
-        b=aC1j8W8vdlargIJcSJMi7GLGtX+I4QfdmK9UqpA2uAlGxsrBN952lS9xblYotBL+3i
-         WdpKnw/b6s3gXclnjpKsNPna1Wcb498xGHlPgDX6B+ztFqNJ7mTmedgLvMaUosP07xwL
-         +V8II/YHvjnJ8/W+yj4BQAm2FaXVO2gvFk62f7plbGL84fEocwbrErej/A4hsTeh7gUL
-         ugiK/XCa1CY1WcoHVYL0lcLjSLtbtb5nAEK3fpTFor0lMIpAgsjc10CinuWOaTFvngVZ
-         zBCxgpGtYb1N3gOunKPT+YjpkHdOpBnzfE3yOS4f0o5Z2Amzkw+9dbWIt8Of0+dJ9G5m
-         yxSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzloiCglINIIAnsorOh2Y0pSZqnig6Z0bUDps2slwtr5z7W2DX9uDARHhNWNIgMTe1xyvO47Ai8/WP8uw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrzJgm6BZjGsoLKPDnMo2xfiJr3VLksBiwFoEBo5Ao0la/YFtW
-	stM/I5qAE9W9OzQOVwLtJvAD5gSdUr5my3ttBDOKKyYyVl8c/2rCLGmtqWxcuuSYqFn8LApc0XS
-	0tSm16DadBcxzWbaNaOqBDM2TQJGQXfYq5A/QU0pus2vurk+J4odvIeMZ4P0jPXTgGw==
-X-Gm-Gg: AYBFou2sAqj5YaRL0szMjuHU/c/OJQvXRU+uISL87S/FWR3nCM713TxhZd1oh18Ev4q
-	E4/V+6e2L8ig6ym/iAVP/1Vgpk7d+XNq2FoCA/Q6pnUiXUK4fWa+im6A/ZAS7UWJRhW1yCBPrma
-	+keU0avxEAGYnNmPqWjxXbLfMSl1Sbq6JNx49+mnFg2BJ1noH9YoUjYPeC+Yl9igKQU+Tke5JKg
-	afvpXYwsu9q49iTWIlg5yzGAGW/ebFc/MydHL1+TV3I8MrQx1H5eJhTEDIFQGrsdWS9TbRz+QXN
-	QyW/y1G2ZzAHV8nEaj0K2KixNHG/MwaVOLtIrd2TX0h7MNnyHFVsxAsfgt4VFXPe8yc22CAnnbm
-	O4q97Xcok5bOSxAs4ddAJ4VJ87YUtrqcJQDc=
-X-Received: by 2002:a17:903:230c:b0:2df:4876:50d9 with SMTP id d9443c01a7336-2e8429a58b9mr173469225ad.18.1792050060836;
-        Thu, 15 Oct 2026 00:41:00 -0700 (PDT)
-X-Received: by 2002:a17:903:230c:b0:2df:4876:50d9 with SMTP id d9443c01a7336-2e8429a58b9mr173468885ad.18.1792050060272;
-        Thu, 15 Oct 2026 00:41:00 -0700 (PDT)
-Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e944c23f17sm14014825ad.27.2026.10.15.00.40.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 00:40:59 -0700 (PDT)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Thu, 15 Oct 2026 13:08:33 +0530
-Subject: [PATCH 13/13] arm64: dts: qcom: hawi: Add DCP support
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="G4DFnAIr"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:6f1c:794c:1e6c:a09b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 701CA22B;
+	Thu, 15 Oct 2026 09:49:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792050597;
+	bh=4Rir2O/SJYgRxfaFeRkPtzZ3fpUBeXF+MRaQx2U5Z38=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=G4DFnAIr628qAII7TVB89qe16JEU2M9AeQDmGLS2BuyWH0rRzIi43mML20bIFaxqc
+	 nrhMoDSQG1ps7jAZK+jNyKA1QyZMUXhyrn6T70Dp9jasXVLaTLwEHCSuOCTJkMQHrZ
+	 Fb5ZxDxZYGo2Su29Eb52xeqgo3EhkcAzeYxC+iuc=
+From: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Date: Thu, 15 Oct 2026 16:51:41 +0900
+Subject: [PATCH DNI v3 01/15] dt-bindings: clock: renesas,r8a78000-cpg: Add
+ CPG_SGD4_VIO_DP_{TX,OTHER}
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -90,315 +38,47 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-jshekhar-drm-msm-dcp-v1-v1-13-48aad0fe4f72@oss.qualcomm.com>
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
-In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev,
-        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792049920; l=6156;
- i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=QfsW7p+EnqCrkp5VxF7nJpn3yBDQp8WAB3SXDfvEA80=;
- b=JxMeN+DmWGewFKBEVzcKUqFUkqoSyxqpGwErK350VoQIwFKd+fbhLmrtRxjrT83vph7NHMhD/
- kefG95krZ7aB85pcavRl2PIXjyPSamuyWWB5KyY+6SVKlJroQsTCpRq
-X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
- pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX9X0nBuXjbvoQ
- 5wzOgty5Zv5epuCak/qKECCOoa93JV/YuJQx4FeaK32uTEtIxwNTNLHqn/bLwXjdtCPuK80t+al
- zq/E7qzWDMj9q+JSHWrNjcz+KF/S7hvlxPh0qqCGavYvPmKU2jyAfxHb4aq7S4PrPaKM1u0vo2F
- TFonAocpH+EwWxplZncg/8Nb318Xh26kXiuljKcq/NAl1xJgta6vMYi0OncldVGKx5p/V4McI78
- oZK0MFDtwiBxCIQyvUs0qNvl2apvaHH0Xg4MxK+9ITLHpELsfsT8wyGAx459ost3flz9IYcBzyB
- 1pqgR4K8+CoaBYA9vFXHItYoyvoAQ7+bxHNzkUjA27tq8ramhTTyJmIc5X8ni67IexhecarHXsG
- ZBPjt2N5dtUVh1iQT67G4wkMNdlVxKg6PrTZZArkeekDwBddgyM4tlQ+HpvBg+VkQBVG98pGgPd
- dqvOOT/1pa+cDIYYWdg==
-X-Proofpoint-GUID: 8JzmpLq708t3z1SCmcN5CBKLUEeCFjSy
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzMCBTYWx0ZWRfX2lSlSHcE1dlb
- ZXYn/ETzIFe17ZVZL1o4MDtQ6Yfp38xNs+OZerQaUDbD4sA9wtM+lOhUn2jaOXmRL729S60gTIa
- eJmGP5lh4rSx17cJHRl9uZnu5LYJ8xo=
-X-Proofpoint-ORIG-GUID: 8JzmpLq708t3z1SCmcN5CBKLUEeCFjSy
-X-Authority-Analysis: v=2.4 cv=V/noQuni c=1 sm=1 tr=0 ts=6ad0838d cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=_CzEFU3RdQMONSqgxRIA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 lowpriorityscore=0 impostorscore=0
- bulkscore=0 adultscore=0 clxscore=1015 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610150030
+Message-Id: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-1-e052903a3832@ideasonboard.com>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+ Ulf Hansson <ulfh@kernel.org>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-media@vger.kernel.org, 
+ Paul Elder <paul.elder+renesas@ideasonboard.com>
+X-Mailer: b4 0.14.2
 
-Hawi display hardware is owned by DCP firmware, so the platform device tree
-must describe the VirtIO transport, firmware display function, power-notify
-channel, IOMMU contexts, and display graph used by the MSM DRM driver.
+Add the CPG_SGD4_VIO_DP_TX and CPG_SGD4_VIO_DP_OTHER clocks. The former
+is used by FCPV{B,D,I} and VSPD while the latter is used by VSP{B,I} on
+the Renesas R-Car X5H.
 
-Describe the DCP VirtIO transport and function, IPCC channel, IOMMU
-assignments, firmware-visible IOVA range, and DSI display endpoints on
-Hawi. Enable the DCP display device on the Hawi MTP platform.
-
-Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Assisted-by: LLM
+Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
 ---
- arch/arm64/boot/dts/qcom/hawi-mtp.dts | 131 +++++++++++++++++++++++++++++++++-
- arch/arm64/boot/dts/qcom/hawi.dtsi    |  59 +++++++++++++++
- 2 files changed, 189 insertions(+), 1 deletion(-)
+ include/dt-bindings/clock/renesas,r8a78000-cpg.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/hawi-mtp.dts b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-index 9c86e0477053..03e4cc117109 100644
---- a/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-@@ -36,6 +36,18 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
+diff --git a/include/dt-bindings/clock/renesas,r8a78000-cpg.h b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+index 5851a29847f961b9b4ec270f263eb3aa19e45308..8c1a01e28ddbb26c583d7c9b387400ef6626c06c 100644
+--- a/include/dt-bindings/clock/renesas,r8a78000-cpg.h
++++ b/include/dt-bindings/clock/renesas,r8a78000-cpg.h
+@@ -12,5 +12,7 @@
+ #define R8A78000_CPG_SGASYNCD16_PERW_BUS	2
+ #define R8A78000_CPG_S0D4_PERE_MAIN		3	// FIXME Preliminary
+ #define R8A78000_CPG_MSOCK_PERW_BUS		4	// FIXME Preliminary
++#define R8A78000_CPG_SGD4_VIO_DP_TX		5	// FIXME Preliminary
++#define R8A78000_CPG_SGD4_VIO_DP_OTHER		6	// FIXME Preliminary
  
-+	display_panel_vdd: regulator-display-panel-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "display-panel-vdd";
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		gpio = <&pmd8028_e1_gpios 2 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		pinctrl-0 = <&sde_disp0_vdd_active>;
-+		pinctrl-names = "default";
-+	};
-+
- 	clocks {
- 		xo_board: xo_board {
- 			compatible = "fixed-clock";
-@@ -261,6 +273,7 @@ sdcard_vdd_3p0: sdcard-vdd-3p0 {
- 
- 		vin-supply = <&vreg_bob1>;
- 	};
-+
- };
- 
- &lpass_vamacro {
-@@ -271,7 +284,6 @@ &lpass_vamacro {
- 	qcom,dmic-sample-rate = <4800000>;
- };
- 
--
- &q6apmbedai {
- 	dai@40 {
- 		reg = <SECONDARY_TDM_RX_0>;
-@@ -1277,3 +1289,120 @@ &usb_1_dwc3_hs {
- &usb_dp_qmpphy_out {
- 	remote-endpoint = <&pmic_glink_ss_in>;
- };
-+
-+&dcp_dsi0 {
-+	panel@0 {
-+		compatible = "novatek,nt37801";
-+		reg = <0>;
-+
-+		pinctrl-0 = <&sde_dsi_active &sde_te_active &sde_esync0_suspend
-+			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
-+			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
-+		pinctrl-1 = <&sde_dsi_suspend &sde_te_suspend &sde_esync0_suspend
-+			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
-+			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
-+		pinctrl-names = "default", "sleep";
-+
-+		vddio-supply = <&vreg_l12b_1p8>;
-+		vci-supply = <&vreg_l13b_3p0>;
-+		vdd-supply = <&display_panel_vdd>;
-+
-+		reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
-+
-+		port {
-+			panel_dcp_in: endpoint {
-+				remote-endpoint = <&dcp_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dcp_dsi0_out {
-+	remote-endpoint = <&panel_dcp_in>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&pmd8028_e1_gpios {
-+	sde_disp0_vdd_active: sde_disp0_vdd_active {
-+		pins = "gpio2";
-+		function = "normal";
-+		input-disable;
-+		output-enable;
-+		bias-disable;
-+		power-source = <2>;
-+		qcom,drive-strength = <2>;
-+	};
-+};
-+
-+&pmh0110_d_e0_gpios {
-+	sde_mdp_vsync_p_1p2_active: sde-mdp-vsync-p-1p2-active-state {
-+		pins = "gpio9";
-+		function = "paired";
-+		input-disable;
-+		output-enable;
-+		power-source = <2>; /* 1.2v */
-+	};
-+
-+	sde_mdp_vsync_p_1p8_active: sde-mdp-vsync-p-1p8-active-state {
-+		pins = "gpio10";
-+		function = "paired";
-+		input-enable;
-+		output-disable;
-+		power-source = <1>; /* 1.8v */
-+	};
-+};
-+
-+&pmh0110_f_e0_gpios {
-+	sde_disp0_rst_1p2_active: sde-disp0-rst-1p2-active-state {
-+		pins = "gpio9";
-+		function = "paired";
-+		input-enable;
-+		output-disable;
-+		power-source = <2>; /* 1.2v */
-+	};
-+
-+	sde_disp0_rst_1p8_active: sde-disp0-rst-1p8-active-state {
-+		pins = "gpio10";
-+		function = "paired";
-+		input-disable;
-+		output-enable;
-+		power-source = <1>; /* 1.8v */
-+	};
-+};
-+
-+&tlmm {
-+	sde_te_active: sde-te-active-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	sde_te_suspend: sde-te-suspend-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	sde_esync0_suspend: sde-esync0-suspend-state {
-+		pins = "gpio88";
-+		function = "mdp_esync0";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	sde_dsi_active: sde-dsi-active-state {
-+		pins = "gpio211";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	sde_dsi_suspend: sde-dsi-suspend-state {
-+		pins = "gpio211";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/qcom/hawi.dtsi b/arch/arm64/boot/dts/qcom/hawi.dtsi
-index 0926d880cb0c..58fcf42cbaba 100644
---- a/arch/arm64/boot/dts/qcom/hawi.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hawi.dtsi
-@@ -8235,4 +8235,63 @@ timer {
- 			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
- 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
- 	};
-+
-+	dcp: virtio@9be8000 {
-+		compatible = "qcom,dcp-virtio", "virtio,mmio";
-+		reg = <0x0 0x09be8000 0x0 0x1000>;
-+		interrupts-extended = <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
-+				      <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
-+		interrupt-names = "virtio", "dcp_power_notify_irq";
-+		iommus = <&apps_smmu 0x15a3 0x0>;
-+		iommu-ranges = <0x0 0x84000000 0x0 0x04000000>;
-+		dma-coherent;
-+		mboxes = <&ipcc 13 5>;
-+		mbox-names = "dcp-power-tx";
-+
-+		dcp-subsystem {
-+			compatible = "virtio,device34";
-+
-+			iommus = <&apps_smmu 0x400 0x2>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@1 {
-+					reg = <1>;
-+					dcp_intf1_out: endpoint {
-+
-+						remote-endpoint = <&dcp_dsi0_in>;
-+					};
-+				};
-+
-+			};
-+
-+			dcp_dsi0: dsi@0 {
-+				reg = <0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					port@0 {
-+						reg = <0>;
-+						dcp_dsi0_in: endpoint {
-+							remote-endpoint = <&dcp_intf1_out>;
-+						};
-+					};
-+
-+					port@1 {
-+						reg = <1>;
-+						dcp_dsi0_out: endpoint { };
-+					};
-+				};
-+			};
-+		};
-+	};
- };
+ #endif /* __DT_BINDINGS_CLOCK_RENESAS_R8A78000_CPG_H__ */
 
 -- 
-2.43.0
+2.47.3
 
