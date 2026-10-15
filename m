@@ -1,49 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A494A387A;
-	Thu, 15 Oct 2026 20:17:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB70855C30F;
+	Thu, 15 Oct 2026 20:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792095461; cv=none; b=Ya32R0Em8qfB8K9nHL5hWh3Nz/yuYT+AOKaAULI2ZBVj/5BMloVtAWqU9iaFx3TnzKBDHOPA90B16ZiOODC3CTOTFhhxpdeSu1aCMbCJyEPVXjQCGUvuiofx1nImaYWIpuGD9xuoo0GUqiliXvznAtzuH1g0s38ondMAiOqREKc=
+	t=1792097033; cv=none; b=KEcjE9CWogGJUGY447X0JPIAxkiNUFUpN/t/Ik8N0uU8E6v5owh28PM8+wA6sHo1vTLrrDaikQIYFHlSEslOSksexY1U7l0kaDTCjWpmfTRGq0zfmwLMWPaHfhneofuqKNWFpe1pY7mX+hKMgPBhPEW2HinMJWvVvdjtAjMjMtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792095461; c=relaxed/simple;
-	bh=1csYnh8NJNkq6uRZqlYEK9ZmrxncKaIr7ge1zJ7f/MQ=;
+	s=arc-20240116; t=1792097033; c=relaxed/simple;
+	bh=bp48/nXI3VT9joC4pzu9nHQiQHo6HUOQ/XvTD2Vz+rk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gxx9IqN7nmXYl33vShXMDdXG6S5acye15txzWC2pjNz6gS6mxNObjHxAhgpv5/Szu0n0pTKIhwLF94D8dZcjxEOIrA9V7v5BiPG2hJTl26pebZAj5Fr/IPq6w9kuE7691vRRdC+DYleNfJU4/xKjvsSPo4lZ/939ubLQ8OanyVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhbj4LGM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=A0CrlrUR4py0hYdBspg2Uv/PvaTlXkYWA5hmklqsy5eEY/sJoecDv5rVod82m58RKaEAvxyuxq+eUS4spqRZexjcS7UzsA0zB/sF0d7LaAvnl85u4TNtFe+WW9Mz/9F/8w0m7IkQjNYwau+oBDutfUt9aI6cUtYc/54e8Oo5cYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmcbkzEq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhbj4LGM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5B81F000C4;
-	Thu, 15 Oct 2026 20:17:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmcbkzEq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D22E1F000C4;
+	Thu, 15 Oct 2026 20:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792095460;
-	bh=z7MWpo4yUfswYEg3QkBO+6xOC6XoabSR4y0LBHpKx6M=;
+	s=k20260515; t=1792097031;
+	bh=HBkm/61/EqIpH2oS9MHilspE6Gu+5NfHfDwVSSYw1NA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nhbj4LGM27km89n5hLEeuMFX57KDu85e0nQ95I6ATW6nLLjC4+5Eu9ai2gscQG59k
-	 gNCpMWRj1B6zSNOAyC/3/m26UjBk6lDHTrO5PFW35FVYCwFfIjjzgT/raYHOBr2NlB
-	 jCDYwhvfguqn2gSeN4CH12ZjgCsRDNzcpom4f6klcrEVsoXJ2ekhcLk+WZjfrYt1zN
-	 7Y+jjy/4XskdRDOASOatbuU/s6CK05sU85gnhujM00muzK5V3mNkDEWY1NkPwoMDWt
-	 FM6jyOwOudVXcWQSurHWrWt6yw/KX4KhMcjHQ0yVu3SdePu3LfkR5SZufNTzB9f9ZH
-	 NMC7qfKKbHbOQ==
-Date: Thu, 15 Oct 2026 15:17:37 -0500
-From: Rob Herring <robh@kernel.org>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	b=LmcbkzEqiyCDgq751BP7IQFxcNcXexfsf99f9W8NkOUuv8yanKR2dAmQAZbtqxwEo
+	 4+uKihP0NuWcQpPtmQMP4FKPEvwI9+qN9eUxQQHnwdJuUnSmti1F939rLhJL52gdrN
+	 u2Es8PjBJsx5QGGXx7R6DcK8qoFjPEB8OaIo+BOa/f6qxjApESfUpGsSUymOcX/8+D
+	 nGZYEQvHdqSp0VE+5rpa4og4dgnrleHdmvCb9Mn6eamCep2HJj5P3Szpc5/t0xWcCu
+	 gm6DZVZVJIjek2yum5xvuWwBBp1ckvR78lbk7c8rTWcZQkxCFxFJsDxE344OhpKQd9
+	 KAMpwlWD4NZUA==
+Date: Thu, 15 Oct 2026 15:43:49 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: William Bright <william.bright@imd-tec.com>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>, devicetree@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
-Message-ID: <20261015201737.GA2917324-robh@kernel.org>
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Depeng Shao <quic_depengs@quicinc.com>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Subject: Re: [PATCH v3 1/3] dt-bindings: media: qcom,sm8550-camss: Add the
+ CSI TPG regions
+Message-ID: <179209702874.3156607.3998388608459603613.robh@kernel.org>
+References: <20261015-sm8550-camss-tpg-v3-0-00fe06a3c557@imd-tec.com>
+ <20261015-sm8550-camss-tpg-v3-1-00fe06a3c557@imd-tec.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -52,42 +53,19 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+In-Reply-To: <20261015-sm8550-camss-tpg-v3-1-00fe06a3c557@imd-tec.com>
 
-On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
-> There are multiple members of the Sony Starvis 2 image sensor family
-> that have the same hardware requirements as imx678.
-> Add them as options to the imx678 binding, rather than duplicating it.
+
+On Thu, 15 Oct 2026 10:49:30 +0100, William Bright wrote:
+> SM8550 has three CSI test pattern generators next to the CSIPHYs.
+> Allow their register regions as optional trailing entries.
 > 
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: William Bright <william.bright@imd-tec.com>
 > ---
->  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
->  1 file changed, 32 insertions(+), 6 deletions(-)
+>  .../devicetree/bindings/media/qcom,sm8550-camss.yaml    | 17 ++++++++++++++---
+>  1 file changed, 14 insertions(+), 3 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> index 098f72544216..027872a134f2 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Sony IMX678 Sensor
-> +title: Sony IMX678 and Starvis 2 Sensors
->  
->  maintainers:
->    - Jai Luthra <jai.luthra@ideasonboard.com>
-> @@ -13,21 +13,47 @@ maintainers:
->  description:
->    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
->    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
-> +  It is part of the Starvis 2 family of sensors.
-> +  Other members of the Starvis 2 have the same hardware requirements, and
-> +  therefore share this binding.
 
-If you want paragraphs, you need '>' modifier and blank line between 
-paragraphs.
-
-Rob
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
