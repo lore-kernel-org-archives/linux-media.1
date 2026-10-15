@@ -1,154 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA1A52CCC2
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19703EFFA6;
+	Thu, 15 Oct 2026 12:35:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792066808; cv=none; b=tZD13RqSrisA0K9+uIdP/StQph90sV8aEGWxlSVfAvlq9it+iMpOpkrjJ57gNWE+ANbrBlVm3KkGJZ3kVNZcVfd7W7lH1SWzhc3oKyaDmXr3RZSZdAcHeBFVo3E9Jz+6Hw5tEbDOV9iuCmyTX3BbzG9j970Q0zm4xrtCCaKT3YU=
+	t=1792067739; cv=none; b=dRApxgpnwZmWVAc1EX1HGWbcqFKQB+AIoDSCQzu+zxUYIQ6gRow1+7G6/H1OfNmbtsMfOsONXxBMShxVw8s6jSycCz2rXwmhuR1Wx96BiDJcqk5YooBABZkM9fgRcDKYooE8qlylLy3Au8LLc8eqMK0xFAENtYUVLeVt4FTljAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792066808; c=relaxed/simple;
-	bh=TXsDg8NIm7HJN2tl3l2p2aC54SSE4YQCcwi9qQHzh60=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=At6AiYSznjTV8yS3aSI2t3+e2xhpVFypIaUbr/915/wVb9lVoaoGoqf2Yv24wilG4dfaq+4rd1zcHfGwnFNz5oMXbAfF0Dmh/s/rVFhw2SREY7pjbOKYSISuzRVkzwiEJf6FzpcX1k3vD12ooOZ2TsIX4UxHcnzSfwAYVz3B2Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LcYc2mwL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792067739; c=relaxed/simple;
+	bh=10KcGlhH+sxjQwKLfJ38UlR5MoVIIqV+dyNBJmZ6BDw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=YrVSpuRr4fBtf1vcDvuTBWJDMOgXUttlHU3ne/FOOkd6lmHDiFFClWxgTN3iqAFa+sJsfOA7J89GYXDccJGmODNtSYGEMI7H9/gN8MpSBr7W6/VGNYJmis/W3H41GLqqk5LWnqch4HPm84ottZjJkw70od9jqcJemq9ruWqG72Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+QJGHWZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LcYc2mwL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4AF01F000C5
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:20:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+QJGHWZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7B91F000C4;
+	Thu, 15 Oct 2026 12:35:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792066805;
-	bh=lE661Wroe2zgjZuO0pf3gpxokjJ832mVAkgNNQuLNvI=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=LcYc2mwLu2LWtb07SetvoVtwlneGqGELuc5dTPhrkp2faN7YFUEPhk3Go+u7+KYMQ
-	 RPe65WyNaq/wMW3bhhvCWNTtHKSYEaepJjQeZycW+kBQcmhnKurL7xJZrjDR3T9eX5
-	 6OQ5Bz8uvabObfGQUHu+IFf5QiO143NTSu/ssOlYm0cy1DgAld7nTOYMN776Gk5/a0
-	 7rHAYdIEWzvdhAcaNaLgGQUuF46/6CKhJfCFzKLMhgHXUuNNraTQFyCDgupafbJB8k
-	 qdqdR4jacBOouo2sPd51/haKbLmhyrIG5R451kyyDDMv4Q50+l9moVILv4yIZF30xd
-	 9laByJZT/X1IA==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5be47159f2bso6623e87.2
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 05:20:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByy2RYYCo1uiFkC/3FeDHmZ2KeZJdkEanwyDQLm+s/Pk05ZitwC6/batwKAe4VErkT1ucSQebXyhqjEGQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhMwqmpU7sFuDEwyJzKLgZb5mUfsH+RtPwK6qdGHhtL6vhsFmI
-	OPWG1N/0gdh0OLRwV24l1DUpwCJuvDbbmezeQztvDbD0PBmuDvhfZvn95JqVgVHHwR02nGpoBqZ
-	ie6B23/VX84WjfanQKHCknJrrvs5zt8GrNw8BUFPHNQ==
-X-Received: by 2002:a05:6512:3e04:b0:5be:3db4:5665 with SMTP id
- 2adb3069b0e04-5be3db4582cmr703817e87.7.1792066804656; Thu, 15 Oct 2026
- 05:20:04 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 12:20:03 +0000
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 15 Oct 2026 12:20:03 +0000
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <as4wZeHPziPV3nKU@ashevche-desk.local>
+	s=k20260515; t=1792067738;
+	bh=10KcGlhH+sxjQwKLfJ38UlR5MoVIIqV+dyNBJmZ6BDw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=D+QJGHWZbpckHr726CHantgd1VlHyyrYohh2Jt7jth1cLZ0NAB53nJYmda4thNt58
+	 BDvhy/RlnZq15T5hrg02FSexSr+qHMv+LbeMT0O6PzY4gJJgcT633lRscigKHH8CXT
+	 vea+GZ7pLCfK/w7MJKiUZ9bm4L/ByNXAI0zNjBHVsy6N70QC/zVixd6cwIKz2amMhJ
+	 MY9ZpwYnjU25Nzd3qdk1gWK1RixRnGjiVwPg6rOXN+1p8o6s5qts4sbWWHp2MQ2L5P
+	 QZMidd+Zn+4fXmLDxD/pfzjz65MAxidh/vhp0yeufYN4HjVj6B6P9G2van7NFPPd0m
+	 A7blbHhDKMb1A==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Radu Rendec <radu@rendec.net>, Guo Ren <guoren@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Daniel
+ Lezcano <daniel.lezcano@kernel.org>, Anup Patel <anup@brainfault.org>,
+ Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
+ <andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>,
+ Minghsiu Tsai <minghsiu.tsai@mediatek.com>, Houlong Wei
+ <houlong.wei@mediatek.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, "tip-bot2 for GUO Ren (XuanTie)"
+ <tip-bot2@linutronix.de>, Nathan Chancellor <nathan@kernel.org>
+Subject: Re: [PATCH v2 0/6] riscv: Make IPI_MAX visible and use it consistently
+In-Reply-To: <6a4202752078c5f55882d3a4f5113829201dfb7b.camel@rendec.net>
+References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
+ <81f0bf10b41dff85872487ab68c750471b7c2f89.camel@rendec.net>
+ <CAJF2gTQZWfvN8c7E3+jcmzD0GqzYKzYO9vLd=eR36azKU1Uq5g@mail.gmail.com>
+ <6a4202752078c5f55882d3a4f5113829201dfb7b.camel@rendec.net>
+Date: Thu, 15 Oct 2026 14:35:35 +0200
+Message-ID: <87o6cvdtuw.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011131518.48838-1-toorandom@gmail.com> <as4wZeHPziPV3nKU@ashevche-desk.local>
-Date: Thu, 15 Oct 2026 12:20:03 +0000
-X-Gmail-Original-Message-ID: <CAMRc=Mf0kGs0gOs52T46C0udU2avb5SzT9V7-Pp+oPAe0b0TQA@mail.gmail.com>
-X-Gm-Features: AclHuK8Z90jAgvsy5hC9pGJg69VYpYcrqoLFJxC_udcjr-dP0Dficdu0s-QRt48
-Message-ID: <CAMRc=Mf0kGs0gOs52T46C0udU2avb5SzT9V7-Pp+oPAe0b0TQA@mail.gmail.com>
-Subject: Re: [PATCH] media: ipu-bridge: hold a reference on the IVSC software node
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Eduardo Ruiz Duarte <toorandom@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, sakari.ailus@linux.intel.com, 
-	bingbu.cao@intel.com, djrscally@gmail.com, heikki.krogerus@linux.intel.com, 
-	tian.shu.qiu@intel.com, lixu.zhang@intel.com, linux-media@vger.kernel.org, 
-	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
 
-On Tue, 13 Oct 2026 15:21:41 +0200, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> said:
-> +Cc: Bart for the double check of the approach. This sounds like it might need
-> to be fixed in driver core (software node implementation).
+On Thu, Sep 17 2026 at 21:38, Radu Rendec wrote:
+> I now realize that patch 1 (which introduces the conflicting change)
+> was picked up by Thomas via the irq/drivers tip branch, but patch 6 is
+> strictly a media subsystem patch, so I guess normally it should be
+> picked up by a different maintainer via a different tree.
 >
-> On Sun, Oct 11, 2026 at 03:15:18PM +0200, Eduardo Ruiz Duarte wrote:
->> ipu_bridge_instantiate_ivsc() attaches the IVSC software node to the mei-csi
->> device with set_secondary_fwnode(), but never takes a reference on it, while
->> the driver core unconditionally drops one when that device goes away.
->>
->> device_add() calls software_node_notify(), which does a kobject_get() on the
->> swnode behind dev_fwnode(dev). device_del() calls
->> software_node_notify_remove(), which does the matching kobject_put() -- and
->> that put sits *outside* the "if (swnode->managed)" block, so it runs for every
->> device whose fwnode is a software node, managed or not:
->>
->> 	sysfs_remove_link(&swnode->kobj, dev_name(dev));
->> 	sysfs_remove_link(&dev->kobj, "software_node");
->> 	kobject_put(&swnode->kobj);
->>
->> 	if (swnode->managed) {
->> 		set_secondary_fwnode(dev, NULL);
->> 		kobject_put(&swnode->kobj);
->> 	}
->>
->> csi_dev is the mei-csi device, which the MEI client bus has already added by
->> the time ipu_bridge_instantiate_ivsc() runs. The add-side get therefore never
->> happens for this node, but the del-side put always does.
->>
->> On hardware where the MEI bus resets -- which it does on every s2idle and S4
->> resume on a Dell XPS 13 9340 -- mei-csi is destroyed and recreated each cycle,
->> so the node loses one reference per resume. INTC10CF-N starts at 3: one for its
->> own registration plus one for each of its two port children, since
->> kobject_add() of a child takes a reference on the parent. The third resume
->> therefore frees it, software_node_find_by_name() starts returning NULL, and
->> isys walks the fwnode graph into freed memory:
->>
->>   refcount_t: addition on 0; use-after-free
->>   WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x7e/0xb0
->>    kobject_get+0x94/0xb0
->>    software_node_graph_get_port_parent+0x89/0xd0
->>    fwnode_graph_get_port_parent+0x70/0xd0
->>    fwnode_graph_get_endpoint_by_id+0x93/0x280
->>    isys_notifier_init+0x92/0x180 [intel_ipu6_isys]
->>    isys_register_devices+0x3c9/0x4e0 [intel_ipu6_isys]
->>    isys_probe+0x3df/0x500 [intel_ipu6_isys]
->>    auxiliary_bus_probe+0x4c/0x70
->>    ...
->>    deferred_probe_work_func+0xa5/0x110
->>
->> followed by an underflow and a saturate on the same kobject, and the camera
->> never comes back.
->>
->> Take a reference so the attachment owns one, balancing the put the core will do
->> when csi_dev is destroyed. Where csi_dev is never destroyed this leaks a single
->> kobject reference, which is what the lifetime of the node already assumes.
->>
->> Found while making the camera survive hibernation on a Dell XPS 13 9340
->> (ov02c10 behind an INTC10CF IVSC); with suspend-then-hibernate the first cycle
->> burns two resumes, so the failure consistently showed up on the second
->> hibernation. Tested on 7.0.0-1015-oem: two consecutive hibernations with the
->> node alive throughout and no refcount warnings, where before the second one
->> hung the machine.
->>
->> Signed-off-by: Eduardo Ruiz Duarte <toorandom@gmail.com>
->> ---
->>  drivers/media/pci/intel/ipu-bridge.c | 9 +++++++++
->>  1 file changed, 9 insertions(+)
->>
->> --- a/drivers/media/pci/intel/ipu-bridge.c
->> +++ b/drivers/media/pci/intel/ipu-bridge.c
->> @@ -765,6 +765,15 @@
->>  	if (!fwnode)
->>  		return -ENODEV;
->>
->> +	/*
->> +	 * Balance the kobject_put() that software_node_notify_remove() will do
->> +	 * on this node when csi_dev is destroyed. That put is unconditional,
->> +	 * while the matching get in software_node_notify() only happens at
->> +	 * device_add() time -- and csi_dev was added before we got here, so it
->> +	 * never ran for this node.
->> +	 */
->> +	fwnode_handle_get(fwnode);
->> +
->>  	set_secondary_fwnode(sensor->csi_dev, fwnode);
->>
->>  	return 0;
->
+> Thomas, are you willing to pick this up too? I'm thinking it could
+> avoid some pain if irq/drivers gets merged into mainline first, before
+> patch 6 makes it there through the media subsystem. Also, it's a pretty
+> "innocent" patch, it just renames an enum value, and it's contained
+> within that driver.
 
-Thanks Andy. Yes, it looks like a bug in swnode.c. I'll send a fix proposal.
-
-Bart
+The media folks picked it up already.
