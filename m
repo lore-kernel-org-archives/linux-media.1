@@ -1,442 +1,155 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9508D54856D
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 15:57:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 978483769E6;
+	Thu, 15 Oct 2026 16:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792079910; cv=none; b=OTcgYsJ006S1CIbyKIxLNI9r6P+4VbHZczlqQ/9cOBOI2Yri1sznTmm0pxgif4wYZzhlgP/Hpu4v3xE0kbKTo5LZoR1s5CpNf6SJdJIofErFmwI5vWjy+jjb11ZYGen6LaSIccadcbveUDabHzpjUgAZR21qG9dfYNoVoZ8wQ9Q=
+	t=1792080715; cv=none; b=UI1wtDnsjjnL1D02hrHX3Lx2pCGPJgj6RZaTKlDacfG7AjZS//tBspWw4oJYm2y4YkUNbsbktNivZnDYEvLp09bZd53+CjpyPRt3y7Cwv/Yk7B/4CXKLdksN3GIiYz61S8Sdo7ZkHOuimJfg4AzdiFuBnI87SyyJPjahSEfF3SM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792079910; c=relaxed/simple;
-	bh=i+PyeaCfNlQmifwl+IGWUcKlBfq4aTA+ujf8KClYU2Q=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ow8krXiBQvIrqPUEorV63RSlhpyC36fbU8389vtGW/XBvB4wJ5TTSH+lmfvvFvljdvobpjMRo+kNFPRwyrs9Zt+RN1fp9/iR4knoz4B5ECKnTi+8hEPaE3WOteeNVIBziZ7JVsDlEPg7tFa3A61cKoSzrXR6UGsgxHMV0YpUgEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=GNrgLs43; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1792080715; c=relaxed/simple;
+	bh=xq2XewVoVjf6bVhh4Tsu6QYfbKWhfGOAXIcFU6Yn0XA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=aJ0yY94JmJnxmkV2fVw+d92xxUP3OVjVp7mJAISDaN9rhOsgiRQk9dWNGfqyd/12U8dLKi9uDGB5yXw6CdoofpE/J538KbCFFz3OXEtn5wIPWr0P3TlGGnWkzbA2nWJvUXgMeebA3ztqDj80OKRFo5r3GESMfRSlKMwP22/JPGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=E6EnWHhM reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="GNrgLs43"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c45111bebso3505718f8f.0
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 08:57:55 -0700 (PDT)
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="E6EnWHhM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792079873; x=1792684673; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PTG/b4KwlwwTr/s6RiiEZBeEHGX8c9PSv2PfAqR7u8w=;
-        b=GNrgLs43tXQidFZY1elFgLSLMz686D1RWvioVEKe9pwkpAXl1tZbTSHDs2SkQuc9JF
-         06cVXqb6E5fg8CcoZri2AUsBqPKJ8HwsIeCCrUCFTi4rDzncbWiNkFQCvgVtkT4GiOjZ
-         us1e1uMXwJXD6VZu6q+73lyCqhEG0Le8mpKgy3KFuRDhRqjpv3ww7M0T9qe5AVFWAaf0
-         3uz0ITPf/lqF/035P3FFubJHS47cL9t3WRnv9m/gTPrvWgW1Kf8xTCsKRJPMgg+jeaKW
-         ZHVDjCG5CD3rRfic16xyqfTEyDUF0D6NuYDHVz5qBCdhUEkcQ6IaQS+jSJD6kVSX0Im9
-         QoqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792079873; x=1792684673;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PTG/b4KwlwwTr/s6RiiEZBeEHGX8c9PSv2PfAqR7u8w=;
-        b=K/ZgONIbG+oHOzLPJuQ30I17Awr9zMGXDxhm7Fv6QNZI2302HK5srCuJr0H0alw31l
-         PEMXUswD4mk7kowxpjbC4pgediU2YVqbQMlzHOBcWYGgojYydO9J8hL8Gt+Im32e+KuL
-         GoxgUOEYdA3SY+oW0Xh3MfM7v6UnvQNNcM9ZCVbWkP5j9D8MReFzSdLa5zPKcxw4YL3W
-         9GmYjgXlBh1da7+tSfJpMuttqn96wyvNMPMYdGq78LRhdMenwyBJ2ER3ByLts6MxH0hy
-         5HVsmlokE5r0LRj4fFgmWF/uqeWKD2ac/8BG3dsj+RL8w5xF+VWR6ifCo2R+AobiN090
-         9vbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxq7qxCiuAtZaWf0AtejHtG9cL9Got2hb8QAlLFHb9RUeiC0j74Jp1LQaHLnjY9SSxPToZAt07saSwDtg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2U2M6XHPIO9w3DZgnXePu2Q2iXkAFuElikWSqnSg0Z+62xUdX
-	7b3FXu67flGibQknon9jsvmE/a+JHWqrdWQB5XnQwt2QwSpwXjTttWm3kCrAFMGwEH0=
-X-Gm-Gg: AYBFou190uatJ3vgKWHAQ5esATOiw03yeawApYiN+OsF+8hki0YiIpx0MsnKbNe+7lf
-	UDvol04xKqJx7HjFCLfZq5jZofiVKtSyjXirMe+rE3awHNEMRaez4bZs6W+Vm2mDM+tPibruVgw
-	r4X922txVNRTXgpu5TNgeb2IcMx8nvPGoXHVd2X47Z5Z5efbUDQOGQKLmxmoP2oAsWyDFvjYhPp
-	zyPX3jPTBkRfsBfYIqK7VlVmqh8KjY0k7PC2ZeUJ6p48s1yMKLpcAHPUokykCJdTsg76bomjNBl
-	fkFPPg3JE0QuFLaFAIlDeoJn5cgS5CtqPIvQzDRC5MpqaBcox37q7wB0UyDClgleLW+yTvOhg9j
-	j/T43fkUaa/Ty8YEmpl82iIBSDn36WV8AmXTXXw49MSuLqIoLMgOMV/gX9730zhmx6WN7Zhjs/x
-	1153yfKV4SIY94uJmLHGNSK7m8pnA9mF9MI2j3J7RogAcVTudovUtyfHlKezMrv3bNMD5DLGN5y
-	aOW9izwDGK4LNuZptgrN8QxBmSucvAIv8pAXq/dJp5NlK6lRg==
-X-Received: by 2002:a05:6000:188a:b0:48b:e54:84a1 with SMTP id ffacd0b85a97d-48dbad092e5mr41439630f8f.55.1792079873498;
-        Thu, 15 Oct 2026 08:57:53 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48de0aaaaebsm19877251f8f.14.2026.10.15.08.57.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 08:57:52 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 15 Oct 2026 16:57:42 +0100
-Subject: [PATCH v4 16/16] media: sony-starvis2: Add support for IMX585
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=bPBlrc4qEBfjzmIxVmq6fxazSIS+RETAtE
+	IJfpuzKtI=; b=E6EnWHhMkZXLtBmfUlj6zr8ZieAHyCdQjc2mmgKCLs16BPnxzO
+	D8Rc6WbH6inddQGHR8sO5tafnr1+1+stPbcmdSuiagj75AQfxmj2MSH6Z1CXe4Ro
+	dW6D2wHn0zT6sGOPZ15+0WTA/UO7zXxy6Ssm7qYXgi3/tlsW/rr4pQtmw=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.59])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkAWOwE3+9BqqQmlAA--.58379S4;
+	Fri, 16 Oct 2026 00:11:37 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v2 2/3] media: dvb-core: keep dvb_device alive while checking users count in frontend release paths
+Date: Fri, 16 Oct 2026 00:11:33 +0800
+Message-Id: <20261015161134.10425-3-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261015161134.10425-1-25031212351@stu.xidian.edu.cn>
+References: <20261015161134.10425-1-25031212351@stu.xidian.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261015-media-starvis2-v4-16-75fcdb4163f3@raspberrypi.com>
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
-In-Reply-To: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Alexander Shiyan <eagle.alexander923@gmail.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkAWOwE3+9BqqQmlAA--.58379S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF1kJry8CFyrCF4fury8Zrb_yoW5Krykpr
+	Z3JFW5KrWUKw4kKrs7C3W7ZrnYvF4Syr98C34xt3Z7Cr1fX34SkryFq34q9r13Cr93A3yj
+	qwnrGay8C3y7AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmv14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vY
+	z4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7Mx
+	kF7I0En4kS14v26r126r1DMxkIecxEwVAFwVWUMxAIw28IcxkI7VAKI48JMxC20s026xCa
+	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
+	Wlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
+	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
+	cSsGvfC2KfnxnUUI43ZEXa7sR_BMKtUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUHD2rPmtGsigACsG
 
-IMX585 is an 8MPix Starvis 2 sensor, so add support for it.
+Both dvb_frontend_release() and the __dvb_frontend_open() error path
+inspect dvbdev->users after calling dvb_generic_release(), which ends
+with dvb_device_put().  If that put() drops the last reference - e.g.
+the device was unregistered during USB disconnect while this was the
+last open() file - "dvbdev" is freed before ->users is read:
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+	BUG: KASAN: slab-use-after-free Read of size 8
+	 dvb_frontend_release+0x28b/0x2b0 dvb_frontend.c:2903
+
+The same pattern exists at err1: after dvb_generic_release() in
+__dvb_frontend_open(), the ->users check runs on an object that may
+already be gone.
+
+Take the extra reference *before* dvb_generic_release(): the file
+still holds its own reference at that point, so the get is guaranteed
+to be valid, while a get after the put() could itself touch freed
+memory.  Drop the reference again after the ->users check.
+
+On the __dvb_frontend_open() error path the reference is deliberately
+not put() back inside the function.  fops->release() does not run for
+an erroring open(), so dvb_device_open() calls dvb_device_put()
+itself; that put() drops the reference taken here.  This also keeps
+the accounting balanced: dvb_generic_release() already dropped the
+file's original reference, and the extra get hands dvb_device_open()
+one to drop in its place.
+
+In dvb_frontend_release() the reference is balanced explicitly, before
+dvb_frontend_put(fe).
+
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Fixes: a2dd235df435 ("media: dvbdev: drop refcount on error path in dvb_device_open()")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/media/i2c/sony-starvis2.c | 305 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 305 insertions(+)
+ drivers/media/dvb-core/dvb_frontend.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index 5f360f557671..c6a6a44d401e 100644
---- a/drivers/media/i2c/sony-starvis2.c
-+++ b/drivers/media/i2c/sony-starvis2.c
-@@ -14,6 +14,8 @@
-  *         pixels.
-  * IMX832: Diagonal 6.45mm (Type 1/2.8) CMOS image sensor with 2.12 M effective
-  *         pixels.
-+ * IMX585: Diagonal 12.84 mm (Type 1/1.2) CMOS image sensor with 8.40 M effective
-+ *         pixels.
-  *
-  * Copyright (C) 2026 Ideas On Board Oy.
-  *
-@@ -1090,6 +1092,286 @@ static const struct starvis2_variant imx832_variant_def = {
- 	.shr_min = 4,
- };
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..00c29cf7ddf0 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2834,6 +2834,14 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+ err2:
+ #endif
++	/*
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object.
++	 * dvb_device_open() drops it again when ->open() fails.
++	 */
++	dvb_device_get(dvbdev);
+ 	dvb_generic_release(inode, file);
+ err1:
+ 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
+@@ -2934,6 +2942,15 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 		mb();
+ 	}
  
-+static const struct cci_reg_sequence imx585_common_regs[] = {
-+	{ STARVIS2_REG_THIN_V_EN, 0x00 },
-+	{ STARVIS2_REG_VCMODE, 0x01 },
-+	{ CCI_REG8(0x306b), 0x00 },
-+	{ STARVIS2_REG_GAIN_PGC_FIDMD, 0x01 },
++	/*
++	 * dvb_generic_release() ends with dvb_device_put(), which may
++	 * drop the last reference if the device was unregistered while
++	 * this file was open.  Take an extra reference first so the
++	 * ->users check below cannot touch a freed object, and drop it
++	 * again right after.
++	 */
++	dvb_device_get(dvbdev);
 +
-+	{ CCI_REG8(0x3460), 0x21 },
-+	{ CCI_REG8(0x3478), 0xa1 },
-+	{ CCI_REG8(0x347c), 0x01 },
-+	{ CCI_REG8(0x3480), 0x01 },
-+	{ CCI_REG8(0x3930), 0x0c },
-+	{ CCI_REG8(0x3931), 0x01 },
-+	{ CCI_REG8(0x3a4c), 0x39 },
-+	{ CCI_REG8(0x3a4d), 0x01 },
-+	{ CCI_REG8(0x3a4e), 0x14 },
-+	{ CCI_REG8(0x3a50), 0x48 },
-+	{ CCI_REG8(0x3a51), 0x01 },
-+	{ CCI_REG8(0x3a52), 0x14 },
-+	{ CCI_REG8(0x3a56), 0x00 },
-+	{ CCI_REG8(0x3a5a), 0x00 },
-+	{ CCI_REG8(0x3a5e), 0x00 },
-+	{ CCI_REG8(0x3a62), 0x00 },
-+	{ CCI_REG8(0x3a6a), 0x20 },
-+	{ CCI_REG8(0x3a6c), 0x42 },
-+	{ CCI_REG8(0x3a6e), 0xa0 },
-+	{ CCI_REG8(0x3b2c), 0x0c },
-+	{ CCI_REG8(0x3b30), 0x1c },
-+	{ CCI_REG8(0x3b34), 0x0c },
-+	{ CCI_REG8(0x3b38), 0x1c },
-+	{ CCI_REG8(0x3ba0), 0x0c },
-+	{ CCI_REG8(0x3ba4), 0x1c },
-+	{ CCI_REG8(0x3ba8), 0x0c },
-+	{ CCI_REG8(0x3bac), 0x1c },
-+	{ CCI_REG8(0x3d3c), 0x11 },
-+	{ CCI_REG8(0x3d46), 0x0b },
-+	{ CCI_REG8(0x3de0), 0x3f },
-+	{ CCI_REG8(0x3de1), 0x08 },
-+	{ CCI_REG8(0x3e10), 0x10 },
-+	{ CCI_REG8(0x3e14), 0x87 },
-+	{ CCI_REG8(0x3e16), 0x91 },
-+	{ CCI_REG8(0x3e18), 0x91 },
-+	{ CCI_REG8(0x3e1a), 0x87 },
-+	{ CCI_REG8(0x3e1c), 0x78 },
-+	{ CCI_REG8(0x3e1e), 0x50 },
-+	{ CCI_REG8(0x3e20), 0x50 },
-+	{ CCI_REG8(0x3e22), 0x50 },
-+	{ CCI_REG8(0x3e24), 0x87 },
-+	{ CCI_REG8(0x3e26), 0x91 },
-+	{ CCI_REG8(0x3e28), 0x91 },
-+	{ CCI_REG8(0x3e2a), 0x87 },
-+	{ CCI_REG8(0x3e2c), 0x78 },
-+	{ CCI_REG8(0x3e2e), 0x50 },
-+	{ CCI_REG8(0x3e30), 0x50 },
-+	{ CCI_REG8(0x3e32), 0x50 },
-+	{ CCI_REG8(0x3e34), 0x87 },
-+	{ CCI_REG8(0x3e36), 0x91 },
-+	{ CCI_REG8(0x3e38), 0x91 },
-+	{ CCI_REG8(0x3e3a), 0x87 },
-+	{ CCI_REG8(0x3e3c), 0x78 },
-+	{ CCI_REG8(0x3e3e), 0x50 },
-+	{ CCI_REG8(0x3e40), 0x50 },
-+	{ CCI_REG8(0x3e42), 0x50 },
-+	{ CCI_REG8(0x4054), 0x64 },
-+	{ CCI_REG8(0x4148), 0xfe },
-+	{ CCI_REG8(0x4149), 0x05 },
-+	{ CCI_REG8(0x414a), 0xff },
-+	{ CCI_REG8(0x414b), 0x05 },
-+	{ CCI_REG8(0x420a), 0x03 },
-+	{ CCI_REG8(0x4231), 0x08 },
-+	{ CCI_REG8(0x423d), 0x9c },
-+	{ CCI_REG8(0x4242), 0xb4 },
-+	{ CCI_REG8(0x4246), 0xb4 },
-+	{ CCI_REG8(0x424e), 0xb4 },
-+	{ CCI_REG8(0x425c), 0xb4 },
-+	{ CCI_REG8(0x425e), 0xb6 },
-+	{ CCI_REG8(0x426c), 0xb4 },
-+	{ CCI_REG8(0x426e), 0xb6 },
-+	{ CCI_REG8(0x428c), 0xb4 },
-+	{ CCI_REG8(0x428e), 0xb6 },
-+	{ CCI_REG8(0x4708), 0x00 },
-+	{ CCI_REG8(0x4709), 0x00 },
-+	{ CCI_REG8(0x470a), 0xff },
-+	{ CCI_REG8(0x470b), 0x03 },
-+	{ CCI_REG8(0x470c), 0x00 },
-+	{ CCI_REG8(0x470d), 0x00 },
-+	{ CCI_REG8(0x470e), 0xff },
-+	{ CCI_REG8(0x470f), 0x03 },
-+	{ CCI_REG8(0x47eb), 0x1c },
-+	{ CCI_REG8(0x47f0), 0xa6 },
-+	{ CCI_REG8(0x47f2), 0xa6 },
-+	{ CCI_REG8(0x47f4), 0xa0 },
-+	{ CCI_REG8(0x47f6), 0x96 },
-+	{ CCI_REG8(0x4808), 0xa6 },
-+	{ CCI_REG8(0x480a), 0xa6 },
-+	{ CCI_REG8(0x480c), 0xa0 },
-+	{ CCI_REG8(0x480e), 0x96 },
-+	{ CCI_REG8(0x492c), 0xb2 },
-+	{ CCI_REG8(0x4930), 0x03 },
-+	{ CCI_REG8(0x4932), 0x03 },
-+	{ CCI_REG8(0x4936), 0x5b },
-+	{ CCI_REG8(0x4938), 0x82 },
-+	{ CCI_REG8(0x493c), 0x23 },
-+	{ CCI_REG8(0x493e), 0x23 },
-+	{ CCI_REG8(0x4940), 0x23 },
-+	{ CCI_REG8(0x4ba8), 0x1c },
-+	{ CCI_REG8(0x4ba9), 0x03 },
-+	{ CCI_REG8(0x4bac), 0x1c },
-+	{ CCI_REG8(0x4bad), 0x1c },
-+	{ CCI_REG8(0x4bae), 0x1c },
-+	{ CCI_REG8(0x4baf), 0x1c },
-+	{ CCI_REG8(0x4bb0), 0x1c },
-+	{ CCI_REG8(0x4bb1), 0x1c },
-+	{ CCI_REG8(0x4bb2), 0x1c },
-+	{ CCI_REG8(0x4bb3), 0x1c },
-+	{ CCI_REG8(0x4bb4), 0x1c },
-+	{ CCI_REG8(0x4bb8), 0x03 },
-+	{ CCI_REG8(0x4bb9), 0x03 },
-+	{ CCI_REG8(0x4bba), 0x03 },
-+	{ CCI_REG8(0x4bbb), 0x03 },
-+	{ CCI_REG8(0x4bbc), 0x03 },
-+	{ CCI_REG8(0x4bbd), 0x03 },
-+	{ CCI_REG8(0x4bbe), 0x03 },
-+	{ CCI_REG8(0x4bbf), 0x03 },
-+	{ CCI_REG8(0x4bc0), 0x03 },
-+	{ CCI_REG8(0x4c14), 0x87 },
-+	{ CCI_REG8(0x4c16), 0x91 },
-+	{ CCI_REG8(0x4c18), 0x91 },
-+	{ CCI_REG8(0x4c1a), 0x87 },
-+	{ CCI_REG8(0x4c1c), 0x78 },
-+	{ CCI_REG8(0x4c1e), 0x50 },
-+	{ CCI_REG8(0x4c20), 0x50 },
-+	{ CCI_REG8(0x4c22), 0x50 },
-+	{ CCI_REG8(0x4c24), 0x87 },
-+	{ CCI_REG8(0x4c26), 0x91 },
-+	{ CCI_REG8(0x4c28), 0x91 },
-+	{ CCI_REG8(0x4c2a), 0x87 },
-+	{ CCI_REG8(0x4c2c), 0x78 },
-+	{ CCI_REG8(0x4c2e), 0x50 },
-+	{ CCI_REG8(0x4c30), 0x50 },
-+	{ CCI_REG8(0x4c32), 0x50 },
-+	{ CCI_REG8(0x4c34), 0x87 },
-+	{ CCI_REG8(0x4c36), 0x91 },
-+	{ CCI_REG8(0x4c38), 0x91 },
-+	{ CCI_REG8(0x4c3a), 0x87 },
-+	{ CCI_REG8(0x4c3c), 0x78 },
-+	{ CCI_REG8(0x4c3e), 0x50 },
-+	{ CCI_REG8(0x4c40), 0x50 },
-+	{ CCI_REG8(0x4c42), 0x50 },
-+	{ CCI_REG8(0x4d12), 0x1f },
-+	{ CCI_REG8(0x4d13), 0x1e },
-+	{ CCI_REG8(0x4d26), 0x33 },
-+	{ CCI_REG8(0x4e0e), 0x59 },
-+	{ CCI_REG8(0x4e14), 0x55 },
-+	{ CCI_REG8(0x4e16), 0x59 },
-+	{ CCI_REG8(0x4e1e), 0x3b },
-+	{ CCI_REG8(0x4e20), 0x47 },
-+	{ CCI_REG8(0x4e22), 0x54 },
-+	{ CCI_REG8(0x4e26), 0x81 },
-+	{ CCI_REG8(0x4e2c), 0x7d },
-+	{ CCI_REG8(0x4e2e), 0x81 },
-+	{ CCI_REG8(0x4e36), 0x63 },
-+	{ CCI_REG8(0x4e38), 0x6f },
-+	{ CCI_REG8(0x4e3a), 0x7c },
-+	{ CCI_REG8(0x4f3a), 0x3c },
-+	{ CCI_REG8(0x4f3c), 0x46 },
-+	{ CCI_REG8(0x4f3e), 0x59 },
-+	{ CCI_REG8(0x4f42), 0x64 },
-+	{ CCI_REG8(0x4f44), 0x6e },
-+	{ CCI_REG8(0x4f46), 0x81 },
-+	{ CCI_REG8(0x4f4a), 0x82 },
-+	{ CCI_REG8(0x4f5a), 0x81 },
-+	{ CCI_REG8(0x4f62), 0xaa },
-+	{ CCI_REG8(0x4f72), 0xa9 },
-+	{ CCI_REG8(0x4f78), 0x36 },
-+	{ CCI_REG8(0x4f7a), 0x41 },
-+	{ CCI_REG8(0x4f7c), 0x61 },
-+	{ CCI_REG8(0x4f7d), 0x01 },
-+	{ CCI_REG8(0x4f7e), 0x7c },
-+	{ CCI_REG8(0x4f7f), 0x01 },
-+	{ CCI_REG8(0x4f80), 0x77 },
-+	{ CCI_REG8(0x4f82), 0x7b },
-+	{ CCI_REG8(0x4f88), 0x37 },
-+	{ CCI_REG8(0x4f8a), 0x40 },
-+	{ CCI_REG8(0x4f8c), 0x62 },
-+	{ CCI_REG8(0x4f8d), 0x01 },
-+	{ CCI_REG8(0x4f8e), 0x76 },
-+	{ CCI_REG8(0x4f8f), 0x01 },
-+	{ CCI_REG8(0x4f90), 0x5e },
-+	{ CCI_REG8(0x4f91), 0x02 },
-+	{ CCI_REG8(0x4f92), 0x69 },
-+	{ CCI_REG8(0x4f93), 0x02 },
-+	{ CCI_REG8(0x4f94), 0x89 },
-+	{ CCI_REG8(0x4f95), 0x02 },
-+	{ CCI_REG8(0x4f96), 0xa4 },
-+	{ CCI_REG8(0x4f97), 0x02 },
-+	{ CCI_REG8(0x4f98), 0x9f },
-+	{ CCI_REG8(0x4f99), 0x02 },
-+	{ CCI_REG8(0x4f9a), 0xa3 },
-+	{ CCI_REG8(0x4f9b), 0x02 },
-+	{ CCI_REG8(0x4fa0), 0x5f },
-+	{ CCI_REG8(0x4fa1), 0x02 },
-+	{ CCI_REG8(0x4fa2), 0x68 },
-+	{ CCI_REG8(0x4fa3), 0x02 },
-+	{ CCI_REG8(0x4fa4), 0x8a },
-+	{ CCI_REG8(0x4fa5), 0x02 },
-+	{ CCI_REG8(0x4fa6), 0x9e },
-+	{ CCI_REG8(0x4fa7), 0x02 },
-+	{ CCI_REG8(0x519e), 0x79 },
-+	{ CCI_REG8(0x51a6), 0xa1 },
-+	{ CCI_REG8(0x51f0), 0xac },
-+	{ CCI_REG8(0x51f2), 0xaa },
-+	{ CCI_REG8(0x51f4), 0xa5 },
-+	{ CCI_REG8(0x51f6), 0xa0 },
-+	{ CCI_REG8(0x5200), 0x9b },
-+	{ CCI_REG8(0x5202), 0x91 },
-+	{ CCI_REG8(0x5204), 0x87 },
-+	{ CCI_REG8(0x5206), 0x82 },
-+	{ CCI_REG8(0x5208), 0xac },
-+	{ CCI_REG8(0x520a), 0xaa },
-+	{ CCI_REG8(0x520c), 0xa5 },
-+	{ CCI_REG8(0x520e), 0xa0 },
-+	{ CCI_REG8(0x5210), 0x9b },
-+	{ CCI_REG8(0x5212), 0x91 },
-+	{ CCI_REG8(0x5214), 0x87 },
-+	{ CCI_REG8(0x5216), 0x82 },
-+	{ CCI_REG8(0x5218), 0xac },
-+	{ CCI_REG8(0x521a), 0xaa },
-+	{ CCI_REG8(0x521c), 0xa5 },
-+	{ CCI_REG8(0x521e), 0xa0 },
-+	{ CCI_REG8(0x5220), 0x9b },
-+	{ CCI_REG8(0x5222), 0x91 },
-+	{ CCI_REG8(0x5224), 0x87 },
-+	{ CCI_REG8(0x5226), 0x82 },
-+	{ CCI_REG8(0x5b3c), 0x07 },
-+
-+	{ STARVIS2_REG_WDMODE, 0x00 },
-+	{ STARVIS2_REG_MDBIT, 0x01 },
-+	{ STARVIS2_REG_XXS_DRV, 0x00 },
-+};
-+
-+static const u16 imx585_min_hmax_2lane[] = {
-+	[STARVIS2_LINK_FREQ_297MHZ] = 2984,
-+	[STARVIS2_LINK_FREQ_360MHZ] = 2464,
-+	[STARVIS2_LINK_FREQ_445MHZ] = 2004,
-+	[STARVIS2_LINK_FREQ_594MHZ] = 1512,
-+	[STARVIS2_LINK_FREQ_720MHZ] = 1260,
-+	[STARVIS2_LINK_FREQ_891MHZ] = 996,
-+	[STARVIS2_LINK_FREQ_1039MHZ] = 856,
-+	[STARVIS2_LINK_FREQ_1188MHZ] = 856,
-+};
-+
-+static const struct starvis2_variant imx585_variant_def = {
-+	.name = "imx585",
-+	.id_reg = CCI_REG16_LE(0x5a1d),
-+	.id_mask = 0x3ff,
-+	.id_value = 0x259,
-+	.native_area = {
-+		.top = 0,
-+		.left = 0,
-+		.width = 3857,
-+		.height = 2201,
-+	},
-+	.active_area = {
-+		.top = 20,
-+		.left = 0,
-+		.width = 3856,
-+		.height = 2180,
-+	},
-+	.pixel_rate = 594000000,
-+	.pix_per_clk = 8,
-+	.common_regs = imx585_common_regs,
-+	.num_common_regs = ARRAY_SIZE(imx585_common_regs),
-+	.vmax_default = 2250,
-+	.hmax_min_link_freq = imx585_min_hmax_2lane,
-+	.hmax_min_pixel_array = 550,
-+	.exposure_min = 2,
-+	.exposure_step = 2,
-+	.shr_min = 8,
-+};
-+
- struct starvis2_model_info {
- 	enum starvis2_type type;
- 	const u32 *codes;
-@@ -1180,6 +1462,26 @@ static const struct starvis2_model_info imx832_autodetect_info = {
- 	.auto_detect_mono = &imx832_amr_info,
- };
+ 	ret = dvb_generic_release(inode, file);
  
-+static const struct starvis2_model_info imx585_aaqj_info = {
-+	.type = STARVIS2_COLOR,
-+	.codes = codes_bayer,
-+	.num_codes = ARRAY_SIZE(codes_bayer),
-+	.variant = &imx585_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx585_aamj_info = {
-+	.type = STARVIS2_MONOCHROME,
-+	.codes = codes_monochrome,
-+	.num_codes = ARRAY_SIZE(codes_monochrome),
-+	.variant = &imx585_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx585_autodetect_info = {
-+	.variant = &imx585_variant_def,
-+	.auto_detect_colour = &imx585_aaqj_info,
-+	.auto_detect_mono = &imx585_aamj_info,
-+};
-+
- static const char * const starvis2_supply_name[] = {
- 	"avdd",  /* Analog (3.3V) supply */
- 	"dvdd",  /* Digital Core (1.1V) supply */
-@@ -2020,6 +2322,8 @@ static const struct dev_pm_ops starvis2_pm_ops = {
- };
+ 	if (dvbdev->users == -1) {
+@@ -2954,6 +2971,8 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ 			fe->ops.ts_bus_ctrl(fe, 0);
+ 	}
  
- static const struct of_device_id starvis2_of_match[] = {
-+	{ .compatible = "sony,imx585-aamj", .data = &imx585_aamj_info },
-+	{ .compatible = "sony,imx585-aaqj", .data = &imx585_aaqj_info },
- 	{ .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
- 	{ .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
- 	{ .compatible = "sony,imx675-aamr", .data = &imx675_aamr_info },
-@@ -2029,6 +2333,7 @@ static const struct of_device_id starvis2_of_match[] = {
- 	{ .compatible = "sony,imx832-amr", .data = &imx832_amr_info },
- 	{ .compatible = "sony,imx832-aqr", .data = &imx832_aqr_info },
- 	/* for non-conforming DTs that rely on runtime check */
-+	{ .compatible = "sony,imx585", .data = &imx585_autodetect_info },
- 	{ .compatible = "sony,imx662", .data = &imx662_autodetect_info },
- 	{ .compatible = "sony,imx675", .data = &imx675_autodetect_info },
- 	{ .compatible = "sony,imx678", .data = &imx678_autodetect_info },
-
++	dvb_device_put(dvbdev);
++
+ 	dvb_frontend_put(fe);
+ 
+ 	return ret;
 -- 
 2.34.1
 
