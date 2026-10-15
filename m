@@ -1,302 +1,307 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8A148EC77
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 08:36:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEA874E1414
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792053404; cv=none; b=et74coOSZzyiPpvouyIFUbg7bbKWNdfSO1v3Q57D5GY3tSY7WmKxxpRkA3xGuaFVkePlVUmE6wcqleKZ/wd81JM3+qNs3DDLxEiYOa8hnypSgc0hR7E9R3VuPiEDF7bnZrYQFzl8Vsh6rvMlay70u1ffxj7jCfxZixkD1waaMWk=
+	t=1792055498; cv=none; b=e90VC3nI4z7YfXOnCzvSHCyd5uljN/cpj4oP7AkFMjjzvxnJTkzRsFWJ60bEiKpyHe/CtXiyPVRWRHcxGfIzRVA8mQFJAJUeC+1yZMa0u+cRJOl6YoFv8T5XoONTD6s+uzmkkQmXgMwjokHPSP2AUvURfQqbt49rbfo7FUWjA0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792053404; c=relaxed/simple;
-	bh=npDvVQ5z9FFSw1dO7sjs27nSs1ONKFM4kOi8CDIPTR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bNHK5Ukn2QDsEvXJ64ly2FlNZrFU2AeC34T0uKAhCBxHrlBVpyHBnA2Px3D2Efq6VtBJCA/YSNMjJdy7MZqG5aSeABCPowkRarWxmk/A1j2JUQMHujDKh56VZbPOIxd35LuHyV8utijphAJ+rRprD3NwnU3mM8d3MV7Hz+QMoe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KYaLFmqB; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792055498; c=relaxed/simple;
+	bh=S8Pptq+vcse9dGiKT8gs8J0Yx5ou51980cSXw47gMzo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qt7wrmtRhkw1WQTWHqNGxx1QwxR4TlPX78em1Ewfta8cWY7bmohXop/+4d3R+W2zKItHq7QtW4ibc8TMMhBD7laBHfMGwYPX8lm2vf3+GJYIjwtP6PynPNO5fxn0b++pCRlUPmAJrGoIlBQDh3I60c82fsCly8BVtQm+2aWFEzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LobXK+RP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ifNX80E3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KYaLFmqB"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93e706a6ba9so645584985a.2
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 01:36:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LobXK+RP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ifNX80E3"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69F7pAG53469274
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:11:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	CcLXbbDcvrR52DI1NpPmmgKUewSqZ1QBwlFhGSU+Lxw=; b=LobXK+RP77qk7npM
+	SkRQLrjLL4d81Yw9kZnlBtPsIEL3VghMpEnUq3STSLW9tMdybnVm5DeRZ8bUhfWj
+	5oqVyU/uW795LXeoR1SCk1GF2ujQUy7sqJVXhfkaLili8trdKxSjKwVEXY51RbpP
+	rNodWFFtorFIui/XlaK/X8VnUPw+SrdP68P7mb7Pg3hKh5IbpG4QMav1yqUuhmDP
+	b84WNImBwKb2DJ5QIhHyas0sp8yXSv3ap+Pt68U1ZglE9fgZOB2h/z1zxg1bjSyK
+	mjLi6oRL75K/1SiQCh1PReK9yu2r8p0B3CPZVYQzHdNuKahW47X4NbqMJG7lyDga
+	VJD0kg==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hadd7bew3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:11:36 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-88c76888646so2016614b3a.1
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 02:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792053401; x=1792658201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2STKe93BsxxSjKyZn2b4YvS4oxKmV5oT37N/2nRdsNg=;
-        b=KYaLFmqBNd+aGu7grYEMuYvaaGaG4dnqsPkMqYul2qlRkqBTqRYJof9a2EuPWSUr7X
-         rNMJ4+5+eGRwvOh3V65EzpOarY7SftF8Eu9c9lHM8BrKCNv014HN6wR7P9ScxMnZ5NBB
-         y7qOAVLGsZDcti9Usp0s6Eut/hFKrj0Ic0PEtcIwgdC4irOyU7HMjmGd1sYHggWSEIX5
-         5lfzRi2YFlwT1EH67fKMJHtkwWCnPs8ozVaIjwm/h0aAP6EfCFipiPCOWb4wsUOMmcV7
-         h8Kc9AQqFTab0aN7XVoPQZPsruKO9qyz/A0WgpsnRZOmkoq8WRR287fmrlW9ilw48W5+
-         WmXA==
+        d=oss.qualcomm.com; s=google; t=1792055495; x=1792660295; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CcLXbbDcvrR52DI1NpPmmgKUewSqZ1QBwlFhGSU+Lxw=;
+        b=ifNX80E3MqL6JkWLQVjAwr8uG50hiiZeTmecE9D+szBdtbaXw30Q5KXllxBK6kaFEY
+         zjBnZhUwquuIubFXJ2zIi0dxcmxAdYDnvve+ZEPy6zdV7MxzxNCaJP+gJm4or7ttuTkW
+         7cMQc8nBW2UeHfagCuuXHf90ROMn0gShDtie5qwPgNN/nrZvhdFKnEpekT9jIFB3wiCk
+         fHjkF+NQEbZg+kEXfpx8DxtuZyU+0AgN3Z577abWjLQDazHlIsvrEDBELb3Sq1hcLrLb
+         lxEkKrhUvH1Gum+1TfXjr9ourE75bw48tEFRwyNklHsjj98MIDbTFyRjD2tNm2zElydJ
+         1R+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792053401; x=1792658201;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2STKe93BsxxSjKyZn2b4YvS4oxKmV5oT37N/2nRdsNg=;
-        b=MbBOrShHzhRkCXlmJokiCiYKzslrSrwRZwA50UXNsaXXXoW+hgWW3t18CMBFhzm/51
-         9CI8l36ecOrEOSUMWKwXM9+ULiEFWjrpP2LUviX06Qf8/bygtjpV2gw7CmJbF9SoQBd6
-         1umrzTnDbrUo0baZEuYampq+up/TFa1amdqSL+XJ2Wtmy+4kGbiI7uGpwG11R5RdLdo0
-         +DQ+bpibJAzrlwLnL2CTJR+AC8J2sZfE0djcifxS5+xoEtkpQ3zzeYzCk41aNc+kJn6b
-         Tud29IbFaYHPpknO/Z5XMWq+PKK6LGZhmTlPQmq3Fhdo3rbksxbXt0kyYJCoF3qG+b1B
-         vuoQ==
-X-Forwarded-Encrypted: i=1; AKwUvByT3tcOfYgvyj2UslgHaGup0fnIK+lMsjKSJwWcHHt7B9ZCh7nKaYfZo52z/e+tdqsn9YJ0iselMPi9TA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ+WCSz2mKZFHL1c77+14rl2pFKsecu4kPtwdujT2FXFE4NBUcA
-	wOuxhLhwpb9Svf4SR01lqPPgWW+T9ngXCEZZXvq6VGo71DTF3iZEsA8h
-X-Gm-Gg: AYBFou3waryT+6MXn8TGYZDV7rte2fw54pRixKqLWF5f9vL5aTaP8Jg1ij1E/+rF6nz
-	buOv0AOxJveJuzZH/nwSVRiDFo/33AY6WrhAdbReWzS6jpWIJ+A7J0vi5GiqqsCgubX/fDORXt5
-	C/eqaakZdPp/Lt38nhVXBDVPZejpZvnU3ZH51EoWwebPPPRDu86oqaxRyLFk4trzh8rMZAthq+1
-	Da4c/+u5z6N4gn0BQWo3wwm0hJut3GJ6N1RLChDL0LxYb6+Zzg2rI7UsgmUWRO91nknFey5zo+F
-	8yVSW8lihNKQf0GotLNbkLKH/IFDRHYl6pYVA8IqIOTjQbzKth1+/iTjwPijMNdwipeuquGuQOf
-	RiPilr1QYAObCTdZDn8KJN8QyT8HBc5mt1knU/CioqFKFMeZ3nd9mHZS0I4RHj+gfuJZ91xGikm
-	5dTWXY1INRPrmE0vwPyyOTa5wA9LDPa8ofN94YOmgGCbOM58jhO0dSp/v2lbB+Cf/5Se4olBZKS
-	7xHaWrVBOpZ25YsENIwKbIi6EspfX4cmusZFce5LjIH8wg1sb1iR8uCCdcVzZXy3kHnr5HroGe4
-	qtFJ26PxcDMPSvoqQYsWMDLK
-X-Received: by 2002:a05:620a:462b:b0:93d:cbe6:c236 with SMTP id af79cd13be357-93ebd4a97edmr3010062885a.66.1792053400997;
-        Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
-Received: from ip-172-31-15-253.ec2.internal (ec2-44-200-54-59.compute-1.amazonaws.com. [44.200.54.59])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm711843985a.40.2026.10.15.01.36.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 01:36:40 -0700 (PDT)
-From: Deep Shah <deepshah146@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>
-Cc: linux-rdma@vger.kernel.org,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Edward Srouji <edwards@nvidia.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	Deep Shah <deepshah146@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH rdma-rc 2/2] RDMA/uverbs: Fix DMABUF use-after-free during ufile cleanup
-Date: Thu, 15 Oct 2026 08:36:37 +0000
-Message-ID: <20261015083637.200958-3-deepshah146@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261015083637.200958-1-deepshah146@gmail.com>
-References: <20261015083637.200958-1-deepshah146@gmail.com>
+        d=1e100.net; s=20260707; t=1792055495; x=1792660295;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CcLXbbDcvrR52DI1NpPmmgKUewSqZ1QBwlFhGSU+Lxw=;
+        b=ECMZqGEkaa3l0g6Jc+8EHqyXSwQpWPvRzWWWRJ/1QpOrOxbmlP7BRzt+mObSV6PwvV
+         T+kpWDEvrx4YjbLjNs/5cipEeSdej0W1FUtn5/JM7dAkO8sQmWdEzJj1qp1JfmDFfxsq
+         L4fhVk0s35BnbyZgb2utKrhQf+sHA4YVs/saPLsyRvs+1+3r9Be/GTrxLp5j26R+cJF3
+         BftOgukjaYKf0BoOvPT/GQ5rq3jAFQvEmc1CYVBCBwzpl5xztD+9KkieRpxWO8ZZVTuL
+         rW6O6rt4w95pV9ZTI9CfMzETz7CzVkd5yDB6k2Tuy39+tt1GI8FpVLs0O7NMEqsH5Vw3
+         RhaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwQCYVQjy/iE5b2u81lZRUUS6C6Iq+PhdwtwV82IPb8CsYEpJ65wRaESWVttnMdFOHAZSGmrlqNVYVWiw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ+xLBAjX+yKtUHzXr2zrV/1h4XPYqsvewqyCjyOPNjd0I9nxW
+	lKYV+LRABM0gCIw6mxQS9kp7oRHUIV95T4nxfkDRd/SVolBXQhYBqRnmCO/q3YXfSPJSwjxOI93
+	KD+PCZlsviGeMy8Zkb8DVfPdlo0hvjBhzED/fQvYS1bOjBkchPIok9Ehg56Np/OZqGg==
+X-Gm-Gg: AYBFou2sLKtHOveRhyOI4OGNEDbMpRdjwtni/RoD5mHauj134LxzdbJAy47YgDwSbJi
+	5ELqjsWJr5pixVdBeaaTRg+cgoVCfqnJd6TAaad48+yXRHyYHx0pUoaROFoLqCD7HWZo/VmETYe
+	U2cNN0KNa8ZTl/JM1HOmmtLqhr0Y411Rt4fwB41A6r+Vrz6T4Y/Gb/I6+pEtU35O83GiH9yU55o
+	q5thWV4VbJmvvWX3Pm15aLqIgKl5Rc+sSjNR2mYKydum8uXiyMdoIQ+VEI1loHfLoltWX+myJZY
+	eRs5A7XwgcseG1Hw8tAa9Z2+IlKTE7JGogiBCcjxCnIROgYYqP5wh4tjuCjoy3taqp4tCUTIxC5
+	H8R8S9jAFAmpw+sgD6Vb84NNp1dka9w==
+X-Received: by 2002:a05:6a00:4099:b0:89e:37b1:b80d with SMTP id d2e1a72fcca58-89e37b1ba49mr2322666b3a.45.1792055495427;
+        Thu, 15 Oct 2026 02:11:35 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4099:b0:89e:37b1:b80d with SMTP id d2e1a72fcca58-89e37b1ba49mr2322643b3a.45.1792055494932;
+        Thu, 15 Oct 2026 02:11:34 -0700 (PDT)
+Received: from [10.206.102.180] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89d804d1c10sm2087387b3a.35.2026.10.15.02.11.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 15 Oct 2026 02:11:33 -0700 (PDT)
+Message-ID: <3b58ccbe-bf6a-4b96-86c5-584d7feeeb6f@oss.qualcomm.com>
+Date: Thu, 15 Oct 2026 14:41:26 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] arm64: dts: qcom: nord: Add iris video node
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260919-nord-iris-v1-0-94428761ec06@oss.qualcomm.com>
+ <20260919-nord-iris-v1-2-94428761ec06@oss.qualcomm.com>
+ <aq_cmcYa1wL69Hq4@QCOM-aGQu4IUr3Y>
+Content-Language: en-US
+From: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+In-Reply-To: <aq_cmcYa1wL69Hq4@QCOM-aGQu4IUr3Y>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=BaVNQbt2 c=1 sm=1 tr=0 ts=6ad098c8 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=y2grCCtr-R1DBeC8SxUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-GUID: jl9H0wbkALz_7zgFSSXnq29z4TgB4c8x
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfXzFKQOzkOZOz5
+ RWOGOKPUFVq53Cy3DE6EhKbqrj1O/YfC0/LPk4pqsqhpXvCPaRoAXIVCmrg3Ph8AoDA9HB+f29D
+ cP6hbH1MS7Q+xKlSciAp+CfB9Urk6G3V+Rsntt7JoyD6fTmT9/9zSzJSG7gdyjwIOUNRn0cDckn
+ 4rNAuF9+cvFcbADGI03yajjLxA70es4RiRLqI6nHOrMO1vbMlTSPt5Xhtrxz/55TlG08mlJQoe3
+ xkNV+NwNBgXyVJh5K0WYjqrBzTezjc+dXQDb1YDBl5IMQyrce7p3APgAEW4r59KW4z2a9MnfYRr
+ D6tpSLJlbmgdSrf8BoC2cmu8ndKHaEJ8aiU47C9mtCeKpWIhddY63v+L+tTd83exe+V+eD3HPd2
+ PHocgD0udvKTWLA7NwTw5HTJt/SjYpI6QOMWVsFUNp5egCnHGUhJcDtE/DJcjMMCH7jfWoNb2Up
+ fBTwbWhkly/0lR7zNeg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE1MDAzNiBTYWx0ZWRfXyGFD53vte33c
+ +unKcuFOxiZ+9Qumi4LHUI40sMzxxpVk9eJgTs61jcx6QnyE/c607yQnbX24Z9RFLw01aFj6+Af
+ GmlkchmB00N73tGGxXDLToqfmjNZ2KI=
+X-Proofpoint-ORIG-GUID: jl9H0wbkALz_7zgFSSXnq29z4TgB4c8x
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610150036
 
-The DMABUF release can race with ufile cleanup. When the cleanup holds
-hw_destroy_rwsem for write, uverbs_uobject_release() fails its trylock
-and leaves the uobject on the ufile list, but the dma_buf is freed as
-soon as the release returns. The cleanup then destroys the uobject and
-uses the freed dma_buf:
 
-  BUG: KASAN: slab-use-after-free in uverbs_dmabuf_fd_destroy_uobj+0x46/0x200
-  Read of size 8 at addr ff11000109cf14b0 by task repro/435
-  Call Trace:
-   uverbs_dmabuf_fd_destroy_uobj+0x46/0x200
-   destroy_hw_fd_uobject+0x3f/0x50
-   uverbs_destroy_uobject+0xc5/0x380
-   __uverbs_cleanup_ufile+0x1a8/0x260
-   uverbs_destroy_ufile_hw+0x54/0x160
-   ib_uverbs_close+0x34/0x110
-  Allocated by task 435:
-   dma_buf_export+0x1b5/0x530
-   ib_uverbs_handler_UVERBS_METHOD_DMABUF_ALLOC+0x223/0x3f0
-  Freed by task 436:
-   kfree+0x301/0x530
-   dentry_kill+0x14c/0x560
-   __fput+0x23a/0x4a0
 
-rdma_user_mmap_entry_remove() dereferences the same pointer.
+On 9/20/2026 6:46 PM, Shawn Guo wrote:
+> On Sat, Sep 19, 2026 at 10:14:56AM +0530, Vishnu Reddy wrote:
+>> Add iris video codec to nord SoC, which comes with significantly different
+>> powering up sequence than previous platforms, thus different clocks and
+>> resets.
+>>
+>> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 114 ++++++++++++++++++++++++++++
+>>  1 file changed, 114 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+>> index 74f4e6be8652..03f827f3e5fc 100644
+>> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+>> @@ -1428,6 +1428,120 @@ camcc: clock-controller@9ce0000 {
+>>  		#power-domain-cells = <1>;
+>>  	};
+>>  
+>> +	iris: video-codec@aa00000 {
+>> +		compatible = "qcom,nord-iris", "qcom,glymur-iris";
+>> +		reg = <0x0 0x0aa00000 0x0 0xf0000>;
+> 
+> nord-embedded.dtsi is a place to accommodate Nord Embedded variant
+> specific resource descriptions, like clock, regulator, pinctrl,
+> interconnect, power domain, PHY, etc. The rest of descriptions should
+> go to nord.dtsi, like reg, interrupts, iommu, dma, etc.
+> 
 
-Protect the stored dma_buf pointer with a mutex and clear it before
-release returns. Use a shared revoke helper so uobject destruction and
-mmap entry removal both skip a cleared pointer. Hold a temporary uobject
-reference across uverbs_uobject_release() and the pointer update.
+Iris depends on providers such as videocc, nwgcc, hscnoc, and mc_virt,
+which are defined only in nord-embedded.dtsi.
+Moving the Iris node into nord.dtsi would leave unresolved references in
+DTS variants that don’t include the embedded file, causing DTB build
+failures.
+We should keep the iris node in nord-embedded.dtsi.
 
-Use a separate mutex because uobject destruction can free the mmap entry
-before release finishes. Map and unmap use attachment->dmabuf directly,
-so they do not need to take the new mutex while holding the reservation
-lock.
+Gourav Kumar
 
-Fixes: 0ac6f4056c4a ("RDMA/uverbs: Add DMABUF object type and operations")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Deep Shah <deepshah146@gmail.com>
----
- drivers/infiniband/core/ib_core_uverbs.c      | 10 +----
- drivers/infiniband/core/uverbs.h              | 37 ++++++++++++++++++
- .../infiniband/core/uverbs_std_types_dmabuf.c | 39 +++++++++++--------
- 3 files changed, 61 insertions(+), 25 deletions(-)
+> Shawn
+> 
+>> +
+>> +		clocks = <&nwgcc NW_GCC_VIDEO_AXI0_CLK>,
+>> +			 <&videocc VIDEO_CC_MVS0C_CLK>,
+>> +			 <&videocc VIDEO_CC_MVS0_CLK>,
+>> +			 <&nwgcc NW_GCC_VIDEO_AXI0C_CLK>,
+>> +			 <&videocc VIDEO_CC_MVS0C_FREERUN_CLK>,
+>> +			 <&videocc VIDEO_CC_MVS0_FREERUN_CLK>,
+>> +			 <&nwgcc NW_GCC_VIDEO_AXI1_CLK>,
+>> +			 <&videocc VIDEO_CC_MVS1_CLK>,
+>> +			 <&videocc VIDEO_CC_MVS1_FREERUN_CLK>;
+>> +		clock-names = "core_iface",
+>> +			      "core",
+>> +			      "vcodec0_core",
+>> +			      "vcodec0_iface",
+>> +			      "core_freerun",
+>> +			      "vcodec0_core_freerun",
+>> +			      "vcodec1_iface",
+>> +			      "vcodec1_core",
+>> +			      "vcodec1_core_freerun";
+>> +
+>> +		dma-coherent;
+>> +
+>> +		interconnects = <&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+>> +				 &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+>> +				<&mmss_noc MASTER_VIDEO_MVP0 QCOM_ICC_TAG_ALWAYS
+>> +				 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+>> +		interconnect-names = "cpu-cfg",
+>> +				     "video-mem";
+>> +
+>> +		interrupts = <GIC_SPI 174 IRQ_TYPE_LEVEL_HIGH>;
+>> +
+>> +		memory-region = <&video_mem>;
+>> +
+>> +		operating-points-v2 = <&iris_opp_table>;
+>> +
+>> +		power-domains = <&videocc VIDEO_CC_MVS0C_GDSC>,
+>> +				<&videocc VIDEO_CC_MVS0_GDSC>,
+>> +				<&rpmhpd RPMHPD_MXC>,
+>> +				<&rpmhpd RPMHPD_MMCX>,
+>> +				<&videocc VIDEO_CC_MVS1_GDSC>;
+>> +		power-domain-names = "venus",
+>> +				     "vcodec0",
+>> +				     "mxc",
+>> +				     "mmcx",
+>> +				     "vcodec1";
+>> +
+>> +		resets = <&nwgcc NW_GCC_VIDEO_AXI0_CLK_ARES>,
+>> +			 <&nwgcc NW_GCC_VIDEO_AXI0C_CLK_ARES>,
+>> +			 <&videocc VIDEO_CC_MVS0C_FREERUN_CLK_ARES>,
+>> +			 <&videocc VIDEO_CC_MVS0_FREERUN_CLK_ARES>,
+>> +			 <&nwgcc NW_GCC_VIDEO_AXI1_CLK_ARES>,
+>> +			 <&videocc VIDEO_CC_MVS1_FREERUN_CLK_ARES>;
+>> +		reset-names = "core_bus",
+>> +			      "vcodec0_bus",
+>> +			      "core",
+>> +			      "vcodec0_core",
+>> +			      "vcodec1_bus",
+>> +			      "vcodec1_core";
+>> +
+>> +		#address-cells = <1>;
+>> +		#size-cells = <1>;
+>> +		dma-ranges = <0x0 0x0 0x0 0xffe00000>;
+>> +
+>> +		status = "disabled";
+>> +
+>> +		non-pixel {
+>> +			iommus = <&apps_smmu_1 0x0940 0x20>,
+>> +				 <&apps_smmu_1 0x0944 0x0>,
+>> +				 <&apps_smmu_1 0x0960 0x20>;
+>> +			iommu-ranges = <0x25800000 0xda600000>;
+>> +		};
+>> +
+>> +		pixel {
+>> +			iommus = <&apps_smmu_1 0x0943 0x0>;
+>> +		};
+>> +
+>> +		iris_opp_table: opp-table {
+>> +			compatible = "operating-points-v2";
+>> +
+>> +			opp-240000000 {
+>> +				opp-hz = /bits/ 64 <240000000 240000000 360000000>;
+>> +				required-opps = <&rpmhpd_opp_svs>,
+>> +						<&rpmhpd_opp_svs>;
+>> +			};
+>> +
+>> +			opp-435000000 {
+>> +				opp-hz = /bits/ 64 <435000000 435000000 652500000>;
+>> +				required-opps = <&rpmhpd_opp_svs_l1>,
+>> +						<&rpmhpd_opp_svs_l1>;
+>> +			};
+>> +
+>> +			opp-480000000 {
+>> +				opp-hz = /bits/ 64 <480000000 480000000 720000000>;
+>> +				required-opps = <&rpmhpd_opp_svs_l1>,
+>> +						<&rpmhpd_opp_nom>;
+>> +			};
+>> +
+>> +			opp-533333333 {
+>> +				opp-hz = /bits/ 64 <533333333 533333333 800000000>;
+>> +				required-opps = <&rpmhpd_opp_svs_l1>,
+>> +						<&rpmhpd_opp_turbo>;
+>> +			};
+>> +
+>> +			opp-560000000 {
+>> +				opp-hz = /bits/ 64 <560000000 560000000 840000000>;
+>> +				required-opps = <&rpmhpd_opp_nom>,
+>> +						<&rpmhpd_opp_turbo_l1>;
+>> +			};
+>> +		};
+>> +	};
+>> +
+>>  	videocc: clock-controller@aaf0000 {
+>>  		compatible = "qcom,nord-videocc";
+>>  		reg = <0x0 0x0aaf0000 0x0 0x10000>;
+>>
+>> -- 
+>> 2.34.1
+>>
+>>
 
-diff --git a/drivers/infiniband/core/ib_core_uverbs.c b/drivers/infiniband/core/ib_core_uverbs.c
-index 41c84ffe8c09..2bdb6972fe1a 100644
---- a/drivers/infiniband/core/ib_core_uverbs.c
-+++ b/drivers/infiniband/core/ib_core_uverbs.c
-@@ -244,16 +244,8 @@ void rdma_user_mmap_entry_remove(struct rdma_user_mmap_entry *entry)
- 	entry->driver_removed = true;
- 	xa_unlock(&entry->ucontext->mmap_xa);
- 	list_for_each_entry_safe(uverbs_dmabuf, tmp, &entry->dmabufs, dmabufs_elm) {
--		dma_resv_lock(uverbs_dmabuf->dmabuf->resv, NULL);
- 		list_del(&uverbs_dmabuf->dmabufs_elm);
--		uverbs_dmabuf->revoked = true;
--		dma_buf_invalidate_mappings(uverbs_dmabuf->dmabuf);
--		dma_resv_wait_timeout(uverbs_dmabuf->dmabuf->resv,
--				      DMA_RESV_USAGE_BOOKKEEP, false,
--				      MAX_SCHEDULE_TIMEOUT);
--		dma_resv_unlock(uverbs_dmabuf->dmabuf->resv);
--		kref_put(&uverbs_dmabuf->kref, ib_uverbs_dmabuf_done);
--		wait_for_completion(&uverbs_dmabuf->comp);
-+		ib_uverbs_dmabuf_revoke(uverbs_dmabuf);
- 	}
- 	mutex_unlock(&entry->dmabufs_lock);
- 
-diff --git a/drivers/infiniband/core/uverbs.h b/drivers/infiniband/core/uverbs.h
-index c64dd6b94e10..728e09b41992 100644
---- a/drivers/infiniband/core/uverbs.h
-+++ b/drivers/infiniband/core/uverbs.h
-@@ -42,6 +42,8 @@
- #include <linux/mutex.h>
- #include <linux/completion.h>
- #include <linux/cdev.h>
-+#include <linux/dma-buf.h>
-+#include <linux/dma-resv.h>
- 
- #include <rdma/ib_verbs.h>
- #include <rdma/ib_umem.h>
-@@ -135,6 +137,13 @@ struct ib_uverbs_completion_event_file {
- 
- struct ib_uverbs_dmabuf_file {
- 	struct ib_uobject uobj;
-+	/*
-+	 * Serializes users of dmabuf with the dma_buf's release, which sets it
-+	 * to NULL. The uobject can outlive the dma_buf while it waits to be
-+	 * destroyed. The map and unmap callbacks use attachment->dmabuf
-+	 * instead of taking this lock.
-+	 */
-+	struct mutex dmabuf_release_lock;
- 	struct dma_buf *dmabuf;
- 	struct list_head dmabufs_elm;
- 	struct rdma_user_mmap_entry *mmap_entry;
-@@ -359,6 +368,34 @@ static inline void ib_uverbs_dmabuf_done(struct kref *kref)
- 	complete(&priv->comp);
- }
- 
-+/*
-+ * Revoke the dmabuf and wait for all of its DMA mappings to be gone. Must be
-+ * called with the mmap entry's dmabufs_lock held, after the dmabuf has been
-+ * removed from the entry's dmabufs list, so it runs once per dmabuf. Lock
-+ * order is dmabufs_lock, dmabuf_release_lock, then the dma_resv lock.
-+ */
-+static inline void ib_uverbs_dmabuf_revoke(struct ib_uverbs_dmabuf_file *priv)
-+{
-+	mutex_lock(&priv->dmabuf_release_lock);
-+	if (priv->dmabuf) {
-+		dma_resv_lock(priv->dmabuf->resv, NULL);
-+		priv->revoked = true;
-+		dma_buf_invalidate_mappings(priv->dmabuf);
-+		dma_resv_wait_timeout(priv->dmabuf->resv,
-+				      DMA_RESV_USAGE_BOOKKEEP, false,
-+				      MAX_SCHEDULE_TIMEOUT);
-+		dma_resv_unlock(priv->dmabuf->resv);
-+	} else {
-+		/* A released dma_buf has no attachments left to invalidate */
-+		priv->revoked = true;
-+	}
-+	mutex_unlock(&priv->dmabuf_release_lock);
-+
-+	kref_put(&priv->kref, ib_uverbs_dmabuf_done);
-+	/* Wait till all DMA unmaps are completed */
-+	wait_for_completion(&priv->comp);
-+}
-+
- int __uverbs_cleanup_ufile(struct ib_uverbs_file *ufile,
- 			   enum rdma_remove_reason reason);
- 
-diff --git a/drivers/infiniband/core/uverbs_std_types_dmabuf.c b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-index d88d30f1e42f..8d8c997a4883 100644
---- a/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-+++ b/drivers/infiniband/core/uverbs_std_types_dmabuf.c
-@@ -28,7 +28,7 @@ uverbs_dmabuf_map(struct dma_buf_attachment *attachment,
- 	struct ib_uverbs_dmabuf_file *priv = attachment->dmabuf->priv;
- 	struct sg_table *ret;
- 
--	dma_resv_assert_held(priv->dmabuf->resv);
-+	dma_resv_assert_held(attachment->dmabuf->resv);
- 
- 	if (priv->revoked)
- 		return ERR_PTR(-ENODEV);
-@@ -49,7 +49,7 @@ static void uverbs_dmabuf_unmap(struct dma_buf_attachment *attachment,
- {
- 	struct ib_uverbs_dmabuf_file *priv = attachment->dmabuf->priv;
- 
--	dma_resv_assert_held(priv->dmabuf->resv);
-+	dma_resv_assert_held(attachment->dmabuf->resv);
- 	dma_buf_free_sgt(attachment, sgt, dir);
- 	kref_put(&priv->kref, ib_uverbs_dmabuf_done);
- }
-@@ -74,7 +74,25 @@ static void uverbs_dmabuf_release(struct dma_buf *dmabuf)
- 	if (!priv)
- 		return;
- 
-+	/*
-+	 * uverbs_uobject_release() may drop the last reference to the uobject,
-+	 * keep it around until the dmabuf pointer below has been cleared.
-+	 */
-+	uverbs_uobject_get(&priv->uobj);
- 	uverbs_uobject_release(&priv->uobj);
-+
-+	/*
-+	 * The dma_buf is freed once this function returns. If the uobject was
-+	 * not destroyed above, because the ufile is concurrently being cleaned
-+	 * up, it is still reachable through the ufile's uobjects list and the
-+	 * mmap entry's dmabufs list. Make sure those paths are not in the
-+	 * middle of using the dma_buf and cannot use it afterwards.
-+	 */
-+	mutex_lock(&priv->dmabuf_release_lock);
-+	priv->dmabuf = NULL;
-+	mutex_unlock(&priv->dmabuf_release_lock);
-+
-+	uverbs_uobject_put(&priv->uobj);
- }
- 
- static const struct dma_buf_ops uverbs_dmabuf_ops = {
-@@ -100,6 +118,8 @@ static int UVERBS_HANDLER(UVERBS_METHOD_DMABUF_ALLOC)(
- 	off_t pg_off;
- 	int ret;
- 
-+	mutex_init(&uverbs_dmabuf->dmabuf_release_lock);
-+
- 	ret = uverbs_get_const(&pg_off, attrs, UVERBS_ATTR_ALLOC_DMABUF_PGOFF);
- 	if (ret)
- 		return ret;
-@@ -165,24 +185,11 @@ static void uverbs_dmabuf_fd_destroy_uobj(struct ib_uobject *uobj,
- {
- 	struct ib_uverbs_dmabuf_file *uverbs_dmabuf =
- 		container_of(uobj, struct ib_uverbs_dmabuf_file, uobj);
--	bool wait_for_comp = false;
- 
- 	mutex_lock(&uverbs_dmabuf->mmap_entry->dmabufs_lock);
--	dma_resv_lock(uverbs_dmabuf->dmabuf->resv, NULL);
- 	if (!uverbs_dmabuf->revoked) {
--		uverbs_dmabuf->revoked = true;
- 		list_del(&uverbs_dmabuf->dmabufs_elm);
--		dma_buf_invalidate_mappings(uverbs_dmabuf->dmabuf);
--		dma_resv_wait_timeout(uverbs_dmabuf->dmabuf->resv,
--				      DMA_RESV_USAGE_BOOKKEEP, false,
--				      MAX_SCHEDULE_TIMEOUT);
--		wait_for_comp = true;
--	}
--	dma_resv_unlock(uverbs_dmabuf->dmabuf->resv);
--	if (wait_for_comp) {
--		kref_put(&uverbs_dmabuf->kref, ib_uverbs_dmabuf_done);
--		/* Let's wait till all DMA unmap are completed. */
--		wait_for_completion(&uverbs_dmabuf->comp);
-+		ib_uverbs_dmabuf_revoke(uverbs_dmabuf);
- 	}
- 	mutex_unlock(&uverbs_dmabuf->mmap_entry->dmabufs_lock);
- 
