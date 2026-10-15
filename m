@@ -1,110 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E84480356;
-	Wed, 14 Oct 2026 22:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A9F28488F
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 00:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792015321; cv=none; b=DzjjeJlO7Imt20JR2hxd1tskGuTwVoysMokvTWJty6LmJ3Zj29crx0oqsqHTfdoKhVju6x+qOFTRMliP4VVwto83aIt6Ggt30/XfrFTvLyQDMOpWPq7sucTQmGd4HDV+iY5ctHY/9n+gsXaerFmHfDOcwncpOEIWtvX2NZLUEV4=
+	t=1792024925; cv=none; b=XgsWGsrVkzhUVwMNlT/0f90WOxe3QP1lqvmvhctn41K9Kpctsdf5PuntjalXleT0XEVEaCGl2LOLA8S85lPuToFRjMRien0hOfwMQlYj207dL1zz2MK7Bt8zPABrBSZLS/SF0so28bjYZJOEEVeBCQUaETy9+kSe0pFlmncLigk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792015321; c=relaxed/simple;
-	bh=Vlxco360C0BJmJ7JYlB1Wtrwq/21kxAL2JsKc/iYk8Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gPXRpDb8aBxq1BPJnLa9dFc+xi13qY1CfYsto29ptSv7d/ouPSz4kirhZT7gbrxhhzort4S+8L0JQr3v+3LdBw1wDPyfQmMQTQTNfF2Dew+93AoXrWvHoNEyXU+iLcBnGh9x57at3QQhwd62U1VpqswJJWHZ6dmqiQPzkBY/LY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iZ3KFolb; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792024925; c=relaxed/simple;
+	bh=zKmceE7iJ3pFkJAPAZa69mvHkW/SDXp+nT5N7qLGRy8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=k1zUK4/+YST2JBumHPyW41H2+48nl7VcpOqYiTCTZcE1Cd2kxsCwi+kl3/jOcb3dzRyaVdX/ydn6hPCW8v7+KsgbJ0uY4nihF145wDPchcdmQG5IvN2D4p4olHT282nBDltVZ+r5NGC3iw4pvGn3cSEfYvIq1YqAdJOUihYBATI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XlXk6HXz; arc=none smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iZ3KFolb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792015320; x=1823551320;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Vlxco360C0BJmJ7JYlB1Wtrwq/21kxAL2JsKc/iYk8Y=;
-  b=iZ3KFolblwEu6arr2s44RpG7FwpQQE6QkA2losYzhmO2yqDBg3edgI6i
-   TqpmkdBlfGEvqU9Dhbv6ejR2d8sTnb6kFQIRYzJLUoHm8uRvex5xt7oGC
-   nQI0dZkRdbNQW5Pgdsfc75dn87UpdMapMnWI3yB1nZoh8es5CtWkGX6ZA
-   sqryyffRHpEqEu509i7LMB0VnD6+NAvfX6VYpBNf5LEtyhWtMGnLQl6kJ
-   IpJbFYqhs6Z6yWw8H5cqkISDm1F/wT3mooUbk1v2sQb+dq30eUpZfW7OE
-   nZmqjEBU/8umWW6+ziIh6oYWRRObbBeL7tlPeMP27Ft3jReD1C3eORkba
-   A==;
-X-CSE-ConnectionGUID: Bq/+S85YRdqiKJVclAM5gQ==
-X-CSE-MsgGUID: ah93SRx5THq+EnHrKiXJJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11935"; a="672860"
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="672860"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Oct 2026 15:01:59 -0700
-X-CSE-ConnectionGUID: eGfGD1xSTSCLBJHa6GYw7A==
-X-CSE-MsgGUID: r4k/XD24SrmpqgAucRRn3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,158,1787036400"; 
-   d="scan'208";a="1612018"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 14 Oct 2026 15:01:55 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xH72m-00000000FF9-3cyv;
-	Wed, 14 Oct 2026 22:01:52 +0000
-Date: Thu, 15 Oct 2026 06:01:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v2 01/13] media: imx678: Rework into generic Starvis 2
- sensor driver.
-Message-ID: <202610150522.QgryNORG-lkp@intel.com>
-References: <20261013-media-starvis2-v2-1-3670722d250a@raspberrypi.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XlXk6HXz"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917866225aaso66430066d6.1
+        for <linux-media@vger.kernel.org>; Wed, 14 Oct 2026 17:42:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792024923; x=1792629723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CCmGfQtmli9ezK+MFtUWjQexKDnk5+HZKyUUtdEwtk4=;
+        b=XlXk6HXzrChaVnO117/DlsL+SieOlhc8dhjGsLCHgzu8Lx2PK1kUJuh0JlAX0L6cr0
+         9zWG3ouqLPokOez/iF+Jf+4hJnQujrMFqRvXgRWEXhy6PH6wBoURYXUaYaBk80bDguVG
+         vbuhiLl+y7cqxxHgSqQj1lnVWVmJm87t/qSUzZr87rV66F04ZZTqHDMk87hVlpsLvn7N
+         pEwXKPTjRE9YDgFxvFt6TmJAgMbISmxkrKmTPghfiNBwuWqygIWvdrm2kTo+7+nVEQgs
+         j0EnR58n0sn53bkx5zXtx7p2DySnGAuZamxDcd1qOsGQQrVKhe2pCLTEsAgplvkdW+mN
+         2JYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792024923; x=1792629723;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CCmGfQtmli9ezK+MFtUWjQexKDnk5+HZKyUUtdEwtk4=;
+        b=07Bsph3HNX94vof2mAJFuIbbPEBjNprM1TKbVB+WlSwcMpaSuvfHePKodO4O7LYlut
+         p+h8rNdmZBc0CsJAdRRi5skqDe84kF0gZawtPA1scT/ns/+54QNMGabZvwIdapIzd9h6
+         wK6q8Tde5DioQuQF1MknNgqx+UidiKxFHwMUrv21GmOP87nfB5KXtT5G/KVtiB9hCO6H
+         Hvszk3wap5BmGpZc+CYklqpY8CG807exCPaZpH51ox2JZkJciVT8Ns5EoQmL2U5pg1ba
+         BQaThAJJPzCbzKvtQEbJaMz9223MggwrMUlol75gweRGrbJsq/7zSIUCQCdjAABO/42n
+         za2g==
+X-Gm-Message-State: AFq9FYKJfuN/fOWzsh8ot07fib7VZDrV1IIUcxZvEHavQNGThz4/eudT
+	da2KWU0ortMIflN7D3ZafkMCNxib/YRlBd54WBuhSBEpAvrnzpqN2MQ=
+X-Gm-Gg: AYBFou0N30rp1JBg9w3Ckrp6496ndtFdk6HboFndKgZs5MrCxs94b/Tpk8ptmr7EQSf
+	+M+iwrEMUwmGipyz4GxsZ+uarwe9h4Lp6wA+pd6T8rbbcE59mPdrCbF8Byld7k2nu62hMtt19Zb
+	8gWtZwrZGj2XkVfGURKIOYaXfp0NhEdb13x+pPmji2wzYuTj8y6v6piYb26H2/K0xJdnwczAL4y
+	dj8xzOx3tp3enbtH5YdksTz4vhx5pn6ebbPECmW1jLNMNEhoFa63q/TWojOnJ43x1YE7q+e+14h
+	os6S0L1PZzIAqhACj3QwPRVz9YtDA1//sT27hpJlph4Gq9PeHnpRsHdZPXH0aSAvfYSajED77Lt
+	8uB9tAe+9Dk/Et+wCczAsykwGuIUM6k0VnajgZ4ynX+oG4NGTmDaKV1eQaQtotRCLpQOh3N3Zuc
+	dMDzoQcZ86ojXoW9w/3iJL6bhtFgp8+JuhCdmhaaEsz51bd9H0UFvWB7EZ23w3dG20oI8B2nGCk
+	21ikVSQTLbp1r73lYSvNQzSTRA/lZbtcPZENyw0WcB5bHovOfNts0gNMzBAFmXlVperXgQd1u1i
+	qwRcKAKoEz+rMVxS
+X-Received: by 2002:ad4:5aad:0:b0:912:127b:c56a with SMTP id 6a1803df08f44-91b553398damr291404816d6.2.1792024922795;
+        Wed, 14 Oct 2026 17:42:02 -0700 (PDT)
+Received: from gmail.com ([130.203.156.90])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97b7b31esm66811476d6.26.2026.10.14.17.42.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 14 Oct 2026 17:42:01 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: niklas.soderlund@ragnatech.se,
+	mchehab@kernel.org,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com
+Cc: linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ae878000@gmail.com,
+	jacopo.mondi+renesas@ideasonboard.com,
+	sakari.ailus@linux.intel.com
+Subject: [PATCH v2 0/2] media: rcar-isp: fix core registration and IRQ lifetime
+Date: Wed, 14 Oct 2026 20:41:57 -0400
+Message-ID: <20261015004159.2202899-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013-media-starvis2-v2-1-3670722d250a@raspberrypi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Dave,
+The ISP core IRQ is registered before the RPPX1 object and interrupt
+handler state are initialized. On removal, it remains registered until
+after the RPPX1 object has been freed. An interrupt handler can therefore
+access RPPX1 outside its lifetime.
 
-kernel test robot noticed the following build errors:
+This series requests the IRQ after its dependencies are initialized and
+releases it before destroying RPPX1. It also distinguishes an absent
+optional core from a registration failure after core resources have been
+prepared.
 
-[auto build test ERROR on sailus-media-tree/master]
-[also build test ERROR on linuxtv-media-pending/master media-tree/master next-20261012]
-[cannot apply to robh/for-next linus/master sailus-media-tree/streams v7.3-rc7]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Patch 1 handles the -ENODEV distinction. Patch 2 moves IRQ registration
+and release within the RPPX1 lifetime. The error-handling change comes
+first so a failure from the later IRQ request cannot be mistaken for an
+absent core after registration has unwound.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Dave-Stevenson/media-sony-starvis2-Reorder-link-frequencies-to-remove-lookup/20261013-161701
-base:   git://linuxtv.org/sailus/media_tree.git master
-patch link:    https://lore.kernel.org/r/20261013-media-starvis2-v2-1-3670722d250a%40raspberrypi.com
-patch subject: [PATCH v2 01/13] media: imx678: Rework into generic Starvis 2 sensor driver.
-config: hexagon-randconfig-1000-20261014 (https://download.01.org/0day-ci/archive/20261015/202610150522.QgryNORG-lkp@intel.com/config)
-compiler: clang version 17.0.6 (https://github.com/llvm/llvm-project 6009708b4367171ccdbf4b5905cb6a803753fe18)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261015/202610150522.QgryNORG-lkp@intel.com/reproduce)
+Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610150522.QgryNORG-lkp@intel.com/
+Changes in v2:
+- Split the -ENODEV handling into patch 1.
+- Explain the RPPX1 allocation, free and pre-lock IRQ accesses in patch 2.
+- Combined code changes are identical to v1.
 
-All errors (new ones prefixed by >>):
+v1: https://lore.kernel.org/r/20261011214448.2043581-1-mhun512@gmail.com
 
->> make[6]: *** No rule to make target 'drivers/media/i2c/imx678.o', needed by 'drivers/media/i2c/built-in.a'.
-   make[6]: Target 'drivers/media/i2c/' not remade because of errors.
+Myeonghun Pak (2):
+  media: rcar-isp: distinguish absent cores from registration failures
+  media: rcar-isp: release the core interrupt before destroying RPPX1
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+ drivers/media/platform/renesas/rcar-isp/core.c      | 13 +++++++++----
+ drivers/media/platform/renesas/rcar-isp/csisp.c     |  2 ++
+ drivers/media/platform/renesas/rcar-isp/risp-core.h |  2 ++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
+
+base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
