@@ -1,215 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E50551990;
-	Thu, 15 Oct 2026 19:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9145153D0BC
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 19:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792092072; cv=none; b=K2WJQMomJF2e8khN52aucVFgyVIxWTuGQK1FmtldsLg3mQ50w49jWfuApt8NOcpIjPzBgFXf6msUPDnp4jnd2Rww6vtF0JngMEc79/sGYyisCU6sFJPjMh+3epPOMjXnrh92+e9kMrznGMcivKQsZt48UqoWe/dPfL8TUhT0zIA=
+	t=1792092419; cv=none; b=Oo6F7I9sSBF+wjL6hRUa61tfo4f6CSM++MsgAG3IPB3zBtBjxVMdqX4vGWtEwJ9E/Z6tGx9lYcOCKlUQqirCXQ1tZMk47Q6ooGuREIiEE+du6nnhXH2TsbFf2pVF3vrEBsQaw66w53sWdH0lnXbw/k3zfWoWKrq3vo9GVcMjmL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792092072; c=relaxed/simple;
-	bh=+hkYwqtOj1rF3P9043erQEuvSeBTD8JF+5UmELpyEnI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=o3bO6EPtkqq3RscnRCmLKPQRwuEJ349BN+8qDUNKUvaS4rjcsvo4X6Eu+TdF8O4Kl7rKGMafFnnVlUC6+ayPNqs3SczOtL8d11l6w5SjRoxEJaRAF9z/LfKbJ8aKuTX0tAcfQCruCZgVBt5UO/DT9beC8z+qIC8dyGKed/L/wRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RABnDfJP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792092419; c=relaxed/simple;
+	bh=KfP/vjeGWsuZ4w73uZHQKGJi0F/32o26SPzn575BRdw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dxwWP3IWfsUZwv0i6kugMAMCUwxxIF8AVTIIGTl3eMGSwJRm2DSHjGx9SymbG6HdRxsZhrZogAHHhooUk3ivlIH5SrZaCgSblB3FD+eqlw0Kwz/qvaHvvvV06aqO07l9xpk4tRyF1zGXz9Zuos0Ozz6vxlJH+VmXK+VLgwWWiPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghleTTrA; arc=none smtp.client-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RABnDfJP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E961F000C4;
-	Thu, 15 Oct 2026 19:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792092070;
-	bh=GgBgaGH8A1dFQW3H1sBO1hUvGwcWJ6mOtr3Ya+b10HA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RABnDfJP47XBl2oNxKo8DaXiXoYOGriUg3dHJZX4NIQevXyTwYqKuKbsCvuEGKcMm
-	 F6y/MK9XjRhd5ip7nul+xqddelY1VnU2if4xWXNGz+kg47p6s+FFwqJpsKRI5UaASq
-	 yvCstuHteyLmNAQvnel9etVDipnLBO8+sSm5XpJNU9clPyX2HZ9BoEqz/F37eRFIYE
-	 C80PbiAYyFkXMQzKdj+MEWJObYXqgZGxf0ntI3KOTzE7Xq71lq1BeF35MYA53TmOvI
-	 ck0JvHYNPweJjd0JVhT1Y/n7M5UjSgf7GivpPYWQWfIMGXSyM9PzDemjyO5NZNyUHU
-	 B9P+xuDiGpG8A==
-Subject: Re: [PATCH net v3 3/4] netdevsim: support devmem RX and TX bindings
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: kuba@kernel.org, asml.silence@gmail.com, dw@davidwei.uk, sdf@fomichev.me,
- ap420073@gmail.com, pabeni@redhat.com, kaiyuanz@google.com,
- bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, daniel@iogearbox.net,
- razor@blackwall.org, tariqt@nvidia.com, kaifengw@google.com,
- dtatulea@nvidia.com
-Date: Thu, 15 Oct 2026 19:21:08 +0000
-Message-ID: <179209206849.434549.7519044574049970137@kernel.org>
-In-Reply-To: <20261014161754.3782346-4-almasrymina@google.com>
-References: <20261014161754.3782346-4-almasrymina@google.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghleTTrA"
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-530e75d1ba1so55485541cf.2
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 12:26:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792092413; x=1792697213; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1BOiR3HjstR3v+8dWKVs/nFPkMjZqmy5flCQLz7ZGEc=;
+        b=ghleTTrA8sN3BkxMrEg+fVh8FkC3NAswPWRc8KNteLq+XWUBrCuH3gy2skylDXgdkk
+         2Kw6RcWY8I6DoT7Bk5FPSU1UgXyPJ57/1J3hnFDLfHFYdCEzz4SrPkQNJPc2RzmS5CLd
+         4zAzML1nBpVVqAnDE9xZZiQ4TJHyFLALOgMn5HKKTZ15PxJTsNPLsf4L5zRPe+OXhh/J
+         YwrsvGQcfpiwb90OSsB3P2MjvSRRxu7VyFbpnYrhIZoJxlCVZqKejy1JbwvcNUES9K/F
+         lSi3aGkeLfw59/s35p16i+5mLhuPk782zXkclllo+iDEPaBtZ89srxGR575AKiCr4OK7
+         t24w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792092413; x=1792697213;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1BOiR3HjstR3v+8dWKVs/nFPkMjZqmy5flCQLz7ZGEc=;
+        b=whgFA0PbUIhm9bsEYRCQaeFdFcfiC7VdTwNPQ8ImiEgym+ASdaTYKcfjbw92/L/8XI
+         n60LKjlKPey6Vpyf7d0uDgoTSvNNmNSTG7Ws8ZoYl5fAbAPKH2vic0wInN0VVN+YJ+Vi
+         fh/szQlX3VFMsg9KuIUHH8BiaXDM6RAkEjCzi84+YKsEy/4MeIfdE8xEM/hIIdmQQH0G
+         16jgv9yMVwmPX4V4pXggBQPpqh3OzGpIBdVHm/YJIYz4WoOjbWtO2eUZnCKS0W3OchSm
+         cYkDMje+1472h8SBr3G4roMsEgOASjZIaARlByHbM2OhyGNQWBiXd3kOgSb5DuYtKqLp
+         BLtA==
+X-Forwarded-Encrypted: i=1; AKwUvByvf3U1dRCUu0GWmtjx5V1gX4Y5aXGkSAGBkeju9xG1ciXe30OLye+ccz7EHm2C47jNYHpQtBxXm3703A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsNDuQv5CuvpIXCYtTI2X0o7FzabYHnLImwkOgNoIoUzi8gUBZ
+	9c0+tKneTqCNdyE5lIzYRYyKiL6vsiEuE3iwKXr8uZUFuKNp4RQnIbR9
+X-Gm-Gg: AYBFou0MG1eIaqqrOGzPeAxWoIsyrvuv05OC8eo6/ts62CvnPGEQ0DBDqv7tsH1MmIA
+	q3yMLNrVgN5+4f6X34cU/g8JleijuGoek3ee/waBTGRUU9cKBU5V+vZ6kfUNj/VB1hsHI+9cj0a
+	v0vBwcCyCPUKBzT85vv4JMfgvoGUXCiJB+kGeYZh2lWklc/zSBk6AvqGUHpvByDSYTXIRaATAJe
+	/5cDHWxp8qTUhO1PeJ9MKQIvmTIJhUam+wniGil25YQXi30v9ZCqNXFwH/R/S7MHdthrK5yNEOx
+	i2/JUgsOhxHA5eYQm2Vp7IXjvPu4uuIjYO8Wg5h/ZfckkDHQ1xFbU9NlV4R+sG0k1T7D06LaYPP
+	JbmAeUL7f4NhDq6G2oEMIdBpk9DkfZMNFCMp6On+On9sSNhQC9HrgDlZICklPNVw2rDT3y96GYi
+	cg31wXhhgVBz1XGD8uiv3DmiTm0aYO+2PPgBnJYCIvfT8nEGxkqzYfT06xPx4jcoeUOWv9pqB02
+	vhZp6Jy9R8AzMAxRkCi4qaX5tg=
+X-Received: by 2002:ac8:5c8b:0:b0:535:cd9e:c12f with SMTP id d75a77b69052e-535cda02393mr232419501cf.32.1792092413486;
+        Thu, 15 Oct 2026 12:26:53 -0700 (PDT)
+Received: from localhost ([144.121.52.163])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91bcbb8c4a1sm3270566d6.45.2026.10.15.12.26.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 15 Oct 2026 12:26:52 -0700 (PDT)
+From: Ray Strode <halfline@gmail.com>
+To: rshouriesh@gmail.com
+Cc: bod@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	hverkuil+cisco@kernel.org,
+	j@metarealtyinc.ca,
+	krzk+dt@kernel.org,
+	kulikeduard89@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com,
+	vladimir.zapolskiy@linaro.org
+Subject: Re: [PATCH v7 3/3] media: i2c: hm1092: Add ACPI enumeration and the 19.2 MHz configuration
+Date: Thu, 15 Oct 2026 15:26:24 -0400
+Message-ID: <20261015192632.283185-1-halfline@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013-hm1092-driver-v7-3-d81a9b152ffd@gmail.com>
+References: <20261013-hm1092-driver-v7-3-d81a9b152ffd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] nsim_bus_dev_new() now calls
-  dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64)) on…
-- [Medium] Before this patch, netdevsim page pools did not DMA-map pages.
-
---
-
-netdevsim: support devmem RX and TX bindings
-
-The patch sets a 64-bit DMA mask on the netdevsim bus device and enables
-NETMEM_TX_DMA. It also creates page pools with
-PP_FLAG_ALLOW_UNREADABLE_NETMEM and a queue_idx, and adds DMA mapping
-flags under CONFIG_HAS_DMA, so devmem bind-rx and bind-tx can be tested
-against netdevsim. Finally, it refuses pp_hold when the queue 0 pool is
-backed by a memory provider and drops unreadable skbs in the software PSP
-checksum path.
-
-> diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-> index 5c55c308487b4..f87f5e037b6fb 100644
-> --- a/drivers/net/netdevsim/bus.c
-> +++ b/drivers/net/netdevsim/bus.c
-> @@ -462,6 +462,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
->  	nsim_bus_dev->port_count = port_count;
->  	nsim_bus_dev->num_queues = num_queues;
->  	nsim_bus_dev->initial_net = current->nsproxy->net_ns;
-> +	dma_coerce_mask_and_coherent(&nsim_bus_dev->dev, DMA_BIT_MASK(64));
-
-[Severity: High]
-Can this oops on sparc64 when a netdevsim device is created?
-
-The nsim bus device has no DMA or IOMMU setup, so dev->archdata.iommu
-stays NULL. On sparc64, get_arch_dma_ops() returns the global sun4u/sun4v
-ops for devices that have no per-device dma_ops. The call chain is:
-
-new_device_store()
-  nsim_bus_dev_new()
-    dma_coerce_mask_and_coherent()
-      dma_set_mask_and_coherent()
-        dma_supported()
-          dma_4u_supported()
-
-arch/sparc/kernel/iommu.c:dma_4u_supported() {
-	struct iommu *iommu = dev->archdata.iommu;
-
-	if (ali_sound_dma_hack(dev, device_mask))
-		return 1;
-
-	if (device_mask < iommu->dma_addr_mask)
-		return 0;
-	return 1;
-}
-
-ali_sound_dma_hack() returns 0 for non-PCI devices. That would make the
-iommu->dma_addr_mask read a NULL pointer dereference.
-
-Even if the mask check got through, the page_pool mappings enabled under
-CONFIG_HAS_DMA in nsim_create_page_pool() would still go through the same
-arch IOMMU ops with a NULL iommu. CONFIG_HAS_DMA is set on sparc64.
-
-The return value of dma_coerce_mask_and_coherent() is also ignored here.
-Should a failure be handled, or should PP_FLAG_DMA_MAP depend on whether
-the mask was actually set?
-
->  	/* Disallow using nsim_bus_dev */
->  	smp_store_release(&nsim_bus_dev->init, false);
->  
-> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-> index b4a99f3ceac60..357ea9e5623b3 100644
-> --- a/drivers/net/netdevsim/netdev.c
-> +++ b/drivers/net/netdevsim/netdev.c
-> @@ -414,19 +414,27 @@ static int nsim_poll(struct napi_struct *napi, int budget)
->  	return done;
->  }
->  
-> -static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
-> +static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
-> +				 struct napi_struct *napi, int idx)
->  {
-> +	struct netdevsim *ns = netdev_priv(dev);
->  	struct page_pool_params params = {
->  		.order = 0,
->  		.pool_size = NSIM_RING_SIZE,
-> +		.flags = PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-> +		.max_len = PAGE_SIZE,
->  		.nid = NUMA_NO_NODE,
-> -		.dev = &napi->dev->dev,
-> +		.dev = &ns->nsim_bus_dev->dev,
->  		.napi = napi,
->  		.dma_dir = DMA_BIDIRECTIONAL,
-> -		.netdev = napi->dev,
-> +		.netdev = dev,
-> +		.queue_idx = idx,
->  	};
->  	struct page_pool *pool;
->  
-> +	if (IS_ENABLED(CONFIG_HAS_DMA))
-> +		params.flags |= PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
-> +
-
-[Severity: Medium]
-Pool pages are now DMA-mapped against &ns->nsim_bus_dev->dev. Can the
-deferred page_pool release worker end up unmapping against a struct
-device that has already been freed?
-
-nsim_destroy() returns the pp_hold page on purpose late, after
-unregister_netdevice() has already destroyed the pool via nsim_stop():
-
-drivers/net/netdevsim/netdev.c:nsim_destroy() {
-	...
-	/* Put this intentionally late to exercise the orphaning path */
-	if (ns->page) {
-		page_pool_put_full_page(pp_page_to_nmdesc(ns->page)->pp,
-					ns->page, false);
-		ns->page = NULL;
-	}
-	...
-}
-
-That can recycle the page into the retired pool's ptr_ring instead of
-releasing it.
-
-When PP_DMA_INDEX_BITS evaluates to 0, page_pool_register_dma_index()
-does not track the mapping, so the first page_pool_scrub() has nothing to
-unmap. Later the retry worker drains the ring:
-
-page_pool_release_retry()
-  ...
-    __page_pool_unmap_netmem_dma()
-      dma_unmap_page_attrs(pool->p.dev, ...)
-
-In this case there is no xa_cmpxchg guard, so the unmap runs
-unconditionally.
-
-page_pool holds no reference on pool->p.dev. nsim_bus_dev_release()
-kfree()s the nsim_bus_dev that embeds the device once device_unregister()
-drops the last reference.
-
-If page_pool_release_retry() runs after that, does dma_unmap_page_attrs()
-dereference freed memory?
-
-It is not clear which shipping configurations end up with
-PP_DMA_INDEX_BITS == 0, so this may be limited in practice.
-
->  	pool = page_pool_create(&params);
->  	if (IS_ERR(pool))
->  		return PTR_ERR(pool);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014161754.3782346-1-almasrymina%40google.com
+Hi,=0D
+=0D
+Regarding the crop-bounds question: the 19.2 MHz mode reports a 1294x734=0D
+crop at (0,0), which extends outside the advertised 1280x720 bounds at=0D
+(8,8).=0D
+=0D
+Reporting the native array as CROP_BOUNDS accommodates that readout window=
+=0D
+while keeping CROP_DEFAULT as the active area:=0D
+=0D
+diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c=0D
+--- a/drivers/media/i2c/hm1092.c=0D
++++ b/drivers/media/i2c/hm1092.c=0D
+@@ -836,12 +836,12 @@=0D
+ 		sel->r =3D to_hm1092(sd)->mode->crop;=0D
+ 		return 0;=0D
+ 	case V4L2_SEL_TGT_CROP_DEFAULT:=0D
+-	case V4L2_SEL_TGT_CROP_BOUNDS:=0D
+ 		sel->r.left =3D HM1092_ACTIVE_LEFT;=0D
+ 		sel->r.top =3D HM1092_ACTIVE_TOP;=0D
+ 		sel->r.width =3D HM1092_ACTIVE_WIDTH;=0D
+ 		sel->r.height =3D HM1092_ACTIVE_HEIGHT;=0D
+ 		return 0;=0D
++	case V4L2_SEL_TGT_CROP_BOUNDS:=0D
+ 	case V4L2_SEL_TGT_NATIVE_SIZE:=0D
+ 		sel->r.left =3D 0;=0D
+ 		sel->r.top =3D 0;=0D
+=0D
+This changes only the reported bounds; the mode's crop and register=0D
+configuration stay the same.=0D
