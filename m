@@ -1,301 +1,251 @@
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13205293E4
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 16:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B252D3EDE4A
+	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 16:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792082379; cv=none; b=AW2gReHWrvAESW6RygPp+eza4lzbUvduykFaa9OcQokE9tvtHZkipcJvzVjp98QMaOp1qo6M9dwwToFoKrk1yzUGSbWWEaRwBEbAXYBHspA9KqnD+DG6wxYrFVX/O4Ng4MctnmyjnvKpvueYQj27vz5O7X2Q/18axI3N7k4FaIY=
+	t=1792082609; cv=none; b=rSa5DETOjlqo6QiVW+9GbexlnAXP/ieYimibfV/SpzG1ZDZykTlbSentjkTUX78MbQIaEXs8iEhQS9McshAfv/A7mEdxSSXCotRBIdlOGl12SIjBmBNCJvI0X/eQiJwD3ngqDBDEu/Iv5BBI7SXYZgzePN2MKR8ciV6gySzb0kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792082379; c=relaxed/simple;
-	bh=7+ZuMQGm1WqmYa/SemsnkHIbC/OIMDMcJFeU+26oqOg=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=jvHM+nUeaZMU0oKPNOiDzXUf7JL3uJc9zDmwbXwu8oVT3wgW+jt8QL4dYblgEopfqTvWcGVguSqA1tj2b+8Rcd2AJA9Z8MbRU11nioGglnnf7bVAlOEPiNkUJp8dBAbjjbUaM6mjGBXowbRprxfxMoSEdMUg7Jg+MycBkoXGGMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=v/3NrS3t; arc=none smtp.client-ip=74.125.82.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	s=arc-20240116; t=1792082609; c=relaxed/simple;
+	bh=dFLKfuHnmJyeal/Mt3KIhzdp4qHevG6mJUJziefFemg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FMnyaiLww1N3BF1vF/10wi59TjoyBvzT3GbqUCUG9872MgAglmrcmW304HNoOZjkMNvn3Iyu+2LnlcKzJL3DuOsj83jY+LhgQ/Z0pGN2quiXgGXUuS+rrMuPyZDRt7M3cFhRXmKcNRDEuyU2B9ub0zvkqJ/8TSno3Kx5VV4LWFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=SX7IPxWf; arc=none smtp.client-ip=209.85.215.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="v/3NrS3t"
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1663fb7e005so6962502c88.0
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:39:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792082362; x=1792687162; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wON/Y5KE9qpxqraW/pAdp0YZ1NlG3ckfd93a0Oe+XQc=;
-        b=v/3NrS3tAXlYq5GGohccUKrdWvYYYa5ZPCL3pwov1dZr3Sn46aASVdM/LkM8erPWcP
-         xyUKgdaSj7Cnfb20/ihUatWKcAnX4ajUr4rl2D1DghOzwNiRl3Vuitp6oZbDaT2Zhmkv
-         MRRR2LxKloftFxrDulx7MPNWPG/g7FHXuY2nZhJNF68ulo51AUBI56FntfJGBXQin1hJ
-         FunBwnWWw17cLauAXiD86BGF79dN2uE4vLidEyJcrvTUnUm5NRGLEcALoE1ac1q+HuR/
-         +4aHdcge51bpIo9KAaqwIPMxLXJC/BZdtxoq/nCFsCBZQZ/5lM4jQx6AjPr1qlOaRSxP
-         he/g==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="SX7IPxWf"
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1233010a12.3
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:43:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792082362; x=1792687162;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wON/Y5KE9qpxqraW/pAdp0YZ1NlG3ckfd93a0Oe+XQc=;
-        b=FlPGUNjI1CL7lvIoOttvdbe0zsCO/fBemIhuf6yj3g+sUPKFD0y3s4HhNQBj+scZ8i
-         GPF+u7S97oy1GFwJ0VmDUiaZQ5vg9Qz55y66qWZ3LLQQRqbEij++0YjRyhrSxQw2PLOb
-         UhTP1C1AjFKGSRiuwWli00KHP+OPrm5nf/3H3hYMcfbStsmZSZ3iJWbOeyJ3k4P4X1BJ
-         JlRkqwbG+lpz1aSO7qPZfh17DSWW2MZkm1on1bLyAmsinzMp95DOtQNugVrJMCgHNpfL
-         i2hoUh77WPPS3BfnIEV5Eqd2bRKNQbhXBJSDHxJBESFrzr/7VQGJVGYk5IEA2p6JmbTM
-         6Gzg==
-X-Forwarded-Encrypted: i=1; AKwUvBw8EhjeSml1u5MEUEs35mFzv1y2DvMez48fiDt/O763Ho8xTl39sRgGuyDcFrZqWBdCNWRrc2sW3m1yUQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlCPRsiNcusTkWKyBDit+euAaZCF3hlAxnDbPB1DzFLLhB0Hrt
-	moTqHh3/xxV8w9uhaWykGzTfL4iJ+AdJy3dCz7pPQ2lIgoudH3OMq+3fhXjOxXYzh5ZCxe+R9ye
-	5SMqjDVKBUfOZqSX+N5cWSXZjdg==
-X-Received: from dldyq4-n2.prod.google.com ([2002:a05:701b:4544:20b0:15f:4035:64c7])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7023:c00a:b0:149:1feb:6da4 with SMTP id a92af1059eb24-18111a09757mr2320444c88.32.1792082361807;
- Thu, 15 Oct 2026 09:39:21 -0700 (PDT)
-Date: Thu, 15 Oct 2026 16:39:15 +0000
-In-Reply-To: <20261015163915.1166043-1-almasrymina@google.com>
+        d=1e100.net; s=20260707; t=1792082589; x=1792687389;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9rUw1RqBgFRd7OvG7W7J8ni9TJt5LMf5vxILUqTA2Wk=;
+        b=S5rpIUjbeC0B+9O+4zur7QVXlh7jBGiGL1m/hSSzxeeS4lQCrrfo0OfKTq9PgOHarq
+         GVfHw9YIO7zyeKjpIgNnH3H0TDgfXpGs5mtVKDziPTe7+eDmAJQWCZ5f+XtDNjfGZOtF
+         hurg7ir9fQVElOHrN2u5scwYTZRjEeqEPhqoWlFCq4L36ico0n2UI1T44Kv0TMGhpKep
+         eEz2A/D6k/6Xcc9oyHeEWr6NIvLE694X+ye7UF11D7K94TI7wBz3pdxhGTR58u6xBFAP
+         u5cRZwZ4WUju/p0UzIiwXlp7wt0zjR8H5Hvx4dlXtnu6cFx3QOeRHYMTaDRUcySyVuX8
+         4jkg==
+X-Forwarded-Encrypted: i=1; AKwUvBxVPnTh64pdCH4IM3P0R9fWqLgyC/A13+8Hwys2bWWU0V0v7rFojdQQOYUiD3rWKX/Y9FFvC5L/o8UbnA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKsmpQpRa6aTS1c4vRYANYMtFlcs8jmlEtAeC4u+12CwVl+VfFV
+	L+A0MUeBaQhw2C/GTwWQ08bIe7EbMe26++vtA8wZuUfh1tc9tj28q+y7Dxr5LMLj4Qrqgx1faU6
+	F2HGLvpkTRKG48szVp1ueZ1neCIsFlTNnSCEvK4k0OqHByN0qNDEVn02C11A+zkJ99LHrBbcTUv
+	Xt09jjz35s6XZFwRC4N7dUBWpieF/+8V5j31WsNnYmVmFr+/oSTOuWFwPSf5DSTxBnvJVEn7PLn
+	6wlTNxFEDxN0VGVHA==
+X-Gm-Gg: AYBFou0m67P3oKawFVVXQjqadVDYZz9VSz/3vuh2b7FnMIh1mFleo66NvuqCFqGTgtr
+	+S4mNkW6DRYEk9AN6F8OqNE0VkZjZIBqhS6o2ZmRQ9QNlYOxDLqQRrEzpEmdZHOjIpq9HbohVZf
+	PGmdISh3GDS1QS/tFBQ2r4Is9clzObnSAIrm3s5zR4YJZaJVYSG3NRWAEbbLmL6ofCYl9Jt59F4
+	vojqdmdC2olSMJC8ZH/yFJmrSI9T3lK9RUFBp46zMyyMokeUhV6nqh1TMBuW7Z4xIsIBpmNzvbm
+	sioKGTVS/pD28Su7I13F7cP/wzWsjygo1VcQ4Do3/JWwUUFmtBsUeuWaqhEJlxkFIykOCB39a5t
+	qTGqR265cP8kWuGAqPVt8sRwty3XcHEpgdr4V4yNtQUOwHKj0HJQgvMgj1RED1J6ymP6IVuvJZy
+	oh+Og812tz0lpw5SgjN6zRkMAiQjTGqIuO
+X-Received: by 2002:a17:90b:3a48:b0:3a8:7096:9b48 with SMTP id 98e67ed59e1d1-3ab3a29185amr17701596a91.1.1792082587633;
+        Thu, 15 Oct 2026 09:43:07 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3acbe67596fsm176060a91.5.2026.10.15.09.43.07
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 15 Oct 2026 09:43:07 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-359b81ad4e8so3309176eec.0
+        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 09:43:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1792082585; x=1792687385; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9rUw1RqBgFRd7OvG7W7J8ni9TJt5LMf5vxILUqTA2Wk=;
+        b=SX7IPxWfiBdibKj33fs7RWStwAQa9I0DmZ5iVG91XnOIoPSTpk85OepBHJu8ifet7J
+         KRuQ6DWfzwz0MPJahS6UJSOaMpi6JoHVzUlLDX/2QfYjHp3EZYVvCah4xaEMzav3Cwsk
+         8IXvYoBVzQvsLcFYYnhO6ECjtmKbROpSHaolQ=
+X-Forwarded-Encrypted: i=1; AKwUvBy9g2sdsKQy9KnXoNJ5uvWvx+uTEDKX2yjsPNYn0/mgxRDEb7Xo5onXyRDDRHErWe7wQw9l5gSBMuIFEg==@vger.kernel.org
+X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id 5a478bee46e88-35623dd574fmr22162816eec.4.1792082584989;
+        Thu, 15 Oct 2026 09:43:04 -0700 (PDT)
+X-Received: by 2002:a05:7301:70b:b0:356:23dd:3c72 with SMTP id
+ 5a478bee46e88-35623dd574fmr22162783eec.4.1792082584198; Thu, 15 Oct 2026
+ 09:43:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20261015163915.1166043-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.176.g3575e65682-goog
-Message-ID: <20261015163915.1166043-5-almasrymina@google.com>
-Subject: [PATCH net v4 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: Mina Almasry <almasrymina@google.com>
-To: Jakub Kicinski <kuba@kernel.org>, Mina Almasry <almasrymina@google.com>, 
-	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, 
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman <horms@kernel.org>, 
-	Shuah Khan <shuah@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Dragos Tatulea <dtatulea@nvidia.com>, 
-	Nikolay Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+MIME-Version: 1.0
+References: <20261013120211.135807-1-matt@ozlabs.org> <20261013120211.135807-2-matt@ozlabs.org>
+In-Reply-To: <20261013120211.135807-2-matt@ozlabs.org>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Thu, 15 Oct 2026 09:42:44 -0700
+X-Gm-Features: AclHuK8uvZ2yCOXgWUEd0EcP0DV4PFr55gQDJjWOVezQ6ac0lSksAZFJroIxQa0
+Message-ID: <CABQX2QP16Aid7tUk2kyPU9mUzB4XHcJKYtO3xsbDOQ3rgGYX6A@mail.gmail.com>
+Subject: Re: [PATCH v3 1/3] drm/vmwgfx: Use get_file_active() for dmabuf->file
+To: Matt Evans <matt@ozlabs.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Zhenyu Wang <zhenyuw.linux@gmail.com>, 
+	Zhi Wang <zhi.wang.linux@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	Alex Mastro <amastro@fb.com>, Alex Williamson <alex@shazbot.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="000000000000f1ad03065de3bd24"
+
+--000000000000f1ad03065de3bd24
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+On Tue, Oct 13, 2026 at 5:02=E2=80=AFAM Matt Evans <matt@ozlabs.org> wrote:
+>
+> 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to
+> dentry_ops") moved the dmabuf .release, and broke the vmwgfx driver's
+> assumption that dmabuf->file would remain valid until release.
+> Currently, dmabuf->file can be stale after the file closes even if
+> .release has not yet been called, and a future commit makes
+> dmabuf->file become NULL instead of stale.
+>
+> In preparation for that future commit, convert
+> get_dma_buf_unless_doomed() to use get_file_active(&dmabuf->file)
+> which is the safe method to access and get a reference, even when
+> dmabuf->file could be NULL.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 4ab59c3c638c6 ("dma-buf: Move dma_buf_release() from fops to dentr=
+y_ops")
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/gpu/drm/vmwgfx/ttm_object.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx=
+/ttm_object.c
+> index f9042bafdc93..9137a31eaa1a 100644
+> --- a/drivers/gpu/drm/vmwgfx/ttm_object.c
+> +++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
+> @@ -471,7 +471,7 @@ void ttm_object_device_release(struct ttm_object_devi=
+ce **p_tdev)
+>   */
+>  static bool __must_check get_dma_buf_unless_doomed(struct dma_buf *dmabu=
+f)
+>  {
+> -       return file_ref_get(&dmabuf->file->f_ref);
+> +       return get_file_active(&dmabuf->file) !=3D NULL;
+>  }
+>
+>  /**
+> --
+> 2.47.3
 
-Add the dma-buf, udmabuf and devmem options the tests need to
-tools/testing/selftests/net/config.
+Looks good. Thanks! Feel free to use either Suggested-by or
+Reviewed-by: Zack Rusin <zack.rusin@broadcom.com>
 
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Assisted-by: LLM
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
----
-v3:
-- Count attachments of the test's own dma-buf only, and skip instead of
-  passing when debugfs bufinfo is not readable (Sashiko).
-- Close the netlink socket after removing the device, clean up with
-  defer(), and skip on EOPNOTSUPP from bind-rx/bind-tx (Sashiko).
-- Replace the hardcoded UDMABUF_CREATE value with a helper that computes
-  it for the running architecture (Sashiko, Dragos), and close the memfd
-  and /dev/udmabuf fds on errors (Sashiko).
-- Add the needed options to tools/testing/selftests/net/config (Sashiko).
----
- tools/testing/selftests/net/config       |   4 +
- tools/testing/selftests/net/nl_netdev.py | 125 ++++++++++++++++++++++-
- 2 files changed, 126 insertions(+), 3 deletions(-)
+z
 
-diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-index 737e7e6327b37..1e21f0055a2c0 100644
---- a/tools/testing/selftests/net/config
-+++ b/tools/testing/selftests/net/config
-@@ -11,6 +11,7 @@ CONFIG_CRYPTO_ARIA=y
- CONFIG_CRYPTO_CHACHA20POLY1305=m
- CONFIG_CRYPTO_SHA1=y
- CONFIG_CRYPTO_SM4_GENERIC=y
-+CONFIG_DEBUG_FS=y
- CONFIG_DEBUG_INFO_BTF=y
- CONFIG_DEBUG_INFO_BTF_MODULES=n
- CONFIG_DUMMY=y
-@@ -76,6 +77,7 @@ CONFIG_NET_CLS_BPF=m
- CONFIG_NET_CLS_FLOWER=m
- CONFIG_NET_CLS_MATCHALL=m
- CONFIG_NET_CLS_U32=m
-+CONFIG_NET_DEVMEM=y
- CONFIG_NETDEVSIM=m
- CONFIG_NET_DROP_MONITOR=m
- CONFIG_NETFILTER=y
-@@ -120,6 +122,7 @@ CONFIG_OPENVSWITCH=m
- CONFIG_PAGE_POOL_STATS=y
- CONFIG_PSAMPLE=m
- CONFIG_RPS=y
-+CONFIG_SYNC_FILE=y
- CONFIG_SYN_COOKIES=y
- CONFIG_SYSCTL=y
- CONFIG_SYSFS=y
-@@ -131,6 +134,7 @@ CONFIG_TEST_BPF=m
- CONFIG_TLS=m
- CONFIG_TRACEPOINTS=y
- CONFIG_TUN=y
-+CONFIG_UDMABUF=y
- CONFIG_USER_NS=y
- CONFIG_VETH=y
- CONFIG_VLAN_8021Q=y
-diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-index ceb44c8e1fec5..988878b71358c 100755
---- a/tools/testing/selftests/net/nl_netdev.py
-+++ b/tools/testing/selftests/net/nl_netdev.py
-@@ -6,10 +6,14 @@ Tests for the netdev netlink family.
- """
- 
- import errno
-+import fcntl
-+import mmap
-+import os
-+import struct
- from os import system
--from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_run, ksft_exit, KsftFailEx, KsftSkipEx
- from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
--from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
-+from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
- 
- 
- def empty_check(nf) -> None:
-@@ -366,6 +370,119 @@ def page_pool_stats_ifindex_check(nf) -> None:
-     ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
- 
- 
-+def _udmabuf_create_ioctl() -> int:
-+    """Return UDMABUF_CREATE, _IOW('u', 0x42, struct udmabuf_create)."""
-+    machine = os.uname().machine
-+    if machine.startswith(("alpha", "mips", "ppc", "powerpc", "sparc")):
-+        ioc_write = 4 << 29
-+    elif machine.startswith("parisc"):
-+        ioc_write = 2 << 30
-+    else:
-+        ioc_write = 1 << 30
-+    return ioc_write | 24 << 16 | ord("u") << 8 | 0x42
-+
-+
-+def _create_udmabuf(num_pages=64) -> int:
-+    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-+    if not os.path.exists("/dev/udmabuf"):
-+        raise KsftSkipEx("/dev/udmabuf is not available")
-+
-+    size = num_pages * mmap.PAGESIZE
-+    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-+    try:
-+        os.ftruncate(memfd, size)
-+        fcntl.fcntl(memfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
-+        devfd = os.open("/dev/udmabuf", os.O_RDWR)
-+        try:
-+            req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-+            return fcntl.ioctl(devfd, _udmabuf_create_ioctl(), req)
-+        finally:
-+            os.close(devfd)
-+    finally:
-+        os.close(memfd)
-+
-+
-+def _dmabuf_attach_count(dmabuf_fd) -> int:
-+    """Return the number of devices attached to dmabuf_fd, from debugfs."""
-+    path = "/sys/kernel/debug/dma_buf/bufinfo"
-+    try:
-+        with open(path, "r", encoding="utf-8") as f:
-+            lines = f.read().splitlines()
-+    except OSError as e:
-+        raise KsftSkipEx(f"{path} is not readable: {e}") from e
-+
-+    ino = os.fstat(dmabuf_fd).st_ino
-+    found = False
-+    for line in lines:
-+        fields = line.split("\t")
-+        if not found:
-+            found = (len(fields) == 7 and fields[5].isdigit() and
-+                     int(fields[5]) == ino)
-+        elif line.startswith("Total "):
-+            return int(line.split()[1])
-+    raise KsftFailEx(f"dma-buf {ino} not found in {path}")
-+
-+
-+def _devmem_bind(bind, attrs) -> None:
-+    """Run a devmem bind op, skip the test if the device can't do devmem."""
-+    try:
-+        bind(attrs)
-+    except NlError as e:
-+        if e.error == errno.EOPNOTSUPP:
-+            raise KsftSkipEx(f"devmem binding not supported: {e}") from e
-+        raise
-+
-+
-+def devmem_bind_rx_unregister_check(_nf) -> None:
-+    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    with EthtoolFamily() as ef:
-+        ef.rings_set({"header": {"dev-index": nsim.ifindex},
-+                      "tcp-data-split": "enabled"})
-+    _devmem_bind(nf_priv.bind_rx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+        "queues": [{"id": 1, "type": "rx"}],
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
-+def devmem_bind_tx_unregister_check(_nf) -> None:
-+    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    _devmem_bind(nf_priv.bind_tx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
-     nf = NetdevFamily()
-@@ -379,7 +496,9 @@ def main() -> None:
-               page_pool_check,
-               page_pool_dump_ifindex,
-               page_pool_ifindex_leak_check,
--              page_pool_stats_ifindex_check
-+              page_pool_stats_ifindex_check,
-+              devmem_bind_rx_unregister_check,
-+              devmem_bind_tx_unregister_check
-               ],
-              args=(nf, ))
-     ksft_exit()
--- 
-2.56.0.176.g3575e65682-goog
+--000000000000f1ad03065de3bd24
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
+MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
+AwIBAgIMYT8cPnonh1geNIT5MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MTEyODA2NTUwOVoXDTI2MTEyOTA2NTUwOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKWmFjayBSdXNpbjEmMCQGCSqG
+SIb3DQEJARYXemFjay5ydXNpbkBicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCwQ8KpnuEwUOX0rOrLRj3vS0VImknKwshcmcfA9VtdEQhJHGDQoNjaBEFQHqLqn4Lf
+hqEGUo+nKhz2uqGl2MtQFb8oG+yJPCFPgeSvbiRxmeOwSP0jrNADVKpYpy4UApPqS+UfVQXKbwbM
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIGNz
+VXkGGumopBKIn/qVTd6ehDVfWD1CXUSQEC9JhfzNMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MTAxNTE2NDMwNVowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBACWwSo1VrUwePCkDwJ6WZMBpRtNDlQM2QN9vcZIO
+9VxSmU7FqtizmjvJg3sOF4Nw/bhAWBqoleBylD7Bjacx7w/zGUYcherjG5Sm1oY4A2H0V8zI9cOF
+NLrJ7TiPr5R2r6nNfxl7mKgpkhYEXJlr1q/GiXVaWA5tgw/oq4VUkovjez2D3JBrYEq7h3xcgt7O
+CtrVX+y8j1nRAsPDf9WFtK+JqjwmA038MpO8mNvCJ6RhjsbEp1/4DjJdEYvG1gAtwbkIA+GAfYYG
+mOcaxxZS6Mhu2xTVd+FhWNhRSBoPQtwSTBhPPQrJQ8Dr2mwzZTo1Ml76Rovn/XXAG2Mo1KTg7v4=
+--000000000000f1ad03065de3bd24--
