@@ -1,109 +1,187 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875914F7CD8
-	for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 21:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD7A38735A;
+	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792100102; cv=none; b=NCMtjXpmbCtmc31v0ZpQXIU+npvM24IItwBpw3fzczsXNBxufZA91Jwk8x5RBON4vrGpq2wN/RknW3eXfX8lYYJ7hRBvPBQDOcUqa5cji9g02Ke/9v4whyzDmad0pILvIELJB300eDBV0gCl6QzqprxQM5FwjpWhx01DDufuDQ0=
+	t=1792100900; cv=none; b=Ns6xddZbplP/AYVOiEV1/VDsJDs23dUwavCnD4gETbxu4Hh1j+HL92qSt01F2ldl6xZs3fQe+LcRaA55x/RAhJEVPNZbsXUUDI/0j/ffk8BvcD2j92k/pBvB3AIA/0OXpA/JdvHKhNwpJapFIJWMtb09CG38qHSaUqtlRLWdtLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792100102; c=relaxed/simple;
-	bh=p1GOe0U0AvmHyfaWL4dZiAn0LDZMD/k/d2Jjq/xAvbc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rgvF6jzJWLtqZ8jmHD2GUmbS+1gbgZ1eBI1yxBDRbVZxtYe0IzeBOVFzkoW76Y5W5moUsUGJD9J4OUF4bk04K+YnOjW5NCXEea+24zXDHJohaD4z6Xie4U8ClaqpkfpDdoSZs7HJnSUNCUVvhEBQVxFpEIArdiJru1e8H+77JWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oz269ree; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792100900; c=relaxed/simple;
+	bh=uuL/CmNmBs+pWcemax67+AiZhym/WAPAdhBsiayJRHM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RzYfgzMpRKNkPlmbjn87PjgSQGkfAbTJzaKg8ahw5JKC8cXzkC4cvrZ5aDVvPRBcD2oLmMHk3K3HKZziSHuPc0IoJcQGp0WEpOnEsreDkbcdH0fTy6nIcKgxTjqYkSkQ/fDXL995csCf2qBRvd1MN7wXbFhXpqHaFdxzShAwjeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m29selP7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oz269ree"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-3ac6fe4aff0so1419726a91.0
-        for <linux-media@vger.kernel.org>; Thu, 15 Oct 2026 14:34:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792100099; x=1792704899; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pQimVVD9drWSngFOzWOAmVd128tPGcg8NvVnNLLNcbY=;
-        b=Oz269ree3dZATYiimdp3jQcnAvwEyYVSMIy+rniSFMJDfm4J1MtCbzGWYkyA/TawLs
-         +K8FIxcmF9ZhQZcg/7lDQGHRuCFaR4/yqgkwoXMQgMDjAIoQCup7Lj/2SvQ7RpIsAGeF
-         jCU7hk+EJ8kCYj89Tc6gUEmb+TQjGhXskc+v23ACvxGFfyCqZ4y91bD34AYAg1Kg5cXR
-         dZAemonm1K56VRePTjO9G+RTvHj+LYXHJThN4bejVrFXiqmhjqUqOxzRcFWsdogAf434
-         pMsfOX2bzSiIhw9rumwGp+cefYPEGhiPG18AEsGvH8Hu7guVDQsVqpdu7G3CrsHNTJ0l
-         ApiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792100099; x=1792704899;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pQimVVD9drWSngFOzWOAmVd128tPGcg8NvVnNLLNcbY=;
-        b=2nZvJd0ESXIsc2J41QkR1aOVV89IwlTYNjBSa3lXjc5trMpQmsLkBucrUh5RGONiei
-         KUDKqNBS843qa3ItVR8jEFtgERwydPZoYKqVoiUnDN6VY4O8YavDnIBChQeFDEUJgAqt
-         E1PVj6MHuarUKI2fwi5OsguY8IF8i97pXq7M9zBRnKgechY5u6pWwFYcrD1Tb4Z+9IKZ
-         /65kvyDA7NkzG0ftk61THlRekovSGPq0RnuhY6BNR3fC6VaOpxQzac1zeXqlzkyDylnB
-         zCsGnzIFVJF2/7tpH9mUe3zrG4sGhqFHq0cZyzisoRkHpvcxRNC7o2wM9K2ThD6D8XwK
-         0Tbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzeQLWxP1rnpB5x0QI1jb0B05qCwj3MU/Ua4fiaEOTuEHvMTV9QxapUlQPtUbE77wm6sM1aU237g9JKfw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0s4VgjapjIywNWwoN3dmgAcbc57yB6cEw2i+V4npJFgFR5cFd
-	+jz6gyAyJXCUglmDwQMxNQxn01nUdpt9m23ngOj7nwtN2c9YxUtBZvv/
-X-Gm-Gg: AYBFou3LCqKXI4Hw5pXtx1kGhNVGMr2Zpt8fPku7mejtwjem8DBfoJeMt23mI1tOi4z
-	k4DOTRlNXXo8B+q44FMlBlU2VKH/oVm7WbJJbThg7QoKgurAGfcXIECaQInjjv9LwAttTlV/88b
-	akjHFXzY+7NMn2x6GlQcEp8sistkiUKt3k/Cy2byKDQq+KoHNmw998pN1txSXBP9+jbvT/pGWJ+
-	PZ0xpFRCHCt+Wk9B3KWg/LtQFVl5hW/eIc3YULq21oQ5efzCMYguTxWWS3qdzhrps2dLb4+n3pu
-	RwFwjVNLfN4glQx6QgPX7nVFXHjyr2+ZPEwg2ppQPzGIb49ZgZtFZD4kq7uIXXkj/xOW7rBXoEZ
-	xeBqiQAhWQidxx/ynlGXyU2c/LxpHUHU292ngpL8AO6gRdI/6Mr4l7vxUfRRFOSlLwh4w3YR9Rz
-	y1YQdksp/3H8xanNa98Ho55OkqvdKyFcttp0yYLz6L9nZEz3qeuuAFI2F746DTYOUahQ==
-X-Received: by 2002:a17:90a:ec8c:b0:3ab:24b2:9016 with SMTP id 98e67ed59e1d1-3ab3a9a8d8dmr19267667a91.25.1792100098937;
-        Thu, 15 Oct 2026 14:34:58 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5a::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549f175bsm119893a12.21.2026.10.15.14.34.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 15 Oct 2026 14:34:58 -0700 (PDT)
-Date: Thu, 15 Oct 2026 14:34:45 -0700
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, 
-	Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Taehee Yoo <ap420073@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Bobby Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Tariq Toukan <tariqt@nvidia.com>, 
-	Kaifeng Wang <kaifengw@google.com>
-Subject: Re: [PATCH net v4 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-Message-ID: <atFG77ZcuGHOsKgW@devvm7509.cco0.facebook.com>
-References: <20261015163915.1166043-1-almasrymina@google.com>
- <20261015163915.1166043-5-almasrymina@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m29selP7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B0426C2BD01;
+	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792100899;
+	bh=uuL/CmNmBs+pWcemax67+AiZhym/WAPAdhBsiayJRHM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=m29selP7dtddT61bI8NCsp2MSBCYNNsZ6RWb18vQRPDecV1/nE4G1t5Lpqfuvpi24
+	 GEqIyK0TTNI08gilqR4imJuBkIyFCvkM92Re5bF2+z6znaOMgxJakTo7XcKy+/M9XW
+	 llS/RsdN1iATgzhfRXeBet3xGEOEdwUFPWL3Hk8heDWEZI8CgkLK/2EKsDmMLtqWYy
+	 e24AQ08OwWVaP68RiSYUV69uCDMZzeFC85GWxOUqFEtwhq2In4OGMM/l2qJ+H7NoaX
+	 O5hPsV5s2F9oZ2SP0YBGGi2+0IBQDTVbD3P3c9c1gFmcepMa29ChZVEwQDlk+zq6+A
+	 Pe2bdBqI4yBvQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 90B14CCA465;
+	Thu, 15 Oct 2026 21:48:19 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Date: Thu, 15 Oct 2026 22:48:20 +0100
+Subject: [PATCH 2/2] media: i2c: ov13858: Add device tree support
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015163915.1166043-5-almasrymina@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+In-Reply-To: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>, 
+ German Pablo Lindo <germanpapulindez@gmail.com>, 
+ Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792100898; l=3992;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=OUXpTuteW6O6z6fmSZaqFDa8zmph67QuMze6JaQ/PNs=;
+ b=YW6OZZ6UCKTH5NC0I/hvoT38dHS1nULqijWt94YmJ33bOvJINTUy6OR+1Qw9RlYL4MUdVFvaY
+ 4vH7SFZRq5mAQKx6Yj5pg84i6Jt03rU5knP5vzH4Y+SpoqpLWPrWfBV
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
 
-On 10/15, Mina Almasry wrote:
-> Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-> to nl_netdev.py to verify that unregistering a netdevsim device while a
-> netlink socket holds an active RX or TX devmem binding synchronously
-> detaches the dma_buf attachment and cleanly closes the netlink socket
-> without use-after-free or page faults.
-> 
-> Add the dma-buf, udmabuf and devmem options the tests need to
-> tools/testing/selftests/net/config.
-> 
-> Cc: Tariq Toukan <tariqt@nvidia.com>
-> Cc: Kaifeng Wang <kaifengw@google.com>
-> Assisted-by: LLM
-> Signed-off-by: Mina Almasry <almasrymina@google.com>
-> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+From: George Neacsu <geocausa@gmail.com>
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+The rear camera of the Surface Pro 11 with a Snapdragon X Elite is an
+OV13858 on a four-lane D-PHY link, described in the device tree. Add an
+OF match table.
+
+Parse the endpoint as other sensor drivers that serve both ACPI and DT
+do. Wait for the endpoint if a bridge driver has not created it yet,
+require four data lanes, and require both link frequencies, since the
+modes switch between 540 and 270 MHz. The IPU bridge entry for OVTID858
+lists both, so an ACPI machine with that entry probes as before. Without
+the entry the sensor now waits for the bridge instead of probing into an
+empty graph.
+
+Tested on the Surface Pro 11 (X1E80100), with an out-of-tree CAMSS
+capturing raw frames over CSIPHY1, CSID0 and an RDI interface:
+4224x3136 at 29.95 fps at 540 MHz, the colour-bar test pattern intact,
+and a scene captures.
+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: George Neacsu <geocausa@gmail.com>
+---
+ drivers/media/i2c/ov13858.c | 62 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 62 insertions(+)
+
+diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
+index 83eefba..587ee38 100644
+--- a/drivers/media/i2c/ov13858.c
++++ b/drivers/media/i2c/ov13858.c
+@@ -1713,6 +1713,57 @@ static int ov13858_power_off(struct device *dev)
+ static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
+ 				 ov13858_power_on, NULL);
+ 
++static int ov13858_check_hwcfg(struct device *dev)
++{
++	struct v4l2_fwnode_endpoint bus_cfg = {
++		.bus_type = V4L2_MBUS_CSI2_DPHY
++	};
++	unsigned long link_freq_bitmap;
++	struct fwnode_handle *ep;
++	int ret;
++
++	/*
++	 * Sometimes the fwnode graph is initialized by the bridge driver.
++	 * Bridge drivers doing this also add sensor properties, wait for this.
++	 */
++	ep = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
++	if (!ep)
++		return dev_err_probe(dev, -EPROBE_DEFER,
++				     "waiting for fwnode graph endpoint\n");
++
++	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
++	fwnode_handle_put(ep);
++	if (ret)
++		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
++
++	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 4) {
++		ret = dev_err_probe(dev, -EINVAL,
++				    "%u data lanes are not supported, only 4\n",
++				    bus_cfg.bus.mipi_csi2.num_data_lanes);
++		goto out;
++	}
++
++	/* The modes use both link frequencies, so both have to be allowed. */
++	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
++				       bus_cfg.nr_of_link_frequencies,
++				       link_freq_menu_items,
++				       ARRAY_SIZE(link_freq_menu_items),
++				       &link_freq_bitmap);
++	if (ret)
++		goto out;
++
++	if (link_freq_bitmap != GENMASK(ARRAY_SIZE(link_freq_menu_items) - 1, 0))
++		ret = dev_err_probe(dev, -EINVAL,
++				    "link frequencies %lld and %lld are both needed\n",
++				    link_freq_menu_items[0],
++				    link_freq_menu_items[1]);
++
++out:
++	v4l2_fwnode_endpoint_free(&bus_cfg);
++
++	return ret;
++}
++
+ static int ov13858_probe(struct i2c_client *client)
+ {
+ 	struct ov13858 *ov13858;
+@@ -1725,6 +1776,10 @@ static int ov13858_probe(struct i2c_client *client)
+ 
+ 	ov13858->dev = &client->dev;
+ 
++	ret = ov13858_check_hwcfg(ov13858->dev);
++	if (ret)
++		return ret;
++
+ 	ov13858->clk = devm_v4l2_sensor_clk_get(ov13858->dev, NULL);
+ 	if (IS_ERR(ov13858->clk))
+ 		return dev_err_probe(ov13858->dev, PTR_ERR(ov13858->clk),
+@@ -1845,10 +1900,17 @@ static const struct acpi_device_id ov13858_acpi_ids[] = {
+ MODULE_DEVICE_TABLE(acpi, ov13858_acpi_ids);
+ #endif
+ 
++static const struct of_device_id ov13858_of_match[] = {
++	{ .compatible = "ovti,ov13858" },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, ov13858_of_match);
++
+ static struct i2c_driver ov13858_i2c_driver = {
+ 	.driver = {
+ 		.name = "ov13858",
+ 		.acpi_match_table = ACPI_PTR(ov13858_acpi_ids),
++		.of_match_table = ov13858_of_match,
+ 		.pm = pm_ptr(&ov13858_pm_ops),
+ 	},
+ 	.probe = ov13858_probe,
+
+-- 
+2.53.0
+
+
