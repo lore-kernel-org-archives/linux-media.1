@@ -1,116 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DDF4FD782;
-	Fri, 16 Oct 2026 16:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21244FECD3
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 16:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792166951; cv=none; b=SjV2goJTE1oudcyajgnoCc9bIg/f/rUij3WpnUihPO28N54rZHnot7bY3O4tHjLpoonLNjAhdIHG+LIJS9BLe/mehktA+73syBmOrPFTn34l66P6ebCklhUZO0FRmdBt+DFTprcZbBXvKzd11LMVJZqz5DatSj/6aE1Nr3Rhf2U=
+	t=1792167389; cv=none; b=WUtSXZiWTIJOkIeII73zD+eO9OUPhCAlEzCpxGubdcsHAiptJ5FQY2bgxf2z3/6PhwIz1BqhhpK1MBPk8kWSKIwBGzYK63eGKAukbYJJdOWoVDydaHRWYSJQd4Thr4JJhx1pcyE/SQxgV0hlhbpl59PHUG64GOqAhe9EL9jElBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792166951; c=relaxed/simple;
-	bh=hArIvDguJaRysTDIH+laSdqsBCKpAIDD1ZSr7FzqB+Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ojJDxmIa+439mj2Fm5sxRicYrTNfW6FRFfS4tJE2vxVSAZlymyBSvLGo2GL+drXvn5Ne3OnwY1xtj7DsiRDsdTjyksKAtxB6/FwmYvDxiUWeOLyLLaoRE7x6I/HrR+RY87Uex4JGhRwqHwfbJ7GGlCLHcwwRtQPN6kOPsoFY/l8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BoGdLgj3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792167389; c=relaxed/simple;
+	bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pBQnHP84Z+8VuQVBGdmM9LGsxVFsiO0rzrZNdMPPOwUBivRV38ki3KmrBGfPwGSfk4Wa+aNsIS43/uAWXvySQgT66VLlVjCQ5g0/+NYbIrA9EzCO95Fpx7tFxwBopNZ3Yilk29Tq2x8lwxVP/UvSyILa7KeVsCrFQDpExz6/7I4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ceTiwjUX; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BoGdLgj3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 830031F000C4;
-	Fri, 16 Oct 2026 16:09:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792166948;
-	bh=sbMWXPC3MQLbh7gXJIR0GPPl2YUFqfWXL0t2WE5Gha4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BoGdLgj3f6etfIN2VxTLkDtkll4D8warDN1ByUwKB6THjC/2bINbLFkufCC7d48g1
-	 4lRZeH3TFrV3GhVy/QGNPz/2LZUfYYFw7Iy1Zb6Fn7wi8S74As26XaSV8zCG611Uax
-	 r8xVvnjg9nKnxARTKJF+FrqKt0P5jjbZg60TYXkIa0e2stzI/oLHdIeDPcIAzgvSQm
-	 qTwUce72r+vcXyDbsEj9L8VmexsMJl/PQobUM3cM335zBrxPiW6n9h9GBM20+irlvE
-	 cAUqfi1P5C6JQ/iUPTu4gRg2rwZCMlzl24IFMVaa848hrVY77z306zUJZ3FSTufqzs
-	 oSWGHHBHRUrhg==
-Message-ID: <5a90fbdc-7106-45e3-8fca-eaf5c60e0337@kernel.org>
-Date: Fri, 16 Oct 2026 17:09:03 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ceTiwjUX"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so1118105e9.3
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 09:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792167381; x=1792772181; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
+        b=ceTiwjUXQ8TOjcRuS1jy7GEudy2wieSR+3fN8U5c4uDIeK/skbgVstU1CHOSoeoGh3
+         Y9Q72hY3UtxRukdGjUlFbJSPZqciwPFSfZxmUEXm5umscXZX0vNN+2Q/uz2aQ57WmzUv
+         OlKZvzdzytjNZhtOncAmZeoPeOtXmm/QhO+dpEryUmgefRQ8SSLrupe0uGFSDXZErQTd
+         CP1jaHNQ2iHz6CNSq5rLgb5akpDSYxvF+HPH/o8hStyq2j87ghOf0HTc3hF6JeDivAPV
+         NQK/AuD+Vqy8soXfzt6MFA9C54JVdVXD7U0RYDxM5loBnsAE+nEOFTYc7zq0Xg+ViyYx
+         XhAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792167381; x=1792772181;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7DHGCZatwX7FLNpiqx6l6zSz1iIXAE0Gsx9JKxioU1k=;
+        b=cTBU78cjRQUQYOF3gJayLRwMPtGNOlZLbEMhie2xV8cOIgxe7YkdThEQr3VioQKkhK
+         uZVeWbdbVn/kfWTCqxwVStf/27J+qnigZYSVFxPizaAoPn3Piivxq5L6H99LLXpa00Tx
+         N1Kx1F3Thm6hgZ+pii8ThAktNn7i43HWSYKF12tccxlHbvMhUwyarC+gG6I1XknMy1t+
+         Q7sCf2DCM18f2X/1wS/h55UwZ/K2xjrzkc4cItbxGiPYLES3ckhswChsfJ24FTk/+k/9
+         HlBW6LlUbyKFSdjwFNOBug0pkWLUur1bOgbFXeo6oQgiciNA3LU8IDwAqIH86Aapzanw
+         gDYA==
+X-Forwarded-Encrypted: i=1; AKwUvBzP7g0dERivuzeD//vhg6NgYSm3dRBvJ2r2SMY+yNDAY9hMVfbsm5tIFWbmb+UaL5HNxosYog7segm27A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLvAhdG6NvbaybcsgPf1FjPENDuLcCHI2p6AAamopyWrxsrxP2D
+	8d5C+jfzKBeaHhSYqviBOwViLy/x6d/LOKCs9PX5UcHYkJrTl/DiRco+
+X-Gm-Gg: AYBFou0uYJqouIl0xdmaudzuIdjNK5lIFFYuewCvNCL7ceVXtV3kozAcucJhT265F0G
+	5Vs12ucgtWp37vX1O/wVV2ZGLWhFgyTqrVssCR3/smD6brJMj51MRYGIzQdVfWvLDKDLIJkr1+/
+	4/3+rLKZkApyJ7n1YpvISTKol1MGfFdJmIVsZuc3Bcktp4srNxc9Y4YDqOilaNdlA4gmGV8G7xD
+	Uet4wLp2ijI+9HbFUGsu1SnvY79vSMdfhV3hn5jyoVEkZxIEPDgueDaeEbxa2HHN6WVsFrUMOnt
+	ZgG4eFOA1kB+xwYEzJoWiLuAvFec5FMFA+HIvNGOhgM5eUc8kgOl0WJu4Ys0/zQ78uqYXlsOwCP
+	F6N78oCy60q+IognUPZw4RteqYK36OG6GGPZyXvF39q6scTUxmn9PHjjL4Cn1Zydah+tLmmwR7F
+	PsCQXJ4nn29A1b/I3rue2YrS10hHplM58f0ed+0WUa4J4X9uqk3I+/ud5KZeAnqvoHxYifazNNR
+	hftmnAlxrG/6r5KUpYI7Vq++eOJj2HmZunOXSMseImB5u1k1I00fbL4SbNu4PgpVwMNtX03
+X-Received: by 2002:a05:600c:1c07:b0:4a1:8d46:6228 with SMTP id 5b1f17b1804b1-4a1d7613a0emr6883345e9.14.1792167380631;
+        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d3e2e602sm32622125e9.5.2026.10.16.09.16.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 09:16:20 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sergey Lebedev <lsa.uz@pm.me>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
+Date: Fri, 16 Oct 2026 17:16:18 +0100
+Message-ID: <20261016161618.209290-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com> <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com> <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] phy: qcom-mipi-csi2: C-PHY for X1E80100
-To: geocausa@gmail.com, Bryan O'Donoghue <bod@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, David Heidelberg <david@ixit.cz>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
- Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16/10/2026 15:56, George Neacsu via B4 Relay wrote:
-> The series is on next-20261015 and applies there on its own. The two
-> CAMSS patches that use it build on David's "media: camss: Add support
-> for C-PHY configuration on Qualcomm platforms" v9, which is not in
-> linux-next yet, so I will send them on top of David's series:
-> https://lore.kernel.org/all/20260729-qcom-cphy-v9-0-1f8d9fdab037@ixit.cz/
+Hi Bryan,
 
-This part confuses me.
+On 16/10/2026 17:06, Bryan O'Donoghue wrote:
+> You describe regulators, clocks and resets in the yaml file which then
+> don't appear to be supported in this result code ?
+>
+> - regulator_bulk_;
+> - clock_bulk_
+> - reset gpio optional
+>
+> I don't think this driver would survive suspend/resume.
 
-Using drivers/phy means not doing CPHY inline in CAMSS. If you require 
-patches from the V9 series - you should cherry-pick them - sign off them 
-and the post them.
+The power handling comes from a prerequisite: this series applies on
+top of Sergey's "media: i2c: ov13858: add regulator, clock and reset
+GPIO handling" v3, as the cover letter says, but that is easy to miss
+from 2/2 alone:
+https://lore.kernel.org/all/20260831130312.26296-1-lsa.uz@pm.me/
 
----
-bod
+With it, the driver gets the three supplies with
+devm_regulator_bulk_get(), enables and disables the clock it already
+takes with devm_v4l2_sensor_clk_get(), and takes an optional reset
+GPIO. Power on and power off are the runtime PM callbacks through
+DEFINE_RUNTIME_DEV_PM_OPS(), which also routes system sleep through
+pm_runtime_force_suspend() and pm_runtime_force_resume(). So the binding
+describes what the driver handles once both are applied. On its own,
+2/2 only adds the OF match and the endpoint checks.
+
+I cannot claim it survives system suspend on the Snapdragon model,
+though. System suspend is still an open problem on the Surface Pro 11
+under Linux and has not been validated, so I cannot exercise that path
+here yet. What I can test is the
+runtime PM path, which is where the supplies, clock and reset are
+switched: the sensor powering off between sessions and back on for the
+next stream. I will run repeated open, stream, close cycles and report
+the result. Sergey, if suspend works on the Intel model, a suspend and
+resume test there would cover the rest.
+
+To make the dependency visible, I can carry Sergey's patch as 1/3 of
+the next version, with his authorship. Sergey, would that be all right
+with you, or would you rather post v4 yourself?
+
+Thanks,
+George
