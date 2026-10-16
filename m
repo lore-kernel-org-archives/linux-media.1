@@ -1,156 +1,120 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5359C3B83E1
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 19:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C3038735A
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 19:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792179152; cv=none; b=jzR+jLFXiNCHcmddKuFjLwWFgC6WSrJAYI6frntpXB/k2s7yYs3w2Ei9usuEvJuirIorl6n2oehIQ0glGs2i2lMTRiAx1gvfi/vAPjeTy9iItvNyI8dTPoOoColbHy31RgYufeOKnniI6jdBcs1o1KwGRirGyReQrbNhk4Uckf4=
+	t=1792179643; cv=none; b=QtQad+jH2aOvgzOkjWrDdEKwOuyVS6tdRWUhc3DB73RYJ+Y6v8+4DyUzMkeiuHVeyFtmy9ExNMjoV8wsx5v3edjhy+LOf1GzA1eGcZMSMrfXgNWaorAwf8M4lJM42spUyjyxxeKhdjJYCZcGK4L7xgt2TNNBYaB2XbWB3FjZDcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792179152; c=relaxed/simple;
-	bh=nema57VpknUEVjHK/6OaGO6/Ax8j31pmoGa6E/DIQpM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=rWPlz/xuBbE93DNGUuqEMqh/UglGwUAG6TsZkBoAz6fpmDf4BmOuofejYe7NxktjhON6tf6SssNlfp4OjfOjFcNakLR59fLlD+vZxJ/16mhR7Yf1KLD7kvLDJh0rORAviFY5AJ7j197faN2QbH4bOm58ryP7WYXc83fjX3f62QU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4e778acdbc6so489795b6e.3
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 12:32:28 -0700 (PDT)
+	s=arc-20240116; t=1792179643; c=relaxed/simple;
+	bh=xXQUv4FgmNf0JJMpp6ecZtgviJ+BWlmyvg/p6z47y0I=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=Xg8CzAvlP768rjm0bFP1EiZzndVXLmtJCBdLXD4Ju6eE1/5O79Inf0ad27BPxy01yc72qpZ+XpMvU+49GMNSzasPIxbYTEVF8bUwhozzZ35eCU+g/9VyGWd8FtG8PpKy04qET6dDJawMt/TWXfbvH5SMONE0k18zDsnaaZDU5fw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nqDpTI8e; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nqDpTI8e"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso4231085e9.0
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 12:40:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792179640; x=1792784440; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iMRRI5bEPrjeiE8Y1aI7MLDO6J4IuqM4URq6dJXpjo8=;
+        b=nqDpTI8eFTWXAD3QGMOEkfLq72jJ7YDmomyAJ5+A8WuG+bj4Utv3TmRbv74qpExEHQ
+         J5gJhzzn2cYoNsoo8Je0k7q1U+Qvpar0KGVZETfoCQnoukZMJOPUD6vrd3Xblu58g7Nt
+         2as6d2WSYXu3YfbOE1x7xcvpfQIprgl8uCT/7LA3iNxA7GLGaJmzze0+/e8FEhSNj56l
+         KH0n85AB4F/mZ8R6CoaDcR3YJEzTrNLpA59VWhHPIUeeiKHRSMyVtvjKR/xc+i+zZ7Sk
+         1k9On+3dGj3cCatOEzKAA9JiCgBuwrz2l3a7QLyMBMsvZmcsxi5S9XE7Gi+qmvBJZ3Il
+         x/gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792179148; x=1792783948;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eqhbNevn+egUUM8xu0N1mDNSKYZORquqfhQb7/sTToI=;
-        b=znZSfATzZIOCrU+85fmS5wrLg6wVf9Ki6Tejau123op6giRWXafySTQNryLjIn4HqY
-         Kk7BYgVuzhfvWL8ns9ovJLj06ZmFSrpziAuTxh9bvXw/rFHw3XBUZj9LSztUJ91JSMOQ
-         6WNR8Xw81jbaYIvTBm8eM9ctrHupESC9rFQlsaE2lRnsAwAXxeVpvt0V1WKA4i638tys
-         0oBhDsACFmItyWx5Cgh0Z/QWM21Az0fKbxbKpPkez8qWHEp6lmlroCDjnorJYtTZVV8e
-         jd5+/babYcn2Rcz5jhKpFpqi9NCMKzVmnehk0kfiZySyU+hf3ymv8X1ty7fz2hZzayln
-         WTmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxg9JukMn5qzWo1apmPn7SVtrzh86vuO0n9I+YyzEEhJAl2v4xquIxn9PP0q911RGSTc7JRrb9opUgOqA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKF1mFRRX57ou/IuSF6TiD2XQCWubaCcNFlvcFeLWmWHLAGxPnH
-	c3bZpDbErb4fKnsg/mmJWddw8Paju8dq4lQoZiVSYQG/zJB3tjGkcEVBQaEfh2nrKBCrxGeiqJa
-	ne6ptDmomXgkuxiryCBx/RaxDliDZMcVsCYrMPF1gcLKRXyIHfT5V1gF0tG4=
+        d=1e100.net; s=20260707; t=1792179640; x=1792784440;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iMRRI5bEPrjeiE8Y1aI7MLDO6J4IuqM4URq6dJXpjo8=;
+        b=HzWjp4k4IcFOq/78kEVRm8TmEDTe+4FJFCB/gQq1VssOD4FA2GBUukt2rwXXk8hLTk
+         0tqrfbe6hdCpFjDSdT7+s1+mpE6HC+SazVSCxN50o2RFiIaPql7VElLqOoyCSAkQs2+Q
+         cSRrDK2HaLMTaMFJxcVzNknOBoDXvfJLZILAaaOTuEYkUIORpgYuvwzmN2vhUZLSnYMG
+         oJVqWwIgj7QK3eEyMgwTw0HCQ+naIu28htp/6dgze+6sSlcj0ZEeTGfQM3OypcB/hXF9
+         xYoXxU83MetD7mMcKQC2/cQ8aWIAOf1MVXkRmyEMuHYoVyUQhj5jbfdfBVxyYkYdOJO6
+         Vs/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwZxM3A295QQ525KndTifm9fSgO9LyYSBeVGg6YaUNfpqFCK0uNNyEdJOKyKdEgQw5Qjzk1JCrRSShBKA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYI81w59cESogwRUyBBUledbAw4UiwWUzYi4cclmB7AwdqhN230m
+	o4CKpSNaeJVW8pKFRCGHzWY+FQRcsKTd2ZScDrUyICLMQY/zzzXiXOZt
+X-Gm-Gg: AYBFou06ZKQ6ndSUqoZS/9umNcWn7Q/OZIw+nakxHwWBTlWpa29KbDOSdu758FjU4GC
+	tw9LJJ4e69taYzIO7MUJMiVkH0YLT4jK4m02rnw3SKwJ5Ak8E70wQwBZCob+ULkV1O7QG8ff+4g
+	sVJArPUHlbuzgmv+7Ce0rjalWEwWjHwwMQYlYUiO15EkMOCKO5ljYH/yIKQhjU0oZUhpS+6dP1V
+	SFbV8O5nO1PvZbZ79yV3OkVngap4UcfsAzd51q1kSHjQ2jdoo/Kp+3keXzRtdRM5sJNmQVfy5Hp
+	/5vw7CJ8xy8Vlz3PBwC36qswQgi3AUMuBriyqzLsKzTxc1sntaBCijQigz9w9609HM/ggN7cXBU
+	FBtsuT43JqERvk0PODBbtJHxwcmf1iQ9F/LtQTsxbu/xCaBL9zlMTcrJiLOtGaTwHdWJXN5LFX7
+	TRhdKL+BeTgVK9n7NZ9YVjscMfuJNcOxYtuPdHeUd4Yd+OP9eaHP2XUdRLmTAEndnAhPfbJYcbL
+	uLLEqCo21Gvmdg/HqvLGhY/CC1CjDzJJNc/mpjBbFagfKAHLI+shsk9EaET/FwihwN8qSEHNXvU
+	0C+LRGbVbiSx9L3Uv1nOEuRPPpD9LlQtXDFCaNGyuguVj3vBl9hUA9iJD203wAkeZK6QsbyMaIZ
+	EIrxHM0npRJu0
+X-Received: by 2002:a05:600c:a102:b0:4a1:bc14:224b with SMTP id 5b1f17b1804b1-4a1c66b37cfmr83617395e9.10.1792179639973;
+        Fri, 16 Oct 2026 12:40:39 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a951-9501-1471-d90c-a21f-9dd7.310.pool.telefonica.de. [2a02:3100:a951:9501:1471:d90c:a21f:9dd7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd5038b8sm7026413f8f.48.2026.10.16.12.40.37
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 16 Oct 2026 12:40:38 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Christian Koenig <christian.koenig@amd.com>,
+	Dongwon Kim <dongwon.kim@intel.com>,
+	dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	iommu@lists.linux.dev,
+	Kevin Tian <kevin.tian@intel.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org,
+	Matthew Brost <matthew.brost@intel.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>
+Subject: Re: [PATCH RFC 23/26] iommufd: Use the PAL mapping type instead of a vfio function
+Date: Fri, 16 Oct 2026 21:40:22 +0200
+Message-Id: <20261016194022.62065-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <23-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com> <23-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3a1a:b0:4cb:f21c:a795 with SMTP id
- 5614622812f47-53cd056572amr606742b6e.29.1792179147921; Fri, 16 Oct 2026
- 12:32:27 -0700 (PDT)
-Date: Fri, 16 Oct 2026 12:32:27 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad27bcb.6814cce4.34c49f.000b.GAE@google.com>
-Subject: [syzbot] [greybus?] WARNING: ODEBUG bug in gb_operation_sync_timeout
-From: syzbot <syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com>
-To: elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org, 
-	johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On Tue, Feb 17, 2026 at 08:11:54PM -0400, Jason Gunthorpe wrote:
+> +		dma_resv_lock(dmabuf->resv, NULL);
+> +		if (pages->dmabuf.exp_phys)
+> +			dma_buf_pal_unmap_phys(pages->dmabuf.attach,
+> +					       pages->dmabuf.exp_phys);
+> +		dma_resv_unlock(dmabuf->resv);
+> +
+>  		dma_buf_detach(dmabuf, pages->dmabuf.attach);
 
-syzbot found the following issue on:
+exp_phys remains non-NULL after dma_buf_pal_unmap_phys() frees it. A
+move notification after dma_resv_unlock() and before dma_buf_detach()
+therefore reaches iopt_revoke_notify() and frees it again.
 
-HEAD commit:    2f2f7eeef8b0 Merge tag 'soc-fixes-7.3-3' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=157b1bd1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
-dashboard link: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+A test hook forced that ordering on the posted series. The one-page
+IOMMUFD selftest unmap on arm64 QEMU with KASAN reports:
 
-Unfortunately, I don't have any reproducer for this issue yet.
+  BUG: KASAN: double-free in iommufd_dma_pal_unmap_phys+0x14/0x20
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e46a243fa39c/disk-2f2f7eee.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/04a37a0099c0/vmlinux-2f2f7eee.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c2964fdca34d/bzImage-2f2f7eee.xz
+The first free is in iopt_release_pages(). The second is through
+dma_buf_move_notify() -> iopt_revoke_notify().
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
+Clearing exp_phys before dropping the reservation lock makes the same test
+complete without a KASAN report.
 
-greybus greybus1: 0/0:0: synchronous operation id 0x0002 of type 0x10 failed: -71
-------------[ cut here ]------------
-ODEBUG: free active (active state 0) object: ffff888087f2c878 object type: timer_list hint: gb_operation_timeout+0x0/0x110 drivers/greybus/operation.c:1265
-WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629, CPU#1: kworker/u8:19/14610
-Modules linked in:
-CPU: 1 UID: 0 PID: 14610 Comm: kworker/u8:19 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Workqueue: greybus1:svc gb_svc_process_deferred_request
-RIP: 0010:debug_print_object+0x18a/0x230 lib/debugobjects.c:629
-Code: f8 48 c1 e8 03 80 3c 18 00 74 08 4c 89 ff e8 4d 99 4c fd 4d 8b 0f 4c 89 ef 48 8b 74 24 08 48 89 ea 44 89 e1 4d 89 f0 ff 34 24 <67> 48 0f b9 3a 48 83 c4 08 ff 05 f3 4c 8e 0c 48 83 c4 10 5b 41 5c
-RSP: 0018:ffffc9000767f7e0 EFLAGS: 00010246
-RAX: 1ffffffff181f08c RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffffffff8c6de740 RSI: ffffffff8c6de1c0 RDI: ffffffff91859a20
-RBP: ffffffff8c6de740 R08: ffff888087f2c878 R09: ffffffff8c0f97c0
-R10: dffffc0000000000 R11: ffffffff81b3f760 R12: 0000000000000000
-R13: ffffffff91859a20 R14: ffff888087f2c878 R15: ffffffff8c0f8460
-FS:  0000000000000000(0000) GS:ffff888123bbf000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c25d909 CR3: 0000000071620000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
- debug_check_no_obj_freed+0x2e3/0x450 lib/debugobjects.c:1201
- slab_free_hook mm/slub.c:2679 [inline]
- slab_free mm/slub.c:6509 [inline]
- kmem_cache_free+0xfd/0x650 mm/slub.c:6636
- gb_operation_sync_timeout+0x1c7/0x270 drivers/greybus/operation.c:1172
- gb_operation_sync include/linux/greybus/operation.h:203 [inline]
- gb_svc_intf_set_power_mode drivers/greybus/svc.c:584 [inline]
- gb_svc_process_hello_deferred drivers/greybus/svc.c:936 [inline]
- gb_svc_process_deferred_request+0x5f3/0x1150 drivers/greybus/svc.c:1102
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	f8                   	clc
-   1:	48 c1 e8 03          	shr    $0x3,%rax
-   5:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
-   9:	74 08                	je     0x13
-   b:	4c 89 ff             	mov    %r15,%rdi
-   e:	e8 4d 99 4c fd       	call   0xfd4c9960
-  13:	4d 8b 0f             	mov    (%r15),%r9
-  16:	4c 89 ef             	mov    %r13,%rdi
-  19:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
-  1e:	48 89 ea             	mov    %rbp,%rdx
-  21:	44 89 e1             	mov    %r12d,%ecx
-  24:	4d 89 f0             	mov    %r14,%r8
-  27:	ff 34 24             	push   (%rsp)
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	48 83 c4 08          	add    $0x8,%rsp
-  33:	ff 05 f3 4c 8e 0c    	incl   0xc8e4cf3(%rip)        # 0xc8e4d2c
-  39:	48 83 c4 10          	add    $0x10,%rsp
-  3d:	5b                   	pop    %rbx
-  3e:	41 5c                	pop    %r12
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Karl
