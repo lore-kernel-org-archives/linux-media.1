@@ -1,150 +1,222 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB4346E01C
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 10:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03123ED3BB;
+	Fri, 16 Oct 2026 10:12:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792145191; cv=none; b=uYZlT1SQq9Qx4KF0iTJQ6hsEDcBDSYS2mTT90Q5u3wbl/KgTipBYVfEwI9RxTNLRtER7ruJe4TXyne6Y+soP5m3jgyjV7eN3Jsji6rqWRhOH5X0d3jQRHyf/OE0T1kEaOQ8VsFua1ait0xMD1lLTkmpm+yGCYQSMtK12PAGQ+YU=
+	t=1792145560; cv=none; b=g+B1gjoExk/HrinG70pUKas945i/9taz6Ijdd3G3gvcjHY/jWRpQPrxfoxto4ylKkxdG6yNnBKMBNTpeXHPW5EN8U2WH7GqnxKZSaPqPOsggTdAD7RrH12QI4At3vaRGCUym1+zFa16dwQyxe+HzHC4KRCLAtngbAJN3R1MqGjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792145191; c=relaxed/simple;
-	bh=YUMCWRzPD/GCJZY/NypdTrsAkUtkxHAtUWEfKJcLCxc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tm0rXnHy25a6epXCW1L2pmShQw5sr6NWzERYvwIcFs5ztl/ir2SgDHfHpRefMtsRw6dsmtTD3j31P/seMkNwyG1y4fSCgDAQc3M8UQkUw8QJu4H9n5uIr+o0YFGeohD3YlmpDlNTcylWnzhMxvzNa/RbdOgvxJzhqJqK6Ur8/a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ny4vxMpH; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792145560; c=relaxed/simple;
+	bh=idmo1GeyJuJ6N3QJmqPhnGkr7HwQLwgKJovNjaEznRY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cKQi8N0sbby/7hM4+k7a/7QfY1f/vn28FVdkiOwzLgYKA92EDQxMedBatA2Dk1X3DFXTLQd5oaRvnb2bQSGhVMeEqZRVtFpf+msnSAcIXkbUroKgBGs284Z+ob1LxkFbwLksd9G1L4JBrCron83gaA1GU0fFH9zTyqCju4lWENQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NEMCrwxu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ny4vxMpH"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so53677755e9.2
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 03:06:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792145186; x=1792749986; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dzo/ODszSYxTk3F2wSXg0f3yesaVb/VOhamsMvYKREc=;
-        b=ny4vxMpHQD7R7QEIzgDAWurX5WK3rMV2L1LbgLctLpoDIBJIzFHzyg+urJ2IRc5637
-         JTiEY68bPTZcuGgv+4cApOQhmlZZvyGbLsm8yKhcZn+8caPqM6CC8Q3hDk+ovTPPfkTG
-         66gClkLyqCh6iGf6M1LnzuRW5tgiILsT4Db9mEACXeIxMNNlBGAzOW6VTSjX6tOOsSjJ
-         wDXQFJPh2zqF1MXNQOnD1nTu9sBzxyn5tANO0V1N/yGI3ZCS6s8cfipjAiQX2hmiOgLc
-         NzZ8LqKEHMkdCDbmXFlre3HTzmogbIe/h8LglvBakxalI0uxe+3fhZuTJHAYGVnfwaf0
-         HeEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792145186; x=1792749986;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dzo/ODszSYxTk3F2wSXg0f3yesaVb/VOhamsMvYKREc=;
-        b=tAWOES9GpfmREqmjcaYcxzvwCs/0ztHj95l4xYE7T9ZxRg8trGTRIYoReupfJP/ReT
-         qN/fcUgCheTQa8++dSxU5a8dZHSxXUYq47nfbktUo4QV6LBZa0tEGaZo7M9GGxFiatOl
-         Rl4BYMpD4nU301ISeDpdVdaPblot5payunm3xcwvA+68reW8lB0awz6WKg15qFJGOBTX
-         mwgwKJ94ICCE/2kn/veomziQ/Hulj/Uzbqw22ngTkjOS7xWQoAzy+9qo4qy7j3jt/6Jd
-         6SbTPGCK6aT9vQ+lGLR1G+KKTQy6hNsvP3Ac0IMTjwHk7v2NShnWjC+nMFrAOIjp2lIN
-         7eNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOi5uSrP28eldWrC7Oeb7+uPH8sL/iZbPnhsV17g+V5C0sdyOJEDaUDGmUzGv6kjVXFQ8+UFdyVB3yCA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL1+jRmIss9zI0z06aFvo+0g6RXQY+JkuGnEsaC6QmcSNcEt5BJ
-	DPvqFK11bucmYH5Wgg/brEPAygszE+JYbTlub1kJYq0zi5liVuNXrhzX
-X-Gm-Gg: AYBFou1P+IEhVPy1KFzlMgt3eGSgqEETGqLps3jQvmr25nS32/8BHrbyMhbXysa2bz1
-	I6Qi6N1hsA/yR6RFSwixJQXMMM34NQmZ+tAVMEeE4fPmSBmClDuRL7JFZT6/ce/YdztpVJ+46D+
-	HuXHe+bGASaS7DTSpuXslhY0rB8eA//Gq0zoy05KllikPyKAzgj7DGFYEquaKA7Zobhu4YCjkl9
-	TxOczJ1vKeaAx8C2eFeQyWre5sDstsU2MtYXEzAB8K0/ICguBP4e9xYM7td9ZS+EeKH69xVzOpR
-	oW/BaXCRzkjfOIcoO9MrgHRlWDQF8I0g0bN2G4/u8t8Sb71zUnQEo8kS32o5YXumsz0J+ZPkema
-	6fcS7p70HcgBxx1uoi7MG33O3EW9gkOH9wBjIecVqQ0olaExNBtA9gQMsGrncEVZZ8uAEPKD47s
-	etxTI7rOZFeA1SaNxMqQCfVKtk1E805WFPRsh81lwB/cRU8V/xFX1rt/IySOdRLNNpLfm7moDIt
-	+yF9Ufj5QKHA5TuDapOlXJ+51WOdpwTKMyuLJ88XlO8y7sZTPtncarqYUnT/KlPOIKw3Wvx
-X-Received: by 2002:a05:600c:1d11:b0:4a1:d307:b52a with SMTP id 5b1f17b1804b1-4a1d307b62fmr7356695e9.19.1792145185802;
-        Fri, 16 Oct 2026 03:06:25 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd471a64sm4404889f8f.6.2026.10.16.03.06.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:06:25 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	David Heidelberg <david@ixit.cz>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-phy@lists.infradead.org,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-	Suresh Vankadara <svankada@qti.qualcomm.com>,
-	tjose@qti.qualcomm.com
-Subject: Re: [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
-Date: Fri, 16 Oct 2026 11:06:23 +0100
-Message-ID: <20261016100623.427688-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <bd13910e-ddcd-45a5-a7ce-7e6e74290955@oss.qualcomm.com>
-References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com> <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com> <bd13910e-ddcd-45a5-a7ce-7e6e74290955@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NEMCrwxu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D12491F000C4;
+	Fri, 16 Oct 2026 10:12:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792145557;
+	bh=75PhmblfKKNm9YT5QCltoh5unVEmTBo+VfQEF4Aeyac=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NEMCrwxurtStnVI51zk85h1Xn062G8gNb20uB+gBmg8erJwnEIPCRibaJfYQ0uh5P
+	 hkhkWflReftxiBozwZj+Y63Zu6vCQ1abwftzct7a+lVsaYUzJ0AjtLKVAykDH0tR5Y
+	 +m5qN3zPDCn1VUXfOajnGP7SbK3hvH5eJ9q5B2R3fr+30dGlTLZircWZ8ESnEnXvV3
+	 0jbeRWlUHN3cqShxRrGvt1bPaID6CWZLSvvMRv73DGb9En+XzFSJugT4pbKEkja/d4
+	 avjwG3fj2suXE8n7+zQGDGje6t26bOh6LQaELV3Uy2KIaR7BDqnXpuYHIupnlSELGB
+	 QuBx6Ru2dfXwQ==
+Message-ID: <30989671-7159-4b4f-bbf7-29303a9e13ea@kernel.org>
+Date: Fri, 16 Oct 2026 11:12:33 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for
+ X1E80100
+To: George Neacsu <geocausa@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, David Heidelberg <david@ixit.cz>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
+ <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com>
+ <7aed254e-18c5-481b-a77f-576944fff1d4@kernel.org>
+ <O2OGvixLI-H1FleIR5UiLkxLAN4pfWDm8F8qMBuX6LT1klt688s0GbH-iHKW80Uqs-6zSNWE7ExAXsNHxIwYjQ==@protonmail.internalid>
+ <20261016100621.427612-1-geocausa@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016100621.427612-1-geocausa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Nihal,
+On 16/10/2026 11:06, George Neacsu wrote:
+> Hi Bryan,
+> 
+> Thanks for the reviews, and thanks to Loic as well.
+> 
+> The series is on next-20261015. There, phy-qcom-mipi-csi2-3ph-dphy.c is
+> blob 966d79c98, the same as on the media-committers next branch
+Series doesn't apply to linux-next or phy-next - given we are at -rc7 
+linux-next is probably better, after -rc7 phy-next is best.
 
-On 16/10/2026 15:29, Nihal Kumar Gupta wrote:
-> Thanks for working on this. I also have local C-PHY enablement patches, so it
-> is good to see this being discussed upstream.
+Either -next:
 
-Thanks for the review. If your patches cover more SoCs or data rates, I am
-happy to fold them in or to rebase on top of them, whichever is easier for
-you. I can test anything on the Surface Pro 11 (X1E80100, IMX681 on
-CSIPHY2, one trio).
+[~/Development/worktree/bod-media-committers]$ git fetch linux-next 
+  
+                              *[bod-qcom-media-committers]
+[~/Development/worktree/bod-media-committers]$ git reset --hard 
+linux-next/master 
+                                      *[bod-qcom-media-committers]
+HEAD is now at b810335a0699d Add linux-next specific files for 20261015
+[~/Development/worktree/bod-media-committers]$ b4 shazam 
+20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com 
+                                             *[bod-qcom-media-committers]
+Looking up 
+https://lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/
+Grabbing thread from 
+lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/t.mbox.gz
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 15 messages in the thread
+Analyzing 0 code-review messages
+Checking attestation on all messages, may take a moment...
+---
+   ✗ [PATCH RFC 1/4] phy: Add MIPI C-PHY mode and configuration options
+     + Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> (✓ 
+DKIM/linaro.org)
+   ✗ [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+   ✗ [PATCH RFC 3/4] media: qcom: camss: csid-680: Select C-PHY in the 
+receiver
+     + Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com> (✓ 
+DKIM/oss.qualcomm.com)
+   ✗ [PATCH RFC 4/4] media: qcom: camss: Configure C-PHY through the PHY API
+   ---
+   ✗ No key: ed25519/geocausa@gmail.com
+---
+Total patches: 4
+---
+Applying: phy: Add MIPI C-PHY mode and configuration options
+Applying: phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+Applying: media: qcom: camss: csid-680: Select C-PHY in the receiver
+Applying: media: qcom: camss: Configure C-PHY through the PHY API
+Patch failed at 0004 media: qcom: camss: Configure C-PHY through the PHY API
+error: patch failed: drivers/media/platform/qcom/camss/camss-csiphy.c:329
+error: drivers/media/platform/qcom/camss/camss-csiphy.c: patch does not 
+apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am 
+--abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
 
-> Could we add blank lines between the repeated per-trio register blocks here?
+Or -phy:
 
-Yes, will do in v2.
-
->> +	{.reg_addr = 0x1000, .reg_data = 0x0e, .delay_us = 3048,
-> Any specific reason for this much delay?
-
-It is copied from the downstream reset exit entry,
-{0x1000, 0x0E, 0xBE8, CSIPHY_3PH_REGS}, and I have not tried anything
-shorter. If you know the real requirement I will use it. Either way, a
-delay this long should be a sleep rather than udelay(), which v2 will fix.
-
-> For this C-PHY table, I do not see a CSIPHY_SETTLE_CNT_LOWER_BYTE entry.
-> Is the settle timing already encoded in one of the fixed register values in
-> lane_regs_x1e80100_cphy[]?
-
-Yes: 0x020c/0x0208 per trio (0x060c/0x0608, 0x0a0c/0x0a08 for the other
-two) are the settle count low and high bytes. Downstream marks them
-CSIPHY_SETTLE_CNT_LOWER_BYTE/HIGHER_BYTE and overwrites them with the
-count derived from the sensor settle time. The RFC writes the table's
-default, 0x22/0x00, as fixed values. That works for the IMX681 at
-2.4 Gsym/s, but you are right that it is rate dependent. In v2 these
-entries will use the settle count parameter types and the count will be
-computed from the symbol rate, as for D-PHY.
-
-> Could we avoid carrying a separate parsed `bus_type` and derive the PHY type
-> from the PHY layer state instead?
-
-Agreed. The bus type is still needed at parse time for the lane count and
-polarity checks, but the runtime paths will use phy_mode.
-
-> The C-PHY and D-PHY lane-mask calculation could be combined into a helper to
-> avoid open-coding the C-PHY path separately.
-
-Thanks, I will take your helper. Together with Bryan's request, this also
-removes the goto.
-
-> This gives us a single C-PHY register sequence for the SoC. Do we expect this
-> to be enough long term?
-
-Not long term, no. I only have one C-PHY sensor running at one rate, so I
-would prefer to keep v2 to the single table with the settle count fixed,
-and add selection by symbol rate as a follow-up, unless Bryan would rather
-have the structure in place now.
-
-Thanks,
-George
+[~/Development/worktree/bod-media-committers]$ git fetch phy 
+  
+                              *[bod-qcom-media-committers]
+ From git://git.kernel.org/pub/scm/linux/kernel/git/phy/linux-phy
+    c7f2322431cb6..8f56fdf3d8cb9  next       -> phy/next
+[~/Development/worktree/bod-media-committers]$ git reset --hard phy/next 
+  
+                              *[bod-qcom-media-committers]
+Updating files: 100% (16814/16814), done.
+HEAD is now at 8f56fdf3d8cb9 phy: tegra: Add support for Tegra238 XUSB 
+pad controller
+[~/Development/worktree/bod-media-committers]$ git am --abort 
+  
+                              *[bod-qcom-media-committers]
+warning: You seem to have moved HEAD since the last 'am' failure.
+Not rewinding to ORIG_HEAD
+[~/Development/worktree/bod-media-committers]$ b4 shazam 
+20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com 
+                                             *[bod-qcom-media-committers]
+Looking up 
+https://lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/
+Grabbing thread from 
+lore.kernel.org/all/20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com/t.mbox.gz
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 15 messages in the thread
+Analyzing 0 code-review messages
+Checking attestation on all messages, may take a moment...
+---
+   ✗ [PATCH RFC 1/4] phy: Add MIPI C-PHY mode and configuration options
+     + Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> (✓ 
+DKIM/linaro.org)
+   ✗ [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+   ✗ [PATCH RFC 3/4] media: qcom: camss: csid-680: Select C-PHY in the 
+receiver
+     + Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com> (✓ 
+DKIM/oss.qualcomm.com)
+   ✗ [PATCH RFC 4/4] media: qcom: camss: Configure C-PHY through the PHY API
+   ---
+   ✗ No key: ed25519/geocausa@gmail.com
+---
+Total patches: 4
+---
+Applying: phy: Add MIPI C-PHY mode and configuration options
+Applying: phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
+Applying: media: qcom: camss: csid-680: Select C-PHY in the receiver
+Applying: media: qcom: camss: Configure C-PHY through the PHY API
+Patch failed at 0004 media: qcom: camss: Configure C-PHY through the PHY API
+error: patch failed: drivers/media/platform/qcom/camss/camss-csiphy.c:329
+error: drivers/media/platform/qcom/camss/camss-csiphy.c: patch does not 
+apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am 
+--abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
