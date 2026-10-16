@@ -1,43 +1,43 @@
-Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
+Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2395D3E9F93;
-	Fri, 16 Oct 2026 07:02:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611D43F44C1;
+	Fri, 16 Oct 2026 07:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792134126; cv=none; b=InNnYZw77Z/6qjAoGGvjtdDYd3eEf1dFx9dBj7S2BBJQ9p5gYJfcnMuNUjyTS8iXJa6FRqN0Ib41dFS9+9hSTuqW4pJUOJ5r7C855EM/fb6/MGGnd0M2vg7NO7itBStl20p7pnTgdG5dzjU1mX04ybmGKjFW6KQ9WN5RnI47aKc=
+	t=1792134138; cv=none; b=fWWGmLCslL/HlZvaPuw4wnhmgT8TC6/HsmZCd5d5tfw+W+5QEVhn4eFImzVE8HayT2MnNEVPfs6gJqCX2zJtImYelX7hI9UZ87SXRec4NFH22Z4/7pP44xcW0W8Y7EB6cJpoUI8poAtmsuI8nZdSvTsylIn0KU8i8A99lPwoa74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792134126; c=relaxed/simple;
-	bh=AQi/9A/y64vKci75UOD1V3dJqNZtHvVbxX8L8DK3VUA=;
+	s=arc-20240116; t=1792134138; c=relaxed/simple;
+	bh=SVhPplxo03MGqwTnrdXxtyIz97+ivSdsIhDd2C5raA4=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lzfXVa9WzeSrnIG8rzewjFB9ASlMO4xMa0dbL7O29rmTihFIY2EEa3ddIRvHLIH5JigiY0wlBWMgzrX/6jOotYsIgz95MGh8qP0gFEMeweCzX/QZhSxvg57LsrXzBv3HSMg1k03rw90Rff00ebhWYF+BHXmiBFvuPsoET1+KhwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=lmJ+cQ1a; arc=none smtp.client-ip=79.135.106.31
+	 MIME-Version:Content-Type; b=Fj8CAoR8fmnLFvqQpjUXTeZzsiOEY1fFg87IYrYm3FX50hDBKtiir4TXkxZEK/azIAViSI0bGF4BiSoY6xztXKviqIiv7EL6LpbLCdXM+Kq1/SvEbQ17NouUiTP7AN3J7+fNxSA+vsdfkAiQNGgjWTquadIGUezh/o7ujoPT15E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=OD40j7Oe; arc=none smtp.client-ip=109.224.244.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="lmJ+cQ1a"
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="OD40j7Oe"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792134115; x=1792393315;
-	bh=AQi/9A/y64vKci75UOD1V3dJqNZtHvVbxX8L8DK3VUA=;
+	s=protonmail3; t=1792134129; x=1792393329;
+	bh=SVhPplxo03MGqwTnrdXxtyIz97+ivSdsIhDd2C5raA4=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=lmJ+cQ1ao7nQu/b7B+ruW03ulKndn0pRQzdBTFjQ3pF1/8f8WVyiC6AZaAilVzL3a
-	 su2BcgrGBAbuiUdtXmjKgxB01ED6os85vut+nwqkoUnqL4qcd9zDcaL+6/h2rm840D
-	 oZboYgHZ3ll/cbBm+RtwhN5g8gUSiTGd+nFdM2jyHb5dCwNhqMrwVRfJnDIARBCno5
-	 ter66W1c65Ja8oBzT6HZ6rG8C5QgVgCzYgkq26ASuJSX7Fnbx67WRBf16Q/qMkOtC/
-	 PHxgAdWzhiqqmVtye9G7nPBTUZ05HI7OWMm5FV/n/ECJA/VsM5yNB0QCGATd4t1DS8
-	 O0Ts1PoUOTttw==
-Date: Fri, 16 Oct 2026 07:01:50 +0000
+	b=OD40j7Oe47w/HaNj2X55wE2IOf7xix47Wj0xYp3/n0/EVzhkc7emjXH63rBRHhk9D
+	 7Or1bh1v6HRIDTUi8ppydm9gpq6R0kozXhbChWKoE5j6lQKT/wAX8bl79gU+YhBFZq
+	 8Bqy885QxhOQI3Tm1E0Wp73D/bipSlk6u00O4RPtWcx4RYrWF3QQMKT8f9Y5GNlz0x
+	 y9yA12nQnzMpJlhI+/1e7F6jLDyz71ebBLNbgdimxgRofDQOjq6vhYn7LwmRbt8IUl
+	 v3DcUnp22AV0owqdbOZQp1c/ysgM/NB0FGgim1uiX+WOFEcFW5yvrwXjF0VGCXXLL/
+	 6MrTZuhM0PhFg==
+Date: Fri, 16 Oct 2026 07:02:05 +0000
 To: George Neacsu <geocausa@gmail.com>
 From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] media: ov13858: device tree support for the Surface Pro 11 (Snapdragon)
-Message-ID: <20261016070018.11932-1-lsa.uz@pm.me>
-In-Reply-To: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Peter Marshall <pm@petermarshall.ca>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Jizhou Tong <fqwqf@fqwqf.xyz>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: vd55g1: fix VD55G0 streaming below 900 Mbps
+Message-ID: <20261016070158.43624-1-lsa.uz@pm.me>
+In-Reply-To: <20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com>
+References: <20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 4c6c5d4014db768c4361150de54b0e3e231ae605
+X-Pm-Message-ID: aa5f439dac80abb781352c4a70dd20a282f89b25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,17 +49,17 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi George,
 
-On the Intel model, with the power-on v3 and these two on media next, the
-new endpoint check passes with the endpoint ipu-bridge builds (four lanes,
-540 and 270 MHz). The sensor streams 4224x3136 at 29.95 fps, and
-v4l2-compliance passes 46 of 46 on the subdev. Through the media device
-one test fails, Active VIDIOC_SUBDEV_S_FMT, because
-ov13858_update_pad_format() never sets the colorspace. That is in media
-next's driver already, not in these patches.
+A data point from the Intel model, which has the same sensor: revision
+0x1111, firmware patch 2.11, and 0x0329 reads 0x01 after power-on there
+too. My vd55g0 driver writes ISL_ENABLE =3D 0 once per power-on, in
+software standby right after boot, together with the clock and output
+settings, and with LINE_LENGTH 1200 the sensor then streams Y8 and Y10 in
+every mode. So here, writing 0 there does not stop the output by
+itself. vd55g1 writes it at every stream start instead, which may be the
+difference.
 
-Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11 (Intel)
-
-Thank you for picking up the power patch as a base.
+Thank you for offering to test my driver on the Snapdragon model. I will
+Cc you when it is posted.
 
 Sergey
 
