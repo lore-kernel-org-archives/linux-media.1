@@ -1,67 +1,67 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazhn15012015.outbound.protection.outlook.com [52.102.160.15])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazhn15013060.outbound.protection.outlook.com [52.102.163.60])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD7B4749F4;
-	Fri, 16 Oct 2026 11:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.102.160.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1CF3839B9;
+	Fri, 16 Oct 2026 11:04:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.102.163.60
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792148541; cv=fail; b=R9sXs+/gp6SqI3ZHzs9NJ9QcqjYLYdIKLwH5In/UrSgX11ri60nvEPpfvt4Bug9HAW2MBfgFp+0JZt9CEeVpjaraA9eIeJDibmbWSkDsZRA91CT1UbfmzHYs+e8eV0UsFG27ecXcwzMOqoEwP2PeRlGvI5oI3WUanryyU2jPoZk=
+	t=1792148679; cv=fail; b=f4ut+m1Qz+0axK8zyhbXNtE7izEPHVYKwofOoVSCBUBvAQtVA5sZGyaRb2wDr7iDtwOgtlBERDRtVBhfZl//TKkjEQI24CieL4qQviSfvlWJEAtWert3PtuNVlVqp8VSJc+HvvLgzq/SGS/7Wt5TJLmFWpIValXygfi19qnHUDk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792148541; c=relaxed/simple;
-	bh=LGyO5Xa37D7lL63r27u3rYI6xFVjna0wDZ27sfEMXbc=;
+	s=arc-20240116; t=1792148679; c=relaxed/simple;
+	bh=UFVfmpqL3l5+fR8uCvXnOxasWfob672suiDcODpddCM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=JcyVcNTJPELRZ5SL0Ue+SZImJ/g/EBWmCva56Zj7oGBfkMk4LjbuDQB4lbqbCiuYpjp7snOh4vckt8S9oxzbKKd9FRfY2AB/pOp+GbzRaYIepQcALjfB5ghLNgEMvHvFzsyD7DKbxpycJTKJO2SKMflwPpg6GSD3T6W3M1apj5o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=So8J5KPQ; arc=fail smtp.client-ip=52.102.160.15
+	 In-Reply-To:Content-Type; b=ozp0M38OyV/wzijwqWl1UmGAiq0IJV5ONHa+e0zcrQhNhv0IUPMTOJFAsvmLIubL+wquk0nrQnIs//Sox52fr3vsB8fjnKZcb9Qatx+TU/x5LSf6ct/48oCGbuSVDvfliUUdagem744ILYbDkplE9u6mo/yCLfZTDslCJ0dA+/E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=AS8d1/xh; arc=fail smtp.client-ip=52.102.163.60
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="So8J5KPQ"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="AS8d1/xh"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WZN1mOLAA8QzSzKRaLRN/aOjJs2d8+NEKXzm4Vzm28TbP+57bsgdz3mz88ADCrBxzE0EmU0IuYfuOCs1+wWlJq+JW094G7CnHFqXqsbPPotVIY2SKXuVr0rZ9aSCm1ktRFXWsaKuMXnSCWyuCOa+w3+ItGoEFqoHGuQ/LMOgWDz3S8zeyAkfQHZ6Jue9FicCVkBRL5768Rh6r69sAH9MiSiffrScl+JhpkneKPXoQyobi+Nr/sB+vZZ676nzql8fKkx/xzZUwluja1QwE1EAs8JqLLr2ZjN8n/zGlvsSuiq9OI2jad3xqOdo057TKiQ0FWcmIk3CHmHbb3KIq+0u6g==
+ b=OPBs/HyDMPMv7k7RW9qoDKIi38yMgURyE/wgHbCF6jOONrbd8bSl/C5Gm2dF8pNF4cWbun3hJQuXrpfkUhOg0/ScgxWHs65sDQi29bUlVguu0jxZxntCogF29FshMcNL8bL/MLVcUmZI6Fyj2JNVwsIY/doywyuuqpOj8n1k4wFeFHc+l/s0JW2C+SLzRCVdz7XGU2Z0NgXpZYFlrxqDfzhFy6+kQZK9oy1XdiYHP0rfqmXbtZI1x4xe7fwTQx5xr/cfq/JHIE8AohpuS7LLpc8QpqvEjnUA2kT3Ok7mmwctR2w85bWgTiJM2eSs3K+BmtsVl2muPfGIpL79xh25TA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bbkSMfJwsWZ8f8Z4+3BWH3+7/grcuWtGI0Jjpr5Q+d8=;
- b=Pi/eCc8OtFtXRZQe+eZuoXX2uuCzAc4gmu5d8Az7EYEufPmSCeSZrAGxmC/afCj+u9OfgpJhBJaotn+Q8Nsaj/IDKNMsO3daU0gZftN7iX1PpHXPRYzGpFpwsi4gW851tyzqw5HcCeVgxIbFWAZEB3rZKRsR0hWPGx24T/q37KTiR5xyjWwDuW0qc37HffWhfic0OSgEPrZjA8y2dPnQItUVC8xdgghaZs0W5PRnrneSyY5v5NQnVHCVcADBdD786GeOUhogjhtQVgsJ3H51qamhZtHEquUBK5dj2BscCVKsdxvPOrvkpCZVKHt8910EA5pqllAbkd9f7VlDX8/nVA==
+ bh=iA/Lbr8qOvNG9fLUoYzmaL3WLOSvLtCSldmJ5oc+BMM=;
+ b=QYD8l9p/U6Ngr2TWgZm+yoHYSqlq1rSMGOXNGZMBRqR48KAFN+yPJ3siA4DgYaeyDLKmy7S/9QuM2E/KbGpjwMKtZQx/+ktDzwZHB/OxCntIPGoozvlPqlaKgrj5mLT+kAp6kJRrqyCpOUOnMwu2GsTDMHfu/hCiU8h8ofg8/XbVErjQF/eXU70jJMZzSCoARebIi+oath2GuJHtx1J0nXR1NeUSVLCWdaCmLp3cF5xchUgJEGr+F05v7fLwdFLGVT5zPKhWav+xtkiSx1CkuNcq+zqcjuulEbI3KD8+d5Usn/U3eDTc5quaLEciilIsK3p3QRBI9TmN+H0xWycboA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bbkSMfJwsWZ8f8Z4+3BWH3+7/grcuWtGI0Jjpr5Q+d8=;
- b=So8J5KPQGFzhSV6CKmfEYfAew5YHxn9/iiPKd1XKfLTLV3dkNCAv9I8vvynFntdEqvXd9Yl9E3lc9nXD4Hqh/ZyyyC99c0B4kmOtqKcyX/pvUvNfYzQlqTm4LAZPvftxCBcGu8DlUUPLgCM/e2KVwgPtNNbEH1T+p+ZITZoRpGcA3ltmRFrV/WXpwCdMKlbOEQPWEUdbHwpyYpYGqCirut7hytpJA3qdz85Jp6TOfTUNq/iFnLRrwgn8o8Vbvku6XCy6ezssTxEe0GedPCKzOomiI5TkP6D2Ttd0bwkP3wWJAEnzYbB6t4xpbV/2MjSZ+zNfjyFjoZ5lngc4e4ohkQ==
-Received: from DU7PR01CA0016.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:50f::11) by DB9PR10MB7291.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:10:45d::9) with Microsoft SMTP Server (version=TLS1_2,
+ bh=iA/Lbr8qOvNG9fLUoYzmaL3WLOSvLtCSldmJ5oc+BMM=;
+ b=AS8d1/xh45ULMt9jGmDsftvve57CaDfHsBnstRPA731QQd7ATcghLvrsj8nt7GHpLJnW94WGokocJVnN6IBZTFRKNLtcIg0diOv0wcukiv6JJdZkWrmnS9jgptiin8/tRK9daj9Nz0ABiM9GbVxtxrMp3MAYOfEmbY50heYh3tUyoUlRw7h+DgJ7XONkCnlvgEyh3j5pu6/Eak+T7vX79Wu5+akmJtnmv0HX5vkEJyGfhyESKx5nhF2EzlJuIgFyDIEwdRtHC0hftnHdxUMap81UdY5yAePzIIUXkv6U3HDSJuoNw8JNF/pGbEuiJeYCrSSsDmLpV7HezGU/i88wPA==
+Received: from DUZP191CA0048.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f8::8) by
+ VE1PR10MB3821.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:164::17) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 11:02:16 +0000
-Received: from DU2PEPF00028D05.eurprd03.prod.outlook.com
- (2603:10a6:10:50f:cafe::94) by DU7PR01CA0016.outlook.office365.com
- (2603:10a6:10:50f::11) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 11:04:32 +0000
+Received: from DB1PEPF000509FE.eurprd03.prod.outlook.com
+ (2603:10a6:10:4f8:cafe::32) by DUZP191CA0048.outlook.office365.com
+ (2603:10a6:10:4f8::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 11:02:16 +0000
+ Oct 2026 11:04:32 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D05.mail.protection.outlook.com (10.167.242.165) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509FE.mail.protection.outlook.com (10.167.242.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 11:02:16 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 11:04:32 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 16 Oct
- 2026 13:02:43 +0200
+ 2026 13:04:48 +0200
 Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 16 Oct
- 2026 13:02:14 +0200
-Message-ID: <1a8f2064-14e3-4eb7-8e0a-0e90352aae3c@foss.st.com>
-Date: Fri, 16 Oct 2026 13:02:31 +0200
+ 2026 13:04:31 +0200
+Message-ID: <073e5fa2-313d-4d7b-ac10-3a74c57d3c62@foss.st.com>
+Date: Fri, 16 Oct 2026 13:04:48 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,162 +69,94 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: i2c: vd55g1: fix VD55G0 streaming below 900
- Mbps
-To: <geocausa@gmail.com>, <sylvain.petinot@foss.st.com>, <pm@petermarshall.ca>
-CC: <sakari.ailus@linux.intel.com>, <linux-kernel@vger.kernel.org>,
-	<mchehab@kernel.org>, <linux-media@vger.kernel.org>, <fqwqf@fqwqf.xyz>,
-	<lsa.uz@pm.me>
-References: <20261016-vd55g0-sp11-fix-v2-1-aa08b4b8bbfc@gmail.com>
+Subject: Re: [PATCH] media: i2c: vd55g1: Register as a sensor sub-device
+To: <geocausa@gmail.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Peter Marshall <pm@petermarshall.ca>,
+	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com>
 Content-Language: en-GB
 From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20261016-vd55g0-sp11-fix-v2-1-aa08b4b8bbfc@gmail.com>
+In-Reply-To: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D05:EE_|DB9PR10MB7291:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4bbd0161-9100-44db-491a-08df2b74f08b
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509FE:EE_|VE1PR10MB3821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3288e2ce-a546-422d-ad25-08df2b7541cf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|34020700016|376014|1800799024|23010399003|36860700016|82310400026|56012099006|11063799006|261009220027099003|261009223327099003|261009221227099003|261009221727099003|261009223027099003|260925021911599003|260925022911599003|260925021311599003|10067099003|22082099003|18002099003|6133799003|3023799007|12100799066;
+	BCL:0;ARA:13230040|34020700016|376014|82310400026|1800799024|36860700016|23010399003|6133799003|10067099003|22082099003|18002099003|11063799006|261009223027099003|56012099006|12100799066;
 X-Microsoft-Antispam-Message-Info:
-	SD+BceBWEB4hTPoYSKcFksYLO9JvPY3h90JAvhTeHNAWjO+kUvVVZrLrmpZqyu7uZIb+yCdEt+os4Q7DurzOVpvSAw9XDYAw4eWZaByPQJjq6t0BPt9dVbvpfvzNCVHno8FkYxjD/E0lnsMi2slv4O2M/IpDeAfj5tLpPl9cqzZU5u6IcKEZTAs2XV9/eiWdwrMfwVNusxGX180dTf3v4MDEw+V5Rvopp/HzMMxMoEfxAEA57Tsn4PkGFVOmyB5t0BTe9Wi3qRgQCXCE3xkSM1UF77WNhOP6Bk1IgkbjapLA5Wm5V8EGIuBDfekzcCyWZijwesQT7FSjZ+imO+ZBXCqYKFmGMRVfIxonmUjIroE3I3wDSsFRTTKzX3reFP3Vhx4swnSCn6tc3tKYN3Izm12EOwkLnvGXnE/gVPaXbN8uQ/zar3U/X4JfaUna5rtXBl+KtGbgUO+O5RbkER8Tea/o/ODVq/6LGcjxVQTqLAhezVoVf+/GMM54ygb8EzMsJtf/oVWEpY6jxmOC82BM6I0yfxBb6Om67uxlf+wfYng5t7dclB4khnMZQIOxHI/4Uu5v7H3hpdVoVGQGwV4gNMVcv2hNIkcbuGzxUD+Q2cJq0tFN47dfEkfF7v8Em5j187GaVwP9cbs7s/bjBM4GKVlBewtTt0nCA0+a2O14W8Q=
+	4fX+UVlkUePerZtqXeye5fZVFXhEDIuwa5ll6Xf5qzd3xu43IO4aXgkfWqmTu5gxq7qypskSH5EUxxyyV3xIXs0fA8Rsu4AqhWR9oDMzqATafXKuAgFc8F0pCPoltzwPo/s9iUf+gA1ajhmW1KI6JfrMQSNODZGDGq3d1W46Jl7XshCV9SjO67WQt0dR7tAXIOgT61nN0GB7VuSPhn8fBjn6wV9+RDmEzY7HwAhMr+Q47drzsQqqFcQwDjdRQJ+fVKtXAEYrx7HFTQL6Zhhj/9UxGGoQDuP9ZGy50B+plZPcmUGZ3PCqv2tl2PKbk1e7lJNrlnVzE1tx+iHLvzVoi98BncSiib9YAcDaJz8y/0xmAg3SeGp78ELqFi7PbhP5ZzN6//RJaUfhF0ow6P4QVMfCKo3IOtKCd+hhu9jVOQWLCJBPVgVgBE7v8rhMgjdPJdKfHr8++o1upkghFWcZRUeSF64hyWiX74DJpudechptWorJHh1/tPrdkwd82K4N3jmJElYUJPoCS7o9h9XmLNx20mr6FFxdj7bcPmvguaeyRfK1i2vv1FhgfGxhsOJL0/Rx1yDAT9S8fCM1p5EOBnF6ZrKBnWx0M6ooTrlaBvDzayP9Z+neSehnEjjeMq7f46PCYXefuZwnzuZB8MONwmKQryjJ3iaR0JrGnzXUXG+wL1RYRTbIDq1Kx6Ud6pBvbPsl1l6rPtxKGn5Vc+f0sA==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(34020700016)(376014)(1800799024)(23010399003)(36860700016)(82310400026)(56012099006)(11063799006)(261009220027099003)(261009223327099003)(261009221227099003)(261009221727099003)(261009223027099003)(260925021911599003)(260925022911599003)(260925021311599003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007)(12100799066);DIR:OUT;SFP:1501;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(34020700016)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(11063799006)(261009223027099003)(56012099006)(12100799066);DIR:OUT;SFP:1501;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	k19X9qeEGAySzWiNJKXL/wsO0WqE5jIDkw3hajU73O8uYXnTiXfwtkHNUAHBHjih89Vv1W8gnUNe2CGt4XOCkDoSg6tT4JXvYN5G8ot/5tJ7wW0L9e0lZOjtyaykqyiYiHO/JsbhyECSAPwYt4beNU7mBnsCi3M3aJB4iHHmhHsE1je0DbpCu672Xg3WE+uPH0dDIOTOsmTRcNYErcQNvroOhQdLhPaXYlIe2HCCvci9QmCS5FWxyp3GcyiPCyuMIVJcVFSopRe7G5aPdvmhJ8j5wIR+zhhItQQY8+ICPMzC2+APfL+XWvua0PiUYn+LsHguTxajAIwIfoqfpFvuc9ovTQZdBcX05xkWW5Qnpmoa7b3+8QP3NxN8hYaOxJVg8AfIBSuEBTubJy99sNsvr2V0TxQX+dOpKeys1R7XqxmNQP67OHzWrL/Rbm+omcvT
+	Mmm0C2RhB2lbusnTAzNl989Bmz2UddYK7mK5CTIr0zsojSbWa504ANdGkGzXarJUH2dJQG0OpMZ+fS87SuwdDSK2LGKxfM2ruUWkiZF3n4XiiaAQxGtwwNMYjGy6fwRmC8MlgfY3PoaBGvhck6ya3bsTG6EvdRq45iNmoFpP3aNtp8m9B5Drmi2oly6UtGz/v8i+OQIx5LJWsZ7TPh6qd6jMYw3gNsP9hQO3IBswVurYpBrWL2dVdLdJTpnoCgV9qgHZB3JsIoefzjN7E4ziY35+4f9JLwIT9nR8pkuSx/h/U5vvmbEK8D4fGQi7aMqqdCXT2jaenoE+Sp4gTLs9F3Vv9BuZ0TqsxwPsGr4yNI5C9j8xbCdbHQt/mHuzIvmkIbv1IECW6WoZI4Idf0cHlTUzIwERy8VhTs+hvH4cqfIfGB4k6gwIJKGG6wv3NZBl
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 11:02:16.0561
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 11:04:32.4094
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4bbd0161-9100-44db-491a-08df2b74f08b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3288e2ce-a546-422d-ad25-08df2b7541cf
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D05.eurprd03.prod.outlook.com
+	DB1PEPF000509FE.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB7291
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB3821
 
 Hi George,
 
-Le 16/10/2026 à 12:28, George Neacsu via B4 Relay a écrit :
+Thank you for your patch.
+
+Le 16/10/2026 à 08:37, George Neacsu via B4 Relay a écrit :
 > From: George Neacsu <geocausa@gmail.com>
 > 
-> On a Surface Pro 11 (Snapdragon X Elite, CAMSS) the VD55G0 IR sensor
-> (cut 1, revision 0x1111) runs one D-PHY lane at 840 Mbps. With the
-> VD55G0 support as posted, the sensor accepts the start command and
-> reports STREAMING, but it never sends a frame and the stop command
-> never completes.
+> The binding references video-interface-devices.yaml, so a board can
+> link the sensor to its illuminator with flash-leds. The driver
+> registers with v4l2_async_register_subdev(), which does not parse that
+> property, so the flash sub-device is never bound and never appears in
+> the media graph.
 > 
-> The minimum line length is the VD55G1 value, 1128 pixels. ST's
-> reference vd55g0 driver uses 1200 below 900 Mbps and 1128 above. At
-> 840 Mbps the sensor stalls with 1128 and streams with 1200, so use 1200
-> for the VD55G0 below 900 Mbps.
-
-Yes, the downstream driver was designed to work with specific parameters.
-
+> Use v4l2_async_register_subdev_sensor(), which also handles flash-leds
+> and lens-focus. v4l2_async_unregister_subdev() already cleans up the
+> sub-notifier it creates.
 > 
-> With this change the sensor streams 644x604 Y10 at 61.6 fps, the
-> diagonal grey-scale test pattern comes out correct, and stop completes.
-> The built-in 2.11 cut1 patch is used unchanged.
+> Tested on a Surface Pro 11 (X1E80100), whose VD55G0 IR sensor (with
+> Peter Marshall's VD55G0 support applied) drives the PM8550 flash LED
+> in hardware strobe mode: with this change the leds-qcom-flash V4L2
+> flash sub-device binds and the IR LED can be armed from userspace.
 > 
-> Link: https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/a05627b0f6d8775aa54b6fa306e91f425f2cbf9e/vd55g0.c
 > Assisted-by: Claude:claude-opus-5-5
 > Signed-off-by: George Neacsu <geocausa@gmail.com>
-> ---
-> This is an incremental fix for Peter's unmerged VD55G0 support (v2,
-> patch 11/11), on top of Jizhou's register-width fix (v2). It does not
-> apply to media-next on its own.
-> 
-> Prerequisites:
-> https://lore.kernel.org/all/20260918221705.323510-1-pm@petermarshall.ca/
-> (and Jizhou Tong's "[PATCH v2] media: i2c: vd55g1: correct VD55G0
-> register access widths", 12 October)
-> 
-> Benjamin, I know you'd rather see a separate vd55g0 driver (Sergey's).
-> ST's downstream driver also uses a 1200-pixel line below 900 Mbps, so
-> this is a data point for that driver too. I can test Sergey's driver on
-> the Snapdragon Surface Pro 11 when it is posted.
 
-We reworked the clock tree with Sergey so it may fix your issue too.
-Please test it once it hits the mailing list and we will make required
-adjustments.
+Signed-off-by: Benjamin Mugnier <benjamin.mgunier@foss.st.com>
 
-> 
-> Tested on mainline (62f482ff73bf) with Peter's v2 01 and 04-11 plus
-> Jizhou's fix. 02 and 03 did not apply to that tree, and neither touches
-> the driver. The receiver is qcom CAMSS (CSIPHY0 -> CSID0 -> VFE0 RDI0)
-> with out-of-tree Surface Pro 11 board support.
 > ---
-> Changes in v2:
-> - Drop the ISL_ENABLE (0x0329) change. Sergey found that writing it
->   does not stop the output on the Intel model, and a retest here agrees:
->   with the 1200-pixel line the sensor streams whether 0x0329 is written
->   at stream start, once per power-on, or not at all.
-> - Link to v1: https://lore.kernel.org/r/20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com
-> ---
->  drivers/media/i2c/vd55g1.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/media/i2c/vd55g1.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index ba70447..4e23e88 100644
+> index 6f458f6..8e050b4 100644
 > --- a/drivers/media/i2c/vd55g1.c
 > +++ b/drivers/media/i2c/vd55g1.c
-> @@ -76,6 +76,8 @@
->  #define VD55G1_XCLK_FREQ_MAX				(27 * HZ_PER_MHZ)
->  #define VD55G0_MIPI_RATE_MIN				(750 * MEGA)
->  #define VD55G0_MIPI_RATE_MAX				(1200 * MEGA)
-> +#define VD55G0_LINE_LENGTH_LOW_RATE			1200
-> +#define VD55G0_LOW_MIPI_RATE_LIMIT			(900 * MEGA)
->  #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
->  #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
+> @@ -2043,7 +2043,7 @@ static int vd55g1_probe(struct i2c_client *client)
+>  		goto err_power_off;
+>  	}
 >  
-> @@ -1245,6 +1247,8 @@ struct vd55g1_model {
->  	u16 num_modes;
->  	u32 mipi_rate_min;
->  	u32 mipi_rate_max;
-> +	u32 low_mipi_rate_limit;
-> +	u16 line_length_low_rate;
->  	u16 width;
->  	u16 height;
->  	bool bayer;
-> @@ -1323,6 +1327,8 @@ static const struct vd55g1_model vd55g0_model = {
->  	.num_modes = ARRAY_SIZE(vd55g0_supported_modes),
->  	.mipi_rate_min = VD55G0_MIPI_RATE_MIN,
->  	.mipi_rate_max = VD55G0_MIPI_RATE_MAX,
-> +	.low_mipi_rate_limit = VD55G0_LOW_MIPI_RATE_LIMIT,
-> +	.line_length_low_rate = VD55G0_LINE_LENGTH_LOW_RATE,
->  	.width = VD55G0_WIDTH,
->  	.height = VD55G0_HEIGHT,
->  	.bayer = false,
-> @@ -1542,6 +1548,8 @@ static unsigned int vd55g1_get_hblank_min(struct vd55g1 *sensor,
->  
->  	/* Absolute time required for ADCs to convert pixels */
->  	min_line_length = VD55G1_LINE_LENGTH_MIN;
-> +	if (sensor->mipi_rate < sensor->model->low_mipi_rate_limit)
-> +		min_line_length = sensor->model->line_length_low_rate;
->  	if (sensor->model->hdr &&
->  	    sensor->hdr_ctrl->val == VD55G1_HDR_SUB)
->  		min_line_length = VD55G1_LINE_LENGTH_SUB_MIN;
+> -	ret = v4l2_async_register_subdev(&sensor->sd);
+> +	ret = v4l2_async_register_subdev_sensor(&sensor->sd);
+>  	if (ret) {
+>  		dev_err(dev, "async subdev register failed %d\n", ret);
+>  		goto err_subdev;
 > 
 > ---
 > base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
-> change-id: 20261016-vd55g0-sp11-fix-60bc64a59b1d
-> prerequisite-patch-id: d4474f51d7a10cfd10a316ec2b09936490b14a79
-> prerequisite-patch-id: 0017cc56bf769ab00e67bdc0c5214951447cb716
-> prerequisite-patch-id: 95a2d9ff8168eb17010538d80f4b5428e2b7b798
-> prerequisite-patch-id: e717e32eac916ccafccf9e7a552ca0030085daa3
-> prerequisite-patch-id: 8fc4f7595aac33a2164adb41c139dc3218be5bc6
-> prerequisite-patch-id: 52bde56940b545c0e5f44d12811f9b9676bc311c
-> prerequisite-patch-id: c0b93409e330d4b874b3702d67b57e2c4b0bde32
-> prerequisite-patch-id: dbc6f65015852bbaf31e5f4efbee52c60bafb79f
-> prerequisite-patch-id: d5c9bb074014a20938df8b55bb9088aa7b26d37b
-> prerequisite-patch-id: d1ce44a3f9104aeead2c18d58a1470d1bd1ae531
+> change-id: 20261016-vd55g1-async-sensor-5be09860b38a
 > 
 > Best regards,
 
