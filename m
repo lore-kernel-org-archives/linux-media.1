@@ -1,67 +1,67 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazhn15013060.outbound.protection.outlook.com [52.102.163.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1CF3839B9;
-	Fri, 16 Oct 2026 11:04:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.102.163.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792148679; cv=fail; b=f4ut+m1Qz+0axK8zyhbXNtE7izEPHVYKwofOoVSCBUBvAQtVA5sZGyaRb2wDr7iDtwOgtlBERDRtVBhfZl//TKkjEQI24CieL4qQviSfvlWJEAtWert3PtuNVlVqp8VSJc+HvvLgzq/SGS/7Wt5TJLmFWpIValXygfi19qnHUDk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792148679; c=relaxed/simple;
-	bh=UFVfmpqL3l5+fR8uCvXnOxasWfob672suiDcODpddCM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ozp0M38OyV/wzijwqWl1UmGAiq0IJV5ONHa+e0zcrQhNhv0IUPMTOJFAsvmLIubL+wquk0nrQnIs//Sox52fr3vsB8fjnKZcb9Qatx+TU/x5LSf6ct/48oCGbuSVDvfliUUdagem744ILYbDkplE9u6mo/yCLfZTDslCJ0dA+/E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=AS8d1/xh; arc=fail smtp.client-ip=52.102.163.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ACF3B4EB3
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 11:06:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792148805; cv=none; b=hbh+duYABrdWlt9vKFK1pUA2YjL50anq8qzcIoeTAbsijgjpU3E29TLGz6bjiM32lKEF7lIb4CF2l6WJ02qn9dS8Di9vVTYWkPu3JqL//knnXx7NG149G380YGT0Hmm6fWCVEpZR3q3ojgbHVfJM3/VH/bTe8ljJ3lgXLgw3PuY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792148805; c=relaxed/simple;
+	bh=1BP3OU5iinrec32pP5DMCn4fySLDjSuZemQqebqrhKs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EffBhNJOqD1RkVEZze7/W4hvt5qHqH9d4yAnuGcpHf38c5N5N9pB7ZMRn96qPYjk4OvvqV1f/Vsd5lPs42EDRu7QS9uu4PKCoZMm3HNG7dbAf/9M5W8EOU9xDAfscFcwRXvP53Zi1K//+Xbk8ylSihkeCJVSTIacnGiwBCT5X/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ESj09Y43; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="AS8d1/xh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OPBs/HyDMPMv7k7RW9qoDKIi38yMgURyE/wgHbCF6jOONrbd8bSl/C5Gm2dF8pNF4cWbun3hJQuXrpfkUhOg0/ScgxWHs65sDQi29bUlVguu0jxZxntCogF29FshMcNL8bL/MLVcUmZI6Fyj2JNVwsIY/doywyuuqpOj8n1k4wFeFHc+l/s0JW2C+SLzRCVdz7XGU2Z0NgXpZYFlrxqDfzhFy6+kQZK9oy1XdiYHP0rfqmXbtZI1x4xe7fwTQx5xr/cfq/JHIE8AohpuS7LLpc8QpqvEjnUA2kT3Ok7mmwctR2w85bWgTiJM2eSs3K+BmtsVl2muPfGIpL79xh25TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iA/Lbr8qOvNG9fLUoYzmaL3WLOSvLtCSldmJ5oc+BMM=;
- b=QYD8l9p/U6Ngr2TWgZm+yoHYSqlq1rSMGOXNGZMBRqR48KAFN+yPJ3siA4DgYaeyDLKmy7S/9QuM2E/KbGpjwMKtZQx/+ktDzwZHB/OxCntIPGoozvlPqlaKgrj5mLT+kAp6kJRrqyCpOUOnMwu2GsTDMHfu/hCiU8h8ofg8/XbVErjQF/eXU70jJMZzSCoARebIi+oath2GuJHtx1J0nXR1NeUSVLCWdaCmLp3cF5xchUgJEGr+F05v7fLwdFLGVT5zPKhWav+xtkiSx1CkuNcq+zqcjuulEbI3KD8+d5Usn/U3eDTc5quaLEciilIsK3p3QRBI9TmN+H0xWycboA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iA/Lbr8qOvNG9fLUoYzmaL3WLOSvLtCSldmJ5oc+BMM=;
- b=AS8d1/xh45ULMt9jGmDsftvve57CaDfHsBnstRPA731QQd7ATcghLvrsj8nt7GHpLJnW94WGokocJVnN6IBZTFRKNLtcIg0diOv0wcukiv6JJdZkWrmnS9jgptiin8/tRK9daj9Nz0ABiM9GbVxtxrMp3MAYOfEmbY50heYh3tUyoUlRw7h+DgJ7XONkCnlvgEyh3j5pu6/Eak+T7vX79Wu5+akmJtnmv0HX5vkEJyGfhyESKx5nhF2EzlJuIgFyDIEwdRtHC0hftnHdxUMap81UdY5yAePzIIUXkv6U3HDSJuoNw8JNF/pGbEuiJeYCrSSsDmLpV7HezGU/i88wPA==
-Received: from DUZP191CA0048.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4f8::8) by
- VE1PR10MB3821.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:164::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Fri, 16 Oct
- 2026 11:04:32 +0000
-Received: from DB1PEPF000509FE.eurprd03.prod.outlook.com
- (2603:10a6:10:4f8:cafe::32) by DUZP191CA0048.outlook.office365.com
- (2603:10a6:10:4f8::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.4 via Frontend Transport; Fri, 16
- Oct 2026 11:04:32 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509FE.mail.protection.outlook.com (10.167.242.40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Fri, 16 Oct 2026 11:04:32 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 16 Oct
- 2026 13:04:48 +0200
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 16 Oct
- 2026 13:04:31 +0200
-Message-ID: <073e5fa2-313d-4d7b-ac10-3a74c57d3c62@foss.st.com>
-Date: Fri, 16 Oct 2026 13:04:48 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ESj09Y43"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso26964515e9.1
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 04:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792148802; x=1792753602; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BhJhQfG6m5IjmjHeVsqFyoc/qVFSsNb+YvIuAxHlx2E=;
+        b=ESj09Y437Yd7ChKt64/8190ixvdd1GI7Rpw0NCi4KlLUSQhvg0mNol82R/hjz80H3B
+         xGSxSkMo/STmJ68ETvUv4W9RPyJdmrBQ6HgcV0qpIrHh/sxjG3a09VUMQKHy/MM9VZq6
+         m6fL35gsxbqFqbVi8IHR+Ip+yT97kUZOB7X1eevgBvfLQ6kr7siDThky7GLHatX9efXw
+         rb+cLRdDb1AZu92DOLyeR4jYz4IuVH0wpPwzej/TUEKaMDaHhoqCip7m8+yzetFryDA8
+         oTAYxyJchkgmQfopLpiHM//QiTTLThDuuq2OJnAI55PNLljk/j6mw6IL9LnIKLD6cE/w
+         tKdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792148802; x=1792753602;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BhJhQfG6m5IjmjHeVsqFyoc/qVFSsNb+YvIuAxHlx2E=;
+        b=Cr5u2NmTwkvmnLR4QBp94+ba8Nz7y6Hooc0RniQxIJNzdVwUujAbhZl0y8moHxHFCU
+         m9pk3+EW5Dl1sV10gM4xnH4b6FhGnBVjFQyLwoJIYXcmutwvBMJ500fX1Ea1GbDWWPbl
+         gtUeK8vcBcyMI7dAZRa8ykTwDxWiYfGtjbtDSaqVuzh8kRWKPlGbJn5bcfxUGMGxWfKr
+         nSX+3VTRR58ZZbry+OXxAavBvKtlF8Ef1/lpudFtXchSVicGPKX2vfzjBuvP5S0YINbW
+         ljr/FLZMzRGioh9jva6+nExpaR2WfonutZ6eyJPiZPhkxZ62XaODJ6pAtKBMsbZzrco4
+         5V+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwDzZXYvjaG/wXaSLUQhQ6UnN6fhJXT0JrahnvQ0vnBFWJfjY98hZHM4Dvaa/Q6036F4bOySLkg5jkh+Q==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKR7nK4I7eL2bi63mmK0DmRmPsMTWEtWHBvX3aQU50/Ix7tFUPR
+	V01S5j54QObNiFjrcE03502vFjkvllo1u7FGtiuSnhPYvSIHW0IG+k4djKWYAgslv+g=
+X-Gm-Gg: AYBFou26SuU0VdQawbEyB+HR53by0cWkQyCeK53K7FUvulZxXiEOwLBRIOMpYeUg7xO
+	bce9jZbPbjqWNU/N+bwdVREDaXrmjkrfMdrpg3nc1Po2VaI9neLDYOMtDsh1WHge9vBK+2oYXJS
+	IiZTYQGGsdh1epwCyuVsizKhCeCNmU19nFKnX788Xhqz2ZLozA5SJP6Vk6QFbsywfMLU8fE7oI+
+	U8NIEK1gwgUD4UvinQyxTDNBBMCeAIxRDQrk+rVc/5PjZ3VEGbvgQ6pXmW2P9ljTSa3PFjKuyL8
+	u83jGWerz6lK2QlIFnVrjig6SwugesW7sArmHooWChPyjw7pXWPX/ARWXyyGDo74UQaVUJwcmWC
+	jz1F/ehDHmccq23VY+BXFDNgL0SzOcuGO+Cf/gHFRxhL9cxhra2xhZOODVMVxkSsHLPjvIbrzIz
+	M3hrHibnRLe5mY8snqRn5jhlfzCdzNVHbJhJhHpmMvYmYEHMjps7uvPtfWKQ+gOpH6hQpDF1Rxh
+	zKfeop/RTU=
+X-Received: by 2002:a05:600c:46cc:b0:4a1:688d:a41c with SMTP id 5b1f17b1804b1-4a18e4c06a8mr423248765e9.25.1792148802433;
+        Fri, 16 Oct 2026 04:06:42 -0700 (PDT)
+Received: from [192.168.0.167] ([109.78.92.136])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4d4978sm4017925f8f.21.2026.10.16.04.06.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 16 Oct 2026 04:06:41 -0700 (PDT)
+Message-ID: <a295568c-1599-45c1-a60b-66fc106a2281@linaro.org>
+Date: Fri, 16 Oct 2026 12:06:40 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,98 +69,132 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: i2c: vd55g1: Register as a sensor sub-device
-To: <geocausa@gmail.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>
-CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Peter Marshall <pm@petermarshall.ca>,
-	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com>
+Subject: Re: [PATCH RFC v2 2/4] phy: Add MIPI C-PHY configuration helpers
+To: geocausa@gmail.com, Vinod Koul <vkoul@kernel.org>,
+ David Heidelberg <david@ixit.cz>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-x1e-cphy-rfc-v2-0-377654253193@gmail.com>
+ <FSgHquVCF3k-Ipt8d6Xu8eAn745A_NyIA7d_BvByx3RTufBZXE-NlVL7jHWYixnuNYx8MvrFfT6LUcHtq-BXDA==@protonmail.internalid>
+ <20261016-x1e-cphy-rfc-v2-2-377654253193@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FE:EE_|VE1PR10MB3821:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3288e2ce-a546-422d-ad25-08df2b7541cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|34020700016|376014|82310400026|1800799024|36860700016|23010399003|6133799003|10067099003|22082099003|18002099003|11063799006|261009223027099003|56012099006|12100799066;
-X-Microsoft-Antispam-Message-Info:
-	4fX+UVlkUePerZtqXeye5fZVFXhEDIuwa5ll6Xf5qzd3xu43IO4aXgkfWqmTu5gxq7qypskSH5EUxxyyV3xIXs0fA8Rsu4AqhWR9oDMzqATafXKuAgFc8F0pCPoltzwPo/s9iUf+gA1ajhmW1KI6JfrMQSNODZGDGq3d1W46Jl7XshCV9SjO67WQt0dR7tAXIOgT61nN0GB7VuSPhn8fBjn6wV9+RDmEzY7HwAhMr+Q47drzsQqqFcQwDjdRQJ+fVKtXAEYrx7HFTQL6Zhhj/9UxGGoQDuP9ZGy50B+plZPcmUGZ3PCqv2tl2PKbk1e7lJNrlnVzE1tx+iHLvzVoi98BncSiib9YAcDaJz8y/0xmAg3SeGp78ELqFi7PbhP5ZzN6//RJaUfhF0ow6P4QVMfCKo3IOtKCd+hhu9jVOQWLCJBPVgVgBE7v8rhMgjdPJdKfHr8++o1upkghFWcZRUeSF64hyWiX74DJpudechptWorJHh1/tPrdkwd82K4N3jmJElYUJPoCS7o9h9XmLNx20mr6FFxdj7bcPmvguaeyRfK1i2vv1FhgfGxhsOJL0/Rx1yDAT9S8fCM1p5EOBnF6ZrKBnWx0M6ooTrlaBvDzayP9Z+neSehnEjjeMq7f46PCYXefuZwnzuZB8MONwmKQryjJ3iaR0JrGnzXUXG+wL1RYRTbIDq1Kx6Ud6pBvbPsl1l6rPtxKGn5Vc+f0sA==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(34020700016)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(6133799003)(10067099003)(22082099003)(18002099003)(11063799006)(261009223027099003)(56012099006)(12100799066);DIR:OUT;SFP:1501;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Mmm0C2RhB2lbusnTAzNl989Bmz2UddYK7mK5CTIr0zsojSbWa504ANdGkGzXarJUH2dJQG0OpMZ+fS87SuwdDSK2LGKxfM2ruUWkiZF3n4XiiaAQxGtwwNMYjGy6fwRmC8MlgfY3PoaBGvhck6ya3bsTG6EvdRq45iNmoFpP3aNtp8m9B5Drmi2oly6UtGz/v8i+OQIx5LJWsZ7TPh6qd6jMYw3gNsP9hQO3IBswVurYpBrWL2dVdLdJTpnoCgV9qgHZB3JsIoefzjN7E4ziY35+4f9JLwIT9nR8pkuSx/h/U5vvmbEK8D4fGQi7aMqqdCXT2jaenoE+Sp4gTLs9F3Vv9BuZ0TqsxwPsGr4yNI5C9j8xbCdbHQt/mHuzIvmkIbv1IECW6WoZI4Idf0cHlTUzIwERy8VhTs+hvH4cqfIfGB4k6gwIJKGG6wv3NZBl
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Oct 2026 11:04:32.4094
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3288e2ce-a546-422d-ad25-08df2b7541cf
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509FE.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR10MB3821
+In-Reply-To: <20261016-x1e-cphy-rfc-v2-2-377654253193@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi George,
-
-Thank you for your patch.
-
-Le 16/10/2026 à 08:37, George Neacsu via B4 Relay a écrit :
+On 16/10/2026 11:57, George Neacsu via B4 Relay wrote:
 > From: George Neacsu <geocausa@gmail.com>
 > 
-> The binding references video-interface-devices.yaml, so a board can
-> link the sensor to its illuminator with flash-leds. The driver
-> registers with v4l2_async_register_subdev(), which does not parse that
-> property, so the flash sub-device is never bound and never appears in
-> the media graph.
+> A CSI-2 receiver knows the link frequency of its transmitter, and by the
+> V4L2 convention a C-PHY link frequency is half the symbol rate on each
+> trio. Add helpers so that the receiver and the PHY do not each open-code
+> that conversion, as phy_mipi_dphy_get_default_config_for_hsclk() does
+> for D-PHY:
 > 
-> Use v4l2_async_register_subdev_sensor(), which also handles flash-leds
-> and lens-focus. v4l2_async_unregister_subdev() already cleans up the
-> sub-notifier it creates.
+> - phy_mipi_cphy_get_default_config_for_link_freq() fills a
+>    configuration from a link frequency and a trio count;
+> - phy_mipi_cphy_config_validate() checks for a symbol rate and one to
+>    three trios;
+> - phy_mipi_cphy_link_freq() gives the link frequency of a configuration.
 > 
-> Tested on a Surface Pro 11 (X1E80100), whose VD55G0 IR sensor (with
-> Peter Marshall's VD55G0 support applied) drives the PM8550 flash LED
-> in hardware strobe mode: with this change the leds-qcom-flash V4L2
-> flash sub-device binds and the IR LED can be armed from userspace.
+> They are small enough to be inline, so no new Kconfig symbol is needed.
 > 
+> Suggested-by: Bryan O'Donoghue <bod@kernel.org>
+> Suggested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 > Assisted-by: Claude:claude-opus-5-5
 > Signed-off-by: George Neacsu <geocausa@gmail.com>
-
-Signed-off-by: Benjamin Mugnier <benjamin.mgunier@foss.st.com>
-
 > ---
->  drivers/media/i2c/vd55g1.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>   include/linux/phy/phy-mipi-cphy.h | 61 +++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 61 insertions(+)
 > 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index 6f458f6..8e050b4 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-> @@ -2043,7 +2043,7 @@ static int vd55g1_probe(struct i2c_client *client)
->  		goto err_power_off;
->  	}
->  
-> -	ret = v4l2_async_register_subdev(&sensor->sd);
-> +	ret = v4l2_async_register_subdev_sensor(&sensor->sd);
->  	if (ret) {
->  		dev_err(dev, "async subdev register failed %d\n", ret);
->  		goto err_subdev;
+> diff --git a/include/linux/phy/phy-mipi-cphy.h b/include/linux/phy/phy-mipi-cphy.h
+> index ef6af61de..f6746dcb0 100644
+> --- a/include/linux/phy/phy-mipi-cphy.h
+> +++ b/include/linux/phy/phy-mipi-cphy.h
+> @@ -2,6 +2,10 @@
+>   #ifndef __PHY_MIPI_CPHY_H_
+>   #define __PHY_MIPI_CPHY_H_
 > 
-> ---
-> base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
-> change-id: 20261016-vd55g1-async-sensor-5be09860b38a
+> +#include <linux/errno.h>
+> +
+> +#define PHY_MIPI_CPHY_MAX_TRIOS		3
+> +
+>   /**
+>    * struct phy_configure_opts_mipi_cphy - MIPI C-PHY configuration set
+>    *
+> @@ -24,4 +28,61 @@ struct phy_configure_opts_mipi_cphy {
+>   	unsigned char		trios;
+>   };
 > 
-> Best regards,
-
--- 
-Regards,
-Benjamin
-
+> +/**
+> + * phy_mipi_cphy_config_validate() - Validate a MIPI C-PHY configuration
+> + * @cfg: configuration to check
+> + *
+> + * Return: 0 if @cfg has a symbol rate and one to three trios, -EINVAL
+> + * otherwise.
+> + */
+> +static inline int
+> +phy_mipi_cphy_config_validate(const struct phy_configure_opts_mipi_cphy *cfg)
+> +{
+> +	if (!cfg->symbol_rate)
+> +		return -EINVAL;
+> +
+> +	if (cfg->trios < 1 || cfg->trios > PHY_MIPI_CPHY_MAX_TRIOS)
+> +		return -EINVAL;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + * phy_mipi_cphy_get_default_config_for_link_freq() - C-PHY configuration
+> + * from a link frequency
+> + * @link_freq: link frequency in Hz
+> + * @trios: number of active trios
+> + * @cfg: configuration to fill
+> + *
+> + * A C-PHY link frequency is half the symbol rate on each trio, the
+> + * convention V4L2 uses for the link frequency of a C-PHY transmitter.
+> + *
+> + * Return: 0 on success, -EINVAL if the resulting configuration is invalid.
+> + */
+> +static inline int
+> +phy_mipi_cphy_get_default_config_for_link_freq(unsigned long long link_freq,
+> +					       unsigned int trios,
+> +					       struct phy_configure_opts_mipi_cphy *cfg)
+> +{
+> +	if (trios > PHY_MIPI_CPHY_MAX_TRIOS)
+> +		return -EINVAL;
+> +
+> +	cfg->symbol_rate = link_freq * 2;
+> +	cfg->trios = trios;
+> +
+> +	return phy_mipi_cphy_config_validate(cfg);
+> +}
+> +
+> +/**
+> + * phy_mipi_cphy_link_freq() - Link frequency of a MIPI C-PHY configuration
+> + * @cfg: configuration
+> + *
+> + * Return: the link frequency in Hz, half the symbol rate on each trio.
+> + */
+> +static inline unsigned long long
+> +phy_mipi_cphy_link_freq(const struct phy_configure_opts_mipi_cphy *cfg)
+> +{
+> +	return cfg->symbol_rate / 2;
+> +}
+> +
+>   #endif /* __PHY_MIPI_CPHY_H_ */
+> 
+> --
+> 2.53.0
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
