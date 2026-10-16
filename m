@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3103D0934;
-	Fri, 16 Oct 2026 20:43:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56A71AA1F4;
+	Fri, 16 Oct 2026 20:49:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792183434; cv=none; b=PfjsSlOAm7YQkwdbd6tWedJXSan2ijoI9kAKHosEJ5Ba5XO8LI2ySJCUsISd7bQ7v3kVm25W644UR6ZwAhd4rlTgY+meGdccr92+KiJUjpGvd9f1APgf5oLUH6UxbcRnJYmbHB3deUQP+bzLUEcRHm4gtBT+iI0CRa85hc7VJ3E=
+	t=1792183762; cv=none; b=C5s+B519YcME6mXfqC2quffKJ4BiFLgeCMKmYHpAbomt5MPq27B58xh+t5pw1pJF9TpaRLAYcRNOCh5Crlg/tjeDIrriS6HOumhxP9O9f0bXs0Dbl9MvsJHWE41o95wdqO8vNGDN9UYliEhF7gYCIzMTNS/BV//w0M/oACRk3lU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792183434; c=relaxed/simple;
-	bh=9pFfdb1mqqzB2zkxg+3++6pQpqkGbfWo6kmaRppLBNA=;
+	s=arc-20240116; t=1792183762; c=relaxed/simple;
+	bh=F1YwocGuB5wBG/+T9FgM/ZWNUxNhaSBy6/kicqGxaYs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jQ5X+je+Sqf38zDQyLI7FOubfiQQQqQ8QySKZXv84b78/v8tnkkfDK5pycIOLbAuosMKtvhGVp6xVrj+rx/R/jGufhheAkCKBAEXXvNdX8sHeKLHqVonPulYiA+JoBfOP9GNFwovROxyQNPaJVbB1rmo8fPuNl+OnhEUuC23gPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8jlt6ib; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=VZYCNYGwGHnFCe9PvFglu3PumRq1eulfTLu268qRmaZB9W7BJj+il/WyGL57eF+OzuNyxsyR0ozoSfVLVsmyMt3AldtwgYqlMuvcqg+7d8ajh9kf2lCHT8FB6bJRxu8wmgb7Mg6bFhv1VoLOdRHkRHOWgQJQoMI4kURo9ezEISk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovh0gvhL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8jlt6ib"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B991F000C4;
-	Fri, 16 Oct 2026 20:43:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovh0gvhL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735151F000C4;
+	Fri, 16 Oct 2026 20:49:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792183433;
-	bh=Bf5qdq81dvzp9rRdjUasKtuOogly+3hm0PHe3sSTBxQ=;
+	s=k20260515; t=1792183761;
+	bh=r4J0Jzg7N3u7C0+ED/NwcN1PIj5f66Ln1oWcN4Vza+k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=U8jlt6ibqFx7JchdbH4BHw8gYvPR64+hnJOzcuaqhblHDh4DSYrPruiMTnonCCt0n
-	 NcQviVw7PlkNCbagtGio1mLpcpVFI+bXjjgAWz+EO8LCNgRVPmVCL0IuQrdzPCfcjZ
-	 1PNCksFsaEo4/PH+dXkDkIaQ8uOJ8gxkMPnym0exe5BXRVll9cq92HdGxOW91hZfXB
-	 P3CEB7kqhxPu06z0/cJYqbDjZWP/19wf5dHbsduqfcQpbaKufsPQTL9UDiV1A4nfOW
-	 Jwg7PywfxekkPlHesMSjpCjZmxHeW+YUf0f0MvdD3iOunnUU1e5Re4g4d8psL0Xvpq
-	 xtrh4VyReXwww==
-Message-ID: <711e8518-5054-49ab-8432-346049a86cd1@kernel.org>
-Date: Fri, 16 Oct 2026 21:43:48 +0100
+	b=ovh0gvhL3qxeKhuyycOjLHcdQQz7A0m2LCRpdUEl+4chPm3CNyHavohKSzvjia8WO
+	 LhFK+Xen9mblMKuPQp/RBa2hQMor5nUa3JSK3sCbExlnaOeAkiaegEzBnaWJm+utrO
+	 S6Z636g60fBl588UUPK7zM6avTRmXh0xtGRUe/jgaDZ1ZW6XG6hor/J+68VzYH2czA
+	 OGC008TxHc96R016RhL89A8qSNiJpdzzGsTVByOOJBX/CkAFPSJqlXMvLu/0O0dhyV
+	 NCOzM1I278C9+tlxqep2O8Su+6g+ub6kmN7FileiwOjXPJcxnn2q3r54ZvP7LddIdh
+	 TuULDFx9CI4Hg==
+Message-ID: <4359bff8-edb2-486a-8d41-38bd315a4430@kernel.org>
+Date: Fri, 16 Oct 2026 21:49:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,20 +35,17 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
-To: George Neacsu <geocausa@gmail.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Sergey Lebedev
- <lsa.uz@pm.me>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
+To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
  German Pablo Lindo <germanpapulindez@gmail.com>,
  linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
- <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
- <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
- <MauBAKkof1YpFlKvbDY7aCVPJ7mWZAEfTqh_cFY0daJOpY1UolMkV0PgU4LBc2A7dPrI2RmhQYAlVg5SLA9fmA==@protonmail.internalid>
- <20261016161618.209290-1-geocausa@gmail.com>
+ <Tb0AcYbDPldfaB1S1ypqTPp6iFwxJVF_1Dh_7FJdavARv0U5KErpuPTQn6FNDYBoK206hZlqZHDsasGYmQx4zg==@protonmail.internalid>
+ <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -94,71 +91,21 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261016161618.209290-1-geocausa@gmail.com>
+In-Reply-To: <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 16/10/2026 17:16, George Neacsu wrote:
-> Hi Bryan,
-> 
-> On 16/10/2026 17:06, Bryan O'Donoghue wrote:
->> You describe regulators, clocks and resets in the yaml file which then
->> don't appear to be supported in this result code ?
->>
->> - regulator_bulk_;
->> - clock_bulk_
->> - reset gpio optional
->>
->> I don't think this driver would survive suspend/resume.
-> 
-> The power handling comes from a prerequisite: this series applies on
-> top of Sergey's "media: i2c: ov13858: add regulator, clock and reset
-> GPIO handling" v3, as the cover letter says, but that is easy to miss
-> from 2/2 alone:
-> https://lore.kernel.org/all/20260831130312.26296-1-lsa.uz@pm.me/
+On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
+> +  - clocks
+> +  - avdd-supply
+> +  - dovdd-supply
+> +  - dvdd-supply
 
+The clocks, supplies and resets should all be optional as nothing says 
+Linux must control any of those on every system.
 
-Hmm if you use b4 to generate your series, the tooling will pull this 
-type of thing in for you and reviewers like me.
-> With it, the driver gets the three supplies with
-> devm_regulator_bulk_get(), enables and disables the clock it already
-> takes with devm_v4l2_sensor_clk_get(), and takes an optional reset
-> GPIO. Power on and power off are the runtime PM callbacks through
-> DEFINE_RUNTIME_DEV_PM_OPS(), which also routes system sleep through
-> pm_runtime_force_suspend() and pm_runtime_force_resume(). So the binding
-> describes what the driver handles once both are applied. On its own,
-> 2/2 only adds the OF match and the endpoint checks.
-> 
-> I cannot claim it survives system suspend on the Snapdragon model,
-> though.
+i.e. you might have a co-processor or CPLD which owns the reset, 
+power-rails and the clock might not come from the SoC.
 
-No its fine, I'll pull that series first. "Wouldn't survive reset" 
-actually meant "I can't believe this works without powering on the 
-rails" but the other series does that ;)
-
-  System suspend is still an open problem on the Surface Pro 11
-> under Linux and has not been validated, so I cannot exercise that path
-> here yet. What I can test is the
-> runtime PM path, which is where the supplies, clock and reset are
-> switched: the sensor powering off between sessions and back on for the
-> next stream. I will run repeated open, stream, close cycles and report
-> the result. Sergey, if suspend works on the Intel model, a suspend and
-> resume test there would cover the rest.
-> 
-> To make the dependency visible, I can carry Sergey's patch as 1/3 of
-> the next version, with his authorship. Sergey, would that be all right
-> with you, or would you rather post v4 yourself?
-
-No need
-
-b4 prep --edit-deps   # add: message-id: 
-<20260831130312.26296-1-lsa.uz@pm.me>
-
-b4 prep; b4 send
-
-Then dependencies should be represented and sucked in automagically.
-
-> 
-> Thanks,
-> George
-
+---
+bod
