@@ -1,118 +1,144 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C763D890C
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 20:27:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035C23812DB
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 20:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792182432; cv=none; b=XtimNey2KxjhlHatlO/lfeJOUwR4R0abwR0rovtDxTxwGUJmE8dMen5GSSb9PdMewQbAIzNGUU4krBJmmtzyHGyXzTEASQMKRXC6WzLANAtuz7iso0GvCuHX4F5T4svJwV/9WFEZEA3hCLAMRWFxDgGLRoR3sUNp8lz9hk8wBt0=
+	t=1792183125; cv=none; b=t/kaF1x+auGurfAGwmjEIArJwhZuauwjOMylNf8tvEPXlRN7p9Fq9CP97WBcGGIb5eIDVK3kfnJ3gDFoB+Ph+C12W5wqglhsT0o1yU24beH81kDIoU1HXoIAEfNX/4UTob9VI9dmzJxNbOCPFF7TdXTc4D82ee/kEGU8+b5Tz50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792182432; c=relaxed/simple;
-	bh=y56vd30Wr7TcmwqX+oaJan1jX2dTu657n7x+TmtkUhg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=YoH8MswMxPK0Z8uewjwkP/7CfqcKuCOQzkHHJYgxaRVYV6GTSAhadU9gK8ENHUo0wWIZLtyWWP9TEiBFByae7V+Rhzk2Vth/+Mx8f7Krr3HR4DqN8MTqykEihF2ExPaLzX0Kz6krIrHITh9FyuoJVnaGzlAhLRboSEqsDJDjMiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZzV39hIl; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZzV39hIl"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1cef0439aso3778625e9.0
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 13:27:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792182429; x=1792787229; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jqtp5LPxF0IFxOJfCVzAQN6SnoPJKqsXWwttpYr3O58=;
-        b=ZzV39hIl2wZ5t4+xNme0Bdr4ZRSqcxYYp7uYS/7jVGDaPVG56tesxN+MpnElQJ83Ji
-         Bo32FnMX6PPJFG4KUd2yqMIoL2jQdqPoVLY5ex4O5V+oVQjqXvd6tncc8p+Hvs1ynp1U
-         b/OO5hhlfFGHM2FKoIRP8JRte64tpEzf6QdUa3H/MmuPXyZMUmV/tQAtaVclWRln/AOJ
-         tmOgWd2FisXi892ym76ZuCdI/Ywb2Q6OOyLKu5oxfMw1Ck3qlNdi3BS6QIA4RkslXXTf
-         uzD1O9DIwWCjpSpw/VHcHqCK2sU/ULbd1035+Npq0oLMVfyrI7Nk8KrpPg8It45X6Gzp
-         ibhQ==
+	s=arc-20240116; t=1792183125; c=relaxed/simple;
+	bh=3Lhri/9i3TNtw9R/Tcbw/mOjoERB6hK1pH191CCiSzM=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=eCc67AbcupoXkj/m9c1VTAQyJyHlmn/5w6wge1e1eErEg7I6WFFe3IDh772DjSyjNx9IS2NV3gamM/KxwdGtOloJ7hvGJk582/m9siIiWmGuVm5xoiX9TYYvMT7oXkrSuMIWh6d2f5mvJrFYryYVU/d7QB8MwP29dcDOd3Me3y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-49e5451d6a5so499910fac.1
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 13:38:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792182429; x=1792787229;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jqtp5LPxF0IFxOJfCVzAQN6SnoPJKqsXWwttpYr3O58=;
-        b=BDWnBsq336MN5yCCUGsj0TKTurxcjqQtIFO58sSKFdsGLsoc0iD8JNCH0jqZgjB8LZ
-         GVw/03TwUFhwT271ZcbHG62fUiGn1/KryDKeVr2wrCuFLlsTzerjXArI8/LpIx31f684
-         jEIiZvQGdVBzYQ2H+UDUjRgd9AZfNqgl3C5FqPEndtgPXL3roXOl2XSk0YN1LXHGsaIV
-         c4keHIXYWx2H9UoXBjnhvBLi9y5S8KYFH7QdeeCuo2rv6WOs0TyZuJgEv5IVxLx9CMQ7
-         lPm29SHNMGvRXVTSQG6wSFHLrOkKps9dQfIxKPiozOt0zPE8eKPViYJAJssDqRRHnGiU
-         TZ0w==
-X-Forwarded-Encrypted: i=1; AKwUvBxgoVr4snfKN45kpavsgACQ9kUJPatYmOtuVbsi+F7EUOobURr8awR5uJUC7fgluQFyy/QOkY1Fwn8MiA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJkkXzu2v7dTc2YfK4BGZso0CTiFEbhJKjZwXQhsZzjoKzE4qfD
-	qP7LU4nFsLtSBlfwE6feaVNHWF2hFHp7lhyEBvZYG/82sh1KYWkEKUIQ
-X-Gm-Gg: AYBFou0vmhcULsA2Ru7HWyYzjowwD7F0gBMo5sjB9DiGJzjFq1UsWNZh4n9Y0kb1XoU
-	xk6M40CL3g7QqQZb/2ggGNSyXsCPhN0+XxLTz9FDcvfwJBJoJujofHbYT1DlZKuyvnA35I/D9Gv
-	gCbMWD/WhMUr4WYzS517EOolFqSD/GLs7wc/6WqBx7UlyN4p2KyU1wh9lUfv7f03CchRKDpFBPz
-	wyj2Mh9qr4No9GmqbGj5M9vjTNN4oBJkh5zfu95zxUYG83sNt0AB9x7ggfFM7Q4uE1i7i4o0238
-	246qgVKEokwWwiBV0tfmaqbehDvnhCx3NutKMOijtdA8dX87pq9KNeF/PUG4NY5wcMUeD1IGeSU
-	TUu4Kbv8k1jGrFtNFoS/6v7sZqwBEvvkiiNL9ZH5krnMW3Ty26QZ893NzSQFqGrSQVILYDa7KGc
-	6ybYBaYgaM/GypTHbtfEI6RMdBLNsJvlvPYaf86AdOxTKT8BzuT4b/CwnLqY6jnHY9xARNd3aCw
-	QCMtczEoLdPx9X0INQa02EW8dlBec31yz9Ct2OBe/TqFbEbso1M6CBrUHuQ3QvAgzQwwFkMp+E0
-	PAAD1fg0sDp7PBg/D2/45XOhByimzP2oGRHZAtkhF1cnuuFD4ssmcgZIOh16PC8onibgSl8ZpMq
-	n0Q==
-X-Received: by 2002:a05:600c:1393:b0:4a1:d248:25b5 with SMTP id 5b1f17b1804b1-4a1d760e327mr19553895e9.24.1792182428699;
-        Fri, 16 Oct 2026 13:27:08 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a951-9501-1471-d90c-a21f-9dd7.310.pool.telefonica.de. [2a02:3100:a951:9501:1471:d90c:a21f:9dd7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1d7659805sm22421075e9.7.2026.10.16.13.27.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 16 Oct 2026 13:27:08 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Christian Koenig <christian.koenig@amd.com>,
-	Dongwon Kim <dongwon.kim@intel.com>,
-	dri-devel@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	iommu@lists.linux.dev,
-	Kevin Tian <kevin.tian@intel.com>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	linaro-mm-sig@lists.linaro.org,
-	linux-media@vger.kernel.org,
-	Matthew Brost <matthew.brost@intel.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>
-Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
-Date: Fri, 16 Oct 2026 22:26:53 +0200
-Message-Id: <20261016202653.97339-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
-References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com> <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+        d=1e100.net; s=20260707; t=1792183123; x=1792787923;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AY8LAWcYNYyJyH/2TYt4cmd1InLt2Z9ePL5WuUaiwao=;
+        b=03kInYaNJY+40lAn7MVQLwoUge3/d+TQepRtPxW6EUFD+nvl83NSUkGUZ1dPxvW98d
+         plA5V6WqIOWvnr31c49YA9ScwtQWbBhmUamIF51pWlJu1r0hu6wRWVlNtMN1WkawIlOC
+         nuz6NM4YguhuY/Lp9cfLfbY2JfKPY23hfWBOHMjhmtrxIhtr9QDY0FRR4+VWLpbF2YFD
+         aS73jsx75ZfjnHntFbmII8qyzO9mDttjzbeXJ/Rw8wXP+OcUP0To9u2xCqYOtVLFpoJK
+         0wVkAvIXyf6SoZog4wtcfthP8xbNgwK12NP2foIDJqaouB8DqE1YKSG1csfuSIf4zULQ
+         grYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx+tA8ve7yUfsMhZRSKShnHQR22VljOtDSQHvJbo/8Vb2Id5J7DQwdXo1iM/Pb0TWLr6uIuJwljzH2Hzw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLr0McroJ9ZR3mckKVIBKkdfteRqODewakSkKj8knvM7SwuIF28
+	oAL0kH5r9bpspcvSUwleOIlpA5c6yJiK9rBCbjU1UbfDQMa0NuiiHEn2WuHaPtdDGhXUkScuMKc
+	n4fyFDTDj0vwmeAE537dDFyX3qu5TZY11KM1AWiDrWFxbNv5rV88rntZPXVA=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:3509:b0:4d7:17d5:6c9b with SMTP id
+ 5614622812f47-53cc1ef9b0cmr725570b6e.9.1792183123019; Fri, 16 Oct 2026
+ 13:38:43 -0700 (PDT)
+Date: Fri, 16 Oct 2026 13:38:43 -0700
+In-Reply-To: <6ad27bcb.6814cce4.34c49f.000b.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad28b52.a6d1a155.34a93f.0005.GAE@google.com>
+Subject: Re: [syzbot] [greybus?] WARNING: ODEBUG bug in gb_operation_sync_timeout
+From: syzbot <syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com>
+To: elder@kernel.org, gregkh@linuxfoundation.org, 
+	greybus-dev-bounces@lists.linaro.org, greybus-dev@lists.linaro.org, 
+	johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe wrote:
-> +	match_args.attach = attach;
-> +	if (dmabuf->ops->match_mapping) {
-> +		ret = dmabuf->ops->match_mapping(&match_args);
-> +	}
-> +
->  	attach->dmabuf = dmabuf;
->  	attach->importer_ops = importer_ops;
->  	attach->importer_priv = importer_priv;
+syzbot has found a reproducer for the following issue on:
 
-I may misunderstand the intended contract. match_mapping() runs while the
-attachment is still zeroed and without dmabuf->resv held.
+HEAD commit:    2f2f7eeef8b0 Merge tag 'soc-fixes-7.3-3' of git://git.kern..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13a0d18e580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
+dashboard link: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=172ff571580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1333e971580000
 
-Patch 11's amdgpu callback needs importer_ops and importer_priv, so its XGMI
-match cannot work here. Patch 12's VFIO callback asserts dmabuf->resv and
-reads priv->vdev, which cleanup changes under that lock.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-2f2f7eee.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5c84d55442c9/vmlinux-2f2f7eee.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/45a44266fe39/bzImage-2f2f7eee.xz
 
-Should the core initialize the attachment and hold dmabuf->resv for
-match_mapping(), or should callbacks avoid attachment and lock-protected
-state?
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
 
-Thanks,
-Karl
+greybus greybus1: 0/0:0: synchronous operation id 0x0003 of type 0x14 failed: -71
+------------[ cut here ]------------
+ODEBUG: free active (active state 0) object: ffff8880353040d0 object type: timer_list hint: gb_operation_timeout+0x0/0x110 drivers/greybus/operation.c:1265
+WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629, CPU#0: kworker/u4:7/180
+Modules linked in:
+CPU: 0 UID: 0 PID: 180 Comm: kworker/u4:7 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: greybus1:0 gb_operation_work
+RIP: 0010:debug_print_object+0x18a/0x230 lib/debugobjects.c:629
+Code: f8 48 c1 e8 03 80 3c 18 00 74 08 4c 89 ff e8 cd 97 4c fd 4d 8b 0f 4c 89 ef 48 8b 74 24 08 48 89 ea 44 89 e1 4d 89 f0 ff 34 24 <67> 48 0f b9 3a 48 83 c4 08 ff 05 73 bf 8c 0c 48 83 c4 10 5b 41 5c
+RSP: 0018:ffffc90001a2f780 EFLAGS: 00010246
+RAX: 1ffffffff181f08c RBX: dffffc0000000000 RCX: 0000000000000000
+RDX: ffffffff8c6df740 RSI: ffffffff8c6df1c0 RDI: ffffffff9185c030
+RBP: ffffffff8c6df740 R08: ffff8880353040d0 R09: ffffffff8c0f97c0
+R10: dffffc0000000000 R11: ffffffff81b3f760 R12: 0000000000000000
+R13: ffffffff9185c030 R14: ffff8880353040d0 R15: ffffffff8c0f8460
+FS:  0000000000000000(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f5280b524c0 CR3: 000000000fb48000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
+ debug_check_no_obj_freed+0x2e3/0x450 lib/debugobjects.c:1201
+ slab_free_hook mm/slub.c:2679 [inline]
+ slab_free mm/slub.c:6509 [inline]
+ kmem_cache_free+0xfd/0x650 mm/slub.c:6636
+ gb_operation_sync_timeout+0x1c7/0x270 drivers/greybus/operation.c:1172
+ gb_operation_sync include/linux/greybus/operation.h:203 [inline]
+ gb_svc_pwrmon_rail_count_get drivers/greybus/svc.c:137 [inline]
+ gb_svc_pwrmon_debugfs_init drivers/greybus/svc.c:772 [inline]
+ gb_svc_debugfs_init drivers/greybus/svc.c:827 [inline]
+ gb_svc_hello drivers/greybus/svc.c:875 [inline]
+ gb_svc_request_handler+0x902/0x1300 drivers/greybus/svc.c:1276
+ gb_operation_request_handle drivers/greybus/operation.c:243 [inline]
+ gb_operation_work+0xe1/0x960 drivers/greybus/operation.c:280
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	f8                   	clc
+   1:	48 c1 e8 03          	shr    $0x3,%rax
+   5:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
+   9:	74 08                	je     0x13
+   b:	4c 89 ff             	mov    %r15,%rdi
+   e:	e8 cd 97 4c fd       	call   0xfd4c97e0
+  13:	4d 8b 0f             	mov    (%r15),%r9
+  16:	4c 89 ef             	mov    %r13,%rdi
+  19:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
+  1e:	48 89 ea             	mov    %rbp,%rdx
+  21:	44 89 e1             	mov    %r12d,%ecx
+  24:	4d 89 f0             	mov    %r14,%r8
+  27:	ff 34 24             	push   (%rsp)
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	48 83 c4 08          	add    $0x8,%rsp
+  33:	ff 05 73 bf 8c 0c    	incl   0xc8cbf73(%rip)        # 0xc8cbfac
+  39:	48 83 c4 10          	add    $0x10,%rsp
+  3d:	5b                   	pop    %rbx
+  3e:	41 5c                	pop    %r12
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
