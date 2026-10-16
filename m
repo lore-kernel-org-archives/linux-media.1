@@ -1,131 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176553BE162;
-	Fri, 16 Oct 2026 08:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A02445D92D
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 09:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792141147; cv=none; b=axwde4vkAFv2pMN/IFCOa996YI4lXyK1dYMMhxRg8xaxhNOYTaVnssLgkmRxZQZGYe2iBM+0riILxZ43TzKs5+5moNjbb9SwnfQIH1tm3Svdm+lBw0vaclAKEH/R2pucSbo3Zth9GKMWsP9G/GuLJcncdrFG4F4SworA6PV4r1Q=
+	t=1792141779; cv=none; b=OOvVdv5O41RSsRjklwxJYf+/LUXm9Q9O9e3tw40fmVGQJp4aEhobxtjXoWU+1Lbr3Ww+WLUOtCBlbhZurQ0Ev3M0rFDoSmuutzG2c08DE3QvZPriZQkyy3c+qjvNTbhsY65XT8jFR1Pn7JdLhM4/SOMX5H+DaMaQcL0FS8Wc4WI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792141147; c=relaxed/simple;
-	bh=VrYA/HDBqQA+ZTjoWo9LWcV0jiIxpFYwYmbAGMt76Ho=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jr0KpthwAQiLghyJvy4fy2bn5pl8173mE/vXVt2Z/8BFu1rX4eHgO7955OmAGX1S5AzNF1BCNW+h22Upf8ib0tBNVUAqM/FUD13ClASaLn7zcwtvYS/qXc2KDThTeIRp6hYxDGH/B/5dO4/SwqebdNG8Tbs+H/R6nOaUSV7R7tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iKZAdH6a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792141779; c=relaxed/simple;
+	bh=zoRBRCh+klw0RRHEztBmxLr3kasJ1/aZu+NJAAfj+oc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V13xe+UpY6+VFeXBG8aLwSYyrE67kmfN0oQYXx86m6TCSHKYgnu98UFX6wMwhlIgCtovB7QmyXp4jrUlvpZdjOHaD/qrFkwy/xXS8bQm+pb8/ceKFkGeWtmbULKsSwxfOTHWcvSrxi9mhAgpNNOYx5zHTrooF7BFaKkDZj5Sv58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YHdsQZyT; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iKZAdH6a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC951F000C4;
-	Fri, 16 Oct 2026 08:59:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792141145;
-	bh=nPpdVnm6g5QYrhv7wnHITTm8jTbdoDXMNtRDEV9bIMg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iKZAdH6apGbOPL4vI6x/DbzGcGvwJtJIhV1bm5gIKMS+plMRtAVasFYb+sciTlszL
-	 ZAm+dOcox1WcDsUGWu1f4kYoz1I3mmobLhq7zp7XZ2rX2f3oCrM+0MQSs7Idlmc15j
-	 ZGiJh7NLxqBRwqV9LJb8QZb26oIekHBD8OqbDv9i0hpbWzhzonXkLDpcz8NgQdUPyc
-	 JvkTTo8/H2XBJRdfbW8YU+nEH9XBQLWbKYNZWNVGXu6iIG9qBs8rDOWLpOZxHehoYe
-	 uEfQ60zgwO+xhQXTktSwU255RNvFzjHEUBptqPXD6n2lt5w6bU0q4HuTyM6XO6YUFx
-	 LXtiKjXsq9aDQ==
-Message-ID: <9ac0d6de-d6be-40be-89e9-0066e39862ae@kernel.org>
-Date: Fri, 16 Oct 2026 09:59:01 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YHdsQZyT"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso1564383a91.3
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 02:09:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792141778; x=1792746578; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wvlNIlYEgFWeMZAtJnAcYjBkprd3tjTExXS+TYQe1Ss=;
+        b=YHdsQZyTrCsNrISRMw/nPtW0pA+sv0KsPDUDrnb47zXcwKby5/mssYSKNbIhwxtMNA
+         qN5VcDSJINSCJfL+r9aaXdonQPPRgqBOp9E37AUGy9TXtzh/JXv88FBI2K0yEJJYtoPH
+         lIwNk5//BH34kojH0C8eDCqU6oTfxBM+yPpr6DHvlvGnxe/7f7lR4GxvBP8FW2c2tnkr
+         fyWkY9KKWu3WtC70z3M+6a/o3SKkNjPtyOcadcQaiiV93hVcygvqBUFjR6Jfm3mj78lE
+         ESoqc6Eq0d+IAcTORTTnsmFpiVLxbWUqVDbPgCvSZ8cNxW7zmNx8sSFjDLGGJU4ZuzgE
+         AJ2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792141778; x=1792746578;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wvlNIlYEgFWeMZAtJnAcYjBkprd3tjTExXS+TYQe1Ss=;
+        b=GbF93YFd7aTPfPs4vl8HyjtnXCL0J8O7Vc4inNwO/iyLg2DM+nqVclOMQ3aVrie2iw
+         DGNeO9d927DIYpa0Q1lSrC8b5WQ6P3CktzeLBAkcQ/MF1KAEybLyWwl7MG4NlNa+6J1w
+         OV5n2pkscDHZkRFxf4tjsz2ZrJSdPzz0HbaxWQI0oI2xVCqy8Dwvb0KIoT+sWQ7fje8P
+         ti3qRnVTBoz7WiGpaBkOW7AFYisJjzdQ8FXlmrHhb9VyEg+cMy1CRTHHY7KAC4A7Qmck
+         JIQBBkaPDpTANdwJrEp6EYmwOeuQ9A7okzwYD6NMMCbzVIMQ9Qk7Ne2F8Id0aCmpMxbx
+         i1gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLQdwf8IkY6oFy4shsGenPeFEtzuk7lsL48lpCGIomR1nr2hjB3XYktgnWFF3OjcnLEKRgu6RAHncOHA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8keqx2Rb3VE/cZnek8jop4Ue1/jtgUqanMKuiLPBzG8MOjHIw
+	RbeOBzaTi2zDJWzOqzVPM7Stx7EiFGveIPqCfBrFaZ/jveH1m+4jo3Qi
+X-Gm-Gg: AYBFou3qG9bQb51udTQpQFqIwbtGMn36bvflRfJ++0CFd6KDM18x1Hd89eCfIgYO60f
+	3rz+wlBfiv0XqC0AHUOnnpRV/YOdrmB2GlW4SkKC/TL2+V9ZSuD+nhxATZuTrpGsDVSAzKH1xkX
+	x2RnB0O8jifbCPpa641qStTJ55yuXjrwVfz65GbAewUW9GUWAqoyEqSgtWmlWAJspzx9b8TE0I5
+	ARhSNyZCItEimPYjzmtJ7NBeZ5awgkHkCULDMybrmp12u0HWV5+zcnA3A2IiW7Htd5d80nfj/DP
+	QqoRrLktnA+0L2A32xMdIJOVT0SlzNqm8lN3eOoJvoelqfEjfIoMOzvJt9GP0viMYoxzHb6SPSY
+	mPtJwyE3X6AC0uxOd4ubrcoPo3Dw5gHhRBUGeP380G9Ki/uT2pfAkhAkCv3Z0gvUmtyeLFiig8b
+	DxAUHTDRxpxA5Sx5eldsTFpH5cfM9Rq8X3UD2E8QMp1kz2HovbxNJcg7hmjY+2sEpN8sU=
+X-Received: by 2002:a17:90b:134e:b0:3ac:9259:122c with SMTP id 98e67ed59e1d1-3ac9259151cmr4962741a91.40.1792141777353;
+        Fri, 16 Oct 2026 02:09:37 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3acc43a1981sm3269097a91.2.2026.10.16.02.09.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 02:09:36 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>,
+	David Heidelberg <david@ixit.cz>
+Subject: [PATCH 1/2] dt-bindings: media: i2c: dongwoon,dw9719: Document DW9714VA
+Date: Fri, 16 Oct 2026 04:09:29 -0500
+Message-ID: <20261016090930.947830-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 4/4] media: qcom: camss: Configure C-PHY through the
- PHY API
-To: geocausa@gmail.com, Vinod Koul <vkoul@kernel.org>,
- David Heidelberg <david@ixit.cz>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
- <39_60e7JWzomu65UjqBRaN5wYsC-80_KwUWXiUI5xyrR4Xm1Hr1QSCLbafzYGahn5ArXl1FXM9Esj4xIBwaL7Q==@protonmail.internalid>
- <20261015-x1e-cphy-rfc-v1-4-1f3fa9af940a@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-x1e-cphy-rfc-v1-4-1f3fa9af940a@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 15/10/2026 23:20, George Neacsu via B4 Relay wrote:
-> From: George Neacsu <geocausa@gmail.com>
-> 
-> With a PHY API CSIPHY, csiphy_stream_on() always asks for D-PHY. Ask for
-> C-PHY when the endpoint is C-PHY, and pass the trio count and the symbol
-> rate, which by the V4L2 convention is twice the link frequency.
-> 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: George Neacsu <geocausa@gmail.com>
-Please rebase off of -next this patch doesn't apply
+From: Yibo Wang <wyibo6109@gmail.com>
 
-[~/Development/worktree/bod-media-committers]$ git am --3way < 
-./20261015_geocausa_phy_qcom_mipi_csi2_c_phy_for_x1e80100.mbx 
-                                       *[bod-qcom-media-committers]
-Applying: phy: Add MIPI C-PHY mode and configuration options
-Applying: phy: qcom-mipi-csi2: Add C-PHY support for X1E80100
-Applying: media: qcom: camss: csid-680: Select C-PHY in the receiver
-Applying: media: qcom: camss: Configure C-PHY through the PHY API
-error: sha1 information is lacking or useless 
-(drivers/media/platform/qcom/camss/camss-csiphy.c).
-error: could not build fake ancestor
-Patch failed at 0004 media: qcom: camss: Configure C-PHY through the PHY API
-hint: Use 'git am --show-current-patch=diff' to see the failed patch
-hint: When you have resolved this problem, run "git am --continue".
-hint: If you prefer to skip this patch, run "git am --skip" instead.
-hint: To restore the original branch and stop patching, run "git am 
---abort".
-hint: Disable this message with "git config set advice.mergeConflict false"
+The dongwoon,dw9714va compatible names the DW9714V silicon revision
+found on the OnePlus Pad 4 (iceland) camera modules.  DW9714VA is not
+an official part number: it is coined to distinguish this revision,
+which shares its IC INFO id (0xFE) with the other DW9714V revisions.
 
+In its register-mapped ("advanced") mode it exposes the DW9719
+register interface, with the SAC mode field in MODE shifted by 6 like
+on the DW9800K.  This differs from the advanced-mode layout of the
+currently available DW9714V datasheet (Rev. 0.03G), which puts
+SAC_MODE in [3:0] of SAC_CFG and splits the prescaler and SACT into
+separate registers.
+
+The datasheet-conformant DW9714V and DW9714A, used in their normal
+(direct DAC) mode, are covered by the dongwoon,dw9714 binding
+instead; see the in-flight series by David Heidelberg documenting
+them:
+
+https://lore.kernel.org/linux-media/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz/
+
+The module-specific SAC tuning is carried by the already-documented
+dongwoon,sac-mode and dongwoon,vcm-prescale properties.
+
+Cc: David Heidelberg <david@ixit.cz>
+Signed-off-by: Yibo Wang <wyibo6109@gmail.com>
 ---
-bod
+ .../devicetree/bindings/media/i2c/dongwoon,dw9719.yaml     | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+index 8e8d62436..f415f2369 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9719.yaml
+@@ -14,10 +14,17 @@ description:
+   with 100 mA output current sink capability, designed for linear control of
+   voice coil motors (VCM) in camera lenses. This chip provides a Smart Actuator
+   Control (SAC) mode intended for driving voice coil lenses in camera modules.
++  The DW9714V revision found on the OnePlus Pad 4 (iceland) camera
++  modules exposes this register interface in its register-mapped
++  ("advanced") mode, with a register layout following the DW9719
++  rather than the DW9714V datasheet.  dongwoon,dw9714va is not an
++  official part number: it is coined to name this revision, which
++  shares its IC INFO id with the other DW9714V revisions.
+ 
+ properties:
+   compatible:
+     enum:
++      - dongwoon,dw9714va
+       - dongwoon,dw9718s
+       - dongwoon,dw9719
+       - dongwoon,dw9761
+-- 
+2.53.0
+
