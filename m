@@ -1,41 +1,39 @@
 Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A3243009F2;
-	Fri, 16 Oct 2026 04:04:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BAD15190462;
+	Fri, 16 Oct 2026 04:19:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792123469; cv=none; b=QsKJIM3g38WezGsY0dmEMx0Z7kDjNo7tnJrxRId9gzBvdYU4uuQezQ/QEYqA3MH+ayAPO6VVrOEYEeKsg+j/wp3zmxja/AmO9Nfx+fgsmYlj7XUGFDdHboOkSiuDJi3MsbFhwVEUSfiLr+6Gj5oEbiErevppNs/qnL2vl5HQWW8=
+	t=1792124357; cv=none; b=UTa520ocZCk2/MXtksw0iZ4fgeundGf5TOfxnJN/9L3qBaN9id+usA/JeBTMX8AdXCJu332dipssd8oPaLl36ZBMM+LmXgL/8p15bQ/81zOytTiOXjQkGiLmH8Df3NFTSerBYFsUT9Z69IZ0G3l8RJwH0xz8xmrVuGaL5hGsCak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792123469; c=relaxed/simple;
-	bh=h87naY7RnHqXfoQX6aaL788b15IXb90ueQxSxvAx4W4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KopoO+2hQPqregzNStUHqXzNE5FsfWquml9kpizWhIlkE4Z6LzbXa5L2HtQX6cNXyB/oPG76s/t0bQhRDa69dIAZJmzdo/Ez2HQzbNTojPpbWZTyrcjD4s+9Mjfeaee5q+Hv1Om5cFQ7DhNQv2H2RNH0PYiPKjpWb7VZDp+9lIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=ATHFzLZK reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1792124357; c=relaxed/simple;
+	bh=PC5BrwmvKNaZleWn/1Vr1yOtS3cJHKZ1xVrJYdiiG2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g2vwiO7A7acjKOHHZJZkdyj3NaxuvcUFwqBRB1f5AjTCiXpZahSgsfEovpNWQLSMwm4y56cv+E0+w1qlqxPOGv2lwH/4BwM1iSiW/gnyTxuf4gdl9ut8nP3NKfYK7XSvwrHpYKUgR/6+KHDw59CM5rYPER9e2fCpugu7jMVPY+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.shzu.edu.cn; spf=none smtp.mailfrom=stu.shzu.edu.cn; dkim=fail (0-bit key) header.d=stu.shzu.edu.cn header.i=@stu.shzu.edu.cn header.b=Z5kugXTu reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.shzu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stu.shzu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="ATHFzLZK"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.shzu.edu.cn header.i=@stu.shzu.edu.cn header.b="Z5kugXTu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=xRmRnms+zV
-	zYh0Y3KzMMuYDjvDit7pvXuCmYcJKfhoQ=; b=ATHFzLZKSHBzu+LsEvcCIOAw0F
-	D5mXXQqAMX1ncfPTXtuW17csgWkKsKmqgFvBm4h21dt8s0xmg7yLzJ3+liwIhJfJ
-	Ixd5luS+a2cUcjdAOQRh7p79NBoehRwTAZuog9at6wZNoIJqBYLMNKdq7EFXmP5f
-	vc/UBWzE1ElUcH/WI=
-Received: from localhost.localdomain (unknown [113.200.174.90])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWGP5CotFqbSqoAA--.50587S2;
-	Fri, 16 Oct 2026 12:04:19 +0800 (CST)
-From: Yuanzhe Liu <25031212351@stu.xidian.edu.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
+	d=stu.shzu.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=K3Akf3G/3u
+	8zEPgbWZuKxqlKNU3hSMuCPNtj7j8swgM=; b=Z5kugXTuK0DCXsTFphgc8nDdsP
+	frLbkx1W3zh4P4LE5/MPs//6+Vjq31JAmPVYeaSgKhOkuRwmrpLK91hlQPRV/MiN
+	UDLRPjYS50vnh6pLTiHSYMJG6Rn3KBANFS0270oNFXoy6DD8vpyx0GkcGNze03rW
+	wog89Z5ewtYaYOPO8=
+Received: from localhost.localdomain (unknown [2409:8a50:9417:df90:2d38:f26c:c355:d0a2])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWmwC4pdFqMzyoAA--.9558S2;
+	Fri, 16 Oct 2026 12:19:05 +0800 (CST)
+From: Wang Xiong <20221010117@stu.shzu.edu.cn>
+To: Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	linux-media@vger.kernel.org,
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
 	Bin Yu <byu@xidian.edu.cn>,
 	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: gspca: check return value of usb_ifnum_to_if() in gspca_init_transfer()
-Date: Fri, 16 Oct 2026 12:04:04 +0800
-Message-ID: <20261016040404.1337-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.45.1.windows.1
+Subject: [RFC PATCH] media: imon: stop receivers before shared input teardown
+Date: Fri, 16 Oct 2026 12:18:48 +0800
+Message-ID: <20261016041848.1081-1-20221010117@stu.shzu.edu.cn>
+X-Mailer: git-send-email 2.51.0.windows.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -43,79 +41,89 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkDWGP5CotFqbSqoAA--.50587S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJFyxur48Ar45Wr4xCw43trb_yoW5Gr4DpF
-	Z3GF4jyay5Jr4qkr4UXr4Du3Wruan7Jay7Cry5Aw1kZw47XFZ3Aryj9r15XrsrArZYyw4I
-	q3WUJayUW347CaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
-	6r4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40E
-	FcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr
-	0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8v
-	x2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Gryl42xK82IYc2Ij64vIr4
-	1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
-	67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
-	8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAv
-	wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
-	v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUeL0eDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUID2rQ7FFu7gAAsE
+X-CM-TRANSID:BLQMCkBWmwC4pdFqMzyoAA--.9558S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxurykXF18AF4xZFW3XFy5Arb_yoW5ArW8pF
+	WrWFW3tFWDtr1rCFWDuF4UXFW5Wrs3GFW3u3Z8W3yjg3Z8WFySyayvyrya9a1Uur48AFyj
+	yrZxXws5u3Wku3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK6Ix8MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8Jb
+	IYCTnIWIevJa73UjIFyTuYvjxU9XyZDUUUU
+X-CM-SenderInfo: qsqsjiyqrqiiux6v33wovk63oohg3hdfq/1tbiAgUICWrQ7rxwqgAAs0
 
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Both receive callbacks access the shared RC and panel input devices.
+Interface-0 disconnect unregisters the RC device before stopping RX0,
+while RX1 can still access the shared objects.
 
-In gspca_init_transfer() and gspca_input_create_urb(), intf is looked up
-via usb_ifnum_to_if(gspca_dev->dev, gspca_dev->iface).  According to the
-USB core implementation, usb_ifnum_to_if() returns NULL if the given
-interface number is not found in the active configuration (for example,
-if the device was disconnected or had its configuration reset).
+An archived KASAN report records a write in the interface-1 receive
+callback after imon_disconnect() freed the RC allocation. The selected
+frames include rc_g_keycode_from_table(), imon_incoming_packet() and
+usb_rx_callback_intf1().
 
-Currently, neither function checks whether the returned intf pointer is
-NULL before dereferencing its members.  In gspca_init_transfer(), when
-a bulk camera is used, intf->num_altsetting is dereferenced immediately;
-for an isochronous camera, intf is passed into build_isoc_ep_tb(), which
-also reads intf->num_altsetting unconditionally.  This triggers a NULL
-pointer dereference and results in a general protection fault crash.
-In gspca_input_create_urb(), intf->cur_altsetting is likewise accessed
-without checking for NULL.
+Stop RX0 and synchronously poison RX1 before unregistering either shared
+input device. Keep RX1 poisoned so that a surviving interface cannot
+resubmit receive transfers after shared input teardown.
 
-Fix this by verifying that intf is non-NULL before dereferencing it.
-Return -ENODEV in gspca_init_transfer() if intf is NULL, and return early
-in gspca_input_create_urb().
-
-Fixes: d43fa32fec44 ("V4L/DVB (8156): Many bug fixes, zc3xx added.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Wang Xiong <20221010117@stu.shzu.edu.cn>
 ---
- drivers/media/usb/gspca/gspca.c | 4 ++++
- 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..1b76f871b672 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -213,6 +213,8 @@ static void gspca_input_create_urb(struct gspca_dev *gspca_dev)
+Notes (mail-human-signoff-20261016):
+    This RFC addresses receive-callback ordering during input teardown. If
+    interface 0 is unbound while interface 1 remains bound, a later
+    interface-1 resume can return -EPERM while RX1 remains poisoned.
+    Independent unbind, suspend/resume and rebind behavior needs review.
+    These runtime paths have not been tested.
+    
+    Selected fault frames from the archived report (excerpts):
+      BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
+      rc_g_keycode_from_table
+      imon_incoming_packet
+      usb_rx_callback_intf1
+    
+    The precise runtime repair of the archived crash has not been verified.
+    No introducing commit is attributed by a Fixes tag in this RFC.
+    
+    Build-tested with GCC 14.2.0 and binutils 2.44 on x86_64, against
+    base 03e2778d1f11de9260543f969e9e888a1c2bf830 (Linux 7.1.2).
+    The baseline and candidate bzImage/modules builds passed. The
+    candidate driver was enabled as a module in a minimal configuration.
+    The original crash configuration and runtime repair were not tested.
+    
+    Related interface-ownership series, for review context:
+    https://lore.kernel.org/r/c922986ec1b360b47165a591b3a539abf3b8792e.1789460680.git.sean@mess.org
+    Please advise whether that series covers this receive/teardown
+    ordering or should be preferred over this RFC.
+
+ drivers/media/rc/imon.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
+index 9bb27ba8240f831ff5de42b0df50642b283108f9..e27cec2c103fa919e01656f0ce200bd372c3b96c 100644
+--- a/drivers/media/rc/imon.c
++++ b/drivers/media/rc/imon.c
+@@ -2536,8 +2536,10 @@ static void imon_disconnect(struct usb_interface *interface)
  
- 	if (gspca_dev->sd_desc->int_pkt_scan)  {
- 		intf = usb_ifnum_to_if(gspca_dev->dev, gspca_dev->iface);
-+		if (!intf)
-+			return;
- 
- 		ret = usb_find_int_in_endpoint(intf->cur_altsetting, &ep);
- 		if (ret)
-@@ -765,6 +767,8 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
- 
- 	/* do the specific subdriver stuff before endpoint selection */
- 	intf = usb_ifnum_to_if(gspca_dev->dev, gspca_dev->iface);
-+	if (!intf)
-+		return -ENODEV;
- 	gspca_dev->alt = gspca_dev->cam.bulk ? intf->num_altsetting : 0;
- 	if (gspca_dev->sd_desc->isoc_init) {
- 		ret = gspca_dev->sd_desc->isoc_init(gspca_dev);
+ 	if (ifnum == 0) {
+ 		ictx->dev_present_intf0 = false;
+-		rc_unregister_device(ictx->rdev);
+ 		usb_kill_urb(ictx->rx_urb_intf0);
++		/* Both interfaces use the RC device and panel input device. */
++		usb_poison_urb(ictx->rx_urb_intf1);
++		rc_unregister_device(ictx->rdev);
+ 		input_unregister_device(ictx->idev);
+ 		rc_free_device(ictx->rdev);
+ 		if (ictx->display_supported) {
+
+base-commit: 03e2778d1f11de9260543f969e9e888a1c2bf830
 -- 
-2.34.1
+2.47.3
 
