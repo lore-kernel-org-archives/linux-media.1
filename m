@@ -1,145 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E0D3546F7
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 10:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C456A3148D2;
+	Fri, 16 Oct 2026 10:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.250.56.165
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146673; cv=none; b=sNhwpNWSWA0vANtGpp6Msnd4komL4+rUkqRufBFxbl3aumMN0N6bQo6YglGUgl/Pcu/6Z1Z4L22VOP9lEbAMD1iajDoisPfjZgh77uabHJttjdKfcXdZFRFnEj8c4x/jXaJjS+0l++fKJ6BNPtMm5NXSvfXJ2meSTLO9Y/y8iEI=
+	t=1792148185; cv=none; b=oq2eoZQm4LXQvI82LhJ7FR/b8g2eQKS5alMbu6h2cSCmwgfL7PcjK/xq9yEo0B+he9xdDNsyI3xAovuK5FrJPQvnn62S5P5+Q6BYky7O5ik8Bb8r9pp238y9/EAK+T/zjY1KzTNHRwJ1hDVGTXEUZ8LD/X214zb2j6gk1FFEngY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146673; c=relaxed/simple;
-	bh=m7HpFHXBMyl5N1Su2DdmE1mXHA2VJHsyhfkSw6yEIko=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dh2Lt6MphrOIGopOP6noNTjPbTgjC04iODNbYlMnT9V1qJ7dd2x6lF1l8IlkSLWNuSY1tBRR1hWUrNUDWfMGgXrt3Fz8CeMD7lPYQk4pGTjZWdbTuUYzfanYcWHKka7+Q6vOAfk0B6Tstw+q4g29Nm7REn6bsJru9W3GKtYaxW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RCmsAUV5; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RCmsAUV5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792146672; x=1823682672;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=m7HpFHXBMyl5N1Su2DdmE1mXHA2VJHsyhfkSw6yEIko=;
-  b=RCmsAUV5akjQLMJKrFLNs3A8w8be3RywuP3JA9MHEGpMGbavlxyy8spu
-   5JlfwiSvbfYJ06EdAU+NS4+U62hhR7ZpigqOdfUXKnqm7ADJNxm48MrqY
-   w57/anZ503o+s/Z5Z0GWCEMpwRmSe2h4yiH8FRN5/MOxYepirMMOfbx+H
-   FS/TVXG9mYjspFHgaBkjSaBa0hEHeU9utoEqSGDRcDUUEEJNdlikicb9Z
-   BYsvXb2gq5/Yuk4RfXZTvnloYg9zb0Weau3G3B3kPsUVEAOUFRd8WmqXj
-   TSJZoStMKeZBYncShcOdQk2XTUMUEk7N5vkx/44uR9A/s2xqco+CFyukG
-   A==;
-X-CSE-ConnectionGUID: B4+vqc2gStyvUByCb0zyXA==
-X-CSE-MsgGUID: BUTGDVkpR+iX3CSzSxnMYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="831955"
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="831955"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:31:12 -0700
-X-CSE-ConnectionGUID: YWNT+nCkSqOCvWYkgrkwlQ==
-X-CSE-MsgGUID: XnbtrUbjTsuV1r5vrfyiYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
-   d="scan'208";a="2332554"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.35])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:31:08 -0700
-Date: Fri, 16 Oct 2026 13:31:05 +0300
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-To: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-Cc: Ruslan Bay <ruslanbey@proton.me>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH 03/12] media: ipu6: Add IPU4P buttress support
-Message-ID: <atH86Y6VcOs9-svA@ashevche-desk.local>
-References: <-QUv20vwP_Fvyx8GMeVsgtsHb5NwrrqqQdutzA6KHdba6DCLA3iNDRYsFUVx-_Ja9j0ak-LPvEIkN63hKhkdr2WvlTYBP5jh38cAyc6tuFU=@proton.me>
- <asyYdEXPE7F5Wy8k@kekkonen.localdomain>
- <mGk1vEGdr5XvRZa1yzgTN831cR2a9_UdQs7oMQBBfWPBBg-fcdffI3Xdgcf_qXgrqxvNBn_hCawbXtOTMTwoqdoodbp3jmE1QMgH4kMZ4mk=@proton.me>
- <atH2LqXVEtmZI5_c@kekkonen.localdomain>
+	s=arc-20240116; t=1792148185; c=relaxed/simple;
+	bh=J9pkcayGNFvmgFAZpyUDfNK0PQ/3oyoN+jf3dqrCLUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NffVQLVCXrWYe/t1VHq+yvRadcLSERbnHn1DnNdjwyaABRdTnP9i9v8FS+SD9D3Vp332tFHQnZJ0DpUlSveYaFlEdH72Wk3eGRNEl1VWbrEgIKeGZFQfIGTBuah34YFqMtm6c+PwUEydOFRIL1AzXDdXAwfluk2NBAFkFhFphaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru; spf=pass smtp.mailfrom=ideco.ru; arc=none smtp.client-ip=51.250.56.165
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 831C220793C0;
+	Fri, 16 Oct 2026 15:56:13 +0500 (+05)
+Received: from laptop-ak.in.ideco.ru (unknown [46.36.23.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id C15E0202EFD5;
+	Fri, 16 Oct 2026 15:56:06 +0500 (+05)
+From: Andrey Karelin <a.karelin@ideco.ru>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Andrey Karelin <a.karelin@ideco.ru>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH] media: atomisp: remove dead error check in ia_css_stream_create()
+Date: Fri, 16 Oct 2026 15:55:50 +0500
+Message-ID: <20261016105553.346322-1-a.karelin@ideco.ru>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atH2LqXVEtmZI5_c@kekkonen.localdomain>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026 at 01:02:22PM +0300, sakari.ailus@linux.intel.com wrote:
-> On Tue, Oct 13, 2026 at 06:29:18PM +0000, Ruslan Bay wrote:
-> > On Monday, October 12th, 2026 at 10:21 AM, sakari.ailus@linux.intel.com <sakari.ailus@linux.intel.com> wrote:
-> > > On Sun, Oct 11, 2026 at 02:34:16PM +0000, Ruslan Bay wrote:
+In ia_css_stream_create() the return value of
+sh_css_pipe_get_viewfinder_frame_info() is not assigned to err, so the
+"if (err) goto ERR;" that follows only re-tests the result of
+sh_css_pipe_get_grid_info(), which has already been checked, and is
+always false.
 
-...
+Propagating the error instead is not an option:
+sh_css_pipe_get_viewfinder_frame_info() returns -EINVAL for capture
+pipes in RAW and BAYER capture modes, which have no viewfinder output,
+and atomisp_set_fmt_to_isp() selects IA_CSS_CAPTURE_MODE_RAW when a RAW
+format is requested in capture run mode, so stream creation would start
+failing for such configurations.
 
-> > > Please keep the order, i.e. 4P should be first.
-> > 
-> > Will do! It feels a little awkward to put IPU4P_ before the
-> > generic IPU6_ definitions, though. I know I've asked before, but
-> > is there any plan to use IPU_ instead of IPU6_ for code shared
-> > across IPU generations?
-> 
-> Good question. This has come up multiple times.
-> 
-> In fact this driver originally was written as a driver for IPU4 and through
-> a number of turns was upstreamed with IPU6 support only. IPU4P is a bit
-> newer than the IPU4. Unfortunately, IPU6 is used by the driver as a generic
-> prefix and in some cases the definitions could apply to a wider selection
-> of IPUs than just 6 but still if not all, so naming is probably bound to be
-> imperfect in any case. I'm not sure the naming matters much, as long as the
-> code does the right thing.
-> 
-> If we are to rename things, I think the non-IPU version specific code could
-> have ipu_ prefix, but globally visible symbols should then use intel_ipu_
-> prefix to avoid symbol name clashes. Still, anything with firmware or
-> hardware register dependencies should use IPU version specific prefix.
-> Probably there wouldn't be any such generic register definitions with IPU
-> 4P and 8 supported, they're so far apart.
-> 
-> I wonder what others think.
+Remove the dead check.
 
-With my IIO official reviewer hat on the experience and practice is that.
-Use whatever name based on part number the driver comes for first. Id est
-leave IPU6 for the generic cases, unless they are not exceptionally specific
-to the rest *excluding* IPU v6.
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-> There are quite a few places in the driver where IPU versions are checked
-> and I wonder if moving these behind an ops struct would make sense. Maybe
-> we could get back to this once the IPU4P support is merged.
-> 
-> I'd postpone renaming after this set in any case.
+Signed-off-by: Andrey Karelin <a.karelin@ideco.ru>
+---
+ drivers/staging/media/atomisp/pci/sh_css.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-...
+diff --git a/drivers/staging/media/atomisp/pci/sh_css.c b/drivers/staging/media/atomisp/pci/sh_css.c
+index 4a182dc384ca..6f8cec1f1d87 100644
+--- a/drivers/staging/media/atomisp/pci/sh_css.c
++++ b/drivers/staging/media/atomisp/pci/sh_css.c
+@@ -8120,8 +8120,6 @@ ia_css_stream_create(const struct ia_css_stream_config *stream_config,
+ 				sh_css_pipe_get_viewfinder_frame_info(curr_pipe,
+ 								      &pipe_info->vf_output_info[j],
+ 								      j);
+-				if (err)
+-					goto ERR;
+ 			}
+ 		}
+ 
 
-> > > > +#define IPU4P_FIRMWARE_NAME		"intel/ipu/ipu4p_fw.bin"
-> > >
-> > > This may sound like a silly question, but where do you obtain this? It's
-> > > not part of linux-firmware currently.
-> > 
-> > I forgot to mention this in the description. The IPU4P firmware
-> > binary was extracted from a Windows driver package available in
-> > the Microsoft Update Catalog:
-> > https://www.catalog.update.microsoft.com/Search.aspx?q=42.18362.3.16827
-> 
-> I'll figure out whether we could get this to linux-firmware.
-
-That's would be nice! Do you think we can do it faster for this (in comparison
-to AtomISP v2 case)?
-
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-With Best Regards,
-Andy Shevchenko
+2.56.0
 
 
