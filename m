@@ -1,111 +1,180 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BCEE3E763E
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 10:27:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A6B47143E;
+	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792146434; cv=none; b=ociNrkFrC9FnInyccldAiJdlMElz0tnpVOGPMMeBE+HK1DYMrvc/hxU0Zf9FYmW+4+42ZnfxstDdLq4p6pxZl42owOyUc9AH8b2gbJb8D/zjTlFslyCrugBKV6jLoFBCRtQuDzgwRgXGZmGsnQp5Ca9WGSLteAPACOIRCm3Oxvg=
+	t=1792146482; cv=none; b=bB0A2eB1QkjS4N+ENcE5iCz5X/nI5Xr2TdfdjJiNMFR2dLJ7PNsVLneaWt1mGfNM0P69bWV65eX9alUPHhvc573kwjwflC1aY5RlV+K4vy0ZVDez81Vu81BE1sDx7KgHdB52w7lPnmzbAnlw4HxFXaeUHGEVJvGOMgthddVD0mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792146434; c=relaxed/simple;
-	bh=Ax5VOQA/Fi0laL2ZD1hrhTqB/HB9VBcr4363vS0YCZ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Od1kGcCs5osXfWnVv/BzxDukBJR0eVSu1SQlJfzi/Mafa+NpHW+9Du+DnpYH/UiHMh8lnQBXTD5i9E9OC6eYzYJAv2tjQgppuLXuCKnU8HC85wiXEJ4d0WOtUsCa/2IBFnDBCEosOtYO1PFQ2L9Qw7B2hQESpzvCpxKWCBjnYsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sa1JMdD2; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792146482; c=relaxed/simple;
+	bh=cGm/IUzGsl7M+005jqEJ8bgl7CrtXaLvlBO6w1BA05s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tH6nFfKOoRojzhUCCoUKpI3ZfqVNnvfezzx1kC/0GYhLPLUosEarO7l2DeFNx2cfeQvDL/JulSeLH/P5o/AuFbVNC6yrOrt/WrxXv9xS2Y+hMH6U7K1/4FXftH7rAkr82yUseyHTLZq+UOMavedJxzhAZftIEoo+7/17oQf7hhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SnKe0ZIj; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sa1JMdD2"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b0584ad71so3740957f8f.0
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 03:27:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792146431; x=1792751231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UyhIdDi1VpYOEm/5a5yHitWOCTd5K8IUtK2pMbtEUUc=;
-        b=Sa1JMdD2igl/XmKM1t8uBzLcDObQGTu3VWICw1RgSo7iLPUDNSLYILQElotAjCCAXl
-         MtSHXiF9n2QUrn9I2qBmz3RZqrS7nRPrYHWoQM/dJPJTMYKN7tAc8jpJLOQvSnQRlsMJ
-         2QhlCyrd1AtUvYJihFp3GJGgs07nYdmiZN3zX4aw57G9s6Z48l5hRbnY6yaysMl9gaMa
-         83HiJEKCD8Rc6k60+kt47+Ws/B2dENC9nkTPUlqaB2fBLCwr5Pv5TREG6tbhngv1aEla
-         WmOWQA7XZ99hb5+jUwd1wOR90qyYPFbzBzjEnAC0+pbhRy4pNkOMwF1LMbBMheud6FmG
-         m6IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792146431; x=1792751231;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UyhIdDi1VpYOEm/5a5yHitWOCTd5K8IUtK2pMbtEUUc=;
-        b=Z/inSxhJFnwULXl+cCwRSArDYbCXlxygR4FjFJ5rUJz/C2+2pPRsw2v2G5hmO8jHQV
-         UBEbsGxnpHffyzmLsDxqo+jMwVe0cIcnH87RU78szyoxLTwLpUvd2iZRE67KfhOvhkTc
-         t1pDgdo8+wB8Zcam/g3MrLq5VdYsUgzAOY0QAgP24Rx4PQsyPSVtLE5/PZ83WqmLhEpe
-         XdRm/EinaFcVxr2b7BZsmFr8bQhzhPMGGzT9Mfi1ttxQe09CFeIAV0epMzmmK1db1dRq
-         ax88cLchUx2/8EoG1DOBVBA7tstN63HfoaNp6m/NFW40VgTvqONVqFcJUs6NDQCYSBNM
-         moLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzE/IMlkGRpr7a9juFGFsAUnwvkOpRkFCyEN5VZAJ5cOna/mVvKOXIFdWO0Uw+qoVEY2KTVnG6BQGU95A==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdpKDimCeNszjTRcy9/8lzK3Gh3pSaJteR4hHUXijFufXYl65g
-	k9TbOkWMhCIxYMSKLYRIEnc+4jdx89aYkwZKFRaTppnkWh86MDp0sWnw
-X-Gm-Gg: AYBFou099zyX7vRgvZvi8ni9mVTmKbbaeHgimoJP+sodXLB8AvxWAJCYAQu4MFuWE0R
-	JSKD/W31hAJq1sFAinKfJgvpLROLH0QV/S6ZlT9CcQ6XOvKUA/JMs2ViUrcHuJsqqS4rSXEmvN1
-	N0FsNLq9LnzUZRaHztpxRgKvbtlNnXYPjbdstam9ZkEBUX+gOr4iW3EHwU/duZZt8Wbx5xiqiMi
-	4KkigIcbRMp+9PF/2W451ifMGE1+n5obaFmnirTZXWtP8gjmVPcaWR+zSEyMT1tdDtbGA1cOQq/
-	70GuIIoU3WoLSLs+i7Za6VFDlFjUodeZhb9dp2P3GfyNKo8k5SdVthKl9wCOh8AW3ex0/iGo4Jg
-	6PXml/grvGeKngZ7chl9nP9ruCHUk+Bv5bd0MDqzhli/AE+jehFRIh/Ug6HsK9N3Z4mhEiWEVZC
-	cKutcxcKISxbYyMgDq35ZZobGt1sOS4JBvH1ev7fnjNcJ7SPxs20xF61/geDtCyJm1BtDL4Wx2m
-	gcK598f0QSVncyBEOe4JqSOhYU133VFgJ1h7TN+w/xFfwOvMFaRpIUH3XcYVFi2a7gFmAJ8
-X-Received: by 2002:a05:6000:26c7:b0:48d:ff06:c634 with SMTP id ffacd0b85a97d-48dff06c78emr2653168f8f.54.1792146431162;
-        Fri, 16 Oct 2026 03:27:11 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4c4fc4sm3698139f8f.15.2026.10.16.03.27.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 03:27:10 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Peter Marshall <pm@petermarshall.ca>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Jizhou Tong <fqwqf@fqwqf.xyz>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: vd55g1: fix VD55G0 streaming below 900 Mbps
-Date: Fri, 16 Oct 2026 11:27:09 +0100
-Message-ID: <20261016102709.30467-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016070158.43624-1-lsa.uz@pm.me>
-References: <20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com> <20261016070158.43624-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SnKe0ZIj"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 686AAC2BCF5;
+	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792146481;
+	bh=cGm/IUzGsl7M+005jqEJ8bgl7CrtXaLvlBO6w1BA05s=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=SnKe0ZIjS0DmUrzO0ZKDf7YBETuf6/m7M9fWBVVlPRFhSQkIBKi87MKezVUuLa/me
+	 zFx2f4lpYsg2xLqaZZgJRIqQ5w6il2GxUWK56P3jE9h+1mCXQbZgTzYTuxsARHoahX
+	 fHNd6LB9WqlKQ4aex4WMYhMq5ZTldEcMJyY2qulk2axjDSVCmRvLBp2deU+isjayRF
+	 S+MUDvwwEOZhKqb0Ml1t9W02hgIEMePEFX9ssZZGy8fs00FxJeI7tNhPlCWnPOg5/H
+	 KCG+PVrNu9wYFRedKM5+OeUxdMDyaGChFDudHY/GYBq01kaIlK2SGXzxyEzFg0ZMF/
+	 jtucacuz3UZZA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42025CC6B38;
+	Fri, 16 Oct 2026 10:28:01 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Date: Fri, 16 Oct 2026 11:28:01 +0100
+Subject: [PATCH v2] media: i2c: vd55g1: fix VD55G0 streaming below 900 Mbps
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-vd55g0-sp11-fix-v2-1-aa08b4b8bbfc@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WS0WqbMQyFXyX81/uHZFu21au9x+iFJEvtD2vTJ
+ VnYKHn3OSkMUtilBN859tF5X45+2Py4POzel4Oft+O2f51D+rJb7Flen3zdxpyXBKkiYF3Pg+g
+ J1uMb4hrb77WCWi1CrDiWSb0dfK5vit8fP+aD//w1hU8fy+VNTvY8ZR92o5RWgnA0QbAYCJKxu
+ iUF5lwLg2KRxjfdfxQANjOqGq2yKIDXpsPAKGFhwilq2rDeU0ySBkd0rN0VGyBQ7qNDFKWSuid
+ t2rjfU96weU4uxljNJMyCvQlRMgHIAJ2GSL6neliJRtNSLGdJOAMaWtAw87CcsKvTjO2eoqTDq
+ XKB+SAycIpSBqaOGKxcW1XLiHZPGSjnAuw5wyjaW9HcII2ZCTVPVhSmbE731JjuUQmQ+rRViYx
+ XOw91n1+bR5WYacQnioxVoRWYZ0nAM7/oSqTK0LtI01RHbvqJQvNSJAcjFHGXkQz7oC5YGgzUg
+ eKU8UqpHH21/cvLdnrY1RSlp4iWNbJ47wrWmRFn+q3NZwabBubl2rPn7XjaH/7cinzGW9H+29k
+ zrrjOEhSd9x89+renF9l+fJ3Gy+PlcvkLwO3fkhYDAAA=
+X-Change-ID: 20261016-vd55g0-sp11-fix-60bc64a59b1d
+To: sylvain.petinot@foss.st.com, pm@petermarshall.ca, 
+ benjamin.mugnier@foss.st.com
+Cc: sakari.ailus@linux.intel.com, linux-kernel@vger.kernel.org, 
+ mchehab@kernel.org, linux-media@vger.kernel.org, fqwqf@fqwqf.xyz, 
+ lsa.uz@pm.me, George Neacsu <geocausa@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792146480; l=4701;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=m1dF/plKqq+CFSvKhg0SOvOc3T7aD4+VelQA4735/cg=;
+ b=TbZ7Qoi11fjGV4j+vRAi/d6A7Wf1NUBg0naMFVaTcrA43rDuNcaaTb+TNf6qmN7IwKvZ39dMY
+ U2eRnG4f0SzBgFhIFRRUNZkjZh0MIkg2nV9tSvcS2pIW1jiqdJITOzq
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
 
-Hi Sergey,
+From: George Neacsu <geocausa@gmail.com>
 
-On 16/10/2026 08:02, Sergey Lebedev wrote:
-> So here, writing 0 there does not stop the output by itself. vd55g1
-> writes it at every stream start instead, which may be the difference.
+On a Surface Pro 11 (Snapdragon X Elite, CAMSS) the VD55G0 IR sensor
+(cut 1, revision 0x1111) runs one D-PHY lane at 840 Mbps. With the
+VD55G0 support as posted, the sensor accepts the start command and
+reports STREAMING, but it never sends a frame and the stop command
+never completes.
 
-Thanks, you are right, and it is not the place either. I retested on the
-Snapdragon model with the line length change applied and 0x0329 handled
-three ways:
+The minimum line length is the VD55G1 value, 1128 pixels. ST's
+reference vd55g0 driver uses 1200 below 900 Mbps and 1128 above. At
+840 Mbps the sensor stalls with 1128 and streams with 1200, so use 1200
+for the VD55G0 below 900 Mbps.
 
-  ISL_ENABLE = 0 at every stream start (as in Peter's v2)   6/6 captures
-  ISL_ENABLE = 0 once per power-on, after boot              2/2
-  never written                                              2/2
+With this change the sensor streams 644x604 Y10 at 61.6 fps, the
+diagonal grey-scale test pattern comes out correct, and stop completes.
+The built-in 2.11 cut1 patch is used unchanged.
 
-All at 840 Mbps on one lane, 644x604 Y10, with real images in every run,
-including a stream-start write on the first capture after loading the
-module. 0x0329 reads 0x01 after power-on here too and 0x00 once
-written.
+Link: https://github.com/STMicroelectronics/vd55g0-linux-driver/blob/a05627b0f6d8775aa54b6fa306e91f425f2cbf9e/vd55g0.c
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: George Neacsu <geocausa@gmail.com>
+---
+This is an incremental fix for Peter's unmerged VD55G0 support (v2,
+patch 11/11), on top of Jizhou's register-width fix (v2). It does not
+apply to media-next on its own.
 
-The failure I based the ISL change on came from a debug build where the
-line length was forced by a register write just before stream start
-rather than coming from the driver, so it was not a clean test. I will
-send a v2 with only the line length change.
+Prerequisites:
+https://lore.kernel.org/all/20260918221705.323510-1-pm@petermarshall.ca/
+(and Jizhou Tong's "[PATCH v2] media: i2c: vd55g1: correct VD55G0
+register access widths", 12 October)
 
-Thanks,
-George
+Benjamin, I know you'd rather see a separate vd55g0 driver (Sergey's).
+ST's downstream driver also uses a 1200-pixel line below 900 Mbps, so
+this is a data point for that driver too. I can test Sergey's driver on
+the Snapdragon Surface Pro 11 when it is posted.
+
+Tested on mainline (62f482ff73bf) with Peter's v2 01 and 04-11 plus
+Jizhou's fix. 02 and 03 did not apply to that tree, and neither touches
+the driver. The receiver is qcom CAMSS (CSIPHY0 -> CSID0 -> VFE0 RDI0)
+with out-of-tree Surface Pro 11 board support.
+---
+Changes in v2:
+- Drop the ISL_ENABLE (0x0329) change. Sergey found that writing it
+  does not stop the output on the Intel model, and a retest here agrees:
+  with the 1200-pixel line the sensor streams whether 0x0329 is written
+  at stream start, once per power-on, or not at all.
+- Link to v1: https://lore.kernel.org/r/20261016-vd55g0-sp11-fix-v1-1-eb14bd80d8f8@gmail.com
+---
+ drivers/media/i2c/vd55g1.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index ba70447..4e23e88 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -76,6 +76,8 @@
+ #define VD55G1_XCLK_FREQ_MAX				(27 * HZ_PER_MHZ)
+ #define VD55G0_MIPI_RATE_MIN				(750 * MEGA)
+ #define VD55G0_MIPI_RATE_MAX				(1200 * MEGA)
++#define VD55G0_LINE_LENGTH_LOW_RATE			1200
++#define VD55G0_LOW_MIPI_RATE_LIMIT			(900 * MEGA)
+ #define VD55G1_MIPI_RATE_MIN				(250 * MEGA)
+ #define VD55G1_MIPI_RATE_MAX				(1200 * MEGA)
+ 
+@@ -1245,6 +1247,8 @@ struct vd55g1_model {
+ 	u16 num_modes;
+ 	u32 mipi_rate_min;
+ 	u32 mipi_rate_max;
++	u32 low_mipi_rate_limit;
++	u16 line_length_low_rate;
+ 	u16 width;
+ 	u16 height;
+ 	bool bayer;
+@@ -1323,6 +1327,8 @@ static const struct vd55g1_model vd55g0_model = {
+ 	.num_modes = ARRAY_SIZE(vd55g0_supported_modes),
+ 	.mipi_rate_min = VD55G0_MIPI_RATE_MIN,
+ 	.mipi_rate_max = VD55G0_MIPI_RATE_MAX,
++	.low_mipi_rate_limit = VD55G0_LOW_MIPI_RATE_LIMIT,
++	.line_length_low_rate = VD55G0_LINE_LENGTH_LOW_RATE,
+ 	.width = VD55G0_WIDTH,
+ 	.height = VD55G0_HEIGHT,
+ 	.bayer = false,
+@@ -1542,6 +1548,8 @@ static unsigned int vd55g1_get_hblank_min(struct vd55g1 *sensor,
+ 
+ 	/* Absolute time required for ADCs to convert pixels */
+ 	min_line_length = VD55G1_LINE_LENGTH_MIN;
++	if (sensor->mipi_rate < sensor->model->low_mipi_rate_limit)
++		min_line_length = sensor->model->line_length_low_rate;
+ 	if (sensor->model->hdr &&
+ 	    sensor->hdr_ctrl->val == VD55G1_HDR_SUB)
+ 		min_line_length = VD55G1_LINE_LENGTH_SUB_MIN;
+
+---
+base-commit: 62f482ff73bf3ae88b0c899115527752cf9cbf13
+change-id: 20261016-vd55g0-sp11-fix-60bc64a59b1d
+prerequisite-patch-id: d4474f51d7a10cfd10a316ec2b09936490b14a79
+prerequisite-patch-id: 0017cc56bf769ab00e67bdc0c5214951447cb716
+prerequisite-patch-id: 95a2d9ff8168eb17010538d80f4b5428e2b7b798
+prerequisite-patch-id: e717e32eac916ccafccf9e7a552ca0030085daa3
+prerequisite-patch-id: 8fc4f7595aac33a2164adb41c139dc3218be5bc6
+prerequisite-patch-id: 52bde56940b545c0e5f44d12811f9b9676bc311c
+prerequisite-patch-id: c0b93409e330d4b874b3702d67b57e2c4b0bde32
+prerequisite-patch-id: dbc6f65015852bbaf31e5f4efbee52c60bafb79f
+prerequisite-patch-id: d5c9bb074014a20938df8b55bb9088aa7b26d37b
+prerequisite-patch-id: d1ce44a3f9104aeead2c18d58a1470d1bd1ae531
+
+Best regards,
+-- 
+George Neacsu <geocausa@gmail.com>
+
+
