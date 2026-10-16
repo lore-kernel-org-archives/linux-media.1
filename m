@@ -1,108 +1,142 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0655045EF55
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 21:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89D6C2EEE91;
+	Fri, 16 Oct 2026 22:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792187323; cv=none; b=QYcCbA96nAJM2R+qA/g0OqImRjI/Q/qQzaSYA864rO4gMfJYPQ5xlY8Ay8XaEDKH0lI3OsiOWyn0Oqpa6COZaR7KpIMkGZSVp16WGmrKTV4qCUK8BGbvknZIxn+gVACMCQIqR3GbYaP+S7tzdFOTgW8MBZEmwo4P5E0fHNH2j8w=
+	t=1792188255; cv=none; b=jYSsmrduTHfdGuPdIKGHNG1lUr1FbN8wImUwM5tTLj5nMAqw78+FItyLuanY/YWvoSjiMuMwtHrMelZBP0UtcAmPE3sxiQNilFuN9OkAKc8d8GlFi1TUa/EoeXxTGfrBPtgcGUjS7LGWkbIVa34dXAX7TaEeYj455Vfk4xrVtss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792187323; c=relaxed/simple;
-	bh=vHDTCK2dGVe+D3aHp5cDy0Nnns8/vCBii2fB6P4rL9k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W2tMlnnJAQbP5L6A/HDTyiMMR2CgiGO/jTCxj5JrOS2/fbZo0St8llKXNnXe3pRExHrshQJRZdBnwHHOC41OjYocoXqyUba31dF/sDesw9nS+ZTnj5nJbpE7NxigD9E7rnH/1cbEm+rdeGDrnG6dkkWuTJpPI33mga7G6HSbX/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K0/vIQuh; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792188255; c=relaxed/simple;
+	bh=RvR/7ZqtgTCxsEexGbTDIRCSLLTP9gyrMP0MSdfEijU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R3PcZRfBLCG3Yc4XI+IRgufmA1hjlHDV3YkwldU/ZWsYTlG1GLOSJnT8wRXMwKHxwAdxoxEtmdWXI9gxf8r9knGSi9why7rM7O2wTPDF6KdlqM8ELUM2iwLHeJeKciKp7qtnimg56oKA9Xb+r+vCocX9tT25Pw1Tv6OLN+thYkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=wdhqUlvR; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K0/vIQuh"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so4367675e9.2
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 14:48:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792187318; x=1792792118; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vHDTCK2dGVe+D3aHp5cDy0Nnns8/vCBii2fB6P4rL9k=;
-        b=K0/vIQuhbLaq/49N3SaAx359tDZUVwG7Ptb/KMX5EZjncgZXchJ+TbW/HBZtTbQyMf
-         5gBvrFDtfcKGmccaF20POCr9l0uRoju/inwvt4Lwdm6pXJSVJpRBLQcVVhJaIa4lOTuI
-         05JlPBzCZZXc25PsMzo6yPsUt5ZzDPFWYHioutSLP8T/AuBo0VyAAh1kA+sFM4UGfmzU
-         MxfqTRm8N/Bxlwkw3CCJDSWTAFrjXzCGO2J85xwcjx240SLc/JE9guH3dR9XfqELT1R3
-         yRz/bnV8JTXAhGtECvLS4M8IRQ0Trdi4eNOKVFmgvW6RhhXQYohGJZdIbeTWNsdIrcTe
-         8qtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792187318; x=1792792118;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vHDTCK2dGVe+D3aHp5cDy0Nnns8/vCBii2fB6P4rL9k=;
-        b=J51g6hnsT3Cfq+8zjG4LFSwwEKo9dU0zCJN/b90defkuMs+luEBDLSR+QplSCaADc3
-         e8jniUKs16pqYdtkiDxqmHtsg662SIAyLv36dbf+gAhtG/ZRx6SFNt3zzB7ThFbro72W
-         TWtuRNSnH7UubXMKncYlk6o/lYsMxjpIJj6W9tQF3etgY6R5AOkyQO7Sy0uHzdn9tbkL
-         oG/DR+w1ahh+F+Sq46CvxkN5nsnXpmwPYAWdquA4VaQCbzWOPG2b+ZjWklZany/lZJy1
-         8ec9YOxAPFwSxvGVgFqbydAnQ3W6t0HyrhFaeb+k0LdMqpDMUa1wj99A1oVAalL+Iiu8
-         g+6Q==
-X-Forwarded-Encrypted: i=1; AKwUvByTbqJaDX74wxCl/KJaOpRiKs5pgg+tHI2W4js9WnDcwlvcfUuzx6QBiS5wfzvalh5sDm48wu7/EGM+ew==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRqZgRX7WgLYHjIA+49+phjjrRMSotMIvK5i/rnM6yMBfb1UmX
-	bgFwARWkmiYf2DqUl45c8ojTqzJqZJFN3fBV1v+fP17fvYABkPntVnkvMxaRfBOj
-X-Gm-Gg: AYBFou0+kWg6Qi+soGZHCMAEm8mvDcHQvRgAAdK6Vj5XToUzFopwwZbdrUy5pfc/8x2
-	YEyz3CzlhvBzPAKqxi3udblTI+xsSB4se/14MaJT/+y1tsBob8P/yQNl068VNGZ0qTcNAOpC9cq
-	r7ATUBW6FKMYBgUhyq5SHrID/N4yl+PSciBv3AIXk9TUGRTqu98/cpN0UImHQ6BKV91DEKt0crD
-	7ewdh5qAEQ9LgqQuMrdKjQkaeZSnSo+uwfrG2NMt/OXkJ1dMqxXXxH4mBwR/ZG/DL2FLpyUY72m
-	ItUeCEI8Ik2CYD7F3SiO42YJBi9S3B302/NyfbuXv0Z0QgBc2dRnFjGlonkowaGjQOzIzoMT4uU
-	t7yirja17a2EMkZ+JoH4xWs0TUy5cFcFMOnj6YHIXrut66yTFjegs2k82AV5IZ7wabZl8oW1wvo
-	Y5wczs9e8nI1DpamdB6iLYte6HocA25nRW9/LsnNiZJNx379IC1W6ar4jgP2L8IrJpJa0I7dRtG
-	l6af18m7Nc+T2U1/2b9737ZJsWRDa8tVjWbT20nzvC+WI/6TI6sCDT1pdIWs7dWsxGrxeAm
-X-Received: by 2002:a05:6000:3c4:b0:486:fb08:2353 with SMTP id ffacd0b85a97d-48e07bc3e93mr1724560f8f.31.1792187317851;
-        Fri, 16 Oct 2026 14:48:37 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd503a24sm7557302f8f.49.2026.10.16.14.48.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 14:48:36 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>,
-	Bryan O'Donoghue <bod@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	German Pablo Lindo <germanpapulindez@gmail.com>,
-	Simon Kruse <simon0x+git@proton.me>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
-Date: Fri, 16 Oct 2026 22:48:33 +0100
-Message-ID: <20261016214833.967344-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261016210802.60605-1-lsa.uz@pm.me>
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com> <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com> <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org> <20261016161618.209290-1-geocausa@gmail.com> <711e8518-5054-49ab-8432-346049a86cd1@kernel.org> <20261016210802.60605-1-lsa.uz@pm.me>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="wdhqUlvR"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 20BEE53406E9;
+	Sat, 17 Oct 2026 00:04:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792188251;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=iCWFPnaVwrMEIWega7/YH4kAUFTaczsUzsdN/XgBaqY=;
+	b=wdhqUlvR7bLl1EDZYzg2N+HtKYXZuErYdZ6bFzoVdKXWP77778jmd/6UP/tDan4fF+urZi
+	0kdljkrFBsGLWHi9fZyLOxaGbUBueVTJYoyf5YZZiLebC/wAf0OcDJwRVC6/121z0tOheV
+	8FTID3+7pP7mww1XiYaB7++NQtnlM3Q=
+Message-ID: <09007144-8244-4350-a1a5-bf42162e2f20@ixit.cz>
+Date: Sat, 17 Oct 2026 00:04:10 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/6] phy: qcom-mipi-csi2: C-PHY for X1E80100
+To: George Neacsu <geocausa@gmail.com>, Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com>
+ <5a90fbdc-7106-45e3-8fca-eaf5c60e0337@kernel.org>
+ <20261016214830.967217-1-geocausa@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261016214830.967217-1-geocausa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Sergey,
+On 16/10/2026 23:48, George Neacsu wrote:
+> Hi Bryan,
+> 
+> On 16/10/2026 17:09, Bryan O'Donoghue wrote:
+>> Using drivers/phy means not doing CPHY inline in CAMSS. If you require
+>> patches from the V9 series - you should cherry-pick them - sign off them
+>> and the post them.
+> 
+> Understood. The two CAMSS patches need only three of David's nine
+> patches, and none of his CSIPHY C-PHY tables:
+> 
+> - 2/9, which keeps the endpoint's bus type in the lane configuration;
+> - 4/9, which adds the CSID PHY select for C-PHY;
+> - 8/9, which lets camss_get_link_freq() account for C-PHY symbols.
+> 
+> The other six program C-PHY inline in camss-csiphy-3ph-1-0.c, which the
+> PHY API path does not use.
+> 
+> So the CAMSS side will go out as one series on top of this one: those
+> three, kept under David's authorship with my sign-off added, followed
+> by the two CAMSS patches. David, is that all right with you?
 
-On 16/10/2026 22:08, Sergey Lebedev wrote:
-> Please make that v4:
-> https://lore.kernel.org/all/20261016210246.58562-1-lsa.uz@pm.me/
+Yes, sure. Just 'git commit --amend --sign' :)
 
-Thank you for running the suspend test, and for tracking down and
-fixing the stall. The next version will declare v4 as its dependency
-through b4, as Bryan suggested, and will not describe system sleep
-handling for the sensor.
+I didn't expected these patches will get in (due to PHY rework), so if they do 
+I'll be happy, because I can drop them from sdm845 tree later.
 
-Bryan, on 1/2: the next version also makes the clocks, supplies and
-reset optional in the binding, as you asked.
+David
 
-Before sending it I will rebase on v4 and run runtime PM cycles on the
-Surface Pro 11.
+> 
+> Thanks,
+> George
 
-Thanks,
-George
