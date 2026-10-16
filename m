@@ -1,201 +1,107 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADB23E0234
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 09:34:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967C0446855
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 09:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792143287; cv=none; b=uAavt5fm+knSX78ULnhMG2352Tczu1QJd1TWYfNLiDOMdL3xZ2MiUgu/t+VWf/wkZ8+TQR9GhdbVQ4L8uDDqgvYUAe95d4BWdJYuE3JZLOeLJOe6oHZo2diRFK8G3StLsViECR2NZc+3VmzjNTuvOWY3S2BKs+Vm77xoJyGQwbI=
+	t=1792144179; cv=none; b=lHytICjttHx8/epHHZNQXn7uLNz4CUBuySjwB9ILQS0zmFsBkMgvECOdJN8mahbXcrsFKusGoM2xuFwg69rhz9k55B56qPk08qdolqvM5qb9b9zMpa+wT0kP11ufIvAV8cboTnex3KNf4bFycK77x8L6WjaZKqmlj7O4Lw1wJGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792143287; c=relaxed/simple;
-	bh=PxsauXHv21NaWp1pmCSC0GXy3wHjuorZp5IT1pL8Et4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oa4SAWDoyXiHR/BljZyjWEopiUGFnovEMpeciHUUzqM6mln+pf2SqpGsCpbi/yWC2bXYHyReWbuRjUDYAJb2VGdbsgfB2hZlzgFi9HGEERTa9EZVR9MI3YkJKkueJ342GPzrZAtTPcVpkXx9Ua3yqPKEfCJIY1dDc99+5iWxKag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WY+y07dB; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792144179; c=relaxed/simple;
+	bh=YitoetwPdH+i14xIu2SyRoM0jmdCM8cc+bzFzb4tpkQ=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=fMA3uiVU/84jkzTcAA3OsmheLmjidxmbTNs+DNDQrycHRluC6xjGnLkge67y2247dJbj6j89HXNZ1dDfNfUDR5HVNxsUXaYQh5vWPLEMCvTyA8XhXcmaI8VhLC2zzI/eAh5wNZphHlH9e7Iu9dwrskYG3kF8RcMKtWmPZM2ZOAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j9/WvJ6T; arc=none smtp.client-ip=209.85.221.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WY+y07dB"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48dfdd431dcso270140f8f.1
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 02:34:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j9/WvJ6T"
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-47f2de3ba47so1696041f8f.1
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 02:49:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792143283; x=1792748083; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WnamvmIuzRF0GlRelCYU72kM6iXFvvQVbcyQHF1dM/M=;
-        b=WY+y07dBe9BhiC7FIw+4FXAaTSs34IXjfjF+FAj+o4r7eCmEgmKEXSyo2gWTlVVboo
-         qb1ie7Ik8nJFl5HFoflagCR5FvsQHyP1azSAcnyERbL60QIgRTlpN3ULVpD1SNSsnqEc
-         4kO2W4vA4WOLrTtm7Y9ljd4+6s3eZmJ92g/5xXVxkYEeCNeqVkGcRA2au9lxRUHeob8U
-         EwX7J4IfA/CXmVbSBV1pYfrypyF9DOdT9sQWAhBlIXII/IJaYqTMpgTMHcz8pU7r4K81
-         4wLYFdIXj/5c/RigooUS/r0r5JCq0euQrcCJpdGi6Vw3Mo7FELNvsiWvwX2D/W+FV6tK
-         9mCw==
+        d=google.com; s=20251104; t=1792144176; x=1792748976; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ixy6hNcTUuWFgZUOYyQDAsnRCW5sJejSxzxn5qXltrA=;
+        b=j9/WvJ6Tk3IO0RQS+GS+Gq3I/2FrBaVGzmhCQk1bLFmrH04Lv+5mpJ058SwRBpnHBB
+         xFHpysTa3+Ndhu4pYQC0C92+Vzsqw0+m7G0DIPvZkcF/DurOruzK3tf+iLZvrSRK9U9y
+         R/HXqEMcT7gg+APl9fYcVBbPoHuBQ8F8rw0USm3hOGHs0JFpNy38haGtXaSZSU2EC4hd
+         59TG9/TaA6HR7YCtbWZUBE6o/pxspuXDoC+/u+NbJFEROapC+Iijm2KkEP32k8EXTdtF
+         cSQXe5sepLx9M5z4IY9cbVD3NetqxUK19NEcz+j1vhHMd5D7jwAAiW0KF6gzojR6dMFz
+         si6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792143283; x=1792748083;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WnamvmIuzRF0GlRelCYU72kM6iXFvvQVbcyQHF1dM/M=;
-        b=EcYDFKbI4EyDwHDMHRL+kS04F3wILyKOQqPljzMAV3HBmq1NUiD8oZSdJBu2E+H2aF
-         2gxYFDFQY/XF/pqIvOc4HHhH7QK2vFwYmgti/gLRcstfEvHMQ7Pudmek3KHHMFX2uAy1
-         yl8A1vc3QAyXgJS42ci/28xqfmPGp8Qg7fy3GfDOcc9rkAj8XtwxE9vQU17Fo8qKXXj2
-         zHhzlm7oPWj2iuG1sFXA9QyZNCecG95KJZtKJWVNM/XT64n0H7YRkQEHFWZ2QfYhEQd5
-         fupa+At15suzjNXSZpaeDEOc1mYixDP6ZzDVZKsEpaPIYtOSfFXf9ccyTcatolWM++6E
-         Yk9w==
-X-Forwarded-Encrypted: i=1; AKwUvByklEyO223i/KA1U59hxTxJFFydf/dRhr8mkQ2LKfoEI4/PCk7I0cYyVFNLph71nRtDDeOjkFK5nRbHvg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLdIU9rrAgvUizFWChowWb7NMCoPPC33rrAYY5BVc657PDS7Ake
-	UPWfV97Q5buSrWketZRe61Fh7VugYc+tJTfjjOc5fMrH+nuYSUswWfy3
-X-Gm-Gg: AYBFou0O0NJGHZmpdIxO6LZS7iT3ZHsoDJS/LiWUKUF8aNZ9zyd1qBn3rbpqPCpubci
-	aseHTYU9oJ3A+LBb6Ej6Llpora2avYO8N9XTiNmeAiOOpvln8nIrfcmr/Z/HjWHSkzp/UJPVcSJ
-	FhDVaGJZYFxvHvmt2J3d9F7tizuLYI0i4oRRW49abXEkemDiZ5R+HckUT2jNLGv3g/Q3J2HThzV
-	MGALZRuvWMbtijDl1MSDKN9uUP+DmR6cpmzMYjAzn7Drjoy+MYNUE4ksKHWRDoMFADgymNn+292
-	qaRKP/47BREkez9LU53Vo73foiMllNnwFaO1WHLHSbe788rGcECr6pYdabiuni0nPr3FeacI4E/
-	tGSs37Wen5ni836ymFMk7Byh0t/8TNQwaoaTGdMbUDPtbkiLr5I1qPC1aqV+L6zPDnQZAMSUGcz
-	1lCm/ce6JfW05N+Wfguy85fCnw8xhD/iKCUy7im/OBBYBgYR1Qvaeo12eoR1UoLq6Hhhk4EuRLV
-	DeCi+k1SZHfY9BpPuu4L+ZnK5GkVh9pEF60N6Q914pPcUuSuOrVA2g7m0IwNKYqR1mV8bhrASQK
-	/w==
-X-Received: by 2002:a05:600c:840d:b0:4a1:6d2d:d8bb with SMTP id 5b1f17b1804b1-4a1c6675030mr59959525e9.12.1792143282959;
-        Fri, 16 Oct 2026 02:34:42 -0700 (PDT)
-Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ad6252sm63570615e9.5.2026.10.16.02.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 02:34:42 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: io-uring@vger.kernel.org
-Cc: asml.silence@gmail.com,
-	Jens Axboe <axboe@kernel.dk>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Subject: [PATCH 1/2] dma-buf-io: fix typos in kernel docs
-Date: Fri, 16 Oct 2026 10:34:36 +0100
-Message-ID: <f328e279c3995cd36458ba2684c91d1bf24f057d.1792142927.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1792142927.git.asml.silence@gmail.com>
-References: <cover.1792142927.git.asml.silence@gmail.com>
+        d=1e100.net; s=20260707; t=1792144176; x=1792748976;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ixy6hNcTUuWFgZUOYyQDAsnRCW5sJejSxzxn5qXltrA=;
+        b=UVZFDjVIFodba0FtbYAIA+cH8rhA0Q5cbba10TssOfUdsINzTrQWNHZXqp4CJTCRxj
+         Yh+aLgNl2Z77XhMWPkNfkUpYjK1fuyOI8ttOODFm0MNZPWxnpgeCVmYG1gWhrEDLS/10
+         WELpvpJpnK1ehmMeJohygE7WiP5IQP27btX0tiPhGI1PBX9y4rhaETzXphg4YKok9cZB
+         lf5FZXB1AL1PRUTk9oGyYUphFamD6dJlbj9i4bDF5e45OYNcQLbyotmBgwT+bSk590wq
+         9PGF88hS1kzVkIXBErsZBgmxtXG8nqOb3FjbbhmSj+Xyij2B5F8DCUTiYRQRWUGXiDZm
+         7a1w==
+X-Forwarded-Encrypted: i=1; AKwUvBw0LPh4KmYJunjRifFOOZlXuxOmod3VlqF/2Haiw6WSJ1ZbroXhnhMR4hTxyFRExwiuDWaqYPwCBadZ7A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJv7i09Gqt0TLICPY/aq4AsYgIjWA16iURnCUYto64YK9BGRNSE
+	lPFKd36zuJBGKYH1PVQrKXRKJz5bBX/myu5SlLNnPZwfwatNT84kPEFqDCAjRwc+CP4C1AChHO8
+	WzRXoTex9O3twG5IunQ==
+X-Received: from wrhm28.prod.google.com ([2002:a05:6000:181c:b0:48b:1194:3d3d])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:46da:b0:48b:68:594a with SMTP id ffacd0b85a97d-48dbaadc11amr31197776f8f.12.1792144175630;
+ Fri, 16 Oct 2026 02:49:35 -0700 (PDT)
+Date: Fri, 16 Oct 2026 09:49:34 +0000
+In-Reply-To: <20261016085724.1031766-5-phasta@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261016085724.1031766-2-phasta@kernel.org> <20261016085724.1031766-5-phasta@kernel.org>
+Message-ID: <atHzLshg2bMc2-78@google.com>
+Subject: Re: [RFC PATCH v6 3/5] rust: DmaFence: Don't drop on signal
+From: Alice Ryhl <aliceryhl@google.com>
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	"Christian =?utf-8?B?S8O2bmln?=" <christian.koenig@amd.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, "Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, John.harrison@igalia.com, 
+	da.gomez@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-Fix some typos and inconsistencies in dma-buf-io kernel docs.
+On Fri, Oct 16, 2026 at 10:57:22AM +0200, Philipp Stanner wrote:
+> The original design for DmaFence intended to comply as strictly as
+> possible with the "dma_fence contract", which, according to some, says
+> that a fence must only be signaled once. Thus, the implementation was
+> made so that a DriverFence drops on signal.
+> 
+> While extending JobQueue's capabilities, it was discovered that this
+> characteristic causes - unnecessary - trouble: fence-data must be
+> dropped in an RCU-deferred manner because the C backend demands that.
+> However, fences are often signaled in atomic context (e.g., interrupt
+> handler) where you don't want to drop, but signal as quickly as
+> possible.
+> 
+> Actually, there is no real hard reason to enforce that a fence can only
+> get signaled once, because the C backend is robust against multiple
+> signal attempts.
+> 
+> What is decisive is that a) all fences signal and b) they only drop no
+> earlier than 1 RCU grace period after signaling.
+> 
+> Don't drop a DriverFence on signal().
+> 
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
----
- drivers/dma-buf/dma-buf-io.c | 20 ++++++++++----------
- include/linux/dma-buf-io.h   |  7 ++++---
- 2 files changed, 14 insertions(+), 13 deletions(-)
+This seems reasonable to me, though sashiko makes a good point about
+being more careful when updating the fence counter.
 
-diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
-index 21296bd3dde1..e432194a5dfc 100644
---- a/drivers/dma-buf/dma-buf-io.c
-+++ b/drivers/dma-buf/dma-buf-io.c
-@@ -106,7 +106,7 @@ static struct dma_buf_io_map *__dma_buf_io_create_map(struct dma_buf_io_ctx *ctx
-  * @ctx:	[in]	dma-buf I/O context
-  *
-  * A slow path part of dma_buf_io_get_map() and shouldn't be used directly.
-- * Behaves in the same way but allowed to block.
-+ * Behaves in the same way but is allowed to block.
-  *
-  * Returns a map on success, or ERR_PTR encoded errno otherwise.
-  */
-@@ -133,16 +133,16 @@ static void dma_buf_io_ctx_shutdown(struct dma_buf_io_ctx *ctx)
- }
- 
- /*
-- * dma_buf_io_ctx_create - create a new dma-buf I/O context for the given file.
-+ * dma_buf_io_ctx_create - Create a new dma-buf I/O context for the given file.
-  * @file: 	[in]	file for which the context is created
-  * @dmabuf:	[in]	buffer to create a context from
-  * @dir:	[in]	direction of DMA transfers
-- * @out_ctx	[out]	resulting ctx
-+ * @out_ctx:	[out]	resulting ctx
-  *
-  * Create a new I/O context from the given DMA buffer for the given file.
-  * It only works with files implementing ->init_dma_buf_io_ctx and fails
-  * with -EOPNOTSUPP otherwise. Once created, the user can create a map
-- * and use it to issue I/O like read / write requests to @file.
-+ * and use it to issue I/O, such as read/write requests, to @file.
-  */
- int dma_buf_io_ctx_create(struct file *file,
- 			   struct dma_buf *dmabuf,
-@@ -180,7 +180,7 @@ int dma_buf_io_ctx_create(struct file *file,
- }
- 
- /**
-- * dma_buf_io_ctx_release - destroy the I/O context
-+ * dma_buf_io_ctx_release - Destroy the I/O context
-  * @ctx:	[in]	dma-buf I/O context
-  *
-  * Destroy the context. It makes sure all maps are waited on and destroyed,
-@@ -201,11 +201,11 @@ void dma_buf_io_ctx_release(struct dma_buf_io_ctx *ctx)
- }
- 
- /**
-- * dma_buf_io_invalidate_mappings - invalidate the current map
-+ * dma_buf_io_invalidate_mappings - Invalidate the current map
-  * @ctx: 	[in]	dma-buf I/O context
-  *
-  * Importer's helper for invalidating the current map. Waits for all I/O
-- * using the map to complete and destroyes the map. Called with the
-+ * using the map to complete and destroys the map. Called with the
-  * dma-buf reservation lock held.
-  */
- void dma_buf_io_invalidate_mappings(struct dma_buf_io_ctx *ctx)
-@@ -215,11 +215,11 @@ void dma_buf_io_invalidate_mappings(struct dma_buf_io_ctx *ctx)
- EXPORT_SYMBOL_NS_GPL(dma_buf_io_invalidate_mappings, "DMA_BUF");
- 
- /**
-- * dma_buf_io_detach - detach the @ctx from the importer.
-+ * dma_buf_io_detach - Detach the @ctx from the importer.
-  * @ctx:	[in]	dma-buf I/O context
-  *
-- * Importer's helper for removing the I/O ctx. It kills all maps and
-- * prevents creation of new ones. Upon return it's safe for the importer
-+ * Importer's helper for removing the I/O context. It kills all maps and
-+ * prevents creation of new ones. Upon return, it's safe for the importer
-  * to release all its resources such as dma-buf attachments.
-  */
- void dma_buf_io_detach(struct dma_buf_io_ctx *ctx)
-diff --git a/include/linux/dma-buf-io.h b/include/linux/dma-buf-io.h
-index b9bbeca1744f..d9f27650a851 100644
---- a/include/linux/dma-buf-io.h
-+++ b/include/linux/dma-buf-io.h
-@@ -60,6 +60,7 @@ void dma_buf_io_ctx_release(struct dma_buf_io_ctx *ctx);
- 
- struct dma_buf_io_map *dma_buf_io_create_map(struct dma_buf_io_ctx *ctx);
- 
-+/* Internal helper, see dma_buf_io_get_map() */
- static inline struct dma_buf_io_map *
- __dma_buf_io_get_map(struct dma_buf_io_ctx *ctx)
- {
-@@ -79,10 +80,10 @@ __dma_buf_io_get_map(struct dma_buf_io_ctx *ctx)
-  * @ctx:	[in]	dma-buf I/O context
-  * @nowait:	[in]	specifies whether it's allowed to block
-  *
-- * Create a new or acquire an existing map. When succeeds, it returns
-+ * Create a new or acquire an existing map. On success, it returns
-  * a referenced map, which should eventually be put down with
-  * dma_buf_io_map_drop(). If @nowait is set and the function would block,
-- * it return -EAGAIN, and the caller is expected to retry from a context
-+ * it returns -EAGAIN, and the caller is expected to retry from a context
-  * where blocking is allowed.
-  *
-  * Returns a map on success, or ERR_PTR encoded errno otherwise.
-@@ -105,7 +106,7 @@ dma_buf_io_get_map(struct dma_buf_io_ctx *ctx, bool nowait)
-  * dma_buf_io_map_drop - Drop the map.
-  * @map:	[in]	dma-buf I/O map
-  *
-- * Put down a reference for the @map acquired via dma_buf_io_get_map().
-+ * Put down a reference to the @map acquired via dma_buf_io_get_map().
-  * Should be called as soon as I/O is completed.
-  */
- static inline void dma_buf_io_map_drop(struct dma_buf_io_map *map)
--- 
-2.54.0
-
+Alice
