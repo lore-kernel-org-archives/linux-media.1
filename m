@@ -1,39 +1,33 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C214A482A;
-	Fri, 16 Oct 2026 13:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E48B480336;
+	Fri, 16 Oct 2026 13:36:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792157659; cv=none; b=a7lJdBgmNj67opHAm5khsfN7daWtGac/z+Uzug9Oiw9fvgzbym297zpD3qbqbDyt72hMNUubvVqBDIITeP6018HuguZhSSurReePjXz9bVaDLYKsO504Dp1+NX1Sz1Wh0svicL/NpyaxlgxlZW0j+3n9TjT6KYSDOmhZfIWHMXs=
+	t=1792157788; cv=none; b=KNMKLF7XCnJ35K/J3v87GmgW30jitlQpnMD/+quwkhwwNN/DeTzVsJwVt1aO60aBnMg91KYWEZP3FuEN+ZMOIGS3sEFcY4KDvgWyNQM/yoMzTvKVv/GcbHnQecYBxowIR45rL68KAOh1M+1GpWcSbmUF4UqeGLjI27kTKBfV6R8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792157659; c=relaxed/simple;
-	bh=v0S7OMtfIQMRk7b2oIxSR2ytHrZYdcAZ++SvR3brDG8=;
+	s=arc-20240116; t=1792157788; c=relaxed/simple;
+	bh=d+XfALpztwK2vxu3QZ5NEzlKpy29pcMFQPXeyWXddXw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aOrsQWjZO3zq2QoJtZ2giJmtofV1Eu8IssJkTpZewWzmxIP6q0dNgsu7TwIyaTSKQO6PACYRtFF2tmi6DluMTCj9nLa5Mduw1ZRe8T8IT4eGQ+FbO4W/I4EgmbnUsSkyBKiZY9xEwpXPOUUftKig3ZLD/0urigXbx8uAzktDynE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HaRVlNAc; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=G5udpwZ/4QyuQZKJYRva2Cdi9EkspQoEwkoiQpTdzt/jszUvHLIIbSUGdTbKh4ZLiwtwZY63dLaf97VQ7FHlfafmnX7h3PC5MbCtWeS7774xNtqC+qw53by0AP7XKcvIfwWruoZHv96fCwRYAmWjr2P2Pr9ywTCc6SKIRAG4+RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZuLDilKZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HaRVlNAc"
-Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 7611F53409C5;
-	Fri, 16 Oct 2026 15:34:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1792157655;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=qz0uIt0JoDi/U/kIDMlrnV9+4lj5sArbrddXLpcGclM=;
-	b=HaRVlNAcbOPiCVn0q6SO9KEdqt6DKRZzafkIeiQs6u3wkCqYjGdIn0P53JhMDAPZtq2amR
-	I9P+BJYvfEDNmv8DTdA4slFPkBiSTktkS5kLWLRcebsHS9Lp1hN7kfHGQd8jtaA6y18pUN
-	IZ45rAhjHcCe+gsPosBLlYn7emykwRU=
-Message-ID: <da8b6a26-334d-461d-b0a6-8c38161e5e12@ixit.cz>
-Date: Fri, 16 Oct 2026 15:34:15 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZuLDilKZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0121F000C4;
+	Fri, 16 Oct 2026 13:36:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792157787;
+	bh=ZT13x7ybUhfmaPQnZzDMRSkYcee43yo/uoYUDT3gmJg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZuLDilKZqnN+dJkrDigaSXGM3mOa2paaJVfwbPbLggoll0Hngy3vuDUwBA8PCcXO0
+	 1PYpmYYu9Qkm85RludL1YtSaKe0ypDZz3bHOBwDEaep/DpgoogbDJJCo0xcWr2FjU4
+	 V5wwiTt1qzNUH/ZTpl+U40D0n9CdwO4kFPqYZZ/ru5HiKzT4EGuz1td7zYbgEf6pzO
+	 D4fUZUZnCzILjvt98OQ/jewOFY0+XpSYDu8DOFcEMFk6sIwbYgLiyXT3GYcJnJx5k6
+	 r6f/sRKxfj5FIqv6seR67HOFXhqPmtYjbeRERfDhdaIU3+Hu2YL7xJBdzKZW0s29f4
+	 iN4rLcY7KTzCQ==
+Message-ID: <8f0d0c71-a199-4f7a-ad66-ecd32c888fa3@kernel.org>
+Date: Fri, 16 Oct 2026 14:36:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,7 +36,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/2] media: venus: vdec: signal EOS with a real buffer
-To: bod@kernel.org
+To: David Heidelberg <david@ixit.cz>
 Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -53,97 +47,97 @@ Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
 References: <20260928-venus-vdec-eos-v1-0-6e9eb3ce9849@ixit.cz>
  <20260928-venus-vdec-eos-v1-1-6e9eb3ce9849@ixit.cz>
  <179153733762.2596899.11570084120645960007.b4-reply@b4>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <179153733762.2596899.11570084120645960007.b4-reply@b4>
+ <mqFCP16y1EJxrCWt4Y1OG7uFyjiRGPjrl41Ir16DfZJkd2EmympX-jaQOp-dkmABkKKAjhVhGXLy3CuESH_puw==@protonmail.internalid>
+ <da8b6a26-334d-461d-b0a6-8c38161e5e12@ixit.cz>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
+ jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
+ piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
+ YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
+ B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
+ lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
+ 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
+ MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
+ 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
+ JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
+ bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
+ OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
+ BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
+ VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
+ jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
+ mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
+ 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
+ 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
+ 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
+ kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
+ nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
+ g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
+ dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
+ NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
+ VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
+ Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
+ vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
+ 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
+ ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
+ MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
+ VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
+ NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
+ AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
+ JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
+ 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
+ OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
+ xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
+ t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
+ X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
+ LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
+ 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
+ Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
+In-Reply-To: <da8b6a26-334d-461d-b0a6-8c38161e5e12@ixit.cz>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 09/10/2026 11:15, bod@kernel.org wrote:
-> On 2026-09-28 23:40 +0200, David Heidelberg wrote:
->> The decoder tells the firmware about the end of the stream with an empty
->> buffer command whose address is a dummy (0xdeadb000), because the host
->> has no input buffer to name. The SDM845 (Venus v4) firmware validates
->> that address and rejects it:
->>
->>    IsBufferProtected(1087): VenusCoreCtrl: CP_UNKNOWN, buffer straddles
->>    CP & non-CP regions
->>    vDec_EmptyBuffer(1932): Invalidate buffer in ETB
->>
->> and raises HFI_ERR_SESSION_FATAL, reported by the driver as
->>
->>    qcom-venus aa00000.video-codec: session error: event id:1001 (deadb000)
->>
->> Both queues are then put into an error state, so the drain never
->> completes and every V4L2_DEC_CMD_STOP ends the stream with an error:
->> GStreamer's poll() fails at end of file, ffmpeg aborts.
->>
->> Allocate a small buffer the first time a decoder instance is drained and
->> use its device address for the EOS command, so the firmware gets an
->> address that is mapped and outside the protected regions. The firmware
->> then drains normally: all frames are returned and the last capture
->> buffer carries V4L2_BUF_FLAG_LAST. The NULL address used by old IRIS2
->> firmware is left alone.
->>
->> Assisted-by: LLM
->> Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
->> Signed-off-by: David Heidelberg <david@ixit.cz>
+On 16/10/2026 14:34, David Heidelberg wrote:
+> On 09/10/2026 11:15,bod@kernel.org wrote:
+>> On 2026-09-28 23:40 +0200, David Heidelberg wrote:
+>>> The decoder tells the firmware about the end of the stream with an empty
+>>> buffer command whose address is a dummy (0xdeadb000), because the host
+>>> has no input buffer to name. The SDM845 (Venus v4) firmware validates
+>>> that address and rejects it:
+>>>
+>>>     IsBufferProtected(1087): VenusCoreCtrl: CP_UNKNOWN, buffer straddles
+>>>     CP & non-CP regions
+>>>     vDec_EmptyBuffer(1932): Invalidate buffer in ETB
+>>>
+>>> and raises HFI_ERR_SESSION_FATAL, reported by the driver as
+>>>
+>>>     qcom-venus aa00000.video-codec: session error: event id:1001 (deadb000)
+>>>
+>>> Both queues are then put into an error state, so the drain never
+>>> completes and every V4L2_DEC_CMD_STOP ends the stream with an error:
+>>> GStreamer's poll() fails at end of file, ffmpeg aborts.
+>>>
+>>> Allocate a small buffer the first time a decoder instance is drained and
+>>> use its device address for the EOS command, so the firmware gets an
+>>> address that is mapped and outside the protected regions. The firmware
+>>> then drains normally: all frames are returned and the last capture
+>>> buffer carries V4L2_BUF_FLAG_LAST. The NULL address used by old IRIS2
+>>> firmware is left alone.
+>>>
+>>> Assisted-by: LLM
+>>> Fixes: beac82904a87 ("media: venus: make decoder compliant with stateful codec API")
+>>> Signed-off-by: David Heidelberg<david@ixit.cz>
+>> The logic stacks up as I read it but, I want to see this a) work on sdm845
+>> and b) not break on sm8250 before applying.
+> On sdm845 it works great (tested multiple sdm845 phones with `livi --demo-h264`
+> and loop enabled. I don't have sm8250, thus that's up to someone with the device 🙂
 > 
-> The logic stacks up as I read it but, I want to see this a) work on sdm845
-> and b) not break on sm8250 before applying.
+> David
 
-On sdm845 it works great (tested multiple sdm845 phones with `livi --demo-h264` 
-and loop enabled. I don't have sm8250, thus that's up to someone with the device :)
+heh I do have it.
 
-David
+I will test ;)
 
-> 
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
-> bod
-> 
-
+---
+bod
