@@ -1,124 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB2338C423;
-	Fri, 16 Oct 2026 11:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A74B2D7817
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 11:33:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792150384; cv=none; b=usychI1DKlN2ZAQb7J6tmE8J3pbpH9rS+2DM0iUSxPLbP063VRI2bZuUDrXk+7gAtObfZ6uH501yMX2ohn2GSBwj/VCG7QZqf6UGNH3KJyFSlSKXMuDeZsClHHaCOtI577kPR87Ly8ki50TJkX/f6yzbfdpdKuXKDfj5H5JlkvQ=
+	t=1792150384; cv=none; b=L9THmyJU/FCX9KTC/vVFrwX43G1Zzzn9dLWprGjLkfpsLRKXdAn19VZfHQGojFaW1wvv+hIpIjrIY4Ba6Yh+X+VLThVEI0eCa52ghtqpngOnvPvBJeN1Krio6nTqzr7ceQZq1+gN5dVq240AiEsZUdFP7uwcv1VSI+H9Rr8b99s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1792150384; c=relaxed/simple;
-	bh=UrBG+PSxybY5KQyXIvQeAhz9sfFbtz3vij3Q6ZU4aSU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=mPS0YixD3/sORB52OODZuM2t3Xx4i7lRWyj4DYqeJlUoluAydS3yt/Ld+errLaZrUw+ChhghxdvqcldK3kDA2Aucevsmv5X3YAU08pujeZ2oIUbVDVBUVRtbYdt3eI9V8hS9DcIENQ8cx5/1WiUnlZvrNnFFRCgr7ik2xkoK5aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ORNmSHa5; arc=none smtp.client-ip=10.30.226.201
+	bh=F+/gdFBwGyd9NF1wNEDnKR1WRHrb87+RISxVG3LG6nc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eSvY38eHic6MJXJSnCBgoOvtbrZx8726ram1vSGHwslAxrrFopHc6UQKuHgDsjnCKUj4L4t8RizkcEe+W+D6c/LtY07F02vSXrki5kWDWuYdpAw66q1GcWLrocPRraID/0j6MLqXaXBSQeoA93GEFPQR/0iVpxD8Fhw6ozEpYpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HDBTxqA9; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ORNmSHa5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8E869C2BCF4;
-	Fri, 16 Oct 2026 11:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792150383;
-	bh=UrBG+PSxybY5KQyXIvQeAhz9sfFbtz3vij3Q6ZU4aSU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ORNmSHa5Xejau/fWBYzBSZggSPIZpNYkqLn+CaDmoRCFTg464H0tCl0UvYcAiTMCJ
-	 NKEFpKXPD1xDX1VcWlDugXxoCBC0/tIS4uIpDxYpBxmBXZgekYQue3pkAJLr7wrXyR
-	 ZTDVs87yOLspJ+XivwrV4QVT9hwjj66W5na0uMwh3XW3k5PCMVmLe1nM4YGfEOJoxy
-	 ktJY9JN0PSsFBlCMGsUrElNMeA9sXxInzS244n5yac49jXoMnDszr50wYuh9jaTQnh
-	 eRR/xTKLG14ZEMhYQTCF+F/19NHMqlhzC/6hDxN57ntoKyzsSwetnCDsK5iIC3gTWE
-	 UphXkvC2vsoKw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67839CCA464;
-	Fri, 16 Oct 2026 11:33:03 +0000 (UTC)
-From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
-Date: Fri, 16 Oct 2026 12:33:03 +0100
-Subject: [PATCH] media: i2c: ov13858: Set the colorspace in the pad format
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HDBTxqA9"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b0584ad71so3785388f8f.0
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 04:33:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792150381; x=1792755181; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F+/gdFBwGyd9NF1wNEDnKR1WRHrb87+RISxVG3LG6nc=;
+        b=HDBTxqA90HEV5zn4gAoLyOHG7K5OBxhRwNVOa8Iaco83MAnOU3jvNOXeSIZetWA1+B
+         l558jlaSIniv+vkWR+NOvQMBx0d5GvKiDPN3bqu1Khi+zdU+l8aj11hIa7mdjDkUnDvu
+         ZZdMwfhnz6pqSv/5mOKsEA2k7DXvgmJeJkF1FgGrWo3P/RD3+3rwso9rcUc2lWVjz9S1
+         Nx6NQfehhG3guGRnjkJdzllTtvfiPs8FLsqPWhXuI5JR0D35ZgaAG6oXXVX2SkeAp2N/
+         nCe2j42eflPdHbyr+x5Jb469UTg/zz4DsMOaDT5wt2RdJ7UP3fX5o0824Zj/95lc0YXX
+         TK/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792150381; x=1792755181;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F+/gdFBwGyd9NF1wNEDnKR1WRHrb87+RISxVG3LG6nc=;
+        b=lESm2D6WNrybrWnFYJknWAH3Y3i9bLcOv0uyzIJ2KcbT9mMEBKo0fnoy3xHoL+E41M
+         oIgMbNXM9+mO6T/6q2OD8GdmEXz0HA0DgeppdYmS9NDx/1dyZ1Vj4lOQgK6hxMS8A/vC
+         ki8pewr0v6NEWE/APPAW5PZm1BKKjQywtBbKeT+nWsyuTjNqkhAyhUQ8asf2tHBmFGxy
+         0tBoWNE+5gKAfvCJqTrsaPL2yYcXCzX/TtQAhHkw080R/xSYdwxB3ahitRJ5PIwd1iKM
+         /PdT7LqI7vUwYUNvt40AzuN5mwx/LoQkw+4CwP/CPMJMWkVf88hi+1JHj7SWKzHeU25A
+         XOdg==
+X-Forwarded-Encrypted: i=1; AKwUvByDuu6cJ/eGXdraChE6p7gzhlfqMdn5+wkQ7fDEEHxDpXhQq8aaCsL3WbRW7ZxagLzYwBJJkigBi9/DFQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7ByF4lY1FMpIaeH6wMf2Ym9e0S+XTn5bVDVmFCva8HGPonyuM
+	ou98UVIp4M9sXvylefSDG+rSDLEKONH8z8AY3MUDjN0i6YhL4nwgUdDf
+X-Gm-Gg: AYBFou3WZRYIZ4wLwmy9FZ+VzTYcNtoCLg4wQY2RVbe17y4CH9UwUkZ6yVjAk2F5Qqu
+	23PcQ2e9Wf1nJFcwnWnFMkPfAZwghd2GlB6bl8kf+DY8JNgHeUm7+ucdCidwVZXk5Sbz9LrOfJt
+	tuxqM8lBjXnlDkrI4pC4um12KbQGh1+LSxXWkr76xIcb849jIhKN0ZCqr7ff74bYSYeRqENdhjQ
+	0BTVfl7CbqgP7jce83uv9aI/1lWeCpSsJMrmzBiw/kdoEzLiMJ0G5Pt9ShbfySt3kikXnxvi/45
+	BTbCguaEq2+OphmyTpzySZcgjgzW1CxcaUwOO0dO7vpYc6jALw/H4Aor32ADPQ6ma1Uug1n41MZ
+	GBuKedhVVBzOZTEmZiNAPNIhJgV95H81xC3QhwK2JiSwn9PhoFr4nxiLSDNxZafhug+quI6T1yq
+	gl5LJjLxnXj3HhhOFgeTOEok5XTmU9aWjz2coY76Zc1y67y5YCPbdbvjMWgDcEX/PCY748ln3TQ
+	2sGnoqcFLvj6RWszMjA1tBHn7ABqP3G1ADbh/ixBZ0FRMKASlHrl8ah/D9dIfbv9aJ6aZl4
+X-Received: by 2002:a05:6000:24c1:b0:48e:6f:19b9 with SMTP id ffacd0b85a97d-48e006f1ademr2357813f8f.23.1792150381293;
+        Fri, 16 Oct 2026 04:33:01 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd47104csm5057285f8f.8.2026.10.16.04.32.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 04:33:00 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	David Heidelberg <david@ixit.cz>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+	Suresh Vankadara <svankada@qti.qualcomm.com>,
+	tjose@qti.qualcomm.com,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 0/4] phy: qcom-mipi-csi2: C-PHY for X1E80100
+Date: Fri, 16 Oct 2026 12:32:59 +0100
+Message-ID: <20261016113259.40819-1-geocausa@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <b96649d9-5c1c-4fc0-a77d-d0076cf80b86@kernel.org>
+References: <20261016-x1e-cphy-rfc-v2-0-377654253193@gmail.com> <b96649d9-5c1c-4fc0-a77d-d0076cf80b86@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261016-ov13858-colorspace-v1-1-51f0379ada0c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBMcLYmuEi1MpxoIFYUIpLsnL
- d/i/wqFMlOBuauQ6ebCMTRg34E7bThIsG8GJZVBiUbEG/U0TsLFK+aSrCOxoZIDaeul8dDClGn
- n558u6/t+y7oG+WQAAAA=
-X-Change-ID: 20261016-ov13858-colorspace-b1204e3ad06d
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sergey Lebedev <lsa.uz@pm.me>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792150382; l=2395;
- i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
- bh=n/sxfBlSOnPixJhhw0pyum+d8qOEAc1WzMKK70SZHtc=;
- b=Zpn/iF9ypaqtLNPVHcupoCSzFtYcv9OgX0eUmR1g2JE7zMdNqS5BsJExqPy2wvWzdJ9b+lxsf
- nTpZYk+OOoNCaH5o5EzOz9XfG04/3jj1lX568wpF4bkNbKS6oRpJ2t5
-X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
- pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
-X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
- auth_id=1199
-X-Original-From: George Neacsu <geocausa@gmail.com>
-Reply-To: geocausa@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: George Neacsu <geocausa@gmail.com>
+Hi Bryan,
 
-ov13858_update_pad_format() and the try format set in open() fill in the
-size, code and field but leave the colorspace fields at zero, so the
-sensor reports V4L2_COLORSPACE_DEFAULT. v4l2-compliance flags that: on
-the Intel Surface Pro 11, Active VIDIOC_SUBDEV_S_FMT fails through the
-media device. Report a raw colorspace, as imx355 and imx219 do.
+On 16/10/2026 12:02, Bryan O'Donoghue wrote:
+> Small point of order here - this is not really @ RFC status.
 
-Tested on the Snapdragon Surface Pro 11, with this driver built against
-the 7.1 kernel the machine runs: the sensor reports Raw / None / 601 /
-full range, streams 4224x3136 at 29.9 fps, and v4l2-compliance passes
-46 of 46 on the subdev.
+Understood, v3 drops the RFC prefix.
 
-Reported-by: Sergey Lebedev <lsa.uz@pm.me>
-Closes: https://lore.kernel.org/all/20261016070018.11932-1-lsa.uz@pm.me/
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: George Neacsu <geocausa@gmail.com>
----
-Sergey found this while testing the ov13858 device tree series on the
-Intel Surface Pro 11. It is independent of that series and applies to
-linux-next on its own.
----
- drivers/media/i2c/ov13858.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+>> The kernel was 7.1.5, with linux-next's CAMSS and CSI2 PHY built as
+>> modules; the test build needed shims only for API differences.
+>
+> What's this ?
+>
+> "It builds" I can verify myself, "it works" is the thing. Just slow down
+> and get something you can test on hardware.
 
-diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
-index 5a49fa0ec..5be3d0888 100644
---- a/drivers/media/i2c/ov13858.c
-+++ b/drivers/media/i2c/ov13858.c
-@@ -1168,6 +1168,10 @@ static int ov13858_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- 	try_fmt->height = ov13858->cur_mode->height;
- 	try_fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
- 	try_fmt->field = V4L2_FIELD_NONE;
-+	try_fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	try_fmt->ycbcr_enc = V4L2_YCBCR_ENC_601;
-+	try_fmt->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	try_fmt->xfer_func = V4L2_XFER_FUNC_NONE;
- 
- 	/* No crop or compose */
- 	mutex_unlock(&ov13858->mutex);
-@@ -1348,6 +1352,10 @@ static void ov13858_update_pad_format(const struct ov13858_mode *mode,
- 	fmt->format.height = mode->height;
- 	fmt->format.code = MEDIA_BUS_FMT_SGRBG10_1X10;
- 	fmt->format.field = V4L2_FIELD_NONE;
-+	fmt->format.colorspace = V4L2_COLORSPACE_RAW;
-+	fmt->format.ycbcr_enc = V4L2_YCBCR_ENC_601;
-+	fmt->format.quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	fmt->format.xfer_func = V4L2_XFER_FUNC_NONE;
- }
- 
- static int ov13858_do_get_pad_format(struct ov13858 *ov13858,
+Fair point. The frames in the cover letter were captured on the
+hardware, but the kernel underneath was the 7.1.5 one this machine runs
+day to day, with linux-next's CAMSS and CSI2 PHY sources built as modules
+for it. That is not the same as running linux-next. Before v3 I will
+boot an actual linux-next kernel on the Surface Pro 11, retest both
+cameras there, and say exactly what was run.
 
----
-base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
-change-id: 20261016-ov13858-colorspace-b1204e3ad06d
+For 4/4 I will also move the fsleep() change into its own patch with the
+reasoning, and put the lanes_enable() decomposition in a precursor
+patch, as you asked. Thanks for the reviews of 2/4 and 3/4.
 
-Best regards,
--- 
-George Neacsu <geocausa@gmail.com>
-
-
+Thanks,
+George
