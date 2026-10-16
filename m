@@ -1,94 +1,137 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5326B4D2EF6
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 14:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6383BB9E0;
+	Fri, 16 Oct 2026 14:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792162548; cv=none; b=XXnrhQstVVe4RbXEbnjDzH38UP+hueiMxaEj9bHIdw4Wzb9igm7/lhqwprBeJ6kuCxd6+VlXoHteiZJ2yozqRQuykqXQ52IDYLhLLMr8glzJQ/Sm5eSWSyoaH/5PgqGaPXmTST8LySqzeBHHCkWXPSHdlAuEnVTQj/Ls64FWh1g=
+	t=1792162553; cv=none; b=glkD42oNZ4cG3KIoW3StNdV/ZcKQyVKLeFJrWUedZkmCFjS7J4ad24NHgAtJ2tx0Jo/VHgudc3R+2QRHyuERo3hYHLj0l1U205OjWKMbbSrORKRIoxDuUTpjgAFrRIRLZaDHJeP+VbObd5dZ/zTp4h5wBBXJrLJSh+vne8PGFOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792162548; c=relaxed/simple;
-	bh=uEADsI3C+ZwQjfzZOiQYNESNHr6nsHl6ctBrdOBDmR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MXAvDgAvFWnRCB6lEtTA7kN6PLptjdLwZXhnJ5G9rj3yuHbFOC7YuqwJcspHHjn3UryzJSuFEUw0s1X/X8Z5afEvt15fI+q9UcExcc8H3UVbKkhz2Ch70aiHm2+S38/l8HB1DQtAPTGIw7DnrQ3qvqjOYqAb2vDnyohAA1OUURg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3rBpaFv; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792162553; c=relaxed/simple;
+	bh=KsN7Ym5ScGqp7KpuK3hYa5GAaiNMJsK+9n3FnYHTCjI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Xk5oV3cTfdhohN2QeXIiEoh8rEyUWrYlig8H0a8YaP23q8TH523t+5QF+9EvAIpUG0j4I56RUwLJzb1V+20Rn8kwKt02NGZg6w3o5sUTHD80vxvaywMHH5MHVzqlhhlea9SsTLV1DI7MrbeKnf4Z+2xHJiT9sQrCHx/F6SdVeDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RsDAa5UI; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3rBpaFv"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so836381f8f.1
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 07:55:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792162544; x=1792767344; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uEADsI3C+ZwQjfzZOiQYNESNHr6nsHl6ctBrdOBDmR0=;
-        b=M3rBpaFvAPekf8pwFqOZvYYbOLLce3tuJy6//0GK+YIK1K19LHF7OBBF1mMFfVivMG
-         G+r5sY9GKnABXhpbYh4PS8nQIUuimsEfLX2rUrc8f8s+MbAI0QMd+cNYx1hqyrw5u1NJ
-         SHhhVP1l9FHLyX8RSzWBhpVI0DkKv6YT2QuuWkfZgJ6BhhCeNTyIDplAMlqwGMFvo3Vy
-         vQJP4psJh+oP6RQa5YinbRRy7z7CtK2fC1nSDIscZq9lF2Aw45jjjCb9FI16zNksKQZQ
-         tzKmCFRccsgHGEg+ed52t2MEaWRTnoRPshA9ncA4+rZNngLdUiFhTmKYfGY+7KcLqfS1
-         +7TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792162544; x=1792767344;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uEADsI3C+ZwQjfzZOiQYNESNHr6nsHl6ctBrdOBDmR0=;
-        b=vKCJXeBVGZDJLmYWXtStAkAVSP8F517oI+JHRMhTrfwm8ToEG6qonGAlYdVm8sF4Mu
-         ktP7eBTPrwwKlzgkKteg34QMyPgUd2HnJDTlrZkd7uWvSCy1X+i6lAEUBEAphB6Sjk1C
-         UUg4YNO/xmAClr/3B/r/1caqBQIMbfX2RPepR5z/SrNnQZKhnNh0w1zkjNFV+zxBv/Nt
-         hdGKsRu39NqQgBWqthNSE9ZNvsHkUMA9pL2tBMNnjUR5JyTXS8ifDoLgvLskodu741/b
-         WGZhnIONEmSJi6i7bxyXytx+z4ntNicUiIcOw4PVop8570d4E0cNI0dxuNG5kZ3WFPwm
-         rviw==
-X-Forwarded-Encrypted: i=1; AKwUvBy5KUe9O8z3YRHoYyqWs6xM+hYwvagaQrF3pAjAUlF0fZhAxYZnEDJUnujD1oqHVLAG0AEA58qQiRw99A==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJO/vnDr24yf/D+QOJxfooN9Vmrev0vaYZzXlk8cOds5qvu+Pt
-	+9ETQfHRayfuLBvv91+BGwIJKZfll23LRGp36vSAH3318sRNjtD3ko1y6gHUB9Ja
-X-Gm-Gg: AYBFou3pG8H9R6PONbFGqswrwa8mMx0son3VkEnEyfdGHpqJgaACW+Rmqls88xNaV+e
-	QlrMZU2qcVnBvJk7Va3r4/HVnwaZL7taMNg3BQDSfC7wHEvxF/K6+vZRKvuM8ufyy/USY2KiQ3G
-	qXgioX/T/qJH13FEhImb6HV1iJR2fdghALo0hVW55U5zdiwqxRr7RBFdn3Pe5uZ7EAzPF6skFrE
-	h+Ys/dD1oElAMGRkLyZ898hP4+wnoR66ZUZIKXwZd2RWP/s89j5gD7GRO4u3yqb7NRpcyj63Szb
-	aBmHaI2AWaEeU5XqgDtKoxIvC4hWL84JRPQUYEB7hJ5GLBbGAKrBvGWOTegFvJkLOP7uxBeLqT7
-	HWzpE0SOnxRQJG/zJ4pePipp8BQP9dkvPkf5XZ7coAF3hCoQNWh08fu3ExqxGs5alzMOyI5Y3Cp
-	bkyi2UadZLzFb/9O9ghDBe2t4Q7errynHayXKh+yFM6+maVKkLei77kTfShBvS381XdrgEuNWIl
-	vUMBGLheTJ8qLKt0rCavHI68ZKa7076XThhWBN4X7tt8DWOcbST51D52EH6FLYPSWsIJpNC
-X-Received: by 2002:a05:6000:290f:b0:48d:f99d:a0d3 with SMTP id ffacd0b85a97d-48df99da6f5mr8407928f8f.46.1792162544436;
-        Fri, 16 Oct 2026 07:55:44 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8bb6sm5918002f8f.34.2026.10.16.07.55.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Oct 2026 07:55:43 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-Cc: Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: vd55g1: Register as a sensor sub-device
-Date: Fri, 16 Oct 2026 15:55:42 +0100
-Message-ID: <20261016145542.37322-1-geocausa@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <073e5fa2-313d-4d7b-ac10-3a74c57d3c62@foss.st.com>
-References: <20261016-vd55g1-async-sensor-v1-1-cd72f6d68ea4@gmail.com> <073e5fa2-313d-4d7b-ac10-3a74c57d3c62@foss.st.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RsDAa5UI"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9EC9AC2BCF4;
+	Fri, 16 Oct 2026 14:55:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792162552;
+	bh=KsN7Ym5ScGqp7KpuK3hYa5GAaiNMJsK+9n3FnYHTCjI=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=RsDAa5UI5CNO1RWr4xKERpCyXa//HzMrrw7alQbGQzYd7mB8HF7ozPm7MNlVLGHT5
+	 oFivKL/f7907sQrPGW8xzbA45yRvn2G1RtZbMFO7PgcKJM6KRlyBWXuACTe6fJ4F9M
+	 +YWHJlkXai9nXDp7Um0DxEiMg+KHIC2Z5vaO0hFdN0PUr7MDy+pKYUaeui2lPe0vq8
+	 RoewsbzBPod2LXEsEE/RZ5mht+tWSvmMROS44Fvfisk1hqjiv3hjXvcPJ6P24phUsb
+	 A4C3fiIuyQiZ9gkW7BFsNHGhG5cR1PTg5M7zzBp9O5pGT8DZPbD9hCsV843OtYxLLq
+	 YR+LEScie72Ow==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78E3ACCA462;
+	Fri, 16 Oct 2026 14:55:52 +0000 (UTC)
+From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
+Date: Fri, 16 Oct 2026 15:55:52 +0100
+Subject: [PATCH] media: qcom: camss: tpg: Skip the unnamed test pattern
+ menu entries
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261016-camss-tpg-menu-skip-v1-1-0a0a24e36316@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0Mz3eTE3OJi3ZKCdN3c1LxS3eLszAJd88S0JDMjI0NLU0MjJaDOgqL
+ UtMwKsKnRsbW1AGyHUMFlAAAA
+X-Change-ID: 20261016-camss-tpg-menu-skip-7afb62219512
+To: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, George Neacsu <geocausa@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792162551; l=2642;
+ i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
+ bh=EhYu2Sf5sRq8nG4xWwgv19XdQhle1nzxQog9NV/jvME=;
+ b=tt6dLw6XGpWAdQXXI+3d+vqV/+tbdo586S1BIMNGL6Zsa2RBHRM2IIigDOaKGR94k1uJCC75Q
+ yGavmGxUco2DjWRc9KH797OaEmv7sJCAwxQsdtqb6n9y/Hvo2//WFdz
+X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
+ pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
+X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
+ auth_id=1199
+X-Original-From: George Neacsu <geocausa@gmail.com>
+Reply-To: geocausa@gmail.com
 
-Hi Benjamin,
+From: George Neacsu <geocausa@gmail.com>
 
-On 16/10/2026 12:04, Benjamin Mugnier wrote:
-> Signed-off-by: Benjamin Mugnier <benjamin.mgunier@foss.st.com>
+The gen1 TPG names its test patterns in testgen_payload_modes[], which
+is indexed by the hardware payload mode, so entries 3, 4, 7 and 8 are
+NULL. The V4L2_CID_TEST_PATTERN menu is created with that array, a
+maximum of TPG_PAYLOAD_MODE_NUM_SUPPORTED_GEN1 and no skip mask, so
+setting the control to one of the gaps makes
+v4l2_ctrl_type_op_validate() dereference a NULL name. The oops leaves
+the control handler lock held, and a later rmmod of qcom-camss then
+hangs in v4l2_ctrl_handler_free(). v4l2-compliance -m /dev/media0 does
+both on X1E80100.
 
-Thank you for looking at it. Did you mean Reviewed-by or Acked-by here?
-The address in the tag also reads "mgunier" rather than "mugnier", so
-the tools would pick it up as written.
+Skip the menu entries that have no name, so the core rejects those
+values with -EINVAL and VIDIOC_QUERYMENU leaves them out.
 
-Thanks,
-George
+Tested on the Surface Pro 11 (X1E80100) with next-20261015: the menu
+lists 0, 1, 2, 5, 6 and 9, setting 3, 4, 7 or 8 returns -EINVAL,
+v4l2-compliance -m /dev/media0 completes without an oops, and qcom-camss
+unloads and loads again.
+
+Fixes: 51fe835c485b ("media: qcom: camss: tpg: Add TPG support for multiple targets")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: George Neacsu <geocausa@gmail.com>
+---
+Fix for a NULL dereference in the TPG test pattern control.
+---
+ drivers/media/platform/qcom/camss/camss-tpg.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-tpg.c b/drivers/media/platform/qcom/camss/camss-tpg.c
+index 5764a60fa3..2e80834225 100644
+--- a/drivers/media/platform/qcom/camss/camss-tpg.c
++++ b/drivers/media/platform/qcom/camss/camss-tpg.c
+@@ -453,7 +453,8 @@ int msm_tpg_register_entity(struct tpg_device *tpg,
+ {
+ 	struct v4l2_subdev *sd = &tpg->subdev;
+ 	struct device *dev = tpg->camss->dev;
+-	int ret;
++	u64 skip_mask = 0;
++	int ret, i;
+ 
+ 	v4l2_subdev_init(sd, &tpg_v4l2_ops);
+ 	sd->internal_ops = &tpg_v4l2_internal_ops;
+@@ -470,9 +471,14 @@ int msm_tpg_register_entity(struct tpg_device *tpg,
+ 		return ret;
+ 	}
+ 
++	/* The mode names are indexed by hardware payload mode, skip the gaps */
++	for (i = 0; i <= tpg->testgen.nmodes; i++)
++		if (!tpg->testgen.modes[i])
++			skip_mask |= BIT_ULL(i);
++
+ 	tpg->testgen_mode = v4l2_ctrl_new_std_menu_items(&tpg->ctrls,
+ 							 &tpg_ctrl_ops, V4L2_CID_TEST_PATTERN,
+-							 tpg->testgen.nmodes, 0, 0,
++							 tpg->testgen.nmodes, skip_mask, 0,
+ 							 tpg->testgen.modes);
+ 	if (tpg->ctrls.error) {
+ 		dev_err(dev, "Failed to init ctrl: %d\n", tpg->ctrls.error);
+
+---
+base-commit: b810335a0699d1810683796b0e3ffe8827ddfe6c
+change-id: 20261016-camss-tpg-menu-skip-7afb62219512
+
+Best regards,
+-- 
+George Neacsu <geocausa@gmail.com>
+
+
