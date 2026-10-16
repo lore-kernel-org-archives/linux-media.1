@@ -1,502 +1,247 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21254457E69
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 09:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18973BCD3A
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 10:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792144801; cv=none; b=Veaz+MR0IHKSOhlvmCqy8Lznbkyb/hGKihoYY5hfYVl8rhD5wZREpzNB6O706eQHDQ7K2MInqjzimbEC5eDAUviq0Oxwu0+Y3HII5CU25oxOmKz6zki/ZYn4GKnrEVG5TsRbxL6ZpX5BxW4Z6//wxPdJQ3El5GQDFlKf8bARIjw=
+	t=1792144942; cv=none; b=LMh146EeFWRxh55vAgJXVFWObcamVL0RiVsXXdKD2klFSFVF3IoceWrZmtJX5+3QciypISjpMC11X3MrUzdVpJQc4uIs0i9K+ZyqyPc9rgE91YyevqD6nm7gLw4MT02geV8YZHAsVApS8dTZcHovA8LWC7lY75X5I4AuNeHAtGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792144801; c=relaxed/simple;
-	bh=rXCLBIN/jE1YH/Q/y/dgrhfYI32CL1Fy8UParFypB9w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RBm1rjazZ/5sz1AH3UsWP7WlHhA4S7qA9JjS9rnb2eicNvGhTMQdwX3FYIBdB+VZk83hIGVj/Bj1L6P/17bV1TdNd1TjT/BkoFcgbOhwrpsfs/Jq8bP8pXSz2h7QGjICtuGAj6t5v4InJKFPIShADRGc7Uj16wcf2F1cbc3EDJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fwIEQUnd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hxl1jkq0; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792144942; c=relaxed/simple;
+	bh=Mnh9EX1MPi02/aqRn+2FG1DdIwep7oFaGFX3ZF/xyBc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T3FS3ALifYd+j6jVLk0CzNeK8sUmarRIsiQgaPfvEj1nKAWuHmOHC62qFu/Ep1cqHyf5L1vQ8TgvIxvunAmANJwlNRtRliNOoHnmdOs8SJdbKZ4uywqk6qMdzOgG5vz95wLXGjoxGSlJVdwm+v4sB6E81/Zd09DSVzlt93x0gEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RVCSjEfw; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fwIEQUnd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hxl1jkq0"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69G8m5U11465344
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 09:59:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FCBtKsqjRdy4AFeNQbbx89vRA+gRim6cHkNiJULnRHE=; b=fwIEQUndRotjF0tW
-	rMX8AFED8hQmKDRV+lqCMEpMMZCaKMSRy2Afwkyga2TpbKca4/l5btbcatBzyeWp
-	tsf96A92qNjwVVf70LRYC/P1vdXnVROn6VA5NXHF7oXgjeDFVMSJRP3soNRqnil5
-	32AsWAFtklvA7WTOKCVjFE2tUeHjT2cQ1ipDjkoDzEfpRsr1IeBEqQhl3ZJtHBfi
-	O4loerINpsRyhrtUONaKVkz3lJR/wA8SVyDLTFRNvWrudp/zY+7dyYC2WGef4Tsy
-	VbCePEoH7qwYDB3bMU1/2/k/nQ8ksEwt3SXM2jCCNFU2At5vT+a3ejRkZEReIrt/
-	iJRiXw==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hb21wuq43-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 09:59:56 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd633da24f8so2811272a12.2
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 02:59:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792144796; x=1792749596; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FCBtKsqjRdy4AFeNQbbx89vRA+gRim6cHkNiJULnRHE=;
-        b=Hxl1jkq0UfLXm7OncJicHYjydkdJsfI9FApfV6CwxPoilVpJg7VOmKqMFQWFl579Hc
-         aPcJQ3ycoejdn+29psGyb8SyzmpGPfEaTIqn7g0MKmyfViyKd/JVL2tgwcEOWEA6Gecw
-         L3dZUxLfs8yd3cnZlgBnhIvSowWRk/eFwnGy3rBrxgDXEJ9RKI3qPy84z4uzMg+nF6tc
-         S4bbSY7DVvQXYlSoh/u4N72M2BqIMeRDlvQKweqI1Z3VqV/4HZX4jvnrJnsHBfhZyd6X
-         eMl74opTG+D3JUFx/ZHQavuN2MUlVMffzLW7c7F//wb3o+t1tZKTRBTay7dwwvpOydQk
-         eH7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792144796; x=1792749596;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FCBtKsqjRdy4AFeNQbbx89vRA+gRim6cHkNiJULnRHE=;
-        b=qk8GensQ45zdsY2pF2EgGIw3TzsNyoVLvHdZS75B9BTrbFe5gmpIKHa/4zxbqsh7TP
-         FqtmoNDVoyw+00icqs2VTLt4jafw6KlVsjhMpvI2jQMFh13R2r+trAUP2K7BzVdpX2mJ
-         ZSCs8vINUsTfHw+68T0kuPQxCc2XJy4V07hYc/uOw+IIGO6nPb8Bvbbgg6ltcfU+gms6
-         S9B4XJUkQjo9zoQM4hu4icex4WeQQy0OgbobH2wwVdd31uK5sEZ0MxuAN8BJhWd9i2lB
-         aemWVVgJuGghyAAROUy3giMxjuHNLoC9HLIp8BzYvBN+JBo+6QTBZXsm9pK8+KXf++zR
-         5NEg==
-X-Forwarded-Encrypted: i=1; AKwUvByrkMlnBg40mC/UBgNa418dsydkmk9K/PaPMfT88+rwc+WQbXgSJf+RfTp82Dco5wj8AipvtGnrFljjag==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJvhypZJEvDvi6iop7EbBJqrPQotAa/ueVkTObVikdhZlez44d8
-	hu6ZqicEDmxAkQuegQWXrvhzJ3oq53EzLZzX2UgQmvsVF/6a0a+iOHbQLndofXKoMK96y43DY0k
-	0h54n38iCo2PkhtEhM0qEolf2ztDBafKCy7gOU6iesgW5XNxBBDddL0MAsoGC1LzLIg==
-X-Gm-Gg: AYBFou1nag+UBR5mgQGjmt8s5KTYWMN0FwPE8uygHBSZ/tjUI8VRwjcCpi5x7vtS58A
-	Lhy/MRZTsL4cMHUbm+lROFfE1zoIM0vSWwuX+pSlsv29dThcUVKy67WV41DvjMJ//V+gtIjitkB
-	CvR+jB4YDXNu/VN5qjVMlkNChwPlFYuv0wIQADGg4LazFK5RFl15jhhegvZGHgSPsKZJhLJddt4
-	8sIuNOPMVIhzm2ezTiMnuQ5Awt7z02l742VBWzDVkgmAkq82//Vnq6AVFHuKaw8f6i+HxbRALBg
-	ou8s0/8FXBTFjePL2DA+ftZdYe2vLoFygxHEE0Dw+49xAjG7ntVEb1A1jTejttyLiDUs02ziVut
-	v7krmOUSGIMbZ1xfpcIW9imW0iJQ=
-X-Received: by 2002:a05:6a21:1f8d:b0:3dd:a197:ede6 with SMTP id adf61e73a8af0-3e1d0694e15mr9348330637.53.1792144795580;
-        Fri, 16 Oct 2026 02:59:55 -0700 (PDT)
-X-Received: by 2002:a05:6a21:1f8d:b0:3dd:a197:ede6 with SMTP id adf61e73a8af0-3e1d0694e15mr9348312637.53.1792144795020;
-        Fri, 16 Oct 2026 02:59:55 -0700 (PDT)
-Received: from [10.206.111.19] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6549db75asm831808a12.18.2026.10.16.02.59.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 16 Oct 2026 02:59:54 -0700 (PDT)
-Message-ID: <bd13910e-ddcd-45a5-a7ce-7e6e74290955@oss.qualcomm.com>
-Date: Fri, 16 Oct 2026 15:29:48 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RVCSjEfw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792144941; x=1823680941;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Mnh9EX1MPi02/aqRn+2FG1DdIwep7oFaGFX3ZF/xyBc=;
+  b=RVCSjEfw+SnfQnXjc+VHARuTLshyZvZuSnpSuortXH6XBCrmm2eMPPMT
+   9bcFFJ9SdnfCmlXAeb1XwDoXWBDS079fqCGgf4SHTA9vthGZ+j9Ge2HGc
+   D6swZLDW+JP/ypdOopN2deVWfBlp2j6gLuThUJT4pjFwQYjWWZj0XW4eC
+   1o+KHYnYfOjseO+j+Zt/xPJ8RoJEfqU6U+gceVb4YN6SZktBsrlX3VRoY
+   rIuiDn0p1l8VTt/1mofKL2Hrf7Otgd5tchiL2AQQ3LmDhUhclpjeDEhwe
+   cpO5JJk/mHTV/nwsVH0aYHDd+hacPuXaHO7p6ZVPJNUo/Q2WmQfsDJN88
+   g==;
+X-CSE-ConnectionGUID: H0VGD+XIQVe4K1IPEgHj2g==
+X-CSE-MsgGUID: keqYLwmaQomvJqwno/Vaqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11936"; a="807830"
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="807830"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:02:20 -0700
+X-CSE-ConnectionGUID: 2f6mb2MiSr27fg0ZlkmZTw==
+X-CSE-MsgGUID: s90MctrzTkOwuFtZAPLhHg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,161,1787036400"; 
+   d="scan'208";a="2395559"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.49])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Oct 2026 03:02:17 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3B3B2121BCC;
+	Fri, 16 Oct 2026 13:02:22 +0300 (EEST)
+Date: Fri, 16 Oct 2026 13:02:22 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+To: Ruslan Bay <ruslanbey@proton.me>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Andreas Helbech Kleist <andreaskleist@gmail.com>,
+	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
+	"tfiga@chromium.org" <tfiga@chromium.org>,
+	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
+	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
+	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
+	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: [RFC PATCH 03/12] media: ipu6: Add IPU4P buttress support
+Message-ID: <atH2LqXVEtmZI5_c@kekkonen.localdomain>
+References: <-QUv20vwP_Fvyx8GMeVsgtsHb5NwrrqqQdutzA6KHdba6DCLA3iNDRYsFUVx-_Ja9j0ak-LPvEIkN63hKhkdr2WvlTYBP5jh38cAyc6tuFU=@proton.me>
+ <asyYdEXPE7F5Wy8k@kekkonen.localdomain>
+ <mGk1vEGdr5XvRZa1yzgTN831cR2a9_UdQs7oMQBBfWPBBg-fcdffI3Xdgcf_qXgrqxvNBn_hCawbXtOTMTwoqdoodbp3jmE1QMgH4kMZ4mk=@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/4] phy: qcom-mipi-csi2: Add C-PHY support for
- X1E80100
-To: geocausa@gmail.com, Bryan O'Donoghue <bod@kernel.org>,
-        Vinod Koul <vkoul@kernel.org>, David Heidelberg <david@ixit.cz>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Vikram Sharma
- <vikram.sharma@oss.qualcomm.com>,
-        Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com
-References: <20261015-x1e-cphy-rfc-v1-0-1f3fa9af940a@gmail.com>
- <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20261015-x1e-cphy-rfc-v1-2-1f3fa9af940a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: kJCuYQSsBLsnW7cNFaxCJV05G_NWkNlZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE2MDAzOSBTYWx0ZWRfXyG4RPq3rSSoC
- 1X1HzO+2Ih/e0YwIkX8LlKoHkpmFDp9wCUMO8m5pWjhaPXCR/ySp/COVXWFvzRjHCiKPr/Ectxv
- /zMukVP33zJ9ollH1/CynIm1UAFOBw42cIp9OD9gpvkRA3o30Xbx9i2GtBVp13FSU+ClzzT7ImE
- AnxCRmghhdW4pewSAzZcGGuYUIRP/KpcF9mV4AMsmNZLKLVwR120caC2oaT+6R7TeZgz3TkdMYK
- qI00ukIOXkD+G5UTKnqYaym4JsXQQdyM34dCWS7+GdasxSwgG4+nODorUV5c/2jDE/2/LAlNAYy
- CXagYpyBDhRhE1ydej/6nUJXk5Zzfeb/S77atsBaKYvW0O0no2zcYUdORiXds1kWgJi7Cse5QOC
- YWJw+rNE8SGfVZGQ0mW6pJzSJefgW06LFIeUw4Oz6UevxMYZ7JvTNZGv2DS10qOe6oDICKCPsbz
- cyPWfOytRHEAGtcJBJw==
-X-Proofpoint-GUID: kJCuYQSsBLsnW7cNFaxCJV05G_NWkNlZ
-X-Authority-Analysis: v=2.4 cv=R5qWitRX c=1 sm=1 tr=0 ts=6ad1f59c cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=pGLkceISAAAA:8 a=IZGhc8DrnXKEOGi_IpoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE2MDAzOSBTYWx0ZWRfX8Xtmhg1Wcqe8
- d+fdWycfCNR+LsfAAqVAg4QoO7As57sNNwLXCWspTZ2/uBjFE0vlLr0dwPshz6BzKkm3eTatVU3
- Nkhn1L8caceLupifoQCwaLkW2CyTpVE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-14_01,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 suspectscore=0 phishscore=0 adultscore=0
- malwarescore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610160039
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <mGk1vEGdr5XvRZa1yzgTN831cR2a9_UdQs7oMQBBfWPBBg-fcdffI3Xdgcf_qXgrqxvNBn_hCawbXtOTMTwoqdoodbp3jmE1QMgH4kMZ4mk=@proton.me>
 
+Hi Ruslan,
 
-
-On 16-10-2026 03:50, George Neacsu via B4 Relay wrote:
-> From: George Neacsu <geocausa@gmail.com>
+On Tue, Oct 13, 2026 at 06:29:18PM +0000, Ruslan Bay wrote:
+> Hi Sakari,
 > 
-> The CSI2 PHY schema already allows bus-type C-PHY, but the driver
-> rejects it. Accept it on SoCs that provide a C-PHY sequence: up to three
-> trios and no lane polarities, and set_mode() has to ask for the mode the
-> endpoint describes. In C-PHY mode, configure() takes the symbol rate.
-> lanes_enable() powers up the trios on the odd CTRL5 bits and writes the
-> C-PHY sequence, which carries its own timing, so no settle count is
-> computed.
+> Thank you for looking into this.
 > 
-> The X1E80100 sequence is Qualcomm's for the v2.1.2 3PH PHY at 2.5 Gsps,
-> taken from the downstream camera driver's GPL-2.0
-> cam_csiphy_2_1_2_hwreg.h (csiphy_3ph_v2_1_2_reg, datarate_212_2p5Gsps
-> and the 3PH reset exit), as the D-PHY sequence above it is.
+> On Monday, October 12th, 2026 at 10:21 AM, sakari.ailus@linux.intel.com <sakari.ailus@linux.intel.com> wrote:
 > 
-> Tested on the Surface Pro 11 (X1E80100) with an IMX681 on CSIPHY2, one
-> trio at 2.4 Gsym/s, and raw capture through CSID1 and an RDI interface:
-> 3844x2640 at 30.01 fps, and the sensor's colour bars are byte-identical
-> to the same pattern captured with an out-of-tree driver. D-PHY is
-> unchanged: an OV13858 on CSIPHY1 over four lanes streams at 29.9 fps.
+> > Hi Ruslan,
+> >
+> > Thank you for the set.
+> >
+> > On Sun, Oct 11, 2026 at 02:34:16PM +0000, Ruslan Bay wrote:
+> > > IPU4P uses different power FSM controls and frequency divisor
+> > > placement from IPU6, and has a different bootloader status register.
+> > >
+> > > Add IPU4P-specific power management and firmware authentication handling
+> > > to the IPU6 buttress driver.
+> > >
+> > > Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
+> > > ---
+> > >  drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 48 +++++++++++++++++--
+> > >  .../intel/ipu6/ipu6-platform-buttress-regs.h  | 20 ++++++++
+> > >  .../media/pci/intel/ipu6/ipu6-platform-regs.h |  6 +++
+> > >  drivers/media/pci/intel/ipu6/ipu6.c           | 40 ++++++++++++++++
+> > >  drivers/media/pci/intel/ipu6/ipu6.h           |  1 +
+> > >  include/media/ipu6-pci-table.h                |  1 +
+> > >  6 files changed, 113 insertions(+), 3 deletions(-)
+> > >
+> > > diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> > > index 105de1744dff..ae63a9238771 100644
+> > > --- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> > > +++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+> > > @@ -601,6 +601,43 @@ static int __ipu6_power(struct device *dev,
+> > >  	return ret;
+> > >  }
+> > >
+> > > +static int __ipu4p_power(struct device *dev,
+> > > +			 const struct ipu6_buttress_ctrl *ctrl, bool on)
+> > > +{
+> > > +	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
+> > > +	u32 pwr_sts, val;
+> > > +	int ret;
+> > > +
+> > > +	if (!on) {
+> > > +		val = 0;
+> > > +		pwr_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
+> > > +	} else {
+> > > +		u32 shift = (ctrl->subsys_id == IPU_ISYS) ?
+> > > +			    IPU4P_BUTTRESS_IS_FREQ_CTL_RATIO_SHIFT :
+> > > +			    IPU4P_BUTTRESS_PS_FREQ_CTL_RATIO_SHIFT;
+> > > +
+> > > +		val = BUTTRESS_FREQ_CTL_START |
+> > > +		      (ctrl->ratio << shift) |
+> > > +		      FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK, ctrl->qos_floor);
+> > > +
+> > > +		if (ctrl->subsys_id == IPU_PSYS)
+> > > +			val |= BIT(IPU4P_BUTTRESS_PS_FREQ_CTL_OVRD_SHIFT);
+> > > +
+> > > +		pwr_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
+> > > +	}
+> > > +
+> > > +	writel(val, isp->base + ctrl->freq_ctl);
+> > > +
+> > > +	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
+> > > +				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
+> > > +				 100, BUTTRESS_POWER_TIMEOUT_US);
+> > > +	if (ret)
+> > > +		dev_err(&isp->pdev->dev,
+> > > +			"Change power status timeout with 0x%x\n", val);
+> > > +
+> > > +	return ret;
+> > > +}
+> > > +
+> > >  int ipu6_buttress_power(struct device *dev,
+> > >  			const struct ipu6_buttress_ctrl *ctrl, bool on)
+> > >  {
+> > > @@ -615,6 +652,8 @@ int ipu6_buttress_power(struct device *dev,
+> > >  	if (IS_IPU7(isp))
+> > >  		ret = on ? __ipu7_power_on(dev, ctrl) :
+> > >  			   __ipu7_power_off(dev, ctrl);
+> > > +	else if (IS_IPU4P(isp))
+> > > +		ret = __ipu4p_power(dev, ctrl, on);
+> >
+> > Please keep the order, i.e. 4P should be first.
 > 
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: George Neacsu <geocausa@gmail.com>
-Hi George,
+> Will do! It feels a little awkward to put IPU4P_ before the
+> generic IPU6_ definitions, though. I know I've asked before, but
+> is there any plan to use IPU_ instead of IPU6_ for code shared
+> across IPU generations?
 
-Thanks for working on this. I also have local C-PHY enablement patches, so it
-is good to see this being discussed upstream.
+Good question. This has come up multiple times.
 
-The overall direction looks reasonable to me, especially adding a generic
-PHY_MODE_MIPI_CPHY and letting CAMSS request C-PHY through the PHY API.
+In fact this driver originally was written as a driver for IPU4 and through
+a number of turns was upstreamed with IPU6 support only. IPU4P is a bit
+newer than the IPU4. Unfortunately, IPU6 is used by the driver as a generic
+prefix and in some cases the definitions could apply to a wider selection
+of IPUs than just 6 but still if not all, so naming is probably bound to be
+imperfect in any case. I'm not sure the naming matters much, as long as the
+code does the right thing.
 
-> ---
->  drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 151 ++++++++++++++++++++-
->  drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |  49 ++++++-
->  drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |   4 +
->  3 files changed, 197 insertions(+), 7 deletions(-)
+If we are to rename things, I think the non-IPU version specific code could
+have ipu_ prefix, but globally visible symbols should then use intel_ipu_
+prefix to avoid symbol name clashes. Still, anything with firmware or
+hardware register dependencies should use IPU version specific prefix.
+Probably there wouldn't be any such generic register definitions with IPU
+4P and 8 supported, they're so far apart.
+
+I wonder what others think.
+
+There are quite a few places in the driver where IPU versions are checked
+and I wonder if moving these behind an ops struct would make sense. Maybe
+we could get back to this once the IPU4P support is merged.
+
+I'd postpone renaming after this set in any case.
+
+> > > +		isys_ipdata.hw_variant.offset = IPU4P_ISYS_OFFSET;
+> > > +		isys_ipdata.hw_variant.spc_offset = IPU4P_ISYS_SPC_OFFSET;
+> > > +		isys_ipdata.hw_variant.dmem_offset = IPU4P_ISYS_DMEM_OFFSET;
+> > > +		psys_ipdata.hw_variant.offset = IPU4P_PSYS_OFFSET;
+> > > +		psys_ipdata.hw_variant.spc_offset = IPU4P_PSYS_SPC_OFFSET;
+> > > +		psys_ipdata.hw_variant.dmem_offset = IPU4P_PSYS_DMEM_OFFSET;
+> > > +	}
+> > >  }
+> > >
+> > >  static struct ipu6_bus_device *
+> > > @@ -631,6 +662,15 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+> > >  	psys_ctrl = &ipu6_psys_buttress_ctrl;
+> > >
+> > >  	switch (id->device) {
+> > > +	case PCI_DEVICE_ID_INTEL_IPU4P:
+> > > +		isp->hw_ver = IPU_VERSION_4P;
+> > > +		isp->cpd_fw_name = IPU4P_FIRMWARE_NAME;
+> > > +		isp->cpd_metadata_cmpnt_size =
+> > > +			sizeof(struct ipu6se_cpd_metadata_cmpnt);
+> > > +		isp->buttress.regs = &ipu6_buttress_regs;
+> > > +		isys_ctrl = &ipu4p_isys_buttress_ctrl;
+> > > +		psys_ctrl = &ipu4p_psys_buttress_ctrl;
+> > > +		break;
+> > >  	case PCI_DEVICE_ID_INTEL_IPU6:
+> > >  		isp->hw_ver = IPU_VERSION_6;
+> > >  		isp->cpd_fw_name = IPU6_FIRMWARE_NAME;
+> > > diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
+> > > index 2afbd70cae74..84a50fba1466 100644
+> > > --- a/drivers/media/pci/intel/ipu6/ipu6.h
+> > > +++ b/drivers/media/pci/intel/ipu6/ipu6.h
+> > > @@ -26,6 +26,7 @@ struct ipu6_bus_device;
+> > >  #define IPU6EPADLN_FIRMWARE_NAME	"intel/ipu/ipu6epadln_fw.bin"
+> > >  #define IPU7_FIRMWARE_NAME		"intel/ipu/ipu7_fw.bin"
+> > >  #define IPU7P5_FIRMWARE_NAME		"intel/ipu/ipu7ptl_fw.bin"
+> > > +#define IPU4P_FIRMWARE_NAME		"intel/ipu/ipu4p_fw.bin"
+> >
+> > This may sound like a silly question, but where do you obtain this? It's
+> > not part of linux-firmware currently.
 > 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> index 966d79c98..e758b6755 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> @@ -6,6 +6,7 @@
->   * Copyright (C) 2016-2026 Linaro Ltd.
->   */
->  
-> +#include <dt-bindings/media/video-interfaces.h>
->  #include <linux/delay.h>
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
-> @@ -161,6 +162,131 @@ mipi_csi2phy_lane_regs lane_regs_x1e80100[] = {
->  	{.reg_addr = 0x0c64, .reg_data = 0x7f, .param_type = CSIPHY_SKEW_CAL},
->  };
->
-> +/*
-> + * 4nm 3PH v2.1.2 C-PHY, 2.5 Gsps, from Qualcomm's GPL-2.0 camera driver
-> + * (cam_csiphy_2_1_2_hwreg.h: csiphy_3ph_v2_1_2_reg[], datarate_212_2p5Gsps[]
-> + * and the 3PH reset-exit write), one trio block per lane triplet.
-> + */
-> +static const struct
-> +mipi_csi2phy_lane_regs lane_regs_x1e80100_cphy[] = {
-This table is C-PHY specific, but it is being added to
-phy-qcom-mipi-csi2-3ph-dphy.c
+> I forgot to mention this in the description. The IPU4P firmware
+> binary was extracted from a Windows driver package available in
+> the Microsoft Update Catalog:
+> https://www.catalog.update.microsoft.com/Search.aspx?q=42.18362.3.16827
 
-Bryan, do you have any preference on how to organize this? Should we keep both
-D-PHY and C-PHY sequences here for now, or move the larger C-PHY register
-tables to a separate hwreg/table file?
-> +	/* Power up lanes 3ph mode */
-> +	{.reg_addr = 0x101c, .reg_data = 0x7a, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x1018, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	/* datarate_212_2p5Gsps: AFE settings */
-> +	{.reg_addr = 0x0268, .reg_data = 0xf1, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0294, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-
-> +	{.reg_addr = 0x0668, .reg_data = 0xf1, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0694, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-...
-> +	{.reg_addr = 0x0a68, .reg_data = 0xf1, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0a94, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
-...> +	/* csiphy_3ph_v2_1_2_reg */
-> +	{.reg_addr = 0x02f4, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-...> +	{.reg_addr = 0x06f4, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x06f8, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-...
-> +	{.reg_addr = 0x0af4, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0af8, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-...> +	/* datarate_212_2p5Gsps, then csiphy_3ph_v2_1_2_reg */
-> +	{.reg_addr = 0x020c, .reg_data = 0x22, .param_type = CSIPHY_DEFAULT_PARAMS},
-
-Could we add blank lines between the repeated per-trio register blocks here?
-
-The table would be easier to review if the `0x02*`, `0x06*`, and `0x0a*`
-blocks were visually separated, similar to how the D-PHY table separates the
-per-lane register groups. It would also make comparison with the downstream
-source simpler.
-
-> +	{.reg_addr = 0x0a84, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	{.reg_addr = 0x0a90, .reg_data = 0x02, .param_type = CSIPHY_DEFAULT_PARAMS},
-> +	/* csiphy_reset_exit_reg_2_1_2, 3PH */
-> +	{.reg_addr = 0x1000, .reg_data = 0x0e, .delay_us = 3048,
-Any specific reason for this much delay?
-
-> +	 .param_type = CSIPHY_DEFAULT_PARAMS},
-> +};
-> +
-For this C-PHY table, I do not see a CSIPHY_SETTLE_CNT_LOWER_BYTE entry.
-Is the settle timing already encoded in one of the fixed register values in
-lane_regs_x1e80100_cphy[]?
-
-If yes, which register corresponds to the C-PHY settle/timing value?
-
-Also, is that value specific to the 2.5 Gsps table? My understanding is that
-the settle count calculation would be data-rate specific, based on the C-PHY
-symbol rate per trio.
-
->  static inline const struct mipi_csi2phy_device_regs *
->  csi2phy_dev_to_regs(struct mipi_csi2phy_device *csi2phy)
->  {
-> @@ -246,8 +372,11 @@ phy_qcom_mipi_csi2_gen2_config_lanes(struct mipi_csi2phy_device *csi2phy,
->  				     u8 settle_cnt)
->  {
->  	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
-> -	const struct mipi_csi2phy_lane_regs *r = regs->init_seq;
-> -	int i, array_size = regs->lane_array_size;
-> +	const bool cphy = csi2phy->bus_type == MEDIA_BUS_TYPE_CSI2_CPHY;
-> +	const struct mipi_csi2phy_lane_regs *r = cphy ? regs->cphy_init_seq :
-> +								regs->init_seq;
-> +	int i, array_size = cphy ? regs->cphy_lane_array_size :
-> +				   regs->lane_array_size;
->  	u32 val;
->  
->  	for (i = 0; i < array_size; i++, r++) {
-> @@ -273,13 +402,26 @@ static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *csi2phy,
->  {
->  	const struct mipi_csi2phy_device_regs *regs = csi2phy_dev_to_regs(csi2phy);
->  	struct mipi_csi2phy_lanes_cfg *lane_cfg = &cfg->lane_cfg;
-> -	u8 settle_cnt;
-> +	const bool cphy = csi2phy->bus_type == MEDIA_BUS_TYPE_CSI2_CPHY;
-Could we avoid carrying a separate parsed `bus_type` and derive the PHY type from 
-the PHY layer state instead?
-> +	u8 settle_cnt = 0;
->  	u8 val;
->  	int i;
->  
->  	if (cfg->link_freq <= 0)
->  		return -EINVAL;
->  
-> +	if (cphy) {
-> +		/* The C-PHY sequence carries its own timing; trios are the odd bits. */
-> +		val = 0;
-> +		for (i = 0; i < cfg->num_data_lanes; i++)
-> +			val |= BIT(lane_cfg->data[i].pos * 2 + 1);
-> +
-> +		writel(val, csi2phy->base +
-> +		       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 5));
-> +
-> +		goto common;
-> +	}
-The C-PHY and D-PHY lane-mask calculation could be combined into a helper to
-avoid open-coding the C-PHY path separately.
-
-Something like this:
-static u8 csiphy_get_lane_mask(struct mipi_csi2phy_lanes_cfg *lane_cfg)
-{
-	u8 lane_mask = 0;
-	u8 offset = 0;
-
-	switch (lane_cfg->phy_cfg) {
-		case V4L2_MBUS_CSI2_CPHY:
-			offset = 1;
-			break;
-		case V4L2_MBUS_CSI2_DPHY:
-			lane_mask = BIT(lane_cfg->clk.pos);
-			break;
-		default:
-			break;
-	}
-
-	/*
-	 * CSI_COMMON_CTRL5 is a physical lane power-up bitmap:
-	 * - Bits [0,2,4,6] → D-PHY data lanes(LN0, LN2, LN4, LN6)
-	 * - Bits [1,3,5] → C-PHY trio lanes(LN1, LN3, LN5)
-	 * - Bit [7] → D-PHY clock lane(LNCK) dedicated clock enable
-	 */
-	for (int i = 0; i < lane_cfg->num_data; i++)
-		lane_mask |= BIT((lane_cfg->data[i].pos * 2) + offset);
-
-	return lane_mask;
-}
-
-> +
->  	settle_cnt = phy_qcom_mipi_csi2_settle_cnt_calc(cfg->link_freq, csi2phy->timer_clk_rate);
->  	if (!settle_cnt)
->  		return -ENODEV;
-> @@ -309,6 +451,7 @@ static int phy_qcom_mipi_csi2_lanes_enable(struct mipi_csi2phy_device *csi2phy,
->  	if (lane_cfg->clk.pol)
->  		writel(BIT(2), csi2phy->base + CSIPHY_2PH_LN_CSI_2PHASE_CTRL9n(lane_cfg->clk.pos));
->  
-> +common:
->  	val = CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B;
->  	writel(val, csi2phy->base +
->  	       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->common_regs_offset, 6));
-> @@ -374,6 +517,8 @@ const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
->  	.reg_info = {
->  		.init_seq = lane_regs_x1e80100,
->  		.lane_array_size = ARRAY_SIZE(lane_regs_x1e80100),
-> +		.cphy_init_seq = lane_regs_x1e80100_cphy,
-> +		.cphy_lane_array_size = ARRAY_SIZE(lane_regs_x1e80100_cphy),
->  		.common_regs_offset = 0x1000,
->  	},
->  	.supply_names = (const char **)x1e_supplies,
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-> index c0a4fa20e..892c3da55 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-> @@ -104,6 +104,19 @@ static int phy_qcom_mipi_csi2_configure(struct phy *phy,
->  	struct mipi_csi2phy_stream_cfg *stream_cfg = &csi2phy->stream_cfg;
->  	int ret;
->  
-> +	if (csi2phy->phy_mode == PHY_MODE_MIPI_CPHY) {
-> +		struct phy_configure_opts_mipi_cphy *cphy_cfg = &opts->mipi_cphy;
-> +
-> +		if (!cphy_cfg->symbol_rate ||
-> +		    cphy_cfg->lanes != stream_cfg->num_data_lanes)
-> +			return -EINVAL;
-> +
-> +		/* As for V4L2, a C-PHY link frequency is half the symbol rate. */
-> +		stream_cfg->link_freq = cphy_cfg->symbol_rate / 2;
-> +
-> +		return 0;
-> +	}
-> +
->  	ret = phy_mipi_dphy_config_validate(dphy_cfg);
->  	if (ret)
->  		return ret;
-> @@ -124,8 +137,19 @@ static int phy_qcom_mipi_csi2_set_mode(struct phy *phy,
->  {
->  	struct mipi_csi2phy_device *csi2phy = phy_get_drvdata(phy);
->  
-> -	if (mode != PHY_MODE_MIPI_DPHY)
-> +	/* The mode has to be the bus the endpoint describes. */
-> +	switch (mode) {
-> +	case PHY_MODE_MIPI_DPHY:
-> +		if (csi2phy->bus_type != MEDIA_BUS_TYPE_CSI2_DPHY)
-> +			return -EINVAL;
-> +		break;
-> +	case PHY_MODE_MIPI_CPHY:
-> +		if (csi2phy->bus_type != MEDIA_BUS_TYPE_CSI2_CPHY)
-> +			return -EINVAL;
-> +		break;
-> +	default:
->  		return -EOPNOTSUPP;
-> +	}
->  
->  	csi2phy->phy_mode = mode;
->  	return 0;
-> @@ -258,6 +282,7 @@ static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
->  	struct fwnode_handle *ep;
->  	int num_polarities;
->  	int num_data_lanes;
-> +	int max_lanes;
->  	u32 bus_type;
->  	int i, ret;
->  
-> @@ -278,14 +303,25 @@ static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
->  	bus_type = MEDIA_BUS_TYPE_CSI2_DPHY;
->  	fwnode_property_read_u32(ep, "bus-type", &bus_type);
->  
-> -	if (bus_type != MEDIA_BUS_TYPE_CSI2_DPHY) {
-> +	switch (bus_type) {
-> +	case MEDIA_BUS_TYPE_CSI2_DPHY:
-> +		max_lanes = CSI2_MAX_DATA_LANES;
-> +		break;
-> +	case MEDIA_BUS_TYPE_CSI2_CPHY:
-> +		if (csi2phy->soc_cfg->reg_info.cphy_init_seq) {
-> +			max_lanes = CSI2_MAX_TRIOS;
-> +			break;
-> +		}
-> +		fallthrough;
-> +	default:
->  		ret = -EOPNOTSUPP;
->  		dev_err(dev, "Unsupported bus-type %u\n", bus_type);
->  		goto out_put;
->  	}
-> +	csi2phy->bus_type = bus_type;
->  
->  	num_data_lanes = fwnode_property_count_u32(ep, "data-lanes");
-> -	if (num_data_lanes < 1 || num_data_lanes > CSI2_MAX_DATA_LANES) {
-> +	if (num_data_lanes < 1 || num_data_lanes > max_lanes) {
->  		ret = -EINVAL;
->  		dev_err(dev, "Invalid data-lanes count: %d\n", num_data_lanes);
->  		goto out_put;
-> @@ -302,6 +338,11 @@ static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
->  	/* lane-polarities: optional, up to num_data_lanes + 1 entries */
->  	memset(lane_polarities, 0x00, sizeof(lane_polarities));
->  	num_polarities = fwnode_property_count_u32(ep, "lane-polarities");
-> +	if (num_polarities > 0 && bus_type == MEDIA_BUS_TYPE_CSI2_CPHY) {
-> +		ret = -EINVAL;
-> +		dev_err(dev, "lane-polarities do not apply to C-PHY\n");
-> +		goto out_put;
-> +	}
->  	if (num_polarities > 0) {
->  		if (num_polarities != stream_cfg->num_data_lanes + 1) {
->  			ret = -EINVAL;
-> @@ -322,7 +363,7 @@ static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
->  	csi2phy->stream_cfg.lane_cfg.clk.pol = lane_polarities[0];
->  
->  	for (i = 0; i < csi2phy->stream_cfg.num_data_lanes; i++) {
-> -		if (data_lanes[i] < 1 || data_lanes[i] > CSI2_MAX_DATA_LANES) {
-> +		if (data_lanes[i] < 1 || data_lanes[i] > max_lanes) {
->  			dev_err(dev, "Invalid lane %d\n", data_lanes[i]);
->  			ret = -EINVAL;
->  			goto out_put;
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> index 7e55ae007..442c4d6fe 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-> @@ -11,6 +11,7 @@
->  #include <linux/phy/phy.h>
->  
->  #define CSI2_MAX_DATA_LANES	4
-> +#define CSI2_MAX_TRIOS		3
->  #define CSI2_DEFAULT_CLK_LANE	7
->  
->  struct mipi_csi2phy_lane {
-> @@ -50,6 +51,8 @@ struct mipi_csi2phy_lane_regs {
->  struct mipi_csi2phy_device_regs {
->  	const struct mipi_csi2phy_lane_regs *init_seq;
->  	const int lane_array_size;
-> +	const struct mipi_csi2phy_lane_regs *cphy_init_seq;
-> +	const int cphy_lane_array_size;
-This gives us a single C-PHY register sequence for the SoC. Do we expect this
-to be enough long term?
-
-The X1E80100 table being added here is for 2.5 Gsps, but C-PHY timing/settings
-can be data-rate specific. Should we extend this structure now to support
-multiple C-PHY rate settings, similar to selecting a table by symbol rate, or
-is it better to keep this simple for this series and handle per-rate tables
-as a follow-up?
-
-Bryan, do you have a preference on that?
-
->  	const u32 common_regs_offset;
->  };
->  
-> @@ -75,6 +78,7 @@ struct mipi_csi2phy_soc_cfg {
->  struct mipi_csi2phy_device {
->  	struct device *dev;
->  	u8 phy_mode;
-> +	u32 bus_type;
->  
->  	struct phy *phy;
->  	void __iomem *base;
-> 
+I'll figure out whether we could get this to linux-firmware.
 
 -- 
-Regards,
-Nihal Kumar Gupta
+Kind regards,
 
+Sakari Ailus
