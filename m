@@ -1,144 +1,164 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035C23812DB
-	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 20:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F3103D0934;
+	Fri, 16 Oct 2026 20:43:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792183125; cv=none; b=t/kaF1x+auGurfAGwmjEIArJwhZuauwjOMylNf8tvEPXlRN7p9Fq9CP97WBcGGIb5eIDVK3kfnJ3gDFoB+Ph+C12W5wqglhsT0o1yU24beH81kDIoU1HXoIAEfNX/4UTob9VI9dmzJxNbOCPFF7TdXTc4D82ee/kEGU8+b5Tz50=
+	t=1792183434; cv=none; b=PfjsSlOAm7YQkwdbd6tWedJXSan2ijoI9kAKHosEJ5Ba5XO8LI2ySJCUsISd7bQ7v3kVm25W644UR6ZwAhd4rlTgY+meGdccr92+KiJUjpGvd9f1APgf5oLUH6UxbcRnJYmbHB3deUQP+bzLUEcRHm4gtBT+iI0CRa85hc7VJ3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792183125; c=relaxed/simple;
-	bh=3Lhri/9i3TNtw9R/Tcbw/mOjoERB6hK1pH191CCiSzM=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=eCc67AbcupoXkj/m9c1VTAQyJyHlmn/5w6wge1e1eErEg7I6WFFe3IDh772DjSyjNx9IS2NV3gamM/KxwdGtOloJ7hvGJk582/m9siIiWmGuVm5xoiX9TYYvMT7oXkrSuMIWh6d2f5mvJrFYryYVU/d7QB8MwP29dcDOd3Me3y8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-49e5451d6a5so499910fac.1
-        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 13:38:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792183123; x=1792787923;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AY8LAWcYNYyJyH/2TYt4cmd1InLt2Z9ePL5WuUaiwao=;
-        b=03kInYaNJY+40lAn7MVQLwoUge3/d+TQepRtPxW6EUFD+nvl83NSUkGUZ1dPxvW98d
-         plA5V6WqIOWvnr31c49YA9ScwtQWbBhmUamIF51pWlJu1r0hu6wRWVlNtMN1WkawIlOC
-         nuz6NM4YguhuY/Lp9cfLfbY2JfKPY23hfWBOHMjhmtrxIhtr9QDY0FRR4+VWLpbF2YFD
-         aS73jsx75ZfjnHntFbmII8qyzO9mDttjzbeXJ/Rw8wXP+OcUP0To9u2xCqYOtVLFpoJK
-         0wVkAvIXyf6SoZog4wtcfthP8xbNgwK12NP2foIDJqaouB8DqE1YKSG1csfuSIf4zULQ
-         grYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx+tA8ve7yUfsMhZRSKShnHQR22VljOtDSQHvJbo/8Vb2Id5J7DQwdXo1iM/Pb0TWLr6uIuJwljzH2Hzw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLr0McroJ9ZR3mckKVIBKkdfteRqODewakSkKj8knvM7SwuIF28
-	oAL0kH5r9bpspcvSUwleOIlpA5c6yJiK9rBCbjU1UbfDQMa0NuiiHEn2WuHaPtdDGhXUkScuMKc
-	n4fyFDTDj0vwmeAE537dDFyX3qu5TZY11KM1AWiDrWFxbNv5rV88rntZPXVA=
+	s=arc-20240116; t=1792183434; c=relaxed/simple;
+	bh=9pFfdb1mqqzB2zkxg+3++6pQpqkGbfWo6kmaRppLBNA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jQ5X+je+Sqf38zDQyLI7FOubfiQQQqQ8QySKZXv84b78/v8tnkkfDK5pycIOLbAuosMKtvhGVp6xVrj+rx/R/jGufhheAkCKBAEXXvNdX8sHeKLHqVonPulYiA+JoBfOP9GNFwovROxyQNPaJVbB1rmo8fPuNl+OnhEUuC23gPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8jlt6ib; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8jlt6ib"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59B991F000C4;
+	Fri, 16 Oct 2026 20:43:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792183433;
+	bh=Bf5qdq81dvzp9rRdjUasKtuOogly+3hm0PHe3sSTBxQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=U8jlt6ibqFx7JchdbH4BHw8gYvPR64+hnJOzcuaqhblHDh4DSYrPruiMTnonCCt0n
+	 NcQviVw7PlkNCbagtGio1mLpcpVFI+bXjjgAWz+EO8LCNgRVPmVCL0IuQrdzPCfcjZ
+	 1PNCksFsaEo4/PH+dXkDkIaQ8uOJ8gxkMPnym0exe5BXRVll9cq92HdGxOW91hZfXB
+	 P3CEB7kqhxPu06z0/cJYqbDjZWP/19wf5dHbsduqfcQpbaKufsPQTL9UDiV1A4nfOW
+	 Jwg7PywfxekkPlHesMSjpCjZmxHeW+YUf0f0MvdD3iOunnUU1e5Re4g4d8psL0Xvpq
+	 xtrh4VyReXwww==
+Message-ID: <711e8518-5054-49ab-8432-346049a86cd1@kernel.org>
+Date: Fri, 16 Oct 2026 21:43:48 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3509:b0:4d7:17d5:6c9b with SMTP id
- 5614622812f47-53cc1ef9b0cmr725570b6e.9.1792183123019; Fri, 16 Oct 2026
- 13:38:43 -0700 (PDT)
-Date: Fri, 16 Oct 2026 13:38:43 -0700
-In-Reply-To: <6ad27bcb.6814cce4.34c49f.000b.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad28b52.a6d1a155.34a93f.0005.GAE@google.com>
-Subject: Re: [syzbot] [greybus?] WARNING: ODEBUG bug in gb_operation_sync_timeout
-From: syzbot <syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com>
-To: elder@kernel.org, gregkh@linuxfoundation.org, 
-	greybus-dev-bounces@lists.linaro.org, greybus-dev@lists.linaro.org, 
-	johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] media: i2c: ov13858: Add device tree support
+To: George Neacsu <geocausa@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Sergey Lebedev
+ <lsa.uz@pm.me>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ German Pablo Lindo <germanpapulindez@gmail.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+ <20261015-ov13858-x1e-v1-2-acdd918f4fb6@gmail.com>
+ <19662dcc-4a25-4d18-a3bc-6b277bd676a6@kernel.org>
+ <MauBAKkof1YpFlKvbDY7aCVPJ7mWZAEfTqh_cFY0daJOpY1UolMkV0PgU4LBc2A7dPrI2RmhQYAlVg5SLA9fmA==@protonmail.internalid>
+ <20261016161618.209290-1-geocausa@gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016161618.209290-1-geocausa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-syzbot has found a reproducer for the following issue on:
-
-HEAD commit:    2f2f7eeef8b0 Merge tag 'soc-fixes-7.3-3' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13a0d18e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
-dashboard link: https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=172ff571580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1333e971580000
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-2f2f7eee.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/5c84d55442c9/vmlinux-2f2f7eee.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/45a44266fe39/bzImage-2f2f7eee.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a2e50fb40695811c2dab@syzkaller.appspotmail.com
-
-greybus greybus1: 0/0:0: synchronous operation id 0x0003 of type 0x14 failed: -71
-------------[ cut here ]------------
-ODEBUG: free active (active state 0) object: ffff8880353040d0 object type: timer_list hint: gb_operation_timeout+0x0/0x110 drivers/greybus/operation.c:1265
-WARNING: lib/debugobjects.c:632 at debug_print_object+0xec/0x230 lib/debugobjects.c:629, CPU#0: kworker/u4:7/180
-Modules linked in:
-CPU: 0 UID: 0 PID: 180 Comm: kworker/u4:7 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Workqueue: greybus1:0 gb_operation_work
-RIP: 0010:debug_print_object+0x18a/0x230 lib/debugobjects.c:629
-Code: f8 48 c1 e8 03 80 3c 18 00 74 08 4c 89 ff e8 cd 97 4c fd 4d 8b 0f 4c 89 ef 48 8b 74 24 08 48 89 ea 44 89 e1 4d 89 f0 ff 34 24 <67> 48 0f b9 3a 48 83 c4 08 ff 05 73 bf 8c 0c 48 83 c4 10 5b 41 5c
-RSP: 0018:ffffc90001a2f780 EFLAGS: 00010246
-RAX: 1ffffffff181f08c RBX: dffffc0000000000 RCX: 0000000000000000
-RDX: ffffffff8c6df740 RSI: ffffffff8c6df1c0 RDI: ffffffff9185c030
-RBP: ffffffff8c6df740 R08: ffff8880353040d0 R09: ffffffff8c0f97c0
-R10: dffffc0000000000 R11: ffffffff81b3f760 R12: 0000000000000000
-R13: ffffffff9185c030 R14: ffff8880353040d0 R15: ffffffff8c0f8460
-FS:  0000000000000000(0000) GS:ffff88808b0b4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f5280b524c0 CR3: 000000000fb48000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
- debug_check_no_obj_freed+0x2e3/0x450 lib/debugobjects.c:1201
- slab_free_hook mm/slub.c:2679 [inline]
- slab_free mm/slub.c:6509 [inline]
- kmem_cache_free+0xfd/0x650 mm/slub.c:6636
- gb_operation_sync_timeout+0x1c7/0x270 drivers/greybus/operation.c:1172
- gb_operation_sync include/linux/greybus/operation.h:203 [inline]
- gb_svc_pwrmon_rail_count_get drivers/greybus/svc.c:137 [inline]
- gb_svc_pwrmon_debugfs_init drivers/greybus/svc.c:772 [inline]
- gb_svc_debugfs_init drivers/greybus/svc.c:827 [inline]
- gb_svc_hello drivers/greybus/svc.c:875 [inline]
- gb_svc_request_handler+0x902/0x1300 drivers/greybus/svc.c:1276
- gb_operation_request_handle drivers/greybus/operation.c:243 [inline]
- gb_operation_work+0xe1/0x960 drivers/greybus/operation.c:280
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	f8                   	clc
-   1:	48 c1 e8 03          	shr    $0x3,%rax
-   5:	80 3c 18 00          	cmpb   $0x0,(%rax,%rbx,1)
-   9:	74 08                	je     0x13
-   b:	4c 89 ff             	mov    %r15,%rdi
-   e:	e8 cd 97 4c fd       	call   0xfd4c97e0
-  13:	4d 8b 0f             	mov    (%r15),%r9
-  16:	4c 89 ef             	mov    %r13,%rdi
-  19:	48 8b 74 24 08       	mov    0x8(%rsp),%rsi
-  1e:	48 89 ea             	mov    %rbp,%rdx
-  21:	44 89 e1             	mov    %r12d,%ecx
-  24:	4d 89 f0             	mov    %r14,%r8
-  27:	ff 34 24             	push   (%rsp)
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	48 83 c4 08          	add    $0x8,%rsp
-  33:	ff 05 73 bf 8c 0c    	incl   0xc8cbf73(%rip)        # 0xc8cbfac
-  39:	48 83 c4 10          	add    $0x10,%rsp
-  3d:	5b                   	pop    %rbx
-  3e:	41 5c                	pop    %r12
+On 16/10/2026 17:16, George Neacsu wrote:
+> Hi Bryan,
+> 
+> On 16/10/2026 17:06, Bryan O'Donoghue wrote:
+>> You describe regulators, clocks and resets in the yaml file which then
+>> don't appear to be supported in this result code ?
+>>
+>> - regulator_bulk_;
+>> - clock_bulk_
+>> - reset gpio optional
+>>
+>> I don't think this driver would survive suspend/resume.
+> 
+> The power handling comes from a prerequisite: this series applies on
+> top of Sergey's "media: i2c: ov13858: add regulator, clock and reset
+> GPIO handling" v3, as the cover letter says, but that is easy to miss
+> from 2/2 alone:
+> https://lore.kernel.org/all/20260831130312.26296-1-lsa.uz@pm.me/
 
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+Hmm if you use b4 to generate your series, the tooling will pull this 
+type of thing in for you and reviewers like me.
+> With it, the driver gets the three supplies with
+> devm_regulator_bulk_get(), enables and disables the clock it already
+> takes with devm_v4l2_sensor_clk_get(), and takes an optional reset
+> GPIO. Power on and power off are the runtime PM callbacks through
+> DEFINE_RUNTIME_DEV_PM_OPS(), which also routes system sleep through
+> pm_runtime_force_suspend() and pm_runtime_force_resume(). So the binding
+> describes what the driver handles once both are applied. On its own,
+> 2/2 only adds the OF match and the endpoint checks.
+> 
+> I cannot claim it survives system suspend on the Snapdragon model,
+> though.
+
+No its fine, I'll pull that series first. "Wouldn't survive reset" 
+actually meant "I can't believe this works without powering on the 
+rails" but the other series does that ;)
+
+  System suspend is still an open problem on the Surface Pro 11
+> under Linux and has not been validated, so I cannot exercise that path
+> here yet. What I can test is the
+> runtime PM path, which is where the supplies, clock and reset are
+> switched: the sensor powering off between sessions and back on for the
+> next stream. I will run repeated open, stream, close cycles and report
+> the result. Sergey, if suspend works on the Intel model, a suspend and
+> resume test there would cover the rest.
+> 
+> To make the dependency visible, I can carry Sergey's patch as 1/3 of
+> the next version, with his authorship. Sergey, would that be all right
+> with you, or would you rather post v4 yourself?
+
+No need
+
+b4 prep --edit-deps   # add: message-id: 
+<20260831130312.26296-1-lsa.uz@pm.me>
+
+b4 prep; b4 send
+
+Then dependencies should be represented and sucked in automagically.
+
+> 
+> Thanks,
+> George
+
