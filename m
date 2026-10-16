@@ -1,111 +1,315 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56A71AA1F4;
-	Fri, 16 Oct 2026 20:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D40F3EFD04;
+	Fri, 16 Oct 2026 21:02:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792183762; cv=none; b=C5s+B519YcME6mXfqC2quffKJ4BiFLgeCMKmYHpAbomt5MPq27B58xh+t5pw1pJF9TpaRLAYcRNOCh5Crlg/tjeDIrriS6HOumhxP9O9f0bXs0Dbl9MvsJHWE41o95wdqO8vNGDN9UYliEhF7gYCIzMTNS/BV//w0M/oACRk3lU=
+	t=1792184581; cv=none; b=BsnyyIG+VzXvXQE4gnffXPwtQYvjHJReH1F99FcF6b5bRe6BCgRlPlKnXs8Q8M6u7n/6k+9bQPR0txSnpt49H/Nlzwa04+V9oQMCs4RUuYd6wt8hE8H4svgy6pF47dWU8t+pynbnddGmnSjYfgttsiXtU7DGCu/rScOqNA9lbEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792183762; c=relaxed/simple;
-	bh=F1YwocGuB5wBG/+T9FgM/ZWNUxNhaSBy6/kicqGxaYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VZYCNYGwGHnFCe9PvFglu3PumRq1eulfTLu268qRmaZB9W7BJj+il/WyGL57eF+OzuNyxsyR0ozoSfVLVsmyMt3AldtwgYqlMuvcqg+7d8ajh9kf2lCHT8FB6bJRxu8wmgb7Mg6bFhv1VoLOdRHkRHOWgQJQoMI4kURo9ezEISk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ovh0gvhL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792184581; c=relaxed/simple;
+	bh=U/oy081LlbYzXLB/FH9w1Oc6yVjRp4AOpyZy1GpB0BQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=d9hOmxENlkUHb/vOpblJihDomJ3+XPhXaKxUxsVOWjImc6qWUgIXCQtrB5srchP9AoTB/PVxSyv+Kjj8F9N5XEfmMO1ewIhxzl0/IWfA169aK1oOMmFAbj6pFO3c6Y7YhK9auCIx5BdMTmAIcKoBVWptii536Az1NEAG61Sutzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=lZzKLKAD; arc=none smtp.client-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ovh0gvhL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 735151F000C4;
-	Fri, 16 Oct 2026 20:49:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792183761;
-	bh=r4J0Jzg7N3u7C0+ED/NwcN1PIj5f66Ln1oWcN4Vza+k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ovh0gvhL3qxeKhuyycOjLHcdQQz7A0m2LCRpdUEl+4chPm3CNyHavohKSzvjia8WO
-	 LhFK+Xen9mblMKuPQp/RBa2hQMor5nUa3JSK3sCbExlnaOeAkiaegEzBnaWJm+utrO
-	 S6Z636g60fBl588UUPK7zM6avTRmXh0xtGRUe/jgaDZ1ZW6XG6hor/J+68VzYH2czA
-	 OGC008TxHc96R016RhL89A8qSNiJpdzzGsTVByOOJBX/CkAFPSJqlXMvLu/0O0dhyV
-	 NCOzM1I278C9+tlxqep2O8Su+6g+ub6kmN7FileiwOjXPJcxnn2q3r54ZvP7LddIdh
-	 TuULDFx9CI4Hg==
-Message-ID: <4359bff8-edb2-486a-8d41-38bd315a4430@kernel.org>
-Date: Fri, 16 Oct 2026 21:49:16 +0100
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="lZzKLKAD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792184577; x=1792443777;
+	bh=hS3ICmeLm9M5uLWOvmDgO1qkQb5Etay8ummjKV1y1DM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=lZzKLKAD1bbAB4NqDgmbAj5RgvdTsldP4a+Ga/jViMBin06/uMVXlyIycTxA3z7ad
+	 U3/xNaZ4P4Ftyf0oGyM2DeluDktMuYQigkUlFDtn/g7GAVRw9fH1UEKEX3iQ+Kird+
+	 bilSfC+tIkrl1nTSDu3gi6EpqiRhoOvArC5eoWD56AD9foroMQ8T0TnFofDTqBqCe/
+	 toR80UBoMuSmfSBwsDeqNxdEjsMmEls2NMKIqHnss41LPlWT2UTFhBb86NChstdM98
+	 64fjtn1TLPD31JDIQPdL2QiMyAhQ6xL1F/h4VG7SuGSU/LrfwLUi8PPk+8Jm9me0Un
+	 KwdRomrzd587Q==
+Date: Fri, 16 Oct 2026 21:02:51 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, George Neacsu <geocausa@gmail.com>, Bryan O'Donoghue <bod@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, Simon Kruse <simon0x+git@proton.me>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v4] media: i2c: ov13858: add regulator, clock and reset GPIO handling
+Message-ID: <20261016210246.58562-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: c99d4f08000a61f24598a33b8949ebfebe43adcb
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
-To: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
- German Pablo Lindo <germanpapulindez@gmail.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
- <Tb0AcYbDPldfaB1S1ypqTPp6iFwxJVF_1Dh_7FJdavARv0U5KErpuPTQn6FNDYBoK206hZlqZHDsasGYmQx4zg==@protonmail.internalid>
- <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
-> +  - clocks
-> +  - avdd-supply
-> +  - dovdd-supply
-> +  - dvdd-supply
+The driver assumes the sensor is already powered when probe() reads its
+chip ID. That holds where the rails and clock are ACPI power resources,
+but not where an INT3472 companion device registers them as regulators, a
+clock and a reset GPIO for the sensor driver to consume, which this
+driver does not do.
 
-The clocks, supplies and resets should all be optional as nothing says 
-Linux must control any of those on every system.
+Request the three supplies and the reset GPIO, and sequence them along
+with the clock the driver already looks up, in runtime PM callbacks.
 
-i.e. you might have a co-processor or CPLD which owns the reset, 
-power-rails and the clock might not come from the SoC.
-
+Tested-by: German Pablo Lindo <germanpapulindez@gmail.com>
+Tested-by: Simon Kruse <simon0x+git@proton.me>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
 ---
-bod
+Changes in v4:
+- runtime PM ops only, without the system sleep handlers that
+  DEFINE_RUNTIME_DEV_PM_OPS() adds, as camera-sensor.rst asks. With them, a
+  system suspend tried during a stream powered the sensor off before the
+  IPU6 ISYS refused the suspend, and the stream stalled; now it goes on.
+- German's and Simon's Tested-by from v3 kept: the change touches only
+  system sleep, which neither reported testing. Simon's was not threaded
+  under v3:
+  https://lore.kernel.org/all/20261010142353.23707-1-simon0x+git@proton.me/
+Link to v3: https://patch.msgid.link/20260831130312.26296-1-lsa.uz@pm.me
+
+George Neacsu's device tree support for this sensor builds on it:
+https://lore.kernel.org/all/20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.co=
+m/
+
+Changes in v3, from Sakari Ailus's review of v2:
+- wrapped the one line over 80 columns
+- dropped an unrelated hunk in ov13858_id_table. It was not deliberate: v2 =
+was
+  regenerated against mainline from a tree based on a distribution kernel, =
+and
+  that difference came along with it.
+Link to v2: https://patch.msgid.link/20260831124352.86935-1-lsa.uz@pm.me
+
+Changes in v2, from the review of v1:
+- commit message cut down; the detail below
+- dropped the comment on the supply names; it is a KAPI with int3472
+- ARRAY_SIZE() directly instead of a local macro
+- fsleep() instead of usleep_range()
+- one function each for power on and off, used as the PM callbacks directly=
+,
+  instead of a pair of wrappers
+- removed the now-useless dev_err() in the probe error path
+- i declared inside its loop
+Link to v1: https://patch.msgid.link/20260831100404.40463-1-lsa.uz@pm.me
+
+Without the patch the first I2C transaction fails:
+
+  ov13858 i2c-OVTID858:00: failed to find sensor: -5
+
+The power sequence follows ov02c10: supplies, then clock, then release rese=
+t,
+and the reverse on the way down.
+
+Measured on a Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7=
+),
+with the parts isolated one at a time:
+
+  supplies enabled, clock enabled   sensor identifies, driver binds
+  supplies enabled, clock left off  -EIO
+  supplies left off, clock enabled  -EIO
+
+so both are needed; a longer settling delay alone is not enough. Verified
+across five module unload/load cycles with no probe failure, and again afte=
+r
+this rework, with the sensor streaming each time.
+
+This needs POWER1 GPIO support in int3472 to be useful on that machine: the
+dvdd rail is described there as an INT3472 GPIO of type 0x08, and without t=
+hat
+patch the rail is never registered.
+Link: https://patch.msgid.link/20260829-sp7plus-int3472-v3-1-454b50485ce2@b=
+erg.pm
+
+The same sensor on the Surface Pro 10 was made to work downstream by forcin=
+g
+the regulators on for the driver's lifetime, which the people who did it
+called too broad for upstream. Runtime PM keeps them off while the sensor i=
+s
+idle instead.
+Link: https://github.com/linux-surface/linux-surface/issues/2153
+
+dovdd is not described on this machine and resolves to a dummy regulator. I=
+t
+is listed because it is one of the three supplies these sensors normally ta=
+ke.
+
+A working camera also needs an ipu-bridge entry for OVTID858, separately.
+
+ drivers/media/i2c/ov13858.c | 91 +++++++++++++++++++++++++++++++++++--
+ 1 file changed, 88 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/i2c/ov13858.c b/drivers/media/i2c/ov13858.c
+index 5a49fa0ec02..5d7b3c335de 100644
+--- a/drivers/media/i2c/ov13858.c
++++ b/drivers/media/i2c/ov13858.c
+@@ -3,9 +3,12 @@
+=20
+ #include <linux/acpi.h>
+ #include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+@@ -1034,9 +1037,17 @@ static const struct ov13858_mode supported_modes[] =
+=3D {
+ =09}
+ };
+=20
++static const char * const ov13858_supply_names[] =3D {
++=09"dovdd",=09/* Digital I/O power */
++=09"avdd",=09=09/* Analog power */
++=09"dvdd",=09=09/* Digital core power */
++};
++
+ struct ov13858 {
+ =09struct device *dev;
+ =09struct clk *clk;
++=09struct regulator_bulk_data supplies[ARRAY_SIZE(ov13858_supply_names)];
++=09struct gpio_desc *reset_gpio;
+=20
+ =09struct v4l2_subdev sd;
+ =09struct media_pad pad;
+@@ -1706,6 +1717,54 @@ static void ov13858_free_controls(struct ov13858 *ov=
+13858)
+ =09mutex_destroy(&ov13858->mutex);
+ }
+=20
++static int ov13858_power_on(struct device *dev)
++{
++=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
++=09struct ov13858 *ov13858 =3D to_ov13858(sd);
++=09int ret;
++
++=09ret =3D regulator_bulk_enable(ARRAY_SIZE(ov13858_supply_names),
++=09=09=09=09    ov13858->supplies);
++=09if (ret) {
++=09=09dev_err(ov13858->dev, "failed to enable regulators: %d\n", ret);
++=09=09return ret;
++=09}
++
++=09ret =3D clk_prepare_enable(ov13858->clk);
++=09if (ret) {
++=09=09dev_err(ov13858->dev, "failed to enable clock: %d\n", ret);
++=09=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->su=
+pplies);
++=09=09return ret;
++=09}
++
++=09if (ov13858->reset_gpio) {
++=09=09/* Hold reset for at least 1 ms on a back to back off-on */
++=09=09fsleep(1000);
++=09=09gpiod_set_value_cansleep(ov13858->reset_gpio, 0);
++=09}
++
++=09/* t4: 8192 XVCLK cycles after reset is released, before the first I2C =
+*/
++=09fsleep(5000);
++
++=09return 0;
++}
++
++static int ov13858_power_off(struct device *dev)
++{
++=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
++=09struct ov13858 *ov13858 =3D to_ov13858(sd);
++
++=09gpiod_set_value_cansleep(ov13858->reset_gpio, 1);
++=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->suppl=
+ies);
++=09clk_disable_unprepare(ov13858->clk);
++
++=09return 0;
++}
++
++static const struct dev_pm_ops ov13858_pm_ops =3D {
++=09RUNTIME_PM_OPS(ov13858_power_off, ov13858_power_on, NULL)
++};
++
+ static int ov13858_probe(struct i2c_client *client)
+ {
+ =09struct ov13858 *ov13858;
+@@ -1729,14 +1788,34 @@ static int ov13858_probe(struct i2c_client *client)
+ =09=09=09=09     "external clock %lu is not supported\n",
+ =09=09=09=09     freq);
+=20
++=09for (unsigned int i =3D 0; i < ARRAY_SIZE(ov13858_supply_names); i++)
++=09=09ov13858->supplies[i].supply =3D ov13858_supply_names[i];
++
++=09ret =3D devm_regulator_bulk_get(ov13858->dev, ARRAY_SIZE(ov13858_supply=
+_names),
++=09=09=09=09      ov13858->supplies);
++=09if (ret)
++=09=09return dev_err_probe(ov13858->dev, ret,
++=09=09=09=09     "failed to get regulators\n");
++
++=09ov13858->reset_gpio =3D devm_gpiod_get_optional(ov13858->dev, "reset",
++=09=09=09=09=09=09      GPIOD_OUT_HIGH);
++=09if (IS_ERR(ov13858->reset_gpio))
++=09=09return dev_err_probe(ov13858->dev,
++=09=09=09=09     PTR_ERR(ov13858->reset_gpio),
++=09=09=09=09     "failed to get reset GPIO\n");
++
+ =09/* Initialize subdev */
+ =09v4l2_i2c_subdev_init(&ov13858->sd, client, &ov13858_subdev_ops);
+=20
++=09ret =3D ov13858_power_on(ov13858->dev);
++=09if (ret)
++=09=09return ret;
++
+ =09/* Check module identity */
+ =09ret =3D ov13858_identify_module(ov13858);
+ =09if (ret) {
+ =09=09dev_err(ov13858->dev, "failed to find sensor: %d\n", ret);
+-=09=09return ret;
++=09=09goto error_power_off;
+ =09}
+=20
+ =09/* Set default mode to max resolution */
+@@ -1744,7 +1823,7 @@ static int ov13858_probe(struct i2c_client *client)
+=20
+ =09ret =3D ov13858_init_controls(ov13858);
+ =09if (ret)
+-=09=09return ret;
++=09=09goto error_power_off;
+=20
+ =09/* Initialize subdev */
+ =09ov13858->sd.internal_ops =3D &ov13858_internal_ops;
+@@ -1780,7 +1859,9 @@ static int ov13858_probe(struct i2c_client *client)
+=20
+ error_handler_free:
+ =09ov13858_free_controls(ov13858);
+-=09dev_err(ov13858->dev, "%s failed:%d\n", __func__, ret);
++
++error_power_off:
++=09ov13858_power_off(ov13858->dev);
+=20
+ =09return ret;
+ }
+@@ -1795,6 +1876,9 @@ static void ov13858_remove(struct i2c_client *client)
+ =09ov13858_free_controls(ov13858);
+=20
+ =09pm_runtime_disable(ov13858->dev);
++=09if (!pm_runtime_status_suspended(ov13858->dev))
++=09=09ov13858_power_off(ov13858->dev);
++=09pm_runtime_set_suspended(ov13858->dev);
+ }
+=20
+ static const struct i2c_device_id ov13858_id_table[] =3D {
+@@ -1817,6 +1901,7 @@ static struct i2c_driver ov13858_i2c_driver =3D {
+ =09.driver =3D {
+ =09=09.name =3D "ov13858",
+ =09=09.acpi_match_table =3D ACPI_PTR(ov13858_acpi_ids),
++=09=09.pm =3D pm_ptr(&ov13858_pm_ops),
+ =09},
+ =09.probe =3D ov13858_probe,
+ =09.remove =3D ov13858_remove,
+--=20
+2.54.0
+
+
