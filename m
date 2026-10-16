@@ -1,89 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC9134EEF3;
-	Fri, 16 Oct 2026 14:22:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 187CE37EFFD
+	for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 14:28:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792160580; cv=none; b=u4uyQ30nOBPHavPgBk1wofV/37HqekTD5zlWsGMv56vTVqsj+mYPRcZO2ku7RvMmftQNoyioSydvTT2UET3Axa1Rbd9jyNmnMXHIZebrk+zxFrI9o28uyDuD+UOids13szLdMPlKjlPpYgpZ+R92hYd+PlitqpwvPfcNWgu5WfU=
+	t=1792160900; cv=none; b=COPYRWYDZ9Fp3nA6nD3PNlSziX6q2EozTwe6DL4F6hEPq7Cb4HkdEF/nDh3bA1O/7z9GQLWQDIDaioQ6t1Z2x0PqfS6nqD+W35erdajCr63oK34RYrtM7TMTcifdxj4gBWZz3evkH2Vo3D1K5H8Y4Ucm4MsfHbH0u/CQ7RfuRrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792160580; c=relaxed/simple;
-	bh=VhvipMwOktUEFYTtD9KhXWIyIw3NRLywmjGrTsI3GlU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YOJdy6ts/4Z292crp8iiwnPPIRHAXioqnNP0GUrdTYRCJxUsCFASpjRbtDzuBWbJldmPG/cuSUj7RpkVv84ZfBjnQFipwQ54lN8i5LL9cUX0z0cMA5fK9aKKEixX5J/KH0QiBxD6in3MEDcdJLGE6eA9csmzZLqo75H+c/zJvr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBr3//Jn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792160900; c=relaxed/simple;
+	bh=+ZgIZmf9vtYm4fJP1fzWGXWsbm0yH84wQAfq5wQGXao=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=peqwmKcqeG/WP6ieKPL3EtiovznW+On0KStuDo5doMEMa9zFzdwHq8uxcjpd/K0hk7uLCMIdvhi4Litw/ZrOVSIL8JTaFXqq7kCvn2aG0VWitg/IDSWHaLalUJs8a2tfH2Wv9A8bGwtfkwnFRA8JMYGFW3LpqDdkafrwGvZNqT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=EpN8fr0b; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBr3//Jn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1603C1F000C4;
-	Fri, 16 Oct 2026 14:22:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792160578;
-	bh=xYXMeTvJum9DO2mB8W+/wDLyjzAKgnkoocasVvXxkJg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PBr3//Jn/1vXn98kdoPExm3YSZrEhRMac0TFqgVHY9fnt5RAh7w9yjPDFQQLiwAKE
-	 vJWlXL2QjJNcY1DCPS5fHCVxVRCsFxR7vefbuD9rjS5MyjLC0V7xV9SbtB/EUQogyP
-	 sQvLrHuZN6ykJJKrRrfhnh3TX/RsdOIiBtAZO88BqBY/hQEvdrUZ0jFoOuDe0VSd1Y
-	 2OM528eIMCl7LT372jdRsZNqK7Ln5sk39nsg7155g5nVtSpiK++o8Q0nuC7AYcL/+S
-	 cnLhSyEpCYgltnraDsJ4GunGM6pw21ED2G8JzChn8cIFsrJOM89fy+U6f3HncJD+4K
-	 tu4aiiTei2VTw==
-Message-ID: <df3724fb-1ad6-403c-bea0-19856b11635f@kernel.org>
-Date: Fri, 16 Oct 2026 16:22:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="EpN8fr0b"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-354ba08cfd1so10596574eec.1
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 07:28:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792160898; x=1792765698; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CZxkiz+xTIZ/TNPEj8NCd1tJgQoYh2xpx5y74xAxmD4=;
+        b=EpN8fr0bF0z7Y7hYDavNv81rkdB1AhlSI8iVePDHpOYeU4ZVGMVfH23LHIgaPfayxa
+         xm1rfhbVamEPX+0CrXVrKQ/CdmajpCwOTslK3ximNP74sQDa/kUL7tGUOd+gLPIQ6AgF
+         9wOt5eIzcldcdp+V0wJ3zXLh9SRFF9pdHtz0ojy/dpcEWuYn7o2FX9TjOuwKf7OPyGgD
+         rCggOmAE0s/BR04SzWk/p1ACOGz2mfMBdaSazHNxl+SFNr/WiB9MVX3McqVzJ/ZXoKuC
+         o9rAw3FLUYgnCHgL2YdlLgl7Nm1gdliehmdd18X5wu4tezIQESsTysbPbbYbVEZGQR0F
+         MaXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792160898; x=1792765698;
+        h=content-transfer-encoding:content-type:mime-version:date:message-id
+         :subject:references:in-reply-to:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CZxkiz+xTIZ/TNPEj8NCd1tJgQoYh2xpx5y74xAxmD4=;
+        b=ESd20dRDzGfYntnbgF0nZcDIJcdYWV9Qdd8XChQfPbLYySJ+oRNUtbTztXTX7kqmB1
+         ueaOR0RLxXzm/NmtmJnex3NJawaILjREgYlvSW4IDP7rQKnkA7GW09tzKwF+EY7Vw4qc
+         YhtK7Zp4bH7XxAD8NnOR3RsrtBdtAtEKsKPqRu2Lg9tICTgD6xgNea64550OOkjWLiUD
+         QUCnCkvGoSzmogYPpVQV6FgEpA+WF+AxmhzM4nqCyom9aB4jDBpspAj+TrY+Jg0JudOE
+         llhYlPDB4Ou69L/Y+zJxJS+fP/Gz5vUa8yXmtAZzoWirgcfCI0E+Rvynu9wsA39SivGh
+         bIRg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMczRBmYkFbpj3xviA6YSq23LIYQf9Zpw3sFyvO0HN4ej/FolYK2qW6i2+NRVR5CSG4ODMqCGuB3iTog==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPP2/HcEhhyZz/ki0/O7hr1aqL1wyY7aeSZlEJKv8ZhlM1Ip2d
+	H+H/4mZPNXgtpGzKKlwR41Hi4ThI1fImIbtOZTsSpqJFM/1rJ73EzFNx1g3O0nc7723ExiPJi03
+	ZEsl8jAc=
+X-Gm-Gg: AYBFou1i+ZyfNP5i5n9OXY+fBjYMDtw7GM2QPHGQZnt6zmHMxxlLfcFUo9IJ6UKx58V
+	vuPatWrfH/k2NSJbmT/kE8tgFt7Jb6SOj0SwOSOvqnAAU0m2bDUHv8KCBktqULLx3680vwrgf8F
+	vgjYMe+RdAYeGWoG0HJYMKktuqRb3KV5N8pfr6birQ/X5JTwYiDYJdP3rRUsYe+LZNtpFPeQuZF
+	qbhWuQGPYVPIsL7ORVT5hn/xdra4T5dzEWwlDwA49uLsAFu92ZfWSfdCkGQJ6/1LcpMqd/y4qm9
+	Z9P45dmafTLls5jKneAeAZj6tFmFkXsWmFFF7vnRXj9SFuinFR2/dHVD4Uh7iZju6hfdDKzRj8P
+	FNqgg75I7OjZpAzNJ4i++XJyUrv8vVsunFL6s9OssYMaGibzjZs7/mm9OyJsSZMHIPYKzXz3PtG
+	bBVyKPnJid1KaSUM5miDqvSdQm6lpOhTiv2ihTYacx/LpoC6w5AwM+PjeAY1akaXk6X7XRJiZ9+
+	arlJ2Wup96oQuTfJQCgGtfPfsmKWfU0+ADxx2CNdt0kWg4TnXkinzzrig==
+X-Received: by 2002:a05:7301:180a:b0:35b:91da:7cb with SMTP id 5a478bee46e88-35b91da1eb4mr17969593eec.35.1792160896140;
+        Fri, 16 Oct 2026 07:28:16 -0700 (PDT)
+Received: from [192.168.1.106] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36081bafa7asm7150945eec.14.2026.10.16.07.28.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 07:28:15 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: io-uring@vger.kernel.org, Pavel Begunkov <asml.silence@gmail.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org
+In-Reply-To: <cover.1792144609.git.asml.silence@gmail.com>
+References: <cover.1792144609.git.asml.silence@gmail.com>
+Subject: Re: [PATCH v2 0/2] clean up dma-buf-io kerneldocs
+Message-Id: <179216089525.2070939.12960580037397248054.b4-ty@b4>
+Date: Fri, 16 Oct 2026 08:28:15 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] platform/x86: int3472: Use actual clock frequency for
- DSM method
-To: Sergey Lebedev <lsa.uz@pm.me>, Hao Yao <hao.yao@intel.com>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Dan Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bingbu Cao <bingbu.cao@intel.com>, platform-driver-x86@vger.kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016112744.39905-1-lsa.uz@pm.me>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261016112744.39905-1-lsa.uz@pm.me>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-Hi,
 
-On 16-Oct-26 13:28, Sergey Lebedev wrote:
-> Hi Hao,
+On Fri, 16 Oct 2026 10:58:29 +0100, Pavel Begunkov wrote:
+> Add a kerneldoc for dma_buf_io_init_map() and clean up it overall.
+> Targeting the Jens' branch where dma-buf-io sits. If preferred, it
+> can all be squashed into
 > 
-> This fixes a camera on the Surface Pro 11 with Intel (Lunar Lake), for
-> your v2:
-> https://lore.kernel.org/all/20251208035122.2147678-1-hao.yao@intel.com/
+> 0d3120db2cbe0a ("dma-buf: introduce initial file I/O infrastructure")
 > 
-> Its infrared sensor, an ST VD55G0 (SMO55F0), has 24 MHz in its SSDB,
-> and INT3472 turns its clock on through the _DSM with 1, 19.2 MHz. The
-> sensor driver sets the sensor up for 24 MHz, so everything the sensor
-> derives runs at four fifths: it streamed at 47.31 fps where its
-> configuration gives 59.14, which also puts its MIPI output at 633.6
-> Mbps, below the sensor's minimum of 750. With your v2 on media next and
-> my vd55g0 driver, the sensor runs at 59.14 fps in every mode, as computed.
-> A value of 0 did not change the clock here either, as you saw on the
-> oscilloscope.
+> Pavel Begunkov (2):
+>   dma-buf-io: fix typos in kernel docs
+>   dma-buf-io: document dma_buf_io_init_map
 > 
-> Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11 (Intel), VD55G0
-> 
-> Would you send a v3 with the Fixes tag and the note on 0 and 2 that Ilpo
-> asked for? I will repeat the Tested-by on it. If you are busy, I can
-> resend it with your authorship.
+> [...]
 
-Note that from now on int3472 patches are routed through the media-committers
-tree since these are related to camera support:
+Applied, thanks!
 
-https://gitlab.freedesktop.org/linux-media/media-committers/-/commits/next/drivers/platform/x86/intel/int3472?ref_type=heads
+[1/2] dma-buf-io: fix typos in kernel docs
+      commit: 44e75dbecb19579db9a070ac8d5f7b400297c1ec
+[2/2] dma-buf-io: document dma_buf_io_init_map
+      commit: aeef964d73dbfd7f477182bac934cdb4087d1724
 
-If you send a new version please base it on top of media-committers/next .
+Best regards,
+-- 
+Jens Axboe
 
-Regards,
-
-Hans
 
 
