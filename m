@@ -1,94 +1,192 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D9347ACE0;
-	Fri, 16 Oct 2026 12:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E572D9ECA;
+	Fri, 16 Oct 2026 12:24:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792152649; cv=none; b=apeVDHDKrMDGVZ+lArpPgxCLJJJNdcg9R/t+TdggqVtGb07akT2n3rBn/oKWJaFpf3Da4SDCkv0ikJPieD2mVBLyRdyd3Yk1QgTXWsTL2kTYRWDOMHImmxwau9gp5dVq9e+HWMOP7GbsOk6AMaTu/ciS2rYl8q6Q06fQtaPITzs=
+	t=1792153496; cv=none; b=M8kuxbeg3nA+2I2mHk+x7GehRuvB5bofFdUgnGvu2EnYSk6d1MzIQPew9vfULVcIXHVazAmiVXmuLaKr18txnQzqw/BHKkruwDi7wtL+rbAPpgQ+LDBAANLtiPrnMqJg1woWOTt8vR/Zbizj0o8dDEkk7RFLjNORI6ZEKWeuwLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792152649; c=relaxed/simple;
-	bh=I2EOVYSWSibnwSbvmZ9Icl3P9UW6LIJ9IuDIZoFx5OQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uGwIpfzcjvpgqbMEPbfmliXa8I2EJryfm5/5qc/M65k5oILYW4t8uciN5m/1XRjX++8wp6tJLwQgl2skx47ktF7tVO3jtwN3HbZbwvuExhujmYrZonjugRrAujhMRybEAstyVGpTn0JtXfzlbrQPY3grQ1BvKSfhlzMAfk2ftKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BxhsRove; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1792153496; c=relaxed/simple;
+	bh=ZH5H8NlLFQWJ7+s4gcxwNmM9sP1GFTOohtS1hxqIp0s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bYJhpAfS2DdTr5NhbqeRXpXoJYy/2rQIbDtU0hxXHIALxiPmrM33yMvHrY5ed5T2GsZNeBvEzb2CtN+hq4ksTltP2Kj1HvyCD2JjNbNnB8w5JJXkusC55AjZerrsyRk+FV4BlhTTzUAuFRQv9DwlTDwmVHenKsQqt4VnD+26KF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=W9NZqwo4; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BxhsRove"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="W9NZqwo4"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j5kKw0wrjzMkvn;
-	Fri, 16 Oct 2026 14:10:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792152644; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
+	by ixit.cz (Postfix) with ESMTPSA id D416C53407C7;
+	Fri, 16 Oct 2026 14:24:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792153487;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=I2EOVYSWSibnwSbvmZ9Icl3P9UW6LIJ9IuDIZoFx5OQ=;
-	b=BxhsRovexkzm/j03lF7h8T81J+DaEDb1vPJQtAM/gNEHwDsm5043EAIs2QqxTKLqu50co3
-	PBv7W2zK06FB8aCQ+r+iii7RNBqV64XIhwz+phUXjB4W8oXOaLVnkOIL/gCmb8aXfslnmW
-	7a4PdVrFg3q+s3+SYFpEbzcZnSWmsLPTQM1mjAFlcwEgEYTqX0ZQRLPiJ0VeXUiHrd7cvU
-	lQZifTf11q6ZiAkCXmpLqcAVd5aDR+ETBDW7pZqSxUAFHnafbZtEEdDLgMRQGGDwA4sRuC
-	86ZzN+NDLu5uJPYqOKryEi+/M08ekEcDs5wIJwptXbDGtm5KrF5dK1O40tSP+g==
-Message-ID: <3cda8a87bb8c243f9409b260853c98de2ff78b63.camel@mailbox.org>
-Subject: Re: [PATCH v2] rust: DmaFence: Remove static lifetime
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Philipp Stanner <phasta@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl	
- <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng	
- <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
- Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
- <tmgross@umich.edu>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Fri, 16 Oct 2026 14:10:38 +0200
-In-Reply-To: <20260930122755.1657820-2-phasta@kernel.org>
-References: <20260930122755.1657820-2-phasta@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ZUcM5vWKLfam7a7VYZQ/bOBV8s2Pn4a8iyb1gpC1DhI=;
+	b=W9NZqwo4/o2uTz9OchdKEyGJEet0GRxovTM9Sg8EqX3Cic6H+QKlJmofj9qAR4Fr9QG2Uf
+	CwSRN7uuwPsRCsgbR/qRhxpufBthaizACWXRaTK8MjCG0g0ED5418icEB8fXXIBIeP/DKB
+	oFhFhO50eMHL6k7YA+Au0cWrf6OJf6s=
+Message-ID: <5009ea04-c715-4273-a1cf-81c4162d5b02@ixit.cz>
+Date: Fri, 16 Oct 2026 14:24:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: be247911bdc56e199d3
-X-MBO-RS-META: m7p3i7kbreozqwrixqa9tkw7omxdfiem
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 4/4] phy: qcom-mipi-csi2: Add C-PHY support for
+ X1E80100
+To: geocausa@gmail.com, Bryan O'Donoghue <bod@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261016-x1e-cphy-rfc-v2-0-377654253193@gmail.com>
+ <20261016-x1e-cphy-rfc-v2-4-377654253193@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261016-x1e-cphy-rfc-v2-4-377654253193@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-09-30 at 14:27 +0200, Philipp Stanner wrote:
-> A FenceCallbackRegistration can stem from another party than the one
-> that has created a Fence. Should that party forget the registration
-> object (for example through a refcount cycle) and then unload the
-> module, a fence signaling would run into the unloaded module, causing
-> UAF bugs.
->=20
-> So far, this has been solved by demanding that the payload data of the
-> registration object demanding static lifetime.
->=20
-> It turns out, however, that this is harmful because the static lifetime
-> bubbles up to all users, ultimately potentially causing a large amount
-> of driver data to be static, which renders the lifetime obsolete.
->=20
-> Solve this issue instead through an unsafe requirement which demands
-> that the user does not forget the registration object. This is also the
-> solution chosen by ScopedWork.
->=20
-> Suggested-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=20
+On 16/10/2026 12:57, George Neacsu via B4 Relay wrote:
+> From: George Neacsu <geocausa@gmail.com>
+> 
+> The CSI2 PHY schema already allows bus-type C-PHY, but the driver
+> rejects it. Accept it on SoCs that provide a C-PHY sequence, with up to
+> three trios and no lane polarities. The endpoint's bus-type now sets the
+> PHY mode, set_mode() only accepts that mode, and in C-PHY mode
+> configure() takes the symbol rate and keeps the matching link frequency,
+> so clock scaling works as for D-PHY.
+> 
+> lanes_enable() picks the sequence for the mode and is split into
+> helpers: the CTRL5 lane mask, where the trios are the odd bits and the
+> D-PHY data lanes the even ones plus the clock bit, and the D-PHY lane
+> polarities. The settle count is computed in both modes. With a C-PHY
+> link frequency of half the symbol rate, the unit interval in the
+> existing formula is one symbol, which is also how David Heidelberg's
+> CAMSS C-PHY series computes it. Sequence delays now use fsleep(), as
+> the C-PHY sequence waits 3 ms after its reset exit.
+> 
+> The X1E80100 sequence is Qualcomm's for the v2.1.2 3PH PHY at 2.5 Gsps,
+> taken from the downstream camera driver's GPL-2.0
+> cam_csiphy_2_1_2_hwreg.h (csiphy_3ph_v2_1_2_reg, datarate_212_2p5Gsps
+> and the 3PH reset exit), as the D-PHY sequence above it is. Its three
+> settle count entries are the ones downstream marks as such.
+> 
+> Tested on the Surface Pro 11 (X1E80100) with an IMX681 on CSIPHY2, one
+> trio at 2.4 Gsym/s, and raw capture through CSID1 and an RDI interface,
+> with David's CAMSS C-PHY series and two CAMSS patches on top:
+> 3844x2640 at 30 fps, and the sensor's colour bars are byte-identical to
+> the same pattern captured with an out-of-tree driver. The timer runs at
+> 400 MHz and the computed settle count is 28; forcing anything from 6 to
+> 48 gives the same frames. D-PHY is unchanged: an OV13858 on CSIPHY1
+> over four lanes streams at 29.9 fps with the same settle count as
+> before.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: George Neacsu <geocausa@gmail.com>
+> ---
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 216 ++++++++++++++++++---
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |  53 ++++-
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |   2 +
+>   3 files changed, 242 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> index b2d4ec3e8..39e48e7ac 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> @@ -161,6 +161,137 @@ mipi_csi2phy_lane_regs lane_regs_x1e80100[] = {
+>   	{.reg_addr = 0x0c64, .reg_data = 0x7f, .param_type = CSIPHY_SKEW_CAL},
+>   };
+>   
+> +/* Qualcomm's 2.5 Gsps settings, from the GPL-2.0 cam_csiphy_2_1_2_hwreg.h */
+> +static const struct
+> +mipi_csi2phy_lane_regs lane_regs_v2_1_2_cphy[] = {
+> +	/* Power up lanes 3ph mode */
+> +	{.reg_addr = 0x101c, .reg_data = 0x7a, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x1018, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +
+> +	/* datarate_212_2p5Gsps: AFE settings */
+> +	{.reg_addr = 0x0268, .reg_data = 0xf1, .param_type = CSIPHY_DEFAULT_PARAMS},
 
-Gentle ping about the merge since we need this to upstream
-drm::JobQueue
+as you can see repeating pattern (e.g. another lane), please use macros.
+
+I would suggest something like I did in
+
+https://lore.kernel.org/all/20260729-qcom-cphy-v9-6-1f8d9fdab037@ixit.cz/
 
 
-P.
+David
+
+> +	{.reg_addr = 0x0294, .reg_data = 0x01, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0288, .reg_data = 0x20, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0278, .reg_data = 0x20, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x026c, .reg_data = 0x3d, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x028c, .reg_data = 0x30, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0270, .reg_data = 0x00, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +	{.reg_addr = 0x0274, .reg_data = 0x03, .param_type = CSIPHY_DEFAULT_PARAMS},
+> +
+> +	{.reg_addr = 0x0668, .reg_data = 0xf1, .param_type = CSIPHY_DEFAULT_PARAMS},
+
+^ (reference)
+
+David
