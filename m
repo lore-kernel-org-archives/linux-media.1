@@ -1,176 +1,140 @@
-Received: from sneak2.sneakemail.com (sneak2.sneakemail.com [64.46.159.148])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359653CDBA4
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 18:50:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.46.159.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F42C134CF;
+	Sat, 17 Oct 2026 21:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792263027; cv=none; b=Ivn0DJG3JgKsXXJKrrdKkP/R/pI9iV9R3axTmhqe7wblBDBPLzaJy1raDP6vNYmJIg5S2BXyYYpHwR2bHWEHBesiud49FSFQ7mehnyNQXbTuf/EgPDOrz/fvbWSkVasLKvB2bNizRZiXpMkCZIHDzzuLqkDExVOoTT6KRfUyZrM=
+	t=1792272521; cv=none; b=aMM9QpFhKDSKielv0eyIW11n9R+1YJtkSTdVpHaShiO3r032YCWfVYfB4dRILTUbQzO0SNPbWOGj0S5mCG1e5DueqoKRf5MXpxPg3Hh1fDNSmMa1BVBDdDojnWNfRvtCAO3L660G39/SBTIVPj+TfEbZxVElVpAeJX3mGRef8ag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792263027; c=relaxed/simple;
-	bh=Z8Kp1LM2yGolWaopWKvx/rVokDMgNB9WB0uValtev18=;
-	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type; b=o0WgRFBCNRHt+UKHCWm6+7nx4UgE4q0WJWpq8CVd1tZogIMUUx3A5n8ixHNhujNITkTKwR+F81rMsh84bh14P4Icf95LGeCxLDIbJvXiHDF4qeUDXb+/7VeoAvzFvzAn3QQ+F1OwKonghTXkA8RlnlhAI2vK5OvGeoXJ4MLFZqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=liamekaens.com; spf=pass smtp.mailfrom=liamekaens.com; dkim=pass (2048-bit key) header.d=liamekaens.com header.i=@liamekaens.com header.b=DQtWaNHK; arc=none smtp.client-ip=64.46.159.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=liamekaens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=liamekaens.com
+	s=arc-20240116; t=1792272521; c=relaxed/simple;
+	bh=X+lKRu8sRWKE1hyitt1Q8JaNlh/A3yDu4gemrdN5gKc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dVmpTfv7OMy+uaCYbbzsH3lApaU/TcI7RBVUAlVv2Gq3/nxHyJzgKIMNXzX6++FknRNopIn3tsqpggIsE0jHyTwWsMpntSUfwrGmt4GkLz8eGZe3SHSj3VlxsPBB0hm32Pd0vCO7Hb2NQC3Jxt/KXameYhHbdtSr9iMAFR0AzH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I4D7HjH2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=liamekaens.com header.i=@liamekaens.com header.b="DQtWaNHK"
-Received: (sneakemail censored 10208-1792263018-129136 #2); 17 Oct 2026
- 18:50:18 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=liamekaens.com;
-	s=mail; t=1792263018;
-	bh=Z8Kp1LM2yGolWaopWKvx/rVokDMgNB9WB0uValtev18=;
-	h=Date:From:To:Subject:From;
-	b=DQtWaNHKs7/nQtNtSavKskb5TDNUkLvYsLQSDgURdh38EdViPtVTfxPbuFI+x9nw+
-	 uyRzzOaHFe6f6eD89fJF5DCXF/QlUb3Ll/Sd1YpT1s+PafYvGxiHNc37lTDusH2nOO
-	 7dRYsLzVLZ6H9xyMxCAF/d5V3ELl/pjsPk+HiGC5LQ15D+ai9JxhwmkFjbsDfShsBh
-	 Xxu/8PeOW7WQHwlh9QrXxgtQg+i85WVZ4QdJZMgpFQz3VZhXvWfx2kbAo3AXLpHBeI
-	 1JFfsBcfwFmSQWW4BR2POF1ZXDmDO3St013MLvwoTKiPfcw7cs4KKMDp9ChMC237EQ
-	 3Vu8tGZBOSgKQ==
-Received: (sneakemail censored 10208-1792263018-129136 #1); 17 Oct 2026
- 18:50:18 -0000
-Date: Sat, 17 Oct 2026 18:50:17 +0000
-From: y8sh229r8s@liamekaens.com
-To: linux-media@vger.kernel.org
-Message-ID: <10208-1792263018-129136@sneakemail.com>
-Subject: [PATCH v2] media: cxusb: fix NULL pointer dereference in
- cxusb_disconnect()
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I4D7HjH2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7EF21F000C4;
+	Sat, 17 Oct 2026 21:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792272519;
+	bh=q1BVkb5pmkK8UJqeVh978rmRoLp0JDE22LJYmcbLRJo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I4D7HjH2AS1v54dqU+OJHOXlhChdAc8jXe/P8Og6U6nQVeE34BjsxLv48T0qH4941
+	 /W/qqdqljcF1RIXxxs/IHTwqEHv25tp8ze5se7acrAbdEknILi3RG1nf0PHnNgKttP
+	 ZdI+n8SKuMzaQZIVbmmSanlHaImO2fSzrq4Oc9P0e0vlZlTbvpFOZDekHsz7Ev99hK
+	 os8gGqBTu73sLleGMkSB1Z14voTmZIDADDNJUePfqdn0zAIChu/RU1fZhmVQDw2Y39
+	 0XPm0KSxxU/aVI55uKsiTOT0lvBvyYAEej2dYXds6l6q1hyBY1taAsQalLfuefPcZj
+	 wHy2zOrNLjuwA==
+Message-ID: <e7c16b26-9525-4a54-8098-20148c8461a9@kernel.org>
+Date: Sat, 17 Oct 2026 22:28:34 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: geocausa@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
+ German Pablo Lindo <germanpapulindez@gmail.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+ <Tb0AcYbDPldfaB1S1ypqTPp6iFwxJVF_1Dh_7FJdavARv0U5KErpuPTQn6FNDYBoK206hZlqZHDsasGYmQx4zg==@protonmail.internalid>
+ <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
+ <4359bff8-edb2-486a-8d41-38bd315a4430@kernel.org>
+ <37my1V7zvAlADVEwmO3aSm1XZe6SLHeQnj8AYh3sVO_3mGc4_lWX-abstYbqLBYAZpvFXdbELWYmRoOF-HKavw==@protonmail.internalid>
+ <20261017-successful-sturgeon-of-experiment-9d8caa@quoll>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261017-successful-sturgeon-of-experiment-9d8caa@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: Perl5 Mail::Internet v
 
-From: Bob Entwhistle <y8sh229r8s@liamekaens.com>
+On 17/10/2026 17:57, Krzysztof Kozlowski wrote:
+> On Fri, Oct 16, 2026 at 09:49:16PM +0100, Bryan O'Donoghue wrote:
+>> On 15/10/2026 22:48, George Neacsu via B4 Relay wrote:
+>>> +  - clocks
+>>> +  - avdd-supply
+>>> +  - dovdd-supply
+>>> +  - dvdd-supply
+>>
+>> The clocks, supplies and resets should all be optional as nothing says Linux
+>> must control any of those on every system.
+>>
+>> i.e. you might have a co-processor or CPLD which owns the reset, power-rails
+>> and the clock might not come from the SoC.
+> 
+> That would mean that every other binding/device would have them
+> optional. What Linux controls or does not, is not really important here
+> - these are required in the board design.
+> 
+> Best regards,
+> Krzysztof
 
-cxusb_disconnect() dereferences the interface data without checking it:
+Yeah I take your point, they should be optional in the driver. Actually 
+though we don't always know or represent a regulator for example or the 
+regulator can be on a daughter board - as is common on Laptops.
 
-	struct dvb_usb_device *d = usb_get_intfdata(intf);
-	struct cxusb_state *st = d->priv;
+What is the DT policy for that ? My own understanding was that it is 
+better to not require all the regulators from the DT description and 
+leave it up to the individual DTs to describe what can be described.
 
-For a device found in cold state that pointer is NULL.  cxusb never sets
-no_reconnect, so once the firmware has been downloaded
-dvb_usb_device_init() leaves through its error path:
+Should we have a fake regulator - or reuse one ?
 
-	if (cold) {
-		ret = dvb_usb_download_firmware(udev, props);
-		if (!props->no_reconnect || ret != 0)
-			goto error;
-	}
-	[...]
- error:
-	usb_set_intfdata(intf, NULL);
-	kfree(d);
-	return ret;
+OK the LLM tells me that I should have 'regulator-fixed' for that case 
+always-on, no GPIO, so describing a regulator we know exists but can't 
+actually control, hmm.
 
-ret is 0 when the download succeeded, so cxusb_probe() reports success
-and the interface stays bound with the interface data explicitly set to
-NULL.  The device then re-enumerates in warm state, and the disconnect
-of the cold interface oopses.
+Fair enough, that's the answer.
 
-This happens on every cold start of a DViCO FusionHDTV5 USB Gold
-(0fe9:d500); the port, the hub and the power source make no difference:
-
- usb 1-1.1.4: New USB device found, idVendor=0fe9, idProduct=d500
- dvb-usb: downloading firmware from file 'dvb-usb-bluebird-01.fw'
- usb 1-1.1.4: USB disconnect, device number 7
- Unable to handle kernel read from unreadable memory at
- virtual address 0000000000000368
- Workqueue: usb_hub_wq hub_event
- pc : cxusb_disconnect+0x28/0xa0 [dvb_usb_cxusb]
- lr : usb_unbind_interface+0x84/0x308
- Call trace:
-  cxusb_disconnect+0x28/0xa0 [dvb_usb_cxusb] (P)
-  usb_unbind_interface+0x84/0x308
-  device_remove+0x78/0x90
-  device_release_driver_internal+0x1e0/0x2b0
-  device_release_driver+0x20/0x38
-  bus_remove_device+0xf8/0x240
-  device_del+0x160/0x3a8
-  usb_disable_device+0x104/0x2c8
-  usb_disconnect+0xec/0x328
-  hub_port_connect+0x8c/0xae8
-  hub_port_connect_change+0x1fc/0x2e0
-  port_event+0x430/0x850
-  hub_event+0x134/0x500
-
-Most dvb-usb drivers use dvb_usb_device_exit() directly as their
-->disconnect handler, and that one does check for NULL.  cxusb has its
-own handler and has to do the same.
-
-Bail out of cxusb_disconnect() when there is no interface data.
-
-Tested on the affected hardware: with the fix applied the cold interface
-is torn down silently, the device re-enumerates in warm state and the
-DVB adapter registers normally.  Only the DViCO FusionHDTV5 USB Gold was
-available here; the other devices this driver handles were not
-exercised, and neither was the Medion MD95700 analog path.
-
-Fixes: 26c42b0dd5fa ("[media] cxusb: TechnoTrend CT2-4400 USB DVB-T2/C tuner support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Bob Entwhistle <y8sh229r8s@liamekaens.com>
 ---
-
-Changes in v2:
- - Added an in-body From: line.  v1 went out through a mail forwarder
-   that replaces the From: display name with the bare address, so the
-   Media CI robot saw an author that did not match the Signed-off-by.
-   No change to the code or to the reasoning.
- - Re-wrapped the quoted oops line to stay under 75 columns.
-
-v1: https://lore.kernel.org/linux-media/
-
-Notes on tool assistance, per Documentation/process/generated-content.rst:
-
-The diagnosis and this patch were produced with LLM assistance (Claude
-Opus 5) over an interactive session, working from the kernel log quoted
-above.  The assistant decoded the faulting instruction, traced the NULL
-interface data back to the cold-firmware path in dvb_usb_device_init(),
-located the commit named in the Fixes: tag, and drafted both the change
-and this changelog.  No specialized analysis tools (coccinelle, sparse,
-smatch) were involved.
-
-I reviewed the result, built it as an out-of-tree module against the
-running kernel on the affected machine and confirmed the oops is gone
-and the tuner works.
-
- drivers/media/usb/dvb-usb/cxusb.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/dvb-usb/cxusb.c b/drivers/media/usb/dvb-usb/cxusb.c
-index d0501c1..73543a1 100644
---- a/drivers/media/usb/dvb-usb/cxusb.c
-+++ b/drivers/media/usb/dvb-usb/cxusb.c
-@@ -1668,9 +1668,22 @@ ret_uninit:
- static void cxusb_disconnect(struct usb_interface *intf)
- {
- 	struct dvb_usb_device *d = usb_get_intfdata(intf);
--	struct cxusb_state *st = d->priv;
-+	struct cxusb_state *st;
- 	struct i2c_client *client;
- 
-+	/*
-+	 * A device found in cold state is bound by cxusb_probe(), but
-+	 * dvb_usb_device_init() takes its error path right after the
-+	 * firmware download (cxusb does not set no_reconnect), which
-+	 * leaves the interface data NULL while still returning success.
-+	 * The device then re-enumerates in warm state, and this handler
-+	 * runs for the cold interface with nothing to clean up.
-+	 */
-+	if (!d)
-+		return;
-+
-+	st = d->priv;
-+
- 	if (d->props.devices[0].warm_ids[0] == &cxusb_table[MEDION_MD95700])
- 		cxusb_medion_unregister_analog(d);
- 
--- 
-2.53.0.windows.1
-
-
+bod
