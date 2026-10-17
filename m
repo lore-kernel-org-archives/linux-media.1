@@ -1,94 +1,64 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C60443BCD13
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 14:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8951C3803DC;
+	Sat, 17 Oct 2026 14:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792245943; cv=none; b=IdtfGkxSFpBRv8fBsFNoPpyH3KNws9PAD4hcSYBLcfM38nupPnG79W5Wylc+BtIucvJE0cEiIOI4KzuDT34+isGtdrqSnuJ1STWI1N56oDCtS65qxxYRuAoqRhuOwwvI0Ldb3KDVoujPdWnidfYeaICOx+tfC6Pk/41UHgVPf9s=
+	t=1792249036; cv=none; b=ScfzdDo7ErMf40fj+nuyl+T12Gvx8M/50uI06M0hv9Yg4b/sS9pwq/qlAJU46iNzEX7Cc0N8vjheOt4TyN0xz/Z5FpC/TJT8pv+j8IkNcOyr2tXXwbc91vSvW1DWROladeER7kAESFcdneeZN6hwz/D8Iu8ZAq6t5w7Tr6pncAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792245943; c=relaxed/simple;
-	bh=8mm1SkJAd0ZzUVZM2VvxblTUHLtQ02hFHKTpaC6z+4w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QeENgHieHCEh3YXDvZXAmYX9w1mtVe5DWlcM63MxRyhCOaott8UAofszO3kKiXlRn0U/LtOfIoYH63bg7NSlHKKrylIhdG9h4xD3ZzBynvMfhzmkavxgzgQxKKE1EYYcCsCd2/Z1eDeMlxXrGUaai+lZUpls5/HuPkPsAwplzLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VeYyaPt8; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792249036; c=relaxed/simple;
+	bh=VuVXjvSr1R1tbcsWSH+eg7jtu+PhAtFidy4pJTRQtm8=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ro0j4Z3RgT0F+10EGntV//DeN0TBAB2tziOZktldNCLGjaBFz8K9OYeK3UvDwuEA7KW60WNOBSe6kFPBpczRhZYMugYWGMi6RoSUf2yIA4kdljsVaA1zIJ5nPaUq8e/g6JLkrHbiAjAVMTsjvBqgVyMVsfRMM45ZqvyXBYUWj30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=ibNnxq/Q; arc=none smtp.client-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VeYyaPt8"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e86dce4510so3012055ad.3
-        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 07:05:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792245939; x=1792850739; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8mm1SkJAd0ZzUVZM2VvxblTUHLtQ02hFHKTpaC6z+4w=;
-        b=VeYyaPt8PREiPtLtJRVPa+RVPr0ExIzP5PD6qgJsRqyFK1B/EzDn1J7ZO18eS2rFii
-         8uY4pyLPBgIVwcQiAo90QR1ICYG466+W31sUAop4YbX5mWaLiY5QgTBme2IT2KoIJquc
-         7ZBwBuxd5+oUBVIZm+dZBJFTKi7QqNZFeXU5f+q4fZX8pFDEfT2dEFxI7N2413QYtLU1
-         UJdKzr5KSDdHgxmPeu9AMC3YblKbC9I1txxJZzQG4SfTndNV1zCqyi2kjmu4Zky0LPr2
-         LZw9opU29Xa3oV+5J4aJnkzgFPOdmNI0ZWfVzmj8jcOSLdTBbIrd2qYAogj3zRCq2W5Z
-         Im0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792245939; x=1792850739;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8mm1SkJAd0ZzUVZM2VvxblTUHLtQ02hFHKTpaC6z+4w=;
-        b=X9tqyItuEMZ4UVG8qfde55EDEnuJDxFshV/X0IcxiTrqvs3Z8Au6WSL72+gzp8yYXI
-         QTNLupIXgV+dh5VLvRNeaiXJOKhnHMgmT9JBJrjE1NMuXoYpAzHdxaQlFFw8cG+tOx98
-         kseyYHR873rAliM5WZ3u2xd9W06eLxWDRaokOUmbzO1laL6Kcg5wShMnKwOS2SSDz2OM
-         45qaA8W2BVWeclYM4hbU8IrVHMeZj0kwH4czXA74Pnro+aKPI0QACiM5fgwt79H+6wfR
-         I4revD04olHRQX5PYhVzYwVrsjl3OM2moKsOTKJ/QHtyDynozJYMmdfuz6JI30ZMKW6G
-         ErXg==
-X-Gm-Message-State: AFq9FYIRwpEMRrKLsqMKSUxJa73gJqijDqaMwXxf87TOo3gnD9R/7E8a
-	ykxYa/AfycrcblI+Eg0ho226syquGwv9mJYwoDqFZzkKy6BPNsWFHFbS
-X-Gm-Gg: AYBFou19Jcf5EpUrVNSy9Hxa37ve5b6tmX+GRol2BDSGHr3H8grbSr4Cp77z/2qmEby
-	qqxZISvtGHlcsGxoQz194X4a2W9bY6cPQlAcrNnxoc0BTIHLxShQDhGwhfBvhirzUeWj/tmqVNx
-	3DeeBk3GOdTgx3S+FUG8bUdnZNtJyWjm3q9h3gWg0yoN9rdsMkpV/RBVQZnCACDS13fJInLgmpQ
-	QT0nk5QCNsgmD8c3YRE/+qw6axtAdy2+NqyyVOQ31szfYkqCnJvxUUsWrWwyFXlBtQ2mb9DjpSn
-	kmgAUupOHO3/fPDJco11CSoVW3hMY0cbkQ6SJcrY5GeEDI33LGGD4xX7DB28JJ/OqLfvePfuXcx
-	6CnpC7IVSG47wLATTUPsyg9s+t9eXesl1cZ0G4RtdM8PIX0/06kkhloIVzZDcWUJ30CbZ5/zlii
-	bxZPrNaU+p0zH4UiRry1NkB5HdPF9eiubXnLb7lY+Xz64f+bTIc/K7ef4v9eT0A89XK3KO8igGd
-	i/lhi69cpJts+a+KuDFGM5nFEGtghB1aBa/QbtqnJcfEabab7Za+Y0ohkSClX+W6EV9QibQKmD9
-	48nXFCNARTa8DxsXwvvewtH5VOztp8tFJu2wV9HgB/5b8JywwBoqWj8=
-X-Received: by 2002:a17:902:c943:b0:2e9:5eee:e085 with SMTP id d9443c01a7336-2e9a68da44emr20543265ad.19.1792245938535;
-        Sat, 17 Oct 2026 07:05:38 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e97e804eb4sm21848265ad.20.2026.10.17.07.05.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 07:05:38 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dma-buf: fix stale return value documentation for dma_buf_set_name()
-Date: Sat, 17 Oct 2026 22:05:34 +0800
-Message-ID: <20261017140534.3264870-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902135923.3599022-1-alan.tseng.cs@gmail.com>
-References: <20260902135923.3599022-1-alan.tseng.cs@gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ibNnxq/Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792249026; x=1792508226;
+	bh=mkXG1yRg0PCrEI5WMRERzginCLVDaIb+U7qUJ6FAQUk=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=ibNnxq/QCpHpC6RNFVFuZXVhOfFNsRjTVNnlR8qWfFLNVJLTKUxmXZRzgBAwRKDrY
+	 srl4B/UO6+WnJhBMwfFQmxFT+hGSS0tzCiZ/TPzGtuXy4GwXSKIBd6r8oV/l042Uib
+	 xbWH2xOERWjs73TxnpipiCsgKRJUCAkN1PhIRY9SP/3VEzvsu3Db/zrWo/kLXOhI1Y
+	 uEqpeHnUL1eC0pVQ1rK8ZzV4I5lttgQ5jTqKZJK6xUPK/ddkHvUaSu46RAQVwVOAQe
+	 9pleIdgcK+RdELxrsIR0Z3vuko2nm2PA3ZS3RQtnUM1zmNTV2ttnfpqrGmQWPy+RK1
+	 5ZzlEmFmkLZTQ==
+Date: Sat, 17 Oct 2026 14:57:01 +0000
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Stefan Schmidt <stefan.schmidt@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: iris: Fix out-of-bounds read in timestamp metadata fallback
+Message-ID: <179224901845.60580.12634525576974095945@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 3a03eb28923baec3bbb5a7b3e37cf7d96ee9e64a
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sumit, Christian,
+On Sat, 17 Oct 2026 08:55:04 +0530, Vishnu Reddy wrote:
+> If iris_get_ts_metadata() finds no matching timestamp in that window,
+> its fallback reads inst->tss[32], one entry past the end of the array.
 
-Gentle ping on this one. It still applies cleanly to next-20261016, where
-the comment still documents the -EBUSY return that commit e73c317efbf9
-("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME") removed.
+I hit the same report on a Lenovo Yoga Slim 7x (X1E80100) while playing
+video in Chromium, and it reproduces on demand: decoding a 64-frame
+H.264 clip with ffmpeg's h264_v4l2m2m triggers it at the end of the
+stream, while clips of 30 to 63 frames do not:
 
-Sorry for the noise around v2: it went out three times (2026-07-30,
-2026-09-01 and 2026-09-02) while I was sorting out the recipients. This
-posting from 2026-09-02 is the one to look at; the others can be dropped.
+  UBSAN: array-index-out-of-bounds in drivers/media/platform/qcom/iris/iris=
+_buffer.c:932:26
+  index 32 is out of range for type 'iris_ts_metadata [32]'
 
-Thanks,
-Hung-Chun
+With this patch on 7.2.8, 22 decodes of 30 to 192 frames (64, 96, 128,
+160 and 192 among them) gave no report, and the 64- and 96-frame
+decodes match a software decode frame for frame, timestamps included.
+
+Tested-by: Birk Skyum <birk.skyum@pm.me> # Lenovo Yoga Slim 7x (X1E80100)
+
