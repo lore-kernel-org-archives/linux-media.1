@@ -1,154 +1,200 @@
-Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AE131E834
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 21:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F1A3845A4
+	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 21:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792273639; cv=none; b=gjDROr5nYgu89nOe2qViknc71UVOWdLTY3/enDGqXYJ2sTmeVN8q6nuACRlGy59WgSNs2tZiWc8t3ru71InfKGDUPtRkUjBZtRJhWthg4XV+Kc2vdxJvFU18QFiVQe9rCy3mw/1SKlzU4cmTO9A2Lif44tkk2RDzEogKnyDEJjg=
+	t=1792274105; cv=none; b=uJSs8RW6re47ttKhFPVBlAIv2tDgOJt8RTRqYXxdTtVb+TbW+9Nc9z1nfFKJv1h5LInOEIga/uewSRehIIzX8xVYJ7PEDJHutwXYvc9J2EB0hdVs3lp4hVS8H2+qh7wfL5AFnlIhJlwBBl3w35+0SmmgD5IpVO00ZjAOuipQEow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792273639; c=relaxed/simple;
-	bh=LBiNyMQaU+Lz8qtwm1wDvcMmGVUcj0TquZ11KFl1f08=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h7wAUPLWpfNAtV+zkC7nR8FJ/VGF0N6vMaA5sVbTxmd8OxGubWZs0Umj1iaP4RzqwB3IKHsrssKU9hhBQaUah8lLOZmr0ofeXXnl49O+z47pKg+geM2iTQ6y/l7JuFilLqE9okje/TM7fJdNz0WEchg2RkBlf+DuchZA1JtS71o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net; spf=none smtp.mailfrom=nilk.net; dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b=EQgRe/lp; arc=none smtp.client-ip=74.125.231.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
+	s=arc-20240116; t=1792274105; c=relaxed/simple;
+	bh=GJJNL7dZONPysGkubR+JlIZt3FdoirQQRKVRSRvxtP4=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=nPHhVFitTn544sRSl7sM8q5xwE3xpzeT9CwvVDQIrszdxN/mE23MexF6F+Ri2GqIC7Iu3nlXHnoCno4W2V6rtUYryO1ccrFMWEAIYXCtTVzuisruiTUOadDU2eY28e/E189asjhawhNYwoKoRmbXs6R0dVP82kJFplfA+T++5Kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=myqAFG8U; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b="EQgRe/lp"
-Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-8216bf5eb5eso440589a34.1
-        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 14:47:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nilk.net; s=nilk; t=1792273637; x=1792878437; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
-        b=EQgRe/lpCg8SIPzTTm3+JpiCFHVy2eO3vhgMd3p4JHGaGJnROYRo+e5gJ5U0YDCVvh
-         NEY1RhLo7TLWvpjQs6+jF8mxUBSMrzMSWV5wE4VvvOSB5+9w17Rjj1LWIV5mJoXz/4fa
-         n5AgMyVMfpvrZybl069z+i8DhZE5qUUV2pvsg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792273637; x=1792878437;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
-        b=eSAuWLNCajDh9jvYvSshcjvkieJnHvYvVNsdD9buUM+zftAXQc/OKOT9a5FYiTZUzK
-         zKeWc/5Liev0Mj2wkBRlV3gZHg6KsZhgFuY5oiJn3cYkof4iG8CyhzHOK69jetKpKXNU
-         pUWjkvYt3BXZofJE0dB6sqK8zufjMJbML+BOu0qy+ZvElTMOGId5y1Ja1XC32OUZXPU+
-         9hNuny7xArHi5BsPtXn7t2ObUaojY2x6mAynRRNCwyNnDxZmzOtHtwhrsedSD/6w0cc3
-         5Ti3TI+9mjXgpKLstWzIRA+qa2bWaKAY4aYyXOfxMlLhwU2/ogPmU95usPMAsqyDkDN6
-         AiZg==
-X-Gm-Message-State: AFq9FYKx/mO7WeGqBr2GJZFe8hX4VbKZgxmnldGoKtELnUXEjf1GDVfe
-	O0Mw8H2srDqym5MeMi9GHBAGCtiBvUkkP8umQt+A/3RPl6mlZr0oAg3lFy1TgrRkIg==
-X-Gm-Gg: AYBFou3FxIbha8B4M8gWZA26Sl2jaX+Qy+e4QYA2kA8kP2eQCg8yBtWRa8F9yI+/+36
-	VmvfCwFVjIcy4GDqqNeAirAB0El+Gua0OjVkXeO26qVTlsvMTt6OVpvAvOHyrwtKFYm6bYmPXE/
-	fVzneRSLZXlKbQc9WKCDBvE6OJmSyHt/wEDRWuvubcjsoQGdSAD7SQEdx3bS4bD535U+lXgTr8E
-	vGagUUAYxIP7wiJQHgAQPAKPW8yK6Wm2NR5DtSvNC6zJ0/4AwaeLwSU2EyvTwOclv6ZsfTEbrYz
-	3YGwE6uObBsh5G7DyUljcwIMspv63o12OSF0aYhl+DQcdNXljc4Jp9HqpmG/CpR/D9kQnDmjrLZ
-	g8A/3htyGSEkyYlOz9C5iFGpkpX4qq74E09LvsEOJxcE2cRBwzKYmGLkSngyQo0SGwJyG2Sn5uE
-	bbEoZU6hji54gLv5Cge4436bxfIZY2FJzXtA+LPOA2BbSXAEGXrq8JUjhKR9+lZQ99ycpa7+kiO
-	exqJheKrJ9gBzF73Q+Gbwtiy/UszFv8edMXZyoomNukx292Hx5rTf+ScG9/DAeUInGtZZORKmUb
-	AXHn2PYONflK4xVW207F+1nvvIW2/D9FVMdvOJQHY+yP/6k04eErntFLQ6CykZbBjkFGulal3Jd
-	TZwJ/yvDhXJ4ze0h7EfuyNZ/2wlP/pci+JDwkSXOlGeoa0TRHnA==
-X-Received: by 2002:a05:6820:f023:b0:6d7:fea2:526f with SMTP id 006d021491bc7-70355d88ab4mr2411588eaf.30.1792273636699;
-        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
-Received: from [192.168.0.114] ([187.14.252.51])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a53dac8dsm5527535a34.12.2026.10.17.14.47.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
-Message-ID: <eee2988c-5ab6-40c3-ad3d-e4e0aeb977be@nilk.net>
-Date: Sat, 17 Oct 2026 15:47:14 -0600
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="myqAFG8U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792274103; x=1823810103;
+  h=date:from:to:cc:subject:message-id;
+  bh=GJJNL7dZONPysGkubR+JlIZt3FdoirQQRKVRSRvxtP4=;
+  b=myqAFG8UJl90naJWBtawKCTmcFT726nham7tzSPMkEyE8EZODu1JUHRD
+   Q1DAI1jEJjXvCh/J+dC6y9HXAzPiOUSILhi0XTaUit3sa052HyHYBIfo2
+   c+WiYBlX2sUrANjT9M8arweNRvmQcHFCzp4X8Bgxz7KbxJT5Sb89LH8iK
+   Gvi2LR9xoYhF/2nkPFXP/O17yKZB+6jvfrk5XXUnktGotGQbgDMklmauk
+   BuqNtYtbWw/BS8kRYU6InVsHK0RbLzodNuLLg3u0qb3WKp5kHu/PRfgS8
+   GfppwGEYwOxR5vA2hLczXq2ISsvjazVxGSn8QYFZoJ9XaGhdb2JNYYRBv
+   A==;
+X-CSE-ConnectionGUID: IwAia8tgQgK6FADX2yHuQw==
+X-CSE-MsgGUID: 2+HZCJCNRvy9UAg7uToEyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="918813"
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="918813"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 14:55:02 -0700
+X-CSE-ConnectionGUID: 0gRyvQLxTl+BqrlF5dWjVg==
+X-CSE-MsgGUID: KJLhUyUATn6nmZ2HjPZDxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
+   d="scan'208";a="2487848"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 17 Oct 2026 14:55:00 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xICMj-00000000Jn0-2ZCh;
+	Sat, 17 Oct 2026 21:54:57 +0000
+Date: Sun, 18 Oct 2026 05:54:10 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-media@vger.kernel.org
+Subject: [sailus-media-tree:media-ref 2/17]
+ drivers/media/mc/mc-device.c:761:49: error: use of undeclared identifier
+ 'devnode'
+Message-ID: <202610180552.6MBNpZSk-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
-To: Danila Tikhonov <danila@mainlining.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
- Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
- Luca Weiss <luca.weiss@fairphone.com>,
- Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
- <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
-Content-Language: en-US
-From: Chris Simpson <chris@nilk.net>
-In-Reply-To: <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hi Danila,
+tree:   git://linuxtv.org/sailus/media_tree.git media-ref
+head:   cf47170584526b52366e936406ce2430b99a03a9
+commit: 803515300f06fabf69ad489f3f1f8e5ab3f4717f [2/17] media: mc: Merge struct media_device back into struct media_devnode
+config: hexagon-randconfig-1001-20261017 (https://download.01.org/0day-ci/archive/20261018/202610180552.6MBNpZSk-lkp@intel.com/config)
+compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610180552.6MBNpZSk-lkp@intel.com/reproduce)
 
-On Sat, 01 Aug 2026 21:04:15 +0300, Danila Tikhonov wrote:
-> The DW9800W uses the same chip ID and register layout as the DW9800K,
-> but requires different default VCM frequency value.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610180552.6MBNpZSk-lkp@intel.com/
 
-A data point for v2. The Microsoft Surface Pro 9 has a DW9800W on its
-OV13858 rear camera module, at 0x0c on the sensor's I2C bus. INFO reads
-0xF2 and register 7 powers up as 0x60, both matching the values in this
-patch. The module is enumerated through ACPI, so ipu-bridge creates
-the I2C client, not DT.
+All errors (new ones prefixed by >>):
 
-I ran this patch as posted, plus the one dw9719_id_table line
-suggested below (without it the driver can't get the DW9800W model on
-ACPI), on a 7.2.11 distro kernel with the linux-surface patches. My
-ipu-bridge change, still to be posted, creates the "dw9800w" client
-from the Surface's SSDB. The driver binds to that client, INFO reads
-0xF2, so it goes through the DW9800_ID case, and the sensor gets its
-ancillary link to the lens. With the camera streaming, register
-readback shows CONTROL 0x02, MODE 0x40 and register 7 0x60, and
-V4L2_CID_FOCUS_ABSOLUTE values 640, 1023 and 512 reach VCM_CURRENT. An
-equivalent change has also run through runtime and system suspend on
-the same tablet.
+   drivers/media/mc/mc-device.c:31:1: error: unknown type name 'param_check_unsigned'
+      31 | module_param(kaboom, unsigned int, 0077);
+         | ^
+   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
+     140 |         module_param_named(name, name, type, perm)
+         |         ^
+   include/linux/moduleparam.h:163:2: note: expanded from macro 'module_param_named'
+     163 |         param_check_##type(name, &(value));                                \
+         |         ^
+   <scratch space>:165:1: note: expanded from here
+     165 | param_check_unsigned
+         | ^
+   drivers/media/mc/mc-device.c:31:1: error: expected ')'
+   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
+     140 |         module_param_named(name, name, type, perm)
+         |         ^
+   include/linux/moduleparam.h:163:25: note: expanded from macro 'module_param_named'
+     163 |         param_check_##type(name, &(value));                                \
+         |                                ^
+   drivers/media/mc/mc-device.c:31:1: note: to match this '('
+   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
+     140 |         module_param_named(name, name, type, perm)
+         |         ^
+   include/linux/moduleparam.h:163:20: note: expanded from macro 'module_param_named'
+     163 |         param_check_##type(name, &(value));                                \
+         |                           ^
+   drivers/media/mc/mc-device.c:31:1: error: use of undeclared identifier 'param_ops_unsigned'; did you mean 'param_ops_uint'?
+      31 | module_param(kaboom, unsigned int, 0077);
+         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
+     140 |         module_param_named(name, name, type, perm)
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   include/linux/moduleparam.h:164:25: note: expanded from macro 'module_param_named'
+     164 |         module_param_cb(name, &param_ops_##type, &value, perm);            \
+         |                                ^~~~~~~~~~~~~~~~
+   <scratch space>:166:1: note: expanded from here
+     166 | param_ops_unsigned
+         | ^~~~~~~~~~~~~~~~~~
+   include/linux/moduleparam.h:459:38: note: 'param_ops_uint' declared here
+     459 | extern const struct kernel_param_ops param_ops_uint;
+         |                                      ^
+   drivers/media/mc/mc-device.c:31:31: error: expected '}'
+      31 | module_param(kaboom, unsigned int, 0077);
+         |                               ^
+   drivers/media/mc/mc-device.c:31:1: note: to match this '{'
+      31 | module_param(kaboom, unsigned int, 0077);
+         | ^
+   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
+     140 |         module_param_named(name, name, type, perm)
+         |         ^
+   include/linux/moduleparam.h:164:2: note: expanded from macro 'module_param_named'
+     164 |         module_param_cb(name, &param_ops_##type, &value, perm);            \
+         |         ^
+   include/linux/moduleparam.h:189:2: note: expanded from macro 'module_param_cb'
+     189 |         __module_param_call(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1, 0)
+         |         ^
+   include/linux/moduleparam.h:305:4: note: expanded from macro '__module_param_call'
+     305 |         = { __param_str_##name, THIS_MODULE, ops,                       \
+         |           ^
+>> drivers/media/mc/mc-device.c:761:49: error: use of undeclared identifier 'devnode'
+     761 |         mdev->media_dir = debugfs_create_dir(dev_name(&devnode->dev),
+         |                                                        ^~~~~~~
+   drivers/media/mc/mc-device.c:763:31: error: use of undeclared identifier 'devnode'
+     763 |         debugfs_create_devm_seqfile(&devnode->dev, "requests",
+         |                                      ^~~~~~~
+   6 errors generated.
+--
+>> drivers/media/mc/mc-devnode.c:233:33: error: use of undeclared identifier 'mdev'
+     233 |         dev_set_drvdata(&devnode->dev, mdev);
+         |                                        ^~~~
+   1 error generated.
 
-[...]
 
->  	{ .compatible = "dongwoon,dw9800k", .data = (const void *)DW9800K },
-> +	{ .compatible = "dongwoon,dw9800w", .data = (const void *)DW9800W },
+vim +/devnode +761 drivers/media/mc/mc-device.c
 
-ACPI users need the I2C id as well. As posted, an ACPI-instantiated
-client can't get the DW9800W model:
+9832e155f1ed30 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  733  
+9832e155f1ed30 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  734  int __must_check __media_device_register(struct media_device *mdev,
+9832e155f1ed30 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  735  					 struct module *owner)
+9832e155f1ed30 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  736  {
+9832e155f1ed30 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  737  	int ret;
+9832e155f1ed30 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  738  
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  739  	/* Register the device node. */
+803515300f06fa drivers/media/mc/mc-device.c Sakari Ailus             2016-06-18  740  	mdev->devnode.fops = &media_device_fops;
+803515300f06fa drivers/media/mc/mc-device.c Sakari Ailus             2016-06-18  741  	mdev->devnode.parent = mdev->dev;
+8a95079668bf35 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  742  
+8a95079668bf35 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  743  	/* Set version 0 to indicate user-space that the graph is static */
+8a95079668bf35 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  744  	mdev->topology_version = 0;
+8a95079668bf35 drivers/media/media-device.c Javier Martinez Canillas 2015-12-11  745  
+803515300f06fa drivers/media/mc/mc-device.c Sakari Ailus             2016-06-18  746  	ret = media_devnode_register(&mdev->devnode, owner);
+803515300f06fa drivers/media/mc/mc-device.c Sakari Ailus             2016-06-18  747  	if (ret < 0)
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  748  		return ret;
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  749  
+803515300f06fa drivers/media/mc/mc-device.c Sakari Ailus             2016-06-18  750  	ret = device_create_file(&mdev->devnode.dev, &dev_attr_model);
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  751  	if (ret < 0) {
+803515300f06fa drivers/media/mc/mc-device.c Sakari Ailus             2016-06-18  752  		media_devnode_unregister(&mdev->devnode);
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  753  		return ret;
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  754  	}
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  755  
+8f5a3188fbd13f drivers/media/media-device.c Mauro Carvalho Chehab    2015-08-13  756  	dev_dbg(mdev->dev, "Media device registered\n");
+8f5a3188fbd13f drivers/media/media-device.c Mauro Carvalho Chehab    2015-08-13  757  
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  758  #ifdef CONFIG_DEBUG_FS
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  759  	if (!media_debugfs_root)
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  760  		media_debugfs_root = debugfs_create_dir("media", NULL);
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28 @761  	mdev->media_dir = debugfs_create_dir(dev_name(&devnode->dev),
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  762  					     media_debugfs_root);
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  763  	debugfs_create_devm_seqfile(&devnode->dev, "requests",
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  764  				    mdev->media_dir, media_device_requests);
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  765  #endif
+de9f0c2a1ce3d9 drivers/media/mc/mc-device.c Hans Verkuil             2025-11-28  766  
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  767  	return 0;
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  768  }
+85de721c46ba8a drivers/media/media-device.c Sakari Ailus             2013-12-12  769  EXPORT_SYMBOL_GPL(__media_device_register);
+176fb0d108f749 drivers/media/media-device.c Laurent Pinchart         2009-12-09  770  
 
-- Named "dw9800w" with CONFIG_OF=n (Fedora's x86 config), it matches
-  nothing.
-- Named "dw9800w" with CONFIG_OF=y, it binds through the i2c core's
-  compatible-name fallback. i2c_get_match_data() then returns NULL, so
-  the model is DW9718S and the INFO check is skipped.
-- Named "dw9719", it gets model DW9719, and the DW9800_ID case returns
-  -ENODEV.
+:::::: The code at line 761 was first introduced by commit
+:::::: de9f0c2a1ce3d97561d5cf4678b80e13943647fd media: mc: add debugfs node to keep track of requests
 
-Could v2 add this to dw9719_id_table?
+:::::: TO: Hans Verkuil <hverkuil+cisco@kernel.org>
+:::::: CC: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-	{ .name = "dw9800w", .driver_data = (kernel_ulong_t)DW9800W },
-
-Also, that -ENODEV return leaves the regulator enabled, like the paths
-Myeonghun Pak's patch fixes [1]. It would be worth routing it through
-the same power-down path.
-
-I understand v2 is waiting for the DW9800K rework. I'll test it on the
-Pro 9 when it comes and send a Tested-by then. The ipu-bridge patch
-for the Surface's VCM type would follow on top of it.
-
-Thanks,
-Chris
-
-Made with AI assistance. Written by Claude Opus 5.5 (drafting), with
-review by Claude Fable 5.1 and testing by Claude Opus 5.5, under the
-direction of Chris Simpson <chris@nilk.net>, who reviewed and approved
-it.
-
-[1] https://lore.kernel.org/all/20260913041828.28430-1-mhun512@gmail.com/
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
