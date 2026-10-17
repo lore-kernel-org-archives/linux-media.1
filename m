@@ -1,148 +1,176 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from sneak2.sneakemail.com (sneak2.sneakemail.com [64.46.159.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAF038F950
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 17:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 359653CDBA4
+	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 18:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=64.46.159.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792259457; cv=none; b=aKO7C4mOsLK8MYA7yTH/nBRuA3xpr6P7jaJxyJLQmGsEXyI5URbkRzBU0/RpdMpv9mvjD+201QtUIe8UI37cw68IAWJZ8cMIUFDcZiPolJ/hjH2BYjI6557IXIf80fCd9Fk27UCuMpACKbtdVjbLIYlfICexxIpVnRqPuBtWwC0=
+	t=1792263027; cv=none; b=Ivn0DJG3JgKsXXJKrrdKkP/R/pI9iV9R3axTmhqe7wblBDBPLzaJy1raDP6vNYmJIg5S2BXyYYpHwR2bHWEHBesiud49FSFQ7mehnyNQXbTuf/EgPDOrz/fvbWSkVasLKvB2bNizRZiXpMkCZIHDzzuLqkDExVOoTT6KRfUyZrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792259457; c=relaxed/simple;
-	bh=wr9UM0ewitf25gcnH66bfGnQjMCTzyZV8lf5R7ZwR74=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E5ocKoWLdwCSgSr0YDZTy28GcFJKXWMswLl1U+2XUw7F9/DfN2zeQ3zAkINiXLaNAGe1ejPAYulP9dYVhJu4+df+1uhPf+DRfo4DMQd1c+tX42hgoR+jE82I8asgGhdBY9mdXIIQFQOwlBnWVp7xxLP9NTdb/tJbtCCaZoWme3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BnBup60N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LHq+vM7m; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792263027; c=relaxed/simple;
+	bh=Z8Kp1LM2yGolWaopWKvx/rVokDMgNB9WB0uValtev18=;
+	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type; b=o0WgRFBCNRHt+UKHCWm6+7nx4UgE4q0WJWpq8CVd1tZogIMUUx3A5n8ixHNhujNITkTKwR+F81rMsh84bh14P4Icf95LGeCxLDIbJvXiHDF4qeUDXb+/7VeoAvzFvzAn3QQ+F1OwKonghTXkA8RlnlhAI2vK5OvGeoXJ4MLFZqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=liamekaens.com; spf=pass smtp.mailfrom=liamekaens.com; dkim=pass (2048-bit key) header.d=liamekaens.com header.i=@liamekaens.com header.b=DQtWaNHK; arc=none smtp.client-ip=64.46.159.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=liamekaens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=liamekaens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BnBup60N";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LHq+vM7m"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69HGA3rV019878
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 17:50:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ACHN3RVNB/V2HynRAJQrVH6G6KIDRcWy3aGbMNcijHM=; b=BnBup60NVLrhzo4G
-	X5EbGbPiVFHxVlcqfh0Y36TbGoQdG8k5DgKRSXO9vY2zzDuTbpwQUg4SXSsn+FFy
-	c9l805J/WCwtL/EDDxXLJuFEPKd5HuYnHWK/13ESltSjTswrmS/gOcISCbxkO489
-	z/OII2T6oft0Qjf7YqkyaDrfL7HukZhVu8pZu2X98wLAf/+fv/YNPU85TZPnBCT7
-	ii43ThQ/JFQx5IPaimodpJ1etgjh9ZEB740kNA9oFoJptOUXhAmFsxpBDdx+ezl3
-	/z8KuYjndVBIBe+IqlCvIGcCsuQ2BDPS+H67sI6ctaiiS4ZHg9ssezlB86cuaQBc
-	yeAexA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc26k1bn1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 17:50:56 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1796674eec.1
-        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 10:50:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792259455; x=1792864255; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ACHN3RVNB/V2HynRAJQrVH6G6KIDRcWy3aGbMNcijHM=;
-        b=LHq+vM7mdtTdgnbpXdo6BFUK4enwizKTfboqRth+ZCxaGhq61x2xLo3bpkqzocuhEu
-         U02hJTNxNSBC9DNWvCQYC7apvBqJTVcZtYN1G7vEgJrpBIk4735K/p/uUzrnig8LYYdi
-         n/RIPPfbLcCWCPKyGIjRptlrReLUVvt+pUXfiszZG5yZRSN93Yrq/K48zGb1Q4SPDoCY
-         DAcw5d/yplZT2VLsvDK+kK6JLvDftn/p8LghWBG4GMu0jlGWFNVUEDICA6wWXNUs7eU4
-         D6LamtSsx6BAsDiu+FxfWnEmj353CC11UGnj36aaHP5uLIy+f4+qVsYisu3QBErjE2DP
-         cd1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792259455; x=1792864255;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ACHN3RVNB/V2HynRAJQrVH6G6KIDRcWy3aGbMNcijHM=;
-        b=brc9V2fLIvwBfDOViibUCNh7TZHpV6UVsMVfnScq/0pGY+VPUAG+w8LNfmk1rn7GGZ
-         0HsUDwzUX0QFCVmLyQIAyecoKCTPiT1/Zxo1O+oBuEtG88FyCPFUgU/SzGdQDMOj4yx8
-         VTjVZaUk4ruyKpk3QTP6LSf9yYJ/ziXTHlQSH2o7u/wB4qKN/9h/nMXLQKHoSV0O3/yW
-         awfLnglz27Uq8QVZJ5B2/AwRpnaOcUQuuYY5PP4TvXQ1p5YvRk7A2shsRCjhUVNVgFWu
-         ocEcfaqOB+ADlLbYp0KQ77cAx5G7UNISi4MC/NY3nP9m/F7vd7Bmx3pReuiN8LZwrwZA
-         gb3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxi2KfkNOdNw0wPiHGTEK2HryM8QjpluyzXaCKE9E/5H7mZHRjVh16XXvLCWXDmlgizS1LStHFSAZB5Kg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4WortHtknFTcdLnWjVUEzIRa4JCIP5Vvk5M7OiWsVjZ8aVu7n
-	rzSdVXzvsKfDaJWNY9TX1bMQvkZDKLPjo/fzgRHL92rCBNALoRHQz4pXlTEQ/lKiOfetluXXmDw
-	gTnjdzATpSp6det/jB5ZX1zXzvXbAR1LMoNsfkGG28AvVffBugIFXh8ydpVvl8Apriw==
-X-Gm-Gg: AYBFou0MAXPOmgpWOImZCrscRWTgCXt8KZk/SUsb2rJZtCU6rV2jrCCr8udt7HFRR24
-	TwNK67vcshtl0zDbZjFtDfu8AjzEojTq1GoKBo4hkMfuxuMUWnBQDHPlUKsD9NqpR6qNsfigUpX
-	vSA/o9G+my4ulEiKaAjPTSB2/6y1hRGbl/+6vx0kwjS3zzLuyU+8BcBNFTYHPgGapss/PCg2D6w
-	G7GuU35mrs4BrkaWgrAvF+Ou1iarKLOEFLWqdGOifZwIJq5TVpL+9SmwFinXbOZ2EDWnz1mhk+N
-	iUaq0G+bumFisT2yWSMZsu3eXs1AuxrARBeve797+W/teh2HfGj/x6uNnvashzGfyv3sSedjFI+
-	AzFmrE1RCgFNWEj8aH6A1pyXylg==
-X-Received: by 2002:a05:7301:6497:b0:353:5d9a:9971 with SMTP id 5a478bee46e88-361a136a528mr4797491eec.18.1792259455257;
-        Sat, 17 Oct 2026 10:50:55 -0700 (PDT)
-X-Received: by 2002:a05:7301:6497:b0:353:5d9a:9971 with SMTP id 5a478bee46e88-361a136a528mr4797459eec.18.1792259454684;
-        Sat, 17 Oct 2026 10:50:54 -0700 (PDT)
-Received: from [192.168.1.8] ([115.98.177.53])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36083283478sm16608752eec.29.2026.10.17.10.50.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 10:50:54 -0700 (PDT)
-Message-ID: <70ddb147-cf99-44fa-b6b3-0f15e6b60473@oss.qualcomm.com>
-Date: Sat, 17 Oct 2026 23:20:46 +0530
+	dkim=pass (2048-bit key) header.d=liamekaens.com header.i=@liamekaens.com header.b="DQtWaNHK"
+Received: (sneakemail censored 10208-1792263018-129136 #2); 17 Oct 2026
+ 18:50:18 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=liamekaens.com;
+	s=mail; t=1792263018;
+	bh=Z8Kp1LM2yGolWaopWKvx/rVokDMgNB9WB0uValtev18=;
+	h=Date:From:To:Subject:From;
+	b=DQtWaNHKs7/nQtNtSavKskb5TDNUkLvYsLQSDgURdh38EdViPtVTfxPbuFI+x9nw+
+	 uyRzzOaHFe6f6eD89fJF5DCXF/QlUb3Ll/Sd1YpT1s+PafYvGxiHNc37lTDusH2nOO
+	 7dRYsLzVLZ6H9xyMxCAF/d5V3ELl/pjsPk+HiGC5LQ15D+ai9JxhwmkFjbsDfShsBh
+	 Xxu/8PeOW7WQHwlh9QrXxgtQg+i85WVZ4QdJZMgpFQz3VZhXvWfx2kbAo3AXLpHBeI
+	 1JFfsBcfwFmSQWW4BR2POF1ZXDmDO3St013MLvwoTKiPfcw7cs4KKMDp9ChMC237EQ
+	 3Vu8tGZBOSgKQ==
+Received: (sneakemail censored 10208-1792263018-129136 #1); 17 Oct 2026
+ 18:50:18 -0000
+Date: Sat, 17 Oct 2026 18:50:17 +0000
+From: y8sh229r8s@liamekaens.com
+To: linux-media@vger.kernel.org
+Message-ID: <10208-1792263018-129136@sneakemail.com>
+Subject: [PATCH v2] media: cxusb: fix NULL pointer dereference in
+ cxusb_disconnect()
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] phy: qcom-mipi-csi2: Add D-PHY support for sa8775p,
- qcs8300 and sc7280
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
-        vkoul@kernel.org, kishon@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
-        mani@kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
-        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDA3MSBTYWx0ZWRfX+PTuSU3KYymm
- Z367OX9PLquvBfEpJJqE83jg833XQUrOmWLJBxNNR6SaTVmHvvNxTCcdISid//BgPv/s54B65lC
- 85U3jUaDYgOJ+0dwtgl2yqXNLWhOUaaNkabR6Uv5JYT6jiP2s/GhcS2QDOiS43D52SDZGZmS1Nr
- 0dLWxFLTcyaToyR4/AQnekxQxKnS7pcltN+FDnOc0ZGYL/1EV4QRGgaaY2kx6PqGKSZDoDwEcZm
- qFKiWuVWRY2HID7wOTR8DOcb/nUfvCmxm+n9WqLn2tlqUe1WzUy2tyfndfMMC+0Z1bfSPk1Q2vL
- mNyu5Q8rhGHLMD8XLczNjzzin40nvECDxtMOsBaLs+oeoEpPfLZG6jy9o6TEhPOZKNDKkYsnr7L
- XhaoT8ozsT+gTmkUrjHKyOwoeFx06BEqE2z3NdEOS9CF1Tud7TIy4f5LLDNHanu45GV8KGWwfCw
- KNdr3Ad06y14JWvr/5g==
-X-Proofpoint-GUID: 5D8udpspPDdqLoNGerch4Kf5vTxNSfSU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDA3MSBTYWx0ZWRfX1UTs/F+rtX8n
- VX3wCHeKoQQKVlXrco5+mMelyn9TTL8NBJaSeoWhOII+2UjHCuLAqWHkHbTlv/IPGOSScLq1Agd
- 862ens898nG8Oppy6y6RabQ6xHDy2rI=
-X-Proofpoint-ORIG-GUID: 5D8udpspPDdqLoNGerch4Kf5vTxNSfSU
-X-Authority-Analysis: v=2.4 cv=Cowq4X4D c=1 sm=1 tr=0 ts=6ad3b580 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=iaXPdgsK/hfklW56b25dCw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=G37XgvaxAN74JWTdFfQA:9 a=QEXdDO2ut3YA:10
- a=h3fZFQXOHLIA:10 a=6Ab_bkdmUrQuMsNx7PHu:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-17_05,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 impostorscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610170071
+X-Mailer: Perl5 Mail::Internet v
 
+From: Bob Entwhistle <y8sh229r8s@liamekaens.com>
 
+cxusb_disconnect() dereferences the interface data without checking it:
 
-On 17-10-2026 05:24, Anusha Arun Nandi wrote:
-> Depends-on: https://lore.kernel.org/all/20260917-x1e-csi2-phy-v18-0-6515b5255fa9@linaro.org/
-This series already merged to linux-next.
+	struct dvb_usb_device *d = usb_get_intfdata(intf);
+	struct cxusb_state *st = d->priv;
 
-Please rebase your series.
+For a device found in cold state that pointer is NULL.  cxusb never sets
+no_reconnect, so once the firmware has been downloaded
+dvb_usb_device_init() leaves through its error path:
+
+	if (cold) {
+		ret = dvb_usb_download_firmware(udev, props);
+		if (!props->no_reconnect || ret != 0)
+			goto error;
+	}
+	[...]
+ error:
+	usb_set_intfdata(intf, NULL);
+	kfree(d);
+	return ret;
+
+ret is 0 when the download succeeded, so cxusb_probe() reports success
+and the interface stays bound with the interface data explicitly set to
+NULL.  The device then re-enumerates in warm state, and the disconnect
+of the cold interface oopses.
+
+This happens on every cold start of a DViCO FusionHDTV5 USB Gold
+(0fe9:d500); the port, the hub and the power source make no difference:
+
+ usb 1-1.1.4: New USB device found, idVendor=0fe9, idProduct=d500
+ dvb-usb: downloading firmware from file 'dvb-usb-bluebird-01.fw'
+ usb 1-1.1.4: USB disconnect, device number 7
+ Unable to handle kernel read from unreadable memory at
+ virtual address 0000000000000368
+ Workqueue: usb_hub_wq hub_event
+ pc : cxusb_disconnect+0x28/0xa0 [dvb_usb_cxusb]
+ lr : usb_unbind_interface+0x84/0x308
+ Call trace:
+  cxusb_disconnect+0x28/0xa0 [dvb_usb_cxusb] (P)
+  usb_unbind_interface+0x84/0x308
+  device_remove+0x78/0x90
+  device_release_driver_internal+0x1e0/0x2b0
+  device_release_driver+0x20/0x38
+  bus_remove_device+0xf8/0x240
+  device_del+0x160/0x3a8
+  usb_disable_device+0x104/0x2c8
+  usb_disconnect+0xec/0x328
+  hub_port_connect+0x8c/0xae8
+  hub_port_connect_change+0x1fc/0x2e0
+  port_event+0x430/0x850
+  hub_event+0x134/0x500
+
+Most dvb-usb drivers use dvb_usb_device_exit() directly as their
+->disconnect handler, and that one does check for NULL.  cxusb has its
+own handler and has to do the same.
+
+Bail out of cxusb_disconnect() when there is no interface data.
+
+Tested on the affected hardware: with the fix applied the cold interface
+is torn down silently, the device re-enumerates in warm state and the
+DVB adapter registers normally.  Only the DViCO FusionHDTV5 USB Gold was
+available here; the other devices this driver handles were not
+exercised, and neither was the Medion MD95700 analog path.
+
+Fixes: 26c42b0dd5fa ("[media] cxusb: TechnoTrend CT2-4400 USB DVB-T2/C tuner support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Bob Entwhistle <y8sh229r8s@liamekaens.com>
+---
+
+Changes in v2:
+ - Added an in-body From: line.  v1 went out through a mail forwarder
+   that replaces the From: display name with the bare address, so the
+   Media CI robot saw an author that did not match the Signed-off-by.
+   No change to the code or to the reasoning.
+ - Re-wrapped the quoted oops line to stay under 75 columns.
+
+v1: https://lore.kernel.org/linux-media/
+
+Notes on tool assistance, per Documentation/process/generated-content.rst:
+
+The diagnosis and this patch were produced with LLM assistance (Claude
+Opus 5) over an interactive session, working from the kernel log quoted
+above.  The assistant decoded the faulting instruction, traced the NULL
+interface data back to the cold-firmware path in dvb_usb_device_init(),
+located the commit named in the Fixes: tag, and drafted both the change
+and this changelog.  No specialized analysis tools (coccinelle, sparse,
+smatch) were involved.
+
+I reviewed the result, built it as an out-of-tree module against the
+running kernel on the affected machine and confirmed the oops is gone
+and the tuner works.
+
+ drivers/media/usb/dvb-usb/cxusb.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/dvb-usb/cxusb.c b/drivers/media/usb/dvb-usb/cxusb.c
+index d0501c1..73543a1 100644
+--- a/drivers/media/usb/dvb-usb/cxusb.c
++++ b/drivers/media/usb/dvb-usb/cxusb.c
+@@ -1668,9 +1668,22 @@ ret_uninit:
+ static void cxusb_disconnect(struct usb_interface *intf)
+ {
+ 	struct dvb_usb_device *d = usb_get_intfdata(intf);
+-	struct cxusb_state *st = d->priv;
++	struct cxusb_state *st;
+ 	struct i2c_client *client;
+ 
++	/*
++	 * A device found in cold state is bound by cxusb_probe(), but
++	 * dvb_usb_device_init() takes its error path right after the
++	 * firmware download (cxusb does not set no_reconnect), which
++	 * leaves the interface data NULL while still returning success.
++	 * The device then re-enumerates in warm state, and this handler
++	 * runs for the cold interface with nothing to clean up.
++	 */
++	if (!d)
++		return;
++
++	st = d->priv;
++
+ 	if (d->props.devices[0].warm_ids[0] == &cxusb_table[MEDION_MD95700])
+ 		cxusb_medion_unregister_analog(d);
+ 
 -- 
-Regards,
-Nihal Kumar Gupta
+2.53.0.windows.1
+
 
