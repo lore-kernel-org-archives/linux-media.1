@@ -1,149 +1,74 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FBC388371
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 15:58:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A28336CE19;
+	Sat, 17 Oct 2026 16:36:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792252709; cv=none; b=f1L+B4tFMHOOGKfNcb9XlCxiwjsJIiZSpQMcPM+4kGO3T2DggBmzTIwoPOFJbMO29H1RhbrNSjTyYJ1TlWTZHE55Jq88ho3y0Y+IUmKrNlzDgy9ceBbm8V2ZSsd7CmdQYhLATx0VSMvYhMWcHFct8/kxCAFWANHC8aISaZt+tvM=
+	t=1792254992; cv=none; b=jxbVuXwwHWlG6wyXUVdp/fH7YeaKRG+xRtrf7IPP8IVzcI5U813dNz7F0tGRFYjpAoF0m+wp6pewfJcKghUjJSm6rtIsIRSb235xiNHU8FZWNeyctfDcHIOgVdQYc9PVAJhxE1NaweqDVnNvHKs94a80f64qV/8VjM4HqUOLuJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792252709; c=relaxed/simple;
-	bh=l8Yh5Fymi1DtjES7v6fzt680qfEaLaf3RyMwtxw1AAk=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=mTYYnaLPC7N2JJsOeDs8l/liDiwqoqv9RD+CcqQcblz2K+tlLvY7t1nP5obxmpzNKOzN/3R+vFCUxRctRD+UAeGPp6h50xT86jlNzt7VllR+3yCeXmgcKCUXSyIP38F8RmkLKsV0n28ZIVgB3+YB4art987ULf9FQCWEbBOWVYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X2WFRj+4; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792254992; c=relaxed/simple;
+	bh=RDwOdKaGng+Ic7ym/UeoyGIyJtKZGrHLqAW219g/MMw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jlq4I24HpQdBXt6BjADEepT3JA03JWYSJD5iT5Cx/hc2P5w+1Iw063NLsbZeqjc+gS/hsf8tAoQFArycEejabFIdMaJQOsvqxmat5MD7QChZ4RBjgpKUrBpoyymPyJsXkI7Ss/gCPDEM+mxGK6sTN19NZGlQBVX2W/5szFw2DaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GEocfRQw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X2WFRj+4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792252706; x=1823788706;
-  h=date:from:to:cc:subject:message-id;
-  bh=l8Yh5Fymi1DtjES7v6fzt680qfEaLaf3RyMwtxw1AAk=;
-  b=X2WFRj+4ytXPciipBeKmLcKi+i+6PoKYC3USOfclfbYfxkNJ+FmsKPE3
-   edGJ5LzFE4iVo5/FP7yL11v15HX3y8U5BJsiHXV+ltHqXvi/ig6NByFyw
-   GdTOnooZM4b2fUIAvOo1aB+DhJbfRvms1g2csHEy6Q9q9yoRhtc/1THdQ
-   70bja7vRXlX0+L7whjr2LFF6bqS0I6UdQgk/Hxf0YstoFCRheLGR5HSpC
-   Yo1cmDwzCxO/N8eTu4pTiuzUG16hz5P0U16caSZb0O7SkmRgSCafiAjUE
-   elQO73bZXajNEk7ecbqhiv04qPSZRGMzls5+cI+tK+eV2xCJUnUwQr9vA
-   g==;
-X-CSE-ConnectionGUID: bTAwH0a0TqW3oAViq0/Ghw==
-X-CSE-MsgGUID: b7ty57JuRIO46dnpFVl98w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="888695"
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="888695"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 08:58:25 -0700
-X-CSE-ConnectionGUID: 1HT8uVb3RYu1XCh8JOF45A==
-X-CSE-MsgGUID: qc6i/h+qQEKa1lUpZ7VU8g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="2173430"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 17 Oct 2026 08:58:23 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xI6nd-00000000JT8-1B1V;
-	Sat, 17 Oct 2026 15:58:21 +0000
-Date: Sat, 17 Oct 2026 23:57:30 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org
-Subject: [sailus-media-tree:media-ref 1/17]
- drivers/media/mc/mc-device.c:31:1: error: unknown type name
- 'param_check_unsigned'
-Message-ID: <202610172349.NeNGF1lj-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GEocfRQw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F851F000C4;
+	Sat, 17 Oct 2026 16:36:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792254991;
+	bh=Aa7clGUXSZUy7fCX06bj0AW6sS07fpn2z5lJu7qS0vw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GEocfRQwtHbpT1Akc+NfXvH5BfzJEgq1TJl0zLR3Ej29JSvbKbHqdja9UJxIVB9Pw
+	 CqIzPY4dBNbvCbn3h8Iqynqq4BGiZyhSa9tyLKQf5h970fnKeJMYQWToertzMclWtf
+	 LQ+alT9kK5jotKoFR/uno0UN0a5g9LKiSjWuRPOzKTKWIZTQfWinpgKf0EY/dLAx6O
+	 983wYAvqOp0GRyrs2r1PQbv41AtfQE17AEpsIILJL5GRMoZxPXCniheQrmLjlCE3Ao
+	 a2DnchcWZ455YmE3fX1d2D3DwzDPga6nAMpZLjIJXXXDZHjTJ7HPnQYfaZRxwAsGQc
+	 w4PnY3U/eRqRA==
+Date: Sat, 17 Oct 2026 18:36:27 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v3 13/15] dt-bindings: Increase Renesas X5H MDLC PD
+ specifier bit width
+Message-ID: <20261017-misty-granite-collie-7c4305@quoll>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-13-e052903a3832@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-13-e052903a3832@ideasonboard.com>
 
-tree:   git://linuxtv.org/sailus/media_tree.git media-ref
-head:   cf47170584526b52366e936406ce2430b99a03a9
-commit: d50da12ab1df5599da158568d31337d2daeee81d [1/17] media: Add "kaboom" module parameter
-config: hexagon-randconfig-1001-20261017 (https://download.01.org/0day-ci/archive/20261017/202610172349.NeNGF1lj-lkp@intel.com/config)
-compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261017/202610172349.NeNGF1lj-lkp@intel.com/reproduce)
+On Thu, Oct 15, 2026 at 04:51:53PM +0900, Paul Elder wrote:
+> In the Renesas R-Car X5H, the module controller's power domain specifier
+> cell's bit width has been increased. Update the bindings documentation
+> to reflect this.
+> 
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> 
+> ---
+> I'm guessing that the maximum number is now 512 but I can't find
+> definite proof of this.
+> ---
+>  Documentation/devicetree/bindings/power/renesas,r8a78000-mdlc.yaml | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610172349.NeNGF1lj-lkp@intel.com/
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-All errors (new ones prefixed by >>):
+Best regards,
+Krzysztof
 
->> drivers/media/mc/mc-device.c:31:1: error: unknown type name 'param_check_unsigned'
-      31 | module_param(kaboom, unsigned int, 0077);
-         | ^
-   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
-     140 |         module_param_named(name, name, type, perm)
-         |         ^
-   include/linux/moduleparam.h:163:2: note: expanded from macro 'module_param_named'
-     163 |         param_check_##type(name, &(value));                                \
-         |         ^
-   <scratch space>:165:1: note: expanded from here
-     165 | param_check_unsigned
-         | ^
->> drivers/media/mc/mc-device.c:31:1: error: expected ')'
-   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
-     140 |         module_param_named(name, name, type, perm)
-         |         ^
-   include/linux/moduleparam.h:163:25: note: expanded from macro 'module_param_named'
-     163 |         param_check_##type(name, &(value));                                \
-         |                                ^
-   drivers/media/mc/mc-device.c:31:1: note: to match this '('
-   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
-     140 |         module_param_named(name, name, type, perm)
-         |         ^
-   include/linux/moduleparam.h:163:20: note: expanded from macro 'module_param_named'
-     163 |         param_check_##type(name, &(value));                                \
-         |                           ^
->> drivers/media/mc/mc-device.c:31:1: error: use of undeclared identifier 'param_ops_unsigned'; did you mean 'param_ops_uint'?
-      31 | module_param(kaboom, unsigned int, 0077);
-         | ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
-     140 |         module_param_named(name, name, type, perm)
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/moduleparam.h:164:25: note: expanded from macro 'module_param_named'
-     164 |         module_param_cb(name, &param_ops_##type, &value, perm);            \
-         |                                ^~~~~~~~~~~~~~~~
-   <scratch space>:166:1: note: expanded from here
-     166 | param_ops_unsigned
-         | ^~~~~~~~~~~~~~~~~~
-   include/linux/moduleparam.h:459:38: note: 'param_ops_uint' declared here
-     459 | extern const struct kernel_param_ops param_ops_uint;
-         |                                      ^
->> drivers/media/mc/mc-device.c:31:31: error: expected '}'
-      31 | module_param(kaboom, unsigned int, 0077);
-         |                               ^
-   drivers/media/mc/mc-device.c:31:1: note: to match this '{'
-      31 | module_param(kaboom, unsigned int, 0077);
-         | ^
-   include/linux/moduleparam.h:140:2: note: expanded from macro 'module_param'
-     140 |         module_param_named(name, name, type, perm)
-         |         ^
-   include/linux/moduleparam.h:164:2: note: expanded from macro 'module_param_named'
-     164 |         module_param_cb(name, &param_ops_##type, &value, perm);            \
-         |         ^
-   include/linux/moduleparam.h:189:2: note: expanded from macro 'module_param_cb'
-     189 |         __module_param_call(MODULE_PARAM_PREFIX, name, ops, arg, perm, -1, 0)
-         |         ^
-   include/linux/moduleparam.h:305:4: note: expanded from macro '__module_param_call'
-     305 |         = { __param_str_##name, THIS_MODULE, ops,                       \
-         |           ^
-   4 errors generated.
-
-
-vim +/param_check_unsigned +31 drivers/media/mc/mc-device.c
-
-    29	
-    30	static unsigned int kaboom;
-  > 31	module_param(kaboom, unsigned int, 0077);
-    32	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
