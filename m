@@ -1,169 +1,178 @@
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7126E374E67;
-	Sat, 17 Oct 2026 01:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB09D3C1F43
+	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 03:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792202177; cv=none; b=CEBsSpSyeN9imlOS8b8YicPyte3+Fd6jNC6W8lHN1tsY4kT2CBiYBiR4MgIIatEE6qlYy01jm8VGPQsLkptqa57RIWbglL8iQyc6VcQ2RBd4suLzUbkf8Yn8Xx4e+Wo48tRui4IQIjHp/ewEKxg3nLZKy2w1Y6bVqQW5CR6Z8Vw=
+	t=1792207016; cv=none; b=bTfF8F9JmRsngg2z/1hRpG+zHt0KuTBRRAC40gv3YF8wgl0MUMR0z9RQLJIz/Crlf7JvShPRm9splaac83Rrh3qyWMJYhlvRT9H/01YmY67HcSHEqGBthrvmnWW1Q8RJDWRaGtDl7qYESQ5gWfWDjlgH7LPSezZS0pgNGb+xAxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792202177; c=relaxed/simple;
-	bh=45WcHNsOVp1HM/8758RiYYNvHu7k+O2D8ACwzC9ol7s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Rd/BhGSOgZBGRChoD4SmHawYr4ffKXnMtv654l5O41byIeYY9OFDAkJ2IoRp1hkrgQvClbu0Cd1l7L/omBK228WvieBs9+6MOgjXDgD5Yigm36uO53C9aBPcBY+wSoyIBlouRQAzzXKw3GJC9s5s8jXAcMSP7xRJvIhs1cVSduM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn; spf=pass smtp.mailfrom=stu.xidian.edu.cn; dkim=fail (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b=PKA3cJVa reason="key not found in DNS"; arc=none smtp.client-ip=162.243.164.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	s=arc-20240116; t=1792207016; c=relaxed/simple;
+	bh=PJj8J9KRV41mT/Zo9ZKQPf84EZKvgNSf5a6l4m5+x8Q=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fK4KBk/SIg0zorELKGSiyGSlDlJFgHxER3gzd5Zg27jyE7zGulXp+pWTqRdI1dCpk/MW03A/seX6ygMTxtJZnro/QkuQZMM6dS/YbFEoHP7Lg6axvZCv8qw2WKmg2CWl5cqPa2VjbvF5wR36R5Z4DN9juPKKKxYUd5xB2CY9bEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RZR7kqzO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AAoOXj7M; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=stu.xidian.edu.cn header.i=@stu.xidian.edu.cn header.b="PKA3cJVa"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RZR7kqzO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AAoOXj7M"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69H30etR1010969
+	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 03:16:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=pOvt+GYoXg0d5rCWq6bN0D
+	pUTER1DOC5PPhMFgzJ/IA=; b=RZR7kqzO4XCiJwfS1WKtKlNcfuEreM2iPBJOu6
+	1wgeEkQSByLaMw8l9E0LyfgeWIiMpd1dDEVldVMU2EvfTJvQ3cejxd68vCdTD9a+
+	G9MV8cei72D6KtGa0cuRVm+Sde6vYv2Y4yyD0/jhDSvek+fCos+WRFscxTlFN0mm
+	TYYTQdNvYKyuLlibttqJlyZyRY7NMI5ZL45/WUNqZ9u9JZkwASTrmrPqHvQ99lr4
+	IDW/h3D9Wh2pEhGWXDElXrlgnkGhHDNMhPYkNWVn2HCTn2V2eIFAGqYSBdlHSlN/
+	JJ4DwUYyWaIhRlR2/8pF5WQzBi6T9bx+VoBgoG4m5XLHmmYQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hbxqfr9ca-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 03:16:53 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-357e2bc3b1bso729538eec.0
+        for <linux-media@vger.kernel.org>; Fri, 16 Oct 2026 20:16:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=N1yKU6KUXc
-	N58NtjXxKl0TZoGUc3TbGdFqR8Lm4dw1M=; b=PKA3cJVamnrhxz/9IPqfjx+O6n
-	BjO91HPTeRkvcchnoZ6hLZtcsXpeF3BXivs6LkhX/ImxR+2dJimN+dPgRpp+DmlG
-	UjbOjWVfDUEohJ9N0YcICd/36jlUkTqEmLDRPIuQqNbAoUJs2Y4GLp2+8Ht5vNLY
-	dNY/TSJ9xU6y68Z7w=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.50])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2PgSq1dJqqf2tAA--.53186S2;
-	Sat, 17 Oct 2026 09:55:54 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	stable@vger.kernel.org,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v2] media: dvb-core: wait for a running frontend ioctl before device removal
-Date: Sat, 17 Oct 2026 09:55:53 +0800
-Message-Id: <20261017015553.5846-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=oss.qualcomm.com; s=google; t=1792207013; x=1792811813; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pOvt+GYoXg0d5rCWq6bN0DpUTER1DOC5PPhMFgzJ/IA=;
+        b=AAoOXj7MAZczCw6GtkDBvxb7vTfpRzLsHGepRjdOPTlmpzdmNIOe4g5aUfXqzdwqFQ
+         JSlvy3Q4Wg40zkxRe/38HpZ4c8/YY29AxHoFWGYqmEJqIL0j+6edxSps6x6yCVxdCpBJ
+         EvrGx+VsdD9VWlazvCW3Hsk0SlBKygv1laxubvqmbPOCGoGdqSA8jGXGs5X99mff1WCy
+         9aUCM1WTGHZNxfMkCgDDGbgkk0w2sJcCC9KsNNcjj+EAHctc+JvOSGaF1qsom2UOMjRD
+         I6fK6IBDUn3zcuzLAZajzSkUf/24bXOI7TbUX/je+dtjKzDaTiJTvVM0nVYyVZ6eLfHk
+         0Bfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792207013; x=1792811813;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pOvt+GYoXg0d5rCWq6bN0DpUTER1DOC5PPhMFgzJ/IA=;
+        b=g5MUV2Yj6Is08CLev/oiCtybRKKFX8uaMvnaMXRF++939axTEWHBjE/ZuPCEMchOrg
+         qbOqatNd2xLmh2q2ir0+DvEKAqZvhTiGnEGf0+upO+oIRnU9CXseWWYUJzYIYlLw6GfH
+         FNeSJN38BgAEXqtpN7zgD1bBLDGDX4SBMwaSI62re3RbCnUMLwO8PjBM97y4zvhCjJvV
+         pQP5ED9tHi4BfdyhK0OQMqSrsJih4tEycfgDjVd7tJyXtZHk/gLyqpGb/5k5IE/g/Cmw
+         FJX9SBJNibZBFncBE1PKZRlyDoPlejJyYHbLx0QgQ41megtAyEHBrNbD45BqGJwA7RR4
+         omGg==
+X-Gm-Message-State: AFq9FYIaXmHBvbdWfAiOtFced+0sHBx6KHds0X154O98v7agHiPXx7vn
+	32NcqrqrXQk8ELTWAlN8tGt4BLNAXylQW77m7NkbF154KEIkvtYcZ5iCD7YnELnHkWm9Nkw3Gcq
+	/wZUPtxw66wuLd6ogUzsmCGUNd3as/NP9twjLU8aLNG8tAcXphwBwzofK+ELXm1IHIw==
+X-Gm-Gg: AYBFou1aYUyS2w2tcS7M92SbtnGdfD+0ulnvRB4JK4wFE2BzNd/4+1B7zFbx7BJPDfk
+	t0NSqZCFmFALL4b6vGIjdSZv8jEbTbmdisUQc3gzzPcffCu62jjkq1vBtm0c55MsiyMQDC2O9I7
+	cBDrxhpwIWUTJyADFlkpV1F/uJuFsHr07omi8nN8V9RFwjqNLKhSRXLSzW9HrDZbsNTJXcAxi+t
+	3v1UUQGLT5WumaO6RHWbdCgXzZh+6eObY3wq7hQLr+KF3mBmnn7SxvXM/DEbOjRIPQIqPJUqwpF
+	Rgm+6jSqwjBnrU848zGBEhlyTse+dbSdSYnq46pLK/GNG3jHIJEleXeOQYIKtejMzjGe/1eYA+e
+	UIUZngsA8Wn8lu5fSYG1AddM8zPTDY4jIQA==
+X-Received: by 2002:a05:7301:2727:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3619f1fd67emr2511976eec.3.1792207012913;
+        Fri, 16 Oct 2026 20:16:52 -0700 (PDT)
+X-Received: by 2002:a05:7301:2727:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3619f1fd67emr2511936eec.3.1792207012322;
+        Fri, 16 Oct 2026 20:16:52 -0700 (PDT)
+Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3607ee0d391sm10969995eec.4.2026.10.16.20.16.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 16 Oct 2026 20:16:51 -0700 (PDT)
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: [PATCH 0/3] media: iris: Fix issues in the driver unbind path
+Date: Sat, 17 Oct 2026 08:46:16 +0530
+Message-Id: <20261017-iris-handle-unbind-v1-0-7809148eb90f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkD2PgSq1dJqqf2tAA--.53186S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJF4xAr43Ar43Gw4fXr4fXwb_yoWrZrW5pa
-	93AryYkFWDGw4Iywn0yw18JF95Aw4fJFWUK34xGw1DXr1rCFZ2kFykKa4UWFnxArs2yayj
-	q3ZagFy7CFWDAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9m14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_KwCF04k20xvY0x0EwIxGrwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmQ6LUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUJD2rSQD1C9wAAsx
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIDo0moC/yXMUQqDMBCE4avIPnchsbA0XkX6UM3YbpFYsiqCe
+ Pem9vFjmH8nQ1YYNdVOGauaTqnAXyrqX4/0BGssptrV4p2/smY1LkscwUvqNEUe4ILcAkSCUDl
+ +Mgbdzmh7/9uW7o1+/pXoOL7kLswDdgAAAA==
+X-Change-ID: 20261013-iris-handle-unbind-fe09689e6696
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Hungyu Lin <dennylin0707@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792207006; l=1489;
+ i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
+ bh=PJj8J9KRV41mT/Zo9ZKQPf84EZKvgNSf5a6l4m5+x8Q=;
+ b=YcsMivIQ3/0rvCbuqxnOnol9ISj4hCVNuJITRCqsmxQfBoD7MfIFmRR/OwkcqDyCVXeQTQGDx
+ aVdtx+MrY9PAsmvVMQHYI/Fg8fRYX5aPSdXf/9f/KpQXjlVv7RRlCiF
+X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
+ pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE3MDAxMiBTYWx0ZWRfX1TPXmNhdZn4+
+ OnKSmh7Z1STz1LwlTv6oO69g5pnS8c0434PldoMwGV3AhdXVRCHcUnblkhrNhB3I78d8umLR5oe
+ 4uvIHZQy+F3VG5O5Ircwxw1sVMYvjPM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE3MDAxMiBTYWx0ZWRfXzxWo2YH6TLRJ
+ bkFAvk2zoOX0Q78F3bX+w9SQVTeYmj9pkM1AiDozsuAW/UA+J5rp85rUPPL2KdTJRkM2Nq3Su4f
+ YfxdyJ780BZ1e5UXUaDuCGIUDxZmCGEmGW61Ej3bWShSPDAP04Ti5mrJ8h2+0+irBoboJ6fhok9
+ u67y6ImcailDd3WeYFxSIw3f/BEFuwvXzp1uXYfqnatqjxUr3luMeTs+zl64NTvAQZfE2PX7WOw
+ dfg2+UStHkunNeHWdcbgM0ORkXPzD5vDDiPlkeUmU/QO4AZNmRgGfdiyfwE4K/s0WaNdxk7RABT
+ oArakB/NtGklNIPy82mvC0kxpiGmvXv7dG0/fmN4oFijQpbJYsdPh3Hy3Mj63jzJ0DG9nvBl+MI
+ lOinjKYC/fFR2xsuhz/WWRpb8bKW321gTaooOzr/VqtN3KOu8rh1usaQX4+uAllGSxY8cr+gcss
+ 4RDkrZ/0r6Cv02hAvFA==
+X-Proofpoint-ORIG-GUID: CZk4I53zBrEIzHbn5hmFyKl19-AC1NaU
+X-Proofpoint-GUID: CZk4I53zBrEIzHbn5hmFyKl19-AC1NaU
+X-Authority-Analysis: v=2.4 cv=RYMFmFtv c=1 sm=1 tr=0 ts=6ad2e8a5 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=-unpW79DR_kPSW8KOtoA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-17_01,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 spamscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 bulkscore=0 suspectscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610170012
 
-dvb_frontend_stop() runs in the device removal path, when the
-frontend is unregistered.  An ioctl that is already running at that
-point holds fepriv->sem for its whole duration, but it checks ->exit
-only before it calls into the driver, so a driver callback can still
-be executing while the driver state is being freed.
+The driver unbind can be triggered through sysfs while a client has a
+video session running. The devm resources are freed when the unbind
+completes. That leads to use after free for the running sessions.
 
-Two cases were not synchronised at all:
+The core and its device are now kept allocated until the last file
+descriptor is closed. New sessions are stopped as soon as the removal
+starts. The interrupt is freed before the core, so the interrupt thread
+cannot run on freed memory.
 
-  - when the frontend device node was opened read-only, no frontend
-    thread is started, so fepriv->thread is NULL and the function
-    returned immediately.  Unlike the other legacy statistics ioctls,
-    which return -EAGAIN, FE_READ_STATUS is allowed to run without the
-    thread, so its callback can be running when the removal path frees
-    the driver state;
+The system error work was only cancelled during the removal. An
+interrupt could still arrive afterwards and queue the work again. The
+work is now disabled.
 
-  - when a thread exists, the thread takes fepriv->sem on its way out,
-    but that acquisition is interruptible.  If it is interrupted, the
-    sema_init() that followed discarded the hold of a running ioctl and
-    left the semaphore with a surplus count, which also allowed two
-    ioctls to call into the driver at the same time.
+The runtime PM usage count was dropped twice when a resume failed. This
+happens for a command written after runtime PM is disabled. The count
+underflowed. The reference is no longer dropped a second time.
 
-A use-after-free read was observed on a Twinhan USB2.0 DVB-T receiver
-after the USB device had been disconnected, while the frontend device
-node was still open:
-
-  Read of size 8 at addr ffff8880068c8e90
-  vp7045_usb_op drivers/media/usb/dvb-usb/vp7045.c:61
-  vp7045_read_reg drivers/media/usb/dvb-usb/vp7045.c:86
-  vp7045_fe_read_status drivers/media/usb/dvb-usb/vp7045-fe.c:29
-  dvb_frontend_do_ioctl drivers/media/dvb-core/dvb_frontend.c:2101
-  dvb_usercopy drivers/media/dvb-core/dvbdev.c:996
-
-vp7045_usb_op() builds the receive control pipe from d->udev, but the
-dvb_usb_device holding it had already been freed by dvb_usb_exit().
-
-Wait for such an ioctl instead of re-initialising the semaphore,
-whether or not a frontend thread exists, so that the removal cannot
-proceed while a callback is using the driver state.  Ioctls that
-arrive later see ->exit and return -ENODEV before they reach the
-driver.
-
-Both the early return and the semaphore reset have been in this
-function since the initial git import of the tree.  An attempt in
-2022 to close this race, commit 6769a0b7ee0c ("media: dvb-core: Fix
-use-after-free on race condition at dvb_frontend"), waited for every
-user of the device node to close it, and was reverted by
-commit ec21a38df77a ("Revert "media: dvb-core: Fix use-after-free
-on race condition at dvb_frontend"") after it blocked the open path
-for minutes.  The wait added here covers only the ioctl that is
-still running, and is taken after the frontend thread has exited.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 ---
-v2:
-  - Add the Fixes: tag that the media CI requires when Cc'ing
-    stable@vger.kernel.org.
-  - Quote the referenced commits as 'commit <id> ("<title>")' in
-    the description.
-  Commit message only, no code change.
+Vishnu Reddy (3):
+      media: iris: Fix runtime PM reference imbalance on failed resume
+      media: iris: Disable the system error work on removal
+      media: iris: Fix use-after-free on unbind with open sessions
 
- drivers/media/dvb-core/dvb_frontend.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ drivers/media/platform/qcom/iris/iris_hfi_queue.c |  2 +-
+ drivers/media/platform/qcom/iris/iris_probe.c     | 58 ++++++++++++++++-------
+ 2 files changed, 42 insertions(+), 18 deletions(-)
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261013-iris-handle-unbind-fe09689e6696
 
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index 0286da57f382..076e24ea8a4b 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -817,13 +817,21 @@ static void dvb_frontend_stop(struct dvb_frontend *fe)
- 		fe->exit = DVB_FE_NORMAL_EXIT;
- 	mb();
- 
--	if (!fepriv->thread)
--		return;
--
--	kthread_stop(fepriv->thread);
-+	if (fepriv->thread) {
-+		kthread_stop(fepriv->thread);
-+		fepriv->state = FESTATE_IDLE;
-+	}
- 
--	sema_init(&fepriv->sem, 1);
--	fepriv->state = FESTATE_IDLE;
-+	/*
-+	 * An ioctl holds fepriv->sem for its whole duration, but it checks
-+	 * ->exit only before it calls into the driver.  One that started
-+	 * before ->exit was set above can still be running inside the driver,
-+	 * whose state is about to be removed, so wait for it here instead of
-+	 * re-initialising the semaphore.  Ioctls that arrive from now on see
-+	 * ->exit and return -ENODEV without reaching the driver.
-+	 */
-+	down(&fepriv->sem);
-+	up(&fepriv->sem);
- 
- 	/* paranoia check in case a signal arrived */
- 	if (fepriv->thread)
--- 
-2.34.1
+Best regards,
+--  
+Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
