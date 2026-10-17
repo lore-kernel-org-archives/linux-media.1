@@ -1,68 +1,66 @@
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E2C52DF3F2
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 21:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AE131E834
+	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 21:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792273251; cv=none; b=eyq1KZ4J44hvHBqlS3TCCOKYXMQzbo1vR5Dej9wJ1abz9YENHUHyQ3xU4goY1wccL9QGGC0u8ujcEEdFUyKoATXxYj74tlRtwQkPxIZp+c4axtBXXpgslPrdWN3/6VPpJ8ZEtM/bmUT4b9Zt6YXNccc6n+f3loqXBxs37AO3qbE=
+	t=1792273639; cv=none; b=gjDROr5nYgu89nOe2qViknc71UVOWdLTY3/enDGqXYJ2sTmeVN8q6nuACRlGy59WgSNs2tZiWc8t3ru71InfKGDUPtRkUjBZtRJhWthg4XV+Kc2vdxJvFU18QFiVQe9rCy3mw/1SKlzU4cmTO9A2Lif44tkk2RDzEogKnyDEJjg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792273251; c=relaxed/simple;
-	bh=pKJj/9Wwtc4TG4Knbq09oNmo8hoqs+7fYuFsxQmFjxU=;
+	s=arc-20240116; t=1792273639; c=relaxed/simple;
+	bh=LBiNyMQaU+Lz8qtwm1wDvcMmGVUcj0TquZ11KFl1f08=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=md+LG5BBJJsACXldH2VIVWnvrMpxmep4HUlgY3KmmoDnmhIh18ZewZSYLae0ZdsIVGx6/49Odxb8x1TuhJJI5zwyxxHyDgWrsqG1BkJRKGoGgFRXcKj5VYPqHPS4J1E6S6sRsvy0+nTGu7VVEkg3vPgFzxNokOuBsoc5vgw0d1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net; spf=none smtp.mailfrom=nilk.net; dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b=Dsvj7SQa; arc=none smtp.client-ip=209.85.161.50
+	 In-Reply-To:Content-Type; b=h7wAUPLWpfNAtV+zkC7nR8FJ/VGF0N6vMaA5sVbTxmd8OxGubWZs0Umj1iaP4RzqwB3IKHsrssKU9hhBQaUah8lLOZmr0ofeXXnl49O+z47pKg+geM2iTQ6y/l7JuFilLqE9okje/TM7fJdNz0WEchg2RkBlf+DuchZA1JtS71o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net; spf=none smtp.mailfrom=nilk.net; dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b=EQgRe/lp; arc=none smtp.client-ip=74.125.231.134
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b="Dsvj7SQa"
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6c8f6a53fabso1990088eaf.1
-        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 14:40:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=nilk.net header.i=@nilk.net header.b="EQgRe/lp"
+Received: by mail-oo2-f6.google.com with SMTP id 46e09a7af769-8216bf5eb5eso440589a34.1
+        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 14:47:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nilk.net; s=nilk; t=1792273249; x=1792878049; darn=vger.kernel.org;
+        d=nilk.net; s=nilk; t=1792273637; x=1792878437; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pKJj/9Wwtc4TG4Knbq09oNmo8hoqs+7fYuFsxQmFjxU=;
-        b=Dsvj7SQagN55qe5grrXisJXizcRr0/JBlbjJ8TlCg1fzrOEQrGboDLY6hCxFM3UlB/
-         Ntu6gjYrGnvaDVSvPmGoVlX04IIUQngdxq7+f/esnosRpBLWllCL7OGnonZ4CiJZxD3G
-         26DeFAvv2qAmkm+G+BdBlR9UTkF7LVv/HkzBo=
+        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
+        b=EQgRe/lpCg8SIPzTTm3+JpiCFHVy2eO3vhgMd3p4JHGaGJnROYRo+e5gJ5U0YDCVvh
+         NEY1RhLo7TLWvpjQs6+jF8mxUBSMrzMSWV5wE4VvvOSB5+9w17Rjj1LWIV5mJoXz/4fa
+         n5AgMyVMfpvrZybl069z+i8DhZE5qUUV2pvsg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792273249; x=1792878049;
+        d=1e100.net; s=20260707; t=1792273637; x=1792878437;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pKJj/9Wwtc4TG4Knbq09oNmo8hoqs+7fYuFsxQmFjxU=;
-        b=DTo9rZyKIg6W3cQXOAkX0MW694nudaYJP+J50oCVR3Y8t3JOasT5dHTfRJheAiozZE
-         JV3ZmOiE5GBfJXF10brJ66ou/yUeANbiEUrkjJM7BMXeMArT2ntwjPPZ6eYfkJYuTa5v
-         xrxvZHcD1gwfD96W3GSZQij05wdICXJ2ZBFJttt/FPZ2nJqg5za18l9+MeR++wSWwb2F
-         YrxlDNoG15iWiVfZlte8KDeypCIpkkCcbFOaLcE1E5tNO1VggFChCUB0vHBCluRDjTKU
-         4RMT00g/jJ/5GKa7kSFGEjIuh58PTMnueLCSxRV3+2L3kZQgTcbJTF7nMIF5/fH1dw4p
-         ch+w==
-X-Forwarded-Encrypted: i=1; AKwUvBx7sVty54PMl0YQD/eRgqsA89x/V+EfZbjTJ2gCHvztr9zYZhHbyFIhFjvejNd+K8rhIpTU+6zq0ai8lw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQtekKtRNFvjtPSJfeh11pRhYVv9gVy6xv+jUSPxoPXWjmX4Nf
-	LArPSC3rkD0vPiI6yHwdkN7ecq59/7SpSbBcGwuGqIzXg8qyGeVPHbFN9Sy2fC0Ou6UB5W8l8Vh
-	egheOg0LM
-X-Gm-Gg: AYBFou0GQ+vK3TwfQd0rfbM2SM4zCvxPx/mAkUyVN5im0k2uSdSOuZcMMnTXvLhcmyj
-	1TITZrIBF/3GPZiYpPXt2lXf09W/altSr2NllwG7KPRdBvLEOoHNjBIOwnHVQhkcTeVs8IoekM2
-	LNGsJJ+Cm0HBeVV2H7jAO0M2Uq4Ch/FWovmYe87PSVHw/KOwAFlidAI2wJDMVyI1gkOzRC6pY0H
-	3MveTcFtmTWnO5MOHLWN5ZsNXrN8EA9gASKTBDUSDkL7rq+uZOe6TcNsS50I0J9k63R7QdqdNcp
-	jNGrL9kI9/m09BZiAnB6DZ37obnqAWO+TAi8bIa7o5m+Cz1ecfgkaN2mI49EuRg8I0GJkA1FXva
-	Vi8CL/qEZqmG4f3mPgkeTmheslmBhLSKt+8ARSb9GRmbcT5QxmqeJr3gNyve+FwYPJLqn/V8a5R
-	Qb7snYP+rIi9lNSH/irWtx6dXwYILbIjsdcNe/PLAq23DNcTXjCMU/bC+7i4Qaf94eK6mGkVmAP
-	VHI0eVLo9TCAHGS/6tXsil6OQZDAfloQ0S/nToG/zuT/lw2NK4p8fea4RnY+ya1qlYTfwpoBgqs
-	17NVNPYlzEDy33Afr7EGznvkWpsjc9E8mFDQpkXefvSmMi4q5sqqB3//Hs7j7P7BsLeTkrAM6rG
-	ef5nRMOI72Yo06uSXkUM1Wh/4L+l0bbsXcHOoCHYJA3h1HGOvvvs=
-X-Received: by 2002:a05:6820:4df8:b0:6f5:a844:b12 with SMTP id 006d021491bc7-70116e4a975mr3984515eaf.57.1792273248461;
-        Sat, 17 Oct 2026 14:40:48 -0700 (PDT)
+        bh=Gr7QzmsxuF1G07OcSwQ0zxYW4hq1ADbK4n2bkyk1L1M=;
+        b=eSAuWLNCajDh9jvYvSshcjvkieJnHvYvVNsdD9buUM+zftAXQc/OKOT9a5FYiTZUzK
+         zKeWc/5Liev0Mj2wkBRlV3gZHg6KsZhgFuY5oiJn3cYkof4iG8CyhzHOK69jetKpKXNU
+         pUWjkvYt3BXZofJE0dB6sqK8zufjMJbML+BOu0qy+ZvElTMOGId5y1Ja1XC32OUZXPU+
+         9hNuny7xArHi5BsPtXn7t2ObUaojY2x6mAynRRNCwyNnDxZmzOtHtwhrsedSD/6w0cc3
+         5Ti3TI+9mjXgpKLstWzIRA+qa2bWaKAY4aYyXOfxMlLhwU2/ogPmU95usPMAsqyDkDN6
+         AiZg==
+X-Gm-Message-State: AFq9FYKx/mO7WeGqBr2GJZFe8hX4VbKZgxmnldGoKtELnUXEjf1GDVfe
+	O0Mw8H2srDqym5MeMi9GHBAGCtiBvUkkP8umQt+A/3RPl6mlZr0oAg3lFy1TgrRkIg==
+X-Gm-Gg: AYBFou3FxIbha8B4M8gWZA26Sl2jaX+Qy+e4QYA2kA8kP2eQCg8yBtWRa8F9yI+/+36
+	VmvfCwFVjIcy4GDqqNeAirAB0El+Gua0OjVkXeO26qVTlsvMTt6OVpvAvOHyrwtKFYm6bYmPXE/
+	fVzneRSLZXlKbQc9WKCDBvE6OJmSyHt/wEDRWuvubcjsoQGdSAD7SQEdx3bS4bD535U+lXgTr8E
+	vGagUUAYxIP7wiJQHgAQPAKPW8yK6Wm2NR5DtSvNC6zJ0/4AwaeLwSU2EyvTwOclv6ZsfTEbrYz
+	3YGwE6uObBsh5G7DyUljcwIMspv63o12OSF0aYhl+DQcdNXljc4Jp9HqpmG/CpR/D9kQnDmjrLZ
+	g8A/3htyGSEkyYlOz9C5iFGpkpX4qq74E09LvsEOJxcE2cRBwzKYmGLkSngyQo0SGwJyG2Sn5uE
+	bbEoZU6hji54gLv5Cge4436bxfIZY2FJzXtA+LPOA2BbSXAEGXrq8JUjhKR9+lZQ99ycpa7+kiO
+	exqJheKrJ9gBzF73Q+Gbwtiy/UszFv8edMXZyoomNukx292Hx5rTf+ScG9/DAeUInGtZZORKmUb
+	AXHn2PYONflK4xVW207F+1nvvIW2/D9FVMdvOJQHY+yP/6k04eErntFLQ6CykZbBjkFGulal3Jd
+	TZwJ/yvDhXJ4ze0h7EfuyNZ/2wlP/pci+JDwkSXOlGeoa0TRHnA==
+X-Received: by 2002:a05:6820:f023:b0:6d7:fea2:526f with SMTP id 006d021491bc7-70355d88ab4mr2411588eaf.30.1792273636699;
+        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
 Received: from [192.168.0.114] ([187.14.252.51])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a6e12e06sm5109596a34.22.2026.10.17.14.40.47
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-842a53dac8dsm5527535a34.12.2026.10.17.14.47.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 14:40:47 -0700 (PDT)
-Message-ID: <02feb114-960b-46e4-a126-9b8659fc4394@nilk.net>
-Date: Sat, 17 Oct 2026 15:40:46 -0600
+        Sat, 17 Oct 2026 14:47:16 -0700 (PDT)
+Message-ID: <eee2988c-5ab6-40c3-ad3d-e4e0aeb977be@nilk.net>
+Date: Sat, 17 Oct 2026 15:47:14 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -70,42 +68,80 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: i2c: dw9719: power down on detection errors
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Ijae Kim <ae878000@gmail.com>, Daniel Scally <dan.scally@ideasonboard.com>,
+Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
+To: Danila Tikhonov <danila@mainlining.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
  Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-References: <20260913041828.28430-1-mhun512@gmail.com>
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
+ Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
+ <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
 Content-Language: en-US
 From: Chris Simpson <chris@nilk.net>
-In-Reply-To: <20260913041828.28430-1-mhun512@gmail.com>
+In-Reply-To: <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Sun, 13 Sep 2026 00:18:28 -0400, Myeonghun Pak wrote:
-> Moving chip detection into dw9719_power_up() introduced direct returns
-> after the regulator has been enabled. An INFO register read failure or
-> an unrecognized ID bypasses the power-down path, while probe only
-> cleans up the media entity and controls after a power-up error.
+Hi Danila,
 
-I found the same leak independently while adding DW9800W support for
-the Surface Pro 9, and wrote the same change.
+On Sat, 01 Aug 2026 21:04:15 +0300, Danila Tikhonov wrote:
+> The DW9800W uses the same chip ID and register layout as the DW9800K,
+> but requires different default VCM frequency value.
 
-I tested both error paths on a Surface Pro 9 (DW9800W, ACPI, a 7.2.11
-distro kernel with the linux-surface patches), forcing them with a
-test-only hook: an unknown INFO id, and a failed INFO read. Without your
-patch, each failed probe hit the WARN_ON(regulator->enable_count) in
-_regulator_put(), reported as regulator_put() because it is inlined
-there, and the (dummy) supply's num_users stayed one higher. With your
-patch, neither happened. An equivalent change in my tree also runs fine
-through the normal path, including runtime and system suspend.
+A data point for v2. The Microsoft Surface Pro 9 has a DW9800W on its
+OV13858 rear camera module, at 0x0c on the sensor's I2C bus. INFO reads
+0xF2 and register 7 powers up as 0x60, both matching the values in this
+patch. The module is enumerated through ACPI, so ipu-bridge creates
+the I2C client, not DT.
 
-Reviewed-by: Chris Simpson <chris@nilk.net>
-Tested-by: Chris Simpson <chris@nilk.net>
+I ran this patch as posted, plus the one dw9719_id_table line
+suggested below (without it the driver can't get the DW9800W model on
+ACPI), on a 7.2.11 distro kernel with the linux-surface patches. My
+ipu-bridge change, still to be posted, creates the "dw9800w" client
+from the Surface's SSDB. The driver binds to that client, INFO reads
+0xF2, so it goes through the DW9800_ID case, and the sensor gets its
+ancillary link to the lens. With the camera streaming, register
+readback shows CONTROL 0x02, MODE 0x40 and register 7 0x60, and
+V4L2_CID_FOCUS_ABSOLUTE values 640, 1023 and 512 reach VCM_CURRENT. An
+equivalent change has also run through runtime and system suspend on
+the same tablet.
 
-The patch still applies cleanly to the media-committers next branch.
+[...]
+
+>  	{ .compatible = "dongwoon,dw9800k", .data = (const void *)DW9800K },
+> +	{ .compatible = "dongwoon,dw9800w", .data = (const void *)DW9800W },
+
+ACPI users need the I2C id as well. As posted, an ACPI-instantiated
+client can't get the DW9800W model:
+
+- Named "dw9800w" with CONFIG_OF=n (Fedora's x86 config), it matches
+  nothing.
+- Named "dw9800w" with CONFIG_OF=y, it binds through the i2c core's
+  compatible-name fallback. i2c_get_match_data() then returns NULL, so
+  the model is DW9718S and the INFO check is skipped.
+- Named "dw9719", it gets model DW9719, and the DW9800_ID case returns
+  -ENODEV.
+
+Could v2 add this to dw9719_id_table?
+
+	{ .name = "dw9800w", .driver_data = (kernel_ulong_t)DW9800W },
+
+Also, that -ENODEV return leaves the regulator enabled, like the paths
+Myeonghun Pak's patch fixes [1]. It would be worth routing it through
+the same power-down path.
+
+I understand v2 is waiting for the DW9800K rework. I'll test it on the
+Pro 9 when it comes and send a Tested-by then. The ipu-bridge patch
+for the Surface's VCM type would follow on top of it.
 
 Thanks,
 Chris
@@ -114,3 +150,5 @@ Made with AI assistance. Written by Claude Opus 5.5 (drafting), with
 review by Claude Fable 5.1 and testing by Claude Opus 5.5, under the
 direction of Chris Simpson <chris@nilk.net>, who reviewed and approved
 it.
+
+[1] https://lore.kernel.org/all/20260913041828.28430-1-mhun512@gmail.com/
