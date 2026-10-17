@@ -1,475 +1,192 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B47145D5C0
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 22:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914F86DCE1;
+	Sat, 17 Oct 2026 22:14:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792274528; cv=none; b=M6/ogxr5OdIIfODsxwnUtkk8jycnIb9kXZZJo5meTDFV+W1hG9PcKAC0GlUlvxh1adZT74s/lntyFJTkIzBwZXFD285hE8h2j6Byg4WTrQ9USPub32S/jrZeZ5acY1uYPQp7cmTdOy4Q72MOmhdMgVeyN0xbUgMJlgtIDIY/WxE=
+	t=1792275243; cv=none; b=at3yYWA3Gic+IsEKfmC+QbErVIV4jhq3o5AQksEZJIcOcVtnywQ2q5x8E0NGcACzoridmG2OzATNGnEznLYW3SdJA2PteCOGoqPlarZu0OIR9gsZJ/5GlghJ53+mqR9XuXUE1BBZ6Pi4zAgIEvGMoJshnUDD9A/jajUtqkTzeoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792274528; c=relaxed/simple;
-	bh=VB0k8/4YMroH2a8GNymnVlvAEaNyb0xNaQnrDrKT8LI=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=l76rN/NPOrK2cpBVZOGTmHBFtvV9WQ5tlIEGAr7isa2gPhcNbcwOrEYNSkdpkNzAMhoFUNBxjDX/hQYXO709xDeyKlptUBlfzneGQVTkGeIjejM6GyPN5irgpSD7QGFeZ+fI9Ex5tN6owzhAu11bfvF4YcGj6U0Ot/YU71VYLAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K097jZSc; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792275243; c=relaxed/simple;
+	bh=wKiVm+fISozJ/oe4djtJE0VcXXeGusc0YNiG4d2Oy1Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ErnVUvtxkV8gt4+S5zJYhHXaviQuXMZ0HAVASerg+o6l/xvrx8BzxfQS0OsBFlfDNEyqK/ixrSgX7VyJjZII1afislFmXsq+AErIPA2TP+LkYKsjn0rmJdFEjtWZ+5TEZOZjWVB/It7Bye5mWRgG0vR272KS4jD2mNGS9o3LQ40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Arv/O+46; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K097jZSc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792274525; x=1823810525;
-  h=date:from:to:cc:subject:message-id;
-  bh=VB0k8/4YMroH2a8GNymnVlvAEaNyb0xNaQnrDrKT8LI=;
-  b=K097jZScHwRKBW3WzFloqvMLrE9m84DTCyhEsG0DjnmdIsMBOMF8KHiy
-   0HWzfFmAj8Wy1Tu8w7W4xbKx58aAYwMvCk9zyEHA19CmA+1LVEdPz4S2Q
-   SGGy3h5NB7U31NmwG/3kjld+NjLvSuotClT1/fjzfm3jv+CUba3g0GmFG
-   eKnQ2Rs/exAorb89AOGSlNDkQR40NP/zcyQhHwDgzeQAKrDwYtZTn0eSm
-   ZyUpWuLe4ePHEofjFxnwJ2++CJD5d1Ri2X3oTD58AK1118J7vY7pzLYyc
-   u11cUA8Mt2HtgPNwW3vN+mu91YrJFmFC4pwoY7EYqXcthpP+h1db89+S9
-   A==;
-X-CSE-ConnectionGUID: 4nJ6G7B4QeajFIBvf9Yc2g==
-X-CSE-MsgGUID: wWiGxtfXQeifbzxiWdh/Aw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="1037587"
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="1037587"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Oct 2026 15:02:04 -0700
-X-CSE-ConnectionGUID: yBERnhMgTrq9qnn1qNDPPQ==
-X-CSE-MsgGUID: cVdFiTOTSyeEmXOOy++ZDw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,163,1787036400"; 
-   d="scan'208";a="2198312"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa003.jf.intel.com with ESMTP; 17 Oct 2026 15:02:02 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xICTX-00000000Jo6-34Mq;
-	Sat, 17 Oct 2026 22:01:59 +0000
-Date: Sun, 18 Oct 2026 06:01:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:media-ref] BUILD REGRESSION
- cf47170584526b52366e936406ce2430b99a03a9
-Message-ID: <202610180657.Y7FlQ9QN-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Arv/O+46"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id DF68BC2BCF5;
+	Sat, 17 Oct 2026 22:14:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1792275243;
+	bh=wKiVm+fISozJ/oe4djtJE0VcXXeGusc0YNiG4d2Oy1Y=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=Arv/O+46mcaBQ9WvxCCMvW45jhU3Q0Ou6iGaQwekvwTx4+bIg4NvDnYp/sUnm1coO
+	 yGwN2RqsCxiP2le9UYdNQ0LVPs2XhkKZGO9SducMHwm4N1j0uxLp9/FeeXT0Hghxhb
+	 CRQpFcoRN3yEKT9Nd9y1sLdiAE6+bwHaukHQEgCF22577m4BcRdVYi+OMvw8DGjiN+
+	 x7CJmONcJL8r4+FLtNHeu/2EvXXaalYwVgKqk6IGULXsVFbE7swWxGfbvXQy60tZev
+	 Kixsse8MCo7etSyKjv2eYv3dWWXm9xKsQUifZtWBBde8jYu9DD17faPU3B++eh+odB
+	 iKKxvs/XpT/rg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6364CCF2C4;
+	Sat, 17 Oct 2026 22:14:02 +0000 (UTC)
+From: Chris Simpson via B4 Relay <devnull+chris.nilk.net@kernel.org>
+Date: Sat, 17 Oct 2026 16:13:38 -0600
+Subject: [PATCH] media: ipu6: Keep psys out of direct-complete on system
+ suspend
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261017-psys-ipu6-v1-1-56e333f6ed04@nilk.net>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDA0Nz3YLiymLdzIJSM13jRJOkZEOL1DRz8zQloPqCotS0zAqwWdGxtbU
+ AbTAk11sAAAA=
+X-Change-ID: 20261017-psys-ipu6-3a4bc18ef77f
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>, 
+ "Sapre, Sarang" <sarang.sapre@intel.com>, 
+ Divyamani Tripathi <divyamani.tripathi@intel.com>, 
+ Manik Bajpai <manik.bajpai@intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Danilo Krummrich <dakr@kernel.org>, linux-media@vger.kernel.org, 
+ linux-pm@vger.kernel.org, driver-core@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Chris Simpson <chris@nilk.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792275242; l=5398;
+ i=chris@nilk.net; s=20261017; h=from:subject:message-id;
+ bh=RpJEa/l3s3LAaSolDKPx/sHpPb3BursxeLOSSpNbLls=;
+ b=Exb1QNu4nWHRU48GmPgf1r/WXUwJNK82Bfaf7uS/0XxOjRKTyes+jHzeluQwoqWtUaj1XxBSh
+ QraG6oNjWXgBlTf4E+YGNKUn1MC1Qug0PFITN1a6q45SuD/skEXTbZO
+X-Developer-Key: i=chris@nilk.net; a=ed25519;
+ pk=bwNSTJdm8iKtfcCRqyaQFQFlAxLuiAxLw4pMXey4Z+o=
+X-Endpoint-Received: by B4 Relay for chris@nilk.net/20261017 with
+ auth_id=1225
+X-Original-From: Chris Simpson <chris@nilk.net>
+Reply-To: chris@nilk.net
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git media-ref
-branch HEAD: cf47170584526b52366e936406ce2430b99a03a9  media: Documentation: Document media device memory safety helper
+From: Chris Simpson <chris@nilk.net>
 
-Error/Warning (recently discovered and may have been fixed):
+Since commit a1fa010b3c9f ("driver core: auxiliary bus: Drop
+auxiliary_dev_pm_ops"), the auxiliary bus has no dev_pm_ops. The psys
+auxiliary device has no driver in mainline, and its PM domain,
+ipu6_bus_pm_domain, has only runtime PM callbacks. So
+device_pm_check_callbacks() now sets power.no_pm_callbacks for psys,
+and device_prepare() puts it in direct-complete.
 
-    https://lore.kernel.org/oe-kbuild-all/202610172349.NeNGF1lj-lkp@intel.com
-    https://lore.kernel.org/oe-kbuild-all/202610180038.NjDarZVo-lkp@intel.com
-    https://lore.kernel.org/oe-kbuild-all/202610180552.6MBNpZSk-lkp@intel.com
+A runtime-suspended psys in direct-complete gets its runtime PM
+disabled in device_suspend(). Runtime PM is enabled again only in
+psys's own device_resume(), which in practice runs after the PCI
+device's. Before, it came back in device_resume_early(). ipu6_resume(),
+the system resume callback of the PCI device, runtime-resumes psys
+before the firmware authentication. That now fails with -EACCES on
+every resume:
 
-    drivers/media/mc/mc-device.c:31:1: error: expected ')'
-    drivers/media/mc/mc-device.c:31:1: error: unknown type name 'param_check_unsigned'
-    drivers/media/mc/mc-device.c:31:1: error: use of undeclared identifier 'param_ops_unsigned'; did you mean 'param_ops_uint'?
-    drivers/media/mc/mc-device.c:31:31: error: expected '}'
-    drivers/media/mc/mc-device.c:32:1: error: expected ')'
-    drivers/media/mc/mc-device.c:32:1: error: unknown type name 'param_check_unsigned'
-    drivers/media/mc/mc-device.c:32:1: error: use of undeclared identifier 'param_ops_unsigned'; did you mean 'param_ops_uint'?
-    drivers/media/mc/mc-device.c:32:31: error: expected '}'
-    drivers/media/mc/mc-device.c:761:49: error: use of undeclared identifier 'devnode'
-    drivers/media/mc/mc-devnode.c:233:33: error: use of undeclared identifier 'mdev'
-    include/linux/moduleparam.h:163:32: error: expected ')' before ',' token
-    include/linux/moduleparam.h:164:32: error: 'param_ops_unsigned' undeclared here (not in a function); did you mean 'param_ops_uint'?
+  auxiliary intel_ipu6.psys.40: Failed to get runtime PM
 
-Error/Warning ids grouped by kconfigs:
+and ipu6_resume() returns early, skipping ipu6_buttress_authenticate().
+In secure mode the firmware is then not re-authenticated after resume,
+which matters whenever the IPU has lost power. On s2idle on a Surface
+Pro 9 the cameras still work, and the error is logged on every resume.
 
-recent_errors
-|-- arc-allmodconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- arm-allyesconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- arm-aspeed_g4_defconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- arm-defconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- arm-randconfig-1001-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- arm64-allmodconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- hexagon-allmodconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- hexagon-randconfig-1000-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- hexagon-randconfig-1001-20261017
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   |-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-devnode
-|   |-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|   `-- drivers-media-mc-mc-devnode.c:error:use-of-undeclared-identifier-mdev
-|-- hexagon-randconfig-1001-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- i386-randconfig-1011-20261017
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- loongarch-allmodconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- loongarch-randconfig-1000-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- microblaze-allyesconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- mips-allmodconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- nios2-allmodconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- openrisc-allmodconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- parisc-allmodconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- powerpc-allmodconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- riscv-allmodconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- riscv-allyesconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- s390-allmodconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- s390-allyesconfig
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- sh-randconfig-1000-20261017
-|   |-- include-linux-moduleparam.h:error:expected-)-before-token
-|   `-- include-linux-moduleparam.h:error:param_ops_unsigned-undeclared-here-(not-in-a-function)
-|-- sparc64-allmodconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- sparc64-randconfig-1001-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- um-allmodconfig
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- um-randconfig-1000-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- x86_64-buildonly-randconfig-1003-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- x86_64-buildonly-randconfig-1005-20261018
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-|-- x86_64-randconfig-1017-20261017
-|   |-- drivers-media-mc-mc-device.c:error:expected
-|   |-- drivers-media-mc-mc-device.c:error:expected-)
-|   |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-|   `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
-`-- x86_64-rhel-9.4-rust
-    |-- drivers-media-mc-mc-device.c:error:expected
-    |-- drivers-media-mc-mc-device.c:error:expected-)
-    |-- drivers-media-mc-mc-device.c:error:unknown-type-name-param_check_unsigned
-    `-- drivers-media-mc-mc-device.c:error:use-of-undeclared-identifier-param_ops_unsigned
+Add suspend and resume callbacks to ipu6_bus_pm_domain that forward to
+the driver. That is what the PM core does without them, so isys is
+unaffected, but psys has PM callbacks again and is not left in
+direct-complete. This restores the behaviour from before the auxiliary
+bus change.
 
-elapsed time: 1898m
+The fix is kept local rather than in the auxiliary bus or the PM core:
+it is this driver that runtime-resumes a driverless child from its
+parent's ->resume().
 
-configs tested: 236
-configs skipped: 8
+Fixes: a1fa010b3c9f ("driver core: auxiliary bus: Drop auxiliary_dev_pm_ops")
+Cc: stable@vger.kernel.org # v7.1+
+Cc: Rafael J. Wysocki <rafael@kernel.org>
+Cc: linux-pm@vger.kernel.org
+Assisted-by: LLM sparse smatch coccinelle
+Signed-off-by: Chris Simpson <chris@nilk.net>
+---
+Tested on a Surface Pro 9 (IPU6 in secure mode) running a Fedora-based
+7.2.11 kernel with the linux-surface patches (a COPR build), whose only
+changes near this code are in ipu-bridge. The patch applies unchanged to
+media-committers next. Three s2idle cycles before and thirteen after,
+tracing the rpm and power:device_pm_callback_start events for psys:
 
-tested configs:
-alpha                              allnoconfig    gcc-16.1.0
-alpha                             allyesconfig    gcc-16.1.0
-alpha                                defconfig    gcc-16.1.0
-arc                               allmodconfig    clang-24
-arc                                allnoconfig    gcc-16.1.0
-arc                               allyesconfig    clang-24
-arc                                  defconfig    gcc-16.1.0
-arc                   randconfig-1000-20261017    gcc-10.5.0
-arc                   randconfig-1000-20261018    gcc-8.5.0
-arc                   randconfig-1001-20261017    gcc-10.5.0
-arc                   randconfig-1001-20261018    gcc-8.5.0
-arc                         vdk_hs38_defconfig    gcc-16.1.0
-arm                               alldefconfig    gcc-16.1.0
-arm                                allnoconfig    gcc-16.1.0
-arm                               allyesconfig    clang-24
-arm                        aspeed_g4_defconfig    gcc-16.1.0
-arm                                  defconfig    gcc-16.1.0
-arm                         multi_v5_defconfig    clang-24
-arm                        netwinder_defconfig    gcc-16.1.0
-arm                   randconfig-1000-20261017    gcc-10.5.0
-arm                   randconfig-1000-20261018    gcc-8.5.0
-arm                   randconfig-1001-20261017    gcc-10.5.0
-arm                   randconfig-1001-20261018    gcc-8.5.0
-arm                   randconfig-1002-20261017    gcc-10.5.0
-arm                   randconfig-1002-20261018    gcc-8.5.0
-arm                   randconfig-1003-20261017    gcc-10.5.0
-arm                   randconfig-1003-20261018    gcc-8.5.0
-arm                          socfpga_defconfig    clang-24
-arm64                             allmodconfig    clang-24
-arm64                              allnoconfig    gcc-16.1.0
-arm64                                defconfig    gcc-16.1.0
-arm64                 randconfig-1000-20261017    clang-24
-arm64                 randconfig-1000-20261018    gcc-14.3.0
-arm64                 randconfig-1001-20261017    clang-24
-arm64                 randconfig-1001-20261018    gcc-14.3.0
-arm64                 randconfig-1002-20261017    clang-24
-arm64                 randconfig-1002-20261018    gcc-14.3.0
-arm64                 randconfig-1003-20261017    clang-24
-arm64                 randconfig-1003-20261018    gcc-14.3.0
-csky                              allmodconfig    gcc-16.1.0
-csky                               allnoconfig    gcc-16.1.0
-csky                                 defconfig    gcc-16.1.0
-csky                  randconfig-1000-20261017    clang-24
-csky                  randconfig-1000-20261018    gcc-14.3.0
-csky                  randconfig-1001-20261017    clang-24
-csky                  randconfig-1001-20261018    gcc-14.3.0
-hexagon                           allmodconfig    gcc-16.1.0
-hexagon                            allnoconfig    gcc-16.1.0
-hexagon                              defconfig    gcc-16.1.0
-hexagon               randconfig-1000-20261017    clang-21
-hexagon               randconfig-1000-20261018    clang-21
-hexagon               randconfig-1001-20261017    clang-21
-hexagon               randconfig-1001-20261018    clang-21
-i386                              allmodconfig    clang-22
-i386                               allnoconfig    gcc-16.1.0
-i386                              allyesconfig    clang-22
-i386        buildonly-randconfig-1000-20261017    gcc-14
-i386        buildonly-randconfig-1001-20261017    gcc-14
-i386        buildonly-randconfig-1002-20261017    gcc-14
-i386        buildonly-randconfig-1003-20261017    gcc-14
-i386        buildonly-randconfig-1004-20261017    gcc-14
-i386        buildonly-randconfig-1005-20261017    gcc-14
-i386                                 defconfig    gcc-16.1.0
-i386                  randconfig-1000-20261017    clang-22
-i386                  randconfig-1001-20261017    clang-22
-i386                  randconfig-1002-20261017    clang-22
-i386                  randconfig-1003-20261017    clang-22
-i386                  randconfig-1004-20261017    clang-22
-i386                  randconfig-1005-20261017    clang-22
-i386                  randconfig-1006-20261017    clang-22
-i386                  randconfig-1007-20261017    clang-22
-i386                  randconfig-1008-20261017    clang-22
-i386                  randconfig-1009-20261017    clang-22
-i386                  randconfig-1010-20261017    clang-22
-i386                  randconfig-1011-20261017    clang-22
-i386                  randconfig-1012-20261017    clang-22
-i386                  randconfig-1013-20261017    clang-22
-loongarch                         allmodconfig    clang-24
-loongarch                          allnoconfig    gcc-16.1.0
-loongarch                            defconfig    clang-24
-loongarch             randconfig-1000-20261017    clang-21
-loongarch             randconfig-1000-20261018    clang-21
-loongarch             randconfig-1001-20261017    clang-21
-loongarch             randconfig-1001-20261018    clang-21
-m68k                              allmodconfig    gcc-16.1.0
-m68k                               allnoconfig    gcc-16.1.0
-m68k                              allyesconfig    clang-24
-m68k                                 defconfig    clang-24
-microblaze                         allnoconfig    gcc-16.1.0
-microblaze                        allyesconfig    gcc-16.1.0
-microblaze                           defconfig    clang-24
-mips                              allmodconfig    gcc-16.1.0
-mips                               allnoconfig    gcc-16.1.0
-mips                              allyesconfig    gcc-16.1.0
-mips                   cavium_octeon_defconfig    clang-24
-mips                   cavium_octeon_defconfig    gcc-16.1.0
-mips                      loongson2k_defconfig    clang-24
-mips                    sb1250_swarm_defconfig    clang-24
-mips                    sb1250_swarm_defconfig    gcc-16.1.0
-nios2                             allmodconfig    clang-20
-nios2                             allmodconfig    gcc-11.5.0
-nios2                              allnoconfig    clang-24
-nios2                                defconfig    clang-24
-nios2                 randconfig-1000-20261017    clang-21
-nios2                 randconfig-1000-20261018    clang-21
-nios2                 randconfig-1001-20261017    clang-21
-nios2                 randconfig-1001-20261018    clang-21
-openrisc                          allmodconfig    clang-20
-openrisc                          allmodconfig    gcc-11.5.0
-openrisc                           allnoconfig    clang-24
-openrisc                             defconfig    gcc-16.1.0
-parisc                            allmodconfig    gcc-16.1.0
-parisc                             allnoconfig    clang-24
-parisc                            allyesconfig    clang-17
-parisc                               defconfig    gcc-16.1.0
-parisc                randconfig-1000-20261017    gcc-15.2.0
-parisc                randconfig-1000-20261018    clang-24
-parisc                randconfig-1001-20261017    gcc-15.2.0
-parisc                randconfig-1001-20261018    clang-24
-parisc64                             defconfig    clang-24
-powerpc                           allmodconfig    gcc-16.1.0
-powerpc                            allnoconfig    clang-24
-powerpc                       ep88xc_defconfig    gcc-16.1.0
-powerpc               randconfig-1000-20261017    gcc-15.2.0
-powerpc               randconfig-1000-20261018    clang-24
-powerpc               randconfig-1001-20261017    gcc-15.2.0
-powerpc               randconfig-1001-20261018    clang-24
-powerpc                     socrates_defconfig    gcc-16.1.0
-powerpc                      tqm8548_defconfig    clang-24
-powerpc64             randconfig-1000-20261017    gcc-15.2.0
-powerpc64             randconfig-1000-20261018    clang-24
-powerpc64             randconfig-1001-20261017    gcc-15.2.0
-powerpc64             randconfig-1001-20261018    clang-24
-riscv                             allmodconfig    clang-24
-riscv                              allnoconfig    clang-24
-riscv                             allyesconfig    clang-24
-riscv                                defconfig    gcc-16.1.0
-riscv                                defconfig    gcc-16.1.0
-riscv                 randconfig-1000-20261017    clang-19
-riscv                 randconfig-1000-20261018    clang-17
-riscv                 randconfig-1001-20261017    clang-19
-riscv                 randconfig-1001-20261018    clang-17
-s390                              allmodconfig    clang-17
-s390                               allnoconfig    clang-24
-s390                              allyesconfig    gcc-16.1.0
-s390                                 defconfig    gcc-16.1.0
-s390                  randconfig-1000-20261017    clang-19
-s390                  randconfig-1000-20261018    clang-17
-s390                  randconfig-1001-20261017    clang-19
-s390                  randconfig-1001-20261018    clang-17
-s390                        zfcpdump_defconfig    gcc-16.1.0
-sh                                alldefconfig    gcc-16.1.0
-sh                                allmodconfig    gcc-16.1.0
-sh                                 allnoconfig    clang-24
-sh                                allyesconfig    clang-17
-sh                          ap325rxa_defconfig    gcc-16.1.0
-sh                                   defconfig    gcc-14
-sh                           lboxre2_defconfig    gcc-16.1.0
-sh                             migor_defconfig    gcc-16.1.0
-sh                    randconfig-1000-20261017    clang-19
-sh                    randconfig-1000-20261018    clang-17
-sh                    randconfig-1001-20261017    clang-19
-sh                    randconfig-1001-20261018    clang-17
-sh                           rsk7264_defconfig    gcc-16.1.0
-sh                           rsk7269_defconfig    clang-24
-sh                            sh2007_defconfig    clang-24
-sparc                              allnoconfig    clang-24
-sparc                                defconfig    gcc-16.1.0
-sparc                 randconfig-1000-20261017    gcc-15.2.0
-sparc                 randconfig-1000-20261018    clang-24
-sparc                 randconfig-1001-20261017    gcc-15.2.0
-sparc                 randconfig-1001-20261018    clang-24
-sparc64                           allmodconfig    clang-20
-sparc64                              defconfig    gcc-14
-sparc64               randconfig-1000-20261017    gcc-15.2.0
-sparc64               randconfig-1000-20261018    clang-24
-sparc64               randconfig-1001-20261017    gcc-15.2.0
-sparc64               randconfig-1001-20261018    clang-24
-um                                allmodconfig    clang-17
-um                                 allnoconfig    clang-24
-um                                allyesconfig    gcc-16.1.0
-um                                   defconfig    gcc-14
-um                              i386_defconfig    gcc-14
-um                    randconfig-1000-20261017    gcc-15.2.0
-um                    randconfig-1000-20261018    clang-24
-um                    randconfig-1001-20261017    gcc-15.2.0
-um                    randconfig-1001-20261018    clang-24
-um                            x86_64_defconfig    gcc-14
-x86_64                            allmodconfig    clang-22
-x86_64                             allnoconfig    clang-24
-x86_64                            allyesconfig    clang-22
-x86_64      buildonly-randconfig-1000-20261017    gcc-14
-x86_64      buildonly-randconfig-1000-20261018    clang-22
-x86_64      buildonly-randconfig-1001-20261017    gcc-14
-x86_64      buildonly-randconfig-1001-20261018    clang-22
-x86_64      buildonly-randconfig-1002-20261017    gcc-14
-x86_64      buildonly-randconfig-1002-20261018    clang-22
-x86_64      buildonly-randconfig-1003-20261017    gcc-14
-x86_64      buildonly-randconfig-1003-20261018    clang-22
-x86_64      buildonly-randconfig-1004-20261017    gcc-14
-x86_64      buildonly-randconfig-1004-20261018    clang-22
-x86_64      buildonly-randconfig-1005-20261017    gcc-14
-x86_64      buildonly-randconfig-1005-20261018    clang-22
-x86_64                               defconfig    gcc-14
-x86_64                                   kexec    clang-22
-x86_64                randconfig-1000-20261017    gcc-14
-x86_64                randconfig-1001-20261017    gcc-14
-x86_64                randconfig-1002-20261017    gcc-14
-x86_64                randconfig-1003-20261017    gcc-14
-x86_64                randconfig-1004-20261017    gcc-14
-x86_64                randconfig-1005-20261017    gcc-14
-x86_64                randconfig-1006-20261017    clang-22
-x86_64                randconfig-1007-20261017    clang-22
-x86_64                randconfig-1008-20261017    clang-22
-x86_64                randconfig-1009-20261017    clang-22
-x86_64                randconfig-1010-20261017    clang-22
-x86_64                randconfig-1011-20261017    clang-22
-x86_64                randconfig-1012-20261017    clang-22
-x86_64                randconfig-1013-20261017    clang-22
-x86_64                randconfig-1014-20261017    clang-22
-x86_64                randconfig-1015-20261017    clang-22
-x86_64                randconfig-1016-20261017    clang-22
-x86_64                randconfig-1017-20261017    clang-22
-x86_64                                rhel-9.4    clang-22
-x86_64                            rhel-9.4-bpf    gcc-14
-x86_64                           rhel-9.4-func    clang-22
-x86_64                     rhel-9.4-kselftests    clang-22
-x86_64                          rhel-9.4-kunit    gcc-14
-x86_64                            rhel-9.4-ltp    gcc-14
-x86_64                           rhel-9.4-rust    clang-22
-xtensa                             allnoconfig    clang-24
-xtensa                            allyesconfig    clang-20
-xtensa                randconfig-1000-20261017    gcc-15.2.0
-xtensa                randconfig-1000-20261018    clang-24
-xtensa                randconfig-1001-20261017    gcc-15.2.0
-xtensa                randconfig-1001-20261018    clang-24
+  before: "Failed to get runtime PM" on every resume. At ipu6_resume()
+          time rpm_resume() sees disable_depth 1 and returns -EACCES,
+          and psys gets no system sleep callbacks.
+  after:  no message. disable_depth is 0 and rpm_resume() returns 0,
+          and the domain's suspend and resume run for psys. No new
+          kernel warnings, and both cameras capture after resume.
+          psys is runtime-suspended again at the end of every cycle.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+A suspend attempt with a stream open was also tried. isys still
+refuses it with -EBUSY, now through the domain's pm_generic_suspend(),
+and the abort unwinds cleanly: no warnings, psys ends suspended, the
+stream continues with no gap in frame sequence numbers, and the next
+s2idle cycle passes.
+
+Not tested: a resume where the IPU actually loses power, which is where
+the skipped authentication matters (s2idle keeps it powered), and
+IPU7/IPU8 (no hardware).
+
+On next the ipu6 driver also drives IPU7 (by default,
+VIDEO_INTEL_IPU6_IPU7) and IPU8, so this covers those devices there too.
+The staging ipu7 driver has the same pattern in ipu7_bus_pm_domain and
+ipu7_resume(). I can send the same change for it, but I have no IPU7
+hardware to test it on.
+
+Intel's out-of-tree psys driver (intel/ipu6-drivers) has empty
+.suspend/.resume callbacks for the same reason. Its comment says they
+"are needed to enable runtime PM in IPU PCI device resume".
+
+Rafael, Cc'd as the author of a1fa010b3c9f: a driverless auxiliary
+device whose PM domain has only runtime PM callbacks now ends up in
+direct-complete. That is consistent PM-core behaviour, and the fix here
+is local to ipu6. But any other driver that runtime-resumes such a
+child from its parent's ->resume() would see the same failure.
+
+Made with AI assistance. Written by Claude Opus 5.5 (fix, analysis and
+text; reviews by Claude Opus subagents), with testing by Claude Opus
+5.5, under the direction of Chris Simpson <chris@nilk.net>, who reviewed
+and approved it and had it tested on their Surface Pro 9.
+---
+ drivers/media/pci/intel/ipu6/ipu6-bus.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-bus.c b/drivers/media/pci/intel/ipu6/ipu6-bus.c
+index 173616381..1b06e581e 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-bus.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-bus.c
+@@ -63,8 +63,16 @@ static int bus_pm_runtime_resume(struct device *dev)
+ 	return -EBUSY;
+ }
+ 
++/*
++ * The driverless psys device needs system sleep callbacks, or it is put in
++ * direct-complete and its runtime PM is normally still disabled when
++ * ipu6_resume() tries to runtime-resume it. These only forward to the driver,
++ * as the PM core would do without them.
++ */
+ static struct dev_pm_domain ipu6_bus_pm_domain = {
+ 	.ops = {
++		.suspend = pm_generic_suspend,
++		.resume = pm_generic_resume,
+ 		.runtime_suspend = bus_pm_runtime_suspend,
+ 		.runtime_resume = bus_pm_runtime_resume,
+ 	},
+
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261017-psys-ipu6-3a4bc18ef77f
+
+Best regards,
+-- 
+Chris Simpson <chris@nilk.net>
+
+
