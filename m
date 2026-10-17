@@ -1,67 +1,67 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E13933B6EF
-	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 13:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D8C422F767
+	for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 13:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792244132; cv=none; b=fZyHUAtYIhyDE38ZSAxkoHveFDdhp5/dWwQp/w5taG/LnOlcKdR87nRga69uLBO1EBKEydGy9QlDtJKCgmUfqaGYmOkAWp0tDAztjxt9STEVLTnnbHscsf/M+l7rpkLro69Ljhjzl9rSapcF7WAK6f/U2dCWt+fuOY4nMFxzQfE=
+	t=1792244672; cv=none; b=IewQyrIqKARM/nK0VXWWUC4FxQ41r4z5bn9dc3GkqaRqn923AaR3gMbepqMhzF9iOsee6xiTQKhw+WHcTPSVLEYjeoNW4ZP4QtYTCMIjdz04UzLTYHyjN2o017CzChcpfINPTYL1jb6FjU5TJhyykYGONMdicmBAMw3vYYEpqEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792244132; c=relaxed/simple;
-	bh=gBGo24fl5Af6G7SCsbJb5/idqIuEjFcib/+jlSFpkLE=;
+	s=arc-20240116; t=1792244672; c=relaxed/simple;
+	bh=4G6HjC3OFMtDJN/ek0zU5CdmbYoC3FuoWdTCSbDnxac=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ESIPPqrxA0SzLuDT6VIC9YQMykeD5qwJKsxKMhQVoqKFAf7NhhlE/Jqd90qEbKtcYhWU70lJDdWHIoT4IFhP78UquvYEVgR74nWZOQ6SKvz4LeTPDAaMCo78OkcG42kt5sN0N0tkE4xAbv6sbpyIpIEhywpk5MdK/I5MvYQMs40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=GzRXa0WX; arc=none smtp.client-ip=209.85.128.51
+	 In-Reply-To:Content-Type; b=UZs2DYCCq+ZxvAKQ0pb1myP8WxefrSpuP65G5V11Th54xsN5WUnfDB+qe7gE62M9Y2uZtNX8E6Kh83By4hyx0iLBC8VQGG9lOm7jIdtiZPnmtgC30kJq5D+kBymFmmUf94GHKducJhI9NParalTv4KEbExNoGLTjGWcfvkFYGpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mmj8a7+U; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="GzRXa0WX"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1dfd49525so910215e9.0
-        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 06:35:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mmj8a7+U"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48df4f540ebso334997f8f.3
+        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 06:44:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792244129; x=1792848929; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1792244668; x=1792849468; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bg8gcmVf98z+OPBCGbYb/r+iHjc/oki2rBnkAci8HgU=;
-        b=GzRXa0WXUD3So3RP5HtlDhI0t2k2BrlVLbcmaBT4T/kMicK4Hq0KNKkw1KpbEFqbzl
-         u0Y4aSogFLrOxRoAwwQUWQp1H78VzBZTIbuJZ+uFdN8XmdYZC/+hHlDxmxmZfEW8rn5f
-         +UAxJTwiywIZrRDlw7ufNS5pJLzbvMBocUYd/ac7/qSQQQna9+hljdKc6KQFvQl77w/p
-         IjLS5MRnIK30Sl+UNttobQy7bRd5TqKFKMMglUV/6n9CTLLJ7RZGP6zJi1pmhhSAEURE
-         FT2EQVzm2V0ktk+O4YqHJ9gaig0K4xX2oFEzDSRaII0j626AEiMeX45m64ZYUvACzKXN
-         CKLg==
+        bh=7zGCtE8QeIQktHUrqda/mm6sfjzhY0f9C7ySnIw33io=;
+        b=mmj8a7+UjYp3L8aHicsuLP+87SnLSHyFC6vpgDb9i8ypaA6yv+EhnvfVnB8wjlGgc6
+         Wr08N6hN22Wdn8MGuJpsuauK7UmOjR8XxovLRaZb+KgNy5lB9cgPqf6enLn4hfCtfwOY
+         mYQnGA96IpOOSoYIsVww83azNriv+bypFTSoLou3IRyEOROvZAR9y9EbieBbO9dJn03S
+         9bIDd34AhYX6t4lmjdjkILoXHqKxdSQnqEMtXR4xU5ulSCY9lnyOEyiSuaDUR21R93Op
+         NIw0di+Ad9sAHKRZ2NaRhVSSOGwJyp2h5jxnT+hpVw+a+jpVtnqok/cQiFrsv1NxzvJ6
+         tvuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792244129; x=1792848929;
+        d=1e100.net; s=20260707; t=1792244668; x=1792849468;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bg8gcmVf98z+OPBCGbYb/r+iHjc/oki2rBnkAci8HgU=;
-        b=IgvIiYX2bX68mX3W+KlJRC7Rh3gD9cl7AzZKE/xmgrMb/zTWSN3Uwdnwb7altZhNKS
-         wMYdwEecz9PmkqNIjzmt4WpG+4nIiEcCKViKCfZCFSoyXwc2nw2PxZny1QEhAKTvVJ5F
-         I1WxbA67BlXk+gN9HL68nDw7SM1iHETcne8zM/HFmOcMOtQxckhGP4HGptguFZgAGF/z
-         +Tplq4tUWQsv/DvIYfviLlWMcrV3Z4o5yk0L+Pl6DVIqvxttIcK33sLPThMz0kML6r56
-         VGJDi+bRopHczPUrFmWrvLv2GUELOrZvFixe90/cj4nv2uBMVUrtI6PTL7zy3YxrNGPW
-         We6A==
-X-Forwarded-Encrypted: i=1; AKwUvBzCG8DmCZtD5xi/KYNbpPHQZU+4bA/fZE5K9THFF88Co7Wq7vNrVDilNAgAsqRHA2vtjxNpFRiQygJiAQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0N56FK5lPt2ZfJSfbxfvJKX2OL/K7DLFZgwWdJn93UTqwejMW
-	borq+DbYTHqhqrlvJCWvquul2socaZpU3VL0CrwIgEg6YGY59C+jEB/VW9baX6HV6es=
-X-Gm-Gg: AYBFou1IREZSoK76jZ21y2U1pt6214WIfHftHcaoLMTpaaLYKvVaAJRdhLVp2Bob5qF
-	bmi72YL/6kTozY73PHrqamWi9UUIUvU9ZpK+ErZ5Wll9WpHHTblczrV+scY7aDmYzRMnIxJOcV1
-	2kcDYUKUG1Vw1IecNM1t+ITp5bglIjLu1y/aYXc4RGPf5lBEebjPqFvVX9yKJmvNgOX1nHMYQm1
-	fhcdQZcRTf+ZiNPtlNo2pyiDI6DuVrGUXboiIVid5+wdrdLPb32vuInLoGMfo/aQ1uETafdMkBX
-	8YFmMg5sW88kSqltBrqlb+TmyrB5VvBomGhKkChfQ9jzGTesNwoXRRG/1h7/c1DAhAMY58KVJ5s
-	DK0h6zDrw8Q8i8FriPTfcMYlkByHILdkrMPpvIY0a6HUAkAD14a8EDLGJmhm3EOe2Bw07p1PeP3
-	gKiYZWbM8NKz+z5i2kcTBSm+6/4LNkdzFSQaXup80gQBiDtV2SsILE+5bwvoGIvIWZwewQDZMNz
-	Mh+BKn8qHbr
-X-Received: by 2002:a05:600c:3b2a:b0:4a1:d1f7:bf4 with SMTP id 5b1f17b1804b1-4a1d75fcdc6mr63156145e9.12.1792244129542;
-        Sat, 17 Oct 2026 06:35:29 -0700 (PDT)
+        bh=7zGCtE8QeIQktHUrqda/mm6sfjzhY0f9C7ySnIw33io=;
+        b=hUue/QfsbAZl151dAKAL7RTrXlT50jih89vie1Nm+iMbblWznb459F+VH2OfVTZQhL
+         DbQ2qmSlVBGOEn5zh2FEjXnjiy6Y0tyQR41ueeCczHHzT/wVgD+/8iggA7c9a+58f0+l
+         vhIjCt/+RGbQno0/u6mISpyOFe/wm+aEd0Q3nnNFF+0TNLEmQ33fm7/m9d9ktAWcg66r
+         ZQrVstLw5SXiMEHxVh901X3yCsxyuHIYOcDIGOkNOAQFPhJkyRUN64uCINFd/zi/LaPb
+         fVA5FZ5EV1m68QJrtSIOvUeH65ODQWdQbMIG6o0FUxXlT+TmWUSf4IFQp2O351yG0Cz5
+         v80A==
+X-Forwarded-Encrypted: i=1; AKwUvBz3dog0UjWH0iQ+lENFc9rFTo+hb4EDOixXpsfprCaHxDTqYyz1tBxt2r0SlZYWoFWpmyzo3bhZcqR/EQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFz1De1W6JCmESka0I8tTA2WzoT7c/s1Q33lSxWo0dWFQBJlAf
+	/G0bsqKIbkEowBWCnw6TLgQaDjVTKVi1fxbg1DNFeNQfwEhKbW3hIv9sUC1zjEdFpNc=
+X-Gm-Gg: AYBFou3vYOwfnYBaijXsnJ/MyMah6Sy+QKqKWSI+1QJkFWBI6JBzpTSZroJ69AK23aN
+	sbu+RcF6msgDvB4pI4H1T7hRUnQgcZvYKeLgVaPel/gP8mfaOW+Edfwp3UzjPawBmYic4Ihw0ru
+	IDL700hc6ydjRrp4KbONUBT4UTByN9j7k5awKNknLmus30Z3iAg+fZv5cW8RWYZcNyuUM6i9ttL
+	ucO6pCRjSeDtaUh86mBaqpdkWGxI5qa2iQ1MzMU05innrBJ+F0bWo8emFtK3Fyw5U4Ax7FWXPaX
+	4hSTxkeMQkZkjcrfN1Mf9+DmLD7eTXbVz45cSlLJHpSG63HxeX9d3WOOPDtt3ZmXf5pBMNGdMxn
+	xEr2HlRH5stmF7AJCjOAc/zo6Sm0/sLHjCVP9z2UHwNAkKK3aabv8u9H+C5ExCYNIu3wApepZ5f
+	PjfImAjKdwL2A9D688iuou7qzAVSvucVPLEMW3W/aaTz9fJBhfUJgq3exyJQbmkzXNv7OT+jJoB
+	vD9Fr2cIq4Q
+X-Received: by 2002:a05:6000:468d:b0:48d:f39b:83de with SMTP id ffacd0b85a97d-48e07b92058mr3310171f8f.3.1792244668447;
+        Sat, 17 Oct 2026 06:44:28 -0700 (PDT)
 Received: from [192.168.0.167] ([109.77.131.195])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ce33155fsm90508865e9.4.2026.10.17.06.35.27
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd4f8d1esm11547094f8f.39.2026.10.17.06.44.24
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 17 Oct 2026 06:35:28 -0700 (PDT)
-Message-ID: <4d307e32-04c1-4df2-b93f-9dd187fa53b5@linaro.org>
-Date: Sat, 17 Oct 2026 14:35:27 +0100
+        Sat, 17 Oct 2026 06:44:26 -0700 (PDT)
+Message-ID: <c3608c29-a20e-4b88-a060-165116d2b6f7@linaro.org>
+Date: Sat, 17 Oct 2026 14:44:24 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,50 +69,129 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/6] phy: qcom-mipi-csi2: C-PHY for X1E80100
-To: George Neacsu <geocausa@gmail.com>,
- Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- David Heidelberg <david@ixit.cz>, Neil Armstrong
- <neil.armstrong@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
- Suresh Vankadara <svankada@qti.qualcomm.com>, tjose@qti.qualcomm.com,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, jigarkumar.zala@oss.qualcomm.com,
- hariram.purushothaman@oss.qualcomm.com
-References: <20261016-x1e-cphy-rfc-v3-0-40a346a72153@gmail.com>
- <db2fffdd-634c-4728-a2a6-2ab1816b07ba@oss.qualcomm.com>
- <20261017070443.989736-1-geocausa@gmail.com>
+Subject: Re: [PATCH] media: qcom: camss: configure C-PHY in the new
+ csiphy_stream_on()
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, david@ixit.cz,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
+ vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+ jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
+ akapatra@quicinc.com, linux-media@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
+ konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
+ alex.vinarskis@gmail.com
+References: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20261017070443.989736-1-geocausa@gmail.com>
+In-Reply-To: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 17/10/2026 08:04, George Neacsu wrote:
-> Bryan, Vinod: unless you would rather take this series, I will follow
-> Anusha's.
+On 17/10/2026 05:05, Anusha Arun Nandi wrote:
+> +	const bool cphy = (lncfg->phy_cfg == V4L2_MBUS_CSI2_CPHY);
 
-Fine by me, TBH I hadn't yet cottoned-on to the fact that the cphy init 
-sequences had been buried in the dphy file so, I'm happier with an 
-approach that = a separation of concerns between CPHY and DPHY as well 
-as absorption of both your and David's prior art - with appropriate 
-Co-Developed-by citations and SOBs.
+suggest is_cphy
 
-One thing I am picking up on with an initial scan is the absence of the 
-clock calculation helper functions in this new series.
+>   	s64 link_freq;
+> +	int i;
+>   	int ret;
+>   
+> -	dphy_cfg = &dphy_opts.mipi_dphy;
+> -
+> -	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, false);
+> +	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
+>   
+>   	if (link_freq <= 0) {
+>   		dev_err(dev,
+> @@ -346,23 +345,49 @@ static int csiphy_stream_on(struct csiphy_device *csiphy)
+>   		return -EINVAL;
+>   	}
+>   
+> -	ret = phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num_lanes,
+> -							 dphy_cfg);
+> -	if (ret < 0) {
+> -		dev_err(dev, "Invalid config for link frequency %lld\n",
+> -			link_freq);
+> -		return ret;
+> -	}
+> +	if (cphy) {
+> +		struct phy_configure_opts_mipi_cphy *cphy_cfg = &phy_opts.mipi_cphy;
+>   
+> -	ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
+> -	if (ret) {
+> -		dev_err(dev, "Failed to set phy mode\n");
+> -		return ret;
+> +		ret = phy_mipi_cphy_get_default_config_for_hsclk(link_freq, num_lanes,
+> +								 cphy_cfg);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Invalid config for link frequency %lld\n",
+> +				link_freq);
+> +			return ret;
+> +		}
+> +
+> +		/* Set data trio lane positions and polarities (no clock lane) */
+> +		for (i = 0; i < num_lanes; i++) {
+> +			cphy_cfg->lane_positions[i] = lncfg->data[i].pos;
+> +			cphy_cfg->lane_polarities[i] = lncfg->data[i].pol;
+> +		}
+> +
+> +		ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_CPHY);
+> +		if (ret) {
+> +			dev_err(dev, "Failed to set phy mode\n");
+> +			return ret;
 
-Anyway let's see if that turns out to be required with a deep dive on 
-this one.
+We already derive the lane positions and polarities in the PHY driver. 
+There's no reason for the CSID block to know or care what the polarities 
+or positions are.
 
-I will mark your series as superseded in patchwork on the understanding 
-you will rebase on top of Anusha's work.
+drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c::phy_qcom_mipi_csi2_parse_routing()
+
+I guess the PHY already knows the polarities and positions - or at least 
+knows them for the DPHY case.
+
+         /* lane-polarities: optional, up to num_data_lanes + 1 entries */
+         memset(lane_polarities, 0x00, sizeof(lane_polarities));
+         num_polarities = fwnode_property_count_u32(ep, "lane-polarities");
+         if (num_polarities > 0) {
+                 if (num_polarities != stream_cfg->num_data_lanes + 1) {
+                         ret = -EINVAL;
+                         dev_err(dev, "clock+data-lane %d/polarities %d 
+mismatch\n",
+                                 stream_cfg->num_data_lanes + 1, 
+num_polarities);
+                         goto out_put;
+                 }
+
+                 ret = fwnode_property_read_u32_array(ep, 
+"lane-polarities", lane_polarities,
+                                                      num_polarities);
+                 if (ret) {
+                         dev_err(dev, "Failed to read lane-polarities: 
+%d\n", ret);
+                         goto out_put;
+                 }
+         }
+
+         csi2phy->stream_cfg.lane_cfg.clk.pos = CSI2_DEFAULT_CLK_LANE;
+         csi2phy->stream_cfg.lane_cfg.clk.pol = lane_polarities[0];
+
+         for (i = 0; i < csi2phy->stream_cfg.num_data_lanes; i++) {
+                 if (data_lanes[i] < 1 || data_lanes[i] > 
+CSI2_MAX_DATA_LANES) {
+                         dev_err(dev, "Invalid lane %d\n", data_lanes[i]);
+                         ret = -EINVAL;
+                         goto out_put;
+                 }
+
+                 /* Convert data-lanes = <1 2 3 4> to bit positions */
+                 csi2phy->stream_cfg.lane_cfg.data[i].pos = 
+data_lanes[i] - 1;
+                 csi2phy->stream_cfg.lane_cfg.data[i].pol = 
+lane_polarities[i + 1];
+         }
 
 ---
 bod
