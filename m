@@ -1,162 +1,158 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C91C94CA77D;
-	Sun, 18 Oct 2026 14:52:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F5E2AD0C
+	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 14:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792335131; cv=none; b=gcpTqvkz2Kvdrhr6w9OAf6nUsAKfYmFK8cYCBFePnDMBjcQlz2XnnIR/Sa3y9PUVoWT90mVDyTWBZTut1t0Be5VeY82SWYDQCo1tEsBrSaAp/3VgBTgh5hIBmvOjRakVqjZ4/yAYkSD4auFfS7gWt62YcG5Mj6MvR1puDLkJxNM=
+	t=1792335225; cv=none; b=kklBVJiS+T/sFFx1AcKoTpwJvpzUvyOhq9MD9kFCY8HqLG/XgSYuJ3RYA38CZEMZFusp0Y0735vGc/GkadSRpyPix7iw62JuSa5N5LoQyP9/54yKWWBr1H/suRnB6z11+u38tfsOiX9rLcpe5r3S441VITsxobEIY1V8E4f5lS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792335131; c=relaxed/simple;
-	bh=8JK5n4UiR2sk70NeOsm9MCvRPii9PmbkUF055TEG2WY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MfxwwTj+ITHDonk5OEPCcoXoGRFE0acCerU1XmmGG2VbUYKwbPgYwmCxmI5J72bSVOVywBr6uPXEvHNjAbnVnvHNCx4siyIYRfCrQtXyggDP5aRBSVn6iCWfU5tp0cr1RE08sFcHdHjEfhHbSxeppHrt1ZzI60t93YNEvsBNivo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BPsiTVjt; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1792335225; c=relaxed/simple;
+	bh=RL+kvymONO/njLyfOpDPHFUhbLeTjUKzMjLfPXIrS0s=;
+	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=FmnrZ+XEE/GHOXqaeecGiAW9gbL10XnwAdiTBWOtfJ338d1u25n/UjDuwea0Yv663GlGT56QzeEFgR5VCWraCe89pJjmKdKNdjXwhUyShYWTFI8o2HDmV1R7r+efoKB+obdSLO83W3NV40bmjLpxFgUx1AKVT205bY2l0tlm4nQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=olleco.com; spf=pass smtp.mailfrom=olleco.com; dkim=pass (2048-bit key) header.d=olleco.com header.i=@olleco.com header.b=p8RDYsFe; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=olleco.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=olleco.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BPsiTVjt"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792335127; x=1823871127;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8JK5n4UiR2sk70NeOsm9MCvRPii9PmbkUF055TEG2WY=;
-  b=BPsiTVjtowA22KqkSPKq9tod7ri1tKuIUNckD17eZXa/o54YQ/TSRUhA
-   tFwY5/v86NMOyDUfR1u0TmBi1/y2rL5MKggI8pOmG8JAQbd+/XQo7boNn
-   wpoDEQ3mdT7ClGqcYfSJlvbrisBbG74N3OifoyGhyxGZlFXCkZaZ+joK0
-   5FvFEQ2YaZaBLAOPpNoTSBX//qZ6Xhi+EeBFh3Imq54CqCkKaL98omLrS
-   puhJDNarYYaZbyiFkIMfrKDfXDk35lr79OSpKoWGt2BsmtWzEKhtuuuzh
-   aAy5ldEetftCHhNAhOl1SVIPh81TOCA1m7WUJRStjyTA5dXEfNVrPyV/N
-   A==;
-X-CSE-ConnectionGUID: WA2oAKjaRsmCNTyLGiKUEw==
-X-CSE-MsgGUID: alUsU5hDS0e57zDu9e7O8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11938"; a="936962"
-X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
-   d="scan'208";a="936962"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 07:52:06 -0700
-X-CSE-ConnectionGUID: T39agZ+KQRWe8mTPsVjnmQ==
-X-CSE-MsgGUID: pGfObVT1RNKr7BCe1edcsQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,165,1787036400"; 
-   d="scan'208";a="4123360"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 18 Oct 2026 07:52:03 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xISEy-00000000KV8-1qki;
-	Sun, 18 Oct 2026 14:52:00 +0000
-Date: Sun, 18 Oct 2026 22:51:25 +0800
-From: kernel test robot <lkp@intel.com>
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bryan O'Donoghue <bod@kernel.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
-	kernel test robot <lkp@intel.com>,
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH v10 5/5] media: iris: Add BUF_ROIMB_DELTAQP metadata
- buffer for ROI delta QP
-Message-ID: <202610182259.q2CvO4TK-lkp@intel.com>
-References: <20261016-enc_roi_enable-v10-5-bc5bd37b6f3e@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=olleco.com header.i=@olleco.com header.b="p8RDYsFe"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso5798125e9.1
+        for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 07:53:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=olleco.com; s=google; t=1792335222; x=1792940022; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:content-language
+         :disposition-notification-to:subject:from:cc:to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OGt6jZ0bycN2m14q9/JUZhUOc34onO9VgLDa6Iy9lSQ=;
+        b=p8RDYsFe58KmQ1jYfUbJgerUNmm1+JvDYiENeXtdGEmrIC4JB3rd3L4P+FxAE9sGZb
+         H8maS7hbMNOD8kKplVjZGRCLQslVkmp/0gb/9v1+OkB4Bduy2SKb9UDUpCi9eKprY8kh
+         R0E4d4AcrUAO057fp3zVn9ayr8r9f5dFSkZavatVXR2PVr6Rd7DTcmDNyPZvveMolBOG
+         +fIyaTtovCp8UQ/yWeGJYQAiLdrtquHlz8RNNE5lhbcvDfbVi33fBvx9e21Upo+Q4HRv
+         t712JnYhLitKiJ6GVBILUsNNW+Yk6ji2FE59nEPYIB0NREINIuGLgg/FzAUACd+YHFeP
+         bItQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792335222; x=1792940022;
+        h=content-transfer-encoding:content-type:content-language
+         :disposition-notification-to:subject:from:cc:to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OGt6jZ0bycN2m14q9/JUZhUOc34onO9VgLDa6Iy9lSQ=;
+        b=0+eGQ8kibAw4mGWYfyga+cj/StPhNyUIT/WLx8p7SjjhCijlB8XbxVqm6qDjkQWCEJ
+         Rdt4oZZ/XoCcWiY3Yt5OX4LBniQyHbOcvGW28j+3cDfZsIHfjCqdjc4BG6WkYoGe/V4Q
+         Sqq3dfX7KzhM8jf7O+NfRzRn0XUY7N8w7BmfoLYgqM0dARfdbTYa969JOPtYsP6JF86O
+         KdyOaIJ/pauWUsolHDZL8ryAZPKyCXngYMvGyMsrynC+qQemXsstGb7JUIbQBtMFCMfS
+         n2I0GSu2QiMjdfX3mKw8fvQTr5fGhJG/pix4Dy7d8UTcJLajrLeLJQivcaNwCJ0aBsvh
+         eDdg==
+X-Gm-Message-State: AFq9FYIQ0vc7YfUxbLidtMLTxKHsDFdriGKwlde8VVfT9nM+NQ+pwJoL
+	5XZvjarJSlZE94v17HjPpoUdghsH44X+CsH8E4ihtx8CUPX6WyQY1+OCOxGAqYx4jVTkGqKzhsv
+	V0bsI58FS1psiAae3UN6d90UhYQc8XyA+7Bj4YqivumFlM3ahTHreVQiYybKBFPipgUTf/EJepZ
+	97
+X-Gm-Gg: AYBFou0CBC3dk6vJgWQhbIbblmW/2ysIru3znEHVlogVAF5fz1rKl8JI2DC0MLrV3PD
+	LvqpEcZP3Y5ySQnP1h26zUa8oXK4WGhiwI0WDiZY48E3XPmKtZXpSKN8lvXPZnU5DMS9BwjHYdi
+	nc7HIhG5bviD5wv+fwHde7zsBMmcTsH8QKI+mzlW5dX5xOcHGtFvG/Zsbim+i67nrH7Xchy2Tx9
+	VPHMF9tVQwTpFzqH8ZRCm+PcmHQ580NLlFzDlunKo7vhY5siCaiYCp8TUCsy4p5vrYqbj4L8t0D
+	2uUykzikYEW4QfM670qzr6RGw7g/iUiwt5Yy0FgK37wT5kzd8eZGInq+GkgaWeCqDEChPgeT3n6
+	nKHISbm2mDFqUZhLVK/pmr/EYdikove8igniNFw1CnJ/uHhYXUZazdLpYZA9AXSZBc9vc3A7d1M
+	29V+wMocPusHad6hzygRr6nudcKMao7SGYNY/BMMt3jziiWO7SjauBkjhxW3uW1f50RVgNwCKzX
+	uO5y/uyMPxxh6bm8yXbx5M=
+X-Received: by 2002:a05:600c:3b1c:b0:4a1:d248:25c4 with SMTP id 5b1f17b1804b1-4a1d76046dbmr106737535e9.13.1792335221848;
+        Sun, 18 Oct 2026 07:53:41 -0700 (PDT)
+Received: from [192.168.1.40] ([178.251.45.20])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1c8ddde4esm254089565e9.12.2026.10.18.07.53.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 18 Oct 2026 07:53:41 -0700 (PDT)
+Message-ID: <beae3dae-7716-4dd6-962c-d60ac8029323@olleco.com>
+Date: Sun, 18 Oct 2026 17:53:39 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016-enc_roi_enable-v10-5-bc5bd37b6f3e@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+To: Jimmy Su <jimmy.su@intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+From: Olgun Karademirci <olgun.karademirci@olleco.com>
+Subject: ov08x40: 1928x1088 binned mode produces no valid data on IPU7
+ (2-lane), "error group 3 code 18"
+Content-Language: tr, en-US
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Hi Deepa,
+Hello,
 
-kernel test robot noticed the following build warnings:
+On a Dell XPS 14 (DA14260, Intel Panther Lake, IPU7 PCI ID 0xb05d) with an
+OmniVision ov08x40 (ACPI OVTI08F4) connected over 2 CSI-2 lanes, the
+1928x1088 binned mode of the ov08x40 driver does not work. The 3856x2176
+full-resolution mode works correctly at about 28.6 fps.
 
-[auto build test WARNING on 64f76d5d9fd17a5661d7e5eab2aa99218db60d0b]
+Environment:
+ =C2=A0 - Kernel 7.2.11-200.fc44.x86_64 (Fedora 44); the same on 7.2.10
+ =C2=A0 - intel_ipu7 (staging), firmware intel/ipu/ipu7ptl_fw.bin,
+ =C2=A0 =C2=A0 isys/psys version 1.2.1.251215214331, commit ee59e1e0
+ =C2=A0 - linux-firmware 20260916
+ =C2=A0 - libcamera 0.7.2, simple pipeline handler with Software ISP
+ =C2=A0 - Sensor: MEDIA_BUS_FMT_SGRBG10_1X10; frame sizes 3856x2176 and 192=
+8x1088
+ =C2=A0 - link_frequency menu: 0 =3D 400000000, 1 =3D 749000000 (read-only)=
+;
+ =C2=A0 =C2=A0 pixel_rate 320000000
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Deepa-Guthyappa-Madivalara/media-v4l2-core-add-new-control-type-V4L2_CTRL_TYPE_S8/20261016-160032
-base:   64f76d5d9fd17a5661d7e5eab2aa99218db60d0b
-patch link:    https://lore.kernel.org/r/20261016-enc_roi_enable-v10-5-bc5bd37b6f3e%40oss.qualcomm.com
-patch subject: [PATCH v10 5/5] media: iris: Add BUF_ROIMB_DELTAQP metadata buffer for ROI delta QP
-config: hexagon-randconfig-1001-20261017 (https://download.01.org/0day-ci/archive/20261018/202610182259.q2CvO4TK-lkp@intel.com/config)
-compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261018/202610182259.q2CvO4TK-lkp@intel.com/reproduce)
+Reproduce:
+ =C2=A0 cam -c '\_SB_.LNK1' -s width=3D1280,height=3D720 --capture=3D10
+ =C2=A0 (libcamera selects 1928x1088 on the sensor)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610182259.q2CvO4TK-lkp@intel.com/
+Result: each frame produces an ISYS error, frames arrive at about 3.6 fps
+instead of 30, and the buffers are filled with 0xFFFF:
 
-All warnings (new ones prefixed by >>):
+ =C2=A0 intel_ipu7_isys.isys intel_ipu7.isys.40: 06=20
+IPU_INSYS_RESP_TYPE_PIN_DATA_READY stream 0 pin 0 buf_id ... frame 0
+ =C2=A0 intel_ipu7_isys.isys intel_ipu7.isys.40:=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0error group 3 code=20
+18 details [0 0]
+ =C2=A0 intel_ipu7_isys.isys intel_ipu7.isys.40: 09=20
+IPU_INSYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE stream 0 pin 0 buf_id=20
+... frame 0
+ =C2=A0 intel_ipu7_isys.isys intel_ipu7.isys.40:=C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0error group 3 code=20
+18 details [0 0]
+ =C2=A0 intel_ipu7_isys.isys intel_ipu7.isys.40: 06=20
+IPU_INSYS_RESP_TYPE_PIN_DATA_READY stream 0 pin 0 buf_id ... frame 1
+ =C2=A0 ...
+ =C2=A0 intel_ipu7_isys.isys intel_ipu7.isys.40: stream stop error: 18
 
->> drivers/media/platform/qcom/iris/iris_buffer.c:955:22: warning: unused variable 'f' [-Wunused-variable]
-     955 |         struct v4l2_format *f = inst->fmt_src;
-         |                             ^
-   1 warning generated.
+The same capture with a size that selects 3856x2176 works without errors.
+
+Since the full mode works on the same link, I suspect the binned-mode=20
+register
+list or its link-frequency, lane or timing settings do not match a 2-lane
+configuration. I have not confirmed this.
+
+Two minor issues on the same sensor:
+ =C2=A0 - VIDIOC_SUBDEV_G_SELECTION is not supported. libcamera reports=20
+"Unable to
+ =C2=A0 =C2=A0 get rectangle 0 on pad 0/0: Inappropriate ioctl for device".
+ =C2=A0 - The image is rotated by 180 degrees on this laptop.
+
+I can test patches and provide more logs, such as dynamic debug output or
+register dumps.
+
+Thanks,
+Olgun Karademirci
+
+--=20
+OLLE 	Olgun
+KARADEM=C4=B0RC=C4=B0
+Ankara =C3=9Cniversitesi
+Teknoloji Geli=C5=9Ftirme B=C3=B6lgesi
+G=C3=B6lba=C5=9F=C4=B1 - Ankara 	=C2=A0 =C2=A0 =C2=A0 =C2=A0 TEL: 	=C2=A0 =
+=C2=A0 +90 312 485 20 69
+GSM: 	+90 533 491 34 36
+WEB: 	www.olleco.com <http://olleco.com>
 
 
-vim +/f +955 drivers/media/platform/qcom/iris/iris_buffer.c
+--=20
 
-   947	
-   948	static int iris_fill_roi_data(struct iris_inst *inst, struct iris_buffer *buffer)
-   949	{
-   950		s8 *p_array = (s8 *)inst->fw_caps[ROI_PARAMS].p_array;
-   951		u32 payload_offset, lcu_width, lcu_height, row_size;
-   952		u32 array_size = inst->fw_caps[ROI_PARAMS].elems;
-   953		struct metabuf_header *mbuf_hdr = buffer->kvaddr;
-   954		struct metapayload_header *mbuf_payload_hdr;
- > 955		struct v4l2_format *f = inst->fmt_src;
-   956		s16 *p_16, *p_temp;
-   957	
-   958		memset(mbuf_hdr, 0, sizeof(struct metabuf_header) +
-   959			sizeof(struct metapayload_header));
-   960		mbuf_hdr->count = 1;
-   961		mbuf_hdr->size = sizeof(struct metabuf_header) +
-   962				 sizeof(struct metapayload_header);
-   963		mbuf_hdr->version = BIT(16);
-   964		mbuf_hdr++;
-   965		mbuf_payload_hdr = (struct metapayload_header *)(mbuf_hdr);
-   966		payload_offset = sizeof(struct metabuf_header) +
-   967				 sizeof(struct metapayload_header);
-   968	
-   969		mbuf_payload_hdr->type = HFI_PROP_ROI_INFO;
-   970		mbuf_payload_hdr->version = BIT(16);
-   971		mbuf_payload_hdr->offset = ALIGN(payload_offset, 256);
-   972	
-   973		if (inst->codec == V4L2_PIX_FMT_HEVC) {
-   974			lcu_width = DIV_ROUND_UP(inst->enc_raw_width, 32);
-   975			lcu_height = DIV_ROUND_UP(inst->enc_raw_height, 32);
-   976		} else {
-   977			lcu_width = DIV_ROUND_UP(inst->enc_raw_width, 16);
-   978			lcu_height = DIV_ROUND_UP(inst->enc_raw_height, 16);
-   979		}
-   980		/* Firmware expects each row to align to 8 LCU */
-   981		row_size = ALIGN(lcu_width, 8);
-   982		mbuf_payload_hdr->size = row_size * lcu_height * sizeof(s16) + 256;
-   983	
-   984		if (array_size != (lcu_width * lcu_height))
-   985			return -EINVAL;
-   986	
-   987		/* Firmware expects 2bytes of delta_Qp, int16_t */
-   988		p_16 = buffer->kvaddr + mbuf_payload_hdr->offset;
-   989		for (int j = 0; j < lcu_height; j++) {
-   990			p_temp = p_16 + j * row_size;
-   991			for (int i = 0; i < lcu_width; i++)
-   992				*p_temp++ = BIT(11) | ((p_array[j * lcu_width + i]
-   993							   & 0x3F) << 4);
-   994		}
-   995	
-   996		return 0;
-   997	}
-   998	
+https://www.olleco.com <https://www.olleco.com>
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
