@@ -1,133 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D344AB1AA;
-	Sun, 18 Oct 2026 21:10:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDB53D7D72
+	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 22:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792357823; cv=none; b=NvxJ8s2TS47EByPuOxYc4GXBih3lur+pvnTHIRibzd0ZjPqPPJjmV5ZJLjZbFkQM44gBeIIyaoiIQuKubPeVQHMoEtMlO1mgbyvXGYKenxwjD6GFOkdJfpa/V2SCOKcYmgR6ELsGXXKz6ejwmzJckCqkxSB1KumSJvU7JcuT9+I=
+	t=1792364083; cv=none; b=CjRHDS2/Gi9CowPvBA5nqTOuQ+A8XPX+w4zapbMLBULrA0RTpdrLbPTgeJfhXnWv+ybKzv0LlOhwGsmHg3OnX5B9H51XBp23efxJ/r3KzxwxPrQWpfR1OpxhT9MHdnbzc/GahII3175syGCM51/RyYVwifybZgF8r+4OrHICUpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792357823; c=relaxed/simple;
-	bh=bS/6/i6Fqjy0XUY7goCfpZnpjhJR3lPocnmskSL3GX4=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bp6+Qr+aInqzCDpzTynoLJGsW+tdcFoSjT5DHVMEnQ1+NWXCXy8Pz3ZAxx8sD26dI+MpRuo4aqsP0VJBy/VjMg/uRXS9YtdUaLComMKtCDmFvl6JKmBqreqGav7FH8Vq7XjI3CDgd1mIZRPhUqB6KKtf4+EV5f0lXvrk6CuBw2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EuBxa6E4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1792364083; c=relaxed/simple;
+	bh=XYhSvFA7CBE5j2HCUixLblDFjVWyrOA3uBQKm7vadDE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BJ5luKZPlVkx3kVZMm46cBgQahMIXkSeWN4VE+KTZDjQDO/0fbZ1F5nM2x/FGTPu+3Bmn+MlNJ/5hE0GDbP6pUbSEprU/V6LbXomBrggKuJBJTZSa1PbpCnSxYmAWq365Vd515d/tlyr8vhzE07dMFmlO2RIjyAaekpChEeFI1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdnt1SQm; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EuBxa6E4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 48677C2BCC7;
-	Sun, 18 Oct 2026 21:10:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1792357823;
-	bh=bS/6/i6Fqjy0XUY7goCfpZnpjhJR3lPocnmskSL3GX4=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=EuBxa6E4hefm/9BJy5qFqk8xx7vJ7GrhSntk/X3RhHjj3BB8LvXVsc3PG6+0CmYPd
-	 VRuJEg1XAMOn/GY0d7LrLhzHGelSK5f7aPOnUt0QmO5pxxcPMyTFm7STsrPeE0xvAY
-	 UvSvul7KkA6cTJ3Vdu9faY9NsROTNPaJ4/Nt+f0Ncn6+/YLuD4eoPIfzsctHg6pbuF
-	 vgrEYPi0p1pT+HSmCQmGl1y9NnnzpcYdVfX7J8pqTgz+97+YtdmQtJPTamJsbmP0FS
-	 AQQBD7UQmD7ieIlCPrD6bROjq/KJSl6JyKDRUV8QVnsLWFaJcMK0eV9Rp3M034817O
-	 SXAJzA0X80wrQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 225ACCCF2C9;
-	Sun, 18 Oct 2026 21:10:23 +0000 (UTC)
-From: George Neacsu via B4 Relay <devnull+geocausa.gmail.com@kernel.org>
-Subject: [PATCH v2 0/2] media: ov13858: device tree support for the Surface
- Pro 11 (Snapdragon)
-Date: Sun, 18 Oct 2026 22:10:20 +0100
-Message-Id: <20261018-ov13858-x1e-v2-0-cd35434cfcfe@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdnt1SQm"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso777330f8f.1
+        for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 15:54:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792364079; x=1792968879; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
+        b=cdnt1SQmdLpQdw4/vsPLYrjkdD8r6sYDy4++rdwleAx64mjKe/vn1eFlfkn5GBxr1B
+         4JoQtVHNjqbtxqn3Z99sOf4E0MAkDbLLc2oDLmVZsQ+iw12SZsl9J5F4AzjXjrSJ7RhO
+         hYnFjqZOV/qxag0gTy5W/M8QttJLXx9WFQEX+fdrwUSQxYHj+WsLMUHTxTO8kXsiUeoy
+         gmnB5hVnuqRPxPOQDa4DeEEkhE4jNs1T+tUX/7rVa8dCsqaFgJok3nzsQm0twcbpl690
+         gzi8XXk6//eLLOUdWlASm1q9AtIl4Q+Wxz3LJ+ieCcBAsrM44/CyeiipK0BB9sRKAMV/
+         z5UQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792364079; x=1792968879;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
+        b=EnUOmnZU860YABihMNfKF3FBnIGHUpin026jmBBnZT3GPqz1Vayk6LMrhtaTyn5Uz3
+         Agg/GtsbHWNFMW33l8NS3p3/xijBittWPIuXvSkz++XqkMVibVzXs89cdavM04suq00N
+         ixBvF3gnO+XThBF9yZi8C01y3iPsOAn+8qxm75dl/dz7GoNl/eEYEHmF8rhgytu/JqO4
+         /Al0H/XR6Cpmehm8gLrLlxdkK/0pAC2KSWh8dirSlXsdg0fHw6Mduf+VGIWea5U8s3Jm
+         JC0pU9rcrkT/ruASI5HNRG9UwdfUp6l5hFxg95RKmud66s0NPInwDZo1ET4UIEGdeUCt
+         ESqw==
+X-Gm-Message-State: AFq9FYI+nIabSPOCzVbn7wfN5z3iSUqNrfczkuAqqPuSzZotaPo4LZnc
+	yvWfadhuc/IAQzFOL8Tu70oElWlOMeWwxBnG2SJ65Lbh9U+SEXIJDWw=
+X-Gm-Gg: AYBFou3LzvN+Yim330BwnwolC0bfEuEVXunIfkaj9qwiThrzY2XcCYiuB7Gy/oki3OB
+	sLL6TGq3G3ckEnErPzVjz2qWfJ+acqjLDRNEtykdUU6shjXUcaUK22vx+gy4qbmGavkhs6ImLGt
+	eq7Ph+rY85EPE027QCuFl6ULRhjPKImpCQz2BK9MzmGLOyVhdaYgFy8hUs5k9AF6MiiLZw99fpN
+	O9y0i2NpxSFV/e78TcgAdJTH86mvfv+/JjcTVD6H9gj+Icob8PDe6UspM8w7tvgYx9awXb3j1gX
+	wgFCGnUwj70NrVDaHbhq+O5DoHc+nle6XqDehvRWVr/20hvMD+j7ycKI/ETm3OgQzHqW6n2LW/n
+	T/zrLWxJ/BS4sEUiJLQIyItIrVKlA98R28cpFtVlPmBrIuHj+qedxLC8ynU4Cj8UPuIrs0oVIcc
+	pwhdYZNTQBHaWAF85yG9/slLpe/iSYYdlW0v+CDL0=
+X-Received: by 2002:a05:600c:548c:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a1d7610f2dmr127399005e9.20.1792364079193;
+        Sun, 18 Oct 2026 15:54:39 -0700 (PDT)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm42257355e9.3.2026.10.18.15.54.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 18 Oct 2026 15:54:38 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH 0/3] media: USB: validate transfer lengths in URB callbacks
+Date: Sun, 18 Oct 2026 22:54:34 +0000
+Message-ID: <20261018225437.2655311-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23OTW7DIBCG4atYrEvFDAbGXvUeVRb8DDFSHafGt
- VJFuXtxsu3yG2kevXdReS1cxdjdxcp7qWW5tIFvnYiTv5xZltS2QIUWFBi57KDJkLwBS6IcUiD
- qM6FoH9eVc7k9tc9T21Op27L+PvEdjuv/zg5SSR9TGoByn4P9OM++fL3HZRanxwte+fun1W0vX
- Vz9FqfWNnax98FFBQmZYWCbko2AGYEHw8oadJ4jaj4Cg68smzqXbeySYxeid2AHcjr0lsk0CE0
- ElbXWB2MoUUt4/AERhAU3KAEAAA==
-X-Change-ID: 20261015-ov13858-x1e-88fbdb884f82
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>, 
- German Pablo Lindo <germanpapulindez@gmail.com>, 
- Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, George Neacsu <geocausa@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792357821; l=2545;
- i=geocausa@gmail.com; s=20261015; h=from:subject:message-id;
- bh=bS/6/i6Fqjy0XUY7goCfpZnpjhJR3lPocnmskSL3GX4=;
- b=rDqpoMN+J33AG8ak1CbPrKpqfBHtykw9PbGFurFmqhyZYHn/qtZXGfZFv170VjJX43IwSp/mj
- YcupXwAb/ZsDj/wPUjJB6Zsfdrxutj25jCOx0yPmhDLzfZtUdzFWz7Y
-X-Developer-Key: i=geocausa@gmail.com; a=ed25519;
- pk=KyQk/iWbxsikewDBh0SwlHI51RvAqahD3loqmRp9DVI=
-X-Endpoint-Received: by B4 Relay for geocausa@gmail.com/20261015 with
- auth_id=1199
-X-Original-From: George Neacsu <geocausa@gmail.com>
-Reply-To: geocausa@gmail.com
+Content-Transfer-Encoding: 8bit
 
-Hi Sakari,
+From: Tristan Madani <tristan@talencesecurity.com>
 
-The Surface Pro 11 with a Snapdragon X Elite (X1E80100) has an OV13858
-rear camera on Qualcomm CAMSS over four D-PHY lanes. This two-patch
-series adds the DT binding and the OF/endpoint support for the existing
-sensor driver.
+Several media USB drivers process URB transfer buffers at fixed
+offsets without checking actual_length or iso_frame_desc
+actual_length.  When a device delivers a short transfer, the
+arithmetic on the length value wraps and the driver reads or copies
+from an unintended memory offset.
 
-v2 keeps Sergey's power-management work as a prerequisite, updated to
-his v4:
-<20261016210246.58562-1-lsa.uz@pm.me>
+This series adds minimum length checks to three drivers:
 
-On the Snapdragon model, the v4 runtime-PM callbacks are equivalent to
-the v3 callbacks used for the hardware test. I ran 20 open/stream/close
-cycles on the rear sensor; it runtime-suspended between every cycle and
-streamed again each time. Three additional cycles saved complete
-4224x3136 RAW10 frames. The camera rails were enabled while streaming
-and disabled between sessions.
+ - cx231xx video: isoc and bulk handlers need buffer_size >= 4
+   before computing p_buffer + buffer_size - 4
+ - cx231xx VBI: same pattern, raise threshold from > 0 to >= 4
+ - au0828: isoc handler subtracts 4-byte header, raise threshold
+   from > 0 to >= 5
 
-System suspend has not yet been tested on the Snapdragon model.
-Suspend/resume support for this platform is currently being brought up
-separately, and I plan to include the camera in that testing once it is
-ready. This series therefore makes no suspend/resume claim.
+Tristan Madani (3):
+  media: cx231xx: validate minimum transfer length in video handlers
+  media: cx231xx: require minimum VBI transfer length
+  media: au0828: require minimum isochronous packet length
 
-Sergey tested the DT patches on the Intel Surface Pro 11: the endpoint
-check passes, 4224x3136 streams at 29.95 fps, and v4l2-compliance passes
-46/46 on the subdev. His Tested-by is carried on both patches.
+ drivers/media/usb/au0828/au0828-video.c     | 2 +-
+ drivers/media/usb/cx231xx/cx231xx-vbi.c     | 2 +-
+ drivers/media/usb/cx231xx/cx231xx-video.c   | 6 ++++++
+ 3 files changed, 8 insertions(+), 2 deletions(-)
 
-Thanks to Sakari, Krzysztof and Bryan for the review and guidance.
-Krzysztof's Reviewed-by is carried on the binding, and Sakari's latest
-review feedback is folded into v2.
-
-Changes in v2:
-- update the prerequisite from Sergey's v3 to v4;
-- carry Sergey's Tested-by on both patches;
-- remove the fixed 19.2 MHz claim from the binding description;
-- let v4l2_fwnode_endpoint_alloc_parse() handle missing-endpoint deferral;
-- trim the driver commit message to the implementation change;
-- document the Snapdragon runtime-PM cycle results.
-
-Link to v1:
-https://lore.kernel.org/r/20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com
-
-Signed-off-by: George Neacsu <geocausa@gmail.com>
----
-George Neacsu (2):
-      dt-bindings: media: i2c: Add OmniVision OV13858
-      media: i2c: ov13858: Add device tree support
-
- .../bindings/media/i2c/ovti,ov13858.yaml           | 113 +++++++++++++++++++++
- MAINTAINERS                                        |   1 +
- drivers/media/i2c/ov13858.c                        |  54 ++++++++++
- 3 files changed, 168 insertions(+)
----
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20261015-ov13858-x1e-88fbdb884f82
-prerequisite-patch-id: c4ab7c01d2ee19e6dd6c12f21e95e06527aec23e
-
-Best regards,
 -- 
-George Neacsu <geocausa@gmail.com>
-
-
+2.39.5
