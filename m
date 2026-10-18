@@ -1,215 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3558A46D0AC;
-	Sun, 18 Oct 2026 16:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD76E3822B7;
+	Sun, 18 Oct 2026 20:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792339274; cv=none; b=RCowuGlduaMFYaS8QFwzPZUMdZYfVP2nEn25aHCvN7JtVJENeR+RacOKIgN/R/QrcRwiumfvVCPCtZW/KyLVBNhJI/N43qIBAO11ALqKEKcuTCsRn+iJEPLCh4y/rIr4VinXKWcCUHzMZMlUYFuX/1HUf+l3ZllgUPhD4DP7AdQ=
+	t=1792355079; cv=none; b=mQfmF1VdenCmzPL2q6Dp+nhoCfLEQmis2HIv10lsbSVOL4Fy9Vrp/2iSdw2OjCvmsMK+4TjtweFnwUpq2T9A0mH0n46ujr4CflcHewynTGWQsSruDSAbatJ34mQ6GkuGV5lv6JdVMeWvh+bcQng577SYFvtzMGxCKh6y72ygSlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792339274; c=relaxed/simple;
-	bh=//X/wiwmt+Im6yHVEXxiJnHvXhCwAM0skc53aOjteRE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m4O7+8lW2f6hjK8W7L3WR04zYlw6MRMCFYWhwNRZcVpGVyjMb3QxgGKiHEJxK6S+xkrym127WeVZH6Uj9Pc6r07Bq3gsk4V3nM6ESuKHR28s+2D6Zf++2rs3xwgqVIgln9rkpSRzkQoltr4cevDA9vtwTQWeWsNBtZeJG+2N964=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MyocOagE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1792355079; c=relaxed/simple;
+	bh=8EXiAU+nnZhBF5RF4EXLhLVcIQpM1Oi6/k0fDL0+9hw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jn9rqryAWnl6mFBVnorMJ3neP5YlEWle0OpEd9hwk1/cpqiQgp9jbFARq906hwm1ktln+SW+qbVITQYRF06+w49SCWuBN/RdLIenU+FHrO7VdkakhbToPNHvYcL+87FnmcurAGTgd7W5aYYnfXyU5hFe5rydqHL+xGhFaBaFP0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G71m86tl; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MyocOagE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571411F000C4;
-	Sun, 18 Oct 2026 16:01:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792339273;
-	bh=AvBfaI1A7Wm4thY0Q9puG6a7Zmf5trkowv5N01h1M4o=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MyocOagElc7aW/wWF57cMnrelxPqQcdbFQtdiB3TlvHxKRBRxbf9qY1uyzyQT5tN8
-	 bCna15wB76ZAFF0ZO6iDqUE87oU1TU1QTZF6Jm579ZZDjMrI5RlQVe70c7ctkwsbvr
-	 yzJfPPYkefq8t+Tkcg0HdCTO7XQecPAJ6YkRMzcBCv/kZjGpueSSmYB/Tkc5f5bWSL
-	 /yGl2PIV9pXlkFwFdUv+AMs5LPAOxUhPA5r46OLBpxqNnJr/qlIjqBu3bigwDgHG0j
-	 pqSJ6aZoerBfq6sReYBLZe+Bys8yWS0zltFctTqeDduH0/1je/oOKmuSSeS7aPb+YH
-	 gudtNovyqlx/w==
-Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: kuba@kernel.org, asml.silence@gmail.com, dw@davidwei.uk, sdf@fomichev.me,
- ap420073@gmail.com, pabeni@redhat.com, kaiyuanz@google.com,
- bobbyeshleman@meta.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, hawk@kernel.org, ilias.apalodimas@linaro.org,
- horms@kernel.org, shuah@kernel.org, sumit.semwal@linaro.org,
- christian.koenig@amd.com, dtatulea@nvidia.com, razor@blackwall.org,
- daniel@iogearbox.net, tariqt@nvidia.com, kaifengw@google.com
-Date: Sun, 18 Oct 2026 16:01:10 +0000
-Message-ID: <179233927086.3135.6123492094489915156@kernel.org>
-In-Reply-To: <20261015163915.1166043-4-almasrymina@google.com>
-References: <20261015163915.1166043-4-almasrymina@google.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G71m86tl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792355077; x=1823891077;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8EXiAU+nnZhBF5RF4EXLhLVcIQpM1Oi6/k0fDL0+9hw=;
+  b=G71m86tl20E1h4cwYfBlCA4oU3yR0KlCSGN7hv2Q88ZBY6FVQzhAegiD
+   kYNIku1hOp8BGCdiqPv0Vpr+pJRo7hkr6ZOtvkch/bvFQjMHTcY0B757x
+   6hCIRr59dtV2hpORFvt9FLONEBUBXrQudTpEh9BBAT/BZfqPbxJqPFKns
+   gNtJf+Tl4eV4ZScM4YqU0W11lbiD1APmt5Pu0j0ju/AGfgQ6CL0ynVWuT
+   HqKnCa3AGMQSXZpha9qJ6VqbYIN02EWMNTYSp2LCl3wCL2FJhz4P0jT/W
+   4LOnGPd8QhwHKJc4/tZNexVve4RZEuI4FytOjQgxQ/8voLsWY7dddvcR7
+   g==;
+X-CSE-ConnectionGUID: xS9Tnh8HQiuDckORKhAgaw==
+X-CSE-MsgGUID: ZN+MbEn3SvmnOGhDFLcAPg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="951181"
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="951181"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 13:24:36 -0700
+X-CSE-ConnectionGUID: 6Pv3eVJtRsSaTku0AUoctQ==
+X-CSE-MsgGUID: YkXPgHIDQ52kYnwsjKOyig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,166,1787036400"; 
+   d="scan'208";a="2476432"
+Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Oct 2026 13:24:34 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 6354B1203AA;
+	Sun, 18 Oct 2026 23:24:40 +0300 (EEST)
+Date: Sun, 18 Oct 2026 23:24:40 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: geocausa@gmail.com
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Sergey Lebedev <lsa.uz@pm.me>,
+	German Pablo Lindo <germanpapulindez@gmail.com>,
+	Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add OmniVision OV13858
+Message-ID: <atUrCG-efqA_x2bM@kekkonen.localdomain>
+References: <20261015-ov13858-x1e-v1-0-acdd918f4fb6@gmail.com>
+ <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-ov13858-x1e-v1-1-acdd918f4fb6@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi George,
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] On builds where PP_DMA_INDEX_BITS is 0, this patch leads to a
-  use-after-free of the netdevsim bus device.
-
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but writing true
-  to the pp_hold debugfs file of a running netdevsim VF port…
-
---
-
-netdevsim: support devmem RX and TX bindings
-
-This commit sets a 64-bit DMA mask on the netdevsim bus device, enables
-NETMEM_TX_DMA, and creates netdevsim page pools with
-PP_FLAG_ALLOW_UNREADABLE_NETMEM and queue_idx, plus DMA mapping when
-CONFIG_HAS_DMA is set, so devmem bind-rx and bind-tx can be tested. It
-also refuses pp_hold on memory-provider-backed pools under the netdev
-instance lock, and drops unreadable skbs in the software PSP checksum
-path.
-
-> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
-> index b4a99f3ceac60..357ea9e5623b3 100644
-> --- a/drivers/net/netdevsim/netdev.c
-> +++ b/drivers/net/netdevsim/netdev.c
-> @@ -414,19 +414,27 @@ static int nsim_poll(struct napi_struct *napi, int budget)
->  	return done;
->  }
->  
-> -static int nsim_create_page_pool(struct page_pool **p, struct napi_struct *napi)
-> +static int nsim_create_page_pool(struct net_device *dev, struct page_pool **p,
-> +				 struct napi_struct *napi, int idx)
->  {
-> +	struct netdevsim *ns = netdev_priv(dev);
->  	struct page_pool_params params = {
->  		.order = 0,
->  		.pool_size = NSIM_RING_SIZE,
-> +		.flags = PP_FLAG_ALLOW_UNREADABLE_NETMEM,
-> +		.max_len = PAGE_SIZE,
->  		.nid = NUMA_NO_NODE,
-> -		.dev = &napi->dev->dev,
-> +		.dev = &ns->nsim_bus_dev->dev,
->  		.napi = napi,
->  		.dma_dir = DMA_BIDIRECTIONAL,
-> -		.netdev = napi->dev,
-> +		.netdev = dev,
-> +		.queue_idx = idx,
->  	};
->  	struct page_pool *pool;
->  
-> +	if (IS_ENABLED(CONFIG_HAS_DMA))
-> +		params.flags |= PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
+On Thu, Oct 15, 2026 at 10:48:19PM +0100, George Neacsu via B4 Relay wrote:
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+> new file mode 100644
+> index 0000000..a1cbdb1
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov13858.yaml
+> @@ -0,0 +1,113 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/ovti,ov13858.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
+> +title: OmniVision OV13858 CMOS Sensor
+> +
+> +maintainers:
+> +  - George Neacsu <geocausa@gmail.com>
+> +
+> +description:
+> +  The OmniVision OV13858 is a 13 megapixel CMOS image sensor with an I2C
+> +  control interface. It outputs 10-bit Bayer data over a four-lane MIPI
+> +  CSI-2 D-PHY interface and takes a 19.2 MHz input clock.
 
-[Severity: High]
+I wouldn't mention the input clock frequency here...
 
-Can this cause a use-after-free of the nsim_bus_dev struct device on
-builds where PP_DMA_INDEX_BITS is 0?
+> +
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: ovti,ov13858
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: Input clock (19.2 MHz)
 
-The page pool doesn't take a reference on pool->p.dev. With
-PP_FLAG_DMA_MAP now set, pages from these pools carry a DMA mapping
-against &ns->nsim_bus_dev->dev.
+...because it's also documented here.
 
-PP_DMA_INDEX_BITS is 0 when POISON_POINTER_DELTA is 0 and PAGE_OFFSET is
-not a suitably aligned compile-time constant. Some 32-bit and nommu
-builds hit this, riscv nommu for example, where PAGE_OFFSET is
-phys_ram_base. In that case the mapping is never recorded:
-
-net/core/page_pool.c:page_pool_register_dma_index() {
-    ...
-	if (unlikely(!PP_DMA_INDEX_BITS))
-		goto out;
-    ...
-}
-
-so page_pool_scrub() can't unmap outstanding pages while the device is
-still alive.
-
-Suppose a page is held via pp_hold and the device is then deleted.
-nsim_destroy() returns ns->page late on purpose ("Put this intentionally
-late to exercise the orphaning path"), and the sequence looks like this:
-
-nsim_destroy()
-  nsim_queue_uninit()
-    page_pool_destroy()
-      page_pool_release()
-        page_pool_scrub()     <- held page not tracked, stays mapped
-      inflight == 1, release_dw scheduled
-  page_pool_put_full_page(pp, ns->page, false)  <- page lands in pool->ring
-nsim_bus_dev_del()
-  device_unregister()
-    nsim_bus_dev_release()    <- struct device freed
-
-page_pool_release_retry()
-  page_pool_release()
-    ...
-      page_pool_empty_ring()
-        page_pool_return_netmem()
-          __page_pool_release_netmem_dma()
-            __page_pool_unmap_netmem_dma()
-              dma_unmap_page_attrs(pool->p.dev, ...)  <- freed device
-
-The existing nl_netdev.py page_pool test, which holds a page and then
-removes the device, follows this sequence. Before this patch the pools
-did no DMA mapping, so the late put never touched the device.
-
->  	pool = page_pool_create(&params);
->  	if (IS_ERR(pool))
->  		return PTR_ERR(pool);
-
-[ ... ]
-
-> @@ -929,12 +939,15 @@ nsim_pp_hold_write(struct file *file, const char __user *data,
->  		return ret;
->  
->  	rtnl_lock();
-> +	netdev_lock(ns->netdev);
->  	ret = count;
->  	if (val == !!ns->page)
->  		goto exit;
->  
->  	if (!netif_running(ns->netdev) && val) {
->  		ret = -ENETDOWN;
-> +	} else if (val && page_pool_is_unreadable(ns->rq[0]->page_pool)) {
-
-[Severity: Medium]
-
-This isn't a bug introduced by this patch, but can this dereference a
-NULL ns->rq on VF ports?
-
-nsim_create() creates the pp_hold file for both PF and VF ports. However,
-nsim_init_netdevsim_vf() only sets nsim_vf_netdev_ops and registers the
-netdev, so ns->rq stays NULL.
-
-nsim_vf_netdev_ops has no ndo_open. __dev_open() still sets
-__LINK_STATE_START, so after "ip link set up" on the VF the
-netif_running() check above passes.
-
-Writing 1 to pp_hold on a running VF port with no page held would then
-evaluate ns->rq[0] with ns->rq == NULL. The previous
-page_pool_dev_alloc_pages(ns->rq[0]->page_pool) call had the same
-dereference.
-
-> +		ret = -EOPNOTSUPP;
->  	} else if (val) {
->  		ns->page = page_pool_dev_alloc_pages(ns->rq[0]->page_pool);
->  		if (!ns->page)
-
-[ ... ]
+The frequency range is from 6 to 27 MHz.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261015163915.1166043-1-almasrymina%40google.com
+Regards,
+
+Sakari Ailus
