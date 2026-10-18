@@ -1,77 +1,72 @@
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05166242D89
-	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 03:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2983D75A2
+	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 05:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792295487; cv=none; b=G/1q00H03jcJAtEmeEoOOe7H9W5zRKSOynNY3Vq65czaQ6sVN/oPL81FdC53qiZQcxofUC2FVZop69cpv9r8M9ntexmkODpPMwPoK665ZCk9nabTrNOQpTWMPsOd0H3qH0ipaa2HIPqYhn/bqXSFnnAf9QVIV7wIdek/fDAlG2M=
+	t=1792302295; cv=none; b=GMf6xd+LobNtndh0q8nGeXbWnOZNQBoguoLfO+UPXReV9dKoyLUTQNNXdrxA2B4eoyNXplFuClTzgAblAoZhKUOemhYSeOYdyZSMCgTHekeeeiq/tF1QtSZwZfFcBULoN/WAr5ENg83vaI9bjrzu6wqlY7bqW8OHoznJQGRScPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792295487; c=relaxed/simple;
-	bh=VouvCuUd/6iJICZZJOMhr223Co3gy72m5EBeKMWsXXQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=r/Cy15w0oR8DOccp4eZnOxmUbdOxj3OEv9MybKylqrtv1LvrSFHwWmkAkdRYHlodcu0bq7GS65syMzCg6QSr1uANlPdRX0G7oYr1QPmzSWI4nSk3/fIYnCjl0PUUdFXf9F8Z0WbWgSv2rUquE7akOCErhnrZbI6on32f3T4+q4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kn2cQIxf; arc=none smtp.client-ip=209.85.160.173
+	s=arc-20240116; t=1792302295; c=relaxed/simple;
+	bh=22oYmraKf3M0qeI2hZlSz0Ih1lqpjgI8wQZkelEo1JI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Am+v+e/0GX20PkmudrmhsWJQFvhAbYgVqJFJw7W1qstFRf3seowKtgzKOlgOP1P7ercxeEG7uHcXgusGUAYzvjArcvam+JcfTZdKJScpIuMeW0LL+Xv8Tyv96asZswC76MNmBv/s3D8QlAaTFz1Y+Xq1B5lm2uiAs3RBlm9DPxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cVfBUkrd; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kn2cQIxf"
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-53639b8903bso16931741cf.0
-        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 20:51:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cVfBUkrd"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e8fe8e343fso4594955ad.2
+        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 22:44:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792295485; x=1792900285; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BAlfdGBaXEKTM4aRdqODW2suuLZt+2xf1jp0Ji6ORdA=;
-        b=Kn2cQIxfO64tBWXSZIr6Ui860cstgm9pqbmYzL+BJ5QiCo+QGBnmNXKYU0WvSS/KdK
-         MTytpV9Z+3ZycTQ3cUDImbKfTufNLi74WmczakqOdv9ZbEjlKLjfFEfD8XWO8owCHqnb
-         FIMua00NNA/+JJu82y2vCP542LIvCTq1W4Ipu9iQNNvYhxC8ALuvZ1DVwDGR4i0qLmuj
-         Rm2phoHt8+8m6cd9z0TXhGvzdqkpqLWuHtZ+wORFGf6ky0YvCxDcjLsSioT34NJWdVuv
-         gFh/09Hzsa+C+rezpaDRnY5/PmFCkUqLJk97nz9jyuNfBFZgVF32jHXAoJ1MEMUgytXl
-         2X4w==
+        d=gmail.com; s=20251104; t=1792302293; x=1792907093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7d0nJ/frXW3wHswZvrpSxzn29F8Cv/ZaDDOaazmw5BA=;
+        b=cVfBUkrd52oKTfFX7vervU98wbvYs1WHiIYAcv/hVF2ZQd3sqRQ9eVjoSABt+lZp2g
+         tJnzKremyk498OAM/ih39dEehtbyTJEy6NARVsi29jPxMdgqPedlZwYP2yoROO/S/iLc
+         2fSalilCdqgsHOGzD43e9bHQEck0pOu7uAxT5vVtwqQwfs95bDoYqFjMlOJNBd/+z01L
+         EKYtp6xlLNe9Qv2q0WoomraSbT3hqXcx24/6dYWG+FMhlLDo4CU5qj/n2INGvoRYpjHc
+         t3MxQ44ohh+ft8gz0viiT881TH0KnmRwiatTL7OuQMDlLJS5cQ6quz2p5h2JO27Q6XD9
+         deuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792295485; x=1792900285;
-        h=content-transfer-encoding:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BAlfdGBaXEKTM4aRdqODW2suuLZt+2xf1jp0Ji6ORdA=;
-        b=27SULzu76/FXzQW4Fzk8iWlKPYGNMVzu5C2MYTolDF4Gd3+EgzQmZJJIPXaA2FU7of
-         9qI2pcsxdvMOCn/5NdBeLRpG06rb1ZfzdiyyrZRWokVPPjTkafHRmbMh4EcJb+Za/5nZ
-         lTarlJPFVONzFM2zXGpmGnpHObGep3f4jq0bRUrSXWy2EMy4MmHuk62/HGr4MZ5WfbR1
-         o7HiMOWqtWYFmnWv8OCAGYhyAy0+mW/HDOKT3E2LQr0tpnQzOuWBvpDuoZhqEIOARYjm
-         v45BhFIAJG1+hVr0hy4/zCR1cvWpBzVLMpw8XIPf5HhpTKX7niEv/NNvEr2btfSXKyRa
-         5v4g==
-X-Forwarded-Encrypted: i=1; AKwUvBxe14/cMguwiYIDAvnQgMOhAkFSUwwLYpozxj1sdQRk1U8wBT4Aj5eexvsKgtD5ScLGtZZFQA6k3WC1Ew==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL0Rs6ROlQgIewJwmMuA62u1GZNN2QJrN8lcvK3Gj0s9E4uF0ZF
-	/JGzuzo+nE8ya4yllZNmdtG824D85wavyFQzGiERJgOuwO1HLOQogZk=
-X-Gm-Gg: AYBFou04ZBcb0YH3+fU7I6E9bsf8dEwl9L8fTWBz9m2Fy6JvB+ej9TMJokFK+D7GAun
-	uX8jmZ+2fi3OX8HzG3Z28Zud2VlxfKfLw+IyjGDyHV/LArtswlF+6ijk4Xa60vq4vrti6zAdQdf
-	gF6WrBYIuquZHnmWtLwSut5A7YWnEoaIGxMRGz+eP7Uqu53tg+aHJ176jF1hCqd7P5FMv+JFV+d
-	TZUgbgoBHUwUjZej/Dw3JVnfsHAaHS8q7cU0pOOiavm/N7MPhfTeZcWMM28aPrM6GNg649LGlrc
-	ic79uK7vCPdqYQIhrpNClSFbJjvU95ATSjxyzbDlNg00HjSkQgYJw7oc5o0XDNx0W9WXeHk3Jj4
-	BJDOBCKzJM6yXwrEOe+EhzT35EJwOgzjdNSwwipa7rSL+s95j7AkpR6xpvA3BLXf8Ogvd44R3Hs
-	QLYuQcLpGzu8xWPSMyriJvgWlW1tEtpp7CtAHsSbtGUBgBvTyLCVbFFlZbz8LBX6YfFxCE+JL4U
-	vbIIZAvrsBKXmH8Hhef85rEZT393iM7dwoebKBYwFBkIG4FUQ8er0aglzoaBbFSrfBp5RDpA2nT
-	2Hubb9XE+QRGIhVwQKKuyzLtNQwC
-X-Received: by 2002:a05:622a:1813:b0:535:2110:a9f6 with SMTP id d75a77b69052e-5364600602cmr63576021cf.18.1792295484793;
-        Sat, 17 Oct 2026 20:51:24 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-536660162efsm1032371cf.27.2026.10.17.20.51.22
+        d=1e100.net; s=20260707; t=1792302293; x=1792907093;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7d0nJ/frXW3wHswZvrpSxzn29F8Cv/ZaDDOaazmw5BA=;
+        b=MtjXNaEZBQTBwiz+R2i5/TG7AKxTVWVu1F5y5BN4yhhBV2cPJjzwHVvEPexD30BejA
+         T5ksWfOt19ZdIra56WE2TwRZfYBa3J69mEGt2pqJ/wEovRbu0oxxCCWtql0/MaCpyoxL
+         RdehCxk2yrJwQ5ESSO1zTfxWpKeuKlH07KXzipsdUi/oZg+nB4T2B/gz4HeOZFvAo/Fs
+         VBhzqfVdRr0hOOkmXa4xAPrZ2P8sGLInQVOFg8Zqxqt97wmnc/jJuLrrSnCgV3pCQJM6
+         LatT3Go5HYq2EHCX3VWbG6GE9yHl3JZH1okE6HSbQAFVOuxvKNsrvAeDI4fb1blcHpNu
+         Fk4Q==
+X-Forwarded-Encrypted: i=1; AKwUvByBmxdmNodr39ojkzJpco4sgNbdzN+L1KERJAqpujLBa6yv8mFkVdjUsKRGkTsjRrHgWtZEF7bhhHhTYQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKO9f8XyBhoejaqDb651PYaEToTRpsHDn1LG3ZvLZHX+beWDSNP
+	+DfVvWLQ6xmtArrPCEBRdDkhVV9QqFZ3Ccq4yC9x95OrsNaweepTktI/
+X-Gm-Gg: AYBFou1waMCY5S6qJKqGwOIanfUyV7OSgGSYI4HprTLtytsyKFtqNu1iuQbeev1reVc
+	FYnd2WU0eodq8Y5KJlh9/jatByt7o7M56MZwSyWsMGq/FvczYhHmQC4WM+fcBCWX56dsxir+a1T
+	9CNofBSK2RIqSkq1U3azgCnkXy2xELyK+U1jT+FuqtHQ+0R09Qf2Pc5ou/CV70p4T5QtkLlezZi
+	8kPhLfzb8HjTSyv2qqMJDvI3YIkgMCRwKSrgCXnEgHq/S6TCWtiVug5HAAb4RHR7L327cCeIvXn
+	pUkqdoMMp3a6rx3PQq1qcZF07oO8UyadS5g2rIaju/obcVMSi2RL2MrxHNez9HTYknxtEZscjv7
+	BxgeJ4HLQcO1WiWPzN6+/mG0a4R3z2TMMyy2GMdIfGPDD9dS6/6/yfuLWXcP0y/2WDEsxSkwbi7
+	OVfU4ohZu1MQjVyavK8RIo2AV4uImCz3KDEUt8G2wmqx5Yg+IYbwhsAYKGB36Pbp/rFCHj5K/BB
+	uUjggc+i4zHv2iklfOS/uuUnZClU9tsiS25
+X-Received: by 2002:a05:6a21:7d01:b0:3e2:24a9:699d with SMTP id adf61e73a8af0-3e2262716d7mr2866162637.19.1792302293498;
+        Sat, 17 Oct 2026 22:44:53 -0700 (PDT)
+Received: from anise.tailfe078.ts.net (pkos202-079.kcn.ne.jp. [117.109.99.79])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f56c8b931sm2686648b3a.9.2026.10.17.22.44.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 20:51:23 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-samsung-soc@vger.kernel.org,
+        Sat, 17 Oct 2026 22:44:52 -0700 (PDT)
+From: Ryotaro Banno <ryotaro.banno@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Michael Krufky <mkrufky@linuxtv.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] media: s5p_cec: release IRQ before deleting the adapter
-Date: Sat, 17 Oct 2026 23:51:21 -0400
-Message-ID: <179229547105.3971562.9800339494753406560.s5p-cec@gmail.com>
-X-Mailer: git-send-email 2.53.0
-Content-Type: text/plain; charset="utf-8"
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: siano: fix oops in smsdvb_hotplug() due to race condition
+Date: Sun, 18 Oct 2026 14:43:32 +0900
+Message-ID: <20261018054403.76055-1-ryotaro.banno@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -80,79 +75,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The threaded IRQ handler reports transmit and receive events through
-cec->adap. Adapter unregistration masks the hardware interrupts but does
-not wait for this handler. With no open device-node references, it can
-free the adapter while an already queued IRQ thread still uses it.
-Devres also unmaps the registers before releasing the IRQ, since the
-mapping was acquired after the IRQ.
+When two or more Siano tuners are connected in parallel (as in the PLEX
+PX-Q1UD, which is a 4-tuner enclosure with one USB plug), a kernel oops
+occurs in smsdvb_hotplug().
 
-Free the managed IRQ before unregistering the adapter and disabling
-runtime PM. Request it only after the register mapping and adapter have
-been initialized, and free it on adapter registration failure before
-deleting the adapter. This also makes IRQ release precede MMIO release
-on probe unwind.
+smsmdtv:smscore_register_client: Client already exist.
+smsdvb:smsdvb_hotplug: smscore_register_client() failed -17
+BUG: kernel NULL pointer dereference, address: 00000000000002f8
+RIP: 0010:smsdvb_hotplug.cold+0x30/0x1a3 [smsdvb]
 
-This issue was identified as part of our ongoing research while
-reviewing kernel code.
+This happens because smsdvb_hotplug() is called twice for the same tuner
+device due to a race condition. Suppose two tuners, dev_A and dev_B, are
+connected in parallel:
 
-Fixes: 1bcbf6f4b6b0 ("[media] cec: s5p-cec: Add s5p-cec driver")
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+CPU0                                   CPU1
+smsusb_probe(dev_A)                   |
+smscore_register_device(dev_A)        |
+// add dev_A to g_smscore_devices     |
+                                      |smsusb_probe(dev_B)
+                                      |smscore_register_device(dev_B)
+                                      |// add dev_B to g_smscore_devices
+smscore_notify_callbacks(dev_A)       |
+// nobody registered yet              |
+sms_board_load_modules()              |
+smscore_register_hotplug()            |
+smsdvb_hotplug(dev_B)                 |
+// first call                         |
+smsdvb_hotplug(dev_A)                 |
+                                      |smscore_notify_callbacks(dev_B)
+                                      |smsdvb_hotplug(dev_B)
+                                      |// second call and crash
 
+The second smsdvb_hotplug() always crashes; smscore_register_client()
+returns -EEXIST with the error message "Client already exist.", and the
+error unwinding path calls smsdvb_media_device_unregister() while
+client->coredev is NULL.
+
+To fix the race, add the device to g_smscore_devices within the same
+critical section that calls smscore_notify_callbacks().
+smscore_register_hotplug() calls smsdvb_hotplug() under the same mutex,
+so smsdvb_hotplug() is invoked exactly once per device.
+
+Fixes: 2e5c1ec8865a ("V4L/DVB (8258): add support for SMS1010 and SMS1150 based digital television devices")
+Assisted-by: LLM
+Signed-off-by: Ryotaro Banno <ryotaro.banno@gmail.com>
 ---
-Compile-tested with Clang, W=1. No hardware runtime testing.
+ drivers/media/common/siano/smscoreapi.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
-
-diff --git a/drivers/media/cec/platform/s5p/s5p_cec.c b/drivers/media/cec/platform/s5p/s5p_cec.c
-index 4a92d32..e83705f 100644
---- a/drivers/media/cec/platform/s5p/s5p_cec.c
-+++ b/drivers/media/cec/platform/s5p/s5p_cec.c
-@@ -199,11 +199,6 @@ static int s5p_cec_probe(struct platform_device *pdev)
- 	if (cec->irq < 0)
- 		return cec->irq;
+diff --git a/drivers/media/common/siano/smscoreapi.c b/drivers/media/common/siano/smscoreapi.c
+index 017629e3cf84..c413f9696cb7 100644
+--- a/drivers/media/common/siano/smscoreapi.c
++++ b/drivers/media/common/siano/smscoreapi.c
+@@ -731,11 +731,6 @@ int smscore_register_device(struct smsdevice_params_t *params,
  
--	ret = devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_handler,
--		s5p_cec_irq_handler_thread, 0, pdev->name, cec);
--	if (ret)
--		return ret;
+ 	smscore_registry_settype(dev->devpath, params->device_type);
+ 
+-	/* add device to devices list */
+-	mutex_lock(&g_smscore_deviceslock);
+-	list_add(&dev->entry, &g_smscore_devices);
+-	mutex_unlock(&g_smscore_deviceslock);
 -
- 	cec->clk = devm_clk_get(dev, "hdmicec");
- 	if (IS_ERR(cec->clk))
- 		return PTR_ERR(cec->clk);
-@@ -231,16 +226,24 @@ static int s5p_cec_probe(struct platform_device *pdev)
- 		goto err_delete_adapter;
- 	}
+ 	*coredev = dev;
  
--	ret = cec_register_adapter(cec->adap, &pdev->dev);
-+	ret = devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_handler,
-+					s5p_cec_irq_handler_thread, 0, pdev->name, cec);
- 	if (ret)
- 		goto err_notifier;
+ 	pr_debug("device %p created\n", dev);
+@@ -892,6 +887,9 @@ int smscore_start_device(struct smscore_device_t *coredev)
  
-+	ret = cec_register_adapter(cec->adap, &pdev->dev);
-+	if (ret)
-+		goto err_free_irq;
+ 	mutex_lock(&g_smscore_deviceslock);
+ 
++	/* add device to devices list */
++	list_add(&coredev->entry, &g_smscore_devices);
 +
- 	platform_set_drvdata(pdev, cec);
- 	pm_runtime_enable(dev);
+ 	rc = smscore_notify_callbacks(coredev, coredev->device, 1);
+ 	smscore_init_ir(coredev);
  
- 	dev_dbg(dev, "successfully probed\n");
- 	return 0;
- 
-+err_free_irq:
-+	devm_free_irq(dev, cec->irq, cec);
-+
- err_notifier:
- 	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
- 
-@@ -253,6 +256,7 @@ static void s5p_cec_remove(struct platform_device *pdev)
- {
- 	struct s5p_cec_dev *cec = platform_get_drvdata(pdev);
- 
-+	devm_free_irq(&pdev->dev, cec->irq, cec);
- 	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
- 	cec_unregister_adapter(cec->adap);
- 	pm_runtime_disable(&pdev->dev);
+
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+-- 
+2.54.0
+
