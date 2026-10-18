@@ -1,156 +1,199 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B2983D75A2
-	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 05:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B2D39EF0C
+	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 06:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792302295; cv=none; b=GMf6xd+LobNtndh0q8nGeXbWnOZNQBoguoLfO+UPXReV9dKoyLUTQNNXdrxA2B4eoyNXplFuClTzgAblAoZhKUOemhYSeOYdyZSMCgTHekeeeiq/tF1QtSZwZfFcBULoN/WAr5ENg83vaI9bjrzu6wqlY7bqW8OHoznJQGRScPc=
+	t=1792306490; cv=none; b=IUBgu14vAVm+9OQa0HVCwoLzGe0Jvh9qOxi6ylyG711V2oTK34y5GRxFZrPvRCwv70anIuF9c+zWYBVfSzz58nF/lxNNuOiFrOVi44UWnIUfGFofIKobjhU2OTZZASJZE7j103VhppGkRrZ2V/L40XCQ3EkJz4QLj3HUd5Mkbf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792302295; c=relaxed/simple;
-	bh=22oYmraKf3M0qeI2hZlSz0Ih1lqpjgI8wQZkelEo1JI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=Am+v+e/0GX20PkmudrmhsWJQFvhAbYgVqJFJw7W1qstFRf3seowKtgzKOlgOP1P7ercxeEG7uHcXgusGUAYzvjArcvam+JcfTZdKJScpIuMeW0LL+Xv8Tyv96asZswC76MNmBv/s3D8QlAaTFz1Y+Xq1B5lm2uiAs3RBlm9DPxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cVfBUkrd; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792306490; c=relaxed/simple;
+	bh=Q4tSKD6D0XahfnZunTxmsWN7BQKMuMqFBs3yEe/WlRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IjEdpeSd+imVu05GZ9YgHEfU7m3Qjv/9yc6J+l+1Itgl4aCTye8hOAhgG0vhHv1ujPLo1d+Nt5FwQW03U8iF7hcKSACtrslZWzYrhgzUt3g7kgvZsZfwTKMCxAfPMI64OMN4y6ZpWEUBeTHGS1JefZSmEF9YzOiXZF0hxNN+LgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=g0443Vf2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=e5nWGSSl; arc=none smtp.client-ip=202.12.124.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cVfBUkrd"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e8fe8e343fso4594955ad.2
-        for <linux-media@vger.kernel.org>; Sat, 17 Oct 2026 22:44:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792302293; x=1792907093; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7d0nJ/frXW3wHswZvrpSxzn29F8Cv/ZaDDOaazmw5BA=;
-        b=cVfBUkrd52oKTfFX7vervU98wbvYs1WHiIYAcv/hVF2ZQd3sqRQ9eVjoSABt+lZp2g
-         tJnzKremyk498OAM/ih39dEehtbyTJEy6NARVsi29jPxMdgqPedlZwYP2yoROO/S/iLc
-         2fSalilCdqgsHOGzD43e9bHQEck0pOu7uAxT5vVtwqQwfs95bDoYqFjMlOJNBd/+z01L
-         EKYtp6xlLNe9Qv2q0WoomraSbT3hqXcx24/6dYWG+FMhlLDo4CU5qj/n2INGvoRYpjHc
-         t3MxQ44ohh+ft8gz0viiT881TH0KnmRwiatTL7OuQMDlLJS5cQ6quz2p5h2JO27Q6XD9
-         deuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792302293; x=1792907093;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=7d0nJ/frXW3wHswZvrpSxzn29F8Cv/ZaDDOaazmw5BA=;
-        b=MtjXNaEZBQTBwiz+R2i5/TG7AKxTVWVu1F5y5BN4yhhBV2cPJjzwHVvEPexD30BejA
-         T5ksWfOt19ZdIra56WE2TwRZfYBa3J69mEGt2pqJ/wEovRbu0oxxCCWtql0/MaCpyoxL
-         RdehCxk2yrJwQ5ESSO1zTfxWpKeuKlH07KXzipsdUi/oZg+nB4T2B/gz4HeOZFvAo/Fs
-         VBhzqfVdRr0hOOkmXa4xAPrZ2P8sGLInQVOFg8Zqxqt97wmnc/jJuLrrSnCgV3pCQJM6
-         LatT3Go5HYq2EHCX3VWbG6GE9yHl3JZH1okE6HSbQAFVOuxvKNsrvAeDI4fb1blcHpNu
-         Fk4Q==
-X-Forwarded-Encrypted: i=1; AKwUvByBmxdmNodr39ojkzJpco4sgNbdzN+L1KERJAqpujLBa6yv8mFkVdjUsKRGkTsjRrHgWtZEF7bhhHhTYQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKO9f8XyBhoejaqDb651PYaEToTRpsHDn1LG3ZvLZHX+beWDSNP
-	+DfVvWLQ6xmtArrPCEBRdDkhVV9QqFZ3Ccq4yC9x95OrsNaweepTktI/
-X-Gm-Gg: AYBFou1waMCY5S6qJKqGwOIanfUyV7OSgGSYI4HprTLtytsyKFtqNu1iuQbeev1reVc
-	FYnd2WU0eodq8Y5KJlh9/jatByt7o7M56MZwSyWsMGq/FvczYhHmQC4WM+fcBCWX56dsxir+a1T
-	9CNofBSK2RIqSkq1U3azgCnkXy2xELyK+U1jT+FuqtHQ+0R09Qf2Pc5ou/CV70p4T5QtkLlezZi
-	8kPhLfzb8HjTSyv2qqMJDvI3YIkgMCRwKSrgCXnEgHq/S6TCWtiVug5HAAb4RHR7L327cCeIvXn
-	pUkqdoMMp3a6rx3PQq1qcZF07oO8UyadS5g2rIaju/obcVMSi2RL2MrxHNez9HTYknxtEZscjv7
-	BxgeJ4HLQcO1WiWPzN6+/mG0a4R3z2TMMyy2GMdIfGPDD9dS6/6/yfuLWXcP0y/2WDEsxSkwbi7
-	OVfU4ohZu1MQjVyavK8RIo2AV4uImCz3KDEUt8G2wmqx5Yg+IYbwhsAYKGB36Pbp/rFCHj5K/BB
-	uUjggc+i4zHv2iklfOS/uuUnZClU9tsiS25
-X-Received: by 2002:a05:6a21:7d01:b0:3e2:24a9:699d with SMTP id adf61e73a8af0-3e2262716d7mr2866162637.19.1792302293498;
-        Sat, 17 Oct 2026 22:44:53 -0700 (PDT)
-Received: from anise.tailfe078.ts.net (pkos202-079.kcn.ne.jp. [117.109.99.79])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89f56c8b931sm2686648b3a.9.2026.10.17.22.44.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 17 Oct 2026 22:44:52 -0700 (PDT)
-From: Ryotaro Banno <ryotaro.banno@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Michael Krufky <mkrufky@linuxtv.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: siano: fix oops in smsdvb_hotplug() due to race condition
-Date: Sun, 18 Oct 2026 14:43:32 +0900
-Message-ID: <20261018054403.76055-1-ryotaro.banno@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="g0443Vf2";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e5nWGSSl"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 7DF441D000CC
+	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 02:54:46 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Sun, 18 Oct 2026 02:54:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792306485;
+	 x=1792392885; bh=lN1dyBvzq08m1ZlZfsFoTFeonmBGcGXcOhyZa0SwwO8=; b=
+	g0443Vf2hiJDLQrZolj18knSr7laXlvXXZ9sdrDR/TcF0JMH3vBqX5fNXhbxsLp2
+	yroCrngFLqNpKDXHEXoFaihq6PREYH864CGroliX3ZDVZ2xWVctiMPJrqfe/SEEr
+	gTWf4PpPlv08PvZX7Fwd94qvXS/okyvrYNggc2PzUUxzM/FSmb3nxoo10Bjdf/rD
+	KGbj4R9gYrTFKr54tgjRR1Pk0BollC8byGOXvBLh8EEvHu/Ii8QBwUdxxrXCE0KA
+	0wY68MMDrL7d/hGCQ9jbX4QEaXgtgQakKFmscBGOQR+qPjLzVYoO7xlQLpoS9Die
+	uAJ0uXmBQcx+V5hP0ZjjbA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792306485; x=
+	1792392885; bh=lN1dyBvzq08m1ZlZfsFoTFeonmBGcGXcOhyZa0SwwO8=; b=e
+	5nWGSSlga1yoXMyFtCX49gd7m8DD0uKOH5au4by9jUkzAJDD0Dav7ESJfMuQAaJK
+	WdhKjvFFNx1kkG38VyjwIUfjeLCOfY73spPoQgn0I3pKKVNtTfFGfmi5LfrfFYul
+	l8/lUjml6wZ+Osun3Em6HvQNejM3Fztf6IYACn+sZQDAMtClRZu5CmH48wk4cpWZ
+	uHNGcjUUSbBWG/iR54W74HcCn1XtsSYDzIQttVdKSPYZEHuY4uCMQf7FQOTKG9ba
+	5y2OWwYtxyPK3bpwofQQ9Diw/LUdaLC0FE6uLJW44T8wLOkOxWNllMJGV3dPg1CN
+	a/XkWqn0WeYjTVFl7sL6A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792306485; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm1:rsa-sha256:af1byc42rSmPYbgJuc03mpNimUmn6hv5Qp17r+mEQLuvYPl
+	eVU8XH9bPuq2hVDXK4wohowsPKoF3oxgliycl3UTu4M/4d3MMH8LEweilzJdh4mU
+	KEcnUwVfY/Zgi/UdL3UQ+EOAYOEyF1qqULuif5X5uiu/oKeMtOn+ysz9iRmaXCmZ
+	Tm2ZCdQabnRwaTedTmCTZjefcRFqQsggoXC6SkOsk8GT5ewHjXAoMoe+bbPCHdYf
+	ReR89CHYCDdaZUyeLBPeWoFJWGn971/s9kM/fIOggOlzGIxoh6rpWt+PJXGZO75a
+	Fq4SoC7VIEb5RO9KIQbxYrUotKdOZ7//31hyfbQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:H5P+nTOwYAqJeHBaea3z4tPxD16JsjYqMzGwLayu4Y0=:Q4tSKD6D0XahfnZunTxmsWN7BQKMuMqFBs3yEe/WlRA=;
+X-ME-Sender: <xms:NW3UahzZVwn8GfOYRiAvxQyHmflcF3ouaDspQfT1qie1T2SGRf1X5g>
+    <xme:NW3UapepuBeXyjWBf9ffSnGh-15CTg1xSxu1Y5vIsybeZFzCH3vsQiL2kJUN4CVFD
+    9Rg3D3034fvhOvvMwTPKmxRhlNkBADbxXqRloInsBcYvbnkVuzvXg>
+X-ME-Received: <xmr:NW3Uam6hrNTceO2UBS-XBJoarwlKHfwgrKVIag6c2Ee8Y2rVrdqv7hjGHa3vVT5TKhMExgZUT3SKpbqNLMwHy934HXl1qAI>
+X-ME-Proxy-Cause: dmFkZTGxwGwEgFqOp5XevDFdj3EQQVCsVex7OvjhbSxN2DGdZ9JwfumXz2YEZNnQ4R9ey9
+    vqyFnBRJFpWCfGoSJZ3UeTPdbSOuwGtEn4LcKYYkUF5Y8PbMhOypToaU8zA/pJWAgtTQQE
+    NBvBNmPLqElfV/kuD0G0TefIqYn7X3vSlKSebrWRObxHsgBKh3fUxDJcAwKoEwBDC0y7So
+    qK9d+wvK7TgoCIR8jvcGfHx2KtsJa8ne0rS5wiZNZ6DquHfyZIyGU2YxjEOBW/tG7C9q50
+    /tHrv9ygwHMlBdYtbshjqJ9mml9CUmPXob7IFLqyUxjq3SzMWmmEiGoSHWfE5BmkwfbNMs
+    Zk//DdMvvNaB4UsK0J9Rov763eW6v5ttnTSRuIk5XAsXHlLTtgxyM1u5p04ACstwA7VjJ6
+    S33UmR6udSbdrugfSBV5Wlg6TV1ULZSbBgeWudtm45FqFd3DdCTi3uRCS9bj3J9I7oeRPD
+    D5AhTghVIfojZzr8Kce/IaIs5n+cn6gkcCmm4TP0XFknRmhfyC16KB/ekcYv9OCUoqlcrl
+    2z28a4UeDRizLbbCt/Yp17akRvTW0vZe5/ujU3ZDcyJ7phLPVIEFYe6g6GJ0CH7OM90cz9
+    NJv7CLS0bDpOpu3G7kmBfoMDUWzJbrzmg3F69NBgaLxuG1NsKUvYCOG5wLjw
+X-ME-Proxy: <xmx:NW3UauIVaj40-XgDUwfA2oOOXr7eY4_dd_-qTnkb_o137CNbq7QTlQ>
+    <xmx:NW3UauygegLKQXz7NZoR4IezXdZQeU2mupfwxzYAh1h2u8JXoH3Byw>
+    <xmx:NW3UamJfPzNS6Watz2jhLc6R_e_y7eTYiIcvRbm4T9MCDx6_GUN5VA>
+    <xmx:NW3UatXD0HtVBijKSGw9cqs__4wd1I6LS3tjn2gVuNdSPtUeryjkvw>
+    <xmx:NW3UagbXkR7rq1ggw2hjOB4id2PMRVSpUZ4ft2PmkIITMIyofXLoefHr>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 18 Oct 2026 02:54:44 -0400 (EDT)
+Date: Sun, 18 Oct 2026 08:54:42 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>,
+	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Subject: Re: [PATCH v3 1/2] media: rcar-isp: distinguish absent cores from
+ registration failures
+Message-ID: <20261018065442.GC3577260@ragnatech.se>
+References: <20261018024654.3913088-1-mhun512@gmail.com>
+ <20261018024654.3913088-2-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261018024654.3913088-2-mhun512@gmail.com>
 
-When two or more Siano tuners are connected in parallel (as in the PLEX
-PX-Q1UD, which is a 4-tuner enclosure with one USB plug), a kernel oops
-occurs in smsdvb_hotplug().
+On 2026-10-17 22:46:53 -0400, Myeonghun Pak wrote:
+> risp_probe() interprets -ENODEV from risp_core_probe() as an absent
+> optional core and continues with the channel selector. Keep that result
+> for the existing resource-setup fallback, but distinguish it from a
+> failure after core resources have been initialized.
+> 
+> The following patch moves the core IRQ request after RPPX1 and the
+> registration state have been initialized.
 
-smsmdtv:smscore_register_client: Client already exist.
-smsdvb:smsdvb_hotplug: smscore_register_client() failed -17
-BUG: kernel NULL pointer dereference, address: 00000000000002f8
-RIP: 0010:smsdvb_hotplug.cold+0x30/0x1a3 [smsdvb]
+No it doesn't.
 
-This happens because smsdvb_hotplug() is called twice for the same tuner
-device due to a race condition. Suppose two tuners, dev_A and dev_B, are
-connected in parallel:
+> If that request returns
+> -ENODEV, its error path releases RPPX1 and the VSPX device reference.
+> Passing -ENODEV back unchanged would make the parent continue probing,
+> although core->base still indicates a core whose resources have already
+> been released.
+> 
+> Translate -ENODEV to -ENXIO at the registration error exit, after the
+> existing cleanup. The parent can then handle the failure using only the
+> return value, without inspecting core->base. Leave all resource-setup
+> results unchanged, including the existing fallback when VSPX information
+> is absent.
+> 
+> This prepares the error handling for the IRQ lifetime fix in the next
+> patch; it does not depend on an existing -ENODEV return from the V4L2
+> registration helpers.
+> 
+> This issue was identified during our ongoing research while reviewing
+> kernel code.
+> 
+> Suggested-by: Niklas Söderlund <niklas.soderlund@ragnatech.se>
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> Changes in v3:
+> - Express the distinction in the return value, as suggested by Niklas,
+>   instead of checking core->base in the caller.
+> - Translate -ENODEV only after resource setup has succeeded, keeping
+>   existing resource-setup and channel-selector fallback behavior.
+> - Describe this patch as a prerequisite for the IRQ registration move.
+> 
+> Changes in v2:
+> - Split the error-handling change out of the IRQ lifetime fix.
+> 
+> v2: https://lore.kernel.org/r/20261015004159.2202899-1-mhun512@gmail.com
+> v1: https://lore.kernel.org/r/20261011214448.2043581-1-mhun512@gmail.com
+> 
+> Compile-tested with Clang 22.1.2, W=1 (arm64). No runtime testing.
+> 
+>  drivers/media/platform/renesas/rcar-isp/core.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
+> index 586a5adbedfa8..373d9ca9374fe 100644
+> --- a/drivers/media/platform/renesas/rcar-isp/core.c
+> +++ b/drivers/media/platform/renesas/rcar-isp/core.c
+> @@ -894,7 +894,8 @@ int risp_core_probe(struct rcar_isp_core *core, struct platform_device *pdev,
+>  err_destroy_rpp:
+>  	rppx1_destroy(core->rpp);
+>  	put_device(core->vspx.dev);
+> -	return ret;
+> +	/* Do not report a registration failure as an absent core. */
+> +	return ret == -ENODEV ? -ENXIO : ret;
 
-CPU0                                   CPU1
-smsusb_probe(dev_A)                   |
-smscore_register_device(dev_A)        |
-// add dev_A to g_smscore_devices     |
-                                      |smsusb_probe(dev_B)
-                                      |smscore_register_device(dev_B)
-                                      |// add dev_B to g_smscore_devices
-smscore_notify_callbacks(dev_A)       |
-// nobody registered yet              |
-sms_board_load_modules()              |
-smscore_register_hotplug()            |
-smsdvb_hotplug(dev_B)                 |
-// first call                         |
-smsdvb_hotplug(dev_A)                 |
-                                      |smscore_notify_callbacks(dev_B)
-                                      |smsdvb_hotplug(dev_B)
-                                      |// second call and crash
+This completely misses the error code from risp_core_probe_resources() 
+which, as I understand it, is the one you initially wanted to 
+differentiate on? This change still propagates the return code from it 
+and just chnages -ENODEV to -ENXIO if it happens to be returned from 
+v4l2_device_register() or risp_core_create_subdev().
 
-The second smsdvb_hotplug() always crashes; smscore_register_client()
-returns -EEXIST with the error message "Client already exist.", and the
-error unwinding path calls smsdvb_media_device_unregister() while
-client->coredev is NULL.
+Please stop using an LLM to throw spaghetti at the wall and if you want 
+to have this change read, understand and change the code by hand.
 
-To fix the race, add the device to g_smscore_devices within the same
-critical section that calls smscore_notify_callbacks().
-smscore_register_hotplug() calls smsdvb_hotplug() under the same mutex,
-so smsdvb_hotplug() is invoked exactly once per device.
+Nacked-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-Fixes: 2e5c1ec8865a ("V4L/DVB (8258): add support for SMS1010 and SMS1150 based digital television devices")
-Assisted-by: LLM
-Signed-off-by: Ryotaro Banno <ryotaro.banno@gmail.com>
----
- drivers/media/common/siano/smscoreapi.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+>  }
+>  
+>  void risp_core_remove(struct rcar_isp_core *core)
 
-diff --git a/drivers/media/common/siano/smscoreapi.c b/drivers/media/common/siano/smscoreapi.c
-index 017629e3cf84..c413f9696cb7 100644
---- a/drivers/media/common/siano/smscoreapi.c
-+++ b/drivers/media/common/siano/smscoreapi.c
-@@ -731,11 +731,6 @@ int smscore_register_device(struct smsdevice_params_t *params,
- 
- 	smscore_registry_settype(dev->devpath, params->device_type);
- 
--	/* add device to devices list */
--	mutex_lock(&g_smscore_deviceslock);
--	list_add(&dev->entry, &g_smscore_devices);
--	mutex_unlock(&g_smscore_deviceslock);
--
- 	*coredev = dev;
- 
- 	pr_debug("device %p created\n", dev);
-@@ -892,6 +887,9 @@ int smscore_start_device(struct smscore_device_t *coredev)
- 
- 	mutex_lock(&g_smscore_deviceslock);
- 
-+	/* add device to devices list */
-+	list_add(&coredev->entry, &g_smscore_devices);
-+
- 	rc = smscore_notify_callbacks(coredev, coredev->device, 1);
- 	smscore_init_ir(coredev);
- 
-
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
 -- 
-2.54.0
-
+Kind Regards,
+Niklas Söderlund
