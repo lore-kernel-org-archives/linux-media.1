@@ -1,70 +1,74 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DDB53D7D72
-	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 22:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22653D6CD9
+	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 22:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792364083; cv=none; b=CjRHDS2/Gi9CowPvBA5nqTOuQ+A8XPX+w4zapbMLBULrA0RTpdrLbPTgeJfhXnWv+ybKzv0LlOhwGsmHg3OnX5B9H51XBp23efxJ/r3KzxwxPrQWpfR1OpxhT9MHdnbzc/GahII3175syGCM51/RyYVwifybZgF8r+4OrHICUpI=
+	t=1792364085; cv=none; b=BtLEsOIx3ljmNESNbOcF9UR3k7orCroFA+Ar2y+ySUrWg9E8tfb2G4vz3QT8infQnushsGriUpLjqdxeyhRXWIppLipY/JQxEwXQX8bg3tK9VasB82u86z3dybugfXu3NC+EmQstoMyDR7JezfzJHRJXcOmSgPT5sBAZO6rX1DQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792364083; c=relaxed/simple;
-	bh=XYhSvFA7CBE5j2HCUixLblDFjVWyrOA3uBQKm7vadDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BJ5luKZPlVkx3kVZMm46cBgQahMIXkSeWN4VE+KTZDjQDO/0fbZ1F5nM2x/FGTPu+3Bmn+MlNJ/5hE0GDbP6pUbSEprU/V6LbXomBrggKuJBJTZSa1PbpCnSxYmAWq365Vd515d/tlyr8vhzE07dMFmlO2RIjyAaekpChEeFI1A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cdnt1SQm; arc=none smtp.client-ip=209.85.221.46
+	s=arc-20240116; t=1792364085; c=relaxed/simple;
+	bh=dxv1b+vccQom33ZO/mh8/OtjYdeB819yqMvj1KaVDSw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CeCGmyyPVTfO9g4Wt0PzmuW/aWSDECqunGJk7p33AJTH27hAPjW3E5ipnuenL22WhfLjyNLzhDBr4J75em8prPrSv3bwa22nrO37AQurhjGaps2lAMmQhZadVvxESmNgO4w+bFqNDzOS0OrdEW8WdnXRiQW5L9AUL82qdFiJKMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N9UFF3pa; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cdnt1SQm"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso777330f8f.1
-        for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 15:54:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N9UFF3pa"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so16417895e9.3
+        for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 15:54:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792364079; x=1792968879; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
-        b=cdnt1SQmdLpQdw4/vsPLYrjkdD8r6sYDy4++rdwleAx64mjKe/vn1eFlfkn5GBxr1B
-         4JoQtVHNjqbtxqn3Z99sOf4E0MAkDbLLc2oDLmVZsQ+iw12SZsl9J5F4AzjXjrSJ7RhO
-         hYnFjqZOV/qxag0gTy5W/M8QttJLXx9WFQEX+fdrwUSQxYHj+WsLMUHTxTO8kXsiUeoy
-         gmnB5hVnuqRPxPOQDa4DeEEkhE4jNs1T+tUX/7rVa8dCsqaFgJok3nzsQm0twcbpl690
-         gzi8XXk6//eLLOUdWlASm1q9AtIl4Q+Wxz3LJ+ieCcBAsrM44/CyeiipK0BB9sRKAMV/
-         z5UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792364079; x=1792968879;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792364080; x=1792968880; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=X1kgUc2g/VLG79PKdhTxP86IrE7Gw22NMZrvrz31EMI=;
-        b=EnUOmnZU860YABihMNfKF3FBnIGHUpin026jmBBnZT3GPqz1Vayk6LMrhtaTyn5Uz3
-         Agg/GtsbHWNFMW33l8NS3p3/xijBittWPIuXvSkz++XqkMVibVzXs89cdavM04suq00N
-         ixBvF3gnO+XThBF9yZi8C01y3iPsOAn+8qxm75dl/dz7GoNl/eEYEHmF8rhgytu/JqO4
-         /Al0H/XR6Cpmehm8gLrLlxdkK/0pAC2KSWh8dirSlXsdg0fHw6Mduf+VGIWea5U8s3Jm
-         JC0pU9rcrkT/ruASI5HNRG9UwdfUp6l5hFxg95RKmud66s0NPInwDZo1ET4UIEGdeUCt
-         ESqw==
-X-Gm-Message-State: AFq9FYI+nIabSPOCzVbn7wfN5z3iSUqNrfczkuAqqPuSzZotaPo4LZnc
-	yvWfadhuc/IAQzFOL8Tu70oElWlOMeWwxBnG2SJ65Lbh9U+SEXIJDWw=
-X-Gm-Gg: AYBFou3LzvN+Yim330BwnwolC0bfEuEVXunIfkaj9qwiThrzY2XcCYiuB7Gy/oki3OB
-	sLL6TGq3G3ckEnErPzVjz2qWfJ+acqjLDRNEtykdUU6shjXUcaUK22vx+gy4qbmGavkhs6ImLGt
-	eq7Ph+rY85EPE027QCuFl6ULRhjPKImpCQz2BK9MzmGLOyVhdaYgFy8hUs5k9AF6MiiLZw99fpN
-	O9y0i2NpxSFV/e78TcgAdJTH86mvfv+/JjcTVD6H9gj+Icob8PDe6UspM8w7tvgYx9awXb3j1gX
-	wgFCGnUwj70NrVDaHbhq+O5DoHc+nle6XqDehvRWVr/20hvMD+j7ycKI/ETm3OgQzHqW6n2LW/n
-	T/zrLWxJ/BS4sEUiJLQIyItIrVKlA98R28cpFtVlPmBrIuHj+qedxLC8ynU4Cj8UPuIrs0oVIcc
-	pwhdYZNTQBHaWAF85yG9/slLpe/iSYYdlW0v+CDL0=
-X-Received: by 2002:a05:600c:548c:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a1d7610f2dmr127399005e9.20.1792364079193;
-        Sun, 18 Oct 2026 15:54:39 -0700 (PDT)
+        bh=h7FhAoYW9emh+NxVgMk3Jx+hbwPHLY+KSUNSM3vjf6o=;
+        b=N9UFF3paw/RZqW/u5CGOMk2WWNl5VOq0RitO5k7dFs6nPpqbdsiYdH392WS4BPUHSV
+         wMrhNFQRFnoVW3WPtuvvnsWbSaGGJN264eZiudhijxnQIrxyoJbhF7hXlEg18hWCTkPc
+         kax0SVsUIK3Gs/A8DJHwHE234ZzMbUnteS6Tui3RE7eFdBz1cw7oNYpx0YTsignsmGa9
+         oqsE7kvHEExPftLt+z8BxE4FyOFkzLuiBxwvSNVisu9Rzgr31L4nn6LAIbmJBvuIVkcu
+         bKbiGOx16XUBKK9iIV8RnXUtvpp1bIkIgZX5SKr1nCq1i4T/3ZjnQA3OY/JPvudT08NE
+         zFQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792364080; x=1792968880;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h7FhAoYW9emh+NxVgMk3Jx+hbwPHLY+KSUNSM3vjf6o=;
+        b=xqo+MAVf+vnSiNRqsZo9U254Et6cISTTNT7e+J3JhLwUj3AxEEJcYCsXbdH3Bxlfg7
+         AzxjHMscf9MQd6iVYyNptfxqYuc6I3/Tw9V+MxtANzuoK8e4/Coel87CT4cTUxMlI7J1
+         TU1iGbsnQQ+5u5YuRzE/CwL5KCBbPo2q7/DP/DGys/CMolZUXyRQIgEe1GD1DU8sSRle
+         7Z3jczjBCo9loI0ziWLYZN9jbGfSaNW3jZzmkAphi6e52HDA8Lh/b0Odbd4yuy4peMpc
+         S3GX6T0Lz2viBc0lJTcdh0JjbuOMxuYX+VQ+fh+fL89VyuR77q8rfSeYxxhnJW73Rb6E
+         FAaQ==
+X-Gm-Message-State: AFq9FYI3+IMvx1fgHauWgRu6KJfbCFQ5f+WVT4DJ3gEPRm9yrNSSRRRY
+	I1/0VQy+2p/H73nB2qSaFRPDkRWfyRfOY/4O1+VMdzSsY7cChppKiQAqdnzT
+X-Gm-Gg: AYBFou07yipeX8W/4V2xk/eYp9nuZQh+E6Uq0RkgedPJDM3ZrCWD0oxi4/N0QTW1Jby
+	FroBzAIaMob1cq0vn4YtGHZtL+WZ+0AJ0kgyVx4fPVBf/Kky670aRpdBuAta+se14fVfZEnYpQ/
+	06/BePwTVXZ2aMD2Ll9OdVyKQ/rVgGoj+ST8n7QLfyhsAip/fUaH4YMhPgyfRso9fx8usfKtK0L
+	VQwIPfQUuOF7+Ts3PFMWqsVzGNO4mdc7xo6a1BtXJ8A/s4Qy0XEMj0ENSzN0w+nGyJfaisws9Qe
+	yyQ2UtQqovsmFDJJF4ZklCJiQpZ7jutnzZd0vDZCy1KXafhGk9c40BAocMtC+M/F5tuZ+WoyV1d
+	af6TwkEUZJdwof747XkEE+dXpUoqbRMouJjZejXW4loyhP2NTg2feCEnVe4MDdHq00uXDULqyjo
+	gM3t7P1jeomtUJPYQSJqHOSiq2Ji0AtUfdiPVAUZM=
+X-Received: by 2002:a05:600c:3b17:b0:4a1:7c7d:8881 with SMTP id 5b1f17b1804b1-4a1d76139ffmr130244235e9.13.1792364080102;
+        Sun, 18 Oct 2026 15:54:40 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm42257355e9.3.2026.10.18.15.54.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm42257355e9.3.2026.10.18.15.54.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:54:38 -0700 (PDT)
+        Sun, 18 Oct 2026 15:54:39 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH 0/3] media: USB: validate transfer lengths in URB callbacks
-Date: Sun, 18 Oct 2026 22:54:34 +0000
-Message-ID: <20261018225437.2655311-1-tristmd@gmail.com>
+Subject: [PATCH 1/3] media: cx231xx: validate minimum transfer length in video handlers
+Date: Sun, 18 Oct 2026 22:54:35 +0000
+Message-ID: <20261018225437.2655311-2-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261018225437.2655311-1-tristmd@gmail.com>
+References: <20261018225437.2655311-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -75,29 +79,45 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-Several media USB drivers process URB transfer buffers at fixed
-offsets without checking actual_length or iso_frame_desc
-actual_length.  When a device delivers a short transfer, the
-arithmetic on the length value wraps and the driver reads or copies
+cx231xx_isoc_copy() and cx231xx_bulk_copy() both save the last 4
+bytes of the transfer buffer via memcpy(dma_q->partial_buf,
+p_buffer + buffer_size - 4, 4).  When the transfer length is less
+than 4, the subtraction wraps to a large value and the memcpy reads
 from an unintended memory offset.
 
-This series adds minimum length checks to three drivers:
+Add a minimum length check to both handlers before processing.
 
- - cx231xx video: isoc and bulk handlers need buffer_size >= 4
-   before computing p_buffer + buffer_size - 4
- - cx231xx VBI: same pattern, raise threshold from > 0 to >= 4
- - au0828: isoc handler subtracts 4-byte header, raise threshold
-   from > 0 to >= 5
+Fixes: 64fbf4445526 ("[media] cx231xx: Added support for Carraera, Shelby, RDx_253S and VIDEO_GRABBER")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/media/usb/cx231xx/cx231xx-video.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Tristan Madani (3):
-  media: cx231xx: validate minimum transfer length in video handlers
-  media: cx231xx: require minimum VBI transfer length
-  media: au0828: require minimum isochronous packet length
-
- drivers/media/usb/au0828/au0828-video.c     | 2 +-
- drivers/media/usb/cx231xx/cx231xx-vbi.c     | 2 +-
- drivers/media/usb/cx231xx/cx231xx-video.c   | 6 ++++++
- 3 files changed, 8 insertions(+), 2 deletions(-)
-
+diff --git a/drivers/media/usb/cx231xx/cx231xx-video.c b/drivers/media/usb/cx231xx/cx231xx-video.c
+index 70aa99fead278..76776cd6e5691 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-video.c
++++ b/drivers/media/usb/cx231xx/cx231xx-video.c
+@@ -303,6 +303,9 @@ static inline int cx231xx_isoc_copy(struct cx231xx *dev, struct urb *urb)
+ 		buffer_size = urb->iso_frame_desc[i].actual_length;
+ 		bytes_parsed = 0;
+ 
++		if (buffer_size < 4)
++			continue;
++
+ 		if (dma_q->is_partial_line) {
+ 			/* Handle the case of a partial line */
+ 			sav_eav = dma_q->last_sav;
+@@ -382,6 +385,9 @@ static inline int cx231xx_bulk_copy(struct cx231xx *dev, struct urb *urb)
+ 		buffer_size = urb->actual_length;
+ 		bytes_parsed = 0;
+ 
++		if (buffer_size < 4)
++			return 0;
++
+ 		if (dma_q->is_partial_line) {
+ 			/* Handle the case of a partial line */
+ 			sav_eav = dma_q->last_sav;
 -- 
-2.39.5
+2.47.3
+
