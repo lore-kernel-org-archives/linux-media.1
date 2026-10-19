@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED818501F25;
-	Mon, 19 Oct 2026 14:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D0C60C138;
+	Mon, 19 Oct 2026 14:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418590; cv=none; b=HhfPR+5IMj/wPPOYi72C6egNOPqFRWDncHQvRcnXejKjhG2WDn/y0ahjuGJzdNFOuvjHrwyAtQCeCXfwi4FaOTzSqACBps85aMbZ1Gd+UOOH6VS9U1p/oaa9rK7s4emdfefUrqy/MLnC0lQf3Xq/OyzIQPyzHKEUEx84XjVLiBE=
+	t=1792418615; cv=none; b=j7co9hAhO4OyNuIT0wf0eNhQnO3SYBG/RhyUd7N45QSgumcVs55vI3rZPY1s3xn+j+ZyMvldryb5bDyZftyeqz/VuTh7W65S1hamPeDXKm74bX9n+2lz9JhAG/KuMg5kpmpT+/47Ef44vS8zvE+40DUzU5L67Uo9NC84Ku8tA/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418590; c=relaxed/simple;
-	bh=OLVGoswyQ/TRqc+Zx5c8BPwrw6fbIxyRFacQ20bze1g=;
+	s=arc-20240116; t=1792418615; c=relaxed/simple;
+	bh=+f7AxBQ/GFqMQOqpSVOnMUjhTseUYo1rSUcfmMZiITw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DOueLRADufByaoqI9GJjOKQAmagxxJgzHfjX0rvd1eZdj+axzTI/ToxpBjeQn/U6aJRRfVy1ByIUrrzaY0HRBzvJZV6qDh1crwc3vuZhIoSKfNboNOEjEnhxQpgka+v1NvT8ehFersZ4/6VZd1NTlWoj0hiE0U1k1wMnsvz69mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUevxqf3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=p6HCz6Lp26M4tuYrtOfplkgMMJPO9TWAnDyrGw1UlGCPHqc/Hj3NVdCuCCSATc2kdvZ1Tl7ACyk62lwTbmnusyY4N1RBAmVyWh0RfqK5BRSFxdm646nMLBuWVp63/J3Gs/ot2d0Inu8xg8Q2TFDFBN+rxfm6pHbbbbyoqwLaQnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDa1qS3A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUevxqf3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0741F1F000C6;
-	Mon, 19 Oct 2026 14:03:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDa1qS3A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70181F000C9;
+	Mon, 19 Oct 2026 14:03:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418587;
-	bh=ZEkpzJm/Fz1AhN269JabheOuxq5CAfN3wBBhNvPXViE=;
+	s=k20260515; t=1792418611;
+	bh=O/7nKuZZTTXKrqGgjsu53ErwkFI4GPu3p0+a9Gj7TDs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PUevxqf3qSR5rq6Dd7olmieaBbCc767tte8MeKrPpybO92n0LfHIrxR5V1B3YKICH
-	 oqwhyjq2kcfa13IO6DB1+vreUcTqKlVvFithHIJzCieWEz0rtALw9brQyGGpqBX0kX
-	 bMThzv6/kts6nQsh12FG8U+Z3YvoF/S0rI/r4kKNJ6PG0+zLUOhom97o7ZYjB73l57
-	 78ApoSr8CRFH8HQAEUviBdodPgL9dx9pOPBRaxxSMvf3XbWzXfkOyyRzKGhahEfPZF
-	 Yhf8xm+ihtUPN1Ov9XkSrjtmvMTz1p+FW1LY9kQun5xDEWIbhRSB9wJGzlwBxpcIH5
-	 dI3jzq3uO3JMw==
+	b=dDa1qS3AnqKoCwvSpaP+OPTgda4UVC5CZEWUKKSlKjnF+YNQC40UwQVSU8lOISzlL
+	 lWl4kyqj8h0/HlIpmSheUR+fDuXQhqVCNJVOpyQx0qxP5m0IGdq89f1D5WAFejubBA
+	 sMAwcLCqY2/lmXF4MkjtvURmlYicnm34Io7nS8TN5f8AXwrJk3/1voGbxuL+/7amLT
+	 fKS0+Fqjldzi4vtgYOuh/o0RWB/8HnGcUUARARwVGvPEZQMf7gWb17IC1d+UZb/1et
+	 wBf6gHzlzBFMdoi3zh32NALmBhtwqut43ulBGlbtDa+rFvTzpV7+Lk9N+RAITQ0GAl
+	 8qX6IKE8FG1BQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	awalls@md.metrocast.net,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: v4l2-tpg: reduce stack usage for kasan builds
-Date: Mon, 19 Oct 2026 09:50:45 -0400
-Message-ID: <20261019135441.1420968-354-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: cx18: stop VBI start-code scan before short tail
+Date: Mon, 19 Oct 2026 09:51:03 -0400
+Message-ID: <20261019135441.1420968-372-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,423 +54,448 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Arnd Bergmann <arnd@arndb.de>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit c49cdaafa443ccf861a72d3191121294742c28c7 ]
+[ Upstream commit bf533acaaa7dee21d49bcaabf8e813ea36bddcd8 ]
 
-tpg_fill_plane_buffer() is a rather complex function. While there is
-nothing wrong with it per se, I have run into corner cases with clang-22
-on s390 using KASAN that makes it run out of registers and blow the
-stack warning limit from excessive spills:
+compress_sliced_buf() scans one byte at a time while testing a four-byte
+VBI start code.  The final iterations can read beyond the remaining
+buffer tail.
 
-drivers/media/common/v4l2-tpg/v4l2-tpg-core.c:2629:6: error: stack frame size (1560) exceeds limit (1536)
-      in 'tpg_fill_plane_buffer' [-Werror,-Wframe-larger-than]
- 2629 | void tpg_fill_plane_buffer(struct tpg_data *tpg, v4l2_std_id std,
+Stop the scan once fewer than four bytes remain.
 
-Forcing the two largest callees out of line completely avoids the problem
-and prevents all the register spills, with the stack usage for each function
-going down to a few bytes for the local variables.
-
-Arguably this is a problem caused by clang rather than the code, but
-a noinline_for_stack annotation is an easy workaround.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-I have enough history, diff, and mailing-list evidence to walk through
-all nine phases and decide for this 7.3-rc4 tree.
+The local tree is **v7.3-rc4** (mainline `7.3.0-rc4`). The candidate is
+`bf533acaaa7de` (“media: cx18: stop VBI start-code scan before short
+tail”). It is a one-line bounds fix for a four-byte VBI start-code scan
+that can read past `bytesused`.
 
-## Phase 1: Commit message forensics
+===============================================================
+PHASE 1: COMMIT MESSAGE FORENSICS
+===============================================================
 
-**Step 1.1: Subject line**
-- Record: `[media/v4l2-tpg] [reduce] Reduce stack usage of
-  tpg_fill_plane_buffer() for clang+KASAN builds so -Wframe-larger-than
-  does not fail the build.`
+Step 1.1: PARSE THE SUBJECT LINE
+Record: **[media/cx18] [stop] [stop VBI start-code scan before a short
+4-byte tail]**
+- Subsystem: `media: cx18`
+- Verb: **stop** (prevent incorrect continuation) — a bug-fix verb even
+  without “fix”
+- Intent: do not scan a 4-byte EAV/start code when fewer than 4 bytes
+  remain
 
-**Step 1.2: Tags**
-- Record:
-  - `Signed-off-by: Arnd Bergmann <arnd@arndb.de>` (author)
-  - `Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>` (media
-    maintainer)
-  - No `Fixes:`
-  - No `Reported-by:` / `Tested-by:` / `Reviewed-by:` / `Acked-by:` /
-    `Link:` / `Cc: stable`
-  - Absence of `Fixes:` / `Cc: stable` is expected for this pipeline and
-    is not a negative signal
-  - Notable: author is Arnd Bergmann (kbuild/clang/stack-usage); applied
-    by Hans Verkuil (V4L2 maintainer). No syzbot, no user crash reports.
+Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+Record:
+- **Signed-off-by:** Pengpeng Hou &lt;pengpeng@iscas.ac.cn&gt; (author)
+- **Signed-off-by:** Hans Verkuil &lt;hverkuil+cisco@kernel.org&gt;
+  (media maintainer; applied the patch)
+- **No Fixes:**
+- **No Reported-by / Tested-by / Reviewed-by / Acked-by / Link / Cc:
+  stable**
+- Absence of Fixes/Cc:stable is expected for this pipeline and is not a
+  negative signal
+- Ignored: any Sasha Levin SOB / “[Upstream commit …]” (none in the real
+  commit)
 
-**Step 1.3: Body**
-- Record:
-  - **Bug:** `tpg_fill_plane_buffer()` is large; clang-22 on s390 with
-    KASAN spills so many temporaries that the compile-time stack-frame
-    warning fires as an error.
-  - **Symptom:** `error: stack frame size (1560) exceeds limit (1536) in
-    'tpg_fill_plane_buffer' [-Werror,-Wframe-larger-than]`
-  - **Root cause:** clang register allocator + KASAN instrumentation,
-    not incorrect C logic. Author: “nothing wrong with it per se” / “a
-    problem caused by clang rather than the code”.
-  - **Fix:** `noinline_for_stack` on the two largest callees so they are
-    not inlined into the parent; per-function stack then drops to a few
-    bytes.
-  - **Version info:** clang-22, s390, KASAN. No kernel-version range
-    given.
+Step 1.3: ANALYZE THE COMMIT BODY TEXT
+Record:
+- **Bug:** `compress_sliced_buf()` walks one byte at a time and tests
+  `buf[0]..buf[3]`. The last iterations can read past the remaining
+  tail.
+- **Symptom:** out-of-bounds **read** of 1–3 bytes past `size` (the
+  caller’s `buf->bytesused`).
+- **Failure mode:** memory-safety defect (possible slab/page over-read
+  if `bytesused` equals the allocation; otherwise a logical over-read of
+  DMA payload).
+- **Version info:** none in the message. History shows the loop since
+  2008/2009.
+- **Root cause (author):** loop condition `i < size` does not leave four
+  readable bytes.
 
-**Step 1.4: Hidden bug fix?**
-- Record: Not a disguised UAF/leak/race. It is a **build-failure
-  workaround**. Cover letter in the mbox also offers an LLVM bug if
-  reviewers want one. Not a hidden runtime fix.
+Step 1.4: DETECT HIDDEN BUG FIXES
+Record: **Not disguised.** It is an explicit bounds fix. Not
+cleanup/refactor.
 
-## Phase 2: Diff analysis
+===============================================================
+PHASE 2: DIFF ANALYSIS - LINE BY LINE
+===============================================================
 
-**Step 2.1: Inventory**
-- Record:
-  - File: `drivers/media/common/v4l2-tpg/v4l2-tpg-core.c` — 8
-    insertions, 6 deletions (net +2)
-  - Functions: `tpg_fill_plane_extras()`, `tpg_fill_plane_pattern()` —
-    declaration only
-  - Scope: single-file surgical annotation change; no logic, locking, or
-    API change
+Step 2.1: INVENTORY THE CHANGES
+Record:
+- **File:** `drivers/media/pci/cx18/cx18-vbi.c` — **1 insertion, 1
+  deletion** (`2 +-`)
+- **Function:** `compress_sliced_buf()`
+- **Scope:** single-file, single-line surgical fix
 
-**Step 2.2: Code flow**
-- Record:
-  - **Before:** both helpers are `static void`, so the compiler may
-    inline them into `tpg_fill_plane_buffer()`.
-  - **After:** both are `static noinline_for_stack void`; they remain
-    callable from the same loop in `tpg_fill_plane_buffer()` (lines
-    2707–2710) but cannot be inlined.
-  - Path affected: compile-time inlining of the per-line fill helpers.
-    Runtime control flow is unchanged.
+Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
+Record:
+- **Before:** `for (i = hdr_size, buf += hdr_size; i < size; i++,
+  buf++)` then `buf[0]..buf[3]`. When `i` is `size-3`, `size-2`, or
+  `size-1`, `buf[3]` is at `size`, `size+1`, or `size+2` — past the
+  valid tail.
+- **After:** `i + 3 < size` so the last readable index is `i+3 <=
+  size-1`.
+- **Path:** sliced-VBI start-code search (not probe init). Only the “no
+  start code until EOF” path actually hits the tail; a successful match
+  `break`s earlier.
 
-**Step 2.3: Bug mechanism**
-- Record: **Build / compiler-workaround (hardware-workaround
-  analogue).** Not UAF, leak, race, NULL deref, or overflow.
-  `noinline_for_stack` is `noinline` in `include/linux/compiler_types.h`
-  “to prevent stack consumption”.
+Step 2.3: IDENTIFY THE BUG MECHANISM
+Record:
+- **Category:** **(d) memory safety** — buffer over-read / out-of-bounds
+- **Mechanism:** 4-byte peek with a 1-byte stride and an exclusive
+  `size` bound.
+- **Fix:** require four remaining bytes (`i + 3 < size`), the same
+  pattern as the sibling ivtv change.
 
-**Step 2.4: Fix quality**
-- Record: Obviously correct and minimal. Regression risk is very low:
-  extra calls in a test-pattern generator, not a production hot path.
-  Arnd reports stack usage of each function drops. No public API /
-  struct / locking change.
+If no start code is found:
+- Old: `i == size`, then `size -= (i - hdr_size)` → remaining `hdr_size`
+  (12)
+- New: `i == size - 3` (when `size` is large enough), remaining
+  `hdr_size + 3` (15)
+Both are still `< line_size` (272/284), so the function still returns 0.
+A 4-byte code cannot sit in the last 3 bytes, so no false negative.
 
-## Phase 3: Git history
+Step 2.4: ASSESS THE FIX QUALITY
+Record:
+- **Obviously correct.** Classic `need N bytes remaining` bound.
+- **Minimal.** One condition, no API/locking/structure change.
+- **Regression risk: very low.** False match in the old over-read tail
+  still left remaining size ≪ `line_size`. `i` starts at `hdr_size` (12)
+  and only increments; `i + 3 < size` with `u32 size` is safe for
+  realistic DMA sizes.
+- **Red flags:** none.
 
-**Step 3.1: Blame**
-- Record: The two functions date to Hans Verkuil’s vivid TPG (2015),
-  exported as `drivers/media/common/v4l2-tpg/v4l2-tpg-core.c` in
-  `e07d46e7e0da8` (2016). The `noinline_for_stack` lines are this commit
-  (`c49cdaafa443c`, 2026-06-18 / applied 2026-07-10). Long-lived code;
-  the warning is from clang-22+KASAN inlining, not a new logic bug.
+===============================================================
+PHASE 3: GIT HISTORY INVESTIGATION
+===============================================================
 
-**Step 3.2: Fixes: tag**
-- Record: None. Not applicable.
+Step 3.1: BLAME THE CHANGED LINES
+Record:
+- Loop introduced in **`1c1e45d17b663d`** (Hans Verkuil, 2008-04-28) —
+  original cx18 driver, `for (i = 0; i < size; i++, buf++)`.
+- Current form (`i = hdr_size, buf += hdr_size; i < size`) from
+  **`4ab9b256b5908a`** (Andy Walls, 2009-03-14) — “Optimize processing
+  of VBI buffers”.
+- Bug present ~17 years. Bound fixed in **`bf533acaaa7de`** (Pengpeng
+  Hou, 2026-06-30; Hans Verkuil commit).
 
-**Step 3.3: File history**
-- Record: Recent TPG work is formats/patterns (`5a3757801e58a`,
-  `5a531791edb24`), a div-by-zero fix, memleak fix. No prerequisite
-  refactor. Standalone, not `N/M`.
+Step 3.2: FOLLOW THE FIXES: TAG
+Record: **No Fixes: tag.** N/A. Introducer is `4ab9b256b5908a` /
+original `1c1e45d17b663d`, both ancestors of this tree.
 
-**Step 3.4: Author**
-- Record: Arnd Bergmann; many similar media stack-usage fixes
-  (`c03b7dec3c4dd` rkvdec, `1a03f91c2c241` vivid clang stack,
-  `ad4729225d93f` mxl5005s, etc.). This is the established
-  `noinline_for_stack` pattern. Hans Verkuil applied it.
+Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
+Record:
+- Recent cx18-vbi.c: this fix, email/SPDX/typo/whitespace. No refactor
+  of the scan.
+- **Sibling (same author, same day, same maintainer):** `f373cf17fb8e7`
+  `media: ivtv: stop VBI start-code scan before short tail` — same one-
+  line change in `drivers/media/pci/ivtv/ivtv-vbi.c`.
+- **Standalone.** Not “patch X/Y”. ivtv is a parallel clone, not a
+  prerequisite.
 
-**Step 3.5: Dependencies**
-- Record: Only `noinline_for_stack`, present in this tree as `#define
-  noinline_for_stack noinline`. Applies standalone.
+Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
+Record:
+- Pengpeng Hou: several small media correctness patches (ivtv twin, cec,
+  v4l2-ctrls, stm32 resume errors). Not the cx18 maintainer.
+- **Andy Walls** is listed maintainer for CX18; **Hans Verkuil** applied
+  this (media co-maintainer). That is a strong apply-path signal.
 
-## Phase 4: Mailing list / external
+Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
+Record: **None.** Touches only the for-condition. Parent still has
+`compress_sliced_buf()`, `sliced_vbi_eav_rp[]`, and `i < size`. Applies
+standalone.
 
-**Step 4.1: Original discussion**
-- Record:
-  - `b4 dig -c c49cdaafa443c` →
-    https://patch.msgid.link/20260618143252.1885475-1-arnd@kernel.org
-  - `b4 dig -a`: **v1 only**, 2026-06-18. No later revision.
-  - mbox is the patch plus: “If anyone thinks we should track this as an
-    llvm bug, I can help come up with a reproducer”. **No replies, no
-    NAK, no Cc: stable suggestion.**
-  - lore.kernel.org WebFetch returned 403; thread recovered via `b4 dig
-    -m`.
+===============================================================
+PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+===============================================================
 
-**Step 4.2: Recipients (`b4 dig -w`)**
-- Record: Mauro Chehab, Nathan Chancellor, Nick Desaulniers, Bill
-  Wendling, Justin Stitt, linux-media, LKML, llvm@lists.linux.dev. Right
-  maintainers and LLVM list. No review tags in-tree beyond Hans’s SOB on
-  apply.
+Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
+Record:
+- **b4 dig -c bf533acaaa7de:** match
+  https://patch.msgid.link/2026063007035519.3-ccfa108-0014-media-
+  cx18-stop-VBI-start-c-pengpeng@iscas.ac.cn
+- **b4 dig -a:** **v1 only** (2026-06-30). Applied version is that v1.
+- **b4 dig -m:** mbox is the original submission only — commit body +
+  1-line diff. **No replies, NAK, or on-list review.**
+- lore.kernel.org HTTP: Anubis 403. Discussion beyond the mbox is
+  **UNVERIFIED** via WebFetch.
+- Hans Verkuil’s SOB is the review/apply signal.
 
-**Step 4.3: Bug report**
-- Record: No syzbot/bugzilla. The “report” is Arnd’s own clang-22 s390
-  KASAN build. Severity: compile error under `-Werror`, not a runtime
-  crash.
+Step 4.2: CHECK WHO REVIEWED THE PATCH
+Record (**b4 dig -w**):
+- To: Andy Walls (CX18 maintainer), Mauro Carvalho Chehab
+- Cc: linux-media, linux-kernel
+- Applied by Hans Verkuil. Right lists/maintainers were CCd.
 
-**Step 4.4: Series**
-- Record: Standalone v1. Not part of a multi-patch series.
+Step 4.3: SEARCH FOR THE BUG REPORT
+Record: **No Reported-by, no syzbot, no bugzilla Link.** Looks like
+static/code inspection, not a user crash. Twin ivtv patch supports that.
 
-**Step 4.5: Stable list**
-- Record: lore.kernel.org/stable WebFetch 403. **UNVERIFIED:** whether
-  this was discussed on stable@. Nothing in the mbox nominates it.
+Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
+Record: Independent `[PATCH]` plus independent ivtv twin (`…-0015-media-
+ivtv-…`). No hidden series dependency. This commit is self-contained.
 
-## Phase 5: Semantic / call graph
+Step 4.5: CHECK STABLE MAILING LIST HISTORY
+Record: **UNVERIFIED** (lore/stable search blocked). Local history has
+no stable-discussion commit for this subject. No evidence it was
+rejected for stable.
 
-**Step 5.1: Functions**
-- Record: `tpg_fill_plane_extras`, `tpg_fill_plane_pattern`
-  (annotations). Indirectly `tpg_fill_plane_buffer` (the function named
-  in the warning).
+===============================================================
+PHASE 5: CODE SEMANTIC ANALYSIS
+===============================================================
 
-**Step 5.2: Callers**
-- Record: Both helpers are static and only called from
-  `tpg_fill_plane_buffer()`. That function is `EXPORT_SYMBOL_GPL` and
-  called from:
-  - `tpg_fillbuffer()` (same file)
-  - `drivers/media/test-drivers/vivid/vivid-kthread-cap.c`
-  - `drivers/media/test-drivers/vimc/vimc-sensor.c`
-  - `drivers/media/test-drivers/visl/visl-dec.c`
-- Userspace-reachable only if a **virtual V4L2 test driver**
-  (vivid/vimc/visl) is loaded. Not IRQ/core.
+Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
+Record: **`compress_sliced_buf()`** only.
 
-**Step 5.3: Callees**
-- Record: memcpy of pattern lines, rectangle/pillar drawing, pixel-
-  format switches. No locks, no alloc in the changed signatures.
+Step 5.2: TRACE CALLERS
+Record (grep, not semcode — semcode MCP not available):
+- `compress_sliced_buf()` ← `_cx18_process_vbi_data()` when **not** raw
+  VBI
+- `_cx18_process_vbi_data()` ← `cx18_process_vbi_data()` per buffer on a
+  VBI MDL
+- `cx18_process_vbi_data()` ← `cx18_fileops.c` on userspace read of VBI,
+  or internal VBI while reading MPEG (`CX18_F_S_INTERNAL_USE`)
+- **Context:** process context, V4L2 read/DQBUF — not IRQ. User-
+  reachable with sliced VBI capture on cx18.
 
-**Step 5.4: Reachability**
-- Record: Yes from userspace via vivid/vimc/visl, but those Kconfigs say
-  “When in doubt, say N.” The failure being fixed is **compile-time**,
-  so it hits anyone who *builds* `VIDEO_V4L2_TPG` (selected by those
-  drivers; allmodconfig will build it).
+Step 5.3: TRACE CALLEES
+Record: start-code compare; later `v4l2_subdev_call(...,
+decode_vbi_line)` and `memcpy` of 42 bytes. The changed loop only
+searches; it does not decode until a full line is found.
 
-**Step 5.5: Similar patterns**
-- Record: Same `noinline_for_stack` workaround exists elsewhere in media
-  (vivid 2019, rkvdec 2026). This instance is the TPG core helper, not a
-  duplicate of those.
+Step 5.4: FOLLOW THE CALL CHAIN
+Record:
+`VIDIOC_QBUF/read` → `cx18_dequeue` → `cx18_process_vbi_data` →
+`_cx18_process_vbi_data` → `compress_sliced_buf`
+- **Userspace-reachable:** yes, with this card and sliced VBI.
+- Unprivileged: only with access to the V4L device node (typical video
+  group / capture app).
 
-## Phase 6: This checkout
+Step 5.5: SEARCH FOR SIMILAR PATTERNS
+Record: Same bug in **ivtv** `compress_sliced_buf()`; already fixed with
+`i + 3 < size`. No other `i + 3 < size` hits under `drivers/media`.
+Systematic cloned-driver bug, both fixed.
 
-**Step 6.1: Local tree and buggy code**
-- Record:
-  - `git describe HEAD` → `v7.3-rc4-27-gf0100363d8c37`
-  - `make kernelversion` → `7.3.0-rc4`
-  - Makefile: VERSION=7 PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4
-  - File and functions exist. Pre-patch form was `static void
-    tpg_fill_plane_*`. TPG present since 2016 (`e07d46e7e0da8` is an
-    ancestor).
-  - `git merge-base --is-ancestor c49cdaafa443c HEAD` is true (commit is
-    in this development tree). That is **not** treated as “already
-    selected for stable”.
+===============================================================
+PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
+===============================================================
 
-**Step 6.2: Backport difficulty**
-- Record: Clean apply on this tree. Only the two `static void`
-  prototypes change. `noinline_for_stack` exists.
+Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
+Record:
+- **Tree:** `git describe HEAD` = **v7.3-rc4-27-gf0100363d8c37**; `make
+  kernelversion` = **7.3.0-rc4**
+- Driver and function exist: `drivers/media/pci/cx18/cx18-vbi.c`
+- **This commit is already an ancestor of HEAD** (`git merge-base --is-
+  ancestor bf533acaaa7de HEAD` succeeded)
+- First mainline tag containing it: **`v7.3-rc1`** (`git describe
+  --contains --match 'v*'`)
+- **Buggy bound `i < size` is in the parent** `bf533acaaa7de^`; it is
+  not a post-7.3 invention
+- Introduced **2008/2009**, so every current stable series that still
+  has cx18 has the bug unless this commit was backported
+- Already-in-HEAD on **mainline 7.3-rc4** is expected; it is not
+  “already selected for stable”
 
-**Step 6.3: Related fixes already here**
-- Record: No earlier equivalent TPG stack workaround. `1a03f91c2c241` is
-  a similar vivid kthread workaround from 2019, different file/function.
+Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
+Record: **Clean apply.** Surrounding function is stable since 2009 aside
+from macros/email/SPDX. Stable trees with `i < size` get a 1-line
+conflict-free change.
 
-## Phase 7: Subsystem context
+Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
+Record: This is the fix. No earlier alternate bound check. ivtv twin is
+a different driver.
 
-**Step 7.1**
-- Record: Subsystem `drivers/media/common/v4l2-tpg` (V4L2 test pattern
-  generator). **PERIPHERAL** — only vivid/vimc/visl test drivers. Not
-  mm/fs/net core.
+===============================================================
+PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+===============================================================
 
-**Step 7.2**
-- Record: Mature (2015–2016), occasional format additions. Not a high-
-  churn core path.
+Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
+Record:
+- **Subsystem:** media / PCI V4L2 — Conexant CX23418 (Hauppauge HVR-1600
+  and similar)
+- **Criticality: PERIPHERAL** — old PCI capture card, not mm/net/VFS
+- `CONFIG_VIDEO_CX18`; maintainer Andy Walls; list linux-media
 
-## Phase 8: Impact and risk
+Step 7.2: ASSESS SUBSYSTEM ACTIVITY
+Record: **Mature/quiet.** Recent cx18 commits are treewide/API; this is
+one of the few real local bugfixes. Long-lived bug, not churn from a
+rewrite.
 
-**Step 8.1: Who is affected**
-- Record: Config-specific: `CONFIG_VIDEO_V4L2_TPG` via vivid/vimc/visl,
-  plus clang-22, KASAN, `-Werror`, and `CONFIG_FRAME_WARN=1536` (error
-  text). Default 64-bit `FRAME_WARN` is **2048** (`lib/Kconfig.debug`);
-  1560 < 2048, so **default s390 64-bit allmodconfig would not fail**.
-  1536 is the 32-bit Xtensa default, or a non-default int in
-  randconfig/custom CI.
+===============================================================
+PHASE 8: IMPACT AND RISK ASSESSMENT
+===============================================================
 
-**Step 8.2: Trigger**
-- Record: Building that file with that toolchain/config. Not a runtime
-  trigger. Unprivileged users cannot “hit” it except as a failed kernel
-  build.
+Step 8.1: DETERMINE WHO IS AFFECTED
+Record: **Driver-specific / config-specific:** `CONFIG_VIDEO_CX18`,
+sliced VBI (not raw). Population is small (HVR-1600-class cards) but
+real.
 
-**Step 8.3: Failure mode**
-- Record: Compile error under `-Werror` (WERROR defaults to
-  COMPILE_TEST). Runtime stack on s390 is 16KiB, 64KiB with KASAN
-  (`arch/s390/Makefile`); 1560 bytes is not a runtime overflow.
-  Severity: **MEDIUM for CI/debug builds with a lowered FRAME_WARN; LOW
-  for production stable users.**
+Step 8.2: DETERMINE THE TRIGGER CONDITIONS
+Record:
+- Trigger: sliced VBI processing when the 4-byte EAV (`0xff 00 00
+  {0xb0,0xf0}`) is not found before the tail — then the loop runs to EOF
+  and over-reads
+- How common: every sliced-VBI buffer that lacks a match in-range; with
+  valid hardware the match is usually early
+- Unprivileged: only via the V4L node, not a generic syscall primitive
+- Not a race
 
-**Step 8.4: Risk-benefit**
-- Record:
-  - Benefit: unblocks clang+KASAN+Werror builds of TPG/vivid; tiny
-    annotation.
-  - Risk: very low (2 annotations, no behavior change).
-  - Ratio: favorable **if** treated as a build fix; modest user benefit
-    because the default 64-bit limit is 2048.
+Default buffer sizing (verified):
+- `stream_buf_size[VBI] = VBI_ACTIVE_SAMPLES * 36` = **1444 × 36 =
+  51984**
+- Sliced MDL: NTSC **9792**, PAL **12496**; `bufs_per_mdl = 1`
+- `buf->buf = kmalloc(s->buf_size)` (51984); DMA/`bytesused` ≈ mdl_size
+  (~10–12K)
+- Default: 1–3 bytes past `bytesused` are **still inside the kmalloc
+  object** (not a KASAN slab redzone hit)
+- If `bytesused == buf_size` (full buffer), it **would** be a true
+  allocation over-read
 
-## Phase 9: Synthesis
+Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
+Record:
+- **Failure mode:** 1–3 byte read past valid DMA `bytesused` while
+  matching start codes (result not copied to userspace)
+- Default config: no crash, no leak to userspace, no functional change
+  (tail false-match still leaves size ≪ line_size)
+- Edge: true slab/page OOB / oops if used size equals allocation
+- **Severity: MEDIUM** as memory-safety/correctness; **not CRITICAL**
+  (no demonstrated panic/corruption). Still a real OOB class bug.
 
-**Step 9.1: Evidence**
+Step 8.4: CALCULATE RISK-BENEFIT RATIO
+Record:
+- **Benefit:** closes a long-standing OOB read on a live capture path;
+  low user count
+- **Risk: very low** (1 line, loop bound only)
+- **Ratio:** favorable — tiny risk, real bounds bug, same pattern
+  already used on ivtv
 
-FOR:
-- Official `stable-kernel-rules.rst` lists **build error** (not
-  CONFIG_BROKEN).
-- Build-fix exception in the evaluation rubric.
-- 8/6-line, obviously correct `noinline_for_stack` — the kernel’s
-  standard answer to clang+KASAN frame-size errors.
-- Author Arnd Bergmann; applied by Hans Verkuil; LLVM Linux people on
-  Cc.
-- Helpers and macro exist in this 7.3-rc4 tree; applies cleanly; no
-  series deps.
-- Similar media workarounds have been used for years.
+===============================================================
+PHASE 9: FINAL SYNTHESIS
+===============================================================
 
-AGAINST:
-- Not a crash, UAF, deadlock, corruption, or security bug.
-- Author: clang problem, not a logic bug.
-- Only vivid/vimc/visl (test drivers, “When in doubt, say N”).
-- Reproduced with FRAME_WARN **1536**; 64-bit default is **2048**, so
-  typical s390 KASAN allmodconfig may not fail.
-- clang-22 + s390 + KASAN is a narrow toolchain.
-- No stable nomination, no user reports, v1 with no review discussion.
+Step 9.1: COMPILE THE EVIDENCE
+**FOR backporting:**
+- Real 4-byte peek past `size`; classic OOB-read class used in stable
+- One line, obviously correct, no API/feature
+- Code has been in-tree since 2008/2009; no missing prereqs
+- Userspace-reachable sliced VBI on cx18
+- Applied by Hans Verkuil; CX18 maintainer CCd
+- Twin ivtv fix confirms the pattern
+- Regression risk essentially zero
 
-UNRESOLVED:
-- Whether default `FRAME_WARN=2048` allmodconfig on this tree fails with
-  clang-22+KASAN (reported size 1560 suggests no).
-- Whether 32-bit clang+KASAN exceeds the 1280 default (not claimed;
-  unverified).
-- Whether stable@ ever discussed this (lore 403).
+**AGAINST:**
+- No syzbot/user/crash report
+- Peripheral 2008 PCI encoder, small population
+- Default kmalloc (52K) ≫ typical `bytesused` (~10K), so default may not
+  oops
+- No Fixes/Cc:stable (not a veto here)
+- Not core mm/fs/net
 
-**Step 9.2: Stable rules checklist**
-1. Obviously correct and tested? **PASS** — two `noinline_for_stack`
-   marks; Arnd built it; maintainer applied v1.
-2. Real bug that affects users? **PASS** as a **build error** for the
-   configs that hit it; **weak** for production runtime users.
-3. Important (crash/security/corruption/deadlock)? **PASS only via the
-   documented build-error clause**, not via runtime severity. Frame 1560
-   vs 1536 is a warning-as-error, not an oops.
-4. Small and contained? **PASS** — one file, ~14-line diff, well under
-   100 lines.
-5. No new features/APIs? **PASS**
-6. Can apply to this tree? **PASS** — file, functions, and
-   `noinline_for_stack` are all here.
+**UNRESOLVED:**
+- lore/stable threads beyond b4 mbox (Anubis)
+- No sanitizer report found
 
-**Step 9.3: Exception category**
-- Record: **Build fix** (compilation error/warning under `-Werror`). Not
-  a device-ID, quirk, DT, or docs exception.
+Step 9.2: APPLY THE STABLE RULES CHECKLIST
+1. Obviously correct and tested? **PASS** — bound is locally checkable;
+   accepted by media maintainer (no extra Tested-by)
+2. Fixes a real bug that affects users? **PASS** — over-read of the VBI
+   payload bound on a real capture path
+3. Important issue? **PASS** (medium) — memory-safety OOB; crash only if
+   used size equals allocation; still the OOB class stable takes as
+   small driver fixes
+4. Small and contained? **PASS** — 1 line, 1 function
+5. No new features or APIs? **PASS**
+6. Can apply to the local tree? **PASS** — already in this 7.3-rc4 tree;
+   parent form applies cleanly wherever `i < size` remains
 
-**Step 9.4: Decision**
+Step 9.3: CHECK FOR EXCEPTION CATEGORIES
+Record: **None** (not ID/quirk/DT/build/doc). Qualifies as a normal
+small bugfix.
 
-This tree is **Linux 7.3-rc4** (mainline). The TPG helpers are present;
-the patch is self-contained and matches the code here.
+Step 9.4: MAKE YOUR DECISION
+This tree is mainline **7.3-rc4**, which already contains the fix
+(landed in **v7.3-rc1**). The evaluation is technical merit for stable,
+not “re-apply on 7.3”.
 
-It is not a runtime stability fix. It is the documented class of **build
-error** that stable rules allow: clang-22 + KASAN inlines two large
-`static` helpers into `tpg_fill_plane_buffer()` until `-Wframe-larger-
-than` fails with `-Werror`. The change is two `noinline_for_stack`
-annotations, no semantic change, negligible regression risk.
+The bug is a one-byte-stride scan of a four-byte start code with `i <
+size`, present since 2008/2009. The patch is the standard remaining-
+bytes fix. It does not add features, does not need other commits, and
+will not regress the later line parser.
 
-That is enough for this tree: the affected code exists, the workaround
-is the usual one, and blocking KASAN/clang builds of `VIDEO_V4L2_TPG` is
-a real compile failure even though vivid is a test driver.
+Default cx18 VBI buffers make a crash unlikely, but it is still a real
+bounds bug on a user-triggerable path, with ~zero backport risk. That is
+enough for YES on this tree’s stable-candidate criteria.
 
-## What the commit solves for this tree
+------------------------------------------------
+What the commit solves for stable users
+`compress_sliced_buf()` must see `buf[0]..buf[3]`. With `i < size`, the
+last three iterations read past `bytesused`. Stopping at `i + 3 < size`
+prevents that. Users with Hauppauge HVR-1600-class cx18 cards doing
+sliced VBI (or MPEG with inserted VBI) no longer walk off the valid DMA
+tail.
 
-`tpg_fill_plane_buffer()` grows a 1560-byte frame when clang-22+KASAN
-inlines `tpg_fill_plane_extras()` and `tpg_fill_plane_pattern()`. With
-`CONFIG_FRAME_WARN=1536` and `CONFIG_WERROR`, the build dies. Forcing
-those callees out of line removes the spill storm. Stable users who
-build this kernel with clang+KASAN+Werror (CI, debug kernels) need that
-to compile; production runtime behavior is unchanged.
+Stable rules / risk
+Meets the rules: obvious, small, no new API, real OOB. Benefit is modest
+(niche driver, default alloc has slack); risk is negligible. Prefer
+taking a 1-line memory-safety fix over leaving a 17-year over-read.
 
-## Risk vs benefit
+Concerns
+None for apply/prereqs. Not a sanitizer/CVE-backed crash. ivtv twin is
+separate. This 7.3-rc4 checkout already has the commit; older stables
+still on `i < size` are the backport targets.
 
-Benefit is restoring those builds; risk is two extra calls in a test-
-pattern path. The FRAME_WARN=1536 vs default 2048 gap means default
-64-bit configs may already pass, but the official build-error rule still
-covers the failure Arnd hit, and the patch is too small to justify
-withholding it.
-
-## Verification
-- [Phase 1] Parsed message/tags: Arnd + Hans SOB only; no
+Verification:
+- [Phase 1] Subject/tags: media/cx18 “stop”; SOBs Hou + Verkuil; no
   Fixes/Reported-by/Link/Cc:stable
-- [Phase 2] `git show c49cdaafa443c --stat`: 1 file, +8/-6; only two
-  function signatures
-- [Phase 2] Read `v4l2-tpg-core.c` ~2350–2712: loop still calls both
-  helpers; no logic change
-- [Phase 2] `noinline_for_stack` is `#define noinline` in
-  `include/linux/compiler_types.h:264`
-- [Phase 3] `git blame` on the annotations: `c49cdaafa443c`; older
-  `static void` from 2015 vivid TPG
-- [Phase 3] Origin `e07d46e7e0da8` (2016) is an ancestor of HEAD
-- [Phase 3] No Fixes: tag to follow
-- [Phase 3] `git log --oneline -20 --
-  drivers/media/common/v4l2-tpg/v4l2-tpg-core.c`: no prerequisite series
-- [Phase 4] `b4 dig -c c49cdaafa443c`: lore msgid
-  `20260618143252.1885475-1-arnd@kernel.org`
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] `b4 dig -w`: media + LLVM maintainers Cc’d
-- [Phase 4] `b4 dig -m /tmp/tpg-thread.mbox`: patch + LLVM-bug offer; no
-  replies
-- [Phase 4] WebFetch lore/stable: 403 — UNVERIFIED stable-list history
-- [Phase 5] `git grep tpg_fill_plane_buffer`: vivid, vimc, visl only
-- [Phase 5] No semcode MCP; used grep/read
-- [Phase 6] `git describe HEAD` / `make kernelversion`: v7.3-rc4 /
-  7.3.0-rc4
-- [Phase 6] `git merge-base --is-ancestor c49cdaafa443c HEAD`: yes
-  (original commit in this tree; not used as circular “already
-  selected”)
-- [Phase 6] Parent blobs still have `static void
-  tpg_fill_plane_extras/pattern`
-- [Phase 7] Kconfig: `VIDEO_V4L2_TPG` tristate selected by
-  vivid/vimc/visl test drivers
-- [Phase 8] `lib/Kconfig.debug`: FRAME_WARN default 2048 if 64BIT, 1536
-  only if !64BIT && XTENSA; s390 `STACK_SIZE` 16K/64K with KASAN
-- [Phase 8] `init/Kconfig`: WERROR default COMPILE_TEST
-- UNVERIFIED: allmodconfig with default FRAME_WARN=2048 on clang-22 s390
-  KASAN (1560 suggests it would pass)
-- UNVERIFIED: 32-bit clang KASAN frame size vs 1280 default
+- [Phase 2] Diff: `drivers/media/pci/cx18/cx18-vbi.c`
+  `compress_sliced_buf()` `i < size` → `i + 3 < size` (1/1)
+- [Phase 2] Confirmed `buf[0]..buf[3]` vs exclusive `size`; post-loop
+  `size < line_size` still holds if no match
+- [Phase 3] `git blame`: loop from `1c1e45d17b663d` (2008) /
+  `4ab9b256b5908a` (2009); fix `bf533acaaa7de`
+- [Phase 3] `git show bf533acaaa7de^`: parent still has `i < size`
+- [Phase 3] Sibling `f373cf17fb8e7` ivtv same change; author log shows
+  both
+- [Phase 4] `b4 dig -c`: lore msgid `2026063007035519.3-ccfa108-0014-…`;
+  v1 only; mbox = patch, no replies
+- [Phase 4] `b4 dig -w`: Walls, Chehab, linux-media, linux-kernel
+- [Phase 4] WebFetch/WebSearch lore: **UNVERIFIED** (Anubis 403)
+- [Phase 5] Callers: `_cx18_process_vbi_data` ← `cx18_process_vbi_data`
+  ← `cx18-fileops.c` VBI/MPEG read
+- [Phase 5] `i + 3 < size` only in cx18-vbi.c and ivtv-vbi.c
+- [Phase 6] `git describe HEAD` v7.3-rc4-27; kernel 7.3.0-rc4; `merge-
+  base --is-ancestor bf533acaaa7de HEAD` true; `--contains` v7.3-rc1
+- [Phase 6] File present; apply would be clean on `i < size`
+- [Phase 7] CONFIG_VIDEO_CX18; MAINTAINERS Andy Walls; mature driver
+- [Phase 8] buf_size 1444*36=51984; sliced mdl_size 9792/12496;
+  kmalloc(buf_size) so default over-read stays in-object
+- [Phase 8] Failure: OOB read, severity MEDIUM; risk very low
+- UNVERIFIED: on-list review beyond Hans’s SOB; stable@ discussion;
+  KASAN/syzbot report
 
 **YES**
 
- drivers/media/common/v4l2-tpg/v4l2-tpg-core.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/media/pci/cx18/cx18-vbi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/common/v4l2-tpg/v4l2-tpg-core.c b/drivers/media/common/v4l2-tpg/v4l2-tpg-core.c
-index 931e5dc453b90..e1d5c220f7381 100644
---- a/drivers/media/common/v4l2-tpg/v4l2-tpg-core.c
-+++ b/drivers/media/common/v4l2-tpg/v4l2-tpg-core.c
-@@ -2346,9 +2346,11 @@ static void tpg_fill_params_extras(const struct tpg_data *tpg,
- 			(params->is_60hz ? V4L2_FIELD_TOP : V4L2_FIELD_BOTTOM);
- }
+diff --git a/drivers/media/pci/cx18/cx18-vbi.c b/drivers/media/pci/cx18/cx18-vbi.c
+index 8dc4ce3259353..3a8430f3259eb 100644
+--- a/drivers/media/pci/cx18/cx18-vbi.c
++++ b/drivers/media/pci/cx18/cx18-vbi.c
+@@ -135,7 +135,7 @@ static u32 compress_sliced_buf(struct cx18 *cx, u8 *buf, u32 size,
+ 				    : VBI_HBLANK_SAMPLES_50HZ;
  
--static void tpg_fill_plane_extras(const struct tpg_data *tpg,
--				  const struct tpg_draw_params *params,
--				  unsigned p, unsigned h, u8 *vbuf)
-+/* noinline to work around clang KASAN issues */
-+static noinline_for_stack void
-+tpg_fill_plane_extras(const struct tpg_data *tpg,
-+		      const struct tpg_draw_params *params,
-+		      unsigned p, unsigned h, u8 *vbuf)
- {
- 	unsigned twopixsize = params->twopixsize;
- 	unsigned img_width = params->img_width;
-@@ -2483,9 +2485,9 @@ static void tpg_fill_plane_extras(const struct tpg_data *tpg,
- 	}
- }
- 
--static void tpg_fill_plane_pattern(const struct tpg_data *tpg,
--				   const struct tpg_draw_params *params,
--				   unsigned p, unsigned h, u8 *vbuf)
-+static noinline_for_stack void
-+tpg_fill_plane_pattern(const struct tpg_data *tpg, const struct tpg_draw_params *params,
-+		       unsigned p, unsigned h, u8 *vbuf)
- {
- 	unsigned twopixsize = params->twopixsize;
- 	unsigned img_width = params->img_width;
+ 	/* find the first valid line */
+-	for (i = hdr_size, buf += hdr_size; i < size; i++, buf++) {
++	for (i = hdr_size, buf += hdr_size; i + 3 < size; i++, buf++) {
+ 		if (buf[0] == 0xff && !buf[1] && !buf[2] &&
+ 		    (buf[3] == sliced_vbi_eav_rp[0] ||
+ 		     buf[3] == sliced_vbi_eav_rp[1]))
 -- 
 2.53.0
 
