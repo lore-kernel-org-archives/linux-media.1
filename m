@@ -1,65 +1,65 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5476488747
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:14:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B72489FDB
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:14:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394067; cv=none; b=d++mnN58BOd+Tdkl2KjjQQwdwb72+i/5pD25JYLXKnO2aUIxR5uiHAPTdyM5S/cwQNA9I7WstcNgOTUlQ8NmONXcjTJtoBcXEDSkmaLi0bBDOUkS/B12lsMaBDzrYXWIoJ1Wnfvd8ikfQ0hk5phQdutqPdMWkQt7o51TaY8mQm8=
+	t=1792394070; cv=none; b=ZGbS8VNrKkgVEq6WOMPPeAemt/vH0WmEPkMmuAq+Pzhqdh8JHivqDGbizp6i3aJZp+kxbYfUy4nugs6WxKIuLwplzyyifPcjPJZNz0JvxFojlKWA6n/Bt6UoxmgdycFyErNRLmzDtdmJCdk4ziJCCgFYebUM3eOOnr0kNepofcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394067; c=relaxed/simple;
-	bh=KbWHiMnRC7Qpn22acKQxyHeLZ2BIuINxMqAY0P7tuls=;
+	s=arc-20240116; t=1792394070; c=relaxed/simple;
+	bh=SFqiFbwT5zc1Xy3gOBv6MyMahvIHAjT/LaJDsud62Wk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=SbDawtcqnkDd44+Kd+I6f0WGyfQFFqDgyE1CHOULHStO3nMJZkZ972G3bKe/ozpGlNx9RSiJ2aQkgGgWCgram8VBA+N9IKsCCB9LwEwBv6+UdlEO7Otx237KiYNoui+maXFdzRr4t5F118qoI/7PDAokH7zfgmrslNgxf+Mkr9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i0sn+AQU; arc=none smtp.client-ip=209.85.221.53
+	 MIME-Version; b=auCEDNJwFwF8Nwv1zNXX2lUeqnp+zK3Iv3KpXT49BW34ucdZrtCFEjWNVLX9OLZxQf7PCsCZq/f7shsQCp357vCSBpaRIct5klSixYw0kZL17OhGTv4JcjYKna2XWx3rojme4tebX/aym57m8JH7/sXUoglZ/s+kKqBEfF046hA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FgRcbOUg; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i0sn+AQU"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so1348277f8f.1
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 00:14:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FgRcbOUg"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so13333685e9.1
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 00:14:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792394064; x=1792998864; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792394066; x=1792998866; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3N4hEQnVScozkCXAtUHxCDfoyvbwHIV8uHsxZE1LpnQ=;
-        b=i0sn+AQU2aTvXLMp/NxGzH0VoCZgQWwwQXGixD7CAv3uNzRXP9CmTs5xj0SQp8wvkZ
-         XcvdLguguV/mWatO8afZEJhKNF9CUWlKc84NwOj+S5FF7X9yfYFwW7etf1ega5hYChEM
-         RO8i2fhBFPeFVM1A3Ms+0D+/1eg5NfUp0M+/cFXAiWrrfKGyqcPVw8LagTf1b035qomP
-         ZHvEqaewRJ7kYmeP3Drajq5Ke6S5B3NZ1oibJxUurIaQr2RLIHHZ3O0173UGfuGjRBd1
-         dAgb+COKXrCMzF2fcYQwFxj5aEFjzgax+c4NNp/PAJDG1etpiYqPCDIKN01UbPJUT7ZC
-         Vx4Q==
+        bh=Yk1PIjZ/V5CKGQclQeGzlozEfFu9qAElw/hhv/wGbR8=;
+        b=FgRcbOUgMZRV6JE1Lhh17+XiVe0jD9TmJfKMVIf3L9AqlaOLGd9UyTxYF7FRgwQ5hr
+         gBhydyk+xI8xFV+z68qigklDN8D7kSA2bZ15foWrb9tf2WXFKTPIS+5mTeKFTafTdBd3
+         XZQB472E4z9Ornt8zaqGQi8XdzwgS/6zS3TR6MIkF7up98+u/MIou2jMjQeE27vd5a5O
+         OqoqPzw9fmsFzJPZI/VgL/G/a6L3UWjNQJ8jMRxi5ScuNTfLq3k3cT7M3MS+MMkPNQlL
+         U7cMlT6FrvZpzsO5GBJrKOhXhJoHuBmuriTnI6EUJM/VHE83N9RInL2SnHgVAmcgZtJC
+         VP6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792394064; x=1792998864;
+        d=1e100.net; s=20260707; t=1792394066; x=1792998866;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3N4hEQnVScozkCXAtUHxCDfoyvbwHIV8uHsxZE1LpnQ=;
-        b=aAAUB/x3gcrfuv9t5rVaGZ42AmS8HY5RM7atssiHgNfOxofr1NtCor2s8/gTPEKDgx
-         0iMPqng6mHKhqJ6JeKi5XAfGCpJ79y+P2tHfn8cEcfN0n0Z1x7gL7Gs2hBqNoOrjMIq/
-         UgTJMfrF931+3sP66jD7Ov0hK13a0S1IrjII8Q1N7Lh+KN2LfzNTnLSSlVBq/d8UGzYG
-         O7bYFsVE951Hcy0/QOHeU9gIKSnimfguw5vgtQbLxpfuo3+9SxsJ5LfJm6WvmC2OLdHh
-         b5Z8F3OhtqRnxqr1ASTH9Sc1F4zrLcHR5/kPOdmKmN0JseMuFRTh42lPfzyrQTofJOGT
-         msAA==
-X-Gm-Message-State: AFq9FYIie3EFhDZkYJ4hZ+vLGQojbDMoWdx0/TLtj2dJUMteSTH3Q31n
-	GeVykNnKoDuzfX4ab1GdAcnDSaUFwYPW2bnxbAa3Jy8Y25BWlvOO42Q7D3Be2JL9
-X-Gm-Gg: AYBFou3TvfAaKsHzGx4bC3nRrqTwIGPV09IeAmCwczzOyN00MA6BnbVJESYi9hHf2HF
-	bqs3/hQYqILqiUP95K2B/TKrhnaXO9+VRxzlw8M058LEDHmljsmUoNZWdWp6MCkTa7AYAIRxtof
-	cpuoVplO/+n/clZhGftv1wep/gJml0obMYs0UseTgfsE5x8yTyUqvZ8sU4fv1wTkGnBPYJ8xLlh
-	G10l2xWFtuA1DtZdk8SZdBkqN3OFqexyzGzycRAWg0d56fAD3I9LBHuWOv57UlT+UqjMr/ckEmu
-	ydioiffuvhWVvlAdZqS+6vbYbUxH6O/MBQwQBnneIcZn8SNW0Qg6UTqseWZDypsAcgsgSetF0aG
-	opVVIV1NuFGg/vgcyfeCx8JEFZJdIIE6Iiyfbhtbsr9a0eIGK/nS/kEZqZx7oK9q7DN4iJ4un/o
-	isl9zM1kQw3NvEQG6TmFCyp5Vc6xjSbIQT0ycJVZl+yOD+O8G0/PBp1BK5GsfbdScAIGSFCrLZY
-	+vx+Ef8JzMRASX71U58yh3ow6HRTPCr32i2QEZQOQADhePnkW7aRP4o+/7QCBFHacAOqVW0WeN3
-	G4lSEJZN7ZVLoEYGUTmlsbzIU4KgHD7xN1GK7ckQz66ClyvZ7WE72/fH5XyzI2i0DuOjdP4Va/x
-	U
-X-Received: by 2002:a05:600c:a10b:b0:4a0:263c:704f with SMTP id 5b1f17b1804b1-4a1d7601226mr96449385e9.16.1792394063736;
-        Mon, 19 Oct 2026 00:14:23 -0700 (PDT)
+        bh=Yk1PIjZ/V5CKGQclQeGzlozEfFu9qAElw/hhv/wGbR8=;
+        b=IzUlTe8F6C+wC2A4Tg5fBG+6Ep7y7zlPzIDNGdKGM4ogp0/k2UkiT4ksN9W0FSLFTs
+         XwdJV+/HSKIRfeGoYmr7fK6tD4Cyps+CSizgmOJHljcJHTcxI8EA57GI95knOzJcacWx
+         HkA3c97Q6vnqsbcwTmg6YBGLqlSW8k9U37MWKmIu2yX49xlywUf/3wCLxQ/na94AWKO+
+         rgnnQ4UorEUHACNXJmxfLYXgxWONqtQLkxMsJhOhEAKrgU3QYHnV6gM8V5y8Bf+Q2Z8K
+         21vrKIrywSCb2z4bjLOkN26FhXhWLwvaRsNlqE4stpnYK+3Si+G7sqyv/IU3ggDCSy4r
+         8eAg==
+X-Gm-Message-State: AFq9FYKK9//dDYBnZEjUbMNz2m7o7XsTJMLuTx0QHs3UR3QiPO8AiGII
+	UJckaWbA4kc0zbjYh24uUZM4rWsQ+FivwXuuefeVrstZS4Wq3dZkmWaJ/dllNVLh
+X-Gm-Gg: AYBFou1mlQBJjXPsduRcyYMYAqB8t1PfnzKoNhEsOHMYzflTNSQEqeHn3CxrTGei5Uf
+	6na+i6Za0CuNrxgjrwtBX8G+mZRZGU6ijvQ6LBhJMnU9zQtxmvw9k5/Ow4H4eZHEGPuEDVPokBY
+	96kFbeMWYvA2o+Ctv7Lnb3mzz9TPJqd9yoyaX2S8YuVCi1xuuL7xPGpJlJt3UnbZQCdLOd2ZZdx
+	7PzKtR3FnsQPuTqsEZ55TBdANMlac+chNN9UhygJIXFkoPFGAGAY0sjG456nfRd/hkX7VyblUAB
+	+94qhu6wQQHGyO/etXV6nb6YENLif/NC3lF1iZGrlL+181UFAJUyrDOhrGqXvbrukXADj2t8XFf
+	akw1hSwq+uK5pnIAsuO+aO3gmf1Ve4bIgdBKafTBwweKSeG2jwmW1MPBhBrmAcpjzinBZ+pbKBg
+	rRwIUyyACB3kiXgUbcaD3gTMvGrm9HjaDjTmGpDIwY55MuJWHwj5Kf6V4WH7r2LQAfbc+9Z1OGN
+	R2A/I8JaBV/D0hWl/8Pqv17uPETTFxc6B0fZruFKHGqIOtrbYbrsoxmReAUj+Bgv2xGSn54rvQk
+	gJBZHtRQUYg5Mg8uBPhVVF2zvDYUnUfG8f8u6iLnsiUNXQ0+L75n5u6+wF7yjSzAfFdII+M5S84
+	f
+X-Received: by 2002:a05:600c:4f95:b0:4a1:7bae:d80a with SMTP id 5b1f17b1804b1-4a1d75e3c9amr148966095e9.9.1792394065279;
+        Mon, 19 Oct 2026 00:14:25 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-a4e0-4601-c43a-536a-04a3-af7d.310.pool.telefonica.de. [2a02:3100:a4e0:4601:c43a:536a:4a3:af7d])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm21559338f8f.2.2026.10.19.00.14.22
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm21559338f8f.2.2026.10.19.00.14.23
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 00:14:23 -0700 (PDT)
+        Mon, 19 Oct 2026 00:14:24 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Tomasz Figa <tfiga@chromium.org>,
@@ -76,9 +76,9 @@ Cc: Tomasz Figa <tfiga@chromium.org>,
 	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
 	Karl Mehltretter <kmehltretter@gmail.com>
-Subject: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
-Date: Mon, 19 Oct 2026 09:14:09 +0200
-Message-Id: <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
+Subject: [PATCH 3/4] media: uvcvideo: synchronize imported DMA-BUFs for CPU access
+Date: Mon, 19 Oct 2026 09:14:10 +0200
+Message-Id: <bd42fc312d9a046a9dc943bfbdd3e2b3612f8c78.1792392288.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1792392288.git.kmehltretter@gmail.com>
 References: <cover.1792392288.git.kmehltretter@gmail.com>
@@ -90,281 +90,33 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drivers must bracket CPU access to imported DMA-BUFs with
-dma_buf_begin_cpu_access() and dma_buf_end_cpu_access().
+uvcvideo writes USB payloads into imported DMA-BUFs with the CPU without
+cache synchronization, leaving physical RAM stale.
 
-Add a queue flag to do so from buf_prepare() through buf_finish(). Use
-read access for output and write access for capture. Map imports
-bidirectionally because CPU and device access directions are opposite.
-Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
-the queue's normal direction.
+Set uses_cpu_access to bracket the driver's CPU access.
 
-Keep this opt-in because some vb2-vmalloc drivers pass buffers to
-hardware. End access in process context because DMA-BUF callbacks may
-sleep.
+On a Pi 400, 12 eight-frame captures each had stale data before this
+change. All 96 frames matched RAM with it.
 
+Fixes: ccc4c539c05f ("[media] v4l: uvc: add support for DMABUF importing")
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- .../media/common/videobuf2/videobuf2-core.c   | 83 ++++++++++++++++++-
- .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
- .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
- .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
- include/media/videobuf2-core.h                | 12 ++-
- 5 files changed, 101 insertions(+), 9 deletions(-)
+ drivers/media/usb/uvc/uvc_queue.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index 460eaf4e82f78..d2a78cd0a86bb 100644
---- a/drivers/media/common/videobuf2/videobuf2-core.c
-+++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -371,6 +371,65 @@ static void __vb2_buf_mem_finish(struct vb2_buffer *vb)
- 		call_void_memop(vb, finish, vb->planes[plane].mem_priv);
- }
- 
-+/* Output buffers are read by the driver; capture buffers are written. */
-+static enum dma_data_direction vb2_cpu_access_dir(const struct vb2_queue *q)
-+{
-+	return q->is_output ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
-+}
-+
-+static bool __vb2_dmabuf_is_duplicate(const struct vb2_buffer *vb,
-+				      unsigned int plane)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < plane; i++)
-+		if (vb->planes[i].dbuf == vb->planes[plane].dbuf)
-+			return true;
-+
-+	return false;
-+}
-+
-+static void __vb2_buf_end_cpu_access(struct vb2_buffer *vb,
-+				     unsigned int num_planes)
-+{
-+	struct vb2_queue *q = vb->vb2_queue;
-+	enum dma_data_direction dir = vb2_cpu_access_dir(q);
-+	unsigned int plane;
-+
-+	for (plane = 0; plane < num_planes; plane++) {
-+		int ret;
-+
-+		if (__vb2_dmabuf_is_duplicate(vb, plane))
-+			continue;
-+
-+		ret = dma_buf_end_cpu_access(vb->planes[plane].dbuf, dir);
-+		if (ret)
-+			pr_warn_ratelimited("[%s] failed to end CPU access to dmabuf plane %u: %d\n",
-+					    q->name, plane, ret);
-+	}
-+}
-+
-+static int __vb2_buf_begin_cpu_access(struct vb2_buffer *vb)
-+{
-+	struct vb2_queue *q = vb->vb2_queue;
-+	enum dma_data_direction dir = vb2_cpu_access_dir(q);
-+	unsigned int plane;
-+	int ret;
-+
-+	for (plane = 0; plane < vb->num_planes; plane++) {
-+		if (__vb2_dmabuf_is_duplicate(vb, plane))
-+			continue;
-+
-+		ret = dma_buf_begin_cpu_access(vb->planes[plane].dbuf, dir);
-+		if (ret) {
-+			__vb2_buf_end_cpu_access(vb, plane);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * __setup_offsets() - setup unique offsets ("cookies") for every plane in
-  * the buffer.
-@@ -1423,6 +1482,9 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
- 	}
- 
- 	if (reacquired) {
-+		enum dma_data_direction attach_dir = q->uses_cpu_access ?
-+			DMA_BIDIRECTIONAL : q->dma_dir;
-+
- 		if (vb->planes[0].mem_priv) {
- 			vb->copied_timestamp = 0;
- 			call_void_vb_qop(vb, buf_cleanup, vb);
-@@ -1453,7 +1515,8 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
- 						  vb,
- 						  q->alloc_devs[plane] ? : q->dev,
- 						  planes[plane].dbuf,
--						  planes[plane].length);
-+						  planes[plane].length,
-+						  attach_dir);
- 			if (IS_ERR(mem_priv)) {
- 				dprintk(q, 1, "failed to attach dmabuf\n");
- 				ret = PTR_ERR(mem_priv);
-@@ -1504,9 +1567,21 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
- 		}
- 	}
- 
-+	if (q->uses_cpu_access) {
-+		ret = __vb2_buf_begin_cpu_access(vb);
-+		if (ret) {
-+			dprintk(q, 1, "failed to begin CPU access to dmabuf: %d\n",
-+				ret);
-+			call_void_vb_qop(vb, buf_cleanup, vb);
-+			goto err_put_vb2_buf;
-+		}
-+	}
-+
- 	ret = call_vb_qop(vb, buf_prepare, vb);
- 	if (ret) {
- 		dprintk(q, 1, "buffer preparation failed\n");
-+		if (q->uses_cpu_access)
-+			__vb2_buf_end_cpu_access(vb, vb->num_planes);
- 		call_void_vb_qop(vb, buf_cleanup, vb);
- 		goto err_put_vb2_buf;
- 	}
-@@ -1756,6 +1831,8 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int c
- 
- 		__vb2_buf_mem_finish(vb);
- 		call_void_vb_qop(vb, buf_finish, vb);
-+		if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-+			__vb2_buf_end_cpu_access(vb, vb->num_planes);
- 		vb->prepared = 0;
- 	}
- 
-@@ -2160,6 +2237,8 @@ int vb2_core_dqbuf(struct vb2_queue *q, unsigned int *pindex, void *pb,
- 	}
- 
- 	call_void_vb_qop(vb, buf_finish, vb);
-+	if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-+		__vb2_buf_end_cpu_access(vb, vb->num_planes);
- 	vb->prepared = 0;
- 
- 	if (pindex)
-@@ -2296,6 +2375,8 @@ static void __vb2_queue_cancel(struct vb2_queue *q)
- 
- 		if (vb->prepared) {
- 			call_void_vb_qop(vb, buf_finish, vb);
-+			if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-+				__vb2_buf_end_cpu_access(vb, vb->num_planes);
- 			vb->prepared = 0;
- 		}
- 		__vb2_dqbuf(vb);
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-index 9ce6284cd5f26..68c146c043fb1 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-@@ -768,7 +768,8 @@ static void vb2_dc_detach_dmabuf(void *mem_priv)
- }
- 
- static void *vb2_dc_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
--				  struct dma_buf *dbuf, unsigned long size)
-+				  struct dma_buf *dbuf, unsigned long size,
-+				  enum dma_data_direction dma_dir)
- {
- 	struct vb2_dc_buf *buf;
- 	struct dma_buf_attachment *dba;
-@@ -794,7 +795,7 @@ static void *vb2_dc_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
- 		return dba;
- 	}
- 
--	buf->dma_dir = vb->vb2_queue->dma_dir;
-+	buf->dma_dir = dma_dir;
- 	buf->size = size;
- 	buf->db_attach = dba;
- 
-diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-index b1d0695cda260..ab03f9d31391a 100644
---- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-+++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-@@ -616,7 +616,8 @@ static void vb2_dma_sg_detach_dmabuf(void *mem_priv)
- }
- 
- static void *vb2_dma_sg_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
--				      struct dma_buf *dbuf, unsigned long size)
-+				      struct dma_buf *dbuf, unsigned long size,
-+				      enum dma_data_direction dma_dir)
- {
- 	struct vb2_dma_sg_buf *buf;
- 	struct dma_buf_attachment *dba;
-@@ -640,7 +641,7 @@ static void *vb2_dma_sg_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
- 		return dba;
- 	}
- 
--	buf->dma_dir = vb->vb2_queue->dma_dir;
-+	buf->dma_dir = dma_dir;
- 	buf->size = size;
- 	buf->db_attach = dba;
- 	buf->vb = vb;
-diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-index 63f023696f3ee..c38faa0188bc9 100644
---- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-+++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-@@ -402,7 +402,8 @@ static void vb2_vmalloc_detach_dmabuf(void *mem_priv)
- static void *vb2_vmalloc_attach_dmabuf(struct vb2_buffer *vb,
- 				       struct device *dev,
- 				       struct dma_buf *dbuf,
--				       unsigned long size)
-+				       unsigned long size,
-+				       enum dma_data_direction dma_dir)
- {
- 	struct vb2_vmalloc_buf *buf;
- 
-@@ -414,7 +415,7 @@ static void *vb2_vmalloc_attach_dmabuf(struct vb2_buffer *vb,
- 		return ERR_PTR(-ENOMEM);
- 
- 	buf->dbuf = dbuf;
--	buf->dma_dir = vb->vb2_queue->dma_dir;
-+	buf->dma_dir = dma_dir;
- 	buf->size = size;
- 
- 	return buf;
-diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index 4b4f4c15c53a7..8dfe22fa4423c 100644
---- a/include/media/videobuf2-core.h
-+++ b/include/media/videobuf2-core.h
-@@ -78,7 +78,8 @@ struct vb2_buffer;
-  *		to the userspace, also optional.
-  * @attach_dmabuf: attach a shared &struct dma_buf for a hardware operation;
-  *		   used for DMABUF memory types; dev is the alloc device
-- *		   dbuf is the shared dma_buf; returns ERR_PTR() on failure;
-+ *		   dbuf is the shared dma_buf; dma_dir is the DMA mapping
-+ *		   direction; returns ERR_PTR() on failure;
-  *		   allocator private per-buffer structure on success;
-  *		   this needs to be used for further accesses to the buffer.
-  * @detach_dmabuf: inform the exporter of the buffer that the current DMABUF
-@@ -136,7 +137,8 @@ struct vb2_mem_ops {
- 	void		*(*attach_dmabuf)(struct vb2_buffer *vb,
- 					  struct device *dev,
- 					  struct dma_buf *dbuf,
--					  unsigned long size);
-+					  unsigned long size,
-+					  enum dma_data_direction dma_dir);
- 	void		(*detach_dmabuf)(void *buf_priv);
- 	int		(*map_dmabuf)(void *buf_priv);
- 	void		(*unmap_dmabuf)(void *buf_priv);
-@@ -510,6 +512,11 @@ struct vb2_buf_ops {
-  *		->finish().
-  * @non_coherent_mem: when set queue will attempt to allocate buffers using
-  *		non-coherent memory.
-+ * @uses_cpu_access: the driver transfers buffer data with the CPU instead of
-+ *		DMA. For imported dma-bufs, videobuf2 brackets the interval from
-+ *		buf_prepare through buf_finish with dma_buf_begin_cpu_access()
-+ *		and dma_buf_end_cpu_access(). Imported attachments use
-+ *		bidirectional DMA mappings.
-  * @lock:	pointer to a mutex that protects the &struct vb2_queue. The
-  *		driver must set this to a mutex to let the v4l2 core serialize
-  *		the queuing ioctls. This lock is used when waiting for a new
-@@ -614,6 +621,7 @@ struct vb2_queue {
- 	unsigned int			uses_requests:1;
- 	unsigned int			allow_cache_hints:1;
- 	unsigned int			non_coherent_mem:1;
-+	unsigned int			uses_cpu_access:1;
- 
- 	struct mutex			*lock;
- 	void				*owner;
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f442fb..1f92ee96e0710 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -247,6 +247,7 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+ 	queue->queue.drv_priv = queue;
+ 	queue->queue.buf_struct_size = sizeof(struct uvc_buffer);
+ 	queue->queue.mem_ops = &vb2_vmalloc_memops;
++	queue->queue.uses_cpu_access = true;
+ 	queue->queue.timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC
+ 		| V4L2_BUF_FLAG_TSTAMP_SRC_SOE;
+ 	queue->queue.lock = &queue->mutex;
 -- 
 2.47.3
 
