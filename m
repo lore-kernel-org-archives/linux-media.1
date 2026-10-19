@@ -1,170 +1,154 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011023.outbound.protection.outlook.com [52.101.65.23])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB1949739E;
-	Mon, 19 Oct 2026 09:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792403910; cv=fail; b=DDHSdvWwUhyeY3svwHlAzCjrhxb/DeshOqcDkmvTnGafDHoRYi8vWCDooKZQ4XZcjpWPnhSAfzgZjzvWkuI2UOiCXm8DAi7QuT6KJWdLaIVSFsNJ5f9yKyD94aJpfVRRkiqrUMKdDdRoaXyjXVuCD6R2EEor3ca76vAwH4zEOA4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792403910; c=relaxed/simple;
-	bh=T8rdkLXgUnKA0fRbsEvMMNHYdYaR7m3R5I2oqv5A8Ys=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Wfb8O7rM2VbJktrwYenIX4eNj75i/8U0ml7YnkhcLAGEEN04XEFXXi44yPDneIwx+0gpWC2+BxE5G8gWMTKQYUQsG+izA/I/4idoVbrecCcIe3Q2YsKevwLSOvtxnF2BhBmHGKOKTJuN3j0FFEnU/qgPCRMLyN295Zg2kBOGZ4I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=UTPq/M1V; arc=fail smtp.client-ip=52.101.65.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0C74D597F;
+	Mon, 19 Oct 2026 10:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792404072; cv=none; b=pGxXWbsko+zsxeQchpF9ZFjs4xL5SrgA1SAYOTTKZto3UneistRGA1qZeghoZYjAu8dGf6tErwpVzUzVH+JZyF3JxOsHJzPnexiTNAGwha4L2Wt3j8Wd2EQL+4ica0CvVGT2E9FXZwhcljAq2g/nERMr2AlfGSTVET+2bRoX4eQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792404072; c=relaxed/simple;
+	bh=EKWfrIRBQN/A0hWazzILMvN+1tgZIZ4mudS5/pWSEPY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aQhSbxhuXi2Am7BovJpxoj1i0jMh7SfmXY/orXYaKpt2e2ZuEQwRbTf7t6wAsi/OrgdDfLVoHARkLxGlnhEaWdFKyH+ICzMwtwfFBt/4QXzBKCj7gNDZygIsVJCcsZOtQ9THDO/0gEAAmSEAT7nQwdY3MADXffdofR7sUpdEQoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YOOlmR99; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="UTPq/M1V"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Br64vYNLbKa2eEDx5ye0Xl63halL8uUOzG17Oxg9xiJ1vus7/Q+GfcfsJHi75/PMia1fATO32LjtObVegLo8rU8iVjtjshDCuWvjDEQkOOKk9g37kjZAzEBHmaEBDVN9f5H9OaWDbVaH9WEatxJoOv8j28LuwgjPutbXD1u/SI2bZw8rWU8RHrbeCgkM286zbbsIz/fMWYzdqprl6c73ooRrt//JUjnqVivq9NjJUK/DqvITyEdbAAmdDULKDqQm2bnT11pMDapmtwIArIrSzIDBnSMxx6nnTscQOL2AhGS3tqjQcJDQ5FlHWDUGNIWxFKexFXL1z9u5A3y0A+zoXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IF5BmW3kafLG+XLWKRzoNpd5pglgGaIiXP08Gkq0qo8=;
- b=CGtfEhAYrwjKXURmiATmRXen1sGXJPgXyXdjYJpAd9CSVaqicNN1o366TbJR0vuthWfO33lixq1r4O7SuzWWU7jQE948s1KZYw2ambFM0pfOqiq3a2SfSCtYBf4m4EddZbm84LRa14It+G/4qsuVjqRj03Pdcc3r/jUFVja91LI09WMawjBQMfH1j4eG7JJ6kJgIW90L91ClFSOjozZP46uoQdu/IjJTfor44nFPtZTe2BSbhpBhlcubOy2CuGusH6hvATD21yN7ERXcwTskN+rblBGZUDF8kQ66eIb+N6BjH8sBl93ONVEmREnUKrySItsTET8m/q24a/3LSpI+8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IF5BmW3kafLG+XLWKRzoNpd5pglgGaIiXP08Gkq0qo8=;
- b=UTPq/M1V3yMNxZOc0BwOj5ljPy2jcaKIPHOmTLtb/xWp/BuQvjFaTXi86p+XfmUtEOQjnvHRMP8lYb8ovxnuR8CEEVjmytQMsCSs873paznApQNnJRDcZiYxMu/Dar/gwyCY95nOHWndTRyM+Ew8N+xSX8gC5OaUA5th4yU6qfUdZ1Zyhmij9M6rekq4MWoMYHinni3S8M2eaf/VRUxc+X87GK0sWU3gxfjewpYqDLnZm+Ki+T8hWWSDaxRjuZMP728cLuBOaScqoiN5H0bZEA60WAJAz3cXx4uwa6MU6fhRob/ElIuipbeB/aCKJ1z0mByr9rYm9DKC9KfdGi8swg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from DB9PR04MB9791.eurprd04.prod.outlook.com (2603:10a6:10:4ce::9)
- by VI1PR04MB7103.eurprd04.prod.outlook.com (2603:10a6:800:123::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 09:58:24 +0000
-Received: from DB9PR04MB9791.eurprd04.prod.outlook.com
- ([fe80::806a:199b:49ec:b4f3]) by DB9PR04MB9791.eurprd04.prod.outlook.com
- ([fe80::806a:199b:49ec:b4f3%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 09:58:24 +0000
-Message-ID: <2d415b87-b14d-402e-b69c-153431f7a600@oss.nxp.com>
-Date: Mon, 19 Oct 2026 17:58:16 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: amphion: handle debug runtime resume failure
-To: Jiale Yao <yaojiale02@163.com>, Ming Qian <ming.qian@nxp.com>,
- Zhou Peng <eagle.zhou@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261019082754.1806443-1-yaojiale02@163.com>
- <20261019082754.1806443-3-yaojiale02@163.com>
-From: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
-In-Reply-To: <20261019082754.1806443-3-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2P153CA0011.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::14) To DB9PR04MB9791.eurprd04.prod.outlook.com
- (2603:10a6:10:4ce::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YOOlmR99"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A1C1F000C4;
+	Mon, 19 Oct 2026 10:01:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792404070;
+	bh=6HDV2HcLkfwQjSgKzpnVgoK+4ivvoEHdz75ohcQoHhk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YOOlmR992iCkxzo8lLqrfm6QBsTap8iuF1rxQ7iZ7zCq94SxSviXJ4s0jj5xMgN1y
+	 u3ecZrigLfaBBcyhIz5vjV60zaZ8SofK/7xpiH/LxFUDiFMl70Z6IAyeGo93P8Mj57
+	 VtUvig875jusO7GHu1mfiqf/vuzWfdqtG9MKdA9KZGR3YNJ7/8mmKDF8NzsV0/VSvl
+	 XZFWML62NHsQJGTCNgmCw50qX7m6CKAfRJm7AibA0nhiEyYGiANTE6Uj0/HYm0EMrs
+	 ZhQkKsBMkT1XLi6zAjSXSrNOJv2P2x5IYi0De3vs4hhiZcW+YxkElKcvRSg4jkTtOw
+	 E6yHw9RxSV/Rw==
+Message-ID: <392642ad-3bac-48bc-9199-8c3923c588c2@kernel.org>
+Date: Mon, 19 Oct 2026 11:01:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB9PR04MB9791:EE_|VI1PR04MB7103:EE_
-X-MS-Office365-Filtering-Correlation-Id: 24ecefe6-e467-4949-ee0e-08df2dc78394
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|11063799006|4143699003|56012099006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	cyXm3oSmgR9k6vk7AgfP2+yAaJ6nTNexBD/FC2U6V/XXIEWv2XhkXckVFuL+WBb/wDG8cBFtaOQrVwTAXz9NYdbs1npixbVw9nl0S/VJcRb7gEx9UaDmV5dfruTXcRzXS3mupStRw1JxpfmzM6ETyfP2yKT1wmQmmJJzfHlAwPJDygpd6PRULbjce42JQv8zq/Ksgnyq8lWOMQgemFxv9HmhXDt7oJWq8qIJ9gokKlnTDoRLVY996uspi3NdSzQGqeuuq2ZS/jkxZSHSugTLgsxE7TnqMKARrJAP8A2ugI6lzm0xezh2AtKoHJmQqLvxbgCWbsHBUTjMo40lZiKb+XqJdr9qq3gEySbUTu3qg2ulxf4TAjQ/lduwp+CL8v3zjVIPDgtXoyzx02T2buzUL34Vglsu5Bd1IXMQvk5UPoJVdk3qu6lfbLqtztTCN/9Tf7U8ikkN2ZCfWtj07KRmYyDOXIVN6BaH6T8paLwU+SGKXQdHjD33TkRxJIKHvR2RUXeJCNciMtgyvHJ8z6xKPnPXsl4ghb91DsPQ3JoPoqv8drhPzqdom5Wu9WMDWdkhd57T8bjlz42bzqaVQAofY7wMPpsGDuD+AhsCibV2fmG3pj8gi1KlausPt6ZjTrX/fd+4t4ydBVfLlPhvynaGlJAoqH0x495LjRkaJumAluE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y3JoRjgvNERsZllHOWhTclYrekVaN2lBM3FQa0M3RHFZdjh6dW1HSjZUMHlh?=
- =?utf-8?B?MzBNdEdhWFF4MnREengyMDVJQW04ZlFhQ1NrclhSdlp2RFIvcndBcXgzTlhu?=
- =?utf-8?B?MnFWSnptOHV1c3BDek9rQ1RNelM2TTkrUWNNMGxYekUyM0JBMGlPNTkyN0Ns?=
- =?utf-8?B?cC94VEdYZUVDU3ZueHdzOFBpNHFXTEpENHNiK2VQZ25Xcm9uaEhDSkdsSVVi?=
- =?utf-8?B?QjI5dnR3SFFxSXByTFFibUhXTjhTYStSVG1DVTR6Yi9rRDZWSkdyL2NjR1Vp?=
- =?utf-8?B?eUpJdUpsWHFoejJrUzJZeXhmVXBWd0s1VFZISTVlWXI3eWFLd2hqQnZWRzFW?=
- =?utf-8?B?bzczZjRtWkkxRXJPQkxzdUkrTG5JaWlQU2M3dzhDNXBTVHJWZ2NlTEtTaUVI?=
- =?utf-8?B?VzBHMDRRcy9UM2d3cnNnU2hmTWpMQmdWOEFCQWlBMVJwMHlhWUxVK1VsWXQy?=
- =?utf-8?B?WHV6bTFKN1Mwei9oSEd1aEI5eXhDaThnajFrV2xDb0dIdVhSblMwcXVNSzMr?=
- =?utf-8?B?NDNEVHNiWXZDVHVaOGNBTHJhRlI0djFVR2tubGZpckRVa2VjY3hOSGo4R1BU?=
- =?utf-8?B?L2dHbnBNK1JpT25rYStPc0NSLzFoclY2OGExSXFwRFduaGp4VnNvRnpkdkda?=
- =?utf-8?B?a05MTUpndzhsc3FyT0c2ZFM0VTFUY2R0alEzeWVqd1BOQXVyU2UvbS9DUjlz?=
- =?utf-8?B?K1ZOOFhvd0YwMWlVd1ZobFNod3lyc2Fvc2l0bGx5WTZiNFM0bjh4ci9YSi9q?=
- =?utf-8?B?MTMyRS93ZE9SY1FCWUtHdXBod1Y0V2o2eHVJQ0VwRmxwa2hnR25GN3BxQXZo?=
- =?utf-8?B?dVE3SWI3dU1KVXJYd0drNFQyaHp0cjl6QmtZeVpTV3BpLyt2dXk5Wk0wQjlZ?=
- =?utf-8?B?SHZBQUxLTDlaeVFvbUpPeEd1bE14N1BKSy9zTVlESng4Y3ViaGx3YllpSkI2?=
- =?utf-8?B?NXZER09sRGRqK3pHcWhTRyszRHUzOVh3aE9RanVNbnBaMjZoUWRIQmpwZDlB?=
- =?utf-8?B?NFV3VVh3cTI3d1hrOExsT3BISU9PVkNUMVlvaXNDOTFZa3B5c3gxa0RPYlFZ?=
- =?utf-8?B?aUs0Q0hLd2JHS1ZLSmJURkZMV2V2QnhpY1VoY2JQTXpQVDNwVTVmVzBVOEUw?=
- =?utf-8?B?S05CZ2N2Z3d5OGxYd3oyb2luamE0OXdDMzN5NjBkbDRrMXkzZFJBY2NxcHpl?=
- =?utf-8?B?SXE3enlyYThOeWJqWXk5dkJlbnlUSHVtNXgzdC9neXF6THVyQlpabG1jR2xN?=
- =?utf-8?B?OTlGbXZWNUltT3Ard3R3bkZsRFdTVmJ0TkhBL1paNjhmL3VmRlJHMmtMTXBs?=
- =?utf-8?B?a1o1MEtpV1k4T1JoSEtlbUFhZkJjYWYzZW9GSnpxd1JRZVV2WDRwM1BuNnRL?=
- =?utf-8?B?SVNNNmk1TFBMNmpJZDA2THBEdDVFRHdFVVVKWE5xM0xUOUg5UzdmVTNKblBJ?=
- =?utf-8?B?YUxwSVlPcUpWMnYrc2tVVU5PKzc5Ykdmc2tzN3laajBJbDZrV1ZZWVVWWWRt?=
- =?utf-8?B?aGZlblNrL1lNT2o4d3JUdmJ2VVpqeUh0WjEwZHkyZGo1c0V6Rlc1ajJKY3Vt?=
- =?utf-8?B?MkJBemhCWmpROFY3dXlXRUVqb0RubFJKRHU2bVMrN1djTCtMVGhqY0VwSGpZ?=
- =?utf-8?B?UkNDemU0Ync2UXFUZkNwWDQ3Y1MxS3NmWGVtYWNFWDJlaGFQcndyMHhuSTJ6?=
- =?utf-8?B?alM0YzJDWFNxQWJ4UlRtejNPNnpWN3BkNkYyKzlRM0dLWDZvWUdGRWdPWkZX?=
- =?utf-8?B?WGQrQjl5eGhCQjBOYzQvS1YxdEtqNHFUbEdxMlE5MVBXYnN4WWxOK25ZUHBu?=
- =?utf-8?B?R3ZMVldkNkVBV1dKUUJVMk9ZczBOc3VlbEw2Z0k4RHBzUWZLSml1YzEwVFNP?=
- =?utf-8?B?WTU1T0E1L2k1L0dkZFhEcjdmWStnSW82amFiaEJpbDNZNTVnUmlIc09YS1Jm?=
- =?utf-8?B?V0dtUVlGSWgyMW03Z3lLMGhESnR2c25CaVMzcTdKLzFPZnF4TkR0UksyUjhF?=
- =?utf-8?B?Zi9MUHJDQWF1WlVtVi9LOEptZkg3Y01kR3Q2VVYreTJYcjJZRmU0RFN6aWdt?=
- =?utf-8?B?bm1WWEVwNW03N1hZRnBCQVVzaGQ5UmlnYlBaQWh0SnV3N3VSWjdTYTFZMVdI?=
- =?utf-8?B?WmhlcjRCQ09yYkZRY3VpYUFidVAvNWlsR2ZVUEhKVXYzd05WcW5jSHh0dmxP?=
- =?utf-8?B?bWZVNmpzM3BsQ3ppMjVuZDdTVmRwVGx2QmtBWkVqSlgwYS9ZTkRUZG9hVnAv?=
- =?utf-8?B?ZFpKQlpWbXQzNWZPeVJKT0dSY1R3UXhWbFdVdUZSU2c2UzB3WnpTejg0RFNs?=
- =?utf-8?B?aUJOVDN5UFVKZlVyTHhLWHZiUmpjMnNqSEcrS2t0RWEvS2dXRHdIQT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24ecefe6-e467-4949-ee0e-08df2dc78394
-X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9791.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 09:58:24.3451
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XDrOAnp1c9cSM9/jh4qmC2m9JY/SzQueLTnLirq7fVT1VEWviSJJTI+1CyCojFE7dOpYCQioinyPFRJDDiGcOQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7103
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] phy: qcom-mipi-csi2: Add sa8775p D-PHY support
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, vkoul@kernel.org,
+ kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ neil.armstrong@linaro.org, mani@kernel.org
+Cc: gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
+ vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <EKfYfLCfqnEg_PLe_TsBkAGryJgP_tA140u-0ZYSL9q5kInrAtoRCiugYV3C2PDDvYjxaeejuYK3gqzAT4FMXQ==@protonmail.internalid>
+ <20261016235502.2274268-5-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261016235502.2274268-5-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 17/10/2026 00:54, Anusha Arun Nandi wrote:
+> The timer-clock lookup in phy_qcom_mipi_csi2_probe() and the OPP
+> clkname passed to devm_pm_opp_set_clkname() were both hardcoded
+> string literals sized to x1e80100 ("timer"/"core"). Add
+> timer_clk_name/opp_clk_name to struct mipi_csi2phy_soc_cfg so each
+> SoC can declare its own clock-name strings; x1e80100's soc_cfg now
+> declares "timer"/"core" explicitly, with no behaviour change.
+> SA8775P reuses the same "timer"/"core" names as x1e80100 for this
+> pair of clocks.
 
+LoL I had that in the last design and review said "hard code it" happy 
+to agree with myself in the past, however this change should be 
+standalone and precede the Lemans work.
 
-On 10/19/2026 4:27 PM, Jiale Yao wrote:
-> The debugfs core write handler reads the VPU power state after
-> pm_runtime_resume_and_get() fails. The device may be unavailable after
-> a failed runtime resume, and the final runtime PM put does not match an
-> acquired reference.
+> SA8775P's CSIPHY has a single power-domain, the Titan Top GDSC,
+> matching the legacy in-tree CAMSS driver's sa8775p_resources.pd_name
+> = "top" and the existing lemans.dtsi camss node. Like x1e80100's own
+> "top" domain, it is not OPP-scaled, only kept enabled.
 > 
-> Return the resume error before taking the core lock or accessing VPU
-> hardware.
-> 
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-
-Reviewed-by: Ming Qian <ming.qian@oss.nxp.com>
-
+> Signed-off-by: Anusha Arun Nandi<anusha.nandi@oss.qualcomm.com>
 > ---
->   drivers/media/platform/amphion/vpu_dbg.c | 6 +++++-
->   1 file changed, 5 insertions(+), 1 deletion(-)
+>   .../qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c    | 112 ++++++++++++++++++
+>   .../phy/qualcomm/phy-qcom-mipi-csi2-core.c    |   5 +-
+>   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h     |   4 +
+>   3 files changed, 119 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/media/platform/amphion/vpu_dbg.c b/drivers/media/platform/amphion/vpu_dbg.c
-> index 497ae4e8a2..fff4df4f45 100644
-> --- a/drivers/media/platform/amphion/vpu_dbg.c
-> +++ b/drivers/media/platform/amphion/vpu_dbg.c
-> @@ -382,8 +382,12 @@ static ssize_t vpu_dbg_core_write(struct file *file,
->   {
->   	struct seq_file *s = file->private_data;
->   	struct vpu_core *core = s->private;
-> +	int ret;
-> +
-> +	ret = pm_runtime_resume_and_get(core->dev);
-> +	if (ret < 0)
-> +		return ret;
->   
-> -	pm_runtime_resume_and_get(core->dev);
->   	mutex_lock(&core->lock);
->   	if (vpu_iface_get_power_state(core) && !core->request_count) {
->   		dev_info(core->dev, "reset\n");
+> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> index 966d79c98f9b..85e89235f7c9 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+> @@ -380,6 +380,118 @@ const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
+>   	.num_supplies = ARRAY_SIZE(x1e_supplies),
+>   	.clk_names = (const char **)x1e_clks,
+>   	.num_clk = ARRAY_SIZE(x1e_clks),
+> +	.timer_clk_name = "timer",
+> +	.opp_clk_name = "core",
+>   	.genpds = x1e_genpds,
+>   	.num_genpds = ARRAY_SIZE(x1e_genpds),
+>   };
 
+Yes but split it up - "remove hard coded timer and opp names" - actually 
+you want to make the OPP optional no ? In which case you'd expect to see 
+a patch to make OPPs optional - instead of folding that into a 
+functionality drop.
+
+Because say we want to revert or re-order the addition of Lemans in the 
+git log - we then have the problem of mixed functionality.
+
+Or say I want to cherry-pick a backport - I don't necessarily want to 
+include lots of SoC specific stuff that doesn't affect my part.
+
+=> More granular patches.
+
+---
+bod
