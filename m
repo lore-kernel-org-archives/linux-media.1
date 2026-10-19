@@ -1,74 +1,173 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012043.outbound.protection.outlook.com [40.107.200.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA97498E00;
-	Mon, 19 Oct 2026 08:31:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792398713; cv=none; b=t4Mrvg5NVtgxh5ac0+tPMsoZaznhBKhSMrSNeZW4ASov62BBewZtGCeRNlhZkKHhclTK9/5He0Zl0TqyWSp4x0mkLZ+VHpuY5jmCMaQWDS1X39OUIUmp9HY4q3cpZwVM4xRWuvq0a+GCSp/kUJhN9OjlZ/GjI2CXKoOrVtlmATk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792398713; c=relaxed/simple;
-	bh=Leh50SvBY86fxbEEdSy2xlT0QS4Rh4SWeQrgAgheDaM=;
-	h=Date:From:To:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=ZRrr8lc9PwZAyxrYExV38XYldb+fB8OTyf6x4RP5koY9hDUDRBOeMKoaoX2WAAgNbEbJTmFdXZZAsR7+I8MNaRH6gAqeSutQ2eDOMqyBLqxcSsFxUbOy0ejMkxHxjc0jUygrnrta6IUDM82l2pUczhGQJB2xNtmCizpNhK6b5I0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=qeR0rgIg; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF71380FF4
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 08:35:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792398931; cv=fail; b=e3lF7SfJVOhP1GyT9lPqd5R5lvuqijxS/F1z1AKhNPB2j/unD6Q05VMhBRLZGACx5RW64A60q4T0s64bEc1N0uivUCNOPzQhZWnPERmkntBxe+QZevwrWRSV0H5ZHfJh9Rlr0hWI9WKwJ+Ta7vZmSf2BTcqaTLqueA0IgCV3AJY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792398931; c=relaxed/simple;
+	bh=dLiltPx5yDZ+41JEqWEh5iyQTMBeZjqs9Un+TU7Bm4A=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mCHl0MUBXZWyDUiLBxzmMjeZXcAFZDQhEOfBYk8VkQpy2xQQnQlG1CakdaXJSmGPxPtnYSJnG7k9UIGpi28Z/m6ip3SJAiBmJgtSY6Nnj9sbU+WbXSCGoHLtmxdDkslowEVxICzpe2RD+jJjYTzmAAzvamEJc6mx/sOhrmsTTxc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=K0WCYA5M; arc=fail smtp.client-ip=40.107.200.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="qeR0rgIg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=Leh50SvBY86fxbEEdSy2xlT0QS4Rh4SWeQrgAgheDaM=; b=q
-	eR0rgIg7W9TEZ4K+9f/yvAJLZGYZmfrm7IFJRc4y+/LnDluQJTZaUXnvBmdUGKVg
-	/hDtDr4DoxJzKpppn87XzaM2fnAmO1fjhcByOHqzrYQ0zhf2wzXMhngm7jESjzSf
-	pN6nV3UFZ38H/5Vocp/y4z4fSBYkzybZbarJ47Ku84=
-Date: Mon, 19 Oct 2026 16:31:39 +0800 (CST)
-From: "jiale yao" <19888972804@163.com>
-To: "Ming Qian" <ming.qian@nxp.com>, "Zhou Peng" <eagle.zhou@nxp.com>,
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:[PATCH 2/2] media: amphion: handle debug runtime resume failure
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <20261019082754.1806443-3-yaojiale02@163.com>
-References: <20261019082754.1806443-1-yaojiale02@163.com>
- <20261019082754.1806443-3-yaojiale02@163.com>
-X-NTES-SC: AL_Qu2SAP+St04i7yiaZOkcn08ShO49XMOyvfoi2YFTc+sEsgbPyy4KU3RyIkLM8cuONRuwiCKtbD1I7O9AZ4B6BQHFjNyDint8AoXvGzKGQg==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="K0WCYA5M"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MJ276DLqutFSc94TTlp+eetCnsg0dXHB5f7wsoizuiRxL6rwIgrWSJofgV78bHBN5esfnvmo287UDyQU/EhqJfq1Rrs5LWhSen6GX16pk/KKIJgPgVGqvmv8O5r6Nh0nKiJm+oszn3OJsdbxDGQ6npjytQpzBT5qrs66pq/FYmaLYljMTWYWE/HCEGcwy332unDpLOdlvCHqHlfCemEG/woyxBo8dP3Zk0gvt1quBDMc0Fw8JIM4Ti1K8ocOljCw/IwAW0MlCnUq2sXoKpPMN3Q/irGPug0rAHTH0VfyLYVSTefzCDOhx9BeYcoTcDy79uegyIT20FYyHq0Bg5K2aQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xvYeLvvThNkTrVYlZn/edMs2YeARUsHCbWHZ1EaDRc8=;
+ b=hI3F+C6A7AAGek5EdPW+XzLz6kioz3FFPWpVLqVdmwhsJ3+J1WUbbl0PYqInT0ghA2+r/DzX9iY949YvuecLDHAms/tW3a2DnEGnnGuq7UJuEE4JZa8EAYDNYjRvw1HLz1BxyQipueo5w2mUV3G+gRiou78ct8QvZRpNoKU+IMUquhq3rcrvp5J5OSPlbk1gWyfQun1FSxV19GFmhjB7hqp6Lu6N08g6p+19AoMStIRjRNn1fHBs2I+E2/cpokeLxTBhowwbV2Uta62FMbXBypu2irt7vcc5BjFZ3SLgQAAnwJf1v8DjHPW5ATGDvgEXVuVVDcJhUTILR1QViWdQWw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xvYeLvvThNkTrVYlZn/edMs2YeARUsHCbWHZ1EaDRc8=;
+ b=K0WCYA5M52ITmuzJdedeI1Egg3U4fvibTGzd8WD6mVF7KEANRy8ft1DjJyaERZCltBTe7ZlY6myHteexFjgLCAie/EoOqwo6JrO5YbuHWcs5MQXmW7gOxdTOoy7h+64aAeT/AgP0ZFXo558xEjGxlhHt5cOyIjCdgbe+t8FYaCk=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM6PR12MB4298.namprd12.prod.outlook.com (2603:10b6:5:21e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.17; Mon, 19 Oct
+ 2026 08:35:27 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 08:35:27 +0000
+Message-ID: <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
+Date: Mon, 19 Oct 2026 10:35:22 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
+To: Karl Mehltretter <kmehltretter@gmail.com>,
+ Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>, Dongwon Kim
+ <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, iommu@lists.linux.dev,
+ Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <20261016202653.97339-1-kmehltretter@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261016202653.97339-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR20CA0037.namprd20.prod.outlook.com
+ (2603:10b6:208:235::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <735f8b3a.7990.1a15349ad37.Coremail.19888972804@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:ZCgvCgD3dwpr1dVq1epbAA--.1290W
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8Auf2WrV1Wt4QwAA3H
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4298:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbd02e52-3976-42a1-6967-08df2dbbed32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|10067099003|56012099006|22082099003|18002099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	AF28d2DQF31WjdsbsN35R7VOyv4lywinfuKy1LkxopKK3wCJ5GHN/+QqHRB0KfsEUtt9Bd6i2JCCNcPsB5yjv3LRs0FN3PwxPXssJU2zFUQdLzjNRfMr0jXaqkU01fWHn7DU3NNL7OiZyYCieMZWrR5B3TsAsq/ALmP9jnfSWVE7nlHGlCABssXPb31s59osAlKph9/twRu17Q81GPG8r5Yy+um9n7r7wlR8ocaZaEquJzS+BplqqxN+h99nWgOs00NQpMYB4tKIksCcS7ehIvJXX31k5aeyATKYBwMadH7Gvum8pJYHJ7OgJcs3HZF9LdVPKcWkXEFx03q/xaTeEl+Otd6MjOSMXR8h/9Ooy5f1eSP21l472epVwNGDPddGkit+f7eJkEhX10GUpRnxJ35P59pPzRTGb+Ni2CkQLFJ4IiEv2BJWNKg1wvFH7j3KmQv452QSk5OKMZhf2OtcfNO26Bae/c5OGFL7hMH42BzCFrsHtcXUHje1lsltc6H/J69yeyoJCLkxljNsT+71ZV7aikrle/jZ5MmS1C1jkqM57xGa+fQwOSieJne5CZYrogrOCQjf2PLl97o8ueXdYG6YDsPIl8N0EGXCgtGeii41elijGbRGxKYryMmCK6yuxJhtDPtukiiv+Eox/VStx/bP/Rdvcd4vcA6a7fIITKM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SDBuQ3Y1VTF2YnhxVUVLZSt6amZTOXdDS0NGeWoxd0Q1OUNWNXdEcDM0clVE?=
+ =?utf-8?B?djZLa2R3ZFJiTCtKK2ZRRVpWNVdXcW1aTnY1MmdUWnRReUl6Wmp0K01QME1K?=
+ =?utf-8?B?Skp6OFdna25NQ1pTTml1MFNrbnRsQTgrVVZad0R5aDByYWUyRzdFSlFpSlBT?=
+ =?utf-8?B?L0lXczJIaWN0U2R1T2hxcGdROTBranVuaktpckN0WlhYWjgvSnpyU0wxNTdD?=
+ =?utf-8?B?aUNIcERsc1lwK21jTi9Lem9XSzhqbms3bW1jeUUyWjZ1TVk2Ukloblk5ZExP?=
+ =?utf-8?B?Ui9Ndi9Gd25zUW5MTTdGdTVtTE5XQ0hvOTgvOHptakVEY1Fsb29VajFUZEt3?=
+ =?utf-8?B?eTZSV0tMcmYrdHhLcGQxKzk3RzF1VUVQL1BSbU1rdGhxVDNtc2hPc0M3dmxt?=
+ =?utf-8?B?eWhKRDlXZGxRRERkeHFMbWd3N2xZYVhMbll2SXlaR0xwOEFlaktxZDd6bVRN?=
+ =?utf-8?B?VHljcjdCT0h6Q1h1NXZ3ZXdOZWVOdEFFK3I0cFNVTHNBTUlVRmxjR0FWMFgx?=
+ =?utf-8?B?emsxWTU4RThyM29DUFUwRDZXSVgrT3VpSmR5T3pTK0U4MkZQeWJObUQwc2xz?=
+ =?utf-8?B?aVgwdFJOTnpMUXZpekVteXQ0K0pldlZ3TnAwa2NGS1VBcGlxVnBaVWJGVWk2?=
+ =?utf-8?B?azV6Ym5OSnNDN29pQlEycmVDRkl0VTFyVzBOTEk4ek9OVDBtUkJOcW4rMkp3?=
+ =?utf-8?B?bmxhYWw2OStjZFhxL0tkLzVkb3JPRGEzVnpWWnhTaXdFT21HZS9pRTErWUNy?=
+ =?utf-8?B?Q2o0UHdURFdtRG4ySHFBSHZGam4rZVdMZFhhYkhBQzM0WmJtNU5uTW5tRjVF?=
+ =?utf-8?B?OHhReHFHNk5zSFF4enNibHZLejI2bVgwdXNxZmtuanp1ZXEwQkxVNGFHL2lJ?=
+ =?utf-8?B?OEd0SUpHcjNRK3Fac01tWWI5NnM4UUFDdFh6V0srQndaN1hGUzQ2dHBMMEF3?=
+ =?utf-8?B?Qzc4RnduN3Jtc1VBVFlMNm1YbStJS3VmU3VXdnhtbzBnM1RBQ29JT0FYZmh2?=
+ =?utf-8?B?NTEwMm8wZElQTmRVaGJ4UGVLSzRERnFBalhJUk9OSEZqbW82bnRDTTdGMzNQ?=
+ =?utf-8?B?dS9abWJ6YjlhRWFxSTZpZVQ5Y2N5amhQam5KWVc0dkJ1RGEzbWExaUg1QmJT?=
+ =?utf-8?B?ekNmOFp1Rkpvb29tTGJPZVBVNUR1akFTRlVlaTNTZEdwTEw0R2hkcU13cE9r?=
+ =?utf-8?B?VkRtWmF6djdMenVNQXBsdnk0L2pPVGpJQWhDTGppVnYwTUZBajIyMGtQaG1O?=
+ =?utf-8?B?Rk0rQ0NNZ2FqWERzTSthNXgwZXB1amhIK1dtdjBkVGdXK3RqN1U4cGRhU3hw?=
+ =?utf-8?B?aHg1OGVUdzZ6L1F2dU9vQkRBSkVoYkdBaWt6MVI1cEpLY3pIdTJ3Y1B2aG9j?=
+ =?utf-8?B?US9CYW5SWmlieEkzL1NySFBVQ2JzWmFWMEFqckRRYVVvMDlNZkI1T2xVVnVs?=
+ =?utf-8?B?b1lhOWIyQUR1SitBZ2k1Zjh4OFdBbUFsRno0bThHTVZIWUVISk5ROEdMMXQ0?=
+ =?utf-8?B?dTBPSVV0OFFKdlhRTzFQM3h2S1hQVENHam1UVGRPZ0JCSXBQTWtqUjI3V0p2?=
+ =?utf-8?B?c1ZOWCtSMitiYjRnZk1UUXR6SG1aNjQ2YjEvWGZoVy9XL3FvWGpsU0E4Qlg2?=
+ =?utf-8?B?K0RLNVJaeC9JUnFib0xKK3YzalM4N05jMUZxZjhveG5rR3FrN2JRbGRlSXRs?=
+ =?utf-8?B?enJHcThYc3VXMjFpTUJrY1g2ejFjVWpKN0pDaDBkZ0FyVzBqNGkvMGlqTExB?=
+ =?utf-8?B?ZkFRaUdkdHl3L21pR0I0akg4UGZxdFRxWWZ3dENGL3AxWFZCRUx6c241b044?=
+ =?utf-8?B?Q0IvejU4WEhISCtyNlA1cGVZeHlzazVIQ25ZYU1ZcDRnVStBQVNpa1VPS2ZP?=
+ =?utf-8?B?aFhmNDQ0SmNmai95QTJPU1ZOMWZxbWlMSFRBa0NCaUNhSEh3RG1qU1JnWXVL?=
+ =?utf-8?B?RHBEbS9FYlp0bGtTRUladS8zQlVDZFZLZGpMMHMxQVFwZlh1TEtmbU51Q3lh?=
+ =?utf-8?B?NHpQTHl0NGlMczFneDhCVHVyQ2VjaTg5Qm82N2trWXpVUSt0S3Ara0xDS1Ux?=
+ =?utf-8?B?Nks0dGRWejd3SzlhN1gwbjk4TU5EUEZoS0dRUEw1YlNQa1JmdW5GQ3dWb0NV?=
+ =?utf-8?B?Zm0vUnAxeHREd204Zm5XOUhHVHFiOEIxMkYyL21XUE5JOFN4cTkyZDk5aTQx?=
+ =?utf-8?B?QXg1ZXZPSnRoZzRaR2dzQ3ZtRFZmNThxUHlQVnpDN05RMHhLb1JRdU5DdGVZ?=
+ =?utf-8?B?aTB0dFlLYWFCOUtGbyt1MlBQN09xaHpOSU9ieHJrRGZIRXZsTHdJZThNRXVF?=
+ =?utf-8?Q?fo71wjf7WLk0DuT9FK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbd02e52-3976-42a1-6967-08df2dbbed32
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 08:35:27.3569
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1XeSSBXd10eIzM8UfDY7YaJE4R6yiYzkeftH8hy3fhSEtsybaD8/bQUzxT1uAHM+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4298
 
-QXQgMjAyNi0xMC0xOSAxNjoyNzo1NCwgIkppYWxlIFlhbyIgPHlhb2ppYWxlMDJAMTYzLmNvbT4g
-d3JvdGU6Cj5UaGUgZGVidWdmcyBjb3JlIHdyaXRlIGhhbmRsZXIgcmVhZHMgdGhlIFZQVSBwb3dl
-ciBzdGF0ZSBhZnRlcgo+cG1fcnVudGltZV9yZXN1bWVfYW5kX2dldCgpIGZhaWxzLiBUaGUgZGV2
-aWNlIG1heSBiZSB1bmF2YWlsYWJsZSBhZnRlcgo+YSBmYWlsZWQgcnVudGltZSByZXN1bWUsIGFu
-ZCB0aGUgZmluYWwgcnVudGltZSBQTSBwdXQgZG9lcyBub3QgbWF0Y2ggYW4KPmFjcXVpcmVkIHJl
-ZmVyZW5jZS4KPgo+UmV0dXJuIHRoZSByZXN1bWUgZXJyb3IgYmVmb3JlIHRha2luZyB0aGUgY29y
-ZSBsb2NrIG9yIGFjY2Vzc2luZyBWUFUKPmhhcmR3YXJlLgo+CgpGaXhlczogZjQ0NTAxNGEyMjkx
-ICgibWVkaWE6IGFtcGhpb246IGZpeCBhbiBpc3N1ZSB0aGF0IHVzaW5nIHBtX3J1bnRpbWVfZ2V0
-X3N5bmMgaW5jb3JyZWN0bHkiKQoKPlNpZ25lZC1vZmYtYnk6IEppYWxlIFlhbyA8eWFvamlhbGUw
-MkAxNjMuY29tPgo+LS0tCj4gZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9hbXBoaW9uL3ZwdV9kYmcu
-YyB8IDYgKysrKystCj4gMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlv
-bigtKQo+Cj5kaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRpYS9wbGF0Zm9ybS9hbXBoaW9uL3ZwdV9k
-YmcuYyBiL2RyaXZlcnMvbWVkaWEvcGxhdGZvcm0vYW1waGlvbi92cHVfZGJnLmMKPmluZGV4IDQ5
-N2FlNGU4YTIuLmZmZjRkZjRmNDUgMTAwNjQ0Cj4tLS0gYS9kcml2ZXJzL21lZGlhL3BsYXRmb3Jt
-L2FtcGhpb24vdnB1X2RiZy5jCj4rKysgYi9kcml2ZXJzL21lZGlhL3BsYXRmb3JtL2FtcGhpb24v
-dnB1X2RiZy5jCj5AQCAtMzgyLDggKzM4MiwxMiBAQCBzdGF0aWMgc3NpemVfdCB2cHVfZGJnX2Nv
-cmVfd3JpdGUoc3RydWN0IGZpbGUgKmZpbGUsCj4gewo+IAlzdHJ1Y3Qgc2VxX2ZpbGUgKnMgPSBm
-aWxlLT5wcml2YXRlX2RhdGE7Cj4gCXN0cnVjdCB2cHVfY29yZSAqY29yZSA9IHMtPnByaXZhdGU7
-Cj4rCWludCByZXQ7Cj4rCj4rCXJldCA9IHBtX3J1bnRpbWVfcmVzdW1lX2FuZF9nZXQoY29yZS0+
-ZGV2KTsKPisJaWYgKHJldCA8IDApCj4rCQlyZXR1cm4gcmV0Owo+IAo+LQlwbV9ydW50aW1lX3Jl
-c3VtZV9hbmRfZ2V0KGNvcmUtPmRldik7Cj4gCW11dGV4X2xvY2soJmNvcmUtPmxvY2spOwo+IAlp
-ZiAodnB1X2lmYWNlX2dldF9wb3dlcl9zdGF0ZShjb3JlKSAmJiAhY29yZS0+cmVxdWVzdF9jb3Vu
-dCkgewo+IAkJZGV2X2luZm8oY29yZS0+ZGV2LCAicmVzZXRcbiIpOwo+LS0gCj4yLjM0LjEK
+On 10/16/26 22:26, Karl Mehltretter wrote:
+> On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe wrote:
+>> +	match_args.attach = attach;
+>> +	if (dmabuf->ops->match_mapping) {
+>> +		ret = dmabuf->ops->match_mapping(&match_args);
+>> +	}
+>> +
+>>  	attach->dmabuf = dmabuf;
+>>  	attach->importer_ops = importer_ops;
+>>  	attach->importer_priv = importer_priv;
+> 
+> I may misunderstand the intended contract. match_mapping() runs while the
+> attachment is still zeroed and without dmabuf->resv held.
+> 
+> Patch 11's amdgpu callback needs importer_ops and importer_priv, so its XGMI
+> match cannot work here. Patch 12's VFIO callback asserts dmabuf->resv and
+> reads priv->vdev, which cleanup changes under that lock.
+> 
+> Should the core initialize the attachment and hold dmabuf->resv for
+> match_mapping(), or should callbacks avoid attachment and lock-protected
+> state?
+
+Right. This completely misplaced.
+
+The matching can't be done at attachment time, but rather needs to be done before creating a mapping while holding the resv lock so that the matching decision can't change.
+
+Regards,
+Christian.
+
+> 
+> Thanks,
+> Karl
+
