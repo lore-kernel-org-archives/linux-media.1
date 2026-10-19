@@ -1,69 +1,68 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94AA457FEF0
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB60B57FEC4
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:28:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420124; cv=none; b=CFfLr+1vbDmnEqpvFPksmscq4G/f3UGYXfvx1yZCocxK0z0x79i93VIeJZe8mOmSeT9VgSHjmLbsL+1FWIUlENMZMGSA3JFDNeCEL4vO2x3cbmFHw97AzCcWGgZB60V8+QENIHpJZW1rPFq567h6JdTdMViTrtbJJYP4N8sEjwc=
+	t=1792420126; cv=none; b=gtjQav8KCuK9mh9Pv5BqQqnBfxWL599vkmcfYHRrD584DAXc+8cFFEDv9w1Lbk6kUqIuPAqE7rbh5og81bvvU0tczmaVMqOWyVN65qMDU+B9R2YxJbzurFPqNk6sEeB9MHkBokAKNiCX1fnxqEk0gS1B/ObYoGd7aA74Cd6oeT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792420124; c=relaxed/simple;
-	bh=o+GRXga578RiSuKbmERt6Aw2aGwmTdTl7J/ae/pnFyw=;
+	s=arc-20240116; t=1792420126; c=relaxed/simple;
+	bh=Kkl0eaX8pRDZWbCvxsOY9roc+zDAsW4OihH7F3pRVuk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M1sgK8NQEkDdpKLXDTkrKyjnxTsAZRLj9wIe3vNhGGr4M3YhI4a+7edzEG+8m4ofc0rGPIvm5SP7so/xc7BBCoqqx0zjZ5Y1YIsB3T2tpXSErpT0B5zadlIhdAA4CLP9zrGBeYUpBYWv+9F5eG0FLik+gWzaVRuVEeG52cZ36N8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=OJUWFlF1; arc=none smtp.client-ip=209.85.221.52
+	 In-Reply-To:To:Cc; b=L5McURykGNS/DgigCbZEoqXX0AJEXtgWg/BIY/7p3C2bxCQ9V4+NreO59qXhdBFZiOymOQnWft7E3ZXXQnpll4OOdpUMsxW+wN4xeVCPzW9c6YA2LWTe4eteJBjba6NvzOWNBvHjhoPJ8SjACvTSv0+STOyEt13CehaweNCo+Mw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=SgY9AJjN; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="OJUWFlF1"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1676633f8f.2
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:28:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="SgY9AJjN"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1825157f8f.1
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:28:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792420121; x=1793024921; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1792420122; x=1793024922; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mGq5/FjKN+dURc5nu0HyEupdJjBxMRwTPEQlM6a2NmY=;
-        b=OJUWFlF1lAIKpwLmZKOiFO4W0F812a1tBTAxTH3SvqhVK4ADYjzslafKoXtRAFbTVA
-         Fc7a178cYOODNZlylMaGHfazpbtb51hwBuZWy5M0c0pMUHfCf020U143pPl9+7x2Sddi
-         H5A2SYzkUmrprvZAgXFJCtZ6WkgbmUD08vbVlClnsSbzmJd0xrm3V/n0O7ehkfXGedps
-         PKky+pLtARzfLUKYBqfXBk7vM1WPqS6zg3n5eH04KY07HYc2tOH+QOiFtVkZK+CHqhhC
-         0/weOXDiOcIP0is+vEHrdALVpSV13sADac8iSatfbX+6148HQIE3NlQP7ITgAAKYMPfM
-         htRw==
+        bh=L/GPo2Y4eIOZUYmnxVEkjsgMjsgqHTVmYxG5LPRGXvQ=;
+        b=SgY9AJjN5//2ThL4efSDt9NrNs9QaJoE5PbWatKeSahrV/hh8zQiW5DJrxyhx9MHuy
+         J67KMKJVnN/laZdkPb5a6bWGjn6wFn4YuEHFTR0786XgTkhU223OSzkoC7nkm33I47R8
+         H5TvjUwdGVAx0vr/dW/pNBvS1FVYjY4P//GryShNgv9KGyQo4lTJORMAQwyG62PQuMnr
+         fcSdZRnRAlruTF5/t1lizH6o241FG43OQq2CSgbk9MEipB0SmUm6uVqe2vpmlZhsaDqx
+         /tq24ScR/QjgSRYpwPymxZVB68ETILD636By8J6OvpgJNAPyollks+3wCEg4s6ML1zVA
+         c0uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792420121; x=1793024921;
+        d=1e100.net; s=20260707; t=1792420122; x=1793024922;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mGq5/FjKN+dURc5nu0HyEupdJjBxMRwTPEQlM6a2NmY=;
-        b=yrcIDGdBZG4EGlDUZxfY0Mf1R6HrMAjgtrvW9hE2vAwr4HLwKWgjHPb1i9KL0q3hhv
-         qoiQUzq99Kkj7PCXt5UNkHEHWzVNHtPyIeUE7ZLrwRqzLpV3/sDlrw+t6ZAJN/cd4Yce
-         k/LH5hK94CaghqywlBnjj8C/cJaBkgyAIxfzGbWEZBYGMsi1EF2NReNWPhVbfdzVSQW4
-         6tB8Hz7IhJla2zQPggGzf392tzU8bMmOZ/rGtHeX3IrT8FA2lpd1Tpr1TdpixxFRwbmZ
-         nL2z7ooqhBkAJPz2bOwyjaPvOHuaQsJsSn1yMLus5X10+SYHWfsNbAq5DA1ufr8GDCpW
-         XDhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw4hIxmMist8y28vqxrpW+AC7GkZdkd+htyn4zPLwORf+UjJFndEmdLphvtcTT0db7Cy0m7cdJpgve4GA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLeL1ewRwufzcf09+ffdpVqNDqli3GM1a6efbCahQBg0fZYeQ1
-	FseYfJVX21DIQKMIEnzZ/2BnqlSxVy1ssufrBXpmTQshtSF4u1BkbVWxJ+bjyvd7wFQ=
-X-Gm-Gg: AYBFou0PLHcVThWP5a4DcO3C5c9aLyvXxpinxIEYLT2jc4yBrzDnLjYGp8tjDppVoGf
-	vwGyLjCfaBbkSdYcONmiZGWt49vAs56DIhqO+nUcsWbgvWjcmofZ0Bw+e6dit229g5irgqbU4lY
-	rVZyweDMCzZJ0VPhe4o2vHcekDhjgQWRoKGIBiFJmezX4WZ0K9Uv8ky5yved9gW756+99yvxBJM
-	SrrlJazsBdUu5eb2r+94q+cu3PE4AMf12bbOjDRv+wdxkTLga0cBGOO0ItX39kTEjmG9xdeOdYV
-	K7nX3NuChB6q0h16cJ0zlsoP72AxgZAy4ZIwJwmIJw+CTzA1y/cTBofXAZ3NqK80atJqL4kOam5
-	TBqUzh/pHuZplX9WnhrtupEVJjaNeb9vXQIB1GFrTJDumKDunvEsfTnNivESLUr3m1+nhvlQven
-	72i6Y0u4kKtlkGTesHQJWYknyFe/2J8auhrXKyVqiaaAHi5pi7jBGkF52fxARcPlJede5GPBU5b
-	ow2/XAkmSnq1uilNkpTbumvUoS0/1CSu9UNLRy/2itow0ovI56FWFOtRGDD
-X-Received: by 2002:a05:6000:4b05:b0:48e:1399:a13 with SMTP id ffacd0b85a97d-48e13990a64mr8759225f8f.9.1792420120737;
-        Mon, 19 Oct 2026 07:28:40 -0700 (PDT)
+        bh=L/GPo2Y4eIOZUYmnxVEkjsgMjsgqHTVmYxG5LPRGXvQ=;
+        b=mb8uO7L6Q46CWbnFdpXa5jYybIuuPPkvgaauD7UQYAI8YVGeAQvSEAmvYPznyP/Cfc
+         7KYbVkRkA+oh6Fd6/Ig+0oZvoUv3x0c11U1esxR7jhHcZFLvtV/RyGAzFoBtYDo+xGMw
+         oAFl/knmYV78BcmLPbAkFRpM41okRmylg94eG4XqR+2rwE4G1VXT+CdT48g5VOoJOBRN
+         O/NCf+ehTVeC0K65qmfzS9aAPEPlXP46n/LCIyiBmh7EQfD4DDiFcaJVi7vLJyIZfr2z
+         lMOUGU4HOHNzUTEXZUYw3ZYIyM6vmb0WeCRYjrY3drWIhHzsaN6lPK99zJ94i+Oqzirr
+         +z6w==
+X-Forwarded-Encrypted: i=1; AKwUvBzxT0vjm+0HzgeKbHbIkx1m/O4bWav0E5UzFbdGVoqrGj33AYk4M8YXM6W8D82tGmw95Al61AHfuZYcjA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgxm2yPmjqaMjTfWqZ6LzKcm0aRS6MmjJ4bd7FuAxo0sGC/8AG
+	gZdrB5fbCHo34qawhrhZZJ8iKdbc273Jb6qtyfmUS5GDPv+9H4D/iFRg5LZy9nsz0Dg=
+X-Gm-Gg: AYBFou0fmqELJI4sX18OmfNC8Hz5uX763sa96WlPG9UWY+WiV2xNQFm4a6qExmRLzrL
+	4VGDzNlBdCypWVUdRlUCBoCcQCbA6/Dybq6l8ltZbUEPFz4kwA0KK6feE0vysr4f+bVwVKAOHEr
+	8Gf43xe883F11+tuJvVe/Yvfzf9hSd3YE8La6Rapeo1RhhMakogg0ZCB2dzCpL/QBxkaBLzwRWS
+	ov5wLPPf+VSUQWdRHJzfoDz1Es0aSgzmvTSrbVLegX6fCBJtWRKYFK7SJ1NuYQa5cCLfF0SrBvf
+	RaKrCe34NaJYDYN1KphDsc2S5P9KGXtp9OqlQTr8l6+Bo4arUG7mzDETccx5olGDnPlYr+cdXHJ
+	lzP550I/UxQ4lrFrh/8ZRz0VYjN13HoBK+INMn0514Ed/W/giQ0TfFOfZdJg0jM3u7NabT3Fm1X
+	5Af1+xHp+5j+DAjRlqTMmB9ifpgodvLCWaSnXa9vZVstRyat7t4BLHHJjyj+8fyE6EtYohnoVt2
+	gl3O7OmEDh34I4xp/pD5e7azBRwAe5VXglOb5Hp9EqvlKzg6w==
+X-Received: by 2002:a05:6000:25c2:b0:48d:f215:48d8 with SMTP id ffacd0b85a97d-48e07bc6babmr19907225f8f.27.1792420121796;
+        Mon, 19 Oct 2026 07:28:41 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm23854576f8f.2.2026.10.19.07.28.39
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm23854576f8f.2.2026.10.19.07.28.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:28:39 -0700 (PDT)
+        Mon, 19 Oct 2026 07:28:41 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 19 Oct 2026 15:28:22 +0100
-Subject: [PATCH v5 15/16] media: sony-starvis2: Parameterise exposure min
- and step
+Date: Mon, 19 Oct 2026 15:28:23 +0100
+Subject: [PATCH v5 16/16] media: sony-starvis2: Add support for IMX585
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-media-starvis2-v5-15-eef935347ce9@raspberrypi.com>
+Message-Id: <20261019-media-starvis2-v5-16-eef935347ce9@raspberrypi.com>
 References: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
 In-Reply-To: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -86,120 +85,357 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
  devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-All the Starvis2 sensors supported to this point have specified
-the range for the SHR (exposure) register as being 4 to
-(number of line per frame -1).
-
-Newer sensors are deviating from that, so parameterise
-these into the sensor variant, replacing STARVIS2_EXPOSURE_MIN,
-STARVIS2_EXPOSURE_STEP, and STARVIS2_SHR_MIN.
+IMX585 is an 8MPix Starvis 2 sensor, so add support for it.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 ---
- drivers/media/i2c/sony-starvis2.c | 37 ++++++++++++++++++++++++++-----------
- 1 file changed, 26 insertions(+), 11 deletions(-)
+ drivers/media/i2c/sony-starvis2.c | 305 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 305 insertions(+)
 
 diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index e2b161656a5c..b9ade0887b6b 100644
+index b9ade0887b6b..e89aa1a7d5eb 100644
 --- a/drivers/media/i2c/sony-starvis2.c
 +++ b/drivers/media/i2c/sony-starvis2.c
-@@ -67,11 +67,8 @@
- 
- /* SHR internal */
- #define STARVIS2_REG_SHR                  CCI_REG24_LE(0x3050)
--#define STARVIS2_SHR_MIN                  4
- 
- /* Exposure control */
--#define STARVIS2_EXPOSURE_MIN             1
--#define STARVIS2_EXPOSURE_STEP            1
- #define STARVIS2_EXPOSURE_DEFAULT         1000
- 
- /*
-@@ -640,6 +637,9 @@ struct starvis2_variant {
- 	unsigned int vmax_default;
- 	const u16 *hmax_min_link_freq;
- 	u16 hmax_min_pixel_array;
-+	unsigned int exposure_min;
-+	unsigned int exposure_step;
-+	unsigned int shr_min;
+@@ -14,6 +14,8 @@
+  *         pixels.
+  * IMX832: Diagonal 6.45mm (Type 1/2.8) CMOS image sensor with 2.12 M effective
+  *         pixels.
++ * IMX585: Diagonal 12.84 mm (Type 1/1.2) CMOS image sensor with 8.40 M effective
++ *         pixels.
+  *
+  * Copyright (C) 2026 Ideas On Board Oy.
+  *
+@@ -1090,6 +1092,286 @@ static const struct starvis2_variant imx832_variant_def = {
+ 	.shr_min = 4,
  };
  
- static const struct starvis2_variant imx678_variant_def = {
-@@ -666,6 +666,9 @@ static const struct starvis2_variant imx678_variant_def = {
- 	.vmax_default = 2250,
- 	.hmax_min_link_freq = imx678_min_hmax_2lane,
- 	.hmax_min_pixel_array = 550,
-+	.exposure_min = 1,
-+	.exposure_step = 1,
-+	.shr_min = 4,
- };
- 
- static const struct cci_reg_sequence imx662_common_regs[] = {
-@@ -796,6 +799,9 @@ static const struct starvis2_variant imx662_variant_def = {
- 	.vmax_default = 1136,
- 	.hmax_min_link_freq = imx662_min_hmax_2lane,
- 	.hmax_min_pixel_array = 990,
-+	.exposure_min = 1,
-+	.exposure_step = 1,
-+	.shr_min = 4,
- };
- 
- static const struct cci_reg_sequence imx675_common_regs[] = {
-@@ -983,6 +989,9 @@ static const struct starvis2_variant imx675_variant_def = {
- 	.vmax_default = 2024,
- 	.hmax_min_link_freq = imx675_min_hmax_2lane,
- 	.hmax_min_pixel_array = 528,
-+	.exposure_min = 1,
-+	.exposure_step = 1,
-+	.shr_min = 4,
- };
- 
- static const struct cci_reg_sequence imx832_common_regs[] = {
-@@ -1076,6 +1085,9 @@ static const struct starvis2_variant imx832_variant_def = {
- 	.vmax_default = 1136,
- 	.hmax_min_link_freq = imx832_min_hmax_2lane,
- 	.hmax_min_pixel_array = 990,
-+	.exposure_min = 1,
-+	.exposure_step = 1,
-+	.shr_min = 4,
- };
- 
++static const struct cci_reg_sequence imx585_common_regs[] = {
++	{ STARVIS2_REG_THIN_V_EN, 0x00 },
++	{ STARVIS2_REG_VCMODE, 0x01 },
++	{ CCI_REG8(0x306b), 0x00 },
++	{ STARVIS2_REG_GAIN_PGC_FIDMD, 0x01 },
++
++	{ CCI_REG8(0x3460), 0x21 },
++	{ CCI_REG8(0x3478), 0xa1 },
++	{ CCI_REG8(0x347c), 0x01 },
++	{ CCI_REG8(0x3480), 0x01 },
++	{ CCI_REG8(0x3930), 0x0c },
++	{ CCI_REG8(0x3931), 0x01 },
++	{ CCI_REG8(0x3a4c), 0x39 },
++	{ CCI_REG8(0x3a4d), 0x01 },
++	{ CCI_REG8(0x3a4e), 0x14 },
++	{ CCI_REG8(0x3a50), 0x48 },
++	{ CCI_REG8(0x3a51), 0x01 },
++	{ CCI_REG8(0x3a52), 0x14 },
++	{ CCI_REG8(0x3a56), 0x00 },
++	{ CCI_REG8(0x3a5a), 0x00 },
++	{ CCI_REG8(0x3a5e), 0x00 },
++	{ CCI_REG8(0x3a62), 0x00 },
++	{ CCI_REG8(0x3a6a), 0x20 },
++	{ CCI_REG8(0x3a6c), 0x42 },
++	{ CCI_REG8(0x3a6e), 0xa0 },
++	{ CCI_REG8(0x3b2c), 0x0c },
++	{ CCI_REG8(0x3b30), 0x1c },
++	{ CCI_REG8(0x3b34), 0x0c },
++	{ CCI_REG8(0x3b38), 0x1c },
++	{ CCI_REG8(0x3ba0), 0x0c },
++	{ CCI_REG8(0x3ba4), 0x1c },
++	{ CCI_REG8(0x3ba8), 0x0c },
++	{ CCI_REG8(0x3bac), 0x1c },
++	{ CCI_REG8(0x3d3c), 0x11 },
++	{ CCI_REG8(0x3d46), 0x0b },
++	{ CCI_REG8(0x3de0), 0x3f },
++	{ CCI_REG8(0x3de1), 0x08 },
++	{ CCI_REG8(0x3e10), 0x10 },
++	{ CCI_REG8(0x3e14), 0x87 },
++	{ CCI_REG8(0x3e16), 0x91 },
++	{ CCI_REG8(0x3e18), 0x91 },
++	{ CCI_REG8(0x3e1a), 0x87 },
++	{ CCI_REG8(0x3e1c), 0x78 },
++	{ CCI_REG8(0x3e1e), 0x50 },
++	{ CCI_REG8(0x3e20), 0x50 },
++	{ CCI_REG8(0x3e22), 0x50 },
++	{ CCI_REG8(0x3e24), 0x87 },
++	{ CCI_REG8(0x3e26), 0x91 },
++	{ CCI_REG8(0x3e28), 0x91 },
++	{ CCI_REG8(0x3e2a), 0x87 },
++	{ CCI_REG8(0x3e2c), 0x78 },
++	{ CCI_REG8(0x3e2e), 0x50 },
++	{ CCI_REG8(0x3e30), 0x50 },
++	{ CCI_REG8(0x3e32), 0x50 },
++	{ CCI_REG8(0x3e34), 0x87 },
++	{ CCI_REG8(0x3e36), 0x91 },
++	{ CCI_REG8(0x3e38), 0x91 },
++	{ CCI_REG8(0x3e3a), 0x87 },
++	{ CCI_REG8(0x3e3c), 0x78 },
++	{ CCI_REG8(0x3e3e), 0x50 },
++	{ CCI_REG8(0x3e40), 0x50 },
++	{ CCI_REG8(0x3e42), 0x50 },
++	{ CCI_REG8(0x4054), 0x64 },
++	{ CCI_REG8(0x4148), 0xfe },
++	{ CCI_REG8(0x4149), 0x05 },
++	{ CCI_REG8(0x414a), 0xff },
++	{ CCI_REG8(0x414b), 0x05 },
++	{ CCI_REG8(0x420a), 0x03 },
++	{ CCI_REG8(0x4231), 0x08 },
++	{ CCI_REG8(0x423d), 0x9c },
++	{ CCI_REG8(0x4242), 0xb4 },
++	{ CCI_REG8(0x4246), 0xb4 },
++	{ CCI_REG8(0x424e), 0xb4 },
++	{ CCI_REG8(0x425c), 0xb4 },
++	{ CCI_REG8(0x425e), 0xb6 },
++	{ CCI_REG8(0x426c), 0xb4 },
++	{ CCI_REG8(0x426e), 0xb6 },
++	{ CCI_REG8(0x428c), 0xb4 },
++	{ CCI_REG8(0x428e), 0xb6 },
++	{ CCI_REG8(0x4708), 0x00 },
++	{ CCI_REG8(0x4709), 0x00 },
++	{ CCI_REG8(0x470a), 0xff },
++	{ CCI_REG8(0x470b), 0x03 },
++	{ CCI_REG8(0x470c), 0x00 },
++	{ CCI_REG8(0x470d), 0x00 },
++	{ CCI_REG8(0x470e), 0xff },
++	{ CCI_REG8(0x470f), 0x03 },
++	{ CCI_REG8(0x47eb), 0x1c },
++	{ CCI_REG8(0x47f0), 0xa6 },
++	{ CCI_REG8(0x47f2), 0xa6 },
++	{ CCI_REG8(0x47f4), 0xa0 },
++	{ CCI_REG8(0x47f6), 0x96 },
++	{ CCI_REG8(0x4808), 0xa6 },
++	{ CCI_REG8(0x480a), 0xa6 },
++	{ CCI_REG8(0x480c), 0xa0 },
++	{ CCI_REG8(0x480e), 0x96 },
++	{ CCI_REG8(0x492c), 0xb2 },
++	{ CCI_REG8(0x4930), 0x03 },
++	{ CCI_REG8(0x4932), 0x03 },
++	{ CCI_REG8(0x4936), 0x5b },
++	{ CCI_REG8(0x4938), 0x82 },
++	{ CCI_REG8(0x493c), 0x23 },
++	{ CCI_REG8(0x493e), 0x23 },
++	{ CCI_REG8(0x4940), 0x23 },
++	{ CCI_REG8(0x4ba8), 0x1c },
++	{ CCI_REG8(0x4ba9), 0x03 },
++	{ CCI_REG8(0x4bac), 0x1c },
++	{ CCI_REG8(0x4bad), 0x1c },
++	{ CCI_REG8(0x4bae), 0x1c },
++	{ CCI_REG8(0x4baf), 0x1c },
++	{ CCI_REG8(0x4bb0), 0x1c },
++	{ CCI_REG8(0x4bb1), 0x1c },
++	{ CCI_REG8(0x4bb2), 0x1c },
++	{ CCI_REG8(0x4bb3), 0x1c },
++	{ CCI_REG8(0x4bb4), 0x1c },
++	{ CCI_REG8(0x4bb8), 0x03 },
++	{ CCI_REG8(0x4bb9), 0x03 },
++	{ CCI_REG8(0x4bba), 0x03 },
++	{ CCI_REG8(0x4bbb), 0x03 },
++	{ CCI_REG8(0x4bbc), 0x03 },
++	{ CCI_REG8(0x4bbd), 0x03 },
++	{ CCI_REG8(0x4bbe), 0x03 },
++	{ CCI_REG8(0x4bbf), 0x03 },
++	{ CCI_REG8(0x4bc0), 0x03 },
++	{ CCI_REG8(0x4c14), 0x87 },
++	{ CCI_REG8(0x4c16), 0x91 },
++	{ CCI_REG8(0x4c18), 0x91 },
++	{ CCI_REG8(0x4c1a), 0x87 },
++	{ CCI_REG8(0x4c1c), 0x78 },
++	{ CCI_REG8(0x4c1e), 0x50 },
++	{ CCI_REG8(0x4c20), 0x50 },
++	{ CCI_REG8(0x4c22), 0x50 },
++	{ CCI_REG8(0x4c24), 0x87 },
++	{ CCI_REG8(0x4c26), 0x91 },
++	{ CCI_REG8(0x4c28), 0x91 },
++	{ CCI_REG8(0x4c2a), 0x87 },
++	{ CCI_REG8(0x4c2c), 0x78 },
++	{ CCI_REG8(0x4c2e), 0x50 },
++	{ CCI_REG8(0x4c30), 0x50 },
++	{ CCI_REG8(0x4c32), 0x50 },
++	{ CCI_REG8(0x4c34), 0x87 },
++	{ CCI_REG8(0x4c36), 0x91 },
++	{ CCI_REG8(0x4c38), 0x91 },
++	{ CCI_REG8(0x4c3a), 0x87 },
++	{ CCI_REG8(0x4c3c), 0x78 },
++	{ CCI_REG8(0x4c3e), 0x50 },
++	{ CCI_REG8(0x4c40), 0x50 },
++	{ CCI_REG8(0x4c42), 0x50 },
++	{ CCI_REG8(0x4d12), 0x1f },
++	{ CCI_REG8(0x4d13), 0x1e },
++	{ CCI_REG8(0x4d26), 0x33 },
++	{ CCI_REG8(0x4e0e), 0x59 },
++	{ CCI_REG8(0x4e14), 0x55 },
++	{ CCI_REG8(0x4e16), 0x59 },
++	{ CCI_REG8(0x4e1e), 0x3b },
++	{ CCI_REG8(0x4e20), 0x47 },
++	{ CCI_REG8(0x4e22), 0x54 },
++	{ CCI_REG8(0x4e26), 0x81 },
++	{ CCI_REG8(0x4e2c), 0x7d },
++	{ CCI_REG8(0x4e2e), 0x81 },
++	{ CCI_REG8(0x4e36), 0x63 },
++	{ CCI_REG8(0x4e38), 0x6f },
++	{ CCI_REG8(0x4e3a), 0x7c },
++	{ CCI_REG8(0x4f3a), 0x3c },
++	{ CCI_REG8(0x4f3c), 0x46 },
++	{ CCI_REG8(0x4f3e), 0x59 },
++	{ CCI_REG8(0x4f42), 0x64 },
++	{ CCI_REG8(0x4f44), 0x6e },
++	{ CCI_REG8(0x4f46), 0x81 },
++	{ CCI_REG8(0x4f4a), 0x82 },
++	{ CCI_REG8(0x4f5a), 0x81 },
++	{ CCI_REG8(0x4f62), 0xaa },
++	{ CCI_REG8(0x4f72), 0xa9 },
++	{ CCI_REG8(0x4f78), 0x36 },
++	{ CCI_REG8(0x4f7a), 0x41 },
++	{ CCI_REG8(0x4f7c), 0x61 },
++	{ CCI_REG8(0x4f7d), 0x01 },
++	{ CCI_REG8(0x4f7e), 0x7c },
++	{ CCI_REG8(0x4f7f), 0x01 },
++	{ CCI_REG8(0x4f80), 0x77 },
++	{ CCI_REG8(0x4f82), 0x7b },
++	{ CCI_REG8(0x4f88), 0x37 },
++	{ CCI_REG8(0x4f8a), 0x40 },
++	{ CCI_REG8(0x4f8c), 0x62 },
++	{ CCI_REG8(0x4f8d), 0x01 },
++	{ CCI_REG8(0x4f8e), 0x76 },
++	{ CCI_REG8(0x4f8f), 0x01 },
++	{ CCI_REG8(0x4f90), 0x5e },
++	{ CCI_REG8(0x4f91), 0x02 },
++	{ CCI_REG8(0x4f92), 0x69 },
++	{ CCI_REG8(0x4f93), 0x02 },
++	{ CCI_REG8(0x4f94), 0x89 },
++	{ CCI_REG8(0x4f95), 0x02 },
++	{ CCI_REG8(0x4f96), 0xa4 },
++	{ CCI_REG8(0x4f97), 0x02 },
++	{ CCI_REG8(0x4f98), 0x9f },
++	{ CCI_REG8(0x4f99), 0x02 },
++	{ CCI_REG8(0x4f9a), 0xa3 },
++	{ CCI_REG8(0x4f9b), 0x02 },
++	{ CCI_REG8(0x4fa0), 0x5f },
++	{ CCI_REG8(0x4fa1), 0x02 },
++	{ CCI_REG8(0x4fa2), 0x68 },
++	{ CCI_REG8(0x4fa3), 0x02 },
++	{ CCI_REG8(0x4fa4), 0x8a },
++	{ CCI_REG8(0x4fa5), 0x02 },
++	{ CCI_REG8(0x4fa6), 0x9e },
++	{ CCI_REG8(0x4fa7), 0x02 },
++	{ CCI_REG8(0x519e), 0x79 },
++	{ CCI_REG8(0x51a6), 0xa1 },
++	{ CCI_REG8(0x51f0), 0xac },
++	{ CCI_REG8(0x51f2), 0xaa },
++	{ CCI_REG8(0x51f4), 0xa5 },
++	{ CCI_REG8(0x51f6), 0xa0 },
++	{ CCI_REG8(0x5200), 0x9b },
++	{ CCI_REG8(0x5202), 0x91 },
++	{ CCI_REG8(0x5204), 0x87 },
++	{ CCI_REG8(0x5206), 0x82 },
++	{ CCI_REG8(0x5208), 0xac },
++	{ CCI_REG8(0x520a), 0xaa },
++	{ CCI_REG8(0x520c), 0xa5 },
++	{ CCI_REG8(0x520e), 0xa0 },
++	{ CCI_REG8(0x5210), 0x9b },
++	{ CCI_REG8(0x5212), 0x91 },
++	{ CCI_REG8(0x5214), 0x87 },
++	{ CCI_REG8(0x5216), 0x82 },
++	{ CCI_REG8(0x5218), 0xac },
++	{ CCI_REG8(0x521a), 0xaa },
++	{ CCI_REG8(0x521c), 0xa5 },
++	{ CCI_REG8(0x521e), 0xa0 },
++	{ CCI_REG8(0x5220), 0x9b },
++	{ CCI_REG8(0x5222), 0x91 },
++	{ CCI_REG8(0x5224), 0x87 },
++	{ CCI_REG8(0x5226), 0x82 },
++	{ CCI_REG8(0x5b3c), 0x07 },
++
++	{ STARVIS2_REG_WDMODE, 0x00 },
++	{ STARVIS2_REG_MDBIT, 0x01 },
++	{ STARVIS2_REG_XXS_DRV, 0x00 },
++};
++
++static const u16 imx585_min_hmax_2lane[] = {
++	[STARVIS2_LINK_FREQ_297MHZ] = 2984,
++	[STARVIS2_LINK_FREQ_360MHZ] = 2464,
++	[STARVIS2_LINK_FREQ_445MHZ] = 2004,
++	[STARVIS2_LINK_FREQ_594MHZ] = 1512,
++	[STARVIS2_LINK_FREQ_720MHZ] = 1260,
++	[STARVIS2_LINK_FREQ_891MHZ] = 996,
++	[STARVIS2_LINK_FREQ_1039MHZ] = 856,
++	[STARVIS2_LINK_FREQ_1188MHZ] = 856,
++};
++
++static const struct starvis2_variant imx585_variant_def = {
++	.name = "imx585",
++	.id_reg = CCI_REG16_LE(0x5a1d),
++	.id_mask = 0x3ff,
++	.id_value = 0x259,
++	.native_area = {
++		.top = 0,
++		.left = 0,
++		.width = 3857,
++		.height = 2201,
++	},
++	.active_area = {
++		.top = 20,
++		.left = 0,
++		.width = 3856,
++		.height = 2180,
++	},
++	.pixel_rate = 594000000,
++	.pix_per_clk = 8,
++	.common_regs = imx585_common_regs,
++	.num_common_regs = ARRAY_SIZE(imx585_common_regs),
++	.vmax_default = 2250,
++	.hmax_min_link_freq = imx585_min_hmax_2lane,
++	.hmax_min_pixel_array = 550,
++	.exposure_min = 2,
++	.exposure_step = 2,
++	.shr_min = 8,
++};
++
  struct starvis2_model_info {
-@@ -1247,12 +1259,15 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
- 		starvis2->vmax = format->height + ctrl->val;
+ 	enum starvis2_type type;
+ 	const u32 *codes;
+@@ -1180,6 +1462,26 @@ static const struct starvis2_model_info imx832_autodetect_info = {
+ 	.auto_detect_mono = &imx832_amr_info,
+ };
  
- 		current_exposure = clamp_t(u32, current_exposure,
--					   STARVIS2_EXPOSURE_MIN,
--					   starvis2->vmax - STARVIS2_SHR_MIN);
-+					   starvis2->variant->exposure_min,
-+					   starvis2->vmax -
-+						starvis2->variant->shr_min);
- 		ret = __v4l2_ctrl_modify_range(starvis2->exposure,
--					       STARVIS2_EXPOSURE_MIN,
--					       starvis2->vmax - STARVIS2_SHR_MIN,
--					       1, current_exposure);
-+					       starvis2->variant->exposure_min,
-+					       starvis2->vmax -
-+						starvis2->variant->shr_min,
-+					       starvis2->variant->exposure_step,
-+					       current_exposure);
- 		if (ret)
- 			return ret;
- 	}
-@@ -1776,10 +1791,10 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
++static const struct starvis2_model_info imx585_aaqj_info = {
++	.type = STARVIS2_COLOR,
++	.codes = codes_bayer,
++	.num_codes = ARRAY_SIZE(codes_bayer),
++	.variant = &imx585_variant_def,
++};
++
++static const struct starvis2_model_info imx585_aamj_info = {
++	.type = STARVIS2_MONOCHROME,
++	.codes = codes_monochrome,
++	.num_codes = ARRAY_SIZE(codes_monochrome),
++	.variant = &imx585_variant_def,
++};
++
++static const struct starvis2_model_info imx585_autodetect_info = {
++	.variant = &imx585_variant_def,
++	.auto_detect_colour = &imx585_aaqj_info,
++	.auto_detect_mono = &imx585_aamj_info,
++};
++
+ static const char * const starvis2_supply_name[] = {
+ 	"avdd",  /* Analog (3.3V) supply */
+ 	"dvdd",  /* Digital Core (1.1V) supply */
+@@ -2020,6 +2322,8 @@ static const struct dev_pm_ops starvis2_pm_ops = {
+ };
  
- 	starvis2->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops,
- 					       V4L2_CID_EXPOSURE,
--					       STARVIS2_EXPOSURE_MIN,
-+					       starvis2->variant->exposure_min,
- 					       starvis2->variant->vmax_default -
--					       STARVIS2_SHR_MIN,
--					       STARVIS2_EXPOSURE_STEP,
-+						starvis2->variant->shr_min,
-+					       starvis2->variant->exposure_step,
- 					       STARVIS2_EXPOSURE_DEFAULT);
- 
- 	v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
+ static const struct of_device_id starvis2_of_match[] = {
++	{ .compatible = "sony,imx585-aamj", .data = &imx585_aamj_info },
++	{ .compatible = "sony,imx585-aaqj", .data = &imx585_aaqj_info },
+ 	{ .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
+ 	{ .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
+ 	{ .compatible = "sony,imx675-aamr", .data = &imx675_aamr_info },
+@@ -2029,6 +2333,7 @@ static const struct of_device_id starvis2_of_match[] = {
+ 	{ .compatible = "sony,imx832-amr", .data = &imx832_amr_info },
+ 	{ .compatible = "sony,imx832-aqr", .data = &imx832_aqr_info },
+ 	/* for non-conforming DTs that rely on runtime check */
++	{ .compatible = "sony,imx585", .data = &imx585_autodetect_info },
+ 	{ .compatible = "sony,imx662", .data = &imx662_autodetect_info },
+ 	{ .compatible = "sony,imx675", .data = &imx675_autodetect_info },
+ 	{ .compatible = "sony,imx678", .data = &imx678_autodetect_info },
 
 -- 
 2.34.1
