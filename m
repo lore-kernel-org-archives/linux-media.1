@@ -1,58 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434710;
-	b=BOudDe/TnJZCb+EslJuhlT+hBUvBL+mrvc/oQ9Y6u3zpHnvvGYOfh+plCW8sL2p9zHKg
-	 5Od+F9xDcizv5Pu8VoOV0NLPwpRIW25EommqizmkIFAE7K433RP43x/+6XkdLllfhU4LY
-	 cNlKtiXpkU/kj+3u7QP7nYIplpVxY2ruyu1lt/hVGMO8ezzgyA1ovAEQr6QmAyK9B56+p
-	 oixEkVMi32UIIZmaXID5ey9bCbiAHciAHBuyhHn+kY3MPuKF/vKmoHBzrShuDZlITYdnM
-	 oIt/GT1sndeTDUcrHkRjDzjKCOxBcMhZSOKVvhYtEdIGCuXD6eBMiCF8UIPjCEO5HKw==
+	t=1792434941;
+	b=mOFnWqaCv3cU96APX2vi9c5REkEzHdAYkAs6y3i1KnLr3TKtz1VH2JjwbjIzRcLR1qsS
+	 7RS4/g1+X7nYuLvBf6TdsmpK6SNlNn7kJE4RsmhJggizrANQoq5b1Nz7pDGiTrKfw6UJm
+	 KXR07TJ5Bv+jgFQBgC/+eGplBvKCOZJdacxwUtze62R49gbH5Wcf4LYTTKD4ffOsSwqeF
+	 1dvfjcNidzeJvMG5n9iYrB1rW0CYpVBQXAWB6V5iOpD+y68tAgd3r2OKOSBeQiccoGHJz
+	 nfub0YbwA8/cK4w3fCMAwYdofTY7kkJBnXrjq15XZCL86356owE6yMt78xf/5+AeKwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434710;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434941;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=4rAOC3LWU4D+fpQNfeaCciHvlznoy08mvb2nzwLCzJo=;
-	b=MKdfx0wvs5f4WjCEf6x97Y2ONgABVff4kr9EwmlXZ8pJCvcWpY0g7lXUltvvEgFMUGo+
-	 RR3PQWRbi0uxjpRVOKPU/UWXoeUUt3RCxjRkGn5us0CSNBQaCGNvvPnTr850zct6ldc+9
-	 EOgja+pWYNr2C248PhAeRRsbhSy3jOFm+s7kfR+B/JERtxAmFPn7cpz7XYucANSQ70X1G
-	 DPe/aO8OT6ht9PNSbHrcy7sJXgMIfnQvyAKAHib6rlKsCDwtdxNH6mPNBl46Ad0s4Pu54
-	 zInNGKpKhtH15Xb+KyL5+jfsOuass4n6YQ2O/PX3Vpf3DslaX26cxPgEh081f7i35Jg==
+	bh=n32poB4tkKKa1H8C9bhY2dZAW0+q+igXltm4JEhLcqw=;
+	b=Vo3SOAilZvIqg84UJcgD5JLmUmoDjZms/msU1VkXAS/mlFSq4eOQ/GofhpWNtIcKlcKT
+	 4oKwYz28gcHdKlkGlhhB9OvvpsMKzkTFpKZXc9XKM9Gt6sp+IEH0Wi13m399BrAIGjz29
+	 6ae2drMHzsE0rxR1qV9eU3O7rUTrZezSsPlB3G2xqNw+roccWr/t5/t/8OSnG3Zef+XTr
+	 2ZqQmDN+GqE856iWT0yuQOCvXdSnzZ0W/0ci9xtFtz+wbp5HxaJPe6SF1PGagHPM82g3q
+	 XArcP6LvVVeD6bFFyuvWuw+d+3EHqZt4XUQ6I6srKQi3Z9D/Uv7MW3idjEsSAv4xwQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwmrRe58;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WF/haCzz";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47595606A31B;
-	Mon, 19 Oct 2026 18:31:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89AB606A31B;
+	Mon, 19 Oct 2026 18:35:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwmrRe58
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4155E1F000C4;
-	Mon, 19 Oct 2026 18:31:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WF/haCzz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 111A91F000C4;
+	Mon, 19 Oct 2026 18:35:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792434709;
-	bh=4rAOC3LWU4D+fpQNfeaCciHvlznoy08mvb2nzwLCzJo=;
+	s=k20260515; t=1792434940;
+	bh=n32poB4tkKKa1H8C9bhY2dZAW0+q+igXltm4JEhLcqw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MwmrRe58qW5gCgNkDhEpNQo/Yx+4ojBXVll0Hyk2CndarxFJqPFTFeGH4qZb1TsXS
-	 KhKMozcdUezt4bP7B+WmMFDFOLZZ55yLKEQ3PjuuPtc9s8PbxHzUsfIPa8JFkpkRHq
-	 /DXTtrLoXtJiudJ4JtiJ1iP7LJNmLfMvnWCfUoJ+GofFK3fPnWO7sP8Na6qA0G1AQ1
-	 10S+4R1PMie5upWKasbG1GMCiYlveGNywqtt+ARhDDvDvJWX/gdNeih5Wh5zMY1VLl
-	 TFfzJlWteWb8hGT130uyLs6yvR7LcFEVY8GNc84iaio3CQmwMiGDjrbCB/1ZpLndiQ
-	 CmtpcX0zrz88Q==
-Date: Mon, 19 Oct 2026 21:31:46 +0300
+	b=WF/haCzzvQJPPUWBj50CMBjC9jE8aMytYuSftFLlIRaLScaIBZDKoWDLcaFTUeGEV
+	 byMWI9zl0IMmBs2kznsH6KszESmy5Ku3CiNrSTFKMxRE5ZYt8DWF6wx7l+W1MTbgh/
+	 rgCknL4xvUV3nKHSke3FicCrirp+WspbboJtB1+Lna8TM/2KW/p42LTcaiSac1x9Z6
+	 ihKcDophwBMK2dSGA2wfIJ9rFX6a2DpIqH9R9lMqcWsPa9aKhZakK4XMMVbOE9qwJs
+	 1hTpeRS2qHQ4ucPyhETyPMF7fIBtrFACCSFbc78XmFJYmRs4c1MQ3xMvfCffqrUioZ
+	 JuyVU8tQ0aM/Q==
+Date: Mon, 19 Oct 2026 21:35:37 +0300
 From: Leon Romanovsky <leon@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
 	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Ankit Agrawal <ankita@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
- freeing
-Message-ID: <20261019183146.GH64621@unreal>
-References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261019183537.GI64621@unreal>
+References: <20261014132353.GA1625948@bhelgaas>
+ <eb8e0edd-4c4d-402e-9875-bdbc6d191edf@app.fastmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,56 +75,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
+In-Reply-To: <eb8e0edd-4c4d-402e-9875-bdbc6d191edf@app.fastmail.com>
 
-On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
-> From: Leon Romanovsky <leonro@nvidia.com>
-> 
-> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
-> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
-> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
-> map/unmap cycle.
-> 
-> Restore orig_nents from nents before freeing the table. The helper
-> allocates the DMA list directly, so nents retains the allocation count,
-> including for chained scatterlists.
+On Wed, Oct 14, 2026 at 05:49:53PM +0300, Leon Romanovsky wrote:
 > 
 > 
-> The reported kmemleak output was:
+> On Wed, Oct 14, 2026, at 16:23, Bjorn Helgaas wrote:
+> > On Wed, Oct 14, 2026 at 09:53:47AM +0300, Leon Romanovsky wrote:
+> >> On Tue, Oct 13, 2026 at 05:25:08PM +0300, Leon Romanovsky wrote:
+> >> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+> >> > This misclassifies asymmetric and nested switches, and reports one answer
+> >> > for every kind of TLP.
+> >> > 
+> >> > Three ACS controls act on TLP attributes the Requester chooses rather
+> >> > than on the topology: Translation Blocking and Direct Translated P2P act on
+> >> > a Request's Address Type, and Completion Redirect skips Completions carrying
+> >> > Relaxed Ordering.
+> >> > 
+> >> > Evaluate each direction at the path divergence, decide every class from the
+> >> > one walk, and treat a client with ATS enabled as translating unless its
+> >> > driver declares per-mapping ATS.
+> >> > 
+> >> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+> >> > 
+> >> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> >> > ---
+> >> > Changes in v11:
+> >> 
+> >> 
+> >> Bjorn,
+> >> 
+> >> Could you please save me from the AI-bot attack? Every rebase seems to
+> >> uncover another bizarre pre-existing issue. It never ends.
+> >
+> > Can you elaborate?  I'm not sure what you'd like me to do here.  I
+> > don't control the Sashiko reviews, and I thought Sashiko was recently
+> > changed to put pre-existing issues in a database but not in the email
+> > responses.
 > 
-> KMEMLEAK LEAK: 2 driver-related leak(s)
-> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
-> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
-> KMEMLEAK LEAK:   hex dump (first 32 bytes):
-> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
-> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
-> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
-> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
-> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
-> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
-> KMEMLEAK LEAK:     0xffffffffa1ad21a8
-> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
-> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
-> KMEMLEAK LEAK:     0xffffffffa138f8d2
-> KMEMLEAK LEAK:     0xffffffffa1396abe
-> KMEMLEAK LEAK:     0xffffffffa1331a5f
-> KMEMLEAK LEAK:     0xffffffffa13320dd
-> KMEMLEAK LEAK:     0xffffffffa1ad696d
-> KMEMLEAK LEAK:     0xffffffffa1acecc7
-> KMEMLEAK LEAK:     0xffffffffa1acfd17
-> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
-> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
-> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
-> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
-> KMEMLEAK LEAK:   hex dump (first 32 bytes):
-> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
+> AI reviews are not deterministic and every resubmission gives us slightly different result, which is in this phase of submission is  full of hallucinated flows not applicable to the upstream.
 > 
-> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> ---
->  drivers/dma-buf/dma-buf-mapping.c | 2 ++
->  1 file changed, 2 insertions(+)
+> In addition to upstream Sashiko, i run everything through local one with slightly better models which hallucinating even more.
+> 
+> I would ask you to merge the series so it gets real exposure in addition to my kunit and specific hw setup.
 
-Reminder, thanks
+Bjorn,
+
+We're in the merge window now, so I don't expect such a large series to be
+merged. What about the next cycle? Should I send v12 after -rc1, or wait?
+
+Thanks
+
+> 
+> Thanks 
+> 
+> >
+> > Bjorn
+> 
