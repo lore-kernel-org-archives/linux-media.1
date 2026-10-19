@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B8760FF13;
-	Mon, 19 Oct 2026 14:03:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C85336301E7;
+	Mon, 19 Oct 2026 14:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418626; cv=none; b=n82I2hkkFcRrZwcT4Ldzv4BmU1kNtZ3+9EedpDI5rWWHJPUSAPuFwuYOcixV3y1OMG7+JxzPac4Po+k0j8zhr7ibRudaZO7N2jfhVvsUxZLv97RM0AOt1hnFXRedQPr19KQ+WDa9K7GvgoEn0JXHAJ10IJB6tPR6BQkm3kZ+5NQ=
+	t=1792418729; cv=none; b=IlxDLVlPJqNZPnop2lQKQMSjj8s8FkfzdQgB6nuTfFzAeg6mnBCiAZML8ci6QPXaYLR+bf57PNJZc1LyIdCR1h/x7pN/JMaER59RvwG2YpjY5bfnBiB21zEvWiOhFkejAXnYCpfBWYfFNSc5oF/czafRHOJyHZCRpNYNfWASdTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418626; c=relaxed/simple;
-	bh=ZGnTgfXqdal5DZnvrtBQ2YiyOLTR25XTTjrIwhgswps=;
+	s=arc-20240116; t=1792418729; c=relaxed/simple;
+	bh=1jnWH4VwF8YerAsB7d5GBxnznGwbwqpbjy5I7grac7w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Nm1CyMDM82MB3dviva96UC/Jkx831rYWL9lCXyPPJqdFFYWSpNrbCJTRkmyJ0fYswZ1eWTfa3dUCOQ8el7u0OM1RCGyK+2IIiTeFY5TKUVxNKUn5OYogs/dWEhlQIUs6ktZhQ6JYfD8luSB7a95T6WjZCMneOkteatzzVZYCnTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVCZWA1n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=O7ZH3yXCkBdFTyEg7qkzvhgsfS484i0mTMeNxEVF10+BYF4N6YWj2NwPSTsdBtxge++YGijocT2jyGdmGanPL2+f9wWE1x7cJdaFlkc5evzHaFwiBGeB8FBoey1o9z/y1z15ACX+SXsIMFBA3/gfxmVpSio/fxNNWCkCCOV9ZVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8P32T69; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVCZWA1n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDD01F000C7;
-	Mon, 19 Oct 2026 14:03:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8P32T69"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD34E1F000CA;
+	Mon, 19 Oct 2026 14:05:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418622;
-	bh=okAr1bUawofvPjILhZ5Aw4ILC5K/NCJtVAorY5sCEL8=;
+	s=k20260515; t=1792418725;
+	bh=20E9De6BR+S8VMH4NJX+3knCPN5YgOZQEqpYqKvUVww=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XVCZWA1n4W1utnIjsBMMlPnaXWfnR5Wc8eV3RX3PZbabg1k9EQUPVQGQe0KB1cGU1
-	 dwCSzreB2SWiwdlRcWOraY37+MoqZBY61NnkjVAmwWWOy38FTu8ZeZiaxm56Thi9UA
-	 XoTSgGKSBi2S2DNWlb5gk998k6aoLq2kwNDHhymdwog8BOGmNiBeWcaJu8w6eYXkag
-	 fZ2h7pNSbMOJAeZOUnSThG4I0QRjPzQ7CIJLHyUA5QVwZLzVm21SI0Zk3rYsLPLTSs
-	 ELECbJ5oCcgwVUZAx094lKc6g5+jg4Iwl152WrCcMy/K/qt+osFNa0U0Ks6cek1dse
-	 co/JUEXf3NDEA==
+	b=M8P32T69oDdZsTGtioWELWnFL5tDcoALk2OUF07xosR+exBuTjGmm7L3x8lIauq7U
+	 ySx1kfwhXABsosgtOphwHJ6gVYoKGfn2dsAi1MCyn0yTkjimnKk3nzkqQx0Dft3xkC
+	 8Q74HkUEEnRVa5/YocAzuVcxt0goSHkyZHzDTK73IgKcZ9VvbImxmhhe+o+dRkc9kG
+	 Y9xQe5QlqUsDqwKeiD1AFqLOOz4XpKhEPC1XzCUNY8XBSZU/ZySg4Ksc00M0vjY+ac
+	 L9I241RUXElfOQgYGTO4wvEag7BHKlTM3Dc3oLKJjJ6L71Euhz5gN7a6qEUdxcp2Zu
+	 NvhPLZFtWRt1w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Jurison Murati <eng.juri@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	hverkuil@kernel.org,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.15] media: i2c: ov8865: Program the sensor on stream start
-Date: Mon, 19 Oct 2026 09:51:11 -0400
-Message-ID: <20261019135441.1420968-380-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: cec/core: drop cec_post_state_event call
+Date: Mon, 19 Oct 2026 09:52:23 -0400
+Message-ID: <20261019135441.1420968-452-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,456 +54,392 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jurison Murati <eng.juri@gmail.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
 
-[ Upstream commit 4e1446ac169a1a621ba90502ab8db3be821fe726 ]
+[ Upstream commit 2ff4b91e82bd76e1a6e1ff22bfc9aeda08e12a61 ]
 
-The sensor registers are only written in the runtime PM resume
-handler; ov8865_set_fmt() merely stores the requested mode, relying on
-the sensor being runtime suspended between uses so that the next
-resume applies it.
+No need to call cec_post_state_event() if the next call
+is to cec_adap_unconfigure() since that will also call
+cec_post_state_event().
 
-That assumption breaks when something keeps the sensor powered. On
-IPU3 platforms, ipu_bridge instantiates the VCM device with a
-DL_FLAG_PM_RUNTIME device link to the sensor, so a userspace process
-holding the VCM subdev open (e.g. wireplumber's camera monitor) pins
-the sensor runtime-active. A subsequent set_fmt() then never reaches
-the hardware: the sensor keeps streaming the mode programmed on the
-last resume while the CSI-2 receiver expects the newly negotiated
-format.
+This fixes the case when, when the physical address is
+invalidated, you get two CEC_EVENT_STATE_CHANGE events:
+one with a non-zero log_addr_mask and one with a zero
+log_addr_mask.
 
-On a Surface Book 2 (IPU3, ov8865 + dw9719 VCM), requesting the
-3264x2448 mode while the hardware was left programmed for the
-1632x1224 binned mode makes ipu3-cio2 report "frame sync error" and
-"payload length is 10340352, received 2585088" (exactly one binned
-frame) for every frame, and the inverse case stalls the stream after
-a single frame. Camera applications end up displaying one bogus frame
-forever.
+You just want to see the event with phys_addr set to
+f.f.f.f and log_addr_mask set to 0.
 
-Program the sensor configuration and apply the control values on
-stream start instead, where the negotiated mode is always current,
-and only write the configuration in the runtime PM resume handler
-when resuming with the stream already started.
-
-Signed-off-by: Jurison Murati <eng.juri@gmail.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local checkout is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
-verdict is whether this ov8865 programming fix belongs **here**, not in
-other series.
+The local tree is **v7.3-rc4** (mainline 7.3). The extra
+`cec_post_state_event()` lives in `__cec_s_phys_addr()` and is a real
+UAPI-visible duplicate-event bug on HDMI unplug, not a cleanup-only
+change.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## Phase 1: Commit message forensics
 
-**Step 1.1: PARSE THE SUBJECT LINE**
-Record: `[media: i2c: ov8865] [Program] Program the sensor on stream
-start` — “Program” here is a correctness change: write the negotiated
-mode at `s_stream`, not only on runtime resume.
+**Step 1.1: Subject line**
+Record: **[media/cec/core] [drop] [remove redundant
+`cec_post_state_event()` before `cec_adap_unconfigure()`]**
 
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
+**Step 1.2: Tags**
 Record:
-- `Signed-off-by: Jurison Murati <eng.juri@gmail.com>` (author)
-- `Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>`
-  (media/I2C sensor maintainer; merger)
-- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Cc:
-  stable`, `Link:`, or syzbot tags (absence expected)
-- Mailing-list thread (Phase 4) has `Reviewed-by: Daniel Scally` on
-  series patch 1/2 only, not on this 2/2 as merged
+- Signed-off-by: Hans Verkuil \<hverkuil+cisco@kernel.org\> (CEC
+  maintainer / author)
+- Signed-off-by: Mauro Carvalho Chehab \<mchehab+huawei@kernel.org\>
+  (media maintainer)
+- No Fixes:, Reported-by, Tested-by, Reviewed-by, Acked-by, Link:, or
+  Cc: stable (absence of Fixes:/Cc: stable is expected for this review)
 
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
+**Step 1.3: Body**
 Record:
-- Bug: `set_fmt()` only stores the mode; registers are written in the
-  runtime-PM resume handler. That assumes the sensor suspends between
-  uses.
-- Trigger: IPU3 `ipu_bridge` VCM device link (`DL_FLAG_PM_RUNTIME`) plus
-  userspace holding the VCM subdev open (wireplumber camera monitor)
-  keeps the sensor runtime-active, so resume never runs after
-  `set_fmt()`.
-- Symptom: CSI-2 receiver (`ipu3-cio2`) sees a format mismatch. Full
-  3264×2448 vs leftover 1632×1224 binned mode → `"frame sync error"` and
-  `"payload length is 10340352, received 2585088"`; the inverse stalls
-  after one frame. Camera apps show one bogus frame forever.
-- Hardware: Surface Book 2 (IPU3, ov8865 + dw9719 VCM).
-- Fix: program + apply controls on stream start; resume only reprograms
-  if already streaming (mid-stream suspend).
+- **Bug:** When the CEC physical address is invalidated, userspace gets
+  two `CEC_EVENT_STATE_CHANGE` events: one with a non-zero
+  `log_addr_mask`, then one with zero.
+- **Symptom:** Extra/inconsistent state-change event. Desired event is
+  `phys_addr = f.f.f.f` and `log_addr_mask = 0`.
+- **Root cause:** `__cec_s_phys_addr()` posts a state event, then
+  immediately calls `cec_adap_unconfigure()`, which posts another after
+  clearing `log_addr_mask`.
+- **Version info:** none in the message. The double-post has been in
+  `__cec_s_phys_addr()` since the original CEC adapter (2016).
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
-Record: Not hidden. Explicit functional bug: hardware left in the
-previous mode.
+**Step 1.4: Hidden bug fix?**
+Record: **Not hidden.** The first sentence sounds like cleanup, but the
+body describes a real userspace-visible duplicate event. Confirmed by
+the UAPI docs: `log_addr_mask` must be 0 if `phys_addr` is
+`CEC_PHYS_ADDR_INVALID`. The first event violates that.
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## Phase 2: Diff analysis
 
-**Step 2.1: INVENTORY THE CHANGES**
+**Step 2.1: Inventory**
 Record:
-- File: `drivers/media/i2c/ov8865.c` (+25 / −9)
-- Functions: `ov8865_s_stream()`, `ov8865_resume()`
-- Scope: single-file, surgical
+- File: `drivers/media/cec/core/cec-adap.c` (−1 line)
+- Function: `__cec_s_phys_addr()`
+- Scope: single-file, one-line surgical deletion
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+**Step 2.2: Code flow**
 Record:
-- `ov8865_s_stream(enable=1)` before: `pm_runtime_resume_and_get()` then
-  only `ov8865_sw_standby(false)`. After: still resume_and_get, then
-  always `ov8865_sensor_init()` + `__v4l2_ctrl_handler_setup()` then
-  standby off. Stream-start path.
-- `ov8865_resume()` before: always `sensor_init` + ctrl setup, then
-  standby off if streaming. After: those writes only if
-  `state->streaming`. Runtime-resume path; skipped when VCM merely pins
-  power.
+- **Before:** On PA change/invalidation (`becomes_invalid ||
+  !is_invalid`): set `adap->phys_addr = CEC_PHYS_ADDR_INVALID`, **post
+  STATE_CHANGE** (mask still old/non-zero), then
+  `cec_adap_unconfigure()` which zeros `log_addr_mask` and posts again.
+- **After:** Same path, but only `cec_adap_unconfigure()` posts.
+  Userspace sees one event with invalid PA and mask 0.
+- Path: HDMI unplug / HPD low / `CEC_ADAP_S_PHYS_ADDR` with
+  `CEC_PHYS_ADDR_INVALID` / notifier invalidation. Not an error path.
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
-Record: `[Logic / correctness]` Mode was applied only on RPM resume.
-With an external RPM pin, `set_fmt()` never reached the sensor. Fix
-writes the current software mode at stream start. Category is not
-UAF/leak/race; it is a hardware/software format desync.
+**Step 2.3: Bug mechanism**
+Record: **Logic / userspace-event correctness.** Redundant notification
+posted before logical addresses were cleared. First event contradicts
+the documented invariant. `cec_adap_unconfigure()` already posts the
+correct event (verified at line 1426).
 
-**Step 2.4: ASSESS THE FIX QUALITY**
-Record: Obviously correct. Matches the usual sensor pattern (configure
-at stream on). Extra I2C on every start is harmless (same work resume
-used to do). Resume still covers mid-stream suspend. `int ret = 0` is
-required because disable no longer assigned `ret` before the new `if
-(!ret)` guard. Regression risk low; no API/lock change. Depends on
-sibling 1/2 (`3fe797a12bfa9`) for unified `pm_runtime_put` on
-`sensor_init` failure — that commit **is** in this tree.
+**Step 2.4: Fix quality**
+Record: Obviously correct. `cec_adap_unconfigure()` still posts after
+clearing the mask. No API/data-structure change. Regression risk is very
+low: anyone depending on the intermediate non-zero mask with invalid PA
+would be depending on a documented-impossible state.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+## Phase 3: Git history
 
-**Step 3.1: BLAME THE CHANGED LINES**
+**Step 3.1: Blame**
+Record: The extra `cec_post_state_event()` before
+`cec_adap_unconfigure()` is from **9881fe0ca187c2** (“[media] cec: add
+HDMI CEC framework (adapter)”, 2016-06-28). Present since CEC was
+introduced.
+
+**Step 3.2: Fixes: tag**
+Record: None. The double-post is original 2016 code. It became much more
+visible after **67d9598720159** (“handle core events like normal
+events”, 2026-07-17), which raised the STATE_CHANGE queue from 1 to 3 so
+the first event is no longer overwritten.
+
+**Step 3.3: Related file history**
+Record: Same-day series (Hans Verkuil, 2026-07-10, merged 2026-07-17):
+1. `e6dcc43e5174d` max_retries → max_attempts (rename)
+2. `0c138a5d5045f` drop ABORTED/TIMEOUT check
+3. `67d9598720159` handle core events like normal events (**makes
+   duplicate visible**)
+4. `2ff4b91e82bd7` **this commit**
+5. `350308a05f7dd` flush stale STATE_CHANGE events (related,
+   independent)
+6–8. new UAPI flag, pin toggle, debugfs (features)
+
+This patch is 4/8. It is self-contained: it only deletes a call that has
+existed since 2016.
+
+**Step 3.4: Author**
+Record: Hans Verkuil is the CEC subsystem maintainer and original author
+of this function. High confidence in the diagnosis.
+
+**Step 3.5: Prerequisites**
+Record: Applies standalone (one-line delete). **67d9598720159 is in this
+tree** (`git merge-base --is-ancestor` succeeded), so the duplicate is
+actually delivered here. Follow-up `350308a05f7dd` is not required for
+this fix.
+
+## Phase 4: Mailing list / external research
+
+**Step 4.1: Original discussion**
 Record:
-- Driver added in `11c0d8fdccc56` (“Add support for the OV8865 image
-  sensor”, 2020-12-31, first in **v5.12-rc1**). Original `s_stream` only
-  toggled standby after RPM get; resume always called `sensor_init`.
-- Original `ov8865_state_configure()` **did** call
-  `ov8865_mode_configure()` when the device was already runtime-active
-  (`!pm_runtime_suspended`). That covered the VCM-pin case at
-  `set_fmt()`.
-- `da8f23e359166` (“move mode_configure out of state_configure”,
-  2025-09-09, contained in **v6.18-rc1**) removed that powered-path
-  `mode_configure`. That is the regression this commit repairs. Present
-  in this 7.3 tree.
+- `b4 dig -c 2ff4b91e82bd7` → https://patch.msgid.link/cc357768324be21b0
+  133799326e8230face817ad.1783681656.git.hverkuil+cisco@kernel.org
+- Cover: `[PATCH 0/8] media: cec/core: fixes and improvements`
+- `b4 dig -a`: **v1 only**, no later revisions
+- Thread (mbox) contains only Hans’s 8 patches. **No replies, no NAKs,
+  no reviewer Cc: stable.**
+- Cover letter: mixed “fixes and improvements”; this patch’s body is a
+  concrete event bug, not a feature.
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-Record: No `Fixes:` tag. The introducing commit is `da8f23e359166`. `git
-merge-base --is-ancestor da8f23e359166 HEAD` succeeded.
+**Step 4.2: Recipients**
+Record: `b4 dig -w`: Hans Verkuil + linux-media@vger.kernel.org. Merged
+by Mauro Chehab. No external reviewer tags.
 
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
+**Step 4.3: Bug report**
+Record: No Reported-by / Link / bugzilla / syzbot. Author-found while
+changing event queuing.
+
+**Step 4.4: Series**
+Record: 8-patch series. Patches 6–8 add a UAPI flag and debugfs (not
+needed here). Patch 3 is in this tree and is why two STATE_CHANGE events
+are queued. Patch 5 flushes older queued events on invalid PA;
+complementary, not a prerequisite.
+
+**Step 4.5: Stable list**
+Record: lore.kernel.org returned HTTP 403 via WebFetch/curl.
+**UNVERIFIED** whether this was discussed on stable@. No Cc: stable in
+the commit or mbox.
+
+## Phase 5: Code semantic analysis
+
+**Step 5.1: Functions**
+Record: `__cec_s_phys_addr()` (modified). Helpers involved:
+`cec_post_state_event()`, `cec_adap_unconfigure()`, `cec_s_phys_addr()`.
+
+**Step 5.2: Callers**
 Record:
-- `3fe797a12bfa9` — same author, same second, series 1/2: drop RPM count
-  on stream failure. v2 changelog says 2/2 was rebased on that unified
-  error path.
-- `8e3e916e23f5a` (2023-08-10) — `ipu-bridge` VCM `DL_FLAG_PM_RUNTIME`
-  link (the pin).
-- No follow-up/revert of `4e1446ac169a1` on this file after it landed.
+- `cec_s_phys_addr()` — exported; HDMI drivers/notifiers (DRM HDMI
+  helper, DP CEC, Pulse8, Extron, adv76xx, tc358743, sun4i, omap,
+  ch7322, vivid, …)
+- `__cec_s_phys_addr()` also from `cec-api.c` (`CEC_ADAP_S_PHYS_ADDR`)
+  and `cec-core.c` (unregister)
+- `cec-notifier.c` on HDMI HPD/EDID PA updates
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Record: Jurison Murati has these two ov8865 commits in-tree. Not the
-subsystem maintainer. Sakari Ailus merged both. Dan Scally (Intel
-IPU3/libcamera) reviewed the series.
+Reachable from ioctl and from HDMI hotplug.
 
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-Record: Soft prerequisite: `3fe797a12bfa9` (already in HEAD). Without
-it, `sensor_init` failure after `resume_and_get` would leak the RPM ref.
-No new helpers. Standalone on this tree.
+**Step 5.3: Callees**
+Record: Sets `adap->phys_addr`, `cec_adap_unconfigure()` (clears mask,
+flush, **posts event**), `cec_adap_enable()`, `cec_claim_log_addrs()`.
+Called with `adap->lock` held.
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+**Step 5.4: Call chain / reachability**
+Record: Userspace-reachable. Common trigger: HDMI unplug →
+notifier/driver sets PA invalid → `__cec_s_phys_addr()`. Also
+`CEC_ADAP_S_PHYS_ADDR`. `cec_dqevent()` takes only `fh->lock`, not
+`adap->lock`, so a waiter can dequeue the first (bad) event before
+unconfigure posts the second.
 
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
+**Step 5.5: Similar patterns**
+Record: Other `cec_post_state_event()` sites (unconfigure, config-
+complete, `cec_s_conn_info`) post once after state is consistent. Only
+this site posted before clearing the mask. Follow-up `350308a05f7dd`
+flushes stale STATE_CHANGE events when PA becomes invalid.
+
+## Phase 6: This tree
+
+**Step 6.1: Does the buggy code exist?**
+Record: **Yes.** Tree is **v7.3-rc4** (`7.3.0-rc4`).
+`__cec_s_phys_addr()` and the extra post exist in this lineage since
+2016. Parent **67d9598720159 is an ancestor of HEAD**, so the
+STATE_CHANGE queue depth is 3 and both events are delivered. Bug
+introduced in 2016; user-visible duplicate made systematic in 7.3.
+
+**Step 6.2: Backport difficulty**
+Record: Clean apply. Surrounding function matches the pre-image. One-
+line deletion, no conflicts expected.
+
+**Step 6.3: Related fixes already here**
+Record: `350308a05f7dd` (flush stale events) is already in this tree as
+the next series patch. It does not replace this deletion; it handles
+previously queued events. No alternate fix for the double-post.
+
+## Phase 7: Subsystem context
+
+**Step 7.1:**
+Record: **media/CEC core**. Criticality: **IMPORTANT** for HDMI-CEC
+users (TVs, Android TV, STBs, desktops with HDMI CEC). Not mm/fs/net
+core, but the CEC device node is the userspace ABI for that class of
+hardware.
+
+**Step 7.2:**
+Record: Active. Multiple CEC core commits in 7.3 from the maintainer.
+This file is mature (2016) with ongoing event/config fixes.
+
+## Phase 8: Impact and risk
+
+**Step 8.1: Who is affected**
+Record: Driver/config-specific: `CONFIG_CEC_CORE` and a CEC adapter (DRM
+HDMI, USB CEC dongles, SoC CEC). Userspace that dequeues
+`CEC_EVENT_STATE_CHANGE` (libcec, v4l-utils, Android CEC HAL).
+
+**Step 8.2: Trigger**
+Record: HDMI unplug / HPD low / invalidating the physical address.
+Common for CEC users. Unprivileged userspace with a CEC fd can also set
+PA via ioctl if `CEC_CAP_PHYS_ADDR` is set. Timing: the two posts are
+consecutive in one lock section, but `cec_dqevent()` does not take
+`adap->lock`, so a blocked waiter can observe the first event.
+
+**Step 8.3: Failure mode**
+Record: Userspace sees a STATE_CHANGE with `phys_addr = f.f.f.f` and
+**non-zero** `log_addr_mask`, which the UAPI docs forbid, then a second
+correct event. Can confuse adapters as still configured after
+disconnect. **Severity: MEDIUM** (incorrect userspace event / UAPI
+invariant break; not a kernel oops, leak, or corruption).
+
+**Step 8.4: Risk-benefit**
 Record:
-- `b4 dig -c 4e1446ac169a1`: https://patch.msgid.link/fa341298dfd2ba9ce4
-  31e21c2cf45002efacf2cf.1781085860.git.eng.juri@gmail.com
-- Series: v1 then v2 (2 patches).
-  - v1 1/2: “Program the mode on stream start if needed” — extra
-    `hw_mode`/`hw_mbus_code` state
-  - v1 2/2: RPM put on stream-start failure
-  - v2 1/2: RPM leak fix (reordered)
-  - v2 2/2: this commit (unconditional program at start; resume gated on
-    streaming)
-- Applied version is v2, latest. No NAK. Sakari: do not add more driver
-  state; Dan: program unconditionally at `s_stream` and gate resume —
-  that is what landed. Author retested on Surface Book 2 with the sensor
-  held runtime-active; both modes worked; mid-stream resume still
-  reprogrammed.
-- No `Cc: stable` in the thread.
+- **Benefit:** Medium. Stops a documented-impossible event on a common
+  HDMI path in this 7.3 tree, where queue depth is 3.
+- **Risk:** Very low. One-line delete; unconfigure still posts the
+  correct event.
+- **Ratio:** Favorable.
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
-Record: `b4 dig -w` recipients: Sakari Ailus, Daniel Scally, Hans de
-Goede, Mauro Carvalho Chehab, linux-media. Right audience (sensor
-maintainer, IPU3/VCM authors).
+## Phase 9: Synthesis
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
-Record: No bugzilla/syzbot. Concrete user-visible failure on Surface
-Book 2 with exact cio2 log lines. Author is the reporter; not a
-theoretical race.
+**Step 9.1: Evidence**
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Record: 2/2 of a two-patch series. 1/2 is `3fe797a12bfa9`, already in
-this tree. This hunk does not need other media patches.
+FOR:
+- Real userspace bug: two STATE_CHANGE events, first with invalid PA and
+  non-zero mask
+- Violates documented UAPI (`log_addr_mask` must be 0 if PA is invalid)
+- HDMI unplug / PA invalidation is a common path
+- This tree has 67d9598720159, so both events are queued (not coalesced)
+- 1-line deletion, obviously correct
+- `cec_adap_unconfigure()` already posts the right event
+- Author is the CEC maintainer; media maintainer merged it
+- Applies cleanly here; no new API
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-Record: WebFetch of lore.kernel.org/stable returned 403. `b4` mbox has
-no “stable” mention. UNVERIFIED whether stable@ discussed this later.
-
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
-
-**Step 5.1: IDENTIFY KEY FUNCTIONS**
-Record: `ov8865_s_stream` (modified), `ov8865_resume` (modified).
-Callees used: `ov8865_sensor_init`, `__v4l2_ctrl_handler_setup`,
-`ov8865_sw_standby`. `ov8865_set_fmt` → `ov8865_state_configure` is the
-path that only stores `state->mode`.
-
-**Step 5.2: TRACE CALLERS**
-Record: `ov8865_s_stream` is `.s_stream` on the V4L2 subdev. Called from
-the media pipeline when userspace starts/stops capture (libcamera /
-camera apps), not IRQ. `ov8865_resume` is `SET_RUNTIME_PM_OPS` runtime
-resume.
-
-**Step 5.3: TRACE CALLEES**
-Record: `ov8865_sensor_init` does sw reset, standby, chip-id, init
-sequence, then `ov8865_mode_configure(sensor->state.mode, …)` — so it
-programs the **currently negotiated** mode. That is why calling it from
-`s_stream` after `set_fmt()` is the right place.
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-Record: Userspace opens VCM (wireplumber) → `ipu_bridge`
-`device_link_add(..., DL_FLAG_PM_RUNTIME)` keeps sensor RPM-active →
-`VIDIOC_S_FMT`/`set_fmt` updates software mode only → `s_stream(1)` used
-to only leave standby, leaving old registers → `ipu3-cio2` receives the
-wrong frame size. Unprivileged user with camera access can trigger it;
-wireplumber makes it the common case.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Record: `ov5648_s_stream` still only does standby after RPM get and
-always inits in resume — sibling still has the old pattern. Not a reason
-to reject this ov8865 fix. `ipu-bridge.c:714` still has the VCM PM link.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Record:
-- Tree: VERSION=7 PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4
-- `drivers/media/i2c/ov8865.c`, `VIDEO_OV8865`, ipu3-cio2,
-  `ipu_bridge_instantiate_vcm_work` + `DL_FLAG_PM_RUNTIME` all exist
-- Regression `da8f23e359166` is an ancestor of HEAD
-- Pre-fix `s_stream` (parent of `4e1446ac169a1`) only called
-  `ov8865_sw_standby`; pre-fix `resume` always inited
-- cio2 strings `"frame sync error"` and `"payload length is %lu,
-  received %u"` match the report (`ipu3-cio2.c`)
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Record: Clean apply on this tree. Prerequisite `3fe797a12bfa9` already
-present. Difficulty: clean.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-Record: No other fix for “wrong mode while RPM-pinned.” `git merge-base
---is-ancestor 4e1446ac169a1 HEAD` is true — used only to confirm file
-state, not as “already selected for stable.”
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-Record: `drivers/media/i2c` OmniVision OV8865. **IMPORTANT** for IPU3
-laptops that use this sensor (Surface Book 2 and similar); not core
-mm/fs/net. Camera capture is a primary function of that hardware.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-Record: Driver is mature (v5.12). Recent changes are targeted fixes, not
-a rewrite. Bug is a 2025 regression in a long-lived driver.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-Record: Users of ov8865 with a VCM RPM device link (IPU3 +
-`ipu_bridge`), especially when wireplumber/PipeWire keeps the VCM open.
-Driver-specific / platform-specific, but real shipping laptops.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-Record: Common on affected machines: camera monitor holds VCM, then a
-capture app sets format and streams. Not a rare race. Unprivileged users
-with camera access can hit it.
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-Record: Not oops/UAF/deadlock. Camera stream is wrong or stuck: cio2
-frame-sync/payload errors, one frozen bogus frame, or stall after one
-frame. **HIGH** for those users (device unusable), **MEDIUM–HIGH**
-overall.
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-Record: Benefit: restores working capture after a v6.18 regression.
-Risk: low (~34-line, one driver, reviewed, retested). Ratio favors
-including the fix.
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-FOR backporting:
-- Real, reproduced bug on Surface Book 2 with exact cio2 logs present in
-  this tree
-- Regression from `da8f23e359166` (v6.18), which is in this tree; that
-  commit removed the only powered-path `mode_configure` on `set_fmt`
-- Trigger is ordinary (wireplumber + IPU3 VCM PM link, also in this
-  tree)
-- Small, obviously correct, no new API
-- v2 matches maintainer (Sakari) and IPU3 reviewer (Dan Scally)
-  feedback; retested
-- Prerequisite RPM error-path fix is already here
-
-AGAINST backporting:
-- Not a kernel crash, UAF, or security hole
-- Affects one sensor + IPU3/VCM, not all users
-- No explicit `Cc: stable` (not a negative by itself)
-- Merged 2/2 has no in-commit `Reviewed-by` (review happened on the
-  list)
+AGAINST:
+- Not a kernel crash, UAF, deadlock, or security issue
+- No Reported-by / syzbot / user bug report
+- Patch 4/8 in a mixed “fixes and improvements” series
+- No mailing-list review comments beyond submission
+- Severity is MEDIUM (wrong event), not CRITICAL
 
 UNRESOLVED:
-- lore.kernel.org WebFetch 403; thread recovered via `b4 dig -m`
-- Whether stable@ later discussed this (no hit in the patch mbox)
+- lore.kernel.org HTTP 403; stable@ discussion not independently
+  confirmed (no Cc: stable in the mbox)
 
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — v2 as Dan/Sakari asked;
-   author retested both modes and mid-stream resume on SB2
-2. Fixes a real bug that affects users? **PASS** — camera unusable when
-   VCM pins the sensor
-3. Important issue? **PASS** — serious functional failure of the laptop
-   camera (wrong CSI-2 format / stuck frame), not cosmetic
-4. Small and contained? **PASS** — +25/−9, one file, two functions
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — same functions;
-   `3fe797a12bfa9` present
+**Step 9.2: Stable rules checklist**
+1. Obviously correct and tested? **PASS** — one redundant call removed;
+   unconfigure still notifies. Maintainer-authored, merged to media
+   tree.
+2. Real bug affecting users? **PASS** — duplicate/inconsistent CEC event
+   on PA invalidation; userspace that trusts the UAPI invariant can mis-
+   handle HDMI disconnect.
+3. Important issue? **PASS** (medium) — not oops/corruption, but a
+   userspace ABI invariant break on a common hotplug path. In this tree
+   it is systematic because STATE_CHANGE is no longer a single-slot core
+   event.
+4. Small and contained? **PASS** — −1 line, one function.
+5. No new features/APIs? **PASS**
+6. Can apply to this tree? **PASS** — code and prerequisite
+   67d9598720159 are present; hunk matches.
 
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-Record: None of ID/quirk/DT/build/docs. It is a normal driver
-correctness fix (plus the spirit of a hardware-path workaround for the
-VCM PM link).
+**Step 9.3: Exception category**
+Record: None (not a device ID, quirk, DT, build, or docs fix). Qualifies
+as a normal small bugfix.
 
-**Step 9.4: MAKE YOUR DECISION**
-This tree has the ov8865 driver, the v6.18 `mode_configure` removal that
-dropped the powered `set_fmt` path, and the IPU3 VCM RPM pin that makes
-that path the default with wireplumber. The result is a format mismatch
-that breaks capture. The fix is small, reviewed, and tested. It meets
-stable rules for this checkout.
+**Step 9.4: Decision**
+This tree is 7.3-rc4. The buggy double-post is in this lineage, and
+67d9598720159 is here, so userspace actually receives the illegal first
+event. The fix is a one-line deletion with essentially no regression
+risk. That is appropriate to carry on this tree.
 
-Verification:
-- [Phase 1] Parsed tags: author + Sakari SOB only; no Fixes/Reported-
-  by/syzbot/Cc:stable
-- [Phase 2] Diff: `ov8865_s_stream` always inits+ctrl setup on enable;
-  `ov8865_resume` inits only if `state->streaming`
-- [Phase 3] Blame: `s_stream`/resume from `11c0d8fdccc56` (v5.12);
-  powered `set_fmt` `mode_configure` removed by `da8f23e359166`
-  (v6.18-rc1)
-- [Phase 3] `git merge-base --is-ancestor da8f23e359166 HEAD` succeeded;
-  `3fe797a12bfa9` also ancestor
-- [Phase 3] `git show da8f23e359166`: removed `if
-  (!pm_runtime_suspended) ov8865_mode_configure()` from
-  `ov8865_state_configure`
-- [Phase 4] `b4 dig -c 4e1446ac169a1`: v2 2/2 at
-  patch.msgid.link/fa341298…; v1 added hw_mode state; Sakari objected;
-  Dan proposed this design
-- [Phase 4] Author reply: retested SB2 with sensor held runtime-active
-- [Phase 4] `b4 dig -w`: Sakari, Dan Scally, Hans de Goede, Mauro,
-  linux-media
-- [Phase 4] lore/stable WebFetch: 403; mbox has no “stable”
-- [Phase 5] `ov8865_set_fmt` → `ov8865_state_configure` only stores
-  `state->mode`; `sensor_init` calls
-  `ov8865_mode_configure(state->mode)`
-- [Phase 5] `ipu-bridge.c:714` `device_link_add(...,
-  DL_FLAG_PM_RUNTIME)`
-- [Phase 6] Makefile/describe: 7.3.0-rc4; `VIDEO_OV8865` present
-- [Phase 6] cio2: `"frame sync error"` and `"payload length is %lu,
-  received %u"` in `ipu3-cio2.c`
-- [Phase 8] Failure: wrong/stalled camera frames, not oops; HIGH for
-  affected IPU3+ov8865 users
-- UNVERIFIED: later stable@ discussion (lore 403)
+## What the commit solves for this tree
 
-The patch is a real, tested regression fix for this tree’s ov8865 + IPU3
-VCM PM link path.
+`__cec_s_phys_addr()` used to notify userspace **before** logical
+addresses were cleared, then `cec_adap_unconfigure()` notified again.
+After 67d9598720159 (in this tree), both events are queued. On HDMI
+unplug, apps can see `phys_addr = f.f.f.f` with a non-zero
+`log_addr_mask`, which the CEC UAPI says cannot happen. Dropping the
+first post leaves a single correct event.
+
+## Risk vs benefit
+
+Benefit is correct CEC state on disconnect for every CEC userspace
+client in 7.3. Risk is a one-line delete of a notification that is
+immediately superseded. No locking, allocation, or ABI change.
+
+## Concerns
+
+- Importance is medium, not a kernel crash. Still a real ABI bug on a
+  common path, with a trivial fix.
+- Series patches 6–8 are unrelated features and must not be pulled with
+  this.
+- Patch 5 (flush stale events) is complementary, not required for this
+  deletion to be correct.
+
+## Verification
+- [Phase 1] Parsed tags: author Hans Verkuil, SOB Mauro Chehab; no
+  Fixes:/Reported-by/Cc: stable
+- [Phase 1] UAPI docs in `cec-ioc-dqevent.rst`: `log_addr_mask` is 0 if
+  `phys_addr` is `CEC_PHYS_ADDR_INVALID`
+- [Phase 2] Diff: −1 line in `__cec_s_phys_addr()`;
+  `cec_adap_unconfigure()` still calls `cec_post_state_event()` at line
+  1426
+- [Phase 3] `git describe HEAD` / Makefile: v7.3-rc4, VERSION=7
+  PATCHLEVEL=3 SUBLEVEL=0 EXTRAVERSION=-rc4
+- [Phase 3] `git blame` on pre-fix file: extra call from 9881fe0ca187c2
+  (2016 CEC adapter)
+- [Phase 3] `git show 9881fe0ca187c2`: original `__cec_s_phys_addr`
+  already had post-then-unconfigure
+- [Phase 3] `git merge-base --is-ancestor 2ff4b91e82bd7 HEAD` and
+  `67d9598720159 HEAD`: both ancestors
+- [Phase 3] `git show 67d9598720159`: STATE_CHANGE `max_events` 1→3;
+  core-event overwrite removed
+- [Phase 3] Series around the commit: 8 patches; this is 4/8; 5/8 is
+  flush-stale, independent
+- [Phase 4] `b4 dig -c 2ff4b91e82bd7`: lore URL found; v1 only; linux-
+  media only; no replies in mbox
+- [Phase 4] Cover letter: “fixes and improvements”; this patch body is
+  the duplicate-event fix
+- [Phase 4] lore.kernel.org WebFetch/curl: 403 — stable@ discussion
+  UNVERIFIED
+- [Phase 5] Callers: `cec_s_phys_addr`, ioctl, notifier, HDMI
+  DRM/USB/platform drivers
+- [Phase 5] `cec_dqevent()` uses only `fh->lock`; can dequeue between
+  the two posts
+- [Phase 6] Current `__cec_s_phys_addr` in this checkout already lacks
+  the extra call (fix present in 7.3-rc4 lineage); pre-image still
+  matches for a clean apply
+- [Phase 8] Failure mode: inconsistent CEC_EVENT_STATE_CHANGE, severity
+  MEDIUM, trigger HDMI PA invalidation
 
 **YES**
 
- drivers/media/i2c/ov8865.c | 34 +++++++++++++++++++++++++---------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+ drivers/media/cec/core/cec-adap.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
-index 5b909a8561287..c6d53c3d55caa 100644
---- a/drivers/media/i2c/ov8865.c
-+++ b/drivers/media/i2c/ov8865.c
-@@ -2609,7 +2609,7 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
- {
- 	struct ov8865_sensor *sensor = ov8865_subdev_sensor(subdev);
- 	struct ov8865_state *state = &sensor->state;
--	int ret;
-+	int ret = 0;
- 
- 	if (enable) {
- 		ret = pm_runtime_resume_and_get(sensor->dev);
-@@ -2618,7 +2618,23 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
- 	}
- 
- 	mutex_lock(&sensor->mutex);
--	ret = ov8865_sw_standby(sensor, !enable);
-+
-+	/*
-+	 * The sensor may have been kept powered by something else (e.g. the
-+	 * VCM's runtime PM device link on IPU3 platforms), in which case
-+	 * runtime resume did not run and the hardware may still be
-+	 * configured for a previous mode. Always program the negotiated
-+	 * configuration on stream start.
-+	 */
-+	if (enable) {
-+		ret = ov8865_sensor_init(sensor);
-+		if (!ret)
-+			ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
-+	}
-+
-+	if (!ret)
-+		ret = ov8865_sw_standby(sensor, !enable);
-+
- 	mutex_unlock(&sensor->mutex);
- 
- 	if (ret || !enable)
-@@ -2914,15 +2930,15 @@ static int ov8865_resume(struct device *dev)
- 	if (ret)
- 		goto complete;
- 
--	ret = ov8865_sensor_init(sensor);
--	if (ret)
--		goto error_power;
-+	if (state->streaming) {
-+		ret = ov8865_sensor_init(sensor);
-+		if (ret)
-+			goto error_power;
- 
--	ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
--	if (ret)
--		goto error_power;
-+		ret = __v4l2_ctrl_handler_setup(&sensor->ctrls.handler);
-+		if (ret)
-+			goto error_power;
- 
--	if (state->streaming) {
- 		ret = ov8865_sw_standby(sensor, false);
- 		if (ret)
- 			goto error_power;
+diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
+index 84eaf9780db25..4d2262530c94a 100644
+--- a/drivers/media/cec/core/cec-adap.c
++++ b/drivers/media/cec/core/cec-adap.c
+@@ -1708,7 +1708,6 @@ void __cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block)
+ 		cec_phys_addr_exp(phys_addr));
+ 	if (becomes_invalid || !is_invalid) {
+ 		adap->phys_addr = CEC_PHYS_ADDR_INVALID;
+-		cec_post_state_event(adap);
+ 		cec_adap_unconfigure(adap);
+ 		if (becomes_invalid) {
+ 			cec_adap_enable(adap);
 -- 
 2.53.0
 
