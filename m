@@ -1,100 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.32
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792423220;
-	b=nmkBl72iHr60bI9OYawwoHQ2gRawKgQ72BIpxnS0L3zalKJ5dgP23IH24k49t7ExfKP2
-	 3Pi5sCHQutE/1z8LB/A5bnnjMCrsl/38LNffs/+K5FhPXibon+PVO54co3Pt/3WaosUZX
-	 LzUmKJ1CDWpT9nnEOcIpZQ7LrtyrTnlyafEuO2+qMdcEXb1nCSxC/txbsAcSeTxzyeZVb
-	 YXg1VmtKkoW3BaxqiSLAcSjXkOe6lxlmAE06DTirox9izem141uQhIxNmIXBi6W/Fuy/Z
-	 9sgKmcd6xi427Mb/RZOTnhofM6uvih8BfuoazOfL4Yt5WjLCFmSlHMEy4BW5qg5NQvw==
+	t=1792424061;
+	b=Sj4v7ZASDANwV4PoMYeGHidGYkEzNjSQ8HzKvHCx3JDRXCP3rN65Zj8uvKO+dtA0W4Bi
+	 CG5mpBfaLnnT8Z3hjGwr/OHtgBWPR5J4MM1Ansvuw23Nn6c/fOP3K+8/k3v5uKjjwY8QD
+	 bJJuI2t8LSpNJexhmiquy1vJlJcKOzuSy8Bg4yomXCIYMW0nqfLdHS/5Oew3C8fbb2zPh
+	 ne/bjvx5rX+I4gRidPntoX1JwGMoobo+Dz2mE+0QdVCErNMHQ0X1hkgpf3jw8HruYzNZK
+	 KHt4UZnWpblcWO6RfL7tesgS4MZZ0g93HkEiF/o/4gfOyuXlgTY4S7clYr81NPUUEmg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792423220;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-	b=oaThhjAqzK+KJgKSavA7t6siJLqo/4qh73MpmBX86rOeneq1Ob6Oj3VMQ3xKk5GsXk+n
-	 L5zf2oUINkc9SJsYoyj7A+D/b4ZxqkDHwxd3cltBYJ1qFwWgnc7vt8VbYQvmwqhcv7NWE
-	 RkE29gdco8A0tUytvXx8oKmXm3zKAXgkAQT6EHdyKPaURNty1lCmOJ06olmHmk/B6GMEs
-	 Nn9edcmDrjqcR7+5Y1hUD6MDimfGLNjhWpEcNC7/+c+pW4LhcV33K31WLjvECYeH+btI6
-	 dDgfEBAmJOiCRB3Ve82i8dVfUC3zRil7eR8hJNSjEHZcKnmQ7BnWyvcB1dJEG9I+Dbg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424061;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=/TgGrXvkTLwbS3fxf64vrEIuaSZ86PBv2dE0OvaVd3I=;
+	b=GaRQ/WeJ/405H7XlKB5aKlO6+GuZnmu1PY6wD4wdvP1Bx0J02ckObQrPkK9+sXfs3ijB
+	 dOWOTzh1muju0mURtD0qSENyPWuy+p2mUbxO5qMq9ZrkmKk130MXpcJGGXkd7/DTgSktJ
+	 NfbZLFCSHTdV4GSAOX/W61yLDyNi01sXHBT+AMiiYa2AOykIuJ2eJAtZM7oYaeJAZ/kv0
+	 HboOusL+8chbRcWwVyKq5H5BSIeLY3S5WwIcS+sGamhLtTBaSHdKJ4i0FmGJcgcVdyqam
+	 hWWqtelC7lbpf+9VuFgcYUxDBXNvu3bfjXwjdGXkgoNVHiH5NvchzzlYYpkF3mtnk7A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rCMUPJ51;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fvuilNl6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.32
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010032.outbound.protection.outlook.com [52.101.193.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D091B60A6F70
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 15:20:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D091B60A6F70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9708607D350
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 15:34:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9708607D350
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rCMUPJ51
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so5716199eec.1
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 08:20:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792423219; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PXS2uPOQmJ/zyfYkjmPSIPhWmi35wMQvLpMPcm6jzSAVIDFEPKPPcQEDyRTGivQZXO
-         2+yFlJEEczig6gZZ2SC9wCcOxsP9J7dh/5gU6M9sDx3LS2jJPLPkU2HOUpp0JQkpfid+
-         wLWk3+PMwpjFgjBIeY1Z4+Pn8V/Tq2scCVPWj7HY4k24va5wSpDJu+4FOX9VIzqUk8a+
-         hp/cYLUTNTCirNWzicE5tBA7tamIUcjJBvhSvmZ2VmYK7p5XZCQ+U8RApKvghc3WqAvn
-         jMyM8zCrJCL3G0cVdBR8JgnsYwQ9B8vCZRR260hYCv8u5OmP3tVK2syJexI8AQBqFSBx
-         qpWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-        fh=qF4HgwY4/1BrSfEBvImMbUA9lKkR60LhpIp7BAJnSW8=;
-        b=Bs2gWj/jlPwLSxSUah3A7jXwaTUm//KvedvbqU7p3QTtA67MRycVHwi5/DF/2E8yjv
-         qkxwNhgH+mTgbc9K5waqX7lp9CkEiodzp7PQZ3873/60DHY63wAHoD+X+BIs4idb1t+k
-         trpG3B4F2raYR/pOnqn0Af5ZJLallgqFVYNHNTQdLx5v2DNGvVGgy4da7hSF6xLnZqIQ
-         6s5/koddwKAYPMgvHIKSmY7CueiPq7qxuYyRq3+OPPG6QCBXka/xqGhwbQyX9FzBQbNW
-         7USJaxuhFhgUMZAWyyT2rErKn25LIv6Xcd4uddC1P/v1cdv2S8ipoheY6Wj21+eGJHt3
-         pddw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792423219; x=1793028019; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-        b=rCMUPJ518Q/g4MafTGXS2YOV4ONjKUAugqtcCJ9mL/BGHWbfl65Ba+qC2dfbMP5Uwr
-         DPJtRI2RSuri5YNZubUMACeh7jlMAmEx4faToEqDJ5NBF9JAicYv19vtWtrxJ412uCp3
-         ZyOxZkWEjIdk0dZ6H8Ngl6AMzPjoyEDw2MlKrleENalkbWx7X9iFWhSFAP/8Q468zWeY
-         VP0IeK6hgcQFGVDMIeRVeF/ACPgiVRGgZOqqOeZVOZFU1H/sUwtZkRDWtRO6TFRe2PMZ
-         d9FcCu8VzUoB6pwUb0rZ5/vIqc+zzwAym8vGTGMm7Hs/jS2UofdnYjJqk9WJcbaXskPM
-         1u7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792423219; x=1793028019;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mWjkGewxAcRXbaVfdvgorur7bESLlKy5C/veEUL3TVg=;
-        b=TCfqGmkVs3ni71gt03KCis9HF2oa5UIGZz1eI+Tnd7EHyzq2cbpBSWfm38Z8lozoOg
-         9/kXWGztbb7hUhkL163ZavYY786sjSqfCC5Hhqi1Ai9ttyVoDQwW6w61iY4QOEILPTfL
-         4pqpXGwJkk16eeIFsLL9ba1LDc6NLlpuIeIQ2ucYxSWKvx/FP96E7IzN4V6hAerc1P6A
-         juVQ7rkJ/ehMU+xF73HtSUQ06nRxslTCENdW6BNNx1twEahCJ/ia8M7VL3m8D32Zx3uB
-         R8xPHybVT1LVXDla2pR/5iztzINgRM71sBdhOok4lrEgEA8/EIKsi1lVhBNt5R8EfybF
-         XJqg==
-X-Forwarded-Encrypted: i=1; AKwUvBwkBrB0KFB8Z7kTbo34En1mJqVHT0OCyDYOXrC5Zjth5OiNy+PaaClPNrc9BuBfJ/9IML6/Yqw7d+wB5Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqHkAKnJrdnWSNHgfYiD2/zt28u5Fu3eWlniK/gKyF85u8YAiL
-	gSGJdbjN3P9BLG1aLIkzF6d2lrm3KvKxYRU0+d6ezZ6Qmj/vbPogMMDI3TNy/7J7n1K/iMzV7XJ
-	HbGT3nQhJH0/wYBT8+VBUzNnfFNrj7P4=
-X-Gm-Gg: AYBFou2KQJnGLJ/IgG04j1ahVSEZ7lT94p3snjsru91d+m3aBsZK4GFU3sElnmPixbY
-	RnDvVZopop8UGjBLF3GgEBcYp+HKQOvGTP8K4SRaiudGbTmqo+I8gEuB6LN3r/LcCMqaZOY6SlC
-	RjllBn2trneIQAMr2iqr1Ui1Z9kPI3Yzalhu/n8QFp3KeRsQipfktBHMZc0Tg+GqRJRmDHx2UZj
-	VYlLUnJPyxhdedmKZzfxFbHNygijpuKB3tlWVCuSouKHvy0pD3oxEOYcyEuGeVYnJu5BmqhfDX6
-	0OEOPU65SrGZEROqLsstcA8vJd/qqXTRbgTJnvnW+x1UkrKZXnt1Nisji3FNKkFevp22piAw3zL
-	cDJ5DN5pDl2yLPDz0fANp+5AnBx9fRM8tSkCgTxCjAoRGyliot77MZM/tkfHDeUph9HufBMsBv+
-	RzyFGvTgwq+P+Ft97d
-X-Received: by 2002:a05:7022:f51b:b0:14a:a6dc:9ca6 with SMTP id
- a92af1059eb24-1850d087d4fmr11645084c88.3.1792423218217; Mon, 19 Oct 2026
- 08:20:18 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fvuilNl6
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V33P+NbBPE5t1NVUEgKfdV1MuhbrMqLIDGVXoCZ//nYrB2aEy/Krh5TeGlF4citdW8O5hECT427Ohh9O0lzqnzrGaZWImgj2vWzGWyKYYOpHB4z+p/JrzOxl7d5gmSD7t9+o8JEkZoK+7LDr69rcF7XRPBbuYw49mtyNSLtxXOMtLge0F/bnhj68j0nHuZ5DWgp2A+emxIPWpm5TBc25PDQbM9GTLnrttTt3M2lkaUxNHlFtX+jhVM04/XA36GPRn+zISNdg15KOGzMa0H9izYn9qHutLcv6ZyhncwdmvNRCQcruB1re6/u6/itgoEyNmhSPvDTu6HpiQwVgKz42YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/TgGrXvkTLwbS3fxf64vrEIuaSZ86PBv2dE0OvaVd3I=;
+ b=Z305zHJTaccbRU7gaq27KyLHv41/3hxjFB+clY/w9gqEpk5uKKGcKO4abcJVVyE54oVqyf5Je+CXmLYP8AFLbqz2tBny0X+zttdg+56crwdhHjhHagIuO2UKyNL5L9MngbslIOqLU7aHlnAS8DB3QBUF0Qa19k2jmzyY5eYbQnvw9i3o1sacdAa8vmqfFuA174kq5cPLV9SYh+Hp3ddejsDqBWFVnF6aEP3E6pB4N5Sm+Hz48BwkjCkM//EPNyc5cPfz9snZ4yzk+rLMJ0Bgo6WxZlQPUdKv+D9rFTMEtzYimD7k6Spz42nVi8mL8jPyFFvXZsC1oJvF6Og2X0aYkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/TgGrXvkTLwbS3fxf64vrEIuaSZ86PBv2dE0OvaVd3I=;
+ b=fvuilNl6/0hweckxuDkHKs5A6n6C1OrXCGDlkKfqRiygmzW/Z5Rhi/mW3nszSnqowUBiD39gmWr7RXonqyexN6IclBASYJ0prjhCHtcxq7KntDOrYFm6hZkkMYYuYgpiyowxQMqtGgpkH/7VEpEu3t+BLxUijqJ+zS3/KIVHnVw=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB9035.namprd12.prod.outlook.com (2603:10b6:930:77::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 15:34:17 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 15:34:17 +0000
+Message-ID: <9cb67ac3-4de2-4033-8904-eb30ba51a070@amd.com>
+Date: Mon, 19 Oct 2026 17:34:12 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alistair Popple <apopple@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, iommu@lists.linux.dev,
+ Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org,
+ Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>
+References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <20261016202653.97339-1-kmehltretter@gmail.com>
+ <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
+ <8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com>
+ <20261019133031.GQ13920@nvidia.com>
+ <5f57c49d34f2812b0b68be71218ce0a9b6510c14.camel@linux.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <5f57c49d34f2812b0b68be71218ce0a9b6510c14.camel@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN0PR02CA0028.namprd02.prod.outlook.com
+ (2603:10b6:208:530::22) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,128 +110,195 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
- <20261019111712.GP595565@killaraus.ideasonboard.com> <449eb143-37a8-4044-a071-63fe495c0213@kernel.org>
- <20261019112726.GR595565@killaraus.ideasonboard.com> <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
- <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org> <20261019123803.GA855235@killaraus.ideasonboard.com>
-In-Reply-To: <20261019123803.GA855235@killaraus.ideasonboard.com>
-From: Ostashow Constantine <ostashow@gmail.com>
-Date: Mon, 19 Oct 2026 15:20:04 +0300
-X-Gm-Features: AclHuK9PK_erQka1AjpHe9yUHPuX_p02w73ldR6AFrXTpE4OCE3wcIh6ni5FniM
-Message-ID: <CAAquLuBW3MaBZgxQt_Kr7L2jGQf6mXarRtKi729-44DqwC=CnA@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
- SVBONY SV105C
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB9035:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19e1af6f-996c-4eed-8180-08df2df67005
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|7416014|6133799003|18002099003|22082099003|3023799007|4143699003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	CeAD4Yofb5R6TzBtDxLwovmWZ/cd0t6kgcMiHmL7KhRsRGKnTv8L4CoToLzTR2Wij6AGVmHNm+6XP8TA2YpOwZxpf+dGn8z7cLGbknka7ivz+1h7Qbf6I/jNOY+InNUoITqx9QvBJigFl+qcHKBMbzJK3U2UuKc/iNsynMlMgTJOpqo5bI7aZC4DpGPpL7c6Rqim4nsXH6XHH/VLoICSRMC4Cr5S49tGXn0zjicl/zVB3vBPupgpXYXLxr5fWqVbN61nXbhkP4vtSbVk7lkElz/UIJUdF6vScCLDQCT02TbWPXylYKCk0jLD/+75L6cAvb2CR/oCO6/PdipbNMlDjTpOdoyGw/L1wi6Q3woppTdA1AV3IEIXkYJpPDOJMa+ygi+KvL9gILWR/DzJXVdc7u9m/ufNBheBEdzQASixJjyywkADykMMHKuJSoQahzFyDLtvmtqXyrK/+cbCGOp0QIiFGmmlnPkXB2aYFcDOFgveyLkMzvoD1T/CL3de0qlnenIjwApZ2TDhplWmw1RlRJDgDkwsrBD5m+jCPe9tWzHNUUxwR+JQ3OSulwCaj150jtB4mzD/2X36JgUTmOAXim6E0GvA3vcGNtgwvGC2uMtSTZD8Zn8KyldxuqJsDEmxq1LVYUQTZr63xCaU3m7Epe47M/aBj9q2nIwq1UYPGI0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(7416014)(6133799003)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WkNWMGxZaWllN0hmMUFGdHk1ejJCaldtWnhFczJhTldCVXQ0clQwVG1WUXF5?=
+ =?utf-8?B?bFNIajdyOU9ma3Z3Nlc3R2NqUlRXSmNrUzBwbHJmcmJ3dkFKa253eEI4dGJs?=
+ =?utf-8?B?QnRjQW1GNGhMMHdxRGpVWTdwUWF0RjE5cm13VHZ6QXdCTjl6SkFockdMY29x?=
+ =?utf-8?B?d0ZtWVFyMmM3MEw1M3VkRjFHbG1GSFFzemtrNitJdUhDYkFKS0VhNVdPV256?=
+ =?utf-8?B?SFdNL041cFl5ZFlOMHFhRzVqSVBySENxaWVxdTdZaUw2MitZRnQzeWl2VHJh?=
+ =?utf-8?B?cjJWTlYvK2QzbnhLbFhzMmpRbTRQUVI5dVdNYXVNVC9GdjVueThBRjJZWVF4?=
+ =?utf-8?B?STh5ZnVEWFNTeWVxakVmbi9rVGNZeHFoUzcwZElDRGZiTUZHdVV0UzJDSHlJ?=
+ =?utf-8?B?ZTY1VFdXNlpwUEZONFB0YXFjRm9ZQ1gxMGxGWnQ3a0RGeEdCZzBvVDZiWFZZ?=
+ =?utf-8?B?YTdYWUY4RVMzbmFoYWZ0dVBhSmxDOHppQXgxMzNSOWwvaXgySmFLVkxSWXJN?=
+ =?utf-8?B?R2dTTE9OOHNUNlJRM3JJTGUza2RhRmJHenBFKzZpWnNuK1Bab2VnZWlSNERv?=
+ =?utf-8?B?RDdramFRZU1PMDgvODgxeHBSQUt5NE5QZUg4ZkFqeldDcGtnUHlxQS9iWkZs?=
+ =?utf-8?B?V01aM0pJNCs2TWI5OStId2wyYTJsN01mY2p0bHZLQ1pZZkt1bjZRMGxDYVpI?=
+ =?utf-8?B?cDNZMjE1T3BlUGFhK3pWTlF4eDl3N29FU1BPcGVTMFZwOE5RaWM3QVJ5Y2w0?=
+ =?utf-8?B?cWJ1UWFHWW9qYkRvWlh0WHRTTzhiOFZ3NWtzOGdiRFV1c1FqYlBybFY3cTJQ?=
+ =?utf-8?B?RGJwMUp5NkVFU0N5Uk1OanhZcUw5NXI4a3VLbXFacysvWjlhVDBSMFU2S0w3?=
+ =?utf-8?B?cXhHNktqM0FmYVBKN0tmRERSbEl3R2ZicjlpM1NpUFJINFVKZ3hWQWpWRzRH?=
+ =?utf-8?B?SGZpOG4wek5pNFZVWkxHaExpd2ZPT3dKZFlYaGpyS2JoYXc0V2xzd0tPUXpR?=
+ =?utf-8?B?QlNUSVpaUjNvenRGZUtjZitxY2dRSVA2MjlpUmVDc0hBeWtDc0lobkRsNFBm?=
+ =?utf-8?B?RDZ1bWpaY21aSE0rMmxvTjJwbjMyREpMTUwrWVh5Q2t1VmJZVnRtRTBnTUdp?=
+ =?utf-8?B?REx0R3FGbGYrQ1FNc2lrYkVTZERRa3luVElXTnNPOFdUSmdhVHEvRjV4MEpy?=
+ =?utf-8?B?anEvTTVzQ1lpUmRMcnB0SmE1aDlhMEJGTlZobVBWTVI1SGlRNlJidnpzMXQ5?=
+ =?utf-8?B?Y3lNN2x2dzBjdGRPc2U2ZncvZml1MHc5bFhreWx5K0JWVEZVemh6RjhnQi9w?=
+ =?utf-8?B?eWdhQ2NtSlV0R3dPV0pkSHlhU3FJZFY5Z3ZLMU0rNFREVUh6OS8zT2syYkNC?=
+ =?utf-8?B?bkVIK3hxSjVyaGxDa01kZjNXbEZTZGtNTTFhbWtDOEoyR283M0FQQ0pBVlNK?=
+ =?utf-8?B?V3F5YWRCTmsrYUxPNGszdFZPa014M08wMVRONHdPY3EvMmd0V25ncXo1bC9F?=
+ =?utf-8?B?KytEZnZ4SXlhOVhPYkVWM0MwQk4yZHZLTFFMYk0zam9WV2g2ZFdrY1ZSWjND?=
+ =?utf-8?B?OVd1b2xDa2lTd2tnZEw0cUNGMnRUbk9EUGVFcTJjTDd1Z2NyY2lIZWFTR2VK?=
+ =?utf-8?B?ZmxLRUxtaDYxYUFVYkU4NzdqSVp0V1FkdlNadG5Ba2k4OWhKM3lmemFwTk5p?=
+ =?utf-8?B?c1dFWW5QQkhYTDRpOWVBS2Zodng2RnBsZDErSG02QXZQcUY0ZkZ5OGZaZFZO?=
+ =?utf-8?B?aDdpYWhXQmRSTnc2UWdkT1VxbEZPUkxaZTc4b0RIV1BKdHdYbk5PRkpzcm84?=
+ =?utf-8?B?NmtZMXR3dTU0ZmtTdThwditaMVpGSWtlRXZabGRUQzdIQ3c0SndjOGdNNVVC?=
+ =?utf-8?B?SGNJV3JYeU1kbU1nSGRuaUg3UWYyV2x3a0Jsbks2c3NUK3pDSGJCZUJuRVJw?=
+ =?utf-8?B?cmVtaDQ4WllVK2xibU1QOENQSXpMZVJoRC9SazFjRUJWbnlNL1JMSmZkSkha?=
+ =?utf-8?B?RlVybnNxMk1YL3U2Q3B4bTdXSXdiamtMcFNvemxlcSsxL1NSS0lCZDUzWGJa?=
+ =?utf-8?B?bU5lR2Jja0N2V2NmM0JscklmdFZLcGtxMUY1U1RxOXpoZGw1TjZ5MkMyTHBL?=
+ =?utf-8?B?clF1b2NSb2FiaGViTHUwTWNNV0VZMjJSUUpURk1Fei9UdkZ1SFZvWk54cjFM?=
+ =?utf-8?B?UHRTdFgreXlQSjVFV3RacGVJUWdhMXdmY1l2WjhXVXh6LzBXWUxNd1NoMml1?=
+ =?utf-8?B?K1RidGJXVUxXMWREUy8zcXB2OHc2a1IybWRoNTZHTUhtU3FrOEcrRzNuSGlC?=
+ =?utf-8?Q?e+k4M9rCbUaGHLfpaU?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19e1af6f-996c-4eed-8180-08df2df67005
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 15:34:17.6021
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OhUbdzPmHafRZLhlxs6f47XYQcqn76XzQtFqs2ihSMdVQ39EhLKC+pEDFbgqiSVu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9035
 
-To: Hans de Goede <hansg@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro
-Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
-linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE
-for SVBONY SV105C
-In-Reply-To: <20261019123803.GA855235@killaraus.ideasonboard.com>
+On 10/19/26 15:47, Thomas Hellström wrote:
+> On Mon, 2026-10-19 at 10:30 -0300, Jason Gunthorpe wrote:
+>> On Mon, Oct 19, 2026 at 02:43:29PM +0200, Thomas Hellström wrote:
+>>> On Mon, 2026-10-19 at 10:35 +0200, Christian König wrote:
+>>>> On 10/16/26 22:26, Karl Mehltretter wrote:
+>>>>> On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe
+>>>>> wrote:
+>>>>>> +	match_args.attach = attach;
+>>>>>> +	if (dmabuf->ops->match_mapping) {
+>>>>>> +		ret = dmabuf->ops-
+>>>>>>> match_mapping(&match_args);
+>>>>>> +	}
+>>>>>> +
+>>>>>>  	attach->dmabuf = dmabuf;
+>>>>>>  	attach->importer_ops = importer_ops;
+>>>>>>  	attach->importer_priv = importer_priv;
+>>>>>
+>>>>> I may misunderstand the intended contract. match_mapping() runs
+>>>>> while the
+>>>>> attachment is still zeroed and without dmabuf->resv held.
+>>>>>
+>>>>> Patch 11's amdgpu callback needs importer_ops and
+>>>>> importer_priv, so
+>>>>> its XGMI
+>>>>> match cannot work here. Patch 12's VFIO callback asserts
+>>>>> dmabuf-
+>>>>>> resv and
+>>>>> reads priv->vdev, which cleanup changes under that lock.
+>>>>>
+>>>>> Should the core initialize the attachment and hold dmabuf->resv
+>>>>> for
+>>>>> match_mapping(), or should callbacks avoid attachment and lock-
+>>>>> protected
+>>>>> state?
+>>>>
+>>>> Right. This completely misplaced.
+>>>>
+>>>> The matching can't be done at attachment time, but rather needs
+>>>> to be
+>>>> done before creating a mapping while holding the resv lock so
+>>>> that
+>>>> the matching decision can't change.
+>>>
+>>> So question is what exactly should the contract be?
+>>> Looking at the pcie_p2p negotiation today it looks somewhat like.
+>>>
+>>> 1) Importer and exporter agree at attach time what mappings are
+>>> allowed
+>>> pending placement conditions and other attachers.
 
-Hi Hans, Laurent,
+Not quite. They check if the P2P is in theory possible, but they don't make any decisions on the final placement.
 
-On Mon, Oct 19, 2026 at 02:33:11PM +0200, Hans de Goede wrote:
-> When you say "then queurs the control transfer", you mean the control
-> transfer for the SET_INTERFACE, right ?
+>>> 2) At map-time the mapping is negotiated taking all constraints
+>>> into
+>>> account.
+>>> 3) The negotiated mapping is valid until an invalidate_mappings()
+>>> callback is received.
+>>>
+>>> Following this would allow a re-implementation of pcie_p2p as a
+>>> mapping
+>>> type and would allow a controlled link-severing to send an
+>>> invalidate_mappings() notifier and the mappings to be re-
+>>> negotiated.
+>>>
+>>> Importers requiring an early hint as to what the actual mapping
+>>> would
+>>> look like would need to be prepared to re-consider at map-time,
+>>> with a
+>>> reasonable assumption that the reconsideration and re-mapping would
+>>> happen seldom enough.
+>>
+>> The idea was the supported mapping types are fixed properties of the
+>> importer and exporter.
 
-Yes. On Windows the order is: COMMIT completes, Configure Endpoint
-command (about 3 ms), then the SET_INTERFACE control transfer.
+That doesn't work quite like this.
 
-> I wonder if the problem is that Linux is missing this Configure Endpoint
-> command ?
+>> Like iommufd is not suddenly going to start understanding ualink
+>> after
+>> an invalidation.
+>>
+>> Further, I had the (perhaps naive) expectation that the interconnect
+>> option was not something that would change during mapping. I did not
+>> think you would loose your PCIe option if ualink becomes available,
+>> or
+>> vice versa. Though on deeper reflection I suppose someone could build
+>> HW so you might loose your ualink option if the dmabuf is moved to
+>> system memory while PCIe would still work.
+> 
+> True, but there are other complications. Let's say at map time there is
+> another importer that don't support anything but system memory dma-
+> bufs. Then both ualink and PCIe p2p could not be used, and we'd fall
+> back to system. Or a map() move to VRAM from system for a fast
+> interconnect failed for some reason. (Somebody might have pinned it in
+> system).
 
-It isn't. I traced the xhci-hcd events on the Pi for 20 stream starts
-(MJPEG 1920x1080, auto exposure). Linux does the same thing in the same
-order, because usb_set_interface() calls usb_hcd_alloc_bandwidth()
-before it sends the request:
+Yes, exactly that.
 
-  COMMIT status stage           Success
-  +0.07-0.46 ms  Configure Endpoint (Add: slot 1in, Isoc IN, maxp 1024,
-                 burst 2, ESIT 3072)   0.23-0.26 ms, Success
-  +0.06-0.11 ms  SET_INTERFACE alt 6 queued, doorbell
-  +0.9 ms        Transfer Event 'USB Transaction Error' on the Status
-                 Stage TRB
-                 Reset Endpoint, Set TR Dequeue, Configure Endpoint
-                 (Drop 1in), Configure Endpoint (Add 1in)
-  retry          SET_INTERFACE alt 6, Success after 259-295 ms
+> But agreed it sounds to me like the interconnect capabilities should be
+> fixed at attach time.
 
-The first SET_INTERFACE failed in 17 of the 20 starts, more often than
-the roughly 15% I see without tracing, and the retry succeeded every
-time. When the first attempt succeeds, it takes
-260-262 ms. The error event always points at the Status Stage TRB, so
-the Setup stage was accepted and the transaction error happens in the
-status stage. That fits the guess in my previous mail.
+We can check preconditions, e.g. if PCI P2P would work with this root complex/isolation setup etc...
 
-Configure Endpoint itself is faster on the VL805: about 0.25 ms, against
-2.7-3 ms on the AMD controller (see below, the same under Linux and
-Windows). I don't think the timing explains the failure, though. The
-fsleep() test in my previous mail put 1 to 300 ms between COMMIT and
-SET_INTERFACE and did not help. On the AMD controller under Linux, the
-gap between Configure Endpoint completion and the SETUP is even
-shorter than on the Pi (0.02 ms), and nothing fails there.
+>>
+>> Making the decision right before map seems like a reasonable
+>> enhancement, but I can no longer remember off hand if that would
+>> cause
+>> complications :)
+> 
+> It was that mellanox ATS thing, right? That's the only case I heard of
+> that needed the mapping type decision (or at least a strong hint)
+> early.
 
-On Mon, Oct 19, 2026 at 03:38:03PM +0300, Laurent Pinchart wrote:
-> > Have you tried reproducing this on a different XHCI controller then
-> > the one found in the Raspberry Pi 4 ?
->
-> In particular the same one as the system running windows.
+Yeah I agree that this is the only one we have heard of, but that doesn't mean we shouldn't at least try to support it somehow.
 
-Yes, now. I booted Ubuntu 26.04 (kernel 7.0.0-30-generic, stock
-uvcvideo, no patch) from a live USB stick on the Windows PC. The camera
-was on the same AMD chipset xHCI (1022:43ee), behind the onboard GL850G
-USB 2.0 hub (see below). The test was MJPEG 1920x1080 with auto exposure
-and v4l2-ctl --stream-mmap:
+I mean what we can do is to narrow down the possible placements on attach so that mellanox ATS can at least rule out that P2P is possible early and eventually stop wasting time setting that up.
 
-- 50 stream starts without tracing: 0 failures.
-- 30 stream starts with xhci-hcd trace events: 0 failures. Every
-  SET_INTERFACE alt 6 completed with Success on the first attempt, in
-  261-262 ms. There was no Transaction Error and no Reset Endpoint on
-  the camera's EP0 during stream start.
-- The order is the same as on the Pi: COMMIT, Configure Endpoint,
-  SET_INTERFACE. Configure Endpoint takes 2.73-2.94 ms here, much like
-  the ~3 ms under Windows. The SETUP is queued 0.02 ms after it
-  completes.
-
-(The only EP0 errors in the trace were two STALLs of
-CLEAR_FEATURE(DEVICE_REMOTE_WAKEUP) when the camera resumed from
-autosuspend. They are not related to stream start.)
-
-So the same Linux code works on the AMD controller, with or without a
-USB 2.0 hub in between. The failure looks specific to the Raspberry Pi
-4's VL805 xHCI (or its internal hub): the status stage of this
-particular request ends in a transaction error there, while the AMD
-controller simply waits about 260 ms for the device to complete it.
-
-> > Likewise have you tried reproducing this under Windows with an USB2.0
-> > hub in between ?
-
-Yes, now. Same PC, same AMD xHCI (chipset controller 1022:43ee). The
-camera sat behind the board's onboard Genesys GL850G USB 2.0 hub
-(05e3:0608), the same kind of topology as on the Pi, where the camera
-is behind the VL805's internal hub. 120 starts with ffmpeg/DirectShow,
-MJPEG 1920x1080, with an ETW trace of USBXHCI/UCX:
-
-- 0 failures out of 120.
-- Exactly 10 control transfers on the camera's EP0 per start, as on
-  the root port. No retries.
-- No Reset Endpoint command at all. Every xHCI command completed with
-  Success: 240 Configure Endpoint (alt 6 and alt 0 per start); the
-  only other commands were Stop Endpoint and Set TR Dequeue.
-- SET_INTERFACE alt 6 takes 262-263 ms, measured to the first isoch
-  transfer, the same as on the root port.
-
-So on Windows a USB 2.0 hub in between doesn't make the camera fail.
-
-Given that, how would you like v2? I can keep the retry as a UVC quirk
-for this camera, or try to describe the VL805 behaviour to the xHCI
-maintainers if you think it belongs there. The Pi 4 is a common host
-for these astronomy cameras, so the quirk would help users either way.
+It can still be that P2P or whatever interconnect fails later on, we have very nice "the fast interconnect has a failure use the slow backup" use cases as well, so importers really won't get away without handling that even if it's slow.
 
 Regards,
-Constantine
+Christian.
+
+> 
+> /Thomas
+> 
+> 
+>>
+>> Jason
+
