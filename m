@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1B58110D;
-	Mon, 19 Oct 2026 13:58:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627594FDA4B;
+	Mon, 19 Oct 2026 13:58:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418326; cv=none; b=V2XZQj+qTqKvsVct1G9r8VLzjzlf4B5VrGrHmWtBF+xPbT3oexM2trH470DMME0tkoxL6YolEtpGxw50o0zABZtXjrexqQWy1o6DcSQaEGw5Kxy47+BjpY6bOySlXPa/oWRUd9Qw8gGToPIzPoqfrkW6RZS0b1plR30rIqoxjxQ=
+	t=1792418342; cv=none; b=IRFCUMyEqTUiIsWyDcxC8F0NOpPlKHXfDbpNF7OXdI3Umxv6xEcPrx0T+EUesfz9IOpFNvtHF/i+Y5MXy7O03+LK4xFSH6xG80rdjYYmMmUYo/A0w1DuDVWb6TMeQUf54S9dd0Ul5TIzmrXHm30Q01Mroy7MdKXL9avaVUiyttc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418326; c=relaxed/simple;
-	bh=i0IlCIv7pyilbwZcnN+6XbhzW3Tg+4U2ngeMCrqt/ZQ=;
+	s=arc-20240116; t=1792418342; c=relaxed/simple;
+	bh=cadGJAcYab2bHwIlTTNQclq6NuGd9Sleo9IMdKXrayI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Fpd0BqpvCg0L75K+GqTmV1xFzi2AVPQnBKy8nIeRIIzHm898KvCCeh97EyiqHMccfwbxNeWU3vnNy5HaHumvQgC93D5Bo3/OZP4E48X0+xuSsTkiYjtQTT4sXDQkeyPI+JYSqzZhp+Vk0pYTBTP3i09N0HLQyHVStOvKgV3J2vE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdKfBQjO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=VkB7UYbGiegKhRmdMBbR2oeelovGfmH8tstdjTWXepnmhk8jFTeRJGkBWy8Qa0OC8x2s3Z12uo3s2L4ZKocMDEtTj0PJk86lFDhcnWyDO+aq3mvQsX2ssIgHQJZ/HwBR3hH2bfarrT983N4FiVYhe1Gnv+FzHadCOFKcl2E5dIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BwFd7HJp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdKfBQjO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C81F1F000C4;
-	Mon, 19 Oct 2026 13:58:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BwFd7HJp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575BF1F000C6;
+	Mon, 19 Oct 2026 13:58:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418323;
-	bh=woEF3Kbtoybbab/DTXcJXzNtcHi8tW3Ti0bDiIc7/9c=;
+	s=k20260515; t=1792418339;
+	bh=ZJkC+fDbJ70Bl5y8ELPPo2YhqcptmGDpY1J0f9mKeho=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IdKfBQjOSIZlTFB0X6CC0cqPinLpTBzMWRN0B4o5aHqeprRqrBfAhLKmZ2cipTMs0
-	 myZvtd30wmFVRhs4IobZmGUMPPpRFXRxz1aGBWy5WGlkbjAOYaSe6c+2Q2Ml+M7MYd
-	 U8Mi+5CxamX2SXH03Gs9CBKgzLYZU1PCJHFmY1hB/Wxxm/0ewv+FGgK7DOvnH/Zvxj
-	 98VldMkavRwXkADiD/UROVsx2LJyO7D6ud0KXdpMGl5AvcdjAFmPsjrPzNKRt3SSGi
-	 LnRCR0PPYc7D3Rjq5aDtuxOr96/wh3god8N9LLkDBZY2BMRWLyjAqUQmPtwMAGHQwP
-	 CWAanD7Pea4Iw==
+	b=BwFd7HJpmSNqaywlRZpHBSYBY1cXUmf9Em1FoS/nun7kA1IGh8eaLK+BI54j7ilIB
+	 9DGFSJCwFC7rF6iB8pHikiJV9UolG4RFNYH4MzbXUhsu2+vx/l/FAjUXanaGBGRydd
+	 xWHNLG4iYJiIU7UB9aSG1oxp/X+VfyzLSjF5DlSeh2QwKhDmi1v8sW0AuxuEu9I1I6
+	 1l9MDsfLmUd1FcTXG+m5pOv2dA8/ZoatUmYQOKMtZpyoaRY15wsLNp55YBsxT3XMaz
+	 SPlgg4lPX7xoZKBQG+IoOBFaiQ0wi4sjyuC5wLa/kyCt12jWq8zKaTyyePcMH4nJok
+	 iy/cI3sz/kyNA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	hverkuil@kernel.org,
+	awalls@md.metrocast.net,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: go7007: s2250: propagate control I/O failures
-Date: Mon, 19 Oct 2026 09:47:37 -0400
-Message-ID: <20261019135441.1420968-166-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: ivtv: stop VBI start-code scan before short tail
+Date: Mon, 19 Oct 2026 09:47:48 -0400
+Message-ID: <20261019135441.1420968-177-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,467 +54,395 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yousef Alhouseen <alhouseenyousef@gmail.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit 59dc14a6cb5ff1ae5ce2f6ebf51fe0139e1c0623 ]
+[ Upstream commit f373cf17fb8e7a530bc6e1e36fc41cb5dab2cdaa ]
 
-The brightness and contrast paths use oldvalue after read_reg_fp()
-without checking whether the read succeeded.  A failed read leaves
-oldvalue uninitialized and can write arbitrary reserved register bits.
+compress_sliced_buf() scans one byte at a time while testing a four-byte
+VBI start code.  The final iterations can read beyond the remaining
+buffer tail.
 
-Return read and write errors from every control path so failed hardware
-access cannot be reported as a successful control update.
+Stop the scan once fewer than four bytes remain.
 
-Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local tree is mainline **7.3.0-rc4**. The Sensoray 2250 control path
-is present here, and the change is a small, real error-path fix: a
-failed `read_reg_fp()` left `oldvalue` uninitialized and could program
-reserved VPX322 bits while still reporting success to V4L2.
-
 ## Phase 1: Commit message forensics
 
 **Step 1.1: Subject line**
-Record: **[media/go7007/s2250] [propagate] Return control I/O errors so
-brightness/contrast do not use an uninitialized register image**
+Record: **[media/ivtv] [stop] stop VBI start-code scan before a short
+tail so a 4-byte SAV check cannot read past the buffer**
 
 **Step 1.2: Tags**
 Record:
-- **Signed-off-by:** Yousef Alhouseen (author)
-- **Signed-off-by:** Hans Verkuil (media/GO7007 maintainer; applied the
-  patch)
-- **No** Fixes, Reported-by, Tested-by, Reviewed-by, Acked-by, Link, or
-  Cc: stable (absence of Fixes/Cc stable is expected for this review)
-- Not a syzbot report; not a kernel test robot report
+- `Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>` (author)
+- `Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>` (media/V4L
+  maintainer; applied the patch)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, `Link:`, or `Cc: stable`
+- Absence of `Fixes:` / `Cc: stable` is expected for this review and is
+  not a negative signal
 
 **Step 1.3: Body**
 Record:
-- **Bug:** brightness/contrast call `read_reg_fp()` then use `oldvalue`
-  without checking the read.
-- **Symptom:** a failed read leaves `oldvalue` uninitialized; the
-  following write can poke **arbitrary reserved register bits**. Failed
-  I/O is still reported as a successful control update.
-- **Version info:** none in the message. Commit `59dc14a6cb5ff` was
-  applied 2026-07-27 and is an ancestor of `v7.3-rc1` (this checkout is
-  `v7.3-rc4-27-gf0100363d8c37`). It is **not** an ancestor of `v7.2`.
-- **Root cause (author):** missing error checks on FP register
-  read/write in `s2250_s_ctrl()`.
+- **Bug:** `compress_sliced_buf()` walks one byte at a time while
+  testing a four-byte VBI start code (SAV: `0xff 0x00 0x00 sav`).
+- **Symptom/failure mode:** last loop iterations read past the remaining
+  buffer tail (out-of-bounds read of up to 3 bytes).
+- **Version info:** none in the message.
+- **Root cause:** loop bound is `i < size` while the body reads
+  `buf[0]`..`buf[3]`.
 
 **Step 1.4: Hidden bug fix?**
-Record: **Yes, and it is not hidden.** The subject uses “propagate”
-rather than “fix”, but the body is an uninitialized-use / false-success
-bug. Saturation/hue changes are the same class: swallow write errors and
-return 0.
+Record: **Not hidden.** This is an explicit bounds fix, not
+cleanup/refactoring.
+
+---
 
 ## Phase 2: Diff analysis
 
 **Step 2.1: Inventory**
 Record:
-- **File:** `drivers/media/usb/go7007/s2250-board.c` — **+33 / −21** (54
-  lines with context; under the 100-line stable cap)
-- **Function:** `s2250_s_ctrl()` only
-- **Scope:** single-file surgical fix
+- File: `drivers/media/pci/ivtv/ivtv-vbi.c` — **1 insertion, 1
+  deletion**
+- Function: `compress_sliced_buf()`
+- Scope: **single-file surgical one-liner**
 
 **Step 2.2: Code flow**
-Record (before → after), all in `s2250_s_ctrl()`:
+Record:
+- **Before:** `for (i = 0; i < size; i++, buf++)` then `buf[0]==0xff &&
+  !buf[1] && !buf[2] && buf[3]==sav`
+  - When `i == size-1`, `buf[1]`, `buf[2]`, `buf[3]` are 1–3 bytes past
+    the declared `size`.
+  - When `size` is 1, 2, or 3, the first iteration already overreads.
+- **After:** `for (i = 0; i + 3 < size; i++, buf++)` — stop once fewer
+  than 4 bytes remain.
+- Path: **normal VBI parse path** (finding the first SAV), not an error-
+  only path.
 
-- **Brightness / contrast:** `read_reg_fp()` / `write_reg_fp()` results
-  ignored; always `break` then `return 0` → each call’s return is
-  checked; first failure is returned; last write’s status is returned.
-- **Saturation / hue:** write ignored, `return 0` → `return
-  write_reg_fp(...)`.
-- **Normal path:** unchanged when I/O succeeds (still RMW reserved bits,
-  then write `0x140`).
-- **Error path:** now fails the V4L2 set instead of committing a fake
-  success.
+Verified pre-image:
 
-**Step 2.3: Bug mechanism**
-Record: **Uninitialized data + ignored I/O errors (logic/correctness).**
-
-Verified in this tree: `read_reg_fp()` writes `*val` only after a
-successful USB vendor request:
-
-```249:286:drivers/media/usb/go7007/s2250-board.c
-static int read_reg_fp(struct i2c_client *client, u16 addr, u16 *val)
-{
-        // ...
-        if (go == NULL)
-                return -ENODEV;
-        if (go->status == STATUS_SHUTDOWN)
-                return -EBUSY;
-        // kzalloc / mutex_lock_interruptible / usb_control_msg failures
-        // all return without *val = ...
-        *val = (buf[0] << 8) | buf[1];
-        kfree(buf);
-        return 0;
-}
+```334:336:drivers/media/pci/ivtv/ivtv-vbi.c
+                if (buf[0] == 0xff && !buf[1] && !buf[2] && buf[3] ==
+sav)
+                        break;
 ```
 
-`write_reg_fp()` likewise returns 0 or a negative errno, never a
-positive byte count, so `if (ret)` is equivalent to `if (ret < 0)`.
+(with the new `i + 3 < size` bound on the `for` line immediately above)
 
-On a failed read, `oldvalue` is stack garbage. The write is `ctrl->val |
-(oldvalue & ~0xff)` (brightness) or `... & ~0x3f` (contrast), so
-reserved bits come from that garbage.
+**Step 2.3: Bug mechanism**
+Record: **Memory safety / out-of-bounds read.** The four-byte SAV test
+used a one-byte walk with an inclusive `size` bound. The remaining `size
+-= i` / `size < line_size` logic still bails out on a short tail, so
+this is an **overread**, not a later overflow write.
 
 **Step 2.4: Fix quality**
-Record: **Obviously correct and minimal.** No API/data-structure change.
-Regression risk is low: VIDIOC_S_CTRL that used to return 0 on hardware
-failure now returns the errno. That is the intended V4L2 behavior
-(`try_or_set_cluster()` only copies new values after `s_ctrl` succeeds).
-Partial updates if a later write fails were already possible; the patch
-does not add locking or new control IDs.
+Record:
+- **Obviously correct:** the predicate now matches the 4-byte access.
+  Same pattern as the sibling `cx18` fix (`bf533acaaa7de`).
+- **Minimal:** one loop condition, no API/data-structure change.
+- **Regression risk: very low.** If `size < 4`, the loop does not run,
+  `i` stays 0, then `size < line_size` (51/272/284) returns as before. A
+  4-byte SAV at the last valid position is still seen (`i + 3 < size`
+  allows `i == size-4`).
+
+---
 
 ## Phase 3: Git history
 
 **Step 3.1: Blame**
-Record:
-- Unchecked `read_reg_fp()` + `oldvalue` RMW: **05d76f2da1e5cc**
-  (“s2250: subdev conversion”, 2009; contained in **v2.6.33-rc1**)
-- Driver itself: **b11869dbb6cc4** (v2.6.29-rc1 era staging)
-- Control-framework conversion: **d3b2ccd9e307ea** (2013) kept the same
-  ignore-errors pattern
-- Bug is old, not recent churn
+Record: The scan loop (including `buf[3]`) was introduced in
+**`1a0adaf37c30e`** — *V4L/DVB (5345): ivtv driver for Conexant
+cx23416/cx23415 MPEG encoder/decoder* (Hans Verkuil, **2007-04-27**).
+The bug is as old as the driver.
 
 **Step 3.2: Fixes: tag**
-Record: **None.** No Fixes SHA to follow. The buggy pattern is the 2009
-subdev conversion, not a recent regression.
+Record: **No Fixes: tag.** The introducing commit is the original ivtv
+merge (`1a0adaf37c30e`), present in this tree (`git merge-base --is-
+ancestor` exit 0).
 
 **Step 3.3: File history**
-Record: Recent `s2250-board.c` work is i2c probe conversions and a probe
-leak fix, not a series this patch depends on. **Standalone.** Same-day
-sibling by the same author: `41f82777e5477` (“avoid undefined shifts in
-MPEG-4 headers”) — different file (`go7007-driver` MPEG path), not a
-prerequisite.
+Record: Recent commits on this file are email-address churn, an
+uninitialized `vbi.type` fix (`31218df77e7f1`), SPDX, and this bounds
+fix. **No prerequisite refactor.** Standalone; not `patch X/Y`.
 
 **Step 3.4: Author**
-Record: Yousef Alhouseen is not the subsystem maintainer. Two
-media/go7007 correctness patches on 2026-06-30; Hans Verkuil applied
-both. Maintainer SOB is a positive quality signal.
+Record: Pengpeng Hou’s only ivtv commit is this one. Same
+day/author/message as **`bf533acaaa7de`** (`media: cx18: stop VBI start-
+code scan before short tail`). Hans Verkuil applied both; he is the
+long-time V4L maintainer and original ivtv author. That is a strong
+quality signal.
 
 **Step 3.5: Dependencies**
-Record: **None.** Uses existing `read_reg_fp()` / `write_reg_fp()` and
-`s2250_s_ctrl()`. **Applies standalone.**
+Record: **None.** The loop, `sav` argument, and `buf[3]` access already
+exist. The cx18 sibling is independent (different driver). **Applies
+standalone.**
+
+---
 
 ## Phase 4: Mailing list / external
 
-**Step 4.1:**
+**Step 4.1: Original discussion**
 Record:
-- **b4 dig -c 59dc14a6cb5ff** → https://patch.msgid.link/20260630105015.
-  53932-1-alhouseenyousef@gmail.com
-- **b4 dig -a:** **v1 only** (committed diff matches v1)
-- **b4 dig -m:** thread is the patch mail only — **no replies, no NAK,
-  no Cc: stable**
-- lore.kernel.org HTTP fetches returned **403**; discussion content was
-  recovered via `b4`
+- `b4 dig -c f373cf17fb8e7` →
+  https://patch.msgid.link/2026063008027101.2-ccfa108-0015-media-ivtv-
+  stop-VBI-start-c-pengpeng@iscas.ac.cn
+- `b4 dig -a`: **v1 only** (2026-06-30), no later revisions.
+- Saved mbox: **patch only, no replies.** No NAK, no reviewer
+  commentary, no in-thread `Cc: stable`.
+- lore.kernel.org HTML fetch returned **403** (Anubis bot-wall). Thread
+  content was recovered via `b4 dig -m`.
 
-**Step 4.2:**
-Record: **b4 dig -w** recipients: Hans Verkuil, Mauro Chehab, linux-
-media, linux-kernel. Appropriate lists/maintainers. Hans’s SOB on the
-git commit is the review signal.
+**Step 4.2: Recipients (`b4 dig -w`)**
+Record: To/Cc included **Andy Walls** (IVTV maintainer in MAINTAINERS),
+**Mauro Carvalho Chehab**, `linux-media@vger.kernel.org`, `linux-
+kernel@vger.kernel.org`. Applied by **Hans Verkuil**.
 
-**Step 4.3:**
-Record: **No bugzilla/syzbot/user report.** Finding is from code
-inspection.
+**Step 4.3: Bug report**
+Record: **No user/syzbot/bugzilla report.** Looks like a static-
+analysis/audit fix (author has many similar bounds patches). The
+mechanism is still a real OOB read, verified from the code.
 
-**Step 4.4:**
-Record: Standalone v1 patch, not part of a numbered series. Sibling
-MPEG-4 shift patch is independent.
+**Step 4.4: Related series**
+Record: Paired with **cx18** commit `bf533acaaa7de` (same wording, same
+day). Each is self-contained. This ivtv commit does not need the cx18
+change.
 
-**Step 4.5:**
-Record: **UNVERIFIED** whether linux-stable ever discussed this
-(lore.kernel.org 403; no local hit on this file’s history besides the
-mainline commit).
+**Step 4.5: Stable list**
+Record: **UNVERIFIED** — lore.kernel.org/stable returned 403. No
+evidence in-tree of a prior rejection.
 
-## Phase 5: Semantic / call graph
+---
 
-**Step 5.1:**
-Record: Modified function: **`s2250_s_ctrl`**. Helpers used:
-`read_reg_fp`, `write_reg_fp`.
+## Phase 5: Semantic / call-chain
+
+**Step 5.1: Functions**
+Record: `compress_sliced_buf()` only.
 
 **Step 5.2: Callers**
-Record: Wired as `s2250_ctrl_ops.s_ctrl`. Invoked from:
-- `try_or_set_cluster()` → `call_op(master, s_ctrl)` (`v4l2-ctrls-
-  core.c`)
-- `__v4l2_ctrl_handler_setup()` during control setup
-- Userspace: `v4l2_s_ctrl()` / `VIDIOC_S_CTRL` / `VIDIOC_S_EXT_CTRLS`
+Record: Only `ivtv_process_vbi_data()` in the same file, twice:
+
+```398:404:drivers/media/pci/ivtv/ivtv-vbi.c
+                lines = compress_sliced_buf(itv, 0, p, size / 2,
+                        itv->vbi.sliced_decoder_sav_odd_field);
+                /* second field */
+                /* experimentation shows that the second half does not
+always begin
+                   at the exact address. So start a bit earlier (hence
+32). */
+                lines = compress_sliced_buf(itv, lines, p + size / 2 -
+32, size / 2 + 32,
+                        itv->vbi.sliced_decoder_sav_even_field);
+```
+
+`ivtv_process_vbi_data()` callers:
+- `ivtv_get_buffer()` in `ivtv-fileops.c` (userspace read of MPEG/VBI
+  streams)
+- `dma_post()` in `ivtv-irq.c` (decoder VBI DMA completion)
 
 **Step 5.3: Callees**
-Record: USB vendor requests via `go7007_usb_vendor_request()` →
-`usb_control_msg()`. Also `mutex_lock_interruptible()` (can return
-**-EINTR**).
+Record: After the scan, `v4l2_subdev_call(..., decode_vbi_line, ...)`.
+The OOB is in the scan itself, before that call.
 
 **Step 5.4: Reachability**
-Record: **Yes, from userspace** if `CONFIG_VIDEO_GO7007_USB_S2250_BOARD`
-is enabled and a Sensoray 2250/2251 is present. Realistic failure that
-still continues into the write: **EINTR on the read’s mutex**, then a
-successful write mutex — two separate `mutex_lock_interruptible()`
-calls. ENOMEM on the read’s `kzalloc` with a later successful write
-alloc is also possible. `STATUS_SHUTDOWN`/`go == NULL` fail both read
-and write before hardware access, so those paths do not program garbage.
+Record: Reachable when sliced VBI capture/processing runs on **Hauppauge
+PVR-150/250/350/500** (and other cx23415/cx23416 cards),
+`CONFIG_VIDEO_IVTV`. Needs the hardware; not a generic syscall fuzz
+path. Real for those devices.
 
 **Step 5.5: Similar patterns**
-Record: `s2250_s_std`, `s2250_set_fmt`, and `s2250_s_video_routing`
-still ignore `write_reg_fp()` results. This patch does not claim to fix
-those; they have no uninitialized `oldvalue`. Not a series dependency.
+Record: `cx18` had the identical bug and the same one-line fix.
+`compress_raw_buf()` indexes `p[0..3]` at `buf + i * line_size` with `i
+< lines`, a different bound; not the same bug.
 
-semcode MCP: **not available**; used `git grep` / file reads.
+---
 
-## Phase 6: This checkout
+## Phase 6: This tree
 
-**Step 6.1:**
+**Step 6.1: Local tree and buggy code**
 Record:
-- Tree: **`v7.3-rc4-27-gf0100363d8c37`**, `make kernelversion` =
-  **7.3.0-rc4**
-- File and `s2250_s_ctrl()` **exist**
-- Buggy ignore-error RMW existed in this lineage from 2009 until
-  **59dc14a6cb5ff** (merged for **v7.3-rc1**)
-- Current `HEAD` source already contains the fixed function (commit is
-  an ancestor of `HEAD` and of `v7.3-rc4`)
-- Bug was **not** introduced after this tree; it is old. This 7.3
-  snapshot already includes the fix as a mainline merge, not as a stable
-  cherry-pick.
+- `git describe HEAD` → **`v7.3-rc4-27-gf0100363d8c37`** (`VERSION=7`,
+  `PATCHLEVEL=3`, `SUBLEVEL=0`, `EXTRAVERSION=-rc4`)
+- Candidate **`f373cf17fb8e7` is already an ancestor of HEAD**
+- Buggy loop existed here from **2007** until that commit; pre-image
+  confirmed via `git show f373cf17fb8e7^:drivers/media/pci/ivtv/ivtv-
+  vbi.c`
 
-**Step 6.2:**
-Record: **Clean apply** to this file’s `s2250_s_ctrl()` shape (same
-switch, same register macros). No conflicting refactor in this tree.
+This checkout is **7.3-rc4 mainline**, not an older -stable branch. The
+bug class and the surrounding code are the same ones every current LTS
+still carries.
 
-**Step 6.3:**
-Record: No alternate fix for this `oldvalue` bug. Only this commit
-changes those checks.
+**Step 6.2: Backport difficulty**
+Record: **Clean apply.** The `for (i = 0; i < size; i++, buf++)` line
+has been unchanged since 2007.
+
+**Step 6.3: Related fixes already here**
+Record: Only this commit and the cx18 sibling. No alternate ivtv fix for
+the same scan.
+
+---
 
 ## Phase 7: Subsystem context
 
-**Step 7.1:**
-Record: **media / USB V4L2 driver** (`drivers/media/usb/go7007/`).
-**PERIPHERAL** — Sensoray 2250/2251 only
-(`CONFIG_VIDEO_GO7007_USB_S2250_BOARD`). Maintainer: Hans Verkuil,
-linux-media.
+**Step 7.1**
+Record: **media/pci/ivtv** — Hauppauge PVR / Conexant cx2341x MPEG
+encoder. **PERIPHERAL** (specific old PCI capture cards), but a
+supported in-tree driver, not staging.
 
-**Step 7.2:**
-Record: File is mature/low-churn (last functional s2250 work before this
-was older i2c/probe fixes). Not a newly added subsystem.
+**Step 7.2**
+Record: The file is **mature/quiet**. The driver has been stable for
+years; this is a long-standing latent bounds bug, not fallout from a new
+feature.
+
+---
 
 ## Phase 8: Impact and risk
 
-**Step 8.1:**
-Record: **Driver-specific / config-specific**
-(`VIDEO_GO7007_USB_S2250_BOARD`). Not universal. Small user population
-(legacy USB MPEG capture box).
+**Step 8.1: Who is affected**
+Record: **Driver-specific / config-specific** (`CONFIG_VIDEO_IVTV`),
+users capturing **sliced VBI** on those cards.
 
-**Step 8.2:**
-Record:
-- Trigger: `VIDIOC_S_CTRL` for brightness/contrast (and sat/hue for the
-  false-success half)
-- Common on a working device: **no** (happy path already initialized
-  `oldvalue`)
-- Realistic error: **signal interrupting the read lock**, USB control-
-  msg failure, or alloc failure
-- Unprivileged user with the video node can issue the ioctl
+**Step 8.2: Trigger**
+Record: Hardware DMA fills an ivtv buffer; `ivtv_process_vbi_data()`
+scans for SAV. Fires whenever the start code is missing or near the tail
+(including a full walk with no match). Unprivileged users can hit it if
+they can open the V4L VBI/MPEG node. Not a remote network path.
 
-**Step 8.3:**
-Record:
-- **Failure mode:** uninitialized stack bits written into VPX322
-  reserved fields; V4L2 still treats the set as success and publishes
-  the new control value
-- **Not** an oops, deadlock, filesystem corruption, or a demonstrated
-  CVE
-- **Severity: MEDIUM** (hardware misprogramming + lying to userspace).
-  On shutdown-only failures, writes also fail first, so those are lower
-  impact.
+Buffers are `kmalloc(s->buf_size + 256)` and DMA last-SG size is also
+`+= 256` (`ivtv-queue.c`, `ivtv-irq.c`). `dma_post()` may do
+`buf->bytesused += s->dma_last_offset` (cookie search up to 252 bytes).
+A 3-byte overread of the **logical** `size` often still sits inside that
+256-byte DMA window, so a crash is not guaranteed; it is still an out-
+of-bounds access relative to the length the scan is given, and
+`bytesused` can sit close to the allocation.
 
-**Step 8.4:**
+**Step 8.3: Failure mode**
+Record: **Out-of-bounds read (up to 3 bytes).** Severity **MEDIUM–HIGH**
+as memory safety; practical oops risk **MEDIUM** (small overread, extra
+DMA padding). Remaining length after a false SAV in the tail is `< 4`,
+so `size < line_size` returns without treating the overread as payload.
+**Not data corruption of the VBI output**, but a real buffer-tail
+overread.
+
+**Step 8.4: Risk–benefit**
 Record:
-- **Benefit:** medium-low globally, high for the few users of this board
-  if a control set races with EINTR/USB error
-- **Risk:** **very low** (33 lines, error returns only, maintainer-
-  applied)
-- **Ratio:** favorable for a tiny correctness fix; the weak point is
-  “important issue” given niche hardware and no reports
+- **Benefit:** stops a real OOB read on a path that runs during VBI
+  capture; same class as other stable OOB one-liners; bug present on
+  every LTS.
+- **Risk:** one loop bound, no locking/API change — **very low**.
+- **Ratio:** strongly favors taking the fix.
+
+---
 
 ## Phase 9: Synthesis
 
 **Step 9.1: Evidence**
 
-**For backporting**
-- Verified uninitialized `oldvalue` when `read_reg_fp()` fails
-- Verified reserved-bit RMW from that garbage
-- Verified V4L2 commits the new value if `s_ctrl` returns 0
-- Realistic EINTR window (separate interruptible locks)
-- Small, obviously correct, maintainer SOB
-- No new API; under 100 lines
-- Driver and function exist in this tree
+For:
+- Real 4-byte load on a 1-byte scan; last iterations read past `size`
+- One-line, obviously correct, no new API
+- Bug in tree since 2007 (`1a0adaf37c30e`); clean apply
+- Applied by Hans Verkuil; To: Andy Walls (ivtv maintainer)
+- Sibling cx18 fix of the same bug
+- Standalone; no series dependency
 
-**Against**
-- Niche, aging Sensoray 2250/2251 hardware
-- No user/syzbot/KMSAN report
-- Not a crash, hang, or user-data corruption
-- Looks like a static-analysis sweep (two go7007 patches the same day)
-- Sibling functions still ignore I/O errors
-- Official rule text wants a bug that “bothers people” or an “oh, that’s
-  not good” issue — this is the latter, not a production fire
+Against:
+- No crash/syzbot/`Reported-by`
+- Niche, aging PCI hardware
+- +256 DMA/kmalloc padding makes a guaranteed heap oops less likely
+- No mailing-list review comments (v1 applied as-is)
 
-**Unresolved**
-- Could not read lore.kernel.org in the browser (403); no on-list review
-  beyond Hans applying v1
-- Did not compile to confirm `-Wmaybe-uninitialized`
-- No evidence of prior stable-list discussion
+Unresolved:
+- Stable-list discussion (lore 403)
+- Exact KASAN behavior vs. the +256 allocation (not reproduced here)
 
-**Step 9.2: Stable rules checklist** (this tree)
-1. Obviously correct and tested? **PASS** — mechanical error returns;
-   applied by Hans Verkuil. No extra Tested-by.
-2. Real bug that affects users? **PASS** — uninit RMW and false ioctl
-   success on a reachable control path.
-3. Important (crash/security/corruption/deadlock)? **PASS** (weak) —
-   hardware register corruption and incorrect V4L2 success fall under
-   “oh, that’s not good”, not oops/hang. Not a theoretical race without
-   a trigger.
-4. Small and contained? **PASS** — one function, +33/−21.
+**Step 9.2: Stable rules**
+1. Obviously correct and tested? **PASS** — bound matches the 4-byte
+   access; maintainer applied it; v1 needed no respin.
+2. Real bug affecting users? **PASS** — OOB read on sliced-VBI
+   processing for ivtv hardware.
+3. Important (crash/security/corruption/deadlock)? **PASS** — memory-
+   safety OOB read; practical crash is not certain, but this is the
+   standard small OOB class, not a style tweak.
+4. Small and contained? **PASS** — 1 line, one function.
 5. No new features/APIs? **PASS**
-6. Can apply to this tree? **PASS** — same `s2250_s_ctrl()`; this
-   7.3-rc4 checkout already contains the commit as of v7.3-rc1.
+6. Can apply to this tree? **PASS** — already in 7.3-rc4; pre-fix line
+   is the original 2007 loop, so older stables should take it cleanly.
 
 **Step 9.3: Exception category**
-Record: **None** (not a device ID, quirk, DT, build, or docs fix).
+Record: Not a device-ID/quirk/DT/build/doc exception. It is a **small
+memory-safety fix**.
 
 **Step 9.4: Decision**
-This tree’s go7007/s2250 code is the long-standing buggy RMW path. The
-patch is a small, maintainer-applied fix for uninitialized reserved-bit
-writes and false `VIDIOC_S_CTRL` success. That is a real, user-visible
-device-control bug with very low regression risk. It is not a core-
-kernel crisis, but it is in-scope for stable as an “oh, that’s not good”
-driver correctness fix, and the code it needs is present here.
-
-### What the commit solves for this tree
-`s2250_s_ctrl()` used to ignore FP register I/O errors. On
-brightness/contrast, a failed read left `oldvalue` uninitialized and the
-next write could set reserved VPX322 bits while V4L2 still stored the
-new control. After the fix, those errors propagate so userspace is not
-told the hardware update succeeded.
-
-### Risk vs benefit
-Benefit is limited to Sensoray 2250/2251 users, but the downside of
-taking the patch is negligible. Returning errno instead of 0 on failed
-I/O is the correct userspace contract.
+The commit is a one-line, obviously correct stop of a four-byte SAV scan
+that walked off the declared VBI buffer. That bug has been in ivtv since
+2007, needs no prerequisites, and is the same fix already used on cx18.
+It belongs in stable.
 
 ---
 
-Verification:
-- [Phase 1] Parsed commit `59dc14a6cb5ff`; tags are author + Hans
-  Verkuil SOB only
-- [Phase 1] Confirmed no syzbot/Fixes/Link/Reported-by
-- [Phase 2] Diff is only `s2250_s_ctrl()` in `s2250-board.c` (+33/−21)
-- [Phase 2] Read `read_reg_fp()`/`write_reg_fp()`: `*val` set only on
-  success; writes return 0 or negative
-- [Phase 3] `git blame` on pre-patch function: ignore-errors RMW from
-  `05d76f2da1e5cc` (v2.6.33-rc1)
-- [Phase 3] No Fixes tag; sibling `41f82777e5477` is a different go7007
-  issue, not a dep
-- [Phase 3] `git merge-base --is-ancestor 59dc14a6cb5ff v7.2` → not in
-  7.2; ancestor of `v7.3-rc1` and of HEAD
-- [Phase 4] `b4 dig -c/-a/-w/-m`: v1, Hans+media list, no thread
-  replies, no stable nomination
-- [Phase 4] WebFetch/curl to lore.kernel.org → 403; UNVERIFIED public
-  review beyond the mbox
-- [Phase 5] `s2250_ctrl_ops.s_ctrl` → `try_or_set_cluster()` /
-  `v4l2_s_ctrl()`; userspace `VIDIOC_S_CTRL`
-- [Phase 5] Confirmed `try_or_set_cluster()` does not publish new values
-  if `s_ctrl` returns nonzero
-- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
+## Verification
+
+- **[Phase 1]** Parsed tags: only author + Hans Verkuil SOBs; no
+  Fixes/Reported-by/Cc: stable
+- **[Phase 2]** Diff: 1 line in `compress_sliced_buf()`; `i < size` → `i
+  + 3 < size`
+- **[Phase 2]** Confirmed `buf[0]..buf[3]` SAV test in current file at
+  lines 333–335
+- **[Phase 3]** `git blame`: loop from `1a0adaf37c30e` (2007-04-27);
+  bound line is this commit
+- **[Phase 3]** `git merge-base --is-ancestor 1a0adaf37c30e HEAD` → yes
+- **[Phase 3]** `git show f373cf17fb8e7^:...ivtv-vbi.c` → old `i < size`
+  loop present
+- **[Phase 3]** File log: no prerequisite refactor; sibling
+  `bf533acaaa7de` is cx18-only
+- **[Phase 4]** `b4 dig -c f373cf17fb8e7`: lore/msgid link above; `b4
+  dig -a`: v1 only
+- **[Phase 4]** `b4 dig -w`: Andy Walls, Mauro Chehab, linux-media,
+  linux-kernel
+- **[Phase 4]** `b4 dig -m`: 81-line mbox, patch only, no replies
+- **[Phase 4]** WebFetch/curl to lore: 403 — stable-list search
+  UNVERIFIED
+- **[Phase 5]** Callers: `ivtv_process_vbi_data` ← `ivtv-fileops.c`,
+  `ivtv-irq.c`
+- **[Phase 5]** cx18 `compress_sliced_buf` uses the same `i + 3 < size`
+  bound after `bf533acaaa7de`
+- **[Phase 6]** `git describe HEAD` = v7.3-rc4-27-g…; `make
   kernelversion` = 7.3.0-rc4
-- [Phase 6] Current file already has the error checks; driver Kconfig
-  `VIDEO_GO7007_USB_S2250_BOARD` exists
-- [Phase 7] MAINTAINERS: GO7007 MPEG CODEC, Hans Verkuil
-- [Phase 8] Failure mode: reserved-bit programming + false success;
-  severity MEDIUM; EINTR path verified in `read_reg_fp`/`write_reg_fp`
-- [Phase 9] Official `stable-kernel-rules.rst` read: ≤100 lines, real
-  bug, “oh that’s not good”, no new API
-- UNVERIFIED: compiler warning reproduction; stable mailing-list history
+- **[Phase 6]** `git merge-base --is-ancestor f373cf17fb8e7 HEAD` →
+  already in this tree
+- **[Phase 7]** MAINTAINERS: IVTV → Andy Walls, linux-media
+- **[Phase 8]** kmalloc `buf_size+256` and DMA `size += 256` /
+  `bytesused += dma_last_offset` verified in `ivtv-queue.c` and `ivtv-
+  irq.c`
+- **UNVERIFIED:** whether this overread was ever KASAN-reported; whether
+  stable@ discussed it
+
+The fix is small, surgical, and meets the stable criteria for an out-of-
+bounds read.
 
 **YES**
 
- drivers/media/usb/go7007/s2250-board.c | 54 ++++++++++++++++----------
- 1 file changed, 33 insertions(+), 21 deletions(-)
+ drivers/media/pci/ivtv/ivtv-vbi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/go7007/s2250-board.c b/drivers/media/usb/go7007/s2250-board.c
-index a155b987282f8..e536964c14e6a 100644
---- a/drivers/media/usb/go7007/s2250-board.c
-+++ b/drivers/media/usb/go7007/s2250-board.c
-@@ -365,36 +365,48 @@ static int s2250_s_ctrl(struct v4l2_ctrl *ctrl)
- 	struct s2250 *state = container_of(ctrl->handler, struct s2250, hdl);
- 	struct i2c_client *client = v4l2_get_subdevdata(&state->sd);
- 	u16 oldvalue;
-+	int ret;
+diff --git a/drivers/media/pci/ivtv/ivtv-vbi.c b/drivers/media/pci/ivtv/ivtv-vbi.c
+index ae7a00f462574..af086c4cbe1a7 100644
+--- a/drivers/media/pci/ivtv/ivtv-vbi.c
++++ b/drivers/media/pci/ivtv/ivtv-vbi.c
+@@ -330,7 +330,7 @@ static u32 compress_sliced_buf(struct ivtv *itv, u32 line, u8 *buf, u32 size, u8
+ 	unsigned lines = 0;
  
- 	switch (ctrl->id) {
- 	case V4L2_CID_BRIGHTNESS:
--		read_reg_fp(client, VPX322_ADDR_BRIGHTNESS0, &oldvalue);
--		write_reg_fp(client, VPX322_ADDR_BRIGHTNESS0,
--			     ctrl->val | (oldvalue & ~0xff));
--		read_reg_fp(client, VPX322_ADDR_BRIGHTNESS1, &oldvalue);
--		write_reg_fp(client, VPX322_ADDR_BRIGHTNESS1,
--			     ctrl->val | (oldvalue & ~0xff));
--		write_reg_fp(client, 0x140, 0x60);
--		break;
-+		ret = read_reg_fp(client, VPX322_ADDR_BRIGHTNESS0, &oldvalue);
-+		if (ret)
-+			return ret;
-+		ret = write_reg_fp(client, VPX322_ADDR_BRIGHTNESS0,
-+				   ctrl->val | (oldvalue & ~0xff));
-+		if (ret)
-+			return ret;
-+		ret = read_reg_fp(client, VPX322_ADDR_BRIGHTNESS1, &oldvalue);
-+		if (ret)
-+			return ret;
-+		ret = write_reg_fp(client, VPX322_ADDR_BRIGHTNESS1,
-+				   ctrl->val | (oldvalue & ~0xff));
-+		if (ret)
-+			return ret;
-+		return write_reg_fp(client, 0x140, 0x60);
- 	case V4L2_CID_CONTRAST:
--		read_reg_fp(client, VPX322_ADDR_CONTRAST0, &oldvalue);
--		write_reg_fp(client, VPX322_ADDR_CONTRAST0,
--			     ctrl->val | (oldvalue & ~0x3f));
--		read_reg_fp(client, VPX322_ADDR_CONTRAST1, &oldvalue);
--		write_reg_fp(client, VPX322_ADDR_CONTRAST1,
--			     ctrl->val | (oldvalue & ~0x3f));
--		write_reg_fp(client, 0x140, 0x60);
--		break;
-+		ret = read_reg_fp(client, VPX322_ADDR_CONTRAST0, &oldvalue);
-+		if (ret)
-+			return ret;
-+		ret = write_reg_fp(client, VPX322_ADDR_CONTRAST0,
-+				   ctrl->val | (oldvalue & ~0x3f));
-+		if (ret)
-+			return ret;
-+		ret = read_reg_fp(client, VPX322_ADDR_CONTRAST1, &oldvalue);
-+		if (ret)
-+			return ret;
-+		ret = write_reg_fp(client, VPX322_ADDR_CONTRAST1,
-+				   ctrl->val | (oldvalue & ~0x3f));
-+		if (ret)
-+			return ret;
-+		return write_reg_fp(client, 0x140, 0x60);
- 	case V4L2_CID_SATURATION:
--		write_reg_fp(client, VPX322_ADDR_SAT, ctrl->val);
--		break;
-+		return write_reg_fp(client, VPX322_ADDR_SAT, ctrl->val);
- 	case V4L2_CID_HUE:
--		write_reg_fp(client, VPX322_ADDR_HUE, ctrl->val);
--		break;
-+		return write_reg_fp(client, VPX322_ADDR_HUE, ctrl->val);
- 	default:
- 		return -EINVAL;
+ 	/* find the first valid line */
+-	for (i = 0; i < size; i++, buf++) {
++	for (i = 0; i + 3 < size; i++, buf++) {
+ 		if (buf[0] == 0xff && !buf[1] && !buf[2] && buf[3] == sav)
+ 			break;
  	}
--	return 0;
- }
- 
- static int s2250_set_fmt(struct v4l2_subdev *sd,
 -- 
 2.53.0
 
