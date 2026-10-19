@@ -1,66 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792424819;
-	b=3eqmv5ep+YIMAsQnduRaWOUz3+5j0ufVgj9pzjbG4FU99+c3iW6zFT7g0IpyZcPyKLog
-	 4av9OsItU14yUTTyGM3gfkHUAN4j08np7pxC3dyReP+k8VNOnMiJRXu5IivCLt6wq9w9P
-	 197QBZgDmBxLeZLr+JQuGYVuF4sPF59imuUUi4rmB5fVJrjI8FacjPYlmxbfBzR0wzsod
-	 5qEfDnkKrAiRsE7U9VIvnFD8iqBWu66vb7NgSweSGcSA8qhR522zWQ0rR0yISdoeahlRH
-	 vl54cwIJL2dtuZx9xB1mT50TIDgj+BwsYi2zDqK4S+VAT6UYnW0szYCk+qyWs7zywgA==
+	t=1792424824;
+	b=VZFfs9Lg5ohYntp34Qq2GRRxgj+wfziwABSSZ3jgNoa8XU/S0AbJzq6m6JUM9A2l/6va
+	 TiyEth/8luL5gqq01pDQEgqj8efLvukSWIh5SKJewRB5GPUVQtPLtX9GCsIrmSuAu5iZL
+	 pKv6xrL2GospZUnTuMIeBD+mU96J/iFIi766BKpEFqK1oj3jIYsDUkN/8aKatgTszRuJe
+	 Sawrs1g3mMkW/GKEi+0h+UctiU1JJDEh/NJjbtuiMjhfjXi6wbA3/GgMONNSMMWadbsQq
+	 pCa0MChXfa94gAdiOkyru+6EaZlNYyT8giNU/98ilxSwa/eyS+klrA4qE5XxiStDgkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792424819;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792424824;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
 	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
 	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=d/Gac34Omv/+u8QbZNv+NEeAcxnQ0aUxCTFCqoUCVzk=;
-	b=Rq3YLAzFot/anGPYJn2ozxHk8Xw7cWNn9wefxX4aMIvrllAbRo51EYcmAU6kFkHKon2q
-	 5dDTAXwSy1MmFt/gbijoQQfiQwFqKomQp8WkBHFBcJfovmHyMm/3r9+UZ3akBL2ZhhCdG
-	 jsPJs6zQ3kUoB4hCPJXBpGqUDE7312z2ddq//XC3heoWVBxTN4FPtBDcqt2V8TOheqWl9
-	 XELnturSZdHtuGs5M1C22nElD3sHCHA509F6WnQGpHazGQOSAYG4+6wGsAriNGS0OoMVI
-	 eC2Adf/K+hIb1XWmPceMY0aRkd2H3dVUGrIb/I2l9NwBE0RuoCin90xVRGS0/OlDg7A==
+	bh=6eAg9tb1et2BPHQaOqAcQvY2sjCRU8JVu33cBeD3Y+s=;
+	b=ovzAiGp2Zfxhg4fzRsPWGxd9NCIjfIf9TLNEmjJXHbvGU4IdUX+KIS3f9H8xxIFdl0An
+	 ZbGgvmC+k6tN8Vxgqo3OmbpiK937LpRBUKc+OdBpiHqPmIHrgmYL+PFm2/50brxeHZ4hZ
+	 J2xoPPlt+jiZgX+otZrfmiQNHc0SSY8RL0QgtKcUe8A3QWGlyl3bhmf3k6aKSkUhAvxdJ
+	 bcxWAtm3YoX6dMkZBfNA3fxx7r538F7pB3QWPdL26xbUl8RnBzFIYD5JyE+iAiEpMx2u+
+	 pwvRUAPXrVNpO+9UTXXCoj1mt6dtSHrKOZcs21NYfqKikz88EJlQEXo66nyA7v71XAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fqwqf.xyz;
 	spf=pass smtp.mailfrom=send.fqwqf.xyz;
-	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=r9mPaLpS;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=gHBEBDRR;
-	arc=none smtp.remote-ip=23.251.234.56
-Received: from e234-56.smtp-out.ap-northeast-1.amazonses.com (e234-56.smtp-out.ap-northeast-1.amazonses.com [23.251.234.56])
+	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=Il467r68;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=GgWoqVAS;
+	arc=none smtp.remote-ip=23.251.234.52
+Received: from e234-52.smtp-out.ap-northeast-1.amazonses.com (e234-52.smtp-out.ap-northeast-1.amazonses.com [23.251.234.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367F26078866
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 15:46:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 367F26078866
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 584E3607553F;
+	Mon, 19 Oct 2026 15:47:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 584E3607553F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=r9mPaLpS;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=gHBEBDRR
+	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=Il467r68;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=GgWoqVAS
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1792424817;
+	d=fqwqf.xyz; t=1792424823;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=d/Gac34Omv/+u8QbZNv+NEeAcxnQ0aUxCTFCqoUCVzk=;
-	b=r9mPaLpSZYIj/X3vDwO5fc4gDF+VMEdhRdD7HIkSyVd0lXdA/V1bvghe69cvkJED
-	UFLGT5qv3ql8cw6GReMMzr3Y3WMwavdqOOmD3RYz9OPM1q4Mp02t5KAvsxtPXUMus7i
-	A3XcDHncWVfFzCo5JS2j1hMxBnl4THLg4VoPN52U=
+	bh=wJNmKU58xAgxoa/KviAfa8I8qVK1OsW4hKhPWbnbLQM=;
+	b=Il467r68EiJHGU9WPfNvfBuBCA9aLKRjmVqEi2GhxYIPEYGa2qeoFGdLDIROxk+y
+	xakL/L9zy2UVshbyCpkWMiwChFiBHByV1OorfXgfjvJh4zk3F1jaj6Bz1MrgfCZWRYc
+	uYo1YPOf+qpgAQ9EEK5U699+aVBR04jMqnLFa7xM=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1792424817;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1792424823;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=d/Gac34Omv/+u8QbZNv+NEeAcxnQ0aUxCTFCqoUCVzk=;
-	b=gHBEBDRRjTOwMUxXPDbbe1GaLo1Gy7wPkiWTejhdC1BLzLdjcuteGxcD5D8EhfFT
-	iaSdRzH7ec8/U8jLE0IFYbSP5z449STWd10jN6x2LcAD0ZDS3m/EYNC6LPdIxPgAWpP
-	AATbI/t0nHEa7habuwZgyTRERPHHho0rVDq6y974=
-In-Reply-To: <6acec924.a3c0497f.3c6821.f539@mx.google.com>
-References: <6acec924.a3c0497f.3c6821.f539@mx.google.com>
+	bh=wJNmKU58xAgxoa/KviAfa8I8qVK1OsW4hKhPWbnbLQM=;
+	b=GgWoqVASP7/bjigY9NQpgESIigjcuKdIe0qMz7E48VgHxtAocHf2i0utsR1pAFlp
+	a/NTylg/YDMR70In5GUMEccaePzL8nuc9MJoSui2TrRy62q7WXx+Csxh/dRVtCEgQ3/
+	rwPlp4lESWlx4iG8AMoVLKzt86YaGFyuu1EzRazc=
+In-Reply-To:
+ <010601a1332f343c-b1381230-9344-4bef-a709-99e07b18d513-000000@ap-northeast-1.amazonses.com>
+References:
+ <010601a1332f343c-b1381230-9344-4bef-a709-99e07b18d513-000000@ap-northeast-1.amazonses.com>
 X-Mailer: git-send-email 2.53.0
 From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: linux-media@vger.kernel.org
-Cc: benjamin.mugnier@foss.st.com, sakari.ailus@linux.intel.com, 
-	media-ci@linuxtv.org
-Subject: Re: [v3,0/2] media: i2c: vd55g1: preserve stream errors and always
-  attempt stop
-Message-ID: <010601a154d8304d-23013904-6e45-4685-b817-64ca61c2441f-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: 7bit
-Date: Mon, 19 Oct 2026 15:46:56 +0000
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
+	sashiko-reviews@lists.linux.dev
+Subject: [RFC PATCH v3] phy: qcom-mipi-csi2: round the requested settle
+ interval up
+Message-ID: <010601a154d848df-37257f7a-0553-43ed-93c2-4fcc5b690d14-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 19 Oct 2026 15:47:03 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -72,20 +75,126 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.10.19-23.251.234.56
+X-SES-Outgoing: 2026.10.19-23.251.234.52
 
-Hi,
+The settling counter represents the requested interval in timer ticks,
+with the existing six-tick hardware offset. Truncating the division
+programs fewer ticks than requested when the interval is not an exact
+multiple of the timer period.
 
-Thanks Benjamin for reviewing both patches.
+Rounding the final division alone is =
+insufficient: the earlier unit
+interval calculation already rounds down =
+before multiplying by six.
+At a 599.9 MHz link frequency and a 100 MHz =
+timer, the exact requested
+interval is approximately 90000.833 ps. The =
+truncated unit interval
+produces 89998 ps, so even a rounded-up final =
+division programs nine
+ticks (90000 ps) instead of the required ten.
 
-The reported failures are caused by the collected review trailers being
-spelled "Reviewed-By:". With the standard spelling, both patches pass
-checkpatch with no errors or warnings:
+Compute the complete six-unit-interval term as 3 / link_freq and round
+it up to picoseconds with a 64-bit divisor. Then round up the conversion
+to timer ticks. Retain the timer-period calculation, minimum counter
+handling and six-tick hardware offset.
 
-Reviewed-by: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+Link: https://lore.kernel.=
+org/all/sashiko-outbox-166399@kernel.org/
+Signed-off-by: Jizhou Tong =
+<fqwqf@fqwqf.xyz>
+---
+Changes in v3:
+- Base directly on media-next =
+d7e7bca71698, which contains the PHY
+  driver, and remove the old =
+prerequisite patch IDs.
+- No source changes from v2.
 
-Could this spelling be used when applying the series? No code changes
-are needed for this CI report.
+The v2 CI report lists only the two prerequisite patches and names the
+PHY driver addition as its branch head. This revision supplies just the
+rounding fix on media-next, without asking b4 to reconstruct that series.
 
-Best regards,
-Jizhou Tong
+v2:
+https://lore.kernel.org/all/010601a1332f343c-b1381230-9344-4bef-a709-99=
+e07b18d513-000000@ap-northeast-1.amazonses.com/
+CI report:
+https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/11251022=
+0/artifacts/report.htm
+
+Validation: ARM64 W=3D1 driver-object build on the =
+stated base, and
+128482 ASan/UBSan cases using the actual helper against =
+independent
+rational bounds. The baseline fails the rounding tests. The =
+source
+file after applying this patch is byte-identical to v2.
+
+The timer-period convention and zero-count rejection are unchanged.
+Zero is also rejected by the base driver; whether hardware permits it
+is a separate question for the PHY maintainer. This remains an RFC for
+the rounding policy and six-tick offset. No new hardware test is claimed.
+
+ .../phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c    | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
+
+diff --git =
+a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c =
+b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+index 966d79c98f9b21e1a235b8397c4c84b25d869427..f07699ba1fde63536b4d63cc400=
+8ff936f78cc7d 100644
+--- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy=
+.c
++++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+@@ -9,6 +9,7 @@
+ #include <linux/delay.h>
+ #include <linux/interrupt.h>
+ #include <linux/io.h>
++#include <linux/math64.h>
+ #include <linux/time64.=
+h>
+=20
+ #include "phy-qcom-mipi-csi2.h"
+@@ -220,23 +221,19 @@ static void =
+phy_qcom_mipi_csi2_reset(struct mipi_csi2phy_device *csi2phy)
+  */
+ static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 link_freq, u32 =
+timer_clk_rate)
+ {
+-	u32 t_hs_prepare_max_ps;
+ 	u32 timer_period_ps;
+-	u32 t_hs_settle_ps;
++	u64 t_hs_settle_ps;
+ 	u8 settle_cnt;
+-	u32 ui_ps;
+=20
+-	ui_ps =3D div64_u64(PSEC_PER_SEC, link_freq);
+-	ui_ps /=3D 2;
+-	t_hs_prepare_max_ps =3D 85000 + 6 * ui_ps;
+-	t_hs_settle_ps =3D =
+t_hs_prepare_max_ps;
++	/* Round the complete 6 * UI term up, avoiding an =
+intermediate truncation. */
++	t_hs_settle_ps =3D 85000 + =
+DIV64_U64_ROUND_UP(3 * PSEC_PER_SEC, link_freq);
+=20
+ 	timer_period_ps =3D div_u64(PSEC_PER_SEC, timer_clk_rate);
+=20
+-	if ((t_hs_settle_ps / timer_period_ps) < 6)
++	if (div_u64(t_hs_settle_ps,=
+ timer_period_ps) < 6)
+ 		return 0;
+=20
+-	settle_cnt =3D t_hs_settle_ps / =
+timer_period_ps - 6;
++	settle_cnt =3D DIV_U64_ROUND_UP(t_hs_settle_ps, =
+timer_period_ps) - 6;
+=20
+ 	return settle_cnt;
+ }
+
+base-commit: =
+d7e7bca7169873b46e857c025c10f3336c1258d8
+--=20
+2.53.0
+
