@@ -1,181 +1,182 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013046.outbound.protection.outlook.com [40.107.159.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FD6277026;
-	Mon, 19 Oct 2026 09:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792401367; cv=none; b=d7DD6tCK0UCwXgHMQ0/dyJ0XsgzVWNHLqNzNKIlsJH0zN/B/OLGnfdWkoM/AbaK16ATuC3f0FH16sgwfMMkrllxiO9i1jDsIq7EysYg3Ijsoj70822Q5L2vhct4/rrhNjyqHh7mDXgfxk4RD72LZ83FQG06IA6QXswS2R/j2hwg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792401367; c=relaxed/simple;
-	bh=88L7hie2tDkWe7PZYJG3j2OUPcoz6V6ev/d6mTgZGwU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PU6d/1Ik4vofrXalVL1SAZkOb5rh/D8JONcEjgEUMY8j7Qbs2u2hwndoNH1kaZoLgBIAG7KqYy5GNzzd8maKDsIUanCaTqEk4htfImRSqwbYQnIHCpJ/ck4Od6MrkZvpUo1bUEKfeVdPzVRTHanaYDoRC0ZjET/APPXGvw82pBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ghGHOwZ6; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=NiyW3Nok; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yC77sQaB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=OXbTTu5b; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451424B1CE0;
+	Mon, 19 Oct 2026 09:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792403700; cv=fail; b=BPHOWUvuIc/8tXXAZt+gk8NQKN95mHfOuaZT6EiNMGWROQ5p8CADVXcWmUB1IeurFEmeOtehyzD2YAbRb0yll/O0uzTv6yaxwUkDu5aSNSW7KLzFFDi5kPYrUBJzgoZUOgDrWS/93OCmbPoM7/wzTvUe/ji79mWwVA/pFJnsGSY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792403700; c=relaxed/simple;
+	bh=iXVRMJheGvvP8hGbVeIl2TIrajVMQJGgCSQ+qkZbLjY=;
+	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LwRKjY2BGUPuY5V7iLV5xUZilG8ollrr5bWij4SWhVP5xdc3+729UynyyIopieSUArRzu/vpgEYyr6EAei6cx/fgrl1ooE6M5IU9sXjjLJUeVXvrzryIx9ii6pN7yhBx8H/1D5eUEDJ0s+U7PqK+LTH+bBWtMhYBDTen4QZP5Uk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=hSnWZFTY; arc=fail smtp.client-ip=40.107.159.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ghGHOwZ6";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="NiyW3Nok";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yC77sQaB";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="OXbTTu5b"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 36E7721C13;
-	Mon, 19 Oct 2026 09:16:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792401364; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7yu3tr/XKjY08A8K99OkNRH8Z7mvGFgqqz1CA7bGCoQ=;
-	b=ghGHOwZ6JxMIYAZ26rWhTpweaoCboTRlTL999bMVvyF0E2aZvlajC6BK/JwQUb+GP8T6vZ
-	QpYJUF6W+y1mzomrimeyLNCvmnyrxjwp7Seri96i1piyel8vRzZVgO5dZWa2mhLkRaC+hO
-	33rSbF30BBO4HAdoMOLbGOQBAaetndA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792401364;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7yu3tr/XKjY08A8K99OkNRH8Z7mvGFgqqz1CA7bGCoQ=;
-	b=NiyW3NokfsPA3E7a9inhFGaT20Sl0YlKV0Mjp7kg8WBDh3ren76IclmzfKPO6t+0UBeewT
-	Aln5ixT4mweAfjAA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=yC77sQaB;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=OXbTTu5b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792401363; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7yu3tr/XKjY08A8K99OkNRH8Z7mvGFgqqz1CA7bGCoQ=;
-	b=yC77sQaBlmmo4b7SixoP8v0ykVb8nEozZqjSpHaFK0Q0fFqDF87llv3DaPBzNzh5CWKXxE
-	8gosP/5itJsjOS62NqMDVHZ6RE8KHwU6Z6TD/DQLBDRiRDdTI6GbVTal3EcB41/okvGfzs
-	XYhpDE6XhOp3uEX3iDXLm00HlOVNL9U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792401363;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7yu3tr/XKjY08A8K99OkNRH8Z7mvGFgqqz1CA7bGCoQ=;
-	b=OXbTTu5bfXVm5PferY6twjbDiPg/4EpFJsGB4+Iw+QGZxYgpoXGqIFOBisjJhNvUhGnAuO
-	Hh+gTeNTZwQ1Z6AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ECE25134B3;
-	Mon, 19 Oct 2026 09:16:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 1ML/MNLf1WrwFAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 19 Oct 2026 09:16:02 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 772FAA1413; Mon, 19 Oct 2026 11:16:02 +0200 (CEST)
-Date: Mon, 19 Oct 2026 11:16:02 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linuxppc-dev@lists.ozlabs.org, 
-	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-media@vger.kernel.org, wine-devel@list.winehq.org, 
-	linux-xfs@vger.kernel.org, io-uring@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] file: simplify and harden cleanup handling
-Message-ID: <p4eitjefwpwhfouwhmvxmelxl3yncv3vjdi7wsgu7rna2zorqd@rlvbcpzcpbid>
-References: <20260917-work-file-fd_prepare-v1-0-b87534ca49f3@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="hSnWZFTY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FJteu7339wXBphm9p6+UshGgOY6muR/ZtbZwdmuMkfkSjWEq8FiwzeHjr/S6lH36VdGC5eUBCYrIMbq+a7G0WxjluyNQNA9o2TnmY1IXmSY8+wwKHUzTI/c+2YiDys111V1k2taQOj9UwlINbUj5ygU+CyqGfsN7opprfwadqq4dfTYrt+O2WMMTMcUy44QU7dqaO2O66mswh0MnuYvZTZftSlXaVNbNFW1m/ksozOXK7KMJ2WOSDdh3TweVJjdLbje9zPoDerhxgwztdf6aMQJbbLptXiLCol24G40FHEbfMn+/rdWR9RFtW0IaDU1QiK0z48W8vqNHWxM1Ac4/cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2rPCSCvcCGAu49FuaHTDjTF8Qb0AWinX0gnXKKcD3/8=;
+ b=DUumW9+c9gsDbn40Tsyee9v94Z2bQhrlv3/QukCpGOUUVaJXmLGSGOQ/QUlmNMUznUSs/k67Z1WN54cmK0uVsn9O/FimN8Cmc5HZAX7gBvp8q6uPT6L8EvmxVicTzr2epi/RnjmHguNLLVN/Y/NRNpaiUHZVhxT78cft4ht5JrRiuD0LAg5u77UheWHMetCskYX1hOZUhdHEXJBf0CCEuVR0M72BEJFmXF1Y9IojBFFIgg8fqvc0s6o1g6wG2PfRTKxUZT3tKGvGlfOEJMx03nCmdVBziFLMxpD8T8V4cjRl5D7/sV735JUkkwP37NnA8ir6mln9oWIk7y3H0ZMVqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2rPCSCvcCGAu49FuaHTDjTF8Qb0AWinX0gnXKKcD3/8=;
+ b=hSnWZFTYUztmMimyyYZC1YEevZ4GogZD+HpAB6HgOABvfdnoimS75Z976l1r0Q5jI8iYHybEkNoZwtt7ASvevOI/q8VKPlxer1L5lnRCi9doK2buc3ux3v+2JWB6IPJd6hzrtNWkv7kI74dtR/97id4I0SmKXLc1hdk7n14JzNYa62l1Q3H3/IdxByaz7/yXuUCYW+bsiKACLnpmJvxeEtT/BHIFkW+thHcpWQLS3QrIb6L+qfOcl9LTBGMlRSwIJ08ZQWXxl3ynJduT3jRJtvQsqwo51b0sX2AMA/DQE40RB996p2m1n1pswJC7/kWsAj+BS/F8iyovUYvPMCo5hw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB9PR04MB9791.eurprd04.prod.outlook.com (2603:10a6:10:4ce::9)
+ by AS8PR04MB8676.eurprd04.prod.outlook.com (2603:10a6:20b:42b::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 09:54:51 +0000
+Received: from DB9PR04MB9791.eurprd04.prod.outlook.com
+ ([fe80::806a:199b:49ec:b4f3]) by DB9PR04MB9791.eurprd04.prod.outlook.com
+ ([fe80::806a:199b:49ec:b4f3%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 09:54:50 +0000
+Message-ID: <7b3e3de6-ed2c-417d-b26e-efc582be0ddf@oss.nxp.com>
+Date: Mon, 19 Oct 2026 17:54:41 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] media: amphion: handle core runtime resume failures
+To: Jiale Yao <yaojiale02@163.com>, Ming Qian <ming.qian@nxp.com>,
+ Zhou Peng <eagle.zhou@nxp.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261019082754.1806443-1-yaojiale02@163.com>
+ <20261019082754.1806443-2-yaojiale02@163.com>
+From: "Ming Qian(OSS)" <ming.qian@oss.nxp.com>
+In-Reply-To: <20261019082754.1806443-2-yaojiale02@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2P153CA0028.APCP153.PROD.OUTLOOK.COM (2603:1096:4:190::9)
+ To DB9PR04MB9791.eurprd04.prod.outlook.com (2603:10a6:10:4ce::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-work-file-fd_prepare-v1-0-b87534ca49f3@kernel.org>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 36E7721C13
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:email,suse.cz:dkim,suse.com:email];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR04MB9791:EE_|AS8PR04MB8676:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1cd1da0-e593-4efe-9bd5-08df2dc703d2
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|11063799006|4143699003|56012099006|261009223027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	etXu+cPpxj0tsRQzz6BVtNbJhU1NB8GVzeXXSindQnem4cd8ttVt7takcc9POt8vFclHPbqHSwMbyN3IsnGyz2PUcm1PLrDkyJjQQsYwQCgyOEMlKB0/wtYv94HrOHq420qPB9d331njzqh2rBipEYon/nFk9s4v3Qa3uuYTYyy9mHtaHMHyQOuIIOnzRy6Irw3Ig0yOeChFG8j9kuPcin8BQ5iBScta7vdMayEC+UhIcpAByIG2QEwjeFCA/ZG49Opg5n889dmTNOW1c1Yrd/YWB2UO7W/9YDuDZbuSQRuHQl3wFmasEJvopwWkfcDQX3vr9rS8WP27Bv526jblta3bRUkrh1rHJj5uFcf3fYUVRuh+Y2ltv/fMXsUSW2BUIbVNx+VESDJsrLdiXbIN6qng1+hLqjv0TJAlv715CfRxYSazbMBwdvAR8u5qRUTOtaWaw2hwOaoFu6zNA5LChrzS88F8HSOiPhUmRLFKauMl0pQ8c/Ziv8pOkeAdyk6bLAftu61sorgXiNa2eGYtqd7KiqbVIQP0RJHY56yKoGksdvOkcYHwBVzA2AYr536J2rvsAGznfYWaL9vr9SZZu6IOPcIlemUukbX0AMgUIb3Ihlagz0YNFE0iYRtt8KZiLdo73QFyXyjkfMFXh2eGjawYIi8U4TQrOaN44QDzzi0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR04MB9791.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(11063799006)(4143699003)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S21DcFlqZWE0MWZva3RiZ3ZBWjVZMGE2cUc2bjY0QSttdVNRellXYlQrbkg0?=
+ =?utf-8?B?K0tlRDZCeEtNUjN1eHVTQkFHNlFiR1ZkNS9RUGRtYStKUzdmS2pUbzZMSUQv?=
+ =?utf-8?B?UWNDRWh4NEwxU0xPY0NYcjFtR1pzdnM2NkFua3FwYWNqc1dpTG1zQjRVM1FQ?=
+ =?utf-8?B?aDgzZW1pQTBIYkMyYTJWU2tEcEUrWUFodnNGRm13M29FSWpkdG9Sa05WbWJa?=
+ =?utf-8?B?cjB0M0dScXQvcUtOWi90a29nR1A0MGVrc1RubUg1bHU0a3NHUWpTQ3lRSk9k?=
+ =?utf-8?B?aW80Ri82Tm9uZU83TzlOQTBpbTc0VkV4bWxGVVR0cFM2TnF5cVpZcEgrMzZY?=
+ =?utf-8?B?U3BNUXNrb2h2aE0yeFRBZWhKczFpYVFETUw5WU1UNUhzVHpKUU5acEFRa3R0?=
+ =?utf-8?B?T3BtT0M5UnpDV1laK2ZVaENIYVRrT29BMGV5ZGdIVnJSUy9YSGdNOXhpRjFZ?=
+ =?utf-8?B?WWFIMFIzNGl2TUlYamtOQ20rL2RKWjlMc01GRzVGYS94VWlVbDB5dmkrMkpu?=
+ =?utf-8?B?d3BPNUw3cGtTL2FBRHM0NFlmMEp1WFJPODJZT3VESDd1Z0ZCZ3MvSk8xYm15?=
+ =?utf-8?B?MzVwSnR6R0dTSGlFRTRaa1puOTZONnVYMUpQOFQzZEFNc2g2MytoMG9jaU9B?=
+ =?utf-8?B?eHpUZ0RnbmlMT0lXQlpjMUloT0gxUjA4alFoV1czVEx2RitMMDNxUDZkU25Z?=
+ =?utf-8?B?NG9aR29YL2lFcDIxV3RtbDlaa0l5dWthMStjeEZCeTNyaXNGa1M1SG5zOXJk?=
+ =?utf-8?B?UDdnY3Z5WlI2SXJtRHBqZ2l5bk5Sd3lPdjVuQ25Qd0pSbklsaGIzNGZhVlNN?=
+ =?utf-8?B?Y0JINFNNVEc0Vk5GYyt5WGQ0QXI1OFV3aFdqR3NNcVJMVjRTTWtaMmhCR1c4?=
+ =?utf-8?B?V1d4R3UxYW9KTEZSN1A3WEhGY3J4Vm9qWm5STGV5L0FON1N3ZmZ0dW4rL3Vm?=
+ =?utf-8?B?MXY5S3BwcWdJb0lpTUpxNVYrWEQvekRUbHdBRlZSSk5kbUV0Vmkvczk4bE5M?=
+ =?utf-8?B?TExTNFBicnAwWGtEV0VUUEJuTC9NSk5LQWw4MkNnYThlYklveU5oQllRL1F0?=
+ =?utf-8?B?alVMY1pycWh6YnFPRzFYekpreTZNcGEzOEh1U3dHZlZMRVk3UG0yaU9pcnZ3?=
+ =?utf-8?B?SkwxWGlIUmx6NnlsOWsvUTRGYUZ0NlgwTkJxaGJFZ0xiaG9LQlZ2Z1lDU2RI?=
+ =?utf-8?B?eUxibDAyTG1vanZNY0l6N1c2TUhPMFNQTUxXN3F5bm5HUFRJdTAwbUlPVEhi?=
+ =?utf-8?B?Zng3R05KQ3lRb1BSWGtLdUtLT01RelJIZHhKVjY4M0UyZ0Nob3VMUGlKOUhG?=
+ =?utf-8?B?SnpiUE5lVnYyRVZ6UVlVWWxzcDVCdmZQL3ZiaVN0OU5jbVhiNFpKbGI2YTlh?=
+ =?utf-8?B?VlllVGtpTVFwWHdla1hocUlqMVhFSmZWWW03blN6Nk04bEZzYm5RNFNqK3Zi?=
+ =?utf-8?B?cXNJZS84R3hWNUlwREl1ZmN4TjRZR2JoaUczU0duQ0JtazR2cElTOElrNElY?=
+ =?utf-8?B?UlpMQi9HOHRZdGlCZ3VtbEVxK2hBZFVBeDR0NFJWQW5xK1hXdUJ2NE94MERK?=
+ =?utf-8?B?NmRVaW4zaGxDVDFkWmluRXJKdlJEYmlyTWs0dTFHUWpvWmphb2IzYXBudGRF?=
+ =?utf-8?B?OS9ZUmlKVjU5TnBwTGREL3VIZ1poZUtXZ2hMK3Z5RHRxcGdWdkc1cFRMdjdQ?=
+ =?utf-8?B?WW1HVGhieEp4L3pyQndUSXFHVmpBVWJnQjJHNFY2UXZNMlQ5cFdrRHlQZXY3?=
+ =?utf-8?B?UDZsa1J2eUsxcHZqZ1FaNHM2YW5YMzRrWTdhKzdUaFZsKzNReTM1ekMvUTBw?=
+ =?utf-8?B?VXdKQUVNVnZRQVIwSzBZQVd0SEJYZWErTVNJYXZ1Znc0SzhXaHhuTzA3Q3Jq?=
+ =?utf-8?B?SVJ4NE4vMHJrYStGYUUvYnZsOTJ1TjJwZHJCMVhuQ1c0YzM1QzhYOGVBL1NV?=
+ =?utf-8?B?RElNYlRyN3JCNXNuY210VXpqV0hoSjlIZTRRMGlMbDN4Yk9IZlJkMXVkQ2RK?=
+ =?utf-8?B?a2ZjN2M3MlhnbGdVTithVmYwSm9uVithTEhIUVgydDZET1dZNnk4TTFHdDJF?=
+ =?utf-8?B?UE5PMkg4bXU1VVBQNGx3TW9xMkZwMjRJMHZNZ2xReVBWZVRyOG5KcnNwdmo3?=
+ =?utf-8?B?M1BYUWpKOEtxeFRKa1FLTWJTOXMyR2srZFErTjJKWHRkQmpqYk5kYWhtQ29P?=
+ =?utf-8?B?TTJQZkdVczFxWk40V1NtcWIwTGFnN2pEOWtkblg4K0p2WEdEMUNqVFdnVWZv?=
+ =?utf-8?B?UE9sT2FpdGJQbWlMbUFnV0pmUVhjaWU3SFNrSmNUOHYvdWU4eW9kZjBBUHdt?=
+ =?utf-8?B?c0NlVzgraEphRURxTDkyV2Z5QWRNZ1V6VXlWNjlVRkpIN2psbDlxZz09?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1cd1da0-e593-4efe-9bd5-08df2dc703d2
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR04MB9791.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 09:54:49.9644
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1J1jJ+OolSxOqyCPt1fIg/LTy0LtdA7RrPYhc0EChN6mHV7ZSo76Udfx4+ex4zV072geyVuxxRbu0dhxEQMRhw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8676
 
-On Thu 17-09-26 11:09:41, Christian Brauner wrote:
-> The cleanup guards rely on unnecessary infrastructure and make the code
-> more complicated to follow than it needs to be. Clean it up. Also shrink
-> the struct a bit and get rid of the unnecessary error variable. We can
-> just make this more ergonomic by using fdf->fd directly. Also expose the
-> struct itself as const and hide the actual underlying local variable
-> behind a UNIQUE_ID() named variable so we avoid risking shadow variables
-> and polluting callsites. Code generation wise the outcome is exactly the
-> same but simpler.
+
+
+On 10/19/2026 4:27 PM, Jiale Yao wrote:
+> The core request and resume paths continue with VPU state and hardware
+> access after pm_runtime_resume_and_get() fails. A failed runtime resume
+> leaves the device unavailable, so those accesses can fail and the later
+> runtime PM put does not match an acquired reference.
 > 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> Check the runtime resume result before accessing the VPU. Release the
+> core lock and return without touching the hardware when resume fails.
+> 
+> Signed-off-by: Jiale Yao <yaojiale02@163.com>
 
-I know I'm really late but FWIW this looks really great! I know this is in
-PR to Linus so feel free to ignore:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-;)
-								Honza
+Reviewed-by: Ming Qian <ming.qian@oss.nxp.com>
 
 > ---
-> Christian Brauner (4):
->       file: simplify FD_PREPARE()
->       file: declare the FD_PREPARE() variable with __cleanup() directly
->       cleanup: remove CLASS_INIT()
->       file: make struct fd_prepare const and kill its err field
+>   drivers/media/platform/amphion/vpu_core.c | 13 +++++++++++--
+>   1 file changed, 11 insertions(+), 2 deletions(-)
 > 
->  arch/powerpc/platforms/cell/spufs/inode.c |  12 +--
->  drivers/gpio/gpiolib-cdev.c               |  18 ++---
->  drivers/gpu/drm/msm/msm_perfcntr.c        |   4 +-
->  drivers/media/mc/mc-request.c             |   8 +-
->  drivers/misc/ntsync.c                     |   6 +-
->  fs/eventfd.c                              |   4 +-
->  fs/eventpoll.c                            |   6 +-
->  fs/file.c                                 |   8 +-
->  fs/namespace.c                            |  12 +--
->  fs/nsfs.c                                 |   4 +-
->  fs/xfs/xfs_handle.c                       |   6 +-
->  include/linux/cleanup.h                   |   7 --
->  include/linux/file.h                      | 130 +++++++++++-------------------
->  io_uring/mock_file.c                      |   8 +-
->  kernel/bpf/bpf_iter.c                     |   6 +-
->  kernel/bpf/token.c                        |   6 +-
->  mm/userfaultfd.c                          |   6 +-
->  net/core/scm.c                            |   8 +-
->  net/handshake/netlink.c                   |   8 +-
->  net/kcm/kcmsock.c                         |   6 +-
->  20 files changed, 117 insertions(+), 156 deletions(-)
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260917-work-file-fd_prepare-ea5966d68a95
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+> diff --git a/drivers/media/platform/amphion/vpu_core.c b/drivers/media/platform/amphion/vpu_core.c
+> index ad54f014d8..3d71442807 100644
+> --- a/drivers/media/platform/amphion/vpu_core.c
+> +++ b/drivers/media/platform/amphion/vpu_core.c
+> @@ -372,7 +372,12 @@ struct vpu_core *vpu_request_core(struct vpu_dev *vpu, enum vpu_core_type type)
+>   		goto exit;
+>   
+>   	mutex_lock(&core->lock);
+> -	pm_runtime_resume_and_get(core->dev);
+> +	ret = pm_runtime_resume_and_get(core->dev);
+> +	if (ret < 0) {
+> +		mutex_unlock(&core->lock);
+> +		core = NULL;
+> +		goto exit;
+> +	}
+>   
+>   	if (core->state == VPU_CORE_DEINIT) {
+>   		if (vpu_iface_get_power_state(core))
+> @@ -760,7 +765,11 @@ static int __maybe_unused vpu_core_resume(struct device *dev)
+>   	int ret = 0;
+>   
+>   	mutex_lock(&core->lock);
+> -	pm_runtime_resume_and_get(dev);
+> +	ret = pm_runtime_resume_and_get(dev);
+> +	if (ret < 0) {
+> +		mutex_unlock(&core->lock);
+> +		return ret;
+> +	}
+>   	vpu_core_get_vpu(core);
+>   
+>   	if (core->request_count) {
+
