@@ -1,174 +1,87 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D00366051;
-	Mon, 19 Oct 2026 10:27:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BB54D4889;
+	Mon, 19 Oct 2026 10:52:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792405635; cv=none; b=uzxo+QPbox/c7xEtN92p+Lhbisy63jJV+MwMOFFuKLtddeLCsLunKgX+XZLR2rgPZwaw96yzPYSPXZdgBS9pLtA5dP9o+L/Qt/7iHcjfTKuvxAt7XKZ7Fn83I8bNsby198H1+Jl+4DWT1UqjNqUlXKryLty4qnH3QN67v5LkI9w=
+	t=1792407138; cv=none; b=Fdd/EsCtgVasNEGqE0+yA1htacydy6zU7bL0bnFpHwF6DueyVm8AaSItr333n0LvjRav9DjqbY9W2IqQ3D6Og2W+fYrc2GbJ+lv6yWOg1uxS8LXzskdj3pdNfFTY3ivsx8caf3ITKkSHIGEi6rh1ooLgxK7uNa8zFz9KodSLdtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792405635; c=relaxed/simple;
-	bh=cR/xomwmk5T/1jM1P29yIVxS3/yP6t2DY/0clwv4ck0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qt2c/ZXTrjHTow2K4RPt7DGW6GynQb7xwiE+ynHZAVzq1ahz2qrFCBHSm/OdW+zY8i3Q5yCwksrBpr1bSyVB3Axbc5mjUK11OhUCK5t09YsqipkoKWNEcznZvtFJ6o7RgpT2GKPyGNB0Z672thzara7dAbKIoU3exJwlV2oK7Mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=BQTaAApg; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1792407138; c=relaxed/simple;
+	bh=Hxp2++n9jy0Mww15Vrj2nGeoAUS/RjLlS4lkY2wGWIw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VP1SXIbp8rT4hkO566REXmW8w4rk2LOYRjkgRNmmizRz3o1fbjPwGyjxMJvlVkq36+P36JKKNDAgqWnbVcr2ZPKWxh9Hyctcmu2hL8/sfc3ht5Znht1GmoUq0uHyGhgKJE0MuQHGOgLJ21KOVULlyvK3xWnrTqKzA5/911V45Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i2qkGeEw; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="BQTaAApg"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E4B21593;
-	Mon, 19 Oct 2026 12:25:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792405506;
-	bh=cR/xomwmk5T/1jM1P29yIVxS3/yP6t2DY/0clwv4ck0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BQTaAApgl3WLI787CTFKZflc0h2mco2yWFul+hNWgQRkhyI2Bwbh7jv/TOFj5wuix
-	 ZWC8CuYE0u5cSc7LBaW1KWUw7f/pdypWc/r4/YRgzP2Cii0KEhZYNjjxkrHX9n7M4X
-	 7f/lDJ9XnWapQ0MLAw7FRFApW7utVn0RGMZpb3r0=
-Message-ID: <039c518a-8c9c-4090-abbc-1546038bb6f5@ideasonboard.com>
-Date: Mon, 19 Oct 2026 11:27:08 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i2qkGeEw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792407136; x=1823943136;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Hxp2++n9jy0Mww15Vrj2nGeoAUS/RjLlS4lkY2wGWIw=;
+  b=i2qkGeEw59Anp5D0oH7C7Rfy9GYv8qWrRiWpc+eEKzky1e+Wg/r3CeyN
+   axq+yvU4UNoBsAy+d6OvFQijSP7J8OpnHHWXpM9+JFsg8RAb3GWpWVH2A
+   oGj4s424Sd+rh/Rd1FFD4pU93N9oZPG5YuSIbzj5a6SzDrfhYbmbC+rw7
+   u+MMDn4Gf9xCvejnj+Zi3UQKdNSVPo2lTA2iBQ/dJUAZc9R2PXVbDcEur
+   ZobLdorau0zTcEoXp+VRGdGi2vdLO3mYgGkXofsxTJxBPrpoVO+SlDe/G
+   HCrKQR+/TdbyKgj+EBt3QGb2Z0mplTXCHg/FYwPtgxtMV6vUcKubbysyJ
+   w==;
+X-CSE-ConnectionGUID: dva0R0FhTZqapw7zscF3Nw==
+X-CSE-MsgGUID: UofvVRrDSAy7K3drmoUzXQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1072084"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1072084"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:52:15 -0700
+X-CSE-ConnectionGUID: OY4BlSePSSWzDZRAwZP9zQ==
+X-CSE-MsgGUID: ZfTqTQe6Qv2XPj9CVwsujA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2396626"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.209])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 03:52:12 -0700
+Date: Mon, 19 Oct 2026 13:52:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Hans de Goede <johannes.goede@oss.qualcomm.com>
+Cc: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Alexander Patrakov <patrakov@gmail.com>,
+	Leif Skunberg <diamondback@cohunt.app>,
+	Sahan Nissanka <adee.sahan@gmail.com>, linux-media@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 4/5] platform/x86: int3472: Rename avdd_second_sensor to
+ power_enable_second_sensor
+Message-ID: <atX2WURXaHBPVtcO@ashevche-desk.local>
+References: <20261016141716.130220-1-johannes.goede@oss.qualcomm.com>
+ <20261016141716.130220-5-johannes.goede@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] media: ov05c10: Support full range of power rails
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andy@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Antti Laakso <antti.laakso@linux.intel.com>
-Cc: Alexander Patrakov <patrakov@gmail.com>,
- Leif Skunberg <diamondback@cohunt.app>, Sahan Nissanka
- <adee.sahan@gmail.com>, linux-media@vger.kernel.org,
- platform-driver-x86@vger.kernel.org
-References: <20261016141716.130220-1-johannes.goede@oss.qualcomm.com>
- <20261016141716.130220-2-johannes.goede@oss.qualcomm.com>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20261016141716.130220-2-johannes.goede@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016141716.130220-5-johannes.goede@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Morning Hans, thanks for the series (and the legwork in untangling everything last week)
+On Fri, Oct 16, 2026 at 04:17:15PM +0200, Hans de Goede wrote:
+> The avdd_second_sensor quirk is for when a GPIO with the power-enable type
+> is shared between sensors. Sofar power-enable happened to be mapped to
+> a "avdd" regulator. But that is going to change in future patches, rename
+> the quirk to better reflect what it actually is for.
 
-On 16/10/2026 15:17, Hans de Goede wrote:
-> Add support for the full standard set of power rails for Omnivision
-> sensors: "dovdd", "avdd" and "dvdd", using the regulator_bulk_* APIs to
-> manage to regulators.
-> 
-> Previously the driver only supported avdd, but depending on the design
-> some of the other power rails may need to be controlled by the sensor
-> driver too.
-> 
-> This is a prep patch for some INT3472 GPIO -> regulator mapping changes,
-> which require sensor drivers to support all 3 rails to avoid regressions.
-> 
-> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> ---
->   drivers/media/i2c/ov05c10.c | 32 +++++++++++++++++++++++---------
->   1 file changed, 23 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov05c10.c b/drivers/media/i2c/ov05c10.c
-> index 8fe4dc0d9405..f94752dc626f 100644
-> --- a/drivers/media/i2c/ov05c10.c
-> +++ b/drivers/media/i2c/ov05c10.c
-> @@ -7,6 +7,7 @@
->   #include <linux/i2c.h>
->   #include <linux/module.h>
->   #include <linux/pm_runtime.h>
-> +#include <linux/regulator/consumer.h>
->   #include <linux/regmap.h>
->   #include <media/v4l2-cci.h>
->   #include <media/v4l2-ctrls.h>
-> @@ -279,6 +280,12 @@ static const struct ov05c10_mode supported_modes[] = {
->   	},
->   };
->   
-> +static const char * const ov05c10_supply_names[] = {
-> +	"dovdd",	/* Digital I/O power */
-> +	"avdd",		/* Analog power */
-> +	"dvdd",		/* Digital core power */
-> +};
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-I don't have the datasheet to verify the supplies but it certainly matches the norm and the 
-remainder of the patch looks good, so:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-
-> +
->   struct ov05c10 {
->   	struct v4l2_subdev sd;
->   	struct media_pad pad;
-> @@ -291,8 +298,8 @@ struct ov05c10 {
->   	struct regmap *regmap;
->   	unsigned long link_freq_bitmap;
->   
-> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov05c10_supply_names)];
->   	struct clk *img_clk;
-> -	struct regulator *avdd;
->   	struct gpio_desc *reset;
->   	bool identified;
->   };
-> @@ -753,16 +760,20 @@ static int ov05c10_get_pm_resources(struct device *dev)
->   {
->   	struct v4l2_subdev *sd = dev_get_drvdata(dev);
->   	struct ov05c10 *ov05c10 = to_ov05c10(sd);
-> +	int ret;
->   
->   	ov05c10->img_clk = devm_v4l2_sensor_clk_get(dev, NULL);
->   	if (IS_ERR(ov05c10->img_clk))
->   		return dev_err_probe(dev, PTR_ERR(ov05c10->img_clk),
->   				     "failed to get imaging clock\n");
->   
-> -	ov05c10->avdd = devm_regulator_get(dev, "avdd");
-> -	if (IS_ERR(ov05c10->avdd))
-> -		return dev_err_probe(dev, PTR_ERR(ov05c10->avdd),
-> -				     "failed to get avdd regulator\n");
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(ov05c10_supply_names); i++)
-> +		ov05c10->supplies[i].supply = ov05c10_supply_names[i];
-> +
-> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ov05c10_supply_names),
-> +				      ov05c10->supplies);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
->   
->   	ov05c10->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
->   	if (IS_ERR(ov05c10->reset))
-> @@ -778,7 +789,8 @@ static int ov05c10_power_off(struct device *dev)
->   	struct ov05c10 *ov05c10 = to_ov05c10(sd);
->   
->   	gpiod_set_value_cansleep(ov05c10->reset, 1);
-> -	regulator_disable(ov05c10->avdd);
-> +	regulator_bulk_disable(ARRAY_SIZE(ov05c10_supply_names),
-> +			       ov05c10->supplies);
->   	clk_disable_unprepare(ov05c10->img_clk);
->   
->   	return 0;
-> @@ -796,9 +808,10 @@ static int ov05c10_power_on(struct device *dev)
->   		return ret;
->   	}
->   
-> -	ret = regulator_enable(ov05c10->avdd);
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov05c10_supply_names),
-> +				    ov05c10->supplies);
->   	if (ret < 0) {
-> -		dev_err(dev, "failed to enable avdd: %d", ret);
-> +		dev_err(dev, "failed to enable regulators: %d", ret);
->   		goto err_clk_disable_unprepare;
->   	}
->   
-> @@ -821,7 +834,8 @@ static int ov05c10_power_on(struct device *dev)
->   
->   err_power_off:
->   	gpiod_set_value_cansleep(ov05c10->reset, 1);
-> -	regulator_disable(ov05c10->avdd);
-> +	regulator_bulk_disable(ARRAY_SIZE(ov05c10_supply_names),
-> +			       ov05c10->supplies);
->   
->   err_clk_disable_unprepare:
->   	clk_disable_unprepare(ov05c10->img_clk);
 
