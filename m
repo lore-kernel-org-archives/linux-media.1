@@ -1,105 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792434289;
-	b=ewiUZ7LyeiNATZWWKkirs9sxExXkbEqCcKswqXJVfbRBvr1+lYaFUT1tf3DMTGQSwmgi
-	 uhbPCvqOc0eGIJKCNepFt1HEnzqiSNY3P+k4sV5chFPvhuqgt6/nmkLFRlU6v53phXANd
-	 KImLeHHm8Dlf6PG7CYU/Gr/IJuL2Sqfp3G+dODwS/3lhyXwUo3Y+ELKMbAc6dtO7Hwatk
-	 8Sy7Ry7lwkTdoh9K2XRt7QXHJjw6W9TmUncXs6qTPwZZ1zJFgtERA5fPIW1HEcQMDGP/g
-	 KWcJlhc2KCafhoX5hemyohLVqAktbmK2Et5dYx4OaI3iV9/lbvm0j+EKj/RTZCL+xYQ==
+	t=1792434710;
+	b=BOudDe/TnJZCb+EslJuhlT+hBUvBL+mrvc/oQ9Y6u3zpHnvvGYOfh+plCW8sL2p9zHKg
+	 5Od+F9xDcizv5Pu8VoOV0NLPwpRIW25EommqizmkIFAE7K433RP43x/+6XkdLllfhU4LY
+	 cNlKtiXpkU/kj+3u7QP7nYIplpVxY2ruyu1lt/hVGMO8ezzgyA1ovAEQr6QmAyK9B56+p
+	 oixEkVMi32UIIZmaXID5ey9bCbiAHciAHBuyhHn+kY3MPuKF/vKmoHBzrShuDZlITYdnM
+	 oIt/GT1sndeTDUcrHkRjDzjKCOxBcMhZSOKVvhYtEdIGCuXD6eBMiCF8UIPjCEO5HKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792434289;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
-	b=5BBOtnWs0U/YSGTmfBEJ6BN2uFhU0Y+ElTBOBpp2wAllcgafghXEL264H2Xk9j5uR049
-	 mHFw6LeJWMaU/gzTZgaBICmZcu6Lm/M/9grIqHHQRZl2E5EB9TZGboGQSCGIF9iqyoy4P
-	 GRj5Rtyp0Ukw69dIYCesjF+qTDhqYjjFs8qBxj6hgnn5iho3jvwrrwy8lDHoq26FfaJR0
-	 7sDNAhhU7yRmwWxcueON7GIVzH68J9HSkuJA4FK2Y7su1RgZB6Xta2Wqswqlx2D4mVld7
-	 may/kpS3RVxnFti0pRmo7TRFggP0zvkjlQ4Sd8UAzmTT78fsOarcsE2+9YAuqZUD3tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434710;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=4rAOC3LWU4D+fpQNfeaCciHvlznoy08mvb2nzwLCzJo=;
+	b=MKdfx0wvs5f4WjCEf6x97Y2ONgABVff4kr9EwmlXZ8pJCvcWpY0g7lXUltvvEgFMUGo+
+	 RR3PQWRbi0uxjpRVOKPU/UWXoeUUt3RCxjRkGn5us0CSNBQaCGNvvPnTr850zct6ldc+9
+	 EOgja+pWYNr2C248PhAeRRsbhSy3jOFm+s7kfR+B/JERtxAmFPn7cpz7XYucANSQ70X1G
+	 DPe/aO8OT6ht9PNSbHrcy7sJXgMIfnQvyAKAHib6rlKsCDwtdxNH6mPNBl46Ad0s4Pu54
+	 zInNGKpKhtH15Xb+KyL5+jfsOuass4n6YQ2O/PX3Vpf3DslaX26cxPgEh081f7i35Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AAEQoXKH;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwmrRe58;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99734606A31F
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 18:24:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99734606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47595606A31B;
+	Mon, 19 Oct 2026 18:31:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AAEQoXKH
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so18487975e9.1
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 11:24:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792434288; x=1793039088; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
-        b=AAEQoXKHc4qVf2HIjiQ8hLWltD/WNmxMWjj8qt5UwN5hy1+/yKrcck/VhWskWsunqF
-         yo0007HiGPNS/iWFOfPU+uMkVzFV0mVFotObqlrQ2gGZ1h5uzaOtd/PZAvrllk3OKRkO
-         H0N/htnBfc9Th6zrFhkmNfUNHTOSduebN3AKmub6tijY53xDOZwxBXoXLyJnUkvACQu2
-         z8f9zH3xplsg9qACQcCSLXriJf66GOnJZb4HrOCvyTuUJ1c+zEEZw8pWQy+Xje2QmB3o
-         isUsgzbXIR3XQwRcpIrTdp+wNcw0rWutNAbNpJR7cLXoOL/M1OBQW7JSRiSMfkm4wo1d
-         nkyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792434288; x=1793039088;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
-        b=pr5iZ7ijiXmSIwfGJV+xLAGKtakL56UEqT8e0Lrc3y3t/DLMqdwDIqV6vVbS7EDpoj
-         xtnt9oGqCMV54ePcrAbNB3nF6skn0zm4thORRzSwgjuN2IwUFUu80Egwh685/ZcyJSVM
-         sGGoUcjDVIEJzfXu2CUWA1O8UAfNy1m1s2LDkknOJRWqURq1lSLHSNNsnWMjQVXvFqfE
-         qgMhPYzujluxCRDo1rUqtgRCRtESKievA2E3eFma94MYu6g4Pey0e5Y3Huf/6xb73pGM
-         ALu4BkgIj6HPfkVp0aae6wOhz+QSyJSh0aPwp8pY4QJ+lQRhZz0pJg7wtQqz12z9iIDi
-         77FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQm3Ogpwm76wGV2EUzQZd7zfxEdcodzK0wSklKSIXQdJoAiej6csHADtCMsoKMpUCYcnx4x5bV1WBPPw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhmuvTRxH60OCF5C2ZjAnc4qSX0z786goIGvLhm+q0nwVougfI
-	T/34CB+BZnR2Vse7uXbR4yu3sjlqYQIDPXNPKVfxNpPX/tiquEKsGa5j
-X-Gm-Gg: AYBFou3Yugm1mBDI2CpFdd0M6wjze6iqKY3P2i4UTqHS3PMU1Xwag8/AfxkMWnpJ6ii
-	Wdx+N4l2hhsWL6X2p6dgGzOPCIGU3pT/NEkib9QeJLWsebOCDcD0/OKbK1mZH9NlrSj3oUu3sik
-	Wl552VWZdSn3Q4N7QogNnvE64x3B5PmVnDDJSVl2eB51S5D0H3BEs8rOCivypGHggc0dDl1lGKX
-	WCl0mDNd22M2UqzxZhoCC2QQ3Tao5Enlc5U8OLuJKg5cCyxZ4AODmu4Rin/cPV4JPh6uYnPJSh5
-	c/9xFSK0l2HLB4T+9B+43bzUupri3wYFF2/1qQrjdCl+huZS4jaLYAgWYnGjdUWM9lFnAJE0eZ7
-	heBeDYqFubM9nVl/G0GIp2aBFHgicTWk4AKkL81+rXnTpcdfHfU1EG74TM5Kw5R3/CfDpmsoPnA
-	6Chj03E+McZSlPF4VFnZzC6IPdWZpk8USjOT48rpLXmz/t4wclKH2ZY/ZOvMomissc13VX1F/d2
-	1+rnNPZAcHLIw8y7bZfHf2MvZ87ANnrLRZPkQq+x8KFH22916YJHjaUDguYOxdMWVR9/MIcdMQ=
-X-Received: by 2002:a05:600c:4684:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a1d76001e9mr174049105e9.16.1792434287773;
-        Mon, 19 Oct 2026 11:24:47 -0700 (PDT)
-Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6db78csm613743f8f.2.2026.10.19.11.24.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 11:24:47 -0700 (PDT)
-From: George Neacsu <geocausa@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	Hao Yao <hao.yao@intel.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MwmrRe58
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4155E1F000C4;
+	Mon, 19 Oct 2026 18:31:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792434709;
+	bh=4rAOC3LWU4D+fpQNfeaCciHvlznoy08mvb2nzwLCzJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MwmrRe58qW5gCgNkDhEpNQo/Yx+4ojBXVll0Hyk2CndarxFJqPFTFeGH4qZb1TsXS
+	 KhKMozcdUezt4bP7B+WmMFDFOLZZ55yLKEQ3PjuuPtc9s8PbxHzUsfIPa8JFkpkRHq
+	 /DXTtrLoXtJiudJ4JtiJ1iP7LJNmLfMvnWCfUoJ+GofFK3fPnWO7sP8Na6qA0G1AQ1
+	 10S+4R1PMie5upWKasbG1GMCiYlveGNywqtt+ARhDDvDvJWX/gdNeih5Wh5zMY1VLl
+	 TFfzJlWteWb8hGT130uyLs6yvR7LcFEVY8GNc84iaio3CQmwMiGDjrbCB/1ZpLndiQ
+	 CmtpcX0zrz88Q==
+Date: Mon, 19 Oct 2026 21:31:46 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Ankit Agrawal <ankita@nvidia.com>
+Cc: Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Date: Mon, 19 Oct 2026 19:24:45 +0100
-Message-ID: <179243379000.31842.4735750009847702427@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261019162722.25587-3-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me>
+Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
+ freeing
+Message-ID: <20261019183146.GH64621@unreal>
+References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -109,40 +62,58 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
 
-On Mon, Oct 19, 2026 at 04:27:50PM +0000, Sergey Lebedev wrote:
-> The clock tree is computed from the input clock and the one link frequency
-> the endpoint gives, as in vd55g1. The MIPI rate must be an integer multiple
-> of the input clock, or the sensor would run at another one, so any other
-> link frequency fails probe.
+On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
+> From: Leon Romanovsky <leonro@nvidia.com>
+> 
+> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
+> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
+> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
+> map/unmap cycle.
+> 
+> Restore orig_nents from nents before freeing the table. The helper
+> allocates the DMA list directly, so nents retains the allocation count,
+> including for chained scatterlists.
+> 
+> 
+> The reported kmemleak output was:
+> 
+> KMEMLEAK LEAK: 2 driver-related leak(s)
+> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
+> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
+> KMEMLEAK LEAK:   hex dump (first 32 bytes):
+> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
+> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
+> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
+> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
+> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
+> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
+> KMEMLEAK LEAK:     0xffffffffa1ad21a8
+> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
+> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
+> KMEMLEAK LEAK:     0xffffffffa138f8d2
+> KMEMLEAK LEAK:     0xffffffffa1396abe
+> KMEMLEAK LEAK:     0xffffffffa1331a5f
+> KMEMLEAK LEAK:     0xffffffffa13320dd
+> KMEMLEAK LEAK:     0xffffffffa1ad696d
+> KMEMLEAK LEAK:     0xffffffffa1acecc7
+> KMEMLEAK LEAK:     0xffffffffa1acfd17
+> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
+> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
+> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
+> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
+> KMEMLEAK LEAK:   hex dump (first 32 bytes):
+> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
+> 
+> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> ---
+>  drivers/dma-buf/dma-buf-mapping.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Thank you for posting this. I tested v1 on the Snapdragon Surface Pro 11
-(X1E80100), where the endpoint is 420 MHz link frequency (840 Mbps) with
-a 19.2 MHz xclk.
-
-As posted, patch 2/4 fails probe at the integer-multiple check because
-840 MHz is not an integer multiple of 19.2 MHz.
-
-For a test only, I removed that rejection and left the rest of the driver
-unchanged. The sensor then probes, the CAMSS media graph completes, and
-capture delivers one complete 644x604 Y10 frame. A continuous five-frame
-capture then times out waiting for frame 2.
-
-The 1200-pixel line length below 900 Mbps is already present in this
-standalone driver, so this is not the earlier line-length issue. I also
-tried the ST one-lane OIF_CTRL value 0x81; the behaviour was unchanged.
-
-For comparison, Peter's generalized vd55g1 series, with the 1200-pixel
-line-length fix, streams continuously on this same machine with the same
-19.2 MHz xclk and nominal 840 Mbps endpoint setting. Whether the sensor
-internally rounds that rate is a separate question, but rejecting the
-configuration outright prevents this Snapdragon model from probing.
-
-There also appears to be a second difference to narrow down after the
-first frame. I'm continuing to bisect that and will report the exact
-cause/delta once I have it, so I can't give this a Tested-by yet.
-
-Best regards,
-George
+Reminder, thanks
