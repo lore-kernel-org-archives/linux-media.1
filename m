@@ -1,117 +1,215 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011021.outbound.protection.outlook.com [40.93.194.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A52219F121;
-	Mon, 19 Oct 2026 12:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413879; cv=none; b=P3tzu8Ym0/T4UDa0Pio5VhXmZJ9sFYp7a3J3UVBK4M54y1PX8tDlM0vZWvPA7mjHxaS+0tfiFzeBViuklrJ1Mh5cWZgkeTHiVuycLtTqdLCUbET3x0AkVui7mTlNb7JP4WQ2Ece7vDnqmMq9tflYqjPAKb7hQcvQ59QMg14Edq0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413879; c=relaxed/simple;
-	bh=NtAjh1G4ukJUomR9VlnElNvrY3MY7elt+Y6687H1Azg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E/npa3BOtsxjTsvE7ZTwPsFaNgZ5nMg3/d3hQQL2NURdyuAq3VP0WzWP4ZlQyMP6bTI18CH92YHuLWpWKlWnU21KnwPOZ2hXC5McNVxw4jP0+sJ2bvNhcxbY6zomW2/YPsLxWSs9CnMA3P4ZoCQkZI1mlTcg+zDj2M9FsYBO25M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=kJLPx6y6; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098804E4303
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 13:30:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792416640; cv=fail; b=bUNsAUjiS0txzR79qyWkH1MzGdw1Lxib4AdZiqFphHTI6ui9fq/n7g9bhyXS1OvZFZDLLeFsNoJM+edwKB5V0ppYKsB2E1OeVVgC8374TGQMgVhHyizCuNXXnviHcrwOZjJoMaahqs0jFdmz9o8hLcChDChq6b2U2JOzvNxRML8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792416640; c=relaxed/simple;
+	bh=k6En0omCiTfrGqjyajv2cHcx1olCo+cSUDeKOH+rp9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=ipyO+wctDSjf6/5I5bG9flE4yLePNZbkjifUpwB0G5T5xY3Ux4zPC696kwHmmN++qXprOtioKopXMT/BeeVkAKDRbEOX5cQXjNeeqidJ2dB4Zem4oktV/aZwCBEW13gPXThdLpyyl430qQdgmhIw/di02EwBcVXiGcnVezs5v0I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KC2SZNbp; arc=fail smtp.client-ip=40.93.194.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="kJLPx6y6"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 0AFC6593;
-	Mon, 19 Oct 2026 14:42:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792413749;
-	bh=NtAjh1G4ukJUomR9VlnElNvrY3MY7elt+Y6687H1Azg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=kJLPx6y6L6U6aoBJWEpcxJ5iwqaFl6fqBuR5Vc9jMPUfDuL+SgZbCRHqWv4YVdcht
-	 YlzLF0KmoD5shqk8EkxKW0ciqM5gJaS0+nMInEOMiYf1Zi/lxxdpPS/hC95u92/1vG
-	 nvutY5tEDTYt6YncJLwCQk3TxIlYzBc8PZu3L3Ow=
-Date: Mon, 19 Oct 2026 15:44:33 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Tomasz Stanislawski <t.stanislaws@samsung.com>,
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KC2SZNbp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fQok8YgV5j+OKF6Ci7UT+iN8QrTh5apdehfwVeUOjFXAlMBqKi5+2j6tB1Q+ia7tx85+zoabw4CSWCS3rwQdIVSehbkvSa9/YRX4uELRRcajWVsjmmThobQHooKQeiKEKiNMIS6kOHlwiUzJXG6Xc0ZSVkRd23YU6MO5q1UhbVIdKthZAkEtIkxvATF9TQ5br+kkzHFqqwyX3/y/rphA6ac654qIo2VUYj6BAUlX0qAU71mxQ8Vw2OxPXTOn9iHoRcrEUnbD4Z2QTwnPmeO8hwcjU0FvLiV9XY5Pec7IOdDz7p1hBB5fDulET+HpXTL5y9dqPYm9oCWRZLNQaNhodg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AMura7KhAwcQE6qvOHhFeuK3Wa5zveX2RDjrNCQilCI=;
+ b=i6wjxveBMI3LD2XaHdDHyUo+eqdLQUCxTwFBM0M//kTQdPDDWxWK6LyGJdCfCQvlqPiDH+X7m6NwYKrjslVr8zgklRycTSyIfTXyfkFAHqxAMpqyPvdklIWEUpt2scy5K8JbDz8dUt5CJIb6hZoRFcebDNwPOpKj5XO8p/Yil5W7bKdOkqoxdgd2lrSRZg6t34hPpdIeBEZQfgrEg0Us29StuxTyGBE/8Te0JmhrdGNJSYvnUb0uh6T6HbvVhTNCryNrTN4co7/7mj/W/7TeM9T+QcIZlEoMbDq5UA7i32DEYqMFrSt8sW/UjHvWT7re8pVfZeFMP44AhNFT/4Hp2g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AMura7KhAwcQE6qvOHhFeuK3Wa5zveX2RDjrNCQilCI=;
+ b=KC2SZNbpOxYuunwZJv9mcB9UzNKHZ9TGQ7wWoGur7HHXdwx5ttpzKNJjOyTU7hthTIEWATkqw4Z/9eDDaPcfW+PDWNd7UvcAwEXrBGpja919tUkB1u/r1rMNRJUnaK1Kpi+vtxdG0aUGNQtVWHyqqClxr1GbYBQkZW4Daria+h9BOOPGQW3gr+Yd5g94nkK+Qyrrrnf68bboA8VuiLno0OH67xDp8P4HYVBOCoyBqUQA5+wZwceT0w3PcC2amcF4sp80/f4ay+Amf/cZwZLMQRyUEHe/7L3uehk1j03QY5CAE8g8FxrpB6e+kmPMM7wBb+LO8epeFrQzxm9UwSxRCQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12) by CY8PR12MB7635.namprd12.prod.outlook.com
+ (2603:10b6:930:9e::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
+ 2026 13:30:33 +0000
+Received: from CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
+ ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
+ 13:30:32 +0000
+Date: Mon, 19 Oct 2026 10:30:31 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Alistair Popple <apopple@nvidia.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Dongwon Kim <dongwon.kim@intel.com>,
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>,
+	Leon Romanovsky <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org,
+	linux-media@vger.kernel.org,
+	Matthew Brost <matthew.brost@intel.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
-Message-ID: <20261019124433.GU595565@killaraus.ideasonboard.com>
-References: <cover.1792392288.git.kmehltretter@gmail.com>
+	Vivek Kasireddy <vivek.kasireddy@intel.com>
+Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
+Message-ID: <20261019133031.GQ13920@nvidia.com>
+References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+ <20261016202653.97339-1-kmehltretter@gmail.com>
+ <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
+ <8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com>
+X-ClientProxiedBy: YT4PR01CA0356.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:fc::21) To CHBPR12MB731189.namprd12.prod.outlook.com
+ (2603:10b6:610:33d::12)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <cover.1792392288.git.kmehltretter@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|CY8PR12MB7635:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7b7b91a-bf65-4d03-da74-08df2de5262d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|23010399003|1800799024|10067099003|56012099006|3023799007|22082099003|18002099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	P0kBZaLR3bFRE4/cBszKlj0eDmolF+m6MneElE4qYTHrHg57FM5NKNjTVACscUChvwR2p2+sOt3G0LQuJqeiOXd8Ea2Z8Lu3yaTGxgoUZBw1kffSNWuiouTHG5Kf3gAD0EX+nRP2dHCpR/wouvMOVkoZApS0UObgYYFiBA3rGMZklYjBhlvDSVAGw8ohobC2yFbPXMwXJOYwfiYKlvAxqIy9Oj52AwoUhYNeKIbljfhJD4Iw009KtKclfHhtJTJsMP8V2e9kbdzhEctEjfQ+Vka2UqPa7For8peLnJphph71ivz6J80VkGAktn9vL0sQgM0fsm7TUu89wtReN5gxj7gLeHlrhtxEZikLGtQXmF+B1dLvlYBm2PQrHHYpDyQzyKVTzSso3vt/PqMcTcWENMCT+yzPA7//TUbLySbGA5uIYkkgVe/XO1nwuJp5DH6LdfmKmCYsPXxjT3TVVDVu79bWZ3laleFV1jRoqiJnKDR7hdyfPGtYIVPOaGUTKCxNNQnLkJNhoO+9XGhd1gj2BftQ3od3M6MK8itSbTfzn0dXvmsDU6Si8+GZARQczKvfgsTDuyIeTdgn680l+IaFV/d9pAncVzhY2tBxPqhnJJV4NuH1eZE3PN+eshaBeURwk65x66Vl4xUwB6bwNTp4KVdWMFpv7Mw+dmDoLVTqd5c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZllqZjQ5akkyL3ZOK0FENnpIQXFCaTc0VHFxdDU4SjF2amdaa0d0RjBXVGhm?=
+ =?utf-8?B?VlpoTHdrVS81WnZhYVUxSXgvNzE2bzBBSUZGb0dKSE82OUZEWDZoaU9ubHhW?=
+ =?utf-8?B?VzZJL1lmZkUzSHIxdnFCdmxLbHZ5U2RhRTFYVnRSZlRCZUJ6c0lvTlF5Sk9G?=
+ =?utf-8?B?dFNCQUhIdm5aOWFJaDNpQytpRmFuM1l0WDZIWStqZDNxYnoxV0xCckp1ekFL?=
+ =?utf-8?B?cS9NU3o1NCt3ZTFleEdSQUtDNFltQUlIV1p5Yjd1bzhsUE5NVGVDK0Q5ejlY?=
+ =?utf-8?B?S2N3Wm1mUnRJdVdGZ0lzaGRqbFo4VEN1UnB0MVRVSU9iZmZ0VnY0K2Q2T1ZG?=
+ =?utf-8?B?ZG9UaE1IQnphUjZ5NHh2L0JINVdrOEZJTGFpeXF3aGE0Q0JoaFh6OFMzOTha?=
+ =?utf-8?B?M1ZvdHJuT3dSNWVTc0kyMFUxcW91WDR5UWQvRk9mcHBSUS9SbUZ5a0tMaGVG?=
+ =?utf-8?B?ekU4NFNHcjZpNnBiSWhxTDZ2N1RqRVA4amNydk1DVExQQWdERnBnMVMza25C?=
+ =?utf-8?B?WmZHMFE5d3ZGWWJPNHI3ZjZnOFpvZG1pcGp6RjZhc2ZkYkp3Z3NVWWtNcjdT?=
+ =?utf-8?B?dVQzZ20wb3lLdmFaQS9jdGhYckxVY3BTaFhVSXB4bWYvU1hVZDlMcFFyUStz?=
+ =?utf-8?B?eTRESTFMNk9WcWdrVlE1VjJVTXVSY0w1TnlQQWJva05rUFp4amt1V2FZem1E?=
+ =?utf-8?B?WmFDdzhvcFRCUzRPV3JMazNKZDJ1R1g4cm5CZ0ZWUG5vVTNqeHN2cFBncnBs?=
+ =?utf-8?B?UU43aDg2TnFlYUtFSlZ5TVlndmNLZlZGcXJvU0FRTWN4cndtZTZCVDlRc0xJ?=
+ =?utf-8?B?UU05VUprV2lYUU52WW5GajlTeGJTazRDa0I0RW1Ha2ZYUlFZd1NnRHo1cmlO?=
+ =?utf-8?B?eW9Gb0czeDdqVXFMQ1MvbVJNdG1LVUIvOW9ORW9Ob1BBaC9QMUdxa1hnclk0?=
+ =?utf-8?B?QUVyNVUvU0dwdTVnRWNpeVNqaWtYSEcrSGZuVWNMSVhKdHd0QTNERGRnN0pv?=
+ =?utf-8?B?ZUJkcVpuZDMxSWdBWjZEandSSTNVTDIvWmR3SUNOallPTE9xOVdLK0NiR20v?=
+ =?utf-8?B?dG1sM3liQ0FtZ28rQXorcXVxYnpJYzhTeWNVWWRrSjdwMVVoUXNOSkVLMzU0?=
+ =?utf-8?B?VkIxTmFKT00remF1dmdneGlDUVVtMlM1OUs3ekYwa0pmWU9lbjFnQ3AyZDFH?=
+ =?utf-8?B?enVVV3l2ZTNnbnFhR2lqeWlPVFU5U2l6ZHd0djRNZnZYWE1wMmRaSUp3RjdD?=
+ =?utf-8?B?VHR2bm52TWhPclEySDJxSHk2TDlpclh5a0VNL0R2ZnFzR0dmdWxkanE2SFFF?=
+ =?utf-8?B?ZGtJb3ZYZm93OGF3RUFibTdBTmhJdHFDSVFHVElIdFd0RDlvbVI1ZXVRNGtn?=
+ =?utf-8?B?d0tINHArT1h4MVB1ZUkxNjVvSjhuVmZUcFRLSGNIVzJ0a21JU0RWSVMxVHEx?=
+ =?utf-8?B?Z3RIQ1IrL0x6U25hREdWVGd4T2Rjd2tGdWkvYktueXYwTTFidXQ4Z0JIOUlp?=
+ =?utf-8?B?TkFGL1ZTZENTSEZJZ0dSa3NLRTE3S3pZYUM2Kzl1QW9GdjBGdEZHSzBGMkxm?=
+ =?utf-8?B?MUxSdEdvakJrbUwySXhDd3JBS0gvcXJ5d1d5TFJseTlMNUdPMnF2S3plOXFW?=
+ =?utf-8?B?RVhRY0hOSnladlRJNUkzaUZwNDgvVlJPS0V5RlUvV09QcmwzUGFPMktUdTR0?=
+ =?utf-8?B?eWgzbXhIRE5LdXF6VEtObTlQREV5UVZhbU16QytFdzVFOXBKbWJWazdtSHNa?=
+ =?utf-8?B?QkthaVdEcWI3WVlLYzd5S1ZaRDZ0T2NTWmJmczhBL0tWcGtudEY4eTMxOWVG?=
+ =?utf-8?B?MXp5QnBNQ0dkTFBobEp3VGpKUHcwWjQ5cHpCdW9aTGd2OTFoYXpNcXljV3Ji?=
+ =?utf-8?B?T0NheExZdHY3L1laOVFxYkw2WjFHWnduMnpuMnZQTHJkRjkzSVQ0eDVIYXpQ?=
+ =?utf-8?B?VnIvVzJMZzJpdDdmQkxJU3ZxdG93cWhOaThHTkJwUUp1V1RueVhTbE5lRnFH?=
+ =?utf-8?B?Q0g2c0JRL2RUQTV4OTJuR3AyQmJPKzF6dTNnTEZjN0F0N21DQ1hwQm44Nmw2?=
+ =?utf-8?B?NXNpc3ByaThFRGVFU1NEYitYem5KKzEvUHhWbnEra0lJRGhTTStmQm9pZFJV?=
+ =?utf-8?B?VUtnZUxTdXhqOEY1MXdKdjZza0lrTmRlaHE2QU5Lbm5kdUhrWVNoemhiMmlE?=
+ =?utf-8?B?UzFTT3NRR2xXNEJUaXpZdGNYNWJIbG5IZzRmaDF5dmNRZmROUDFUNVpuSmF1?=
+ =?utf-8?B?cTBwVUVJREFTa2NzQ3dpRTdNWm9ZUm50S0Q1Wk44WGdZV3lJREkyVURkSk5n?=
+ =?utf-8?Q?72KBPASQQnXI3tnNTW?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7b7b91a-bf65-4d03-da74-08df2de5262d
+X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 13:30:32.2333
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EPt9jIk1wCCK77GmPOp9AqBhtr+FlFjYrcmtuoH8LGt4K1Wvt25POVRXRthL3K2s
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7635
 
-On Mon, Oct 19, 2026 at 09:14:07AM +0200, Karl Mehltretter wrote:
-> UVC and vivid access imported DMA-BUFs with the CPU without cache
-> synchronization. On a Pi 400, captured data remained in the CPU cache
-> while physical RAM was stale.
+On Mon, Oct 19, 2026 at 02:43:29PM +0200, Thomas Hellström wrote:
+> On Mon, 2026-10-19 at 10:35 +0200, Christian König wrote:
+> > On 10/16/26 22:26, Karl Mehltretter wrote:
+> > > On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe wrote:
+> > > > +	match_args.attach = attach;
+> > > > +	if (dmabuf->ops->match_mapping) {
+> > > > +		ret = dmabuf->ops->match_mapping(&match_args);
+> > > > +	}
+> > > > +
+> > > >  	attach->dmabuf = dmabuf;
+> > > >  	attach->importer_ops = importer_ops;
+> > > >  	attach->importer_priv = importer_priv;
+> > > 
+> > > I may misunderstand the intended contract. match_mapping() runs
+> > > while the
+> > > attachment is still zeroed and without dmabuf->resv held.
+> > > 
+> > > Patch 11's amdgpu callback needs importer_ops and importer_priv, so
+> > > its XGMI
+> > > match cannot work here. Patch 12's VFIO callback asserts dmabuf-
+> > > >resv and
+> > > reads priv->vdev, which cleanup changes under that lock.
+> > > 
+> > > Should the core initialize the attachment and hold dmabuf->resv for
+> > > match_mapping(), or should callbacks avoid attachment and lock-
+> > > protected
+> > > state?
+> > 
+> > Right. This completely misplaced.
+> > 
+> > The matching can't be done at attachment time, but rather needs to be
+> > done before creating a mapping while holding the resv lock so that
+> > the matching decision can't change.
 > 
-> Add an opt-in queue flag to bracket CPU access from buf_prepare() through
-> buf_finish(). The allocator cannot imply CPU use because some vb2-vmalloc
-> drivers pass buffers to hardware. Patch 1 balances finish operations in
-> VIDIOC_REMOVE_BUFS so removing prepared buffers closes this interval.
+> So question is what exactly should the contract be?
+> Looking at the pcie_p2p negotiation today it looks somewhat like.
+> 
+> 1) Importer and exporter agree at attach time what mappings are allowed
+> pending placement conditions and other attachers.
+> 2) At map-time the mapping is negotiated taking all constraints into
+> account.
+> 3) The negotiated mapping is valid until an invalidate_mappings()
+> callback is received.
+> 
+> Following this would allow a re-implementation of pcie_p2p as a mapping
+> type and would allow a controlled link-severing to send an
+> invalidate_mappings() notifier and the mappings to be re-negotiated.
+> 
+> Importers requiring an early hint as to what the actual mapping would
+> look like would need to be prepared to re-consider at map-time, with a
+> reasonable assumption that the reconsideration and re-mapping would
+> happen seldom enough.
 
-This seems completely wrong.
+The idea was the supported mapping types are fixed properties of the
+importer and exporter.
 
-> This follows the per-queue flag proposed here:
-> https://lists.openwall.net/linux-kernel/2024/06/20/236
-> 
-> Based on Linux 7.3. Tests cover the same code on these earlier bases:
-> 
-> - Pi 400, 7.3-rc4, all four patches: eight 640x480 YUYV frames per run,
->   imported CMA DMA-BUFs with a DRM device mapping:
-> 
->   Path                          Runs   Stale frames
->   UVC, vb2-vmalloc               12        0/96
->   vivid, vb2-vmalloc             12        0/96
->   vivid, vb2-dma-contig          12        0/96
-> 
->   All six lifecycle cases passed with both vivid allocators. Read-only
->   output USERPTR passed. The test added no warnings or failed CPU-access
->   callbacks. A control without the DRM mapping found 4/16 stale frames.
-> 
-> - SAM9X75 (ARMv5), 6.18 backport of all four patches: the baseline
->   PREPARE_BUF/REMOVE_BUFS imbalance was fixed. USERPTR and six lifecycle
->   cases passed. All 128 vivid and 96 UVC frames matched RAM, with 100/100
->   begin/end calls. The baseline was already coherent.
-> 
-> - BeagleV Ahead (RISC-V), 7.3-rc7, patches 1, 2 and 4: read-only USERPTR,
->   six traced lifecycle cases and 60 repeats passed with balanced callbacks
->   and no kernel diagnostics. A vendor 5.10 backport of patches 2 and 3
->   captured 96 UVC frames without stale data, with 100/100 begin/end calls.
->   Its baseline was already coherent.
-> 
-> Karl Mehltretter (4):
->   media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
->   media: videobuf2: add opt-in DMA-BUF CPU access
->   media: uvcvideo: synchronize imported DMA-BUFs for CPU access
->   media: vivid: synchronize imported DMA-BUFs for CPU access
-> 
->  .../media/common/videobuf2/videobuf2-core.c   | 96 ++++++++++++++++++-
->  .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
->  .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
->  .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
->  drivers/media/test-drivers/vivid/vivid-core.c |  1 +
->  drivers/media/usb/uvc/uvc_queue.c             |  1 +
->  include/media/videobuf2-core.h                | 12 ++-
->  7 files changed, 116 insertions(+), 9 deletions(-)
-> 
-> 
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+Like iommufd is not suddenly going to start understanding ualink after
+an invalidation.
 
--- 
-Regards,
+Further, I had the (perhaps naive) expectation that the interconnect
+option was not something that would change during mapping. I did not
+think you would loose your PCIe option if ualink becomes available, or
+vice versa. Though on deeper reflection I suppose someone could build
+HW so you might loose your ualink option if the dmabuf is moved to
+system memory while PCIe would still work.
 
-Laurent Pinchart
+Making the decision right before map seems like a reasonable
+enhancement, but I can no longer remember off hand if that would cause
+complications :)
+
+Jason
