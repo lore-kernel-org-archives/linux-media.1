@@ -1,148 +1,139 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BF34E3EF6;
-	Mon, 19 Oct 2026 12:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68057283FC4
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 12:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792413498; cv=none; b=LE8qXL+EjynKTeWtQVv1RWMxs3fvTd3kFpkdgut1pL+Fazn7sERGuXLTPgcT7KbsgI2uwgjqAMRBJDdVuLD+W8I0988RgEdKOs42c1kVNS6jHdMPwxXJ0aVuX2yqlE3Im29RxZvGy5IcZJXHFXfFNoCmn4B/ddPp1FNjVENJtYY=
+	t=1792413816; cv=none; b=IiuaFjFxg/CQ7qPoBQtl33KtBDoXeF0V59zeNaGh8CkbD46acw2UnzX0ZypwJXS+R4SKR6HHwMJ2xwRXaswoHlgvlhDDft72+jrWWiNTkhcc2grobUmgG0qia+k44wURxrqOk0rb9CuTYu9UuBctFGZuxHbXveeUQ8qt6KWllEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792413498; c=relaxed/simple;
-	bh=TO/S6KVK1H7HpELPgxH3S44B16HHp3OoVjLk9zaUKJs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XXvL+iWg82w+pcAbFNLLhsdvAcWKGK1ukwuwZQ6c/B3YvzX+MALKZfpY8Bq6H54ZcMicuLGosAmSXUpjliBKfpv2g7WXOTQeeU9ppT4Oh8/NtUcqUvjZkT7LXNEAotWoP0vUy0dKHqZ7f0Pm+OKDbfm7uozsiMsigc65aE+EBL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dHfz2xgH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1792413816; c=relaxed/simple;
+	bh=238uZAb8Xby9vgq722b7Q+enZtERPQOtoIL6OY7D3AE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fC9zRGQqtrb+blxvBErCVtF9vlDa/q5hu3ND3B0tkEM1kMh/q7017CKgKge3x438mpQYnmPK1tKPIR/CoYuLcMz1KVeT/WnUbUDJ/tiPk10ep6xDj99jw63EE8GZYfpoKSl2FoYiNVAXjLddaYU6HYb/o3AB74rj5J8dsAT5mnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ACqZDARd; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dHfz2xgH"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 35C1E593;
-	Mon, 19 Oct 2026 14:35:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792413359;
-	bh=TO/S6KVK1H7HpELPgxH3S44B16HHp3OoVjLk9zaUKJs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dHfz2xgHLpUYLWRmQd8nQSwek3OE3kZ+MXgAnj7KZMPlZTuEfKXdL53wGT/GTLRgd
-	 ovdzwgrFgx2H3EPdTHQnIHVN+CMJMrH2lrjI5c275MYAEB9wtWmv8YeOGTPw0qlHZ6
-	 NzLLjX0JMCYvFc/vZMLgyt5Qh2T9pFE+xmUxQctg=
-Date: Mon, 19 Oct 2026 15:38:03 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans de Goede <hansg@kernel.org>
-Cc: =?utf-8?B?0JrQvtC90YHRgtCw0L3RgtC40L0g0J7RgdGC0LDRiNC+0LI=?= <ostashow@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
- SVBONY SV105C
-Message-ID: <20261019123803.GA855235@killaraus.ideasonboard.com>
-References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
- <20261019111712.GP595565@killaraus.ideasonboard.com>
- <449eb143-37a8-4044-a071-63fe495c0213@kernel.org>
- <20261019112726.GR595565@killaraus.ideasonboard.com>
- <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
- <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ACqZDARd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792413815; x=1823949815;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=238uZAb8Xby9vgq722b7Q+enZtERPQOtoIL6OY7D3AE=;
+  b=ACqZDARd2XwG8fzVgwwSO+DDCxhI8hU2/XIVJPWDCYuDOBaNM3E/qnxj
+   dqh98M1kL97yGBNwhU8ugOguJsxk/x6F704ICJln+XYQwKXhPzEug2/32
+   KxrzgFrTQt9k/WjIsTRdGj3+T6bEDxMMWB/eO3YncRjMbAmYUzCVuS01R
+   oaoSVSApgSv0kBBx9J8TK9d7aeNvEMeTG+o7S8vRhDRLp0YHD01K1G/oQ
+   uyuQRvp1QIJ1mumuahpOz7rcxr6068xQTK8idd2IH5eRMns4k37AGTy/+
+   9+BBsJIEwPJ4hK0QxurzAWihOcvqgR1NOq3gnUZ8eXpZVo/8xN9naYjfx
+   A==;
+X-CSE-ConnectionGUID: eXsD1YmDQHGs9jFHMCKuVg==
+X-CSE-MsgGUID: gBj2hMo0S3abcowc6LnyFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11939"; a="1094066"
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="1094066"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 05:43:35 -0700
+X-CSE-ConnectionGUID: S3iMLuh3RcmBMkb6/mvuVQ==
+X-CSE-MsgGUID: Zy3Lz4VLRX2BAPtjuNm+OA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,167,1787036400"; 
+   d="scan'208";a="2891613"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com (HELO [10.245.244.14]) ([10.245.244.14])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Oct 2026 05:43:32 -0700
+Message-ID: <8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com>
+Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Karl
+ Mehltretter <kmehltretter@gmail.com>, Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>, Dongwon Kim
+ <dongwon.kim@intel.com>, 	dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, 	iommu@lists.linux.dev, Kevin Tian
+ <kevin.tian@intel.com>, Leon Romanovsky	 <leonro@nvidia.com>,
+ linaro-mm-sig@lists.linaro.org, 	linux-media@vger.kernel.org, Matthew Brost
+ <matthew.brost@intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Vivek Kasireddy	
+ <vivek.kasireddy@intel.com>
+Date: Mon, 19 Oct 2026 14:43:29 +0200
+In-Reply-To: <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
+References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+	 <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+	 <20261016202653.97339-1-kmehltretter@gmail.com>
+	 <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org>
 
-On Mon, Oct 19, 2026 at 02:33:11PM +0200, Hans de Goede wrote:
-> On 19-Oct-26 1:58 PM, Константин Осташов wrote:
-> > On Mon, Oct 19, 2026 at 02:27:26PM +0300, Laurent Pinchart wrote:
-> >> On Mon, Oct 19, 2026 at 01:21:49PM +0200, Hans de Goede wrote:
-> >>> On 19-Oct-26 1:17 PM, Laurent Pinchart wrote:
-> >>>> What does Windows do differently then ?
-> >>>
-> >>> I guess Windows always has a short-delay of at least one USB frame-time
-> >>> between the VS_COMMIT and SET_INTERFACE. I think we should simply add
-> >>> a flseep(1000) before the set_interface instead of adding a quirk for
-> >>> this.
-> >>
-> >> The commit message says it doesn't help, but I can't tell if that can be
-> >> trusted.
-> > 
-> > Fair point. I have measured both sides again.
-> > 
-> > Windows 11, AMD xHCI, camera on a root port, 120 stream starts with
-> > ffmpeg/DirectShow (MJPEG 1920x1080, and YUYV 1920x1080 for 5 of them),
-> > captured with USBPcap and an ETW trace of USBXHCI/UCX/USBHUB3:
-> > 
-> > - The requests are the same as on Linux: PROBE GET_CUR, SET_CUR,
-> >   GET_CUR, GET_MAX, GET_MIN, SET_CUR, GET_CUR, then a 26 byte COMMIT,
-> >   then SET_INTERFACE alt 6. There is nothing else in between.
-> > - The SET_INTERFACE URB is submitted 22 us after the COMMIT completes.
-> >   The xHCI driver first runs a Configure Endpoint command (3 ms), then
-> >   queues the control transfer. That puts about 3 ms between the two
-> >   requests.
-> 
-> When you say "then queurs the control transfer", you mean the control
-> transfer for the SET_INTERFACE, right ?
-> 
-> I wonder if the problem is that Linux is missing this Configure Endpoint
-> command ?
-> 
-> > - The control transfer completes successfully after 263 ms, every time
-> >   (402 ms for YUYV 1920x1080). In a 100 start run, the ETW trace shows
-> >   exactly 10 control transfers on the camera's EP0 per start (8 for
-> >   probe/commit and 2 for SET_INTERFACE alt 6/alt 0). There was no
-> >   Reset Endpoint command, and every xHCI command completed with Success.
-> >   Windows does not see an error and does not retry. 0 failures out of
-> >   120.
-> > 
-> > Linux 6.18, Raspberry Pi 4 (VL805 xHCI, camera behind the VL805's
-> > internal USB 2.0 hub). I added an fsleep() right before
-> > usb_set_interface() in uvc_video_start_transfer() and checked the
-> > resulting gap in usbmon. 20 starts per value, MJPEG 1920x1080, auto
-> > exposure:
-> > >   fsleep()   COMMIT -> SET_INTERFACE (usbmon)   first SET_INTERFACE -EPROTO
-> >   none          0.35 -   0.90 ms                 1/20
-> >   1 ms          1.53 -   1.84 ms                 2/20
-> >   5 ms          5.42 -   7.26 ms                 6/20
-> >   20 ms        20.4  -  26.4  ms                 3/20
-> >   100 ms      100.7  - 108.1  ms                 5/20
-> >   300 ms      319.5  - 325.2  ms                 1/20
-> > 
-> > So a delay does not help, even one longer than the time the device
-> > takes to complete the request.
-> > 
-> > The timing differs between failure and success. A failing
-> > SET_INTERFACE completes with -EPROTO about 1 ms after it is submitted.
-> > A successful one, whether the first attempt or the retry, takes about
-> > 260 ms, the same as on Windows. My guess is that the device starts
-> > reconfiguring right after the SETUP stage and sometimes fails to
-> > answer the status stage for a few microframes before it starts
-> > NAKing. The VL805 then reports a transaction error. I have no bus
-> > analyzer to confirm this.
-> > 
-> > I also need to correct the commit message: the failure rate is not a
-> > stable 80%. Today it was between 0% and 50% per series of 10 to 20
-> > starts, with auto exposure failing more often than manual exposure.
-> > The retry always succeeded on the first attempt.
-> > 
-> > With 0 out of 120 on Windows against roughly 15% per start on the Pi,
-> > the difference is real. I can't tell yet whether it comes from the OS
-> > or from the host controller. I haven't tested the camera with Linux
-> > on a non-VL805 controller. I can do that before a v2 if it would help.
-> 
-> Have you tried reproducing this on a different XHCI controller then
-> the one found in the Raspberry Pi 4 ?
+On Mon, 2026-10-19 at 10:35 +0200, Christian K=C3=B6nig wrote:
+> On 10/16/26 22:26, Karl Mehltretter wrote:
+> > On Tue, Feb 17, 2026 at 08:11:34PM -0400, Jason Gunthorpe wrote:
+> > > +	match_args.attach =3D attach;
+> > > +	if (dmabuf->ops->match_mapping) {
+> > > +		ret =3D dmabuf->ops->match_mapping(&match_args);
+> > > +	}
+> > > +
+> > > =C2=A0	attach->dmabuf =3D dmabuf;
+> > > =C2=A0	attach->importer_ops =3D importer_ops;
+> > > =C2=A0	attach->importer_priv =3D importer_priv;
+> >=20
+> > I may misunderstand the intended contract. match_mapping() runs
+> > while the
+> > attachment is still zeroed and without dmabuf->resv held.
+> >=20
+> > Patch 11's amdgpu callback needs importer_ops and importer_priv, so
+> > its XGMI
+> > match cannot work here. Patch 12's VFIO callback asserts dmabuf-
+> > >resv and
+> > reads priv->vdev, which cleanup changes under that lock.
+> >=20
+> > Should the core initialize the attachment and hold dmabuf->resv for
+> > match_mapping(), or should callbacks avoid attachment and lock-
+> > protected
+> > state?
+>=20
+> Right. This completely misplaced.
+>=20
+> The matching can't be done at attachment time, but rather needs to be
+> done before creating a mapping while holding the resv lock so that
+> the matching decision can't change.
 
-In particular the same one as the system running windows.
+So question is what exactly should the contract be?
+Looking at the pcie_p2p negotiation today it looks somewhat like.
 
-> I wonder if this problem
-> is specific to the VL805 xHCI controller.
-> 
-> Likewise have you tried reproducing this under Windows with an USB2.0
-> hub in between ?
+1) Importer and exporter agree at attach time what mappings are allowed
+pending placement conditions and other attachers.
+2) At map-time the mapping is negotiated taking all constraints into
+account.
+3) The negotiated mapping is valid until an invalidate_mappings()
+callback is received.
 
--- 
-Regards,
+Following this would allow a re-implementation of pcie_p2p as a mapping
+type and would allow a controlled link-severing to send an
+invalidate_mappings() notifier and the mappings to be re-negotiated.
 
-Laurent Pinchart
+Importers requiring an early hint as to what the actual mapping would
+look like would need to be prepared to re-consider at map-time, with a
+reasonable assumption that the reconsideration and re-mapping would
+happen seldom enough.
+
+Thanks,
+Thomas
+
+
+
+>=20
+> Regards,
+> Christian.
+>=20
+> >=20
+> > Thanks,
+> > Karl
