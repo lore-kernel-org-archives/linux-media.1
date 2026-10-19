@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC043572E8C;
-	Mon, 19 Oct 2026 13:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C1B58110D;
+	Mon, 19 Oct 2026 13:58:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418300; cv=none; b=V5f9bIO4gmiAQMERfQ+UPNeCieD//GXPBIWnVu4JsrccG2iwHS7WGS0KSfhieJWAdVy0UY5HJyRJ/fBP/lnxcarSr8Mwdk6GLCIhYmwponzCYXV6DH8maaXFj45Jh2Y/0/gZTI9TiMsF7qhy4AciolPKKxbFm6ftrOYNyeydjEE=
+	t=1792418326; cv=none; b=V2XZQj+qTqKvsVct1G9r8VLzjzlf4B5VrGrHmWtBF+xPbT3oexM2trH470DMME0tkoxL6YolEtpGxw50o0zABZtXjrexqQWy1o6DcSQaEGw5Kxy47+BjpY6bOySlXPa/oWRUd9Qw8gGToPIzPoqfrkW6RZS0b1plR30rIqoxjxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418300; c=relaxed/simple;
-	bh=rHlhK7BrYzJ2taWosO56xUgfj7J8FyLUJ/jEYcFEZLU=;
+	s=arc-20240116; t=1792418326; c=relaxed/simple;
+	bh=i0IlCIv7pyilbwZcnN+6XbhzW3Tg+4U2ngeMCrqt/ZQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=k85RkYdk8NVzYFDgFtPiT0AG3ygYPavzxRpBJovfOcP2wDZZkXmvJqreujA+teHkOhMO2btzvjBDlad4xdMXxWhpqPPsJfOThbBy0FHFc5U6dqSNCrBlGn8cUbXiUuvruOepjk5ZdmLfCgGW2t99PFVPPvX+q3IX8yV8zWPOKN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbKN14RI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Fpd0BqpvCg0L75K+GqTmV1xFzi2AVPQnBKy8nIeRIIzHm898KvCCeh97EyiqHMccfwbxNeWU3vnNy5HaHumvQgC93D5Bo3/OZP4E48X0+xuSsTkiYjtQTT4sXDQkeyPI+JYSqzZhp+Vk0pYTBTP3i09N0HLQyHVStOvKgV3J2vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdKfBQjO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbKN14RI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B5E1F000CA;
-	Mon, 19 Oct 2026 13:58:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdKfBQjO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C81F1F000C4;
+	Mon, 19 Oct 2026 13:58:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418297;
-	bh=Ex5NHql9fRsoG/YgsWMOdKOf3WuqmjPXcfJOdl+K4WY=;
+	s=k20260515; t=1792418323;
+	bh=woEF3Kbtoybbab/DTXcJXzNtcHi8tW3Ti0bDiIc7/9c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bbKN14RIEGNnV05ONjEeZj68PH8pdu319eCTmakGDHhob3xphJJxH+xABxfu2o5/Q
-	 dVE02xzwxXy8PPw81oiS1W8ePaP6/RAxZqQDz80mH+wUPco+8q5TecZqtrArjZjfNS
-	 wlQHxiSQK3qd48UKAXQ72UTODQGMzTBf9MXeD43sMVSKKcqKBJ+HgZgv5hHHOp1K+9
-	 yFVDqpc00dn7pVdTWOmk8kCnfkyzSsSt16XSqRLiWqP6jyoT6M8ckwLAQwWkC9fUvF
-	 ZdBEzRq9TLm5nN3inYXg7GEEOyCuIqg3/UpwdhtA/WPAygJO6gd5Go2UAzXRMMP8se
-	 ZqKclOuz+ObCA==
+	b=IdKfBQjOSIZlTFB0X6CC0cqPinLpTBzMWRN0B4o5aHqeprRqrBfAhLKmZ2cipTMs0
+	 myZvtd30wmFVRhs4IobZmGUMPPpRFXRxz1aGBWy5WGlkbjAOYaSe6c+2Q2Ml+M7MYd
+	 U8Mi+5CxamX2SXH03Gs9CBKgzLYZU1PCJHFmY1hB/Wxxm/0ewv+FGgK7DOvnH/Zvxj
+	 98VldMkavRwXkADiD/UROVsx2LJyO7D6ud0KXdpMGl5AvcdjAFmPsjrPzNKRt3SSGi
+	 LnRCR0PPYc7D3Rjq5aDtuxOr96/wh3god8N9LLkDBZY2BMRWLyjAqUQmPtwMAGHQwP
+	 CWAanD7Pea4Iw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Rituparna Warwatkar <rwarwatkar@gmail.com>,
-	syzbot+e9a1f5e196de6663631b@syzkaller.appspotmail.com,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	hverkuil@kernel.org,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: dvb-core: fix feed leak on failed DMX_ADD_PID
-Date: Mon, 19 Oct 2026 09:47:19 -0400
-Message-ID: <20261019135441.1420968-148-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: go7007: s2250: propagate control I/O failures
+Date: Mon, 19 Oct 2026 09:47:37 -0400
+Message-ID: <20261019135441.1420968-166-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,511 +54,467 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Rituparna Warwatkar <rwarwatkar@gmail.com>
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-[ Upstream commit 9fa26c971ca310dd10a3bc0014f2fc7ea7167bba ]
+[ Upstream commit 59dc14a6cb5ff1ae5ce2f6ebf51fe0139e1c0623 ]
 
-dvb_dmxdev_add_pid() allocates a new dmxdev_feed, links it into
-filter->feed.ts and, when the filter is already running, immediately
-starts the feed.
+The brightness and contrast paths use oldvalue after read_reg_fp()
+without checking whether the read succeeded.  A failed read leaves
+oldvalue uninitialized and can write arbitrary reserved register bits.
 
-If starting the feed fails, the newly allocated feed remains on the
-list. Subsequent restart and rollback paths may then operate on this
-stale entry, leaving feed resources allocated and causing leaks in
-drivers that allocate resources from ->start_feed() and release them
-from ->stop_feed().
+Return read and write errors from every control path so failed hardware
+access cannot be reported as a successful control update.
 
-Remove the feed from the list and free it when
-dvb_dmxdev_start_feed() fails.
-
-Reported-by: syzbot+e9a1f5e196de6663631b@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=e9a1f5e196de6663631b
-Signed-off-by: Rituparna Warwatkar <rwarwatkar@gmail.com>
-Link: https://patch.msgid.link/20260714141059.63582-1-rwarwatkar@gmail.com
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Message-ID: <20260714141059.63582-1-rwarwatkar@gmail.com>
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-The local checkout is mainline **7.3.0-rc4**. The change is a small,
-syzbot-confirmed feed leak in `dvb_dmxdev_add_pid()`, present since
-2009, and it belongs in this tree.
+The local tree is mainline **7.3.0-rc4**. The Sensoray 2250 control path
+is present here, and the change is a small, real error-path fix: a
+failed `read_reg_fp()` left `oldvalue` uninitialized and could program
+reserved VPX322 bits while still reporting success to V4L2.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+## Phase 1: Commit message forensics
 
-**Step 1.1: PARSE THE SUBJECT LINE**
+**Step 1.1: Subject line**
+Record: **[media/go7007/s2250] [propagate] Return control I/O errors so
+brightness/contrast do not use an uninitialized register image**
 
-Record: **[media/dvb-core] [fix] feed leak on failed DMX_ADD_PID**
-
-- Subsystem: `media: dvb-core:`
-- Action verb: **fix** (explicit bug fix)
-- Claimed intent: stop leaking a `dmxdev_feed` when `DMX_ADD_PID` fails
-  to start a already-running filter
-
-**Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-
+**Step 1.2: Tags**
 Record:
-- **Reported-by:** syzbot+e9a1f5e196de6663631b@syzkaller.appspotmail.com
-  (fuzzer-found, reproducible)
-- **Closes:**
-  https://syzkaller.appspot.com/bug?extid=e9a1f5e196de6663631b
-- **Signed-off-by:** Rituparna Warwatkar (author)
-- **Link:**
-  https://patch.msgid.link/20260714141059.63582-1-rwarwatkar@gmail.com
-- **Signed-off-by:** Mauro Carvalho Chehab (media maintainer, committer)
-- **Message-ID:** `<20260714141059.63582-1-rwarwatkar@gmail.com>`
-- **No Fixes:** tag (expected for this review pipeline)
-- **No Cc: stable** (expected)
-- **No Reviewed-by / Tested-by / Acked-by**
-- Sasha Levin SOB: not present on this commit (ignored per instructions
-  anyway)
+- **Signed-off-by:** Yousef Alhouseen (author)
+- **Signed-off-by:** Hans Verkuil (media/GO7007 maintainer; applied the
+  patch)
+- **No** Fixes, Reported-by, Tested-by, Reviewed-by, Acked-by, Link, or
+  Cc: stable (absence of Fixes/Cc stable is expected for this review)
+- Not a syzbot report; not a kernel test robot report
 
-Notable pattern: syzbot report + media maintainer SOB.
-
-**Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-
+**Step 1.3: Body**
 Record:
-- **Bug:** `dvb_dmxdev_add_pid()` allocates a `dmxdev_feed`, links it
-  onto `filter->feed.ts`, then (if the filter is already
-  `DMXDEV_STATE_GO`) calls `dvb_dmxdev_start_feed()`. On start failure
-  the object stays on the list.
-- **Symptom:** leaked feed objects and leaked driver resources allocated
-  in `->start_feed()` and meant to be released in `->stop_feed()`.
-- **Failure mode:** resource leak; subsequent restart/rollback walks the
-  stale list entry.
-- **Version info:** none in the message. History shows the pattern dates
-  to 2009.
-- **Root cause (author):** missing `list_del` + `kfree` on the
-  `dvb_dmxdev_start_feed()` error path.
+- **Bug:** brightness/contrast call `read_reg_fp()` then use `oldvalue`
+  without checking the read.
+- **Symptom:** a failed read leaves `oldvalue` uninitialized; the
+  following write can poke **arbitrary reserved register bits**. Failed
+  I/O is still reported as a successful control update.
+- **Version info:** none in the message. Commit `59dc14a6cb5ff` was
+  applied 2026-07-27 and is an ancestor of `v7.3-rc1` (this checkout is
+  `v7.3-rc4-27-gf0100363d8c37`). It is **not** an ancestor of `v7.2`.
+- **Root cause (author):** missing error checks on FP register
+  read/write in `s2250_s_ctrl()`.
 
-**Step 1.4: DETECT HIDDEN BUG FIXES**
+**Step 1.4: Hidden bug fix?**
+Record: **Yes, and it is not hidden.** The subject uses “propagate”
+rather than “fix”, but the body is an uninitialized-use / false-success
+bug. Saturation/hue changes are the same class: swallow write errors and
+return 0.
 
-Record: **Not disguised.** This is an explicit error-path leak fix
-(syzbot memory leak). Not a cleanup/refactor.
+## Phase 2: Diff analysis
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
-
-**Step 2.1: INVENTORY THE CHANGES**
-
+**Step 2.1: Inventory**
 Record:
-- **File:** `drivers/media/dvb-core/dmxdev.c` (+9 / −2; net +7)
-- **Function:** `dvb_dmxdev_add_pid()` only
-- **Scope:** single-file surgical error-path fix
+- **File:** `drivers/media/usb/go7007/s2250-board.c` — **+33 / −21** (54
+  lines with context; under the 100-line stable cap)
+- **Function:** `s2250_s_ctrl()` only
+- **Scope:** single-file surgical fix
 
-**Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
+**Step 2.2: Code flow**
+Record (before → after), all in `s2250_s_ctrl()`:
 
+- **Brightness / contrast:** `read_reg_fp()` / `write_reg_fp()` results
+  ignored; always `break` then `return 0` → each call’s return is
+  checked; first failure is returned; last write’s status is returned.
+- **Saturation / hue:** write ignored, `return 0` → `return
+  write_reg_fp(...)`.
+- **Normal path:** unchanged when I/O succeeds (still RMW reserved bits,
+  then write `0x140`).
+- **Error path:** now fails the V4L2 set instead of committing a fake
+  success.
+
+**Step 2.3: Bug mechanism**
+Record: **Uninitialized data + ignored I/O errors (logic/correctness).**
+
+Verified in this tree: `read_reg_fp()` writes `*val` only after a
+successful USB vendor request:
+
+```249:286:drivers/media/usb/go7007/s2250-board.c
+static int read_reg_fp(struct i2c_client *client, u16 addr, u16 *val)
+{
+        // ...
+        if (go == NULL)
+                return -ENODEV;
+        if (go->status == STATUS_SHUTDOWN)
+                return -EBUSY;
+        // kzalloc / mutex_lock_interruptible / usb_control_msg failures
+        // all return without *val = ...
+        *val = (buf[0] << 8) | buf[1];
+        kfree(buf);
+        return 0;
+}
+```
+
+`write_reg_fp()` likewise returns 0 or a negative errno, never a
+positive byte count, so `if (ret)` is equivalent to `if (ret < 0)`.
+
+On a failed read, `oldvalue` is stack garbage. The write is `ctrl->val |
+(oldvalue & ~0xff)` (brightness) or `... & ~0x3f` (contrast), so
+reserved bits come from that garbage.
+
+**Step 2.4: Fix quality**
+Record: **Obviously correct and minimal.** No API/data-structure change.
+Regression risk is low: VIDIOC_S_CTRL that used to return 0 on hardware
+failure now returns the errno. That is the intended V4L2 behavior
+(`try_or_set_cluster()` only copies new values after `s_ctrl` succeeds).
+Partial updates if a later write fails were already possible; the patch
+does not add locking or new control IDs.
+
+## Phase 3: Git history
+
+**Step 3.1: Blame**
 Record:
-- **Before:** if `filter->state >= DMXDEV_STATE_GO`, return
-  `dvb_dmxdev_start_feed(...)` directly. On failure the feed is already
-  on `filter->feed.ts` and is never unlinked or freed.
-- **After:** capture the return value; on `ret < 0`,
-  `list_del(&feed->next)`, `kfree(feed)`, then return the error. Success
-  path still returns 0.
-- **Path affected:** error path of `DMX_ADD_PID` while a PES filter is
-  already running. Normal success path unchanged.
+- Unchecked `read_reg_fp()` + `oldvalue` RMW: **05d76f2da1e5cc**
+  (“s2250: subdev conversion”, 2009; contained in **v2.6.33-rc1**)
+- Driver itself: **b11869dbb6cc4** (v2.6.29-rc1 era staging)
+- Control-framework conversion: **d3b2ccd9e307ea** (2013) kept the same
+  ignore-errors pattern
+- Bug is old, not recent churn
 
-**Step 2.3: IDENTIFY THE BUG MECHANISM**
+**Step 3.2: Fixes: tag**
+Record: **None.** No Fixes SHA to follow. The buggy pattern is the 2009
+subdev conversion, not a recent regression.
 
+**Step 3.3: File history**
+Record: Recent `s2250-board.c` work is i2c probe conversions and a probe
+leak fix, not a series this patch depends on. **Standalone.** Same-day
+sibling by the same author: `41f82777e5477` (“avoid undefined shifts in
+MPEG-4 headers”) — different file (`go7007-driver` MPEG path), not a
+prerequisite.
+
+**Step 3.4: Author**
+Record: Yousef Alhouseen is not the subsystem maintainer. Two
+media/go7007 correctness patches on 2026-06-30; Hans Verkuil applied
+both. Maintainer SOB is a positive quality signal.
+
+**Step 3.5: Dependencies**
+Record: **None.** Uses existing `read_reg_fp()` / `write_reg_fp()` and
+`s2250_s_ctrl()`. **Applies standalone.**
+
+## Phase 4: Mailing list / external
+
+**Step 4.1:**
 Record:
-- **Category:** error-path resource leak, with a follow-on NULL deref /
-  UAF on close/stop
-- **Mechanism:** `list_add()` happens before start. `list_add()` inserts
-  at the **head**. `dvb_dmxdev_start_feed()` sets `feed->ts = NULL` then
-  may fail in `allocate_ts_feed()` (ts stays NULL) or fail after
-  `release_ts_feed()` (ts dangling). `dvb_dmxdev_feed_stop()` /
-  `dvb_dmxdev_filter_stop()` then walk the list and call
-  `feed->ts->stop_filtering(feed->ts)` without a NULL check. Close
-  (`dvb_dmxdev_filter_free`) always calls those stop/reset paths.
-  Because the stale feed is at the head, stop hits it first and never
-  stops the original live feed — matching the syzbot vidtv `start_feed`
-  leak (mux/PSI objects never destroyed). `dvb_dmxdev_remove_pid()` also
-  skips entries with `feed->ts == NULL`, so userspace cannot recover via
-  `DMX_REMOVE_PID`.
-- **Fix:** unlink and free the new feed if start fails, restoring the
-  list to the pre-ioctl state.
+- **b4 dig -c 59dc14a6cb5ff** → https://patch.msgid.link/20260630105015.
+  53932-1-alhouseenyousef@gmail.com
+- **b4 dig -a:** **v1 only** (committed diff matches v1)
+- **b4 dig -m:** thread is the patch mail only — **no replies, no NAK,
+  no Cc: stable**
+- lore.kernel.org HTTP fetches returned **403**; discussion content was
+  recovered via `b4`
 
-**Step 2.4: ASSESS THE FIX QUALITY**
+**Step 4.2:**
+Record: **b4 dig -w** recipients: Hans Verkuil, Mauro Chehab, linux-
+media, linux-kernel. Appropriate lists/maintainers. Hans’s SOB on the
+git commit is the review signal.
 
+**Step 4.3:**
+Record: **No bugzilla/syzbot/user report.** Finding is from code
+inspection.
+
+**Step 4.4:**
+Record: Standalone v1 patch, not part of a numbered series. Sibling
+MPEG-4 shift patch is independent.
+
+**Step 4.5:**
+Record: **UNVERIFIED** whether linux-stable ever discussed this
+(lore.kernel.org 403; no local hit on this file’s history besides the
+mainline commit).
+
+## Phase 5: Semantic / call graph
+
+**Step 5.1:**
+Record: Modified function: **`s2250_s_ctrl`**. Helpers used:
+`read_reg_fp`, `write_reg_fp`.
+
+**Step 5.2: Callers**
+Record: Wired as `s2250_ctrl_ops.s_ctrl`. Invoked from:
+- `try_or_set_cluster()` → `call_op(master, s_ctrl)` (`v4l2-ctrls-
+  core.c`)
+- `__v4l2_ctrl_handler_setup()` during control setup
+- Userspace: `v4l2_s_ctrl()` / `VIDIOC_S_CTRL` / `VIDIOC_S_EXT_CTRLS`
+
+**Step 5.3: Callees**
+Record: USB vendor requests via `go7007_usb_vendor_request()` →
+`usb_control_msg()`. Also `mutex_lock_interruptible()` (can return
+**-EINTR**).
+
+**Step 5.4: Reachability**
+Record: **Yes, from userspace** if `CONFIG_VIDEO_GO7007_USB_S2250_BOARD`
+is enabled and a Sensoray 2250/2251 is present. Realistic failure that
+still continues into the write: **EINTR on the read’s mutex**, then a
+successful write mutex — two separate `mutex_lock_interruptible()`
+calls. ENOMEM on the read’s `kzalloc` with a later successful write
+alloc is also possible. `STATUS_SHUTDOWN`/`go == NULL` fail both read
+and write before hardware access, so those paths do not program garbage.
+
+**Step 5.5: Similar patterns**
+Record: `s2250_s_std`, `s2250_set_fmt`, and `s2250_s_video_routing`
+still ignore `write_reg_fp()` results. This patch does not claim to fix
+those; they have no uninitialized `oldvalue`. Not a series dependency.
+
+semcode MCP: **not available**; used `git grep` / file reads.
+
+## Phase 6: This checkout
+
+**Step 6.1:**
 Record:
-- **Quality:** obviously correct. Mirrors the existing success-cleanup
-  in `dvb_dmxdev_remove_pid()` (`list_del` + `kfree`).
-  `dvb_dmxdev_start_feed()` already releases a partially allocated TS
-  feed on its own error paths, so this does not double-free driver TS
-  feeds.
-- **Minimal:** only the failure branch.
-- **Regression risk:** very low. Does not change locking, APIs, or
-  success behavior. A remaining unrelated weakness is that
-  `dvb_dmxdev_start_feed()` does not NULL `feed->ts` after
-  `release_ts_feed()` on set/start_filtering failure; this patch kfree’s
-  the wrapper so that dangling pointer is discarded.
+- Tree: **`v7.3-rc4-27-gf0100363d8c37`**, `make kernelversion` =
+  **7.3.0-rc4**
+- File and `s2250_s_ctrl()` **exist**
+- Buggy ignore-error RMW existed in this lineage from 2009 until
+  **59dc14a6cb5ff** (merged for **v7.3-rc1**)
+- Current `HEAD` source already contains the fixed function (commit is
+  an ancestor of `HEAD` and of `v7.3-rc4`)
+- Bug was **not** introduced after this tree; it is old. This 7.3
+  snapshot already includes the fix as a mainline merge, not as a stable
+  cherry-pick.
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+**Step 6.2:**
+Record: **Clean apply** to this file’s `s2250_s_ctrl()` shape (same
+switch, same register macros). No conflicting refactor in this tree.
 
-**Step 3.1: BLAME THE CHANGED LINES**
+**Step 6.3:**
+Record: No alternate fix for this `oldvalue` bug. Only this commit
+changes those checks.
 
+## Phase 7: Subsystem context
+
+**Step 7.1:**
+Record: **media / USB V4L2 driver** (`drivers/media/usb/go7007/`).
+**PERIPHERAL** — Sensoray 2250/2251 only
+(`CONFIG_VIDEO_GO7007_USB_S2250_BOARD`). Maintainer: Hans Verkuil,
+linux-media.
+
+**Step 7.2:**
+Record: File is mature/low-churn (last functional s2250 work before this
+was older i2c/probe fixes). Not a newly added subsystem.
+
+## Phase 8: Impact and risk
+
+**Step 8.1:**
+Record: **Driver-specific / config-specific**
+(`VIDEO_GO7007_USB_S2250_BOARD`). Not universal. Small user population
+(legacy USB MPEG capture box).
+
+**Step 8.2:**
 Record:
-- Buggy allocate/list_add/start pattern introduced in
-  **`1cb662a3144992`** (“V4L/DVB (12275): Add two new ioctls:
-  DMX_ADD_PID and DMX_REMOVE_PID”), Andreas Oberritter, 2009-07-14.
-- Contained in **v2.6.32-rc1**. Present in this tree and in every
-  current LTS.
-- Allocation line later became `kzalloc_obj` (`bf4afc53b77ae`, 2026);
-  this patch does not depend on that.
+- Trigger: `VIDIOC_S_CTRL` for brightness/contrast (and sat/hue for the
+  false-success half)
+- Common on a working device: **no** (happy path already initialized
+  `oldvalue`)
+- Realistic error: **signal interrupting the read lock**, USB control-
+  msg failure, or alloc failure
+- Unprivileged user with the video node can issue the ioctl
 
-**Step 3.2: FOLLOW THE FIXES: TAG**
-
-Record: **No Fixes: tag.** Not applicable. The introducing commit is
-identified via blame as `1cb662a3144992`, and `git merge-base --is-
-ancestor` is not needed for that SHA as a Fixes target; the buggy
-function is in this checkout.
-
-**Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-
+**Step 8.3:**
 Record:
-- Recent `dmxdev.c` commits are unrelated (ringbuffer reopen,
-  kzalloc_obj conversion, vb2, mmap, UAF-on-release, etc.).
-- No later follow-up on this function: `git log 9fa26c971ca31..HEAD --
-  drivers/media/dvb-core/dmxdev.c` is empty.
-- **Standalone**, not patch X/Y.
+- **Failure mode:** uninitialized stack bits written into VPX322
+  reserved fields; V4L2 still treats the set as success and publishes
+  the new control value
+- **Not** an oops, deadlock, filesystem corruption, or a demonstrated
+  CVE
+- **Severity: MEDIUM** (hardware misprogramming + lying to userspace).
+  On shutdown-only failures, writes also fail first, so those are lower
+  impact.
 
-**Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-
-Record: Rituparna Warwatkar has this single commit under
-`drivers/media/` in this tree. Not a subsystem maintainer. **Mauro
-Carvalho Chehab** (media maintainer) committed it, which is the relevant
-trust signal.
-
-**Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-
-Record: **None.** Uses existing `list_del` / `kfree` /
-`dvb_dmxdev_start_feed()`. Applies on top of the 2009 function. The
-current `kzalloc_obj` line is **not** part of the hunk.
-
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
-
-**Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-
+**Step 8.4:**
 Record:
-- `b4 dig -c 9fa26c971ca31` →
-  https://patch.msgid.link/20260714141059.63582-1-rwarwatkar@gmail.com
-- `b4 dig -a`: **v1 only**, single patch, not a series
-- `b4 dig -m`: thread is **only the original submission**; no public
-  replies, NAKs, or reviewer-added `Cc: stable`
-- lore.kernel.org WebFetch returned **403**; discussion recovered from
-  the mbox instead
-- Applied as submitted by Mauro on 2026-07-27
+- **Benefit:** medium-low globally, high for the few users of this board
+  if a control set races with EINTR/USB error
+- **Risk:** **very low** (33 lines, error returns only, maintainer-
+  applied)
+- **Ratio:** favorable for a tiny correctness fix; the weak point is
+  “important issue” given niche hardware and no reports
 
-**Step 4.2: CHECK WHO REVIEWED THE PATCH**
+## Phase 9: Synthesis
 
-Record (`b4 dig -w`): To Mauro Carvalho Chehab; Cc linux-media, linux-
-kernel, syzbot. No extra reviewers. Maintainer applied it (SOB as
-committer).
+**Step 9.1: Evidence**
 
-**Step 4.3: SEARCH FOR THE BUG REPORT**
+**For backporting**
+- Verified uninitialized `oldvalue` when `read_reg_fp()` fails
+- Verified reserved-bit RMW from that garbage
+- Verified V4L2 commits the new value if `s_ctrl` returns 0
+- Realistic EINTR window (separate interruptible locks)
+- Small, obviously correct, maintainer SOB
+- No new API; under 100 lines
+- Driver and function exist in this tree
 
-Record (syzkaller, fetched successfully):
-- Title: **memory leak in vidtv_psi_registration_desc_init**
-- Status: upstream reported, **C repro**
-- Labels: **prio:high**
-- Fix commit listed: `9fa26c971ca3`
-- Syzbot AI: DenialOfService exploitable, **Unprivileged: yes**
-- Duplicate: “memory leak in vidtv_psi_sdt_service_init”
-- Two crashes (2026-07-10, 2026-07-21) with C/syz reproducers
-- Stack: `vidtv_start_feed` → `dmx_ts_feed_start_filtering` →
-  `dvb_dmxdev_start_feed` → `dvb_dmxdev_filter_start` →
-  `dvb_demux_do_ioctl` (ioctl path)
-- Patch testing on upstream: **OK** (author + another tester)
+**Against**
+- Niche, aging Sensoray 2250/2251 hardware
+- No user/syzbot/KMSAN report
+- Not a crash, hang, or user-data corruption
+- Looks like a static-analysis sweep (two go7007 patches the same day)
+- Sibling functions still ignore I/O errors
+- Official rule text wants a bug that “bothers people” or an “oh, that’s
+  not good” issue — this is the latter, not a production fire
 
-The leak objects are vidtv PSI/mux allocations from `->start_feed()`.
-That matches “drivers that allocate from start_feed and release from
-stop_feed” once stop never runs because the stale list head is hit
-first.
+**Unresolved**
+- Could not read lore.kernel.org in the browser (403); no on-list review
+  beyond Hans applying v1
+- Did not compile to confirm `-Wmaybe-uninitialized`
+- No evidence of prior stable-list discussion
 
-**Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
+**Step 9.2: Stable rules checklist** (this tree)
+1. Obviously correct and tested? **PASS** — mechanical error returns;
+   applied by Hans Verkuil. No extra Tested-by.
+2. Real bug that affects users? **PASS** — uninit RMW and false ioctl
+   success on a reachable control path.
+3. Important (crash/security/corruption/deadlock)? **PASS** (weak) —
+   hardware register corruption and incorrect V4L2 success fall under
+   “oh, that’s not good”, not oops/hang. Not a theoretical race without
+   a trigger.
+4. Small and contained? **PASS** — one function, +33/−21.
+5. No new features/APIs? **PASS**
+6. Can apply to this tree? **PASS** — same `s2250_s_ctrl()`; this
+   7.3-rc4 checkout already contains the commit as of v7.3-rc1.
 
-Record: standalone v1. Duplicate syzbot bug closed as dup. No sibling
-patches required.
+**Step 9.3: Exception category**
+Record: **None** (not a device ID, quirk, DT, build, or docs fix).
 
-**Step 4.5: CHECK STABLE MAILING LIST HISTORY**
+**Step 9.4: Decision**
+This tree’s go7007/s2250 code is the long-standing buggy RMW path. The
+patch is a small, maintainer-applied fix for uninitialized reserved-bit
+writes and false `VIDIOC_S_CTRL` success. That is a real, user-visible
+device-control bug with very low regression risk. It is not a core-
+kernel crisis, but it is in-scope for stable as an “oh, that’s not good”
+driver correctness fix, and the code it needs is present here.
 
-Record: lore.kernel.org/stable WebFetch returned **403**. **UNVERIFIED**
-whether stable@ discussed this. Absence of Cc: stable on the commit is
-expected and not used against the patch.
+### What the commit solves for this tree
+`s2250_s_ctrl()` used to ignore FP register I/O errors. On
+brightness/contrast, a failed read left `oldvalue` uninitialized and the
+next write could set reserved VPX322 bits while V4L2 still stored the
+new control. After the fix, those errors propagate so userspace is not
+told the hardware update succeeded.
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+### Risk vs benefit
+Benefit is limited to Sensoray 2250/2251 users, but the downside of
+taking the patch is negligible. Returning errno instead of 0 on failed
+I/O is the correct userspace contract.
 
-**Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF**
-
-Record: `dvb_dmxdev_add_pid()` modified. Closely involved (not changed):
-`dvb_dmxdev_start_feed()`, `dvb_dmxdev_feed_stop()`,
-`dvb_dmxdev_filter_stop()`, `dvb_dmxdev_filter_start()`,
-`dvb_dmxdev_filter_free()`, `dvb_dmxdev_remove_pid()`.
-
-**Step 5.2: TRACE CALLERS**
-
-Record:
-- `dvb_dmxdev_pes_filter_set()` → `dvb_dmxdev_add_pid()` for the initial
-  PID. At that point state is `SET` not `GO`, so the start-on-GO branch
-  (the bug) is **not** taken there.
-- `dvb_demux_do_ioctl()` `DMX_ADD_PID` → `dvb_dmxdev_add_pid()`. This
-  **is** the GO-state path after `DMX_START` / immediate start.
-- Context: userspace ioctl on `/dev/dvb/adapterX/demuxY`, under
-  `dmxdevfilter->mutex`.
-
-**Step 5.3: TRACE CALLEES**
-
-Record: `kzalloc_obj` / historically `kzalloc`, `list_add`,
-`dvb_dmxdev_start_feed()` → `allocate_ts_feed` / `tsfeed->set` /
-`tsfeed->start_filtering` → driver `start_feed` (e.g. `vidtv_start_feed`
-increments `nfeeds` and may call `vidtv_start_streaming`).
-
-**Step 5.4: FOLLOW THE CALL CHAIN**
-
-Record:
-`ioctl(DMX_SET_PES_FILTER)` → start filter (`DMXDEV_STATE_GO`, driver
-`start_feed`) → `ioctl(DMX_ADD_PID)` → fail `dvb_dmxdev_start_feed` →
-stale list entry → `close` / `filter_stop` walks list.
-
-**Userspace reachable: yes.** Syzbot C repro confirms it.
-
-**Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-
-Record: `dvb_dmxdev_filter_start()` already rolls back with
-`dvb_dmxdev_filter_stop()` if a later PID’s `start_feed` fails.
-`add_pid` was the missing counterpart. `remove_pid` already does
-`list_del`+`kfree`. No other copy of this exact bug in dvb-core.
-
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
-
-**Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-
-Record:
-- `git describe HEAD` → **v7.3-rc4-27-gf0100363d8c37**
-- `make kernelversion` → **7.3.0-rc4** (mainline, not an LTS branch
-  name)
-- File and function exist at `drivers/media/dvb-core/dmxdev.c`
-- Pre-fix body confirmed via `git show 9fa26c971ca31^:...`
-- Bug introduced **v2.6.32-rc1** (`1cb662a3144992`); not a post-branch
-  issue for this tree
-- `git merge-base --is-ancestor 9fa26c971ca31 HEAD` → yes (the fix is
-  already on this mainline checkout). That is **not** used as circular
-  “already selected for stable” reasoning; it only confirms the code
-  belongs here.
-
-**Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-
-Record: **Clean apply.** Surrounding function has been stable since 2009
-aside from the allocator rename, which this hunk does not touch. No
-conflicting later edits to this function.
-
-**Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-
-Record: this *is* the fix. No alternate older fix for the same error
-path.
-
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
-
-**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
-
-Record: **media / DVB core demux (`drivers/media/dvb-core/`)**.
-Criticality: **IMPORTANT** (shared by all DVB adapters; not mm/net core,
-not staging). UAPI ioctl `DMX_ADD_PID` in
-`include/uapi/linux/dvb/dmx.h`.
-
-**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
-
-Record: dvb-core is mature; this function is ~17 years old. Occasional
-security/leak/UAF fixes. Not a newly added subsystem.
-
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
-
-**Step 8.1: DETERMINE WHO IS AFFECTED**
-
-Record: **driver/config-specific** — users of DVB demux (`CONFIG` via
-media/DVB stack), including the in-tree vidtv test adapter used by
-syzbot. Any hardware driver that allocates in `start_feed` and frees in
-`stop_feed` can leak the same way.
-
-**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-
-Record:
-- Trigger: `DMX_ADD_PID` while a PES TSDEMUX_TAP filter is running, and
-  `dvb_dmxdev_start_feed()` fails (allocation busy, invalid frontend,
-  driver `-ENOMEM`, etc.).
-- How common: error path, but syzbot produced a **C repro**.
-- Unprivileged: syzbot assessment says yes (device node permissions
-  permitting).
-
-**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-
-Record:
-- Primary report: **memory leak** of driver streaming/PSI objects (and
-  the `dmxdev_feed` itself)
-- On close/stop: **NULL deref or UAF** walking `feed->ts` on the stale
-  head entry; live feed never stopped
-- Repeatable from ioctl → DoS via leak or oops
-- Severity: **HIGH** (syzbot prio:high; leak + crash on teardown)
-
-**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-
-Record:
-- **Benefit: high** — stops a userspace-triggerable leak/crash in DVB
-  core, syzbot-confirmed, long-present bug
-- **Risk: very low** — ~7 lines, error path only, maintainer-applied,
-  syzbot patch test OK
-- **Ratio: strongly favorable**
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
-
-**Step 9.1: COMPILE THE EVIDENCE**
-
-**FOR backporting:**
-- Real, reproducible leak (syzbot C repro, prio:high)
-- Userspace ioctl trigger; unprivileged DoS per syzbot
-- Also creates a stale list head that `feed_stop`/`filter_stop`
-  dereference (NULL/UAF) so the original feed is never stopped
-- Bug in code from **2009** (v2.6.32); present in this tree
-- 7-line, obviously correct error-path cleanup
-- No new APIs/features; standalone; no prerequisites
-- Media maintainer committed it; syzbot patch tests passed
-
-**AGAINST:**
-- No public review comments (v1 applied as-is)
-- No Fixes/Cc: stable tags (expected here, not a negative)
-- DVB is not a universal core path (still a shared subsystem, not
-  staging)
-
-**UNRESOLVED:**
-- lore.kernel.org and stable@ WebFetch 403; thread recovered via `b4 dig
-  -m` (no replies)
-- Whether stable@ already discussed it: unverified, not used in the
-  decision
-
-**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
-
-1. Obviously correct and tested? **PASS** — local code matches the
-   described leak; syzbot C repro + patch test OK; maintainer SOB
-2. Fixes a real bug that affects users? **PASS** — kmemleak + ioctl
-   repro
-3. Important issue? **PASS** — HIGH: resource leak and teardown NULL
-   deref/UAF, not a style cleanup
-4. Small and contained? **PASS** — one function, +9/−2
-5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — same function, no missing
-   helpers
-
-**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
-
-Record: not a device-ID/quirk/DT/build/docs exception. It is a normal
-important bugfix.
-
-**Step 9.4: MAKE YOUR DECISION**
-
-This is a small, correct error-path leak fix in DVB core, reachable from
-`DMX_ADD_PID`, present in this tree since the ioctl was added, and
-confirmed by syzbot. It meets stable rules for this checkout.
-
-**What the commit solves for users of this tree:** a failed
-`DMX_ADD_PID` on a running filter left a `dmxdev_feed` on
-`filter->feed.ts`. Later stop/close walked that stale head entry,
-skipped `->stop_feed()` for the live feed, and leaked driver allocations
-(vidtv PSI/mux in the repro) and could NULL-deref `feed->ts`.
-
-**Risk vs benefit:** benefit is a real leak/crash fix; risk is a few
-lines on an ioctl error path.
-
-**Concerns:** none for apply/prereqs on this tree. lore HTTP 403 did not
-block verification because `b4 dig` saved the thread.
+---
 
 Verification:
-- [Phase 1] Parsed tags: Reported-by syzbot, Closes syzkaller URL, Link
-  msgid, SOB author + Mauro Chehab; no Fixes/Cc:stable
-- [Phase 2] Diff: `dvb_dmxdev_add_pid()` only; on
-  `dvb_dmxdev_start_feed()` failure, `list_del` + `kfree`
-- [Phase 2] Confirmed `list_add` inserts at head;
-  `dvb_dmxdev_feed_stop()` does `feed->ts->stop_filtering` without NULL
-  check; `remove_pid` skips `ts == NULL`
-- [Phase 3] git blame: buggy pattern from `1cb662a3144992` (2009-07-14),
-  contained in v2.6.32-rc1
-- [Phase 3] No Fixes tag; no follow-ups on `dmxdev.c` after this commit;
-  standalone
-- [Phase 3] Author has one media commit; maintainer Mauro committed it
-- [Phase 4] `b4 dig -c 9fa26c971ca31`:
-  https://patch.msgid.link/20260714141059.63582-1-rwarwatkar@gmail.com
-- [Phase 4] `b4 dig -a`: v1 only
-- [Phase 4] `b4 dig -w`: To Mauro, Cc linux-media/lkml/syzbot
-- [Phase 4] `b4 dig -m`: submission only, no replies/NAKs
-- [Phase 4] WebFetch syzbot: prio:high, C repro, DoS unprivileged, fix
-  SHA 9fa26c971ca3, patch test OK
-- [Phase 4] lore.kernel.org and lore.kernel.org/stable WebFetch: 403 —
-  UNVERIFIED via HTTP; mbox used instead
-- [Phase 5] Callers: `DMX_ADD_PID` ioctl and `pes_filter_set` (GO-state
-  path is the ioctl)
-- [Phase 5] vidtv `start_feed`/`stop_feed` nfeeds + mux alloc/free
-  confirms leak if stop skipped
-- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37;
-  kernelversion 7.3.0-rc4
-- [Phase 6] Pre-fix function verified with `git show
-  9fa26c971ca31^:drivers/media/dvb-core/dmxdev.c`
-- [Phase 6] `git merge-base --is-ancestor 9fa26c971ca31 HEAD`: yes
-- [Phase 8] Failure mode: leak + teardown NULL deref/UAF, severity HIGH
-- UNVERIFIED: stable@ mailing-list discussion (HTTP 403); not used for
-  the verdict
+- [Phase 1] Parsed commit `59dc14a6cb5ff`; tags are author + Hans
+  Verkuil SOB only
+- [Phase 1] Confirmed no syzbot/Fixes/Link/Reported-by
+- [Phase 2] Diff is only `s2250_s_ctrl()` in `s2250-board.c` (+33/−21)
+- [Phase 2] Read `read_reg_fp()`/`write_reg_fp()`: `*val` set only on
+  success; writes return 0 or negative
+- [Phase 3] `git blame` on pre-patch function: ignore-errors RMW from
+  `05d76f2da1e5cc` (v2.6.33-rc1)
+- [Phase 3] No Fixes tag; sibling `41f82777e5477` is a different go7007
+  issue, not a dep
+- [Phase 3] `git merge-base --is-ancestor 59dc14a6cb5ff v7.2` → not in
+  7.2; ancestor of `v7.3-rc1` and of HEAD
+- [Phase 4] `b4 dig -c/-a/-w/-m`: v1, Hans+media list, no thread
+  replies, no stable nomination
+- [Phase 4] WebFetch/curl to lore.kernel.org → 403; UNVERIFIED public
+  review beyond the mbox
+- [Phase 5] `s2250_ctrl_ops.s_ctrl` → `try_or_set_cluster()` /
+  `v4l2_s_ctrl()`; userspace `VIDIOC_S_CTRL`
+- [Phase 5] Confirmed `try_or_set_cluster()` does not publish new values
+  if `s_ctrl` returns nonzero
+- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
+  kernelversion` = 7.3.0-rc4
+- [Phase 6] Current file already has the error checks; driver Kconfig
+  `VIDEO_GO7007_USB_S2250_BOARD` exists
+- [Phase 7] MAINTAINERS: GO7007 MPEG CODEC, Hans Verkuil
+- [Phase 8] Failure mode: reserved-bit programming + false success;
+  severity MEDIUM; EINTR path verified in `read_reg_fp`/`write_reg_fp`
+- [Phase 9] Official `stable-kernel-rules.rst` read: ≤100 lines, real
+  bug, “oh that’s not good”, no new API
+- UNVERIFIED: compiler warning reproduction; stable mailing-list history
 
 **YES**
 
- drivers/media/dvb-core/dmxdev.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/media/usb/go7007/s2250-board.c | 54 ++++++++++++++++----------
+ 1 file changed, 33 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index ab34be22cd1aa..f6fb54ad05e7a 100644
---- a/drivers/media/dvb-core/dmxdev.c
-+++ b/drivers/media/dvb-core/dmxdev.c
-@@ -871,6 +871,7 @@ static int dvb_dmxdev_add_pid(struct dmxdev *dmxdev,
- 			      struct dmxdev_filter *filter, u16 pid)
- {
- 	struct dmxdev_feed *feed;
+diff --git a/drivers/media/usb/go7007/s2250-board.c b/drivers/media/usb/go7007/s2250-board.c
+index a155b987282f8..e536964c14e6a 100644
+--- a/drivers/media/usb/go7007/s2250-board.c
++++ b/drivers/media/usb/go7007/s2250-board.c
+@@ -365,36 +365,48 @@ static int s2250_s_ctrl(struct v4l2_ctrl *ctrl)
+ 	struct s2250 *state = container_of(ctrl->handler, struct s2250, hdl);
+ 	struct i2c_client *client = v4l2_get_subdevdata(&state->sd);
+ 	u16 oldvalue;
 +	int ret;
  
- 	if ((filter->type != DMXDEV_TYPE_PES) ||
- 	    (filter->state < DMXDEV_STATE_SET))
-@@ -888,8 +889,14 @@ static int dvb_dmxdev_add_pid(struct dmxdev *dmxdev,
- 	feed->pid = pid;
- 	list_add(&feed->next, &filter->feed.ts);
- 
--	if (filter->state >= DMXDEV_STATE_GO)
--		return dvb_dmxdev_start_feed(dmxdev, filter, feed);
-+	if (filter->state >= DMXDEV_STATE_GO) {
-+		ret = dvb_dmxdev_start_feed(dmxdev, filter, feed);
-+		if (ret < 0) {
-+			list_del(&feed->next);
-+			kfree(feed);
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_BRIGHTNESS:
+-		read_reg_fp(client, VPX322_ADDR_BRIGHTNESS0, &oldvalue);
+-		write_reg_fp(client, VPX322_ADDR_BRIGHTNESS0,
+-			     ctrl->val | (oldvalue & ~0xff));
+-		read_reg_fp(client, VPX322_ADDR_BRIGHTNESS1, &oldvalue);
+-		write_reg_fp(client, VPX322_ADDR_BRIGHTNESS1,
+-			     ctrl->val | (oldvalue & ~0xff));
+-		write_reg_fp(client, 0x140, 0x60);
+-		break;
++		ret = read_reg_fp(client, VPX322_ADDR_BRIGHTNESS0, &oldvalue);
++		if (ret)
 +			return ret;
-+		}
-+	}
- 
- 	return 0;
++		ret = write_reg_fp(client, VPX322_ADDR_BRIGHTNESS0,
++				   ctrl->val | (oldvalue & ~0xff));
++		if (ret)
++			return ret;
++		ret = read_reg_fp(client, VPX322_ADDR_BRIGHTNESS1, &oldvalue);
++		if (ret)
++			return ret;
++		ret = write_reg_fp(client, VPX322_ADDR_BRIGHTNESS1,
++				   ctrl->val | (oldvalue & ~0xff));
++		if (ret)
++			return ret;
++		return write_reg_fp(client, 0x140, 0x60);
+ 	case V4L2_CID_CONTRAST:
+-		read_reg_fp(client, VPX322_ADDR_CONTRAST0, &oldvalue);
+-		write_reg_fp(client, VPX322_ADDR_CONTRAST0,
+-			     ctrl->val | (oldvalue & ~0x3f));
+-		read_reg_fp(client, VPX322_ADDR_CONTRAST1, &oldvalue);
+-		write_reg_fp(client, VPX322_ADDR_CONTRAST1,
+-			     ctrl->val | (oldvalue & ~0x3f));
+-		write_reg_fp(client, 0x140, 0x60);
+-		break;
++		ret = read_reg_fp(client, VPX322_ADDR_CONTRAST0, &oldvalue);
++		if (ret)
++			return ret;
++		ret = write_reg_fp(client, VPX322_ADDR_CONTRAST0,
++				   ctrl->val | (oldvalue & ~0x3f));
++		if (ret)
++			return ret;
++		ret = read_reg_fp(client, VPX322_ADDR_CONTRAST1, &oldvalue);
++		if (ret)
++			return ret;
++		ret = write_reg_fp(client, VPX322_ADDR_CONTRAST1,
++				   ctrl->val | (oldvalue & ~0x3f));
++		if (ret)
++			return ret;
++		return write_reg_fp(client, 0x140, 0x60);
+ 	case V4L2_CID_SATURATION:
+-		write_reg_fp(client, VPX322_ADDR_SAT, ctrl->val);
+-		break;
++		return write_reg_fp(client, VPX322_ADDR_SAT, ctrl->val);
+ 	case V4L2_CID_HUE:
+-		write_reg_fp(client, VPX322_ADDR_HUE, ctrl->val);
+-		break;
++		return write_reg_fp(client, VPX322_ADDR_HUE, ctrl->val);
+ 	default:
+ 		return -EINVAL;
+ 	}
+-	return 0;
  }
+ 
+ static int s2250_set_fmt(struct v4l2_subdev *sd,
 -- 
 2.53.0
 
