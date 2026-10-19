@@ -1,113 +1,146 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336083D7D6A
-	for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 22:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3592FD69E;
+	Mon, 19 Oct 2026 01:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792364086; cv=none; b=IWl4HYSCKyE5SSxEZb9nLKLmwEadDaxYMGBtQWqd0+UmaHWaL9PQ0ftp7tSSCU5yv4HnxFxN8ymT608jc94MzTxNVYljUvE93AAOorKMA6jswQWbyeOw/sH58l/VvhvlzJLhZjSJDh84m9FUurzBqPNo8WnCw7A5J5ykSvBv6Po=
+	t=1792373790; cv=none; b=jB7noY84L4nFpVd0WjVL5xWehGaLiICfKM6QWLN9rdDv9eGcTSwd6K+vStFxbJvI0LDQwSbp8KSpp88vBqeVY+NA+yG7N3M+yqYNSXqGu2oxIWltbAOCEjriZU2ZRXG/7eTpulm+L0LalfRWm8aQaNwiquDbVxnPKD+2J/1ZUI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792364086; c=relaxed/simple;
-	bh=IK/EGbkpH+0wAwzTsB+OJLPZsQWdw/bwyK0e+62U/5Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HNBHLh2seLT+me4L/PZi2Tzl7SFviU/suMP0p9/VEKKuoZp7nvxLWd7dL63NFDYzjwaNRDvfTOY/xzXoiJXgmzQwCrs0MU9TX9ZwebVsqfOfSBh+6r8dv644OxJDIMR9h/EpSFZ9/p6FyY7RBpgkvGIu/ouNWWqvB9PJMb0vObk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RqvGyKW+; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1792373790; c=relaxed/simple;
+	bh=5fgBF32MV2zfzyR6XJ5xpYAGftwcOYwZOdP1GxVq/wU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pASeCcwqg5jomLUqzcHtMc+TKWvCmxr0Ir4arbIvcKs6EduU1uiDAFK4TOqYAmqGzRkeATCFUKHPeMMs9VvEdKieSzXIPQkZlERLavbooAWs64btQv5XSK2iVk3B+x3MSyuWv/JDGSpymkxGp0n60HMDr9RUMF/l/cPP3l0+UE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dKhl0d/z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RqvGyKW+"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso981269f8f.0
-        for <linux-media@vger.kernel.org>; Sun, 18 Oct 2026 15:54:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792364082; x=1792968882; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AfKdzvG99A5J2b4eI5EDjag+BWAW3HaHussdspI90Ro=;
-        b=RqvGyKW+Vga8xaUsexv62XZF6EflOuVjTsAhJrIEdzEVTOVizPDC6BypTxNkMOUNhP
-         3JGWmxV22RvAIjKEGOjneJbpvD8NXr+4C2YclZJqdgQkejaCEwStHDy+6HvJPZZNYvvc
-         d+IJ6uGslzYtcNifpuw9noBQeyFW7mmeK4xXI4YHt4jX2NSwQwn5LYT5da82rvlDWYgX
-         t8esFQJBAJwZ7jhHwZJQgK6kvUa8xaJ8z7iZLGfMsWkN1OgBte+6iJGXcvrcJ4yr6RsT
-         5DxsCvWUIZIjjydli58w94XYTmGQNt9lVZ/JL5mDp8AEhTwpzC3tsJGPkiCgF4Nubgtk
-         PdUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792364082; x=1792968882;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AfKdzvG99A5J2b4eI5EDjag+BWAW3HaHussdspI90Ro=;
-        b=lrIyTK3o1GtN0C7BpaDhcx4qXI8AT9aJdtfy6YJKHDqm9IrWZzMJerG14MZ8LUPWbv
-         l+V4iV0gCk94jo1NblXtkl0g8UL918KQgDSkROk+Dtc4s2Lx3MD/YQecOpl5exmKHAzd
-         s7I7Z1X8ssfI3vgkG5oXj+8rjQqdQztZKEivx7T7PPK7DbGBG+H6K/NXXq4t1nUft4MN
-         Jj1ZLAzD0r1bl27w6mpYcI08SVqz3/7eKPZWU0Oz8T3TPb9fuPZ5rDzbEJBgz6H7vJt1
-         4lQh1vB3zFRjx2uKHqKJTUum/CCKEUMdtxmnTp1QwgNW4QX8eVcq/onehV2MsWX9MYQT
-         DZBg==
-X-Gm-Message-State: AFq9FYJIHLk4dSlfi5Ezj4B5nzVytiobIU7GUZUuODZXuaakc68YlTYg
-	aIgIpTQIsrkLZt+toYtl6LDeF73TFLE12qsBkbrRkMmtMvSYwBUcYaM=
-X-Gm-Gg: AYBFou32BVHsIryhiXQH7R+3+XbjCbWWqWvUK81tyErRB7cvqeogb9dGCIPG1n0WiAH
-	XeI/pG50esv+obTYAL6zIv/Cn8WJBGsD/zRChGX09F/ShfBAUQyP6XoVAW0TZ8WPnqmoBn24lXB
-	cNrEaHgHvxWC3nhvZjbXhXgtKbko4lRTthbRLFYU3BYK36ZMZj4wyjs3/HEwTufADJGgYDUOWDK
-	eUzqiX7CWi0RmBE6rmU3rj/CEQtRVptvpwOSW4WE5YNqA7V57tqwMw792B1p9WjGZRIkED5D7Hk
-	pgrmg3vcT/jpa6ZoWGEOasRjUednIgkVyDct1doO6K5g2v2B8pIJL9ZbPxGuqgTY315bdOdsWlJ
-	B+Pgu9c0T0EtT2hAmxwT4gT1SJ41pZnIp51aNHdaNY+JFm3kecTX/IVxLH6L5rXkujOUagYvuE0
-	B4ENZnF9XeTgme+ANFp4FA3Z2W2yNDs1717YqoZ5E=
-X-Received: by 2002:a05:600c:c084:b0:49f:d6f0:6f24 with SMTP id 5b1f17b1804b1-4a1d75af414mr101286535e9.2.1792364082213;
-        Sun, 18 Oct 2026 15:54:42 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1e19ad17esm42257355e9.3.2026.10.18.15.54.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 18 Oct 2026 15:54:41 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH 3/3] media: au0828: require minimum isochronous packet length
-Date: Sun, 18 Oct 2026 22:54:37 +0000
-Message-ID: <20261018225437.2655311-4-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261018225437.2655311-1-tristmd@gmail.com>
-References: <20261018225437.2655311-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dKhl0d/z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4507C1F000C4;
+	Mon, 19 Oct 2026 01:36:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792373789;
+	bh=/BR6tYHepUWfOOub7vhEH5faC9Xm9yzzqG9QdBsvV0w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dKhl0d/zvx8hXUZ80O8Os9Fzq/g0IxUuxaDD9IiwG32VgcBhbPLFbFzB3Fz603fJE
+	 PAZ9HhmfFN1D4vkyrab6d9I/NYprcxHSoyDwH2CzRqYjkxKsBFuXwiNNlybdaTHkjK
+	 dchZJLLOKiv90mTloyvxpaSamyHlqe6mLpggBIe3JCTgEdltKqyv7VQTSp244s4M6D
+	 0klo2M847tLX9LIVcO8tMxaqZg59xOcDD2p5AqjHrdH2T26F4tltFQblQ+oyquhF6r
+	 Wp9MgtiNaMBr6L/HR4K1wx+hpgXBnM7IHyQRTuDEPBH0Ai/Jg+R1v8/c0kFSpMU3tp
+	 0ZhYqqjP/r25g==
+Date: Mon, 19 Oct 2026 02:36:21 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, <linux-kernel@vger.kernel.org>,
+ <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>
+Subject: Re: [PATCH 2/3] iio: adc: add stm32 mdf support
+Message-ID: <20261019023621.30c413c6@jic23-hlaptop>
+In-Reply-To: <20261001145702.2628429-3-olivier.moysan@foss.st.com>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+	<20261001145702.2628429-3-olivier.moysan@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On Thu, 1 Oct 2026 16:56:46 +0200
+Olivier Moysan <olivier.moysan@foss.st.com> wrote:
 
-au0828_isoc_copy() subtracts 4 from actual_length to skip the
-packet header: len = urb->iso_frame_desc[i].actual_length - 4.
-The existing check rejects only actual_length <= 0, so a length
-of 1-3 causes len to wrap negative.  The wrapped value is then
-passed to the copy helpers as an unsigned size.
+> Add the STM32 Multi-function Digital Filter (MDF) core, serial interface
+> and digital filter drivers. The MDF converts bitstreams from sigma-delta
+> modulators or digital microphones into samples exposed through IIO.
+> 
+> Audio: capture PDM microphones via cyclic DMA for an ASoC consumer.
+> Support CIC scaling and filtering, synchronized and interleaving modes.
+> Audio use case requires a DMIC filter, and a separate ASoC DAI.
+> 
+> Analog: expose sigma-delta modulators as IIO voltage channels with
+> direct reads or DMA buffering mode. STM32 timer triggers can be used as
+> clock source.
+> Analog use case requires an IIO backend for the SD modulator.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
 
-Raise the minimum from > 0 to >= 5 (4-byte header plus at least
-one byte of payload).
+I'm not going to spend long on this today, but a few trivial things noted
+from a quick glance.
 
-Fixes: 8b2f07952345 ("V4L/DVB (11066): au0828: add support for analog functionality in bridge")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
- drivers/media/usb/au0828/au0828-video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> diff --git a/drivers/iio/adc/stm32-mdf-serial.c b/drivers/iio/adc/stm32-mdf-serial.c
+> new file mode 100644
+> index 000000000000..15a58cf833be
+> --- /dev/null
+> +++ b/drivers/iio/adc/stm32-mdf-serial.c
 
-diff --git a/drivers/media/usb/au0828/au0828-video.c b/drivers/media/usb/au0828/au0828-video.c
-index 3c53105f3d2b3..6cc99d1a2fbce 100644
---- a/drivers/media/usb/au0828/au0828-video.c
-+++ b/drivers/media/usb/au0828/au0828-video.c
-@@ -530,7 +530,7 @@ static inline int au0828_isoc_copy(struct au0828_dev *dev, struct urb *urb)
- 				continue;
- 		}
- 
--		if (urb->iso_frame_desc[i].actual_length <= 0)
-+		if (urb->iso_frame_desc[i].actual_length < 5)
- 			continue;
- 
- 		if (urb->iso_frame_desc[i].actual_length >
--- 
-2.47.3
+...
 
+> +
+> +int stm32_mdf_sitf_stop(struct stm32_mdf_sitf *sitf)
+> +{
+> +	int ret = 0;
+> +
+> +	spin_lock(&sitf->lock);
+
+Use guard() for cases like this. Simplifies the flow and helps
+readabilty as a result.  Everyone loves an early return.
+
+> +
+> +	if (!sitf->refcnt) {
+> +		dev_err(sitf->dev, "Unbalanced serial interface stop ?\n");
+> +		ret = -EPERM;
+> +		goto out;
+> +	} else {
+> +		sitf->refcnt--;
+> +	}
+> +
+> +	if (!sitf->refcnt)
+> +		ret = regmap_clear_bits(sitf->regmap, MDF_SITFCR_REG, MDF_SITFCR_SITFEN);
+> +
+> +out:
+> +	spin_unlock(&sitf->lock);
+> +
+> +	return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(stm32_mdf_sitf_stop);
+>
+> +static int stm32_mdf_sitf_runtime_suspend(struct device *dev)
+> +{
+Add a comment on why you need these.
+> +	return 0;
+> +}
+> +
+> +static int stm32_mdf_sitf_runtime_resume(struct device *dev)
+> +{
+> +	return 0;
+> +}
+
+> diff --git a/drivers/iio/adc/stm32-mdf.h b/drivers/iio/adc/stm32-mdf.h
+> new file mode 100644
+> index 000000000000..7e403c26d4dc
+> --- /dev/null
+> +++ b/drivers/iio/adc/stm32-mdf.h
+> @@ -0,0 +1,312 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * This file is part of STM32 MDF driver
+> + *
+> + * Copyright (C) 2023, STMicroelectronics - All Rights Reserved
+I'd guess you'll modify it enough that this might need
+an update!
+
+
+> +/* MDF_SIDR: Size Identification Register */
+> +#define MDF_SIDR_SID_MASK GENMASK(31, 0)
+> +#define MDF_SIDR_SID(v) FIELD_PREP(MDF_SIDR_SID_MASK, v)
+I'd not bother with the second macro.  It is only a little
+shorter than FIELD_PREP() in most case.
+
+> 
