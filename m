@@ -1,60 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792427301;
-	b=3J4OWG4xVTISm4cY+QSeJTSlEIUJfb+wrOLglsW4+smhnI4DjzJ2+F/1rnYP1ws3mu0a
-	 kvsMG8mkfxL0+Uv5ryMFUH20wp/VTLbSRN4A4iR+22LGVJohD70Gj74WIncCnmiIdkiOB
-	 d6b8XtJ8eaBptRfqIAUPEqQLwgsLO6yvCpwcyvFNNZ3ioIZrconfsCUNaSfABp12C7bV+
-	 tsIMvAdxRfPsZ56povwHULweQyulDxQUkFKH3hgZVK216f6x1PpaUKVE9ihBPTEDR24z6
-	 jxMwpU6bsYmvP/XxY4eImKkEknWBg0BZwqCfx2YimNI44Uqtwl1FCH4th8JaSYeWQoA==
+	t=1792434289;
+	b=ewiUZ7LyeiNATZWWKkirs9sxExXkbEqCcKswqXJVfbRBvr1+lYaFUT1tf3DMTGQSwmgi
+	 uhbPCvqOc0eGIJKCNepFt1HEnzqiSNY3P+k4sV5chFPvhuqgt6/nmkLFRlU6v53phXANd
+	 KImLeHHm8Dlf6PG7CYU/Gr/IJuL2Sqfp3G+dODwS/3lhyXwUo3Y+ELKMbAc6dtO7Hwatk
+	 8Sy7Ry7lwkTdoh9K2XRt7QXHJjw6W9TmUncXs6qTPwZZ1zJFgtERA5fPIW1HEcQMDGP/g
+	 KWcJlhc2KCafhoX5hemyohLVqAktbmK2Et5dYx4OaI3iV9/lbvm0j+EKj/RTZCL+xYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792427301;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
-	b=mKwi7uaMdkxfAWYZlT7o+khDU17k+e4nQZf0ZrhPwXU8otccBXq3bUlCKDYCrX00fUrj
-	 SBBMIngwvlY+sDcNtwZZuYax1q7yVBfZtx5jUb6fUkRQOuTHC78p8hyMl/QjA2+zW/7LE
-	 IK5DgHp/2YPyzh5u+o+MJnCH3GOG6HnO3xdtBbLLyMYmHNdVRXdvMQTZCUmBmaAlC/wOs
-	 sVUveZNwjENEWeWJNtrRma4Q1hvcaFAHcJyLpKNFovoq4nAtJHV6xOYTL+9uP7EO7Yo01
-	 j2Ta5f9TW1xYv8rJFZYkswEen6fbdE2QAr9GLOydkzUexpANecCAy/2irNMq9UJky7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792434289;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
+	b=5BBOtnWs0U/YSGTmfBEJ6BN2uFhU0Y+ElTBOBpp2wAllcgafghXEL264H2Xk9j5uR049
+	 mHFw6LeJWMaU/gzTZgaBICmZcu6Lm/M/9grIqHHQRZl2E5EB9TZGboGQSCGIF9iqyoy4P
+	 GRj5Rtyp0Ukw69dIYCesjF+qTDhqYjjFs8qBxj6hgnn5iho3jvwrrwy8lDHoq26FfaJR0
+	 7sDNAhhU7yRmwWxcueON7GIVzH68J9HSkuJA4FK2Y7su1RgZB6Xta2Wqswqlx2D4mVld7
+	 may/kpS3RVxnFti0pRmo7TRFggP0zvkjlQ4Sd8UAzmTT78fsOarcsE2+9YAuqZUD3tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c;
-	arc=none smtp.remote-ip=109.224.244.123
-Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AAEQoXKH;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9146560A2610;
-	Mon, 19 Oct 2026 16:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9146560A2610
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99734606A31F
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 18:24:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99734606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KcLAl94c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792427298; x=1792686498;
-	bh=AUPj41ctOhJ+cZQoXn73t6Z/v6D9oxg5RLDX2zwJVW8=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=KcLAl94cRsDTYQoCxS7MvJ7DzPoHXMGqTUQRdhP8PCnAipBJiIcRzUk0fwFT0Z972
-	 gNBgBwe6eeVPECVdMlSaJ4X2WX0qer5nqk13QSi5FP07b3zXNs4Igegd18acaVZ80S
-	 Kgg103gN6/1cQEo37eMprstfbCZ1KMQX2LNs1IWxvUrHU4xU03eoKh/KRATVf9gJth
-	 LUJOj0A/KzIFn3KBMPZnjjdZOTgpE7QwazJP2oECTrdKweTETNz+tN5RVLzXWJCa1s
-	 wpCTHTpJlkLtyDmQFmd/C93skYSoJbCmAy+tcCsKodVwHwwfMMhlskZAG3VIse9NXi
-	 SnNV1l05/YiBA==
-Date: Mon, 19 Oct 2026 16:28:11 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
-Message-ID: <20261019162722.25587-5-lsa.uz@pm.me>
-In-Reply-To: <20261019162722.25587-1-lsa.uz@pm.me>
-References: <20261019162722.25587-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 48126862a596524f46a1020032fa9283563189d3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AAEQoXKH
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so18487975e9.1
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 11:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792434288; x=1793039088; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
+        b=AAEQoXKHc4qVf2HIjiQ8hLWltD/WNmxMWjj8qt5UwN5hy1+/yKrcck/VhWskWsunqF
+         yo0007HiGPNS/iWFOfPU+uMkVzFV0mVFotObqlrQ2gGZ1h5uzaOtd/PZAvrllk3OKRkO
+         H0N/htnBfc9Th6zrFhkmNfUNHTOSduebN3AKmub6tijY53xDOZwxBXoXLyJnUkvACQu2
+         z8f9zH3xplsg9qACQcCSLXriJf66GOnJZb4HrOCvyTuUJ1c+zEEZw8pWQy+Xje2QmB3o
+         isUsgzbXIR3XQwRcpIrTdp+wNcw0rWutNAbNpJR7cLXoOL/M1OBQW7JSRiSMfkm4wo1d
+         nkyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792434288; x=1793039088;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7AqszT9JK11llslLQymtoeL6/CVsiRkIvN5VK7Yksp8=;
+        b=pr5iZ7ijiXmSIwfGJV+xLAGKtakL56UEqT8e0Lrc3y3t/DLMqdwDIqV6vVbS7EDpoj
+         xtnt9oGqCMV54ePcrAbNB3nF6skn0zm4thORRzSwgjuN2IwUFUu80Egwh685/ZcyJSVM
+         sGGoUcjDVIEJzfXu2CUWA1O8UAfNy1m1s2LDkknOJRWqURq1lSLHSNNsnWMjQVXvFqfE
+         qgMhPYzujluxCRDo1rUqtgRCRtESKievA2E3eFma94MYu6g4Pey0e5Y3Huf/6xb73pGM
+         ALu4BkgIj6HPfkVp0aae6wOhz+QSyJSh0aPwp8pY4QJ+lQRhZz0pJg7wtQqz12z9iIDi
+         77FQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxQm3Ogpwm76wGV2EUzQZd7zfxEdcodzK0wSklKSIXQdJoAiej6csHADtCMsoKMpUCYcnx4x5bV1WBPPw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhmuvTRxH60OCF5C2ZjAnc4qSX0z786goIGvLhm+q0nwVougfI
+	T/34CB+BZnR2Vse7uXbR4yu3sjlqYQIDPXNPKVfxNpPX/tiquEKsGa5j
+X-Gm-Gg: AYBFou3Yugm1mBDI2CpFdd0M6wjze6iqKY3P2i4UTqHS3PMU1Xwag8/AfxkMWnpJ6ii
+	Wdx+N4l2hhsWL6X2p6dgGzOPCIGU3pT/NEkib9QeJLWsebOCDcD0/OKbK1mZH9NlrSj3oUu3sik
+	Wl552VWZdSn3Q4N7QogNnvE64x3B5PmVnDDJSVl2eB51S5D0H3BEs8rOCivypGHggc0dDl1lGKX
+	WCl0mDNd22M2UqzxZhoCC2QQ3Tao5Enlc5U8OLuJKg5cCyxZ4AODmu4Rin/cPV4JPh6uYnPJSh5
+	c/9xFSK0l2HLB4T+9B+43bzUupri3wYFF2/1qQrjdCl+huZS4jaLYAgWYnGjdUWM9lFnAJE0eZ7
+	heBeDYqFubM9nVl/G0GIp2aBFHgicTWk4AKkL81+rXnTpcdfHfU1EG74TM5Kw5R3/CfDpmsoPnA
+	6Chj03E+McZSlPF4VFnZzC6IPdWZpk8USjOT48rpLXmz/t4wclKH2ZY/ZOvMomissc13VX1F/d2
+	1+rnNPZAcHLIw8y7bZfHf2MvZ87ANnrLRZPkQq+x8KFH22916YJHjaUDguYOxdMWVR9/MIcdMQ=
+X-Received: by 2002:a05:600c:4684:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a1d76001e9mr174049105e9.16.1792434287773;
+        Mon, 19 Oct 2026 11:24:47 -0700 (PDT)
+Received: from SP11X1e.cable.virginm.net (cpc99340-croy26-2-0-cust244.19-2.cable.virginm.net. [80.193.62.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d6db78csm613743f8f.2.2026.10.19.11.24.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 11:24:47 -0700 (PDT)
+From: George Neacsu <geocausa@gmail.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Peter Marshall <pm@petermarshall.ca>,
+	Hao Yao <hao.yao@intel.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Date: Mon, 19 Oct 2026 19:24:45 +0100
+Message-ID: <179243379000.31842.4735750009847702427@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261019162722.25587-3-lsa.uz@pm.me>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,138 +109,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On the Surface Pro 11 with Intel the infrared illuminator is driven by the
-VD55G0's GPIO 1, which strobes it during the exposure. The ACPI tables do
-not describe it, so the sensor driver finds no st,leds and offers no
-V4L2_CID_FLASH_LED_MODE.
+On Mon, Oct 19, 2026 at 04:27:50PM +0000, Sergey Lebedev wrote:
+> The clock tree is computed from the input clock and the one link frequency
+> the endpoint gives, as in vd55g1. The MIPI rate must be an integer multiple
+> of the input clock, or the sensor would run at another one, so any other
+> link frequency fails probe.
 
-Give the sensor's software node st,leds from a DMI match, as the
-upside-down quirk gives a rotation. dev_properties gains an entry for it,
-as a sensor can also have a lens-focus reference.
+Thank you for posting this. I tested v1 on the Snapdragon Surface Pro 11
+(X1E80100), where the endpoint is 420 MHz link frequency (840 Mbps) with
+a 19.2 MHz xclk.
 
-Assisted-by: Claude:claude-opus-5-5 sparse
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 60 +++++++++++++++++++++++++++-
- include/media/ipu-bridge.h           |  2 +-
- 2 files changed, 59 insertions(+), 3 deletions(-)
+As posted, patch 2/4 fails probe at the integer-multiple check because
+840 MHz is not an integer multiple of 19.2 MHz.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index cb1d1582fa1..05aa6d92bbf 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -283,6 +283,39 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09{} /* Terminating entry */
- };
-=20
-+/*
-+ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
-do
-+ * not say which. They reach the sensor driver as its own leds property.
-+ */
-+struct ipu_sensor_leds {
-+=09const char *hid;
-+=09const char *property;
-+=09const u32 *gpios;
-+=09unsigned int nr_gpios;
-+};
-+
-+/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-+static const u32 surface_pro_11_ir_gpios[] =3D { 1 };
-+
-+static const struct ipu_sensor_leds surface_pro_11_ir_leds =3D {
-+=09.hid =3D "SMO55F0",
-+=09.property =3D "st,leds",
-+=09.gpios =3D surface_pro_11_ir_gpios,
-+=09.nr_gpios =3D ARRAY_SIZE(surface_pro_11_ir_gpios),
-+};
-+
-+static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_11_ir_leds,
-+=09},
-+=09{} /* Terminating entry */
-+};
-+
- static const struct ipu_property_names prop_names =3D {
- =09.clock_frequency =3D "clock-frequency",
- =09.rotation =3D "rotation",
-@@ -563,6 +596,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
-ruct ipu_sensor *sensor)
- }
- EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
-=20
-+static const struct ipu_sensor_leds *
-+ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
-+{
-+=09const struct dmi_system_id *dmi_id;
-+=09const struct ipu_sensor_leds *leds;
-+
-+=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
-+=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
-+=09=09leds =3D dmi_id->driver_data;
-+=09=09if (!strcmp(cfg->hid, leds->hid))
-+=09=09=09return leds;
-+=09}
-+
-+=09return NULL;
-+}
-+
- static void ipu_bridge_create_fwnode_properties(
- =09struct ipu_sensor *sensor,
- =09struct ipu_bridge *bridge,
-@@ -570,7 +619,8 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09const struct ipu_sensor_leds *leds;
-+=09unsigned int i =3D 0, d =3D 3;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -624,10 +674,16 @@ static void ipu_bridge_create_fwnode_properties(
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[d++] =3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-+=09leds =3D ipu_bridge_get_leds(cfg);
-+=09if (leds)
-+=09=09sensor->dev_properties[d++] =3D
-+=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(leds->property, leds->gpios,
-+=09=09=09=09=09=09     leds->nr_gpios);
-+
- =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
- =09=09PROPERTY_ENTRY_U32(names->bus_type,
- =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..f56ac1c4e96 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -179,7 +179,7 @@ struct ipu_sensor {
-=20
- =09struct ipu_property_names prop_names;
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[6];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
---=20
-2.54.0
+For a test only, I removed that rejection and left the rest of the driver
+unchanged. The sensor then probes, the CAMSS media graph completes, and
+capture delivers one complete 644x604 Y10 frame. A continuous five-frame
+capture then times out waiting for frame 2.
 
+The 1200-pixel line length below 900 Mbps is already present in this
+standalone driver, so this is not the earlier line-length issue. I also
+tried the ST one-lane OIF_CTRL value 0x81; the behaviour was unchanged.
 
+For comparison, Peter's generalized vd55g1 series, with the 1200-pixel
+line-length fix, streams continuously on this same machine with the same
+19.2 MHz xclk and nominal 840 Mbps endpoint setting. Whether the sensor
+internally rounds that rate is a separate question, but rejecting the
+configuration outright prevents this Snapdragon model from probing.
+
+There also appears to be a second difference to narrow down after the
+first frame. I'm continuing to bisect that and will report the exact
+cause/delta once I have it, so I can't give this a Tested-by yet.
+
+Best regards,
+George
