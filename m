@@ -1,442 +1,249 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB60B57FEC4
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D712F504587
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792420126; cv=none; b=gtjQav8KCuK9mh9Pv5BqQqnBfxWL599vkmcfYHRrD584DAXc+8cFFEDv9w1Lbk6kUqIuPAqE7rbh5og81bvvU0tczmaVMqOWyVN65qMDU+B9R2YxJbzurFPqNk6sEeB9MHkBokAKNiCX1fnxqEk0gS1B/ObYoGd7aA74Cd6oeT4=
+	t=1792420416; cv=none; b=fW4zR7wHD/CyiNBAHAy/ty89A8hNd54zSyOy8bCTEuhK14Pg7500An0E+VaI+NF8O4565lLJlJVHtGtSJhSND6y/9M++3yAUQC1P5Floyr16K3KV7CH9xifAGJ1l/EEqNETZLC4Yr0JL9+cG/GhnXXZMt1TbtCBgxQmM+IUwaoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792420126; c=relaxed/simple;
-	bh=Kkl0eaX8pRDZWbCvxsOY9roc+zDAsW4OihH7F3pRVuk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=L5McURykGNS/DgigCbZEoqXX0AJEXtgWg/BIY/7p3C2bxCQ9V4+NreO59qXhdBFZiOymOQnWft7E3ZXXQnpll4OOdpUMsxW+wN4xeVCPzW9c6YA2LWTe4eteJBjba6NvzOWNBvHjhoPJ8SjACvTSv0+STOyEt13CehaweNCo+Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=SgY9AJjN; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	s=arc-20240116; t=1792420416; c=relaxed/simple;
+	bh=vOR23NOgkIyph8PSVCEojvzTKea/l7YYWzBnH1JHOrw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=QS3UY7dpy+NiGi4CeHJqpydE4WAgjWY4tqyRzWDKQfkvOEAgdsXiTvCfQAPSSs238MOYOBj7TMXWm3Au5aNX4ggzrZwhuqMlt63SyQUGelvgZPBk0Lab77isu4KQKUoDH19GgRPrDYs6EWQvwetTNZUWM10NqhvCxhzMm7luyFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EHbYAZJC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BQHAD8eX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="SgY9AJjN"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1825157f8f.1
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:28:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EHbYAZJC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BQHAD8eX"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69JE0fOC1904049
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:33:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xQzFpTG8PW7XDUO7ySPH2DY8SEuHykZsaeu/U0Y+X6g=; b=EHbYAZJCV2IJNaWl
+	Ff7lXgpRzzicxJ1z/lnpLVXMxnQvwP2BzjWRJvIF0OxBZjz2IVs35lIsWy5Ov7q0
+	48OtJ7ESJneiv0CSL1VHtfhgYHP9ej1RrdohczYDBpx8qeeJWd6uonLIaPuQ87Ow
+	BJq49+m5iVEs0aXwv9J2+GGQYrr/527slE4Ys8s80i6WZrcFY/jOHhimTCYwScwr
+	a6HZ0uKbcQ23zU6O0k1jDy2J/rWw0mAE6YQOw33Mh8Esn2xrJ/Cx+isdjQ/BUswB
+	p4l0P1ez+ImW8d6Vd+Q5LuGftXa/PpWU4KCvlHPYljsKNE699TTOvUPlcgRMwOUs
+	0dodhQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdf5c9n36-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:33:33 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939c30aa9a0so240080285a.0
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:33:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792420122; x=1793024922; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L/GPo2Y4eIOZUYmnxVEkjsgMjsgqHTVmYxG5LPRGXvQ=;
-        b=SgY9AJjN5//2ThL4efSDt9NrNs9QaJoE5PbWatKeSahrV/hh8zQiW5DJrxyhx9MHuy
-         J67KMKJVnN/laZdkPb5a6bWGjn6wFn4YuEHFTR0786XgTkhU223OSzkoC7nkm33I47R8
-         H5TvjUwdGVAx0vr/dW/pNBvS1FVYjY4P//GryShNgv9KGyQo4lTJORMAQwyG62PQuMnr
-         fcSdZRnRAlruTF5/t1lizH6o241FG43OQq2CSgbk9MEipB0SmUm6uVqe2vpmlZhsaDqx
-         /tq24ScR/QjgSRYpwPymxZVB68ETILD636By8J6OvpgJNAPyollks+3wCEg4s6ML1zVA
-         c0uw==
+        d=oss.qualcomm.com; s=google; t=1792420413; x=1793025213; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xQzFpTG8PW7XDUO7ySPH2DY8SEuHykZsaeu/U0Y+X6g=;
+        b=BQHAD8eXFpidHMnR1tUtOhG5DXIn3Xn89jzzUPyq36Ef9ZZDMoJerRtrBrXTCVjXg1
+         Lr1cUyVVvbLX2K6wf2p8WS7t1jMIAdmeS1TEkyDJcNkcVs6hxPWcHO2OCea7/ZyZ+N6L
+         b8o96VpT5kXJe0WwXAmxMB/8wEmXsiMB8/RKMUcNPscwqbsaLhTGh3RDkXi+FgWwg6Du
+         rAZZZyWDnnPBmqdq2AikQJ/B/vPRMvbr1WZnMT6tQ20fdxY1CJeg4IXOm/lX/Z2wIU1K
+         Zj25QZZk5eD3tirNeLMJv/BaizlgGrwzrJQttZyYKSW+/dW3GzDIqnku3eACXNgjfTwJ
+         SpcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792420122; x=1793024922;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L/GPo2Y4eIOZUYmnxVEkjsgMjsgqHTVmYxG5LPRGXvQ=;
-        b=mb8uO7L6Q46CWbnFdpXa5jYybIuuPPkvgaauD7UQYAI8YVGeAQvSEAmvYPznyP/Cfc
-         7KYbVkRkA+oh6Fd6/Ig+0oZvoUv3x0c11U1esxR7jhHcZFLvtV/RyGAzFoBtYDo+xGMw
-         oAFl/knmYV78BcmLPbAkFRpM41okRmylg94eG4XqR+2rwE4G1VXT+CdT48g5VOoJOBRN
-         O/NCf+ehTVeC0K65qmfzS9aAPEPlXP46n/LCIyiBmh7EQfD4DDiFcaJVi7vLJyIZfr2z
-         lMOUGU4HOHNzUTEXZUYw3ZYIyM6vmb0WeCRYjrY3drWIhHzsaN6lPK99zJ94i+Oqzirr
-         +z6w==
-X-Forwarded-Encrypted: i=1; AKwUvBzxT0vjm+0HzgeKbHbIkx1m/O4bWav0E5UzFbdGVoqrGj33AYk4M8YXM6W8D82tGmw95Al61AHfuZYcjA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgxm2yPmjqaMjTfWqZ6LzKcm0aRS6MmjJ4bd7FuAxo0sGC/8AG
-	gZdrB5fbCHo34qawhrhZZJ8iKdbc273Jb6qtyfmUS5GDPv+9H4D/iFRg5LZy9nsz0Dg=
-X-Gm-Gg: AYBFou0fmqELJI4sX18OmfNC8Hz5uX763sa96WlPG9UWY+WiV2xNQFm4a6qExmRLzrL
-	4VGDzNlBdCypWVUdRlUCBoCcQCbA6/Dybq6l8ltZbUEPFz4kwA0KK6feE0vysr4f+bVwVKAOHEr
-	8Gf43xe883F11+tuJvVe/Yvfzf9hSd3YE8La6Rapeo1RhhMakogg0ZCB2dzCpL/QBxkaBLzwRWS
-	ov5wLPPf+VSUQWdRHJzfoDz1Es0aSgzmvTSrbVLegX6fCBJtWRKYFK7SJ1NuYQa5cCLfF0SrBvf
-	RaKrCe34NaJYDYN1KphDsc2S5P9KGXtp9OqlQTr8l6+Bo4arUG7mzDETccx5olGDnPlYr+cdXHJ
-	lzP550I/UxQ4lrFrh/8ZRz0VYjN13HoBK+INMn0514Ed/W/giQ0TfFOfZdJg0jM3u7NabT3Fm1X
-	5Af1+xHp+5j+DAjRlqTMmB9ifpgodvLCWaSnXa9vZVstRyat7t4BLHHJjyj+8fyE6EtYohnoVt2
-	gl3O7OmEDh34I4xp/pD5e7azBRwAe5VXglOb5Hp9EqvlKzg6w==
-X-Received: by 2002:a05:6000:25c2:b0:48d:f215:48d8 with SMTP id ffacd0b85a97d-48e07bc6babmr19907225f8f.27.1792420121796;
-        Mon, 19 Oct 2026 07:28:41 -0700 (PDT)
-Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48dfd540bc4sm23854576f8f.2.2026.10.19.07.28.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 07:28:41 -0700 (PDT)
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 19 Oct 2026 15:28:23 +0100
-Subject: [PATCH v5 16/16] media: sony-starvis2: Add support for IMX585
+        d=1e100.net; s=20260707; t=1792420413; x=1793025213;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xQzFpTG8PW7XDUO7ySPH2DY8SEuHykZsaeu/U0Y+X6g=;
+        b=jnd9sBO/wWmVpB07JEF248U1jBv84+2/rAG4yIXYbIlDV8Cw8VBsjk2cjJXPjTtixy
+         rP6S3dDd+aeSBcwXsHp0WM3gDNzx9zHTHkiWJpt3st1gNAs7+QxuMw8Lk3AwFJ1DPB2Y
+         LuLhwhz7JQjRB055S1iU4faqxvp/F08v5LJDg8XIB5PAZxmVR5nqIzfyvSlti3SiA+tv
+         QD9qqMi7S5biGaSGzKq88ZUzD/Y0xbNfX7SMg8HC4Oz1pGkiLl3uNw7s7US+2yTgY6pK
+         u4g4G8/Ye+E7wYiUg9WD7DOL+Ffrozb1SBiWxxmFhwoq/iy9HKlnISEh51gPo4KtO30a
+         E+Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBxzSKk/qYHvJlxVfve+v4yhMDl2J81asXx1U+UZyMLW2/Q7J3DKY7L/Cu7Vhxlcgho4lhQC83CztSVxAw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuQ+9wYxkZRnM0cOoIUwh+R5Xl/sAaAQIq6TGVOdvHNxc/sRtJ
+	456xcRd8bdeOp/GpcZpzzxDIFDrW2gLfEtOx44C8NUAyP7i+xTSkFr7OOz01sL07zt0Yf91sK9H
+	kZav3nzX+pdfTBotpwMlqkJao3iz5pCA3IT0O6iRcLJjuoaHDbs5YYOWgxhIbXcP3xA==
+X-Gm-Gg: AYBFou0BNcmLMO24kJCWHY6/JC0kL2Hmrj7i2jKrSMiRHIdBiIQrkWGMJR02zdzqQAY
+	SfU4ipac2tQizX0eZlfjPTjwraBksXNXBqB8Fs9vITUIe+Eyqlv9r/rRUBKT9YM/pqQr6Ior9qB
+	4bfT8JPHCKsTupIBvtCq/tdr73EzZHFL1jN19etcpwf2jCB6Covj6B+8BLzMLT4O5T3TifillMV
+	N3vBse1u5reWPHRqy/Tqqjh7/70uxCCEOsTvqQr0p9Ty5renIYFkLg+noLv75pFjOtAr24IknSa
+	0hbVZ0B7xUhYvC2xC1lDU/cB2pSWkCoi6lRSIcPGIUaoNTCeMTaiQgtrjX0+53rPNnJpNeaTKim
+	cepLO8cHt036H0x/LZIM=
+X-Received: by 2002:a05:620a:40c3:b0:93e:7ddb:5098 with SMTP id af79cd13be357-93f29cc68a1mr1285814785a.25.1792420412956;
+        Mon, 19 Oct 2026 07:33:32 -0700 (PDT)
+X-Received: by 2002:a05:620a:40c3:b0:93e:7ddb:5098 with SMTP id af79cd13be357-93f29cc68a1mr1285806485a.25.1792420412309;
+        Mon, 19 Oct 2026 07:33:32 -0700 (PDT)
+Received: from [10.40.99.41] ([78.108.130.194])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c409239c154sm376055666b.87.2026.10.19.07.33.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 07:33:31 -0700 (PDT)
+Message-ID: <48e3f967-be0c-4bd0-9e6a-a804ab2e053e@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 16:33:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: johannes.goede@oss.qualcomm.com
+Subject: Re: [PATCH 04/10] clk: qcom: clk-rcg2: forward the gfx3d rate request
+ to the parent
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Joonwoo Park <joonwoop@codeaurora.org>,
+        Imran Khan <kimran@codeaurora.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Ilia Lin <ilialin@codeaurora.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
+ <20261019-msm8998-fix-clocks-v1-4-370949e4d8a0@oss.qualcomm.com>
+Content-Language: en-US, nl
+In-Reply-To: <20261019-msm8998-fix-clocks-v1-4-370949e4d8a0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261019-media-starvis2-v5-16-eef935347ce9@raspberrypi.com>
-References: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
-In-Reply-To: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Alexander Shiyan <eagle.alexander923@gmail.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
-X-Mailer: b4 0.14.1
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDA1NyBTYWx0ZWRfX6klUpr65xSKp
+ tJjjv+Q/0fLHVzdlzEiWz0TgWps7TdlCI0AM8vmGousz1Fc8qYhB0a8kuMEtuCxgIY1275yLKAD
+ 4EDk99IHsb+WvjmBE8xv7Vt2lAkM7fA=
+X-Proofpoint-ORIG-GUID: N7-wu_OMGajGHDwNFVhP-TIgLd9AhOys
+X-Proofpoint-GUID: N7-wu_OMGajGHDwNFVhP-TIgLd9AhOys
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDA1NyBTYWx0ZWRfX7YCtCuaizaf1
+ 6ye0sXH1nFPyZOAAWiM5fJyTs4nSsG5ET3ieWBRUNoVi3zoxqUqX3Ls/YsRrfhWnAe6q1KDp8U7
+ msULlHa246yCY8fD9A0ykW202e8vrmAgqyGp1Q9ZAggsgypii9vMq1YHJrGwSpaR6oSkI1cM5WC
+ xsG2iqtedwYvQXj79hvo4c+44XCVH2XAcaQRqFmViAhb9RDLo30T7yKq1W/oAQyJzb384HHOvo1
+ +XGVGg9KHcCL8rCUKZfy5Kd9ydCUqI0ka774aXo10IIMbW5YSMdeJFIYmg72iiKeUv0CTk94uvc
+ EBY9+DE/e1CryipXQiOqMhu92l7ntqNuDrup8UIzUvGemUG4y66vPF93vu1xHCITJvNZH8TjeLF
+ fYUShxrtfdZq1sF3vbhEG2oGLGeMtB84xFrgNTEcUA1xggq7VY/GqZCksnSvevGizcOrg0ZSBAe
+ zTDBZlj+Rb7JdYOW7yQ==
+X-Authority-Analysis: v=2.4 cv=K6O3jCWI c=1 sm=1 tr=0 ts=6ad62a3d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=rrvG0T/C2D967D07Ol03YQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=eOnteo6YT6IUeBgu2X4A:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-19_04,2026-10-14_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610190057
 
-IMX585 is an 8MPix Starvis 2 sensor, so add support for it.
+Hi,
 
-Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
----
- drivers/media/i2c/sony-starvis2.c | 305 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 305 insertions(+)
+On 19-Oct-26 3:41 PM, Dmitry Baryshkov wrote:
+> GPU DVFS on SDM660 never changed the GFX3D rate. clk_gfx3d_determine_rate()
+> builds the parent request by hand and leaves best_parent_rate at zero, so
+> the PLL is asked to determine a rate for a zero parent rate and the new
+> rate is dropped on the floor.
+> 
+> Use clk_hw_forward_rate_request(), which fills in the parent's limits and
+> rate the way the core expects them.
+> 
+> Fixes: af1e62f2ffe2 ("clk: qcom: clk-rcg2: Take clock boundaries into consideration for gfx3d")
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/clk/qcom/clk-rcg2.c | 21 +++++++--------------
+>  1 file changed, 7 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
+> index c44c51d860e1..9e3d7e5c81e5 100644
+> --- a/drivers/clk/qcom/clk-rcg2.c
+> +++ b/drivers/clk/qcom/clk-rcg2.c
+> @@ -1207,10 +1207,10 @@ EXPORT_SYMBOL_GPL(clk_pixel_ops);
+>  static int clk_gfx3d_determine_rate(struct clk_hw *hw,
+>  				    struct clk_rate_request *req)
+>  {
+> -	struct clk_rate_request parent_req = { .min_rate = 0, .max_rate = ULONG_MAX };
+> +	struct clk_rate_request parent_req;
 
-diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-index b9ade0887b6b..e89aa1a7d5eb 100644
---- a/drivers/media/i2c/sony-starvis2.c
-+++ b/drivers/media/i2c/sony-starvis2.c
-@@ -14,6 +14,8 @@
-  *         pixels.
-  * IMX832: Diagonal 6.45mm (Type 1/2.8) CMOS image sensor with 2.12 M effective
-  *         pixels.
-+ * IMX585: Diagonal 12.84 mm (Type 1/1.2) CMOS image sensor with 8.40 M effective
-+ *         pixels.
-  *
-  * Copyright (C) 2026 Ideas On Board Oy.
-  *
-@@ -1090,6 +1092,286 @@ static const struct starvis2_variant imx832_variant_def = {
- 	.shr_min = 4,
- };
- 
-+static const struct cci_reg_sequence imx585_common_regs[] = {
-+	{ STARVIS2_REG_THIN_V_EN, 0x00 },
-+	{ STARVIS2_REG_VCMODE, 0x01 },
-+	{ CCI_REG8(0x306b), 0x00 },
-+	{ STARVIS2_REG_GAIN_PGC_FIDMD, 0x01 },
-+
-+	{ CCI_REG8(0x3460), 0x21 },
-+	{ CCI_REG8(0x3478), 0xa1 },
-+	{ CCI_REG8(0x347c), 0x01 },
-+	{ CCI_REG8(0x3480), 0x01 },
-+	{ CCI_REG8(0x3930), 0x0c },
-+	{ CCI_REG8(0x3931), 0x01 },
-+	{ CCI_REG8(0x3a4c), 0x39 },
-+	{ CCI_REG8(0x3a4d), 0x01 },
-+	{ CCI_REG8(0x3a4e), 0x14 },
-+	{ CCI_REG8(0x3a50), 0x48 },
-+	{ CCI_REG8(0x3a51), 0x01 },
-+	{ CCI_REG8(0x3a52), 0x14 },
-+	{ CCI_REG8(0x3a56), 0x00 },
-+	{ CCI_REG8(0x3a5a), 0x00 },
-+	{ CCI_REG8(0x3a5e), 0x00 },
-+	{ CCI_REG8(0x3a62), 0x00 },
-+	{ CCI_REG8(0x3a6a), 0x20 },
-+	{ CCI_REG8(0x3a6c), 0x42 },
-+	{ CCI_REG8(0x3a6e), 0xa0 },
-+	{ CCI_REG8(0x3b2c), 0x0c },
-+	{ CCI_REG8(0x3b30), 0x1c },
-+	{ CCI_REG8(0x3b34), 0x0c },
-+	{ CCI_REG8(0x3b38), 0x1c },
-+	{ CCI_REG8(0x3ba0), 0x0c },
-+	{ CCI_REG8(0x3ba4), 0x1c },
-+	{ CCI_REG8(0x3ba8), 0x0c },
-+	{ CCI_REG8(0x3bac), 0x1c },
-+	{ CCI_REG8(0x3d3c), 0x11 },
-+	{ CCI_REG8(0x3d46), 0x0b },
-+	{ CCI_REG8(0x3de0), 0x3f },
-+	{ CCI_REG8(0x3de1), 0x08 },
-+	{ CCI_REG8(0x3e10), 0x10 },
-+	{ CCI_REG8(0x3e14), 0x87 },
-+	{ CCI_REG8(0x3e16), 0x91 },
-+	{ CCI_REG8(0x3e18), 0x91 },
-+	{ CCI_REG8(0x3e1a), 0x87 },
-+	{ CCI_REG8(0x3e1c), 0x78 },
-+	{ CCI_REG8(0x3e1e), 0x50 },
-+	{ CCI_REG8(0x3e20), 0x50 },
-+	{ CCI_REG8(0x3e22), 0x50 },
-+	{ CCI_REG8(0x3e24), 0x87 },
-+	{ CCI_REG8(0x3e26), 0x91 },
-+	{ CCI_REG8(0x3e28), 0x91 },
-+	{ CCI_REG8(0x3e2a), 0x87 },
-+	{ CCI_REG8(0x3e2c), 0x78 },
-+	{ CCI_REG8(0x3e2e), 0x50 },
-+	{ CCI_REG8(0x3e30), 0x50 },
-+	{ CCI_REG8(0x3e32), 0x50 },
-+	{ CCI_REG8(0x3e34), 0x87 },
-+	{ CCI_REG8(0x3e36), 0x91 },
-+	{ CCI_REG8(0x3e38), 0x91 },
-+	{ CCI_REG8(0x3e3a), 0x87 },
-+	{ CCI_REG8(0x3e3c), 0x78 },
-+	{ CCI_REG8(0x3e3e), 0x50 },
-+	{ CCI_REG8(0x3e40), 0x50 },
-+	{ CCI_REG8(0x3e42), 0x50 },
-+	{ CCI_REG8(0x4054), 0x64 },
-+	{ CCI_REG8(0x4148), 0xfe },
-+	{ CCI_REG8(0x4149), 0x05 },
-+	{ CCI_REG8(0x414a), 0xff },
-+	{ CCI_REG8(0x414b), 0x05 },
-+	{ CCI_REG8(0x420a), 0x03 },
-+	{ CCI_REG8(0x4231), 0x08 },
-+	{ CCI_REG8(0x423d), 0x9c },
-+	{ CCI_REG8(0x4242), 0xb4 },
-+	{ CCI_REG8(0x4246), 0xb4 },
-+	{ CCI_REG8(0x424e), 0xb4 },
-+	{ CCI_REG8(0x425c), 0xb4 },
-+	{ CCI_REG8(0x425e), 0xb6 },
-+	{ CCI_REG8(0x426c), 0xb4 },
-+	{ CCI_REG8(0x426e), 0xb6 },
-+	{ CCI_REG8(0x428c), 0xb4 },
-+	{ CCI_REG8(0x428e), 0xb6 },
-+	{ CCI_REG8(0x4708), 0x00 },
-+	{ CCI_REG8(0x4709), 0x00 },
-+	{ CCI_REG8(0x470a), 0xff },
-+	{ CCI_REG8(0x470b), 0x03 },
-+	{ CCI_REG8(0x470c), 0x00 },
-+	{ CCI_REG8(0x470d), 0x00 },
-+	{ CCI_REG8(0x470e), 0xff },
-+	{ CCI_REG8(0x470f), 0x03 },
-+	{ CCI_REG8(0x47eb), 0x1c },
-+	{ CCI_REG8(0x47f0), 0xa6 },
-+	{ CCI_REG8(0x47f2), 0xa6 },
-+	{ CCI_REG8(0x47f4), 0xa0 },
-+	{ CCI_REG8(0x47f6), 0x96 },
-+	{ CCI_REG8(0x4808), 0xa6 },
-+	{ CCI_REG8(0x480a), 0xa6 },
-+	{ CCI_REG8(0x480c), 0xa0 },
-+	{ CCI_REG8(0x480e), 0x96 },
-+	{ CCI_REG8(0x492c), 0xb2 },
-+	{ CCI_REG8(0x4930), 0x03 },
-+	{ CCI_REG8(0x4932), 0x03 },
-+	{ CCI_REG8(0x4936), 0x5b },
-+	{ CCI_REG8(0x4938), 0x82 },
-+	{ CCI_REG8(0x493c), 0x23 },
-+	{ CCI_REG8(0x493e), 0x23 },
-+	{ CCI_REG8(0x4940), 0x23 },
-+	{ CCI_REG8(0x4ba8), 0x1c },
-+	{ CCI_REG8(0x4ba9), 0x03 },
-+	{ CCI_REG8(0x4bac), 0x1c },
-+	{ CCI_REG8(0x4bad), 0x1c },
-+	{ CCI_REG8(0x4bae), 0x1c },
-+	{ CCI_REG8(0x4baf), 0x1c },
-+	{ CCI_REG8(0x4bb0), 0x1c },
-+	{ CCI_REG8(0x4bb1), 0x1c },
-+	{ CCI_REG8(0x4bb2), 0x1c },
-+	{ CCI_REG8(0x4bb3), 0x1c },
-+	{ CCI_REG8(0x4bb4), 0x1c },
-+	{ CCI_REG8(0x4bb8), 0x03 },
-+	{ CCI_REG8(0x4bb9), 0x03 },
-+	{ CCI_REG8(0x4bba), 0x03 },
-+	{ CCI_REG8(0x4bbb), 0x03 },
-+	{ CCI_REG8(0x4bbc), 0x03 },
-+	{ CCI_REG8(0x4bbd), 0x03 },
-+	{ CCI_REG8(0x4bbe), 0x03 },
-+	{ CCI_REG8(0x4bbf), 0x03 },
-+	{ CCI_REG8(0x4bc0), 0x03 },
-+	{ CCI_REG8(0x4c14), 0x87 },
-+	{ CCI_REG8(0x4c16), 0x91 },
-+	{ CCI_REG8(0x4c18), 0x91 },
-+	{ CCI_REG8(0x4c1a), 0x87 },
-+	{ CCI_REG8(0x4c1c), 0x78 },
-+	{ CCI_REG8(0x4c1e), 0x50 },
-+	{ CCI_REG8(0x4c20), 0x50 },
-+	{ CCI_REG8(0x4c22), 0x50 },
-+	{ CCI_REG8(0x4c24), 0x87 },
-+	{ CCI_REG8(0x4c26), 0x91 },
-+	{ CCI_REG8(0x4c28), 0x91 },
-+	{ CCI_REG8(0x4c2a), 0x87 },
-+	{ CCI_REG8(0x4c2c), 0x78 },
-+	{ CCI_REG8(0x4c2e), 0x50 },
-+	{ CCI_REG8(0x4c30), 0x50 },
-+	{ CCI_REG8(0x4c32), 0x50 },
-+	{ CCI_REG8(0x4c34), 0x87 },
-+	{ CCI_REG8(0x4c36), 0x91 },
-+	{ CCI_REG8(0x4c38), 0x91 },
-+	{ CCI_REG8(0x4c3a), 0x87 },
-+	{ CCI_REG8(0x4c3c), 0x78 },
-+	{ CCI_REG8(0x4c3e), 0x50 },
-+	{ CCI_REG8(0x4c40), 0x50 },
-+	{ CCI_REG8(0x4c42), 0x50 },
-+	{ CCI_REG8(0x4d12), 0x1f },
-+	{ CCI_REG8(0x4d13), 0x1e },
-+	{ CCI_REG8(0x4d26), 0x33 },
-+	{ CCI_REG8(0x4e0e), 0x59 },
-+	{ CCI_REG8(0x4e14), 0x55 },
-+	{ CCI_REG8(0x4e16), 0x59 },
-+	{ CCI_REG8(0x4e1e), 0x3b },
-+	{ CCI_REG8(0x4e20), 0x47 },
-+	{ CCI_REG8(0x4e22), 0x54 },
-+	{ CCI_REG8(0x4e26), 0x81 },
-+	{ CCI_REG8(0x4e2c), 0x7d },
-+	{ CCI_REG8(0x4e2e), 0x81 },
-+	{ CCI_REG8(0x4e36), 0x63 },
-+	{ CCI_REG8(0x4e38), 0x6f },
-+	{ CCI_REG8(0x4e3a), 0x7c },
-+	{ CCI_REG8(0x4f3a), 0x3c },
-+	{ CCI_REG8(0x4f3c), 0x46 },
-+	{ CCI_REG8(0x4f3e), 0x59 },
-+	{ CCI_REG8(0x4f42), 0x64 },
-+	{ CCI_REG8(0x4f44), 0x6e },
-+	{ CCI_REG8(0x4f46), 0x81 },
-+	{ CCI_REG8(0x4f4a), 0x82 },
-+	{ CCI_REG8(0x4f5a), 0x81 },
-+	{ CCI_REG8(0x4f62), 0xaa },
-+	{ CCI_REG8(0x4f72), 0xa9 },
-+	{ CCI_REG8(0x4f78), 0x36 },
-+	{ CCI_REG8(0x4f7a), 0x41 },
-+	{ CCI_REG8(0x4f7c), 0x61 },
-+	{ CCI_REG8(0x4f7d), 0x01 },
-+	{ CCI_REG8(0x4f7e), 0x7c },
-+	{ CCI_REG8(0x4f7f), 0x01 },
-+	{ CCI_REG8(0x4f80), 0x77 },
-+	{ CCI_REG8(0x4f82), 0x7b },
-+	{ CCI_REG8(0x4f88), 0x37 },
-+	{ CCI_REG8(0x4f8a), 0x40 },
-+	{ CCI_REG8(0x4f8c), 0x62 },
-+	{ CCI_REG8(0x4f8d), 0x01 },
-+	{ CCI_REG8(0x4f8e), 0x76 },
-+	{ CCI_REG8(0x4f8f), 0x01 },
-+	{ CCI_REG8(0x4f90), 0x5e },
-+	{ CCI_REG8(0x4f91), 0x02 },
-+	{ CCI_REG8(0x4f92), 0x69 },
-+	{ CCI_REG8(0x4f93), 0x02 },
-+	{ CCI_REG8(0x4f94), 0x89 },
-+	{ CCI_REG8(0x4f95), 0x02 },
-+	{ CCI_REG8(0x4f96), 0xa4 },
-+	{ CCI_REG8(0x4f97), 0x02 },
-+	{ CCI_REG8(0x4f98), 0x9f },
-+	{ CCI_REG8(0x4f99), 0x02 },
-+	{ CCI_REG8(0x4f9a), 0xa3 },
-+	{ CCI_REG8(0x4f9b), 0x02 },
-+	{ CCI_REG8(0x4fa0), 0x5f },
-+	{ CCI_REG8(0x4fa1), 0x02 },
-+	{ CCI_REG8(0x4fa2), 0x68 },
-+	{ CCI_REG8(0x4fa3), 0x02 },
-+	{ CCI_REG8(0x4fa4), 0x8a },
-+	{ CCI_REG8(0x4fa5), 0x02 },
-+	{ CCI_REG8(0x4fa6), 0x9e },
-+	{ CCI_REG8(0x4fa7), 0x02 },
-+	{ CCI_REG8(0x519e), 0x79 },
-+	{ CCI_REG8(0x51a6), 0xa1 },
-+	{ CCI_REG8(0x51f0), 0xac },
-+	{ CCI_REG8(0x51f2), 0xaa },
-+	{ CCI_REG8(0x51f4), 0xa5 },
-+	{ CCI_REG8(0x51f6), 0xa0 },
-+	{ CCI_REG8(0x5200), 0x9b },
-+	{ CCI_REG8(0x5202), 0x91 },
-+	{ CCI_REG8(0x5204), 0x87 },
-+	{ CCI_REG8(0x5206), 0x82 },
-+	{ CCI_REG8(0x5208), 0xac },
-+	{ CCI_REG8(0x520a), 0xaa },
-+	{ CCI_REG8(0x520c), 0xa5 },
-+	{ CCI_REG8(0x520e), 0xa0 },
-+	{ CCI_REG8(0x5210), 0x9b },
-+	{ CCI_REG8(0x5212), 0x91 },
-+	{ CCI_REG8(0x5214), 0x87 },
-+	{ CCI_REG8(0x5216), 0x82 },
-+	{ CCI_REG8(0x5218), 0xac },
-+	{ CCI_REG8(0x521a), 0xaa },
-+	{ CCI_REG8(0x521c), 0xa5 },
-+	{ CCI_REG8(0x521e), 0xa0 },
-+	{ CCI_REG8(0x5220), 0x9b },
-+	{ CCI_REG8(0x5222), 0x91 },
-+	{ CCI_REG8(0x5224), 0x87 },
-+	{ CCI_REG8(0x5226), 0x82 },
-+	{ CCI_REG8(0x5b3c), 0x07 },
-+
-+	{ STARVIS2_REG_WDMODE, 0x00 },
-+	{ STARVIS2_REG_MDBIT, 0x01 },
-+	{ STARVIS2_REG_XXS_DRV, 0x00 },
-+};
-+
-+static const u16 imx585_min_hmax_2lane[] = {
-+	[STARVIS2_LINK_FREQ_297MHZ] = 2984,
-+	[STARVIS2_LINK_FREQ_360MHZ] = 2464,
-+	[STARVIS2_LINK_FREQ_445MHZ] = 2004,
-+	[STARVIS2_LINK_FREQ_594MHZ] = 1512,
-+	[STARVIS2_LINK_FREQ_720MHZ] = 1260,
-+	[STARVIS2_LINK_FREQ_891MHZ] = 996,
-+	[STARVIS2_LINK_FREQ_1039MHZ] = 856,
-+	[STARVIS2_LINK_FREQ_1188MHZ] = 856,
-+};
-+
-+static const struct starvis2_variant imx585_variant_def = {
-+	.name = "imx585",
-+	.id_reg = CCI_REG16_LE(0x5a1d),
-+	.id_mask = 0x3ff,
-+	.id_value = 0x259,
-+	.native_area = {
-+		.top = 0,
-+		.left = 0,
-+		.width = 3857,
-+		.height = 2201,
-+	},
-+	.active_area = {
-+		.top = 20,
-+		.left = 0,
-+		.width = 3856,
-+		.height = 2180,
-+	},
-+	.pixel_rate = 594000000,
-+	.pix_per_clk = 8,
-+	.common_regs = imx585_common_regs,
-+	.num_common_regs = ARRAY_SIZE(imx585_common_regs),
-+	.vmax_default = 2250,
-+	.hmax_min_link_freq = imx585_min_hmax_2lane,
-+	.hmax_min_pixel_array = 550,
-+	.exposure_min = 2,
-+	.exposure_step = 2,
-+	.shr_min = 8,
-+};
-+
- struct starvis2_model_info {
- 	enum starvis2_type type;
- 	const u32 *codes;
-@@ -1180,6 +1462,26 @@ static const struct starvis2_model_info imx832_autodetect_info = {
- 	.auto_detect_mono = &imx832_amr_info,
- };
- 
-+static const struct starvis2_model_info imx585_aaqj_info = {
-+	.type = STARVIS2_COLOR,
-+	.codes = codes_bayer,
-+	.num_codes = ARRAY_SIZE(codes_bayer),
-+	.variant = &imx585_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx585_aamj_info = {
-+	.type = STARVIS2_MONOCHROME,
-+	.codes = codes_monochrome,
-+	.num_codes = ARRAY_SIZE(codes_monochrome),
-+	.variant = &imx585_variant_def,
-+};
-+
-+static const struct starvis2_model_info imx585_autodetect_info = {
-+	.variant = &imx585_variant_def,
-+	.auto_detect_colour = &imx585_aaqj_info,
-+	.auto_detect_mono = &imx585_aamj_info,
-+};
-+
- static const char * const starvis2_supply_name[] = {
- 	"avdd",  /* Analog (3.3V) supply */
- 	"dvdd",  /* Digital Core (1.1V) supply */
-@@ -2020,6 +2322,8 @@ static const struct dev_pm_ops starvis2_pm_ops = {
- };
- 
- static const struct of_device_id starvis2_of_match[] = {
-+	{ .compatible = "sony,imx585-aamj", .data = &imx585_aamj_info },
-+	{ .compatible = "sony,imx585-aaqj", .data = &imx585_aaqj_info },
- 	{ .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
- 	{ .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
- 	{ .compatible = "sony,imx675-aamr", .data = &imx675_aamr_info },
-@@ -2029,6 +2333,7 @@ static const struct of_device_id starvis2_of_match[] = {
- 	{ .compatible = "sony,imx832-amr", .data = &imx832_amr_info },
- 	{ .compatible = "sony,imx832-aqr", .data = &imx832_aqr_info },
- 	/* for non-conforming DTs that rely on runtime check */
-+	{ .compatible = "sony,imx585", .data = &imx585_autodetect_info },
- 	{ .compatible = "sony,imx662", .data = &imx662_autodetect_info },
- 	{ .compatible = "sony,imx675", .data = &imx675_autodetect_info },
- 	{ .compatible = "sony,imx678", .data = &imx678_autodetect_info },
+Just a random drive-by comment: You are now leaving parent_req entirely uninitialized
+filling it with whatever is on the stack. Where as before all values except for
+max_rate would be filled with 0.
 
--- 
-2.34.1
+Are you sure this is what you want ? Maybe:
+
+	struct clk_rate_request parent_req = {};
+
+?
+
+Regards,
+
+Hans
+
+
+
+
+>  	struct clk_rcg2_gfx3d *cgfx = to_clk_rcg2_gfx3d(hw);
+>  	struct clk_hw *xo, *p0, *p1, *p2;
+> -	unsigned long p0_rate;
+> +	unsigned long p0_rate, parent_rate;
+>  	u8 mux_div = cgfx->div;
+>  	int ret;
+>  
+> @@ -1234,12 +1234,12 @@ static int clk_gfx3d_determine_rate(struct clk_hw *hw,
+>  	if (mux_div == 0)
+>  		mux_div = 1;
+>  
+> -	parent_req.rate = req->rate * mux_div;
+> +	parent_rate = req->rate * mux_div;
+>  
+>  	/* This has to be a fixed rate PLL */
+>  	p0_rate = clk_hw_get_rate(p0);
+>  
+> -	if (parent_req.rate == p0_rate) {
+> +	if (parent_rate == p0_rate) {
+>  		req->rate = req->best_parent_rate = p0_rate;
+>  		req->best_parent_hw = p0;
+>  		return 0;
+> @@ -1247,7 +1247,7 @@ static int clk_gfx3d_determine_rate(struct clk_hw *hw,
+>  
+>  	if (req->best_parent_hw == p0) {
+>  		/* Are we going back to a previously used rate? */
+> -		if (clk_hw_get_rate(p2) == parent_req.rate)
+> +		if (clk_hw_get_rate(p2) == parent_rate)
+>  			req->best_parent_hw = p2;
+>  		else
+>  			req->best_parent_hw = p1;
+> @@ -1257,16 +1257,9 @@ static int clk_gfx3d_determine_rate(struct clk_hw *hw,
+>  		req->best_parent_hw = p2;
+>  	}
+>  
+> -	clk_hw_get_rate_range(req->best_parent_hw,
+> -			      &parent_req.min_rate, &parent_req.max_rate);
+> +	clk_hw_forward_rate_request(hw, req, req->best_parent_hw, &parent_req,
+> +				    parent_rate);
+>  
+> -	if (req->min_rate > parent_req.min_rate)
+> -		parent_req.min_rate = req->min_rate;
+> -
+> -	if (req->max_rate < parent_req.max_rate)
+> -		parent_req.max_rate = req->max_rate;
+> -
+> -	parent_req.best_parent_hw = req->best_parent_hw;
+>  	ret = __clk_determine_rate(req->best_parent_hw, &parent_req);
+>  	if (ret)
+>  		return ret;
+> 
 
