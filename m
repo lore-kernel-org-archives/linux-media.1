@@ -1,163 +1,126 @@
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6676850EBEB
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418982; cv=pass; b=nrlapu7EhrQ35trWQJWxYobUEUgQB4xCAjSM9kV9LHEsTTDz9yKgaJVG5C1fKLn3mepYf0NnSHoK9tTGAwaN/RHoqoN6qMvYJ0RsxMBntt/Afpq+q19fEqAyPzVAIcfRkZ+66dvCZgisovfHpUmZjEM8jeocw41D9pFLd3PtBdI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418982; c=relaxed/simple;
-	bh=69YmwAWS3dZ9In6kSWSUcs0wnTKNpoRN15/7jRzhzV4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZpEqaSbTG5+AKgMfm234eVm7FbtbbyP6ug58W5jho2KhMNfUqiGcUpoaKy18KzNZFCg6u2dCpm52pPvhjZDFDuRi8ZLWbf5eorO82crhtLVxjWvMMbzBwkASIduFXMw1ryEMouRRDT5F4m2BRjIa00z/bS1wm+KfJm+bYp8f2uo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=fm6varGy; arc=pass smtp.client-ip=209.85.167.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A625166EF
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 14:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792419238; cv=none; b=jSs0IUACSadaUvJxqzRlWD9SDYqEVZisLi59agP6jGT+qgCtnq0fQNGvkzyiIQWVbNaXdJuqR+dmp/8v7jh8KYjP1frD1fDenMghWx7hZYBVp0p2AcUCx24bTKzI5tvVgDQGvmzs7F6xOO9eoHc81wR5ytT7K+1iDeaRrT9lw5E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792419238; c=relaxed/simple;
+	bh=Xj1tXuPgTXzaT3nix7piE0Gi8Q7+az0H1KHgxrxkFZw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YrQL3E7A6lzCUIFQqBJ0HG4eMP+YKJzY/LFKzn3177Yw1L9dVy0v3Yq2cYo7d6U2eJhWV6MiByedE+KDYBaPAdW3ejWBuVUQNtpNiPPhPdARKO+8PLXrTZNIiKW0hu8BsSG9i3eutKykB6+2lbU9AqBNnMJR7jjWtIWvEokU/IY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=YTFZ7HMD; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="fm6varGy"
-Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-53ec9237600so705210b6e.3
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:09:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792418978; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LTH1kAwGesrL0ihmagYEoJqJ2Ci7Xyn/P+u5BdCvvmxoTIy+PzTW7rkqOys6l/wN7g
-         0KhqH3dw4/sIdEipJc60J6IIUuTOc8mBOLabuk09DxAw60fG3fdchAsdRo0GrhDe+vqD
-         ehoSBZSKabDs7LUptdElqONVfn48GKGcVrhNqUG3hSiezRcmI/sZOG55PkNvvZmMMha0
-         n6dQPGd5lMq+X/LA/ebOIp/CNsfOUG7R2jQgmmJol4RmTBb56lsdC7lCo8LUWerwv1ar
-         tl1UJeQ5sHS7zNyWxZh2zb7wgdinY+Za8M2H+Y0jiIVOCc4sOQB/zoUzDE4OMJ0vyWbn
-         K2EQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=uzPbkn9TvysYoTYtHl26oKGkVeNYy29t/Y60wQicXoI=;
-        fh=gOVbyv0EnCKe7X3C7lWut/qM8/Rcfjd9l1HiZhpGMVM=;
-        b=cy+Szyfj+wUdfAja7rhcQBrAN6IcU1yYFvQhb/1xVBBO2tOZ4kYwAgH0YEYnHyMZ2e
-         w/fzYFEz9hsBR1ACK8V8e9gZQxXsinLNJevSY+TK82usFECSeaKKAxPllHywvxZ/NBdc
-         zw4Oi6aCzFpehSfqy2QIt8YgfYjYE9dd1v3JRkFMqzSFgKFvHN5GlnLo18iy0NTf4qPZ
-         yxINbNIK2I8bfoRe0BqVq0NYRGwK8OQpTrAJL10YJ4cCKUjbDg21TOHf1buD7RNaEwQ0
-         zxbITLF3n0BGEjkkZ2xW56ok12U5A3WKr0nWk7aGwwTKX8NStrjE15sOa1MHHxQvO1De
-         2/eg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="YTFZ7HMD"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-53397554beaso25247991cf.3
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:13:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792418978; x=1793023778; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uzPbkn9TvysYoTYtHl26oKGkVeNYy29t/Y60wQicXoI=;
-        b=fm6varGyA+zT2gRAnnPW8nBLqEM9mlQESjmGewpD1Fh8C+PmkoilhpLwgfvz6a0/qL
-         G8GopvG6J2QNaIcW4EFzCrLMKoaxMyslz9N9VlhDieKBuvcbt73Sku2JGle2tzi0JXmY
-         cJJkLtUaUJTxxhfFORFkqleuo8JiqmbRo5hWkBelupeXOllbjb0azOCi283bEQWjXgMP
-         jShb/ScA5HUnThFuQi5fv5mGGwHhmY13rhRTu/NgYIV3CPz8NVI/PpFYEpG2NuR0b5Nb
-         oNjq+clLx6E/MSlFo4LpeemHWjlx0BT3VGhqAVGLWes/ICLfDFWaqYw16amMy6mMZwBH
-         ymSw==
+        d=rowland.harvard.edu; s=google; t=1792419235; x=1793024035; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5BlttwcoFjB9LyfPGuIFgEh48duPPMU/zmrf0OZAJ0E=;
+        b=YTFZ7HMD0+7eZ0cb4C8DJvhGaaAIA6s1oS0hIaYf7kL2wQRV+jZYSV9KxZGeBF8JS4
+         TXVFnK+81s75jp2tm77iwoWJMVq1KL3zlwcfDoqcGKhxtGkwDxujOSW4mgcSfaoEGZiQ
+         yQmxvhJTVl9xc6i/eDFIxsUkRzJlChX/LeXyNHXv08kbEZMhvdu/JmMGpfxj6uDwVRZZ
+         8P3SSpVfZ+KE9tzgT8BL6MIQkgfPdyVxStqzrp3TDDL5YzFc7JiyrNibTY5g30HsOeRk
+         iif9nlaAjJLNu73mXLR2QYHJ5oHAh5fz+OhUR1yCr8zn7AtNSKEaCounzi30FMfcpfGi
+         mIPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792418978; x=1793023778;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=uzPbkn9TvysYoTYtHl26oKGkVeNYy29t/Y60wQicXoI=;
-        b=Va6DnG+bft1nsuX2/ymjE9vm/NeSe/Yxg7xmVLKGzrAnil8UiVKgOuEI9bSu3A16Ft
-         DJnTWPamJP1PEbmDKjhGvzs0jVJo7keXGEUxpVQ4m9btMsDykhQRypKO6Do6SaS9kU/0
-         N+9gOvpJJVY4efsRP9SosESSaNBArUDCtgqeMEY1ebgZ96KTCCF4y9HSgGvtKR8+yHHk
-         l9SBfTCZj5hCI0LXaVB1aejdeh8cnQ7bqSCVtCCPhF3nPP5aWpRMNg09v/RaNWgk5pd7
-         nczhhVbkfi/hX/v65elJG4ITB2hpeChgOsNQCiNl5iE9MX1jhK6Us6RrouU+OW6ajkRL
-         XDGg==
-X-Forwarded-Encrypted: i=1; AKwUvByQDrUzwJTEufO5s64ye0mQnSuWCxmV82kE4ZFlwx2tP4WPO2bz0GXDPfrpxZa9qvddF2g+ak2r91g2vw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/vB41+eQx/V/khg9ce/tqFb57q9wiEK0lb86rLcqKK0NQzuA3
-	tN48V3ob1ULvYpv95AiXNDwxNSqZPRICORJllldyJ6CqBik6dHdebdslshWLFjSr5AfXRM0sl+M
-	Oknnv9BOiIN+0YXK1VlhNVUHYUgqAzLBJ+QGHaRex+g==
-X-Gm-Gg: AYBFou2gaTs0wr9TNHHTDFmg6mRxVTc5JTCR5W7qJTi/IR6j0UqiUeyy3A3k1ZCoIuZ
-	TlNLRZRL20tfFOzEXxQbHyaxCxIIrQan2+yxupq8/0T+Uz59jNsy/b1GlZI0+Ak0ASH9QYt/Fcx
-	TOE7dsEF75Q4+CKdnkFvdU5hGOJuZUoI7b/AWLWrirD1gO386jdDu9MsE9vnMM7Xok7cY41sKCa
-	veNWauQEA9jwklIc32rUcaOicN3YHeg+3uWw6FLkB6s5/t2D0izkJEwzrxCN5apGHbmp2AnMII4
-	YddThmlYnl723VIACD9r/IaDsQlqzdvKeArPtJFD+UyImZNkwd/g7OSvqSwLu4ljP0cxGJ4pXjl
-	WEa2yiffZkDTCwZ+TSDuXBnMQikWW378wfV9aRTTBEPQBym9ffVHsGYeZC964BFvG18qJRbeYjK
-	zIyYfFQX8=
-X-Received: by 2002:a05:6808:4897:10b0:549:572c:fd42 with SMTP id
- 5614622812f47-549572cff69mr961942b6e.47.1792418977994; Mon, 19 Oct 2026
- 07:09:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792419235; x=1793024035;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5BlttwcoFjB9LyfPGuIFgEh48duPPMU/zmrf0OZAJ0E=;
+        b=jwwo3U7I3RppSJe8FuaIsiYrwhE4fY4OfL4vniYK7UJjiLDzKyT99VtjublQepqNPh
+         lkfk9FkUb1X5K6fUIRs9TCV141ZHBeSkHJ50ao0y+3sQR0poTJAmdaMsuWi7UaFOwV5t
+         luVtCnZOoHgizMf9SI3nE1j1gUiBqVa/unDx3/jIKY3pTtdO0x70DQ3WynwjNJIGNQdK
+         zNQh2nONqXFpshWbeFYL5CZRAwcy9eXpQKihFLCjdUigsKcWlyCKetmtZ9ZmXgzXeXKL
+         uXZGbhU/KxPbZrZGkFb7Nd/AiGkiAVztvOy8XNg7BKJ3TtMtGmxjrbzFYK1un03kAJQi
+         mDLQ==
+X-Gm-Message-State: AFq9FYIIk5fZiVx12kfyCVuFrdRw/HE+zZrgGvear72lJevUdSrlURPc
+	FmuSeiQy4/IJUhwF22L0w7A2an4TbbptnzeLTMhcSWJ+9euh8erlTWSUFab/b1aGHg==
+X-Gm-Gg: AYBFou0LYqoP0Lzf0jG/aFV1niQ8iOOjrMycH0/mjlPqx7ThfvoeHJ2PH44rC9bIFZm
+	sXEZ9KTq6e47/osdDllD+OJuKdhPP+EKsbjBFTw3ZQXU7OSnP+7GAFrKGcr9zKvgOiaIQtRmpkS
+	LGsf+rlv0Vd2Ru0M1wvdS5Fe114BOwVnTzT7TwDM832w6E3ZWMmRVD2jaqcqIF5LtY+LlRGEzNU
+	hpV/XS9HlZ5T7+GV5Oh03aBnb1GvaSe7AZNtycQgoMjKU4R/zQdUNLPGs9wSXwnvh3yc/niW0hv
+	D8uJvwzwTDv3niYzW7e69TT2au3+CbEN+9lSmQ3qt+M0+JQuh6HuZh0PWKCbf/GdJjWTkryNLCa
+	WwPMZmBYQgawR+RsHwBfA8Zo9qYw+IUqaUUMg6/W6UQlDdMQvk6mxiL9J+Cld+Dh0girZ0usT9k
+	n8PDCKhDEp+0CQv/T1jN6ZGVuVivYsmSdRbzXjo7TMEVg+CZqhMNMolLbr2EpZXJyZVy+puqv2e
+	R4UOO00YBszQv8vf0uDRUOiA1M=
+X-Received: by 2002:a05:622a:514e:b0:530:42d4:4c9a with SMTP id d75a77b69052e-5364605937emr109597891cf.44.1792419234421;
+        Mon, 19 Oct 2026 07:13:54 -0700 (PDT)
+Received: from rowland.harvard.edu ([140.247.181.15])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5362a8e43cfsm99785331cf.5.2026.10.19.07.13.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 19 Oct 2026 07:13:52 -0700 (PDT)
+Date: Mon, 19 Oct 2026 10:13:50 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com, stable@vger.kernel.org,
+	Antti Palosaari <crope@iki.fi>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH] media: dvb-usb-v2: ec168: Reject zero-length I2C reads
+Message-ID: <1ab79363-7211-475d-8529-1d5c00586f8c@rowland.harvard.edu>
+References: <20261019123542.4040472-1-andi.shyti@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
-In-Reply-To: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 19 Oct 2026 15:09:21 +0100
-X-Gm-Features: AclHuK-AIGbRFr9yg6IaZgg6GA0B3HqMS5PH9s9AyZ2TVN_nbGVs-YRnZhIMIdg
-Message-ID: <CAPY8ntCz3nhefn8EwF_Ezh=vKmTWWVLYOnuAFoW2aBq6Wjidiw@mail.gmail.com>
-Subject: Re: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax
- in s_ctrl
-To: berringtoni36@gmail.com
-Cc: Michael Riesch <michael.riesch@collabora.com>, linux-kernel@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019123542.4040472-1-andi.shyti@kernel.org>
 
-On Sun, 18 Oct 2026 at 13:54, Wenqiang Zhao via B4 Relay
-<devnull+berringtoni36.gmail.com@kernel.org> wrote:
->
-> From: Wenqiang Zhao <berringtoni36@gmail.com>
->
-> When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
-> (format->height + ctrl->val) to the IMX415_VMAX register, and then falls
-> through to case V4L2_CID_EXPOSURE to update the electronic shutter register
-> (IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
-> rate changes.
->
-> However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
->     vmax = format->height + sensor->vblank->cur.val;
->
-> Within the V4L2 control framework, sensor->vblank->cur.val holds the
-> committed old vertical blanking value, which is not updated to the new
-> value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
-> is calculated from the stale vblank value:
-> - If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
->   the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
-> - If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
->   the actual hardware exposure to drop by the blanking delta.
-> - Additionally, ctrl->val is clamped against the stale vmax limit.
->
-> Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
-> which holds the target vertical blanking value currently being applied.
-> When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
-> current vblank, keeping behavior unchanged.
->
-> Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
-
-Thanks for the patch.
-
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-
+On Mon, Oct 19, 2026 at 02:35:42PM +0200, Andi Shyti wrote:
+> ec168_i2c_xfer() checks the length of the register-address
+> message in a combined demodulator read, but does not validate the
+> read message length. Userspace can supply a zero-length read
+> through I2C_RDWR.
+> 
+> This reaches ec168_ctrl_msg(), which selects an IN control pipe
+> for READ_DEMOD with wLength set to zero. The USB core treats
+> control requests without a data stage as OUT(*), triggering the
+> "BOGUS control dir" warning in usb_submit_urb().
+> 
+> Reject zero-length read messages with -EOPNOTSUPP before issuing
+> the USB request, using the existing exit path to release the I2C
+> mutex.
+> 
+> (*) is_out = ... || !setup->wLength;
+> 
+> Fixes: 2bf290be4f3e ("V4L/DVB (13364): ec168: add new driver for E3C EC168 DVB USB")
+> Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=ed3ada41c4eb1c4ab78e
+> Signed-off-by: Andi Shyti <andi.shyti@kernel.org>
+> Cc: <stable@vger.kernel.org> # v2.6.33+
 > ---
->  drivers/media/i2c/imx415.c | 2 +-
+>  drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-> index c3b22b238..e5aa741fc 100644
-> --- a/drivers/media/i2c/imx415.c
-> +++ b/drivers/media/i2c/imx415.c
-> @@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
->                 fallthrough;
->         case V4L2_CID_EXPOSURE:
->                 /* clamp the exposure value to VMAX. */
-> -               vmax = format->height + sensor->vblank->cur.val;
-> +               vmax = format->height + sensor->vblank->val;
->                 ctrl->val = min_t(int, ctrl->val, vmax);
->                 ret = cci_write(sensor->regmap, IMX415_SHR0,
->                                 vmax - ctrl->val, NULL);
->
-> ---
-> base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-> change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
->
-> Best regards,
-> --
-> Wenqiang Zhao <berringtoni36@gmail.com>
->
->
+> 
+> diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb-usb-v2/ec168.c
+> index 973b32356b17..f6b98c7d3704 100644
+> --- a/drivers/media/usb/dvb-usb-v2/ec168.c
+> +++ b/drivers/media/usb/dvb-usb-v2/ec168.c
+> @@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
+>  	while (i < num) {
+>  		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
+>  			if (msg[i].addr == ec168_ec100_config.demod_address) {
+> -				if (msg[i].len < 1) {
+> +				if (msg[i].len < 1 || msg[i+1].len < 1) {
+>  					i = -EOPNOTSUPP;
+>  					break;
+>  				}
+
+Isn't there an I2C quirks flag to indicate that 0-length reads aren't 
+allowed?  Setting that flag would be more understandable than this test.
+
+Alan Stern
