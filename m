@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CDB7543C3D;
-	Mon, 19 Oct 2026 14:06:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D50F642348;
+	Mon, 19 Oct 2026 14:06:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418772; cv=none; b=HEa0Io+/zRN6UuW+fOBXvz3d5RJ8oWTr9Op98VX0EmaiSJpeiq15fdBHThAcyk+4KX8iaclH4Tpw4LedwAc7eTblrbAuqKn2MpPKssrPhbY7QUuKR9ADsQ1zh4wRSKJwFpYUEK/M4MkPfLyxEzwLiBrMcEEq7/u3DfxTRp7qulM=
+	t=1792418807; cv=none; b=IKOHPmZrnX3GXLaRo0n1KTbBuef68CAMo7j0MjeFIQ+12X7Y4UKZI9mMiTPl80iUlqkuOVSBup7gb8aPlCX4VE6pctdwqusYHPC7TaX209vUGpGdF9kyQLaECn8jDq5PUdLvIS8y+Ya5x9tPBfsq+oZRrb5lN5R6AWSW4iQ8RHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418772; c=relaxed/simple;
-	bh=EoudlL7YwgDi7sJK8VzGj1yFIiwPZ1prbOJ2prvU8OY=;
+	s=arc-20240116; t=1792418807; c=relaxed/simple;
+	bh=BrfpQuNnY8UhcSW7NLvGo0+YcomfJeCp2i9f0EMq5s8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hoIH/s8VzSKQItYuc98HiwchSnHsCLtSFB61JW3tbsyoC4HioqY7vptc90ir+JneSYu1nd/PwKfr5tu9CR1VxmmEOO2SNEIYU12qNZM6k1AQjYAlPnVFG5OKDpMoV3RjDtEJhipbXOHBvU6nH2L8IHdkkky5KYwV788lNOlzCbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TankBjgE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CF/p3ELL1bmf7mVgELgg2gBdHDiesv91PcIg6GmsZN25ZOIxiALaLJk8Dp1px5PEjNOnUczRb25Rfa9SxhbmCDXNv//QRle8UIUExiZa1XLROfACnJGGqEc5j8r9Au5cI90uJqSVga2be6veJmznGbo0UI/R9OxObIWJkQu96IA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UK59zbfY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TankBjgE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28EFF1F000CD;
-	Mon, 19 Oct 2026 14:06:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UK59zbfY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8972D1F000C8;
+	Mon, 19 Oct 2026 14:06:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418769;
-	bh=G9Y99oW6oDHR0wfYeVH1Lh3TE8TZx3h9bjl3n725Kc8=;
+	s=k20260515; t=1792418804;
+	bh=G9zW7P2x/XazPvN4qmPk6DMgvTujEYME/q4y9iJUZ08=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TankBjgE+rvs3Fdy8m+pFKQgCpHVycaQzXHTy6bsLTSAaVqzCLLU/yKbV5eZLOy1W
-	 gXZVpSqKmTXIx5a+GmjdOnZRjPTdfHXu+EBkuQRWa/LqSCiKh69C3i6Hv2vlIvsQmA
-	 vd4Hxvo+mLHfjngRBJHf9VbLo8knTDbaP3QKLUByXW+WlqT1kq7uwD+SX5Balyargi
-	 Mty0IS8RpzEJD8pezKCGmlM+uXKJ6DZQ3u3oHZPnR/6FIxawGYElZ9IKpiO+EEa8//
-	 Sp50WJAeYl50rIdjXRVwfWGcZR5R/t/hfX01g7zOT9lbqft7FQqllcHqjnEeeE8zK6
-	 1QBRCL7m1MRpQ==
+	b=UK59zbfYTVqXtTmzBkZh22xmWtqXk/4n83TQND2aWF4NJwR0uqDwkHo3SFho3A7kP
+	 WvP4A4XG1FiFlPCOgLLdXPoBlMSpGCAymMTKrQdcknE6G3qngnVCHFLsieea5BEBtD
+	 ip3SHHamFMTXR2kydbrCVoRH+LByuY9qwrBVQMTyRyj5ELuvJGjyTeBBrikPYRFJp8
+	 QKTywL47rFJ4SF/utdgPDKLEfUngF6ffV2LNXoYhZdstfbQsvN0ytuTbDP9cE5aeU8
+	 msUcbgAXtzf5PfDq0UWo3t39sf6Aj6R8XwPscQf4qFjvpUnmou+85Jc9uzrsMnZ9Tm
+	 vXJxKdFhfkUIA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+Cc: Jurison Murati <eng.juri@gmail.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: em28xx: dev_info->pr_info since dev has been freed
-Date: Mon, 19 Oct 2026 09:52:53 -0400
-Message-ID: <20261019135441.1420968-482-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.15] media: i2c: ov8865: Drop the runtime PM usage count on stream failure
+Date: Mon, 19 Oct 2026 09:53:19 -0400
+Message-ID: <20261019135441.1420968-508-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,450 +54,423 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
+From: Jurison Murati <eng.juri@gmail.com>
 
-[ Upstream commit c132b07f7e5853c0df35a9b94b8e204cdc6afdef ]
+[ Upstream commit 3fe797a12bfa9a49aa998ee722e5f25c957b9b15 ]
 
-In em28xx_free_device() dev_info passed &dev->intf->dev,
-but that device can be freed already.
+ov8865_s_stream() takes a runtime PM reference when enabling the
+stream, but returns without releasing it if ov8865_sw_standby()
+fails, leaving the reference unbalanced and the sensor powered
+indefinitely. The same applies to a failure while disabling the
+stream, in which case the reference acquired at stream start is
+never dropped.
 
-Just use pr_info instead.
+Drop the reference in a single place, both when disabling the
+stream and on failure, and only update the streaming state on
+success.
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Tested-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Signed-off-by: Jurison Murati <eng.juri@gmail.com>
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a one-line use-after-free fix in a USB disconnect/teardown path.
-The local tree is mainline **v7.3-rc4** (`7.3.0-rc4`); the driver and
-the delayed-free path are present, and the change is independently
-correct.
+The local tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The
+driver and the unbalanced RPM `s_stream` path exist here; this is a
+real, small resource-leak fix that belongs in this tree.
 
-===============================================================
-PHASE 1: COMMIT MESSAGE FORENSICS
-===============================================================
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
 **Step 1.1: PARSE THE SUBJECT LINE**
-- Subsystem: `media: em28xx`
-- Action verb: implicit fix (`dev_info->pr_info since dev has been
-  freed`)
-- Claimed intent: stop logging through a USB `struct device` that may
-  already have been freed.
-
-Record: **[media/em28xx] [replace logging helper] [do not use freed USB
-device in em28xx_free_device()]**
+Record: **[media/i2c/ov8865] [Drop] Drop the runtime PM usage count on
+stream failure.** “Drop” here is a leak fix: release a held RPM
+reference, not a feature removal.
 
 **Step 1.2: PARSE ALL COMMIT MESSAGE TAGS**
-- No `Fixes:` tag (expected for this review)
-- No `Reported-by:` / syzbot
-- `Tested-by: Hans Verkuil <hverkuil+cisco@kernel.org>` — author tested
-  on real hardware
-- No `Reviewed-by:` / `Acked-by:` on the committed message
-- No `Link:`
-- No `Cc: stable@vger.kernel.org` (expected)
-- `Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>` (author;
-  V4L2 maintainer)
-- `Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>`
-  (media maintainer)
-
-Record: **Author+media maintainer SOBs; Tested-by from author; no
-Fixes/Cc stable (not a negative).**
+Record:
+- **Signed-off-by:** Jurison Murati `<eng.juri@gmail.com>` (author)
+- **Reviewed-by:** Daniel Scally `<dan.scally@ideasonboard.com>`
+- **Signed-off-by:** Sakari Ailus `<sakari.ailus@linux.intel.com>`
+  (media I2C maintainer; applied the patch)
+- **No Fixes:** (expected for this review)
+- **No Cc: stable** (expected)
+- **No Reported-by / Tested-by / Link / Acked-by**
+- Ignore any pipeline-added Sasha Levin SOB / `[Upstream commit]`
+  markers (none in the real commit)
 
 **Step 1.3: ANALYZE THE COMMIT BODY TEXT**
-Body: `em28xx_free_device()` passed `&dev->intf->dev` to `dev_info`, but
-that USB interface device can already be gone. Replace with `pr_info`
-using `dev->name`.
-
 Record:
-- Bug: use of `dev->intf->dev` after the USB interface may have been
-  freed
-- Symptom: kernel UAF / oops while printing “Freeing device”
-- Version info: none in the message; history shows the log line since
-  v4.10
-- Root cause: delayed `kref_put` after USB disconnect tears down `intf`
+- **Bug:** `ov8865_s_stream()` calls `pm_runtime_resume_and_get()` on
+  stream-on, then returns early if `ov8865_sw_standby()` fails, without
+  `pm_runtime_put()`.
+- **Symptom:** RPM usage count stays elevated; the sensor stays powered
+  indefinitely. Same leak on failed stream-off (the get from stream-on
+  is never dropped).
+- **Root cause:** error returns skip the put that is only done on
+  successful stream-off.
+- **Fix:** put on `ret || !enable`; only set `state->streaming` on
+  success; return the real `ret`.
+- **Version info in the message:** none.
 
 **Step 1.4: DETECT HIDDEN BUG FIXES**
-Not hidden. Cover letter for the series says explicitly: “The fifth
-patch fixes a use-after-freed”.
+Record: **Not hidden.** It is an explicit RPM reference-count leak fix
+(error-path resource leak).
 
-Record: **[Explicit UAF fix, not cleanup]**
+---
 
-===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
-===============================================================
+## PHASE 2: DIFF ANALYSIS
 
 **Step 2.1: INVENTORY THE CHANGES**
-- File: `drivers/media/usb/em28xx/em28xx-cards.c` (1 insertion, 1
-  deletion)
-- Function: `em28xx_free_device()`
-- Scope: single-file surgical fix
-
-Record: **[em28xx-cards.c ±1] [em28xx_free_device] [surgical]**
+Record:
+- **File:** `drivers/media/i2c/ov8865.c` — **+5 / −7** (12 lines
+  touched)
+- **Function:** `ov8865_s_stream()` only
+- **Scope:** single-file, surgical
 
 **Step 2.2: UNDERSTAND THE CODE FLOW CHANGE**
-Before:
+Before (parent of `3fe797a12bfa9`):
+
+```c
+if (enable) {
+    ret = pm_runtime_resume_and_get(sensor->dev);
+    if (ret < 0)
+        return ret;
+}
+mutex_lock(&sensor->mutex);
+ret = ov8865_sw_standby(sensor, !enable);
+mutex_unlock(&sensor->mutex);
+if (ret)
+    return ret;                 /* leak: no put */
+state->streaming = !!enable;
+if (!enable)
+    pm_runtime_put(sensor->dev);
+return 0;
 ```
-dev_info(&dev->intf->dev, "Freeing device\n");
-```
+
 After:
-```
-pr_info("%s: Freeing device\n", dev->name);
+
+```c
+if (ret || !enable)
+    pm_runtime_put(sensor->dev);
+if (!ret)
+    state->streaming = enable;
+return ret;
 ```
 
-This runs at the start of the kref release callback, **before**
-`kfree(dev)`. `dev->name` is an embedded `unsigned char name[32]` in
-`struct em28xx`, still valid. `&dev->intf->dev` is not, if USB core
-already dropped the interface.
-
-Record: **[dev_info on possibly-freed usb_interface -> pr_info on still-
-live em28xx::name]**
+Record:
+- Stream-on success: no put, `streaming = 1` (unchanged).
+- Stream-on failure: **put** (was leaked).
+- Stream-off success: put, `streaming = 0` (unchanged).
+- Stream-off failure: **put** (was leaked); `streaming` left unchanged.
 
 **Step 2.3: IDENTIFY THE BUG MECHANISM**
-Category: **memory safety / use-after-free**.
-
-Call path (verified in this tree):
-1. `em28xx_usb_disconnect()` sets `dev->disconnected = 1`, calls
-   `em28xx_close_extension()`, then `em28xx_release_resources()`
-   (`usb_put_dev`), then `kref_put(&dev->ref, em28xx_free_device)`.
-2. Extensions hold extra refs. Audio PCM close still does `kref_put`
-   (`em28xx-audio.c`); v4l2 defers the last `kref_put` until
-   `em28xx_free_v4l2()` after the last userspace close.
-3. If a capture/audio handle is still open at unplug, the last
-   `kref_put` happens **after** USB `disconnect()` returns. USB core
-   then unregisters/frees `usb_interface`. `dev->intf` is dangling.
-4. `dev_info(&dev->intf->dev, ...)` dereferences that freed `struct
-   device`.
-
-This delayed-free path is not new: even before the 2026 v4l2-release-
-callback series, open/close took `kref_get`/`kref_put` on `dev->ref`, so
-the last put could already run after unplug.
-
-Record: **[UAF] [printk through freed usb_interface after delayed kref
-release]**
+Record: **[Error path / resource leak — runtime PM usage count]**
+`pm_runtime_resume_and_get()` increments the usage count.
+`ov8865_sw_standby()` is a single I2C write and can fail. Early `return
+ret` skipped the matching `pm_runtime_put()`.
 
 **Step 2.4: ASSESS THE FIX QUALITY**
-Obviously correct: stop touching `intf` once it may be gone; log via a
-field inside `dev` that has not been freed yet. No API change.
-Regression risk is negligible (log prefix loses the kernel device name;
-`dev->name` is set in probe via `snprintf`).
+Record: **Obviously correct and minimal.** Same pattern suggested by
+Sakari Ailus on v1 and used by sibling OmniVision drivers (e.g.
+`ov8856_set_stream()`).
+**Regression risk: very low.**
 
-Record: **[minimal, correct] [regression risk very low]**
+Verified against `call_s_stream()` in this tree:
 
-===============================================================
-PHASE 3: GIT HISTORY INVESTIGATION
-===============================================================
+```475:503:drivers/media/v4l2-core/v4l2-subdev.c
+static int call_s_stream(struct v4l2_subdev *sd, int enable)
+{
+        ...
+        if (WARN_ON(sd->s_stream_enabled == !!enable))
+                return 0;
+        ret = sd->ops->video->s_stream(sd, enable);
+        if (!enable && ret < 0) {
+                dev_warn(sd->dev, "disabling streaming failed (%d)\n",
+ret);
+                ret = 0;
+        }
+        if (!ret)
+                sd->s_stream_enabled = enable;
+        ...
+}
+```
+
+Disable is never retried by the core (failure is treated as success,
+`s_stream_enabled` becomes 0). Enable failure keeps `s_stream_enabled ==
+0`, so a retry does a fresh get. No double-put on the core path.
+
+---
+
+## PHASE 3: GIT HISTORY INVESTIGATION
 
 **Step 3.1: BLAME THE CHANGED LINES**
-Buggy `dev_info` line: `29b05e22f5c68c` (“[media] em28xx: use
-usb_interface for dev_foo() calls”, Mauro, 2016-12-07). `git describe`
-on that commit: `v4.9-rc6-495-g29b05e22f5c68`; `git describe
---contains`: `v4.10-rc1~71^2^2~4`. `em28xx_free_device()` itself is from
-`47677e51e2a404` (2014).
-
-Record: **[29b05e22f5c68c, first in v4.10] [long-standing]**
+Record:
+- Buggy `if (ret) return ret;` / put-only-on-success:
+  **`11c0d8fdccc56`** — “media: i2c: Add support for the OV8865 image
+  sensor” (2020-12-31), first in **v5.12-rc1**.
+- `pm_runtime_resume_and_get()` rename: **`586ee057ba6b01`**
+  (2021-04-23). The leak was already present with the original get.
 
 **Step 3.2: FOLLOW THE FIXES: TAG**
-No `Fixes:` tag.
-
-Record: **[N/A — no Fixes tag; introducing commit identified via
-blame]**
+Record: **No Fixes: tag.** Bug dates to driver introduction, not a later
+regression.
 
 **Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES**
-This commit is **patch 5/6** of Hans Verkuil’s “media: em28xx: fix
-lifecycle issues” series (v2, 2026-06-16), applied next to:
-- `288254383674b` use v4l2_device release callback
-- `de626073dfcbb` drop `users` field
-- `7c8bf63b79371` use `vb2_video_unregister_device` (immediate parent)
-- `67f87b104f4ef` requeue buffers if start_streaming fails
-
-Those other patches are lifetime/refactor/WARN_ON work. **This hunk does
-not use any of that new machinery**; it only edits a log line that has
-existed since 2016.
-
-Record: **[part of a series, but this patch is standalone]**
+Record:
+- This is **patch 1/2**. Follow-up **`4e1446ac169a1`** (“Program the
+  sensor on stream start”) depends on this unified error handling (v2
+  changelog).
+- This commit is **standalone**; it does not need patch 2.
+- Both are already in this 7.3-rc4 checkout via `media/v7.3-1`.
 
 **Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS**
-Hans Verkuil is the V4L2 maintainer; Mauro is listed as em28xx
-maintainer in `MAINTAINERS`. Cover letter: tested on Hans’s em28xx
-device.
-
-Record: **[subsystem maintainer-level author; related lifecycle series
-exists but is not a hard dep]**
+Record: Author Jurison Murati has exactly these two ov8865 commits in
+`drivers/media/i2c/`. Not the subsystem maintainer. Weight comes from
+**Daniel Scally’s Reviewed-by** and **Sakari Ailus applying it**.
 
 **Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS**
-The replacement uses existing `pr_info` and `dev->name`. No new helpers.
-Applies on the pre-series `em28xx_free_device()` as well.
+Record: **None.** Touches only `ov8865_s_stream()`, `pm_runtime_put()`,
+and `state->streaming`, all present since the driver was added.
 
-Record: **[no prerequisites] [can apply standalone]**
+---
 
-===============================================================
-PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-===============================================================
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 **Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION**
-`b4 dig -c c132b07f7e585` → https://patch.msgid.link/4f25383b64139feb0a6
-4a07c20b1776d13301f9c.1781615432.git.hverkuil+cisco@kernel.org
-
-`b4 dig -a`:
-- v1: 3-patch series (2026-05-19), this change was not in v1
-- v2: `[PATCHv2 0/6] media: em28xx: fix lifecycle issues` (2026-06-16) —
-  this is 5/6
-
-Cover letter (from saved mbox): “The fifth patch fixes a use-after-
-freed”. No NAK on 5/6. Review discussion in the matched thread was about
-1/6 (`v4l2-async`), not this patch.
-
-Record: **[lore/msgid above] [v1 then v2/6] [no NAK on this patch]
-[author described it as UAF]**
+Record:
+- Lore (via `b4 dig -c 3fe797a12bfa9`):
+  https://patch.msgid.link/6b764b77a7d78b8ae2cfb8a213a1e844a329db26.1781
+  085860.git.eng.juri@gmail.com
+- **v1:** `[PATCH 2/2] Drop PM runtime reference if stream start fails`
+  — put only on enable failure.
+- **v2:** unified `if (ret || !enable)` as Sakari asked; also covers
+  disable failure; reordered to 1/2.
+- **No NAKs.** Dan Scally: “I think this is ok” + Reviewed-by on v2.
+- **No Cc: stable** in the thread (`grep stable` on the saved mbox: no
+  matches).
 
 **Step 4.2: CHECK WHO REVIEWED THE PATCH**
-`b4 dig -w`: Hans Verkuil; `linux-media@vger.kernel.org`; Mauricio Faria
-de Oliveira; Sakari Ailus. Sakari reviewed 1/6 only. Mauro applied it.
-
-Record: **[media list + Sakari on a different patch; Mauro merged]**
+Record (`b4 dig -w`): Jurison Murati; **Sakari Ailus**; **Daniel
+Scally**; Hans de Goede; Mauro Carvalho Chehab; **linux-
+media@vger.kernel.org**. Right maintainers/lists.
 
 **Step 4.3: SEARCH FOR THE BUG REPORT**
-No syzbot/bugzilla for this specific log-line UAF. Author found it while
-fixing em28xx lifecycle and tested on hardware.
-
-Record: **[no public crash report; maintainer-found UAF]**
+Record: **No user/syzbot report** of this leak. Found by inspection
+while fixing IPU3/Surface Book 2 stream-on programming (sibling patch).
+Still a real, reachable leak.
 
 **Step 4.4: CHECK FOR RELATED PATCHES AND SERIES**
-Series mates are separate bugs (v4l2-async crash, lifetime refactor, vb2
-unregister, start_streaming WARN_ON). Not required for this one-liner.
-
-Record: **[standalone among the 6]**
+Record: 2-patch series. This patch is self-contained. Patch 2 is a
+separate functional fix (program mode on stream start).
 
 **Step 4.5: CHECK STABLE MAILING LIST HISTORY**
-lore.kernel.org/stable search was blocked (Anubis bot challenge). No
-stable discussion in the saved media thread.
+Record: **UNVERIFIED** — `lore.kernel.org/stable/` fetch returned 403.
+The linux-media mbox has no stable discussion.
 
-Record: **[UNVERIFIED: no stable@ thread retrieved]**
+---
 
-===============================================================
-PHASE 5: CODE SEMANTIC ANALYSIS
-===============================================================
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
 **Step 5.1: IDENTIFY KEY FUNCTIONS**
-`em28xx_free_device()` (exported `EXPORT_SYMBOL_GPL`).
+Record: **`ov8865_s_stream()`** only.
 
 **Step 5.2: TRACE CALLERS**
-`kref_put(&dev->ref, em28xx_free_device)` from:
-- `em28xx_usb_disconnect()` (`em28xx-cards.c`)
-- `em28xx_free_v4l2()` (`em28xx-video.c`) — after last v4l2 user
-- `em28xx_audio_fini()` and PCM close (`em28xx-audio.c`)
-- `em28xx_dvb` fini (`em28xx-dvb.c`)
-- `em28xx-input.c` fini
-
-The dangerous caller is a **late** `kref_put` after USB disconnect has
-returned.
+Record: Registered as `.s_stream` in `ov8865_subdev_video_ops`. Invoked
+from **`call_s_stream()`** / `v4l2_subdev_call(..., s_stream, ...)` when
+userspace starts/stops the camera pipeline (VIDIOC_STREAMON/OFF).
+**Userspace-reachable.** Not IRQ context.
 
 **Step 5.3: TRACE CALLEES**
-`kref_to_dev`, `pr_info`, optional `em28xx_release_resources()` only if
-`!dev->disconnected` (that path still has a live interface), `kfree`.
+Record: `pm_runtime_resume_and_get()`, `ov8865_sw_standby()` →
+`ov8865_write()` (I2C), `pm_runtime_put()`.
 
 **Step 5.4: FOLLOW THE CALL CHAIN**
-Userspace-reachable: unplug an em28xx USB capture stick while v4l2/ALSA
-still has it open, then close the app. Common physical-unplug path, not
-an obscure config.
-
-Record: **[reachable from USB unplug + close] [yes, from
-userspace/device removal]**
+Record: Camera app → V4L2 STREAMON → subdev `.s_stream(1)` → get + I2C
+standby-off. Fail that I2C write → leak on old code. **Yes, reachable
+from userspace** on hardware that uses this sensor
+(`CONFIG_VIDEO_OV8865`).
 
 **Step 5.5: SEARCH FOR SIMILAR PATTERNS**
-Many other `dev_info(&dev->intf->dev, ...)` calls exist, but they run
-while the interface is still bound (probe, streaming, disconnect
-itself). The unique one in the post-disconnect free callback was this
-“Freeing device” line.
+Record: Same class of fix exists elsewhere (`media: smiapp: Fix runtime
+PM imbalance on error`, `media: s5k6a3: Fix runtime PM imbalance on
+error`). `ov8856_set_stream()` already puts on start failure.
 
-Record: **[only this log site in the free callback]**
+---
 
-===============================================================
-PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
-===============================================================
+## PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 
 **Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?**
-Local tree: `v7.3-rc4-27-gf0100363d8c37`, `VERSION=7 PATCHLEVEL=3
-SUBLEVEL=0 EXTRAVERSION=-rc4`.
-
-`git merge-base --is-ancestor c132b07f7e585 HEAD` → yes. Current source
-already has `pr_info("%s: Freeing device\n", dev->name);`.
-
-The **bug** existed here before that commit; the **buggy pattern**
-(`em28xx_free_device` + `dev->intf` + delayed kref) is still the
-lifetime model. For any stable tree that branched with the 2016
-`dev_info` line and without this commit, the bug is present.
-
-Record: **[driver present; fix already in this mainline checkout; bug
-introduced v4.10]**
+Record: **Yes.** Driver is `drivers/media/i2c/ov8865.c`. Buggy
+`s_stream` was in this lineage from **v5.12** until **`3fe797a12bfa9`**.
+This 7.3-rc4 tree already contains that commit (plus follow-up
+`4e1446ac169a1`, which kept `if (ret || !enable) pm_runtime_put()`).
 
 **Step 6.2: CHECK FOR BACKPORT COMPLICATIONS**
-Hunk is one line in a function whose shape has been stable since 2014.
-Would apply cleanly to trees still using `dev_info`.
-
-Record: **[clean apply on pre-fix trees / already applied here]**
+Record: Against the pre-fix blob, the provided diff matches **exactly**.
+**Clean apply** to the buggy function. No structural prerequisites.
 
 **Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE**
-This is the fix. No earlier alternate fix of this log site.
+Record: This *is* the RPM-leak fix in this tree. No earlier alternate
+fix. Follow-up `4e1446ac169a1` is a different bug (stale mode when RPM
+is pinned).
 
-Record: **[no other fix of this UAF]**
+---
 
-===============================================================
-PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-===============================================================
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 7.1: SUBSYSTEM AND CRITICALITY**
-`drivers/media/usb/em28xx/` — USB analog/DVB capture (Hauppauge,
-Terratec, etc.).
+**Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY**
+Record: **[media / i2c camera sensor] [PERIPHERAL]** — OmniVision OV8865
+(`CONFIG_VIDEO_OV8865`, depends on `PM`). Real products: sibling commit
+documents Surface Book 2 (IPU3 + ov8865).
 
-Record: **[media USB driver] [IMPORTANT / driver-specific, not
-staging]**
+**Step 7.2: ASSESS SUBSYSTEM ACTIVITY**
+Record: Mature driver (since v5.12), occasional fixes. Not a new/staging
+driver.
 
-**Step 7.2: SUBSYSTEM ACTIVITY**
-Actively maintained (IDs, lifecycle, syzbot list-corruption fixes in the
-same files). Mature driver, bug is old.
+---
 
-Record: **[mature, still active]**
+## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-===============================================================
-PHASE 8: IMPACT AND RISK ASSESSMENT
-===============================================================
+**Step 8.1: DETERMINE WHO IS AFFECTED**
+Record: **Driver-specific / config-specific** (`CONFIG_VIDEO_OV8865`).
+Laptop/embedded camera users (e.g. IPU3/Surface).
 
-**Step 8.1: WHO IS AFFECTED**
-Users of em28xx USB sticks (`CONFIG_VIDEO_EM28XX`). Not universal, but
-real consumer hardware.
+**Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
+Record: Stream on/off when `ov8865_sw_standby()` I2C write fails. Not
+every boot; **error path**. Unprivileged camera users can hit STREAMON.
+Repeated failed starts **stack** usage counts on the old code.
 
-**Step 8.2: TRIGGER CONDITIONS**
-Unplug (or USB reset) while a v4l2/ALSA/DVB client still holds the
-device, then close. Timing-dependent on refcount, but the window is the
-entire time the app stays open after unplug — not a one-instruction
-race.
+**Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
+Record: **[RPM usage leak → sensor never runtime-suspends, extra power]
+[HIGH for that device, not a kernel oops].** Not panic/UAF/corruption.
+Persistent until reboot.
 
-Unprivileged users can trigger it by unplugging hardware.
+**Step 8.4: CALCULATE RISK-BENEFIT RATIO**
+Record:
+- **Benefit:** medium-high for ov8865 users (device otherwise stays
+  powered after a failed stream).
+- **Risk:** very low (5/7 lines, error/stream-off path only, reviewed).
+- **Ratio:** strongly favors applying it.
 
-**Step 8.3: FAILURE MODE SEVERITY**
-`dev_info()` → `dev_printk()` walks a freed `struct device`. UAF: oops /
-KASAN report, possible panic. Not data corruption, but a real crash on a
-common unplug path.
+---
 
-Record: **[UAF oops] [HIGH]**
-
-**Step 8.4: RISK-BENEFIT RATIO**
-- Benefit: prevent oops on device removal for em28xx users
-- Risk: 1-line log change, no locking/API/lifetime change
-
-Record: **[high benefit for those devices] [very low risk] [favorable]**
-
-===============================================================
-PHASE 9: FINAL SYNTHESIS
-===============================================================
+## PHASE 9: FINAL SYNTHESIS
 
 **Step 9.1: COMPILE THE EVIDENCE**
 
-FOR:
-- Confirmed UAF: delayed `em28xx_free_device()` after USB interface
-  teardown
-- Cover letter calls it a use-after-free
-- One-line, obviously correct
-- Tested by V4L2 maintainer on real em28xx hardware; merged by Mauro
-- Bug in code since v4.10; delayed kref existed long before the 2026
-  series
-- No new API/feature
-- Standalone; other series patches not required
+**FOR:**
+- Real unbalanced `pm_runtime_resume_and_get()` / missing
+  `pm_runtime_put()` on I2C failure.
+- Sensor can remain runtime-active indefinitely; retries worsen the
+  count.
+- Tiny, obviously correct; maintainer-suggested form; Reviewed-by Daniel
+  Scally; applied by Sakari Ailus.
+- Bug present since v5.12; code exists in this tree.
+- Standalone; no new API/feature.
+- Same class as other media “runtime PM imbalance” fixes.
 
-AGAINST:
-- No `Fixes:` / `Cc: stable` / syzbot (not a reason to reject)
-- Driver-specific, not core mm/net
-- This mainline checkout already contains the commit (expected for a
-  mainline candidate)
-- UNVERIFIED: stable@ mailing list history (lore bot-blocked)
+**AGAINST:**
+- Peripheral sensor, not core mm/net/fs.
+- Error path (I2C failure), no syzbot/user report of *this* leak.
+- No crash/UAF/CVE.
 
-**Step 9.2: STABLE RULES CHECKLIST**
-1. Obviously correct and tested? **PASS** — one-line; Tested-by Hans;
-   cover letter explains UAF
-2. Fixes a real bug that affects users? **PASS** — UAF on unplug-while-
-   open
-3. Important issue? **PASS** — UAF oops, HIGH (not theoretical)
-4. Small and contained? **PASS** — 1 line, one function
+**UNRESOLVED:**
+- Could not query lore.kernel.org/stable (HTTP 403).
+- WebFetch of lore HTML also 403; discussion recovered via `b4 dig -m`.
+
+**Step 9.2: APPLY THE STABLE RULES CHECKLIST**
+1. Obviously correct and tested? **PASS** — reviewed, maintainer-
+   applied, logic matches V4L2 `s_stream` pairing.
+2. Fixes a real bug that affects users? **PASS** — RPM leak on stream
+   start/stop failure.
+3. Important issue? **PASS** — persistent device power / RPM imbalance
+   (HIGH for this driver, not a panic).
+4. Small and contained? **PASS** — one function, +5/−7.
 5. No new features or APIs? **PASS**
-6. Can apply to the local tree? **PASS** — surrounding
-   `em28xx_free_device()` matches; trees that still have `dev_info` get
-   a clean apply. This checkout already has the after-state because it
-   *is* mainline including the fix.
+6. Can apply to the local tree? **PASS** — buggy `ov8865_s_stream()` is
+   this driver’s historical code; diff matches that blob.
 
-**Step 9.3: EXCEPTION CATEGORIES**
-Not a device-ID/quirk/DT/build/doc exception. It is a normal memory-
-safety fix.
+**Step 9.3: CHECK FOR EXCEPTION CATEGORIES**
+Record: **None** (not a device ID/quirk/DT/build/doc exception). It is a
+normal bugfix.
 
-**Step 9.4: DECISION**
-This should be backported. It is a small, tested UAF fix in a teardown
-path users hit when they unplug a capture device. It does not depend on
-the rest of the lifecycle series.
+**Step 9.4: MAKE YOUR DECISION**
+This is a surgical RPM reference leak fix in a driver this tree actually
+ships. Benefit outweighs risk.
 
-What it solves for stable users: kernel oops from
-`dev_info(&dev->intf->dev)` after USB core has freed the interface, when
-the last em28xx kref is dropped from v4l2/audio close. Risk is
-essentially zero.
+---
 
-Verification:
-- [Phase 1] Parsed tags: Tested-by Hans Verkuil; SOBs Hans + Mauro; no
-  Fixes/Cc stable/Reported-by
-- [Phase 1] Cover letter (mbox): “The fifth patch fixes a use-after-
-  freed”
-- [Phase 2] Diff: 1 line in `em28xx_free_device()`;
-  `dev_info(&dev->intf->dev)` → `pr_info("%s: ...", dev->name)`
-- [Phase 2] Call path: `em28xx_usb_disconnect` → `kref_put`; extra puts
-  from `em28xx_free_v4l2`, audio PCM close (`kref_put` at em28xx-
-  audio.c:312)
-- [Phase 3] git blame parent: `29b05e22f5c68c` (v4.10) introduced
-  `dev_info`; `git merge-base --is-ancestor 29b05e22f5c68c HEAD` true
-- [Phase 3] No Fixes tag; standalone vs series confirmed by reading
-  `288254383674b` (does not change this log line)
-- [Phase 3] `git merge-base --is-ancestor c132b07f7e585 HEAD` true
-  (original commit is in this mainline tree)
-- [Phase 4] `b4 dig -c c132b07f7e585`: msgid 4f25383b64139feb… ; v2 5/6
-  of lifecycle series
-- [Phase 4] `b4 dig -a`: v1 (3 patches) then v2 (6 patches); this UAF
-  patch added in v2
-- [Phase 4] `b4 dig -w`: linux-media, Sakari Ailus, Mauricio Faria de
-  Oliveira
-- [Phase 4] mbox: no NAK on 5/6; Sakari comments only on 1/6
-- [Phase 4] lore WebFetch 403; stable search Anubis-blocked — UNVERIFIED
-  stable@ discussion
-- [Phase 5] Callers of `em28xx_free_device` enumerated via grep of
-  `kref_put`
-- [Phase 5] `dev->name` is `unsigned char name[32]` in `struct em28xx`;
-  set in probe (`snprintf(dev->name, 28, "em28xx")`)
-- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
-  kernelversion` = `7.3.0-rc4`
-- [Phase 6] Current file already has `pr_info` (fix present in this
-  checkout)
-- [Phase 7] MAINTAINERS: EM28XX VIDEO4LINUX DRIVER, Mauro Chehab
-- [Phase 8] Failure mode: UAF in `dev_printk` on freed `usb_interface` →
-  oops; trigger = unplug while open
-- UNVERIFIED: whether a dedicated stable@ thread exists (lore bot)
+What it solves for this tree: if `ov8865_sw_standby()` fails after
+`pm_runtime_resume_and_get()`, the usage count was never dropped, so the
+OV8865 stayed powered. The patch puts in one place on failure and on
+stream-off, and only updates `state->streaming` on success.
+
+It meets stable rules: real leak, small, no new API, applies to this
+`ov8865.c`. Risk is negligible versus leaving the sensor runtime-pinned
+after a failed stream.
+
+### Verification
+- [Phase 1] Tags: author SOB Jurison Murati; Reviewed-by Daniel Scally;
+  SOB Sakari Ailus; no Fixes/Cc:stable/Reported-by
+- [Phase 2] Diff: `ov8865_s_stream()` only, +5/−7; put on `ret ||
+  !enable`
+- [Phase 2] `call_s_stream()` swallows disable errors and will not
+  double-call disable (verified in `v4l2-subdev.c`)
+- [Phase 3] `git blame` on parent: leak from `11c0d8fdccc56` (v5.12-rc1)
+- [Phase 3] `git merge-base --is-ancestor 3fe797a12bfa9 HEAD` → in this
+  tree
+- [Phase 3] Follow-up `4e1446ac169a1` is a separate series patch; this
+  commit is standalone
+- [Phase 4] `b4 dig -c 3fe797a12bfa9` → v2 1/2 lore URL; `b4 dig -a` →
+  v1 then v2; `b4 dig -w` → Sakari, Scally, Chehab, linux-media
+- [Phase 4] mbox: Sakari proposed the unified put; Scally re-reviewed;
+  no NAK; no “stable” string
+- [Phase 4] lore.kernel.org HTML/stable search: 403 — UNVERIFIED on
+  stable@ thread
+- [Phase 5] Callers: V4L2 subdev `.s_stream` from STREAMON/OFF;
+  `ov8865_sw_standby()` is an I2C write that can fail
+- [Phase 6] `git describe HEAD` → `v7.3-rc4-27-gf0100363d8c37`; `make
+  kernelversion` → 7.3.0-rc4; pre-fix function matches the candidate
+  diff
+- [Phase 8] Failure mode: RPM usage leak, sensor stays powered; severity
+  HIGH for this device, not oops
+- UNVERIFIED: whether this was already discussed on stable@ (fetch
+  blocked)
 
 **YES**
 
- drivers/media/usb/em28xx/em28xx-cards.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/i2c/ov8865.c | 12 +++++-------
+ 1 file changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
-index b8e207443770e..af2c06a05084d 100644
---- a/drivers/media/usb/em28xx/em28xx-cards.c
-+++ b/drivers/media/usb/em28xx/em28xx-cards.c
-@@ -3556,7 +3556,7 @@ void em28xx_free_device(struct kref *ref)
- {
- 	struct em28xx *dev = kref_to_dev(ref);
+diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
+index a8586df14f777..5b909a8561287 100644
+--- a/drivers/media/i2c/ov8865.c
++++ b/drivers/media/i2c/ov8865.c
+@@ -2621,15 +2621,13 @@ static int ov8865_s_stream(struct v4l2_subdev *subdev, int enable)
+ 	ret = ov8865_sw_standby(sensor, !enable);
+ 	mutex_unlock(&sensor->mutex);
  
--	dev_info(&dev->intf->dev, "Freeing device\n");
-+	pr_info("%s: Freeing device\n", dev->name);
+-	if (ret)
+-		return ret;
+-
+-	state->streaming = !!enable;
+-
+-	if (!enable)
++	if (ret || !enable)
+ 		pm_runtime_put(sensor->dev);
  
- 	if (!dev->disconnected)
- 		em28xx_release_resources(dev);
+-	return 0;
++	if (!ret)
++		state->streaming = enable;
++
++	return ret;
+ }
+ 
+ static const struct v4l2_subdev_video_ops ov8865_subdev_video_ops = {
 -- 
 2.53.0
 
