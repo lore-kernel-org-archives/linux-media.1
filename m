@@ -1,151 +1,74 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3A025392A
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 06:54:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5370744C4F8;
+	Mon, 19 Oct 2026 07:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792392896; cv=none; b=Y9/R1M7NzZITAyJ61odrehSrYtRxEdMOJMoqgz2q+h5U1hq4aQ9fWFdlMb0PDVo5a4bBSRM6HuoRHYhYFU6jtGyDsm7OwOkJeF5MppUMYCZXanasDuRl6tzTJ4zDkckTH+GBXqZ6PWBGb7wtOh15QJEHElwyOhAXUgznYlq4epA=
+	t=1792394000; cv=none; b=B8GAmkqBd+cEv9aBfQLWsYGpQwHNm2cNtdbUhp9HGDB0s5+q6CKWrA8ncpBE3rjCCtfvnOXxmG/K1zwTl253C68Pfs7DiGmbpZ/NMvWCBcJhFiBSzVnDeSmlhxXEDBXlOCaDEQRzzNTvMHX+8fMtC28vOWigmEfLobws6G3FvnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792392896; c=relaxed/simple;
-	bh=QReKZ8e5KNyKhGiZ/LM63xfIDlObB0PMTVvDcDsqJXA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=F/gsuGPUAHaD1iVcf3Q7/M0QMz3yeaybfNiAGzGxlG4YjKWsheMzKFmhZTo6CsS2aOTT9zYqpeWYqJwiJCqf0niEhoICmiJbIzjHdSKFzb2lx+kBoI0ZwCYHUz0fVvJZOIIYyEY3wm+l6XnDfF+Rt9JILCnbEwgf18HG2RGZev0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=NxXciU8u; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1792394000; c=relaxed/simple;
+	bh=AKpmxAsvYkeAH5Z7Xo6ttq5yLJLTWjMLivPGS1JGBDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=No0LOiJgw7KroTCj41DEDBtMBxA2SN/gSzxkIq4SuabaUsqZoMcNagJTGrh+W6YvSMpEKdmdJCycAJHDnH4zd4NXnwIt6qsU8yVEtCFS7oCJlB0lYZDXvRl0//JyZNMeOjiTx+pM11lJ3EMAFctODVhqdS0PdIyGylP5mPBvcro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YyXM5I3h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="NxXciU8u"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261019065445euoutp01883cee69e160aeed4afcde3fc1b8f245~f29VEIRu-1273512735euoutp01O
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 06:54:45 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261019065445euoutp01883cee69e160aeed4afcde3fc1b8f245~f29VEIRu-1273512735euoutp01O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1792392885;
-	bh=FhpaG9Vx59Vq4T4QWx8bk+E01NrR9IE2FS4HpRDXhFk=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=NxXciU8uMADYAkpk7fv9mlHGv1mat9rU7RS78vM7+D5byr4P8/q5tRy3kToduMe41
-	 efnb4AZ9zHYOBPaPXgeX2ss+hYcpYB2htCVqx9k8HpzoQdPj0rsig5dMj4Q4V+0wcb
-	 nb4Sgsy/qnvMsPeKzhS02TwmIuywAr7e07Rsw8+g=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261019065445eucas1p14ee963364b89f77ba3178fae382a1014~f29Uws2Vt2730627306eucas1p1e;
-	Mon, 19 Oct 2026 06:54:45 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261019065444eusmtip2ea7efda198c5f5be5a45eb7aeeea48fe~f29UXNOG81585015850eusmtip2B;
-	Mon, 19 Oct 2026 06:54:44 +0000 (GMT)
-Message-ID: <6c07141b-e2d7-49b2-8493-394d727c3a15@samsung.com>
-Date: Mon, 19 Oct 2026 08:54:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YyXM5I3h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 786ED1F000C4;
+	Mon, 19 Oct 2026 07:13:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792393999;
+	bh=A/IzZtxeSyXH6wUEv+Aawu99CfdY79PltPRFXDfjJns=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YyXM5I3hjvis3mOhM5+Jn1uLqF5RA4nuQ7YxhHz0DRmw2cR/nPHHOZO5jaOVnsMs4
+	 /eAHovRIP4ftD4JHfD1iYWsKy2G8+aUrd5lNBYBm8WqiwngKytIyRHiLVAmSlb8aC8
+	 tI0C0zMb113qfgQmvF+6snPIQO2eSH3AcSAQWFh3MKzUP54oFaiWIC0/mrl9ut6EYa
+	 JmNbyJUqfdMXqtpVDRf1SvNC2HBLI2klESgvXK6+u2GMTkWFcCIIUG7uGuWv/5A51R
+	 guT2XGlRh9o0bNbQM+5AKV68nclcIdf3rex3BsGYVagiVk4Surn1YGYoZSAiyiPAwj
+	 LpiQJ4PQTai5A==
+Date: Mon, 19 Oct 2026 09:13:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org, 
+	vkoul@kernel.org, kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, neil.armstrong@linaro.org, mani@kernel.org, 
+	gjorgji.rosikopulos@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com, 
+	jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com, vladimir.zapolskiy@linaro.org, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
+ schema
+Message-ID: <20261019-funky-real-skunk-eda6dc@quoll>
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+ <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] media: s5p_cec: release IRQ before deleting the adapter
-To: Myeonghun Pak <mhun512@gmail.com>, Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-samsung-soc@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <179229547105.3971562.9800339494753406560.s5p-cec@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261019065445eucas1p14ee963364b89f77ba3178fae382a1014
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39
-X-EPHeader: CA
-X-CMS-RootMailID: 20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39
-References: <CGME20261018035132eucas1p2ccd8f0233fd196fd8801506c1c213b39@eucas1p2.samsung.com>
-	<179229547105.3971562.9800339494753406560.s5p-cec@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
 
-On 18.10.2026 05:51, Myeonghun Pak wrote:
-> The threaded IRQ handler reports transmit and receive events through
-> cec->adap. Adapter unregistration masks the hardware interrupts but does
-> not wait for this handler. With no open device-node references, it can
-> free the adapter while an already queued IRQ thread still uses it.
-> Devres also unmaps the registers before releasing the IRQ, since the
-> mapping was acquired after the IRQ.
->
-> Free the managed IRQ before unregistering the adapter and disabling
-> runtime PM. Request it only after the register mapping and adapter have
-> been initialized, and free it on adapter registration failure before
-> deleting the adapter. This also makes IRQ release precede MMIO release
-> on probe unwind.
->
-> This issue was identified as part of our ongoing research while
-> reviewing kernel code.
->
-> Fixes: 1bcbf6f4b6b0 ("[media] cec: s5p-cec: Add s5p-cec driver")
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
->
-> ---
-> Compile-tested with Clang, W=1. No hardware runtime testing.
->
-> Based on mainline 0fcb05b72344f40806cbe810de8872f1698bf053.
->
-> diff --git a/drivers/media/cec/platform/s5p/s5p_cec.c b/drivers/media/cec/platform/s5p/s5p_cec.c
-> index 4a92d32..e83705f 100644
-> --- a/drivers/media/cec/platform/s5p/s5p_cec.c
-> +++ b/drivers/media/cec/platform/s5p/s5p_cec.c
-> @@ -199,11 +199,6 @@ static int s5p_cec_probe(struct platform_device *pdev)
->  	if (cec->irq < 0)
->  		return cec->irq;
->  
-> -	ret = devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_handler,
-> -		s5p_cec_irq_handler_thread, 0, pdev->name, cec);
-> -	if (ret)
-> -		return ret;
-> -
->  	cec->clk = devm_clk_get(dev, "hdmicec");
->  	if (IS_ERR(cec->clk))
->  		return PTR_ERR(cec->clk);
-> @@ -231,16 +226,24 @@ static int s5p_cec_probe(struct platform_device *pdev)
->  		goto err_delete_adapter;
->  	}
->  
-> -	ret = cec_register_adapter(cec->adap, &pdev->dev);
-> +	ret = devm_request_threaded_irq(dev, cec->irq, s5p_cec_irq_handler,
-> +					s5p_cec_irq_handler_thread, 0, pdev->name, cec);
->  	if (ret)
->  		goto err_notifier;
->  
-> +	ret = cec_register_adapter(cec->adap, &pdev->dev);
-> +	if (ret)
-> +		goto err_free_irq;
-> +
->  	platform_set_drvdata(pdev, cec);
->  	pm_runtime_enable(dev);
->  
->  	dev_dbg(dev, "successfully probed\n");
->  	return 0;
->  
-> +err_free_irq:
-> +	devm_free_irq(dev, cec->irq, cec);
-There is no point in using devm_* API if one needs to manually free the
-resource for whatever reason.
+On Sat, Oct 17, 2026 at 11:18:48PM +0530, Nihal Kumar Gupta wrote:
+> 
+> 
+> On 17-10-2026 05:24, Anusha Arun Nandi wrote:
+> > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > +    #include <dt-bindings/media/video-interfaces.h>
+> > +
+> > +    csiphy0: csiphy@ac9c000 {
+> > +        compatible = "qcom,sa8775p-csi2-phy";
+> > +        reg = <0x0ac9c000 0x2000>;
+> > +
+> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
+>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
 
+I don't understand what is supposed to be aligned here. The code is
+correct.
 
-> +
->  err_notifier:
->  	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
->  
-> @@ -253,6 +256,7 @@ static void s5p_cec_remove(struct platform_device *pdev)
->  {
->  	struct s5p_cec_dev *cec = platform_get_drvdata(pdev);
->  
-> +	devm_free_irq(&pdev->dev, cec->irq, cec);
->  	cec_notifier_cec_adap_unregister(cec->notifier, cec->adap);
->  	cec_unregister_adapter(cec->adap);
->  	pm_runtime_disable(&pdev->dev);
->
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Best regards,
+Krzysztof
 
