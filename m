@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946C55B91F8;
-	Mon, 19 Oct 2026 14:00:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B0E4C4631;
+	Mon, 19 Oct 2026 14:01:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418450; cv=none; b=ILWnPi4edNdW0lFTkuzVh7vZMlSMSARe/jICQMzTCeUpz0iVMye+1ZFKc99EM6phswDYncUj1a1D9FQlQ+euQMDvy0ixu4BQzpocSCRbeyYALvtKMd2f9Bm/PhZlR0gViDSrcOrY7JLLCvWhseIwZsPSx4SrW9p9hYuvHGcsX9w=
+	t=1792418473; cv=none; b=MQsqmfxxTH7SO+szx/efPlA3w821Ta7+ET/m9C4oBrttZNowjE36Xi8r2K44l+K7/s5VpR9XGKhc5OdgL5w1b6J7V5KCJ0dLNVvLRRL8bCtGC7mLPcNo43HGrphMAL4wJ7c4b9CROfPtMti/aWPlj52HoCfTT7OdYIaS2QpvVd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418450; c=relaxed/simple;
-	bh=nnfIhw/ClOLIzlQMnJWBoueQ/yCK19dDoH+Vrn6+1VM=;
+	s=arc-20240116; t=1792418473; c=relaxed/simple;
+	bh=6XU0lqPH3jdeGC/bl04dSr3cVY9MEoDMm4TloCtq3yc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NbgYtlzHh3rejBEPsgITh7KHTLFAxtTSg+I1GXXy+Vh7PUNtCalddAagZMqZNcyeV8Jkqp+9C+0brchpUYVPDo2Ru0wgl4IMYW0gCeWnBoNxRzsbCxAvAcvN2NS+2E8KISmglu6PL9izXtZfi6ruK0xxYAoUqmYwiCyGm99CxcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j4z6c/Bh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=p/yKkZzkPrq8S27kxYyz/bHCz41iz19/X17tI/syZ3fFeR+KCrqVZ/O5D1q4VFHyB49zQp3HKY3DQb6zMfhAXQXLHsKNEqO+UgHdDBKej99nVBe7j/HcKeYn5eJsW/n19erFC+4pRn3tyjhdqOyy3y7nrWHrrHJ3twKHrvMMskY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Id0Q25yC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j4z6c/Bh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971651F000C6;
-	Mon, 19 Oct 2026 14:00:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Id0Q25yC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A7D21F000C6;
+	Mon, 19 Oct 2026 14:01:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418448;
-	bh=4I6ZgoMsk5iPjJsNFRyZkStNIjgABZQ+EeZACWA0tqE=;
+	s=k20260515; t=1792418470;
+	bh=QJpIoSxqa3XEZcAypJMC+joetbdaLKnznHB4VQAZ2Ls=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j4z6c/BhRg0ThGhpfBAKbSvi6BNJ03iknUhtIizl63Fja1kMtzle1nroGuwFM0coA
-	 WIC/4nJvaocgsFcUg6Ox2IOJmpX/6AcH/BAPODF07M7J9dV0fxryGeLoe38BmVv20I
-	 n564nUGvh3Fv6lnlzkEQ7yxmA+HZJoq0f9SXIUm9bOr0UZ4aEQ8ni4/yaPhdH4qAnn
-	 jLFV2gjYqjxJNGDh00mGFWh0pM6E1Z3aXTp+TpKrnDHenMoGXvFagndgBKm6Nu8dBY
-	 l1bLW4fb64KjhDACauQSFyHqGcIXd+jmREz/ej0F+lUKFWj2iRkVRdmbMGS91Z5WTU
-	 zgI47XXIhsaKA==
+	b=Id0Q25yCsEOee2MwdftUJlBZFSh3DpnWOQr9J6Fss2MpcUgqI++SOSPd6SvNdAvEu
+	 gSaN7e8ZZRobZIArmUBl8zcIBuLuKS4isyNh/nsuOnlGT1C5sTHPN0vI6vX17QdjRh
+	 oWj6WjsspM6zUaz0x40pYNeZTaYpefL6l+bxQgvjvuoHPvQt9+tvVp+S649oZze2w9
+	 wDKTMXstMZi7Z7mriHcbgLx8SWUkpAjUTDf1uuMe+xo/pfgZzmypjUwvsFBpBacGJh
+	 YWkdPp9q5/NXMhU447McLuzXonY0tpiM+orAk17iQxnKi8Eq9zXtF0Goe1YClpONxv
+	 fukkpYrKutX6A==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Chen Changcheng <chenchangcheng@kylinos.cn>,
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	hverkuil@kernel.org,
 	mchehab@kernel.org,
+	thierry.reding@kernel.org,
+	jonathanh@nvidia.com,
+	linux-tegra@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: cx88: fix memory leak in cx8802_register_driver() error path
-Date: Mon, 19 Oct 2026 09:49:07 -0400
-Message-ID: <20261019135441.1420968-256-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: cec: tegra: add missing MODULE_DEVICE_TABLE()
+Date: Mon, 19 Oct 2026 09:49:22 -0400
+Message-ID: <20261019135441.1420968-271-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -53,111 +57,107 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Chen Changcheng <chenchangcheng@kylinos.cn>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit e228b8b1a5b47a72b265671dc6d864c0da5528d0 ]
+[ Upstream commit 8dcf23edaf4bdf22259f6a47cfddc8bb1467425c ]
 
-In cx8802_register_driver(), when drv->probe(driver) fails (non-zero),
-the allocated cx8802_driver struct is freed neither in the else branch
-nor later in cx8802_unregister_driver() (which only frees entries that
-were added to dev->drvlist on success). Each failed probe leaks the
-driver struct.
+The driver has an OF match table wired to .of_match_table, but does
+not export the table with MODULE_DEVICE_TABLE().
 
-Add kfree(driver) in the else branch to fix the leak.
+Add the missing MODULE_DEVICE_TABLE(of, ...) entry so module alias
+information is generated for OF based module autoloading.
 
-Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
+This is a source-level fix.  It does not claim dynamic hardware
+reproduction; the evidence is the driver-owned match table, its use by
+the platform driver, and the missing module alias publication.
+
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-This is a one-line leak fix in a long-standing cx88 error path. Local
-tree is **7.3.0-rc4** (`v7.3-rc4-27-gf0100363d8c37`). The buggy code has
-been in this lineage since 2006, and the patch is self-contained.
+This is a one-line OF module-alias fix on a driver that has been in the
+tree since v4.15. Local checkout is **v7.3-rc4** (`7.3.0-rc4`,
+`f0100363d8c37`), not a numbered stable branch. The candidate is
+`8dcf23edaf4bd`.
 
 ===============================================================
 PHASE 1: COMMIT MESSAGE FORENSICS
 ===============================================================
 
 Step 1.1: PARSE THE SUBJECT LINE
-Record: **[media/cx88] [fix] [free leaked `cx8802_driver` when
-`drv->probe()` fails in `cx8802_register_driver()`]**
+Record: `[media/cec/tegra] [add] missing MODULE_DEVICE_TABLE() so OF
+module aliases are generated`
 
 Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
 Record:
-- **Signed-off-by:** Chen Changcheng `<chenchangcheng@kylinos.cn>`
-  (author)
-- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>` (media
+- Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn> (author)
+- Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org> (CEC/Tegra CEC
   maintainer; applied the patch)
-- **No Fixes:** tag (expected for this review pipeline)
-- **No Cc: stable@vger.kernel.org** (expected; not a negative signal)
-- **No Reported-by / Tested-by / Reviewed-by / Acked-by / Link**
-- Ignore any pipeline “Upstream commit” / Sasha Levin SOB (none on this
-  commit object itself)
+- No Fixes:, Reported-by:, Tested-by:, Reviewed-by:, Acked-by:, Link:,
+  or Cc: stable
+- Absence of Fixes:/Cc: stable is expected for this review pipeline and
+  is not a negative signal
 
 Step 1.3: ANALYZE THE COMMIT BODY TEXT
 Record:
-- **Bug:** In `cx8802_register_driver()`, `kzalloc`/`kzalloc_obj` of a
-  `cx8802_driver` is not freed when `drv->probe(driver)` returns non-
-  zero. `cx8802_unregister_driver()` only `kfree`s entries that were
-  `list_add_tail`’d onto `dev->drvlist` after a successful probe.
-- **Symptom:** Each failed probe leaks one `cx8802_driver` object until
-  reboot (or forever across module reload).
-- **Version info:** none in the message. History shows the
-  allocation+else-without-free pattern dates to 2006.
-- **Root cause (author):** failed probes never join `drvlist`, so
-  unregister cannot reclaim them; the else branch must `kfree(driver)`.
+- Bug: OF match table is wired to `.of_match_table` but not exported via
+  `MODULE_DEVICE_TABLE(of, ...)`.
+- Symptom: when `CONFIG_CEC_TEGRA=m`, depmod/modinfo get no `of:`
+  aliases, so udev will not autoload `tegra_cec.ko` for
+  `nvidia,tegra114-cec` / `tegra124-cec` / `tegra210-cec`.
+- Version info: none in the message. Git shows the match table dates to
+  the original driver (v4.15-rc1).
+- Root cause: missing module-alias publication, not a probe/runtime
+  logic error.
+- Author states this is a source-level finding, not a live hardware
+  repro.
 
 Step 1.4: DETECT HIDDEN BUG FIXES
-Record: **Not hidden.** Subject and body say “fix memory leak”. The diff
-is exactly that: add `kfree(driver)` on the probe-failure path.
+Record: Not a disguised cleanup. It is an explicit autoload/hardware-
+enablement fix. The “source-level” wording is candor, not a claim that
+nothing is wrong.
 
 ===============================================================
-PHASE 2: DIFF ANALYSIS - LINE BY LINE
+PHASE 2: DIFF ANALYSIS
 ===============================================================
 
 Step 2.1: INVENTORY THE CHANGES
 Record:
-- **File:** `drivers/media/pci/cx88/cx88-mpeg.c` — **+1 / -0**
-- **Function:** `cx8802_register_driver()`
-- **Scope:** single-file, single-line, surgical error-path fix
+- File: `drivers/media/cec/platform/tegra/tegra_cec.c` (+1 / -0)
+- Functions: none. Adds `MODULE_DEVICE_TABLE(of, tegra_cec_of_match)`
+  after the existing `tegra_cec_of_match[]` table.
+- Scope: single-file, one-line surgical change.
 
 Step 2.2: UNDERSTAND THE CODE FLOW CHANGE
-Record: Before (verified at `e228b8b1a5b47^`):
-
-```
-err = drv->probe(driver);
-if (err == 0) {
-    i++;
-    list_add_tail(&driver->drvlist, &dev->drvlist);
-} else {
-    pr_err("cx8802 probe failed, err = %d\n", err);
-}
-```
-
-After: same, plus `kfree(driver)` in the else branch. Only the **probe-
-failure path** changes. Success path, ENOMEM `goto out`, and unregister
-of successful entries are unchanged.
+Record:
+- Before: table exists and is assigned to
+  `platform_driver.driver.of_match_table`, so a **already loaded** or
+  **built-in** driver still matches DT nodes.
+- After: `scripts/mod/file2alias.c` also emits `of:` modaliases into the
+  `.ko`, so userspace can autoload the module from sysfs modalias.
+- Path affected: module build / autoload, not probe/remove/IRQ/CEC
+  transfer.
 
 Step 2.3: IDENTIFY THE BUG MECHANISM
-Record: **[Error path / resource leak]** Mechanism: per-device snapshot
-of `struct cx8802_driver` is allocated, probe fails, pointer is dropped.
-Unregister walks `dev->drvlist` only, so the object is unreachable. Fix:
-free it immediately on failure. This is **adding a put/free (leak
-fix)**, not removing one.
+Record:
+- Category: hardware enablement / missing device-table export (same
+  family as adding IDs).
+- Mechanism: `MODULE_DEVICE_TABLE()` creates the
+  `__mod_device_table__kmod_*` alias that `file2alias.c` consumes.
+  Without it, the kernel can bind the driver once loaded, but the module
+  will not be loaded automatically.
 
 Step 2.4: ASSESS THE FIX QUALITY
 Record:
-- **Obviously correct:** allocation is `kzalloc_obj(*drv)` (historically
-  `kzalloc(sizeof(*drv), GFP_KERNEL)`); matching `kfree(driver)` on the
-  only path that neither lists it nor returns it.
-- **Minimal:** one statement; no unrelated edits.
-- **Regression risk: very low.** Probe callbacks (`cx8802_dvb_probe`,
-  `cx8802_blackbird_probe`) return errors without stashing `drv` on a
-  list. `kfree` under `core->lock` is safe. No API/locking/refcount
-  changes.
-- **No red flags.**
+- Obviously correct: sibling CEC platform drivers (`stm32-cec`,
+  `meson/ao-cec`, `s5p_cec`, `stih-cec`, `cec-gpio`) already use the
+  same pattern.
+- Minimal: one line, no API/struct/locking change.
+- Regression risk: very low. Builtin builds are unaffected at runtime;
+  modular builds only gain aliases.
 
 ===============================================================
 PHASE 3: GIT HISTORY INVESTIGATION
@@ -165,40 +165,40 @@ PHASE 3: GIT HISTORY INVESTIGATION
 
 Step 3.1: BLAME THE CHANGED LINES
 Record:
-- Loop, alloc, memcpy, probe, else-`pr_err` introduced by
-  **`6c5be74c86f102`** (“V4L/DVB (4676): Dynamic cx88 mpeg port
-  management…”, Steven Toth, **2006-12-10**).
-- `pr_err` conversion: `65bc2fe86e6670` (2016).
-- Alloc API later became `kzalloc_obj` via **`69050f8d6d075`** (Kees
-  Cook, 2026) then **`bf4afc53b77ae`**.
-- The **missing free is original**, not a recent regression. Present
-  since ~v2.6.20-era, so it exists in every current stable series.
+- Match table introduced in `9d2d60687c9a06` ("media: tegra-cec: add
+  Tegra HDMI CEC driver", Hans Verkuil, 2017-07-15; first contained in
+  **v4.15-rc1**).
+- Original file had the OF table and `.of_match_table =
+  of_match_ptr(...)` and **no** `MODULE_DEVICE_TABLE`.
+- Bug has been present for the entire life of the driver.
 
 Step 3.2: FOLLOW THE FIXES: TAG
-Record: **No Fixes: tag.** Introducer is `6c5be74c86f102`, confirmed by
-blame of the alloc/`probe`/else block. `git merge-base --is-ancestor
-e228b8b1a5b47 HEAD` → **IS_ANCESTOR** (commit is in this checkout). No
-intermediate “same leak” fixes on this file besides this one.
+Record: No Fixes: tag. Not applicable. Introduction commit is
+`9d2d60687c9a06`, present in this tree (`git merge-base --is-ancestor`
+of the candidate vs HEAD succeeds).
 
 Step 3.3: CHECK FILE HISTORY FOR RELATED CHANGES
-Record: Recent `cx88-mpeg.c` commits are PCI_DEVICE macros, kmalloc_obj
-conversion, IRQ status clear, dma_ API switch — not prerequisites of
-this `kfree`. Older related leak: **`96df988bb9359`** “[media] cx88: Fix
-possible leak in `cx8802_probe()`” (different function: PCI probe of the
-mpeg manager, not this subdriver register path). **Standalone; not part
-of a series.**
+Record (recent on this file):
+- `7bc1f3c8bd673` (2023): drop `of_match_ptr` so the table is always
+  used (build fix for !OF).
+- `8dcf23edaf4bd` (this commit)
+- Later functional CEC fixes (`be627f257ce28`, `bce7236c16c2c`) do not
+  depend on this line.
+- Standalone; not patch X/Y.
 
 Step 3.4: CHECK THE AUTHOR'S OTHER COMMITS
-Record: Chen Changcheng has **only this commit** under
-`drivers/media/pci/cx88/`. Applied by **Hans Verkuil**, linux-media
-maintainer. Subsystem listed as **“Odd fixes”** in MAINTAINERS (`CX88
-VIDEO4LINUX DRIVER`, Mauro Chehab).
+Record:
+- Pengpeng Hou submitted a large set of “add missing
+  MODULE_DEVICE_TABLE()” patches (rtc, vdpa, watchdog, fbdev, soc, can,
+  clk, power, this CEC driver). Same recipe, LLM-style commit text.
+- Hans Verkuil is listed maintainer of `ARM/TEGRA HDMI CEC` and applied
+  this patch. That is a strong quality signal for the **change**, even
+  if the author is doing a sweep.
 
 Step 3.5: CHECK FOR DEPENDENT/PREREQUISITE COMMITS
-Record: **None.** The hunk only needs the existing `else {
-pr_err("cx8802 probe failed..."); }` block. Allocation style (`kzalloc`
-vs `kzalloc_obj`) is **outside** the hunk, so the one-line add applies
-on older trees. **Can apply standalone.**
+Record: None. The macro has existed for decades
+(`include/linux/module.h`). The table and `.of_match_table` assignment
+are original. Applies standalone.
 
 ===============================================================
 PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
@@ -206,157 +206,139 @@ PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
 Step 4.1: FIND THE ORIGINAL PATCH DISCUSSION
 Record:
-- **`b4 dig -c e228b8b1a5b47…`:** https://patch.msgid.link/2026072402521
-  8.32318-1-chenchangcheng@kylinos.cn
-- **`b4 dig -a`:** **v1 only** (2026-07-24). Applied 2026-07-28. No
-  v2/v3.
-- **`b4 dig -m`:** thread is **the patch itself only** — no replies,
-  NAKs, or reviewer `Cc: stable` in the saved mbox.
-- Lore HTML via WebFetch: **403 Forbidden** (could not read the web UI).
-  Content recovered from the mbox; it matches the committed message and
-  diff.
+- `b4 dig -c 8dcf23edaf4bd` →
+  https://patch.msgid.link/20260704122631.99057-1-pengpeng@iscas.ac.cn
+- Single revision (v1 only). `b4 dig -a` also matched an unrelated 2024
+  Liao Chen v4l2-subdev series by patch-id search noise; this commit is
+  a standalone v1.
+- Direct lore HTTP fetch returned 403; full thread was saved via `b4 dig
+  -m` to `/tmp/tegra_cec_moddev.mbox`.
+- NVIDIA Tegra developer Mikko Perttunen replied 2026-07-15: objected to
+  the “source-level fix / no dynamic hardware reproduction” paragraph as
+  AI boilerplate, and said **“Otherwise looks fine to me.”** No NAK. No
+  request for v2. Hans applied v1 as-is (that paragraph remained).
+- No reviewer asked for Cc: stable.
 
 Step 4.2: CHECK WHO REVIEWED THE PATCH
-Record (`b4 dig -w`): To **mchehab@kernel.org**, **kees@kernel.org**; Cc
-**linux-media**, **linux-kernel**. Appropriate lists. No on-list
-Reviewed-by; **Hans Verkuil committed it** (implicit maintainer
-acceptance). Kees was CC’d (likely due to recent allocator work); no
-recorded reply.
+Record (`b4 dig -w`): To/Cc included Hans Verkuil, Mauro Chehab, Thierry
+Reding, Jonathan Hunter, linux-tegra, linux-media, linux-kernel. Right
+lists and maintainers. Informal ack from Mikko Perttunen (NVIDIA);
+applied by Hans Verkuil.
 
 Step 4.3: SEARCH FOR THE BUG REPORT
-Record: **No Reported-by / Link / syzbot / bugzilla.** Bug is from
-**code inspection**, not a user crash report. Still a real leak (see
-Phase 5/8).
+Record: No Reported-by, bugzilla, or syzbot. Evidence is the missing
+export next to a live OF table. No user report of failed autoload was
+found.
 
 Step 4.4: CHECK FOR RELATED PATCHES AND SERIES
-Record: Standalone `[PATCH]`, not `n/m`. No sibling cx88 leak patches in
-file history besides the old `cx8802_probe()` leak.
+Record: Same-day author sweep of missing `MODULE_DEVICE_TABLE` across
+subsystems. Not a dependent series; each driver patch is self-contained.
+Sibling CEC OF drivers already had the macro.
 
 Step 4.5: CHECK STABLE MAILING LIST HISTORY
-Record: WebFetch of
-`https://lore.kernel.org/stable/?q=cx8802_register_driver` returned
-**403**. **UNVERIFIED** whether stable@ already discussed this. Not used
-to drive the verdict.
+Record: No lore.kernel.org/stable thread for this exact Tegra CEC patch
+(search did not return a relevant hit). Same-class patches **have** gone
+into stable before, including:
+- `PCI: tegra: Add missing MODULE_DEVICE_TABLE` on 4.19-stable
+- `can: ctucanfd: add missing MODULE_DEVICE_TABLE()` from the same
+  author, committed to linux-stable by Greg Kroah-Hartman
+  (`d937bdb244a75` upstream)
 
 ===============================================================
 PHASE 5: CODE SEMANTIC ANALYSIS
 ===============================================================
 
 Step 5.1: IDENTIFY KEY FUNCTIONS IN THE DIFF
-Record: **`cx8802_register_driver()`** only. (semcode MCP not available;
-used hunk headers + grep.)
+Record: No functions modified. Macro addition adjacent to
+`tegra_cec_of_match[]`. Related structures: `tegra_cec_driver`
+(`module_platform_driver`).
 
 Step 5.2: TRACE CALLERS
-Record:
-- `cx88-dvb.c` `dvb_init()` →
-  `cx8802_register_driver(&cx8802_dvb_driver)` (`module_init`)
-- `cx88-blackbird.c` `blackbird_init()` →
-  `cx8802_register_driver(&cx8802_blackbird_driver)` (`module_init`)
-- Autoload from PCI probe: `cx8802_probe()` → `request_modules()` →
-  `request_module("cx88-dvb")` / `"cx88-blackbird"` when `board.mpeg`
-  has the corresponding bit.
-
-Context: **module init / device probe**, not IRQ/hot path.
+Record: `tegra_cec_probe` is the platform probe (DT device
+instantiation). `MODULE_DEVICE_TABLE` is not called at runtime;
+`scripts/mod/file2alias.c` `do_table()` consumes the alias at module
+build. Impact surface is autoload of `tegra_cec.ko` only.
 
 Step 5.3: TRACE CALLEES
-Record: `cx8802_check_driver()`, `kzalloc_obj`, `memcpy`,
-`mutex_lock(&drv->core->lock)`, **`drv->probe(driver)`**,
-`list_add_tail` on success, `pr_err` + (now) `kfree` on failure.
-
-Probe implementations:
-- `cx8802_dvb_probe`: **returns `-ENODEV` immediately** if
-  `!(core->board.mpeg & CX88_MPEG_DVB)`; also fails on
-  `vp3054_i2c_probe`, `cx8802_alloc_frontends`, `vb2_queue_init`,
-  `dvb_register`.
-- `cx8802_blackbird_probe`: same **`-ENODEV` if not BLACKBIRD**; also
-  `cx2341x_handler_init` / `vb2_queue_init`.
+Record: N/A for the added line. The driver already includes
+`<linux/module.h>` and `<linux/of.h>`.
 
 Step 5.4: FOLLOW THE CALL CHAIN
-Record: Userspace/module load of `cx88-dvb` or `cx88-blackbird` (or udev
-via `cx8802_probe`) → register walks **`cx8802_devlist` (every MPEG
-function-2 device)** → alloc + probe. **Reachable from normal driver
-load, not an obscure config.** Type-mismatch `-ENODEV` is a **designed,
-common** failure: register does not filter by `type_id` first.
+Record: Reachable for users with `CONFIG_CEC_TEGRA=m` on Tegra
+114/124/210 HDMI CEC DT nodes (e.g. Jetson TK1 / older Tegra boards).
+Unprivileged userspace cannot trigger a crash; the user-visible failure
+is “CEC adapter never appears until `modprobe tegra_cec`”. Builtin
+(`=y`) is already fine.
 
 Step 5.5: SEARCH FOR SIMILAR PATTERNS
-Record: Unregister already `kfree(d)` after successful `remove`. Success
-path is balanced; **only the failure path was missing the free.** No
-duplicate of this bug in sibling functions beyond the historical
-`cx8802_probe()` leak that was already fixed.
+Record: Other CEC platform drivers already export OF tables. This file
+was the outlier. Same missing-macro pattern exists across many drivers
+and is treated as a real autoload bug.
 
 ===============================================================
 PHASE 6: CROSS-REFERENCING AGAINST THE LOCAL TREE
 ===============================================================
 
 Step 6.1: DOES THE BUGGY CODE EXIST IN THIS TREE?
-Record: **Yes, in this lineage.** Pre-fix source at `e228b8b1a5b47^`
-still has the else branch **without** `kfree`. HEAD already contains the
-fix (`e228b8b1a5b47` is an ancestor). Bug introduced **2006**
-(`6c5be74c86f102`), long before 7.3. The `pr_err` else block and leak
-exist on all current LTS kernels.
+Record: Yes. File `drivers/media/cec/platform/tegra/tegra_cec.c` exists.
+Pre-commit parent still has the OF table and `.of_match_table` without
+the macro. Candidate **is already an ancestor of HEAD** (`git merge-base
+--is-ancestor 8dcf23edaf4bd HEAD`). Bug introduced v4.15-rc1; present in
+every long-lived stable series that has this driver.
 
 Step 6.2: CHECK FOR BACKPORT COMPLICATIONS
-Record: **Clean apply / trivial.** Context line `pr_err("cx8802 probe
-failed, err = %d\n", err);` has been stable since 2016. Adjacent
-`kzalloc_obj` vs older `kzalloc(sizeof(*drv), GFP_KERNEL)` is **not in
-this hunk**.
+Record: Expected apply: **clean**. Context around the table (compatibles
+tegra114/124/210) is original. Later commits only add the macro and then
+unrelated CEC protocol fixes. Line numbers differ slightly on current
+HEAD because of later edits, but the hunk is trivial.
 
 Step 6.3: CHECK IF RELATED FIXES ARE ALREADY HERE
-Record: This exact `kfree` **is** already in HEAD. That is the candidate
-commit, not a different prior fix. No competing rewrite of the error
-path. (`96df988bb9359` is a different leak.)
+Record: This is the fix; it is already in this 7.3-rc4 tree. No earlier
+substitute autoload fix on this file. `7bc1f3c8bd673` only dropped
+`of_match_ptr`; it did not add aliases.
 
 ===============================================================
 PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 ===============================================================
 
 Step 7.1: IDENTIFY THE SUBSYSTEM AND ITS CRITICALITY
-Record: **`drivers/media/pci/cx88`** — Conexant CX2388x analog/DVB TV
-capture. **PERIPHERAL** (specific PCI TV cards). Maintainer status:
-**Odd fixes**. Still in-tree and used on remaining hardware.
+Record: `drivers/media/cec/platform/tegra/` — HDMI CEC on NVIDIA Tegra.
+Criticality: **PERIPHERAL** (SoC-specific media driver), but real
+product hardware (Jetson TK1 and Tegra X1 designs were the original test
+targets).
 
 Step 7.2: ASSESS SUBSYSTEM ACTIVITY
-Record: Low churn; mostly treewide/API conversions plus occasional
-bugfixes. **Mature.** A 20-year leak in a quiet driver is still a leak
-for those cards.
+Record: Low churn. Driver added 2017; occasional correctness fixes.
+Mature. The missing macro is long-standing, not a regression from recent
+refactoring.
 
 ===============================================================
 PHASE 8: IMPACT AND RISK ASSESSMENT
 ===============================================================
 
 Step 8.1: DETERMINE WHO IS AFFECTED
-Record: **Driver-specific / config-specific:** `CONFIG_VIDEO_CX88` plus
-`VIDEO_CX88_DVB` and/or `VIDEO_CX88_BLACKBIRD`. Not universal. Distros
-that ship these modules (common in desktop kernels) can hit it on CX88
-MPEG hardware.
+Record: Driver-specific / config-specific: `CONFIG_CEC_TEGRA=m` on DT
+platforms with `nvidia,tegra114-cec`, `nvidia,tegra124-cec`, or
+`nvidia,tegra210-cec`. Not universal.
 
 Step 8.2: DETERMINE THE TRIGGER CONDITIONS
-Record:
-- **Primary realistic trigger:** subdriver init probes **every**
-  `cx8802_dev`. A DVB-only card + `cx88-blackbird` load (or mixed cards
-  in one machine) takes the `-ENODEV` path **every boot / every module
-  load**.
-- **Also:** genuine probe errors (`vb2_queue_init`, frontend alloc,
-  etc.).
-- **Module reload** leaks again (unregister never sees the object).
-- Unprivileged users cannot typically trigger it unless they can load
-  modules; **not a UAF/security primitive**, a leak.
+Record: Every boot/hotplug of that DT node when the driver is a module
+and nothing else loads it. Common on distros that package CEC as a
+module; irrelevant if the vendor kernel builds it in. Not a race. Not
+triggerable as a crash by unprivileged users.
 
 Step 8.3: DETERMINE THE FAILURE MODE SEVERITY
-Record: **Memory leak of one `struct cx8802_driver` (~pointers + enums,
-small) per failed probe.** Not a panic/UAF. **Severity: MEDIUM**
-(init/error path, small object, can repeat on reload / multi-device
-mismatch). Still a real, permanent leak of kernel memory for affected
-users.
+Record: HDMI CEC device never binds until manual `modprobe`. No oops,
+leak, or corruption. Severity: **MEDIUM** for those boards
+(feature/hardware dead), **LOW** globally. This is the same user-visible
+class as “device ID missing so the module never loads.”
 
 Step 8.4: CALCULATE RISK-BENEFIT RATIO
 Record:
-- **Benefit:** stops a real leak on a path that is not purely
-  theoretical (type-mismatch `-ENODEV` is intentional). Helps CX88 users
-  and anyone who reloads these modules.
-- **Risk:** **very low** (1 line, `kfree` of an unlisted object,
-  maintainer-applied).
-- **Ratio:** strongly favors backport.
+- Benefit: restores intended autoload for modular Tegra CEC; matches
+  every other CEC OF driver.
+- Risk: one compile-time alias line; no runtime path change.
+- Ratio: high benefit for affected users, negligible risk.
 
 ===============================================================
 PHASE 9: FINAL SYNTHESIS
@@ -364,115 +346,123 @@ PHASE 9: FINAL SYNTHESIS
 
 Step 9.1: COMPILE THE EVIDENCE
 
-**FOR backporting:**
-- Real leak: alloc without free when probe fails; unregister cannot
-  recover it (verified in both functions).
-- Failure path includes **common `-ENODEV` type mismatch**, not only
-  rare ENOMEM.
-- One-line, obviously correct `kfree`; maintainer (Hans Verkuil) applied
-  it.
-- Bug present since 2006 — all stable trees that have cx88 have the bug.
-- Applies cleanly; no new API, no locking change, no series dependency.
-- Matches the stable “error-path leak / missing kfree” pattern.
+FOR backporting:
+- Real bug: OF match table used by the platform driver is not published
+  to module aliases.
+- `CEC_TEGRA` is **tristate**; modular builds are first-class.
+- One line, obviously correct, no new API.
+- Same pattern as the documented **device-ID / hardware enablement**
+  exception.
+- Maintainer-applied (Hans Verkuil); NVIDIA engineer said the change
+  looks fine.
+- Sibling CEC drivers already have `MODULE_DEVICE_TABLE(of, ...)`.
+- Bug present since v4.15; no prerequisites.
+- Same class of patches has historically been accepted into stable
+  (including this author’s `can: ctucanfd` MODULE_DEVICE_TABLE fix).
 
-**AGAINST:**
-- Peripheral old TV capture driver; small object; not a
-  crash/security/data-corruption bug.
-- No user/syzbot report; no Fixes/Cc: stable (expected here).
-- Not a hot-path unbounded leak unless modules are reloaded or many
-  devices mismatch.
+AGAINST:
+- Not a crash, UAF, deadlock, or security hole.
+- No end-user report; author did not claim hardware reproduction.
+- Peripheral SoC driver; small user population.
+- Author is doing a mass static-analysis sweep; commit text was called
+  out as AI boilerplate.
+- Builtin kernels are unaffected.
 
-**UNRESOLVED:**
-- Lore web UI and stable@ search returned HTTP 403; on-list review
-  comments beyond the patch email could not be read (mbox had no
-  replies).
+UNRESOLVED:
+- Could not HTTP-fetch lore (403); discussion recovered from `b4 dig -m`
+  instead.
+- Could not find a stable-list thread for **this** SHA.
 
 Step 9.2: APPLY THE STABLE RULES CHECKLIST
-1. Obviously correct and tested? **PASS** — code inspection; applied by
-   media maintainer (no extra Tested-by).
-2. Fixes a real bug that affects users? **PASS** — leaked `kzalloc` on
-   failed/mismatched probe.
-3. Important issue? **PASS** (medium: resource leak on driver load; not
-   panic-level, but a genuine leak stable regularly takes).
-4. Small and contained? **PASS** — +1 line, one function.
-5. No new features or APIs? **PASS**.
-6. Can apply to the local tree? **PASS** — same else-branch context; no
-   missing helpers.
+1. Obviously correct and tested? **PASS** — one well-known macro;
+   applied by the subsystem maintainer; NVIDIA developer agreed. Build-
+   tested at least (author/reviewer).
+2. Fixes a real bug that affects users? **PASS** — modular autoload for
+   real Tegra CEC DT compatibles.
+3. Important issue? **PASS** under the hardware-enablement exception
+   (device does not come up). Not CRITICAL crash/corruption.
+4. Small and contained? **PASS** — +1 line, one file.
+5. No new features or APIs? **PASS** — publishes an existing table.
+6. Can apply to the local tree? **PASS** — file and table exist; hunk is
+   trivial. (This 7.3-rc4 tree already contains the commit.)
 
 Step 9.3: CHECK FOR EXCEPTION CATEGORIES
-Record: **Not an exception category** (not a device
-ID/quirk/DT/build/doc). It is a normal **error-path leak fix**.
+Record: **Device ID / module alias publication for an existing driver.**
+Closest listed exception is new device IDs; this is the matching half
+(exporting the IDs the driver already matches). Also analogous to
+quirks/DT enablement: it makes already-supported hardware actually
+attach when built as a module.
 
 Step 9.4: MAKE YOUR DECISION
-The leak is real, old, and fixed with a single obviously-correct
-`kfree`. Risk is negligible. It belongs in this tree’s stable backports:
-CX88 still probes every MPEG device, and failed probes (including
-designed `-ENODEV`) drop the allocation on the floor.
+The local tree is mainline **7.3.0-rc4**. The driver and buggy omission
+exist here and in any stable series that still has `tegra_cec`. The
+patch is a one-line, maintainer-acked autoload fix with no runtime risk.
+That is stable material.
 
-**What it solves for stable users:** loading `cx88-dvb`/`cx88-blackbird`
-(or mixed CX88 cards) no longer leaks a `cx8802_driver` per failed
-probe, including across module reload.
+What problem it solves for stable users: with `CONFIG_CEC_TEGRA=m`, udev
+never loads the module from the DT compatible, so HDMI CEC stays dead
+until a manual modprobe. Distros that ship this as a module on
+Jetson/Tegra boards hit that.
 
-**Risk vs benefit:** one-line free on an object that is not on any list
-— benefit clearly wins.
-
-**Concerns:** none for apply/prereqs. Severity is “leak” not “oops”;
-still within stable practice for missing `kfree` on error paths.
+Risk vs benefit: benefit is hardware actually probing; risk is
+essentially zero.
 
 Verification:
-- [Phase 1] Subject/tags: leak fix; SOBs Chen Changcheng + Hans Verkuil;
-  no Fixes/Reported-by/Cc:stable
-- [Phase 1] Body matches the mechanism verified in source
-- [Phase 2] `git show e228b8b1a5b47`: +1 line `kfree(driver)` in else of
-  `cx8802_register_driver()`
-- [Phase 2] `git show e228b8b1a5b47^`: else branch logs error and does
-  not free
-- [Phase 2] `cx8802_unregister_driver()` only `kfree`s `dev->drvlist`
-  entries after successful `remove`
-- [Phase 3] `git describe HEAD` / `make kernelversion`:
-  v7.3-rc4-27-gf0100363d8c37, 7.3.0-rc4
-- [Phase 3] `git merge-base --is-ancestor e228b8b1a5b47 HEAD`:
-  IS_ANCESTOR
-- [Phase 3] `git blame`: leaky alloc/probe/else from `6c5be74c86f102`
-  (2006-12-10)
-- [Phase 3] Author log: only this cx88 commit; file not a series
-- [Phase 4] `b4 dig -c/-a/-w/-m`: lore msgid 20260724025218.32318-1; v1
-  only; To mchehab+kees; mbox has no replies
-- [Phase 4] WebFetch lore.kernel.org: 403 — UNVERIFIED web
-  thread/stable@ discussion
-- [Phase 5] grep callers: only `cx88-dvb.c` and `cx88-blackbird.c`
-  module_init
-- [Phase 5] Read `cx8802_dvb_probe` / `cx8802_blackbird_probe`:
-  `-ENODEV` if MPEG type bit unset
-- [Phase 5] `cx8802_probe` → `request_modules()` autoloads matching
-  subdrivers
-- [Phase 6] Pre-fix function present; hunk independent of `kzalloc_obj`
-  (`69050f8d6d075`)
-- [Phase 7] MAINTAINERS: CX88 VIDEO4LINUX DRIVER, Odd fixes, Mauro
-  Chehab
-- [Phase 8] Failure mode: kernel memory leak, MEDIUM, driver-specific
-- UNVERIFIED: on-list reviewer comments (mbox empty of replies; lore
-  HTTP 403)
-- UNVERIFIED: whether stable@ already queued this elsewhere (not used
-  for the verdict)
+- [Phase 1] Parsed tags: author + Hans Verkuil SOB only; no
+  Fixes/Reported-by/Cc: stable
+- [Phase 1] Body describes missing OF alias publication, not a crash
+- [Phase 2] Diff: +1 line `MODULE_DEVICE_TABLE(of, tegra_cec_of_match)`
+  in `tegra_cec.c`
+- [Phase 2] Confirmed `.of_match_table = tegra_cec_of_match` already
+  present
+- [Phase 3] `git blame`: table from `9d2d60687c9a06` (v4.15-rc1); macro
+  from `8dcf23edaf4bd`
+- [Phase 3] Original driver dump: no MODULE_DEVICE_TABLE
+- [Phase 3] Author sweep of similar one-liners; Hans is MAINTAINERS
+  owner of ARM/TEGRA HDMI CEC
+- [Phase 4] `b4 dig -c 8dcf23edaf4bd`:
+  https://patch.msgid.link/20260704122631.99057-1-pengpeng@iscas.ac.cn
+- [Phase 4] `b4 dig -a`: single v1; no later revision
+- [Phase 4] `b4 dig -w`: linux-media, linux-tegra, Hans, Mauro, Thierry
+  Reding, Jonathan Hunter
+- [Phase 4] mbox: Mikko Perttunen “Otherwise looks fine to me”;
+  complaint was about AI commit-message padding only
+- [Phase 4] lore WebFetch 403; content taken from mbox
+- [Phase 4] No stable@ thread for this SHA; same-class
+  MODULE_DEVICE_TABLE patches have landed in stable
+- [Phase 5] Kconfig `CEC_TEGRA` is tristate; Makefile
+  `obj-$(CONFIG_CEC_TEGRA) += tegra_cec.o`
+- [Phase 5] `MODULE_DEVICE_TABLE` in `include/linux/module.h` creates
+  file2alias symbol; `scripts/mod/file2alias.c` `do_table()` consumes it
+- [Phase 5] Other CEC OF drivers already have the macro
+- [Phase 6] `git describe HEAD`: v7.3-rc4-27-gf0100363d8c37; `make
+  kernelversion`: 7.3.0-rc4
+- [Phase 6] `git merge-base --is-ancestor 8dcf23edaf4bd HEAD`: yes
+  (already in this tree)
+- [Phase 6] Backport difficulty: clean one-liner
+- [Phase 7] Peripheral media driver, maintainer-applied
+- [Phase 8] Failure mode: module not autoloaded → CEC unused; severity
+  MEDIUM for Tegra modular users, not a panic
+- UNVERIFIED: live udev autoload on real Tegra hardware (author did not
+  claim it)
 
 **YES**
 
- drivers/media/pci/cx88/cx88-mpeg.c | 1 +
+ drivers/media/cec/platform/tegra/tegra_cec.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/pci/cx88/cx88-mpeg.c b/drivers/media/pci/cx88/cx88-mpeg.c
-index 2c1d5137ac470..bc08b35e247e0 100644
---- a/drivers/media/pci/cx88/cx88-mpeg.c
-+++ b/drivers/media/pci/cx88/cx88-mpeg.c
-@@ -640,6 +640,7 @@ int cx8802_register_driver(struct cx8802_driver *drv)
- 			list_add_tail(&driver->drvlist, &dev->drvlist);
- 		} else {
- 			pr_err("cx8802 probe failed, err = %d\n", err);
-+			kfree(driver);
- 		}
- 		mutex_unlock(&drv->core->lock);
- 	}
+diff --git a/drivers/media/cec/platform/tegra/tegra_cec.c b/drivers/media/cec/platform/tegra/tegra_cec.c
+index 3ed50097262f6..fe66336e734f8 100644
+--- a/drivers/media/cec/platform/tegra/tegra_cec.c
++++ b/drivers/media/cec/platform/tegra/tegra_cec.c
+@@ -458,6 +458,7 @@ static const struct of_device_id tegra_cec_of_match[] = {
+ 	{ .compatible = "nvidia,tegra210-cec", },
+ 	{},
+ };
++MODULE_DEVICE_TABLE(of, tegra_cec_of_match);
+ 
+ static struct platform_driver tegra_cec_driver = {
+ 	.driver = {
 -- 
 2.53.0
 
