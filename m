@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 627594FDA4B;
-	Mon, 19 Oct 2026 13:58:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209E25B5867;
+	Mon, 19 Oct 2026 14:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792418342; cv=none; b=IRFCUMyEqTUiIsWyDcxC8F0NOpPlKHXfDbpNF7OXdI3Umxv6xEcPrx0T+EUesfz9IOpFNvtHF/i+Y5MXy7O03+LK4xFSH6xG80rdjYYmMmUYo/A0w1DuDVWb6TMeQUf54S9dd0Ul5TIzmrXHm30Q01Mroy7MdKXL9avaVUiyttc=
+	t=1792418442; cv=none; b=SyufBb36T/q7DsUlwsUnThTenLvee8XcUt0AsaPi67m6ilfCL323R29hbjSzxloMMnyTkpIK6ER1Lhy7QiYkQo2oBZF++gT8epbU+ZS4tjIpCX6mG0xq5Es58GubzQwACrG38Z+UvwbW+uExZe1EpYz4Rz+nBfG00k7W7whZ734=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792418342; c=relaxed/simple;
-	bh=cadGJAcYab2bHwIlTTNQclq6NuGd9Sleo9IMdKXrayI=;
+	s=arc-20240116; t=1792418442; c=relaxed/simple;
+	bh=KH1gZ0iSo8ZMkj7QxDbs2N6J7RnFZAXfj+bSqZteFPk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VkB7UYbGiegKhRmdMBbR2oeelovGfmH8tstdjTWXepnmhk8jFTeRJGkBWy8Qa0OC8x2s3Z12uo3s2L4ZKocMDEtTj0PJk86lFDhcnWyDO+aq3mvQsX2ssIgHQJZ/HwBR3hH2bfarrT983N4FiVYhe1Gnv+FzHadCOFKcl2E5dIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BwFd7HJp; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=h/w1ehUYSYudyIGECAauFECRauDpX8g1MmOxB6P3ZM8u6GMiQY08WwxcaBiPFnXDOJRa/uRVW4dXGqm6dZG2OIDY9+09e/dhG6smWUcLnOgblfxFnWa4EJFcaoQw3Bgv3A6gOOPp1jrBKRcuKUuwMP6O0GsIhHZU4pP1xh0aTqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F0Oe4IX2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BwFd7HJp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 575BF1F000C6;
-	Mon, 19 Oct 2026 13:58:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F0Oe4IX2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18AF41F000C8;
+	Mon, 19 Oct 2026 14:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792418339;
-	bh=ZJkC+fDbJ70Bl5y8ELPPo2YhqcptmGDpY1J0f9mKeho=;
+	s=k20260515; t=1792418440;
+	bh=4Fr6kfWDp4dOvN1nv2z8jERPaky7/iIWciLiTwBsJ0Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BwFd7HJpmSNqaywlRZpHBSYBY1cXUmf9Em1FoS/nun7kA1IGh8eaLK+BI54j7ilIB
-	 9DGFSJCwFC7rF6iB8pHikiJV9UolG4RFNYH4MzbXUhsu2+vx/l/FAjUXanaGBGRydd
-	 xWHNLG4iYJiIU7UB9aSG1oxp/X+VfyzLSjF5DlSeh2QwKhDmi1v8sW0AuxuEu9I1I6
-	 1l9MDsfLmUd1FcTXG+m5pOv2dA8/ZoatUmYQOKMtZpyoaRY15wsLNp55YBsxT3XMaz
-	 SPlgg4lPX7xoZKBQG+IoOBFaiQ0wi4sjyuC5wLa/kyCt12jWq8zKaTyyePcMH4nJok
-	 iy/cI3sz/kyNA==
+	b=F0Oe4IX2jzoiIWK7d7AmZdYtxXCT6Zsx60Nld666lsTfqLRHrfb4KWQWxdEVHjd7E
+	 zgCoexYtOHU1C4dX51cMLtx+B1D4LkBtFjXVzj2McIx/2C9tAj21xq/pme1o7WPzYt
+	 CsG3dVBDnPqBcGSpLcVOM2KC/vsNkzvRCAYzgfJ4YTHrrLShEOAhzqykiatZmXBtxi
+	 uWmYF7P7Fcme4wwnthciE4b77Fp/iuTHQJc1nr2WLVbhoc+zk/BQVtJ5SNBEACbneL
+	 zCHcxs8QQfAXEEk6bFu724OyZ68CKJpM8z3vj1iECYws407Dzu7tBuFW0KZGlzbWaX
+	 r6Add9AfByKcw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+Cc: Yousef Alhouseen <alhouseenyousef@gmail.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
-	awalls@md.metrocast.net,
+	hverkuil@kernel.org,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: ivtv: stop VBI start-code scan before short tail
-Date: Mon, 19 Oct 2026 09:47:48 -0400
-Message-ID: <20261019135441.1420968-177-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: go7007: avoid undefined shifts in MPEG-4 headers
+Date: Mon, 19 Oct 2026 09:49:01 -0400
+Message-ID: <20261019135441.1420968-250-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261019135441.1420968-1-sashal@kernel.org>
 References: <20261019135441.1420968-1-sashal@kernel.org>
@@ -54,17 +54,22 @@ X-stable-base: Linux 6.18.57
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+From: Yousef Alhouseen <alhouseenyousef@gmail.com>
 
-[ Upstream commit f373cf17fb8e7a530bc6e1e36fc41cb5dab2cdaa ]
+[ Upstream commit 41f82777e547732460290ceb28fcc7c1b95ef192 ]
 
-compress_sliced_buf() scans one byte at a time while testing a four-byte
-VBI start code.  The final iterations can read beyond the remaining
-buffer tail.
+The byte-alignment paths can call CODE_ADD() with a zero bit
+length.  The macro then shifts an int by name.b, which can be 32
+after the preceding bit was flushed.
 
-Stop the scan once fewer than four bytes remain.
+vti_bitlen() can likewise shift a signed int into its sign bit while
+searching for the bit length, and the package mask construction can
+shift by the full type width.
 
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Make zero-length additions a no-op, derive the bit length with fls(),
+and build the mask with GENMASK().
+
+Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -73,376 +78,445 @@ LLM Generated explanations, may be completely bogus:
 
 ## Phase 1: Commit message forensics
 
-**Step 1.1: Subject line**
-Record: **[media/ivtv] [stop] stop VBI start-code scan before a short
-tail so a 4-byte SAV check cannot read past the buffer**
+**Step 1.1 — Subject line**
+Record: `[media/go7007] [avoid] undefined shifts in MPEG-4 header bit-
+packing`. Subsystem is the WIS GO7007 USB MPEG encoder. “Avoid” is a
+bug-fix verb: the patch stops C undefined behavior, not adding a
+feature.
 
-**Step 1.2: Tags**
+**Step 1.2 — Tags**
 Record:
-- `Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>` (author)
-- `Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>` (media/V4L
-  maintainer; applied the patch)
+- `Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>` (author)
+- `Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>` (media
+  maintainer; applied)
 - No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
-  by:`, `Link:`, or `Cc: stable`
-- Absence of `Fixes:` / `Cc: stable` is expected for this review and is
-  not a negative signal
+  by:`, `Link:`, or `Cc: stable` (absence of Fixes/Cc-stable is expected
+  for this review)
 
-**Step 1.3: Body**
+**Step 1.3 — Body**
 Record:
-- **Bug:** `compress_sliced_buf()` walks one byte at a time while
-  testing a four-byte VBI start code (SAV: `0xff 0x00 0x00 sav`).
-- **Symptom/failure mode:** last loop iterations read past the remaining
-  buffer tail (out-of-bounds read of up to 3 bytes).
-- **Version info:** none in the message.
-- **Root cause:** loop bound is `i < size` while the body reads
-  `buf[0]`..`buf[3]`.
+- Bug: `CODE_ADD()` can be called with bit length 0; after a flush
+  `name.b` can be 32, so `(val) << name.b` is a 32-bit shift of a 32-bit
+  int (C UB).
+- `vti_bitlen()` uses `(1 << i)` with signed `1` and `i` starting at 31
+  (shift into the sign bit).
+- Package mask `(1 << vop_time_increment_bitlength) - 1` can shift by
+  the full type width.
+- Symptoms: UBSAN shift diagnostics; wrong bitstream on arches that mask
+  the shift count; possible hang in `vti_bitlen()` when `max_time_incr
+  == 0`.
+- No version range or crash log in the message.
+- Root cause as stated: unguarded shift counts in the MPEG header
+  bitpacker.
 
-**Step 1.4: Hidden bug fix?**
-Record: **Not hidden.** This is an explicit bounds fix, not
-cleanup/refactoring.
+**Step 1.4 — Hidden bug fix?**
+Record: Not disguised. It is an explicit UB/correctness fix. The `fls()`
+rewrite is equivalent for every nonzero value and also stops an unsigned
+wrap / infinite loop when `max_time_incr == 0`.
 
 ---
 
 ## Phase 2: Diff analysis
 
-**Step 2.1: Inventory**
+**Step 2.1 — Inventory**
 Record:
-- File: `drivers/media/pci/ivtv/ivtv-vbi.c` — **1 insertion, 1
-  deletion**
-- Function: `compress_sliced_buf()`
-- Scope: **single-file surgical one-liner**
+- File: `drivers/media/usb/go7007/go7007-fw.c` (+15 / −13)
+- Functions/macros: `CODE_ADD`, `vti_bitlen()`, `seqhead_to_package()`;
+  plus `#include <linux/bitops.h>`
+- Scope: single-file surgical fix
 
-**Step 2.2: Code flow**
+**Step 2.2 — Flow change**
 Record:
-- **Before:** `for (i = 0; i < size; i++, buf++)` then `buf[0]==0xff &&
-  !buf[1] && !buf[2] && buf[3]==sav`
-  - When `i == size-1`, `buf[1]`, `buf[2]`, `buf[3]` are 1–3 bytes past
-    the declared `size`.
-  - When `size` is 1, 2, or 3, the first iteration already overreads.
-- **After:** `for (i = 0; i + 3 < size; i++, buf++)` — stop once fewer
-  than 4 bytes remain.
-- Path: **normal VBI parse path** (finding the first SAV), not an error-
-  only path.
+1. `CODE_ADD`: previously always did `name.b -= length; name.a |= (val)
+   << name.b`. After: `if (length)` wraps the body, so length-0 is a no-
+   op.
+2. `vti_bitlen`: previously a countdown from 31 with `(1 << i) - 1`
+   masks. After: `fls(max_time_incr)` with `bitlen ?: 1`.
+3. `seqhead_to_package`: `(1 << vop_time_increment_bitlength) - 1` →
+   `GENMASK(vop_time_increment_bitlength - 1, 0)`.
 
-Verified pre-image:
+Affected path is firmware-image construction at MPEG-4 stream start
+(`go7007_start_encoder()`), not a generic hot path.
 
-```334:336:drivers/media/pci/ivtv/ivtv-vbi.c
-                if (buf[0] == 0xff && !buf[1] && !buf[2] && buf[3] ==
-sav)
-                        break;
+**Step 2.3 — Bug mechanism**
+Record: **Type / undefined-shift (UBSAN class)**, with a logic/hang side
+effect.
+
+Verified zero-length `CODE_ADD` in `mpeg4_frame_header()` /
+`mpeg4_sequence_header()`:
+
+```758:761:drivers/media/usb/go7007/go7007-fw.c
+        /* Byte-align with a zero followed by ones */
+        i = 8 - (CODE_LENGTH(c) % 8);
+        CODE_ADD(c, 0, 1);
+        CODE_ADD(c, (1 << (i - 1)) - 1, i - 1);
 ```
 
-(with the new `i + 3 < size` bound on the `for` line immediately above)
+When `CODE_LENGTH % 8 == 7`, `i == 1`, so the second call is
+`CODE_ADD(..., 0, 0)`. After the 1-bit add, `name.b` can be 32, then
+`(val) << 32` is UB.
 
-**Step 2.3: Bug mechanism**
-Record: **Memory safety / out-of-bounds read.** The four-byte SAV test
-used a one-byte walk with an inclusive `size` bound. The remaining `size
--= i` / `size < line_size` logic still bails out on a short tail, so
-this is an **overread**, not a later overflow write.
+Pre-fix `vti_bitlen`:
 
-**Step 2.4: Fix quality**
-Record:
-- **Obviously correct:** the predicate now matches the 4-byte access.
-  Same pattern as the sibling `cx18` fix (`bf533acaaa7de`).
-- **Minimal:** one loop condition, no API/data-structure change.
-- **Regression risk: very low.** If `size < 4`, the loop does not run,
-  `i` stays 0, then `size < line_size` (51/272/284) returns as before. A
-  4-byte SAV at the last valid position is still seen (`i + 3 < size`
-  allows `i == size-4`).
+```c
+for (i = 31; (max_time_incr & ((1 << i) - 1)) == max_time_incr; --i)
+    ;
+return i + 1;
+```
+
+`1 << 31` is a signed shift into the sign bit (UB) on every call. If
+`max_time_incr == 0`, the condition is always true, `i` is `unsigned
+int`, `--i` wraps, and the loop does not terminate.
+
+**Step 2.4 — Fix quality**
+Record: Obviously correct and minimal.
+- `fls(x)` matches the old loop for all `x > 0` (spot-checked 1, 2,
+  30000, 0x80000000).
+- `fls(0) ?: 1` returns 1 instead of hanging.
+- `GENMASK(n-1, 0)` is the defined way to build an n-bit mask;
+  `vti_bitlen()` never returns 0 after the `?: 1` guard, so `GENMASK(-1,
+  0)` cannot happen.
+- Regression risk is low: no locking, no API, no data-structure change.
+  Residual UB not in this patch: `(1 << (i - 1))` in the same padding
+  path is safe because `i` is in 1..8.
 
 ---
 
 ## Phase 3: Git history
 
-**Step 3.1: Blame**
-Record: The scan loop (including `buf[3]`) was introduced in
-**`1a0adaf37c30e`** — *V4L/DVB (5345): ivtv driver for Conexant
-cx23416/cx23415 MPEG encoder/decoder* (Hans Verkuil, **2007-04-27**).
-The bug is as old as the driver.
+**Step 3.1 — Blame**
+Record: Buggy `CODE_ADD` / `vti_bitlen` / mask come from
+`866b8695d67e83` (“Staging: add the go7007 video driver”, 2008-10-10).
+Driver left staging in `7955f03d18d14`. The bug is ~18 years old, not
+recent churn.
 
-**Step 3.2: Fixes: tag**
-Record: **No Fixes: tag.** The introducing commit is the original ivtv
-merge (`1a0adaf37c30e`), present in this tree (`git merge-base --is-
-ancestor` exit 0).
+**Step 3.2 — Fixes: tag**
+Record: No `Fixes:` tag. Introducer is the 2008 staging add above. `git
+merge-base --is-ancestor 41f82777e5477 HEAD` is true: this snapshot
+already contains the fix.
 
-**Step 3.3: File history**
-Record: Recent commits on this file are email-address churn, an
-uninitialized `vbi.type` fix (`31218df77e7f1`), SPDX, and this bounds
-fix. **No prerequisite refactor.** Standalone; not `patch X/Y`.
+**Step 3.3 — File history**
+Record: Recent `go7007-fw.c` commits are unrelated (min/max macros,
+SPDX, KASAN frame warning, sparse). Standalone, not `N/M`.
 
-**Step 3.4: Author**
-Record: Pengpeng Hou’s only ivtv commit is this one. Same
-day/author/message as **`bf533acaaa7de`** (`media: cx18: stop VBI start-
-code scan before short tail`). Hans Verkuil applied both; he is the
-long-time V4L maintainer and original ivtv author. That is a strong
-quality signal.
+**Step 3.4 — Author**
+Record: Yousef Alhouseen is not the media maintainer; nearby work is a
+series of small correctness patches. Weight comes from Hans Verkuil’s
+SOB (applied to media tree).
 
-**Step 3.5: Dependencies**
-Record: **None.** The loop, `sav` argument, and `buf[3]` access already
-exist. The cx18 sibling is independent (different driver). **Applies
-standalone.**
+**Step 3.5 — Dependencies**
+Record: Needs `fls()` and `GENMASK()`, both long-standing
+(`<linux/bitops.h>` / `<linux/bits.h>`). No prerequisite series. Can
+apply standalone to any tree that still has this file.
 
 ---
 
 ## Phase 4: Mailing list / external
 
-**Step 4.1: Original discussion**
-Record:
-- `b4 dig -c f373cf17fb8e7` →
-  https://patch.msgid.link/2026063008027101.2-ccfa108-0015-media-ivtv-
-  stop-VBI-start-c-pengpeng@iscas.ac.cn
-- `b4 dig -a`: **v1 only** (2026-06-30), no later revisions.
-- Saved mbox: **patch only, no replies.** No NAK, no reviewer
-  commentary, no in-thread `Cc: stable`.
-- lore.kernel.org HTML fetch returned **403** (Anubis bot-wall). Thread
-  content was recovered via `b4 dig -m`.
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c 41f82777e5477` → https://patch.msgid.link/20260630105
+257.54757-1-alhouseenyousef@gmail.com
+`b4 dig -a`: **v1 only**, one revision.
+Saved mbox: single message, no replies. Hans applied it without public
+review comments. No NAK, no reviewer `Cc: stable`.
 
-**Step 4.2: Recipients (`b4 dig -w`)**
-Record: To/Cc included **Andy Walls** (IVTV maintainer in MAINTAINERS),
-**Mauro Carvalho Chehab**, `linux-media@vger.kernel.org`, `linux-
-kernel@vger.kernel.org`. Applied by **Hans Verkuil**.
+**Step 4.2 — Recipients (`b4 dig -w`)**
+Record: Hans Verkuil, Mauro Chehab, linux-media, linux-kernel. Right
+maintainers were on the To/Cc list.
 
-**Step 4.3: Bug report**
-Record: **No user/syzbot/bugzilla report.** Looks like a static-
-analysis/audit fix (author has many similar bounds patches). The
-mechanism is still a real OOB read, verified from the code.
+**Step 4.3 — Bug report**
+Record: No syzbot/bugzilla/Reported-by. Inspection/UBSAN-style fix, not
+a user crash report.
 
-**Step 4.4: Related series**
-Record: Paired with **cx18** commit `bf533acaaa7de` (same wording, same
-day). Each is self-contained. This ivtv commit does not need the cx18
-change.
+**Step 4.4 — Series**
+Record: Standalone v1. Same-day sibling `media: go7007: s2250: propagate
+control I/O failures` is a different bug.
 
-**Step 4.5: Stable list**
-Record: **UNVERIFIED** — lore.kernel.org/stable returned 403. No
-evidence in-tree of a prior rejection.
+**Step 4.5 — Stable list**
+Record: lore.kernel.org/stable fetch returned 403. Web search for this
+subject on stable found **no** discussion. UNVERIFIED beyond that
+search.
 
 ---
 
-## Phase 5: Semantic / call-chain
+## Phase 5: Semantic / call graph
 
-**Step 5.1: Functions**
-Record: `compress_sliced_buf()` only.
+**Step 5.1 — Functions**
+Record: `CODE_ADD` (macro), `vti_bitlen()`, `seqhead_to_package()`. No
+semcode MCP in this environment; used grep.
 
-**Step 5.2: Callers**
-Record: Only `ivtv_process_vbi_data()` in the same file, twice:
+**Step 5.2 — Callers**
+Record:
+- `vti_bitlen()` ← `mpeg4_frame_header()`, `mpeg4_sequence_header()`,
+  `seqhead_to_package()`
+- those ← `gen_mpeg4hdr_to_package()` / `do_special(SPECIAL_SEQHEAD)`
+  when `go->format == V4L2_PIX_FMT_MPEG4`
+- `go7007_construct_fw_image()` ← `go7007_start_encoder()` ←
+  `go7007_start_streaming()` (vb2 `start_streaming`)
 
-```398:404:drivers/media/pci/ivtv/ivtv-vbi.c
-                lines = compress_sliced_buf(itv, 0, p, size / 2,
-                        itv->vbi.sliced_decoder_sav_odd_field);
-                /* second field */
-                /* experimentation shows that the second half does not
-always begin
-                   at the exact address. So start a bit earlier (hence
-32). */
-                lines = compress_sliced_buf(itv, lines, p + size / 2 -
-32, size / 2 + 32,
-                        itv->vbi.sliced_decoder_sav_even_field);
+**Step 5.3 — Callees**
+Record: After the patch, `fls()` and `GENMASK()` only. No alloc/lock in
+the changed lines.
+
+**Step 5.4 — Reachability**
+Record: Yes, from userspace: open the V4L2 node, `VIDIOC_S_FMT` MPEG-4,
+`VIDIOC_STREAMON`. Firmware construction runs with `hw_lock` held.
+
+`VIDIOC_S_PARM` can make `fps_scale` huge:
+
+```485:491:drivers/media/usb/go7007/go7007-v4l2.c
+        n = go->sensor_framerate *
+                parm->parm.capture.timeperframe.numerator;
+        d = 1001 * parm->parm.capture.timeperframe.denominator;
+        if (n != 0 && d != 0 && n > d)
+                go->fps_scale = (n + d/2) / d;
+        else
+                go->fps_scale = 1;
 ```
 
-`ivtv_process_vbi_data()` callers:
-- `ivtv_get_buffer()` in `ivtv-fileops.c` (userspace read of MPEG/VBI
-  streams)
-- `dma_post()` in `ivtv-irq.c` (decoder VBI DMA completion)
+If `fps_scale > sensor_framerate` (~25025–30030), `max_time_incr == 0`
+and the old loop hangs while holding `hw_lock`. Needs device node access
+(typically `video` group), not a random unprivileged syscall on machines
+without the hardware.
 
-**Step 5.3: Callees**
-Record: After the scan, `v4l2_subdev_call(..., decode_vbi_line, ...)`.
-The OOB is in the scan itself, before that call.
-
-**Step 5.4: Reachability**
-Record: Reachable when sliced VBI capture/processing runs on **Hauppauge
-PVR-150/250/350/500** (and other cx23415/cx23416 cards),
-`CONFIG_VIDEO_IVTV`. Needs the hardware; not a generic syscall fuzz
-path. Real for those devices.
-
-**Step 5.5: Similar patterns**
-Record: `cx18` had the identical bug and the same one-line fix.
-`compress_raw_buf()` indexes `p[0..3]` at `buf + i * line_size` with `i
-< lines`, a different bound; not the same bug.
+**Step 5.5 — Similar patterns**
+Record: MPEG-1 byte-align already skips `CODE_ADD` when `j == 8`. MPEG-4
+padding is the length-0 case. No sibling drivers share this macro.
 
 ---
 
-## Phase 6: This tree
+## Phase 6: This checkout
 
-**Step 6.1: Local tree and buggy code**
-Record:
-- `git describe HEAD` → **`v7.3-rc4-27-gf0100363d8c37`** (`VERSION=7`,
-  `PATCHLEVEL=3`, `SUBLEVEL=0`, `EXTRAVERSION=-rc4`)
-- Candidate **`f373cf17fb8e7` is already an ancestor of HEAD**
-- Buggy loop existed here from **2007** until that commit; pre-image
-  confirmed via `git show f373cf17fb8e7^:drivers/media/pci/ivtv/ivtv-
-  vbi.c`
+**Step 6.1 — Does the buggy code exist here?**
+Record: Local tree is **v7.3-rc4** (`7.3.0-rc4`, `f0100363d8c37`). The
+driver is present. Current `go7007-fw.c` already has the fix (`#include
+<linux/bitops.h>`, `if (length)`, `fls()`, `GENMASK()`). Pre-fix code
+lived in this file from 2008 until `41f82777e5477` (2026-07-15). Any
+stable kernel that still has unfixed `go7007-fw.c` has the bug.
 
-This checkout is **7.3-rc4 mainline**, not an older -stable branch. The
-bug class and the surrounding code are the same ones every current LTS
-still carries.
+**Step 6.2 — Backport difficulty**
+Record: Clean apply. The bitpacker has been stable since 2008; the hunks
+match the historical file. Only extra include is `<linux/bitops.h>`.
 
-**Step 6.2: Backport difficulty**
-Record: **Clean apply.** The `for (i = 0; i < size; i++, buf++)` line
-has been unchanged since 2007.
-
-**Step 6.3: Related fixes already here**
-Record: Only this commit and the cx18 sibling. No alternate ivtv fix for
-the same scan.
+**Step 6.3 — Related fixes already here**
+Record: This *is* the fix. No earlier alternate fix in the file history.
 
 ---
 
 ## Phase 7: Subsystem context
 
 **Step 7.1**
-Record: **media/pci/ivtv** — Hauppauge PVR / Conexant cx2341x MPEG
-encoder. **PERIPHERAL** (specific old PCI capture cards), but a
-supported in-tree driver, not staging.
+Record: `drivers/media/usb/go7007` — USB V4L2 MPEG encoder (WIS GO7007 /
+Sensoray 2250, Plextor, etc.). Criticality: **PERIPHERAL** (specific old
+capture dongles), but not staging.
 
 **Step 7.2**
-Record: The file is **mature/quiet**. The driver has been stable for
-years; this is a long-standing latent bounds bug, not fallout from a new
-feature.
+Record: Low churn. Recent commits are small leak/error-path fixes.
+Mature, rarely touched encoder header generator.
 
 ---
 
 ## Phase 8: Impact and risk
 
-**Step 8.1: Who is affected**
-Record: **Driver-specific / config-specific** (`CONFIG_VIDEO_IVTV`),
-users capturing **sliced VBI** on those cards.
+**Step 8.1 — Who is affected**
+Record: Users of `CONFIG_VIDEO_GO7007` with MPEG-4 encode. Hardware IDs
+include Sensoray 2250/2251 (`0x1943:0xa250`) and several WIS/Plextor USB
+IDs. Not universal.
 
-**Step 8.2: Trigger**
-Record: Hardware DMA fills an ivtv buffer; `ivtv_process_vbi_data()`
-scans for SAV. Fires whenever the start code is missing or near the tail
-(including a full walk with no match). Unprivileged users can hit it if
-they can open the V4L VBI/MPEG node. Not a remote network path.
-
-Buffers are `kmalloc(s->buf_size + 256)` and DMA last-SG size is also
-`+= 256` (`ivtv-queue.c`, `ivtv-irq.c`). `dma_post()` may do
-`buf->bytesused += s->dma_last_offset` (cookie search up to 252 bytes).
-A 3-byte overread of the **logical** `size` often still sits inside that
-256-byte DMA window, so a crash is not guaranteed; it is still an out-
-of-bounds access relative to the length the scan is given, and
-`bytesused` can sit close to the allocation.
-
-**Step 8.3: Failure mode**
-Record: **Out-of-bounds read (up to 3 bytes).** Severity **MEDIUM–HIGH**
-as memory safety; practical oops risk **MEDIUM** (small overread, extra
-DMA padding). Remaining length after a false SAV in the tail is `< 4`,
-so `size < line_size` returns without treating the overread as payload.
-**Not data corruption of the VBI output**, but a real buffer-tail
-overread.
-
-**Step 8.4: Risk–benefit**
+**Step 8.2 — Trigger**
 Record:
-- **Benefit:** stops a real OOB read on a path that runs during VBI
-  capture; same class as other stable OOB one-liners; bug present on
-  every LTS.
-- **Risk:** one loop bound, no locking/API change — **very low**.
-- **Ratio:** strongly favors taking the fix.
+- Common: every MPEG-4 `STREAMON` can hit length-0 `CODE_ADD` depending
+  on header bit length (UBSAN / UB). Typical `val` is 0, so x86 often
+  still produces a no-op.
+- Uncommon but real: `VIDIOC_S_PARM` with a large time-per-frame →
+  `max_time_incr == 0` → old `vti_bitlen` infinite loop under `hw_lock`.
+- Typical `sensor_framerate` is 25025/30000/30030, so `(1 << vti_bitlen)
+  - 1` is a ~15-bit shift and not the 32-bit case; the GENMASK change is
+  defensive for that site.
+
+**Step 8.3 — Failure mode**
+Record:
+- Length-0 shift: UBSAN / undefined; functional impact usually none
+  because `val == 0`. Severity **MEDIUM** (UBSAN), not a proven oops.
+- `vti_bitlen` hang: driver stuck with `hw_lock` held → STREAMON never
+  finishes. Severity **HIGH** for that device, not a machine-wide panic.
+- Overall: **MEDIUM–HIGH**, not core-kernel CRITICAL.
+
+**Step 8.4 — Risk vs benefit**
+Record: Benefit medium for go7007 users (defined behavior, no hang).
+Risk **very low** (~15 lines, equivalent `fls()`, maintainer-applied).
+Ratio favors backport.
 
 ---
 
 ## Phase 9: Synthesis
 
-**Step 9.1: Evidence**
+**Step 9.1 — Evidence**
 
 For:
-- Real 4-byte load on a 1-byte scan; last iterations read past `size`
-- One-line, obviously correct, no new API
-- Bug in tree since 2007 (`1a0adaf37c30e`); clean apply
-- Applied by Hans Verkuil; To: Andy Walls (ivtv maintainer)
-- Sibling cx18 fix of the same bug
-- Standalone; no series dependency
+- Real C undefined shifts in reachable MPEG-4 header generation
+- Old `vti_bitlen()` can livelock when `fps_scale` is large
+- 15/13 lines, one file, obviously correct
+- `fls()` is equivalent for all nonzero inputs
+- Hans Verkuil signed off
+- Bug present since 2008; applies cleanly
+- No new API/feature
 
 Against:
-- No crash/syzbot/`Reported-by`
-- Niche, aging PCI hardware
-- +256 DMA/kmalloc padding makes a guaranteed heap oops less likely
-- No mailing-list review comments (v1 applied as-is)
+- Niche USB encoder, few systems
+- No user/syzbot report
+- Common-path length-0 add is `val==0`, often a practical no-op
+- GENMASK site is not a 32-bit shift with real framerates
+- No public review beyond maintainer apply
 
 Unresolved:
-- Stable-list discussion (lore 403)
-- Exact KASAN behavior vs. the +256 allocation (not reproduced here)
+- Could not read lore.kernel.org/stable (403)
+- No sanitizer log attached to the commit (whether UBSAN actually fired
+  is unverified)
 
-**Step 9.2: Stable rules**
-1. Obviously correct and tested? **PASS** — bound matches the 4-byte
-   access; maintainer applied it; v1 needed no respin.
-2. Real bug affecting users? **PASS** — OOB read on sliced-VBI
-   processing for ivtv hardware.
-3. Important (crash/security/corruption/deadlock)? **PASS** — memory-
-   safety OOB read; practical crash is not certain, but this is the
-   standard small OOB class, not a style tweak.
-4. Small and contained? **PASS** — 1 line, one function.
-5. No new features/APIs? **PASS**
-6. Can apply to this tree? **PASS** — already in 7.3-rc4; pre-fix line
-   is the original 2007 loop, so older stables should take it cleanly.
+**Step 9.2 — Stable rules**
+1. Obviously correct and tested? **PASS** — equivalent rewrite;
+   maintainer applied v1.
+2. Real bug that affects users? **PASS** — UB on MPEG-4 start; hang if
+   `max_time_incr==0`.
+3. Important (crash/security/corruption/deadlock)? **PASS** — hang under
+   `hw_lock` plus UBSAN-class UB. Not a core panic, but a real driver
+   DoS/UB, not style cleanup.
+4. Small and contained? **PASS** — one file, ~28 lines.
+5. No new features/APIs? **PASS**.
+6. Applies to this tree’s go7007 code? **PASS** — same file/macros;
+   include is standard.
 
-**Step 9.3: Exception category**
-Record: Not a device-ID/quirk/DT/build/doc exception. It is a **small
-memory-safety fix**.
+**Step 9.3 — Exception category**
+Record: None (not a device ID/quirk/DT/build/docs). It is a normal small
+correctness fix.
 
-**Step 9.4: Decision**
-The commit is a one-line, obviously correct stop of a four-byte SAV scan
-that walked off the declared VBI buffer. That bug has been in ivtv since
-2007, needs no prerequisites, and is the same fix already used on cx18.
-It belongs in stable.
+**Step 9.4 — Decision**
+This checkout is mainline 7.3-rc4, which already contains the commit;
+the question is whether the fix has stable technical merit for trees
+that still have the 2008 bitpacker. It does: small, correct, no
+dependencies, fixes defined-behavior bugs and a reachable livelock in
+`go7007_start_encoder()`. Risk of regression is negligible.
+
+### What the commit solves for stable users
+On MPEG-4 stream start the GO7007 firmware generator packes headers with
+`CODE_ADD()`. Padding can request a 0-bit add after a flush (`name.b ==
+32`), which is an illegal shift. `vti_bitlen()` always does `1 << 31`
+and, if userspace sets a very large frame interval, can spin forever
+with `hw_lock` held so `VIDIOC_STREAMON` never returns. The patch skips
+zero-length adds, uses `fls()`, and builds the mask with `GENMASK()`.
+
+### Risk vs benefit
+Benefit is defined behavior and no encoder-start hang for remaining
+GO7007/Sensoray users. Risk is a few lines in a dormant driver with no
+API change.
+
+### Concerns
+Obscure hardware and no field report. That lowers urgency, not
+correctness. No backport rework needed.
 
 ---
 
-## Verification
-
-- **[Phase 1]** Parsed tags: only author + Hans Verkuil SOBs; no
-  Fixes/Reported-by/Cc: stable
-- **[Phase 2]** Diff: 1 line in `compress_sliced_buf()`; `i < size` → `i
-  + 3 < size`
-- **[Phase 2]** Confirmed `buf[0]..buf[3]` SAV test in current file at
-  lines 333–335
-- **[Phase 3]** `git blame`: loop from `1a0adaf37c30e` (2007-04-27);
-  bound line is this commit
-- **[Phase 3]** `git merge-base --is-ancestor 1a0adaf37c30e HEAD` → yes
-- **[Phase 3]** `git show f373cf17fb8e7^:...ivtv-vbi.c` → old `i < size`
-  loop present
-- **[Phase 3]** File log: no prerequisite refactor; sibling
-  `bf533acaaa7de` is cx18-only
-- **[Phase 4]** `b4 dig -c f373cf17fb8e7`: lore/msgid link above; `b4
-  dig -a`: v1 only
-- **[Phase 4]** `b4 dig -w`: Andy Walls, Mauro Chehab, linux-media,
-  linux-kernel
-- **[Phase 4]** `b4 dig -m`: 81-line mbox, patch only, no replies
-- **[Phase 4]** WebFetch/curl to lore: 403 — stable-list search
-  UNVERIFIED
-- **[Phase 5]** Callers: `ivtv_process_vbi_data` ← `ivtv-fileops.c`,
-  `ivtv-irq.c`
-- **[Phase 5]** cx18 `compress_sliced_buf` uses the same `i + 3 < size`
-  bound after `bf533acaaa7de`
-- **[Phase 6]** `git describe HEAD` = v7.3-rc4-27-g…; `make
+Verification:
+- [Phase 1] Parsed subject/body/tags: only author + Hans Verkuil SOBs;
+  no Fixes/Reported-by/Link/Cc-stable
+- [Phase 2] `git show --numstat 41f82777e5477`: 15/13, one file; read
+  current and `41f82777e5477^` `CODE_ADD` / `vti_bitlen` / mask
+- [Phase 2] Confirmed length-0 path: `i = 8 - (CODE_LENGTH % 8)` then
+  `CODE_ADD(..., i-1)` when `i==1`
+- [Phase 2] Confirmed `fls` equivalence for 1, 2, 30000, 0x80000000;
+  `fls(0)?:1` vs old wrap
+- [Phase 3] `git blame` / `git log -1 866b8695d67e83`: introduced 2008
+  with staging driver
+- [Phase 3] `git merge-base --is-ancestor 41f82777e5477 HEAD` → yes
+  (already in this 7.3-rc4 snapshot)
+- [Phase 3] `git log --oneline --author="Yousef Alhouseen"`: standalone
+  vs nearby s2250 patch
+- [Phase 4] `b4 dig -c/-a/-w/-m`: v1 only; To Hans/Mauro/linux-media;
+  mbox has no replies
+- [Phase 4] lore.kernel.org 403; lkml.iu.edu shows the same v1 patch
+  text
+- [Phase 4] WebSearch stable archive: no hit for this subject
+- [Phase 5] grep callers: `vti_bitlen` → MPEG-4 headers → `do_special` →
+  `go7007_construct_fw_image` → `go7007_start_encoder` →
+  `go7007_start_streaming`
+- [Phase 5] Read `vidioc_s_parm`: `fps_scale` unbounded when `n > d`
+- [Phase 6] `git describe HEAD` = `v7.3-rc4-27-gf0100363d8c37`; `make
   kernelversion` = 7.3.0-rc4
-- **[Phase 6]** `git merge-base --is-ancestor f373cf17fb8e7 HEAD` →
-  already in this tree
-- **[Phase 7]** MAINTAINERS: IVTV → Andy Walls, linux-media
-- **[Phase 8]** kmalloc `buf_size+256` and DMA `size += 256` /
-  `bytesused += dma_last_offset` verified in `ivtv-queue.c` and `ivtv-
-  irq.c`
-- **UNVERIFIED:** whether this overread was ever KASAN-reported; whether
-  stable@ discussed it
-
-The fix is small, surgical, and meets the stable criteria for an out-of-
-bounds read.
+- [Phase 6] Current file already has the fix; parent file has the old
+  loop/mask
+- [Phase 7] Kconfig `VIDEO_GO7007`; USB IDs include Sensoray 2250
+- [Phase 8] Failure: UB on padding; hang if `max_time_incr==0` under
+  `hw_lock`
+- UNVERIFIED: whether UBSAN actually reported this in a boot/log;
+  stable-list archives beyond web search (403)
 
 **YES**
 
- drivers/media/pci/ivtv/ivtv-vbi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/usb/go7007/go7007-fw.c | 28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/media/pci/ivtv/ivtv-vbi.c b/drivers/media/pci/ivtv/ivtv-vbi.c
-index ae7a00f462574..af086c4cbe1a7 100644
---- a/drivers/media/pci/ivtv/ivtv-vbi.c
-+++ b/drivers/media/pci/ivtv/ivtv-vbi.c
-@@ -330,7 +330,7 @@ static u32 compress_sliced_buf(struct ivtv *itv, u32 line, u8 *buf, u32 size, u8
- 	unsigned lines = 0;
+diff --git a/drivers/media/usb/go7007/go7007-fw.c b/drivers/media/usb/go7007/go7007-fw.c
+index 86ce593e0c546..8cf959c20e30c 100644
+--- a/drivers/media/usb/go7007/go7007-fw.c
++++ b/drivers/media/usb/go7007/go7007-fw.c
+@@ -13,6 +13,7 @@
+  */
  
- 	/* find the first valid line */
--	for (i = 0; i < size; i++, buf++) {
-+	for (i = 0; i + 3 < size; i++, buf++) {
- 		if (buf[0] == 0xff && !buf[1] && !buf[2] && buf[3] == sav)
- 			break;
- 	}
+ #include <linux/module.h>
++#include <linux/bitops.h>
+ #include <linux/time.h>
+ #include <linux/mm.h>
+ #include <linux/device.h>
+@@ -58,14 +59,16 @@ struct code_gen {
+ #define CODE_GEN(name, dest) struct code_gen name = { dest, 0, 32, 0 }
+ 
+ #define CODE_ADD(name, val, length) do { \
+-	name.b -= (length); \
+-	name.a |= (val) << name.b; \
+-	while (name.b <= 24) { \
+-		*name.p = name.a >> 24; \
+-		++name.p; \
+-		name.a <<= 8; \
+-		name.b += 8; \
+-		name.len += 8; \
++	if (length) { \
++		name.b -= (length); \
++		name.a |= (val) << name.b; \
++		while (name.b <= 24) { \
++			*name.p = name.a >> 24; \
++			++name.p; \
++			name.a <<= 8; \
++			name.b += 8; \
++			name.len += 8; \
++		} \
+ 	} \
+ } while (0)
+ 
+@@ -707,11 +710,10 @@ static int gen_mpeg1hdr_to_package(struct go7007 *go,
+ 
+ static int vti_bitlen(struct go7007 *go)
+ {
+-	unsigned int i, max_time_incr = go->sensor_framerate / go->fps_scale;
++	unsigned int max_time_incr = go->sensor_framerate / go->fps_scale;
++	int bitlen = fls(max_time_incr);
+ 
+-	for (i = 31; (max_time_incr & ((1 << i) - 1)) == max_time_incr; --i)
+-		;
+-	return i + 1;
++	return bitlen ?: 1;
+ }
+ 
+ static int mpeg4_frame_header(struct go7007 *go, unsigned char *buf,
+@@ -1209,7 +1211,7 @@ static int seqhead_to_package(struct go7007 *go, __le16 *code, int space,
+ 		0xbf08,		fps,
+ 		0xbf09,		0,
+ 		0xbff2,		vop_time_increment_bitlength,
+-		0xbff3,		(1 << vop_time_increment_bitlength) - 1,
++		0xbff3,		GENMASK(vop_time_increment_bitlength - 1, 0),
+ 		0xbfe6,		0,
+ 		0xbfe7,		(fps / 1000) << 8,
+ 		0,		0,
 -- 
 2.53.0
 
