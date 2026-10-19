@@ -1,161 +1,118 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A33248594C
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591983B840E;
+	Mon, 19 Oct 2026 07:31:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792394749; cv=none; b=R6AvDS11O3YN257YWSP4Ut4Wjqsf6ap1XFjYYrmXpVZdjGLO2DnJQVQJXzJ+kB8ONkU8l9eZqQVL9jnpJPP5p0WOb+3TP2W+syXQzvKRl8fKYQbNhxEVF7KJ+nV28Wuip4azwfyO6/AsWmY0A+Te9PCQLf4EFnNr4XFBoi+deBY=
+	t=1792395106; cv=none; b=dnyqz5290eLfsvBzUyanwBCkv4p6WprRUQHVjxKfd/weHUJzJlS2rV/K6Leu9gkYGw+dWcOD3wN2GNvPI2Hfg3yxpYjDmLCQu1FyXWpHa8iX1QZmv8Tgb7xxCyKgHOmGBNoJyOPdEUrentb3v1bEpsY8iJgfrftEplpG3IXDqmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792394749; c=relaxed/simple;
-	bh=0xQUeD5kuMCGhhK+FQyGwuZHoSMJnIxmG3EWT2YgZuY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aUIMHWPeqrsc7CAQN4szvUEq44luVSe5ZSVhd5fP3MAVuy/R39FwA13S8zDnNavBpwqBCna1S7kal3nv83Gg6g830hQ7lv0xKrS4DLEJ4vSqwK5u2twD2V6G2d1Ipil8uY4IiJG044E4VXPQKKS8FQZKgxPc0k+2s6zdhAVsUew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TNYbOH2T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G01N6IaP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1792395106; c=relaxed/simple;
+	bh=npQj46EvY7u5qgOiWzbH5jWF8fnpxCSAIXbe9L78/PI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fQjHfhAtPSKIU7mXUvcofgcsX/PEdnbcjjUoH73mEVqFU6fqJDLbMpGNLyaYPe9L5O+lN8uUuKjJ8MmaXM5RP8W7frlKNMycmzsSs55mvGa8zibud7nyZyf2ZpdRpPYnQFb7Rn0w1OX7XMHu6NqbBJcX+05UbHuxlOqQHUYBujs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=L96tv452; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TNYbOH2T";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G01N6IaP"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69J4jfB62268349
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:25:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MfEQlfKriOoZNiF29x59T585s1PSoDwBql762uznc+4=; b=TNYbOH2Td/6mbw6T
-	2/pcZsReh2I2+54kXl6sXTBtpGyTBa3K63+Tk2botHPQZvWalwe92OP8Zn/IFLig
-	oVPkDxOk5BKaozNWbHkBWFjEfG5cvPm1D1oGrUI13sqyPuNeECNG1kOvapi9PXmZ
-	wXnF4w1VHjPntkM76V8bJj1TMUwi+f/FEqJPkciYb05oDFFIYQu/bkfwlv09Kmkj
-	DcurPDVSjlSU+MCWemYH2IgXUnxIDLpkjSSYwuwAc+WLIrNOC0D9Wgm12GX3uhGc
-	ulGDQrBDJZTeO/eGOBcONckSSa238Lnmy7o3GIHFt3p131FDOY0STpWQHpfdU+vg
-	Ki2xBw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hc0kxnhkm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 07:25:47 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-15c16792146so116167c88.1
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 00:25:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792394746; x=1792999546; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MfEQlfKriOoZNiF29x59T585s1PSoDwBql762uznc+4=;
-        b=G01N6IaPLOBmrrgOTHpMoSCJAHk7Oib3ukKS8s0uFVdY4HqytPL8JjZ6FeUSjmNdRe
-         2l0RrKzjb6JjXUCk0dCWCzi0jYXcUSehEcZ7UDyJrLr8bPeC6tZXwgkwX4FBFkvrN2x+
-         ZnLSeyHYIF7EpMEJBc0k1gD6WL8Gypvd3nv3s4lidUV3jocDT1DeK+MAgAvTvNOisl4i
-         fYYxYjfK3u9wUsFyadZmFHylAuld8yYQ34z+dr3jXNJNNbfNkbmL46UtpjoR5AdqBc2/
-         6J5f0upi+lXB2uctl8K7R46Hj78KWB/b6djzsvWiHOn/K9PQetq7xPLHp0+QDfncMGCB
-         1mqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792394746; x=1792999546;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MfEQlfKriOoZNiF29x59T585s1PSoDwBql762uznc+4=;
-        b=00ZyzOjXQuiK3oDgPc2TyKFzgKYBPiJNQR4rPzlHZKDHNAttM86XOX83x2UIIxrr9U
-         ovje+t6cu1Qk2M/Kg0GJusef4bKsaPemg4prInDKjv7OPpXBenZP0cl/dHqPBEkgjjyc
-         NeMg5KvgKOt2SMD4TgQ0YPWckchFU/feYmXO9kONevJ+VoaJh8a2S+C9cRJ6Qpr2G9FB
-         72VUvVRfeX2gGnIEyXAaazLP8CZHTsKNGEcgJ0qJMX5dkcHpgjBzGYVpkRf24W1LgoNR
-         UJpGDngV57s+4y/hqeWAchjEqLwu1fa1VbhHrLlt3gaN6kWLYkcap3iXiFuZ1bA7wHkq
-         Cb/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwWTAq65rdw80dCRsAB/pnS/VxnMAlyvxGb9HiOkcr+68wkqqn9R3kKasDOhB1WGGI0hTHLqzZCdo7FwQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9nuW71368Q/e+T9rlSOzepaITVQ/exwQ7OsnvMiX88dtI9FzE
-	ij6gxBP1OtAYJtkgfnBMIU2qe1OEAKyTVlKfOdjqvIltK+CqzDpAZfkpyONKv4GCmzknOlVbQNj
-	eaCHowcWaRDVwdpwygryRO6Lkue6YbRd5UtAkddldP1sV35XEbN7n2OvtOQfpghBuCA==
-X-Gm-Gg: AYBFou30UJZ8zJ3G1FRNGFP+KXnIpvyJv6jBo93ncDYYGtzI9Omm+9Jpzocmystgrig
-	e+L8cyW2RDxzo/4eXbmEPQcughDGoNy9BZRddEifAMMB6Y7BGwBm04iaM2s2SULqXhP21Tc0xSf
-	TJqN7llf070aXvSd//erZMFXxRyy476kA/yGu1+C4jgxocQw+rla/hZKs+yva0i0Jg+3c8SOfU5
-	yaPGUetXbjc2JDfqU65pyeHHpaRBpcDjXiPnz5Cl5DD3LIDk4HbZKMRUdT0fdF5ITezvd06JYrv
-	saJ2x7T280mBRcj/cynaMkXCSDSYtLgPlJhqBj72egdbrIJvX4jcWAWrm5L8IHnhpLao/bNugtB
-	rkv5i/j0qvlH3z2qJaANJrnAIgb+blw==
-X-Received: by 2002:a05:701b:4309:b0:168:3243:c91a with SMTP id a92af1059eb24-18511eb6891mr11403392c88.13.1792394746194;
-        Mon, 19 Oct 2026 00:25:46 -0700 (PDT)
-X-Received: by 2002:a05:701b:4309:b0:168:3243:c91a with SMTP id a92af1059eb24-18511eb6891mr11403360c88.13.1792394745648;
-        Mon, 19 Oct 2026 00:25:45 -0700 (PDT)
-Received: from [192.168.1.10] ([103.211.19.100])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fdfesm26416418c88.7.2026.10.19.00.25.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 00:25:45 -0700 (PDT)
-Message-ID: <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 12:55:37 +0530
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="L96tv452"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1027BE9C;
+	Mon, 19 Oct 2026 09:29:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792394976;
+	bh=npQj46EvY7u5qgOiWzbH5jWF8fnpxCSAIXbe9L78/PI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=L96tv452HdTHCLJlix+74JdyOKa0bgzkJuPnwkC6CeWrTwB4SRbOPpY0S2c8WTW7+
+	 agAl5RSZTP42A3SKk0hs8AYxStLfpZoXcvq5xd+zWhkLVKiMza7QOTQdsjfKxKa7Rs
+	 Fa//yD6jaGBTDTQANYKaeurE8DHk2vqSf9BSVfHE=
+Date: Mon, 19 Oct 2026 09:31:39 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Keke Li <keke.li@amlogic.com>
+Cc: Jiale Yao <yaojiale02@163.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Hans Verkuil <hverkuil@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: c3-mipi-csi2: handle runtime resume failure
+Message-ID: <atXFmYHrVP5uwIbj@zed>
+References: <20261003081129.433041-1-yaojiale02@163.com>
+ <20261003081129.433041-3-yaojiale02@163.com>
+ <99b34523-8ee2-431f-ad1b-c1e11dd1412a@amlogic.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
- schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
-        vkoul@kernel.org, kishon@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
-        mani@kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
-        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
- <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
- <20261019-funky-real-skunk-eda6dc@quoll>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <20261019-funky-real-skunk-eda6dc@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDE5MDAyOSBTYWx0ZWRfXw2dI5SoV518b
- 38sWGwxjKl03s7QUnwbFXWTl+FQJ7Vqevv2xMcNgNME4Bf3DOkLOy8VTDs7YPboYy8x6yEH7C9s
- 6whiRpcJaCQKDhxXpvFaOS3DalFpn8s=
-X-Authority-Analysis: v=2.4 cv=JpZkP84C c=1 sm=1 tr=0 ts=6ad5c5fb cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ocEEpg4cTnoGtXECQz/e5g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=K1xP-2VuxSs3Jipg4doA:9 a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDE5MDAyOSBTYWx0ZWRfX+SQZB8uxyLWJ
- jXTSUy1Pk2YmqVWbaANpb2yM5KhcyAvZ41RsEbh0oqLzcHMe/RWzrdpPSEQTXG7rzFDLNciAXvT
- 17vxJOdnHeLIwpcVdW784wY/af5QBADg9jm9cJYfvPRsTS1uLNiy2eBOOts8qhqZayT+yf0ZWrW
- YhmbKpzoalNpRibgBKva5OC5s6jvpke3BSmcaw+nShgf6vXcPD63c4HGOtmMd7Qj5jSgZ6/Q8n8
- 3aVuG6oKIRSOUdexaRva1vuab2fiA+eMlTLAM6Dq75jIUraunp7YL1O4VMCrCQv8Ua/a1sq21FT
- cQyHP6iEHEgs53JQJR8OjKLPbr1eWv6YfReswxo4PVcZwoLIHKNczaFo3joAvWVXbEeHnPdsBgV
- SkpRxATqg8pGJoplJf4P4Fe+INIxe1LEGNTCUK2/ENgJ2FoN+f7O3f3AAkftyGGmYpC3da0iD3V
- lT1kObtxuFkS5rIRGGw==
-X-Proofpoint-ORIG-GUID: iZELsQl_9Xji1YKeQfNjsQC-My92bx_t
-X-Proofpoint-GUID: iZELsQl_9Xji1YKeQfNjsQC-My92bx_t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-19_02,2026-10-14_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 phishscore=0 suspectscore=0 malwarescore=0
- clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610190029
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <99b34523-8ee2-431f-ad1b-c1e11dd1412a@amlogic.com>
 
+Hi Keke
 
+On Mon, Oct 19, 2026 at 02:24:34PM +0800, Keke Li wrote:
+> Hi Jiale,
+>
+> On 10/3/26 16:11, Jiale Yao wrote:
+> > [You don't often get email from yaojiale02@163.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> >
+> > [ EXTERNAL EMAIL ]
+> >
+> > c3_mipi_csi_enable_streams() ignores runtime resume failures and starts
+> > the receiver before reporting that streaming is enabled. If the power
+> > domain could not be resumed, this accesses unavailable registers and
+> > the disable path later drops a reference that was not acquired.
+> >
+> > Return the runtime PM error before starting the receiver.
+> >
+> > Fixes: b63ef604a28d ("media: platform: Add C3 MIPI CSI-2 driver")
+> > Signed-off-by: Jiale Yao <yaojiale02@163.com>
+> > ---
+> >   drivers/media/platform/amlogic/c3/mipi-csi2/c3-mipi-csi2.c | 4 +++-
+> >   1 file changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/platform/amlogic/c3/mipi-csi2/c3-mipi-csi2.c b/drivers/media/platform/amlogic/c3/mipi-csi2/c3-mipi-csi2.c
+> > index b9e4ef3fc308..4731d58bf2dd 100644
+> > --- a/drivers/media/platform/amlogic/c3/mipi-csi2/c3-mipi-csi2.c
+> > +++ b/drivers/media/platform/amlogic/c3/mipi-csi2/c3-mipi-csi2.c
+> > @@ -431,7 +431,9 @@ static int c3_mipi_csi_enable_streams(struct v4l2_subdev *sd,
+> >
+> >          src_sd = media_entity_to_v4l2_subdev(csi->src_pad->entity);
+> >
+> > -       pm_runtime_resume_and_get(csi->dev);
+> > +       ret = pm_runtime_resume_and_get(csi->dev);
+> > +       if (ret < 0)
+> Is   ' if (ret)'  better?
 
-On 19-10-2026 12:43, Krzysztof Kozlowski wrote:
->> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
->>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
-> I don't understand what is supposed to be aligned here. The code is
-> correct.
-Right, the DTS change is correct.
+Does your driver depend on select PM ? It doesn't seem the case to me.
 
-My comment was about the binding example using a different address/size cell
-layout from the real DTS. 
+If PM is disabled pm_runtime_resume_and_get() returns 1
+if my reading of
 
-Krzysztof, should the binding example mirror the SoC bus address/size cell
-layout here, or is the standalone 2-cell example fine as long as it passes
-dt_binding_check?
+        static inline int __pm_runtime_resume(struct device *dev, int rpmflags)
+        {
+                return 1;
+        }
 
--- 
-Regards,
-Nihal Kumar Gupta
+is correct.
 
+If you
+        if (ret)
+
+also this case will be caught as an error, while we instead want to
+continue as the peripheral is meant to stay powered on from probe() if
+CONFIG_PM is not selected.
+
+(I quickly had a look at the csi2 driver probe() routine
+c3_mipi_csi_probe() and it doesn't seem to power up the interface in
+probe() to support !CONFIG_PM. Personally, I would just select PM
+unconditionally almost everywhere these days and be done with it).
+
+> > +               return ret;
+> >
+> >          c3_mipi_csi_start_stream(csi);
+> >
+> > --
+> > 2.34.1
+> >
