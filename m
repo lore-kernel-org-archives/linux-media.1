@@ -1,154 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0C74D597F;
-	Mon, 19 Oct 2026 10:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1792404072; cv=none; b=pGxXWbsko+zsxeQchpF9ZFjs4xL5SrgA1SAYOTTKZto3UneistRGA1qZeghoZYjAu8dGf6tErwpVzUzVH+JZyF3JxOsHJzPnexiTNAGwha4L2Wt3j8Wd2EQL+4ica0CvVGT2E9FXZwhcljAq2g/nERMr2AlfGSTVET+2bRoX4eQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1792404072; c=relaxed/simple;
-	bh=EKWfrIRBQN/A0hWazzILMvN+1tgZIZ4mudS5/pWSEPY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aQhSbxhuXi2Am7BovJpxoj1i0jMh7SfmXY/orXYaKpt2e2ZuEQwRbTf7t6wAsi/OrgdDfLVoHARkLxGlnhEaWdFKyH+ICzMwtwfFBt/4QXzBKCj7gNDZygIsVJCcsZOtQ9THDO/0gEAAmSEAT7nQwdY3MADXffdofR7sUpdEQoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YOOlmR99; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A8CB48FF72
+	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 10:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1792405376; cv=pass; b=USyv6wch4zrgdEF3mD6GJru6s62SpfGH2QOgv0Vu+Cw2AXoqaMFPotNed86fve6ffX/qX08hZY4cu1pwbrML7hW5yM4FtQbMuNBzk40Z1uhDYAFlyeuCu7buBmahO+JyAv2tXAm/f/msQK5EvL26xIwS+3ER00lxfKFkbTrJiL4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1792405376; c=relaxed/simple;
+	bh=/xP+WEUlsYY3n5QsfJm9tA0Wc63T+n/0bY6kVv+mVPE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bjduFcLboVghME1Xk827EdtZlL0jb9JYUeXjTgI4LCX7DOXJ6kSW+zRHAxemtmlUgCj9crgdNjYW7u9whcUkMbdRBurhxrjFKhmpc1VoRINX+l59LUaxciGlDKIAdFYr0T5QCvd2yyyYf3WmO/kG3nzTu/s7X0tctiZpqi5OX5E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N3Ji5e3g; arc=pass smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YOOlmR99"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A1C1F000C4;
-	Mon, 19 Oct 2026 10:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792404070;
-	bh=6HDV2HcLkfwQjSgKzpnVgoK+4ivvoEHdz75ohcQoHhk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YOOlmR992iCkxzo8lLqrfm6QBsTap8iuF1rxQ7iZ7zCq94SxSviXJ4s0jj5xMgN1y
-	 u3ecZrigLfaBBcyhIz5vjV60zaZ8SofK/7xpiH/LxFUDiFMl70Z6IAyeGo93P8Mj57
-	 VtUvig875jusO7GHu1mfiqf/vuzWfdqtG9MKdA9KZGR3YNJ7/8mmKDF8NzsV0/VSvl
-	 XZFWML62NHsQJGTCNgmCw50qX7m6CKAfRJm7AibA0nhiEyYGiANTE6Uj0/HYm0EMrs
-	 ZhQkKsBMkT1XLi6zAjSXSrNOJv2P2x5IYi0De3vs4hhiZcW+YxkElKcvRSg4jkTtOw
-	 E6yHw9RxSV/Rw==
-Message-ID: <392642ad-3bac-48bc-9199-8c3923c588c2@kernel.org>
-Date: Mon, 19 Oct 2026 11:01:05 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N3Ji5e3g"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35c76e9614aso3789439eec.0
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 03:22:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792405374; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SVfTGogCmnzQxpGDxlkYk6zpdgddMkoraiGuxYxl2F7nVfjiXKj2KZEPiAGRD0vAzN
+         yQdNdmnetrHjbhvwV0YYBi+ovpa5y194X3/jJf4yoSOgcP1XvGl2OSYK/ky5P//l6rWk
+         f39JZOvmBsufzW6hIP/1uB980z2VW/Qjtylm1sR7Eq2ZegyXIh/Bc2ebLpB9MkXjRGVo
+         5FekZQagfb1T6O8Cwa+DM3v7dhOXKht4d3fJhgdb1rGyoR7M6HBsEbtnF/1K92k/gFzs
+         RkN+oAQs2b6GvuFnuj4GAPF9+A4LGJUhjKvvcu6unEZAcl5Yz0SWUhLleiVIXA8uUh1Y
+         +baw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GDP0zNJyoncem5NQ2EXxAHCK2jutUuZuqNkhZsxaBA4=;
+        fh=+rFoteOC2M/q1n5lW088Wrd0qQKKLXsoxR93OpgX6Ec=;
+        b=nbldoINy1/IR8AICUe1CpLA+/duuyyHK99dzDeVItO6rHo7tww3N3ZJa7KcAATSI4J
+         bHQI79/GSx1LNrTiTl1+7mA834b08FwePIZxtZ+PCNGKTJJI3VBllk3eAHrQnkp+LaKG
+         V9ywjQnc3brs1Ve/9l3AawXlb/4TTceWkSmH3X0sBXv2c0aRv9Jg/NiNcP5IGXW7ZoKK
+         eEgMZ1/GT0sOeokCl/AP9AZk8mlVKSGGXcn+A3ZseI0NoGprj6bKDhCBEN2IBCfvGkWa
+         Vlo7EOBjmszuEV7QvcT6zdmcYo1cbjlDWxsswsxg76ngGAhZnfhcGWyGHbsPT61tDFLs
+         3SVA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792405374; x=1793010174; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GDP0zNJyoncem5NQ2EXxAHCK2jutUuZuqNkhZsxaBA4=;
+        b=N3Ji5e3gmZDDnzFiQmRT+HJE1BdhDGLroCNyih1WQnJAzMZWtr+Idhx+XsIGz/w2BO
+         ARWT6s+/9z8LxfapB5T8a6C+ymhSM0rANB/WGToAIQbIby/koguqLm8blR5xwVeHUSJK
+         n6jjqBt61a5tMMOXya1FGAHuLz1gbFwvOVZSFn86iU1IuPMR0Jv4bsIJ7d00Ms0oMVQ/
+         dGUZ1agQRHkTGoDP6ABigwhbk7ybpjgafNC9tV/Zo6kcBg2LRN9/nVj9ElXiZSGlJC9W
+         tgpYtJhvNHsyeFRLeIMcZKozqHrVOu2W9jThjMfOlUSGu258Q175TIsRFlCK2IYKrbbH
+         tuBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792405374; x=1793010174;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GDP0zNJyoncem5NQ2EXxAHCK2jutUuZuqNkhZsxaBA4=;
+        b=d9YxebU8tEt52C/JD69E7K/XQW5OdMAXKxhJjmgJ8TwfdAGL2iR9CyI5YrVfkcHyiV
+         HKYfh88Hah02FiWuDiXp+wKC4BPr9pQpEMLB/vxsuvpFjVTP0WzMCpa4MLpA6vKv0WDD
+         qVcv3qDVzKPKA5zBs+WgQg3mDl2p+Cz+d+/LYJfr2kAg/nRsWPTb0B9fDP87gUNZCTdi
+         mIVUFUq+/HUn0+cyeDZzT5PSwNJFm0gJ4KevUpPKPareGQ6V5+kkiy13o2ijgiiQYjST
+         bxPjmek1KMS3oaawYEvkOgaSIO/SRV1XH4h+PTGfBGxlh5WmGKbHSUr6Ds+KJJKYwHAW
+         TquA==
+X-Gm-Message-State: AFq9FYLDm8/7VBB43kojbgCFzYiY1UTuztzq6D88+xsnD3A5Zqk6LQzT
+	/a2yA+cHbQUCgATZGOyyw95bAgbIaypl6gZ1pLVP1EQHNAOf3WWnlG8To+RqHcTDeJAJ2kPxpqO
+	pvU30rCc3+bojLc+IY5JBzxvGNxToH2tUmw==
+X-Gm-Gg: AYBFou35hJuiCEMdRlfJaa6XyB+7PgiTVasIFKwp3LLEsEk4hNVdv/vuwWB72dWQMr9
+	tFYXJ36xrJxkgoKp5/qnJ/CjfSgDyQeSLH8Z3ZiPbrjtShnfxf8hv6ag5nYkuQJCbESwWI7wsky
+	MRIVIwKIlEZ5K6YfXJLnkbNIYakHTvzDVdLBBoerJBNZt1+a919QZQo0ch07+IvIT3SYjlTmqLB
+	Ql0qODe2ge8jk3lnRIQOOukEXA9norePFMwhee96MQ3do0+f3HhU1h9zvTxYnkM1C6k7MB5zzDP
+	C2KjAzWMmWF6BB5LvzXFo1KzUJ4iYGmAqmZeKEYjdE3ljRk3ZV7fL6tTdJtzeW1J1HLV89oxTP2
+	oty+NInHgHISd
+X-Received: by 2002:a05:693c:864e:20b0:35f:2bc:82d3 with SMTP id
+ 5a478bee46e88-361a195c9aemr10946833eec.15.1792405374294; Mon, 19 Oct 2026
+ 03:22:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] phy: qcom-mipi-csi2: Add sa8775p D-PHY support
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, vkoul@kernel.org,
- kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- neil.armstrong@linaro.org, mani@kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com,
- hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
- jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
- vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <EKfYfLCfqnEg_PLe_TsBkAGryJgP_tA140u-0ZYSL9q5kInrAtoRCiugYV3C2PDDvYjxaeejuYK3gqzAT4FMXQ==@protonmail.internalid>
- <20261016235502.2274268-5-anusha.nandi@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261016235502.2274268-5-anusha.nandi@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261006153619.304520-1-clamor95@gmail.com>
+In-Reply-To: <20261006153619.304520-1-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 19 Oct 2026 13:22:42 +0300
+X-Gm-Features: AclHuK-T9LmpQ5NLkZ_7w9XsYRY3h0E4nk24ilBhela7D2I8HSWGbQdQ0PMxFAg
+Message-ID: <CAPVz0n01zFZUy0vM8aQW5fEbKbO=vp+MeGtCQHc0Hh5AQdCNuQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/1] media: i2c: mt9m114: Add get_fwnode_pad operation
+ for IFP
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 17/10/2026 00:54, Anusha Arun Nandi wrote:
-> The timer-clock lookup in phy_qcom_mipi_csi2_probe() and the OPP
-> clkname passed to devm_pm_opp_set_clkname() were both hardcoded
-> string literals sized to x1e80100 ("timer"/"core"). Add
-> timer_clk_name/opp_clk_name to struct mipi_csi2phy_soc_cfg so each
-> SoC can declare its own clock-name strings; x1e80100's soc_cfg now
-> declares "timer"/"core" explicitly, with no behaviour change.
-> SA8775P reuses the same "timer"/"core" names as x1e80100 for this
-> pair of clocks.
-
-LoL I had that in the last design and review said "hard code it" happy 
-to agree with myself in the past, however this change should be 
-standalone and precede the Lemans work.
-
-> SA8775P's CSIPHY has a single power-domain, the Titan Top GDSC,
-> matching the legacy in-tree CAMSS driver's sa8775p_resources.pd_name
-> = "top" and the existing lemans.dtsi camss node. Like x1e80100's own
-> "top" domain, it is not OPP-scaled, only kept enabled.
-> 
-> Signed-off-by: Anusha Arun Nandi<anusha.nandi@oss.qualcomm.com>
+=D0=B2=D1=82, 6 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 18:36=
+ Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Currently, the driver's binding exposes only one endpoint, which maps to
+> the IFP subdevice's SOURCE pad. This configuration causes failures for
+> many devices using this camera because both the DT binding and the
+> one-to-one pad mapping logic map the endpoint to the wrong pad. Fix this
+> by implementing the get_fwnode_pad operation for the IFP, which correctly
+> matches the endpoint to the corresponding IFP pad.
+>
 > ---
->   .../qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c    | 112 ++++++++++++++++++
->   .../phy/qualcomm/phy-qcom-mipi-csi2-core.c    |   5 +-
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h     |   4 +
->   3 files changed, 119 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> index 966d79c98f9b..85e89235f7c9 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-> @@ -380,6 +380,118 @@ const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
->   	.num_supplies = ARRAY_SIZE(x1e_supplies),
->   	.clk_names = (const char **)x1e_clks,
->   	.num_clk = ARRAY_SIZE(x1e_clks),
-> +	.timer_clk_name = "timer",
-> +	.opp_clk_name = "core",
->   	.genpds = x1e_genpds,
->   	.num_genpds = ARRAY_SIZE(x1e_genpds),
->   };
+> Changes in v2:
+> - adjusted coding style as asked by Laurent Pinchart
+> ---
+>
+> Svyatoslav Ryhel (1):
+>   media: i2c: mt9m114: Add get_fwnode_pad operation for IFP
+>
+>  drivers/media/i2c/mt9m114.c | 39 +++++++++++++++++++++++++++----------
+>  1 file changed, 29 insertions(+), 10 deletions(-)
+>
+> --
+> 2.53.0
+>
 
-Yes but split it up - "remove hard coded timer and opp names" - actually 
-you want to make the OPP optional no ? In which case you'd expect to see 
-a patch to make OPPs optional - instead of folding that into a 
-functionality drop.
+Hello there!
 
-Because say we want to revert or re-order the addition of Lemans in the 
-git log - we then have the problem of mixed functionality.
+If everyone is fine with thins change, may it be applied?
 
-Or say I want to cherry-pick a backport - I don't necessarily want to 
-include lots of SoC specific stuff that doesn't affect my part.
-
-=> More granular patches.
-
----
-bod
+Thank you!
