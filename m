@@ -1,108 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.24
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792435290;
-	b=kMK62bPYiPV3JhcQLIzLKY6bqoLju2QJ9rZPvP7JXk8bRFPabNSFTcV5cXz5PvHetr7N
-	 B9Xdy8pl7H9raw38+UrHQeWOv2LMp/OitP72xZP58bREwWbD212RWy1pOUufKekDFNMLa
-	 uPEvhRKDkUuK8cL9OlzggNoRsoJLBKk7HmkOfSTzycFWxFNJVuLwxrZEAQP6naM7GRPj1
-	 ucq/t18k6dKKFSwy6TmREFNYcB/z8qKkhrAQcLdS7c9DGBa77aUxRkF/4RxzSxql+/1+I
-	 PtML1Abcvfm8PMWRA/+gnsLjpgNtAOCZcY2ILquiBNs3qGZNyYiPyE/Y2w/3HGIWM+g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792435290;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zVYyPmgmY8Brr/rlJ6a6L55sC/o6visWk4Cshg7uCPo=;
-	b=wHhJFGQJ6UPHZCisQ4LvLwoaFvz04ZHturaCI36Fy3r4zI+V9HwIlO6RWjdquCNC52qP
-	 mcXcQksJPTKodNvwDjm+bJ5Mss6i4Rup0WJYIgeQfv8jLIrwijXp6ANCP0AS32jeAydit
-	 LmjzakIEyiGfAHVvvLdbQ6pPDaR5kQVglENnBISErA2lxA8wtb00yYpTzZONuU0dbPuyQ
-	 FirgbudXUPlBncqYjN23SFLeM1/a7jVMPeWGZsQ8ZRLUPH2IrbH1rl/dKhWBFtqB47Kn/
-	 XNd+6tekYLHiE9yvbzJFt8CCoaw4CX6qqYBbo9+q+/CyiViVKHpTZhh1fq1lA7lNPEA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="bzu2r/Jw";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.24
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012024.outbound.protection.outlook.com [40.93.195.24])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792435610;
+	b=gdoHH1PKqA83xCDVT08ww9LlsiSsjiqzSpFyZ2PRt7Pg2hYAd6QSPT00xWLT7kb5kR5s
+	 ZjnRkh+PjbzCxJMQ5+4dTO1ZT1Mz2juOOX69TrmBb0Np0NP38X7kNiFlP62zPdBbltTxv
+	 bYasEcavVVq+G4ybc2/5Gby7ansHLxsJpSBP/M0B8yysaIdVfsh0PfWFnpsVSr0MT8qw3
+	 j8lnNqzB4gYNQKADvAzB+aAi68zalwp5oMrhCznMnFTqrdpjaNUWYB0ZcsaiC6zsk7VdL
+	 PsdcJVE89WXX2bZTZ3M31DCKIVrmZyOTbT8c0i9B7ih2j3msgKmlSnObvWAMRI5W5Dw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792435610;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=JlVIuNAvJb8BGxks+PwmXWerlM3I1JQR3FPq2M7uegA=;
+	b=EhvJoObobz7Em9+rtb6W7UWomg//ervOLxWN+K0WVzUqrSLZnjc2hkD8xuF3RrE38DNp
+	 cxkzP8tgzZQUc5f4aisk75I4iBIks0HxBfHZNNjbnhStJfpU6El2xyu+FsQy2XDCEMJub
+	 FszJYiYpzbyIsPD5xV3RovH4m/mVvCYNUaFZA7pP3Q1WPBnelG7os5g3yRMD8B/KQfl9S
+	 AuGkye455ePIgETyifHLzDtDO1s7duhEzqdRCFJ6/bMAp8Ivm1upRbhAyGWxEafbo036+
+	 nypc8dxxhjYkTbdO22lJtO2jVELEfddCnFNtphRR4sZinKyoFZTbhRq6r+NPpg50VuA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m2TZ2Ye7;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25527606A31C
-	for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 18:41:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25527606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C76606A31C;
+	Mon, 19 Oct 2026 18:46:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C76606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=bzu2r/Jw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FVZaUB3DYEsjIdqK/Eibod6uGu84mGnogII1S5bIi6biA6yxurIwedBm2WwQRTPgZ/O+J3MDQWdNczCcu7KdTUqEpE+75qvbYqYNi1IaMKBCodH4cg2B41HIllRLons7xLYZqFmmIM943jQzzziO169cYiTV2r1kJVkqAUTFr2WdFSw8P1CnBRb6CKrP57h337dV/Hl5TcC89QZ6u0bRcriRvxaTPPuh/IQ0Miv6uGz/QvMCzE3QSLG6gvp2e84tkEv08toGcT8X6hWd96bRLHJm8YncV7YZKaS/ulEY+4ZkUwLwkxPWDUaOD7bPiUGdCCzp556rxzp4na030jgHkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zVYyPmgmY8Brr/rlJ6a6L55sC/o6visWk4Cshg7uCPo=;
- b=HRy1wdJRzverLdM6II5Y4J64TQaGuj6T8b5Km9IjDSOMxmVHBhP9AZy0yanV/7rZ2nH7XgXEra08bJZ//jp+rhY3/TP6krHFNKZ1cza8FS7eg/6nmxwbvvusPnpQi+b77RPPrDTscrh0kAk6BskHEaRN67x6tUl84TMyoj9qgpK3aapMm+T+J4tJqYP2VOGQrjT2b8FxS0TzMguWm5SA9yZdQMuN+tc+pD5n1RUy9lkDByyvlSjNP7HQx+0EOLcTxhmtAENIGkb9SC8qSQOmAwOUN4LETQH6D3xrdk75Ei22zulcqiCZpCu0Lcb8X0LcKJEmEVKWKkWoDOSzqVNQxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zVYyPmgmY8Brr/rlJ6a6L55sC/o6visWk4Cshg7uCPo=;
- b=bzu2r/JwBhEi7T1grqVZJ4I7Cgz2VtRqsWgOsXDWurA/cyYwqNE8IkeL5Trxnng4VfDoLp9g2n5qJlugC+WbPlVmYClnQDnACSKH4J8mWYvlFEQqcJP6ncGM99VpqX5XLv2q1jQg3PlV3Ni0LfwWswP4VjdcBfTgYUdLrcShSsRyWGD6HsN3ekT15EzA95nv383w2NauP5dSypZ11J+XuHCDKuyHL7kdhLTKFYmlbFHoLJEkWTdxlC9Ey8+/xBeJ4ZNoPa+DOcsdGPGfy92Fy7eCnjxyn8Zd2ZKha/EDe0c9rbIlhb3IJLSG2Ber92zuTGtI2+ZydzQj5rvPTQfDBQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12) by DM3PR12MB9325.namprd12.prod.outlook.com
- (2603:10b6:0:46::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Mon, 19 Oct
- 2026 18:41:24 +0000
-Received: from CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d]) by CHBPR12MB731189.namprd12.prod.outlook.com
- ([fe80::b0e5:123d:fe06:e10d%6]) with mapi id 15.21.0522.017; Mon, 19 Oct 2026
- 18:41:24 +0000
-Date: Mon, 19 Oct 2026 15:41:23 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: Alistair Popple <apopple@nvidia.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	Dongwon Kim <dongwon.kim@intel.com>,
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
-	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>,
-	Leon Romanovsky <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org,
-	linux-media@vger.kernel.org,
-	Matthew Brost <matthew.brost@intel.com>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>
-Subject: Re: [PATCH RFC 03/26] dma-buf: Add dma_buf_mapping_attach()
-Message-ID: <20261019184123.GR13920@nvidia.com>
-References: <0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
- <3-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
- <20261016202653.97339-1-kmehltretter@gmail.com>
- <d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com>
- <8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com>
- <20261019133031.GQ13920@nvidia.com>
- <5f57c49d34f2812b0b68be71218ce0a9b6510c14.camel@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <5f57c49d34f2812b0b68be71218ce0a9b6510c14.camel@linux.intel.com>
-X-ClientProxiedBy: YT4P288CA0004.CANP288.PROD.OUTLOOK.COM
- (2603:10b6:b01:d4::9) To CHBPR12MB731189.namprd12.prod.outlook.com
- (2603:10b6:610:33d::12)
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m2TZ2Ye7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792435608;
+	bh=CvGsFWoLph0v+hKiQvOUscsSmU0yUXST+5yRJ1mIOi0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=m2TZ2Ye7AiHEN44px2Vuf6F6ZnMo1fQQD5US1cC8KUGTyrqAsLXAPwLbrhwsyIn2c
+	 7jHe+rYm8fut1HwLETzeD8fqOD+2Dn+wA9TqAhNV2Htlzq/OLYLZPu98/ykj1mcBJ1
+	 3QmKQ+0VzZs0EhiqPL7wZR30qtwbkrV5Jiy2y/0GbXwlgvtohF2hMYEACkf7IQgeop
+	 ypcOC5lwrc8+I5Uj6+NTeWHxDYNW27wTXZu2CEFZ4G9DeIlrIwD3Ex4WNCh9+AsD7G
+	 wRi1VY1mdYqtzdPgVXOV7MiMAhZkaF7oRJunkxduileB181wC94/OOe/vHstJvbRol
+	 av620AHk0u+Hg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 06A5017E006F;
+	Mon, 19 Oct 2026 20:46:46 +0200 (CEST)
+Message-ID: <6242e4c3ecdc7e55a0e32a6cd73b776a0e86f4bd.camel@collabora.com>
+Subject: Re: [PATCH] media: chips-media: wave5: Account for sizeimage 0 case
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Brandon Brnich <b-brnich@ti.com>, nas.chung@chipsnmedia.com, 
+	jackson.lee@chipsnmedia.com, mchehab@kernel.org, hverkuil@kernel.org, 
+	heiko@sntech.de, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ 	linux-arm-kernel@lists.infradead.org
+Cc: devarsht@ti.com, stable@vger.kernel.org
+Date: Mon, 19 Oct 2026 14:46:45 -0400
+In-Reply-To: <20261019160003.2375198-1-b-brnich@ti.com>
+References: <20261019160003.2375198-1-b-brnich@ti.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-fR05QOiHm7Ab/PiRZ46L"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -112,85 +87,111 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CHBPR12MB731189:EE_|DM3PR12MB9325:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79cceabd-f44f-4c1c-4687-08df2e1093f0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|7416014|23010399003|1800799024|10067099003|56012099006|22082099003|18002099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	TNUSVWdzh6X0mmwX1SoG4ISL4VsvjeTrkfARDRnGsMR7m4kMMX0lvf4/HFmaxgzsqE4Pg2SRTn5hmXTukChSZEdvAn2a5PCcRCTt9+hC9ipKNbND3s+iLM3PD8LgOTBPNQgI15VHvVFz1cY5MHi0U2hyCN38JnxbP2Bjg/9dHuFLhk2HMn0zPgBQnaQXS1wmgbyPYet+an0YkyPgjM616Zftp6OA+Dop2115l90/HGUsN+yvGeILOEq2iInNVtuAxMogDDQt+WeOoVsn+N0h1z6YR3REVQg5hp7CaiBfCZq+WYILlR++NVwRjqWolSiiFfy0kYlVL8NoEGS9ZHO8ycqVy9scQz13vutVy8L+soJp+p9usHjnrtA7+rbky9zxh6/UHK3lOOQ2j3/g7hyCRxJUlkEFortCcY/ocW64zKmRDBAm45Cq/Hf/2t49tIVXTxbl6qJvr0W4nhVAfN/7NL/5biCet5fyFyUcufjD0IliUciEdSVe3H/mRi8dyq8TN9c9uM3yOq42GMgatEudsB2Z4sHV4YFeWfYFcU1cdPk0vehel7CIpW4xlEF+KeX8PsCwBSAJP1xHqO/ODO39GHU0X1f1u8fTbnrP8UzLt9gpxbB0WW1HWsY/0I716VRMiNWpUeigoopmxqWQUpLe5NmlXdLNM3EbUCHF4dhluCo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHBPR12MB731189.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(7416014)(23010399003)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RC9MREdSWWVnQVpjRTJqcnNhY1N3VVF1cXNNWG5WOVgrR0dnL0tpeG5kNkY0?=
- =?utf-8?B?cWVGdGR3SUM5WlRKYW1zUW43b280NHRUd05XQU5vQnVMcWY0bzNNZ29RU1Rq?=
- =?utf-8?B?TkRFbGdHQWRjQ01ST3g5SUdhelR6Qy8yY01xeG1xaldXT21XQm9CR1JrV3dh?=
- =?utf-8?B?bkpSKzBEdVV6QTB2dzY2Q05uOHcvM2pkczNSbkRNN2g4dk1FU0pJNFhzTFJU?=
- =?utf-8?B?elVpNnJkOTNMQjE4QTEyMUxES3NmWWZLY1dyODQ3L09iTGx1Qk5jb08wWDk5?=
- =?utf-8?B?dmpnVFh2Ykc4WCtaeTVoTnVRNEY3T0NxVWZnMDF4ZkhTQW4zNEZMeVN6MS95?=
- =?utf-8?B?Q1ZxSXl5SHVsYitZWFlOQWcvYkduTVpESTVaZGlOVlJtMUN5bzdUT1pjbWE5?=
- =?utf-8?B?ZHJ4ZDBkUVltK1FqZ01kU01PaGdyYVRreW0yb0RWSzlsOVlpREh0NzAyUWZm?=
- =?utf-8?B?QmhnSkxHMzZvbmc5RVJ0Vk1lOVpIWE9iRTJMajNXRGdtRVhBTVJSRGtnVlBX?=
- =?utf-8?B?YW56MEpuYVplTFV0aHF2SmtNWmdYeVFXNHZhSTZtR1NoeTBSaS9HbkRaNUtl?=
- =?utf-8?B?UzVVc2pvdFpTMi9ERVRxUmxONm9lZnNkOGlmZHluSkwyWHh4bkJ4T1V3Yzdm?=
- =?utf-8?B?M3ZrTi9DcUd5SlY1dGUzMHlZVmp4bjZsWFR2UFdzYW9oVGhSMkU1dmVDZnRL?=
- =?utf-8?B?aGE5dk5JeDc5RU9BcGxHbW1ZOElRbVgzYzd3Y1RjbnI2Y3Foa3UzOEMwYWw2?=
- =?utf-8?B?RTU1a3BhbGNlMFU2Z1N0WHNKWUxWa2hIUE13SFdvckZ6aExoZmZVVWRXMDUv?=
- =?utf-8?B?RUJHVURSNzVUWUxPbGI5eXF0aXBHeUZMQmwvb25jRENQM2MzbkpMcDhuenFp?=
- =?utf-8?B?T3NLdURCZ2ltUmJKRldpQ1BjOERIcmNvK2VCd0tMWDVESTY4V081WGZacDYw?=
- =?utf-8?B?c0pHWE9pbWtXeWlHWEtnb2Vyb0J5UUpjSTlubnVycFFHWjQrU25KVkxaelRa?=
- =?utf-8?B?djUvZWNkQXlaUHlUUjArT2JXY3kxNi9Fd3N3b1RXc2xWTjBWa0ROWFZ4UStS?=
- =?utf-8?B?UWovOS9oSzZoVXhycnVjY3RmQmdEMzZsRkN3UEdCcnpXaUc0ZzhtUzR3U3dE?=
- =?utf-8?B?R2J4eHgzSUtPRCt1dnFDREJGRG1XaGVZaFI1TWx5WitCRUs1NFVFVjlyd2c4?=
- =?utf-8?B?SGJaWUZXUis3d0JQekh3aHByTHNxczZxblBXd2M2T0FFbFVWaG1XYTd0eUxO?=
- =?utf-8?B?UGFYSDR2Y0N6OVdPYVhOdklNTXE5RFpBT3RobVRyaEh0NXVzT2hjTUFLN2VL?=
- =?utf-8?B?SXdUMzhRaGdYNG9wdWo0ZXdnOXN6OXZLdFlvR0FRbkxRdTRKRHVxM2xPK2JH?=
- =?utf-8?B?OG5WcWpIWlYyeWxhQlpzNzVwME43MWV0bTlzTEZDZTlEZnJIRFRyRmg0T0dp?=
- =?utf-8?B?ODdRZUUzVTVkU1FnZll0R3pZdGdoaEFpODZDek54N3NkbkpmTHQzNGx1Ukhj?=
- =?utf-8?B?NElwYldjRmtQVDRmejlEOTZyYmJQazhQcUM1VUE4ZXBRL3lCRGZGRElIS1dU?=
- =?utf-8?B?VUlmSGpFK0pMYW1IZUhPaUx2cGY5aVJCSjRtTGJBdm00V0FBVHBtLzJaaDhG?=
- =?utf-8?B?NWxsVjhaTTZRb0JCUkRmYWx2b1QwcFN4OUdnUjBITmM3aExrbE5XMUREdEh5?=
- =?utf-8?B?K2ZlbXpNcVhQaXF4ZCtzclVJak9SR1VjeC8xSllVRGNOdlJHL08wQnRudWJh?=
- =?utf-8?B?SVp5d09FLzF3ZkdaSEYzakk0SHovcGRDWU5oWjV5bTFkNnkyT1JCSjFiWHo4?=
- =?utf-8?B?Sk5tcVo0NldDdUluWFkrRytTR3pZaGhJVWRvL3RoRmxMNnlhcjdnMDBaZ2Fh?=
- =?utf-8?B?L3l3U1dLTytpU2d2bkhIVFB5eCtTNHpiK21CMWsxUEFVdzRkR0Q0T0h2RXJP?=
- =?utf-8?B?RnIyWWZ1WVpEWjlTKys2M3N3cUc3b2VVZTZjQjAwRlVFc21MVTk4b3hhSXNq?=
- =?utf-8?B?VHZNMHdmSzA0NHpjRS91NTBMODNoUUFQMGx4a0hsNGtYUVhEWUU1cUI3emVT?=
- =?utf-8?B?NTNKY0U2cTBpSm1yTmxDM2VjL3hOUG1qVmxIVHdWRnk0NEl4bk9JVjQ0VEYz?=
- =?utf-8?B?a25wWmFqUmtKZnZ2Und4R3lrM0lNaExOR3lqOHRESngreFZnMEFGanlGdnE0?=
- =?utf-8?B?TlA2WTRCeTU1RVlQQUM0Q2hYQkdxeDA4ckFSaHB5UHFwZmVDQmRJb1YveERk?=
- =?utf-8?B?YXdVWHNoeWJZWTJYZDFFTnBaUEU4bWtwVEVDbGpDTWh1TXVQcWczL21xNVRu?=
- =?utf-8?Q?Z3N+uHbFoqVo6io+wO?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79cceabd-f44f-4c1c-4687-08df2e1093f0
-X-MS-Exchange-CrossTenant-AuthSource: CHBPR12MB731189.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2026 18:41:24.7236
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 08ma072+WEsec1s/yd1Qgh0rH31/7zE/rNKSbRYCMivAs0ZgoTiCxiT78d54dHiW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9325
 
-On Mon, Oct 19, 2026 at 03:47:55PM +0200, Thomas Hellström wrote:
-> > Making the decision right before map seems like a reasonable
 
-> > enhancement, but I can no longer remember off hand if that would
-> > cause complications :)
-> 
-> It was that mellanox ATS thing, right? That's the only case I heard of
-> that needed the mapping type decision (or at least a strong hint)
-> early.
+--=-fR05QOiHm7Ab/PiRZ46L
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-No, it would work after the fact just mlx5 forms the attachment and
-the map approximately at the same time in most important cases.
+Hi,
 
-Also after LPC I've also realized that UIO shares alot of similarity
-with ATS, except getting UIO correct on both sides is functionally
-required not just a performance optimization :\
+Le lundi 19 octobre 2026 =C3=A0 11:00 -0500, Brandon Brnich a =C3=A9crit=C2=
+=A0:
+> V4L2 uAPI states that sizeimage can be set to 0 in struct
+> v4l2_pix_format_mplane if client wants the driver to configure a proper
+> sizeimage. If client leaves this field unset and configures an encode wit=
+h
+> high bitrate, low QP, or any other parameters resulting in high quality
+> encode, then the driver-calculated bitstream buffer size (MIN_BS_SIZE) wi=
+ll
+> be too small resulting in undetermined behavior.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 88ff31fd0181 ("media: chips-media: wave5: Use helpers to calculate=
+ bytesperline and sizeimage.")
+> Signed-off-by: Brandon Brnich <b-brnich@ti.com>
+> ---
+>=20
+> Current DEFAULT_BS_SIZE is just a placeholder value - I can lower if
+> required so memory consumption doesn't go up drastically if sizeimage is
+> set 0 by user. I saw this was the common equation in rockchip and hantro
+> driver.
+>=20
+> Link to uAPI requirement: https://docs.kernel.org/userspace-api/media/v4l=
+/pixfmt-v4l2-mplane.html
+>=20
+>  .../media/platform/chips-media/wave5/wave5-helper.c  | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/chips-media/wave5/wave5-helper.c b/dr=
+ivers/media/platform/chips-media/wave5/wave5-helper.c
+> index c3d34be833ff0..384a0a9aac3ae 100644
+> --- a/drivers/media/platform/chips-media/wave5/wave5-helper.c
+> +++ b/drivers/media/platform/chips-media/wave5/wave5-helper.c
+> @@ -7,7 +7,10 @@
+> =20
+>  #include "wave5-helper.h"
+> =20
+> -#define DEFAULT_BS_SIZE(width, height) ((width) * (height) / 8 * 3)
+> +/* Smallest bitstream buffer accepted when the client provides a sizeima=
+ge */
+> +#define MIN_BS_SIZE(width, height) ((width) * (height) * 3 / 8)
 
-Jason
+Does that change put us at risk of integer overflow ? I just don't remember=
+ the
+max width/height, but please do that math to be sure.
+
+> +/* Worst case: Allocate bitstream buffer size based on resolution and ma=
+x depth */
+> +#define DEFAULT_BS_SIZE(width, height) ((width) * (height) * 2)
+
+Should be adjust based on the sub-sampling and depth? We could use 12 and 1=
+5 bit
+for YUV420, and then 16 (what you do now) and 20 for YUV422. Though, as far=
+ I
+remember, 10bit has not been included as the TI hardware it was tested on d=
+idn't
+have it.
+
+> =20
+>  const char *state_to_str(enum vpu_instance_state state)
+>  {
+> @@ -261,8 +264,11 @@ void wave5_update_pix_fmt(struct v4l2_pix_format_mpl=
+ane *pix_mp,
+>  		pix_mp->height =3D height;
+>  		pix_mp->num_planes =3D 1;
+>  		pix_mp->plane_fmt[0].bytesperline =3D 0;
+> -		pix_mp->plane_fmt[0].sizeimage =3D max(DEFAULT_BS_SIZE(width, height),
+> -						     pix_mp->plane_fmt[0].sizeimage);
+> +		if (!pix_mp->plane_fmt[0].sizeimage)
+> +			pix_mp->plane_fmt[0].sizeimage =3D DEFAULT_BS_SIZE(width, height);
+> +		else
+> +			pix_mp->plane_fmt[0].sizeimage =3D max(MIN_BS_SIZE(width, height),
+> +							     pix_mp->plane_fmt[0].sizeimage);
+>  	} else {
+>  		v4l2_fill_pixfmt_mp(pix_mp, pix_mp->pixelformat, width, height);
+>  	}
+
+This is overall an improvement for userspace that is not picking a size, so=
+ in
+any case:
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+regards,
+Nicolas
+
+--=-fR05QOiHm7Ab/PiRZ46L
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCatZllQAKCRDZQZRRKWBy
+9PuQAP4u43q21p62RL/xpnhjv3g+Yw7nND0OOmWXaxG8okzuYwD/YLIymZqG+bTn
+4x0mw6ZS3kdg5E3571Hr+MlXFSvsLQQ=
+=r/WP
+-----END PGP SIGNATURE-----
+
+--=-fR05QOiHm7Ab/PiRZ46L--
