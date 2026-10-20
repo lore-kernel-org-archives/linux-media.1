@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792461057;
-	b=otEhgdASJWUE8puiBTBkVIZMinzORJ9TeL3qdIuECLOmkexPPKwO1VRh8J3Y3M9QQBBQ
-	 lx93fx5uZFiSZ/NZL9qG6PyRmik5b3VgMXCc/1MhbCRw1/BpL+iHfmUXK74/66J5m0jXq
-	 cEvJqhVDxRBMpIbC++lXDCukKTivDQIxX8ROmpBpxq/eSnv0j7ShUilckRphBGyr99rWc
-	 MV/qNlLlm6ntGJxnhCFPH+h/IR1QufQB4SlABBw+HknuEsmHohdVaF+vd0vu9aT5zi0rQ
-	 +nHRzFqneiNsyxITUTPU9Nm1Vei/oO4rz9UzGD/sISpSkYA7VWbvahm/TohLTio1Lwg==
+	t=1792461931;
+	b=Qw4OW4ZWR/Cd73CpCoxfHpP9f08yl9CrqCMxcCNmNMexOXwqWJITBabG993/sush/6Uf
+	 Z8j4AwSDTm7Z5tI4kp/R4qgnpBxKd/iUlwR/lSWkc5RLbbgJirUHnSzNVEiwJXB8G14lb
+	 lDM58dvaT1tRgHXJV2+df5hvmsv7tbxyPvfqA1WRvQYp87S8xoyd6r/jm6AKiAd6m5Iqp
+	 XM42uA3ZsEjQbLh+bW9q5hHrnUwr5yMA2XTYqCEHIDiWObWoqt8QvesbfBrrSv9IyL3Dn
+	 KrQ9TdqEmwHGZa7YkU8VHy5YEBCmA60uKmAl5jmoztuf1kZVKSL9cnLdwneblIE0hhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792461057;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Ye2UCYDkzUtw3x3YVhdyIXWosmkvPQLa6K6q92dzMmg=;
-	b=KUCoZzeAD+2KNSRGpLQ4bJvGJigu1RrmTirilOwXSczLH20IBk5O+bHZ107yTZwKObjY
-	 W4fjuyZJrBRMizh/RD6qsO0kJYu8YSnfazkFIZkbySUVJcMjht2VvTHjy4P4mDzziFaEy
-	 QWY6n9dtX+Xk3rOsoxFIMUUFh37fcFRKFXpnYAYy4zXR5mDp6KnPpAqXKQrLIV2WhVJ3i
-	 Vk/FrCv/8mj/fM/+3JlNNiD0Odv4vpfhFmq+0ePh9/mq640e0l+BEHtRUqLVgVD3C/OaJ
-	 zvZULkrjYj7xJ/9FOiRPZox3d1MA2pVdlUtGKSePOq+9LOcwjpnrnwg0ghB8qtzuzqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792461931;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=;
+	b=sYqof6QPXGlSiNBu83+mnCcfAbVvgCus0VrLAQcUR9fg0jKQVun0tXEExT7YzPEZmMNh
+	 5dDSsMVs9nTHwrZlNH75VgilYjHg4k0NckON6NEooI5tMg2tdyt5vQEV9jzH9VpbDmAZk
+	 WT09D5EYfyNseIPhlZnRZsCkiI4nGE0W+wKD9I/jAHmk58GpWNVyrrfshrohaRTE1H7iv
+	 rGoihBK9BK7bXr+nDGRO2rcAUfuWIuOKRQ2uRvAYuSbWfYFRurJ68vTCJOv2fbX40AjaE
+	 JVFlLSrjN/j3lwlBrY3PPUTE4Q6+zn3DkZpnp7prMvhZ7AyISBZbTMHBJKkPB+PT35g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U7Fj1IXr;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aZq5hCtH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g5+fGACB;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0A9606A320
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 01:50:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F0A9606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBC5606A31C
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBC5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=U7Fj1IXr
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15354aa70e8so3061970c88.1
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 18:50:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aZq5hCtH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g5+fGACB
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tPSn1211286
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:05:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=; b=aZq5hCtHuETxGA1d
+	ZgBXVhAeq9Yo6J6HkuY5wNC/RzzrWWWntLhjFbb3RvhB7BVaQOjaxailEjrVz6Jh
+	j5D9TwTFCSrG50hNd/Yr1IabXFaJXsdnaBWme5gVYQZr4mXtD//Lh5YdOOe3gZtW
+	OVkFusIxmL4UYUmRR6HUt7gkFRb9dzo+uyn0RyiRVHxQ4gXAdQxQTKxq49PXP+YF
+	FkkEX4E6zb/2euEk8c7ABOg1nSAPB+HKexzfroUiIpQj4ptVIJNx0vK6LrVvsO+A
+	vDzP45Fb3dQ3ZwjTL0UOd9n8fG/dDUSB0xpsDOhk6Mm5OHrs3pUXgxU5mk95sqUH
+	4k0SLw==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5p0cxm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:05:30 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-15c16792146so407504c88.1
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 19:05:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792461055; x=1793065855; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ye2UCYDkzUtw3x3YVhdyIXWosmkvPQLa6K6q92dzMmg=;
-        b=U7Fj1IXr3KLaa/ieNjmvQTBn6WaMEb3UTgU/qik2TaW0vD3iGWMMmmNGvLSW/cgAwx
-         CgXkZnh+vH4zxMzPj9cP2+FtJ5k+Td40REHTIOlTnkm2PRGLpYmIUWuK9ZYqBNjZBTDG
-         xpvYL7iMAKn6JvVrnP/pICZwF/n8mEcsnLy+Q3CBg1UvFnga6qyXEKFjZGqUf3mvikDS
-         KNf37fGJgIoKZOQ7f5f+pVPUpgxPH/nz/xlb+gJvX9T5n3u+TTNz+StxkCAw6MGkgB2y
-         5MM731QRZ4P/j4v+ksShDD2Rk4LnqeYJC1V8PjOUZsyG8hSfJqjaWEUn11qjedkTCrd/
-         3a8A==
+        d=oss.qualcomm.com; s=google; t=1792461929; x=1793066729; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=;
+        b=g5+fGACBsDwHKA2wsysbxgV23NaHCPHB7Pb/GRy+Z60Uoor0VF6VPEGLVg8eTs19H5
+         ExIlsznIw3FdQIk6Ciq16kXeuNR5Y3g2mw7AgwEyDzyA0wmtjInbGnVLLmOXOkA7bAa2
+         qJ+gjeA+oKFcjFvKqfwS/Asv8ZtfsiSEPmTs6DNfdYXVdBQ2yDcBIVwysrLuRSTHJhHp
+         qlowxh6CmQOQ5pQiVP2oPTw0n8bPwB9fIjSDd6irWLnCkKLdNYks3Zgdzdc48I3ewj2x
+         cotzzRbSm/BPERFA/afSBTJcplb/oNn6arN1zSG+zYVKybU2YaVzL8KsTYjobL61UOT4
+         I5Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792461055; x=1793065855;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ye2UCYDkzUtw3x3YVhdyIXWosmkvPQLa6K6q92dzMmg=;
-        b=2tt6RC0WCN8Fpy2Ha0waMsfWhtSH3aLcFNCtTQ9B+i5WuBLOPYTgr0HGdGfd2P5k+S
-         Mg4yd0kjdLRfmqyhP1IXts4+1GLqEgac7IFx97UA0bt6ZWdoXfNq4Pz7hUq05cgEEkgJ
-         TFLe7KMh0StHVG7XUJLXxyIe6n9cWXKlRH6Tq+szVyjW6PD5iOimiNs8XvSLgcvMRkM1
-         3iYRLtad6r+KUcxdFxv1aNLnVNlT4pE5KfR+i9It3NDT+Hkj2XHsGxjKB0sN7sq34WXv
-         BkzfaK0LGqO0Nx578nHR1RlZ+ITixmOVLU16szVN/E2P+XKqRdBceD0dg34MA0fBEr0L
-         f//g==
-X-Forwarded-Encrypted: i=1; AKwUvByNlQqEOhxLbdWgGS/9I4CVMMnRrlLpF8KuaSQD0SuXdKmWaLfVI+wrwasu3uo5aYB/jg9R5rhUdtWl/A==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIn1/lB4A+s5TWTT7MiwpiaSnWTLllOO1vRbDwDixcNRkv7Sqhu
-	FDajg1I/P3TWVlQA9WvPQP3mM1TPUUCvXNB+tviAwJrTUZyKn+ble3Pi
-X-Gm-Gg: AYBFou37BKya0n8zdRVuxZONu3Y3F0Dnz0RAJsNNTeIyJvbeVz8HMWI7eglnX0mXu6H
-	oNoJI8gZDVTzlvznNQPxWolX+8iRghUwkGnCuitQSfiLLfIVQp74SzjpOw1g5/zJi9NXptEK/ph
-	d7hB27QwOwHPMaWG80qVQ3U6P9i/jePwoZlsfovQ3yQ6RYlPAT1DYcU50PtB9b8UMkwJ46359FS
-	yGkawKwazJMhurRkF/iD5OSVH3YzjoQ3xzEhSYMYiR72Gek3AK1f/ReSYDUZYqkFDCfOQ8lM/BC
-	e2vOcPdiB97LfO50FuQ7ZL3W1+ihzELJMknlz+iLJePRE1iKzXsykCu7EmlWXPkP57xGQRE3k5U
-	YgPT+btg2WFennTs2LEjPWXGpCqy3vKt3BMhjtZqjRr6BNZRBMFs1x8/5tjl76aNZSpY4aMLhM4
-	9O/B3yut9Gxwo7qTTXZVo3p6UNeiUOEQvJn6kzLf6eSP+O3ivjWtXIzvlKXM8258e9/0QJI6gnW
-	fYrQ8Hu02DAxbcKOaCBRgCs4/xsHVXgHjzwmpdh/4ziul3LKmVEzBq7
-X-Received: by 2002:a05:7022:f902:10b0:143:298f:33b8 with SMTP id a92af1059eb24-18514914dd4mr14587384c88.44.1792461055381;
-        Mon, 19 Oct 2026 18:50:55 -0700 (PDT)
-Received: from duo.lan ([2001:fd8:f0db:3ee7:799b:69c2:e95b:f04e])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1831919fdfesm32684879c88.7.2026.10.19.18.50.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 18:50:54 -0700 (PDT)
-From: Alexander Patrakov <patrakov@gmail.com>
-To: johannes.goede@oss.qualcomm.com
-Cc: adee.sahan@gmail.com,
-	andy@kernel.org,
-	antti.laakso@linux.intel.com,
-	dan.scally@ideasonboard.com,
-	diamondback@cohunt.app,
-	ilpo.jarvinen@linux.intel.com,
-	linux-media@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	sakari.ailus@linux.intel.com,
-	Alexander Patrakov <patrakov@gmail.com>
-Subject: [PATCH 3/3] media: i2c: ov5675: Add the OVTI5678 RGB-IR variant
-Date: Tue, 20 Oct 2026 09:50:01 +0800
-Message-ID: <20261020015001.15672-3-patrakov@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020015001.15672-1-patrakov@gmail.com>
-References: <CAN_LGv3QH4oupSv6KzopjHRXO7tWhY4wvBuCHBzNhJoDW4ZL4g@mail.gmail.com>
- <20261020015001.15672-1-patrakov@gmail.com>
+        d=1e100.net; s=20260707; t=1792461929; x=1793066729;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=;
+        b=SwDRKsMn/3JqSaYBrBR0yw6wQE9Y2rYCLEtGIGvtv1jMzYugOoLiOgY17PMTuiDtVg
+         uKrsq6AO44VsDQEC5ksJpPKL+CbYmorZd5Pukkkip41DheqFeMHtDsnkeTqtPQYFssRE
+         aBDUCe0L3h5Dj9glDK82qCUcubyxialyqU2pwf8LW3jsprxe41B+aK+Tl+9i8K8ZMjnW
+         H+qJV/eTnmDKTVGJWvE2QCAcWcN3yVGpDjIhVrsparpFCt5KU36ZIAMxNFfQa0YYan2t
+         KnRvYfxBPSMm4RQmNeAR4yNQw1XV1Q6kuozlEhshWRtsuReWHjx11mTV8/QYlpbQ773q
+         xvJg==
+X-Forwarded-Encrypted: i=1; AKwUvBxTRoartftLVSkiXnmoL98BqW7PZ1pQuitW6216N3xODArikuGWGXVTiPwpoqcm1Al63HZ3TNuifQMKwQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7MsGZgFw9iHmJUtLu5CfNWYoOILq+OWNmV7l1HsX4gELvbfj3
+	Zv4wDRd5Arxp1AtGlx28C+igcs8KfRcyYKEl3hSzcQfDmnNxh12Cur/cdD6rGzUQQbRM+1QsTYL
+	ucxxAsAg0CfOSlr64cl2sqAVziQK3/efRI5Gb6G3fn7qKIJgAVX3TKsFVPnYTZrNxlw==
+X-Gm-Gg: AYBFou0v2Wfte1izxokEC+0Jl5poBcdTT0VSTZ8XALU6WQF9ls3ehFeZKt/yJJkN3BH
+	KoNah0exNRZR33ePN9vj8m2By0nCwplYICVF9WkBKe4big2ytyQc9ufeQbQYGXmEVkamVD0OM8I
+	f/SP7rBQWynPpLettUbctOFsiVtqhGAhrCgvXYS2bXGPcQQt+NCqfhYDZ6cFzqyhstmt4Uj8kJv
+	KZZOe7CwbbcAZiWTcPiqrtYY/C66kl1G0bDdwqQ6RXUUGhECPCBFA4LoVMSrkakjqDDshWC1/RA
+	Rc0wCaBD27PWypy74kjKOHFs7DMCHpc+wX4Ju3+E7yHdAZ+1ASFEChWgEcBzzBqdEN/Gymj1lZf
+	/PyOEjDRY6SVQHFynUuUn68Uy5KZ9m6rqKQU=
+X-Received: by 2002:a05:701b:2918:b0:18d:5988:8d3 with SMTP id a92af1059eb24-18d59880c2cmr1634920c88.3.1792461929326;
+        Mon, 19 Oct 2026 19:05:29 -0700 (PDT)
+X-Received: by 2002:a05:701b:2918:b0:18d:5988:8d3 with SMTP id a92af1059eb24-18d59880c2cmr1634870c88.3.1792461928590;
+        Mon, 19 Oct 2026 19:05:28 -0700 (PDT)
+Received: from [192.168.1.235] ([47.231.130.140])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm36101206eec.13.2026.10.19.19.05.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 19 Oct 2026 19:05:28 -0700 (PDT)
+Message-ID: <81aa3d0f-cce1-4f78-9610-67815507bba4@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 19:05:25 -0700
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,312 +115,103 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: qcom: camss: configure C-PHY in the new
+ csiphy_stream_on()
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, david@ixit.cz,
+        andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
+        vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+        mchehab@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+        jigarkumar.zala@oss.qualcomm.com,
+        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+        bryan.odonoghue@linaro.org, linux-media@vger.kernel.org,
+        daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
+        christopher.obbard@linaro.org, alex.vinarskis@gmail.com
+References: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
+ <a561ff9d-eb2d-4097-ae66-c1857f33e42f@oss.qualcomm.com>
+Content-Language: en-US
+From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+In-Reply-To: <a561ff9d-eb2d-4097-ae66-c1857f33e42f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: pwCR7O0ByKGD8piGV7BZ-yO3jEsTcT5f
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAwOCBTYWx0ZWRfXzMv3/di5/exr
+ 5zcinz7MYd6wFmd4baTdk3ETCtKBg3TLDw83cWNVZLnaBHShJ6Jt12Aroenm/9CPZFm4c771bH7
+ RYhJ8Z5NGP9kPdz44V/5HGUQ8Ya7VBA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAwOCBTYWx0ZWRfX7wa6vEj40wnN
+ 7ZeoXQtzQ2Zjc0Nhi2mNC7uLf6BEK3jt1iE0O/Ym4lKl7wDgAY1RbSw2Lninth39l/JSXR/HroQ
+ v0etw3JnCQgjo2vw37eShQP24Br1JDrFERNf+d0YRZitI4UUS/NUwWhQdNu9+dbsXhDlCMuek9h
+ ztJ2uvIQuBX0xFi7vN8Fb6PX5PUgRdurFadRO3CU8EjwYX2Ax1enHAix3HIm7xyohe0I/SSQvoT
+ IC+bBM+oFUe5fSiQXWYicvMH4cQx0DcETBkbBWowMSioN+B2TEkg8trWIOT/3W2VUgXJ3PV3I+o
+ 4cyPACPPi9txwtDMttxXOoXUu40usVjrIvVUSpAL2vNLAqn6yZGLbivwNf4QwJBhlTLpb0S3uvg
+ dVGQ+zMX1BXgM4+bCvdqPgOJtqwdQriI0qMzAGDMabG1xU94MriI9o+2MNVoCSZKrV8pV6DEPpL
+ OBUD0JKdYZv0ZETrXVw==
+X-Proofpoint-GUID: pwCR7O0ByKGD8piGV7BZ-yO3jEsTcT5f
+X-Authority-Analysis: v=2.4 cv=crUOAF4i c=1 sm=1 tr=0 ts=6ad6cc6a cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=TcmD64HtHlR11PSYA/r07w==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=Ra3kV2IsKW0ovCRCs9YA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610200008
 
-The front camera of the Lenovo Yoga Duet 7 13ITL6 and of the Dell
-Latitude 7320 Detachable is described in ACPI as OVTI5678. The part
-reports the chip id of the OV5675 and takes its register settings, but
-its color filter array is a complex 4x4 RGB-IR one.
+Hi Krzysztof,
 
-The silicon is likely the same as the one of the OVTI5675, so it still
-has some features (binned mode, hardware defective pixel concealment)
-that assume the classic 2x2 GRBG Bayer array and thus produce meaningless
-output with the RGB-IR array. Disable them for OVTI5678.
+Thank you for the heads-up. Apologies for the noisy CC list — some
+internal addresses slipped through from a prior workflow. I'll fix this
+going forward.
 
-NOTE: This patch cannot be upstreamed as there is no way to properly
-describe the color filter array layout of the OVTI5678. The color format
-is a placeholder at this point.
+I'll re-run scripts/get_maintainers.pl --no-git-fallback on a current
+mainline tree and switch to using b4 prep --auto-to-cc to manage the CC
+list properly before sending the next revision.
 
-Signed-off-by: Alexander Patrakov <patrakov@gmail.com>
----
- drivers/media/i2c/ov5675.c | 149 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 131 insertions(+), 18 deletions(-)
+Thanks again for the guidance.
 
-diff --git a/drivers/media/i2c/ov5675.c b/drivers/media/i2c/ov5675.c
-index 9cf600c9c94a..7563a462abea 100644
---- a/drivers/media/i2c/ov5675.c
-+++ b/drivers/media/i2c/ov5675.c
-@@ -6,8 +6,10 @@
- #include <linux/delay.h>
- #include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
-+#include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
-+#include <linux/property.h>
- #include <linux/regulator/consumer.h>
- #include <linux/unaligned.h>
- 
-@@ -28,6 +30,10 @@
- #define OV5675_REG_CHIP_ID		0x300a
- #define OV5675_CHIP_ID			0x5675
- 
-+/* On-chip processing; bits 1 and 2 enable the defect pixel correction */
-+#define OV5675_REG_ISP_CTRL		0x5000
-+#define OV5675_ISP_CTRL_NO_DPC		0x71
-+
- #define OV5675_REG_MODE_SELECT		0x0100
- #define OV5675_MODE_STANDBY		0x00
- #define OV5675_MODE_STREAMING		0x01
-@@ -492,8 +498,58 @@ static const struct ov5675_mode supported_modes[] = {
- 	}
- };
- 
-+/* The modes of the RGB-IR part, see ov5675_get_modes() */
-+static const struct ov5675_mode ov5678_supported_modes[] = {
-+	{
-+		.width = 2592,
-+		.height = 1944,
-+		.hts = 1500,
-+		.vts_def = OV5675_VTS_30FPS,
-+		.vts_min = OV5675_VTS_30FPS_MIN,
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mode_2592x1944_regs),
-+			.regs = mode_2592x1944_regs,
-+		},
-+		.link_freq_index = OV5675_LINK_FREQ_900MBPS,
-+	}
-+};
-+
-+/**
-+ * struct ov5675_variant - What differs between the parts this driver handles
-+ * @model: Name of the sub-device, by which user space tells the parts apart
-+ * @code: Media bus code of the output
-+ */
-+struct ov5675_variant {
-+	const char *model;
-+	u32 code;
-+};
-+
-+static const struct ov5675_variant ov5675_variant_bayer = {
-+	.model = "ov5675",
-+	.code = MEDIA_BUS_FMT_SGRBG10_1X10,
-+};
-+
-+/*
-+ * The part ACPI calls OVTI5678 reports the chip id of the OV5675 and takes
-+ * its register settings, but has a 4x4 RGB-IR color filter array:
-+ *
-+ *	G I G I
-+ *	R G B G
-+ *	G I G I
-+ *	B G R G
-+ *
-+ * No media bus code describes that. MEDIA_BUS_FMT_Y10_1X10 is used because it
-+ * is the 10-bit code that claims no Bayer order, so that nothing demosaics the
-+ * data as if it were Bayer. The samples are not luma.
-+ */
-+static const struct ov5675_variant ov5675_variant_rgbir = {
-+	.model = "ov5678",
-+	.code = MEDIA_BUS_FMT_Y10_1X10,
-+};
-+
- struct ov5675 {
- 	struct device *dev;
-+	const struct ov5675_variant *variant;
- 
- 	struct v4l2_subdev sd;
- 	struct media_pad pad;
-@@ -857,12 +913,30 @@ static int ov5675_init_controls(struct ov5675 *ov5675)
- 	return ret;
- }
- 
--static void ov5675_update_pad_format(const struct ov5675_mode *mode,
-+/*
-+ * The 1296x972 mode is 2x2 binned. The hardware averages pixels two positions
-+ * apart, which have the same color in a Bayer array, but not in the RGB-IR
-+ * array. Therefore, the RGB-IR color filter array is incompatible with binning.
-+ */
-+static const struct ov5675_mode *ov5675_get_modes(const struct ov5675 *ov5675,
-+						  unsigned int *num_modes)
-+{
-+	if (ov5675->variant->code != MEDIA_BUS_FMT_SGRBG10_1X10) {
-+		*num_modes = ARRAY_SIZE(ov5678_supported_modes);
-+		return ov5678_supported_modes;
-+	}
-+
-+	*num_modes = ARRAY_SIZE(supported_modes);
-+	return supported_modes;
-+}
-+
-+static void ov5675_update_pad_format(struct ov5675 *ov5675,
-+				     const struct ov5675_mode *mode,
- 				     struct v4l2_mbus_framefmt *fmt)
- {
- 	fmt->width = mode->width;
- 	fmt->height = mode->height;
--	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+	fmt->code = ov5675->variant->code;
- 	fmt->field = V4L2_FIELD_NONE;
- }
- 
-@@ -914,6 +988,25 @@ static int ov5675_start_streaming(struct ov5675 *ov5675)
- 		return ret;
- 	}
- 
-+	/*
-+	 * The mode settings enable the on-chip defect pixel correction. It
-+	 * compares a pixel with the ones two positions away, which have the
-+	 * same color in a Bayer array. In the RGB-IR array the pixel two
-+	 * positions from a red one is blue, and so comparing or mixing them
-+	 * makes no sense. So defect pixel correction is on for the Bayer part
-+	 * only. Intel's Windows driver for the OVTI5678 turns it off in the
-+	 * same way, by writing 0x71 to this register.
-+	 */
-+	if (ov5675->variant->code != MEDIA_BUS_FMT_SGRBG10_1X10) {
-+		ret = ov5675_write_reg(ov5675, OV5675_REG_ISP_CTRL,
-+				       OV5675_REG_VALUE_08BIT,
-+				       OV5675_ISP_CTRL_NO_DPC);
-+		if (ret) {
-+			dev_err(ov5675->dev, "failed to disable defect correction");
-+			return ret;
-+		}
-+	}
-+
- 	ret = __v4l2_ctrl_handler_setup(ov5675->sd.ctrl_handler);
- 	if (ret)
- 		return ret;
-@@ -1020,16 +1113,16 @@ static int ov5675_set_format(struct v4l2_subdev *sd,
- 			     struct v4l2_subdev_format *fmt)
- {
- 	struct ov5675 *ov5675 = to_ov5675(sd);
--	const struct ov5675_mode *mode;
-+	const struct ov5675_mode *modes, *mode;
-+	unsigned int num_modes;
- 	s32 vblank_def, h_blank;
- 
--	mode = v4l2_find_nearest_size(supported_modes,
--				      ARRAY_SIZE(supported_modes), width,
--				      height, fmt->format.width,
--				      fmt->format.height);
-+	modes = ov5675_get_modes(ov5675, &num_modes);
-+	mode = v4l2_find_nearest_size(modes, num_modes, width, height,
-+				      fmt->format.width, fmt->format.height);
- 
- 	mutex_lock(&ov5675->mutex);
--	ov5675_update_pad_format(mode, &fmt->format);
-+	ov5675_update_pad_format(ov5675, mode, &fmt->format);
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
- 		*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
- 	} else {
-@@ -1067,7 +1160,8 @@ static int ov5675_get_format(struct v4l2_subdev *sd,
- 		fmt->format = *v4l2_subdev_state_get_format(sd_state,
- 							    fmt->pad);
- 	else
--		ov5675_update_pad_format(ov5675->cur_mode, &fmt->format);
-+		ov5675_update_pad_format(ov5675, ov5675->cur_mode,
-+					 &fmt->format);
- 
- 	mutex_unlock(&ov5675->mutex);
- 
-@@ -1104,10 +1198,12 @@ static int ov5675_enum_mbus_code(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *sd_state,
- 				 struct v4l2_subdev_mbus_code_enum *code)
- {
-+	struct ov5675 *ov5675 = to_ov5675(sd);
-+
- 	if (code->index > 0)
- 		return -EINVAL;
- 
--	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+	code->code = ov5675->variant->code;
- 
- 	return 0;
- }
-@@ -1116,15 +1212,20 @@ static int ov5675_enum_frame_size(struct v4l2_subdev *sd,
- 				  struct v4l2_subdev_state *sd_state,
- 				  struct v4l2_subdev_frame_size_enum *fse)
- {
--	if (fse->index >= ARRAY_SIZE(supported_modes))
-+	struct ov5675 *ov5675 = to_ov5675(sd);
-+	const struct ov5675_mode *modes;
-+	unsigned int num_modes;
-+
-+	modes = ov5675_get_modes(ov5675, &num_modes);
-+	if (fse->index >= num_modes)
- 		return -EINVAL;
- 
--	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
-+	if (fse->code != ov5675->variant->code)
- 		return -EINVAL;
- 
--	fse->min_width = supported_modes[fse->index].width;
-+	fse->min_width = modes[fse->index].width;
- 	fse->max_width = fse->min_width;
--	fse->min_height = supported_modes[fse->index].height;
-+	fse->min_height = modes[fse->index].height;
- 	fse->max_height = fse->min_height;
- 
- 	return 0;
-@@ -1133,9 +1234,13 @@ static int ov5675_enum_frame_size(struct v4l2_subdev *sd,
- static int ov5675_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
- {
- 	struct ov5675 *ov5675 = to_ov5675(sd);
-+	const struct ov5675_mode *modes;
-+	unsigned int num_modes;
-+
-+	modes = ov5675_get_modes(ov5675, &num_modes);
- 
- 	mutex_lock(&ov5675->mutex);
--	ov5675_update_pad_format(&supported_modes[0],
-+	ov5675_update_pad_format(ov5675, &modes[0],
- 				 v4l2_subdev_state_get_format(fh->state, 0));
- 	mutex_unlock(&ov5675->mutex);
- 
-@@ -1281,6 +1386,7 @@ static void ov5675_remove(struct i2c_client *client)
- static int ov5675_probe(struct i2c_client *client)
- {
- 	struct ov5675 *ov5675;
-+	unsigned int num_modes;
- 	bool full_power;
- 	int ret;
- 
-@@ -1290,11 +1396,17 @@ static int ov5675_probe(struct i2c_client *client)
- 
- 	ov5675->dev = &client->dev;
- 
-+	ov5675->variant = device_get_match_data(ov5675->dev);
-+	if (!ov5675->variant)
-+		ov5675->variant = &ov5675_variant_bayer;
-+
- 	ret = ov5675_get_hwcfg(ov5675);
- 	if (ret)
- 		return ret;
- 
- 	v4l2_i2c_subdev_init(&ov5675->sd, client, &ov5675_subdev_ops);
-+	v4l2_i2c_subdev_set_name(&ov5675->sd, client, ov5675->variant->model,
-+				 NULL);
- 
- 	ret = ov5675_power_on(ov5675->dev);
- 	if (ret) {
-@@ -1312,7 +1424,7 @@ static int ov5675_probe(struct i2c_client *client)
- 	}
- 
- 	mutex_init(&ov5675->mutex);
--	ov5675->cur_mode = &supported_modes[0];
-+	ov5675->cur_mode = ov5675_get_modes(ov5675, &num_modes);
- 	ret = ov5675_init_controls(ov5675);
- 	if (ret) {
- 		dev_err(ov5675->dev, "failed to init controls: %d", ret);
-@@ -1363,7 +1475,8 @@ static const struct dev_pm_ops ov5675_pm_ops = {
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id ov5675_acpi_ids[] = {
--	{"OVTI5675"},
-+	{"OVTI5675", (kernel_ulong_t)&ov5675_variant_bayer},
-+	{"OVTI5678", (kernel_ulong_t)&ov5675_variant_rgbir},
- 	{}
- };
- 
-@@ -1371,7 +1484,7 @@ MODULE_DEVICE_TABLE(acpi, ov5675_acpi_ids);
- #endif
- 
- static const struct of_device_id ov5675_of_match[] = {
--	{ .compatible = "ovti,ov5675", },
-+	{ .compatible = "ovti,ov5675", .data = &ov5675_variant_bayer },
- 	{ /* sentinel */ },
- };
- MODULE_DEVICE_TABLE(of, ov5675_of_match);
--- 
-2.56.0
+Best regards,
+Anusha
+
+On 10/17/2026 1:07 AM, Krzysztof Kozlowski wrote:
+> On 17/10/2026 06:05, Anusha Arun Nandi wrote:
+>> The new (non-legacy) csiphy_stream_on() introduced by the PHY API
+>> devices support only built a MIPI D-PHY configuration and
+>> unconditionally called phy_set_mode(PHY_MODE_MIPI_DPHY). For a C-PHY
+>> sensor this makes phy_configure() dispatch to the C-PHY handler with a
+>> D-PHY opts union, which fails validation.
+>>
+>> Branch on the recorded PHY type: for C-PHY build the opts via
+>> phy_mipi_cphy_get_default_config_for_hsclk(), populate the per-trio
+>> lane positions and polarities and select PHY_MODE_MIPI_CPHY; 
+>> keep the existing D-PHY path otherwise. The shared
+>> phy_configure()/phy_power_on() tail handles both.
+> 
+> I received multiple patchsets from you. CC list looks really random,
+> half of the addresses are some internal ones?
+> 
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC (and consider --no-git-fallback argument, so you will
+> not CC people just because they made one commit years ago). It might
+> happen, that command when run on an older kernel, gives you outdated
+> entries. Therefore please be sure you base your patches on recent Linux
+> kernel.
+> 
+> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+> people, so fix your workflow. Tools might also fail if you work on some
+> ancient tree (don't, instead use mainline) or work on fork of kernel
+> (don't, instead use mainline). Just use b4 and everything should be
+> fine, although remember about `b4 prep --auto-to-cc` if you added new
+> patches to the patchset.
+> 
+> Best regards,
+> Krzysztof
 
