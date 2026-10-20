@@ -1,88 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792507284;
-	b=4kkxI6TZkZDhm2mqmGRLOFPwejyW54yKg1jMtXQKmnp6+/FTJUfU2ufLjvbS9pfQkeLu
-	 tkDqA1il1WCDGwr6gpTd9+WPhBRB+yP+ucvaemj3DfnPwE/CyLnP2TMoiSR7ZEN9cy/wD
-	 cM5Unp4k9ePIt36gR7tGk7kiadjS4ZfUyJDk3/64+5mUv2zj4bFONIGWjs0322Hjmb2x5
-	 gc1BEEKQeXNp82b5bQ6Fjd85IepjiXoeF692W5Z6+FR2ujqUGSA2GX5cVYun4Fk5C1tW1
-	 yadxTrp0Bui1+7yJHf+j9BWPX0EEjR3HExakfsMpgin40GC6hLM2eqtZ9EwDAFEgumQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792507284;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=dsyyGWxhNBOvel5G5C2yuF7bzkrNytpvfSZfEsf6afo=;
-	b=ukS9gHoFeFMjtqfeUdkfqOXaFTx+W2CdgtvYDf7bMWCskwDBCCocwi6rdM3rXvBH/9l6
-	 W0pKYr/k+vMiGAB7mHYSlMwf1D/igPDZAD5YRuLVkxEZQ3rE7xIa6xrB3UZMNK0L71H3Q
-	 J2T7YCf3cx6awkOa0XoC/MyBmzpiEMp9qEt6TGlFxtLwMrYtnuVmfrjWEMJ20RHgAHWcU
-	 zihQ3A5J9W7QBO0e7H4IVT0zzmP6MtBYPzNtyoLl3CJR2P4YEaWdxJV7Nc2czFSdE6S+M
-	 WE+QVFSuXkuNf9x01thSsLMlUoauiNJ7sG5yh/BExmYXnl14DlkBibtPLnZdB2Tkfxw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Ad8rZ1sX;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792507833;
+	b=cMrW95jZFTKpGCTyitJ2bA0JVBZ5leGh7dQvugvEX4OcX1FXCyy9ShcPdFVsYzE6yS0N
+	 dyXPYK+jUr1paXs2wz+m/hQVzqURsPUZtelzW0AZ7ytWSAt9P1XEYIN4/UfP6GdjwRoyF
+	 grbJN8Fq+kmuY9wtFzwbGXD4SxcaoVlt2WDxWurp3HOMPX/kOEyC5JgaZwRkqg9RnJBiZ
+	 VvdWU/rcaG1qUiGl9H0GaH/EjZ47io/6yjNSqgl+gcPsdPPr173C3sWfZCrtMdpbI7QuA
+	 ZxZk2PgBG4S/Cki5FP4iOZP+ClVWCDZOdeTB6Z3bttnOptQcrNvJabKpNIo+1aUU5ag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507833;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+	b=mu7EGsZiipCTR64iOv0Cjam341oWKad9s2fqiOpjJBQ5z4ensf4aXx7wq/UPCjcQxnOE
+	 WDjYhOCoQiVeJ9JDir0i0aAB87w5nl9b32PTFj9935anOsetbO89OJFvVVQJjBV6e3x/N
+	 KrhZ4ZgtvKgGvvgFnFsJ0qxI3oEJtT8VQGjpEj0NhIplWMZyT9e6JJCZ/a7mDD5LDDQCW
+	 zfyxryXNj8pOsQfW1Xk/0jp0AJSdkmeQIK/vMtL7HUBmZW8tZUo5ts9KpZ1DUJfJuOUIz
+	 KYmXu1VH+TuB48+q8Q7GwXlZBX2FzTigEf5uiV/Qrp09Enyqhx1IuAMYc6j+3oJ1zpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.47
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA217606A334;
-	Tue, 20 Oct 2026 14:41:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA217606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Ad8rZ1sX
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j8FTq6gPDzMlpm;
-	Tue, 20 Oct 2026 16:41:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792507279; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dsyyGWxhNBOvel5G5C2yuF7bzkrNytpvfSZfEsf6afo=;
-	b=Ad8rZ1sXZAjqL0R25aIKLX8FW58VDQ1i78ist/YmNQAbhtQf+Q/FKy8g47hTqo28Ya9pYW
-	JF6ObwLvGTTO1yfoeYnnFVu4wgTK2Al+u/eAHJsD6z9ESP+c/TufRO+8eW80xINo+5hY1m
-	+Cx7F16V8NYWahH86YAdb4Lca42qNIvNTSD6NRhz46TuiJTM9kfqWdIpvVZOUgnFKfIyu7
-	IWR7B+u+M6120Po1MnIQcdxXY7gKy/SYc/w2jgkMXcG9peJll2fDtWV6lB2pfjLCMXzNJ+
-	gxwLJj2ydZl0r/AA7lve4bGAOVMfuDiKfdaKTqDDpTyHEvNBulzhK8K4n/rAjw==
-Message-ID: <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Jani
- Nikula	 <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Tue, 20 Oct 2026 16:41:12 +0200
-In-Reply-To: <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-References: <20261020100034.759183-2-phasta@kernel.org>
-	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE94A606A319
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 14:50:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE94A606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-48eee44b908so1736270fac.1
+        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 07:50:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792507826; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jf/PEpV82iCmyWin8ewSMQeLTA24+yrw/iSx2JSrBeCWft4DxxDYHuhj7MwWn2wYdc
+         /HC2jbAMjag7+mtvYmWWo91grZSnzsL+p/BJU8Lof6NimxiVg67+OuBZyR3IS8Ba4+VY
+         qmY63zCjNpuSkX44k6fqbJfkj1KppG3aw5WWJkl6YZKDVBR81NrIqI/fH7CskOPhhTph
+         7l8Njvd4bKitcEd+N4dE+HGXn4y12rOd/LQhFqBtdMkjPYim+UoXyQ+Qkxnwp70FJ0a8
+         Z9MHWcs+YnnsEYV2wOyRrYd0ez+C9mx5MuQGkAFIjDfBaK37SdPYUl0SJALo1SEByirW
+         eLag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+        fh=vBiobFKL5X3mA1A0ywYrpkduiIY6c1Y65o/ZWOGatpk=;
+        b=WVHiGeH5EkC32U5ZcHf5LkucaxzpPhFLq0DDWxaSJ3LvJlfVTc28YJEhEN0QbrKXLT
+         8XbTnohn2OqUovR/4DmpAFEV6VLHx/nODKESJjpNLhHQUnQMz5dqmYCT0Af46kHGX/1y
+         f+7A1p8NWvRKMOl+5GwzZOrX1WtIri7gkj0cFgvEnCr8d5QQAVOtY+TSyCFwXuzOtKLg
+         kdOzWlhAaB1utdI5B/M2V06qQjjePbAhznAffnj2oG61f+BkApmG7dFrrpSyEBomIAN4
+         FmYvXByuHsgG+wsCCEvQNboJ9D2nu1UzUWlJ3CER/myBnb02jjwKL9OK7yfwFdZiMRcb
+         v0Mw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1792507826; x=1793112626; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+        b=DmCj1Mhln3zqO7y9erOlJM2Ywiu68q+JoJR/UR+crGO3/NhfvsvVsgGuvpXgKc+kUn
+         p97Q+8zY/X0ls6r2ZJh+tYeJZ4CALYBE6akJTIIXLqsLg6WvmQd5HTOWcVkJhiaZRfLq
+         lsYN2bSBEzuUvSk0s5Au3PVY9RgCxU6hrqOd83QM3rpUqbZX3NmfwvUV7odJZTfxtEFK
+         3L+joEWHomj/v9GTLz8IJ8DkwwZ6Qc4ID7hctC6IBEXQUkd4H0/wIUi5SouTDnOFMNhV
+         SYcpBNXsfPiN1/2FvWA2CB3lvq0h3UmKTkJLEsTtQ1oEiKaNiEyer0LDDRbnDPXlYc4s
+         BcKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792507826; x=1793112626;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wlkmGnexwUZqrSR6Z2ocUUR37fT6HoJKzxvPZMwVYqk=;
+        b=TrRm+ape9+ZZB8PDHzyQoxnSnoj1hF94mdDmJsc+QoyJYzXLaJ6WKtqWmNnGMaBVkR
+         jdb1vGG5kMMtTA5AJJHNUzaKiwv0FFB5ISCpg1FtHMn7jV3guY5RZiv+duwlkfWxTvBi
+         Vw/UMwr5dIO8VrlxEykfS+mcFVZ1H1hVoP7jD37TiOZSlyEMcQAM7Tqw8Pch4q7pT24b
+         vCH980aZ47tJkleUwGclF4Ack6Uy9EA/sRA23ruuwW71Es4TE7AVX1OrkmbbOESoBcj4
+         MWMFtjXTaU470J7VbiPriBYrn98PX5DKFrXNOaeoAu8VEaW8ELBISriDNQIjD0gM3ode
+         THsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzh3uk0/VhpUtiJWQcp7RDF0Fc2e2u50ak4YprmYb7M9JHnjbDnRL/hqf9Z6uc/ias5jC0AP8gVnlqHbg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIW8lSxfwuGX6LhClEJKhi6badcSFI5go4Iikh/pWUi3EACDLip
+	i4RSqQsS8t9jtgAYotVcAS0oh9XcLFpLPRZ0UbCIMYS3elwW6XuJTiup+9k2SNus0fRv3QEm1Oj
+	vvhDkD1NCpQ5MAswnCJSpts0TmraTOIQjsDZQvd46J+QHuq6hQVU94sVqvg==
+X-Gm-Gg: AYBFou1fn9z9UDoSup1iH0It1upbT15tiL58udzqDcTdjMeqNoKK7qgWzmZbw1IZYni
+	MUhaCWsYea+55ehQo0LcKAojGQQ7QrxoNOFPshWbSXo0Uc8BYlCYn1RYCGbVR156IzWNvqTATET
+	OTxsl7uQGfSj/rP2gX2NGU6EOoCf2HWviRTwNb2xuxhwWyinh/Q50z8f6MZqG5JV1pjGYogKbMi
+	/j9IoDhZaXhnHNYt9i02Z1rUIUiVhGvkWXQCgc2TQbhvZ5zk/k4dZZYZGMLZazqFx6vyY1c4w2A
+	bquMZlJvzrt2FnB9fbRSZ5ZuMtmvpA6cLebrzz7bwPzmBBmC133SU4YOic3XEtP/GNSILZ5PYaL
+	UfIb8vzpjhUzDUg3/aTTq9E0NHaJLb343Vv+nGOQ/RSKOfPxBQkmcWwRCfaxiw3VlePZ9c+OK1E
+	48c0vu3Lg=
+X-Received: by 2002:a05:6870:b3e2:b0:4a7:424b:934 with SMTP id
+ 586e51a60fabf-4a75789dac0mr9577479fac.12.1792507826447; Tue, 20 Oct 2026
+ 07:50:26 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,99 +101,67 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: b9048a7d9fe97d9beaf
-X-MBO-RS-META: qigaa9aksrimhrpqmxh7stqras399i54
+References: <20261019014720.2635-1-lachlan.michael@sony.com>
+ <20261019014720.2635-3-lachlan.michael@sony.com> <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+ <20261020125630.GA158670@killaraus.ideasonboard.com>
+In-Reply-To: <20261020125630.GA158670@killaraus.ideasonboard.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 20 Oct 2026 15:50:09 +0100
+X-Gm-Features: AclHuK9jchI3nSC4JyaTIAm_0oNifQyoET0OAG28wvGpwbLI8WQ-9SbVDsLY7f0
+Message-ID: <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org, hverkuil+cisco@kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com, 
+	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, 
+	Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 2026-10-20 at 14:02 +0200, Christian K=C3=B6nig wrote:
-> On 10/20/26 12:00, Philipp Stanner wrote:
-> > In our Rust code bases, I'm currently experiencing what we also
-> > experience in C at many places: that the dma_fence contract's RCU
-> > requirements make the API more fragile and put an unnecessary burden on
-> > the API user. Most notably, in C the API behaving correctly now depends
-> > on the API *user* waiting before free()s, waiting before unloads =E2=80=
-=93 all
-> > because dma_fence is not properly synchronized.
-> >=20
-> > The patches commit messages give more details about where I want to go
-> > with this particular RFC.
-> >=20
-> > My rough "vision" for dma_fence, where I think it should develop to, ca=
-n
-> > be described like this:
-> >=20
-> > 1. All users should use inline-lock.
-> > 2. The fence-signaled state should be our decoupling point.
-> > 3. The fence state must be consistently locked.
->=20
->=20
-> > 4. This means all callbacks are only invoked for unsignaled fences, and
-> > =C2=A0=C2=A0 the fence cannot signal while a callback runs.
->=20
-> First of all that prevents concurrent execution of the callbacks
-> which for a lot of use cases is a must have.
+Hi Sakari and Laurent
 
-Currently only set_deadline() can execute in parallel.
+On Tue, 20 Oct 2026 at 13:56, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+>
+> Hello Sakari,
+>
+> On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
+> > On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
+> > > The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+> > > output interface. The driver supports RAW10 and RAW12 output formats,
+> > > exposure and analogue gain controls, image flipping, blanking controls
+> > > and test pattern generation.
+> >
+> > The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
+> > 2, for which Dave (Cc'd) is working on a driver (see
+> > <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
+> > The register defines in the two drivers appear to be quite well aligned.
 
-IIUC in our past discussions, your wish has been that the driver can
-take its own locks with free locking-order in the callbacks.
+Asked and answered at v1
+https://lore.kernel.org/linux-media/TY6PR01MB17839FF48671E744E7E23A93E92D42@TY6PR01MB17839.jpnprd01.prod.outlook.com/
 
-Thus, the callback is invoked under lock in any case, just a few
-instructions earlier or later. Thus, no callback ever truly executes
-concurrently.
+> The current version of the driver implements very few features of the
+> IMX908 sensor, as crop support has been removed pending the raw camera
+> sensor model, and Clear HDR3 is being developed. I expect more
+> differences to appear when those features will be merged, so I believe
+> it makes sense to have a separate driver here.
+>
+> In the future, I expect the raw camera sensor model to open the door to
+> more code sharing and more drivers supporting a wider variety of
+> devices. We can decide then if the imx908 should stay a standalone
+> driver, support other sensors as well, possibly across the Starvis 2 and
+> 3 families. I'm willing to help with the refactoring at that point if
+> needed, the maintenance burden won't be on you (and I'm sure that
+> Lachlan and his team will of course maintain the code base).
 
->=20
-> Then as I pointed out before the second problem is that this again
-> makes the existing lock inversion between the signaling by polling
-> and signaling by interrupts even worse than it already is.
+Agreed.
+I have compared the datasheet for imx908 against the Starvis2 ones,
+and when we start looking at HDR modes they diverge a reasonable
+amount.
 
-We asked for examples in our last discussions, and the only one ever
-presented was the list-access requiring the fctx-lock in
-nouveau_fence_no_signaling(). Nouveau is often not a good example.
+Even the later Starvis2 sensors (IMX585 and IMX676) have minor changes
+to the earlier ones, so adding Starvis3 would need some care.
 
-Can you provide examples in the kernel where deadlock would occur?
-
-Note that I pointed out that all callbacks are already invoked with the
-lock taken, which proofs that it's doable. Future users with inline-
-lock could employ various techniques for dealing with the lock-order.
-
-Only exception currently is set_deadline(). The only user, MSM,
-acquires the lock manually and then nevertheless triggers work on a
-kthread, examplifying just one technique.
-
->=20
-> What we could use is an SRCU, but a spinlock or any kind of lock is
-> clearly the wrong approach.
->=20
-> So as far as I can see that is a big no-go and we should really just
-> use RCU for everything and remove leaking the fence look into the
-> callbacks like I outlined before.
-
-Look at patch 3. We might want to add some legacy support for shared-
-lock, but it is evident how much more simple the code gets.
-
-Also:
-
-> >=20
-> > Point =E2=84=966 means that this:
-> >=20
-> > dma_fence_lock_irqsave(=E2=80=A6);
-
-I even forgot that you also need a
-
-if (!dma_fence_is_signaled_locked(=E2=80=A6))
-
-here
-
-> > dma_fence_set_error(f, err);
-> > dma_fence_signal_locked(f);
-> > dma_fence_unlock_irqrestore(=E2=80=A6);
-> > synchronize_rcu();
-> > kfree(driver_foo);
-> >=20
-> > should simply become this:
-> >=20
-> > dma_fence_signal(f, err);
-> > kfree(driver_foo);
-
-
-:)
+  Dave
