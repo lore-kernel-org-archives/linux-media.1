@@ -1,52 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.78.237
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792489188;
-	b=hLW133oe+onm6VeN0Od/KvSaw8/ub/UwX0ww5fgJCAzt2U1MoS5O2EZBniYP3gxu2qju
-	 pKTVey+SG5yMv+DkpSaLTJ3Tp1143udRUx002jGTpV7MQHnpGeTQTHLtW9d1+Pv4pkoeL
-	 kmNXuW91jQY14s1/l5AUtS2lm94CBqx5tsitPgs0qFaGkOOcIvYYkGUtLGTYBeyPxaljw
-	 jWyzM8YO6WbCOKeURpp2i3Pmo78yyKXyOK34US3B7ddNyBvIbMdrO8Hjm5eWsl2S2BAiq
-	 kglF8grlPbfU+Xm9zKvFLZdF+XAiG470F8Ajb2luZjNrSauiF86KlrzMyL6/0DbRogA==
+	t=1792490358;
+	b=LIejhaDl0ITCH/vCHmcJxYG8O3qzCM1A7r3DtBDhV0Q7g6Kql4EDCA7PNK/WW+6BRPg0
+	 yVMjmgF0qIsnbv8dRG8qiEWQxHkPvwiNboTMr/DXLnWpJrGl6Xar1FYNn7iF24wxvzlJx
+	 seRfGPFgJxNn2u8BI3u7HS87vH+ZGRPaJV+M0kC+pxJe7jPO3ph+C3oxTJlWG2lt95zm+
+	 6bqSEI8p+ncsycjYkVTIn7mGQ1XPZcELOsTrbsedPZgMe1zs6Zaqh0BX4WRjx9UvmOmCN
+	 ub1/p8bjnQ3IkD66miydpzaNjZETyGo5cp5wzX3y1TNqegxQ78zBFrUpFtVvfIoQJgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792489188;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-JNJ;
-	bh=6l1dZYSkptDVN3YIf1wG8SBFkyOtovBr3ZWVhGRwtdU=;
-	b=OWLfpZ2fWvou3IfTp6LyM3XZ88MsfkKgTO+D9rvpX9LRDuwa6uRRD//FE+fTfgMl2G31
-	 pamDEdN9csSqzRFZ+rLTlmc4oY4Z8tp7pk+6d38LsYk453n05oCKcKSxMMXJRlKET4wrt
-	 7b10iCS/7bcGCiiXsIDqN27HHkzQjXUFzC1WMRo8xJILbbbdLAtboO8XoiY2e4Z9D39W7
-	 UMRC5HEOzv1WZWMmk89TKvcp6YGcmbtoMKlaKP1xPv3HIQGVlKRjyYt60uaW+iG/jeB0y
-	 0pZtj23TIBL4xeg/9RTojo5/hZyK/tRGdTGLS+148v5bi1rF5hw6qkoc5Wpwk0u2F0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490358;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LqP9Pj+kaCX0R1bbmtuTNHU6ZBYpAzwwNRJ+ZmbN+5Y=;
+	b=T4Hmr/Pcp377cec+D+jakMrWub7AjLb5t1X6qYVMW0mESXKabhMhqedUKGrqy+VaHKoS
+	 leceS2BfL8DS+TnMmgU57m8H0z5M5yRf+mTNzFYvg2USo/SQsv6kRAFNgJ2ygLXwiDWv6
+	 ZEOrCBI2BBCL5q4hyrDXxGlroHXAQ4zIjyeGxzlyfhjNFgF5zLEhkx4Ovxs8Hf4mEXskQ
+	 +s9hm5sFhW+UMMNVOA99wrTHWdepHmGxgVCZuMYrC4rhDTCJjPpFJ+xNh1Uy3GOKqe1wX
+	 MfEYCG+6RpD0a4iYy42LpXk92v9eYOkV2tAFeX8I7GaGn6tZPI4KQHE3gjThQu2nXyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=r4UYBy9e;
-	arc=none smtp.remote-ip=57.103.78.237
-Received: from outbound.st.icloud.com (st-2004g-snip4-6.eps.apple.com [57.103.78.237])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Prvg1kul;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE64E60A2604
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 09:39:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE64E60A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D006606A31A;
+	Tue, 20 Oct 2026 09:59:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D006606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=r4UYBy9e
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPS id 981B818006AE;
-	Tue, 20 Oct 2026 09:39:42 +0000 (UTC)
-X-ICL-RepId: 01a158ae-5520-7a72-87a3-73daf2035380
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQFMHV8EUxxCDFYAXRcOVk1KF1UYREVRMFAbXwJCDxwTVhUTC1NWWxNVF0YJGQhdHRkKUFAGXRIYXBRcUFgeRhJWDV0JGRhGXlAbXwJCDxwTVhUTHUMZDysISgRDB0UCXgslEwlTVlsTVRdGCRkIXR0ZFVoJClcAQAtOAl0FWx8RTxweGwRGA0cUQAYOVQpTQghKBgkPK1sTVRdGCRkIXR0HWEcURw4PGVoUXBhT
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792489187; x=1824025187; bh=6l1dZYSkptDVN3YIf1wG8SBFkyOtovBr3ZWVhGRwtdU=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=r4UYBy9eOz8yTdwn1+rTTMwNidx473GMIdx+YxCvpL7VQg0+qMJNrHohmNn8huM09Q7AC0WqlwFpYbk5w8NkRBHvpQHuaG1F4W31shYoL3TnEOLDYj2ltCUs/S3QeDgc/BRXnQcH1mZq20zZK7UyWMSNrnMrezZJ6ipkbJ1FkfRsOtq6/WFOtC79kjBFN6VMLrqIYKe6U+Sr+zaDMiEj5Gqy5nuCLkLAAd6NlebxbV5/vNnDN3rPoXlF1Pf7UJFFHD8+MXvJBuTDuFQC6pmak8PANNSy0p2YfO1W+M9s6uVV9SB2PWGhrONmWk5y2oEFIWiwzWyXXL0TcQRKrXh6pg==
-Received: from [127.0.0.1] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-11 (Postfix) with ESMTPSA id BD4481800231;
-	Tue, 20 Oct 2026 09:39:39 +0000 (UTC)
-From: Sofus Forstreuter <sofus.c@icloud.com>
-Date: Tue, 20 Oct 2026 11:37:58 +0200
-Subject: [PATCH v3 17/17] arm64: dts: apple: t6031: add avd nodes
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Prvg1kul
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792490358; x=1824026358;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=R1/2gsHs7MqMU0fNGwqMem4SmtGuhTwAKpMY92Fy4fQ=;
+  b=Prvg1kul/V95sCPSVQ4QfVlQDhyAA1gWl3qlavt94aiBtXxytYTkLSSn
+   kZnWPKEmKFkfVQs2RsOsdkp7Bn8X/NLKdCNvfmCjjXlvY9lOrGva7DF2h
+   n2A8fuH+MoweCW5BfFKPl2NYFf+RwGskVLl4RgTdQcuKSAAaTCf44GCEz
+   3JFEVawAoBdedA9wDcsoAmDAxgIcGqNLwax+GvB0i2ANydZwnigvvqTJr
+   RgG3993+jsOTkMmxr5uyDzAKS62ED++v2Ocqa3sVH8qlbHDSVnf1txn12
+   6sBIamqhjj06umQcOB2jOcP9RroJ+/b4rhq+oAmR7WpmuobFAprVSux1W
+   A==;
+X-CSE-ConnectionGUID: AyTSkc79T/2Qbi+RjtdosA==
+X-CSE-MsgGUID: 4p4Z6IB6Q8uiQsKO5NCl4g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1091253"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1091253"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:59:17 -0700
+X-CSE-ConnectionGUID: f3sA2Gz/RK2ZSF2MJg1IAQ==
+X-CSE-MsgGUID: a84GicMER8KpDFv1JWjI1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="2670100"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:59:14 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id AD28C11F7E8;
+	Tue, 20 Oct 2026 12:59:11 +0300 (EEST)
+Date: Tue, 20 Oct 2026 12:59:11 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 06/16] media: sony-starvis2: Allow runtime control of
+ link frequency
+Message-ID: <atc7b31V9uZ2kk4s@kekkonen.localdomain>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-6-75fcdb4163f3@raspberrypi.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -56,85 +91,209 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-avd-v3-17-85cbaa2125d8@icloud.com>
-References: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
-In-Reply-To: <20261020-avd-v3-0-85cbaa2125d8@icloud.com>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sofus Forstreuter <sofus.c@icloud.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org
-X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: IWO6_OnO1QwV6aCSooLDyJlpZ6gQM1cX
-X-Authority-Info-Out: v=2.4 cv=UZVciaSN c=1 sm=1 tr=0 ts=6ad736e0
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=x7bEGLp0ZPQA:10 a=kLM9Tyy99jAA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=H9SxB0RbRSejM8bdbGsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAzOCBTYWx0ZWRfX9PhocdzKsIP3
- sVLkUA2SkCRMQiSvDEc+E9wTzRV9Yknnp0/JZFZLiQOrFwsmObvlqD4+XwwCVtKztGskVpaTZuA
- yj/J4xO02X9guPXJBOr7Q1usiEPhNPn4Ai6VwtPUM5dmob2BIy50s1gW2Im7LSrMP3ICTAHoFNM
- LBNyV17yiUKQkKH3XQrvcrvjsdqYvWQo7BTp0RbNXWx3B50+NAyItySPx58FcwNTdM8UK90BmcR
- IqYcUvVQCcV8y5emkMvdOAocwyw7hSc/pdb1UIVOcT9W2pbUwpxiqr+1Earyrz2h9bV0RRaNt0O
- bBXP2GrG28QURxtOCi09/wKvleYuWQszZIYjlDWJyY0IlE/xM0JmpqjWY1kYb8=
-X-Proofpoint-GUID: IWO6_OnO1QwV6aCSooLDyJlpZ6gQM1cX
-X-JNJ: AAAAAAABR8myAEgP+tjd9UfkVqcC+VVUp0cDnpBjlBiBenK5qkdiu1hEppOv5mE/Ln48mJ9TzEFqgvvYtmPY1Y3f92xd14Bvx4b/trL5tsxylZ7JMOrPJT1AGcwy902j1BMZGJl1V8RSGtMkKA7XQ5Ku7ViYnF0Vuf2BTnVeg8vtB7iBZ70IoyJGD6BEIl/dSYH/2oIqFzYokJbAJFwVDIXW/WJkDy62cEJ2V3C8Tu7tbhZoyC/ASZ94dOhywwr7gXUpodTKcnNGf0uav0pkz0fOK6+ERZjCYi6pz7Y0LUfb5AjJAdAMhjNguKzxFiyBreJcKial1klWjX4q6GihbOAbrQk3R8hlzjAK+RdGktLf2QZwDb8T6XOhXiObBc0vsuCEX23qJ0ML7VF0oF1mvjx9J4bWSsAoIiLRj9IM4e2zdHUr2ucPRe/xIj1xhleA/gXXJ9zukvwktbCuv0jYbaQUlOEGSX6YFqRr5DkzHgOmAQ3m3vQAPfAWaEcwhgQBzpX81MWYwx445bAyFIeL3EYARReywAw1lZQI0GiRu0MEsBDExQXchtC5tTZBUbIwTvLMBFHH86Ivf1UcbGTQVdAXsKWnOOmk1tv6yLcHkYCB8pXmceTEBJ+dX1PkrfQoNnj0yfztM4yoOsqFBuWhZFGBGHwfiIudSacqVjEM7DN+Bq3eO+Z0UjlQzLf+xWlYz4S2Hq4gVMgSkmQ5EHWIQEtQpogEcp+cJ/mIgA40eqPC/NxBBoJUKNihQ5WID6rCiZb+dR4f+MdfpTpubMELG6CKHsWIQrPiXrXvWf/NngTX8NbYYK/5W609oeSslxl2NLgM+ghs3cv6qnXkL8sNxcUSceZdEiQhzo0jXM/LyR4tvdp3ai+4NR5/iWZ+hJ/PjTXolw96vqI3ncfTrBcXpvwYJsLQqKc=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-media-starvis2-v4-6-75fcdb4163f3@raspberrypi.com>
 
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
----
- arch/arm64/boot/dts/apple/t6031-dieX.dtsi | 32 +++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+Hi Dave,
 
-diff --git a/arch/arm64/boot/dts/apple/t6031-dieX.dtsi b/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
-index 2e9d3d2e6dea..4959190e13a3 100644
---- a/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
-+++ b/arch/arm64/boot/dts/apple/t6031-dieX.dtsi
-@@ -98,6 +98,38 @@ DIE_NODE(pinctrl_ap): pinctrl@2b3000000 {
- 		#interrupt-cells = <2>;
- 	};
- 
-+	DIE_NODE(avd_dart): iommu@2cd010000 {
-+		compatible = "apple,t6031-dart", "apple,t8110-dart";
-+		reg = <0x2 0xcd010000 0x0 0x4000>;
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_IRQ DIE_NO 1192 IRQ_TYPE_LEVEL_HIGH>;
-+		#iommu-cells = <1>;
-+		power-domains = <&DIE_NODE(ps_avd_sys)>;
-+	};
-+
-+	video-codec@2cd070000 {
-+		compatible = "apple,t6031-avd", "apple,t8122-avd";
-+		reg = <0x2 0xcd070000 0x0 0x4000>,
-+		      <0x2 0xcd080000 0x0 0x10000>,
-+		      <0x2 0xcd090000 0x0 0x14000>,
-+		      <0x2 0xcd0a4000 0x0 0x4000>,
-+		      <0x2 0xcd100000 0x0 0x10000>;
-+		reg-names = "piodma", "code", "sram", "mbox", "ctrl";
-+		interrupt-parent = <&aic>;
-+		interrupts = <AIC_IRQ DIE_NO 1185 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1186 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1187 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1188 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1189 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1190 IRQ_TYPE_LEVEL_HIGH>,
-+			     <AIC_IRQ DIE_NO 1191 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "mbox0", "mbox1", "mbox2", "mbox3",
-+				  "flag0", "flag1", "piodma";
-+		iommus = <&DIE_NODE(avd_dart) 0>, <&DIE_NODE(avd_dart) 1>;
-+		power-domains = <&DIE_NODE(ps_avd_sys)>;
-+		resets = <&DIE_NODE(ps_avd_sys)>;
-+	};
-+
- 	DIE_NODE(pmgr_gfx): power-management@408e80000 {
- 		compatible = "apple,t6031-pmgr", "apple,t8103-pmgr", "syscon", "simple-mfd";
- 		#address-cells = <1>;
+On Thu, Oct 15, 2026 at 04:57:32PM +0100, Dave Stevenson wrote:
+> DT allows configuration of multiple link frequencies.
+> V4L2_CID_LINK_FREQ allows read write control.
+> 
+> Join these up so that link frequency can be configured at run time,
+> as long as the sensor isn't streaming.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> ---
+>  drivers/media/i2c/sony-starvis2.c | 75 ++++++++++++++++++++++++++++-----------
+>  1 file changed, 55 insertions(+), 20 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+> index 0edb0b4dd25f..02199336010e 100644
+> --- a/drivers/media/i2c/sony-starvis2.c
+> +++ b/drivers/media/i2c/sony-starvis2.c
+> @@ -725,6 +725,7 @@ struct starvis2 {
+>  	struct v4l2_ctrl *exposure;
+>  	struct v4l2_ctrl *vblank;
+>  	struct v4l2_ctrl *hblank;
+> +	struct v4l2_ctrl *link_freq;
+>  
+>  	/* Track VMAX for exposure updates */
+>  	u32 vmax;
+> @@ -755,6 +756,7 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
+>  	struct starvis2 *starvis2 = container_of_const(ctrl->handler, struct
+>  						       starvis2, ctrl_handler);
+>  	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
+> +	const struct starvis2_variant *variant = starvis2->variant;
+>  	const struct v4l2_mbus_framefmt *format;
+>  	struct v4l2_subdev_state *state;
+>  	int ret = 0;
+> @@ -778,6 +780,25 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
+>  			return ret;
+>  	}
+>  
+> +	if (ctrl->id == V4L2_CID_LINK_FREQ) {
+> +		u32 hmax = variant->hmax_min_link_freq[ctrl->val];
+> +		s32 hblank;
+> +
+> +		if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
+> +			hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
+> +
+> +		hblank = hmax * variant->pix_per_clk -
+> +					variant->active_area.width;
+> +
+> +		ret = __v4l2_ctrl_modify_range(starvis2->hblank,
+> +					       hblank,
+> +					       starvis2->hblank->maximum,
+> +					       starvis2->hblank->step,
+> +					       hblank);
+
+This fits on fewer lines.
+
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	/*
+>  	 * Only apply control values when device is powered on (RPM ACTIVE)
+>  	 * and streaming (usage count != 0)
+> @@ -824,6 +845,12 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
+>  		cci_write(starvis2->cci, STARVIS2_REG_WINMODEV, ctrl->val,
+>  			  &ret);
+>  		break;
+> +	case V4L2_CID_LINK_FREQ:
+> +		/* The STARVIS2_LINK_FREQ_ enums match up with the register */
+> +		cci_write(starvis2->cci, STARVIS2_REG_DATARATE_SEL, ctrl->val,
+> +			  &ret);
+> +		break;
+> +
+>  	default:
+>  		dev_warn(&client->dev,
+>  			 "ctrl(id:0x%x,val:0x%x) is not handled\n",
+> @@ -938,9 +965,6 @@ static int starvis2_write_common(struct starvis2 *starvis2)
+>  
+>  	cci_write(starvis2->cci, STARVIS2_REG_INCK_SEL, starvis2->inck_sel_val,
+>  		  &ret);
+> -	cci_write(starvis2->cci, STARVIS2_REG_DATARATE_SEL,
+> -		  __fls(starvis2->link_freq_bitmap),
+> -		  &ret);
+>  	cci_write(starvis2->cci, STARVIS2_REG_LANEMODE, starvis2->lane_mode,
+>  		  &ret);
+>  
+> @@ -1018,6 +1042,7 @@ static int starvis2_enable_streams(struct v4l2_subdev *sd,
+>  		goto err_rpm_put;
+>  	}
+>  
+> +	__v4l2_ctrl_grab(starvis2->link_freq, true);
+
+An extra newline would be nice here.
+
+>  	return 0;
+>  
+>  err_rpm_put:
+> @@ -1042,6 +1067,8 @@ static int starvis2_disable_streams(struct v4l2_subdev *sd,
+>  	if (ret)
+>  		dev_err(&client->dev, "%s failed to stop stream\n", __func__);
+>  
+> +	__v4l2_ctrl_grab(starvis2->link_freq, false);
+> +
+>  	pm_runtime_put(&client->dev);
+>  
+>  	return ret;
+> @@ -1208,7 +1235,6 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
+>  	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
+>  	const struct starvis2_variant *variant = starvis2->variant;
+>  	struct v4l2_fwnode_device_properties props;
+> -	struct v4l2_ctrl *link_freq;
+>  	s32 hblank, max_hblank, vblank, max_vblank;
+>  	u32 hmax;
+>  	int ret;
+> @@ -1224,25 +1250,26 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
+>  
+>  	starvis2->vmax = starvis2->variant->vmax_default;
+>  
+> -	hmax = variant->hmax_min_link_freq[__fls(starvis2->link_freq_bitmap)];
+> -	if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
+> -		hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
+> -
+>  	/* PIXEL_RATE is fixed and read-only */
+>  	v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops, V4L2_CID_PIXEL_RATE,
+>  			  starvis2->variant->pixel_rate,
+>  			  starvis2->variant->pixel_rate, 1,
+>  			  starvis2->variant->pixel_rate);
+>  
+> -	/* LINK_FREQ is also read only */
+> -	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
+> -					   V4L2_CID_LINK_FREQ,
+> -					   ARRAY_SIZE(link_freqs) - 1,
+> -					   __ffs(starvis2->link_freq_bitmap),
+> -					   link_freqs);
+> -
+> -	if (link_freq)
+> -		link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> +	starvis2->link_freq =
+> +		v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
+> +				       V4L2_CID_LINK_FREQ,
+> +				       __fls(starvis2->link_freq_bitmap),
+> +				       __ffs(starvis2->link_freq_bitmap),
+> +				       link_freqs);
+> +	if (!starvis2->link_freq)
+> +		goto err_free_handler;
+> +
+> +	v4l2_ctrl_modify_range(starvis2->link_freq,
+> +			       __ffs(starvis2->link_freq_bitmap),
+> +			       __fls(starvis2->link_freq_bitmap),
+> +			       ~(starvis2->link_freq_bitmap),
+
+No need for parentheses.
+
+> +			       __ffs(starvis2->link_freq_bitmap));
+>  
+>  	vblank = starvis2->vmax - starvis2->variant->active_area.height;
+>  	max_vblank = STARVIS2_VMAX_MAX - starvis2->variant->active_area.height;
+> @@ -1250,6 +1277,10 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
+>  					     V4L2_CID_VBLANK, vblank, max_vblank,
+>  					     2, vblank);
+>  
+> +	hmax = variant->hmax_min_link_freq[starvis2->link_freq->val];
+> +	if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
+> +		hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
+> +
+>  	hblank = hmax * starvis2->variant->pix_per_clk -
+>  					starvis2->variant->active_area.width;
+>  	max_hblank = STARVIS2_HMAX_MAX * starvis2->variant->pix_per_clk -
+> @@ -1285,16 +1316,20 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
+>  	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &starvis2_ctrl_ops, &props);
+>  
+>  	if (ctrl_hdlr->error) {
+> -		ret = ctrl_hdlr->error;
+>  		dev_err(&client->dev, "%s control init failed (%d)\n",
+>  			__func__, ret);
+> -		v4l2_ctrl_handler_free(ctrl_hdlr);
+> -		return ret;
+> +		goto err_free_handler;
+>  	}
+>  
+>  	starvis2->sd.ctrl_handler = ctrl_hdlr;
+>  
+>  	return 0;
+> +
+> +err_free_handler:
+> +	ret = ctrl_hdlr->error;
+> +	v4l2_ctrl_handler_free(ctrl_hdlr);
+> +
+> +	return ret;
+
+The error codes will be ctrl_hdlr->error here so you could omit assigning
+to ret. You're actually doing that twice above. :-)
+
+>  }
+>  
+>  static int starvis2_check_hwcfg(struct device *dev, struct starvis2 *starvis2)
+> 
 
 -- 
-2.55.0
+Regards,
 
+Sakari Ailus
