@@ -1,64 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792500995;
-	b=N1CZUz1G4PBtERV1CBoKMw5ysi3FVlIrFSg7b8XGc0p/I+AZKZXd5mIqS9qgmDzNW5ym
-	 HRH61kAOOnXqTA3IrvyJ8MgK3A47n3zic/TuHU8J8M7pakt4h5N7HpkkWcKztIBRp1KAA
-	 Kj1BkcX5AjQHOSpdGEgHYEkMejgNgcoSXHUwsbtkSd3ySmw08L17vqx/Ln3ZnGCzkiTnM
-	 pUbD6kiCJs0Iyl840+hb0kDBa5DFz8QxvMEGTBIYcfqrF1BBwAamdPd29eLVMOcL9HAfv
-	 zkr3AisEwpsIYXR+UUVtcgXvvd1XjSMUese1vpT313Y+W1odgtEMmrbYWILVxgL8OAg==
+	t=1792503011;
+	b=P1KPEJv9ZQ2cWJcu1twgQf3gPKNUvGqSBN2EzlhzntTDLLJ+vFnO/HfmA/NjyB44FXNG
+	 kCQA2rzPT6qPlJbroxonD9Bdn9xGUHIbCSNTx2XkJOo6dz1/qRtcbYn7zp8aXCcRFA4jS
+	 nq9IaVtbQC2XAlB8Ed1jjDYPImTedU7B2E49O82tM4N3j3hQLt68jPZtuI7Zb1iw4fBKJ
+	 fR2FfVpfte76vyCWt0ZKrJC/TEsDwOFJmOu//RP45qxnkh4WG7tK7FGa+Qp1QlYlCHghE
+	 2h3AoPLXcuqDz9YD9+AUbuL5ybqix+7zxJiSI+IUBhLs8dL1hiSgqqJPQ8xMxwbzS1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792500995;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=87wfgv30mmnUtkeJzoc3U0Jc2RYjCYcciK0pi6z24Ck=;
-	b=4ma8ymH29NOJhjJxBp0I2s8hGWj+V2j3i8UghjbC1kQ7tUMoFnIUV/z0o8rYFeOCHxqX
-	 m8/H0YBJ2sRlf4eQZt1wmGsGw3+dGp7FS2KdfuLl2P9pjMQWNHsZUuGrDN/O4XMAZzHYW
-	 dDWSop5A1vrPiEtUaKFG2oXloGv2rytgxYX5em73Fv1Qls/U1RF7es2FPnnExCe8MhoTT
-	 tl1cEUnUA4+r2/7j6/6Imvdx4r/dA9vlx4ZPuvfSL5XTRigFR+EPimGH7cvICkDx3XXY3
-	 XM33sFYrwBJGy8wzDV6dZw5XYbPmvDYMNfe2iPmZhd6b8lbAmBlW3qAdBhYuycFEMyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792503011;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=D+mxgjdi4ZCAmeQ/8ywDwvDse5W9MOG3smctM4dikj4=;
+	b=f/Fcxxvw5GBJOH7hGfZYvXwW7c2g667OAcOeOWypjMVN0hS/nZznwnraaFfn6+MkV5ZH
+	 lP/QKPg5uulGR25d9VhoJL8dZxSgeHwbxwXyVGAt+Rx/aDWcgk5irE6pqrsHbl+hHOzuD
+	 UgM/x61iWH2cuOADO/vgCc9dDOfKgZU5veS1pGD0fMK7vlgqwZtqwoI6E7JLDqpDA5atG
+	 5MrJ6OVumMs1xTawAirKEsvhiH2UWsuU/aZzxjV+48SArR4uiicvOT+xrPp34t0MQ0SR/
+	 U74K+FlMcoWLGtPT0+1323pl4gDRobfFCjFuTcwpJgYohxIBplAWLSGYyuLQ43jip7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GPzpKSKV;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.167.50
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA51606A31A;
-	Tue, 20 Oct 2026 12:56:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EA51606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=GPzpKSKV
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 55B8F22B;
-	Tue, 20 Oct 2026 14:54:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792500865;
-	bh=eAnj6WZydALzwcU6GInyS28FdkRUR1+ZbwGLLJPnwh4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GPzpKSKVoY9pw1qPhs5DHpHccMUCPJLztNk7cuiIQvZUrbbgICSOiG58IYch8iyaj
-	 7kXQi6ZAeQFvLMrsn3V5z47Y1dkqtCPQe0LFfKFb8g4ZOgNZZDtz8rB5Pj5Mrxp69s
-	 mZPe4cQDqK0bahtDceyi/wtkax953bK/V3Py6inw=
-Date: Tue, 20 Oct 2026 15:56:30 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
-	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Message-ID: <20261020125630.GA158670@killaraus.ideasonboard.com>
-References: <20261019014720.2635-1-lachlan.michael@sony.com>
- <20261019014720.2635-3-lachlan.michael@sony.com>
- <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 308D5606A33E
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 13:30:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 308D5606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be42ae8eadso1875849e87.3
+        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:30:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792503009; x=1793107809;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=D+mxgjdi4ZCAmeQ/8ywDwvDse5W9MOG3smctM4dikj4=;
+        b=kDqSCYDfwzty9s3MHPlc0UlsGZxJZAtbRsuRoqZp0dcxkNtgxgw1I8QDseAEqYhnVZ
+         h8LEBzvDldplKaL/tqy0H4THtP16y2zve4fOIrFjZ2k+O5VOkTpellBohyhyl1GWtaXz
+         5snk8IhZdLb/5+KDk5r+htEn9OqsfMKVE7rQqfgIEV6jH2i3iXhWdigFp9dR14wq9vNc
+         4ESIbMcv/gTXHYKBQtQlhqLIL1u+/MeAoOG/HnxBSxTQhvXneXat7u8+JmgAUKw0jxfy
+         9bjv06lIlto3aTaKalkBuqEYGOt7qQ4fl7QHzctQseGbenry4TulqoT043moxHiCBqew
+         dPwg==
+X-Forwarded-Encrypted: i=1; AKwUvByLIPr6qRnI5xGu2n3ZiBqH6sFmZR3WAhFAbpZA/R7GmzahiYOZbO091345iYu/7g/ck36IHtFROdzZLQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJg7WTHU8ZRDFAL314JKrNW7zAIAdlZTzcXstLkQ0uOeOGcfCc4
+	0lg2PqvDbSCcayJW0aapUPS+kI8m4yDuUVU2kPzY/oo3l+FpPFWsMCUPcs//GUZ/QZI=
+X-Gm-Gg: AYBFou1evfFDew5K2oF8eokyD2svrRYK+MAOwQuQ18K1D/60fgndpXuCoEzfRAP7d7K
+	NCS+WoVH7X7cLoj56ewua9GaolCiCrWUauDcIEZunmHwIwsKNSG25xSAxObYXR335ALLc1pLvjH
+	cN6YuEI+UG4PA3chu2X0JasfxZvNnZiIUH8sgALa0K9E8OCfYcCdYzZvDKNO+XxqCdVMURQcR9l
+	16Ah2Ug4mCKqGkYj4Kbr9iXRa7+YzAwD4UiDasvjlBxjgD+GBNtw014R6woTFcfBWeqJ3JE7Qt/
+	K8hhRpfQ09EGnHvNMGO53bPEykiEFE8ltQVa8svPgZ48jHcUatJ1ysuTNKZtmHXyk84+CTK8sYK
+	DV+QMWTunZHU/o7bYVqLG5J5M1hkpquNVKfkD/iPT1lzEO/zieOH9eWv6+wJyRpvnnqbEiJk+TX
+	K6gwFSfn7q9xQzm1ZAvE1pwSTZ6pVxWQNDHYzfh8Az+bk8nzIQ70+1SSJWjRqh0bxDBkHhQK4bU
+	P8xhwHveu7PdNoN8E01CRCOYBVuFTERivHFmNtl
+X-Received: by 2002:a05:6512:3b20:b0:5be:43c9:d4ee with SMTP id 2adb3069b0e04-5be50a505e4mr3654121e87.14.1792503008936;
+        Tue, 20 Oct 2026 06:30:08 -0700 (PDT)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com. [209.85.208.179])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a3fcf91sm2728339e87.7.2026.10.20.06.30.07
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 20 Oct 2026 06:30:08 -0700 (PDT)
+Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a75f960be3so34704811fa.2
+        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:30:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzPhl3gZHXCJx+vsH8zS3zYuNRrjzaFHMTqpvMXLDe1Sws2zi8qOlJHKbsxTl48RPiZZBRd+e+/GpxRsg==@vger.kernel.org
+X-Received: by 2002:a05:6402:270d:b0:6b1:c7d9:b631 with SMTP id
+ 4fb4d7f45d1cf-6b3a8191a46mr7499369a12.23.1792502542847; Tue, 20 Oct 2026
+ 06:22:22 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -68,39 +79,106 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
+ <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
+In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-15-e052903a3832@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 20 Oct 2026 15:22:09 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUHcR8-9g+KZ4Ssj+mJKYBz1h6QSjWnaPL1BcQWC6v8RQ@mail.gmail.com>
+X-Gm-Features: AclHuK_uZzRO_WalfaTseMvUVupoP686uPVQ89YYU5UfnQv3EiXJeP7RDzX6u2Q
+Message-ID: <CAMuHMdUHcR8-9g+KZ4Ssj+mJKYBz1h6QSjWnaPL1BcQWC6v8RQ@mail.gmail.com>
+Subject: Re: [PATCH DNI v3 15/15] media: rcar-fcp: Check device revision at
+ probe time
+To: Paul Elder <paul.elder+renesas@ideasonboard.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-media@vger.kernel.org, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello Sakari,
+Hi Paul,
 
-On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
-> On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
-> > The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
-> > output interface. The driver supports RAW10 and RAW12 output formats,
-> > exposure and analogue gain controls, image flipping, blanking controls
-> > and test pattern generation.
-> 
-> The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
-> 2, for which Dave (Cc'd) is working on a driver (see
-> <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
-> The register defines in the two drivers appear to be quite well aligned.
+On Thu, 15 Oct 2026 at 09:53, Paul Elder
+<paul.elder+renesas@ideasonboard.com> wrote:
+> From: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+>
+> Verify that the device revision register reports a valid value,
+> otherwise reject the device.
+>
+> Signed-off-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> ---
+> Changes since v2:
+>
+> - Add FCP type information
+> - Reject devices with an unsupported version
 
-The current version of the driver implements very few features of the
-IMX908 sensor, as crop support has been removed pending the raw camera
-sensor model, and Clear HDR3 is being developed. I expect more
-differences to appear when those features will be merged, so I believe
-it makes sense to have a separate driver here.
+Thanks for the update!
 
-In the future, I expect the raw camera sensor model to open the door to
-more code sharing and more drivers supporting a wider variety of
-devices. We can decide then if the imx908 should stay a standalone
-driver, support other sensors as well, possibly across the Starvis 2 and
-3 families. I'm willing to help with the refactoring at that point if
-needed, the maintenance burden won't be on you (and I'm sure that
-Lachlan and his team will of course maintain the code base).
+> --- a/drivers/media/platform/renesas/rcar-fcp.c
+> +++ b/drivers/media/platform/renesas/rcar-fcp.c
+
+> @@ -154,15 +204,67 @@ EXPORT_SYMBOL_GPL(rcar_fcp_soft_reset);
+>   * Platform Driver
+>   */
+>
+> +static int rcar_fcp_setup(struct rcar_fcp_device *fcp)
+> +{
+> +       static const char * const models[] = {
+> +               [RCAR_FCPF] = "FCPF",
+> +               [RCAR_FCPV] = "FCPV",
+> +       };
+> +       static struct {
+> +               u32 version;
+> +               const char *name;
+> +       } versions[] = {
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_H3_ES1, "H3 ES1.x" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3W, "M3W" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3M, "V3M" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_H3, "H3" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_D3, "D3" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_M3N, "M3N" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_V3H, "V3H" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_E3, "E3" },
+> +               { RCAR_FCP_REG_VCR_CATEGORY | RCAR_FCP_REG_VCR_REVISION_X5H_V1, "X5H v1.0" },
+> +       };
+> +
+> +       unsigned int i;
+> +       u32 version;
+> +
+> +       /* Check the device version register. */
+> +       version = rcar_fcp_read(fcp, RCAR_FCP_REG_VCR);
+> +
+> +       for (i = 0; i < ARRAY_SIZE(versions); ++i) {
+> +               if (versions[i].version == version)
+> +                       break;
+> +       }
+> +
+> +       if (i >= ARRAY_SIZE(versions)) {
+> +               dev_err(fcp->dev, "Invalid FCP version 0x%08x\n", version);
+
+You're missing a few variants:
+
+    R-Car V4H: rcar-fcp fea10000.fcp: Invalid FCP version 0x0000010a
+    R-Car V4M: rcar-fcp fea10000.fcp: Invalid FCP version 0x0000010b
+
+> +               return -ENODEV;
+> +       }
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Regards,
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Laurent Pinchart
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
