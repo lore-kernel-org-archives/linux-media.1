@@ -1,82 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792493245;
-	b=NtxKBT9B5svuWqQy8wR53xsrvu9GuMEx7Fq9S5hPcAYcOWA39jINquDLJAtj3GPnppa9
-	 8c0MBZG+/e+VkhHvfgts+RDN1vLHiE2zgJFvwOpIqVxDmN4jXLNGs4c1ihPQIS8BfuRTL
-	 v8uu0bcc81vFEFtMtP/2LKdijcw2tg68qhO7F7DtiFWdKEOgOMByYZmsNvdrqsMJp+OB7
-	 ZAYojK8+HGuf9P8fwYNaEenGcpQrFXpictGw0oTIidybmuOfsf6ngmAHmJFQJmrd94DB3
-	 bN6dc51uWrH8skmqizDBcsRlaUPpjalk7EFmdVmkYfduW4DnB+nXaUV/9m9ReAwSTfA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792493245;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=T6PCA4AXVWnGr3KDtpdwCDBebnMz6ofbTp9ca/ejWPE=;
-	b=lll4zLgo6cSViBuF5CzheFs5FC7/e0Ucx4QSXB90X9vJNF7MLjQ6oYdPJyI1jH78o9mD
-	 6U1PkrKdmZ6OjBLySg3eTGN4fRjSugkMFaKgT47K+Lp4b1ZxV3QHvxBZGWE1vWzTiT7Nk
-	 8/WUnG8kyiYUOyM0G3yG5LiBjnOEOL/F27L9C/EOAitYGSyTW9V2T08b92MBzFWn380n/
-	 2uq54MQXxmtIHX/q/JFPPRbawUQL72l2tVaoYEpuiW5k7X8YFJPND0Hs9LG5ALSEjxHFW
-	 Jjzkq3c8EkzM33HOFxcAws6hCfz2M2xg6obBE0rr9lBhzTjnKCVMJoGSSQ6X5+Hw8QQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	arc=none smtp.remote-ip=192.198.163.19
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792495026;
+	b=1Sc1lIbyuDTtAoKah5OdVv4LzuiYdHZMC5jwaW8fRrYttvER3a/EKGRPP/z3JCmapMfa
+	 XZgh8wyE6oW/vYkjacA/wlfC6kDGbu4qSkhGSx8oH7B67QM+mrk2xWCEzWmznI1UCvuIb
+	 jyulOpavPJAPgWhj8XQioaa6m24P+PN/s+oCMMOogNi4sTIygu0N+gLtXfN7H0d1n8zYP
+	 LzJz0W43HOF4zc9GwssLusJLSo0p4uN7Ee4hZ1WtFY+ehaEUncH3UeNdp21gpMPHF1Q2B
+	 h2BCdrAXu75TW3llk7x5hiIA1Wu90SNnD59liKMp/qvapUWBt6ZxmREGtlygxpqj/ng==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792495026;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=OwAiG+IuDFOhS4WdMboHbI/OdvEEQ40mmizdjnVgry8=;
+	b=yNlMvd9bH175f39dLsTLw70Pm93+ZZ7dTLX5Zk6RtEOQCOsM6RMn2Tg/hmOoJMuMrMp0
+	 56dYXgCHmUEMTlVpvGyQEVBVOsBBX+FxHI6GiALwa0UE8gIda8XYBMGgB+mjMBb2wIjdD
+	 22HpVU7ou3jyGgHGkwftA+67N9I1ixaYF1068f2evoSPVVyp+XepqszgViuLjCbNMHZfk
+	 HeqZ4qmx/scWzLYc4GOenVLZlQW7ZQbC6JsFyPfQfToXZv2ljt4b1DI4WO5wlSNXVAvSU
+	 XvHSG5hpi2iN8xtpCdVEqC++p5bs/fN5FNljUIGAAidT57T+StrrvqL63Tw36A5cWnA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=arMjr9wf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.49
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011049.outbound.protection.outlook.com [52.101.62.49])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F9E606A323;
-	Tue, 20 Oct 2026 10:47:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89F9E606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792493239; x=1824029239;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gUEShXSjQiSvijsLSsznVTUFecw+QGpAx88VySy7BmU=;
-  b=Q2H4wOkiYoFQgeJ76yKs6HDS0NpsSI6RBKupM4yZuySjh82jtzQPC+B2
-   TFMrhulmTSYHqTdl6WM2/4xEX6AQ1q4ap8upfE+MXoDjkivnuxscexqU1
-   w2rT61ef7GTt/55Yjc/S4Az6NhEPNikLR117SxjfkcuWJrFGw4RdFrCVF
-   XizESiwf6ev6pndv6mo1D0nSHnXTgDEXEac9pSvJ4CKWRlZMkmwvtcma3
-   htEW+BgUzCOKiq1QEkVpP8uaDkTLYQJ5jfm79FysQVlx8ba4fVz4gEfiA
-   VRtaQ8o5HmHewKVs98OGpOVJcLoHHnI1Ppr1LxXYxlHhdyV48B8mMw6N7
-   A==;
-X-CSE-ConnectionGUID: 6vApGq+dTNGHraElU325AQ==
-X-CSE-MsgGUID: xQ2i/eVRTtWtUpynPIwzGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1295641"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1295641"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:47:18 -0700
-X-CSE-ConnectionGUID: C0jt5v0ORH2kuEBI/tA1uQ==
-X-CSE-MsgGUID: pHHu8Q3ORiKNXvyiK3uGwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="4539917"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:47:15 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 05DF011F7E8;
-	Tue, 20 Oct 2026 13:47:12 +0300 (EEST)
-Date: Tue, 20 Oct 2026 13:47:11 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Lachlan Michael <lachlan.michael@sony.com>
-Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org,
-	laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Message-ID: <atdGr8S2sf1kZFUw@kekkonen.localdomain>
-References: <20261019014720.2635-1-lachlan.michael@sony.com>
- <20261019014720.2635-3-lachlan.michael@sony.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B0D606A31E;
+	Tue, 20 Oct 2026 11:17:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00B0D606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=arMjr9wf
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IPQQroJ+BQG/6VZ3asy2h3NuO8N+8KqF7shXnyOZrWoDdRe4/x/owFmGKNWPC+nbhAGFuLa0gT3jagH0jlxurZcK7xCJDJ+kFL4WkV0DPhCfRuHS07GzLYmoAxd9hNHlOgKzLf22qjtWcG+soKLwgZLM2eG57L5EIck8oasqDjFxfcgwW7kGfLiWeTmlZXu/evNGSgMyOAt8LerM02S5glYkXovRh4L1vEWX8YEN+9sluL6DEpQ7sb/q5NpVM2jsc5K8+KzPUFMlR8OJGnB9WF/jr7lGksOb7sU6Y2SDT62g/wi8LfFKgEMWhoueZbL7UavxHxfglynyh4W0PfZRqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OwAiG+IuDFOhS4WdMboHbI/OdvEEQ40mmizdjnVgry8=;
+ b=EtccXJyMlHM5199j7hbbn5RgVKD7qVDR7JcaItjAR61OTkf1Ahs1e75qtVvN//sYE5iWi1CzIqVL9Bt2l3wrCWtfIXGYdqPQnmNiprx1ZNlNSJKu2Nh2LkpLCRhzdBiLp8MuFXYHCou54/FxyBbl3Rx9qASVRrjSFQXAnY4tkiTBrVHSm4tEpdZ91ZIvimBBcqHjYekycKWyCvBqGNV0AdjIO/vDulHva0Ko11NkGtGmrxdzJpobihNCRy4m7ezxVx4mq8WOUKLcn+oL7AxfVQ0xqiizfRYQ9q5MYuiiKm1T7HKcA6ZQG8zZHHJ2Aku+/TJ6Tbi5+V0U+ZQ97STwag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OwAiG+IuDFOhS4WdMboHbI/OdvEEQ40mmizdjnVgry8=;
+ b=arMjr9wf+9/yjkzzNyKwRK8w7GgftXJQWxYtGfKfCEkX6bUp6HBPWhym0K+RWHEVegCaLGGU8v4SrzhyG1zxemWsDqWJuiKP6E9xpndGej2saAe4ApQTSPvYoHk55JNIEq5z2qy7EnzIg6wIepUBUt7Ouvz1v0+w4viL5MHh/4jiGjgKNe4heB4Osc+W9yQVyKNSfgkKbnFw9qZBIQ0qzyT4pG5SbStXbOHyNMFVyjyxC1vnPluyoTBtfbLE6uqlpYxEcpTYU8Z/d2aR5P0bzd30sMYrx7zi/oH7czDgWV9xzQQo3fizuTCuS+5CfWeQeM2dTc7KEdACRF2J8ReHbg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS4PR12MB634945.namprd12.prod.outlook.com (2603:10b6:8:514::7)
+ by SJ2PR12MB9088.namprd12.prod.outlook.com (2603:10b6:a03:565::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Tue, 20 Oct
+ 2026 11:16:53 +0000
+Received: from DS4PR12MB634945.namprd12.prod.outlook.com
+ ([fe80::24ec:530f:4816:dc]) by DS4PR12MB634945.namprd12.prod.outlook.com
+ ([fe80::24ec:530f:4816:dc%5]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
+ 11:16:53 +0000
+Date: Tue, 20 Oct 2026 22:16:26 +1100
+From: Alistair Popple <apopple@nvidia.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Shuah Khan <shuah@kernel.org>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [RFC PATCH 0/6] iommufd: harden DMA-BUF PAL setup and release
+Message-ID: <atdKZpEJVZY0enR2@nvdebian.thelocal>
+References: <cover.1792477872.git.kmehltretter@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1792477872.git.kmehltretter@gmail.com>
+X-ClientProxiedBy: SY5P282CA0105.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:204::6) To SA3PR12MB598757.namprd12.prod.outlook.com
+ (2603:10b6:806:52d::14)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -86,26 +100,193 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019014720.2635-3-lachlan.michael@sony.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PR12MB634945:EE_|SJ2PR12MB9088:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc70fd08-054d-4ea2-bb8d-08df2e9b9e2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|23010399003|56012099006|5023799004|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	rNK2r0RfxZomZjMtrbKrFKEg4dg6P2Fh/gaZ1F+9pLygdzHgOcKpN6jl8UKlMdyTiht2HcgaIsGNDubVP5+uvKwb+lZ+pcIWrMULlNJ7+yFr8TRpGCy8s8ghw7BZjPmGCJF5Ooyl+N837pIbm85lLOwbst9xOYLKFy1edHWgYoB3mHydl7t71karkgLVFyTN80+j/c7nL7L0J/9CKjM3MtgqA8SqD8K5BlqYMiF5+Efyiu9CQufZC1o2Jgt81DxlyqA5oz9E75HNZbSRjnzFZx6n4YqoHXDNgTxpbPAlUWm10jXmV78S6v5e5UqPkMAzRTJaDeWvOYrMcpyRytPTHJGa1aUiHSouYvwuxY9SMggA758tiWtn52dZm/p0p7rOWLCVugMG8QdMr5t/E1lqCKNi/XIwt4cbG4VYpQSRbdZLWNXWb5kn3CoqKGrewu9E/zdz3EeUSb4jx0R8YfKFlKQ+MCAxk+9mjrAVUSygP95nFrg17lhWBDSNA0DrBO7aLt+f8ya3d2bNXo9EhHo17qR6mOZTkDCnbhAUIkn0BIqURT7LZvAQuZTyXWajG1eTiUjg7BwVZAXqsgU43DuwvpdM+OXeEDMgXpPZX1clunAfO64A4AvvHOIK/Fuf5n0bBGf0oZD7eijd1a9GPBPMgN8MnYKA8PcymL65oI+zY8s=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PR12MB634945.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(23010399003)(56012099006)(5023799004)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cCSbc8oFHTP3XVV3870tYP8v3rm4yJl77Ag2j78lqq04pmPjp4RKMxbce0F4?=
+ =?us-ascii?Q?eOrap6E5hk3qyLOq1h7B8aA05NncvE6hOkjTAZm4Tmxwh6rZ/HG6mabl6DTk?=
+ =?us-ascii?Q?Hj1aR76xPU2wr6XZ4x9ScjFcdM6IQjSICCTnxGw2soRTsWnhbcmJ24JjFxHZ?=
+ =?us-ascii?Q?Ge83jNySJ8wTJauJxtjB0/zTQQlN/Bz194FTdXZ+iztKROXPaVD6GxRrMJIT?=
+ =?us-ascii?Q?RJjA4ENbP4hSfzv7PVfYVlTjmnrda9p/pxOKj5IXesHgVa+ykxrR3BXRusdn?=
+ =?us-ascii?Q?FZ/hnQz9FCMGP8gQrMCy/NQTpjH1CUvJ4LQ4xwhFkoR5bzv5jk/wPtE2+qr5?=
+ =?us-ascii?Q?jmwZZTCA1bUBUaDODwM3KJ+Tfonax0945I/YDcqA4MJFExFdrEA9wQLze8IZ?=
+ =?us-ascii?Q?6GhM6a8SZs3p4Q0YhsYaNTePHSu+JMvn3m46b81Q3jAi3M8BMNPhlgIcGOv0?=
+ =?us-ascii?Q?Y3nzEuPoQAyTVqgugMhswVoEIAykIXwOvBL9U+j2Abc6SwDU9a11i+B3V8H8?=
+ =?us-ascii?Q?IoebGYkFl24cmTE2KUQXNAYSotmjU3iM33nE5do6xEx0vJkmcFc4n9Ywaau7?=
+ =?us-ascii?Q?Kwm5zcbD+16CWnyZPYXPcVxiZAVJYamG2xjZX3TymqMF7OJmFNFnUYjq9Thh?=
+ =?us-ascii?Q?HdA6aU2qEUrRts/bkbBdeWT22Hs0j0CNFoVykbTb/ZVS2tun8xIKWdYwJJMs?=
+ =?us-ascii?Q?XNJuYqwBbhxzN7Rzn28s/ImEXZK2dBvU+XBAclJCcpYZtdJsmZhHjpOUXEoj?=
+ =?us-ascii?Q?odTmKGUqo616NEHHsR6gC2MMuxF4R+S5Fqb/+9eUuBjF59HsY5luTfKsG4cL?=
+ =?us-ascii?Q?89Mp9P/NQvBUM6Lr3gPFCnX2KWkgxmZ12px9n/R14hbZ3JwrHOGHMmx/JKzc?=
+ =?us-ascii?Q?ID0tsL6pzkVFdwUUjO6Bi91h/K/0Bne+rAmh7AkcitfMOlcmqtJ9dIyHnLLA?=
+ =?us-ascii?Q?5HViRKnyanWggbYKHJ8VSHyEzc19GOeBwzg0vUqrAn+lYfxDyUs7YD+RQTf0?=
+ =?us-ascii?Q?R6TbnQNKK4+PfteuZySWT0UPhNDd+GncbCkiv0FQdIAr8BqFM9Az4SsWn+d/?=
+ =?us-ascii?Q?7ddRUT9v4th1+Owtv2qBEafJyhrhcrK8CqiUGJIchtsyj22K+pchTj7J76ci?=
+ =?us-ascii?Q?Rjr1azp663wSk1sxiC9kGw7dGsFi5XxocVjkrr1MWjpDEUHTWM2xiD43SfFI?=
+ =?us-ascii?Q?LTOINKfSPX5A6Ulg1FCoxyKJ+kZSwVh0FfpSqSiWqOy5FjTehBSvgR5wGBcL?=
+ =?us-ascii?Q?kD1OrbyOdbzvgNYUN31BEI6lqowvirVz9WPuUjzmGylVdNtVtaGyEHAFtJr5?=
+ =?us-ascii?Q?P9g30TZYxe1BiMEfXgSsRpSV7EOjFwxtJhdyMkJuJrV1jNHi9Whr4qrWjP2E?=
+ =?us-ascii?Q?fDS0PNiPDcBNJgJj/y7Vc3G4wx2RYa/t5a+B6dmMZXaXiotYAHSyI7HmlzOC?=
+ =?us-ascii?Q?vuE1oEbldFY5m6k0qs1dCGWgFv22dYrgmqEMIAgIlVKBJY7oUkYpAo8V7pRl?=
+ =?us-ascii?Q?1Mc0k+zoeCNDIyUja6vZqca9Lc8x692yj7WFyhEXG/oOboDEAv5a6YAnrbGD?=
+ =?us-ascii?Q?rEEx0d0IwY0x/CqOXiKU98ZFptRbMJ/r/zTJ+x9AyYGzGLhVOat727OaSikq?=
+ =?us-ascii?Q?gqNgHOb/wDlIvQaeL52f2v9pG6k+eJEMHY1ibGxhExolmKCSsHXhlySwQR4P?=
+ =?us-ascii?Q?JzrluOhJHA3QhvdmlXTp1ii65tyxBcSHEfiNfTDU1rhu3MLzmLk/C2s4mIYi?=
+ =?us-ascii?Q?DF+mzkxB9w=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc70fd08-054d-4ea2-bb8d-08df2e9b9e2a
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR12MB598757.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 11:16:53.6365
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Pk8NIe37UhdEhiT85jBJ2R9KxuFeLJWdHfc/fok7omkJ5pmHqdH1jKbwdSjF/ZPWQEKoWnytoGqGJmyYhaeYlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9088
 
-Hi Michael,
+On 2026-10-20 at 17:37 +1100, Karl Mehltretter <kmehltretter@gmail.com> wrote...
+> This is a narrow companion to Jason's unmerged DMA-BUF mapping-type RFC. It
+> fixes setup and release problems in the IOMMUFD PAL consumer and adds fault-
+> injection selftests. It is not standalone and requires this exact base:
+> 
+>   c37cf2824740d ("cover-letter: Add DMA-buf mapping types and convert
+>                   vfio/iommufd to use them")
+> 
+> I used LLM assistance while inspecting, testing and drafting this series.
+> 
+> I also tested DMA-BUF paths on a Raspberry Pi 400 and Pi 500+, using their
+> stock Raspberry Pi kernels (6.18.39+rpt-rpi-v8 and 6.18.34+rpt-rpi-2712).
+> Both passed offscreen CPU/V3D byte checks. The Pi 400 also passed five raw-MJPG
+> payload-prefix comparisons through V3D; this was not direct or zero-copy camera
+> DMA. Neither board ran this RFC or IOMMUFD PAL. The Pi 500+ connector state and
+> mode remained unchanged; the tested buffers were not scanned out.
+> 
+> RFC:
+> https://lore.kernel.org/r/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+> 
+> Jason's branch:
+> https://github.com/jgunthorpe/linux/commits/dmabuf_map_type
+> 
+> This series:
+> https://github.com/kmehltretter82/linux/commits/dmabuf-pal-lifecycle-rfc-v1
+> 
+> Diederik's RK3588 testing produced a useful trace through
+> rockchip_gem_iommu_map() and iommu_map_sg():
+> 
+> https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
+> 
+> Jason noted that this showed the same private-IOMMU-domain mapping need as
+> IOMMUFD:
+> 
+> https://lore.kernel.org/r/20261009125338.GB13920@nvidia.com/
+> 
+> That trace is motivation only. This series neither revives my warn-only
+> mechanism nor converts Rockchip. Jason's feedback on that mechanism is here:
+> 
+> https://lore.kernel.org/r/20261009124259.GA13920@nvidia.com/
+> 
+> Compared with Jason's branch, this series:
+> 
+>   - preserves dma_buf_pin() errors;
+>   - publishes the attachment and successful PAL list together under resv;
+>   - unmaps and clears the published PAL pointer under resv before unlocking;
+>   - keeps callback state alive until dma_buf_detach() returns;
+>   - calls dma_buf_unpin() while holding resv; and
+>   - tests pin/map failures, cleanup counters and retry on the same DMA-BUF.
+> 
+> Patch 3 follows an earlier forced-window arm64 QEMU/KASAN double-free report:
+> 
+> https://lore.kernel.org/r/20261016194022.62065-1-kmehltretter@gmail.com/
+> 
+> The proposed release order is:
+> 
+>   resv lock -> unmap and clear PAL -> unpin -> unlock -> detach -> put ->
+>   destroy the pages mutex
+> 
+> Questions:
+> 
+> 1. Is that publication and lifetime rule correct?
+> 
+> 2. Is c37cf2824740d still the right base for this companion series? If not,
+>    which tree should I use?
 
-Thanks for the update.
+The discussion upstream on whether the PAL approach is acceptable still hasn't
+settled AFAICT. I'm starting to look at alternate approaches but don't have
+anything concrete yet. However as part of that work I have rebased Jason's
+branch onto a more recent upstream (v7.3-rc5) so if you wanted to rebase this
+work onto that it could be useful.
 
-On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
-> The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
-> output interface. The driver supports RAW10 and RAW12 output formats,
-> exposure and analogue gain controls, image flipping, blanking controls
-> and test pattern generation.
+I haven't had a chance to look at these patches yet, but if some of them are
+fixing bugs in Jason's series it might be best for us to fold them into that
+series, with correct attribution of course. Anyway I will take a closer look in
+the morning.
 
-The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
-2, for which Dave (Cc'd) is working on a driver (see
-<URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
-The register defines in the two drivers appear to be quite well aligned.
+Thanks.
 
--- 
-Kind regards,
+ - Alistair
 
-Sakari Ailus
+> 3. Can these lifecycle fixes stand independently of moving final mapping
+>    selection closer to map time?
+> 
+>    https://lore.kernel.org/r/20261016202653.97339-1-kmehltretter@gmail.com/
+>    https://lore.kernel.org/r/20261019184123.GR13920@nvidia.com/
+> 
+> 4. Is the per-buffer selftest control acceptable, or would deterministic
+>    setup/release race hooks be more useful?
+> 
+> Testing:
+> 
+>   - arm64 QEMU virt: two boots, 24 selected cases per boot, zero skips;
+>   - x86-64 KVM q35: two 24-case candidate boots plus one focused four-case
+>     pin-failure boot;
+>   - a one-defect x86 control failed all four pin-failure variants on the
+>     expected erroneous successful ioctl return;
+>   - x86-64 GCC 13.3 built the exact head, headers and IOMMUFD selftests; this
+>     build was not booted; and
+>   - KASAN and lockdep initialized with no diagnostics in candidate runs.
+> 
+> The QEMU/KVM campaigns use mock IOMMU domains and the selftest exporter. They
+> do not cover a non-selftest PAL exporter, physical DMA/IOMMU, forced
+> invalidation races, or the complete IOMMUFD selftest suite. The x86 negative
+> control validates patch 1 only; the earlier patch-3 report is separate.
+> 
+> Testing with a non-selftest PAL exporter would be welcome, especially failure
+> followed by retry, invalidation during setup/release, repeated revoke, and
+> multi-range buffers. Please include the base, config, architecture,
+> exporter/device and full dmesg. A full IOMMUFD selftest run on another
+> configuration would also help.
+> 
+> Thanks,
+> Karl
+> 
+> Karl Mehltretter (6):
+>   iommufd: Preserve DMA-buf pin errors
+>   iommufd: Publish successful PAL mappings under resv
+>   iommufd: Clear the PAL list before dropping resv
+>   iommufd: Keep the pages mutex alive until DMA-buf detach
+>   iommufd: Unpin the DMA-buf while holding resv
+>   iommufd/selftest: Check DMA-buf pin and map failure cleanup
+> 
+>  drivers/iommu/iommufd/iommufd_test.h          |  24 ++++
+>  drivers/iommu/iommufd/pages.c                 |  24 ++--
+>  drivers/iommu/iommufd/selftest.c              | 111 ++++++++++++++++
+>  tools/testing/selftests/iommu/iommufd.c       | 121 ++++++++++++++++++
+>  tools/testing/selftests/iommu/iommufd_utils.h |  30 +++++
+>  5 files changed, 298 insertions(+), 12 deletions(-)
+> 
+> 
+> base-commit: c37cf2824740d833b21eb816e21f94836100291f
+> -- 
+> 2.39.5 (Apple Git-154)
+> 
