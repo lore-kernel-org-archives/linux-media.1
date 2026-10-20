@@ -1,87 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490358;
-	b=LIejhaDl0ITCH/vCHmcJxYG8O3qzCM1A7r3DtBDhV0Q7g6Kql4EDCA7PNK/WW+6BRPg0
-	 yVMjmgF0qIsnbv8dRG8qiEWQxHkPvwiNboTMr/DXLnWpJrGl6Xar1FYNn7iF24wxvzlJx
-	 seRfGPFgJxNn2u8BI3u7HS87vH+ZGRPaJV+M0kC+pxJe7jPO3ph+C3oxTJlWG2lt95zm+
-	 6bqSEI8p+ncsycjYkVTIn7mGQ1XPZcELOsTrbsedPZgMe1zs6Zaqh0BX4WRjx9UvmOmCN
-	 ub1/p8bjnQ3IkD66miydpzaNjZETyGo5cp5wzX3y1TNqegxQ78zBFrUpFtVvfIoQJgA==
+	t=1792490493;
+	b=2JAQGdMzhT2hVo7XhYQnW6e/BbnTaEmVreWjXkEsDEDkv8VdbjpvG/iDWUPpGv2QAoJu
+	 +hmAYnlJPDNk1K9TrZ2lAS446lAuNCr+galyg4YX6jwI34+ia7Tz8OROxDTMT/9nYxE7B
+	 QFh/CHyjxbY0XZmK3wnkrBFHQAZX2f9s80ek8sVAdsSXHsrR2Fet/ctMUvQ8eT90zBrTI
+	 rjA53N3JiewjZvspp/bxCpXmbKJNhB47WB756gsFFeaoVzHPHcS747eKXVp2gwILfEUre
+	 wWwVfoIU5ohw4Kq0pWoscd5Cy+LbCbYFmOlED13UUqHyur1X2a0A3ikdqSKTuibcBHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490358;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LqP9Pj+kaCX0R1bbmtuTNHU6ZBYpAzwwNRJ+ZmbN+5Y=;
-	b=T4Hmr/Pcp377cec+D+jakMrWub7AjLb5t1X6qYVMW0mESXKabhMhqedUKGrqy+VaHKoS
-	 leceS2BfL8DS+TnMmgU57m8H0z5M5yRf+mTNzFYvg2USo/SQsv6kRAFNgJ2ygLXwiDWv6
-	 ZEOrCBI2BBCL5q4hyrDXxGlroHXAQ4zIjyeGxzlyfhjNFgF5zLEhkx4Ovxs8Hf4mEXskQ
-	 +s9hm5sFhW+UMMNVOA99wrTHWdepHmGxgVCZuMYrC4rhDTCJjPpFJ+xNh1Uy3GOKqe1wX
-	 MfEYCG+6RpD0a4iYy42LpXk92v9eYOkV2tAFeX8I7GaGn6tZPI4KQHE3gjThQu2nXyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490493;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=iDwPNZXHP2ft0AeFTj8+hn8P00lcqADwZLzRkEGkySs=;
+	b=BvhpOPt1ebSVPIqdW1LBVTiZnodlJg82MuTkME8tKdCV4K0JWj9DpRo3oXmCP5aWSRgY
+	 kTpimp0tDxNsXfU140A/uB+ACxQ5oFyeNS6gSN6SndLje14+yZN7AefIY7+W1zTPWIIid
+	 vuEhFq8xylrCO7vxKwK6O8rF2ibfc4EbZHYS2O4o+eOxbQGTtqZrkZ7xQfMMd3cQLL07B
+	 YyqYX+eZAgDNuSHsTTjACGfEd+e2aQloR36JFyBduoP85OarniOXK93O/6Oj7rSHKqVlY
+	 SHZD+AVZrrIIQUPwBPLZdUR798+mlFX6ZAY5Ny0kXI9a2/7FkCtrUoCh+rZ54Janzkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Prvg1kul;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pq9hQLOW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D006606A31A;
-	Tue, 20 Oct 2026 09:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D006606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D552606A319;
+	Tue, 20 Oct 2026 10:01:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Prvg1kul
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792490358; x=1824026358;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=R1/2gsHs7MqMU0fNGwqMem4SmtGuhTwAKpMY92Fy4fQ=;
-  b=Prvg1kul/V95sCPSVQ4QfVlQDhyAA1gWl3qlavt94aiBtXxytYTkLSSn
-   kZnWPKEmKFkfVQs2RsOsdkp7Bn8X/NLKdCNvfmCjjXlvY9lOrGva7DF2h
-   n2A8fuH+MoweCW5BfFKPl2NYFf+RwGskVLl4RgTdQcuKSAAaTCf44GCEz
-   3JFEVawAoBdedA9wDcsoAmDAxgIcGqNLwax+GvB0i2ANydZwnigvvqTJr
-   RgG3993+jsOTkMmxr5uyDzAKS62ED++v2Ocqa3sVH8qlbHDSVnf1txn12
-   6sBIamqhjj06umQcOB2jOcP9RroJ+/b4rhq+oAmR7WpmuobFAprVSux1W
-   A==;
-X-CSE-ConnectionGUID: AyTSkc79T/2Qbi+RjtdosA==
-X-CSE-MsgGUID: 4p4Z6IB6Q8uiQsKO5NCl4g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1091253"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1091253"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:59:17 -0700
-X-CSE-ConnectionGUID: f3sA2Gz/RK2ZSF2MJg1IAQ==
-X-CSE-MsgGUID: a84GicMER8KpDFv1JWjI1g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="2670100"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 02:59:14 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id AD28C11F7E8;
-	Tue, 20 Oct 2026 12:59:11 +0300 (EEST)
-Date: Tue, 20 Oct 2026 12:59:11 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 06/16] media: sony-starvis2: Allow runtime control of
- link frequency
-Message-ID: <atc7b31V9uZ2kk4s@kekkonen.localdomain>
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-6-75fcdb4163f3@raspberrypi.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pq9hQLOW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6561F000C4;
+	Tue, 20 Oct 2026 10:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792490492;
+	bh=iDwPNZXHP2ft0AeFTj8+hn8P00lcqADwZLzRkEGkySs=;
+	h=From:To:Cc:Subject:Date;
+	b=Pq9hQLOWZ259lge3iauPDMSDeTMUwfmTj012JrRHR/uKmX0HzQJbT5cHELD3vF8C2
+	 bDpywxg6qBnd7zsylzNHxwijDDhDgKM9hj49qPUDsNh2n70XIWDj1arRzHKZ9V2ste
+	 d3a9DKNmVyZ/+F/0CmPe8Yc8KBxynCwE/7T5eX3nkilqp1fmt8bdWBAi5vj3ozpyT8
+	 ZnSLcsffFw229HLD0zqSrPPjAIGxMOOXt0Z+dLoFim68govthxWFgDEC58AmVQdBR5
+	 3KIbmRjghVfH+MGkvLfjj7QbbXF+PEMpKIpFNcJJLbIhLkUh/oikaa4oIrFSofR/7w
+	 zjnamrMGoG3Ew==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	linux-trace-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	Philipp Stanner <phasta@kernel.org>
+Subject: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+Date: Tue, 20 Oct 2026 12:00:31 +0200
+Message-ID: <20261020100034.759183-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,209 +86,75 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-media-starvis2-v4-6-75fcdb4163f3@raspberrypi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Dave,
+In our Rust code bases, I'm currently experiencing what we also
+experience in C at many places: that the dma_fence contract's RCU
+requirements make the API more fragile and put an unnecessary burden on
+the API user. Most notably, in C the API behaving correctly now depends
+on the API *user* waiting before free()s, waiting before unloads – all
+because dma_fence is not properly synchronized.
 
-On Thu, Oct 15, 2026 at 04:57:32PM +0100, Dave Stevenson wrote:
-> DT allows configuration of multiple link frequencies.
-> V4L2_CID_LINK_FREQ allows read write control.
-> 
-> Join these up so that link frequency can be configured at run time,
-> as long as the sensor isn't streaming.
-> 
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> ---
->  drivers/media/i2c/sony-starvis2.c | 75 ++++++++++++++++++++++++++++-----------
->  1 file changed, 55 insertions(+), 20 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-> index 0edb0b4dd25f..02199336010e 100644
-> --- a/drivers/media/i2c/sony-starvis2.c
-> +++ b/drivers/media/i2c/sony-starvis2.c
-> @@ -725,6 +725,7 @@ struct starvis2 {
->  	struct v4l2_ctrl *exposure;
->  	struct v4l2_ctrl *vblank;
->  	struct v4l2_ctrl *hblank;
-> +	struct v4l2_ctrl *link_freq;
->  
->  	/* Track VMAX for exposure updates */
->  	u32 vmax;
-> @@ -755,6 +756,7 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
->  	struct starvis2 *starvis2 = container_of_const(ctrl->handler, struct
->  						       starvis2, ctrl_handler);
->  	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
-> +	const struct starvis2_variant *variant = starvis2->variant;
->  	const struct v4l2_mbus_framefmt *format;
->  	struct v4l2_subdev_state *state;
->  	int ret = 0;
-> @@ -778,6 +780,25 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
->  			return ret;
->  	}
->  
-> +	if (ctrl->id == V4L2_CID_LINK_FREQ) {
-> +		u32 hmax = variant->hmax_min_link_freq[ctrl->val];
-> +		s32 hblank;
-> +
-> +		if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
-> +			hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
-> +
-> +		hblank = hmax * variant->pix_per_clk -
-> +					variant->active_area.width;
-> +
-> +		ret = __v4l2_ctrl_modify_range(starvis2->hblank,
-> +					       hblank,
-> +					       starvis2->hblank->maximum,
-> +					       starvis2->hblank->step,
-> +					       hblank);
+The patches commit messages give more details about where I want to go
+with this particular RFC.
 
-This fits on fewer lines.
+My rough "vision" for dma_fence, where I think it should develop to, can
+be described like this:
 
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	/*
->  	 * Only apply control values when device is powered on (RPM ACTIVE)
->  	 * and streaming (usage count != 0)
-> @@ -824,6 +845,12 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
->  		cci_write(starvis2->cci, STARVIS2_REG_WINMODEV, ctrl->val,
->  			  &ret);
->  		break;
-> +	case V4L2_CID_LINK_FREQ:
-> +		/* The STARVIS2_LINK_FREQ_ enums match up with the register */
-> +		cci_write(starvis2->cci, STARVIS2_REG_DATARATE_SEL, ctrl->val,
-> +			  &ret);
-> +		break;
-> +
->  	default:
->  		dev_warn(&client->dev,
->  			 "ctrl(id:0x%x,val:0x%x) is not handled\n",
-> @@ -938,9 +965,6 @@ static int starvis2_write_common(struct starvis2 *starvis2)
->  
->  	cci_write(starvis2->cci, STARVIS2_REG_INCK_SEL, starvis2->inck_sel_val,
->  		  &ret);
-> -	cci_write(starvis2->cci, STARVIS2_REG_DATARATE_SEL,
-> -		  __fls(starvis2->link_freq_bitmap),
-> -		  &ret);
->  	cci_write(starvis2->cci, STARVIS2_REG_LANEMODE, starvis2->lane_mode,
->  		  &ret);
->  
-> @@ -1018,6 +1042,7 @@ static int starvis2_enable_streams(struct v4l2_subdev *sd,
->  		goto err_rpm_put;
->  	}
->  
-> +	__v4l2_ctrl_grab(starvis2->link_freq, true);
+1. All users should use inline-lock.
+2. The fence-signaled state should be our decoupling point.
+3. The fence state must be consistently locked.
+4. This means all callbacks are only invoked for unsignaled fences, and
+   the fence cannot signal while a callback runs.
+5. All fence API functions should be "atomically correct": they can
+   always be called without any manual RCU guards in their proximity.
+6. The fence lock should, in the long-term, become inaccessible for
+   users.
 
-An extra newline would be nice here.
+Point №6 means that this:
 
->  	return 0;
->  
->  err_rpm_put:
-> @@ -1042,6 +1067,8 @@ static int starvis2_disable_streams(struct v4l2_subdev *sd,
->  	if (ret)
->  		dev_err(&client->dev, "%s failed to stop stream\n", __func__);
->  
-> +	__v4l2_ctrl_grab(starvis2->link_freq, false);
-> +
->  	pm_runtime_put(&client->dev);
->  
->  	return ret;
-> @@ -1208,7 +1235,6 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
->  	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
->  	const struct starvis2_variant *variant = starvis2->variant;
->  	struct v4l2_fwnode_device_properties props;
-> -	struct v4l2_ctrl *link_freq;
->  	s32 hblank, max_hblank, vblank, max_vblank;
->  	u32 hmax;
->  	int ret;
-> @@ -1224,25 +1250,26 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
->  
->  	starvis2->vmax = starvis2->variant->vmax_default;
->  
-> -	hmax = variant->hmax_min_link_freq[__fls(starvis2->link_freq_bitmap)];
-> -	if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
-> -		hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
-> -
->  	/* PIXEL_RATE is fixed and read-only */
->  	v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops, V4L2_CID_PIXEL_RATE,
->  			  starvis2->variant->pixel_rate,
->  			  starvis2->variant->pixel_rate, 1,
->  			  starvis2->variant->pixel_rate);
->  
-> -	/* LINK_FREQ is also read only */
-> -	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
-> -					   V4L2_CID_LINK_FREQ,
-> -					   ARRAY_SIZE(link_freqs) - 1,
-> -					   __ffs(starvis2->link_freq_bitmap),
-> -					   link_freqs);
-> -
-> -	if (link_freq)
-> -		link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> +	starvis2->link_freq =
-> +		v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
-> +				       V4L2_CID_LINK_FREQ,
-> +				       __fls(starvis2->link_freq_bitmap),
-> +				       __ffs(starvis2->link_freq_bitmap),
-> +				       link_freqs);
-> +	if (!starvis2->link_freq)
-> +		goto err_free_handler;
-> +
-> +	v4l2_ctrl_modify_range(starvis2->link_freq,
-> +			       __ffs(starvis2->link_freq_bitmap),
-> +			       __fls(starvis2->link_freq_bitmap),
-> +			       ~(starvis2->link_freq_bitmap),
+dma_fence_lock_irqsave(…);
+dma_fence_set_error(f, err);
+dma_fence_signal_locked(f);
+dma_fence_unlock_irqrestore(…);
+synchronize_rcu();
+kfree(driver_foo);
 
-No need for parentheses.
+should simply become this:
 
-> +			       __ffs(starvis2->link_freq_bitmap));
->  
->  	vblank = starvis2->vmax - starvis2->variant->active_area.height;
->  	max_vblank = STARVIS2_VMAX_MAX - starvis2->variant->active_area.height;
-> @@ -1250,6 +1277,10 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
->  					     V4L2_CID_VBLANK, vblank, max_vblank,
->  					     2, vblank);
->  
-> +	hmax = variant->hmax_min_link_freq[starvis2->link_freq->val];
-> +	if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
-> +		hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
-> +
->  	hblank = hmax * starvis2->variant->pix_per_clk -
->  					starvis2->variant->active_area.width;
->  	max_hblank = STARVIS2_HMAX_MAX * starvis2->variant->pix_per_clk -
-> @@ -1285,16 +1316,20 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
->  	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &starvis2_ctrl_ops, &props);
->  
->  	if (ctrl_hdlr->error) {
-> -		ret = ctrl_hdlr->error;
->  		dev_err(&client->dev, "%s control init failed (%d)\n",
->  			__func__, ret);
-> -		v4l2_ctrl_handler_free(ctrl_hdlr);
-> -		return ret;
-> +		goto err_free_handler;
->  	}
->  
->  	starvis2->sd.ctrl_handler = ctrl_hdlr;
->  
->  	return 0;
-> +
-> +err_free_handler:
-> +	ret = ctrl_hdlr->error;
-> +	v4l2_ctrl_handler_free(ctrl_hdlr);
-> +
-> +	return ret;
+dma_fence_signal(f, err);
+kfree(driver_foo);
 
-The error codes will be ctrl_hdlr->error here so you could omit assigning
-to ret. You're actually doing that twice above. :-)
+So we would end up with a simpler, more robust and more maintainable
+API.
 
->  }
->  
->  static int starvis2_check_hwcfg(struct device *dev, struct starvis2 *starvis2)
-> 
+I gave this basic testing on a Nouveau desktop and it runs fine.
+dma-buf-tests also run fine. I can do more tests on Xe and amdgpu, maybe
+on Mali, too.
+
+Since the series is mostly about locking the callbacks, all of which
+except for set_deadline() are *already* locked, I am confident that this
+can be done.
+
+Feedback welcome
+
+P.
+
+Philipp Stanner (3):
+  dma-fence: Remove RCU protection for fence->ops
+  dma-fence: use lock to protect against module-unload
+  dma-fence: Support unload for ops->get_XXX_name()
+
+ drivers/dma-buf/dma-fence.c                 | 144 +++++++-------------
+ drivers/dma-buf/sync_file.c                 |  29 ++--
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c |  16 +--
+ drivers/gpu/drm/i915/i915_request.c         |   9 +-
+ drivers/gpu/drm/i915/i915_sw_fence.c        |  15 +-
+ include/linux/dma-fence.h                   |  63 ++++-----
+ include/trace/events/dma_fence.h            |  12 +-
+ 7 files changed, 113 insertions(+), 175 deletions(-)
 
 -- 
-Regards,
+2.56.0
 
-Sakari Ailus
