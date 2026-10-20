@@ -1,50 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491981;
-	b=fAMMCbcR5+PlZ24IOkD8IzcEfk4ukvUiNvcbDGDD+SKFTb2jWB2s9LqFxRZkHr4lUICD
-	 kr/fgKuwjZqPflHb6zGDwDUZNC7RgEgEEFvZw9yaw7EWKF/TwKXYPp/CDpdop2Wn7r2as
-	 6X9ZoQA5GbdKsKuiSPo8qHtoBT31bGgm73X06jpJt0zyB9fhGE2rBF8E62Z0H87qYBpZD
-	 kDLarK1evkyCp0Q/VGbUGYIEe+Zk4oKblgvFG34C7iX2k6AOHTO7SINDnqfA6KgHsPyUt
-	 +/xYeE0EF0tW1zbhgLpxsRhJjUwp8RSAniZcDlpVD4H1Q679O+FD66PUb0YZLILl4Sg==
+	t=1792493245;
+	b=NtxKBT9B5svuWqQy8wR53xsrvu9GuMEx7Fq9S5hPcAYcOWA39jINquDLJAtj3GPnppa9
+	 8c0MBZG+/e+VkhHvfgts+RDN1vLHiE2zgJFvwOpIqVxDmN4jXLNGs4c1ihPQIS8BfuRTL
+	 v8uu0bcc81vFEFtMtP/2LKdijcw2tg68qhO7F7DtiFWdKEOgOMByYZmsNvdrqsMJp+OB7
+	 ZAYojK8+HGuf9P8fwYNaEenGcpQrFXpictGw0oTIidybmuOfsf6ngmAHmJFQJmrd94DB3
+	 bN6dc51uWrH8skmqizDBcsRlaUPpjalk7EFmdVmkYfduW4DnB+nXaUV/9m9ReAwSTfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491981;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=llOrQbjWBwChF/bms+1wpzziugp2meemnoJCfFS+62A=;
-	b=E+cSpWrLWNWuzexztt4JbJyrHN5rdv3+/c0HU/ji5M53tiE5NZTJad9t9X5uEf+xixTV
-	 Ag9/2gIFwWnQTBSj4y5YpmiPnKuc9qB3OeTt6UMiY3L/pv/5pqZxUsAm8bScClZi8vSp3
-	 6LiFLfulXW22PxLiME+IfW3bXPdXoCLTuHoNPd88xJ5QzfaOAOX6j+W0UpTKb7LbZBvqz
-	 OCMIFN1k+YaEJLUO/C6ivzJD0TM6Zs9CStG9iRwky2Z7wmNl/y6cb2TZzOLox/W6a3g2H
-	 TNlsbXHNzzgPSUhiHY2rB6bSErkiOaksYHCgsA5zF9yZ7FzuHkTLCbgtRXMCus9fX3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792493245;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=T6PCA4AXVWnGr3KDtpdwCDBebnMz6ofbTp9ca/ejWPE=;
+	b=lll4zLgo6cSViBuF5CzheFs5FC7/e0Ucx4QSXB90X9vJNF7MLjQ6oYdPJyI1jH78o9mD
+	 6U1PkrKdmZ6OjBLySg3eTGN4fRjSugkMFaKgT47K+Lp4b1ZxV3QHvxBZGWE1vWzTiT7Nk
+	 8/WUnG8kyiYUOyM0G3yG5LiBjnOEOL/F27L9C/EOAitYGSyTW9V2T08b92MBzFWn380n/
+	 2uq54MQXxmtIHX/q/JFPPRbawUQL72l2tVaoYEpuiW5k7X8YFJPND0Hs9LG5ALSEjxHFW
+	 Jjzkq3c8EkzM33HOFxcAws6hCfz2M2xg6obBE0rr9lBhzTjnKCVMJoGSSQ6X5+Hw8QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=quDRCSqN;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CDC606A31C;
-	Tue, 20 Oct 2026 10:26:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70CDC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=quDRCSqN
-Received: from [192.168.33.26] (185.221.141.235.nat.pool.zt.hu [185.221.141.235])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1301AC1;
-	Tue, 20 Oct 2026 12:24:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792491851;
-	bh=gwnotLY2CWbADHd3XCoiwAKtsuToKWBph9S5GuK8HhA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=quDRCSqNTfAl44e6dLS8J92oKjT6U0e4POPN9/BZPdhSqcauZEkzO1gmt2Y273gHD
-	 FC/o5pUkOihqge6Fd8PVVFC9fer6xw2xkx3Fvc/1EdGZELFkdq41CWcjfqzc6YwDjA
-	 cNV3TuZUZKbjjxMj2qCQFbTHIjawr/Tb2Ujh5mBA=
-Message-ID: <ab5c5b03-0957-4ba4-82a2-56204dd7266d@ideasonboard.com>
-Date: Tue, 20 Oct 2026 12:26:14 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F9E606A323;
+	Tue, 20 Oct 2026 10:47:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89F9E606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792493239; x=1824029239;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gUEShXSjQiSvijsLSsznVTUFecw+QGpAx88VySy7BmU=;
+  b=Q2H4wOkiYoFQgeJ76yKs6HDS0NpsSI6RBKupM4yZuySjh82jtzQPC+B2
+   TFMrhulmTSYHqTdl6WM2/4xEX6AQ1q4ap8upfE+MXoDjkivnuxscexqU1
+   w2rT61ef7GTt/55Yjc/S4Az6NhEPNikLR117SxjfkcuWJrFGw4RdFrCVF
+   XizESiwf6ev6pndv6mo1D0nSHnXTgDEXEac9pSvJ4CKWRlZMkmwvtcma3
+   htEW+BgUzCOKiq1QEkVpP8uaDkTLYQJ5jfm79FysQVlx8ba4fVz4gEfiA
+   VRtaQ8o5HmHewKVs98OGpOVJcLoHHnI1Ppr1LxXYxlHhdyV48B8mMw6N7
+   A==;
+X-CSE-ConnectionGUID: 6vApGq+dTNGHraElU325AQ==
+X-CSE-MsgGUID: xQ2i/eVRTtWtUpynPIwzGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1295641"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1295641"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:47:18 -0700
+X-CSE-ConnectionGUID: C0jt5v0ORH2kuEBI/tA1uQ==
+X-CSE-MsgGUID: pHHu8Q3ORiKNXvyiK3uGwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="4539917"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:47:15 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 05DF011F7E8;
+	Tue, 20 Oct 2026 13:47:12 +0300 (EEST)
+Date: Tue, 20 Oct 2026 13:47:11 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Lachlan Michael <lachlan.michael@sony.com>
+Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org,
+	laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+	Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
+Message-ID: <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+References: <20261019014720.2635-1-lachlan.michael@sony.com>
+ <20261019014720.2635-3-lachlan.michael@sony.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,59 +86,26 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] media: rcar-isp: ispcore: Look at number of planes
- when programming
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
- <niklas.soderlund+renesas@ragnatech.se>,
- Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
- Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?=
- <barnabas.pocze+renesas@ideasonboard.com>,
- Yusuke Goda <yusuke.goda.sx@renesas.com>,
- Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
- <20261019-v4l2-add-nv12-v1-3-4a84736803b6@ragnatech.se>
-From: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
-Content-Language: en-US, hu-HU
-In-Reply-To: <20261019-v4l2-add-nv12-v1-3-4a84736803b6@ragnatech.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261019014720.2635-3-lachlan.michael@sony.com>
 
-2026. 10. 19. 21:35 keltezéssel, Niklas Söderlund írta:
-> Instead of expanding a list of formats that uses two planes look at the
-> format information directly.
-> 
-> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> ---
->   drivers/media/platform/renesas/rcar-isp/core.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
-> index 3e135e84b75b..cb9d9033d0cf 100644
-> --- a/drivers/media/platform/renesas/rcar-isp/core.c
-> +++ b/drivers/media/platform/renesas/rcar-isp/core.c
-> @@ -126,8 +126,7 @@ static void risp_core_job_run_output(struct rcar_isp_core *core,
->   		mem = vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
->   		risp_core_write(core, reg, mem);
->   
-> -		/* Only NV16 uses 2 planes. */
-> -		if (fmt->fmt.pix_mp.pixelformat != V4L2_PIX_FMT_NV16M)
-> +		if (fmt->fmt.pix_mp.num_planes != 2)
->   			continue;
+Hi Michael,
 
-Looks reasonable to me. Maybe `< 2` would be more future proof?
+Thanks for the update.
 
-Reviewed-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
+> The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+> output interface. The driver supports RAW10 and RAW12 output formats,
+> exposure and analogue gain controls, image flipping, blanking controls
+> and test pattern generation.
 
+The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
+2, for which Dave (Cc'd) is working on a driver (see
+<URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
+The register defines in the two drivers appear to be quite well aligned.
 
->   
->   		reg = ISPCORE_DMA_IMAGE_FRAME_BASE_ADDRESS_COMP1(0, frame);
-> 
+-- 
+Kind regards,
 
+Sakari Ailus
