@@ -1,83 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792480510;
-	b=eXV4BYAMLzCFxwG5LGCmP12rIN0ithCpIVs3jwF899OwVzL09WOOl5x3jsl1WTFlOP31
-	 cDkUwRQ1qZOLZ+k3ZAFyN3p7IATZGmRAxD3lfDJmS8bgVbJ56BjtC6ihrhlrowN3Gj1rb
-	 jRIJOor2bbkUIOsjav7wsvsidhuf712py9NdsUvSZC73N49MQdLF7UO0AgNhySu/HC+Ip
-	 0+sO6qady5watugtkL+AFlNR4FQ2UywiVU6+hrw5qpgCKSa38auoJ2eKzTyQVVi6C7L7k
-	 ACi9m6iH8GuJqy0y0HCZJDWJYw3G7KGH1+UPt1kbQtjIB+kZfTlvno9fA9pPuUuOL+A==
+	t=1792484133;
+	b=ij3FglskmqZT3QraofD1qxlNqPM7EfC65F19vnhfImnYrCC/ieGmUnUE54NtSX0+o3/X
+	 Un/N3KC4NZzNKM5GyCrafHMjouaa+qDC0pxTUOVii6q8+g8aE20i8Tl3CucEsRaVlIZIF
+	 65XI32ZmXAeAWUf8ymD+7F+HFukIB+44W0RxFoyLnkIMT+ZORJwc2OHKobAlly6wLEnSX
+	 ToQpU+2EPmZCqi9/u+slBRIdn+VOUhN0CLX6pkKDwwlNCFYe5uzViIuLNO7heR7dacWpT
+	 A58D4MWicTKtYdz/RKiYEIKxJi/jZq9D1vzF5lXqxYYfKpdmwYmxE63BylFS6Ziztow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792480510;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=8qJ+236X35WWHedIHQYsh13JEKsfxvWm1C4JdQxQx1U=;
-	b=LnV/vyWVOFPRB8uEHoMxBwBqQau0sCLLR4kSR4QORxs0yHel1z8E5DJbBFCty9e3ow63
-	 KzIkw8BaX3nySJeAc36x1XJ6aIQ8f5Vk+dj+C5ANFre1LgwIpg0bx0D7ob+h+fR2LiZs5
-	 KZ4ELtlNHgDmaXQ2SC73JumuRnK4/njykgvfb9/VCar109a+jUP6cJCX+jw6RpNeQ8KcW
-	 T/IBX8+M+tE9kCW5VAZKqjmI2m9l9bHVgT9OUDL3HpUAk+ujlu2/aHVHwuEUMEnVJHtgT
-	 3jCb26rYZMmTVpLtRf6HnaTE443nc6/kdNMvGRp0tVdHIqEdKgLVuCsEycx/Di+HO9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792484133;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KuwnGMggvhrzairG/sadLK4QY5/3MIRfljnkSIyXCbE=;
+	b=ZdyFEmYED/ZpCH+9h9elDOPzhk3zCwuubcxWrKsCzgftxIl12IQ2Puk8NBXEnovkl2Nt
+	 075Gz3gmRrwu4pQD78uTbKiv5++QbKA//owfJ9SuNo5FYPXl9ZCMrOTTu/IkbNBYJLQV4
+	 xOb0X0CzUZWNIT7pv0zsv65Inyvn1jy9Ra7K3YuxS9vpVgRWy+lwVPdenQaZOyjOQgLel
+	 +14aRxFF74xst+K+YLhDkBpiZEOBZL5F3pyZIze6X/IPB+n6/UwP+r2/Ra5crINLNQNPp
+	 21bb9/A1AlXLX2KOM2oMp2mcxLbZMZUKDy45IQTbJISisS2YWt20CkTrq8xeqpFV8tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Z1CUrt7q;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzatWPQB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875D0606A320;
-	Tue, 20 Oct 2026 07:15:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875D0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EC6606A319;
+	Tue, 20 Oct 2026 08:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Z1CUrt7q
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j83Zq1xB7zMlTn;
-	Tue, 20 Oct 2026 09:14:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792480499; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8qJ+236X35WWHedIHQYsh13JEKsfxvWm1C4JdQxQx1U=;
-	b=Z1CUrt7q7MwvZ8dUbjjJzSwLqgG0+MMdavDVSHGKCKLvOh5GUmMfZlyDzmSqV0wOoagcoG
-	PZ7dNAeE4UyjEWI5TeT8dNAJ8vac4qiHjmFqyHPQ6+B7U3ixLrqSfB7lgolXGBuBHdH5in
-	8cxsxKpi04ouY1bGxNt/BMKIH8EMtGSyhPg+9qlPPFGlV/at7u0IdGU4labAE2CynqjFZb
-	zqAD+Ez7JQFT0u8RRGgpTDNqB/5HRVX0BBynqO9Eiiu04EifRF56PTzzdXGJkgQyt8jMgG
-	kyseEMOvFLEYgMmSm/Vf8mfV4p2sWl3i1OuG6wWLudj71D/mM73EEt6BVfCfQQ==
-Message-ID: <d54ba24b0a4748b5c00052d4542460ea014aa50d.camel@mailbox.org>
-Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: =?ISO-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter	 <simona@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>, Philipp Stanner
- <phasta@kernel.org>, Danilo Krummrich	 <dakr@kernel.org>, Sean Paul
- <seanpaul@chromium.org>, Gustavo Padovan	 <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, Peter Griffin	
- <peter.griffin@linaro.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Juan
- Yescas <jyescas@google.com>, kernel-team@android.com, Simona Vetter
- <simona.vetter@ffwll.ch>, 	stable@vger.kernel.org
-Date: Tue, 20 Oct 2026 09:14:52 +0200
-In-Reply-To: <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
-	 <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzatWPQB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56C6C1F000C4;
+	Tue, 20 Oct 2026 08:15:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792484133;
+	bh=KuwnGMggvhrzairG/sadLK4QY5/3MIRfljnkSIyXCbE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NzatWPQB0yvHb7G8/kX9EDS/Afh6HMX8Snpt5ywZ/BFj4N1QFDdOBJpNRYMhEU1W8
+	 cfeS00fXzqxZTa9w5ge1LqAp+5Bpt211CXlNUXJH24IM1+24acDOKP1rtxrpb1UnCC
+	 AVisGEbWEMB/AHmbArJYQ3p0L2FHEElwhdTDN4SNQfspKTFQQIIziAxDsHxdOkY1Kz
+	 Dfti89xjqMGQk0TDU8UQsdFMT7o429u3LIgt12ZQF/Mh+F0MfV49/KC4SWzF59fr+Q
+	 kIuMpQQfhpBXau58vrt5iMNfnNr/wsV8RpHqK+m9jUZSTxhm+ZhEMuN0aguH/ZndaV
+	 WMAU9RHGibEuA==
+Date: Tue, 20 Oct 2026 10:15:30 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Joonwoo Park <joonwoop@codeaurora.org>, Imran Khan <kimran@codeaurora.org>, 
+	Rajendra Nayak <quic_rjendra@quicinc.com>, Jeffrey Hugo <jeffrey.l.hugo@gmail.com>, 
+	Maxime Ripard <mripard@kernel.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Bryan O'Donoghue <bod@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Ilia Lin <ilialin@codeaurora.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Yassine Oudjana <y.oudjana@protonmail.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 08/10] dt-bindings: clock: qcom,msm8996-apcc: add the
+ MSM8996 Pro compatible
+Message-ID: <20261020-wise-crab-of-music-225b6b@quoll>
+References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
+ <20261019-msm8998-fix-clocks-v1-8-370949e4d8a0@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -87,80 +69,23 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 4b68047e6459096626d
-X-MBO-RS-META: naagxkni7kndisi999ybz1cz134p1967
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019-msm8998-fix-clocks-v1-8-370949e4d8a0@oss.qualcomm.com>
 
-On Tue, 2026-07-21 at 09:21 +0100, Andr=C3=A9 Draszik wrote:
->=20
-
-[=E2=80=A6]
-
->=20
->=20
+On Mon, Oct 19, 2026 at 04:41:07PM +0300, Dmitry Baryshkov wrote:
+> The MSM8996 Pro CPU clock controller needs a setting the MSM8996 one
+> does not, but the binding offers no way to tell the two apart.
+> 
+> Add a compatible for MSM8996 Pro, falling back to the MSM8996 one.
+> 
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 > ---
-> v3:
-> - Philipp: update kerneldoc, add Fixes:
->=20
-> v2: new patch
-> ---
-> =C2=A0drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
-> =C2=A01 file changed, 12 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> index 63ead8ba6756..e8e80c936852 100644
-> --- a/drivers/gpu/drm/drm_crtc.c
-> +++ b/drivers/gpu/drm/drm_crtc.c
-> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
-> =C2=A0 * drm_crtc_cleanup - Clean up the core crtc usage
-> =C2=A0 * @crtc: CRTC to cleanup
-> =C2=A0 *
-> - * This function cleans up @crtc and removes it from the DRM mode settin=
-g
-> - * core. Note that the function does *not* free the crtc structure itsel=
-f,
-> - * this is the responsibility of the caller.
-> + * This function cleans up @crtc and removes it from the DRM mode settin=
-g core,
-> + * after first waiting an RCU grace period to ensure @crtc->dev can safe=
-ly be
-> + * dereferenced by our dma_fence_ops.
-> + *
-> + * Note that the function does *not* free the crtc structure itself, thi=
-s is the
-> + * responsibility of the caller.
-> =C2=A0 */
-> =C2=A0void drm_crtc_cleanup(struct drm_crtc *crtc)
-> =C2=A0{
-> =C2=A0	struct drm_device *dev =3D crtc->dev;
-> =C2=A0
-> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
-> +	 * the fence is signaled. This is necessary because our dma_fence_ops
-> +	 * dereference crtc->dev.
-> +	 */
-> +	synchronize_rcu();
-> +
-> =C2=A0	/* Note that the crtc_list is considered to be static; should we
-> =C2=A0	 * remove the drm_crtc at runtime we would have to decrement all
-> =C2=A0	 * the indices on the drm_crtc after us in the crtc_list.
+>  Documentation/devicetree/bindings/clock/qcom,msm8996-apcc.yaml | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Seems we forgot [1] this patch. Sorry about that.
+Best regards,
+Krzysztof
 
-This fix also looks fine to me (for now) since it's what the dma_fence
-contract currently demands.
-
-I'm a bit nervous about a synchronize_rcu() being in every cleanup
-path, but I suspect it's the most reasonable thing to do now.
-
-Let's wait a day or two to see if anyone has fundamental objections.
-Could someone with some CRTC knowledge give it an R-b? Otherwise I'd
-push it this week.
-
-
-Regards,
-Philipp
-
-
-[1]=C2=A0https://lore.kernel.org/dri-devel/73fc12734386c9bebc9cf6d3cea4c5f8=
-e125255e.camel@mailbox.org/T/#thttps://lore.kernel.org/dri-devel/73fc127343=
-86c9bebc9cf6d3cea4c5f8e125255e.camel@mailbox.org/T/#t
