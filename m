@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792468414;
-	b=bYDGF8TmqUigDjDJzna3dfa1shSpckha4OvzZ1udYPmw5KDznBU3CTcw2P2Sa5REeUDW
-	 kRx/KWEXlKAOt4la4hdb4sWl91PJ432ETWSgyUTbtFi9hlPCmo06bxaiACS60gvmXVg0N
-	 5OkmhjdAch7jXqbqmDP9YDq9B4EIAvf/ksm0elFadnl9F4qJR28cPlEsF1E67cqXyffVO
-	 LDhmyYLEM08oIBRxOZoMgsG0vMh9CwEosv39Bfnpk9N3f1AiLpZQpSluu6NVKKIHNUdX0
-	 LNIcPgeSYnhQljdiXId3SAH6UsyX7ZuyqlUKP54CMsXdiQfEN+EUjWipBvooqTe5Obw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792468414;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-	b=3/3s/ft72njkPFAxZBbl1LzBcenEC9bE0nJI+H787GDDHKCStJN6tMWjO6ZUBBAE09/m
-	 IwJ85SqnnA21m8IQQz981njz6rWqhz2+aNGDVELss+UyJZR6UJB+62VPqdq74KpaVZdQ/
-	 7eWPrRpiDqPUuKm7lZLYbhQ37OtHtpRu+huW5suji1DtJurZbOJYC/NH1Mc1KnM+4cv6h
-	 iCt59zZxSpYlG3V4gE+u+lTcofwJ15fq3B6vsbMkAaQPPDSyYv5H3e3CuaMzo6WcBzgd9
-	 znefq2VMpPArpGbR24EvpfCBQSwe1pQdJW9pthbICmE5KFUF20teOQhB9lUgbjDl8/Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="E/1d89xz";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792475670;
+	b=W9yXFG/bfUD7oHy2odtnVJZfvtSEG/wTsS6N9mL9vRCtmwFMBhP4zgvkBMnQKtPt6cbc
+	 OKfFgjH9ni2zjsvelnR1yMT+2akvziKDSoiQIFBA4q5CaFTe3HoIlWhsxztAvTIkdn3gl
+	 K+yJ9bh0WNRWo8dgQnzgwGwO3FevA+hlCrTRorCpg58FsJSuhNa4ZRIGTQLW969rmRIOu
+	 MMUJXldcOkAdMqMNkEIsUDeqaldcxBuJLgPQI4X8ReDZvVQCSr5IeVHlsU0NF9MrPcuvo
+	 1jsD+7jdNFfwdXFM0Uf7vSlNeN5tEsK6B+FpSLAaDND+tZVEIqxi2Jwf4xjFDH3Kbag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792475670;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
+	b=r2CRhFtmIeTLO7KoKOYAyNlUuKZRtO9EyayPmXpJUgNRKPX3S1mZAMs5jzL6f8v6uXgG
+	 AtJTiRasqBtpU/zmm9DTVyOXV4vfdKYwuvb7nGWrGWM/1KQ92YQ7+2qBDuCbzFFO00ORE
+	 t0u4QTds7flK+0HVbBZ7OtWY7If1F82q4lhxEXcNTBdcpknn8J8HLTzS42bmVUPsC/z95
+	 w49gfheqE2X9g1FHPupnT/IXrrzTuyzyUSMGu4yxks3dvClNs9u8Myu5TfEglw5TYv13c
+	 vGVk/LniY1UtP5ybyMPYtNJjWp7TT8/1wcIDENsIe5fOCNIh11sjPGSYnnwa6botckQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/+YHFjX";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3C9606A31C
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 03:53:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D3C9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5000606A321;
+	Tue, 20 Oct 2026 05:54:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E/1d89xz
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eaa5e03c47so237245e0c.0
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 20:53:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792468413; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W5zKCu5vgFlmthsgw2ES94lRhskoBNsTeNKtqi4l7pu0mx+ah2/wUpvoz0d5uDW4bt
-         kJERn68oYSexMxFEzG+kBDC+AAe0yM/bTZ3EEycnVcRQaYcbZI9dq0RGnAIS8DGUkAi+
-         uNEDnIWB45SOX0L2NIYR09MKZv8R3DWB0B4Cz+JkXF03g4RGyY30f9SL+x1oUKWJiIR1
-         nz+hferSTIZRpAYMgGxre5kLN5ZRj9YBFEPivZH+TYeZuEvjmOaBW3ZtpW0WestRrB5H
-         Q/lBcZQHb8PQ6xmgGfl87+2cphJ7tYKH0YGQzFVo5Ef5GtBS6gShkv/cccLP+DwaEDD/
-         l3Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:references:in-reply-to
-         :mime-version:dkim-signature;
-        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-        fh=39AgcrAumY7Rl1FFydTrSDQMt+GzL6FT7xgyVx/Wlos=;
-        b=B0iTpYGEVTZZ4Ejg6EhwyjqYjXZxtcnpCyxKQEX64NcGp4NrvpEMO87zvpjWIdLOVj
-         DQYBEzRQPzdqjhM0ISLePs8Vc6r7hXHvF2bwFRBhE700PeqOFkPLLKVJm5keYEVARQgm
-         gK7pcKq4IscMPfbR6PE7ygCnaTcBVDMY8d/+ljLKe0XDk6FEVv7hODxMgjCaYhgvfWnT
-         pSIag2LTdoaKR3INBuWKtqj5/FfSP8ah+7P8bOpxckHDsZavC8VFSpN3UPgiGIPGW/pE
-         JPL5nSc8NDhwHbcTEsAGm2XtNwRL0946XDXvZyE7xNkoSEgXKpDfwyNALNH0BEf3X8MP
-         xlIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792468413; x=1793073213; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-        b=E/1d89xzJd3uN6v8JmRj0qc1lnhhREM+ULZHcPaOOMv6guII5/oSZCYJ4nLHNRI8I7
-         GNSQB1akrERgKLxg9Lj8dsWGPizgqaWAQ+ClxdZKJ/Q/qk9FLaimQXifDqypOtleo5OE
-         X3+6WDdOVOZ/MtTaTgUvNS1iS87Yp7H1tWIN2pGduCTt0Zdvrd7E57QNBEtrXrouW+do
-         STmVpeWqtzdMCO6QjTVRdgszrMyE9oLvw6gXQcQE4hmJzMOPJ14khsagqj6iKZnCQUnz
-         1NwMQiwJZBVr3tNFp7pkmeUJWr2v7MWzwibVnNvXmPIJIpVyP3HG4jqm4UIN99TnXA1T
-         Boqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792468413; x=1793073213;
-        h=content-type:cc:to:subject:message-id:date:from:references
-         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
-        b=cMb1Ap00MDN6B2rh5uH1hMx7UR+3BUfWeQFvRMeBiwAtIiIRDVCQsoF7+AwSn+/22r
-         70r+TVGBYtak6W6oNo475X9V0iBhtLKngGlugHNDF9w4OfNbVeQRbwylQQ2ubQFa61ci
-         TEhacrdhzPXgKQO5F3VOONbYGjkXzwxjPVwsMHQIK7yMbA0QvIerI137Hi/1gb4SyPPY
-         SNd1l8wvKST1enYimGmaycGixBS1dM2hpF3OWLMIg7lsTEQB8nYE63H/ElA0eFE5PqSf
-         Jnzn//iOpLCUiFg6A7mQk1w3UOPhK4RyuBpmILLqG7nVQwQhG+n3DOfgjDX2fUheKkCX
-         8+Lg==
-X-Forwarded-Encrypted: i=1; AKwUvBwcoxWYhl1xXZ5BBsN/7JD83sk+FXW+6sTYIiJ5PCUPkh7NyHgPBfyJbYTwKKOEgVA7vcsLBMbjStWzFg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLjFjvlNCFmK+hNdINE87TgwODj6ksFiXgZAfbkHFL+pA0R5VHt
-	Q6Bhdey9RTcHQpu5ODRO57fIJzlLx83j/w67fuochq/rzUmxKs38d9V9klLZmLlrAr+1Ve1+SSS
-	/tXupYqxDky0fvJd7JbTUDxKGbc+Nmo/BSJA5s+k=
-X-Gm-Gg: AYBFou0pCwSsI2KqvFLZlcwm2O0kQ6mf6dU9I1AvZXvcHzyqzUItT8/u6UsfRM4v+ZP
-	phnYlibXlbumM8zrDROZx307bavIYsIft9kcE+WsdUnPrgo5xW7EpIs+yPCck/ep4xELs/S+/uG
-	CTFC8rhQNqRXI+nI9CdCqEZeDLYpt90vcxi7II5FNGAMYegrA4ifh4/UQsJefG7+K5eqNcGTyWx
-	t/13U8YuhjdekIiZHXDiIBjK56BGAT47nalL6RA1jOIZxai2znmBLyOE0Lk9GLdVmVHuBCK6bJ3
-	9ByQr9mlc/2XCAQGkeEA/cZm7SJQ/xmrJg8RkCouzoU/mOjpSZhJP0xTdAaDef8V8vKZ
-X-Received: by 2002:a05:6102:8645:10b0:7a9:e680:efd5 with SMTP id
- ada2fe7eead31-7cc7bca6de0mr171865137.28.1792468412768; Mon, 19 Oct 2026
- 20:53:32 -0700 (PDT)
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 19 Oct 2026 20:53:32 -0700
-Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
- Mon, 19 Oct 2026 22:45:49 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/+YHFjX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085391F000C4;
+	Tue, 20 Oct 2026 05:54:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792475669;
+	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=a/+YHFjXG40L8kkNWKto7PFCZO4Rp480swjoQiImPCSYz7QYjeb+lVIr+WCamDyxU
+	 RhPqNe3oXL3Xu+HS1SnQkBMrYWhgKMI6Kdw58svhS1wdU42x2SswL7MZBEMpTme4SU
+	 l1EcflHlTkRsUWTwI1xD3OsS5gz7WKYK6AdjaNsuEPoAcWMhclSF90UlgKPsf/rcfB
+	 5l1+EIS7eJ8C4UNBK/3OIjK4IYD6fMbKMQzcdtyga3tuqtakkAr0Slj7X+5fKOTUWu
+	 DkYftZMqnsVu35ntkiQ6S45kpl4/IvFc1D63hP66DFFMZz4fTDgYiMKmZzqNqG4Tzc
+	 hEu+m/bkJThqw==
+Message-ID: <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
+Date: Tue, 20 Oct 2026 07:54:22 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,98 +51,92 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
-References: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
- <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
-From: Iron Berrington <berringtoni36@gmail.com>
-Date: Mon, 19 Oct 2026 20:53:32 -0700
-X-Gm-Features: AclHuK9XNMAuACY9V_8Ap8NkrnCzm4l0f59JyBZIo7KA_7HpUs6PKGbdATumTtQ
-Message-ID: <CAF2O-sNE3bKxuZrYvkBJ=-4sgSrPanzbKfcHJ0kVgFqwn0G9Sg@mail.gmail.com>
-Subject: Re: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax
- in s_ctrl
-To: Michael Riesch <michael.riesch@collabora.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
+ schema
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
+ vkoul@kernel.org, kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
+ vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
+ <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
+ <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
+ <20261019-funky-real-skunk-eda6dc@quoll>
+ <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Michael, hi Dave,
+On 19/10/2026 09:25, Nihal Kumar Gupta wrote:
+> 
+> 
+> On 19-10-2026 12:43, Krzysztof Kozlowski wrote:
+>>> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
+>>>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
+>> I don't understand what is supposed to be aligned here. The code is
+>> correct.
+> Right, the DTS change is correct.
+> 
+> My comment was about the binding example using a different address/size cell
+> layout from the real DTS. 
+> 
+> Krzysztof, should the binding example mirror the SoC bus address/size cell
 
-Thank you both for reviewing the patch and for the Reviewed-by tags.
+Why are you suggesting in review something which maintainers never
+suggested? Or actually opposite to what some maintainers were suggesting
+before. Code has correct example.
 
 Best regards,
-Wenqiang
-
-
-On Mon, 19 Oct 2026 22:04:36 +0200, Michael Riesch
-<michael.riesch@collabora.com> wrote:
-> Hi Wenqiang,
->
-> Thanks for the patch!
->
-> On 10/18/26 14:54, Wenqiang Zhao via B4 Relay wrote:
-> > From: Wenqiang Zhao <berringtoni36@gmail.com>
-> >
-> > When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
-> > (format->height + ctrl->val) to the IMX415_VMAX register, and then falls
-> > through to case V4L2_CID_EXPOSURE to update the electronic shutter register
-> > (IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
-> > rate changes.
-> >
-> > However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
-> >     vmax = format->height + sensor->vblank->cur.val;
-> >
-> > Within the V4L2 control framework, sensor->vblank->cur.val holds the
-> > committed old vertical blanking value, which is not updated to the new
-> > value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
-> > is calculated from the stale vblank value:
-> > - If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
-> >   the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
-> > - If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
-> >   the actual hardware exposure to drop by the blanking delta.
-> > - Additionally, ctrl->val is clamped against the stale vmax limit.
-> >
-> > Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
-> > which holds the target vertical blanking value currently being applied.
-> > When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
-> > current vblank, keeping behavior unchanged.
-> >
-> > Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
->
-> LGTM!
->
-> Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
->
-> Best regards,
-> Michael
->
-> > ---
-> >  drivers/media/i2c/imx415.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-> > index c3b22b238..e5aa741fc 100644
-> > --- a/drivers/media/i2c/imx415.c
-> > +++ b/drivers/media/i2c/imx415.c
-> > @@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
-> >  		fallthrough;
-> >  	case V4L2_CID_EXPOSURE:
-> >  		/* clamp the exposure value to VMAX. */
-> > -		vmax = format->height + sensor->vblank->cur.val;
-> > +		vmax = format->height + sensor->vblank->val;
-> >  		ctrl->val = min_t(int, ctrl->val, vmax);
-> >  		ret = cci_write(sensor->regmap, IMX415_SHR0,
-> >  				vmax - ctrl->val, NULL);
-> >
-> > ---
-> > base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-> > change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
-> >
-> > Best regards,
-> > --
-> > Wenqiang Zhao <berringtoni36@gmail.com>
-> >
-> >
+Krzysztof
