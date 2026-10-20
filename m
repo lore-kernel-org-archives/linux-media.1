@@ -1,101 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792466700;
-	b=ppuxWVfweKjR5peHIR/yVqr/aGbLLvIu9eDLrY860xDLwjOSrk+9D3p6GWD/MCsOeNK0
-	 DoGh+Bf6u6GiUlABkzVY9692jM0eUTYcfSG3a1uuMZuUtHSy07fza1ylPinCJuXtJQDWJ
-	 2pfuH2ySClYiT0TlTwYRXDQxBL5HW30UGakWtnEG8zg0javE3N2PgzE4dDZFW0rH6tRRg
-	 MLZhW1PRXLa1wwgFMUtb8HZ+iblj9x5hbpSm/PvOfWvbIwqaN1sFw5y3sO7OSjUp9yDEf
-	 PzmayhTGQ76qO+k2aGU5UfGnWuc0o7qCbEAv2wNE4cMzu6Kuf/7QqfS8gvucr+78RnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792466700;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792468414;
+	b=bYDGF8TmqUigDjDJzna3dfa1shSpckha4OvzZ1udYPmw5KDznBU3CTcw2P2Sa5REeUDW
+	 kRx/KWEXlKAOt4la4hdb4sWl91PJ432ETWSgyUTbtFi9hlPCmo06bxaiACS60gvmXVg0N
+	 5OkmhjdAch7jXqbqmDP9YDq9B4EIAvf/ksm0elFadnl9F4qJR28cPlEsF1E67cqXyffVO
+	 LDhmyYLEM08oIBRxOZoMgsG0vMh9CwEosv39Bfnpk9N3f1AiLpZQpSluu6NVKKIHNUdX0
+	 LNIcPgeSYnhQljdiXId3SAH6UsyX7ZuyqlUKP54CMsXdiQfEN+EUjWipBvooqTe5Obw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792468414;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
-	b=tguNeuLaDkwJC9D4mAjNzXWr38CHwRj15zuULul8ALp5mmowMkMSH9abmlsf/povbssr
-	 SEzbnKmhoVY8EWCrU8hWPx01SWu68BVf8LJult9WIpWwsn9zGMWsAtrpFeIpNpuGvCIXl
-	 SKRW2IAmD4o8xvRU3rIo83+wg0B3/crVhLe4TMMknoPSDtdRmvThPRLGhEEMDdrGBUlUJ
-	 Ftue1UZw+d8E9icdaDuMOBSOqgz7R6KVaXBtUpGSkGSHMoDuSpEHvdD+LlrUFjrYbkwvu
-	 /TgT6G4vVvJViTvtwBeTn+ASbuTPnySOG4rOhwFMcIz1ww6ugvcVgShQOz3E0C4VXSg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 Received:MIME-Version:In-Reply-To:References:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+	b=3/3s/ft72njkPFAxZBbl1LzBcenEC9bE0nJI+H787GDDHKCStJN6tMWjO6ZUBBAE09/m
+	 IwJ85SqnnA21m8IQQz981njz6rWqhz2+aNGDVELss+UyJZR6UJB+62VPqdq74KpaVZdQ/
+	 7eWPrRpiDqPUuKm7lZLYbhQ37OtHtpRu+huW5suji1DtJurZbOJYC/NH1Mc1KnM+4cv6h
+	 iCt59zZxSpYlG3V4gE+u+lTcofwJ15fq3B6vsbMkAaQPPDSyYv5H3e3CuaMzo6WcBzgd9
+	 znefq2VMpPArpGbR24EvpfCBQSwe1pQdJW9pthbICmE5KFUF20teOQhB9lUgbjDl8/Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3egZBHG;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="E/1d89xz";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.174
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4DB606A319
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 03:24:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4DB606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3C9606A31C
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 03:53:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D3C9606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3egZBHG
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4649b35bso2214899f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 20:24:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E/1d89xz
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eaa5e03c47so237245e0c.0
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 20:53:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792468413; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W5zKCu5vgFlmthsgw2ES94lRhskoBNsTeNKtqi4l7pu0mx+ah2/wUpvoz0d5uDW4bt
+         kJERn68oYSexMxFEzG+kBDC+AAe0yM/bTZ3EEycnVcRQaYcbZI9dq0RGnAIS8DGUkAi+
+         uNEDnIWB45SOX0L2NIYR09MKZv8R3DWB0B4Cz+JkXF03g4RGyY30f9SL+x1oUKWJiIR1
+         nz+hferSTIZRpAYMgGxre5kLN5ZRj9YBFEPivZH+TYeZuEvjmOaBW3ZtpW0WestRrB5H
+         Q/lBcZQHb8PQ6xmgGfl87+2cphJ7tYKH0YGQzFVo5Ef5GtBS6gShkv/cccLP+DwaEDD/
+         l3Sg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:references:in-reply-to
+         :mime-version:dkim-signature;
+        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+        fh=39AgcrAumY7Rl1FFydTrSDQMt+GzL6FT7xgyVx/Wlos=;
+        b=B0iTpYGEVTZZ4Ejg6EhwyjqYjXZxtcnpCyxKQEX64NcGp4NrvpEMO87zvpjWIdLOVj
+         DQYBEzRQPzdqjhM0ISLePs8Vc6r7hXHvF2bwFRBhE700PeqOFkPLLKVJm5keYEVARQgm
+         gK7pcKq4IscMPfbR6PE7ygCnaTcBVDMY8d/+ljLKe0XDk6FEVv7hODxMgjCaYhgvfWnT
+         pSIag2LTdoaKR3INBuWKtqj5/FfSP8ah+7P8bOpxckHDsZavC8VFSpN3UPgiGIPGW/pE
+         JPL5nSc8NDhwHbcTEsAGm2XtNwRL0946XDXvZyE7xNkoSEgXKpDfwyNALNH0BEf3X8MP
+         xlIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792466698; x=1793071498; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
-        b=F3egZBHGyKGcGtkxm3U6zaGanki/60Qc3WhiyxEdrpwmWrrwAcYRSpzt1pRF7vLuDw
-         4vV6Xv2nvDCWFqc6KUc2Pb8Y64s5xImsWc1w+6gMW07HQ9InvKVCl3QtQOr1Mplr8jbq
-         OPxlwL6sjWYyoc18sDOXhTlwiE33ICGAcnQXJs42QnaI/uJqCmq1WpIJJe8xUL9ltqF+
-         d2oazE0zkTBYUrrgD9hWSwyU5bbCcesGZPsuiUeSJWswrvwJCclskoslYO/AT79yOTJl
-         y675Cd2gqmZlHnQBJzjXrAAXNBCt8NcxOGD9bZSPbpdAefoNPfRRV9aJMGfFWS0jOHZk
-         ivQg==
+        d=gmail.com; s=20251104; t=1792468413; x=1793073213; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+        b=E/1d89xzJd3uN6v8JmRj0qc1lnhhREM+ULZHcPaOOMv6guII5/oSZCYJ4nLHNRI8I7
+         GNSQB1akrERgKLxg9Lj8dsWGPizgqaWAQ+ClxdZKJ/Q/qk9FLaimQXifDqypOtleo5OE
+         X3+6WDdOVOZ/MtTaTgUvNS1iS87Yp7H1tWIN2pGduCTt0Zdvrd7E57QNBEtrXrouW+do
+         STmVpeWqtzdMCO6QjTVRdgszrMyE9oLvw6gXQcQE4hmJzMOPJ14khsagqj6iKZnCQUnz
+         1NwMQiwJZBVr3tNFp7pkmeUJWr2v7MWzwibVnNvXmPIJIpVyP3HG4jqm4UIN99TnXA1T
+         Boqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792466698; x=1793071498;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
-        b=nizWPIMWqrg53Vj7sGYBoXHgvHBXogApwSE3gxUwRlZ3w9LgB/YsHuD4hfc0UOETJw
-         oFDgXN+BAh2vPJJZRHyx9p6njjDiBFh4ageu+Urs6g1ELn0dsaGIM5kyEty+qaBXrpWE
-         NOO2TyGPL2cMDP3fXUhzj2FNi1grxMSPVdCKkcYrc48d7xXtqAsNfl/aVv4GbY7BZzbJ
-         2c6JxdTmmpZ/H1tEdjwmK4Yfa9z15RQnUE5JtBnAFaHmeerHELd5PIjG6cv7bPYAs+JD
-         y9nKqNaIqtB1m5Zmn/jq217CRM93VmoXf9l48nGAlqKwQiYneaYzWTPeZz4LmlkKBrL9
-         oD3w==
-X-Forwarded-Encrypted: i=1; AKwUvBxfMBfBIzS7k5u+UzM2jdYchTzoeXosDLPZVbzehI+zA9Vr8XpPjUmPgfNr5p/gbs2r7jhjObtiZRKC2Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmrI9jkW+D53MIrvfjt/CALPAl8IngvlvI+oupwp5QCrrbvGDy
-	Dp4sMsQzHovYbZQWps2O7nQpQ+fIenG2R/BG6VBBelG9Hq8NEYFeYXYY
-X-Gm-Gg: AYBFou1xlhjg6/rNY4at5WnG3D8fA2fvgzUBCX4iMSNERNeGkjcpegry7RnmwnkOU7p
-	BixHRSrASpcjpUyy7ONyc5OdD4x69JaYB5e7OUhvQ9tDjVxxB7goFtIm5XVJPDKhkya7LMsczpx
-	cZYPgf6g+dhSjlPXSaLg1IXUsx6aDzMQOirQPCRiCffSJvzHEcY6dOZi5bY2MVaZb+fAPRLUu2V
-	Rw3+nbygIUFr1CNORZL/txbmC/lEyAg5PJCbNZtQcMC65Jjb1mhDRLoKolEVJcGJMKFMOhnGkZU
-	n7sgo8G4CuNPHQKqdT5X7OY6l6v/qNVsrRUx2wY9MdXjX3mhY58gb196BQZAA3UtpeDFH+RaWkO
-	Q33f8mMsl1NzdsTOkNgEiF1gdaQyStQSLsgpFNjxkzOQqTxm3kK4+haTI/0CyWEiEX8LM38+5/a
-	tRQ+tFW7LTUHorDMaPlR4FOBzvFHifsORYoajxWuSxt/L+sTfUNVQVpNjmuBdGsfgSMDwXtlM7z
-	KQnX2YJJIHFQaFtWr4+GEiBVkrh4ZjQY46tqe73Gpr4BZpPpW8YCYE3vquAvI9FoEPTmpMixN6R
-	Myoc22AkXnCDzWae5GuNKXUNXYGxqBSHjItZ0rRDzi6O3UthjtfjzXTFPWZkmsEuw5gbdK0Hwck
-	=
-X-Received: by 2002:a05:6000:2583:b0:487:490:8391 with SMTP id ffacd0b85a97d-48e07bb58aamr21758837f8f.16.1792466697879;
-        Mon, 19 Oct 2026 20:24:57 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-9c92-6501-cda9-90cd-4e49-75d9.310.pool.telefonica.de. [2a02:3100:9c92:6501:cda9:90cd:4e49:75d9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm2909579f8f.31.2026.10.19.20.24.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 20:24:57 -0700 (PDT)
-Date: Tue, 20 Oct 2026 05:24:54 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Tomasz Stanislawski <t.stanislaws@samsung.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
-Message-ID: <atbbdKshkbmbMZMk@gmail.com>
-References: <cover.1792392288.git.kmehltretter@gmail.com>
- <20261019124433.GU595565@killaraus.ideasonboard.com>
- <b9f5ee4d-987f-44c2-a1fc-2570f4500803@amd.com>
- <20261019150116.GA3705@killaraus.ideasonboard.com>
+        d=1e100.net; s=20260707; t=1792468413; x=1793073213;
+        h=content-type:cc:to:subject:message-id:date:from:references
+         :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B8x7QIi4yGr+7efbbM83ajwXkFKzE+lcxp1Y5FQsBMY=;
+        b=cMb1Ap00MDN6B2rh5uH1hMx7UR+3BUfWeQFvRMeBiwAtIiIRDVCQsoF7+AwSn+/22r
+         70r+TVGBYtak6W6oNo475X9V0iBhtLKngGlugHNDF9w4OfNbVeQRbwylQQ2ubQFa61ci
+         TEhacrdhzPXgKQO5F3VOONbYGjkXzwxjPVwsMHQIK7yMbA0QvIerI137Hi/1gb4SyPPY
+         SNd1l8wvKST1enYimGmaycGixBS1dM2hpF3OWLMIg7lsTEQB8nYE63H/ElA0eFE5PqSf
+         Jnzn//iOpLCUiFg6A7mQk1w3UOPhK4RyuBpmILLqG7nVQwQhG+n3DOfgjDX2fUheKkCX
+         8+Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBwcoxWYhl1xXZ5BBsN/7JD83sk+FXW+6sTYIiJ5PCUPkh7NyHgPBfyJbYTwKKOEgVA7vcsLBMbjStWzFg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLjFjvlNCFmK+hNdINE87TgwODj6ksFiXgZAfbkHFL+pA0R5VHt
+	Q6Bhdey9RTcHQpu5ODRO57fIJzlLx83j/w67fuochq/rzUmxKs38d9V9klLZmLlrAr+1Ve1+SSS
+	/tXupYqxDky0fvJd7JbTUDxKGbc+Nmo/BSJA5s+k=
+X-Gm-Gg: AYBFou0pCwSsI2KqvFLZlcwm2O0kQ6mf6dU9I1AvZXvcHzyqzUItT8/u6UsfRM4v+ZP
+	phnYlibXlbumM8zrDROZx307bavIYsIft9kcE+WsdUnPrgo5xW7EpIs+yPCck/ep4xELs/S+/uG
+	CTFC8rhQNqRXI+nI9CdCqEZeDLYpt90vcxi7II5FNGAMYegrA4ifh4/UQsJefG7+K5eqNcGTyWx
+	t/13U8YuhjdekIiZHXDiIBjK56BGAT47nalL6RA1jOIZxai2znmBLyOE0Lk9GLdVmVHuBCK6bJ3
+	9ByQr9mlc/2XCAQGkeEA/cZm7SJQ/xmrJg8RkCouzoU/mOjpSZhJP0xTdAaDef8V8vKZ
+X-Received: by 2002:a05:6102:8645:10b0:7a9:e680:efd5 with SMTP id
+ ada2fe7eead31-7cc7bca6de0mr171865137.28.1792468412768; Mon, 19 Oct 2026
+ 20:53:32 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 19 Oct 2026 20:53:32 -0700
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Mon, 19 Oct 2026 22:45:49 -0500
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,56 +106,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019150116.GA3705@killaraus.ideasonboard.com>
+In-Reply-To: <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
+References: <20261018-fix-imx415-vblank-exposure-sync-20261018-v1-1-920383f39185@gmail.com>
+ <9a1b8caa-c260-469d-8b0b-6a2ca29226d0@collabora.com>
+From: Iron Berrington <berringtoni36@gmail.com>
+Date: Mon, 19 Oct 2026 20:53:32 -0700
+X-Gm-Features: AclHuK9XNMAuACY9V_8Ap8NkrnCzm4l0f59JyBZIo7KA_7HpUs6PKGbdATumTtQ
+Message-ID: <CAF2O-sNE3bKxuZrYvkBJ=-4sgSrPanzbKfcHJ0kVgFqwn0G9Sg@mail.gmail.com>
+Subject: Re: [PATCH] media: i2c: imx415: Use target vblank to calculate vmax
+ in s_ctrl
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Laurent,
+Hi Michael, hi Dave,
 
-On Mon, Oct 19, 2026 at 06:01:16PM +0100, Laurent Pinchart wrote:
-> 
-> This patch series introduces a big penalty in the common case where a
-> userspace application consumes the frame with the CPU. There should be
-> no cache invalidation in that case.
-> 
+Thank you both for reviewing the patch and for the Reviewed-by tags.
 
-I measured this on my Pi 500+. The cost appears when the DMA-BUF has a
-V3D attachment that stays mapped but idle. I compared patch 1 alone with
-patches 1-4 on the same v7.3-rc4 base at 640x480 YUYV. For the DMA-BUF
-runs, userspace read every frame between DMA_BUF_IOCTL_SYNC READ calls.
+Best regards,
+Wenqiang
 
-Median process CPU time (us/frame), five 1800-frame runs:
 
-                                      patch 1      patches 1-4
-  DMA-BUF, no DRM import              129.2        130.6
-  DMA-BUF, idle V3D map               130.0        153.1
-  MMAP                                126.5        125.4
-
-The no-import and MMAP ranges overlapped. The V3D-mapped ranges did not.
-Pi 400 reproduced the mapped cost with vivid (+8.7%) and UVC (+7.5%).
-
-The task-clock profile covered only the patched mapped path:
-
-  Operation                              Sample share
-  DQBUF producer END|WRITE clean         26%
-  userspace START|READ invalidation      13%
-  userspace END|READ clean               8%
-
-I tried a CMA experiment that kept the DMA-BUF callbacks but skipped the
-read-only END|READ attachment sync. The skip variant saved a median 12.3
-us/frame (8.0%) across three alternating same-boot pairs. With private
-DMA-BUFs, the full-sync and skip variants both passed 64 byte-checked
-V3D read and overwrite cycles after END|READ.
-
-That experiment still performs END|WRITE and START|READ. In a negative
-control without END|WRITE, all eight V3D reads returned stale data.
-
-Patch 1 is independent, so I can send it separately. 
-
-For patches 2-4: How should vb2 avoid the END|WRITE/START|READ
-round trip when userspace consumes the frame with the CPU, while still
-publishing the frame if the next consumer is a device?
-
-Thanks,
-Karl
-
+On Mon, 19 Oct 2026 22:04:36 +0200, Michael Riesch
+<michael.riesch@collabora.com> wrote:
+> Hi Wenqiang,
+>
+> Thanks for the patch!
+>
+> On 10/18/26 14:54, Wenqiang Zhao via B4 Relay wrote:
+> > From: Wenqiang Zhao <berringtoni36@gmail.com>
+> >
+> > When setting V4L2_CID_VBLANK, imx415_s_ctrl() writes the new frame length
+> > (format->height + ctrl->val) to the IMX415_VMAX register, and then falls
+> > through to case V4L2_CID_EXPOSURE to update the electronic shutter register
+> > (IMX415_SHR0 = vmax - exposure) so that exposure is preserved across frame
+> > rate changes.
+> >
+> > However, in case V4L2_CID_EXPOSURE, vmax is calculated as:
+> >     vmax = format->height + sensor->vblank->cur.val;
+> >
+> > Within the V4L2 control framework, sensor->vblank->cur.val holds the
+> > committed old vertical blanking value, which is not updated to the new
+> > value until s_ctrl() returns 0. Consequently, when VBLANK changes, vmax
+> > is calculated from the stale vblank value:
+> > - If VBLANK increases, SHR0 is computed using the smaller old VMAX, causing
+> >   the actual hardware exposure (VMAX - SHR0) to jump by the blanking delta.
+> > - If VBLANK decreases, SHR0 is computed using the larger old VMAX, causing
+> >   the actual hardware exposure to drop by the blanking delta.
+> > - Additionally, ctrl->val is clamped against the stale vmax limit.
+> >
+> > Fix this by using sensor->vblank->val instead of sensor->vblank->cur.val,
+> > which holds the target vertical blanking value currently being applied.
+> > When setting V4L2_CID_EXPOSURE directly, sensor->vblank->val equals the
+> > current vblank, keeping behavior unchanged.
+> >
+> > Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wenqiang Zhao <berringtoni36@gmail.com>
+>
+> LGTM!
+>
+> Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+>
+> Best regards,
+> Michael
+>
+> > ---
+> >  drivers/media/i2c/imx415.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
+> > index c3b22b238..e5aa741fc 100644
+> > --- a/drivers/media/i2c/imx415.c
+> > +++ b/drivers/media/i2c/imx415.c
+> > @@ -729,7 +729,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
+> >  		fallthrough;
+> >  	case V4L2_CID_EXPOSURE:
+> >  		/* clamp the exposure value to VMAX. */
+> > -		vmax = format->height + sensor->vblank->cur.val;
+> > +		vmax = format->height + sensor->vblank->val;
+> >  		ctrl->val = min_t(int, ctrl->val, vmax);
+> >  		ret = cci_write(sensor->regmap, IMX415_SHR0,
+> >  				vmax - ctrl->val, NULL);
+> >
+> > ---
+> > base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
+> > change-id: 20261018-fix-imx415-vblank-exposure-sync-20261018-967b008cf3fb
+> >
+> > Best regards,
+> > --
+> > Wenqiang Zhao <berringtoni36@gmail.com>
+> >
+> >
