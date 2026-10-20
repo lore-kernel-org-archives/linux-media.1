@@ -1,111 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792461931;
-	b=Qw4OW4ZWR/Cd73CpCoxfHpP9f08yl9CrqCMxcCNmNMexOXwqWJITBabG993/sush/6Uf
-	 Z8j4AwSDTm7Z5tI4kp/R4qgnpBxKd/iUlwR/lSWkc5RLbbgJirUHnSzNVEiwJXB8G14lb
-	 lDM58dvaT1tRgHXJV2+df5hvmsv7tbxyPvfqA1WRvQYp87S8xoyd6r/jm6AKiAd6m5Iqp
-	 XM42uA3ZsEjQbLh+bW9q5hHrnUwr5yMA2XTYqCEHIDiWObWoqt8QvesbfBrrSv9IyL3Dn
-	 KrQ9TdqEmwHGZa7YkU8VHy5YEBCmA60uKmAl5jmoztuf1kZVKSL9cnLdwneblIE0hhQ==
+	t=1792463273;
+	b=XT/d3aKphScRtRXPdH1seR4E2SYGD8eHFMuIoK061p6CR0TjxUZ/Mg0UAVl4adhdyrbR
+	 qQp0MqLRwezCYfhfKU8/HU2NlrDAR3k636K2UXE0hs/TF3edOygXeUq5CBwWTEeDHSNbX
+	 s4SPrq1OKj7lEa2sSEa/uxN4xhrUV7tPEukAc/jtKQT6VanKfOYZAjZMhEBVMqNi0fcdA
+	 4WghhB95WIOTiy8JVTe+DoOARkaoNQu5qoicp8SxetwAGKGmPpxVUpCEC2tpC/pHhthVl
+	 t/cBj01NsN9HR6ZwEY3qefrJPo2hoW71FP7ttjW0FkmX3uJPDxVkvpo6V+Wa8QzuxsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792461931;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792463273;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
 	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=;
-	b=sYqof6QPXGlSiNBu83+mnCcfAbVvgCus0VrLAQcUR9fg0jKQVun0tXEExT7YzPEZmMNh
-	 5dDSsMVs9nTHwrZlNH75VgilYjHg4k0NckON6NEooI5tMg2tdyt5vQEV9jzH9VpbDmAZk
-	 WT09D5EYfyNseIPhlZnRZsCkiI4nGE0W+wKD9I/jAHmk58GpWNVyrrfshrohaRTE1H7iv
-	 rGoihBK9BK7bXr+nDGRO2rcAUfuWIuOKRQ2uRvAYuSbWfYFRurJ68vTCJOv2fbX40AjaE
-	 JVFlLSrjN/j3lwlBrY3PPUTE4Q6+zn3DkZpnp7prMvhZ7AyISBZbTMHBJKkPB+PT35g==
+	bh=fBnzrOfCz65WzxMkqHIRjcjkTmpI9p24LEFMKT/y1io=;
+	b=sAqEKrbcH/UDw1iYvO/tuVJ8OyxasX5CI3YfZ1hqltRJrSW5GQYiK++uxHAwZQpS7Bi0
+	 unPNmyG2A8uppgbRx1en4eiPP0z0TqWqA5HK3kRskoQ1MYrOLS55r5zGShGzCQ/JyuUaz
+	 tuXTF4nbin1hBsTRqoX6yzshrYhWyR7OZ9LKBD6N+qAGYx1DU8DIqV47S6k3DZz5e1TvU
+	 KCg/o05t3K9Fmnp4vMZLwlLSRv3Cz9/kI91HhWD50KmmOAzB/nMRmc68FaJyVOjRiQLpE
+	 F+IoZaokryZV+uOM5uj1CIxlR1IiEd1DaAMjA1kkniBnhwFzJR76qGMwCaT443eazyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aZq5hCtH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g5+fGACB;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="U4R/z9sn";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LtrihESl;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBC5606A31C
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:05:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBC5606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3038606A31C
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:27:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3038606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aZq5hCtH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=g5+fGACB
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tPSn1211286
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:05:30 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U4R/z9sn;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LtrihESl
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0taEg4178357
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:27:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=; b=aZq5hCtHuETxGA1d
-	ZgBXVhAeq9Yo6J6HkuY5wNC/RzzrWWWntLhjFbb3RvhB7BVaQOjaxailEjrVz6Jh
-	j5D9TwTFCSrG50hNd/Yr1IabXFaJXsdnaBWme5gVYQZr4mXtD//Lh5YdOOe3gZtW
-	OVkFusIxmL4UYUmRR6HUt7gkFRb9dzo+uyn0RyiRVHxQ4gXAdQxQTKxq49PXP+YF
-	FkkEX4E6zb/2euEk8c7ABOg1nSAPB+HKexzfroUiIpQj4ptVIJNx0vK6LrVvsO+A
-	vDzP45Fb3dQ3ZwjTL0UOd9n8fG/dDUSB0xpsDOhk6Mm5OHrs3pUXgxU5mk95sqUH
-	4k0SLw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5p0cxm-1
+	fBnzrOfCz65WzxMkqHIRjcjkTmpI9p24LEFMKT/y1io=; b=U4R/z9snMyG7KDFa
+	Tgbu0rA8z0xKAwe+TYGMQ+pBVD+Rj6C/5wO/r+c4td/5PZ9LshZyf9/Droq2h4P6
+	RFRtc0U9oDt//9AGRoWdzDSqUVXKOzYAkp4gqXBJ8eTSm5bDlA+ZPaE1l32Bvja2
+	UADGYRSAHPvh8cYPLKgrLv8V8tO8nPD7x1z7RztWY9XbPT0F8w47FNByhUYd75bg
+	lrR7NhkF9Ein+g6mVwFa68okZDuhQt+3dQW7yKSOrzohnKYiO5g5q1DI1RELsZFB
+	diRmgBEZz/rpV8xXMQ2FWSxQV9qZysUKhzkRofxHMisr/IAGOAOc/3XVNNFPtj/2
+	utltqQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5n0f4k-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:05:30 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-15c16792146so407504c88.1
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 19:05:30 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:27:51 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35c3c370b17so5425076eec.0
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 19:27:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792461929; x=1793066729; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1792463270; x=1793068070; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=;
-        b=g5+fGACBsDwHKA2wsysbxgV23NaHCPHB7Pb/GRy+Z60Uoor0VF6VPEGLVg8eTs19H5
-         ExIlsznIw3FdQIk6Ciq16kXeuNR5Y3g2mw7AgwEyDzyA0wmtjInbGnVLLmOXOkA7bAa2
-         qJ+gjeA+oKFcjFvKqfwS/Asv8ZtfsiSEPmTs6DNfdYXVdBQ2yDcBIVwysrLuRSTHJhHp
-         qlowxh6CmQOQ5pQiVP2oPTw0n8bPwB9fIjSDd6irWLnCkKLdNYks3Zgdzdc48I3ewj2x
-         cotzzRbSm/BPERFA/afSBTJcplb/oNn6arN1zSG+zYVKybU2YaVzL8KsTYjobL61UOT4
-         I5Sw==
+        bh=fBnzrOfCz65WzxMkqHIRjcjkTmpI9p24LEFMKT/y1io=;
+        b=LtrihESljL+NrMkNRr9q75WTVV4JeWvrS+6fU2k1psg8ngYoJiiIOCgR23DbbNaV/O
+         InVt4WWMGKX8pc3Kb3OALj/zRyzM+Ghc+IsDa4scqnQX192br+n3OZscQZgY23ZmubYR
+         HSDCa83/UI96cxMMxRmLNi8ivIsd7LpwBoY7fRMe/xh9+pJFVM2ZobuDt6GAqrqhEmVa
+         imZGXR80SMPj3kVHxtnyF3GCGeHcDgDsAh6N4GZhhetKMXDhb0JLhmgeFQMW3+zfrdN6
+         dh7bQPyxQwDN6jsD5+OIUpMc4AukLcKjCUr2AfuL+jTDSvo0KEVf/96ebFFbm+sKxjMb
+         23jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792461929; x=1793066729;
+        d=1e100.net; s=20260707; t=1792463270; x=1793068070;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vcglXXCdLJZcuT0AS+TO6iQYBvNu/3CXXS4wmQqIQX8=;
-        b=SwDRKsMn/3JqSaYBrBR0yw6wQE9Y2rYCLEtGIGvtv1jMzYugOoLiOgY17PMTuiDtVg
-         uKrsq6AO44VsDQEC5ksJpPKL+CbYmorZd5Pukkkip41DheqFeMHtDsnkeTqtPQYFssRE
-         aBDUCe0L3h5Dj9glDK82qCUcubyxialyqU2pwf8LW3jsprxe41B+aK+Tl+9i8K8ZMjnW
-         H+qJV/eTnmDKTVGJWvE2QCAcWcN3yVGpDjIhVrsparpFCt5KU36ZIAMxNFfQa0YYan2t
-         KnRvYfxBPSMm4RQmNeAR4yNQw1XV1Q6kuozlEhshWRtsuReWHjx11mTV8/QYlpbQ773q
-         xvJg==
-X-Forwarded-Encrypted: i=1; AKwUvBxTRoartftLVSkiXnmoL98BqW7PZ1pQuitW6216N3xODArikuGWGXVTiPwpoqcm1Al63HZ3TNuifQMKwQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7MsGZgFw9iHmJUtLu5CfNWYoOILq+OWNmV7l1HsX4gELvbfj3
-	Zv4wDRd5Arxp1AtGlx28C+igcs8KfRcyYKEl3hSzcQfDmnNxh12Cur/cdD6rGzUQQbRM+1QsTYL
-	ucxxAsAg0CfOSlr64cl2sqAVziQK3/efRI5Gb6G3fn7qKIJgAVX3TKsFVPnYTZrNxlw==
-X-Gm-Gg: AYBFou0v2Wfte1izxokEC+0Jl5poBcdTT0VSTZ8XALU6WQF9ls3ehFeZKt/yJJkN3BH
-	KoNah0exNRZR33ePN9vj8m2By0nCwplYICVF9WkBKe4big2ytyQc9ufeQbQYGXmEVkamVD0OM8I
-	f/SP7rBQWynPpLettUbctOFsiVtqhGAhrCgvXYS2bXGPcQQt+NCqfhYDZ6cFzqyhstmt4Uj8kJv
-	KZZOe7CwbbcAZiWTcPiqrtYY/C66kl1G0bDdwqQ6RXUUGhECPCBFA4LoVMSrkakjqDDshWC1/RA
-	Rc0wCaBD27PWypy74kjKOHFs7DMCHpc+wX4Ju3+E7yHdAZ+1ASFEChWgEcBzzBqdEN/Gymj1lZf
-	/PyOEjDRY6SVQHFynUuUn68Uy5KZ9m6rqKQU=
-X-Received: by 2002:a05:701b:2918:b0:18d:5988:8d3 with SMTP id a92af1059eb24-18d59880c2cmr1634920c88.3.1792461929326;
-        Mon, 19 Oct 2026 19:05:29 -0700 (PDT)
-X-Received: by 2002:a05:701b:2918:b0:18d:5988:8d3 with SMTP id a92af1059eb24-18d59880c2cmr1634870c88.3.1792461928590;
-        Mon, 19 Oct 2026 19:05:28 -0700 (PDT)
+        bh=fBnzrOfCz65WzxMkqHIRjcjkTmpI9p24LEFMKT/y1io=;
+        b=PrPtOV0XF9uKUUHN0lXEcU2vZoYsTPGqfy9lpT877kouy7MemTTasZgH2JluRxy6a/
+         jX8gBCw7gWXPVB1AAuKdzS555Fv6edT2uYCEJWZihHt6eqoNUFOWauSLjGwblfO4A3KI
+         i/ceIdYfgKi3IeBNxOXWYKhSEPRyTy5rtXqwVnbIpNmmVPeeZ2ay0vfw+kMP+AFp2HEg
+         t/w3xh24fJySbd01oK63OOsHUA2LATzh00cv7o5yrtZsWb73ewsKsBa66e0UkpbBiuXI
+         Ia0sq90B8r7xFDGNA17tsaJXkLpnlzicxGkJCrzPTQxs/7NKtaUtg34pM4O63IoqqSBp
+         OQWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxVYcrNdz8TgrMRAJ71IvISrLw0Bcd/yTpzMhVQFqhdt/nYpM+qV2c4Xs8aWQlMA4ApnO2TzPDhFrWFWg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKslxwVPfOTY+ijnPCaHUniPiUzolPXU7RE/GZtdDmB8OjESdbY
+	coXmDp2akEDoSRfnMtUSiHXAMv8kG3LNEmMYYjcnev1osyL3rZLSEqoA8EIsyS2EcNSzd72VfFv
+	NTgr60IhBRRSkqfeVunk4bvuH6Xy89lK6bwEswT1UbUmy7Jx5hcZRmMBsiJCSuJ/mBA==
+X-Gm-Gg: AYBFou2xyUWQS7A/dtOx967+tor3fC+Q7K0+2rFeU1J+ZhaPvgL2BRy1GqsDrlhcpIq
+	h+uxlbgjCCHjC8rJJP3zAtBRH1U0BDt2UGn55hjTwCRCBhC5tJd3iP6ZfQteGJqaagklUHFf4sr
+	KHysuZOXX7gAVCUynQkkzPZuUU3u142eEBcLBjtSxRar8MusWxBfWa/dxYlaxs4ZToukTwcSvxy
+	9DAqz+KBvlMaLB/atD/IiV4OumUYxKJyDBe0xqmO1+010jI4SrPjKkp/ryu4IqFn7NTJAjHtVsn
+	ka1+Ph1hIFiEnXW+dZFKnMQtSEO0AEhEQK/wkAu/918OLcL9CLgvvtMXh8V2wFXQSbP3SKuDNSk
+	kpt7pzSltmOqoevJQ9xWbLnRTmRiLGFR7ekT3
+X-Received: by 2002:a05:7022:b058:20b0:184:992:c9ef with SMTP id a92af1059eb24-18513e7b16cmr13145752c88.36.1792463270456;
+        Mon, 19 Oct 2026 19:27:50 -0700 (PDT)
+X-Received: by 2002:a05:7022:b058:20b0:184:992:c9ef with SMTP id a92af1059eb24-18513e7b16cmr13145710c88.36.1792463269894;
+        Mon, 19 Oct 2026 19:27:49 -0700 (PDT)
 Received: from [192.168.1.235] ([47.231.130.140])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-360819be413sm36101206eec.13.2026.10.19.19.05.27
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3608297f4f7sm37166393eec.23.2026.10.19.19.27.48
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 19:05:28 -0700 (PDT)
-Message-ID: <81aa3d0f-cce1-4f78-9610-67815507bba4@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 19:05:25 -0700
+        Mon, 19 Oct 2026 19:27:49 -0700 (PDT)
+Message-ID: <ec40e4aa-fbec-4d0d-8069-f6ca80d9cfa0@oss.qualcomm.com>
+Date: Mon, 19 Oct 2026 19:27:48 -0700
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -118,7 +118,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] media: qcom: camss: configure C-PHY in the new
  csiphy_stream_on()
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, david@ixit.cz,
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
         andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
         krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
         vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
@@ -127,91 +127,170 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
         jigarkumar.zala@oss.qualcomm.com,
         hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        bryan.odonoghue@linaro.org, linux-media@vger.kernel.org,
+        linux-media@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
         daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
         christopher.obbard@linaro.org, alex.vinarskis@gmail.com
 References: <20261017040529.3832120-1-anusha.nandi@oss.qualcomm.com>
- <a561ff9d-eb2d-4097-ae66-c1857f33e42f@oss.qualcomm.com>
+ <c3608c29-a20e-4b88-a060-165116d2b6f7@linaro.org>
 Content-Language: en-US
 From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <a561ff9d-eb2d-4097-ae66-c1857f33e42f@oss.qualcomm.com>
+In-Reply-To: <c3608c29-a20e-4b88-a060-165116d2b6f7@linaro.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: pwCR7O0ByKGD8piGV7BZ-yO3jEsTcT5f
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAwOCBTYWx0ZWRfXzMv3/di5/exr
- 5zcinz7MYd6wFmd4baTdk3ETCtKBg3TLDw83cWNVZLnaBHShJ6Jt12Aroenm/9CPZFm4c771bH7
- RYhJ8Z5NGP9kPdz44V/5HGUQ8Ya7VBA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAwOCBTYWx0ZWRfX7wa6vEj40wnN
- 7ZeoXQtzQ2Zjc0Nhi2mNC7uLf6BEK3jt1iE0O/Ym4lKl7wDgAY1RbSw2Lninth39l/JSXR/HroQ
- v0etw3JnCQgjo2vw37eShQP24Br1JDrFERNf+d0YRZitI4UUS/NUwWhQdNu9+dbsXhDlCMuek9h
- ztJ2uvIQuBX0xFi7vN8Fb6PX5PUgRdurFadRO3CU8EjwYX2Ax1enHAix3HIm7xyohe0I/SSQvoT
- IC+bBM+oFUe5fSiQXWYicvMH4cQx0DcETBkbBWowMSioN+B2TEkg8trWIOT/3W2VUgXJ3PV3I+o
- 4cyPACPPi9txwtDMttxXOoXUu40usVjrIvVUSpAL2vNLAqn6yZGLbivwNf4QwJBhlTLpb0S3uvg
- dVGQ+zMX1BXgM4+bCvdqPgOJtqwdQriI0qMzAGDMabG1xU94MriI9o+2MNVoCSZKrV8pV6DEPpL
- OBUD0JKdYZv0ZETrXVw==
-X-Proofpoint-GUID: pwCR7O0ByKGD8piGV7BZ-yO3jEsTcT5f
-X-Authority-Analysis: v=2.4 cv=crUOAF4i c=1 sm=1 tr=0 ts=6ad6cc6a cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=TcmD64HtHlR11PSYA/r07w==:17
+X-Proofpoint-GUID: GatRP6vRKTvBjjzrIcRPD5ERQ5LH1sm8
+X-Proofpoint-ORIG-GUID: GatRP6vRKTvBjjzrIcRPD5ERQ5LH1sm8
+X-Authority-Analysis: v=2.4 cv=L7qI0OT8 c=1 sm=1 tr=0 ts=6ad6d1a7 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=TcmD64HtHlR11PSYA/r07w==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=Ra3kV2IsKW0ovCRCs9YA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=DwEuDAnPNnevPiDVzDoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAwOSBTYWx0ZWRfX91BGiwOYiqUx
+ 5IliauZYy5HpRGx3BM70qr8245yygw8Cpc5jg7Bpn/6O+ypCwRmGfEDnCc+OnO9HER1YpiQyD4o
+ KHY8mcntaK+B5ZOSV8zV0WuXiBVtdxp/Mae9Dc0eAPEvtvtjq0x9mnOCqgUsmD0G2abgqNIxhxs
+ 8wilhiVweTgdFW5k7rvGTW28gG7F6EVuORolod2m/c1X6OWvH1PGh7HCciV2el/Wxmj41AiddTq
+ 7EybbA3PmhHJRQ5DiTiy9lQOfOxt7SzspCedR04JazCmx6gMEzfu9pzSkFVEvw6mgyYtVQbqTA1
+ oxgtzlbNk4aoOhULwBgluI37/N8QPHdT93GA8xB8uI4Cib/qdDMCd9qpILTqFgbKhJ0FGhoGiC4
+ og6NAddanSkAnnbwZXc8H4tMTHGHlst972K3ATBVnmIsmqVmx8Q9UJ8UWOfscsIU1i+onP5Mge0
+ n2NSjCPz33pxMx1Zg8g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAwOSBTYWx0ZWRfX2U/kCXWyuiF7
+ qaDoIgsqsud3m+3B2umQIgaoncZA9WdjOfCGp3fZPTINGQ0aJWqGwXsvimCPOTpEf+ubSq1+DnU
+ eDgxS/aDur1xc3sT+YNYEdG6iGc7opQ=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
- impostorscore=0 priorityscore=1501 phishscore=0 spamscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ impostorscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 bulkscore=0 malwarescore=0 suspectscore=0 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610200008
+ definitions=main-2610200009
 
-Hi Krzysztof,
+Hi Bryan,
 
-Thank you for the heads-up. Apologies for the noisy CC list — some
-internal addresses slipped through from a prior workflow. I'll fix this
-going forward.
+Thank you for the feedback!
 
-I'll re-run scripts/get_maintainers.pl --no-git-fallback on a current
-mainline tree and switch to using b4 prep --auto-to-cc to manage the CC
-list properly before sending the next revision.
+Will rename cphy to is_cphy as suggested.
 
-Thanks again for the guidance.
+Regarding the lane positions and polarities, you are right, the PHY
+driver already handles this in phy_qcom_mipi_csi2_parse_routing(),
+parsing both data-lanes and lane-polarities from the firmware node at
+bind time. There is no reason to pass them again through the configure
+opts at stream-on. I will drop that loop from csiphy_stream_on() in the
+next revision and keep the phy_configure_opts_mipi_cphy usage limited to
+the dynamic per-stream timing parameters only.
 
-Best regards,
+Thank you,
 Anusha
 
-On 10/17/2026 1:07 AM, Krzysztof Kozlowski wrote:
-> On 17/10/2026 06:05, Anusha Arun Nandi wrote:
->> The new (non-legacy) csiphy_stream_on() introduced by the PHY API
->> devices support only built a MIPI D-PHY configuration and
->> unconditionally called phy_set_mode(PHY_MODE_MIPI_DPHY). For a C-PHY
->> sensor this makes phy_configure() dispatch to the C-PHY handler with a
->> D-PHY opts union, which fails validation.
->>
->> Branch on the recorded PHY type: for C-PHY build the opts via
->> phy_mipi_cphy_get_default_config_for_hsclk(), populate the per-trio
->> lane positions and polarities and select PHY_MODE_MIPI_CPHY; 
->> keep the existing D-PHY path otherwise. The shared
->> phy_configure()/phy_power_on() tail handles both.
+On 10/17/2026 6:44 AM, Bryan O'Donoghue wrote:
+> On 17/10/2026 05:05, Anusha Arun Nandi wrote:
+>> +    const bool cphy = (lncfg->phy_cfg == V4L2_MBUS_CSI2_CPHY);
 > 
-> I received multiple patchsets from you. CC list looks really random,
-> half of the addresses are some internal ones?
+> suggest is_cphy
 > 
-> Please use scripts/get_maintainers.pl to get a list of necessary people
-> and lists to CC (and consider --no-git-fallback argument, so you will
-> not CC people just because they made one commit years ago). It might
-> happen, that command when run on an older kernel, gives you outdated
-> entries. Therefore please be sure you base your patches on recent Linux
-> kernel.
+>>       s64 link_freq;
+>> +    int i;
+>>       int ret;
+>>   -    dphy_cfg = &dphy_opts.mipi_dphy;
+>> -
+>> -    link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp,
+>> num_lanes, false);
+>> +    link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp,
+>> num_lanes, cphy);
+>>         if (link_freq <= 0) {
+>>           dev_err(dev,
+>> @@ -346,23 +345,49 @@ static int csiphy_stream_on(struct csiphy_device
+>> *csiphy)
+>>           return -EINVAL;
+>>       }
+>>   -    ret = phy_mipi_dphy_get_default_config_for_hsclk(link_freq,
+>> num_lanes,
+>> -                             dphy_cfg);
+>> -    if (ret < 0) {
+>> -        dev_err(dev, "Invalid config for link frequency %lld\n",
+>> -            link_freq);
+>> -        return ret;
+>> -    }
+>> +    if (cphy) {
+>> +        struct phy_configure_opts_mipi_cphy *cphy_cfg =
+>> &phy_opts.mipi_cphy;
+>>   -    ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
+>> -    if (ret) {
+>> -        dev_err(dev, "Failed to set phy mode\n");
+>> -        return ret;
+>> +        ret = phy_mipi_cphy_get_default_config_for_hsclk(link_freq,
+>> num_lanes,
+>> +                                 cphy_cfg);
+>> +        if (ret < 0) {
+>> +            dev_err(dev, "Invalid config for link frequency %lld\n",
+>> +                link_freq);
+>> +            return ret;
+>> +        }
+>> +
+>> +        /* Set data trio lane positions and polarities (no clock
+>> lane) */
+>> +        for (i = 0; i < num_lanes; i++) {
+>> +            cphy_cfg->lane_positions[i] = lncfg->data[i].pos;
+>> +            cphy_cfg->lane_polarities[i] = lncfg->data[i].pol;
+>> +        }
+>> +
+>> +        ret = phy_set_mode(csiphy->phy, PHY_MODE_MIPI_CPHY);
+>> +        if (ret) {
+>> +            dev_err(dev, "Failed to set phy mode\n");
+>> +            return ret;
 > 
-> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-> people, so fix your workflow. Tools might also fail if you work on some
-> ancient tree (don't, instead use mainline) or work on fork of kernel
-> (don't, instead use mainline). Just use b4 and everything should be
-> fine, although remember about `b4 prep --auto-to-cc` if you added new
-> patches to the patchset.
+> We already derive the lane positions and polarities in the PHY driver.
+> There's no reason for the CSID block to know or care what the polarities
+> or positions are.
 > 
-> Best regards,
-> Krzysztof
+> drivers/phy/qualcomm/phy-qcom-mipi-csi2-
+> core.c::phy_qcom_mipi_csi2_parse_routing()
+> 
+> I guess the PHY already knows the polarities and positions - or at least
+> knows them for the DPHY case.
+> 
+>         /* lane-polarities: optional, up to num_data_lanes + 1 entries */
+>         memset(lane_polarities, 0x00, sizeof(lane_polarities));
+>         num_polarities = fwnode_property_count_u32(ep, "lane-polarities");
+>         if (num_polarities > 0) {
+>                 if (num_polarities != stream_cfg->num_data_lanes + 1) {
+>                         ret = -EINVAL;
+>                         dev_err(dev, "clock+data-lane %d/polarities %d
+> mismatch\n",
+>                                 stream_cfg->num_data_lanes + 1,
+> num_polarities);
+>                         goto out_put;
+>                 }
+> 
+>                 ret = fwnode_property_read_u32_array(ep, "lane-
+> polarities", lane_polarities,
+>                                                      num_polarities);
+>                 if (ret) {
+>                         dev_err(dev, "Failed to read lane-polarities:
+> %d\n", ret);
+>                         goto out_put;
+>                 }
+>         }
+> 
+>         csi2phy->stream_cfg.lane_cfg.clk.pos = CSI2_DEFAULT_CLK_LANE;
+>         csi2phy->stream_cfg.lane_cfg.clk.pol = lane_polarities[0];
+> 
+>         for (i = 0; i < csi2phy->stream_cfg.num_data_lanes; i++) {
+>                 if (data_lanes[i] < 1 || data_lanes[i] >
+> CSI2_MAX_DATA_LANES) {
+>                         dev_err(dev, "Invalid lane %d\n", data_lanes[i]);
+>                         ret = -EINVAL;
+>                         goto out_put;
+>                 }
+> 
+>                 /* Convert data-lanes = <1 2 3 4> to bit positions */
+>                 csi2phy->stream_cfg.lane_cfg.data[i].pos = data_lanes[i]
+> - 1;
+>                 csi2phy->stream_cfg.lane_cfg.data[i].pol =
+> lane_polarities[i + 1];
+>         }
+> 
+> ---
+> bod
 
