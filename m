@@ -1,90 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792465779;
-	b=eaQ9YhfliNbuGXZ94ot1aRQoUIQ/G+Sc9ILUkRzSE77woI2gQplsnGoL4eY56gXZhiPL
-	 jCvFxc+h+n2j8kxIO0f/2UoJmOgK2lzmsLAlqiKr4SmwsMGybkgiXLyGHfZPYJgVp2Nis
-	 5M0YRoopjIC0AGoUEsWxP0zzm/KKOJpj+Uyw8DUTpKuiSGy+9OIayEbDmZT4v6qkZz++f
-	 r0fzRtBu5yVQZCArPcYr8LitFoHvrGL803GZrUVs7wXg3NDQodx8J0f6pZ75FxMj51P+n
-	 HUPFeVMfYYoxM0YqM21IlRdxqzUOVdO/fRhVHcH/P32ye6JcmzM24GGopy9VWBYztMw==
+	t=1792466700;
+	b=ppuxWVfweKjR5peHIR/yVqr/aGbLLvIu9eDLrY860xDLwjOSrk+9D3p6GWD/MCsOeNK0
+	 DoGh+Bf6u6GiUlABkzVY9692jM0eUTYcfSG3a1uuMZuUtHSy07fza1ylPinCJuXtJQDWJ
+	 2pfuH2ySClYiT0TlTwYRXDQxBL5HW30UGakWtnEG8zg0javE3N2PgzE4dDZFW0rH6tRRg
+	 MLZhW1PRXLa1wwgFMUtb8HZ+iblj9x5hbpSm/PvOfWvbIwqaN1sFw5y3sO7OSjUp9yDEf
+	 PzmayhTGQ76qO+k2aGU5UfGnWuc0o7qCbEAv2wNE4cMzu6Kuf/7QqfS8gvucr+78RnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792465779;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792466700;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=eRFeOO3Kki8hDmAHeTRG/02QqZyLShI99Jw754kjQWE=;
-	b=TtvCVgxyFiP/u85QgwMVUgIn22GU5F923wc8SmkKt6pcY4gJUQ8ua43/5hUDggGVqaVI
-	 rUw3nj8FPQDGrNKc0xaGHEZp+F8iiYvomzF111ScBTDH9O+Ig0oDgausneyeM+P+n0cCK
-	 Gd094149iReDJxTHE2ep4UBIlMLagfHFMJkhiuY5KPzsnlEZyU0qNAPzS8bRQW9Y6GMKV
-	 jp3p3ddG55OqMf9h0JMWh6UUAx8uIndv3KyYL5mHMQJvhvd77B7h/gD+X8xAJoJ28fe/1
-	 XwnBtAX4n5FElTJ2LDU6t3GsldYnfV0SScNWKj+D1Lc4KEzLLN/BBBGrrnLl7kLDpIA==
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
+	b=tguNeuLaDkwJC9D4mAjNzXWr38CHwRj15zuULul8ALp5mmowMkMSH9abmlsf/povbssr
+	 SEzbnKmhoVY8EWCrU8hWPx01SWu68BVf8LJult9WIpWwsn9zGMWsAtrpFeIpNpuGvCIXl
+	 SKRW2IAmD4o8xvRU3rIo83+wg0B3/crVhLe4TMMknoPSDtdRmvThPRLGhEEMDdrGBUlUJ
+	 Ftue1UZw+d8E9icdaDuMOBSOqgz7R6KVaXBtUpGSkGSHMoDuSpEHvdD+LlrUFjrYbkwvu
+	 /TgT6G4vVvJViTvtwBeTn+ASbuTPnySOG4rOhwFMcIz1ww6ugvcVgShQOz3E0C4VXSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=imQ8JPEx;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3egZBHG;
 	arc=none smtp.remote-ip=209.85.221.52
 Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88B9606A325
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 03:09:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D88B9606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4DB606A319
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 03:24:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD4DB606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=imQ8JPEx
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48dee593f18so2027939f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 20:09:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=F3egZBHG
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4649b35bso2214899f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 20:24:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792465777; x=1793070577; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eRFeOO3Kki8hDmAHeTRG/02QqZyLShI99Jw754kjQWE=;
-        b=imQ8JPExHTOxYo7Lop2O+jSTr0ewO2urQMhayDNlxHBfVU4P2KEIzWXMgTNTAJ0bcj
-         +6jVZ1XexFP2YmNQsL/wKMjpuhcBUGP7/jX0JKzxR1RwdhJ7jltcF2CTKbCSwMc4HHtO
-         H5nA+nOLGutYUAH8SVMercqaixJoWQnd8QSKR7Qq5WIdtSMRWLlyhKwyPRJfd49mui2j
-         wy6Jg6s9A+PBmB/znzdHIkLTyXtTDWcX7fasZdO/MLM/HZ7HLhGjVnnvYtCC6S8J9rxu
-         14HONj0NBQew753/9JsPGCWo54H/4vqBZqPmm323xRU8qcwXojINqT6HWjhUZqh+xBTO
-         2BYw==
+        d=gmail.com; s=20251104; t=1792466698; x=1793071498; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
+        b=F3egZBHGyKGcGtkxm3U6zaGanki/60Qc3WhiyxEdrpwmWrrwAcYRSpzt1pRF7vLuDw
+         4vV6Xv2nvDCWFqc6KUc2Pb8Y64s5xImsWc1w+6gMW07HQ9InvKVCl3QtQOr1Mplr8jbq
+         OPxlwL6sjWYyoc18sDOXhTlwiE33ICGAcnQXJs42QnaI/uJqCmq1WpIJJe8xUL9ltqF+
+         d2oazE0zkTBYUrrgD9hWSwyU5bbCcesGZPsuiUeSJWswrvwJCclskoslYO/AT79yOTJl
+         y675Cd2gqmZlHnQBJzjXrAAXNBCt8NcxOGD9bZSPbpdAefoNPfRRV9aJMGfFWS0jOHZk
+         ivQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792465777; x=1793070577;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=eRFeOO3Kki8hDmAHeTRG/02QqZyLShI99Jw754kjQWE=;
-        b=2e/n0T9CqYXWO9wF2WRr4zzHioYsYLbYVpXVAruoaeh0r7AmZp6dFq/fpQ45ryMqpM
-         /4UJRFsCJ3VyoLgfY8JeKvfm6fuNsw6/i8cAZG6rjmXDLatebcKHHE0ikj+XTvlid0Nz
-         SUFeFb8sgYRU9Kz42AU15swP6j/U51ZHzhD0sK7eD9TRD1hNwW6GyOwq9yu1CeuBdV8V
-         kFuH4VeT0O1AK2alpo8+YP/cju1Xc/uFZ9pKceLui33Lp/+Y/zkobI2ENyI+y4HYvIEJ
-         dVOttr186QRGqFKe9pHptpPoQe6EAuDmp4AXGVK14/A53DX3Wtfvnzj8LD9EDTljU/np
-         RiEg==
-X-Forwarded-Encrypted: i=1; AKwUvBysDFFVkTAwUtz2dUERDzxpvXosym5RQsf4Ipx6crB0eDpE4bwaEu1p3gk3umcU+jcp/Y8y1eTY0EZBBA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCyHah/JUGj5XvRbTL4+lyi/3/PE7MFLYeFbmyXaNQVPkRQ5mk
-	Hse/+RNtFyoIaRgYeA594N10G6bg4M7kzKFbuq7pXARB6ahkk7CjCYbv
-X-Gm-Gg: AYBFou3t4m9XtcvwzwJUnxYAkeXuytnLWdwOQzpBIWYKjlQuPhrXKSxONK9RUJcPYrK
-	3kp6r84s9159lc/U6ez95HNhUI/rKF21MMEoKvgGSu37PE/wvtUkPW0RrNjxd6IjfHW7GDw/1aY
-	SxQOu/CU7ufDaDx51rXQu/bQ9YOnqXkUQtl7qADl2CD4g6x7kOykzRi2010JQwFG1b4t9D1SFFy
-	54VaUomexdEwR42WzXWiz1HA4SThX/aaH27SlISZrqOLnmk81X7H7AYHc60LDi4TjXQRvg3/7pR
-	8x8M1jT6fpTTjqfc32k1UKtRyQYr1yW0qeDjI6Sr/sJo8ygbzXaZ/LP4ydCBa3IC+R/r0RPGLoB
-	oBZQYvAePf4bqfpZ/sW5VRAcfB0BXOAoGS5Ur+g58vJSwFU3D7r+a+mHLs0RmOks8TtckUBB1Vj
-	T0DEFD9LHNdAG7kcORuuiz13IWDSY4ZSCsP5YBYURZaqcMMVOxqfRUQJNjvA08sdq8F8lX4T/y+
-	T3pMZYT9S4ZpGoQ+mVsiAmyk9vh726fyTKfQHmEJHYV9tCkJPjHTza9FsjUXkmcciQUcLpl9pK9
-	N1SvNLA5RNYr5mlZ0IHF2GcpZB5VTHqk1EY7qav4Fg5gn2eQR41O68BNX/PNHkHg1vzkAMedJIo
+        d=1e100.net; s=20260707; t=1792466698; x=1793071498;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bTIhfRXQ9A4fWivlb9V7+Dkt1Ju5gj489YBq7QLLDIc=;
+        b=nizWPIMWqrg53Vj7sGYBoXHgvHBXogApwSE3gxUwRlZ3w9LgB/YsHuD4hfc0UOETJw
+         oFDgXN+BAh2vPJJZRHyx9p6njjDiBFh4ageu+Urs6g1ELn0dsaGIM5kyEty+qaBXrpWE
+         NOO2TyGPL2cMDP3fXUhzj2FNi1grxMSPVdCKkcYrc48d7xXtqAsNfl/aVv4GbY7BZzbJ
+         2c6JxdTmmpZ/H1tEdjwmK4Yfa9z15RQnUE5JtBnAFaHmeerHELd5PIjG6cv7bPYAs+JD
+         y9nKqNaIqtB1m5Zmn/jq217CRM93VmoXf9l48nGAlqKwQiYneaYzWTPeZz4LmlkKBrL9
+         oD3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxfMBfBIzS7k5u+UzM2jdYchTzoeXosDLPZVbzehI+zA9Vr8XpPjUmPgfNr5p/gbs2r7jhjObtiZRKC2Q==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmrI9jkW+D53MIrvfjt/CALPAl8IngvlvI+oupwp5QCrrbvGDy
+	Dp4sMsQzHovYbZQWps2O7nQpQ+fIenG2R/BG6VBBelG9Hq8NEYFeYXYY
+X-Gm-Gg: AYBFou1xlhjg6/rNY4at5WnG3D8fA2fvgzUBCX4iMSNERNeGkjcpegry7RnmwnkOU7p
+	BixHRSrASpcjpUyy7ONyc5OdD4x69JaYB5e7OUhvQ9tDjVxxB7goFtIm5XVJPDKhkya7LMsczpx
+	cZYPgf6g+dhSjlPXSaLg1IXUsx6aDzMQOirQPCRiCffSJvzHEcY6dOZi5bY2MVaZb+fAPRLUu2V
+	Rw3+nbygIUFr1CNORZL/txbmC/lEyAg5PJCbNZtQcMC65Jjb1mhDRLoKolEVJcGJMKFMOhnGkZU
+	n7sgo8G4CuNPHQKqdT5X7OY6l6v/qNVsrRUx2wY9MdXjX3mhY58gb196BQZAA3UtpeDFH+RaWkO
+	Q33f8mMsl1NzdsTOkNgEiF1gdaQyStQSLsgpFNjxkzOQqTxm3kK4+haTI/0CyWEiEX8LM38+5/a
+	tRQ+tFW7LTUHorDMaPlR4FOBzvFHifsORYoajxWuSxt/L+sTfUNVQVpNjmuBdGsfgSMDwXtlM7z
+	KQnX2YJJIHFQaFtWr4+GEiBVkrh4ZjQY46tqe73Gpr4BZpPpW8YCYE3vquAvI9FoEPTmpMixN6R
+	Myoc22AkXnCDzWae5GuNKXUNXYGxqBSHjItZ0rRDzi6O3UthjtfjzXTFPWZkmsEuw5gbdK0Hwck
 	=
-X-Received: by 2002:a05:6000:22c4:b0:48d:ffce:6cef with SMTP id ffacd0b85a97d-48e079200b5mr21966256f8f.0.1792465777063;
-        Mon, 19 Oct 2026 20:09:37 -0700 (PDT)
+X-Received: by 2002:a05:6000:2583:b0:487:490:8391 with SMTP id ffacd0b85a97d-48e07bb58aamr21758837f8f.16.1792466697879;
+        Mon, 19 Oct 2026 20:24:57 -0700 (PDT)
 Received: from unknown748F3CBA5068 (dynamic-2a02-3100-9c92-6501-cda9-90cd-4e49-75d9.310.pool.telefonica.de. [2a02:3100:9c92:6501:cda9:90cd:4e49:75d9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d817d75sm3304578f8f.25.2026.10.19.20.09.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d818d61sm2909579f8f.31.2026.10.19.20.24.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Oct 2026 20:09:36 -0700 (PDT)
-Date: Tue, 20 Oct 2026 05:09:29 +0200
+        Mon, 19 Oct 2026 20:24:57 -0700 (PDT)
+Date: Tue, 20 Oct 2026 05:24:54 +0200
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
 	linux-media@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, 
 	Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
 	Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
@@ -92,10 +91,11 @@ Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Sumit Semwal <sumit.semwal@linaro.org>, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
 	linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 0/4] media: synchronize CPU access to imported DMA-BUFs
-Message-ID: <atba0NA5lyG-326_@gmail.com>
+Message-ID: <atbbdKshkbmbMZMk@gmail.com>
 References: <cover.1792392288.git.kmehltretter@gmail.com>
  <20261019124433.GU595565@killaraus.ideasonboard.com>
  <b9f5ee4d-987f-44c2-a1fc-2570f4500803@amd.com>
+ <20261019150116.GA3705@killaraus.ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,34 +105,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <b9f5ee4d-987f-44c2-a1fc-2570f4500803@amd.com>
+In-Reply-To: <20261019150116.GA3705@killaraus.ideasonboard.com>
 
-Hi Christian,
+Hi Laurent,
 
-On Mon, Oct 19, 2026 at 04:48:13PM +0100, Christian König wrote:
+On Mon, Oct 19, 2026 at 06:01:16PM +0100, Laurent Pinchart wrote:
 > 
-> What the drivers do more likely is that they use the vmap interface to access the DMA-buf with the CPU inside the kernel. Correct?
+> This patch series introduces a big penalty in the common case where a
+> userspace application consumes the frame with the CPU. There should be
+> no cache invalidation in that case.
 > 
 
-Yes. UVC and the tested vivid vb2-vmalloc path write the imported
-DMA-BUF through a kernel vmap. Userspace mmaps the DMA-BUF and brackets
-each read with DMA_BUF_IOCTL_SYNC.
+I measured this on my Pi 500+. The cost appears when the DMA-BUF has a
+V3D attachment that stays mapped but idle. I compared patch 1 alone with
+patches 1-4 on the same v7.3-rc4 base at 640x480 YUYV. For the DMA-BUF
+runs, userspace read every frame between DMA_BUF_IOCTL_SYNC READ calls.
 
-> In this case dma_buf_begin_cpu_access() and dma_buf_end_cpu_access() should be called to properly frame that access.
-> 
-> That seems to be added in patch #2, but I absolutely can't judge if that is correct or not since at the same time you speak about userptr access and the code really looks a bit like spaghetti. 
+Median process CPU time (us/frame), five 1800-frame runs:
 
+                                      patch 1      patches 1-4
+  DMA-BUF, no DRM import              129.2        130.6
+  DMA-BUF, idle V3D map               130.0        153.1
+  MMAP                                126.5        125.4
 
-USERPTR is not part of the CPU-access bracketing. The cover letter
-mentions it only as a regression test.
+The no-import and MMAP ranges overlapped. The V3D-mapped ranges did not.
+Pi 400 reproduced the mapped cost with vivid (+8.7%) and UVC (+7.5%).
 
-An earlier version changed q->dma_dir to DMA_BIDIRECTIONAL and made
-read-only output USERPTR fail PREPARE_BUF with EFAULT. Patch 2 leaves
-q->dma_dir unchanged and passes DMA_BIDIRECTIONAL only to
-attach_dmabuf() for imported DMA-BUFs.
+The task-clock profile covered only the patched mapped path:
+
+  Operation                              Sample share
+  DQBUF producer END|WRITE clean         26%
+  userspace START|READ invalidation      13%
+  userspace END|READ clean               8%
+
+I tried a CMA experiment that kept the DMA-BUF callbacks but skipped the
+read-only END|READ attachment sync. The skip variant saved a median 12.3
+us/frame (8.0%) across three alternating same-boot pairs. With private
+DMA-BUFs, the full-sync and skip variants both passed 64 byte-checked
+V3D read and overwrite cycles after END|READ.
+
+That experiment still performs END|WRITE and START|READ. In a negative
+control without END|WRITE, all eight V3D reads returned stale data.
+
+Patch 1 is independent, so I can send it separately. 
+
+For patches 2-4: How should vb2 avoid the END|WRITE/START|READ
+round trip when userspace consumes the frame with the CPU, while still
+publishing the frame if the next consumer is a device?
 
 Thanks,
 Karl
+
