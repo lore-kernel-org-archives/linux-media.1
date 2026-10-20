@@ -1,69 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491916;
-	b=COsm9jpVCcbADvk5w0QR6xHwKmw4+CcnYFtVR72K2rRNMQsNMFtLtDdcuAk0zpjXKdW3
-	 3TE4zz9le3eYeQuo/EDgvRWpQk56u5w4AzB8IhpP8L1piVYIONxjYBYS4ItCQDlIZBlvL
-	 lpG5SMTWkVcWPu8LeWBi6kjqCNEt4Fdbakwr1gEIaCjoTYI91PamuyAfuP1riXUZPXjh2
-	 qGXFXBTxlpDtnkvA8Vot5Vd+hb8NzBOomGBY7VrXmalCVCDPE2bR799cJk1rEVEHTgbZL
-	 YOiBW7t4vHjgmnGrWmsw++dwMOkvxeNvggsP2Zt+gs/akYuVuoLkWZqM6zWmBkrn+lA==
+	t=1792491981;
+	b=fAMMCbcR5+PlZ24IOkD8IzcEfk4ukvUiNvcbDGDD+SKFTb2jWB2s9LqFxRZkHr4lUICD
+	 kr/fgKuwjZqPflHb6zGDwDUZNC7RgEgEEFvZw9yaw7EWKF/TwKXYPp/CDpdop2Wn7r2as
+	 6X9ZoQA5GbdKsKuiSPo8qHtoBT31bGgm73X06jpJt0zyB9fhGE2rBF8E62Z0H87qYBpZD
+	 kDLarK1evkyCp0Q/VGbUGYIEe+Zk4oKblgvFG34C7iX2k6AOHTO7SINDnqfA6KgHsPyUt
+	 +/xYeE0EF0tW1zbhgLpxsRhJjUwp8RSAniZcDlpVD4H1Q679O+FD66PUb0YZLILl4Sg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491916;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=GmgvE7biHiDHJAgyZpIMu3iqBMY4bU18LDyGcOQMk4g=;
-	b=2UpyNORC2FGjWg/yHgQ4myFX41nFkvW7EPXkqHe7hdU8cVOfs11+qRw+OOaZuE3FrpaK
-	 h29ygICOgJYJpdd6Wn07Cgs+GGywppmO1pN1KeCtJQK+YIN27rWRcPPaUEZAjn74Vg4iq
-	 Ragz3qhmafAnxoaxh2auLsZi99VkirnIpzVx8h0z2dl40DM2dAdTpVvBCg1+5cP1/wDIS
-	 Ihf4UmC0mREOWwykxobSpnZHiDD79vlGN/YCdaprk+xlI9kNwkUAFraMANVH7aOTv880J
-	 +8APQ+1a4UsZjM9K90Yl5H7beHUt/zk/oJya5vHrS4y/S7167KkmaOSrHNQgLXasaRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491981;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=llOrQbjWBwChF/bms+1wpzziugp2meemnoJCfFS+62A=;
+	b=E+cSpWrLWNWuzexztt4JbJyrHN5rdv3+/c0HU/ji5M53tiE5NZTJad9t9X5uEf+xixTV
+	 Ag9/2gIFwWnQTBSj4y5YpmiPnKuc9qB3OeTt6UMiY3L/pv/5pqZxUsAm8bScClZi8vSp3
+	 6LiFLfulXW22PxLiME+IfW3bXPdXoCLTuHoNPd88xJ5QzfaOAOX6j+W0UpTKb7LbZBvqz
+	 OCMIFN1k+YaEJLUO/C6ivzJD0TM6Zs9CStG9iRwky2Z7wmNl/y6cb2TZzOLox/W6a3g2H
+	 TNlsbXHNzzgPSUhiHY2rB6bSErkiOaksYHCgsA5zF9yZ7FzuHkTLCbgtRXMCus9fX3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lguxzf8Z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=quDRCSqN;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA99A606A319;
-	Tue, 20 Oct 2026 10:25:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CDC606A31C;
+	Tue, 20 Oct 2026 10:26:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70CDC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lguxzf8Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A819C1F000C4;
-	Tue, 20 Oct 2026 10:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792491915;
-	bh=GmgvE7biHiDHJAgyZpIMu3iqBMY4bU18LDyGcOQMk4g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lguxzf8ZkSVPiujCO3yHX9RyjwaBzTk20uTEzjFrJiN0TZqi4fB+bCu0Y04iDSvHw
-	 dyo+dunY5RFPtvt4z5gbQgc5c31+1wikH2oM+R2A8/9CmcWOCa/DujSVSn8P1Jiy5O
-	 IkMGGDOk8VQqJlgDFCMIgIr1GYaj0gVoOQgJSBM8pOf5XItP41xBc0W6hhUtqbWfKS
-	 GmYr+B3T+hLhpI4/Q+wr8TYB8Q9ErStEBUwgL3YlmwntUJUiBnNXnidK/nAcYrgCvT
-	 E3e8iZ7vB5loeWynl9dd7Vq2QfVKRPC/ECeBnyG1PUM/lSztdK1tJB3H2dRMTvg+ed
-	 fC7b+st9MDTpQ==
-Date: Tue, 20 Oct 2026 13:25:10 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261020102510.GL64621@unreal>
-References: <20261019183537.GI64621@unreal>
- <20261019191845.GA2219127@bhelgaas>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=quDRCSqN
+Received: from [192.168.33.26] (185.221.141.235.nat.pool.zt.hu [185.221.141.235])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1301AC1;
+	Tue, 20 Oct 2026 12:24:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792491851;
+	bh=gwnotLY2CWbADHd3XCoiwAKtsuToKWBph9S5GuK8HhA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=quDRCSqNTfAl44e6dLS8J92oKjT6U0e4POPN9/BZPdhSqcauZEkzO1gmt2Y273gHD
+	 FC/o5pUkOihqge6Fd8PVVFC9fer6xw2xkx3Fvc/1EdGZELFkdq41CWcjfqzc6YwDjA
+	 cNV3TuZUZKbjjxMj2qCQFbTHIjawr/Tb2Ujh5mBA=
+Message-ID: <ab5c5b03-0957-4ba4-82a2-56204dd7266d@ideasonboard.com>
+Date: Tue, 20 Oct 2026 12:26:14 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -73,57 +54,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261019191845.GA2219127@bhelgaas>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] media: rcar-isp: ispcore: Look at number of planes
+ when programming
+To: =?UTF-8?Q?Niklas_S=C3=B6derlund?=
+ <niklas.soderlund+renesas@ragnatech.se>,
+ Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+ Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?=
+ <barnabas.pocze+renesas@ideasonboard.com>,
+ Yusuke Goda <yusuke.goda.sx@renesas.com>,
+ Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
+ <20261019-v4l2-add-nv12-v1-3-4a84736803b6@ragnatech.se>
+From: =?UTF-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
+Content-Language: en-US, hu-HU
+In-Reply-To: <20261019-v4l2-add-nv12-v1-3-4a84736803b6@ragnatech.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 19, 2026 at 02:18:45PM -0500, Bjorn Helgaas wrote:
-> On Mon, Oct 19, 2026 at 09:35:37PM +0300, Leon Romanovsky wrote:
-> > On Wed, Oct 14, 2026 at 05:49:53PM +0300, Leon Romanovsky wrote:
-> > > On Wed, Oct 14, 2026, at 16:23, Bjorn Helgaas wrote:
-> > > > On Wed, Oct 14, 2026 at 09:53:47AM +0300, Leon Romanovsky wrote:
-> > > >> On Tue, Oct 13, 2026 at 05:25:08PM +0300, Leon Romanovsky wrote:
-> > > >> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
-> > > >> > This misclassifies asymmetric and nested switches, and reports one answer
-> > > >> > for every kind of TLP.
-> > > >> > 
-> > > >> > Three ACS controls act on TLP attributes the Requester chooses rather
-> > > >> > than on the topology: Translation Blocking and Direct Translated P2P act on
-> > > >> > a Request's Address Type, and Completion Redirect skips Completions carrying
-> > > >> > Relaxed Ordering.
-> > > >> > 
-> > > >> > Evaluate each direction at the path divergence, decide every class from the
-> > > >> > one walk, and treat a client with ATS enabled as translating unless its
-> > > >> > driver declares per-mapping ATS.
-> > > >> > 
-> > > >> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
-> > > >> > 
-> > > >> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> > > >> > ---
-> > > >> > Changes in v11:
-> > > >> 
-> > > >> 
-> > > >> Bjorn,
-> > > >> 
-> > > >> Could you please save me from the AI-bot attack? Every rebase seems to
-> > > >> uncover another bizarre pre-existing issue. It never ends.
-> > > >
-> > > > Can you elaborate?  I'm not sure what you'd like me to do here.  I
-> > > > don't control the Sashiko reviews, and I thought Sashiko was recently
-> > > > changed to put pre-existing issues in a database but not in the email
-> > > > responses.
-> > > 
-> > > AI reviews are not deterministic and every resubmission gives us slightly different result, which is in this phase of submission is  full of hallucinated flows not applicable to the upstream.
-> > > 
-> > > In addition to upstream Sashiko, i run everything through local one with slightly better models which hallucinating even more.
-> > > 
-> > > I would ask you to merge the series so it gets real exposure in addition to my kunit and specific hw setup.
-> > 
-> > Bjorn,
-> > 
-> > We're in the merge window now, so I don't expect such a large series to be
-> > merged. What about the next cycle? Should I send v12 after -rc1, or wait?
+2026. 10. 19. 21:35 keltezéssel, Niklas Söderlund írta:
+> Instead of expanding a list of formats that uses two planes look at the
+> format information directly.
 > 
-> After -rc1 would be good.
+> Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> ---
+>   drivers/media/platform/renesas/rcar-isp/core.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
+> index 3e135e84b75b..cb9d9033d0cf 100644
+> --- a/drivers/media/platform/renesas/rcar-isp/core.c
+> +++ b/drivers/media/platform/renesas/rcar-isp/core.c
+> @@ -126,8 +126,7 @@ static void risp_core_job_run_output(struct rcar_isp_core *core,
+>   		mem = vb2_dma_contig_plane_dma_addr(&buf->vb.vb2_buf, 0);
+>   		risp_core_write(core, reg, mem);
+>   
+> -		/* Only NV16 uses 2 planes. */
+> -		if (fmt->fmt.pix_mp.pixelformat != V4L2_PIX_FMT_NV16M)
+> +		if (fmt->fmt.pix_mp.num_planes != 2)
+>   			continue;
 
-Thanks
+Looks reasonable to me. Maybe `< 2` would be more future proof?
+
+Reviewed-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+
+
+>   
+>   		reg = ISPCORE_DMA_IMAGE_FRAME_BASE_ADDRESS_COMP1(0, frame);
+> 
+
