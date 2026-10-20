@@ -1,60 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792486337;
-	b=BxPgvdv76ZnhL/nzYBrv8dXdhkY7QAyb/ASEDgnZwwthsCr+lSD1Z/WUm6GUsTMQ9lsq
-	 sb9n1zRTc52xj2P0IE4MktLkj37+AcvVTPo4ah+y8xsf673eHXkzBJph9HJD+eVJZYRMw
-	 3X7uT7J7I4mqc43hCiMWgTZaZimqTitGClaKaETZjkWkyG8DQe0JqgK+PQy9sk009eG5O
-	 WwK+u0CbFlpmGyA9CEY57arXah3C3gFBOtNPPEA7v3uXPBqIBXuOAk8/Ig0af8CB4EMjl
-	 /1Y2Dl/QqhRtJbLpqyVPZZwlW3P4GVinliDt3crUbdfWEszqt9VLd6z/U5r4KcW4Xog==
+	t=1792486661;
+	b=x/fY6z77MeyrAl7qEk6W8QcVjbFeI91BVdvh5t4ZnOWSzir4MmyIXclQZhidFJgh2PIV
+	 cKouy36Zv6uZHlsLa3aoUki7mAQlv3BLFnO3UPTaC83Ys8iI6cHc8dZ5cBPB49uBC+cg0
+	 QVUmvArW0OLQgtAPq6PA7VZGs4voQu8sWV+8zBPOl4S8TBVPGHV8DWM893Ji5EshqcnsD
+	 Q7drekOd0XzECiP6okxQcqLWRpVtjYcQ42G2fyKz5A258Jq04SG6qL6PJLVh9amQScinv
+	 V3PGW0qoSwxICSax/qZSDKgd1DHYkByuVLWcA0ORlcCnAbJXhGUUsnaSorymqm0xHYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792486337;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tkqdn+h+quvZr9vw0T8bcJsxvQ/mJoyu/YMkcY/G2Jo=;
-	b=F+HRD+V7fG9MMe1ug/QbfP0EFD5eq50F00N6W7jtEMVndhuxi/pJ4pdnnrj3oowSJLcY
-	 8h4lozqKF5WedAz31RR7EdJaPsHlwBK7m9MZl3lCe3ySXV6F27R7W6IXL42OC6amWTa3S
-	 bmLOCTRmS4SBTfIemAOk1RSnGtsMgaOvBSlqHr4GwmhSWEZI03Zd0tL3sZwS/LLsqeAo8
-	 zIksb/zpWmqy5Tqc0vuj/rr4VA8kEH2xUPIdCurNCqRiwZigBopH2TONmPo6fZT5b04DO
-	 05WvhlU/95/WcZAEsqh792VrED1cmBe/6QTUkALbyakUQFVWPAM2ReabsuFKRpCb+Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792486661;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=8EADj5N0q93RQwZJra0ETd5ppkBln/LzNjMY6Y0zjkU=;
+	b=jV8FvTMbKrupydzKnVt5Pekw7mCS2+rjdSRjHkvpc21v+tOUS+HNqnk0APrujlyo1/zn
+	 w4QSYeG09p2VnQJUGxeFNg2mI3g31IIE6319SAqyQOIYWoBWzvXjqpjSHaen7rtslaaXr
+	 JIZF1WQko7CzaRDEG8CmvkrKiMnSHKp2ZtbBqAd4d0v8EyRSYo99EGQ1Cg5qg5WU8Dq8n
+	 aMnjA53rZFjh+rHOv6P2/YhHOeUsuzTZ6XJE6u8uRmJFMAeeBcnFwFgv6MTMo7Y2WQ8Ji
+	 1Tka4/byT0UZZ+4qwcymUe8vtBkNblBfv2QggSW579/UGSlz53/X1qVk7sAcW0O0ieA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=VifFGusi;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Tf9Zb/uc";
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CA5606A31A
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 08:52:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45CA5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CC7606A328;
+	Tue, 20 Oct 2026 08:57:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0CC7606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=VifFGusi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792486333; x=1792745533;
-	bh=tkqdn+h+quvZr9vw0T8bcJsxvQ/mJoyu/YMkcY/G2Jo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=VifFGusifNCRwNZ9086C0OV5AWmprlXlgTGT0U8b5CYguiRNKj6NA1yYc1sB3tdiY
-	 ahV/sbOkFqqNEQEa4sglx893CE8+7jqKlIJCc/krXJlMmIE0AT8lprEyu6VOjLpjyf
-	 KdVMsk0QtMRUr8K3OnuAKO9KDN7u1e4zVoeFR7JxX+LvnG57XpikPAsGa9hmh4nsZZ
-	 zqQfgbYuw4G9iZ8UDd42fAOKETSl08ME/6N+ANLhRTeSNEB6tRYm93xbFrSEt7A1QK
-	 d+55BdSMWPD+wbx+pzHkJATQp/Jr9eX/cmU6F6qWMtdY0Rtd8eyKwZ5knltbpXMjHL
-	 iH1/Ejhrpa/QQ==
-Date: Tue, 20 Oct 2026 08:52:08 +0000
-To: George Neacsu <geocausa@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261020085200.60619-1-lsa.uz@pm.me>
-In-Reply-To: <179247822513.25202.7960395606350309657@gmail.com>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-3-lsa.uz@pm.me> <179243379000.31842.4735750009847702427@gmail.com> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: d8595080311558c5b70a0b31ff8f4968d8b5aff6
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tf9Zb/uc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792486660; x=1824022660;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DHTc8bHXvi3461boxPJwmbEs/Ed5gx2BU1gdpjFJ2Es=;
+  b=Tf9Zb/ucdk/7jUw/GHT0euB1DjCJv3TpX9oci2u6s/IHt5G0MFyGNXxM
+   Nyv/g8gVwWNiNRx7JFpiIwMNhW/RuDlAsE7B571/81DVMh9KBpi/plUXE
+   7TlPggUz6K8aAErGIxGzYXC0qrz8bkBCzkabg7Y9d3paisXfYO8fbAcKW
+   IxrT2o7znBb6hz68UlBPTkYMXy4lnbdwheHjQYhcRtxRgyinXxxC5gwag
+   YQeqfD34yfR0rvHJYMSZclzJBEHHqbgSH16PxX73Pg6nV4kUIMgQto0lr
+   MOtwpZjUQkFd/Z/li56yzWkbgM7/rJs0e9jMesTCai1Ny79onXNEpDF7b
+   A==;
+X-CSE-ConnectionGUID: lAbcQ0trR1mynSHclUC4Ag==
+X-CSE-MsgGUID: 1wC/+zA4TAqmhhVIGpoBTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1073551"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1073551"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:57:40 -0700
+X-CSE-ConnectionGUID: FsoMjv1uRpK/tBdhNGGx/w==
+X-CSE-MsgGUID: MaC+lEpjRz+Tl1gr/gMh1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3223107"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.72])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 01:57:37 -0700
+Date: Tue, 20 Oct 2026 11:57:34 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Alexander Patrakov <patrakov@gmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	johannes.goede@oss.qualcomm.com, adee.sahan@gmail.com,
+	andy@kernel.org, antti.laakso@linux.intel.com,
+	dan.scally@ideasonboard.com, diamondback@cohunt.app,
+	ilpo.jarvinen@linux.intel.com, linux-media@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 3/3] media: i2c: ov5675: Add the OVTI5678 RGB-IR variant
+Message-ID: <atcs_nK50gJ3dBRX@ashevche-desk.local>
+References: <CAN_LGv3QH4oupSv6KzopjHRXO7tWhY4wvBuCHBzNhJoDW4ZL4g@mail.gmail.com>
+ <20261020015001.15672-1-patrakov@gmail.com>
+ <20261020015001.15672-3-patrakov@gmail.com>
+ <atcpXzA6KQfgiD7J@kekkonen.localdomain>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,31 +86,37 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atcpXzA6KQfgiD7J@kekkonen.localdomain>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi George,
++ Uwe.
 
-On 20/10/2026 07:44, George Neacsu wrote:
-> Would you be comfortable dropping that write in the next revision? I can
-> retest the revision on the Snapdragon model and add a Tested-by once it
-> is clean.
+On Tue, Oct 20, 2026 at 11:42:07AM +0300, Sakari Ailus wrote:
+> On Tue, Oct 20, 2026 at 09:50:01AM +0800, Alexander Patrakov wrote:
 
-Yes, I will drop that write in v2 and leave 0x0329 at its default, and
-Cc you on it. Thank you for narrowing it down to one line.
+...
 
-On the Intel model it makes no difference. In one boot, with the sensor
-held powered and 0x0329 set to 1, then 0, then 1 again, each state
-streamed 150 of 150 frames at 59.14 fps and restarted 10 of 10 times.
-The test-pattern frames showed no shift or extra lines in any state, so
-IPU7 does not put the status lines into the buffer, and its error
-count did not change. The full test run without the write
-matches the run with it, v4l2-compliance 46 of 46 included.
+> >  #include <linux/gpio/consumer.h>
+> >  #include <linux/i2c.h>
+> > +#include <linux/mod_devicetable.h>
+> 
+> #include <linux/device-id/acpi.h>
 
-One thing I cannot explain: on 16/10 your vd55g1 build streamed 2/2
-with 0x0329 =3D 0 written once per power-on, as v1 does it. So the write
-alone may not be what stops CAMSS; something else in v1 may take part.
-Leaving the register alone is simpler either way.
+No, this has to be part of i2c.h on par with device-id/of.h
 
-Sergey
+Uwe, can we get this fixed, please?
+
+The basic idea that whenever we have -id/of.h included, we must have -id/acpi.h
+included as well. Otherwise we will get tons of this explicit include.
+
+Or let's do it other way around, drop -id/of.h from i2c.h/spi.h/et cetera (but
+I predict the answer to this approach).
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
