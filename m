@@ -1,88 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490841;
-	b=1HK/17fCTTWGOi3Q++WZS51tYN/ci/+GfAHBR828ia+XTVCHzsIT3+dSOxdvq1nNQyuc
-	 Ge/Y1qBkl+zVUGK282dny/87TsGjM/FylngzhCWCa2tQ3t5xan11A0g3T0HxdN2CMFQZy
-	 +K3vUdzHG28/0tcRuV/VaFdMd2bA9pZwP4UaaZmhDpx4Jopci9bhyuY3AnndEmIRs1Ylw
-	 AeRwXJg4vgn15B0e+Pp+MJtoOHms5UZyZ8Am3jhAQarCM1nLY6/zX+TdKlAluFXBQO5w3
-	 9yQLG8wiuxutxeoEafc7ntVkoMP0zCuponldDTJhmyHP7rF8WCobkNZoksYHQ5IKDzg==
+	t=1792491049;
+	b=1oEkimRmrMX4/KeB5hu3cQVkhMHn2RtfPIcJy5E4F2keh5JfwL8dYuHuCTmwh4hu5vT4
+	 ngWlvoTuqNEoznnol4L4p+KkvOfvCIABOHCZ4MgStgXie87CqlB7C23txkuG5BWFjm0MQ
+	 wErfFuf6M3ygXM8+uzP14vYDExE3Bqewlisfyn5rd/y5h7nybAPbZ7gFggXfaLTMJChRO
+	 Xlqee7kNdlkYHx7eCV/O9rVOlGWaUX9fXX7/UYZ22LiNADC5jpfoLZNNoXaatOHv2ypfq
+	 ZDNBV8uKWRGftUAbjUiDEAzaVYrp5QqDoZwBG0ioT4jH1qghco2YSPHHHXTNyUEVpuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490841;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LTx6K0H+HB18S1mekdTeGsQe+V+tpXMG7vZI1N5W/i4=;
-	b=AdDW8iDi4P3YICwE361o3MjY3DzHKebQsq5sqD6T9fR5YJh/3betGep0RYq6sULHOOR5
-	 6Ne9b3ZbDMQEo46aq/HCBKi9pQwtOQKLceLIxJ3aL1xK11MFXH6D/XRuPSORGbNnpc6ku
-	 gHMHQAtjFgK1sBUZ0vZaMgtz9gjiUItxlcMfvZBsLoyvtr0XJM2pIPnaaPIxSV0HwF2b2
-	 92UcKbZU0tJPdSHW14GpQkStWPpbebd5KV8bk62CD8+XphZoSct06et/bpMrvMZa7E5yB
-	 iH5BcwwLdU3C2qvQ0t9IR1HRhP6pBeCxuNppvBuPAM4WySCh0RDFEjD5taEixkdyRCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491049;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=2ws4735qh4wR/HsDhw2lJB9bz2bPEpAWvlil4rhqeZ8=;
+	b=pe6XYMJsgpzV5h4XwfcPlCBUgfaPi6cYrixQCrFKNiXCtLANIyUHtKFoaCKQ0nPwOBFS
+	 4QI56puLqHia4rMz75xyOzTsmdtegu4tzaHUKJsTY3FTwZfeLqH/2zf/cupC4zVQjYKg0
+	 JRWrQqsOyBrwjt+bcxTkBCbiWpCZH6lnrlaj4SontHQcvAh6hCpWq6peKZbPRLsnlMDH3
+	 pcSjv5fTAQ3EsFKkbcKGds+K7iCLkIjMBu15iD7he+I85966rTSiaq/FTmDnILw1Y+My+
+	 hCPSQXXFspFjKJDabZdv998JhrW+3raG614K+yNQF722kWBVZxH4H3pAopueQdA3ybQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9nlm3Nl;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bx+azzKj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i1ddJ30F;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24502606A319;
-	Tue, 20 Oct 2026 10:07:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24502606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C97A60A262F
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 10:10:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C97A60A262F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9nlm3Nl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792490841; x=1824026841;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gv+wGTsdGwSWa64CLUgqXHwlLl3z/tT0Go0vfuW1gig=;
-  b=b9nlm3NlAdeme7zyj2fArpCuDSE4g3azg34W0CqBu2FStxzJC3Uau9cs
-   nrHpqrktaVtVhyUtU+GlEOwIhQgSwUbcl8qcirS+TjYvvUvg9i2qmRW57
-   Y2erj+MQiCmlhw+mDtjfUHF8k05K46beN027CSY8M9KL04QGtonam1MHB
-   1texUCvFh6jnFhh5LyQ0s4xUP+WyIvs8yvRydJN7Jvxf52bOjIyCcMcLz
-   GECUFv0kHJx/qAhEieqKFk7InKxhglfL2emJNLSxCwWfShzdDOVGa9VQi
-   k6SsE7mcFjHci3bwD/KbHJM1lCutJQaaZZFmwTvF3cUigwpigWd4WUIR7
-   g==;
-X-CSE-ConnectionGUID: nY6JJ3eIRf2Xia3AHKaJAg==
-X-CSE-MsgGUID: pZXohpnXS6+3HcCa2LIwnQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1079908"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1079908"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:07:20 -0700
-X-CSE-ConnectionGUID: oBOjhDuYSHmJPaglrYqvEA==
-X-CSE-MsgGUID: QsGZ9gaOTcaoNaHSaKQeLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="3151194"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:07:18 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 7B11E11F7E8;
-	Tue, 20 Oct 2026 13:07:15 +0300 (EEST)
-Date: Tue, 20 Oct 2026 13:07:15 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
-Message-ID: <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Bx+azzKj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=i1ddJ30F
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K8JUNM2877818
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 10:10:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=2ws4735qh4wR/HsDhw2lJB9b
+	z2bPEpAWvlil4rhqeZ8=; b=Bx+azzKjdEpWAZ29MxriNvuN/bpRtf4SUZlWdF7M
+	sBmGqesvDT9x84K3FFggEf688tCYYfCBDIRh0dqL2iKUCw8wl1hFb8wkFcanZYsD
+	tfGpZsuT8NiwfjTxiQxp90UAMaoDU7LOurdfXV6Rkt3OYwRZz+TdSQh82i3iC1uO
+	YsxSiA5Jdp9Z8avezlbGbUFWiH3cbBIARD1ET8VAlaEdDjNBRCJ0iU/IHwyIKW45
+	V3dSddkwWvDO5ExUlG4qnjLwu64D7rKSKDrYbK3MR1ckJkTWj1pgT1mtcX1HOHDZ
+	50qpRgs5g25LIjdGIvIsIovUTAgowlMSfVnK1CggL2Kj5A==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5pt0x9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 10:10:48 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f2373e9b4so333825685a.1
+        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 03:10:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792491047; x=1793095847; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2ws4735qh4wR/HsDhw2lJB9bz2bPEpAWvlil4rhqeZ8=;
+        b=i1ddJ30FBlnpMa3/PtZMQZtAr8t7fGAkTMTkn94NJsNkI48eTCXEiCj5yNO5e9aVAA
+         I3/kmwbWuQjSAdsAKcwhPqbF819F8KA6usedje1bRZ+2YgmnAkUb0cj0ro3N3RjH9Jh1
+         fpHusyqxaN5ftI6e+9axPFHbkWZH66+mTSyGw5N4cstg5HxP12QcXfLn/ND+BixoJTzy
+         Qs84pNF0pYtoMuLA4DtIb7/tGSA/b9w+5LpFri8PE5t/h2OzkMzpnkk+DUoYYZzl6cbN
+         ezDFTMIXeEgDIaEKnMwR/GIUCoHtfkIVdYtGpPZMyRIa7blII7jE+Dr8CM+3vFCiabPf
+         n0xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792491047; x=1793095847;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ws4735qh4wR/HsDhw2lJB9bz2bPEpAWvlil4rhqeZ8=;
+        b=Ax7+PKwid8TAJVI3KBeCuURVPTx3nakSTJRrYcZiJFFGV29MxIp+YV1ZnCjt7e9YQj
+         0PraddxQlq7MDQ471Njn8c/XV9t2rJg/y0tmAQ+nCzNKhbASuN5541WSbt0E5VdyA1ad
+         LXKe19KIzVxLWTCgVOIx6j2CX+67lhTh+MzKL9UBC2p+uTfrYRKT4V5rfcD4EYPXfwxZ
+         wIHyRxUl/Y9MO9d2Hsehoolc0QUgva2NSw5eOCE1X5ONr1gY5pirux+/S2aXrr7MB30t
+         /WDoB4mlNdKmfKI6W64Ufd2GgxhOaTZS5Lbcgs6rgbTl4l8mJ38PklmqesWlaitOC+RQ
+         x8qA==
+X-Forwarded-Encrypted: i=1; AKwUvBzyZbjkQOWUhKJmZop4BtUfX0eTaNVXU2UGg6rMR1ompLMWTE8i877lkRmRVAQfHUF2J7UrTSWaeSJ7pQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhei0XoWkfw/IHGAvAwspRK7BL5cJ8RGSsUELLNUkW+O4azjo2
+	5VPNJHgvqzd7zdQi6lOXwxY816bFvwPEdHm87UzZ+lPj2dAnSsoGQEIm2Um5jJnZ/lilpUHFiOy
+	TEcxMlOICh8FYJT05/3zFuxSSEjJjHDZ3Ddrx2SxH2Zg5+CEofK6JL8ku2gvziF1oOA==
+X-Gm-Gg: AYBFou2wUboozC6402p7kslvyQrn3RXY3LtSHBjUf9Hn6md0LHLReg0z7ISskkcALIc
+	dqbLVrn/hX0XBG6EA2KU34Zv5I6wiGN85GIAQ199E+z54/Ej4e1S+ZjYFmDQQQVL/qIqr1o/KlT
+	/Jmmg56OfLx3eBiEtMQes2zugrxlBV1UqHbk+ZBfpfpmU3lz8k62HC0aOIv0rmlwWcZMXtiyBtC
+	R+RAzjxeJPdDXSzGYhTPlFhcPl7jdjul1qc1VwxXv2NGfXWf7Dy4LLJMm+DRS1ypXEg03MEq65H
+	YnbHdjsW5dNOu5NqMIGC+SfjzoUIYTcSDqN/G2vDZyJ6LtVGWANGzwVMTtdPR8sZ5o/RJB8Dzr6
+	lo+tT8Rqmkrefc3ibODcsTkG1QefGCpdp4ZDTjL/TZYaqVd2rNRFaszBeyWtTiPGfap77sI9m8d
+	oU7LhNR34qrQHp
+X-Received: by 2002:a05:620a:bc4:b0:93e:c12c:fbcd with SMTP id af79cd13be357-93f29dce8f8mr1810483585a.73.1792491047334;
+        Tue, 20 Oct 2026 03:10:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:bc4:b0:93e:c12c:fbcd with SMTP id af79cd13be357-93f29dce8f8mr1810478785a.73.1792491046763;
+        Tue, 20 Oct 2026 03:10:46 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5be4a3fceafsm2479209e87.4.2026.10.20.03.10.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 03:10:43 -0700 (PDT)
+Date: Tue, 20 Oct 2026 13:10:39 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Joonwoo Park <joonwoop@codeaurora.org>,
+        Imran Khan <kimran@codeaurora.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Ilia Lin <ilialin@codeaurora.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        Christopher Obbard <chris.obbard@oss.qualcomm.com>
+Subject: Re: [PATCH 05/10] clk: qcom: cpu-8996: move off the ACD leg while
+ the PLL speeds up
+Message-ID: <iqwdlpjvsilp2zwvp4kljoc4txwaw6h6ndz42hgvakfcgc4lqo@ajr7xrkiwmle>
+References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
+ <20261019-msm8998-fix-clocks-v1-5-370949e4d8a0@oss.qualcomm.com>
+ <c3ac769f-59be-408a-81c8-9d6a2693d3f2@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,106 +144,90 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+In-Reply-To: <c3ac769f-59be-408a-81c8-9d6a2693d3f2@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=DrrDa2/+ c=1 sm=1 tr=0 ts=6ad73e28 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=et-XlBO-5GXiIU7lIcEA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfXxAjRBqlguRS7
+ KQ59d0H5joDxOHVxP3ggkqfnk7yWUs27z2zFJ82AjsAd59FY5CKJM5xmYg9zYYjt5nRxE+b5Mjl
+ yk5WLXso3Pb6M8cqEvPWBwtk4iMGBI1nWqrMtiO5kQxQ/tUKbRwpFHXN4JqqngBVQB3EQGVWFNC
+ tY8Rr+xEitg+FbK5fsvcJo5QcCB9hx9CSxgp6g5OHwVPWv451MLGM6wQ0771Wzt2/3Lps0Hr2hQ
+ +saF3MHuZpddAFksWYwPoAjhbYkp0hJT1mxEEi3GNsIZeX+VSAjfXBuapTp3WhzVgKDK9rXVrsL
+ Lj1OXuy7tGtYiUX3QVKOlTaU7G6a5tQxoE1m7rjXhxLPWUdT+d2kPr9rs3eHFeEX+OTiopEnd28
+ vytQbsM5ErP8Ou3mOhyXY8sq+l5NjD9ZRQnBHUXBPUHsnMPWARF6enRDto5+E8vhMv/8Aq8PkK1
+ jR3ez7DAXRtk3VcdBMQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDA0MCBTYWx0ZWRfX1BB8BM9BaZoU
+ fETLsoF5tjFC/bxcGs9TwRM7YMOgjfAHeVZQDulbkx2LYujlvU2vo2DtlUYJSt2TcHyLjxFuLpW
+ ntD96AzTEId2HpO7/tFXQbng4w2/R9w=
+X-Proofpoint-GUID: 4hlJ6AfuibapqWHVhbBrZy6_Bd_JaFfV
+X-Proofpoint-ORIG-GUID: 4hlJ6AfuibapqWHVhbBrZy6_Bd_JaFfV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 phishscore=0 spamscore=0 adultscore=0
+ suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200040
 
-Hi Dave,
-
-On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
-> There are multiple members of the Sony Starvis 2 image sensor family
-> that have the same hardware requirements as imx678.
-> Add them as options to the imx678 binding, rather than duplicating it.
+On Tue, Oct 20, 2026 at 08:52:49AM +0200, Konrad Dybcio wrote:
+> On 10/19/26 3:41 PM, Dmitry Baryshkov wrote:
+> > The MSM8996 CPU clusters sometimes run at half the rate they report
+> > after going up between two frequencies above 600 MHz, and stay there
+> > until the cluster drops below 600 MHz. The PLL, the muxes and the rest
+> > of the cluster clock registers are all as expected: it is the ACD that
+> > latches at half the rate when the PLL is reprogrammed to a higher rate
+> > underneath it, and selecting the ACD leg again clears it. The driver
+> > only moves off the ACD leg when going below 600 MHz.
+> > 
+> > Like the vendor kernel, run from PLL/2 while the PLL goes up and return
+> > to the ACD leg afterwards. Point the SMUX at PLL/2 at probe time instead
+> > of XO, so that the cluster does not drop to 19.2 MHz on the first such
+> > switch.
+> > 
+> > Fixes: 03e342dc45c9 ("clk: qcom: Add CPU clock driver for msm8996")
+> > Reported-by: Christopher Obbard <christopher.obbard@linaro.org>
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
 > 
-> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
->  1 file changed, 32 insertions(+), 6 deletions(-)
+> LLM has the following comments:
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> index 098f72544216..027872a134f2 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-> @@ -5,7 +5,7 @@
->  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
->  
-> -title: Sony IMX678 Sensor
-> +title: Sony IMX678 and Starvis 2 Sensors
->  
->  maintainers:
->    - Jai Luthra <jai.luthra@ideasonboard.com>
-> @@ -13,21 +13,47 @@ maintainers:
->  description:
->    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
->    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
+> For old rates above 1190.4 MHz the SMUX output is old/2, which
+> exceeds MAX_PLL_MAIN_FREQ (595.2 MHz). Downstream does not do this.
+> clock-cpu-8996.c acd_safe_freq() returns freq/2 only up to
+> 1190.4 MHz and MAX_PLL_MAIN_FREQ above that, and pre_set_rate()
+> retunes the PLL to that value before the increase. The comment there
+> says the main output is what keeps voltage constraints satisfied,
+> which implies a 595.2 MHz limit on that output.
 
-You could rewrap this while at it.
+The 595.2 MHz isn't a hardware limit. It's the rate at which it is
+possible to start using non-divided PLL output.
 
-> +  It is part of the Starvis 2 family of sensors.
-> +  Other members of the Starvis 2 have the same hardware requirements, and
-> +  therefore share this binding.
-
-This paragraph could be rewrapped, too -- the limit is 80 characters per
-line.
-
->  
->  allOf:
->    - $ref: /schemas/media/video-interface-devices.yaml#
->  
->  properties:
->    compatible:
-> -    items:
-> -      - enum:
-> -          - sony,imx678-aamr
-> -          - sony,imx678-aaqr
-> -      - const: sony,imx678
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - sony,imx585-aamj
-> +              - sony,imx585-aaqj
-> +          - const: sony,imx585
-> +      - items:
-> +          - enum:
-> +              - sony,imx662-aamr
-> +              - sony,imx662-aaqr
-> +          - const: sony,imx662
-> +      - items:
-> +          - enum:
-> +              - sony,imx675-aamr
-> +              - sony,imx675-aaqr
-> +          - const: sony,imx675
-> +      - items:
-> +          - enum:
-> +              - sony,imx678-aamr
-> +              - sony,imx678-aaqr
-> +          - const: sony,imx678
-> +      - items:
-> +          - enum:
-> +              - sony,imx832-amr
-> +              - sony,imx832-aqr
-> +          - const: sony,imx832
-
-Should we also have a sony,starvis2 compatible? Just wondering.
-
-The driver isn't generic still as it requires sensor specific information
-to be passed to it. CCS solves this with CCS static data (via firmware
-loading mechanism) so there are no driver changes even if the capability
-and limit information can't be obtained from device's registers or the
-device requires MSRs.
-
-> +
->      description:
->        The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
->        variant (IMX678-AAMR). The variant-specific compatible describes the
->        exact sensor variant, with the generic IMX678 compatible as a fallback.
-> +      The same applies for the other sensors in the family.
->  
->    reg:
->      maxItems: 1
 > 
+> Up to 1190.4 MHz the two approaches are equivalent: both move the
+> cluster off the ACD leg and run it from the non-ACD path at half the
+> old rate. Above that they diverge.
+> 
+> Either clamp the SMUX choice to match acd_safe_freq(), or explain why
+> old/2 is safe above 1190.4 MHz. The second needs the hardware limit
+> for the non-ACD output, which is not in the patch or the cover letter.
+
+Downstream isn't keeping the main output below 1190.4 either. After
+pre_set_rate(), cpu_clk_8996_set_rate() asks the HF mux for the target
+rate, which makes mux_set_rate() set the PLL rate and then switch the mux.
+So the main output follows the PLL up to new/2, e.g. 1075.2 MHz on the
+way to 2150.4 MHz, on every increase above 1190.4 MHz.
+
+The main difference is where the cluster waits before the PLL moves: downstream
+first lowers the PLL to 1190.4 MHz and parks the output at 595.2 MHz, while
+this patch parks it at old/2. Both are lower than the target rate. Following
+the downstream approach would mean reprogramming the PLL from inside the pmux
+notifier while CCF is changing the rate of the same tree, which feels incorrect
+to me. Also it wouldn't lower the peak.
 
 -- 
-Regards,
-
-Sakari Ailus
+With best wishes
+Dmitry
