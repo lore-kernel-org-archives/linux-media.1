@@ -1,101 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792478090;
-	b=Cg105n0e2irS04T9NHI+CG0NZrMbZtJKxbTFURjl5JAWo4/1iTZxQujkv/gWrTH8i9sG
-	 m9vdzeNc5T9p1rTcatkuwJq84ISuehPemhMTgkHQ7xTTVBg1U7K7AHiCQdQFSUso0T6tN
-	 ITbHSq7j5JSpViU7ZgkPGIFS+4Rl86Wqq4kgQ8nk9BYlddDTCU7q0cxvXtWKcHYVUMEoU
-	 DxHRrEE/O+Ah8tpYbMtOInqQwxw4rv/DUHhC1RsAcf8Yaqxn2nsjYlUPAe2Sf2BcKrVCG
-	 Q7Wn5AjeVAvCq7YAcNMy6vHLbDy2L4poWSeXXQroATK7oV1ZGvhV78UKvDy8CvYmOLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478090;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792478289;
+	b=2+/14vL0DG41x9fK5C/hlQ9/7DBm61nJlqb/t8pKVQlz+bcgM9xaz3acorI52iGKd4QF
+	 RRNdNMJdItfhjhinJTqHqhgeCdufZRrNwoldKVXU5yHTV/8i2dgkumIm+XHnVx4K7BSSB
+	 GQCg29VNSt7FEBw44T1yxFd+T882j2IgahnlbhbZqH0JVLRhtL7IyQ9DBWCjIqlqIQUxW
+	 X/BqrFv3LJSXhSlXIFnWljjww/TVaqxrUpDfU0b35E8xWRU3FjRfI1c/+Vvgm11n1pLaY
+	 v+mSvyIC+vmgytRSYO9bQXHQOU605d8XrWpwsESFsK4ttv+oG3UFwId18WEemlfBGag==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478289;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fZFyrGnKjSZQP434QTLDvpHoAeJBavWJ2Vq/PH6CLec=;
-	b=P/NwwH5NtjeGAhLA/pag42PQYfRRHZfYQnDtquBFgJlgLQfCXFQVXd7+yGZb2AdAGwlv
-	 kbMxA2V7f7joRT5bY0wNeWKOd23q0Yf8VW1mXdLnPgKDkEGMDQwHuy+Uk0Qh24yXPu10d
-	 e7mZStvKv7HC3gqA1zqsaG5xybqXkAWVS8pO7NAAa/LfdJpMm6BFERLwjp5U8jmbtS+nF
-	 47XVl7AkcaQPp444dFWOlVEOdOZ1l8h4aCWwp+pO65IjHArkKImV1rtAYL6qDVldwIdx5
-	 d794h4wonDGRe8gEWV0VQOmQY/FR+gYyAeeBnPV6ScyEP54LlAD2N/pxtaxwZXB+psw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UzAZEenc0KxEq0x6RyPzYufxdEkxW9SFi1K+hoFFagM=;
+	b=ARWhHyUJ613fCKlBL1Jm8GHRG8qs5C0dEzDKtX1q8hi14fEhd/CJo6UF0li1QdCgw3ys
+	 exu9+XSJqr3qw/DQgF0RpxGcDMCAb9c9tngk1YwC3sIg5vg8LmlhRnEowQe9WOR0N+KsJ
+	 RzEPbDHgz+jr2s3YxQOfawJgkJqDNmHLANQUYGOoaVMSxrXJTfvAPbn8JYU65ASuVE7ZD
+	 D0txzrWdkjl512qg7CADCqybE33UL4DiUf8IOKcPtIoJX/A6QGll59SBYva5gZnIGLHvQ
+	 8/y0SrhqviznEvKIw6Z3Wssd0bmSgY+sO5QLjg+U98pCTOMlcyWUItuR/Bz2oYHOcEA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TyrFzfDc;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="KdI/M7KN";
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2CF606A319
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:34:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE2CF606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD8E3606A323
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:38:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD8E3606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TyrFzfDc
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6ae27f06c2fso4837645a12.3
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 23:34:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792478088; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nKm/b/u+vFQH+JlgampNQIrvqi5EtxsrGmA1EGsob95qeRuA6N9ZWfAbekFMCO5/dY
-         mXkSqLUWmbK+E2Z50M3YcYwMznBgG0QGnVIRDkTBGBy/ANR1vuwxvs7iF1l5wuAC56m6
-         NUwH4z1gy/2k7JhesMPAiaQLtEo93Nb+KEAHfS+D82/ugXSgfDReH93xyWN4OspUFKn2
-         Bg0CkVVRsFdyKrvxeTflBZj0r71WIOVLEE6qrWxLPqlfU5yTaXDp0ImVDdL+1vkhdemr
-         DGtuB0p1kGRUeeX+3rFXXDQHaM+XXpO8kbWrcRffUx5w4cBkMKDObIz/dYLNNRx06ZJn
-         8dCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fZFyrGnKjSZQP434QTLDvpHoAeJBavWJ2Vq/PH6CLec=;
-        fh=eAeoucIyZPLXRjCtZnIuXmXFOdegVg/uf6No3gXUPgc=;
-        b=MVZQ986CeEfl8IkOdSVnYwJDjYTTTpxqLA79FQ3z3VIBWXxU/IFWrDJrbPuqrRHSt/
-         Yx2a0f9qextEy9kdR5PQxIF/jP0XnzIkAVKV7jpW1N0hmW851AF0N1FpSSh6dlrIh/Xm
-         rbwB4Ae4EM30HM9SPjvWWyvuoUTXlaBnzkGJWEln/lxXVsBAarZ36VhK89U5psrPS1tJ
-         BHWNqw/xWJYyZ6ynSQsa4T4pYu52FEBACXvjTH99Y+J7hmt+3b2ri3TXsvfXIdssCUn5
-         XD+UQsuGkb7F/vBezgqxipva3whC9gajgGyaFWKZ29kLcnC6rnAMc2Gse8O0qghzaPYB
-         dP6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KdI/M7KN
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a1efc90e7cso1846105e9.1
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 23:38:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792478088; x=1793082888; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fZFyrGnKjSZQP434QTLDvpHoAeJBavWJ2Vq/PH6CLec=;
-        b=TyrFzfDcm//CDOdpT58Hf++OQ7UIqKplmBjhAvdi/767yUNkUIh8lNwsDadn3DEYiq
-         AYmms7foplWL4NJJsTIgQMEDkrriffcVyxg/C+Gller3mrNWt1wDjKeejhBX3VN94v8R
-         Ht2cp+PU1jQtDbsWG783Hs02ePiUBi8rLcfeKZgwcKp9vL8GpiDNKcs2BMIwstIIlplt
-         G3MKSNY6kAlmZSEz6XMGholavTtUTUcpDq0mTjcDdajune0rqHqWC2Sm2bKS9+vDDCKE
-         g+4eej3ybfw/Zot0DBcboJFLpWgDFLq18+ZxPxAPgwvnA7BU9vv8rXcB2ug1t4GLSCY9
-         sQAw==
+        d=gmail.com; s=20251104; t=1792478287; x=1793083087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UzAZEenc0KxEq0x6RyPzYufxdEkxW9SFi1K+hoFFagM=;
+        b=KdI/M7KNAmf+mbjijy9pL7ul3XOVYz1JSfuxwrGvg7QCBlvopedyQkPagbYjz51YCe
+         N15kUbT93hEG+kS/QHuwQeHHTOJ7E2HCCehDRXEfDqyIbV7UVklz4dhhcmwFcgBwM+Vh
+         KP6rfCjZG85ST4pwA1EhOL3soCxjpgg2GWhhk/5lDqW/zwGF6bSjUqblS0Lv0p0dRtAI
+         L7s4sdZfzrIWA9G4PNKwEsTPFm5xfEfkvKvGdfmAw9ctvrbMVsWzGpzikCxtBB0dCaFM
+         LzzLtgeCEtMv+3+dxohh/le6MTut5S4AVyrRy2JAVz69h7ewmKTm8GhLc5l2CAnjD93B
+         t55w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792478088; x=1793082888;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fZFyrGnKjSZQP434QTLDvpHoAeJBavWJ2Vq/PH6CLec=;
-        b=L4LSyTLGWhzQHIw91E9nQwvserQF85+Bo02LayE4OibwEIkjxgqh0j9SMsWECd/g5j
-         DaglK8NwJzOIAwILuWBM8EkuZxwBFgRQKxcs3gYV4xV2evIwFkk4JChCfnMRlstSHsfj
-         Bm8E2NsflPxGEYK8LXffUb3jcK3XtJiwgEmbRZRGfznOqlCKN2vW2Te1JGKaCpmevaMp
-         lArZZl5F3boya3hlSPRpW7gn4JUfmgC/H23kEGA9ccicoFDPyKVuxWFP4T7MQaW3f8qo
-         4ku8ycCTW6LJ3pRNzeV7N2mHdbCIWLnWbu0oUCD7Xjk9xoxTeVN9vQNvRO/Ka/v0AAiI
-         cpWg==
-X-Forwarded-Encrypted: i=1; AKwUvByP9TY/KD+2dDpf2dQtApKDPuFNtfOqyP+34sMexTwxYdBehzeZtHgFdtnZ2oYQcZ6Rc6H6gbpyahMOBg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeRTPqQTFmDrrbU+H5Ky0tFY3DJ43BxoeWOJzfrRV3f8B3a3Jv
-	FW1ZMWeTtH2ytMxCVrdQBZapvE1M8SR5+sp5uy/ogxA7Qi4QYgIZiv14iijZ+oXeIieuDFtVGFs
-	4jJNDNAVSBomgmLwR6KWuFR0ntNYMamM=
-X-Gm-Gg: AYBFou1aIgunZtkAsKingxittrQsmJk1Uzc+iG6X4oLJTvi7rcjNeicdhdFywhrHxGf
-	2wsYGtWNuhHcopS1pxVw9lDIepnY4FKhzQxiv9liyI9sNp2oPzADIy9OIsewP1AOmdEeFUnZDQA
-	nbAcc0wpoPuoBz+22JLdVFKCxSoudLyhUPpmDvxjdu6eVn3SL9thPqr0lEhFnQudrxkAnQ1p8vG
-	mn8uB0lPLiKJp+eUB4PrT5tmlWs17tVmVe54+y1pa5ed/+p3KHUrdUnGRoyZQoKYsaIzE39rQv5
-	OOiTVynqmNSn26easkDCI4+dISRCFY66NMqUj5P6yku0fsB/2EoVDGKrV5xhgo+1gbeGy7drVpn
-	9rJrplGmfgnWjTnXob3gVocgaq4VWRzHpLy0jxYRxB+3hi7nGg2T6GSAN7BUaa7bY7s+99h8k4B
-	QdLI6dNWxiFfTtE8D4lXjOD/Sm06wNcHR5dA6Xmk2u
-X-Received: by 2002:a17:907:e109:b0:c43:6d40:4f84 with SMTP id
- a640c23a62f3a-c436d405421mr304474466b.4.1792478087855; Mon, 19 Oct 2026
- 23:34:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792478287; x=1793083087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UzAZEenc0KxEq0x6RyPzYufxdEkxW9SFi1K+hoFFagM=;
+        b=XARaUuz4ZNQI37mFoI8tvs/v+1LWzLTvprjG08fF7LH79dOKuDXse/Ix9eK288lsut
+         K35MMq1yCdXjP5dao7LDF8wNNDgOlfNFjQSUJ+R0wurdILRXJYFB22CGT2R5Q9q7wWY6
+         +Fz4G9lHJAc59X/gWtzXrW4grOVBcjGuwGumD4i0PE3q2ZcraPGmfQAo2LOSJKf0trCY
+         miUPv6kI6+cM85wWqoIY8jRC27/Ct4uxwnv/38hXRv9aoWRISJAmSIVyEr/VbzxVdNfs
+         iOCg59xl5ObabjQKD53nYD5P2Pg3AYpxAdIB0u1h1PZIOKwA0KuglnjLWk4q2HjayyAo
+         8izA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQqrnZO3WfvWfJghckGYFt7YfzU/5c7sFfLJjqKysIgWGZKdk0nr27UVMYjyL2a3+haZFiUxNKN9RuSA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrxUdsYyigpZKUc3t7S20NRMRwj21AqMaYA6jVkqgpIB9lOAHH
+	f3IRkrH4ENqaSLA1/azF4Ll65zos02mTo7HiVGSzqvKXpORqIgufWa5z
+X-Gm-Gg: AYBFou2TLGLKl7S+7ZCFfak15ifixZrJnLQSMLw+BbbFLck1QiAG9FHt6/AoKRjjFzd
+	r3+2goYEAO6P+ZU98FSdlt8sDBjAWVZaueGqTJ8+J1PIUC4IsTWTwL1fMJVNfblppuBIdXm5XJA
+	DvhmBUcwRk3i5OtanFHR4AMpS/nczmVjl0GYrkyC+cZks2FF1ORYh6tJyX06/cbeAwghsH9IlMa
+	kJzzIAoinr5jfdY2yH5cDhfpAZpTOSU9S3cGAMRnfs/gxxRdr2F+VPAB7iRSDXFQpK5OtkfAA9W
+	/JolbCh3JINqT381T2APfyEITCd6Ix8bpVoE2WAfuS+uzQDYtF/dbYgGKHlzmj28hSccYdSPJ5/
+	tMTmu7zGS956TPmeH+IA5zWBgJDyb+Hl/HPfefdr9dcRbYH+mMPONiLoaG+bRx3eIWA8lCNVfJU
+	z3z+xMyJaQNS9g7d+WuwMIhy8TT9aMJmTDwPlPmsYAXpiOR1xK9G29p2JBULJZcyhIV2LyVqy6h
+	y0Y4rFe5rS5xyatnQ+q5l52Uf77vgWjHH9pDfcQOIh+qIjVx2z/RC5nd8qmBWlza2+PZhtd8wD2
+	SSf+3fEtep0nImfHnBPE8MHfqVMD0zmcIA0mJNt6auXTSzBY4WSwAxqwG2mUSch7E++rZGK0RYs
+	cWlYfFeCj1SWO
+X-Received: by 2002:a05:600c:3114:b0:4a1:ac66:604b with SMTP id 5b1f17b1804b1-4a1f4c70117mr24583145e9.1.1792478286893;
+        Mon, 19 Oct 2026 23:38:06 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-9c92-6501-2169-eb9c-7ad3-f5db.310.pool.telefonica.de. [2a02:3100:9c92:6501:2169:eb9c:7ad3:f5db])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d820714sm3916393f8f.35.2026.10.19.23.38.05
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 19 Oct 2026 23:38:06 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <shuah@kernel.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [RFC PATCH 0/6] iommufd: harden DMA-BUF PAL setup and release
+Date: Tue, 20 Oct 2026 08:37:39 +0200
+Message-Id: <cover.1792477872.git.kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,40 +110,124 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAN_LGv3QH4oupSv6KzopjHRXO7tWhY4wvBuCHBzNhJoDW4ZL4g@mail.gmail.com>
- <20261020015001.15672-1-patrakov@gmail.com> <20261020015001.15672-2-patrakov@gmail.com>
-In-Reply-To: <20261020015001.15672-2-patrakov@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 20 Oct 2026 09:34:09 +0300
-X-Gm-Features: AclHuK-0DWmL4ciHRdqJ13K1229Nrgrf0eszph6lmY66CYqR_mlykGne-GAUrRQ
-Message-ID: <CAHp75Vc_yxWNeuSi8jwTtT=0CvrBW1nQkHvzEYkhqkGhRhTrrw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] media: i2c: ov5675: Defer the probe until the
- endpoint exists
-To: Alexander Patrakov <patrakov@gmail.com>
-Cc: johannes.goede@oss.qualcomm.com, adee.sahan@gmail.com, andy@kernel.org, 
-	antti.laakso@linux.intel.com, dan.scally@ideasonboard.com, 
-	diamondback@cohunt.app, ilpo.jarvinen@linux.intel.com, 
-	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
-	sakari.ailus@linux.intel.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 4:50=E2=80=AFAM Alexander Patrakov <patrakov@gmail.=
-com> wrote:
->
-> On ACPI systems the sensor's endpoint is a software node which ipu-bridge
-> creates when the IPU probes. Nothing orders that before the probe of the
-> sensor. If the sensor is first, there is no endpoint yet, parsing it
-> fails, and the probe fails for good: the camera is missing until the
-> next boot.
->
-> Return -EPROBE_DEFER when there is no endpoint, as ov2740, ov13b10 and,
-> since commit 437e1f6a9600 ("media: mt9m114: Return -EPROBE_DEFER if no
-> endpoint is found"), mt9m114 do.
+This is a narrow companion to Jason's unmerged DMA-BUF mapping-type RFC. It
+fixes setup and release problems in the IOMMUFD PAL consumer and adds fault-
+injection selftests. It is not standalone and requires this exact base:
 
-It is also possible (I think) to call reprobe in the ipu-bridge
-driver, but I dunno which approach is less hackish.
+  c37cf2824740d ("cover-letter: Add DMA-buf mapping types and convert
+                  vfio/iommufd to use them")
 
---=20
-With Best Regards,
-Andy Shevchenko
+I used LLM assistance while inspecting, testing and drafting this series.
+
+I also tested DMA-BUF paths on a Raspberry Pi 400 and Pi 500+, using their
+stock Raspberry Pi kernels (6.18.39+rpt-rpi-v8 and 6.18.34+rpt-rpi-2712).
+Both passed offscreen CPU/V3D byte checks. The Pi 400 also passed five raw-MJPG
+payload-prefix comparisons through V3D; this was not direct or zero-copy camera
+DMA. Neither board ran this RFC or IOMMUFD PAL. The Pi 500+ connector state and
+mode remained unchanged; the tested buffers were not scanned out.
+
+RFC:
+https://lore.kernel.org/r/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+
+Jason's branch:
+https://github.com/jgunthorpe/linux/commits/dmabuf_map_type
+
+This series:
+https://github.com/kmehltretter82/linux/commits/dmabuf-pal-lifecycle-rfc-v1
+
+Diederik's RK3588 testing produced a useful trace through
+rockchip_gem_iommu_map() and iommu_map_sg():
+
+https://lore.kernel.org/r/DLYLA3WQNN3X.3FB9MO8ZWBQ5@cknow-tech.com/
+
+Jason noted that this showed the same private-IOMMU-domain mapping need as
+IOMMUFD:
+
+https://lore.kernel.org/r/20261009125338.GB13920@nvidia.com/
+
+That trace is motivation only. This series neither revives my warn-only
+mechanism nor converts Rockchip. Jason's feedback on that mechanism is here:
+
+https://lore.kernel.org/r/20261009124259.GA13920@nvidia.com/
+
+Compared with Jason's branch, this series:
+
+  - preserves dma_buf_pin() errors;
+  - publishes the attachment and successful PAL list together under resv;
+  - unmaps and clears the published PAL pointer under resv before unlocking;
+  - keeps callback state alive until dma_buf_detach() returns;
+  - calls dma_buf_unpin() while holding resv; and
+  - tests pin/map failures, cleanup counters and retry on the same DMA-BUF.
+
+Patch 3 follows an earlier forced-window arm64 QEMU/KASAN double-free report:
+
+https://lore.kernel.org/r/20261016194022.62065-1-kmehltretter@gmail.com/
+
+The proposed release order is:
+
+  resv lock -> unmap and clear PAL -> unpin -> unlock -> detach -> put ->
+  destroy the pages mutex
+
+Questions:
+
+1. Is that publication and lifetime rule correct?
+
+2. Is c37cf2824740d still the right base for this companion series? If not,
+   which tree should I use?
+
+3. Can these lifecycle fixes stand independently of moving final mapping
+   selection closer to map time?
+
+   https://lore.kernel.org/r/20261016202653.97339-1-kmehltretter@gmail.com/
+   https://lore.kernel.org/r/20261019184123.GR13920@nvidia.com/
+
+4. Is the per-buffer selftest control acceptable, or would deterministic
+   setup/release race hooks be more useful?
+
+Testing:
+
+  - arm64 QEMU virt: two boots, 24 selected cases per boot, zero skips;
+  - x86-64 KVM q35: two 24-case candidate boots plus one focused four-case
+    pin-failure boot;
+  - a one-defect x86 control failed all four pin-failure variants on the
+    expected erroneous successful ioctl return;
+  - x86-64 GCC 13.3 built the exact head, headers and IOMMUFD selftests; this
+    build was not booted; and
+  - KASAN and lockdep initialized with no diagnostics in candidate runs.
+
+The QEMU/KVM campaigns use mock IOMMU domains and the selftest exporter. They
+do not cover a non-selftest PAL exporter, physical DMA/IOMMU, forced
+invalidation races, or the complete IOMMUFD selftest suite. The x86 negative
+control validates patch 1 only; the earlier patch-3 report is separate.
+
+Testing with a non-selftest PAL exporter would be welcome, especially failure
+followed by retry, invalidation during setup/release, repeated revoke, and
+multi-range buffers. Please include the base, config, architecture,
+exporter/device and full dmesg. A full IOMMUFD selftest run on another
+configuration would also help.
+
+Thanks,
+Karl
+
+Karl Mehltretter (6):
+  iommufd: Preserve DMA-buf pin errors
+  iommufd: Publish successful PAL mappings under resv
+  iommufd: Clear the PAL list before dropping resv
+  iommufd: Keep the pages mutex alive until DMA-buf detach
+  iommufd: Unpin the DMA-buf while holding resv
+  iommufd/selftest: Check DMA-buf pin and map failure cleanup
+
+ drivers/iommu/iommufd/iommufd_test.h          |  24 ++++
+ drivers/iommu/iommufd/pages.c                 |  24 ++--
+ drivers/iommu/iommufd/selftest.c              | 111 ++++++++++++++++
+ tools/testing/selftests/iommu/iommufd.c       | 121 ++++++++++++++++++
+ tools/testing/selftests/iommu/iommufd_utils.h |  30 +++++
+ 5 files changed, 298 insertions(+), 12 deletions(-)
+
+
+base-commit: c37cf2824740d833b21eb816e21f94836100291f
+-- 
+2.39.5 (Apple Git-154)
+
