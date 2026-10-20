@@ -1,87 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792491703;
-	b=a6NFMh2Nu1QV3li4RA9qSFUA9thvWsI4rKlIa7cLmFHUK0GsADqe6SDxs6vy8TOqr1xc
-	 VMZ5JLwlLOnCx/8cQOj7zdGk6BxNrWBHabCuoPFaoIq7rZozp9w24piK+IgwT9lq7Ay9O
-	 seLLrAjj8Vsqo2nmPG/vpef1/K1TLccyEVGfybI2Ugg8nfR+6p+gVx+LdbffwaM6yGn9G
-	 +iyfj89TX+MHDaxbhMpZFe+lvaksgQcqJgDadD4gTRoZL+9Bwcp02s2+HlVtoxwdrFIjZ
-	 FxXLUFY7Ev79uakpXlzCG1CP/cIkOHHM3A9hkvkSTFX8A2PNIaGx6wjt5UHiKoQckWg==
+	t=1792491916;
+	b=COsm9jpVCcbADvk5w0QR6xHwKmw4+CcnYFtVR72K2rRNMQsNMFtLtDdcuAk0zpjXKdW3
+	 3TE4zz9le3eYeQuo/EDgvRWpQk56u5w4AzB8IhpP8L1piVYIONxjYBYS4ItCQDlIZBlvL
+	 lpG5SMTWkVcWPu8LeWBi6kjqCNEt4Fdbakwr1gEIaCjoTYI91PamuyAfuP1riXUZPXjh2
+	 qGXFXBTxlpDtnkvA8Vot5Vd+hb8NzBOomGBY7VrXmalCVCDPE2bR799cJk1rEVEHTgbZL
+	 YOiBW7t4vHjgmnGrWmsw++dwMOkvxeNvggsP2Zt+gs/akYuVuoLkWZqM6zWmBkrn+lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792491703;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Wd2QYoyrvJ9UHGbfYj4JQntUmH1M8tYDbhIqDlujXZ4=;
-	b=lWFFmvQoj/sfYfA+O3IUoI13STvlodWbhQmlSIN6rBCG9wsoZkTizr2Xt897EdnGPuBg
-	 arn5ooZGYz7Ixjq7l/dR5wudgoL11+mw+mHg7aZ2KisZHeLrJ/jslIpUBdKCUoBcSDVsF
-	 08rcTdQ38fAKzPo/gMPA6FDqkTxbS4RbDsZsQ7hUnIrOBVkLOt4JqN2f5pz2RAGR6IdnX
-	 rdmV7ymR+5LAvWSFvnmMqRGE46PzwaBi6RSSM9C3Ww3Z5H0Xq3tfU1Hm1MfHiJo5bxlVS
-	 SWUYqz8N43Oizr+b9T8b+mYLr9DuxABCVRo6ly7yotPmMU2M7Uglvvu1WuuLAQU3vFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792491916;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=GmgvE7biHiDHJAgyZpIMu3iqBMY4bU18LDyGcOQMk4g=;
+	b=2UpyNORC2FGjWg/yHgQ4myFX41nFkvW7EPXkqHe7hdU8cVOfs11+qRw+OOaZuE3FrpaK
+	 h29ygICOgJYJpdd6Wn07Cgs+GGywppmO1pN1KeCtJQK+YIN27rWRcPPaUEZAjn74Vg4iq
+	 Ragz3qhmafAnxoaxh2auLsZi99VkirnIpzVx8h0z2dl40DM2dAdTpVvBCg1+5cP1/wDIS
+	 Ihf4UmC0mREOWwykxobSpnZHiDD79vlGN/YCdaprk+xlI9kNwkUAFraMANVH7aOTv880J
+	 +8APQ+1a4UsZjM9K90Yl5H7beHUt/zk/oJya5vHrS4y/S7167KkmaOSrHNQgLXasaRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kSSfOHad;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lguxzf8Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A21606A326;
-	Tue, 20 Oct 2026 10:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02A21606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA99A606A319;
+	Tue, 20 Oct 2026 10:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=kSSfOHad
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792491703; x=1824027703;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QAK9mKytLl9tLAO9OqIlQ0tXat8bQ+n2hA+yco/S9lY=;
-  b=kSSfOHad0ghkWtyH7MVmkWKmdKnql+l0Q62M4C0lTGJqvoBK5NRYVmQb
-   CfmNcytdWENLuA943RCUvaqwgUVxRp8UCAY4SxWtlY9+sDQ3jEXdMvm1v
-   M0z3zk4mBa8dNb388BcjAWqbnycaAwH3PBZjdx0axn+qVqY4uFeRQJSQk
-   S2d+poPMQgulLcI/Of17M6AIgErDx8LXsxqZ0nGdpeKiloZ8UFueDQ/eX
-   c687dJmVLHllzDJkT+W5xt96Ghj9FyJ63nR1/rRgKp0WmEyDP6xC5MkQF
-   VCUl51yf+FMo8E86/8pwDEK8PxZJ1dKOoq/j8azhtowIXmOz3Cb+D7jdK
-   A==;
-X-CSE-ConnectionGUID: T00nanJeTzqCeQfpl8n2FQ==
-X-CSE-MsgGUID: j3FlQgMPTa6VdhYZpjgnRQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1290454"
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="1290454"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:21:43 -0700
-X-CSE-ConnectionGUID: +U/Dj2WZSRGArQuScAN/Uw==
-X-CSE-MsgGUID: EW1sEq1eQNqK4yE4+kTsdQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
-   d="scan'208";a="4567871"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:21:40 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id D304C11F7E8;
-	Tue, 20 Oct 2026 13:21:36 +0300 (EEST)
-Date: Tue, 20 Oct 2026 13:21:36 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v5 00/16] Update imx678 to act as a common Sony Starvis 2
- driver.
-Message-ID: <atdAsDGw_jvhaydM@kekkonen.localdomain>
-References: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lguxzf8Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A819C1F000C4;
+	Tue, 20 Oct 2026 10:25:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792491915;
+	bh=GmgvE7biHiDHJAgyZpIMu3iqBMY4bU18LDyGcOQMk4g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Lguxzf8ZkSVPiujCO3yHX9RyjwaBzTk20uTEzjFrJiN0TZqi4fB+bCu0Y04iDSvHw
+	 dyo+dunY5RFPtvt4z5gbQgc5c31+1wikH2oM+R2A8/9CmcWOCa/DujSVSn8P1Jiy5O
+	 IkMGGDOk8VQqJlgDFCMIgIr1GYaj0gVoOQgJSBM8pOf5XItP41xBc0W6hhUtqbWfKS
+	 GmYr+B3T+hLhpI4/Q+wr8TYB8Q9ErStEBUwgL3YlmwntUJUiBnNXnidK/nAcYrgCvT
+	 E3e8iZ7vB5loeWynl9dd7Vq2QfVKRPC/ECeBnyG1PUM/lSztdK1tJB3H2dRMTvg+ed
+	 fC7b+st9MDTpQ==
+Date: Tue, 20 Oct 2026 13:25:10 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
+	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
+	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH v11 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
+Message-ID: <20261020102510.GL64621@unreal>
+References: <20261019183537.GI64621@unreal>
+ <20261019191845.GA2219127@bhelgaas>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,18 +75,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
+In-Reply-To: <20261019191845.GA2219127@bhelgaas>
 
-Hi Dave,
+On Mon, Oct 19, 2026 at 02:18:45PM -0500, Bjorn Helgaas wrote:
+> On Mon, Oct 19, 2026 at 09:35:37PM +0300, Leon Romanovsky wrote:
+> > On Wed, Oct 14, 2026 at 05:49:53PM +0300, Leon Romanovsky wrote:
+> > > On Wed, Oct 14, 2026, at 16:23, Bjorn Helgaas wrote:
+> > > > On Wed, Oct 14, 2026 at 09:53:47AM +0300, Leon Romanovsky wrote:
+> > > >> On Tue, Oct 13, 2026 at 05:25:08PM +0300, Leon Romanovsky wrote:
+> > > >> > PCI P2PDMA applies Request and Completion Redirect throughout both paths.
+> > > >> > This misclassifies asymmetric and nested switches, and reports one answer
+> > > >> > for every kind of TLP.
+> > > >> > 
+> > > >> > Three ACS controls act on TLP attributes the Requester chooses rather
+> > > >> > than on the topology: Translation Blocking and Direct Translated P2P act on
+> > > >> > a Request's Address Type, and Completion Redirect skips Completions carrying
+> > > >> > Relaxed Ordering.
+> > > >> > 
+> > > >> > Evaluate each direction at the path divergence, decide every class from the
+> > > >> > one walk, and treat a client with ATS enabled as translating unless its
+> > > >> > driver declares per-mapping ATS.
+> > > >> > 
+> > > >> > This completes the P2PDMA side; dma-buf and mlx5 follow separately.
+> > > >> > 
+> > > >> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> > > >> > ---
+> > > >> > Changes in v11:
+> > > >> 
+> > > >> 
+> > > >> Bjorn,
+> > > >> 
+> > > >> Could you please save me from the AI-bot attack? Every rebase seems to
+> > > >> uncover another bizarre pre-existing issue. It never ends.
+> > > >
+> > > > Can you elaborate?  I'm not sure what you'd like me to do here.  I
+> > > > don't control the Sashiko reviews, and I thought Sashiko was recently
+> > > > changed to put pre-existing issues in a database but not in the email
+> > > > responses.
+> > > 
+> > > AI reviews are not deterministic and every resubmission gives us slightly different result, which is in this phase of submission is  full of hallucinated flows not applicable to the upstream.
+> > > 
+> > > In addition to upstream Sashiko, i run everything through local one with slightly better models which hallucinating even more.
+> > > 
+> > > I would ask you to merge the series so it gets real exposure in addition to my kunit and specific hw setup.
+> > 
+> > Bjorn,
+> > 
+> > We're in the merge window now, so I don't expect such a large series to be
+> > merged. What about the next cycle? Should I send v12 after -rc1, or wait?
+> 
+> After -rc1 would be good.
 
-On Mon, Oct 19, 2026 at 03:28:07PM +0100, Dave Stevenson wrote:
-> On checking my box of sensors, I found I had an IMX675 (5MPix) as
-> well, so that has been incorporated. Subsequently I was able to
-> add IMX585 (8MPix) and IMX832 (1080p).
-
-I missed this while reviewing but I guess the comments apply to this, too.
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks
