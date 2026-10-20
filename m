@@ -1,90 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792510608;
-	b=bEKMbkKa31dWjaHP6Klwa9I9PokNh2x+WSnmvnNILzxuXMBCQ8vUxltuYrJok4glEODk
-	 LGCWmBMb5M98lYC/tsmO6K8rs+rycptrj5O8mNZ0yis/XTSZAAK5Y22OULlrdrFOQMsuE
-	 7Z02kV7C2lLUoWNja/aqFBkg+RrH02cxYw7G56/RfUd26FR7dWKo0mBTHatFAUT5/vGLb
-	 sYjK17m7jqtgg5mClCz4JW1yEV0IkDvwuIJyNBnFh2Hgc/DekuMPhz6qgIxf8MDYW03Bk
-	 mLhC4EfoahvuMOi48NpiB3E4A2EG+B8lNyiv5Pz4nSUX/kNiYAfBN2IpMzdeDuIqXKQ==
+	t=1792511499;
+	b=Ab4UCwxHVWdBa+C7WIx7G4auc0vJs7TAa5uZqAieQEWJdYSGOdssz3CZWbb/aByzTScB
+	 32J/vWnL+ZOOzMArKqKEr1oHjJkWoHN3XO2CEAwChruTRa6/qe1sNCom1ipULRM8cdCM3
+	 n4b2Mok4gFPoAOdwaT0Vzz+HubtLn9p8/vsEjcxUGfVG0CUFXloQfIwIoFIZ7k2y2mV1Q
+	 jSuCTyUrHFUHk8AucZ5/2QYcVrmYjEYmpiF2Y7tgFB+7PmnUF2Hw3ItvGQCTdBC8jTcmd
+	 nblnzhVq00fx8vbRTiOjKiDdOLms/WZ9dLVyiKC6yMNDGaRejSphLqQYdBviT91gOIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792510608;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=Yh+jXE2+lBWIpXl4CuFT/FWpTnGLk8SkwfDgjsSI1pI=;
-	b=Ksh1Y3L0at170wUOOsh98NAapsJfVouSR73VsEpyglX1AmTQWjTfd/igE+6fBTotBHi9
-	 LSqaCbk2DCiNJKuSmwsUjhEcM7iAytBMw/ypy48UavvVExrNmPXWrIcgMLLvUSpWeNI53
-	 Z4GqKp0qMvn/Cox+LxzZhFn5dRn1FlxmvQgFfcilbKiGM1sUJ5VfsARsoNlkgaq4W69dy
-	 atNwQEgyJMR/GSU/A2LgqavW8cWjqBiP/2cWwI1dA/r5b3Z7515TDw/Ws9zOnUCYBX/0P
-	 0VrQMAO4qe6PqEupe6oWPbjawuqaxBtnAQtZjgPv8dgtdx15FHvFgu1hDY1i7Np2dpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792511499;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=ihyqJcp063hQ12/dZ8QdAr6+jbzqYQLZQXqNm7GwdvM=;
+	b=C7E705kQ8mG8Q7N2QHYcyUjZAmqLFnHkBcym9pJGqemYi2utmftpax24xrpQN3NxsBSU
+	 yjzxIocGgHI95MJ2T+OOX4RBuH5Ssfus/PTlUP8D0EXScR7g5Kn6TsVrGeDOK5HLcjO9s
+	 2tLv/wzeJq7nBV+Rocp2z0GaecSashMsVJ8D1QJjXkl++Lddot20ZJtmR6xGiTri2R62b
+	 K/OL7RoJ48/gXw2+yGjzt6K+bChOc8G4VCuryB4wF9eGgMEnD78aoVyYG3Wqv6o8ZWkUx
+	 iBZdBWNf4BQvVcS1Ecma1qPehc4OaXa04C2VL/ZnenVHaQ8BHZH781kO2gFwtr4WtCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=EtpsssLR;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=ha5bkC54;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Kc4FgRHO;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787AA606A323;
-	Tue, 20 Oct 2026 15:36:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 787AA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BC7606A31B
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 15:51:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2BC7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=EtpsssLR
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j8Gjl1SPmzMltS;
-	Tue, 20 Oct 2026 17:36:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792510603; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Yh+jXE2+lBWIpXl4CuFT/FWpTnGLk8SkwfDgjsSI1pI=;
-	b=EtpsssLREdhha6u+FTlxRw9InWvYReNP+6y8AWy+2wedIiJhHJBP3Kf58xuSuToHOL/d4h
-	xrZ0euzCKdgFIUegwG0suaq7SHWoEgr6y3mnW9jD8rspOFLigJC3bxraqbro1v7qQ0wl3D
-	/9yzuP0QI3YhM2nKYOHGy2O+eMcEDnq4PxnskVL/nBPsdj+MknrRWdStHSdfaCd+SjHPyu
-	HfUwcES9fwJ6WdAZx5x939e2COHqlPOeuWll/oyrzhHcj8lYq0CZBR5upiJDJ6RGt1ZHFs
-	SZZmKPre3vN9fAdloUqb1/we+jSbFTc1QA4GuwAmd5OuS5l3D+x9ra/WKJ3fCA==
-Message-ID: <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Tue, 20 Oct 2026 17:36:35 +0200
-In-Reply-To: <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
-References: <20261020100034.759183-2-phasta@kernel.org>
-	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
-	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=ha5bkC54;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Kc4FgRHO
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id C2A55EC01FE
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 11:51:36 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Tue, 20 Oct 2026 11:51:36 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792511496;
+	 x=1792597896; bh=ihyqJcp063hQ12/dZ8QdAr6+jbzqYQLZQXqNm7GwdvM=; b=
+	ha5bkC54wedeKtJH5vcHtHzWgqHjRvR1mZIgmSHHOm3WowXVj2/BfYygUsjzqyJs
+	oITBkc5X+ZtP1z/SJtJsCJ8WwX8zwO6HI82aTVKJUust7P7CL+H9TIKJr2/v9Jwj
+	AzvAGJdFW+MWd0E3nWLVYH2g8BXiJp8RLFmbp8OqBRru1VcDI84P/s5r0ZCktphd
+	51+dQf6uF0/vDJHvqOOnu+KaDS6NUgs+ictG3Sge8wK1LMyYwMiIzAPzuh+tBJq4
+	Tq5+oNpLVCQsj92WLBmoCT/wHL7JFnX7BawiVTtyxW0z2cHT3BxrdI7E6TOAEfRt
+	Bun6ElRHlb1lFT8o72c+ew==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792511496; x=
+	1792597896; bh=ihyqJcp063hQ12/dZ8QdAr6+jbzqYQLZQXqNm7GwdvM=; b=K
+	c4FgRHOKGBWsFjl5LHnPNspHCcX035P9ffT9QKg8TioUadpJY0A1C9tiUwMDrFIt
+	TjPsqFAzNA0AWVeMI1F1nUjUIjG/LX68D6bjYZ91b0FM1ID+zY2vOQ3EdJZfes6B
+	syKQcSboJdgLkaiGwPW6aT6fdYn3nW69IDbX4suyq2E2jfjfpAibPPP1Wa6aUcR2
+	FVtVQYBFvKZN0pSQlw3Jul5YFCd1LLwpz/6qkRA6kPH/v21wjr3RLTWBvUXj+PtR
+	j8QnKX/DPz8sycT9wYPIuQ4rYTz3brluKKHTq98P1cT0sNioPcYXL4tuEfP+xgZd
+	TNv5ED1a2Du1sIKAtoMkA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792511496; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm1:rsa-sha256:NmkqTt/xuSohAQUB2yBHeG/xjqaOQT0wdNDzL5wdtDusEm4
+	1BZ1kegOZybdI8yLxB3BEN3oMRxKtXvZq2nos/2ukHYnWt+JGsFusWt6Y8es8yR9
+	LGCXn7cVLmLBkynjnv424PUU00OWlYYalVm5UkCYzNtIeX0gS3rMsCknnzg7NHTd
+	/psQIE05V6uAD8DB6iAq9rQVMklVPnB7ysPcoEOSpdPnox5nDh9LDyWn+e9wLaf5
+	BDxmb8fQg5gCQrvOsPVTin6lqBW4v717bs8z1UDFLBjRIBsK9nMNzk7ZeD4bhXPG
+	bWlAYgTJkrCcPK8SkRZ2nd4eERz8cTewe3b/4KQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:H6+VekH+RfagDa9Ta/ZkJBvhGYjQcvrLCCvplf64HDI=:2CBY8Di5Gw49pHFVJ7q6QG5GPGQrCc+6ley0NbL/Upk=;
+X-ME-Sender: <xms:CI7XarKavU3vZvSHa1PyTo3Tx--mpIkwijHfyGKeXE9lugHy1DVEiQ>
+    <xme:CI7XarCcs2FpAS7i5X2mzouVeXz6MfUFZqYy4DwpQYpyWUU71wcvrAHyHBQPtHI15
+    EYbKdc-fpjonG61tYgX2ZRi0TttaxbEeX47T0rj9xa6xHiuYldhIzjs>
+X-ME-Received: <xmr:CI7XagvySto26wzf-fX056jC9rCcDu8U5iaVnfiD2nDyRqaX57yD9VTWby4KR7SFVCjKLRO-1TCBdBs0Gm5NgvRTVupGQGE>
+X-ME-Proxy-Cause: dmFkZTEIwlMRXjli2b4S0aXU2cBhyZD12OVjGkssSXZvXVQNqyrihKWi53snV8WZnVAKCI
+    k2hSrdqUS3sPWHQR9KC1cP7oMsBwxgbhfU2wOc0kF1kFSsjNo484RD5YLMOYJgFEIgBZZE
+    mZZnND+XOPjGiP4Sm2IbjhJsCk/mt7rssMcNIRXoUsw0ueHbX/0yxfpQputKpSLS3kX2JK
+    +D37VONNxHlTvhOf9031AgWUwe9RpV//k2gUh2Y8OHJaqGtKNU3irD/ioOqYvhqyWUBmxY
+    UnqpBAfeBoCwo/rj8cPW1zjRrz59TuuOXybhFNgBHYsnlYQnymswK+0DtDz2NdkN/aetWy
+    zb7l3PnxhFG7ZuJ1dj+1ERfr8ZJWQ01TUXwZXD0bPJzZ/ekeJwhfboiUft0nM1Bi66vjQU
+    cyBNGi02fYiteGDfr9H1GYGc4FTrRVPPFyKeQeNiToWEAmDoPezqJGU/vS9fkIKg1N9AOW
+    V2BSiZySwpCUul/NFNgrgTE5BrV8PeOf1iNS5SrYRxa+WutGNm8rMIFGUgsyL9idy2rF19
+    AudA+92DlFroRv0Beiqlk/IqiAaZA0g4FQuOAJCsz04CbsX8CFsxlpMlKulKBCxdQUjVeT
+    RrWGRy3gqVSeUMZyQFeiFrzvQ4otv9kDHrQekzk3a8pU2qAMh5V7D3kCR7Cg
+X-ME-Proxy: <xmx:CI7XapRbtLDzXDdKk9ziNo989FVjoLk-KfvEDXbm71ZXFjFfED61ZA>
+    <xmx:CI7XanIv09N1E94W7KvB-omCdD3nB0HtpUTQ2EB8gAAzfG02QrwRbw>
+    <xmx:CI7XasvcUbn7YartpZUPwWKmaHPyHltuIxlXj-Ytj9CBE8huMGv5Vg>
+    <xmx:CI7Xau_6508go6YWiZdiMRCXX8S4NWen0UHnjX_J6wwoLPiCWeMu6g>
+    <xmx:CI7Xag_iNU8RmxK5J_v8KJTyBKbThSRKLiuX_-uk58C908h2Q50cXIhV>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 20 Oct 2026 11:51:36 -0400 (EDT)
+Date: Tue, 20 Oct 2026 17:51:34 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Yusuke Goda <yusuke.goda.sx@renesas.com>,
+	Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/4] media: rcar-isp: ispcore: Honour requested
+ bytesperline on RAW input
+Message-ID: <20261020155134.GD1172387@ragnatech.se>
+References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
+ <20261019-v4l2-add-nv12-v1-1-4a84736803b6@ragnatech.se>
+ <6c8e77c9-c0a2-40c6-8e7f-7e2d51c71740@ideasonboard.com>
+ <20261020134444.GC1172387@ragnatech.se>
+ <12501643-d486-4b89-a22a-d3e39f0ef221@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,168 +137,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 9b1f1927d5e8646b2c1
-X-MBO-RS-META: fuxnfzpkekdedxcod5h8gys5pduiy8tm
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <12501643-d486-4b89-a22a-d3e39f0ef221@ideasonboard.com>
 
-On Tue, 2026-10-20 at 17:07 +0200, Christian K=C3=B6nig wrote:
-> On 10/20/26 16:41, Philipp Stanner wrote:
-> > On Tue, 2026-10-20 at 14:02 +0200, Christian K=C3=B6nig wrote:
-> > > On 10/20/26 12:00, Philipp Stanner wrote:
-> > > > In our Rust code bases, I'm currently experiencing what we also
-> > > > experience in C at many places: that the dma_fence contract's RCU
-> > > > requirements make the API more fragile and put an unnecessary burde=
-n on
-> > > > the API user. Most notably, in C the API behaving correctly now dep=
-ends
-> > > > on the API *user* waiting before free()s, waiting before unloads =
-=E2=80=93 all
-> > > > because dma_fence is not properly synchronized.
-> > > >=20
-> > > > The patches commit messages give more details about where I want to=
- go
-> > > > with this particular RFC.
-> > > >=20
-> > > > My rough "vision" for dma_fence, where I think it should develop to=
-, can
-> > > > be described like this:
-> > > >=20
-> > > > 1. All users should use inline-lock.
-> > > > 2. The fence-signaled state should be our decoupling point.
-> > > > 3. The fence state must be consistently locked.
-> > >=20
-> > >=20
-> > > > 4. This means all callbacks are only invoked for unsignaled fences,=
- and
-> > > > =C2=A0=C2=A0 the fence cannot signal while a callback runs.
-> > >=20
-> > > First of all that prevents concurrent execution of the callbacks
-> > > which for a lot of use cases is a must have.
-> >=20
-> > Currently only set_deadline() can execute in parallel.
->=20
-> Especially the is_signaling() callback is executed in parallel by tons of=
- use cases.
+On 2026-10-20 17:25:52 +0200, Barnabás Pőcze wrote:
+> 2026. 10. 20. 15:44 keltezéssel, Niklas Söderlund írta:
+> > Hi Barnabás,
+> > 
+> > Thanks for your review.
+> > 
+> > On 2026-10-20 11:36:04 +0200, Barnabás Pőcze wrote:
+> > > Hi
+> > > 
+> > > 2026. 10. 19. 21:35 keltezéssel, Niklas Söderlund írta:
+> > > > From: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
+> > > > 
+> > > > The RAW input video device always overwrote the bytesperline requested
+> > > > by userspace with width * bpp. The input buffers are however shared with
+> > > > the VIN, which may use a larger line stride (for example 3296 instead of
+> > > > 3280 bytes for a 1640 pixel wide 10 bit image). The dmabuf exported by
+> > > > the ISP was then smaller than the VIN buffer size, and queueing it to
+> > > > the VIN failed with -EINVAL:
+> > > > 
+> > > >     __prepare_dmabuf: invalid dmabuf length 4042752 for plane 0,
+> > > >     minimum length 4060672
+> > > > 
+> > > > Use the requested bytesperline if it is larger than the minimum.
+> > > > 
+> > > > Signed-off-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
+> > > > [Niklas: Use max(min(..)) instead of if statement]
+> > > > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> > > > ---
+> > > >    drivers/media/platform/renesas/rcar-isp/core-io.c | 11 ++++++++++-
+> > > >    1 file changed, 10 insertions(+), 1 deletion(-)
+> > > > 
+> > > > diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > > > index b60b91f43d42..badde72352c1 100644
+> > > > --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > > > +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
+> > > > @@ -5,6 +5,8 @@
+> > > >     * Copyright (C) 2026 Ragnatech AB
+> > > >     */
+> > > > +#include <linux/sizes.h>
+> > > > +
+> > > >    #include <media/v4l2-ctrls.h>
+> > > >    #include <media/v4l2-event.h>
+> > > >    #include <media/v4l2-ioctl.h>
+> > > > @@ -335,6 +337,7 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
+> > > >    				     struct v4l2_pix_format_mplane *pix)
+> > > >    {
+> > > >    	unsigned int bpp = 0;
+> > > > +	unsigned int bpl;
+> > > >    	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
+> > > >    			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
+> > > > @@ -352,11 +355,17 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
+> > > >    		bpp = risp_io_input_formats[0].bpp;
+> > > >    	}
+> > > > +	/*
+> > > > +	 * Honour the line stride requested by userspace, the buffers are
+> > > > +	 * shared with the VIN which may use a larger stride than the minimum.
+> > > > +	 */
+> > > > +	bpl = max(pix->width * bpp, min(pix->plane_fmt[0].bytesperline, SZ_64K));
+> > > 
+> > >    clamp(pix->plane_fmt[0].bytesperline, pix->width * bpp, SZ_64K)
+> > 
+> > Good idea.
+> > 
+> > > 
+> > > ?
+> > > 
+> > > And does the device really accept any value between these two limits?
+> > 
+> > The stride register where this is programmed is 16 bit wide.
+> 
+> Right, and no additional constraints in the documentation?
+> (I don't think I have access to that.) In any case, I think
+> it should be (SZ_64K - 1) then.
 
-ops->signaled() you mean.
+You are right, will fix together with switching to clamp().
 
-Anyways, only one will succeed at having the fence marked as signaled
-anyways, and then all other callers of dma_fence_is_signaled() will be
-guarded by the fastpath bit-check (which btw is also broken; but we
-want to address that in a different patch. For now my series proposes
-keeping the fastpath).
+> 
+> 
+> > 
+> > > 
+> > > 
+> > > > +
+> > > >    	pix->field = V4L2_FIELD_NONE;
+> > > >    	pix->colorspace = V4L2_COLORSPACE_RAW;
+> > > >    	pix->num_planes = 1;
+> > > > -	pix->plane_fmt[0].bytesperline = pix->width * bpp;
+> > > > +	pix->plane_fmt[0].bytesperline = bpl;
+> > > >    	pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
+> > > >    }
+> > > > 
+> > > 
+> > 
+> 
 
->=20
-> >=20
-> > IIUC in our past discussions, your wish has been that the driver can
-> > take its own locks with free locking-order in the callbacks.
-> >=20
-> > Thus, the callback is invoked under lock in any case, just a few
-> > instructions earlier or later. Thus, no callback ever truly executes
-> > concurrently.
->=20
-> And that is fine. Taking the look when you actually need it to
-> protect data structures is perfectly correct.
->=20
-> But what you propose here is to abuse the look as a barrier, e.g. to
-> find out if something has finished or not and that is a completely
-> different story.
-
-Nope, I want to protect shared data, which is the signaled-state. Which
-is currently a race-condition worked around with RCU (and sometimes
-with manually doing the right thing (locking!)) [1], stemming from the
-fact that the fence's spinlock is not used consistently.
-
->=20
-> > >=20
-> > > Then as I pointed out before the second problem is that this again
-> > > makes the existing lock inversion between the signaling by polling
-> > > and signaling by interrupts even worse than it already is.
-> >=20
-> > We asked for examples in our last discussions, and the only one ever
-> > presented was the list-access requiring the fctx-lock in
-> > nouveau_fence_no_signaling(). Nouveau is often not a good example.
-> >=20
-> > Can you provide examples in the kernel where deadlock would occur?
->=20
-> Just exercise the simple example of a driver supporting both pull and int=
-errupt:
->=20
-> Interrupt: Handler takes lock protecting a linked list, finds fence
-> and signals it.
->=20
-> Polling: is_signaled is called with fence lock held, can't take list
-> lock and so needs to work around that somehow.
-
-signaled() neither needs a list lock nor any other lock.
-
-It needs to read a sequence number from somewhere, so a u64. And then
-it returns true or false to the fence_backend.
-
-The u64 can easily be an atomic. Also ioremaped reads should work
-locklessly.
-
-No need for any lock.
-
->=20
-> This pattern repeats multiple times all over the different dma_fence
-> implementation. Nouveu is just the tip of the iceberg, we have cases
-> of this in amdgpu as well as i915 as well as XE.
-
-I guess my question then becomes what complicated locked tasks someone
-has to do within its callback that locks are required, locks that
-cannot be partitioned in a smart way to avoid that.
-
-We have 3 callbacks that are relevant and not deprecated (the name-
-functions are trivially solved by copying the data):
-
-- is_signaled() =E2=87=92 solved, see above
-- enable_signaling()
-- set_deadline()
-
-The latter two might want to talk to their hardware, either enabling an
-interrupt or telling it to clock the frequency up (see MSM). They might
-need a driver-lock for that, fair enough.
-
-Where does such a driver-lock need to be held while operating on a
-fence, opening the deadlock-path?
-
-
-Note that, as I pointed out many times, all callbacks are already
-called under lock-protection. Especially enable_signaling(), and
-is_signaled() must be lock-resistant, proven by
-dma_fence_is_signaled_locked() existing.
-
-Regardless, what I propose would only make a potential difference for
-*new* users, with inline-lock, who can then cleanly design to avoid
-locking problems.
-
-
->=20
-> > Note that I pointed out that all callbacks are already invoked with the
-> > lock taken, which proofs that it's doable.
->=20
-> Again, no it isn't. The shared lock was invented exactly because
-> drivers ran into this problem.
->=20
-> The common pattern is the same, implementations just dance around the
-> fact that the callbacks are called with the fence lock held by
-> delegating cleanup work and/or using lockless containers etc...
-
-I suspect more that drivers attempt to do unnecessarily many things in
-their callbacks which are not supposed to be done there.
-
-> A common component like dma_fence should never enforce users to do
-> such workarounds just to solve it's own lifetime issues.
-
-Our common component forces all users to take our locks manually and
-plaster everything with RCU. If they forget an RCU delay, outside our
-API, things explode :(
-
-
-P.
-
-
-[1] https://elixir.bootlin.com/linux/v7.3/source/drivers/gpu/drm/amd/amdgpu=
-/amdgpu_vm.c#L2787
-
->=20
+-- 
+Kind Regards,
+Niklas Söderlund
