@@ -1,84 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792490516;
-	b=VUMslsOhsmb4a7xRpK7SARZ5ORHtAnKOgwDV9YM98q3YUxMCVLiP+Wsyx1RJGJzudZBZ
-	 J1i1ZJ4hpGTKWmQ82kba3TB37M5pBd6PVQS2LpU3KZ3smLZD8QoulHL86i46cmibp88VY
-	 530ivRg2cVBOXH9oI3fR0MwSz83gyjd1B7qfWuSELQ6DsDZfDPD/Y+TW0FVxNK+9RZ8ac
-	 REAIMJuttkc6AzWrFlqjrzpy0DEzsv6IL6i8Lby0xlDJCVWsEg+h5Fh9CPsfvCkJlyHeW
-	 YtmdwdXnD0b8f0DXcsaftv4euGdjk9vakb0372XyNQEnYJ0FpHpDTsP3i0jE0vQvELg==
+	t=1792490841;
+	b=1HK/17fCTTWGOi3Q++WZS51tYN/ci/+GfAHBR828ia+XTVCHzsIT3+dSOxdvq1nNQyuc
+	 Ge/Y1qBkl+zVUGK282dny/87TsGjM/FylngzhCWCa2tQ3t5xan11A0g3T0HxdN2CMFQZy
+	 +K3vUdzHG28/0tcRuV/VaFdMd2bA9pZwP4UaaZmhDpx4Jopci9bhyuY3AnndEmIRs1Ylw
+	 AeRwXJg4vgn15B0e+Pp+MJtoOHms5UZyZ8Am3jhAQarCM1nLY6/zX+TdKlAluFXBQO5w3
+	 9yQLG8wiuxutxeoEafc7ntVkoMP0zCuponldDTJhmyHP7rF8WCobkNZoksYHQ5IKDzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792490516;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6q8wiBkHoiL/KGYdZsxjGwRTuXA7qaumt7yvL4z0Drc=;
-	b=Wr8GU4hy/sWaAWDCei1IKHufjFDdJ3JhppRlbpk6ju6bmtAYR4pNvH7vem1+Ap4ozU7G
-	 vLmqjViCjV9tU7j8QyVEwOaVPYC45kAhYBVoMmeV0VZszmGBPX6WYYZNaGwFTZF+30lou
-	 N/3qN19+2bTVlCx2SWI4jM4c5kLuw0druZU8/3VfGl62gloOIk0OMEw/Q/WeEfuA0uEPK
-	 xJT15Dy/tQvC0LAGJgy2nC/wFSWuaBMCdfeWgdJJ3MwKarJDimMFPUK12QggYvJDuSRtl
-	 yX9cGolHkE3zycub4BRDZCRdMR5Is4hBG7muUWw9T3EdjrahG6q4g6yxncrfpKChqlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792490841;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LTx6K0H+HB18S1mekdTeGsQe+V+tpXMG7vZI1N5W/i4=;
+	b=AdDW8iDi4P3YICwE361o3MjY3DzHKebQsq5sqD6T9fR5YJh/3betGep0RYq6sULHOOR5
+	 6Ne9b3ZbDMQEo46aq/HCBKi9pQwtOQKLceLIxJ3aL1xK11MFXH6D/XRuPSORGbNnpc6ku
+	 gHMHQAtjFgK1sBUZ0vZaMgtz9gjiUItxlcMfvZBsLoyvtr0XJM2pIPnaaPIxSV0HwF2b2
+	 92UcKbZU0tJPdSHW14GpQkStWPpbebd5KV8bk62CD8+XphZoSct06et/bpMrvMZa7E5yB
+	 iH5BcwwLdU3C2qvQ0t9IR1HRhP6pBeCxuNppvBuPAM4WySCh0RDFEjD5taEixkdyRCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c03e0rOO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9nlm3Nl;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2E8D606A327;
-	Tue, 20 Oct 2026 10:01:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24502606A319;
+	Tue, 20 Oct 2026 10:07:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24502606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c03e0rOO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68F3B1F000C8;
-	Tue, 20 Oct 2026 10:01:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792490515;
-	bh=6q8wiBkHoiL/KGYdZsxjGwRTuXA7qaumt7yvL4z0Drc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c03e0rOONVKauuCZcof5oyBlChrq0q5SZ8Oppn1MU/MTb6Ti6tOaODLOGLscNVWCv
-	 TZz5ZTMLiff8MSa50ikjR+OvnJ7RiXIcO0QMVxaAKwqQVZzPyJ+qY7nCJQX8izE8aC
-	 gooND2yxrdV1ZovcyrH6ilskuJP0w+yDeaKI1JAlJ2mcvOmkasOqzP0tkxkz3l9ujB
-	 RZOkq0DnDWJpniJD9Ajnl7x1YWQ+Y4q8wFcJ66b3zN3HXbjWURqF7pc9R3KoLW+Lfv
-	 ejqveuO4n58X5coYMsjzBlNE8G7OIQBUdn9+BARpIC1zk56A/hR/1SGxxJDONadQAA
-	 uAYj1pgTKR3og==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	linux-trace-kernel@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: [RFC PATCH v2 3/3] dma-fence: Support unload for ops->get_XXX_name()
-Date: Tue, 20 Oct 2026 12:00:34 +0200
-Message-ID: <20261020100034.759183-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261020100034.759183-2-phasta@kernel.org>
-References: <20261020100034.759183-2-phasta@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b9nlm3Nl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792490841; x=1824026841;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gv+wGTsdGwSWa64CLUgqXHwlLl3z/tT0Go0vfuW1gig=;
+  b=b9nlm3NlAdeme7zyj2fArpCuDSE4g3azg34W0CqBu2FStxzJC3Uau9cs
+   nrHpqrktaVtVhyUtU+GlEOwIhQgSwUbcl8qcirS+TjYvvUvg9i2qmRW57
+   Y2erj+MQiCmlhw+mDtjfUHF8k05K46beN027CSY8M9KL04QGtonam1MHB
+   1texUCvFh6jnFhh5LyQ0s4xUP+WyIvs8yvRydJN7Jvxf52bOjIyCcMcLz
+   GECUFv0kHJx/qAhEieqKFk7InKxhglfL2emJNLSxCwWfShzdDOVGa9VQi
+   k6SsE7mcFjHci3bwD/KbHJM1lCutJQaaZZFmwTvF3cUigwpigWd4WUIR7
+   g==;
+X-CSE-ConnectionGUID: nY6JJ3eIRf2Xia3AHKaJAg==
+X-CSE-MsgGUID: pZXohpnXS6+3HcCa2LIwnQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11940"; a="1079908"
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="1079908"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:07:20 -0700
+X-CSE-ConnectionGUID: oBOjhDuYSHmJPaglrYqvEA==
+X-CSE-MsgGUID: QsGZ9gaOTcaoNaHSaKQeLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,168,1787036400"; 
+   d="scan'208";a="3151194"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.132])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 03:07:18 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 7B11E11F7E8;
+	Tue, 20 Oct 2026 13:07:15 +0300 (EEST)
+Date: Tue, 20 Oct 2026 13:07:15 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+Message-ID: <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,416 +92,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
 
-dma_fence's backend_ops get_driver_name() and get_timeline_name() have
-an unnecessary and complicated RCU requirement.
+Hi Dave,
 
-Usage in sync_file, however, already shows how it can be done
-significantly simpler: Copy the name strings to the user.
+On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
+> There are multiple members of the Sony Starvis 2 image sensor family
+> that have the same hardware requirements as imx678.
+> Add them as options to the imx678 binding, rather than duplicating it.
+> 
+> Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
+>  1 file changed, 32 insertions(+), 6 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> index 098f72544216..027872a134f2 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> @@ -5,7 +5,7 @@
+>  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: Sony IMX678 Sensor
+> +title: Sony IMX678 and Starvis 2 Sensors
+>  
+>  maintainers:
+>    - Jai Luthra <jai.luthra@ideasonboard.com>
+> @@ -13,21 +13,47 @@ maintainers:
+>  description:
+>    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
+>    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
 
-All that needs to be ensured for that is that the signaled-state is
-checked and that it cannot change while the callback runs, i.e., the
-lock must be held.
+You could rewrap this while at it.
 
-Adjust the two callbacks so that they deep-copy name parameters under
-lock-protection.
+> +  It is part of the Starvis 2 family of sensors.
+> +  Other members of the Starvis 2 have the same hardware requirements, and
+> +  therefore share this binding.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/dma-buf/dma-fence.c                 | 73 ++++++++++-----------
- drivers/dma-buf/sync_file.c                 | 29 ++++----
- drivers/gpu/drm/i915/gt/intel_gt_requests.c | 16 ++---
- drivers/gpu/drm/i915/i915_request.c         |  9 ++-
- drivers/gpu/drm/i915/i915_sw_fence.c        | 15 ++---
- include/linux/dma-fence.h                   | 22 ++-----
- include/trace/events/dma_fence.h            | 12 ++--
- 7 files changed, 77 insertions(+), 99 deletions(-)
+This paragraph could be rewrapped, too -- the limit is 80 characters per
+line.
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index e4350bce9cf9..d473d4ea601a 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -555,23 +555,22 @@ void dma_fence_release(struct kref *kref)
- 	struct dma_fence *fence =
- 		container_of(kref, struct dma_fence, refcount);
- 	const struct dma_fence_ops *ops = fence->ops;
-+	const unsigned short len = 64;
-+	char timeline[len];
-+	char driver[len];
- 
--	rcu_read_lock();
- 	trace_dma_fence_destroy(fence);
- 
- 	if (!list_empty(&fence->cb_list) &&
- 	    !dma_fence_test_signaled_flag(fence)) {
--		const char __rcu *timeline;
--		const char __rcu *driver;
- 		unsigned long flags;
- 
--		driver = dma_fence_driver_name(fence);
--		timeline = dma_fence_timeline_name(fence);
-+		dma_fence_driver_name(fence, driver, len);
-+		dma_fence_timeline_name(fence, timeline, len);
- 
- 		WARN(1,
- 		     "Fence %s:%s:%llx:%llx released with pending signals!\n",
--		     rcu_dereference(driver), rcu_dereference(timeline),
--		     fence->context, fence->seqno);
-+		     driver, timeline, fence->context, fence->seqno);
- 
- 		/*
- 		 * Failed to signal before release, likely a refcounting issue.
-@@ -590,7 +589,6 @@ void dma_fence_release(struct kref *kref)
- 		ops->release(fence);
- 	else
- 		dma_fence_free(fence);
--	rcu_read_unlock();
- }
- EXPORT_SYMBOL(dma_fence_release);
- 
-@@ -1017,23 +1015,20 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
-  */
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
- {
--	const char __rcu *timeline = (const char __rcu *)"";
--	const char __rcu *driver = (const char __rcu *)"";
--	const char *signaled = "";
--
--	rcu_read_lock();
-+	const unsigned short len = 64;
-+	char timeline[len];
-+	char driver[len];
-+	char *signaled;
- 
- 	if (!dma_fence_is_signaled(fence)) {
--		timeline = dma_fence_timeline_name(fence);
--		driver = dma_fence_driver_name(fence);
-+		dma_fence_timeline_name(fence, timeline, len);
-+		dma_fence_driver_name(fence, driver, len);
- 		signaled = "un";
- 	}
- 
- 	seq_printf(seq, "%llu:%llu %s %s %ssignalled\n",
- 		   fence->context, fence->seqno, timeline, driver,
- 		   signaled);
--
--	rcu_read_unlock();
- }
- EXPORT_SYMBOL(dma_fence_describe);
- 
-@@ -1129,20 +1124,22 @@ EXPORT_SYMBOL(dma_fence_init64);
-  * memory potentially accessed by the &dma_fence.ops functions, is forbidden
-  * after the fence has been signalled. Drivers are allowed to free that data,
-  * and some do.
-- *
-- * To allow safe access drivers are mandated to guarantee a RCU grace period
-- * between signalling the fence and freeing said data.
-- *
-- * As such access to the driver name is only valid inside a RCU locked section.
-- * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
-- * by the &rcu_read_lock and &rcu_read_unlock pair.
-  */
--const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
-+void dma_fence_driver_name(struct dma_fence *fence, char *s, unsigned short len)
- {
-+	unsigned long flags;
-+	const char *tmp;
-+
-+	dma_fence_lock_irqsave(fence, flags);
-+
- 	if (!dma_fence_test_signaled_flag(fence))
--		return (const char __rcu *)fence->ops->get_driver_name(fence);
-+		tmp = fence->ops->get_driver_name(fence);
- 	else
--		return (const char __rcu *)"detached-driver";
-+		tmp = "detached-driver";
-+
-+	strscpy(s, tmp, len);
-+
-+	dma_fence_unlock_irqrestore(fence, flags);
- }
- EXPORT_SYMBOL(dma_fence_driver_name);
- 
-@@ -1158,19 +1155,21 @@ EXPORT_SYMBOL(dma_fence_driver_name);
-  * memory potentially accessed by the &dma_fence.ops functions, is forbidden
-  * after the fence has been signalled. Drivers are allowed to free that data,
-  * and some do.
-- *
-- * To allow safe access drivers are mandated to guarantee a RCU grace period
-- * between signalling the fence and freeing said data.
-- *
-- * As such access to the driver name is only valid inside a RCU locked section.
-- * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
-- * by the &rcu_read_lock and &rcu_read_unlock pair.
-  */
--const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
-+void dma_fence_timeline_name(struct dma_fence *fence, char *s, unsigned short len)
- {
-+	unsigned long flags;
-+	const char *tmp;
-+
-+	dma_fence_lock_irqsave(fence, flags);
-+
- 	if (!dma_fence_test_signaled_flag(fence))
--		return (const char __rcu *)fence->ops->get_timeline_name(fence);
-+		tmp = fence->ops->get_timeline_name(fence);
- 	else
--		return (const char __rcu *)"signaled-timeline";
-+		tmp = "signaled-timeline";
-+
-+	strscpy(s, tmp, len);
-+
-+	dma_fence_unlock_irqrestore(fence, flags);
- }
- EXPORT_SYMBOL(dma_fence_timeline_name);
-diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
-index 2166bbdf7e4a..0f08713b3b5e 100644
---- a/drivers/dma-buf/sync_file.c
-+++ b/drivers/dma-buf/sync_file.c
-@@ -18,6 +18,8 @@
- #include <linux/sync_file.h>
- #include <uapi/linux/sync_file.h>
- 
-+#define FENCE_NAME_LEN 64
-+
- static const struct file_operations sync_file_fops;
- 
- static struct sync_file *sync_file_alloc(void)
-@@ -131,22 +133,21 @@ EXPORT_SYMBOL(sync_file_get_fence);
-  */
- char *sync_file_get_name(struct sync_file *sync_file, char *buf, int len)
- {
-+	char timeline[FENCE_NAME_LEN];
-+	char driver[FENCE_NAME_LEN];
-+
- 	if (sync_file->user_name[0]) {
- 		strscpy(buf, sync_file->user_name, len);
- 	} else {
- 		struct dma_fence *fence = sync_file->fence;
--		const char __rcu *timeline;
--		const char __rcu *driver;
- 
--		rcu_read_lock();
--		driver = dma_fence_driver_name(fence);
--		timeline = dma_fence_timeline_name(fence);
-+		dma_fence_driver_name(fence, driver, FENCE_NAME_LEN);
-+		dma_fence_timeline_name(fence, timeline, FENCE_NAME_LEN);
- 		snprintf(buf, len, "%s-%s%llu-%lld",
--			 rcu_dereference(driver),
--			 rcu_dereference(timeline),
-+			 driver,
-+			 timeline,
- 			 fence->context,
- 			 fence->seqno);
--		rcu_read_unlock();
- 	}
- 
- 	return buf;
-@@ -268,19 +269,11 @@ static long sync_file_ioctl_merge(struct sync_file *sync_file,
- static int sync_fill_fence_info(struct dma_fence *fence,
- 				 struct sync_fence_info *info)
- {
--	const char __rcu *timeline;
--	const char __rcu *driver;
-+	dma_fence_timeline_name(fence, info->obj_name, sizeof(info->obj_name));
-+	dma_fence_driver_name(fence, info->driver_name, sizeof(info->driver_name));
- 
- 	rcu_read_lock();
- 
--	driver = dma_fence_driver_name(fence);
--	timeline = dma_fence_timeline_name(fence);
--
--	strscpy(info->obj_name, rcu_dereference(timeline),
--		sizeof(info->obj_name));
--	strscpy(info->driver_name, rcu_dereference(driver),
--		sizeof(info->driver_name));
--
- 	info->status = dma_fence_get_status(fence);
- 	info->timestamp_ns =
- 		dma_fence_is_signaled(fence) ?
-diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-index 93298820bee2..a37069ca6d2a 100644
---- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-+++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
-@@ -240,8 +240,12 @@ void intel_gt_watchdog_work(struct work_struct *work)
- {
- 	struct intel_gt *gt =
- 		container_of(work, typeof(*gt), watchdog.work);
-+	const unsigned short len = 64;
- 	struct i915_request *rq, *rn;
- 	struct llist_node *first;
-+	char timeline[len];
-+	char driver[len];
-+
- 
- 	first = llist_del_all(&gt->watchdog.list);
- 	if (!first)
-@@ -250,17 +254,13 @@ void intel_gt_watchdog_work(struct work_struct *work)
- 	llist_for_each_entry_safe(rq, rn, first, watchdog.link) {
- 		if (!i915_request_completed(rq)) {
- 			struct dma_fence *f = &rq->fence;
--			const char __rcu *timeline;
--			const char __rcu *driver;
- 
--			rcu_read_lock();
--			driver = dma_fence_driver_name(f);
--			timeline = dma_fence_timeline_name(f);
-+			dma_fence_driver_name(f, driver, len);
-+			dma_fence_timeline_name(f, timeline, len);
- 			pr_notice("Fence expiration time out i915-%s:%s:%llx!\n",
--				  rcu_dereference(driver),
--				  rcu_dereference(timeline),
-+				  driver,
-+				  timeline,
- 				  f->seqno);
--			rcu_read_unlock();
- 			i915_request_cancel(rq, -EINTR);
- 		}
- 		i915_request_put(rq);
-diff --git a/drivers/gpu/drm/i915/i915_request.c b/drivers/gpu/drm/i915/i915_request.c
-index d2c7b1090df0..c81902d8a89a 100644
---- a/drivers/gpu/drm/i915/i915_request.c
-+++ b/drivers/gpu/drm/i915/i915_request.c
-@@ -2185,7 +2185,8 @@ void i915_request_show(struct drm_printer *m,
- 		       const char *prefix,
- 		       int indent)
- {
--	const char __rcu *timeline;
-+	const unsigned short len = 64;
-+	char timeline[len];
- 	char buf[80] = "";
- 	int x = 0;
- 
-@@ -2221,8 +2222,7 @@ void i915_request_show(struct drm_printer *m,
- 
- 	x = print_sched_attr(&rq->sched.attr, buf, x, sizeof(buf));
- 
--	rcu_read_lock();
--	timeline = dma_fence_timeline_name((struct dma_fence *)&rq->fence);
-+	dma_fence_timeline_name((struct dma_fence *)&rq->fence, timeline, len);
- 	drm_printf(m, "%s%.*s%c %llx:%lld%s%s %s @ %dms: %s\n",
- 		   prefix, indent, "                ",
- 		   queue_status(rq),
-@@ -2231,8 +2231,7 @@ void i915_request_show(struct drm_printer *m,
- 		   fence_status(rq),
- 		   buf,
- 		   jiffies_to_msecs(jiffies - rq->emitted_jiffies),
--		   rcu_dereference(timeline));
--	rcu_read_unlock();
-+		   timeline);
- }
- 
- static bool engine_match_ring(struct intel_engine_cs *engine, struct i915_request *rq)
-diff --git a/drivers/gpu/drm/i915/i915_sw_fence.c b/drivers/gpu/drm/i915/i915_sw_fence.c
-index f24f616e23ee..08b5f96ae2a5 100644
---- a/drivers/gpu/drm/i915/i915_sw_fence.c
-+++ b/drivers/gpu/drm/i915/i915_sw_fence.c
-@@ -429,23 +429,22 @@ static void timer_i915_sw_fence_wake(struct timer_list *t)
- {
- 	struct i915_sw_dma_fence_cb_timer *cb = timer_container_of(cb, t,
- 								   timer);
-+	const unsigned short len = 64;
- 	struct i915_sw_fence *fence;
--	const char __rcu *timeline;
--	const char __rcu *driver;
-+	char timeline[len];
-+	char driver[len];
- 
- 	fence = xchg(&cb->base.fence, NULL);
- 	if (!fence)
- 		return;
- 
--	rcu_read_lock();
--	driver = dma_fence_driver_name(cb->dma);
--	timeline = dma_fence_timeline_name(cb->dma);
-+	dma_fence_driver_name(cb->dma, driver, len);
-+	dma_fence_timeline_name(cb->dma, timeline, len);
- 	pr_notice("Asynchronous wait on fence %s:%s:%llx timed out (hint:%ps)\n",
--		  rcu_dereference(driver),
--		  rcu_dereference(timeline),
-+		  driver,
-+		  timeline,
- 		  cb->dma->seqno,
- 		  i915_sw_fence_debug_hint(fence));
--	rcu_read_unlock();
- 
- 	i915_sw_fence_set_error_once(fence, -ETIMEDOUT);
- 	i915_sw_fence_complete(fence);
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 2223d75c5a49..08ecbc101f4c 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -459,25 +459,11 @@ void dma_fence_enable_signaling(struct dma_fence *fence);
- /**
-  * DOC: Safe external access to driver provided object members
-  *
-- * All data not stored directly in the dma-fence object, such as the
-- * &dma_fence.lock and memory potentially accessed by functions in the
-- * &dma_fence.ops table, MUST NOT be accessed after the fence has been signalled
-- * because after that point drivers are allowed to free it.
-- *
-- * All code accessing that data via the dma-fence API (or directly, which is
-- * discouraged), MUST make sure to contain the complete access within a
-- * &rcu_read_lock and &rcu_read_unlock pair.
-- *
-- * Some dma-fence API handles this automatically, while other, as for example
-- * &dma_fence_driver_name and &dma_fence_timeline_name, leave that
-- * responsibility to the caller.
-- *
-- * To enable this scheme to work drivers MUST ensure a RCU grace period elapses
-- * between signalling the fence and freeing the said data.
-- *
-+ * Provides naming information strings about the fence if it is not yet signaled.
-+ * Otherwise, provides default strings.
-  */
--const char __rcu *dma_fence_driver_name(struct dma_fence *fence);
--const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
-+void dma_fence_driver_name(struct dma_fence *fence, char *s, unsigned short len);
-+void dma_fence_timeline_name(struct dma_fence *fence, char *s, unsigned short len);
- 
- /*
-  * dma_fence_test_signaled_flag - Only check whether a fence is signaled yet.
-diff --git a/include/trace/events/dma_fence.h b/include/trace/events/dma_fence.h
-index 5b10a9e06fb4..f3b929b98cf4 100644
---- a/include/trace/events/dma_fence.h
-+++ b/include/trace/events/dma_fence.h
-@@ -9,6 +9,8 @@
- 
- struct dma_fence;
- 
-+#define FENCE_NAME_LEN 64
-+
- DECLARE_EVENT_CLASS(dma_fence,
- 
- 	TP_PROTO(struct dma_fence *fence),
-@@ -16,21 +18,21 @@ DECLARE_EVENT_CLASS(dma_fence,
- 	TP_ARGS(fence),
- 
- 	TP_STRUCT__entry(
--		__string(driver, dma_fence_driver_name(fence))
--		__string(timeline, dma_fence_timeline_name(fence))
-+		__array(char, driver, FENCE_NAME_LEN)
-+		__array(char, timeline, FENCE_NAME_LEN)
- 		__field(unsigned int, context)
- 		__field(unsigned int, seqno)
- 	),
- 
- 	TP_fast_assign(
--		__assign_str(driver);
--		__assign_str(timeline);
-+		dma_fence_driver_name(fence, __entry->driver, FENCE_NAME_LEN);
-+		dma_fence_timeline_name(fence, __entry->timeline, FENCE_NAME_LEN);
- 		__entry->context = fence->context;
- 		__entry->seqno = fence->seqno;
- 	),
- 
- 	TP_printk("driver=%s timeline=%s context=%u seqno=%u",
--		  __get_str(driver), __get_str(timeline), __entry->context,
-+		  __entry->driver, __entry->timeline, __entry->context,
- 		  __entry->seqno)
- );
- 
+>  
+>  allOf:
+>    - $ref: /schemas/media/video-interface-devices.yaml#
+>  
+>  properties:
+>    compatible:
+> -    items:
+> -      - enum:
+> -          - sony,imx678-aamr
+> -          - sony,imx678-aaqr
+> -      - const: sony,imx678
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - sony,imx585-aamj
+> +              - sony,imx585-aaqj
+> +          - const: sony,imx585
+> +      - items:
+> +          - enum:
+> +              - sony,imx662-aamr
+> +              - sony,imx662-aaqr
+> +          - const: sony,imx662
+> +      - items:
+> +          - enum:
+> +              - sony,imx675-aamr
+> +              - sony,imx675-aaqr
+> +          - const: sony,imx675
+> +      - items:
+> +          - enum:
+> +              - sony,imx678-aamr
+> +              - sony,imx678-aaqr
+> +          - const: sony,imx678
+> +      - items:
+> +          - enum:
+> +              - sony,imx832-amr
+> +              - sony,imx832-aqr
+> +          - const: sony,imx832
+
+Should we also have a sony,starvis2 compatible? Just wondering.
+
+The driver isn't generic still as it requires sensor specific information
+to be passed to it. CCS solves this with CCS static data (via firmware
+loading mechanism) so there are no driver changes even if the capability
+and limit information can't be obtained from device's registers or the
+device requires MSRs.
+
+> +
+>      description:
+>        The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
+>        variant (IMX678-AAMR). The variant-specific compatible describes the
+>        exact sensor variant, with the generic IMX678 compatible as a fallback.
+> +      The same applies for the other sensors in the family.
+>  
+>    reg:
+>      maxItems: 1
+> 
+
 -- 
-2.56.0
+Regards,
 
+Sakari Ailus
