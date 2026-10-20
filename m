@@ -1,112 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792463610;
-	b=twk14N0QhAL8NT+w6hnnhge0AdSh4yETx1QkCw+huU/aUFoPZ/gStM99h8m7s1ciIaII
-	 aV2BjLwMoh/xURafyci0WaGe898f+Jb1Ir4shqnEUfWqJzQX2dRoPd4f+k1bOPJQa6oxT
-	 NLv6nJnZI+gplV8JFlDLEhI4h7lC2IKQcHt/pg/EOQoK+uPZVxMc7Cw4zCybCVwLfr66R
-	 TxYRcO4TfRzxlBFdvUpMKI2piwc7k3o4qR167P1D/h8OSH1gupTANTcUkDMELdMVatL96
-	 W8rI0J/5XZvwrwslQKPAqTVYZdOnsyDKBUmlHCxqRhCMu+jWyCvRl+gwndQ2bMpDB6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792463610;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=KyR7R/n/BMtcxhz+FKYe9XMZme440csJf63HZ+pAMjQ=;
-	b=Lh+lOHzt9ZA7CzPpUe7GgsLdPq6eIwXc2PswIOz3zuHJ+CPlIBU668gNTqdztpZSQNS9
-	 ihRVgdvOQgXyQECvnZ4mWYDdu9FkpsNKtqa/S4Z5MheHLLGPEcGt0+uKfbA6UvhrW3y6p
-	 Fsndt92qUb3zCTWpdRyTX8nX8MNiVI693qOCC2z4QSrYdMlNBj70wOodqlvuvW8IhIk4N
-	 PpfAb2UbeQXDTAZ0+QfmdC9hYLd5hoERpHdxsAXsA/3yxZhMVO5ORkNzV8bXhchrXwngz
-	 iENNoxm94Y+e4HgyjGzK9L1/kKqeCGemY2fjRe5Yq7L1N81+g2zUrEZhJ2J2ihhKZpA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AvEYhajk;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A4JlVp4o;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.65
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792465232;
+	b=LT96a4WSaZDvZF69iGePI9NXw1wY5LT2HDgqJhOVamAvuD4cP6zgAHxXJiVD/ngPk72h
+	 SNRf1N9gVhwvK+0LuiMs4qucQpiRM/0ONZbvYmY3O2669T32eaGvk2aWGRWyBU0TYOsZH
+	 aTJx3WahKmPfYSLzzCNEvym9feLhTmZtOZg8KtuCwonmu/ZS9IYub8aolqXYb3NCv/wnP
+	 s57aukXOT5Y30L7kNgBNUAgI5SOpcjg614lrE8A/9bxjeDmtpDJcUOsYat73QQcLZIf++
+	 zqg/MfiHUk2/rkDR0foZUT6K8DxNFNuF+1qa8tOhWU7mGkmnPfG5zB36YjaYLXXGOhQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792465232;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=vXf2PRBtCffARJRCksY/U1VwasnAViJ7bZBXAb3Ni48=;
+	b=19YCQyN6iljoOEye5lJBSLEjVujaulozCfeu5Cls6RXH01OVd4EaC2XOPY2AJeZ2TD7Y
+	 z+BLqO9nIqxE9FCKNDsrACtU5rrhmztT1IS8FxsCG+RUiAIrBNYvtotMCsOinDoVdwzpq
+	 uFR2Iexm/52VZkav4DR0263T5I7hmahhn/r1zLBYRabfl0NS/ayq/DGwqzecqyD3uO38y
+	 b1FJmcorkCMOpVmRirAOIi6LCkwWYwVYvhHPAG1xiHIsiIv9MHc51LdBtXRRnupfxb7FD
+	 eNFRrDi9TePuB54uLf2kXJdYh7V6+oSUVBvgQJvsDtZmwqubzQAaTluEC9dQeIBAvtg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=wO92w6n9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.65
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011065.outbound.protection.outlook.com [40.107.130.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A78606A31B
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:33:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47A78606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A49F2606A31A;
+	Tue, 20 Oct 2026 03:00:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A49F2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AvEYhajk;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=A4JlVp4o
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69K0tFTd620201
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:33:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KyR7R/n/BMtcxhz+FKYe9XMZme440csJf63HZ+pAMjQ=; b=AvEYhajkuQt8o29d
-	C7kgM0zGyXGP3h1IR7csnCpzPA/j3ob54BjBq7dqU5iRINmffts9IPO9NFd5K/XV
-	3ChTj3Mtju2Bgk1b6sflMxtB6cgkNu2jiiDs5osdBaWWi43WAO1Cr8Ui3gRGobuR
-	tiIng0vP37F/Jj3TRTRMS48qV6pZaZU2MbZjBWJRdSP8Ete+0wjSH+WwDpx8XQEi
-	v8f50x4nEs7j7Qd6E23RWPnnAAqxO7LEgtMHOHVcQArOCBpKo0bdhieTiR3cpq0f
-	BVHUHT3334MfmwFDeC8QrRvrX9ghdrNlzeKu+vZWDLYaxOSVZMdRE0Z6O9x4L7aA
-	8RIV2w==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hdw5nrfc9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 02:33:28 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1383723dfddso5350493c88.0
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 19:33:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792463608; x=1793068408; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KyR7R/n/BMtcxhz+FKYe9XMZme440csJf63HZ+pAMjQ=;
-        b=A4JlVp4oqhIXbMtZ1KK3SBsSj2irpFLCidsj7Kffk/mM82mUJsHFJgFnZGze8xw4ZP
-         HEmyxdZMFWIm0Pg0yUr8zj6ni8Nf6i9sTCldCjM269YrR6fR7E+0opKjZ3c2e5RmjIWT
-         Q7WSALAgU9c4ZMpmXrWPZC6HT3hnEXG41USXvAtiHwSyhqCmtqdfEoD98AbMaX1KwcTj
-         4uA9+Aeq3Ls0LMgN5q+MS7Wby3z+bm+RlKIDn+tIyLlVcy3ij0DCmqTi8DbRe1c3gt3x
-         dQGoaKo9O2CpUMcJml8s3VmJaMq8/8mXke1dlHqjuSKgqfizkubH35aq37BxV/eN0a60
-         NI0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792463608; x=1793068408;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KyR7R/n/BMtcxhz+FKYe9XMZme440csJf63HZ+pAMjQ=;
-        b=gZCB7dmQCbol4FlLCKBQA849RGnaqq5yz61GmzyxoVsZtCp0b0IQl89eHexW/eo4ME
-         JYz97YbVBIWq0YVHdGox+vlXhcTu2ehwStli9Y6uB80uCBmPDhFY3uQr+rLCIUFQe75P
-         BQAG0oPLI8AgDtwgyQjjD2JTE+8ReCLT3a1iIWuwZqv0MBnvajdWFEB5EQC2s1LKkXBv
-         /ZnSGn28tutpxjPqPcIIiojPHRVHZF4VcOaEfmcIGlKzqjeF9Ni3319djtoDAPk9a4TC
-         OIFPQ4Ln0eGw9GL8U7wJr/9XBybOudXUjm7SPReKMgPIm+oeW++5dGMwpc6MLbuMQurW
-         khLg==
-X-Forwarded-Encrypted: i=1; AKwUvBwu2RYIzo/yWYabpgTlziWNWFJqT/U8n9p6UrG/Smvlaqs1ddyeHgF9JfWkR5/zt+Nc2tue/Ojdoq4xyA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+7AfvGp4PabDxpHbg6Jbd5HB4qGpEdU9I/f8jaSIe/R6wfqKI
-	sd7T6Pk7vnfL50EgzmqbCok4dw0fXxXn6M1C6/UvHhCcOpnoDGNy5phPbcNSH+SGwQKbFhYLQsy
-	vSkxeKQreLcJphIqz0k9d+L+kIPtF7bwI5/MJM9ZOvxP0XX9qJkyypkUEF7X2rQtn6LX248jJlw
-	==
-X-Gm-Gg: AYBFou0nYJpPw+XiyikA7Z8i5rtBvGJLHBnqW8S9LD3Y35ZODsCdTSR8hppljmFP7rf
-	NQJsDHLi/LsVBN/cLL26qdxvgTQVDnIzRtWxzzstOkHHI/d49e3s16cxrGiRWdWCHlFpiaD8ahC
-	mDRTLSSuOvyIxZiTQC/ro43Q7NUx9XXhgizoiRtBBDr8E6MP7w9JRN9vnvxOPo2sKZGEPXxRtbT
-	tMT4pM56/x+VIv7qRvSndcgeTkSTGOhsMDmhpDg/HmQkoaEPFLVIbG2Go/Riavwacl3EO4mhO0q
-	Nlgm6gRwyIipSzK4LPEtONhWNchyFFy389lyV6EZh9KS4dGbwwRWRJlXP+e9I0ZY/Z3IChVZewY
-	JeAOhS+lAb1eVTVB6lrxGyVuJ9ZnMGCqasxo=
-X-Received: by 2002:a05:7022:1709:b0:144:fc5b:2121 with SMTP id a92af1059eb24-1851257915bmr10416500c88.17.1792463607843;
-        Mon, 19 Oct 2026 19:33:27 -0700 (PDT)
-X-Received: by 2002:a05:7022:1709:b0:144:fc5b:2121 with SMTP id a92af1059eb24-1851257915bmr10416462c88.17.1792463607203;
-        Mon, 19 Oct 2026 19:33:27 -0700 (PDT)
-Received: from [192.168.1.235] ([47.231.130.140])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-18319d3b880sm30462917c88.10.2026.10.19.19.33.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Oct 2026 19:33:26 -0700 (PDT)
-Message-ID: <6b9e2f4f-70e3-46cb-9c81-48df7a8e1cbe@oss.qualcomm.com>
-Date: Mon, 19 Oct 2026 19:33:25 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=wO92w6n9
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MaOQpP62P0KA/tgA0MkcpiM6YLcMTbxo/fdyzVh8ZVAVaPrmVZNmuhkVjyPaxSWeC6j/K954wmkB/Kstu7bmc+liEJd6NKZPGTmiAw37YeBtXfBpkv/DpzuCjgXIWs7PcPnoEmetxXSIDSwt1KSPRHkgb1qmo2tZ7byu5i4XG6npweces4cFA9o5CMYzt1X+sZELYb+vXHJnJIX4mlA+KsTyNYXzI+9oLG4flm6ei+Zf5/XON+f6lQgtniPpLc/Nz5YvUzLEMJWeTMG2A5AmgnVPwPHka69XvXS54H0swKXdf+Q1WN8wXqnuiFEZBiwiWEegWRh/S/oxNmWsrH2tpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vXf2PRBtCffARJRCksY/U1VwasnAViJ7bZBXAb3Ni48=;
+ b=H4hwyOaPY83gEt6ylPz5HzAOU+toocvMUjaZknCDq9PdwfIVPZHKI4aXoDBq+cBS6tUy7XBgpdS+1weySA622XvLCtef1pJnXGMG7xhoLYYD/7B6GsO1fdbV8YMDdUT9dF6XMqY5dqcoMVLSANjw+meQN4CVFQuBeGlQV6NI7zIWXcBPl654dUESJJ0jqeJ1r/2FAMTgp0OHTHnX6+JYukuMvOC5ja+ln5q8adp4rVh0j2QwKWso/unxA7ZNsmVU6sN4y95CJHyAXxUlfPW+C0/Fl9qXwwCwMSlKoYAWDqt1QPLEY1LALjXYjS8mUA+L6JB6AlH+wKWNfYx3iW63zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vXf2PRBtCffARJRCksY/U1VwasnAViJ7bZBXAb3Ni48=;
+ b=wO92w6n9BVm2V+i1pVwyYWws6WLPOLEo2KvgjUkRpI7nj/SFnJeKgGFhmMzYGpeRHPAzPYxfSvu6YrvzopwPPy0nXypAPkiX1op+5dSOWbYuNX9MxOXX2rztHO7N3VZa1mLbizKRgx92M4spWjOsFpmGuRP6SfDcKCu7jiVrc3XhETc0lGXEK7DFPIYW38N27hiNm7TQewgDhFEWbyH2SB6vYu3EOl89S7doAnMX3W4aaZmrJCrikAfIm9HhQljmigZk/a9ERmxLQ8tq5Juc/xXGzKhkOrGeV60oFnf11d4MmLmOtjbPYWhsrM6BJHn70Vqur5rAypRPTJYAfWpj+g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from DB8PR04MB6667.eurprd04.prod.outlook.com (2603:10a6:10:10e::22)
+ by AM0PR04MB164874.eurprd04.prod.outlook.com (2603:10a6:20b:807::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Tue, 20 Oct
+ 2026 03:00:28 +0000
+Received: from DB8PR04MB6667.eurprd04.prod.outlook.com
+ ([fe80::e1b:d361:7aba:6960]) by DB8PR04MB6667.eurprd04.prod.outlook.com
+ ([fe80::e1b:d361:7aba:6960%4]) with mapi id 15.21.0522.017; Tue, 20 Oct 2026
+ 03:00:28 +0000
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Date: Tue, 20 Oct 2026 11:04:57 +0800
+Subject: [PATCH] media: synopsys: dw-mipi-csi2rx: Fix DPHY testclr reset
+ sequence
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261020-dw-csi2rx-v1-1-c58a2e5cd43d@oss.nxp.com>
+X-B4-Tracking: v=1; b=H4sIAFja1moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAyMD3ZRy3eTiTKOiCl0zIyNTM0vzNBPTpCQloPqCotS0zAqwWdGxtbU
+ AeuzowlsAAAA=
+To: Michael Riesch <michael.riesch@collabora.com>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ imx@lists.linux.dev, Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792465507; l=2164;
+ i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
+ bh=nsDSCw79V47dREBnaEHxEbVb4bN6njIp1F2cAEj2W4w=;
+ b=XlwO6xCsHo0Ts06fboyElq+ZETEjyL7JDkNF9u4Qsg+88G1VbSAxh9U2o0qZnQVT5pVGao0qN
+ uYVRuIxbv6RC5c5k12eDexLbX1a4W+WbaVzRCk601svLlLWO5OJ8Jcm
+X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
+ pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
+X-ClientProxiedBy: SI2P153CA0002.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::16) To DB8PR04MB6667.eurprd04.prod.outlook.com
+ (2603:10a6:10:10e::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,195 +109,125 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] phy: qcom-mipi-csi2: fix -EEXIST probe failure on
- single power-domain SoCs
-To: Bryan O'Donoghue <bod@kernel.org>, vkoul@kernel.org, kishon@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        neil.armstrong@linaro.org, mani@kernel.org
-Cc: gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
-        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <0L6D4EGEbw9SabH4L1sIcfqiZK6SmLBEjQEK5ljwkWxWQyXebQ9BNv71oBQmg61s3p8ja2Se4FlB5VtG5EdMXQ==@protonmail.internalid>
- <20261016235502.2274268-2-anusha.nandi@oss.qualcomm.com>
- <fc2c2f40-8a55-442a-9b0a-d73f040af60d@kernel.org>
-Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <fc2c2f40-8a55-442a-9b0a-d73f040af60d@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIwMDAwOSBTYWx0ZWRfX6Re59QZu4/FF
- DWGvL+AETQLYRYxJIcuf9FdzGA2n7MXYs5wPzEn/DN0n3HZ6oD1QSbzJmHwmWBMug+yExmxFSj1
- cnziLTMH2R4Ql7JVNY5hGhz0oM1Fq7g=
-X-Proofpoint-GUID: 2yrvruBZYQK6CModk8xsW9mS57-Llgat
-X-Proofpoint-ORIG-GUID: 2yrvruBZYQK6CModk8xsW9mS57-Llgat
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIwMDAwOSBTYWx0ZWRfXyhl9xKuWfdub
- wh3Tk4eRdFhMRrv1OrpVsoMOYB1VAGTLz57Rh9bc1TYdcGnYroKoo298yVf8CH+93XcC4Ie2w1u
- RhC1OpErP6nVDiam++wKPLRAf5gaI0bYBZzEDZFnPJO3dil3mAFEmvJbDC492Hp4Z1/WhPiPkHG
- wHhDpovA6FvwQOGnScTfkHxAYzB5Vc9/V+sAnayjai4X/ERU/3Ah4L4wekziugz+uCUSUm5E0tJ
- VXPQxhlrD+6GgNpcWSE9QVPCqdPzP2AXlR7g/ZcGv2lJkfx2Svn/+kNH44CbHKF+usSeuu59hMs
- mQUgtbNNPc4VOHKC2s7aw0JHPhaeJGS1fkaqfe0liUOWAA6TUrU0Vk4rvc+3RSwMWD5fQxJ2OAY
- TH17nQhJtm2NNPePpMwyX5XAKUkXkbhgZOL+UmZNRJGnUougsP1tOpriz50Gvlo+1RGhKAn+R+5
- q1PRRtG69CROzrA2YAw==
-X-Authority-Analysis: v=2.4 cv=TcsDJhQh c=1 sm=1 tr=0 ts=6ad6d2f8 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=TcmD64HtHlR11PSYA/r07w==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=YCULunOEXgq0kEsXk6YA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=Fk4IpSoW4aLDllm1B1p-:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610200009
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB8PR04MB6667:EE_|AM0PR04MB164874:EE_
+X-MS-Office365-Filtering-Correlation-Id: eb93cbfa-5866-4bca-98da-08df2e564b98
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|1800799024|19092799006|23010399003|56012099006|11063799006|261009223027099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	thvenrdJYgtavdeTH0VH91oI5ep9kabkygLWZpr5XVj6YL+SIR59ptwypVucrEn8fc6RhluruZOlua5WyLx8jSOEjXQoyK5AT4TyO5rZbvJ2e3jT5aszNBwwWZXarKMQAK/wDpQU6eoV27RtCfcERFxSQISPee1gKdeN8+HNuQTNERFMK9ECIgiX7iQ7hp7Oj4y1VuT6uoJtrpMtCSgBGXZPjXobzrSc47kKdfmDmIsR3VcZ98qYsdA1ggfs7qZrnNf0RUskCE5Sah7dWKbxXFvC4vCOMC2CqYpVobHp2lhQzn2MFUt9bqlXZhbP6fuW0+TUY37zmSrNT3jVZOxU3QazNOW9yInDAVH8PwXG3uectq5EcoFQZfXWciq/vmgOYlEMsAQV44h2m+g7Q5ic0pFb/6CypyV6PfkXcbBbzuvB2Le6h5VO2lXP1LVS0ImaUZ38VKyLToX8zw/3Rm6gr9FYhxQBXUpqXBdy9kbY6ii/8e3PD5m3ngsAxLm5FcL11SbsYtRDu5OSvFvWKEqzjff1HNbnHG2D4u1hfyiQmPUUuCvJWYYmBdT1zvEygz4HEV+yxIISF3ftHo8MUnxXBi67CLL6AJoLHrKbwoq7udCZY9A7RbdP57CdUpGHV4PpHRn9mO6QoJgbrt0wTMhX+L2aksQw7ly/hnbnQnTkUu0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8PR04MB6667.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(19092799006)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S2pxcTFBSEd2QlNUeGtUNFNSYzFZNVArVDluSWVveVk2NDh1UXplMWZ5a2hO?=
+ =?utf-8?B?VmlMUU1veEN1eW5wNG5FOHhpc05aSU5MSWU5RGhnSkp5RTR5WldTWmpwdUM0?=
+ =?utf-8?B?bVZPRkQ1YXdBOUhyZTdhOElhS3dBSTNucmN3bGhjUHhUcktMdngzd3ovQjNL?=
+ =?utf-8?B?V1RBZzcwNUNNZllCbkV3SENlRWhvbDY0SEIzZnorbVNRYitCVWduTmJSOEp4?=
+ =?utf-8?B?UVd5L1RvMVRjYlVFeVRGQzZVNkx1WkxlajdFdVBJYXRoUDhIczVmMFpqaERJ?=
+ =?utf-8?B?RzhtUHdzQU9xOE5zdCsxSHQvL1N6MnZVT3AxU0NVOHR5RlJoeGZ1OHl0aWpi?=
+ =?utf-8?B?NFFXSE1VWm01TkJ6NHlsTThtYnlGSE1EanR6VTk0eWN6dGZvOFlKNmh1cUZM?=
+ =?utf-8?B?dVBpNmgva2RhNWNramNzNUxzZC9vNUs2MWtBUlRnSkpxK1VvYkh4cGtJNStu?=
+ =?utf-8?B?TytpSTZuTVI3a0tmcGlvM1BTMFdnaGQ0b0NOdzMyV0NMYlh2KzNheXJuWkNi?=
+ =?utf-8?B?WXJmeU1zM3Z2SlUzQ0dMLzJ6NWVsTUNkb3hlcGluS2VrQXJzNmlEVy83VFk3?=
+ =?utf-8?B?bzhOQWpGMjhSaWpEM3pYSzAyZExzcmJ6WnZLMGpZclloSkpYSWJ6UGdiRXY3?=
+ =?utf-8?B?L3ZCeXlLNSsvSFNpSmdTNWRPWDQzejFFWTh2SVRpd3lmWWtNWGIrd0p2b2Iz?=
+ =?utf-8?B?MXF1ZXlFT0hac3UwY2pxdnJDTHFXMDhKWXFPRCt1WmNnMWYxai9wb1E5S0FI?=
+ =?utf-8?B?ZzFJREVpUW5WeUVMbHA4K0ZXUmo5djJRbEttdTlEbkg1ckVSRlp0RG1Lbkw2?=
+ =?utf-8?B?Q0twYkU5TDBOZit4Z3pWVjVLbGNxNEl3VUdlSHlVd3UrMXhGR1VQWllLZHpn?=
+ =?utf-8?B?NnBQMUN2bmFQQ2FvaHZIUk5WTVpEOUFXQjFTcnRxdkwvVzZNM2hFZUFWc1NV?=
+ =?utf-8?B?V29hT3NCWGZ4TUN4d1ZRdGtncFh5OHRMSG9hakE5RFVvWDM3bE1ibWdXbjBS?=
+ =?utf-8?B?Q05BSmJRYm5SSmtUZW9LcHZQUGo3VHJ6TnlSbXJxMm93R1A4TDlITTJhYXBv?=
+ =?utf-8?B?NWRLNTlRK291ZDExdXZvYmxMZFhibzc4L1czSytMSnhzcHlFaDNnS1hkNDkz?=
+ =?utf-8?B?c1VwUmV2UVhsdmhWb2FlWnZyckptV2lRdUZ0Rk1YSmZVbzdhWVdzOWprWU5U?=
+ =?utf-8?B?cVVPU1FOdjhJOTBlOU9QcHcreHlhcmhZRFNPY0RaNVlqYkpxb2ttbFZDb2RN?=
+ =?utf-8?B?RmJFREFSTHhYcFpFdXZBeEc1OHM1b0VvekJMNHJOUUdKTHAzNERIWWwzd2t0?=
+ =?utf-8?B?azJKOW1tdzMvTTRUS3RvdVJPNE95TEg5T0RGZnBSV2IvajdYTm81ZGhKdGhu?=
+ =?utf-8?B?a2pyQTZOdVVaa1hVUWxUcjNNNDc1UXFRMHRoWndMVUEzWEpOL0Y1MWJtSmdo?=
+ =?utf-8?B?UnJrTE9hbzJzK1E4UGpoK01ZSStJelorRm16MDZjKy9IZitEQ01BeWFsVmZL?=
+ =?utf-8?B?RDQyVHlMYVppek8yeUR5MmpQbHJsSkF6Y1dQS3QyYUhVZjVlV0FkYWZ1elhM?=
+ =?utf-8?B?dGZaWjRzM3E0bGdaQlovOW96dHRueGN2S3JlYVZqcmJNd0lwcWIzcTFVaHM5?=
+ =?utf-8?B?MU5vVHpSSnNxbmNBeGZ1THdOOEswZ2NjQTc2aXp5ZVdkbExwODcrMXh6WEIw?=
+ =?utf-8?B?T0lFUGhMYWkxNTc1L2swSVd0RlB3OVQxTE5weXNERVhnMTV0Y2JSMHFsZUpl?=
+ =?utf-8?B?VnR1NWRjRzVwQ1ZMRURIVmF3SVdhYkZRZ1AzTC9GbnVIckNya3NpTDdIeGRM?=
+ =?utf-8?B?Y09GTEVnOWp6ZGlteHZaUWZvR21NSDN3Tzc5TzMwYXhGcTEzaE4xd0hjOWwy?=
+ =?utf-8?B?MkluclF4Slp2Rnl3UEtJUFNXZklKeGw3WTllVVhBV0pINXVMbGRiN1BZTEND?=
+ =?utf-8?B?UEtjMVlhSlhDNkhxUXBjS0pGNzlwdjk0bTB0ZUl2WEpDOHM1N3dCaXdhM1pD?=
+ =?utf-8?B?bkM1MGlWeFBzUGhCcnRCdmkxTjh5bVNMelZDOVpsenVubFMxZVlhdkRkdmVE?=
+ =?utf-8?B?UndtUTBFVGNMMVFlOW5NOEZyNmsvTGtiRmljenZqZVltYWpodDFRUGhxd2JU?=
+ =?utf-8?B?aDYxc0dCdVhzT3pmVnZNZDhzWktNaXlIdUhkaFJGY3ozVTAzOTRQanZTbGRm?=
+ =?utf-8?B?emxZbGZsQitBVEw2cHpsTUlaZzJuT1FxakdkcVI1OC9OU2Ixa2xNUGk2RWJW?=
+ =?utf-8?B?OUE0S1lzTWkwZmluRmV6Sm5LU3RVVHBrMTEzWlJmRFAzekJMaUtidmw4b2NB?=
+ =?utf-8?B?WlRhbndpSlViTEl5V3h2a3pObXdOUzIvSzdxMjFzV0FEa2tUYzE4UGtoSHdK?=
+ =?utf-8?Q?NQc0nfeuxFWY2Xm48xJ4tVaje1hK+w5eejZos?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eb93cbfa-5866-4bca-98da-08df2e564b98
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6667.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 03:00:28.1346
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PpsWYM0b3f5dqDrDN6Q9wxk93NJvcBpKfhNSSnUpHEiHc6YfwFBTRBzjKOPj0EjyI3MtxMLOpMaLoKbACAGmo66Cyxy0NRtDd+VWWPcsrTXggjtPSOQy8cxDl4SaGtt5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB164874
 
-Hi Bryan,
+The Synopsys DPHY datasheet recommends applying a testclr pulse at
+first power-up to reset the PHY configuration to its default values
+before any test control register is programmed.
 
-Thank you for the feedback! Will drop this patch as a fix
-with the other comments addressed.
+The existing code deasserts testclr first and then asserts it, which
+is the reverse of the sequence recommended by the DPHY documentation.
 
-Regards,
-Anusha
+Generate the required TESTCLR pulse by asserting TESTCLR, waiting
+for the required pulse width, and then deasserting it.
 
-On 10/19/2026 2:55 AM, Bryan O'Donoghue wrote:
-> On 17/10/2026 00:54, Anusha Arun Nandi wrote:
->> sa8775p, qcs8300 and sc7280 each list exactly one power-domain ("top")
->> on the CSI2 PHY node. For a device with a single power-domain phandle,
->> the generic platform-bus code (platform_probe() ->
->> dev_pm_domain_attach()) auto-attaches it via genpd_dev_pm_attach()
->> before the driver's own probe() runs. phy_qcom_mipi_csi2_probe() then
->> unconditionally calls devm_pm_domain_attach_list(), which fails with
->> -EEXIST because dev->pm_domain is already set, and the driver treats
->> that as fatal:
->>
->>    qcom-mipi-csi2-phy ace6000.phy: error -EEXIST: Failed to attach
->>    power-domain list
->>    qcom-mipi-csi2-phy ace6000.phy: probe with driver qcom-mipi-csi2-phy
->>    failed with error -17
->>
->> x1e80100 is unaffected: it lists three power-domains, so the generic
->> code does not auto-attach any of them (auto-attach only applies to
->> single-power-domain devices); the driver's explicit attach is the
->> only one that runs.
->>
->> For the single power-domain case, call dev_pm_domain_attach() instead
->> of devm_pm_domain_attach_list(): it returns early when dev->pm_domain
->> is already set, so csi2phy->pd_list is left NULL rather than built up
->> by hand. The three call sites that walk pd_list for genpd
->> performance-state scaling now guard against a NULL pd_list, which is
->> harmless since scaling is unused (scaled = false) on every SoC that has
->> a single "top" domain.
-> 
-> Fix implies bug but, this patch really adds support for one power-domain
-> cases.
-> 
-> I think the patch title should be something like "Add support for single
-> power-domain case"
-> 
-> or if you believe it is a bugfix level change add
-> 
-> Fixes:
-> Cc: stable@vger.kernel.org
-> 
-> My own preference is "Add support" since the driver hasn't been designed
-> to support single PD cases thus far but, OTOH you could make an argument
-> that that is in fact a design bug.
-> 
->> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
->> ---
->>   .../phy/qualcomm/phy-qcom-mipi-csi2-core.c    | 24 +++++++++++++------
->>   1 file changed, 17 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/
->> phy/qualcomm/phy-qcom-mipi-csi2-core.c
->> index c0a4fa20eaf0..00285be9dd64 100644
->> --- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
->> +++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
->> @@ -43,7 +43,7 @@ phy_qcom_mipi_csi2_set_clock_rates(struct
->> mipi_csi2phy_device *csi2phy,
->>       }
->>
->>       pstate = 0;
->> -    for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
->> +    for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i+
->> +) {
->>           unsigned int perf;
->>
->>           if (!csi2phy->soc_cfg->genpds[i].scaled)
->> @@ -174,7 +174,7 @@ static int phy_qcom_mipi_csi2_power_on(struct phy
->> *phy)
->>   unset_rate:
->>       dev_pm_opp_set_rate(csi2phy->dev, 0);
->>
->> -    for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
->> +    for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i+
->> +) {
->>           if (!csi2phy->soc_cfg->genpds[i].scaled)
->>               continue;
->>
->> @@ -204,7 +204,7 @@ static int phy_qcom_mipi_csi2_power_off(struct phy
->> *phy)
->>
->>       dev_pm_opp_set_rate(csi2phy->dev, 0);
->>
->> -    for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
->> +    for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i+
->> +) {
->>           if (!csi2phy->soc_cfg->genpds[i].scaled)
->>               continue;
->>
->> @@ -233,6 +233,19 @@ static int
->> phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
->>       const char **pd_names;
->>       int i;
->>
->> +    /*
->> +     * A device with a single power-domain entry in the devicetree is
->> +     * already attached by the generic platform-bus code before probe()
->> +     * runs (genpd_dev_pm_attach()), so calling
->> devm_pm_domain_attach_list()
->> +     * here would fail with -EEXIST. dev_pm_domain_attach() returns
->> early
->> +     * in that case (dev->pm_domain already set) instead of leaving
->> +     * csi2phy->pd_list unset; this is fine since pd_list is only
->> used for
->> +     * performance-state scaling, which is unused ("scaled = false") on
->> +     * every SoC that has a single "top" power-domain.
->> +     */
-> 
-> This is alot of comment - looks like LLM babble to me. I think it can be
-> dropped the code is pretty obvious, if num_genpds == 1 do this other
-> thing here.
-> 
->> +    if (csi2phy->soc_cfg->num_genpds == 1)
->> +        return dev_pm_domain_attach(csi2phy->dev, 0);
->> +
->>       pd_names = devm_kzalloc(csi2phy->dev,
->>                   sizeof(char *) * csi2phy->soc_cfg->num_genpds,
->>                   GFP_KERNEL);
->> @@ -369,11 +382,8 @@ static int phy_qcom_mipi_csi2_probe(struct
->> platform_device *pdev)
->>           return ret;
->>
->>       ret = phy_qcom_mipi_csi2_attach_pm_domains(csi2phy);
->> -    if (ret < 0 || csi2phy->pd_list == NULL) {
->> -        if (ret == 0)
->> -            ret = -ENODEV;
->> +    if (ret < 0)
->>           return dev_err_probe(dev, ret, "Failed to attach power-
->> domain list\n");
->> -    }
->>
->>       ret = devm_pm_runtime_enable(dev);
->>       if (ret < 0)
->> -- 
->> 2.34.1
-> 
+Fixes: ec40b431f0ab ("media: synopsys: csi2rx: add i.MX93 support")
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+---
+ drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+index b7247d597c9c..b9f7ba25bd3b 100644
+--- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
++++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+@@ -830,18 +830,23 @@ static void imx93_csi2rx_dphy_assert_reset(struct dw_mipi_csi2rx_device *csi2)
+ {
+ 	u32 val;
+ 
+-	/* Release Synopsys DPHY test codes from reset */
++	/* Put PHY in shutdown mode for configuration */
+ 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_DPHY_RSTZ, 0);
+ 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_SHUTDOWNZ, 0);
+ 
++	/*
++	 * Apply testclr pulse to load analog programmability defaults
++	 * and release the test interface for configuration.
++	 */
+ 	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
+-	val &= ~DPHY_TEST_CTRL0_TEST_CLR;
++	val |= DPHY_TEST_CTRL0_TEST_CLR;
+ 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0, val);
+ 
+-	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
+ 	/* Wait for at least 15ns */
+ 	ndelay(15);
+-	val |= DPHY_TEST_CTRL0_TEST_CLR;
++
++	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
++	val &= ~DPHY_TEST_CTRL0_TEST_CLR;
+ 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0, val);
+ }
+ 
+
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261020-dw-csi2rx-6225697f45bb
+
+Best regards,
+-- 
+Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
