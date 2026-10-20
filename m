@@ -1,54 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792506823;
-	b=Qnln9/OTvHscvoaeNkd2BMY0faWOWYvzC/1Lg4OpYWnCYUPpdR4HnW/9raj6B9rPHrqJ
-	 hhNPPu5fJk/FuiyVxvNr82r6fKiFxxmZLkVUgoqUj0W3dUIu4WoCaWteA2UU/P3u1EpJE
-	 w916mBx2U/Xa0Zgebtaxmp0qb2HPAbMJRYIQveY+OjzNakc4xbV+oh1fudHlywX+NlJNz
-	 YTapHkOOxww9a3Uli3R9B961Xae+mZe71ihTGNwC66+IPnMXp9rLKJ+toQT+vZa195Gaw
-	 mejV9vf34deSWnTypSlCDCV0R1pKyijEcIFSqBG+d5XNgSKluiBlIWGvw3XhzWJ6znA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792506823;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=5k5yhn0VmTXKeRBJWIm7k2IXEUpSUMCZ2YdMJhwf2m8=;
-	b=q9PJG/Wyq9rQhpZ9S+Pza8DFd+1m3JFxjAfsDIvz/k8edrYxUti0Y6v1TxOQwYNrsMoJ
-	 5SOPu2Mak9OYfox86tLvuiejkGE+vVNAdnhaAUixj2VS73B5Lsp5RhRx77dKGhl8R1vmD
-	 Zj/tw/SNx21yik95lP7tAYRDyoEeoutVDwHPsEwZKZuH96CBVCBELNpcqik2ep7jH6p44
-	 oOg0aYsWX88IqiSY8ePxZoE6t5wUAnOhbBXAt6XlPggUtv0KW/xdxcYhN+vB91mvT8th9
-	 +EyZXFkEJ4XpU+0EC5fh+LjXiEpBOFTWDS9vwMJQNC9umj2OpRoUN1Vph/c7zMXmQ2Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792507213;
+	b=nCKasXzpFYI71j+JTrVQkQaTHgrTk/egFWli/1Bx5pnbHuoWQjykMf8gxqU23+eSQnZq
+	 +lDaPSdmOuEQtdUus//rJh36WLNkNOCPy/wHEIOvsOhMWHjzn47bivBZEFTpOgOqDV7qL
+	 lvU0Eyd5pUrEbueJ5vFrnGDTF6LqFqWBu1MR7BhU4ULZYZn8z5NiOrdSzc3WHvM31kknS
+	 3osHbo6bvwaJsdyMpwQBnCiJQR93MjZERVlFyuY+bv++xUqZaoPADXQMcFOkP0MjATPSr
+	 YsnJ3tTZEhDA8NfiExkGTeYeRdRrjCbJWM3u080BvCk6kVHemlvjPFiqcBTBNyc3nPQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792507213;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
+	b=mGpfQCuSAfjmc7G68GQsdSTmWxbrTsdq+cgI1NLAM9W/LIvH5YA+fNptW+6NXUeM7AQS
+	 dE+oRU3KyjwXW66Mj645raBhbl5Dy4dD/a/bPOa8C/6zkxtRPrtLD9ZBY37koiHxuO5qf
+	 rP2+p7tkUhob07rFVmCUff6rlhO9Y2wN6dEG/5Gww5liG08TsiwTjPPMBeTGnFKCYxGAt
+	 NWe6rlX+XrnMgp85RR7LUaWD/sMwiFnAX/ZPhcALRXVRKjoW/wvrcMzudItsqQXPTHCeF
+	 vknzS2fvZ1OYVwJKxWx+GPNYAMjEh5D+tki/sHI9HorqwUaACVpoBgVVuU9RpkBRnCQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=WvwCbSdy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D219606A31D
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 14:33:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D219606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b37620eb73so6228980b6e.1
-        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 07:33:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792506821; x=1793111621;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5564606A31F
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 14:40:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5564606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=WvwCbSdy
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-6df0b02fe91so476782eaf.0
+        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 07:40:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792507211; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TCzMYgvOXjFnN6uayczO43z9u9RmssYPUj6rcZoCd5xnDmFnqhmw564DuytZ4yYQfd
+         750s/8wbXMKOBs3Yo+aKsvZJ9Q8Q5MoI/w2SdrcROaSnp6jjoSROuU0YLdsCgDW5MdpO
+         4p3fu/7Esqf83Cza7VY+1vw8foj8dgJED+asiw69N54kbteOf8/YN3EEFS2PYbhxdmr5
+         lW9STm/jYfsj9D50QrZEdRvKVSK2iLSnCIrTYN9CYAGjo7FgiLZEyGzxQzmKiLhoVS0y
+         9gQQG9wL+Gmv5ze/pF9RznoFI4PmKnOofOgyCeVLuRbtmLJ1YCoRwTusY6ckhsz2j1kC
+         YrnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
+        fh=bpal51SjzeLLft27ZhB47C2LXqVX3EyM6JvAmkb0JCU=;
+        b=TZyrN2nm6Wkyn6/Oj4P02YgkMzX7m2PZ7cyQRtOIriEWrzgsXo8j5n6DG9Np7jVBSY
+         g6fywq5SqM11XAMI+Uzroq+e4ZdV2Y4iV/ecV51TbCZakkRUxjkbgktQmJs8TOoWrifj
+         VYbTx7jLS46QG+z6GrHRYp5GFWBBPnlDUKEas6CSZL69yhUccSoOB/2HJpuQIU4lJcAr
+         7DKhH3ZA2yICJ7gz5nCN98g6LZblEaSWAsl/PZGoF7Ek74fyrUfwJG/74yV14loCUVZW
+         FvgLIcAMrMx8x1IPHptJuf7TAWGDRHNGJtaQs+YJqyC/Z2KmTmqRuGfPQNcYdpsUhcSR
+         Py+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1792507211; x=1793112011; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5k5yhn0VmTXKeRBJWIm7k2IXEUpSUMCZ2YdMJhwf2m8=;
-        b=ZrO7PzjRApzWFbZr4yJQzz/y69fgKYAwNrvhCZYMvMER4Jmm8YycEGjhmIkR4KXcT5
-         w575TRDboWUUXuWbRyZdM3TcNd5JQ6miKeyua+U+Cb9XUuSbUfiO4c4Ig7NQzfJeKruD
-         efGype+Ce0K5uhjBoSTfQ36afWlTKJxpNJ590xp1y6+3kBA4JZDzps9Z9mUmMP/4ZS7W
-         IhFNEAdN8Ar22tvbWfcxOoYnJ2wslAr2WAcD75leZ/2wJWGOk5gWkhDjmNXdsknfpxkO
-         Sa2lNeOcdZ1MSih+jYOb58gz49pZehiHwiM1b1jUF+5RAJmTBBZ4gHyNSiwyON8OwdQm
-         gKjQ==
-X-Forwarded-Encrypted: i=1; AKwUvByhPLYNZ++wo9wvJXIlDbq0roLJ530vJaOnWfbeDtURjEQOepwNvblFBs/Xb0IvDzJtJUa/lifKYV7ugQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyOZnYAzl562N0D2vWzWTeR3VhbLk0VtohvM2HTX7OYs46oC08
-	fI+6OS9W8vnQ+d002LCOM80U0+zkAY4fz2YYAWIoHbIpy5yWICPCwzN+Hqdqt/2753yha//AH55
-	fmQVVBTOFvdFJU8b/OVKTYGlmo3eqjUysQXjZRwBMS+JVr9ocFUjPTLw2DS4=
+        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
+        b=WvwCbSdy4mFbRP0Z9mmRpjdi7P5JJ+kT64vHfsZXHc8len4YlB0M5WZVQl/djl4Mgc
+         b7Ocm/5U2JANl1OMj8qO1Z2K6d9kMKVacAWWiA9qxH2Sd1kS4n8zzFhJCbvcUIAVhvVO
+         npDLsm3kTDmIJ0JPk4wyDUUODCTY5XxQ5gF54b1xOpJzmrusp56Rf6QI2dNGlufbCSHn
+         owbKJ6AKKX+6zCjo1EiO3kLIFiC1Msa289o+VrwQM1JJs32VsSvUTc3ksUVV2n8aYJsH
+         mZ8jGcUgJ4WkeiHdNYL9ZD290/GDvriXk8MVzIMnOV3Kv/L3Wi8WtDqQq8BFi1fXOp9r
+         UJhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792507211; x=1793112011;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zAYhqF7UHNil85yBBTWI6ys7OAUDS3/xjzlE+sXIqIM=;
+        b=xpY9Jil7auh0H8iaK7BASE+mfGvO4S4PriiPZAa4S83yb7++d+hIWoF7hQ5FKnJzN4
+         cQGxZTnwdR3ZJogM+FP5kJX4ImKrONVfzwRMy+IfPqwnXh4eYfEtAj3oTaJs84piXArC
+         KpB+9WBM4++hNwmSKcQ45LZI3wfIwgg+h/wI4e9Tzdez81FOSy6fjF0kpN/SAO+WlpgU
+         K0z1qAn4dllZVj/T0eJbjkNmzrniFUc/7eK1Sv8wH5h+b2AI9pulp7wytplbmll3gj9q
+         bdPgC5ih0hLhSpk1XYZcjD6Z8ZuufycD9P0CaJqPhBQamJSsz4wUsQH0OtWhdvGYLvyK
+         SyIA==
+X-Forwarded-Encrypted: i=1; AKwUvByOcEPGbDdVB1CnxJzcdAI11WumxFhJM9f7QdJHGarbog++FEFRo8CG7q7T0qPJw1wi6rE9wzdrCJajQw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ6tfloa2xFlJ+HleDPvPXsTEhluW5xZjSSJETVv8si1B1brsIa
+	vGG96bjr3wh0Jy98M2I+8Wi6evJh1J09Uoppq3P+GKEpGIBUx6xeiasftRa+PZy4L2I2JvdkUYN
+	N4Omaqaz5H8ZzDDSDsMtLe8hOb8AMzZ4u6ShFwN4+jg==
+X-Gm-Gg: AYBFou2nTUkn5h9KzZ1Lp31ozf1dazoCikJmjDfIUbg3/dDFWtodhF0FcnICrfqVVIZ
+	xG0WegYa4TDXUUhctcGK/7MhZsXaNzM1BL3BdBoxloMcXMZu/ucVrn01zHxgIPtR95+vBtInot9
+	t0+eK3LNZsK2o8o6XIl58RjisJvsa9Id3T75HVuDSlBwbYwmYJB6LTLd8wiltLRJIvsm9avZiDn
+	J5blFDMWjgr/MTAWaL1laExX5bAoocqWBn2QreIyKY1Kmvd+7lag8n+mqS3ELg/eiUufWfvBPJR
+	ntB3B5W3kGE8WNc7bYUH4ZOurjQo9YGksA+o4w+XjXDzmMPtFGUYfXb9Gi2TpJPuePOhGU2p3Pq
+	aEX+XsSv9snZqzn7nCauUgvoJZqRzA7MeZ2yOR2viMx/kdFbN7Wnw0bPPUO8/nxG+iwL3bY+D
+X-Received: by 2002:a05:6820:2d03:b0:6c7:8dab:ca1a with SMTP id
+ 006d021491bc7-707bbe2cd66mr1550317eaf.17.1792507209625; Tue, 20 Oct 2026
+ 07:40:09 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,133 +103,180 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2207:b0:4f5:77f:5 with SMTP id
- 5614622812f47-53cd14eb3fbmr8311002b6e.41.1792506821602; Tue, 20 Oct 2026
- 07:33:41 -0700 (PDT)
-Date: Tue, 20 Oct 2026 07:33:41 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad77bc5.3270bda1.2a227.0001.GAE@google.com>
-Subject: [syzbot] [greybus?] WARNING: ODEBUG bug in gb_operation_put
-From: syzbot <syzbot+61464b62b688791cc24c@syzkaller.appspotmail.com>
-To: elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org, 
-	johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com> <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
+In-Reply-To: <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 20 Oct 2026 15:39:52 +0100
+X-Gm-Features: AclHuK_b39VaTdZ3dmgtb-s5SV-tLyOzJVne1uRjIl6FFmaQNj3mm_E5Od-ztsk
+Message-ID: <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
+Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jai Luthra <jai.luthra@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hi Sakari
 
-syzbot found the following issue on:
+Thanks for the review
 
-HEAD commit:    893584e7e390 Merge tag 'usb-serial-7.4-rc1' of ssh://gitol..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=15d65da9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=7f0127eb11110629
-dashboard link: https://syzkaller.appspot.com/bug?extid=61464b62b688791cc24c
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17d7c621580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12828121580000
+On Tue, 20 Oct 2026 at 11:07, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+>
+> Hi Dave,
+>
+> On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
+> > There are multiple members of the Sony Starvis 2 image sensor family
+> > that have the same hardware requirements as imx678.
+> > Add them as options to the imx678 binding, rather than duplicating it.
+> >
+> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > ---
+> >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
+> >  1 file changed, 32 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > index 098f72544216..027872a134f2 100644
+> > --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > @@ -5,7 +5,7 @@
+> >  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> >
+> > -title: Sony IMX678 Sensor
+> > +title: Sony IMX678 and Starvis 2 Sensors
+> >
+> >  maintainers:
+> >    - Jai Luthra <jai.luthra@ideasonboard.com>
+> > @@ -13,21 +13,47 @@ maintainers:
+> >  description:
+> >    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
+> >    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
+>
+> You could rewrap this while at it.
+>
+> > +  It is part of the Starvis 2 family of sensors.
+> > +  Other members of the Starvis 2 have the same hardware requirements, and
+> > +  therefore share this binding.
+>
+> This paragraph could be rewrapped, too -- the limit is 80 characters per
+> line.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/7fc735ea948d/disk-893584e7.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/546995671e2c/vmlinux-893584e7.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/54ff06887775/bzImage-893584e7.xz
+OK, I'll rephrase it so that it makes sense as one reflowed paragraph.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+61464b62b688791cc24c@syzkaller.appspotmail.com
+> >
+> >  allOf:
+> >    - $ref: /schemas/media/video-interface-devices.yaml#
+> >
+> >  properties:
+> >    compatible:
+> > -    items:
+> > -      - enum:
+> > -          - sony,imx678-aamr
+> > -          - sony,imx678-aaqr
+> > -      - const: sony,imx678
+> > +    oneOf:
+> > +      - items:
+> > +          - enum:
+> > +              - sony,imx585-aamj
+> > +              - sony,imx585-aaqj
+> > +          - const: sony,imx585
+> > +      - items:
+> > +          - enum:
+> > +              - sony,imx662-aamr
+> > +              - sony,imx662-aaqr
+> > +          - const: sony,imx662
+> > +      - items:
+> > +          - enum:
+> > +              - sony,imx675-aamr
+> > +              - sony,imx675-aaqr
+> > +          - const: sony,imx675
+> > +      - items:
+> > +          - enum:
+> > +              - sony,imx678-aamr
+> > +              - sony,imx678-aaqr
+> > +          - const: sony,imx678
+> > +      - items:
+> > +          - enum:
+> > +              - sony,imx832-amr
+> > +              - sony,imx832-aqr
+> > +          - const: sony,imx832
+>
+> Should we also have a sony,starvis2 compatible? Just wondering.
 
-greybus greybus1: 0/0:0: synchronous operation id 0x0003 of type 0x14 failed: -71
-------------[ cut here ]------------
-ODEBUG: free active (active state 0) object: ffff88811ce2bad8 object type: timer_list hint: gb_operation_timeout+0x0/0xe0 drivers/greybus/operation.c:1211
-WARNING: lib/debugobjects.c:629 at debug_print_object+0x198/0x2b0 lib/debugobjects.c:629, CPU#1: kworker/u8:1/33
-Modules linked in:
-CPU: 1 UID: 0 PID: 33 Comm: kworker/u8:1 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 09/16/2026
-Workqueue: greybus1:0 gb_operation_work
-RIP: 0010:debug_print_object+0x1a5/0x2b0 lib/debugobjects.c:629
-Code: b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 80 3c 02 00 75 4f 48 8d 3d f8 be 37 08 41 56 48 8b 14 ed 40 cf d2 87 4c 89 e6 <67> 48 0f b9 3a 58 83 05 d2 16 33 08 01 48 83 c4 18 5b 5d 41 5c 41
-RSP: 0018:ffffc90000237868 EFLAGS: 00010246
-RAX: dffffc0000000000 RBX: ffffc90000237950 RCX: 0000000000000000
-RDX: ffffffff87d2ce80 RSI: ffffffff87d2ca20 RDI: ffffffff8b1aa8a0
-RBP: 0000000000000003 R08: ffff88811ce2bad8 R09: ffffffff87ad4ea0
-R10: 0000000000000001 R11: 0000000000000000 R12: ffffffff87d2ca20
-R13: ffffffff87ad4ee0 R14: ffffffff861dd740 R15: ffffc90000237968
-FS:  0000000000000000(0000) GS:ffff8882684d7000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f27a5b70220 CR3: 00000001176ce000 CR4: 00000000003506f0
-Call Trace:
- <TASK>
- __debug_check_no_obj_freed lib/debugobjects.c:1171 [inline]
- debug_check_no_obj_freed+0x4da/0x630 lib/debugobjects.c:1201
- slab_free_hook mm/slub.c:2679 [inline]
- slab_free mm/slub.c:6509 [inline]
- kmem_cache_free+0x398/0x650 mm/slub.c:6636
- _gb_operation_destroy drivers/greybus/operation.c:682 [inline]
- kref_put include/linux/kref.h:65 [inline]
- gb_operation_put+0x1b2/0x3c0 drivers/greybus/operation.c:694
- gb_operation_sync_timeout+0x193/0x220 drivers/greybus/operation.c:1172
- gb_operation_sync include/linux/greybus/operation.h:203 [inline]
- gb_svc_pwrmon_rail_count_get drivers/greybus/svc.c:137 [inline]
- gb_svc_pwrmon_debugfs_init drivers/greybus/svc.c:772 [inline]
- gb_svc_debugfs_init drivers/greybus/svc.c:827 [inline]
- gb_svc_hello drivers/greybus/svc.c:875 [inline]
- gb_svc_request_handler+0x515/0x1250 drivers/greybus/svc.c:1276
- gb_operation_request_handle drivers/greybus/operation.c:243 [inline]
- gb_operation_work+0xb7/0x990 drivers/greybus/operation.c:280
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3396
- process_scheduled_works kernel/workqueue.c:3479 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3560
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	b8 00 00 00 00       	mov    $0x0,%eax
-   5:	00 fc                	add    %bh,%ah
-   7:	ff                   	lcall  (bad)
-   8:	df 48 89             	fisttps -0x77(%rax)
-   b:	fa                   	cli
-   c:	48 c1 ea 03          	shr    $0x3,%rdx
-  10:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
-  14:	75 4f                	jne    0x65
-  16:	48 8d 3d f8 be 37 08 	lea    0x837bef8(%rip),%rdi        # 0x837bf15
-  1d:	41 56                	push   %r14
-  1f:	48 8b 14 ed 40 cf d2 	mov    -0x782d30c0(,%rbp,8),%rdx
-  26:	87
-  27:	4c 89 e6             	mov    %r12,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	58                   	pop    %rax
-  30:	83 05 d2 16 33 08 01 	addl   $0x1,0x83316d2(%rip)        # 0x8331709
-  37:	48 83 c4 18          	add    $0x18,%rsp
-  3b:	5b                   	pop    %rbx
-  3c:	5d                   	pop    %rbp
-  3d:	41 5c                	pop    %r12
-  3f:	41                   	rex.B
+I deliberately didn't based on the discussions Jai had with DT
+maintainers when upstreaming the original binding [1], particularly
+Conor's comment:
+"Remember, having distinct multiple compatibles for the same hardware so
+that you can induce different software behaviour is not something we
+typically permit. While we do want to support all use cases, it isn't
+always the case that devicetree is the right place to do it."
 
+Sorry, but when time is limited, IMHO debating dtbindings just isn't
+worth it. I've therefore taken the simple option.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+I do have patches that implement that compatible and fully autodetect
+the sensor[2], but I'll keep them downstream.
+Doing so means that we have one common overlay for connecting any of
+the supported Starvis2 sensors to a Pi.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+[1] https://patchwork.linuxtv.org/project/linux-media/patch/20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com/
+[2] Currently the top 2 commits on
+https://github.com/6by9/linux/tree/mainline_starvis2_v2, but that
+branch will get rebased/reworked.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+> The driver isn't generic still as it requires sensor specific information
+> to be passed to it. CCS solves this with CCS static data (via firmware
+> loading mechanism) so there are no driver changes even if the capability
+> and limit information can't be obtained from device's registers or the
+> device requires MSRs.
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+I'm assuming you're referring to the patchset as a whole as I don't
+believe I've used the term generic in this patch. I'm happy to swap to
+"common Starvis 2 driver" where appropriate within the patchset
+instead.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+IMHO Pushing the config to firmware files doesn't help, particularly
+as these sensors don't have a common ID register and so identification
+isn't trivial. It also makes life more involved for a distribution
+maintainer to ensure they're picking up the relevant files, and that's
+assuming that someone is curating them.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+My aim with the series was to reuse as much common code as possible,
+rather than submitting 5 separate drivers which are identical other
+than constants and arrays of registers. Jai now has IMX676 working
+with this driver, so that would make it 6 variants. Refactoring to use
+a firmware file adds complexity for minimal gain, and you'd have to
+special case IMX678 so it worked without a firmware file to avoid
+regressions.
 
-If you want to undo deduplication, reply with:
-#syz undup
+I guess the common core could be refactored to be a library, so that
+you could minimise module size by having the sensor specific config in
+a module that depends on the library. You're talking of saving a few
+kB uncompressed though, so that would be quite extreme. I'd be more
+tempted to have individual Kconfig entries and use #if
+IS_ENABLED(CONFIG_IMXxxx) to conditionally compile in the config to a
+common module.
+
+  Dave
+
+> > +
+> >      description:
+> >        The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
+> >        variant (IMX678-AAMR). The variant-specific compatible describes the
+> >        exact sensor variant, with the generic IMX678 compatible as a fallback.
+> > +      The same applies for the other sensors in the family.
+> >
+> >    reg:
+> >      maxItems: 1
+> >
+>
+> --
+> Regards,
+>
+> Sakari Ailus
