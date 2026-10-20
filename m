@@ -1,98 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.26
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792478551;
-	b=ghEeJa0F6HbfRjGAp9W0vZ2a72wlDIzW7QUZgRUFDH/vjGCXrI1IlcW4NjcmNZolL3SN
-	 aLn8D+wfl5cNdp8gF9qARupSSeIMmAgCPww5pZfgYZL6XB7hdYdsbCvBvpv40jYvlv2h3
-	 KTc+m6WvZBthosAwa8wDk9TcxuWV3RPG1f0xMeodcnNPDpq/Ub0zTekP5dvEfgmGTWEtH
-	 Np6p5qyNx51ssISufcLFZYtoAVa6/iZxPvomCN8IdAXnDX8J2ZCBZRE0CRceJfieQpX1J
-	 rnY4lUIxiffj9eLiueLUi6q4sOzdQwOaGcBWi3eWs5sVzXpzCn6fP3zUDbATs9T88/w==
+	t=1792478600;
+	b=gCEYaSYnQTF425NpRcpfOleyuTwpwGgbPqYRHDK5G7xLYlv05jIc2TJhVSxqGI6aq8Qy
+	 BcmvfArTiSuDDadgXUv6Q7s8JHqUk6ZX0K6YKpMb4ezxiQG9kcX+DCWqr1JXYSFgnB5H/
+	 tpdy9FXYOtdJ4YgbJPtM9xc+YcHFtsFAhkiJ4/A0iobcV0Hx0zoJ7rQEH26Zlxh7fRgQZ
+	 yDFBsbsRVOq9MeuBZUpbUgONqOJ1yQhQ28EfRzxYor5mZ0RDN+7GMcwRgogw89Nt7d/cH
+	 htqnOdK4IecNApZAWUUcvTgr2FSetqLLYDCBuHgsqXHarbapahlYH0Hq4HIlYtWGg8g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478551;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
-	b=DBoBMvg2NCQoQzFk+ZXFzJwXRlsUiVuOMx7GsfIEIFIUAN8Uy0vJd2GvX79lcJ/g0Xav
-	 D331BgM0VHyOpcXeXx0C4rEQVY0sA1F9lHjR2g0zcEZ3AY5AuOP3JTCUiFmaxQMxbTZe1
-	 s/KeknTDbQ9oO7EslLz6uAHHg040PEVDyG6GHigzLLfT01q8Oir6GwZGClvaTTgz30z+7
-	 U3D4oTO3h3q1SgYr/78ldPZR6kz6XRv/g42NLJbmJ4ftrbRgtirMbojU3+mviHA/QQMbd
-	 LKq8OTZ/TATNBfd3HvEKSgPlxyyYPNJ/qz/O6o3wSAt+yxJRwOVDLE5Zxr9rnqi6DRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478600;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BxVjMRsgCRAMcy5JOH8aX86oUFkOqGoXGoe01HrRyE8=;
+	b=mwvnX6kQQqhWHsxvZ6BSCJzZlJiu2o0z3vV/116b3LOVSwaQ1g+frzMDTpwiemNL8WLa
+	 i72R/SjfOGzCHY/1XwLKsiPjDBcAaaIgQrZy0Sifbah6jF5RRL5dzLK2wdxdLdTbZgKz4
+	 QJb5i++WKFvVS+IakujcdrFcdRyiHl5d311MCId77ePwRgDj8iXFfTQCRbrhhNl3Em9Fs
+	 DWtov7qXm73iLFAxeXHdrjVoBczZyrvQ2GVudnoGEawLURTJphn9BGtHzkBSq8FuSEmES
+	 a7GSeA0O18WnFpojUwnYzKBfqoatbros7TF497ELeLRA7ap1MeRJryqLSkNBc3pCpYA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PDSh6scw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.26
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011026.outbound.protection.outlook.com [52.101.62.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DL0XNOAs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EC2F606A319;
-	Tue, 20 Oct 2026 06:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4EC2F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2908C606A327
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:43:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2908C606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PDSh6scw
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lz03mZ56zwjlTP6Kt9h2OqkEXSGzd0GbtPbHj0r/uaVdesw6bDAmMVP+UtKVRhEhbl9wYFrzibNLxdHrgejyRawl4F/Mm/wbszNQlj7BLH+4dLD4Mk36yhiv2miFvUsmeh36CV1n/I05Up4DDvnv4BmjKNfA4jAaCkR/2wkfncfahMMFRcJPTdD/tpjxlTLbmwdHZ79QczVL/rvmu0FEoyZERDjHpwUt86H7+sIXmZiLPEku1G6+eFKqzvOaVKb1GyvN5XbiGMrHrHeD5csBRk5nVYRSCdsO8VXaxuzB6BEXJ/Lo2IQHH61lWFWgxjE46y60jtKCKcOHw640mHzsdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
- b=Z6OsNI2iaMzsv/RipSkAj+L4PbeLkkUPo3tlq/4Ma1WabQhBccR5FTCThjQn9wOBUt7QfQVJ0+Wo2Zukn6WYICynN/EjJDQRKgWhKXQ6U/b6Ca1fV6DiDcAuLgQReteUR+ZBksOwDeNuOPBbVjT9QHo8JonaewfAjnlrDxwROVEko73fZKaHsZcffpdgQzdnbnLRiGLX2pLiBJMnl8SXM3/LKIAgVyZE5UJHknQu9I6Z4nQGU5F8BTRoJHYZ/viKINYl4rzvdAcMbzF8C1jkL9JnIHKYRfdU6EHr5loXthQ8moCYO62aUSVd751iLkZYAnWlKE9i+LfIJHVervBgUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JxaNGXJItpPThMo+f0/DCe+lhgtTFXUhOE3CRHRj/h8=;
- b=PDSh6scwW8T2i/odKnK5G8Dxcdn77ghVMvtuEYaStVrDW2nDmpvUe8J1Mko1VSTeuvuj6fxf2ZUgnzH8TT3SfX7722+po+YXW2H3aO88PVDIY/bavJGkOrtS6/+4lWq6LkpBjDfj6wFD88Dps3oAIh3f2rLEYfXFh3Z8yZ43WJw=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS4PR12MB9658.namprd12.prod.outlook.com (2603:10b6:8:280::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Tue, 20 Oct
- 2026 06:42:23 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Tue, 20 Oct 2026
- 06:42:23 +0000
-Message-ID: <dc91d903-139d-4253-83f7-51a78dd4530b@amd.com>
-Date: Tue, 20 Oct 2026 08:42:18 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
- freeing
-To: Leon Romanovsky <leon@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Kevin Tian <kevin.tian@intel.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Nicolin Chen <nicolinc@nvidia.com>,
- Ankit Agrawal <ankita@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
- <20261019183146.GH64621@unreal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261019183146.GH64621@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0342.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DL0XNOAs
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso3827035a12.2
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 23:43:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792478599; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DRm5MDbIo9I+YpXVqbJekn8z1Ld8lOxz6dylQrKaZNmFj21fGcewDcYOW2W2smjtPH
+         Qr3DNOCtKrx/Ntd0GPfMTrBEC79wMS6Z5ZJ2oG29+Mi9StN0JJhTVyzjSY9XMTwzk5FM
+         o8pDa/8k6uciuOsZAaM0S+yRplkOOA3wglScRRQJaKZr30vOtj/+tQqpK878I7A1cFpF
+         GcQHQ5oBWUrHZbke0ovIHtzILaSE5odaA8O8pyA77R7mPh2tEmCwNwgrX4+fK1OvxEKZ
+         ryKPiv2eiT2pATOWcNNkbKVpZCI4sny6UWJtyxDU4868jmwMR5X8SHZRMeDF5Sy/aI6p
+         FpVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BxVjMRsgCRAMcy5JOH8aX86oUFkOqGoXGoe01HrRyE8=;
+        fh=sMRrmiGKnqkH+9nYMyVO+YyAn+5JI+LguWwaOjOHvzE=;
+        b=b/eFkXSIEC4oRe9PNljhONrEdUlqMLEk7rw1PeCr9oS8EfO6stxumIyknLnhJa7l5B
+         9rmYmmOrOOAw7qndoi3xiXL6QlJMMSRiLYj2M5U4PP7w2EXdKGjuL4zC9d1nx+Fnoaph
+         HrTtF26wnK+JPuJML5eMZo8ZtWbHvoQUKkGzXGPE3nYiPOGP1X5lmzFsSoM451ikAS+x
+         OCeYIBDZLayQt79qcXW1mEdkHygPco1zgs9Zo3luve4IVbMpFicKBIu2iudQHvRRJFk5
+         k9uFTw0L38+XN6nkc+v4s9KnUAzpxKf65bQKsdvZu7OgsZhDbiz2q6jyCmlUWp0wCIy3
+         k8iQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792478598; x=1793083398; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BxVjMRsgCRAMcy5JOH8aX86oUFkOqGoXGoe01HrRyE8=;
+        b=DL0XNOAsWGfOEzp83z0k6Pps6p636rBuGYVs4tvPxFQ+DvD0cEQJIXHZJqfa5cBX/C
+         V1/01WAF5Vpd6NbpQvva7T5p91yQEMyZ1wJdDs9hNJrbDmdVv8a9TcTmv/UfQ+5KYuYg
+         3unvL2AYZ2x6G+oMKXpHhK4TQUknywAvJ63wQtVFys087f3IRRyBC5Lhs513kcYUO83x
+         FAfIo3MTDUBKdbHraVHzDEVK9YCVlHsYXdXJHz8MIUSHlLoi4UCjLIOAnARJNwhi45FC
+         NTLg5GHAz8uudYX+PQ5FuUTy6TsqiFgYT2P5a9uRSQH7ShY2JePGXkI557aRsCeXrkzp
+         N6mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792478598; x=1793083398;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BxVjMRsgCRAMcy5JOH8aX86oUFkOqGoXGoe01HrRyE8=;
+        b=w2fLv02Dyi43pKpXA/W2GgcepdqQCtt1zlIb2HMuzQHPqUyM6oh/WJbmcK4DCEqlXa
+         3p+33GF/PxIQrcGu9OhUYcH7/cWbfuj6jo3EoiAe64IAw7mfkW65PnyOPp9P/yHBn4uf
+         PcDHI+G+Jz0zFWyqDYmvQliJ2dsMp20AFKWuqt7dpMJ7tZwThBig6EW3gSqBzWW7Kn1T
+         ceKy59Vb9D+BPQytrzzTE+4BC1diizc39HUZ5xKEmVJv+kvrWbjHohe+zKpY5H4eISFO
+         DZ0xxNblhzvbtdBcQCRsRyx1lue/WcE8S9tsVkrtDFg6RS1iVfkPUEkJPlDoakzNBs2L
+         iVMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwlse7dJStxLA2EnRfrhWma/6enOx6RM/3mRjn+I4WHIhz859swbQ+Sdd5B2NNipBhVunpWIsLq33B3g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYILbUqHyJQxtuIo2KAQ/k+GGKtfvdbsJgTSWuA8QZiXGxF/ym9Z
+	CXZKh3e1UDKtU+9rhZJGQ1mJFYwho33U9b7tZJLvqT5r9xMQZJYgM8+jVzCgZnMvCTMacY0FA2B
+	+A1gybABmw0BUkNAf1hGBJwPF2QbRnbQ=
+X-Gm-Gg: AYBFou2ssI7Wbe15BRdohxh00znu+Wg1+kzLWfIWNdwM8HfLbtwwVIIsIQdIbipJKwm
+	7vIAQ8F2Zcc1M1Br9lBl7z5DLmnUs29BdVi8IfPfkPilKqx86YVgTXHYdOi38O9Oa+fizdGpgZD
+	qMNFmdRL5bURMwOC7WO/lA2FXgauOkGd1oGb7/1L5JaSMLB3CJH0uWunrgISBbyaeY64ecrcX0o
+	uu1z9k0y3/4NKJjzKO/5kIL265i85Lo/LcfFFAdGFteHREZa1la802k6mTUFJZgBRwGjKwF2kGy
+	iGQD8kmL9AmNrH1Ve0gTWEuWdGVP0FYYuQLrXUSvdkC8myLtt/0yaCVqxTiorWVZLjbGKoG80ur
+	OB8niLJTI2oWrkhpgq9qBC89aX+0ETvxYwJwvc1KXCIeMIpvuZIfOaxXvsm3DAk44PWwGuUNkCp
+	HE3qHC0IdUsJD/BGmYcswDG6fpUtu2vC/yIRQ6a20K
+X-Received: by 2002:a17:907:9614:b0:c2e:8eb7:53e8 with SMTP id
+ a640c23a62f3a-c419ed3674emr896695466b.30.1792478598514; Mon, 19 Oct 2026
+ 23:43:18 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,124 +105,100 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS4PR12MB9658:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfda978e-652c-408c-4404-08df2e754beb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|7416014|6133799003|18002099003|22082099003|10067099003|3023799007|4143699003|260925021911599003|260925022911599003|260925021311599003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	HAHP4qFsbxQAHsiC69iRw/Ppb4np9gHf1+C/fm+VQJJ+WF5HWzkk2lsnIqQj9hdzQCX4TmLuSC/UUNVZ0PWEU8XWUPaCPgCQtD+rzj3f3/9kW3HaJlaQTf9xOJhHM2BfjvPBgbpc2q30W9KonXT+//PGreuTYKwe1s1QRLv5Qx8kZk9CDD52ZTg7Z16LQkjAtUJBpH79HjDjO3/sM0aSEmKHqoZfhATZxm+/B8491zLhH+v6e4KGqspk8jCnlcz1HUGYn/EQncvkOzUqAL67eGeeAjJNt37v2X8Sd1aLFA7+3P/J8z7YYYeC1dNd1dLqmfbiWLEe4CTFBz5rq7QXS8OEKSdZTsArRa7JjRUd+wb8G7LD1A4qbwoY3qLj2lfsDOSHoMK0JlBwihU3oMSLULlaG/dfFkX9hTFw0lCuXrVRt4QfZs2KBYTdXyGQKrxOMfHFb/nAudmm8wy92w7aK88D5ZDBcsaeo0yhEDrlg3Eo2ge/lAPADbXmvBMHz9cEVqZlvWFagLMReZ9P9BmjeA5NS2CfmwVU8W0i69HVGSkX77pp1KrEXm5B1/F2UpsrC46i0Tfu6TIwApto/z4ZX7jPSOHnJUyN48JHyJqRE8V5ZCCNU2YgKHaemkirpbjbDRp+y+J6HjG/OxFIBDp4EVXh3Hh5NPXg5h2heruHHo4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(7416014)(6133799003)(18002099003)(22082099003)(10067099003)(3023799007)(4143699003)(260925021911599003)(260925022911599003)(260925021311599003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q3BreHlyNXpWN0QvVjBJVnVyeGlVelNpOE4xL2cxVno3RlZ4SWp2OU5UWmNR?=
- =?utf-8?B?UGVVNzFiSHRkMTRJMnBXWWNJWlNoVDZOZUR2Q1VuOHlXUVk4VTR0T0V0eE4y?=
- =?utf-8?B?MlplQnJCbVBTcjFqbGNwOFFXc2FPc3JBUm5PczZXMnh6RllkaENOa3JsVWZ5?=
- =?utf-8?B?alJORE1ISC96TFVRcUxSeUkwV05mdGx2cVRlUXNRazNZTkgvVW5ZUlJQNmJS?=
- =?utf-8?B?eUl3cndaYlJ2dmpIQnVmcEN5ZFc1MnNTeVBVMUtnODBaUFNXV0NBeGxUSCtX?=
- =?utf-8?B?MVRmb2VLSk5kM2RsQUVCS3lrOTI4UzA0SGpKdFdETlZweUl5d0lOMnFaeWMx?=
- =?utf-8?B?WDB2TlRBbkl3aU5wWldtZE5HNklveGtJQWFha1FZTkJBeUwvR2VuNC8vekli?=
- =?utf-8?B?YjhzSkFlNk4xTk5uREFQR3RzWlk3NFdLM3ZoKzlKdDFvNDdqUEtIYmVhK2Vq?=
- =?utf-8?B?U1FTNWJ4V2FGam9ITlhtSUt3T3I4Z2ZZeE16VTU5eFBqNjlGcWpiWGE2Smdz?=
- =?utf-8?B?R3B3eGc0b1NjekRtUytRa1VuNkVPcklrTVk0dFpsd3M4NDh6dGE4VHRoQWhJ?=
- =?utf-8?B?NnZNYkhLbmVQQXVOTkVKRkRKNXNYRzJ5RXdRL1JhVVlWb21Zc3VQR3N1NCtQ?=
- =?utf-8?B?Y21MNUhSMnVQcXJ1Qzc3cUJDU0p1a0xLTHZmMHhneTNPODBKcWlEK1JvYm9M?=
- =?utf-8?B?QU42TWZ0Z2JLQTlIM2p2L0V5WExWNi8rODE5Wi93ZjlwbitLQmFnNmxSY09n?=
- =?utf-8?B?MkpvL2xNa1pvSWVka2FKSTZjUGFnODdWNjhVNU91TzRHUUhZSnBaajNRS05T?=
- =?utf-8?B?MmlDU0NEbHpVeldLbXRwdXdiTmExZnJWMWRCdGhGdE9rL3F1dGlkR3dFUVIv?=
- =?utf-8?B?ZFozanhtdmowWVpOVUdiWlExN2hBM3YxWk1vTzNuZzF2QTFFYlF4djRKNWtq?=
- =?utf-8?B?NkRZQzlhY1V0a3Q5Tk1qT1l3Skwvbk53UXYwU1Q3ZUpuazlIQTlTRHRQRkh5?=
- =?utf-8?B?dzE0TC9taG1rSk5iNkpsbHg3WUJtSHVPZnhjMDVHQlZ4UjlpVHVuM3FzNWZD?=
- =?utf-8?B?ek1rK041RFoxb1ZQNjExbmxUQVk0M3N6TzZ0bnl5REp5Nk1xamp2YkFwc1Y3?=
- =?utf-8?B?RGloa2NLUHlxUzlmNUJ4cVVNZ1I5ZFAyQW5XQUxqSUNONHpqcEE1TC9vNUpw?=
- =?utf-8?B?Y2l1WFEvemVBWmQ0VWFOS1dOSGxsZ3JETHU4UVRJOWVmdDdBbTQxSjAxWjAw?=
- =?utf-8?B?QThpUXc3TEVCellsSm1QTjliY3JrMTIyYzNaTkk0dTZwQ3BkdENKSncyemZz?=
- =?utf-8?B?ZTJHUEg5Q0JLTHdPZEo5UWQ4anlwN255MFJVTHJzQjZOVU1SaEdMSnBtWWdo?=
- =?utf-8?B?RE5NS3B1Y3hwZzIyOXJUeURKL0Uxd0NKZUxVajhocW8wTEoySGViQUFtNFox?=
- =?utf-8?B?NFZvZU80bDJyeHpDaFpIRUswejVZU0N4YmYvUnNmZktIRnBqVkVWWVI5RHhH?=
- =?utf-8?B?WWZSZE5aRkVuVmRYd05RVml6MDhuci95RmdqOTNINS94a0p2elNUK2pJdHZn?=
- =?utf-8?B?YVkwcThuSXI2RVl6MWhJUVhIWjl3cFBOOWxuNGJMNjFjUVh4R2RrVTZqU2hB?=
- =?utf-8?B?a3FoWWhqV2pTclZzRnNkMFlkZE4rU2lpRmNNYUZacWlib3YxRTJFTlEzRnFy?=
- =?utf-8?B?WHR0VGNwaE45aENYNVBVSHJUMjZFcmJLRVhBM05US2JnV3YrM1h2MTdRbDhk?=
- =?utf-8?B?TzJlRThVanNaQWtsRGdhVmY4dEpLZFV6SjlTT042d1ljUUlKUkp3VEdVMTZa?=
- =?utf-8?B?WGlqdUc2UVlEZ3JWRUZTZUl0ekVsYy9SbXVFTERqcldQaVFZN3J6WDNvZlBs?=
- =?utf-8?B?OHJ1N2owUjlRZlhPOXdXVklWL0RoYmJBcU1zQ0dPQ1l2ZVVoTDQ2ODk2b3RE?=
- =?utf-8?B?ZzcyUE5tSXJZSjB5VUp3VE53OHU2RmQrR0JzS3pvUkdSa3NlbllpZS9kVFdU?=
- =?utf-8?B?WjhMWmRwR1FsRlJCamJzM054cmgwNG55TmhObFc0Q1B6NXJqQUxLUTcyS1BJ?=
- =?utf-8?B?a2hBdThDTG1MVmZ6aHVaWS9COHZhNHV0ZEU1YUpHNTBCZ1hTQzFDU0hWeXJU?=
- =?utf-8?B?L05Sd2RkaFVuVE9EenlVNzdtbmFxMHZaaEdMZ3lnYUpnZjN0V1piZVMyTW9X?=
- =?utf-8?B?ejVlVVRuMVl3THNwNlA4RGZkQkVlYmNucm5XRFBXZnIrYWdab0IrNUtSSWxm?=
- =?utf-8?B?MU9IQWJvL3lhRThDclpWVkRQZkQzYVRQa0hQSHdRM0J3VS91aFVRYzV3R0JT?=
- =?utf-8?Q?t2occyHxVHuUUlnHSV?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfda978e-652c-408c-4404-08df2e754beb
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2026 06:42:23.1523
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WtapGk3nZuaW6LhedchaEEHuej2HZMvie1Lg8RpScOVBzHlyHKjA16XaOqSFsCV/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9658
+References: <CAN_LGv3QH4oupSv6KzopjHRXO7tWhY4wvBuCHBzNhJoDW4ZL4g@mail.gmail.com>
+ <20261020015001.15672-1-patrakov@gmail.com> <20261020015001.15672-3-patrakov@gmail.com>
+In-Reply-To: <20261020015001.15672-3-patrakov@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 20 Oct 2026 09:42:42 +0300
+X-Gm-Features: AclHuK_h7thPbK43T1nxg6VzE934IoCX4uM7f6mvAqFm3KhDuLo-7j__7w9G65c
+Message-ID: <CAHp75VdnqDsqcLtUEjJfJX0hmwfrV=SjEDrD9JOMXhY0aVbHMA@mail.gmail.com>
+Subject: Re: [PATCH 3/3] media: i2c: ov5675: Add the OVTI5678 RGB-IR variant
+To: Alexander Patrakov <patrakov@gmail.com>
+Cc: johannes.goede@oss.qualcomm.com, adee.sahan@gmail.com, andy@kernel.org, 
+	antti.laakso@linux.intel.com, dan.scally@ideasonboard.com, 
+	diamondback@cohunt.app, ilpo.jarvinen@linux.intel.com, 
+	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	sakari.ailus@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/19/26 20:31, Leon Romanovsky wrote:
-> On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
->> From: Leon Romanovsky <leonro@nvidia.com>
->>
->> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
->> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
->> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
->> map/unmap cycle.
->>
->> Restore orig_nents from nents before freeing the table. The helper
->> allocates the DMA list directly, so nents retains the allocation count,
->> including for chained scatterlists.
->>
->>
->> The reported kmemleak output was:
->>
->> KMEMLEAK LEAK: 2 driver-related leak(s)
->> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
->> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
->> KMEMLEAK LEAK:   hex dump (first 32 bytes):
->> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
->> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
->> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
->> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
->> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
->> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
->> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
->> KMEMLEAK LEAK:     0xffffffffa1ad21a8
->> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
->> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
->> KMEMLEAK LEAK:     0xffffffffa138f8d2
->> KMEMLEAK LEAK:     0xffffffffa1396abe
->> KMEMLEAK LEAK:     0xffffffffa1331a5f
->> KMEMLEAK LEAK:     0xffffffffa13320dd
->> KMEMLEAK LEAK:     0xffffffffa1ad696d
->> KMEMLEAK LEAK:     0xffffffffa1acecc7
->> KMEMLEAK LEAK:     0xffffffffa1acfd17
->> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
->> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
->> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
->> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
->> KMEMLEAK LEAK:   hex dump (first 32 bytes):
->> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
->> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
->>
->> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
->> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
->> ---
->>  drivers/dma-buf/dma-buf-mapping.c | 2 ++
->>  1 file changed, 2 insertions(+)
-> 
-> Reminder, thanks
+On Tue, Oct 20, 2026 at 4:50=E2=80=AFAM Alexander Patrakov <patrakov@gmail.=
+com> wrote:
+>
+> The front camera of the Lenovo Yoga Duet 7 13ITL6 and of the Dell
+> Latitude 7320 Detachable is described in ACPI as OVTI5678. The part
+> reports the chip id of the OV5675 and takes its register settings, but
+> its color filter array is a complex 4x4 RGB-IR one.
+>
+> The silicon is likely the same as the one of the OVTI5675, so it still
+> has some features (binned mode, hardware defective pixel concealment)
+> that assume the classic 2x2 GRBG Bayer array and thus produce meaningless
+> output with the RGB-IR array. Disable them for OVTI5678.
 
-I'm waiting for anybody familiar with the code to review this.
+Should be marked as RFC...
 
-Regards,
-Christian.
+> NOTE: This patch cannot be upstreamed as there is no way to properly
+> describe the color filter array layout of the OVTI5678. The color format
+> is a placeholder at this point.
+
+...and this paragraph should go to the comment block, ...
+
+>
+> Signed-off-by: Alexander Patrakov <patrakov@gmail.com>
+> ---
+
+...somewhere here.
+
+>  drivers/media/i2c/ov5675.c | 149 ++++++++++++++++++++++++++++++++-----
+>  1 file changed, 131 insertions(+), 18 deletions(-)
+
+...
+
+> +#include <linux/mod_devicetable.h>
+
+Not in a new code. Now it's provided by i2c.h. We probably need to add
+an ACPI ID header to it.
+
+...
+
+>  {
+>         struct ov5675 *ov5675 =3D to_ov5675(sd);
+> +       const struct ov5675_mode *modes;
+> +       unsigned int num_modes;
+> +
+> +       modes =3D ov5675_get_modes(ov5675, &num_modes);
+>
+>         mutex_lock(&ov5675->mutex);
+> -       ov5675_update_pad_format(&supported_modes[0],
+> +       ov5675_update_pad_format(ov5675, &modes[0],
+
+&modes[0] --> modes
+in this case
+
+>                                  v4l2_subdev_state_get_format(fh->state, =
+0));
+
+...
+
+> +       ov5675->variant =3D device_get_match_data(ov5675->dev);
+> +       if (!ov5675->variant)
+> +               ov5675->variant =3D &ov5675_variant_bayer;
+
+With driver_data it makes no sense to support driver_override.
+Better to return -ENODATA instead of pinning some defaults.
+
+...
+
+>  static const struct of_device_id ov5675_of_match[] =3D {
+> -       { .compatible =3D "ovti,ov5675", },
+> +       { .compatible =3D "ovti,ov5675", .data =3D &ov5675_variant_bayer =
+},
+>         { /* sentinel */ },
+
+At some point the trailing comma should be dropped.
+
+>  };
+
+--=20
+With Best Regards,
+Andy Shevchenko
