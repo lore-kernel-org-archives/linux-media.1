@@ -1,133 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.72.192.75
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792511499;
-	b=Ab4UCwxHVWdBa+C7WIx7G4auc0vJs7TAa5uZqAieQEWJdYSGOdssz3CZWbb/aByzTScB
-	 32J/vWnL+ZOOzMArKqKEr1oHjJkWoHN3XO2CEAwChruTRa6/qe1sNCom1ipULRM8cdCM3
-	 n4b2Mok4gFPoAOdwaT0Vzz+HubtLn9p8/vsEjcxUGfVG0CUFXloQfIwIoFIZ7k2y2mV1Q
-	 jSuCTyUrHFUHk8AucZ5/2QYcVrmYjEYmpiF2Y7tgFB+7PmnUF2Hw3ItvGQCTdBC8jTcmd
-	 nblnzhVq00fx8vbRTiOjKiDdOLms/WZ9dLVyiKC6yMNDGaRejSphLqQYdBviT91gOIQ==
+	t=1792512538;
+	b=3lXe/CoqBBHUzw3XKx5vEZMzpRNutqod3wgJbiBffWMYm0c0rN+5gA2iGSd17c1c2gBy
+	 qB8zLN1R5IgbhVgkzp1yWs6eeRhbuvqmxzO+NJVzPTNzcElIut8WNns8bpe9jQ7oCMK/e
+	 b8i238+v0OyLhvOb8ss66lyTfSMpTSCLYHUfKbSp5LMTIjmbAzox1uYFRZHRDsewakCLZ
+	 S0qz/WeJSHvrkpa1yu4CrHBipXqnYOPAoHDgHy1m/6KH5hFzaFpnZcnMWZewkB+SRO+ch
+	 KrZ8Qra4y+aHve9wrm3PVa94afSFaRMYihaKZGfslIdwpko4xhVFPBXHYPVQxYDhktA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792511499;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=ihyqJcp063hQ12/dZ8QdAr6+jbzqYQLZQXqNm7GwdvM=;
-	b=C7E705kQ8mG8Q7N2QHYcyUjZAmqLFnHkBcym9pJGqemYi2utmftpax24xrpQN3NxsBSU
-	 yjzxIocGgHI95MJ2T+OOX4RBuH5Ssfus/PTlUP8D0EXScR7g5Kn6TsVrGeDOK5HLcjO9s
-	 2tLv/wzeJq7nBV+Rocp2z0GaecSashMsVJ8D1QJjXkl++Lddot20ZJtmR6xGiTri2R62b
-	 K/OL7RoJ48/gXw2+yGjzt6K+bChOc8G4VCuryB4wF9eGgMEnD78aoVyYG3Wqv6o8ZWkUx
-	 iBZdBWNf4BQvVcS1Ecma1qPehc4OaXa04C2VL/ZnenVHaQ8BHZH781kO2gFwtr4WtCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792512538;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Received:
+	 X-Gm-Message-State:X-Received:MIME-Version:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:
+	 Content-Type:X-Provags-ID:X-Spam-Flag:UI-OutboundReport:
+	 Content-Transfer-Encoding;
+	bh=hocO+kvqRttGZ7sVeWi9VNQEuKwWjdqXxc1r7L9Sh70=;
+	b=BJ5D+CpuC7JsA4pHfEp9NgjxY6G5ltotKBUU+uSrIJy9ep1CHEcrip/vWGq4vj+z1k0g
+	 nuAlEXIymqjZFfISEqWCxcQF81/lBUqCYzhm2RhHUKmRVR1d9Qrg5Bu3l+7u3onvNVd7r
+	 Mduvj5adWrUvGWRpLmwRu0ojep/3ui9ojxveWV8L5v5UUtXoQC3ObylpoEKF2VVT+mvZP
+	 xvmb6f2HBImGfnWPnEFvB2DrNasGEltO5OUMi+sElM2ml/cL0PdHTXxReD5O+lMvlDW2G
+	 WyblNtlXceBk+Fl5P5K08LyDIuqUYR8dMpv9MTIjQwAebqdvyrc686Ama3h7VxmFYhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=ha5bkC54;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Kc4FgRHO;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	dmarc=pass header.from=realh.co.uk;
+	spf=pass smtp.mailfrom=realh.co.uk;
+	dkim=pass header.d=realh.co.uk header.i=h@realh.co.uk header.a=rsa-sha256 header.s=s1-ionos header.b=OSKXKYwS;
+	arc=none smtp.remote-ip=217.72.192.75
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BC7606A31B
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 15:51:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2BC7606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D07606A31A
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 16:08:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0D07606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realh.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realh.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=ha5bkC54;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Kc4FgRHO
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id C2A55EC01FE
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 11:51:36 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 20 Oct 2026 11:51:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792511496;
-	 x=1792597896; bh=ihyqJcp063hQ12/dZ8QdAr6+jbzqYQLZQXqNm7GwdvM=; b=
-	ha5bkC54wedeKtJH5vcHtHzWgqHjRvR1mZIgmSHHOm3WowXVj2/BfYygUsjzqyJs
-	oITBkc5X+ZtP1z/SJtJsCJ8WwX8zwO6HI82aTVKJUust7P7CL+H9TIKJr2/v9Jwj
-	AzvAGJdFW+MWd0E3nWLVYH2g8BXiJp8RLFmbp8OqBRru1VcDI84P/s5r0ZCktphd
-	51+dQf6uF0/vDJHvqOOnu+KaDS6NUgs+ictG3Sge8wK1LMyYwMiIzAPzuh+tBJq4
-	Tq5+oNpLVCQsj92WLBmoCT/wHL7JFnX7BawiVTtyxW0z2cHT3BxrdI7E6TOAEfRt
-	Bun6ElRHlb1lFT8o72c+ew==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792511496; x=
-	1792597896; bh=ihyqJcp063hQ12/dZ8QdAr6+jbzqYQLZQXqNm7GwdvM=; b=K
-	c4FgRHOKGBWsFjl5LHnPNspHCcX035P9ffT9QKg8TioUadpJY0A1C9tiUwMDrFIt
-	TjPsqFAzNA0AWVeMI1F1nUjUIjG/LX68D6bjYZ91b0FM1ID+zY2vOQ3EdJZfes6B
-	syKQcSboJdgLkaiGwPW6aT6fdYn3nW69IDbX4suyq2E2jfjfpAibPPP1Wa6aUcR2
-	FVtVQYBFvKZN0pSQlw3Jul5YFCd1LLwpz/6qkRA6kPH/v21wjr3RLTWBvUXj+PtR
-	j8QnKX/DPz8sycT9wYPIuQ4rYTz3brluKKHTq98P1cT0sNioPcYXL4tuEfP+xgZd
-	TNv5ED1a2Du1sIKAtoMkA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792511496; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
-	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm1:rsa-sha256:NmkqTt/xuSohAQUB2yBHeG/xjqaOQT0wdNDzL5wdtDusEm4
-	1BZ1kegOZybdI8yLxB3BEN3oMRxKtXvZq2nos/2ukHYnWt+JGsFusWt6Y8es8yR9
-	LGCXn7cVLmLBkynjnv424PUU00OWlYYalVm5UkCYzNtIeX0gS3rMsCknnzg7NHTd
-	/psQIE05V6uAD8DB6iAq9rQVMklVPnB7ysPcoEOSpdPnox5nDh9LDyWn+e9wLaf5
-	BDxmb8fQg5gCQrvOsPVTin6lqBW4v717bs8z1UDFLBjRIBsK9nMNzk7ZeD4bhXPG
-	bWlAYgTJkrCcPK8SkRZ2nd4eERz8cTewe3b/4KQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-08; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:H6+VekH+RfagDa9Ta/ZkJBvhGYjQcvrLCCvplf64HDI=:2CBY8Di5Gw49pHFVJ7q6QG5GPGQrCc+6ley0NbL/Upk=;
-X-ME-Sender: <xms:CI7XarKavU3vZvSHa1PyTo3Tx--mpIkwijHfyGKeXE9lugHy1DVEiQ>
-    <xme:CI7XarCcs2FpAS7i5X2mzouVeXz6MfUFZqYy4DwpQYpyWUU71wcvrAHyHBQPtHI15
-    EYbKdc-fpjonG61tYgX2ZRi0TttaxbEeX47T0rj9xa6xHiuYldhIzjs>
-X-ME-Received: <xmr:CI7XagvySto26wzf-fX056jC9rCcDu8U5iaVnfiD2nDyRqaX57yD9VTWby4KR7SFVCjKLRO-1TCBdBs0Gm5NgvRTVupGQGE>
-X-ME-Proxy-Cause: dmFkZTEIwlMRXjli2b4S0aXU2cBhyZD12OVjGkssSXZvXVQNqyrihKWi53snV8WZnVAKCI
-    k2hSrdqUS3sPWHQR9KC1cP7oMsBwxgbhfU2wOc0kF1kFSsjNo484RD5YLMOYJgFEIgBZZE
-    mZZnND+XOPjGiP4Sm2IbjhJsCk/mt7rssMcNIRXoUsw0ueHbX/0yxfpQputKpSLS3kX2JK
-    +D37VONNxHlTvhOf9031AgWUwe9RpV//k2gUh2Y8OHJaqGtKNU3irD/ioOqYvhqyWUBmxY
-    UnqpBAfeBoCwo/rj8cPW1zjRrz59TuuOXybhFNgBHYsnlYQnymswK+0DtDz2NdkN/aetWy
-    zb7l3PnxhFG7ZuJ1dj+1ERfr8ZJWQ01TUXwZXD0bPJzZ/ekeJwhfboiUft0nM1Bi66vjQU
-    cyBNGi02fYiteGDfr9H1GYGc4FTrRVPPFyKeQeNiToWEAmDoPezqJGU/vS9fkIKg1N9AOW
-    V2BSiZySwpCUul/NFNgrgTE5BrV8PeOf1iNS5SrYRxa+WutGNm8rMIFGUgsyL9idy2rF19
-    AudA+92DlFroRv0Beiqlk/IqiAaZA0g4FQuOAJCsz04CbsX8CFsxlpMlKulKBCxdQUjVeT
-    RrWGRy3gqVSeUMZyQFeiFrzvQ4otv9kDHrQekzk3a8pU2qAMh5V7D3kCR7Cg
-X-ME-Proxy: <xmx:CI7XapRbtLDzXDdKk9ziNo989FVjoLk-KfvEDXbm71ZXFjFfED61ZA>
-    <xmx:CI7XanIv09N1E94W7KvB-omCdD3nB0HtpUTQ2EB8gAAzfG02QrwRbw>
-    <xmx:CI7XasvcUbn7YartpZUPwWKmaHPyHltuIxlXj-Ytj9CBE8huMGv5Vg>
-    <xmx:CI7Xau_6508go6YWiZdiMRCXX8S4NWen0UHnjX_J6wwoLPiCWeMu6g>
-    <xmx:CI7Xag_iNU8RmxK5J_v8KJTyBKbThSRKLiuX_-uk58C908h2Q50cXIhV>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 11:51:36 -0400 (EDT)
-Date: Tue, 20 Oct 2026 17:51:34 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Yusuke Goda <yusuke.goda.sx@renesas.com>,
-	Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 1/4] media: rcar-isp: ispcore: Honour requested
- bytesperline on RAW input
-Message-ID: <20261020155134.GD1172387@ragnatech.se>
-References: <20261019-v4l2-add-nv12-v1-0-4a84736803b6@ragnatech.se>
- <20261019-v4l2-add-nv12-v1-1-4a84736803b6@ragnatech.se>
- <6c8e77c9-c0a2-40c6-8e7f-7e2d51c71740@ideasonboard.com>
- <20261020134444.GC1172387@ragnatech.se>
- <12501643-d486-4b89-a22a-d3e39f0ef221@ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realh.co.uk header.i=h@realh.co.uk header.a=rsa-sha256 header.s=s1-ionos header.b=OSKXKYwS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realh.co.uk;
+	s=s1-ionos; t=1792512529; x=1793117329; i=h@realh.co.uk;
+	bh=hocO+kvqRttGZ7sVeWi9VNQEuKwWjdqXxc1r7L9Sh70=;
+	h=X-UI-Sender-Class:MIME-Version:From:Date:Message-ID:Subject:To:
+	 Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=OSKXKYwSM64ath9hLgV8uNBt7t+e3dhyRXUFusz53fO+IVofB7o0rlF/QCl3X3IM
+	 YZ5YUv8xtUB2ski5sto1O02BGZpje8wK1yFr0gHqUyYaoHho16SUt9H/AXPD5AW3I
+	 uU4phwYinbehUhryCfgVga+j3dhx7yL8dUn6J2yWlh6TN1htcRnfRhbwdbyHblOXl
+	 NUm0c6JY3Sk1CRITgNc9beO/2yCjAxsdnQfx82ULZQvDMGgZdc8vL13iytM4OmxO2
+	 bifd6SIaXKFMLbdv4hYyV41bz449vG8eNByoSoR82lwCpCQM3dNldxUtpGtvOefZf
+	 PNw58kbH5NikmYeZKQ==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue108
+ [213.165.67.119]) with ESMTPSA (Nemesis) id 1MWRe1-1x7T6g09Hv-00KbIX for
+ <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 18:08:49 +0200
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso1222810a12.1
+        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 09:08:48 -0700 (PDT)
+X-Gm-Message-State: AFq9FYLY2Yf1SdPn9f2hCZ59iWMC20qwqxm12FO2dWUG5/PgSbOZFfjI
+	sYqvsqkyL2qWKrdt4v+tZhF4FydNEnFATehshhdMTybT4eCzIo0JaJPZ+Uwnu2H5mLHMq9c1tyD
+	qyOdVKoA0eRr8KmXRaI57Vcw5pyyC5xk=
+X-Received: by 2002:a17:907:6e88:b0:c2e:204d:9490 with SMTP id
+ a640c23a62f3a-c4604ed5c6cmr223291966b.17.1792512528545; Tue, 20 Oct 2026
+ 09:08:48 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -137,105 +69,158 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <12501643-d486-4b89-a22a-d3e39f0ef221@ideasonboard.com>
+From: Tony Houghton <h@realh.co.uk>
+Date: Tue, 20 Oct 2026 17:08:32 +0100
+X-Gmail-Original-Message-ID: <CA+GXpVWLVc+CkaF-WsRyBDKiEPrw0yARnDYR+quOAn15FOofQQ@mail.gmail.com>
+X-Gm-Features: AclHuK-JDOsF61pSzdTP0CKWz6t0E84Ro2k5Zz4R2FJAX0DuiSYOWyVelccinl8
+Message-ID: <CA+GXpVWLVc+CkaF-WsRyBDKiEPrw0yARnDYR+quOAn15FOofQQ@mail.gmail.com>
+Subject: dvb_usb_v2: frontend kthread wedges in dvb_usb_fe_sleep, taking down
+ the USB bus and machine shutdown (DVBSky S960)
+To: linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:K6rJ7DP2GpCiA2j54PaUFZD1HehNBa4/yj2BcVJXbh9raVrEI//
+ ifZEZUUGKb1OxUlZKEfYQN4jmmvPrpkm5fTfZfUsYaI1y43eEAYKkH2gaOuwYpOX+slExLp
+ +XhdHFgrCnIV8qbSuGWo//NqIgE8b+j55cIsfiVDehqIVWErJiN3GbrmKbhEkf0BxkVDV9L
+ UTtu24LC+hdJINBXzfRAQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:W8q1Up7kEWI=;JhsDSryCaoS0yPBEWiBF+IL7HZF
+ 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
+ o5jGrt3WKEwg8G5SrYJulBHZ
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-20 17:25:52 +0200, Barnabás Pőcze wrote:
-> 2026. 10. 20. 15:44 keltezéssel, Niklas Söderlund írta:
-> > Hi Barnabás,
-> > 
-> > Thanks for your review.
-> > 
-> > On 2026-10-20 11:36:04 +0200, Barnabás Pőcze wrote:
-> > > Hi
-> > > 
-> > > 2026. 10. 19. 21:35 keltezéssel, Niklas Söderlund írta:
-> > > > From: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> > > > 
-> > > > The RAW input video device always overwrote the bytesperline requested
-> > > > by userspace with width * bpp. The input buffers are however shared with
-> > > > the VIN, which may use a larger line stride (for example 3296 instead of
-> > > > 3280 bytes for a 1640 pixel wide 10 bit image). The dmabuf exported by
-> > > > the ISP was then smaller than the VIN buffer size, and queueing it to
-> > > > the VIN failed with -EINVAL:
-> > > > 
-> > > >     __prepare_dmabuf: invalid dmabuf length 4042752 for plane 0,
-> > > >     minimum length 4060672
-> > > > 
-> > > > Use the requested bytesperline if it is larger than the minimum.
-> > > > 
-> > > > Signed-off-by: Yuya Hamamachi <yuya.hamamachi.sx@renesas.com>
-> > > > [Niklas: Use max(min(..)) instead of if statement]
-> > > > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> > > > ---
-> > > >    drivers/media/platform/renesas/rcar-isp/core-io.c | 11 ++++++++++-
-> > > >    1 file changed, 10 insertions(+), 1 deletion(-)
-> > > > 
-> > > > diff --git a/drivers/media/platform/renesas/rcar-isp/core-io.c b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > > > index b60b91f43d42..badde72352c1 100644
-> > > > --- a/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > > > +++ b/drivers/media/platform/renesas/rcar-isp/core-io.c
-> > > > @@ -5,6 +5,8 @@
-> > > >     * Copyright (C) 2026 Ragnatech AB
-> > > >     */
-> > > > +#include <linux/sizes.h>
-> > > > +
-> > > >    #include <media/v4l2-ctrls.h>
-> > > >    #include <media/v4l2-event.h>
-> > > >    #include <media/v4l2-ioctl.h>
-> > > > @@ -335,6 +337,7 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
-> > > >    				     struct v4l2_pix_format_mplane *pix)
-> > > >    {
-> > > >    	unsigned int bpp = 0;
-> > > > +	unsigned int bpl;
-> > > >    	v4l_bound_align_image(&pix->width, RISP_MIN_WIDTH, RISP_MAX_WIDTH, RISP_SIZE_ALIGNMENT,
-> > > >    			      &pix->height, RISP_MIN_HEIGHT, RISP_MAX_HEIGHT, RISP_SIZE_ALIGNMENT,
-> > > > @@ -352,11 +355,17 @@ static void risp_io_input_try_format(struct rcar_isp_core_io *io,
-> > > >    		bpp = risp_io_input_formats[0].bpp;
-> > > >    	}
-> > > > +	/*
-> > > > +	 * Honour the line stride requested by userspace, the buffers are
-> > > > +	 * shared with the VIN which may use a larger stride than the minimum.
-> > > > +	 */
-> > > > +	bpl = max(pix->width * bpp, min(pix->plane_fmt[0].bytesperline, SZ_64K));
-> > > 
-> > >    clamp(pix->plane_fmt[0].bytesperline, pix->width * bpp, SZ_64K)
-> > 
-> > Good idea.
-> > 
-> > > 
-> > > ?
-> > > 
-> > > And does the device really accept any value between these two limits?
-> > 
-> > The stride register where this is programmed is 16 bit wide.
-> 
-> Right, and no additional constraints in the documentation?
-> (I don't think I have access to that.) In any case, I think
-> it should be (SZ_64K - 1) then.
+Hi,
 
-You are right, will fix together with switching to clamp().
+A single userspace DVB app doing standard open/tune/read/close cycles
+wedged my machine's USB bus and blocked shutdown hard enough to need
+the plug pulled.  Root cause is an unbounded uninterruptible wait in
+dvb_usb_fe_sleep().
 
-> 
-> 
-> > 
-> > > 
-> > > 
-> > > > +
-> > > >    	pix->field = V4L2_FIELD_NONE;
-> > > >    	pix->colorspace = V4L2_COLORSPACE_RAW;
-> > > >    	pix->num_planes = 1;
-> > > > -	pix->plane_fmt[0].bytesperline = pix->width * bpp;
-> > > > +	pix->plane_fmt[0].bytesperline = bpl;
-> > > >    	pix->plane_fmt[0].sizeimage = pix->plane_fmt[0].bytesperline * pix->height;
-> > > >    }
-> > > > 
-> > > 
-> > 
-> 
+Hardware: DVBSky S960 DVB-S2 USB tuner (0572:6831, Montage M88DS3103
+demod, firmware dvb-demod-m88ds3103.fw v3.B), on USB 1-3.
+Kernel: 7.2.9-arch1-1 (Arch stock), x86_64, dvb_usb_dvbsky on dvb_usb_v2.
+(The 7.2.10 and 7.2.11 stable changelogs contain no dvb-usb changes,
+so this code is identical in the latest stable.)
 
--- 
-Kind Regards,
-Niklas Söderlund
+Full disclosure: the diagnosis, source analysis and patch were produced
+with AI assistance; all logs and observations are from my own machine,
+the bug is real and severe, and I stand behind the report.
+
+What happened
+=2D------------
+One DVB scanning process (my own code, one frontend fd held open,
+FE_SET_PROPERTY tune, demux section reads, no exotic ioctls) was
+reading tables when the frontend kthread wedged ~1 minute in.  From
+that point: the scan hung with ~zero CPU, a second scan instance
+blocked in dvb_device_open, fuser showed no holders on the adapter
+nodes, physical unplug/replug did not re-enumerate (USB disconnect was
+logged but the driver disconnect never completed), kill -9 as root did
+nothing (D state), and shutdown hung until I pulled the plug.
+
+Logs (previous boot, trimmed; full journal available on request):
+
+  Oct 19 22:39:14 kernel: INFO: task kdvb-ad-1-fe-0:153935 blocked for
+more than 122 seconds.
+  Oct 19 22:39:14 kernel:  Call Trace:
+  Oct 19 22:39:14 kernel:   __schedule+0x3d5/0x990
+  Oct 19 22:39:14 kernel:   schedule+0x2c/0xe0
+  Oct 19 22:39:14 kernel:   bit_wait+0x1e/0xc0
+  Oct 19 22:39:14 kernel:   __wait_on_bit+0xaf/0x130
+  Oct 19 22:39:14 kernel:   out_of_line_wait_on_bit+0x97/0xc0
+  Oct 19 22:39:14 kernel:   dvb_usb_fe_sleep+0x145/0x1c0 [dvb_usb_v2 ...]
+
+  Oct 19 22:49:28 kernel: INFO: task realtv:157508 blocked for more
+than 122 seconds.
+  Oct 19 23:09:21 kernel: usb 1-3: USB disconnect, device number 7
+  Oct 19 23:20:31 systemd: Killed process 157508 (realtv) ...
+(SIGKILLs ineffective)
+
+Second data point (pattern only, no traces): for the last few years I
+was only using my other adapter, an EyeTV T230C clone (Si2168, also on
+dvb_usb_dvbsky), with tvheadend. It did what I now believe was the same
+thing: after days of uptime, streams would corrupt, then the device
+would stop responding and any process which touched the affected device
+or subsystem got stuck in the same trap. Recovery needed a physical
+power-cycle of the stick. Newer firmware seemed to substantially reduce
+the frequency of incidents if not eliminate them. Both sticks share
+dvb_usb_v2's teardown path and the symptoms match.
+
+Analysis (from torvalds/linux master sources)
+=2D--------------------------------------------
+dvb_usb_fe_sleep() in drivers/media/usb/dvb-usb-v2/dvb_usb_core.c
+does:
+
+    set_bit(ADAP_SLEEP, &adap->state_bits);
+    wait_on_bit(&adap->state_bits, ADAP_STREAMING, TASK_UNINTERRUPTIBLE);
+
+ADAP_STREAMING clears only in dvb_usb_stop_feed(), on the last
+demux/dvr close.  If that clear never arrives, the frontend kthread
+sleeps in D forever holding fepriv->sem, and everything queues behind
+it: kthread_stop() in release/disconnect/unregister, new opens in
+dvb_frontend_start(), the USB disconnect path and hub workqueue, and
+machine shutdown.  All of those stages were observed here (wchans
+kthread_stop, dvb_device_open, and a D-state usb_hub_wq worker).
+
+Notably, fuser showed no process holding any adapter fd while the bit
+stayed set, so the driver reached a streaming-set-with-no-feeds state;
+I read the feed refcounting as airtight, so the exact micro-path that
+set it is unknown to me.  The fix does not depend on it: teardown must
+never wait unconditionally on a bit whose clearer may never run.
+
+Fix (attached patch, tested): bound the wait with
+wait_on_bit_timeout() at 10s, and on timeout warn, force-clear the
+bit and proceed with the sleep.  The force-clear is safe in both
+states: feed_count, not the bit, gates re-entry in start_feed(), and
+a later genuine stop_feed() re-clears idempotently.  Testing on this
+hardware: module builds clean against 7.2.9-arch1-1, normal operation
+is identical to stock, and I forced the timeout live by holding a
+demux feed across a frontend close -- the warning fired at +10s and
+everything unwound cleanly with no hung tasks.  I cannot reproduce
+the original wedge on demand (once in a day of heavy use) but will
+keep running the patched module and report back.
+
+Separate observation, not addressed above: start_feed() never consults
+ADAP_SLEEP, so a feed can start while a sleep is in progress; that bit
+currently has no waiters at all.
+
+Thanks for maintaining this code.
+
+=2D-=20
+Regards
+
+Tony Houghton
