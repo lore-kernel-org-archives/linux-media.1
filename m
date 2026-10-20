@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792475670;
-	b=W9yXFG/bfUD7oHy2odtnVJZfvtSEG/wTsS6N9mL9vRCtmwFMBhP4zgvkBMnQKtPt6cbc
-	 OKfFgjH9ni2zjsvelnR1yMT+2akvziKDSoiQIFBA4q5CaFTe3HoIlWhsxztAvTIkdn3gl
-	 K+yJ9bh0WNRWo8dgQnzgwGwO3FevA+hlCrTRorCpg58FsJSuhNa4ZRIGTQLW969rmRIOu
-	 MMUJXldcOkAdMqMNkEIsUDeqaldcxBuJLgPQI4X8ReDZvVQCSr5IeVHlsU0NF9MrPcuvo
-	 1jsD+7jdNFfwdXFM0Uf7vSlNeN5tEsK6B+FpSLAaDND+tZVEIqxi2Jwf4xjFDH3Kbag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792475670;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
-	b=r2CRhFtmIeTLO7KoKOYAyNlUuKZRtO9EyayPmXpJUgNRKPX3S1mZAMs5jzL6f8v6uXgG
-	 AtJTiRasqBtpU/zmm9DTVyOXV4vfdKYwuvb7nGWrGWM/1KQ92YQ7+2qBDuCbzFFO00ORE
-	 t0u4QTds7flK+0HVbBZ7OtWY7If1F82q4lhxEXcNTBdcpknn8J8HLTzS42bmVUPsC/z95
-	 w49gfheqE2X9g1FHPupnT/IXrrzTuyzyUSMGu4yxks3dvClNs9u8Myu5TfEglw5TYv13c
-	 vGVk/LniY1UtP5ybyMPYtNJjWp7TT8/1wcIDENsIe5fOCNIh11sjPGSYnnwa6botckQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="a/+YHFjX";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792476516;
+	b=wNi9065Hs2/FbP80Dg6QMlN9zI4TUtJqL1MzMWX//CTPE34blm2eAlXFmVoy8Q3MlOI5
+	 USR4vfo10DpQwU+1+xKyuRwgXFqu2/df4aGbk9qR22mVUjg/Fe3oPR0VxBwTz0Fg5O3Ib
+	 +yhmpm03dT7o84vVTvmHid/FLzEUuudlf8I4CbaSIEH9kdAOPWlsygnZAj+GacxP2l79M
+	 3tfuzwNzzlwPFTmnqN2YRCwo6mqpD5rUy4TM8MWI3LJzheOp4LaKDUmZdBHLcD8JwyIPa
+	 5+5J820hZzNrO5snSHMnv/04+g6DohhwYE6ltsNgRolGqluMpywdv+bzjwNv6jNXkCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792476516;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XoYOnbE8zEhaUTNNg5EvX6Px2rVWLGPe8RxRxFiK/ys=;
+	b=X1NGA+Gf7/AXt+3HpfjMJur4AHCMUmizQM77XUvku1SOOFKNrJVxFqNxEClUBUtBD4nz
+	 9SaWDb+2qNdWBg7exeSvXqaBao1sgEh1O9yRph4t3wDaDtBZ/OdOdNv9tp92Dz5nzKeTC
+	 veggQfVOOeeAZ7aBq/eYD9omRFjLjp6VfpRLPaVWbowHIsFPuAYYJlG/AlTB3VlhDevhQ
+	 FN3oa7UUIB2/s2P+TWmAnWe8g5AnJGntGCHbSkDxTskp9ex/HbsSWLrKnQ7OpjvhMfec9
+	 GiHIrwVNkCczSVqn3v51UVY3MaibYsTJGFkiXPMDX/B52xkyhJyULwCq14aXf5oaapw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YnxSBBWH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5000606A321;
-	Tue, 20 Oct 2026 05:54:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F24606A319
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:08:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F24606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a/+YHFjX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085391F000C4;
-	Tue, 20 Oct 2026 05:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792475669;
-	bh=2rm4Tp2k0RqgpllE3qFFaci0f+Yvkf9cOiz7z+TNkUA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=a/+YHFjXG40L8kkNWKto7PFCZO4Rp480swjoQiImPCSYz7QYjeb+lVIr+WCamDyxU
-	 RhPqNe3oXL3Xu+HS1SnQkBMrYWhgKMI6Kdw58svhS1wdU42x2SswL7MZBEMpTme4SU
-	 l1EcflHlTkRsUWTwI1xD3OsS5gz7WKYK6AdjaNsuEPoAcWMhclSF90UlgKPsf/rcfB
-	 5l1+EIS7eJ8C4UNBK/3OIjK4IYD6fMbKMQzcdtyga3tuqtakkAr0Slj7X+5fKOTUWu
-	 DkYftZMqnsVu35ntkiQ6S45kpl4/IvFc1D63hP66DFFMZz4fTDgYiMKmZzqNqG4Tzc
-	 hEu+m/bkJThqw==
-Message-ID: <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
-Date: Tue, 20 Oct 2026 07:54:22 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YnxSBBWH
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c169ae1cb26so53554566b.1
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 23:08:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792476514; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LbkgijtAmpAhQtpJRNElUvidL4Cr/znQaHRslQ25UAH4tMkUZYhDYWUaTrgI5bNUcX
+         i1GzkSFcn0W1/o29nxpAj/8oHxHZgwxgbkwO97bmwd4nDtymtYpjHsRvL/XpGS7P8FLF
+         Zc/kYWb+h+syuM77Xagdb7rZO6pH5gkEMlB7jQtBbqu6nO7dokzDUrXuqVMj6DCZSry/
+         Be/Pv/DlB5DPcpkNWp13coDfxrMzT3tMgKYRDpdt/sQGq07HdcieXL8vqGgtwrpUP+Ew
+         1j9yU+DEA2TmgrhmB6VpbRqmXRlXhlvWbHCkvznCnH7FqszyZCCyW0ovrHi2fMislaEI
+         6KCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XoYOnbE8zEhaUTNNg5EvX6Px2rVWLGPe8RxRxFiK/ys=;
+        fh=+I7p10uz3oz5Msq8wblKEsuKm7CEt6lAM7A2p30fQOw=;
+        b=AM7fLRQV+kuraBfS/zBaBatI7Evwmt5RBmNL/dRNUGC50IFvSafamkpz9UJuFm0D/K
+         bFcMhQSxh2DCcTW2ZGZJfNIVwqId8Incm6BTzZ8DuOXAkG86e6cNYC8yILE3rtjfxRNU
+         HnUTTQzIUvPuqazhsu/jOYR+UM0nuo08qroKaXcWac/uDtjsIaHp2mdn/OAlBleVfwLi
+         vlXvebV7tdWYxwaQoFBypltGG7Dsn799Rs/euqDefVygn+9wcw5pPI7WDSXsk1IbLdWC
+         cNIa3To2VNDTghBXjRMpRvzqbJMTR0K/vH3sTNp/S7G/URSrIIzHEVkbbEiIdsTxkxu6
+         apyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792476514; x=1793081314; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XoYOnbE8zEhaUTNNg5EvX6Px2rVWLGPe8RxRxFiK/ys=;
+        b=YnxSBBWHVrkaUeSSDayl0uhIwRfnwEv+Puu+OwRyKnn8VRyygbSL4sIuZiFN4NLBEk
+         g55xRjcFEDjfy+t7dQr9jS4AaAMIFyaMOiLAUkfsnnIZj6btEw+xrdnFer8boq8PiO1m
+         IddtGJ/pXbmLF2Mf7Mn/e0MlAFgIchaOqt8Iave94DnR0BCHXrX4tIcnkgWCZiBKkgq2
+         MlRri2NP9UDHQ1RWolaAbFRQKxKmlIFV3KmTfJOoWdVKpNGmKUevd1m0Lxm3SKplhtVz
+         bBQzKsQLGy+KedwWvlcEp5x/0shubRY23DEOtC9Kdzc8DJd+dgzF0m/IzyHpm20jRqhH
+         P0Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792476514; x=1793081314;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XoYOnbE8zEhaUTNNg5EvX6Px2rVWLGPe8RxRxFiK/ys=;
+        b=RlE8ymxqkr96M5HLHuJLN/6y/e3YGK5gJ9eipj4K+phpMku1NWuEP2BKDk7q5iSTtK
+         30oI2fxQo0hLoeTK1jG19v7cykpi2FqloLde+LdHCC/G9cvpzhqvtTjHnH+F9l59Q/t4
+         SEH2HxONpEa/iGEB/fkLihgO0cV8Kt5pOu5/8aF0VAxGg06OZszdzn86jS8hqze57qv9
+         1QVRw3/4dwjHVDA3LKUBTeDaQK3Ij4wfmupOrnsquoRN1t/YAglHWev9FHnLWKysCtwd
+         tEfqMniXppFJwWtRhr7GthGX2ILwCM4Gx5PuGdadmmRzoYZJ2x7CM85GctIVXSNn6KyB
+         1sDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwCTXvfHSI25O9XH0CVzZxN5utZjtsSza02G2LviRUyjadaua0YnpE8iDi5BaKXtOXCS2MjCZMsVq2KwQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIy/5puT6BgYI0NJMi6ZKCVxpKl0vn/PQ2ELqLUd010QYgKZP/r
+	SG/h+wZJXnXWrow2JRJlYXovcLAE//h6Kz+R4JXOI3oHBnZXbjDxkQ2kRRXNzqtEya+PfSVMnUU
+	AbZTs/9PrcZOpA0d3+k59GNgggeXvP0k=
+X-Gm-Gg: AYBFou1rQ851j9QxraSqFcjmOhS9VDoF+4uTdCDTd1d+yUJAKY0POxGjQpQs/87NTIk
+	ocw2SiIc/UnULkD2gxnGrqEHqUE0R6KeEkgeybNZ45ZEIudX64ymQvqe03giL7fddmZKwCWOC7m
+	sK9pAcIzFsTmnCanpz+mHNBeVaUHbE07ctR2w3DoPuQXocIhjHeKdhQ4Cpn6Ayi9fJYa4CHsJ9V
+	6f1hBWnh0tVWgE8cnAOoGOHCRgjjazcGJhqreKKBW1ocvrjL11+F6ImUDgMbmuOkOknHq0TagPa
+	9L0TcesH/FU4N5ljnBqjA4yDslyN79QKG9tiirUuME/3tN9Gb5AC/tLliqfTyTe5MkVGLCDmNO0
+	A/IXhLbFOXhC07Yc+ogpMB5O8QEHOtdbofnR7hPKYcNnILSpJIMoMR2cvf7XHSaaCWDNM+oLWOI
+	kTDwombFIoaqdtcZkaQSKzsMxLh+mFMC07z7tCboutZBFQ1dIV7Mw=
+X-Received: by 2002:a17:906:478c:b0:c2d:b9b4:f4de with SMTP id
+ a640c23a62f3a-c4604ed9efemr80609966b.18.1792476514274; Mon, 19 Oct 2026
+ 23:08:34 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,92 +105,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
- schema
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
- vkoul@kernel.org, kishon@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
- gjorgji.rosikopulos@oss.qualcomm.com,
- hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
- jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
- vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
- <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
- <20261019-funky-real-skunk-eda6dc@quoll>
- <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <CAN_LGv3QH4oupSv6KzopjHRXO7tWhY4wvBuCHBzNhJoDW4ZL4g@mail.gmail.com>
+ <20261020015001.15672-1-patrakov@gmail.com>
+In-Reply-To: <20261020015001.15672-1-patrakov@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 20 Oct 2026 09:07:57 +0300
+X-Gm-Features: AclHuK9mxBlfzqPJhisR4c9pDdEzb9nRSUMVCy6rRwKN_GMG2p1UiXDepmzcr-k
+Message-ID: <CAHp75VdwhC_T+7NNroyqQH_qhLW3Uzi97VmLVg2_WT_4Mu7ZCg@mail.gmail.com>
+Subject: Re: [PATCH 1/3] media: ipu-bridge: Add sensor configuration for
+ OV5675 (OVTI5678)
+To: Alexander Patrakov <patrakov@gmail.com>
+Cc: johannes.goede@oss.qualcomm.com, adee.sahan@gmail.com, andy@kernel.org, 
+	antti.laakso@linux.intel.com, dan.scally@ideasonboard.com, 
+	diamondback@cohunt.app, ilpo.jarvinen@linux.intel.com, 
+	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+	sakari.ailus@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 19/10/2026 09:25, Nihal Kumar Gupta wrote:
-> 
-> 
-> On 19-10-2026 12:43, Krzysztof Kozlowski wrote:
->>> DTS uses 2-cell reg but binding example uses 1-cell. Please align:
->>>   reg = <0x0 0x0ac9c000 0x0 0x2000>;
->> I don't understand what is supposed to be aligned here. The code is
->> correct.
-> Right, the DTS change is correct.
-> 
-> My comment was about the binding example using a different address/size cell
-> layout from the real DTS. 
-> 
-> Krzysztof, should the binding example mirror the SoC bus address/size cell
+On Tue, Oct 20, 2026 at 4:50=E2=80=AFAM Alexander Patrakov <patrakov@gmail.=
+com> wrote:
+>
+> The front camera of the Dell Latitude 7320 Detachable is an OV5675
+> described in ACPI as OVTI5678. Without an entry here ipu-bridge creates
+> no software node for it, so no fwnode endpoint exists and the sensor
+> cannot be connected to the IPU6 even once a driver binds it:
+>
+>   intel-ipu6 0000:00:05.0: Found supported sensor OVTI8856:00
+>   intel-ipu6 0000:00:05.0: Connected 1 cameras
+>
+> 450 MHz is OV5675_LINK_FREQ_450MHZ, the only link frequency ov5675.c
+> supports, and matches the two data lanes the machine's SSDB reports.
+>
+> With this entry both cameras are found and the front sensor appears in
+> the media graph:
+>
+>   intel-ipu6 0000:00:05.0: Found supported sensor OVTI5678:00
+>   intel-ipu6 0000:00:05.0: Found supported sensor OVTI8856:00
+>   intel-ipu6 0000:00:05.0: Connected 2 cameras
 
-Why are you suggesting in review something which maintainers never
-suggested? Or actually opposite to what some maintainers were suggesting
-before. Code has correct example.
+> [Rebased onto next-20261016 and adjusted the comment]
 
-Best regards,
-Krzysztof
+This should usually go just before your SoB line.
+
+> Signed-off-by: Sahan Nissanka <adee.sahan@gmail.com>
+> Signed-off-by: Alexander Patrakov <patrakov@gmail.com>
+
+> Link: https://lore.kernel.org/linux-media/20260809042540.15849-4-adee.sah=
+an@gmail.com/
+
+What is this Link for? There is no reference to it in the text of the
+commit message.
+
+
+> -       /* Omnivision OV5675 */
+> +       /* Omnivision OV5675 and its RGB-IR variant OV5678 */
+>         IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+> +       IPU_SENSOR_CONFIG("OVTI5678", 1, 450000000),
+
+Please, split the comment, id est leave original one and add a new one like
+       /* Omnivision OV5678 (variant of OV5678 with RGB-IR) */
+
+Note, there was discussion at LPC 2026 about RGB-IR support. My
+understanding is that the kernel lacks it right now, but media people
+(Hans, Laurent) may correct me if I'm wrong.
+
+--=20
+With Best Regards,
+Andy Shevchenko
