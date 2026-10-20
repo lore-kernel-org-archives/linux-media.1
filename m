@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792478308;
-	b=Pq4f08neVpRPiRATaZa0X1QwJnjD4s0mo8VFwIdCo6GYUoWTza8TToCX/HCJE7VvTmqQ
-	 70TDZ4tExl4hLrrKaq96cNHtt4ro/jKbjaY+VMbPPRObfRMwx152jnHaz3R9f8g5EYhlN
-	 1ixxrVAloHBznKUPh/HA7rFqKl4mOvycsQNtGp+7a9RibCmogskA7TboAPF+pDToz6GY0
-	 hX7wMvju+ZAGjN7+OEF/cQe6NroGfUigE8XrcX6hG1jthae2pigqgPvxRgwVBCljFdHSB
-	 ApTGkrpwrZwNKursuZcxhspgbgRnYQm1KXNRNS5hnuTHHUwEVHvGvueekIvLDsqB3Bw==
+	t=1792478314;
+	b=zxPvE+iPmNqWW6Cf4nVZh5nJLXXcPbEjeg3VQSTqxfQPAeNtRm2bHJCYhFAorCBt502s
+	 vFbR8yhdlb+ggLRmyqmL8uVZUS4IeZJqvjAgTRoy2Du40S51tKSiKea+pRFGi3Mu68QIO
+	 wjsf/T4+ZDvgRd5IJBfp3AwODLmU6NREa0vY55O7Qmg+yY6VK4nth+/wM9DTe3d2xJv+V
+	 wIedq30u7z8c9QC313bKRyWLjHtz5GYbnVm5uOwld0fiBYc76Xq/QNHHoQopdQKSA55ad
+	 ljn4cT90FaT5b+n8kw8oZfdou/ahnGWSVyAjg8eKeNUK4rQIS+HcEjzEa0ztwzxZF9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792478308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792478314;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=54nP+hVnBR38qJFAJ37FPqemtxXLBnXTchrtQmC7INs=;
-	b=mIx11jM4oQElQc3FEPAG1jjYLHf4kQMZyQWuz4OdbEmJcXnRRAQRkignOvTgxA4de//0
-	 15UcKWb+Rcx2JiGvXnYgY3foHHSzkEA5NZGqLO06QCMMibHbLbuy2ER3YgsjHVPW6Sakg
-	 rVixg1TZTJ4CltE92r6ZaN6G8Qc8c593al4xqd0muWR6hEh078bS5w1iZqAHFX4FZP97+
-	 BEqoFvqfeGx0PBdM4xp7S3rBwLNs+CSY9y2PrJMXm9OqPUEvyoR5L4oJE2B7M4DCf9lC6
-	 rw4tO0rPdVLBXrRRY6s7VodF894mSaOhh7CZrpdfdfPBBk87NPKfTo2ez2FuLLOJ0iw==
+	bh=ZfCKuhuFLFgY7+lDwr5/B266OUdv6BfsTvR8mFssGTA=;
+	b=0wLZjCA9/Siz+9DErZ7XuuORPkMfFN3HqIYJcyqQxYOj5YIp9+QQuuTLCKNitfuPBMuN
+	 9MN3zvuoE7PMceIjoAeAFCYb4srS0OrCHOKV1MKFT30Igi6l9dly1pq29YdjXU8FhdBN3
+	 UiqIwKlctHWQioDMiCD2vzKmMmE+JJIG4y+vzzVm/PA1M8jb5mcnVXIwGh8L2asVChzwt
+	 QgoGtg9VtX2exWiIbmD38Ao4hyABlOXBB0IekfIKYENLjj1ffrMkulj+Mbhg6sL4knuFP
+	 vuNErY6X9+HVaOQ0yUdqeBl95T0DsRQwB3ZiuBowqLKg0YKkizS8lazs4FuH6YMAF5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Aln6DWWQ;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jyCX5E17;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A723A60A2602
-	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A723A60A2602
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA9A60A262C
+	for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 06:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EA9A60A262C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Aln6DWWQ
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b042c0759so1808474f8f.2
-        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 23:38:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jyCX5E17
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dee593f18so2123051f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 19 Oct 2026 23:38:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792478306; x=1793083106; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792478312; x=1793083112; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=54nP+hVnBR38qJFAJ37FPqemtxXLBnXTchrtQmC7INs=;
-        b=Aln6DWWQ66nyAA9XH0EuCU+6CESveBtk2wAH+eysfQwQxncBnpy32ta5rQJP2FuDG9
-         foMXr68z1yIVgvIA0V6vbJV0ZGqtgO/wNwSP+mOmHw2/CgFj2Qx9eiowrJRrhT/ttb+U
-         uzN9WFHl2ux1CLe7GuIunPeHCivhj+M5O2rNz53CCeloPsLYiPERQNOrsDOAdc6qtpRP
-         ywiMxJL65clx/1iZeHhJFYHAD62irJ/hVko+GSsPoQaMGQPximjG8fLKLYoh/L7LuGj9
-         6WwnEo4A9NPLZ/qrE3RiteOxhMTxWtmYNG+nmjTA+c6zk60/7qSAvHHbKL4ZewVqPcCU
-         3BrQ==
+        bh=ZfCKuhuFLFgY7+lDwr5/B266OUdv6BfsTvR8mFssGTA=;
+        b=jyCX5E17hnjLXAhAwoXKBMXQVYu+tPW2CI+HH0G2ER6wB9MTmmSiAZpi/as4fOdclo
+         kAXxM9PkY4H5JHdjsZ+4Bzx5HpHo2OnrZ1HwgLbj+bPwLnnqf70yEaupd4CLVASzf05+
+         OWSWlR51HT6pmhY9gIzfGoDxulMeZ7F5ku19C7h7HDX7X1ERjFj6F5Vm0iNa7uXV1PFt
+         NYQOfJoQQiaI/ISd6sVZIM0JKsBtHgJSriQUYmbyhsYlwRYCxSYdk4j45W35mPoYQWKe
+         eoBwtsyp9MCCF4vac8+i04nXoIXyxJkMqmbtyDTak7n0J5c3tabeCTmLOTojUJhKN4tk
+         yyXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792478306; x=1793083106;
+        d=1e100.net; s=20260707; t=1792478312; x=1793083112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=54nP+hVnBR38qJFAJ37FPqemtxXLBnXTchrtQmC7INs=;
-        b=lHBGV28Fnh7QXAr7FzNfYTo2AdLwWbCn68S52RT+f5YhANJeaxbreJUosTNUEloLBa
-         bjgeEFs+2S8KapQ/oiF4po3jpB1KpZGFMAk33fUXIhU+bwSznslupiEo63N3VQwiklJm
-         RPvb3FDoBpXHjNsCD6Pofpa9LIJXHzCNI0bmo0Ki69TEr2WxSMmz/J5fKvC/zrZcmPOS
-         cPTgJWqPF4Y/Q22OrIuCyBPQKVXdYRO21/7Mf7Lf0//sbxp6kYzoc9AEq3Yo78uif98V
-         ZJG1H38YTVymil3J/5uc+LFEi6coMQlSCnov1StfHypQNlx8nYy9/jzqI2MIJgs+AvMV
-         +7mg==
-X-Forwarded-Encrypted: i=1; AKwUvBy/IJD7rskQC5IwSUWD5Z8B8sSyGx7ks+oBl9m+RFmvn4AIFzEV0hnVX1eF+JlNOjCljuI2NDdV5xLkSg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvBrMbDjobSGTka0c7o5sh+I2GnMLJnHqK81czPyf//3pAgw4A
-	SWqKAU5VKNzIwHcOQbWIwNNTZKNBtQR3qQarH4dnBSgsWflBY5NLlHqy
-X-Gm-Gg: AYBFou0HtU3PwHmkllu1uDsWVGp0Xgr0YF3NdYrCb17qkzOiDJbu7HStQjVLpJUDWNX
-	Q+BAsf36aZ9nkMPrEHnc0eld5vGetRlhpoXJpLbwh/ordc7VFhHADWuFZ/5PdyvsdWnaYqBFjzU
-	3UrnFO4+qKAhG6lySpNbnCJbAEu3Rt0oK90hqV5wA3Ri19mZlnrjc309fnuTXXTUgI1gnvLexyG
-	HHEQkCFOFVCSODwZk96ALEdQtMqDkOAQUjF7qMIKuLi2+NRcStbTGK45O0n9hc3dWFeajn37Kzf
-	JPmYAQIXeUd2UanpQWG/1I0jj4hyZLNaMEOgKQPLCDK01q0hAHABJv9mFcdXwKdfqmjRhyyNiMM
-	AttXlmcpuy/5ihGF6ZfW4hAmSCqw+/zRw/54t7Ojr1Avd0y+1PBWDVhVhAnbxJjt4WBpocY1ELf
-	mibaSuOrrHt+jaIEgrqJrEoIEY+dFqXKJOhHnAPlewUXUj1jWEhHzNrVp+z6xw6Q86EYiBoCz5r
-	9gkVr/IjS6g7wwl+CVZRp2Ssct2/azhR0ycLlQw0xb5u17oQotzP5+fCTV4YE/wBQqL5Idu/yRc
-	jyc5CpGrRAgtg1tbyjTQTVHw6SuGCx2a+DsuT+v0os4O/k9Gp/MphiZBuS6bacXSenxmZWp+tcf
-	GL3XnCuI914qG
-X-Received: by 2002:a05:6000:1e4f:b0:48e:412:3829 with SMTP id ffacd0b85a97d-48e07fb2b18mr14486670f8f.15.1792478305848;
-        Mon, 19 Oct 2026 23:38:25 -0700 (PDT)
+        bh=ZfCKuhuFLFgY7+lDwr5/B266OUdv6BfsTvR8mFssGTA=;
+        b=kxUTqr6onlk+Au4nfQlXVkv1JEjRBltgm0plESPGLgkBpy77bMfFogHK8BKDXgaaDM
+         BgYW+bXDMW/yxvWWmMUz35Ox/kuSaxfmI3exvKCok0tj9nkqS9xJg4RBoWJGuolE4aQp
+         DF3EKkp4OGVOIu/pmyudkjnBdOghZDvjCxnC7G3oUt0e7xPnbMLL4utE1gstX8Vks3EV
+         J+C30t397KqGkfNTFcHhHzY2ZJFmIGhbECv7nI+AJE8Qcgcq4QrMQtKm8p+MTYyTYnQa
+         r2v0aPXKSsihy0fZBq9B79UJqb7UyYLshlDps7sj6zqBMKRREb43KU06RM+31eVLRymd
+         nMTg==
+X-Forwarded-Encrypted: i=1; AKwUvBxuXFHJwaL3Tv73kcXY3zjpZPxgldnkfVgyJRj0U6ZQdJOnXwPYVVzmjjd1zn2h3tSnp5Ryky4yrotHhw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaV2kk0NUo/HH0kZVLdt8XmwQ62F6RiYB0W7tvVFdJLLY7d8Qe
+	7DOvP6sWOg1riUicguiDugktQ33XhyT7UNFgHiu0qHh7MO/IgZxMyoNZ
+X-Gm-Gg: AYBFou08o5jzFUaOpd8Zjo867e46nXLX6uDMPDnmBqVF3K4quweNnEbW61yoorBi3ZQ
+	Y9e8BHbsioF/q/E+V2oabre7nR2f4F61n0dqSJsW5c7I/7uWyoKhs0xctY5pV+3/fIBqcYbKdzX
+	TGWL1al0J+oTdETlsZiENJR7o8fUrjEGmbJnIQAv/M1oq6jRFZV2V0Sjo7mgivy0H9PQzUN6sFO
+	OX9GxMOAAM1tPX0gS+8rQ9O8oMpkZ/rhceWK3O3bAWp9yBvXGSHYWtr2J1Ztmuq7lSv5vS8k2U2
+	r8zXt+++rxe3onp3eTJYc/HcTvWilOodx8txo4a6OJr7W9kv7hLGbwM8l+lAw3y92/EhfE6hau2
+	pNxbm4k2QL5yuiCIZZW/G4V0sLflCrw8wnKtmKMVhCLZ8QkVjSjtii/0dRBvx1lGJVvToEiUMcF
+	bT5/SdpftZZLEh21kqCHsMzlHIa3FAOAZz9bJgHeV1tx/95yg255AlbIY44EAOyiMiXuhfNmsO+
+	Hneup5aEUoGPQ0aMzCpmeoAFYaf3I+pw/4kDRMIylJpmy+S5OYf2mzdqhwLIxb7Q/o/Fu2HFtkI
+	kQ/iTNwrLjvhAoIa5kczK6ALUhEsINy9EWiX1o9GwTC4KoFkBrsJl6AhLWqy7Hh2huhKBXh91RQ
+	ANA==
+X-Received: by 2002:a05:6000:490f:b0:48d:f99d:a0d2 with SMTP id ffacd0b85a97d-48e07bbe6a1mr21638509f8f.15.1792478311632;
+        Mon, 19 Oct 2026 23:38:31 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-9c92-6501-2169-eb9c-7ad3-f5db.310.pool.telefonica.de. [2a02:3100:9c92:6501:2169:eb9c:7ad3:f5db])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d820714sm3916393f8f.35.2026.10.19.23.38.23
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e1d820714sm3916393f8f.35.2026.10.19.23.38.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 19 Oct 2026 23:38:25 -0700 (PDT)
+        Mon, 19 Oct 2026 23:38:30 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Jason Gunthorpe <jgg@nvidia.com>,
 	Alistair Popple <apopple@nvidia.com>
@@ -98,9 +98,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org
-Subject: [RFC PATCH 2/6] iommufd: Publish successful PAL mappings under resv
-Date: Tue, 20 Oct 2026 08:37:41 +0200
-Message-Id: <10fbbfdbf3a19fff48e504bcf5ec3a74f11bfd7c.1792477872.git.kmehltretter@gmail.com>
+Subject: [RFC PATCH 4/6] iommufd: Keep the pages mutex alive until DMA-buf detach
+Date: Tue, 20 Oct 2026 08:37:43 +0200
+Message-Id: <fdb5d9715d7f278ac24f05246f09703edb283525.1792477872.git.kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <cover.1792477872.git.kmehltretter@gmail.com>
 References: <cover.1792477872.git.kmehltretter@gmail.com>
@@ -115,56 +115,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iopt_map_dmabuf() stores the PAL map result in exp_phys before checking
-for errors and publishes the attachment after dropping resv. The
-attachment is already linked to the DMA-buf. An invalidation after the
-unlock can therefore pass a NULL attachment to dma_buf_pal_unmap_phys().
-On map failure, the non-NULL error pointer also looks like a live mapping
-to iopt_dmabuf_revoked().
+iopt_release_pages() destroys pages->mutex before removing the DMA-buf
+attachment. The linked attachment still exposes pages through
+importer_priv. An invalidation can enter iopt_revoke_notify() and lock
+the destroyed mutex, including when exp_phys is already NULL.
 
-Keep the map result local until it succeeds. Publish the attachment and
-physical list together before dropping resv, leaving exp_phys NULL on
-failure.
+Destroy pages->mutex after dma_buf_detach() has removed the attachment
+and excluded further invalidation callbacks.
 
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/iommu/iommufd/pages.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ drivers/iommu/iommufd/pages.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/iommu/iommufd/pages.c b/drivers/iommu/iommufd/pages.c
-index 0b32c65af..9e9bc6a1c 100644
+index 76d8803d6..59ee68a1a 100644
 --- a/drivers/iommu/iommufd/pages.c
 +++ b/drivers/iommu/iommufd/pages.c
-@@ -1491,6 +1491,7 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
- {
- 	struct dma_buf_mapping_match pal_match[] = { DMA_BUF_IMAPPING_PAL() };
- 	struct dma_buf_attachment *attach;
-+	struct dma_buf_phys_list *phys;
- 	int rc;
- 
- 	attach = dma_buf_mapping_attach(dmabuf, pal_match,
-@@ -1513,16 +1514,16 @@ static int iopt_map_dmabuf(struct iommufd_ctx *ictx, struct iopt_pages *pages,
- 	if (rc)
- 		goto err_detach;
- 
--	pages->dmabuf.exp_phys = dma_buf_pal_map_phys(attach);
--	if (IS_ERR(pages->dmabuf.exp_phys)) {
--		rc = PTR_ERR(pages->dmabuf.exp_phys);
-+	phys = dma_buf_pal_map_phys(attach);
-+	if (IS_ERR(phys)) {
-+		rc = PTR_ERR(phys);
- 		goto err_unpin;
+@@ -1667,7 +1667,6 @@ void iopt_release_pages(struct kref *kref)
+ 	WARN_ON(pages->npinned);
+ 	WARN_ON(!xa_empty(&pages->pinned_pfns));
+ 	mmdrop(pages->source_mm);
+-	mutex_destroy(&pages->mutex);
+ 	put_task_struct(pages->source_task);
+ 	free_uid(pages->source_user);
+ 	if (iopt_is_dmabuf(pages) && pages->dmabuf.attach) {
+@@ -1689,6 +1688,7 @@ void iopt_release_pages(struct kref *kref)
+ 	} else if (pages->type == IOPT_ADDRESS_FILE) {
+ 		fput(pages->file);
  	}
++	mutex_destroy(&pages->mutex);
+ 	kfree(pages);
+ }
  
--	dma_resv_unlock(dmabuf->resv);
--
- 	/* On success iopt_release_pages() will detach and put the dmabuf. */
- 	pages->dmabuf.attach = attach;
-+	pages->dmabuf.exp_phys = phys;
-+	dma_resv_unlock(dmabuf->resv);
- 	return 0;
- 
- err_unpin:
 -- 
 2.39.5 (Apple Git-154)
 
