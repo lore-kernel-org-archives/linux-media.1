@@ -1,60 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573570;
-	b=G5OKu6IIJkkqKhoFIgRVuveghTfsQI5vkKWw7Bf0NQ5C649/5W9NMU9cdmqrXaEXPe4T
-	 dWT0Ay/dONnNM5ZpcZEm5QpxPoehx4fNvTquI5HkTSC8Jq/2vSE17cd2X7r7H07w0lz8z
-	 iVjytW280pamIfQES75+iN23I/43qx+Bj8kNr45rmJQub0yrSlsv30pEUHh7+1p1L28yA
-	 cpfhOSkOvKy64dB2XD0/En48Pwy+G1rEBJ+f6x4Dl1V7rLVy81qKsmzmVSXIql32uqV0F
-	 IEfgIy7KLOdTnCYa2e/3TEe6LInn7swxzh/HjkIFs2w2ZTfpnpNs6+d70Blpuvih5jA==
+	t=1792575374;
+	b=YikgPOQmlpAid7XsBUfSZaX1R5uS3jVwY6Oy+yAHJhx5Ad39owsEqjL4HWMvTNFPD+sV
+	 j3LUCuwZgWi+h2QOG6nPeqijKZ8eg7335Zbjrs2cRjKEXAlbx2fHnSia0IH/+LynbLVog
+	 pQtZsLA67zsMJgXlH9sIvEZzCWsv5e4nAOaTI/KNGY6mjqYpUDTi677bnI4ZyOyAwRafx
+	 GX/lpgMmeewa5tYL+TUXfMYCqGeG/Ryy/3IJMyMJL7C4wHFjWjYDGb4Lh2SgyFb6YRz1v
+	 hNwBw9z+/Rc4OmMVhHkl2CMgbAdKBLOCtlyXuZr7wstqvA55Rao+64o+PstGV059L9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573570;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xO+SlNr5VR5FPJUZivBHkoRlgX7C+y7cd5KZTooj1TU=;
-	b=VayBtjhN7/Km8iqO8BGXQLUad3E+kjJHRCC6bKK9sET5Eyv0cgkpZx4bhUf9G5nU6Gsa
-	 avNWyxVJobNNal0aXcKl3gmcvy3XKyJk80v1dqwFDab4+6eJz5sIum6726sditjLgjFIP
-	 Oj3YAr6WZ6FHaD8vnrPxCcpA1r/HmHBkpqyrRymiFzF4cH96WSOPOyUb3wyv2Ozy0NkX4
-	 zzlIoRUakZyZ1bKEIMw+cqU4XT8F1ia1GQ3BHhQVZin4IIeuN5lD/cxxB+FkZCVmXq+hs
-	 8wWSlTXlaV4HKanEmBkA88C1thm9fUCl1Ba6hPFLuiVv9as8bZwL8l+VqjiYzGQZuAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575374;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8Zx+C5d1JkNk/Z5XCoFYJ/7ryEqDN3JpmcBgMrUTPWg=;
+	b=2Cm0YH7TDDKg3inojw8XG+7ma/W0LBW2vHG9cS9F6JoTOnYc2pmoaZtozt6O81jRRGGZ
+	 ZaoEOFAPlgkzf4uZ3uNPdfHG2K7VwvEHNX77sGEGPHVdvzK6+ZKLSR9CTKODJ/+nQNq4E
+	 GDj8TUoC9S//dqWaJJ3EygAjtT/7KV/vqk59zs1WAZFF9lAQphYrbyGtvVZ1vggHeUYL2
+	 0HAINLFONNVbcX3jLDGFjBkURXuZFzehXBFL9L6cil+IEu4T017ClVCkqKGXl7ctzZkqt
+	 qXcxNRnQoKjwl7ciA5/LaZzH/DlNJEeHbWF6veJrns+60Ca6nrun7etkPL+xDw9qTpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KDy47WBT;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	dmarc=pass header.from=invisiblethingslab.com;
+	spf=pass smtp.mailfrom=invisiblethingslab.com;
+	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=MG77vmyn;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=M0JZENms;
+	arc=none smtp.remote-ip=103.168.172.152
+Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B6F606A31B;
-	Wed, 21 Oct 2026 09:06:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B6F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94104606A323
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 09:36:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94104606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KDy47WBT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792573567; x=1792832767;
-	bh=xO+SlNr5VR5FPJUZivBHkoRlgX7C+y7cd5KZTooj1TU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=KDy47WBT7hhvun0u0FCIMhzCARBZEidsJoNBwRzdHv/5Ax7FpwFjDGOyaPMn5FbXd
-	 JUz+k8ynNy2vv+EpdLcxU8scuwaAuyEd6xSeaFKqqFvWJMH5ex77SJvrsI+kd3V2dJ
-	 5XXavjZA0XLQByINAq5hqnExCiYAt2YkaOF6wikPcmAnOWsrJnxXE80dutCGKDArLE
-	 /Y49uXw1ZnUE/f1xQQeWNjrR/cACGteJsai5BjiVF5iSKIxkJF5q7B3XXBzw506zK7
-	 qWqqwHiuc26XhQ4rI8ptuh/1Si0xAd1B8hMLHONmgis9nfq4MRSQ+g3XHWG9gDzJAb
-	 jQuPfuGbEc95Q==
-Date: Wed, 21 Oct 2026 09:06:01 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, George Neacsu <geocausa@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261021090552.46789-1-lsa.uz@pm.me>
-In-Reply-To: <0cc7330c-d563-41bd-b3d1-992f60ae32f2@foss.st.com>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com> <20261020085200.60619-1-lsa.uz@pm.me> <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com> <20261020142641.24808-1-lsa.uz@pm.me> <20261020181025.8625-1-geocausa@gmail.com> <20261020181415.70007-1-lsa.uz@pm.me> <0cc7330c-d563-41bd-b3d1-992f60ae32f2@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 5a194d521410570634a99fd238ce12a84d135ae5
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=MG77vmyn;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=M0JZENms
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id C59FD140010C
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 05:36:12 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 05:36:12 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:subject:subject:to:to; s=fm2; t=
+	1792575372; x=1792661772; bh=8Zx+C5d1JkNk/Z5XCoFYJ/7ryEqDN3JpmcB
+	gMrUTPWg=; b=MG77vmynarq6066luAqJW8UkkcKc4yLXtQ8HTQ8dHTNXHPvD74m
+	xJ4wVrRhcGQyD5pVTe7MrwM7+TeZzvpdVtjMlYKWT28ALXlezuuoSaxiqcTfzY5H
+	mqNM43Rnil0GjrW2q/3NEr0XXPsC5VoxaJZQrn4Ad9VGQs2UaTUjxJG+GamgOfb3
+	lih8ADXnYuBPBhKE+msRT138zutEDoyn4rdLpuDYnZdA6Too+9GhpSsZu+/gpwn7
+	dWeRpd+0bI375xIwdo3UPnnOJNFGF+mIvXJE0LJNrE9FhJqSpPs2bvngtqx5jrS0
+	PEtP0eBP8l6DjeYCiOJMZSkSOUnVhEncPUQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792575372; x=1792661772; bh=8Zx+C5d1JkNk/Z5XCoFYJ/7ryEqDN3JpmcB
+	gMrUTPWg=; b=M0JZENms8eFz0hsopbfrKrD9ab3/DVT42ZglA9FhRiBf+1qYfuV
+	phBk/P4iGVlvyLa8wlaOAvQiE8/6Y65OEFWanHuI8AifOx652JbLkvZorn1Ne5Tk
+	i3/6wHqh22f4s+Ec9uFgst68dCBTxXRu/Du8BmKKBl5xs8My3xuMg8MGXM8SS+qc
+	qNOtaBw6cSNNsrYJCOPTE1LBOZYxgnA8+IUBMrSVnUQpfLpLkpgC02J7ug1wotXP
+	WdW4h/eNIU+rE0qB5rELlpGrzcfLZ6F3hMwJokEgKD8YU9iXDoSWfbzcFxt45eth
+	rrysXIHHfXREpckkCIJ4AsVr3k3sw395S2Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792575372; d=invisiblethingslab.com;
+	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:Gei6akp+hwUoakPdEjNoNSXNg7Vf97OwVid0SBxzXw2zrFe
+	XClvUpZSABfdKZzS9IKH7w2Z6JQ+lAaKTiLoH/0E0eKanLYSQzFQdpXF2pyBdMDD
+	xZ2yzoInrnXisawQJBXIxydMe4IEy1zNhSg6dbcfisepkbRc7MibSjoeGoNxxjUm
+	66/NB7uRNlYwOYOiP0ACVWWKBY8bSDUcxDEAL8ZJtNEfNHJXNJb7Sx7oYGgZ2KTs
+	8KYv1w7Aof2npreGbk4gLg96uxuMMNXNvmIPNXWZhg+SURyBderxh21HrIWeTrQm
+	ls+tyUIYDdrGAvCODFsPMnaNA5yzIUm7ySWlqFQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:XWbcEMqATNH16sDoz5i10t568sQmmwUzD30TNu+kPCU=:R5m8t4dm71B12YzFzaZCJNaMeQLSk5s5vf9VBDZueFI=;
+X-ME-Sender: <xms:jIfYakxdgRqmvTLHr-hZSzYbX9brLbeQbbfMGIC5xHsJlOFe6dFyYg>
+    <xme:jIfYaq3hqp-QPS0S0ZeVWLOy7fb-sB2r4TrmYfziJNU1cN-niMF031fGJmjmeg175
+    uZNhckEuaN4dYMMQs5chEVtqp8_ORBKCbNDy_5vjxPrc9xsIa8s>
+X-ME-Received: <xmr:jIfYap9ZHRtLi7HjsJ9QPryCREUydlNq0k92ioMQ1V6Mrywluq-ZWi5ZR-932NS-5tPQUaFqZkAEnyq8cFen2vCgTNbL66hdVwvWPTTn-mKTKrdaJ6l0YJZyTOEn7w>
+X-ME-Proxy-Cause: dmFkZTE5p1LkTybyQvb4GLd2y6ERVZq6x/rhMFf20+Er02U+qmODkwgmuqAl5aXzoKWrsX
+    iTfx7Or/klNatBO3jtTPknE4EIGBiY/MiKzDAE9BxZXeXkUrqR5xHlkvggHEJNenrm83bo
+    b9EPOcLqbKB5uIf6ENT2MjVwFNhnPPrZqv3fbQOrb62xGLgzN/QYJG1wbhN7RK4GeMmSd4
+    5YbpZlLgi03GDx0PtdHdaozzCYiKui8XKLdp1W5n+6G07cyKzma/ieIrKVEGEg91Yy4aY1
+    N7TB2ohdGdPM7lu2KsXKzTI8xidKDaaCJrV7KMdlLr/HtWtaC/Q/kZlyXj5J6cbewzrbh/
+    89i0ie3Fk1scyt0a5JAkulsaH4SYnl9B3xFKpVzPbfaFDBn/QlhlHvvhfKa3MJilV3EEGP
+    UrQ0CSq7KwVpAQT0TdzaECii+IjAsOFW0l2oVUA/5Gn310vy10pTgLgAsWWCmasD37mvL7
+    ZsOhBTNxndqIiW+LBL4lhqKxKKkgjQs2eLcPL5JFCRmj3N7yWFIlir0/uQ48QTNA86TUfs
+    i7EO6H3/uQP5//4SEfTfnq7ZZ+Xjf3Xz2agBdSv6Vc3WnEb+K/4FSkqw1CqAWVYuArdkGT
+    4vcL0qWCgNkni+FUQapPwVN/3xaHacu4IBTu+olG9RY44D96eP5KzgIGrMsQ
+X-ME-Proxy: <xmx:jIfYaiq4JHhceenqMD5bXmeCqtYyjFwfTQuX9WtQT32KA10UoNpnMQ>
+    <xmx:jIfYarRVUNnLmwatXE8EUiykkMSulUuk59eBLXfZe73Z1Z42bF0dGw>
+    <xmx:jIfYatPrxd-ZQCdJRhi7tvY_LdPFLeo0-waCLlOV2CYDG3JH1P_r4A>
+    <xmx:jIfYahj3r0IvjUNqT-0QKHmNg0StV5g3voWAE2W3FnmznBmZ4EY8OQ>
+    <xmx:jIfYakLLB_9JwHHIJharIXe6WRapy5MqlQitMuYP-3QXo8VXW-3kAMRF>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 05:36:10 -0400 (EDT)
+From: Val Packett <val@invisiblethingslab.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>
+Cc: Val Packett <val@invisiblethingslab.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
+Date: Wed, 21 Oct 2026 06:08:46 -0300
+Message-ID: <20261021093533.1990028-1-val@invisiblethingslab.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,24 +127,133 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Benjamin,
+Introduce a new ioctl that allows userspace to register an eventfd to get
+notified when a dma-buf is released.
 
-On 21/10/2026 11:02, Benjamin Mugnier wrote:
-> Could we keep it disabled instead ? I'm afraid some receiver could
-> catch all data types and therefore messing up the frame. Better safe
-> than sorry.
+The current use case comes from virtio-gpu device backends wishing to add
+support for guest-owned buffers with host handles (CREATE_GUEST_HANDLE):
 
-Yes, that is what v2 does: the write that stays is ISL_ENABLE =3D 0, so
-the status lines stay off, as in v1. I should have said "disabled"
-rather than "keeps the write".
+* guest creates a guest-only blob resource on the virtgpu
+* host creates a udmabuf from the iovecs sent by the guest
+* guest attaches the resource to a cross-domain socket send operation
+* guest immediately releases the resource (no longer needed by the guest)
+* host sends the udmabuf to the compositor, but needs to delay responding
+  to the resource release request until the resource is *actually* free
+  on the host side, i.e. the compositor no longer uses it
 
-> I should update vd55g1 too.
+Signed-off-by: Val Packett <val@invisiblethingslab.com>
+---
 
-vd55g1 already turns them off: vd55g1_enable_streams() writes 0 to
-VD55G1_REG_ISL_ENABLE at each stream start, in media next.
+More background on the use case with extra links:
+https://lore.kernel.org/virtio-comment/20260903021442.423274-1-val@invisiblethingslab.com/
 
-Sergey
+Funnily enough, gntdev-dmabuf (which is used on Xen hosts instead of
+udmabuf for this) offers "a way" to "poll" for these release events
+on its dmabufs (IOCTL_GNTDEV_DMABUF_EXP_WAIT_RELEASED), but it's unusable:
+
+* it's a blocking wait!!
+* release does not happen while you still have the fd open, so:
+  * you can't just timeout and restart, you'd need the fd to restart;
+  * and the only way to even close the fd is from a different thread,
+    after some arbitrary timeout when hopefully the wait has started.
+
+The buffer lifecycle coordination we need this for applies to KVM as well
+and it generally doesn't make sense to have this as a provider-specific
+thing since it's not related to the provider in any way, it's just
+something we want from dmabufs in general.
+
+Thanks,
+~val
+
+---
+ drivers/dma-buf/dma-buf.c    | 24 ++++++++++++++++++++++++
+ include/linux/dma-buf.h      |  3 +++
+ include/uapi/linux/dma-buf.h |  1 +
+ 3 files changed, 28 insertions(+)
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index 36cdc342627e..1321fee73656 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -17,6 +17,7 @@
+ #include <linux/dma-fence.h>
+ #include <linux/dma-fence-unwrap.h>
+ #include <linux/anon_inodes.h>
++#include <linux/eventfd.h>
+ #include <linux/export.h>
+ #include <linux/debugfs.h>
+ #include <linux/list.h>
+@@ -185,6 +186,11 @@ static void dma_buf_release(struct dentry *dentry)
+ 	if (dmabuf->resv == (struct dma_resv *)&dmabuf[1])
+ 		dma_resv_fini(dmabuf->resv);
+ 
++	if (dmabuf->release_eventfd) {
++		eventfd_signal(dmabuf->release_eventfd);
++		eventfd_ctx_put(dmabuf->release_eventfd);
++	}
++
+ 	WARN_ON(!list_empty(&dmabuf->attachments));
+ 	module_put(dmabuf->owner);
+ 	kfree(dmabuf->name);
+@@ -537,6 +543,21 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
+ }
+ #endif
+ 
++static long dma_buf_set_release_eventfd(struct dma_buf *dmabuf,
++					u32 fd)
++{
++	struct eventfd_ctx *ev_fd_ctx = eventfd_ctx_fdget(fd);
++
++	if (IS_ERR(ev_fd_ctx))
++		return PTR_ERR(ev_fd_ctx);
++
++	if (dmabuf->release_eventfd)
++		eventfd_ctx_put(dmabuf->release_eventfd);
++
++	dmabuf->release_eventfd = ev_fd_ctx;
++	return 0;
++}
++
+ static long dma_buf_ioctl(struct file *file,
+ 			  unsigned int cmd, unsigned long arg)
+ {
+@@ -587,6 +608,9 @@ static long dma_buf_ioctl(struct file *file,
+ 		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
+ #endif
+ 
++	case DMA_BUF_IOCTL_SET_RELEASE_EVENTFD:
++		return dma_buf_set_release_eventfd(dmabuf, (u32)arg);
++
+ 	default:
+ 		return -ENOTTY;
+ 	}
+diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+index d15b2b31d3c9..07b4a589a793 100644
+--- a/include/linux/dma-buf.h
++++ b/include/linux/dma-buf.h
+@@ -429,6 +429,9 @@ struct dma_buf {
+ 
+ 		__poll_t active;
+ 	} cb_in, cb_out;
++
++	/** @release_eventfd: for userspace release notification */
++	struct eventfd_ctx *release_eventfd;
+ };
+ 
+ /**
+diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
+index e827c9d20c5d..566dea778ad0 100644
+--- a/include/uapi/linux/dma-buf.h
++++ b/include/uapi/linux/dma-buf.h
+@@ -179,5 +179,6 @@ struct dma_buf_import_sync_file {
+ #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
+ #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
+ #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
++#define DMA_BUF_IOCTL_SET_RELEASE_EVENTFD	_IOW(DMA_BUF_BASE, 4, __u32)
+ 
+ #endif
+-- 
+2.55.0
 
