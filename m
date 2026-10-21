@@ -1,106 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594869;
-	b=5R6OD0knDf3sLAfU9fFzL/EGRA4lWATOgl9uPZWULhNkClWVSGZLKWaxiOTpmZOqJJWl
-	 7ntMX7rKABZT771SnSFJoy+V4u31U87dJ6QzeUrmIrj7gqAEMJZDI9R9NWNoG5g0b8h2D
-	 LLAqxrE8wpan9MXhv4ln96nmMnUVEUKOF7a7hamIQN4emvsB+jtV2bENvhOTA0LAJfzoA
-	 k2FYc2V0+kHWGKyQmsR89XxiuZvzd7WISJuyaGQCYZdA4Rf8u/wOt3jzrjFBh8ij3mzik
-	 tsVS0cP+9YPUWRVK1onCf5/qzkW6SaACeEBRX/x1lehlsNPRVAG5aN6RYJ+3XuO3eqg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594869;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=l5YmJOrwJgNdPors4hwaMvEw7jPwZ//sTr6muol287w=;
-	b=XaQAB6h+4vR1myK3zfIUdTfWBAajbsVE2lpbDm3cF4A8Y/bEpeyO/gWDAZwCln/QLL2e
-	 V52HOOjxGrLpjKMzN2hvVEBWuyO3Xw9tTsfEZiHCJ6RCtiXidiowwUBKeQtt70yzjoQ1S
-	 UIe0O/XBG74ncXk2rIfol6URUIumi+9I6J+7WhAj0lx/2JoShw/d7io63g/WptF5eMhHR
-	 EvgPmU26PQZriwxMoFrfSgTaVDjfY4XCeCAWSTDHvWuMT7CxuvKAlShj9aNurI1Gyjvgc
-	 2OqMxXmSSC/d3zmefmNW2eW5ZXGaOQh1iw8ZkthgsvTYcnDNgmel+UwIVNwL4Cgt8rQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	dkim=pass header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=SNfikhEb;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792595089;
+	b=ty1xanr2S2EO0TEM+Nk+xc/o3rJpVSjOWrqyyIS0qJ0pcC/JswU5YU3zsSMXxHTKJ96Q
+	 whN+0Af/XTxkRQd1H8pGKMERWQm8FXLttERrk8Z1YGFrgkQnR3fEZObRbHsF5YTwkINVQ
+	 UzW3W7tvpKNVz8omxDNJwIECa9cQP9RuKXBD4xyje0QdCAX+IpAK4RRdzGqpm4GdK50AK
+	 //ZpbV7xSfyuYIqMPh9Q8oNPLJFtXyOrKVQBo1PJ6hf94Pkavw4tamBINrF3mJFyDUcU+
+	 Q7zYO6UewOsDHjjVrgldrwgz6GNnpC0cjVQONuBADdo0bNvYYhzwEDQCHMc1iqc5thQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595089;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=dzuTLeaQKuRFlQK0YFsx1ESeTVWWU7D3TB6SunqFq2c=;
+	b=UbmHnG/cYSz3wRPLvokidIo9F2mYWSIEf3xVj/pi//vRd0pbMGacMXRn28dNZxMkUTds
+	 k0nbCLf8YVSi/tVEX2vJ1iUfSceaFe5Tz02XaPK/Go9kmeN2J5Fgssu4YjomBoNzryrb8
+	 apcwUKd0YC8JDwKbcZd/msscbRGUFlRH7Mcp+Bee3kSdeogD3qOUkidg2WZFaozriOijy
+	 iMIFXZHtIKyFkdM0ghAPpvS46xzhlKOcE9uBb1hwEnFF2Cw/qhucJhnw4dh69atLCacbb
+	 k+aGroBrc3i6v5357GzRwY5YSdZPFcz50PFdZN3yk8I9izPkCEdUr+cpv03jNmL1y1Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fAPOGKKJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.53
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970D4606A31F
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 15:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 970D4606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373CF606A319;
+	Wed, 21 Oct 2026 15:04:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 373CF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ziepe.ca header.i=@ziepe.ca header.a=rsa-sha256 header.s=google header.b=SNfikhEb
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f30660e69so52260385a.0
-        for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 08:01:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792594867; x=1793199667; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l5YmJOrwJgNdPors4hwaMvEw7jPwZ//sTr6muol287w=;
-        b=SNfikhEbH9QUIAPD8zgF6gBEb3YRzM7HYTihFKf5TM3kPasOVzdC7DuU6I5nJZHW1A
-         iomGNjKUYhQ+HiDPKGRa/M8EyF3FMnkdDth17W2AfTclhZqdUAiqO76yQ+rrk6ey93GU
-         D/uoieoGan7l0u8KWOrSbaxT79Ps6th+14rW6Tc5hUaPjKXgS1uWSzUF+jeEf1tr6d2R
-         Ehk+YWVWiQw6shc9Jxm7sagMIDEvlZf0dPUv0nXDSdHgKsC1CTgrpPQdv3mQP0VXgGhV
-         S+mmifHdwVkelVZ4pSbh4EGpZ+08yJFeJQD0P7eUu51B2J47VQlKqA1fH1ZYOGUVs9rW
-         IECA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792594867; x=1793199667;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l5YmJOrwJgNdPors4hwaMvEw7jPwZ//sTr6muol287w=;
-        b=NHyh8lL/oIKcoQUcF49XQhwR7k71Ntx3tX55e+8uKUVv+XThsEvxph/RYDNdO4df8l
-         IEvGIQlDsE5etEUgBwe8DnjaqHcsHp+cHqh6eYXPROzI/rAqngAbSpI+lYwlDBY8pwfV
-         zd0DnpHYzufeyKvjVgyBXWwJhIFsi6nwKrRico47u3wEnQ8Yj8lKkUXFCLFMnWmNz+ew
-         Kh5hjLMlG40I4xuyPAE12YuW9Qw+yBntdRN243mbhKp8a39ROiIAlgGPBhJ3unBMwazv
-         BbHXA2yoF+j4+4A+nw6QYm0JizPoeKlE4OFf4RcQTYbVrQhXd6292W9kPWOOMWbpI2+x
-         AFSg==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Z34w2cx9ZQfofB76+jSRpbgdo8WrOZFh34BtZFCDA0pjjDu0hs2yV0CdnP5ALUlUbnfbo2p7LNrRig==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLgWO9tum8I3A6cgrOPJcWxFp71ucGoAj9kTYK9wPeoytMmcL2q
-	wuUJyiXTf90nD/ObgGNb5bj2n5UnAT620xlExDzanFN90UoEnF+zdtu3lWPpn5uos90=
-X-Gm-Gg: AYBFou0XywWZPvlp8LQxMz0p2077VRY+0M9PZ4Svy8APGuTnvreinr4oOJAABXNrUEW
-	rJ8FLC7gxa/nQvbdr012YkeBS8WdybIoHBWnt8vRdHhjDPbFFW1CcMJwSll5wfp/CPyt/FjA3st
-	q00CoIo12ruGm4JZPf0ejx6EPW3xIT19+SUQO5mcnW9ibGcZAbQ6trpsdDMOfGq+pRVSaVzHsZH
-	YHazDcG1vx+t/02njOuG0iQcX0pXDPDY10/u/EqK4slzWWYhYOlVyov1K6y6i11mgQJBoxbcQSx
-	d88AgY+OUsL+TQXCFkPiguAm0cudezd1KxCM9tFMyCx4DskzFjpgj+7IGiQXHxGQ5ooUd9lMkuV
-	wS3+AF61jGgh5Z91J6xI2h3TDPKf/pSjYze+bD7cJ5CYh3YbSZx7sogwrTpdegy3en+KcN1Ddf2
-	RDViZcQUD42bZX+GajMpwtHbuCVfn1ipsqoegf6b4NuPWoT9jis5TuRUzM1JMctnp5qJWaRYcpJ
-	pkY2GNHQ6sDC5wojACo1bgJdhRGguRjpUwJ0IeKjCbcyjG+jlcmpNprmYq6JxkBemdEWNKuF05Y
-	Vz8/nzCp66nd6/dDkzmax757P0x+3S5+gLeBgQ==
-X-Received: by 2002:a05:620a:29c6:b0:93f:3863:268a with SMTP id af79cd13be357-93f57f23259mr459988385a.37.1792594866402;
-        Wed, 21 Oct 2026 08:01:06 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56c6e030sm276704185a.1.2026.10.21.08.01.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:01:05 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xJXoO-0000000DwuG-2ayD;
-	Wed, 21 Oct 2026 12:01:04 -0300
-Date: Wed, 21 Oct 2026 12:01:04 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
- freeing
-Message-ID: <20261021150104.GT14213@ziepe.ca>
-References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
- <20261019183146.GH64621@unreal>
- <dc91d903-139d-4253-83f7-51a78dd4530b@amd.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fAPOGKKJ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f82rNHIgfCxTIKYyuKzXWTtP6DFrxlp++uSjOyeMgj44sJ46X2YJPz7c+pl0JwcY2vw6BOiGigsIaiIhwqU1C5bR7gTg5/96+k3xnya5uz+2gnwHfKyTUZU8m+IMLSnw0nv+i87rrXZ0srWcoaTxqnOBS+c2gRtzGYk5rg0YUGe4bb91bi5qCpRoawFij+wRBdJSBjhQPMQDD5TcuWcXYZ2R9ozecdHzu31LG1OKP9ctrcKCTRDWJH3Dp2uf9XPnJ5WhRJN6iztjQG6ZPCXNvRm1UVlEmXUGcDFtkeb0sZ6yOgOQsKak+PVFhHLZQ6dXVME1GfKMxY03uJYMLvmoLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dzuTLeaQKuRFlQK0YFsx1ESeTVWWU7D3TB6SunqFq2c=;
+ b=HQveOluOhhRxvs6k8MtfOBm9dtdC3wN6ft77LcS02YIZseiviVIZm+hi4FRwB6joxxQSHzyNpnFyQqGqBZV3DoMQzeFQw68UyI7ofqSlV1TGKnqFTwuoTfZ/i+75kotms6m+jkokmJsSUimsdc3RsM6KJDdmz3m4v9shD+XCxyuLr7FpXVrd91HAiA/k19QPlaSJmLttkjrB5kxpAVIcTTll27S50DRqNZBsDB9BDzC5Lch87xTnTIPEDL9tz4ygJaP5UV+jAfEsuAB3e33wM1lA5E7fhm3dZWVTkBhTKsfsBF7Tp64+WE+rQCEwP8baRyJ8rpfmpKHwCx1GWNw0PQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dzuTLeaQKuRFlQK0YFsx1ESeTVWWU7D3TB6SunqFq2c=;
+ b=fAPOGKKJ+5qCfxBUkIPu97toe0Kg9R5HxaJDRPjQi4s4A0moCVNztfIt7poxXJl0QHU+6SgKBnVyp/PvE+ekCKldNFKwF8dhd9R39yFnCbMj6Y7nckFFNNY75+ldgFrRyjbbn9SlBxzYHEBg0IjGrsDzMIIwS2iUxfOJbNrcC+Q=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB6728.namprd12.prod.outlook.com (2603:10b6:806:257::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Wed, 21 Oct
+ 2026 15:04:46 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 15:04:46 +0000
+Message-ID: <feabcd15-0874-460e-bcc3-3c9dce29fd39@amd.com>
+Date: Wed, 21 Oct 2026 17:04:40 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit
+ properly
+To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ Yury Norov <yury.norov@gmail.com>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, Arnd Bergmann <arnd@arndb.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
+References: <20261021095512.1345191-2-phasta@kernel.org>
+ <20261021095512.1345191-4-phasta@kernel.org>
+ <ae7ae97d-cac9-451d-a0d4-bd52d0f063d4@amd.com>
+ <0968fe5558e744f6f1ae2bddbbc075d016372e25.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <0968fe5558e744f6f1ae2bddbbc075d016372e25.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0125.namprd13.prod.outlook.com
+ (2603:10b6:208:2bb::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -110,67 +105,162 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dc91d903-139d-4253-83f7-51a78dd4530b@amd.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6728:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2662f3f-ecd0-43c6-3485-08df2f84a4c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	q4uvE9GK9qCkIDmQcT/BF+L8J839Fa+kKU2Pe9H1WoIBH9XCZA1wo6uW5z965PPupXAX2sBI97LLZfl/DaROhrxIkmsNXlNPEZjm9m3ucXJ3pCB2UK5Bys+DQkNuamk7/NmZpz5oWTSPdjQPzSVqj+fGmNp/PiEVhtnEEy8ZWkXaoavC+bEkxJKsrs9rtsk1k9TzdbnIv4cD8Ch+DZoBFj00gZm//0xK48dw/KsSYekoFVn6UMt+xaAXRvbw6OmR892KMMiWVT8Ra6MHiT1+VNo37ebHRbjRjmP942MDbAAxIChPyFhPGrPZBqPUuejEs85cIY14A/B/j70rqgWQuHFjp6zNv0Hn33lrtGU4mYh2/dyJC1Mw9IT7PyW3RiZ60j2CwjGUNXwIDrVJTQrdd7F22HAd90UC/otEh/alYFClU3/MKuzTpAyShBlwc87AHF7gj/Olvas2qXCWjHiQv0Ts+lpTM2ZXHr6IQvG+ne7PPGGJoE27kG9AGNudD/oen6C/PKYP08eqDUTpeq5MdE8ZK7YFk+gtK5KTLDbAObB+kJI0WVDBzfVFn1A4QWLPFq/yxp0MDvnN8fRe/zPt58lTn/waJkLQ/QgxfyCGkbTLXid7m5uvg5dh5J1WgofPLktuUINqznDBye1XXRewiWcf7WiZQLHuHnFiAr9vIsY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OUVjdGZlYjF6bFpmenVwNnM3Zjk1dkMzY05yK2VRaUZad1RSY2J1TC9yUjRM?=
+ =?utf-8?B?SWVkd0JkdDUwTnlUOGRhOVhmRjNSRmxHZjFHN2lOZkZSUHAzL3YxMENCNytq?=
+ =?utf-8?B?d1N1QjlWQ09vM3NadVhzcFF3UXIyRGlwem9WSWxwSUx6OFFUVDd6MlNtWkUw?=
+ =?utf-8?B?eUs0K1pXS0hYZ0plLzN4VEN1cDVrdnBzbUVGU016K2JTdnI0WTVORWM1SHJL?=
+ =?utf-8?B?cFNaaDlTaHBIVFRNT3hQNnRKMXpiMmQ3RmdmL0w4UUk1bzFpOG50OFAyVjd1?=
+ =?utf-8?B?WW5VdjBVNTRKZWRrK0hoY0prQVp1R29xTFJpNGsxNU5uaWxtWGQxMkxQMVVB?=
+ =?utf-8?B?Z0FPODEvMGRCWmNZakFNRWhiZkd6blFKVnBLRXZrZkJMTDVkRkZxeVYyZUhZ?=
+ =?utf-8?B?dlJwTzNpbVlBL0FmWVNiYTZWRjlSVzRHZm93dEN3elQ1d2ZhV3VrdGpYdTBY?=
+ =?utf-8?B?NEw4bnVhODN4RFU3SncwS0dIRlp6SEJXVnA1ZVB1RVZ1K3lVazZLVEY1Tmho?=
+ =?utf-8?B?QmZVaDVpaWhicFNaUkpCR0t4WWhjSk9URC9RSnpoTWd1eWVWOVFrcXBXamJp?=
+ =?utf-8?B?aW9CSXE0ZVhldTJiQkZMSW0zcW9PdXVsZjZGTHZSZjdHUWFoOVFOUHMwNloz?=
+ =?utf-8?B?YjE4STNnaDdiaGlZWndMdExRUkNYaGN4bDBrUzM1LzZwTmNpK1c1V2JlOHhK?=
+ =?utf-8?B?TDZZMVYzWG9RUk5QdFNNYm9vdFFUNVpTZjR3WW4vdnYvTHlQelRnREZJZmF1?=
+ =?utf-8?B?NWNKanpWZjBxcU5kK0FWeWhwTi9xVFVDcUxJbWhLb0Y2c3dtWTc5SlpwYXlF?=
+ =?utf-8?B?eUx4eFY3KytMb001WDVRZmQ5OVFLVmF1dWUyRTV0TDRyNzdGWVptVFQ5YUZx?=
+ =?utf-8?B?YlpaNUdzVXZkdDFxNWlrakFVSlMyUERoU3RlMDRDRVB0N09OTzlYQ0IxSTNo?=
+ =?utf-8?B?b0dFcW1nU0NFeE1RcTdwWVhUQnp6NlFpK3NvdHVlU2kvN3dNVzlqNkNpY2tx?=
+ =?utf-8?B?VDVpYlhSUVhKd0VWOHRQNG5oMXUxRTRJdUNoZjJWOU1JRHZmQTQ0eU5lYkdM?=
+ =?utf-8?B?TEJUZm9tRXNlU1AvZ1hHVVRhRmN3WGV2S3RQUjB5d2dlYmlrZW1jN2dDV01X?=
+ =?utf-8?B?S2xUa3I5b3BUcXBQbkk0TnRIdFp4TUFaK3pFWVBwUGsraFBPNEJIZVZ0enk3?=
+ =?utf-8?B?cE5NbE53ZC9EK1MyWExIVFN6d0pUMGlneE5QUEc4dFdvckk2S3lxL0k5S1Vn?=
+ =?utf-8?B?ODlCYkxlcU5heWU0Y2VCVG85ZjNFQ0N2SDJxcWlwcW1LQ2VOTklKb1dlTUZG?=
+ =?utf-8?B?S0hMN0l3b0hXemE4bDhtSE9EL0hpeHZkU3RKUjhqSE1JcHorR3JHZG83dEFD?=
+ =?utf-8?B?MklHc05vbGNyQlRGWmpCeWVYN0UzblFOV3dqd1RQWE9WSUdUclg0MGc1TnpX?=
+ =?utf-8?B?U2p3cUdDd2pjVW5HUEdVV0Q2TGZwY3NibllzdEQxYlBNVDZ3dnFKbWJlMFdS?=
+ =?utf-8?B?OWFZZEZ1SmltMTJ1bnRkOXUrdFFEZXNwaS9HU1IvaTlkQUE0bTRnR0I0WjBo?=
+ =?utf-8?B?Nm5qdzhLNWhzbmkrMkNUSFN1c2p2dkZ5TkNRdXlLbG05K05LaUZ2Rm53ZG9a?=
+ =?utf-8?B?S3hDUVdMSHZvN1llMGdrL2ZjaVJ0OHFOL0RJMDRlT3VHaWdpRldGVjFpMGpJ?=
+ =?utf-8?B?TkJnWkF3ZE81amI3S2hOUlM3YXovNEtidGhjV0pKS1NnYWN1aitZUlJ1VDlq?=
+ =?utf-8?B?ZUVwZmhwanBSckdqYXJNMy9oVS9NRmhMWmpaVDRCNEpRUEZuVHB1cytmNE83?=
+ =?utf-8?B?d3pQck1NNUpmQnZSSDVVYTl0bSs4WEJpdjNYUkhSbGRKaDI0RVpMZitYUlNq?=
+ =?utf-8?B?OXZXV09ERm80c0l3YzB1TUFTSXB3M3pBbG9wK0MyRE1LYXJOMzNrZ3hlcnlK?=
+ =?utf-8?B?cE1YblAyNHpkRURwZ01Rdjd5cGZYWVNBR3FzNjNucE1JU2s4VG9RYXZqVEFz?=
+ =?utf-8?B?eGEveTFyUjhxVE03dGQwKzY1VkJvWEhYRURPLzJtT1Z1M1IzRE1xbThVaVo5?=
+ =?utf-8?B?aS8wWlZNRWVZQ01ZMGdUd25GWHlXUnl4Q3VDNmpWS1VGbVZ0SEVLanRQcDNq?=
+ =?utf-8?B?cExkZ0hsSS9KZnFHNWJIM0ZLKzNjMVE1cFNibFJXZTIwWGgwMUZTV0VOekdD?=
+ =?utf-8?B?N1dnTTFEUFBicDQ2ajVoa0d4aHphd3JwR3hjSjdFTWlsSG5VWCtHM09Lb0FL?=
+ =?utf-8?B?T3huUkFQd3ZuYy9FcVp0THA0Q1FIaDV3MGRDeDllNUg5WCs0TkQvMHFia2s3?=
+ =?utf-8?Q?S/SAFXU/EY7M0PLimk?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2662f3f-ecd0-43c6-3485-08df2f84a4c9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:04:45.9087
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O9M9aas0mY5hoOPGWuwp2khD7Etj6ieEQxWubZQCCqvoDh9Y9KdLNKYOWFtuwJkB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6728
 
-On Tue, Oct 20, 2026 at 08:42:18AM +0200, Christian König wrote:
-> On 10/19/26 20:31, Leon Romanovsky wrote:
-> > On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
-> >> From: Leon Romanovsky <leonro@nvidia.com>
-> >>
-> >> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
-> >> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
-> >> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
-> >> map/unmap cycle.
-> >>
-> >> Restore orig_nents from nents before freeing the table. The helper
-> >> allocates the DMA list directly, so nents retains the allocation count,
-> >> including for chained scatterlists.
-> >>
-> >>
-> >> The reported kmemleak output was:
-> >>
-> >> KMEMLEAK LEAK: 2 driver-related leak(s)
-> >> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
-> >> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
-> >> KMEMLEAK LEAK:   hex dump (first 32 bytes):
-> >> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-> >> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
-> >> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
-> >> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
-> >> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
-> >> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
-> >> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
-> >> KMEMLEAK LEAK:     0xffffffffa1ad21a8
-> >> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
-> >> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
-> >> KMEMLEAK LEAK:     0xffffffffa138f8d2
-> >> KMEMLEAK LEAK:     0xffffffffa1396abe
-> >> KMEMLEAK LEAK:     0xffffffffa1331a5f
-> >> KMEMLEAK LEAK:     0xffffffffa13320dd
-> >> KMEMLEAK LEAK:     0xffffffffa1ad696d
-> >> KMEMLEAK LEAK:     0xffffffffa1acecc7
-> >> KMEMLEAK LEAK:     0xffffffffa1acfd17
-> >> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
-> >> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
-> >> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
-> >> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
-> >> KMEMLEAK LEAK:   hex dump (first 32 bytes):
-> >> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-> >> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
-> >>
-> >> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> >> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> >> ---
-> >>  drivers/dma-buf/dma-buf-mapping.c | 2 ++
-> >>  1 file changed, 2 insertions(+)
-> > 
-> > Reminder, thanks
+On 10/21/26 16:52, Philipp Stanner wrote:
+> On Wed, 2026-10-21 at 15:47 +0200, Christian König wrote:
+>> On 10/21/26 11:55, Philipp Stanner wrote:
+>>> dma_fence_is_signaled() can return true *while* the fence is still
+>>> signaling. This is fragile and has been involved in at least two bugs:
+>>>
+>>> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+>>> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+>>>
+>>> The signaled-bit is set under lock-protection but read without it.
+>>> Adding the lock has been rejected on the grounds of the lock-acquisition
+>>> shooting down cache lines of parties that merely want to check whether
+>>> the fence is already signaled.
+>>>
+>>> Make sure the bit can only become visible as 1 once the callbacks have
+>>> ran. To achieve this, read the bit with test_bit_acquire() and set it
+>>> with set_bit_release().
+>>
+>> That has been suggested and rejected before.
+>>
+>> Background is that the signaling bit must be visible before the
+>> callbacks are run or things like dma_fence_default_wait() (as an
+>> example) just break.
 > 
-> I'm waiting for anybody familiar with the code to review this.
+> dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
+> {
+> 	struct default_wait_cb cb;
+> 	unsigned long flags;
+> 	signed long ret = timeout ? timeout : 1;
+> 
+> 	dma_fence_lock_irqsave(fence, flags);
+> 
+> 	if (dma_fence_test_signaled_flag(fence))
+> 		goto out;
+> 
+> 	if (intr && signal_pending(current)) {
+> 		ret = -ERESTARTSYS;
+> 		goto out;
+> 	}
+> 
+> 	if (!timeout) {
+> 		ret = 0;
+> 		goto out;
+> 	}
+> 
+> 	cb.base.func = dma_fence_default_wait_cb;
+> 	cb.task = current;
+> 	list_add(&cb.base.node, &fence->cb_list);
+> 
+> 	while (!dma_fence_test_signaled_flag(fence) && ret > 0) {
+> 		if (intr)
+> 			__set_current_state(TASK_INTERRUPTIBLE);
+> 		else
+> 			__set_current_state(TASK_UNINTERRUPTIBLE);
+> 		dma_fence_unlock_irqrestore(fence, flags);
+> 
+> 
+> That function evaluates the flag under lock-protection, with full
+> ordering. The bit is only ever set under lock-protection, with full
+> ordering.
+> 
+> So currently, the bit is 1 before the callbacks ran. It becomes 1
+> before the callbacks ran, but dma_fence_default_wait() can only see
+> that after it took the lock, and it can only do that after the lock is
+> released after the callback ran.
+> 
+> So behavior for this function is unchanged, unless I miss sth.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Yeah that argument came up before and no it is not correct.
 
-Jason
+> Actually, this barrier makes things more robust, since things like
+> 
+> if (dma_fence_is_signaled(f))
+>   ts = dma_fence_timestamp(f)
+> 
+> could misorder the accesses to the signaled-bit.
+> 
+> 
+> Do you have another example of what would break?
+
+Please search the mailing list. We had the same patch like three or four times already.
+
+It was even applied one IIRC, but yes it immediately breaks things.
+
+Regards,
+Christian.
+
+> 
+> 
+> You see, the bit sometimes being locked and sometimes being lockless
+> causes confusion.
+> 
+> 
+> P.
+
