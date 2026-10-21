@@ -1,120 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616605;
-	b=e+EIkyEPWQyzoIoHRbVifNQ86rCkIEMKDxsgFS8LGCAO38me+HLQn/V7nbQ+3ukADskf
-	 cC7OCkhT8TVwWC1+aJbb2motYAaVdwWD3x/oV+rEjvyVp3nbajS9+ti29RKkew1SodtIB
-	 lk7yPow6gjm1jThJNvDpTKA1XxKzVkWNHuPdgV6ynLqxRUhmzPXOFzZbvxEwAKcv4d2Dz
-	 K0VDfem9MvylI4hYVVKZaKL58Jo5GY+rhc01CHfzUVNhhc9HJw87O3ByuHcR0wrPKLtKc
-	 cESUYEYWOU+cRHwdugOK51+/Kx1CRq0P+1ILQmXlHOgL1qAp0GwONUreuOlYwFozlzA==
+	t=1792619168;
+	b=Iw+erZpJauX2sollFMQx40Daen/55n8xHNzY3qK9AnHXcdANmzypNZ6xDY1e/Muk/jH2
+	 3QsCCgh+hCw+psbOq48XXQyDH8V/zpOrs9IkiHDGO0vbYKZ2r842tyBsS3MBNpsDYmwCI
+	 q/M6iTGWvZd98O4L5b51a0O79HF156PbVeRSMMzaSJiD+X5w7jZH3HiMSuZjmNeWjeaT9
+	 HkbpAoTlVb9afIERADxN9ES5Lrc1D+PHtsAEzSfs5fiseehiVrdJPhX4BRLyGqCu6Uzj/
+	 4r37X0LEpGJdpBxjCj2vI5uK1Fy7HtpNoOow+feuTivBVReE2oUi1MGol0cfCTXxsRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616605;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:User-Agent:MIME-Version;
-	bh=rvo1oLlBWLz8SC/wpkS1QHxq0y/4tjxHxfXQ9wd7SCo=;
-	b=uTI8jFzL/AU4F38lEwwqHYLZxSuk7H15tLk3fTyIG4XrXzsjS6YZFyEehJtfg9kA7vk9
-	 wBsoc33G3cJfSQaRHQ8L+gVsud6FaaBHIY/E0rUTRhnmHbvSHo4M6TdCWvLMatOlUk5ai
-	 c8wvgMadDKMkulqM+OdLV7JR9RQq/tuYbvCGfc7doURKd4ig8fb7ONfQRRlvs/W9A2UsX
-	 curZLgJCkfx84Tp872hYudLgt7Sau57a1bbrJpJ8BKzhG+go95Xwd/zKymv1dZqK+2dXU
-	 vhYOGgSOemi0gRoZiDbgnyQMiGrnVWCTJREXR/KLcGNzogIn5FCx7xl96T4mP/A3IOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792619168;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=9dqKRrfFGg+51GIVDQboPbf0ry89rz5bp1TrPxjcVJg=;
+	b=X4fiFynzY60JtDn5UjiW2CxFFRq9NaZn2iWJocNWjITlG7eP6sqRSLgTduI7A/d7STqR
+	 hqMwM1vC/v4fSqpOnbYqWlsKI4JnnNN4prJulz3BkCV3XInf9m8mlonjnahoZynR7qy94
+	 UTjvQv5Xt9MG3t7Y97Uc7v7RPoH+ahS9W03ZtEogPjrIo/382mGKaiRb7sxZRzEfmnTKS
+	 CtXhPQ9bAMXcyN66P/cjg0Hd5gB9Q3MtAURukYhu8HdzWzrlBd1Tb7bdAwIrQiTaBZdn/
+	 riFa3cuyzFnMxvru7Kp+r82Bt42PpIRGX4YRUpRfg8TRiFsHablDvlh3LkDjd+8PjHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=C0DTCZN2;
-	arc=none smtp.remote-ip=209.85.219.51
-Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="RDTd/wG+";
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5368606A339
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 21:03:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5368606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D553606A31B;
+	Wed, 21 Oct 2026 21:46:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D553606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=C0DTCZN2
-Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91bb5795792so12812866d6.2
-        for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 14:03:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1792616603; x=1793221403; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rvo1oLlBWLz8SC/wpkS1QHxq0y/4tjxHxfXQ9wd7SCo=;
-        b=C0DTCZN2vLmyCbYqSnaxEAbZxHAULbVCgf48PCOOh6ea4a0jVrOtBfVd/M5+F/NFJp
-         ygzGlb9ZZqoH6U1EsqmzXcI30quO3Rru9pNr3hdPR4swrPYZBA142hpNUl+SvjGd8+WO
-         oHdoEC16/CVI3hBAygTRlM4CwPbH1qvR7d3XCLPj+qhEIyY+3K0cASqryDrZxpyQqi2/
-         CJ2Tp2dEYFnrem3Nc8HsQUo7yz73L/jFWK1nAefPMXjf04O0tvZHHHLWl2YcGbELUlQi
-         TJE8BgCWIGF11/57JzaUrHfzIF8IslmL2GVNxeOJ0t483h0f0+vcy8MSMXn7oDIIfExS
-         p78w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792616603; x=1793221403;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rvo1oLlBWLz8SC/wpkS1QHxq0y/4tjxHxfXQ9wd7SCo=;
-        b=vbF7f4/hGS1WDUYj2BiJY9jbzexCIqmY4jg9bdldrzsTPCgbKrDjZFwolVRS2iktVe
-         ZRSwQzuH+Bzp20H35SbJLDrXzu6D1Q3xowCbH67ncGGPAZFTGSNGyvcs9ZeCRJPlX87S
-         xWEXKRfTICQlvrhIe3mbfnEJnzd86A7Xap7UPnx7Ze3RKG9024SERcBUGuFKrA9bzKIt
-         SkYucyHoTXZUkL14kzrp6ayC2QN/3YIMfGyiwK5KxikXsIoHnG2N5+wEhK7QwjuWZ2Ud
-         dGjRduN5RwUd1qBmZF1ZZO18f7E2rk/w59o07ujxrdy08c+xHvWVhN03DXplWdo+/wCT
-         FREQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5Dwu6EHzij4nwDeqP4atHJb0x0hEO6tNrtkSCt+J401el5gNxKa7Zlo47g48ZZY1pkvW5YHPwT42dNg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCBaP5wQa0vAN8lxbrjK+YyNcSwVsMsRZ5YdJCFgN3AJhQqcOY
-	yBvS4DRfVOD8HUDM4hhDsicRj048wQFlEw6Vm5iDRZTom0V83T+QPFytB30jgeXOkxg=
-X-Gm-Gg: AYBFou0rtAiD3OpwdmI9iikBiNTHQm0vpFNOWccP0EMGsazmOKwyaCnhPbhjSZoeWmN
-	YDHWx1UvHSAv8EIZD+dTTRrbQQlXfQox7xKYC1qpLH0VhKerOp29m93U/9Po7Y9rnSfDnVQRQ4b
-	VYHoiOrK0TnJh3I5kT1Y+JbLofV92i84pd/qRnmLtOC89YexT1+gGJ9R3fcyI7dSxGgUyV7jyjx
-	pfml2PdB3yhJoSVE8OrMpZlGvOL57DFbvYVmw2wzGINtA/4/vo8cIoBanrRWtJu9yoX/wNNwbFG
-	0wyGApFXB1Gt1ITqKZieRY4CsO6lrVsUL21Rzxl5+zrEA8E2IwwDGkZELlcOJizX8jq0bTBS8e4
-	BiJC+1T7U9tPdouFsJrjgmwR6XYvvcykvB5zWYY7pOMKoDIEtYcKtlyjlHl8tzyuGVC0r0wdRmW
-	iWawlvui6Rqphouiz4K9CufA0BhTDdK2jiBrNygsmmN3rXJXLhNaZtVHoQmzJaTz+3B4xG11gZW
-	WpCIbwtjf+Q4p35bhflzGwxZCEuEl6OdvYg+tOP2w+G9XV76vmSCm3W0CfSrgnMjhpixFGsI5+Q
-	DThOxQ==
-X-Received: by 2002:a05:6214:4606:b0:914:45c3:7920 with SMTP id 6a1803df08f44-91c12ee4515mr55915706d6.31.1792616603478;
-        Wed, 21 Oct 2026 14:03:23 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10bd5d8csm33919576d6.24.2026.10.21.14.03.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 14:03:21 -0700 (PDT)
-Message-ID: <3084b9bc0d4b5593d2bfbfecb0ce272cb813ece9.camel@ndufresne.ca>
-Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Tomasz Figa
-	 <tfiga@chromium.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, linux-media@vger.kernel.org, 
- Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Hans de Goede	 <hansg@kernel.org>, Hans Verkuil
- <hverkuil@kernel.org>, Benjamin Gaignard	
- <benjamin.gaignard@collabora.com>, Tomasz Stanislawski	
- <t.stanislaws@samsung.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, 	linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 17:03:19 -0400
-In-Reply-To: <20261021175900.GG15441@killaraus.ideasonboard.com>
-References: <cover.1792392288.git.kmehltretter@gmail.com>
-	 <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
-	 <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
-	 <20261021175900.GG15441@killaraus.ideasonboard.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-juzhAGcbo9MJ5wmh/cX5"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=RDTd/wG+
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B29B222B;
+	Wed, 21 Oct 2026 23:43:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792619035;
+	bh=CFbNroF+MDRDj4J4znQgjUoh7M33r7h77T64ddF0ueM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=RDTd/wG+bct1YVgG0jPkZV5ktcrRJn9Y5oWMlKi9y55aXUvDoFQTtlR4/BNdJe5O3
+	 Kv1kpVzT7kWzrJ+VyYH43Ew5lcU8jWkNUVMcVImnXUsTxwuYBR9FqOglQ2299JxJd0
+	 +ZwIfyN7JJmnz9otTXw/U/3DzLLk5xNMan9bxXGo=
+Date: Thu, 22 Oct 2026 00:46:01 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 10/16] media: dt-bindings: sony,imx678: Add other
+ Starvis 2 family members
+Message-ID: <20261021214601.GA170861@killaraus.ideasonboard.com>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-10-75fcdb4163f3@raspberrypi.com>
+ <atc9Uxt_hsyYu2o5@kekkonen.localdomain>
+ <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,80 +72,168 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntD2C-7UTKX2Srusn_Tzx5KS3tnUtPP+piMYbUKZP91Rpg@mail.gmail.com>
 
+On Tue, Oct 20, 2026 at 03:39:52PM +0100, Dave Stevenson wrote:
+> On Tue, 20 Oct 2026 at 11:07, Sakari Ailus wrote:
+> > On Thu, Oct 15, 2026 at 04:57:36PM +0100, Dave Stevenson wrote:
+> > > There are multiple members of the Sony Starvis 2 image sensor family
+> > > that have the same hardware requirements as imx678.
+> > > Add them as options to the imx678 binding, rather than duplicating it.
+> > >
+> > > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > ---
+> > >  .../devicetree/bindings/media/i2c/sony,imx678.yaml | 38 ++++++++++++++++++----
+> > >  1 file changed, 32 insertions(+), 6 deletions(-)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > > index 098f72544216..027872a134f2 100644
+> > > --- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> > > @@ -5,7 +5,7 @@
+> > >  $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
+> > >  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> > >
+> > > -title: Sony IMX678 Sensor
+> > > +title: Sony IMX678 and Starvis 2 Sensors
+> > >
+> > >  maintainers:
+> > >    - Jai Luthra <jai.luthra@ideasonboard.com>
+> > > @@ -13,21 +13,47 @@ maintainers:
+> > >  description:
+> > >    Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
+> > >    image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
+> >
+> > You could rewrap this while at it.
+> >
+> > > +  It is part of the Starvis 2 family of sensors.
+> > > +  Other members of the Starvis 2 have the same hardware requirements, and
+> > > +  therefore share this binding.
+> >
+> > This paragraph could be rewrapped, too -- the limit is 80 characters per
+> > line.
+> 
+> OK, I'll rephrase it so that it makes sense as one reflowed paragraph.
+> 
+> > >
+> > >  allOf:
+> > >    - $ref: /schemas/media/video-interface-devices.yaml#
+> > >
+> > >  properties:
+> > >    compatible:
+> > > -    items:
+> > > -      - enum:
+> > > -          - sony,imx678-aamr
+> > > -          - sony,imx678-aaqr
+> > > -      - const: sony,imx678
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx585-aamj
+> > > +              - sony,imx585-aaqj
+> > > +          - const: sony,imx585
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx662-aamr
+> > > +              - sony,imx662-aaqr
+> > > +          - const: sony,imx662
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx675-aamr
+> > > +              - sony,imx675-aaqr
+> > > +          - const: sony,imx675
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx678-aamr
+> > > +              - sony,imx678-aaqr
+> > > +          - const: sony,imx678
+> > > +      - items:
+> > > +          - enum:
+> > > +              - sony,imx832-amr
+> > > +              - sony,imx832-aqr
+> > > +          - const: sony,imx832
+> >
+> > Should we also have a sony,starvis2 compatible? Just wondering.
+> 
+> I deliberately didn't based on the discussions Jai had with DT
+> maintainers when upstreaming the original binding [1], particularly
+> Conor's comment:
+> "Remember, having distinct multiple compatibles for the same hardware so
+> that you can induce different software behaviour is not something we
+> typically permit. While we do want to support all use cases, it isn't
+> always the case that devicetree is the right place to do it."
+> 
+> Sorry, but when time is limited, IMHO debating dtbindings just isn't
+> worth it. I've therefore taken the simple option.
+> 
+> I do have patches that implement that compatible and fully autodetect
+> the sensor[2], but I'll keep them downstream.
+> Doing so means that we have one common overlay for connecting any of
+> the supported Starvis2 sensors to a Pi.
+> 
+> [1] https://patchwork.linuxtv.org/project/linux-media/patch/20260520-imx678-v3-1-8b5f9676486e@ideasonboard.com/
+> [2] Currently the top 2 commits on
+> https://github.com/6by9/linux/tree/mainline_starvis2_v2, but that
+> branch will get rebased/reworked.
+> 
+> > The driver isn't generic still as it requires sensor specific information
+> > to be passed to it. CCS solves this with CCS static data (via firmware
+> > loading mechanism) so there are no driver changes even if the capability
+> > and limit information can't be obtained from device's registers or the
+> > device requires MSRs.
+> 
+> I'm assuming you're referring to the patchset as a whole as I don't
+> believe I've used the term generic in this patch. I'm happy to swap to
+> "common Starvis 2 driver" where appropriate within the patchset
+> instead.
+> 
+> IMHO Pushing the config to firmware files doesn't help, particularly
+> as these sensors don't have a common ID register and so identification
+> isn't trivial. It also makes life more involved for a distribution
+> maintainer to ensure they're picking up the relevant files, and that's
+> assuming that someone is curating them.
+> 
+> My aim with the series was to reuse as much common code as possible,
+> rather than submitting 5 separate drivers which are identical other
+> than constants and arrays of registers. Jai now has IMX676 working
+> with this driver, so that would make it 6 variants. Refactoring to use
+> a firmware file adds complexity for minimal gain, and you'd have to
+> special case IMX678 so it worked without a firmware file to avoid
+> regressions.
+> 
+> I guess the common core could be refactored to be a library, so that
+> you could minimise module size by having the sensor specific config in
+> a module that depends on the library. You're talking of saving a few
+> kB uncompressed though, so that would be quite extreme. I'd be more
+> tempted to have individual Kconfig entries and use #if
+> IS_ENABLED(CONFIG_IMXxxx) to conditionally compile in the config to a
+> common module.
 
---=-juzhAGcbo9MJ5wmh/cX5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Once the raw sensor model gets merged, I want to explore creating
+helpers for that. Most of the code in this "starvis2" driver is not
+specific to Starvis 2 image sensors, or even to Sony image sensors. I
+expect there will be room for refactoring and making writing drivers for
+raw sensors much simpler.
 
-Hi,
+In the meantime, a starvis2 driver seems fine to me, even if drawing a
+boundary is difficult. Register sets for Sony sensors constantly evolve,
+they're not really designed by family as far as I can see.
 
-Le mercredi 21 octobre 2026 =C3=A0 20:59 +0300, Laurent Pinchart a =C3=A9cr=
-it=C2=A0:
-> > It sounds like this series focuses on uvcvideo and vivid, which likely
-> > means that 1) alone would be enough to fix the original problem. WDYT?
->=20
-> I think the dma-buf API doesn't give us what we need. Cleaning the CPU
-> cache through end_cpu_access() when the producer is done writting to the
-> buffer is right in some use cases, but not in all of them. It assumes
-> that the next consumer will access the data through DMA, which isn't
-> always the case. What I think we need is to track the state of the
-> cache(s) in the dma_buf, and perform cache management operations
-> accordingly when needed. In the uvcvideo -> display use case for
-> instance, the dma_buf should track that the CPU cache is dirty when
-> finishing CPU access, and should be cleaned on the display side before
-> performing the DMA. In a use case where the producer would DMA to the
-> buffer, cache management would be skipped as the dma_buf would see that
-> the cache is not dirty.
+> > > +
+> > >      description:
+> > >        The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
+> > >        variant (IMX678-AAMR). The variant-specific compatible describes the
+> > >        exact sensor variant, with the generic IMX678 compatible as a fallback.
+> > > +      The same applies for the other sensors in the family.
+> > >
+> > >    reg:
+> > >      maxItems: 1
+> > >
 
-I also second this as the only viable option. Its not only about uvcvideo, =
-but
-any memory imported by a driver doing DMA (which is not also the exporter).=
- That
-includes udmabuf usage. These days, cache artifacts are visible with Intel
-display controllers, and Intel mobile GPU drivers. Note that GStreamer prop=
-erly
-signal CPU read/write using DMABuf sync ioctl.
+-- 
+Regards,
 
-For most Intel laptop user with GStreamer 1.28, these example produce artif=
-acts
-on movement. To me, the solution is to track the cache state according to t=
-he
-access signalling (either userspace or driver), and let DMA user/consumer d=
-ecide
-if a cache flush is needed. There is a obvious challenge in keeping this st=
-ate
-coherent whenever there is multiple consumer, of if some broken application=
- do
-concurrent write. Result for the last will always be undefined, but the dma=
-buf
-CPU cache state should not be undefined.
-
-UVC reproducer:
-  gst-launch-1.0 v4l2src ! waylandsink
-
-udmabuf reproducer:
-  gst-launch-1.0 videotestsrc pattern=3Dball ! waylandsink
-
-Nicolas
-
-p.s. since Intel GPU these days is also affected, you can swap waylandsink =
-with
-glimagesink and you will also see artifacts. One may blame Intel, I believe=
- they
-made the choice of performance over correctness in absence of capable HW or
-dmabuf signalling.
-
---=-juzhAGcbo9MJ5wmh/cX5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCatkolwAKCRDZQZRRKWBy
-9Et/APkB+aV3rNqA9frRLxXO+16dYuS0kBW1ojM4JNmBmGIr6gEAo6QGPTHCgiKQ
-72TDoedSkF7QsuqeQOHdxaRy+atLJAo=
-=WHwY
------END PGP SIGNATURE-----
-
---=-juzhAGcbo9MJ5wmh/cX5--
+Laurent Pinchart
