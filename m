@@ -1,100 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.135
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792585470;
-	b=cXfvSToysED58sJBQj9aXanQEjA/mw5rpA7CXw7YtalQWrjgtCARjWaIpPVJN+HNNU7v
-	 nzS5hv39RjxsNLUcsFHoMTTXb9KsE+H3uvfE1xKilZpZlj1j2VQ7AXWahvBAxJx+39HYd
-	 Xv4aCO89D8c3JorNyiD+9SQgaW4p2YPz5XYDQKTP5j2h4tklCTRVA4v30FeWFY840hNSw
-	 A6/YNuoaIgoKuv7Phc9Fp5f/wpxCfRvhxosSsmSv6O3a2GoPVsHR4x2urBJFIK13Bp84z
-	 oFDkhjoZPZs/i4pEHrpLecmOXnm2PLYb2KiXgeT8zKmcTOfdJBxyPygkUI8gJgAtZuQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585470;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
-	 From:To:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=40SwkDKo3tES88PTfUDX/yfqgk+oXXMktbCFBoqWC0g=;
-	b=4CuH98O4rhLDnHoxHf068lZ4lEcYkJLE4N3YZObK8LXhs9ngZ78LBcIjkUWHORAYMUmt
-	 JbdCbBOaC2/+FkTU8UezsfS6Uvdu0lEmi/BuyrTB0QpEgglR2JnE36sGR+Nq7115yvbCF
-	 UKf2vN8EKhxCqiGwyUDt58I5277mj0e9+OGfWHFnIyaIXGW1HYCOOhUuiD4MVm/W8zp+C
-	 MfQElEUnJSrGJCFBYvOW9/g34UVTNVbaZaVdMfqt1b2aQKt9I4ls1IwL+RKzZwdGsEE4n
-	 MWu/SPEFSjvjQuZjDFLG8suUXm/RbSjAo/3/R7vp9+eeR7wpmmUC6LNp/AN34MGawhg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b="TeMYwz/1";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.101.135
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022135.outbound.protection.outlook.com [52.101.101.135])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792585574;
+	b=xVU6KlDFxfCAJWLvTN26CPYIWusktIUxmvV4rqHS+dO7ijlFe+hLzh3BklpgORpZAsW3
+	 svHNKugxhAAntTYW1DIRiW/H1MEbvUJF+Q9o9q/g8Zna/jPPHSQO1MSWQ047OOZ6Q0dFQ
+	 mqAJxM9gpNQiQpAnXfWVdHsMNV7M+TwlmTKC43a6dCAApufI8L+kiKRYVSYIFSJLlEvDH
+	 q1IOIHUH8w39cCP+AjWTFfUMaYhn/NRmpNMml3Z5VqNqCBZsrjg91A+LX8Lq6fbPBnRVT
+	 qpAGFer3DfSYpJxAVfa+PCzV34DSxRLyaoGExZlsXbJqA4DDdjrXCpvfZw/kWMoakgg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585574;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=QtJHtGxiuuSplMT1l/sJwhZELXk+QFrGXQ7/NQ9Eg1U=;
+	b=kZZNM15Vy/wt5DXDfT9A4Mn4VGtbmFl+WKfJk7Nf0RSFNDFUlXZu3x7RC5yurevKfgxb
+	 z4+eq2C3Bh20d7fP9pjzTc61JNhhZeCfKrSSlQbaH37FBrJR5u91im4gvdfo9OYMtEQpU
+	 b/SRfpQPdqDEDo3v1YbV4ItRmjBkm34CckaADSXaMMj5qXh+Pp2qIXUuUs2feSdgNXQoM
+	 2bXJl3d6sGIdrXkMl1V4kMj+wVCB4+iq+tH7OV9/giamqWHq6nsa9P78TCUdcEravu3QV
+	 frrsgGhjjljKYwGzQVqiXcxXGcku6EGUIXKBX1Rg13EO3ImuTuCs2rUy0rw/OSTiGFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YEa9g4ey;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32800606A31A;
-	Wed, 21 Oct 2026 12:24:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32800606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6304F606A31A;
+	Wed, 21 Oct 2026 12:26:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6304F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=TeMYwz/1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oP5XodsvapJS1cYHohtztkUna+QV84NMYvO/RybihAFC9Y9D+/ihyPoOEAA4YFv/axK/AUoKzl1HUefCC9+zcZz6/fF6sCo0UHe7mHA5VG13FfpLuCQ1Kx2P11BphEyqUrIZVynw5PZYDDz9E5S5eXcfhpWBqMuIsOLhv/BUha7173unDZ/TZiZsZSfO4FM7DasBMJ/rgMKrfZYo67mRGAW75FOz0KpGrH3L400bSRnqyxhievEGFpWowug25jZFLnMZ3KysqBHlHA9xI1jZM/e+Z1FoxjHCZTIIVWDMnCGUeiYOEQ0l3lAvqq2tL5BOAN49G4kTYMhj2KWvatB5Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=40SwkDKo3tES88PTfUDX/yfqgk+oXXMktbCFBoqWC0g=;
- b=lZ33MnziGrAlr3+McVdk4gN2UNEJ9PymU7sRnOuVZmmA62DEGhA5ijoUY2mDhmLMfHXI19uoT7JdHjQ+anrvMOamrMZYLmjHfuB9tAv3muljA2IziFHiolyPLXy2eMaUjXrZ8Gq5lijdSsoBxHGmtVR0iTE4BvQCDqxz4UpN34th0w4a6wmgdsGwm8ZO9QF8FEZjIrhWTiZT896h/zuNGhoh/JNaii7NxkbthuSP3/CNncgWtNOdgTqzJmm2IlFRBiU/TH87yk4n0rZOINQxVDhFZCcoAAtXXt663z5LIPbfuy/Ut05W48p0TIRmlSb7wIqEuOEsRI7vHrKxNXKKyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=40SwkDKo3tES88PTfUDX/yfqgk+oXXMktbCFBoqWC0g=;
- b=TeMYwz/1Sg3y5nz9ViOqUy9Rby6XWPsEoK4efKAiKwdB5ltYzbaOd4zRoXjKfhhs21NPppx+Tw6ap6SJatzcFeVtYdu8MpO7m7mfCC5ay+PS5aiesw0LVb+QQuKMdPkJMCyfaecq2lr9ETBRgr9sPIXr7GAnVjAOIHAMj0UoAf8=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO8P265MB7831.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3b3::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 12:24:26 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 12:24:26 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 13:24:26 +0100
-Message-Id: <DMAIIIJ57A3N.GXLM3L5IOAPL@garyguo.net>
-Cc: <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-arch@vger.kernel.org>
-Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
-From: "Gary Guo" <gary@garyguo.net>
-To: <phasta@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Yury Norov" <yury.norov@gmail.com>, "Rasmus
- Villemoes" <linux@rasmusvillemoes.dk>, "Arnd Bergmann" <arnd@arndb.de>,
- "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Paul E . McKenney" <paulmck@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261021095512.1345191-2-phasta@kernel.org>
- <20261021095512.1345191-3-phasta@kernel.org>
- <DMAI50AJ10UC.16G4TCC3VAM0J@garyguo.net>
- <56108c0554e92191d2678a407d7d8102b9b304b3.camel@mailbox.org>
-In-Reply-To: <56108c0554e92191d2678a407d7d8102b9b304b3.camel@mailbox.org>
-X-ClientProxiedBy: LO4P265CA0210.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:33a::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YEa9g4ey
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D451E9A4;
+	Wed, 21 Oct 2026 14:24:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792585443;
+	bh=K8FmbkbS46sNxyeC4kNTb2kAx+1z7zpuf/3raYlLZQ0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=YEa9g4ey3hYS2N0fi9A8UzcAuaVQt2h++jIczHGb63QyZGAi2KFzOLmFibVCYsKrM
+	 60Ia+6ODk6o331ZyWiZLJ2IRnnKcCj/T5sxM8Z/K6NCzXhE5WNj9kYmk4gKYkAKBjb
+	 INZoQnABnMMgnunWcQ8R/QpWvrofa4jXIqE/oP9Y=
+Date: Wed, 21 Oct 2026 14:26:08 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Tarang Raval <tarang.raval@siliconsignals.io>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	"jai.luthra" <jai.luthra@ideasonboard.com>, Philippe Baetens <philippebaetens@gmail.com>, 
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <atiuUGeAL45qkLEX@zed>
+References: <20261015-mira016-v7-0-828c931c5550@ideasonboard.com>
+ <20261015-mira016-v7-2-828c931c5550@ideasonboard.com>
+ <PN3P287MB182974880896B859770FEDDA8B9B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,126 +67,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO8P265MB7831:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d284c7b-26e9-4e17-1277-08df2f6e3f49
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|1800799024|376014|7416014|23010399003|56012099006|5023799004|4143699003|6133799003|22082099003|18002099003|10067099003|261009223027099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	2okQ2gEz10GI+z2nlTSgrYjwzTUKBe1glOCIbdKWJKBJv5FLfV4e268uZPGM89LMN+DngEJehpjKqyJp4otzQuruGR+KzHncSQev9hEBQO2qfb6W/nL0P73mvjX4W6y/vEn6KpvlgJzOiNI0hF45u2I39gEx5se3bt80m/6AU1CZhsak0j4cYaIyO5VR8tno2hrC7eVJEFvl21DbgUwCa2zZBI1f9EireUJHqVjxrUjEGvWaOxDEihz+VRnOycpzRxG+jQEmrrtuPVOCR2Pe09E+93PLDUObTHFJ3bC8rlNhNbX+kCz8w+2c2kLBLQmo373Ozl8U6nap7mDtIb3Oy/yL4XRtZdGFS4/8G14mgxyHXF9eE3TmPHyPiW4Erv3GE6IyHhi1/zjlof8jFgiIjO6aXLyDFqm0IaaEFGsbUeSfbkc23jkBbpBNqPtfzfuQphq6EW+BliFpiI0c9hHeifCBlmhBNmDHT9Za0bM6Jg1qDPhtUu9xVxkBwfpxhULDecbDIzBLsfZSOQDONDO7DqElFZi3rM0HZjYbEvttq+5xc4Q2BB4awQ1M4rBBg0rZy/hvFKBPJazHuqGtI2+GVMBKMrQph8uu6vd/NbyGq7KNu/j96awMu7IJFmKgOidG2KCVy2eqrj4f0ms50WqWMhSBnb/R9V+grZjNjLcF5vZrYjRaFb6YSDabpVxSk+eyoryUHEqxDbz3/+hnuOundA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(1800799024)(376014)(7416014)(23010399003)(56012099006)(5023799004)(4143699003)(6133799003)(22082099003)(18002099003)(10067099003)(261009223027099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?enliQW5iS3BJb3pGcmkxUG1oZDh3VGVmNkRKZGo4VlpzVGRFUGVFVE0yaFNr?=
- =?utf-8?B?MkJYdE5LYjhscC96QURTTmx6eXY4SlJpcTB4cHBrNjJFUUdpRUM5VFlJejcy?=
- =?utf-8?B?eXE4R3BBM0dDZkltbS8rRmhZMHVnZzRFRmRoNVpEa21tUGl3RWxBQkVqZTBQ?=
- =?utf-8?B?bWhjL1F2anp0QWdvUUZJb0hGS0lEL2RuWVRaTncyMElGU3gxeElHb2E5aXhT?=
- =?utf-8?B?cTBTUHkrN1dndmJIRGE2MnorRW9WNThZbFhpOGhMM3hjZC9hdURmYzBRa3Nk?=
- =?utf-8?B?blhJT3NvKzgwMTY5MTR6TmRDcysvaUQveEZXNTFrdkZTTE5mMVkxTi9ydEFK?=
- =?utf-8?B?UFpFeENoeVEyVzJkRGMzbUE5cVJxNHh6RFJocDBteEk1OWMvbWpWRUdCdlZr?=
- =?utf-8?B?akFQZG50TUlXa0NxMmJ3YkkrQXVzVS84c3p3bGdlMkNOQUFJWFVRTnh5QWdW?=
- =?utf-8?B?YU1lZEZDaVJ3V29wVFIxN3BQa3RVa2M4eXpoUWRDbHJrREo0NXZWbzg2VW9z?=
- =?utf-8?B?VDVVTVQ0M29iQXh2SHpuaTR6YTRxbENrUFFaN1I0cE82RzdLQk13TWZZbHpU?=
- =?utf-8?B?dTVyR1R4TkVNb3hUM051ZDkyUnlIV09DUnhWa2lQSEZPelROVFdrbDJudlJv?=
- =?utf-8?B?dVBBZzRzQnF1Nm1XZ3RTRnN3amd2SzluMUxZV1podTRtM2ZZUzI2dmVSb0pF?=
- =?utf-8?B?dWVxNHZFTVFpaEdLUDcyb3EwMUtETDBiTzQ3NTdjWmdUdTdnTjhOWlFFYTF4?=
- =?utf-8?B?RzYzcWF1MkNuTjJGWTM3UU96NkE5d3lzRE9jNzJFRk9PcXNPZmtJaG10NEZo?=
- =?utf-8?B?c1ZxdG44SFpSSmdvUi90bXl5MnZQdGxPY0l4NTNUUVJSdnVScFA3SXEvbndy?=
- =?utf-8?B?UUxsS0NIaWpaTU1JTlNqanJpNU5NL3NvSC9MTDlCODJ5a2F0YmJrNW9sR1Qx?=
- =?utf-8?B?ejZoaXhRYmI3YzVwaHBva1QvWFYzbUk5UVc0MGJvOWdVNHpIZVFTWUVOaS9H?=
- =?utf-8?B?eFRLMjBGQjNndjRXM05nOFhSaS9mQStndTJhbG5mWDdiaWRuMFUyMFZKbzZY?=
- =?utf-8?B?UVhEOTh6SC9YcUJmY3hoVjBzd0V4Ukg0L1d6a1FYSnFRQmJCMnR6aXBjQjJO?=
- =?utf-8?B?bzRnVFMrNHpXTmhNV25aQjRjdmhEMFpzNG1idzYzdHZjMTdmaGR0SGNCdTJp?=
- =?utf-8?B?THMxaS8wNDdJM203anI5YlpnaVNyMU1sZEFnNTl1VGpLSFZ4aEFTWUdLT1FV?=
- =?utf-8?B?MHlHZUxyZVo5YTFZM1lwUG5UMzJXcjZMS2lsRWFKZGdCZ3lGSWJiSUtGNEhk?=
- =?utf-8?B?TnVWYzN4T3ZEYVY1bkxKMjZvUUQvaHAwWnpUM210RFBFTTQxQTdLQm40WVdk?=
- =?utf-8?B?UzB5UU1ma1IyeU1tR0JaM092RTFOeHhDdW9NalpEWjBORnFWdjNMTTE3UkR5?=
- =?utf-8?B?Tlg4dWpvYUczQlZ2NlBlSWdUM2lqbjFHUytobUF0ZnZBdDZMTm13K2IvWTdo?=
- =?utf-8?B?eTIyUFE5NXZ0Rk5sZDc0NDFXZ0hadjBVQTMxNjB5WW0rNG9LMC9pZEY4RVF2?=
- =?utf-8?B?R3E3RTNkdW1la1FDVnNYZVphcjB6TFRxMHY5MENFbEd0K3FOWFN4eDZhY2VN?=
- =?utf-8?B?RS9Wa2VtalUwdHk5STR4RllYdnF6UEtQSm5qTGVPN0tzUWpHRFVTVzd4cnZN?=
- =?utf-8?B?UHdqb3IwTC9KdDdSUVJmNC9wNW5USjFUR0lCamhhejF4SUZJQlhkN1FGWlky?=
- =?utf-8?B?S1FuVXRxSjMrWXRKNkt3TWY4cktaR1YwV2hMUW1UVDFyRUZuRFZIeis5OTM1?=
- =?utf-8?B?MnVySExFRTFpbTdEWVlJNEw1QnJCUHpMN3JlU0JrQkdMUG1NVW9td3ZTdXp0?=
- =?utf-8?B?T0dBNWV5ZWZOT0lHcENUT3U4dmxYKzhrai9iZmZaQlQ0SXYwU2MvOUYyUkhU?=
- =?utf-8?B?QXd2WGRpWWk5dUlhQjA4VmE3NFhsK1Vtend1bFZLaGVQQ1lwdHI3UkphZHdG?=
- =?utf-8?B?RVBxejA2eitMSlJadU5YT1VpMW9oUWxnamJvdERDOTBjdDB2TGR3QmRvYnpF?=
- =?utf-8?B?dGFHU3VyWU1XR1RNc1V3ZWVyTGJoTDNJc3B6MEJrQUtsYlFQakVRaHUwSzFI?=
- =?utf-8?B?N1R5Um9vcVBuV0pIVDl5T1orcDNGdDJNT1lrMW04aGpRbm9sYUJDTEN6cU5M?=
- =?utf-8?B?aFg1eHJZeUcvTWdMdW1FVjZRYnlGYncyT255ZHhLV1BKTFVVRmc4RUt1dUls?=
- =?utf-8?B?bFNFZTQwNERvWmVOM0srN1JVYml2RWJPd2krOTZqMXFiQzFkL3IxU0RUbXpT?=
- =?utf-8?B?dXN0bHU1NEtSWXVpMEZsOVMxbkZjNVpEQUlnMmc5eDJ3V3VGakZlUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d284c7b-26e9-4e17-1277-08df2f6e3f49
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:24:26.5356
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: weWK80ahSgSW9DbwmLk2/8ZckpWePl0YJSAF8JPdFhX/XjSaANK3x0v+uX4+npOHBsziYXrnF7TjxuQ4jcp2Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7831
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <PN3P287MB182974880896B859770FEDDA8B9B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
 
-On Wed Oct 21, 2026 at 1:17 PM BST, Philipp Stanner wrote:
-> On Wed, 2026-10-21 at 13:06 +0100, Gary Guo wrote:
->
->
-> [=E2=80=A6]
->
->> > +/**
->> > + * set_bit_release - Set a bit with release ordering
->> > + * @nr: Bit to set
->> > + * @addr: Address to start counting from
->> > + *
->> > + * This is an atomic ordered operation (implied write memory barrier)=
-.
->> > + */
->> > +static __always_inline void set_bit_release(long nr, volatile unsigne=
-d long *addr)
->> > +{
->> > +	kcsan_wmb();
->> > +	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
->> > +	arch_set_bit(nr, addr);
->>=20
->> This is just wrong. There's no code here that gives you the release sema=
-ntics.
->>=20
->> kcsan_wmb() is just an annotation and does nothing. wmb is also not rele=
-ase
->> semantics as it does not order LOAD->STORE.
->
-> What are the other functions here then even about?
->
-> /**
->  * test_and_set_bit - Set a bit and return its old value
->  * @nr: Bit to set
->  * @addr: Address to count from
->  *
->  * This is an atomic fully-ordered operation (implied full memory barrier=
-).
->  */
-> static __always_inline bool test_and_set_bit(long nr, volatile unsigned l=
-ong *addr)
-> {
-> 	kcsan_mb();
-> 	instrument_atomic_read_write(addr + BIT_WORD(nr), sizeof(long));
-> 	return arch_test_and_set_bit(nr, addr);
-> }
->
-> Where does the "full ordering" come from? I suppose implied barrier
-> then means it comes from the architecture's implementation. But what's
-> then the purpose of kcsan_XX ?
+Hi Tarang
 
-It's from arch_test_and_set_bit.
+On Fri, Oct 16, 2026 at 10:29:51AM +0000, Tarang Raval wrote:
+> Hi Jacopo,
+>
+> Sorry, I overlooked one point in my previous review.
+>
+> > Add driver for the ams OSRAM Mira016 sensor.
+> >
+> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > ---
+> >  MAINTAINERS                 |    1 +
+> >  drivers/media/i2c/Kconfig   |   12 +
+> >  drivers/media/i2c/Makefile  |    1 +
+> >  drivers/media/i2c/mira016.c | 2358 +++++++++++++++++++++++++++++++++++++++++++
+> >  4 files changed, 2372 insertions(+)
+>
+> ...
+>
+> > +       struct {
+> > +               u8 n;
+> > +               u8 m;
+> > +               u8 cp_div;
+> > +               u8 otp_gran;
+> > +               u8 gran_tg;
+> > +               u8 lut_del;
+> > +               u32 esc_h;
+> > +               u32 esc_l;
+> > +               u32 esc_period;
+> > +               u32 byte_period;
+>
+> nit: pll.esc_period and pll.byte_period are never used, so you
+> can drop them.
 
-KCSAN doesn't see arch code, so the kcsan_mb() and in fact
-instrumnent_atomic_read_write() both are annotations to indicate that this =
-is
-conceptually a mb() + STORE for instrumentation purpose.
+They are anyway calculated based on the PLL configuration and will be
+required to support multiple link frequencies.
 
-Best,
-Gary
+I wouldn't remove them if nobody really insist.
+
+>
+> > +               u32 data_rate_mbps;
+> > +       } pll;
+> > +
+>
+> ...
+>
+> > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> > +{
+> > +       struct mira016 *mira016 =
+> > +               container_of(ctrl->handler, struct mira016, ctrl_handler);
+> > +       struct v4l2_subdev_state *state;
+> > +       struct v4l2_rect *crop;
+> > +       int ret = 0;
+> > +
+> > +       state = v4l2_subdev_get_locked_active_state(&mira016->sd);
+> > +       crop = v4l2_subdev_state_get_crop(state, 0);
+> > +
+> > +       if (ctrl->id == V4L2_CID_VBLANK) {
+> > +               s32 exposure_max = crop->height + ctrl->val
+> > +                                - MIRA016_FRAME_INTEGRATION_DIFF;
+> > +               s32 exposure_def = min(exposure_max,
+> > +                                      mira016->exposure->val);
+> > +
+> > +               ret = __v4l2_ctrl_modify_range(mira016->exposure,
+> > +                                              mira016->exposure->minimum,
+>
+> exposure->minimum isn't updated when a format change alters row_length.
+
+I don't think the min exposure time changes with row_length
+
+It's actually computed as
+
+	mira016->timings.min_exposure_time = (151 + mira016->pll.lut_del)
+					   * mira016->pll.gran_tg
+					   * mira016->timings.seq_time_base
+					   / HZ_PER_KHZ;
+
+And all the parameters used in the computation depend solely on the
+output data rate which can't change at run time
+
+	gran_tg = DIV_ROUND_DOWN_ULL(data_rate_mbps * KHZ_PER_MHZ, 1500);
+	mira016->pll.gran_tg = DIV_ROUND_UP_ULL(gran_tg * 50, KHZ_PER_MHZ);
+
+	mira016->pll.lut_del = DIV_ROUND_UP_ULL(7000, mira016->pll.gran_tg) - 140;
+
+	mira016->timings.seq_time_base = 8 * HZ_PER_MHZ
+				       / mira016->pll.data_rate_mbps;
+
+>
+> Other than this, the driver looks good to me.
+>
+> Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
+
+Thank you!
+
+>
+> Best regards,
+> Tarang
