@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611469;
-	b=PE1OuGk44kHr1Gp2KMdAVMugd89mwfdFgQZN31VyrZJA4heiRCPmqOO+TbV/rvSCLKR8
-	 KrUWcFXwjsLn+t5X0N/+0t8RbRgGEPmoCbw/OrUR26PkTa1u9VYOLeggJ5twSandi6Ug8
-	 vqjoogP1TtDDXDdBm/73WpNR/2jM86lETSLXJ4ihpPZ8SFU4BN1JKDehLrYBAFxUxBwbM
-	 oO2tHqeubN1No4NUQS6gf3Ffi6PRoCuHHFICsYBTJbuPKHoItvHM3wc53CMnA1lzF4xqj
-	 WFgWghXbua4j12j3to6J++FU0CmHKiPraTpWYk9MGuPVCzXNeLakUmUW0XIQQAU+tlw==
+	t=1792611470;
+	b=eyMZP5iuLuWUxX8WzOndwNqbxWWnBMAj74mjsddiDQAKxx+0XzdCb+p6Fl0Aig8SHkR7
+	 wuHHe8zl5xhsPf4KL9//E18QxMbtr3j50YKRoaQJRrs3b+R7jeLWH7aP+edew+XYsIODm
+	 5Gk43XUzkg8MRK4+sFTDLxfzYJQydxiv4VPly2wXE0WENYFLOTIe2dLNx1gYbL25d/Fyn
+	 MnYe5tJg/24goUsGyZ0OQtqPEKMVHfrB0s5aQVAjHfLVNaEMEmxI8TkrfzEGDuTiAS8lv
+	 DjZItFVPmjqsFzsmrCfmID4UA59ICsFWzMbXFWOzau49/ghoZQ+Whq/CKkZPdz6xDKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611470;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=kJt+ydyRTixeKLbA+0l2aYt6ojWzKdTKUDAlmkzXSx4=;
-	b=iR1ufkZTTCG7Uzy03kK5KQkmjVUp5S0gydwbGZ8jdYKJ65dXQtA6qtXa21rLFL7w/TAR
-	 xx+Njxzcw5Qh/Q55hPd3kdbqwRlNM+7Z44/SVwjqPL4uCsjThb/ZF5pxYuYx5UJe0pUM+
-	 9M6wl3tz171BBH/zhf5xZ5mx+dXzs/btS+K+enlparH21PnRyXHCoQgsIoeMsH/a2Ea95
-	 M4omx7VAgK1mNNwzAz0AbSCfHat4ZOqOeZvYMGPGyWbFS/8Y21gPzeJmCMsInGWzyDwAU
-	 z6mGl7fzOZ+lUYas3Vbmke9GBzMD658YJ2yTS+yhR7rC/39edb1fgwxtRzCnLo508XQ==
+	bh=nPHHZPY8cs0Vhp5/Lv8tY1EjZTLznrizvwr8rpho+S0=;
+	b=2oFJ2E8twzc8IovhqjjclD+koSd55KZmc6LqX1LQdBUUz2tyOD/wLq+mdk8GumOgLRUp
+	 SdbSicbTm5wDFkYb9roc3LqcVzNrQ8Via7Mvyyie0cIc+2gO7CsQx65wsD4NsRhPtJj9I
+	 DU5Oi6kyXcQRu2khZ5jBNqzCp4Y0oLu0CbFVOTeugLW7qh9s1wa2z0xPYFahfrcJb2pa6
+	 zZ7CC5lzBpVNRh+DXxHhY5R4eTwCIf/9NDvjxkxs7N22tbs9lm3mNeCs+lJO1KnOVeJAC
+	 tXtHJ75miBA8oNyzJL+X25mh1nAZfsRG5O8kt3GzvxXurz6reMJLhoLuBmKxJ4eoWMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="btu/aT+w";
-	arc=none smtp.remote-ip=109.224.244.18
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=SbHt+epP;
+	arc=none smtp.remote-ip=109.224.244.16
+Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD67606A31D
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 19:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CD67606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C499C606A320;
+	Wed, 21 Oct 2026 19:37:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C499C606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=btu/aT+w
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=SbHt+epP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792611466; x=1792870666;
-	bh=kJt+ydyRTixeKLbA+0l2aYt6ojWzKdTKUDAlmkzXSx4=;
+	s=protonmail3; t=1792611467; x=1792870667;
+	bh=nPHHZPY8cs0Vhp5/Lv8tY1EjZTLznrizvwr8rpho+S0=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=btu/aT+wzkBryud6j710GW2QjsH7PZsuAMMGFC03bMG6WMUh4kg8rY7zrsrIQmkvQ
-	 X+pkc+4eiYHuH9aeaP/Pn6wC3aBgNkWqvAD0ajLwQ/vLNzhfZ+KRmi4wD5GowoqJ1V
-	 lZH1sCNs9UconzRk/A1eyIrRWEomHz+F0WyGUzAABzVrsqNWKd1hqhBBe6t12j+cuQ
-	 nQLF9WU8D9DnhUPKudM0u5W6I4+Mc9cBmQsxbciPnIQK3kiEny9F5JW5dPvOvnRuvY
-	 UQfIOgKAsFe4pLG+bCfwrWPeV/T40InKAUQJFKenpNmqYULxeYkgTBtFoNNn7bBFf5
-	 AMC3GeVPtG2bw==
-Date: Wed, 21 Oct 2026 19:37:42 +0000
+	b=SbHt+epPrJL4kZHSHMCppDe1r+sHIzSjP1VvW0OpukPvht1DclKmq12otuLuHR041
+	 0RknQE8evxIKsn5MJifTVpKns/WOFvkdwWqSBxsTdYHu0tQGT16hcJCtwgjDzTYYuR
+	 WvWfaJACJ74kU8Ql9tGDRFGp27dI+uSlk+1N17EOn5tY+tguP4w3s653zrmefLbzba
+	 2V8/6uWQZX9lI0hEmmoX0v8hX5tpT2B62RxI9T/1aBZ4QQk89akhvnd3FcYb0fjfYG
+	 hYG8+0tV3WlfZlFYzZ4zNy0ba/YTwOyZQkQvsfGUdQ5XUALHimN5bhqbAEbUvqPjDQ
+	 gbVx3umMmHIIw==
+Date: Wed, 21 Oct 2026 19:37:45 +0000
 To: Loic Poulain <loic.poulain@oss.qualcomm.com>
 From: Birk Skyum <birk.skyum@pm.me>
 Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, Saikiran <bjsaikiran@gmail.com>, Mark Brown <broonie@kernel.org>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] i2c: qcom-cci: Reset the controller when it resumes
-Message-ID: <179261145907.36927.12230352776394948067@pm.me>
-In-Reply-To: <CAFEp6-3s9ER_V_B89W5f5PVkRnLrgSwnUwE+tmftbUGB-1_BdA@mail.gmail.com>
-References: <20261020193946.51478-1-birk.skyum@pm.me> <20261020193946.51478-2-birk.skyum@pm.me> <CAFEp6-3s9ER_V_B89W5f5PVkRnLrgSwnUwE+tmftbUGB-1_BdA@mail.gmail.com>
+Subject: Re: [PATCH 2/2] i2c: qcom-cci: Suspend the controller 50 ms after the last transfer
+Message-ID: <179261145907.36927.5158021314822941179@pm.me>
+In-Reply-To: <CAFEp6-0wmUYhcF+_nv8U3WovxyHVJJFs1FWfN8xb9ogMOxpBRg@mail.gmail.com>
+References: <20261020193946.51478-1-birk.skyum@pm.me> <20261020193946.51478-3-birk.skyum@pm.me> <CAFEp6-0wmUYhcF+_nv8U3WovxyHVJJFs1FWfN8xb9ogMOxpBRg@mail.gmail.com>
 Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: ff5736803f5461e1fbf86162dae562ba1f05d144
+X-Pm-Message-ID: 36a95b9b0d8e66052e09ef6d37b56decf1c0c559
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,18 +67,48 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 9:20 AM Loic Poulain <loic.poulain@oss.qualcomm.com=
+On Wed, Oct 21, 2026 at 9:44 AM Loic Poulain <loic.poulain@oss.qualcomm.com=
 > wrote:
-> > +       ret =3D cci_init(cci);
-> > +       if (!ret)
-> > +               ret =3D cci_reset(cci);
->
-> If we don't know the state, it's probably better to just
-> unconditionally cci_reset().
+> So, no, we should not rely on runtime suspend/resume timing as a
+> workaround for this. That approach is inherently bad and fragile.
 
-Right. I kept cci_init() first so the reset-done interrupt is unmasked
-after a power collapse, but cci_reset() alone works there too. On 7.3
-with only cci_reset() on resume, all 30 camera restarts after 2 s
-pauses started, with the controller suspended in between and no reset
-timeout. v2 calls just cci_reset() on resume.
+Agreed, I'll drop this patch.
+
+> Have you been able to probe the CCI I2C bus during resume? It would be
+> useful to see whether there is any activity on SCL/SDA and, in
+> particular, whether either line is being held low.
+
+I don't have a scope on these pins, so I read the pad levels from the
+TLMM (gpio235/236, aon_cci) in the driver, on 7.3 without this series
+and with SCL stretching on (MISC_CTL 0x133):
+
+- When the controller suspends after the sensor powered off, both
+  lines read low (13 of 13). The unpowered OV02C10 clamps them.
+- At the first transfer after the sensor powered on again, both read
+  high (114 of 114).
+- At the 100 ms queue timeout both still read high (86 of 86), with the
+  queue on its first command (CUR_CMD 0x08010339, CUR_WORD_CNT 1,
+  EXEC_WORD_CNT 3, REPORT_STATUS 0) and IRQ_STATUS_0 at 0.
+- After cci_reset() the next transfers go through.
+
+So nothing holds SCL or SDA low when the transfer should start. The
+master doesn't start until it is reset.
+
+> I wonder if enabling SCL stretching support could help here.
+
+It doesn't change it. Restarting the camera after pauses of 0.05, 0.1,
+0.2 and 0.5 s failed in 19 of 20 cycles each with 7.3 as released, and
+the same with Hitesh's change applied. After 1 s pauses it was 13 of 20
+without it and 15 of 20 with it.
+
+What works without depending on the autosuspend delay is retrying a
+message once when it times out, since cci_run_queue() has reset the
+controller by then. With that retry in cci_xfer(), the reset on resume
+and the 1 s autosuspend unchanged, all 120 camera restarts started
+(pauses of 0.05 to 2 s, 20 each). 91 of them hit the stall, and every
+retry went through. The cost is the 100 ms timeout, so a restart took
+about 500 ms instead of about 400 ms with this patch.
+
+Unless you'd rather see it handled elsewhere, v2 replaces this patch
+with that retry.
 
