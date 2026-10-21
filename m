@@ -1,88 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.68.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583818;
-	b=LQpP93/lk0P/ydsnkIQcPvwVBbnG8voNvxatTZcyMbx8Hi0M9uxNA4hcrQ5fCCqIaw9I
-	 FBWHSG5fMIk4b69/21RRTaBqSloJVO2ST+7YFzxGTm1Q3oQeO/McHo4DMYb6MkSmXX5eC
-	 gn3LVSScN2+j+sSPUGpRz2gXGQ40NfChEAzUNfcXirc3HHebKB28YdvbXGoInDM51SBmO
-	 aRUr+tCVZErhB5RkiUp74fIrLivamj+e64Q2jzWP86HxyEXs+Hs2tAPSmdux0Iq5/pUD/
-	 afJxzkSWivY0RhDwYelemST3GdOpY2kdqgmCpu0TBdDsTXc8k5WIJnqUieb8PCxl1vw==
+	t=1792583907;
+	b=YeDMY3WnDOuHDCN/kMXgCe4J5lFD81EATbl7UuvSN4S5l0zIOz/JEasu9W6Agrusugyz
+	 ZSULslp4hhf5ZjdAbe0u61mzg+7C7B1tEdpLsSbmGQHrXM8kkaaTo0SjbHXsp33vOO3h3
+	 R3ZCxauMcKfZVEr/0GlzQ9Q402Tk5uGsBZDWK1AKtCv7r4XSquNRReINcp1/cXdJEvdQG
+	 9DnnIqVr0ObXWe5f9Frkltb2DjgvVcuLrch9S2yIeFCNF+GADQnBf2mKDdncy/BvWFnFS
+	 u2KhtC+d4MrURR6mXxSQCXOdHo4XEsif9mfmzmodi37V/nrPn/qjChI8anRj5sbDzwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583818;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=y3Cc8X3faZNr+lrlR0PCJw4R41q5ZFzAd48ZePxA2zI=;
-	b=MN151s2JQqG5ixdUXaYprZbQGi9fNq+xFhc0qsPY7ueLBuJdVehLg+UZacnBUSKpgKWY
-	 L9awRGhlCadhfloJEBZm5GKuLn8VyWaYudFEM/qUpj6+Zs6BGX3W231bLE8WCuWHAZpw2
-	 3vzU68hbhwvofBiBgZ1oaUZJCbPjqTzKhUFJ3xBJBbgbXIkmZN68/qG7wp8plY8zTNPVb
-	 3T4hZQB2HJZlJBZift3J/y7uWymCI2nK/6ZnFn1NVnKBII3Ffkhr+w+kve64FH3bYfyua
-	 ZXHKR7zYtKcdrNr77Ljw0R1hYOxiGo0Yb2yEu4pcLdtfnb4yhXOvhqM8/e/2xZgd7RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583907;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=ePHU+PPOj4D/7LZY+rsS90WYffYLhog2RDdOchcTuz8=;
+	b=0bHHFK/enX+OY/vUYKoBFzDUPW7k4R/zCDz2kZjSO5Q76j+2huXeRk9FZA5BXPJJ7ipR
+	 +ju7DZPtlTPXSiIYW2mlGyUEWSTMrYE5O1xTLemunnVLfzxdv2yN9IWIZCut68dWthb5L
+	 5F78h+UbWOHos0tlq/wOXacUP6tgySmKxDh24v76zOxBmZ6UuZ+v2iGPL4ko3JvU7Yn2l
+	 PLcoA1uYsS+ItTs/Gz2kpVpV0kt7Y3pIMGkcu54DGcXMn3UM6qXCj/PeNQX0TzU/QDXtw
+	 qbLmfFaVXiHL2yYxNTRAF6pkJyFDPQPH0UfPPgM+fCBtRSK804FO24dae2oithVeSYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Jg5Xm/01";
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=IDGxEtEz;
+	arc=none smtp.remote-ip=34.2.68.31
+Received: from sonic.asd.mail.yahoo.com (sonic-usea4-0032.asd.mail.yahoo.com [34.2.68.31])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71170606A339;
-	Wed, 21 Oct 2026 11:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71170606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650FF606A31B
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 11:58:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 650FF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jg5Xm/01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792583818; x=1824119818;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ByEZCJarc35j8etN817/zawqOpUCF7BCj7+jhbOovh4=;
-  b=Jg5Xm/01qsRhU3+tuuPoEfxbVJP7qvUh/utjebEsPjKdXll24YmhkOCn
-   lpA5zWtbIQgxaYTifOWfO99KY7+eFRsh4uz0zE2qAxUDIvpjxOcW8kYxo
-   bPLYL14DvGs7klscCxR2/rhBZleboTYJ9pH8CagD3Zishx0Wz15z5dtHy
-   3XzCk6GobQGHJpWcs8TrnWPAyBj5BXHPv4P8mMAOGsLhKiRog2EQiwLcp
-   gfXyunrzTwntuBf3JhkCfgvt6glcfGEBRHVr9UtHJ5E9ODe6hmV6e7Cdd
-   zt3mrms/Zf2GHRKRw8pyAQ9WJgWl33lwtKKImq+Z4ufUTcKD4s44Xu4em
-   A==;
-X-CSE-ConnectionGUID: /DEbY/DWSdGQJh06CjtLng==
-X-CSE-MsgGUID: aBAIa6wWRyW6VEJ582RB5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1308322"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1308322"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 04:56:57 -0700
-X-CSE-ConnectionGUID: 1gT5+YYCS9aXRy9tOfDgUg==
-X-CSE-MsgGUID: 472FMWH4Tamdlnmo78nZfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4868026"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.43])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 04:56:53 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B2E5C121BC4;
-	Wed, 21 Oct 2026 14:56:50 +0300 (EEST)
-Date: Wed, 21 Oct 2026 14:56:50 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
-	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Message-ID: <atiogo14sCFw4xlT@kekkonen.localdomain>
-References: <20261019014720.2635-1-lachlan.michael@sony.com>
- <20261019014720.2635-3-lachlan.michael@sony.com>
- <atdGr8S2sf1kZFUw@kekkonen.localdomain>
- <20261020125630.GA158670@killaraus.ideasonboard.com>
- <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=IDGxEtEz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792583905; bh=ePHU+PPOj4D/7LZY+rsS90WYffYLhog2RDdOchcTuz8=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=IDGxEtEzfvgr84IGQrpzg+pQR7etmLt21xVJOhrCWF6jAh0LBZJe+SVN0bNvFh6E1uRLyXkaw8+4b0ZKvk4ELb7SFg1sYFfkJiMPimR/ksGbKqfEG8J1G0I3jLyA3O2fF3BXZEefJUoxTQhqNIFeFqDVoHE9zYvQ/xBr8NSoiG30Ato5UVexFZ/oZIBYpVLqY0Ba5UCIQNgDzG0ZlfG2b9y3b5Gd78eVuu2hRL6tWjseAXyaGi5aiBj01KUvQbFy/UptkYw/FsSCr+iIzozK1bac2w0yx2siH6/VOH3tOc9eqOu0ZvFy+PjK+CgCXi1N+t7nLC40CUy6eYcklCHKMQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792583905; bh=ozlZb6LQqKbGZizzgOPccTTQa/y7KjPI671bLt61UJB=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=MdGuKTuKsMUBXVyEDZF6NyHFpR30v0wNvm4aHmeo5Cgao/A9oCDWQBha+jPvfqvtTxcD+pi0kwQeT3OhBscfcI29vq+LgTgr71lCzLHuJlwD68sBgB7cq/Moq8GRz/1cEjszZxq5ipknXYZDgXEcSVs75HDTvMV07Hgit0aBRPwoDCMEhdC0yfQptCrqmYFdCvDe+qmXl7r73bJTYKcqDx8KOsTfoz8fWHmm3b+bZvAyB0HmMTGrfr2JMJ6OKUKmxbgZ63/IdTnImmrYKePI1jo4/Pl3jsANxaLav7DdqPOlsJJogy1ecToa+MjARetyhsKBMG366+2wA7RTmzFv7g==
+X-YMail-OSG: 92.s4D0VM1kbDrILHYYaXFfCVEMNOp4cwOjsCmvoviSyVgsYf0ZI0ww4wwsp6Af
+ mYcIRwTTPQiC3WpZAWVi0llVAmYFp3A1S1vgHp2H3bD46y.K0UK0rDbeGzMzGHE_e3GEcoGomxU4
+ TdTHg9SlKCIOvppaG82abDJ3p.0RIIG6cwRm0BmM.jxaHW5rugz8UPJffeHrWybq5.BK2Bf4N9p5
+ GU.5zJ8C98EQN5rJRDqfhEsBbSxrYoHgcNN_Mzg89J2MpaexGRdGaVj8hqWXi7R2PoXVwwtdWoqk
+ CVyEO.Wy8ws.WLwwMQ1acFq8nnkE8Gh6qSsbE0LJoNn5fYf81cWeODI0aifxrrYnaJGq6vU0CsKu
+ ItiOLOskYO1m_oXJrA5qtiE7AXmIosmaJA1j4EiKvu8DHR_tlfQfbET0RlnxcWNzPkcjcCFMFHLt
+ .ljTo3HkMqbBq7toD65L.pFOjolprtsGXkML3LlRGpuSR6I3tpUY3gNL8ij_SclCKgTbZPh_tIV0
+ I63qHqqWXQiKf_U1kyurRr_CAGvq7wcAsDFlF_bDBRGqKaTPsNkx5I9Vg0_IRu1nNWVzfqbgsSA6
+ az2PGYYpNzTZim9BjhaY7v5Y7QPli9wplt2_H4W8TfoAIbs9CvWL4wA0u14i9sNAl7YCHF5V_BFn
+ scbmVCWbkD1vs7wWXJr8KEaWcg3.mSu4Uz6V1clKuZb6.gkYr1d_Z5ZmG5hGSI56veNjnCSc6WAi
+ 7MIU4SO2UybfaPu.1EaEZ6OKy5wrLo8PBx6fP7omjZoHA_7k.wLf7hD_xPvLUQ51kXsF5pjmjAH9
+ 0BXQIkgOnFvqiFEdoR09Z2o7Dbf0eOUf56ZDL5Mah2dJhiNZ9b0jyeTyja1a0oKPU87OR6BHOyyg
+ XIACeTJllwqRaTYpr1.sBnaNhCWxMlgwMBgyBlDFz46meBi3.MS5t6fNrV9OqtZHE9JFDyTv2xF6
+ fra2dXWJtLpL5wPDnFQU13bwsh9OyKfVrGt3H29BAXOUN7QEc.WG.Rpy._arG.gA9OgCWWZb7o9b
+ FpGXsFUcC.xY120plETROTrgAfD7OsgjteApz60fc3UfFxnDLjxK2l8OcnWIx3FDk0YrLz.Z3Yim
+ 7Zd_tnCqEdKJGQao4uh0vYQtdjAeGeSfqItrQfOjG9Cc.3y79CtZUxGbflHew3D7_YtSWBwn0p0Y
+ 97uKkMahFxp89yOcWU1iPxGXcQMiAVH.ZnrYb1_DmdrkGiofqn0RbE4CMpnM.shb0v5IUHVkbI80
+ V1lZ07ba352m1GgXR9_oiZ_Cvr6hjGheRbqY2ctP4dAQDBBfNSnVgUCZoFMoZc1l.FJaMagpnwd_
+ nRDxS3lZkF4kZYlFcwP0lMD2yzTqGVP0OSzioCBSDfwEJEz3U.LpugjL2.7VXv_Yrf52W.b_TcZx
+ hcl6Kkt7.IvVPRJYhDqMzffVIxhqB5HIvyn2xcAx_AaLGgYPG732H8a5ZoHpFlBN394xxn3jydSY
+ oLTE3h0TZnuQ.5oUtavOQNuVmXVTCsZk7_BFY7Q85NB4wl1lpPiUfFnAIfJ4rPlzV3eiLueVxLtD
+ E2nUeDQj_F6O9dee64hX4zZSoI0j.AUFz0GApFUrJ6NN_p.2_aCNWSFwXFbNnZJLePuAA1RYHznT
+ hmI0PW1r4MLjI3ltxzumjfpm5qXjVgC3fSOlpfuWjTmqmSNIdwRYCAf7Y2VKr3u.Ui4U76b6nzNP
+ 4SdgU8B0yu15Vx5CAJPDaQguT4Db6zgTbqzqpQLeN3H37hmI2wISDBN9uSmkxI8PpWnX6qxR5Fft
+ ZMAscblrxXYnccSarKteDHrmTB0jYh8lEx_gStY8jlmh3_Y6pX41MUSoWom1iRYx5XUeEBafc7FG
+ NcKffkpJj7xWeBgA.h2A3PfSAAiaYl2UeJicRcTXWuTQHULh67kyWRTGLA_QT8i3zZoZZAi2OFqT
+ QFlj26b6T870kaXq8nUPNGmFi3lgrUtumNI89BmpBIuWGLRN8khSMP.eIncwY_dd3mrNe5TKeRzk
+ 7I8WVT1N8hnyskZKbcZhHbyUtOCG7J63j59880w--
+X-Sonic-MF: <stealth3m@yahoo.com>
+X-Sonic-ID: 0dab2a4e-dca0-435a-bc33-47d3eb66483c
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea4-prod-sonicconsumer-svc-102 with HTTP; Wed, 21 Oct 2026 11:58:25 +0000
+Received: from dip106.lsn.bf1.yahoo.com ([67.195.177.115])
+          by hello (SMTP) with SMTP ID 335e7936c2db7179f5b6ae587ebc3b0e;
+          Wed, 21 Oct 2026 11:58:23 +0000 (UTC)
+From: Ext745 <stealth3m@yahoo.com>
+To: linux-media@vger.kernel.org
+Cc: isely@pobox.com,
+	mkrufky@linuxtv.org,
+	mchehab@kernel.org,
+	hverkuil@kernel.org,
+	Ext745 <stealth3m@yahoo.com>
+Subject: [PATCH 0/4] media: FM radio for the Hauppauge WinTV-HVR-1950
+Date: Wed, 21 Oct 2026 07:57:43 -0400
+Message-ID: <20261021115747.1864231-1-stealth3m@yahoo.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,70 +89,145 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+References: <20261021115747.1864231-1-stealth3m.ref@yahoo.com>
 
-Hi Dave, Laurent,
+The HVR-1950 (pvrusb2, 75xxx) has an FM tuner, but Linux has never
+offered radio on it ("no FM support on HVR-1950 ... requires some
+enhancements to the cx25840 chip-level driver and possibly also the
+pvrusb2 driver", pvrusb2 web page). This series adds it.
 
-On Tue, Oct 20, 2026 at 03:50:09PM +0100, Dave Stevenson wrote:
-> Hi Sakari and Laurent
-> 
-> On Tue, 20 Oct 2026 at 13:56, Laurent Pinchart
-> <laurent.pinchart@ideasonboard.com> wrote:
-> >
-> > Hello Sakari,
-> >
-> > On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
-> > > On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
-> > > > The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
-> > > > output interface. The driver supports RAW10 and RAW12 output formats,
-> > > > exposure and analogue gain controls, image flipping, blanking controls
-> > > > and test pattern generation.
-> > >
-> > > The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
-> > > 2, for which Dave (Cc'd) is working on a driver (see
-> > > <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
-> > > The register defines in the two drivers appear to be quite well aligned.
-> 
-> Asked and answered at v1
-> https://lore.kernel.org/linux-media/TY6PR01MB17839FF48671E744E7E23A93E92D42@TY6PR01MB17839.jpnprd01.prod.outlook.com/
-> 
-> > The current version of the driver implements very few features of the
-> > IMX908 sensor, as crop support has been removed pending the raw camera
-> > sensor model, and Clear HDR3 is being developed. I expect more
-> > differences to appear when those features will be merged, so I believe
-> > it makes sense to have a separate driver here.
-> >
-> > In the future, I expect the raw camera sensor model to open the door to
-> > more code sharing and more drivers supporting a wider variety of
-> > devices. We can decide then if the imx908 should stay a standalone
-> > driver, support other sensors as well, possibly across the Starvis 2 and
-> > 3 families. I'm willing to help with the refactoring at that point if
-> > needed, the maintenance burden won't be on you (and I'm sure that
-> > Lachlan and his team will of course maintain the code base).
-> 
-> Agreed.
-> I have compared the datasheet for imx908 against the Starvis2 ones,
-> and when we start looking at HDR modes they diverge a reasonable
-> amount.
-> 
-> Even the later Starvis2 sensors (IMX585 and IMX676) have minor changes
-> to the earlier ones, so adding Starvis3 would need some care.
+The cause: in FM mode the TDA8295 hands FM radio to the cx25843 as a
+5.5 MHz sound IF, and the cx25840 radio setting (0x808 = 0xf9) never
+locks onto that with the audio firmware in linux-firmware.
 
-There's quite a bit of this in the CCS driver, due to the variance it
-allows for implementors. I don't see this being a problem as long as the
-foundations are reasonably similar, albeit we can see whether this could be
-further extended later on to other sensors.
+ 1/4 cx25840: on boards that say so (new platform data flag), demodulate
+     radio as forced 5.5 MHz FM: mono, 50 us de-emphasis, works with the
+     existing firmware.
+ 2/4 cx25840: FM stereo when Hauppauge's HVR-1950 audio firmware is
+     installed as v4l-cx25840-fmstereo.fw (optional, loaded with
+     firmware_request_nowarn). Radio then uses the Windows driver's
+     setting, 0x808 = 0xfa (audio system 0xa, not in the data sheet),
+     reports stereo and switches mono/stereo through the tuner audio
+     mode; de-emphasis is 75 us. Without the file nothing changes from 1/4.
+ 3/4 tda8290: FM signal strength from the TDA8295 IF AGC (the H-PLL lock
+     bit used today is always off in FM mode).
+ 4/4 pvrusb2: radio input, routing and cx25840 platform data for the
+     750xx/751xx models.
 
-I'm fine with having a separate imx908 driver for now. Dave's driver also
-exposes the variant information through the media entity name so that
-should be done by the imx908, too (at least if there can be multiple ones).
+About the firmware: the image is Driver73/Hcw73MlC.rom (16382 bytes,
+sha256 a6505aee99fa71768daece0a7ced1ac1f60bf7f8d823707640778fe0a4fd0a81)
+from Hauppauge's WinTV packages. It is the same file on the original
+2007 driver CD and in the current WinTV v7, v8.5 and v10 installers
+from hauppauge.com. It is not redistributable as far as I know, so it
+can't go into linux-firmware, and the series doesn't depend on it. A
+user can extract it from the WinTV installer; I have a small script that
+does that and checks the hash, and can send it (e.g. for
+Documentation/admin-guide/media) if that is wanted. The 0xfa setting
+was found by looking at the register writes of Hauppauge's Windows
+driver for this board (hcw73bda.sys).
 
-I'll review the driver properly soonish but I reckon it's in a pretty good
-shape already.
+Testing, on an HVR-1950 model 75111 (kernel 7.0 with these changes
+backported; this series is compile-tested on media/next, every patch):
+ - radio across the FM band; signal meter 30-84 % on local stations,
+   0-26 % where the band is empty, but it stays high between closely
+   spaced stations too (IF AGC over the whole passband, see 3/4)
+ - the low end of the 65-108 MHz range, where I have no stations: an RF
+   modulator's channel 4 sound carrier (71.75 MHz FM) on the FM input
+   quiets the audio by about 55 dB against the empty channels around it
+ - with the firmware file: stereo on 20 of 20 starts on two stations,
+   live mono/stereo switching; without it: mono, as in 1/4
+ - de-emphasis measured on the hiss of an empty channel: 50 us (1/4),
+   75 us (2/4), both within 0.5 dB of the model curves
+ - switching between radio, analog TV (BTSC), composite and ATSC, with
+   v4l2-ctl, dvbv5-zap and tvheadend
+ - v4l2-compliance 1.32: no new failures. The video node gives the same
+   result as the stock driver (48 tests, 11 failed, identical fail and
+   warning lines); the radio node (new on this card) fails 7, all in
+   pvrusb2-v4l2.c, which this series doesn't touch: the radio node
+   advertising read() I/O (how pvrusb2 streams radio), an empty tuner
+   name, VIDIOC_S_EXT_CTRLS error_idx, and the control enumeration fixed
+   by the separate patch below
+ - unplugging the card during an FM capture: the reader gets -EIO, the
+   driver tears down cleanly, no warnings
+ - radio and video open at the same time: whichever node streams first
+   keeps streaming without a gap, and read() on the other gets -EBUSY.
+   Opening the radio node while TV is streaming still switches the
+   input to radio (pvr2_channel_limit_inputs() in pvrusb2-v4l2.c, not
+   changed here; the card just had no radio node before), and the input
+   stays on radio after the radio node is closed
+ - rmmod pvrusb2 while /dev/radio0 is streaming: refused ("in use"), the
+   capture carries on, and the module unloads once it is closed
+ - a 72 h soak with the firmware file and another 72 h without it.
+   Every hour: 30 min of ATSC (dvbv5-zap), then FM on two stations
+   (stereo, and once forced mono), analog TV and composite. Both runs
+   finished 72 of 72 cycles with no failed step: the ATSC lock was
+   never lost (314 GB in each run), every radio capture had audio
+   (with the file, 133 of 144 stereo captures had separated channels;
+   the rest were near-mono programme material) and every TV capture
+   had video. The card never re-enumerated and there were no oopses.
+   The only kernel warning was the existing cx2341x "encoder appears
+   to be stuck" message, about 3 per cycle. The stock driver prints it
+   too, and it recovered every time with no failed firmware reload
+
+Not covered: the 73xxx models (HVR-1900, same chips as far as I know)
+are left as they are because I can't test them. 4/4 enables radio on
+both 750xx and 751xx, but only a 751xx was tested; the 750xx has the same
+tuner, IF demodulator and cx25843 (only its ATSC demodulator differs,
+s5h1409), so it gets the same routing. The other cx25840 users (ivtv,
+cx23885, cx231xx) are untested on hardware: 2/4 moves the tuner
+audio-mode switch into a helper, and everything new is gated by the
+new platform data flag, so their code paths are unchanged by
+inspection. Suspend/resume with the radio running wasn't tested.
+
+Not supported: RDS and hardware seek. The cx25843 has an RDS
+demodulator, but its registers only give raw I/Q, polled over I2C,
+and the audio reaches the host through the cx2341x encoder at 48 kHz,
+which loses the 57 kHz RDS subcarrier, so the radio node doesn't
+advertise RDS. The data sheet also lists an RDS output that can be
+routed to the audio path; I haven't tried that yet. For seek, the
+TDA8295's AFC reads 0 on every station in FM mode and the signal meter
+(3/4) is too broad to stop on one. A read-only sweep of the band did
+turn up two cx25843 registers in the reserved 0x81c-0x9c8 range (0x9b8
+and 0x94f) that dip over about 0.3 MHz around each of the 18 local
+stations and recover between closely spaced ones, with and without
+the firmware file. Seek could be built on those, but as they are
+undocumented I'd rather leave that for a follow-up.
+
+How this was made: I used an AI coding assistant (Claude Opus 5.5) to
+analyse the problem, look at the Windows driver's register writes, run
+and evaluate the experiments on my card, and write the code and the
+changelogs. I reviewed the changes, ran the hardware tests and am
+responsible for the result; each patch carries an Assisted-by tag.
+
+Two separate patches don't depend on this series: one fixes
+"s5h1411_writereg: writereg error ... -5" when an analog open follows
+closing the DVB frontend on this card, the other fixes pvrusb2 control
+enumeration with V4L2_CTRL_FLAG_NEXT_COMPOUND (v4l2-ctl -l lists only the
+user class controls today).
+
+Two more patches that report the fixed FM de-emphasis (75 us with the
+stereo firmware, 50 us without) through V4L2_CID_TUNE_DEEMPHASIS are
+tested and ready; I'll send them as a follow-up once this series is
+settled.
+
+Ext745 (4):
+  media: cx25840: demodulate FM radio from a 5.5 MHz sound IF
+  media: cx25840: FM stereo with an optional HVR-1950 audio firmware
+  media: tda8290: report FM signal strength on the TDA8295
+  media: pvrusb2: enable FM radio on the HVR-1950
+
+ drivers/media/i2c/cx25840/cx25840-core.c      | 145 +++++++++++++-----
+ drivers/media/i2c/cx25840/cx25840-core.h      |   6 +
+ drivers/media/i2c/cx25840/cx25840-firmware.c  |  26 +++-
+ drivers/media/tuners/tda8290.c                |  14 ++
+ .../media/usb/pvrusb2/pvrusb2-cx2584x-v4l.c   |  26 ++++
+ drivers/media/usb/pvrusb2/pvrusb2-devattr.c   |   8 +-
+ drivers/media/usb/pvrusb2/pvrusb2-devattr.h   |   4 +
+ drivers/media/usb/pvrusb2/pvrusb2-hdw.c       |  29 +++-
+ include/media/drv-intf/cx25840.h              |   8 +-
+ 9 files changed, 215 insertions(+), 51 deletions(-)
 
 -- 
-Regards,
+2.53.0
 
-Sakari Ailus
