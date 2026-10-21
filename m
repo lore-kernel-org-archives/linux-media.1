@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792591175;
-	b=E8xUwzw4DpOyWluIlR1lrc+bsdBNf0uB/7A/sQ360qBcZYf45iTWBBjgb1N0j2r/ld5d
-	 F2pRM55qNqNEY92uPEwdT+Xj9LEUfXJrHXaqhP0hegc+NLgix2WFDmZp15M5wwV+pOsfH
-	 hkVp8xu8igz67e10JlI9Y17RqqEp7jj9M/JoDWzzlruponEAssanY1zbFvo0CunL5eUdZ
-	 0MpVG9ISf+/jaG4T284oBT6kkkBIipvB1dWWu4pSESfxPBHUqInVB+HBGaJoYNenmkg4b
-	 TZqSc3S4UTIDF9F0Pj9cfMyczkAky/Yzgw72FwZfGbhZaMyT7VCpU+TYd46OUEXZnGw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591175;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=dFXwKRCvo+WFYGEsnibzA8pBCYxr11F6w2gzPIL/gGc=;
-	b=SkXcCrdSYlCzrf+uYB3YnOpkPHrQJL6WS1S6auDb7zUWhM/az1ebkpAFy3s5phSy+WEm
-	 1HXlWjmUUg59KTOlVf/UCRR1VohUc+FREPb7urERt8IYYN+IszL2brFScLzpmrm7FZZHe
-	 Z92TkBuVFuqHQtdOGiMIRrXwMDIKYC1KRKkzdRa+pTZO1YxKdO6TJEenDrTElgn0hy6Mn
-	 vsnQV/pWuNYv83L1N+3Q1YD+IBd4THQhlH8VbTy6HwXSchQnE0DJ4a0DH16KQqGnJfB3q
-	 MSu/TmHfowuxoe0VGmyCxna8j7f7z1JJ8oUwUdSTotLOWpQ39tQdw+w+yLGtgeFDOcA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=PPiUOnHl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.44
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792591233;
+	b=dQO5Pu7Ic/MLqarjiEzN33PxrTjKRO4B0NKgoi4bh54jl02eL8+oNUTenlGV2WzkT356
+	 LniSgKkNpknQntSUV3UEx6YxYiw9Q8kIfvp5EVqNWF5On4bosTSXUXlx5MXAUdQ5OEhXS
+	 n+RJV0OoMjlcu1HG48ceQvzZlse02kNcxUJ6KBes3dCZL32Zszr09mrVzy8RnKC4G3FAW
+	 STgMVKah177IahyWrDyBOu1RjaCIfcWOmjtBMTyfxoybDPPnv0M/BZiLUY0uQjRafRX84
+	 Ev5Fo9JsYUw1JIiSfTJcz5GMJqxBC9a8bFRNdLqKNS0LSc8iLowB+vJYklBmE1Wz95g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591233;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=;
+	b=A8PCh1Tao+jVmuXc9P3lvpwYjKTBb39Uj2gKKVyo6AJsNNiRxJkb5TQQC23ezzYTmFQR
+	 Tqys5b61KE7SEVjOdi7ipRaIlZt/sHgKzdaw0XauDiFUA51RsVg9o2dSUtatswZWtR+eg
+	 xPnLryzMf1nGBkPan+zMlUs9hThw3eBX+LTS60OLcjO3J+Oij2KHiYeVbg0mqNkZMUvZO
+	 U0xQMzrMYAAZnTljQBqDq7HxHWkORHLS26QO1L1xGqDhvzNiGSO6R57fwv8PBsQzwkpEW
+	 r9YDWa0WMq5FmCaPFnEpJWb3RHrHtnax1XWQqtorAUO6c0jIG9sc0jkMGrAKhY0vexg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anFs3Ywu;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dcpAckaY;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD1760A260F
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 13:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CD1760A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79095606A324
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 14:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79095606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=PPiUOnHl
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-4949f037131so417446fac.3
-        for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 06:59:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792591173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gCgf0a+zTIY3Y7DlG1bdKhOnIRQir3wEybhpBriqjiqT32giJWmpZ9ASPEOouSI03G
-         DY+XIeBzrDSIGS3pSKfP3IDuCOqHURNot2lZy7xy1AQIxLHH7M0C3EFKjmD89MDLsV7C
-         o6kV6cboy1+xxGVwLoF7Gk0CJ8Fpjcytq63qMAoe9i3qnwqPvBev1aVPgmoNUDKP1lbT
-         o+MX4hW+sXUEj/2h8pTS4GZGgsJSWIeaTDm+dcqkMwHiHVkXbLDQz/581SAuFp5F1Fe2
-         5/9vXoMvYFWwY0dtrDlK8yumYyo245t/UA1aEnFfmmYQ7lwDak4h5KnkH1Nx8HS64tOI
-         I4DQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dFXwKRCvo+WFYGEsnibzA8pBCYxr11F6w2gzPIL/gGc=;
-        fh=hViZbDsaBFlMLYeLxUaV0ZlWLOuHGQZ85sd6bRGSuiw=;
-        b=FdKKLejA2dn6HH+KxSc6WjkpCKMTv7SIbXSCbJtAQeGtyzCdkBWbO+ntR4O/e6Am1G
-         prkzObkXiAf8G6Io2XazzxmULScK8yxa+QMsAM6qJ+rC6i/FwBSHSCK75JW6ahDONYFd
-         w235VeoYacynliShzJsfPXV8vBnZOxYZ10IG07s5iJ04cF4YySlarWRaVWB4lefbixXj
-         awaDW0+fsRTgKWzO8dUl7/tYXXOeV7lY/Si3fgAvL5aDhEqWARQgm07n0pCpGM62LYHv
-         QqoP3mhpclMnUeSq0DdB4Dx5CNRf/y2DIkLAnsDOjHiGywFIrE+De6yMu+3pjIEMHxzE
-         YyxQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anFs3Ywu;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dcpAckaY
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LDIVxt3869333
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 14:00:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=; b=anFs3YwuuX1o37vW
+	4zYwv5s5aGMgXz8XlFBBMG+cu/YjA00QUe6oESLTHCOM1WL0EfNjYPu/OCUcz20L
+	woYdt0/5SoOV92XMti0q0YpmZPOl5UEeGCQ0zuUYY9r65N+MVWh6Gm7AKqU/LmdA
+	xBQ0L6lxlHw3+1nSiTk+vmylMLLa/WD9kZRa/FxpC+U4mIVl179fBN5Dxccz6hOp
+	5pfqk5yB49HeeXBBo6RhTMZkaq2QnELVvhaduiN2hLykk2eQK4g/qWh/vQuNHYDM
+	l/5tPvo+59rV1uX4nzAUDK+UPxqStx4APjpKYhbdDH3Fl3JTb0kLRoORSHBLUiB5
+	L/utcg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hex5q85p9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 14:00:31 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93edac58b24so21514385a.0
+        for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 07:00:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1792591173; x=1793195973; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792591231; x=1793196031; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dFXwKRCvo+WFYGEsnibzA8pBCYxr11F6w2gzPIL/gGc=;
-        b=PPiUOnHlmfiQcWyQ4BCY5Rhv1mdtaCs3vtKHRRxw5/4QN3goEwwBe8ZqxjgBzy8HzR
-         hcINe5adlEI0lXh5N9+mm+wEsPyvVg6eiyDmCZthRlHFE9/h0Dci6UHxnYMiipRZmptA
-         EX7cW/QoTJ8uSLjM2Ux3fdvxCW0wcqYw6llJp0R2XeE3fYU2j3yN61i5m4qPOxm5Bx6f
-         W+o5B79cvE/uMNx0vBh1lENVQS5vwBr0V6OYTlw/iHJPCKJFdu8D9+k99vly5hQrK5e5
-         EuKZXDp8ZQbtJ1+QYqT13MW01xEeM+kDsX8HXOOLb5Natjbp36aJTRriamSqb9jTGBCu
-         QvmA==
+        bh=+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=;
+        b=dcpAckaYx9lDocV5mDzqQl26klPR4wHdtTxJo4KicZtL8Esour3kdNJ0zBfsSq2uyy
+         6K5WRtxtfAFKQcGSCl4RNXwmxtN5EQAE62/7vfBbjT9BIFIAXEjCVQu+BTOSMc1aD/aN
+         yoAvtfAJXawpJPhYiDlX6fyJ61+6K0Fq08AhXVODuNJ/CIbDhC86pM/4OB72H4u9fgAZ
+         Usp6wZJ1pWYWwF32zaC5038SXdq39KnJJoH7BWKKcvhqg/1MjqXg1B29YG8TIzINPB8K
+         tDtf3H30TOEXB5A6pwyYq1rM0VCst1OARrgdq1nkw1yxG3N9iP4MHGgDp/A9oMFuLht2
+         DRVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792591173; x=1793195973;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dFXwKRCvo+WFYGEsnibzA8pBCYxr11F6w2gzPIL/gGc=;
-        b=2N6euZKBTEdSdVykDhxtAuZjZMBqXBZRwZLwiOpAFl9iUJ3u3/4PyqQpYNrgs2BKwD
-         jcIMzS2t/4FnMID0h0dqlzsGqeZltF2kprOmc/q47S2I38OMnS2ddigsGb9cxKYru9vC
-         iizowmPVonWWLVI+fbqZc8hRXN69RjBY3uhJ7KFGm6yt7haXUWyPTfTHYQjxqYHkqkD9
-         5cxLOQiYBa1rJdAuB2cD7RKfLK+hiczXus7h4clwjHjCrhzywBkHqQhBR19oYGBKZnWk
-         l26ZmhfIxPvIGgjYkA7si8U9iRbq6epqc+WihXne6vJ0d9tOZtz+3ahgDYz0KVTDazVy
-         tH8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBySXgA1HRfTGQO8KAri99KvksYYDqN8GMzDCLJYCyXJt9YEQJKainpMQswtUGg2TTyu600q+st0J2cgKQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVdLWeTOSzDw735wPruclnGR7zbokEwLVCz4KBRag1trR8yHhg
-	Qe7SW30u/NxMY7dF0ScuamLOI0HBNUYYMIxu3pM5LS12UqTg0TbQokkZWISnUSG+JGJE9wOSR7a
-	cOhFESQPTo3zenm7Grp5FYtOuCWTDpP0NahSnbKL6Je/AiwjeBGRfrW+Cjg==
-X-Gm-Gg: AYBFou3JhLkJrftOkhaOBBl3jfDkiXdkX5o0SyJ59mCwxMAqLOY22pWjBIdu2vjOjo9
-	WiALxzq9GU3dOTEOzAgcF1bAC39/jGf7Xmf/pWi64SWJc5GmJlG2GsSCwofhgw+FgmKDpuHCl2k
-	Tzrq4EFVkCm8MZE1ihLfYlHwoHlRBHOMo22RrATj5a/aj27FjQEVWdPUIt5rHOLV2b5S2fGd4E4
-	ykQJdChaBkAHECRuOBxcGWv8wIDw/i4TqXcpRPURc0k25V53/bmgukIWwoAuI/HejHNVSgnDDXn
-	zX9NPFKrOah23z5ghzNGmx/hKQMSUMnmB8StY/KrLOonIhP093PI5zCVZx+AB7AFIotO+rwPYrI
-	gydZdZU40iRriTi+BWU3fBAwXl5b4aIaqquZd4uqfT2+ua5tIL27UHZF5CXQCz/lTs5DQiCMatT
-	P0qVnAl8hSFvmLxETFL120FTJcelCCJ/QHStehUO4ydheqsEwq0+kP
-X-Received: by 2002:a05:6870:c6a4:b0:4a6:f705:25a with SMTP id
- 586e51a60fabf-4a7dc1757ebmr1057975fac.21.1792591172606; Wed, 21 Oct 2026
- 06:59:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792591231; x=1793196031;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=;
+        b=BKAhcoMTTjefQ6RUVLSFCms0yH0TOzq12SWniuBN7qcPd7ulMV1LkzjCKIRDgX1Bu1
+         5RpZb1HtRIOW7u622X1OrcUJsiEMlZHzAXdedvJiSszzn9n5ZabRLbu/lRmQSldAOB/7
+         +4Qyrn6zp/C/th6GasLL8MpMBgDMJj55Syde7+l7o3rXA0IJvkA0Ew9hFQe3udnn5S+E
+         frvPsYrbE3F86EUVWLozZTYr4WX2k4wRhmQ95YHYuK8baLQmlwSndtt2pBmQIpckdp1k
+         zjMbsPk5yarQCcZ5vo2DBR4sMXNDBvrjBpFfQEo8HgQjrn8tsmfWTzB+ABtoVzn0hFs0
+         SSVA==
+X-Forwarded-Encrypted: i=1; AKwUvByd5x4poACvcG+Pz1uOy3l84aniaJDVYs9LLIJrape73DHfK6E5tI02r2e/WWZ9wXHx2azdoinwc/WQqw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqDGnw/v6kHA4LsQ/uL3db10HyhDz9TgxeVE/Mw3q5bhZDFG60
+	0HZqRyJ2yPAE82fi+kb80VrVv0JNcpNUFhpRed6+s9ewm3dtvYd79awQRQAUd76TniNJiQgck0c
+	+Zx/5hIHhn+ekIpqMbBIcEFq84gVMzCjakqcsqSrfGHmnDGf8aPujWiBfCs8maPWaWA==
+X-Gm-Gg: AYBFou1GxVYHH9zH2SA1Z9N9B9/XtPCecHq+iJeQItSb7mlgFIQyt9qpYH31N0CGqou
+	QEQQ1qrV8JuqClGqVH8E2jD5jX5hTxcqQHGUQDf7pNiOMOlJAACm97GXxWhivuI8Au1RxzGzXaT
+	5xn4rUpjJs9a6LgwyY0D9VHaluUkEB6aIT2D+pqWMlosU69KRMJqXSdcYqbhTsWGaSGgs2DrOvr
+	rGkVe8x674SMhSLE7q/JZn+kouWLE9OLPSLYqlRkezDb3i2xCR0+4fmsm73fyu26dYcw/RfacgW
+	C34mdS1BRy2QKKhfrgAQK0kQckG8Jv6VTccNMAFhjSPcy3s9m2wetocXERyFt/LOvYM2tOoLP16
+	bvotFlXDnuryCM22UYGv+ZQ==
+X-Received: by 2002:a05:620a:480a:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93f57f87853mr518059785a.6.1792591229876;
+        Wed, 21 Oct 2026 07:00:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:480a:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93f57f87853mr518034985a.6.1792591228650;
+        Wed, 21 Oct 2026 07:00:28 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a4ffcc5sm7861166b.26.2026.10.21.07.00.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 07:00:27 -0700 (PDT)
+Message-ID: <33d4d460-684b-4031-be45-3768e8d6c092@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 16:00:23 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,459 +115,69 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-4-75fcdb4163f3@raspberrypi.com> <atc1us1fj6MN6UfF@kekkonen.localdomain>
-In-Reply-To: <atc1us1fj6MN6UfF@kekkonen.localdomain>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Wed, 21 Oct 2026 14:59:16 +0100
-X-Gm-Features: AclHuK8fDstfvV4kpy6BcazMRbHSLbyvfAabyEyGh48fK-Qeuexq4Pm1-IrJHMo
-Message-ID: <CAPY8ntC1dU9r7Ku890b5cqpH5LtQkRFS68dVkYbe0FtVXG7GiA@mail.gmail.com>
-Subject: Re: [PATCH v4 04/16] media: sony-starvis2: Parameterise the
- configuration to allow for other models
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 12/14] arm64: dts: qcom: kaanapali: Add CCI controller
+ nodes
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
+ <20261011-kaanapali-camss-v21-12-04fd28d815c6@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261011-kaanapali-camss-v21-12-04fd28d815c6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfX7whJ/LwA+u32
+ hTY23+xsj/q0Q69zXOPOGkGjvA2zrhat/GaQxA6R8DMbdjNxYpC5cygSphqSMpuqwUD16SXnWex
+ vFVlxjU+vAJ6gvTQhjVjPRF7PvY0h9Q=
+X-Authority-Analysis: v=2.4 cv=eJaGH3p1 c=1 sm=1 tr=0 ts=6ad8c57f cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=RPG6soaBvYURGeOPBHsA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: sNm-t14WCMSCMVVPYhhSvc4bpuAb3QYV
+X-Proofpoint-ORIG-GUID: sNm-t14WCMSCMVVPYhhSvc4bpuAb3QYV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfX8DRw84G/Bgzv
+ uhOXfeyt/SzpKW5CVfoAv5EPh178cQAXLLTp7T3UlEjVPs86gbBw+Ukk3iYEWhv8B1B9hlu/gAY
+ SAETkleh2JeY8qEUnQapxpy4u/fTu6G9Ql1EEFw8EWjQrPOb8AdUS0mJapBxPaBwaqYupYNpNkq
+ zCNr7pqwz+QlhNz8pvrSDFQHkLLOfkKBJRHvzMC9WUjrzwZBHTatq0uAsnVD0LjwVcdhGLKkoYh
+ 9hZ4AI6l2iFpkNYRSPdz9r1bGlahxSd46iACvWkXWqug0GTPXFAvL7MzwqtVDRN6ER31V1imyJb
+ fG3FEfiIH9YgoBCZaZ8PjmTDqgNIzlTVg+zwmyCVwJCFXB6pO1JjjY6qlNSafpymLJBtO8FrjIG
+ yACh9mzV8wiK0hHVXNOJa4ei++fip5cJd40kHua7n81jFlK1ge5mZulggCNx4NLnb0mWULGjSiu
+ HNGLJaOMQml7jUaC1nA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ adultscore=0 spamscore=0 clxscore=1015 bulkscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210055
 
-Hi Sakari
+On 10/12/26 8:45 AM, Hangxiang Ma wrote:
+> Add the three Camera Control Interface (CCI) controllers present on the
+> Kaanapali SoC. Each controller provides two I2C hosts used for camera
+> sensor control, so define the controller nodes and their pinctrl states.
 
-On Tue, 20 Oct 2026 at 10:34, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
->
-> Hi Dave,
->
-> On Thu, Oct 15, 2026 at 04:57:30PM +0100, Dave Stevenson wrote:
-> > Several of the Sony Starvis 2 sensors are identical in the
-> > majority of their programming, but differ largely only in the
-> > size of pixel array and some timing parameters.
-> >
-> > Parameterise those parameters in preparation for supporting other
-> > variants.
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > ---
-> >  drivers/media/i2c/sony-starvis2.c | 170 ++++++++++++++++++++++++--------------
-> >  1 file changed, 109 insertions(+), 61 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
-> > index c4f590c489d9..189caac78066 100644
-> > --- a/drivers/media/i2c/sony-starvis2.c
-> > +++ b/drivers/media/i2c/sony-starvis2.c
-> > @@ -51,17 +51,9 @@
-> >  /* Lane Count */
-> >  #define STARVIS2_REG_LANEMODE             CCI_REG8(0x3040)
-> >
-> > -/*
-> > - * The internal readout clock runs at 74.25 MHz. In one cycle the AD reads 8
-> > - * pixels, thus giving us a rate of 74.25 * 8 = 594 MPix/s
-> > - */
-> > -#define IMX678_PIXEL_RATE            594000000
-> > -#define IMX678_PIX_PER_CLK           8
-> > -
-> >  /* VMAX - Frame Length in Lines */
-> >  #define STARVIS2_REG_VMAX                 CCI_REG24_LE(0x3028)
-> >  #define STARVIS2_VMAX_MAX                 0xfffff
-> > -#define IMX678_VMAX_DEFAULT             2250
-> >
-> >  /* HMAX - Line Length in Cycles (8 Pixels) */
-> >  #define STARVIS2_REG_HMAX                 CCI_REG16_LE(0x302c)
-> > @@ -102,8 +94,6 @@
-> >  /* Sensor Identification */
-> >  #define STARVIS2_REG_MONOCHROME              CCI_REG8(0x4d18)
-> >  #define STARVIS2_TYPE                        BIT(0)
-> > -#define IMX678_REG_MODULE_ID         CCI_REG16_LE(0x4d1c)
-> > -#define IMX678_ID                    0x02a6
-> >  #define STARVIS2_MODULE_ID_DELAY     80000
-> >
-> >  /* Common configuration registers */
-> > @@ -153,32 +143,11 @@
-> >  /* Subdev pads */
-> >  #define STARVIS2_SOURCE_PAD          0
-> >
-> > -/* IMX678 native and active pixel array size. */
-> > -static const struct v4l2_rect imx678_native_area = {
-> > -     .top = 0,
-> > -     .left = 0,
-> > -     .width = 3857,
-> > -     .height = 2201,
-> > -};
-> > -
-> > -static const struct v4l2_rect imx678_active_area = {
-> > -     .top = 20,
-> > -     .left = 0,
-> > -     .width = 3856,
-> > -     .height = 2180,
-> > -};
-> > -
-> >  enum starvis2_type {
-> >       STARVIS2_COLOR = 0,
-> >       STARVIS2_MONOCHROME = 1,
-> >  };
-> >
-> > -struct starvis2_model_info {
-> > -     enum starvis2_type type;
-> > -     const u32 *codes;
-> > -     unsigned int num_codes;
-> > -};
-> > -
-> >  enum starvis2_lanemode {
-> >       STARVIS2_LANEMODE_2L = 1,
-> >       STARVIS2_LANEMODE_4L = 3,
-> > @@ -207,7 +176,7 @@ static const u64 link_freqs[] = {
-> >       [STARVIS2_LINK_FREQ_1188MHZ] = 1188000000,
-> >  };
-> >
-> > -static const u16 min_hmax_4lane[] = {
-> > +static const u16 imx678_min_hmax_4lane[] = {
-> >       [STARVIS2_LINK_FREQ_297MHZ] = 1584,
-> >       [STARVIS2_LINK_FREQ_360MHZ] = 1320,
-> >       [STARVIS2_LINK_FREQ_445MHZ] = 1100,
-> > @@ -267,7 +236,7 @@ static const int starvis2_tpg_val[] = {
-> >  };
-> >
-> >  /* Common configuration */
-> > -static const struct cci_reg_sequence common_regs[] = {
-> > +static const struct cci_reg_sequence imx678_common_regs[] = {
-> >       { STARVIS2_REG_THIN_V_EN, 0x00 },
-> >       { STARVIS2_REG_VCMODE, 0x01 },
-> >       { CCI_REG8(0x306b), 0x00 },
-> > @@ -650,16 +619,74 @@ static const u32 codes_monochrome[] = {
-> >       MEDIA_BUS_FMT_Y12_1X12,
-> >  };
-> >
-> > +struct starvis2_variant {
-> > +     const char *name;
-> > +     u32 id_reg;
-> > +     u32 id_mask;
-> > +     u32 id_value;
-> > +     struct v4l2_rect native_area;
-> > +     struct v4l2_rect active_area;
-> > +     u64 pixel_rate;
-> > +     unsigned int pix_per_clk;
-> > +     const struct cci_reg_sequence *common_regs;
-> > +     unsigned int num_common_regs;
-> > +     unsigned int vmax_default;
-> > +     const u16 *hmax_min;
-> > +};
-> > +
-> > +static const struct starvis2_variant imx678_variant_def = {
-> > +     .name = "imx678",
-> > +     .id_reg = CCI_REG16_LE(0x4d1c),
-> > +     .id_mask = 0x3ff,
-> > +     .id_value = 0x2a6,
-> > +     .native_area = {
-> > +             .top = 0,
-> > +             .left = 0,
-> > +             .width = 3857,
-> > +             .height = 2201,
-> > +     },
-> > +     .active_area = {
-> > +             .top = 20,
-> > +             .left = 0,
-> > +             .width = 3856,
-> > +             .height = 2180,
-> > +     },
-> > +     .pixel_rate = 594000000,
-> > +     .pix_per_clk = 8,
-> > +     .common_regs = imx678_common_regs,
-> > +     .num_common_regs = ARRAY_SIZE(imx678_common_regs),
-> > +     .vmax_default = 2250,
-> > +     .hmax_min = imx678_min_hmax_4lane,
-> > +};
-> > +
-> > +struct starvis2_model_info {
-> > +     enum starvis2_type type;
-> > +     const u32 *codes;
-> > +     unsigned int num_codes;
-> > +     const struct starvis2_variant *variant;
-> > +
-> > +     const struct starvis2_model_info *auto_detect_colour;
-> > +     const struct starvis2_model_info *auto_detect_mono;
-> > +};
-> > +
-> >  static const struct starvis2_model_info imx678_aaqr_info = {
-> >       .type = STARVIS2_COLOR,
-> >       .codes = codes_bayer,
-> >       .num_codes = ARRAY_SIZE(codes_bayer),
-> > +     .variant = &imx678_variant_def,
-> >  };
-> >
-> >  static const struct starvis2_model_info imx678_aamr_info = {
-> >       .type = STARVIS2_MONOCHROME,
-> >       .codes = codes_monochrome,
-> >       .num_codes = ARRAY_SIZE(codes_monochrome),
-> > +     .variant = &imx678_variant_def,
-> > +};
-> > +
-> > +static const struct starvis2_model_info imx678_autodetect_info = {
-> > +     .variant = &imx678_variant_def,
-> > +     .auto_detect_colour = &imx678_aaqr_info,
-> > +     .auto_detect_mono = &imx678_aamr_info,
-> >  };
-> >
-> >  static const char * const starvis2_supply_name[] = {
-> > @@ -674,6 +701,7 @@ struct starvis2 {
-> >       struct regmap *cci;
-> >
-> >       const struct starvis2_model_info *info;
-> > +     const struct starvis2_variant *variant;
-> >
-> >       struct clk *xclk;
-> >       u32 xclk_freq;
-> > @@ -770,7 +798,8 @@ static int starvis2_set_ctrl(struct v4l2_ctrl *ctrl)
-> >               cci_write(starvis2->cci, STARVIS2_REG_GAIN, ctrl->val, &ret);
-> >               break;
-> >       case V4L2_CID_HBLANK: {
-> > -             u32 hmax = (format->width + ctrl->val) / IMX678_PIX_PER_CLK;
-> > +             u32 hmax = (format->width + ctrl->val) /
-> > +                                             starvis2->variant->pix_per_clk;
->
-> This seems to be a pre-existing bug but it'd be nice to fix (and backport)
-> this before this set -- the control value is divided here by 8 but the
-> control's step is still 1. The step should reflect the granularity here.
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-AFAICT it already sets the step correctly.
-
-https://github.com/torvalds/linux/blob/master/drivers/media/i2c/imx678.c#L1197-L1199
-
-imx678->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &imx678_ctrl_ops,
-  V4L2_CID_HBLANK, hblank, max_hblank,
-  IMX678_PIX_PER_CLK, hblank);
-
-so the step size is set to IMX678_PIX_PER_CLK, which is 8, and the divider here.
-
-> >
-> >               cci_write(starvis2->cci, STARVIS2_REG_HMAX, hmax, &ret);
-> >               break;
-> > @@ -851,18 +880,20 @@ static int starvis2_get_selection(struct v4l2_subdev *sd,
-> >                                 struct v4l2_subdev_state *sd_state,
-> >                                 struct v4l2_subdev_selection *sel)
-> >  {
-> > +     struct starvis2 *starvis2 = to_starvis2(sd);
-> > +
-> >       switch (sel->target) {
-> >       case V4L2_SEL_TGT_CROP:
-> >               sel->r = *v4l2_subdev_state_get_crop(sd_state, sel->pad);
-> >               return 0;
-> >
-> >       case V4L2_SEL_TGT_NATIVE_SIZE:
-> > -             sel->r = imx678_native_area;
-> > +             sel->r = starvis2->variant->native_area;
-> >               return 0;
-> >
-> >       case V4L2_SEL_TGT_CROP_DEFAULT:
-> >       case V4L2_SEL_TGT_CROP_BOUNDS:
-> > -             sel->r = imx678_active_area;
-> > +             sel->r = starvis2->variant->active_area;
-> >               return 0;
-> >       }
-> >
-> > @@ -877,12 +908,12 @@ static int starvis2_init_state(struct v4l2_subdev *sd,
-> >       struct v4l2_rect *crop;
-> >
-> >       crop = v4l2_subdev_state_get_crop(state, STARVIS2_SOURCE_PAD);
-> > -     *crop = imx678_active_area;
-> > +     *crop = starvis2->variant->active_area;
-> >
-> >       format = v4l2_subdev_state_get_format(state, STARVIS2_SOURCE_PAD);
-> >       format->code = starvis2_default_mbus_code(starvis2);
-> > -     format->width = imx678_active_area.width;
-> > -     format->height = imx678_active_area.height;
-> > +     format->width = starvis2->variant->active_area.width;
-> > +     format->height = starvis2->variant->active_area.height;
-> >       format->field = V4L2_FIELD_NONE;
-> >       format->colorspace = V4L2_COLORSPACE_RAW;
-> >       format->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
-> > @@ -896,8 +927,12 @@ static int starvis2_write_common(struct starvis2 *starvis2)
-> >  {
-> >       int ret = 0;
-> >
-> > -     cci_multi_reg_write(starvis2->cci, common_regs, ARRAY_SIZE(common_regs),
-> > -                         &ret);
-> > +     if (!starvis2->variant)
-> > +             /* Powered on during probe to do detection. Variant unknown. */
-> > +             return 0;
-> > +
-> > +     cci_multi_reg_write(starvis2->cci, starvis2->variant->common_regs,
-> > +                         starvis2->variant->num_common_regs, &ret);
-> >
-> >       cci_write(starvis2->cci, STARVIS2_REG_INCK_SEL, starvis2->inck_sel_val,
-> >                 &ret);
-> > @@ -923,10 +958,10 @@ static int starvis2_program_window(struct starvis2 *starvis2,
-> >       cci_write(starvis2->cci, STARVIS2_REG_ADDMODE, 0x00, &ret);
-> >       cci_write(starvis2->cci, STARVIS2_REG_WINMODE, 0x04, &ret);
-> >       cci_write(starvis2->cci, STARVIS2_REG_PIX_HST,
-> > -               crop->left - imx678_active_area.left, &ret);
-> > +               crop->left - starvis2->variant->active_area.left, &ret);
-> >       cci_write(starvis2->cci, STARVIS2_REG_PIX_HWIDTH, crop->width, &ret);
-> >       cci_write(starvis2->cci, STARVIS2_REG_PIX_VST,
-> > -               crop->top - imx678_active_area.top, &ret);
-> > +               crop->top - starvis2->variant->active_area.top, &ret);
-> >       cci_write(starvis2->cci, STARVIS2_REG_PIX_VWIDTH, crop->height, &ret);
-> >       cci_write(starvis2->cci, STARVIS2_REG_ADBIT, 0x01, &ret);
-> >
-> > @@ -1080,11 +1115,16 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
-> >  {
-> >       struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
-> >       const struct starvis2_model_info *info;
-> > +     const struct starvis2_variant *variant;
-> >       enum starvis2_type detected;
-> >       int ret = 0;
-> >       u64 val = 0;
-> >
-> >       info = device_get_match_data(&client->dev);
-> > +     if (!info)
-> > +             return -EINVAL;
-> > +
-> > +     variant = info->variant;
-> >
-> >       /*
-> >        * This sensor's ID registers become accessible 80ms after coming out
-> > @@ -1093,7 +1133,7 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
-> >       cci_write(starvis2->cci, STARVIS2_REG_MODE_SELECT, 0, &ret);
-> >       fsleep(STARVIS2_MODULE_ID_DELAY);
-> >
-> > -     cci_read(starvis2->cci, IMX678_REG_MODULE_ID, &val, &ret);
-> > +     cci_read(starvis2->cci, variant->id_reg, &val, &ret);
-> >
-> >       if (ret) {
-> >               dev_err(&client->dev,
-> > @@ -1101,9 +1141,10 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
-> >               return ret;
-> >       }
-> >
-> > -     if (val != IMX678_ID) {
-> > -             dev_err(&client->dev,
-> > -                     "Chip ID mismatch: %x!=%llx\n", IMX678_ID, val);
-> > +     val &= variant->id_mask;
-> > +     if (val != variant->id_value) {
-> > +             dev_err(&client->dev, "Chip ID mismatch: %x!=%llx\n",
-> > +                     variant->id_value, val);
-> >               return -ENXIO;
-> >       }
-> >
-> > @@ -1118,7 +1159,7 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
-> >       detected = val & STARVIS2_TYPE;
-> >
-> >       /* Prefer to use sensor type specified in device tree */
-> > -     if (info) {
-> > +     if (info->codes) {
-> >               starvis2->info = info;
-> >               if (detected != info->type)
-> >                       dev_err(&client->dev,
-> > @@ -1127,11 +1168,12 @@ static int starvis2_identify_model(struct starvis2 *starvis2)
-> >                               info->type == STARVIS2_COLOR ? "color" : "mono");
-> >       } else {
-> >               starvis2->info = detected == STARVIS2_MONOCHROME ?
-> > -                            &imx678_aamr_info : &imx678_aaqr_info;
-> > +                         info->auto_detect_mono : info->auto_detect_colour;
-> >               dev_info(&client->dev,
-> >                        "sensor type missing in DT; detected %s sensor\n",
-> >                        detected == STARVIS2_MONOCHROME ? "mono" : "color");
-> >       }
-> > +     starvis2->variant = starvis2->info->variant;
-> >
-> >       return 0;
-> >  }
-> > @@ -1162,7 +1204,7 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
-> >  {
-> >       struct v4l2_ctrl_handler *ctrl_hdlr;
-> >       const u32 hmax_4lane =
-> > -                     min_hmax_4lane[__fls(starvis2->link_freq_bitmap)];
-> > +             starvis2->variant->hmax_min[__fls(starvis2->link_freq_bitmap)];
-> >       const u32 lane_scale =
-> >                       starvis2->lane_mode == STARVIS2_LANEMODE_2L ? 2 : 1;
-> >       struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
-> > @@ -1181,13 +1223,14 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
-> >       if (ret)
-> >               return ret;
-> >
-> > -     starvis2->vmax = IMX678_VMAX_DEFAULT;
-> > +     starvis2->vmax = starvis2->variant->vmax_default;
-> >       hmax = hmax_4lane * lane_scale;
-> >
-> >       /* PIXEL_RATE is fixed and read-only */
-> >       v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops, V4L2_CID_PIXEL_RATE,
-> > -                       IMX678_PIXEL_RATE, IMX678_PIXEL_RATE, 1,
-> > -                       IMX678_PIXEL_RATE);
-> > +                       starvis2->variant->pixel_rate,
-> > +                       starvis2->variant->pixel_rate, 1,
-> > +                       starvis2->variant->pixel_rate);
-> >
-> >       /* LINK_FREQ is also read only */
-> >       link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
-> > @@ -1199,23 +1242,25 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
-> >       if (link_freq)
-> >               link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-> >
-> > -     vblank = starvis2->vmax - imx678_active_area.height;
-> > -     max_vblank = STARVIS2_VMAX_MAX - imx678_active_area.height;
-> > +     vblank = starvis2->vmax - starvis2->variant->active_area.height;
-> > +     max_vblank = STARVIS2_VMAX_MAX - starvis2->variant->active_area.height;
-> >       starvis2->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops,
-> >                                            V4L2_CID_VBLANK, vblank, max_vblank,
-> >                                            2, vblank);
-> >
-> > -     hblank = hmax * IMX678_PIX_PER_CLK - imx678_active_area.width;
-> > -     max_hblank = STARVIS2_HMAX_MAX * IMX678_PIX_PER_CLK -
-> > -                  imx678_active_area.width;
-> > +     hblank = hmax * starvis2->variant->pix_per_clk -
-> > +                                     starvis2->variant->active_area.width;
-> > +     max_hblank = STARVIS2_HMAX_MAX * starvis2->variant->pix_per_clk -
-> > +                  starvis2->variant->active_area.width;
-> >       starvis2->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops,
-> >                                            V4L2_CID_HBLANK, hblank, max_hblank,
-> > -                                          IMX678_PIX_PER_CLK, hblank);
-> > +                                          starvis2->variant->pix_per_clk,
-
-And that IMX678_PIX_PER_CLK (8) is changed to
-starvis2->variant->pix_per_clk, which matches the change above.
-
-v4l2-ctl --list-ctrls-menu with imx585 is giving me
-            horizontal_blanking 0x009e0902 (int)    : min=544
-max=520424 step=8 default=544 value=544 flags=has-min-max
-and with imx662 gives me
-            horizontal_blanking 0x009e0902 (int)    : min=1034
-max=194669 step=3 default=1034 value=1034 flags=has-min-max
-
-Are you seeing somewhere else where the step is set incorrectly?
-
-  Dave
-
-> > +                                          hblank);
-> >
-> >       starvis2->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops,
-> >                                              V4L2_CID_EXPOSURE,
-> >                                              STARVIS2_EXPOSURE_MIN,
-> > -                                            IMX678_VMAX_DEFAULT -
-> > +                                            starvis2->variant->vmax_default -
-> >                                              STARVIS2_SHR_MIN,
-> >                                              STARVIS2_EXPOSURE_STEP,
-> >                                              STARVIS2_EXPOSURE_DEFAULT);
-> > @@ -1356,6 +1401,9 @@ static int starvis2_probe(struct i2c_client *client)
-> >       if (ret)
-> >               goto error_power_off;
-> >
-> > +     v4l2_i2c_subdev_set_name(&starvis2->sd, client, starvis2->variant->name,
-> > +                              NULL);
-> > +
-> >       pm_runtime_set_active(dev);
-> >       pm_runtime_enable(dev);
-> >
-> > @@ -1436,7 +1484,7 @@ static const struct of_device_id starvis2_of_match[] = {
-> >       { .compatible = "sony,imx678-aamr", .data = &imx678_aamr_info },
-> >       { .compatible = "sony,imx678-aaqr", .data = &imx678_aaqr_info },
-> >       /* for non-conforming DTs that rely on runtime check */
-> > -     { .compatible = "sony,imx678" },
-> > +     { .compatible = "sony,imx678", .data = &imx678_autodetect_info },
-> >       { /* sentinel */ }
-> >  };
-> >
-> >
->
-> --
-> Kind regards,
->
-> Sakari Ailus
+Konrad
