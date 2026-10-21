@@ -1,47 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.68.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584346;
-	b=munMhyQmLq7wNrfrGguDY74t47svOK2nTgnmKwfI3+94u389/bNQHC7Uc/Pw9Q/lZiNX
-	 VcIO5wJKhXq7fIflnMchNAZxCl5FWMKD1ikruYX9H5OcO3eo/hbIOyUzjlEUOMBWYzR5m
-	 wbQyLnr+HQ1YWHlMBlrQU0U3GkWevhAjJMV6UMJKrW28+qf0VaxvzNYq5QYxL4Z571X8+
-	 fO8Z87wjLIb5SgM9IlcGsV0HYH8aciaWyLaIlVzzgu9pbb6vwsTBb1dvlQCRceicbSbbq
-	 F4oX51kdAx2uD+YeN+l0Dxfw2ZA22gl16sh6TjIy1jp+KNgWWInQYHHiUJZAUgJvqoQ==
+	t=1792584417;
+	b=VAYh5RykUtM0//Qv27mK9wq0yP27FUoDvYFG8YpMbLVP+63qiV4/eKFr/eUl7QzokjnC
+	 N+F663zwRL+XK1bC1gFy6dtDcYK5cRHXgWfeksv0UuaDp0+PXb/5BqyeGHNbyW1TZQBYY
+	 Hr/WAnnyZC8FrbeGMyF19wUNxMFmsqOXHMPNC+7U8d0aH4DmeOAZOmgFc2Egj5ZYMNvRe
+	 LRmMH61LLCcsY7aI5l4ikDXSc1cN3aH1qrwIRwJlM87Uc7xwV512O5fzRZ95zjRbm9PIx
+	 dYiyKjgKcsudkXGzgYfSd6l24N599Xc7YhnAfzz+exdV5vmOskJ2YhZ3EuDJYateLoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584346;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lGoVj4Mpg7wY1tcmzcgHoP/Jxqw0xclPQNOED92gT+w=;
-	b=pKmLEekbHFT72XB93/yAPicDqN/XClTnUP3PVvCsAcHhXiViWbWZVGKLS9btnUM88o9T
-	 fgnyiuW7vnNDA3Qhhc3e1RdP1w5CD7Bxg4iHrBzNN9ZRTqtujULaJuZQemeX28Jitee3/
-	 /k/8aGzW31XvuBmUbyhdyxraiwTLSXGRvFBGeki2SnGyfC2A5MlLsJBEaAxk7OwmaOe5P
-	 N2eQFGv+bVF9QAhLQ45Jn4u5c88JyA/Ctqhjv1a8jFuwghmu37Jp9LhnqOPhdzIv2Gg2U
-	 Cr+QwLVrctLYdjhvHiJ1+Cw3ZHFM7bDaarI7eKiuPRVjzfUr+nIoLr8X2y/TcSbdfUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584417;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=QJXz6Gn2K1VN9nepLWRw3UZWWzN19sWrO7Tu6FlLAeI=;
+	b=06l2yXDUl2jtfcWBYhkWLCsuoAzspRplSRSD8osjXn/22uDriwZwBDJzsJVTSHkNBvC8
+	 YgxE0Zsw6Dyrr5YMzQC7gwnrO9CRUrfwI0IhH7qmLb+EVpE4kQSA7dlms0RotpBSR5KoM
+	 w2UfBZWiJjzByCe2xGQEq/chVQKbm2RdK8CHzZyl0gaoDN3PIOkQZD143ll1Ug5+ufU8w
+	 16mn7XEqykg7TH4ApnRCrmI6EK+ApixzTTi7rl7jMY/AtQyFXGlwr18daOx73DwSBywcx
+	 t5UKQPELv7UAr2Tz9eV0O2J4UizXLsUXxy2nWg5LDoo7OEZV5LHzicu2nJuDy/NQKSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGpBd8No;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=hlVKb17C;
+	arc=none smtp.remote-ip=34.2.68.31
+Received: from sonic.asd.mail.yahoo.com (sonic-usea4-0032.asd.mail.yahoo.com [34.2.68.31])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDE9606A31A;
-	Wed, 21 Oct 2026 12:05:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8673606A319
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 12:06:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8673606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WGpBd8No
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389261F000CC;
-	Wed, 21 Oct 2026 12:05:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584345;
-	bh=lGoVj4Mpg7wY1tcmzcgHoP/Jxqw0xclPQNOED92gT+w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WGpBd8No1L3NW8cgKmFv2abaJ4sKKsQKhkEaR+UdDCW6lWt4yAjqWF39G8cG4XDMW
-	 rw+kOHxZAOAclT2jlV5iy8F74SLvQWF+Xau5AlQ76GVetV9wtQC2ZeR8Ffqi8Jn5UU
-	 2p+/uS68oWgMxIB/XUwY4jXP5Ny9DyE5MdVed9PeU1WpI1zaE+pIJ3i/491Y74vjM2
-	 Cs27b2gaK5CdBhFPSqXc9Cpucc+IrNyEGHKgvWsC3dYfOLv8yxvPqpmkj2vQVMMzoJ
-	 VhZdAQXskoHdRKxNdd7TamDDGE8mj+sc89fiKkMSoidRQXPL+OvT3XLgt1YauUOd2K
-	 jopUWhDfYn+Nw==
-Message-ID: <64603812-672f-43ba-9c5b-783d666d0ac0@kernel.org>
-Date: Wed, 21 Oct 2026 14:05:35 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=hlVKb17C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792584414; bh=QJXz6Gn2K1VN9nepLWRw3UZWWzN19sWrO7Tu6FlLAeI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=hlVKb17CEX1iwg7IYfFB3E8muQEvY7ZDhOQ/SfqpdaKzwLNBNBlVj0sIYfrmjpQazlGnVGOD1sidyxRKYIEUs5k1rR8HNWMYvmim4fPdicgFMJAvMWocGTb+ng3CCpFPmnHAVktZ/SroAZaBysv8L8Hisfz4Yq04bF8cbv0SclwmYVkjgrJ/FjVN5KUcZCTY87wGQqYR7zHcll6UKyfiMDSdrxk4hnAUFPuBmO3e//rzV3DZ3hnp/ZNw9o3FpD36uMCi1/UPy/hnOkSfKBIt8nxHfcpd1ynLbfJJ8BN7SYXmb3lR464Th+ycuXyrXSbUZ8iTBORuaLHTgSJ7p7eDiw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792584414; bh=lJNUKOkvMAUjBOyRTgGYHWCGoY9FY7OJ8Fqrv8DVUSp=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=ndTPzLZpbHJXS2IxFnH2giBuc9g9CavAReL4RVoopFlOqSZoKlPw4Xqa2ZNX+fqQkKxQ5iBZ/PHph23aeHrimtJ8yZWuzW1/kB3MPRt36NPdV/hF5R2ohmDgUbwKrQ985hIBdXeYlqc9D13QaXF15owg9L5OPaRJXN5nznNcE86m0e7fNTwdPKvWb9ezjE6gIyOQlo805PAquEARfVD/Xo6wOlm7gvaPGgBKRCyyCrJdnmmYJyIi7intSJcfYhqFbPXNd4Ck9UCKDpVObrC2YXpqxj0jMgCvjukzpeS/0E94xwvEblRS3RWCXRPA4rIUYCnpqkKAzVoBZa0TcBqfnQ==
+X-YMail-OSG: ExR99aEVM1kMAG6d2noY59moo6w6Htpi6tth1y7fipD9gkf5oDw5lXwLdiVjo5E
+ dpEqNL.1ZvPcZNIW3w1TFQhEnWRJKYfQNktfE1HfwyO2bcUvOTbZLj9c8v0sJKZJqRixQx3UJEPZ
+ SK0IOmJNzS6nyFVX2OXsMCeoR13T7iwIg9eTgvf_TZCnW4GouvzHpwuoxY8wpjmKAqc9kR7GcuvZ
+ a2PMESFlC6howRTxzd44JS3ko.TJtg.I4OtPIN9Ce_t9cksFin6jwQ5_sSgfCVvpuCamRFMLNxb1
+ 1qGRjTHOMO_OcLR0j3Shh1XzF57nY8toCTY1JSg9Wa4jHGsXe2q4HQ8OKMJ19uuP2__3OYKPsgzT
+ DMvO28fcLrmONJhblP5DmLJyNh04c16q3bzUJlnayOE1bVfE0aFJu5iH_B7oPSiJKWe9b3RdCdus
+ y56.gv3k6NShEwxO_T3.142P.34ZuSZREuZpcgo9R4Rw6NL18fWlld8gSLE4VkEDjvzCvgWFk_QW
+ zziY3gAwlp6.ygMY8K0oZQiOpkpJs_9jxiY80NAl44oM_6gVeMFhxc5eEwgLvb1LLaHKTWSeouAI
+ GyKVJYf0znleEZAfqD7XddKKQ9A61vEBAe.sx_CfIKJuQt3CMB_AIKjBpsOxxjuBfooirCr5Ea_v
+ zIZcNqJAurmIT7bDmVOmitAsM_4vScZwkZhOmLTEtunzEwSG9XwatZeko7QcUGCe56rKHb3Q44Gg
+ 8WplYrqOpwLogCNphzOBI3QnNEBvXEt5QrWTE2AhkhX4NJpSYGcgYs83SOFaBX_s.weQUEcBsGQj
+ 2eak.zSxmtD01zcl8wHDubv0h5aC9MRPlr0kOUdgYVkQYSkxOsd9mr0TkoWQ57Dy0g8rrFx2NTSi
+ iH15Fyxbvbxd2TDx4iYQhb1C1Sdu0V3YEvkk7GwldjARImjU7EWOJxpM7Ib6aNlnA42pHINQt0n1
+ lwGNCXsZRGX.32pov8BdpYNuIB8.Nub6roqSSsM9DqM3.b8H2SnuZKt_P_4WKH80WrtDR7I4HzWq
+ 8H8d2UYeJay50NXGR8CxPnw4lupyfz2blCx17atj0lvEMzcbK_giiAOGrPHe9YgwwTS6SIJpmtDp
+ 5evRyXx7d6rEGgnIoTkFUc3.e1cJeymh.VFMIJhJonGUIQLR6U8K88U56EMACxp5FxO_.Cpmk7sA
+ ZnycQmmv7.QP3o2Bfy4eGTPvnlS7rh9oQ1WRBmsO119GRYvErWygrXWW5cPXYloc2h4Ko5A7ct.e
+ 8zIChEBSfx.faLi.pJ56e9hnN9O3OpNkGWYOaw7c7PP.cRDB9YMlAtC3jYDxHNuWzw6U.RAY0bbs
+ fauaOqjgkx25BOz8jiA6yrvYU5rLFGCa84Ik3R4W4Z1ixes5ICg_YMm.QtCOnOqc_oeWeyN0ERqA
+ c48D0FuBsCkaj4U1DmuvZyQh9raMAe6bJwWlp2iaF1Z_5nhPJGGBHt10Z4Gs65LVGQX33SueKGSs
+ lnlFgVt.RYEw12Vqo2o5zsUYvrMNpGKyX7GfDsEDOCn2aj.IQB1vUprDSYo9istt7AZZ1gDk.qwo
+ dDUCJcUOj8a3KXgEg4kx4ApeThYs3LncFX06PxEOQ0G9XMMQJf_DvXFnfIwNaEEoq9E_3zYkZHxg
+ KD.I_IpLEKGshX1mPh_SReXdRp7nwqH1AtMpifq6ux0gdwrIeL2Cdil8KlvkM9OCnBoN4VBAb6sn
+ 33GE0FvtV3OLvLP1DZll4otBnc5w8R9ZOK7Zs7UeJ4eDMnTkFGsHliBOpFyLkmMFYVF1R_UVzmv8
+ I1768qPpQX.5unCOgnC6gg1gDGrczWJDsinD8OZIKoMQSBrklV10ZbJ4MlPmjnS_1eZbYmeWzlEV
+ sp4Na4ONhzFDkM2IMl6sEDqjPjbZxI6.MATHIy4zODSpZSuT_x_o5zRf_7K_vR4AMNeWHPFkUU34
+ 69jQ5qI9tGaeQq3vg3n7xSHdHumyNt3q0IU0FAXJOZbp4HsV8Cd5Z30FHW5kavUk8i2.k6zTyvhZ
+ D5zj8BAQ7vaz0vOFaz7Rlrqzj7I1LqIqxjR1LAx.5
+X-Sonic-MF: <stealth3m@yahoo.com>
+X-Sonic-ID: a5e6f66d-5edb-4a9d-938d-21b10a912660
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea4-prod-sonicconsumer-svc-101 with HTTP; Wed, 21 Oct 2026 12:06:54 +0000
+Received: from dip116.lsn.bf1.yahoo.com ([67.195.177.125])
+          by hello (SMTP) with SMTP ID 4510d890358dd4fd8d57f3d1bca9c57b;
+          Wed, 21 Oct 2026 12:06:53 +0000 (UTC)
+From: Ext745 <stealth3m@yahoo.com>
+To: linux-media@vger.kernel.org
+Cc: isely@pobox.com,
+	mchehab@kernel.org,
+	hverkuil@kernel.org,
+	ribalda@chromium.org,
+	Ext745 <stealth3m@yahoo.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: pvrusb2: fix control enumeration with V4L2_CTRL_FLAG_NEXT_COMPOUND
+Date: Wed, 21 Oct 2026 08:06:29 -0400
+Message-ID: <20261021120629.1869411-1-stealth3m@yahoo.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,93 +90,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 09/13] drm/msm/dcp: Register DCP display pipeline
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-9-48aad0fe4f72@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261015-jshekhar-drm-msm-dcp-v1-v1-9-48aad0fe4f72@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+References: <20261021120629.1869411-1-stealth3m.ref@yahoo.com>
 
-On 15/10/2026 09:38, Jayant Shekhar wrote:
-> The DCP firmware exposes display resources through capabilities rather than
-> through host-visible display registers. The MSM DRM backend therefore needs
-> to build its KMS objects from the firmware capabilities and device-tree
-> display graph.
-> 
-> Complete DCP KMS registration, including power and IOMMU integration,
-> capability handling, display-graph parsing, and creation of DRM planes,
-> CRTCs, encoders, bridges, and connectors.
-> 
-> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-> Assisted-by: LLM
+Since pvrusb2 implements vidioc_query_ext_ctrl, applications that
+enumerate controls with VIDIOC_QUERY_EXT_CTRL and
+V4L2_CTRL_FLAG_NEXT_CTRL | V4L2_CTRL_FLAG_NEXT_COMPOUND (v4l2-ctl,
+qv4l2) reach it with both flags set.  Only NEXT_CTRL is cleared before
+the lookup, so the search starts above 0x40000000, finds nothing and
+the enumeration ends at once.  v4l2-ctl then falls back to probing the
+user-class IDs one by one: the MPEG encoder controls are not listed and
+"v4l2-ctl -C" can't find them by name.
 
+Mask the ID with V4L2_CTRL_ID_MASK like v4l2_query_ext_ctrl() does.
+pvrusb2 has no compound controls, so NEXT_COMPOUND needs no other
+handling.
 
-Your tag is the last one.
+Tested on an HVR-1950, kernel 7.0: v4l2-ctl -l on the video node lists
+9 controls before, the full set including the MPEG controls after.
 
-Best regards,
-Krzysztof
+Fixes: 8b5ebc688054 ("media: pvrusb2: Convert queryctrl to query_ext_ctrl")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude Opus 5.5
+Signed-off-by: Ext745 <stealth3m@yahoo.com>
+---
+ drivers/media/usb/pvrusb2/pvrusb2-v4l2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
+index 101b2e9fb..5c0117493 100644
+--- a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
++++ b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
+@@ -510,7 +510,7 @@ static int pvr2_query_ext_ctrl(struct file *file, void *priv,
+ 
+ 	if (vc->id & V4L2_CTRL_FLAG_NEXT_CTRL) {
+ 		cptr = pvr2_hdw_get_ctrl_nextv4l(
+-				hdw, (vc->id & ~V4L2_CTRL_FLAG_NEXT_CTRL));
++				hdw, vc->id & V4L2_CTRL_ID_MASK);
+ 		if (cptr)
+ 			vc->id = pvr2_ctrl_get_v4lid(cptr);
+ 	} else {
+-- 
+2.53.0
+
