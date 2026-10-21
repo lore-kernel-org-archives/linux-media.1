@@ -1,70 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597426;
-	b=Z9waLiLkBWQwp4uzkm6Ywi7+8nEfaNLOe9l9njcuVMuxiK2GioRwWju/U23FOp+kDy6F
-	 E5NCO+sdWJbECuqc1VtvUqtStGJR9i+Ik3e0FahldKFM8BIqjyH8MiAUlC8hIKXsMeX1H
-	 AI9UvWYx7Zg7tzLqi4LJxJs99ep85hKTY/PSrNN74tKY8yiS2uahanS/ekvaUdy0UVIdR
-	 DqzmUkiaQ/guOW0IpUf/125J8fTdNjipSp1Hz9p+9VH3cceMlsRPshH3S75V9X0pv1Sf6
-	 /hx/ePr3JOlGeplp3quXg6G52b9SvXE5wlWe/hqV6ayfKJQHIVZTeFqcAUjRcB6DkzA==
+	t=1792597422;
+	b=yb1LEL5WcKRKBq5sis5val4o/ArSJY58cbdosZeiYg7YKe3zfo8/Mi8mfLvb+BViowHH
+	 LtUDyL7d4k9jrs25hl3t7Hp6lNUnVcTOuvygFIFW1lMeaxlzqlySCUpolH9RnbHAtrSQj
+	 Zl9DBW1sVdVj8J6bqAJtS+TSDWpnXthGqZq9gCjxiVfac38SuWAqYMSYQI0oV5De0Txvg
+	 pdZOZ5KXChzeZbG49zDDQIRAbbHSUIwVke1mpoIeAe6VR2A/BDFksmxLH5Vy4ybb0VgkH
+	 d6gcHwFgx3zdQtLAnvNqTm2E7LWtbltrHDEBC+VHrzPxEKCrf7hEuJ7bwB5zo6Hz4Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597422;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Developer-Signature:X-Developer-Key:
 	 X-Scanned-By;
-	bh=Dk6wwXssduvkysnCFA49Mb0DnkBZNEAPmUUXIY9glP8=;
-	b=RVotZPgJsci30XQ3M0nPdOMzcOMeM4ovBBJ9UcGR8/YsketCA1gpaZeHYgwnGE6jficp
-	 n278J5qFFcND/gNIhg05p3tk7FELwr5Uhrm+1UqlQCIqa6v4GcaRmiNGPxwRP12xq9NSm
-	 dHVUDJCgP/SbuAqS1SRrWUT1JaYnjB6dmtteTe1MIH6SppDRHEqWNXcznndfa7FF5cIoS
-	 /gNumaemV6CIZLVStUtqArtpSm3EoGK2j0ABuY/Po/k9eTFS2td7i+jUHo7YIUCeiTNRB
-	 uL4AqZDkcLjOtagsEnXAbVps+E7EtnuNlC4BOJXG09xmeAyfc8u3iTaRmJTrNxRiTng==
+	bh=BIN2xmkcrM6GUForywfj0SmUMjhlUpfCv56D4umJYig=;
+	b=ZxMYhtSc+kk35IM3n5R2Igl+gQDF8ErxioN3se2yRhBygMKx5/PH7DaHhY36lk9tVbsQ
+	 kC/TQuh2CYJ14xZ27G1ERsiak6VVMFAUpAOD0Q1FchM4v758abTzQgtmupgsFqcEq77ru
+	 8ZtMMAcpm1ez4fJ/WVgMQhz1G4yR+wUr5SvIxn4rq9H9XeeuvkIXcyw2/PsvQtLzbX0aH
+	 y9edKUBHsnziDiwZqPxm2Y2bIyCvitUba5rBs+6LYH/PX+FBCikAo8bHO7xCMmp1Nx/+z
+	 vng9wFM4lgT5efgZFbNnmwVoOk5CcGidz0CWSscT78rcsRkoqMdSzzC+Y5FLo0niZGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PvLg1WB9;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P4RkW0r8;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3576760A5BC7
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 15:43:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3576760A5BC7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4743B60A4AED
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 15:43:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4743B60A4AED
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=PvLg1WB9
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P4RkW0r8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792597425;
+	s=mimecast20190719; t=1792597421;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Dk6wwXssduvkysnCFA49Mb0DnkBZNEAPmUUXIY9glP8=;
-	b=PvLg1WB9vArRS2zdHvc8KyIm/rxfT7C9EQmHPBEswqHpXLKOjZIItkarE24tS6t/dZ+m1n
-	gfhJoM31lX4ACxb6EMEzYA5hLU1J9cKGAH5Emi0i0AtSTQNhlFyQjtNqIDZ2MBP0BLadBZ
-	8Xqb5m/F965otV8eKDVmHdtON/M/jGk=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=BIN2xmkcrM6GUForywfj0SmUMjhlUpfCv56D4umJYig=;
+	b=P4RkW0r8C2BRN6onDk6+2++ZM2xyqNpynLSrP3MkquIprP6dmRADMaM7p8SisLw2Fvzqle
+	XxjjkqU3Sxck04PRpVWFO9UB7xbae1xr8+1dZ8X1bkEe5po0l8hHL1yCdAAZaq5kAXDPam
+	8JnCHwcP0mrq6njmBTk+vbuVB+RjWFQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-301-JjkEKVxdN4ykZuUXpUfnjQ-1; Wed,
- 21 Oct 2026 11:43:43 -0400
-X-MC-Unique: JjkEKVxdN4ykZuUXpUfnjQ-1
-X-Mimecast-MFC-AGG-ID: JjkEKVxdN4ykZuUXpUfnjQ_1792597418
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-440-wDBZPeUZOxGRl__DCtwUSg-1; Wed,
+ 21 Oct 2026 15:43:35 +0000
+X-MC-Unique: wDBZPeUZOxGRl__DCtwUSg-1
+X-Mimecast-MFC-AGG-ID: wDBZPeUZOxGRl__DCtwUSg_1792597410
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 39A0D1956055;
-	Wed, 21 Oct 2026 15:43:38 +0000 (UTC)
-Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id ADBF918002B1;
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 58E911800578;
 	Wed, 21 Oct 2026 15:43:30 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4A5751800480;
+	Wed, 21 Oct 2026 15:43:23 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Wed, 21 Oct 2026 17:42:27 +0200
-Subject: [PATCH RFC v2 6/8] selinux: Restrict dma-buf direct cgroup
- charging
+Date: Wed, 21 Oct 2026 17:42:26 +0200
+Subject: [PATCH RFC v2 5/8] selinux: Restrict cross-cgroup dma-buf charging
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -76,7 +75,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-v2_20230123_tjmercier_google_com-v2-6-ef6ee2dd8c5c@redhat.com>
+Message-Id: <20261021-v2_20230123_tjmercier_google_com-v2-5-ef6ee2dd8c5c@redhat.com>
 References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
 In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
 To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
@@ -102,101 +101,72 @@ Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
  selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
  Albert Esteve <aesteve@redhat.com>, mripard@kernel.org, echanude@redhat.com
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792597359; l=3371;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792597359; l=2546;
  i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
- bh=WhNF22wskvchWhAOLXz5tK1hE/8N9oZT6SVHpLAxSMQ=;
- b=varrJblz1GmvQzfke0vE+VKqGOZD7frOjl2u1GrLrmjgsm5CEcK9ExzBs5iyDAiQiA2o3+Vtv
- HP7IXuHUoouDUYcFR/lpCtvrCnDI873UHcD6SIkoRdCsHZeG/oUcSe6
+ bh=Q4MDTyTx8BDPwFzxJa2XHViMR1+R79st6XMgJZaOlIY=;
+ b=tDWPABumh8zVFpLL7LPjmRC9KfpiXTDnEpOD2xwgsiun8v5lOm/DwV86OfI8pRNpG8rfgsfOU
+ LBY2q4iwqE5A/ROedWdus7ucF/3eMED6PEZhnoUzFbYMVxCBMAzWaLh
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-The security_dma_buf_charge_cgroup() hook allows security modules
-to control which processes may charge dma-buf to an arbitrary
-cgroup via cgroupfd passed in charge_fd. Without a policy
-implementation, the hook is a no-op and any process that can open a
-cgroup directory (effectively any process) can charge memory to it.
+The security_dma_buf_charge_task() hook allows security modules
+to control which processes may charge dma-buf allocations
+to another process's cgroup via the charge_fd field of
+DMA_HEAP_IOCTL_ALLOC. Without a policy implementation, the
+hook is a no-op and the restriction is not enforced.
 
-Implement selinux_dma_buf_charge_cgroup() using avc_has_perm() with
-the dma_buf object class and a charge_cgroup permission. The target
-SID is derived from the SELinux label on the cgroup's kernfs
-directory, so access control follow the cgroup filesystem labeling.
-Policy authors can then grant cross-cgroup charging selectively,
+On SELinux-managed systems any domain with access to a
+dma-heap device node can therefore exhaust another cgroup's
+memory budget without restriction.
+
+Implement selinux_dma_buf_charge_task() using avc_has_perm() with
+a new dma_buf object class and a charge_task permission. Policy
+authors can then grant cross-cgroup charging selectively,
 for example:
 
-  allow allocator_app_t cgroup_t:dma_buf charge_cgroup;
-
-The hook matches the fail-open semantics of
-selinux_kernfs_init_security(). This means unlabeled cgroups are
-unrestricted by default.
+  allow allocator_app_t client_app_t:dma_buf charge_task;
 
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- security/selinux/hooks.c            | 33 +++++++++++++++++++++++++++++++++
- security/selinux/include/classmap.h |  2 +-
- 2 files changed, 34 insertions(+), 1 deletion(-)
+ security/selinux/hooks.c            | 7 +++++++
+ security/selinux/include/classmap.h | 1 +
+ 2 files changed, 8 insertions(+)
 
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 8f39d91eabc9..8de5e16951de 100644
+index 30776b0107f2..8f39d91eabc9 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
-@@ -2210,6 +2210,38 @@ static int selinux_dma_buf_charge_task(const struct cred *from, const struct cre
- 			    SECCLASS_DMA_BUF, DMA_BUF__CHARGE_TASK, NULL);
+@@ -2204,6 +2204,12 @@ static int selinux_capable(const struct cred *cred, struct user_namespace *ns,
+ 	return cred_has_capability(cred, cap, opts, ns == &init_user_ns);
  }
  
-+static int selinux_dma_buf_charge_cgroup(const struct cred *cred, struct cgroup *cgrp)
++static int selinux_dma_buf_charge_task(const struct cred *from, const struct cred *to)
 +{
-+	u32 cgrp_sid, clen;
-+	int rc;
-+	char *context;
-+
-+	rc = kernfs_xattr_get(cgrp->kn, XATTR_NAME_SELINUX, NULL, 0);
-+	if (rc == -ENODATA)
-+		return 0;
-+	else if (rc < 0)
-+		return rc;
-+
-+	clen = (u32)rc;
-+	context = kmalloc(clen, GFP_KERNEL);
-+	if (!context)
-+		return -ENOMEM;
-+
-+	rc = kernfs_xattr_get(cgrp->kn, XATTR_NAME_SELINUX, context, clen);
-+	if (rc < 0) {
-+		kfree(context);
-+		return rc;
-+	}
-+
-+	rc = security_context_to_sid(context, clen, &cgrp_sid, GFP_KERNEL);
-+	kfree(context);
-+	if (rc)
-+		return rc;
-+
-+	return avc_has_perm(cred_sid(cred), cgrp_sid,
-+			    SECCLASS_DMA_BUF, DMA_BUF__CHARGE_CGROUP, NULL);
++	return avc_has_perm(cred_sid(from), cred_sid(to),
++			    SECCLASS_DMA_BUF, DMA_BUF__CHARGE_TASK, NULL);
 +}
 +
  static int selinux_quotactl(int cmds, int type, int id, const struct super_block *sb)
  {
  	const struct cred *cred = current_cred();
-@@ -7681,6 +7713,7 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
+@@ -7674,6 +7680,7 @@ static struct security_hook_list selinux_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(capget, selinux_capget),
  	LSM_HOOK_INIT(capset, selinux_capset),
  	LSM_HOOK_INIT(capable, selinux_capable),
- 	LSM_HOOK_INIT(dma_buf_charge_task, selinux_dma_buf_charge_task),
-+	LSM_HOOK_INIT(dma_buf_charge_cgroup, selinux_dma_buf_charge_cgroup),
++	LSM_HOOK_INIT(dma_buf_charge_task, selinux_dma_buf_charge_task),
  	LSM_HOOK_INIT(quotactl, selinux_quotactl),
  	LSM_HOOK_INIT(quota_on, selinux_quota_on),
  	LSM_HOOK_INIT(syslog, selinux_syslog),
 diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-index b4ebedc6e424..90d1e04c3d27 100644
+index 90cb61b16425..b4ebedc6e424 100644
 --- a/security/selinux/include/classmap.h
 +++ b/security/selinux/include/classmap.h
-@@ -181,7 +181,7 @@ const struct security_class_mapping secclass_map[] = {
+@@ -181,6 +181,7 @@ const struct security_class_mapping secclass_map[] = {
  	{ "user_namespace", { "create", NULL } },
  	{ "memfd_file",
  	  { COMMON_FILE_PERMS, "execute_no_trans", "entrypoint", NULL } },
--	{ "dma_buf", { "charge_task", NULL } },
-+	{ "dma_buf", { "charge_task", "charge_cgroup", NULL } },
++	{ "dma_buf", { "charge_task", NULL } },
  	/* last one */ { NULL, {} }
  };
  
