@@ -1,99 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.128
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792584412;
-	b=fZpBiZLEyeSD1XO4X5bSSxykFy9yIc6A+EHFsJ6T868v0kVnyrNRc/IE359TpRsuvjPO
-	 Bh7dC6E4kF48Uxo1D1EfVcGdSm+WvONcHsSiftsy01/ALMMIvqFjlD+O8QbuVpbHnZUvn
-	 f7VPYCpk1+/WNgNydzk4WZ/K3pzEnshK5OmcVEgtZXif3hN3nJniiGJgCPejZ3HPv2q3H
-	 j1tWhxRhvebY8oHZTbQna12G60PEWcyQ5nX91cx4vyDkF4IxAEDUf6FWMbnac0KR6hdxs
-	 rvVXicOJaxPjhXAbuZaaJY3vfuQEM+p4+1ZQi3fsf+FTo6PV3LmIRR7YQ95/mY0S8gA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584412;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=sA041WDa2vqolKp4czatEpxiyQONE5RmxjDRt0fEGRI=;
-	b=X6e+ZN9kXMP8t/xlDsoeXnS7yzzqpVJEES9BesPh2X9SlCZ4oEuss1K5wod5awKXyIFn
-	 C3r/rK+UpJ+9BQWIOPgi1jvTPf+D7leRTXP55Td5pzpdUVsQ3Pm5vyfrl5ikrGFOO1Iev
-	 Ajy/4ZQ3pYTxqf4YzaJFyyQZI8M2ObANA347r9Iyy7XffKASQEiVunpURUsi5gtKnATXF
-	 Fl82AyBzalvDShNoNyhTnae5t98H4YlmezTXKZCJ7pUK3VPS1M7LwzjxTGIYg8VeWsdQf
-	 rPkf5kKAWSMy+XJ1NqfDSRjgcuGYpyw5QaXUjDp3OO9qY5oYGmZb1bBJl3XgbATG9/Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=qKieBi+y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.100.128
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021128.outbound.protection.outlook.com [52.101.100.128])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.68.31
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792584526;
+	b=2eGgoZsyJoootR4TW4/L9JLWodM/vhLrl/BxxEqUOX7Dk41NwXkG8P/t0SdeDAopm0w8
+	 Zie+oA5JnAhdvViIL4nTKWp1d3V7+MhkoIhazpco6GQ0ikEj3UnzG6RHqZdBhM2mwaAFi
+	 SpVZPD1uHbz/izxrLpFfwHVDWsVeERWEGjNxBVmk+zh2z75NV0SzRbhEkojkOd5WeVSD6
+	 it6t/KTC6OvMQgoRokdmq+EkBLyLpjawtnr7iFD3imNP4GAvG9eFo4kKV3sVf+N6/hpKQ
+	 eaZLwTJSgNUPhk95/UYeaaKwmz7WcqINbpGhScRIntMHcY66jwvf6Xs9czt3v+cxdCA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584526;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
+	bh=QJXz6Gn2K1VN9nepLWRw3UZWWzN19sWrO7Tu6FlLAeI=;
+	b=xQ61SQtWX2Q7mnuGHaYmObk2bJr1uZwUSRTyXQ+nVmQIj5HLCXMOlUo73/XGb7EbJ8SY
+	 QpFnU+P66evUbie2Dvpu5o+sTzJXR1Oo3MHwAhUW3WD2T/EcpM7Fbdbej5qepqJ0LVEXu
+	 cD2LNF69BJehzyaIXL/tbu7zxBRDTX4wI35OlLMK4mVCJG7Fo2WbVf7rYtNoZrf6B9M0+
+	 XLeiXlzDZvdAWMtI2pvwAVdywCItl+FYwLaFijZPPwC9b5Lzr1/2xpv+U9YS/Zix4RnSt
+	 gxldO77Q4tAYFCtLJHifTFouwWB2KpkCyft2p5rBbOv9iACJdxFt9cUKCrshWBhmVpQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=yahoo.com;
+	spf=pass smtp.mailfrom=yahoo.com;
+	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GyvF7QJs;
+	arc=none smtp.remote-ip=34.2.68.31
+Received: from sonic.asd.mail.yahoo.com (sonic-usea4-0032.asd.mail.yahoo.com [34.2.68.31])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F4B606A31A;
-	Wed, 21 Oct 2026 12:06:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8F4B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00852606A31A
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 12:08:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00852606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=qKieBi+y
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nrT1CrkipHC82ZiyHIJf6fIr4XXrgPdeYDScehNlPBqtUMyUGHkwl5GquZL5gKbHGf+p677Lvcq43THlYtx0zzpuS7TbIxq+eMLSGmCDUkxoxTdCfV1c940tMv5lAOKUfLjUZjv8/RsgjU8UEUSVfE0d0HtQ23baXJGfb9zam/vtqdkp3jVI0ZRSh/qtE5t+1qzEwQnBSYvXLA6bv8zLSkHGJ1SbAsOXj9eOavnKutc3hKC+ETqWFwb+BlTRAKgyYtWrQcRg+1KCK/VSlHR8445ThXUN67ZFWZn/iBx3IlQsRcxi5dd8SlVhnOQ6iqHPUiESWW5MZnJg/Xph7wwFNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sA041WDa2vqolKp4czatEpxiyQONE5RmxjDRt0fEGRI=;
- b=UKLejd2vYHf48j5MB//6bIFAUyClfBzy71Yl+m9dX/8HTsWABwS0C1N/0nKmrlHE0zwPaX4yGUwA7Fk9g7DAZk9RW6WOEb7fYO8LBVF9zIglbixLuHX2dRS8RJgybaU/o3jdtHwXpA8Hcn27xpsn93xaMCXIYlQ7xjLTcawi2mQKcJZdp0DqKpBZlIGwUBPYsdnWDYSZmp7pzFCK2GUS8kN0nPBkrkkDT30Kd5v9e6r4OjWmU7zV/8cOu7Et1S1chD+MVduu1/anolmFgzh4aZQzKqIZ36W3FOa7PXKYMuOTJR/DrfQ4nMjfaJnFTfym+LyhvvzXfPyJY1cu7lnydQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sA041WDa2vqolKp4czatEpxiyQONE5RmxjDRt0fEGRI=;
- b=qKieBi+yanImw3SBgkyKS+fgbliTE2UWf0jPeZ+YWYv1/kqBw261IFwJYL2UMFAKyb5ccyaG/291oLVDCD2S0v88VeKdUFIIV0Tc4MFe5qcH6YdGltkRYpjyCedgtPl0Yj4dY1AAJPavjUz8cCwg8KcUgdyx6t6EOCrQPC4gtf0=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO0P265MB6773.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2fc::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 12:06:48 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 12:06:48 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 13:06:47 +0100
-Message-Id: <DMAI50AJ10UC.16G4TCC3VAM0J@garyguo.net>
-Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Yury Norov" <yury.norov@gmail.com>, "Rasmus
- Villemoes" <linux@rasmusvillemoes.dk>, "Arnd Bergmann" <arnd@arndb.de>,
- "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Paul E . McKenney"
- <paulmck@kernel.org>
-Cc: <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-arch@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20261021095512.1345191-2-phasta@kernel.org>
- <20261021095512.1345191-3-phasta@kernel.org>
-In-Reply-To: <20261021095512.1345191-3-phasta@kernel.org>
-X-ClientProxiedBy: LO6P123CA0024.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:313::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GyvF7QJs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792584525; bh=QJXz6Gn2K1VN9nepLWRw3UZWWzN19sWrO7Tu6FlLAeI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=GyvF7QJsAvuQB/+0Aik68auCnBVR5A65FnNMa4eJGPR7HDZ7l9Lc0qLEegEHLW2Ud7E7e3HuJb0/qSKszy7NM/T/9APa78awJ0Zv7KgyNko3Le4bZFRsW7BRzSv2ype7tu5GJcquoScswgpS/LDLUuEAApHJdbJle5X22dPxSQTgosxWwQK2wVMlBYaBBcmjU2M7ngSIZUjSEqVCY6eWLtqZmm1KjIIA5ljkme+x8RIXMoaoI6Pc/tQ8zAa1FdeWNLXz+CQX/fOIwN0Ye3ueUC8A003BZ6YtggkZzFfB9XXy0pRelBP1k3lvwtnkP/NKsV3rXuRQFU0lm8uWEsZquQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792584525; bh=3uVU5Zobt3tIje+iZ907gKHhOQXkitzTQZ86nCZOs8D=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=V611/611qOK5D4QIROtCmFR6j2Jt4w2Nu+CZc07xJw9sS2TYOBTtiliPOdxO7//MZw03fRD8CPgc1H+vSwj7FBMh3AS1+hTgxlJF5QsKdxVsd8IbvrsOUcqnyDojL9V6I/kpjb9uPYQGD3grtpiKW77PlhWT9yB4AtO18kiKQYOJFoAdKL3YOPA2C6880KuIQaRtzQFGkg0jXwMJsjqxOBftljATr425Mi+RSn7IZQhhCn+iZLTl8eqojjojeSRKM8ua+KtYUE5GVMidl92uEjIggzV/wGp9lBxQWW5U+3xqnpt0A94Ffe36C0WkrqpWr9X8Ze8takwv5cKXLQpxbA==
+X-YMail-OSG: 79KxnzEVM1mkggOb3HCMHc.8o80TAxUPamxznvYCtlQ..iMi5gBGIEqfaYfDiLX
+ BfmSZYoxruLV5fzeaJ_OrpZRxonybk3pfLZkk063gjlsJZqBT_1.f0CfXq5yb5ED805U3ksaOPCo
+ HtWcMZmBrlfxtu9uYJ5P_ajlUMZ12z.jxC5_IXla6fpgZeU0ZssQ0Tk4hIQDVTAFUIvcGi2TnxSr
+ l0JiMrCPsUuM2rpl5.CF7qTgAynj90KdIiem8BrjdIUARQd2Nd1_9FtB.K_.Q1SxBSv6p5rGDh1K
+ G3FjHBpdGfSF64jFBeKExabrgdAIMEqgRyvPd5Z7moglf82EfffsHnHsD1RzM8dcXaERtMBToeUt
+ eyZhmbye4jK1.Xd60olrvwmPOCar_Bn.I7NzC6fwdcvy3G_rJueJAfByx4_lTWvjEMf69P9DdOqG
+ cq3UIVXFRAeOaTD1W2kMa8i3pk4BG.V6IksL8W7DHYU0_XeHjBSrL3EuSXV3pmWhd7oJ0C_RK_wA
+ 2FChy6akh37ShYqloI3l.drIqUBIsFukc8cBl55xUWm5Ii4RZCRwx64nHPFOYsGXN1qz16vcjD_S
+ mqy26UGndRxCMRWkuq7m28_C2QLIxAk_5iipnp7Woh_gmmKBc0wFyBKg4tSIzCSEosn2ImtwrIZe
+ RcnHAaG1lIhNMFmse3WoIFPMe2QK0ZY8xr.Op.LLwDTuUZ.IINcQoxRS.weCUMjcTUGwTmun0s7l
+ xqbb6DqELB68wPLNIYI.IxrlgFH6wGwRKLMrS6XLQEmeE4UwxX9dUw7.HDj0rVjjt8DCzPdfrRrr
+ 7oVmNLuoeHVn6HvWj1qeg5d6HWnttnEi_lTDxec06od0gTNtYMiCeFXuJsQ0x2iVr13TrBQ_sHQ3
+ UqdHVjjn3qgNizLX_Ic9yCdtrYYxc71_9xrR2oWzQKw5748ICeEX27CdIlmRl7TCUZO0NXS2sDoM
+ 5UljN7X6L5XfUB.3o6O6xFSVfDiPATwvVF.ryn3tf4MOxowjRhTMlwP2Qe2.4qxv.O9XB6MmEtTx
+ Q6AT_Wth2w3cbStYm5xksurxEHpnHHJwazacfU1BeZeZjQl6HTnNKMri4yXQ2j.1coY7ywCQvur7
+ ozDWgRdvFimJ_fqkHezoSQh_g632YiQ4W3HHnwfj54DElc8YrbJ4WgwFFX6AcmzTP1cLVQFGxbY0
+ 4Z0FoDrehzzijcmkW.W161VaWW4zFc6IKp9e1W8wbQ5aiXQQFk.mbDPdEaLd0uQDb_Tyt7PTGoFF
+ ADwiwWCSki78xpwf0UzZGzMHkrCPObyh9KAocVEZ65nW6T2pqDbCTFgF_e8Nh..uUZEsm9AOeGud
+ mm09eDRENeUNZenfu0yrFBDDj8IfnNFwXn_3gpg4oJeicvq.9sSN2Tal7forUASAsf9fQAU1rUkE
+ onOvkNir787pRz_1Px3FcWlxyGeS0zuI394VKvYgQeq8dcyhSSbqC9JPkNluMHVndeJgVRDSG3PH
+ QofvLSEmmQHbLc0shHUxRLL7GzlPEGj1CnNRFJND4FQ.VVRImWLD9ziSTL3aDyhnUDnYqy4WnHmW
+ 2lecuHKZ4VMrRNoBurpU7K3vwYBTnYXHFw9U3DjJWiJNvzAxKjh2Yd4eb2Ela7.RmUzqGiZipWKy
+ B7CZiGUMzmTyUbEf_MXyKcflwrUPTL.DEMIf8eCxBcknW35IPed_wQoKloiltU1tbNezWAMweV0F
+ _2PZQRJu7bPYw_s8rPIa9CCEHXGlAP06hbfqxPXNNKqgPuYNyd5W4o9xEKxV8g2sApc2OYGRCebu
+ 7SFtq.ZcHSP9EYDoSurC0DM5xMyUhHxRp4fJT28GgiZET2ISt3K1IJC0T2W2nGlXLS8aGZdjhmon
+ ezbNspq4xMxs.yaF9AcpXcb_ALt_DGEWCbNzL7Mt8tX5G0UuSHfHYnc4bFAJfy6JRHhMfg6Ayfak
+ FufikOE1tdVSAW8BxToEtoELbhdL2jWnFuR_ScHVFrswkqxUqqLJag2nV1StPsbbTYESHho9Y6_7
+ kYPVuMzOCoMZ9anCt3AFVFWGIwRckyQQnwHby_0NfMA--
+X-Sonic-MF: <stealth3m@yahoo.com>
+X-Sonic-ID: 986a24d3-e741-429f-a948-95863a48940a
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea4-prod-sonicconsumer-svc-101 with HTTP; Wed, 21 Oct 2026 12:08:45 +0000
+Received: from dip92.lsn.bf1.yahoo.com ([67.195.177.101])
+          by hello (SMTP) with SMTP ID 9fecd6f92ffb24fd6c6c1aeaba8e0acc;
+          Wed, 21 Oct 2026 12:08:41 +0000 (UTC)
+From: Ext745 <stealth3m@yahoo.com>
+To: linux-media@vger.kernel.org
+Cc: isely@pobox.com,
+	mchehab@kernel.org,
+	hverkuil@kernel.org,
+	ribalda@chromium.org,
+	Ext745 <stealth3m@yahoo.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: pvrusb2: fix control enumeration with V4L2_CTRL_FLAG_NEXT_COMPOUND
+Date: Wed, 21 Oct 2026 08:08:19 -0400
+Message-ID: <20261021120819.1870511-1-stealth3m@yahoo.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,137 +90,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB6773:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8b38d357-c7aa-4f3e-22d2-08df2f6bc874
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|10070799003|376014|7416014|921020|56012099006|261009221227099003|4143699003|5023799004|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	SoOdpoJFlcJ8fP1GbOJ8AX6dloqNK0nqCzwUjs4A1Ym7fOS07GJK9SfLfGUq5HQA7HB3NxOnh986l3GayGOygI1T+ldd1aX0S2gYR9fsq5urz7Pltb9qm4k35KLsdQWgs80guhTwJMPDMJq8Q//+hzq92e4hnQI4e2B6t1yC84SlWyD0Du+ZMN1weOT4tiaTLiNw4TM4N/k01wohguqjTPNd1RdwI1wFi/isGO9qaLqlynoPUCwQw9z91Hx6Vxr0jjpAkie2FIv7Fbkx9NBeBEC96aQKxyT7HA59aP4Z1nUbSuWOiXrhSZH8Za0+0eD4//JXa/1Lzvm/kF4Ptvg51ti+n6SpUKLNN15m/MJWMhogmZ5P8fnLwOXEr/6IJfkUQLm1HBd/W7xSbjEnSOBvVF+zG1khJb48pnv8vDrlwvjA+G/++lB2XKJdKcwRYzNVX06M5sSHMD2uqXxlyH8IlOxiPmRaokeieB/VFW8bs1dgHuqP3LQ5t5k4kCOoOpKvfVVpFl+WVekex11h9Y79iMA+l/4xnuwlXFoY8vMVjqfcWY0mgs3+tV5TNiR6JKaJdZfElISMUwpvdYZ1LNFzQGC8DPATn2pEZdlWSDvZ37XNMAV2UNZrzn6i+H45Q8EX+qJ2q629S3/USUwCoUoCrfZo1zrH1PhVJbBv7I7giHQ1hZbR5th02NnfaLMt0YNK0up0MtEsWUzsFYdX7+OVsQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(10070799003)(376014)(7416014)(921020)(56012099006)(261009221227099003)(4143699003)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OEQyNlBSZHAwN3F2VldGSStFcW1vVy81V0FpSlpEYWd5RlovVGt1UnZrWTdt?=
- =?utf-8?B?K1J5d2h0TndIaU1JcFNXaHp3bERhTFFJMWFyZkVqb3BqVncwWUM2UkFkRXhW?=
- =?utf-8?B?b0ZVVU1OYStINjBWWWg0aHp6U2M1a0pYUjdwSnVoRUhmenE5b3hjclBKTGNy?=
- =?utf-8?B?WW1CZFVBcUFTTHMzQ0I0b0VzY0xQZFhXNGpMOThOc1AybTdVU3FBdUx4K2xU?=
- =?utf-8?B?Vzlza05FYm9qdWZKZnBYcW56UytPZTRYLzRFRmRDblgvK2FPdkRvV3dLZXht?=
- =?utf-8?B?RUREWnJNYUo4ZmVuNWd1Y0kxRGthVEZRTmQrdGMrL1RabjZnbWxLbU9pSEtx?=
- =?utf-8?B?cEI4L2ZYOFJsNWNLU1ZNNVdrbnBhaXBpSEJ4YlpkSWdlQTVNbG5Xdkx3anhm?=
- =?utf-8?B?UkdybnNnWk1ac0kwM0U3bitNTk1TRXdpaTJTRUlqVXk1QkoxdktOcDRHeHFZ?=
- =?utf-8?B?N2Y2RTkrOUdLblRpTnFRQWFkU1hiZnQyeDBaZDNQZWY3a3pWcHUvZVBHRmpE?=
- =?utf-8?B?WlN1cGtXcC9oVkVEcGNJaXA2MGtnay9uM0dIdWd5cmczemZsM0o3ZUFKOGxN?=
- =?utf-8?B?N01Hb0F0b2RrSDZ3UUgwRWNWSXlHSm5pcGdNRkRKUlJyMTVVYnduY1lYaWlF?=
- =?utf-8?B?L0o3cG5YZXJ2aUVMajUrU0kyMXIxWm9XbHF5TFVkSWVPdGFONDlSblNMb3Bt?=
- =?utf-8?B?RytDL2FhdWtnOW1EcWdTZFV6cXVGaXlRS0FGOFVjeHZtQ2ExMWx6TTJqZlRI?=
- =?utf-8?B?SDM0N1R1N3ZtK0hYZ0QxSFk5V1NWbnBTeVRPS2h3aDhkekRsZTBNMTNBQnlZ?=
- =?utf-8?B?czJyeXIrVEErRVVBUTNXVGZBU0hTK3RuTGd4ZTVVeTNsMHp1UStIQ2lmVmRH?=
- =?utf-8?B?U1M1U2pvOUJJcm5mZ05aaGZnNUg2UUpPUHpQd1FCaWY3VU02dGtNQkxMOXBL?=
- =?utf-8?B?NS80cnplQWF2Y0JPZXcrM0lqWGVCQlVNRTQzaGRkbVBhbFVVcmJsa0N0ak53?=
- =?utf-8?B?SlU1UWQ0T2FVcG9XcGs0ZFdLUW9uYklpeVNSZUJzMUJxd3lFQXFnU3FseTJN?=
- =?utf-8?B?VGhCMnlPMVVERkZXb2l5S3lPaHg3QnFEeGJFTElIRWlLWk9BVm1CUTQ5cnB3?=
- =?utf-8?B?YUd2bWlIVjB4S1d5eFpCT294NXl5T2lzNkVaRzg2QzltWTFqZVIxTGVkOTNv?=
- =?utf-8?B?VjlBNTJIam91YzhheitubzhrQ1U0bUxFOGlnakVCSWI4T2VlMDNpSDhVR1ZG?=
- =?utf-8?B?dUJFY1NRaDIvajRkVU5oV2pEMDd0VlFEbkQ1dnhmZDNEUVg0bjVFNFQyNkdW?=
- =?utf-8?B?NkJVa0dEZ2ZkZC9Ic2JQeGthb2d0N1ZpZXVFWGpFM3ZZT1dmM0tJTTRCekZn?=
- =?utf-8?B?dGZrY1RVOXdlZnZRUDdTaFFYMnRTRnZOR2Q1VHIrRklBcWVXZXhDWUx0aGt1?=
- =?utf-8?B?L1VaTHk3SGc3L1NSclBaYXNDRWZzcm4xbmhWOXZ6TGRwb003cmtQWFFHdmdr?=
- =?utf-8?B?TXpxSmIyeWNBS0YyaytxN29NRnN5Q0J4SVNQRUxwV0tyd0R4ekFMbDdmbUNE?=
- =?utf-8?B?TjBHb2ZpS0RuaDZyb2QxSU5wVENhWUdTOFZkdm4xTysrcmpQU1RtSUJoTWRX?=
- =?utf-8?B?NjF3OUlKOStFS2NnMnZUUllwWDYrNm9VSHoyZTZKTjJhSEJ6cHIyQkRuN1A3?=
- =?utf-8?B?SU9ITGhlNDY3QVNDYmJ3aDJoL1J5eXM3RXZmcEdXMXlxeW53Z0kvSHZLTjdU?=
- =?utf-8?B?ZVJuQ05LYithVXl1MXc2L05QMTlFNTZYeDBOUjNPZ2hpTkRDK3NzYnZsaEJF?=
- =?utf-8?B?eERwSVFuWjJKekc1TFNENFU0MTVEdFVjT3BEUityN28vS2VqNzZha2JMQmdw?=
- =?utf-8?B?aTNwaDkrY1Roa0xlekc0SzFuUFRUOVVSaFdFWUtpM2VnVGtkM2RkdFV5R25J?=
- =?utf-8?B?Uk9wNTE3Skpqd2tGMGxKcHB3clo1QmxjWkZPbmI2eU04RDZucTQyaDUraHZ0?=
- =?utf-8?B?cXdHS05qVis0VDVvZmRpQzhaWEZ4SDB3L3JYZjE4WG5DMnRVZTkrNGsvTlBh?=
- =?utf-8?B?MytYaVFZdmdvUVJoS3J5NlQrMzM3c09IbExyZC9qYmYyaHU4aVFyQlE2MHFM?=
- =?utf-8?B?UkVrLzRzeW5nSjUyaHJiZGRRbVMvMG8vajViRjVpRmlWeGRMbUxwNlBCMVJ3?=
- =?utf-8?B?TmpYSGw5MkN6UEc2NlJtdW5kbDg0STdaNUM1bUxJM1dLOHVobFo0Q09KY1pZ?=
- =?utf-8?B?K21hTmhkTU4rMWRUakVuaDBOREJtMGFHSFdpejZmZkxnVFlNMkhyOExUamdM?=
- =?utf-8?B?eStzZVkxUWYzZ0NtbDVkNnA0WU5vOUlwRUZLaUVPcnZ3QXJhU0YrZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8b38d357-c7aa-4f3e-22d2-08df2f6bc874
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 12:06:48.2245
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fsUgfz2Bmr+viVpUOaq+F3Vc1tcfKyWjr8D80z/4HjunP4JI8KMYTcoRRwt4+qXoer9oNEE9R4mUs3OFA/HlRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB6773
+Content-Transfer-Encoding: 8bit
+References: <20261021120819.1870511-1-stealth3m.ref@yahoo.com>
 
-On Wed Oct 21, 2026 at 10:55 AM BST, Philipp Stanner wrote:
-> The kernel already has test_bit_acquire(). A set_bit_release(), however,
-> was missing so far. It can be expected to be useful for parties that
-> need release ordering, but not the stricter full ordering of the other
-> bit-setting functions.
->
-> Add set_bit_release().
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
->  include/asm-generic/bitops/instrumented-atomic.h | 14 ++++++++++++++
->  1 file changed, 14 insertions(+)
->
-> diff --git a/include/asm-generic/bitops/instrumented-atomic.h b/include/a=
-sm-generic/bitops/instrumented-atomic.h
-> index c010d54275e4..fb2d1472fd4d 100644
-> --- a/include/asm-generic/bitops/instrumented-atomic.h
-> +++ b/include/asm-generic/bitops/instrumented-atomic.h
-> @@ -72,6 +72,20 @@ static __always_inline bool test_and_set_bit(long nr, =
-volatile unsigned long *ad
->  	return arch_test_and_set_bit(nr, addr);
->  }
-> =20
-> +/**
-> + * set_bit_release - Set a bit with release ordering
-> + * @nr: Bit to set
-> + * @addr: Address to start counting from
-> + *
-> + * This is an atomic ordered operation (implied write memory barrier).
-> + */
-> +static __always_inline void set_bit_release(long nr, volatile unsigned l=
-ong *addr)
-> +{
-> +	kcsan_wmb();
-> +	instrument_atomic_write(addr + BIT_WORD(nr), sizeof(long));
-> +	arch_set_bit(nr, addr);
+Since pvrusb2 implements vidioc_query_ext_ctrl, applications that
+enumerate controls with VIDIOC_QUERY_EXT_CTRL and
+V4L2_CTRL_FLAG_NEXT_CTRL | V4L2_CTRL_FLAG_NEXT_COMPOUND (v4l2-ctl,
+qv4l2) reach it with both flags set.  Only NEXT_CTRL is cleared before
+the lookup, so the search starts above 0x40000000, finds nothing and
+the enumeration ends at once.  v4l2-ctl then falls back to probing the
+user-class IDs one by one: the MPEG encoder controls are not listed and
+"v4l2-ctl -C" can't find them by name.
 
-This is just wrong. There's no code here that gives you the release semanti=
-cs.
+Mask the ID with V4L2_CTRL_ID_MASK like v4l2_query_ext_ctrl() does.
+pvrusb2 has no compound controls, so NEXT_COMPOUND needs no other
+handling.
 
-kcsan_wmb() is just an annotation and does nothing. wmb is also not release
-semantics as it does not order LOAD->STORE.
+Tested on an HVR-1950, kernel 7.0: v4l2-ctl -l on the video node lists
+9 controls before, the full set including the MPEG controls after.
 
-Given that set_bit is a relaxed RMW atomic, you can implement set_bit_relea=
-se
-with just
+Fixes: 8b5ebc688054 ("media: pvrusb2: Convert queryctrl to query_ext_ctrl")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude Opus 5.5
+Signed-off-by: Ext745 <stealth3m@yahoo.com>
+---
+ drivers/media/usb/pvrusb2/pvrusb2-v4l2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-    smp_mb__before_atomic();
-    set_bit(nr, addr);
-
-Which should be correct, but is too strong on some architectures (like RISC=
--V),
-becuase it will produce a full MB instead. So we can either add release bar=
-riers
-(hint: I really like it), or we can add arch_set_bit_release and implement =
-it
-per arch; on RISC-V for example it can then be translated to amoor.rl (whic=
-h is
-not being produced by any existing bit ops).c
-
-Best,
-Gary
-
-> +}
-> +
->  /**
->   * test_and_clear_bit - Clear a bit and return its old value
->   * @nr: Bit to clear
-
+diff --git a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
+index 101b2e9fb..5c0117493 100644
+--- a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
++++ b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
+@@ -510,7 +510,7 @@ static int pvr2_query_ext_ctrl(struct file *file, void *priv,
+ 
+ 	if (vc->id & V4L2_CTRL_FLAG_NEXT_CTRL) {
+ 		cptr = pvr2_hdw_get_ctrl_nextv4l(
+-				hdw, (vc->id & ~V4L2_CTRL_FLAG_NEXT_CTRL));
++				hdw, vc->id & V4L2_CTRL_ID_MASK);
+ 		if (cptr)
+ 			vc->id = pvr2_ctrl_get_v4lid(cptr);
+ 	} else {
+-- 
+2.53.0
 
