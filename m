@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792562616;
-	b=nMPlTWi4M30iNGeLPrWp8QEdO+Gs+0eX7+V0OxR+srb4bLDhGs7DIPeeT/KtYKapuM1s
-	 rJFdwbnYFLBVSzUXscBk+iYOWcFun7G7j8BZ8Gb0Nso2/RXeVLe6NLKiizlAUfciZyM3N
-	 cwqTneNFkSMXkGuSaarZ3099O5ogr58y8SCArBZeDO9Ci+syViYwbTS7PNdodIAjM9ib2
-	 29ftFIp0fUw90yK59OyycKPiPc3cvTp5ZBu2NuwtgUJpz6xcT6l0t+dSZXFQSbIa//Cgj
-	 3p3Fbkgq89XlsowWVY2ro5eLJdCjaSxMe08ar6G33q/1ZVYo8/YZBhgwuTH5krfyD6Q==
+	t=1792562623;
+	b=xxzocpGGKqol3ZROBfSLiV5vX2qlvPtywr3ZjET304Rgo3ECQEuDQf142lJCa0D6JrsL
+	 ge5mgjak0rqA7Mc8tZdAuygZOiojqffDvvWde5oFCkPM3YuOdeQel2+VjSVa93jALfc7R
+	 JztHjMMaHV3u2PkRQMRya4tyqZ2Hv494ujQZQ9PL95pOpHmP9RTjN4iOrGNzsxS0d0dHB
+	 ydwf7IdlB0g3GznWXhxJWIzFZd2lUkUetHN8ojcnj7Zv8BHV+T2Ei/cgq+Je+xsGt6401
+	 1SYmQfJFcrGYYjwYN24o6tshrfT/6WF0KMG79PjMrz/gLEuE13R6Lf45EoJ4sJ9PwBQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562616;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562623;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K6PgntkWPS3MIVtQtUAo3panagCk/Q0phpgUN6wi+2g=;
-	b=J9Kfb5bIAwAmhK1KWE5E48s6BTBceUZQYdnkJocw/Wcagggq0Hde/my9ocKfNwCWW5HA
-	 zPAo9b4Vw4MxZa1FBndF1m9Xu17VuaBhr2WvPgTUK71JwDLEQ75uYGFgM2GWgqHUsyPxy
-	 TlOJ4h5iWPqfCpo62djqX4dsUdase/pEbFwNTEfCwdNV2L91+Fi43wMEGEqaUqwY1N6M2
-	 Qkm60wcf70KYydQfQH7sXiT60yxPIMU5pUB5yAbWzFUdXWM+VNiNU8J4jV/Cw7qO4OhMy
-	 Slo3AFSl/Jwd6MeGRaMqsP0klXAAYoU52Qr8z47dzxJMObi+QMu/089+9ZChGumJVTg==
+	bh=ep7Ww2T+FtQvzhxoYxdmZr4RCZRzuoB5nE4UdbUykWk=;
+	b=u9eCbAm6+HghylmYU78OkbfGDLTd5r97c7Lqif1e1rDLwSPmVgd2X1d45Dm4M7PsdUmv
+	 dJr9DByYGddlLRrejT7a/4maLKNYN7zvQmW8Mcvsu6PqXW9MAxsRMdVCrm3tNlYllCGyw
+	 un0ucD+LCYaVB1BHP4MMOLCRSW/nINXJ1Ddg24kORChutBV9iN08qy9PtioVfaBaTA0cG
+	 rhy+YO8Nbhfr6OqX7cFD5WLUuIJg92QH0/ayacqld0IgdJ+P7NfhHlnvf3DOuF0S1Fby2
+	 kddy5yI2IItE5I9b4DcdfiZVF91GH3F28vEtsQ8X+YI4NDA7Kn29yQLAB7vJ8kz75qQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iM/96gOQ";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2lpmZ7o;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA77606A337;
-	Wed, 21 Oct 2026 06:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C63606A329;
+	Wed, 21 Oct 2026 06:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iM/96gOQ
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2lpmZ7o
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792562615;
-	b=ofJmDpCSkojYHvoXPEesYBbPq4bShaUXd6Rmn6ebTZqjiKCPixvdhC6NSq2HRCkojDPW
-	 DEqDYvRiYSk+AjG4ZzHIs0EkmPX5DwLI9wGmnvmxkiDROCLN4f/8ZihOnRv5nI/0cjWhY
-	 079idiCSwmlkqAaEn7LmTDwaE+QD/CYwAfVubKwWGys+3mmORFCs2HdB2In7mYcLvauHY
-	 6xuvTdhNOA3ZV1XEek5XrbHIfBogDAJDNnckjKgIHM7M/fT5c6Ye501OFU1yCRG5Keopl
-	 acpeE0PFto37DdbOpAGOYGiUkZ8x95qbrYig2NSRV3EDUf4lUCSrjPhdzFv4BMGFTiQ==
+	t=1792562622;
+	b=uDcqk5tSwktQhPDs0NHLyFNa7K5eWBHvtTVUsjBLrUjyDtxaD3vePFxO5O0aCSSKOC4S
+	 z/8Jnse7gg1bBgMRVRjAKFqEmNVRxXnqaMivD7ldPKzDkJ+Fapqa82/ikuj0ydIj/AG7x
+	 iNU7tAsnPeRezNblfxLqCY7uEBLXA2ZSODlB4DsQUVwisXAFo9qQC76i3rOOxPMXmpcRM
+	 xOE2k4Bn5iXRDl7IjuwP4EGNjnsjOvpd7jsgd7ug3wwRtcWiydOyejU9tUHjVGPu3jA2t
+	 uc/nhhTQOjlESpf7WMEU0WpmELPtv8pKaXQeK7FkjCy+L1d+xVHOSkv9X+8SN9aewKA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792562615;
+	c=relaxed/relaxed; t=1792562622;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K6PgntkWPS3MIVtQtUAo3panagCk/Q0phpgUN6wi+2g=;
-	b=m81DsOkm0D7ewmL/XSsXeBpmKQcEqIwiyUu4yDxEt2kDGeZ4IuN6oiZfh6H3fRjiBKLu
-	 GKCsiYKBgJX2eLr0rBYanqFsKmbSDaNojkNjL035RZgSwDa0B40dg0QQOO2QaWR99TRIw
-	 1U6xpa4sdX41/Nq1h55jdlV5TK1ha/m/AXwlWjtUVNRvAqmLclzLVKmDAcAMp5gUKLY3e
-	 6z4oFNgUHFwEqLsIOHIrkLCuLJkko9cgGD3TdttVM4cc8JZ0RQnNNaOe+zCIl0hyN1Qnt
-	 weDJoC/y3f60y7kzZUyzTJ1UzmeR69vCiv6hflZ/m6tozT42FCOuukULaAcsaqeYQXA==
+	bh=ep7Ww2T+FtQvzhxoYxdmZr4RCZRzuoB5nE4UdbUykWk=;
+	b=ASkP0Ffdc5b1kZxOFBsFv/EheUu4sRCzn2Sdh2sgyVCeGFf1vXGV1o+1msREivh684ad
+	 Mqcg9WrD8qsrygnqyOwVa3t5qdi9sCRYrjo31V5DRVt0VdUGWhu1pSkjXb4hvOIBy9PTW
+	 Xz6xZycqFVVOSP/jFinY/wmZYC8zF0v46YpUN2MvDkCOo7eeUT2+l61FHAR1MFpXdMveL
+	 pChblRMNIpZi7sMzrsuU1e0meKrVRuVydh7QOrJsqB3i7Yn/cJgieRzGBUpUF94CipThR
+	 VHbtJT2pXYj0Olrg2Ln060zmmU9cX1Ftt6pcRIq0ToJ5zqEujTNqSIBj4hZeBGvXt4A==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8852D1F01573;
-	Wed, 21 Oct 2026 06:03:29 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 980EF1F01575;
+	Wed, 21 Oct 2026 06:03:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792562615;
-	bh=K6PgntkWPS3MIVtQtUAo3panagCk/Q0phpgUN6wi+2g=;
+	s=k20260515; t=1792562622;
+	bh=ep7Ww2T+FtQvzhxoYxdmZr4RCZRzuoB5nE4UdbUykWk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=iM/96gOQmx7YkoNr2E+I/GSf2++gRf2+AdBbRJylMy2rP4nY0D/YGL0iMEFMy7vwL
-	 vrjFQ4yTwFlsBIIwZK64dh9bO4R9mYFH3EeeT3GCDhyqzg4ty+8bJ8IqzwORfma5qD
-	 mstSqeIh12gQVFYyoaOlSjsRBjFlQuUyWZhZ+XYEhbBOELpNfdK1CKloOx9cg3KPDd
-	 9SOzn6T08lyykRUXhHZ0pAefVXvRYoucZhAHr9l3rG1R+8B0dh+SAEoAXbyw1dDMSm
-	 WLLYB4ybTPHrxiWQMobRExYjoBGxEV8uAdC9KddlYhn4wQqqx/hrBJqO7wiyCR3lmr
-	 xADkjv+ZNUm/A==
+	b=k2lpmZ7oc8XaIL0lqi3dnbjYW0DObN3Yaa3k7Ga/Hu9l2aqp7v1PR7gEPXev76APl
+	 5K6TYee3UaZSjOKrKTVhfEtJ3YsACuXBSyALHmNft9zSIe4lSfgSekKZAcPI6xQyXr
+	 gpxP9gcbVJyPjZkfikEIX4i1DVJXlxC7ubScUtufLbYLFWl1H9wBV6WEdz9k0AiGda
+	 i5DIESk/hbePpkwKjXe0rXHboMCC4ST/OCinXVB5jGtS+H3bUf6LJ8aOZN5VQLjTWF
+	 lDGWxJj43/LQ8So/tGdGpEJWkT5isCJlqHOQlBAEL5ct6r9t2wJJn5nCEFVuGqbyCt
+	 mOWIpvU0NuYfg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EE2EE432DA;
-	Wed, 21 Oct 2026 06:03:28 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 0F2EA432E7;
+	Wed, 21 Oct 2026 06:03:29 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Wed, 21 Oct 2026 14:03:26 +0800
-Subject: [PATCH 2/5] media: i2c: it6625: reject DV timings changes while
- streaming
+Date: Wed, 21 Oct 2026 14:03:29 +0800
+Subject: [PATCH 5/5] media: i2c: it6625: lower the minimum pixel clock to
+ 25 MHz
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-upstream-it6625-dv-timings-fix-v1-2-5881babdc4c2@ite.com.tw>
+Message-Id: <20261021-upstream-it6625-dv-timings-fix-v1-5-5881babdc4c2@ite.com.tw>
 References: <20261021-upstream-it6625-dv-timings-fix-v1-0-5881babdc4c2@ite.com.tw>
 In-Reply-To: <20261021-upstream-it6625-dv-timings-fix-v1-0-5881babdc4c2@ite.com.tw>
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
@@ -93,11 +93,11 @@ To: Hermes Wu <Hermes.Wu@ite.com.tw>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Hermes Wu <Hermes.wu@ite.com.tw>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792562608; l=1961;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792562608; l=1952;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=2E6vyPI7NuJRNW/ZUJlvYSDjxi4Zgtor1gRn8WvnAGQ=;
- b=8H1ZMqeRTA6AU15ES0ZdmW5+cFygfvrIf05SDnQ6toWayDWSK8TR17jnFk/PZtfKPDLwpE+V9
- V8Xu/Rpli+yBEThtyJl/2jT6EDGDrpSPklKeWRymajhafF6H7aZGt5C
+ bh=klea6SVvI1iLUVpDr4o27dnQb1TtSzgZeTrQd969SJY=;
+ b=z48XEC6FXP7koznRc/181L/fyA8iDSMjKxI4/uZhUiVKx2QfKNDhJq+F65SVfr0ZDrDyg9TGa
+ HGS0noITa9fBRQcFieCEsfaBLKSDe/iwIAZ7t3PUB0Wy+nT0QKc5pMd
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -108,52 +108,46 @@ Content-Transfer-Encoding: 7bit
 
 From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-S_DV_TIMINGS replaced the configured timings and the ACTIVE pad format
-while the subdev was streaming, so the reported pad format no longer
-matched the stream being produced. it6625_set_fmt() already refuses to
-change the format while streaming.
+The 27 MHz minimum pixel clock rejected 640x480p59.94 and 640x480p60
+(25.175 and 25.2 MHz), the lowest CEA-861 format, both in
+QUERY_DV_TIMINGS and in S_DV_TIMINGS. A 27 MHz format whose measured
+pixel clock comes out slightly below nominal can be rejected as well.
 
-Return -EBUSY in that case, as documented for VIDIOC_S_DV_TIMINGS. The
-check runs with the active state locked, after the identical-timings
-and validity checks, so setting the same timings again still succeeds
-and invalid timings still get -ERANGE.
+Use 25 MHz as the minimum. This admits the 640x480 formats but still
+keeps out the 13.5 MHz 480i/576i presets.
 
-it6625_pad_s_dv_timings() passed on only -ERANGE from
-it6625_update_timings_if_changed() and returned 0 for anything else,
-which would have reported -EBUSY as success. Pass every error on.
+Change both timings caps. The minimum doesn't depend on the CSI-2 PHY
+configuration; the three-trio C-PHY cap only raises the maximum.
 
 Fixes: 142e5f00bd57 ("media: i2c: add driver for ITE IT6625/IT6626")
 Assisted-by: LLM
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/media/i2c/it6625.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 0d3bc83e4e865e55bb9940c7e958b85eedf9869a..a499b5e39acfbb1acaffc077d4f1fbdca3071a40 100644
+index 75bcb8304c02c7c0c5feeb02af6c93378fcfa5d7..561e5b5f75d887da01755fa292d6c04e4fb22c16 100644
 --- a/drivers/media/i2c/it6625.c
 +++ b/drivers/media/i2c/it6625.c
-@@ -1483,6 +1483,8 @@ it6625_update_timings_if_changed(struct it6625 *it6625,
- 						  it6625_get_timings_cap(it6625),
- 						  NULL, NULL)) {
- 			ret = -ERANGE;
-+		} else if (v4l2_subdev_is_streaming(sd)) {
-+			ret = -EBUSY;
- 		} else {
- 			it6625->timings = *timings;
- 			it6625_fill_timings_format(&it6625->timings, fmt);
-@@ -1588,8 +1590,9 @@ static int it6625_pad_s_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
- 		v4l2_print_dv_timings(sd->name, __func__, timings, false);
+@@ -342,7 +342,7 @@ static const struct v4l2_dv_timings_cap it6625_timings_cap = {
+ 	/* keep this initialization for compatibility with GCC < 4.4.6 */
+ 	.reserved = { 0 },
  
- 	ret = it6625_update_timings_if_changed(it6625, timings);
--	if (ret == -ERANGE) {
--		v4l2_dbg(1, debug, sd, "%s: timings out of range", __func__);
-+	if (ret < 0) {
-+		v4l2_dbg(1, debug, sd, "%s: failed to set timings: %d",
-+			 __func__, ret);
- 		return ret;
- 	}
+-	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 300000000,
++	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 25000000, 300000000,
+ 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ 			     V4L2_DV_BT_STD_GTF | V4L2_DV_BT_STD_CVT,
+ 			     V4L2_DV_BT_CAP_PROGRESSIVE | V4L2_DV_BT_CAP_INTERLACED |
+@@ -357,7 +357,7 @@ static const struct v4l2_dv_timings_cap it6626_cphy_3trio_timings_cap = {
+ 	.type = V4L2_DV_BT_656_1120,
+ 	.reserved = { 0 },
  
+-	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 594000000,
++	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 25000000, 594000000,
+ 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ 			     V4L2_DV_BT_STD_GTF | V4L2_DV_BT_STD_CVT,
+ 			     V4L2_DV_BT_CAP_PROGRESSIVE | V4L2_DV_BT_CAP_INTERLACED |
 
 -- 
 2.34.1
