@@ -1,60 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611470;
-	b=eyMZP5iuLuWUxX8WzOndwNqbxWWnBMAj74mjsddiDQAKxx+0XzdCb+p6Fl0Aig8SHkR7
-	 wuHHe8zl5xhsPf4KL9//E18QxMbtr3j50YKRoaQJRrs3b+R7jeLWH7aP+edew+XYsIODm
-	 5Gk43XUzkg8MRK4+sFTDLxfzYJQydxiv4VPly2wXE0WENYFLOTIe2dLNx1gYbL25d/Fyn
-	 MnYe5tJg/24goUsGyZ0OQtqPEKMVHfrB0s5aQVAjHfLVNaEMEmxI8TkrfzEGDuTiAS8lv
-	 DjZItFVPmjqsFzsmrCfmID4UA59ICsFWzMbXFWOzau49/ghoZQ+Whq/CKkZPdz6xDKA==
+	t=1792613826;
+	b=k25OQAkQNqWvjXnlZOFK1K9q1bXYNTQ00Mrmpu/8vLectNwpvJswip/KukRerdmZcrHq
+	 xPHCPPKB9AJXDZhfMOxhzDhLBwky8HDumE/jOAYGj4KsySPnkkJmWI4I/3T8zBWtu6ijn
+	 SyFQX7SvCt3Cz5qVX7OM2l0iy/7shka5lFsV5LpTXqkOsW6mmAs1rFLnsZBjF/69ThEOz
+	 oYH+v2O3J90ipdqGzhXjPzrbfXf5EYIGas0JTDPzs2kHrvCyr3o2q9pMMC9YyDN8auknB
+	 kDAdSOda3oYqn/R6ewAzBaBIer52LoPkjkVX+LBCVa2goST/Coq9dapD4J3uo1RZNbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611470;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=nPHHZPY8cs0Vhp5/Lv8tY1EjZTLznrizvwr8rpho+S0=;
-	b=2oFJ2E8twzc8IovhqjjclD+koSd55KZmc6LqX1LQdBUUz2tyOD/wLq+mdk8GumOgLRUp
-	 SdbSicbTm5wDFkYb9roc3LqcVzNrQ8Via7Mvyyie0cIc+2gO7CsQx65wsD4NsRhPtJj9I
-	 DU5Oi6kyXcQRu2khZ5jBNqzCp4Y0oLu0CbFVOTeugLW7qh9s1wa2z0xPYFahfrcJb2pa6
-	 zZ7CC5lzBpVNRh+DXxHhY5R4eTwCIf/9NDvjxkxs7N22tbs9lm3mNeCs+lJO1KnOVeJAC
-	 tXtHJ75miBA8oNyzJL+X25mh1nAZfsRG5O8kt3GzvxXurz6reMJLhoLuBmKxJ4eoWMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792613826;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WsOu/rRUjYL7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=;
+	b=Rn5dK8doUWVdVbaNe4gCg0vzx8lYGkugRaWoT4RuDL5maWJiFZvbUdSPHXJXama3xn6K
+	 A4XHByx0Gph9G8lQ4YsWohwHDlwOM1VS2e1VqOu2gzmxADvy7wgl/g9pXr3Ttnge7VOI5
+	 AWCl/1XC7bnujjSmSOJOfdsXcBs+4r2IUP0J9oGPqzVj4d5ZYPW/nWrBTxdG4iUy+qfAX
+	 pOBqpQ8P2LUj64pj2yYaffRYbw837cdDbBZ6dgjr3PiBz26aH+4azd1MF5AKRJpQBvpuj
+	 nUfNF6nGdN11DH/00ofJ24EpJAouXby/IDpMf6cTdAvBGMLEqi2vCyVenfJFhc3zXkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=SbHt+epP;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	dmarc=pass header.from=invisiblethingslab.com;
+	spf=pass smtp.mailfrom=invisiblethingslab.com;
+	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b="atp5/hIL";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Bwf4dz12;
+	arc=none smtp.remote-ip=103.168.172.154
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C499C606A320;
-	Wed, 21 Oct 2026 19:37:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C499C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECDA9606A31E
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 20:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECDA9606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=SbHt+epP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792611467; x=1792870667;
-	bh=nPHHZPY8cs0Vhp5/Lv8tY1EjZTLznrizvwr8rpho+S0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=SbHt+epPrJL4kZHSHMCppDe1r+sHIzSjP1VvW0OpukPvht1DclKmq12otuLuHR041
-	 0RknQE8evxIKsn5MJifTVpKns/WOFvkdwWqSBxsTdYHu0tQGT16hcJCtwgjDzTYYuR
-	 WvWfaJACJ74kU8Ql9tGDRFGp27dI+uSlk+1N17EOn5tY+tguP4w3s653zrmefLbzba
-	 2V8/6uWQZX9lI0hEmmoX0v8hX5tpT2B62RxI9T/1aBZ4QQk89akhvnd3FcYb0fjfYG
-	 hYG8+0tV3WlfZlFYzZ4zNy0ba/YTwOyZQkQvsfGUdQ5XUALHimN5bhqbAEbUvqPjDQ
-	 gbVx3umMmHIIw==
-Date: Wed, 21 Oct 2026 19:37:45 +0000
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, Saikiran <bjsaikiran@gmail.com>, Mark Brown <broonie@kernel.org>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] i2c: qcom-cci: Suspend the controller 50 ms after the last transfer
-Message-ID: <179261145907.36927.5158021314822941179@pm.me>
-In-Reply-To: <CAFEp6-0wmUYhcF+_nv8U3WovxyHVJJFs1FWfN8xb9ogMOxpBRg@mail.gmail.com>
-References: <20261020193946.51478-1-birk.skyum@pm.me> <20261020193946.51478-3-birk.skyum@pm.me> <CAFEp6-0wmUYhcF+_nv8U3WovxyHVJJFs1FWfN8xb9ogMOxpBRg@mail.gmail.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 36a95b9b0d8e66052e09ef6d37b56decf1c0c559
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=atp5/hIL;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Bwf4dz12
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 0738414000F1
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 16:17:00 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 21 Oct 2026 16:17:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792613819; x=1792700219; bh=WsOu/rRUjY
+	L7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=; b=atp5/hILPS7RjOeTpIcMO/fh1r
+	spzLdAb4T9cgeaiF+HSxAoT9TVTX80macpFUl49eZ1zGQgRQaaZZ1q+18DFYRaoa
+	y/5BFmzCLHSPNHP+0ZENhAEkIlY3JCCYimL8yib5c0FNiK/6gyEyvij5g0Tdc1lb
+	Kdl4KUG5KyDS5AsL4Tfkz8qFNJkWlsZL/2SgupMtUFSeAgSHpSmUMuPhApXdMDNu
+	uXRtZ2fyZLyZBHq2zL9yzwTsJWxGaIJX9vbg4CabpYqtSuDAmj/XXhfUCbv+NtrR
+	iRX+8BV120sfMNGvQmUEPzfI9lIsqVsSSsQm24oT5LkRdvnLzbhqaL+vN/wA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792613819; x=
+	1792700219; bh=WsOu/rRUjYL7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=; b=B
+	wf4dz12Mv+nHxgpgq5usKeX7+n1aC5jdk6ftFenJLJxzd4/WxnSj5gR7K6FiPWZM
+	rg2PL8Wvr/yMaIAL0a8cVWwpErdrCrUR2o8Vt1tFakqMjqpVceiworGkhccX61WQ
+	kJKkmXoH0povlrDtxN4wEIFg/vtz+ZIq714RaJjqxDv9jKd4PHeVZb3uwmpb29Jv
+	XxMKBiLuIBI91qQ7Y8PqvOm9JjlqG3DTh7gbxaWNZ2E4OOiWcLdJBTyc+fgkkYH0
+	lxiwmKEViPuXUkyflhTQx+/lCvQaILi0l4FV+4biOrap1MIXrtUd5xls1F2v1RiP
+	LVC2rMVJ9OutP7iwozQow==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792613819; d=invisiblethingslab.com;
+	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:fDX9BnXGo3ZjG1aazfgV5Jo0nFAVE4MkRA/DsDRKPGgTNQE
+	nSwptSgjgK/pXNFMvYMTU44e4j8fbXz7AXy11AeKFNBIKkLRQjcPQCMrJPmdZnPz
+	Jox/yM5c747iJXoXvJpyq4ps9uWCnJ3lK+YnIcP/E9AbGmccFvCzC+ZeZroXAIpg
+	oWA77JZ+XFSlEwFdDL4mwZaHFJWLzx8SqYexV3WsRriNTPKL4r8KqddJr+amVWCp
+	eUuY3PvwfkCoSeWkpFuvI5LrxQEPUJ4MV0S9rmzSyPvqr5b0bgU8lC9Ws4HRyhZz
+	QP8qgQzueKcVhknHUrivjh3+57E/OBTDDdaHF+g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=15;
+	hn=autocrypt,cc,content-language,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:o5K+uoy2p3l+rotmqQ/lqLog1mD1ccTslh81foHS7SA=:XQ6PYviYeH6meLP/28q9IYylvU0BkycclHGqpiogBlI=;
+X-ME-Sender: <xms:ux3Zardsg0Lmvr9uoNcj9PcvvACU9BeUbyg5t3mfyIFUv71d342reA>
+    <xme:ux3ZagSvvt4TBAfY_GPH-oRbUq6Jd4_FXijHbIIjNlkg7Ne02H7PqSWEtkO4XPyOQ
+    V0AZNlcK2NQ4MvxJO9NuFx-2ExYOv7jtS3ifbLJu1hhUG7MrzRx>
+X-ME-Received: <xmr:ux3Zaqvaqos80rBkdWZn-2rFXQCXLOecqFLjEuGM1xCAY-RFT16rbcej5OtjppBmipsp-19JByaebM53lCwBRhhVWCa7Fu3jSQ>
+X-ME-Proxy-Cause: dmFkZTF5+fcfy/Oo5Le9I+Kjc3hGsGqRVtTBvtalw9ldQrZqqDF7kj28w0isq6NWkXIq78
+    bnL/tBTa9p8XouAsJCZEPacqdUuiQHvxkGXGoODmdc7SuUBv6enBUYuu6AMstMsnQdRDLu
+    HfVHmZElus2f0sABEVTnCvOWeiBL0FP4rKKqyj9i81HnyAxUWglZ6uxANNdU+bv9XHuBCk
+    mEigObqboa9yoo9hYGU2J9bGlxKpiQwp2C0RjwbLlOSMCkc5F9QXvlKfT16RuGyV4zqxSo
+    Hi/odAbWpKwBZtJkUm7dptQPsR12CDTWnofHtUvT7t0y5Dlr0X8sH+U+vhNJYtmusUmoAH
+    Tu9fZDy2TQVHoSl5Z/NIa+jg+DvjZrloWWFXJHsnon3XOeUF8s7NbsxMnBdPbTNhDSQEB7
+    zKi+Wq74T/qCn7uoQL+vCw9w9srbhX6Y6mnIWbnqMGGwrgHgGnSGluhnhlZBrX3oZqng/w
+    MijAYp1axMDt1P3JcCHuvhj9tLcHohL+UysFvhVed074/EUS4Z5Dd9lV0YZY9576cGXlmK
+    5kJjU6R2yOhBc+nsiV9sYkTvOUdsq8G2xhPB9FsWDvKDNUWue9XqwHglyGCnJfbTvVvXZM
+    +mp4Ofob1vR+eGlkAbOkY/JSgD7CBPb7dro38E67Ram2gWNkDi3klIqZWFAQ
+X-ME-Proxy: <xmx:ux3ZapfawUxz73R2n_YRTOJMP_jvbze2m3g3Xbciftk9ShjKXn6uSg>
+    <xmx:ux3ZasZKYHY-MN8s23tolDr-8ktT9clQRZgcbifzN2UfWeyo8Fuuow>
+    <xmx:ux3Zaja4bW2GE2fTz1n1lNL6OqqO0YTnaoBa-ubZQaXQ7HuN-0dUBA>
+    <xmx:ux3ZapJDw1OE9bJirGPrnDNcq9M8Bma6VmxBRRE4A7Z2IEdV2QdkYA>
+    <xmx:ux3ZasswRekrGH_gOF085VCwg4JwBJBJ0QE5V7jcAuUCFq-YS5A0ayCM>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 16:16:57 -0400 (EDT)
+Message-ID: <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
+Date: Wed, 21 Oct 2026 17:16:54 -0300
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,51 +119,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20261021093533.1990028-1-val@invisiblethingslab.com>
+ <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+Content-Language: en-US
+From: Val Packett <val@invisiblethingslab.com>
+Autocrypt: addr=val@invisiblethingslab.com; keydata=
+ xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
+ jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
+ NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
+ OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
+ Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
+ pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
+ nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
+ dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
+ d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
+ aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
+ /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
+ UDOwAqdfvuF3w8QMPw==
+In-Reply-To: <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 9:44 AM Loic Poulain <loic.poulain@oss.qualcomm.com=
-> wrote:
-> So, no, we should not rely on runtime suspend/resume timing as a
-> workaround for this. That approach is inherently bad and fragile.
 
-Agreed, I'll drop this patch.
+On 10/21/26 10:43 AM, Christian König wrote:
+> [..]
+>> The buffer lifecycle coordination we need this for applies to KVM as well
+>> and it generally doesn't make sense to have this as a provider-specific
+>> thing since it's not related to the provider in any way, it's just
+>> something we want from dmabufs in general.
+> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
+>
+> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
+>
+> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
 
-> Have you been able to probe the CCI I2C bus during resume? It would be
-> useful to see whether there is any activity on SCL/SDA and, in
-> particular, whether either line is being held low.
+Well, we already need it with both udmabuf and gntdev-dmabuf..
 
-I don't have a scope on these pins, so I read the pad levels from the
-TLMM (gpio235/236, aon_cci) in the driver, on 7.3 without this series
-and with SCL stretching on (MISC_CTL 0x133):
+Involving the exporter sounds really annoying when it's not something 
+exporter dependent really.. What if the policy is just "only one eventfd 
+ever" i.e. the first call of the ioctl succeeds but later calls on the 
+same dmabuf return an error? That should remove the concern about one 
+user messing with another's events (and avoid the concurrent replacement 
+issue sashiko-bot warned about)..
 
-- When the controller suspends after the sensor powered off, both
-  lines read low (13 of 13). The unpowered OV02C10 clamps them.
-- At the first transfer after the sensor powered on again, both read
-  high (114 of 114).
-- At the 100 ms queue timeout both still read high (86 of 86), with the
-  queue on its first command (CUR_CMD 0x08010339, CUR_WORD_CNT 1,
-  EXEC_WORD_CNT 3, REPORT_STATUS 0) and IRQ_STATUS_0 at 0.
-- After cci_reset() the next transfers go through.
-
-So nothing holds SCL or SDA low when the transfer should start. The
-master doesn't start until it is reset.
-
-> I wonder if enabling SCL stretching support could help here.
-
-It doesn't change it. Restarting the camera after pauses of 0.05, 0.1,
-0.2 and 0.5 s failed in 19 of 20 cycles each with 7.3 as released, and
-the same with Hitesh's change applied. After 1 s pauses it was 13 of 20
-without it and 15 of 20 with it.
-
-What works without depending on the autosuspend delay is retrying a
-message once when it times out, since cci_run_queue() has reset the
-controller by then. With that retry in cci_xfer(), the reset on resume
-and the 1 s autosuspend unchanged, all 120 camera restarts started
-(pauses of 0.05 to 2 s, 20 each). 91 of them hit the stall, and every
-retry went through. The cost is the 100 ms timeout, so a restart took
-about 500 ms instead of about 400 ms with this patch.
-
-Unless you'd rather see it handled elsewhere, v2 replaces this patch
-with that retry.
+Thanks,
+~val
 
