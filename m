@@ -1,86 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.68.31
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584526;
-	b=2eGgoZsyJoootR4TW4/L9JLWodM/vhLrl/BxxEqUOX7Dk41NwXkG8P/t0SdeDAopm0w8
-	 Zie+oA5JnAhdvViIL4nTKWp1d3V7+MhkoIhazpco6GQ0ikEj3UnzG6RHqZdBhM2mwaAFi
-	 SpVZPD1uHbz/izxrLpFfwHVDWsVeERWEGjNxBVmk+zh2z75NV0SzRbhEkojkOd5WeVSD6
-	 it6t/KTC6OvMQgoRokdmq+EkBLyLpjawtnr7iFD3imNP4GAvG9eFo4kKV3sVf+N6/hpKQ
-	 eaZLwTJSgNUPhk95/UYeaaKwmz7WcqINbpGhScRIntMHcY66jwvf6Xs9czt3v+cxdCA==
+	t=1792585010;
+	b=ZK20pgs39k3mapDVzBdltAf9A8nDjvmyj3ya0nS2MsfgqOOdLyY+NiV6+VmtL5oTW4yy
+	 YeT6HkSOnTwCv7Y2oVafY0nKz25YJIWcJqsng1+/gwa8MDPs8lxlqwrG6t58247vYhk+l
+	 /iWe1zJ4XvOBL3rvPFvfAaLyveDpvNm9zqUMes6+MeUvkO5cvkQ4O92G7920eF1RsqP9i
+	 YM0UFd/3iV75mHCSRLP8fbZRexrgIZ4EvJMa42w53Kx1TMwZ6Pld8daIlaqYfw27txr2c
+	 T8RzGFzCZDRin/HZ6VhE9MqKzG/uagp2ITZdFqJElaLiXxZhwyP1ey+ApdPtJckiTgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584526;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
-	bh=QJXz6Gn2K1VN9nepLWRw3UZWWzN19sWrO7Tu6FlLAeI=;
-	b=xQ61SQtWX2Q7mnuGHaYmObk2bJr1uZwUSRTyXQ+nVmQIj5HLCXMOlUo73/XGb7EbJ8SY
-	 QpFnU+P66evUbie2Dvpu5o+sTzJXR1Oo3MHwAhUW3WD2T/EcpM7Fbdbej5qepqJ0LVEXu
-	 cD2LNF69BJehzyaIXL/tbu7zxBRDTX4wI35OlLMK4mVCJG7Fo2WbVf7rYtNoZrf6B9M0+
-	 XLeiXlzDZvdAWMtI2pvwAVdywCItl+FYwLaFijZPPwC9b5Lzr1/2xpv+U9YS/Zix4RnSt
-	 gxldO77Q4tAYFCtLJHifTFouwWB2KpkCyft2p5rBbOv9iACJdxFt9cUKCrshWBhmVpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585010;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=pVJ1x0k3sdze9cPiJou8MJTh07f7bzis+TTbrxn9Qu4=;
+	b=u/3faBDR4nUouRTTPOoO1L2opHOvia7I5o46QjYw0oUsxeq83r5oejp5hTPwWyWKTzLd
+	 c1OJnQtTgGkm/8mjATM4tzcAGOBY2273LNtxbGuvV3ro0cNX9eEOwi2uh5sJPetFbOhX2
+	 jf3r77pTOm77v8c9UaXra/JP0k8uFO8y1iSt78QcD/vS1Z8ebcS5f/67cJTdZU7cJMLaO
+	 eXg7wTHn1OsLTYL62pOLi6qLOWlnisD+FYdnu6kXs9tiBLzQiDGrfbobHLPTLzhp6gMuI
+	 r4D3tlGDrAARKFLdasvAty3haHbvJ0IZ8BrKPQyYIPnYnciT2p07eFf2q+RdfT57lYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GyvF7QJs;
-	arc=none smtp.remote-ip=34.2.68.31
-Received: from sonic.asd.mail.yahoo.com (sonic-usea4-0032.asd.mail.yahoo.com [34.2.68.31])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=XjECWdGp;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="euA/ihmz";
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00852606A31A
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 12:08:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00852606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DCF60A3813
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 12:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3DCF60A3813
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=GyvF7QJs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792584525; bh=QJXz6Gn2K1VN9nepLWRw3UZWWzN19sWrO7Tu6FlLAeI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=GyvF7QJsAvuQB/+0Aik68auCnBVR5A65FnNMa4eJGPR7HDZ7l9Lc0qLEegEHLW2Ud7E7e3HuJb0/qSKszy7NM/T/9APa78awJ0Zv7KgyNko3Le4bZFRsW7BRzSv2ype7tu5GJcquoScswgpS/LDLUuEAApHJdbJle5X22dPxSQTgosxWwQK2wVMlBYaBBcmjU2M7ngSIZUjSEqVCY6eWLtqZmm1KjIIA5ljkme+x8RIXMoaoI6Pc/tQ8zAa1FdeWNLXz+CQX/fOIwN0Ye3ueUC8A003BZ6YtggkZzFfB9XXy0pRelBP1k3lvwtnkP/NKsV3rXuRQFU0lm8uWEsZquQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792584525; bh=3uVU5Zobt3tIje+iZ907gKHhOQXkitzTQZ86nCZOs8D=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=V611/611qOK5D4QIROtCmFR6j2Jt4w2Nu+CZc07xJw9sS2TYOBTtiliPOdxO7//MZw03fRD8CPgc1H+vSwj7FBMh3AS1+hTgxlJF5QsKdxVsd8IbvrsOUcqnyDojL9V6I/kpjb9uPYQGD3grtpiKW77PlhWT9yB4AtO18kiKQYOJFoAdKL3YOPA2C6880KuIQaRtzQFGkg0jXwMJsjqxOBftljATr425Mi+RSn7IZQhhCn+iZLTl8eqojjojeSRKM8ua+KtYUE5GVMidl92uEjIggzV/wGp9lBxQWW5U+3xqnpt0A94Ffe36C0WkrqpWr9X8Ze8takwv5cKXLQpxbA==
-X-YMail-OSG: 79KxnzEVM1mkggOb3HCMHc.8o80TAxUPamxznvYCtlQ..iMi5gBGIEqfaYfDiLX
- BfmSZYoxruLV5fzeaJ_OrpZRxonybk3pfLZkk063gjlsJZqBT_1.f0CfXq5yb5ED805U3ksaOPCo
- HtWcMZmBrlfxtu9uYJ5P_ajlUMZ12z.jxC5_IXla6fpgZeU0ZssQ0Tk4hIQDVTAFUIvcGi2TnxSr
- l0JiMrCPsUuM2rpl5.CF7qTgAynj90KdIiem8BrjdIUARQd2Nd1_9FtB.K_.Q1SxBSv6p5rGDh1K
- G3FjHBpdGfSF64jFBeKExabrgdAIMEqgRyvPd5Z7moglf82EfffsHnHsD1RzM8dcXaERtMBToeUt
- eyZhmbye4jK1.Xd60olrvwmPOCar_Bn.I7NzC6fwdcvy3G_rJueJAfByx4_lTWvjEMf69P9DdOqG
- cq3UIVXFRAeOaTD1W2kMa8i3pk4BG.V6IksL8W7DHYU0_XeHjBSrL3EuSXV3pmWhd7oJ0C_RK_wA
- 2FChy6akh37ShYqloI3l.drIqUBIsFukc8cBl55xUWm5Ii4RZCRwx64nHPFOYsGXN1qz16vcjD_S
- mqy26UGndRxCMRWkuq7m28_C2QLIxAk_5iipnp7Woh_gmmKBc0wFyBKg4tSIzCSEosn2ImtwrIZe
- RcnHAaG1lIhNMFmse3WoIFPMe2QK0ZY8xr.Op.LLwDTuUZ.IINcQoxRS.weCUMjcTUGwTmun0s7l
- xqbb6DqELB68wPLNIYI.IxrlgFH6wGwRKLMrS6XLQEmeE4UwxX9dUw7.HDj0rVjjt8DCzPdfrRrr
- 7oVmNLuoeHVn6HvWj1qeg5d6HWnttnEi_lTDxec06od0gTNtYMiCeFXuJsQ0x2iVr13TrBQ_sHQ3
- UqdHVjjn3qgNizLX_Ic9yCdtrYYxc71_9xrR2oWzQKw5748ICeEX27CdIlmRl7TCUZO0NXS2sDoM
- 5UljN7X6L5XfUB.3o6O6xFSVfDiPATwvVF.ryn3tf4MOxowjRhTMlwP2Qe2.4qxv.O9XB6MmEtTx
- Q6AT_Wth2w3cbStYm5xksurxEHpnHHJwazacfU1BeZeZjQl6HTnNKMri4yXQ2j.1coY7ywCQvur7
- ozDWgRdvFimJ_fqkHezoSQh_g632YiQ4W3HHnwfj54DElc8YrbJ4WgwFFX6AcmzTP1cLVQFGxbY0
- 4Z0FoDrehzzijcmkW.W161VaWW4zFc6IKp9e1W8wbQ5aiXQQFk.mbDPdEaLd0uQDb_Tyt7PTGoFF
- ADwiwWCSki78xpwf0UzZGzMHkrCPObyh9KAocVEZ65nW6T2pqDbCTFgF_e8Nh..uUZEsm9AOeGud
- mm09eDRENeUNZenfu0yrFBDDj8IfnNFwXn_3gpg4oJeicvq.9sSN2Tal7forUASAsf9fQAU1rUkE
- onOvkNir787pRz_1Px3FcWlxyGeS0zuI394VKvYgQeq8dcyhSSbqC9JPkNluMHVndeJgVRDSG3PH
- QofvLSEmmQHbLc0shHUxRLL7GzlPEGj1CnNRFJND4FQ.VVRImWLD9ziSTL3aDyhnUDnYqy4WnHmW
- 2lecuHKZ4VMrRNoBurpU7K3vwYBTnYXHFw9U3DjJWiJNvzAxKjh2Yd4eb2Ela7.RmUzqGiZipWKy
- B7CZiGUMzmTyUbEf_MXyKcflwrUPTL.DEMIf8eCxBcknW35IPed_wQoKloiltU1tbNezWAMweV0F
- _2PZQRJu7bPYw_s8rPIa9CCEHXGlAP06hbfqxPXNNKqgPuYNyd5W4o9xEKxV8g2sApc2OYGRCebu
- 7SFtq.ZcHSP9EYDoSurC0DM5xMyUhHxRp4fJT28GgiZET2ISt3K1IJC0T2W2nGlXLS8aGZdjhmon
- ezbNspq4xMxs.yaF9AcpXcb_ALt_DGEWCbNzL7Mt8tX5G0UuSHfHYnc4bFAJfy6JRHhMfg6Ayfak
- FufikOE1tdVSAW8BxToEtoELbhdL2jWnFuR_ScHVFrswkqxUqqLJag2nV1StPsbbTYESHho9Y6_7
- kYPVuMzOCoMZ9anCt3AFVFWGIwRckyQQnwHby_0NfMA--
-X-Sonic-MF: <stealth3m@yahoo.com>
-X-Sonic-ID: 986a24d3-e741-429f-a948-95863a48940a
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-usea4-prod-sonicconsumer-svc-101 with HTTP; Wed, 21 Oct 2026 12:08:45 +0000
-Received: from dip92.lsn.bf1.yahoo.com ([67.195.177.101])
-          by hello (SMTP) with SMTP ID 9fecd6f92ffb24fd6c6c1aeaba8e0acc;
-          Wed, 21 Oct 2026 12:08:41 +0000 (UTC)
-From: Ext745 <stealth3m@yahoo.com>
-To: linux-media@vger.kernel.org
-Cc: isely@pobox.com,
-	mchehab@kernel.org,
-	hverkuil@kernel.org,
-	ribalda@chromium.org,
-	Ext745 <stealth3m@yahoo.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: pvrusb2: fix control enumeration with V4L2_CTRL_FLAG_NEXT_COMPOUND
-Date: Wed, 21 Oct 2026 08:08:19 -0400
-Message-ID: <20261021120819.1870511-1-stealth3m@yahoo.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=XjECWdGp;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=euA/ihmz
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id E8517140012D
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 08:16:48 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 21 Oct 2026 08:16:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792585002;
+	 x=1792671402; bh=pVJ1x0k3sdze9cPiJou8MJTh07f7bzis+TTbrxn9Qu4=; b=
+	XjECWdGpZYFpXdeaeMW/MsdcYGcMMFdcUkZcALqzR+6Sc+j5GaGg9fDC/380mug+
+	mG67U5MkU3tg/Fr8SVKGPCsyg4JkvBM1kH7DNC9F9/rD2CcAMOJAjbq7ljQtmUKB
+	aMvMsNcqAfF5SoYEdWYh76RBmA+063XOG9UqYin57K3ioYJPmU5TOaFxWDoZdCyv
+	sxquUR4K65eFAqqzUzrcTFFsZHBIlxB/MuaOhGH02dN1CBwaD/0/ZFWbLFsrffFn
+	DCovWWPE79O8FFBEm03CkSwOUO9KLlkChMs07gUlWfhCaCJnHO5QTeUHamMFxCMw
+	HC9hscOG7cD5mw2rcCiDEw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792585002; x=
+	1792671402; bh=pVJ1x0k3sdze9cPiJou8MJTh07f7bzis+TTbrxn9Qu4=; b=e
+	uA/ihmzzmaNc5dTva5RUUwnhwxbvd5z8wFJ/0b58t0MG08rRSf/iw6ee1NH9Zjvs
+	zsoqPbFKE1ohkiJ+erNFbXbAhgUq0nm+2lOcpn2gXHDCZ6gzwkJivFCLoPJMpExa
+	HcMoiQjLROKxIPHqo5RHkbSFB6OGIufSYDJMHeQhpsSpwGnjlVNRbyc72InUOfdN
+	oFVa5T7aWYeGhfwchVOq3WTpmG1NQIa22mMGAdaU8ngEVyMO1Se08+E2uhxAvZNS
+	VTcfhI5sYivnlKxUp8FBET//jcC8kLAPZSXA4v8O2+H3H+HRZQM2/W4lJn7r6clk
+	owebCSOOreOCvMQ8gjSAA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792585002; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm1:rsa-sha256:iXos//a3J1MfbHpwIN9ACYjJ7rTNkmYiGPLTFUKx2JyYEvi
+	UstbB/Pi//FyGvkhscPcVYX/nuFtIu6GQAG1OSByRskq3LiEEk1djeEZk3R7NxJA
+	Mr/fGLdSr5JHLGDE5TBZTnZX9I17ady7cKfqZjDU2AIdyXJnKDaJS3ip9NpZ5blR
+	9ZVBwrPAP9O0OyJz0idq1KTHazHEZkiluIoQHhZTlUOdUMIVTJRRGFp4mgrA2DJ5
+	1wKcQrpYY5mKArlulpgvtB6MdvyD+u+YIMyU3EpGmuMGl7DYztBDFtoiYZdeLPYX
+	cGPqnXkfdkdmA29TZboVNW8WR7vn0HjY/3RPa2g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:sXYK5kqg5RAIxlV5JP7bTAEctlUDSe2I6M0f0fooR4o=:k1g1N9t8QGAgjH9tZVDG6P2SW1DLJKdHamEVOCUcq/Y=;
+X-ME-Sender: <xms:Ja3YarL0794Gx-VAcnXuU0QxZUHXWoz4IWKKIn5rJNRAgO78O5bKEQ>
+    <xme:Ja3Yap_vqU2j4TYeDYZJUuTE54r2wxFSc1G7hRPrmf6T7YpeUCSclhvrvj9usxP2L
+    fE6w21zg2udr-4u2mCO4fLaPV7GFWNtrNvgpVoWGtdJ8Tss4AqezqxI>
+X-ME-Proxy-Cause: dmFkZTFQx89gykQunQ8ka8t3krFt0J9UEA73ov9mxUxaGE+V0E3JjhdBeIaJ1Af3Godnc6
+    y0EGHmihZKF1SNEnzexwXUS8v1vEIPj9B5x9f9FnngGJcJLveu6gPAFk12ifuKbOgDSipN
+    KqHe1hU1mMpFtFEbHOWXLySt2GJMyT2/9gBdrfNQsCBKG3+pn4H05WjNLWeOxcDDBJYYRo
+    1LgJHgnr7RTZlMF0Mb2yD7HXBcTJfwjkO3qrFxCCC5aCi2v/2FZ+Kr6jEzTMcPelG1Po/F
+    BQapZHiFmINAZy/LvPVniBk+ipUbiLLaXjnwPhg/Et0bjc4CWqHSISyTmzEKQP5TpM3Mdr
+    UEqkAMOcf+I5EjSOWCWzdU4GDc9LUIfZjAipYVByDM2QCchAxyZod5wvbRyBuGFmy/XwTe
+    uCKFK9sVE7Rk+3oBDz07xU0T3phceBjRddagYEuMagrfvhr5OmSu/xFRi1TAtP3HIHqYnr
+    nl5Mxpn/9BZ1jEkNuS/u08O45tEriS+WcUm3AkfmxsdIPMge1UgWrPMk7/6MyOQGUezhu+
+    dIzLOiB/5vwx1GUeuUVFELe6WlbmlvCaoCwxT2RfLJ2yFuJWucZjw139KnlNtyZyPpYUhH
+    2sOwJ8Eaos4Pfys1onWfXjCKGGORW9OqsMD/6y3vxlOjGfrztXFuWUIKQVjw
+X-ME-Proxy: <xmx:J63YauEjnUtZW8eE0a_vG5IZU4WzOpaHcm6RZWlejHa8-3GmunyXrw>
+    <xmx:J63Yaki0EML2RgNaJY7_I3_tDaU22PREUruaDEoLaQuaILNTB6rgFw>
+    <xmx:J63Yarj632RdF_VW-KOy019KS7jySxesRb9_-rD7dV6yPy-nDVplpg>
+    <xmx:J63YanlPXX7Eds3MSz_lwiVVBqfGDTmSTDUaVi9g0WkZAyXz5RcHIg>
+    <xmx:Kq3Yagb8vSpKhOsZn7qDLlFOfIqAb03K0EEYgd440-F1GCu1zkE43cBp>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 93AE632A0093; Wed, 21 Oct 2026 08:16:37 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,46 +115,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261021120819.1870511-1-stealth3m.ref@yahoo.com>
+X-ThreadId: Anl2GdpqQwQR
+Date: Wed, 21 Oct 2026 14:15:56 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Gary Guo" <gary@garyguo.net>, "Philipp Stanner" <phasta@kernel.org>,
+ "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Yury Norov" <yury.norov@gmail.com>,
+ "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
+ "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>
+Message-Id: <9505cbc2-7261-4f84-9769-b97e9acb1c38@app.fastmail.com>
+In-Reply-To: <DMAHVQLCMQAN.3G0TBMA1UTM6H@garyguo.net>
+References: <20261021095512.1345191-2-phasta@kernel.org>
+ <20261021095512.1345191-3-phasta@kernel.org>
+ <9f4bbc9a-fc36-4e3a-9c42-d18419c9d025@app.fastmail.com>
+ <DMAHVQLCMQAN.3G0TBMA1UTM6H@garyguo.net>
+Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Since pvrusb2 implements vidioc_query_ext_ctrl, applications that
-enumerate controls with VIDIOC_QUERY_EXT_CTRL and
-V4L2_CTRL_FLAG_NEXT_CTRL | V4L2_CTRL_FLAG_NEXT_COMPOUND (v4l2-ctl,
-qv4l2) reach it with both flags set.  Only NEXT_CTRL is cleared before
-the lookup, so the search starts above 0x40000000, finds nothing and
-the enumeration ends at once.  v4l2-ctl then falls back to probing the
-user-class IDs one by one: the MPEG encoder controls are not listed and
-"v4l2-ctl -C" can't find them by name.
+On Wed, Oct 21, 2026, at 13:54, Gary Guo wrote:
+> On Wed Oct 21, 2026 at 12:33 PM BST, Arnd Bergmann wrote:
 
-Mask the ID with V4L2_CTRL_ID_MASK like v4l2_query_ext_ctrl() does.
-pvrusb2 has no compound controls, so NEXT_COMPOUND needs no other
-handling.
+>> I'm always confused by this and the new function makes it harder
+>> to understand in the current form:
+...
+>> - Contrary to that, the kerneldoc comment over set_bit() mentions
+>>   "This is a relaxed atomic operation (no implied memory barriers)"
+>>   and leaves out the kcsan_mb() that is in test_and_set_bit().
+>>   This makes the new set_bit_release() sound like a /stronger/
+>>   version of set_bit() the same way that test_bit_acquire()
+>>   is a stronger version of the (relaxed) test_bit().
+>
+> set_bit has relaxed semantics while test_and_set_bit implies barrier. RISC-V for
+> exmaple will generate the amoor instruction for set_bit, not amoor.aqrl.
 
-Tested on an HVR-1950, kernel 7.0: v4l2-ctl -l on the video node lists
-9 controls before, the full set including the MPEG controls after.
+Thanks for the clarification, I did misread the implementation
+and see how I was confused once more.
 
-Fixes: 8b5ebc688054 ("media: pvrusb2: Convert queryctrl to query_ext_ctrl")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Opus 5.5
-Signed-off-by: Ext745 <stealth3m@yahoo.com>
----
- drivers/media/usb/pvrusb2/pvrusb2-v4l2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
-index 101b2e9fb..5c0117493 100644
---- a/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
-+++ b/drivers/media/usb/pvrusb2/pvrusb2-v4l2.c
-@@ -510,7 +510,7 @@ static int pvr2_query_ext_ctrl(struct file *file, void *priv,
- 
- 	if (vc->id & V4L2_CTRL_FLAG_NEXT_CTRL) {
- 		cptr = pvr2_hdw_get_ctrl_nextv4l(
--				hdw, (vc->id & ~V4L2_CTRL_FLAG_NEXT_CTRL));
-+				hdw, vc->id & V4L2_CTRL_ID_MASK);
- 		if (cptr)
- 			vc->id = pvr2_ctrl_get_v4lid(cptr);
- 	} else {
--- 
-2.53.0
-
+     Arnd
