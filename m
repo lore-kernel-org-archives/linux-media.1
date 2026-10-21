@@ -1,125 +1,130 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572002;
-	b=MFEjRQHPa5rKzJ1x3K0xKsjx6E26uWUWJmsmeOXPWnBt8KvawYEzGwGVbqTo61BmrfOr
-	 AKroXmEU9eVtd8hyB2Hc36t8qb8k/6CtS3Vckekia2Xds2cuxkc+JgX4cWIpUuTR/EO9W
-	 9UOhw6FD8hQ0QOaD5MT93nNl68hEiU4p0BKYnJm6jwblt6RBdp6hDPVvRdnDorAQauOkb
-	 RRaY9FgCjKAm3r1s3NaNfbn5Hsz36LyLOYgihqC9PBXy2WPcxl/frVjeUFr52ARsEu+oi
-	 o6CA+zs5NzNWx77q9yqzCLOhgzfiobZVEQg7z9gK2696+tn1r0/qX+tDIbBDQnqzOMw==
+	t=1792572005;
+	b=U9lDFxiMQqf+f/XaMXG9OQjZw6wjfPLwv0z+snPUqVtVvcop6ceCgyLbCxTw9nfksT6j
+	 OEImPYTtjgqGTK4bWzLAkpc21TmZm57lmRw1WTmtdzIfZHfOtfa9davGpL63zbEZxlAl1
+	 JqGpxBrF716ZD+W2Uh3fVN77zgE6k+2s9w1t59a12agoW/I3RSvgHRUdyJqRs4NrH2Yvn
+	 8SfLvpEFhwXDz463G9SE4MdiwptczGFpPFf2fpdujBwI08jPhMEKqXxG0qWwGPo7JRhnk
+	 Ncxlomm+zciOdjDwgrNXbk0bDcXxLcXFPYmCHwmdQKsGafXX+llULfCFFXyqyBWQMsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572002;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572005;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLevSo2XjNeGZqmbtA=;
-	b=l4+TnuguMjfwccd5XAXo2yn4jUmUWaJrJGgVIL/DAALXAsSZXuw5V6L3PNRHvK8MjNhm
-	 ybnEfm8nGh6ZFndomV5L6M92nkks/NhiS+2/v6NVEP/K34+wN6UycuOU/09AcKFuejP8q
-	 qJxTRxjyUeiqJNYlkraR2YrTKbf3KE05TB5Y7gc7lWhP4jbN262qWaVPncOwWRXFKwORx
-	 1MZNuJl07Lsnqt5bwPPh0oEPjTOW5kymdAKANEOJzcQW4HIpj9Ar/f8V3pHRj9UfWScZR
-	 wXrjO/CX9setfKG697kqrZ8dkflnKhCLIcf+EaPE6wVqBOMLP8XiuXFJfgHyCN36l2g==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=R3wC1JPd18KvPMWWOaNn6dj8NYQPZH/iR9+7PTFAozg=;
+	b=1+edYpmU6DApUxhqu//K3RG+nNdfjjOdHLXDtax3odQOOo38ZLrOoMUSNkBM/AtMpu01
+	 tjGhTvmhDvcRXgq64hKcpdpVR6aVNQJDs254FWj2pCJ+QQkR19BP+kHMYpvN7pkEwskB8
+	 KALbKLyKtWD+uhKS+hISI9nizQgNymOLKW8FTH41C9Ljs4CKTiadCjnl+l8VXllk/IpA3
+	 qRaT7ZD6/DIePs40DN2/8C9C1OWpAVQI0ddHc8IgI59ut1Ovt/FwY1sX6edUZrAQ5OmeM
+	 v4Ys1WOJwMZWTW/Xz04a8oBzpyULCgu+e98s2OU7uTY9hn9FyqwsNika1wGRZIcBXaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=invisiblethingslab.com;
 	spf=pass smtp.mailfrom=invisiblethingslab.com;
-	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=SpSiW7s+;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=P1CdkiA9;
+	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=RrD+Fnjt;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qBgqKCYl;
 	arc=none smtp.remote-ip=103.168.172.144
 Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3292660A262F
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 08:40:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3292660A262F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC29D60A2609
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 08:40:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC29D60A2609
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=SpSiW7s+;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=P1CdkiA9
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.phl.internal (Postfix) with ESMTP id 57F1FEC0231
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 04:40:00 -0400 (EDT)
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=RrD+Fnjt;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qBgqKCYl
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfout.phl.internal (Postfix) with ESMTP id 1131EEC0232
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 04:40:04 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Wed, 21 Oct 2026 04:40:00 -0400
+  by phl-compute-09.internal (MEProxy); Wed, 21 Oct 2026 04:40:04 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
-	 t=1792572000; x=1792658400; bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLevSo2
-	XjNeGZqmbtA=; b=SpSiW7s+Nn7tcFzU8ApWsri6ykt+yKJU2IJ11tSa/+ULYhAm
-	Y5wuNjiq+A5bWC5M+YJDkx+CcV6v088ty27LniFhPU9pvF7gJidnIOeD17jNF6ex
-	uCgDncXKzLSS2gHbu3pEpfuMBEhnarsoVukT4F/m0mwNlJd8qyhiaovMJ2kYCdlI
-	l94VmO8JmUpEk59zqvTW1SVfvQIVJJsqrBHnxx2K8hUVtGba+MwSNgZWksYuxCEa
-	ji8siuWUQW6mtO/I/jAHlKMiKa58no9FscnJZyXDCy0Ok4Ho9ElbGiIQNhj6hjm+
-	ZuTfBNeBFl3AIdWba7Y28vFwCh4j7dibeJ1dWA==
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792572004; x=1792658404; bh=R3wC1JPd18
+	KvPMWWOaNn6dj8NYQPZH/iR9+7PTFAozg=; b=RrD+Fnjt702H5uTiBWvupeXSZj
+	qTdyIvI4zz1GeM7WzQiSIky0Aul9mzU2HviWFZCDPZBXxDUyrSdi0HCwDahPxuBb
+	RmZbxwvvEbRrgPaosKThAfBpG0CeyC6lj8B0q+Ph6uu1VBYqdaIEben64OUIORE1
+	nN5hjlggnMKOtJMkbV5njmgV/wkBnoLpHDUwvJXu722i3k3mGoP8S5IQ3JRPtskL
+	TBxFOmz/2Fdw+s5bT1jx6YzUA5XhsZVqQKO79ROZ115rHMg/eRfsUf49EKa/hi6r
+	379E8lTEKiUK6v7I3jmXco64Kr/TXSr0htl8DwjW+dimmWYxBKbHq/gy7ZrQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792572000; x=1792658400; bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLe
-	vSo2XjNeGZqmbtA=; b=P1CdkiA9KGQuE9gesSdZIHAFUiDG/61ceBsQ0opr4uVi
-	G52b0OwP8ivtfXqCCb57Sp7aZMfXSYOfVJSfqdG+Qxc/AmeqJJ/AEbT8yVgS7h9v
-	b7XeGjBgnESbCt595MTdX9V7jjJs0NhZZNtt2n9WQzopNot+btMxu8IdbOh623yF
-	oimQ10jjEDN4V7Uli+rfOf2LWluYn7OZKUuoTmw9/Vles7AUdK6nNmybcRWVQVP7
-	KiqD2WVmHejzjwoI0oYd7kpC+eImoDSpbd/XeCk/knVj5FcLtaLJKpJaaa3dEKHE
-	rMZy4wr/PBGy7s9NjONyjYDrUiNVge6kTqICiywa7w==
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792572004; x=
+	1792658404; bh=R3wC1JPd18KvPMWWOaNn6dj8NYQPZH/iR9+7PTFAozg=; b=q
+	BgqKCYlP/QpRKUTOJcxDIDbuHLKa+TDNXnyuunR1PZMe68qbGJCFjeubrc+AeFRo
+	Wreyw0eR17heWm8+dvvK7PP8qfAkhG630ere3WI2u095nub9bx27AGJudMZe51AE
+	FpX4SdCo/92YhG/YtrgXeNRDF8gqGtE6SW8HQnenDUcNAHzePaCskDYzMzU/OQL7
+	JKgWZ8WDBZfSjRoTVb78qEjwgrm/f/Uf6+3nTliUH7F3KnBdZ9P+4poxoN9gXt1a
+	r6hRshnWSnCrDWcA9GKit3x2dViCKolnzzVqmQYa40uyVqujKcddYpt2DIKjuQIx
+	2G1/foMEGUU4G1dhB1ezA==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
 	action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792572000; d=invisiblethingslab.com;
+DKIM2-Signature: i=1; m=1; t=1792572004; d=invisiblethingslab.com;
 	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
 	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm2:rsa-sha256:JGCEoIYIi9IejqbN9ADrl+GR6hT9JoNahT8gCPE/ze+SvLb
-	BULM8vj9GrbLJMQZFMKMcvS9Puzk1wACJ9DwHIkTK84tcbaCu01Sws1ZHJfnL82n
-	t9CDdbQouQVqdUkXxjOzdTf9qqgOHOlE0J5LAcOkTdy70jALy4yNmaymfQ4xtEjX
-	lMvuTu7O/JhNtuFb39z2yOdbe+Aw31byps71IIe0/49/XIsKVHxoiIGd+1Wu15ye
-	n00nNfNmQzQgO/mKxEaK/KzMtO3pkDIiy4jqRsQMvHvCuPAFLr01AWgWQmiYm01U
-	msgq8N9wdIeeyHAeWkvB37VXlO9cdwKJ2sS98Iw==;
+	s=fm2:rsa-sha256:ncaFnRXOa15iT+exCqSrPA0yxxi5pKal78Py6hkR/nA+O1q
+	e7trgDOfWFm7bMZKommKKsSSMHZJe1CylUhpoQK93jhYF9r72Jv55zapF/VN5yVk
+	3AUpDtcrbiAffUtS7k+99tW1vEynWSCvKrkybAuWegge0Ns8SfF0kzz39dzqmLTN
+	Sc4BKKM+WzMyh6iPSfyw0txWTGvG2KOFemGzQqPfSiGwF69JafGKEyRRPEhza6QD
+	dGJosHWRdBg4S9BLKKvg00/PgRD1ks2Ym8Uca6Yrbq2e7KB3ABO6rnAbWo9Ylf7l
+	KNrgclYYvLK57yMgHrdfAwuG53P6d/tE7LHQQFg==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
+	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:9XIRFcxfocIE7TTVobmGHzvCjgMsTJ70TPYynJ4ynA8=:mQpFvnuWRf6RbeXO/lVQ3BUGGu0Nam8GMc33D7LIjIM=;
-X-ME-Sender: <xms:X3rYanRpIsL5XFyp98M2QZ7J9GR-cTyskl-z8zuaEpsw8gBh_zclHw>
-    <xme:X3rYag8vxyS5rq64pIuRTswT7k21qH2K-37-Ldx4C-Xb8teN-_EaSdOw_6PNuCUqt
-    mHY4I4iFclUYsVgeAYJd7_je5ue14P88rmbNgmnBK9tMLjQot_E>
-X-ME-Received: <xmr:X3rYaoZFZYqO7qRps79mqO-sSB-tfLhds5jPtQg7AuPUj7uQh9uF9uer6898qX1vAbvVAeKU_HQ5KZM3IhzQ2udPaXdeFoCuo3bKBfem6EMICRroQebWz3XA8mz11A>
-X-ME-Proxy-Cause: dmFkZTGQ99FzaVuFTcvMdK/ygBNkRoPov9AfgImip9FZDA/maXGAfMDJmGK8CAXzpiT/v/
-    6eSXOenWvT9pkl6/ECj5SYWG+7ulldBorjx2rxo5QgDzY5TFFln7KzFQOe2r+BInkFtah5
-    lXwZrDGmtZlTphqhH3hkG8JCQ9e1Zj5KCBMd82t+JjBKm297UYGmJHlXDicWsY0O+mUCjX
-    wBdfh5nJowniELGh1LYyawBXXlPkdvXsLmgOZjf52NEHmw63iZeiRd7otZZjTrBnx1UJpt
-    2Khf1IgTOPArXIlvxTSUhdE9+G8iG1/NDCOzU602U8lg9kR2yn/YlHD2QaNB7FN+ZxDnZB
-    3JrTVir4YpDM52ovWN9A7bgrFsQ2KF28DzUrD/e9wI7UOX7D2AR6egtR8cHaDZEPMBFPwc
-    m1BiwjA3SmdNcP1LWBtbmhQqYXRT/cJh+lQo360yNhfVcaOJFkMAMw5tv/ojvc2GIvYhhp
-    +wjrdaW4Xqb2wLe+LwTjLpU+2OB7P2ukWYF4uNJWux1m88t50dcGBGPW1BijNy8L+NibqA
-    fjwlVRgWGREryBH1q+r3ioUNt/x9r36AOyADq7lLFpn2RN8irqFfaXpwEn4PQOQdwJt+Gy
-    cuXsL/OmqEHNdFYFJi20QxPfSrSmO5vSEvoGOH5SR7M/v/gXg+v1DH8oaykQ
-X-ME-Proxy: <xmx:X3rYahqElZfDGGf2n8k9vHJKnJ0qz9Orore7_YdQQi6fY7yw0tyyGA>
-    <xmx:X3rYasTenipPpFc-EdSwvZIETSe8qJm3jDdG3ds8xvKGOhfPv2vU4w>
-    <xmx:X3rYalrEXS36eZ09bgP36d1jGNOuHfI2Jh_rMLEYTuWQNVe2vseMRw>
-    <xmx:X3rYam2RGG518CBgXgcxq3uutWgLPfs7m8-ucqOSy5XJGvMF0QdCkA>
-    <xmx:YHrYahFsmM0DAG6FnHKtSsaD1V-ctWmyP-5PPdMN1vr3V8BicGXP3TG8>
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:y26MGpA102mWR2TadjRDKL1Mv+2OFyq71aY+/6228Qc=:a4kf+vVraiqrr1PQbOh4rjyht/6Hl0n1XbpxcyRmQbY=;
+X-ME-Sender: <xms:Y3rYasNt3gWyGEymAOeCJcEkrOLFirTPmtmIIiRa3HWSakAsUijgOA>
+    <xme:Y3rYatD4_zibLhLwnpvdKiG-bnwB_D4QHvB3sL_taE_aY9sRdiMEBKstgWOrDtDKx
+    Pdj-CMSsXz_D0p0xuFnxWjAdMGJSvR-PDMMZAssgt8Xf0A_Tx7a>
+X-ME-Received: <xmr:Y3rYaoMc8gvQTyH1MyfsvjQ9W_wv-MVMAEvgv3r-cdQfmcFoLIuWTJuJGL0u-WqWlmDUE1_gfYRfydGyRbPJ6Sj5uEVhiMUZqUjNL9bRWAmMPTrnNXWo2k2NiQYfkA>
+X-ME-Proxy-Cause: dmFkZTEPpr9PTmsu9mAqZaSuT5MxI2aubm3CsxGChrzKRK91OcndI/l7tJu+NMEFJuF0DZ
+    GIiG+h5CR2GBKlA0T/mp1bK1eBlDsJyhFQghHgjGPJfWYZdhrTajibc3jm8S6Oux7G0ma1
+    rqzQ2K5cDJrtFRlHSZ6HqUynScBfpM0jZYeQjV2P472PAQel6yNLh5LOSuLqRkCVXa+OcW
+    6BEdzTV6wF3MCTJQ7+niRd+bRSEMLL21FPX1EAjFDCQqxTUOlBoYC3NrdTEhVBgQ1sGASo
+    YJvaNNZQyZowva7JsrV36YyECAepm1VSeuwjTLpifU9a7/8IIN9f6oPhmhrkB4GkQTMXc+
+    9fxZv+qBLXsS10fDy+9tbFT/wSmfwiQ3K0IkB6M4VK+q6uK0Wo0J9O7U0CprHzp5+majco
+    4mhA+LxWbAL03Il8PU0dIYFegZjLGdsjFmTwbxX3BCRN0fiDOoQSDOkORtv3Hg3pv2VC04
+    +uxHK7PcSg4r+glfexNPOsI512jurmnTBWWaETwx8eACwmps269eZZinLYXAYiI40PCMyr
+    ocVFchvE8Q6lopsx4a2oENuCVve/R3oJnbwyTcJvkPV3oHxoXCqaFo0j0gMl/X+7pzLrso
+    qFhKZc4TVnFDXNd/GG11Oto6XTWfiF3+mPa+tO612T1TpV9nJUJqrhGOGFjg
+X-ME-Proxy: <xmx:Y3rYase4Zfh2QIGcdVn19qr9dIhRkpVcLiAPXd428GieotQAemiZvA>
+    <xmx:Y3rYah5qjK6Y-oFesMZE1iP-zL8ZIIylEbR26RabU5T1VBISgSvS1w>
+    <xmx:Y3rYamJwPxhICz5VeN_UEhmz6neeaPUhNDXNlleA0tU2k0wd71_1yg>
+    <xmx:Y3rYajUt0xjIJciussFxJTb42_lt_9-5iWyQFT2ObNfzifgHyxaSUA>
+    <xmx:ZHrYaoVs9OfgGCQzYodvXhDgaOmW_YDXKoWffSp6hb4lqHR6zRA7_Gxo>
 Feedback-ID: i001e48d0:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 04:39:57 -0400 (EDT)
+ 21 Oct 2026 04:40:01 -0400 (EDT)
 From: Val Packett <val@invisiblethingslab.com>
 To: Gerd Hoffmann <kraxel@redhat.com>,
 	Vivek Kasireddy <vivek.kasireddy@intel.com>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>
+	Philipp Stanner <phasta@kernel.org>,
+	Dongwon Kim <dongwon.kim@intel.com>
 Cc: Val Packett <val@invisiblethingslab.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] udmabuf: Improve list length limit handling
-Date: Wed, 21 Oct 2026 05:39:10 -0300
-Message-ID: <20261021083933.1983894-1-val@invisiblethingslab.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] udmabuf: Fix list length overflow check
+Date: Wed, 21 Oct 2026 05:39:11 -0300
+Message-ID: <20261021083933.1983894-2-val@invisiblethingslab.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261021083933.1983894-1-val@invisiblethingslab.com>
+References: <20261021083933.1983894-1-val@invisiblethingslab.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -132,21 +137,44 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-v2: Set a reasonable size, and fix size overflow check (Christian)
-    I've put the check into a separate patch that's Cc'ed to stable
-    and has a Fixes tag since it has been an issue since the size
-    has been allowed to be changed via tunables and the condition
-    has been reachable like that, independent of me changing the
-    default value..
-v1: https://lore.kernel.org/all/20261006005053.2245156-1-val@invisiblethingslab.com/
+The udmabuf list length limit was made configurable, creating the
+possibility for integer overflow that was not properly detected.
+If the system administrator set the udmabuf.list_limit tunable to
+a large value like INT_MAX, that would allow udmabuf users to submit
+a list whose length would overflow the u32 length variable.
 
-Val Packett (2):
-  udmabuf: Fix list length overflow check
-  udmabuf: Increase the default list length limit
+Use memdup_array_user() instead of raw memdup_user() to make the length
+calculation an overflow-checked multiplication.
 
- drivers/dma-buf/udmabuf.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Cc: stable@vger.kernel.org
+Fixes: 2e717a55982a ("udmabuf: configurable list_limit and size_limit_mb")
+Suggested-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Val Packett <val@invisiblethingslab.com>
+---
+ drivers/dma-buf/udmabuf.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index df6dd0046242..654ebe7f6b3f 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -470,14 +470,13 @@ static long udmabuf_ioctl_create_list(struct file *filp, unsigned long arg)
+ 	struct udmabuf_create_list head;
+ 	struct udmabuf_create_item *list;
+ 	int ret = -EINVAL;
+-	u32 lsize;
+ 
+ 	if (copy_from_user(&head, (void __user *)arg, sizeof(head)))
+ 		return -EFAULT;
+ 	if (head.count > list_limit)
+ 		return -EINVAL;
+-	lsize = sizeof(struct udmabuf_create_item) * head.count;
+-	list = memdup_user((void __user *)(arg + sizeof(head)), lsize);
++	list = memdup_array_user((void __user *)(arg + sizeof(head)),
++				head.count, sizeof(struct udmabuf_create_item));
+ 	if (IS_ERR(list))
+ 		return PTR_ERR(list);
+ 
 -- 
 2.55.0
 
