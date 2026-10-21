@@ -1,64 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595823;
-	b=qg/cGBZLdy6WEOq6PueocNjvgIEqepQFDsNWI8WPCe8ywAUbYRSawVYdc9ygBDNKxby6
-	 AjFIxrNYOD60SHPNQkA7bIUZpKvHalqgW0CZN4Q8KvWWP7gNYV+hPKymbSCY+G+4TvM3i
-	 vcg2kuttFO7tHZWNlum4Rm1VetRlbbPyx74ViPrbKgHrOghuzK7VXQXPhNEm+6uKKA5R4
-	 WgJ5Wg6b+uvptO8x2t11+wTQhuanKVZJ0RzP/3VDd6d0Z1h7g88jgclWbdcnVVGPVMeUS
-	 q7Jciiyo/H5RyzDi8unJXOHP3AD9+86zDoco/A/Yst6DlSjRbbpg0oX9blJV+drKCZA==
+	t=1792595879;
+	b=xpONxDafUEd+5oB7GZ47Humng8rp9PRTS69gsr7+ta7K0B2O67gDTKVZEESl9R1UBX31
+	 ZFUY8S4t8zTLhqOJ3zL2HdC1JXD4fTjR5RHO15Zg6fzV26s6RLH7wo1aBTOU54jaZ7QEy
+	 FbPFTTHUa9PJv+FY9QbVuVDHDeexTVFphB6jQSX8PQYfCm15f0xsq6+NvVLfuVeGz2OgX
+	 wcmEVnFxXgt+DoCIRocz6q3DC2VoGrtwI0mdQfQTO45qVzgZh00FrDlPB4SeTrvKo1s5j
+	 nthr+GvUX4iS/zGjpVyrgEGwC1m8k6SW3whz5zJnxBAMd+TCu8b5bfDbbBfuDGsERLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595823;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=VUwVNBdTmyElFd5++SFMk99jQ0/AW6Li9MfUrUHf72o=;
-	b=Yt5X8C0PBct/GG9ZFlxribAvtp5ZtO4fOkN4d5Ld3REhbnM8HCzEPmZNL6DIixWNiw/A
-	 aHcOk1XaSLGRpd2Fj6RZKaLnDuvvziADDBGCPEL0/nZeGVmuMB5ZFGC1620b3YbdUQ2jN
-	 kJ6J2VtbJiajFZcF9UHHf1AQqtHPR6DRemta+P7I1IQ14riqgVVWLp5RU6Lm02+eeM3bM
-	 R2B69WZckfAlfT9XrdljuDO5v40jfNO854nTbfyWTKIkgNDvOlMIjCdY4Ng21XEy7oG6N
-	 or7xM9mla8XFBLhbSEgjuhtXacbWo8ZaoQfnp1i2CUBh8Vn0EkP4LQAMglwR+1wLxVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595879;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=4132qGn+e2NBjocoBhtZ34UxpudfWEjMUIEc6bw7M1k=;
+	b=dAxBSYjXJhM0RHFTVSjsRvjHYurhQwTP5Wx+bQjD9xGsBbKOi2DYZj5GQZ0+EG5hPaF4
+	 37SOIJlwy1t20U7DHByIUTD1bgZIi//fspcow1I0Gi3rxcRCREzvOWN7TjtTbyqUmajj8
+	 DmkUH9zAtexUpazzj8FXsSPa0z59CIpwIR0+FC3ZJb+f1XiOkzl2IDXc/Acb2d+Xa5PnC
+	 oDZdrdHbJXnV8KTcFluLZXrpp5WwfZEBhVpdwDyPGh8c8BN1WzS6d3MxQ4tf1etLEARa/
+	 7j0iDV0P/O3VhFhpChiewAiQfFHeyukzflnf2CB5omjNL7dR/2+gl+/lRm+ufPeMRDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=a9ldZ8pP;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=DExP5GR7;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3978E606A319;
-	Wed, 21 Oct 2026 15:17:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3978E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28BA60A260D;
+	Wed, 21 Oct 2026 15:17:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A28BA60A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=a9ldZ8pP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=VU
-	wVNBdTmyElFd5++SFMk99jQ0/AW6Li9MfUrUHf72o=; b=a9ldZ8pPBmOnKhSwQA
-	Fm5LFjpzG2LWRHv1aF53IRTqIYUn4uei+RVC0z1ZIAywUwoTpcBW3K8/YsEH3LBQ
-	17V6iW5lx32QkJ134kY8nBGl1CMOAu6XM72Wbj2biAzvADgZ1RpJ1KZBbzc7+DjW
-	l+ux9wZFHW+d49BPWIZ876v68=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDn93cq19hqoFfvBQ--.50052S5;
-	Wed, 21 Oct 2026 23:15:57 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>,
-	Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Sebastian Fricke <sebastian.fricke@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v3 3/4] media: wave5: handle encoder runtime resume failures
-Date: Wed, 21 Oct 2026 23:15:50 +0800
-Message-Id: <20261021151552.428590-4-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021151552.428590-1-yaojiale02@163.com>
-References: <20261021151552.428590-1-yaojiale02@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=DExP5GR7
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6946D8FD;
+	Wed, 21 Oct 2026 17:15:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792595748;
+	bh=oO9iD6FwzRrERhew5UCPrj0+rWEmn+WPLKX5f9RECAc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DExP5GR7dV6ZHtj90S2RyIIcWUcvLlxa3uRmsHiAHZLNe1kNEYhq1oPqLwwQJdAoV
+	 YfYnh5dB0eQvLTcUpUDhOsH0bQd1bkVyY7x/fDSs0cgwisyJpYnbtiwS8xHAvOxcYX
+	 XYJUdOeUUh7UK23SzairB/qgrh9yi6jPxBCBCZbg=
+Date: Wed, 21 Oct 2026 17:17:52 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Tarang Raval <tarang.raval@siliconsignals.io>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	"jai.luthra" <jai.luthra@ideasonboard.com>, Philippe Baetens <philippebaetens@gmail.com>, 
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <atjXcM_s9kV4oWvA@zed>
+References: <20261015-mira016-v7-0-828c931c5550@ideasonboard.com>
+ <20261015-mira016-v7-2-828c931c5550@ideasonboard.com>
+ <PN3P287MB182974880896B859770FEDDA8B9B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+ <atiuUGeAL45qkLEX@zed>
+ <PN3P287MB1829917DD2DAD9938F9E80658B662@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -68,106 +69,126 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn93cq19hqoFfvBQ--.50052S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF4UKF45uw1kZr4UWw4Durg_yoWrGrWrpr
-	yvg3ZIkrWUtw18Xw4xJr4xZF90kws3CrWxCF93Gas7Ary3Jr1qvr12yF1jvF1kCrWkJa98
-	Cr4DZ3y7CF42vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jqSoJUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg3RDGrY1y3sCAAA3y
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <PN3P287MB1829917DD2DAD9938F9E80658B662@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
 
-The encoder callbacks ignore failures from pm_runtime_resume_and_get()
-and continue issuing firmware commands. Runtime resume can fail while
-enabling the VPU clocks, leaving the registers inaccessible. The
-callbacks can then drop a runtime PM reference that was not acquired.
+Hi Tarang
 
-Runtime PM retains a resume error, so simply finishing the current job
-leaves PIC_RUN runnable and causes the mem2mem scheduler to retry the
-same failing job. On a resume failure, stop the instance, mark both
-queues in error, return their queued buffers as errors, and finish the
-job. Also stop the instance in stop_streaming() before attempting the
-runtime resume, since the state transition only touches software state.
-Propagate the error from start_streaming() and preserve buffer cleanup
-without accessing the hardware or issuing an unmatched put.
+On Wed, Oct 21, 2026 at 03:05:06PM +0000, Tarang Raval wrote:
+> Hi Jacopo,
+>
+> > On Fri, Oct 16, 2026 at 10:29:51AM +0000, Tarang Raval wrote:
+> > > Hi Jacopo,
+> > >
+> > > Sorry, I overlooked one point in my previous review.
+> > >
+> > > > Add driver for the ams OSRAM Mira016 sensor.
+> > > >
+> > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > ---
+> > > >  MAINTAINERS                 |    1 +
+> > > >  drivers/media/i2c/Kconfig   |   12 +
+> > > >  drivers/media/i2c/Makefile  |    1 +
+> > > >  drivers/media/i2c/mira016.c | 2358 +++++++++++++++++++++++++++++++++++++++++++
+> > > >  4 files changed, 2372 insertions(+)
+> > >
+> > > ...
+> > >
+> > > > +       struct {
+> > > > +               u8 n;
+> > > > +               u8 m;
+> > > > +               u8 cp_div;
+> > > > +               u8 otp_gran;
+> > > > +               u8 gran_tg;
+> > > > +               u8 lut_del;
+> > > > +               u32 esc_h;
+> > > > +               u32 esc_l;
+> > > > +               u32 esc_period;
+> > > > +               u32 byte_period;
+> > >
+> > > nit: pll.esc_period and pll.byte_period are never used, so you
+> > > can drop them.
+> >
+> > They are anyway calculated based on the PLL configuration and will be
+> > required to support multiple link frequencies.
+> >
+> > I wouldn't remove them if nobody really insist
+>
+> Okay, let's keep them for future use.
+>
+> > >
+> > > > +               u32 data_rate_mbps;
+> > > > +       } pll;
+> > > > +
+> > >
+> > > ...
+> > >
+> > > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> > > > +{
+> > > > +       struct mira016 *mira016 =
+> > > > +               container_of(ctrl->handler, struct mira016, ctrl_handler);
+> > > > +       struct v4l2_subdev_state *state;
+> > > > +       struct v4l2_rect *crop;
+> > > > +       int ret = 0;
+> > > > +
+> > > > +       state = v4l2_subdev_get_locked_active_state(&mira016->sd);
+> > > > +       crop = v4l2_subdev_state_get_crop(state, 0);
+> > > > +
+> > > > +       if (ctrl->id == V4L2_CID_VBLANK) {
+> > > > +               s32 exposure_max = crop->height + ctrl->val
+> > > > +                                - MIRA016_FRAME_INTEGRATION_DIFF;
+> > > > +               s32 exposure_def = min(exposure_max,
+> > > > +                                      mira016->exposure->val);
+> > > > +
+> > > > +               ret = __v4l2_ctrl_modify_range(mira016->exposure,
+> > > > +                                              mira016->exposure->minimum,
+> > >
+> > > exposure->minimum isn't updated when a format change alters row_length.
+> >
+> > I don't think the min exposure time changes with row_length
+> >
+> > It's actually computed as
+> >
+> >         mira016->timings.min_exposure_time = (151 + mira016->pll.lut_del)
+> >                                            * mira016->pll.gran_tg
+> >                                            * mira016->timings.seq_time_base
+> >                                            / HZ_PER_KHZ;
+>
+> You're right that min_exposure_time (in ns) doesn't depend on
+> row_length, it only depends on the data rate.
+>
+> My concern was about the control value, which is expressed in lines:
+> mira016_nsec_to_lines() divides by seq_time_base * row_length, so the
+> minimum in lines is 7 with row_length 1062 (Y8/Y10), but would be 5 with
+> row_length 1504 (Y12).
 
-Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- .../chips-media/wave5/wave5-vpu-enc.c         | 35 ++++++++++++++++---
- 1 file changed, 31 insertions(+), 4 deletions(-)
+Uuuuh, you're right!!
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-index f9fcdf4c22..3463b7d7fb 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-@@ -1351,7 +1351,12 @@ static int wave5_vpu_enc_start_streaming(struct vb2_queue *q, unsigned int count
- 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
- 	int ret = 0;
- 
--	pm_runtime_resume_and_get(inst->dev->dev);
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
-+		return ret;
-+	}
-+
- 	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
- 
- 	if (inst->state == VPU_INST_STATE_NONE && q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
-@@ -1451,6 +1456,7 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
- {
- 	struct vpu_instance *inst = vb2_get_drv_priv(q);
- 	bool check_cmd = true;
-+	int ret;
- 
- 	/*
- 	 * Note that we don't need m2m_ctx->next_buf_last for this driver, so we
-@@ -1458,11 +1464,18 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
- 	 */
- 
- 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
--	pm_runtime_resume_and_get(inst->dev->dev);
--
- 	if (wave5_vpu_both_queues_are_streaming(inst))
- 		switch_state(inst, VPU_INST_STATE_STOP);
- 
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
-+			streamoff_output(inst, q);
-+		else
-+			streamoff_capture(inst, q);
-+		return;
-+	}
-+
- 	while (check_cmd) {
- 		struct queue_status_info q_status;
- 		struct enc_output_info enc_output_info;
-@@ -1526,7 +1539,21 @@ static void wave5_vpu_enc_device_run(void *priv)
- 	u32 fail_res = 0;
- 	int ret = 0;
- 
--	pm_runtime_resume_and_get(inst->dev->dev);
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		struct vb2_queue *src_vq = v4l2_m2m_get_src_vq(m2m_ctx);
-+		struct vb2_queue *dst_vq = v4l2_m2m_get_dst_vq(m2m_ctx);
-+
-+		dev_err(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
-+		switch_state(inst, VPU_INST_STATE_STOP);
-+		vb2_queue_error(src_vq);
-+		vb2_queue_error(dst_vq);
-+		wave5_return_bufs(src_vq, VB2_BUF_STATE_ERROR);
-+		wave5_return_bufs(dst_vq, VB2_BUF_STATE_ERROR);
-+		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
-+		return;
-+	}
-+
- 	switch (inst->state) {
- 	case VPU_INST_STATE_PIC_RUN:
- 		ret = start_encode(inst, &fail_res);
--- 
-2.34.1
+Thanks for pointing it out, I will update and resend with your tag ;)
 
+>
+> Best regards,
+> Tarang
+>
+> > And all the parameters used in the computation depend solely on the
+> > output data rate which can't change at run time
+> >
+> >         gran_tg = DIV_ROUND_DOWN_ULL(data_rate_mbps * KHZ_PER_MHZ, 1500);
+> >         mira016->pll.gran_tg = DIV_ROUND_UP_ULL(gran_tg * 50, KHZ_PER_MHZ);
+> >
+> >         mira016->pll.lut_del = DIV_ROUND_UP_ULL(7000, mira016->pll.gran_tg) - 140;
+> >
+> >         mira016->timings.seq_time_base = 8 * HZ_PER_MHZ
+> >                                        / mira016->pll.data_rate_mbps;
+> >
+> > >
+> > > Other than this, the driver looks good to me.
+> > >
+> > > Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>
+> >
+> > Thank you!
+> >
+> > >
+> > > Best regards,
+> > > Tarang
