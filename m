@@ -1,111 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792554100;
-	b=Rs9Ugynv9psVQlf6JnTb497fLRVb6N3n8ZHXjKMmtRbDBdLKKUNO5hUxAXNbKkCCP+Da
-	 PxLKXWaxVTD3+i2S+/11AhkNDLOLmAcgeSkzN+rp791QPkTWv4YpLem07Xpz9SBlNv0D0
-	 I9KgabkUMe4T6hlnQuKfhAGhE4lP0h9bxqz8WZMhikPti8ECG8HSmo0nNgqSgBoxs7Ru5
-	 rfHuZRYzLuqyn7D7EpYBdwwKYK4sPA0ReSFzRe09G5RRSPgOoIi7Xzp7YqMd4vyyqDxFs
-	 vv3KNlYlsit0TWLuKnEkZUObIx5q+y97Npc7P8sYJl/CIGtW2HUJcfV8/EpL4fED+zQ==
+	t=1792558543;
+	b=ovBQ+xlEIEc2xe+5aXXZ1rLTW6kVWAo8H6DLeG3FjGdSExXlrMrB4iwdKwXSuVzPsAik
+	 eVpsgV0OFmlWxvOnPOHCJDldoAUVnZajUPVaXdsAg6QpE6zlFnUUqS5xUizu96M2DEga+
+	 uW8Gr9Rulr7DwnRslgH8AgPd75m2OPcmh4Nd+9PfolYxPMoaHhRdzf++YtdbObnva4ZZ+
+	 gXqf72HBKkbeZWPdIxjQU1WOzpWlKoqBHIhOsv7qluGwcvzy5NpH28W8GP6TCDRKMWMqB
+	 lfc9VR0fX8AJDPYbUiMJ8CWiOJZNM1rcvFWO1XV6ldSTByh5pL+wGZpCIQNv4WfoSnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792554100;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=;
-	b=soKZVfKkvYGy9EAgcETrBFaILneBIx4tcghGsfro0TorzT5nOzS/z8S0jc1tlpTCCzVU
-	 CB4Fbi1WvStz9Ye9dcm7goEcxM1dg9JYCffTm/sK2uV8HVc9zOQGXFutTvmtKnTrR9ud6
-	 xQZB/OU8uNcoGpvCT1KAbfILEW4txLYoWfw+4Gjzm7MIhfRP/uyvKAZ0YPOXSeLYsnO1S
-	 dDnVyGqnXzHBs6vXKnxre5Ah2UiOBR/zrifzs5OWX6LmmrTAmhPECRCO+2gy4xfpj0tHJ
-	 xDxniJExDOMRi0Vnrogf5O3oWlEtIOYt1nyRYChSoGwnDgs77fKhmDc1iIXcIDTMjow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792558543;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=7p64dRl7W+dYi3/WAy1SQ+N74t55JrjfdozgFsHtATY=;
+	b=h0kqSbTQIyPvwK1VKVFLd+5zdBlVnpOXqNEFfVyJS60oE8QIfWn74wHi6KEiy0wfJHjn
+	 ixRWgJrbddxA0ppfdxb1389YlYTd/43l0D3k4UDFFmzngMbYUXjMqsqYeCFgf4nIZglx9
+	 tnJvicMMc4hX+9rlMQoujJ64cH2BkNMzLRlUO5teRuzLsTM48S+hCkEDyGxrMSgvrQZHr
+	 l4Kc/G3bVWuHbQVHCqw0AY5XDUDm93Tlx7WGr3nnsdmVGKgNtRoRSkR8/sH3+b702sd//
+	 M9yzvO+k6HZ4Q3ovd51vCWSgmhR5cth0YsgvqyiAdfIAPk3/8N0lMQTeVngaNmunrag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vssd5sII;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CcJeIcHc;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3475E606A319
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 03:41:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3475E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vssd5sII;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CcJeIcHc
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L2F3Fe3256711
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 03:41:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=; b=Vssd5sIIrq4j8ts2
-	ijkmHc7MV0i+ppTspuxGSeXl/ZH9hsFZ3HwCKL8402xJXkPgW6jllrGqbPa+afbk
-	/1usO2KZxw7ZWF+UhVts1cQ26Ewagw09xYtYXjCzXlqmrGho52GS/vTIbsNzRAiV
-	ozBsNyW2T2N9qOI+UYJTUI8FToxlgY/go1Kt9EENR2IGrhWyBfpOOxwzD+IDxq4x
-	Lbo86PHKV6K8irh+5hYZkARRqsJZCZq3q7Jfhg9XWEB3M5AEdkcXwvPk/GlnFxLO
-	Bm8tqNtDX26AcZBX71YpEXDMWpoiYC5/HJ4k2VaifOuloot+pspHckXLJzMN7sfp
-	qIaVgA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v1udv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 03:41:38 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35cbea41088so486396eec.1
-        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 20:41:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792554098; x=1793158898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=;
-        b=CcJeIcHcG7oDszfV09U574nRRY69IX5wtr1qG2u+A+7FlbMujc4wDKqWUoarzUO5D6
-         FgIaA9TbK32E10WfJH0F78ozHHTDZC9J1fKS3bQiy73JaLCPrOqvS4TOXoj+aUxw7lwu
-         iiFTrJRdvD491zUlPKBlNTPDPI6cI+7P++l/uDLhCZHx+NcCPmP/CVFg/9G6KSJS+Ba7
-         DS5mSgVohhQdWUhoPJpqyXwgPoBpWN3vRnz8Cq1kCfyF7r87EzoMlw7S5jW1vwuEYfl0
-         u++FlsP4Y2V2tDPUEukjwmuii8ah38So+lB8veCXiDVMUibG+r1xEqllGX3opWM/V6dD
-         s/bA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BD2606A319
+	for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 04:55:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35BD2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b38ea4c6acso252917b6e.1
+        for <linux-media@vger.kernel.org>; Tue, 20 Oct 2026 21:55:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792554098; x=1793158898;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z/poii7ntCkR5hoPGaSnYaJo+ShhLQXyXUGSuRcNbA4=;
-        b=qU6jI+P3QkR/w6ORaoDotFLUjjRzjHEs6n+x0PCQ1JLY21BfIEomEWitCIl6vDub4N
-         ILGkeNF0uDYTelSB8Va96uWLMdFUgDrvHh9nwsPcO/E+Jikv9vIBVRHdRcCCGRw8TWyf
-         37Ppc+OPGo8CYzBjazH3PhEWQR1r+6eeJyFsMkozSS8oaK1G41eT0JgwnDGEjAqy6VHk
-         45kUCS+ICx3Y9H357wC15HZYmu+y26yiYGfYKO6ze4RU/eBqPIWJD4yyCF1UZSqmlDhv
-         uzTcLEULYJjZr8yFWOWQhg153faEfKSAXuip8KZZfCPmknnwoCHccCEyg2iIwp2IEWyy
-         kF1w==
-X-Forwarded-Encrypted: i=1; AKwUvByNblE6wcjsCWVAdWkxcxXRjq1fRMJV0ydnEuPz152IZWqIfXG9YKcgV9y6rAuu/NCIX3nGVkpdamGgtg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwfYbwj72SH1UnB6b1L7lhYj9UwVc1o5sNKE5KEiBAscAEoLBl
-	jmkr5lULtG5tczBYdZzf9hOzaqtrHJabF7WiOye3djmk2aIvwIw3rLyU0DFAW1md4o31M/RQD0l
-	RzU7zLSrDGjYkQV3Lrhg7z+P9W7+zFEcfbhq+yXctKsxaHJo9ZQ0noVG6tQZvxpe5iw==
-X-Gm-Gg: AYBFou1pzT4Sxx155L2nTqwOJToeHdSXBDurCwnHDOeEYiOxwBvwJehlONTwwNZNrI+
-	Z09yRYIZcLz6Ivow1fBo/lGONa0CJ5aUpZkog6t35VkqOMRREZtmQu2k8eIdxnLUJnlrkpVOs/t
-	JbIa9PQFMwE8Q+e/nRvooDSXdjKfrps/cnkx6TFgrNpj2qYYImkJCpKp6VgvM41auUZzaAPud2b
-	amW/9jXBMxyIW1qoehZw2WI7Oo/gTzDNZfv+oXse5NgtF0G2+Gw8eFe5V3wyLgj1nm77S9Ww+LG
-	FlGgOP0N+vYVhL3c6LWH4RLIE29fqEDzTK/WhprJhcnr+vwU4PTNC1d2yRIXFOqyq8KXk/CnTqO
-	/DFbWsQ7ePJ+R2WOValtMk+hYBl/eqg==
-X-Received: by 2002:a05:701a:ca01:b0:151:8280:2c1a with SMTP id a92af1059eb24-190a6dbd524mr1236463c88.42.1792554097924;
-        Tue, 20 Oct 2026 20:41:37 -0700 (PDT)
-X-Received: by 2002:a05:701a:ca01:b0:151:8280:2c1a with SMTP id a92af1059eb24-190a6dbd524mr1236425c88.42.1792554097382;
-        Tue, 20 Oct 2026 20:41:37 -0700 (PDT)
-Received: from [192.168.1.10] ([103.211.19.100])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm3336442eec.11.2026.10.20.20.41.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 20:41:36 -0700 (PDT)
-Message-ID: <92c02649-454e-4b68-a9a8-2371f8a6e5da@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 09:11:28 +0530
+        d=1e100.net; s=20260707; t=1792558542; x=1793163342;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7p64dRl7W+dYi3/WAy1SQ+N74t55JrjfdozgFsHtATY=;
+        b=fPZ9+OhCriZidve0R6H30M5m+hqwkgK1VLf+/p/+szDYiU4tXwnb/kcRzj2CGs3oTr
+         X1t1FjK8QfBEAusxb3TZeVpq8sRnDT8xjMEveFjEknbZoMcYzwYWEkHeX612fwfGFawD
+         H+Y4GbNX6Oa1uRBoKXiJpTXT4n3qN65yBWyPWgONg2ijEuZ5XidS/p9pu1JqYWxLgtb9
+         iL889ZVkW7mgT/Lvz9r0HNkHbal4VWDsd4MakaGR/bHCj1NNWbUP4kb6EFEqQ041j/Ll
+         VZvwEszGjY5EUlRsDQX4J9I+nNr637Pw79xeqF3VVM1FktxYgPQYu6qO9lxQ4NWcM+O6
+         zIFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwNBKdZ3TLTjSbQIlsYMpX6243kylDdvWflQxBIBY27ncHgFx98Ex8xi8X2zo3hw4LeeTksTPaGEuJQGQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/Hc5V9iSeiqcmNM88rEq8vxBEgaqMiti6K8cV74dlyHS5l2QF
+	fkvNCCNXaJUvuUQF13q5y0kHQkR7iK/PAqScZCtPK1Ph59CJXcF8xW9ibl9BnoEnj+fGTyQaQL4
+	4JfzZx/7uaRY7/sgiAmNGmK0PmmMzbzafFAy13WC/6UBY+r7akK/4G0sehTY=
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,68 +58,128 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/7] dt-bindings: phy: qcom: Add qcom,sa8775p-csi2-phy
- schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, bod@kernel.org,
-        vkoul@kernel.org, kishon@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
-        mani@kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
-        vladimir.zapolskiy@linaro.org, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261016235502.2274268-1-anusha.nandi@oss.qualcomm.com>
- <20261016235502.2274268-3-anusha.nandi@oss.qualcomm.com>
- <851434b3-4cf1-4371-9b4a-57dba8022e13@oss.qualcomm.com>
- <20261019-funky-real-skunk-eda6dc@quoll>
- <7766382e-5187-465b-aa89-ff1bf9a16588@oss.qualcomm.com>
- <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <708b9edc-3ee9-49f4-ba62-9fc2806168dd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAxMyBTYWx0ZWRfXxnPwtLQWX4+k
- dR7CxO8Cs47UdRivhkhzPQ/NBn/M+A30MX/2sY/Yb69AgSXyOy+ygaTf028z1LbcnYDTEdiEIXp
- +pOCYhTzBl8rMm82hY74drhQXGInpVM=
-X-Proofpoint-ORIG-GUID: 2AdBdfQgZDCL3VZhFlyvlzZJKwSjCsQh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAxMyBTYWx0ZWRfX6LwzfYGdmqNZ
- q+YGDvpoVy7XLd60gfQFE4VeZu9R8JmfhUDCamsz2GylX9QsdlYMY6Y/erFj4cOKxya0x0Q5fHi
- VnuO5amS+Pn0vhGBVM2xs6PruN/Hy9N8L1kOHPd8M201kxU4KdHITXMwtMxL/B18ectgBGbwYX+
- K5lvtmqEBxbY8wEhC3z7obiNcSZypKhTgZg9hbU5bFyOWoeqfw3A7s6WD+EMrYaW0N4QopHYuZI
- AJp2zsraF2rlgtDoShTi6zNqzZOco/PbpMPNSVXAVox/7COWl9bnaKoD5ir7is03ygRXiPKvQSJ
- 2si7g31ghgWu3JTiOaS3Ve+yCuotG7dOu2aVUcUsJGGCKax6mKwB2Vz/uwtCXnQ8yGagOAxKQXg
- n8V3OCWPFFpcl2UDNfNdoNcfo0E1SQk+2fnSGSVLd8DkDalY4uC2VepCgxSTVxZyE9IfBmwppip
- YwvnBBcD1GeVpaY5TeQ==
-X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad83473 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ocEEpg4cTnoGtXECQz/e5g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=TgBa4wLDfMOKYiLJ7W0A:9 a=QEXdDO2ut3YA:10 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: 2AdBdfQgZDCL3VZhFlyvlzZJKwSjCsQh
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210013
+X-Received: by 2002:a05:6808:1990:b0:539:596f:6623 with SMTP id
+ 5614622812f47-553601848ccmr842652b6e.64.1792558542278; Tue, 20 Oct 2026
+ 21:55:42 -0700 (PDT)
+Date: Tue, 20 Oct 2026 21:55:42 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad845ce.46bc089a.3217e3.003a.GAE@google.com>
+Subject: [syzbot] [media?] general protection fault in mxl111sf_get_stream_config_atsc_mh
+From: syzbot <syzbot+ffac2da5e6f8ad2671b2@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+
+syzbot found the following issue on:
+
+HEAD commit:    c03c1a14507d Linux 7.3
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1168a305580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
+dashboard link: https://syzkaller.appspot.com/bug?extid=ffac2da5e6f8ad2671b2
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=127cc081580000
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ffac2da5e6f8ad2671b2@syzkaller.appspotmail.com
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc00000000a1: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000508-0x000000000000050f]
+CPU: 1 UID: 0 PID: 5937 Comm: syz-executor260 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+RIP: 0010:mxl111sf_get_stream_config_atsc_mh+0x3e/0x9d0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:1193
+Code: 49 89 ff 49 bd 00 00 00 00 00 fc ff df e8 0a 54 92 f9 0f 1f 44 00 00 e8 00 54 92 f9 49 81 c7 08 05 00 00 4c 89 f8 48 c1 e8 03 <42> 0f b6 04 28 84 c0 0f 85 e7 03 00 00 45 8b 3f 4c 89 ff 48 c7 c6
+RSP: 0018:ffffc9000345fb28 EFLAGS: 00010202
+RAX: 00000000000000a1 RBX: ffffc9000345fbc0 RCX: ffff888077398000
+RDX: 0000000000000000 RSI: ffff888058feca19 RDI: 0000000000000000
+RBP: ffffc9000345fc38 R08: 0000001800060502 R09: 0000000100000c00
+R10: 0000001800060502 R11: ffffffff8835bdd0 R12: dffffc0000000000
+R13: dffffc0000000000 R14: ffff888058feca19 R15: 0000000000000508
+FS:  00007f554a6f06c0(0000) GS:ffff888123bbf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fc031d500f5 CR3: 0000000034892000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ dvb_usb_start_feed+0x361/0xc70 drivers/media/usb/dvb-usb-v2/dvb_usb_core.c:271
+ dmx_ts_feed_start_filtering+0x129/0x220 drivers/media/dvb-core/dvb_demux.c:747
+ dvb_dmxdev_start_feed drivers/media/dvb-core/dmxdev.c:658 [inline]
+ dvb_dmxdev_filter_start+0x434/0x10d0 drivers/media/dvb-core/dmxdev.c:769
+ dvb_demux_do_ioctl+0x48b/0x540 drivers/media/dvb-core/dmxdev.c:1099
+ dvb_usercopy+0x199/0x2e0 drivers/media/dvb-core/dvbdev.c:996
+ dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1208
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f554a728c1b
+Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+RSP: 002b:00007f554a6efe30 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 0000000000000008 RCX: 00007f554a728c1b
+RDX: 00007f554a6efe90 RSI: 0000000040146f2c RDI: 0000000000000008
+RBP: 00007f554a796625 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f554a79644d
+R13: 00007f554a7c1598 R14: 00007f5540000b70 R15: 00007f554a7c15b0
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:mxl111sf_get_stream_config_atsc_mh+0x3e/0x9d0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:1193
+Code: 49 89 ff 49 bd 00 00 00 00 00 fc ff df e8 0a 54 92 f9 0f 1f 44 00 00 e8 00 54 92 f9 49 81 c7 08 05 00 00 4c 89 f8 48 c1 e8 03 <42> 0f b6 04 28 84 c0 0f 85 e7 03 00 00 45 8b 3f 4c 89 ff 48 c7 c6
+RSP: 0018:ffffc9000345fb28 EFLAGS: 00010202
+RAX: 00000000000000a1 RBX: ffffc9000345fbc0 RCX: ffff888077398000
+RDX: 0000000000000000 RSI: ffff888058feca19 RDI: 0000000000000000
+RBP: ffffc9000345fc38 R08: 0000001800060502 R09: 0000000100000c00
+R10: 0000001800060502 R11: ffffffff8835bdd0 R12: dffffc0000000000
+R13: dffffc0000000000 R14: ffff888058feca19 R15: 0000000000000508
+FS:  00007f554a6f06c0(0000) GS:ffff888123bbf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fc031d500f5 CR3: 0000000034892000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess):
+   0:	49 89 ff             	mov    %rdi,%r15
+   3:	49 bd 00 00 00 00 00 	movabs $0xdffffc0000000000,%r13
+   a:	fc ff df
+   d:	e8 0a 54 92 f9       	call   0xf992541c
+  12:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  17:	e8 00 54 92 f9       	call   0xf992541c
+  1c:	49 81 c7 08 05 00 00 	add    $0x508,%r15
+  23:	4c 89 f8             	mov    %r15,%rax
+  26:	48 c1 e8 03          	shr    $0x3,%rax
+* 2a:	42 0f b6 04 28       	movzbl (%rax,%r13,1),%eax <-- trapping instruction
+  2f:	84 c0                	test   %al,%al
+  31:	0f 85 e7 03 00 00    	jne    0x41e
+  37:	45 8b 3f             	mov    (%r15),%r15d
+  3a:	4c 89 ff             	mov    %r15,%rdi
+  3d:	48                   	rex.W
+  3e:	c7                   	.byte 0xc7
+  3f:	c6                   	.byte 0xc6
 
 
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-On 20-10-2026 11:24, Krzysztof Kozlowski wrote:
->> Krzysztof, should the binding example mirror the SoC bus address/size cell
-> Why are you suggesting in review something which maintainers never
-> suggested? Or actually opposite to what some maintainers were suggesting
-> before. Code has correct example.
-Understood. Thanks for the clarification.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
--- 
-Regards,
-Nihal Kumar Gupta
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
