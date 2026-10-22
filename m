@@ -1,103 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653286;
-	b=hR9zpOSzOBIQiAS3uRm2e2lbxD4VYeIk5qeiHUzHEvUKbSVvd0Isfld846Dmt6i02/LR
-	 SuDJXiP/zJsy+En4+5Ja1MHnToYRcnznm5SqcV6n+QBR3MImaziI2MLMF2IvWobBwFdg5
-	 UEXOXztXNin4+K6GTUU0KvsZRa7r3gbENzzYH2V6dxw1zdr7/jTI5GjbqHZoh1ZgOe+uu
-	 QDY3hPDKTufbzE4eAvOA4KiaNRIo9HQ+s8jPsTTttAJHhneJ5PyG101eN0r3Pg9lYNfiB
-	 dnpFdbJWpZ0xL0HmgOO/v1W2oMLJOb24RWo1iJeq1tscFTLGRqpU4qAx5No0rI32+NA==
+	t=1792654156;
+	b=5RxTmoGm0C2SSx5Zp0kxTb+eVgvr+s3SHREEHvEtS9nK8NWcFSDyASdfe3mqOV4gmeQo
+	 bp/fMDSe/ElSfLSEl03CSr9aLlZbANtHx7pAn7u+RbxXdYyVHd8/gDJLPIFRXahAkzypQ
+	 PF6+dGg1E5TmDGXjp+N2FDMHA46azsPZHVLma3/dm7yVapGvO7GXNDb6VqQJeYN0s2VaJ
+	 Y24c5TWxX8LzBwj7zk3FPyt2maql6vo8vXdLcDApP1M8bBRttjdVrgNDN6ddLkD+vUmje
+	 BfjRIlmbyimLkI4jIL70MT0PA0QAEfJt/0rSQ2W23PLBkXUoSDzNpcCTD2TkTXtpbqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653286;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
-	b=N14yJRtmim31lESpF/qxuDL08uRQztGhZSZHus8K+yZYnshIaRC/u7SeadwwI6Th4EZL
-	 vzKY1MMxVqJB/a2obQ0968KvgJBdd6oXau+m7oK6tiu4lGvobyZVtk8pUItkkqqHkyFMb
-	 z/v7JKSjwe0cLEF13jRrYUQO2pmaWDW7DatQaOPQK5ggc2ITUuDwen3UEHtTonh+dUMmO
-	 dY/VCOSGXg/GyClj1LYxU7ESpNGh7WWRYFM72mZt5KEW2G6Rmnd/pT/fDJQkZWUDR1Cj4
-	 sKGko7KwfPJgskkMWB8F1EPnEQDkqM/koJJxR+SXraAhSoarzG2MkhkwuJKz2dxX4Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654156;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=grua3t4lyGOc5KQB2bj7bgFlt7G4CgMGY6Vk01NoFjU=;
+	b=b+O7JiCNBZq+S7sR3JXJQ5fAOgZvCNKv8hWOIW39LRjPONzP3wHNgyLdUZxJ7cTH/fFm
+	 dZM4a71i08SAY5ACwgOXXtV4tSVVxUGhjWQLsnW27+LWGadO1TEH17+Xuv5a1mRtXyw6x
+	 ucbDJKL8ZNF0y+Np/Jy2ueGG0yz7RtoPuL16D/DgQvT/KPkJmDTe/y4HjzIDB5tdyWIbZ
+	 e4PI+FyMt/uBiq0LvoxbZpU+d2sCbiWaUYkgr4dB6Dl1txNOKL3DWXR53Rr3BQJrY0gX+
+	 kygRmoNSegfGzpKnF5RB+WmyL9eLr0KPSCzj50NjHqFP7W3kSAsC7IDiZtBgO0XXUOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BFZUQwc0;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F1A606A328
-	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 07:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21F1A606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BFZUQwc0
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-33fb4680717so3808563eec.1
-        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 00:14:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792653285; x=1793258085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
-        b=BFZUQwc0glnGG0PC89J6I5yzkEC2MR9OBVnxAlTWSNJ8PjQOGdEdTojkyZ000fkN7e
-         /dLlw/5WtvHT5jU1Yxb+WnqLDWSfzrof6bbJL5BZmrl46WtCGkJg1OKvHcF6eU990bAV
-         QkHS0G/s1TMlcc/SSQtVmAUmBSr7R0IzoGXCX5PvLjuokmEWSK3+cL7NJtu2hTzoBPQw
-         GG0wDpoO3cgyMe2DJJPE3vuBX0vjYr5isphipLLx2VirrFABjVhrX9oCuv1HUbrkPgMw
-         PJJ41YcltJaXXf0As8L62f7a0Q+dPDQjyiJoOoXy2zqV4PouQ59trMIUpagKBt8KDJSM
-         FKHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792653285; x=1793258085;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
-        b=uNUsQUUMejhAPIj44dpC8iVRoEWQ1HzXzJg7U7zJK7dY8QTtVugWcs+KCh4OS/e7No
-         8bwV6W858IoXShoz8mZkDEVteKAbyK3GYx0jJsn3i99ShCYA+YB5HPfDCTwrmoM+LQT/
-         /rPjfrIBIsCurD+g3WWqyjILEklUQxZq3krJnCYRcB1BM0EZw9pjzT3csbxFIhG8GV4V
-         vdFUfp8sHxiwS0AHRPRg88hw+so13QZ5RiuaUq9coqn9kuEWxelqIBr5M8MZgkqeOKVf
-         E7KBiaan6S3j7BOYgtcW2LgsJ9LYpRYrth6obk2InDqfy6vbSzBmw4UBbLVQ1C7REHFt
-         JLcA==
-X-Forwarded-Encrypted: i=1; AKwUvBynpOqp4v0/3w18oedNPwG3yhSt/aYKlThPIYWif8ZqPyoUu0PMh6Il5GCrKtc+rTVINYAWAUttXAPH/w==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIjl9AhwRcacunmPNZUImDHk3+NwrboYlsZThenKpy9Y2FPoQcJ
-	kIv/aOsYCTdBw4ne494unRmmTZwOWjQJUtcDjfaLS9GOaL8018MCZKfA
-X-Gm-Gg: AYBFou2MgS4cKroFLRJA4DBZf9zpMRMx8RGCPYV4aOAbKWhpLUkJ3jsNDCK9GVN7X2P
-	T/7OJ0WZLa8z5jZ74OoimCABuw7nxTrdcMz/cgMo/HsIOTpgdk18UCIYAnW6SSRAWuUGEBlqJpn
-	aXeOKHpieeKEHlqryYJ8A5QFIa6JuueUafVukT4jpHl+mXuqMmPRjM7PodukTIaA7/fkyO5H+6T
-	ldeMxNytjY5j2pTz4x0rAcJ3ZhPpNWU6GzVczfm4dWxJBADVeV5XhjpkIrypuMcbZ7u8/1f1fet
-	gwzHLOQaBznBVChSIo4yw25g0oV3mnfiUDdm9I+rzvrGuuPPR7ojLvpYH2+mwGvD3mxGJYgkQNA
-	g8ZOZj2N3aw/fLDYstVPPJsqYZtDeHIy21q7ARJqafEFz3K0Ea/X4qcCXEV2ftxA5+pp3cDWoTB
-	bzilgTJ6HwzIrctxk2SGgi73ZjrVuZ3MwKPZ9wwriUdNnJPRc2z/JcXjCPV5GL9ODvUWzoQCSt9
-	WCDq9vqb1VnBB6m4dlyBMwY2fmQUKM77PF62WbStdBqq/co9JLAs9190Dc2ZQ4hF4XlIqdkRuU=
-X-Received: by 2002:a05:7022:c43:b0:194:3a84:e67a with SMTP id a92af1059eb24-1943a84eaabmr325046c88.41.1792653285121;
-        Thu, 22 Oct 2026 00:14:45 -0700 (PDT)
-Received: from fedora-x1e ([210.89.35.119])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bd6b7ccsm11112321c88.13.2026.10.22.00.14.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 00:14:44 -0700 (PDT)
-From: Saikiran <bjsaikiran@gmail.com>
-To: loic.poulain@oss.qualcomm.com
-Cc: rfoss@kernel.org,
-	andi.shyti@kernel.org,
-	sakari.ailus@linux.intel.com,
-	hansg@kernel.org,
-	bod@kernel.org,
-	mchehab@kernel.org,
-	vladimir.zapolskiy@linaro.org,
-	jishnu.prakash@oss.qualcomm.com,
-	birk.skyum@pm.me,
-	linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH v1 2/2] media: ov02c10: Fix sensor power sequencing
-Date: Thu, 22 Oct 2026 12:44:18 +0530
-Message-ID: <20261022071418.26895-3-bjsaikiran@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261022071418.26895-1-bjsaikiran@gmail.com>
-References: <20261022071418.26895-1-bjsaikiran@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FEA606A31A
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 07:29:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FEA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792654148; x=1824190148;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=uj54q50VB5yWIB4fc6XXNtaRZa8JIR319hS6Vo2rUI0=;
+  b=Aybwvr7g3gpieTlLeuHKH5ajwa3OG5gsVnhDi+w/l4x3yDPFzQ77qjfR
+   UchEdfhbCYEfZ1tLg/xYJAC5TnmCSBWZ8ULsafq2otZFrKFo0sY/rWEMz
+   T/TNIW2CalteNIW1y4SPeRE5GDSNKoKneoLA6q3DOhctC7hZ26be764cV
+   qpY88c/mqBcApVRC7sAblDKL1B+lFFnKRF6k1SurGondxl28IHySsYzeB
+   sAUEhQfgt0Zg2LwEfxoSfwtsEyuvPFxbBQIhvzZ2tLT5JsV7htSP3unEE
+   LjcL6M7tYro3lnZtPoc3M1Gqk1mlgH+TEE7B8F5t0hC1KT0M7cA9sebLA
+   Q==;
+X-CSE-ConnectionGUID: 9ERLB9M6SCmsoy730UEFYA==
+X-CSE-MsgGUID: 9zSXD/9iTVmtQRmqsr3ZlQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1275298"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1275298"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:26:02 -0700
+X-CSE-ConnectionGUID: Ft4hr3JHQH6PDx3z3FoomA==
+X-CSE-MsgGUID: D9DumUkdRa6lAODh30OJ3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3213751"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.180]) ([10.245.245.180])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:25:58 -0700
+Message-ID: <6eeb6257a6ab3b5db384aeb255623a11cb09c603.camel@linux.intel.com>
+Subject: Re: [PATCH RFC 01/26] dma-buf: Introduce DMA-buf mapping types
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Alistair Popple <apopple@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>
+Cc: Christian Koenig <christian.koenig@amd.com>, Dongwon Kim	
+ <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org, 
+	intel-xe@lists.freedesktop.org, iommu@lists.linux.dev, Kevin Tian	
+ <kevin.tian@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
+	linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org, Matthew Brost	
+ <matthew.brost@intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, Sumit
+ Semwal	 <sumit.semwal@linaro.org>, Vivek Kasireddy
+ <vivek.kasireddy@intel.com>
+Date: Thu, 22 Oct 2026 09:25:55 +0200
+In-Reply-To: <atmurtZOhKwwGjV3@nvdebian.thelocal>
+References: <1-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+	 <b5d1bc79fae01fd9b511e06ed796130314ff841b.camel@linux.intel.com>
+	 <20261021123755.GL3008132@nvidia.com> <atmurtZOhKwwGjV3@nvdebian.thelocal>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -107,79 +88,170 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The OV02C10 driver enables MCLK before the sensor supplies and disables it
-after the supplies. This can back-power the sensor through MCLK while its
-supplies are off and contributes to camera brownouts on the Lenovo Yoga
-Slim 7x.
+On Thu, 2026-10-22 at 17:52 +1100, Alistair Popple wrote:
+> On 2026-10-21 at 23:37 +1100, Jason Gunthorpe <jgg@nvidia.com>
+> wrote...
+> > On Wed, Oct 21, 2026 at 08:24:40AM +0200, Thomas Hellstr=C3=B6m wrote:
+> > > > struct dma_buf_mapping_exp_ops
+> > > > =C2=A0=C2=A0 Base type for the per-mapping type exporter provided
+> > > > functions.
+> > > > This
+> > > > =C2=A0=C2=A0 would be the map/unmap callbacks. Each mapping type ca=
+n
+> > > > provide
+> > > > its own
+> > > > =C2=A0=C2=A0 functions for map/unmap type operations with optimal t=
+ype
+> > > > signatures.
+> > >=20
+> > > Does it make sense to try to land this patch first, plus a
+> > > conversion
+> > > of pcie_p2p so we could agree on what the contract should look
+> > > like?
+> >=20
+> > I think it would be good to focus on this patch as the main 'crux'
+> > of
+> > the series. The API contract is the main agreement. I'm relucant to
+> > merge code that has no users, so it woudl be ebtter to go up to at
+> > least through SGT.
+> > =C2=A0
+> > > s/mapping/interconnect/? My gut feeling is that "interconnect"
+> > > best
+> > > describes what's typically going on, but "mapping" perhaps better
+> > > describes all cases.
+> >=20
+> > My intention was to cover more than just the phyiscal transport. We
+> > do
+> > really want to get away from scatterlist, so having PCIe map with
+> > scatterlist and PCIe map with <something else> still ends up with
+> > two
+> > mapping types in the system.
+> >=20
+> > This is why I choose the name over interconnect.
+> >=20
+> > > Location of common protocols which typically carry cross-
+> > > subsystem
+> > > dependencies?
+> > > drivers/dma-buf/mapping_types? drivers/dma-buf/interconnects?
+> >=20
+> > I'd encourage people to design more like PCI where the actual
+> > *interconnect* has its own home and there is just some minor call
+> > outs
+> > from dmabuf to help the matching logic.
+> >=20
+> > > As discussed previously:=20
+> > > Agree on theoretically possible matches at attach time, Match at
+> > > mapping time and guarantee the match is valid until
+> > > invalidate_mappings().
+> >=20
+> > I was thinking about this some more, and I'm less sure now.
+> >=20
+> > If I think about mlx5, in a multi-path PCIe configuration, it can
+> > move
+> > the translation around within a single PCIe path, but it cannot
+> > move
+> > it to another path without creating disruption for the
+> > application. This is a HW limitation in how the internal routing
+> > works..
+> >=20
+> > I strongly suspect this will be the norm for any hardware that
+> > doesn't
+> > rely on decorated page tables to select the IO path..
+> >=20
+> > So, while I agree we should support hardware that can fully change
+> > the
+> > path on each and every map, we also need to suport hardware that
+> > must
+> > pin the path during attach.
+> >=20
+> > Probably this points to needing a 'pin' operation for the mapping
+> > selection after attach.
+>=20
+> If I'm understanding things correctly we're expecting a change in
+> path between
+> attach and map time to be rare in practice. Therefore the need to
+> handle this
+> case is mostly as a fallback to not break things. So instead of
+> pinning could
+> new attachments just invalidate all existing incompatible attachments
+> on the
+> list by setting eg. attach->valid =3D 0?
 
-Follow the power sequence used by the firmware on this platform: enable the
-supplies before MCLK and disable MCLK before the supplies. Hold reset for
-at least 1 ms before disabling MCLK on power-off, and wait at least 10 ms
-after releasing reset on power-on to allow the sensor to start up.
+I agree, (although I think the "invalidate_attachment" needs to be
+discussed). In the end the importer should be given a choice, either
+pin  and accept that subsequent attachers might see errors or accept
+app disruption.
 
-Update the power-on error path to disable the supplies if enabling MCLK
-fails.
+>=20
+> Attachment could also scan existing attachments to preferentially
+> pick matching
+> mapping_types that are compatible with existing attachments, thus
+> avoiding
+> invalidation where possible.
 
-Tested-on: Lenovo Yoga Slim 7x (Snapdragon X Elite)
-Signed-off-by: Saikiran <bjsaikiran@gmail.com>
----
- drivers/media/i2c/ov02c10.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
+Current design appears to be that attach only determines the set of
+theoretically possible mapping types, disregarding other attachments.=20
+Taking other attachments into account is also problematic because the
+dma-resv lock is not held.
 
-diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index 221cb93126ec..42aa43ea0a22 100644
---- a/drivers/media/i2c/ov02c10.c
-+++ b/drivers/media/i2c/ov02c10.c
-@@ -661,12 +661,13 @@ static int ov02c10_power_off(struct device *dev)
- 	struct ov02c10 *ov02c10 = to_ov02c10(sd);
- 
- 	gpiod_set_value_cansleep(ov02c10->reset, 1);
-+	usleep_range(1000, 1100);
-+
-+	clk_disable_unprepare(ov02c10->img_clk);
- 
- 	regulator_bulk_disable(ARRAY_SIZE(ov02c10_supply_names),
- 			       ov02c10->supplies);
- 
--	clk_disable_unprepare(ov02c10->img_clk);
--
- 	return 0;
- }
- 
-@@ -682,23 +683,24 @@ static int ov02c10_power_on(struct device *dev)
- 		usleep_range(5000, 6000);
- 	}
- 
--	ret = clk_prepare_enable(ov02c10->img_clk);
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ov02c10_supply_names),
-+				    ov02c10->supplies);
- 	if (ret < 0) {
--		dev_err(dev, "failed to enable imaging clock: %d", ret);
-+		dev_err(dev, "failed to enable regulators: %d", ret);
- 		return ret;
- 	}
- 
--	ret = regulator_bulk_enable(ARRAY_SIZE(ov02c10_supply_names),
--				    ov02c10->supplies);
-+	ret = clk_prepare_enable(ov02c10->img_clk);
- 	if (ret < 0) {
--		dev_err(dev, "failed to enable regulators: %d", ret);
--		clk_disable_unprepare(ov02c10->img_clk);
-+		dev_err(dev, "failed to enable imaging clock: %d", ret);
-+		regulator_bulk_disable(ARRAY_SIZE(ov02c10_supply_names),
-+				       ov02c10->supplies);
- 		return ret;
- 	}
- 
- 	if (ov02c10->reset) {
- 		gpiod_set_value_cansleep(ov02c10->reset, 0);
--		usleep_range(5000, 5500);
-+		usleep_range(10000, 11000);
- 	}
- 
- 	return 0;
--- 
-2.56.0
+Looking at current GPU drivers, what you describe above is typically
+done at pin() time, but if some importers want an early very likely
+decision on what mapping_type to use, one could introduce a separate
+function that match the mapping_types, but that would be very similar
+to the map() function but without returning a sgt/mapping, or a pin()
+without actually pinning. One could reuse the invalidate_mappings()
+callback to indicate the mapping type is no longer valid?
 
+/Thomas
+
+
+>=20
+> Map time functions (eg. dma_buf_sgt_map_attachment) would check
+> attach->valid
+> and return a failure if a subsequent attachment/event had invalidated
+> the
+> mapping type.
+>=20
+> Importers with invalidated attachments would then have to retry
+> creating the
+> attachment, probably getting a different mapping_type. Would this be
+> acceptable?
+> Or do some importers absolutely require the mapping_type to never
+> change once
+> the intial match/attachment has happened?
+>=20
+> =C2=A0- Alistair
+>=20
+> > > > +/*
+> > > > + * Match items are generated by the importer using the
+> > > > DMA_BUF_IMAPPING_*() and
+> > > > + * the exporter using the DMA_BUF_EMAPPING_*() functions. Each
+> > > > mapping type
+> > > > + * defines its own signature with its own data to make the
+> > > > match and
+> > > > attachment.
+> > > > + */
+> > > > +struct dma_buf_mapping_match {
+> > > > +	const struct dma_buf_mapping_type *type;
+> > > > +	const struct dma_buf_mapping_exp_ops *exp_ops;
+> > > > +	union {
+> > > > +		/* Each mapping_type has unique match
+> > > > parameters
+> > > > here */
+> > > > +	};
+> > >=20
+> > > Do we really need to add all global mapping types here? Then we'd
+> > > need
+> > > something for driver-private mapping types as well.
+> >=20
+> > IIRC it is fixed size up front like this because of how the
+> > structure's memory is managed in this design..
+> >=20
+> > If you want a driver private thing then I'd add a 'u64
+> > driver_private[2]' to the union and the driver can cast over it.
+> >=20
+> > But this is the kernel, if you want to add an xe_mapping_type, then
+> > just add it. I don't know we need to do driver private things.
+> >=20
+> > Jason
