@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654172;
-	b=0FuYuYe4Ao4gaAKLKOS3tel6rLojG2NbMK1HSCFXcTom6FPevZuRQIFVvVkSuCgPJMyG
-	 CamtFJuZ2MZh6C6HO0vul0mEcWrh6Lz4KtBm46L96bSKyuqsVfkOYBNKCr8YtNdz8bu/k
-	 q5VvYAWO7y+Jl84gJO7xn3+fulq6hpFqCY2sPCjwONJ1RXFmPvaTkNn2XwdjbowjoRglN
-	 bmIyU/YiJOo++dU9RneQUCksyl/LMePW0I3abR5wcyihOCdicBgAoZDTRkjZAkngqVTgd
-	 bqMKOH8gmwNDpRMnifGTD1Zi0sHwvNx/lB/WbcbGCYErDcLz2D//QdnhhG4vFV1SqBA==
+	t=1792657431;
+	b=rEVTxa1fETZ2jPIpXEPhfbMlsN+Y1/ySTekj7kRF0OItZ0cKH+4Y/y/8I+GfqfuAz3zK
+	 YmbY+0kiY5Be8hxZGnYX00s6aGauJ9RcWp6CwSJD9BCPBBO9XKitC5vq5tsZ121VLRZ79
+	 om8q8sqUEZpsbewMdCR7qjuZxutIgY+iA6/5QgNVobmvJOPrwWRbfyu2Wd2WlGVO3VJGO
+	 Iwu8fAdrAt4ZbenwesLZX3b9MeGP0u8jyH12RTO9ObnhW2w2DvYg/QmgWLlSsm2Lb3l6t
+	 GNF+9kbGRopMfyA/cjT9eZRJej4KRZgSYA7AizGn8HGvmW2zKz4uJe0p8bA9IWrscQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657431;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=tBzpmFaMSQMSyD1iaBULKux96i8RKUtHkECGcsya8FY=;
-	b=3BJUNeCwWmGm1P4ib+ut/epf4XpGY2CtFls1I0FWjuBQtFGAYe4373tHWbqYCcN/1IjG
-	 dy+JxvEG61Ibral63YRu8z9UnK1V/I4WDq/aWuXi8RwzRACEZ9dl38Pc5rT9XA6aBP43n
-	 ygkMqGjwS4cUK4FmQq9WVkHmTv+uBys0bc+2N/Y/yBU+SEJMAesgeZgoxUAAj/AQ55z7C
-	 uWMRLIJ6X+PCKQ0q5wQB5kfGuS1fxrdZAu1AZkV7QddVPSbBd3xYqeavUBFQnI8h7zevx
-	 IN/ILjiCcnVsqVGw1vsYZU4dhoeYPCAzWpQ3J2i+E/nvypRP0Ppb+QUctYU+aoel11A==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=OpCHeT+ItKv8nHJPT/Wkk6sG+p0mmdo47Mm35DWfsss=;
+	b=AyN//PUUfZLJveCIy4HF+0HcoP53yyY6vdESuaQ8pPyNfV5CWXgyV34ZGQ2tSgV8dxTh
+	 z1k2sOaDIbtm76E+cDjLf5D6gQtwo+onyrRHrt2cqSo+8rFPgd5GkEfVdaiF2thdfji2i
+	 hOrKM5c38hr+VKMc+x9eWMQu9lvdiFYkQTq1KhJjsl1pxQvszAD/cNyi2iaixqp70Pjnj
+	 2dW/XtWlRH/ARI1UWnOON2KGmNbrN14RkUOwFS2YOYD26qAMUdtC96wGEIEoPp0M9romF
+	 27Oqh8wIlVnAPFSg6VXcZID+psfP4YCFudmF/8GHuwZ09qCmE9wk43e7xMloJc51CqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a8ER9OFI;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WrdbIvVr;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10127606A31B
-	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 07:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10127606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB772606A31A;
+	Thu, 22 Oct 2026 08:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB772606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a8ER9OFI
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WrdbIvVr
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792654173; x=1824190173;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=iTNmgRNbwvR3yKajP5+NPQHqD/ADmHr1tlEg7gAxXD8=;
-  b=a8ER9OFI8kW2khz6T96ZsCGHoMrihDKvGn+vIbTwtKjxkNSbd6sVLoOD
-   0E4+dpkW9waFESokGv6rfcpmopgFhO5cmpvZbN/Ppq/p5luCosCorvssF
-   Bdp4YV+5KHRyFgOyRMpsf7iOHSfHSWWnIaDmwLUime++QoXjhnLt9qrcj
-   VXpxZJwpl3dJqNyicA2ghlNJOx4Iu6JSYh8G1Gf85slFR4aF0RjZ2Lhyy
-   GxjiurD8ERVT8vdw8e5ncCiX6tRfCmxEzw4Vw2MTAWqEWjlMrBQh16opk
-   z18hUd0BJNmKV5Lb9+HE1skhndqZs417uK4MJ6nRlFACsmz3WEpL0UNZV
+  t=1792657431; x=1824193431;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZIMvMdbRto9Du0/f4ZPVVv9EYhNM7Ia3Zy1EH0bmMjo=;
+  b=WrdbIvVrvyNA5S14B9o/6hnA5F8e/iQw/V40x40M7XPdKjgmt2hUZffA
+   XUkQZLUZOxgU6yEfyo4nrLCVXcmLRmPj8plitFCsICTq7ALLpR8pIzNov
+   mRlg2IOTCA4bMf/hC+WtNOE190vTRH1UGVM6quY0963ggqXucXUG8SXhy
+   yJTm4zYBruCnKjaceuFulakXlldMEtBYdP+R6cGTcW5Mcmtfuczk7WUQ+
+   wrTC7fGh1Q3/lViyfld3sTc4t0x3xSVPlwRBHjBjBrcFfcDQiMHbb+KJ3
+   e5SBqAo+XVwBBIEBuDroP+y3KqjpJ5gJtPGsPYwYsEuqSzOW4WedgFyHX
    A==;
-X-CSE-ConnectionGUID: ao4fuVG6TmedcNEK4qcJ6g==
-X-CSE-MsgGUID: tgi83RFqQtG+QMQR0kTbww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1267518"
+X-CSE-ConnectionGUID: sekE5jLdSBaIQrMP2dkRuQ==
+X-CSE-MsgGUID: +htILlBSTsWKOQt7M08x2A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1300282"
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1267518"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:29:28 -0700
-X-CSE-ConnectionGUID: 3sdOY2nIRCideIdpdGyCtQ==
-X-CSE-MsgGUID: GMvpY4WSTKWy+XXTgqVlhA==
+   d="scan'208";a="1300282"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 01:23:48 -0700
+X-CSE-ConnectionGUID: SrynGbDCRLOq4cnYO1pLrQ==
+X-CSE-MsgGUID: RPPb7y7MRvCubn1VDJQ4Sg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3176651"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.180]) ([10.245.245.180])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:29:24 -0700
-Message-ID: <299044eebbc363b2100b09ce64450b4bd47b61a5.camel@linux.intel.com>
-Subject: Re: [PATCH RFC 01/26] dma-buf: Introduce DMA-buf mapping types
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Alistair Popple <apopple@nvidia.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Christian Koenig	
- <christian.koenig@amd.com>, Dongwon Kim <dongwon.kim@intel.com>, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky	
- <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org, 
-	linux-media@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>, Sumit Semwal
- <sumit.semwal@linaro.org>, Vivek Kasireddy	 <vivek.kasireddy@intel.com>
-Date: Thu, 22 Oct 2026 09:29:21 +0200
-In-Reply-To: <atm2X5E-ta4QfGnu@nvdebian.thelocal>
-References: <1-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
-	 <b5d1bc79fae01fd9b511e06ed796130314ff841b.camel@linux.intel.com>
-	 <20261021123755.GL3008132@nvidia.com>
-	 <598bc83d8070c9bcb364a336b91d1e6c6fff4256.camel@linux.intel.com>
-	 <atm2X5E-ta4QfGnu@nvdebian.thelocal>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+   d="scan'208";a="3380062"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 01:23:45 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 10C39121B7D;
+	Thu, 22 Oct 2026 11:23:44 +0300 (EEST)
+Date: Thu, 22 Oct 2026 11:23:44 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 04/16] media: sony-starvis2: Parameterise the
+ configuration to allow for other models
+Message-ID: <atnIEKiroIEUlPe8@kekkonen.localdomain>
+References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
+ <20261015-media-starvis2-v4-4-75fcdb4163f3@raspberrypi.com>
+ <atc1us1fj6MN6UfF@kekkonen.localdomain>
+ <CAPY8ntC1dU9r7Ku890b5cqpH5LtQkRFS68dVkYbe0FtVXG7GiA@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,171 +93,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntC1dU9r7Ku890b5cqpH5LtQkRFS68dVkYbe0FtVXG7GiA@mail.gmail.com>
 
-On Thu, 2026-10-22 at 18:20 +1100, Alistair Popple wrote:
-> On 2026-10-22 at 17:59 +1100, Thomas Hellstr=C3=B6m
-> <thomas.hellstrom@linux.intel.com> wrote...
-> > On Wed, 2026-10-21 at 09:37 -0300, Jason Gunthorpe wrote:
-> > > On Wed, Oct 21, 2026 at 08:24:40AM +0200, Thomas Hellstr=C3=B6m wrote=
-:
-> > > > > struct dma_buf_mapping_exp_ops
-> > > > > =C2=A0=C2=A0 Base type for the per-mapping type exporter provided
-> > > > > functions.
-> > > > > This
-> > > > > =C2=A0=C2=A0 would be the map/unmap callbacks. Each mapping type =
-can
-> > > > > provide
-> > > > > its own
-> > > > > =C2=A0=C2=A0 functions for map/unmap type operations with optimal=
- type
-> > > > > signatures.
-> > > >=20
-> > > > Does it make sense to try to land this patch first, plus a
-> > > > conversion
-> > > > of pcie_p2p so we could agree on what the contract should look
-> > > > like?
-> > >=20
-> > > I think it would be good to focus on this patch as the main
-> > > 'crux' of
-> > > the series. The API contract is the main agreement. I'm relucant
-> > > to
-> > > merge code that has no users, so it woudl be ebtter to go up to
-> > > at
-> > > least through SGT.
-> >=20
-> > I agree about unused code, but wouldn't a pcie_p2p conversion to a
-> > mapping type be a valid use-case?
->=20
-> In some ways I think having both sgt and the pcie_p2p conversion is
-> helpful as
-> it demonstrates how different mapping types are used. I agree the
-> important bit
-> is settling on the contract though. Adding a pcie_p2p conversion on
-> top doesn't
-> look too hard though. Thomas would you be ok if I rebased and posted
-> some of
-> your patches[1] adding pcie_p2p on top of the mapping types + SGT
-> conversion
-> v2 I'm getting ready to send to demonstrate usage? Or would you
-> rather do that
-> after I send?
+Hi Dave,
 
-Please go ahead and use them as you wish. That was only a quick mostly
-AI-generated POC.
+On Wed, Oct 21, 2026 at 02:59:16PM +0100, Dave Stevenson wrote:
+> > >       starvis2->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops,
+> > >                                            V4L2_CID_HBLANK, hblank, max_hblank,
+> > > -                                          IMX678_PIX_PER_CLK, hblank);
+> > > +                                          starvis2->variant->pix_per_clk,
+> 
+> And that IMX678_PIX_PER_CLK (8) is changed to
+> starvis2->variant->pix_per_clk, which matches the change above.
+> 
+> v4l2-ctl --list-ctrls-menu with imx585 is giving me
+>             horizontal_blanking 0x009e0902 (int)    : min=544
+> max=520424 step=8 default=544 value=544 flags=has-min-max
+> and with imx662 gives me
+>             horizontal_blanking 0x009e0902 (int)    : min=1034
+> max=194669 step=3 default=1034 value=1034 flags=has-min-max
+> 
+> Are you seeing somewhere else where the step is set incorrectly?
 
-Thanks,
-Thomas
+I guess that must have been somewhere else indeed. You're right, there's no
+bug here. But probably somewhere else there is one. There are too many
+sensor drivers. :-(
 
+-- 
+Regards,
 
->=20
-> [1] -
-> https://gitlab.freedesktop.org/thomash/xe-vibe/-/commit/7452df0fc858a7dc5=
-ccac0e2037852cb7ab64d61
->=20
-> =C2=A0- Alistair
->=20
-> > > =C2=A0
-> > > > s/mapping/interconnect/? My gut feeling is that "interconnect"
-> > > > best
-> > > > describes what's typically going on, but "mapping" perhaps
-> > > > better
-> > > > describes all cases.
-> > >=20
-> > > My intention was to cover more than just the phyiscal transport.
-> > > We
-> > > do
-> > > really want to get away from scatterlist, so having PCIe map with
-> > > scatterlist and PCIe map with <something else> still ends up with
-> > > two
-> > > mapping types in the system.
-> > >=20
-> > > This is why I choose the name over interconnect.
-> > >=20
-> > > > Location of common protocols which typically carry cross-
-> > > > subsystem
-> > > > dependencies?
-> > > > drivers/dma-buf/mapping_types? drivers/dma-buf/interconnects?
-> > >=20
-> > > I'd encourage people to design more like PCI where the actual
-> > > *interconnect* has its own home and there is just some minor call
-> > > outs
-> > > from dmabuf to help the matching logic.
-> > >=20
-> > > > As discussed previously:=20
-> > > > Agree on theoretically possible matches at attach time, Match
-> > > > at
-> > > > mapping time and guarantee the match is valid until
-> > > > invalidate_mappings().
-> > >=20
-> > > I was thinking about this some more, and I'm less sure now.
-> > >=20
-> > > If I think about mlx5, in a multi-path PCIe configuration, it can
-> > > move
-> > > the translation around within a single PCIe path, but it cannot
-> > > move
-> > > it to another path without creating disruption for the
-> > > application. This is a HW limitation in how the internal routing
-> > > works..
-> > >=20
-> > > I strongly suspect this will be the norm for any hardware that
-> > > doesn't
-> > > rely on decorated page tables to select the IO path..
-> > >=20
-> > > So, while I agree we should support hardware that can fully
-> > > change
-> > > the
-> > > path on each and every map, we also need to suport hardware that
-> > > must
-> > > pin the path during attach.
-> > >=20
-> > > Probably this points to needing a 'pin' operation for the mapping
-> > > selection after attach.
-> > >=20
-> > > > > +/*
-> > > > > + * Match items are generated by the importer using the
-> > > > > DMA_BUF_IMAPPING_*() and
-> > > > > + * the exporter using the DMA_BUF_EMAPPING_*() functions.
-> > > > > Each
-> > > > > mapping type
-> > > > > + * defines its own signature with its own data to make the
-> > > > > match
-> > > > > and
-> > > > > attachment.
-> > > > > + */
-> > > > > +struct dma_buf_mapping_match {
-> > > > > +	const struct dma_buf_mapping_type *type;
-> > > > > +	const struct dma_buf_mapping_exp_ops *exp_ops;
-> > > > > +	union {
-> > > > > +		/* Each mapping_type has unique match
-> > > > > parameters
-> > > > > here */
-> > > > > +	};
-> > > >=20
-> > > > Do we really need to add all global mapping types here? Then
-> > > > we'd
-> > > > need
-> > > > something for driver-private mapping types as well.
-> > >=20
-> > > IIRC it is fixed size up front like this because of how the
-> > > structure's memory is managed in this design..
-> > >=20
-> > > If you want a driver private thing then I'd add a 'u64
-> > > driver_private[2]' to the union and the driver can cast over it.
-> > >=20
-> > > But this is the kernel, if you want to add an xe_mapping_type,
-> > > then
-> > > just add it. I don't know we need to do driver private things.
-> >=20
-> > I guess it's my wish to separate components. Couldn't this lead to
-> > excessive includes and unnecessary dma-buf recompilations when
-> > mostly
-> > unrelated headers are touched? Except possibly for memory size,
-> > core
-> > dma-buf shouldn't need to know about this, it's a mapping private
-> > thing?
-> >=20
-> > /Thomas
-> >=20
-> >=20
-> > >=20
-> > > Jason
+Sakari Ailus
