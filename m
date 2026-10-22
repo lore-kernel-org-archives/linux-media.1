@@ -1,78 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792646835;
-	b=gb+WwKsvKeFu9KVaCGw1xGpizhUy8ARiArLUEowWRtIpyUT0P8I0ejf6240D1OYn3lul
-	 npU75o2Yg19KkezJBFlq2FRR4VH1WCxFaksandCCLfORpi1UdlpwIdCoeXvDFCBOdcBlD
-	 BFSIk9IP5XxluZ1JYkZRxNcU9FrsVI0rFF52VQt61cfwqxoZAq+TeaA8eQXIuzjSHKdyE
-	 IOajm7Eokfi6ikdFin+aS7gye5O+ORUBgxEkki7cqV0qod47+SE7f2q5WwlNNAbfHgbV5
-	 HNFxna+Eu3Om5K0vaakSgBekvxZvae7ZMiQvd/lAobqn/hMnH5vwHFu5SisEv3by7Iw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646835;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
-	b=gvTj6MlmyNA/Z47k7o5Ffij39amdFDZHw9k7K5OT/Fu19MP0qYS5gdf/LpnkKJBJ4BZb
-	 aqkV1oksTc9O7zBgUMO1QuTLlkEOq5kOWGM617Y7YFnmxoUAbCVSTONvor96xfhFtlp4+
-	 PVmKl/vymWPgWGOZ/245C9sBRFDqToNQGCwLLkVFFHlaTe6P+mOwTYYelBYHbEliucKoE
-	 ZHk4qAbO2vIw3A/i3MfGK4rpyFy7D1tB6/W0o22U4RidGHTNi7RsjNUi3KqtXShAVakBk
-	 MXozyrVDytjhqfTe/9xPsi7Kd3pW2mZMA3hjKUPI4L7ONz+w6Yytjb7ur+9Vf8Ykx5w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE9PSI1B;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792652398;
+	b=xv/xa68ST8aMP0bEx9efg++vCYTY/DNLDv48ukkTO3eicwOV+1wV3MtMmOdNjSkp5sn8
+	 QI9sH7nqpF6jCyS3dAVhugv3Trha7z0+bplj4HRN+NiNe0hxz1fUmVghbCjr8gMwmk2Ys
+	 Hx6z2ZPnGlmCwvee1vEQMve+1r6PENcrZzWVQ1XZucW/xdC2wuZhcQxxUQFbHc+Ozwy5g
+	 np4HifSTT/rUCyJRdYrWTxFqHJUOBCV2xtfGuwByeC/BQWrgur42PpVigoX8eX/Us7RVQ
+	 RXvvqrrw1LoTc0g0xR3IXSR86Sx3l5mECb2WvtQA2avF60UFI+0DeDm93m10yHFhFOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652398;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=3sYhE1LnkUeOEzCUYOrX9Pw0APlnYIdWTDdRY57Pm84=;
+	b=QHZjE1850hpPSDSIlqrhkU1yaZDbFekumjT+aoqi/AG4jPSRjEt7Jl7Csa2YB2xZ5mjL
+	 FBAOwCOcXAgGnbZWcWAvuK+Y+WnOEuswcwMJ+oA84SEIHgc3ffWSzVu9e5eQFp0GuUtlq
+	 8+Kr0/BCP4EtTfF4YXmBfcdF3GDyL6gs4KGUDewnxozOzGuQfAATuY8hJvHdnBTLt2OQx
+	 QI4gPtia+HyaGm/fNV1pvOFiagLoOjrdZfb/CIkmfydxJatK/X4tzlX7gSJuZRv2/ZKJh
+	 Mxxp3LRKbH1WH3n6guSyUpmPiVU4OvYWOzlVFUREn2AT2ALUpPJvLH4iNWtORnAZecQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="L+dgkiX/";
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68868606A31F;
-	Thu, 22 Oct 2026 05:27:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973D8606A31B
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 06:59:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 973D8606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE9PSI1B
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792646835;
-	b=m3r7tcjnBXTd+X8wnNnjUljdNzM79xURcz28VK3iFotYLctYACR6GFv/tfHW/3KZ58Er
-	 BannArVORXj76rnc9JKu2pRGBODPMepR2KVo7IYTx/eXN+tCwHknv52hLfsJ/t2QBW2aV
-	 q1yTec6htU6hSk4C83SP07oj2TT05YIo7qJ1wYxoqBSNyeygmtOmiSVDb23gJ07VvAmEy
-	 YpYRnBU3hu2kozsrG9Q9PM5rMpdiD3OHk+hLXKyZTECMZnXYDVK7C2IfcWJIZ+6A55IER
-	 4SVsyotjHKXywlcgvVGAqADOsN9qPEYQelNAl2pTRWvcF288JhrSH+eOloGyaSDsOQw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792646835;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
-	b=Zg/GoOg2lqqHmZQ7IPhKNXC+4cxywKbG48aFV6nsHj6UeaLeVLIUVvxXO58P82YCj0po
-	 YSpe1UsuFdCrZghULqSQKCsKi9jKmBnGvN6HN2yILfBH5BGWp3Awiq72gf08v32mOe0wD
-	 iXqsOw+S3vJS8xmKxNU/wWUUPevD5SpW5ZfzvzTE/cy5vdS/B8T/YKZyl/0N6y7iF+9hG
-	 eGn5JdZlevkSJRZlRLVjKKqLne0HVuznUAxo09ceK+VNxs123PSwQyMrDxFRQWd/O84/S
-	 yzQpazJ/Z4dh33fbTJRHCyBGTHcemjinw3sA3ub2Ngzm96LH/yMmZui46AhIQcwFOqw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DB12D1F000C1;
-	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792646835;
-	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=nE9PSI1BkQuX2JUDgREpDWRGo7njCyJXhZe28t7966XvBP7eHNTW33TFCAJuh/m+7
-	 hZQ863cuG5OXkk5m3bYA/aBsNvj346k5j11xK+DS/Cc3tdSXZYFPkLWMAnhmFS6DE9
-	 I7ssWcD2EyMiRqJsKrStswgVAm0GTWo783Diy3ysdBUXbxxRp7kSvX5gUUYHBYgyGb
-	 20raI00TICV+o9rs9TPs+ycE7dSfu3/LJD8e+IitHwBbNJzxdfl5MP4JMXWq5LEpJi
-	 3eD/twfgzHDnW2HXFsh8Ob4/drVQXa8Jv5feXRP28ZZwEISGWHxv0XFRLjaOU6+vPH
-	 7QCThpYUSU2xw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4F315434E9;
-	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
-From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Thu, 22 Oct 2026 13:27:01 +0800
-Subject: [PATCH v12 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L+dgkiX/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792652398; x=1824188398;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=dhEbDEiT/lA7DMbvWHqU5u/hokCu4VBBB7VCvllxzTM=;
+  b=L+dgkiX/fCSW6oBP4mcG6SXTybmeRYf2BHna3fvNr7qh/rhZ/aFkmFEE
+   1fO6wGF+wUdr3oZyxfS9D3ESg37HHb2BM1upW29QofvlrVlJxs9Z4F6wO
+   t5b80Toy0TP0BCLU035jqUW08WVrTTON7+zZuwB1ehpvdPpoZesPipm2o
+   1uP2MQCZeTb9MB4i8Np6JukWzDyLf92yCpbo/rRLdxk74USjHgTVitQTp
+   6Q3/SVBdoIt1ur3+BVXzJjZZXi2J1V+WaFKyj9UriQZ8R+qizcSedmWhq
+   js2D1GAh2gzwb+bp6Mm/Q6h6DgpsDN9/tFUh78zReR7DzLhwuAja2zFLZ
+   w==;
+X-CSE-ConnectionGUID: 7zyYKIhKQeWVb+Ri65NL6w==
+X-CSE-MsgGUID: v8rkdOrHSoKu4tQREFwWFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1404571"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1404571"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:59:57 -0700
+X-CSE-ConnectionGUID: MQJXkMSyRUSqZSG/an9M6w==
+X-CSE-MsgGUID: e963k2HUS+uOSFXT4/U5/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3209140"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.180]) ([10.245.245.180])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:59:53 -0700
+Message-ID: <598bc83d8070c9bcb364a336b91d1e6c6fff4256.camel@linux.intel.com>
+Subject: Re: [PATCH RFC 01/26] dma-buf: Introduce DMA-buf mapping types
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>, Christian Koenig	
+ <christian.koenig@amd.com>, Dongwon Kim <dongwon.kim@intel.com>, 
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky	
+ <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org, 
+	linux-media@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Vivek Kasireddy	 <vivek.kasireddy@intel.com>
+Date: Thu, 22 Oct 2026 08:59:51 +0200
+In-Reply-To: <20261021123755.GL3008132@nvidia.com>
+References: <1-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
+	 <b5d1bc79fae01fd9b511e06ed796130314ff841b.camel@linux.intel.com>
+	 <20261021123755.GL3008132@nvidia.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,167 +91,119 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-b4-s4-vdec-upstream-v12-3-616240978792@amlogic.com>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
-In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792646831; l=3663;
- i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=sdpnxZqgnjpHOtW3zEsr+0hEfJ2Oq9V4xODbhYXkAYs=;
- b=GOiymRYreeaoKRFwe4SQyASgsTUzFHSGFZZar2eJxjGY5P2HmFfDGJF67XUBGD1zFrFlrHyQ5
- OjEiadj7KuICaBsHqr6TQgdztMOB0ZGWycEd3yPlExUDi8O2jU81bF7
-X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
- pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
-X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
- auth_id=555
-X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
-Reply-To: zhentao.guo@amlogic.com
-Content-Transfer-Encoding: 7bit
 
-From: Zhentao Guo <zhentao.guo@amlogic.com>
+On Wed, 2026-10-21 at 09:37 -0300, Jason Gunthorpe wrote:
+> On Wed, Oct 21, 2026 at 08:24:40AM +0200, Thomas Hellstr=C3=B6m wrote:
+> > > struct dma_buf_mapping_exp_ops
+> > > =C2=A0=C2=A0 Base type for the per-mapping type exporter provided
+> > > functions.
+> > > This
+> > > =C2=A0=C2=A0 would be the map/unmap callbacks. Each mapping type can
+> > > provide
+> > > its own
+> > > =C2=A0=C2=A0 functions for map/unmap type operations with optimal typ=
+e
+> > > signatures.
+> >=20
+> > Does it make sense to try to land this patch first, plus a
+> > conversion
+> > of pcie_p2p so we could agree on what the contract should look
+> > like?
+>=20
+> I think it would be good to focus on this patch as the main 'crux' of
+> the series. The API contract is the main agreement. I'm relucant to
+> merge code that has no users, so it woudl be ebtter to go up to at
+> least through SGT.
 
-Add bindings for Amlogic hardware decoder accelerator.
+I agree about unused code, but wouldn't a pcie_p2p conversion to a
+mapping type be a valid use-case?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
----
- .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
- 1 file changed, 114 insertions(+)
+> =C2=A0
+> > s/mapping/interconnect/? My gut feeling is that "interconnect" best
+> > describes what's typically going on, but "mapping" perhaps better
+> > describes all cases.
+>=20
+> My intention was to cover more than just the phyiscal transport. We
+> do
+> really want to get away from scatterlist, so having PCIe map with
+> scatterlist and PCIe map with <something else> still ends up with two
+> mapping types in the system.
+>=20
+> This is why I choose the name over interconnect.
+>=20
+> > Location of common protocols which typically carry cross-subsystem
+> > dependencies?
+> > drivers/dma-buf/mapping_types? drivers/dma-buf/interconnects?
+>=20
+> I'd encourage people to design more like PCI where the actual
+> *interconnect* has its own home and there is just some minor call
+> outs
+> from dmabuf to help the matching logic.
+>=20
+> > As discussed previously:=20
+> > Agree on theoretically possible matches at attach time, Match at
+> > mapping time and guarantee the match is valid until
+> > invalidate_mappings().
+>=20
+> I was thinking about this some more, and I'm less sure now.
+>=20
+> If I think about mlx5, in a multi-path PCIe configuration, it can
+> move
+> the translation around within a single PCIe path, but it cannot move
+> it to another path without creating disruption for the
+> application. This is a HW limitation in how the internal routing
+> works..
+>=20
+> I strongly suspect this will be the norm for any hardware that
+> doesn't
+> rely on decorated page tables to select the IO path..
+>=20
+> So, while I agree we should support hardware that can fully change
+> the
+> path on each and every map, we also need to suport hardware that must
+> pin the path during attach.
+>=20
+> Probably this points to needing a 'pin' operation for the mapping
+> selection after attach.
+>=20
+> > > +/*
+> > > + * Match items are generated by the importer using the
+> > > DMA_BUF_IMAPPING_*() and
+> > > + * the exporter using the DMA_BUF_EMAPPING_*() functions. Each
+> > > mapping type
+> > > + * defines its own signature with its own data to make the match
+> > > and
+> > > attachment.
+> > > + */
+> > > +struct dma_buf_mapping_match {
+> > > +	const struct dma_buf_mapping_type *type;
+> > > +	const struct dma_buf_mapping_exp_ops *exp_ops;
+> > > +	union {
+> > > +		/* Each mapping_type has unique match parameters
+> > > here */
+> > > +	};
+> >=20
+> > Do we really need to add all global mapping types here? Then we'd
+> > need
+> > something for driver-private mapping types as well.
+>=20
+> IIRC it is fixed size up front like this because of how the
+> structure's memory is managed in this design..
+>=20
+> If you want a driver private thing then I'd add a 'u64
+> driver_private[2]' to the union and the driver can cast over it.
+>=20
+> But this is the kernel, if you want to add an xe_mapping_type, then
+> just add it. I don't know we need to do driver private things.
 
-diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-new file mode 100644
-index 000000000000..75b9ba3cb08d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-@@ -0,0 +1,114 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Amlogic Video Decode Accelerator
-+
-+maintainers:
-+  - Zhentao Guo <zhentao.guo@amlogic.com>
-+
-+description:
-+  The Video Decoder Accelerator present on Amlogic SOCs.
-+  It supports stateless h264 decoding.
-+
-+properties:
-+  compatible:
-+    const: amlogic,s4-vdec
-+
-+  reg:
-+    maxItems: 2
-+
-+  reg-names:
-+    items:
-+      - const: dos
-+      - const: dmc
-+
-+  interrupts:
-+    maxItems: 2
-+
-+  interrupt-names:
-+    items:
-+      - const: hvdec
-+      - const: vdec
-+
-+  clocks:
-+    items:
-+      - description: Clock for dos core
-+      - description: Clock for vdec core
-+      - description: Clock for hvdec core
-+
-+  clock-names:
-+    items:
-+      - const: dos
-+      - const: vdec
-+      - const: hvdec
-+
-+  power-domains:
-+    maxItems: 2
-+
-+  power-domain-names:
-+    items:
-+      - const: vdec
-+      - const: hvdec
-+
-+  resets:
-+    maxItems: 1
-+
-+  amlogic,canvas:
-+    description: Canvas maintains an index-to-physical-address
-+     mapping table that allows the 16-bit AMRISC decoder core
-+     to access 32-bit or 64-bit physical address.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  amlogic,secure-monitor:
-+    description: Used to decrypt and load the signed decoder
-+     firmware through ARM SMC (Secure Monitor Call).
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - power-domain-names
-+  - resets
-+  - amlogic,canvas
-+  - amlogic,secure-monitor
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/amlogic,s4-pll-clkc.h>
-+    #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
-+    #include <dt-bindings/power/meson-s4-power.h>
-+    #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
-+    video-codec@fe320000 {
-+      compatible = "amlogic,s4-vdec";
-+      reg = <0xfe320000 0x10000>,
-+            <0xfe036000 0x20>;
-+      reg-names = "dos",
-+                  "dmc";
-+      interrupts = <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-+                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
-+      clocks = <&clkc_periphs CLKID_DOS>,
-+               <&clkc_periphs CLKID_VDEC_SEL>,
-+               <&clkc_periphs CLKID_HEVCF_SEL>;
-+      clock-names = "dos",
-+                    "vdec",
-+                    "hvdec";
-+      power-domains = <&pwrc PWRC_S4_DOS_VDEC_ID>,
-+                      <&pwrc PWRC_S4_DOS_HEVC_ID>;
-+      power-domain-names = "vdec",
-+                           "hvdec";
-+      resets = <&reset RESET_DOS>;
-+      amlogic,canvas = <&canvas>;
-+      amlogic,secure-monitor = <&sm>;
-+    };
+I guess it's my wish to separate components. Couldn't this lead to
+excessive includes and unnecessary dma-buf recompilations when mostly
+unrelated headers are touched? Except possibly for memory size, core
+dma-buf shouldn't need to know about this, it's a mapping private
+thing?
 
--- 
-2.42.0
+/Thomas
 
 
+>=20
+> Jason
