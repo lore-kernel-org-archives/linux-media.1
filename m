@@ -1,79 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792664233;
-	b=OUaJRhS02lFrQLYsV34hcTEMZj8sNl9eQd9PEFNqh9be05JUT25mqQhjveeA2JGJp5Su
-	 RGx3l1j6VrZOSg/qjxL4ik5s2XeBKcgvLdcKnp1+C6gWMX0nnLzjd7NdNw4NqMdveXQAI
-	 LkLBct8CPbHULaUigoVBT65ZsR2GSKiNqfOsyP8WYl7jK5lqdymRKb20s9ZZJixqCfDeZ
-	 qfPpAQ3wtaI3cO1itYk3KzCg52BRUX8Njp4SUx95TZ6veVb4MYRYkqXvPbLY0PPXASqF1
-	 o648E1B+qnD8cCU9KbNc6FedFA/3DZtFZc+CYEaao0Fx7qbPn/0PIKnTcjyessRBShA==
+	t=1792664656;
+	b=cDK4mSD5zyIAntVq8Oz51+8gu4z25hzHUdVEdS+f5KFyx+B06Kncqo0AoDbkX4bNYt99
+	 kgLRZwvLbFb3tUQIM3BjVkRoqRO5GsSeyqjlCeQ71hdH2zgQW4X7sDEuk2ioUpr62dIyo
+	 UPbDJoyBbapYbWDsHcnjSGHYFWphAZTtbzRmbvLKla2m87FKeZK0U7atufiTrZ8EJIue7
+	 wWbCTknP+zCmEkRhltORsU6Esi4dDAnE+J7rDixjKEoLz5BoGqmFknRlYsRQe2KWYnCu4
+	 vDhz4JyCF4tem7kA3EfL4IZxR+2jYniJw4+UjyranZ1WTKbQmV4hQVPA1Xrly4f6V8g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664233;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MpQDFTjOnZQ2jUpmmDnU5MLaPPCLMzpos0JrnSoekyU=;
-	b=bz8WnKjbwErG5WDV9qTi31QqKfLW4Hr+PYpk07rSvefkRGius0icrk6MYjDNyfSeH2xs
-	 gC3cNZlGIXX+ZG4YI4+vhW1fssO65YmiMMPNe4vX2YdzcLTp4o9TzQATzIAXTuHIz298P
-	 7fIuikbCME8CqDqjWo5Gf4uLfOJgAxTtyeTVRPOruR9O9as9BbtZeub07R4E9KZRne2+h
-	 40pa+T1CRpDvjVZW0yWdLXMTEiT2ri2KmsA8g1G6G/fu1SjdeBDnGgfp+omz+wTnoqg3g
-	 HyNEdYi6K2qW+t4kbxp6fKU37Rhyw0v2dmWnpstc0r76GK1NWA9UvzTNFJfohXl8gOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664656;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=oMfzdCiVCUxGHwH3OwEDew0VkRxCFE5/WZadEqnhb+4=;
+	b=vCtH61Q8Si10UFtbrgFtVjnfi/Lf0HNETo3XJWWGJ1+TNoe2FIXsbDAcNaIcxpm1bla3
+	 HmIr8k7DdtE23Er9xK7QHxNjXTOcAIJCl7JJyC5f3t5wHmRUPa2aKC5nMGq1Zen2AKv1V
+	 zngHY3CTZtzN9IlUZfxKlQKx3rPVRbcZX1bp3vOIPWBkOQnD9RP4mdV8sqqnbCFuxSqDZ
+	 awTrV4pohuPQV+FZAoreb/K4uVf8K8EIK4Y4d06MArhD40tvUA9HXIXTDFZrThkf9u+Z5
+	 NcCgZd2t6d/2/PQVPNKS9DaGrQjldiDA2L5bJqhdiVkMfFR2HAiRVuW21YpisXq8rqQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aW4TJIVW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XLwrnVwW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.43
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010043.outbound.protection.outlook.com [52.101.61.43])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4003606A31E;
-	Thu, 22 Oct 2026 10:17:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED5F606A31A;
+	Thu, 22 Oct 2026 10:24:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CED5F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aW4TJIVW
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792664231;
-	b=bAu60N97WvNESTm7zar7jRFDSrsKWSoBmqPwkOiv+11BrtW5ph0hx53IKK6Z3OLZvmKD
-	 hUfpczH/T/Zd7hhT7m8dUcD4WF8JDv+W83UIZwAayFkSfFFPiKBeQ38vuzBFjuC4EcCMo
-	 owWfGtXGyqpljIKd1vjIfhJxh/idzvN8zU2KFqDrK1DDps8W60h/cBN1lKg5JW2a9RPff
-	 GHLxV8xxG+7xukaFx29oRg8+oYfi1uz49yL5eFFwHWxgG9U95gvIAQAV7Vu0GQbMRh06K
-	 RsMEaI5kzjSCZS/gF6tfcYdW55I353Kd9Qye/3NhWyGG1Dhq/QczC+ALFaXPDCCR1FQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792664231;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=MpQDFTjOnZQ2jUpmmDnU5MLaPPCLMzpos0JrnSoekyU=;
-	b=pHPkIsZiu5b5gfqnYsdFGBiBYPaWbnkPJF3wsUB/oRsLWT+Iqmy1t1w1EhA/LKBPmSK/
-	 boSM6EtXF50WCRc763q4uk2klDvKakxMozRlq9YDWXVGPmR75hzNYa9Nga/TsRptkqr/4
-	 OLlg+clCCPcSjnzRL5RGXS4wdeQei3TUbro8YDDy4iI+7h0AYyRGIkvmlCjmPf7OxNs6e
-	 gN1h9xQ1p1LlIRHx9g4ZaP+1iEr5fT3op5Sy70ukYykaitUgQ9MAXOuQZq+0zO6OfvQli
-	 5q4jZMqClAObuUDCWX8p2MaIRXl0uDJWO5vO3Ppg0/bZVRjSz+5vFp51H95yl/iXzsA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3DF991F000C4;
-	Thu, 22 Oct 2026 10:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792664231;
-	bh=MpQDFTjOnZQ2jUpmmDnU5MLaPPCLMzpos0JrnSoekyU=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=aW4TJIVWnXB4vi/G7LXEGrMMtm2Hwki/pB5cGxCbjxx49Wbc++fxxjIZRRW4YBn8l
-	 W+/vxkll1rZHtRcEjlVbNAobN1lbEX/tJf90ztuMW7iuGjniT+LVmlrjgdKvzMDT0h
-	 o9/A+aXC0q4sneiqjc+mSn/hFrIAuUAuqSzIBGb15U3lX003D7BTMayDQUj+XAGycv
-	 LU3B4P8r9lke/zaNegmqwRAsxEpH14J0GYCdJN5zRNE7syZcGz0T5zsXAOqI7sr2WB
-	 m3zu1NzZShU7iqf5rgQhnJI6rbqT33lpHY4gDtb2cj4sJ3NR3b6YDkhlacbPSsiUtT
-	 MwvYulrrVFvFw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8E1AB43556;
-	Thu, 22 Oct 2026 10:17:10 +0000 (UTC)
-From: Johannes Schrimpf via B4 Relay <devnull+johannes.schrimpf.blueye.no@kernel.org>
-Date: Thu, 22 Oct 2026 12:16:52 +0200
-Subject: [PATCH v2] media: uvcvideo: Release streaming interfaces at
- disconnect, not last close
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XLwrnVwW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iu2pGL/9sfheZ95zjBDfeu/94IZhrqLNGmKOyEesCJr6/aalFSRwA+wK5YT/GEFvxyCkjteHH1oiqLlTMVW/EaaZjne1m7dTYNtqefx6Fz/tBvlWLTsbO8kUFL7lSG2P1belra+tv2cpyemV+XakMO1X3tANgpK+o5NUdTUujMrv+3QDATU1gC43l2BOggmzVsFIIiE5QG1e9YlwPGH/7YKpTFMGb/Cy235Aerr19zZ1oMfGT1qLqxxqXhMvcwbVs2aHepDPOhsa6TtgW+p7WJDViuWWuWKBJWpAniANiQyz8yV66Fu/XXsRacQe3EiF1yhcgo77DJOJlYmpkB7A9Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oMfzdCiVCUxGHwH3OwEDew0VkRxCFE5/WZadEqnhb+4=;
+ b=GMQkOdh6YSyrQmL/irmvwcbTvb3Lri6lXcwjQtC4gw7SFIf1mSHTBlpmJcA7No/m4C71hkw8SrvXeWw7N0l/0fDGT/rYwg9AuQG2nGXBhIenC6p6Bowq4nDdt8N7+RD20ufBCpWTrxsF5/DPasdUl8Pk8iM6NKPVocoQrJ2xaW8U6gEYBVrisn9sbxw5Ibqce2fCkW04+UcdfrCPxFbWdpM6AUzyuYNHRsngIua3MUdyoxjrhHlZdGFje118frjLGcl7/mJEhamb6n8eD6djafrkEltC6FoMCH0rqRreS98I9+eZdCTlX1H9stCsRbsoLyrJaIZYXFycn+mjE4++Nw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oMfzdCiVCUxGHwH3OwEDew0VkRxCFE5/WZadEqnhb+4=;
+ b=XLwrnVwWoZrMr5CBKjrNtDUU2sc7ANpxWSjDeFQqfVT/VAzRMy8DkiVXlGaSiI7MDXdkK5Sdg2mXCDyclvooCkH+N1e60LobeYL2RXZEdmpaO4Ud1TaMzVm1oeYoVHH16JUq5T3vOlg1MptYdFTwP8OJeargQFjTRPfk1WTW3qc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DM4PR12MB5724.namprd12.prod.outlook.com (2603:10b6:8:5f::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15; Thu, 22 Oct 2026 10:24:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 10:24:06 +0000
+Message-ID: <9e54354d-b037-47e1-9390-86d5e25444a7@amd.com>
+Date: Thu, 22 Oct 2026 12:23:57 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 7/8] dma-buf: transfer memcg charges via
+ DMA_BUF_IOCTL_XFER_CHARGE
+To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ "T.J. Mercier" <tjmercier@google.com>, Christian Brauner
+ <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ Stephen Smalley <stephen.smalley.work@gmail.com>,
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org,
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ mripard@kernel.org, echanude@redhat.com
+References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
+ <20261021-v2_20230123_tjmercier_google_com-v2-7-ef6ee2dd8c5c@redhat.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-7-ef6ee2dd8c5c@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0235.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e9::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,213 +116,342 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-uvc-release-intfs-v2-1-901bc1c47cfb@blueye.no>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/32Nyw6CMBBFf4XM2hqKUtGV/2FY9DGVGlJMhzYSw
- r/b4t7M6uTee2YFwuCQ4FatEDA5cpPP0Bwq0IP0T2TOZIambgSv+ZnFpFnAESXlyM+WmLXXFk8
- XIRRvIe/eAa377M5H/2OK6oV6LqLSGBzNU1j2p4mX3j9/4ixfZwR2xkppursaIy549BP027Z9A
- XPd/+fEAAAA
-X-Change-ID: 20261014-uvc-release-intfs-ff95e3766b15
-To: laurent.pinchart@ideasonboard.com, hansg@kernel.org
-Cc: ribalda@chromium.org, hverkuil@kernel.org, linux-kernel@vger.kernel.org, 
- mchehab@kernel.org, linux-media@vger.kernel.org, stable@vger.kernel.org, 
- Johannes Schrimpf <johannes.schrimpf@blueye.no>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792664229; l=7840;
- i=johannes.schrimpf@blueye.no; s=20261014; h=from:subject:message-id;
- bh=jITjUBkqSOrja9OK7j/wiP5VysOC8DbpzIk24IUo4ns=;
- b=PCRLhcqexTTYWT5A2+bjtxRNBlp44aWrcGYfceBjjiWYGAmJlROJ8vu54EeiA1t9sISWgXKH8
- khjZYShjQuUDa4Daum8GIFwL3duaVHmaLkve+IbVHmoTdqhAwatZbPI
-X-Developer-Key: i=johannes.schrimpf@blueye.no; a=ed25519;
- pk=900KgDI7vLhnD9R982XOT47UCm3e4vWxQWBC4jDCUPo=
-X-Endpoint-Received: by B4 Relay for johannes.schrimpf@blueye.no/20261014
- with auth_id=1178
-X-Original-From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
-Reply-To: johannes.schrimpf@blueye.no
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5724:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8cc9d2b7-f7de-4f24-44ec-08df302699dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|18002099003|22082099003|921020|4143699003|11063799006|261021135927099003|261009223027099003|261021121427099003|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	XbNar2ulZyj05LXTGfsmppGG4pYr/3defen2wZRF+QoCPpJN0HBa4KvJQy4jKJTaH5/DLjeJPWgZoBQlD5G4jiI0YiBmfFhx6oUSqk9jfaV9ugQeXfofic3f//YDTKLhDjI7YzdJCROPt1k7aSKVlsP2HUROftZODbk1QvHzPDn18+yY5C5HQrUUUstkw8ln8pNexxmUGakCcYl5cQuQ1bXvJoeOjmrMyxl3Sm/c6gIn3ZGfyfnfHNCAijWUO9JPWuCDY9eY5hNuZoHGrEh2PZTMsoXCGUYzQgQcWVHKKe7dHCNfCzAq9RHh30NznsFH4ViEw+6/3YY7xFCsZncpbgfr1CY2fD/l/oZPzvYJIJDGube9HLk7A5tzbi08GBsY+TyY6xxxh7WxLE8JiaVNckwa84vJS2Yi9cFmNd5IyiBwVRwKYp9rWUCvaJl1qF/6NAnn/2AcJJRsTD0HPTz4PTHc/bL4XE3nshkFnj09GLhpI1WLgOYmC8Dt9IxM/BvoxpU3IM1ppN5Lf20YvdFSACwgGtYDXZA/oI4E2+PpB1YER9mV4J1vecbZVeQM4hRUnI6V+r3FnLIFkATSBZwesmEFPQPNzujTNL0P4g71TukPdUpRDkJRQDuIgnUzuHsm8jH9Mh64OFe0cvZvrD/Cud3Mo7zD2O7JqNeJAJaMzyihKsa6Dk+SX7rCZcd8Eksi7/QxXB49AT18y3aWaFxkpA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(921020)(4143699003)(11063799006)(261021135927099003)(261009223027099003)(261021121427099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TUdwaWhkZk9iK1h6dENja2s4b3JqdTlOQ092ZmkwYUhqVU1tTzdMb2E1ZTBR?=
+ =?utf-8?B?eEJ6ZUk3Q1drbndmbWJwdkUwNExHYkt1N05kaW1PWnQ5UkFlYjdwN1VoYkRh?=
+ =?utf-8?B?emtRMlV4RHZ0dm9FbmNqRlN3QmNBT2wyMFBCV2tiRWJKUXBlRGtPYXZ4dysy?=
+ =?utf-8?B?SUxxM0tya2o2SDkvNVdVTjJPUzV4Y29ua05oZGZHY1RmdC9lNk5KaEJoUm00?=
+ =?utf-8?B?TDk3ZHNSTU9tdFloMXNjZUJEUDQ0YVpvWXpYSmMwNzRiVHdQNSticzRuYkov?=
+ =?utf-8?B?Vzc4WFU5UUV2akJtWjNoaEdmUmp6NURZb1lyQ3dKWm1TMU00Mm5FbHVZY1NK?=
+ =?utf-8?B?YTFMSkNxY1V3V093MXliZGJCdDhGWFg4UzQvWlM4d3FLSWNjWkNJNWFNZU5L?=
+ =?utf-8?B?T1A4TzNJdmR2TjB5RTRJNDlHeFhrSkdvUXJBTHdHVlVOeHBGUlFMMThFSGRE?=
+ =?utf-8?B?dldheUgrSnV6R2VxMVJLVnNGUGxBMUdDcnl3QVduVXkwNFBYUXcrQmtwRjZX?=
+ =?utf-8?B?RkJFZElwYk9ycm40T2NVL0I1RmxMME4xV3FWMDdVQzFuY1RPWERLbVlzaXcv?=
+ =?utf-8?B?cDhvZEdQM05HanV1Q1ZzWk5mWUF5RDZjdEFURGhQcGh1RlFVeTBEbVhIK1l1?=
+ =?utf-8?B?L2F1WEJscVVoTVdBeEFmU2JqNW9DU2JNSXlTQUc3Um9qaUFROUd1SWN4cEQz?=
+ =?utf-8?B?MXdDMjlSZnFqMkZ2RitMKzUxSlI5bGtoTHd1c20yNFVFZ3pnNmVIcUxlUTlE?=
+ =?utf-8?B?bm5BWDE1TkFvZXJFV2VnY3crZU1rREtycUd5VUhJUUZ2T0tYdFRBOFFVNVEx?=
+ =?utf-8?B?bW1SMjVuOE1tb2o0azFSWXQ4bUw2NURoS2FKZ0VkZ3VpUWhmUEI3b002TS9a?=
+ =?utf-8?B?a25zeUV5dTJaY3M5c09qUUlMT3pBQnBURmVzZEFJZFZGTTlnQXpBRTBDKy9i?=
+ =?utf-8?B?cjBjU1ZSTW1kSjdIVnVmanF4dTZOZkpBRjdjYXBOQ0c4NXk5THdxUURIOUM1?=
+ =?utf-8?B?ZHd0VjBPSFh3YnI4TVhTSGllWDh3b1RJYktSTWp5cUo5SGJXSTczdTBja1pD?=
+ =?utf-8?B?cEcvNUJET2VpcGcvQzJDd0ZpZUhBS0Z3dWY1VWI3RXBpcWtlam1mNG9iUTI2?=
+ =?utf-8?B?L0wrQ2JWSllWTGxqeFVpUGV0UW5XUlNUK29idFlWWjl4L0ZDZjRzTWZrVG9o?=
+ =?utf-8?B?Tkt1b2dLMXhWMEs0QWZ6dFpNSUFKUmdNbmhjTlNtWHlCcjZsSVNxMmYzMzhu?=
+ =?utf-8?B?dkhEN3VpWUorNzZ5ODFUM1lBTnNlcmRVZW95aTJFbzJtbXdITE9rSTBjWTZB?=
+ =?utf-8?B?V3RWUzhxN2ZjdWtablZrQklHRzduYU5xdlNvWlFCdVFkWXFEbXp2dFlVdU00?=
+ =?utf-8?B?SWhKeVRISXZYeWZEcUtURGtlSU5ObWtYNHUyUU1DaWN2TGQ1MS9EdHYrdXM0?=
+ =?utf-8?B?UjVRVi9kMUpZUVRWNFlPVUdUS2pRSFU1WUJqT1VOK002eDgzV1ZydDZKVldt?=
+ =?utf-8?B?NTNSRG5vb05NLzFrQzMrSnRvVlFCWDRVVUFuanROeXJRUFlibVgrWFFOZEZz?=
+ =?utf-8?B?eDl4djlTelBlZ0RLUlFvd3lhT0pId0dDOVBnS2pxWEtqTTA5eWF3VWxjZDVn?=
+ =?utf-8?B?NDI0WFN4Y0ZweXUzK0YrYkpyTXZKaUxmSjZnOVN1UTBjem00MGhqQWU5WGRI?=
+ =?utf-8?B?aVRHaEZsUVVldWJ1UmQ5cVByUzBiNnY4OWlNZjBsSUVpRUl3VDUxQXBUVk1k?=
+ =?utf-8?B?SHJrMWcxbXhoZS85dG1RUDluVFZyN0NZNldMK1JSaVJIZktHQ1NEam4xei9O?=
+ =?utf-8?B?ZVNzVERzdk55a1NGVGtJQm5maWFMb2pOT1AzdEp5L1RyRnVFZ1JSKy9zYVZK?=
+ =?utf-8?B?ZGYyT0JQWGprUVNRcFFTaHJjT2xOK2NvQTB0YlUydm41WmlkWXkrbjQrNFk0?=
+ =?utf-8?B?WnJBZnBxSmlYV2owL2M4Nk1hM1pTaHNZYW1va1RpR0h1VHpvdTdoSHRpa0pP?=
+ =?utf-8?B?cUxPQUdxdnN5V0UzMGFVOUdRY1V0Z1NLK3N2TmJPUWZQTyt2QjdqWGFTSjFp?=
+ =?utf-8?B?QW1WN3pRaGdtUDJ6a0RxQysrSHZhREI3WGU3UFdsZUJLeTZqMDRxMk5xVjBv?=
+ =?utf-8?B?STJLelRPOFVUU1FXRy9qdGQzNGtCcWpra3FNUlNiL1QwdXRzcStjeTk1Vm1X?=
+ =?utf-8?B?bnVHNG1GeU82bFpxbGxjRHZlb0M2SUhLZlBnNTZOeXpNQVdOa3Rsc1IzSEhN?=
+ =?utf-8?B?Qnpia05aMWlodDF6ODZ3YndJaW50ZlQ2NEFTaDBsZUNzeG5WVHpRaW10V0hQ?=
+ =?utf-8?Q?NDLbMXMmb5fkP3Zt+x?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cc9d2b7-f7de-4f24-44ec-08df302699dc
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 10:24:05.9706
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pomOon7gX7g3TuecT060NJP+ToJ3bDALw0HT/RyQBC3Pi7zqXb6WTIFdTzBvAqoG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5724
 
-From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
+On 10/21/26 17:42, Albert Esteve wrote:
+> dma-heap already supports charging a specific cgroup at allocation
+> time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
+> originate from any exporter (DRM, V4L2, etc.), and the allocator may
+> not know the final owner at allocation time.
+> 
+> Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
+> to a different cgroup after allocation. The target is identified by
+> charge_fd, which may be a cgroupfd or a pidfd.
+> 
+> The transfer charges the new cgroup before uncharging the old one,
+> preserving the original charge on failure. An atomic cmpxchg on
+> dmabuf->memcg prevents races with concurrent transfers.
+> 
+> Usage example:
+>   int cg_fd = open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECTORY);
+> 
+>   struct dma_buf_transfer_charge xfer = {
+>       .charge_fd = cg_fd,
+>   };
+>   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
+>   /* charge now on app1's cgroup */
+>   close(cg_fd);
+> 
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> ---
+>  drivers/dma-buf/dma-buf.c    | 77 ++++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/memcontrol.h   |  9 ++++++
+>  include/uapi/linux/dma-buf.h | 26 +++++++++++++++
+>  mm/memcontrol.c              | 40 +++++++++++++++++++++++
+>  4 files changed, 152 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index f31f49ebd0af..7fa607d9bf65 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -540,6 +540,80 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
+>  }
+>  #endif
+>  
 
-If a UVC camera goes through a USB reset while an application holds it
-open, the camera is unusable after the reset.
+A single line code comment what this is all about would be nice to have.
 
-The old uvc_device releases its streaming interfaces only when its last
-open file handle is closed, which unbinds them from the new uvc_device
-that has claimed them in the meantime.
+Some note to look at struct dma_buf_transfer_charge for details is most likely good enough.
 
-Release them on disconnect and on the probe error path instead, as the
-last step of uvc_unregister_video(), which is renamed to
-uvc_unregister_device().
+> +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
+> +				const void __user *user_data)
+> +{
+> +	struct cgroup *cgrp;
+> +	struct cgroup_subsys_state *css;
+> +	struct dma_buf_transfer_charge arg;
+> +	struct mem_cgroup *memcg;
+> +	struct task_struct *task;
+> +	const struct cred *tcred;
+> +	unsigned int pidfd_flags;
+> +	int ret = 0;
+> +
+> +	if (copy_from_user(&arg, user_data, sizeof(arg)))
+> +		return -EFAULT;
+> +
+> +	if (!IS_ENABLED(CONFIG_MEMCG))
+> +		return 0;
+> +
+> +	if (arg.__padding != 0)
+> +		return -EINVAL;
+> +
+> +	cgrp = cgroup_get_from_fd(arg.charge_fd);
+> +	if (!IS_ERR(cgrp)) {
+> +		/* charge_fd is a cgroupfd */
+> +		rcu_read_lock();
+> +		css = cgroup_css(cgrp, &memory_cgrp_subsys);
+> +		if (!css || !css_tryget_online(css)) {
+> +			rcu_read_unlock();
+> +			cgroup_put(cgrp);
+> +			return -ENOENT;
+> +		}
+> +
+> +		memcg = mem_cgroup_from_css(css);
+> +		rcu_read_unlock();
+> +
+> +		ret = security_dma_buf_charge_cgroup(current_cred(), cgrp);
+> +		cgroup_put(cgrp);
+> +		if (ret) {
 
-This also ensures that usb_driver_release_interface() is only called
-with the USB device lock held.
 
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-Cc: stable@vger.kernel.org # needs adjustments for <= 6.14: &uvc_driver.driver
-Assisted-by: LLM
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-Signed-off-by: Johannes Schrimpf <johannes.schrimpf@blueye.no>
----
-Changes in v2:
-- Shorten the commit message; the details are now below (Ricardo).
-- Move the release into uvc_unregister_video() as its last step and
-  rename that function to uvc_unregister_device() (Ricardo). The
-  release still runs after the video nodes are unregistered and before
-  kref_put(), in uvc_disconnect() and on the probe error path.
-- Add Ricardo's Reviewed-by.
-- Link to v1: https://patch.msgid.link/20261014-uvc-release-intfs-v1-1-18d6e8dfaad8@blueye.no
----
-Details from the v1 commit message:
+> +			mem_cgroup_put(memcg);
+> +			return ret;
 
-Mechanism: uvcvideo has no pre_reset() and post_reset() handlers, so
-usb_reset_device() unbinds it and probes it again on the same struct
-usb_interface objects. A file handle from before the reset keeps the
-old uvc_device alive. usb_driver_release_interface() only checks that
-the interface is bound to uvcvideo, not to which uvc_device, so the
-old uvc_delete() unbinds the interfaces from the new device. The URBs
-of a running stream then complete with -ESHUTDOWN,
-uvc_video_complete() sets UVC_QUEUE_DISCONNECTED, and every following
-VIDIOC_QBUF fails with -ENODEV. Nothing is logged, and the stream stays
-dead until the next reset or replug.
+Maybe use goto skip_transfer; instead?
 
-Reproduction, with a Sonix camera (0c45:6366) on an i.MX6Q board,
-Linux 6.18.24 (linux-fslc-imx):
+> +		}
+> +	} else {
+> +		/* charge_fd is a pidfd  */
+> +		task = pidfd_get_task(arg.charge_fd, &pidfd_flags);
+> +		if (IS_ERR(task))
+> +			return PTR_ERR(task);
+> +
+> +		tcred = get_task_cred(task);
+> +		ret = security_dma_buf_charge_task(current_cred(), tcred);
+> +		put_cred(tcred);
+> +		if (ret) {
+> +			put_task_struct(task);
+> +			return ret;
+> +		}
+> +
+> +		memcg = get_mem_cgroup_from_mm(task->mm);
+> +		put_task_struct(task);
+> +	}
+> +
+> +	if (dmabuf->memcg == memcg)
+> +		goto skip_transfer;
+> +
+> +	if (!mem_cgroup_transfer_dmabuf_charge(dmabuf, memcg)) {
+> +		ret = -ENOMEM;
+> +		goto skip_transfer;
+> +	}
+> +
+> +	return 0;
+> +
+> +skip_transfer:
+> +	mem_cgroup_put(memcg);
+> +	return ret;
+> +}
+> +
+>  static long dma_buf_ioctl(struct file *file,
+>  			  unsigned int cmd, unsigned long arg)
+>  {
+> @@ -590,6 +664,9 @@ static long dma_buf_ioctl(struct file *file,
+>  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
+>  #endif
+>  
+> +	case DMA_BUF_IOCTL_XFER_CHARGE:
+> +		return dma_buf_xfer_charge(dmabuf, (const void __user *)arg);
+> +
+>  	default:
+>  		return -ENOTTY;
+>  	}
+> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+> index aa08fbb0c26c..3a6acfda1423 100644
+> --- a/include/linux/memcontrol.h
+> +++ b/include/linux/memcontrol.h
+> @@ -674,6 +674,9 @@ int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
+>  bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
+>  			      gfp_t gfp_mask);
+>  
+> +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
+> +				       struct mem_cgroup *new_memcg);
+> +
+>  void __mem_cgroup_uncharge(struct folio *folio);
+>  
+>  /**
+> @@ -1183,6 +1186,12 @@ static inline bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf,
+>  	return true;
+>  }
+>  
+> +static inline bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
+> +						     struct mem_cgroup *new_memcg)
+> +{
+> +	return true;
+> +}
+> +
+>  static inline void mem_cgroup_uncharge(struct folio *folio)
+>  {
+>  }
+> diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
+> index e827c9d20c5d..4970a7b8e08e 100644
+> --- a/include/uapi/linux/dma-buf.h
+> +++ b/include/uapi/linux/dma-buf.h
+> @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
+>  	__s32 fd;
+>  };
+>  
+> +/**
+> + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
+> + *
+> + * Any holder of a dma-buf file descriptor can perform a
+> + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
+> + * cost to a specific cgroup, or move it from one cgroup to
+> + * another.  The ioctl charges the new cgroup before uncharging
+> + * the old one atomically.  On failure the original charge is
+> + * preserved.  If the buffer has no existing charge, a new
+> + * charge is established.
+> + */
+> +struct dma_buf_transfer_charge {
+> +	/**
+> +	 * @charge_fd: File descriptor identifying the target cgroup.
+> +	 *
+> +	 * May be either a pidfd, in which case the charge moves to the
+> +	 * memory cgroup of the referenced process, or a cgroupfd obtained
+> +	 * by opening a cgroup v2 directory, in which case the charge moves
+> +	 * directly to that cgroup's memory controller.
+> +	 */
+> +	__u32 charge_fd;
+> +	/** @__padding: Reserved, must be zero */
+> +	__u32 __padding;
 
-  1. open() a video node of the camera and keep the file handle
-  2. reset the camera with USBDEVFS_RESET
-  3. stream from a video node of the re-probed device
-  4. close() the file handle from step 1
+Maybe rename to flags, put before charge_fd and add "/* unused for now */".
 
-The stream fails within a few milliseconds of the close() in 4 of 4
-runs, with one KOBJ_UNBIND uevent per VideoStreaming interface; the
-VideoControl interface stays bound. A handle on either streaming
-interface has the same effect. Without step 1 the stream survives.
+> +};
+> +
+>  #define DMA_BUF_BASE		'b'
+>  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
+>  
+> @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
+>  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
+>  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
+>  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
+> +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct dma_buf_transfer_charge)
+>  
+>  #endif
+> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+> index e94222237d31..d994a4b2d35e 100644
+> --- a/mm/memcontrol.c
+> +++ b/mm/memcontrol.c
+> @@ -5688,6 +5688,46 @@ bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
+>  	return true;
+>  }
+>  
+> +/**
+> + * mem_cgroup_transfer_dmabuf_charge - move a dma-buf charge
+> + * @dmabuf: buffer to transfer charge
+> + * @new_memcg: target memcg; caller must hold a reference
+> + *
+> + * Transfers the charge for @dmabuf to @new_memcg and, on
+> + * success, stores @new_memcg in @dmabuf->memcg.
+> + * Returns %true on success, %false if the charge against @new_memcg
+> + * failed or a concurrent transfer raced on @dmabuf->memcg.
+> + * On failure the caller retains its reference to @new_memcg.
+> + */
+> +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
+> +				       struct mem_cgroup *new_memcg)
+> +{
+> +	struct mem_cgroup *old_memcg = READ_ONCE(dmabuf->memcg);
+> +	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
 
-usb-serial splits it the same way: usb_serial_disconnect() releases the
-sibling interface, and its kref release, destroy_serial(), releases
-none. With no file handle open, uvc_disconnect() drops the last
-reference itself, so on that path the interfaces are still released
-from within uvc_disconnect(), as before.
+That doesn't work as easily as this.
 
-Tested with v1 on the same board and kernel: the reproduction with the
-handle on either streaming interface or closed before the stream
-starts, a USB reset without a held handle, sysfs unbind/bind of the
-VideoControl interface with and without a held handle, and a second
-UVC camera (MJPEG and H.264 at 1080p). The stream survives all four
-streaming runs, none of the five stale-handle closes unbinds an
-interface, and the close() takes 0.13-0.23 ms instead of 38-42 ms.
-USB-reset recovery and the second camera work, and sysfs unbind/bind
-releases and reclaims the streaming interfaces.
+DMA-buf can contain litterally *anything*, ranging from system memory over device memory all the way to functional HW blocks. In other words doorbell, GWS, GDS, OA, I2C, I2S, any random data consuming or providng HW block...
 
-Tested with v2 on the same board, built into the kernel image: the
-reproduction with the handle on either streaming interface, closed
-before the stream starts, and with no handle held. The stream survives
-all four runs and no interface is unbound; in the two runs that close
-the stale handle while streaming, 149 frames arrive in the 5 s after
-the close.
+For memory the "size" is the actually number of bytes the buffer represents, but for everything else it is just an arbitary number given by the exporter. In most cases just 1 or actually number of HW blocks/channels, but for GDS for example it is actually a pretty large number.
 
-Ricardo's "media: uvcvideo: Remove refcounted cleanup" (Nov 2024) would
-have moved all device cleanup into uvc_disconnect(), and was NACKed
-because it fixed no concrete bug. This patch keeps the refcounted
-cleanup and moves only the release of the streaming interfaces.
+Saying that you most likely need some flag from the exporter if charging and/or the changing of charging should be possible or not. Otherwise you can potentially do quite a bunch of nonsense with that.
 
-Tool use: this was developed with an LLM coding assistant, Claude Code
-running Claude Opus 5.5; v1 was also reviewed by GPT-6 Astra. Starting
-from stream failures in our bench logs, the assistant traced the code
-path, wrote the reproduction scripts, ran them and the tests above on
-the device, surveyed the upstream history and other drivers, built and
-checked the patch on media-committers next, and drafted the patch, the
-changelog and these notes.
+Regards,
+Christian.
 
-Test kernel: linux-fslc-imx 6.18.24 with three local uvcvideo patches
-(keep MJPEG frames recovered by MJPEG_NO_EOF, nodrop=0 by default, and a
-coherent_urbs parameter). None of them touches probe, uvc_disconnect(),
-uvc_delete(), the interface claim/release or uvc_video_complete().
-
-Not tested:
-- an unmodified uvcvideo, or any kernel other than linux-fslc-imx
-  6.18.24; on media-committers next, the patch is build-tested only
-  (v1: gcc and clang, arm, arm64 and x86_64, W=1, sparse, smatch; v2:
-  gcc, arm, W=1)
-- a debug kernel: the test kernel is the board's production config
-  (SMP, PREEMPT; no lockdep, DEBUG_ATOMIC_SLEEP, DEBUG_MUTEXES,
-  SLUB_DEBUG, DEBUG_PAGEALLOC or KASAN)
-- unplug and replug, sysfs unbind of a VideoStreaming interface, and
-  the probe error path
-- frame delivery after a sysfs rebind: the Sonix camera delivers no
-  frames after any re-probe that does not follow a USB reset, with and
-  without this patch, so those runs check only the binding; the
-  second camera was not rebound
-- v4l2-compliance
-- any camera other than the two on this board
----
- drivers/media/usb/uvc/uvc_driver.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index cbc1456..bb8f0e3 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1976,7 +1976,6 @@ static void uvc_delete(struct kref *kref)
- 		struct uvc_streaming *streaming;
- 
- 		streaming = list_entry(p, struct uvc_streaming, list);
--		usb_driver_release_interface(&uvc_driver, streaming->intf);
- 		uvc_stream_delete(streaming);
- 	}
- 
-@@ -1992,9 +1991,9 @@ static void uvc_release(struct video_device *vdev)
- }
- 
- /*
-- * Unregister the video devices.
-+ * Unregister the device and release the streaming interfaces.
-  */
--static void uvc_unregister_video(struct uvc_device *dev)
-+static void uvc_unregister_device(struct uvc_device *dev)
- {
- 	struct uvc_streaming *stream;
- 
-@@ -2024,6 +2023,14 @@ static void uvc_unregister_video(struct uvc_device *dev)
- 	if (media_devnode_is_registered(dev->mdev.devnode))
- 		media_device_unregister(&dev->mdev);
- #endif
-+
-+	/*
-+	 * Release the streaming interfaces here, not in uvc_delete(): after a
-+	 * USB reset, a new uvc_device may already have claimed the same
-+	 * interfaces.
-+	 */
-+	list_for_each_entry(stream, &dev->streams, list)
-+		usb_driver_release_interface(&uvc_driver, stream->intf);
- }
- 
- int uvc_register_video_device(struct uvc_device *dev,
-@@ -2355,7 +2362,7 @@ static int uvc_probe(struct usb_interface *intf,
- 	return 0;
- 
- error:
--	uvc_unregister_video(dev);
-+	uvc_unregister_device(dev);
- 	kref_put(&dev->ref, uvc_delete);
- 	return ret;
- }
-@@ -2374,7 +2381,7 @@ static void uvc_disconnect(struct usb_interface *intf)
- 	    UVC_SC_VIDEOSTREAMING)
- 		return;
- 
--	uvc_unregister_video(dev);
-+	uvc_unregister_device(dev);
- 	kref_put(&dev->ref, uvc_delete);
- }
- 
-
----
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20261014-uvc-release-intfs-ff95e3766b15
-
-Best regards,
---  
-Johannes Schrimpf <johannes.schrimpf@blueye.no>
-
+> +
+> +	if (!mem_cgroup_disabled() && try_charge(new_memcg, GFP_KERNEL, nr_pages))
+> +		return false;
+> +
+> +	if (cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) != old_memcg) {
+> +		if (!mem_cgroup_is_root(new_memcg))
+> +			refill_stock(new_memcg, nr_pages);
+> +		return false;
+> +	}
+> +
+> +	mod_memcg_state(new_memcg, MEMCG_DMABUF, nr_pages);
+> +
+> +	if (old_memcg) {
+> +		/* Uncharge old cgroup */
+> +		mod_memcg_state(old_memcg, MEMCG_DMABUF, -nr_pages);
+> +		if (!mem_cgroup_is_root(old_memcg))
+> +			refill_stock(old_memcg, nr_pages);
+> +		/* unref from buffer - buffer keeps new ref to new_memcg */
+> +		mem_cgroup_put(old_memcg);
+> +	}
+> +
+> +	return true;
+> +}
+> +
+>  /**
+>   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
+>   * @dmabuf: buffer to uncharge
+> 
 
