@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792667211;
-	b=EjYw9ja0cL17r4nG0/mRVTzxDNlmH1WNKBfMtBfoNl6bYhmPLr1ZXhoszuRGrVtNjpTr
-	 LIP8CcjM575Jh1PS6/REL7c12L6XQBmylekGyUhrLx5hvEIn9bzZ7AZ1Ywph3ozVruqgw
-	 IwY52qu/unpzQon4TS+ZQMse95leY0F9MugH3r+4uWDDt6DEA+eUcBg2MKE57W/kyl4VX
-	 MD7MDHIBJCVb8A5xkHXiltNZyknfjbqjAk0OQWMIQq94FEdET7RL7gcMeoZzjbSkghCV8
-	 ReA7Nu18vvm0tUbTfJX/sCYw8QvQDMXq09qYXvAB9oa7WkNqiY61+gnOAAP3CwFyPsA==
+	t=1792668522;
+	b=Z6fz4UbXmsWARlY1UvP2zNm4p9+Kp5pBctpZ7jjRIvVDTwzu+9h3U/4rz2EoUiq/zwfi
+	 YEtX94OcL3eQ6BIhb2sebW+zfTTSyJUYy1FUUHbuqqhDeWkV9sbPDYbWBgrmoOkmEmNTX
+	 X+nC4r3vd9MLiaV686eS1/MAe6s05vLAPJfFA+S5Zc4bYmaaTNtpsC/rWnlF5UWEVC+bn
+	 SNEIjIUnqRRpyDdDxdavWGiuPWeQi5zDuQY4dkBm6oY9BiPUfeSO/WfVZmbDiOT3j4qiE
+	 5IXHbzZqFJ2uTLy6N+/WBBTC8BgOPUFpKnvQxODQ8efrFu8KzF4dKkA+OrIQF2SMkIA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667211;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FeWTS8Q48bWPnQCGmjUGgs00u6eCx3a6nfu0+I6v/Og=;
-	b=e4hx2AVYjKQCBVtpXgFiPRRPrTJqMcHjp4FrGbWcAMOJlwPmdvw9N0HC6CZJvBLP5weW
-	 uik7buUHI1z9SUJH9Z89zLFb0fJbJpcayqV66gvc8X1tPoti7GVvMYa0RA/yoYYYmLfSM
-	 rabq20ZrY0Qh1+It713GcOtNB4LtN4EdylXyURmIZib/FdbYr9eO2WUEpCVRkDg5Tdwzb
-	 bP0ij03k6m/OAOAhfQ8EBvK3HvwFrfhrIiQFIQaSqNppzd99u+SJBOEBX8Dth0feGPwEo
-	 Jqvcje4SlGMVYPTOjld1tjuNTp6pennhFeqAUq24K2xQzsMF7/NKTNeY2AH7r2lZw3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668522;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=c3AFBFGhYU38KeWEvthADpOmG5PB5zwanCEFzPAZY48=;
+	b=2OM8VCSS5XV8wjgmJTReWSvWDkQYNjXRCm17n8AeDHofS0/+buyQG8BbdnLHmCTvgUf4
+	 CLEeX1QZWRvY59A78NE3h4KN/TuXd01U0VhtQ7qIsrPMFoKVY52RKCfinM9RLQEyJyEr6
+	 PjKCRjUmY/9fZ+D/ov4kElGukIXG82hvYnIsO5B7lhRzvqIrX200bHcA9m6tZrqFLm8Yw
+	 blB9//rS7hlw5U3RUksqxb7yD3pmOO4tJkLJosMByyOIPWeP4Sac2Q5Y6clJd49FK3y5x
+	 SjEQ0yOK8bErhLHn3XlBPKEltuBzfTZJil2FeJYIcrgVt3lLFS0mEkQUIzPY1AuNUVQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=E2N7awLF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mIEisywb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59719606A321;
-	Thu, 22 Oct 2026 11:06:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59719606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF353606A319
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 11:28:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF353606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=E2N7awLF
-Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D1EAC2022E2;
-	Thu, 22 Oct 2026 13:06:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792667208;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FeWTS8Q48bWPnQCGmjUGgs00u6eCx3a6nfu0+I6v/Og=;
-	b=E2N7awLFcKu4B8otw+enfizF5Ug5lcIvsBcc+E2wXr4vl90Y5ZygYg4caYkZiI+7GR7J4U
-	B5sAriPUG8qajzVhG0ElbTcAf2sGnmjzCH9MmND4SIPmNErxL2tqg6l5MEYswsnhCAlQCz
-	0uAr1mlRxcPSA01U7V3dNATqZITJCLPdtnMlVnCSJJUpb8X3IIdb9MqLYQbHJF6VrGYp/Z
-	aM6wbLYSxDn9SMoldIPN8et2Uzu9b7giki98NULcHoc138rnIO/y+DcvzBE3pXPzVUH/X0
-	cFIRxkGdOESmSaBfCzIWbfkjeakwqVkwxHIi3sRT5U/9dDuq0J9fii9qh0xDWA==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792667208; a=rsa-sha256;
-	cv=none;
-	b=ffTXFWXvfWyMT2QdASyOkvTJA1s+SkCaw8N5S4e3R+nkXZYw4pvopvd48wCRg+Zt4OgO75
-	eVXW81jsCZQFElGmDFsoLIkRPu5y5b1SREwuBkNlWvW7DPf7qwKa6qfD1iqXCFfMCfU1IJ
-	XTOUCvMMO/Vu+9BxBAEmGNkpJYoEiUMfYM7i4MfrgNcNvOplradT+PNtVpYSmpBuS7nPi3
-	QIrMGQ7ODdCGqxcSwC0w383AHw6Vl09vdY0I09bau+qtycwcCH6LvRfmUMHupXX3Cvo2ZI
-	abcupkMTRSMg7hWq8g4HnY1k+JmgeRKO4X2kD7SP2k0l8i+/sWBORNgg2Hs0QQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792667208;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FeWTS8Q48bWPnQCGmjUGgs00u6eCx3a6nfu0+I6v/Og=;
-	b=JhmMd2OdSRLsmBdTaZJaOxn5+J8i7lRsLiQ/YGQr8EpU+uTBTDTZeesV+YpTXpcAd68qiS
-	QUS0mgwMMH2cXVGkrTWpOsI/6dokxyQ7z0DLmYkmCjJqqMDRh7KIgM24fb8508G36hqwII
-	0pBAIXQqflMghVumK2qziDPApZkudGahssYfQ5Jin+A4S7Dh42IvbsUipvf3mJve1mFOkq
-	tyycRH325bgIHDNeIUlaAXnqn0hR0BsPn7E87kb3yeS9FzWizjrTvB8d7R8Z9beA1aD4AU
-	OH5thIxmqP2P0Ug6p/S6eq0ZSduf4f4mAGihxBfmwAVZqrhTCuvtUx3fO4JA3w==
-From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Thu, 22 Oct 2026 13:06:42 +0200
-Subject: [PATCH v7 4/4] arm64: dts: rockchip: rk356x: Add JPEG decoder node
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mIEisywb
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e09aa5264so1185208f8f.2
+        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 04:28:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792668520; cv=none;
+        d=google.com; s=arc-20260327;
+        b=j20LNK3/ri4qzwWys/jS5qSdRF+NNfX0S4SxIwzhuDBQ0zGWIDPAUAQ9Q+Euj1FRjy
+         Oe8GQcmj/XC4cpyP8iOCzoFqCLpeUOPklpqnP44oN0Z6vuKSAdX64NKONhkx5Xst0g+S
+         EkQueKSH+Sid70lFwbp0wnKS/HMldkrXe1aefli2nVp5GpM5DeWJ89ltuHSGMdBKuQJ0
+         S0PjDpEuS4KXBykaId8ITXDGtA4iRL2kfBupkuy43lWrOgrqZ66TrBOp25VbKCwKvFuR
+         gSfQiBIC7vZjTSIHh/9vYnFIfy+aRXECTbehqYN40YL5g0pJC3rn4RZnUC13yemUxo+K
+         2pDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=c3AFBFGhYU38KeWEvthADpOmG5PB5zwanCEFzPAZY48=;
+        fh=16fzDGSsv87kmj7c27kx2ig0fCiWqcgrrIOz92P0r3A=;
+        b=NsjFYnzP3/AZRWaRj+F9mw/dwSSjb7pjAAkA2tSX8yzF2WVcwjlygBg7Vz5uKWlvYo
+         awutFKhmjbLLxsF9pNu9Gdd8J1bawVy6bk3mXMLbHMZv0JsdTcMUWwXVqb1zd9Jd+wFo
+         96EYXuADjIBkrbiciOo3e+xNpuE+n+Ot1Ycm2Tc2srgpaIhWONzvfPstFx3i3N9kPn6q
+         el0laeHuGeoFFLeIqp0oY+SkoBEP1JDkoBmaF2ST4K/6lLd9UPByyFWv8dxQYdhbRjyd
+         fnyDi2S5I1Yo53n59I2SMT5s9n0z/DZddjT4csbh8jlHMtnobGmIwZXQasX2PHsAA9ok
+         nphw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792668520; x=1793273320; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c3AFBFGhYU38KeWEvthADpOmG5PB5zwanCEFzPAZY48=;
+        b=mIEisywbw7pP3bKrwyU6M6MibXLo/vR2s/sJ6n/HBkW7OofdwjjtgHarz6xhmmD74g
+         Jnd3YMFGTK1nBDW9WQH7OAF1ELqiKSp1msH8/QcuQ/6lI8zKEzHBxlPx9PuW3sS7zrIG
+         4BMKead2gxIFKH72AC4ttBmZyyhGju8Be6MK4/LEApino2w1m0MoIvGT/biZPh60M329
+         DZpl8IHwO1mrLeoeReksPoJztG7aycSZpuRjB9A6Zffpb2lpdvK+hkuUg0bxBc5yxRna
+         Ew3yWoi5dKXrWVOf1OMQKvcfqEru3oOZbbNIPgKAQymRBLSXyXP4prXhGSB9n8Y0jXp1
+         +VOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792668520; x=1793273320;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c3AFBFGhYU38KeWEvthADpOmG5PB5zwanCEFzPAZY48=;
+        b=C144KnwBKuRGk3Oly9YQPbR3E66QunAap3Zh+x2wOoloM0soYjP6HEnCYaaPDsHOUX
+         uJ9gJDp2QNted8Y+zhxFd+4/fnXMKZ7V1rXhmIFqIxuumpUryzMqwW/ByDpBNT2KhoZo
+         0PP3ZM72ixcjz/7W9OjcIJvYS5JFHXEpiZSDgTUDt6aI7bjgLeptyQ4wcegJ1JuA0UnF
+         ezWCFn0TtimllAAPUL3rZz4u3B94/lUL3xToTek5y6ZzsyibvWewgUb1ZFIVcFn0A8Xp
+         0Hj1WrCgiyVRWkFr8zG672rwptLa91IXA6nsZV3qQ3WGGHMgUtQkoKR5vchScKgRs7yi
+         uetQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzONOskXsTG9nnL5ywPFeXKw23fj4gGPciOc3ZxNTpjhCOns4qQzxHO9aImiZEHXurMc/oVVTEgjDAApA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKa/B/y4KS/zdFsTQgG0fmbnJsg1iYubuwOVk9Aj24nrqqMABNg
+	fW4Aaw+rhICoQt38qocEMzGWekui4RDzkFfWnBqjaVrKPxUlReFsF8/LkpogLGUK+dNnCm/h2jJ
+	0F3qGzhsJQoJdBIgDFdB7c9KIYfsW4+5KorJt76E=
+X-Gm-Gg: AYBFou144zJMO2vZj4p4vRzyvcVgDSh1F7YFmmiv5NhfHtB/cTupIZxFTe26s8nw6Gm
+	xU/2CQbEKgqRN7h36Ef5oG7LWTh+XbHcqO7ij3bQwL/ppx9QPYb3KQjCQbW88gjEsJlp6NjySWV
+	pxZY3AFejoRJovvdoCgwOuwU/biB2S+WIL54mSov4M8TLt33EeR4RB1Yaotn9Yfm06pI1le+jXi
+	AEvc1c+Yn2FHIYX7spSD384njeHCCEvDLYpcHnM1JlWLsGB9O2y3J4gjISZmHlnMPqYg1C6cL51
+	uXcf0ffPcPw7IMCHUey85i7J+hSA9z92HyIPTYB+4knTvWiMPbXJnimtpkgj1TJGWywNEIeksJf
+	HDl2BSXfRqNqAYMg1/warp+gAOT7jUYbVnrkJnpHWLccupCuk61bgJ6085ChM+ijaLmi7VbjD7F
+	R3504YwcVBmWOKmpy3XvA=
+X-Received: by 2002:a5d:4a4f:0:b0:48e:2b3:5269 with SMTP id
+ ffacd0b85a97d-48e265031afmr7463130f8f.45.1792668520009; Thu, 22 Oct 2026
+ 04:28:40 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,88 +105,101 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-rockchip-jpegdec-v7-4-3fd7dd55f408@pengutronix.de>
-References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
-In-Reply-To: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
-To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792667206; l=2421;
- i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=XKKZeAn83nsSxMgXM9Bvv6Y9OauycMDu579tqOq4OqA=;
- b=qzCukFzVLEWQqLtyrYPgpvpHc8rV3w7plRIzGdpGDIKsfzLPME3FqFKimPrTKWIlUiC2IiQgW
- zzqFY3VUp1qBCn+RP3pVd8224ZV8oOrGDQR4vz/HynbJQjp06QCEbwI
-X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
- pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
+References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
+ <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
+ <asz8oEtow_lrUU7K@zed> <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+In-Reply-To: <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Thu, 22 Oct 2026 12:28:12 +0100
+X-Gm-Features: AclHuK-ZlW7j5Veia4UpY76b7Lsra_QP7Fr0yExrDdHnznigNvCvFRFzyg9ZkZI
+Message-ID: <CA+V-a8sQmtqoH1y5sk2S5e6O-nnAB=xUnmnjgJ8SC3npVEn2Rw@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+To: Linus Walleij <linusw@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add device tree nodes for the Rockchip JPEG hardware decoder and its
-IOMMU on the RK356x.
+Hi
 
-The decoder is the same block as on the RK3588, here at 0xfded0000 with
-its MMU at 0xfded0480 and the same 0x400 register window.  Only the
-integration differs: ACLK_JDEC and HCLK_JDEC instead of the JPEG decoder
-clocks, SRST_A_JDEC and SRST_H_JDEC for the AXI and AHB resets, and the
-RGA power domain rather than VDPU.
+On Thu, Oct 15, 2026 at 1:43=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
+>
+> Hi Jacopo,
+>
+> On Mon, Oct 12, 2026 at 5:39=E2=80=AFPM Jacopo Mondi
+> <jacopo.mondi@ideasonboard.com> wrote:
+>
+> > How was this patch tested ?
+>
+> I was using the TPG only so far, a camera module is in the mail.
+>
+> I do have the RPi camera module 3 but didn't get it to work, this
+> may explain why...
+>
+> > > +             ivc: isp-input@16040000 {
+> > > +                     compatible =3D "renesas,r9a09g057-ivc";
+> > > +                     reg =3D <0 0x16040000 0 0x10000>;
+> > > +                     clocks =3D <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0=
+xe4>,
+> > > +                              <&cpg CPG_MOD 0xe5>;
+> >
+> > Compared to Dan's original patch I was carrying my tree the first and
+> > third ids of clock and reset properties in the ivc and isp nodes respec=
+tivelty
+> > are swapped
+>
+> OK
+>
+> > -                       resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2=
+>;
+> > +                       resets =3D <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3=
+>;
+> >                         reset-names =3D "vresetn", "aresetn", "hresetn"=
+;
+> >                         status =3D "disabled";
+> >
+> > Fixes the issue for me
+>
+> OK
+>
+> > Why is this an issue it's not 100% clear to me.
+>
+> Can you try this?
+>
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -703,6 +703,12 @@
+>                 return ret;
+>         }
+>
+> +       /*
+> +        * Allow the ISP's 2500-vclk reset recovery time.
+> +        * 200 us cover the RZ/V2H's documented minimum of 20 MHz.
+> +        */
+> +       usleep_range(200, 300);
+> +
+I tried this too and saw the same issue as Jacopo (Even increasing the
+delay didn't help usleep_range(2000, 3000);).
 
-No rate is assigned to the AXI clock here.  Unlike on the RK3588 it is a
-gate off aclk_rga_pre, shared with the RGA, the IEP and the EBC, so a
-rate set for the decoder would move those too.  Its mux tops out at
-300 MHz, which is also the default rate of the downstream driver.  The
-downstream device tree assigns no rate to it either, and the vepu node
-on the same clock tree already leaves it alone.
+If I add a dummy read of `readl(mali_c55->base +
+MALI_C55_REG_PRODUCT);` after the deassert operation all seems OK (cam
+application works).
 
-The domain needs nothing else, it already lists qos_jpeg_dec.
+Without any code change what i see when I start cam application is
+readl of MALI_C55_REG_MCU_CONFIG doesnt return back and the CPU
+stalls. Any idea what is special about MALI_C55_REG_MCU_CONFIG
+register?
+__mali_c55_power_on()
+           mali_c55_update_bits()
+                         mali_c55_read()  for MALI_C55_REG_MCU_CONFIG
+-> readl never retunrs!
 
-Both blocks are entirely on-SoC and have no board dependency, so they are
-enabled unconditionally like the other codec blocks in this file.
 
-Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
----
- arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-index a5832895bd392..e6c7ae908a99f 100644
---- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-@@ -619,6 +619,28 @@ rga: rga@fdeb0000 {
- 		power-domains = <&power RK3568_PD_RGA>;
- 	};
- 
-+	jpegd: video-codec@fded0000 {
-+		compatible = "rockchip,rk3568-jpegd";
-+		reg = <0x0 0xfded0000 0x0 0x400>;
-+		interrupts = <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&cru ACLK_JDEC>, <&cru HCLK_JDEC>;
-+		clock-names = "axi", "ahb";
-+		resets = <&cru SRST_A_JDEC>, <&cru SRST_H_JDEC>;
-+		reset-names = "axi", "ahb";
-+		iommus = <&jpegd_mmu>;
-+		power-domains = <&power RK3568_PD_RGA>;
-+	};
-+
-+	jpegd_mmu: iommu@fded0480 {
-+		compatible = "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfded0480 0x0 0x40>;
-+		interrupts = <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&cru ACLK_JDEC>, <&cru HCLK_JDEC>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3568_PD_RGA>;
-+		#iommu-cells = <0>;
-+	};
-+
- 	vepu: video-codec@fdee0000 {
- 		compatible = "rockchip,rk3568-vepu";
- 		reg = <0x0 0xfdee0000 0x0 0x800>;
-
--- 
-2.47.3
-
+Cheers,
+Prabhakar
