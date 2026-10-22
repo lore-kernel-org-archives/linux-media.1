@@ -1,69 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.95.11.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792686439;
-	b=o03PzVF+I/2j7MrU+I183e6YJu+Lfna/csNz17RCr3KIiqDGrAzWEP38AcHiWlllbHhU
-	 E5N0QbVOZHsMdlHfnYEoEgA2mTZ3qL0/XkknKm5C5kEdwGwL/xbLgCujrVYSH85n0BNFl
-	 oOOFNvFnbDQNJHr+aT+Yw8A8fWcCPk5Gon9r8yzVd2hatJGJed78h46IKEvPahZaoyn77
-	 I0yCw2scqg8gO0D0Ovd2HT4ccGHNLF/XFRGd/U5VNh7P4PCZI5ZskS85dpMY8LO5S/SU6
-	 2CrdUpjJwvz/katPcbNnImLA4jO/2qrHyBJN0PiLd5H2A5or4vKwvBd1wCLkvey7S4A==
+	t=1792688483;
+	b=iAHIAJzNDz5G3NoRoBOkbwaixjZeaJJINdI/BXAvBRoobeapKOn0nZ3VONRIFJurl5Hi
+	 W38fUZq2mVoX1KH8blOinCqM7xKgcEZUGcpbp6sRgvuhpUEbj5UATisyIYuHbtTOR1KhS
+	 R/FaYNxf1n0vWBdO0lpGWKcPiCDFy9WgYSLEidHemWvyLtDzcG5Rg9QjzKiwDbIg94P6j
+	 hOwrzCGimNraooK7x4axvzH7r01vaFiXG3g8iSNT5uYYZyEXNA/XU1wdaNuFPw1yX3t7c
+	 88jnVmUi6xEuKmXcKPT2BgiMZUCq0dNWk3uu8NTb5JBSMd03aPrIaMnSwOd7jHjSd8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686439;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1gaTKAWNo5zd3KFHzEp92l6xFt453cp+GsDCAPAz/9Q=;
-	b=lS7/zuBXqQtAHOSIz+r2A79Y50b3XegTu5jgrrh3tx97aawDjnegJD4jBStTya/HJ44H
-	 5f2KqAA1xwu6RVKS76mjgEALi8s9iAEft4muDRhhuM7EfywobTSYD+mD3CtQU1/pmwjFF
-	 xqL6NFrqVcwc2a1tDbDofjN5aRWUHc1bB7ybPN/zZlHgNc6pNYprdNuhLLc9dHTwhLOgs
-	 8w46itLTjeYVn4u3e9VUZsUz4p4PgZu80w308WDZfPqh9X10okSmKDBSM/5Tb+QTn4w3S
-	 KNH74muTmeEU999KXRFcJ2iyu9fDGVoXQqsEbw1EGno/20ajmBoVHiUpcZ5RRX5ulfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792688483;
+	h=DMARC-Filter:Received:X-Spam-Checker-Version:X-Spam-Level:
+	 X-Spam-Status:Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:Organization:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NgjaHYfiAaPHJ5kq0vWXXCIZ+lJdJlUeid+zTDPD1io=;
+	b=QssnGXDsw6HhzP3MkjXBnhFKx20FNKe5kyeXJQcxIXT03nx2zwj8mfNBuKg+x2S2mkre
+	 rrF7gQQ6Mvc+eGo54XoCbN4hh3TBBNFBKy/FCMc0VbWjlpYxqQdLi6h+hDjQz3zr41Che
+	 R9j82QbVrEppUrr5LarlLcFJFxu/D0TDTGO2tPSlwJCEYAfrrX4Z9Y7CWuz596E8CXpYh
+	 r/Fj1yaSwZsLR05Ovug3y8TbeW7DXgS4oWw/MnCLaxv73nWk8px/xleFoo6EVOseawBOK
+	 5jW0vruZwr9O+LKzFURGBulYkPNJjiVvB3xBlIZaUprsQssDdoBOEqOrCrhXApy087w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmiC120B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=lst.de;
+	spf=pass smtp.mailfrom=lst.de;
+	arc=none smtp.remote-ip=213.95.11.211
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F17606A31E;
-	Thu, 22 Oct 2026 16:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FmiC120B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026B71F031ED;
-	Thu, 22 Oct 2026 16:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792686438;
-	bh=1gaTKAWNo5zd3KFHzEp92l6xFt453cp+GsDCAPAz/9Q=;
-	h=From:To:Cc:Subject:Date;
-	b=FmiC120BJNiO7YlSbc4PgGjMkQw0E75g6JOvlm36vGn1x6c9hLzbMklFw0RiKQjSW
-	 NlQDR1tlfOcUACzDvJj9BOTi9dNTMDmLRodho6GC7z0xFLZdQxwLGWVeBb2CYCeFov
-	 ega7CYUO0VM3RJDAHVSF+jsTq0hCMZ2yUK/rJw6QxdhQLTu7LM9zeHPuA03t1oC/SL
-	 JdkKAOwM23jdE859EhCy2Tm4IqPz3mDg+udnxcY4IuAolHJZ7vgM8n+w9V2wxE6P9B
-	 0PVLoDOeEuk5pxgzZk634t+VJa1XStH8qjy0M0eSZlTZLklrX9iLaut/J7szDOBwjD
-	 DG5piyghkc5zw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rust: DmaFence: Don't drop on signal
-Date: Thu, 22 Oct 2026 18:27:03 +0200
-Message-ID: <20261022162701.2297062-3-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA91606A319;
+	Thu, 22 Oct 2026 17:01:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA91606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 107)
+	id 8342968D16; Thu, 22 Oct 2026 19:01:13 +0200 (CEST)
+X-Spam-Level: 
+Received: from rocky.lan (dynamic-077-002-186-156.77.2.pool.telefonica.de [77.2.186.156])
+	by verein.lst.de (Postfix) with ESMTPSA id 081A368C4E;
+	Thu, 22 Oct 2026 19:00:36 +0200 (CEST)
+Date: Thu, 22 Oct 2026 19:00:26 +0200
+From: Torsten Duwe <duwe@lst.de>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Lucas Sinn <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
+Message-ID: <20261022190026.6cb0a534@rocky.lan>
+In-Reply-To: <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+	<20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+Organization: LST e.V.
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.50; aarch64-suse-linux-gnu)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -73,69 +62,85 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The original design for DmaFence intended to comply as strictly as
-possible with the "dma_fence contract", which, according to some, says
-that a fence must only be signaled once. Thus, the implementation was
-made so that a DriverFence drops on signal.
+Hi Sascha,
 
-While extending JobQueue's capabilities, it was discovered that this
-characteristic causes - unnecessary - trouble: fence-data must be
-dropped in an RCU-deferred manner because the C backend demands that.
-However, fences are often signaled in atomic context (e.g., interrupt
-handler) where you don't want to drop, but signal as quickly as
-possible.
+first: thank you for driving this :)
 
-Actually, there is no real hard reason to enforce that a fence can only
-get signaled once, because the C backend is robust against multiple
-signal attempts.
+On Thu, 22 Oct 2026 13:06:40 +0200
+Sascha Hauer <s.hauer@pengutronix.de> wrote:
 
-What is decisive is that a) all fences signal and b) they only drop no
-earlier than 1 RCU grace period after signaling.
+> Add a driver for the JPEG hardware decoder Rockchip integrates into a
+> number of its SoCs. 
 
-Don't drop a DriverFence on signal().
+[...]
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- rust/kernel/dma_buf/dma_fence.rs | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+> +static int rkjpegd_enum_fmt_vid_out(struct file *file, void *priv,
+> +				    struct v4l2_fmtdesc *f)
+> +{
+> +	if (f->index)
+> +		return -EINVAL;
+> +
+> +	f->pixelformat = V4L2_PIX_FMT_JPEG;
+> +	f->flags |= V4L2_FMT_FLAG_DYN_RESOLUTION;
+> +
+> +	return 0;
+> +}
+> +
+> +static int rkjpegd_enum_framesizes(struct file *file, void *priv,
+> +				   struct v4l2_frmsizeenum *fsize)
+> +{
+> +	/* The decoded format follows the bitstream, nothing to enumerate. */
+> +	if (fsize->pixel_format == V4L2_PIX_FMT_NV12 ||
+> +	    fsize->pixel_format == V4L2_PIX_FMT_GREY)
+> +		return -ENOTTY;
+> +
+> +	if (fsize->pixel_format != V4L2_PIX_FMT_JPEG)
+> +		return -EINVAL;
+> +
+> +	if (fsize->index)
+> +		return -EINVAL;
+> +
+> +	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
+> +	fsize->stepwise.min_width = RKJPEGD_MIN_WIDTH;
+> +	fsize->stepwise.max_width = RKJPEGD_MAX_SIZE;
+> +	fsize->stepwise.step_width = RKJPEGD_CODED_STEP;
+> +	fsize->stepwise.min_height = RKJPEGD_MIN_HEIGHT;
+> +	fsize->stepwise.max_height = RKJPEGD_MAX_SIZE;
+> +	fsize->stepwise.step_height = RKJPEGD_CODED_STEP;
+> +
+> +	return 0;
+> +}
 
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index a1d851656562..3022bdb5f7c3 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -805,7 +805,7 @@ pub fn as_fence(&self) -> &Fence {
-     }
- 
-     /// Signal the fence. This will invoke all registered callbacks.
--    pub fn signal(self, res: Result) {
-+    pub fn signal(&self, res: Result) {
-         let fence = self.as_fence().lock();
- 
-         // SAFETY: `fence` is valid because `self` is valid. The lock must be
-@@ -816,14 +816,15 @@ pub fn signal(self, res: Result) {
-                 // must not have been signaled yet, which we check directly above.
-                 unsafe { bindings::dma_fence_set_error(fence.as_raw(), err.to_errno()) };
-             }
-+
-+            // SAFETY: `self.data` is valid because `self` is valid.
-+            let fctx = unsafe { self.data.as_ref().fctx };
-+            let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
-+
-             // SAFETY: `fence` is valid because `self` is valid. The lock must
-             // be held, which we acquired above.
-             unsafe { bindings::dma_fence_signal_locked(fence.as_raw()) };
-         }
--
--        // SAFETY: `self.data` is valid because `self` is valid.
--        let fctx = unsafe { self.data.as_ref().fctx };
--        let _ = fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
-     }
- }
- 
+Can it do JPEG, MJPEG or maybe both? AFAICT the difference is minimal,
+so maybe try to be more permissive?
 
-base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
--- 
-2.56.0
+[...]
 
+> +static const struct v4l2_ioctl_ops rkjpegd_ioctl_ops = {
+> +	.vidioc_querycap = rkjpegd_querycap,
+> +	.vidioc_enum_framesizes = rkjpegd_enum_framesizes,
+> +
+> +	.vidioc_enum_fmt_vid_cap = rkjpegd_enum_fmt_vid_cap,
+> +	.vidioc_g_fmt_vid_cap_mplane = rkjpegd_g_fmt_vid_cap,
+> +	.vidioc_try_fmt_vid_cap_mplane = rkjpegd_try_fmt_vid_cap,
+> +	.vidioc_s_fmt_vid_cap_mplane = rkjpegd_s_fmt_vid_cap,
+> +
+> +	.vidioc_enum_fmt_vid_out = rkjpegd_enum_fmt_vid_out,
+> +	.vidioc_g_fmt_vid_out_mplane = rkjpegd_g_fmt_vid_out,
+> +	.vidioc_try_fmt_vid_out_mplane = rkjpegd_try_fmt_vid_out,
+> +	.vidioc_s_fmt_vid_out_mplane = rkjpegd_s_fmt_vid_out,
+> 
+
+You are populating only the *_out_mplane members and not the single
+plane ones? So a greyscale JPEG needs to go _mplane with 1 plane?
+
+And for color, the colorspace on the decoded side should be
+V4L2_COLORSPACE_JPEG, not sRGB, I think.
+
+Would you mind to give a hint about your test setup?
+
+Thanks,
+	Torsten
