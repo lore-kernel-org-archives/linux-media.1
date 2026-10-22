@@ -1,67 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666642;
-	b=uWjh/IvorwkcQn5u/BKAf6++sa7JiRJxqJb64poc5o+w+fe8exT6klAbKvCdKDxQVlBI
-	 VPSrgBHb6jtUuH7vFgwxh8skn1imyiw8KpsPYIs7wVYeL8avM/DxzY0YnX3SRb7+WxmpD
-	 hU04Rup2FU+O2rPmmh9z3XRxbimszKMYbNJGdkz8iTvFsCqwhsGhAiixjLeFwZn8lQh98
-	 s/LkLuqjnT9BrTAQg5q3SCoFN4sTAnjer2fUaNFpKyO3x8hUaKfozZtxMv+XPk52aeAWl
-	 4/29DRMoLn9JTGMRNjZv9xrdX80fzaJ/rwEEtVu1ki5FRV94145wPGHMXi/jNQ2tNBA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666642;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Wcf9ayI+PhziZJsTA9zMEgN066P2QJYrsntK3Tijyo8=;
-	b=Gk6IyANKkJ1Y5mwp9Qhw2TfddT7tINDAwI2iSSx1FXA6ubuOz2r+UgTpyPCt3bQDCTj4
-	 nF2v281Ocaekje/Aa/6nrxVFT4ny5h4KY/o0R8tpd88PiNFyuhgacNEvonXVbLoHyQSk7
-	 Y5AhLFWXqqVdayR8YmoZzvs61t1ETME16hXSIEYzD4ZYzRhvNF2vybOh+nUYvL39iuv+s
-	 5JAKQZ5WWNrHidL7AnNmWiwCrUDx8J7ex/oV9ZmJ/bsWNApt8LAIRveGq5wQHAktUYEo6
-	 XxYJ+rKDgA18dTizGqoqd919uYsEUssMTwdhRfEhKZke8lQMG5e7EsEIlyF72W7QdFA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lqmdeDom;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792667212;
+	b=nETiwQPM16/K22fJzKR+qLREC7gWFLl7IvdpfCNzErsU3snrYZKu9mzsnBl8+QOoGJ6b
+	 8sakOQ4K+D00pc4gD8WdxaZ555U79gDJCqZt12JNFexn2i+3Zs8E7CNBI6eowJO2IpOgV
+	 yQhm7eg75il7O0zlp4X7q19MW9/QIhm9Ne1WNl60mV0UIvvPlRpdqElpYHkzjfo6s1fVn
+	 iAqcljOg6uHMcwPQadLPfbF9p/YJMNrOLcZkJLGSx18xEQIMPTEr0A+pSWMmWy+8JBXxV
+	 bxKtJbDT0kHilU43G7a4r2NbXnyl8UjX9G77l+69XhYflbwOwQp56bwUhj90mrjVz6A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667212;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=5kI8gmY1B2lqy3EqGixZzS2Fx5POa83a6PEWgQ3NNoQ=;
+	b=4YN9CSMlVQOGaAUA9CulEBodemPcxrmhqm+TJCqenH+tAuQYM9XDS9y6f5NqnaCfyEzC
+	 6UJBh6BE9Us8ZEBGs03RXN70diFzs8nVTjxczQkY6i0p7bFFaczy5xIktvytC1QmX/+ll
+	 uceQggEMyM+r7D7+9QZyEaXD70OxUHhR3gn+Y0cJd3TVDdM8UNZxgWbrXCg5VZlFJpA0F
+	 YElkLAHMNq3I9XcQ62XxPiQkI2BDnfgOfudOrpG71jbjkDQohtDg1VWwjxvO1zBFiy/UR
+	 /SR8x/wF1aKDynaGqYcJI1DpTAPTWmKYMqDO8Fi4MdX7fq/PELVXvb2Nv5QkjsG+ZEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FFCmnN52;
+	arc=fail smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E54606A31B;
-	Thu, 22 Oct 2026 10:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21E54606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28009606A31F;
+	Thu, 22 Oct 2026 11:06:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28009606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=lqmdeDom
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c30:59f6:be2b:2877:6bc4:392])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3997C1F8;
-	Thu, 22 Oct 2026 12:55:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792666501;
-	bh=MuaOAuNQ6g93IMSFzI5SHLSDh/gqv8B26+XuvsAsZk0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lqmdeDomp8enHL3NQacB2IdC5oEvD9wDuAuq8gZOkComESYBawKoZ9O4fiJpE2yEW
-	 USh3FA6d/0v2/i4bGteGF4Ck8Zv/Ei+uRc/A5BxlcqX7U34YSu7wf2aH1pdjARMrgm
-	 XqXZi8EbFuoXJXcTBLEsiIWQMzhyU2VHJVFT7eHE=
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: media: i2c: imx678: Add IMX676 (Starvis 2)
-Date: Thu, 22 Oct 2026 16:26:22 +0530
-Message-ID: <20261022105623.4179467-1-jai.luthra@ideasonboard.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
-References: <20261019-media-starvis2-v5-0-eef935347ce9@raspberrypi.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=FFCmnN52
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5C9D92010EB;
+	Thu, 22 Oct 2026 13:06:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792667206;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5kI8gmY1B2lqy3EqGixZzS2Fx5POa83a6PEWgQ3NNoQ=;
+	b=FFCmnN52JVqOI9tKQwg37iQSmP7QSJB9tafgox/BJ7yGDupV/FFx7YHu/XOB7yl9OSIvgD
+	dOQs1YOtMejgxB1JMK6w4FdMiCu9tCnHDtCwuHMqMOAZa7HWEpIDuZrSsc3bSI3u7IuVq/
+	KKp+r69+emj0aLh0/Ltx782Dlv8U1IgFc2G0eOOiytLzi6JYwQNtyMZlANQMfa/gQxWXXg
+	G84gbeHj/xjWyUo+GkJdk423YllqBVwk+AYnSALDuDpt7AqxDXPD+KAljj/i9NVJZGREtV
+	tVZRX6HCFp1tsEGgXRCu0Yxae7utgWR/WVmcOCyFWq8TISpOw2dYBqhb69NUGg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792667206; a=rsa-sha256;
+	cv=none;
+	b=G6+37O0I7HBLmev6+Jbp9qNPoGF0Nc7CGQcP7CUAg+bBAkoLe2kbVQM9D5+YmtBoJkZmxf
+	JGVbXQXgsUpb5ZyKHrhYULC9w1S8Nv0X5kjfz6TOLlJ+9ZHdK+GtlGVX8hvfKOTr4mOKMV
+	BHIu3eUoQJlxUiPdk0ixrSUY3CIeMOhexfLBOTOgEQSk1zDFje1M14orA0hJYVX4tmvdnc
+	znSwP0YQ5m59KJZYo2iB1KlV7nWFsmmS5wVKvDWhW6a00uKtidZ1ENaOTMLG19BIBryIYy
+	pkD8/jW2SGeIp5erQcpUw2SMMx/q7czi5QpirFhbK9F+i9PHNpNIvddbMuYakA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792667206;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5kI8gmY1B2lqy3EqGixZzS2Fx5POa83a6PEWgQ3NNoQ=;
+	b=KPUUiuOODCYE48OiSIDovX1KI0R0rZ2Ln9iUHraMzhS3j/xbqGKfG3vhD4n9oGF8udfXU4
+	yfucEc8KTcjQaDdv2wNU1pxGozBLKhdGtmMIlfH7+Z7qc9HXb8sZhxXZ/omMF9U15C09rG
+	yLto4zVTBYO/YFS4c4IopLRBB8I0eFM1n1aiNhpm0+jRMCXOAMH4pWb7jOlsRiSzGiiSvA
+	zDZYtN+4gG1FMoBCGspi2/3q+nSkj87esVm9+z0KgAw5BNqdQ166pAHv/So5rD+HnDjY0+
+	8q16Ku2RGb8VOBSadzzIx50mMMFc8J+2VWUuhlKSS2Yysdww8Dbl5Z3qEv6/jw==
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Thu, 22 Oct 2026 13:06:39 +0200
+Subject: [PATCH v7 1/4] media: dt-bindings: Add Rockchip JPEG decoder
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -71,51 +83,175 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-rockchip-jpegdec-v7-1-3fd7dd55f408@pengutronix.de>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+In-Reply-To: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+To: Lucas Sinn <lucas.sinn@wolfvision.net>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792667206; l=4940;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=w0ZyeOuPJN4G/4KlIW7sG2pYv8p9hc+BbbJymlcGgu4=;
+ b=/o1VgtZif13SPvn/vNeAjyC13pOPqNddMd6Tr3hCUPAqZNyLRd/hmuZovsg3pPnrqPPrwFuzB
+ ofrEG+sVHt5B8HkJyBBUaFCPW4p3PL67i+Q8qrZLwxedVPfRsmA1cAU
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Sony IMX676 is another Starvis 2 sensor with similar electrical
-properties as the rest of them, so add the compatible strings for it
-here.
+Add a devicetree binding schema for the JPEG hardware decoder Rockchip
+integrates into a number of its SoCs.  Documents the single register
+window (task registers plus the LLP link-table block at offset 0x300),
+the decode interrupt, the AXI and AHB clocks and resets, the IOMMU and
+the power domain.
 
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+The core is not tied to one SoC.  Downstream it is known as the VDPU720
+and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
+RV1126B, with only the clocks, the resets and the power domain differing,
+none of which this schema constrains.  A compatible per SoC is all it
+takes to cover them; the RK3568 and the RK3588 are the two that have been
+tested and are enabled here.
+
+The resets and the power domain are required.  The block cannot be
+reached with its domain off, and the driver takes it out of reset when
+it probes and puts it back into reset when it is removed.
+
+The IOMMU stays optional.  The driver never refers to it, it is a platform
+integration detail, and rockchip-vpu.yaml does not require it for the
+other codec blocks on these SoCs either.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
+ .../bindings/media/rockchip,rk3568-jpegd.yaml      | 92 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 ++
+ 2 files changed, 100 insertions(+)
 
-Hi all,
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
+new file mode 100644
+index 0000000000000..27d85f17922ec
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
+@@ -0,0 +1,92 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/rockchip,rk3568-jpegd.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Rockchip JPEG Decoder
++
++maintainers:
++  - Lucas Sinn <lucas.sinn@wolfvision.net>
++  - Sascha Hauer <s.hauer@pengutronix.de>
++
++description:
++  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as the
++  VDPU720.  The same core is integrated into a number of Rockchip SoCs, which
++  differ only in the clocks, resets and power domain they are wired to.  A
++  dedicated Link List Processor (LLP) register block, located at offset 0x300
++  within the same register window, allows the hardware to decode a chain of
++  frames autonomously ("link mode").
++
++properties:
++  compatible:
++    enum:
++      - rockchip,rk3568-jpegd
++      - rockchip,rk3588-jpegd
++
++  reg:
++    maxItems: 1
++    description:
++      The decoder register window.  It covers both the task (function)
++      registers at offset 0x000 and the LLP (link table) registers at
++      offset 0x300.
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: AXI clock
++      - description: AHB clock
++
++  clock-names:
++    items:
++      - const: axi
++      - const: ahb
++
++  resets:
++    items:
++      - description: AXI reset line
++      - description: AHB reset line
++
++  reset-names:
++    items:
++      - const: axi
++      - const: ahb
++
++  power-domains:
++    maxItems: 1
++
++  iommus:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - power-domains
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/rk3588-power.h>
++    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
++
++    video-codec@fdb90000 {
++        compatible = "rockchip,rk3588-jpegd";
++        reg = <0xfdb90000 0x400>;
++        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
++        clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++        clock-names = "axi", "ahb";
++        resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
++        reset-names = "axi", "ahb";
++        iommus = <&jpegd_mmu>;
++        power-domains = <&power RK3588_PD_VDPU>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 782389bd5cd3d..f47f614dc6857 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23714,6 +23714,14 @@ F:	Documentation/userspace-api/media/v4l/metafmt-rkisp1.rst
+ F:	drivers/media/platform/rockchip/rkisp1
+ F:	include/uapi/linux/rkisp1-config.h
+ 
++ROCKCHIP JPEG DECODER DRIVER
++M:	Lucas Sinn <lucas.sinn@wolfvision.net>
++M:	Sascha Hauer <s.hauer@pengutronix.de>
++L:	linux-media@vger.kernel.org
++L:	linux-rockchip@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/rockchip,rk3568-jpegd.yaml
++
+ ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
+ M:	Daniel Golle <daniel@makrotopia.org>
+ M:	Aurelien Jarno <aurelien@aurel32.net>
 
-   This 2-patch series adds support for Sony IMX676, another Starvis 2 sensor, 
-   in this combined driver. I decided to send it as a reply to Dave's series 
-   so it can be reviewed together.
-
-   Dave, if you are okay with my changes, please feel free to pick these
-   (and possibly squash this bindings patch in your original one) if you post 
-   a v6.
-
-   I would also be happy to post a v2 as a separate series if there are 
-   significant comments :-)
-
-Thanks,
-    Jai
-
----
- Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-index 027872a134f2..9644f7c54251 100644
---- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-@@ -38,6 +38,11 @@ properties:
-               - sony,imx675-aamr
-               - sony,imx675-aaqr
-           - const: sony,imx675
-+      - items:
-+          - enum:
-+              - sony,imx676-aamr
-+              - sony,imx676-aacr
-+          - const: sony,imx676
-       - items:
-           - enum:
-               - sony,imx678-aamr
 -- 
-2.55.0
+2.47.3
 
