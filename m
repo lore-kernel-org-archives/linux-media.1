@@ -1,96 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792641406;
-	b=U+f6QJjDotdm4z75l3EzlMF5dcGOC1k1Wy35beJZ3h9hBXHFYHO++DYMx014+ntZKoDl
-	 fnbl1u6UGjm0Tmzk0Gw1QoIsaIbCPJx2tCVJXKwYC13YaVTy0xx7lbu+kUyPUMqEsA6f+
-	 oQNejhnenYoyTHlt79NSJCMLkdZ6aSu048OAk3t6PcbGx8CbujI6zSlOsfgtNrFVlvDOj
-	 tfyQwLXxc+XJ9izun1/X5NGKPL9pFJK/8bV5LtEg0mPVvnXk/j6PAbtI9vMgsAZkCU4X5
-	 ymXwroK1CxHtjYpy8nfB8S9a4I8wTZY3oVy2FdT44DpCzwhdwYD2zieJ7wx2oqEJ3kg==
+	t=1792641899;
+	b=j6iDw++zCwWgSwj2fUoxTb85e4KWaFwFtJoAB7Bne0zAk5j4eGv7CYOEqsCn6ev5YudC
+	 p++oEC2Va5m/6uRguXd/LiS70SJir1r2UUiXyuIvcVOkQ8k8VC+72JM79rxSGh5igUC0s
+	 j1gOjzmfTNUyfw+900WnGHWTY6cSrOlt6bHQvsdS9E8bsbM/WtUOU7wH0tYMZ8MC+8gdm
+	 3YlGUU5UziAEejevZTrMP4vstpR+AhXZFxQGehrRoiiGejmaF7MNNIqIDyjfnvZVBgjmi
+	 iR4CXyTuZN9L6+WXXZ+1lKbfKlzKdKaycrVNP4K4CgkFZ3pYMGGe3z7yZWC2c2FBPSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792641406;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792641899;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
-	b=z6YT4Qf8EzBiwtDbtdW46IqMDAMJmAMICkQZs7sZHrWuwjPPPQEMp4gQONQ5C+ZXb2S4
-	 1UOdSCPBoOPQ096OVZ5FFG7gyPHYL5dGRC0dbzHrn3Nf7AoKB09y9nnW1s4StUqX0wcUZ
-	 b8i+kumC4lkoV/SB/fH+dB0mUqdXfRghMtBaOEd5GWDX+HkwvTHsSORXDKBaRWycERjlv
-	 g8G1IZHPhd4I3DQwWXRiGBEEsh9EeIFNF7WAbKSFrrO8xtTc5Z1bkVXISA8DzenF6ClZx
-	 PHAPxw8Ld1IDnE9mVeP9BOLsFgJggmD7nbtEILe5csMY6aQ0JSRRDyS5RpKBjEqQ/FQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=h3ASAw4d1cV9sNAgpvrJRUDbXY+sRF2LCr9CRfecXT0=;
+	b=UHmu+X922AjKqL6QxQ2sa8CznFHRakQGBm+CM6lDzRgphAiEAHO+ARTKSQvXJMJcIH1q
+	 gCGtOTDa3E/3IJWKnS9sk3/FNylFMzhaPtVQRYSt9QeBuW0lFU97UeoeJO+8/CWX3o59X
+	 5xEE8lLZt157wqKDNSYarFTyr8zFm1gU8PcX5YdKiHzxbM5c8mMNCp28KRHZZvpW9CVDY
+	 fvAPs5I81GvhTvFoNNSDw8QSWff0Tbd0bESbuoelruw6RqtVqPmXoGibmUfMRKJGhSCGr
+	 NMJsdhchvojAlkT4BXopgaTTpczrwaQDsEcjGb2uqL7GKpgyyn2j+Hg2lbitmUWRGOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bv90K3PX;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2858606A31A
-	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 03:56:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2858606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4640606A319
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 04:04:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4640606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a208d93758so1165405e9.3
-        for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 20:56:40 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bv90K3PX
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48df8fe8513so1284122f8f.0
+        for <linux-media@vger.kernel.org>; Wed, 21 Oct 2026 21:04:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792641399; x=1793246199; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
-        b=PjDfxDYaeeH1mCabakxNUf/Je0GJPuMfok6BtPBW1A8VCVt8YKjYOh2NFo2XPeWCLS
-         fd2r07Tb+0P6MQQNs3BNA+u/U6aQTn+VdQYjs/h52reNJQsHmuoaDE851CCi93meSCl8
-         dO4goZTu+N1qj5mBFdKz1FlYgx8n6cML5oCcgjBwOH8wxxFcAfJmY9MlKSa46l1nhu9I
-         eLgTr4Kax+08eA1obSMUTEelGyuNabD0NP1si49LdDmk/20QrxYuM6eAWcLGfrQ8SIHD
-         C/0NbSkAV03lr5XghNHhjtutCF3rSjot8jum6HU0j/y6zP3zh6tOgdUBTGnvK+YOarBk
-         Rdig==
+        d=gmail.com; s=20251104; t=1792641897; x=1793246697; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=h3ASAw4d1cV9sNAgpvrJRUDbXY+sRF2LCr9CRfecXT0=;
+        b=bv90K3PXfB3H3Ve0X9GT9PxLiCtj6AW1p+CY8m4MjGQ8Mb4R7x9zaum56DT+H9z0fs
+         wjENlgAulhHlBhhy2BcPAXr2RfEE+mDU9QiSoDyDwoQBAssVZCsKhb3VBkXqoHKuqART
+         3adavKsXc1KEyWH9up4wO2meMSv/ToMrvp8F9h7Afbo65QtHvapi3gk+FEiFq3r84+Us
+         Jjp1VSllDYs8QAiNej5ZWi4tdyn8EImlUhB6S+qo01TWnx6C61KXs286jG1r+w1ql32H
+         RgKvXexaWVHTAm3gfr2vUusSeMLDtasYJHSHhIZqkul8sNPcYLVrldZYk94TdyrN/jV9
+         hPmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792641399; x=1793246199;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4zpbVCWKZmceTwhBAX7y3KNuUyer4M902oUozSRjXxE=;
-        b=OePDhpHwIcGEG2LWjf5GQZIGIom8xj7g/IrCCRimM9E12dZVG8ZVLlE0ofK17bH62g
-         yhEstzjSAIPStVkcmgDe1UvYrC/3RccX1JJtZAGM8ATDzdWVR/dn8i3cw1uQpnNY0BBt
-         J9x4igaKvbzMBYU9kKvnAOYYJhWLpq4KJYtxGADZeI92qdA3UL5v6yDyWqXPQbFgpiX3
-         o9OoFFOy1tXzSotkIzFR7bpkeyb78ymKMu4/1ThfZ0D7WVzdkSRSBu+ubMnX+Bevq2h+
-         rI8CkUylEE07rqbplxRNy362MPTKbLuVJVv5H7wNEbYUTnP3ecSReimpBuUQIdnAmot7
-         pCNQ==
-X-Gm-Message-State: AFq9FYKa7VhzYPpnexT69D9BAK31KJTVUNQ0XJRH2+dc4MXUKl201S2L
-	yeTd9HH2ToctzYSU+TFwDtca3QHNyTo9jUUHGjXH6bNnpASYLVYsibgP
-X-Gm-Gg: AYBFou3zXz4lAffYQ8Brvx2ImVANwGnxVaiPWTExole8c2hCfMnKXLc2J++akFGHRZh
-	jL+kavs3/Cvp9OkmJWG9bDwpbOURAtqlfNhCqqmA16DYvRr145WQLFD3SZhQvtpFZ6FhwJAX7tV
-	yZd6J1iJ0pxWWTb9HCH/qi9W9FXeUjYfIRa3mvZizO4LNic6yOEWhaMSr4NJtVCQ/ZVo+pK62y+
-	8uNEMDe63BeY7m2mtbcjvGNw7a6ELwaK5CaoY4qXlky9woi1+EkvFomv6vIb307zkdgJWw2oZqU
-	Y0jxZJusviaxaUB04F3+TICBIvb5T0DEtO8bzDx4oDULTc3iEntQdmRMkHIf0IjT6eiOEnlRFws
-	8aaneKS+wuqJ6rYDTWAHpsjEVQ+ylw4fx3Ycq+C0FsUoXSMkNazedOrcWe7vPG+TbUeEYffo0iQ
-	qGE68OYPlJyj3jLN4cVYDffGX3yckt3JrRc0pgJIe/TVWm570wmL77mFckzZzsKiez0SC6GY65/
-	kYJvyklSZPoy32tjGF4Wg7GL1+UNr6l9H8thpuMKbhL/TeVoW5Y3szrxA0dJ3284vbu1n2EuowT
-	F/Rv2HlGAYaJUHzDD0z6MYImg+msgWGSAyPbZo7NWfU11TfCGdLC0F8+aNm+k4nV9P18TcsrYi7
-	wUyGXmH8CAvL0QB7W8ZbWWUWrkLerUC4ltgXj55K7mX9xiDdn510QKL61/7O93g==
-X-Received: by 2002:a05:600c:609a:b0:4a1:7bd4:d07d with SMTP id 5b1f17b1804b1-4a1fdd64e88mr75312025e9.34.1792641399195;
-        Wed, 21 Oct 2026 20:56:39 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792641897; x=1793246697;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h3ASAw4d1cV9sNAgpvrJRUDbXY+sRF2LCr9CRfecXT0=;
+        b=aHuaDZnGdjuZD68YsJybjSPsdTYeK4+ofhm88veiNRHjd5I7dB9YFs70IejKK6+EqZ
+         Wf3HN70Yobc0CHHCnOehT/MIUohprEuyX+cJGfcYXTPUExsr8oUSaybm6Px5q+xJPZ6z
+         KXSbKtJYkCfv14rNsE2C0jBUsEu7BG+B3a3yGD0mKCED4FMKDj6YSfLqCh6n2CQEEXHE
+         DxmtBZS5yFeKrBOoSu6wFJuAVQrTCSg7WMgFXJG+YJlH+hbuvMOlLN5NCn3c0fxR0sBv
+         kaWFSTx9OE88b2sLrLYD3vqm1S2t4aZrI7yA24gO9tQbnO/Fjhhnmzzum/9aV9jckys/
+         A3Cg==
+X-Forwarded-Encrypted: i=1; AKwUvBzkLugFtdgCl5HZVDJ44d2ne5DaIj91lxwq6/03kOqD1ezSSUq5bLqcmB5TxOcNbuJQoWuqWGEyd9m3tw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhy9YDjTgtndaypEzhXsCliXoEAlY3uI43aWX03+8cw7sTu+7x
+	dEjLENlkv/xAjpfBwmILpbdL/KewLbOIcptH4P1vjDW/VOeTXaQ+8m9k
+X-Gm-Gg: AYBFou2HO7wwRU4/fNpUodQtIkSbNmpIrzfjegsF7q4Z4fY5RYxOjhhWXYxXWrari3L
+	MUz4b+p/xx36wZfWwKSycsfFWfiok89G2x4xX+B59pYV+mJ9KuedQruAtf6fjz8NFbN7e4MJIkg
+	MTE90wj7Xal1rp/wUoa+0H/B6f0VZraNMVVAi9f/ikTt6J0X987a06T7XTvH3EomY2NX0MRYkj+
+	ta4ROINE7J7Ld3o23LJEQtnW69RPv2jwKAktexjLWmW10w0sUDpkGEFvfuzhdoNbqsGE+P3Rq7d
+	SfppOUsd3PvVZprTmluLXEZaJYGuAik3tAe44TtWBshyAB78wBqSSP/LjkHsGaLtfAnlxs32TkC
+	j9y6KfK340eLXtdlm7B6MFnnFYCFIQPRusXZAnq32zXNDjhBh+uuvovR1SpMQ49LzXyGz7G7W7r
+	IQExcNrlPl4X/e0WYmVM7IEYolRzz62oqSJlh0b00PBwmoLDg1LM/rMiZRWlckds9W2z16gdkQX
+	mdpJfjD71sgho/ZJv/cLoTDpEVJTRab/O7nsdx+0Y7zLMxaygTqRoIiwJH+tNRQreGucfvHm4Tn
+	FWh/Lz8hgjrSApzGqadnocHyewKIG5ISun0cOxkKHDJILs1pjj+XCKAUaZhHMypqexjeorQXtHX
+	9kwtZRtVccCNQuYr0iRAJeRHFHj0T3geXvDz1At5YKYu+A/UNHaLYHujHxvS4Zyj1BwtWuz8RVC
+	dn/aBfvs0=
+X-Received: by 2002:a05:6000:2dca:b0:48e:3d2:44ac with SMTP id ffacd0b85a97d-48e264a65b8mr7995973f8f.15.1792641897198;
+        Wed, 21 Oct 2026 21:04:57 -0700 (PDT)
 Received: from unknown748F3CBA5068 (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm86914085e9.3.2026.10.21.20.56.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25b04883sm10144016f8f.0.2026.10.21.21.04.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 20:56:38 -0700 (PDT)
-Date: Thu, 22 Oct 2026 05:56:36 +0200
+        Wed, 21 Oct 2026 21:04:56 -0700 (PDT)
+Date: Thu, 22 Oct 2026 06:04:54 +0200
 From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Tomasz Figa <tfiga@chromium.org>
-Cc: linux-media@vger.kernel.org, 
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Tomasz Figa <tfiga@chromium.org>, linux-media@vger.kernel.org, 
 	Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Tomasz Stanislawski <t.stanislaws@samsung.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org
+	Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Tomasz Stanislawski <t.stanislaws@samsung.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
-Message-ID: <atmEfHtoW0Ato4P6@gmail.com>
+Message-ID: <atmKXkOJiGJXgRz-@gmail.com>
 References: <cover.1792392288.git.kmehltretter@gmail.com>
  <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
  <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
+ <20261021175900.GG15441@killaraus.ideasonboard.com>
+ <3084b9bc0d4b5593d2bfbfecb0ce272cb813ece9.camel@ndufresne.ca>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,67 +107,57 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
+In-Reply-To: <3084b9bc0d4b5593d2bfbfecb0ce272cb813ece9.camel@ndufresne.ca>
 
-On Thu, Oct 22, 2026 at 01:20:45AM +0100, Tomasz Figa wrote:
-> On Mon, Oct 19, 2026 at 4:14 PM Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> > Add a queue flag to do so from buf_prepare() through buf_finish(). Use
-> > read access for output and write access for capture. Map imports
-> > bidirectionally because CPU and device access directions are opposite.
-> > Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
-> > the queue's normal direction.
+On Wed, Oct 21, 2026 at 05:03:19PM +0100, Nicolas Dufresne wrote:
+> > I think the dma-buf API doesn't give us what we need. Cleaning the CPU
+> > cache through end_cpu_access() when the producer is done writting to the
+> > buffer is right in some use cases, but not in all of them. It assumes
+> > that the next consumer will access the data through DMA, which isn't
+> > always the case. What I think we need is to track the state of the
+> > cache(s) in the dma_buf, and perform cache management operations
+> > accordingly when needed. In the uvcvideo -> display use case for
+> > instance, the dma_buf should track that the CPU cache is dirty when
+> > finishing CPU access, and should be cleaned on the display side before
+> > performing the DMA. In a use case where the producer would DMA to the
+> > buffer, cache management would be skipped as the dma_buf would see that
+> > the cache is not dirty.
 > 
-> This isn't right. For the regular vb2 mem ops (dma-sg, dma-contig), a
-> buffer in the prepared state is expected to be ready for hardware
-> usage, meaning only the hardware can access it until the buffer is
-> finished. The vmalloc ops are special in a way that CPU is the
-> "hardware".
-
-Agreed. vivid can select vb2_dma_contig_memops while patch 4 enables
-uses_cpu_access unconditionally.
-
-Automatic handling belongs in vb2_vmalloc_memops. Regular DMA memops
-need separate handling.
-
-> > Keep this opt-in because some vb2-vmalloc drivers pass buffers to
-> > hardware. End access in process context because DMA-BUF callbacks may
-> > sleep.
+> I also second this as the only viable option. Its not only about uvcvideo, but
+> any memory imported by a driver doing DMA (which is not also the exporter). That
+> includes udmabuf usage. These days, cache artifacts are visible with Intel
+> display controllers, and Intel mobile GPU drivers. Note that GStreamer properly
+> signal CPU read/write using DMABuf sync ioctl.
 > 
-> That is at least unexpected, but also probably wrong (I haven't
-> checked all the drivers) - the vmalloc mem ops are expected to be used
-> by drivers that only access the buffer contents from the CPU.
-
-One current exception is AMD ISP4. It combines VB2_DMABUF with
-vb2_vmalloc_memops, imports and pins the DMA-BUF through amdgpu, and
-passes the resulting GPU address to ISP firmware.
-
-> Putting all the above together, what I think we need is:
->  1) prepare/finish ops in vb2_vmalloc_memops to invoke the
-> dma_buf_begin/end_cpu_access() API if the buffer is backed by a
-> DMA-buf,
->  2) some vb2 API for drivers using the regular (dma-) memops to invoke
-> the dma_buf_begin/end_cpu_access() API for them when they need to
-> perform some CPU accesses to the buffers - typically they would do
-> that in their vb2_ops::buf_prepare/finish callbacks, but definitelly
-> must not after the buffer is already prepared.
+> For most Intel laptop user with GStreamer 1.28, these example produce artifacts
+> on movement. To me, the solution is to track the cache state according to the
+> access signalling (either userspace or driver), and let DMA user/consumer decide
+> if a cache flush is needed. There is a obvious challenge in keeping this state
+> coherent whenever there is multiple consumer, of if some broken application do
+> concurrent write. Result for the last will always be undefined, but the dmabuf
+> CPU cache state should not be undefined.
 > 
-> It sounds like this series focuses on uvcvideo and vivid, which likely
-> means that 1) alone would be enough to fix the original problem. WDYT?
 
-1) alone would cover the original vmalloc problem.
+For a persistently mapped attachment, where would the transition to
+device access happen? 
 
-But today it would also mark the ISP4 hardware interval as CPU access.
+dma_buf_map_attachment() may only run once, while the importer can
+submit the buffer many times. Would this need a new per-attachment
+operation before each submission, or can an existing event be used?
 
-The memops finish() callback may also run from vb2_buffer_done() in
-atomic context, while dma_buf_end_cpu_access() may sleep.
+I tested that distinction with one persistent V3D attachment on my Pi
+400 and Pi 500+:
 
-The callbacks are void, so errors cannot be returned.
+- If end_cpu_access() only recorded dirty state, with no sync before
+  submission, V3D read stale data in all 64 frames on both boards.
 
-Should ISP4 move to different memops, or should CPU access remain
-opt-in for vb2-vmalloc queues?
+- Synchronizing the attachment immediately before submission produced
+  64/64 matching frames on both boards.
+
+This only covers V3D, but it seems that a dirty bit still needs a
+device-side use event. Is that the model you had in mind?
 
 Thanks,
 Karl
