@@ -1,95 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792672002;
-	b=KXtG9KJbU134ZStQxMdftX9DV15ujvIYgLMELvQI+IeJEMHBXBiugLvQgZrzYd1HWRq+
-	 QB1Jm3x+zB3ifd6mlv/r8DUO/FJ2wBXWewe8fs3VKmHx7LfQOAo0WCuQkNIyQvqhmavWE
-	 ZSJdbW9o0OZu7eTqR/nziUI9v7tcD/zGFNjG6hbu/hvWRVKA7QgfJfTCnfUb8Dz31kqCZ
-	 sBIKW4N4YB2ZUDL0xWPaoLkv7io5BayTW2ICeh7OM+wKzvxFEMqvqgFP19e5+Y3Y2KA1a
-	 Q12J7AQSQU8v9b6ZXHMKTTBGrHN14x/5Fdbw6TvIA961tJmilDxSddZWDs73NScq1AA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672002;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
-	b=j247MA2vvb1/2ox5Jk2he+oq8NEetBrlMpeGmz1i1HCXFCdWckzD/ljEGA10qIXqqdRj
-	 IS3pSAs5cLEd5KR/g7RRLsBbNlKFd4faLsgybS5wUElrKxlwHz//qdGksk10CWuEOHKwa
-	 WB3Vi3lRnCofFz3gx9eAHMTM72Hl3+bNfj/SiIcBnJA6X+dCunKMnXQQEf47XmhtaIpPK
-	 sehSZxCarB8XbILzdTT4mJSl5Yp4alf943R7A/FauJhFJEUYIHSnM235aYHt6KIH/rtxd
-	 JFDVNAwjKtHzfCizLFV8EIxtTluRw/LgExCEPfRL+GaTmndirbHWFTcf+mtWaSgyz5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oWkkhing;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.65
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013065.outbound.protection.outlook.com [40.93.196.65])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792673545;
+	b=r6snE9wtn0ye2TMQ054Iqy2l8D0DaWynAtj6IDFMbJqb3e/0cAsuZ5BS8ktDBOeiuIeO
+	 jaJTInjA6HsoxySRcsmgTPIK/nSRBKjiiaSw0c0mK0ZN1nCkWEtNmYOZGnZmCwgzjChg7
+	 +lL4HwlwsAc2uREA2P8dFSR5YV9IdxbkZwMV4T7LPcNkXtTV4nZuR8hK4RpPD6Pcsj6TU
+	 Z/E4p51kGasf+kCIEM8i+BDaPPjHOY8tPCY/oUzAxtOQ/474xHgbcbBSVfr7nAfJPDgkH
+	 GjbJIzLUXRzB/GDh2q23Gh922+XyWIKDTbFrkIcevzRyHu3Gs3M56D5NImBbyh2/FgA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673545;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=zSQPAtesTEdiMBUjd/2CJ4F2wEY/qZhqqsQihlJ4XBg=;
+	b=CTVSS5O1Ey7DouUQF8aN9Ueb9p0Mi2wOZLutTSHRLosxHixfyV9PX+OCgUfJef/AHXVC
+	 wtT+8lxeZhAxm3lIjvcINB0ffLurOUHgOFRTatMx2V/vvLvNS/PHy5oZAx4VsHcGX+s6H
+	 llHJAYBED7gflax7li29r/Zq3kqSwtO549EE1n6S9kU98VyN29PSG9IAHkuFJxQhVY9E9
+	 ibRZdL9nPLf6YgZKGWcIMKX5HTWAH30lptSxuxloJSOhqYepBGtDtElLsHPBlmGcSRw57
+	 hDOgwd7APfHLIGAM8CCoAg2mMtsE16MYwPTC3EqPrstMle5kwSJZn+C/3SIMHpECgUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HsFBnS5F;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PyeNCtry;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDF8606A319;
-	Thu, 22 Oct 2026 12:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFDF8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974A5606A31E
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 12:52:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 974A5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oWkkhing
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jCyrJwn9xZPVbY3BhKOV4zbHZfogu86Kq6sOnf9RTvco1DYYy7ypftOIffE187VG9DZZfWTObj2xYubb2UVjhoswQ5lwiucTww+K53D5vTYaRZ7B0oES4NOgKZ+JjJIysDEsRXr73/F5Za6H87Anbz5s/kLkowzG8Em2CRhd/C4r2oDYFTGD8eZP1DZBH06ZtRl0ArfZOmnymHglvHFv2uJBi/65Kkv8LsxR+8pEOeiv7a0mdZDdQbvtxku2DuJ5alEDID9kZYEqB97mqHgD9+F4csm8pqcz+BuKSf+MNBbbQ/bDrxSkKKdxhPeZHgwXyFSp6RHNaks1wSgALhWH0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
- b=W79sAQm2b0Ki0ojQnb6nV4iyiPY1cSNkUROS+bFb9ZnkgQ7Srn+1pMzJ0JKiQBH7xFusoVbjMc7CEslLT28o1gVhHfQc8si/AH/sacN6Spmc/LsgIvltQvixK+FpsYOMCpfEKrNt3fmQ//dT15zVVCOAdJEOpTzhvPDwY/t2+O7Xf6DrINWeHkKXX6V8AW5/02Hg+XtD3PEl6wn7g5M9KHtHE8CH2luMb+yiwjc2S/zHHHWgIe0xJiVHPgawKNCkq1WoWSq++sTnN1LAuJMBnUZOIJktjM6R+5VCLw/TunZXZvy5AHxJHf8pcJkVt0wRdLCxVByKt7hTDuYFJRL0bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
- b=oWkkhingT8ySPltDZP1mj6RbcJk2FDzw+VOjeJzA9vllTinr6KSx/mUyoW7gkn03WSFepCmKT5rAMl08jjl+NXbi9p1nE0wE0K8tReDGvpBF4tC8OLwLj76+v9DoKdrQuWofgl8l/3EUdkvexaWrPI2SEjcP45qj+rJ8UErRZjs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV2PR12MB332773.namprd12.prod.outlook.com (2603:10b6:408:3b4::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 12:26:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 12:26:38 +0000
-Message-ID: <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
-Date: Thu, 22 Oct 2026 14:26:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
-To: Val Packett <val@invisiblethingslab.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20261021093533.1990028-1-val@invisiblethingslab.com>
- <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
- <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR08CA0017.namprd08.prod.outlook.com
- (2603:10b6:408:142::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HsFBnS5F;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PyeNCtry
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9xquG3478831
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 12:52:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zSQPAtesTEdiMBUjd/2CJ4F2wEY/qZhqqsQihlJ4XBg=; b=HsFBnS5Fv3bTET6N
+	83BhsGN7E/bGWWqjqaynZBFwpQEZAN++Yw550oO7AQaITWTmv756jybsKbXzjq3g
+	v8GMcab3u6oFEaJtVbszXgXKjwTjk9HLc+ht8xq6vQoFWfZ5dqw6w0YzM3IK5wMi
+	qIm9Fr8qkR5C8EhfHKQIAB+sfCknI4NCg+CoKhPYXzPqRuhaeONlXgBGUHdjHaIK
+	fFusdQygjF6GgOekdeTJMNUkwoYzN2Z6sytunYrdosqd0mx06BLKFqtzC0BAUuJd
+	+F1s+diOc/t2ar2be7oeCLUkIZ54diZ5gZXe37zcbmTKGZXnBfs6veZ9hFHZoHM9
+	nwvMSQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93a3g46-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 12:52:23 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f33438950so405514285a.1
+        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 05:52:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792673543; x=1793278343; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zSQPAtesTEdiMBUjd/2CJ4F2wEY/qZhqqsQihlJ4XBg=;
+        b=PyeNCtryGeEJHvcCXWr+C7FMUXtYEQTD/IkiS7pKrptxItL3JpEYdHeMG68YILfh5y
+         njOH6CUXDsV5Jmo1RGnc6MxPR20FS1LWwKJoA7NkRJMGTvNAONzrxaGYcq0ESEWHQR/R
+         YfQJl+ydY922yHDFCVmDZ1I2X4OIcWpuhqLP/I4mIWZpHDi1y/ino6y8GIeUCkTsdcSj
+         23sDlm2w9X54sNsDcUXxKG2YVPnVHE9qa5VdK6Q7t+cWGYSUeQOONrFY/MUSSjpRQGr5
+         5DAu8TosqZccAU1lqWQDRC50Rppehjo3zF2c2LDGn/7+H26bSx/qgf3vY+qOYkIYRdRq
+         RKQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792673543; x=1793278343;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zSQPAtesTEdiMBUjd/2CJ4F2wEY/qZhqqsQihlJ4XBg=;
+        b=kERzRtHJbIVz070pqPDpHOn9zvh375ozz6Occmd7Lzdcy4FDJE20aP3lHDAZvQo0Xh
+         jLhkdHQQ+Cn9kbo7TfJxFJfq0BlolekF4U/hL+FRvxOFtsOt0FrfxdikC0ZXBES6CcNR
+         Eof8N8H6or7z9eJpKmqKGcliCLXA43/wZNpJXmtbJ9HqitHzhxj1v37DK5TMQhqJBuML
+         RdtKvVS031TN8vD1Ld3NOe2bCV92qlGONu6N7hbywSydxb7qQZ98tqSysAOcj32+x3sb
+         C/zoaL1wDQ4QJltRW0rtAQKQd0PCIi+RDF/RoRbhNcE/izVvX5nRrWOj+YisDVYEHQmz
+         5zDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy19UbYJ0WOdFRintejfY3dKPrtEwoD1cHGAqeFfybJfLwC4fLfPAnJnz9y5+NTKeyHuoHKvctvu79xgg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3+TdDaHLjVlkYIDDItz1WfJfRhcxTCpYYM+xaK6wvOIpQDnDh
+	DsYRLDG0yNFV4Dr8RHsI/u7d99S9ldiot1lsmSnSQAsZ8hk8M0pRk6mcGBH+ib8Ot0ybECOmwMV
+	8QfbGQqgth/WAMIOdEU2r167eFLfSdPwd4p7FRgfczqK41xbsjKopS3K1+4Jm9us+zA==
+X-Gm-Gg: AYBFou0gyF5N7O1PFlor92L4ew/nYXU81gThgM34fUSEK8GHwWWAdrG79z0ebQRDuqM
+	u+9HszwywqvIjI6qnSt+CJ4qVE/DHO6TIFyQi0V9hhRvQbvsRrwnPostWJoDKwrLFiS/FvRn6l1
+	LSg9VQD+PY7ZS4Y3A4VYSR0c0tztrfhcr7+tW/EYg7X+K/i91wv+rYVMduoW9BLzS0xvW1Opaol
+	NSya0MJAWHvZ7tdHI03CAoMqd56v0rBzQQehv2uvKGeYqGk5jPQs21n/5S0RatTP24nR3MlZx4e
+	IwVieLJ1DN49oilHXUPyOvHQOCp8Af9QlIHbToSt30F4Fe6ghFt3XPkVe11kOsN1BGyQHQU5r+7
+	6YIe7z0P9PnY21wwaWnMRs1qi5+c/hU13Iq1R0CtMkATJDWV6AyOiPW6f5dm+RWs/2/GbExMVL3
+	Jb8VnRFTqlmomV
+X-Received: by 2002:a05:620a:2995:b0:93e:c12c:f134 with SMTP id af79cd13be357-93f5803c527mr942187085a.79.1792673542537;
+        Thu, 22 Oct 2026 05:52:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:2995:b0:93e:c12c:f134 with SMTP id af79cd13be357-93f5803c527mr942184085a.79.1792673541916;
+        Thu, 22 Oct 2026 05:52:21 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfae6337dcsm93302e87.72.2026.10.22.05.52.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 05:52:19 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:52:17 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        iommu@lists.linux.dev
+Subject: Re: [PATCH 01/13] dt-bindings: display: msm: Add Qualcomm DCP
+ bindings
+Message-ID: <b7kf23jpwkqhpbmytuomofiewx34qxrjn2zqq3ydhnl4jk2smy@bb7h5vecnnag>
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-1-48aad0fe4f72@oss.qualcomm.com>
+ <hprf3vrsveovq3hwcgjrfj6uhmlxlq5u5bx4lkbswgxe476qwz@pacalsdgrjx7>
+ <ea81fcc1-c7e4-4b80-b65e-f483487bd1a1@oss.qualcomm.com>
+ <f7926ef7-1edf-4d74-9758-2ee0c8a795bc@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,98 +147,350 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB332773:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7376ce5-ab9d-4478-ee3f-08df3037b7e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|56012099006|11063799006|4143699003|261021121427099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	/bOFNHgbC7iJH5Um5N8oNN/+JLJIUnM7+CmH7C68EDn34OgtN0LmSLRcjeefMoVZZJdMPjVC2E64gBzILgNGlogfihJmo0F33oRHF/giixPzbbqA2uVNUXJismFFy3XkJ/jDglgxKy73syaw2+bjKVSojfxDUixDUg4oSUCGSphbvz7yewGlKzqrJuJPJqzZJRl18jDDMVqYz2zreh6Qll16he921g5+pX/4ti3lalUetioYidcaOXYisb8a26/A/orohD03Z1fxEyYV3QKo/fRfEzceKJWzv1+nn6FacH0maLwMBMzbvyilEqCO0SXk3mMcnUQq9EiJ4l9zbbgiPZwiEvZhcShm3vlM+dTyD04XBC1JfE17tOlif3z0cN9ydFMOEV/99MLACuqBdKks0YcFHecObI9bkhUKC0AdbNRoYupD4U3rPSHF9TT3Q2cRpNRCgY0Us6AH0YlPX5PTnO+3icYdgLNDlt3XFQbu5B63Z3lr6otF4DfxGpR42RW7VydHbJWCC9vJvXG5FGm7gx9GEHqTalLYiFYow6KjDCAPuSdgVcj1/rX/hvWQY8WSmJ6/bm6Wgx3m/LbuEjwygmOojhAloQMxqtdvnUGQ4jkjSdrdlMX6nxHvplrxwV1ShgdxTc+wcmQwj76bWDLWKL05KZzk+xh0bVo/laKs0Zs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWRFbnc1R0JuSXl2SlFHWXF4N2pRSEczMGNDd1RQaTRaWStkNlFhZ2ZCcHIv?=
- =?utf-8?B?UXNFaHlzdEtKUE11UExwUnBSVENPMlNOc0JXYzFyQ3owUS9sdUQyWW5WaHBS?=
- =?utf-8?B?T0xuL0ZoeWV5d0ttK0RaRTRmZmU5WGJFVGZZM3BlNXpvdHVGYWxBd3Z6RHQy?=
- =?utf-8?B?VVRtR2psMHVTb2puWFg4TmF6TGhpOGs2WnlWckMrenpheGFsMjV1SXpmVytk?=
- =?utf-8?B?cFdQbHIrRWRIbGZLRXZVbDl4RjNiYlpKdFJuSDJyNUFnelRDOGIxS1d0Vmk5?=
- =?utf-8?B?aWoydGxVaEtwSlVUVUlmNklNbU90azAwUTBFL2ZvRGtLRnhvaTZGdG5CYy80?=
- =?utf-8?B?OWVsay9adjB3a2NsUUJKZ09ZRGNxTEkvN29ybFRXSkZCR29hK2RFeWwvSk9i?=
- =?utf-8?B?VERJSmVFMVIyT3NBRGRwVHMxRVFER1ZWb2dOTzFhWHV4clEreENORXVvV0pM?=
- =?utf-8?B?NnllQlY5YVFCOHkvUE9xc1Q4UVQ1TXBOWWZ2VFQrUUlaK1hhb0hkRXpHZW5u?=
- =?utf-8?B?VFZtSTk2SXF4aHBqOEozMkErd3pjYkU3c1pUbzZuYUdvTEJiRjYwQzlhS0Ja?=
- =?utf-8?B?WDZNdGlhMXVKYWUyN0tweGJ0b0pPa2xIYlFEQkg0a0VQK2RCL3pCWGhXYzNE?=
- =?utf-8?B?TUdULys5RU5BdEJuT0s5ckNXVUgxc2RtYUU3STdsL0J6dy9QTXNqcjRsbkhw?=
- =?utf-8?B?elkyaGpnUEtRLzQ1c3JvLzNIZWg0ai82ZTdEUXUxQWtYYmE0UDBwbnorNGht?=
- =?utf-8?B?WHk4SWdlTkJZbVUrV0VNMTRJYVVvdlJWVktWeEpmQ3BDVFVad3BsN0l6Um16?=
- =?utf-8?B?WUpocS9UTmd0QlVMeml6UTVNRzZQY0E3eW91MTFvRXIvU2ZOamp5KzhHMTBY?=
- =?utf-8?B?dU9ybEwwbzBXQVN1Vmh1SklRWHFZb2srcGw0clQ1YmRKdkRMb3FPcWpoTEVr?=
- =?utf-8?B?MEtZUE01bmFyTFcwRjhhaVFlWHIwMlluZGRxRmhxcWo2SnRFOVlNdnZocStI?=
- =?utf-8?B?Z3g3ZWVEUDFMUlV1U3pUTnFvbVhIdVhOc3Niem9sQWxiMU4vbHg4eHlKY24x?=
- =?utf-8?B?a3Z6YVdkZTZNbW1Kam1rMUN5VFJpa3hOREFLVVZvMFo4djVUcnJNV2Z0SURY?=
- =?utf-8?B?T203MWRvWnhyLzEvNVJOeEVtdjVwSC9NOGVET1JFKzZ6RXY3VmJQUmFvVVVG?=
- =?utf-8?B?bFQ3ejBYK0s3TEo5Ukg4bmdiYWdJYzJHZkxqd3J0amxQK3R2ZnlyTnVXTi9O?=
- =?utf-8?B?cnlzSUFlRzIycVNudVExZTFJK0Z6cmNLRS9CWngzcTNEdStNWkJSSFNGcHF1?=
- =?utf-8?B?cUhBSzR0LzNrYWJycTRtZnYwU0orUlV4NjZKaWRjUUxzVXZSYUR6S2NhUTdQ?=
- =?utf-8?B?bTVCN3M0aDliM0RmK0NZNHJtM1pTLzlRQUNoMnlYaWo0ZWFoK2RMWWR2U2Zt?=
- =?utf-8?B?bzcrcUI3bXNFR3RycG5SUTk1U2ZjelB6NWMwbGRkclE5SVVDcXg3K3J0UW5R?=
- =?utf-8?B?T0NrM296Mjdmd3ZBNm05dTNyK29hY2o1RXk3U2NQZGN1SFFRM3lSd2xZdVVD?=
- =?utf-8?B?dnFkdGxaZzRCRWFKMERpUW51ZGxIcGVNeDBmWUJCMzNtbGtBaWJGUGFEZmQx?=
- =?utf-8?B?NnRWSjM3UE4xTjV2L3ltRWNjMmFaODl2aUJGVWRsL1pDbFg3RTYxQkRmK01i?=
- =?utf-8?B?RWlyWmJBMmRiU09NUTl0Tndudm9jVHpmaDVVeEx1aDBva1lvbUdPWDJLRHNM?=
- =?utf-8?B?R01lR0U4RURmQzlNcU1jdElDenJ5Q0cyRHN2SFc4N3VDUTVQamNOREVSUXA3?=
- =?utf-8?B?WnVpaUg2R2xOYzNSNm5RUjN2eW04T1FCb3JoVTQzbzdEc0UwWE9meDUrcGtF?=
- =?utf-8?B?enN2N1Z5bGNUZjlsWnpUaFhlVHRleXFIaEcvMjIyRldpMHd5QnNxWlIzNm1n?=
- =?utf-8?B?d2lSdDl3STV0TExKSjN1a1Z2VnUzVWhFMnBBMTFlVUtJWVpMLzMxMW9vUW5B?=
- =?utf-8?B?SjU1ZFUrOUpkMDBsNTNWckRTamRXd2tzcFRGNjZXTlY2UTUrakp2YTZhajVa?=
- =?utf-8?B?bnc2d1lGYXRmdVJFQnE5M3NOUjRZeDBZc0lwRkpGbUZjTXgxMVZSN2ZHUXp5?=
- =?utf-8?B?M1Y0NDgxelBYczJpZEdFdnZqbzZYSHpVcHIzV3NHdXpDWTRUT085VE9mOHov?=
- =?utf-8?B?Z3FSbEo3SHRsU09aeU0ycTFZSStaSUs1MXBHc1JuSFhrQ245VXpjVnV6NmMv?=
- =?utf-8?B?RlB6eWVON3IwTGhCNDJVS1R1b1RSUlpyTVJGUmkxNnZyaHhUSDJQYUI0eVBu?=
- =?utf-8?Q?nKuaGYj/r5jzZsAgUF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7376ce5-ab9d-4478-ee3f-08df3037b7e7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 12:26:37.9700
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dsn8brhv/zbhh1IzzmziwOw6Arxdebij8BosNbrQ0hbe2ip5kp0LaxKQFKvyD9QB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB332773
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <f7926ef7-1edf-4d74-9758-2ee0c8a795bc@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1MSBTYWx0ZWRfXxHD4198fMpno
+ W1NoUaoyEpCD/Hry2x2rXHBmb/TjTRpMXFTaPCNWTGCxTSZSKh6zo4jZgsA/11zXHVOGnPVhy2i
+ 55SpbwXPFrNNenzXE4W05IQ4BdJ/5q4ICAIsU4hRHqkMitQJgPlSdCpxtsdRFbA37ecAZTpopL5
+ nyzBN2cQAjjgPDJ7f9bKha8nZp/e1I4ssy2Y3QELThGaMILPz9PFLjJd7lelISq871ej28k7/So
+ 61rNtBBFgDAJPPOhTiQ8uV4MP/gahV5piNii2xvMbIzVUQD9XbOBn3aVUbsGo+Ak+e/dflpwzsL
+ AJVjgRBP6lxa4mPCRDDNACS9Lb6WHDGO8i8TK7k6qcrZfwu7ho/Up3ZkjEWxdXCyY47o+z/wisJ
+ DDN1zQSwTPFwzglKvjaHkHgGzhTG02pkAKe838TpgmAJmPWTPbrS0UwkkZPH2OX0qe2kt3odlRf
+ 70+wvpg87PkKlsUjcZQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1MSBTYWx0ZWRfX4slldsNYFEu8
+ a4MV1Om3WWfAr86tCKLiYvzNSOUqd49DIX7/c07/ryiICE3WKpym6VbT1qiQNYOzshcfYKloz1h
+ 9mpY24q8lGdqGbQnjn8ELd+3fy75amQ=
+X-Proofpoint-GUID: mocc5k-dHYW5D7wUw3fym41MOEMzq_s7
+X-Authority-Analysis: v=2.4 cv=NaFzRGD4 c=1 sm=1 tr=0 ts=6ada0707 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=SNC64sLV-JS3cwQd52MA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-ORIG-GUID: mocc5k-dHYW5D7wUw3fym41MOEMzq_s7
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220051
 
-On 10/21/26 22:16, Val Packett wrote:
+On Wed, Oct 21, 2026 at 05:09:15PM +0530, Jayant Shekhar wrote:
 > 
-> On 10/21/26 10:43 AM, Christian König wrote:
->> [..]
->>> The buffer lifecycle coordination we need this for applies to KVM as well
->>> and it generally doesn't make sense to have this as a provider-specific
->>> thing since it's not related to the provider in any way, it's just
->>> something we want from dmabufs in general.
->> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
->>
->> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
->>
->> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
+> On 21-10-2026 14:15, Jayant Shekhar wrote:
+> > 
+> > On 15-10-2026 17:47, Dmitry Baryshkov wrote:
+> > > On Thu, Oct 15, 2026 at 01:08:21PM +0530, Jayant Shekhar wrote:
+> > > > DCP platforms place the display pipeline under firmware control,
+> > > > so Linux
+> > > > cannot discover display resources through direct register
+> > > > access. The DRM
+> > > > driver therefore needs device-tree descriptions of the firmware
+> > > > transport,
+> > > > display topology, IOMMU contexts, and panel connections.
+> > > > 
+> > > > Add bindings for the Qualcomm DCP VirtIO display function,
+> > > > including the
+> > > > INTF graph and DSI host outputs. Document the framebuffer IOMMU
+> > > > context,
+> > > > IPCC power-notify mailbox and interrupts, firmware display
+> > > > topology, and
+> > > > firmware-visible IOVA window supplied by the parent VirtIO-MMIO
+> > > > transport.
+> > > > 
+> > > > Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> > > > Assisted-by: LLM
+> > > > ---
+> > > >   .../bindings/display/msm/qcom,dcp-dsi.yaml         |  75
+> > > > +++++++++++++
+> > > >   .../bindings/display/msm/qcom,dcp-virtio.yaml      | 113
+> > > > +++++++++++++++++++
+> > > >   .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 119
+> > > > +++++++++++++++++++++
+> > > >   3 files changed, 307 insertions(+)
+> > > > 
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+> > > > b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..f7178c66c09e
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/display/msm/qcom,dcp-dsi.yaml
+> > > > @@ -0,0 +1,75 @@
+> > > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/display/msm/qcom,dcp-dsi.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Qualcomm DCP DSI host
+> > > > +
+> > > > +maintainers:
+> > > > +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> > > > +
+> > > > +description: |
+> > > > +  A MIPI DSI host exposed by the Qualcomm DCP VirtIO device (see
+> > > > +  qcom,dcp.yaml). DCP is a firmware protocol shared across multiple
+> > > > +  Qualcomm SoCs, not specific to any one of them; Hawi is its first
+> > > > +  platform. The DSI host and its connection to a panel are described
+> > > > +  using the standard DSI controller and OF graph properties.
+> > > > +
+> > > > +allOf:
+> > > > +  - $ref: /schemas/display/dsi-controller.yaml#
+> > > > +
+> > > > +properties:
+> > > > +  reg:
+> > > > +    maxItems: 1
+> > > > +    description: Index of this DSI host among its siblings.
+> > > > +
+> > > > +  status: true
+> > > > +
+> > > > +  ports:
+> > > > +    $ref: /schemas/graph.yaml#/properties/ports
+> > > > +    description: |
+> > > > +      port@0: Input from the DCP virtio device's DPU INTF output port.
+> > > > +      port@1: Output to the attached panel.
+> > > > +    properties:
+> > > > +      port@0:
+> > > > +        $ref: /schemas/graph.yaml#/properties/port
+> > > > +      port@1:
+> > > > +        $ref: /schemas/graph.yaml#/$defs/port-base
+> > > > +        unevaluatedProperties: false
+> > > > +        properties:
+> > > > +          endpoint:
+> > > > +            $ref: /schemas/media/video-interfaces.yaml#
+> > > > +            unevaluatedProperties: false
+> > > Why do we need OF graph here? Would it be enough to link one of the
+> > > ports of the root node with the panel's input?
+> > > 
+> > > > +
+> > > > +required:
+> > > > +  - reg
+> > > > +  - ports
+> > > > +
+> > > > +unevaluatedProperties: false
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    dcp-subsystem {
+> > > > +        #address-cells = <1>;
+> > > > +        #size-cells = <0>;
+> > > > +
+> > > > +        dsi@0 {
+> > > > +            reg = <0>;
+> > > > +            #address-cells = <1>;
+> > > > +            #size-cells = <0>;
+> > > > +
+> > > > +            ports {
+> > > > +                #address-cells = <1>;
+> > > > +                #size-cells = <0>;
+> > > > +
+> > > > +                port@0 {
+> > > > +                    reg = <0>;
+> > > > +                    dcp_dsi0_in: endpoint {
+> > > > +                        remote-endpoint = <&dcp_intf1_out>;
+> > > > +                    };
+> > > > +                };
+> > > > +
+> > > > +            };
+> > > > +        };
+> > > > +    };
+> > > > diff --git
+> > > > a/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+> > > > b/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+> > > > new file mode 100644
+> > > > index 000000000000..018694310dfb
+> > > > --- /dev/null
+> > > > +++
+> > > > b/Documentation/devicetree/bindings/display/msm/qcom,dcp-virtio.yaml
+> > > > @@ -0,0 +1,113 @@
+> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > > +%YAML 1.2
+> > > > +---
+> > > > +$id: http://devicetree.org/schemas/display/msm/qcom,dcp-virtio.yaml#
+> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > +
+> > > > +title: Qualcomm DCP VirtIO host
+> > > > +
+> > > > +maintainers:
+> > > > +  - Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> > > > +
+> > > > +description: |
+> > > > +  Qualcomm's DCP VirtIO host provides the generic VirtIO-MMIO
+> > > > transport and
+> > > > +  the host-side IPCC channel used to wake the DCP firmware.
+> > > > +
+> > > > +properties:
+> > > > +  compatible:
+> > > > +    contains:
+> > > > +      const: qcom,dcp-virtio
+> > > > +
+> > > > +  reg:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  iommus:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  iommu-ranges:
+> > > > +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> > > > +
+> > > > +  interrupts-extended:
+> > > > +    minItems: 2
+> > > > +
+> > > > +  interrupt-names:
+> > > > +    items:
+> > > > +      - const: virtio
+> > > > +      - const: dcp_power_notify_irq
+> > > > +
+> > > > +  dma-coherent: true
+> > > > +
+> > > > +  mboxes:
+> > > > +    maxItems: 1
+> > > > +
+> > > > +  mbox-names:
+> > > > +    const: dcp-power-tx
+> > > > +
+> > > > +  dcp-subsystem:
+> > > > +    $ref: qcom,dcp.yaml#
+> > > > +
+> > > > +required:
+> > > > +  - compatible
+> > > > +  - reg
+> > > > +  - interrupts-extended
+> > > > +  - interrupt-names
+> > > > +  - iommus
+> > > > +  - dcp-subsystem
+> > > > +
+> > > > +additionalProperties: false
+> > > > +
+> > > > +examples:
+> > > > +  - |
+> > > > +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> > > > +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+> > > > +
+> > > > +    virtio@9be8000 {
+> > > > +        compatible = "qcom,dcp-virtio", "virtio,mmio";
+> > > Is it really compatible with virtio,mmio? Can it be handled completely
+> > > by virtio,mmio?
+> > 
+> > 
+> > There are two possible approaches:
+> > 
+> > Option 1 — Use the standard VirtIO-MMIO parent (preferred)
+> > 
+> > Keep the parent as:
+> > 
+> > compatible = "virtio,mmio";
+> > reg = <...>;
+> > interrupts = <...>;
+> > iommus = <...>;
+> > iommu-ranges = <...>;
+> > dma-coherent;
+> > 
+> > The generic virtio/mmio.yaml binding would be extended only to document
+> > the generic iommu-ranges property.
+> > 
+> > The DCP-specific resources would be placed on the virtio,deviceXX child:
+> > 
+> > dcp-subsystem {
+> >     compatible = "virtio,deviceXX";
+> >     iommus = <...>;
+> >     interrupts-extended = <&ipcc ...>;
+> >     mboxes = <&ipcc ...>;
+> >     mbox-names = "dcp-power-tx";
+> > };
+> > 
+> > The parent uses the standard VirtIO-MMIO interrupts property. The child
+> > has one DCP-specific interrupt, so interrupt-names is unnecessary and
+> > the driver uses interrupt index 0.
+> > 
+> > Option 2 — Add a Qualcomm-specific VirtIO-MMIO parent binding
+> > 
+> > Keep a Qualcomm-specific compatible such as:
+> > 
+> > compatible = "qcom,dcp-virtio", "virtio,mmio";
+> > 
+> > and extend the parent binding to describe iommu-ranges, the additional
+> > IPCC interrupt, mailbox, and related DCP resources.
+> > 
+> > However, this approach duplicates the generic VirtIO-MMIO binding and is
+> > only justified if the transport requires Qualcomm-specific handling.
+> > Since the DCP transport is handled completely by the standard
+> > VirtIO-MMIO driver.
+> > 
+> > Which one do you prefer?
+> > 
+> > I will be addressing other comments in v2.
+> > 
+> > 
+> > Thanks
+> > 
+> > Jayant
+> > 
+> > 
 > 
-> Well, we already need it with both udmabuf and gntdev-dmabuf..
+> I think Option 1 is not suitable because the IPCC power-notify sequence is
+> required before the first VirtIO-MMIO register access. The standard
+> VirtIO-MMIO driver would otherwise probe the DT node directly and access the
+> registers before Qualcomm-specific initialization is complete.
+
+Good. Which means that dcp-vrtio device isn't compatible with
+"virtio-mmio" and can't use it as a fallback in DT.
+
 > 
-> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
-
-No, exactly that is what I'm trying to avoid.
-
-Nobody except the original creater should be able to insert an eventfd here.
-
-Regards,
-Christian.
-
-> That should remove the concern about one user messing with another's events (and avoid the concurrent replacement issue sashiko-bot warned about)..
+>   Would the following Qualcomm-specific transport approach be acceptable?
 > 
-> Thanks,
-> ~val
-> 
+>   - qcom,dcp-virtio is the DT-compatible Qualcomm wrapper. It initializes
+> IPCC and sends the required power notification before creating a synthetic
+> virtio-mmio platform device.
+>   - The unchanged generic VirtIO-MMIO driver probes the synthetic child,
+> accesses the MMIO registers, creates the VirtIO queues, and registers the
+> VirtIO device.
 
+Why do you need a synthetic VirtIO-MMIO? Why can't you register a virtio
+host from dcp-virtio? The driver is not designed to work in that way.
+
+You have two major options here:
+- Copy relevant parts of virtio-mmio to the dcp-virtio driver.
+- Turn the core parts of the virtio-mmio driver into the library, making
+  it possible to share the code with DCP driver.
+
+>   - The DCP VirtIO driver binds to the resulting VirtIO device through its
+> VirtIO device/vendor ID table and initializes HFI, firmware capabilities,
+> and DRM/KMS.
+>   - The virtio,deviceXX DT child is discovered by the VirtIO core and
+> describes the DCP-specific IOMMU context, DSI hosts, display graph, and
+> panels.
+
+With your suggested codeflow, what happens if the dcp-virtio driver
+suspends the DCP host, making virtio queues unavailable? How would
+virtio-mmio know that it should also prevent the access? How would you
+suspend it too?
+
+> 
+>   The flow is:
+> 
+>   qcom,dcp-virtio
+>       → IPCC power-up
+>       → synthetic virtio-mmio device
+>       → generic VirtIO-MMIO driver
+>       → virtio,deviceXX DT child
+>       → DCP HFI/DRM driver
+> 
+>   Since the Qualcomm wrapper creates and owns the synthetic VirtIO-MMIO
+> device, the parent node uses only:
+> 
+>   compatible = "qcom,dcp-virtio";
+> 
+>   It should not also advertise "virtio,mmio", because the generic driver
+> must not probe the parent directly before IPCC initialization.
+
+Good.
+
+-- 
+With best wishes
+Dmitry
