@@ -1,80 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654156;
-	b=5RxTmoGm0C2SSx5Zp0kxTb+eVgvr+s3SHREEHvEtS9nK8NWcFSDyASdfe3mqOV4gmeQo
-	 bp/fMDSe/ElSfLSEl03CSr9aLlZbANtHx7pAn7u+RbxXdYyVHd8/gDJLPIFRXahAkzypQ
-	 PF6+dGg1E5TmDGXjp+N2FDMHA46azsPZHVLma3/dm7yVapGvO7GXNDb6VqQJeYN0s2VaJ
-	 Y24c5TWxX8LzBwj7zk3FPyt2maql6vo8vXdLcDApP1M8bBRttjdVrgNDN6ddLkD+vUmje
-	 BfjRIlmbyimLkI4jIL70MT0PA0QAEfJt/0rSQ2W23PLBkXUoSDzNpcCTD2TkTXtpbqQ==
+	t=1792654172;
+	b=0FuYuYe4Ao4gaAKLKOS3tel6rLojG2NbMK1HSCFXcTom6FPevZuRQIFVvVkSuCgPJMyG
+	 CamtFJuZ2MZh6C6HO0vul0mEcWrh6Lz4KtBm46L96bSKyuqsVfkOYBNKCr8YtNdz8bu/k
+	 q5VvYAWO7y+Jl84gJO7xn3+fulq6hpFqCY2sPCjwONJ1RXFmPvaTkNn2XwdjbowjoRglN
+	 bmIyU/YiJOo++dU9RneQUCksyl/LMePW0I3abR5wcyihOCdicBgAoZDTRkjZAkngqVTgd
+	 bqMKOH8gmwNDpRMnifGTD1Zi0sHwvNx/lB/WbcbGCYErDcLz2D//QdnhhG4vFV1SqBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654172;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
 	 From:To:Cc:Date:In-Reply-To:References:Organization:Content-Type:
 	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=grua3t4lyGOc5KQB2bj7bgFlt7G4CgMGY6Vk01NoFjU=;
-	b=b+O7JiCNBZq+S7sR3JXJQ5fAOgZvCNKv8hWOIW39LRjPONzP3wHNgyLdUZxJ7cTH/fFm
-	 dZM4a71i08SAY5ACwgOXXtV4tSVVxUGhjWQLsnW27+LWGadO1TEH17+Xuv5a1mRtXyw6x
-	 ucbDJKL8ZNF0y+Np/Jy2ueGG0yz7RtoPuL16D/DgQvT/KPkJmDTe/y4HjzIDB5tdyWIbZ
-	 e4PI+FyMt/uBiq0LvoxbZpU+d2sCbiWaUYkgr4dB6Dl1txNOKL3DWXR53Rr3BQJrY0gX+
-	 kygRmoNSegfGzpKnF5RB+WmyL9eLr0KPSCzj50NjHqFP7W3kSAsC7IDiZtBgO0XXUOw==
+	bh=tBzpmFaMSQMSyD1iaBULKux96i8RKUtHkECGcsya8FY=;
+	b=3BJUNeCwWmGm1P4ib+ut/epf4XpGY2CtFls1I0FWjuBQtFGAYe4373tHWbqYCcN/1IjG
+	 dy+JxvEG61Ibral63YRu8z9UnK1V/I4WDq/aWuXi8RwzRACEZ9dl38Pc5rT9XA6aBP43n
+	 ygkMqGjwS4cUK4FmQq9WVkHmTv+uBys0bc+2N/Y/yBU+SEJMAesgeZgoxUAAj/AQ55z7C
+	 uWMRLIJ6X+PCKQ0q5wQB5kfGuS1fxrdZAu1AZkV7QddVPSbBd3xYqeavUBFQnI8h7zevx
+	 IN/ILjiCcnVsqVGw1vsYZU4dhoeYPCAzWpQ3J2i+E/nvypRP0Ppb+QUctYU+aoel11A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a8ER9OFI;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FEA606A31A
-	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 07:29:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2FEA606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10127606A31B
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 07:29:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10127606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=a8ER9OFI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792654148; x=1824190148;
+  t=1792654173; x=1824190173;
   h=message-id:subject:from:to:cc:date:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=uj54q50VB5yWIB4fc6XXNtaRZa8JIR319hS6Vo2rUI0=;
-  b=Aybwvr7g3gpieTlLeuHKH5ajwa3OG5gsVnhDi+w/l4x3yDPFzQ77qjfR
-   UchEdfhbCYEfZ1tLg/xYJAC5TnmCSBWZ8ULsafq2otZFrKFo0sY/rWEMz
-   T/TNIW2CalteNIW1y4SPeRE5GDSNKoKneoLA6q3DOhctC7hZ26be764cV
-   qpY88c/mqBcApVRC7sAblDKL1B+lFFnKRF6k1SurGondxl28IHySsYzeB
-   sAUEhQfgt0Zg2LwEfxoSfwtsEyuvPFxbBQIhvzZ2tLT5JsV7htSP3unEE
-   LjcL6M7tYro3lnZtPoc3M1Gqk1mlgH+TEE7B8F5t0hC1KT0M7cA9sebLA
-   Q==;
-X-CSE-ConnectionGUID: 9ERLB9M6SCmsoy730UEFYA==
-X-CSE-MsgGUID: 9zSXD/9iTVmtQRmqsr3ZlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1275298"
+  bh=iTNmgRNbwvR3yKajP5+NPQHqD/ADmHr1tlEg7gAxXD8=;
+  b=a8ER9OFI8kW2khz6T96ZsCGHoMrihDKvGn+vIbTwtKjxkNSbd6sVLoOD
+   0E4+dpkW9waFESokGv6rfcpmopgFhO5cmpvZbN/Ppq/p5luCosCorvssF
+   Bdp4YV+5KHRyFgOyRMpsf7iOHSfHSWWnIaDmwLUime++QoXjhnLt9qrcj
+   VXpxZJwpl3dJqNyicA2ghlNJOx4Iu6JSYh8G1Gf85slFR4aF0RjZ2Lhyy
+   GxjiurD8ERVT8vdw8e5ncCiX6tRfCmxEzw4Vw2MTAWqEWjlMrBQh16opk
+   z18hUd0BJNmKV5Lb9+HE1skhndqZs417uK4MJ6nRlFACsmz3WEpL0UNZV
+   A==;
+X-CSE-ConnectionGUID: ao4fuVG6TmedcNEK4qcJ6g==
+X-CSE-MsgGUID: tgi83RFqQtG+QMQR0kTbww==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1267518"
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1275298"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:26:02 -0700
-X-CSE-ConnectionGUID: Ft4hr3JHQH6PDx3z3FoomA==
-X-CSE-MsgGUID: D9DumUkdRa6lAODh30OJ3Q==
+   d="scan'208";a="1267518"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:29:28 -0700
+X-CSE-ConnectionGUID: 3sdOY2nIRCideIdpdGyCtQ==
+X-CSE-MsgGUID: GMvpY4WSTKWy+XXTgqVlhA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3213751"
+   d="scan'208";a="3176651"
 Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.180]) ([10.245.245.180])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:25:58 -0700
-Message-ID: <6eeb6257a6ab3b5db384aeb255623a11cb09c603.camel@linux.intel.com>
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:29:24 -0700
+Message-ID: <299044eebbc363b2100b09ce64450b4bd47b61a5.camel@linux.intel.com>
 Subject: Re: [PATCH RFC 01/26] dma-buf: Introduce DMA-buf mapping types
 From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: Alistair Popple <apopple@nvidia.com>, Jason Gunthorpe <jgg@nvidia.com>
-Cc: Christian Koenig <christian.koenig@amd.com>, Dongwon Kim	
- <dongwon.kim@intel.com>, dri-devel@lists.freedesktop.org, 
-	intel-xe@lists.freedesktop.org, iommu@lists.linux.dev, Kevin Tian	
- <kevin.tian@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
-	linaro-mm-sig@lists.linaro.org, linux-media@vger.kernel.org, Matthew Brost	
- <matthew.brost@intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, Sumit
- Semwal	 <sumit.semwal@linaro.org>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>
-Date: Thu, 22 Oct 2026 09:25:55 +0200
-In-Reply-To: <atmurtZOhKwwGjV3@nvdebian.thelocal>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Christian Koenig	
+ <christian.koenig@amd.com>, Dongwon Kim <dongwon.kim@intel.com>, 
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>, Leon Romanovsky	
+ <leonro@nvidia.com>, linaro-mm-sig@lists.linaro.org, 
+	linux-media@vger.kernel.org, Matthew Brost <matthew.brost@intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Vivek Kasireddy	 <vivek.kasireddy@intel.com>
+Date: Thu, 22 Oct 2026 09:29:21 +0200
+In-Reply-To: <atm2X5E-ta4QfGnu@nvdebian.thelocal>
 References: <1-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com>
 	 <b5d1bc79fae01fd9b511e06ed796130314ff841b.camel@linux.intel.com>
-	 <20261021123755.GL3008132@nvidia.com> <atmurtZOhKwwGjV3@nvdebian.thelocal>
+	 <20261021123755.GL3008132@nvidia.com>
+	 <598bc83d8070c9bcb364a336b91d1e6c6fff4256.camel@linux.intel.com>
+	 <atm2X5E-ta4QfGnu@nvdebian.thelocal>
 Organization: Intel Sweden AB, Registration Number: 556189-6027
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -89,169 +94,170 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-On Thu, 2026-10-22 at 17:52 +1100, Alistair Popple wrote:
-> On 2026-10-21 at 23:37 +1100, Jason Gunthorpe <jgg@nvidia.com>
-> wrote...
-> > On Wed, Oct 21, 2026 at 08:24:40AM +0200, Thomas Hellstr=C3=B6m wrote:
-> > > > struct dma_buf_mapping_exp_ops
-> > > > =C2=A0=C2=A0 Base type for the per-mapping type exporter provided
-> > > > functions.
-> > > > This
-> > > > =C2=A0=C2=A0 would be the map/unmap callbacks. Each mapping type ca=
-n
-> > > > provide
-> > > > its own
-> > > > =C2=A0=C2=A0 functions for map/unmap type operations with optimal t=
-ype
-> > > > signatures.
+On Thu, 2026-10-22 at 18:20 +1100, Alistair Popple wrote:
+> On 2026-10-22 at 17:59 +1100, Thomas Hellstr=C3=B6m
+> <thomas.hellstrom@linux.intel.com> wrote...
+> > On Wed, 2026-10-21 at 09:37 -0300, Jason Gunthorpe wrote:
+> > > On Wed, Oct 21, 2026 at 08:24:40AM +0200, Thomas Hellstr=C3=B6m wrote=
+:
+> > > > > struct dma_buf_mapping_exp_ops
+> > > > > =C2=A0=C2=A0 Base type for the per-mapping type exporter provided
+> > > > > functions.
+> > > > > This
+> > > > > =C2=A0=C2=A0 would be the map/unmap callbacks. Each mapping type =
+can
+> > > > > provide
+> > > > > its own
+> > > > > =C2=A0=C2=A0 functions for map/unmap type operations with optimal=
+ type
+> > > > > signatures.
+> > > >=20
+> > > > Does it make sense to try to land this patch first, plus a
+> > > > conversion
+> > > > of pcie_p2p so we could agree on what the contract should look
+> > > > like?
 > > >=20
-> > > Does it make sense to try to land this patch first, plus a
-> > > conversion
-> > > of pcie_p2p so we could agree on what the contract should look
-> > > like?
+> > > I think it would be good to focus on this patch as the main
+> > > 'crux' of
+> > > the series. The API contract is the main agreement. I'm relucant
+> > > to
+> > > merge code that has no users, so it woudl be ebtter to go up to
+> > > at
+> > > least through SGT.
 > >=20
-> > I think it would be good to focus on this patch as the main 'crux'
-> > of
-> > the series. The API contract is the main agreement. I'm relucant to
-> > merge code that has no users, so it woudl be ebtter to go up to at
-> > least through SGT.
-> > =C2=A0
-> > > s/mapping/interconnect/? My gut feeling is that "interconnect"
-> > > best
-> > > describes what's typically going on, but "mapping" perhaps better
-> > > describes all cases.
-> >=20
-> > My intention was to cover more than just the phyiscal transport. We
-> > do
-> > really want to get away from scatterlist, so having PCIe map with
-> > scatterlist and PCIe map with <something else> still ends up with
-> > two
-> > mapping types in the system.
-> >=20
-> > This is why I choose the name over interconnect.
-> >=20
-> > > Location of common protocols which typically carry cross-
-> > > subsystem
-> > > dependencies?
-> > > drivers/dma-buf/mapping_types? drivers/dma-buf/interconnects?
-> >=20
-> > I'd encourage people to design more like PCI where the actual
-> > *interconnect* has its own home and there is just some minor call
-> > outs
-> > from dmabuf to help the matching logic.
-> >=20
-> > > As discussed previously:=20
-> > > Agree on theoretically possible matches at attach time, Match at
-> > > mapping time and guarantee the match is valid until
-> > > invalidate_mappings().
-> >=20
-> > I was thinking about this some more, and I'm less sure now.
-> >=20
-> > If I think about mlx5, in a multi-path PCIe configuration, it can
-> > move
-> > the translation around within a single PCIe path, but it cannot
-> > move
-> > it to another path without creating disruption for the
-> > application. This is a HW limitation in how the internal routing
-> > works..
-> >=20
-> > I strongly suspect this will be the norm for any hardware that
-> > doesn't
-> > rely on decorated page tables to select the IO path..
-> >=20
-> > So, while I agree we should support hardware that can fully change
-> > the
-> > path on each and every map, we also need to suport hardware that
-> > must
-> > pin the path during attach.
-> >=20
-> > Probably this points to needing a 'pin' operation for the mapping
-> > selection after attach.
+> > I agree about unused code, but wouldn't a pcie_p2p conversion to a
+> > mapping type be a valid use-case?
 >=20
-> If I'm understanding things correctly we're expecting a change in
-> path between
-> attach and map time to be rare in practice. Therefore the need to
-> handle this
-> case is mostly as a fallback to not break things. So instead of
-> pinning could
-> new attachments just invalidate all existing incompatible attachments
-> on the
-> list by setting eg. attach->valid =3D 0?
+> In some ways I think having both sgt and the pcie_p2p conversion is
+> helpful as
+> it demonstrates how different mapping types are used. I agree the
+> important bit
+> is settling on the contract though. Adding a pcie_p2p conversion on
+> top doesn't
+> look too hard though. Thomas would you be ok if I rebased and posted
+> some of
+> your patches[1] adding pcie_p2p on top of the mapping types + SGT
+> conversion
+> v2 I'm getting ready to send to demonstrate usage? Or would you
+> rather do that
+> after I send?
 
-I agree, (although I think the "invalidate_attachment" needs to be
-discussed). In the end the importer should be given a choice, either
-pin  and accept that subsequent attachers might see errors or accept
-app disruption.
+Please go ahead and use them as you wish. That was only a quick mostly
+AI-generated POC.
 
->=20
-> Attachment could also scan existing attachments to preferentially
-> pick matching
-> mapping_types that are compatible with existing attachments, thus
-> avoiding
-> invalidation where possible.
-
-Current design appears to be that attach only determines the set of
-theoretically possible mapping types, disregarding other attachments.=20
-Taking other attachments into account is also problematic because the
-dma-resv lock is not held.
-
-Looking at current GPU drivers, what you describe above is typically
-done at pin() time, but if some importers want an early very likely
-decision on what mapping_type to use, one could introduce a separate
-function that match the mapping_types, but that would be very similar
-to the map() function but without returning a sgt/mapping, or a pin()
-without actually pinning. One could reuse the invalidate_mappings()
-callback to indicate the mapping type is no longer valid?
-
-/Thomas
+Thanks,
+Thomas
 
 
 >=20
-> Map time functions (eg. dma_buf_sgt_map_attachment) would check
-> attach->valid
-> and return a failure if a subsequent attachment/event had invalidated
-> the
-> mapping type.
->=20
-> Importers with invalidated attachments would then have to retry
-> creating the
-> attachment, probably getting a different mapping_type. Would this be
-> acceptable?
-> Or do some importers absolutely require the mapping_type to never
-> change once
-> the intial match/attachment has happened?
+> [1] -
+> https://gitlab.freedesktop.org/thomash/xe-vibe/-/commit/7452df0fc858a7dc5=
+ccac0e2037852cb7ab64d61
 >=20
 > =C2=A0- Alistair
 >=20
-> > > > +/*
-> > > > + * Match items are generated by the importer using the
-> > > > DMA_BUF_IMAPPING_*() and
-> > > > + * the exporter using the DMA_BUF_EMAPPING_*() functions. Each
-> > > > mapping type
-> > > > + * defines its own signature with its own data to make the
-> > > > match and
-> > > > attachment.
-> > > > + */
-> > > > +struct dma_buf_mapping_match {
-> > > > +	const struct dma_buf_mapping_type *type;
-> > > > +	const struct dma_buf_mapping_exp_ops *exp_ops;
-> > > > +	union {
-> > > > +		/* Each mapping_type has unique match
-> > > > parameters
-> > > > here */
-> > > > +	};
+> > > =C2=A0
+> > > > s/mapping/interconnect/? My gut feeling is that "interconnect"
+> > > > best
+> > > > describes what's typically going on, but "mapping" perhaps
+> > > > better
+> > > > describes all cases.
 > > >=20
-> > > Do we really need to add all global mapping types here? Then we'd
-> > > need
-> > > something for driver-private mapping types as well.
+> > > My intention was to cover more than just the phyiscal transport.
+> > > We
+> > > do
+> > > really want to get away from scatterlist, so having PCIe map with
+> > > scatterlist and PCIe map with <something else> still ends up with
+> > > two
+> > > mapping types in the system.
+> > >=20
+> > > This is why I choose the name over interconnect.
+> > >=20
+> > > > Location of common protocols which typically carry cross-
+> > > > subsystem
+> > > > dependencies?
+> > > > drivers/dma-buf/mapping_types? drivers/dma-buf/interconnects?
+> > >=20
+> > > I'd encourage people to design more like PCI where the actual
+> > > *interconnect* has its own home and there is just some minor call
+> > > outs
+> > > from dmabuf to help the matching logic.
+> > >=20
+> > > > As discussed previously:=20
+> > > > Agree on theoretically possible matches at attach time, Match
+> > > > at
+> > > > mapping time and guarantee the match is valid until
+> > > > invalidate_mappings().
+> > >=20
+> > > I was thinking about this some more, and I'm less sure now.
+> > >=20
+> > > If I think about mlx5, in a multi-path PCIe configuration, it can
+> > > move
+> > > the translation around within a single PCIe path, but it cannot
+> > > move
+> > > it to another path without creating disruption for the
+> > > application. This is a HW limitation in how the internal routing
+> > > works..
+> > >=20
+> > > I strongly suspect this will be the norm for any hardware that
+> > > doesn't
+> > > rely on decorated page tables to select the IO path..
+> > >=20
+> > > So, while I agree we should support hardware that can fully
+> > > change
+> > > the
+> > > path on each and every map, we also need to suport hardware that
+> > > must
+> > > pin the path during attach.
+> > >=20
+> > > Probably this points to needing a 'pin' operation for the mapping
+> > > selection after attach.
+> > >=20
+> > > > > +/*
+> > > > > + * Match items are generated by the importer using the
+> > > > > DMA_BUF_IMAPPING_*() and
+> > > > > + * the exporter using the DMA_BUF_EMAPPING_*() functions.
+> > > > > Each
+> > > > > mapping type
+> > > > > + * defines its own signature with its own data to make the
+> > > > > match
+> > > > > and
+> > > > > attachment.
+> > > > > + */
+> > > > > +struct dma_buf_mapping_match {
+> > > > > +	const struct dma_buf_mapping_type *type;
+> > > > > +	const struct dma_buf_mapping_exp_ops *exp_ops;
+> > > > > +	union {
+> > > > > +		/* Each mapping_type has unique match
+> > > > > parameters
+> > > > > here */
+> > > > > +	};
+> > > >=20
+> > > > Do we really need to add all global mapping types here? Then
+> > > > we'd
+> > > > need
+> > > > something for driver-private mapping types as well.
+> > >=20
+> > > IIRC it is fixed size up front like this because of how the
+> > > structure's memory is managed in this design..
+> > >=20
+> > > If you want a driver private thing then I'd add a 'u64
+> > > driver_private[2]' to the union and the driver can cast over it.
+> > >=20
+> > > But this is the kernel, if you want to add an xe_mapping_type,
+> > > then
+> > > just add it. I don't know we need to do driver private things.
 > >=20
-> > IIRC it is fixed size up front like this because of how the
-> > structure's memory is managed in this design..
+> > I guess it's my wish to separate components. Couldn't this lead to
+> > excessive includes and unnecessary dma-buf recompilations when
+> > mostly
+> > unrelated headers are touched? Except possibly for memory size,
+> > core
+> > dma-buf shouldn't need to know about this, it's a mapping private
+> > thing?
 > >=20
-> > If you want a driver private thing then I'd add a 'u64
-> > driver_private[2]' to the union and the driver can cast over it.
+> > /Thomas
 > >=20
-> > But this is the kernel, if you want to add an xe_mapping_type, then
-> > just add it. I don't know we need to do driver private things.
 > >=20
-> > Jason
+> > >=20
+> > > Jason
