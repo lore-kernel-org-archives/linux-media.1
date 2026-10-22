@@ -1,56 +1,41 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.175.24.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.181.193.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792695277;
-	b=qdWvQmxti90NQ9qxgzWb6xZaAGby60sAiyY/wgZiJZzkh9FTv7iZ7I+3XuojW1TAiaX3
-	 oNVSx7G7P0IqwqHomYVb/YChHk9rV+Z5gXQvEaYwkmymuEyLpZeDgEUMWV62eMDKKiRVU
-	 VpXVJc94uLbpRhjYT06QDqRb+Sxsa+6naQjGHYwbndVI/0NosHd8xwzF7x+mChwDPL1Tm
-	 zczVzH+9mCF6fTQqWjaymkTr1rtrpx3X+W1YoMAiLYVDO05jqTe2p1UpHewB7DlV+esI8
-	 d1DBrFsYBghv+ZZQjvVQJhcspgnuiemmDfybIsAYge+icxzTIl7xfoogCg6Hl2q5yKg==
+	t=1792696444;
+	b=faQRdteZuYI2JFl9rvlP03E5POZOFUN/iyA4NgDA4eTzZipGeZntQVlo/97dUaUXqwxC
+	 g119hbiOe3nUVLjfS0IHa0tdUJkPHjTXWAorM0/0r4p3JqMjFkHFXnYVEU6xjEEa/FGd+
+	 lFC5QKNDZJ9yChvSOqJqtLHQprzyAT5SLHa7mEXM9lJaIWc6D0oh1Xv/ZY4sVS+ifWp6D
+	 0HbGfaL3Rgvt6Wdnjdme0Ign0xIlOxxz2+x1aj/UpFp79SgPruGvi9rGFxk7YeueLMq20
+	 u7P3d0PuYFdz0fuEMlYSLOZInI0iQg4B53z+hBIvRg5VO/fjpSXLIPqnpo7DqYhW4pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792695277;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nKpgdfCWqF+9Q5MR5EBAQAUQb+BD1snzTotJ0iQU74U=;
-	b=AjMNGUVMBMLx0uFrhI4w1Ke9o43PzQw2erqCDBpQWBaKwCu4TFj8nkjIAAFWkRevUwHR
-	 n47reFI/EDYSQUbbOr7JjHn7BhqNS3pc92gxjWXulWLYDQkYWMGT38T2ZjsXzQM4I9uzG
-	 gyfB3sHg4T4/2wLSkU8jWA65tXQ2lCxrOMv7Wpos6JHo1mN5DtX5lVAGlZEHqgRrXlFXb
-	 QASCY0KIWALrBLQJoj6fWdsOlbuSIioj1EiRmI18SaIrIWv6Y7/XbU1HSCQ/leEQ+Wn+k
-	 N+R4rYLI7+IHokeEBqU/VO9KCAIkM1qFELYFWcggwL+etodyEwYWt17IL3E/syHd02A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696444;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:CC:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=vsJpFAykU3s5jKmosS/bzWFNklnfVvPjnhdmd2c4CtM=;
+	b=hOmhJjKavBCvcqWiBvj+SRbz9J6MIFkcnKZ8MKx3Ipalco9LMotgWSy6e79Q0Jp+fQLJ
+	 sHVhx+9mCt3ILGHLESU+nzEZXpmji3s9e0JM/dmImyAHHTHTIl26KlA7/HsSNNVV/89j8
+	 QH3M74KQ6pD3VY9d5bDbEVMnAAWIjB6cjF/yv9e+THQ433k/CUCVXypbkNOLkxNRRRJy+
+	 pCIr4iBC6nQQgFNR2oqFFqCz6hh9ijMTP6tNkQg3CpS0M71SEseQLtyawLBayHVSGb9Nt
+	 vqNF78ntDiKOPYDEo6AeCixQcn9bpJsKLRzdS+X9afhfa6ADBJnQUfzKpNU4kcXZ/Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=alpha.franken.de;
-	spf=pass smtp.mailfrom=alpha.franken.de;
-	arc=none smtp.remote-ip=193.175.24.41
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54539606A319;
-	Thu, 22 Oct 2026 18:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54539606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1xJxva-00029V-00; Thu, 22 Oct 2026 20:54:14 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id E4FE9C0423; Thu, 22 Oct 2026 20:50:40 +0200 (CEST)
-Date: Thu, 22 Oct 2026 20:50:40 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bradford Love <brad@nextdimension.cc>, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-media@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Russell King <linux@armlinux.org.uk>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH v1 4/7] MIPS: BCM47XX: Open code gpio_request_one()
-Message-ID: <atpbABKiC2KlCxeU@alpha.franken.de>
-References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
- <20260715185112.1323510-5-andriy.shevchenko@linux.intel.com>
+	dmarc=pass header.from=auroraos.dev;
+	spf=pass smtp.mailfrom=auroraos.dev;
+	arc=none smtp.remote-ip=95.181.193.9
+Received: from mail.auroraos.dev (unknown [95.181.193.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B17606A319;
+	Thu, 22 Oct 2026 19:13:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B17606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
+Received: from [192.168.2.104] (91.78.0.35) by exch16.corp.auroraos.dev
+ (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Thu, 22 Oct
+ 2026 22:13:49 +0300
+Message-ID: <04a4490d-ac6e-4e90-bec4-dd3c0525e62d@auroraos.dev>
+Date: Thu, 22 Oct 2026 22:13:49 +0300
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,45 +45,86 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260715185112.1323510-5-andriy.shevchenko@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: dib8000: validate SNR exponent before shifting
+To: Ilya Krutskih <devsec@tpz.ru>, Mauro Carvalho Chehab <mchehab@kernel.org>
+CC: <lvc-project@linuxtesting.org>, Kees Cook <kees@kernel.org>, Hans Verkuil
+	<hverkuil+cisco@kernel.org>, Patrick Boettcher <pboettcher@dibcom.fr>,
+	Olivier Grenie <Olivier.Grenie@dibcom.fr>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <20261022172308.224576-1-devsec@tpz.ru>
+Content-Language: en-US
+From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+In-Reply-To: <20261022172308.224576-1-devsec@tpz.ru>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
+ exch16.corp.auroraos.dev (10.189.209.38)
 
-On Wed, Jul 15, 2026 at 08:46:44PM +0200, Andy Shevchenko wrote:
-> Open code the gpio_request_one() call to be able to kill that API
-> in the follow changes.
+On 10/22/26 8:23 PM, Ilya Krutskih wrote:
+
+   Please consider using --no-git-fallback with scripts/get_maintainer.pl --
+I don't see what do I have to do with this patch (other than fixing another
+bug in this driver earlier).
+
+> Decode the SNR exponent as a signed value instead of storing it in a
+> u32.
+
+   I don't see where are you changing the type from u32 in this version of
+patch -- this phrase seems to be copied from the 1st (internal) version...
+
+> Subtracting 0x40 from the unsigned exponent currently causes it
+> to wrap around when the encoded value represents a negative number.
+
+   Seems to be the intended effect...
+
+> Keep the signal and noise mantissas unsigned, as they are used in
+> unsigned fixed-point arithmetic.
+
+   Again, this phrase seems to be (mindlessly?) copied from the 1st
+version... :-)
+
+> Check exponent values before shifting by check_shl_overflow().
+
+   Yes, that's what the patch below actually does! :-)
+
+> Return the existing invalid SNR value when the exponent cannot be
+> represented safely.
 > 
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> Fixes: 77e2c0f5d471 ("V4L/DVB (12900): DiB8000: added support for DiBcom ISDB-T/ISDB-Tsb demodulator DiB8000")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
 > ---
->  arch/mips/bcm47xx/workarounds.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+>  drivers/media/dvb-frontends/dib8000.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 > 
-> diff --git a/arch/mips/bcm47xx/workarounds.c b/arch/mips/bcm47xx/workarounds.c
-> index 745c6228eb2c..9148d2c219d1 100644
-> --- a/arch/mips/bcm47xx/workarounds.c
-> +++ b/arch/mips/bcm47xx/workarounds.c
-> @@ -9,11 +9,13 @@ static void __init bcm47xx_workarounds_enable_usb_power(int usb_power)
->  {
->  	int err;
->  
-> -	err = gpio_request_one(usb_power, GPIOF_OUT_INIT_HIGH, "usb_power");
-> -	if (err)
-> +	err = gpio_request(usb_power, "usb_power");
-> +	if (err) {
->  		pr_err("Failed to request USB power gpio: %d\n", err);
-> -	else
-> +	} else {
-> +		gpio_direction_output(usb_power, 1);
->  		gpio_free(usb_power);
-> +	}
->  }
->  
->  void __init bcm47xx_workarounds(void)
-> -- 
-> 2.50.1
+> diff --git a/drivers/media/dvb-frontends/dib8000.c b/drivers/media/dvb-frontends/dib8000.c
+> index d291113291e0..442ec06e34dc 100644
+> --- a/drivers/media/dvb-frontends/dib8000.c
+> +++ b/drivers/media/dvb-frontends/dib8000.c
+[...]> @@ -3873,7 +3874,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
+>         exp = (val & 0x3f);
+>         if ((exp & 0x20) != 0)
+>                 exp -= 0x40;
+> -       n <<= exp+16;
+> +       if (check_shl_overflow(n, exp + 16, &n))
 
-Acked-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+   The question is whether the hardware can actually return exp < -16 or > 15...
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+> +               return 0xffffffff;
+> 
+>         if (state->revision != 0x8090)
+>                 val = dib8000_read_word(state, 543);
+> @@ -3883,7 +3885,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
+>         exp = (val & 0x3f);
+>         if ((exp & 0x20) != 0)
+>                 exp -= 0x40;
+> -       s <<= exp+16;
+> +       if (check_shl_overflow(s, exp + 16, &s))
+> +               return 0xffffffff;
+> 
+>         if (n > 0) {
+>                 u32 t = (s/n) << 16;[...]
+
+MBR, Sergey
+
