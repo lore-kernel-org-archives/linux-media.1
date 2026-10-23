@@ -1,79 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792742215;
-	b=fMhs/EHti3+6oI3qJT1vRnrZiJDt/BVg7POTb15CobJ8kfyUv2SvICc9P8/VD2wY0dpq
-	 M5LKQXXT7R8pxYSxDATzxPMAE03t1ixncA9vQfnSB8AA+sok8LHCUy+YZOQMtD7ftdvmu
-	 wC5Z/HPDsruYtSfVmx2l6CL3SFtyxDWMkDQnp5h5IODwldUy5gsKISrdycd/4UhFCetXf
-	 WDbGD0ifegLgNrsWk8Oel2o90Bmv9utQSWHJXu7XeJXgQFKuxw64+G93sGmA3mIqRTWqB
-	 /oy0Ras4DbMLGMCLQEiOiYTjLQIIUH7noxrGk82OQB2adZ7XhiMoC+xE3KxxVW0vVXg==
+	t=1792742218;
+	b=jlZFWoP/yvIvNWT73zd+96mv3tqfN1kgjyn9aV4QHQnRIi4Xyhj7N82abomsGJNZknhL
+	 e04Lw8SFjByGkbKAGQe4dCPdpw9jbUgui3UQEeefuh0bV/2oDKhNA83ROVM1VSoF5LoZN
+	 wgo0Dg9T5SwAnYkU1iWdVd+GyhG0546vs7vhLd2rj5WWYJcx5nQ+GFdslW7wu56L906a+
+	 xDGRWLkwX3hcRenm1/wj1mSVIMLZCTovVjOQEsuzaBv7YOnl+1+V0eMz0ALJPjLKSN6m4
+	 Dilw2F1lSGAuuRh5J8FifRC3s2eHmGcpzctXityCQEcS/djXGwaiVJWXuLwbQSwzKjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792742215;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792742218;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lDP6DNxZLMCCTvykxNYnugjrNL0G0a+2sCTH3kjJCeo=;
-	b=pRhtOZX4XvHPt8gTtkhH6MYganbK58AD1RDoAIGny2nWImRMKMf7HEom123Yq0TpY0g7
-	 f4gExDrkv2wfUybUFTgptSLDPvutx+DNKD4FtsB3K5386j2t5/OtGG3/e4lwQIaprZ/9d
-	 zX27BC+ZhZ49GT+/m9TX3taYghZWxkB2+7E7BkPcklFQQ3gTFyaEnsVhP3hkv7B7kRXIl
-	 9MM1MfAuS7woFnhGbdQk7Ww8i55czXjY4HUmB1LOVMa/Qy6Gw/zhTIsUiB7jKp99yGCwZ
-	 Bditejl6NNR440v2JHAM0uMhfqKYMxIL3IViuZ+yMVXQmEgOn3Hp6TNQzDEU+HjA17w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RX5QqI3n5ogrFRt3m2MadlsumYyF5inLL/iD7U/ArZw=;
+	b=AdtS+DIQxWyX6FQY2KFW8e9383boZ8A8adiTxjRFHFlSWkNebrFKLW4QR2T52qeryxrK
+	 tvdwmu5p6FtkyWgkdouJxIT2VHE/x3oRziUguWueCJOCSgImIOmSEkxXAw+QRaKpb6iqV
+	 PQR9VG+8ql+5IyrX2I8t/qjDFjQdh1iIvyd7LZ53cb8/JWs8drIKaQ5BzjKPo9AhyPdhJ
+	 jnkFNqnvl9kxFvCGQsS/nYQ+lok5GIU9ZElQPQZma8s07MyPuymbHk0vDskD1cONOPdYg
+	 O2cX4S+TJjpt3YYfIg8voL+LMz2vV6qxQEc+aafG7Q8MoPWHY0P1KAWBk91E8FQ+yxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CEhtQnwc;
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jGnnObPY;
+	arc=none smtp.remote-ip=209.85.214.175
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1998606A31A
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 07:56:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1998606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B74606A326
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 07:56:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19B74606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CEhtQnwc
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3adc0fd0299so467538a91.3
-        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:56:54 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=jGnnObPY
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e9f6a16aedso3043425ad.2
+        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:56:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792742214; x=1793347014; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lDP6DNxZLMCCTvykxNYnugjrNL0G0a+2sCTH3kjJCeo=;
-        b=CEhtQnwcLLpbQFKTgW3RaayjQkWo13wFlap6gS11OuDaSwR8gtNYn/wgTFF4xZy6X9
-         6qFTgURbGDCwgk3zo1DjZ1/mfFQ6rAyxaddO1Qmr80Df17Zr8UTtvEWuvrvZf9DwPHSE
-         pD3fiBpSdES+ri/QJDZA8nDyw2wemkJvZqbgg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792742214; x=1793347014;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=chromium.org; s=google; t=1792742217; x=1793347017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lDP6DNxZLMCCTvykxNYnugjrNL0G0a+2sCTH3kjJCeo=;
-        b=Ohj8BAef79chX3ceL/O41g1fAKQix3Wpl7F+WU3MTxGJc1jerMbPjxwUYr4+IPvg/S
-         L1I+GQPGZwy2G/KMgTU13LqF9ytii1RE3qSoS9Wpt4aiaeT/sztK1srSic7EvtmU/r7j
-         Ur0ubsSu4dJ617BjbAlzrYQqzuS0QoDSwDFb+h5L3X4e0hFz4rF+23flnp+HjeRUJ2d1
-         e4ohM5DtDCDZTmQ0CPyqKgZG7SLwffrwcfovsJM9JMKaT3VB3e1fBUNNxROfOXZ8uZSs
-         80G6rauJY8jM2bnMgWygtFNVhcP7EuDaq7f9Ozhw7H+As2mfkcaAIPe+PN/yLxCBuLOw
-         ss6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxaBo80JPrgXmDoxY91sAbh9ZsEdgAisxuqDyCP7GBUlvA/QxdNZoesdmspfYfU2Y4Xn0yyHrIhEleaag==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0I1YGAOZNfds/DKDQwlEryocGeIvQqKUSOFTU37PXqEWrnQ9Z
-	knzK0d4Z/U46+BG95EiWwQNL35YjW0CO1LuKND6li56GPpyVKbZbpjz1WLr+OdDuFg==
-X-Gm-Gg: AYBFou0I+6E/9CTz+ng8UhoemcDkd/aiJRRUXaWN6FimNSSQGGXfMEC+ot14jez9jWR
-	u7sSJ1zpnEB0aeGoM43S+E0rG382G0wemj0KZnosfqhx+EDxHcyJCj8tX2GzotuGnyF99RMRU2C
-	Dge+WMjABaiy6Mv3q2aSThdhyn24RAfjNK2itnMgkVu/JdsTO6G6+dv8tjc/Pbp9tjrLtu2EBIA
-	bA+Qpgz7spRRbA6G6J8HGpqlS1mm10fJJwdqgGPIHznmRO230I76MVjjqDF+X2Kn/elSsn3x3j3
-	9eeGh17xvBjDfVIpWUbrlri4/k5SoP7WZL+3Zidu7F7vBaIuBm0Ox+NWcRB8k8ObBT8lYd9l1a3
-	uRtDwVL819gH2GHBKegtp7o2UsUCCDSCoNKEAiyYvbm3a6CKiZtePklxW/sv0wzsBssLtaxhOdi
-	Dh1z8OdhuXvWQMCBiwcR9EGoaNTmdOQLyDLO+0eSX5TN5fHMyatZE5YpkJvQgWYAAJDlNDpSM6U
-	TS4EqhDxvCN8AmtJOkech7Wo+c8QpCJyqnMZGZVlxX13ksIABZCBqSz9WvqJksjVcH2+lNprCGG
-	YgxIgrAo/EHnGVYLwDUvFKuwavY6QQvXUqzwruw=
-X-Received: by 2002:a17:90b:5246:b0:3ac:8fff:5a1b with SMTP id 98e67ed59e1d1-3adce7dd700mr1102279a91.34.1792742214339;
-        Fri, 23 Oct 2026 00:56:54 -0700 (PDT)
+        bh=RX5QqI3n5ogrFRt3m2MadlsumYyF5inLL/iD7U/ArZw=;
+        b=jGnnObPYA2oLEKIe6zozk3DBXy91jTUskWtKKiHbJCBwJYhpmAkV5XvFqcA3Xbi876
+         IkzN6UCHc9ZtgCiQH1ZQrApz3B23d2tzTRBn8WVQnqRRjjvlhjumUnLJANsper8pz9CO
+         ZhrtvksFHQNNUShXfZqUgd9k9fEYgiblvrGFg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792742217; x=1793347017;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RX5QqI3n5ogrFRt3m2MadlsumYyF5inLL/iD7U/ArZw=;
+        b=0q2mbZi/Vbq+ziAOdgIVfwRWOBrwhjYs7s2F9bGjsUj4kfJSWpOCsm2wqGRPnaTU27
+         AuWCQIEGp1BtWTVD3E/ry1ZvqD8GM7jVm5YGYC51alukJVV1gyDvwea6hW9Z8zepdl6J
+         VklVKRaty6fyf4GSlbBcBuef1l0MhSWjje4vU0e1Hx7NzSNsfpupk59LLcwTUbJTJiYm
+         szxZ4cTLvX8AQM5/fi/Dzg+lecyFLt10xuTsQFasFIOqdNLIEgNg4KywVJQ8GFek4sck
+         H8bxIRjwvcueRu3lBjSiTMYSvKl/hcBI2TS3bDJqvRWqIaXBuN5IhgDL7h/+KwKfQnVd
+         Xi3A==
+X-Forwarded-Encrypted: i=1; AKwUvBwA08dD1LhdRV4EOPpCXZoQykS5j/stDRFKtMPxm2JJH1cCqNTWqBHPURLfcxsws2mHHZ+Ah2m3ds3Dcw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaUf77mUf+N3k3B5TPPtwVYnA54nygLufokNcx8yiQQ7/DGE8A
+	tkX4NDbYOf0ehpDFakPnXxpS3X4uMXpCaZjJsoXME3aALlnoy79V25ZgH8k5dJsKRiYzC0dDxxM
+	diIM=
+X-Gm-Gg: AYBFou2LkBUSQ9dYwoDvdbkvx08ecjE9f/ofsTRZcs12ZgPaOd/6qEruP3OOOW70XuJ
+	uGYS4Tl/spHpee4EXvl8T6meLHzGU+6gPDDCegNU3CVd8+HcPAq97fzyI7g1RdTJuLC3ze7ohR2
+	8i718RcmUWQWSkXICttpiPkaMMbdoCnUBfSek5lY43zqU6LbmAm0GQEVtid8eVyI06TCxXPULq0
+	gpn9TiUA/vRXkKg3I3TYsvjItT5GOy/seGMtn8l7kWOZaMDj0uajJIGmFxd0fvEgI74/6WQTEfr
+	2jw1YoRFjNAyfkKYj1uUJCsLWyP62F5QzlbCPqCqbzhEMMsFFpbl09HAYD9rRcvyZ5ktwSmYtVs
+	XMPGuXk49H2nKdjeoNKY+MyKTVgqf80od++CjF7U9YZd4FeXyyLwD+VUZLMxv5+XWyzGJOzjJj8
+	pNRqOoapMmNK9J217cVX/eFw4ZDCt05VO1SoGOooEPq7YlV4aoNUjUVX4Ow5RlGGTyn/f4yrauM
+	XaM+U44HQB0s03oNO29wBwn26Kh1ufrhsDjeJQx2xRtmIV1hZifHhNFSxDZfq9PxGQHYbK05iT5
+	+Tb02cc0dLCyYyWfr0u6XjM4ACpQ9R98/GvuSXENtI7B9bgsHApI52c8u2V/
+X-Received: by 2002:a17:90b:3143:b0:3ac:a7ee:6772 with SMTP id 98e67ed59e1d1-3adce135020mr1195926a91.63.1792742217327;
+        Fri, 23 Oct 2026 00:56:57 -0700 (PDT)
 Received: from fshao-p620.tpe.corp.google.com ([2a00:79e0:203d:7:2210:4aae:b72d:9083])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adca08e785sm2483537a91.0.2026.10.23.00.56.51
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adca08e785sm2483537a91.0.2026.10.23.00.56.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:56:53 -0700 (PDT)
+        Fri, 23 Oct 2026 00:56:57 -0700 (PDT)
 From: Fei Shao <fshao@chromium.org>
 To: Yunfei Dong <yunfei.dong@mediatek.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
@@ -86,10 +88,12 @@ Cc: Fei Shao <fshao@chromium.org>,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH v2 0/2] media: mediatek: vcodec: Fix NULL source address handling in decoders
-Date: Fri, 23 Oct 2026 15:55:18 +0800
-Message-ID: <20261023075642.3671805-1-fshao@chromium.org>
+Subject: [PATCH v2 1/2] media: mediatek: vcodec: Return source buffer on NULL va in stateful decoder
+Date: Fri, 23 Oct 2026 15:55:19 +0800
+Message-ID: <20261023075642.3671805-2-fshao@chromium.org>
 X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+In-Reply-To: <20261023075642.3671805-1-fshao@chromium.org>
+References: <20261023075642.3671805-1-fshao@chromium.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,30 +105,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Both the stateful and the stateless decoder workers peek the source
-buffer and, if vb2_plane_vaddr() returns NULL, finish the m2m job without
-returning the buffer. The buffer stays at the head of the ready list, so
-the same job is scheduled again and fails the same way. In the stateless
-decoder the media request is also never completed.
+mtk_vdec_worker() peeks the source buffer with v4l2_m2m_next_src_buf().
+If vb2_plane_vaddr() returns NULL because the buffer has no kernel
+mapping, the worker finishes the m2m job with the buffer still at the
+head of the ready list. v4l2_m2m_job_finish() then schedules the same
+job again, which fails the same way, so the decoder never makes
+progress.
 
-The two fixes are split because they fix different commits, and the
-stateless fix also has to complete the media request.
+Remove the buffer from the ready list so that the job is not scheduled
+again, and return it with VB2_BUF_STATE_ERROR so that userspace gets it
+back. Print the error before that, as the buffer must not be touched
+once it is returned.
 
-Changes in v2:
-- Call media_request_manual_complete() instead of
-  mtk_vdec_stateless_cap_to_disp() to avoid dequeuing a capture buffer
-  that may be in use by the core workqueue on MediaTek LAT platforms.
+Fixes: 590577a4e525 ("[media] vcodec: mediatek: Add Mediatek V4L2 Video Decoder Driver")
+Signed-off-by: Fei Shao <fshao@chromium.org>
 
-Fei Shao (2):
-  media: mediatek: vcodec: Return source buffer on NULL va in stateful
-    decoder
-  media: mediatek: vcodec: Complete request on NULL va in stateless
-    decoder
+---
 
- .../vcodec/decoder/mtk_vcodec_dec_stateful.c  |  4 +++-
- .../vcodec/decoder/mtk_vcodec_dec_stateless.c | 22 ++++++++++++-------
- 2 files changed, 17 insertions(+), 9 deletions(-)
+(no changes since v1)
 
+ .../mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c         | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
+index aa9bdee7a96c..a4cbb7c76998 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_stateful.c
+@@ -348,9 +348,11 @@ static void mtk_vdec_worker(struct work_struct *work)
+ 	buf.dma_addr = vb2_dma_contig_plane_dma_addr(&src_buf->vb2_buf, 0);
+ 	buf.size = (size_t)src_buf->vb2_buf.planes[0].bytesused;
+ 	if (!buf.va) {
+-		v4l2_m2m_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx);
+ 		mtk_v4l2_vdec_err(ctx, "[%d] id=%d src_addr is NULL!!", ctx->id,
+ 				  src_buf->vb2_buf.index);
++		v4l2_m2m_src_buf_remove(ctx->m2m_ctx);
++		v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_ERROR);
++		v4l2_m2m_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx);
+ 		return;
+ 	}
+ 	mtk_v4l2_vdec_dbg(3, ctx, "[%d] Bitstream VA=%p DMA=%pad Size=%zx vb=%p",
 -- 
 2.56.0.257.gf7497c7d27-goog
 
