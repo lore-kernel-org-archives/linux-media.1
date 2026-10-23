@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785362;
-	b=a7KMzTJUMEhYrX9hDkICFqaCiujP6DlWKhnrmBCnNM6YH/NlTIHlPjaUALnLfibjA4kK
-	 l1OeT32YXUh1zf+3oh4OaBiX9E5RFMD5A60xh7MQLzB2X94MHHDxtRC8sHuLBW49NQIam
-	 OutJ9+XMX4Hn72do64GubOXHn0VKh3jXOQmaAP5lcy53VBYFJVVcpbhUjCSX1k05Hmb/I
-	 D52bXTqBpW2PA99W0YoVFkgfCiveSjKU3+F5EiDPazh05gHcluJrQuCWwf8k9QAKDTdEW
-	 ydkV1AcLE3Q08VHEgOhltHuQnyLB22KpIQMhHv9VJ63uAGUIKQnAPYzIns/Cz+zn1aQ==
+	t=1792785364;
+	b=WBokqALu/py1dPDf5UEp7lPJbwvlG80RZyb5Q4I0FPKJPsGsTLERuhIBK+Qn8MX+b1is
+	 J7YPApWPuRxXu9y2J8DBe+tPx60NVZ1ADm1VIe6/kRNx5iUJ9RJRqThtVnbGFq2QpcbLP
+	 hZjoC1QHL6dZhVr7K96DNPgdwai4KVieyRIXQUq7t5MnbzKAE0+Xx/MQq6jLVA/m3AkSW
+	 1uesBlvlcatR1tU2rA2TmhrQrRot5wvP5ry3Dn9Zw0oX6OV/W8741gYlkGXY0EMmJqkXV
+	 fpJh7szvUPOreQD5dycDwHMR79dCABBwjvjHXgHhnTZ8gp/FIIfp9wgFMIWvBgRtrBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785362;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785364;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=UU2/l9uiGTJ05ANLh/MkjKB1i1Yw98Qmjp0XD98bKU4=;
-	b=PqjI6FA4x6htsihjmagVj28rtXBKGgct9gVJSxpbgkca0Q4y4qDmEOihFQ6Kp5Tg7ya0
-	 XPj/AAJSt4qrZVJKMSG98tB/+hU1tM6dESQNkJQ3VVt+MpX7wpYbq53tC1UABKCDWtHMm
-	 2E+XNQzUTN61FJrYMbX5ja6ZcWmTOK7l9mLxVOShy+8ITolq41t+n7dPvHw8HfV7BPNqN
-	 J/ubYFGcbjdNayrTiNHJPX8x5X8RYwOWuxhizkPpF7e3t5H3hcXmS4NN1FsncRqyXzAhJ
-	 8/txW8fTjeTsHzKUciSSCD3k5LN/tsyAIdsAKAiSFh8rJdb2WkyaE8JtOFRDOH6QCkA==
+	bh=xYibKUXUGyrTSXdXuSUxNYcCPjzxvN7w1HBp6cwIiM4=;
+	b=P2WvN5GRRjqnoFlHp28os13innVYRRafZl6ZK+B4snT58JjL8NW1KWfNEWZQDq8BR0x4
+	 GV4V48BQrvx8fiCJjFc0fRs21cuXDGlVS5nS8mYhlXWmPTmjyN1CnlJcktq2oTzh+y15J
+	 7WgLo7hHUrJodIPl4PMV1sRKr1P4+TUGS7iDNGmXXL+VTNOkZrmgXD8ts/J1fdcA1j7Z5
+	 CRiTEKueW2BkdQ9byfLpXQQDqiHhCig+SBg3wG37OQvGVelRQrXcb4naD89OyvwtuD7JB
+	 kQB1PPyNK4cPBaw49XmYzaZzwItq4jQriSxtb/pceuwuYjCjB4V0r/R28cWofRfogvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=lTTzjeLX;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EmztR2+v;
+	arc=none smtp.remote-ip=79.135.106.121
+Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD708606A928;
-	Fri, 23 Oct 2026 19:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD708606A928
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDDD606EA4A
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 19:56:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CDDD606EA4A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=lTTzjeLX
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=EmztR2+v
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792785360; x=1793044560;
-	bh=UU2/l9uiGTJ05ANLh/MkjKB1i1Yw98Qmjp0XD98bKU4=;
+	s=protonmail3; t=1792785362; x=1793044562;
+	bh=xYibKUXUGyrTSXdXuSUxNYcCPjzxvN7w1HBp6cwIiM4=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=lTTzjeLXfiZIP+FQtMuIBnrns7N4jtaI5+7Kckn9z5JPuN7tCv/i06JmfFAdnZvvp
-	 vNJCYDiPFWE5HqiZAzpnGyXk1U9ywAUdV/3+P4jk7dXnWvaJa6P9m/R4mG3N8FHfBE
-	 MMU3oLDCoK+9A8zYBZfVtSiPtb6z/EGoW9SSjkfv0GzYVC1vHKAyvyj8HEqPIB32Y3
-	 WT7/QWH7zjcWkS56VY9QTBZywGyOWnyIoAFLyVNo2SxxflQ6KiKYp+fH2bfXUPfZ2E
-	 HKrvkgSNXzgoUAADnqSHotmN3hOH6sNmip5wzftLMgXT/HoihN2MGpjFkqGdHEq+U5
-	 RSmUW35i8jqpw==
-Date: Fri, 23 Oct 2026 19:55:54 +0000
+	b=EmztR2+v8FKsp8yZS4Ta4T4oo4KdTrKPukFY5vNPzlqPnc0kN0KHg02CN54I6ChkC
+	 /D9xkrUWT2JDadsUOCsHoqFuztjBVf9enhZXzHgil+MFIQpcBf+jgbAH8PLuPDRpQh
+	 73l3SRsmnOzkOHkFKCsEL/rX0We1xty0YzW4G+f+ncsZh6UVPbby+qEJp7GWgAZane
+	 pAYP2VMgUZX32tQqJHCwXnfDL4u6f5fQIfkfjV+MEvYl/4u4TzfezXDBc+5f8sjsF2
+	 GqMIclAmpxHxwLsECdvLPl9r86bqgWRQWld3invQybdWa9akHDlu+nYztUcSb3xm91
+	 gLXzzbpeFCFzA==
+Date: Fri, 23 Oct 2026 19:55:58 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v1 07/11] media: intel/ipu6: fix IOVA leak on first entry failure in ipu6_dma_map_sg()
-Message-ID: <20261023195446.22578-8-valerii.sokolov@pm.me>
+Subject: [PATCH v1 08/11] media: intel/ipu6: return an error from ipu6_dma_map_sgtable() on failure
+Message-ID: <20261023195446.22578-9-valerii.sokolov@pm.me>
 In-Reply-To: <20261023195446.22578-1-valerii.sokolov@pm.me>
 References: <20261023195446.22578-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: b47286ea8522e8e9334f51613acfd0e323a5609e
+X-Pm-Message-ID: 6c1b308bf559afe3008309f96493f7f81b8d2a54
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,38 +67,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-If ipu6_mmu_map() fails for the first scatterlist entry,
-ipu6_dma_map_sg() calls ipu6_dma_unmap_sg() with nents =3D=3D 0. That
-returns immediately, so the IOVA range allocated with alloc_iova() is
-never freed.
+ipu6_dma_map_sg() returns 0 when ipu6_mmu_map() fails, but
+ipu6_dma_map_sgtable() only treats negative values as errors. On failure
+it therefore sets sgt->nents to 0 and returns success, and callers such
+as ipu6_isys_buf_init() and ipu6_map_fw_region() go on to hand the
+hardware an address that is not mapped in the IPU MMU.
 
-Free the IOVA directly when no entry has been mapped yet.
+Return -ENOMEM when ipu6_dma_map_sg() maps no entries.
 
-Fixes: 9163d83573e4 ("media: intel/ipu6: add IPU6 DMA mapping API and MMU t=
-able")
+Fixes: daabc5c64703 ("media: ipu6: not override the dma_ops of device in dr=
+iver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-dma.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu6/ipu6-dma.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/in=
 tel/ipu6/ipu6-dma.c
-index 90f530a937..a923a1e4bd 100644
+index a923a1e4bd..37b5c25259 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
-@@ -444,7 +444,10 @@ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struc=
-t scatterlist *sglist,
- =09return nents;
+@@ -459,8 +459,8 @@ int ipu6_dma_map_sgtable(struct ipu6_bus_device *sys, s=
+truct sg_table *sgt,
+ =09int nents;
 =20
- out_fail:
--=09ipu6_dma_unmap_sg(sys, sglist, i, dir, attrs);
-+=09if (i)
-+=09=09ipu6_dma_unmap_sg(sys, sglist, i, dir, attrs);
-+=09else
-+=09=09__free_iova(&mmu->dmap->iovad, iova);
+ =09nents =3D ipu6_dma_map_sg(sys, sgt->sgl, sgt->nents, dir, attrs);
+-=09if (nents < 0)
+-=09=09return nents;
++=09if (nents <=3D 0)
++=09=09return nents < 0 ? nents : -ENOMEM;
 =20
- =09return 0;
- }
+ =09sgt->nents =3D nents;
+=20
 --=20
 2.56.0
 
