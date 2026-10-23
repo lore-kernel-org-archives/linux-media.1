@@ -1,47 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792743859;
-	b=Aj6Ivcp6W8soyg9IxGX2upAe7eZYlyaCnzjqygJbBHZKv+av3P+mtBIgHTeDz2nQC3VC
-	 6UpqaBlba55zHwQNQ0vIoP85cpu3Mxhfl3G6zXNjPrt0A8lTuUQrWy8B0jl5VlVNOlNL1
-	 ehdi4lYafzc6WRrzNTGA4/oShQ7cRk/Ly3XxWznI5dX2YauUgpN7spMG3K6i/22gdOPBN
-	 DZWIXntggyolhJ4voTjgdU0bQ8FKJntgN8lLmrt4zu02etztJxSQjPZ3egrJn/45xldHE
-	 fYugmcYGNEACQfLEdrXbsSmciSqZ5AYETfO0oSqhpbX6N0aUvsktRZh2Q8Y07gjlIPg==
+	t=1792747704;
+	b=aHtpGDNodgGzVOQZzEJyp4feFxwoAjNL4BNIkLVHPqCx2+7pny2oc56iIuDlidrQDpNn
+	 YG2QMOUpX6Qf1Mzhk7loXG16g7RG8dE7eW6Y3Hp5lza5/nIufLVmc6J7UVnrln3m1+0Ec
+	 630weD9VA4mCc1ddOrH2z/QRZaO1Wxnh9DdbgUadB15M81xLi55U0Hfy+IbFwNYC2h+AE
+	 qbRim2R3S9fyOoHol80XW+eKUvNMgcONXQPcORw7bO3epSolIT+RUxTaCp3FME6yloCGy
+	 yUgJGTxjgOWytfjyS5NSXwkTR1mYkx73LW4ZNbT/9MMQT3hPVyJdz9QwQb/uHwTtinQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792743859;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mWiKy2uNdp2dmO6iNZ8w+iaJQX4LQ1vYisT9qIA+1bg=;
-	b=lbDdUDS+01r4VzBmTmsjAvCPnJ/2tGEoTHO8Li7f48AIKSILmP2fgl9UjfOhyRYMBQJ+
-	 axY4MFMAj3fipH0pojeZjwZyavbDB7xNzvGVTYe3P15dsTCvnu4GqpR4xCNaUomYzfFgw
-	 F6ZnB+r9Yod3Goq2gIs2lSf4ULgzJPcLjVqgBFYSUk7CloCivyCWhGXKdF3qzs0eqD6Bc
-	 T4aeF9oNo4+bCSJ1oP/tVHje0J6oZ/JSQ8e8Wu7Y6v6BP+Wq7WhajGT4+3tAiEK1ew+so
-	 opcBJtYj2ECqGemNS4gu+CbnEghU8985okzYEYnbzetiU1WCl3MSjG+TlbJV1wt5PhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792747704;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=eNyYfQptoFTD47cQRauaaNxOsHqwoQB1alZ+QnmtoL8=;
+	b=xcNzHJ3ApqHUnHzbRmTfch6CMiBaZaocZUL8/jj1YayAXaFWA0wscZ626wEhC2BL/36L
+	 G422X80DAbwOzTAQlbPtOI7hI9HZD3oALBeChCuxZTItm1MQm+4mGMVl1XrHqNfpGNzPd
+	 V63FXKS7yDVAgx4sX82ktUocbyU6CM/n+U3SyTxvjT3h16bNkeEbdxFqxCBih36bS1dsT
+	 VJMo0qu4aXHDX82sYMEePGc3uIGtZp45APIQ6b8aHdQXZ0gWtsqlNaFjoKTH0MY2ulJVi
+	 tKXIx5MkqAxPphV8aDvCLyTA36avCAY8Jke7fzTWvRQHv0AyWPWYAYLkBt/URtRDWvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QA2FRdq5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="DD/yOzcF";
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEBA5606A31A;
-	Fri, 23 Oct 2026 08:24:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6464F606A31E;
+	Fri, 23 Oct 2026 09:28:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6464F606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QA2FRdq5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8D141F01825;
-	Fri, 23 Oct 2026 08:24:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792743858;
-	bh=mWiKy2uNdp2dmO6iNZ8w+iaJQX4LQ1vYisT9qIA+1bg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QA2FRdq59Z5YayCTXaUlGu5kPgHp87ZyGlXnL/zfkJcWuh41crw1juhEOMcDSCXOG
-	 YpQB/xalslR9JwmoPk/w4j7TYfz4p6jaOZQyYuI4Lvmmx0NVo0+JpytW4A9iLnQQjT
-	 M9+iigJvN6arBhU8a1vixcLonUkeCODClew7iEnE8cDNRXVaaLeDYXYrRqz7ziYnr3
-	 cdt6APUX7g0lGY1VUnWfusEFf8j17iA4ZQGCfCgfJHevA0ls7SnEN2UmhCsTQ4yEb3
-	 ITDhPPJ88GGfGewJ5irLsGrqtAOkwhFqSXg9ICTf7IEM5QGjTGuvBLzI4T59ssTVZQ
-	 3cpOV9u+NqT4Q==
-Message-ID: <a8be1a0b-591b-47d2-be21-137e1cb93dc9@kernel.org>
-Date: Fri, 23 Oct 2026 10:24:08 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=DD/yOzcF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=eN
+	yYfQptoFTD47cQRauaaNxOsHqwoQB1alZ+QnmtoL8=; b=DD/yOzcFkrdW1sNGs5
+	OSUR5Z6bTkiyyplm2zoZ1TraO9Ieq8m0p+BEHyXkqtZCooSccPXZKMEamWcpoA23
+	58DTWQQCWJHEJcuptEw/USAUk+b6cvMjzfPfCk+XD8RRPKujnh0Q+PR6f+jxYaGq
+	ln6/uwQBtV8Ar5+sNfcdYNzBc=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgD3KHOkKNtqXHGqBQ--.1363S6;
+	Fri, 23 Oct 2026 17:28:10 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Nas Chung <nas.chung@chipsnmedia.com>,
+	Jackson Lee <jackson.lee@chipsnmedia.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Sebastian Fricke <sebastian.fricke@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v4 4/4] media: wave5: handle runtime resume failure when closing
+Date: Fri, 23 Oct 2026 17:28:03 +0800
+Message-Id: <20261023092804.673980-5-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261023092804.673980-1-yaojiale02@163.com>
+References: <20261023092804.673980-1-yaojiale02@163.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,95 +68,136 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/13] dt-bindings: display: msm: Add Qualcomm DCP
- bindings
-To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev
-References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
- <20261015-jshekhar-drm-msm-dcp-v1-v1-1-48aad0fe4f72@oss.qualcomm.com>
- <20261015-heavy-clam-of-sunshine-8fe831@quoll>
- <ae967eb1-cc54-4733-9e89-bc375e1cbfd6@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ae967eb1-cc54-4733-9e89-bc375e1cbfd6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PCgvCgD3KHOkKNtqXHGqBQ--.1363S6
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCryDCFy3Jw4DCF47Aw1DWrg_yoWrCFWrpr
+	yrWF4DGrW8Jwn7Kr1ktr4xZ3ZY93yku3yUu3s7AFy3A345Xr1Yvr4DtFyFvF18JrWvyasI
+	qrsrW34rCFs7JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnkucUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wrFAGrbKKrJ2AAA3C
 
-On 23/10/2026 10:10, Jayant Shekhar wrote:
->>> +properties:
->>> +  reg:
->>> +    maxItems: 1
->>> +    description: Index of this DSI host among its siblings.
->>> +
->>> +  status: true
->> I see slop, I finished here. Mind this maintainers summit words - if you
->> use AI, you must use good one, not the shloppy slop.
-> 
-> 
-> Will remove this in v2.
+The decoder and encoder close paths ignore runtime resume failures and
+proceed to firmware commands. If enabling the VPU clocks failed, those
+commands access unavailable registers, and the paths later drop a
+runtime PM reference that was not acquired.
 
-And please also remove other sloppy-code produced by your AI as well.
+Returning the resume error directly also prevents release_device() from
+calling wave5_cleanup_instance(). The instance has already been removed
+from the device list and its mem2mem context released, so its host-side
+resources leak.
 
-Best regards,
-Krzysztof
+On a resume failure, skip the firmware command and hardware lock, free
+the close-path resources, and return -EIO. Use a decoder cleanup helper
+so auxiliary-buffer cleanup cannot overwrite the resume failure status.
+This lets release_device() continue with its common instance cleanup
+without unlocking an unheld mutex or issuing an unmatched runtime PM put.
+
+Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jackson Lee <jackson.lee@chipsnmedia.com>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ .../platform/chips-media/wave5/wave5-vpuapi.c | 47 ++++++++++++-------
+ 1 file changed, 29 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+index 4c1842f02c..31be2581ae 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+@@ -206,13 +206,26 @@ static int reset_auxiliary_buffers(struct vpu_instance *inst, unsigned int index
+ 	return 0;
+ }
+ 
+-int wave5_vpu_dec_close(struct vpu_instance *inst, u32 *fail_res)
++static void wave5_vpu_dec_free_resources(struct vpu_instance *inst)
+ {
+ 	struct dec_info *p_dec_info = &inst->codec_info->dec_info;
++	int i;
++
++	wave5_vdi_free_dma_memory(inst->dev, &p_dec_info->vb_work);
++
++	for (i = 0; i < MAX_REG_FRAME; i++)
++		if (reset_auxiliary_buffers(inst, i))
++			break;
++
++	wave5_vdi_free_dma_memory(inst->dev, &p_dec_info->vb_task);
++	mutex_destroy(&inst->feed_lock);
++}
++
++int wave5_vpu_dec_close(struct vpu_instance *inst, u32 *fail_res)
++{
+ 	int ret;
+ 	int retry = 0;
+ 	struct vpu_device *vpu_dev = inst->dev;
+-	int i;
+ 	struct dec_output_info dec_info;
+ 	int ret_mutex;
+ 
+@@ -220,7 +233,11 @@ int wave5_vpu_dec_close(struct vpu_instance *inst, u32 *fail_res)
+ 	if (!inst->codec_info)
+ 		return -EINVAL;
+ 
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		wave5_vpu_dec_free_resources(inst);
++		return -EIO;
++	}
+ 
+ 	ret_mutex = mutex_lock_interruptible(&vpu_dev->hw_lock);
+ 	if (ret_mutex) {
+@@ -258,20 +275,7 @@ int wave5_vpu_dec_close(struct vpu_instance *inst, u32 *fail_res)
+ 	} while (ret != 0);
+ 
+ 	dev_dbg(inst->dev->dev, "%s: dec_finish_seq complete\n", __func__);
+-
+-	wave5_vdi_free_dma_memory(vpu_dev, &p_dec_info->vb_work);
+-
+-	for (i = 0 ; i < MAX_REG_FRAME; i++) {
+-		ret = reset_auxiliary_buffers(inst, i);
+-		if (ret) {
+-			ret = 0;
+-			break;
+-		}
+-	}
+-
+-	wave5_vdi_free_dma_memory(vpu_dev, &p_dec_info->vb_task);
+-
+-	mutex_destroy(&inst->feed_lock);
++	wave5_vpu_dec_free_resources(inst);
+ 
+ unlock_and_return:
+ 	mutex_unlock(&vpu_dev->hw_lock);
+@@ -750,7 +754,11 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+ 	if (!inst->codec_info)
+ 		return -EINVAL;
+ 
+-	pm_runtime_resume_and_get(inst->dev->dev);
++	ret = pm_runtime_resume_and_get(inst->dev->dev);
++	if (ret < 0) {
++		ret = -EIO;
++		goto free_resources;
++	}
+ 
+ 	ret = mutex_lock_interruptible(&vpu_dev->hw_lock);
+ 	if (ret) {
+@@ -774,6 +782,7 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+ 
+ 	dev_dbg(inst->dev->dev, "%s: enc_finish_seq complete\n", __func__);
+ 
++free_resources:
+ 	wave5_vdi_free_dma_memory(vpu_dev, &p_enc_info->vb_work);
+ 
+ 	if (inst->std == W_HEVC_ENC || inst->std == W_AVC_ENC) {
+@@ -784,6 +793,8 @@ int wave5_vpu_enc_close(struct vpu_instance *inst, u32 *fail_res)
+ 	}
+ 
+ 	wave5_vdi_free_dma_memory(vpu_dev, &p_enc_info->vb_task);
++	if (ret == -EIO)
++		return ret;
+ 
+ unlock_and_return:
+ 	mutex_unlock(&vpu_dev->hw_lock);
+-- 
+2.34.1
+
