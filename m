@@ -1,84 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792770109;
-	b=cnUkjUOD0zES9nN8J6pPamgGbizSjvQE9pxf5yt7Ig7QCKZd0Mikm99DSBC3CbRuYyvC
-	 LoYmqIyCMngbhaJR1BBMTKHz8YQ6zATClsjJVabLg6D57VIIKZ/kTv3/3D3sGE+D+8ZCk
-	 wlR73RZ07D3xcy98x3tcgM/Km72mVyV+8f+GUEtRULupo+admxkJSoJD+tpFEBJLcS0cz
-	 5+eR7NfSDOMZvX9/kkWecG9nMWumayC/hxIc8LUVbMGoJUPE+bFGroW9BCCGshinxY4b0
-	 NBolu5W3s3n7m70C7gMkD46nuptwiH3BnTiPMWLTAd4ZuF7IPh0gvBT9OC4/+boPBCA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792770109;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=p4zYTNJnmB4RId87xSly9GxhAKztPRW2cESt3l+Nt3I=;
-	b=SFwcNbfkjPXZEeEsElWor6tJprIwoI7LXw1zyUaiawfQphrdfJ69pV7hw2Puz2PoT1v+
-	 Q7fshTQezsUvK6bTQGTZRSaJIECO0ffQdneByY4ChwCT5+uyn28ojV6YEs2oUES6LOYuX
-	 7JgvlyRWziPqXKuA6mDNoOOZHrlePZfF9RQ0kYSgaTTmQa/oZgTuF+fhzDidmMYr4sG0T
-	 7lZtWGpR4TTABdjwVjs4fyPhP44fH998vW82+mxjjeqBRrQpbCpchi6tNBA5Bu3bOFoY0
-	 7VMScNbwioazMfnb2hEw9TcNRvVdWccj49bLfP4kjJxqZJ8hSRdqtxx2415j6gkSxrw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lYDGdzjn;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792770373;
+	b=J2Fq9mgtKy9tFeUhtsKDN5lecI1cLsFEe72VVS4iDC1lr03Vhw6nwf7/seGgYlhaC5T3
+	 /P8njfbRtcbo2px0BMA1wIcYaXOL85eYrM345nbUndxMMBIzeTdkuazxGVwi7yjogQDuP
+	 K9Bzs+0wouKh1QC95uAUOPfmGcAXBOf3SdMHzYX7fGkBOj9dhqmdZk24FA+CjoNsavtpK
+	 GBNAMzH88pO8K0JIFLHWhkQrVuFPE50s8BwX0fmzGN9R194BlkjjaARrbNuPvMwAQE46w
+	 3/vnXRLZD7g6x66r0vgDT/KshsKL7mq/d3d30l2IUjGjD2nXG1JbfMbyZM6opHiGoBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792770373;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=k/oZy3r8kmHxYtAFoxOlyC7doeahiTYoTHRRZtl3TiY=;
+	b=wTDH1WGUA8HRNynOZBI29WlIzgCuhcPF1oJBI7qMm+8t06afhqiFjxeMAZZqNxQned6E
+	 LK8DknKIclSEf7IbmJSLRotuaEmfJYBfWbd8arHO5VgKm5SzHKYRZskytGZaZvNDPH+EI
+	 cv8vNkj5QZAeCi1Cg38ibKLMezId+gyCSXYbNxMEJKLJ/Ig5Tq3sXaZRwJuXsAm6UFekl
+	 cF73ruR4lBf6hzx2JhVGU9xD+75g/G3zfgcC6dvmeXlJX8n3+WPxiJHI6yFxp8HDFoN1h
+	 5IpGmAXrue/DEwwJE6teXZI9R/MJxqnxXpFF6Xy5IIwUAB2Np8sKCkrbsRxkqGUC3Ew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=evwdBAOC;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WsNwSiDJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410FF60A3827
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 15:41:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 410FF60A3827
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F9F606A320
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 15:46:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13F9F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=lYDGdzjn
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso736645f8f.1
-        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 08:41:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=evwdBAOC;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WsNwSiDJ
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69NE5wgQ2109186
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 15:46:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	k/oZy3r8kmHxYtAFoxOlyC7doeahiTYoTHRRZtl3TiY=; b=evwdBAOCvpQwwxFN
+	ew1VktCEyBUdmDwDJZmymL2RN2I31pn9KEwh5rPGPzMTrmnvAVHP6kNrUPuZNmzp
+	qQYuIA6atgpPESI7tVlDfS/m40nRPIlvta26gviZtTK4Aj8O8VIMqJUIAeRgNuAN
+	HmU2YU3kdc9j0tZApI53HTOtUgVu5qudG3feTRst1IMb5N7yEymIXZ1BtKyRwC4d
+	Kx1iAY/w6lg+y8D5Vguv6DYpFmTiN5CuVeqmSLjhqI4rSiU91hSAX6nS+A8aLKQ3
+	qj5mLb6yDE4Lcj3cwoFiu0AbKSOgOWT5fpAqb0VnZace0f0SKCYzP7QzGb75ao1R
+	UhX68g==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqms4c81-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 15:46:11 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4fb73e868aaso1560093b6e.0
+        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 08:46:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792770370; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nqDId8NT8f54n1BiHrmQvHNpInb9Z/iVS1Ij0huBtAZss28IOaD7dWl/1o1LtlsDWJ
+         VKrEzbDOErtXb1eRFJKa7WoSN1tZhPMWiUXF3VngbOsTWvztkXVAtQU79j2MCpJne8T1
+         Qm40pdjFjfYhuPTgN+K9IXURyoqsayP+ENWMtO7C455iOkTW0bsj87ZgebzRMKdylgsN
+         wFR1hV/67mlQE0+Te4kLdNlkjV7vpO+5B/xRfgLEdT6lAi+Ts4Yh3TpOrd3O61DV3gMx
+         +54OTUdb7CgvNfNaXP9ZtggMrV9WUWxlMrFhvc/9p22zuBIicgszUUctd9Fm/LPLzgBC
+         Bm+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=k/oZy3r8kmHxYtAFoxOlyC7doeahiTYoTHRRZtl3TiY=;
+        fh=fzu1rBnP7hOMO1kppp1F5j9vMn8erJWKw7FWHdlUfp8=;
+        b=L0ag7CDQ+H8UMMnnL3S+UqZRqOWREKnCJx+wBfgnUNf7PjoY1wMrq+5EB6+NsBhQ3L
+         agyHWblfRHM2OcVIeHvuwv63+y6H3c1A3Y7dDfwUYiI6ENdISU0pxb/M+z1lvOu8kRyk
+         mrs1wsAl8z5zu84EnA3iyXsinPjLtjUdbmCzux4LZRKDfswZWfcBj+p1j6Uj7JM7tXzy
+         eeluG2p4W8RxogNu7JNm6uH5z3TMpDNMB0TfW5szXrCuVrhbyyAT6CLi4e1G/D9tVDxM
+         RHf69NC6ciKmqda4E6d1RmH7+lY3ftXBmHdKlvDaX3jP6g4MdLq6vEvV9vOvWgHHCwxs
+         B6tw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792770108; x=1793374908; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p4zYTNJnmB4RId87xSly9GxhAKztPRW2cESt3l+Nt3I=;
-        b=lYDGdzjn8pKbo+YhF06SzfnDnRwEEHJoSmKxT76rJHZAROQiABUwV1j1d13KMePWX0
-         PaMZbvOu7xKgfKSWKhxwl+GJVcK7sAQU3Oe6PbouioBnfDR9rq6kGFlY1BMJ3w7DStim
-         Ig82unhCaPXT+WRxrp7LU9OU1rjCgc2WXAOZdgL8JOW4tVZLK7EI4nYrlY4xtVXFRaD2
-         cpBCflm39zzfIW6fd4t4DIgs+71qcxLRU2NO4sFjVPatmy4G4SImlp/IOAH1vO7eGndK
-         CcaNIj7jGfza+lqfg1f+fcLTRXbkSck2WE7adfoUVFLaA+L/+3lDOG63cZ1K3+519ZL+
-         rcIA==
+        d=oss.qualcomm.com; s=google; t=1792770370; x=1793375170; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k/oZy3r8kmHxYtAFoxOlyC7doeahiTYoTHRRZtl3TiY=;
+        b=WsNwSiDJcSyHxHSjDy1D4vD09OiWpnMB3do/sPIqTr/PmBvqCEu3+E3q3Lf2uHXIC7
+         XI3mfeks4v3orUS7lyDzJDjGqmNJSrv6pGa6WhcMl15IPHdSiKHFKx27cbIo0zn7PTGW
+         iB5vcv0z+oCgNciDocn3V/1adwWlsA4ZN9bdc/w8F7SwNY55WJGxAdsH5ElVi6RPO/cG
+         IhOPc0dgg/hQQhX3r3Lz8QeSlnttg2tTHTmLZ0en9bIXADc1brV47PklyLMBSYXMaihc
+         CT524JhAUGrGfW1TAwi74Mr3SFGeEXX3H1cfmV1bLEvwftoraXv2wtO67yuKLFNhZgWE
+         E8tQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792770108; x=1793374908;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p4zYTNJnmB4RId87xSly9GxhAKztPRW2cESt3l+Nt3I=;
-        b=jphh7H8IgO7psDQVKz6mp4cQPFq7AjtrdOynD8G0N5d9BoPowwhsOxPLQAhoWyWOEh
-         fzT8B9w5Qs0g0r8J6kNVpG6uFpYb3Ydk/v95NY+3I0ikftKYBYn8aOi/FVFpQfd9mtA4
-         qqV2J6EEKl8Rpm88vUbDBgMn4L2LcrfVU/KBVXfe1/6rovrc0UixysUFMSiGC29f7xZo
-         2Awjxu1k9MPsqls/VOn0nNRV9TMBk9QYuBVCZ3udLmp3AsAVAxoliDP5ePrcmXPnDSb6
-         oTapTf3eKV0Q7fXWkgtL/BlyX1KuVY76vGUpvtrSq9j1cxpLnKggphS3cbM9145WwWQO
-         Ti7w==
-X-Gm-Message-State: AFq9FYIujLcYTqkpB7SUcN5Up0nfGWBcap7DG4HaeRGn7XkEoT/I6+nd
-	AJC7tpzN1P9eyAjpO0H6vHXSEforMJaBJdz23KseSqeN8t234qzNQD+ShLFdzp4/UBU=
-X-Gm-Gg: AYBFou3/otyvnG64KSqqrM4isZWzsNTBThmX70gp25ONLs7oYIbFofHdgQVH/aqA09k
-	DN8JDkSNA46EqDPb5xk8PXlQ6Q6MtfbICo6FJK0Y2clotnNXhHn36ZhqgGB+/Mk2AM0FiKLXKpN
-	E1j4HDxfVMUN2r1BOLBl48cYXf3RCW7FIbPHqmL4UKnZCw+X7ux3+4euK1XrBvSFNRtIuPXH3dE
-	EnibltJMyewyzg/Eq8HZ9nZuV3Qo6AWLfMX9Ypo0xVKT5Pji6pxu5Xa6NsUrxCLA9p+Y2ABWgZA
-	eCsdTVc5W0oXm77IZguv6r1dFU3eBCeVay+PqU+6mkjZfqGpVSv/Z1BShCxH7p0WfLCf7LjOEtH
-	QSx+MP6iUN9EhmZKoo93rur1LP/hyEn+Wk9qbqArtCeCcGTEnVQw6M9Mwzz8yEu5aVMb0Uah6sB
-	JRfZJOrVUkE9f54W60tdLeRUok+cXWMllxSPkqjNJ/M/31ck/rl/+XQCkjLH68N8zSuq2m6J7d8
-	iK4t5aJsfoynDDqwkJQoPO88KsOL7Qrr3ImGabcFkSunNEYf8davNTq6M+QdWVv7sXl
-X-Received: by 2002:a05:6000:178a:b0:48d:f58f:c98 with SMTP id ffacd0b85a97d-48e385a5db6mr4346612f8f.40.1792770107560;
-        Fri, 23 Oct 2026 08:41:47 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.107.26])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3d400365sm532405f8f.25.2026.10.23.08.41.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 08:41:46 -0700 (PDT)
-Message-ID: <99a419c3-81a8-4b37-b9c7-2dd56978162d@linaro.org>
-Date: Fri, 23 Oct 2026 16:41:44 +0100
+        d=1e100.net; s=20260707; t=1792770370; x=1793375170;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k/oZy3r8kmHxYtAFoxOlyC7doeahiTYoTHRRZtl3TiY=;
+        b=d2TcK9MkgzFeBcZBXBAcZVWn/60RiQC4LYMjoBuoPFY3NTqK2iDoSXxR5OshmZ8jcZ
+         KEL0P4GTNhjn7gFsvHA9ZGlYgH06wUziT4YBvUrTnW4QnK37kscXWFU0NSvtxpnHXf/g
+         9r5oUQo6dNBLvBGaKHgQPVi3DRJy3JrnINj2ImwiAMwaJOATJ+9SHdo7scrPuFBaKSMr
+         PTLRLUrri41aBWWEAmjtzyiAHwiNuyMhRDSp9m2ex3dc5vJlBDGDuDLmSS3abi2oUAiy
+         dnNr42Iv9EhwxcOXrFVoFDQla7dhUlc940ra3MCmxm4JmhlGLKPYQjPsY5K9Cwp3/p9N
+         WQOA==
+X-Forwarded-Encrypted: i=1; AKwUvBywThuuXfRx/hxiWaqh4PkYgQzax+ajReFVZeNn6IrhwaENM1enmWrGpYOdoCY47y284qIzk55ZgJlOAw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1a8yZNJHyLV6eZBRmY31XGjK4URo0lJr9U2sHE4PmAf/2qPAD
+	Aj2pQ4EcbnhhU6DNaWliQMuIFPjI2H6W9Q5RBfEKzO2bvozZZXW2bGyZet0JGTksUvFLAx/LpAs
+	oGS2bj0W+RqSyLZRcayMK9/Jg7DOxuMGXE6K6HKEPsEpNhQpLPSBySa1dCd/xk5f+eOeXUQ1xIS
+	QohXwW+8JvY6Wy7zZ2ql6aLdsAQVlR1IaHe4iVnI1H
+X-Gm-Gg: AYBFou0f5r0+MINHhkmDg3JlVXNEW4oU45UMsoemjSSs+WHpKJD98BFKUauzVV5WWDI
+	xr7lMUJUm7I8YmYaHSHpJSmhhsF4SE7nnZFhhEFzCJ+RS/4PqcDhZgsPTFwHgcnI3TI55QyPiOt
+	tUtqe2xqKf7tRjLABU1J3s287gtbsTFeY44s/0Zay1O6yyyfS4psUAAw5gSZ80dtIy7v54mg2Ib
+	JAevzzHHKsYRSspzhJP0xNBQzJmkKR727Jk6IxlXZcQSv4f7psAzeUyaksXNH909c3fSZxTTKY=
+X-Received: by 2002:a05:6808:c1a6:b0:4ec:77df:f4b1 with SMTP id 5614622812f47-55be836805dmr1796786b6e.25.1792770370311;
+        Fri, 23 Oct 2026 08:46:10 -0700 (PDT)
+X-Received: by 2002:a05:6808:c1a6:b0:4ec:77df:f4b1 with SMTP id
+ 5614622812f47-55be836805dmr1796757b6e.25.1792770369786; Fri, 23 Oct 2026
+ 08:46:09 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,254 +128,139 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 04/13] iommu: of_iommu: Add support for "iommu-ranges"
- on a device node
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, iommu@lists.linux.dev,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
- <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260926-vpu_iommu_iova_handling-v5-4-0322ca5dc10c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261023152857.2859767-1-atanas.filipov@oss.qualcomm.com> <20261023152857.2859767-2-atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <20261023152857.2859767-2-atanas.filipov@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 17:45:56 +0200
+X-Gm-Features: AclHuK9Xw89HwOv4R7obEy-u5Yu2BoCinp6XB8olJrV-htK4CS6bpM5IbHuaQqk
+Message-ID: <CAFEp6-2tC+uFJSG8xOhQdrhfCqoDuhm6q0rYc6cROoUG_r1vtQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] media: qcom: camss: clamp VFE clock rates to the
+ highest level
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDA2MSBTYWx0ZWRfXz0l+LDgVaFk2
+ ErTLhWZkTMZf1um839De7tsQlvXiIOZAQmxZ2RTdb4hYEG9M8ZykIdAU3L+GmgLcPwDIg+wxfyk
+ ikZAbk/P/hQE8EDyKehaw0mWfK8mu5eQvMmf390YhhENf/k8OLYHQtGin2sxXqnJSeyPbWwLg2n
+ AUTXG+Q2an9HHIiLtTFKDX1nuaa4GezCf3sjLW+CaLnLD04BcLzLItgXqByJJgHaXd2tLfok5Y6
+ Lq4zVZWlykR/5DVHhcItRNt/3ux2LLV3WWDJOdhGeNnJlwuDgaoJUyeMW8a5lIaZ91XlMgWjIQF
+ 2Wl0OhrgydZxtok0JUU1KN/RlJugoxRHynVsigYg8ITo+xP+HMOMqxE67FwBnOhyuaGbWBgoSfo
+ eqJliOjZ0yvZ4d+34LnekgughrBUzkbnEXjog42rtMcMR7LlmuHkX/+Etkk3lEaHbzuxPBlQfk7
+ CbIxJsduLrTTY7/yoOw==
+X-Proofpoint-GUID: rDYdv3A7oPM4M2V7e9SJwPfQX_5mCvtK
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDA2MSBTYWx0ZWRfXz2NCN+q2ALhA
+ zqHZ1HbLHeSodP4wNUQSbGr22/3Kbxv/Dh8DauQwzhCNIJhZSnz7VIrJj8fTmHlqezpMGG0IWTL
+ xjUupSLqU2VlPyZIXpFF3umSoTbV2gE=
+X-Authority-Analysis: v=2.4 cv=UdbE26SN c=1 sm=1 tr=0 ts=6adb8143 cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8 a=vVGVp6KvjHsgx-TnZO8A:9
+ a=QEXdDO2ut3YA:10 a=pF_qn-MSjDawc0seGVz6:22
+X-Proofpoint-ORIG-GUID: rDYdv3A7oPM4M2V7e9SJwPfQX_5mCvtK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230061
 
-On 26/09/2026 07:34, Vikash Garodia wrote:
-> Reserving an IOVA address using "iommu-addresses" requires it to be
-> placed in the reserved-memory node. But when "iommu-addresses" is the
-> only property being described and there is no backing "reg" (i.e. no
-> actual reserved system memory), it does not really belong under
-> /reserved-memory. A device IOVA range is specific to its own address
-> space, and does not describe the system physical memory to make it
-> qualify under reserved-memory. Given this, place "iommu-addresses"
-> inside reserved-memory only when it is paired with a "reg", otherwise,
-> define it within the device own node. It was discussed here:
-> https://lore.kernel.org/all/662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org
-> 
-> Existing "iommu-addresses" property expects a phandle, which does
-> not make sense when the property is defined within the device node.
-> Introduce a new property, "iommu-ranges", to specify the device
-> specific IOVA ranges when there is no backing "reg".
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+On Fri, Oct 23, 2026 at 5:29=E2=80=AFPM Atanas Filipov
+<atanas.filipov@oss.qualcomm.com> wrote:
+>
+> The VFE fails to power on when the pixel rate exceeds the highest rate
+> listed for any of its clocks. The rate tables of the VFE clocks are
+> independent and need not have the same number of levels, so a clock
+> with a lower top rate than the VFE core clock, such as the SC7280
+> camnoc_axi clock, makes the VFE reject pixel rates the core clock
+> still supports.
+>
+> Clamp each clock to its highest listed rate instead, and warn that the
+> pixel rate exceeds it when the clock lists more than one rate. Take the
+> clamp into account when another line powers on an already running VFE,
+> so that a clock running at its highest rate does not reject the
+> request.
+
+IMO, this function has become a bit messy. We should split the core
+clock selection into a dedicated helper, as it is directly tied to the
+pixel rate. The AXI clock scaling/selection should be handled
+separately, potentially through the interconnect (ICC) framework (when
+available).
+
+Regards,
+Loic
+
+>
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 > ---
->   drivers/iommu/of_iommu.c | 128 ++++++++++++++++++++++++++++++++++++++++++++---
->   1 file changed, 121 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-> index a18bb60f6f3dfdba853b6e16dd2a8616f6a731c7..9766a6944d0e11a6cd8b74b1b89428acffe3dfdf 100644
-> --- a/drivers/iommu/of_iommu.c
-> +++ b/drivers/iommu/of_iommu.c
-> @@ -190,6 +190,111 @@ iommu_resv_region_get_type(struct device *dev,
->   	return IOMMU_RESV_RESERVED;
->   }
->   
-> +/**
-> + * of_iommu_derive_resv_regions - derive reserved regions which
-> + *                                are outside of iommu-ranges
-> + * @dev: device for which to get reserved regions
-> + * @list: reserved region list
-> + *
-> + * A device can describe its own usable IOVA ranges directly on its node
-> + * via "iommu-ranges". Everything not under those ranges is derived
-> + * as a reserved region so the IOMMU allocator won't use it. Entries may
-> + * appear in any order in the property.
-> + */
-> +static void of_iommu_derive_resv_regions(struct device *dev, struct list_head *list)
-> +{
-> +	struct of_iommu_range {
-> +		struct list_head node;
-> +		phys_addr_t start;
-> +		phys_addr_t end;
-> +	} *pos, *new, *next_range;
-> +	int size, prot = IOMMU_READ | IOMMU_WRITE;
-> +	struct iommu_resv_region *region;
-> +	const __be32 *maps, *end;
-> +	struct list_head *prev;
-> +	phys_addr_t next = 0;
-> +	LIST_HEAD(ranges);
+>  drivers/media/platform/qcom/camss/camss-vfe.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765..87096095b1eb 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -982,15 +982,13 @@ static int vfe_set_clock_rates(struct vfe_device *v=
+fe)
+>
+>                         camss_add_clock_margin(&min_rate);
+>
+> -                       for (j =3D 0; j < clock->nfreqs; j++)
+> +                       for (j =3D 0; j < clock->nfreqs - 1; j++)
+>                                 if (min_rate < clock->freq[j])
+>                                         break;
+>
+> -                       if (j =3D=3D clock->nfreqs) {
+> -                               dev_err(dev,
+> -                                       "Pixel clock is too high for VFE"=
+);
+> -                               return -EINVAL;
+> -                       }
+> +                       if (clock->nfreqs > 1 && min_rate >=3D clock->fre=
+q[j])
+> +                               dev_warn(dev, "Pixel clock is too high fo=
+r VFE clock %s\n",
+> +                                        clock->name);
+>
+>                         /* if sensor pixel clock is not available */
+>                         /* set highest possible VFE clock rate */
+> @@ -1041,6 +1039,7 @@ static int vfe_check_clock_rates(struct vfe_device =
+*vfe)
+>                 if (vfe_match_clock_names(vfe, clock) && vfe_check_clock_=
+levels(clock)) {
+>                         u64 min_rate =3D 0;
+>                         unsigned long rate;
+> +                       long max_rate;
+>
+>                         for (j =3D VFE_LINE_RDI0; j < vfe->res->line_num;=
+ j++) {
+>                                 u32 tmp;
+> @@ -1063,6 +1062,13 @@ static int vfe_check_clock_rates(struct vfe_device=
+ *vfe)
+>
+>                         camss_add_clock_margin(&min_rate);
+>
+> +                       /* A clock already at its highest rate cannot go =
+higher */
+> +                       max_rate =3D clk_round_rate(clock->clk, clock->fr=
+eq[clock->nfreqs - 1]);
+> +                       if (max_rate < 0)
+> +                               return max_rate;
 > +
-> +	maps = of_get_property(dev->of_node, "iommu-ranges", &size);
-> +	if (!maps)
-> +		return;
+> +                       min_rate =3D min_t(u64, min_rate, max_rate);
 > +
-> +	end = maps + size / sizeof(__be32);
-> +
-> +	while (maps < end) {
-> +		phys_addr_t iova, iova_end;
-> +		size_t length;
-> +
-> +		maps = of_translate_dma_region(dev->of_node, maps, &iova, &length);
-> +		if (!maps) {
-> +			dev_err(dev, "%pOF: failed to parse iommu-ranges\n",
-> +				dev->of_node);
-> +			break;
-> +		}
-> +
-> +		if (!length)
-> +			continue;
-> +
-> +		iova_end = iova + length - 1;
-> +
-> +		if (iova_end < iova) {
-> +			dev_err(dev, "%pOF: iommu-ranges overflows address space\n",
-> +				dev->of_node);
-> +			continue;
-> +		}
-> +
-> +		prev = &ranges;
-> +		list_for_each_entry(pos, &ranges, node) {
-> +			if (pos->start > iova)
-> +				break;
-> +			prev = &pos->node;
-> +		}
-> +
-> +		new = kmalloc_obj(*new);
-> +		if (!new)
-> +			continue;
-> +
-> +		new->start = iova;
-> +		new->end = iova_end;
-> +		list_add(&new->node, prev);
-> +	}
-> +
-> +	if (list_empty(&ranges))
-> +		return;
-> +
-> +	if (of_dma_is_coherent(dev->of_node))
-> +		prot |= IOMMU_CACHE;
-> +
-> +	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-> +		if (pos->start > next) {
-> +			region = iommu_alloc_resv_region(next, pos->start - next, prot,
-> +							 IOMMU_RESV_RESERVED, GFP_KERNEL);
-> +			if (region)
-> +				list_add_tail(&region->list, list);
-> +		}
-> +
-> +		if (pos->end == PHYS_ADDR_MAX)
-> +			goto exit;
-> +
-> +		if (pos->end >= next)
-> +			next = pos->end + 1;
-> +
-> +		list_del(&pos->node);
-> +		kfree(pos);
-> +	}
-> +
-> +	region = iommu_alloc_resv_region(next, PHYS_ADDR_MAX - next + 1,
-> +					 prot, IOMMU_RESV_RESERVED, GFP_KERNEL);
-> +	if (region)
-> +		list_add_tail(&region->list, list);
-> +
-> +exit:
-> +	list_for_each_entry_safe(pos, next_range, &ranges, node) {
-> +		list_del(&pos->node);
-> +		kfree(pos);
-> +	}
-> +}
-> +
->   /**
->    * of_iommu_get_resv_regions - reserved region driver helper for device tree
->    * @dev: device for which to get reserved regions
-> @@ -214,10 +319,14 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   
->   		memset(&phys, 0, sizeof(phys));
->   
-> +		maps = of_get_property(it.node, "iommu-addresses", &size);
-> +		if (!maps)
-> +			continue;
-> +
->   		/*
-> -		 * The "reg" property is optional and can be omitted by reserved-memory regions
-> -		 * that represent reservations in the IOVA space, which are regions that should
-> -		 * not be mapped.
-> +		 * "iommu-addresses" must be used in combination with a "reg" that provides
-> +		 * the physical address and size of this memory region, for an identity 1:1
-> +		 * IOVA mapping to that physical memory.
->   		 */
->   		if (of_property_present(it.node, "reg")) {
->   			err = of_address_to_resource(it.node, 0, &phys);
-> @@ -226,11 +335,11 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   					it.node, err);
->   				continue;
->   			}
-> -		}
-> -
-> -		maps = of_get_property(it.node, "iommu-addresses", &size);
-> -		if (!maps)
-> +		} else {
-> +			dev_err(dev, "%pOF: iommu-addresses requires a reg property\n",
-> +				it.node);
->   			continue;
-> +		}
-
-The if/else doesn't belong in a path entitled 'Add support for 
-"iommu-ranges"' as this changes he behaviour of iommu-addresses 
-independently of whatever iommu-ranges does.
-
-The reg update part basically has nothing to do with this series at all 
-i.e. the code you depend on later in this series doesn't declare 
-iommu-addresses so... this is an update to align with a DT schema change.
-
-https://github.com/devicetree-org/dt-schema/pull/207
-
-Perhaps splitting this into two patches as an iommu-series would be best.
->   
->   		end = maps + size / sizeof(__be32);
->   
-> @@ -258,6 +367,9 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   				}
->   				type = iommu_resv_region_get_type(dev, &phys, iova, length);
->   
-> +				if (type != IOMMU_RESV_DIRECT)
-> +					continue;
-> +
-
-If you look in iommu_resv_region_get_type() you can emit
-
-         dev_warn(dev, "treating non-direct mapping [%pr] -> [%pap-%pap] 
-as reservation\n", phys,
-                  &start, &end);
-         return IOMMU_RESV_RESERVED;
-
-on a mismatch - which is not what the code will do now. Mismatch will 
-warn and then not map.
-
-So maybe dev_err() saying you won't map - in the new patch for reg. 
-Either way this isn't a change specific to iommu-ranges.
-
->   				region = iommu_alloc_resv_region(iova, length, prot, type,
->   								 GFP_KERNEL);
->   				if (region)
-> @@ -265,6 +377,8 @@ void of_iommu_get_resv_regions(struct device *dev, struct list_head *list)
->   			}
->   		}
->   	}
-> +
-> +	of_iommu_derive_resv_regions(dev, list);
->   #endif
->   }
->   EXPORT_SYMBOL(of_iommu_get_resv_regions);
-> 
-
+>                         rate =3D clk_get_rate(clock->clk);
+>                         if (rate < min_rate)
+>                                 return -EBUSY;
+> --
+> 2.34.1
+>
