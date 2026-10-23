@@ -1,71 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792718353;
-	b=nbTtxWIy14eXXDssIVAoHqW/zUgYtj85NMg986gCeq7DAbXCMKKNK8+/rAnuA3CBhp2E
-	 ZawL/WNSFax/+H3P82SDAVeFicMDufb6giQuJzE8Ht7qBHIIcCnZnldGvwuQsMhiso6Lt
-	 ODjHbrYTKt19C5fBA2tSW0ceMKGCF0yDjhYnQZY4bOlxEDyLQ4eUVQ3HdmMFKdHr52ug5
-	 BC8OPPrPcRjPNHH9atPgGeVOlQ5ky8MlPMaXA5WflYAEIogfYkC1gZLvi+uvOTSAs3f/Z
-	 CVIeCgTXjTHODJ3EQbHyp3U0JjfN03HBNHJnF4zPBDFczQL25w7BSlrdDRlWL94nQww==
+	t=1792721753;
+	b=aauyAXRvYvM4LKashYoA/ov8YtQPk/HS4PCFjbcy0Ifcx62xobC7t7izhUVIiKhhj0av
+	 6COlFuGfCkRKKyovqXOkseelFC/JBOxbisowTPbG3sxuhGHkm+9WIeSG+2NL6fcx4kUus
+	 cAOsf0pGiz4Za/GIpnVxZUsTOg1d6p3s19dCVNbsrZh0NbxtJpJqXJGQsik6vH70tb6gX
+	 sK2dfCGQmg1wDcHH6QMPE7M1kfIFw2kw6hTVFGdctiPIM2nn0/8U6gNA3LCgltVBBBf+p
+	 w33O6Eadz24UM6bDrq2GIXNhvHiFa/LB9i76ff+x9CguPO/IoAQVHBLm93tS+igqJZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792718353;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=e2zDuQ/aXEEWomBrxUJGRirsqAdsyLdM9FzdN7nPUwk=;
-	b=mY2jLyjx7Ux4/8Gt3vDsvy+PuJvWeZJgpq04DdBl4he6zXWSK8BFov4xQZVzpXQRdnTB
-	 pTJVWe7W7BFTtbiWDLoZnTT8hcfpYat2Z1dG13KV/NICyXSucNPSBrUoQtjIcnexd2bCE
-	 xnAVJsMXbWVMSHLOjMIw0MeIU8k3x7CKmKFCjDP1uceqlSVu6ee+a6oAxS4kh+CAvQ0q6
-	 BziPnUqIQ92MwcfG4cDmiHSZNd5XK7EiLNMXOFMVi91pM59waybHxz+KC5M+sXXXwQwWy
-	 /pEs/+uhrUPPRcQli+WnmaBiWHpljmWP7iOVKvyGAW3bxM7Aj45Z7UEXCjZv8mUxNMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792721753;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=AJyEzxnFilSuKrupjSrd3QaNv2TToCy8Tn714k4Frwo=;
+	b=GZIAXkuEGh5CVNQKVMffW7ZQc79jKbSmACCpi9ZYZ4bC8GHeiJwDdGGodFTGo8xk1tTO
+	 jbKWWQoV+Q7IuR5XI2rIq79d9DDZZJHNsltEBonKPFGp5LxL15hPf590YT+fLu8E1hx6P
+	 HXSHm3ylTEBRqrPkGITpoV211VsDvGUByt8OTUYoCiwvHJB0G6JS1UjwAUEOEh/cn5MD+
+	 bpijF3g+R34fxNvZKSOnIZU40GP7+4bQ0LR2OMlu6kYJcjswTtBSYy2DGGUB/Bl1+N0yB
+	 sxMPnxHIuiB++9VBmbLS+fHGjksNoBbZdAtCXu/j5cXwAKNE/1pzUbrRRxv+s6stQRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Uc/rGAGZ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=N6bPXlOe;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E91606A319;
-	Fri, 23 Oct 2026 01:19:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FF5606A31E
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 02:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98FF5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uc/rGAGZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AE681F01825;
-	Fri, 23 Oct 2026 01:19:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792718352;
-	bh=e2zDuQ/aXEEWomBrxUJGRirsqAdsyLdM9FzdN7nPUwk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Uc/rGAGZk8vr+E6AoXyh0t0soaQCApn2WDra6R058New8ww35F55ki8kh5lY4Rkng
-	 bX1+JIZRtXNt4lTfQGyAsaL5Hqgg9YrS/EoQ+0L+AD7cXTOhfxS+UgoPbf+f99VjqI
-	 BiM3JV0LTKvwaypqoVcmebZYTJmWVMCWnNsfKmdXYIO6fw5L5Z1zt6JPdE5rxIcu3o
-	 sxc8Pld+qO/L+7B9hJSVOMRMjG6AuwVCAbNu/KUFFCCZbnGDTIj4gR/Dofdbbo9Xg0
-	 NU9Lxbvf69hLYjNPGAf7S18Xymzqe8/ATcPRTh7ftyo94IZTtxdQsyj9LO4L6wGPBy
-	 5ZLuvkzlG6Dgw==
-Date: Thu, 22 Oct 2026 18:19:11 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>,
- Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>,
- Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>, Bobby
- Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman
- <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Dragos Tatulea <dtatulea@nvidia.com>, Nikolay
- Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
-Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
-Message-ID: <20261022181911.5d19ff13@kernel.org>
-In-Reply-To: <CAHS8izN_N25mm9vALax+P+W45gyxVoMbZoTXW3r6nPC2Z0A7JQ@mail.gmail.com>
-References: <20261015163915.1166043-1-almasrymina@google.com>
-	<20261015163915.1166043-4-almasrymina@google.com>
-	<20261020121858.3b9107c5@kernel.org>
-	<CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
-	<20261021132304.23e0a4e7@kernel.org>
-	<CAHS8izN_N25mm9vALax+P+W45gyxVoMbZoTXW3r6nPC2Z0A7JQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=N6bPXlOe
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1df4c0966so1563405e9.1
+        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 19:15:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1792721751; x=1793326551; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AJyEzxnFilSuKrupjSrd3QaNv2TToCy8Tn714k4Frwo=;
+        b=N6bPXlOeCto0Xw2q8GWbXShiK73KSeIs2hmlz4VTfcv3cAbpYobZAt88gMpOm2lBHw
+         M2WfJeRF6ZYKReLfipIpDUfAnbhsUsv8J2oQW7l1iK/5BFKX5UR9US08NB2EImhYxU01
+         2LYE468fIOMwkAgcUbeK18A0/ZLhnrOFo2PLaGYrpw2YgPiNsFcqPE7KgYGeV83cPrxD
+         FpIW5fQs9yEITiLjip/HEMToKsJMw1h4sWvnRhwc4bj0nGYObUyUW9BKyBpxz/jbhbZQ
+         KB5f10X3NGyq3jXPSCbI6gkZJLGk3MRSi/OUtQCBoCmZigi6eBIaVazUcUv/Q2qG5inq
+         g0ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792721751; x=1793326551;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AJyEzxnFilSuKrupjSrd3QaNv2TToCy8Tn714k4Frwo=;
+        b=LIgEtRLAWIDbXy0LmvxD35PFe9g5ZD4xV1deVEl5Y8CPf83lTiNrzYTJyBZmgEXUDD
+         oZt8KHkbNPKuBNTg5d84Uw2iI0UeI3By+vBBvDOfTyTzsNMafLLDUOgqv7/nHBeGyxSj
+         lOn3JFTMLu46I2NtwuIdxAUdq+Veou2LHA4XztuRy8dlpB9XD2cd+PjGfJ3bTSnta6uT
+         tuIAMECe3hLH5t7p5VLUik62sYhtuU3Ii2Cttp3gWH0wRC43s1e06qmYNSqseLv4f7QA
+         jCmePOq/oUwRJYb0sTQmOWRWM0f7cLY4iZROywXbh5ULQKwvbfhmoe0sT1UxRp/ZapNA
+         hCgw==
+X-Forwarded-Encrypted: i=1; AKwUvBykN0f1WYPLs0CgDzSZOTd3g+qKEAemh9zEsVHi66fqDRJl2uz4KubHUfYUeugm2K8/4URXgmp0AgXtow==@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/3sYzD5QHHJLbKHH5pxEOHuDmjTxPlzT1q+xrbuMr6sybQMYr
+	3JIw/6nxFXN6Kq0nGMWH6CHiRtB1YUntyebkRgdh0qWDSc/eiSjuIWp2tVwQjR8iag0=
+X-Gm-Gg: AYBFou2F9xdaIbR1NW54zvn9eivTrhVepNLjpbSoJ7tGu4J61VhD0B2umgEJjJDsnaJ
+	hJPQo2wfp+w8yCVgoWG6DuAK0hrNNdf8us2v1v6e8kytnMCLWqsGY8ZZoIyMLrc6MduGAmh/a1J
+	rJh7jKbdlm2gtvFCj+PK/nVElKjMf5/VeucnFT/YDeEdmv7BJxPLzGyBne4Mb3q4h2Q71XoWyZN
+	7fggkzFHzRtctK+Cj0THWrkN7Sgv4WwJfMunKBti/m8m//jSay64nY2sof45Uj/28W8zTopH9cP
+	dnLPDNpqLQrwH9RmNtOg5kszp0EQicxDiTOw3NpHGVKLHTZxSOeFinx3krzjNXtc6PeFNIia7Bj
+	DGy/k2XGRg1k8BSRWQ27UxLB1586OEgDZffCu6nNMLxCkMnrpvnvEW8DSpJZ+csZ/WKFoo/k4Yf
+	rqi+edn0WD9+dl5TUU3H5njuoGczZAaNSYcLyKpwj90hVv9tS7VWqA2Thw1OAQ7vG1lPOV2SBXi
+	lZeiS3VYKU/gf4YvJv2soweFJIhcBzQpczSzl1EtIHWM+FzorZ4NWkwo6PwTDZYtnk0N1EfMPsE
+	U74HwjtR093L
+X-Received: by 2002:a05:600c:19ca:b0:4a1:c27d:e1a8 with SMTP id 5b1f17b1804b1-4a211c65f14mr11839735e9.10.1792721750941;
+        Thu, 22 Oct 2026 19:15:50 -0700 (PDT)
+Received: from [192.168.0.167] ([51.37.82.204])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21034b3d0sm47718525e9.3.2026.10.22.19.15.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 19:15:50 -0700 (PDT)
+Message-ID: <e3d322a0-43d5-4369-bd09-128152f4b233@linaro.org>
+Date: Fri, 23 Oct 2026 03:15:48 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -75,40 +90,93 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>, david@ixit.cz,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
+ vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
+ mchehab@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
+ jigarkumar.zala@oss.qualcomm.com, hariram.purushothaman@oss.qualcomm.com,
+ akapatra@quicinc.com, linux-media@vger.kernel.org,
+ krzysztof.kozlowski@oss.qualcomm.com, daniel@quora.org,
+ konrad.dybcio@oss.qualcomm.com, christopher.obbard@linaro.org,
+ alex.vinarskis@gmail.com
+References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
+ <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
+ <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
+ <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, 22 Oct 2026 08:41:43 -0700 Mina Almasry wrote:
-> On Wed, Oct 21, 2026 at 1:23=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> =
-wrote:
-> > On Tue, 20 Oct 2026 23:17:34 -0700 Mina Almasry wrote: =20
-> > > But on the other hand the test coverage is nice, and maybe one day if
-> > > we add enough devmem support in netdevsim we'll be able to fuzz the
-> > > data path or something. Is there a way to get the best of both worlds?
-> > > Like put a comment on top of netdevsim that this is test simulator
-> > > device and any missing functionality and/or bugs in it should be
-> > > medium criticality max or something? Or is it too much trouble and I
-> > > should drop the netdevsim support and tests? =20
-> >
-> > I already strip Fixes tags and apply the patches to net-next.
-> > But it's still a burden. If you're signing up to fix the issues /
-> > review the slop we can try. =20
->=20
-> I'm more than happy to help but I'm not sure what you have
-> specifically in mind. What I was going to do is put a comment/readme
-> in drivers/net/netdevsim with a note to sashiko and LLMs, "this is a
-> netdev simulator, used for testing; do not call out missing or
-> incomplete functionality as bugs." And then hope that the LLMs and
-> sashiko pick the directive. If not, I can tell patch submitters to
-> ignore sashiko code review bug findings in netdevsim. Is that
-> sufficient, or do you need something else from me?
+On 23/10/2026 01:33, Anusha Arun Nandi wrote:
+>>> +    if (!cfg || !lanes)
+>>> +        return -EINVAL;
+>> Lanes must be a multiple of three to be valid, at least for your three
+>> submissions to be logically consistent, this statement must be so.
+>>
+> I will update the name of lanes to data_lanes in
+> phy_configure_opts_mipi_cphy struct.
+> I will add more sanity checks for data_lanes > 3, as C-PHY supports 3
+> data lanes only.
 
-No, the fact that it's a test harness only impacts whether fixes
-got to net & stable, not whether bugs need to be fixed.
-I was expecting you to keep an eye on the list and review any fixes
-that come, basically.
+Sorry the only thing weirder than arguing with other people on the 
+internet is arguing with yourself.
 
-> And we can always revert the added devmem supprot in netdev sim if it
-> becomes an issue.
+I argued myself down from this.
 
-Right.
+=>
+
+One CPHY lane is 3 three wires. So data-lanes = <1> means three wire 
+that only the PHY driver understands.
+
+We communicate in lanes not in pads. There is no meaningful way to 
+specify pads in DT - only lanes.
+
+Which means lanes - I think we should follow what struct phy_mipi_dphy 
+already models for us:
+
+/**
+  * struct phy_configure_opts_mipi_dphy - MIPI D-PHY configuration set
+  *
+  * This structure is used to represent the configuration state of a
+  * MIPI D-PHY phy.
+  */
+struct phy_configure_opts_mipi_dphy {
+
+         /**
+          * @lanes:
+          *
+          * Number of active, consecutive, data lanes, starting from
+          * lane 0, used for the transmissions.
+          */
+         unsigned char           lanes;
+};
+
+For example in DPHY lane == "two pads on the SoC" so for us in CPHY mode 
+lane == "three pads on the SoC", there's no need to deviate from that.
+
+The CSID needs to know the symbol rate - so that it can vote on the 
+appropriate NOC/CamNOC clocks/rails but... does the PHY driver itself 
+need to know that ? It does not, symbol_rate is not required in this 
+struct no more than it is in DPHY.
+
+Sample principle.
+
+So _really_ thinking about this I suggest
+
+- Following the DPHY example
+- Including all of the CPHY specific timings
+   The ones you posted, plus the few I found missing
+   Any other relevant CPHY timings we may have missed
+- Include the helper functions in drivers/phy/phy-core-mipi-cphy.c
+   IMO we should use defines not hard-coded constants for the
+   specification of the timings here, unlike the DPHY code
+
+---
+bod
