@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792795388;
-	b=eanrBIbmTrcqq0K0yFWgJMs0NJD0Kfby22TV+Vb+33tT0wFmj06/wJsAIHGhSoWlEKKH
-	 2BdqvKGMH+36Pc/L/H2ZuK3vf+323SPxw7qbrmiHUqbWcGVFFeEvpNe/tk/AMWloYCjQR
-	 j5jBCkYGnULh1zo0gK5rbwxvlntvpPhLj3akF5O7+mf0m6BTwqk/g20wuxxAnRxboGpnn
-	 NLVG2uMpBnJ7ba98MAj8wfVAQZ6GxbUoz6+oByIikSQEdzr+ojMRtW+Q8PHaJss32gkzj
-	 o3M41gBQlAVpZ92Z4N89W6yaElxkyT0BBhKpJiNDicnDB3dlIi9xdlsKPIhrNamt3Yg==
+	t=1792795458;
+	b=E465iv1J8GUF7V59RdRIXrc1XCtzj9V/ihPzQmTinwJ9ZC/R6KZw4Ji1L6GWENJAAOt2
+	 LBaT7l/UCtf4lV1kUMxfHgrsjEUlWRH1WRRcMqCADvsKsg4T4ogMRvhQmVzdrDyGY0rgC
+	 JMguMaZwtj7P8Q+uXmWasmsU7RqEvD789LdN5/ibvRCXGyuv3lTznTViyBlC/1nXvcrqf
+	 bBrsgjpJdZg6n1xULepuwm+6W9QJjmhLrtKoa0ErNVWjhvZPFmEKyjSVmVANtXhmEJGhM
+	 VBTYbjZHh9gb96f5NUy7foMfZKahgTVLYPii3c5vbkgOC/SgnavSl3nLqFl2OBIcYHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792795388;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=Oaa3IXbsmPMDDQXEJKkwgW9mOxnYdMqdGBs8GCpNSf0=;
-	b=p7V1wMGnM/myxE2Kayb2MlJqfJ0poboxDJpgJlzH2mdaAnnKCMFgFrJhC7AFBULJyLAe
-	 6FEqYI1Mpklyq1orExtRNrV6xh7PmN0Akq5pgPdSZnz8fEXRBeQbdRd+M73YzMHi76BtR
-	 Ja4MzHBVoM5Td8S+w6Oc6QkYCIkDRMFQi/w7Fgc7gbEiAIKLAQjMhpBemdbQfvfRSRp0B
-	 K2Xtb1tCHnv/cdBaSs/1JgTgF4MraeEffakJ9PpgBRNIoLsQv+ZomSKWdszQbnSvt7dq6
-	 ZM+o/neNiNuG37oPvl5jKbyvNXjeBLFQ34Z/eFd2+1Th10fIYhlZ3cP3hRmAwxuLXCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792795458;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=zGTNN4vL2UuVYnScoj8adZ0BEEghnyuocYvH3E8U2yQ=;
+	b=3O1d9yVLj8TgVWDKwdb6dgu8yxzXo6a4BL6sBO8dsyHfSbwyehxuWT1l9hHZSAStTX7M
+	 zR+Q+8joweDVF/5UBX8MIPA+93amfDJBUtCpjaN0tnYpMUb0ZFYL2VCbtXXSNgYvHHDZs
+	 TRpuIz7FOoZykf+vVVDcaDDOl2dOp6tFPgm0e6Zj5SqMsd8fFdfOUdtTjfDAlNp+jKkPf
+	 ZsNmV4tVZFKf8lfj/XK8pl3ddvw6GfzyhaZZzmky040A6p96vpex+7Dc+SCASgM6s+X5r
+	 iiY3PmfWJQl1gi1wt8vME/u/AeXhU0bCdle16EFX1pKQUprq1w+ECNOAzdjOMXG8K2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qWQcWGRE;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ieezruZ8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882A8606A31A
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 22:43:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 882A8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E0A9606A323;
+	Fri, 23 Oct 2026 22:44:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=qWQcWGRE
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a214af2076so8132235e9.0
-        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 15:43:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792795386; x=1793400186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Oaa3IXbsmPMDDQXEJKkwgW9mOxnYdMqdGBs8GCpNSf0=;
-        b=qWQcWGRE26epRvhdKbyIh87aCmJkyDJV5cwB/scQQmyfO1sfK2JHtXYblWIS1yryU7
-         nJ49caCLbmHN0pUpe9ChYkb7k2L35KVVNaABfCTbGhXpcZw9mX+N9n/KSKMKDn1MpkA8
-         GZIDPtkqCJRMOCxndovyFWB7adcBs973+he/lN/yCF6G5NBX2+MSRSjnesz65gDhns/Y
-         Huv+Ytga4FPSUTmHdFzNEUvrvZ2ufP499FbJhRtoDSk72Ow9E+voC/vVLYjhdQqkUxdZ
-         NHijy1YxKbY+PLx6HMvPmmLUmnvceDe/Sw7c1VvbxBhYROJMi3Pl5EgYGxIL1bw/Ndy1
-         N0aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792795386; x=1793400186;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Oaa3IXbsmPMDDQXEJKkwgW9mOxnYdMqdGBs8GCpNSf0=;
-        b=qmqRhox2lYv54K2NkKRiC7EhyZb+vpFghQor2biDmRDuZCHo+F9amlaZjkTXkZFLiI
-         YBSjKh0EoOejCw21SkVL/RY5rG/f/eJmyOytfQnTbbR3q/l1jpbb8Pb4z3mRaqygNycR
-         zdEbB2TDOXh3Mm0yGdyaDzyGEIBZnrEYedJlzQ5Ky69gQymvPT1n0We+WJEgWLkaFUiZ
-         KtQS4vkMrcqodvizTd8CagLQDKuypTszi0angHUyv2nRfJ2K03aTQcl2xJq94GPVQBKQ
-         6cb8yTlBGKqA+0Ltqg63pwPLOC6lg3FDLn2MGdkZHDD2dZ1z24lmqmn17ZBaEXMq991d
-         mSow==
-X-Forwarded-Encrypted: i=1; AKwUvBy/Kepa/EmiR6U9DfUfIoiBtiEq/OtLY2FHPp5rI79rWVGtKTb18szIEtikucs1oAgPdGT/omypF2Ni3Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIO21RcS6nUnZiMjAsYD5JocDKiy1eNMM4zuGLKbXxvoy/rTe+J
-	WAHEvEJTdwwhoyaRrtRQEAG5J5viiWLzRU8UsgeKUCj/8rB7IasCaz5ru3DOcczXTnk=
-X-Gm-Gg: AYBFou00lUo6qpyHkpgf7xnoRqwytpddSVvKro3BdjJl7Nfi0z9bQGfStDWH27E920w
-	873Z3IrCHG5MUUDJmpaVt+fyoIoyiDdaQTfShrCiRScR9lYDFJaZ7aqOV01A8okUrj8Hr8BvZyX
-	Al+QQmq98wyO4Z3jgxFueTiOVv7dTmAHe53WDGmfiChyEF+de/rQAduHy3yQ6G0b5dWYEi8cfjO
-	+oMDP5UcuQUmobPgPaFcvqItK2Y7xj7q1l8Drx65KriHwklAynSOoNxb0hIx07PP5le5ntAmlPR
-	kk78/DrSQK6TTIU6C51kUGZa116JQpPgJIIIzI3TQhWzXvzBRI9QhvdQAVTfRbxk325WVQxAozO
-	+LRXAdzbNZEPA7/1PFKcfYIVUcYhOp4Ao/dvTfBBz/Z3PFUgDIsN7sHJ1ibyVppe/18qn90BEFh
-	Vthv/XquD4xWlJu23PM7CaArpK92YPJ2g0u9IAVTkEfJUsSuJz8Ud1QrL/rA6rMBZUxJd2IIl1L
-	p60hn4VqXp0Q1dmYhjcP3Diowe/H+JoZC3v7Jk7B8Z2vIIq4hZ7CnKJT1HnyqGnF4fo
-X-Received: by 2002:a05:600c:4e42:b0:4a2:16c0:f5e with SMTP id 5b1f17b1804b1-4a35ac8b429mr4136005e9.10.1792795385869;
-        Fri, 23 Oct 2026 15:43:05 -0700 (PDT)
-Received: from [192.168.0.167] ([109.76.107.26])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd48e0sm787610f8f.38.2026.10.23.15.43.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 23 Oct 2026 15:43:04 -0700 (PDT)
-Message-ID: <3dd8d329-a25a-4afb-935c-311cb8ddf094@linaro.org>
-Date: Fri, 23 Oct 2026 23:43:03 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ieezruZ8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A97611F031E0;
+	Fri, 23 Oct 2026 22:44:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792795457;
+	bh=zGTNN4vL2UuVYnScoj8adZ0BEEghnyuocYvH3E8U2yQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ieezruZ8NUK6DagWi/YizKX0BSjwmgZkXkij7DV8mcYkDJeTydWhkDaRGxDqvdUOK
+	 y5C4QBUpvpVHVdO3D4e2DLWnOy9buUGqcYOMhQRatnaO4cBcpLGVLLp5Ttfq/Hw9yI
+	 OUEFDQcj1lxqUYBPFJFpQd57apjPLnugmp+4bMDcPQl+U366P6uQXAvYNftnZ//6eV
+	 y2K0hzE0ej9gDqFhli/IF+135Mekl9JkZFAxgXKK1XPC7s6DkftM+4o9Z0xwyiV70b
+	 Fpj+VJ5pAg9M7I1zPg3jpJSbfczCPFiCaTB57d/ae8erZUGYA3sy5qNo8xv27tWLgO
+	 XfRlgApz+zxPw==
+Message-ID: <318253c6-52b9-4526-8638-71f08ba89d8b@kernel.org>
+Date: Fri, 23 Oct 2026 23:44:12 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,8 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/7] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Waipio
- compatible
+Subject: Re: [PATCH 2/7] arm64: dts: qcom: sm8450: Add CSI2 PHY device tree
+ nodes
 To: Vladimir Zapolskiy <vz@kernel.org>, Bjorn Andersson
  <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
  Abel Vesa <abelvesa@kernel.org>, Vinod Koul <vkoul@kernel.org>,
@@ -104,44 +66,61 @@ Cc: linux-arm-msm@vger.kernel.org,
  Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
 References: <20261023163057.775917-1-vz@kernel.org>
- <OlcKP8HHAIXkRzYX6vdMrXfEbLNpOVLfNZytB-qiRopju0IaQ_xxKo-mlzphnAO1Pdg-y8mu0lcw0UsQZC0ZuQ==@protonmail.internalid>
- <20261023163057.775917-2-vz@kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+ <pdw5ajY7xz6QwuMyrz0xblzyRmEhNSY8ZWWfGdgEFzlI2-5RO9hBiZ_KUZt6_slfRM7wDgyP-Y4XlfAZWQ0DKg==@protonmail.internalid>
+ <20261023163057.775917-3-vz@kernel.org>
+From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
-In-Reply-To: <20261023163057.775917-2-vz@kernel.org>
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261023163057.775917-3-vz@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 23/10/2026 17:30, Vladimir Zapolskiy wrote:
-> Qualcomm Waipio SoC has six CSIPHY IPs, which are compatible with Hamoa
-> ones:
-> 
->      qcom-mipi-csi2-phy acec000.phy: CSIPHY 3PH HW Version = 0x40010000
-> 
-> Hardware supports up to three different 0.9v level power supplies for
-> CSIPHY0/1, CSIPHY2/3 and CSIPHY4/5, but there is just a single 1.2v
-> power line VDD_A_CSI_1P2, which supplies all CSIPHY devices.
+> Add device tree nodes of six CAMSS CSIPHYs found on Qualcomm Waipio SoC,
+> and a shared CSIPHY OPP table for them.
 > 
 > Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> ---
->   .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> index 1f1e2a4993b2..2a11ca7c7d11 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> @@ -19,7 +19,9 @@ properties:
->       oneOf:
->         - const: qcom,x1e80100-csi2-phy
->         - items:
-> -          - const: qcom,glymur-csi2-phy
-> +          - enum:
-> +              - qcom,glymur-csi2-phy
-> +              - qcom,waipio-csi2-phy
->             - const: qcom,x1e80100-csi2-phy
-> 
->     reg:
-> --
-> 2.53.0
+
 Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
