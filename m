@@ -1,109 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792725407;
-	b=Rn8h8rBkS6Cx0L88+zKsOrld+HMipk2isZ7pL8HHJw41iN26pe1NtDj+3FqHftC6oDc0
-	 XL1S8/9qWRGWUM/GdtykPdBrNRYQz/py9kEQiUgtq4ExiTA9QPZJ7AjahrYRvbMZcyxSA
-	 AohOsDgUKlD/eVbfV4RFq/fLWrFTaOBlZjr85flMkM34QRcV9mIERaAh7LtBgNgKzsHtg
-	 JRD7v9DerZv0mmWvmqgM67xRdaMPWXS96dMRXd+ixT5OWqWu49G1q1ym9BcBHjjT2+74s
-	 I1I9JIZ4MnNTanm/MkfL3cuLvipG2j+X6wFRBJ0inAyBlq6bO9WXXtdGCIY9XXmClAA==
+	t=1792737579;
+	b=yvVxecBAh7YP+/5AoLziwn6RFL49ArNpKPYQHbe3l18Y90U9J47sYmp2JkmvgmwzNc0H
+	 ylGjbUr0d/pqvlJ1wONChyeB4DsFv2jreTnL3u18t0Hx9kwGFuxToF5rGjdnDy8R+OxUx
+	 AN6P0cVotk+JJhCVXgqig9SPHoVvvNODNdeOn/vCzDzry4/Ct8fkgrds02jMn2EtEBbtm
+	 oABvLcTuBSIz/sAyLqxJGcp8ykSVN8o5dp4WV+pkd+FESfh1IWbxWvPE58UHfYBT6LBVu
+	 uPvxO/DWGSkRox/e3UveLv7KOU3lawUklZUUbfV4zvAcCo1JK7HUtdDtxiZIxgo6fgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792725407;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Xvq0tv9LAvfgk8g4T2nNFcbN/IDFtiOTOPum7364YBo=;
-	b=VjOwXni7M9JxgJdAEHoLrQ+BOPv11Ner56OpBbOlquDX4IAGtdOQRozmhZ9inxh7xOP7
-	 dkRerxnlEtweZK+mIiEKN9OYxlFB6jOtcncAr2KYk+bltKxD3+Qm0SQ0Y0Bea8HdxXMf9
-	 DB6DqqUqQhnD5aRsqE9dAYLf8Iwx4VaDMkgCPa3AXoq8G2UQgbFP3Ric3zMlIjAYx9Xf3
-	 3tElsX6cVe8EnklHoHmmwSH/2cebhFzdmSXILW9RhUyEQfPePEb27gWccvOAybh6ybYzt
-	 aB5eSzFQixezv017YRm03Br/x3YwXshOoYOtDTdG/ritb/4s/GVRZevP4LodDqFvARg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792737579;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=w4cL4G9eHUbqDzKnbCFLNqMjngYxYEBxYMlVjjbvdqE=;
+	b=pvk5ERy6/sRm9XxCa4bgpgBaZt7ilTHp9fqP0se+RiZY0L4MgvoRLm74nUzdPxZJUsbE
+	 5dcLvV3dxFEC8dLmLMn/3JmE6X7JX8IO3t184/gq12MtPOc1XECCDf1SddH00GSqUuOrn
+	 82lpAl6SUx9oJQVXuxiRofmNXpkIhqiS+wJghpnjWGOEGRQPLauOSD8qib4fsp5OMYHAr
+	 AvJebvbqysk+oRn7o1GC88BhzilGIYXYfss26LDP5LB2YS6qrQPlWjbSYVfi45jBBFBhh
+	 KeIhB2TKvWzPAR7sxIsMC1Hx9K8Ym8jyyJxHlCrJRcrsiolapumYf4XC9dsqTONfmUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bWp1UHT2;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eQKQmI3t;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fE4ppVfH;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56778606A31D
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 03:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56778606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84922606A31E
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 06:39:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84922606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bWp1UHT2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eQKQmI3t
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1Etns2389423
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 03:16:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=Xvq0tv9LAvfgk8g4T2nNFc
-	bN/IDFtiOTOPum7364YBo=; b=bWp1UHT2MeTe+d70qpBPFP2HUINXGhWOinXciw
-	CMJS5VSlicK7ebfvRcQff3QpextvSlyujLeC+vM0RHGiW0wVWjujFmK7g69M2Zr9
-	EbasxSeciRuufRK1aCcEMt93pXDPKHSHHVuU+h3XvbG4UyVxWDZz8sC6uNrhRJA9
-	7EH81NYVTLmJtKXv8nNjzXRbMzA0i+vKt9F2tuf8WJQ7wyWOi4Rx1KBJko+2CVrO
-	vI7yqBCsJVhv6iiPoL6OOuVH1tkTwVGoBZtTtuKmHCgfa5f8QOc0CUfH/WHiJFNq
-	fiK4pmn2qRBcFr2uRBLzXN7BpoZma8PqQbBy027QyIQkCd1Q==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmp9mr9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 03:16:45 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-186c1aae818so1710354c88.0
-        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 20:16:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fE4ppVfH
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dfdd0678dso359658f8f.0
+        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 23:39:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792725405; x=1793330205; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+        d=gmail.com; s=20251104; t=1792737578; x=1793342378; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=Xvq0tv9LAvfgk8g4T2nNFcbN/IDFtiOTOPum7364YBo=;
-        b=eQKQmI3twdXmw+v31npwo7oOTcJmjdSI9qGV7fhllMZyd063m3a23PQQxsMCqyBYhi
-         hJu3kt9A0zpU5jp80tn2f65WEzRkvMgQjGC/a29iqVMNShsKyX04shsr3XlhdHo4EotH
-         gR2AFzK0F/6C1p0LsPUeaO2dG8+2lHfNZ8zzHqo/v2DLHOrnbEh1mISOR4ac/BTwwCso
-         lRt0/BXe35+JFYzeVYUnuqYukg5ey9I7g5t1768BMrbOldDXBeUQjOTtBPdUUtG1y/DM
-         CQjL8lAPN0+AbLL/MZQjqUQ3jZwHr0g97LakFzzXydUrSpbracoIT3rtGhr4WnoLLQIy
-         W5kw==
+        bh=w4cL4G9eHUbqDzKnbCFLNqMjngYxYEBxYMlVjjbvdqE=;
+        b=fE4ppVfHoNB+tK/mqGsUIPIh5aoPUqkEgxSn5Cj0FGM6quF2/uIzJwCvKtU8WG0mA0
+         L136++YEFUA20TrKOmLvLaZaj0ijNsm/68oJFMCLZ2CHmV3e6eEeowGJ92nFJ8PaIkEj
+         XWpX535koWVdyGgFkzx4GOWmijDVt6xKotlPNi5EM2IUJcAuelwuZkclNyNBfh3hsICi
+         +gY9vo0jJLA0wLRR1PxXK6+TYqbqBtBlVDIw2r+i5h1CRSatAwgzJFEacYctpAKlKZQk
+         ctMuNg1Y/wJvHQRMdpMmJusE1FAITXAGuf1TFMpQk33y34iWeuc9P7zaKuKz6SDDn8tr
+         223A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792725405; x=1793330205;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Xvq0tv9LAvfgk8g4T2nNFcbN/IDFtiOTOPum7364YBo=;
-        b=wnTvqzCGd3CBOoKnWlPeN0UvvWzxTLm+OM6C0MkeLUhaB8mK36uMDq5HqcaKmSIcoz
-         xNLgHBQfI4LCr+7fFaj9lVb+ZqrRQIECZRwnjhZ3WZz9g3jFyxoJx/wnBZ5vBJy0mAMa
-         fK9IdHbg5z8l8jKYhRhAkfo2F4EqAVJfUZV+8+2yFtLepmqc5iDOC8hQtN65bdXxPbV0
-         laugGw9SR4k8huly3TexU26x1W3XzAxANX19yvXj10/cyTTnAVpGZrvfEcgKzl+sRg/K
-         wD22yWTN76CHJLb+ZD52smm7AW0nzDcaNSPChpMYqZ8e+R1nDH6EO4YQRvI0DOIp1mNK
-         hRBg==
-X-Gm-Message-State: AFq9FYLZ8t2ui54m/f9RyNhjV+SHcu67/73yIjqM36B9Tqx++Gaq2Pe0
-	JkK+TGLnXiLxPy83FYdoyGTFBN4T9JXbDKCtu+qx467rYNtXywa1JlQBSawFMaenEb2ET67a2A+
-	9xEnbfKivFTnBd7mcIruwGFNgVdt2kJMoXKRP/JJYjEipe3r7l9U/oSqcXtCEm4GRLUQHgntu1g
-	==
-X-Gm-Gg: AYBFou3pmKzvTdh0xgcspYJSb7BKMo0eBt4xKLEnHP0V7uYGFgFgEaBD6Tbl8nm8k9j
-	2RhUGMln1hKdc6Bpvl6rzYt+TmSSnKHPWfK54WiYSB64ZZNuNJ38vePaUUV1eF/rpVIItqkHQF8
-	fmTR5/rmyTiLauMmn8/jnFdhm7+lAeZSGGRFhPzNymkh4W43Zo2ycy1n1XLoWFrPDaxew1f5zbN
-	mVwvUl4nBUY8AzJQ2NM70USZnySTrmuW66NRuAPguycOOXvV4iYsnwWy026IEEHoIgGcA4ZtSXt
-	Wo+ggL5Cp2q/bp+2zRFBNxuUn5CxLnJscLa5sGQKr61hR96tdS4NLjO0L3SXnVfh3QYW/quplaS
-	ddurveJGIaBdEl275Lok6AyHPdaE9Vg==
-X-Received: by 2002:a05:701b:2517:b0:174:cf1b:235c with SMTP id a92af1059eb24-195c374b393mr1403070c88.43.1792725404986;
-        Thu, 22 Oct 2026 20:16:44 -0700 (PDT)
-X-Received: by 2002:a05:701b:2517:b0:174:cf1b:235c with SMTP id a92af1059eb24-195c374b393mr1403034c88.43.1792725404193;
-        Thu, 22 Oct 2026 20:16:44 -0700 (PDT)
-Received: from hu-gouravk-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-195e5163e64sm2374454c88.1.2026.10.22.20.16.40
+        d=1e100.net; s=20260707; t=1792737578; x=1793342378;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=w4cL4G9eHUbqDzKnbCFLNqMjngYxYEBxYMlVjjbvdqE=;
+        b=vB3PACMmH9hMZeWbr3DjEVpTF0bCFYANneJtxtT8va1WPt+kUkbMB2372CuXz4h8/U
+         FM+xPMX+38zB6DhxeQQYzj4UhzDONtEVveQsTH2N0EnqQcp4/k2G820a6QFQcSItlS7b
+         r1V9mQ32dpLoCHfyY59B4Txpzwm2SwLhLLs2s4gSjceVWkSa5b9dbr76Xcw33A5yZFbk
+         pdBrOxPmHbSrMXRSxYFrFnDFvFq76wBwrXFeuJha/EWpnxFMTOnoAsEPWtP+1izt0GXK
+         k889tg6WCppsLPjKRzJXsgydfWnRsKrItWLrDDspcx5PwUtTRqilVoctH67dTIjlvnCA
+         2TQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwYeQFjI+uM+Imq4UuFzXmyBGbwJR2gcEsXoVangdqoD/0fHJLSxCaegSPS2Omk/fu7Z4cbW892/5LwNA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFKLMIe04IDlj4rpEX0ebw4ovcrfoAMrGgXaGSbN7ldQCbPCnW
+	kCNQNS26iaclhRBzF1NBMhGrs8MnfjHpfRsAlGElSB4ECThtPESZ4B/B
+X-Gm-Gg: AYBFou1qR9FycIAyPuPKGF2TVHH/Nw4/kal8mcOwzTldnZIFm4vitSLICAbWr+EBjbb
+	9gSegrQTjHCzUpr9HLqHWSo1dKo6HTwyx0LWNrsZUDDIsaz5mI/6FxcGk0UIA9dFnpCf8mQl9Sw
+	U+UIKVryMoudwSAIlvyAJZeLGnA6InHlPizJMUOXtYjGvVaZ+5H7TlRJ2/dWj5aGbvhTla+obMA
+	yLjhzSsEGbvPgTIqN5qk/EoF3SeN1fkpFhoG7o41dDaJlMwR6zkPMZ+AXaEpjVjIFC/G9P6D/LT
+	CfEIKz7mTZ8otYtdyJD2NSQ9BMy+1wvTwToeBMaUUR9Uh+kZU7G2yB9vG6lSp1mC9dp6Jl5xdhf
+	SB4Icg599D0/zYqN7XS/X7H2uW7gGMHbVWrIqb3W3T9DtJ3enTe3w210uiJl1ISrk0aG9Dd/Ux+
+	wW1gAP+wkHJLcxnJom+XGYsx8OiZl8hbo8aaxQjaCJLzXOsLwVQzwF7AOu4uOFB4eBRLknSA8BB
+	MUC1Ya0ymTuA/rdFqLXNKM06Qb7/Ssc42XAvrpxJgEfK7ahUFfCLOk+/yVGR7FpsW2WqcrZUsVX
+	F6aIsxLG8IgeFjgmGmK/aHkAMu6igg9YZaKbAAaAWhW2tsvNIvlm5TFjEYVj1PBGf+g24QaUUP9
+	ZRFU=
+X-Received: by 2002:a5d:5f41:0:b0:48e:c84:5be6 with SMTP id ffacd0b85a97d-48e3859498fmr1687114f8f.14.1792737577617;
+        Thu, 22 Oct 2026 23:39:37 -0700 (PDT)
+Received: from [192.168.1.22] (cst-prg-49-173.cust.vodafone.cz. [46.135.49.173])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.39.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 20:16:43 -0700 (PDT)
-From: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-Date: Fri, 23 Oct 2026 08:46:37 +0530
-Subject: [PATCH] media: iris: add cyclic intra refresh on AR50LT encoder
+        Thu, 22 Oct 2026 23:39:34 -0700 (PDT)
+From: Tomeu Vizoso <tomeu.vizoso@gmail.com>
+X-Google-Original-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Subject: [PATCH v3 00/16] New DRM accel driver for Texas Instruments' C7x
+ DSPs
+Date: Fri, 23 Oct 2026 08:39:25 +0200
+Message-Id: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,91 +96,208 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-iris-ar50lt-ir-cyclic-v1-1-a81d7060585d@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAJTR2moC/yXMQQ6CQAyF4auQrm3SGUASrkJcQC1aQ4C0QDCEu
- zvq7n2L9x/gYioOdXaAyaau05gQLhnwsx0fgnpPhkjxGijmqKaOrZU0LGkjv3lQRuFY9EUoiao
- K0nc26XX/dZvb3752L+HlG4Pz/AAtJwKbeQAAAA==
-X-Change-ID: 20261023-iris-ar50lt-ir-cyclic-ec24f4150077
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAB0B22oC/2WMQQ6CMBBFr0JmbU3bwZK64h7GRQOjzAJq2tqoh
+ LtbWBgTlm/mvzdDpMAU4VzNEChzZD8VwEMF3eCmOwnuC4OW2kilUKTBjRQFYq1043RvVQ9l/Ah
+ 049cWulwLDxyTD++tm9V63SWyElJYi1aWh8Wma5Mf6Zn546M/TpRgDWX9L9c/WReZbO2MQUPyJ
+ Pfysixfz8MqRN8AAAA=
+X-Change-ID: 20260113-thames-334127a2d91d
+To: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
+ Randolph Sapp <rs@ti.com>, Jonathan Humphreys <j-humphreys@ti.com>, 
+ Andrei Aldea <a-aldea@ti.com>, Chirag Shilwant <c-shilwant@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Beleswar Padhi <b-padhi@ti.com>, 
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Oded Gabbay <ogabbay@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Robert Nelson <robertcnelson@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Markus Elfring <Markus.Elfring@web.de>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Suman Anna <s-anna@ti.com>, 
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-doc@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+ linux-remoteproc@vger.kernel.org, linux-hardening@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792725400; l=1711;
- i=gourav.kumar@oss.qualcomm.com; s=20260921; h=from:subject:message-id;
- bh=uh9KbzTFh8CqA6ntGZiEBYDrRo4L39Sm+dHQNG584XI=;
- b=QoR97ve8BBTOSE4yP8AE8ZLF2mcGhVr2FuaKGB4k8WbCteoRH4lLf16mKc+mYUWJzoxrSOggR
- fKN0PGZUQkCDJnnIMd84WzHiObiDqlljpyxhy7KPj6zgl3CGvolpCxS
-X-Developer-Key: i=gourav.kumar@oss.qualcomm.com; a=ed25519;
- pk=pp/OfJjGYucjyEYKqArAaVDesbfWZ44Dom+QtAdDZ8E=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfX3FInSedEKKaR
- 1mfCxTaXg+9Vrg1sC8kFhAZal+GKXt2sqnVZlraJPsQa45aH8wyZXTHCOnSsRoPlE7l5zA2lQVJ
- AF3+ZVmqbD5ZY9VAs0AaatY2GwiGGew=
-X-Proofpoint-GUID: 90p9kMLNePmG1wwWgr9Stfu3xLqMMsu0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAxMiBTYWx0ZWRfX64L/uUxWCLyy
- RJ31UTc+qbhXsDjdKGgU03rQ5ZCaRp7ythMwCe8WJYvh6wgngqCL9VxWyBupDvESyBZJkEWExsE
- q42+WiDqqxP5QSrCIDxjsCh6gjZpyN5WQVpsSo40zfgcKF/0Bgc3qpoMCgzjXE5KRVCiwTQLktY
- wZLoy4XTqSM9CEsw5Nvtq0FKj+YelFF4lMGAUBcziDLFzf2xz2Fsn7CkTD0HVJrhJyEPLMerx80
- IwwaIcBuJZvLKpvO4aieT4pT9nbR+FJFiqG5Dacw9De0krosVUFo0zYD9ZQl45ECeEuSWjDZmtu
- huQ3FzCkN8Sn4XgOzJNzLXbBhllT8Ty+5cvFifUVzuUZDiBflNf463zbpmg7kcXMRLOuNYd4EiW
- ZM0AEtQHpPFLILgpW2CubdyNakaxiuBQqhlY+nCO4urBtP1J/agttc7G1q/MIMETcFXREvns/uK
- EnqNPcD63U26ZQMeY5w==
-X-Proofpoint-ORIG-GUID: 90p9kMLNePmG1wwWgr9Stfu3xLqMMsu0
-X-Authority-Analysis: v=2.4 cv=BdBNQbt2 c=1 sm=1 tr=0 ts=6adad19d cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=XSycHmPQ-ps1G5V6GkMA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0 impostorscore=0
- lowpriorityscore=0 suspectscore=0 adultscore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230012
 
-The Gen2 AR50LT encoder capability table advertises only the RANDOM
-intra refresh type, so V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE
-exposes a single menu entry and userspace cannot select CYCLIC.
+This series adds a new DRM accel driver that supports the C7x DSPs
+inside some Texas Instruments SoCs such as the J722S (the only SoC
+currently supported). These can be used as accelerators for various
+workloads, including machine learning inference.
 
-Advertise CYCLIC alongside RANDOM in the AR50LT encoder capabilities so
-that userspace can choose between the two intra refresh types. RANDOM
-remains the default, so existing behaviour is unchanged.
+This driver attaches to the DSPs through remoteproc and talks to the
+firmware running on them through shared memory and a mailbox. The
+firmware is the accelerator's command processor: the driver pushes Jobs
+onto a per-core Ring in shared memory and rings a mailbox doorbell; the
+firmware runs each Job's Kernel in the DSP's user mode on the client's
+own page table, moves a Fence when the Job is done and rings back.
 
-Signed-off-by: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+The kernel driver itself allocates buffers, manages contexts and submits
+jobs to the DSP firmware. It also populates the per-client page tables
+with io-pgtable-arm.
+
+No carveout holds buffers any more: every buffer is the kernel driver's,
+page-backed and mapped through the DSP's MMU in the client's own page
+table, which answers Andrew F. Davis's question on v2. The one reserved
+region the driver uses is the first 256 KiB of the IPC pool, where the
+handshake, the Ring and the Context table live. A buffer that a DMA
+transfer names must be physically contiguous, since the DRU does not
+go through the MMU; the client asks for that at creation.
+
+If there is more than one C7x DSP core, the driver will load balance
+jobs between them with drm-gpu-scheduler.
+
+The firmware isolates clients by using its MMU to protect their memory
+and by running their kernels at a lower privilege level.
+
+Besides executing user-generated DSP kernels, the firmware can also
+execute DMA transfers at the request of userspace. These don't go via
+the MMU, so are validated by the kernel driver.
+
+The source code for the firmware running on the DSP is available at:
+https://gitlab.freedesktop.org/tomeu/thames-firmware/ mostly under the MIT
+license. The ABI with the firmware is defined in a shared header with
+versioning.
+
+Known limitations of this version:
+
+- Runtime power management is not implemented (system suspend and
+  resume are).
+- The J722S EVM does not resume from s2idle with TI's shipped
+  system-controller firmware, so the resume path ran only in the
+  driver's own tests; the suspend path ran on the board.
+- The submit IOCTL waits on no sync object, which a Vulkan driver will
+  need.
+- The 4D block move is the only DMA transfer type accepted.
+- One firmware image serves both cores; a core found running another
+  firmware is left out after the handshake's five seconds.
+- The DRU channel stride is stated for the J722S instead of queried.
+- The J722S is the only SoC this version runs on.
+
+Three additions were needed in the device tree bindings:
+
+- power domain references for the two SoC timers the DSP firmware
+  drives, which the remoteproc driver does not hold;
+- a second mailbox doorbell, since remoteproc's own serves rpmsg and
+  this firmware rings the Ring's; and
+- reg entries for the AUX SRAM and the DMA engine's registers, which
+  the driver maps into every client's page table.
+
+Everything else is done in userspace, as a Gallium driver (also called
+thames) that is part of the Mesa3D project: https://docs.mesa3d.org/teflon.html
+
+Userspace portion of the driver: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/39298
+
+Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 ---
- drivers/media/platform/qcom/iris/iris_hfi_gen2.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Changes in v3:
+- Shared-memory ring and mailbox doorbell replace rpmsg
+- The kernel driver writes the client page tables
+- Buffers are bound at userspace-chosen DSP addresses
+- Kernels run in the DSP's user mode; faults reported per job
+- DRU transfers submitted by userspace, checked and translated by the kernel driver
+- System suspend and resume
+- Versioned firmware ABI; hardware ID reported and checked against the SoC
+- Firmware rewritten bare-metal, MIT
+- Link to v2: https://lore.kernel.org/r/20260114-thames-v2-0-e94a6636e050@tomeuvizoso.net
 
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-index 79bbd06ef8d2..794c36d222d3 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-@@ -2600,8 +2600,9 @@ static const struct platform_inst_fw_cap inst_fw_cap_gen2_ar50lt_enc[] = {
- 	{
- 		.cap_id = IR_TYPE,
- 		.min = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
--		.max = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
--		.step_or_mask = BIT(V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM),
-+		.max = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_CYCLIC,
-+		.step_or_mask = BIT(V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM) |
-+			BIT(V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_CYCLIC),
- 		.value = V4L2_CID_MPEG_VIDEO_INTRA_REFRESH_PERIOD_TYPE_RANDOM,
- 		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
- 	},
+Changes in v2:
+- Add thames_accel.h UAPI header (Robert Nelson).
+- Link to v1: https://lore.kernel.org/r/20260113-thames-v1-0-99390026937c@tomeuvizoso.net
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Suman Anna <s-anna@ti.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+To: Oded Gabbay <ogabbay@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Kees Cook <kees@kernel.org>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>
+To: Christian König <christian.koenig@amd.com>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+To: Nishanth Menon <nm@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>
+To: Tero Kristo <kristo@kernel.org>
+Cc: linux-remoteproc@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-hardening@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: linux-doc@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
 
 ---
-base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
-change-id: 20261023-iris-ar50lt-ir-cyclic-ec24f4150077
+Tomeu Vizoso (16):
+      dt-bindings: remoteproc: k3-dsp: Add the L2 auxiliary and DRU regions
+      dt-bindings: remoteproc: k3-dsp: Allow a second sub-mailbox
+      dt-bindings: remoteproc: k3-dsp: Allow referencing the timers' power domains
+      accel/thames: Add header with IPC definitions
+      accel/thames: Add driver for the C7x DSPs in TI SoCs
+      accel/thames: Create a context per client on device open
+      accel/thames: Add IOCTLs for BO creation and mapping
+      accel/thames: Add support for submitting DMA operations
+      accel/thames: Add IOCTLs for job creation and submission
+      accel/thames: Recover from faults and timeouts
+      accel/thames: Add IOCTL for memory synchronization
+      accel/thames: Install memory mappings populated and dirty
+      Documentation: accel/thames: Add initial docs
+      arm64: dts: ti: k3-j722s: Add the AUX L2 SRAM and DRU regions
+      arm64: dts: ti: k3-j722s: Add second submailbox to the C7x cores
+      arm64: dts: ti: k3-j722s: Reference the power domains of the C7x timers
+
+ Documentation/accel/index.rst                      |    1 +
+ Documentation/accel/thames/index.rst               |   47 +
+ .../bindings/remoteproc/ti,k3-dsp-rproc.yaml       |   33 +-
+ MAINTAINERS                                        |    9 +
+ arch/arm64/boot/dts/ti/k3-j722s-main.dtsi          |   16 +-
+ .../boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi      |   27 +-
+ arch/arm64/boot/dts/ti/k3-j722s.dtsi               |    4 +
+ drivers/accel/Kconfig                              |    1 +
+ drivers/accel/Makefile                             |    3 +-
+ drivers/accel/thames/Kconfig                       |   27 +
+ drivers/accel/thames/Makefile                      |   12 +
+ drivers/accel/thames/thames_abi.h                  |  238 ++++
+ drivers/accel/thames/thames_core.c                 |  867 +++++++++++++
+ drivers/accel/thames/thames_core.h                 |  120 ++
+ drivers/accel/thames/thames_device.h               |   97 ++
+ drivers/accel/thames/thames_drv.c                  |  554 ++++++++
+ drivers/accel/thames/thames_drv.h                  |   67 +
+ drivers/accel/thames/thames_gem.c                  | 1077 ++++++++++++++++
+ drivers/accel/thames/thames_gem.h                  |   77 ++
+ drivers/accel/thames/thames_job.c                  | 1319 ++++++++++++++++++++
+ drivers/accel/thames/thames_job.h                  |   81 ++
+ drivers/accel/thames/thames_trace.h                |   77 ++
+ drivers/accel/thames/thames_transfers.c            |  405 ++++++
+ drivers/accel/thames/thames_transfers.h            |   52 +
+ include/uapi/drm/thames_accel.h                    |  843 +++++++++++++
+ 25 files changed, 6043 insertions(+), 11 deletions(-)
+---
+base-commit: 1ecab8b0bad393750c60cc3819ce9c256595463c
+change-id: 20260113-thames-334127a2d91d
 
 Best regards,
 --  
-Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+Tomeu Vizoso <tomeu@tomeuvizoso.net>
 
