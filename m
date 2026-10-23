@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792737985;
-	b=rhFTsp3YRj5monaO/85B59lK8I60Iw0f/o9YzYVCKUbIX1HxNo90bSJUWISBF0VGaqjz
-	 tcu6Afjggla3rrb2L3LEe7zcZtcnDyDoV2C7GtQN9rgGF7Ome2wQ9XV/QPsH8A471zh2U
-	 2fElhF4oeJicMw16On3EEg3eLxVqCuM6ALoOprPNyaGhLiz1L84s3m+xWz+l73guEOvgp
-	 NSnv3NUc04AACFrWCOBT7a1CFAx6vm5qjaWrUSWX+6XySxuLqp8ZbQt5FVFT/ET3ByDJE
-	 36+PtaW+E3MxS8PaG8NNbjOTGKF4y87qa1mvbpTJeko0qFI7JVkiTgc2OsmPqSUfGbA==
+	t=1792738268;
+	b=k9hqIwCfiH/04itICzYj6K7pmFt9jwEheRZGkIuDDXM52Pi4X0n4GntX6XFzXiHmudZZ
+	 xZ8S5W2jB4P7Opju0V4/zjaB4ptqm1/isutTQ7glZjoxAoTYIRmVdZtRttg3ltmhcX3CF
+	 SxYVBbHFPLWM1gbkH166IpRhLpsTaoZMfU2+miIckop9iKOpF0yfZ+Do6MFGkrZQ7Ggg9
+	 BF6ysjACzuIYYSIKsOQk4gSVcQBY4p6n7fE7qPqgahuybGKD6HZpmXZfhMJVj2QfXVJbE
+	 95bIajphkwzjt9Uno7aWGrXPELeYUW6mUnV/0mqOPWb9ZQMcPLnvQuymUMznM5fXWdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792737985;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=A5hfuGLL9U51nvhID9oUu3453+srUYM+t5Xwxht3AIo=;
-	b=VzVvxsptTn3fJdA5kgyTxzeUCRtmtbRASifpUGr+KujVyymgGSyoMT80tRSmzLH34trz
-	 JUQv7Ryy9LCSnARSZtLiS0Tt4McvErZX5eeCS1hakx79R5DzAci7/s4+ar/JxM1Gut3TR
-	 3IRK+jb3r00Ro5xqokJtRrN61rgiHrGnkAP9kyB0RiIsYVzRnAMJgep4FQDdeAF2TN9IO
-	 6OpftBhVHM4GTNM0Ep+vE5RZgZ/x/Ug/4Hm8qfKqtPxjk5jsFva4Oi8gWCgJyw4NwA4YY
-	 ZDlPdh122ZP7p4uwJ1Aw6UqSrnX+tHtiIQauOFUZdxSZVrswN79fCeA9MQdWpqd3OGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738268;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
+	 X-MBO-RS-ID;
+	bh=5vq8E+jHMyDXl7eoZ57S4Q2ik2oOMkXHS2FXEVqzJ5Q=;
+	b=GyEbf60sIY49YYmPN9haLGI3Yj0ZuCCXM0oZcqoVgJAuymHSYzILQs9QHNTBf7UXrWHX
+	 7yol4QuqjJEpAXblLM+uJNmxO0r03+3eSc8jJjUoPJJCz9hOe240BYDtTs8XV9cCNJn3x
+	 LpqWVLsMD8QEc9xMpAzqOdU0+k+PIQuJLTEk+8ASu2GaZ2Mecj3saKDeYgQSEulpZi9V4
+	 hyUcwbRsiQQLkSKdsAQPOEo2cQk9W3ADft3p2aR/kGEchIaMU1FN/aBepjvJWfg2136OV
+	 HtjbEEN6VyhxO2b6cEIfFE02ME5cwEONglgl5LRFgxnhdsu17rhs52e3bpk4JzoijoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l1F2Iw3z;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=rsfA6x9z;
+	arc=none smtp.remote-ip=80.241.56.161
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F351606A31F;
-	Fri, 23 Oct 2026 06:46:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F351606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA7C606A31B;
+	Fri, 23 Oct 2026 06:51:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BA7C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l1F2Iw3z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792737984; x=1824273984;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=IK7GHeF/iSOkxUaWEWahXG0mGoC8RmG0GWUii1LygYQ=;
-  b=l1F2Iw3zsYau6/q83/zylwOg7n6lmvMefpzklnAUfK90JU99oBlgFA4I
-   BSeYS3IEqkw4dwHUzqVruXRk0PdtsstC95ZdRqA72BdrkzpM5SrwB8pNx
-   y3sTlVL6Koi9TCNtmtFzkNao8bsAbwJg1X4eh5Achcpe91Cin404p2piV
-   8uT5GEEUbfbVopEQvLrTFqWVF3YPFd/qWynJELn6zL+JIXbssIeK9bhOj
-   XZpsY3vsYDRBTuQz5JIvRZfbLb2kyJ0/dyz50d/xvqlmqrmd2Yk87EcmO
-   XGTDsCZwh5GS1nKi6jFlYJNobiEfHUb9xJLwHh0A/gbDyAt+nNMnYH/H6
-   A==;
-X-CSE-ConnectionGUID: cIFAypSWTR+b7q9uY+noYQ==
-X-CSE-MsgGUID: A5pwx3p7RvyqFnanDDn47Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11943"; a="1377331"
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="1377331"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:46:23 -0700
-X-CSE-ConnectionGUID: ymazaAbZTm26TqRgwuVb1g==
-X-CSE-MsgGUID: lcL7yanMTpCwy4PyBDK5Hw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,173,1787036400"; 
-   d="scan'208";a="3505972"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 23:46:19 -0700
-Date: Fri, 23 Oct 2026 09:46:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bradford Love <brad@nextdimension.cc>, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
-	linux-media@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Daniel Mack <daniel@zonque.org>,
-	Haojian Zhuang <haojian.zhuang@gmail.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Russell King <linux@armlinux.org.uk>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH v1 0/7] gpiolib: kill gpio_request_one()
-Message-ID: <atsCuEYYPokdQn_m@ashevche-desk.local>
-References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
- <CAD++jL=prd1KDZQawqsRmW3qp1-cJ=18-yhp861CQirOOjE5Ag@mail.gmail.com>
- <as4tep73cAI57Yk7@ashevche-desk.local>
- <CAMRc=Mcc2b2Z0zrkNQ80NpV-H1MsihgeNtPD5dD5g9xcbiLg4w@mail.gmail.com>
- <as44ROCHy-WeMdIZ@ashevche-desk.local>
- <atjBsoY8mjGw9fQ8@alpha.franken.de>
- <atjbpKxrW7x7Ohpq@ashevche-desk.local>
- <atjfOrjsxnKe80zh@ashevche-desk.local>
- <atpbQV_qEoLyAG2J@alpha.franken.de>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=rsfA6x9z
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j9tvq5YVdzKnkg;
+	Fri, 23 Oct 2026 08:51:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792738263; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5vq8E+jHMyDXl7eoZ57S4Q2ik2oOMkXHS2FXEVqzJ5Q=;
+	b=rsfA6x9z5gz9g+eJNQ2b7ucfNKLVP6pYkEfxQrRioI9qekqImCTXzDl1DvOCwwhMUWC2l/
+	l6eC7wX03rSP3dpTBB/KdSKyhtVyCrJgisa4Ghgp5piIyo6YjIiFon14EECCJG571CWy1A
+	UfhCXHLNcgzBfcsfdcmCQd9idoH1rnubsWfOTPsOvTZEczpOT+gcXP2v06Z0SarZUz2eMq
+	TjR3uxJyFNn4XDW26dtaxENxyt81tG17P3mLwzYRRvCSVaJ3DtFAE5jP+4ta8qi64Fl1OO
+	UCDr2+SUbr1uJtKsbshZJArI0+6X+FWU7iMXNYu9E0eLiYMNoLUD3zcBo2Xzww==
+Message-ID: <948cd47aebbd0639492db1fd7bc3852e7e60af91.camel@mailbox.org>
+Subject: Re: [PATCH] rust: DmaFence: Don't drop on signal
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Philipp Stanner <phasta@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Alice Ryhl	
+ <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng	
+ <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?=
+ Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg	 <a.hindborg@kernel.org>, Trevor Gross
+ <tmgross@umich.edu>, Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir
+ Duberstein <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Fri, 23 Oct 2026 08:51:00 +0200
+In-Reply-To: <20261022162701.2297062-3-phasta@kernel.org>
+References: <20261022162701.2297062-3-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,50 +83,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atpbQV_qEoLyAG2J@alpha.franken.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MBO-RS-META: o977mejxkh8hcuc9iopum4f67tyimxq5
+X-MBO-RS-ID: accedf3891204f28d89
 
-On Thu, Oct 22, 2026 at 08:51:45PM +0200, Thomas Bogendoerfer wrote:
-> On Wed, Oct 21, 2026 at 06:50:18PM +0300, Andy Shevchenko wrote:
-> > On Wed, Oct 21, 2026 at 06:35:06PM +0300, Andy Shevchenko wrote:
-> > > On Wed, Oct 21, 2026 at 03:44:18PM +0200, Thomas Bogendoerfer wrote:
-> > > > On Tue, Oct 13, 2026 at 04:55:16PM +0300, Andy Shevchenko wrote:
-> > > > > On Tue, Oct 13, 2026 at 09:35:43AM -0400, Bartosz Golaszewski wrote:
-> > > > > > On Tue, 13 Oct 2026 15:09:14 +0200, Andy Shevchenko
-> > > > > > <andriy.shevchenko@linux.intel.com> said:
-> > > > > > > On Fri, Jul 24, 2026 at 11:40:59PM +0200, Linus Walleij wrote:
+On Thu, 2026-10-22 at 18:27 +0200, Philipp Stanner wrote:
+> +
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SA=
+FETY: `self.data` is valid because `self` is valid.
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let f=
+ctx =3D unsafe { self.data.as_ref().fctx };
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let _=
+ =3D fctx.nr_of_unsignaled_fences.fetch_sub(1, Relaxed);
+> +
 
-...
+When I think about it we probably want to address this in a series
+(preparing for JQ upstreaming) where we also have my proposed
+DriverFence::drop(synchronize_rcu). Otherwise this patch would need
+both synchronize_rcu() and rcu_barrier() for formal correctness when
+the FenceContext drops, which is just overkill.
 
-> > > > > > > Bart, anything needs to be done for this series to go in?
-> > > > > > 
-> > > > > > We don't have Acks from MIPS maintainers. :(
-> > > > > 
-> > > > > Hmm... Usually Thomas is quick. Thomas, can you give your Ack if you agree with
-> > > > > the changes, please?
-> > > > 
-> > > > sorry, I was on vacation.
-> > > 
-> > > No problem, we now have more time :-)
-> > > 
-> > > > I'm fine with the changes, but I'm not, if they still apply cleanly...
-> > > 
-> > > Can you provide your formal Acked-by?
-> > 
-> > Maybe I misunderstood you, but FWIW I have applied it on top of today's Linux
-> > Next and there is no conflicts.
-> 
-> ok good, I probably mixed things up :-/
+If only we could fully lock the fence, all this would just go away. But
+currently that's what it is.
 
-Thanks for tagging the relevant changes!
+So forget about this patch. I send sth new soonish.
 
-Bart, I guess now we all set for this series to go in.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+P.
