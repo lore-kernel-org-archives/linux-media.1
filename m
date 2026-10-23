@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792785340;
-	b=GfeI1zgu9tALxC8c8Pxt2/kQfruGFTGl5lUugpGdOsN/rxG626k+jWvGMgKlvpt68xPv
-	 uFqU8UgU+K7R2RwKslDBIAyueWIyTO3mkB83EO/96kNpB2ZBHihdd7M07shghbrwhlvIx
-	 teCzOP88UNfJbNMaQ6zSdZyFpdFS4ty0HxAL6T8/S4FUBl3B75uCnPOyl90n6dFm8ch8d
-	 MrtavN1JcyYNqWYcLkySPLgLe2wRHgq8ew2ADOwjc17dCHK6wqoZstu9AxSQ8ytTJLj84
-	 uJWROa3N8ioguMXe1EkpcDrao2QXQ7VkLPkBdeWdcljCOQhsmw+tptXQOTWe8xda34Q==
+	t=1792785348;
+	b=2kMh45sFKNb3pQeJ22ZwebiyacAZ+yDLpnWx2h4UeufIBlZ19mdbU8+4Af4hZayPj3mY
+	 aq6Fs1krU9n7m3fGEhlVMM3QlyzkzA7/+l/GiNYdwGI9O2ZavHSXtV1egxbhHitsSMbO0
+	 dcOaFmu9OEdC6yg34iToPUi0Ou5b/hv8ksBVeQSbBVigbFcmFzcH9gYXs80K34Bn76su0
+	 rIVUoVsjMRgw6dhuMRWjFLeJxfrAFnerw+aRco/lq+Opd4+2+R04F/ORwhGwnVC+cKwfW
+	 6ut80HX63UbuvuXwdJ4mrLUv9aLDQA/HYw7R1DarKDEHigfwElQRV2Wz8SuYMktu2CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792785340;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792785348;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=RXKCvpHJ32pnnjF1qsr+tNnlnW1UiL+VS2YSGEdo50Q=;
-	b=Yvsplf7qEs4HETcQFBDZ/shvlBNUfn7en26O+jq/QI5dFkz/NiZ5BKrvS10W8kYSCEbh
-	 DijaJG0UURr67RW19pluIxITybYBvra4dp+2qxhmaGtFPPFvzzJsmcHr+1TG83Js+skV+
-	 waJlXQ+MHgmmUSVP2B6ABj9mHdhUZZlNmBY5i3kooJ7OH5VtZRW8cTuczNAh8robUSiHp
-	 d/kQOfoBFXmMWddS6XE1obSxlHoOBbDGqUVSjUurb4Bs2xuizVk/0PcdTKZo3aesvNLgu
-	 +Wjkw/VycUPzpv/+zfU8BCcZSBx0jVMCRCzhlJkXY7SGT/m+ixDPH7ffgUUblOUbQqQ==
+	bh=6/yHD9XpoGjxCE8BffWdkn4JFGCNPNFlWOfRcpw47Us=;
+	b=HjQ1scIr94D1SziaUBaMGwY8r6oU4kF9jIvEi7N7kLiDrsgtqf5PNz6nsLE34xXVx3In
+	 kxzeCXPfMls88S52JZ/Z6eSuSsyZX0h7lSsnMmBbsHp+qXZ4yiAz3BOP82bsgvFAO4AkZ
+	 I3P3me91z2/00Bli+Y9JVRwyRJjvUFPS0jZbFLEyHHbJS6aik8G8agKIEI9G6Q0QXipMF
+	 E5sZPlPvcRfbPvvx9OtH1Syx212awz+UbXaKWABNBHdLW1sPYIxx6SuaGvAagEYSSmOK0
+	 iOPZB/F97S/fSzN8fzoYjYZE2OhMNp3vg+YA52+VshjZmIOieshtTuW76/MKy1iEEEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KoU12STC;
-	arc=none smtp.remote-ip=79.135.106.30
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch [79.135.106.30])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RNQpG9ZA;
+	arc=none smtp.remote-ip=185.70.43.100
+Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BAC460A260E;
-	Fri, 23 Oct 2026 19:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BAC460A260E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E5160A3820
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 19:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 57E5160A3820
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KoU12STC
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=RNQpG9ZA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792785337; x=1793044537;
-	bh=RXKCvpHJ32pnnjF1qsr+tNnlnW1UiL+VS2YSGEdo50Q=;
+	s=protonmail3; t=1792785345; x=1793044545;
+	bh=6/yHD9XpoGjxCE8BffWdkn4JFGCNPNFlWOfRcpw47Us=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=KoU12STCx7c2LuF2evST7rCBCI24GcWZdHNJEkR11kLkRnyQWOHficwZVlAtK9V0l
-	 +w/3bh97pMdInUFFffRBHol88y+2UJiF0P5j+8UnPYEnIz8A/N6HTkNDi8PXW/o0kW
-	 dyeywDHzpiMoBpNCvFPQlYBTmE7xVfIzqnRG0YGuC419eqZzXWNg8gjv11ui087pqv
-	 iraRqm5I52Za+W/hFtI3YQfTtU+xnR/Qlk9YNsDSwWWdtOMpdBWwRx9sCmkHaazlhc
-	 6Bjobwlz0wwicr+31cFfKj0ZhfzTLo71fwsrVhhM6JI2oC7/CmNMLoXBoODJqCFLqe
-	 GHfddXFhEyoaA==
-Date: Fri, 23 Oct 2026 19:55:32 +0000
+	b=RNQpG9ZAR2IYEC2jf2ZPBvDnDY+wUOEhwymh5FPIY3R/8VJO3pwX0MWRY8AKiBE7P
+	 CV0bOJDulStuJ6B2wqOL7K0Kj6A/nA8F1s9T27ZD5ybDv6XpWOj3BgrHtNfyvjMrux
+	 13UF2cLGamvMLQldJtgV5MhaDmBtqRpYUXffzhM3MsN8pLxThIFpQmtfEr9nlzW9JX
+	 AZQubPdGlwhkTEF9EeDEL51B2bQ+0YbVYRXZiWPNjC8hWGZuxaGDB9Tdy82S6ioFkz
+	 I+fKesTPvEaCJzgYzd6E3w1N47I4moxg8ImBbHl1zQMfTTxsyXTqCXCWX5FG5/n2QH
+	 maheGlG4E6hqQ==
+Date: Fri, 23 Oct 2026 19:55:40 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
 Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
-Subject: [PATCH v1 01/11] media: intel/ipu6: move busy check to ipu6_isys_vidioc_s_fmt_vid_cap()
-Message-ID: <20261023195446.22578-2-valerii.sokolov@pm.me>
+Subject: [PATCH v1 03/11] media: intel/ipu6: check pin bounds in ipu6_isys_fw_pin_cfg()
+Message-ID: <20261023195446.22578-4-valerii.sokolov@pm.me>
 In-Reply-To: <20261023195446.22578-1-valerii.sokolov@pm.me>
 References: <20261023195446.22578-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: 98b5aad615cdf6d10d28a9901dd9636dfbf368f7
+X-Pm-Message-ID: c818da9406929de491771b060f8ab5eb245b1f36
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,64 +67,49 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-ipu6_isys_vidioc_try_fmt_vid_cap() rejected calls with -EBUSY when
-buffers were allocated on the queue (vb2_is_busy()), although the V4L2
-specification states that VIDIOC_TRY_FMT can be called at any time and
-never returns EBUSY.
+In ipu6_isys_fw_pin_cfg(), cfg->nof_input_pins and cfg->nof_output_pins
+are incremented without checking them against IPU6_MAX_IPINS and
+IPU6_MAX_OPINS. If more video nodes are attached to a firmware stream
+than the firmware ABI supports, the function writes past the end of
+cfg->input_pins[] and cfg->output_pins[] in the firmware message buffer.
 
-Conversely, ipu6_isys_vidioc_s_fmt_vid_cap() lacked the vb2_is_busy()
-check (unlike ipu6_isys_vidioc_s_fmt_meta_cap()) and ignored the return
-value of ipu6_isys_vidioc_try_fmt_vid_cap(). As a result, when a client
-issued VIDIOC_S_FMT while the queue was busy, try_fmt returned -EBUSY
-before clamping fields or computing bytesperline and sizeimage, and
-s_fmt copied the unvalidated user format into av->pix_fmt.
-
-Corrupting av->pix_fmt while buffers are allocated breaks subsequent
-buffer preparation in ipu6_isys_buf_prepare(): if user-space left
-sizeimage as 0, the size > vb2_plane_size(vb, 0) check is bypassed and a
-mismatched bytesperline * height passed to vb2_set_plane_payload() can
-trigger WARN_ON_ONCE(size > vb->planes[plane_no].length), or if
-VIDIOC_STREAMON follows, program the firmware to DMA a larger frame into
-smaller buffers.
-
-Move the vb2_is_busy() check from ipu6_isys_vidioc_try_fmt_vid_cap() to
-ipu6_isys_vidioc_s_fmt_vid_cap(), matching the meta capture callbacks.
+Validate cfg->nof_input_pins and cfg->nof_output_pins before
+incrementing them.
 
 Fixes: 3c1dfb5a69cf ("media: intel/ipu6: input system video nodes and buffe=
 r queues")
 Cc: stable@vger.kernel.org
 Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media=
-/pci/intel/ipu6/ipu6-isys-video.c
-index 129016e574..f394e78db6 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
-@@ -290,9 +290,6 @@ static int ipu6_isys_vidioc_try_fmt_vid_cap(struct file=
- *file, void *fh,
- {
- =09struct ipu6_isys_video *av =3D video_drvdata(file);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pc=
+i/intel/ipu6/ipu6-fw-isys.c
+index 56bb67869b..a36d64bcb9 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+@@ -778,10 +778,15 @@ static int ipu6_isys_fw_pin_cfg(struct ipu6_isys_vide=
+o *av,
+ =09=09ipu6_isys_get_isys_format(ipu6_isys_get_format(av), 0);
+ =09struct v4l2_rect v4l2_crop;
+ =09struct ipu6_isys *isys =3D av->isys;
+-=09int input_pins =3D cfg->nof_input_pins++;
++=09int input_pins;
+ =09int output_pins;
+ =09u32 src_stream;
 =20
--=09if (vb2_is_busy(&av->aq.vbq))
--=09=09return -EBUSY;
--
- =09__ipu6_isys_vidioc_try_fmt_vid_cap(av, f);
-=20
- =09return 0;
-@@ -324,6 +321,9 @@ static int ipu6_isys_vidioc_s_fmt_vid_cap(struct file *=
-file, void *fh,
- {
- =09struct ipu6_isys_video *av =3D video_drvdata(file);
-=20
-+=09if (vb2_is_busy(&av->aq.vbq))
-+=09=09return -EBUSY;
++=09if (cfg->nof_input_pins >=3D IPU6_MAX_IPINS ||
++=09    cfg->nof_output_pins >=3D IPU6_MAX_OPINS)
++=09=09return -ENOSPC;
 +
- =09ipu6_isys_vidioc_try_fmt_vid_cap(file, fh, f);
- =09av->pix_fmt =3D f->fmt.pix;
-=20
++=09input_pins =3D cfg->nof_input_pins++;
+ =09src_stream =3D __ipu6_isys_get_src_stream_by_src_pad(state, src_pad->in=
+dex);
+ =09fmt =3D v4l2_subdev_state_get_format(state, src_pad->index, src_stream)=
+;
+ =09v4l2_crop =3D *v4l2_subdev_state_get_crop(state, src_pad->index, src_st=
+ream);
 --=20
 2.56.0
 
