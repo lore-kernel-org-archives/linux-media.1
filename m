@@ -1,88 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792740887;
-	b=10oljuJeOV9WjD6EpdVnaQbIHxKiBxw0INdzBjqEc6Qlx6YaCjl1/7L0OrgHU3O8rfUk
-	 HOPIKp/iTPcjl4jRkLciWGAYhLdwzKxEitbyoDc+hEMCxEYrVfrkYbpXMg2vlGh0xUO1V
-	 WRCAAizCrFsoABqrJ96usHbexycGsnj/qmOOVkhKsaGXEh38sgd77wpw4YeLIp1mAfs4h
-	 c97q9BxeedPPIGc6zIVNujRkP5TgTJcBJ3vii4SAqRn8e/aGeFH3JyKkRrEtKYrC78IFa
-	 i2GHWvOl0xG+xhDcFLwMyUvS6HDLWL/FaXfzJ97Kwgc6qqnCnX89BUVyZrGfwDrWbKw==
+	t=1792742207;
+	b=vxIKHJprkCo5TfuNUbeJRmok8+RbXkxPliDrMvjSyQokro50pY14ttbYy+THq0oHgcDs
+	 sBGJNPC/xahe3FsjT/JdpSQts4DPKTGCPXGEwYveGqIefLSOW/8nnn83l60BVr+XxNZ/t
+	 O4HATHcX9LcgJ8z9wsigeMQRJEYLEHjID9onEECQGxQyz7xr8piy4QZzbsN4+Z3UT+cpO
+	 C5WOcBrJkc4+diUURMMx/jdzlkOA7pei9x4w51cf1CBWtBHgGVHh5W2O7MIT2U+FumJsX
+	 U8Sck138b8Wc72C7yRhZ+PLfSAXPrnS052w52GvpPSjjPu919xsK0m5cFs/zbyvOt/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792740887;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792742207;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
-	b=Ju20Qyc69kcoTpn8Bzcsx7dlci+PZwK9rs7JqYx94S6EEC5QS1MDRoPQRP3Ousm9lBdI
-	 IgFpngJtb39U+uLy2zI9CA8tBqQzGkvyV33ksryiqnU4Vgb5/nNIaJWf0aWXMCHhe3gnc
-	 bx5crvLisbtupsKfy+PaBDNBWijAMoMyoUlJOUFe8Pff9NCGhYC+oVHHVyXbDOe7MiqA0
-	 N7/cWE1Iwo8YhqAIXXbCKIAnZim/YMBzu6yMjG3fISmzrwO2oKvyfGEcvcNzTSJO/xeGx
-	 4pC+OTBDymyoQV5ZtRAyiOpYky1IbBKNztBPyfwZ5flhQgtttr41aWa01d0N/WvY/mA==
+	bh=DfG6IQdCHVcjOz6fH5EIp6RTNiOXw697TBLXZk9szkc=;
+	b=q2SJG310bvosb4gko/AmmP8+L88bfEooPjhau3vYiSrwWYmsqDqA0XUl7XwO+kb0jR6q
+	 5VtXFg3QtKOGAuh403xqCWRqoS9gzdniB9HhhcqXGdQNqHdPOeYhqqrloJsGLzIPk7ZZM
+	 Oa85EbupwBZWmEsFusNkiCrZGKcYHEYOg6fOAsTb1eDS8IlrJasYt2mkCjIu1CTVClAjH
+	 ulVcpE9nm3emry1J8rVTkEjvmPcKMdZY23HQ4aLQcXQhzZqxTgYPoKdUcisETD3olNz24
+	 i5lYOjI2zQBJ//LeioadwoFHN/do0K/vwKtmUxcAM2+HGVI4LLVLgis2NVuvqpTi1Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X4USJsgp;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AE78vyvh;
+	arc=none smtp.remote-ip=209.85.210.170
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEB0606A334
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 07:34:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFEB0606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A48606A31D
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 07:56:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77A48606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X4USJsgp
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so314899a91.1
-        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:34:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AE78vyvh
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a05f2d5cd3so272103b3a.0
+        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:56:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792740886; x=1793345686; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792742207; x=1793347007; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
-        b=X4USJsgp9JxA5EpAyYe8aLydL46DSNbPwbJi0kiI0mhWflPQ/M/eMTf/QzhvdpJns3
-         twae2P3d37YqaRgrpXtg/lw5LOLDODdegh/tw5SMLihERPY17wrrolsYwJep9ZmwUPGf
-         DYWsH3E3C5GmZgQE71/dIeP87dCkCeJhxHCwbhI6fBwC3hJ9BjG+pVl5Dd0m8HenzgUj
-         jhooj3bqOBBujEfja6XxIIsCHZRQykXaabQNYzI4aekAzXHbDhZ9e8+q8sGXG9VMI2zh
-         ivG8/InhY74SjFOVKV+8ZW+WbRAyEwilMCZiOPz7ZBIh9So81GTK76OGG4AYJ01xfraU
-         NUtg==
+        bh=DfG6IQdCHVcjOz6fH5EIp6RTNiOXw697TBLXZk9szkc=;
+        b=AE78vyvh6pkCM6fwA8TEVkYW6bk0oAve46hIm+EBvVO8eXS9UkcyuDpO8jEAfTVZTH
+         PZ+S9PFYTB9UWgydOTr2ymakLk6eVhPoM+I1+O3lKjOu8ZikE9cs6lElR02f76FZog5e
+         522CjFGkQASD2+G0QnBGpnd9N6NhL1QJxHokqGf+gl6ndsWgqJYS4t32O5O5FjnIYq5g
+         T+NfLevvxK8QhyJiV+OoDF1e1OjHXlmTP4NWBzVlcYYllgeMViRshwm7j2/id172RSax
+         aOU1+7qD7PLXQH61xaYJBKdyfEfL6+82PD96/al7/5Q6BcnV6kTltwh3l6PItZO+xhHH
+         pHcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792740886; x=1793345686;
+        d=1e100.net; s=20260707; t=1792742207; x=1793347007;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2tpM4qwPPRxhW556q93X3t6/sYmlkwqaAEQTB2Etyic=;
-        b=FeVgq+vNPliiqV0aD0xutwKl0gdQqpnvdT5QrnW2VlegWFiE/+aTnNzydTwF2fpqiv
-         wyRpXF9gPUO074QttjdNWJjUUqz361PZy1ndJg0FK7Lb+5gSl//J0iSjng7gXHM9edju
-         LBHMEHPUXi2DnPDAQJcNYslRJukgzDNaBotMgKHutEmmjfPITEp1TO6mkYK04nTANVut
-         cExPE1mg1FRcMCaN480w1Y5el92hj57VbtbemCThs1HnaGVwrRZy5Ro0cTKqs0KrFvnY
-         TyMnD4ZKbrPUQMUjB+exU75kHtF4ECybO+Pit0RqVR/YGugwOeEMNfUBHjLZYMc0t6kc
-         Am3g==
-X-Gm-Message-State: AFq9FYIua2Tlqn/ZAFfGnDJo5XJtwDegO5TPS4I5T7lf9YwGYHGBj7bp
-	CHwy9Lw7vQf2eSpUW4R/rjCZekycX8UKu9RrBYEbR95j0aR0eV88O+GwzhZe23TO
-X-Gm-Gg: AYBFou3arNWrTq4M1Ks8Y36mBO4D7OtFo61Giuh7r0SUig1vrnFsiLiqq2PLmqeSYUL
-	tsqNWWtIqN+CB+sugfcuYHutzedQ04eXd+ok5WpsemQI8aBNmSlyNMPsio9TX5XB39s6PgJzddl
-	2WiqjZqfdLWDpH/9mBYNVXticYI4I1HtJvk7Y9v5Ddj+BO9l/1hSyOdGBpKhbMMZ8LeJiIYeZWB
-	UauvU95Axg0NuU2ckmJR8unQadOufBi57BzA/eCCjjuBsvZ8kedjo/WSHzUMYmTpbQvpOeHzpOh
-	ms4ezQxF2fPAv+muBBtR0YBey6ozbH+1+BG+g2EsPzCsEe4B5OGqpxe5TeRcEeWjGN+P7SLIlNy
-	cMTHMgwl9xbVViM+lwuCh+Gyd4d9YhLAaBdyTLg3vQCFGr675Mgo0lPVPaLHR+WykiO+LVOQO9a
-	m2+HgiFRvVPNLBvJ1g5YZAg9ZQha3XXwKL6QmYgZDwjqbVpRTMCHhOXR5IGLF7zjxY+yqm3JZ+4
-	YJ4xOEDnxWgf5lfzUFEKzVMI83lS/kqT3Y/avi+5TpKnCJ6dK6HeUWo18Ze3g1WyY/qumnIchg=
-X-Received: by 2002:a17:90b:558b:b0:3ab:f38:2b41 with SMTP id 98e67ed59e1d1-3adce081433mr1163793a91.39.1792740885915;
-        Fri, 23 Oct 2026 00:34:45 -0700 (PDT)
+        bh=DfG6IQdCHVcjOz6fH5EIp6RTNiOXw697TBLXZk9szkc=;
+        b=VLpNxGcvxhQIayGjb6yGZoT+fZDWwTDJ6JxyHT1eSa02DLbwZLsfkPSm7wQRNlagkW
+         2LwN92ZIUUPZMZSA1yJiTWLLE+oh/jilERoM8shM8AZp7AeGoZc5aneJ8UnHpzyYClZH
+         snFbhnubNSrOrz8xj2ZlerH4jLFIzNK7zeP5j1tqiC8r6j7q/9bx5itfAfRNlzoUyprt
+         cWZlzRIZZQMCxwsJ0TAV85ByFTk5oTO14TIrKxoDqekrQkUCsOeWrs9f3sWOEnb/ANr5
+         MYsZ+jzsyuBHZkUZ8oQMbk/h7N8h7uOu8CRdLbi73jZU4tabuF893FNxV92q7IxbIYsW
+         /poA==
+X-Gm-Message-State: AFq9FYIa4Pszdk3t8J/lMD8/HdkDZDbw0FnxayFLs8E5Q9QtPzbU3Ts4
+	+8QItm5X6ecqrxgHkBsbi9W+CdP4BYM0SMnKtuKuiSzhmU5rlXDWNCV+
+X-Gm-Gg: AYBFou3Y2MH9e9Wixg+d6mYTT/N9T9IaUKHOsFAGOQ1cYUHzFR7cSD/muLPrOAa/Sl/
+	ah4CNi22MrmLU9+ypMxKPpOHfgDoV3HWTV2rn7go5OH/yLv9IFgtaYmnSGUhuO3BTYzKgs2vFk9
+	evZDnryh1WgPDEpJ+yZtSug4NX3BCHkoNE2vWDUjiShKwZyOMsx+EwyeChqcUw9mp26bjo7N5Uz
+	x5L8SgIuu7suBpfCLIBk9HP/TWgJLLj4cMgBFx1badtuXpqOqjVCa31LdCxMyGJmThAIidSB4v9
+	xVGPxtdyoogbKfTMFR14Ae+pjP100fFOhCMMCyYEmLloJErv3nysd6PjQhk8b6EtXMOu9tZ18jf
+	X7cW3VpuyWcYCaT96rqRhs1lSIEpRI+dwAxbtxfq+8nOAGqYprNC4NjRJogXxnPX1UuBoyskRrf
+	YnRa1ZPkpE1JKin6ksDneKBwa1/TmJPkcNNcgGOF9aFzomjcCjWdNx98yxOVlKuIvn4tOulgDID
+	asBjGrxG1apqV4ts/HOLuacyk67g64GKfzKtkgUnv7kb/CgLMRRoZkDLNo0d3R3YiFnqucA9Yh4
+	k4UzkP2a8yg7mweC/EGdlzPyNsw=
+X-Received: by 2002:a05:6a00:2d22:b0:89f:9ea6:1dd9 with SMTP id d2e1a72fcca58-8a2c6d927damr1178514b3a.38.1792742206707;
+        Fri, 23 Oct 2026 00:56:46 -0700 (PDT)
 Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adcb1f93fbsm2494372a91.16.2026.10.23.00.34.43
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a2c930dec7sm437340b3a.52.2026.10.23.00.56.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 00:34:45 -0700 (PDT)
+        Fri, 23 Oct 2026 00:56:46 -0700 (PDT)
 From: Li Ximo <lixicaicai@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Wang Haoran <haoranwangsec@gmail.com>,
 	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH] media: pxa_camera: guard list_first_entry() against empty capture list in EOF bottom half
-Date: Fri, 23 Oct 2026 15:34:37 +0800
-Message-Id: <20261023073437.1517305-1-lixicaicai@gmail.com>
+Subject: [PATCH] media: mtk-vcodec: vdec_vp8_if: guard list_first_entry on empty fb node pool
+Date: Fri, 23 Oct 2026 15:56:33 +0800
+Message-Id: <20261023075633.3662574-1-lixicaicai@gmail.com>
 X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -98,50 +102,84 @@ Content-Transfer-Encoding: 8bit
 From: Wang Haoran <haoranwangsec@gmail.com>
 
 list_first_entry() does not return NULL on an empty list; it returns a
-bogus pointer computed by container_of() from the list head.
-pxa_camera_eof_bh_work() calls list_first_entry() on &pcdev->capture
-without checking list_empty() first. The capture list can become empty
-between the EOF interrupt and the execution of the queued bottom-half
-work: pxa_camera_irq() queues eof_bh_work on system_bh_wq on every
-end-of-frame interrupt, and if the DMA completion path runs first,
-pxa_camera_wakeup() removes the last buffer from pcdev->capture (e.g.
-with a single queued buffer) and stops the capture. The already-queued
-bottom half then observes an empty list, obtains the bogus pointer,
-stores it in pcdev->active, and unconditionally writes through it in
-pxa_video_buf_set_actdma() (buf->active_dma = DMA_Y) before starting
-the DMA channels on it, corrupting memory around pcdev and likely
-crashing the kernel. This was found by code audit; we do not have PXA
-hardware to reproduce it.
+wild pointer computed by container_of() on the list head, and
+dereferencing it corrupts memory. vdec_vp8_if.c has three unguarded
+list_first_entry() calls on inst->available_fb_node_list: two in
+vp8_dec_finish() (one unconditional, one on the show_frame path) and
+one in add_fb_to_free_list(). The pool holds a fixed number of nodes
+(VP8_MAX_FRM_BUF_NODE_NUM = 10) prefilled by init_list(), nodes leave
+the pool on every successful decode (two per show_frame decode and via
+the vpu error / resolution-change paths), and they are returned to the
+pool only through the userspace-driven get_disp_fb()/get_free_fb()
+calls -- which themselves use list_first_entry_or_null(), i.e. the
+driver already treats the pool as exhaustible on the return path but
+not on the take paths. If the VPU firmware keeps reporting a stale or
+zero prev_y_dma, or if userspace decodes more frames than it
+reclaims, the pool is exhausted and the next list_first_entry()
+returns a wild pointer into struct vdec_vp8_inst, after which
+node->fb = ... and list_move_tail() perform an in-structure
+out-of-bounds write and list corruption. This was found by code
+audit; we do not have a reproducer on real hardware.
 
-The sibling function pxa_camera_wakeup(), which operates on the very
-same list and sets the very same pcdev->active, already guards against
-an empty list with list_empty() and pxa_camera_stop_capture(). Add the
-same guard to pxa_camera_eof_bh_work() so both consumers of
-pcdev->capture behave consistently.
+Fix this by switching the three take sites to
+list_first_entry_or_null() and bailing out when the pool is empty,
+matching the existing style of get_disp_fb()/get_free_fb() in the same
+file. On exhaustion vp8_dec_finish() now logs an error and stops
+tracking the frame instead of corrupting memory, and
+add_fb_to_free_list() simply drops the buffer.
 
 Reported-by: Wang Haoran <haoranwangsec@gmail.com>
 Reported-by: Li Ximo <lixicaicai@gmail.com>
 Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
 ---
- drivers/media/platform/intel/pxa_camera.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../vcodec/decoder/vdec/vdec_vp8_if.c         | 22 ++++++++++++++-----
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/platform/intel/pxa_camera.c b/drivers/media/platform/intel/pxa_camera.c
-index 2269d852a..73ce48650 100644
---- a/drivers/media/platform/intel/pxa_camera.c
-+++ b/drivers/media/platform/intel/pxa_camera.c
-@@ -1161,6 +1161,11 @@ static void pxa_camera_eof_bh_work(struct work_struct *t)
- 	cifr = __raw_readl(pcdev->base + CIFR) | CIFR_RESET_F;
- 	__raw_writel(cifr, pcdev->base + CIFR);
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
+index fd15d462b..ba34c71f7 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
++++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
+@@ -308,15 +308,23 @@ static void vp8_dec_finish(struct vdec_vp8_inst *inst)
+ 	}
  
-+	if (list_empty(&pcdev->capture)) {
-+		pxa_camera_stop_capture(pcdev);
+ 	/* available_fb_node_list -> fb_use_list */
+-	node = list_first_entry(&inst->available_fb_node_list,
+-				struct vdec_fb_node, list);
++	node = list_first_entry_or_null(&inst->available_fb_node_list,
++					struct vdec_fb_node, list);
++	if (!node) {
++		mtk_vdec_err(inst->ctx, "no available fb node");
 +		return;
 +	}
-+
- 	pcdev->active = list_first_entry(&pcdev->capture,
- 					 struct pxa_buffer, queue);
- 	buf = pcdev->active;
+ 	node->fb = inst->cur_fb;
+ 	list_move_tail(&node->list, &inst->fb_use_list);
+ 
+ 	/* available_fb_node_list -> fb_disp_list */
+ 	if (inst->vsi->dec.show_frame) {
+-		node = list_first_entry(&inst->available_fb_node_list,
+-					struct vdec_fb_node, list);
++		node = list_first_entry_or_null(&inst->available_fb_node_list,
++						struct vdec_fb_node, list);
++		if (!node) {
++			mtk_vdec_err(inst->ctx, "no available fb node");
++			return;
++		}
+ 		node->fb = inst->cur_fb;
+ 		list_move_tail(&node->list, &inst->fb_disp_list);
+ 	}
+@@ -352,8 +360,10 @@ static void add_fb_to_free_list(struct vdec_vp8_inst *inst, void *fb)
+ 	struct vdec_fb_node *node;
+ 
+ 	if (fb) {
+-		node = list_first_entry(&inst->available_fb_node_list,
+-					struct vdec_fb_node, list);
++		node = list_first_entry_or_null(&inst->available_fb_node_list,
++						struct vdec_fb_node, list);
++		if (!node)
++			return;
+ 		node->fb = fb;
+ 		list_move_tail(&node->list, &inst->fb_free_list);
+ 	}
 -- 
 2.30.2
 
