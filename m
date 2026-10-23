@@ -1,90 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792738774;
-	b=xrI3quMgbc2tIIhjKxhah11gnuziFa5yMpphYRchZiqtTRTq9G0tVi6EZ+cFkvYPV99x
-	 Buww7qd2QuCcVHIII0uFcvcJ07ctlUspYFVZ4PBzAfTdIH94f2RZIb8qMRESbhKCPdUFv
-	 +0+5YzqxA9G/xx1g01d0REs32oMD1VSTl0lJs+dk/3nYV2CHxeyJRXm1GOgaAkgfztzO5
-	 nlTGvf3ZD8+8BBDBOZTNNdLmQ1yM4cMkCd8c+14LS6C1/IGhJq1GfTDKXzAoQrWs25gud
-	 zCReuy1q5HPgUG8Md69OZaMxxB5GFOHQ962cjPGJ2LC2VegEVQrlz/8dvsPIy9cBj4w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792738774;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:Subject:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
-	bh=5WUYJH09/Iy/2Pqz1SpjpByH7uaHMKWs6PkgJ+HFOqE=;
-	b=i1UbSk95H9GhvsWBuHzhL0OCM5ENpEE7ypbM8pKNQ5nFsnMIyCh2TadS7ZE8r1CpDiM7
-	 u/p7RXls3WKaooMSiSURwpaLZmWptvWhnJsBPOycGyhHX7JsOzoptqo5eFblZXNMza8c8
-	 1eQo+9umqVNAgzxXotsbNxPCginNvlmYPwIfUxABKzXMs9PRoYR1/CRvkGxYFkU0G/vAi
-	 A7pvakioabQl8IKzVwLCnccBIBPamDtzxB2sKdAK/g25qrdZPFLjQsyHIj7euwmlKwV/i
-	 iHeO1Pe4IVYxETRb11P+4xL4x21Ay2NG/hwTUw+RrWan1S7ohGt/IN45xeQ87QJpFzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="COP0c/ae";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792738845;
+	b=KXfOrdxWCVriCw9AK+qKWdPN8MSyHBn79Zk3GLcIHqVGT/BKU2jxLfiZWRJwg1pni7gW
+	 hwmWlM2BeAh0wcqFsPLPtScqN9d7K4Xqc2yQAsQ+40WiNs4gpxJjr6SF1qsQ13oO8qW4c
+	 WH16oVXievh1UDbEfCakN3BJu0wYx2Li2bXer/+2Qe1O5G3AnVMUSxqxdDSAsSr46ZbT1
+	 NdOjoohyG2aqtp9tJZWIEnPniCvmdGgc1mupzSAI13tJ+n7jaD3zE6zvSSAQQNLG1w85q
+	 +y8+MEka1R2IGYZPOtJqskRVzcQWwF/qDgK8/EHhMEdzn+r6YbfUBa9eLqzPPQjCYLA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792738845;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 X-Google-Original-From:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=TSBqvXX7rnpjqt8rxFBv9WYb5CVV2ARyX91j3W4WjFs=;
+	b=YDi6r6KEn/Ex3wTxUYMD1M30IkzH/Vc3fWmDXh6QX4y6978pqJjXpQRgSf7IYm/GrUGM
+	 f25XH+GNKddk52trLDUGOeC5GxCprlKZDGCqI4AgS77e5Zjbfrz74+fPAgRK6uL5MfC3K
+	 BcuTeyc0jNiGX2JskErTxsSnBpzgBjd8UPzE8u0ynlWUBVNCrtAbv2IM1Ta7oICpfsgo3
+	 XU/o8/8H7t7ZmYHGa5Is5v4U/jkHTu3G4qX52XTTFn8kSfWcGtC1U2ybR0aHudaaP/8Fz
+	 g3tobpTMXAlrMKm1/GXs/rjRV+Er3f7U7f3ejqGFR5NmdpQJ7wVVSmgNd6kkKjqqeNQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KmLmmive;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=izuy8j1E;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC9A606A31B;
-	Fri, 23 Oct 2026 06:59:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AC9A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834E6606A31A
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 07:00:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 834E6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=COP0c/ae
-Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5ca5:d100:9ebf:dff:fe00:fdb5])
-	(Authenticated sender: sha@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 25D28200208;
-	Fri, 23 Oct 2026 08:59:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792738770;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5WUYJH09/Iy/2Pqz1SpjpByH7uaHMKWs6PkgJ+HFOqE=;
-	b=COP0c/ae33eU2nr8ufHwDNo8/1U1SpPul/FROCBH0dr6mR3LUU5mdq6RUQiOkgHWaIykAN
-	vOusL9unHBrQzHksnuHHTdGqTrRPhGSgJH+Br9SUKdjZkL5XHznx7gCMP6SrowrfCZgNbs
-	Bk9mM/5wkdeQuzdp3rmWnZN8CX+bk1DTlsdaMITCoO+S0FbqKstKHzFgiPUd8nqqrG5+yG
-	hc83VLJBwFqKLAHjB8VP1RR4fOR8RlpCF5FhBYS7YtJoXzw25lRS62yublqh8pUWD8GP9s
-	5PRuOxVc+z4Lnlegg6PXMu16SV4rpULCbdQYQkF2eGMTidfAAIbQ1/LF4xWWOg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792738770; a=rsa-sha256;
-	cv=none;
-	b=dFXCkMHNNoQihSuiD0QcaPCvK22UBLxXS0kmxLEyQu3wPO3zREhDResdyQeNJVn0mkmxjB
-	j+aU118/54rjN3SRj8eUmWzo6vs03yBigI/RnP9/BTGlX2EDijO5kre3LrNGscYKw6zVyD
-	h1i2SmxlAFPEJ2UIxZR0pNtA/1Ub4OD+KZ2nrgKf1wj9Nrr6nKv4MlpFyL2DggViEuVz3j
-	wZbRXOWisvqclPsTvKwHmCELOQEyveMvGnjOLWJGzzpAxFgEBf0spQT0EqJJ9lPffHRBVs
-	ZAXwjFtPuv+gtUWWRsCWGdjD9nnXrOqJ9BrNXjhIUvg9IxMEoWRgsCK/gTEiAA==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sha@pengutronix.de smtp.mailfrom=s.hauer@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792738770;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5WUYJH09/Iy/2Pqz1SpjpByH7uaHMKWs6PkgJ+HFOqE=;
-	b=VBQWGtzqBPmkhreSKXjEzQRfkhq2OiPXFcksB5OThxlFeCMnC6EfEQOHu9kAfQkwIdnDwb
-	CYN5DFcM/Pz2kWfwimOZWpXjbRMTGJp5W1CgRasJ55AQR5U1YF42V0U0rXLgkf+2O8AZUa
-	4HmLsy5RaWHSZoWXklsMimTuu/2ZnnEEr0PbdRKmW+LTfsQhJu1K9usTS7HFfsIeqeSHBx
-	SseYUOrRdtigpuWMilPLB8SwWBNzC56yrkjrjDoqkIRnjnwoFAyKmbwDN7R24yyXd7zBrY
-	KJINmtSho+qE6nzsAJ7PKUtB4wX6HVPeWFSreCqHq0CW62OQmKsSQGzQH57l4g==
-Message-ID: <132e7b48-8233-4977-ade1-2ee94b2b19e7@pengutronix.de>
-From: "Sascha Hauer" <s.hauer@pengutronix.de>
-Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
-To: "Torsten Duwe" <duwe@lst.de>
-Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, "Mauro
- Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
- Stuebner" <heiko@sntech.de>, "Philipp Zabel" <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261022190026.6cb0a534@rocky.lan>
-References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
- <20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
- <20261022190026.6cb0a534@rocky.lan>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 23 Oct 2026 06:59:29 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=KmLmmive;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=izuy8j1E
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69N1EvRK772903
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 07:00:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TSBqvXX7rnpjqt8rxFBv9WYb5CVV2ARyX91j3W4WjFs=; b=KmLmmiveV0bumqez
+	d+39v60GZ0o3u6v8RIUZmkjA8wkDduHbSvlM5WzuzWYQ4H1wLyy29DqdB6LBUBZj
+	Y3D5V9S/QvwMZ/+826aOuW2tgoMWQ9Rt/Ajpv3xka5wE86Y/dZ5HZmMJ6tHA5Wrg
+	k+LV9c0bupHxatk8gpYgCKPgNcLDmPnFThFJ/lsKwk0B0NJERWS60/L6HN92hT7J
+	uMx8bEmSHnIgjHRbLoYWodIGczznj4719hrBpOYlRA/IxwaelVAzxRvS8ib/TTHj
+	TFTWDL5mlY8XbrnArxAcX4hB9V2fGaTVTA42RScVnuu2j8ZO7KoSnmds9y4vzdUA
+	QzXc+Q==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfqmttbgk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 07:00:43 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e80f7acc67so5901865ad.2
+        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:00:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792738843; x=1793343643; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TSBqvXX7rnpjqt8rxFBv9WYb5CVV2ARyX91j3W4WjFs=;
+        b=izuy8j1EuSfzStnSZgg+skZgf/h9o3vgAepoOTEu2/oxioEttei2BsMZz/XSVXGY0h
+         Ek5sIixfqjj9n3fzeUQ3XdY9x9dfb16OXDOzuhrH1QMw9D8AN4zPKNnP4p4y/+6GPfpm
+         0qMvRBOvSOqIdug5teKxD/YF0Ij0zOgqAOxf+YKi6hEs9IrAXPESmyEkG8V3oL00InoA
+         SxeR+aRRgkG5idOBfgN7+Gn6IvIiyslDCMovQF8+4GtXKXMuqfquXWAiI4dKX880MyBM
+         bhZVDmTttBoIeubns6lMg2iHpslId66Xa7EviWN27OPokNlPFYys51n8XClI20lornK5
+         qfIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792738843; x=1793343643;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TSBqvXX7rnpjqt8rxFBv9WYb5CVV2ARyX91j3W4WjFs=;
+        b=yuzsUqatCz99p77kXnqocPzjr9x8S40m909RBkjihR4GH7bN0IgExV3wF1oNnqKBDE
+         aOs4kDh/6ruN8ohvPI3jKhxgCu/jQjkxLOkXWWECN9mvlHInz8EVnHjIOzbFs85bcvlE
+         uypzMuuf8QSBvbQIkjHCBGOLqEpX748f5xf0aoiJfK/KlNwRIKlQ0J2eWWT4zG/WXdRJ
+         inu0N61Lp4JxxXcTQgsjEo+zj4/kEeUfy852m5F8ef3QW95l2hb4QP7EUT70G1DLGgBA
+         WhfB2HqOCB8koxzRyLmQJfW7alq9LZRjKs8Eb6DOqLSkX/JtsgVItFrttMOJ3cLjwdZy
+         fsjA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2y6NceF7hR3zCN8eB26VzcPLJOF+uIMwZGGCiZSlOOcGtGcNNiCX1GV2LytGmhjycpbkkPVKpMVJtmA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIFxqK9P7RBfY5Q14I6zBCbBP8bmqKmv7WSRqS8VbCUiJ/FhD3G
+	V5Ug3u2aBbojVOTeeI0XRl081srKb/3Y2AOpT4ezzxPAKxXk5B5HIUzNIo6qzrWvz6DDY677X6b
+	AvcpCCE5cFbre3Aa05EX7hKtLL/zD9AUl2m4+CEtu+MR0emMDi/oh2DfRdbdn0I0xqw==
+X-Gm-Gg: AYBFou1BfBXZHgtLWKc41Xaftu5bESJ52BKBsOJfWLaclUacGZJcsQUrVaiUQLIPr/x
+	UYya9YMUYba/CpUzrpuAIc9AcX5XptxQMaIhQ2yoNCML6YWbY9JGy6q2o7+Z97gByjVmARkeVCT
+	zW24VJsQkVMH8UA+i4ib9MthWfxyL7oPZgsGeze6QevVxvR2J2fdIp1dbmwu6emgIseXXKQ9Qx5
+	gXBnrrZomEb195VkZpmv9aoFis70GupQOoVH8uLabCfQ7n/tOQl2FsVILz/O62f9Ml+9bRtYgZh
+	tP5vSv0RiuyhDb//oxl/xv+fU6WUJTBW6UGRg6VEAnL7z+HvLm2eeLMycGzUvzZZbwmdtXRTEl9
+	yIcDa0viVIUuuMHqo1owrFHwnMds+SDalXw==
+X-Received: by 2002:a17:902:e742:b0:2dd:c100:7cc8 with SMTP id d9443c01a7336-2ea7d08faaamr14182415ad.68.1792738842489;
+        Fri, 23 Oct 2026 00:00:42 -0700 (PDT)
+X-Received: by 2002:a17:902:e742:b0:2dd:c100:7cc8 with SMTP id d9443c01a7336-2ea7d08faaamr14182005ad.68.1792738841827;
+        Fri, 23 Oct 2026 00:00:41 -0700 (PDT)
+Received: from [10.204.79.28] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3da4e2sm6307665ad.57.2026.10.23.00.00.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 23 Oct 2026 00:00:41 -0700 (PDT)
+From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
+Message-ID: <c7117cf1-5ffd-4071-a2f9-5db9ec28f7e7@oss.qualcomm.com>
+Date: Fri, 23 Oct 2026 12:30:29 +0530
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,124 +115,535 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 03/13] drm/msm/dcp: Add HFI transport over VirtIO
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        iommu@lists.linux.dev
+References: <20261015-jshekhar-drm-msm-dcp-v1-v1-0-48aad0fe4f72@oss.qualcomm.com>
+ <20261015-jshekhar-drm-msm-dcp-v1-v1-3-48aad0fe4f72@oss.qualcomm.com>
+ <i2wnkjvzds5wqpvf6svghcwmg4l3muddf7ksieeadran2xd7jd@pvs7cavr3x5g>
+Content-Language: en-US
+In-Reply-To: <i2wnkjvzds5wqpvf6svghcwmg4l3muddf7ksieeadran2xd7jd@pvs7cavr3x5g>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=Gt3XaU1C c=1 sm=1 tr=0 ts=6adb061b cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=AwTlwv5SfzYnvGzAyigA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: 6-4C7SuvRf5qK1b_zAzALhOwhpgdXKeV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX2Gr1TuVS6+BQ
+ Fx+8HfQGZGN/bu/eu9c+vnY6aU9XH1GOW6s8cFp3/OY1f5zYA+m4aDXlvAnMFEw9QswbqxSuBMZ
+ 9jx6QAyRmIC24eYnCs60ZZIdHUSv2l3Xu1+yAATlST5oev1oSnmqErYvm5p27BLTDvqM5M25XZn
+ pBRCbjRwz1JE6FPPppavm1uCM4RZF4b0NZvZcFRUAm1sl8dRPIrxEQM7hSDuTJvT3jqnxFf1tPN
+ XopGpLlr0EvBm77Q626GVXfCwkm/2++6c64Uli6oFbnjvgZ8uvvoIYwXYz4pWUs0B9K874s4pS4
+ 4eUdLJtDqeJJ3m0bRsZD2c55VbjcmqZIFZ6XBk8K3vHVfVFgGKsRs8TVmFiXuUOvNvc9dfsGj7v
+ HDfBknhdrpd2R3hWR4laM8qdenF0tKknxxL5XkOm1WWVWp53I27lEX1+eEcYbVSIlAW8Cs4zfu4
+ RZCyT1TX+4GGVZyOrKg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAyNyBTYWx0ZWRfX2D8HK71UhSWR
+ B4uSZAc+HQRYkRnHhFlOLKT7+YIHn9Fec7R9N4+VvOmcyV0qvDSERnqAgNqnGbQZrHpPkDD15hC
+ Ebz64ACNE9BJP9Jn4+poEbcQuAR/Lco=
+X-Proofpoint-ORIG-GUID: 6-4C7SuvRf5qK1b_zAzALhOwhpgdXKeV
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-23_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0 suspectscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610230027
 
-Hi Torsten,
 
-On 2026-10-22 19:00, Torsten Duwe wrote:
-> Hi Sascha,
->=20
-> first: thank you for driving this :)
->=20
-> On Thu, 22 Oct 2026 13:06:40 +0200
-> Sascha Hauer <s.hauer@pengutronix.de> wrote:
->=20
-> > Add a driver for the JPEG hardware decoder Rockchip integrates into a
-> > number of its SoCs.=20
->=20
-> [...]
->=20
-> > +static int rkjpegd_enum_fmt_vid_out(struct file *file, void *priv,
-> > +				    struct v4l2_fmtdesc *f)
-> > +{
-> > +	if (f->index)
-> > +		return -EINVAL;
-> > +
-> > +	f->pixelformat =3D V4L2_PIX_FMT_JPEG;
-> > +	f->flags |=3D V4L2_FMT_FLAG_DYN_RESOLUTION;
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int rkjpegd_enum_framesizes(struct file *file, void *priv,
-> > +				   struct v4l2_frmsizeenum *fsize)
-> > +{
-> > +	/* The decoded format follows the bitstream, nothing to enumerate. */
-> > +	if (fsize->pixel_format =3D=3D V4L2_PIX_FMT_NV12 ||
-> > +	    fsize->pixel_format =3D=3D V4L2_PIX_FMT_GREY)
-> > +		return -ENOTTY;
-> > +
-> > +	if (fsize->pixel_format !=3D V4L2_PIX_FMT_JPEG)
-> > +		return -EINVAL;
-> > +
-> > +	if (fsize->index)
-> > +		return -EINVAL;
-> > +
-> > +	fsize->type =3D V4L2_FRMSIZE_TYPE_STEPWISE;
-> > +	fsize->stepwise.min_width =3D RKJPEGD_MIN_WIDTH;
-> > +	fsize->stepwise.max_width =3D RKJPEGD_MAX_SIZE;
-> > +	fsize->stepwise.step_width =3D RKJPEGD_CODED_STEP;
-> > +	fsize->stepwise.min_height =3D RKJPEGD_MIN_HEIGHT;
-> > +	fsize->stepwise.max_height =3D RKJPEGD_MAX_SIZE;
-> > +	fsize->stepwise.step_height =3D RKJPEGD_CODED_STEP;
-> > +
-> > +	return 0;
-> > +}
->=20
-> Can it do JPEG, MJPEG or maybe both? AFAICT the difference is minimal,
-> so maybe try to be more permissive?
+On 15-10-2026 18:06, Dmitry Baryshkov wrote:
+> On Thu, Oct 15, 2026 at 01:08:23PM +0530, Jayant Shekhar wrote:
+>> DCP firmware owns the display hardware, so the MSM DRM driver needs a
+>> transport for HFI commands, responses, and asynchronous display events.
+>>
+>> Add the VirtIO command and response queues used to communicate with DCP.
+>> Allocate command, response, and capability buffers through the DMA API
+>> using the firmware-visible IOVA window. Track synchronous commands and
+>> asynchronous responses, dispatch HFI callbacks, and synchronize queue
+>> teardown with in-flight transactions.
+>>
+>> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+>> Assisted-by: LLM
+> You haven't read Documentation/process/. Sad.
 
-It can do both. Gstreamer uses image/jpeg und thus V4L2_PIX_FMT_JPEG for
-both, so it just works. It seems most jpeg decoders in Linux do not have
-need to support V4L2_PIX_FMT_MJPEG.
 
->=20
-> [...]
->=20
-> > +static const struct v4l2_ioctl_ops rkjpegd_ioctl_ops =3D {
-> > +	.vidioc_querycap =3D rkjpegd_querycap,
-> > +	.vidioc_enum_framesizes =3D rkjpegd_enum_framesizes,
-> > +
-> > +	.vidioc_enum_fmt_vid_cap =3D rkjpegd_enum_fmt_vid_cap,
-> > +	.vidioc_g_fmt_vid_cap_mplane =3D rkjpegd_g_fmt_vid_cap,
-> > +	.vidioc_try_fmt_vid_cap_mplane =3D rkjpegd_try_fmt_vid_cap,
-> > +	.vidioc_s_fmt_vid_cap_mplane =3D rkjpegd_s_fmt_vid_cap,
-> > +
-> > +	.vidioc_enum_fmt_vid_out =3D rkjpegd_enum_fmt_vid_out,
-> > +	.vidioc_g_fmt_vid_out_mplane =3D rkjpegd_g_fmt_vid_out,
-> > +	.vidioc_try_fmt_vid_out_mplane =3D rkjpegd_try_fmt_vid_out,
-> > +	.vidioc_s_fmt_vid_out_mplane =3D rkjpegd_s_fmt_vid_out,
-> >=20
->=20
-> You are populating only the *_out_mplane members and not the single
-> plane ones? So a greyscale JPEG needs to go _mplane with 1 plane?
+Will move the assisted by above signed off.
 
-Yes.
 
->=20
-> And for color, the colorspace on the decoded side should be
-> V4L2_COLORSPACE_JPEG, not sRGB, I think.
+>
+>> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+>> new file mode 100644
+>> index 000000000000..bf6c34af43a0
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+>> @@ -0,0 +1,30 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +#ifndef __DCP_DRV_H__
+>> +#define __DCP_DRV_H__
+>> +
+>> +#include <linux/device.h>
+>> +#include <linux/dma-mapping.h>
+>> +#include <linux/notifier.h>
+>> +#include <linux/platform_device.h>
+>> +#include <linux/virtio.h>
+> Are all these headers required for this header?
+>
 
-from colorspace-details.rst:
+Unused headers to be removed in v2.
 
-   The JPEG standard does not actually store colorspace
-   information. So if something other than sRGB is used, then the driver
-   will have to set that information explicitly. Effectively
-   ``V4L2_COLORSPACE_JPEG`` can be considered to be an abbreviation for
-   ``V4L2_COLORSPACE_SRGB``, ``V4L2_XFER_FUNC_SRGB``, ``V4L2_YCBCR_ENC_601``
-   and ``V4L2_QUANTIZATION_FULL_RANGE``.
 
-These are the values the driver sets on the capture side. mxc-jpeg for
-example does the same.
+>> +
+>> +#include "dcp_hfi.h"
+>> +
+>> +struct dcp_dpu_kms;
+>> +
+>> +struct dcp_drv {
+>> +	struct virtio_device	*vdev;
+>> +	struct platform_device	*dcp_subsystem_dev;
+>> +	struct device_dma_parameters dcp_subsystem_dma_parms;
+>> +	struct device_node	*dcp_subsystem_node;
+>> +	struct dcp_hfi		*hfi;
+>> +	struct dcp_dpu_kms	*kms;
+>> +	struct dcp_caps		 caps;
+>> +	struct notifier_block	 panic_notifier;
+>> +};
+>> +
+>> +#endif /* __DCP_DRV_H__ */
+>
+>
+>> +
+>> +#define DCP_MAX_DISPLAYS	4
+>> +
+>> +#define DCP_FEAT_DSC		BIT(0)
+>> +#define DCP_FEAT_HDR		BIT(1)
+>> +#define DCP_FEAT_SRC_SPLIT	BIT(3)
+>> +#define DCP_FEAT_CURSOR		BIT(4)
+> What kind of features are those?
 
->=20
-> Would you mind to give a hint about your test setup?
 
-I tested with Gstreamer, like different variants of:
+Will be removed
 
-for format in I420 Y42B Y444 Y41B GRAY8; do x=3D1920; y=3D1088; GST_DEBUG=
-=3D2 \
-        gst-launch-1.0 videotestsrc num-buffers=3D100 ! \
-        video/x-raw,format=3D$format,width=3D$x,height=3D$y ! \
-        jpegenc ! jpegparse ! v4l2jpegdec ! waylandsink sync=3Dfalse; done
 
-I also tested several single frame jpegs with various defects/oddities
-in them, also all with gstreamer.
+>
+>> +
+>> +#define DCP_MAX_SSPP_COUNT	16
+>> +#define DCP_MAX_VIG_PIPES	DCP_MAX_SSPP_COUNT
+>> +#define DCP_MAX_DMA_PIPES	DCP_MAX_SSPP_COUNT
+>> +
+>> +#define DCP_MAX_BLOCKS			8
+>> +
+>> +/* Pipe indices encode the rectangle ID in bits 31:24. */
+>> +#define DCP_REC_ID(x)		(((x) & 0xff000000) >> 24)
+>> +
+>> +/* Capabilities parsed from DEVICE_INIT responses. */
+>> +struct dcp_caps {
+>> +	u32 dcp_hw_rev;
+>> +	u32 hw_rev;
+>> +	u32 fw_rev;
+>> +
+>> +	u32 num_vig_pipes;
+>> +	u32 vig_pipe_ids[DCP_MAX_SSPP_COUNT];
+>> +	u32 virt_vig_count;
+>> +	u32 vig_r1_indices[DCP_MAX_SSPP_COUNT];
+>> +
+>> +	u32 num_dma_pipes;
+>> +	u32 dma_pipe_ids[DCP_MAX_SSPP_COUNT];
+>> +	u32 virt_dma_count;
+>> +	u32 dma_r1_indices[DCP_MAX_SSPP_COUNT];
+>> +
+>> +	u32 num_crtcs;
+> CRTCs? Or mixers?
 
-Sascha
 
---
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Mixers
+
+
+>
+>> +
+>> +	u32 dsi_count;
+>> +	u32 dsi_indices[DCP_MAX_BLOCKS];
+>> +	u32 max_dsi_resolution;
+> If these are parsed, why is it still u32 rather than two resolutions?
+
+
+to be addressed in v2
+
+
+>
+>> +
+>> +	u32 dp_count;
+>> +	u32 dp_indices[DCP_MAX_BLOCKS];
+> Unused, drop
+>
+>> +
+>> +	u32 active_pipes_mask[DCP_MAX_DISPLAYS];
+> Unused. Drop all unused fields.
+>
+>> +
+>> +	u32 max_width;
+>> +	u32 max_height;
+> max width/height of... what?
+>
+>> +	u32 max_planes;
+>> +	u32 features;
+>> +	bool valid;
+> How can it be invalid?
+>
+>> +
+>> +	bool dyn_clk_support;
+> ??
+>
+
+All above to be addressed in v2.
+
+
+>> +};
+>> +
+>> +struct dcp_hfi_buf {
+>> +	void *data;
+>> +	dma_addr_t dma_addr;
+>> +	size_t size;
+>> +	struct scatterlist sg;
+>> +	struct dcp_hfi_completion *comp;
+>> +	struct list_head node;
+>> +};
+>> +
+>> +struct dcp_hfi_completion {
+>> +	struct completion done;
+>> +	int status;
+>> +	void *resp_data;
+>> +	size_t resp_len;
+>> +	u32 packet_id;
+>> +};
+>> +
+>> +#define DCP_HFI_RESOURCE_VOTE_BUF_SIZE	256
+>> +
+>> +/* Wire-format resource vote entry. */
+>> +struct dcp_resource_vote_pair {
+>> +	u32 key;
+>> +	u64 value;
+>> +};
+>> +
+>> +struct dcp_resource_vote_wire {
+>> +	__le32 key;
+>> +	__le64 value;
+>> +} __packed;
+>> +
+>> +struct dcp_hfi {
+>> +	struct device *dev;
+>> +	struct dcp_drv *drv;
+>> +
+>> +	struct device *dma_dev;
+>> +
+>> +	struct virtqueue *cmd_vq;
+>> +	struct virtqueue *resp_vq;
+>> +
+>> +	struct dcp_hfi_buf *cmd_pool;
+>> +	struct list_head cmd_free_list;
+>> +	/* Protects cmd_free_list and command buffer ownership. */
+>> +	spinlock_t cmd_lock;
+>> +
+>> +	struct dcp_hfi_buf *resp_pool;
+>> +	/* Protects response queue draining and power callback publication. */
+>> +	spinlock_t resp_drain_lock;
+>> +	struct list_head resp_repost_list;
+>> +	struct delayed_work resp_repost_work;
+>> +	struct xarray pending_xa;
+>> +	/* Protects pending_xa. */
+>> +	spinlock_t pending_lock;
+>> +	atomic_t packet_id;
+>> +	atomic_t shutdown_in_progress;
+> This all demands at least some description or kernel docs.
+>
+>> +
+>> +	struct work_struct resource_vote_work;
+>> +	/* Protects resource_vote_buf, resource_vote_len, and callback state. */
+>> +	spinlock_t resource_vote_lock;
+>> +	u8 resource_vote_buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
+>> +	u32 resource_vote_len;
+>> +	u32 resource_vote_generation;
+>> +	void (*resource_vote_cb)(struct dcp_drv *drv,
+>> +				 const struct dcp_resource_vote_pair *pairs,
+>> +				 u32 count);
+>> +
+>> +	/* Protects caps_cache pointer and its lifetime. */
+>> +	spinlock_t caps_lock;
+>> +	/* Serializes capability transactions and cache detach/free. */
+>> +	struct mutex caps_cache_lock;
+>> +	struct dcp_hfi_caps_cache *caps_cache;
+> What's the point of keeping it as a pointer? Just embed it here and drop
+> the locks. Read the caps while the devices is not visible so that there
+> are no concurrent users.
+>
+>> +
+>> +	void (*hotplug_cb)(struct dcp_drv *drv, u32 intf_idx, bool connected);
+> Why do we need these callbacks? Can you call the functions directly?
+>
+
+Will be removed in v2.
+
+
+>> +	void (*error_cb)(struct dcp_drv *drv, u32 display_id, u32 error_code);
+>> +
+>> +	void *power_control_priv;
+>> +	void (*power_control_cb)(void *priv, u32 display_id,
+>> +				 u32 power_mask, bool enable, u32 packet_id);
+>> +};
+>> +
+>> +int dcp_hfi_init(struct dcp_drv *drv, struct virtio_device *vdev,
+>> +		 struct virtqueue *cmd_vq, struct virtqueue *resp_vq,
+>> +		 struct device *dma_dev);
+>> +void dcp_hfi_set_power_control_cb(struct dcp_hfi *hfi, void *priv,
+>> +				  void (*cb)(void *priv, u32 display_id,
+>> +					     u32 power_mask, bool enable,
+>> +					     u32 packet_id));
+>> +void dcp_hfi_clear_power_control_cb(struct dcp_hfi *hfi, void *priv);
+>> +void dcp_hfi_stop(struct dcp_hfi *hfi);
+>> +void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi);
+>> +void dcp_hfi_deinit(struct dcp_hfi *hfi);
+>> +
+>> +void dcp_hfi_resp_callback(struct virtqueue *vq);
+>> +void dcp_hfi_cmd_callback(struct virtqueue *vq);
+>> +
+>> +int dcp_hfi_send_sync(struct dcp_hfi *hfi, u32 cmd,
+>> +		      enum hfi_cmd_buff_type cmd_type, u32 object_id,
+>> +		      enum hfi_packet_payload_type payload_type, void *payload,
+>> +		      u32 payload_size, u32 tx_flags, void *resp_data,
+>> +		      size_t resp_len, unsigned int timeout_ms);
+>> +
+>> +int dcp_hfi_send_no_wait(struct dcp_hfi *hfi, u32 cmd,
+>> +			 enum hfi_cmd_buff_type cmd_type, u32 object_id,
+>> +			 enum hfi_packet_payload_type payload_type, void *payload,
+>> +			 u32 payload_size);
+>> +
+>> +int dcp_hfi_send_no_wait_flags(struct dcp_hfi *hfi, u32 cmd,
+>> +			       enum hfi_cmd_buff_type cmd_type, u32 object_id,
+>> +			       enum hfi_packet_payload_type payload_type,
+>> +			       void *payload, u32 payload_size, u32 tx_flags);
+>> +int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi, u32 cmd,
+>> +				      enum hfi_cmd_buff_type cmd_type, u32 object_id,
+>> +				       enum hfi_packet_payload_type payload_type,
+>> +				       void *payload, u32 payload_size, u32 tx_flags);
+> You haven't really followed the internal review feedback. You have been
+> asked to review the indentation. You didnt.
+>
+
+This indentation was not caught by b4 prep --check
+
+Anyways, will address across files.
+
+
+>> +#endif /* __DCP_HFI_H__ */
+>> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+>> new file mode 100644
+>> index 000000000000..bf27cbf9b8a4
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+>> @@ -0,0 +1,1198 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + *
+>> + * DCP HFI core transport.
+>> + */
+>> +
+>> +#include <linux/completion.h>
+>> +#include <linux/delay.h>
+>> +#include <linux/device.h>
+>> +#include <linux/kernel.h>
+>> +#include <linux/unaligned.h>
+>> +#include <linux/slab.h>
+>> +#include <linux/scatterlist.h>
+>> +#include <linux/spinlock.h>
+>> +#include <linux/virtio.h>
+>> +#include <linux/workqueue.h>
+>> +#include <uapi/linux/virtio_mmio.h>
+>> +
+>> +#include "dcp_hfi.h"
+>> +#include "dcp_hfi_priv.h"
+>> +#include "dcp_drv.h"
+>> +#include "hfi/hfi_packet.h"
+>> +#include "hfi/hfi_packer.h"
+>> +#include "hfi/hfi_unpacker.h"
+>> +#include "hfi/hfi_commands_device.h"
+>> +#include "hfi/hfi_commands_display.h"
+>> +#include "hfi/hfi_commands_display_events.h"
+>> +#include "hfi/hfi_defs_common.h"
+>> +#include "hfi/hfi_defs_display.h"
+>> +
+>> +static void dcp_hfi_resource_vote_work(struct work_struct *work);
+>> +static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi);
+>> +
+>> +u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi)
+>> +{
+>> +	u32 id;
+>> +
+>> +	id = (u32)atomic_inc_return(&hfi->packet_id);
+>> +	if (id == 0)
+>> +		id = (u32)atomic_inc_return(&hfi->packet_id);
+> What if something looks at your counter inbetween? Two atomic operations
+> aren't atomic.
+>
+>> +	return id;
+>> +}
+>> +
+>> +#define DCP_HFI_BUF_ALLOC_RETRIES	3	/* Bound command-path stalls. */
+>> +#define DCP_HFI_BUF_ALLOC_SLEEP_US_MIN	30000
+>> +#define DCP_HFI_BUF_ALLOC_SLEEP_US_MAX	40000
+>> +
+>> +static struct dcp_hfi_buf *_dcp_hfi_buf_alloc(struct dcp_hfi *hfi,
+>> +					      struct list_head *free_list,
+>> +					       spinlock_t *lock,
+>> +					       const char *pool_name)
+>> +{
+>> +	struct dcp_hfi_buf *buf = NULL;
+>> +	unsigned long flags;
+>> +	int retry;
+>> +
+>> +	if (atomic_read(&hfi->shutdown_in_progress)) {
+> This is called drm_dev_get().
+>
+>> +	
+
+
+There is no drm_dev_get() call in this path. HFI command paths allocate 
+buffers directly and use shutdown_in_progress to reject new work during 
+teardown.
+dcp_hfi_stop() sets shutdown_in_progress while holding cmd_lock. 
+dcp_hfi_send_cmd_async() performs the final shutdown check under the 
+same lock before adding the buffer to the VirtIO queue. Therefore, if 
+allocation races with teardown, the buffer is returned and cannot be 
+submitted after shutdown begins.
+
+
+>> 	dev_dbg(hfi->dev,
+>> +			"HFI shutdown in progress — refusing %s buffer allocation\n",
+>> +			pool_name);
+>> +		return NULL;
+>> +	}
+>> +
+>> +	for (retry = 0; retry <= DCP_HFI_BUF_ALLOC_RETRIES; retry++) {
+>> +		if (atomic_read(&hfi->shutdown_in_progress))
+>> +			return NULL;
+>> +
+>> +		spin_lock_irqsave(lock, flags);
+>> +		if (!list_empty(free_list)) {
+>> +			buf = list_first_entry(free_list,
+>> +					       struct dcp_hfi_buf, node);
+>> +			list_del(&buf->node);
+>> +		}
+>> +		spin_unlock_irqrestore(lock, flags);
+>> +
+>> +		if (buf)
+>> +			return buf;
+>> +
+>> +		if (retry < DCP_HFI_BUF_ALLOC_RETRIES)
+>> +			usleep_range(DCP_HFI_BUF_ALLOC_SLEEP_US_MIN,
+>> +				     DCP_HFI_BUF_ALLOC_SLEEP_US_MAX);
+>> +	}
+>> +
+>> +	dev_warn_ratelimited(hfi->dev,
+>> +			     "HFI %s TX pool exhausted after %d retries — command dropped\n",
+>> +			     pool_name, DCP_HFI_BUF_ALLOC_RETRIES);
+>> +	return NULL;
+>> +}
+>> +
+>> +static void _dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf,
+>> +			      struct list_head *free_list, spinlock_t *lock)
+>> +{
+>> +	unsigned long flags;
+>> +
+>> +	buf->comp = NULL;
+>> +	spin_lock_irqsave(lock, flags);
+>> +	list_add_tail(&buf->node, free_list);
+>> +	spin_unlock_irqrestore(lock, flags);
+> Just call _dcp_hfi_buf_free_locked() under the lock.
+>
+>> +}
+>> +
+>> +static void _dcp_hfi_buf_free_locked(struct dcp_hfi_buf *buf,
+>> +				     struct list_head *free_list)
+>> +{
+>> +	buf->comp = NULL;
+>> +	list_add_tail(&buf->node, free_list);
+>> +}
+>> +
+> [..]
+>
+>> +
+>> +	case HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS: {
+>> +		u32 intf_idx = pkt_info->id & 0xFFFF;
+>> +		bool connected = false;
+>> +
+>> +		if (pkt_info->payload_ptr &&
+>> +		    pkt_info->payload_size >=
+>> +		    sizeof(struct hfi_display_hpd_status)) {
+>> +			struct hfi_display_hpd_status *hpd =
+>> +				pkt_info->payload_ptr;
+>> +			connected = (hpd->dp_state ==
+>> +				     HFI_DP_STATE_CONNECTED);
+>> +		}
+>> +		if (hfi->hotplug_cb)
+>> +			hfi->hotplug_cb(hfi->drv, intf_idx, connected);
+>> +		return true;
+>> +	}
+>> +
+>> +	case HFI_COMMAND_DISPLAY_EVENT_PANEL_DEAD:
+>> +		dev_err(hfi->dev,
+>> +			"DCP: panel dead display %u\n",
+>> +			pkt_info->id & 0xFFFF);
+>> +		if (hfi->error_cb)
+>> +			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 0);
+>> +		return true;
+>> +
+>> +	case HFI_COMMAND_DISPLAY_EVENT_HW_RECOVERY:
+>> +		dev_err(hfi->dev,
+>> +			"DCP: HW recovery display %u\n",
+>> +			pkt_info->id & 0xFFFF);
+>> +		if (hfi->error_cb)
+>> +			hfi->error_cb(hfi->drv, pkt_info->id & 0xFFFF, 1);
+> Yep... Drop the callbacks. I think it was also a part of the review.
+>
+>> +		return true;
+>> +
+> Can you split the patches? It really becomes troublesome to review.
+
+
+Above comments to be addressed in v2.
+
 
