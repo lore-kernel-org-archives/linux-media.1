@@ -1,111 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792715633;
-	b=OGgGKIB/iGp3KBW5HYbkiLR41zV7nLEE8AcTmcPDq1oyij7gLNVUI0oB9B+QzMEf6Owy
-	 +KHYY9C9RWXRNn38LnuGjr0lvvs92pqwIIW4yTaZ3c2PTC68eiKMHhin4KY14xHHw63hB
-	 pxtmDS+w++9PbV5rDh8C3YoXhOf91oPhz/AAA9KUNdQ9oXXGwi4gWVROELTkDHOxv7xKK
-	 d2sNsEivlW3sU4lJTYa+LW5+Sp3WBb301prz+Xe5YDAo2yqblGJFNHbEscG6LIkFbgJxJ
-	 mHTnPOEiV4rGZQlsKMPz8lha8tgUxnqLoBw03OT/AVOXsA9gGHRccpjbGtNNqBvUk4g==
+	t=1792715778;
+	b=FQG9HowGqXRTrxAiZOC2nqUq+w09C9dal/J1RFqOe5KTTri5L8ZQ7sA+54GftPaWuVSc
+	 4zKnsR8IdEjaTUg4TjwGESM2h8Yejp0koiljOdQsFSBSIp2wboqNrtfPtbshOFmK4GgWE
+	 yCo+Oz0gDbLRDb7TCyy5y/nsPcKt+eKZi8G1xDINd9oViF2LYiFD5chGerPrGGjpaJgn/
+	 zlSQKpL+WCQR+R/toD8RHdZ0Uz/H86yqJPS5igSygTmxCAEBr75evaTUlreTYOQxXwvqQ
+	 en3la9PJi5VbQNM8f6mAF0GUG5vYwC5vIHXftt7AoS2mDZ45y2HpIea8d5/JRymE8aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792715633;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Bcpdyh2Rch8ZgMuzB2NI7c22cVcvgZ2KSRIeKtslHpw=;
-	b=c6ZQyob4rCTgLmzkfp4HjbXOEP0ObtsfV1WXlrg3eNZiDhZxmtbb9iu0YfSL7e5vihRY
-	 bTSwnU+skLfkA7dwXIH0jr6+KJEIsNnkx5nrICSBsv4qdV+OxaZpqWOI5NDtPZdNSK9fQ
-	 tHTUnG4qVOfST25mogrN1WJ1PQNtQCSnWAfp5vBjMgxpEI0E5kleSpPwk+MJZIvbYJPLS
-	 EIb1MW48t5ppE/UYH56eWpDgAHI2y/Og0SF2xl7OM43ZFWORRiRClIdQcWJx0tKEXgsh0
-	 BqD8d3A3k4N6cCGlASaj5drJm2jnTEX5dZHyJsU9fBaUuShDRk875Gu+wyek6G40OCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792715778;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Jp5mdh9VzMPCAWV0XCl+JdXmq0weGr7TRow0yGFj7Qk=;
+	b=q/fWC7At0PtYy1i+ZTxUJDVKmel6YfIYWb6ni+1cpI0cJV2o/IVTbU9gQHmaj1G2K4BH
+	 L/uW4e5qLaz8BE4tnv3K/0jKM1/KsRG+r13q1Q6KCiXAc3MK45BSETh+aVlWyUw2Y8VLg
+	 P38ut4iIjFc0MZNrT6xJmu6GlEbswYDBRtUD3qOmnPMyj+Buir/+iixmHjMMX96aNBHDF
+	 h+RBSiLvfa8x/nSfOHvN5I9xN3dKYEjfrnBPxfHAxRWmRFgeWFElCZkf7rUUWl0e6Jq7e
+	 cXZREgLfX/CZkuPEkXl+Ci+0MmWv0gCo8jnz/4z02HYRBEVXPNnFL4NfaIHvyi7Q9KA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fcniAxqi;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L3sMAVl2;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=invisiblethingslab.com;
+	spf=pass smtp.mailfrom=invisiblethingslab.com;
+	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=eWoSYr5q;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qYHYQXQl;
+	arc=none smtp.remote-ip=103.168.172.148
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEF3F606A319
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:33:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEF3F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CE24606A319
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:36:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CE24606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fcniAxqi;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=L3sMAVl2
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MMF7GX609725
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:33:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Bcpdyh2Rch8ZgMuzB2NI7c22cVcvgZ2KSRIeKtslHpw=; b=fcniAxqiAREpru5+
-	idc0NbAK8O75LU6J5O0fAOkf16ay/zqAoI8/cLH31J+0crCWmfY0+f324QfZU42P
-	+k3kNkW3/rZtWiyb4REkHsPmHh5Bgr18AUDG2r6lNt7DH9PWks2CcT2pMAya2r7/
-	i4yYX6t2fn07zJ5ogfMEBy+tK8WRyMuWCjpms68GR2g0ZffeGC/kWAnMr7Ei58FV
-	e3CbgJl9O3WAkjHlRv4qN8BvrSm3+64+xbJLSylBsAxNa5Ouliq5Uzs8Rx5sUsVx
-	4uKlMKdi44t8/U12+xf8/ILC/wY7qXzjop+ypfeEnvJqAPevyq0sRuv1ZqlX0zY0
-	ZBVnDA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfpahsk8q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 00:33:51 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3510d0baf63so922915eec.1
-        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 17:33:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792715630; x=1793320430; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bcpdyh2Rch8ZgMuzB2NI7c22cVcvgZ2KSRIeKtslHpw=;
-        b=L3sMAVl2KUfqAyuFEHbnldlUqRWi8u6SR+ixtubkVNqP69cVRIRwiwT10DxdsmDB4K
-         AmhOsoRleskXNyRsUMtYg8FVju8miDFRGOHOTe1NaqXvccGa54Vss9Pl2v8uvzKoRJqv
-         GJWOs8R1uMbbIJ2zVK3VgyOu6dqwE5feyKDOkpqxeEAU4QF38ISkn24phU2Vc2K298Xl
-         lUHRRKfhlj5GMIOBkmhzlBcFqLq3IUBMOazTDD+BZX8KkY1CVolBY+TSpc66Dw27eplZ
-         NJbIMGVGMv5QYujqGB+6lng8Bcc/An94whcpTzNOI/9YOtOi8+KHt4smV85D/XGCK+4I
-         rY4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792715630; x=1793320430;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bcpdyh2Rch8ZgMuzB2NI7c22cVcvgZ2KSRIeKtslHpw=;
-        b=CNVL9P9Fg7NTxDdUMKnDnb/8FA6DqGusdAdAFUkbnUFbhZ50JO4kAqGmPRLS/CDWtL
-         ZQ7rpf10Td0MRYBDxh/nO9EOYiRk5PDlqOpMSRT8Lw5kpaiCaiaQvsUl81HT4P7HX4PP
-         TbvBtfZf+r2kNiMrWLjIw6pyKqF3a2meH5dfRceYWmta6au2vsa7kVCFNLh4G8cCy32B
-         jckDN5FQPcYVrsI5RNowaotw20O3V37aYx7oz01OEzHwnndnsfDTQ+kxXBSl9EL30kRA
-         Ig8spZNIWOX2dRxHpzRLrAYXOvVlUAeKyF3CGucmLPMb0WNGjdwQhn8sWY9PBldB1m+3
-         dJbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6Gwy4X/xHzV9W2kuRf3qjJyRIgIjZPyNF8kVCYxWQOnl/quBS0Dn98WjEV9yXKd6YBBgoJT3Z9SBIjA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIOkCd/Cg+Rwec6Bf4oDiY2gkgVhYMyC+k/H6y4UeO/zYwFvcj
-	ECCjLN9eJn8eAHYrVrnoBqmwqZMFVruS7Q68/vl2yzyAUQx/xf0rt4e9Ti3uuzkRj08bDQhhten
-	VRTfQ5onJs/GwEzSG8J/NnTRoauwfHElwk3q0Wk8+jFcmCsgo9KXkwqAlMJgT6yJDLw==
-X-Gm-Gg: AYBFou0A0mp8Fle02CQYQgqi4in7Vj3xWSZt2WcG13uuOrRSJDcoqkNz4+SJbs+eSQy
-	96H5s4T4caDyT0lMiT0KxCk1ETtfauSRius4Zg7HPiRyDVsmT9GiZPwb0MIWVgNdZm7GdEeQHQ4
-	achBPKIHFqoftRzojBQGnMS/ijILKzGukOM5yvOv/4PNyOA9Y9WZcuE/sm1fr6YnLnqYgF5OAAX
-	koxL+3nb0u0E8vJL1UyMrelRuhhrecpSGXNm6uhgp8Hpek42DCeCFkdLWxsKI0gF5EbEpQyp6Tr
-	FG2J3fYNARhwpTK/PuX4A0PLBv4Ou2YQ6/MH91ugyKebjT9bFTVeIg74MB9LEetbjurZsGTsXiX
-	bPCresCpS1iPmoDPg9KuOraVu4L9KCfIiq6DDouIQXX5pvfa8ntwF0GDp
-X-Received: by 2002:a05:7301:6f09:b0:359:818a:df2d with SMTP id 5a478bee46e88-369d9869323mr785144eec.31.1792715630117;
-        Thu, 22 Oct 2026 17:33:50 -0700 (PDT)
-X-Received: by 2002:a05:7301:6f09:b0:359:818a:df2d with SMTP id 5a478bee46e88-369d9869323mr785110eec.31.1792715629330;
-        Thu, 22 Oct 2026 17:33:49 -0700 (PDT)
-Received: from [10.71.181.181] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9d8978csm2283102eec.13.2026.10.22.17.33.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 17:33:48 -0700 (PDT)
-Message-ID: <f689ccfe-4adb-41f6-b492-97a48090413d@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 17:33:47 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=eWoSYr5q;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qYHYQXQl
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.phl.internal (Postfix) with ESMTP id 31D20EC0100
+	for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 20:36:16 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 22 Oct 2026 20:36:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792715776; x=1792802176; bh=Jp5mdh9VzM
+	PCAWV0XCl+JdXmq0weGr7TRow0yGFj7Qk=; b=eWoSYr5qX29LwIvho3zKn11Cow
+	7letmyTofY71krsR8OT3pJYX5yTUFXLJU/lmRWCPwhDMspUP4ch08Yn0GjxE9ksx
+	PyOngPENR/U2wgcjP/A2ivGJHzCNMDjGBarFDsBqQhoW55bPiJsrVJ64LlNQsdlw
+	wj3wlvXsedmH0tfD/JY6NCzdNV6Js4+X8LCHeomKzG/QNLVv9rO6ElN1AQBknlHr
+	0tFfCgVlDj+ZrdJusdrC+NOlY7tKemREz75bLBQ2z5XJlD3WyWkCsIKiHm4gIsm2
+	gDwNANcFw/ETw8C5kzlogLHirKrdJ8XFJl4VO4kLkXM6hMrIB8dCFlPAJSUQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792715776; x=
+	1792802176; bh=Jp5mdh9VzMPCAWV0XCl+JdXmq0weGr7TRow0yGFj7Qk=; b=q
+	YHYQXQlPrRpKgiFfzC0abMv0NefVC/BZCthmfhRy5+5PuslTxQmxhQ1VTiBCrsn5
+	V2b6pefq/V31wCM4VgTmuzIM2MK+gEeADo6EWwepAjiT4xEobuFeHtW1dcEkKKbE
+	ZeNGeVvTuw+8dSEHqGwP7ii9xOKDHjZpbZmAqZKUYepNBdMMId7I2T7PJ9BBqqBw
+	Au29N4olgwlm6hfrsf2ITR0cDt6zu2lp964kHvHYssIWNmmoFNSoa0PJpvVb/jhT
+	r77Zpg//lbkWT73sdCYFin+BYfzYQS+arkvYwdoqF52eUmouQwhSqH4ehMzt/Bhv
+	CrsY6sTUN0d7jKY5/idWw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792715776; d=invisiblethingslab.com;
+	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:fgH11KwSAUgez18v0j/mzsC0HC3nBR5ll03F3d0sEYhvmvP
+	RqA5nqbc+XvDYR4TSOl1/JaqbXnuUFC+IbLRusb3aPRnLohBeS+oxPJCLnqzSnOj
+	W3JQrzzYNIcR/TRUKugjOTXtKaeZsftP2udwyfKa16q2HbM0mCnydL3P5FjaTPa+
+	7BtRELbjDZPD48t6zePXByPDVaBoayLVM8Dh8aeSU2S6H2SiP9+3GsW1MiaFhUzK
+	RuefjDOBxiJmFkGweLAhbXR4y4yY6XX2feXEebqMq9kuso23zjXwuS6Fn/4goR44
+	j95fC58NSi0njenSn6VtH2LLhvcCOkaruXNcHng==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=15;
+	hn=autocrypt,cc,content-language,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:K5XLcmA2adlmkrdMWiRBdzs/Pgs5Rf1o7ihP751Ftog=:qsc4PC1ughL3lDrwaL4s0jtV9KY9pylnf0Fjyzpak8Y=;
+X-ME-Sender: <xms:_6vaamYQKZ_lYiuZBOE87z4IR0Dme_RnqZk-XOuUugKc5V68o3XMZw>
+    <xme:_6vaaoeaqMliQXCIEd4jYzpGC3zYU6ooQvlbvqFlTNNgvxzd4dWItBMsFmW7NBB-U
+    t0UH5vUpbCTjik6isnbazg_z54ewc_u7GhFCx0bt8UOfWWmwSsZrA>
+X-ME-Received: <xmr:_6vaanLTn3FyvZf_c9P9ZPO2tPoYahiecQTCA6nB9TmLM6FNxaDHYsHCvcTjvzy3FkMnt1YsJ1kAAmdKLIH87zWo2aIvgk9naw>
+X-ME-Proxy-Cause: dmFkZTFRu798DO+VUgryXpScRSVTKDOSp2hirnxjU8Hcf1udFt7yEdLhyatJpT2zj58gRg
+    eRZGhA+gTb5eUsPISs8n8+GAqrDjH1k7wDYJEmamRDj3qcrOO5/9gsOgNvMJccvtg6VwBq
+    DEK2IzKzjLssd74CynsD6jcuk8BsksyugUageIswRb3CSLe8N9y4qs+e57iyGBG+QYPOoQ
+    G4uPIYj+V8tYo0L8ithtykbT9XdSnIicxLCanLp3juqgloGyKLAxGJBGGt5fA6j/9zfp/D
+    G6cK2iG7EgLzrAVF6wZhbBj5E84y/tUMTUDD8QbqGkIMioTFWDwUnBAfv0xePsRJKbwSIO
+    khpB6X0G23sV2KQagywUn3N/I5b28nsFnTpvpg1c9Wb0ugmrejCGLjrGqbE3xvYtnLpthx
+    +Tbtw1GxjLfcjo7WJ8Y5JMz7SoYqAWtW5meMT8yfcJ2+hFMzGQX9tQODLCBcCinJGuUtLF
+    uEgm17LkUPYdDpp4ZzIz7Qz5wM2sVeCMfwWnLmP+F+tyiBhI4g9VJ04evWPo2/FId++oJV
+    rGtQDk1Li7S3ONKi/5PfikqDnRaiAGbwL3HYvShIBZRy5qsU6/hPFfFjpMEUSFB0Yh8GiZ
+    5DD6foA4V49PPsfhnPIXva1K3gBpG/godvtmznB9XsMVTwFAZmp0kvBrSGXQ
+X-ME-Proxy: <xmx:_6vaalKRBjdt24sH07qZIJ9hOeRjepB10sZpGPDByqJbzB8MJIFLAA>
+    <xmx:_6vaamUaMpDwpzNwCo-LvwggtsBN25Q_1ogSUviqcNixmaauojffkg>
+    <xmx:_6vaaun43zSqM9GogBSLAukCtf3ojUIHtiYuMJ_MtzMVpjiTFmKx0A>
+    <xmx:_6vaasmhjcSAKVtO6XcA8Iy1AX6ckbFqAorSEx9GiY8298G_vb7A7Q>
+    <xmx:AKzaar5kkL-tAsIRQaMekWdy_cUxUrQ8HlCj3LhUXf5UfWaCm34LGKsk>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Oct 2026 20:36:14 -0400 (EDT)
+Message-ID: <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
+Date: Thu, 22 Oct 2026 21:36:11 -0300
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,573 +120,69 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] phy: core: add generic MIPI C-PHY configuration API
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, david@ixit.cz,
-        andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, bod@kernel.org,
-        vladimir.zapolskiy@linaro.org, loic.poulain@oss.qualcomm.com,
-        mchehab@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, gjorgji.rosikopulos@oss.qualcomm.com,
-        jigarkumar.zala@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        linux-media@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com,
-        daniel@quora.org, konrad.dybcio@oss.qualcomm.com,
-        christopher.obbard@linaro.org, alex.vinarskis@gmail.com
-References: <20261017041733.3946816-1-anusha.nandi@oss.qualcomm.com>
- <20261017041733.3946816-2-anusha.nandi@oss.qualcomm.com>
- <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
+Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20261021093533.1990028-1-val@invisiblethingslab.com>
+ <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+ <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
+ <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
 Content-Language: en-US
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-In-Reply-To: <a6d8514b-269c-441d-b280-4895b5f21fac@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+From: Val Packett <val@invisiblethingslab.com>
+Autocrypt: addr=val@invisiblethingslab.com; keydata=
+ xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
+ jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
+ NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
+ OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
+ Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
+ pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
+ nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
+ dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
+ d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
+ aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
+ /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
+ UDOwAqdfvuF3w8QMPw==
+In-Reply-To: <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIzMDAwMSBTYWx0ZWRfX6biOH3JV5LOq
- 5ok84ITHjG28bEXuyQXzzLB1ZPSwCnh0qXFlaBbhjQhy1DqMQYXo/0vmf+gUAp1Qx88bEKwmMLh
- FAyE5LCliOXGWkQYkhNcwvgQlPKRK1M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIzMDAwMSBTYWx0ZWRfXxiD2FmdY94bG
- 7VwFAo8gSE84xO3IYx/5fZ79FnRqeRVt9LTh2AVJSSgqw0TzvhouxHeYw2O3RD7W6LoKaYSLASu
- Ct5LDvJACGsbrmiFcrjBgOPUiVExQx5KzO7EphhT7XV+7b7p2sPPUwaPbGZirP/EvdSzsnBg3K3
- oApue9g9jRJQd40aQ90p/3LIvVFxb+eg2Xi8d38405+S7I1GO/FEcvidYqsK54EQGwVtIsJYLXv
- CfLHlWWH8AA0R1D8703kCmejl42yEDT0oMpR6VmognPNySI77AMlyoipzrVONJ7QVfK86faV0Y6
- 7P+XNSHKRAC1CSoFY6QaNbby5dbLbHZGbpeUjK1ypHBK8n+T1VFpQbAWka1UDOVlO/keKnx0Vcj
- CGUiW2wVawJ5hh3PrR1Lwu6iNQtnxhY7n4Sh2xq7sepYqtiPlxRiydwv7dSUHcLglq0kwou7oJD
- 2lI/fCVyOAi5c65D/mw==
-X-Proofpoint-GUID: obt-wIVwLcwJjQ3gTQlFvgTiIOgnB4m5
-X-Authority-Analysis: v=2.4 cv=YIMKWhGx c=1 sm=1 tr=0 ts=6adaab6f cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=dOq9m7WOZSnMFsiCC74A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: obt-wIVwLcwJjQ3gTQlFvgTiIOgnB4m5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_07,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610230001
 
-Hi Bryan,
 
-Thank you for your analysis and comments.
-
-On 10/17/2026 4:00 PM, Bryan O'Donoghue wrote:
-> On 17/10/2026 05:17, Anusha Arun Nandi wrote:
->> Add PHY_MODE_MIPI_CPHY, struct phy_configure_opts_mipi_cphy and three
->> helpers: phy_mipi_cphy_get_default_config(),
->> phy_mipi_cphy_get_default_config_for_hsclk() and
->> phy_mipi_cphy_config_validate(). These mirror the existing MIPI D-PHY
->> generic configuration API (phy-core-mipi-dphy.c) so PHY providers can
->> be configured for C-PHY via phy_configure().
+On 10/22/26 9:26 AM, Christian König wrote:
+> On 10/21/26 22:16, Val Packett wrote:
+>> On 10/21/26 10:43 AM, Christian König wrote:
+>>> [..]
+>>>> The buffer lifecycle coordination we need this for applies to KVM as well
+>>>> and it generally doesn't make sense to have this as a provider-specific
+>>>> thing since it's not related to the provider in any way, it's just
+>>>> something we want from dmabufs in general.
+>>> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
+>>>
+>>> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
+>>>
+>>> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
+>> Well, we already need it with both udmabuf and gntdev-dmabuf..
 >>
->> C-PHY encodes 16 bits per 7 symbols across a 3-wire trio; the default
->> config helper derives the required per-trio symbol rate from the pixel
->> clock, bits-per-pixel and lane (trio) count the same way the D-PHY
->> helper derives its HS clock rate. The timing fields are filled in from
->> the MIPI Alliance Specification for C-PHY (v1.0), Table 18 "Global
->> Operation Timing Parameters"; unlike D-PHY, these are not data-rate
->> dependent, so phy_mipi_cphy_get_default_config() fills the spec's
->> minimum values directly rather than computing them from the symbol
->> rate, and phy_mipi_cphy_config_validate() checks each field against
->> its spec-defined bound.
->>
->> No existing phy consumer or provider selects GENERIC_PHY_MIPI_CPHY
->> yet, so this commit has no functional effect on its own.
->>
->> Co-developed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
->> Signed-off-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
->> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
->> ---
->>   drivers/phy/Kconfig               |   9 ++
->>   drivers/phy/Makefile              |   1 +
->>   drivers/phy/phy-core-mipi-cphy.c  | 131 ++++++++++++++++++++++
->>   include/linux/phy/phy-mipi-cphy.h | 177 ++++++++++++++++++++++++++++++
->>   include/linux/phy/phy.h           |   5 +
->>   5 files changed, 323 insertions(+)
->>   create mode 100644 drivers/phy/phy-core-mipi-cphy.c
->>   create mode 100644 include/linux/phy/phy-mipi-cphy.h
->>
->> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
->> index 19f3b7d12b7d..a6b0749a40cc 100644
->> --- a/drivers/phy/Kconfig
->> +++ b/drivers/phy/Kconfig
->> @@ -46,6 +46,15 @@ config GENERIC_PHY_MIPI_DPHY
->>         Provides a number of helpers a core functions for MIPI D-PHY
->>         drivers to us.
->>   +config GENERIC_PHY_MIPI_CPHY
->> +    bool
->> +    select GENERIC_PHY
->> +    help
->> +      Generic MIPI C-PHY configuration helpers.
->> +
->> +      Provides a number of helper core functions for MIPI C-PHY
->> +      drivers to use.
->> +
->>   config PHY_AIROHA_PCIE
->>       tristate "Airoha PCIe-PHY Driver"
->>       depends on ARCH_AIROHA || COMPILE_TEST
->> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
->> index d7aa516bcc49..a94dc1b352e1 100644
->> --- a/drivers/phy/Makefile
->> +++ b/drivers/phy/Makefile
->> @@ -7,6 +7,7 @@ obj-$(CONFIG_PHY_COMMON_PROPS)        += phy-common-
->> props.o
->>   obj-$(CONFIG_PHY_COMMON_PROPS_TEST)    += phy-common-props-test.o
->>   obj-$(CONFIG_GENERIC_PHY)        += phy-core.o
->>   obj-$(CONFIG_GENERIC_PHY_MIPI_DPHY)    += phy-core-mipi-dphy.o
->> +obj-$(CONFIG_GENERIC_PHY_MIPI_CPHY)    += phy-core-mipi-cphy.o
->>   obj-$(CONFIG_PHY_AIROHA_PCIE)        += phy-airoha-pcie.o
->>   obj-$(CONFIG_PHY_CAN_TRANSCEIVER)    += phy-can-transceiver.o
->>   obj-$(CONFIG_PHY_ECONET_PCIE)        += phy-econet-pcie.o
->> diff --git a/drivers/phy/phy-core-mipi-cphy.c b/drivers/phy/phy-core-
->> mipi-cphy.c
->> new file mode 100644
->> index 000000000000..303b9a02f096
->> --- /dev/null
->> +++ b/drivers/phy/phy-core-mipi-cphy.c
->> @@ -0,0 +1,131 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + *
->> + * Generic MIPI C-PHY configuration helpers.
->> + */
->> +#include <linux/phy/phy-mipi-cphy.h>
->> +#include <linux/errno.h>
->> +#include <linux/export.h>
->> +#include <linux/kernel.h>
->> +#include <linux/math64.h>
->> +
->> +/*
->> + * C-PHY carries 16 bits per 7 symbols per trio (lane).
->> + */
->> +#define PHY_MIPI_CPHY_SYMBOLS_PER_GROUP        7
->> +#define PHY_MIPI_CPHY_BITS_PER_GROUP        16
->> +
->> +/*
->> + * Fill in the C-PHY global operation timing parameters based on the
->> MIPI
->> + * Alliance Specification for C-PHY (v1.0), Table 18 "Global
->> Operation Timing
->> + * Parameters". These parameters are not data rate dependent (see
->> sections
->> + * 6.14.3 and 6.14.4 of that specification), so unlike the D-PHY
->> equivalent
->> + * this helper does not need the symbol rate to compute them.
->> + */
->> +static int phy_mipi_cphy_calc_config(unsigned long pixel_clock,
->> +                     unsigned int bpp, unsigned int lanes,
->> +                     unsigned long long hs_clk_rate,
->> +                     struct phy_configure_opts_mipi_cphy *cfg)
->> +{
->> +    if (!cfg || !lanes)
->> +        return -EINVAL;
-> 
-> Lanes must be a multiple of three to be valid, at least for your three
-> submissions to be logically consistent, this statement must be so.
-> 
-I will update the name of lanes to data_lanes in
-phy_configure_opts_mipi_cphy struct.
-I will add more sanity checks for data_lanes > 3, as C-PHY supports 3
-data lanes only.
->> +
->> +    if (!hs_clk_rate) {
->> +        if (!bpp)
->> +            return -EINVAL;
->> +
->> +        /*
->> +         * Total payload bits/s = pixel_clock * bpp, spread over the
->> +         * active trios. C-PHY carries 16 bits per 7 symbols per trio,
->> +         * so the per-trio symbol rate is the bit rate scaled by 7/16.
->> +         */
->> +        hs_clk_rate = (unsigned long long)pixel_clock * bpp;
-> 
-> 
->> +        hs_clk_rate = DIV_ROUND_UP_ULL(hs_clk_rate *
->> +                        PHY_MIPI_CPHY_SYMBOLS_PER_GROUP,
->> +                        (unsigned long long)lanes *
->> +                        PHY_MIPI_CPHY_BITS_PER_GROUP);
->> +    }
->> +
->> +    cfg->lanes = lanes;
->> +    cfg->hs_clk_rate = hs_clk_rate;
->> +
->> +    cfg->t3_prepare = 38000;
->> +    cfg->t3_term_en = 0;
->> +    cfg->t3_settle = 95000;
->> +    cfg->t3_hs_exit = 100000;
->> +    cfg->lpx = 50000;
->> +    cfg->init = 100;
-> 
-> Whatever about how DPHY does this in upstream Linux, these values should
-> be defines with names that mean something WRT the specification.
-> 
-Makes sense, the v2 series will have this addressed.
->> +    cfg->ta_get = 5 * cfg->lpx;
->> +    cfg->ta_go = 4 * cfg->lpx;
->> +    cfg->ta_sure = cfg->lpx;
->> +    cfg->wakeup = 1000;
->> +
->> +    return 0;
->> +}
->> +
->> +int phy_mipi_cphy_get_default_config(unsigned long pixel_clock,
->> +                     unsigned int bpp, unsigned int lanes,
->> +                     struct phy_configure_opts_mipi_cphy *cfg)
->> +{
->> +    if (!bpp)
->> +        return -EINVAL;
->> +
->> +    return phy_mipi_cphy_calc_config(pixel_clock, bpp, lanes, 0, cfg);
->> +}
->> +EXPORT_SYMBOL_GPL(phy_mipi_cphy_get_default_config);
->> +
->> +int phy_mipi_cphy_get_default_config_for_hsclk(unsigned long long
->> hs_clk_rate,
->> +                           unsigned int lanes,
->> +                           struct phy_configure_opts_mipi_cphy *cfg)
->> +{
->> +    if (!hs_clk_rate)
->> +        return -EINVAL;
->> +
->> +    return phy_mipi_cphy_calc_config(0, 0, lanes, hs_clk_rate, cfg);
->> +}
->> +EXPORT_SYMBOL_GPL(phy_mipi_cphy_get_default_config_for_hsclk);
->> +
->> +/*
->> + * Validate C-PHY configuration according to the MIPI Alliance
->> + * Specification for C-PHY (v1.0), Table 18 "Global Operation Timing
->> + * Parameters".
->> + */
->> +int phy_mipi_cphy_config_validate(struct phy_configure_opts_mipi_cphy
->> *cfg)
->> +{
->> +    if (!cfg || !cfg->lanes)
->> +        return -EINVAL;
->> +
->> +    if (cfg->t3_prepare < 38000 || cfg->t3_prepare > 95000)
-> 
-> T3_PREPARE_MIN T3_PREPARE_MAX etc I'm stating a preference of course but
-> I think its better practice to define your constants with names that
-> mean things as frequently we end up reusing constants all over the place.
-> 
-Keeping in mind to rectify this as well.
+>> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
+> No, exactly that is what I'm trying to avoid.
+>
+> Nobody except the original creater should be able to insert an eventfd here.
 
->> +        return -EINVAL;
->> +
->> +    if (cfg->t3_term_en > 38000)
->> +        return -EINVAL;
->> +
->> +    if (cfg->t3_settle < 95000 || cfg->t3_settle > 300000)
->> +        return -EINVAL;
->> +
->> +    if (cfg->t3_hs_exit < 100000)
->> +        return -EINVAL;
->> +
->> +    if (cfg->lpx < 50000)
->> +        return -EINVAL;
->> +
->> +    if (cfg->init < 100)
->> +        return -EINVAL;
->> +
->> +    if (cfg->ta_get != 5 * cfg->lpx)
->> +        return -EINVAL;
->> +
->> +    if (cfg->ta_go != 4 * cfg->lpx)
->> +        return -EINVAL;
->> +
->> +    if (cfg->ta_sure < cfg->lpx || cfg->ta_sure > (2 * cfg->lpx))
->> +        return -EINVAL;
->> +
->> +    if (cfg->wakeup < 1000)
->> +        return -EINVAL;
->> +
->> +    return 0;
->> +}
->> +EXPORT_SYMBOL_GPL(phy_mipi_cphy_config_validate);
->> diff --git a/include/linux/phy/phy-mipi-cphy.h b/include/linux/phy/
->> phy-mipi-cphy.h
->> new file mode 100644
->> index 000000000000..7627602eb57f
->> --- /dev/null
->> +++ b/include/linux/phy/phy-mipi-cphy.h
->> @@ -0,0 +1,177 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +#ifndef __PHY_MIPI_CPHY_H_
->> +#define __PHY_MIPI_CPHY_H_
->> +
->> +#include <linux/types.h>
->> +
->> +#define PHY_MIPI_CPHY_MAX_DATA_LANES    4
->> +
->> +/**
->> + * struct phy_configure_opts_mipi_cphy - MIPI C-PHY configuration set
->> + *
->> + * This structure is used to represent the configuration state of a
->> + * MIPI C-PHY phy. The timing fields are named after their symbol in
->> + * the MIPI Alliance Specification for C-PHY (v1.0), Table 18 "Global
->> + * Operation Timing Parameters", and are all time values in picoseconds
->> + * (microseconds for @init and @wakeup) that are not data rate dependent
->> + * (see Table 18 and sections 6.14.3/6.14.4 of that specification).
->> + */
->> +struct phy_configure_opts_mipi_cphy {
->> +    /**
->> +     * @lanes:
->> +     *
->> +     * Number of active C-PHY trios (data lanes).
->> +     */
->> +    unsigned int        lanes;
-> 
-> This statement and how you go about using the data aren't consistent.
-> 
-> In CAMSS you do
-> 
-> /* Set data trio lane positions and polarities (no clock lane) */
-> for (i = 0; i < num_lanes; i++) {
->     cphy_cfg->lane_positions[i] = lncfg->data[i].pos;
->     cphy_cfg->lane_polarities[i] = lncfg->data[i].pol;
-> }
-> 
-> where num_lanes == lncfg->num_data;
-> 
-> Let's assume dt has data-lanes = <1 2 3>; => num_data == 3
-> 
-> Then in qcom-mipi-csi2-core you do:
-> 
-> /* C-PHY has no clock lane; all entries map data trios. */
-> for (i = 0; i < csi2phy->stream_cfg.num_data_lanes; i++) {
->     if (data_lanes[i] < 1 || data_lanes[i] > CSI2_MAX_DATA_LANES) {
->         dev_err(dev, "Invalid lane %d\n", data_lanes[i]);
->         ret = -EINVAL;
->         goto out_put;
->     }
-> 
->     csi2phy->stream_cfg.lane_cfg.data[i].pos = data_lanes[i] - 1;
->     csi2phy->stream_cfg.lane_cfg.data[i].pol = lane_polarities[i];
-> }
-> 
-> This specifies which physical lanes will be in CPHY mode and what their
-> polarities will be
-> 
-> =>
-> 
-> lanes specifies the number of pads in a trio
-> data_lanes specifies which pads are in those trios
-> lane_polarities specifies the polarity of each of the given pads
-> 
-> To my knowledge the C-PHY specification doesn't mandate adjacent LNx as
-> required in a trio.
-> 
-> => lanes % 3 should be invalid
-> => for each trio lanes must increase by 3 also.
-> 
-We will do calculations based on data_lanes only.
+If there's no replacement allowed anymore, what could possibly be 
+harmful/undesirable about "someone else" being able to do this?
 
-> 
->> +
->> +    /**
->> +     * @hs_clk_rate:
->> +     *
->> +     * High speed symbol rate in symbols/s derived from link rate.
->> +     *
->> +     * C-PHY encodes 16 bits per 7 symbols across a 3-wire trio.
->> +     * Consumers fill this from the sensor link frequency and hand
->> +     * it to phy_configure().
->> +     */
->> +    unsigned long        hs_clk_rate;
->> +
->> +    /**
->> +     * @lane_positions:
->> +     *
->> +     * Physical-to-logical trio (data lane) position mapping. Entry @i
->> +     * gives the physical lane position carrying logical trio @i. C-PHY
->> +     * has no clock lane, so all entries map data trios only.
->> +     */
->> +    unsigned char        lane_positions[PHY_MIPI_CPHY_MAX_DATA_LANES];
->> +
->> +    /**
->> +     * @lane_polarities:
->> +     *
->> +     * Polarity (0 = normal, 1 = swapped) of each logical trio. Entry
->> +     * @i corresponds to logical trio @i.
->> +     */
->> +    bool            lane_polarities[PHY_MIPI_CPHY_MAX_DATA_LANES];
->> +
->> +    /**
->> +     * @t3_prepare:
->> +     *
->> +     * Time, in picoseconds, that the transmitter drives the
->> +     * 3-wire LP-000 line state immediately before the HS_+x line
->> +     * state starting HS transmission.
->> +     *
->> +     * Minimum value: 38000 ps
->> +     * Maximum value: 95000 ps
->> +     */
->> +    unsigned int        t3_prepare;
->> +
->> +    /**
->> +     * @t3_term_en:
->> +     *
->> +     * Time, in picoseconds, for the slave to enable the HS line
->> +     * termination, starting from the time point when the A, B
->> +     * and C wires cross VIL_MAX.
->> +     *
->> +     * Maximum value: 38000 ps
->> +     */
->> +    unsigned int        t3_term_en;
->> +
->> +    /**
->> +     * @t3_settle:
->> +     *
->> +     * Time interval, in picoseconds, during which the HS receiver
->> +     * should ignore any HS transitions on the lane, starting from
->> +     * the beginning of @t3_prepare.
->> +     *
->> +     * Minimum value: 95000 ps
->> +     * Maximum value: 300000 ps
->> +     */
->> +    unsigned int        t3_settle;
->> +
->> +    /**
->> +     * @t3_hs_exit:
->> +     *
->> +     * Time, in picoseconds, that the transmitter drives LP-111
->> +     * following an HS burst.
->> +     *
->> +     * Minimum value: 100000 ps
->> +     */
->> +    unsigned int        t3_hs_exit;
->> +
->> +    /**
->> +     * @lpx:
->> +     *
->> +     * Transmitted length, in picoseconds, of any low-power state
->> +     * period.
->> +     *
->> +     * Minimum value: 50000 ps
->> +     */
->> +    unsigned int        lpx;
->> +
->> +    /**
->> +     * @init:
->> +     *
->> +     * Time, in microseconds, for the initialization period to
->> +     * complete.
->> +     *
->> +     * Minimum value: 100 us
->> +     */
->> +    unsigned int        init;
->> +
->> +    /**
->> +     * @ta_get:
->> +     *
->> +     * Time, in picoseconds, that the new transmitter drives the
->> +     * Bridge state (LP-000) after accepting control during a
->> +     * link turnaround.
->> +     *
->> +     * Value: 5 * @lpx
->> +     */
->> +    unsigned int        ta_get;
->> +
->> +    /**
->> +     * @ta_go:
->> +     *
->> +     * Time, in picoseconds, that the transmitter drives the
->> +     * Bridge state (LP-000) before releasing control during a
->> +     * link turnaround.
->> +     *
->> +     * Value: 4 * @lpx
->> +     */
->> +    unsigned int        ta_go;
->> +
->> +    /**
->> +     * @ta_sure:
->> +     *
->> +     * Time, in picoseconds, that the new transmitter waits after
->> +     * the LP-100 state before transmitting the Bridge state
->> +     * (LP-000) during a link turnaround.
->> +     *
->> +     * Minimum value: @lpx
->> +     * Maximum value: 2 * @lpx
->> +     */
->> +    unsigned int        ta_sure;
->> +
->> +    /**
->> +     * @wakeup:
->> +     *
->> +     * Time, in microseconds, that a transmitter drives a Mark-1
->> +     * state prior to a Stop state in order to initiate an exit
->> +     * from ULPS.
->> +     *
->> +     * Minimum value: 1000 us
->> +     */
->> +    unsigned int        wakeup;
->> +};
-> 
-> Should the following fields be included in this definition too ?
-> 
-> - T3-PREBEGIN
-> - T3-PROGSEQ
-> - T3-PREEND
-> - T3-SYNC
-> - T3-POST
-Right now, I don't think its required. It looks like synchronisation and
-packet transmission timing. I will still check and add if required in
-the next series.
+With a "first caller only" policy, the original creator already can be 
+100% sure that no one else is able to insert an eventfd:
 
->> +
->> +int phy_mipi_cphy_get_default_config(unsigned long pixel_clock,
->> +                     unsigned int bpp, unsigned int lanes,
->> +                     struct phy_configure_opts_mipi_cphy *cfg);
->> +int phy_mipi_cphy_get_default_config_for_hsclk(unsigned long long
->> hs_clk_rate,
->> +                           unsigned int lanes,
->> +                           struct phy_configure_opts_mipi_cphy *cfg);
->> +int phy_mipi_cphy_config_validate(struct phy_configure_opts_mipi_cphy
->> *cfg);
->> +
->> +#endif /* __PHY_MIPI_CPHY_H_ */
->> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
->> index c480d6cb42c5..f12337834031 100644
->> --- a/include/linux/phy/phy.h
->> +++ b/include/linux/phy/phy.h
->> @@ -19,6 +19,7 @@
->>   #include <linux/phy/phy-dp.h>
->>   #include <linux/phy/phy-hdmi.h>
->>   #include <linux/phy/phy-lvds.h>
->> +#include <linux/phy/phy-mipi-cphy.h>
->>   #include <linux/phy/phy-mipi-dphy.h>
->>   #include <linux/phy/phy-thunderbolt.h>
->>   @@ -42,6 +43,7 @@ enum phy_mode {
->>       PHY_MODE_PCIE,
->>       PHY_MODE_ETHERNET,
->>       PHY_MODE_MIPI_DPHY,
->> +    PHY_MODE_MIPI_CPHY,
->>       PHY_MODE_SATA,
->>       PHY_MODE_LVDS,
->>       PHY_MODE_DP,
->> @@ -69,6 +71,8 @@ union phy_notify {
->>    *
->>    * @mipi_dphy:    Configuration set applicable for phys supporting
->>    *        the MIPI_DPHY phy mode.
->> + * @mipi_cphy:    Configuration set applicable for phys supporting
->> + *        the MIPI_CPHY phy mode.
->>    * @dp:        Configuration set applicable for phys supporting
->>    *        the DisplayPort protocol.
->>    * @lvds:    Configuration set applicable for phys supporting
->> @@ -78,6 +82,7 @@ union phy_notify {
->>    */
->>   union phy_configure_opts {
->>       struct phy_configure_opts_mipi_dphy    mipi_dphy;
->> +    struct phy_configure_opts_mipi_cphy    mipi_cphy;
->>       struct phy_configure_opts_dp        dp;
->>       struct phy_configure_opts_lvds        lvds;
->>       struct phy_configure_opts_hdmi        hdmi;
-> 
+If the original creator calls this API before sending the fd to anyone 
+else, well, the original creator *is* the first caller, that's it.
 
+Otherwise, i.e. if the original creator is not interested in this API.. 
+it's unlikely a different process would use it, but if one does for some 
+reason, I don't see any negative consequences from that?
+
+
+
+Thanks,
+~val
