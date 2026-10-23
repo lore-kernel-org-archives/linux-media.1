@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792737626;
-	b=U+o8WWOsgtssfTQfZk1lsqh2pjKqxoD8YrjxMU7Wvv88qltn3p7Z0EWaIStT7i7fUue+
-	 8gRnfGElV7kddLh2m3d183usf+mgETv/kVGVRSu36RJEL5UR8WK59e6dNb4HVjdBdQ29q
-	 3eVF3+fsxntPHytVXCy8g8VCgX0el/zStfachs3eiN8ugRF8f+xBg/SPKEnKxkvp+31JV
-	 x0tgfudPzm3CurFSSX2zEzSJSImpng1xFbijGDcNIazDi7zPYu4S3NIzz5Jy6TWZ5sTS6
-	 xLYecjyfjJ6cVGcQHC+8kLzXoeCTyCbVA8WimdgOhVHQDdJoGscS5SQbpbzSJesRJJA==
+	t=1792737628;
+	b=JmhZv0rtGdj3u33R4xC72tr86Z4tEMcpqghreV4nrLtXpw5RbBg1w8VM5zGTC9SBKXmw
+	 CK3pWXkjaub86cC8J90It04/p7NaRYfLFahumkEQc6dtwt7KLewoI4xWfjwDrK9bYy5AN
+	 gfGsD/SllGZziKtD9InsSnwadS5w6infZkWr4xBX5bpDzs4FCzA/TN/pdILK3mCCJNXDl
+	 jEOV/cZyzQgzrKh8zoPKt3wePxLAQHOpLH0F6/QHd/1vhYT3BI9YGsj/JZ/SzAibWWPAM
+	 CQhlFBRuu3PvTB57oKb+ceQvck05X+pmIcxWjrG7fWG54khPQdQErMP5SJWgek9KkTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792737626;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792737628;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=4UoeFHsO2E1Dm3EPGxkpKrzw1COi+rNj0JGJlw6wJw8=;
-	b=afveFzicugwGVe3bgsPWX26rPXHx+/J8vWrfsBSa4EvtlOHkvGdDHvOvIyBFeyf7zEXJ
-	 7w4FRY/J6noKwhYqCfFn4TiGk6LuXuYPlaACx3P9qX3aZ/v90Pt4mlAjoxyRVW99PTi/7
-	 lEhflNoS/roJpRPBBQb/zMmHZklVPIqFhqw42E0C56FZ3GjZizA6q2XzWCdhOXRNwkA+b
-	 y0wO9gEwXGodYDsSoXWe7FR/TQtJaA3N8H4BzMJr+9BJEOPmHnw23fm4NHMCbsGrfxjoy
-	 uNrL+tBST8ZpjTbb9V5o258G4Juz5h4Elm/Q9eZHJQXkQFsZ7ETkZbL1JXvKr2q39AA==
+	bh=qBC94N5Vlr3FlLO5bq8d1hj8zBP4JCR0k1VspHMjzxs=;
+	b=QQJyvapYiRjXRSiEgJO13n3BKVU9jys4o7iVty7zh2ci0HLkB7WSJPnlVRGhvbLMnqdK
+	 76IRkM8g53E2EGAZR2UPs0XP+6V5JiU0al9c6rJHPkziH+C4+nwJtiOGZOJs+vlbFc+5M
+	 ykox1haTVoQsq6FZ/b6g9U0MtSrHLCxrrbHh6J2AJm3NTM4H/KSGFRwFYhV5a36NiFVRV
+	 ul4nTRYzPQe1pXdEx8C7DveaYXdIeZA71hada6q6aj6RkaWflZHXjJ3l6J/QhUa42m+q1
+	 0416JVehAnMwjAPWJWsr6oUN4m/iAmqGUxcoGru56Jjpr+rQRyurb+s0E66melSyDXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nFvP+We7;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D8JttAdU;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DD860A3831
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 06:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2DD860A3831
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DEF60A3837
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 06:40:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28DEF60A3837
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nFvP+We7
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e09aa5264so255108f8f.2
-        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 23:40:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D8JttAdU
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48c4be28b82so396232f8f.2
+        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 23:40:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792737624; x=1793342424; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792737626; x=1793342426; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4UoeFHsO2E1Dm3EPGxkpKrzw1COi+rNj0JGJlw6wJw8=;
-        b=nFvP+We7XiupT2noLK/fzdphPCutvS5h9ja53Rm7jDjlMjuga21PPGPfl3QjU/ECb7
-         vJXjzgQQeHxBnTcpUCcDz9Mkzk1J149NiWxkGB4xjLLXKDnJufFFaCU+5G3nko0GgXB0
-         p4oO49kFqiWVFd2j4tcut2GOmsdVA4DYdJYWI0HSTZX2HY1wTTai3F7dSrdaqCV3ZQ7R
-         sxqKvZlsc7pcylJJ4PVh82aybrbqrD4CanpDTI8g79zfZb0x4tUAx9b9dY8phosjMRNf
-         zP7C1OdO/tgqr/6IKB5+tnOqKqj13NexQpJdHS14JPGE4cAzw6Y1th+arl9wwks5uVeg
-         Gc1w==
+        bh=qBC94N5Vlr3FlLO5bq8d1hj8zBP4JCR0k1VspHMjzxs=;
+        b=D8JttAdUXWMA+C1tKErktnwsZZCy3HIUbjnaGh5X7r4L44Zk6RhL8BtNIhqkRk/36D
+         IhFbmfHjF5EfcEOihgCUgXSY2+8D8PaXFo+uQ02UUPUUAw2gwAFF19tS0ABrtWDgGPoI
+         HeV1vZ9M/nK1FKD6a9Az0iXO04LSuORvWofVstmgcVohmcwvPiihakPXSW2lCaaAmIrM
+         44okde0ifL/bu5PZilTkScI6CcMm/uxQrgXHl4ejdowMVXSXesaaRI4KV1JkxQwpFHSe
+         lbUVCuoQoCWi6cHLQQoVeoYI7ZAz+2azP2ToWhFHPNSGGzAZ6OxQW0g+zx6nEOJIwLvb
+         eWHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792737624; x=1793342424;
+        d=1e100.net; s=20260707; t=1792737626; x=1793342426;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4UoeFHsO2E1Dm3EPGxkpKrzw1COi+rNj0JGJlw6wJw8=;
-        b=DbI9q4+o65NwMMmhN/MSAAWiT7iElVdoHYCobvUSj68txoOyzZynaSkGFen4PqJ29m
-         sherz3tmzoKCCNaaI1agnf/WHcPDvAufd+ayRyCL0WSO3LAEPgiNOpUTsxjxqxSh5L0J
-         2GK1diXPtjE4/NLYQLWFyh2bm02fdgVSlzgkqw0qgcMbvEMlLLawCAH7gJ3HDmV5kp4y
-         E89yvHe6JgpgOKpGAP2nbAuLAAU4g4lj9GDQdlsiMeG3hcLD5IMU67FJ02Noe+V+EapN
-         aCaLR5BC3CJm13cuYLoLroftgAVAG3UFQvTE8prpYzpsnESbXkra+WOphVu4kZ92eLSk
-         NVBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtM0LBVIhzQMm+oJHUS66qi+yrIlp/vZ2v+Y1HP/w2AKOxGjy6blJ0exNum7Ywh8p560NfRNX/mo5LEg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKPmfU27r2i3nes7oYyzHNi9jtzS0GNz0vG0+sGuPvELinNKXcv
-	/UBsntwQLvsF74KjOoGoYdYVapau5kmDsGBZi/SDMK5OxtSPbmfFtJVOzEGfpma5wjA=
-X-Gm-Gg: AYBFou2qTFsCE6eXuaJdrRZrIAL2lU7/sgd7A9TdEteHNnuU5yibMwRniN9F5yANNBa
-	Z/KXn/EAYK0ClluDmOrXA93QpLvqtUN2oHV6zEZGD5f8/ITIaKRuj4+6GyFNKIjVoDab/SQEUmA
-	yTr7l+Ubs4MWRSA5a3qfTIH0xiSBx/Omur0u96ePIkDv8a7Yom/N9ZGGGyVVA8VMRnEHBj1rDDO
-	KlR5Bgdx7+XukBhsPvMEbnmC25DFSEMtMHXQ50ylkOti9kL7H8IiwHFE5UrRncKR2puFELs2evX
-	USXhwDcF5fglXq1hP/CjbKfkNE66HMdM3Z0tjy9fQZOaDN0M+t/n4+mfAEjvJ6h80zbw+r4nVke
-	Mx6/gm2PdypXxqBx+TwkmlnQhFKYeQOFd6JGC3jPF+zi3BJJA5u/plxPIFJqbMstJQs+dmBHrbC
-	muVw7UX8KnCOJuJgS7Xlw2Jyzb5vYQJvnUclwGHZWKtPqJ2RK/rBpHYtPc4Hr7TZ0WFS03WfTA0
-	YtKl1NwIpt3vD/FtNGlkm1cp9Z1lZqElK9GwjQEqT96J73ef10JE/Hy9rBO53nOa/GaNwkFGDtR
-	0FHYn+Oy/gQNk37DZZa7KjDoDaEulK8t1PVc40zWow0Xu8nkRBjwjGjGqzM6P0VSjVBIxAzYSYh
-	ItDz51weeHFGi+3bqXr0kllMJ
-X-Received: by 2002:a05:6000:4910:b0:48e:1c2:55a1 with SMTP id ffacd0b85a97d-48e385c0867mr1563144f8f.52.1792737623908;
-        Thu, 22 Oct 2026 23:40:23 -0700 (PDT)
+        bh=qBC94N5Vlr3FlLO5bq8d1hj8zBP4JCR0k1VspHMjzxs=;
+        b=0Sn7i4rs3QABREXOL6633mPpBAd+ak1HCFdq3d/3iCBp0sqKC9XGYpX/onpTGlPD9j
+         9YXVP2WcSnkXpBtGCo7KpCRLC1piCeATAvMPdaZp9XQ1/IUojXgqe1l/qvxd0GLoceaY
+         FNqlOTpczqHOVhUnV/ER8e5uuiuTmp6K/Obsf4qPRE9D6G5xaLLSPlR4Gkovihtkw1f+
+         styiGKPznX9VMgozVjhiBPcMdUpKETtiHOp46+xTHNKfOx+7Dd4c5JflZbrcnKpVUEF5
+         Ye137Joo1SeS+W9MFkbgJyAM3CKGfDWtSizAVky6kfMb2Q7KtE3M0kiz3V7J1bQPnSS/
+         tQVA==
+X-Forwarded-Encrypted: i=1; AKwUvBzBVzQv27gqWeZ3esNbnBxQ3vHBdmUy9R2WdjyQgQgodMDIHtxAxti4tkIEBIT3jdiB6qkPiniYDt9XUg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLUH5Q2nBWp4keIuZdy+fSnKiD9aqcIzL+fkZKlYXz//Ol19hO
+	kzOoQXy/t9Igz0zDmzJLbYyfHjGhw76cL5b/uJmVHxCP7CZ3pKonUIEE
+X-Gm-Gg: AYBFou1A/QPNgeEeSIn/8hS6rBfOydq1gGF/9y2dkDXh0k8JbiQIheA/d/8If1WTUWv
+	jCZib1lVhmdZKEjLzgvBB0AZnYemAfA/Clguqo3ROu3AN7lOYqwKEVG88r6MtdNyO/AyjgiF2zX
+	bBuY1XBgp2rMq1g3foMugIK0eyO1JPeHTR1zxEJP6Sl4SeIHu4mbbllEirNcTz+aIy7NN3at8Qn
+	v55Rw7pBizPDGYI6bRlc47Nwa2OleGD0tqkP0fJ/u9o98RHmiapMTB3+QOpldaQnIHnPwiJDVyD
+	ax4OvW/jB7W31v6hWAAid9LyMjZyfbOfPaDiayDhs0glOgr0p559VhFrFha4ADgFcJ4b5/eAYJd
+	G1ZJO3gk9ztTDOToeiiKftxO6gGtEQGT/XA4PQ7hGWjJtyoSBekSw4l9cLavxdPTLvf8SukxY9r
+	j2oTh13erlW23EOkMsbTD7Ocn1FaIjnZZJGWGpAhDtdgcaa+VmCPiVsP7rDsPEkZaw11AWa9svT
+	TD5vBPSegsyvsvZkbEB0PS0xsn9ixWgiCVMSiHctdccbBiFO2AJvqaEUAfhCA5eRNhhEtibfZHf
+	BRI+fdix72l426l6qWqVXm81aW3JuZMBBrCWh4CiBLk75y7H/4n0leun7FlfiT+0iEInPiE1eDp
+	aZKI=
+X-Received: by 2002:a05:600c:3486:b0:4a1:722a:d2a3 with SMTP id 5b1f17b1804b1-4a211eec13amr18677595e9.23.1792737626234;
+        Thu, 22 Oct 2026 23:40:26 -0700 (PDT)
 Received: from [192.168.1.22] (cst-prg-49-173.cust.vodafone.cz. [46.135.49.173])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.21
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 23:40:23 -0700 (PDT)
+        Thu, 22 Oct 2026 23:40:25 -0700 (PDT)
 From: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 X-Google-Original-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Fri, 23 Oct 2026 08:39:40 +0200
-Subject: [PATCH v3 15/16] arm64: dts: ti: k3-j722s: Add second submailbox
- to the C7x cores
+Date: Fri, 23 Oct 2026 08:39:41 +0200
+Subject: [PATCH v3 16/16] arm64: dts: ti: k3-j722s: Reference the power
+ domains of the C7x timers
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -97,7 +97,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-thames-v3-15-3ab40aa17157@tomeuvizoso.net>
+Message-Id: <20261023-thames-v3-16-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 In-Reply-To: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 To: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
@@ -128,62 +128,42 @@ Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-remoteproc@vger.kernel.org, linux-hardening@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-For firmware that uses something other than RPMsg for communication with
-the Linux kernel.
+Make sure that the timers are powered up so the firmware can use them.
 
 Assisted-by: LLM
 Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 ---
- arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-index a59c3648d805..611220ff2655 100644
+index 611220ff2655..7639081dc913 100644
 --- a/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
 +++ b/arch/arm64/boot/dts/ti/k3-j722s-ti-ipc-firmware.dtsi
-@@ -86,6 +86,11 @@ mbox_c7x_0: mbox-c7x-0 {
- 		ti,mbox-rx = <0 0 0>;
- 		ti,mbox-tx = <1 0 0>;
- 	};
-+
-+	mbox_c7x_0_client: mbox-c7x-0-client {
-+		ti,mbox-rx = <3 0 0>;
-+		ti,mbox-tx = <2 0 0>;
-+	};
- };
- 
- &mailbox0_cluster3 {
-@@ -100,6 +105,11 @@ mbox_c7x_1: mbox-c7x-1 {
- 		ti,mbox-rx = <2 0 0>;
- 		ti,mbox-tx = <3 0 0>;
- 	};
-+
-+	mbox_c7x_1_client: mbox-c7x-1-client {
-+		ti,mbox-rx = <5 0 0>;
-+		ti,mbox-tx = <4 0 0>;
-+	};
- };
- 
- /* Timers are used by Remoteproc firmware */
-@@ -152,14 +162,16 @@ &main_r5fss0_core0 {
- };
- 
- &c7x_0 {
--	mboxes = <&mailbox0_cluster2 &mbox_c7x_0>;
-+	mboxes = <&mailbox0_cluster2 &mbox_c7x_0>,
-+		 <&mailbox0_cluster2 &mbox_c7x_0_client>;
+@@ -166,6 +166,14 @@ &c7x_0 {
+ 		 <&mailbox0_cluster2 &mbox_c7x_0_client>;
  	memory-region = <&c7x_0_dma_memory_region>,
  			<&c7x_0_memory_region>;
++	/*
++	 * Both timers on each core: core 0's firmware drives TIMER1 and core
++	 * 1's TIMER2; two entries also keep the platform bus from attaching the
++	 * domain to the K3 driver's device.
++	 */
++	power-domains = <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
++			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
++	power-domain-names = "timer1", "timer2";
  	status = "okay";
  };
  
- &c7x_1 {
--	mboxes = <&mailbox0_cluster3 &mbox_c7x_1>;
-+	mboxes = <&mailbox0_cluster3 &mbox_c7x_1>,
-+		 <&mailbox0_cluster3 &mbox_c7x_1_client>;
+@@ -174,5 +182,8 @@ &c7x_1 {
+ 		 <&mailbox0_cluster3 &mbox_c7x_1_client>;
  	memory-region = <&c7x_1_dma_memory_region>,
  			<&c7x_1_memory_region>;
++	power-domains = <&k3_pds 37 TI_SCI_PD_EXCLUSIVE>,
++			<&k3_pds 38 TI_SCI_PD_EXCLUSIVE>;
++	power-domain-names = "timer1", "timer2";
  	status = "okay";
+ };
 
 -- 
 2.54.0
