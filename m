@@ -1,150 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792794528;
-	b=v5lZtVkse4bCTEhddS7NwRz8xxXlHrE52XLg6UJUkwQd/dYPKslNO4WbFiBxZNDuPkne
-	 BYcMRAhqb1WUBEOlc+1jR8nxwDgI3LN9J53VIpLrOchALIOFj2rIsdEZX1lOYYqJLEOej
-	 OzRf9WaXO+kg0owLEW/XM/hjEOSw/Mf157LeKkJHegGp9k8ZlKtEVQl8YwKlHWKULAr7V
-	 ho/o8J4tydp93NPWq+IfV3CjfF+HFsKmZEG5jlAzJenQnKzqwwGWX18pTVdJx06bNE53g
-	 MpqlPGwe2ZBN5QKUQG2wyWiyqovgVzxZKOw868oOyngi5u80Yo6N9BBvp4KxVjqIBVA==
+	t=1792794708;
+	b=vYN0j31kQcrEK9DjfvWF1knSsWotQ7RvVS4AhjxcsEMeKUGXJEoet62yBVgACbTyvH1x
+	 B1g569uPS7lAP1Ju6okr75QotVYpUvXeMyhT8uhaBRuQTstpSszLJzGM7YtLzHHXqDy9X
+	 IueV9p5Xvo2+7pUahh4UlV/0pxG9jXnSOHEttKtIf/UqV6tMgJXEt/pf+znCuUTmRLbam
+	 dYlrAsXRZdTM0Jm5h3dzbPJjOjaop8UnSFt2iyfS4q9cvyabBKM+MpK3qSi+XasONU44e
+	 wofsoKIP9SblFsIKIUkNRbxGcai8N9prkR65Qmu0ac+k8EwHTfp0kUGRwBF0m+KP1lw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792794528;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ld-processed:
-	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
-	 x-microsoft-antispam:x-microsoft-antispam-message-info:
-	 x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:
-	 x-ms-exchange-antispam-messagedata-1:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wdFk9NNRyZFOcFIMWpHQR1F6XInuxFlekcQdqCxL6RI=;
-	b=D1/m8RgJPtmLKYLhz/4HGVy5kOceDeXPkDxLYviOHm6RuUdM8MyhNjnwMcVUA7BSK0g9
-	 z5+5XEgo8cpA0Lj3cKfYgijjSayAwL9B25NpFtR2JZ9ttctXZSvzTZ1ar+v6pZBfkXJR3
-	 hjA2iMgxAFUYx1VgKR7PjE9Zw9nkTGeXzJuXjZAQTRu70+9uP0ZPvgrjpkKDDtNfCdzlk
-	 D9mVU+QT4IMa3wbcMdGQrQr/4rRhqPRr6w1QRyWbhPZIYFlZU6f6SJ8Jqoi0okTQ0AmNC
-	 96+J+tVe87anzJazW8eIGWRlR9oxFmbaVNjQMDm0iTJAIKWdRcr14vm7ESUNcnPmmdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792794708;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
+	b=nyWzXKfcP0fVoSXv6jW41wFg8g7zmRAs0/RZAcfvl76w3SIL5FaZs0ik3pZO9W8OxoSQ
+	 G7/jn3uq2jDLd55Gp22y58FYLHr/b7sCrcGzEWkyIl9vRLqh5lnh/JT1bglP9A9XI0J+8
+	 AbuiNc5EopnM2SmEuu5TDhUM6M+FrGi33BK34RMmo1bQH4AEIJcnDaFTCjcALbLlgLKra
+	 imSWjh2nOjqMvsI3O5xO5h/zGQhUiZWkdb9KpMph+Wb4GmXqrBoDm0BwkFXj1hxbOirfb
+	 KCrpswlSQLBWGzK5XkBK05MqJoFRtUmr7FqUwIe7gBVlyo/Y7ddnIKM/c2LHbN9SfOQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leica-geosystems.com;
-	spf=fail smtp.mailfrom=leica-geosystems.com;
-	dkim=pass header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=jrmuAi64;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.70.53
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011053.outbound.protection.outlook.com [52.101.70.53])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l52pk1dG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F212C606A31A;
-	Fri, 23 Oct 2026 22:28:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F212C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=leica-geosystems.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=leica-geosystems.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899F3606A31D;
+	Fri, 23 Oct 2026 22:31:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=leica-geosystems.com header.i=@leica-geosystems.com header.a=rsa-sha256 header.s=selector1 header.b=jrmuAi64
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=en23i8pdhxPpHQbJ4b5KS5UdBoWtwO0e8RidzPQRDKJX+fbM17Zwn5RwhO5MBaCn+w1JKvqNjRABhVgVWM1XMfn2R4OWvThz0oC9XORzU9aZpoBZVAvgvpCSUHqsdNlFfVCzrx30v7oiNQ1PSQksqRCbCe+U55U9GWX/8PKFVF8t+DaEUgyUeG6TXk/aTG1ZLhSKg8KPOYD3ed76MVXGLP438tWx34dm6rGW/l3j+OeByoeBSaTBYAS405pdTcJhMnh7w5Xdcn4lrsupeSoXkVLTX/fZi0H1OWI00fmEAM1h+SLhLQMr6PQt6A5AL1wcDpnhHvzu+I6ZQxWIvAJ7+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wdFk9NNRyZFOcFIMWpHQR1F6XInuxFlekcQdqCxL6RI=;
- b=Xb4smd4bia9HrHEFbcX8ff1HNJwPiJK6zoxVzyYz4atMhkHXP5sll/HXfXb4t5z11HoCXXTA/PbKaMhp3iCPRjzD5EnvV9IQSM8vDSkPM83UOPLYw+zaEoV4nkp5WXpqblqcVS3RIAqqDZnyTVPY8p1Q6FqYY2Gspqn5ydJQcxhjpKrFo4fxJmEfoUl7z+3/GB/4C8Qa0tW/N5eNmShXQm0K/uNEJ+cdsJx6h/WnpnGLoY8mcjbeaKk+dfLkoyBR5qEbfPSPueI4VMrps/Jf+iRvL6uDSd0B1fnsAWloBzmtxvvjzBct853rRfqIg1Tc5VNCoEo1UdYokv0qP/dyww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=leica-geosystems.com; dmarc=pass action=none
- header.from=leica-geosystems.com; dkim=pass header.d=leica-geosystems.com;
- arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=leica-geosystems.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wdFk9NNRyZFOcFIMWpHQR1F6XInuxFlekcQdqCxL6RI=;
- b=jrmuAi64gSYLCrK5hOLUQy0leyIiOY/EduW88sF30eDtyoayr4imMZo+v2E7Po0oC10rud83ghxrunfBwix4/B5bpQQECb7BkoDUKapc1Il/qFTuOxF4iaQh9UG76S2Lf9KMOBVKpbYOUpmLm8WsM2QpMrVye3vfHJcUzDmpQ4s=
-Received: from GV1PR06MB8369.eurprd06.prod.outlook.com (2603:10a6:150:20::14)
- by AMBPR06MB10889.eurprd06.prod.outlook.com (2603:10a6:20b:759::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.18; Fri, 23 Oct
- 2026 22:28:45 +0000
-Received: from GV1PR06MB8369.eurprd06.prod.outlook.com
- ([fe80::fd32:c33a:c0db:65d0]) by GV1PR06MB8369.eurprd06.prod.outlook.com
- ([fe80::fd32:c33a:c0db:65d0%6]) with mapi id 15.21.0546.017; Fri, 23 Oct 2026
- 22:28:45 +0000
-From: BRETSCHNEIDER Max <max.bretschneider@leica-geosystems.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-CC: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] media: i2c: ov08d10: add get_selection support
-Thread-Topic: [PATCH] media: i2c: ov08d10: add get_selection support
-Thread-Index: AQHdWbp97kJFwSosak2iR6ujkOIPEbb5rewAgBH8Ve4=
-Date: Fri, 23 Oct 2026 22:28:45 +0000
-Message-ID:
- <GV1PR06MB83698BCD22508BA5DF19A0A1D3642@GV1PR06MB8369.eurprd06.prod.outlook.com>
-References:
- <20261011-ov08d10-get-selection-v1-1-5debe6436765@leica-geosystems.com>
- <asywCh3X0yJVcxRd@kekkonen.localdomain>
-In-Reply-To: <asywCh3X0yJVcxRd@kekkonen.localdomain>
-Accept-Language: en-CH, en-US
-Content-Language: aa
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=leica-geosystems.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV1PR06MB8369:EE_|AMBPR06MB10889:EE_
-x-ms-office365-filtering-correlation-id: 48ae583e-e129-4eeb-2af2-08df3154fff3
-x-ld-processed: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|376014|1800799024|10070799003|366016|6133799003|18002099003|22082099003|38070700021|11063799006|56012099006|10067099003|4143699003|261022075727099003|261022113327099003|261022105027099003|261021135927099003|261021121427099003|261009223027099003;
-x-microsoft-antispam-message-info:
- /WD0m9KkSMWv8+NOaLCVLT13B+BUbOmQYJEK05r8aqxvPcpmZ6C7vW06jUJDYKVgDzI3kt2xo6wKcJuwb4jmA4www121o0THprWhdFhnn4p2plShP3VULW5iFQxN6GW9dL2XsQ8lhuAa2TQg4PD29R+iVX8Q5dceouz7KV+9yWIL/cLIPtXwvceTKtPTQjZUkQBVlvP+FfubM8i4IVfBcL8AMox92plr5g9bTPkUPJSfY44IDlGeU0+EXgwmfDXMtzR1TFJuk4fvlZFRR5issAGuaJy6j3NLjA0rqVrBSyHvRmo473pg0CzhaGRKWDijrfM3BAylkiTxx76Hsy2lvvwhtGpYS35kCwTljm20vt7VMTRRcyCbZMI6Jx2Q4udA1l8CUIGVrQyuntvsG2jnl3kGpZQ+w2iiT8IAi8Zf9Mt6vi7hrN4XNEZRephnC1oTNDrV4axfH9dNieZkQwUjxSYLx0sroyInCMoPI59cz8IcmRCKH7IsaJA3MoBRGC8dmn1RnjnFUGfy7ErhA5WS6QTQRJ4FhYIwCyvOUYpz/eHTrysVDMMW9TVmVKMoIM6Iw6K+TKm38j1n8djUnWx3keXTNcAyvtS+xBm6MVxYl044XKSKfKBVt9c+b/xpx8ud0nGGwHk/K15ZLGifuHKpNhgnsisUqSQ5tW56T9nN5FlyGe0GrOiraPYi/q4NdfO4iAUMySb1tNrHUWnY0T916k7+AMEICRUWttwyfN+TI0A=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR06MB8369.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(10070799003)(366016)(6133799003)(18002099003)(22082099003)(38070700021)(11063799006)(56012099006)(10067099003)(4143699003)(261022075727099003)(261022113327099003)(261022105027099003)(261021135927099003)(261021121427099003)(261009223027099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?VI6oHfloNmUIGv9i/CxIwF09Okm77iUh5u8F+bP/5K3aRWa4SGFL5QHU9EYV?=
- =?us-ascii?Q?l/jlNTcy0Z2y8Wy/epGAEv2e3sgwz38tLyeR74wj5n4pyIJG7ripE7xIOz5S?=
- =?us-ascii?Q?g8N+YPtpazbQ8UgDaf6V/ghEXOUJD4C05r53aVYYYNw9wBMPpzTZL3JJWK08?=
- =?us-ascii?Q?Oyh2TXD5gcIo32nhURV/UqHAPXuyN1M5VPws2h/1dc4Mty+/CqCzeomCoTO2?=
- =?us-ascii?Q?iZyBNfvWVl3ZtdUGGQ+an81xFrNMacNBOnE3MYual2dwg/MP++Ljjme0AXVm?=
- =?us-ascii?Q?jR7eO2mtsX8w5+N2RTscugXOh9JaWuX66HkSuZo2w71mT322lR4msyksPFJV?=
- =?us-ascii?Q?vd1qyNx1fMFwxlF2lJmaMyQgMY2lhrNTsUkBozL3a3u5u0WfOXhXMZel+uAA?=
- =?us-ascii?Q?s6n2hvnaAw/B1SMMac1zJEXTlAc19F4aZNavNoe4FwF+kSXs7xLwwd66l9tx?=
- =?us-ascii?Q?r+AYDAZtnLfVOjKEgVvuQoX0fw6iGHRJq9uhZc6PXuF34eraeqMn08PbFxT2?=
- =?us-ascii?Q?tYvlwB/8lCkLzbUym3oZHyk+YQ/7op3JcWJyqS5TX0z9ThdcpEZSaPL8Ia4f?=
- =?us-ascii?Q?/FX+fQ+27FeNXJqdvuykO4wa+0v6vkd2WJnoS+n8KKHUrIXaXhxHseHZRz2V?=
- =?us-ascii?Q?TqkCIsfZlRF0tNezfv/zH3E86N7l7EsKNoG8HLzbL/NwXn5DByOqF3OoWLON?=
- =?us-ascii?Q?8NhYMC79VOwALjYawlwcl6358HiV1zbJtL/v2VA96B6nRWgn3JAH5Wbb4/0Y?=
- =?us-ascii?Q?99ZUD7+91clL2o9+VB4gotwaJj5uNIpMMdythG6DZueEtOPCIC8xESTUi6pz?=
- =?us-ascii?Q?TjHgZACUYtq2DZ9TReKfAzCmAOhFvwJN6LfUH0wVc414fVrvDTkPSTAfrTzG?=
- =?us-ascii?Q?sA+mf0aCUrMlbjTB0HfibavAubcnuhCWnEVAxO2aL/bWXBhfNNDsxzaauPET?=
- =?us-ascii?Q?dwoYnD5BnXaHQf6T3R1NuCVTruoEg2+3YojI6gyBjAyAGk9tSbxC3qDRnnLD?=
- =?us-ascii?Q?tv2V9H7MjOWvI/2w9xaWYbApTYS33patB6awaNU9cUexrANrbAd2Bc2INmyo?=
- =?us-ascii?Q?WJi5zeTUz86H0mxF9TAXe7fFecM5UzBWsWWGyLK+BIkYuZi06zHCIGh9IFI9?=
- =?us-ascii?Q?ImVof8oI2TZK4ELIST8z8El5hd48sEhZovqs2xY75UNbV5tTxPDKe1WOzBJf?=
- =?us-ascii?Q?vFheb0DhekXI/2Rbfl6dlpeosBMVOLLhYZme5E58vLQF1jppV8yGYFNPLLS8?=
- =?us-ascii?Q?xFGX2DjzHNnih8B8Q84tPd61Rbac86Cn2OoLgSDBr3BUa86ebSXVPEarQ3ag?=
- =?us-ascii?Q?h8GnhYoXsO2SnU/BJXmbJQM6jnQ9Arx7hqkJ5fWAEyN1xn+L/cI6M1iBwarn?=
- =?us-ascii?Q?oankRYmV9csofgOQvlKP08hXjZk9EarGWj+9VhOrjv1w3TT5fFSCJ9vFk12t?=
- =?us-ascii?Q?y7Hijjl+PpeJnC7yrlzzHe86dqdEj1Fw7KK8rGWY4nsMgMQxJBkAae17mM80?=
- =?us-ascii?Q?aqhzicTWtwVIGAjSercR3Jr8SWczdT183t5bi4tQahan1sLgYXrk14X+oLRa?=
- =?us-ascii?Q?qZU6L6pHJQ8DxyBt9rd7yAtoKkUDqF+ZFFE7Em8Ei9g9rbI5Gr0k1kh7q9Sf?=
- =?us-ascii?Q?Um3y1svG4wEp5ZPhDnEiOk8U3/b9O/tiWt8ScewfAnP8yNBfzgpBvprg1186?=
- =?us-ascii?Q?7fl6EB6xFTXUZ4343Uq2pFLxuIdpmxIYqYYgLLbdVWIoouhrP+Nacv/4/2sC?=
- =?us-ascii?Q?xaAQbW/VsIxbbiMTicQ9VdnKzIi27dQdyD4Vk+kOjLWtDlyBcFBibF7XU/1P?=
-x-ms-exchange-antispam-messagedata-1:
- KvTj6oZH7ULOYvpRXTgT6NC+Na03E7STmvLnsy4QhuNRxP9XHb1QRLnj
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l52pk1dG
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792794708;
+	b=Q/jlTaToqpPf0FUsxiB3cir/g0Vg00xuf+PX7W/v+Cj79J5PUxv+aALpiaw+4kL1A2EA
+	 uqzYRgAYQ3rJRV8gauynHJyns67GdFhwcyKEZzUo45L1eH34671idAuePkh6DMDTKJF3H
+	 mnTX9p9XDCkXwML9HQ9oRAeFAxAcIEq8QnpQFlqAnTPzVKyC6y6r5+NsSfOW9/x9py3U/
+	 kRQNJS0XsWspN5P5ECP+xO6LpKATuNB3Z7sbZtTFJbzqhv5K4MoTpn4qxq3+Pgn23TJ52
+	 h5uMxF5lzwhM0A51tLpJGgj/813PFHg4Hh2yuTvZ/ETtQc6h/08hA+hEL7j2UO5HTcQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792794708;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
+	b=ZBjban3nPBn30dwy7kMxPjgoxCbuR8RNTNcZQc0a7K7phSBG6hD1CJydwjC0ECyISwH4
+	 iKo72hUCuuuoo3KTVTeePRb4sPE90YLwcs8MVIUDBIZ71s0Rw/hmTa2FLmV0EjDoWI4fD
+	 /yir+7e0HovABJdcCYb8XSUz1V23JXXTfA90X6hnctfhyc6AQ5Q/R64wNMvCU8AUoeH0f
+	 mkG38/VsQMJoXSIyo2RMxCrU1x7pfz/5WCVLyFhewxigt4VIwgf0d6xQewBxG0tzudOaT
+	 jquMTaAOzz3SmJJxbxLRmBKYrRvcAd8OQdradd+wHrbNhDREu6Z5Xt99EL0ZacjmsFg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 81B061F01825;
+	Fri, 23 Oct 2026 22:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792794708;
+	bh=l1hLfNmJm6Tp07iYdqWR4eMFaTYBny+F5j2RVqR8uzs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=l52pk1dGqCk7vnqoRBzX/U5LPsK26TXEgiVje5uRUpnWU0HkPy8CujFYruuJ6KpDO
+	 r2I4sQMGAcuAHbByXrkxL/ccE6KPyCUm7DMpzrSn+gF9ZV9BP94bhy8F1C8d7OM/av
+	 O0VM0z4BiEsmiPnJS+TJbqd1gd4JO/4bq4feEkPWr+fR1ZpluFc6ec8hXZBVDQd9xD
+	 /4YDKR6PT4Z/mg98or3b3EMSKVupB8G4M4pabM91kX4Vv98/Dx7HMKI56Ge7raVNQs
+	 nwSfHeMtvZ3rveLX1n+NnQ2ifHYKIsYFf11yoI8bxEIbZEGL7yGeZ816abanlP5Tdj
+	 FZvwifqyrxHEw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id EB20944659;
+	Fri, 23 Oct 2026 22:31:46 +0000 (UTC)
+From: Max Bretschneider via B4 Relay <devnull+max.bretschneider.leica-geosystems.com@kernel.org>
+Date: Sat, 24 Oct 2026 00:28:52 +0200
+Subject: [PATCH v2 2/4] media: i2c: ov08d10: use the subdev active state
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -154,103 +82,284 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: leica-geosystems.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV1PR06MB8369.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48ae583e-e129-4eeb-2af2-08df3154fff3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Oct 2026 22:28:45.0910
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 1b16ab3e-b8f6-4fe3-9f3e-2db7fe549f6a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /eMWbtPU1ktEeT2mCY/GgV0/D/LJ49nzzSzpJFHWae4FnTtL6JNkN5yQvkyhffxwtqERxksPv3O26Pv9gkFSSw3JBSjt7J20nVs328De3LPVXhw4gkLKdrNEr5wAHkEX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR06MB10889
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261024-ov08d10-get-selection-v2-2-f8c49972ca18@leica-geosystems.com>
+References: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
+In-Reply-To: <20261024-ov08d10-get-selection-v2-0-f8c49972ca18@leica-geosystems.com>
+To: Jimmy Su <jimmy.su@intel.com>, Matthias Fend <matthias.fend@emfend.at>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Max Bretschneider <max.bretschneider@leica-geosystems.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792794706; l=8528;
+ i=max.bretschneider@leica-geosystems.com; s=20260501;
+ h=from:subject:message-id;
+ bh=UO43Xv2+J6Y1h2wiVWCTdjZyFn23oU70HMAlGwInR+0=;
+ b=Cm565KJjeQj4HmyAW7kcM147NrU7IdNINN4aQt8pOCZ746tCnJBZHzRzrTXqTzqiF3MjxoovV
+ NiSzQuwvenUCth1ncGAQFC3zMpzWpHwun+vJ6wXpCmN/CgBn4i3pE39
+X-Developer-Key: i=max.bretschneider@leica-geosystems.com; a=ed25519;
+ pk=jf4ba33jrWlsOdGemi2InMtJAngoJVZU8Moetp0ixik=
+X-Endpoint-Received: by B4 Relay for
+ max.bretschneider@leica-geosystems.com/20260501 with auth_id=1161
+X-Original-From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+Reply-To: max.bretschneider@leica-geosystems.com
+Content-Transfer-Encoding: 7bit
 
-Hi Sakari, =0A=
-=0A=
-thank you for the review! Sorry it took me a while to get through this. v2 =
-follows.=0A=
-=0A=
-> > Tested on a Hexagon/Leica CS50 (i.MX8MP, rkisp1) running 6.16.12 with t=
-he=0A=
-> > equivalent of this patch applied, where it fixes configuration of the 2=
-x2=0A=
-> > binned 1632x1224 mode with libcamera's rkisp1 CAC algorithm enabled.=0A=
-> > Compile-tested against media/next.=0A=
->=0A=
-> Can you test on a newer kernel? That being said, there are unlikely to be=
-=0A=
-> issues without that, but it's better to be sure.=0A=
-=0A=
-Yes I will test this on a newer kernel as well but my hardware access is cu=
-rrently =0A=
-a bit limited, so it will probably take me a week or two. =0A=
-=0A=
-> > +     .get_selection =3D ov08d10_get_selection,=0A=
->=0A=
-> It'd be nice to have the same ordering as in the driver (and also not pla=
-ce=0A=
-> the get_selection callback in the middle of control handling).=0A=
-=0A=
-Moved it out of the control handling section so it now sits with the other=
-=0A=
-pad op implementations. With that the struct order already matches the =0A=
-order in the driver, so I have left the struct itself alone (apart from add=
-ing=0A=
-the get_selection entry)=0A=
-=0A=
-> > +     ret =3D v4l2_subdev_init_finalize(&ov08d10->sd);=0A=
->=0A=
-> Can you convert this driver to fully utilise sub-device state, as you're=
-=0A=
-> initialising it here?=0A=
->=0A=
-> There's probably not much to do, but in particular the active format shou=
-ld=0A=
-> be stored in sub-device state and the control handler's lock be used as t=
-he=0A=
-> state lock. Also storing the active mode in the context struct would be=
-=0A=
-> nice to avoid. These should constitute a separate patch (that also includ=
-es=0A=
-> init_finalize()/cleanup() calls) before this one.=0A=
-=0A=
-Done, but I stumbled on some things which is why this grew into a small ser=
-ies. v2 is:=0A=
-1. A fix for a NULL pointer dereference in ov08d10_get_hwcfg(), which logs =
-=0A=
-ov08d10->cur_mode->data_lanes before cur_mode is assigned in probe(). I fou=
-nd this =0A=
-while doing patch #3. It is tagged for stable and patch 3 does depend on it=
-, but of=0A=
- course I am happy to send that seperately if you would prefer this.=0A=
-2. Conversion to the subdev active state.=0A=
-3. Dropping the (now-redundant) cached mode pointer and recovering the mode=
- =0A=
-now from the state (like imx{214,355} do).=0A=
-4. get_selection, as in v1.=0A=
-=0A=
-One thing about patch 2 I was unsure about and wanted to mention: it replac=
-es the=0A=
- driver's get_fmt() with v4l2_subdev_get_fmt(). The old get_fmt() recompute=
-d the media=0A=
- bus code from the flip controls on every call. The new version in patch 2 =
-now refreshes =0A=
-the stored code in set_ctrl() instead. There are other ways to deal with th=
-is which I found, =0A=
-for example ov02c10, where the readout window is shifted when flipping to a=
-void a Bayer=0A=
- order mismatch entirely. I am not fully certain but maybe this would be an=
- option on the =0A=
-ov08d10 too, although whether it would be the better option I don't know. =
-=0A=
-=0A=
-Also I thought it'd now make sense to split patches 2 and 3 mainly so that =
-the media bus=0A=
-code refresh part in patch 2 can be reviewed on its own. Of course I'd also=
- be happy to =0A=
-squash them if you would prefer that.=0A=
-=0A=
---=0A=
-Thanks again and best regards,=0A=
-Max=
+From: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+
+Port the driver to the subdev active state. This simplifies locking,
+replacing the driver's own mutex with the control handler lock, which is
+also used as the state lock, and allows the driver's get_fmt
+implementation to be replaced by v4l2_subdev_get_fmt().
+
+Sharing those two locks means the state is held whenever set_ctrl() runs,
+so the control callbacks can access the stored format directly, and the
+__v4l2_ctrl_*() helpers can be called from the pad operations.
+
+The driver's get_fmt() recomputed the media bus code from the flip controls
+on every call, and so always reported the Bayer order matching the current
+flip settings. v4l2_subdev_get_fmt() returns the stored format instead, so
+the code is now refreshed in set_ctrl() when the flips change. The flip
+controls carry V4L2_CTRL_FLAG_MODIFY_LAYOUT, which tells userspace that
+changing them may modify the media bus format on the source pad.
+
+Signed-off-by: Max Bretschneider <max.bretschneider@leica-geosystems.com>
+---
+ drivers/media/i2c/ov08d10.c | 84 ++++++++++++++++++---------------------------
+ 1 file changed, 34 insertions(+), 50 deletions(-)
+
+diff --git a/drivers/media/i2c/ov08d10.c b/drivers/media/i2c/ov08d10.c
+index 4dc68ff89eda..f19c056608ea 100644
+--- a/drivers/media/i2c/ov08d10.c
++++ b/drivers/media/i2c/ov08d10.c
+@@ -571,9 +571,6 @@ struct ov08d10 {
+ 	/* Current mode */
+ 	const struct ov08d10_mode *cur_mode;
+ 
+-	/* To serialize asynchronous callbacks */
+-	struct mutex mutex;
+-
+ 	/* lanes index */
+ 	u8 nlanes;
+ 
+@@ -913,6 +910,15 @@ static int ov08d10_set_ctrl(struct v4l2_ctrl *ctrl)
+ 					 exposure_max);
+ 	}
+ 
++	/* The flips change the Bayer order, refresh it even while powered off */
++	if (ctrl->id == V4L2_CID_HFLIP || ctrl->id == V4L2_CID_VFLIP) {
++		struct v4l2_subdev_state *state =
++			v4l2_subdev_get_locked_active_state(&ov08d10->sd);
++
++		v4l2_subdev_state_get_format(state, 0)->code =
++			ov08d10_get_format_code(ov08d10);
++	}
++
+ 	/* V4L2 control values will be applied only when power is already up */
+ 	if (!pm_runtime_get_if_in_use(ov08d10->dev))
+ 		return 0;
+@@ -976,7 +982,6 @@ static int ov08d10_init_controls(struct ov08d10 *ov08d10)
+ 	if (ret)
+ 		return ret;
+ 
+-	ctrl_hdlr->lock = &ov08d10->mutex;
+ 	link_freq_size = ARRAY_SIZE(ov08d10->priv_lane->link_freq_menu);
+ 	ov08d10->link_freq =
+ 		v4l2_ctrl_new_int_menu(ctrl_hdlr, &ov08d10_ctrl_ops,
+@@ -1147,13 +1152,14 @@ static void ov08d10_stop_streaming(struct ov08d10 *ov08d10)
+ static int ov08d10_set_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
++	struct v4l2_subdev_state *state;
+ 	int ret = 0;
+ 
+-	mutex_lock(&ov08d10->mutex);
++	state = v4l2_subdev_lock_and_get_active_state(sd);
+ 	if (enable) {
+ 		ret = pm_runtime_resume_and_get(ov08d10->dev);
+ 		if (ret < 0) {
+-			mutex_unlock(&ov08d10->mutex);
++			v4l2_subdev_unlock_state(state);
+ 			return ret;
+ 		}
+ 
+@@ -1172,7 +1178,7 @@ static int ov08d10_set_stream(struct v4l2_subdev *sd, int enable)
+ 	__v4l2_ctrl_grab(ov08d10->vflip, enable);
+ 	__v4l2_ctrl_grab(ov08d10->hflip, enable);
+ 
+-	mutex_unlock(&ov08d10->mutex);
++	v4l2_subdev_unlock_state(state);
+ 
+ 	return ret;
+ }
+@@ -1192,12 +1198,10 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
+ 				      width, height, fmt->format.width,
+ 				      fmt->format.height);
+ 
+-	mutex_lock(&ov08d10->mutex);
+ 	ov08d10_update_pad_format(ov08d10, mode, &fmt->format);
+-	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
+-		*v4l2_subdev_state_get_format(sd_state, fmt->pad) =
+-								fmt->format;
+-	} else {
++	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
++
++	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+ 		ov08d10->cur_mode = mode;
+ 		__v4l2_ctrl_s_ctrl(ov08d10->link_freq, mode->link_freq_index);
+ 		pixel_rate = to_rate(ov08d10->priv_lane->link_freq_menu,
+@@ -1221,27 +1225,6 @@ static int ov08d10_set_format(struct v4l2_subdev *sd,
+ 					 h_blank);
+ 	}
+ 
+-	mutex_unlock(&ov08d10->mutex);
+-
+-	return 0;
+-}
+-
+-static int ov08d10_get_format(struct v4l2_subdev *sd,
+-			      struct v4l2_subdev_state *sd_state,
+-			      struct v4l2_subdev_format *fmt)
+-{
+-	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+-
+-	mutex_lock(&ov08d10->mutex);
+-	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+-		fmt->format = *v4l2_subdev_state_get_format(sd_state,
+-							    fmt->pad);
+-	else
+-		ov08d10_update_pad_format(ov08d10, ov08d10->cur_mode,
+-					  &fmt->format);
+-
+-	mutex_unlock(&ov08d10->mutex);
+-
+ 	return 0;
+ }
+ 
+@@ -1254,9 +1237,7 @@ static int ov08d10_enum_mbus_code(struct v4l2_subdev *sd,
+ 	if (code->index > 0)
+ 		return -EINVAL;
+ 
+-	mutex_lock(&ov08d10->mutex);
+ 	code->code = ov08d10_get_format_code(ov08d10);
+-	mutex_unlock(&ov08d10->mutex);
+ 
+ 	return 0;
+ }
+@@ -1270,12 +1251,8 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
+ 	if (fse->index >= ov08d10->modes_size)
+ 		return -EINVAL;
+ 
+-	mutex_lock(&ov08d10->mutex);
+-	if (fse->code != ov08d10_get_format_code(ov08d10)) {
+-		mutex_unlock(&ov08d10->mutex);
++	if (fse->code != ov08d10_get_format_code(ov08d10))
+ 		return -EINVAL;
+-	}
+-	mutex_unlock(&ov08d10->mutex);
+ 
+ 	fse->min_width = ov08d10->priv_lane->sp_modes[fse->index].width;
+ 	fse->max_width = fse->min_width;
+@@ -1285,14 +1262,13 @@ static int ov08d10_enum_frame_size(struct v4l2_subdev *sd,
+ 	return 0;
+ }
+ 
+-static int ov08d10_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
++static int ov08d10_init_state(struct v4l2_subdev *sd,
++			      struct v4l2_subdev_state *sd_state)
+ {
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+ 
+-	mutex_lock(&ov08d10->mutex);
+ 	ov08d10_update_pad_format(ov08d10, &ov08d10->priv_lane->sp_modes[0],
+-				  v4l2_subdev_state_get_format(fh->state, 0));
+-	mutex_unlock(&ov08d10->mutex);
++				  v4l2_subdev_state_get_format(sd_state, 0));
+ 
+ 	return 0;
+ }
+@@ -1303,7 +1279,7 @@ static const struct v4l2_subdev_video_ops ov08d10_video_ops = {
+ 
+ static const struct v4l2_subdev_pad_ops ov08d10_pad_ops = {
+ 	.set_fmt = ov08d10_set_format,
+-	.get_fmt = ov08d10_get_format,
++	.get_fmt = v4l2_subdev_get_fmt,
+ 	.enum_mbus_code = ov08d10_enum_mbus_code,
+ 	.enum_frame_size = ov08d10_enum_frame_size,
+ };
+@@ -1314,7 +1290,7 @@ static const struct v4l2_subdev_ops ov08d10_subdev_ops = {
+ };
+ 
+ static const struct v4l2_subdev_internal_ops ov08d10_internal_ops = {
+-	.open = ov08d10_open,
++	.init_state = ov08d10_init_state,
+ };
+ 
+ static int ov08d10_power_off(struct device *dev)
+@@ -1471,6 +1447,7 @@ static void ov08d10_remove(struct i2c_client *client)
+ 	struct ov08d10 *ov08d10 = to_ov08d10(sd);
+ 
+ 	v4l2_async_unregister_subdev(sd);
++	v4l2_subdev_cleanup(sd);
+ 	media_entity_cleanup(&sd->entity);
+ 	v4l2_ctrl_handler_free(sd->ctrl_handler);
+ 	pm_runtime_disable(ov08d10->dev);
+@@ -1478,7 +1455,6 @@ static void ov08d10_remove(struct i2c_client *client)
+ 		ov08d10_power_off(ov08d10->dev);
+ 		pm_runtime_set_suspended(ov08d10->dev);
+ 	}
+-	mutex_destroy(&ov08d10->mutex);
+ }
+ 
+ static int ov08d10_probe(struct i2c_client *client)
+@@ -1545,7 +1521,6 @@ static int ov08d10_probe(struct i2c_client *client)
+ 		goto probe_error_power_off;
+ 	}
+ 
+-	mutex_init(&ov08d10->mutex);
+ 	ov08d10->cur_mode = &ov08d10->priv_lane->sp_modes[0];
+ 	ret = ov08d10_init_controls(ov08d10);
+ 	if (ret) {
+@@ -1566,17 +1541,27 @@ static int ov08d10_probe(struct i2c_client *client)
+ 	pm_runtime_set_active(ov08d10->dev);
+ 	pm_runtime_enable(ov08d10->dev);
+ 
++	ov08d10->sd.state_lock = ov08d10->ctrl_handler.lock;
++	ret = v4l2_subdev_init_finalize(&ov08d10->sd);
++	if (ret) {
++		dev_err(ov08d10->dev, "failed to init subdev state: %d\n", ret);
++		goto probe_error_media_entity_cleanup;
++	}
++
+ 	ret = v4l2_async_register_subdev_sensor(&ov08d10->sd);
+ 	if (ret < 0) {
+ 		dev_err(ov08d10->dev, "failed to register V4L2 subdev: %d\n",
+ 			ret);
+-		goto probe_error_media_entity_cleanup;
++		goto probe_error_subdev_cleanup;
+ 	}
+ 
+ 	pm_runtime_idle(ov08d10->dev);
+ 
+ 	return 0;
+ 
++probe_error_subdev_cleanup:
++	v4l2_subdev_cleanup(&ov08d10->sd);
++
+ probe_error_media_entity_cleanup:
+ 	pm_runtime_disable(ov08d10->dev);
+ 	pm_runtime_set_suspended(ov08d10->dev);
+@@ -1584,7 +1569,6 @@ static int ov08d10_probe(struct i2c_client *client)
+ 
+ probe_error_v4l2_ctrl_handler_free:
+ 	v4l2_ctrl_handler_free(ov08d10->sd.ctrl_handler);
+-	mutex_destroy(&ov08d10->mutex);
+ 
+ probe_error_power_off:
+ 	ov08d10_power_off(ov08d10->dev);
+
+-- 
+2.43.0
+
+
