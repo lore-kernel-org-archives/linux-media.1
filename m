@@ -1,96 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792772233;
-	b=hMZ/mkQGUayzdH+O3pRLvvvgwUGSOBUEitkQFFU6FlP5mwSNC4S3vS+I+4VtWxzh/MT4
-	 qR5LAYDQOkrcoru83uZPvepFUjUb7HKnfEL9wjCIwcS7jpKaEioZgFCBHT8rwR+sHFUym
-	 BqNaXuc8OtGgjwR4SiyS/Pr9BYXDO1nrlH5OvQTqDw1oP9JNMjkm8ovz025MR5fpBGmLm
-	 opLQO8jtNAvEJtQR65ZhEl4eEEc7ddWdqEwa12ISA383la0rfaiwUyLesdzaFsUw28mxH
-	 A+csex2bAz2dChafgVIBqrcAmt7qwOo6Sbf8xvKwj3QOTodK0AEg3m8Er4MzaJ9nSdQ==
+	t=1792773083;
+	b=hu74K9wq4/ehnFHwKiUiVztTKdatFJszR7Ws2bzir5Ah1yloQhc94Izho6ZNQmO4X7W7
+	 KW0iW+gVPeU/IHV2CIDwoOvocnaiu5O7WMCv1F+k8sKBEEbq/lVUvDbQ74f4ipNahJW77
+	 GidZy4JWa5jj1xGm+G3VDTM4cTfX6WPXg/wkk6AXnLoXx2NgrcD2xZwsIhRTPz25lzk4A
+	 CC2xe3a+/tuuNaT/2tiygjDdDhey9ovEKtC1qQETrRpfrYX+mPfSmkTEBC3o68lpB9FQR
+	 zW5RmsOtg0hzX8qqSIbUgVjvqXTR/pd4WcTsi806Tkv8s88VF50tt1dYhMEBKd0DpPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792772233;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=BzEMw2qyVRDMO4EXZ9qN4crrCxVYQEBm0VZTnBXODc4=;
-	b=w2E608vi8cQ7GoAAuFdQ6nvyxWveo/OrBCXc+VPpnsQT0iKwovIF2iqbqTOxhwcAXwon
-	 cgSYbC33yUusVK3sZmAlYTRyW+B3WyDqYuSM2sAk1i8ZADQ3yLl5j8J5q99ok4JSKXC9y
-	 OO8frZ5CRXl4iAvjwRCiLB5oP6tE1MlBou+rwpEre/BMrGidmwFf0XFHdCZflQjKe7s0R
-	 WPQiXQYxwEoegrYChYsXvlqRnPkd6T2sTCSBhMsyPyaFMCYTxSfxCLRTUqRLfto+Eg7Vk
-	 PJMrlvJlW91/R3H/hEq6NMhJS3tKyYPN5vkxhJ8iU7iuJjAT26Ej10Vh+44eTkMAZ+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792773083;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+Q/WZXCrhzRC1pBbhEEk9GmXlyfcA/VhGiqMj+3Fzos=;
+	b=46RIPn9hYjPVKVxaGCNxTFq7n7gGrKj4GNF+xLm1/LfZa0jUUAw7NXys1+YNB0XceIgh
+	 tbm90w4xs1UQ2826QXUcnSzOdkY171JI7uuVj+2RVcXxj507WgZASX2wbtFcCfdyAE5So
+	 FHIrsLmd+avVPXgU7drEhFtNdKFbU5SVgq0GMLlwXtshIhsWEMf47miGhUiiLsjeKAWrJ
+	 ca0/RL82wQB3+QMIHkZTsmbY4P83BfvkVcGfhsIVynjopzJlagkS8+AxlgEAv4nQsmRKM
+	 /zmhvXDzlyFfRD+52mVhQLkZMFIFRMlpJaxI4eFAt9QrOgMehAWHerE+5x0gfJvsNtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gdBTei++;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NG3cLh6z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82A6606A31E
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 16:17:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A82A6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6817606A31B;
+	Fri, 23 Oct 2026 16:31:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gdBTei++
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so5674565e9.3
-        for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 09:17:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792772231; x=1793377031; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BzEMw2qyVRDMO4EXZ9qN4crrCxVYQEBm0VZTnBXODc4=;
-        b=gdBTei++O3Tyttcxc7jhIVqtqfAxPonidYibGhNlmpv6JEvYke6DFlNV8qVgLDpDOM
-         xSAiZp0TnwEc2MG8RxFw7nWGw7vy2/4wpxNEB0QGGGfKXKEbUze+6ag0MeeAJGR0MOrs
-         f7GQ+iUVNZVx0yF+6IoouMVPUEZkstlWyaSK/1uKilenrsU8ikh0R550EA/K7ZDe9mbT
-         yCyZ4e6LpJW7qUj2dbAYUIkdtuLEcXeL8ue6/qalRmNBVav1rQ/cneLKHWNQoJy9tk0H
-         CieX8akdyk5ylZ/lEHpz3Wv92EaSIfyoRj8Wp8ISA/b+yLW7IuiUwUOcINssxxPW9O1X
-         MDdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792772231; x=1793377031;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BzEMw2qyVRDMO4EXZ9qN4crrCxVYQEBm0VZTnBXODc4=;
-        b=IH18DzekvTIpRoKx5sLRxnbMS4i1US6R/nZDlpSiZ/9MEIZvhby3O78o2ukckhQD5g
-         jpHhSyvR6/Z0Db2dVSUxhWpq1iYS4VDYAKjf+nJoaDs6TLmFepcUEaVQu+Z4zBCb+3bR
-         PwVkpA1SifJx/ILGeVKSOT28I8u5ZPc4MNOmas+Z2gX7MJ8Y+08RdV43EKCgoG2ij3FE
-         jLq4aLDQYD0gfCJl27vfDJdMwc87jy6vsSg/4XE2gXY2xd5nIGYuBYV7MNpXaRuk+bKx
-         t8QycsZhPeDJYIAXqbacn2dzgGfGMEiVVNyWja/l4qjZ55EMXGM1bqEyCI9unArBAEni
-         MZ+Q==
-X-Forwarded-Encrypted: i=1; AKwUvByBk3RvhToYlz5uaUPqYHlFlAqRRLxWCAwg6aFbJepdWtUID5eSmH1qQYXZ4plRoVlhjfA/EsAEISW0EQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdq7zhVkgCsTztyb7VMMoPOnTjevIhf1HzPeRDaYi4zFd/lNwC
-	ECmAiZeXH2b9tCHt6jZ4rHKibUEK/TMyqDyr0Z7rmCgCa0IMi/TpDTJf
-X-Gm-Gg: AYBFou1Y73LqeaM6blP3/+3pm0B3Wuxiz70PYFGoi2TPTFz1x7qKBVvMBtDexyQG/9b
-	d1lBruthCUPJX2LHk5E1Kz3AuCJMj38gMR8ePtbHZ+/ezfN9M+p3wX6p0lWW8DP5KNQiw1PLJa2
-	h04B1N74c2hJo+sS+McE3F4zO9K7ShgDWLD9msMAnBf1ncDL6A469t/mGxWbeIydGW8TuPlPEVv
-	TDPgwc1vzspD/LMwo5tJMmw5I5GdO/RjvKZxyQTKVoAdSZdgRqMDHGdb57MFeAHrAKSDctykpnX
-	s3nIm77ESGegB0dKTyTKPv+zOqDUru22JXKo8Plnx2dguXw+prXQfyEN/xMVVQvjBV22UjRT+nn
-	S+Dvo0/AUPlvA6xF/JSHFmakiIy9aG/3T2r9tydizXpT6uygt5zGx+4wsMi+POQUBocwJfKj1PM
-	WVgI/FW1kkjyi0yCiQ2HVYKPjuVbKl4vcE6vjQ5TLz2JapTqvEgNn1u/8EAxN7dvKZoJNC0M1x0
-	f5NxtD7kuYavh2g/rtaxLll0NdNXEaYjZfnFRuli+MxaefknR7u
-X-Received: by 2002:a05:600c:1d07:b0:4a2:267:25b3 with SMTP id 5b1f17b1804b1-4a211ecec0emr46659165e9.35.1792772230469;
-        Fri, 23 Oct 2026 09:17:10 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2958bf25dsm20075165e9.2.2026.10.23.09.17.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 23 Oct 2026 09:17:09 -0700 (PDT)
-Date: Fri, 23 Oct 2026 19:17:06 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Daniel Baluta <daniel.baluta@nxp.com>
-Cc: Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Lorena Tanase <tanaselorena3@gmail.com>, hansg@kernel.org,
-	mchehab@kernel.org, andy@kernel.org, gregkh@linuxfoundation.org,
-	sakari.ailus@linux.intel.com, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: Re: [PATCH] staging: media: atomisp: Fix double blank line
-Message-ID: <atuIgtYbgUsmfgkp@stanley.mountain>
-References: <20261023123158.6176-1-tanaselorena3@gmail.com>
- <attnVU9A2GvgYuy9@ashevche-desk.local>
- <09d70600-10cb-4626-88ab-f9e10f4dcdf7@nxp.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NG3cLh6z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05391F01825;
+	Fri, 23 Oct 2026 16:31:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792773082;
+	bh=+Q/WZXCrhzRC1pBbhEEk9GmXlyfcA/VhGiqMj+3Fzos=;
+	h=From:To:Cc:Subject:Date;
+	b=NG3cLh6zHDvkcesr1fj0IE2q7fkHJ9nXBGQALLN3F75CiPLs14mUTUjJwiKlYvJ/L
+	 iPapmbpENcZU9suGxHW3cKb9IOs17f2s9Pe5mV4nu62kd0+g3MdE9yOgm/gyOI14PJ
+	 yEZjuEdewpbQIcLeXlrgP4pRhBD8g8bL1kCYk6D3X71fDEg0jKBwz5IhJDRWUFNOpH
+	 tGMO86Uwf00opaz0OhFsoneQwTFcq0YfLf/7Qlc51s1S7MRn19fyq1+WalE+8/46BY
+	 3iTMRVfs2FOXwM/zeaQwODXodM2ijh8vBVf2RjwQNEcmYXkDaBQqDccigFgYttl6Sq
+	 0o8qjC+aVb4vQ==
+From: Vladimir Zapolskiy <vz@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	linux-phy@lists.infradead.org,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/7] media: qcom: camss: Add Waipio CAMSS support
+Date: Fri, 23 Oct 2026 19:30:50 +0300
+Message-ID: <20261023163057.775917-1-vz@kernel.org>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,35 +70,41 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <09d70600-10cb-4626-88ab-f9e10f4dcdf7@nxp.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 05:09:55PM +0300, Daniel Baluta wrote:
-> On 10/23/26 16:55, Andy Shevchenko wrote:
-> > On Fri, Oct 23, 2026 at 03:31:58PM +0300, Lorena Tanase wrote:
-> >> Removed blank line to ensure linux kernel coding style. Found using
-> >> checkpatch.pl script.
-> > 
-> > Cool, but is this the only problem in the driver?
-> 
-> Not the only problem but as a first patch for a newcomer we want
-> to learn the process of submitting a simple patch so we keep it simple.
-> 
-> Then will expand to send patchseries. 
-> 
-> > 
-> >> Cc: Daniel Baluta <daniel.baluta@nxp.com>
-> > 
-> > Please, put the Cc list after the '---' line, so it won't pollute commit
-> > message.
-> 
-> Didn't know about this rule, there are thousands of patches in the Linux kernel log
-> with the Cc field added there. 
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
-It's the more modern trend.  It's was never clear to me what the Cc tag
-was there fore...
+This series adds support of Qualcomm Waipio (SM8450) Camera Subsystem.
 
-regards,
-dan carpenter
+The CSIPHYs are described as separate CSIPHY devices compatible with
+X1E80100 ones, and there are no legacy CSIPHY resources in the CAMSS
+driver.
+
+The change can be immediately tested on any Waipio powered board by
+running an image stream from TPG to CSID, CSIPHY IPs are equal to
+the ones found on Hamoa platform, and were tested on a private board.
+
+The series was based and tested on linux-next-20261023.
+
+Vladimir Zapolskiy (7):
+  dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Waipio compatible
+  arm64: dts: qcom: sm8450: Add CSI2 PHY device tree nodes
+  dt-bindings: media: Add description of Qualcomm Waipio CAMSS IP
+  arm64: dts: qcom: sm8450: Add CAMSS device tree node
+  arm64: dts: qcom: sm8450: Add description of pins with MCLK function
+  media: qcom: camss: Allow CSI2 PHY devices without CSIPHY resources
+  media: qcom: camss: Add Waipio CAMSS support
+
+ .../bindings/media/qcom,waipio-camss.yaml     | 274 +++++++++
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml  |   4 +-
+ arch/arm64/boot/dts/qcom/sm8450.dtsi          | 559 ++++++++++++++++++
+ .../media/platform/qcom/camss/camss-csiphy.c  |  16 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c |   2 +
+ drivers/media/platform/qcom/camss/camss.c     | 244 +++++++-
+ drivers/media/platform/qcom/camss/camss.h     |   1 +
+ 7 files changed, 1094 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,waipio-camss.yaml
+
+-- 
+2.53.0
 
