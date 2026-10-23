@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792737615;
-	b=sp5RsZ6dJkt3ShkeQ4U1dq89aNUiK5PL2kEjsO4IaWlQyh/8FcKOQ3XQwKXkPKLZ1CTc
-	 NTcgOqGYhPrv/hWqkpyk26WdZO/HfUJ8f6sL3DM88OMYbYIh4hidORsKHxykbCfkeot8P
-	 K7nMttEctE8qfG1kVhFSQaTpnDXedTIG46kH7jVePH3G2bVZ6bI9lcCsw/ibUoiOzpHf7
-	 BBBkuktKZ3aY2bYDg+AAmJgEUrh/x5D4lmc5boFq1uK8aJzxnISFL0hv8iGfp+qC55IAJ
-	 g6qcxYqqzgubUMyXsKct4iCus+eML+Yal37H1X1HRDvGzt1foNAWRb/KHaM3yLZD3JQ==
+	t=1792737617;
+	b=vvEfWgYvx5xYbuQkGKfe+qchra5ewlIN9zcmF9cq79RiL8yJWowoEV8I1NVrbsVfYYvl
+	 550HVKPpCX7jhnMVFMv7b4V17LteRPRdpkMV39JujakLU5jFnk0uU4GCBU2ca8wuUa+LP
+	 FZPoW4q3j+5win8k2OfqtEwatA+DjodinbOgM0tZqMMFd2fX2BgCUoxr0qnSvo2dVhwUO
+	 CZFKJT2mehvCEbyC1IjHAEIqaVEKFhyt9sYmXNkSr+Ece+hoKUQs+8ZYf4L69oPrvdAxU
+	 pto38vY4wwThVQy4rdiWNSNcys9mwSBGYkSowDm6rmF0fRVnq6HNjdnsEw+ZdmqJuzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792737615;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792737617;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=6LiMwTF7m7J2yPk0NYgzUy+jDJY7B4f/PUnX5iV/T+E=;
-	b=xdbGM/CM3XRNgE3UJfBJqUh7FfW5Yu/jS49Bo4Oq0tUJaTzAjls85I5nPwMOFRd4X1yV
-	 GkwkBLA7L2OcNbQyD2Xl2FF2a+EMqribNjOFTJbeIEEYL8dcrvVrOunoATm/usLPwHd70
-	 1gPmX7YmBrBfK7bg2HKe1wZ2JnnSDQGm1bkTSC2TDA73q/u5gXOAfs4gJjPp1y6YpB//l
-	 JYRkB2iz0iAqHxXb45fq1fYaEVT5AwKz1Sxp9JGp8wObSQ2WMoqFbcV03GbEPVOpaqqBW
-	 mtI3qxgugCpyCLm3+NzsxQIahI87GAlK8KshgXulx2LrUoNe5fIRKMo5ogZCgi7kQIw==
+	bh=7r0UNu5wEL8POkOSz3+rOlJOKvPQ5Qd38WxY0JoWHCY=;
+	b=oiefbH5P8t5lGzV+ulffQhyF+boxBDb8WlzS3F6D5jdYh7h1Y5j+G8/qA9KUOgxqbBE9
+	 htvjvHjiIdFY4K2N001Ijajyqm/wmqoIM1aUtsgT832xskw50n3u3ak98FmdyYJQKIepE
+	 yGS7H0XguZkYhAgWPdtSPWLnGnqHKQvkyjpfJjxgOT9Pa6yb/vRJfw0MX/YMr8qz1XlE3
+	 vo0yNPInEzxa3HJYFsHWtFJJO8ynXjLoPHpFIwTUMpQX2eA6CSLpORvwnCHGoGjg/zWXb
+	 ZJi6yA4tMkBLKaxoHelUnf4Ph08U6snoszOJX2HuB0zafDLL7fCmbyBJdpNPAFHpJ+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ABD+b6QJ;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SqiI834I;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D487860A2638
-	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 06:40:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D487860A2638
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8115F60A2621
+	for <linux-media@vger.kernel.org>; Fri, 23 Oct 2026 06:40:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8115F60A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ABD+b6QJ
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so230842f8f.3
-        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 23:40:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SqiI834I
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so4399395e9.0
+        for <linux-media@vger.kernel.org>; Thu, 22 Oct 2026 23:40:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792737613; x=1793342413; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792737616; x=1793342416; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6LiMwTF7m7J2yPk0NYgzUy+jDJY7B4f/PUnX5iV/T+E=;
-        b=ABD+b6QJOS2jAHFXPInPnD5fje4uTcmYlBh3jA/WAwTunCSZrKGoeAOcV1a/sBE9wv
-         zy9FZnPJ8WKEx0tFNzJ2AMKD+pvgJ0pQKofUWywp260+BUbbN6tqFSO8IX8O1Y5WZFbI
-         GWoY2ldDElw+eZAcra4v6tMV3K2mQZzzMqISVRY6W0bI4k22cmrXiGcAZjWDlkMi7gWU
-         ugmP9xFvwUGqtHMUZniO7Hv8SDvtcbmVo66oiDMrQkPLcGIYoTjDHN+cHektdhTr1hPn
-         Om/vABMLpxVXr+OXQq3wrGq2jHEFucJP/yz/1bdwH9WSNZ6xYjo0F4zuoZ2a7flYP3OX
-         XM6g==
+        bh=7r0UNu5wEL8POkOSz3+rOlJOKvPQ5Qd38WxY0JoWHCY=;
+        b=SqiI834I39va7l3yboJlN/zD/L9WM25KLneG14hpeRk7rVJY0zl7N9XJbly8pj/uXL
+         4VfXV57g1LOJemivqZPnATrIZUhRmyu3BdUl2GAzM9FYvUhxek7LWaO+tXL2+FLZI1WS
+         fmn6roPNONFMKksLuKgHR6dhPzlbcK09XiUPIUwmyW98H6SbSWg6KSPiQJBqVn+mhex9
+         Ey1euNmwJFduuSP3QOsITXWoZcs+Fr6IwVH02YHBvk0zbV9oVXaueclBgj5kzeQloRmd
+         NbwQb7Ut1g6mbM5v1CMBQbWaAlBf6CHN+AiAJHmB4hBQURHL1LpzlXn7Jmfb6KCj2iZd
+         gRDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792737613; x=1793342413;
+        d=1e100.net; s=20260707; t=1792737616; x=1793342416;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6LiMwTF7m7J2yPk0NYgzUy+jDJY7B4f/PUnX5iV/T+E=;
-        b=klUavjwqhl88WgUwM4J3zRR/cVccRB1YhVxF7HkXCUmtC+L6jQlS2a/HRWlIh/K2CD
-         44Xn7RfB0QrcTwa/99U/mNxm6sU8P0uZR9NKfOUErL4RRC2Q57K2+8K/TlROUPvVDEBL
-         NOOH9wl8EmRr4f0aDiGk/YYANp24C3ZUo0wrJYlGsVWDIyJfvjQL5VhJ3T1E8zqQQcBY
-         vISgt5A9mNlGogwxdcrVlgAdhctas20bfwjkIPwj5m8Q0D5Sju5WII/T6u6lyHQANjWT
-         8Xk4ARRhkUYINLRd4+Wr1Dfto6s8IMHLSPvItnvpd8sLydM9Wx3Bw+f+c7SSS4KWk68C
-         hgNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwokpuSLv3ISBOhEKVBnkUf/BrbWKEVwyr7hGBcNQIYa19liao70TCbNzljiDlIe0morIELdbm3Zr7ZMw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJs06BZ1eaNa0yoPWwDc2hmhfFMwveXqjDu/Ns+J50+dTJq5+gl
-	+Q297Y10W677jGdz9XgFwcov8KOrDAaJpEmsJJv6RNWGzZ2RxarbesjW
-X-Gm-Gg: AYBFou3schF+E+khUUc7qnzrP84pH+2poGfDWyczNMxyMTInPQMPSZOfYi8sMs8P+eO
-	WdQ2EAM1ft9fh6QCzDCE7vubaB+rPgaAql4MMgNmGLWNfkHaSwd+4XsZpbv+kZLjkH+X/De4soD
-	wmoleOw3pC9HBd8k4EPfE3yjKTcVAuDf0+1BnRMCRZJ9mJuI2Ph4uuuwlnMbLm7z/aRYuAONz9W
-	pErh6vY2oQHNj08KrMQcycwXgXLw84DLOZrUz4aDdO5wwLW+y4HktnwNX3FN6+wtz0PV2+E+Bhw
-	VKwFXTgzgTp23LSDPpOvJdTFRSbnRl8Iteh1+eRJLuvemjSATXhF0jV2cXWqjUkIg4HgHBnADDg
-	77Svi//tjzlzbpBL+SoUrRrn4Sqqa4JoDjWTEzanaoQ3es3STxTjL2BJAIochvTJgr5wJzPYRxJ
-	qFGHbdy+z3XCx7dBiD0xblEXQ6Q+GUjZ4bJ+dqmOW/2hHZqhlNdEGr5vLPLwvsp82fiBYCHsBbO
-	zuV4xBkqD/qFAn2QRlf+ERXrasB6Zp/o4ohwid6Vw/YE/fv2N39X6yTsf1+TE6YZpzt/vAbvYKI
-	ZqEitUjI20tDlj2qfOGH+nMdykQwTl5bCe8rAtCeBTnvtTOAz2DcvxBbcbuSsVFOuJWgKtoXW9V
-	BhGg=
-X-Received: by 2002:a5d:5f03:0:b0:487:8ba:8aa4 with SMTP id ffacd0b85a97d-48e387d5ff3mr1468313f8f.38.1792737613172;
-        Thu, 22 Oct 2026 23:40:13 -0700 (PDT)
+        bh=7r0UNu5wEL8POkOSz3+rOlJOKvPQ5Qd38WxY0JoWHCY=;
+        b=UAcUhh0x7n1k4+QvnAarjy4Kv9YFAqU3KXtw+uagMTJmhg+hJQB+e13GKgDlyI2s7P
+         Cl6ecGiCl/aWZnIU0Gayw+Hor2rAyKl/bePEsY8KGocYa7oRPPtTN/s3PgCeBHbKoSpZ
+         aMqogjsMxai4DqGSTa5R3zCTmqEKQSSHBSU8K6AdKzQs1kcYNl+QWjTVJOXrbxRieyHj
+         YZW7579hHIw/6Lufevg2CNg/mC1x+x72dBA7/JhCc98sY6qNlX5n0c0TENnGZrnq9g0L
+         YZmu+ulnOECJBcVj61xeQa9B5qBHxuBttK9f+0Nianh1/bY/yA2+ORKmd0Bznu7h05GJ
+         yW/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz39LrKVaiYnhTarTfCbek2eWu7kMGLhgXYgyfFd2HQ/hx4uZ1I/sH2JQTl8N/mAB3DwoSZeKvNrvbwGA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIivlvtdMkItEr+B9vpJeWQ9Sk52bjSL9bZ2TaRzCPiU4H3rkYi
+	8oOK/m5klq45YrvYw2eR/n05imV5MSENfg4Zn3PzcbZYUtnGUvLQ35T1
+X-Gm-Gg: AYBFou1vz6eoKp/6LKjnbIaH87xRMaKLZN7JiEa1lAnDQ1Ce9WHsxRbUWVrnl/VDYfV
+	zrNKH/tsrH6kJ+IpU/ifPokbDnSLl+ZC64uRpXrWgNFXnI9pZrpr+FBUCqXcQZgu9nZ6bcb1rE7
+	/GjPDkqWbpCef6RicQ44Wbfm1KkY3oQYQfSajU1ZXBMmrBmHYL3Q9m0Q/hxeE9/rhc5bd6XcKFA
+	EiDBEdJ5oHJNW8iGvQZcbgn08aw3Vvx2FVouI0q3qTUMNwcw61QAlGtkK7l6MezhfsZdP33pVNP
+	4SRxqhWEg9fj+uSdYjB8OM0xWO0mUcuNA2SaKpOEzzVXAR1Gkk1/bCreGgkAOF9t9HO3zZeITKR
+	EtoJNooIPV3gPGD3iSF6CITwTZl40A1uFcdekCIg1oNweTsvSEkt6PS5ppb2P19ReF/e/vCnnfc
+	4uPa5CQN292txvAcHdV8D0IMe9fNNy1LSqGxB8/fZrzpyEECCAc36xNQ1tV/Bwp/uBwF49SLEs5
+	pC37gSaAh2V+Sh8W697ITzboQl4kDW4ngMB4YssdpjQ9NOGQhWIvbIh5X6BL7JOwL/JwHfPK/el
+	IkMmUclrPrWrUTYb6sXRo8J5t0g3gkbFDvZfBcQC1LWN6J8KXOpe4kro7GYeNId9TVtMQiXYeza
+	krLE=
+X-Received: by 2002:a05:600c:6387:b0:4a2:bbd:ea3a with SMTP id 5b1f17b1804b1-4a211c51aa9mr18565345e9.6.1792737615806;
+        Thu, 22 Oct 2026 23:40:15 -0700 (PDT)
 Received: from [192.168.1.22] (cst-prg-49-173.cust.vodafone.cz. [46.135.49.173])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e38030c47sm3104782f8f.21.2026.10.22.23.40.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 23:40:12 -0700 (PDT)
+        Thu, 22 Oct 2026 23:40:15 -0700 (PDT)
 From: Tomeu Vizoso <tomeu.vizoso@gmail.com>
 X-Google-Original-From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Date: Fri, 23 Oct 2026 08:39:36 +0200
-Subject: [PATCH v3 11/16] accel/thames: Add IOCTL for memory
- synchronization
+Date: Fri, 23 Oct 2026 08:39:37 +0200
+Subject: [PATCH v3 12/16] accel/thames: Install memory mappings populated
+ and dirty
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -97,7 +97,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261023-thames-v3-11-3ab40aa17157@tomeuvizoso.net>
+Message-Id: <20261023-thames-v3-12-3ab40aa17157@tomeuvizoso.net>
 References: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 In-Reply-To: <20261023-thames-v3-0-3ab40aa17157@tomeuvizoso.net>
 To: Nishanth Menon <nm@ti.com>, "Andrew F. Davis" <afd@ti.com>, 
@@ -128,217 +128,123 @@ Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-remoteproc@vger.kernel.org, linux-hardening@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-These DSP cores have their own access to the memory bus, and it isn't
-cache coherent with the CPUs.
+The GEM DMA mmap helper maps the whole buffer up front, but with pages
+that fault on their first write, since the A53 in the J722S has no
+hardware dirty-bit management. The GEM shmem helper maps by page fault,
+one at each page's first touch and another at its first write, which
+its write-notify needs. Neither helper can install the pages writable
+and dirty, so the driver sets the protection itself: for contiguous
+buffers it calls dma_mmap_pages() with it, and for the others it
+installs the pages with remap_pfn_range().
 
-Add IOCTLs so userspace can mark when the caches need to be flushed, and
-wait for every Job still using a buffer, readers included, before the
-CPU accesses it.
-
-Initially based on the same IOCTLs from the Etnaviv driver.
+This saves 20% of the total time in the first invoke of a model on the
+J722S.
 
 Assisted-by: LLM
 Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-
 ---
+ drivers/accel/thames/thames_gem.c | 76 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 73 insertions(+), 3 deletions(-)
 
-v2:
-- Add thames_accel.h UAPI header (Robert Nelson).
----
- drivers/accel/thames/thames_drv.c |  3 ++
- drivers/accel/thames/thames_gem.c | 63 +++++++++++++++++++++++++++++++++++++++
- drivers/accel/thames/thames_gem.h |  4 +++
- include/uapi/drm/thames_accel.h   | 56 ++++++++++++++++++++++++++++++++++
- 4 files changed, 126 insertions(+)
-
-diff --git a/drivers/accel/thames/thames_drv.c b/drivers/accel/thames/thames_drv.c
-index 5f704cbfe1d0..798b4743f336 100644
---- a/drivers/accel/thames/thames_drv.c
-+++ b/drivers/accel/thames/thames_drv.c
-@@ -252,6 +252,7 @@ static int thames_ioctl_##func##_entered(struct drm_device *dev, void *data,	\
- 
- THAMES_IOCTL_ENTERED(bo_create)
- THAMES_IOCTL_ENTERED(bo_mmap_offset)
-+THAMES_IOCTL_ENTERED(bo_fini)
- THAMES_IOCTL_ENTERED(dev_query)
- THAMES_IOCTL_ENTERED(job_create)
- THAMES_IOCTL_ENTERED(job_submit)
-@@ -262,6 +263,8 @@ static const struct drm_ioctl_desc thames_drm_driver_ioctls[] = {
- #define THAMES_IOCTL(n, func) DRM_IOCTL_DEF_DRV(THAMES_##n, thames_ioctl_##func, 0)
- 	THAMES_IOCTL(BO_CREATE, bo_create_entered),
- 	THAMES_IOCTL(BO_MMAP_OFFSET, bo_mmap_offset_entered),
-+	THAMES_IOCTL(BO_PREP, bo_prep),
-+	THAMES_IOCTL(BO_FINI, bo_fini_entered),
- 	THAMES_IOCTL(DEV_QUERY, dev_query_entered),
- 	THAMES_IOCTL(JOB_CREATE, job_create_entered),
- 	THAMES_IOCTL(JOB_SUBMIT, job_submit_entered),
 diff --git a/drivers/accel/thames/thames_gem.c b/drivers/accel/thames/thames_gem.c
-index c9fd08c7aaf4..5a4dc497768f 100644
+index 5a4dc497768f..9f55169c6370 100644
 --- a/drivers/accel/thames/thames_gem.c
 +++ b/drivers/accel/thames/thames_gem.c
-@@ -942,3 +942,66 @@ int thames_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data, struct drm_
- 	return 0;
+@@ -808,12 +808,82 @@ static void thames_gem_shmem_bo_free(struct drm_gem_object *obj)
+ 	drm_gem_shmem_free(&bo->shmem);
  }
  
-+int thames_ioctl_bo_prep(struct drm_device *ddev, void *data, struct drm_file *file)
++/*
++ * Installed dirty and writable: the A53s have no hardware dirty-bit management,
++ * so every first write would fault.
++ */
++static int thames_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
 +{
-+	struct drm_thames_bo_prep *args = data;
-+	struct thames_gem_object *bo;
-+	struct drm_gem_object *gem_obj;
-+	unsigned long timeout = drm_timeout_abs_to_jiffies(args->timeout_ns);
-+	long ret = 0;
++	struct drm_gem_dma_object *dma_obj = to_drm_gem_dma_obj(obj);
++	pgprot_t prot;
++	int ret;
 +
-+	if (args->reserved != 0)
-+		return -EINVAL;
++	vma->vm_pgoff -= drm_vma_node_start(&obj->vma_node);
++	vm_flags_mod(vma, VM_DONTDUMP | VM_DONTEXPAND, VM_PFNMAP);
 +
-+	gem_obj = drm_gem_object_lookup(file, args->handle);
-+	if (!gem_obj)
-+		return -ENOENT;
++	prot = vm_get_page_prot(vma->vm_flags);
++	if (vma->vm_flags & VM_WRITE)
++		prot = pte_pgprot(pte_mkdirty(pte_mkwrite_novma(pfn_pte(0, prot))));
++	vma->vm_page_prot = prot;
 +
-+	ret = dma_resv_wait_timeout(gem_obj->resv, DMA_RESV_USAGE_READ, true, timeout);
-+	if (ret == 0)
-+		ret = timeout ? -ETIMEDOUT : -EBUSY;
-+	else if (ret > 0)
-+		ret = 0;
-+
-+	bo = to_thames_bo(gem_obj);
-+	if (bo->flags & DRM_THAMES_BO_CONTIGUOUS)
-+		dma_sync_single_for_cpu(ddev->dev, bo->base.dma_addr, gem_obj->size,
-+					DMA_BIDIRECTIONAL);
-+	else
-+		dma_sync_sgtable_for_cpu(ddev->dev, bo->shmem.sgt, DMA_BIDIRECTIONAL);
-+	/* Order the cache maintenance before the CPU reads. */
-+	mb();
-+
-+	drm_gem_object_put(gem_obj);
++	ret = dma_mmap_pages(drm_dev_dma_dev(obj->dev), vma, vma->vm_end - vma->vm_start,
++			     virt_to_page(dma_obj->vaddr));
++	if (ret)
++		drm_gem_vm_close(vma);
 +
 +	return ret;
 +}
 +
-+int thames_ioctl_bo_fini(struct drm_device *ddev, void *data, struct drm_file *file)
++/*
++ * Every page installed now, dirty and writable: they are pinned for the
++ * object's life, and the helper would take two faults on each.
++ */
++static int thames_gem_shmem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
 +{
-+	struct drm_thames_bo_fini *args = data;
-+	struct thames_gem_object *bo;
-+	struct drm_gem_object *gem_obj;
++	struct thames_gem_object *bo = to_thames_bo(obj);
++	unsigned long addr = vma->vm_start;
++	struct scatterlist *sg;
++	pgprot_t prot;
++	unsigned int i;
++	int ret;
 +
-+	if (args->reserved != 0)
++	if (vma_is_cow_mapping(vma))
 +		return -EINVAL;
 +
-+	gem_obj = drm_gem_object_lookup(file, args->handle);
-+	if (!gem_obj)
-+		return -ENOENT;
++	vm_flags_set(vma, VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP);
 +
-+	bo = to_thames_bo(gem_obj);
-+	if (bo->flags & DRM_THAMES_BO_CONTIGUOUS) {
-+		dma_sync_single_for_device(ddev->dev, bo->base.dma_addr, gem_obj->size,
-+					   DMA_BIDIRECTIONAL);
-+	} else {
-+		dma_sync_sgtable_for_device(ddev->dev, bo->shmem.sgt, DMA_BIDIRECTIONAL);
++	prot = vm_get_page_prot(vma->vm_flags);
++	if (vma->vm_flags & VM_WRITE)
++		prot = pte_pgprot(pte_mkdirty(pte_mkwrite_novma(pfn_pte(0, prot))));
++	vma->vm_page_prot = prot;
++
++	for_each_sgtable_sg(bo->shmem.sgt, sg, i) {
++		unsigned long len = min_t(unsigned long, sg->length, vma->vm_end - addr);
++
++		ret = remap_pfn_range(vma, addr, page_to_pfn(sg_page(sg)), len, prot);
++		if (ret)
++			return ret;
++
++		addr += len;
++		if (addr == vma->vm_end)
++			break;
 +	}
-+
-+	/* Order the cache maintenance before the return. */
-+	mb();
-+
-+	drm_gem_object_put(gem_obj);
 +
 +	return 0;
 +}
-diff --git a/drivers/accel/thames/thames_gem.h b/drivers/accel/thames/thames_gem.h
-index c9d0e170dad3..7c9d375d1ebd 100644
---- a/drivers/accel/thames/thames_gem.h
-+++ b/drivers/accel/thames/thames_gem.h
-@@ -51,6 +51,10 @@ int thames_ioctl_bo_create(struct drm_device *ddev, void *data, struct drm_file
- 
- int thames_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data, struct drm_file *file);
- 
-+int thames_ioctl_bo_prep(struct drm_device *ddev, void *data, struct drm_file *file);
 +
-+int thames_ioctl_bo_fini(struct drm_device *ddev, void *data, struct drm_file *file);
++/* Only the GEM reference: the pages are pinned for the object's life. */
++static const struct vm_operations_struct thames_gem_shmem_vm_ops = {
++	.open = drm_gem_vm_open,
++	.close = drm_gem_vm_close,
++};
 +
- int thames_ioctl_bo_bind(struct drm_device *ddev, void *data, struct drm_file *file);
- 
- int thames_context_create(struct thames_file_priv *priv);
-diff --git a/include/uapi/drm/thames_accel.h b/include/uapi/drm/thames_accel.h
-index d193967485cb..ae43885bdcb5 100644
---- a/include/uapi/drm/thames_accel.h
-+++ b/include/uapi/drm/thames_accel.h
-@@ -54,6 +54,12 @@ enum drm_thames_ioctl_id {
- 	 */
- 	DRM_THAMES_BO_MMAP_OFFSET,
- 
-+	/** @DRM_THAMES_BO_PREP: Prepare a BO for CPU access after DSP writes. */
-+	DRM_THAMES_BO_PREP,
-+
-+	/** @DRM_THAMES_BO_FINI: Finish CPU access and prepare BO for DSP access. */
-+	DRM_THAMES_BO_FINI,
-+
- 	/** @DRM_THAMES_DEV_QUERY: Query the device's capabilities. */
- 	DRM_THAMES_DEV_QUERY,
- 
-@@ -143,6 +149,52 @@ struct drm_thames_bo_mmap_offset {
- 	__u64 offset;
+ static const struct drm_gem_object_funcs thames_gem_funcs = {
+ 	.free = thames_gem_bo_free,
+ 	.print_info = drm_gem_dma_object_print_info,
+ 	.get_sg_table = drm_gem_dma_object_get_sg_table,
+ 	.vmap = drm_gem_dma_object_vmap,
+-	.mmap = drm_gem_dma_object_mmap,
++	.mmap = thames_gem_mmap,
+ 	.vm_ops = &drm_gem_dma_vm_ops,
  };
  
-+/**
-+ * struct drm_thames_bo_prep - ioctl argument for preparing a BO for CPU access.
-+ *
-+ * Waits for the DSP to be done with the buffer and invalidates the CPU caches,
-+ * so that what the DSP wrote is visible to the CPU.  The DSP is not coherent
-+ * with the CPU, and the wait and the cache invalidation are deliberately the
-+ * same operation: userspace has no way of skipping the wait and keeping the
-+ * invalidation, so a mapping is never handed out with stale cache lines.
-+ *
-+ * Returns 0 once the buffer is ready for CPU access, -ETIMEDOUT if
-+ * &drm_thames_bo_prep.timeout_ns passed before the DSP was done with it, or
-+ * -EBUSY if that timestamp was not in the future at the call, 0 included, and
-+ * the buffer is still in use.  It must never return -EAGAIN: userspace reaches
-+ * this ioctl through drmIoctl(), which restarts on both -EINTR and -EAGAIN and
-+ * would spin forever.
-+ */
-+struct drm_thames_bo_prep {
-+	/** @handle: Handle of the buffer to prepare for CPU access. */
-+	__u32 handle;
-+
-+	/** @reserved: MBZ. */
-+	__u32 reserved;
-+
-+	/**
-+	 * @timeout_ns: Absolute CLOCK_MONOTONIC timestamp at which the wait
-+	 * gives up.  A timestamp in the past, 0 included, makes the ioctl
-+	 * return without blocking.
-+	 */
-+	__s64 timeout_ns;
-+};
-+
-+/**
-+ * struct drm_thames_bo_fini - ioctl argument for finishing CPU access to a BO.
-+ *
-+ * Flushes the CPU caches, so that what the CPU wrote is visible to the DSP.
-+ * Userspace has to call this after writing to a mapping and before the buffer
-+ * is used by a job, as the DSP is not coherent with the CPU.
-+ */
-+struct drm_thames_bo_fini {
-+	/** @handle: Handle of the buffer the CPU is done writing to. */
-+	__u32 handle;
-+
-+	/** @reserved: MBZ. */
-+	__u32 reserved;
-+};
-+
- /**
-  * struct drm_thames_obj_array - An array of versioned objects passed by pointer.
-  *
-@@ -768,6 +820,10 @@ enum {
- 		DRM_IOCTL_THAMES(WR, BO_CREATE, bo_create),
- 	DRM_IOCTL_THAMES_BO_MMAP_OFFSET =
- 		DRM_IOCTL_THAMES(WR, BO_MMAP_OFFSET, bo_mmap_offset),
-+	DRM_IOCTL_THAMES_BO_PREP =
-+		DRM_IOCTL_THAMES(WR, BO_PREP, bo_prep),
-+	DRM_IOCTL_THAMES_BO_FINI =
-+		DRM_IOCTL_THAMES(WR, BO_FINI, bo_fini),
- 	DRM_IOCTL_THAMES_DEV_QUERY =
- 		DRM_IOCTL_THAMES(WR, DEV_QUERY, dev_query),
- 	DRM_IOCTL_THAMES_JOB_CREATE =
+@@ -825,8 +895,8 @@ static const struct drm_gem_object_funcs thames_gem_shmem_funcs = {
+ 	.get_sg_table = drm_gem_shmem_object_get_sg_table,
+ 	.vmap = drm_gem_shmem_object_vmap,
+ 	.vunmap = drm_gem_shmem_object_vunmap,
+-	.mmap = drm_gem_shmem_object_mmap,
+-	.vm_ops = &drm_gem_shmem_vm_ops,
++	.mmap = thames_gem_shmem_mmap,
++	.vm_ops = &thames_gem_shmem_vm_ops,
+ };
+ 
+ int thames_ioctl_bo_create(struct drm_device *ddev, void *data, struct drm_file *file)
 
 -- 
 2.54.0
