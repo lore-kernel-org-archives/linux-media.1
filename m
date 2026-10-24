@@ -1,105 +1,104 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792830005;
-	b=gRieynXRgafk7cxh5nHwWGzCIALXLRxJCHyPzF7q3JmzxKKQpwcYb9U7Gh4iuq9zMdXa
-	 v/uSets2vb45mQyrPzjEJqt4TCXle2C8fCIqLgB6qpslQfhC90HWVDB1QSWygEP4a/8n2
-	 YRYprV6bKJB2oQ9OzaQ3DuMlVqUWoz2SFfErdGlArsKc3CLHEKkC8clYMTJ6V0biauIiE
-	 Gizh38YF46Y2fg8OGeN7iyXcKnwl0/8T+i/7oiatB2Fp254YMufcUE+K5OcklNgy6gRzT
-	 eot8T5sC6eM1SIviyQOoZ7Ks54kewWIOOrcTw1cvvYvzggjcGqlo6/NFQ/VCGAXfY8w==
+	t=1792834833;
+	b=e2uHX/EzJYKNS4iBH1miEiD28FhzLNsQ2bYye9/Yyrmg2SzSnU0WM3FVg38IweuTeWce
+	 Qaoj1mm3MNJCCP/aIQOAugPmCDf90MJuMtiI1h48LaHbwYM0i/hyjCUorOUEtKsDwc77r
+	 G8NUwzr85rXqPwpP1q7+LCviKxJyerFpD9TnJUHkL5S7m/mu/Y9iJ6zaynaZVmftxZ+BW
+	 VgITeF4bBrwx6u4+r7uCK2AoPxtJcYgpEgED9yClMr9X1cFTJxV961WoOUdbvT0jJoEdP
+	 w8G3YsN+d4eLr9Kx+jHUMPsnbWNPUPnzGIh9vcVSX1aIApscPnzqiBKKHYiQSdQAGEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792830005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792834833;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=G27Cz2wceBxSG1zNS8aH7ZlX39WGpLP7K7D6Ef2Z9YE=;
-	b=1Z48XVKpZl1lA2NW3O9UuiBbPR1vm/VVkvLSsEXLd9gw80lq8Fl7bbBoHEPtbWZD/qeA
-	 sJJfEXmAR6jbnzkUjpe8nAJa7tPB0gjMJRgq5PKmKBh/54/YtgCTQ9NwnqPyTs32wgX/l
-	 Uh55BWHJ41XJ3nRF0EgGzWUEuxSfdQHT2O4VjfBjb8H7DPUrrDpWx/1oebn/5I+h/AyN+
-	 vDJ8DjuOR+vatd1ay/TgW3VLDWD5IWpMeyQ5IKyo2ytiVUU2+0VlkGEZvoYJrx+ODnSwh
-	 O1/NjdSFPpGKcZx5gISHaxiRI5apZhsm4NCjuUdI2Lmq9Fb41RyY8tIZiXJyQBLg6Pg==
+	bh=uEG4u2CQ/9TFubC4sZQG5u8ciiNwJ/m/8ij1aKFIvPc=;
+	b=nrRkyg/UDFIlsj/1FXS7OOSQ2C1Q5cEEwq66WSceY7OOaNPrLEPJgFbnk18C8uSqP5dO
+	 Oo8zepr+lpo1YMByVgljNOAs7LN86WA9xdh//SeeQvw7nGse1Yc3s57o7w4YHVWQRY5w8
+	 rz2SidQ7nl9e5LggCj5RbirAuehzSeJUWcyX1ysmRjSWVSj+Te9DjWKaSGU+iE6OqUYXS
+	 XevMkgLdqe5tEvmmfCxQEde3D6SKeaJ75Qg93u/bxOWZxzeAJEc3K5uPQZl/TgHGIxnmT
+	 DaUhfvyqqutZoP2w0Isz910dc+hsbGDBoMmmTWRDIthm2NksSNiM3ahklAIf0KQNR7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GhTyjEHD;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=egJTqpDV;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JvUqOVOu;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d1Kmasu0;
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EA2606A31D
-	for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 08:20:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74EA2606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560FA606A320
+	for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 09:40:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 560FA606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GhTyjEHD;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=egJTqpDV
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69O4dsAB3321828
-	for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 08:20:03 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JvUqOVOu;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d1Kmasu0
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69O8oTJm2217627
+	for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 09:40:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=G27Cz2wceBx
-	SG1zNS8aH7ZlX39WGpLP7K7D6Ef2Z9YE=; b=GhTyjEHDE07M9G/UnEBw/TGNWJg
-	BJGF76rSgOLqxvmOwTzddatBU6wrde/banDq+aEdI5UiAv2hkmxpf3ZOwcBp5JwN
-	SpzH50PMrnZV1+LFn1pJ4wFyjJ2swVYcbNpUq8q36Yd1E1OxTlQaRnz1P/5eiZUX
-	QI0Ts8R3TIrFk76dlRJTpqKPPJ3ukI4mG/JfXD/OBl7IIq37zY+oPH8ILD2firC/
-	WvezK1PPTg9LOIMODAbKkLnZ3g8G42HeXZ2gfrUB+o0gJDqtYrx2hS2C21FNNtpb
-	5bHG0DyyblXEaYq0wqT1SmGEK4FB0LVjyAtaQfnkoNgB+ypRKc/CGs+5sKQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgnuk8ckq-1
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=uEG4u2CQ/9TFubC4sZQG5u8ciiNwJ/m/8ij
+	1aKFIvPc=; b=JvUqOVOu/49jZEeWR1P07NNxL71LuO9fN3xAUlAdO4W2RL42UkL
+	o8wQ1XSlTR6xs3K0KJk5NahJHJ6AzgyYulK99Ga8GTt0TQagQtoFGjZUAYtdDPHh
+	C0by9lvDKN+j/7nB/1Ep7Yud78Uw7Jf8q6pLmgeRb4WZAL3hSx7qgnpxMw/VK35U
+	UuRKBuiXGwNjhybLhmv3Jk80Imxc9g9ff8dNpTNbKAYIt2s9dvLqtgl57kLtdU2K
+	Djtwq294uhMCmjqh9bLnYjTYJtw/e6pa353KEE+EEoZUJuZ0oh49qwa4OtlRu3y8
+	AvDmUPgKdaLTjnPSOnurg7i2AfJhBwYeLgw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgjcgry77-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 08:20:03 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e49a1d3b1so7489885a.2
-        for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 01:20:03 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 09:40:31 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-5383d650f2dso6964581cf.0
+        for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 02:40:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792830002; x=1793434802; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G27Cz2wceBxSG1zNS8aH7ZlX39WGpLP7K7D6Ef2Z9YE=;
-        b=egJTqpDVDM8ojBT5Oz/kKJutar0kT8QEAxY7VnmBik3EVH2cEng64r6xhS041siq3X
-         CMLH0vn816MOLw4ux3B8sFp2KvnoUU+nFbV5IOtmFTpNSXadd5Fh1oxz88kumHc88ELP
-         D7/uPXcMQM4w/oIY8QlcKp7jLzYPL06NxJi9FUw3Nm8g73+s6Z6vZ+SK2Qmb0Huk/YNV
-         9G1mjnsuutgXfK/yPqUWhHku8EkPwRqdouE+EKou8IVm/M3Q6qMdJ6JhUTU4x35OSQcN
-         BBJH4VFukcvR63Xy4vkXyewYnVLq1Poe3H6AWXAjNHZfFfEekVn06JCKgCanc/1Gr7ph
-         9aiQ==
+        d=oss.qualcomm.com; s=google; t=1792834830; x=1793439630; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uEG4u2CQ/9TFubC4sZQG5u8ciiNwJ/m/8ij1aKFIvPc=;
+        b=d1Kmasu0XvWAaC0vPtyBnUMIKMfdBwQIzRMdj/dk58X4ZJVZjgvepjF14Io+do2+LQ
+         SGsPlKtZ4JtdgTSsNnb9fqbqu9sDoZz6G+MP1RO5GnR+hUCDUGEnGGy0JRVCwBZz/CxZ
+         JMq65Tm1CJdZFCsQ0rhsUtT/vtrgELT742vj+ZgbTo7bO/9zCTzy/8Le/0GWev8nKYMJ
+         0TFsxoTrt1sBtNgUwkxbZlKdbGKbZUhc32XwNWNkfn9bWEArocp42DTtniMblgZ73sVL
+         q7HU5pmtldugGHw2Q5zafhf/+9I14JvPShRTdbpKjXfts3cfNgS0s2yDSO+8Emurf8iV
+         2kPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792830002; x=1793434802;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G27Cz2wceBxSG1zNS8aH7ZlX39WGpLP7K7D6Ef2Z9YE=;
-        b=iF/oJHRNz+fbTAKxOHSUQELkkCjBVA5Hmnce1xAdINpjcPb5P3kZmYmS5FgPoPtOAL
-         +XXQLnpnN8M26okAiAq4PbZXmy4XSxfNsoksfRxQ/SuWYk7oGGKTNQpbWrn4iIqRZNjX
-         HuoGAsgdQ/uWshAgX5QZqqCo4qa8N9l4INL6Jpwc+wWpqsUv4bG5ceCwaVYmQWg6Kvpb
-         LGD2lswh1dBoAGzhYXOoEe6ekSiBmEflulSp08PsTj3Bp3QHVRnIVkodR5MhkOYT7/id
-         g7gCYrTMglgD/XHivSAY0AICu/RxgcOiawUJOHgh668BsAXI8QIA0yStodDLcgGYpBhz
-         qfaw==
-X-Forwarded-Encrypted: i=1; AKwUvBwLCDMm7Jh1mTCqHBHdVrKEAtQI48HpO+DTUO8IaKUvZIzNvmNbdBp3iMgeu3SPu3YmWop/BEwRTMnCgQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxuV4zk+Q3lUqtYNhG5m94C5En5L2X2f1ITSzSn6z78HyXURgB
-	zqLNL3rJRzg4cEVR8LVWovK/y2Lu5v3wjCErXa9Pa4wxOBi2n6Z7iazmHZMfxXB/KPwTWwi9SDK
-	4f7cbUeYglwEM+6LDetsy/7LoZTqjKLqGggJvG8Lbu4/V5zXzu5ViEBYW5pqT3/2T8Q==
-X-Gm-Gg: AYBFou00V8c4TSRzZ6EF/IYDBKdFCb3Hg8JzjwyPH2mJAhRV9CZkyTUP21geYXmHOw8
-	cwN40qhDBTU7BUo3EVVmnVw7tlpujXLeslok8QMRWqTGHsg9fEvEfdZ7tXoi8egig671igpz9Ll
-	Bu1LncD9Y3btxom0QHilMFaWBkh5IHklrPrLuve6ThW8s4uYqdXSmPzR6hEDxpQRLukbqfjyd1C
-	TNigt0Y4oGa4b4auUB33QQb3dIBm7acLBg8Z5LD9FPgGHpjaNolmKIJrKq4hrz82gQ/1izmyiSd
-	0nq7Y7qIrT/d03jEH5H0NFTnyV8HFKC0uwA+9Z7UVyrRUtMGo1mdPURlWl+9MPoUcahVh6lAHdG
-	b5bw7CEsEyNpHVFWXEF0a/Alz
-X-Received: by 2002:a05:620a:a881:10b0:940:f53d:5f7 with SMTP id af79cd13be357-940f53d1553mr32783485a.69.1792830002502;
-        Sat, 24 Oct 2026 01:20:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:a881:10b0:940:f53d:5f7 with SMTP id af79cd13be357-940f53d1553mr32782485a.69.1792830002062;
-        Sat, 24 Oct 2026 01:20:02 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792834830; x=1793439630;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uEG4u2CQ/9TFubC4sZQG5u8ciiNwJ/m/8ij1aKFIvPc=;
+        b=L1Ap4FaQpaGL4Q4tAvYqlnbpLpGNgmxbRdqNGWoeangbqPcshg3cFh23eh0IESjxMI
+         99TJ9YUzHzxtzrMZDaLImeW/ySdL+l1nYUeOfLm5bpUhQPJYWbPthokdfWk84Q/WWlT1
+         rou5o1zX7DqHLh7ua4pk1rTK5KjJ/yrXMWtHam14+Q5sAQwvIUyuADlyASJ5PQ30Kjfa
+         YT6ErjONNtPJGQSQUv/CzogGMulfUdTznwN8AWmEFtOfzlwmVNmPvlo6gQUyrHlxNi9d
+         reFUYSpICvlpHR9KW5mfBogxKUJclyb/cnMbQgC95CX9UUe+Pi7SShvqlV9lYhylK1VM
+         CbFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwkXuW8OCqzJNaGdDcEn2IJ7GQYxjW7lSla3y/wc022c0axb+ajKlhMezcuGUrhbm9pd9tyiCt/S40lbQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIR2BaTX0hFV1cJkE+i82IfGftFi3e2oKgeIYeMPDstmKAp39xl
+	PadPK2LSveI7f0ghbKTmQjK64KhAy/yKCaQvS+TgkvBo9r6vJZgtuHAmC16lK1s0KjGX0oW2PkR
+	4QheVGxY/A7//x+XnkVXzFC87sI5PgfKLoBQ34klcI3XeqKotQulT2mrpCUWfMnrDrw==
+X-Gm-Gg: AYBFou3KWOeasgC0PbAIEowKim6ECOmJJKft5Bz2kDUdddz0BuhtWNTtF3RYk6kp2Yr
+	s8Vbd79hOBEQ9ijEui0mWpO5vHDmhQTm65jaDLQym0AVh99Wmbh2eeAsAfGgdFC3Zsl43ojKRfs
+	Zftw9X5D9ZddYly8BtopMLupGY4ycNC7jz6/3KC9Kr5MPiN01xZVkgnx4MSCntes92tw0TwRd9T
+	njKiuDiKamPlCPERuD/qj9KWCGjBxPXZ88m6DN9huWpepRdPR30hGR8G/+LxC64EkzxVtDyMyqb
+	TYAp5PuxoZjHXVtVq3T2nvv2UMtV1xj/RSbraz6QchtSZVpJTkJHVl0/Jb8P1n6eeZQ3OQvtDaN
+	SUD12100flLbqlP/eMs8QQeTw
+X-Received: by 2002:a05:622a:4e88:b0:535:a5fb:645d with SMTP id d75a77b69052e-5383b6b7b1cmr15587441cf.72.1792834830384;
+        Sat, 24 Oct 2026 02:40:30 -0700 (PDT)
+X-Received: by 2002:a05:622a:4e88:b0:535:a5fb:645d with SMTP id d75a77b69052e-5383b6b7b1cmr15587221cf.72.1792834829901;
+        Sat, 24 Oct 2026 02:40:29 -0700 (PDT)
 Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a573f65sm38496385e9.10.2026.10.24.01.20.00
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3bcdsm2857166f8f.13.2026.10.24.02.40.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 01:20:01 -0700 (PDT)
+        Sat, 24 Oct 2026 02:40:28 -0700 (PDT)
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -109,12 +108,10 @@ Cc: atanas.filipov@oss.qualcomm.com,
         Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] media: qcom: camss: share VFE clock sources on SM8250
-Date: Sat, 24 Oct 2026 11:19:57 +0300
-Message-Id: <20261024081959.2887288-1-atanas.filipov@oss.qualcomm.com>
+Subject: [PATCH v2 0/6] media: qcom: camss: share VFE clock sources on SM8250
+Date: Sat, 24 Oct 2026 12:40:21 +0300
+Message-Id: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <1574aa17-dd5d-43a7-a433-ecef6a8ce136@linaro.org>
-References: <20261023152857.2859767-1-atanas.filipov@oss.qualcomm.com> <1574aa17-dd5d-43a7-a433-ecef6a8ce136@linaro.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -125,68 +122,111 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=Z8Z5j3RA c=1 sm=1 tr=0 ts=6adc6a33 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDAzOCBTYWx0ZWRfX6ALPA1d6tN9N
+ U6441UPWbcii/9P3hWNzW+E30QuK/dTQrFF+bGVH3mrHlYggw05QAnwCz1g5daqk0XfpHpvt3u9
+ snmKYL56DAY5/XrowuxtuskVnXZ2TL0=
+X-Proofpoint-GUID: jbpyJuUKZ74XSs_6MgaXL5a9KBvhqnZ_
+X-Authority-Analysis: v=2.4 cv=JvhkP84C c=1 sm=1 tr=0 ts=6adc7d0f cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=dDcOnGmwcWcmha_HxNsA:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-ORIG-GUID: MxS3_bZk_Rth4kg_vt8kl8mJl4D6eGfF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDAzMyBTYWx0ZWRfXzzBfK8lK0QaQ
- XIz0e72LQ90wAVuFolp/jFbg2vZbYEHY1Xlamv165eiL1f6rewDpCrLOEqFdOibZca7//1cwhTF
- b19Nw13syskENkt0yfc5sa/0lv5wOKj6s3lUBZSD2RYQPYmXKzGbRpEUkSLv3+zudX8GqsYz50g
- taaazX19yDKjg2/oty5f9D1a/7OhyoOxCOOXYqs8vL2ClehUXW64fH9cZQb4yOzBrIz+gyYKpLx
- xeq92b20/Tzrna3jmZ10JrgJWhJWtR375KQGab3QyZXesdblpqMkChya4M1SXjG4t389XQ9sRZ5
- cpEGo9d7RpnwzP0HT1nPtoORepvucJNBB1mkg1Mg7QtTDTwLJzPzc9b+CsW+5yQOirXUroyCpbO
- Axp4lT6KlsfNNz+Du27icT0YqEHrmtD+qB8eCLHK4yQ8jVxRyyTwn/NaVkfEKX5OKYsiLC9LLmD
- iUzK4cXcSEQ3+UPR7bg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI0MDAzMyBTYWx0ZWRfXyhGiuJmTkZI/
- sTPcdQm+5Ahd/oq4r+24ai7wY3eNMyt8z2bjZZWOPiZKfE5VAVMshdWPsiifN2cGl8LkQ1rw25K
- kRal5HnZfZCnkHhq3qI3lcNYNweXGck=
-X-Proofpoint-GUID: MxS3_bZk_Rth4kg_vt8kl8mJl4D6eGfF
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=dmj4VTlxVhTCmNQHaQYA:9
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI0MDAzOCBTYWx0ZWRfX5xnidAVEB3ir
+ IdtWNp7ocs13WpGHN0ZsO6CAr7geI1RUYRbqZ3ZzR2doQEQfWEYrJk68uSpF70atdxBNmvHBFpr
+ Cna7C3+S5kHbLLXBHrHw3vOeqgNEIKJWAmR5+IcvZ21+vucpdsviCb7IENnJ8P/3dgSDf6aI/qU
+ GdqDw2aplUb9HR/Tz7Ln6dc1QNf/ctkiHJWx2rrR0cIz/tWNpQqLm9XzRNT1qBEaAQAVPwcJnBS
+ J2nzwOHhR193qzFmWFiJFft0CiQOp3vRrPLGbM8Zmn6eX9Fqc9z+xAcGTfmgL+93GDtoRTMBeLk
+ 3x36sYYEUHQXyQBxlSKOD/dn2Rg663mlmD7nb4pbxDaJ1JpiHDjcTuFWMeP1rvt4CzdloMV0ogq
+ 4sbeYBQ3kfyYkQSdwFeR52eh07c+MIAp+81n02WlyLoE7MMRkWXztvJbtxgax775r2fb+FbApoL
+ k9VektYgpS7swJRb2sQ==
+X-Proofpoint-ORIG-GUID: jbpyJuUKZ74XSs_6MgaXL5a9KBvhqnZ_
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-24_01,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 malwarescore=0 adultscore=0
+ bulkscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610240033
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610240038
 
-On 23/10/2026 22:44, Bryan O'Donoghue wrote:
-> On 23/10/2026 16:28, Atanas Filipov wrote:
->> The aggregation only covers the CAMSS VFEs. Drivers outside CAMSS that
->> use the same shared clock sources are not covered and are left to a
->> separate change.
->
-> Lets discuss that change so. We need to represent shared clocks through
-> CamNoC anyway right ?
+On SM8250 several VFE clocks are fed by one clock source: the AREG
+clocks of the two full VFEs share the fast AHB source, the two VFE Lite
+share one core clock source, and all four VFEs share the camera NoC AXI
+source. Each VFE sets such a source to its own rate, so the last VFE to
+power on wins and can lower the rate under a VFE that is still running.
+The CSID also sets the VFE core clocks to their lowest level when it
+powers on after the VFE, and nothing sets the camera NoC AXI rate, so
+the camera NoC runs from XO and two concurrent streams stall.
 
-Yes. The camera NoC AXI clock is shared by everything that writes
-through the camera NoC: the CAMSS front ends, and offline engines such
-as OPE and JPEG that are separate devices. Today no one aggregates
-their requests.
+Two examples on RB5 (QRB5165):
 
-I have posted two versions of this so far:
+- VFE0 streams the CSID test pattern and VFE1 then starts an imx577
+  stream. Nothing sets the camera NoC AXI rate, so the camera NoC stays
+  at XO (19.2 MHz) and one of the two streams stalls. With the series
+  the VFEs set it to 300 or 400 MHz and both streams complete.
 
-  - v2 added a CAMNOC interconnect provider with one port per client:
-    https://lore.kernel.org/all/20260819093211.1436275-1-atanas.filipov@oss.qualcomm.com/
-  - v3 exports the camcc camera NoC AXI RCG through icc-clk, as
-    gcc-ipq9574 does:
-    https://lore.kernel.org/all/20261016170701.1504338-1-atanas.filipov@oss.qualcomm.com/
+- VFE Lite 0 streams the CSID test pattern at 480 MHz and VFE Lite 1
+  then starts an imx577 stream that needs 400 MHz. The two share one
+  core clock source, so VFE Lite 1 lowers it to 400 MHz under the
+  running VFE Lite 0. With the series the source stays at 480 MHz until
+  VFE Lite 0 stops.
 
-On v3 Krzysztof objected that a clock is not an interconnect and
-suggested fixing the clock framework instead. Dmitry asked to land
-icc-clk first, then the optional CAMSS interconnect, then JPEG. Both
-questions are still open. Gjorgji summarised the two options in this
-thread.
+This series lets the VFE own its clock rates and aggregates the shared
+sources within CAMSS:
 
-This series does not depend on that choice. It only stops the VFEs
-from overriding each other inside CAMSS. Once the camera NoC is
-represented, the VFE stops setting the camera NoC AXI rate and votes
-instead; I have that change ready on top of v3.
+- Patch 1 moves the minimum rate computation out of the VFE clock
+  loops, with no functional change.
+- Patch 2 clamps each VFE clock to its highest listed rate instead of
+  failing, as the VFE clock rate tables need not have the same number
+  of levels.
+- Patch 3 stops the CSID from setting the VFE core clock rates.
+- Patch 4 groups the VFE clocks by clock source, so that a shared
+  source runs at the highest rate requested by the running VFEs. It is
+  enabled per SoC, so far only on SM8250.
+- Patch 5 lets the VFE set the AREG clock rate.
+- Patch 6 drops the unused camera NoC AXI RCG from the VFE clocks and
+  lets the VFE set the camera NoC AXI rate.
 
-Which direction do you prefer: per-client ports in a CAMNOC provider
-(v2), icc-clk on the camcc RCG (v3), or the clock framework?
+The camera NoC AXI clock is also used by drivers outside CAMSS, and how
+to aggregate their requests with the CAMSS one is still being discussed
+on the CAMNOC interconnect series. Patch 6 does not depend on that
+choice: it only aggregates the CAMSS VFEs, which share one source, and
+fixes the concurrent stall today. Once the shared camera NoC clock is
+represented, the VFE will request its rate through that interface
+instead of setting the clock directly.
 
-Regards,
-Atanas
+Tested on RB5 (QRB5165) with imx577 and ov9282 sensors and the CSID test
+pattern generator, on single, concurrent test pattern plus sensor, and
+concurrent dual sensor RDI captures on all four VFEs: all streams
+complete, the shared sources stay at the highest requested rate while
+another VFE runs, dedicated clocks drop to XO on power off, and the
+camera NoC AXI clock runs at 300 or 400 MHz while streaming, without
+the concurrent capture stalls seen before the series.
+
+Changes in v2:
+- Split the minimum rate computation out of the clock loops into its
+  own patch (Loic Poulain)
+- Add the Fixes tag to the CSID patch (Bryan O'Donoghue)
+- Split the clock grouping from the AREG clock change and add an
+  example to the grouping commit message (Bryan O'Donoghue)
+- Rename the per-clock entries of a clock domain from user to vote
+  (Bryan O'Donoghue)
+
+Atanas Filipov (6):
+  media: qcom: camss: factor out the VFE minimum clock rate
+  media: qcom: camss: clamp VFE clock rates to the highest level
+  media: qcom: camss: sm8250: do not set VFE core clock rates from CSID
+  media: qcom: camss: share VFE clock sources by the highest rate
+  media: qcom: camss: sm8250: set the VFE AREG clock rate from the VFE
+  media: qcom: camss: sm8250: set the camera NoC AXI rate from the VFE
+
+ drivers/media/platform/qcom/camss/camss-vfe.c | 138 ++++++-----
+ drivers/media/platform/qcom/camss/camss.c     | 215 ++++++++++++++++--
+ drivers/media/platform/qcom/camss/camss.h     |  13 ++
+ 3 files changed, 272 insertions(+), 94 deletions(-)
+
+
+base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
+-- 
+2.34.1
+
