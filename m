@@ -1,81 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.243.27.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792952060;
-	b=iVhmc2UtO8FX2eRtqqexSpBBECEAnOaAq5/5jqpFqyctlqNk8pr1MfZ/cVUJH5JAtYkh
-	 7QgdXSxKjehOFH4kjMcedGvwsx5XiMvOL49JAbRAgoPo7vZBa+Es6lBuddVLfPeXk1jnQ
-	 yvYljyO5JlkUddckR78yUErpsTL+rHJAtYj6owtx1MOF/I0ikuaLNGU78gCnJJt+uBJaj
-	 adUuHZmvRnQZ9rYz7ojwhln4QVp28lVCH3Y1BztpcsKBInTAbxH+MDqTbPSYIc6iSu1pw
-	 CkGWIpZ+hZ0Jssnr9qw5t4ofLtYPKjzvNPrJNsGawma2+bJbqJ75UIY7qMw4qFk/riA==
+	t=1792952059;
+	b=uayBZ5vEYQB/3uu7Wm7XY2QRKtvyKiYFNQlRGfQUNGoasIvbO8PFJ7cfSBpvR7LVK6w8
+	 StLhtVUu8UAXq01wBsSzw8fpK/ddaYB+UKwmamjq/6uHSjaY6Azxo4sLKEkO6xNEkNcSy
+	 0UG2CFuaJESvYshSxJh1h88bZArRjDnd8lZpNA9f7Rymmayg1n1+BfdEKX4VGX46G2G/A
+	 fsPweOYDq4mWImHO54XlQaci66H+wYKVGQJZOjakX9QzmtRHe98jDDJ7o4nCoxG+dCSzL
+	 5LtnEtjpwHLP1xKgIdzts+/ftAu1F9d/4atorIyy+g9NjVFVMp63Lb41rEd3m7fMDTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792952060;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952059;
 	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
 	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=B3jXFvru+WaSXTCb/25+/dzEIkdnXF4SUOLhG3aBRG0=;
-	b=gdy6jrnpv1NFt/HjvO1wfJ2lmzy9jpBNPv9J2ZF3yH6gklqsfGpkI8YPcmH3LVtpZl0E
-	 MjkkQYehRVIl077M1Rps0DXMKnqBosG3P5n5/fvOcSQaHRne6Az8eeR945GI7gBh6jq1K
-	 SaG3n8slGc9dmYa1i2v4xt31jqKGSHcJx5NoAUF7gDk4rIM5BHmY9Axih25diDc8NsYxO
-	 Y5SA3Yi5GlKpHy8Q1tHpB39knoiRx9ALN0gdm71UFYkNQ1RTtHYjPF5aXIod5b9+scu9W
-	 +7192LzZiS/1OStnZt1W6ShGFV6MucsL8x76QRmHMr7xByuQYrPzn+eWM6b+r0YuZ6Q==
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=GHTvY6MJmucV3K+GAuG/XK+212p8vLKP/QAEWOC5pOI=;
+	b=eedJPLXKqFFv0QNKWAraVFj3pEo7N1xXG1dEhg7PLibm/ruLLD4/vYrtW4x/Zf7r1bvl
+	 TtwNVTfXpRSVh+I4BbgpaqL+FoMOTyWTW3IdFPs26/72H/Z+EwaVDCfUbVtKHr95fvB9/
+	 t/qw1mjPzqu84ZFRiMl9rjo/l7Z8/0AsqBW7FSmej3APgl7amIkL40kE/EUBCSyagTojc
+	 FhMXcsulGQhRCR8zBa+2d03CbIwQtOL2Z7aEmAe2+h/RDTimg+bM93vKhvu6idcbsRfAj
+	 2Cyk03fPQY/PbYe3/OuC9GAI+9NM3hBU7C1OWpiVnv3UDhzmE1MyR7/N4p1ARlw6Xtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mess.org;
 	spf=pass smtp.mailfrom=mess.org;
-	dkim=pass header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=TVM4RJVH;
-	dkim=pass header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=BVjHujVz;
+	dkim=pass header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=NdzG6gey;
+	dkim=pass header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=moqlcaM3;
 	arc=none smtp.remote-ip=92.243.27.206
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18721606A329;
-	Sun, 25 Oct 2026 18:14:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18721606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88DB606A31B
+	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 18:14:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C88DB606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=TVM4RJVH;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=BVjHujVz
+	dkim=pass (2048-bit key, unprotected) header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=NdzG6gey;
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=moqlcaM3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1792952053; bh=kVFx4m72829d7qz6rWfycW6fc2Z/xG1cF3gpWTPqDtw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=TVM4RJVH/DC7n95NHConfpj4JHMZmzXhbhFU/2D8UEiQAJ08v3kzOUueIszxbfDFx
-	 oJBnxMxPErJrPbbOLQS21VK/v6X9dsZ30OEcXM2xbp7hX6ai+NtrxJJd7VLi24QM+M
-	 HWsNTVwE7+GAlsDu6aI0KIhyiA+hP8HSl2xzucJ1YjlFpeouyiwXHBIXRGdtu3Q6w3
-	 gIgNGLQDf2QnWjsg/MEalMIXI+/7jmcNtILaZRENTCcav5Nt28ZoCsSKpcwy/steQf
-	 Y9E+YRrUTlJ0f/Fe5TQLGwLtTVww57edY4stxvmto9Ura9SO18R05ZIUp2k0lmUjdv
-	 WoeLrMJfM3u1Q==
+	t=1792952050; bh=+/Bc14zDz1zDuEXLXljBwCk5Y3QiSoimLoY9vOehLUo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=NdzG6geyD2Ng/c0n2UjPsm1KDxj+Bes/dh55cr1QYFZKq24mG8ZPXaEySYMSdqbpt
+	 dd2UG1G8Uaxx9fy2R5KFf56v40vmgW3Mitx7CiT9O1nEMq/X0RTaWR7pJlyPCCcSQE
+	 qY29BnPB8WO8MxtXnwI7fLgFxeCcIDB7BDirsy+tqV18jx7X7XWQ7pnIm8myY9nE5l
+	 clVAf6oPg5yjJvE+iOzZqjK3gnGXQlJ1woofTN3+lDpzJF81z59+57GRwjM5HFsKuY
+	 Lun7eih5qbYGgCYzXtkApCPS5+msxo7wZEA6769JylYT65rjcnfFFbRY5RY6Dpa/3/
+	 Z4AaeX5t8DeDA==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id AC9C840B52; Sun, 25 Oct 2026 18:14:13 +0000 (GMT)
+	id DE88B40B30; Sun, 25 Oct 2026 18:14:10 +0000 (GMT)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1792952052; bh=kVFx4m72829d7qz6rWfycW6fc2Z/xG1cF3gpWTPqDtw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BVjHujVz8C+VNMZOX9S0M/VDcYDZ1Ogdi3Zk+yziDbZOPlqAvv92BIBjR8PXrHOXW
-	 vYp5W/hxd2HSwUvA9B7tNUI22Wjf18HFTalVwbwKETKl/1rODI5nV9O5RDLEdsdnAO
-	 CTSs1pU/S7/zhLNNqvwhMYBD37nilabovZee+dg3usvmH/W1+BB38KXCyT7GlQCgng
-	 xt3OFzbXQSVxpwd26uIHcnviARQi9aoV2UstVnXSu1+LLlrhfnh3sTlobdBpcQw5u9
-	 aStuJBxjjLZMML2+oA3LdKjfc+juJtgCzlzuBa3xZFgDbbIm7TgOOcBSiOkRmHdQ+4
-	 VIRhOGD6ipwOQ==
+	t=1792952049; bh=+/Bc14zDz1zDuEXLXljBwCk5Y3QiSoimLoY9vOehLUo=;
+	h=From:To:Cc:Subject:Date:From;
+	b=moqlcaM3eutSsFaQwvtzWrBf50kdMQJT+N0/yOvUxF9bHRIuonh3xbdw9SiMoeIGU
+	 Mhg9VKscmu3IFMGgjNUzASTkFsLbJmNZoSY/++nXWTCjkpN0XW5cXV7bpq4k+ktco3
+	 5kUrQZ8gKLGlC53dA9BDlZsXmzUSiM9CNGdZjCQwX5znwWyfR+bIedZAsN/V1pBSbB
+	 Vahk7BzVKqJIh8BGvjUAuH/yYHemjlcaXuqo4zxZUOnrnGVIdHKCMbTfxiC6kw+tmD
+	 LxfR5yu2EZaC4JIlQmBRCw0/GlKuByZk1/nGli6Kht8E6RATQnshrwaSDWbzKJmxhX
+	 18rnXQcmNsYfg==
 Received: from maru.home (host86-145-132-241.range86-145.btcentralplus.com [86.145.132.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 323D140B2D;
-	Sun, 25 Oct 2026 18:14:12 +0000 (GMT)
+	by extorris.mess.org (Postfix) with ESMTPSA id 70D284015D;
+	Sun, 25 Oct 2026 18:14:09 +0000 (GMT)
 From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jarod Wilson <jarod@redhat.com>
-Cc: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/5] media: imon: Replace pr_err() with dev_err() and friends
-Date: Sun, 25 Oct 2026 18:13:44 +0000
-Message-ID: <b91c663a9813f32a739e38fc566634df2e182238.1792951808.git.sean@mess.org>
+To: linux-media@vger.kernel.org
+Cc: Sean Young <sean@mess.org>
+Subject: [PATCH 0/5] rc-core fixes
+Date: Sun, 25 Oct 2026 18:13:40 +0000
+Message-ID: <cover.1792951808.git.sean@mess.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1792951808.git.sean@mess.org>
-References: <cover.1792951808.git.sean@mess.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -87,337 +80,160 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We can also remove debug module parameter. This also fixes the use
-after free in free_imon_context() by removing the dev_dbg().
+A few random rc-core fixes and improvements.
 
-Fixes: 21677cfc562a ("V4L/DVB: ir-core: add imon driver")
-Reported-by: syzbot+9bfac891bdd42eb708fc@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=9bfac891bdd42eb708fc
-Signed-off-by: Sean Young <sean@mess.org>
----
- drivers/media/rc/imon.c | 93 +++++++++++++++++------------------------
- 1 file changed, 39 insertions(+), 54 deletions(-)
+Sean Young (5):
+  media: rc: Remove pointless msleep() after request_module()
+  media: rc: Prevent overflow in ir_raw_event_store_edge()
+  media: rc: Do not touch rx state when unregistering a tx-only device
+  media: imon: Replace pr_err() with dev_err() and friends
+  media: rc: struct rc_map should have entries and capacity
 
-diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-index 0a8844cce23b..56958576a13f 100644
---- a/drivers/media/rc/imon.c
-+++ b/drivers/media/rc/imon.c
-@@ -13,8 +13,6 @@
-  *   support for me and provided debug dumps from their devices.
-  */
- 
--#define pr_fmt(fmt) KBUILD_MODNAME ":%s: " fmt, __func__
--
- #include <linux/errno.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
-@@ -462,10 +460,6 @@ MODULE_VERSION(MOD_VERSION);
- MODULE_LICENSE("GPL");
- MODULE_DEVICE_TABLE(usb, imon_usb_id_table);
- 
--static bool debug;
--module_param(debug, bool, S_IRUGO | S_IWUSR);
--MODULE_PARM_DESC(debug, "Debug messages: 0=no, 1=yes (default: no)");
--
- /* lcd, vfd, vga or none? should be auto-detected, but can be overridden... */
- static int display_type;
- module_param(display_type, int, S_IRUGO);
-@@ -513,7 +507,6 @@ static int display_open(struct inode *inode, struct file *file)
- 	subminor = iminor(inode);
- 	interface = usb_find_interface(&imon_driver, subminor);
- 	if (!interface) {
--		pr_err("could not find interface for minor %d\n", subminor);
- 		retval = -ENODEV;
- 		goto exit;
- 	}
-@@ -522,7 +515,8 @@ static int display_open(struct inode *inode, struct file *file)
- 	ictx = usb_get_intfdata(interface);
- 	if (!ictx || ictx->disconnected || !refcount_inc_not_zero(&ictx->users)) {
- 		rcu_read_unlock();
--		pr_err("no context found for minor %d\n", subminor);
-+		dev_dbg(&interface->dev, "no context found for minor %d\n",
-+			subminor);
- 		retval = -ENODEV;
- 		goto exit;
- 	}
-@@ -533,10 +527,10 @@ static int display_open(struct inode *inode, struct file *file)
- 	if (ictx->disconnected) {
- 		retval = -ENODEV;
- 	} else if (!ictx->display_supported) {
--		pr_err("display not supported by device\n");
-+		dev_dbg(ictx->dev, "display not supported by device\n");
- 		retval = -ENODEV;
- 	} else if (ictx->display_isopen) {
--		pr_err("display port is already open\n");
-+		dev_dbg(ictx->dev, "display port is already open\n");
- 		retval = -EBUSY;
- 	} else {
- 		ictx->display_isopen = true;
-@@ -565,10 +559,10 @@ static int display_close(struct inode *inode, struct file *file)
- 	mutex_lock(&ictx->lock);
- 
- 	if (!ictx->display_supported) {
--		pr_err("display not supported by device\n");
-+		dev_err(ictx->dev, "display not supported by device\n");
- 		retval = -ENODEV;
- 	} else if (!ictx->display_isopen) {
--		pr_err("display is not open\n");
-+		dev_err(ictx->dev, "display is not open\n");
- 		retval = -EIO;
- 	} else {
- 		ictx->display_isopen = false;
-@@ -643,13 +637,13 @@ static int send_packet(struct imon_context *ictx)
- 	if (retval) {
- 		ictx->tx.busy = false;
- 		smp_rmb(); /* ensure later readers know we're not busy */
--		pr_err_ratelimited("error submitting urb(%d)\n", retval);
-+		dev_err_ratelimited(ictx->dev, "error submitting urb(%d)\n", retval);
- 	} else {
- 		/* Wait for transmission to complete (or abort or timeout) */
- 		retval = wait_for_completion_interruptible_timeout(&ictx->tx.finished, 10 * HZ);
- 		if (retval <= 0) {
- 			usb_kill_urb(ictx->tx_urb);
--			pr_err_ratelimited("task interrupted\n");
-+			dev_dbg(ictx->dev, "task interrupted\n");
- 			if (retval < 0)
- 				ictx->tx.status = retval;
- 			else
-@@ -659,7 +653,8 @@ static int send_packet(struct imon_context *ictx)
- 		ictx->tx.busy = false;
- 		retval = ictx->tx.status;
- 		if (retval)
--			pr_err_ratelimited("packet tx failed (%d)\n", retval);
-+			dev_err_ratelimited(ictx->dev, "packet tx failed (%d)\n",
-+					    retval);
- 	}
- 
- 	kfree(control_req);
-@@ -689,13 +684,8 @@ static int send_associate_24g(struct imon_context *ictx)
- 	const unsigned char packet[8] = { 0x01, 0x00, 0x00, 0x00,
- 					  0x00, 0x00, 0x00, 0x20 };
- 
--	if (!ictx) {
--		pr_err("no context for device\n");
--		return -ENODEV;
--	}
--
- 	if (!ictx->dev_present_intf0) {
--		pr_err("no iMON device present\n");
-+		dev_dbg(ictx->dev, "no iMON device present\n");
- 		return -ENODEV;
- 	}
- 
-@@ -721,11 +711,6 @@ static int send_set_imon_clock(struct imon_context *ictx,
- 	int retval = 0;
- 	int i;
- 
--	if (!ictx) {
--		pr_err("no context for device\n");
--		return -ENODEV;
--	}
--
- 	switch (ictx->display_type) {
- 	case IMON_DISPLAY_TYPE_LCD:
- 		clock_enable_pkt[0][0] = 0x80;
-@@ -783,7 +768,7 @@ static int send_set_imon_clock(struct imon_context *ictx,
- 		memcpy(ictx->usb_tx_buf, clock_enable_pkt[i], 8);
- 		retval = send_packet(ictx);
- 		if (retval) {
--			pr_err("send_packet failed for packet %d\n", i);
-+			dev_err(ictx->dev, "send_packet failed for packet %d\n", i);
- 			break;
- 		}
- 	}
-@@ -958,13 +943,13 @@ static ssize_t vfd_write(struct file *file, const char __user *buf,
- 	}
- 
- 	if (!ictx->dev_present_intf0) {
--		pr_err_ratelimited("no iMON device present\n");
-+		dev_dbg(ictx->dev, "no iMON device present\n");
- 		retval = -ENODEV;
- 		goto exit;
- 	}
- 
- 	if (n_bytes <= 0 || n_bytes > 32) {
--		pr_err_ratelimited("invalid payload size\n");
-+		dev_dbg(ictx->dev, "invalid payload size\n");
- 		retval = -EINVAL;
- 		goto exit;
- 	}
-@@ -990,7 +975,8 @@ static ssize_t vfd_write(struct file *file, const char __user *buf,
- 
- 		retval = send_packet(ictx);
- 		if (retval) {
--			pr_err_ratelimited("send packet #%d failed\n", seq / 2);
-+			dev_err_ratelimited(ictx->dev, "send packet #%d failed\n",
-+					    seq / 2);
- 			goto exit;
- 		} else {
- 			seq += 2;
-@@ -1004,7 +990,8 @@ static ssize_t vfd_write(struct file *file, const char __user *buf,
- 	ictx->usb_tx_buf[7] = (unsigned char) seq;
- 	retval = send_packet(ictx);
- 	if (retval)
--		pr_err_ratelimited("send packet #%d failed\n", seq / 2);
-+		dev_err_ratelimited(ictx->dev, "send packet #%d failed\n",
-+				    seq / 2);
- 
- exit:
- 	mutex_unlock(&ictx->lock);
-@@ -1039,14 +1026,14 @@ static ssize_t lcd_write(struct file *file, const char __user *buf,
- 	}
- 
- 	if (!ictx->display_supported) {
--		pr_err_ratelimited("no iMON display present\n");
-+		dev_dbg(ictx->dev, "no iMON display present\n");
- 		retval = -ENODEV;
- 		goto exit;
- 	}
- 
- 	if (n_bytes != 8) {
--		pr_err_ratelimited("invalid payload size: %d (expected 8)\n",
--				   (int)n_bytes);
-+		dev_dbg(ictx->dev, "invalid payload size: %zu (expected 8)\n",
-+			n_bytes);
- 		retval = -EINVAL;
- 		goto exit;
- 	}
-@@ -1058,7 +1045,7 @@ static ssize_t lcd_write(struct file *file, const char __user *buf,
- 
- 	retval = send_packet(ictx);
- 	if (retval) {
--		pr_err_ratelimited("send packet failed!\n");
-+		dev_err_ratelimited(ictx->dev, "send packet failed!\n");
- 		goto exit;
- 	} else {
- 		dev_dbg(ictx->dev, "%s: write %d bytes to LCD\n",
-@@ -1647,10 +1634,7 @@ static void imon_incoming_packet(struct imon_context *ictx,
- 		imon_pad_to_keys(ictx, buf);
- 	}
- 
--	if (debug) {
--		printk(KERN_INFO "intf%d decoded packet: %*ph\n",
--		       intf, len, buf);
--	}
-+	dev_dbg(dev, "intf%d decoded packet: %*ph\n", intf, len, buf);
- 
- 	press_type = imon_parse_press_type(ictx, buf, ktype);
- 	if (press_type < 0)
-@@ -1841,65 +1825,66 @@ static void imon_get_ffdc_type(struct imon_context *ictx)
- 	u8 ffdc_cfg_byte = ictx->usb_rx_buf[6];
- 	u8 detected_display_type = IMON_DISPLAY_TYPE_NONE;
- 	u64 allowed_protos = RC_PROTO_BIT_IMON;
-+	const char *descr;
- 
- 	switch (ffdc_cfg_byte) {
- 	/* iMON Knob, no display, iMON IR + vol knob */
- 	case 0x21:
--		dev_info(ictx->dev, "0xffdc iMON Knob, iMON IR");
-+		descr = "0xffdc iMON Knob, iMON IR";
- 		ictx->display_supported = false;
- 		break;
- 	/* iMON 2.4G LT (usb stick), no display, iMON RF */
- 	case 0x4e:
--		dev_info(ictx->dev, "0xffdc iMON 2.4G LT, iMON RF");
-+		descr = "0xffdc iMON 2.4G LT, iMON RF";
- 		ictx->display_supported = false;
- 		ictx->rf_device = true;
- 		break;
- 	/* iMON VFD, no IR (does have vol knob tho) */
- 	case 0x35:
--		dev_info(ictx->dev, "0xffdc iMON VFD + knob, no IR");
-+		descr = "0xffdc iMON VFD + knob, no IR";
- 		detected_display_type = IMON_DISPLAY_TYPE_VFD;
- 		break;
- 	/* iMON VFD, iMON IR */
- 	case 0x24:
- 	case 0x30:
- 	case 0x85:
--		dev_info(ictx->dev, "0xffdc iMON VFD, iMON IR");
-+		descr = "0xffdc iMON VFD, iMON IR";
- 		detected_display_type = IMON_DISPLAY_TYPE_VFD;
- 		break;
- 	/* iMON VFD, MCE IR */
- 	case 0x46:
- 	case 0x9e:
--		dev_info(ictx->dev, "0xffdc iMON VFD, MCE IR");
-+		descr = "0xffdc iMON VFD, MCE IR";
- 		detected_display_type = IMON_DISPLAY_TYPE_VFD;
- 		allowed_protos = RC_PROTO_BIT_RC6_MCE;
- 		break;
- 	/* iMON VFD, iMON or MCE IR */
- 	case 0x7e:
--		dev_info(ictx->dev, "0xffdc iMON VFD, iMON or MCE IR");
-+		descr = "0xffdc iMON VFD, iMON or MCE IR";
- 		detected_display_type = IMON_DISPLAY_TYPE_VFD;
- 		allowed_protos |= RC_PROTO_BIT_RC6_MCE;
- 		break;
- 	/* iMON LCD, MCE IR */
- 	case 0x9f:
--		dev_info(ictx->dev, "0xffdc iMON LCD, MCE IR");
-+		descr = "0xffdc iMON LCD, MCE IR";
- 		detected_display_type = IMON_DISPLAY_TYPE_LCD;
- 		allowed_protos = RC_PROTO_BIT_RC6_MCE;
- 		break;
- 	/* no display, iMON IR */
- 	case 0x26:
--		dev_info(ictx->dev, "0xffdc iMON Inside, iMON IR");
-+		descr = "0xffdc iMON Inside, iMON IR";
- 		ictx->display_supported = false;
- 		break;
- 	/* Soundgraph iMON UltraBay */
- 	case 0x98:
--		dev_info(ictx->dev, "0xffdc iMON UltraBay, LCD + IR");
-+		descr = "0xffdc iMON UltraBay, LCD + IR";
- 		detected_display_type = IMON_DISPLAY_TYPE_LCD;
- 		allowed_protos = RC_PROTO_BIT_IMON | RC_PROTO_BIT_RC6_MCE;
- 		ictx->dev_descr = &ultrabay_table;
- 		break;
- 
- 	default:
--		dev_info(ictx->dev, "Unknown 0xffdc device, defaulting to VFD and iMON IR");
-+		descr = "Unknown 0xffdc device, defaulting to VFD and iMON IR";
- 		detected_display_type = IMON_DISPLAY_TYPE_VFD;
- 		/*
- 		 * We don't know which one it is, allow user to set the
-@@ -1909,7 +1894,7 @@ static void imon_get_ffdc_type(struct imon_context *ictx)
- 		break;
- 	}
- 
--	printk(KERN_CONT " (id 0x%02x)\n", ffdc_cfg_byte);
-+	dev_info(ictx->dev, "%s (id 0x%02x)\n", descr, ffdc_cfg_byte);
- 
- 	ictx->display_type = detected_display_type;
- 	ictx->rc_proto = allowed_protos;
-@@ -2207,7 +2192,7 @@ static bool imon_find_endpoints(struct imon_context *ictx,
- 
- 	/* Input endpoint is mandatory */
- 	if (!ir_ep_found)
--		pr_err("no valid input (IR) endpoint found\n");
-+		dev_err(ictx->dev, "no valid input (IR) endpoint found\n");
- 
- 	ictx->tx_control = tx_control;
- 
-@@ -2276,7 +2261,7 @@ static struct imon_context *imon_init_intf0(struct usb_interface *intf,
- 
- 	ret = usb_submit_urb(ictx->rx_urb_intf0, GFP_KERNEL);
- 	if (ret) {
--		pr_err("usb_submit_urb failed for intf0 (%d)\n", ret);
-+		dev_err(dev, "usb_submit_urb failed for intf0 (%d)\n", ret);
- 		goto urb_submit_failed;
- 	}
- 
-@@ -2452,8 +2437,8 @@ static int imon_probe(struct usb_interface *interface,
- 		sysfs_err = sysfs_create_group(&interface->dev.kobj,
- 					       &imon_rf_attr_group);
- 		if (sysfs_err)
--			pr_err("Could not create RF sysfs entries(%d)\n",
--			       sysfs_err);
-+			dev_err(dev, "Could not create RF sysfs entries(%d)\n",
-+				sysfs_err);
- 	}
- 
- 	if (ictx->display_supported)
+ drivers/media/rc/imon.c                       | 93 ++++++++-----------
+ .../media/rc/keymaps/rc-adstech-dvb-t-pci.c   |  2 +-
+ drivers/media/rc/keymaps/rc-alink-dtu-m.c     |  2 +-
+ drivers/media/rc/keymaps/rc-anysee.c          |  2 +-
+ drivers/media/rc/keymaps/rc-apac-viewcomp.c   |  2 +-
+ .../media/rc/keymaps/rc-astrometa-t2hybrid.c  |  2 +-
+ drivers/media/rc/keymaps/rc-asus-pc39.c       |  2 +-
+ drivers/media/rc/keymaps/rc-asus-ps3-100.c    |  2 +-
+ .../rc/keymaps/rc-ati-tv-wonder-hd-600.c      |  2 +-
+ drivers/media/rc/keymaps/rc-ati-x10.c         |  2 +-
+ drivers/media/rc/keymaps/rc-avermedia-a16d.c  |  2 +-
+ .../media/rc/keymaps/rc-avermedia-cardbus.c   |  2 +-
+ drivers/media/rc/keymaps/rc-avermedia-dvbt.c  |  2 +-
+ drivers/media/rc/keymaps/rc-avermedia-m135a.c |  2 +-
+ .../rc/keymaps/rc-avermedia-m733a-rm-k6.c     |  2 +-
+ drivers/media/rc/keymaps/rc-avermedia-rm-ks.c |  2 +-
+ drivers/media/rc/keymaps/rc-avermedia.c       |  2 +-
+ drivers/media/rc/keymaps/rc-avertv-303.c      |  2 +-
+ .../media/rc/keymaps/rc-azurewave-ad-tu700.c  |  2 +-
+ drivers/media/rc/keymaps/rc-beelink-gs1.c     |  2 +-
+ drivers/media/rc/keymaps/rc-beelink-mxiii.c   |  2 +-
+ drivers/media/rc/keymaps/rc-behold-columbus.c |  2 +-
+ drivers/media/rc/keymaps/rc-behold.c          |  2 +-
+ drivers/media/rc/keymaps/rc-budget-ci-old.c   |  2 +-
+ drivers/media/rc/keymaps/rc-cec.c             |  2 +-
+ drivers/media/rc/keymaps/rc-cinergy-1400.c    |  2 +-
+ drivers/media/rc/keymaps/rc-cinergy.c         |  2 +-
+ drivers/media/rc/keymaps/rc-ct-90405.c        |  2 +-
+ drivers/media/rc/keymaps/rc-d680-dmb.c        |  2 +-
+ drivers/media/rc/keymaps/rc-delock-61959.c    |  2 +-
+ drivers/media/rc/keymaps/rc-dib0700-nec.c     |  2 +-
+ drivers/media/rc/keymaps/rc-dib0700-rc5.c     |  2 +-
+ .../media/rc/keymaps/rc-digitalnow-tinytwin.c |  2 +-
+ drivers/media/rc/keymaps/rc-digittrade.c      |  2 +-
+ drivers/media/rc/keymaps/rc-dm1105-nec.c      |  2 +-
+ drivers/media/rc/keymaps/rc-dntv-live-dvb-t.c |  2 +-
+ .../media/rc/keymaps/rc-dntv-live-dvbt-pro.c  |  2 +-
+ drivers/media/rc/keymaps/rc-dreambox.c        |  2 +-
+ drivers/media/rc/keymaps/rc-dtt200u.c         |  2 +-
+ drivers/media/rc/keymaps/rc-dvbsky.c          |  2 +-
+ drivers/media/rc/keymaps/rc-dvico-mce.c       |  2 +-
+ drivers/media/rc/keymaps/rc-dvico-portable.c  |  2 +-
+ drivers/media/rc/keymaps/rc-em-terratec.c     |  2 +-
+ .../media/rc/keymaps/rc-encore-enltv-fm53.c   |  2 +-
+ drivers/media/rc/keymaps/rc-encore-enltv.c    |  2 +-
+ drivers/media/rc/keymaps/rc-encore-enltv2.c   |  2 +-
+ drivers/media/rc/keymaps/rc-evga-indtube.c    |  2 +-
+ drivers/media/rc/keymaps/rc-eztv.c            |  2 +-
+ drivers/media/rc/keymaps/rc-flydvb.c          |  2 +-
+ drivers/media/rc/keymaps/rc-flyvideo.c        |  2 +-
+ drivers/media/rc/keymaps/rc-fusionhdtv-mce.c  |  2 +-
+ drivers/media/rc/keymaps/rc-gadmei-rm008z.c   |  2 +-
+ drivers/media/rc/keymaps/rc-geekbox.c         |  2 +-
+ .../media/rc/keymaps/rc-genius-tvgo-a11mce.c  |  2 +-
+ drivers/media/rc/keymaps/rc-gotview7135.c     |  2 +-
+ drivers/media/rc/keymaps/rc-hauppauge.c       |  2 +-
+ drivers/media/rc/keymaps/rc-hisi-poplar.c     |  2 +-
+ drivers/media/rc/keymaps/rc-hisi-tv-demo.c    |  2 +-
+ drivers/media/rc/keymaps/rc-imon-mce.c        |  2 +-
+ drivers/media/rc/keymaps/rc-imon-pad.c        |  2 +-
+ drivers/media/rc/keymaps/rc-imon-rsc.c        |  2 +-
+ drivers/media/rc/keymaps/rc-iodata-bctv7e.c   |  2 +-
+ drivers/media/rc/keymaps/rc-it913x-v1.c       |  2 +-
+ drivers/media/rc/keymaps/rc-it913x-v2.c       |  2 +-
+ drivers/media/rc/keymaps/rc-kaiomy.c          |  2 +-
+ drivers/media/rc/keymaps/rc-khadas.c          |  2 +-
+ drivers/media/rc/keymaps/rc-khamsin.c         |  2 +-
+ drivers/media/rc/keymaps/rc-kworld-315u.c     |  2 +-
+ drivers/media/rc/keymaps/rc-kworld-pc150u.c   |  2 +-
+ .../rc/keymaps/rc-kworld-plus-tv-analog.c     |  2 +-
+ .../media/rc/keymaps/rc-leadtek-y04g0051.c    |  2 +-
+ drivers/media/rc/keymaps/rc-lme2510.c         |  2 +-
+ drivers/media/rc/keymaps/rc-manli.c           |  2 +-
+ drivers/media/rc/keymaps/rc-mecool-kii-pro.c  |  2 +-
+ drivers/media/rc/keymaps/rc-mecool-kiii-pro.c |  2 +-
+ .../rc/keymaps/rc-medion-x10-digitainer.c     |  2 +-
+ drivers/media/rc/keymaps/rc-medion-x10-or2x.c |  2 +-
+ drivers/media/rc/keymaps/rc-medion-x10.c      |  2 +-
+ drivers/media/rc/keymaps/rc-minix-neo.c       |  2 +-
+ drivers/media/rc/keymaps/rc-msi-digivox-ii.c  |  2 +-
+ drivers/media/rc/keymaps/rc-msi-digivox-iii.c |  2 +-
+ .../media/rc/keymaps/rc-msi-tvanywhere-plus.c |  2 +-
+ drivers/media/rc/keymaps/rc-msi-tvanywhere.c  |  2 +-
+ drivers/media/rc/keymaps/rc-mygica-utv3.c     |  2 +-
+ drivers/media/rc/keymaps/rc-nebula.c          |  2 +-
+ .../rc/keymaps/rc-nec-terratec-cinergy-xs.c   |  2 +-
+ drivers/media/rc/keymaps/rc-norwood.c         |  2 +-
+ drivers/media/rc/keymaps/rc-npgtech.c         |  2 +-
+ drivers/media/rc/keymaps/rc-odroid.c          |  2 +-
+ drivers/media/rc/keymaps/rc-pctv-sedna.c      |  2 +-
+ drivers/media/rc/keymaps/rc-pine64.c          |  2 +-
+ drivers/media/rc/keymaps/rc-pinnacle-color.c  |  2 +-
+ drivers/media/rc/keymaps/rc-pinnacle-grey.c   |  2 +-
+ .../media/rc/keymaps/rc-pinnacle-pctv-hd.c    |  2 +-
+ drivers/media/rc/keymaps/rc-pixelview-002t.c  |  2 +-
+ drivers/media/rc/keymaps/rc-pixelview-mk12.c  |  2 +-
+ drivers/media/rc/keymaps/rc-pixelview-new.c   |  2 +-
+ drivers/media/rc/keymaps/rc-pixelview.c       |  2 +-
+ .../rc/keymaps/rc-powercolor-real-angel.c     |  2 +-
+ drivers/media/rc/keymaps/rc-proteus-2309.c    |  2 +-
+ drivers/media/rc/keymaps/rc-purpletv.c        |  2 +-
+ drivers/media/rc/keymaps/rc-pv951.c           |  2 +-
+ drivers/media/rc/keymaps/rc-rc6-mce.c         |  2 +-
+ .../rc/keymaps/rc-real-audio-220-32-keys.c    |  2 +-
+ drivers/media/rc/keymaps/rc-reddo.c           |  2 +-
+ .../rc/keymaps/rc-siemens-gigaset-rc20.c      |  2 +-
+ .../media/rc/keymaps/rc-snapstream-firefly.c  |  2 +-
+ drivers/media/rc/keymaps/rc-streamzap.c       |  2 +-
+ drivers/media/rc/keymaps/rc-su3000.c          |  2 +-
+ drivers/media/rc/keymaps/rc-tanix-tx3mini.c   |  2 +-
+ drivers/media/rc/keymaps/rc-tanix-tx5max.c    |  2 +-
+ drivers/media/rc/keymaps/rc-tbs-nec.c         |  2 +-
+ drivers/media/rc/keymaps/rc-technisat-ts35.c  |  2 +-
+ drivers/media/rc/keymaps/rc-technisat-usb2.c  |  2 +-
+ .../rc/keymaps/rc-terratec-cinergy-c-pci.c    |  2 +-
+ .../rc/keymaps/rc-terratec-cinergy-s2-hd.c    |  2 +-
+ .../media/rc/keymaps/rc-terratec-cinergy-xs.c |  2 +-
+ drivers/media/rc/keymaps/rc-terratec-slim-2.c |  2 +-
+ drivers/media/rc/keymaps/rc-terratec-slim.c   |  2 +-
+ drivers/media/rc/keymaps/rc-tevii-nec.c       |  2 +-
+ drivers/media/rc/keymaps/rc-tivo.c            |  2 +-
+ .../rc/keymaps/rc-total-media-in-hand-02.c    |  2 +-
+ .../media/rc/keymaps/rc-total-media-in-hand.c |  2 +-
+ drivers/media/rc/keymaps/rc-trekstor.c        |  2 +-
+ drivers/media/rc/keymaps/rc-tt-1500.c         |  2 +-
+ .../media/rc/keymaps/rc-twinhan-dtv-cab-ci.c  |  2 +-
+ drivers/media/rc/keymaps/rc-twinhan1027.c     |  2 +-
+ drivers/media/rc/keymaps/rc-vega-s9x.c        |  2 +-
+ drivers/media/rc/keymaps/rc-videomate-k100.c  |  2 +-
+ drivers/media/rc/keymaps/rc-videomate-s350.c  |  2 +-
+ .../media/rc/keymaps/rc-videomate-tv-pvr.c    |  2 +-
+ .../media/rc/keymaps/rc-videostrong-kii-pro.c |  2 +-
+ drivers/media/rc/keymaps/rc-wetek-hub.c       |  2 +-
+ drivers/media/rc/keymaps/rc-wetek-play2.c     |  2 +-
+ .../rc/keymaps/rc-winfast-usbii-deluxe.c      |  2 +-
+ drivers/media/rc/keymaps/rc-winfast.c         |  2 +-
+ drivers/media/rc/keymaps/rc-x96max.c          |  2 +-
+ drivers/media/rc/keymaps/rc-xbox-360.c        |  2 +-
+ drivers/media/rc/keymaps/rc-xbox-dvd.c        |  2 +-
+ drivers/media/rc/keymaps/rc-zx-irdec.c        |  2 +-
+ drivers/media/rc/rc-ir-raw.c                  |  3 +-
+ drivers/media/rc/rc-main.c                    | 92 +++++++++---------
+ include/media/rc-map.h                        |  8 +-
+ 143 files changed, 230 insertions(+), 244 deletions(-)
+
 -- 
 2.56.0
 
