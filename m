@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=138.232.1.140
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792956328;
-	b=s33mz/u1C+IoLpZWDzZDfd/3YZx9RFFSTfZu4eMolPHqSoaRaSbTZ5nWZSc4+YoDUYSx
-	 2fovnTSc+whCsu7XM2HPm8xjk96c4svIXaoUi1dYZOVzcSI9XJ/QsntOrcW1unfqCml23
-	 el3XSu529Tm1ngQfbGEArqbertMeVcdWEtlCIpsW+ubF9Hn7OPk17J3vtg9FPRLBiuzsd
-	 OOsN8L+4xG8FqbbvfPg+j9QwGqgctVkBMWSI1ewHKYdV3Cz82J60vqY3uomxdun6YG2U4
-	 R9+hs4lDJWg0NMNftIdWNUPCtfkX4AnX75eH6+mJTWfqBLpS920z1RcKycFnfBjE+lQ==
+	t=1792956334;
+	b=WYKWuxC8/jweccM0rmgSitg4yDOVNFBsTFsoaZamjK6YZ0Upt4HUE4/buIesIUoTjaQ2
+	 XOzm8eYQnjxYIogcUxwsoh5MIy9IIYb0R6l2RIvL/zhflYjDLZ3+feJxbuK8e77IQDUSs
+	 rOngVlN7mWMy8CCB2+4XS2+nx/Op960S/RAqpqe1xch+GAcQ4qPB/mnhiHXLlHweMNuzW
+	 S741A7NTCDuch54QtNhNKf4WHZumbzZHDbt2kFnbkaW1rW4aHyRrcM16pqD5MCNkiO+qX
+	 u3Sot6TGnK6qV6Lgw4azhWhP0l+ushpUQxnj9uoo8NCURvuAxcnzbGvY5nGuQbWeM0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792956328;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792956334;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:X-Spam-Score:X-Scanned-By;
-	bh=GsX1Xfgj+VgfPxeXwV/7gBim89XJTgXAAqU3LTzpSu4=;
-	b=MDdLts978aX34p4eJ+oPfZrZE/9C77v/Yug/SztQND9dsCj6+QgzeQ1eqAld6e3o6VFw
-	 YP0pB+gxYZXiV0Y4aYE9LXpwfr7a4lmOIRC1nZDyuRnKF54hWWzBuhtIYup65834Vh6wN
-	 ZTE5MJ27IJTfj9DdF3A4HnpnS/ME6DZfE3Pklw9RyAMv9CjXDqEnoBLIV10wIfT8NoxEZ
-	 kLQ4bn1tjCeYX2TelHpH7jKwwWVV+lAJdYssbX3fnPL5Za0LVtdMSRzowT6+K0dbtJ4H6
-	 cFX0iTiOxZFsHFBmyLbL+VU0V65jUytJhER5CssZswcgrCf7Lly6RtKpj5lD2M5sc9A==
+	bh=4yZ5jqUzAanQzW6zUJzYlkxUy0hiQbsP7VxZZbbo+mE=;
+	b=KzCSn3v5zn6tekVOMy8lUwn4M8xWdkjjMQjOoZ/yEjl2RQvdHOM31z7zp7yt1LNwI9wy
+	 g+9/0m1eeu51rzXANDv2QlW+Bgfnn6Np4eZvIY04CEOzLmgNWbOofh14Qdqvjnme3lpu+
+	 tHP1iZwBsmcsTRePKhs3ngIyAAggTi+kLsSyaGwJ+4ECEvhhsuPpGrTyzS47+UzRoZ8gx
+	 qMLVWQZQK1qYSNGSEHJOiadV0p8qVYNmWJ83eVIk8KgmEldy7UVE2fCXv91LdNeKMJigx
+	 wyR3rgW51zC/emxAdlz5DpsqgOI1K+HWr4npyU+IxtpSn7khtWtQN2gpIozvcK/v4XA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=student.uibk.ac.at;
 	spf=pass smtp.mailfrom=student.uibk.ac.at;
-	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=dx45Sl0b;
+	dkim=pass header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=sw6CurYb;
 	arc=none smtp.remote-ip=138.232.1.140
 Received: from smtp.uibk.ac.at (smtp.uibk.ac.at [138.232.1.140])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DDE60A2635;
-	Sun, 25 Oct 2026 19:25:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29DDE60A2635
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD6F560A381D;
+	Sun, 25 Oct 2026 19:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD6F560A381D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=student.uibk.ac.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=dx45Sl0b
+	dkim=pass (1024-bit key, unprotected) header.d=student.uibk.ac.at header.i=@student.uibk.ac.at header.a=rsa-sha256 header.s=prod24a header.b=sw6CurYb
 Received: from surface-pro-5 (178.115.151.51.wireless.dyn.drei.com [178.115.151.51])
 	(authenticated bits=0)
-	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJP8El519288
+	by smtp.uibk.ac.at (8.15.2/8.15.2/F1) with ESMTPSA id 69PJP8Eo519288
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sun, 25 Oct 2026 20:25:15 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJP8El519288
+	Sun, 25 Oct 2026 20:25:23 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.uibk.ac.at 69PJP8Eo519288
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=student.uibk.ac.at;
-	s=prod24a; t=1792956317;
-	bh=GsX1Xfgj+VgfPxeXwV/7gBim89XJTgXAAqU3LTzpSu4=;
+	s=prod24a; t=1792956324;
+	bh=4yZ5jqUzAanQzW6zUJzYlkxUy0hiQbsP7VxZZbbo+mE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dx45Sl0bk9PMOHNOKE7xgJe49rHgHgRlfBwC6jE88CKGk/FM/BxI6qjrA9wfoz8id
-	 EsFzkTEby000xef+1Vj7/B1cNJMzqbrBwERjCmbmrKc2z3xdhZZURvgmfLrAXS3IzK
-	 z3fITutikiYuiKuwCNnglamuBqqjo8RaHDyyPoy4=
+	b=sw6CurYbmJVnb1BSPDqeC2rWbtsORy5zM/6qYruLq0jYp8murzniIJxAAA7Izqs8h
+	 9HBaVo+s8F3ds6k+wLWhVCvZtcE3vnK6yreHjOITM6roJkfk9HDR41CgZFAzT7GEhW
+	 JpteY50ZNb8yeR84DRiOFVv/QHVVRHGJhdqfKeg0=
 From: christian.koever-draxl@student.uibk.ac.at
 To: zhentao.guo@amlogic.com, mchehab@kernel.org, robh@kernel.org,
         krzk+dt@kernel.org, conor+dt@kernel.org
 Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         =?UTF-8?q?Christian=20Stefan=20K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
-Subject: [PATCH 03/11] media: amlogic: vdec: fix the microcode loading and prepare the HEVC core
-Date: Sun, 25 Oct 2026 20:24:59 +0100
-Message-ID: <20261025192507.210058-4-christian.koever-draxl@student.uibk.ac.at>
+Subject: [PATCH 06/11] media: amlogic: vdec: add MJPEG decoding
+Date: Sun, 25 Oct 2026 20:25:02 +0100
+Message-ID: <20261025192507.210058-7-christian.koever-draxl@student.uibk.ac.at>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
 References: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
@@ -74,841 +74,621 @@ X-Scanned-By: MIMEDefang_3.2_at_uibk.ac.at
 
 From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
-The secure world rejected every microcode this driver handed over: the
-images carry a 256-byte signature header that has to stay attached, and
-the TEE only accepts loads once it has been told that boot is complete.
-Pass the whole image with the signature size, issue SYS_BOOT_COMPLETE
-before the first load, and keep probing when the preload fails because
-the secure world may already hold the microcode.
-
-Add what the HEVC core needs before codecs can use it: its power domain
-and clock handling, the reset and memory-power sequence used when the
-core switches between microcodes, and the per-codec hooks in the
-request path.
-
-Load a microcode into the HEVC core only when it is not already there.
-A browser opens a new decoder context for every seek, quality switch or
-advert; loading the image again for each of them makes the secure loader
-answer TEEC_ERROR_BAD_STATE after a few hundred loads, and it stays that
-way until the board is power cycled. The image survives in the core
-until the core memories are cycled on a codec switch or after a timeout.
+Decode baseline 4:2:0 JPEG frames (V4L2_PIX_FMT_MJPEG) on the VDEC
+core. The microcode skips the first marker segment after SOI, so the
+frame is fed with that in mind, and the planar 4:2:0 picture it writes
+is exposed as a CAPTURE format of its own.
 
 Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 ---
  drivers/media/platform/amlogic/vdec/Makefile  |   2 +-
- .../media/platform/amlogic/vdec/aml_vdec.c    |  72 ++++++-
- .../platform/amlogic/vdec/aml_vdec_drv.h      |  21 +++
- .../media/platform/amlogic/vdec/aml_vdec_hw.c | 176 +++++++++++++++++-
- .../media/platform/amlogic/vdec/aml_vdec_hw.h |  64 +++++++
- .../platform/amlogic/vdec/aml_vdec_platform.c |  27 ++-
- .../platform/amlogic/vdec/aml_vdec_tee_fw.c   |  87 ++++++++-
- .../media/platform/amlogic/vdec/reg_defines.h |  24 +++
- 8 files changed, 443 insertions(+), 30 deletions(-)
+ .../media/platform/amlogic/vdec/aml_vdec.c    |   3 +
+ .../platform/amlogic/vdec/aml_vdec_platform.c |  17 +
+ .../platform/amlogic/vdec/aml_vdec_tee_fw.c   |   5 +
+ drivers/media/platform/amlogic/vdec/mjpeg.c   | 471 ++++++++++++++++++
+ drivers/media/platform/amlogic/vdec/mjpeg.h   |  33 ++
+ 6 files changed, 530 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/media/platform/amlogic/vdec/mjpeg.c
+ create mode 100644 drivers/media/platform/amlogic/vdec/mjpeg.h
 
 diff --git a/drivers/media/platform/amlogic/vdec/Makefile b/drivers/media/platform/amlogic/vdec/Makefile
-index f752716cbf9e..f9c35e9ac902 100644
+index 6d91750ec673..c5eda54598f6 100644
 --- a/drivers/media/platform/amlogic/vdec/Makefile
 +++ b/drivers/media/platform/amlogic/vdec/Makefile
 @@ -1,4 +1,4 @@
  # SPDX-License-Identifier: GPL-2.0-only
--aml-vdec-drv-objs := aml_vdec.o aml_vdec_drv.o aml_vdec_hw.o aml_vdec_platform.o h264.o aml_vdec_tee_fw.o\
-+aml-vdec-drv-objs := aml_vdec.o aml_vdec_drv.o aml_vdec_hw.o aml_vdec_platform.o h264.o aml_vdec_tee_fw.o
+-aml-vdec-drv-objs := aml_vdec.o aml_vdec_drv.o aml_vdec_hw.o aml_vdec_platform.o h264.o h264_headers.o mpeg12.o aml_vdec_tee_fw.o
++aml-vdec-drv-objs := aml_vdec.o aml_vdec_drv.o aml_vdec_hw.o aml_vdec_platform.o h264.o h264_headers.o mpeg12.o mjpeg.o aml_vdec_tee_fw.o
  
  obj-$(CONFIG_VIDEO_AMLOGIC_VDEC) += aml-vdec-drv.o
 diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec.c b/drivers/media/platform/amlogic/vdec/aml_vdec.c
-index d4dcd0180d2d..2a5ff842fd39 100644
+index 7a5098f3e116..c383dd642586 100644
 --- a/drivers/media/platform/amlogic/vdec/aml_vdec.c
 +++ b/drivers/media/platform/amlogic/vdec/aml_vdec.c
-@@ -66,8 +66,7 @@ static const struct aml_vdec_v4l2_ctrl controls[] = {
- 			.max = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
- 			.def = V4L2_MPEG_VIDEO_H264_PROFILE_MAIN,
- 		},
--	}
--};
-+	},};
- 
- static const struct aml_dec_type dec_type_name[] = {
- 	{
-@@ -130,23 +129,46 @@ static void m2mops_vdec_device_run(void *m2m_priv)
- 	/* incase of bus hang in stop_streaming */
- 	ctx->dos_clk_en = 1;
- 
--	if (ctx->curr_dec_type == CODEC_TYPE_H264)
-+	if (ctx->curr_dec_type == CODEC_TYPE_H264 ||
-+	    ctx->curr_dec_type == CODEC_TYPE_MPEG2 ||
-+	    ctx->curr_dec_type == CODEC_TYPE_MJPEG ||
-+	    ctx->curr_dec_type == CODEC_TYPE_MPEG4)
- 		aml_vdec_reset_core(dev->dec_hw);
- 
- 	if (load_firmware(dev->dec_hw, ctx->curr_dec_type) < 0)
- 		goto err_cancel_job;
- 
-+	ctx->job_finished = false;
- 	ret = ctx->codec_ops->run(ctx);
- 
- 	v4l2_m2m_buf_copy_metadata(src_buf, dst_buf);
--	if (src_req)
-+	/*
-+	 * AV1 completes the request itself, in its interrupt handler, before
-+	 * the buffer is done - by the time run() returns here the job has
-+	 * already finished and the request with it.
-+	 */
-+	if (src_req && ctx->curr_dec_type != CODEC_TYPE_AV1 &&
-+	    ctx->curr_dec_type != CODEC_TYPE_VP9 &&
-+	    ctx->curr_dec_type != CODEC_TYPE_HEVC &&
-+	    ctx->curr_dec_type != CODEC_TYPE_MJPEG)
- 		v4l2_ctrl_request_complete(src_req, &ctx->ctrl_handler);
--	if (ret < 0)
-+	/*
-+	 * Only cancel a job that is still running: a codec that finished it in
-+	 * its own interrupt handler must not finish it twice.
-+	 */
-+	if (ret < 0 && !ctx->job_finished)
- 		goto err_cancel_job;
- 
- 	return;
- 
- err_cancel_job:
-+	/*
-+	 * Whatever went wrong, the request must not be left incomplete or the
-+	 * client waits for it forever.  AV1 completes it in its own done path
-+	 * on success, so this only covers the paths that never got there.
-+	 */
-+	if (src_req)
-+		v4l2_ctrl_request_complete(src_req, &ctx->ctrl_handler);
- 	v4l2_m2m_buf_done_and_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx,
- 					 VB2_BUF_STATE_ERROR);
- }
-@@ -273,9 +295,6 @@ static int vdec_try_fmt_mp(struct aml_vdec_ctx *ctx, enum v4l2_buf_type type,
- 	if (V4L2_TYPE_IS_OUTPUT(type)) {
- 		pix_mp->num_planes = dec_fmt->num_planes;
- 		pix_mp->pixelformat = dec_fmt->fourcc;
--		if (!pix_mp->plane_fmt[0].sizeimage)
--			pix_mp->plane_fmt[0].sizeimage =
--			    (pix_mp->height * pix_mp->width * 3) / 2;
- 	}
- 
- 	align = ctx->dev->pvdec_data->dec_fmt->align;
-@@ -284,6 +303,26 @@ static int vdec_try_fmt_mp(struct aml_vdec_ctx *ctx, enum v4l2_buf_type type,
- 
- 	v4l2_apply_frmsize_constraints(&pix_mp->width, &pix_mp->height,
- 				       &dec_fmt->stepwise);
-+
-+	/*
-+	 * The bitstream buffer has to be sized from the dimensions the driver
-+	 * settled on, not the ones userspace asked for: a client that
-+	 * negotiates before it knows the picture size passes zeroes, and
-+	 * sizing from those gives a zero-length buffer that no pool can
-+	 * allocate.  AV1 also gets a floor, because a single temporal unit -
-+	 * a key frame in particular - can be larger than a raw frame of the
-+	 * same nominal size once the picture is small.
-+	 */
-+	if (V4L2_TYPE_IS_OUTPUT(type) && !pix_mp->plane_fmt[0].sizeimage) {
-+		u32 size = (pix_mp->height * pix_mp->width * 3) / 2;
-+
-+		if ((dec_fmt->fourcc == V4L2_PIX_FMT_AV1_FRAME ||
-+		     dec_fmt->fourcc == V4L2_PIX_FMT_VP9_FRAME ||
-+		     dec_fmt->fourcc == V4L2_PIX_FMT_HEVC_SLICE) &&
-+		    size < SZ_1M)
-+			size = SZ_1M;
-+		pix_mp->plane_fmt[0].sizeimage = size;
-+	}
- 	dev_dbg(&ctx->dev->plat_dev->dev,
- 		"%s type %d four_cc %d pix_mp->width %d pix_mp->height %d\n",
- 		__func__, type, dec_fmt->fourcc, pix_mp->width, pix_mp->height);
-@@ -600,8 +639,14 @@ static int vb2ops_vdec_buf_prepare(struct vb2_buffer *vb)
- 
- 	for (i = 0; i < pix_fmt->num_planes; i++) {
- 		sizeimage = pix_fmt->plane_fmt[i].sizeimage;
--		if (vb2_plane_size(vb, i) < sizeimage)
-+		if (vb2_plane_size(vb, i) < sizeimage) {
-+			dev_err_ratelimited(&ctx->dev->plat_dev->dev,
-+					    "buf_prepare: type %d plane %d is %lu bytes, format wants %u (%ux%u)\n",
-+				vb->vb2_queue->type, i,
-+				vb2_plane_size(vb, i), sizeimage,
-+				pix_fmt->width, pix_fmt->height);
- 			return -EINVAL;
-+		}
- 
- 		if (V4L2_TYPE_IS_CAPTURE(vb->type)) {
- 			vb2_set_plane_payload(vb, i,
-@@ -709,6 +754,8 @@ int aml_vdec_queue_init(void *priv, struct vb2_queue *src_vq,
- 	src_vq->lock = &ctx->v4l2_intf_lock;
- 	src_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
- 	src_vq->supports_requests = true;
-+	/* MPEG-2 field pairs decode into one held capture buffer */
-+	src_vq->subsystem_flags |= VB2_V4L2_FL_SUPPORTS_M2M_HOLD_CAPTURE_BUF;
- 	src_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
- 	ret = vb2_queue_init(src_vq);
- 	if (ret) {
-@@ -725,6 +772,13 @@ int aml_vdec_queue_init(void *priv, struct vb2_queue *src_vq,
- 	dst_vq->lock = &ctx->v4l2_intf_lock;
- 	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
- 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
-+	/*
-+	 * Cacheable capture buffers: a coherent allocation is mapped uncached
-+	 * into userspace, and reading a decoded frame back (vaGetImage, ffmpeg
-+	 * hwdownload) then crawls.  A client asks for cacheable buffers with
-+	 * V4L2_MEMORY_FLAG_NON_COHERENT; vb2 cleans/invalidates around each job.
-+	 */
-+	dst_vq->allow_cache_hints = 1;
- 	ret = vb2_queue_init(dst_vq);
- 	if (ret) {
- 		v4l2_info(&dev->v4l2_dev,
-diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_drv.h b/drivers/media/platform/amlogic/vdec/aml_vdec_drv.h
-index fa86233ea5b3..8ab2ee67a2a2 100644
---- a/drivers/media/platform/amlogic/vdec/aml_vdec_drv.h
-+++ b/drivers/media/platform/amlogic/vdec/aml_vdec_drv.h
-@@ -22,6 +22,12 @@
- #define AML_VDEC_MIN_H    64U
- #define AML_VDEC_1080P_MAX_H  1088U
- #define AML_VDEC_1080P_MAX_W  1920U
-+/*
-+ * The S905W2 decodes 4K.  AV1 goes up to the microcode's 4096x2304 working-set
-+ * size; the other codecs keep the 1080p ceiling until they are tested there.
-+ */
-+#define AML_VDEC_4K_MAX_H     2304U
-+#define AML_VDEC_4K_MAX_W     4096U
- 
- struct aml_vdec_ctx;
- /**
-@@ -37,6 +43,12 @@ enum aml_fmt_type {
-  */
- enum aml_codec_type {
- 	CODEC_TYPE_H264 = 0,
-+	CODEC_TYPE_AV1,
-+	CODEC_TYPE_VP9,
-+	CODEC_TYPE_HEVC,
-+	CODEC_TYPE_MPEG2,
-+	CODEC_TYPE_MJPEG,
-+	CODEC_TYPE_MPEG4,
- 	CODEC_TYPE_FRAME,
- };
- 
-@@ -94,6 +106,7 @@ struct aml_vdec_dev {
- 	struct aml_vdec_hw *dec_hw;
- 	const struct aml_dev_platform_data *pvdec_data;
- 
-+	/* video_device lock: serialises ioctls, open and release */
- 	struct mutex dev_mutex;
- 	struct file *filp;
- };
-@@ -125,6 +138,7 @@ struct dec_pic_info {
-  * @v4l2_intf_lock: Mutex lock for v4l2 interface.
-  * @codec_ops: Codec operation functions. See struct aml_codec_ops.
-  * @int_cond: Variable used by the waitqueue.
-+ * @job_finished: The m2m job was already finished by the codec's own path.
-  * @queue: Waitqueue to wait for the current decode context finish.
-  * @pix_fmt: To store the V4L2 pixel format.
-  * @dec_fmt: To describe the decoding format supported by hardware platform.
-@@ -140,10 +154,17 @@ struct aml_vdec_ctx {
- 	struct v4l2_fh fh;
- 	struct v4l2_m2m_ctx *m2m_ctx;
- 	struct v4l2_ctrl_handler ctrl_handler;
-+	/* vb2/m2m queue lock for this context */
- 	struct mutex v4l2_intf_lock;
- 
- 	const struct aml_codec_ops *codec_ops;
- 	int int_cond;
-+	/*
-+	 * Set by whatever path calls v4l2_m2m_buf_done_and_job_finish(), so
-+	 * device_run() knows the buffers have already gone back to userspace
-+	 * and must not be touched or finished a second time.
-+	 */
-+	bool job_finished;
- 	wait_queue_head_t queue;
- 	struct v4l2_pix_format_mplane pix_fmt[2];
- 	struct aml_video_fmt dec_fmt[2];
-diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_hw.c b/drivers/media/platform/amlogic/vdec/aml_vdec_hw.c
-index 29a195eb6872..935018ea96c6 100644
---- a/drivers/media/platform/amlogic/vdec/aml_vdec_hw.c
-+++ b/drivers/media/platform/amlogic/vdec/aml_vdec_hw.c
-@@ -51,6 +51,20 @@ void dos_enable(struct aml_vdec_hw *hw)
- 	regmap_update_bits(hw->map[DOS_BUS], MDEC_PIC_DC_CTRL, (1 << 31), 0);
- }
- 
-+/*
-+ * dos_enable() opens DOS_GCLK_EN0 and GCLK_EN, which are the legacy VDEC-1
-+ * gates; the HEVC/AV1 core has its own gate in DOS_GCLK_EN3 and nothing had
-+ * ever opened it.  Measured on a live board: with the HEVC power domain up and
-+ * hevcf running at 800 MHz, DOS_GCLK_EN3 still read 0, and asking secure world
-+ * to write microcode into that core hung the board with no oops and no console
-+ * output at all.  The register itself is plain read/write once the domain is
-+ * powered, and so is HEVC_ASSIST_SCRATCH_0.
-+ */
-+void dos_enable_hevc(struct aml_vdec_hw *hw)
-+{
-+	regmap_write(hw->map[DOS_BUS], DOS_GCLK_EN3, 0xffffffff);
-+}
-+
- void aml_vdec_reset_core(struct aml_vdec_hw *hw)
- {
- 	unsigned int mask = 0;
-@@ -137,8 +151,8 @@ static int vdec_clock_gate_init(struct aml_vdec_hw *hw)
- 	return devm_clk_bulk_get(hw->dev, CLK_MAX, hw->gates);
- }
- 
--static struct clk_bulk_data *vdec_get_clk_by_name(struct aml_vdec_hw *hw,
--						  const char *name)
-+struct clk_bulk_data *vdec_get_clk_by_name(struct aml_vdec_hw *hw,
-+					   const char *name)
- {
- 	int i;
- 
-@@ -249,6 +263,14 @@ static void dos_local_config(struct aml_vdec_hw *hw, bool is_on, int id)
- 	dev_dbg(hw->dev, "%s end, id %d, is_on %d\n", __func__, id, is_on);
- }
- 
-+/*
-+ * The core clock rates come from assigned-clock-rates in the device tree.
-+ * hevcf_rate overrides the HEVC core's for testing.
-+ */
-+static ulong hevcf_rate;
-+module_param(hevcf_rate, ulong, 0444);
-+MODULE_PARM_DESC(hevcf_rate, "Override the HEVC core clock in Hz (0 = device tree)");
-+
- static void pm_vdec_power_domain_power_on(struct aml_vdec_hw *hw, int id)
- {
- 	const struct power_manager_s *pm = hw->pm;
-@@ -262,10 +284,10 @@ static void pm_vdec_power_domain_power_on(struct aml_vdec_hw *hw, int id)
- 
- 	if (gate_node) {
- 		clk_prepare_enable(gate_node->clk);
--		if (id == VDEC) {
--			clk_set_rate(gate_node->clk, 499999992);
--			dev_dbg(hw->dev, "after set, vdec clock is %lu Hz\n",
--				clk_get_rate(gate_node->clk));
-+		if (id == HVDEC && hevcf_rate) {
-+			clk_set_rate(gate_node->clk, hevcf_rate);
-+			dev_info(hw->dev, "hevcf %lu Hz\n",
-+				 clk_get_rate(gate_node->clk));
- 		}
- 		dev_dbg(hw->dev, "the %-15s clock on\n", gate_node->id);
- 	} else {
-@@ -364,6 +386,91 @@ int vdec_enable(struct aml_vdec_hw *hw)
- 	return 0;
- }
- 
-+/*
-+ * The HEVC core is a second, independent power domain with its own clock
-+ * ("hevcf") and its own reset in DOS_SW_RESET3.  Nothing in this driver decodes
-+ * on it yet; it is powered only so secure world has somewhere to put the
-+ * microcode when the AV1/HEVC load is probed.
-+ */
-+int hvdec_enable(struct aml_vdec_hw *hw)
-+{
-+	vdec_poweron(hw, HVDEC);
-+
-+	return 0;
-+}
-+
-+int hvdec_disable(struct aml_vdec_hw *hw)
-+{
-+	vdec_poweroff(hw, HVDEC);
-+
-+	return 0;
-+}
-+
-+/*
-+ * VP9 and AV1 share the HEVC core, and once one of them has run the other
-+ * cannot: it loads, parses a header and never completes a picture.  Putting
-+ * back every register the other codec changed does not help, reloading the
-+ * module does - and what a reload does that nothing else here does is power
-+ * the core's internal memories down and up.  hvdec_disable() cannot be used
-+ * for that: hvdec_enable() runs for every frame and only counts, so the core
-+ * never actually goes off.  Cycle the memories and reset the core directly,
-+ * on a switch only, leaving the power domain, the clock and secure world
-+ * alone.
-+ */
-+int hvdec_switch_codec(struct aml_vdec_hw *hw, int codec)
-+{
-+	if (hw->hevc_dirty || (hw->hevc_codec && hw->hevc_codec != codec)) {
-+		dev_info(hw->dev, "HEVC core: %s, cycling core memories\n",
-+			 hw->hevc_dirty ? "left dirty" : "codec switch");
-+		mutex_lock(&hw->pm_mutex);
-+		dos_local_config(hw, 0, HVDEC);
-+		dos_local_config(hw, 1, HVDEC);
-+		mutex_unlock(&hw->pm_mutex);
-+		hw->hevc_fw = 0;
-+	}
-+	hw->hevc_codec = codec;
-+	hw->hevc_dirty = false;
-+	return 0;
-+}
-+
-+/*
-+ * Load a microcode into the HEVC core through secure world, unless it is
-+ * already there. Every decoder context used to load it again, and a browser
-+ * opens a new context for every seek, quality switch or advert: after a few
-+ * hundred loads the secure loader answers with TEEC_ERROR_BAD_STATE and
-+ * stays there until the next power cycle. The image survives in the core
-+ * until hvdec_switch_codec() cycles the memories.
-+ */
-+int hevc_load_fw(struct aml_vdec_hw *hw, int codec, u32 format, u32 core,
-+		 const char *name)
-+{
-+	int ret, sm_ret = 0;
-+
-+	/*
-+	 * Halt the AMRISC in any case: the previous context may have left it
-+	 * running, and the decoder start below expects it stopped.
-+	 */
-+	regmap_write(hw->map[DOS_BUS], HEVC_MPSR, 0);
-+	regmap_write(hw->map[DOS_BUS], HEVC_CPSR, 0);
-+
-+	if (hw->hevc_fw == codec)
-+		return 0;
-+
-+	regmap_write(hw->map[DOS_BUS], DOS_SW_RESET3, HEVC_LOAD_RESET_MASK);
-+	regmap_write(hw->map[DOS_BUS], DOS_SW_RESET3, 0);
-+
-+	ret = meson_sm_call(hw->sec_fw, SM_LOAD_VIDEO_FW, &sm_ret, format, core,
-+			    0, 0, 0);
-+	if (ret < 0 || sm_ret) {
-+		dev_err(hw->dev, "%s: microcode load failed %d/%d\n", name, ret,
-+			sm_ret);
-+		hw->hevc_fw = 0;
-+		return -EIO;
-+	}
-+	hw->hevc_fw = codec;
-+	return 0;
-+}
-+
- int vdec_disable(struct aml_vdec_hw *hw)
- {
- 	vdec_poweroff(hw, VDEC);
-@@ -382,6 +489,40 @@ static const struct power_manager_s pm[] = {
+@@ -90,6 +90,9 @@ static const struct aml_dec_type dec_type_name[] = {
+ 	}, {
+ 		.codec_type = CODEC_TYPE_MPEG2,
+ 		.name = "MPEG2",
++	}, {
++		.codec_type = CODEC_TYPE_MJPEG,
++		.name = "MJPEG",
  	},
  };
  
-+static irqreturn_t hevc_irq_handler(int irq, void *priv)
-+{
-+	struct aml_vdec_hw *hw = priv;
-+	int n;
-+
-+	hw->hevc_irq_status = read_dos_reg(hw, HEVC_ASSIST_SCRATCH_0);
-+	regmap_write(hw->map[DOS_BUS], HEVC_ASSIST_MBOX0_CLR_REG, 1);
-+
-+	n = atomic_inc_return(&hw->hevc_irq_count);
-+	if (hw->hevc_irq_thread_fn)
-+		return IRQ_WAKE_THREAD;
-+
-+	/*
-+	 * Runaway guard for the probe path, which has no state machine to end
-+	 * a decode.  It must not apply once a real handler is driving the
-+	 * core: a stream produces a few interrupts per picture, so masking the
-+	 * mailbox at a fixed count silently stops decoding part way through.
-+	 */
-+	if (n > 64)
-+		regmap_write(hw->map[DOS_BUS], HEVC_ASSIST_MBOX0_MASK, 0);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static irqreturn_t hevc_irq_thread(int irq, void *priv)
-+{
-+	struct aml_vdec_hw *hw = priv;
-+
-+	if (hw->hevc_irq_thread_fn)
-+		return hw->hevc_irq_thread_fn(irq, hw->hevc_priv);
-+
-+	return IRQ_HANDLED;
-+}
-+
- static irqreturn_t vdec_irq_handler(int irq, void *priv)
- {
- 	struct aml_vdec_dev *dev = (struct aml_vdec_dev *)priv;
-@@ -445,6 +586,25 @@ int dev_request_hw_resources(void *priv)
- 	hw = dev->dec_hw;
- 	hw->dev = &pdev->dev;
- 
-+	/*
-+	 * The HEVC/AV1 core signals on its own interrupt (IRQ_HVDEC, the first
-+	 * entry in the DT, GIC SPI 91) through mailbox 0.  Nothing decodes on
-+	 * that core yet, so this handler only acknowledges and counts - it is
-+	 * how the microcode's replies are observed at all.  If it ever storms,
-+	 * the mask is dropped rather than letting it wedge the board.
-+	 */
-+	hw->hevc_irq = platform_get_irq(pdev, IRQ_HVDEC);
-+	if (hw->hevc_irq >= 0) {
-+		atomic_set(&hw->hevc_irq_count, 0);
-+		ret = devm_request_threaded_irq(&pdev->dev, hw->hevc_irq,
-+						hevc_irq_handler,
-+						hevc_irq_thread,
-+						IRQF_ONESHOT, "aml-hevc", hw);
-+		if (ret)
-+			dev_warn(&pdev->dev, "hevc irq %d request failed (%d)\n",
-+				 hw->hevc_irq, ret);
-+	}
-+
- 	hw->dec_irq = platform_get_irq(pdev, IRQ_VDEC);
- 	if (hw->dec_irq < 0) {
- 		dev_err(&pdev->dev, "get irq failed\n");
-@@ -514,7 +674,9 @@ int dev_request_hw_resources(void *priv)
- 
- 	ret = aml_tee_fw_preload(hw);
- 	if (ret)
--		return ret;
-+		dev_warn(&pdev->dev,
-+			 "TEE firmware preload failed (%d), continuing in case secure world already holds the ucode\n",
-+			 ret);
- 
- 	dev_dbg(&pdev->dev, "##Amlogic hw resource init OK##\n");
- 
-diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_hw.h b/drivers/media/platform/amlogic/vdec/aml_vdec_hw.h
-index 9dc84d0d52bf..35645aad2375 100644
---- a/drivers/media/platform/amlogic/vdec/aml_vdec_hw.h
-+++ b/drivers/media/platform/amlogic/vdec/aml_vdec_hw.h
-@@ -7,6 +7,8 @@
- #define _AML_VDEC_HW_H_
- 
- #include <linux/module.h>
-+#include <linux/dma-mapping.h>
-+#include <media/videobuf2-dma-contig.h>
- #include <linux/clk.h>
- #include <linux/platform_device.h>
- #include <linux/of.h>
-@@ -115,6 +117,7 @@ struct aml_vdec_hw {
- 	struct platform_device *pdev;
- 	struct device *dev;
- 	struct regmap *map[MAX_REG_BUS];
-+	/* protects power-domain and clock state */
- 	struct mutex pm_mutex;
- 	struct meson_canvas *canvas;
- 	struct meson_sm_firmware *sec_fw;
-@@ -122,7 +125,35 @@ struct aml_vdec_hw {
- 	struct aml_vdec_hw_ops hw_ops;
- 	struct clk_bulk_data gates[CLK_MAX];
- 	int dec_irq;
-+	int hevc_irq;
-+	atomic_t hevc_irq_count;
-+	u32 hevc_irq_status;
-+	/*
-+	 * Optional threaded handler for the HEVC/AV1 core.  The AV1 state
-+	 * machine allocates DMA memory while configuring a picture, so it
-+	 * cannot run in hard interrupt context.  When this is NULL the hard
-+	 * handler just counts interrupts, which is what the probe harness
-+	 * polls for.
-+	 */
-+	irqreturn_t (*hevc_irq_thread_fn)(int irq, void *priv);
-+	void *hevc_priv;
- 	void *curr_ctx;
-+	/* Codec whose microcode the HEVC core last ran; 0 when none yet. */
-+	int hevc_codec;
-+	/*
-+	 * Codec whose microcode is loaded into the HEVC core right now; 0 when
-+	 * none or when the core memories were cycled since.
-+	 */
-+	int hevc_fw;
-+	/*
-+	 * The core is in a state the next session cannot start from: a decode
-+	 * timed out, or a 10-bit stream ran.  The next start cycles the core
-+	 * memories, as a codec switch does.
-+	 */
-+	bool hevc_dirty;
-+	void *ucode_vaddr;
-+	dma_addr_t ucode_paddr;
-+	u32 ucode_type;
- };
- 
- /**
-@@ -149,9 +180,42 @@ struct aml_vdec_hw *vdec_get_hw(void *priv);
- u32 read_dos_reg(struct aml_vdec_hw *hw, u32 reg_addr);
- int vdec_enable(struct aml_vdec_hw *hw);
- int vdec_disable(struct aml_vdec_hw *hw);
-+struct clk_bulk_data *vdec_get_clk_by_name(struct aml_vdec_hw *hw,
-+					   const char *name);
-+int hvdec_enable(struct aml_vdec_hw *hw);
-+int hvdec_disable(struct aml_vdec_hw *hw);
-+int hvdec_switch_codec(struct aml_vdec_hw *hw, int codec);
-+int hevc_load_fw(struct aml_vdec_hw *hw, int codec, u32 format, u32 core,
-+		 const char *name);
- void dos_enable(struct aml_vdec_hw *hw);
-+void dos_enable_hevc(struct aml_vdec_hw *hw);
- void aml_start_vdec_hw(struct aml_vdec_hw *hw);
- void aml_stop_vdec_hw(struct aml_vdec_hw *hw);
- void aml_vdec_reset_core(struct aml_vdec_hw *hw);
- 
-+/*
-+ * The CPU wrote a decoded picture into a capture buffer.  A buffer the client
-+ * asked to be cacheable (V4L2_MEMORY_FLAG_NON_COHERENT) still has it in dirty
-+ * cache lines, which vb2 would invalidate on dequeue: write them back first.
-+ */
-+static inline void aml_vdec_dst_cpu_written(struct device *dev,
-+					    struct vb2_buffer *vb)
-+{
-+	unsigned int i;
-+
-+	if (!vb->vb2_queue->non_coherent_mem)
-+		return;
-+	for (i = 0; i < vb->num_planes; i++)
-+		dma_sync_single_for_device(dev,
-+					   vb2_dma_contig_plane_dma_addr(vb, i),
-+					   vb2_plane_size(vb, i), DMA_TO_DEVICE);
-+}
-+
-+/*
-+ * DOS_SW_RESET3 bits pulsed before a new microcode is handed to the HEVC
-+ * core.  The two AMRISC CPU resets alone are not enough when the core was
-+ * running a different codec's microcode.
-+ */
-+#define HEVC_LOAD_RESET_MASK	(BIT(12) | BIT(11))
-+
- #endif
 diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_platform.c b/drivers/media/platform/amlogic/vdec/aml_vdec_platform.c
-index 60d20efb1d74..fa4f979b07ee 100644
+index 83efadcb8aef..d54b09b6bbc0 100644
 --- a/drivers/media/platform/amlogic/vdec/aml_vdec_platform.c
 +++ b/drivers/media/platform/amlogic/vdec/aml_vdec_platform.c
-@@ -26,8 +26,8 @@ static struct aml_video_fmt aml_s4_video_formats[] = {
- 		.align = 64,
- 		.codec_type = CODEC_TYPE_FRAME,
- 		.num_planes = 2,
--		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_1080P_MAX_W, 2,
--			AML_VDEC_MIN_H, AML_VDEC_1080P_MAX_H, 2},
-+		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_4K_MAX_W, 2,
-+			AML_VDEC_MIN_H, AML_VDEC_4K_MAX_H, 2},
- 	},
- 	{
- 		.name = "NV21",
-@@ -36,8 +36,8 @@ static struct aml_video_fmt aml_s4_video_formats[] = {
- 		.align = 64,
- 		.codec_type = CODEC_TYPE_FRAME,
- 		.num_planes = 1,
--		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_1080P_MAX_W, 2,
--			AML_VDEC_MIN_H, AML_VDEC_1080P_MAX_H, 2},
-+		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_4K_MAX_W, 2,
-+			AML_VDEC_MIN_H, AML_VDEC_4K_MAX_H, 2},
- 	},
- 	{
- 		.name = "NV12M",
-@@ -46,10 +46,21 @@ static struct aml_video_fmt aml_s4_video_formats[] = {
- 		.align = 64,
- 		.codec_type = CODEC_TYPE_FRAME,
- 		.num_planes = 2,
--		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_1080P_MAX_W, 2,
--			AML_VDEC_MIN_H, AML_VDEC_1080P_MAX_H, 2},
-+		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_4K_MAX_W, 2,
-+			AML_VDEC_MIN_H, AML_VDEC_4K_MAX_H, 2},
+@@ -7,6 +7,7 @@
+ #include "aml_vdec_hw.h"
+ #include "h264.h"
+ #include "mpeg12.h"
++#include "mjpeg.h"
  
+ static struct aml_video_fmt aml_s4_video_formats[] = {
+ 	{
+@@ -31,6 +32,17 @@ static struct aml_video_fmt aml_s4_video_formats[] = {
+ 		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_1080P_MAX_W, 2,
+ 			AML_VDEC_MIN_H, AML_VDEC_1080P_MAX_H, 2},
  	},
 +	{
-+		/* planar 4:2:0, only what the MJPEG microcode writes */
-+		.name = "YUV420",
-+		.fourcc = V4L2_PIX_FMT_YUV420,
-+		.type = AML_FMT_FRAME,
++		.name = "JPEG",
++		.fourcc = V4L2_PIX_FMT_JPEG,
++		.type = AML_FMT_DEC,
 +		.align = 64,
-+		.codec_type = CODEC_TYPE_FRAME,
++		.is_10_bit_support = 0,
++		.codec_type = CODEC_TYPE_MJPEG,
 +		.num_planes = 1,
-+		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_4K_MAX_W, 2,
-+			AML_VDEC_MIN_H, AML_VDEC_4K_MAX_H, 2},
++		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_1080P_MAX_W, 2,
++			AML_VDEC_MIN_H, AML_VDEC_1080P_MAX_H, 2},
 +	},
  	{
- 		.name = "NV12",
- 		.fourcc = V4L2_PIX_FMT_NV12,
-@@ -57,8 +68,8 @@ static struct aml_video_fmt aml_s4_video_formats[] = {
- 		.align = 64,
- 		.codec_type = CODEC_TYPE_FRAME,
- 		.num_planes = 1,
--		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_1080P_MAX_W, 2,
--			AML_VDEC_MIN_H, AML_VDEC_1080P_MAX_H, 2},
-+		.stepwise = {AML_VDEC_MIN_W, AML_VDEC_4K_MAX_W, 2,
-+			AML_VDEC_MIN_H, AML_VDEC_4K_MAX_H, 2},
+ 		.name = "NV21M",
+ 		.fourcc = V4L2_PIX_FMT_NV21M,
+@@ -96,6 +108,11 @@ const struct aml_codec_ops aml_S4_dec_ops[] = {
+ 		.exit = aml_mpeg12_exit,
+ 		.run = aml_mpeg12_dec_run,
  	},
++	[CODEC_TYPE_MJPEG] = {
++		.init = aml_mjpeg_init,
++		.exit = aml_mjpeg_exit,
++		.run = aml_mjpeg_dec_run,
++	},
  };
  
+ const struct aml_dev_platform_data aml_vdec_s4_pdata = {
 diff --git a/drivers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c b/drivers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c
-index ad4156249f55..d7106ec47ba9 100644
+index 63da8b4dac28..a92405047c6e 100644
 --- a/drivers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c
 +++ b/drivers/media/platform/amlogic/vdec/aml_vdec_tee_fw.c
-@@ -2,6 +2,7 @@
- /*
-  * Copyright (C) 2025 Amlogic, Inc. All rights reserved
-  */
-+#include <linux/arm-smccc.h>
- #include <linux/tee_drv.h>
- #include <linux/firmware.h>
+@@ -87,6 +87,11 @@ static struct aml_tee_fw firmware[] = {
+ 		.core = CORE_VDEC_LEGENCY,
+ 		.is_swap = 0,
+ 	},
++	[CODEC_TYPE_MJPEG] = {
++		.fw_format = VIDEO_DEC_MJPEG_MULTI,
++		.core = CORE_VDEC_LEGENCY,
++		.is_swap = 0,
++	},
+ };
  
-@@ -9,12 +10,40 @@
- #include "aml_vdec_drv.h"
- 
- #define VIDEO_DEC_H264_MULTI	15
-+#define VIDEO_DEC_MPEG12_MULTI	0x4d31324d	/* "M12M" */
-+#define VIDEO_DEC_MJPEG_MULTI	6
-+#define VIDEO_DEC_MPEG4_5_MULTI	0x4d34354d	/* "M45M" */
+ static int optee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
+diff --git a/drivers/media/platform/amlogic/vdec/mjpeg.c b/drivers/media/platform/amlogic/vdec/mjpeg.c
+new file mode 100644
+index 000000000000..7989b5f42a56
+--- /dev/null
++++ b/drivers/media/platform/amlogic/vdec/mjpeg.c
+@@ -0,0 +1,471 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
++/*
++ * Motion-JPEG decoding on the Amlogic legacy VDEC core.
++ *
++ * Ported from the reference's vmjpeg_multi.c.  The microcode parses the whole
++ * JPEG itself - markers, tables, scan - so every OUTPUT buffer is simply one
++ * complete JPEG picture and needs no controls.  It writes planar 4:2:0 into
++ * three canvases (Y, U, V), so the only CAPTURE format is YUV420 (I420); a
++ * 4:2:2 or 4:4:4 source comes out downsampled to 4:2:0 by the microcode.
++ */
 +
-+/*
-+ * Newer formats are not small enum values at all - Amlogic switched to
-+ * four-character constants somewhere around G12.  The numbers below were read
-+ * out of the vendor's own binaries rather than guessed:
-+ *
-+ *   - firmware.ko carries format_name[], an array of { u32 format;
-+ *     const char *name; } at .rodata+0xb38.  It gives h264_multi = 15 (which
-+ *     matches what this driver already uses, so the table is trustworthy) and
-+ *     av1_mmu = 0x4156314d.
-+ *   - decoder_common.ko's optee_load_fw() maps a microcode name onto the pair
-+ *     that goes to secure world.  Its AV1 case is literally
-+ *     tee_load_video_fw(0x4156314d, 2), so the AV1 microcode belongs to core 2,
-+ *     not to the legacy core this driver drives today.
-+ *
-+ * Both modules come from this box's own stock image (fw_extract/vmods/).
-+ */
-+#define VIDEO_DEC_AV1_MMU	0x4156314d	/* 'M1VA' */
- 
- #define CORE_VDEC_LEGENCY	0
-+#define CORE_VDEC_HEVC		2
- 
- #define FIRMWARE_PATH		"video_ucode.bin"
- #define ONCE_SENT_SIZE		(1024 * 128)
--#define UCODE_HEADER_SIZE	(1024 * 32)
++#include <linux/delay.h>
++#include <linux/dma-mapping.h>
++#include <linux/module.h>
++#include <linux/sizes.h>
++#include <linux/slab.h>
++#include <media/v4l2-ctrls.h>
++#include <media/v4l2-mem2mem.h>
++#include <media/videobuf2-dma-contig.h>
 +
-+/*
-+ * Size of the RSA signature the ucode container carries in front of its "KCAP"
-+ * payload.  The TA is told about it at session open; the blob itself is sent
-+ * whole, signature included.
-+ */
-+#define UCODE_SIGNATURE_SIZE	256
- 
- #define TEEC_SUCCESS		0x0
- #define TEEC_ERROR_BUSY	0xffff000d
-@@ -25,6 +54,23 @@
- 	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL, ARM_SMCCC_SMC_32, \
- 			ARM_SMCCC_OWNER_TRUSTED_OS, TEE_SMC_FUNCID_LOAD_VIDEO_FW)
- 
-+/*
-+ * Amlogic's secure OS refuses to load any TA from the REE filesystem until the
-+ * normal world says it has finished booting - it answers every open with
-+ * TEE_ERROR_ITEM_NOT_FOUND and prints
-+ *
-+ *   ta_open:202 ree system is not ready, ta can not be loaded.
-+ *
-+ * on the secure console.  The vendor kernel signals this from
-+ * drivers/amlogic/tee/tee.c through the write-only sysfs attribute
-+ * /sys/class/tee/sys_boot_complete; the SMC behind it is all it does.
-+ */
-+#define TEE_SMC_FUNCID_SYS_BOOT_COMPLETE	0xE060
-+#define TEE_SMC_SYS_BOOT_COMPLETE \
-+	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL, ARM_SMCCC_SMC_32, \
-+			ARM_SMCCC_OWNER_TRUSTED_OS, \
-+			TEE_SMC_FUNCID_SYS_BOOT_COMPLETE)
++#include "aml_vdec_drv.h"
++#include "aml_vdec_hw.h"
++#include "mjpeg.h"
 +
- #define PTA_LOAD_FW UUID_INIT(0x526fc4fc, 0x7ee6, 0x4a12, \
- 			0x96, 0xe3, 0x83, 0xda, 0x95, 0x65, 0xbc, 0xe8)
- 
-@@ -51,8 +97,11 @@ static void prepare_tee_grgs(size_t firmware_size, struct tee_param *param0,
- 
- 	param0[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
- 	param0[0].u.value.a = firmware_size;
-+	param0[0].u.value.b = 0;
- 
- 	param0[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
-+	param0[1].u.value.a = 0;
-+	param0[1].u.value.b = UCODE_SIGNATURE_SIZE;
- 
- 	param0[2].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
- 	param0[3].attr = TEE_IOCTL_PARAM_ATTR_TYPE_NONE;
-@@ -152,6 +201,15 @@ int load_firmware(struct aml_vdec_hw *hw, u32 type)
- 		dev_info(hw->dev, "codec type %d invalid\n", type);
- 		return ret;
- 	}
-+	/*
-+	 * AV1 loads its own microcode from aml_av1_dec_run(), because the load
-+	 * must happen after the HEVC core is powered and clocked - issuing
-+	 * SM_LOAD_VIDEO_FW at an unpowered core hangs the board hard enough
-+	 * that SysRq cannot recover it, and device_run() gets here first.
-+	 */
-+	if (type == CODEC_TYPE_AV1 || type == CODEC_TYPE_VP9 ||
-+	    type == CODEC_TYPE_HEVC)
-+		return 0;
- 	video_fw = &firmware[type];
- 
- 	meson_sm_call(hw->sec_fw, SM_LOAD_VIDEO_FW, &ret,
-@@ -174,18 +232,21 @@ static int get_firmware(const char *path, void **data, size_t *size)
- 	if (ret)
- 		return ret;
- 
--	/* get rid of the first 32K bytes plaintext */
--	buf = kzalloc((fw->size - UCODE_HEADER_SIZE), GFP_KERNEL);
-+	/*
-+	 * The whole container goes to the TA, signature first - that is what
-+	 * the vendor's own loader (libtee_load_video_fw.so, load_sec_firmware)
-+	 * does.  Stripping a header here makes the TA reject the blob.
-+	 */
-+	buf = kmemdup(fw->data, fw->size, GFP_KERNEL);
- 	if (!buf) {
- 		release_firmware(fw);
- 		return -ENOMEM;
- 	}
- 
--	memcpy(buf, fw->data + UCODE_HEADER_SIZE, fw->size - UCODE_HEADER_SIZE);
-+	*size = fw->size;
- 	release_firmware(fw);
- 
- 	*data = buf;
--	*size = fw->size - UCODE_HEADER_SIZE;
- 
- 	return 0;
- }
-@@ -228,10 +289,26 @@ static int pass_firmware_to_tee(struct aml_vdec_hw *hw)
- 	return ret;
- }
- 
-+/*
-+ * Open the gate described at TEE_SMC_SYS_BOOT_COMPLETE.  Harmless to repeat -
-+ * secure world latches the flag on the first call.
-+ */
-+static void tee_sys_boot_complete(struct aml_vdec_hw *hw)
++#define MJPEG_TIMEOUT_MS	500
++
++struct aml_mjpeg_ctx {
++	struct aml_vdec_ctx *v4l2_ctx;
++
++	void *stage_vaddr;
++	dma_addr_t stage_paddr;
++	u32 stage_size;
++
++	int canvas[3];
++	u32 decoded;
++};
++
++static void mjpeg_canvas_free(struct aml_vdec_hw *hw, struct aml_mjpeg_ctx *m)
 +{
-+	struct arm_smccc_res res;
++	int i;
 +
-+	arm_smccc_smc(TEE_SMC_SYS_BOOT_COMPLETE, 0, 0, 0, 0, 0, 0, 0, &res);
-+	if (res.a0)
-+		dev_info(hw->dev, "TEE sys_boot_complete returned 0x%lx\n",
-+			 res.a0);
++	for (i = 0; i < ARRAY_SIZE(m->canvas); i++) {
++		if (m->canvas[i] >= 0)
++			meson_canvas_free(hw->canvas, m->canvas[i]);
++		m->canvas[i] = -1;
++	}
 +}
 +
- int aml_tee_fw_preload(struct aml_vdec_hw *hw)
- {
- 	int ret;
- 
-+	tee_sys_boot_complete(hw);
++/* Y, U, V canvases for the capture buffer; returns the spec or ~0. */
++static u32 mjpeg_canvas_setup(struct aml_vdec_ctx *ctx, struct vb2_buffer *vb)
++{
++	struct aml_vdec_hw *hw = vdec_get_hw(ctx->dev);
++	struct aml_mjpeg_ctx *m = ctx->codec_priv;
++	struct v4l2_pix_format_mplane *pf = &ctx->pix_fmt[AML_FMT_DST];
++	u32 w = pf->plane_fmt[0].bytesperline;
++	u32 h = pf->height;
++	dma_addr_t addr[3];
++	u32 cw[3] = { w, w / 2, w / 2 };
++	u32 ch[3] = { h, h / 2, h / 2 };
++	int i;
 +
- 	ret = pass_firmware_to_tee(hw);
- 	if (ret)
- 		dev_err(hw->dev, "Failed to preload firmware via TEE\n");
-diff --git a/drivers/media/platform/amlogic/vdec/reg_defines.h b/drivers/media/platform/amlogic/vdec/reg_defines.h
-index ea50018a078d..b3cbddfe530e 100644
---- a/drivers/media/platform/amlogic/vdec/reg_defines.h
-+++ b/drivers/media/platform/amlogic/vdec/reg_defines.h
-@@ -173,5 +173,29 @@
- #define DOS_GCLK_EN3                 REG_ALIGN(0x3f35)
- #define DOS_HEVC_INT_EN              REG_ALIGN(0x3f36)
- 
-+/*
-+ * The HEVC/AV1 core mirrors the legacy VDEC-1 register layout 0x3000 words
-+ * higher: MPSR 0x0301 -> HEVC_MPSR 0x3301, IMEM_DMA_CTRL 0x0340 ->
-+ * HEVC_IMEM_DMA_CTRL 0x3340.  Its scratch file sits in the ASSIST block at
-+ * 0x30c0 rather than in MDEC.  Nothing decodes on this core yet; these exist so
-+ * its power/clock state can be measured before secure world is asked to write
-+ * microcode into it.
-+ */
-+/*
-+ * Mailbox 0 is the one the AV1 microcode signals on; mainline's older HEVC/VP9
-+ * support uses mailbox 1 instead, so its hevc_regs.h only names that pair.  The
-+ * spacing matches the legacy VDEC-1 assist block exactly (0x0075/0x0076 there),
-+ * and mainline's HEVC_ASSIST_MBOX1_CLR_REG 0xc1d4 -> word 0x3075 confirms it.
-+ */
-+#define HEVC_ASSIST_MBOX0_IRQ_REG    REG_ALIGN(0x3070)
-+#define HEVC_ASSIST_MBOX0_CLR_REG    REG_ALIGN(0x3071)
-+#define HEVC_ASSIST_MBOX0_MASK       REG_ALIGN(0x3072)
-+#define HEVC_ASSIST_SCRATCH_0        REG_ALIGN(0x30c0)
-+#define HEVC_ASSIST_SCRATCH_1        REG_ALIGN(0x30c1)
-+#define HEVC_MPC_E                   REG_ALIGN(0x3308)
-+#define HEVC_MPSR                    REG_ALIGN(0x3301)
-+#define HEVC_CPSR                    REG_ALIGN(0x3321)
-+#define HEVC_IMEM_DMA_CTRL           REG_ALIGN(0x3340)
++	addr[0] = vb2_dma_contig_plane_dma_addr(vb, 0);
++	addr[1] = addr[0] + w * h;
++	addr[2] = addr[1] + (w / 2) * (h / 2);
 +
- #endif
- 
++	for (i = 0; i < 3; i++) {
++		u8 idx;
++
++		if (meson_canvas_alloc(hw->canvas, &idx)) {
++			mjpeg_canvas_free(hw, m);
++			return ~0u;
++		}
++		m->canvas[i] = idx;
++		meson_canvas_config(hw->canvas, idx, addr[i], cw[i], ch[i],
++				    MESON_CANVAS_WRAP_NONE,
++				    MESON_CANVAS_BLKMODE_LINEAR,
++				    MESON_CANVAS_ENDIAN_SWAP64);
++		regmap_write(hw->map[DOS_BUS], VDEC_ASSIST_CANVAS_BLK32,
++			     (1 << 11) | (1 << 8) | idx);
++	}
++
++	return m->canvas[0] | (m->canvas[1] << 8) | (m->canvas[2] << 16);
++}
++
++/*
++ * The microcode only handles baseline (SOF0/SOF1) 4:2:0 Y/Cb/Cr: a 4:2:2,
++ * 4:4:4 or progressive picture decodes "successfully" into garbage, and a
++ * grey one fails.  Check the frame header and refuse the rest up front.
++ */
++static bool mjpeg_supported(struct device *dev, const u8 *p, u32 len)
++{
++	u32 i = 2;
++
++	if (len < 4 || p[0] != 0xff || p[1] != 0xd8)
++		return false;
++	while (i + 4 <= len) {
++		u8 marker;
++		u32 seg;
++
++		if (p[i] != 0xff) {
++			i++;
++			continue;
++		}
++		marker = p[i + 1];
++		if (marker == 0xff || marker == 0x01 ||
++		    (marker >= 0xd0 && marker <= 0xd7)) {
++			i += marker == 0xff ? 1 : 2;
++			continue;
++		}
++		seg = (p[i + 2] << 8) | p[i + 3];
++		if (marker == 0xc0 || marker == 0xc1) {
++			if (i + 2 + seg > len || seg < 17 || p[i + 4] != 8 ||
++			    p[i + 9] != 3)
++				break;
++			/* Y 2x2, Cb 1x1, Cr 1x1 */
++			if (p[i + 11] != 0x22 || p[i + 14] != 0x11 ||
++			    p[i + 17] != 0x11)
++				break;
++			return true;
++		}
++		if ((marker >= 0xc2 && marker <= 0xcf && marker != 0xc4 &&
++		     marker != 0xc8 && marker != 0xcc) || marker == 0xda)
++			break;
++		i += 2 + seg;
++	}
++	dev_dbg(dev, "mjpeg: not a baseline 4:2:0 JPEG\n");
++	return false;
++}
++
++static int mjpeg_prepare_input(struct aml_vdec_ctx *ctx,
++			       struct vb2_v4l2_buffer *src)
++{
++	struct aml_vdec_hw *hw = vdec_get_hw(ctx->dev);
++	struct aml_mjpeg_ctx *m = ctx->codec_priv;
++	struct vb2_buffer *vb = &src->vb2_buf;
++	const u8 *in = vb2_plane_vaddr(vb, 0);
++	u32 len = vb2_get_plane_payload(vb, 0);
++	u32 need = len + VLD_PADDING_SIZE + 64 + 8;
++	bool pad;
++	u8 *p;
++
++	/*
++	 * The microcode skips whatever segment follows SOI without looking at
++	 * it.  Encoders put APP0/COM there, but a webcam frame or a JPEG rebuilt
++	 * from VA-API buffers starts straight with DQT, which then goes missing
++	 * and the picture decodes with the wrong quantiser.  Give it a COM
++	 * segment to skip.
++	 */
++	pad = !((in[3] >= 0xe0 && in[3] <= 0xef) || in[3] == 0xfe);
++
++	if (need > m->stage_size) {
++		if (m->stage_vaddr)
++			dma_free_coherent(hw->dev, m->stage_size,
++					  m->stage_vaddr, m->stage_paddr);
++		m->stage_size = PAGE_ALIGN(need + SZ_64K);
++		m->stage_vaddr = dma_alloc_coherent(hw->dev, m->stage_size,
++						    &m->stage_paddr, GFP_KERNEL);
++		if (!m->stage_vaddr) {
++			m->stage_size = 0;
++			return -ENOMEM;
++		}
++	}
++
++	p = m->stage_vaddr;
++	if (pad) {
++		static const u8 com[] = { 0xff, 0xd8, 0xff, 0xfe, 0x00, 0x04, 0x00, 0x00 };
++
++		memcpy(p, com, sizeof(com));
++		memcpy(p + sizeof(com), in + 2, len - 2);
++		len += sizeof(com) - 2;
++	} else {
++		memcpy(p, in, len);
++	}
++	memset(p + len, 0, VLD_PADDING_SIZE);
++
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_CONTROL, 0);
++	regmap_write(hw->map[DOS_BUS], DOS_SW_RESET0,
++		     (1 << 5) | (1 << 4) | (1 << 3));
++	regmap_write(hw->map[DOS_BUS], DOS_SW_RESET0, 0);
++	regmap_write(hw->map[DOS_BUS], POWER_CTL_VLD, 1 << 4);
++
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_START_PTR, m->stage_paddr);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_END_PTR,
++		     m->stage_paddr + m->stage_size - VDEC_FIFO_ALIGN);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_CURR_PTR, m->stage_paddr);
++
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_CONTROL, 1);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_CONTROL, 0);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_BUF_CNTL, 2);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_RP, m->stage_paddr);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_WP,
++		     round_down(m->stage_paddr + len + VLD_PADDING_SIZE,
++				VDEC_FIFO_ALIGN));
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_BUF_CNTL, 3);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_BUF_CNTL, 2);
++	regmap_write(hw->map[DOS_BUS], VLD_MEM_VIFIFO_CONTROL,
++		     (0x11 << 16) | (1 << 10) | (7 << 3));
++
++	regmap_write(hw->map[DOS_BUS], VIFF_BIT_CNT, len * 8);
++
++	return 0;
++}
++
++/* The reference's init_scaler(): a unity 4-point triangle in the pscaler. */
++static void mjpeg_init_scaler(struct aml_vdec_hw *hw)
++{
++	static const u32 filt_coef[] = {
++		0x20402000, 0x20402000, 0x1f3f2101, 0x1f3f2101,
++		0x1e3e2202, 0x1e3e2202, 0x1d3d2303, 0x1d3d2303,
++		0x1c3c2404, 0x1c3c2404, 0x1b3b2505, 0x1b3b2505,
++		0x1a3a2606, 0x1a3a2606, 0x19392707, 0x19392707,
++		0x18382808, 0x18382808, 0x17372909, 0x17372909,
++		0x16362a0a, 0x16362a0a, 0x15352b0b, 0x15352b0b,
++		0x14342c0c, 0x14342c0c, 0x13332d0d, 0x13332d0d,
++		0x12322e0e, 0x12322e0e, 0x11312f0f, 0x11312f0f,
++		0x10303010
++	};
++	/* horizontal/vertical initial info (Y, C) and phase steps */
++	static const u8 init_slot[] = { 37, 41, 39, 43 };
++	static const u8 step_slot[] = { 36, 40, 38, 42 };
++	struct regmap *map = hw->map[DOS_BUS];
++	int i;
++
++	regmap_write(map, PSCALE_CTRL, 0xc000);
++	regmap_write(map, PSCALE_BMEM_ADDR, 0);
++	for (i = 0; i < ARRAY_SIZE(filt_coef); i++) {
++		regmap_write(map, PSCALE_BMEM_DAT, 0);
++		regmap_write(map, PSCALE_BMEM_DAT, filt_coef[i]);
++	}
++	for (i = 0; i < ARRAY_SIZE(init_slot); i++) {
++		regmap_write(map, PSCALE_BMEM_ADDR, init_slot[i] * 2);
++		regmap_write(map, PSCALE_BMEM_DAT, 0x0008);
++		regmap_write(map, PSCALE_BMEM_DAT, 0x60000000);
++	}
++	for (i = 0; i < ARRAY_SIZE(step_slot); i++) {
++		regmap_write(map, PSCALE_BMEM_ADDR, step_slot[i] * 2 + 1);
++		regmap_write(map, PSCALE_BMEM_DAT, 0x10000);
++	}
++
++	regmap_write(map, DOS_SW_RESET0, 1 << 10);
++	regmap_write(map, DOS_SW_RESET0, 0);
++	regmap_write(map, PSCALE_RST, 0x7);
++	regmap_write(map, PSCALE_RST, 0x0);
++}
++
++static void mjpeg_job_done(struct aml_vdec_ctx *ctx, enum vb2_buffer_state st)
++{
++	struct aml_vdec_dev *dev = ctx->dev;
++	struct vb2_v4l2_buffer *dst = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
++	struct vb2_v4l2_buffer *src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
++
++	/*
++	 * A JPEG request carries no controls, so the buffer is its only
++	 * object: once that is done the request is complete, and completing
++	 * the control side afterwards (as device_run does for the other
++	 * legacy codecs) binds to a finished request and WARNs.  Do it first.
++	 */
++	if (src && src->vb2_buf.req_obj.req)
++		v4l2_ctrl_request_complete(src->vb2_buf.req_obj.req,
++					   &ctx->ctrl_handler);
++	mjpeg_canvas_free(dev->dec_hw, ctx->codec_priv);
++	if (dst)
++		vb2_set_plane_payload(&dst->vb2_buf, 0,
++				      ctx->pix_fmt[AML_FMT_DST].plane_fmt[0].sizeimage);
++	ctx->int_cond = 1;
++	ctx->job_finished = true;
++	v4l2_m2m_buf_done_and_job_finish(dev->m2m_dev_dec, ctx->m2m_ctx, st);
++	wake_up(&ctx->queue);
++}
++
++static irqreturn_t mjpeg_isr(int irq, void *priv)
++{
++	struct aml_vdec_dev *dev = priv;
++
++	regmap_write(dev->dec_hw->map[DOS_BUS], VDEC_ASSIST_MBOX1_CLR_REG, 1);
++
++	return IRQ_WAKE_THREAD;
++}
++
++static irqreturn_t mjpeg_threaded_isr(int irq, void *priv)
++{
++	struct aml_vdec_dev *dev = priv;
++	struct aml_vdec_hw *hw = dev->dec_hw;
++	struct aml_mjpeg_ctx *m = hw->curr_ctx;
++	struct aml_vdec_ctx *ctx;
++	u32 status;
++
++	if (!m)
++		return IRQ_HANDLED;
++	ctx = m->v4l2_ctx;
++	if (ctx->job_finished)
++		return IRQ_HANDLED;
++
++	if (read_dos_reg(hw, AV_SCRATCH_D)) {
++		regmap_write(hw->map[DOS_BUS], AV_SCRATCH_D, 0);
++		return IRQ_HANDLED;
++	}
++
++	status = read_dos_reg(hw, MJPEG_DEC_STATUS);
++	dev_dbg(hw->dev, "mjpeg irq status %x from %x w %u h %u\n",
++		status, read_dos_reg(hw, MJPEG_FROM_AMRISC),
++		 read_dos_reg(hw, MJPEG_PIC_WIDTH),
++		 read_dos_reg(hw, MJPEG_PIC_HEIGHT));
++
++	/* Picture size report: the buffer is already there, go on. */
++	if (status == MJPEG_STATUS_SIZE) {
++		u32 w = read_dos_reg(hw, MJPEG_PIC_WIDTH);
++		u32 h = read_dos_reg(hw, MJPEG_PIC_HEIGHT);
++		struct v4l2_pix_format_mplane *pf = &ctx->pix_fmt[AML_FMT_DST];
++
++		if (w > pf->plane_fmt[0].bytesperline || h > pf->height) {
++			dev_err(hw->dev, "mjpeg %ux%u does not fit %ux%u\n",
++				w, h, pf->plane_fmt[0].bytesperline, pf->height);
++			mjpeg_job_done(ctx, VB2_BUF_STATE_ERROR);
++			return IRQ_HANDLED;
++		}
++		regmap_write(hw->map[DOS_BUS], MJPEG_DECODE_PARAM,
++			     (h << 4) | 0x8000);
++		regmap_write(hw->map[DOS_BUS], MJPEG_DEC_STATUS, 0);
++		return IRQ_HANDLED;
++	}
++	if (status == MJPEG_STATUS_TIMEOUT) {
++		mjpeg_job_done(ctx, VB2_BUF_STATE_ERROR);
++		return IRQ_HANDLED;
++	}
++
++	/*
++	 * Anything else is the end of the picture - the reference does not
++	 * look at what FROM_AMRISC holds either (it is often 0).
++	 */
++	m->decoded++;
++	regmap_write(hw->map[DOS_BUS], MJPEG_FROM_AMRISC, 0);
++	mjpeg_job_done(ctx, VB2_BUF_STATE_DONE);
++
++	return IRQ_HANDLED;
++}
++
++static void mjpeg_restore_hw(struct aml_vdec_ctx *ctx, u32 spec)
++{
++	struct aml_vdec_hw *hw = vdec_get_hw(ctx->dev);
++	struct regmap *map = hw->map[DOS_BUS];
++
++	regmap_write(map, AV_SCRATCH_4, spec);
++	regmap_write(map, AV_SCRATCH_5, 0 | (1 << 24));
++
++	regmap_write(map, DOS_SW_RESET0, (1 << 7) | (1 << 6));
++	regmap_write(map, DOS_SW_RESET0, 0);
++	mjpeg_init_scaler(hw);
++
++	regmap_write(map, MJPEG_TO_AMRISC, 0);
++	regmap_write(map, MJPEG_FROM_AMRISC, 0);
++	regmap_write(map, MJPEG_DEC_STATUS, 0);
++	regmap_write(map, AV_SCRATCH_D, 0);
++	regmap_write(map, MJPEG_STOP_POS, 0);
++
++	regmap_write(map, MCPU_INTR_MSK, 0xffff);
++	regmap_write(map, MJPEG_DECODE_PARAM,
++		     (ctx->pix_fmt[AML_FMT_DST].height << 4) | 0x8000);
++
++	regmap_write(map, VDEC_ASSIST_MBOX1_CLR_REG, 1);
++	regmap_write(map, VDEC_ASSIST_MBOX1_MASK, 1);
++	regmap_write(map, VDEC_ASSIST_AMR1_INT8, 8);
++	regmap_update_bits(map, MDEC_PIC_DC_CTRL, 1 << 17, 0);
++}
++
++int aml_mjpeg_init(void *priv)
++{
++	struct aml_vdec_ctx *ctx = priv;
++	struct aml_mjpeg_ctx *m;
++	int i;
++
++	if (!vdec_get_hw(ctx->dev))
++		return -ENODEV;
++
++	m = kzalloc_obj(*m);
++	if (!m)
++		return -ENOMEM;
++	m->v4l2_ctx = ctx;
++	for (i = 0; i < ARRAY_SIZE(m->canvas); i++)
++		m->canvas[i] = -1;
++
++	ctx->codec_priv = m;
++	return 0;
++}
++
++void aml_mjpeg_exit(void *priv)
++{
++	struct aml_vdec_ctx *ctx = priv;
++	struct aml_mjpeg_ctx *m = ctx->codec_priv;
++	struct aml_vdec_hw *hw;
++
++	if (!m)
++		return;
++	hw = vdec_get_hw(ctx->dev);
++
++	if (ctx->dos_clk_en)
++		aml_stop_vdec_hw(hw);
++	mjpeg_canvas_free(hw, m);
++	if (m->stage_vaddr)
++		dma_free_coherent(hw->dev, m->stage_size,
++				  m->stage_vaddr, m->stage_paddr);
++
++	if (hw->curr_ctx == m)
++		hw->curr_ctx = NULL;
++	kfree(m);
++	ctx->codec_priv = NULL;
++}
++
++int aml_mjpeg_dec_run(void *priv)
++{
++	struct aml_vdec_ctx *ctx = priv;
++	struct aml_mjpeg_ctx *m = ctx->codec_priv;
++	struct aml_vdec_hw *hw = vdec_get_hw(ctx->dev);
++	struct vb2_v4l2_buffer *src, *dst;
++	u32 spec;
++	long ret;
++
++	if (ctx->pix_fmt[AML_FMT_DST].pixelformat != V4L2_PIX_FMT_YUV420) {
++		dev_err(hw->dev, "mjpeg: capture format must be YUV420\n");
++		return -EINVAL;
++	}
++
++	src = v4l2_m2m_next_src_buf(ctx->fh.m2m_ctx);
++	dst = v4l2_m2m_next_dst_buf(ctx->fh.m2m_ctx);
++	if (!src || !dst)
++		return -EINVAL;
++
++	if (!mjpeg_supported(hw->dev, vb2_plane_vaddr(&src->vb2_buf, 0),
++			     vb2_get_plane_payload(&src->vb2_buf, 0)))
++		return -EINVAL;
++
++	hw->curr_ctx = m;
++	hw->hw_ops.irq_handler = mjpeg_isr;
++	hw->hw_ops.irq_threaded_func = mjpeg_threaded_isr;
++
++	if (mjpeg_prepare_input(ctx, src) < 0)
++		return -ENOMEM;
++
++	spec = mjpeg_canvas_setup(ctx, &dst->vb2_buf);
++	if (spec == ~0u)
++		return -ENOMEM;
++	mjpeg_restore_hw(ctx, spec);
++
++	dev_dbg(hw->dev, "mjpeg run %lu bytes spec %06x\n",
++		vb2_get_plane_payload(&src->vb2_buf, 0), spec);
++
++	ctx->int_cond = 0;
++	regmap_update_bits(hw->map[DOS_BUS], VLD_MEM_VIFIFO_CONTROL, 0x6, 0x6);
++	aml_start_vdec_hw(hw);
++
++	ret = wait_event_timeout(ctx->queue, ctx->int_cond,
++				 msecs_to_jiffies(MJPEG_TIMEOUT_MS));
++	ctx->int_cond = 0;
++	if (!ret) {
++		dev_err(hw->dev,
++			"mjpeg timeout: status %x from %x pc %x lvl %x rp %x wp %x bitcnt %x\n",
++			read_dos_reg(hw, MJPEG_DEC_STATUS),
++			read_dos_reg(hw, MJPEG_FROM_AMRISC),
++			read_dos_reg(hw, MPC_E),
++			read_dos_reg(hw, VLD_MEM_VIFIFO_LEVEL),
++			read_dos_reg(hw, VLD_MEM_VIFIFO_RP),
++			read_dos_reg(hw, VLD_MEM_VIFIFO_WP),
++			read_dos_reg(hw, VIFF_BIT_CNT));
++		aml_stop_vdec_hw(hw);
++		mjpeg_canvas_free(hw, m);
++		return -ETIMEDOUT;
++	}
++
++	aml_stop_vdec_hw(hw);
++	return 0;
++}
+diff --git a/drivers/media/platform/amlogic/vdec/mjpeg.h b/drivers/media/platform/amlogic/vdec/mjpeg.h
+new file mode 100644
+index 000000000000..153eb19ad79b
+--- /dev/null
++++ b/drivers/media/platform/amlogic/vdec/mjpeg.h
+@@ -0,0 +1,33 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR MIT) */
++/*
++ * Motion-JPEG decoding on the Amlogic legacy VDEC core.
++ */
++
++#ifndef _AML_MJPEG_H_
++#define _AML_MJPEG_H_
++
++/* Scratch register meanings for the mjpeg_multi microcode (vmjpeg_multi.c). */
++#define MJPEG_DECODE_PARAM	AV_SCRATCH_2	/* height << 4 | 0x8000 */
++#define MJPEG_TO_AMRISC		AV_SCRATCH_8
++#define MJPEG_FROM_AMRISC	AV_SCRATCH_9
++#define MJPEG_FRAME_OFFSET	AV_SCRATCH_A
++#define MJPEG_PIC_WIDTH		AV_SCRATCH_B
++#define MJPEG_PIC_HEIGHT	AV_SCRATCH_C
++#define MJPEG_DEC_STATUS	AV_SCRATCH_F
++#define MJPEG_STOP_POS		AV_SCRATCH_K
++
++#define MJPEG_STATUS_SIZE	1	/* picture size known, waits for an ack */
++#define MJPEG_STATUS_TIMEOUT	0x21
++
++/* Not in reg_defines.h; addresses from the staging meson vdec headers. */
++#define PSCALE_RST		REG_ALIGN(0x0910)
++#define PSCALE_BMEM_ADDR	REG_ALIGN(0x091f)
++#define PSCALE_BMEM_DAT		REG_ALIGN(0x0920)
++#define MCPU_INTR_MSK		REG_ALIGN(0x0304)
++#define VDEC_ASSIST_AMR1_INT8	REG_ALIGN(0x002d)
++
++int aml_mjpeg_init(void *priv);
++void aml_mjpeg_exit(void *priv);
++int aml_mjpeg_dec_run(void *priv);
++
++#endif
 -- 
 2.56.0
 
