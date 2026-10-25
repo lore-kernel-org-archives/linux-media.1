@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792948994;
-	b=Pvaz5MhzAIfEWY4OguztngznfZUEaYie2hD16steZ9gFYRa7PDqyfISU+mdDavvzfMDm
-	 OMJ/hQIqlfFpScZsncNxBCjKowANrxT3ZhM/qTIjwTPakqYGvKVcT8RTN4BkfWQIfr1rb
-	 pQezQhuqIVo+Grt8z79nbArG+wUhVWsseBM8La+dLL5nBix+KoVl3aaoMNaWo3UeTdFAe
-	 V0lVk+gG/NkVJI5NeucJeWtW/tlwvBaLlashdt4FoVhayOKAN36miJ8XhA1MdGjROsd2M
-	 6iggZKQ6vI4YBrPt2EeK8BQgIZwrJShNYrWToDiAiW2+cUPBnmk2H94JxjJpNCfMfeA==
+	t=1792949926;
+	b=4jkc0a95yjpiKRhryOBcyEceYchz2uIq7ySayejyT1oHBZ5eVMa8uH9KSqCfz9RpFQTN
+	 LsqdiSIKXk52vkYaffzKYdpANaVwKsmVN39MNG1kdY3/85ZkmM1BQqc4FY1QJkxmQX0u6
+	 1oIGrgRkaErouGcXNcPQMIyc3KyOJZ+STwZ/x5VD/voEENQEKOBaCHbZe9z9FHGzMQNxM
+	 m98+VuH/WldGWoyr1JVyMfqWIIpig/IRmclbKHvhXbuzPzbFiDFdyuYz6/oxTp1Um7DGG
+	 3ctE3+lLkIoDDXm5nCZeUMTRHYtJTRFY3Y8Rns+SmzAexEESquk3Ax1s1gFx1Gs/fmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792948994;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792949926;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=uwwuvl4E7y86duc7nGUiwAAKgoOLNRImE0wRbyu5zR4=;
-	b=Qs/7oGFq+FKScIiULYmWim+x6p2Y0QXMrtlIOLPH5uHlreK4YnHnHUznCOTRERywp+R2
-	 wToKZcvB26C2c85LS7hHqpmLdvuCcsRAzzTMKjlWzXJDqZh/qGjLk0ceQ271Vho0bCEdq
-	 2kEA+jBZmokeUkRFhgPL4pZmxiw6ap3bxPuLFFpap7cN62HP2uFTGD/FwZJ1Isx9XOMYa
-	 WsITTqlclwIoARvbeLYoUS4HqZ6By7n42SuQJ/EEhjb3qm2RhTDR6fjxKrJnsawh3d8B8
-	 W0l95xgvRFwmL0xxaJvBe8Bx3O5Blv0l1itBJi9DLhxzYdcg7uuy1a/hyClS+mgZ2Wg==
+	bh=YghpuZTDCdx29fZaAFItxmF6K31N3RPtByLlIZAXPfg=;
+	b=uE7tWHcyKRvqAIVkfpWm66u70NpBZcKRdzYZj0WBCnJQsTxAt14eZhfRzwlhTJNBFqt0
+	 Kh/uvYQHCKF4GdWxGS730VWLI8MnZBsk5N1D8MjDS8kV04e0EnnOrpFaVrHKTG6l1FWbQ
+	 yQ/cDx3pCoRcrAsNGWbCd7zoWB8vSb3lxdHqBeqyabtjRW4pPurxh63d8kYQfQOH9Gb6x
+	 ia9LdymKPt9S8QQXPESCmyb++A8fmEyJjv6zcYr6KNwRWQ6e9h5+qC4iwwrp4/x3eodLN
+	 DJD5k5pEUHHwe1z/Nqx3PMKKJmsNpZA79td5qxDWFuM71Arsv1umo6nxNxqPNOe2+iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=NoUcjeFc;
-	arc=none smtp.remote-ip=109.224.244.17
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=g9hZUfNa;
+	arc=none smtp.remote-ip=185.70.43.16
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 394ED606A31B;
-	Sun, 25 Oct 2026 17:23:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 394ED606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17309606A31B
+	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 17:38:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17309606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=NoUcjeFc
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=g9hZUfNa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792948990; x=1793208190;
-	bh=uwwuvl4E7y86duc7nGUiwAAKgoOLNRImE0wRbyu5zR4=;
+	s=protonmail3; t=1792949923; x=1793209123;
+	bh=YghpuZTDCdx29fZaAFItxmF6K31N3RPtByLlIZAXPfg=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=NoUcjeFccm/lhpEFXdimQ5+aawNrpECwnHHYRD6mbKjrQEuXBw5gnys5yWjjsCCTL
-	 ap226cByr3qPPRPwR8t2X7LPvwaQ177JpkhA0oqs2bFQSdJXPoRodJhyvVNtfTimT9
-	 0mmYoTqLDGerwkhjSwM6At/7QbEQ0rK3KT/xh3SzCUZ0jxheZKsxQjd3EZY2uSXgZf
-	 hBdcXF8jq9PtTGeeTTkLySPNua7uzbLKRwxwMDbWuViZ6pDwUlu2FhfYabHmS4k+qQ
-	 N6STpbQwp9IUY+FFF1D1OtdIlT2Dj3A6+qUhd8ukeKmfI7sZ+su8yFrKFQooJC4k26
-	 GiVD5q0S2Y4Yg==
-Date: Sun, 25 Oct 2026 17:23:03 +0000
+	b=g9hZUfNaVRHnqqoZH2oZmdHojuXRteiL7zmiKOogfOpjabWSIbsSrrTEEpOAWeTkh
+	 mVvnJQmibJEHwA+sZ6nunavTNWBt4z14y6Wmt/CIQ0R2VnnKwv4Fc+4UzD32nACfLp
+	 +DLx60dLerwo6VexhdDJrD8JQsr2U/SSHdp9RX2+4BFW3aYQlRNEGTRiXWpBetYFTD
+	 X+ndfjrLKUkKeCvraog4t4keQ6hkxo2ZKd9M0bEefxiEd+uBlDystDNz1FzxpkYN8Q
+	 /mmkNxD0GDIvHcELRM9lhui+84Tuq3oj8gFjBAJrW+plmXak4TpOY0YHELdlkTgwE9
+	 4gIMKISP9c1Nw==
+Date: Sun, 25 Oct 2026 17:38:35 +0000
 To: Fernando Rimoli <fernandorimoli11@gmail.com>
 From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, "D . Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
-Message-ID: <20261025172251.19293-1-lsa.uz@pm.me>
-In-Reply-To: <20261025154743.39801-1-fernandorimoli11@gmail.com>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-5-lsa.uz@pm.me> <20261025154743.39801-1-fernandorimoli11@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] media: Add the ST VD55G0 global shutter sensor
+Message-ID: <20261025173825.60385-1-lsa.uz@pm.me>
+In-Reply-To: <20261025155158.44392-1-fernandorimoli11@gmail.com>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261025155158.44392-1-fernandorimoli11@gmail.com>
 Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 0a8ebfa1d6884147165f3aab5f7c82981bbe9062
+X-Pm-Message-ID: 9db915d6a9fe70f5a7a0cf7ed4dbe583502cfc40
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -69,28 +69,53 @@ Content-Transfer-Encoding: quoted-printable
 
 Hi Fernando,
 
-On 25/10/2026 15:47, Fernando Rimoli wrote:
-> The property entry keeps pointers to both its name and its values, and
-> here both point into the module image: the "st,leds" literal and the
-> static const surface_pro_11_ir_gpios[].
+Thank you for the run, and for the detail.
 
-You are right, thank you. The only other name there that does not come
-from the per-sensor prop_names copy is "lens-focus", which D. Manresa's
-v4 moves as well. So v2 will do what your a20c843c9bc4 and his v4 do:
-"st,leds" goes into struct ipu_property_names, and the GPIO numbers are
-copied into struct ipu_sensor.
+On 25/10/2026 15:51, Fernando Rimoli wrote:
+>  - renamed "dovdd" to "dvdd" in the ACPI supply names, because the
+>    6.19-based int3472 here registers this sensor's two GPIO supplies as
+>    avdd and dvdd, so dovdd got the dummy regulator.
 
-> Manresa's v4 1/2 changes this same line to use names->lens_focus, so
-> whichever of the two lands second will need a rebase.
+The Surface Pro 9's ICL2 has the same two power GPIOs as the Surface
+Pro 11, types 0x0b and 0x10. Mainline v6.19 has no name for 0x10, so
+the dvdd comes from your tree; media next calls it dovdd, and the
+driver as posted should find it there. If the int3472 names change, the
+driver's ACPI names follow whatever lands.
 
-Noted; v2 will say so below the ---.
+> Since the driver needs a multiple of the clock it believes it has, a
+> separate entry for this IPU (8086:465d) through the per-IPU match in
+> ipu-bridge would let it run in specification without changing yours.
 
-> The Surface Pro 9 needs an entry too. Its VD55G0 drives the illuminator
-> from GPIO 1, as on your machine.
+I would rather fix the clock. With 19.2 MHz reported as 24, the sensor
+runs at four fifths of every rate the driver computes, so an
+in-specification link frequency would still leave the controls off by
+four fifths, as your 57.20 against 71.49 at 600 MHz shows. On Hao's
+thread I have pointed at the Surface Pro 9's _DSM, which looks like it
+takes 0 for 24 MHz. If it does, 396 MHz is in specification there too.
 
-v2 will add it, matching the sys_vendor and product_name you give
-exactly, as for the Surface Pro 11. I will Cc you; a run of v2 as posted
-on the Surface Pro 9 would be welcome.
+> 2. Nothing bounds the exposure while the strobe is on, and the
+> illuminator has an overcurrent limit that a long exposure trips.
+
+The same here: on the Surface Pro 11 the illuminator holds up to 68% of
+an 1860-line frame, fades at 70-72% and goes out at 72-75%. It fades
+rather than cutting off, which points at the board's LED driver rather
+than the sensor, so the fraction belongs to the board, like st,leds. The
+sensor has the means: MAX_EXPOSURE_LINES (UM2829, 13.8.1) bounds its own
+auto exposure as well as manual exposure. I would do that as a
+follow-up, with the bound supplied from the same place as st,leds,
+rather than grow this series. Benjamin, say if you would rather have it
+in the driver now.
+
+> 3. On IPU6 the stream needs a CPU latency bound, or frames come out
+> corrupted.
+
+Thank you. I will mention it in the v2 cover letter, so that IPU6
+testers do not take it for the sensor.
+
+> I will add a Tested-by for the Surface Pro 9 on v2, if it has an entry
+> for it.
+
+It will; see my answer on 4/4.
 
 Sergey
 
