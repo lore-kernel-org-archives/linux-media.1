@@ -1,66 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.233.101.22
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792921661;
-	b=dQqmQD2187Xh+7s8DS3NdVlUKaAbJpkqg+hqxeyq9rvwGywHNXmMtDjyx0YT0lko50zw
-	 O0It6IWqWaM8BAl0B2Qq3fBhKQt1XAqJoqcu/DHJOUYgzw7Dc7DpY3AGpF77vBDKmpfXq
-	 MkwVGEikpgrIbb28SlyrSXQ/Mn2kbfWch+2fds4OW6O5TWggND3DWB4ZaAJ03SAHl4UqM
-	 4AtWs/t9Sy695/eU6nlmKM/luD8GrEh+uyJyfErhkB59mY7G8pI6ax8jHSecnn6fwYv6w
-	 HZGhtT3cf6RF7LipJ+hqJ7AmTwXpVEHe8bhcOZbgx9PxJnRJVKMvPOHyEeo9OR1DScg==
+	t=1792924336;
+	b=MXEqmFZJ+/t3LgIJRzZmM8meeLh1/rmndxB74ACjekXW8gUCQ3ulr97lHxCRTlBaP34e
+	 4DBqPORPO68F28qi7QnLiE2uvSUKTx5cmAaPhicxdDG5KAKbs3LAOWlLRutC3XeZjDnl4
+	 V8Yzp4QDqMWpGDFdMbraQz8wOl/tymyuXAsycTcDrcfUQaOKfeAWmrxCn6Ch4FYqKuisN
+	 lKwipignDK9cMNgGf0rqeJsidch2imjJjDmYeutaK9I+kRQlpdq3raACaJ762KVcav3TX
+	 OEpm8xfentkCUBumeye8imrQv6QlNEUKott/HErZWkSJ07VlQqGfG+QqeZxhXJwg/cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792921661;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=6wMi+VRMdXtwGgWeYPr3fgIuVKDrKzKxvHBThVIJSgE=;
-	b=jlsGuiqy7uAytuEBSOYtHjagOu1Cer9xr+uwacSt7Bul6a4HYGO4qK2P1L+CHzgiUADl
-	 zYl96CZJWzEkB1nzIO6IiTjbqSN7+bplOFBfzXhZFLj2JtWepXtbG9meyt8WSI9Jt6767
-	 +UcjpSKLIRZk595kj2gTiaS3jKGsai0VwgnLVmbq1YxZ+KvcPUBeKC8ciCju7ayyaqsgo
-	 xKR5YBUd+xoSn6jUA4kMjqT0swcjp7eSZl0Hk7O7c3DHjfkFoFPAkP6Sub+xqOMVWvorJ
-	 Rpwy47dse6ADaQ+IaGR3/1LzZ5TgGDKb4yk3jsAeBS4oYJP06fe8VJ0nvMs1iCXMdAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792924336;
+	h=DMARC-Filter:Received:Received:X-Spam-Checker-Version:X-Spam-Level:
+	 X-Spam-Status:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=W8I6eZPNeQyfIA2MHqpnCAXBcywuCKbuTriES8lpKTM=;
+	b=dxkd5/tnTsFK9YfLjtHM02/GSdPldRLIVRjEAJm4dpc5VbwrwMwSp+jpkHMIXyXY6WZ3
+	 3n+4McJaf97GNtFPHgCvUUIO4sbm8kW6Ln/hBxG4yJq7ZedKN72IeY/FwRKV6hPwZ+N9O
+	 cT8kU/pwULNR1y6drRFhF+IeOqk9RHmJ8iJ6zMbFJrxDR6M26CFViX4nLw23i5QM6bSJt
+	 dLhXyJbWIQacLPcF2Fpw2sT4E9TxkQ4cVIZQMkIePGUdkMhZb6FZqeY0XEgKcLInsMt8h
+	 LrPbGkuUIVEVwYmwB4ZbLxbVshnFBXk/hrNUnz9e9op9OhqFwc3q9MG33mj9KWEBjqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="S/bnQUUq";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=none header.from=sys-base.io;
+	spf=pass smtp.mailfrom=sys-base.io;
+	arc=none smtp.remote-ip=185.233.101.22
+Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F7E606A31A;
-	Sun, 25 Oct 2026 09:47:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F7E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=S/bnQUUq
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D97D2493;
-	Sun, 25 Oct 2026 10:45:21 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792921522;
-	bh=gaeNNxYSwdfO6+h2u4lvwXbi37LKCI3h3I6UXVoiu3g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S/bnQUUqMktsQwHkzY2NAfgTGltXt1OtYw3ryd5rkvGvg0soJFQw+El6kTtmwsX85
-	 itHwM1Vyaqz7iMqHz4d4A0iVtBTYsZZ9Cn4WqR2cDqcQDUdGIuqqPK4xy6Ih3RarBB
-	 GlkkoES43hQ4dntbJIagc0mVrKxAXvJ9hsluWq2w=
-Message-ID: <c76885d0057833361d0f5d5ad0c62dec@killaraus.ideasonboard.com>
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Aristo Chen <aristo.chen@canonical.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Guoniu Zhou <guoniu.zhou@nxp.com>,
- Christian Hemp <c.hemp@phytec.de>, Jacopo Mondi <jacopo@jmondi.org>,
- Stefan Riedmueller <s.riedmueller@phytec.de>, linux-media@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Aristo Chen <aristo.chen@canonical.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] media: nxp: imx8-isi: Register the media device only once
-Date: Sun, 25 Oct 2026 11:46:49 +0200
-In-Reply-To: <20261025082419.199021-1-aristo.chen@canonical.com>
-References:  <20261025082419.199021-1-aristo.chen@canonical.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB367606A31A;
+	Sun, 25 Oct 2026 10:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB367606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
+Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
+	by leonov.paulk.fr (Postfix) with ESMTPS id 2E8183700F64;
+	Sun, 25 Oct 2026 10:32:02 +0000 (UTC)
+Received: by laika.paulk.fr (Postfix, from userid 65534)
+	id 2FD3EB6CD17; Sun, 25 Oct 2026 10:32:00 +0000 (UTC)
+X-Spam-Level: 
+Received: from collins (unknown [192.168.1.1])
+	by laika.paulk.fr (Postfix) with ESMTPSA id 752CAB6CD17;
+	Sun, 25 Oct 2026 10:31:58 +0000 (UTC)
+Date: Sun, 25 Oct 2026 11:31:56 +0100
+From: Paul Kocialkowski <paulk@sys-base.io>
+To: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
+Cc: mripard@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org,
+	wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: cedrus: fix typo in comment
+Message-ID: <at3anD2TX8iQZ6Ws@collins>
+References: <20261007140056.7447-1-contatocaio.ferreira7@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -70,107 +59,80 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="odmBEKKySAXLue9n"
+Content-Disposition: inline
+In-Reply-To: <20261007140056.7447-1-contatocaio.ferreira7@gmail.com>
 
-Hello,
+--odmBEKKySAXLue9n
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-This is an automated reply.
+Hi,
 
-You have sent a patch that appears to have been generated by an LLM. The
-commit message and/or code show little to no real understanding of the
-changes being proposed.
-
-Such patches require a large amount of work to review. They rely on the
-maintainer to propose - and often even implement - a proper design. The
-probability that the author will learn from the experience to improve
-their future contributions is close to zero.
-
-As a result, to make good use of maintainer time and keep the kernel
-development process sustainable, your patch has been rejected.
-
-If you believe the change you proposed is important, take time to study
-the problem, learn, and develop a solution without AI assistance.
-Answering this e-mail or generating a new version of the patch by
-feeding this reply to an LLM will only result in your e-mails being
-ignored.
-
-Please note that if your patch attempted to address an important
-problem, maintainers or other contributors can submit and merge a
-similar or entirely different fix without crediting you.
-
-Your contributions to the Linux kernel will be welcome if you genuinely
-desire to invest your time and learn.
-
-Thank you,
-
-Laurent's mail bot
-
-On Sun, 25 Oct 2026 08:24:18 +0000, Aristo Chen <aristo.chen@canonical.com> w=
-rote:
-> The v4l2-async framework calls the notifier .complete() operation every
-> time the last missing subdev gets bound. This happens again each time a
-> remote subdev is unbound and bound again, for instance when the sensor
-> driver is unbound and rebound through sysfs.
+Le Wed 07 Oct 26, 11:00, Caio Vinicius Ferreira a =C3=A9crit :
+> Fix a spelling mistake in a comment: Neightbor -> Neighbor.
 >=20
-> mxc_isi_async_notifier_complete() calls media_device_register()
-> unconditionally. Each call allocates and registers a new media devnode
-> and overwrites mdev->devnode, so every rebind creates an additional
-> /dev/mediaN for the same media device, and leaks the previous devnode
-> and its minor number. As media_device_unregister() only unregisters
-> the most recent devnode, the older ones also stay registered after the
-> ISI is removed, and ioctls on them dereference the freed media_device.
->=20
-> On an i.MX93 board with an AP1302 ISP, every unbind/bind cycle of the
-> AP1302 driver adds one /dev/mediaN: after three binds, /dev/media0,
-> /dev/media1 and /dev/media2 all expose the same media graph.
->=20
-> Register the media device only if it isn't registered yet. Keep the
-> v4l2_device_register_subdev_nodes() call unconditional, as it has to
-> create the device nodes of the rebound subdevs, and it already skips
-> the subdevs that have one.
->=20
-> The issue was found while debugging an unbind crash in the AP1302
-> driver of the NXP BSP kernel. An AI coding assistant helped to find
-> it, and wrote this fix and its changelog.
->=20
-> Fixes: cf21f328fcaf ("media: nxp: Add i.MX8 ISI driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Aristo Chen <aristo.chen@canonical.com>
+> Signed-off-by: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
+
+Reviewed-by: Paul Kocialkowski <paulk@sys-base.io>
+Acked-by: Paul Kocialkowski <paulk@sys-base.io>
+
+Thanks,
+
+Paul
+
 > ---
-> Tested on an i.MX93 FRDM board running the NXP BSP kernel
-> (lf-6.18.20-2.0.0), whose mxc_isi_async_notifier_complete() is identical
-> to mainline, with the AP1302 driver from the same BSP plus a local fix
-> that makes it possible to unbind it:
+>  drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> - Without this patch, three unbind/bind cycles of the AP1302 driver
->   left /dev/media0, /dev/media1 and /dev/media2.
-> - With this patch, after each of three unbind/bind cycles only
->   /dev/media0 exists, and media-ctl -p on it shows the rebound AP1302
->   and sensor entities. No kernel warnings.
->=20
-> Not tested: the ISI removal path, where the stale devnodes would be
-> dereferenced. Build-tested on top of 330517c63aa9 with W=3D1, no new
-> warnings; sparse was not run.
->=20
->  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/drivers/=
-media/platform/nxp/imx8-isi/imx8-isi-core.c
-> index 0ae5f35e017c..82a03742405d 100644
-> --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
-> @@ -90,6 +90,10 @@ static int mxc_isi_async_notifier_complete(struct v4l2_a=
-sync_notifier *notifier)
->  		return ret;
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/s=
+taging/media/sunxi/cedrus/cedrus_h265.c
+> index 780da4a8b5af..f57642c0d8fa 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+> @@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, =
+struct cedrus_run *run)
 >  	}
+>  	cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
 > =20
-> +	/* .complete() is called again every time a subdev gets rebound. */
-> +	if (media_devnode_is_registered(isi->media_dev.devnode))
-> +		return 0;
-> +
->  	return media_device_register(&isi->media_dev);
->  }
+> -	/* Neightbor information address. */
+> +	/* Neighbor information address. */
+>  	reg =3D VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neighbor_in=
+fo_buf_addr);
+>  	cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
 > =20
+> --=20
+> 2.56.0
 >=20
-> base-commit: 330517c63aa9b48227b6ab45f01003effac77ae4
+
+--=20
+Paul Kocialkowski,
+
+Independent contractor - sys-base - https://www.sys-base.io/
+Free software developer - https://www.paulk.fr/
+
+Expert in multimedia, graphics and embedded hardware support with Linux.
+
+--odmBEKKySAXLue9n
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmrd2pwACgkQhP3B6o/u
+lQyZzhAAjpLJ/LCS9ud2LmKBfIDoSIa36gfGD9iUB8J1/bgqENht/+QvFN/62jVi
+gAf0nT1W0HrQ2TIiFwdhhNnphU6VJUfI0C9Z+SpqAoKXf3j+qj34ZPpsSd+thEUB
+4HObZyKK5px6YWkHL1XekYjdbCjh2T6HZ6UTt8rZxR7V5RIFq4QKNZHN/myhUk5X
+X4IqbHpjD9zeD+9TH26kRbc4xlfMXiyfM88YkEWks8dMchnL+h69TOdk91I49y/H
+0wYthqG/WZsqNptz+z0ra6o8esqzgewhCTzNaFcb9GlIBG9gxhWAXi5w8HltGvmr
+DvfdXEj1ENFsiAy94HUstuTjG/76BOFiLHHrGle8u/Yi4iNu3rKVngmrcfltTqhP
+LVB2sqaiHYUH2tpNTv4UXmHbyhMTIA0jF/QW+I/p/2+Uv5dxIgLkwWMGfXZMojfm
+jAaaaA9h1GIkgPN6Sg4O2wn+g3YVTK3GVSBhwtE0D/KQMjsHv3HCZFSMQm6oYibv
+ZSS65D9RiGtg98h7zaFz7+bX01ZlAw5NRc4bbTPpweGFFX+0cidtdhMx9z5gw4wP
+fWbMP4DDoiCNPsjiW4CFNow0elBgsdn/WaW8lFtQ/WoGitoGArpT6iOlLLDRKOsN
+oSBIGryhLuvhFKe+8WNjHfWppj8Q/RVYN/vkE65Y0C8QEeDmsf8=
+=b2qN
+-----END PGP SIGNATURE-----
+
+--odmBEKKySAXLue9n--
