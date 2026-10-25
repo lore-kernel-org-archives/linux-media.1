@@ -1,98 +1,103 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792943102;
-	b=DtiBHWZ5FgV4+Ued7x8nB+IwbIn1sy9nzexB10FxmuisIfJXjmv/ZJOIdYJD/x39CMQ7
-	 B9tySJsfWLakiBMCBbQjuYlY2seMpjCtVSYMomvVWYb/uYx0HlZY5lNdHHzYci0HogASS
-	 ahbtK5QhpVC1A87m5QonZQ28dduA3qi9MVJ5KigK0TH/IO1M5QEcjhcxavPKKYnbDfmMt
-	 42QZU+nWx3qzG7B5mwzb9s2vImuNj4VqzuWNHmvdIa8tS4J/5885qbjDYXdhPE9rVupw0
-	 wkLNVaxnyTNZwg/NJHgb9qVOmycQVNcQNGG6GrD/INkCIan5vGh6VhPRY4yiRMtLaDg==
+	t=1792943267;
+	b=eHM3QUpjbw8qgjxeIwxuihWy5Ky2FAkFEiNC+W3sLDwx8woseGA1q9adYhfwqZwDXsaY
+	 8HcZA2jXiuO9RI48XsoK/OlPJ7/qMOYDu0D6slrIbd2YKrQCIrmy9DpsESczEJWHJEE4S
+	 uxGiKFt9ubob/uhXQmZqpqW9l1EmhR32l3Pw4iv9c67no78g+VLEXVvL1aFZAbR/Zwe2m
+	 MeanBcTBMSKELbl2fnHmeQclZzw1vp3E6Q5zwrcFA2LJH3WJ5cIhiXM8LSKjKQw88nJZR
+	 zComfC1Fmt235lMMfpQZPuoDmYKNbuM/uMK97n3gwVerLEBALBA2RiRTxZScIKtJCkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792943102;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792943267;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=N0vgeH4sze1VHMGmMqh9MlIMZCyUAgrFNnWhz5uEDuU=;
-	b=CAhrk361GRCTMN5C9xmFoAsRuiJrQwpqR8waECAuh+6u+ihcQr1jIZlGgUYVRCdq6asK
-	 R0NRYJ9ZP/EU/o0bjVHVT+EAxpj4fY4mPD0snNsDGXYV7BXbn8B0wKpNz9A03iz07prlb
-	 8RoOriBsQrEpbkAi6TaQ/9RWO6L/Qhxsh2zkHCk/OybAG4dxFWFE7nxMKZtlxw/8jQXB9
-	 Shn7UDGL4u36/fLFy+msbCJPYEyciOATSRSqcswY7IKDt0/kWLoUGU777t718u2U3P4nY
-	 UZiuhLNv4RICxmhXeL5GNMqQLqG8IvNDSBDYN3KQL0kj7U8tKD1dRJxtGIxxs9JS8OQ==
+	bh=zwdYhrgTBkN/NLFVZoVld7wV6jKtYbxDqrCph2g3kLk=;
+	b=O1KnGeuc/FkeS1CYfE1E8pgxqJHMLHGQwg8prkK5LE4Oq5uVxn2VzhihHXIiHmcFLl5/
+	 304iZqEwfgBuxvsGM1qgR6G7Ht14/TyC2zUJjEFN7mDGxQLQNY8p4RZ+2AZ/3veHF7CX4
+	 TUegIpvCgfYvvaO5zs4fSukpRYDyyajcIKL3q8BGT9LCS4rV60DdZRoMZzjNvlC7VMbTk
+	 W+z6Ocp0DrfolZci8AnjUZXZGSqeZbwfVnZWsuKFB8V8f37dmifWILtwO4cCKzkctIvB8
+	 lGyaig1vkBoHcURt6MY7oMzcroXb53WN68NK4CWglsHRdWue9pJH9w/6iYFQMwKOnpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SWGW9WvI;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUbFg6pC;
 	arc=none smtp.remote-ip=209.85.128.45
 Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA19E606A31A
-	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 15:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA19E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F43606A31A
+	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 15:47:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91F43606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SWGW9WvI
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so3446615e9.3
-        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 08:45:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pUbFg6pC
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a210470b49so17665505e9.2
+        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 08:47:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792943100; x=1793547900; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792943266; x=1793548066; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N0vgeH4sze1VHMGmMqh9MlIMZCyUAgrFNnWhz5uEDuU=;
-        b=SWGW9WvIKg2fivf5djPJlrcId8el4e90hbdb2siEaeMVDX4v8OexjV2Z45JrtvjaX0
-         r5uDHqvYAavBQzOyF/8jLVi0yIhpuxv2V4D04g6SccviZbairPg2ggxVpTjkESrn0LES
-         FcQaHshGGvdPV1XcdO8ENrVXD5yfZlxrDiFC/1w6Rquswu66nyEjjgN3Veeib3oYpDDx
-         bCBFy82Tb8oR2D56mJZtQVvPkHOT6RfqgnxWkncsjKA3XVIF7Fim0vp2rgPJwyvdyp6s
-         WX7AaGiFSYYxf+bKC4V0/Xa9W8xHbsRGqTtfiZLnRoSIbmAuZJCOJPnY6pn8A51q8kKM
-         Bz2w==
+        bh=zwdYhrgTBkN/NLFVZoVld7wV6jKtYbxDqrCph2g3kLk=;
+        b=pUbFg6pCeaGLafevfQtN6qmdyX9arxUMhbN7MrMT+KmOUc0yqNaZaZqrTvdbhxltW1
+         YiIWCnqICn/yESHm+yxv6zRXYRRJ4ZJ55Hl17ROCI4sGpbCvcUG8KkM/53j8EIQiNy34
+         iekkYyULvPJDYy7oX7w88rqciU8vhqkEZksTHuRUM1G2s4PNFjBKC3fN0qJ2e71eUWB8
+         MFzR9wDubGV6WMtFFmSTCw8PnUnrDrath782dSwDI97f6cSFXRCXmvG2rAZMf80UpcZQ
+         J+gEUQRgK68tJh6y/Is3DJBb7UK3e46KIhBqLj9ftdFQI+J/UqDVhpRIpiPcmzNLzEpP
+         F58g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792943100; x=1793547900;
+        d=1e100.net; s=20260707; t=1792943266; x=1793548066;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N0vgeH4sze1VHMGmMqh9MlIMZCyUAgrFNnWhz5uEDuU=;
-        b=rTw8nJMDrsDSZDNALGysx6qXAavmwiiWXEwyPDhS7jEfs13OCsLogv2X4RE7LyL0N7
-         wS4HQ8a860Xj7vihl8/+yGQM6VhZL9H2ITgpHrJbhPSSWcIiTCf3oWe7mN/7GH5DjVXN
-         KMrikUmvqQP+souFr8lzCb4Ms+lSWjc+G0Mej2ocyB+rmQMyqLDgnTUOLTuizcs9yN5b
-         IOHBkF98mrjgVEj//R6ISQdOwVJMPVigKdPrH9kwgzBuFo3b/q8gVypj6Ihkc8A328+C
-         Yivkmarj4K/8fBoamU5X4mUiSQ5lTIVY+70XiM5+8LHoq7GVEQhpZW81NxZWrNbCt20y
-         K4ew==
-X-Forwarded-Encrypted: i=1; AKwUvBxkVGyzZ/L8mf/siNV7iRGCkCB+mqqQ5/ubDeANuQEI/tj5bQr3VvA4UbJVsv/nrrE2N766EifnJXDo3Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5NsFh3CaJ1UCjv3E1koZ5XCxqeSSGqgwos1X8vFG7GzKusKXz
-	l59svmrLA2On5nc0OHNhd/RG4eRpr++wOg/7nz+Ew06VW8quohQXbmJz
-X-Gm-Gg: AYBFou2wse3QB778F09nmnxQNYlHxrD6Xr8bbV0SR5ayWPcSogA3AXv+JFOnZYR+kks
-	YDyt6DkkcxTRfRd7HQSOm6+dkw4JbSQVZTrLAVUiJBfnrEyRoftfwaRwbWJ/65woIjVlOgwz7Bi
-	hVcLCF+bYGBmJnGtodt/D1WPY3Kk+31kUZICRSfSegxjlL90OphP3s/HotSeQxK7JEKxMI0EBbw
-	STwbICnCBeT48rx6d/wxrKXomfsBBbT/AHgL20vi/IsBRdo+VGB+v+UPAX9XFV/1gbkpnsRM+T2
-	0igaxIqJJPK+jdGFCK61FoRDzsQVNKu8PbmKYZpcoUuPqabtXyIolXmfPZqItyaMMkh550jqQzH
-	wUMwR+3X0OGHSFlppGGsszw9gtm5OeWsSpRfMyXOK2zWoYGx8M7wCD2rLDbxYNxZXoVqd/tJ02W
-	uVoyNfyx0NasyvpDTAirsVW5v6dIJS1uHJafHJXrVqLK25flbMag0eXiFnM3d/ENFJeVFD0lfdP
-	q0so67hsoVStfkOLoZ+3nc9/At2pG+Hjrs4BM8zUDXttopzENdT/I5e1VM7DvojDxHZ9sFylpDV
-	Zsk9PODm4yBP2Q==
-X-Received: by 2002:a05:600c:c173:b0:4a2:883:4adb with SMTP id 5b1f17b1804b1-4a35ac9ea4amr71754855e9.22.1792943100278;
-        Sun, 25 Oct 2026 08:45:00 -0700 (PDT)
+        bh=zwdYhrgTBkN/NLFVZoVld7wV6jKtYbxDqrCph2g3kLk=;
+        b=oHYXex+X23Inu0G49aNMBNSTY66uBuIHGBzv157prYlMTYEviS0+RktyWRY5PX8y10
+         bCMKklILJ4S+tzoih5HzeNYNiEEDg4q8yaU5qpeq2UjQaNY4oVkcLEB7cP9ETdCETEGP
+         2I/PSLRA+y8/ZlbSnkBhr00+yQOqHdp7TnDzfUPCvo99o4dkQFjTi9aU6coIR2R59Vmk
+         RiIXtJU6R1AnsGnKXBO6s57+6rt9fQOHWNEwis4a2Y2sl9GrnABAED1DNJuhu4n+u0vk
+         D5aSR3uG0EqFVVSJVnGYN5w212NVmATBcFp5asgQLJuywMwl4x7Beyse7sgEU/3QiPA0
+         kDdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVs0/mnC8XvU0mnh20DnprT6sBt/kZNNBgaxBMp956A2LG7DHDqM/pSJZPFYIc057SWs6jT08nDucHmg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1mJmmqkbiqEj+NCNN+tqpW84eve82W9CuGTKMYA2AoTZWx5eN
+	FxePqY/DLyXHdhga0PuNxvk/HV70gwuUgPReFFHDOFJ+WKpEwnRMpgBV
+X-Gm-Gg: AYBFou3hwL9FcLvlfg4Tm83DLnqy/QhcsVcJ4tGPmzfzfm1oRAgS0E731zIMPCQt7ru
+	yHFGCrpQegqRKt2jThpXzL6BKX4/k6CEt4NlnNPzjoDR3/ONGPTO9zlbZFx/gBVEScVSd5OQb2p
+	ohVKAWTHlXeLaCoCpk2Z90Pcxgq/ewXai1In4OseNYwz56bLjf04Dz8fFlw89XT9Z7Mh9t5eekB
+	mfpeAnG3V7i/rT+kA006tADvKVJLXaunM4ACBTNW+L6qAQ3yx6RlRbqtvv0kTxKQAxyo6DS+wtf
+	hhvFN2Ve37evOEEm1N5myOdRpxuBNaGKbiAqrrWeBZXLxn10ejPiujegsAd+tzsxaeKa7l6Yczk
+	j0Tz7iTbuajXkZswjMEr30+y3uanLraQ/eDgRWO91Q9fPCKfKVCNbgL3beiCFy499sep8ngOmZV
+	yvXrs1MkC1Lp1efIgDeU1NFW9ARJjOZpno7r2U8QzJqFHz3T2uDg4sbAtboZmGvtLQoboYekDYb
+	evTACRMtjL+VRbzTst2UH0DRW2k19cgnFc8qWM0Siv52zXBfn1+I/knjlcKEp4elJkNG7gizZmn
+	4yRpnmnXHVmlKA==
+X-Received: by 2002:a05:600c:8183:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4a35ac99b77mr69181225e9.9.1792943265629;
+        Sun, 25 Oct 2026 08:47:45 -0700 (PDT)
 Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a30e11bsm157355105e9.1.2026.10.25.08.44.59
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a58a0e2sm161730455e9.13.2026.10.25.08.47.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 08:44:59 -0700 (PDT)
+        Sun, 25 Oct 2026 08:47:45 -0700 (PDT)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: "D. Manresa" <dmanresa@gmail.com>
+To: Sergey Lebedev <lsa.uz@pm.me>
 Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Peter Marshall <pm@petermarshall.ca>,
+	George Neacsu <geocausa@gmail.com>,
+	"D. Manresa" <dmanresa@gmail.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] media: ipu-bridge: don't reference the module image from software nodes
-Date: Sun, 25 Oct 2026 15:44:55 +0000
-Message-ID: <20261025154457.36770-1-fernandorimoli11@gmail.com>
+Subject: Re: [PATCH 4/4] media: ipu-bridge: Add the Surface Pro 11 infrared illuminator
+Date: Sun, 25 Oct 2026 15:47:41 +0000
+Message-ID: <20261025154743.39801-1-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261010155626.2766298-2-dmanresa@gmail.com>
-References: <20261010155626.2766298-1-dmanresa@gmail.com> <20261010155626.2766298-2-dmanresa@gmail.com>
+In-Reply-To: <20261019162722.25587-5-lsa.uz@pm.me>
+References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019162722.25587-5-lsa.uz@pm.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,51 +109,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Sergey,
 
-You said the Surface Pro 7+ is leaving your hands, so here is a run on
-other hardware: a Surface Pro 9, IPU6 Alder Lake-P (8086:465d), with
-three sensors on the bridge (OVTI5693, OVTID858, SMO55F0).
+On Mon, Oct 19, 2026 at 04:28:11PM +0000, Sergey Lebedev wrote:
+> +/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
+> +static const u32 surface_pro_11_ir_gpios[] = { 1 };
+> +
+> +static const struct ipu_sensor_leds surface_pro_11_ir_leds = {
+> +	.hid = "SMO55F0",
+> +	.property = "st,leds",
 
-To be clear, both of the failures you fixed need the IPU driver
-unloaded, by module unload or by PCI remove and rescan, and I cannot do
-that on this machine. A warm reload of intel-ipu6 leaves its CSE
-firmware refusing authentication, and the cameras stay dead until a cold
-boot. So this is a no-regression run of the normal paths, not a
-reproduction of the bug.
+[...]
 
-What I ran: your v4 1/2 and 2/2 on the 6.19-based tree this machine
-boots, on top of a20c843c9bc4 ("media: ipu-bridge: Keep the
-clock-noncontinuous property name out of rodata"), which your 1/2 builds
-on. Both applied with offsets only. 1/2 changes struct ipu_sensor, so I
-rebuilt intel-ipu6 against the new header as well. intel-ipu6-isys was
-not rebuilt, and all 24 symbols it imports still match.
+> +	leds = ipu_bridge_get_leds(cfg);
+> +	if (leds)
+> +		sensor->dev_properties[d++] =
+> +			PROPERTY_ENTRY_U32_ARRAY_LEN(leds->property, leds->gpios,
+> +						     leds->nr_gpios);
 
-After a cold boot:
+The property entry keeps pointers to both its name and its values, and
+here both point into the module image: the "st,leds" literal and the
+static const surface_pro_11_ir_gpios[]. The bridge never unregisters its
+software nodes, on purpose, so that a rebind can reuse them. After rmmod
+ipu-bridge both pointers dangle, and a sensor driver probing again reads
+freed memory for the property's name and value.
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI5693:00
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTID858:00
-  intel-ipu6 0000:00:05.0: Found supported sensor SMO55F0:00
-  intel-ipu6 0000:00:05.0: Connected 3 cameras
+It is the same thing that a20c843c9bc4 ("media: ipu-bridge: Keep the
+clock-noncontinuous property name out of rodata") fixed for
+clock-noncontinuous, and that D. Manresa's v4 fixes for the
+link-frequencies values and the lens-focus name:
 
-The two sensors whose drivers parse link-frequencies from the endpoint
-get it from the per-sensor copy:
+https://lore.kernel.org/linux-media/20261010155626.2766298-1-dmanresa@gmail.com/
 
-  ov5693   419200000
-  vd55g    396000000
+Following his v4, the name would go in struct ipu_property_names and the
+GPIO numbers would be copied into struct ipu_sensor, so that nothing the
+node points at lives in the module.
 
-(ov13858 never parses the property; it reports its own menu, 540000000.)
-Unbinding and rebinding those two sensor drivers, three times in all,
-parses the same nodes again, and the values come back intact each time.
-The front sensor needs clock-noncontinuous on this machine (without it,
-it delivers no frames), and it streams at 28.63 fps, so the per-sensor
-property names reach it too. Rear 29.94 fps, unchanged. No warnings in
-the log from the bridge.
+On the same hunk:
 
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IPU6 (8086:465d); boot and sensor rebind, not unload or rescan
+>  		sensor->vcm_ref[0] =
+>  			SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
+> -		sensor->dev_properties[3] =
+> +		sensor->dev_properties[d++] =
+>  			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
 
-I have not put a tag on 2/2. Its new path only runs when the IPU node is
-already registered at init, which never happens on a normal boot, so
-nothing I could run here reaches it.
+Manresa's v4 1/2 changes this same line to use names->lens_focus, so
+whichever of the two lands second will need a rebase.
+
+The Surface Pro 9 needs an entry too. Its VD55G0 drives the illuminator
+from GPIO 1, as on your machine. Its DMI strings are:
+
+  sys_vendor    "Microsoft Corporation"
+  product_name  "Surface Pro 9"
+
+I tested it with your driver by having it fall back to GPIO 1 when no
+st,leds was found. In a dim room, 640x480 Y8 at exposure 600 and
+analogue gain 8, the frame mean goes from 22.0 with led_mode off to 64.7
+with it set to flash. There is more on how the series runs on the
+Surface Pro 9 in my reply to the cover letter.
 
 Fernando
