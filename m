@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=176.9.219.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792938988;
-	b=YeK0AKlRfoy6PaiHKAnWq1oES076iS7qtMVvIxUdK9AhzkYKNDkhtEXMWhvfxvJTZsVJ
-	 b4r7pleI6NWgq1GfOFjEFfZWwj/5RI6Xl1WRYaA/9fbp8jMuoqVPKKgwYGzfQv01bgwOC
-	 nFipKXJ7dt2ymZqhgEKQAgxyhDr+PcKq84DV8nIkYYZ/rV3mWPjxZfQysUpJKwIIm5PIM
-	 KjqN1C6D2ijtt50zvvQdkCHGUqFwH9Pw/WU093CkZ1SKApflZbyJF952+kOrKug+l/sY1
-	 K072+UexlhtUdGdC99YmhVs2gk9L27qfIB3CaxIhARjcN9V3S3UU3QXhF54MJfyWYJg==
+	t=1792942864;
+	b=MRkL6qrxhseYSTM/x0dUgnJR2XBTuXxUyVVDpidwH1jFKlpWaLeHw91Ou7Y/HhC1vJAf
+	 uaIFAILNlgWqv7BcwMfuF3H3bAR+/2QC8SDEWv7pwAx52pt2QM0zWJHtjFk43hLdDfMrQ
+	 YA45cW3uBya2NGVISNxqhGDkxJ3JwMMADsFRm4Lject5TMIChS1WNYa1UJ/pazJP4SNvJ
+	 LOlgBBSVcTX9bKIoA/W3pHPbow1a076Fwl9dwohq5D6l5uJOOBLR/mvglJGcKtlipBIKs
+	 LaKcfXevfiQSgSFJV88HGyfco0ROqobr0TPBf/TOjfa7qVcJedfqXi+Ei3rJ12IfdqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792938988;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ml7KDYqtwo3kkAXwh7Yb37PT+M7VJ6pBs9QJcFJB/w4=;
-	b=CmY/b46oDAS5AZoKtsgUc+6znIwNbIH/4fBUGvgLfZIBA7X3VqEzRmt5ud3hXo1dcXl/
-	 UwW/GXPXhAxMYTWivD30l0HjogVyWHP21yMb7E7QJQASZYAwV6XD6RwVPXUYMasOdAfi4
-	 zIYmfICICs8bu8+UQSeCBU084KE8HXBxQoyehqriZaYrWO0TPd0nV/QghkfI4G2KRlnz+
-	 GGTK4Zi50NR/3mBkyMQES228SENMo/JDjj/MjOanYDH2abNghb9El8VKHdmF7M9Z+SOXC
-	 UX0WKpvH/gHUZKTqiuHqF6Q/U/eHmeEMG5FwIUi/7jQcfEQu/xOcSBnC/noVPZJGQHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792942864;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2P9JdGvVOuabXAYBNZP9kGprHfBEphnCnz0cLxFDPGU=;
+	b=ZkTD96oJJcCWiWPBVc/sutKZvV258onT1elaOA/aTziLlfO8S2IKhe3QR705kM3UmcV2
+	 CcKAuoIEiMjT0+NncS8wsVQBuZcZKs2le4mjlz0YU2MXJPRBySY1HEwyVENOuzdfmysKA
+	 JLkGkwwHG9t5dMp3bJhv5R7an7FQ98W/1rsL84EFvb2K0vKOMEcS0lxTOK4rNA4+UJLsf
+	 DnBw38rAVNwAACIqZDVvjCcftNzl8Z+OFu3K1untEqPuoWuj32GDblNV5snRz3mLfZnEW
+	 XcXPZ3xxGY4DMgMyqHHq+LJpKWUYbyjhb41gvGIt94o/2xJ1Fmkg0Gg9dazRDnSic/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=manuel-herrmann.de;
-	spf=pass smtp.mailfrom=manuel-herrmann.de;
-	dkim=pass header.d=manuel-herrmann.de header.i=@manuel-herrmann.de header.a=rsa-sha256 header.s=s20260706 header.b="HyYn3r/2";
-	arc=none smtp.remote-ip=176.9.219.86
-Received: from mail.0x17.de (mail.0x17.de [176.9.219.86])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="p4r3B/ko";
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BD2A606A31B;
-	Sun, 25 Oct 2026 14:36:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BD2A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=manuel-herrmann.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manuel-herrmann.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836A0606A329
+	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 15:41:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 836A0606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=manuel-herrmann.de header.i=@manuel-herrmann.de header.a=rsa-sha256 header.s=s20260706 header.b=HyYn3r/2
-Received: from itw.netbird.selfhosted (i5C74DFF6.versanet.de [92.116.223.246])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: mh)
-	by mail.0x17.de (Postfix) with ESMTPSA id 555158001B;
-	Sun, 25 Oct 2026 14:36:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=manuel-herrmann.de;
-	s=s20260706; t=1792938977;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ml7KDYqtwo3kkAXwh7Yb37PT+M7VJ6pBs9QJcFJB/w4=;
-	b=HyYn3r/2W0X9bU9qt2mgMIloK8YCHiwyVYAAKFi0BvLxStulfxjUoLDgeVThfPZazVInsw
-	X+PnzpMamoeVit2iGBmBeWgRMUJ5F5FVfnoLey0PRBB22+AhI1WErbacRzmXbYCZ1z1Jzb
-	a9CQbQlmwowCXdbZpqN74ssuqe/k1khj/XxoMoRb/WJ5GaaKRGiu7EjFkw++iZztzbojbF
-	mkMMHu7/TfKKfkFmV+yy1cww12eYXOiRIjIRJixKbKmYb+k37c7mfUKUPpdK6jlERSfjfu
-	PXu8+Z2JLVoZ2a1C4EYNHBRl5xGmzAce8RAvWATgyGLAQqi8wI/ao9bQMURcGg==
-From: Manuel Herrmann <m@manuel-herrmann.de>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p4r3B/ko
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4649b35bso2330993f8f.3
+        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 08:41:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792942863; x=1793547663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2P9JdGvVOuabXAYBNZP9kGprHfBEphnCnz0cLxFDPGU=;
+        b=p4r3B/koZ/QpksCxFTSuqqPDQloue2b2pNN7nAJ0snbFLNvTAMdupQ4ARCBrbz5peL
+         cFzsIaLFcmkvl4M7ALRN4FUEDF/7dOHGihQWCLBkDrDw1PkKmUYJGrPFBzjGUB2Ip2eq
+         TWtQPK79BFXHvOK9aoup13Ie+lako5uGw+rA4OxU68PypfS2eiFEPWmEW/deaoHCd4WU
+         dY5DKtgyg2fM1OqDxLUszXqdm39Ubxegv1iLSzMho2DWnayHCs+HtBoFMq2QBV1Ik0JP
+         vsYQEqL+gfU4BhqZda0n3JRjlHtRreK1bKnn9GYNm/pwBf6s4cLSUyoMUoVaMOJdAJ0P
+         3SXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792942863; x=1793547663;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2P9JdGvVOuabXAYBNZP9kGprHfBEphnCnz0cLxFDPGU=;
+        b=KXuQ9aFBE2kD2WbQChXIQDrRmKgaWm0LApkXEeHJvhtLaQP/2Ct9GqrlV1d8lcznGR
+         fK9t3yWXGURAYgl7xfaYF6+UNUBn94ljzJ8r8TErFsH0NKKiwHYOcCIO3qdTAXlpKY2C
+         hBbfuWn1z2pLjLzDfFO1JOV6tFPtRk4oNgxUxx12auZQgrnmQrMPhPmN8lqhNnUCHR7R
+         i0j2WJfGsLVdj3D80JxMh1z1GIrwpQBV3dKW9k9XBcxyvS/9gAIb200qwKlwHTJxr506
+         QDm2c47ktXR8PQGXoFgPaNnsRDep9zc9bwynmsaZ2eEBQTpWfTK5wwLpN7QCj32Jxgx8
+         975A==
+X-Forwarded-Encrypted: i=1; AKwUvBxiswnzQJ5RfzN/8s4Y8+C0d01UlnIbW0jF7TD8/AyET778xdGlG1PIM+nSuQ/zWkQhWJ5aMZ36NauoYQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIY9CHD/R/f16AQc4ORf7YA8JUELSCmSapUIjt0jvdIbFMA3/tX
+	atnTvnbV28i8M22iw9GrUWMWILRUuQ1RGLdza8hryA6fFEvwO836BS4/
+X-Gm-Gg: AYBFou2WxQIqBizwhJubyBVkXDQH36500UjASFWTeippPCTW91TTqry2Tcs2AdRs87I
+	agbovRzbi4ly1ZeVraNlqZOwMXFmXyNeXhsXODTM4FDixeMRhQjCb2e3iwv6Mww7pSsiiUXExQ/
+	W/XJfqGrtZm4yPQbGaWes2MsbGNgNOUrO8LuirmOi9/RmYFEZXogMmP1lBQcj8Fmm0YlACtdeDy
+	Q18088dbc54TMo7tpBDU2RLZEwCghZQ3xXVacmRh85faB1bQiZqSwNIv2CFzorAkzdS3vM7P4LN
+	U0JmW4Od5ZtrNiNloa7E8U/jt0QnzJQNcJJECtSMo1H7bp0Q2PVajfYyNdkyJ/4908UuPQS+ZV1
+	ZJxSff8X3Jfq5lF2w3cfsLYe7O4liY+7Nh4OKTsnlN+pL993Tmhw8uvvXXu1F/eGDMM5eOFO0Io
+	mkEkmrnPAYRNjTx49VHhYwZOieg8McZSmAyTDIQBuDR1B5B/9yNWS2hcowHwCAyPxzKNpyLCkxR
+	XCO1xnqTjjZV12XJfR8oEzyeQAumbM8k4Cb0e//hLTI2sGiSkiAqZt79R/3j5Rs6Be7jUtejjFw
+	AC83GLlhMznAgQ==
+X-Received: by 2002:a05:6000:2404:b0:48e:314:f9f2 with SMTP id ffacd0b85a97d-48e3eb2bdcdmr7358163f8f.8.1792942862861;
+        Sun, 25 Oct 2026 08:41:02 -0700 (PDT)
+Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3a1csm10487861f8f.16.2026.10.25.08.41.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 08:41:01 -0700 (PDT)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Manuel Herrmann <m@manuel-herrmann.de>
-Subject: [PATCH] media: uvcvideo: Add support for NV21 pixel format
-Date: Sun, 25 Oct 2026 15:35:22 +0100
-Message-ID: <20261025143522.327365-1-m@manuel-herrmann.de>
-X-Mailer: git-send-email 2.55.0
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] media: i2c: vd55g1: Mark the AE lock and bias controls inactive in manual mode
+Date: Sun, 25 Oct 2026 15:40:25 +0000
+Message-ID: <20261025154031.27083-2-fernandorimoli11@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261025154031.27083-1-fernandorimoli11@gmail.com>
+References: <20261025154031.27083-1-fernandorimoli11@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -74,74 +103,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the NV21 (Y/VU 4:2:0) pixel format to the uvcvideo
-driver. This format is exposed by the color camera of the Creality Pika
-3D scanner (2bc5:0c0b), next to YUYV and MJPEG. Without it, the driver
-skips the format as unknown.
+In manual exposure mode the auto exposure lock and bias controls have
+no effect, and the driver marks them grabbed. The grabbed flag means a
+control is temporarily locked, for instance while streaming, so
+v4l2-compliance fails on it while the sensor is idle:
 
-NV21 only differs from NV12 in the order of the chroma samples, so
-bytesperline is wWidth, as for NV12.
+  fail: v4l2-test-controls.cpp(134): GRABBED flag set
+  test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: FAIL
+  test VIDIOC_QUERYCTRL: FAIL
 
-Signed-off-by: Manuel Herrmann <m@manuel-herrmann.de>
+A control that does not apply to the current configuration is what the
+inactive flag is for. Use v4l2_ctrl_activate() instead.
+
+Setting the controls in manual mode now stores the value rather than
+returning -EBUSY. That has no effect on the sensor:
+vd55g1_lock_exposure() writes only in auto mode, and the bias sets the
+auto exposure target, which the sensor uses only once auto exposure
+resumes.
+
+Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
+Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
 ---
-Tested on media next (d7e7bca71698) in a QEMU guest with the scanner passed
-through. Before the patch, the driver logs
+ drivers/media/i2c/vd55g1.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  uvcvideo 2-1:1.3: Unknown video format 3132564e-0000-0010-8000-00aa00389b71
-
-and the color node only offers YUYV and MJPG. With the patch, NV21 is
-listed, G_FMT reports a bytesperline of 1280 for 1280x960, and v4l2-ctl
-streams it at 30 fps. A frame captured in the guest has the right
-colors decoded as NV21, and red and blue swapped decoded as NV12.
-
- drivers/media/common/uvc.c       | 4 ++++
- drivers/media/usb/uvc/uvc_v4l2.c | 1 +
- include/linux/usb/uvc.h          | 3 +++
- 3 files changed, 8 insertions(+)
-
-diff --git a/drivers/media/common/uvc.c b/drivers/media/common/uvc.c
-index 0107cedd0..7d918ba0e 100644
---- a/drivers/media/common/uvc.c
-+++ b/drivers/media/common/uvc.c
-@@ -24,6 +24,10 @@ static const struct uvc_format_desc uvc_fmts[] = {
- 		.guid		= UVC_GUID_FORMAT_NV12,
- 		.fcc		= V4L2_PIX_FMT_NV12,
- 	},
-+	{
-+		.guid		= UVC_GUID_FORMAT_NV21,
-+		.fcc		= V4L2_PIX_FMT_NV21,
-+	},
- 	{
- 		.guid		= UVC_GUID_FORMAT_MJPEG,
- 		.fcc		= V4L2_PIX_FMT_MJPEG,
-diff --git a/drivers/media/usb/uvc/uvc_v4l2.c b/drivers/media/usb/uvc/uvc_v4l2.c
-index 644c2f1cd..60732f5ac 100644
---- a/drivers/media/usb/uvc/uvc_v4l2.c
-+++ b/drivers/media/usb/uvc/uvc_v4l2.c
-@@ -232,6 +232,7 @@ static u32 uvc_v4l2_get_bytesperline(const struct uvc_format *format,
- {
- 	switch (format->fcc) {
- 	case V4L2_PIX_FMT_NV12:
-+	case V4L2_PIX_FMT_NV21:
- 	case V4L2_PIX_FMT_YVU420:
- 	case V4L2_PIX_FMT_YUV420:
- 	case V4L2_PIX_FMT_M420:
-diff --git a/include/linux/usb/uvc.h b/include/linux/usb/uvc.h
-index 99b070ab8..48419a862 100644
---- a/include/linux/usb/uvc.h
-+++ b/include/linux/usb/uvc.h
-@@ -85,6 +85,9 @@
- #define UVC_GUID_FORMAT_NV12 \
- 	{ 'N',  'V',  '1',  '2', 0x00, 0x00, 0x10, 0x00, \
- 	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
-+#define UVC_GUID_FORMAT_NV21 \
-+	{ 'N',  'V',  '2',  '1', 0x00, 0x00, 0x10, 0x00, \
-+	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
- #define UVC_GUID_FORMAT_YV12 \
- 	{ 'Y',  'V',  '1',  '2', 0x00, 0x00, 0x10, 0x00, \
- 	 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71}
-
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index e3939bb..69ffb3a 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -1503,8 +1503,8 @@ static int vd55g1_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 	case V4L2_CID_EXPOSURE_AUTO:
+ 		is_auto = (ctrl->val == V4L2_EXPOSURE_AUTO);
+-		__v4l2_ctrl_grab(sensor->ae_lock_ctrl, !is_auto);
+-		__v4l2_ctrl_grab(sensor->ae_bias_ctrl, !is_auto);
++		v4l2_ctrl_activate(sensor->ae_lock_ctrl, is_auto);
++		v4l2_ctrl_activate(sensor->ae_bias_ctrl, is_auto);
+ 		break;
+ 	case V4L2_CID_HDR_SENSOR_MODE:
+ 		/* Discriminate if the userspace changed the control value */
 -- 
-2.55.0
+2.43.0
 
