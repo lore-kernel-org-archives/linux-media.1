@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792942864;
-	b=MRkL6qrxhseYSTM/x0dUgnJR2XBTuXxUyVVDpidwH1jFKlpWaLeHw91Ou7Y/HhC1vJAf
-	 uaIFAILNlgWqv7BcwMfuF3H3bAR+/2QC8SDEWv7pwAx52pt2QM0zWJHtjFk43hLdDfMrQ
-	 YA45cW3uBya2NGVISNxqhGDkxJ3JwMMADsFRm4Lject5TMIChS1WNYa1UJ/pazJP4SNvJ
-	 LOlgBBSVcTX9bKIoA/W3pHPbow1a076Fwl9dwohq5D6l5uJOOBLR/mvglJGcKtlipBIKs
-	 LaKcfXevfiQSgSFJV88HGyfco0ROqobr0TPBf/TOjfa7qVcJedfqXi+Ei3rJ12IfdqA==
+	t=1792942863;
+	b=jzpfjP+xwDCLedheXACmMfmCpERnJAyvmIZHsl4hOikEIivx3ZbPB8YqBQgkfClii8oS
+	 CIj9+vMkrBO25AceH9qRkfk1SdlUk/EAjQcfswazFIDa079cti7xrbQv1YgwW8NoUDWEV
+	 aDIPsxEXrfveKMNw1V39iDmdex08X2YqAlA1mj1xNz1o1eUuUsfymgiTohRt5q0mglIW8
+	 ErmhFpIKsfxuyLmnCSDI+yHfnn6ARriZ23xYbtJzJjCxAqrgh+Wf80USfu+XIpSBfCAIG
+	 +rFqzSI5f3A+sAaCdx/dIjN7pjE7myIvA2lFT6qqyY4OfxM+7wLBJS7qJOdQIdjWClQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792942864;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792942863;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2P9JdGvVOuabXAYBNZP9kGprHfBEphnCnz0cLxFDPGU=;
-	b=ZkTD96oJJcCWiWPBVc/sutKZvV258onT1elaOA/aTziLlfO8S2IKhe3QR705kM3UmcV2
-	 CcKAuoIEiMjT0+NncS8wsVQBuZcZKs2le4mjlz0YU2MXJPRBySY1HEwyVENOuzdfmysKA
-	 JLkGkwwHG9t5dMp3bJhv5R7an7FQ98W/1rsL84EFvb2K0vKOMEcS0lxTOK4rNA4+UJLsf
-	 DnBw38rAVNwAACIqZDVvjCcftNzl8Z+OFu3K1untEqPuoWuj32GDblNV5snRz3mLfZnEW
-	 XcXPZ3xxGY4DMgMyqHHq+LJpKWUYbyjhb41gvGIt94o/2xJ1Fmkg0Gg9dazRDnSic/Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Uf1h6a93j4+yEUbF39+PknBRrGGMkKcsWKsXQeeS/kQ=;
+	b=H0nib1ywxaC1Jz/eoQYVTqN1oGSg8OGW295XIqEPTBny9jx5oAstpMXCpUJJK9LgMdU8
+	 qmT5BQ30UTj6M1FvG8z81Ev98hkDdVwrKr0xTo1kVH6unoU5WwU7lCVe2mhUR3XecL9G1
+	 qGxNxlO8w3BU4YPyNk5fieJb/En1bXN2YVcsGz927b7iFuxT6rDNZp0jYDdn6xeVSBqMc
+	 Rvzha7fjE/Y7Epfutk8mR04jhxodHrlrynHkD+lnP4QlEpEUbT4NkGQTMllv0ejKzqoFD
+	 zekpMnBB5dnIhl8Id9owWCODu6afkBuZZ/dVnDyr3RBwyKKALO7iEJlzGI4C05FSOEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="p4r3B/ko";
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ONc0W75D;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836A0606A329
-	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 15:41:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 836A0606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E525F606A31A
+	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 15:41:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E525F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=p4r3B/ko
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4649b35bso2330993f8f.3
-        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 08:41:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ONc0W75D
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b042c0759so1292686f8f.2
+        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 08:41:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792942863; x=1793547663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2P9JdGvVOuabXAYBNZP9kGprHfBEphnCnz0cLxFDPGU=;
-        b=p4r3B/koZ/QpksCxFTSuqqPDQloue2b2pNN7nAJ0snbFLNvTAMdupQ4ARCBrbz5peL
-         cFzsIaLFcmkvl4M7ALRN4FUEDF/7dOHGihQWCLBkDrDw1PkKmUYJGrPFBzjGUB2Ip2eq
-         TWtQPK79BFXHvOK9aoup13Ie+lako5uGw+rA4OxU68PypfS2eiFEPWmEW/deaoHCd4WU
-         dY5DKtgyg2fM1OqDxLUszXqdm39Ubxegv1iLSzMho2DWnayHCs+HtBoFMq2QBV1Ik0JP
-         vsYQEqL+gfU4BhqZda0n3JRjlHtRreK1bKnn9GYNm/pwBf6s4cLSUyoMUoVaMOJdAJ0P
-         3SXg==
+        d=gmail.com; s=20251104; t=1792942861; x=1793547661; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uf1h6a93j4+yEUbF39+PknBRrGGMkKcsWKsXQeeS/kQ=;
+        b=ONc0W75D37GzZCkVxEQG5HwzaDGrmqOyY6BIikyrFoBsZVuItg2moxQKjFPxLZEYrd
+         hZlsHqSNv/66kByfseiRippSqe9vYikszMcyx+Y0TK/ccu5IYYAIgIohGBqUtE4yuLWy
+         cg1CsBPDWfvIKDqJIoTYg+JMcNJSB20cqrwWCTfpLOyJWNOV5wjFVq2xhLqUXDHolkI9
+         slZUGTn6pHiOaCBdBVal2+s7m84JF1H6eY4J+imyffy7sN+3w8YVRiyLJRsEtkr83pWp
+         CksScCvDEJuX2etKI8Lt2QcnTKtcmlTI5j9TmflZqMOfrpbqCtCRZLhZFT1SbiEQBsjJ
+         2Uag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792942863; x=1793547663;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2P9JdGvVOuabXAYBNZP9kGprHfBEphnCnz0cLxFDPGU=;
-        b=KXuQ9aFBE2kD2WbQChXIQDrRmKgaWm0LApkXEeHJvhtLaQP/2Ct9GqrlV1d8lcznGR
-         fK9t3yWXGURAYgl7xfaYF6+UNUBn94ljzJ8r8TErFsH0NKKiwHYOcCIO3qdTAXlpKY2C
-         hBbfuWn1z2pLjLzDfFO1JOV6tFPtRk4oNgxUxx12auZQgrnmQrMPhPmN8lqhNnUCHR7R
-         i0j2WJfGsLVdj3D80JxMh1z1GIrwpQBV3dKW9k9XBcxyvS/9gAIb200qwKlwHTJxr506
-         QDm2c47ktXR8PQGXoFgPaNnsRDep9zc9bwynmsaZ2eEBQTpWfTK5wwLpN7QCj32Jxgx8
-         975A==
-X-Forwarded-Encrypted: i=1; AKwUvBxiswnzQJ5RfzN/8s4Y8+C0d01UlnIbW0jF7TD8/AyET778xdGlG1PIM+nSuQ/zWkQhWJ5aMZ36NauoYQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIY9CHD/R/f16AQc4ORf7YA8JUELSCmSapUIjt0jvdIbFMA3/tX
-	atnTvnbV28i8M22iw9GrUWMWILRUuQ1RGLdza8hryA6fFEvwO836BS4/
-X-Gm-Gg: AYBFou2WxQIqBizwhJubyBVkXDQH36500UjASFWTeippPCTW91TTqry2Tcs2AdRs87I
-	agbovRzbi4ly1ZeVraNlqZOwMXFmXyNeXhsXODTM4FDixeMRhQjCb2e3iwv6Mww7pSsiiUXExQ/
-	W/XJfqGrtZm4yPQbGaWes2MsbGNgNOUrO8LuirmOi9/RmYFEZXogMmP1lBQcj8Fmm0YlACtdeDy
-	Q18088dbc54TMo7tpBDU2RLZEwCghZQ3xXVacmRh85faB1bQiZqSwNIv2CFzorAkzdS3vM7P4LN
-	U0JmW4Od5ZtrNiNloa7E8U/jt0QnzJQNcJJECtSMo1H7bp0Q2PVajfYyNdkyJ/4908UuPQS+ZV1
-	ZJxSff8X3Jfq5lF2w3cfsLYe7O4liY+7Nh4OKTsnlN+pL993Tmhw8uvvXXu1F/eGDMM5eOFO0Io
-	mkEkmrnPAYRNjTx49VHhYwZOieg8McZSmAyTDIQBuDR1B5B/9yNWS2hcowHwCAyPxzKNpyLCkxR
-	XCO1xnqTjjZV12XJfR8oEzyeQAumbM8k4Cb0e//hLTI2sGiSkiAqZt79R/3j5Rs6Be7jUtejjFw
-	AC83GLlhMznAgQ==
-X-Received: by 2002:a05:6000:2404:b0:48e:314:f9f2 with SMTP id ffacd0b85a97d-48e3eb2bdcdmr7358163f8f.8.1792942862861;
-        Sun, 25 Oct 2026 08:41:02 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3a1csm10487861f8f.16.2026.10.25.08.41.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1792942861; x=1793547661;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uf1h6a93j4+yEUbF39+PknBRrGGMkKcsWKsXQeeS/kQ=;
+        b=zu6UPGtYsrxMilwltex/DIwRUi8AYLuAqxYYRCu+f67utsQu2SRcc6jjdxWiGWrP9r
+         sVOF7N3sL961BtCNowmzUpVZVsV9eztyVAa5lUu+bRISvJL3z+pva5ZziivtpLt2AQM2
+         0TvGEieXs7N39bwfZU9fe7FuxstYK6YQKt+L8bqf24Tkpkp5HyG/BFm60o4PdrYMwTzF
+         LyC7OLgvjiMVOD3N2IcrivRb2dv0Y7usJSiu9dlulPWLGx61NETajJzgaLf/vWmoFBvL
+         NisnahHSDV5M5SlR4FHmkA5/w/lkYwpGeQ4X7isVbGysmeBfGHjkPf3bRORxsR/jFbIW
+         zP+w==
+X-Forwarded-Encrypted: i=1; AKwUvBwh/np7bDTaZ9LJmcfEeLrR3IxzD7wTS+ijMYe1lTPMk/3l7rbsqQoyaiUnSup1+42mhxJx/i5+SA++bQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJbNEUhrvlJ4BzOPwUvqxBBOSwtjcC3TLLmax/dLFPVjFYLuSZu
+	iZH8dUDWPsPwdJGCQUHxDPSAjgQScOCHqL56EqNjDx3WVHokr0+I5K4K
+X-Gm-Gg: AYBFou0uFS3w2L3TduldInEo+fFSntYgt8YA22xHB/Ww3l24IvLMF1hiT50Ws2OYbwA
+	yQVFqDWJVlJjxVnCT+dYlZrhOZ+sGP9Qnq14w2Df9NITm+V2GRth2WlyKNmGWgVZ5lSSwUT9iKv
+	Zw6BsrkAiQwrqD/t6bS7dd/jo9JLHf/wmPW/4X5S0yPV/VmHvLNUd3vQfm/UnVAqf2BO9ybA36g
+	UE3Wqs9apeUVnYQG121ZW0ZfFHoyUfPtBBC3nz5yonMuLVlivnpf4cTIcS7LLBzYsC3sWXtA596
+	GGn9Fdww7qb0girOeJg5XKKvCe8QFQKKkkS83KhsovaBwIuT2zn2k/1DbPU8sXlhFkrv1B0RiTc
+	IDwhlx7m7oWwJUSW/lzjPE035QPrFkyuVcfK8WaAfmIoWyROugV7BNrMs2hDJMnj402cgoxCgPZ
+	T+cNkNFJ0NdBTT2rHFCLPat2eO5YROIZ+XLQ5rAkmeHUaYQsGydubqVL0+MExKrqA9MKnfDpP/p
+	UtBZnwREIVp3zhanuMDBF2B16+AL6OUPYKLZ2MFV/M4buc4d3DnRYZqrvv5SCfy77mXcZ/6+taF
+	8/d0LxOnStO9YA==
+X-Received: by 2002:a05:600c:3b02:b0:4a2:180b:3153 with SMTP id 5b1f17b1804b1-4a35ac8e71emr77642285e9.14.1792942861063;
         Sun, 25 Oct 2026 08:41:01 -0700 (PDT)
+Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3a1csm10487861f8f.16.2026.10.25.08.40.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 08:41:00 -0700 (PDT)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
 To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
 	Sylvain Petinot <sylvain.petinot@foss.st.com>
@@ -86,12 +85,10 @@ Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] media: i2c: vd55g1: Mark the AE lock and bias controls inactive in manual mode
-Date: Sun, 25 Oct 2026 15:40:25 +0000
-Message-ID: <20261025154031.27083-2-fernandorimoli11@gmail.com>
+Subject: [PATCH 0/2] media: i2c: vd55g1: Two v4l2-compliance fixes for controls
+Date: Sun, 25 Oct 2026 15:40:24 +0000
+Message-ID: <20261025154031.27083-1-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261025154031.27083-1-fernandorimoli11@gmail.com>
-References: <20261025154031.27083-1-fernandorimoli11@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,45 +100,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In manual exposure mode the auto exposure lock and bias controls have
-no effect, and the driver marks them grabbed. The grabbed flag means a
-control is temporarily locked, for instance while streaming, so
-v4l2-compliance fails on it while the sensor is idle:
+Two control fixes for failures v4l2-compliance reports on the sensor
+subdev.
 
-  fail: v4l2-test-controls.cpp(134): GRABBED flag set
-  test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: FAIL
-  test VIDIOC_QUERYCTRL: FAIL
+1/2: In manual exposure mode the driver marks the auto exposure lock and
+bias controls grabbed. Outside streaming that fails the QUERYCTRL and
+QUERY_EXT_CTRL tests, and because v4l2-compliance switches the exposure
+mode while it walks the controls, the S_CTRL tests also fail with -EBUSY
+when it starts from auto mode. The controls do not apply in manual mode,
+which is what the inactive flag is for.
 
-A control that does not apply to the current configuration is what the
-inactive flag is for. Use v4l2_ctrl_activate() instead.
+2/2: Control events, as most sensor drivers have.
 
-Setting the controls in manual mode now stores the value rather than
-returning -EBUSY. That has no effect on the sensor:
-vd55g1_lock_exposure() writes only in auto mode, and the bias sets the
-auto exposure target, which the sensor uses only once auto exposure
-resumes.
+How these were tested, since it is not the obvious way: I do not have a
+VD55G1. I have the VD55G0 of a Surface Pro 9 (Intel IPU6), which runs an
+out-of-tree driver derived from vd55g1 through Peter Marshall's VD55G0
+support. In the code these patches touch, the exposure control handling
+and the subdev ops, it is identical to vd55g1 in media next. I applied
+the same two changes there. With v4l2-compliance 1.26.1 on the subdev:
 
-Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
-Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
----
- drivers/media/i2c/vd55g1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+  before:      41/44 in both exposure modes
+  after 1/2:   QUERYCTRL, QUERY_EXT_CTRL and S_CTRL pass, controls show
+               "inactive" rather than "grabbed" in manual mode, and the
+               bias can be set there
+  after both:  44/44 in both exposure modes
 
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index e3939bb..69ffb3a 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -1503,8 +1503,8 @@ static int vd55g1_s_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_EXPOSURE_AUTO:
- 		is_auto = (ctrl->val == V4L2_EXPOSURE_AUTO);
--		__v4l2_ctrl_grab(sensor->ae_lock_ctrl, !is_auto);
--		__v4l2_ctrl_grab(sensor->ae_bias_ctrl, !is_auto);
-+		v4l2_ctrl_activate(sensor->ae_lock_ctrl, is_auto);
-+		v4l2_ctrl_activate(sensor->ae_bias_ctrl, is_auto);
- 		break;
- 	case V4L2_CID_HDR_SENSOR_MODE:
- 		/* Discriminate if the userspace changed the control value */
+Getting from 43 to 44 also needed a fix to that driver's own flash
+duty-cycle cap, which vd55g1 does not have (it is not upstream), so I
+mention it only so the numbers add up. Streaming is unchanged, 150 of
+150 frames at 57.60 fps before and after.
+
+Both patches build without warnings at W=1 against v7.3-rc1, the same as
+the unpatched file, and apply to media next as of d7e7bca71698. The file
+there has not changed since 4a069a763e8a.
+
+Fernando Rimoli (2):
+  media: i2c: vd55g1: Mark the AE lock and bias controls inactive in
+    manual mode
+  media: i2c: vd55g1: Support control events
+
+ drivers/media/i2c/vd55g1.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
 -- 
 2.43.0
 
