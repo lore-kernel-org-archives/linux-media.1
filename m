@@ -1,55 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.233.101.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792924336;
-	b=MXEqmFZJ+/t3LgIJRzZmM8meeLh1/rmndxB74ACjekXW8gUCQ3ulr97lHxCRTlBaP34e
-	 4DBqPORPO68F28qi7QnLiE2uvSUKTx5cmAaPhicxdDG5KAKbs3LAOWlLRutC3XeZjDnl4
-	 V8Yzp4QDqMWpGDFdMbraQz8wOl/tymyuXAsycTcDrcfUQaOKfeAWmrxCn6Ch4FYqKuisN
-	 lKwipignDK9cMNgGf0rqeJsidch2imjJjDmYeutaK9I+kRQlpdq3raACaJ762KVcav3TX
-	 OEpm8xfentkCUBumeye8imrQv6QlNEUKott/HErZWkSJ07VlQqGfG+QqeZxhXJwg/cw==
+	t=1792926923;
+	b=Dhop/r2jSQ5NzCRVpYHqN+B8xUuwuxJusTT8pSxX3oKIhfGumbfQMUZwZiImNDRxhyIP
+	 LfaiGv7zR/u7t6YsVKL3WvONrWdErSoxcPzXvVKWNOKXgqLcYCwXwKkFabDh5NCjmOmqg
+	 brNb0dRaxi6MUxwrAFToi3NEZvDVxatBYtRj1OncGMyEchznCKK+4CXt6MZPxiPlf6vm9
+	 MtmyUgNNQy6IyrR0VJ4DrJAMsD/zsUw6ZrnflqOPBdKWQpaIwA3+oB8h2aZR7d9sQQePw
+	 xoJwuyA/4F7b91bufO5w7OTLObrZDQXf1rqnlx52PVdDtVpu3dMfTkOymM4zrgbmZZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792924336;
-	h=DMARC-Filter:Received:Received:X-Spam-Checker-Version:X-Spam-Level:
-	 X-Spam-Status:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=W8I6eZPNeQyfIA2MHqpnCAXBcywuCKbuTriES8lpKTM=;
-	b=dxkd5/tnTsFK9YfLjtHM02/GSdPldRLIVRjEAJm4dpc5VbwrwMwSp+jpkHMIXyXY6WZ3
-	 3n+4McJaf97GNtFPHgCvUUIO4sbm8kW6Ln/hBxG4yJq7ZedKN72IeY/FwRKV6hPwZ+N9O
-	 cT8kU/pwULNR1y6drRFhF+IeOqk9RHmJ8iJ6zMbFJrxDR6M26CFViX4nLw23i5QM6bSJt
-	 dLhXyJbWIQacLPcF2Fpw2sT4E9TxkQ4cVIZQMkIePGUdkMhZb6FZqeY0XEgKcLInsMt8h
-	 LrPbGkuUIVEVwYmwB4ZbLxbVshnFBXk/hrNUnz9e9op9OhqFwc3q9MG33mj9KWEBjqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792926923;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=aCQ908e5fq0myCcCYkICDgW98S7SYRw6oV+dSPgnStk=;
+	b=feG0EkjN2y+USKz4xxNdkSY6wcdnhF/yToU6EvGWfAAoublazQCPs5hJpcaw4HQ2jv7D
+	 JTQ3wdUlTtonOUcPnvydaN0+IYPTpIUDKki9ltTJBbmWVuhjJ2DAETGB00t3agLfQe14/
+	 F2HRrYVkfskZpECNDrWpOXvNn1ZwJtBe1ZrKZWZIyKOEWNyvH9h58bIrlfx+RcnHF0UKt
+	 emzS+aG7vOmuigb6GAXHFARqQKlgsjg6reaZuV317HSvIkS9Gorf+U0GwNFQKtJg+Zt0Z
+	 uuneDTfXXa2KNSXzv9W5R2uf3S0mWxlHhejxfk+yMTQWBULOIBNQiOAMtuE/mSn+lrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sys-base.io;
-	spf=pass smtp.mailfrom=sys-base.io;
-	arc=none smtp.remote-ip=185.233.101.22
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJUVdEtP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB367606A31A;
-	Sun, 25 Oct 2026 10:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB367606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 2E8183700F64;
-	Sun, 25 Oct 2026 10:32:02 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 2FD3EB6CD17; Sun, 25 Oct 2026 10:32:00 +0000 (UTC)
-X-Spam-Level: 
-Received: from collins (unknown [192.168.1.1])
-	by laika.paulk.fr (Postfix) with ESMTPSA id 752CAB6CD17;
-	Sun, 25 Oct 2026 10:31:58 +0000 (UTC)
-Date: Sun, 25 Oct 2026 11:31:56 +0100
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
-Cc: mripard@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org,
-	wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: cedrus: fix typo in comment
-Message-ID: <at3anD2TX8iQZ6Ws@collins>
-References: <20261007140056.7447-1-contatocaio.ferreira7@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2913606A31B;
+	Sun, 25 Oct 2026 11:15:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CJUVdEtP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62071F01825;
+	Sun, 25 Oct 2026 11:15:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792926922;
+	bh=aCQ908e5fq0myCcCYkICDgW98S7SYRw6oV+dSPgnStk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CJUVdEtPQTJrfekPCnGwGIIkLLqyp5jfVv3ETzGaiP311gVDOY1ig+8nXrcrrd7MJ
+	 cTss52+x1ABimLco3/dBU8cEWWov3o5kCVL4x9fwv0BDw37nrumGwr2Tx/1wjIdwvZ
+	 ccx5fCNQfA0y8vp6qz+2WrJ4FQMAs00e0284XM4u87w1ev/PKRodAQkgvsBWROXOj2
+	 L+F8GiqWooXNNRZ0eG7G+9TUn+rZHwEQe1DCw5yJ4plWaN4mSANxyoyiBKKbrELcwo
+	 eZbLDzp23/3K3vxDhDmzq4BXonHI1l14RgS0JxGJu674wW2NUj0OyKDm09GNtcf3zY
+	 QNImcY1thwjkg==
+Message-ID: <5e1cc716-22d2-4d1e-b68c-0c1608890043@kernel.org>
+Date: Sun, 25 Oct 2026 11:15:16 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,80 +51,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="odmBEKKySAXLue9n"
-Content-Disposition: inline
-In-Reply-To: <20261007140056.7447-1-contatocaio.ferreira7@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v22 08/14] media: qcom: camss: csid: Add support for CSID
+ 1080
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Atiya Kailany <atiya.kailany@oss.qualcomm.com>
+References: <20261024-kaanapali-camss-v22-0-7da3ea49c8a1@oss.qualcomm.com>
+ <DiH264mdSk9atz9YjnNUImra2MISyqRZQN8lEO6HpzVBiYU4i_cNONZzyW0DfvCXJ5aGIrBbDYFXRbTBYLyjBg==@protonmail.internalid>
+ <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261024-kaanapali-camss-v22-8-7da3ea49c8a1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---odmBEKKySAXLue9n
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 25/10/2026 03:17, Hangxiang Ma wrote:
+> +#define		INFO_INPUT_SOF				BIT(12)
+> +#define		INFO_INPUT_EOF				BIT(9)
 
-Hi,
+Excellent thank you I forgot to ask for INPUT_EOF too, which we 
+obviously need too.
 
-Le Wed 07 Oct 26, 11:00, Caio Vinicius Ferreira a =C3=A9crit :
-> Fix a spelling mistake in a comment: Neightbor -> Neighbor.
->=20
-> Signed-off-by: Caio Vinicius Ferreira <contatocaio.ferreira7@gmail.com>
-
-Reviewed-by: Paul Kocialkowski <paulk@sys-base.io>
-Acked-by: Paul Kocialkowski <paulk@sys-base.io>
-
-Thanks,
-
-Paul
-
-> ---
->  drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/s=
-taging/media/sunxi/cedrus/cedrus_h265.c
-> index 780da4a8b5af..f57642c0d8fa 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
-> @@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
->  	}
->  	cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
-> =20
-> -	/* Neightbor information address. */
-> +	/* Neighbor information address. */
->  	reg =3D VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neighbor_in=
-fo_buf_addr);
->  	cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
-> =20
-> --=20
-> 2.56.0
->=20
-
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---odmBEKKySAXLue9n
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmrd2pwACgkQhP3B6o/u
-lQyZzhAAjpLJ/LCS9ud2LmKBfIDoSIa36gfGD9iUB8J1/bgqENht/+QvFN/62jVi
-gAf0nT1W0HrQ2TIiFwdhhNnphU6VJUfI0C9Z+SpqAoKXf3j+qj34ZPpsSd+thEUB
-4HObZyKK5px6YWkHL1XekYjdbCjh2T6HZ6UTt8rZxR7V5RIFq4QKNZHN/myhUk5X
-X4IqbHpjD9zeD+9TH26kRbc4xlfMXiyfM88YkEWks8dMchnL+h69TOdk91I49y/H
-0wYthqG/WZsqNptz+z0ra6o8esqzgewhCTzNaFcb9GlIBG9gxhWAXi5w8HltGvmr
-DvfdXEj1ENFsiAy94HUstuTjG/76BOFiLHHrGle8u/Yi4iNu3rKVngmrcfltTqhP
-LVB2sqaiHYUH2tpNTv4UXmHbyhMTIA0jF/QW+I/p/2+Uv5dxIgLkwWMGfXZMojfm
-jAaaaA9h1GIkgPN6Sg4O2wn+g3YVTK3GVSBhwtE0D/KQMjsHv3HCZFSMQm6oYibv
-ZSS65D9RiGtg98h7zaFz7+bX01ZlAw5NRc4bbTPpweGFFX+0cidtdhMx9z5gw4wP
-fWbMP4DDoiCNPsjiW4CFNow0elBgsdn/WaW8lFtQ/WoGitoGArpT6iOlLLDRKOsN
-oSBIGryhLuvhFKe+8WNjHfWppj8Q/RVYN/vkE65Y0C8QEeDmsf8=
-=b2qN
------END PGP SIGNATURE-----
-
---odmBEKKySAXLue9n--
+---
+bod
