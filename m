@@ -1,90 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792875435;
-	b=EJEvN+C+sdw2Be5Sa12aPUg2zmfu3aOa1Rb4A9kuIN+P9fjyMF7JJNry0qHhHKMRlsFO
-	 ux2Y5HqKIExQZi/ReN4L8FCNe2z7j7nM4MBhOD1b1wM+Q63XXqBy5uiEOCA7j2riuHOpM
-	 UgrN7sMqWAYrEytpkegFdjgKS6/Lz+/kD1Zmjk57SbJiM4L0RV9p+br+FzkFwNwmv9ulZ
-	 nOQ78ds8BkuucSer30L/t71BT++wpJSco4MowpqPCQQ4b5mGPidUgGJMG8K7+wMt5b5Jt
-	 x67didJZ5d+eyTmk0mqayGpiuK2H8QpK7PywQu9wWywTRxHqhaftpZ2NaqlmdMHDh3w==
+	t=1792895242;
+	b=4WdyRptYC7gGH1WgTmqM4hU0KviY9A271jbNklFRZ9bNtMXdDihV9mb553gcV4vxZncV
+	 FioK9PTW707LOtx/Rfg5br77T3hqGvE+FPuJRqv3FGQ0lTnLz4LCr4j7n8erzEWF6tu6+
+	 jVdycFwRMVUNZGstXx2FfjlQJ4HyPWUiAMWHPhqZg9Sxhca4lES4vkmGR4lIOheMLo0rh
+	 IjScCe42u1fCYUugV3BntWtK0lVXtm0iY/cCfV8zTNhcyDqCzjNnm9O6I1mY/5Za7uD2x
+	 xKXwu3MfLbEwzWgmdmcPkTJ6uxnRiZC6bP7rgDZqUPdC4BpqU+CINCQCADZQXtXmo6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792875435;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792895242;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=IV1NP8FklaqMSKF4K9LgBOKBFJvutUzvKwE1feKuMJk=;
-	b=qqmKYtCLp/tI3ZlMtw54eUL4xROC5xYTzbSRjCf1wJwPXDfQ1ejipq3h009Bnumf99VN
-	 97KwhxWw+LRcRfhdJOmcsP1cOM3STYwVrHrgV2YS+S8eoLKt8q2vRznCwyF2OJq6GkDX8
-	 rB/VUe0kuJuTCVPNySHW1R88Ofj3rdI+IH1NJtkHq3ytR1li45dQLd0zW0ajkDgzf3uZR
-	 2mlc83rQJh9iO8hTjSJz/vXGcsRwiLucL1ir/Eh7G7sV5HJrynKt+V4WNVcCjEZZQ43fs
-	 e3HsgEFYV4FM5umiAlzRSJQ4lmd95X9Zxhomrw1l3qg5YcmiS98qNJbeyjVIYmy5LyA==
+	bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
+	b=FTkzR2GhiZz0P4BKqJCXWjH85XjADMIUGVY7Njh7YRXTWQcbbTAzBjB8qkCFLFPAjZCL
+	 850H/a2mRApSFnazmoDwCyECrI1oNLUseedNlKM95tK0ZxOBQN1EnS6+nRFmQFDSgAPOg
+	 /NC0diwnAvZ5O8CR3PrTd6v69NA4a0J0h46OsibIWGqLd29/s2F47F7R/b3v2qvDWTTRq
+	 B/PXxnSueb1RWcg6ODM++Q9U2C15GEfTE8pEyWAxXheaNIrsa16WvXz2np6S55QUsqkY6
+	 x/6uJvTcM5cpBC0uDxV1g+Cg5fhowR98DC3w9nM1vFE1Idiw/A9+w57DNjxx1WLy2/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cujVOZbH;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RaXn1+ak;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A27606A31B
-	for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 20:57:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0A27606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A47C3606A31A
+	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 02:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A47C3606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cujVOZbH
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so13456475e9.3
-        for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 13:57:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RaXn1+ak
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3acd21ba21aso1571873a91.1
+        for <linux-media@vger.kernel.org>; Sat, 24 Oct 2026 19:27:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792875433; x=1793480233; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792895241; x=1793500041; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IV1NP8FklaqMSKF4K9LgBOKBFJvutUzvKwE1feKuMJk=;
-        b=cujVOZbHlQfToaTJYXhFKOmdi7F7oOBIQEBzgQxzq04TO0nTp0Pq4Fjx7TvqFwJAo+
-         rtcIxzzEVRCOJL+qbkO7vsdqGmkWd7a1ZmcgO5X1cP7xTlh9OSE5Llx6uAXIpyDv2s+R
-         +4+0G/CJ7Fbmn9B2UnEh8oa5f1g1v6p3DLhEH8SVzMbhC5Gs+fTfKyELTeYwVwZPCjjl
-         jPSXetjPqQYQOuPvzQsk0KyuA++u2bNlr5pee1UQHQH1aIXdqId1LFX1pY9P/dg0e3L0
-         aBBjA6wFF3NOPnmUx3d8PoHugujtju7/3pL0j6Z4ZiO4xR60k6FdjHfE3etuNPQov2Aj
-         ffsA==
+        bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
+        b=RaXn1+akRAg/67j9inzsGfdYM4IjBVcMsg1U1Ef8LmhifXBuKl0E7FMZdagML6aWjE
+         5qdq112ofBvQVY8tjaSUL74pF1Wp2c6pok4LvL0e8Bt9B4XI2NBPNkceIAwG+EZoengE
+         dDsLsEeQF1yDZkv9uwn+oN2wOCGxuHAjbILMRPgCXYDJvnn2/EXsGJGwvbpCj1cE6fqN
+         T+1D7o+V7nHc/QMOn9BvWMdCjkFBeXESL9iaL1lFGRBOxFBhf8LicHyROAEH8bEO4P7e
+         LS/r8yHRKAwP50hv4Une7jh7Xq3Ze40M5tGBjQnJUGxRgpfC9WPsr2Z1phNP0AU39U00
+         kGfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792875433; x=1793480233;
+        d=1e100.net; s=20260707; t=1792895241; x=1793500041;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IV1NP8FklaqMSKF4K9LgBOKBFJvutUzvKwE1feKuMJk=;
-        b=hEsDynCXWcZoxrLbiWF1t8HjpukAuEU3cftFBtKoXoYCRRwbgnWzfN+z4P0C7G+HYK
-         hosGzMiuqFDAvAvvTrP7L17A5BQcqRC65khMrlpMKvqvR7BhhgWL+sxXzg4WSs5xcjjn
-         tGbMOekuR95h6vPnXflwrMCd6xGdJ/BcUriiy/czTC0WCLQXKVUp0h2V5Z+QtQkxWAtk
-         CohSBd4F+lGdq4Di1OxCzwSsGqrX1vUNOJwzu+MvvDW34Eak4kEKYu6tX/8P3oQlJasn
-         KsEeEMbA/OziiTYdhHfbwz2OoObYQqdjMyBntHYtrt32T9LsXDL588GHwFZRgZVtc4u8
-         /oBQ==
-X-Gm-Message-State: AFq9FYK+kMofMkIZ2QlVCQ97uUSbNr3Z4ogmsLdzLQknolJtzn4oSIb8
-	vrDurR6hNcOdmEHVsgY8EuqAGSLSCqWgHuKkssSeBmRdYEBffJmlPaE=
-X-Gm-Gg: AYBFou1RHC1qcaK5r8zJIBnlo4ugFo5sBqKf0Y53VTopSMwHhOh3nTGMoDG6mRKfIHe
-	+VpERlBRHBFKmsO8YHwWfnQxgXvuaJDCS8HGYzQ0Ar3SZHF9RSF/rtfsDoEOCot37xoiIfs0zj7
-	t/lCCwhOpie8KCGzkiqYuy9qh9jJttDkrwqzeVO51aagRHWa7p0ijVRXH1jFlcL+2hlevxBzz/Y
-	ttIzfp/1NxdtGuOMoQFL3ob2i4NUK2I7yfd9dqJQawhpnwdlNQjGVYSbv8OVl+velg+lCrExumf
-	s91MlUSMPfPoVCtHbJPfqsYNt4RAWWoAE5iz/ZcdYzQJDdeBCE7D0Kjyf1qckG0sNpWCRv+ltVa
-	kZH3nnqEvCNz4sTtLG5NMsByCOMlcN78U3tvSDe0aEhDzuVR/h36yzt69YqiXEWupVJrCmmkKGo
-	o9xly/+LUzlphFLcYth2rrtcZTXgh8m6rNAaEq/GDS7CqfzZQmmc4oi1xCDFM2Xuisv2e+1OpfV
-	8u2dC3n8kaW4X5HorafNzFt
-X-Received: by 2002:a05:600c:4f89:b0:4a1:ddaa:571e with SMTP id 5b1f17b1804b1-4a35ac9d018mr45023005e9.15.1792875432943;
-        Sat, 24 Oct 2026 13:57:12 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35b4a8bc1sm33788405e9.4.2026.10.24.13.57.12
+        bh=ILnphfN7B6opEr27AV5yqaLcUyXkLPZvSA1w4t2wHN8=;
+        b=t66lnkoVskuqywOn2j1vfCCYYFKZPz+ayLL2vnbJ38zAzY+n1cYf3JUliAiqOKbtM2
+         d1mi95ayvljozs3rg1EHCNVlIdBk13cpfCodP0dp/UWfy/32CCt7TwKLcqi512mlzAwX
+         P+D7Fx1g4fQVf44wTeG6/IKF70UPbRecVa3VIqoFbXDCO9PJxq1bASRuWyR4ls7bWV62
+         VcBFyLjS9O0KxMd/pvRbs1ST1qOiGxiANRa3T6HFoWxuMrFx8KYa4zTbkKCH9zrI8X84
+         oT2UKhgzduzxMJdH58B7iDsjBB9G+jgq/0PNCfo7lWPpTUW/A58VQFwHCiY+rwoEm+ee
+         V/+Q==
+X-Gm-Message-State: AFq9FYJb5PTjkjXH6s3uqcTVQV4mrIIMxgw2B0PMtVI4u9Pp15qiF4Zr
+	6TSPwDNJ20fBzB0Thb9L6TCmYL8MDToxHkbE2/nVGxU8+HcqEtEkrkXr58RKHBaoR9o=
+X-Gm-Gg: AYBFou0yjXzh3eFpbYKLbmTsHykPCHCWipPqqdJggpcTZPKz1wLrjjTBQvr9ywGau65
+	NbT4q1u6CMrFPErSMYHX14stbrGR8hKSmBgHyBv+A5myixVWiQqWlkBBz/4H2jkPi0s4tP/IsCD
+	N4JGBh0w10bDDZOOenEYkCmunL6Xlot9WhSJds02+07P0HhDBEXquC66k9G6jOhQMoTkcjLSVcb
+	h6VQ7rmXb0RMHWrE8qODl6rnvmvlZm+7PxBWI5M5g7r2pLsV78df2hPAEQW4w7A/KGHooQovOpb
+	5qEtxty29qaNhw58udD99uDH1SDjTk7XczxVwgedAzVRYNmxeU/nfD0YI0Pjw+IW7r1dyDLa7Qv
+	4AA+Uq2Yq0guj3Ps9z1ld17oTseoUZkhsNwDJjmL38fJ5t9ovfSeemMrPoCMGVQLsXg5DlntcAf
+	SDXJck+KkG/0hu0uer/ajuo7JyhdHjQRKoNx5dPxRzWsJ8/YJGSPQ8yWu1+YqoXFesvubjqncph
+	v6lZCK/hUCBI4MVHtSwIzN/NOyHHNoZglGuLv+AzqRmRyYFMqDRv5WrT1Fi+BMSTHBNaqMPDd1n
+	Ho5FY5I=
+X-Received: by 2002:a17:90b:3143:b0:3ac:da41:ef7e with SMTP id 98e67ed59e1d1-3adeafd27aamr2667251a91.52.1792895240980;
+        Sat, 24 Oct 2026 19:27:20 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:6216:1250::1d3:c4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebad6306sm3064944a91.2.2026.10.24.19.27.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 24 Oct 2026 13:57:12 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@xs4all.nl>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+        Sat, 24 Oct 2026 19:27:19 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: David Yang <mmyangfl@gmail.com>,
 	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
-Date: Sat, 24 Oct 2026 20:57:11 +0000
-Message-ID: <20261024205711.4041369-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Zhangfei Gao <zhangfei.gao@linaro.org>,
+	Guoxiong Yan <yanguoxiong@huawei.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: rc: ir-hix5hd2: set up device data before requesting the IRQ
+Date: Sun, 25 Oct 2026 10:27:02 +0800
+Message-ID: <20261025022706.1905466-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -96,34 +99,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+The hix5hd2 IR interrupt handler passes priv->rdev to the
+ir_raw_event_*() helpers, which dereference it immediately, and
+devm_request_irq() unmasks the line as soon as it is called, so the
+handler can run before probe() returns.
 
-v4l2_m2m_release() frees the m2m_dev struct without cancelling
-m2m_dev->job_work.  If a device operation schedules work via
-v4l2_m2m_try_schedule() and the driver tears down the m2m context
-concurrently, the work fires on freed memory.
+hix5hd2_ir_probe() has requested the IRQ before assigning priv->rdev
+since the driver was introduced, so an interrupt already pending when
+the line is requested, e.g. decoded symbols left by the boot firmware,
+would pass a NULL rc_dev to ir_raw_event_store().
 
-Add cancel_work_sync() before the kfree in v4l2_m2m_release().
+On Hi3716CV200 the handler ran 8 ms after the device was bound and took
+a NULL-pointer fault in ir_raw_event_store() from interrupt context; on
+Hi3798MV200H the same fault killed every boot 25 s into startup.
 
-Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framework for videobuf")
+Request the IRQ only after the device data is set up.
+
+The same ordering was fixed for talitos in commit 666d66df2525 ("crypto:
+talitos - init tasklets before requesting IRQs") and for bgmac in commit
+ac1f6e58cb77 ("net: bgmac: enable interrupts only after NAPI is ready").
+
+Fixes: a84fcdaa9058 ("[media] rc: Introduce hix5hd2 IR transmitter driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Signed-off-by: David Yang <mmyangfl@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/rc/ir-hix5hd2.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe0..311e2e08d066d 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
+diff --git a/drivers/media/rc/ir-hix5hd2.c b/drivers/media/rc/ir-hix5hd2.c
+index 1b061e4a3dcf..c3b984a0c2e4 100644
+--- a/drivers/media/rc/ir-hix5hd2.c
++++ b/drivers/media/rc/ir-hix5hd2.c
+@@ -316,6 +316,10 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		goto clkerr;
  
- void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
- {
-+	cancel_work_sync(&m2m_dev->job_work);
- 	kfree(m2m_dev);
- }
- EXPORT_SYMBOL_GPL(v4l2_m2m_release);
++	priv->rdev = rdev;
++	priv->dev = dev;
++	platform_set_drvdata(pdev, priv);
++
+ 	if (devm_request_irq(dev, priv->irq, hix5hd2_ir_rx_interrupt,
+ 			     0, pdev->name, priv) < 0) {
+ 		dev_err(dev, "IRQ %d register failed\n", priv->irq);
+@@ -323,10 +327,6 @@ static int hix5hd2_ir_probe(struct platform_device *pdev)
+ 		goto regerr;
+ 	}
+ 
+-	priv->rdev = rdev;
+-	priv->dev = dev;
+-	platform_set_drvdata(pdev, priv);
+-
+ 	return ret;
+ 
+ regerr:
 -- 
-2.47.3
+2.53.0
 
