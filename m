@@ -1,60 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=92.243.27.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792949926;
-	b=4jkc0a95yjpiKRhryOBcyEceYchz2uIq7ySayejyT1oHBZ5eVMa8uH9KSqCfz9RpFQTN
-	 LsqdiSIKXk52vkYaffzKYdpANaVwKsmVN39MNG1kdY3/85ZkmM1BQqc4FY1QJkxmQX0u6
-	 1oIGrgRkaErouGcXNcPQMIyc3KyOJZ+STwZ/x5VD/voEENQEKOBaCHbZe9z9FHGzMQNxM
-	 m98+VuH/WldGWoyr1JVyMfqWIIpig/IRmclbKHvhXbuzPzbFiDFdyuYz6/oxTp1Um7DGG
-	 3ctE3+lLkIoDDXm5nCZeUMTRHYtJTRFY3Y8Rns+SmzAexEESquk3Ax1s1gFx1Gs/fmw==
+	t=1792952060;
+	b=yi1aMWJG7xdHkkMNTdI9m6w1tyduaHxkn+lCBj724sjoMwQbOqO1+UuST9175iQupb/w
+	 Hb6LHcpoCLIueTEHEH8i2JzxjeRFQQEZ1381nA0CCj+Yx1Cq7VXxpaObGfoppFskrVyGa
+	 GldKV3I7hoc4LEfH5hTSIrt0OFTaWmqa51xafhL4D7xwZbgpmFSwRN4CBmNvv7pgBXnMO
+	 uZRtidJtTHuVEGa69iIaoZe7F3troKv3cMN8NbbbMIipSqsZ57kbBhgEm2VxSmRbX7+IA
+	 fmAe4CnCmh5inBd4wP53+hBaN53jiU6Rf25lQ+9ahwKWh75WFp3A3yNkgjq/VuuMnhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792949926;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=YghpuZTDCdx29fZaAFItxmF6K31N3RPtByLlIZAXPfg=;
-	b=uE7tWHcyKRvqAIVkfpWm66u70NpBZcKRdzYZj0WBCnJQsTxAt14eZhfRzwlhTJNBFqt0
-	 Kh/uvYQHCKF4GdWxGS730VWLI8MnZBsk5N1D8MjDS8kV04e0EnnOrpFaVrHKTG6l1FWbQ
-	 yQ/cDx3pCoRcrAsNGWbCd7zoWB8vSb3lxdHqBeqyabtjRW4pPurxh63d8kYQfQOH9Gb6x
-	 ia9LdymKPt9S8QQXPESCmyb++A8fmEyJjv6zcYr6KNwRWQ6e9h5+qC4iwwrp4/x3eodLN
-	 DJD5k5pEUHHwe1z/Nqx3PMKKJmsNpZA79td5qxDWFuM71Arsv1umo6nxNxqPNOe2+iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792952060;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Spam-Checker-Version:
+	 X-Spam-Level:X-Spam-Status:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NdiXNwW1JAIknDVH1xQrQ8uAVlOQAHRR12+J5f4Gc4I=;
+	b=P8C+iLKMNQv+6dXy4vDJJ4n63W1o9yH30oerkaBPLF4p3z+Ihio4T+R4unGga3v5oqHL
+	 iQw+TUNhmh97yfM/PvPU7AA7yoDjAbEu+lQwSa0eMh+W/dS9mzBqRIp+1FZGQVk//fFyY
+	 B8RbwkYkKQEbkMjoiJZ/RwwSH0cMrYBif4uvn+dcJ7hRMEsYM66Fvu22IoaaUz5JPTF48
+	 D3F2/1Uk9rH2zLPH4/5y3w9rrpoZkeIt7RuJIS8hi+Zh/O4+Ud/t4q8os1/ju8/EJM+vI
+	 d5DerSd3+Vok4znjeSYDYbzQ9fUquKQF8FxPCGZXAjfCQsBUDnPguSWByd9dPpc8CzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=g9hZUfNa;
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
+	dmarc=pass header.from=mess.org;
+	spf=pass smtp.mailfrom=mess.org;
+	dkim=pass header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b="PBDJx/9U";
+	dkim=pass header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b="PBDJx/9U";
+	arc=none smtp.remote-ip=92.243.27.206
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17309606A31B
-	for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 17:38:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17309606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6411A606A31D;
+	Sun, 25 Oct 2026 18:14:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6411A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=g9hZUfNa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792949923; x=1793209123;
-	bh=YghpuZTDCdx29fZaAFItxmF6K31N3RPtByLlIZAXPfg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=g9hZUfNaVRHnqqoZH2oZmdHojuXRteiL7zmiKOogfOpjabWSIbsSrrTEEpOAWeTkh
-	 mVvnJQmibJEHwA+sZ6nunavTNWBt4z14y6Wmt/CIQ0R2VnnKwv4Fc+4UzD32nACfLp
-	 +DLx60dLerwo6VexhdDJrD8JQsr2U/SSHdp9RX2+4BFW3aYQlRNEGTRiXWpBetYFTD
-	 X+ndfjrLKUkKeCvraog4t4keQ6hkxo2ZKd9M0bEefxiEd+uBlDystDNz1FzxpkYN8Q
-	 /mmkNxD0GDIvHcELRM9lhui+84Tuq3oj8gFjBAJrW+plmXak4TpOY0YHELdlkTgwE9
-	 4gIMKISP9c1Nw==
-Date: Sun, 25 Oct 2026 17:38:35 +0000
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] media: Add the ST VD55G0 global shutter sensor
-Message-ID: <20261025173825.60385-1-lsa.uz@pm.me>
-In-Reply-To: <20261025155158.44392-1-fernandorimoli11@gmail.com>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261025155158.44392-1-fernandorimoli11@gmail.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 9db915d6a9fe70f5a7a0cf7ed4dbe583502cfc40
+	dkim=pass (2048-bit key, unprotected) header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=PBDJx/9U;
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.a=rsa-sha256 header.s=2020 header.b=PBDJx/9U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1792952051; bh=6aF51VyhiVp7C0gGGW704o3E+2y9Ns/3lS6WEQrGMOo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PBDJx/9Uk7SaYUhpD1LYbHPsk9CJeCPJsFRWV7EDzmbaOieL0klxTYVWpEEynot+a
+	 HPRUjM3UN/SC9anI4zNw4bLdoxa9lcIUephdGnLtS4YFi2og0XxHcVx2AZJOwjXUgc
+	 HLkJDLqZHzAt5aeHZ7Zlau5cfu/W96U/ajWD/07SUorEV8CezIq+TFiYBJ6ZgCwTDE
+	 B34kcc6zKKaf1GAcN3UP0Dlfsfyzbp61irWcDY/daMLvpF21hSEWEBe4cAPDe4Y+Gs
+	 oiSTy2lxzVtXlRzYIi/lxMDkFU1WT3feKcEFu2zvCeLZsAQ+HceId7n6zcy2YpdYhP
+	 RuHIsL8jUJ7XQ==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id D71FF40B49; Sun, 25 Oct 2026 18:14:11 +0000 (GMT)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1792952051; bh=6aF51VyhiVp7C0gGGW704o3E+2y9Ns/3lS6WEQrGMOo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PBDJx/9Uk7SaYUhpD1LYbHPsk9CJeCPJsFRWV7EDzmbaOieL0klxTYVWpEEynot+a
+	 HPRUjM3UN/SC9anI4zNw4bLdoxa9lcIUephdGnLtS4YFi2og0XxHcVx2AZJOwjXUgc
+	 HLkJDLqZHzAt5aeHZ7Zlau5cfu/W96U/ajWD/07SUorEV8CezIq+TFiYBJ6ZgCwTDE
+	 B34kcc6zKKaf1GAcN3UP0Dlfsfyzbp61irWcDY/daMLvpF21hSEWEBe4cAPDe4Y+Gs
+	 oiSTy2lxzVtXlRzYIi/lxMDkFU1WT3feKcEFu2zvCeLZsAQ+HceId7n6zcy2YpdYhP
+	 RuHIsL8jUJ7XQ==
+Received: from maru.home (host86-145-132-241.range86-145.btcentralplus.com [86.145.132.241])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 300CD40B2F;
+	Sun, 25 Oct 2026 18:14:11 +0000 (GMT)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 3/5] media: rc: Do not touch rx state when unregistering a tx-only device
+Date: Sun, 25 Oct 2026 18:13:43 +0000
+Message-ID: <984d752bd365cbc5b787dee31cb4738cabc581b2.1792951808.git.sean@mess.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <cover.1792951808.git.sean@mess.org>
+References: <cover.1792951808.git.sean@mess.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,58 +85,37 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Fernando,
+Only tear down the rx state for devices which have it.
 
-Thank you for the run, and for the detail.
+Fixes: ab9567336171 ("media: rc: Add missing locking for keymap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sean Young <sean@mess.org>
+---
+ drivers/media/rc/rc-main.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-On 25/10/2026 15:51, Fernando Rimoli wrote:
->  - renamed "dovdd" to "dvdd" in the ACPI supply names, because the
->    6.19-based int3472 here registers this sensor's two GPIO supplies as
->    avdd and dvdd, so dovdd got the dummy regulator.
-
-The Surface Pro 9's ICL2 has the same two power GPIOs as the Surface
-Pro 11, types 0x0b and 0x10. Mainline v6.19 has no name for 0x10, so
-the dvdd comes from your tree; media next calls it dovdd, and the
-driver as posted should find it there. If the int3472 names change, the
-driver's ACPI names follow whatever lands.
-
-> Since the driver needs a multiple of the clock it believes it has, a
-> separate entry for this IPU (8086:465d) through the per-IPU match in
-> ipu-bridge would let it run in specification without changing yours.
-
-I would rather fix the clock. With 19.2 MHz reported as 24, the sensor
-runs at four fifths of every rate the driver computes, so an
-in-specification link frequency would still leave the controls off by
-four fifths, as your 57.20 against 71.49 at 600 MHz shows. On Hao's
-thread I have pointed at the Surface Pro 9's _DSM, which looks like it
-takes 0 for 24 MHz. If it does, 396 MHz is in specification there too.
-
-> 2. Nothing bounds the exposure while the strobe is on, and the
-> illuminator has an overcurrent limit that a long exposure trips.
-
-The same here: on the Surface Pro 11 the illuminator holds up to 68% of
-an 1860-line frame, fades at 70-72% and goes out at 72-75%. It fades
-rather than cutting off, which points at the board's LED driver rather
-than the sensor, so the fraction belongs to the board, like st,leds. The
-sensor has the means: MAX_EXPOSURE_LINES (UM2829, 13.8.1) bounds its own
-auto exposure as well as manual exposure. I would do that as a
-follow-up, with the bound supplied from the same place as st,leds,
-rather than grow this series. Benjamin, say if you would rather have it
-in the driver now.
-
-> 3. On IPU6 the stream needs a CPU latency bound, or frames come out
-> corrupted.
-
-Thank you. I will mention it in the v2 cover letter, so that IPU6
-testers do not take it for the sensor.
-
-> I will add a Tested-by for the Surface Pro 9 on v2, if it has an entry
-> for it.
-
-It will; see my answer on 4/4.
-
-Sergey
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index f8cc7e4a3d95..c36a62992b76 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -2071,10 +2071,12 @@ void rc_unregister_device(struct rc_dev *dev)
+ 	if (dev->driver_type == RC_DRIVER_IR_RAW)
+ 		ir_raw_event_unregister(dev);
+ 
+-	timer_delete_sync(&dev->timer_keyup);
+-	timer_delete_sync(&dev->timer_repeat);
++	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
++		timer_delete_sync(&dev->timer_keyup);
++		timer_delete_sync(&dev->timer_repeat);
+ 
+-	rc_free_rx_device(dev);
++		rc_free_rx_device(dev);
++	}
+ 
+ 	/*
+ 	 * lirc device should be freed with dev->registered = false, so
+-- 
+2.56.0
 
