@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792986637;
-	b=K7sKLSt8GMKUh52SMcyHvaBwStTB3oqD+awHAb7P0eju3yc7JVoXQJmqAgiO91bOuOhY
-	 fJIxh161W9SDV+SjguHFIo50GogZ0Q/4yaxG3kUgnvsWlmyXWF2rKHIpwp7MuEqwswxRA
-	 y5SxpsWOSdOZ7m+MzgdncB1yOPBmJUBzOkK7foyaQenp4wKaTUXWrfi3/2Eun0HozK7PU
-	 3W4ofqOTgXI6WWe0JugLMd8VqU6P4e4j8MLs/jrHe1IKoV844XNPywA1mQaM8rhJD2LwR
-	 vCwX70PPnfCf50fHjH8mexs8y2o1e5d3636xlTpEdxLr8f1aMxxWh1V43C+GKUI12cA==
+	t=1792986647;
+	b=Gy4JK5cNdesaaE99I4DR8COPyoJsUo94BeA/NbQaFsuPp7nEEgsIs2VBpE2UOycLVsGK
+	 GFWq5Jmrl+TH+ubjS5me51xv8CpFQD5jbzCxGO8zcWLHC/H5ebyOVBk4v0UzmFbKB/RlB
+	 2kVlYuZmFEcQJhFQStZnOKj6YROc4NwKILzn0uHrLYIzQc/zQnYc42mY2f1eVMsNN2YaK
+	 dhL8Ik8ETISwzz+EJyPnWZXbYKn5USBSCcCoBfyyElTN2VnKA+KB7wveH6doSN+rfgi3a
+	 YrZhBdCnzq2ZPCp4Ckl6lwNl1C3lBuDoANYLMYWmCFJr3qMJpDdO30rbk66fh61ZaAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792986637;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986647;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=NQncVEPmnNz32FIFinnox9ir5Kh2ylomR5ZJ0q/9P+g=;
-	b=EfFBtsI3zlwgaCUn30E30ftDCNgurNBWiHDX6fc2kpZgJPvfI8cZ4JRQWIcjB+meBoAh
-	 7J1rpCz8nMQGTJA06S9PN59+BAwXu/TDjOiwHiSgEPAjXQ7p01hGjUSfsxeV0jZItSq6E
-	 N0DnRc0zmiM5M5fzGEd9Db1S7On7gzSsZUdM9IS8uizzgOhsB+J/E6UkwJO/fSKpAa6m5
-	 NfeFa8MAry/RHJNm4TUtIqlJWplmbt4lyZyHVIOzRxJmCIR6Mhe2XgJdaDY5DV+j2EwmI
-	 PLur4IqztsbLek4J4R0klj4Fh9niCC72mh+56JZS/aJbs0cffUiEC+fcFnoTiUjYapw==
+	bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
+	b=RJY6tToHC8e02y51gRtNjsnzvrT8WUWXRvpPF/wRRiZloFIQpAGEMiArH9BRUajKkaqq
+	 sji5eqgnqXmB+/hrWFCGskOSSVNw2qKAgcCasMu1+zL/2OWA19A6Zln0gOtQjeG/aaICq
+	 uLZoHaSr9aPj+Tb3isfHXMyWkWMNoYTXv1NlN+Xsj08g1zdSrH4GswInhT/mnN/7KpVYe
+	 2V6PEuZAXvXW/f/ZEwhzx4ylbsUNb7+qNjbKsN2+yxrexIAyG9c8i3zpHuaWaYu0m4zix
+	 giKQoQw+Dqwo3r17FWzSV9NnTGpb3dhFA8xlXfmFrJkE+p08DNRKqc+/kZaxANK141w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="N/+XxAlC";
-	arc=none smtp.remote-ip=209.85.222.52
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mYIvmp5w;
+	arc=none smtp.remote-ip=209.85.222.54
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CE6606A31B
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:50:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03CE6606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA533606A320
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:50:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA533606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N/+XxAlC
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-9906c3fc88cso1101314241.2
-        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 20:50:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mYIvmp5w
+Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so2715907241.0
+        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 20:50:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792986636; x=1793591436; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792986646; x=1793591446; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NQncVEPmnNz32FIFinnox9ir5Kh2ylomR5ZJ0q/9P+g=;
-        b=N/+XxAlCkr/DupY183z5OY/62AX2X2kBt/wE0R22Ex5wf7zZ5BqPvkyzyQLz//bfXr
-         0pilUYEvYZOQS3idILJXR3g8K6N7hS/H5K0IqT96dHvsXq+ZsXFF0iFGyD2cavSuGLDm
-         f0IaLPUrc00VMfKBDVYfysAryEjnws+D4JHalqoOXH4R8qBB3jm3dSMf0rTUuifd/qVV
-         fqp3DVm+8yWCl1b+4z7UAdKA+d8j5mA+aCJnWGv6Y6lMnVjj8uaQoU4Ozn94xfmtdBpx
-         uNwiEvAZcVfIJs+8unspRJanAr9Gsr7k4oBRLcdV8AEy4ZNWDUpamX3La+0owqqIGTru
-         mfDg==
+        bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
+        b=mYIvmp5wECYYvMDZf41j2R2/KfUaGiHZ0cJTaJ4SLSUJmeqMe0GZDgYXe2Ur0oJNT9
+         nOypD0wdgTfp5sFviC635S18S6MIP5w1gljJcgMZbZdCbMVdL5T9fVn59DmqqRC2Z3Jm
+         LYshMTCF2xqTM1H1gjEnm8AywpeaEKQwP/YBlZ+OgqU8+R2K8XlVcZFFo1g5tJCeAt2f
+         sVWIl3a53rXf2ELQmM3Ma3nXr7EZDF6PlwCX3AawAcO1SWH9HCoRu1QkWXOFAabaqpof
+         1RhV1BbRKTA1JLHNLzJSvs/DmV8CaW6Zl/JzfTbrW3Z8FXyVr3eh/gOaeJ6sQHoi4jTQ
+         6D4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792986636; x=1793591436;
+        d=1e100.net; s=20260707; t=1792986646; x=1793591446;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NQncVEPmnNz32FIFinnox9ir5Kh2ylomR5ZJ0q/9P+g=;
-        b=LoFCgD9dzu5VdoDaKSvtjR3ycP9NgxZFi4t2ADk1XpEHOIW98uuEKL/kt2pYJ6of3L
-         ZOfS5EE2bMVt23rm2392j4AnJdrC8MXIhJBFaBhQftXmjZ+Ckc2Fku0otg8CDi/PtBiY
-         o4Q8MKWbkt4376NL8hzSwFRbovs4dACuFO2wVM9tmBZzRZDNZ7BxL+dBPN4BgeL6UMkX
-         MYwVnW8NU0HslPvy611vQ7wO3p2ONbKZkSN3bwIKFf6FVpJZKhVbne8L126v57RrX+w7
-         CqYzB5hGhUcuV3XhM0GGJF2STBwtJtyZYXVVGf6vnev8+EMaL/89aCDsNzNEFeZq9ivV
-         F35g==
-X-Gm-Message-State: AFq9FYJCJRb6/OZrglOAz7cMmtJ8WYE7xsbVhj4NBb1I4sg1Jv7TdPGW
-	XIXQhGy+wxZban2kyMUGbWuIw0Io4zL9149uRblP2w5YrLcEjUfM+X+NhaDVJSvo
-X-Gm-Gg: AYBFou2HR6cy03ALmg5ewSgePjBDDvpwG7jG4Cs+IVqAOtHXauIDoVSAFUjLrv1719Q
-	DtOQM+28f9YQFaA80FgxFZhpJh5H+63fGSzxToUtn4qzUlQNQSg5S3zbcKNBqHUAZvuvYZngOiM
-	ZxKzjgrSOeVxtBjyRpHDuih9g7W00OeWDUlarxzFWDmu6JlBZu2IDZPQji/qd6qcml7g2THjt/D
-	eTdUAnRwkOtiylkwGSmVFM5cM8gFQKrkgaovOm8s9b4y2lhiZR9BKesqxoWKz4CZEE1f0DjJ6Fl
-	s73zpfX9i9gEIYMIN2oy+AUtLf0kjVJxGmXGSF37n+eJVi3F+gPbniP0/fExLNH3t68QiuchHrA
-	L90ditG4bj6QOphcpXIcWOaQTlHAn325bI/Inv+dWia7kwd7M1aCX/9x5ChveHSMLk87S7LYoSh
-	1jb48U0oMoBrDCfj1T9zG6gYqbulLQVufVJbkvxRYDgBiqQ09oLlqd1e0c6ro9YWsct0uw4LCX/
-	jlXbYAkvtlLbvRy20/DTcZqPAZXUam/DUSj3foPKOS2xnmaE7McLMANVR4Ia1W8ruePzvfgWG9f
-	tP2CLub/z3NTrUDPPROU
-X-Received: by 2002:a05:6102:a4a:b0:7c3:c0b9:9028 with SMTP id ada2fe7eead31-7ce5cde1f1amr1608754137.24.1792986635938;
-        Sun, 25 Oct 2026 20:50:35 -0700 (PDT)
+        bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
+        b=DxiEpJ56stv0MLeE9JO8FP7zZYO2lY2jyxwkL6DblvxE8ISi18JIgbIbtGDWKiROR3
+         DzGBUxG7hTqGWI8lODcTHnWxIan5aQXBJElBOvYdTvdgfvlXX8/U1C+jxL6icaKz4Cg1
+         Ul2q3pnnHCMTBNMj8ISdysLwzidPaoJ8TxsBNXMb7ybkFj97TEtBwCeUC6ngAdfYgY5F
+         e+HfAtjWjYjMCua2cvqMANFkbJuQ3eeGcfcUBb7UO+coyQtZ6xWBKTW/N0DHOxpwhgLR
+         dPFTFbXy1d3wYMUZwDc4Gba24FpMjOjluRfJTPMrPViRpAy9j9j+vcFOvmUascXGaS8r
+         XU/A==
+X-Gm-Message-State: AFq9FYLNMHeZ3LkngJdjUA/WI4ttpm3H82Z+4xagy4sDD13UaOci7TfY
+	7Ft1BqqY9eAldITHzXgh8Uf7zzDHROTcfIhKlTQr+mhLSTBIOqcMaNZKUK109aWb
+X-Gm-Gg: AYBFou0MV415j8nU7V12FMsRDpFdXD41/JQ1d74Y3J3FUXetgKVhtGXbYJ7EP4a0+Pt
+	TqbE7Io68yvzgasbVtV8u/Bu0lZaDQrzL4JJVjGITkLqEOba6nNyYp2oi1xBzH0DNaK6sjuZIuD
+	PqX7DLlWBmtWdICFbmQhvX76awkGUP/FWz754HYKpJUi54z5FDLqxzFNL0NIBvfyjYqYrhaXAgT
+	Au9KtlC3b/KichHaqKMf7i1sf9SheVnZSgpCZckG77gdZ6zYehIZJt3fFjRK6OvsNwrmPQ5TgLz
+	i/+YAu+IKtaWAT+hlcc+rWwP+yYqIVcdApEm/NGALGTie0fxx7/ro5dqndi+5vZVWEnKp63EXkD
+	IeDtqs4lah4yZbpXkqyvUFBFNINcAfnfNFYvV9TDyPaEfNQJHVzGVuqKs2HaVlHtT0r/OsLlcaE
+	/pI0FEzivYaCI9Mi2wlb9glCykj80Nvft61Sb416gop4QcdWF/rZecuB4Kx/7P7b3ebXU+ytdr/
+	6TRdQcgz3E3EMJHpK59fYI4/eJzfh0JZUGIWYCiQLdw0Q6N1BnefgbQAknu+6CfIceeWxlH8jRp
+	lYRT6DvzJn+i1YvUtGrL
+X-Received: by 2002:a05:6102:41a7:b0:7c3:874d:60bb with SMTP id ada2fe7eead31-7ce5d232f57mr1075228137.5.1792986645785;
+        Sun, 25 Oct 2026 20:50:45 -0700 (PDT)
 Received: from archsung (187-126-110-245.user3p.vtal.net.br. [187.126.110.245])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.31
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:50:34 -0700 (PDT)
+        Sun, 25 Oct 2026 20:50:44 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -86,13 +86,15 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Dan Scally <dan.scally@ideasonboard.com>,
 	Tomas Moro <tmorolias@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH v4 0/5] media: ov02c10: get_selection and 26 MHz clock support
-Date: Mon, 26 Oct 2026 00:50:10 -0300
-Message-ID: <20261026035015.110903-1-calliarifelipe@gmail.com>
+	Felipe Calliari <calliarifelipe@gmail.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v4 2/5] media: ov02c10: Implement get_selection
+Date: Mon, 26 Oct 2026 00:50:12 -0300
+Message-ID: <20261026035015.110903-3-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260923234100.318151-1-calliarifelipe@gmail.com>
+In-Reply-To: <20261026035015.110903-1-calliarifelipe@gmail.com>
 References: <20260923234100.318151-1-calliarifelipe@gmail.com>
+ <20261026035015.110903-1-calliarifelipe@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,94 +106,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some Raptor Lake laptops, e.g. the Samsung Galaxy Book3 series, feed the
-OV02C10 a 26 MHz external clock, which the driver rejects at probe
-today. This series adds support for it, together with two small changes
-found along the way.
+The driver does not implement .get_selection, so userspace cannot query
+the sensor's native size or active crop rectangle. libcamera reports
+"Unable to get rectangle N on pad 0/0: Inappropriate ioctl for device"
+and "The sensor kernel driver needs to be fixed" (see libcamera's
+Documentation/sensor_driver_requirements.rst).
 
-Patches 1, 2 and 4 are unchanged from v3, apart from a rebase onto the
-chip ID change in next. Patch 3 moves the PLL block of the per-lane
-tables into a table tied to the link frequency, keeping every register
-write. Patch 5 adds a 26 MHz PLL table as a second link frequency, and
-picks the link frequency listed by the firmware that the external clock
-can produce.
+Implement .get_selection returning the fixed geometry of the sensor:
 
-With the other PLL registers as set by the common mode table, the link
-frequency is mclk * M / 19.2, M being the OP and VT PLL multipliers,
-which are set to the same value. The 19.2 MHz table uses M = 400. At
-26 MHz an exact 400 MHz would need M = 295.38, so patch 5 uses M = 295
-(0x0127): 399.479167 MHz, advertised as such, with a pixel rate of
-159.791666 MHz on two lanes. M = 296 would give 400.833333 MHz. Getting
-exactly 400 MHz from 26 MHz needs a divider with a factor of 13. I have
-no PLL documentation for this sensor. Sweeping 0x0301, 0x0303, 0x0313
-and 0x031c around their table values only gave coarse steps, no output
-or no change, so I don't think such a divider is available.
+ - V4L2_SEL_TGT_NATIVE_SIZE / V4L2_SEL_TGT_CROP_BOUNDS: the full
+   1928x1092 pixel array.
+ - V4L2_SEL_TGT_CROP / V4L2_SEL_TGT_CROP_DEFAULT: the 1920x1080 active
+   area, centred in the 1928x1092 output size programmed in
+   sensor_1928x1092_30fps_setting[] (registers 0x3808-0x380b), i.e.
+   offset by (4, 6).
 
-Tested on a Samsung Galaxy Book3 Ultra (Raptor Lake, two CSI-2 lanes,
-26 MHz clock):
+The crop is fixed, so sd_state is not consulted.
 
-With v4, backported to the running 7.2.11 kernel:
+Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Tested-by: Mars-Wave <tmorolias@gmail.com> # Samsung Galaxy Book3 Pro NP960XFG (github.com/MarsWave)
+---
+ drivers/media/i2c/ov02c10.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
- - The firmware lists both link frequencies. link_frequency reads
-   399479167 (menu item 1) and pixel_rate 159791666.
- - The PLL registers read back while streaming are 0x0301 = 0x08,
-   0x0303 = 0x05, 0x0304/0x0305 = 0x01/0x27, 0x0313 = 0x40,
-   0x0315/0x0316 = 0x01/0x27 and 0x031c = 0x4f.
- - A 300 frame capture runs at 30.014 fps, with the same skipped
-   sequence number 1 and single "Frame sync error" at stream start as
-   v3.
-
-With v3, which writes the same registers:
-
- - link_frequency reads 399479167 and pixel_rate 159791666.
- - I rewrote VTS over i2c while streaming and fitted the frame period,
-   from buffer timestamps, against four VTS values from 2360 to 4600
-   lines. That gives a line time of 14268.73 ns for an HTS of 2280,
-   i.e. a pixel rate of 159.7899 MHz, 11 ppm below the advertised
-   value. The intercept is -0.02 lines.
- - At the default VTS, a 60 s capture runs at 30.014 fps. No frames are
-   dropped, apart from sequence number 1, which is skipped at every
-   stream start with or without this series. 30.014 fps is below the
-   30.105 fps that hblank, vblank and pixel_rate describe. The cause is
-   not the PLL: with the exposure at its maximum (VTS - 8) the sensor
-   stretches the frame to exposure + 15 lines. That is a separate issue,
-   which I'll look at on its own.
- - A single CSI-2 "Frame sync error" is logged at stream start, as it is
-   with the unmodified tables.
-
-The 19.2 MHz path is untested, as I have no such hardware. It writes
-the same values to the same registers as before. Only the per-lane
-registers other than 0x3016 are now written after the PLL registers.
-
-Changes in v4:
-- Rebased onto next, which narrowed the chip ID check. Patch 2 had a
-  context conflict there.
-- Patch 3: tie the PLL table to the link frequency through a
-  link_freq_configs[] array, not to the external clock (Sakari). Leave
-  the common table alone, 0x0303 = 0x06 and 0x0305 = 0xe0 included,
-  and only move the "plls" block of the per-lane tables (Sakari).
-- Patch 5: record the external clock rate each link frequency needs in
-  link_freq_configs[], and pick the link frequency from the firmware
-  list and the clock rate. This replaces the external clock check in
-  probe.
-
-v3: https://lore.kernel.org/linux-media/20260923234100.318151-1-calliarifelipe@gmail.com/
-v2: https://lore.kernel.org/linux-media/20260923144257.119076-1-calliarifelipe@gmail.com/
-v1: https://lore.kernel.org/linux-media/20260905030732.39196-1-calliarifelipe@gmail.com/
-
-Felipe Calliari (5):
-  media: ov02c10: Drop duplicate register write
-  media: ov02c10: Implement get_selection
-  media: ov02c10: Split the PLL registers off the mode tables
-  media: ipu-bridge: Add the OV02C10 26 MHz link frequency
-  media: ov02c10: Add support for a 26 MHz external clock
-
- drivers/media/i2c/ov02c10.c          | 122 +++++++++++++++++++++++----
- drivers/media/pci/intel/ipu-bridge.c |   2 +-
- 2 files changed, 105 insertions(+), 19 deletions(-)
-
-
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
+index 80edd025c..e24cd8705 100644
+--- a/drivers/media/i2c/ov02c10.c
++++ b/drivers/media/i2c/ov02c10.c
+@@ -10,6 +10,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <media/v4l2-cci.h>
++#include <media/v4l2-common.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+@@ -18,6 +19,13 @@
+ #define OV02C10_MCLK			19200000
+ #define OV02C10_RGB_DEPTH		10
+ 
++#define OV02C10_NATIVE_WIDTH		1928
++#define OV02C10_NATIVE_HEIGHT		1092
++#define OV02C10_ACTIVE_WIDTH		1920
++#define OV02C10_ACTIVE_HEIGHT		1080
++#define OV02C10_ACTIVE_LEFT		4
++#define OV02C10_ACTIVE_TOP		6
++
+ #define OV02C10_REG_CHIP_ID		CCI_REG24(0x300a)
+ #define OV02C10_CHIP_ID			0x560243
+ 
+@@ -768,11 +776,37 @@ static const struct v4l2_subdev_video_ops ov02c10_video_ops = {
+ 	.s_stream = v4l2_subdev_s_stream_helper,
+ };
+ 
++static int ov02c10_get_selection(struct v4l2_subdev *sd,
++				 const struct v4l2_subdev_client_info *ci,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	switch (sel->target) {
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++		sel->r.top = 0;
++		sel->r.left = 0;
++		sel->r.width = OV02C10_NATIVE_WIDTH;
++		sel->r.height = OV02C10_NATIVE_HEIGHT;
++		return 0;
++	case V4L2_SEL_TGT_CROP:
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sel->r.top = OV02C10_ACTIVE_TOP;
++		sel->r.left = OV02C10_ACTIVE_LEFT;
++		sel->r.width = OV02C10_ACTIVE_WIDTH;
++		sel->r.height = OV02C10_ACTIVE_HEIGHT;
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct v4l2_subdev_pad_ops ov02c10_pad_ops = {
+ 	.set_fmt = ov02c10_set_format,
+ 	.get_fmt = v4l2_subdev_get_fmt,
+ 	.enum_mbus_code = ov02c10_enum_mbus_code,
+ 	.enum_frame_size = ov02c10_enum_frame_size,
++	.get_selection = ov02c10_get_selection,
+ 	.enable_streams = ov02c10_enable_streams,
+ 	.disable_streams = ov02c10_disable_streams,
+ };
 -- 
 2.56.0
 
