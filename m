@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792986653;
-	b=N/kr+zWLLbi5K/FbXKDM08sMGFHRvdWplQZmExVyJ1EJ/bAdr19lLpGpKljZ9q1/Aflo
-	 U670XtVbBeFNYkK3FGJorucAIl8mQJAOwHooi6fR7DSxhS6VxZXOFEOeQWDJ7Q5tOQsPM
-	 FSpQL4aA6fGpzZpabzaSAHuoOAcRsvYYHniREvwK/NUjhAKAHQaj+uW3T0NNc7FcIVPMw
-	 2e/NBfYgfInY4LWCIgRFxTiC6UsECFGFllXrsoq9AgwqTnKb/oHUJi74oYyl90X7wWs3I
-	 VtkDKn+JeYQPfR5AIc/+gtFU7QFOrm1v8FWglF1E1qb0+tVdOLh0GwwyFgxuby7q0ZA==
+	b=RMlE7FcQ7SVo6fXhOIDjg7ImavxxDTReGNfBsecxDo3cV1O89+RcnIThOD4XnS0YRsb7
+	 QTHjerf6eOtg9lT2DBQvMgX1dGBZyWqDcyFbrEJ5lg9gfr/K8LwNW+KFLawySwVAUFAZg
+	 uPON+myrpPC/3vNcljgMI7F8NrI9rd1Ox9Mms0oKvlySkvdWkOicYjCV758CiscjBZt6b
+	 jXMaYb4gc8BCsYmeQ420i3TZgthwdIomVaxPJKOoPTV0tqNstVVuC/atZiuSCkarJsYR8
+	 Calb1HZEHdZ/3aReuM1mAe1EFbv1Qm10FgXA6F5vZSdKCwXz1wuXVylEo2k7OjcJbZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792986653;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Ted9K+BkkR+QFgGVq+0shrkHjbI13xF98LTrYp6FnvQ=;
-	b=IBBtmZ+WBD/ZZMAWQcHnKf5lOlMx+QEhw75l9bZObNbI28qscO35uY6brIveclys/TKT
-	 G8dE6yC1/wVKUDfMToLs6GNhD3pa8kKqpmnkgiso986JlVoSHQnxc464xwgvFIaZc7OeE
-	 LO9XEuAUopSYUv4SfnsmEte3DVWapsnEOGEiLjSa5kVGsiI0ElZaekVvcnvfAKjEHU68x
-	 sgZiuHDSumMCWMSClS9LhzpYOS03GEKTQKSZjiDdlcqTrflvh/Kl5teDOoO8Co0s1ntjw
-	 sRRfhyMT9+2x0WoNwWtjPqRdqqgcsjLGX08qfGpCDXKBCNU0BL3Jpd0hbPUxDOYqyGQ==
+	bh=eAg0//R+JFKzc4+1DiFBzmpR4/bk8838/6mb0ZYXxg4=;
+	b=3Ajdi55NSrfC59PhpaXuqssIg6F/RQXbVjA0QJK186RvJ/FNP0SFo0innzYqQ3wxThXm
+	 KPOUy+HA1A+Jzp1xsw7cL3Azzub9H0jjKdGH0PvgFpU/S47xSWmnRL6KBtZnBSHy+zHri
+	 HlBZipJTvy96i35BmbinfDCur0OP+w3QKqkm/lUyTAwM2O6ewc4FaKTJzCeh/VVmZ88pH
+	 hlP0aCexVgaSVHknWzUgmCfj7arYuD5XKbcyi7LW1CONLMrho6OOnH8hkZ5h8euAHrbFc
+	 7oIHYnjgdgrBcrqaAU3JpK/8WkmIVbRWXgdBVnxvCz1UKqggNjV/MwPp58d4dOZKjwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bgoEndZk;
-	arc=none smtp.remote-ip=209.85.222.42
-Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X25zNZLk;
+	arc=none smtp.remote-ip=209.85.217.50
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959B1606A326
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:50:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 959B1606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271BF606A31D
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 271BF606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bgoEndZk
-Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-980c4258105so1460033241.2
-        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 20:50:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=X25zNZLk
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-7cc0e865dd1so758410137.1
+        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 20:50:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792986652; x=1793591452; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792986649; x=1793591449; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ted9K+BkkR+QFgGVq+0shrkHjbI13xF98LTrYp6FnvQ=;
-        b=bgoEndZkN9fkR27nyqnJSB3dhN9Hb4U4YEZXWXpAf4cTjnzpePbgGWSR6sCtvA/8ap
-         FUzz1YfOO3wgdAJdx8BwfsFoUYbjfZ9YdtaM/IiI29/72wKYK+5MTjkgEjqfjXzdsNxl
-         qXSU8gfDzi/9YpH/YBmmneTvwHCaMemvoorn+fEQouM9CmIitkpIPSLV4hVrB2f8qlqS
-         mmQie63L5jQFp32KafvOa8r63H+nZklKYvj/uO4J1VdqqwkVJiYqkgXv9iFMP/Z11aBD
-         6Jbhyx2MDcjrD5KKLPjqz1uWIorzJoXbvQ1TxTlZzK6/RCKZtAkxpIZ07xL0LVBpovyi
-         fFQg==
+        bh=eAg0//R+JFKzc4+1DiFBzmpR4/bk8838/6mb0ZYXxg4=;
+        b=X25zNZLkzkO0D9wxAEoarApoKEn9Q4lyYtObhLzBGoJmUWHyEOiCAIA2obuIMfCIQN
+         7OLcs4z8nB8p9McHl/ab0OndQ4mlRLrkwWFOQvvg4aa3jEBP3nfzvVBlT/oQts7/h0Xz
+         7q+VIf5WiMtctE+KEz8RxXIEcjgyogsw8LIAYv7g5skigTzW4jI42yStq5l4KeOEB5Q8
+         oLM3quj/POKKOzmMggl2ImmV4xTPliBY7vDpIKjBSRQMRjNt/RlENxYaF4u4Dp1ax4q5
+         oih5S6yIEC1mDjof6DZOqt6KbhxI8+yIH6PF7rC/nNMv02io+RNqTk7/A91y6j/zQZmT
+         6OMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792986652; x=1793591452;
+        d=1e100.net; s=20260707; t=1792986649; x=1793591449;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ted9K+BkkR+QFgGVq+0shrkHjbI13xF98LTrYp6FnvQ=;
-        b=GpWsVhYidWz4UEKQ4aIACAjye7LGSf+fyP7ngKJVNPucQrjuk0o35ifuKabOJFZhJZ
-         rn/9xwI9jNXtbU4IJtUFhig1CKP3AZVxL1eYurV78tkYaTt6DhUrPn9p3F+LmKxEmgML
-         aknA389QHXhSBGN7J/pmQxjwJCdeL8hb4xdsMJ6eRz3o7FZsZbS0eZbZnWIWX0FvOi9J
-         rM9OPVnpoUb9vhzr5krcVvqAgXMUOlE1xwQwxoppnwLCodEL/xWgnfdKG8IK9V3O13vS
-         iO0U7wfG6IOHIGR1f0vN9gsdj666y5y8afLaZJ8C0SzRB4ZyYomuDHmEyHFVH2kCW5S6
-         6PSw==
-X-Gm-Message-State: AFq9FYLysnuW9yDTKwhxKdgRKbWd93XXgP0CIZNLOAtUm/1WD3YW8fRl
-	Yq9MJql9XXu6XBx0alu4Ih7EERNIQisWAf7PD8mqgMoy/o9NGoQx5r1M/J3L7QSB
-X-Gm-Gg: AYBFou2FOSBr6EnjbqmPb4gC3PT/NCWFT5d9mQ0+4xDEnMO4ctQvCcqHsOM0/GafKp2
-	o5eMo7iaJeqh0uDfm64YXz+XvyMMePKxjPy25B7xnp4MGDaEqB02ZhfHc4W2vWhOZc9OtuJyW2i
-	E/oWYTGb5gk2Jpq4+uuqqL4gRrtzcL8cdUUrWfr0RziG9aABZL3rhW9r8uGcbT+ecTVBAu4GgL/
-	QmUQMI40ML7Hz6vI8inLZ4i30acaagt9NgtmJHdatXwWZzSuQmmcZGrijiQDS4wyYT1ySf523Dd
-	x3jTH24IvfhF+Ovv4Los02lcCifrsdLQo1v7llQiVb0cUWm4WLKuzyxri9IY94knZHPsIvSilXl
-	mVipsNeo/xGLaYLd/TTv6UH3nRJM+6o6HGXammA9IBTqlEgKjzd+BdKLkY45CTpe3t7KyLIhi5m
-	zabuern89PJXIheZtZ3rx40fe0b5y86TfmYoYVwEWLfSlcinL4tX/F9cGFBidZH4w2pSYjdJ2tr
-	pLYWOqR9fFDjZmCo0ukoj2p9tKFfq7rO4pykOkzMl6MqubW6k8qhu3X9q2CXD+6EVh3xengzzf1
-	XW7g9Dsw6gejUp97MwlN
-X-Received: by 2002:a05:6102:2925:b0:7af:fef2:8ecf with SMTP id ada2fe7eead31-7ce5cc37a74mr1759413137.8.1792986652638;
-        Sun, 25 Oct 2026 20:50:52 -0700 (PDT)
+        bh=eAg0//R+JFKzc4+1DiFBzmpR4/bk8838/6mb0ZYXxg4=;
+        b=b8mu0LmB+hdmSHvSQggIGd9ToU61NfJsYUYBTPEvqGrpTBqzrbk7icenqiD8XCz/T1
+         bUuEOcB8Is4z5SmA1aI2r/JnW1c2nUPObgfT5QgLDxrMRJWjLvB7lZISL7QIOL7QE4hO
+         5wspy/sJ8up9PRN4ajhxNoWxay9tn5FkMeVe3KuiqbgZfcjb5OLuuGDj6Yphu1qmWMnQ
+         gEAujK5h3NXRDWpyLJCfbQV5lBquzkVSw78xn1H92tDgBc+x5GDuRyDMrW1QROcH9Amf
+         9HOQxogmA37m7FQ0Xgftuuw90EIDct/Rm+P4xP65bndsxYCgvJU0kO4d5+xW2Ijg9gsr
+         5YRA==
+X-Gm-Message-State: AFq9FYJj1RCjNqVFa/3+/qUVL+xSYlDfhQM4OnzwIBoiNSc8fcDCpYo7
+	izZ7lsEPGoZThGYuuREtJIXZRvLdX16vs4FHZvsVak15jQ/VPsmh5oZ0BEBq8b3Q
+X-Gm-Gg: AYBFou3+Zagfmslr5JXGgOBOTYL7CIHIAyigUkyN0Wq92+MMVxqkI1mFEMlMq2hpsyo
+	8grmA7TEBPsov+FMX8LYwcPyTjg3TyHYNvPsiyjX1M9FVMla6dKmLb9hifFmoiIIOhh0PeyATeA
+	j0hXRZvnEpXnU/lJj+JVkbM061cOMr0MXyGjHdiEG+w+gmFuJnHFrvCFcpr7dujrfOV/kc7eSir
+	eTGAwWPYXVYhiOXLMLbKJLux3qzYh881HTOHzprV9Z+OzTMp6Xag49JpKW5UMrw4qdkd+lLv18P
+	oXdvo05f66jG5ljv8DQcee1SiYRutoMqdM9uvS4PUNYq0JRpJOSnzjUGvCA3jH+gd1BYeQvvfo8
+	VWrQpRN7rcCgJp2WhxH5NdnLrIlu2DtWfz4GyV0kylxvS/SpyEP0gVRv8DJHHS+6RLZDFGoKLXp
+	uvXypQZryOhqs7bND2OADt9j3Wlh42CZ++KTA765pH7wXIg+pVuw8Q2EgpXUUQydtW+PMsjGACD
+	jdMYEgetw1v9mkQpfJYHN5iGWYUvLeJaqrlqg6CNahEa1MyW9s1UZRgAnKWoyCKBetnA6B/zTtT
+	SVaBBurGja/iytmJHKAz
+X-Received: by 2002:a05:6102:50a6:b0:7cc:23e7:e743 with SMTP id ada2fe7eead31-7ce5ccc0438mr1404867137.15.1792986649075;
+        Sun, 25 Oct 2026 20:50:49 -0700 (PDT)
 Received: from archsung (187-126-110-245.user3p.vtal.net.br. [187.126.110.245])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.49
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:50:52 -0700 (PDT)
+        Sun, 25 Oct 2026 20:50:48 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -87,9 +87,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Tomas Moro <tmorolias@gmail.com>,
 	linux-kernel@vger.kernel.org,
 	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH v4 4/5] media: ipu-bridge: Add the OV02C10 26 MHz link frequency
-Date: Mon, 26 Oct 2026 00:50:14 -0300
-Message-ID: <20261026035015.110903-5-calliarifelipe@gmail.com>
+Subject: [PATCH v4 3/5] media: ov02c10: Split the PLL registers off the mode tables
+Date: Mon, 26 Oct 2026 00:50:13 -0300
+Message-ID: <20261026035015.110903-4-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026035015.110903-1-calliarifelipe@gmail.com>
 References: <20260923234100.318151-1-calliarifelipe@gmail.com>
@@ -105,34 +105,120 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With a 26 MHz external clock the OV02C10 runs its CSI-2 link at
-399.479167 MHz instead of 400 MHz. Add that link frequency to the
-OVTI02C1 entry so the sensor driver can use it.
+Both per-lane tables end with the same "plls" block, which sets 0x0303,
+0x0305 and 0x0316 to 0x05, 0x90 and 0x90, overriding the 0x06 and 0xe0
+that the common mode table writes to 0x0303 and 0x0305.
+
+These PLL settings determine the link frequency and the pixel rate, not
+the lane count. Move the block into a table of its own, and tie it to
+the link frequency through a new link_freq_configs[] array, indexed like
+link_freq_menu_items[]. Write the table right after the common table,
+so it still overrides 0x0303 and 0x0305, and before the per-lane table,
+so 0x3016 is still written after it.
+
+This prepares for link frequencies obtained from other external clock
+rates than 19.2 MHz.
+
+No functional change intended: the same values are written to the same
+registers, and the common table is left unchanged. Only the per-lane
+registers other than 0x3016 are now written after the PLL registers
+instead of before them.
 
 Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
 ---
 
 Notes:
+    Changes in v4:
+    - Tie the PLL table to the link frequency, through a link_freq_configs[]
+      array indexed like link_freq_menu_items[], instead of naming it after
+      the 19.2 MHz external clock (Sakari).
+    - Leave the common table alone, including its 0x0303 = 0x06 and
+      0x0305 = 0xe0 writes, and only move the "plls" block of the per-lane
+      tables, so every register write is kept (Sakari).
+    
     Changes in v3:
-    - New patch. The ov02c10 now advertises the 26 MHz link frequency
-      on its own (Sakari), so the bridge has to list it.
+    - New patch, as asked by Sakari.
 
- drivers/media/pci/intel/ipu-bridge.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/i2c/ov02c10.c | 35 +++++++++++++++++++++++++++++------
+ 1 file changed, 29 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 3739c4a2a..9124abefb 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -95,7 +95,7 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	IPU_SENSOR_CONFIG("OVTI01AB", 1, 400000000),
- 	IPU_SENSOR_CONFIG("OVTI01AS", 1, 400000000),
- 	/* Omnivision OV02C10 */
--	IPU_SENSOR_CONFIG("OVTI02C1", 1, 400000000),
-+	IPU_SENSOR_CONFIG("OVTI02C1", 2, 400000000, 399479167),
- 	/* Omnivision OV02E10 */
- 	IPU_SENSOR_CONFIG("OVTI02E1", 1, 360000000),
- 	/* Omnivision ov05c10 */
+diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
+index e24cd8705..62ea20dc5 100644
+--- a/drivers/media/i2c/ov02c10.c
++++ b/drivers/media/i2c/ov02c10.c
+@@ -303,10 +303,6 @@ static const struct reg_sequence sensor_1928x1092_30fps_1lane_setting[] = {
+ 	{0x394e, 0x0b},
+ 	{0x4800, 0x24},
+ 	{0x5000, 0xf5},
+-	/* plls */
+-	{0x0303, 0x05},
+-	{0x0305, 0x90},
+-	{0x0316, 0x90},
+ 	{0x3016, 0x12},
+ };
+ 
+@@ -330,11 +326,14 @@ static const struct reg_sequence sensor_1928x1092_30fps_2lane_setting[] = {
+ 	{0x4d0d, 0x00},
+ 	{0x5000, 0xfd},
+ 	{0x481f, 0x30},
+-	/* plls */
++	{0x3016, 0x32},
++};
++
++/* 400 MHz link frequency from a 19.2 MHz external clock */
++static const struct reg_sequence sensor_pll_400mhz_setting[] = {
+ 	{0x0303, 0x05},
+ 	{0x0305, 0x90},
+ 	{0x0316, 0x90},
+-	{0x3016, 0x32},
+ };
+ 
+ static const char * const ov02c10_test_pattern_menu[] = {
+@@ -349,6 +348,20 @@ static const s64 link_freq_menu_items[] = {
+ 	OV02C10_LINK_FREQ_400MHZ,
+ };
+ 
++struct ov02c10_link_freq_config {
++	/* PLL register settings, which set the link frequency */
++	const struct reg_sequence *pll_settings;
++	int pll_settings_length;
++};
++
++/* Indexed like link_freq_menu_items[] */
++static const struct ov02c10_link_freq_config link_freq_configs[] = {
++	{
++		.pll_settings = sensor_pll_400mhz_setting,
++		.pll_settings_length = ARRAY_SIZE(sensor_pll_400mhz_setting),
++	},
++};
++
+ static const struct ov02c10_mode supported_modes[] = {
+ 	{
+ 		.width = 1928,
+@@ -594,6 +607,8 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
+ {
+ 	const struct ov02c10_mode *mode = &supported_modes[0];
+ 	struct ov02c10 *ov02c10 = to_ov02c10(sd);
++	const struct ov02c10_link_freq_config *link_freq_config =
++		&link_freq_configs[ov02c10->link_freq_index];
+ 	const struct reg_sequence *reg_sequence;
+ 	int ret, sequence_length;
+ 
+@@ -610,6 +625,14 @@ static int ov02c10_enable_streams(struct v4l2_subdev *sd,
+ 		goto out;
+ 	}
+ 
++	ret = regmap_multi_reg_write(ov02c10->regmap,
++				     link_freq_config->pll_settings,
++				     link_freq_config->pll_settings_length);
++	if (ret) {
++		dev_err(ov02c10->dev, "failed to write PLL settings\n");
++		goto out;
++	}
++
+ 	reg_sequence = mode->lane_settings[ov02c10->mipi_lanes - 1];
+ 	sequence_length = mode->lane_settings_length[ov02c10->mipi_lanes - 1];
+ 	ret = regmap_multi_reg_write(ov02c10->regmap,
 -- 
 2.56.0
 
