@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792986647;
-	b=Gy4JK5cNdesaaE99I4DR8COPyoJsUo94BeA/NbQaFsuPp7nEEgsIs2VBpE2UOycLVsGK
-	 GFWq5Jmrl+TH+ubjS5me51xv8CpFQD5jbzCxGO8zcWLHC/H5ebyOVBk4v0UzmFbKB/RlB
-	 2kVlYuZmFEcQJhFQStZnOKj6YROc4NwKILzn0uHrLYIzQc/zQnYc42mY2f1eVMsNN2YaK
-	 dhL8Ik8ETISwzz+EJyPnWZXbYKn5USBSCcCoBfyyElTN2VnKA+KB7wveH6doSN+rfgi3a
-	 YrZhBdCnzq2ZPCp4Ckl6lwNl1C3lBuDoANYLMYWmCFJr3qMJpDdO30rbk66fh61ZaAA==
+	t=1792986643;
+	b=E+dcg69kUzaWh70zdFTjKOYgo+gNmRGXD1OBRgunb52JrHIAaTWDrSmbJ5xCFdJAKJj3
+	 5as6OmlhU3izDNqdSomFwlvkhwyDaVkr4dwv/Ksw0kNozJZvcV4VwPsqO9tuFlqur9P9P
+	 zEsYoMTE/l8UnjH34xhidtfmVh+6G0V7WdGgvIrllTH/FDLcRnKqB64pceucB8+HneZUu
+	 vZSTYyoAlvJXZCuiMo1b/QwSyqtIiqsbmLEkOUL9nNmsCcq1LUA/MuJY8/L/fa5pPaGAj
+	 DEbp+ziPTZZhyrs3TrtQ+FwtLuWrELb+EE1FpB/UHnPZCzHmoANY9LksIhUxq8C3G/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792986647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986643;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
-	b=RJY6tToHC8e02y51gRtNjsnzvrT8WUWXRvpPF/wRRiZloFIQpAGEMiArH9BRUajKkaqq
-	 sji5eqgnqXmB+/hrWFCGskOSSVNw2qKAgcCasMu1+zL/2OWA19A6Zln0gOtQjeG/aaICq
-	 uLZoHaSr9aPj+Tb3isfHXMyWkWMNoYTXv1NlN+Xsj08g1zdSrH4GswInhT/mnN/7KpVYe
-	 2V6PEuZAXvXW/f/ZEwhzx4ylbsUNb7+qNjbKsN2+yxrexIAyG9c8i3zpHuaWaYu0m4zix
-	 giKQoQw+Dqwo3r17FWzSV9NnTGpb3dhFA8xlXfmFrJkE+p08DNRKqc+/kZaxANK141w==
+	bh=q2QE+OZptzDZGsYhruEEL20JBe+99WFrn4g7yRcm+wU=;
+	b=fcvLsBl4UiJ2ec/u6vlCCrgNnxYcjoNlFgNhEB0UlZ4MT6kMl6m8GSHLgZUWznV4WZvJ
+	 +Y00j/d2EP0cuEjVAoUuu0BfVrjt5w+tTNQQqkRmm7QMEol+9Iz+eFpSTfWo3QxmnjnGl
+	 djwugtVZJ+k1QSlJ7tkMGbJwGssfcphm7gZT3H8oCYWxqEyT95UWfugdRrAJqCcZwSV/I
+	 Lgj8ms2vBEW190VENvZVAhmjFv4dW3a18BE1bcZ88oG8EUS1VuV8+fHBxSk4lyrwhR/aO
+	 l/575EVT9VKJFYf49L81Vu8/59AMnpGnabj30uzlHs6h7MGQUaCFI4IC2JApJoI6HIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mYIvmp5w;
-	arc=none smtp.remote-ip=209.85.222.54
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cxhBtIU5;
+	arc=none smtp.remote-ip=209.85.217.49
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com [209.85.217.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA533606A320
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA533606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 529F7606A31D
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:50:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 529F7606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mYIvmp5w
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-9906a5410f5so2715907241.0
-        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 20:50:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cxhBtIU5
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7c3b6e8225dso1656129137.2
+        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 20:50:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792986646; x=1793591446; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792986641; x=1793591441; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
-        b=mYIvmp5wECYYvMDZf41j2R2/KfUaGiHZ0cJTaJ4SLSUJmeqMe0GZDgYXe2Ur0oJNT9
-         nOypD0wdgTfp5sFviC635S18S6MIP5w1gljJcgMZbZdCbMVdL5T9fVn59DmqqRC2Z3Jm
-         LYshMTCF2xqTM1H1gjEnm8AywpeaEKQwP/YBlZ+OgqU8+R2K8XlVcZFFo1g5tJCeAt2f
-         sVWIl3a53rXf2ELQmM3Ma3nXr7EZDF6PlwCX3AawAcO1SWH9HCoRu1QkWXOFAabaqpof
-         1RhV1BbRKTA1JLHNLzJSvs/DmV8CaW6Zl/JzfTbrW3Z8FXyVr3eh/gOaeJ6sQHoi4jTQ
-         6D4w==
+        bh=q2QE+OZptzDZGsYhruEEL20JBe+99WFrn4g7yRcm+wU=;
+        b=cxhBtIU5tn+qytGiM+Kmu4TfoPBsXWL1lUl484rWOdnlmx6Qjrna7WQxq6S9R2tiWP
+         nsDPPjv5BBxr2BOv3tX+mdQNN/soKE+uT18AaMl6Z/f7L6CyFHCLNCWUjOEMaoao/hg8
+         9xXi51QNL/4BakMjUUfN1Ue+gHX7nICWrEYaaY8M2N6kIdrHkUgUuY01iONu5aTG7vUY
+         T7MRCupXvrC54I2moXMHY1ipqFkA8d3boTrU4RO7k2gQca0pqLDimogEuWUzCiVfTKC8
+         rKbD3qaU4pKnXGemRZl5ai5cj71yRt94FApVAakKhTMcylJXcFpKEz7Qx1iRaLULZ7na
+         fI3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792986646; x=1793591446;
+        d=1e100.net; s=20260707; t=1792986641; x=1793591441;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LyunzqwHw2ujd9p9tjO94L4AIVA1AivXZoC8iBdB2fw=;
-        b=DxiEpJ56stv0MLeE9JO8FP7zZYO2lY2jyxwkL6DblvxE8ISi18JIgbIbtGDWKiROR3
-         DzGBUxG7hTqGWI8lODcTHnWxIan5aQXBJElBOvYdTvdgfvlXX8/U1C+jxL6icaKz4Cg1
-         Ul2q3pnnHCMTBNMj8ISdysLwzidPaoJ8TxsBNXMb7ybkFj97TEtBwCeUC6ngAdfYgY5F
-         e+HfAtjWjYjMCua2cvqMANFkbJuQ3eeGcfcUBb7UO+coyQtZ6xWBKTW/N0DHOxpwhgLR
-         dPFTFbXy1d3wYMUZwDc4Gba24FpMjOjluRfJTPMrPViRpAy9j9j+vcFOvmUascXGaS8r
-         XU/A==
-X-Gm-Message-State: AFq9FYLNMHeZ3LkngJdjUA/WI4ttpm3H82Z+4xagy4sDD13UaOci7TfY
-	7Ft1BqqY9eAldITHzXgh8Uf7zzDHROTcfIhKlTQr+mhLSTBIOqcMaNZKUK109aWb
-X-Gm-Gg: AYBFou0MV415j8nU7V12FMsRDpFdXD41/JQ1d74Y3J3FUXetgKVhtGXbYJ7EP4a0+Pt
-	TqbE7Io68yvzgasbVtV8u/Bu0lZaDQrzL4JJVjGITkLqEOba6nNyYp2oi1xBzH0DNaK6sjuZIuD
-	PqX7DLlWBmtWdICFbmQhvX76awkGUP/FWz754HYKpJUi54z5FDLqxzFNL0NIBvfyjYqYrhaXAgT
-	Au9KtlC3b/KichHaqKMf7i1sf9SheVnZSgpCZckG77gdZ6zYehIZJt3fFjRK6OvsNwrmPQ5TgLz
-	i/+YAu+IKtaWAT+hlcc+rWwP+yYqIVcdApEm/NGALGTie0fxx7/ro5dqndi+5vZVWEnKp63EXkD
-	IeDtqs4lah4yZbpXkqyvUFBFNINcAfnfNFYvV9TDyPaEfNQJHVzGVuqKs2HaVlHtT0r/OsLlcaE
-	/pI0FEzivYaCI9Mi2wlb9glCykj80Nvft61Sb416gop4QcdWF/rZecuB4Kx/7P7b3ebXU+ytdr/
-	6TRdQcgz3E3EMJHpK59fYI4/eJzfh0JZUGIWYCiQLdw0Q6N1BnefgbQAknu+6CfIceeWxlH8jRp
-	lYRT6DvzJn+i1YvUtGrL
-X-Received: by 2002:a05:6102:41a7:b0:7c3:874d:60bb with SMTP id ada2fe7eead31-7ce5d232f57mr1075228137.5.1792986645785;
-        Sun, 25 Oct 2026 20:50:45 -0700 (PDT)
+        bh=q2QE+OZptzDZGsYhruEEL20JBe+99WFrn4g7yRcm+wU=;
+        b=JI3SHeTqeaCQ0av68e7ahGWET4tNTJPD90FNuBXheyzxuuIk2BRMXk/eYpSMk/HcG/
+         +ypwuElOslFk5+bWBiBKFAAZemwvOArluX5jr65+6ZU/JQSJMdAWqp8p9B6ksibzWXGE
+         iqzvJkuyDm5LBbDbo0rOuSSS632DMuJAEXNbRjGI6r1kPE+yKs25ruis3ecBoLki6pFQ
+         M+iRaGsj6B8urYEQvob/UAbvRYAl2/hocD3uZIDjq6BHjdASjsmICgvhXCYbo5MUywOj
+         BIyDb3V0nGa+J7cM7yjWBO86WXb8MdON1TKFne5Ehn9c+4VCrvVwKSwqo7WOMBvlzkGx
+         r5CQ==
+X-Gm-Message-State: AFq9FYLCqI39x+hCQ4cFE3bY95zJ+RkS3AKJvv5+iGcV8+G3gAoCY+ih
+	Q0d33nylouhvsQj+kTVB43pR5HZi2imWMFimGi0NBKr4tQoA/i9MX0cs0mgMVAyg
+X-Gm-Gg: AYBFou3dQeypgcI3uYhOKRysyaDej4YzydbpXIqRch+3+GkOy0Fth+7LH2LXtiuPCMc
+	jXmF9YrPs96tMOHuh0x6Nl9wKjhBFo3OKhUfGQiMRbqdPRzRroU+LPOHJWBwuPhRUufT8MQQ227
+	oxD2WCX08wc8mFbHU+Fsvkw+AGn9x8DPAne7wVaca+4w9ae0JXdos83tfTNeHDt7WhhsXCiHzHQ
+	M7IGetFLAgE/cxaO4mM8YxGmapRLNOFylvHbdziq4CiPD34sK3NH2Rwp+qTlwdVIhrFNuXR7tbt
+	thzon1vJy9/7RryKCucpPOVgaBTOlWCc6K+BFBAiIuFxSaEi/JGmfjTlUKKHx6NUGd1NyyfdKBv
+	bKdkP6RsPi2aW0ZtdYx2sn4Ig8d3VJUhqzDRUPDpiLB6z2jMN8Sn5hg54yR+NtO7arR1d848BS5
+	kUYwgPXdPpAlYSke360Rnf+RaJsvgjUZDEmizRMNafMydSjeiiTM6aeXk0b+l95FwgT1KyAGgp6
+	Py5JJdqd7bRi+knlpJfdphc6LU9Xn3j5kjjFqc5JskTARMdVWLKwrsM1wdyNQqEvBcxQRuCP5hq
+	xqaS6DJCEH+vh6q7iBOU
+X-Received: by 2002:a05:6102:2b83:b0:7cc:2946:7f80 with SMTP id ada2fe7eead31-7ce5cec77eamr1900572137.35.1792986641275;
+        Sun, 25 Oct 2026 20:50:41 -0700 (PDT)
 Received: from archsung (187-126-110-245.user3p.vtal.net.br. [187.126.110.245])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.41
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ce5e2baf56sm6140100137.11.2026.10.25.20.50.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 20:50:44 -0700 (PDT)
+        Sun, 25 Oct 2026 20:50:40 -0700 (PDT)
 From: Felipe Calliari <calliarifelipe@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -88,9 +88,9 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-kernel@vger.kernel.org,
 	Felipe Calliari <calliarifelipe@gmail.com>,
 	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: [PATCH v4 2/5] media: ov02c10: Implement get_selection
-Date: Mon, 26 Oct 2026 00:50:12 -0300
-Message-ID: <20261026035015.110903-3-calliarifelipe@gmail.com>
+Subject: [PATCH v4 1/5] media: ov02c10: Drop duplicate register write
+Date: Mon, 26 Oct 2026 00:50:11 -0300
+Message-ID: <20261026035015.110903-2-calliarifelipe@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261026035015.110903-1-calliarifelipe@gmail.com>
 References: <20260923234100.318151-1-calliarifelipe@gmail.com>
@@ -106,94 +106,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver does not implement .get_selection, so userspace cannot query
-the sensor's native size or active crop rectangle. libcamera reports
-"Unable to get rectangle N on pad 0/0: Inappropriate ioctl for device"
-and "The sensor kernel driver needs to be fixed" (see libcamera's
-Documentation/sensor_driver_requirements.rst).
-
-Implement .get_selection returning the fixed geometry of the sensor:
-
- - V4L2_SEL_TGT_NATIVE_SIZE / V4L2_SEL_TGT_CROP_BOUNDS: the full
-   1928x1092 pixel array.
- - V4L2_SEL_TGT_CROP / V4L2_SEL_TGT_CROP_DEFAULT: the 1920x1080 active
-   area, centred in the 1928x1092 output size programmed in
-   sensor_1928x1092_30fps_setting[] (registers 0x3808-0x380b), i.e.
-   offset by (4, 6).
-
-The crop is fixed, so sd_state is not consulted.
+sensor_1928x1092_30fps_setting[] writes {0x395f, 0x00} twice in a row.
+The second write is redundant; drop it. No functional change.
 
 Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
 Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Tested-by: Mars-Wave <tmorolias@gmail.com> # Samsung Galaxy Book3 Pro NP960XFG (github.com/MarsWave)
 ---
- drivers/media/i2c/ov02c10.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ drivers/media/i2c/ov02c10.c | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index 80edd025c..e24cd8705 100644
+index 8ffe0a07e..80edd025c 100644
 --- a/drivers/media/i2c/ov02c10.c
 +++ b/drivers/media/i2c/ov02c10.c
-@@ -10,6 +10,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- #include <media/v4l2-cci.h>
-+#include <media/v4l2-common.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
-@@ -18,6 +19,13 @@
- #define OV02C10_MCLK			19200000
- #define OV02C10_RGB_DEPTH		10
- 
-+#define OV02C10_NATIVE_WIDTH		1928
-+#define OV02C10_NATIVE_HEIGHT		1092
-+#define OV02C10_ACTIVE_WIDTH		1920
-+#define OV02C10_ACTIVE_HEIGHT		1080
-+#define OV02C10_ACTIVE_LEFT		4
-+#define OV02C10_ACTIVE_TOP		6
-+
- #define OV02C10_REG_CHIP_ID		CCI_REG24(0x300a)
- #define OV02C10_CHIP_ID			0x560243
- 
-@@ -768,11 +776,37 @@ static const struct v4l2_subdev_video_ops ov02c10_video_ops = {
- 	.s_stream = v4l2_subdev_s_stream_helper,
- };
- 
-+static int ov02c10_get_selection(struct v4l2_subdev *sd,
-+				 const struct v4l2_subdev_client_info *ci,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.top = 0;
-+		sel->r.left = 0;
-+		sel->r.width = OV02C10_NATIVE_WIDTH;
-+		sel->r.height = OV02C10_NATIVE_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP:
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+		sel->r.top = OV02C10_ACTIVE_TOP;
-+		sel->r.left = OV02C10_ACTIVE_LEFT;
-+		sel->r.width = OV02C10_ACTIVE_WIDTH;
-+		sel->r.height = OV02C10_ACTIVE_HEIGHT;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct v4l2_subdev_pad_ops ov02c10_pad_ops = {
- 	.set_fmt = ov02c10_set_format,
- 	.get_fmt = v4l2_subdev_get_fmt,
- 	.enum_mbus_code = ov02c10_enum_mbus_code,
- 	.enum_frame_size = ov02c10_enum_frame_size,
-+	.get_selection = ov02c10_get_selection,
- 	.enable_streams = ov02c10_enable_streams,
- 	.disable_streams = ov02c10_disable_streams,
- };
+@@ -209,7 +209,6 @@ static const struct reg_sequence sensor_1928x1092_30fps_setting[] = {
+ 	{0x395d, 0x05},
+ 	{0x395e, 0x02},
+ 	{0x395f, 0x00},
+-	{0x395f, 0x00},
+ 	{0x3960, 0x00},
+ 	{0x3961, 0x00},
+ 	{0x3962, 0x00},
 -- 
 2.56.0
 
