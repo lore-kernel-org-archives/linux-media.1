@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793053890;
-	b=n3+eXi0n/X8fYpY+He1ZKjuSRx+5jnOxdhPwTMWFCHVbzdmmlGfuUc4mE/G7Rzt6/mKS
-	 WG1+0gRD9UXAafpbOUayMVx82G8ypiXgV1/vVzU30RpC+6V/ZR6BvJa1M2Anq0JaTbAyR
-	 KrYpjDhhWOZtb5oX7+q0A4Rai9P+E0jVPnrIkv7i1OZVhMTXUPRUGRWHOPpuxvXtlxdrD
-	 Wu6rDxh/Wc5oSdtGLvfxx8WWXmhl7NHSgypMZQBSL4thdynKLvvvNHdD6ic9I9otyfDcw
-	 Hvk7DHN8Ibs3QzxLZjI4DYv9XtzJoivRueLLIoR2qWAtBZ7vCduT/0pO2UycGKIN4Fw==
+	t=1793054357;
+	b=g3iVQrqSO2J50mhdhTVksU2mOUp5en9w1sygvtiOa46UnbNdO6f2tbYvspk0O1WE6xIJ
+	 hC3XExHoKiFdcJHcoov0wI6tptDB3do6iQJfbL8jDVBaStWX3grbEcYok1wiFyKiPURnc
+	 q6p2FIzKD0iBwa8d8x+syhxCQIj11QEUIpIEFb7OwaBy0MhU7zAsD8s+bCk6Eexw2RAc5
+	 bDR1FdUfrfKrlaHBktGDH+f6DXQaWLINz76qXf2XKhC9wdjYlJdgVNyDu3icRv92X8bq+
+	 XkZvtBgnvaSdXKPYoDzFYu+/WRoIZjYkOVq//jkQZrMJgwm4ybcAILv0Hkp5pwyvsjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793053890;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793054357;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bm7pxB9Xf4alx215LCgrX0zaAVDW0Og4H2ZZv6R0v+4=;
-	b=mBYYC0nfSyrtkbz0eOT5hifPeTheJUBYYU2vUcclQbmcvumFqEW4Lkj+RBg73OB7WOAE
-	 VQFNLcsQ7jBG9v0QyD2rU5lPf4w0Dg8qlCoUNeJ1E4iXNFDc5qffDrRsyyyPjf64iEKMy
-	 G/xgFHkegnGpEjeVdE/znb4r5zqHpbN2SkMq6sZ9IRmf6Y6Y8KL9NEWettRXlnJxkNhBZ
-	 pWwoRB/qcwdnXbCGD8rkKyekSfnkxhHCTgxayoATFcD0w/kqL5sRwYONGVoe7EXSkhejl
-	 DMnSqUiRGqJqA7HQ2Jf/EKR5vOcnPE/Jo3G89NKbQOqmESvFtQsVA72P8elid0/1nrQ==
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=A1eR4A/QNGx4Y3JbfvLkzgmkQj82YlIwsgDeUWzBzZc=;
+	b=c076crNE2dkRpET8uaY+Q9FOQ6/XgYe00R/LGuncC6bt7+AIswTT+b8NsBbfx8HnAlbZ
+	 zDITcJHiJiP8FjETbya2bSle2/dpjgS0U76KZlpTAXfRQXJxn3QK/zJtBmjc5AnkupXEi
+	 bP3PcALXehql+v3Khh0zmXPes6NvhhcdK/gkc3obGai775HTd4AAygCbQer06fNZe36pR
+	 AGEplEf4j9XnxOAKrL3QnD7xD8r1FfnsjLYEiV3ukTud6ftR2mMKPcKjEGUlGMa6i3bbv
+	 yC+qjF22euwqM7qzCSla8XsFzk5L6nmLoyDJdun8kh7MdmH09LFCcoJvBgRbbiu2Wlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IElEfE0B;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUX9S7YR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8182606A31D;
-	Mon, 26 Oct 2026 22:31:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68F0606A31A;
+	Mon, 26 Oct 2026 22:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IElEfE0B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3EC11F01825;
-	Mon, 26 Oct 2026 22:31:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PUX9S7YR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFC381F01829;
+	Mon, 26 Oct 2026 22:39:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793053889;
-	bh=bm7pxB9Xf4alx215LCgrX0zaAVDW0Og4H2ZZv6R0v+4=;
+	s=k20260515; t=1793054356;
+	bh=A1eR4A/QNGx4Y3JbfvLkzgmkQj82YlIwsgDeUWzBzZc=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IElEfE0BdHc2/HJOZuPaa7j68zJlv5I3F0d6PLZRRyVW5KS68tgMSruFdMp35j8w7
-	 7DENCwZq+B4tPLsJskvIZdc9vzQT5ApUh96OAqFnLs4G7+t4W5eS4LxahT31UDgAAr
-	 VwMvgGN87eKTU5bpJEXo/k0uZ72ScMe+2OB+diELbSFrEr6rcfb1iagvvsMyoX83EF
-	 hLcTe/fjVrmIdI873caQpVRlj7V+VJSX3BSj6p3U1nJKJ6svciBjAbex7b2BnQSIbk
-	 VkhNqtVxylN5VR93ep8FjAeE4od4kAuDoYYU0iFVQ7mQnl7t9cc6Qd3KLCZsGrLkZ9
-	 fnlxf1JtCQq4w==
-Message-ID: <36201ae2-1cee-4d8d-9381-dfc9013c522e@kernel.org>
-Date: Mon, 26 Oct 2026 22:31:26 +0000
+	b=PUX9S7YRj/qhqjUPrrVxXucchCSKzIfyOnLi1ZgqVBHqJy6FOi7Hqoa3/yAQK8BBY
+	 4+WXC61g5wYSclM1etoWPajx7FqMnH3i03PuFoOlxsa5dMSVPCbKm3ashx94dzCyHf
+	 4Id6H1oZBqwuxoeP2KEF3FKEkYTyALJtsB/io0r7dZZ/CC34RZcvHQtTG1JVOJLoev
+	 c/dNQsPnvd7CsFDLufIOITFCEIVy8+XwZHFxR0+FWgX8aNXXxBrs2pQOIDMzxpKhUn
+	 2y0q4fdvKHMz3oC3WMHMRiA/GcUHM8spzQSyejcwS4MgqGfQMQQTRC6OqC4qRoRzgT
+	 B69yH0CzYJlIQ==
+Message-ID: <378094fb-5f7f-42c6-a91f-158e2083a6cb@kernel.org>
+Date: Tue, 27 Oct 2026 00:38:57 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,90 +52,273 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG] media: iris: resolution change handling stops ffmpeg's
- h264_v4l2m2m decoder on glymur
-To: Christian Cortner <ccortner@gmail.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, Birk Skyum <birk.skyum@pm.me>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <NKVWOXEaC2RjmCRG3wt6Y-1_CZxSqp_rpkiLIJV8xQg9k4sZGi5C2lZ4oIQ0qsI-Fk-wDDfmYsiCOiqKaDFnzQ==@protonmail.internalid>
- <20261026160952.22082-1-ccortner@gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
- jedMQEmHoeDbJ6UOpjbrUQ63c5sgG1JbroHJJctwsEI75OOlekMuebEbjIJBLfgENGwPBMHv
- piv5TgCWr0VgYaXfp2eh2LINFywzqj823HiDPibQAXDrjzvF1ogksi/6cQZs8d4if8YQkLOr
- YISFouG+eR0nN1I7mUfIddXOWu6lJeTyqbWVurv58k2ekIXKaOC9ixLHFbcfYV0hOgRaTwQC
- B8CYF9nfqZla19iItfsN9QxN+ZdQjcRoYipp6HPCMfJlKH7GfaFcW93LKc4DKJ2lVL+pg/OQ
- lythZbjRPY492NG9kZ65aYstCs90uhMUEVVPuGUw7wBEku+6IEwZfrbMVKeWzLlPyM4Hv9hM
- 8ktxSmxWsPTPqpBC8eyeAQLalMELAyVcZlkaCtEcbj7w4l/JkYz+4l37obG8ZD+B34udBUUz
- MsAJ8foDFrBh2MOFA3hxD6G90D23mmWsri7pnKA2tZs92aQX7Ee+FbCyg6g5ln62Sq83ZDbf
- 53DdBs55EVpBadeInWmXhzCHPQx06H+CwTEjShTYIaMmBfrewvYUDKvFTC5iKQhAEUgt6i94
- JsbG7NoeqcxkUMcBOEUQ3uCQG1D70ugspgXc0wd3Rimiq6535wARAQABzSFCcnlhbiBPJ0Rv
- bm9naHVlIDxib2RAa2VybmVsLm9yZz7CwZEEEwEIADsWIQTmk/sqq6Nt4Rerb7QicTuzoY3I
- OgUCZ+R+mwIbAwULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRAicTuzoY3IOimUD/94
- BwVEJX31JRe2sxbB/e1w2p8x1bxvTw5AeIzpV3ox7coJg1bSU2mnGuj1V4o0Yxf/3zmcJzCN
- VfVjwRF8Ii3GnC7uUXk2t+87piQfKTyJAYQABhZUKgoVJbjJq/S+C3XCKIyBA+EiezoUsgsA
- jTzwU+FzV7zVWIXFPJNtBERLwboE9w9U3KjAExOa1kSY8eLrsg6kOwlOHWy5UsQqYOjrS96M
- mzm2xuc1+RCjrndAyYhCnrOKvJ67HsPnBeJCjw7ImGD/U1GchwYbX8o3DO3JNHm3qfC86ZqX
- 2sCouENg4OzgPTtLKUrueM6xsu6KMM7gj17vxsiR3KQEoJnnMB8D1xtBofN3mFZE0wD9M24m
- 8yGunZbtntMCUHzIrlJgAPwKWKuGOYtA8UgMTFkccnUJtQrg9KotKtEF/FuftG9zLG9XEkt4
- 5ZdNgbSoLWgelu3T47mbOJ8LHhiLaCWP7yrovtVAvLUQ1BsiA42u8ECrFCFvQj9nrejE/ICv
- kP+uqcKtdDvP9HrIGycF1WZyfZLp0RvopKW92FLvI4I1QFWJ+wenk6+LGyJ5bzlrWzevjxmf
- nHcXE6sJBHrE7eijlbbImDAi3uLYN8Nd9Dm11IDAy4GAIQxSiQn0yblDhPiyGtchy80EVkCm
- g9k17Wol+2E2mC4DKgVdCkyUtTRSLgsJCs7BTQRkSTUoARAAuTnmWHBS6izRcEE93ajpzI7h
- dgQO4U3IRvOEsvIKR5NGcNEs0ngGebwsZ/lVULjN4vYU0LleqVhPBidNXUoZCN3A0F0Z2Ov8
- NZdef+2EhQPBVWxFO7JBzhe8Z3ALj+wFtlg8akJjBzU56azW/iJzAobqHVrudzKoO2b1/CMg
- VbiAQ+RXjgfN5kY/HqYDU7mw+hXuUV9PbtX1L8xqQQac95oM9rHzKHHpiVwxTeJnGQsa+THi
- Kze+YET3rCoGHMvOQEJhdrucTv5FpAakKdkOFNel9FFckLRKEuWgCzhpFsjQ7xbirQgFUxG9
- vlk1+q4hMRGNyEqoD6svYEeqbiUSd0oPUJeioiC3rNMRCNHLVrfZ2J6SCPkxfda08uzSdDQU
- 1/YPjOh8ZtQDMu7WctZ3XO288Z1gyBR49V7fbFs2w4sQxG+h/enlxqP7fdw1mjUlZjU5huCJ
- ielS0oEaIpmUpkugli7x4WhwLnhK2EbSoz7nLBC0y+ALUOdMlz/Y1l9xRt+bkDhpmf4O4IcI
- MxgZ0QMLq8rHDkGaEbsgZZHQPS58T0XE3IP30Q9SNxsruCMXtd2hYtBssf/wohc6JVsTtMg2
- VYTPDPIFNZFSXupEJB7jlqpDWJ8ooJfJRLBatbjT5+mVQaMYB7Hs/t+zWYWaJKHyc8O6WLEC
- NUV5Tdt5EkkAEQEAAcLBdgQYAQoAIBYhBOaT+yqro23hF6tvtCJxO7Ohjcg6BQJkSTUoAhsM
- AAoJECJxO7Ohjcg6LuIQALnXt36OUuK43wqw6UYt0cnN6EbUqJHApAF5eNFn0jCCB2XELjSz
- JKJwuNAweowBdabiBniJ+501WIW+ewEsz1uby5fUQjZuCEsIkuaIluyfUFPb73qrQyAGuusd
- 7teA4WT+/jUku9g7lX5sVoRCrKQPkd16f6Bzfztyqyjcn43/X5yQI+wlboQ6HuKe/3I3yiOx
- OgmCHzOawpC9PvhEcKj79RLM3Zz5Ts5AuHpRX70Jz8Be76LwVFLp5Msx3S24ZTU1lBo2uiJ3
- xSkay2lTpyVWRPx9vgcwzxGguOPJQJwsQeLb7wpoJMPpD3ERoaRii7Q7hvmxklpZjhKYWB3d
- t6nQ497Ek9loCrp3MIjRCSDN5xEGffiHks9yTeGMUQwO4tX8RE04uOJPkUY7uCFzFqN6/qey
- X3oFfPgkULMdiHofPAL1OskZSTzGPSfTYRE46NCJw8yoZBQ/oOyWeqaUQbK0wmW/g81wm8p7
- LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
- 3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
- Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261026160952.22082-1-ccortner@gmail.com>
+Subject: Re: [PATCH 4/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vz@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261023163057.775917-1-vz@kernel.org>
+ <20261023163057.775917-5-vz@kernel.org>
+ <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
+From: Vladimir Zapolskiy <vz@kernel.org>
+In-Reply-To: <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26/10/2026 16:09, Christian Cortner wrote:
-> Hi,
+Hi Loic.
+
+On 10/26/26 18:32, Loic Poulain wrote:
+> On Fri, Oct 23, 2026 at 6:31 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
+>>
+>> Add Qualcomm Waipio CAMSS device tree node to the platform dtsi file,
+>> the CAMSS input ports are connected to output ports of CSIPHY devices.
+>>
+>> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+>> ---
+>>   arch/arm64/boot/dts/qcom/sm8450.dtsi | 167 +++++++++++++++++++++++++++
+>>   1 file changed, 167 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> index babf1a4196a1..7f5b0501a23e 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> @@ -3310,6 +3310,167 @@ cci1_i2c1: i2c-bus@1 {
+>>                          };
+>>                  };
+>>
+>> +               camss: isp@acb6000 {
+>> +                       compatible = "qcom,waipio-camss";
+>> +                       reg = <0 0xacb6000 0 0x1000>,
+>> +                             <0 0xacb7000 0 0x1000>,
+>> +                             <0 0xacb9000 0 0x1000>,
+>> +                             <0 0xacbb000 0 0x1000>,
+>> +                             <0 0xacc6000 0 0x1000>,
+>> +                             <0 0xacca000 0 0x1000>,
+>> +                             <0 0xacf6000 0 0x1000>,
+>> +                             <0 0xacf7000 0 0x1000>,
+>> +                             <0 0xacf8000 0 0x1000>,
+>> +                             <0 0xac62000 0 0x3000>,
+>> +                             <0 0xac71000 0 0x3000>,
+>> +                             <0 0xac80000 0 0x3000>,
+>> +                             <0 0xacc7000 0 0x2000>,
+>> +                             <0 0xaccb000 0 0x2000>;
+>> +                       reg-names = "csid_wrapper",
+>> +                                   "csid0",
+>> +                                   "csid1",
+>> +                                   "csid2",
+>> +                                   "csid_lite0",
+>> +                                   "csid_lite1",
+>> +                                   "tpg0",
+>> +                                   "tpg1",
+>> +                                   "tpg2",
+>> +                                   "vfe0",
+>> +                                   "vfe1",
+>> +                                   "vfe2",
+>> +                                   "vfe_lite0",
+>> +                                   "vfe_lite1";
 > 
-> On an ASUS Zenbook A16 (UX3607OA, Snapdragon X2 Elite / glymur),
-> ffmpeg's h264_v4l2m2m decoder outputs one corrupted frame and stops,
-> on every stream I tried. GStreamer's V4L2 decoders work. Below are the
-> two driver behaviours behind it (1 and 2), two more that stop ffmpeg
-> at a resolution change in the middle of a stream (3 and 4), and an
-> inconsistent CAPTURE format that ffmpeg happens to avoid (5).
-> 
-> I'm not a kernel developer. I tracked this down with an AI coding
-> assistant (Claude, by Anthropic): it traced the driver, wrote a small
-> V4L2 test client and tried changes to the driver. Everything below was
-> run on this laptop, and each local change described made its problem
-> go away here. I can't review or defend kernel patches myself, so I'm
-> reporting the problems instead of sending fixes, but I'm glad to test
-> patches on this machine.
+> Is there a camss "top" register to describe here? e.g. to retrieve the
+> CAMSS hardware version.
 
-Err thanks for the bug report but, if you have a test-case and a 
-resolution - even of the code sucks and/or you don't understand it, 
-please post the code.
+I'm not aware of anything like that. What is "CAMSS hardware version"?
 
-One of us can take up the task of finishing it off.
+CAMSS embraces various blocks, there are CSID and VFE, full and lite
+IPs, and all these components do export their versions individually.
 
-After all we are burning down the rainforest for this stuff so no sense 
-in wasting the already spent compute time and power.
+>> +                       clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+>> +                                <&camcc CAM_CC_CORE_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_0_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_1_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_2_CLK>,
+>> +                                <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
+>> +                                <&camcc CAM_CC_CSID_CLK>,
+>> +                                <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
+>> +                                <&gcc GCC_CAMERA_HF_AXI_CLK>,
+>> +                                <&camcc CAM_CC_IFE_0_CLK>,
+>> +                                <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_1_CLK>,
+>> +                                <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_2_CLK>,
+>> +                                <&camcc CAM_CC_IFE_2_FAST_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
+>> +                                <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
+>> +                       clock-names = "camnoc_axi",
+>> +                                     "core_ahb",
+>> +                                     "cpas_ahb",
+>> +                                     "cpas_fast_ahb",
+>> +                                     "cpas_vfe0",
+>> +                                     "cpas_vfe1",
+>> +                                     "cpas_vfe2",
+>> +                                     "cpas_vfe_lite",
+>> +                                     "csid",
+>> +                                     "csiphy_rx",
+>> +                                     "gcc_hf_axi",
+>> +                                     "vfe0",
+>> +                                     "vfe0_fast_ahb",
+>> +                                     "vfe1",
+>> +                                     "vfe1_fast_ahb",
+>> +                                     "vfe2",
+>> +                                     "vfe2_fast_ahb",
+>> +                                     "vfe_lite",
+>> +                                     "vfe_lite_ahb",
+>> +                                     "vfe_lite_cphy_rx",
+>> +                                     "vfe_lite_csid";
+>> +                       interrupts = <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 640 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 468 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 467 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 641 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 469 IRQ_TYPE_EDGE_RISING>,
+>> +                                    <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>;
+>> +                       interrupt-names = "csid0",
+>> +                                         "csid1",
+>> +                                         "csid2",
+>> +                                         "csid_lite0",
+>> +                                         "csid_lite1",
+>> +                                         "vfe0",
+>> +                                         "vfe1",
+>> +                                         "vfe2",
+>> +                                         "vfe_lite0",
+>> +                                         "vfe_lite1";
+>> +                       interconnects = <&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_CAMERA_CFG 0>,
+>> +                                       <&mmss_noc MASTER_CAMNOC_HF 0 &mc_virt SLAVE_EBI1 0>;
+>> +                       interconnect-names = "ahb",
+>> +                                            "hf_mnoc";
+>> +                       iommus = <&apps_smmu 0x800 0x460>;
+>> +                       power-domains = <&camcc IFE_0_GDSC>,
+>> +                                       <&camcc IFE_1_GDSC>,
+>> +                                       <&camcc IFE_2_GDSC>,
+>> +                                       <&camcc TITAN_TOP_GDSC>;
+>> +                       power-domain-names = "ife0",
+>> +                                            "ife1",
+>> +                                            "ife2",
+>> +                                            "top";
+>> +                       status = "disabled";
+>> +
+>> +                       ports {
+>> +                               #address-cells = <1>;
+>> +                               #size-cells = <0>;
+>> +
+>> +                               port@0 {
+>> +                                       reg = <0>;
+>> +
+>> +                                       camss_csiphy0_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy0_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@1 {
+>> +                                       reg = <1>;
+>> +
+>> +                                       camss_csiphy1_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy1_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@2 {
+>> +                                       reg = <2>;
+>> +
+>> +                                       camss_csiphy2_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy2_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@3 {
+>> +                                       reg = <3>;
+>> +
+>> +                                       camss_csiphy3_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy3_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@4 {
+>> +                                       reg = <4>;
+>> +
+>> +                                       camss_csiphy4_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy4_out_ep>;
+>> +                                       };
+>> +                               };
+>> +
+>> +                               port@5 {
+>> +                                       reg = <5>;
+>> +
+>> +                                       camss_csiphy5_inep: endpoint {
+>> +                                               remote-endpoint = <&csiphy5_out_ep>;
+>> +                                       };
+>> +                               };
+>> +                       };
+>> +               };
+>> +
+>>                  csiphy0: phy@ace4000 {
+>>                          compatible = "qcom,waipio-csi2-phy", "qcom,x1e80100-csi2-phy";
+>>                          reg = <0 0x0ace4000 0 0x2000>;
+>> @@ -3349,6 +3510,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy0_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy0_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3393,6 +3555,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy1_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy1_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3437,6 +3600,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy2_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy2_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3481,6 +3645,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy3_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy3_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3525,6 +3690,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy4_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy4_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> @@ -3569,6 +3735,7 @@ port@1 {
+>>                                          reg = <1>;
+>>
+>>                                          csiphy5_out_ep: endpoint {
+>> +                                               remote-endpoint = <&camss_csiphy5_inep>;
+>>                                          };
+>>                                  };
+>>                          };
+>> --
+>> 2.53.0
+>>
 
----
-bod
+-- 
+Best wishes,
+Vladimir
