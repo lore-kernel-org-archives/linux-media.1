@@ -1,85 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005732;
-	b=4S7ehOqgR7yuIE2oTPZBgGW1d+/aHCIP9CyJA35bweYjasx8qhlvQTFWzP0NVElpol1R
-	 6QILi272GgMUQkOabbAMeEUUNq42EFZOhRhr5nz1oay6V7WBmq1TBkLFrQM/a2ilQWA4A
-	 htd9HKLtWFwHr8lrXDJpvz/KtlOhq/n0GCC9qx6phRs1z37spp2kKjLN6METbNb2l8UML
-	 FC6wegdv+Lms6dbNP2niEpw9osVeU8wgVYEuy+vzewXvRpFbamrxhQ06CeSLgA4MEOlKF
-	 q6BYXgwAjF7kGyHc3iDqav+sZF9Fdk4hZrRPYG1HY6PpNDC1ulrIc0pTpC3SOite4bg==
+	t=1793005978;
+	b=os+B6QOU79RE4dvMubPzc7YNr/u0eZ2tPzvpyGwRljqt6ESldSkt4dF2ECIxkYldLwFz
+	 pBtsSw2Szaze/+TqjSA3bDhVMobiEIF8IvXMH+gON6SE7C17QIU7orCuR8EYZG5FDBGSP
+	 fNdEaBWhUkPfRHYoAXT7JJQ+E8EahN0UDCZlDuhFctr/3NouEteMZHIIqu3ap4ad2TfhK
+	 yvJYcyqlIoM9h13bURj/LxHwBPzqlfyJ/0Gzh4efqeZEAPTjLrCSmno/XFQWwoIY5h4LS
+	 xxGEXErhnrHCKjPgBOM5T0h2Nnjc9IdXBY3CzyJeEBqRalhkhyD6ZhaICj1KBdRqK6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005732;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005978;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=1lFx2w6bCJuej2RXH2wzPTTzm/dZdmmNeuWWjCPk8mY=;
-	b=xRuKZPg9yupU50sUydZl93J6jGhGRl0J8c6hI+iumBtCrEJoLzZdvu71WzwrbZ5k+dHE
-	 sRWeZrjDmO97frYruF7oigJTveCqdZ9TMEVTHPBuOfzchz1+uJmFCAthfJkMYIXXqOYcQ
-	 n5D7tQXaPThugXT/apiZFriNXyipBU2c/t8bsrtstibjjdyzfIYa7VfdPBeqFbW/BUP1K
-	 Pm1AEgkUKX7u1omr4JUDraT3nl6+8SujvTDwf2CEp9awL+TLf7YTF9472L4Q4qYhRL5VH
-	 +OKSS10P5NOJEpx1/UkPjhkmneLos96a0riXJ+3nNlllwuRRLNbpBXCOKgpZHeyTpHA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=jOqGr+4VH9N6GlKfGmUukDwomZHNdNuh4F7gexUqV3o=;
+	b=ViPG18IUF6XiH4TnzzTG9oIpumH91HKqPJ2nWPMD/+COkISYZ0ZOwsNjzovAtn5ia5yT
+	 7GMYjHq+NiihG9E/5fuBAuXBni/4x6U9K5Lm3ZzXJY2af1QEmC7Xeinq4Bkf0oLdfEt25
+	 buUNZVZ6ywVvCn7+z7SROC14IpCKCPhAwZBEqNah/cbV7EWM2sZgXtPaqizR7Yy1LdNU0
+	 RxYzHSAj5AVTdQ9pwkAI1i8hQ6+gAoIXY9505Idjszv+ikVkGDPCxcyrGQQTWqp0djXTG
+	 obaxwhV62Z/2xNHiUyUZMzprBisxYP69sW7qAZgSNLI8t+FB3Wyn4v9xyS1h9epSHhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=X2OOUp+A;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mdS8MSbe;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBAD606A31F
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 09:08:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBBAD606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2781606A31B
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 09:12:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2781606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=X2OOUp+A
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48e47347279so732705f8f.1
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 02:08:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mdS8MSbe
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso2027988e87.3
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 02:12:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793005730; x=1793610530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1lFx2w6bCJuej2RXH2wzPTTzm/dZdmmNeuWWjCPk8mY=;
-        b=X2OOUp+A02CXDZvu8A20i0A6Kra8e4XDde7P4W/y8Ml4B6cdCfBkSSZbeRW9XJ7pfi
-         nf1zLDFqoX0M1m5ST91pY3FVF0iZ+yXj92VKjKXpuv2aFa5fX4+KSHpSwjTnhmmkzQN9
-         LYM0Wx72tHCgBnmCr2VjuVhsdL6lYkzKHBVImzyDavyCD6owRdMEIY7o1EP4oHiCywgl
-         ky1O+qCDd16rZJTLbn3RmrEt3mRNpANDxIAcT9uZeEzNE1NqyVQHZT3vfhMxKeJ0ybRN
-         ci+LCHoJ+iRHmcuKntLk0ExEcVJfSZBGBWq3+VGeMBX7qnIO+KUxtXnFSexb814dyljs
-         isng==
+        d=gmail.com; s=20251104; t=1793005976; x=1793610776; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jOqGr+4VH9N6GlKfGmUukDwomZHNdNuh4F7gexUqV3o=;
+        b=mdS8MSbeYI79Muy+hJjnohCiVzSsynw2fmRAW/u/+UoxVkZ14F/CcNqAKNShTqhGwF
+         ji09kpzPhi+LR54m7vTSN1y9TNALdGiFNyfR6k+nCf+Ig4fyU93hG9+19FapsNW++ocR
+         R2NkqLW0yfLAx6UOOtcX87auL0mz13gb9WjZ0WZ47gVUDvT3Axt6aoFgTZIYI3Z+UbKk
+         U8AedD3NUq+8V3S/BIDYyntISSzP5DaJPEAoQ0I8HgraJrofQSNWaPN9zhP+baerHjOK
+         WgmyV+txIAEMOo8/S7HX8KpPzy/xpHzr0NCFymi029ENv5IVlh5t83auDG9BzkSh5SD5
+         AD8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005730; x=1793610530;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793005976; x=1793610776;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1lFx2w6bCJuej2RXH2wzPTTzm/dZdmmNeuWWjCPk8mY=;
-        b=R474Nl+dQaOGWaNvk7eXlg0o9115UT5HXFSLK24GflGhkjSRXm7fGUiRgW1E4FN1pk
-         GVQ0FVgQV0gzSHhXaziZ4syAiOEvDcDZVt9AwFm3Y+DMvvEyfJTfvrOHTIye6a901mZq
-         rANkxRLJiQg2BYo0RqWWERFTKVBlWoCvOh+Flmx08XPa+XtlysEfEcsGH0Wptuhi6bmR
-         2iE8tios/g4Ujiv97jCL+WPIC8LrRC/zjV4btULQ33Av61xCa+emzhPhVwae5eAZTnio
-         4zNyvXFYo7vI3w7IKMbymLaCNnu3mNAbRxFo2JOgCZTOtgZEWjKWM8cuYRn+bfXiFJCm
-         4ytg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3quGcDC6Z3KQYTr9dnDQlJuHsE/5yumU5kWLdvsGph0MnpWL5EsSMGdgDbwtkFwgOARs7LNCXLedqSA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+FQ2bRoovydYSzwAIvb3KMz2RIQKO8TpV6TdgV8EPPDAguE6K
-	nbdkkGuKCW522A9IM/QAykv26sZcqvAeroyZ6Cifqex/wGHJem+dtPCvRj4wE8+XTAY=
-X-Gm-Gg: AYBFou31mszp6zsfCWJglorktMlL/6vYpMlazgRHkEbXrZHW66+MHn1DBx9SYduwf6m
-	THKs4XDRpn9XHsLxqNS6K4l+c2lYR0wkw7tXXyB+5cYZiccIOjpFZq/9wACkleZQiHQoDqfKRiC
-	LIMUjlY5QNFsSticTrWKdq4f/6+qmm/VeJB/oImhmLipEqfXNS3OWcYP39lTYPyvE7G2p967IlZ
-	r7irQtB7QFU5Gru14oGr2RWWJNmbqhDlCKda5Et7L3LaNqSfHVx85/eMHxWU/No1CjBmk4WVzP5
-	5ZYFGI0/H1uaQvXlEi3E88T2H2QG/aSSwW92kkyX9bZQNBrnzUGR7ex2Grg8Wh2rxHzA0ein9I1
-	l84aTEf/Q8ew+jvPxf9e7DXSpLVRvH30umQjnGo525au1xqnQUy75cAz9AUIzoCyosvVWTRLPgd
-	1go+ImT7mRDHgjgRluzoTUw26n1t4Q7eamwWBd7ymnQd7BRRjbrpKpLQs/Q83BNqS+b/5erK86C
-	8aBLm197tAYYzkeGmcWo7hFIeo7TWqXpP1QEMKleL7+PJa/tlmLntwSja1qt7hyOGg=
-X-Received: by 2002:a05:6000:2312:b0:48d:ee59:3a30 with SMTP id ffacd0b85a97d-48e3eb8b4c5mr11452297f8f.22.1793005730243;
-        Mon, 26 Oct 2026 02:08:50 -0700 (PDT)
-Received: from [192.168.0.167] ([64.43.151.16])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece13aasm14118984f8f.58.2026.10.26.02.08.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 02:08:49 -0700 (PDT)
-Message-ID: <2665de15-dea8-493e-9a24-1c12cd9eda3f@linaro.org>
-Date: Mon, 26 Oct 2026 09:08:48 +0000
+        bh=jOqGr+4VH9N6GlKfGmUukDwomZHNdNuh4F7gexUqV3o=;
+        b=rv34QPXVd9qRNJ9gOF7Ybwwx7LYiQJ+2ThOcpiwz/6OmlTNa3wMCpLnMWf8mmthc6O
+         Jq4E9xdGUaA5IPeDL20YPmEsYgml9lnAHIN+jCeNu8Cb9UYZFuB2LtC0ixV9nP+RuLHu
+         1oPAl/KOhbWpwR/DLVuyBMnbS61Zmf16zb4AjLoRW0/Eb6XU/2XwBLQ/2HLQoPjMKFOZ
+         PQBxQ/Nk0+CILM90qR+rAR8hmTikUE0ltIkH0+pesMzhTMzZXH3p4XRaFYhnt3iZecwu
+         pQWcJL4wJwmPxi7+0X6+eZp5IPIDreb7Kx3cvvmBcR+ZCMpr2rtf3KDdFdaA1XCnX122
+         V9cA==
+X-Forwarded-Encrypted: i=1; AKwUvBz9Sq6SHBXDceYPQyd/6LXUN+s4FXI2ds/3+MyZPnadX3fLA9JpVq/haIj2z796nukBuKPFMAotq2hRRQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIAfMRSq7lLcms2Su9p8q3FRTghdchCYdFL7NnzPYhoK9NC62wa
+	/g2ngJfaYUlIie61BAAut811iIRiDm5IShAH58iTXvwwDmotuUQrZJMZGkV9cw==
+X-Gm-Gg: AYBFou2HsAGsWS6scPiegFnnqjyPtTkmAtVG3Hldxyv2g8MgNFnA/BB9mu5+RvuhUq1
+	ouckP8ADT1jE6f0nBfjMLPyPT+ouZkXHs6Av1lBYHZnFyYLKFCJl3kyc/K09qRApWagMNQMrRLv
+	28qpx+8yAv/WekoYDmsxILv/X7rY1hy+gsfMNF9wcF95WLShVTuFZb3XE5s2NpUQ/4D4IVUqbeh
+	J1RkdsL5VH2COOfLQFUjBxUJ+5QjCVHCG9LM2kI0gMqp6+klqJqlGe6ln8F2zHOLcX6rpHTGBlQ
+	sqik3MIc7svaDhfF0SpMHwAUnx8/wmPLXJIdfuEVSwaPDqDLSaitxbf+kDyCZ2z6xT6Jfuh8DCB
+	AA9NRoJBRc18eOMSwIgGddQ3HjyYoUUqvh+m0E+L6qNhnSQOi1kN7N6g4Bi/qi6pCmnRLb+ahVj
+	U3UDknkKJyoM/EjpX/xaTihfzOJXbPys9J8qfm1PnwqkN7NLjeoPemJcBytHRFuGFLWUcAhiaP+
+	kv02WSVLJ6c55jFZZUMe8BqYhVqCr83BCBOXZQAyCzH75gUmPolwuOR56/uYi6B6sH/7EO0IBku
+	lL6gxPnqGux7LV+RtnJ1DGV1+Ddq
+X-Received: by 2002:a05:6512:39c7:b0:5bf:b14f:beb6 with SMTP id 2adb3069b0e04-5bfb71ceab6mr1969582e87.55.1793005975522;
+        Mon, 26 Oct 2026 02:12:55 -0700 (PDT)
+Received: from quietus.tail91f8a6.ts.net (ppp91-79-33-192.pppoe.mtu-net.ru. [91.79.33.192])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac708ba9c0sm14694951fa.5.2026.10.26.02.12.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 02:12:55 -0700 (PDT)
+From: Ruslan Koreev <koreev.r@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dan Scally <dan.scally@ideasonboard.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Rillian Grant <rillian.grant@gmail.com>,
+	linux-media@vger.kernel.org
+Subject: media: ipu-bridge: lifetime of retained software-node properties
+Date: Mon, 26 Oct 2026 12:12:52 +0300
+Message-ID: <20261026091252.676350-1-koreev.r@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,38 +97,25 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/6] media: qcom: camss: sm8250: do not set VFE core
- clock rates from CSID
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com>
- <eGhL2aGIqxBFBKgd68g6t_m4p17F_a0I12V3BQjSCuOQ0HisGBIC1n8Oh4dIXGvyIEEJBQptPK1TAGQpg_ik1Q==@protonmail.internalid>
- <20261024094027.3095475-4-atanas.filipov@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261024094027.3095475-4-atanas.filipov@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24/10/2026 10:40, Atanas Filipov wrote:
-> The SM8250 CSID resources list clock levels for the VFE core clocks and
-> for the shared VFE Lite core clock. CSID power on runs after the VFE is
-> powered on and sets these clocks to their lowest level, overriding the
-> rate selected by the VFE from the pixel rate and lowering the shared
-> VFE Lite clock under a running VFE Lite.
-> 
-> The VFE core clocks are set by the VFE. Drop their levels from the CSID
-> resources so that CSID only enables them.
-> 
-> Fixes: b4436a18eedb ("media: camss: add support for SM8250 camss")
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Hi Sakari, Dan,
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+While moving the LM3643 board description into ipu-bridge, I noticed an
+existing property lifetime issue in media next d7e7bca71698.
+
+The bridge deliberately keeps its software-node graph after module unload,
+but link-frequencies still points at cfg->link_freqs in module storage.
+The lens-focus property name is also a module string literal.
+software_node_register() retains these pointers without copying them.
+
+This predates my local flash integration, whose new nodes own their backing
+storage. This finding is from source review; I have not yet tested unloading
+a populated sensor graph.
+
+I propose a separate media fix that copies the remaining names and values
+into graph-owned storage, with a VM unload/reload test. Would you prefer
+that as a prerequisite to the flash integration, or handled independently?
+
+Regards,
+Ruslan
