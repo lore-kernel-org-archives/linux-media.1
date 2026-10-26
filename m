@@ -1,97 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.183.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792999072;
-	b=nulLcAKX10BxPQStkxgvd9DQd3Sv3JevEJCxP79Qn0M2fOMk+vRFNCaQf+Uv1CX7Y14B
-	 nnRNM2ErRGTP1swf7gmclF0nLmh2137FPm4enR+xv/TPjUjw6Bo52BWUKrBc07EMaTQJX
-	 b+oHnnbJRxpOooeOyaMg6bWc6EO8aMIr5TnThTtl9niM8Ido6HwNU4y/87I8vz0Ome65j
-	 kf91FX9/U09TB3Tjt69HWITqiQM9o7IHmK1HDkiTnk1Lf3KB/kFSgWp4CK550qXqpeR5x
-	 0OEIKjGoTuf/4p+uJIaY0cf8jtvUgcpHBDfyx3QE+LyvHNPGudQtqINhaXnrzEp+wCw==
+	t=1792999601;
+	b=XcCb6BzBX3oH7dHjEXrcGx6Gi3GCys4HU7oNl2MXB0/WoTsQE0cRG/wVV53bXDKFpj+E
+	 qx5YP0qS4XuNCdpzZR82bjkS2Bsz/REKnpMeThqHykF8iMVuKrN4Zi4jSIFHP/7AAXOKK
+	 BOAOAgdOro85Hen14cBHE/66TTiLvR7wVe4QxcA96i5oXP06cT8ZmyNYqZI79ZGlEsxI0
+	 7O6V4AfBG3/8fDwtqc5eCWtudsolnbeoFaxk2O1K2ZTTRZo8rGwciv7i/AqwhGhNJHe/S
+	 SVvzJD3wKEZsTYhesQBpmbovpOYo9CklRUAac3LcwL7Vg4f3MIv2yYl5Uq3AMX4m1WA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792999072;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
-	b=A4Z+E5oByo8fPltjt4qQ8SGA/Ra2zH7EhbMMYrWT34DochPg7JmZElX4jkZ5nBqewXRI
-	 rhHdF5yCCGXOIs0mgzKLDX6wPT4yEU4ZFyOBIFHJd3rhs2xMFhPvbyAqk9XziExaEUYbi
-	 JaV+q0/vN6iTku6s8xCLcs/72hSgP+04jhLFroAvaIS8BMobHQvhY52HAJSGYkFYVA9zJ
-	 elTbGD/fYJOiP/VrGMx/jL21pQfPkNHakLOTTrwGTaUI/omK6KexXg6LKSi9a+3hZMO3I
-	 64Wxoi+eCOvD4I8wOTysk2SGYXGof7EfGdjZ0P5GEiY6lwDOeofaOc1yTHq4niXfDlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792999601;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:References:Content-Language:From:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Reinject:
+	 X-Sony-BusinessRelay-GUID:X-Proofpoint-Virus-Version:
+	 X-Sony-EdgeRelay-GUID:X-Proofpoint-Virus-Version:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Sony-Outbound-GUID:X-Proofpoint-Virus-Version;
+	bh=AFUnvlpbXFqyS33UGnzfMDgJVdmL9eYWCVMHJOFuv0I=;
+	b=k2LEaPgvwRZ9p8PQxJ0BJxdHYJf/FKzZDjo0n+0D05orEPYmR7TsijMs8URVlVL9/sDH
+	 lyYKtL74QqsKLVzMvnjRaAmauQdJok29al/DScYSgp8uTWLyGZh/oob8ptoXz7+kXDrGg
+	 FtJ44Bg7M+Nz9rmY26WIvWAFZoDfcAiTYiPFW/PR/JgcCzIFAEtoOV+mir/0frHbT2fh8
+	 Wu4uBGhegSkhipv2kM+81Yj1MAWMs564shNW2CpRBgjwabadEfEqzWKMrkKifPO/oia0L
+	 rosNA9C2LKQkIqeVHYPaFCnFVA/YayeqDNxe27dVA+X9x42xK1ekJJ3RKUB6DR0Ucaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0tFNOOj;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=sony.com;
+	spf=pass smtp.mailfrom=sony.com;
+	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=BZiT5XVV;
+	arc=none smtp.remote-ip=185.132.183.11
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C4A606A31F
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 07:17:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0C4A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8EA4606A321;
+	Mon, 26 Oct 2026 07:26:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8EA4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0tFNOOj
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1576233f8f.1
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 00:17:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792999070; x=1793603870; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
-        b=g0tFNOOjjbxDQCczODTc2/oN+MH7WTPjugxRyVbZvu7hhjD4oR6htskt9tZ04lnHQ5
-         j6xMvY+MaoG54zOuQlymxac93Iup9ePkEzBdVpBzgA3TIkxQIhy3ueSKlsp3rogCK73o
-         yIOBxqPRwo1H7pGB4hNC10LtqOdmQXe9y20ResPNlsNsx/I7u3BNQeUFQHk2/Ue2HGNo
-         RNww6MIHIurU08kMVUaGji7BZiV/SCN0uY1CKK9mVZHpG+v4nNsKg5axjl6e5M9Vc9zw
-         wVpOhsA++vZgPf6AFNIcTtqvGpENwyeJQ7f8liL/eDh0bwPKNDRThKpe6gihKgwwHG7D
-         vIXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792999070; x=1793603870;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
-        b=X4ax31jH55Qjq9IkT9OukkFU43feLUAQoxv6ZJ6pLTAxHCVk+ZI4koivoVSXWmbErG
-         Uf2r0A4fo3sK6kJkQhScbTBR8uRN3ssvmwCU9Px/rebQiiFoExtxQz02CEvR3WKAFUjb
-         0jNI6yheDjRJLOlcc4LHq7CBpbxZcgBK5XhLhja3/MWJ3tEOCs0mzz8EQi8/CQ55K2q0
-         KnhoNTl8H07WX/COhGJaWZjOZ8b7DVwElo/1Qkgqjp2ZsCKmsvEmk4IMi1KSTZWToeZ8
-         yRMKdg3oi0+2WDgWrzv2c8mjtjzFpJj5nbpjm/Jndo7jjC9ctzIH/aA45f/ZItAqauBH
-         RwpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwK+nbpHlfIP3Fjd28uLe+Bv2YPgEStcNkJ2dTIoVfhFnqnROAbcV8JRGjXNIZvgSx0ORklGRh2ufqIA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuyVvrvQTCO65FiqoavM0lM8lIAZLFkz9usSnHySJUu1cOgvJt
-	AS6gD6G1pQimOXgpLBXEOmCL43xy1RSHOEea0+gqIRC3H8Dws1iqC4te
-X-Gm-Gg: AYBFou0Ih9gvWdv0rTgIUDaTxGp8HzTQy1WjOUQqAXcb+xYN5VLmzV4K/U/JUm7SP02
-	YXocwmAIJ59GmG0DfabSyVYIrqBPzIlQlAL2jwe/p+o0YY1qab6OzicWcNaRHz15OV7+FhzUgl8
-	jg/KiGROTAad5OmDQwi7qh45505UXl+Yi6ac64sDe75w0r+FdC+Mmw86zPOcnQbjkOYaMNnlboT
-	mKTfFsXO3O+/SMWaTd9gXUtwxfG8UwOIdg0VxLQJUMWpGDdYVAC7zSstSLULoFNCgSn4TPmqGOo
-	Nn2jy1UzZ09V7CpPIPw6TWvnOghpDKu/ETcPrsxiK9cnM040QdVoXk12V2fpCnC3TWD88xmUA4U
-	HMAnS2gdgRhA4xh6VYy5rud3ThsjdtOpu7XYeF2xfXmpdoxyZLTriqKD03zL9JLTFbkfDV8C3oL
-	nFUj8nl+5WlRVxV+Q9iyOopXP0ye8S4jRgG5CEQdPaJ/XAsIyGkY5fjFqqcP79HIsn2l7F4fvao
-	GUvqPusazW3orjDT50pmAVstPjKmYpVHGnYnz4Rrv+UVjebvEBvvSMuhQj4M+PX9gWhjLXFTih+
-	pMdDFJoYM5idOEklXjLg2dBzgvYVvq3aAGcim9ZLoZF1MqhxjofEYmus2EJmnqWQe1OIDsm5aFP
-	SAwTLMT7U9oS046vE0kqnFuyEa9tLNeyF+rougVM0PWeGtQ7Bi2gXomJjDOcLUrzP7Q==
-X-Received: by 2002:a05:6000:41c3:b0:48e:f07:160e with SMTP id ffacd0b85a97d-48e3eb98eeemr9291878f8f.38.1792999069985;
-        Mon, 26 Oct 2026 00:17:49 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-b1a4-1201-5c78-89f4-99d8-70d7.310.pool.telefonica.de. [2a02:3100:b1a4:1201:5c78:89f4:99d8:70d7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3932sm15758606f8f.18.2026.10.26.00.17.48
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 26 Oct 2026 00:17:48 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Tomasz Figa <tfiga@chromium.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
-Date: Mon, 26 Oct 2026 08:17:35 +0100
-Message-Id: <20261026071735.37220-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=BZiT5XVV
+Received: from pps.filterd (m0209325.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q5sVt92996882;
+	Mon, 26 Oct 2026 07:26:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=p1; bh=AFUnvlp
+	bXFqyS33UGnzfMDgJVdmL9eYWCVMHJOFuv0I=; b=BZiT5XVVqKjsh17HOr4ZEK8
+	y5IrW7DywoSAAbpV4X2T4OGbhSv+E7nEIRpxnnoPYnEgd/xIBFvy+3+2Smnzvo+T
+	a44PiR44xQoOyy7BslIv45nQHLsVRf7/+Ume81ThRQO6ROZdwdAR03SnGzQXTPyF
+	QCUFENiOW9BQMepbnypQpmHmBsDjSWl98zVB55xCL/bKOi0uQX/lKNw/7EtVC4u+
+	C/g0Klooco3QCN2F9iJrDvSF9y0Rrx078X81QwEP8bWVAML63dyC+CZfAp9SSc6l
+	MoOAFaFkaZvyGcVMLB19DP8SjV+OUgPbpsRnSA0+Rol8rMhuyUrEgiJG+ImKNHw=
+	=
+Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hghwvj9jv-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Mon, 26 Oct 2026 07:26:15 +0000 (GMT)
+Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69Q6cNpe445353;
+	Mon, 26 Oct 2026 07:26:13 GMT
+Received: from sgppsba03v.s.gdce.sony.com.sg ([146.215.113.220])
+	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4hgnrgux62-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 26 Oct 2026 07:26:13 +0000 (GMT)
+Received: from pps.filterd (SGPPSBA03v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBA03v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69Q7DltO967194;
+	Mon, 26 Oct 2026 07:26:13 GMT
+Received: from [43.3.250.71] ([146.215.113.251])
+	by SGPPSBA03v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4hgnrhyan0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
+	Mon, 26 Oct 2026 07:26:13 +0000 (GMT)
+Message-ID: <aeedc823-5a9a-4e0c-9eca-76f9febb3741@sony.com>
+Date: Mon, 26 Oct 2026 16:26:11 +0900
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,154 +81,97 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, mchehab@kernel.org,
+        hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+        jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+        Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+        Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+References: <20261019014720.2635-1-lachlan.michael@sony.com>
+ <20261019014720.2635-3-lachlan.michael@sony.com>
+ <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+ <20261020125630.GA158670@killaraus.ideasonboard.com>
+ <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
+ <atiogo14sCFw4xlT@kekkonen.localdomain>
+ <20261021120521.GA273922@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Lachlan Michael <Lachlan.Michael@sony.com>
+Organization: Sony Semiconductor Solutions Corporation
+In-Reply-To: <20261021120521.GA273922@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Sony-BusinessRelay-GUID: OxqiAX1NmJULmJrJhFBFcJVRBycvA7hF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Sony-EdgeRelay-GUID: yMI1RC_2Z46wLYiYECb-RTNHrn_oSeod
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-GUID: e8iEukfIBZE8msmOGAG-bArREIN7JLKy
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyOSBTYWx0ZWRfX3gDr8ZjzChRr
+ x2aeEYAatARbGyNmZS8agLwIjyoRrfnp5IknwGRtS41/G8Ez+tVy6Qr9Qm4wQRYTiQhYo3urxRV
+ sRn1aSPrSK2UoBJX6nzD7pV64N8eeCZMYle1TQ19O9tfUiWr97qG
+X-Authority-Analysis: v=2.4 cv=AMzCycPh c=1 sm=1 tr=0 ts=6adf0097 cx=c_pps
+ a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=KAb5x4SsHD3PzxGk7EmX:22 a=FGjXJT7Bex8XaPnzAX5M:22 a=P8T2m7VJcMaW70c5MUQA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyOSBTYWx0ZWRfX2VhOn64qAnUd
+ 2a/5LekgplyTjj6LuucoQ1eJu8S9ssKOdvkTjOOTf4RsrRIPabndW69shm27YsQ8RmzfGBhyU51
+ ue7aYE1P/DhQF+YG1PSCuY0ywCADCjmD1YbTr1VZLguozu0yNtNbPXZYPec4vBUwQKFEM26N0qF
+ 6VDdJiftUgQ/mvljkrN+htGMelKI/ZQPEQgCq1fZGEidvQ2yxiZjPogZFwuQQvFrA3Mc5vn0P6m
+ Slw5fXtzjI6fGlcn+NX8gIDYjuOckq0Dr7T+83XLw8AtTQMwrM6c5BTHH7QhGBZxegjqWuedGvk
+ WKY+baonl6VKCJdyfhmWslMcH3lOlJBjsBeLIBkGwj4Vteiv46cR340HPC8yOurCrSmeJfmV0fD
+ YgNSyt1Z7Q9mj5rZmBGjJxxwH0CsRjRxsoWzHp8pOpI5lB9mdAjK1iHffwFrnxU7ovAMp2pDW18
+ VUoRpK9NX8wV2yqjLKw==
+X-Proofpoint-ORIG-GUID: e8iEukfIBZE8msmOGAG-bArREIN7JLKy
+X-Sony-Outbound-GUID: e8iEukfIBZE8msmOGAG-bArREIN7JLKy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
 
-VIDIOC_PREPARE_BUF leaves a buffer DEQUEUED after calling buf_prepare()
-and the prepare() memory operation. VIDIOC_REMOVE_BUFS accepts that state
-but frees the buffer without calling the matching finish operations.
+Laurent, Sakari,
 
-With VIDEO_ADV_DEBUG, vivid reports:
+On 10/21/2026 9:05 PM, Laurent Pinchart wrote:
+> On Wed, Oct 21, 2026 at 02:56:50PM +0300, Sakari Ailus wrote:
+>> On Tue, Oct 20, 2026 at 03:50:09PM +0100, Dave Stevenson wrote:
+>>> On Tue, 20 Oct 2026 at 13:56, Laurent Pinchart wrote:
+>>>> On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
 
-  unbalanced counters for queue 000000009fa716f8, buffer 0:
-       buf_prepare: 1 buf_finish: 0
-       prepare: 1 finish: 0
+>>> I have compared the datasheet for imx908 against the Starvis2 ones,
+>>> and when we start looking at HDR modes they diverge a reasonable
+>>> amount.
+>>>
+>>> Even the later Starvis2 sensors (IMX585 and IMX676) have minor changes
+>>> to the earlier ones, so adding Starvis3 would need some care.
+>>
+>> There's quite a bit of this in the CCS driver, due to the variance it
+>> allows for implementors. I don't see this being a problem as long as the
+>> foundations are reasonably similar, albeit we can see whether this could be
+>> further extended later on to other sensors.
+>>
+>> I'm fine with having a separate imx908 driver for now. Dave's driver also
+>> exposes the variant information through the media entity name so that
+>> should be done by the imx908, too (at least if there can be multiple ones).
+> 
+> As far as I understand, the IMX908 does not have a mono version.
+> Lachlan, could you please confirm that ?
 
-Factor the per-buffer cancellation tail out of __vb2_queue_cancel() into
-__vb2_buf_cancel() and call it from vb2_core_remove_bufs() after the
-range check, so prepared buffers are finished and reinitialized before
-being freed.
+I checked with the developers and there is no mono version.
 
-Fixes: a3293a85381e ("media: v4l2: Add REMOVE_BUFS ioctl")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-v2:
-  - Factor the per-buffer cancellation tail out of __vb2_queue_cancel()
-    into __vb2_buf_cancel() and call it from vb2_core_remove_bufs()
-    after the range check (Tomasz Figa).
-  - Send standalone ahead of the rest of the series while the cache-API
-    questions on patches 2-4 are resolved:
-    https://lore.kernel.org/r/20261019063401.3674-2-kmehltretter@gmail.com/
+>> I'll review the driver properly soonish but I reckon it's in a pretty good
+>> shape already.
 
- .../media/common/videobuf2/videobuf2-core.c   | 88 ++++++++++---------
- 1 file changed, 47 insertions(+), 41 deletions(-)
+Thanks. Appreciate your patience with us.
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index b0a6084f17573..29e539ee002e9 100644
---- a/drivers/media/common/videobuf2/videobuf2-core.c
-+++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -1717,6 +1717,46 @@ int vb2_core_prepare_buf(struct vb2_queue *q, struct vb2_buffer *vb, void *pb)
- }
- EXPORT_SYMBOL_GPL(vb2_core_prepare_buf);
- 
-+static void __vb2_buf_cancel(struct vb2_buffer *vb)
-+{
-+	struct media_request *req = vb->req_obj.req;
-+
-+	/*
-+	 * If a request is associated with this buffer, then
-+	 * call buf_request_cancel() to give the driver to complete()
-+	 * related request objects. Otherwise those objects would
-+	 * never complete.
-+	 */
-+	if (req) {
-+		enum media_request_state state;
-+		unsigned long flags;
-+
-+		spin_lock_irqsave(&req->lock, flags);
-+		state = req->state;
-+		spin_unlock_irqrestore(&req->lock, flags);
-+
-+		if (state == MEDIA_REQUEST_STATE_QUEUED)
-+			call_void_vb_qop(vb, buf_request_complete, vb);
-+	}
-+
-+	__vb2_buf_mem_finish(vb);
-+
-+	if (vb->prepared) {
-+		call_void_vb_qop(vb, buf_finish, vb);
-+		vb->prepared = 0;
-+	}
-+	__vb2_dqbuf(vb);
-+
-+	if (vb->req_obj.req) {
-+		media_request_object_unbind(&vb->req_obj);
-+		media_request_object_put(&vb->req_obj);
-+	}
-+	if (vb->request)
-+		media_request_put(vb->request);
-+	vb->request = NULL;
-+	vb->copied_timestamp = 0;
-+}
-+
- int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int count)
- {
- 	unsigned int i, ret = 0;
-@@ -1746,6 +1786,10 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int c
- 			goto unlock;
- 		}
- 	}
-+
-+	for (i = start; i < start + count; i++)
-+		__vb2_buf_cancel(vb2_get_buffer(q, i));
-+
- 	__vb2_queue_free(q, start, count);
- 	dprintk(q, 2, "%u buffers removed\n", count);
- 
-@@ -2253,48 +2297,10 @@ static void __vb2_queue_cancel(struct vb2_queue *q)
- 	 * be changed, so we can't move the buf_finish() to __vb2_dqbuf().
- 	 */
- 	for (i = 0; i < q->max_num_buffers; i++) {
--		struct vb2_buffer *vb;
--		struct media_request *req;
--
--		vb = vb2_get_buffer(q, i);
--		if (!vb)
--			continue;
--
--		req = vb->req_obj.req;
--		/*
--		 * If a request is associated with this buffer, then
--		 * call buf_request_cancel() to give the driver to complete()
--		 * related request objects. Otherwise those objects would
--		 * never complete.
--		 */
--		if (req) {
--			enum media_request_state state;
--			unsigned long flags;
--
--			spin_lock_irqsave(&req->lock, flags);
--			state = req->state;
--			spin_unlock_irqrestore(&req->lock, flags);
--
--			if (state == MEDIA_REQUEST_STATE_QUEUED)
--				call_void_vb_qop(vb, buf_request_complete, vb);
--		}
--
--		__vb2_buf_mem_finish(vb);
--
--		if (vb->prepared) {
--			call_void_vb_qop(vb, buf_finish, vb);
--			vb->prepared = 0;
--		}
--		__vb2_dqbuf(vb);
-+		struct vb2_buffer *vb = vb2_get_buffer(q, i);
- 
--		if (vb->req_obj.req) {
--			media_request_object_unbind(&vb->req_obj);
--			media_request_object_put(&vb->req_obj);
--		}
--		if (vb->request)
--			media_request_put(vb->request);
--		vb->request = NULL;
--		vb->copied_timestamp = 0;
-+		if (vb)
-+			__vb2_buf_cancel(vb);
- 	}
- }
- 
+Best Regards,
 
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.39.5 (Apple Git-154)
+Lachlan
 
