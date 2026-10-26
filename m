@@ -1,54 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793023593;
-	b=c2hSoE4a0XYMSo0zDR/VFNJVZaoQiXfey1O/P+umi2Gi5vtHSveKzTju+p8EvOcvltf6
-	 UVD7/DD/Iz8xX3c4QfBPWnnYdh2Uh1GBt/zOcqHUyErIDWm6JVXwrBNSyWoxrDbVZ9PPY
-	 RVF8LkLS3W0TBigaardoUi8bI2wtDl9sxhzdst7IrWI26GbwzvHV73m5j8paMc/ufH7me
-	 QFxpf3+ctcD5I4vpDoNLfnVBqTyKKMicb4m4LxMMcQ/NGzesBKxKUzmT19uhulOpVm6LU
-	 xL9fwF3RXjl/CNrh5QkkdQY34C99R2s01t4bTrSEII1J+Gp2o69kmlMWFLW0HpDBaQw==
+	t=1793023764;
+	b=y/4kKJT+XBQw6vH8Uu8A0/1BCqNXIJ5UH0JUYFRLJhJhGeAiBZUyWoTBT1/lZtp0qHhi
+	 Tv9O3tIZhtThVU5eRGcjcEaevR6JfahpEdlMhwt7Jkc45A7peEHOViHSivpgAEFgL3sgx
+	 y3VkwkV0s9GbzC+aIJpmeaf2KnPKyjkIifVqCc0N+lByHrYVBjlthvdzr/G614dorsxJ+
+	 fvlc5M+pqcsgijP0fUeCulySz/9Jc0ZIkaN1wG/B92ikzDHiqsbHz2Ud0qxgKoQCMXMu+
+	 zY5dtmZa6FRIoeCCxNXEdeAOrBT6xtyugRAQkhoRhlp9vhg0ihjq5MGfCF05tpU2N9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793023593;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=HmrH/TGWyb0rSuPIo9zqb3R5Gwa7ppDeLL7nHFi+ICE=;
-	b=LoX3mNMOkXmpBw11ZWuoaDyOni5QzN/NmzgzUAeqmYzsTPQfa0Jt+Shl8+QmjRRCqNrA
-	 aWcdffyu3/UknQbdc89B9r8J4f4MfT6Whix24EdNyeNGVj02Ho7cabNoj4+680h2k6SGt
-	 eYRRGfY1LwEzLWiXXi7y/775MHJQmUgJdiENYkT2A2uK+1EdX2IY+puxocUjTj0RLFNnw
-	 zmQ6cl5GGvLNARhkXXbMoMF+hhDGMvJ4E4ZadgUIVtwNXLoRbBbQ/CCqwTby1RmN85edR
-	 1E1UfqYgU+6ufctEon9XXNimN/S0TJg5KUm9OOK8KQg6WOeTDJ1tQ162fJ4GZQEePmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793023764;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=;
+	b=gNmyI4QDZ+u8FVxIXrtkjanPdQ3CquOBSFQPSVJWnuUgdO0tBg/v3sp+VcYAMfW4YgFD
+	 op9u4ksoowxEU+CnEO2h0KxoQXQOSM75beOIn2GSqRVCBgfmYaoF1pIve+QQXlT0mcoL9
+	 tKnm0AFngph27v6uKU1CuS5hej7PT+9DWE92n57SyB/jSh8OKz6V1ib6RJAI1PEXXJkYf
+	 SRAfjNHPul46J37uEdxrnCezFvDzekhX+uQUFBH03fe5idI+1CfW/yWPLquNlLWfFwGwF
+	 jPzst9yGuN2q/kQ+3bjdx73CY/sMMPWhKxxClTnyoTX4F0GHafWOk/snZYwf9eUTzhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4DFD3606A31D;
-	Mon, 26 Oct 2026 14:06:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DFD3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aUcMW0tU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Owk7BbBn;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B82C606A31D
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 14:09:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B82C606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aUcMW0tU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Owk7BbBn
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt1ND3562295
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 14:09:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=; b=aUcMW0tUHWN8HD1W
+	dpe1Bn6fpeQNb3U7MLe1+zdH/rGccWVqU+ga8nwyjOnD4at0YsDtHtIOmGUdA29o
+	BUgmkfZ5bIn+xsqujuniL9U4ku9o2N+Z8u6HfFabm6Pa3f2AM05l+Q6fwvzFuAWf
+	ZeQTNutR++4ilP/3IBmIN56q/LKITodwHih4/EIpBjgsX9fo1XP/iwN/DCNndISE
+	M/JSu93FuyH7PQABjBC4beCuBMwVpvgSLFj3RZhFT1a8GHir6PNaqlKCjIkfdkO2
+	gYRanFWHxQyqe83KBybbi7vLKFruTs3vVulAfWfYi3rrPgiBTPbh8SiCAwPC5n5P
+	jqyCDA==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hj4s90xe8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 14:09:22 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5eabddbb650so55942e0c.0
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 07:09:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=HmrH/TGWyb
-	0rSuPIo9zqb3R5Gwa7ppDeLL7nHFi+ICE=; b=aFidpKlotDxiog9KDJ1un9przG
-	1e0TStCYVEFGUzcU9G3EqAfArsOZaGbIBXi3kuxczun1V6sGNLqI1k+HyXsJEIJK
-	69tKStdQ98t0BwQjdfM14CSjsz3chvlUb0Ur5naqDGBe2jpyTx8EvCP7VX7jeDbD
-	pIirDfYYNcoJ/3UiI=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.126])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkA2fQJaXt9q6ezpAA--.6916S2;
-	Mon, 26 Oct 2026 22:06:18 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v2] media: dvb-core: prevent frontend thread resurrection after unregister
-Date: Mon, 26 Oct 2026 22:06:18 +0800
-Message-Id: <20261026140618.20173-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=oss.qualcomm.com; s=google; t=1793023762; x=1793628562; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=;
+        b=Owk7BbBnazj/kmdfpqpodZNHpb+hi5whsWKvGo384vGRXqp0Po4sVkSwDdGN8wUe2r
+         rMicgKiGMI4lHMM3fwEfg6+qMYyM+OnEd0QTnGEu77EtPIpQ3MMx/n0OmwcjT0ZlY2q4
+         7pemx4QjXR01qIWB15jyoZyKHTbGsETyXymF9qhpxrN9Z61x/D9g5GcTO/fMKRFgDlZ7
+         U9UdVZMMe4p5ugAXSJnaI25MGrV/C32ZMUa6xO1POug/uerYjM3CT1Dm0BXLDrOQ/ICh
+         31D4pPM62EHLhro36vJ0Mr3Ao8LQaP1E5n5Og19VPH79y8K3bE4JAgOq19bKeLQJ5xjT
+         FqCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793023762; x=1793628562;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kjExBJFPJ8m4Vc88gOC9yuQ0s1tBLMjZRS5SoMRwaFI=;
+        b=oNqlH0w0UDpXgZGrObK1TWfuJnD4pA4Eoj7YRtqDpV4NE1p+2Ln5OKH17JK2f55tb4
+         QOsU5c3wd2Ui+rJgPTxrAONvuDyOBHgAcLxpQPAbAIYh5OxWwk3Pv0w5ZZjbje6m33PE
+         NTvK6OfJu7bX92pdqfBk9OYCQtDnU32ao9xxMOhKgp2TB5kzd6wRL2/63Uy3x3AVTcA7
+         1U1e6ThvRbbfwez8oV0vFHSJ5fwl6Bv30mowcG2EmCCOAoeQsMu5a6QHHMYcaKvYCvrk
+         3OezJDK5poyNu0y7/c8ZKz/d7ckDUdIXV6dTUj7CfCK8aklYqvPY2Qp2mQL1bxOGK0/Q
+         8FOw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqc8JYLwtZ0Ya1GA18NFDj/qAYFTa2MBKtUMXinAipTORS1doi87Yy3P1U8Xpk2p4/KqkJJ1xRetWrxQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1O6DFDYJax2TGv8FtppNdaEYB7rzaGBEh52LSsPamle061mVY
+	5uFtO5UzBVvgR2S9ueCsD6OkHWXM7diMazAa54I6tBwUduMUsqYzZfL9QXV0LiNe6HjMMRmF9eA
+	sOQgLz4LP0HQzQH1Gk0WvIodj26/JXT8qHwj432demyozSUyYRNMBrCCe9s0PbYNeLA==
+X-Gm-Gg: AYBFou1gSviybGcyMn8X8BnlljJwFQLXPE6F2vvBQTiLXEFotUjPWGjFlqXzht2Eb5y
+	hbHmcXtn6bvDQcgCKYrO3H5QoPPCoGCU2XvxifIIBvF+GfFT8bcpXEJqnD8PnkSUtTRXUSPy+IS
+	ZulzoW8uiGNStPeadYviujjQj5PvchwCkMNDITkNYJ8T1pRTLBtXFyX0mcVaVLz/hJrcP4DHpf+
+	tvZIpZ4Ad8eVpuFdcJNCNG4iUxVq4vCoUzRdz+B2Oa68Cnfm2IRTCGUvzKsabfcsi2wOh/zNJZ/
+	Y+2hrz+PTKAVvSAAS+aIiWnW7tqujLvA/QcnGvOM+B8w+VzCHpaWfqaJEGyzA78A8os9Iy72Go8
+	cO1XRCfVOU1DhxQjkHbjESA==
+X-Received: by 2002:ac5:c8af:0:b0:5e9:397d:b197 with SMTP id 71dfb90a1353d-5ec232688d9mr2052713e0c.3.1793023762379;
+        Mon, 26 Oct 2026 07:09:22 -0700 (PDT)
+X-Received: by 2002:ac5:c8af:0:b0:5e9:397d:b197 with SMTP id 71dfb90a1353d-5ec232688d9mr2052661e0c.3.1793023761845;
+        Mon, 26 Oct 2026 07:09:21 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd7b5d54sm321487466b.86.2026.10.26.07.09.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 07:09:20 -0700 (PDT)
+Message-ID: <14fabb77-ab9e-454e-86fb-e5f8d0d686e6@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 15:09:17 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,173 +115,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkA2fQJaXt9q6ezpAA--.6916S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxKrW3AF4kJr1xJF1UWF4Uurg_yoWxWF17pF
-	WkJry5KFWqkw1xXr4vy3Zrur90vw1xGayUG347Gay3Cr1fGFWSgrW8ta4DX3W3ArZ3Jr4q
-	qw17WFW8ua9rJaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
-	0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I
-	648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6ry5MxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbpVbDUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUSD2reG1PLYAAAsO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/7] arm64: dts: qcom: sm8450: Add description of pins
+ with MCLK function
+To: Vladimir Zapolskiy <vz@kernel.org>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261023163057.775917-1-vz@kernel.org>
+ <20261023163057.775917-6-vz@kernel.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261023163057.775917-6-vz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NiBTYWx0ZWRfX89x2iePruMPb
+ qcA3Iq9aYEEkf05DYSgPpeLixewlCNhFXAKeN4sH75fbuLACu4UNolZiTYK3sLIV0RASaA2ALsE
+ KTvutBkG58VonhfBetXyH0vzNzK69O1ln6YXrqj01kn0VyEgfT77dltX8GvA0Yr1tuTiQvuhK2d
+ hkA2nb7bztDBDb2Qrbi+jKvY7rtack2rJNhhHvjtRFjYpiGO5voVGoAgwNCXvETTewA8m6UMOhy
+ b1ADRfFJTE/B4MlJvMi1Tv0LWX0Rb3bdf4fAGuHEkYxIg73E+/rjIWTOL2FZf1/Vn0bT3k/U/Qp
+ kytePRnN2g/QDkjOEJA47f+Lgnz9RlVeXtGsYedI+ipcCHErffpakcmzB1fzz+qTgl7f9GLv9bN
+ lkgMri245W2kmKiHMD1l/eAAY9Ot51AJSVtHrytlunMHBZO2EZIxSmQ85rj31J60B6ACpNOoXJG
+ /RiSNEJ09uTJT936DLA==
+X-Proofpoint-ORIG-GUID: eRAp_g6knEKmprZTHegmPvQKXyR-jbqO
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NiBTYWx0ZWRfXwS9Z3oqxTNr7
+ +3YzJCkZAlPXzNHblZOy2MNe39BTiCTGkmBCXvhs/TOkASbdeLiZNTCcKJZDBM04sX9EdV6xa5F
+ JS65QJ8b6B0UJCRAog05Q7vka67LpKU=
+X-Proofpoint-GUID: eRAp_g6knEKmprZTHegmPvQKXyR-jbqO
+X-Authority-Analysis: v=2.4 cv=HKhWhYtv c=1 sm=1 tr=0 ts=6adf5f13 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=euT04gI7HyjAtzR6ms8A:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ impostorscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260056
 
-A use-after-free read in dvb_frontend_thread() was observed when a DVB USB
-device was disconnected concurrently with userspace opening and closing the
-frontend device node:
+On 10/23/26 6:30 PM, Vladimir Zapolskiy wrote:
+> Qualcomm Waipio SoC provides up to 8 MCLK signals on GPIOs 100 to 107,
+> add the correspondent default and sleep pin configurations.
+> 
+> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+> ---
 
-  BUG: KASAN: slab-use-after-free in dvb_frontend_thread+0x1380/0x1620
-  Read of size 8 at addr ffff888008dd4320
-  Comm: kdvb-ad-0-fe-0 Not tainted 7.1.2-dirty #81
-  dvb_frontend_should_wakeup drivers/media/dvb-core/dvb_frontend.c:641
-  dvb_frontend_thread drivers/media/dvb-core/dvb_frontend.c:682
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-  Allocated by the frontend attach path:
-   cinergyt2_fe_attach+0x... (drivers/media/usb/dvb-usb/cinergyT2-fe.c:271)
-
-  Freed by the final frontend release:
-   dvb_frontend_put+0x... (drivers/media/dvb-core/dvb_frontend.c)
-   dvb_frontend_release+0x... (drivers/media/dvb-core/dvb_frontend.c:2934)
-
-On disconnect, dvb_unregister_frontend() stops the frontend kthread through
-dvb_frontend_stop() and unregisters the dvb device, but it never marked the
-frontend itself as removed: fe->exit was left at DVB_FE_NORMAL_EXIT, or at
-DVB_FE_NO_EXIT when no thread was running.  dvb_frontend_open() does not
-hold frontend_mutex, and dvb_frontend_start() did not check the removal
-state at all, so an open racing with dvb_unregister_frontend() passed the
-DVB_FE_DEVICE_REMOVED check in dvb_frontend_open(), unconditionally reset
-fe->exit to DVB_FE_NO_EXIT and spawned a new kthread on a frontend that
-was being removed.
-
-dvb_unregister_frontend() and dvb_frontend_detach() then dropped both
-registration references.  The resurrected kthread never holds a reference
-on the frontend object itself, so once the last file descriptor was
-closed, dvb_frontend_release() dropped the final reference and freed the
-frontend state while the kthread was still running, resulting in the
-use-after-free reported above.
-
-Close that window by unregistering the device node before the thread is
-stopped.  dvb_device_open() invokes the frontend open handler while
-holding minor_rwsem for reading, and dvb_remove_device() takes the same
-lock for writing, so once dvb_remove_device() has returned no open can
-reach dvb_frontend_start() any more and the kthread cannot be restarted
-after dvb_frontend_stop() has killed it.  Mark the frontend removed after
-the thread has terminated, so that the marker is written only once the
-thread is gone.
-
-Make the removal state sticky in the frontend as well:
-
-- do not overwrite DVB_FE_DEVICE_REMOVED when the thread notices the exit
-  condition;
-- do not derive DVB_FE_DEVICE_REMOVED from kthread_should_stop() when the
-  thread returns.  Restarting an idle frontend stops the thread through
-  kthread_stop() as well, and treating that as a removal left the device
-  unusable;
-- keep the DVB_FE_DEVICE_REMOVED check in dvb_frontend_start() and the
-  reset in dvb_register_frontend() as a second line of defence, which
-  also covers drivers that mark the frontend removed themselves.
-
-em28xx already sets DVB_FE_DEVICE_REMOVED manually before unregistering
-its frontends; the core now provides this protection for every dvb-core
-user.
-
-Fixes: 1f862a68df24 ("[media] dvb_frontend: move kref to struct dvb_frontend")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-Changes since v1:
- - remove the device node before the frontend thread is stopped and
-   set DVB_FE_DEVICE_REMOVED only after dvb_frontend_stop() has
-   returned.  Unregistering the device node takes minor_rwsem for
-   writing, so no open can restart the kthread once it has returned,
-   and the marker is written when the thread is already gone.
- - do not derive DVB_FE_DEVICE_REMOVED from kthread_should_stop()
-   when the thread returns: restarting an idle frontend stops the
-   thread the same way, which would leave the device unusable.
- - do not overwrite DVB_FE_DEVICE_REMOVED with DVB_FE_NORMAL_EXIT in
-   the thread exit path.
-
- drivers/media/dvb-core/dvb_frontend.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index d082b6c57c76..74c8042d84fc 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -688,7 +688,8 @@ static int dvb_frontend_thread(void *data)
- 			/* got signal or quitting */
- 			if (!down_interruptible(&fepriv->sem))
- 				semheld = true;
--			fe->exit = DVB_FE_NORMAL_EXIT;
-+			if (fe->exit != DVB_FE_DEVICE_REMOVED)
-+				fe->exit = DVB_FE_NORMAL_EXIT;
- 			break;
- 		}
- 
-@@ -794,9 +795,7 @@ static int dvb_frontend_thread(void *data)
- 	}
- 
- 	fepriv->thread = NULL;
--	if (kthread_should_stop())
--		fe->exit = DVB_FE_DEVICE_REMOVED;
--	else
-+	if (fe->exit != DVB_FE_DEVICE_REMOVED)
- 		fe->exit = DVB_FE_NO_EXIT;
- 	mb();
- 
-@@ -873,6 +872,11 @@ static int dvb_frontend_start(struct dvb_frontend *fe)
- 	if (down_interruptible(&fepriv->sem))
- 		return -EINTR;
- 
-+	if (fe->exit == DVB_FE_DEVICE_REMOVED) {
-+		up(&fepriv->sem);
-+		return -ENODEV;
-+	}
-+
- 	fepriv->state = FESTATE_IDLE;
- 	fe->exit = DVB_FE_NO_EXIT;
- 	fepriv->thread = NULL;
-@@ -3042,6 +3046,7 @@ int dvb_register_frontend(struct dvb_adapter *dvb,
- 	init_waitqueue_head(&fepriv->events.wait_queue);
- 	mutex_init(&fepriv->events.mtx);
- 	fe->dvb = dvb;
-+	fe->exit = DVB_FE_NO_EXIT;
- 	fepriv->inversion = INVERSION_OFF;
- 
- 	dev_info(fe->dvb->device,
-@@ -3076,8 +3081,18 @@ int dvb_unregister_frontend(struct dvb_frontend *fe)
- 	dev_dbg(fe->dvb->device, "%s:\n", __func__);
- 
- 	mutex_lock(&frontend_mutex);
--	dvb_frontend_stop(fe);
-+	/*
-+	 * Remove the device node before stopping the thread.  New opens
-+	 * cannot enter dvb_frontend_open() once dvb_remove_device() has
-+	 * returned, because dvb_device_open() calls the frontend open
-+	 * handler while holding minor_rwsem for reading and
-+	 * dvb_remove_device() takes it for writing.  This guarantees that
-+	 * dvb_frontend_start() cannot restart the kthread after it has
-+	 * been stopped here.
-+	 */
- 	dvb_remove_device(fepriv->dvbdev);
-+	dvb_frontend_stop(fe);
-+	fe->exit = DVB_FE_DEVICE_REMOVED;
- 
- 	/* fe is invalid now */
- 	mutex_unlock(&frontend_mutex);
--- 
-2.34.1
-
+Konrad
