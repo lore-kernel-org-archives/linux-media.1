@@ -1,89 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793040807;
-	b=YHWYBpHjZkg9bM2kfBk9ISXSc5lNbwkglzgZHZm6gptJKVEKVX060KkOin+rbltPN/Rc
-	 mYMc98Jf/HxTTrpghvOyi/jS0eUM1jqnopyP0dFARJyfQuoNXRLGXPHajPb2b+rt+hGCQ
-	 hlwCsifQqmYOitdw13jwBD5Cu2iXNmkOHDHZKw6hudoZLZ1YmbidCstK0CZGWj1ttwyy3
-	 Nd+E51cOfnamKwOpWxta1kJYCUqAncqmc6Eit+GZObjVOM5qjjA/ZNgS20dEWBgfgsmHH
-	 xuiyv5ItLoWl3u1sHfqf1BkL4o/F0NTaOAD+irbHELsoXaIeCl8Dld4sldB6fnNjfqQ==
+	t=1793042004;
+	b=GhgoL8zgZDPyOJmcLcjZn+dQsfhbwn/+LiiSTVhOvGz6JV43bF6KLiXPBlKx6zrQ9YW4
+	 zXyNrHDlz9bRpzTrheF9Zpb8HwFk88F67YIpFi/4HYtp/XDwCSpy/mfvpV2bUOlepNSWU
+	 kj8dZNrUIpypd16/VAAXW3k03AfThGfWRcOF6RsBDKsl01/vptFLwW37peWuePoCV/0qO
+	 3i2sfc1blrsQvSuacy5rhFRSu9F+F/a0qeGZuO6oYCpxTIDE4vsGka9KrZrXSlkx2hqOY
+	 sZf5FEIEOqVNS8sSloTNEMHdWHiz+udo4FYzcH7p3iNhzIq8Gg4qhl0znQSgcb94aTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793040807;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=o5NLvHyayaKTthbgjkTC6jcIWBDJBQQe45RTaipv8Ko=;
-	b=TepwJOBv1YRxkRJlmC6bX9SAvx/Lmj9/9gFb9LaJ7DIdFa+2UMj00MwDvHpnZcc6sCit
-	 zokMiBgC4ak4uDjpb1mlWHFHfOVFwz5IQ+oQ3TsVrOh9UxtO72TtziCBIV4PWWWDf103v
-	 M05x76psSl1V+Dbh/uug/CbF4B3RJN6hMpPbBR4MHOtDqslTKINSIA3mZqD3H3y949Xib
-	 W/fYrDu7/kdr7wP6Oi0tuWB0zwTiMg3s+u5tzbWiyDmQtrGYN4zUb8/IR0p7yoqcXbjqq
-	 9gwq/+9J4/cYrCThEoggKmbZTSB/H8p5cd6Xf29ptR7u1w5mKeZHgGYCFiYxQbW6kig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793042004;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=3yrz+Ov6jBpPKPNpWn5AEy9fZTQAY5u9WL+GOyU2/X0=;
+	b=HXIhY3XtF1P5hyAmLKuYXDyv695DINrRgG6U4Gy/6q73OHCEWJldFuVGbtEP4v0O5R0p
+	 O7YW/wX+EoMDxVyyz4eU/9XLpxyRSicdPQrJQbzfs5w1vo9o7H5hXVCc/ymFStLcbZLRj
+	 voW37OdoasQ7cPQE2w+Kw3WWE80sUTUAGC1fsKD17xIfkuwKKltKAisxcBK86pw5J4RU4
+	 UkCeSM32r3pG0RG9KXHRDS5Fce+qMje0tqYZubkEnOZlMxo9ssJAlsX7oX4pE3gamwSjy
+	 U3/ROXmzIB51Fen6z/WYVMh3QaRUWFedWtevLg+FAzyWTOUEUrRKiPfHE5fZ3K2Ku0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Wkzy88xo;
-	arc=none smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E106606A31D
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 18:53:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E106606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D377606A31E;
+	Mon, 26 Oct 2026 19:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D377606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Wkzy88xo
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so5796998a12.0
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 11:53:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793040805; x=1793645605; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o5NLvHyayaKTthbgjkTC6jcIWBDJBQQe45RTaipv8Ko=;
-        b=Wkzy88xoh3nKXld5wCIX3oC6PIm1RMJPNeh0lJRvxXGSozwQehTTLcJGzFKOcWVKJd
-         PT0wihWO91zQ2Q5PojGCxcxR7+iEjGGbwgmJuRIzgu++ByF++DPBrFtEVxo1gGXVxDnO
-         K/4B1xQe1X7m3sHpWQymZM1NgXRyquVRUnI9M=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793040805; x=1793645605;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o5NLvHyayaKTthbgjkTC6jcIWBDJBQQe45RTaipv8Ko=;
-        b=XKUBZ+j6lIg+wXi+eZ9ekqSuXpH+m5qzUhQ9tFc7pfGV8PqDq922WzGZbEswWo/Lau
-         wX90ovLb3UMkSMTg6qmn5XMofkzJ8ClsVP4zvou4AWcX0LnX7QarCb6g6oEYO218jPaf
-         X4Rvo+ybQm4ekhuBf7A+iEv64YHwklruYPefvK1nFH5E04rQLX1TF7Cg0Z3D/q/r9ocQ
-         b3hV2ZnywpiEMpGRwZbqVMc7caIsWmAJNvv6TJvYnIqAeKa7ikURzJisulCMbRS8hbfI
-         /A7oxiSwZ/h47gNI94qde4H+5VdVolxBM1SV/rIoaJhFWX9HRc0QP4LyyZK6lEtLQuZh
-         gf2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByehWyJUdXFa/6BonSbjYdMW31oayhMn/IO5pVWS+RSieoi9j5l/9IrenUjdtoJw8aXsG4icl/z/HWH2g==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOOlpA+tA7Sg785qhg+xi7Kr9mUzc/wPAfVd5dERWe6wGKxpVJ
-	Ykkt4REUjTFi3b96obsicKt36U/6KNfFkLE610gP0DvRixvQpTMYH4rIkusPvyWFotT+kf95HvP
-	VT8/CULk=
-X-Gm-Gg: AYBFou0gyxGRLtqMnNDToBiFdC++JL8Yyd7X3TwZaxRHQDLt4B1KKPB6CiEx/1cyLvV
-	+blIGe5tCrfyXgbmUoxmt3RcYXudWvXez/Xli4EXaq1jcUSdR961ApL+s9AFwTnoSua2b5dgk5N
-	XHCVTmsh8KD6KseWUBEcs9JDVHbB0GvDCR/tQPkyNGi/6xz69eOnmCfAvLzpLl//EIiaQVZJbvO
-	VwnAMO9BVPdlyk7hEPZi4z86+nMI0YVaR3d7tSKIP/i+MGBQdZK+2R9C2zis+2l5zHe6yszHA0M
-	kCokRNhM9kZmSNsslfxeM21i/y4DN9I9XqdFDVkwwMzZBMYiSuQaUzjXSqvye6eXB1L2bYoSxjX
-	Qfo8rmzB4ytlSLOl+Y0Y+5ZHYYcu5hVGDVkCGzTQfmBAgTfUlfNszvyZ+i/cQstpR22l+f8TsyA
-	bLCQWLk76U7QhX90YzhC1bUF15TZZi40RCbPHqw4Jah0PRCB8ihebC5SBeA+bF7VdHtsj4Kl8DS
-	PxbIE34PYfh/TJcRg1o+iot4L10+q7nUCUXspDTccbD0aeJRUXqMzeTyG0IW5/nasRWseUhM4az
-	R3ENEBLuHQ0aYXaUyN2Kaw0m1ppQow==
-X-Received: by 2002:a05:6402:c502:10b0:6b1:c6ad:ae3f with SMTP id 4fb4d7f45d1cf-6b442ff6f87mr6192240a12.35.1793040804621;
-        Mon, 26 Oct 2026 11:53:24 -0700 (PDT)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b47a2cedbbsm291859a12.4.2026.10.26.11.53.23
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 26 Oct 2026 11:53:24 -0700 (PDT)
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so202116a12.3
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 11:53:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByrxw+/hPYl00THuLldYpdXpiwZe8nJFXfVdbrhb5/dMO3lUIM/3EpwgU+2bFC7/zrz4n9uFYLA8Qb30g==@vger.kernel.org
-X-Received: by 2002:a17:906:9c86:b0:c40:dfec:50c6 with SMTP id
- a640c23a62f3a-c46bde12b55mr849392166b.21.1793040803209; Mon, 26 Oct 2026
- 11:53:23 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E18CCB1A;
+	Mon, 26 Oct 2026 20:11:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793041870;
+	bh=ivDiP8NI9Z30mey8L2KGIt+N5uRIkUdxK3fKOwTUsIg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UlrdTnkqAoAFbqjmbN7M+tq859syiUuvI+z+afkwnI9wFCwCRXWY9kCG97buiEXVC
+	 U+0a9Ivky/rYi9rgEJmtnrzqSlvTK4XpOX3qlDrv08bfpheaKA6L1DzqC1eX27Y38F
+	 rxMygoM85k+PJJ8+lIC35GjauAVkRbhTzsxWUz50=
+Date: Mon, 26 Oct 2026 21:13:19 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [GIT PULL for v7.4] media updates
+Message-ID: <20261026191319.GA1996520@killaraus.ideasonboard.com>
+References: <20261024185058.20410953@foz.lan>
+ <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+ <at-a-2wTtf7bJQwU@kekkonen.localdomain>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,53 +67,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
- <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 In-Reply-To: <at-a-2wTtf7bJQwU@kekkonen.localdomain>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Mon, 26 Oct 2026 08:53:07 -1000
-X-Gmail-Original-Message-ID: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
-X-Gm-Features: AclHuK_noOhKvajafCF6Y4vLLjiCQi1lIip37NTkzc_fA8PG6fPCuM1fAW3-Gms
-Message-ID: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
-Subject: Re: [GIT PULL for v7.4] media updates
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil <hans@jjverkuil.nl>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
->
+On Mon, Oct 26, 2026 at 08:24:59PM +0200, Sakari Ailus wrote:
+> Hi Linus, Mauro,
+> 
+> On Mon, Oct 26, 2026 at 07:34:12AM -1000, Linus Torvalds wrote:
+> > On Sat, 24 Oct 2026 at 06:51, Mauro Carvalho Chehab wrote:
+> > > Sakari Ailus (60):
+> > >       media: Don't hide I²C or SPI drivers by default
+> > 
+> > This needs to be fixed some way.
+> > 
+> > The kernel config is asking about ridiculous things that no sane user
+> > can know the answer to. And that change has made it worse.
+> > 
+> > Asking a user for random media drivers by chip ID is *NOT* ok. It
+> > needs to be hidden some way. If the old way didn't work, some new way
+> > needs to happen.
+> > 
+> > Guys, the kernel config phase is already *the* most annoying thing for
+> > people trying to build their own kernel. Don't make it worse by asking
+> > questions that make no sense to a normal user.
+> 
 > The patch in question puts camera sensors and related chips in line with
 > how the rest of the drivers are selected elsewhere.
+> 
+> The reason why I wrote the patch was that Arch Linux kernel missed enabling
+> these drivers, which given how the MEDIA_HIDE_ANCILLARY_SUBDRV option
+> worked before the patch was to be expected at some point (rather it's a
+> small miracle no-one had complained about this earlier). Raw camera sensors
+> are quite common in laptops these days and the only way to enable compiling
+> them before my patch was to enable CONFIG_EXPERT first.
+> 
+> I guess we could have an option to compile pretty much all media drivers as
+> modules (it may be hard to draw a line) and then require CONFIG_EXPERT to
+> allow choosing amongst them. I'm not sure I like that idea much though.
 
-.. and other places could probably be improved too, I agree.
+As far as I understand, the goal of the patch was to stop hiding the
+"Miscellaneous helper chips" section by default, and let users select
+VIDEO_INTEL_CVS. While the commit message states that it applies to all
+camera and lens VCM drivers, that doesn't seem to be the case, those are
+not covered by MEDIA_HIDE_ANCILLARY_SUBDRV today as far as I can tell.
 
-But this made things *worse*. Much worse.
+One simple option could be to drop MEDIA_HIDE_ANCILLARY_SUBDRV only for
+the section that covers the CVS. It's not ideal, but it could be a quick
+fix until we find a better option.
 
-The thing is, at least hide them behind some "embedded camera options"
-that in turn is hidden behind "EXPERT" or something like that.
+Junjie also proposed automatically selecting VIDEO_INTEL_CVS in
+VIDEO_INTEL_IPU6 and VIDEO_INTEL_IPU7. You didn't like that because CVS
+is an I2C device separate from the IPU6 and IPU7, but is it found in any
+platform other than in conjunction with an IPU6 or IPU7 ?
 
-Don't make *normal* people who build their own kernels have to see or know.
+> I wonder what others think.
+> 
+> Also cc Hans and Laurent.
 
-Let's say that you have a laptop or something that actually uses one
-of these sensors for a webcam, then it STILL does not help to ask a
-user
+-- 
+Regards,
 
- "Do you want a driver for the Analog Devices ADV7170 video encoder"
-
-Because (a) that chip legacy and likely not in any laptop anyway and
-(b) even if it was, no laptop user is going to *know* that.
-
-See what I'm saying? You literally make things worse. Don't do that.
-You're making the kernel Kconfig script ask insane questions. They are
-insane because you cannot reasonably expect people to actually know
-the answer to the questions.
-
-In other words: don't ask questions that you know the user cannot answer.
-
-There was a REASON why those menus were hidden.
-
-                  Linus
+Laurent Pinchart
