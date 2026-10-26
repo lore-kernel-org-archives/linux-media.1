@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793006222;
-	b=S84GGXxH/wA715ZSstqwAxOYVoJ4bB506UCSoIQYLMZDq1TYpUbqUzNNPm8HSJZXyiJ/
-	 gvMkqL2Ngu/hDjkUSkxMwSxKNBZXYBOarG+SG697Tth6raN7mdlvcpVY3I+8h/Q1/m0MQ
-	 ZjNza1VlrPQypKVWZlIhWJnoUiNOVDL6kt3RDypMAgS7iEoa0OyKR1rxxR5fM0DyX5ujR
-	 DvynRHsTXk4YJgR43Z6UECoHINSQEAUTYTNHN8EUs1UyN3ENSHveGuEpUIWw58riZ3kkB
-	 HgGJXNcOel6Tl6ZPKJvKA2LF4Vg88QLt87Vim34eALhzAj6AY/SqljCEGDDSAUJ+dQA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006222;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
-	b=fVBBP4znRqavXj0Eehg+y1f5D3kX6LJlQ+THZYjkR3UmppHFRJoUBuzfdMYDZH3XedLS
-	 3cs5HZKyzeeSz9xOBRTwjs5HjSuRygcHaAlhUq2TKI+74dwQ996lyMceyveTwoDDCWXj6
-	 VEe1BkwdrJL367MR7gKgm2Z8RcBl8V0W1kTrml4tcfSwphWfWstAJmltT75VncpjozHhM
-	 /U6tMq/kuSqCvwn5Icg/50bD9gwVz9WwMHDOGoDfKEX8+4zkidWBMEmWvkDUjl33PbiPG
-	 lgRTwFfekvNVm6CYMKIPL983kDUDV2Ix2dEPy4RIT3EgsgS8TRx6KEhWr+pid8xzG2g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=yDdXj6ZR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011059.outbound.protection.outlook.com [52.101.57.59])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793006549;
+	b=Uz5EWf6LeQU6/W3BIj3HkjcYruzVEumYr6nVPiU6RWy5E9TgbE5d3yzd7839OyBPTcp4
+	 S7eqmnS7Pdw7jMh5UfjCXXxBD7hUM1JT9EF1KRlSAthhKWzuvlHEs5duYWM6TozLY/vzb
+	 dMd2e7VlRuE6837ScqmOOBKAkWB6fgwmsLgfkH6NuZniLZ5ZsH+PbdnZqpzkybpqamuvm
+	 0xui97ssUyMDzq4vixFdn1hzRxgercKYSVswHn3qcO/g0JzrkkeuTSO9pZ2dqdC1Iat6z
+	 B8QhRKmAxu9El678INLY2rW4paeKO4JvSzY/hA+8RreVF2S6fiBedlQZ6EgJCiFpauw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006549;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=qhR5USygJ3CB78JYGZu8Bdj4Ga57gkEWi5cn82mwy+g=;
+	b=0jwydRX/Jhxw/NLy2bWVErs/H+x2WUa0wU1ugaTPjkDaS/1p/CNaYxUApLep7qjxBvaY
+	 FxfMlHbWVpIvDJk8GTtjGcPJA5IdU1oGpCk6OYv81+kq3w37KPgSp3gGqUDSsyAXoVp5q
+	 isbE9HbNfoL29RzsqUNrSlhPKurUWho9V6vFqEUG+R+gIWvhL9oUnEPkN1BFsnyGEgL2C
+	 lCcNMnjjI1zsu8TJzpq7a3UqWBjdnPvquDc6IngW2lm4nCI+1+TLHlRBWel1AtPpQsIvu
+	 kPoVBE2tEcH+NFwC3216MyhEMQ+9ZOYjE77qEbaMYv6IlNABjjNHGb/mIjbPKhJmMIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="I6YvE/gY";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2A2606A333;
-	Mon, 26 Oct 2026 09:17:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C2A2606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17EB0606A31B;
+	Mon, 26 Oct 2026 09:22:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=yDdXj6ZR
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jd4M0upXbkBlT9LqMb/U/jte9GElMj3Zy+coe+zzxDrfK13q6QAEYv46C2d202riS0j0ckQuLj1mdKOrZB39jtjvGY1n3k0rVFm90QKyqwRIRgL6Qz8Ee3Hy/IzXBZXO7i34jv1Shl/SY2nWOY4Pug1Z1YG18WRXr8VKNtB1ccROMPx06fi9DBFvaiZ3sgKOemEyNS6TM38BqqaTMC/nVweC7lH2qlLe8H5zA9DDkz36lbImlbD7lnxjSRIEnEScaVTzgL3yx0Vacebr332skeZGyrhHTRebQWGg8ZhIsmv/DgXoL5wxOAQI1ZYSTdmZjyJ703l6wDHsG1kJTKg1yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
- b=pTJT7i1cxP3dIK4lIBNCoqkBLhDX8P/vdL4LNO9msUVKXXW1VYxavlmBLS3rnSTGcgckERVnCW+zoDF4wA9JyRMa4THFM8iX/ZItg4BpnPsGUv69TBzUgp3IHnZUY+Xnifd1t91/6r8P52ye76woDFpvq15wFdCAjR8mL/rIHOPFcPe+RD4XH6WhX24bMx6FiZMFA1DtlImxoiKeJIiLA7MczU+iYr9g7HRD5RwTHV7XaBvV3nzD5JTwtf6gfmSmHPUieuc+nNGNukj8Nwaduyl+FJA/LR/hOxSGQ4DQi7o/8I3Hl0DgD1ThhlzMKekSoZRKARPJZfJqZCdTIEJQTw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
- b=yDdXj6ZRr33xNdmSwoSTe/upNG/icAzxAfp7425k2TfIioxG3G21RncaaZZvSkUXgFCBSzukaJVxm6nGqudN8ux7c0krDQ37NoNOvcMiL5M4yMjszVxZkmpu+Cpz2Dy2goeItTv9/9+Cm20NSq4+ObvuS9xUtGrX8DoemJSCNVA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MW3PR12MB4473.namprd12.prod.outlook.com (2603:10b6:303:56::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 09:16:58 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 09:16:58 +0000
-Message-ID: <8bb2f7a6-f7de-4805-9b6f-fe2f500d1be5@amd.com>
-Date: Mon, 26 Oct 2026 10:16:53 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
-To: Val Packett <val@invisiblethingslab.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20261021093533.1990028-1-val@invisiblethingslab.com>
- <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
- <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
- <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
- <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0268.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e8::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6YvE/gY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC9ED1F031E1;
+	Mon, 26 Oct 2026 09:22:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793006548;
+	bh=qhR5USygJ3CB78JYGZu8Bdj4Ga57gkEWi5cn82mwy+g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I6YvE/gYGXgvx/dS51oJ+vhNzxFT/QgIyoyGpK6mHjSAuSnuWw0cBJjHTki1SHsbF
+	 aciQZxOgZpZF8rQWeI9JGlEKFa3jS0wX62Lz8zxnwZMfhiLTSX7/AbRR36HWY0t7eO
+	 9alwY2VThrpLH3UISHBPp1AaV8IBF+P8wwIiokDBjkjEmW5cDjyuoObmZCephYY4g3
+	 rUZZEzGdq5+gjjr68cMHeJBQ7xsbQEQ2xdI3ikjdSdqc4/8gOKPxE/NLRUb/aL92w9
+	 Glt7oHfgDRwKajlCm9u/oHhLlagpTuw71DMN06V1wWogpArGYgk96jL0mvRauBbBRU
+	 ZZyCdXFS6bDZA==
+Message-ID: <f8173d20-3193-45e6-bf27-a05de7187ae7@kernel.org>
+Date: Mon, 26 Oct 2026 09:22:25 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,121 +51,99 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4473:EE_
-X-MS-Office365-Filtering-Correlation-Id: 115ccdcb-9b75-4786-1407-08df3341e2a4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|4143699003|11063799006|56012099006|261022113327099003|261022105027099003|261021121427099003|261022075727099003|261021123027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	PigpMqR1L8xb5jWM2WGGdq3bkvqRH/6ShgTcblcAZkjxgyLXwYAa6Pa/XnDkXyrpKUV7A27UVxxrkOIb3vfouNB5rer5UMnN9HaDvzBy4beWgYHTvF9fsN8ir3ngI5u5SueY9U5+rBinC116VPjPaFcOrHcwmdjoiEwSMJpg87sGQOu18YrD001q5n+J1Dci4Zti4Se7ZAdfe43IgYKkQvNzrvoH51LNycYC8tUwKc0jp7xCkp0F8P3cBZXLk4dSHXvq7/Q9Rjg+i1nApDxxeb8NbipWdpiY1QTj54Xq35Hf9TZyEe/a6fQLcxLNGetQdazkrEfEnoBueVXV75k0TfJ8CUhAK9OrGXGB0YTGgHqd7YDiz4RWepBsJhV3qHRI9RTTnSI1NffMDshR1/eByop4j0D51/9o1h18wX3iwwCy6cgciM4JeD8bxd9oBXOYl3tBWEAeWJf7QWPcHHL2Wa0Rv2GP6Ktdo49dySROxqSsU1UVygmgOLFJpToc/1b+/9PP4CAI4NIEWcx/r2agQw8k3fHdJ8zeGOm1vmjffX7dxdsh5dofZl6wUT8egHNKPoavzptVEczeQ0SL6i1QWytKAV4Vret4t9z5mepf26AGZsaQgutyCj+vCUZnuEJNX7RbE/0jWhfpLk/DZ3byppNPE/MmArcmWzXdgjRn7F8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(4143699003)(11063799006)(56012099006)(261022113327099003)(261022105027099003)(261021121427099003)(261022075727099003)(261021123027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q2lIVlpRWlNmS3ZsVEkwZHBaWTU3VnlLRzFrUGpnczYyTzJhR1crSUtYU25r?=
- =?utf-8?B?eGs2dXdUZk9ob3JPcnF0SHpJTDZmMUJPaUQzT0dNSlU1eXYzRldOL05qaWEv?=
- =?utf-8?B?MG9DdkJIcWxreEZ3U3FXa0dDOGM1SE9YcFIyMko5bGtDTEoyTGNOVm5LdUVw?=
- =?utf-8?B?ckIwWVZqc1c1U0hQdVZ0OWtRL0U0QndSeW9qcWpvaFE1WlVVTDYybzV2UktT?=
- =?utf-8?B?RFBzdGVsZlNaWW9HYzV5Nk5RRlo1SExFeVdZdWJmbnI2SzJ2Y1ZCbngrTXdt?=
- =?utf-8?B?SlIwN0lEMjFXRWxGaGptVUVjRUhJN1NhUndLRDZTNWc4b0d0R2Z6b1Z4QkpG?=
- =?utf-8?B?OFNsd1JxMVZzU2MrY2phRzY2S0xFUmxxNGhOQ203RU9abnNhK1MyT1lpdC9n?=
- =?utf-8?B?ZTRiaXo2MWVsSWhwM1I5eXF4eC9ieUIwQ0pVWW1tUjd0aDNmOU9XZFQxUm5Z?=
- =?utf-8?B?SU5vVDRiWmVMNFg5Y09rN2JKcFZuNkFnY1Rpa3BvOC9LVVM5akRDdFQ0KzVq?=
- =?utf-8?B?cnEwVEN6aUkrOEwzdEY0bG5wcW5mcEFVcGptZDFqZ1BLU3ZLUkRzNUE3UmtQ?=
- =?utf-8?B?UDlXMWl5cm1HMm9yaW9JYkFpeDBXYnFIaWdjVmhRYWhEbjRnNmtUTWZSWE5p?=
- =?utf-8?B?L0hxcExRTzJPcGNPSWlHN1RtQ0dlZkRvNTdsWVpmNWhXNVhYN2pUbVo2TXl2?=
- =?utf-8?B?Ni9aZHlKczNGU1VCQlZjbHhYbXZNRVpGWmhOQ3NQVGRZR1R1dG9WQTR5MGUy?=
- =?utf-8?B?NHpvM081b0p1WE5aMmpWeFd4YlkzcTR4WTdKR2thR1Q0ZDZXWW9kRktNeXJS?=
- =?utf-8?B?MFJwV2ZnVFNXMWN0bjZjZExFazB5ZXVkR3h5M081ajU4UC9zV29VQmQxY0hL?=
- =?utf-8?B?TDdFUHRBMkpXSTkzd2dNbmVLemZ2UnE5ZTd3NXdnbVVEWlUxL3IxbC9mNGlN?=
- =?utf-8?B?V1RvbHdhWWpPcnN5QWFxZUc2alhKY3Y3cm5FU1U1OFVuQ3JiNWtSeWVvd1Ur?=
- =?utf-8?B?U2lsY000MC9mM2FuRFROUzd4dXF6SWp5dFFZWUtOd0RqaGNkeDlEQlQ1TVdN?=
- =?utf-8?B?dUpRaEFHRWd3OEovTVBFTyt0L00xTkhhclpZaXIyc05SOVhmNytHRkxpd2g5?=
- =?utf-8?B?S1JmYW5PcmZyQ05ndVdMem55aWZHNDg5VndKMWtEZGZuYWhveGpKQ3RSZlI5?=
- =?utf-8?B?YjdUS0QwSE1Idi9rc0cvcjZzVzRRQ093cytOUGJ0ZGpjd04zSUF2b1VBU25R?=
- =?utf-8?B?bHBHT2o4N2pscXduNStnaXJoZTZwU0xheGxGK1hZSXdhclBHUlR5VUE2MURV?=
- =?utf-8?B?cWVRbTEybFNhUFNHTGtaZ0UxVDVRRjBodFdsTkJzRGgrY2JWL1RWeDloODVP?=
- =?utf-8?B?NWo5aWpoM21pSEFiOFVUc1pDOXptOElYN20ydENuOVltMkk1N2hSUnE2ZmFK?=
- =?utf-8?B?YjdnRXkyck8zd1d1YjFmRklXMkVQd1JxTFhyVDNVUk81TkQ5Z2pTdzdxZU94?=
- =?utf-8?B?eFpTeTBlSjUwK0lxYWJHVFRJcnowOUdodW1IZERRTEROS3BRWlZpVUhEUThU?=
- =?utf-8?B?Y2FsVWNYMWJ5dGlrK0hIYk54QnJ0N0tKQVU4TWJzSnVQS01nT1AzSGZNd0Fr?=
- =?utf-8?B?OFRDMFNFVDdFY29uNTBRdUtObnEyZ0VYSG5LbVRoRkp1ZzRpZkEyS25qUWIv?=
- =?utf-8?B?dzJxMXBnbzF6TWx2S1A4VG5vUXdGK3ErU05idXFkeHd6bzluaGJ3ZlYxd1lr?=
- =?utf-8?B?VGxLU21BVzFzZWMzWS94RVZNZmlobVJuUEpCb3dVeEsxVmp0VnEraHJtR2FU?=
- =?utf-8?B?eDdyRVZkRGNIZEhjT1hZYkNnYWQ3Y2I3bGF0SGVEejVSbFJtUzlVc25LNVNv?=
- =?utf-8?B?dUppZmV3bEtESkxUL1paQmtITXZMUHI5c2JqV1QrL1BZVk5PQVZxdHI0QmJn?=
- =?utf-8?B?N0FEQm5GQkt5T2dkYmQxamg5MWlVbmZ4d1BpdUNuVmtlMURlQUF3cFkyNVFU?=
- =?utf-8?B?UG9oQ1lrRHdseHdXcmNTeEludGxiNndkTUcxRXJSSUxlRWZZOGRHbnZLUTZN?=
- =?utf-8?B?RUcyUDU5UEVORHRobXZuUjU2K0JuenR4RHVNM0ltR3ZLbXZUeWMyZ3VpbkVM?=
- =?utf-8?B?bXZmZEFwTFZubURWTmFXTFgrOWZkcHBaNE9YcmUyS3RXZ1BySzVkL29jYW9M?=
- =?utf-8?B?Yy91OWVNa0dPTy9JMmkzWGg3Um9haDZCVEduR3ExYjNBTzdJNHJRZ0xsL29C?=
- =?utf-8?B?SUlZRWZWbVFmM0dIcmV5MnZORFNhU21QZmloSktWNGFJSlFGNE5IbWZqanE2?=
- =?utf-8?Q?dRng0dsXRmxwZivEks?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 115ccdcb-9b75-4786-1407-08df3341e2a4
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 09:16:58.0251
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kfDCtkO6uwDFLAAM+o/9H7ejlEoJ+Gkw8v8Mg58Ze6gQj0WtU6HFcOYe5WKVA2US
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4473
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/6] media: qcom: camss: sm8250: set the VFE AREG clock
+ rate from the VFE
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com>
+ <K6MC-msR24ox6sm-W8vHRTvM3_t8Qc0jO6yiVwtqAFBqiFAx7a0PGnTIBDg_cyr5uZmULgOISgoJXMYZrNVeVA==@protonmail.internalid>
+ <20261024094027.3095475-6-atanas.filipov@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261024094027.3095475-6-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 10/23/26 02:36, Val Packett wrote:
-> On 10/22/26 9:26 AM, Christian König wrote:
->> On 10/21/26 22:16, Val Packett wrote:
->>> On 10/21/26 10:43 AM, Christian König wrote:
->>>> [..]
->>>>> The buffer lifecycle coordination we need this for applies to KVM as well
->>>>> and it generally doesn't make sense to have this as a provider-specific
->>>>> thing since it's not related to the provider in any way, it's just
->>>>> something we want from dmabufs in general.
->>>> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
->>>>
->>>> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
->>>>
->>>> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
->>> Well, we already need it with both udmabuf and gntdev-dmabuf..
->>>
->>> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
->> No, exactly that is what I'm trying to avoid.
->>
->> Nobody except the original creater should be able to insert an eventfd here.
+On 24/10/2026 10:40, Atanas Filipov wrote:
+> The SM8250 VFE AREG clock lists four rates, 100, 200, 300 and 400 MHz,
+> in both the VFE and the CSID resources. The VFE only enables it, as
+> vfe_match_clock_names() does not match the AREG clock name, so its rate
+> is set by the CSID, which always selects the lowest one.
 > 
-> If there's no replacement allowed anymore, what could possibly be harmful/undesirable about "someone else" being able to do this?
->
-> With a "first caller only" policy, the original creator already can be 100% sure that no one else is able to insert an eventfd:
-
-Ok that sounds like you my argumentation wasn't fully clear: That approach is exactly what I try to avoid!
-
-> If the original creator calls this API before sending the fd to anyone else, well, the original creator *is* the first caller, that's it.
+> Match the VFE AREG clock in vfe_match_clock_names(), so that the VFE
+> selects its rate from the pixel rate of its lines like for its other
+> clocks, and drop its levels from the CSID resources. The AREG clocks of
+> VFE0 and VFE1 share the fast AHB source, which then runs at the highest
+> rate requested by the two VFEs.
 > 
-> Otherwise, i.e. if the original creator is not interested in this API.. it's unlikely a different process would use it, but if one does for some reason, I don't see any negative consequences from that?
+> Signed-off-by: Atanas Filipov<atanas.filipov@oss.qualcomm.com>
+> ---
 
-First of all if this gets added as common DMA-buf API the functionality suddenly becomes available to every exporter, not just the ones who explicitly implement it.
+Sets the lowest, isn't necessarily a bug.
 
-That in turn would be rather questionable because lifetime is something only the exporter of a buffer can fully deal with.
+Why is 100MHz a problem and if it is, why not just fix to 400MHz ?
 
-For example it is very common that the exporter delegates cleanup from the ->release callback to a work item and your whole approach with the eventfd on the DMA-buf then doesn't work any more.
+areg is a register access / AHB clock - your worst case outcome is 
+'register access goes slower' - which to me accepting we don't do 
+driver-specific clock-aggregation => raise the clock required across VFE 
+and CSID so that nobody looses out on the bus times..
 
+Again instead of having a driver-specific clock aggregation mechanism, 
+if we need to solve for two siblings voting for their parent's rate - 
+then lets do that in CCF so that every CCF consumer benefits.
 
-Then second when the add this as common DMA-buf functionality then it should be usable by everybody and not just the first one who asks. Otherwise you can run into all kind mess with that when you give a DMA-buf where the eventfd slot is already used up to some other process which expects to use that functionality.
+That's obviously a separate and potentially large series so for this 
+specific case I'd suggest 400MHz iff a problem can be shown.
 
-
-For now that functionality only seems to make sense for the original creator and a limited amount of exporters where it actually works. So my suggestion is to either add some functionality to the exporter(s) or add some common functionality to dma_buf_export_info to aid exporters with their implementation.
-
-Apart from that the approach with the eventfd looks perfectly fine to me.
-
-Regards,
-Christian.
-
-> 
-> 
-> 
-> Thanks,
-> ~val
-
+---
+bod
