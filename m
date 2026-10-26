@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055008;
-	b=q0VUgu8tt1U6VtEsrydzUELuVhipYacGLA+mluTPoEDNoWPKL9rIGRr33g+vwxYGj9Rg
-	 DLhSQmYx47/Rt9HpVHcKzTAfYAen4T9tbWCSDR4NxNJNcFo21Nqpj7pP9z9l0gGiPIDsu
-	 NELCozEXJsaEY7/pMPsiWbT4Fyvk0PnjpiLfUmMecDKxzvoQG3plUF14OVxnKj8gQt+F7
-	 hiiCNt7CKqWr8nWa+K94r+9zkzdVN4fjyn8xlmwJzivWZ0wR2VL/Wq1sS11PERc5iOyXy
-	 q5n+w6YFw+a3UxzOe+490VYy47T+8HqoYUq3YGwyqzOUbPDMyvWSIbV7p229YqoPstg==
+	t=1793055017;
+	b=Y+9y0ASpUUcmlF/Pp2NqxS+UwF8nx3MeyKNfLr7WtBQ18DkXqviKrJlsX9SnMKicp3+x
+	 GIGsX10hF1gIHpAJbfQ0ff9F54w8lyWQDIOZ5odRY4NPW0uCMuBY3PklN44MNZHq+ky17
+	 j7lXnV0XeLbXtIE3scLj7VCOLrnXvMR3CDXb+W+0zOM8itc+Hp8/aVAUZYXGBcbnFx0Cg
+	 Gob1zUa9YcQbMhmdA7FdewuWxOCCHDgcicxiLkSk4zPnQhBL5gBdB72GfVRTfTcK1rf1C
+	 O7kwBp1/2m7sl3GYU0PUJAeAMjJFCgg9WdkZUyhDxg7Q5ay+/POuauqCLnCWjdaP2Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055008;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055017;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FuPl67ATWNuBxw9NLlKvBfFi5R/Tx8sEmX5gUZY6BF8=;
-	b=PNzLIsRjwIlk9yjFEbOuQlhkCDTeVHqx+sttinR6cZWKFG76f6Yf+uG6fivKLrjshLq9
-	 HDA+qTGpXAoNMVlW67KfSYW8n1vRhBljDAqH3jGZ3iiXOw0/NDDJNSfnLjoOVtJ3BpWIN
-	 zKLq/G1jYORHZOWw+tSPUu3sr2z60uOrPDoIN4yRR4uEfPzmE2y0qq84bWqlY7K90D/nC
-	 4dP2w2crwlY75X0A+pxHqs7OlE84MZTwJS1uTMpHKdAj7VeTPv83B56ZnXgbCV/9HRJEp
-	 uXcdrPEwsbvSrLy0BMXIYPvYNYFZUu+0m7FBjqlX/EgF8qbh06awXMec+Nkz9mlBGxg==
+	bh=EVk+yjL8wX++W59cZlj03JU3r1mhQtWxs7tNqn9bqvI=;
+	b=T2QBes+v8CJRrykz8hzXH8Z5DDn7nJgkz/LOI2GS+ML8Xf5FQlrMLCxSs0I76A3uOGF0
+	 ysRr2wQoUUGBg9mpapfrfbrJlDvDcIDQOwufsgDSFMFdbn3dEZx7F+DjfmfcOBGezBAWb
+	 ixM4C3p1TgQSMNqGFC1dm9Jx/VCvbtIXvX0Rf4I1Dl7uvCh0SCuJqfDq2NA0eqFyt5jF6
+	 zkexyy8Cy3yjjWcKX/3cj5KhdfhAa7KwzI3Y+Qwqb1Yr7T8BdwLYErVxFG/J7mmvDZxRr
+	 nWZDbJWQHKqPC9V4w7FEAG7SvMiFTV9f9N+x+UbKTlQMjoOyFzN61aFITJH0Tlm5fPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CtjPIvzc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgHcbQI0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938DD606A320;
-	Mon, 26 Oct 2026 22:50:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACB2606A31D;
+	Mon, 26 Oct 2026 22:50:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CtjPIvzc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A361F01828;
-	Mon, 26 Oct 2026 22:50:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgHcbQI0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04AD1F01828;
+	Mon, 26 Oct 2026 22:50:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793055008;
-	bh=FuPl67ATWNuBxw9NLlKvBfFi5R/Tx8sEmX5gUZY6BF8=;
+	s=k20260515; t=1793055016;
+	bh=EVk+yjL8wX++W59cZlj03JU3r1mhQtWxs7tNqn9bqvI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CtjPIvzch+/Rq5EWkM6mtFmmUwDKWTUURiesrmzrWTzXSNlw4bbfyL+C30M6VtUxo
-	 SyusC+83+cveMgU10tggNW2jzKmGuy0K/h/QToF1knmxodYkT9q3KA6hGCPzNyghdS
-	 1QPKn9Bkhrnco/iT/j+en1KB/g4oSWsyynOh3/+CsZ+wiesPoq+IEL5kwkcknK75St
-	 9ym2KgtRCAA3tZGuE3/9bjAwCUjFCMKT+jtgtmkv3De89WXzLI7sStil39fAQZKFH7
-	 YQGg152oiLq8jgglExpY1adWGarm1M8txCFAzTYyCVAGK4IP1BJIYv1WDgpcJ+0DIL
-	 b/m5r59rwxzUw==
+	b=jgHcbQI09A3d3M0g/KmmtEpTADbCvZC/tSH0rghK+sXC66YowBmkjj4kU47nQ2esu
+	 I5bAe6PuHSTgGorvWHVYf0/Gw7cXB83ntq1USkuM6sq0T6JO55+t5UzaNkWDJjRCdu
+	 1xokByT60JmhoChA/V3lAIiKCH6UZ8/1iYMdbAtCQSuNnodd9IYFQsrquAEYGOnYxo
+	 RUQxuhM1JuBd7AWT8f30BGBfBICItYko+hOX9ZIMdI+sU5L9A1i1pPBy5+6n+G9GTv
+	 ZaPextkgy1ow5F+QLR2iZ9wmCuOI8DxOPW6lOjqyckJnu5HE3ue2fe/aujQhJuPlsw
+	 gxOtMdeHbaBHA==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -56,11 +56,10 @@ Cc: linux-arm-msm@vger.kernel.org,
 	Manivannan Sadhasivam <mani@kernel.org>,
 	linux-phy@lists.infradead.org,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: [PATCH v2 1/7] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add SM8450 compatible
-Date: Tue, 27 Oct 2026 00:49:51 +0200
-Message-ID: <20261026224957.1115370-2-vz@kernel.org>
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 3/7] media: qcom: camss: Allow CSI2 PHY devices without CSIPHY resources
+Date: Tue, 27 Oct 2026 00:49:53 +0200
+Message-ID: <20261026224957.1115370-4-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261026224957.1115370-1-vz@kernel.org>
 References: <20261026224957.1115370-1-vz@kernel.org>
@@ -75,36 +74,91 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Qualcomm SM8450 SoC has six CSIPHY IPs, which are compatible with Hamoa
-ones:
+If CAMSS CSIPHYs are supported by the stand-alone CSI2 PHY driver only,
+there is no need to provide description of legacy CSIPHY resources in
+the CAMSS driver, therefore if CSIPHY resources are not given for some
+supported platform, use CAMSS CSIPHY port numbers as CSIPHY identifiers.
 
-    qcom-mipi-csi2-phy acec000.phy: CSIPHY 3PH HW Version = 0x40010000
-
-Hardware supports up to three different 0.9v level power supplies for
-CSIPHY0/1, CSIPHY2/3 and CSIPHY4/5, but there is just a single 1.2v
-power line VDD_A_CSI_1P2, which supplies all CSIPHY devices.
-
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++++++++---
+ drivers/media/platform/qcom/camss/camss.c        |  8 ++++++--
+ 2 files changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-index 1f1e2a4993b2..7c9015a019f4 100644
---- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-+++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-@@ -19,7 +19,9 @@ properties:
-     oneOf:
-       - const: qcom,x1e80100-csi2-phy
-       - items:
--          - const: qcom,glymur-csi2-phy
-+          - enum:
-+              - qcom,glymur-csi2-phy
-+              - qcom,sm8450-csi2-phy
-           - const: qcom,x1e80100-csi2-phy
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+index f99eea2ef228..8ecd514451d2 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+@@ -799,6 +799,11 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
+ 	return ret;
+ }
  
-   reg:
++/* Fallback to generic SDM845 compatible formats for non-legacy CSIPHYs */
++static const struct csiphy_subdev_resources csiphy_res_phy = {
++	.formats = &csiphy_formats_sdm845,
++};
++
+ /*
+  * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resources
+  * @camss: CAMSS structure
+@@ -808,7 +813,7 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
+  */
+ int msm_csiphy_subdev_init(struct camss *camss, u8 port)
+ {
+-	const struct camss_subdev_resources *res = &camss->res->csiphy_res[port];
++	const struct camss_subdev_resources *res = camss->res->csiphy_res;
+ 	struct csiphy_device *csiphy = &camss->csiphy[port];
+ 	struct device *dev = camss->dev;
+ 	struct device_node *ep, *remote;
+@@ -836,8 +841,13 @@ int msm_csiphy_subdev_init(struct camss *camss, u8 port)
+ 	}
+ 
+ 	csiphy->camss = camss;
+-	csiphy->id = res->csiphy.id;
+-	csiphy->res = &res->csiphy;
++	if (res) {
++		csiphy->id = res[port].csiphy.id;
++		csiphy->res = &res[port].csiphy;
++	} else {
++		csiphy->id = port;
++		csiphy->res = &csiphy_res_phy;
++	}
+ 
+ 	snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy->id);
+ 
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index c54185c93a8a..b0d60e70e4bb 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -4796,7 +4796,10 @@ static void camss_detect_legacy_phy(struct camss *camss)
+ 	struct device_node *remote;
+ 	struct device_node *ep;
+ 
+-	camss->legacy_phy = true;
++	/* Legacy CSIPHY description implies the provided CSIPHY resources */
++	camss->legacy_phy = !!camss->res->csiphy_res;
++	if (!camss->legacy_phy)
++		goto done;
+ 
+ 	/* Find first remote-endpoint and determine if its a PHY */
+ 	for_each_endpoint_of_node(camss->dev->of_node, ep) {
+@@ -4810,6 +4813,7 @@ static void camss_detect_legacy_phy(struct camss *camss)
+ 		break;
+ 	}
+ 
++done:
+ 	dev_dbg(camss->dev, "legacy phy mode %s\n",
+ 		camss->legacy_phy ? "true" : "false");
+ }
+@@ -4841,7 +4845,7 @@ static int camss_init_subdevices(struct camss *camss)
+ 
+ 		if (ret < 0) {
+ 			dev_err(camss->dev, "csiphy %d init fail\n",
+-				res->csiphy_res[i].csiphy.id);
++				res->csiphy_res ? res->csiphy_res[i].csiphy.id : i);
+ 			return ret;
+ 		}
+ 	}
 -- 
 2.51.0
 
