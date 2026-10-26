@@ -1,74 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793012217;
-	b=zpg1PhsrolYseCbkg2Inax7FSjOoWH7T2wkzUaqro4jDZmtiKwNUgOjIHnXOg71MVAsB
-	 /f0Rs9kU8KUDUhKB/pX2XuzajbdRV3Cz/07cjhA3HqIsxOPumiYQhlpjooAZbQJ80qcVc
-	 O6Jqtum2xhBM2+gCb167oeDyfI/EZZ9JYAM8CnTi3OOUqob25RMDLuWzSVa25AOAgshyy
-	 t3nfH8nr2pCx2udqbeWm+sK194ZtpmaDCXLPzi3c/MRSrk3hkRCGNe7YpUXE1e1774FDd
-	 zadf24X2RQzZXCRJgGUR0fJYCW4mjv3nXkWtffZ3VS9t7sWfhFrk426XmjF3S1kx2EA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793012217;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=iq8sjorBVmoOm9+iAUMWTgdciqg75VQcwz+D0w6sWBI=;
-	b=G/XoLoyp8Fb8QOEKd6/VOwJ8SWCkm0Ejfh7VQqTS+ayoU99onu3nw2QulVErD0d3uFRI
-	 uCCe4CmUGEJUTNJ/+xyBHXXqv0lHP33Y2WCNqiEEZtsVR2nwtkwwjksHwasE3F0/g9Xph
-	 Q4IqFupRNRZv5KMpSb9lICf8eeVVo2GL1uNyTmrQL//QFwR5sVbwqbR5qeKYOAATl5TDP
-	 L8qWFGSH1m/6OXbybP7DHb0qblDuKQMANLy4pBIM4k+kfr3XlG7vBebhToCgNLgTo0UDv
-	 VQNXRXhtQ0f69Xokv+2o7QyxbzTlhczPYveEEF3mO+MNyWhpYF+o8//DXDmTintwODg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eIa46o9o;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793012361;
+	b=hHStpEweMOOhUlgIf1TwXPf3QM24q6z/QMPuHFNASI/crtut6fVr1G9fkC/Gku5WGabG
+	 YVvDL/lKXHahYgbgFKZkTxkEfSquhB5Fxc7AoNOu12yJccKV6f5k636OvmIOGwZpl8Som
+	 2NtSQH1HnZmwJJk7vQBAVvHrLyoZm0l5c9bVxExpYT8ooPo5ca2MjMxiw6nt9vnoDHykL
+	 ddaW3iwPf6FFLfTybh7zQrl4XMiV5Xs90Q8ZIGLN3Kwc38dRImy8ARtGxY+2BcI4kbH5q
+	 rAZmU4+yoMqxMTOwhAxxNcXJB3qbMBGgvBkvQez0+byiM0UIjsJ64xNFI13be7ruxyw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793012361;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+	b=y/3BXKh3blo2z/M75jEAI7Csv0u5nXHEPiiFeyX8EAO6+2ofgTTyEpIS4+QrZtCR65+Y
+	 khdBQPNR540VPmUCGZbmAV+WIffidtFEamfhEAl4kSGNRZBrqarMq/ArI3DsqzXjEEMye
+	 51sLx7eThthDxqu/L54U6gNyDdRfqTQ5JpU4wcNmniMrv5C0XeJgjslwCho1/pzGODB9d
+	 cHYF3b7RM6DqDhwhMhcEF9hqR3lHdHaLQAuDe7paJ61BZaXx7ed2SIWoY2mfZeckyMIvm
+	 XE9Y1LbsSBAPH0mKHuN9IdEvSzLyrvCEW5MQGZSRsfgr/JUkK+RkH2fDA+V2o5QG6Xw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DyPawvPd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD20606A31A;
-	Mon, 26 Oct 2026 10:56:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DD20606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D05606A32C
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 10:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96D05606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eIa46o9o
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793012217; x=1824548217;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6R7AThspgB3hLMq7DFgErpgQRXWjFLugVNFYWPwm0pw=;
-  b=eIa46o9omDrVWWr3blLKsllH+8VVLQNQ6D/7GKHLFHR+Qul8JkWsZyxW
-   EGxnQOB55sLF3ffx8xRhxG9ZptQAf3bzEconOhcRLgvUbo3ehYU2yWpCn
-   uE9NZO3Zl9XF/x8BTE/I7qwKHTC6AWuJ3cbVNFnlaGiXfPWYqEuHPvz+6
-   /HUPOeXKmFriMQ7n+vVuMZ/8nP7MF5nppcrHvzMy1BYeNfzFb8UtxvCpR
-   geCQm+IiHnfLVGnqrLb4T1GHkuNGQygLJEosj+RD4enUMQXavG5nV3ja+
-   niw929JDeLjmJCLSsWV1a7gIQL4BvJoQaH40YmzHv/xNVtW+A1gGa2Fp8
-   w==;
-X-CSE-ConnectionGUID: JlLwdF+XRDm/vF3ReEurog==
-X-CSE-MsgGUID: D9BryQeOT3+JI4MBzbtVBg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1680375"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1680375"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:56:56 -0700
-X-CSE-ConnectionGUID: HXTIutyZQ6yqPPiOnID3Fg==
-X-CSE-MsgGUID: vyJsS/a5S1uvsAk/B3wf3w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="4114405"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.93])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 03:56:55 -0700
-Date: Mon, 26 Oct 2026 12:56:52 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Olli Salonen <olli.salonen@iki.fi>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: Re: [PATCH v1 1/1] media: tda18250: Don't use "proxy" headers
-Message-ID: <at8x9Ho-wkMVDUcg@ashevche-desk.local>
-References: <20260717175155.1784500-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DyPawvPd
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c43fbcb4393so394178266b.0
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:59:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793012359; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DLR5/MSaU+trIyHk78Fv4C5q46tmi5DhYuzD1WGUjjSsQquZ2w1IQH6FK8UDAL1M9E
+         a3KOYs8FeWYF0kebzkHtGrJMug3CwcDipFVTbxS+WoC6lngyQtY/AqXRxT8XR8Kg5TNc
+         YrGIzrlVohXm7M+/FxUC8pCa02+WswBKJRTMXI47z2PdKzXgD9pXN2VgSq+YZqXaLgcs
+         laFAmOVxRYmVwGnWgiaK8L4oh4ss99upNUcltBjaeWDlk5dgydEm9/vESEFxXkbarBIt
+         MCsA/kYSNmcbROsCRDdfCTJ/iwfbiY5vEeL55jwpoQMCBcPU1BAhfyctSREDsGY5GI+g
+         KZKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+        fh=tD5zEbWEhja2B6I/EBPM11LM8qle7tNUOp7zRlFgpYI=;
+        b=KEgKmWcKb4eTebfKE18IIPvbD8rH/OlzJbNnNfpZWG4fnD/8oArj3d+HC1x+CMAlXR
+         M4e0Gc4LUhDdIgJEEMSBrhbMg97tzBPp78y8PfmCgEXm/g34o9WwFO7pWL0voCuASi3E
+         ROyjFaYMKMwvNuaN04QjxcCbjPqmI/y1erbLWvl5Ywr5teKynekXweFJL+xquhIPZK8s
+         CL2o4WmHTigYhtaIrH5V5MH+mYFfnB6ai+osAKstXheRi8jqUVkG5sv1QGFLCj+BPCvM
+         gNxE2g0EEXCS76PG0satK6oT0EMFZxBlSdhDdWT9BrCIw/qWfxTJYugTFE9SxpLoI411
+         I5Qg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793012359; x=1793617159; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+        b=DyPawvPdLZA+/2VQT40qcS75p1VuyCgyKbNWWe1/i4Jnn6zhdb7Z5sGIcVCCBtzdve
+         wY+MWGwTyiwmh1jMbTXm/hMxmssgBPKY80B+fg+N4kMxRsexoLJTWfqZAgmVmtoKDIZN
+         Tbb54fm41IwBUFBGvf0lX5jW4Ji5On0stoi33OFpy9+4mLy9ONwueNlz5I0b6o4vXjr6
+         9lTvlwvI3nXk+I7s8tC/G+umy7MC91YkNkJ4WunVziJq4nd80XNkWjBGEIV6u+EX4wpO
+         VIdqIHIV40AlLQTZ8v+rmxT4JWsuL8tU9RrZ/vfE1jo7UsTkJEuFDmvaFcQGR6rl888e
+         jK9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793012359; x=1793617159;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AGezTdH/BGVGTlUMmaGBhI8YtAvNj4R/9yrQQ0+maDQ=;
+        b=S+2m3h24A+K+b70twR2iTxMMh8389KXPPy1ZOAhS11ba56jdLe9PjzraOFmIdYbx6a
+         GCVLiblVPuQtlh947Tc7TPy7NIExXIZAxO3hP0NbOjdpT+fbj11vOJN7hvHpEd0DbC+7
+         +4n/JkwZGmi0CEzfbqOW8ZRRrMZ7cCXRh6Be5oG2rZ7iq0jk6QLbyndpTKKz/Ts2ZuML
+         wm8DA0y/9VScHnEdbAfwDRP/2CDOogl4+9GfMGn0qV2GLoJ5sl1VdaI95bWj2WZeHXJO
+         MANr42LCztSlsjrMP2onGYaRJw5rFW3mSjFo4F0uo4NacxmFrc9W3hjQZ4Ra2OnaEb46
+         yPDw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHHpkEMkDrSNb39w8VPqO/WTRsFNCh/aHRhPOeK7eLwrB55wQLU/cMFGvAmd8r7yO7rADfaJKr22/JDQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYI6WjiTowW7dPv9C7SRlk9WUuZII83mwO3s0xJE8U4ADCgqA5D0
+	l/2OBb2DvDfit7Lq5TMY9+fYWPkurfmy8tyP2J4CL6DxfHIHoxh8F3y9obblzt+Yeew6UY/9cr2
+	+eyvodpzn7qBnoDPK1jXBhIr7v4G8vdMV9eNwNpdvAA==
+X-Gm-Gg: AYBFou3OUgU4lzCp/9z+hCkwRNsJk3tqeoafdCveXjKvl9Wphwig+FFcRUgds535iOw
+	dYZNJerIPYlxMG3ItqkkiTObsELrnFEgPIS4IcuH7hZUl1Xd2XQXg5KGXkseupt2mSugj7bgM2A
+	Fzbn8/6fl0rKq21Z+3Cw2jH/vstaqNQ9OJLrpEVclZmZQiG/htnZrdC8St89hruXO+OAISq2Q0e
+	/I2lFpS3ou2Ik7CTIMN2du/dJX8weW/wJwCqs91EDe14au2IA3dA3IJnV3oFOe88/fumaB6KWv8
+	GQl8EjMVMIqgElvDYWXPFHSB13VyArZO3pH8e9hQM1DthSfKykCwwbq6tSO/7ATG14mQ29IT8VX
+	MjsUIuebNH/JO0puriTPrp/Qp0K/uCOM76ALrFkQXCupJvHlJ2tz0CVbmdkeJQso51s5gkzU=
+X-Received: by 2002:a17:906:794e:b0:c34:cf13:a930 with SMTP id
+ a640c23a62f3a-c46bde7eadamr829450366b.34.1793012358782; Mon, 26 Oct 2026
+ 03:59:18 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -78,20 +104,102 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260717175155.1784500-1-andriy.shevchenko@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261008-cvs-privacy-led-v1-1-b78d5c512cba@gmail.com> <asjE_UdsewYa4kjz@alaakso-desk>
+In-Reply-To: <asjE_UdsewYa4kjz@alaakso-desk>
+From: Praveen Puglia <praveenpuglia@gmail.com>
+Date: Mon, 26 Oct 2026 16:29:07 +0530
+X-Gm-Features: AclHuK9VDEMKyVEvJ3-kD0nYb3I9skZQwkqBvSZv2CuCDHv1Z2D4dG5lwnZqJg4
+Message-ID: <CANfatsqw=XxmJvbCPxD9T-=FBwd_h-e4KaEf+Mz5dgtGoK+pRw@mail.gmail.com>
+Subject: Re: [PATCH] media: i2c: cvs: Leave the privacy LED to firmware on
+ Synaptics SVP7xxx
+To: Antti Laakso <antti.laakso@linux.intel.com>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Mehdi Djait <mehdi.djait@linux.intel.com>, 
+	Marco Nenciarini <mnencia@kcore.it>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 17, 2026 at 07:25:53PM +0200, Andy Shevchenko wrote:
-> Update header inclusions to follow IWYU (Include What You Use)
-> principle.
+Hi Sakari,
 
-Any comments on this one?
+Gentle ping on this one. It has Tested-by tags from Marco and Antti,
+and no review comments so far.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Anything you'd like me to change?
 
 
+On Fri, 9 Oct 2026 at 16:12, Antti Laakso <antti.laakso@linux.intel.com> wr=
+ote:
+>
+> On Thu, Oct 08, 2026 at 08:39:37PM +0530, Praveen Puglia via B4 Relay wro=
+te:
+> > From: Praveen Puglia <praveenpuglia@gmail.com>
+> >
+> > The Synaptics SVP7xxx (06cb:0701) quirk sets ICVS_HOST_PRIV_CTRL, so
+> > SET_DEV_HOST_ID tells the CVS firmware that the host owns the privacy
+> > LED. Nothing in the driver drives it, though: V4L2_CID_PRIVACY is a
+> > read-only placeholder. The firmware then never turns the LED on and the
+> > camera streams with the LED off.
+> >
+> > The host has no way to drive it on these machines either. On the Dell
+> > Pro Max 16 Premium (MA16250) the only camera LED that INT3472 exposes
+> > is the IR flood LED. The out-of-tree Intel vision driver sends
+> > privacy_led_host =3D 0 for this bridge, and the LED works there.
+> >
+> > Drop ICVS_HOST_PRIV_CTRL from the quirk (quirks 0x7a -> 0x3a). The LED
+> > now turns on while streaming and the stream is unaffected.
+> >
+> > Tested on a Dell Pro Max 16 Premium (MA16250) with v7.2.8.
+> >
+> > Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vis=
+ion Sensing Controller(CVS)")
+> > Cc: stable@vger.kernel.org
+> > Link: https://github.com/intel/ipu6-drivers/issues/417
+> > Assisted-by: Claude:claude-opus-5-5
+> > Signed-off-by: Praveen Puglia <praveenpuglia@gmail.com>
+> > ---
+> > This is my first kernel patch. I found and debugged this with an AI
+> > assistant (Claude), then verified it myself on the laptop: quirks read
+> > 0x3a, the LED turns on and off with streaming, and the stream is
+> > unchanged. Tested as a rebuilt module on Fedora's v7.2.8, not on
+> > v7.3-rc.
+> >
+> > Marco Nenciarini reproduced this on the same laptop with Debian and
+> > v7.2.6, and found no host-controlled privacy LED pin in the DSDT/SSDTs:
+> > https://github.com/intel/ipu6-drivers/issues/417#issuecomment-599673834=
+6
+> > ---
+> >  drivers/media/i2c/cvs/core.c | 1 -
+> >  1 file changed, 1 deletion(-)
+> >
+> > diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.=
+c
+> > index d4a3b9c3ba..3520325717 100644
+> > --- a/drivers/media/i2c/cvs/core.c
+> > +++ b/drivers/media/i2c/cvs/core.c
+> > @@ -72,7 +72,6 @@ static const struct icvs_device_quirk cvs_quirk_table=
+[] =3D {
+> >       },      /* Lattice NX33 */
+> >       { 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
+> >                         ICVS_HOST_SENSOR_PWR_CTRL |
+> > -                       ICVS_HOST_PRIV_CTRL |
+> >                         ICVS_FW_BUF_SIZE_256 |
+> >                         ICVS_FW_HEADER_SIZE_256
+> >       },      /* Synaptics SVP7xxx */
+> >
+> > ---
+> > base-commit: 47324d3a5b3abd781295044d01d92d09f184e872
+> > change-id: 20261008-cvs-privacy-led-7d0f2327c31f
+> >
+> > Best regards,
+> > --
+> > Praveen Puglia <praveenpuglia@gmail.com>
+> >
+>
+> Tested-by: Antti Laakso <antti.laakso@linux.intel.com>
+
+
+
+--=20
+Cheers!
+Praveen =E2=97=89 praveenpuglia.com =E2=97=89 @praveenpuglia
