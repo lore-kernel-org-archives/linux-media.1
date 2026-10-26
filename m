@@ -1,63 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793042004;
-	b=GhgoL8zgZDPyOJmcLcjZn+dQsfhbwn/+LiiSTVhOvGz6JV43bF6KLiXPBlKx6zrQ9YW4
-	 zXyNrHDlz9bRpzTrheF9Zpb8HwFk88F67YIpFi/4HYtp/XDwCSpy/mfvpV2bUOlepNSWU
-	 kj8dZNrUIpypd16/VAAXW3k03AfThGfWRcOF6RsBDKsl01/vptFLwW37peWuePoCV/0qO
-	 3i2sfc1blrsQvSuacy5rhFRSu9F+F/a0qeGZuO6oYCpxTIDE4vsGka9KrZrXSlkx2hqOY
-	 sZf5FEIEOqVNS8sSloTNEMHdWHiz+udo4FYzcH7p3iNhzIq8Gg4qhl0znQSgcb94aTQ==
+	t=1793043865;
+	b=jZHlkqgMBVhBzUJkSAfA3QUe1raoz/ZURLt+jsrLpqr+u2l9KBQYlQkPelcYvizUDYoy
+	 QeBYUcg5amC1xVv6nDcD7P8ErjAjZWN7DJeKGR6rG74CAgKb50evMBN6+gOsVk0y0RAFg
+	 GF689EbaB7jlwjXrRTY0GvBUNuNW6DeBp8ZiMBM7+ah2qzwxGvEKInRt9E5C326H3uMmk
+	 NOTG3G9htDSwK+VqeXV08mbNZlXBnD+qa7dvp1zdvmuXxdfIXn+/NmdlKTg3kQ8DPHCti
+	 RzQYtZ8tFsw8B5MWhVTCWw9EoKreDCnd1awYW/Bv89O4pHdsLjTj9P7MGqbuvhZanHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793042004;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=3yrz+Ov6jBpPKPNpWn5AEy9fZTQAY5u9WL+GOyU2/X0=;
-	b=HXIhY3XtF1P5hyAmLKuYXDyv695DINrRgG6U4Gy/6q73OHCEWJldFuVGbtEP4v0O5R0p
-	 O7YW/wX+EoMDxVyyz4eU/9XLpxyRSicdPQrJQbzfs5w1vo9o7H5hXVCc/ymFStLcbZLRj
-	 voW37OdoasQ7cPQE2w+Kw3WWE80sUTUAGC1fsKD17xIfkuwKKltKAisxcBK86pw5J4RU4
-	 UkCeSM32r3pG0RG9KXHRDS5Fce+qMje0tqYZubkEnOZlMxo9ssJAlsX7oX4pE3gamwSjy
-	 U3/ROXmzIB51Fen6z/WYVMh3QaRUWFedWtevLg+FAzyWTOUEUrRKiPfHE5fZ3K2Ku0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793043865;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=EnFV3b4kBOohLUYDrT2EqqoWC7vJoIJiTj7bdy7r6OI=;
+	b=Fejs33lx8Pf9Y4pJZ5KHls7x8rhj2FgwwBcaM0Fk7hbxcAHHeDRwKJMi0LCeQvUCVzCs
+	 kxBoeCQK2FsUmL/Nitddl1MoOdqWBx7cZpWI0GKx43+AhDmmq912BQQRmJnnKF4AjDDvV
+	 CveUZJ6LLDaZHAop9jcbiTcCHfiBvthOu3kxs09X1GDQTIQ0N0T8qATHxJ4jUNFies7xM
+	 K/8tvFeUWJD//wR+JQeTGJPx+bd2Akd9eGMf8sc37FCob12ndYsuxU8j6RLi3maceyH7J
+	 7sMuAzpXAqr7PDnavK+JbWf8v34IB9zS2hHJUrVIP9N1si27l7Bkqyo8Kys3C/yauGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORXNjc6l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D377606A31E;
-	Mon, 26 Oct 2026 19:13:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D377606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C9D606A31A;
+	Mon, 26 Oct 2026 19:44:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UlrdTnkq
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E18CCB1A;
-	Mon, 26 Oct 2026 20:11:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793041870;
-	bh=ivDiP8NI9Z30mey8L2KGIt+N5uRIkUdxK3fKOwTUsIg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UlrdTnkqAoAFbqjmbN7M+tq859syiUuvI+z+afkwnI9wFCwCRXWY9kCG97buiEXVC
-	 U+0a9Ivky/rYi9rgEJmtnrzqSlvTK4XpOX3qlDrv08bfpheaKA6L1DzqC1eX27Y38F
-	 rxMygoM85k+PJJ8+lIC35GjauAVkRbhTzsxWUz50=
-Date: Mon, 26 Oct 2026 21:13:19 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Hans Verkuil <hans@jjverkuil.nl>
-Subject: Re: [GIT PULL for v7.4] media updates
-Message-ID: <20261026191319.GA1996520@killaraus.ideasonboard.com>
-References: <20261024185058.20410953@foz.lan>
- <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
- <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORXNjc6l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6CE1F01828;
+	Mon, 26 Oct 2026 19:44:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793043864;
+	bh=EnFV3b4kBOohLUYDrT2EqqoWC7vJoIJiTj7bdy7r6OI=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=ORXNjc6lV4OPB/JbeGos2UZgw/cJHmUDpVxWFIXeJ9IQc1OIbUO0GwHsSt+PYSBtF
+	 0c+bFq+C4t8uvAgxXtft9Qrilg9uZFSeIQWNo1tRBzMmGSfP4zboJpS4awNV5jnqTn
+	 sF4yIE+AS+NvvERIjFrHj32wwaxBM/jJj0yu6wL2H9fx4577Bc1r7DDgBZgK2sTW5s
+	 KFxAKu5vUEzq0Fl5b7iG3BDLNDDuQ7ucgNaLVKIB7MZuoiHY+/QFcf/m4Cqu2k0SZJ
+	 sEBMBktyAgstq+lAAeCm/sSGl1ZIl9FIxURJ6wIlBpQb6CU36g1MwtCN3lqepAt9rp
+	 e9K0DDBfzoVlg==
+Date: Mon, 26 Oct 2026 14:44:21 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,66 +51,111 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: iommu@lists.linux.dev, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Simona Vetter <simona@ffwll.ch>, Robin Murphy <robin.murphy@arm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Sean Paul <sean@poorly.run>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ linux-arm-msm@vger.kernel.org, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ devicetree@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ linaro-mm-sig@lists.linaro.org, virtualization@lists.linux.dev, 
+ Jason Wang <jasowangio@gmail.com>, linux-kernel@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, 
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, linux-media@vger.kernel.org, 
+ Mahadevan P <mahap@oss.qualcomm.com>, freedreno@lists.freedesktop.org, 
+ "Michael S. Tsirkin" <mst@redhat.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Flemin Jose <flemin.jose@oss.qualcomm.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ dri-devel@lists.freedesktop.org, Abel Vesa <abelvesa@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Will Deacon <will@kernel.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+ <20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com>
+Message-Id: <179304379330.2965544.11793708430519844335.robh@kernel.org>
+Subject: Re: [PATCH v2 01/23] dt-bindings: display: msm: Add Qualcomm DCP
 
-On Mon, Oct 26, 2026 at 08:24:59PM +0200, Sakari Ailus wrote:
-> Hi Linus, Mauro,
+
+On Mon, 26 Oct 2026 11:51:11 +0530, Jayant Shekhar wrote:
+> DCP platforms place the display pipeline under firmware control, so Linux
+> cannot discover display resources through direct register access. The DRM
+> driver therefore needs device-tree descriptions of the Qualcomm transport
+> wrapper, display topology, IOMMU contexts, and panel connections.
 > 
-> On Mon, Oct 26, 2026 at 07:34:12AM -1000, Linus Torvalds wrote:
-> > On Sat, 24 Oct 2026 at 06:51, Mauro Carvalho Chehab wrote:
-> > > Sakari Ailus (60):
-> > >       media: Don't hide I²C or SPI drivers by default
-> > 
-> > This needs to be fixed some way.
-> > 
-> > The kernel config is asking about ridiculous things that no sane user
-> > can know the answer to. And that change has made it worse.
-> > 
-> > Asking a user for random media drivers by chip ID is *NOT* ok. It
-> > needs to be hidden some way. If the old way didn't work, some new way
-> > needs to happen.
-> > 
-> > Guys, the kernel config phase is already *the* most annoying thing for
-> > people trying to build their own kernel. Don't make it worse by asking
-> > questions that make no sense to a normal user.
+> Add bindings for the Qualcomm DCP transport wrapper and VirtIO display
+> subsystem. Document the IPCC power-notify resources, transport and
+> framebuffer IOMMU contexts, firmware-visible IOVA range, INTF graph, and
+> DSI panel connections. The wrapper creates a standard VirtIO-MMIO child
+> after the IPCC power-notify sequence has completed.
 > 
-> The patch in question puts camera sensors and related chips in line with
-> how the rest of the drivers are selected elsewhere.
+> Assisted-by: LLM
+> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+> ---
+>  .../bindings/display/msm/qcom,dcp-dsi.yaml         |  79 ++++++++++++
+>  .../devicetree/bindings/display/msm/qcom,dcp.yaml  | 123 +++++++++++++++++++
+>  .../bindings/virtio/qcom,dcp-virtio.yaml           | 132 +++++++++++++++++++++
+>  3 files changed, 334 insertions(+)
 > 
-> The reason why I wrote the patch was that Arch Linux kernel missed enabling
-> these drivers, which given how the MEDIA_HIDE_ANCILLARY_SUBDRV option
-> worked before the patch was to be expected at some point (rather it's a
-> small miracle no-one had complained about this earlier). Raw camera sensors
-> are quite common in laptops these days and the only way to enable compiling
-> them before my patch was to enable CONFIG_EXPERT first.
-> 
-> I guess we could have an option to compile pretty much all media drivers as
-> modules (it may be hard to draw a line) and then require CONFIG_EXPERT to
-> allow choosing amongst them. I'm not sure I like that idea much though.
 
-As far as I understand, the goal of the patch was to stop hiding the
-"Miscellaneous helper chips" section by default, and let users select
-VIDEO_INTEL_CVS. While the commit message states that it applies to all
-camera and lens VCM drivers, that doesn't seem to be the case, those are
-not covered by MEDIA_HIDE_ANCILLARY_SUBDRV today as far as I can tell.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-One simple option could be to drop MEDIA_HIDE_ANCILLARY_SUBDRV only for
-the section that covers the CVS. It's not ideal, but it could be a quick
-fix until we find a better option.
+yamllint warnings/errors:
 
-Junjie also proposed automatically selecting VIDEO_INTEL_CVS in
-VIDEO_INTEL_IPU6 and VIDEO_INTEL_IPU7. You didn't like that because CVS
-is an I2C device separate from the IPU6 and IPU7, but is it found in any
-platform other than in conjunction with an IPU6 or IPU7 ?
+dtschema/dtc warnings/errors:
+/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml: iommu-ranges: multiple incompatible types: uint32-array
+/usr/local/lib/python3.13/dist-packages/dtschema/schemas/iommu/iommu.yaml: iommu-ranges: multiple incompatible types: uint32-matrix
+Could not decode node virtio@9be8000 property iommu-ranges with value b'\x00\x00\x00\x00\x84\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00'
 
-> I wonder what others think.
-> 
-> Also cc Hans and Laurent.
+Traceback (most recent call last):
+  File "/usr/local/bin/dt-validate", line 8, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb_validate.py", line 443, in main
+    dtb_diagnostics = sg.check_dtb(filename)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb_validate.py", line 331, in check_dtb
+    dt = self.validator.decode_dtb(f.read(), decode_errors)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/validator.py", line 631, in decode_dtb
+    return [dtschema.dtb.fdt_unflatten(self, dtb)]
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 591, in fdt_unflatten
+    dt = fdt_scan_node(validator, fdt, '/', offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 320, in fdt_scan_node
+    node = fdt_scan_node(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 320, in fdt_scan_node
+    node = fdt_scan_node(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 312, in fdt_scan_node
+    node_dict = node_props(validator, fdt, nodename, offset)
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 258, in node_props
+    props_dict[p.name] = prop_value(validator, nodename, p)
+                         ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.13/dist-packages/dtschema/dtb.py", line 185, in prop_value
+    if len(p) / type_format[fmt].size >= min_dim:
+                ~~~~~~~~~~~^^^^^
+KeyError: 'uint32-array'
 
--- 
-Regards,
+doc reference errors (make refcheckdocs):
 
-Laurent Pinchart
+See https://patchwork.kernel.org/project/devicetree/patch/20261026-jshekhar-dcp-hlos-v2-1-7cf014efdee1@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
