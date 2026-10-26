@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009010;
-	b=ViNcgDmgD4vA8h0MDoRLvmD/pBqL0e9bpBEI7ZHAx1VBeAXcqHiIN+Z0FN6Hn6UWuOKQ
-	 8/9ZB4WrX3AIpWTrpDszE+xYaVJqrLeqTdqoZXE2lR8P7a7hof30Dz3heezAMO1NbCZPU
-	 ctZqcOVCh/G+VBS7UzDVOYPynybAunWLL80ZMVBn2wBUdf/lf3YoRkJ+0dnGICcEVkARk
-	 tGN4j8IZAKQPJmdKhMju5KDSXquIQmEs9TEqS6QUqBOqrxVR2WVX13pvRUQh5n/XxbwuY
-	 CZefuXycJrJpLoE5bl3m9Y2c80K0JWiJ+J/DMF4FSpLzRq8EZKL+3CAZSUqWLj38Llw==
+	t=1793009050;
+	b=MkP+4gzU8eUJp4UuCnI9BRgCmdxhxO0E27R2H0xJUyPq5q8XPCA1VkbnIofTt+y0xFZc
+	 YDwrBm6r76oPCAp0CEJudBQ3FEqKbIZdTkbMCx3YfqxXOUf9MWE+3KdFvoOj3zUbQZb+V
+	 7UK87VR/iRqqMHSGnqZ0hR+XBWe2cCfAlRh3MBjoCJLyguskES5ADvO0KGoBdbKuTZ8b1
+	 jodNG5JvR1GkFnRMqezXBABJkPoMfd1gEGbmCJnMo+jWTasK7meoU+9Znf8v2MjnboWKJ
+	 y5V2slAkEzYsAzAzTwZqmu5VSA0ifElGz6tvxQF/26arK/buQ9MVPy0cwS/iy7DGERw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009010;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009050;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=W4vBVbDsli9CIfGvUM/rO7d56+2ydoD8CDU72XQ+5Bo=;
-	b=afuKuh2TaJ0ic7jT8WhPpxdaRlEIQf4YWaPib5qvuFyDIS1xYwIOtqoijZlgLSGL3Rjv
-	 1mY/eu42ltMm0twfpkLaD/+WnvZ7zBxD38QROCHwO937TIs6pHS43n5BDbLVmHx8FXqSI
-	 lRd+Yg0t6CtTpAhjqQ46X3XdT3/7/C1IVt6TBS7kRhZPjP0SI4wuOoC8sPiobDlrG/RzD
-	 QnQDpYDlYNvoeXHEuau/cM9FtIeT1mxOOZN2V3JG8eD8tGoLN5M09tEO0zUclTu1XVA6f
-	 Sx2kirCWkBf1Iu44WliLxra+IL06Dos9Ww0zcF1hc33shJaY7inZ65lNMIysrmC0JiA==
+	bh=DMDVfX/60j1T/4I3Dg47M+PWpk6OsCfOmqDTjZw5jMg=;
+	b=UgK9vkhvmszN4zCmMG77nJpBoGO43ISc+lvkQWSIULBX1mm4FKhFykYruW2ioef8HiQf
+	 xt+H7T+UYEaxeq6pXDf9c7ww2mqrMJdzr7s5nmolZlessFWcOIL8k9lSSx1Koy91zAWKJ
+	 CJfCWYyANE9gOgmwn7ZTLrq6k8TYUrnkV8Am44uEPmWSYbCmOP2K25IB75r7WYwezKZAB
+	 QyrZcSPeCSHKZ6vzpN4OUDlTnQv6qLtyrpJiu/p3j7WiXsAcIWzXKXVHxMk9zdFR4B3Uk
+	 9VhQGFGz0m9wx6Tla1PbmhfVrSu0nDspZ+EKyPRdKfD2N2YDASbpkZj5GxIL33hop+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcH6GjCn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWMWXrYP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A523606A328;
-	Mon, 26 Oct 2026 10:03:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8940F606A320;
+	Mon, 26 Oct 2026 10:04:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GcH6GjCn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1BD01F01828;
-	Mon, 26 Oct 2026 10:03:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RWMWXrYP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EA31F01825;
+	Mon, 26 Oct 2026 10:04:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793009009;
-	bh=W4vBVbDsli9CIfGvUM/rO7d56+2ydoD8CDU72XQ+5Bo=;
+	s=k20260515; t=1793009050;
+	bh=DMDVfX/60j1T/4I3Dg47M+PWpk6OsCfOmqDTjZw5jMg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GcH6GjCnXknP+iQaaox8+4NzLLd/G3M0GZ70jvdF2KoXTm5MFH8WMEGgWYIFwLV25
-	 mpUDy8xg5OElW8H1XPkrNtk8UShgKpAMkpyG2LOOKTPzd07qGhE4VswP1be33iaSdi
-	 2nhmb2OBa8mwmtcsU83anPvXpJImixQcBSJTF+DLlDbEc2eWq3c0Bj4dLwDjc3u1oO
-	 jvqg//HAc3csoUFFUHzqHKJNtfBXAayXXWY8tl95wGFAGZU0Nt8RHElhRHRVI2Xw5w
-	 0B6nIbw+eNDenggyCvM9bi4fD5N33Hw79dqLNo11MGqCMngMT6OYQ14ZNV8d2CcmoP
-	 HUOr4eyUHdYGQ==
-Date: Mon, 26 Oct 2026 11:03:26 +0100
+	b=RWMWXrYPo9GT3fZIU3eVnduHhWuZ9rtelr5f+AJR/r6CuR6tKVTlOzvsIxGN2qh9G
+	 hIEsLnUF59YGpGkpE4ZxFNnq7CNIv7UhG4Y+NXBahwvPP3uWIAfSTx2uchvoxUm62C
+	 i1dVCr0/nYK83bwBVVrtFQZLC2TTHBS0+oHyBMC1gFxha+53DHA85zIPm1eEDAJV+4
+	 G7ACY0/x425MX74Td5D+a5OGVIQl17jjERvdqD0ejFZYDHcMv2JbhacGuobMSXu0fz
+	 ZxaccTGzeqNPWyxhoi4GMy1Axj7PEwqG5Xm7gUI7ZCf7oVGzNdiSmEaNxenF5GKEbB
+	 NRz2tJxKdM1MA==
+Date: Mon, 26 Oct 2026 11:04:06 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Vladimir Zapolskiy <vz@kernel.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
@@ -50,11 +50,10 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
 	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
 	linux-phy@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/7] dt-bindings: media: Add description of Qualcomm
- Waipio CAMSS IP
-Message-ID: <20261026-mysterious-vivid-moose-adcd71@quoll>
+Subject: Re: [PATCH 4/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
+Message-ID: <20261026-lush-boobook-of-luxury-39f184@quoll>
 References: <20261023163057.775917-1-vz@kernel.org>
- <20261023163057.775917-4-vz@kernel.org>
+ <20261023163057.775917-5-vz@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -66,31 +65,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261023163057.775917-4-vz@kernel.org>
+In-Reply-To: <20261023163057.775917-5-vz@kernel.org>
 
-On Fri, Oct 23, 2026 at 07:30:53PM +0300, Vladimir Zapolskiy wrote:
-> Add Qualcomm Waipio CAMSS device tree binding description.
+On Fri, Oct 23, 2026 at 07:30:54PM +0300, Vladimir Zapolskiy wrote:
+> Add Qualcomm Waipio CAMSS device tree node to the platform dtsi file,
+> the CAMSS input ports are connected to output ports of CSIPHY devices.
+> 
+> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8450.dtsi | 167 +++++++++++++++++++++++++++
+>  1 file changed, 167 insertions(+)
 
-$ git grep Waipio
-How anyone can guess it...
-
-> +$id: http://devicetree.org/schemas/media/qcom,waipio-camss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Waipio Camera Subsystem (CAMSS)
-> +
-> +maintainers:
-> +  - Vladimir Zapolskiy <vz@kernel.org>
-> +
-> +description:
-> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,waipio-camss
-
-There is no waipio SoC in upstream. Please use existing names and avoid
-inconsistencies.
+Why DTS is in the middle of the patchset? Drivers cannot depend on it.
+Please read submitting patches documents in DT.
 
 Best regards,
 Krzysztof
