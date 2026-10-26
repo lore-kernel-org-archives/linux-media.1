@@ -1,88 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792978538;
-	b=DZiqYAXMYr+PI9y3chTdW/Ep23W+YdJGI9qLMY5yYUHNoQmUAocl+NghSpZQsDYtSg2e
-	 h7tZwOoi0d5Sc5D2gUs1aWjPPTO8YPnzOXePPUBQlHN2q915QE3ZVRPygZWgr3Jc/d+Z+
-	 N4pRmbnthjQ8Z6KsBjAcjFSCAfkV1r+OzZDWwFO3hfazquIr8Ouh3/w5WvN5gT9jXRl4L
-	 bHZx7owcBd5/GXiOvYBsvfo7CjHSXKg8klPXhEiJZspIRS/fJRNQaej0fvXz0ObPJ1WkQ
-	 6bFYQGX2iyMtAPUfuoNAZYHwsfYmZR2Dw8zjv7ZL+B4/RH1Nc6ghpc6SOrGojmtvH/w==
+	t=1792986288;
+	b=QR73YFGPk6x/4oorderFC3ffIdAZt3B4ch/fej8QHnYG6EMmCi8orKdAGIiwCK3XPNAd
+	 8XeUO0y0tPSp3tlidGiZ7Azl2FdqNYbmFOD+ZIR1EnHNemVOqz1hjvo2akaT5vugV+hmx
+	 yrTd211Gja9qLunDGlyVYl+xOcfibTtHA9OPOA1rtOriS4Qo1ZN/8FUyUyuybTx59CKi9
+	 feHWPx//mbBDrGv5YdCx9mnbGFMRSh+ZQirE6D3Vccjeyuj/0sc/kdERqjUtyV5nmwMzW
+	 LUfJ8ndDpw6hrELqwveq+shW4jtfty34Fgf5NwwhOMPdBsA5F23SvgrlKqCEA+WRfZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792978538;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=lGz688wnSiLBt9+k0E3kJwGc/ixPHcTO0dNjdQ1l4Hg=;
-	b=Pp/fhCejKgLddsLrFMyL6127Mo6ZTUhElbwgYum0AsGaifWpNv7F0St2OR4zEqTfjIPT
-	 GhuXCNHOV9uWPF7axaMF5aZHM9WTQlgbfc9teTWZou9xeOEJhK4SR3/Xn59fsbb07eWso
-	 1g+mMljWhUEqcvEhcrNs6FON4ZgSCQl9Pjv8CMcTStk1j9bIn0I05ddDuPDeUgHlYoz0B
-	 5UswnhAqI3Gi9MZM8bqGfqmUXv6X1+R0a0+m4mm7gYng4B0XG5Vs9JmKBFt/b8PkU0teo
-	 4XyUcrS4VgGGnT7Mck4lbppXdAHHN270l0d8EaMEFOtAvfsTONHjZ6HGKz51SYCCQNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792986288;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Mp9syZcJ1VmKc3LeFMmkylagr7lDm03TniYUI7wIYH4=;
+	b=LWvq1XolrARe4qZ2Cn6STiJs4xEd8TEFNcgUlnWYPFsDqVL3ZJRPj926IONw2sqOZd2q
+	 gRYLoqMBW+ahLh6vMxx6GdGZ6WolegsA2vCbLHyUafQpw9gW+UlhAJBH9yeJrWbpjSg5q
+	 Ws9cRM7PkXXqBOJNcCCiVbkPaViEQEWZkBOYM5uPly6066Db3d/I23P5vGsGfLk0GSCag
+	 Ae7Fh5mCgG/44aPyTyKH9Snx0yN6aiWTvfMivFFAV3sPjD8oGn+ZwELG0qUCbx/cFtI3T
+	 DQfFuJYhPAn1Nm7jZWm9CEwXWeK5/voJlssqofwthtV2XNUHERaYKFnBu//rjEzcTAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eSEUPBH6;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PZI0qVFz;
+	arc=none smtp.remote-ip=209.85.222.54
+Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39118606A31B;
-	Mon, 26 Oct 2026 01:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39118606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EEC606A31B
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 03:44:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06EEC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eSEUPBH6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792978537; x=1824514537;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6XeH1nDmIKEwWHahs4esRbq75DGdv4dggga0X48z5aw=;
-  b=eSEUPBH6T8Q016bNzJ00C1hFieXAsgN/C7tVsDrH19JAyM2h5bh2QWhW
-   BGnkiq4VTpHMwWhVc8f1Sulj8btJEcI+pPQjx2aQIk0EyD7pMY+Q/L0r8
-   v3Q/q8oJaF59VbrztuxMU5ontR2mxuWqQ/I5QwjwVxQ95xe5IeUPt5ZV0
-   tnW/OkzEC17HUaWUSH8uKnE8bHRIBxLZZjlmap0l/sg44sXvIPz0NhyQ5
-   UqcE5tAYvbGyfNeCTSRSOj9EBISmA6R1pScW0KgO6w/t5v4qvHeqhYbuO
-   r+Bwx5kDZd+8iuXVCjwmwVutp9LhA9KyFW2tGDykYgNIbrTWo3x0aCkEH
-   w==;
-X-CSE-ConnectionGUID: CvnvwPB3RsWh6FwmPmAFRw==
-X-CSE-MsgGUID: XarbEz7VQKWXuHY0w8C+eg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1516724"
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="1516724"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Oct 2026 18:35:36 -0700
-X-CSE-ConnectionGUID: vn57Yzv8QpO+fs+7TSm88Q==
-X-CSE-MsgGUID: UBJTCDoEQU252vSwaq5npw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,178,1787036400"; 
-   d="scan'208";a="4147146"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 25 Oct 2026 18:35:31 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xL9cW-00000000VL4-0M45;
-	Mon, 26 Oct 2026 01:35:28 +0000
-Date: Mon, 26 Oct 2026 09:34:44 +0800
-From: kernel test robot <lkp@intel.com>
-To: Philipp Stanner <phasta@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-	linux-arch@vger.kernel.org, Philipp Stanner <phasta@kernel.org>
-Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit
- properly
-Message-ID: <202610260958.IcV50YNq-lkp@intel.com>
-References: <20261021095512.1345191-4-phasta@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PZI0qVFz
+Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-98c5876f2b0so1581657241.2
+        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 20:44:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792986287; x=1793591087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mp9syZcJ1VmKc3LeFMmkylagr7lDm03TniYUI7wIYH4=;
+        b=PZI0qVFzdLhpLXhzbHGKdoD/1uf3IVOBmnibJVbb+XPXpULEfVaymH6iUPbYnP2RNG
+         fSHMFkRdkdulojLA7Yg82U1nzDpKbCzofeFqfrYyXUCBBe+3vLpnuo9w6QWVu8rUO6KX
+         C9crbexWoN3nO+694eJkzeKtKthvVErsJKOxwp95si8YkHerGDgvqjWKLTGUvdF/6xTi
+         +/TErvLy5ZTFua+sW/443VVIAdJ2+KAtfjC2coBCd1h+3CyXI7wKwzaGgx6UGfOIShzs
+         4tnBt9e+bJpdm+nO25+A2gVJ6uecScTsanhmzo2mg7FBcfo7pw4A8HL/nuHMbYrKVbNU
+         Gjrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792986287; x=1793591087;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mp9syZcJ1VmKc3LeFMmkylagr7lDm03TniYUI7wIYH4=;
+        b=yv7+QpKrBRre3uRGJH6rxvATezjepcyYkAkZxoqHlkSSrW3GvjpQaYEpgCHaRDaN6d
+         mZP9fUkdPwzkfiVU8tcYzF0PA7Ub3ymeH5Zdtva54Dn72MXwM0C9Tg7lZlVZbQcf1sbs
+         cG+mYYelk9kccMG6zbpqGZewgVbylC2fDJsKrZ7e5AsJrmosso50oocD62puvLILA4OS
+         Exe+2FZSbfeEPuKvZhajNnS0PU/B/DyrqRVRmI0kx8ODa2YtvVdbwweXNBZk8c7PToby
+         AO3uWvVsk5VdcK0qty7Gd2w9U04YP4ybQGfcEGsmEWVj756jc4CVoHlH2WhwFhlU/Flf
+         BXnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzW6GVhKGi/+FpmAlPc62EAAN+0rnYIOQIcIolgMqHlArcGBGvpMtxBXrGV1pEgVDsSz7T+r/VmtfKDFA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqxsDaYkWP/0BcR90nqNx4zBnmGitytwqm3VODVz9JtOpvpJ8k
+	jtSkyO0JPYJIufLaaucW8t0S85UwWqoLFR0kSI4Ry5auycdYXXbNq6rRtcNvBuO8
+X-Gm-Gg: AYBFou2XFcSGnknMyCI0LtlFrp2+96b0Uj0Fe8xuyhqfh13EwIlJ9rPeyY3B8TZLLia
+	/TosMbOeau7EeJnvg18BtcJZ6FEOeuK+dxfHfB/V4UhQ0ojqQopaoOiAqd05zWNpVw4UixPL+3P
+	XW/bSwjGxO/znBY+5DWU8V7hHhmpSCJVHDOV/Q/SItSWKG2yzn+8H+bPyn+R+vZryIkVdQWs2yt
+	fOPxm0zsfmuaezUQkd/JufDJEgFy1Fv4eKn4UeS7Bc0Kw2zr2t1Szu9/pCkd+HB19tA5u88OLZq
+	1ezVY/Mrg4AeH4IGPkiOfus5B4aIw4bwjA4csToUHPIyUtlzpBbrZmRro0PlBR57kUKAam/LON0
+	HWTJXtwJbMIZMWu4aHpUY4MUZ0VrJxvwujQUr6VahtCF/Y2drw5G92W6W/jHkFBZgi5giiYCSHO
+	G4bpAZbtWqG1aCRZPXjVLymuRL9E7gN4MymEJOu03rZxG/Njp7pZ5LXEEXSfYMAWwWZ65Jlwers
+	qlrstfwk7aIVMd4aEezS5SAWcZsEyoca/lwlksA/n4WfqUEIpwgBpblxpbD/8rcoKE+5Tkn2bdN
+	Xu5iNFLAY4eDvGrrM8B2
+X-Received: by 2002:a05:6102:83cb:b0:7c1:62d2:e18a with SMTP id ada2fe7eead31-7ce5cd2d77fmr1526100137.16.1792986286951;
+        Sun, 25 Oct 2026 20:44:46 -0700 (PDT)
+Received: from archsung (187-126-110-245.user3p.vtal.net.br. [187.126.110.245])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9910e6cfb52sm7116134241.2.2026.10.25.20.44.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 25 Oct 2026 20:44:45 -0700 (PDT)
+From: Felipe Calliari <calliarifelipe@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Felipe Calliari <calliarifelipe@gmail.com>,
+	linux-media@vger.kernel.org,
+	Hans de Goede <hansg@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Tomas Moro <tmorolias@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/5] media: ov02c10: Split the PLL registers off the mode tables
+Date: Mon, 26 Oct 2026 00:44:24 -0300
+Message-ID: <20261026034425.74516-1-calliarifelipe@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <asAYI3pjBMHAdnTv@kekkonen.localdomain>
+References: <20260923144257.119076-1-calliarifelipe@gmail.com> <20260923234100.318151-1-calliarifelipe@gmail.com> <20260923234100.318151-4-calliarifelipe@gmail.com> <asAYI3pjBMHAdnTv@kekkonen.localdomain>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,101 +103,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021095512.1345191-4-phasta@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Hi Philipp,
+Hi Sakari,
 
-kernel test robot noticed the following build errors:
+Thanks for the review.
 
-[auto build test ERROR on 1ecab8b0bad393750c60cc3819ce9c256595463c]
+On Fri, Oct 02, 2026 at 11:46:27PM +0300, Sakari Ailus wrote:
+> On Wed, Sep 23, 2026 at 08:40:58PM -0300, Felipe Calliari wrote:
+> >  static const struct reg_sequence sensor_1928x1092_30fps_setting[] = {
+> > -	{0x0301, 0x08},
+> > -	{0x0303, 0x06},
+>
+> I haven't tried to figure out what this register exatly is, but this patch
+> changes how this register is programmed. After this patch, the value of
+> this register is always 5.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Philipp-Stanner/asm-generic-bitops-Add-set_bit_release/20261021-115512
-base:   1ecab8b0bad393750c60cc3819ce9c256595463c
-patch link:    https://lore.kernel.org/r/20261021095512.1345191-4-phasta%40kernel.org
-patch subject: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit properly
-config: m68k-allyesconfig (https://download.01.org/0day-ci/archive/20261026/202610260958.IcV50YNq-lkp@intel.com/config)
-compiler: m68k-linux-gcc (GCC) 16.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261026/202610260958.IcV50YNq-lkp@intel.com/reproduce)
+It was always 5 before this patch too. ov02c10_enable_streams() writes
+the common table and then the per-lane table, and both per-lane tables
+write 0x0303 and 0x0305 again:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610260958.IcV50YNq-lkp@intel.com/
+  common table:  0x0303 = 0x06, 0x0305 = 0xe0
+  1-lane table:  0x0303 = 0x05, 0x0305 = 0x90
+  2-lane table:  0x0303 = 0x05, 0x0305 = 0x90
 
-All errors (new ones prefixed by >>):
+The tables are written every time streaming starts, after the sensor
+is powered up, and the sensor only starts streaming afterwards, when
+0x0100 is set. So when streaming starts, 0x0303 is always 0x05 and
+0x0305 always 0x90, before and after this patch.
 
-   drivers/dma-buf/dma-fence.c: In function 'dma_fence_signal_timestamp_locked':
->> drivers/dma-buf/dma-fence.c:393:9: error: implicit declaration of function 'set_bit_release'; did you mean 'seq_release'? [-Wimplicit-function-declaration]
-     393 |         set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-         |         ^~~~~~~~~~~~~~~
-         |         seq_release
+The tables come from the out-of-tree driver [1], where each mode table
+has the same pair: 0x06 and 0xe0 at the top, and 0x05 and 0x90 under a
+"// plls" comment at its end.
 
+Still, you're right that the patch changes how the register is
+programmed, and the commit message didn't say so. In v4 the series no
+longer touches these writes: the common table is left alone, 0x0303 =
+0x06 and 0x0305 = 0xe0 included, and only the "plls" block of the
+per-lane tables moves into the PLL table, which is written right after
+the common table. Every register write is kept, with the same value, so
+0x0303 still starts at 0x06 and is then set to 0x05, and there is no
+change in behaviour.
 
-vim +393 drivers/dma-buf/dma-fence.c
+If you'd like the repeated writes in the common table dropped, I can do
+that in a separate patch after this series is merged.
 
-   337	
-   338	/**
-   339	 * dma_fence_signal_timestamp_locked - signal completion of a fence
-   340	 * @fence: the fence to signal
-   341	 * @timestamp: fence signal timestamp in kernel's CLOCK_MONOTONIC time domain
-   342	 *
-   343	 * Signal completion for software callbacks on a fence, this will unblock
-   344	 * dma_fence_wait() calls and run all the callbacks added with
-   345	 * dma_fence_add_callback(). Can be called multiple times, but since a fence
-   346	 * can only go from the unsignaled to the signaled state and not back, it will
-   347	 * only be effective the first time. Set the timestamp provided as the fence
-   348	 * signal timestamp.
-   349	 *
-   350	 * Unlike dma_fence_signal_timestamp(), this function must be called with
-   351	 * &dma_fence.lock held.
-   352	 */
-   353	void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
-   354					      ktime_t timestamp)
-   355	{
-   356		const struct dma_fence_ops *ops;
-   357		struct dma_fence_cb *cur, *tmp;
-   358		struct list_head cb_list;
-   359	
-   360		dma_fence_assert_held(fence);
-   361	
-   362		if (unlikely(dma_fence_test_signaled_flag(fence)))
-   363			return;
-   364	
-   365		trace_dma_fence_signaled(fence);
-   366	
-   367		/*
-   368		 * When neither a release nor a wait operation is specified set the ops
-   369		 * pointer to NULL to allow the fence structure to become independent
-   370		 * from who originally issued it.
-   371		 */
-   372		ops = rcu_dereference_protected(fence->ops, true);
-   373		if (!ops->release && !ops->wait)
-   374			RCU_INIT_POINTER(fence->ops, NULL);
-   375	
-   376		/* Stash the cb_list before replacing it with the timestamp */
-   377		list_replace(&fence->cb_list, &cb_list);
-   378	
-   379		fence->timestamp = timestamp;
-   380		set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
-   381	
-   382		list_for_each_entry_safe(cur, tmp, &cb_list, node) {
-   383			INIT_LIST_HEAD(&cur->node);
-   384			cur->func(fence, cur);
-   385		}
-   386	
-   387		/*
-   388		 * This orders the signaled-state with the test_bit_acquire() in
-   389		 * dma_fence_test_signaled_flag(). This ensures that functions like
-   390		 * dma_fence_is_signaled() can only ever return true once signaling is
-   391		 * completed (i.e., after the callbacks above ran).
-   392		 */
- > 393		set_bit_release(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-   394	}
-   395	EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
-   396	
+> > +static const struct reg_sequence sensor_pll_19_2mhz_setting[] = {
+>
+> I guess some of these settings are determining link frequency or pixel
+> rate, so they're not generic to anything using 19,2 MHz external clock.
+
+You're right, they set both. I have no PLL documentation, but sweeping
+the registers on my 26 MHz unit shows that 0x0304/0x0305 is the
+multiplier for the link and 0x0315/0x0316 the one for the pixel clock.
+0x031c divides the pixel clock, and 0x0301 and 0x0303 act on the link.
+
+In v4 the PLL table goes with the link frequency instead, as in
+ov08x40: a link_freq_configs[] array indexed like
+link_freq_menu_items[], each entry holding the PLL table and the
+external clock rate it is for. Probe picks the first link frequency
+listed by the firmware that the external clock can produce.
+
+There were no comments on patches 4 and 5, so I'll send v4 once I've
+tested it on my hardware.
+
+[1] https://github.com/intel/ipu6-drivers/blob/master/drivers/media/i2c/ov02c10.c
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Regards,
+Felipe
