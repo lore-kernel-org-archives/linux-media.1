@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055030;
-	b=qT6sMUcRttAQIzmRbHVIRZeroQHScEKZMxI/D5bURNhTp45aA3cxA2Ak4lrV/HdF1dJx
-	 I80O3Rj9CWMNqvYV5UqwrSXUxYqqIGEfXegEqPipJM9WlimauqtAVr6a/GqElvAR0WHPG
-	 3XUBKpxD1xPxTX/LLQ37cOl8HMnwNM71iD80zXMbzsZEAHoJ/ulg3wuFVYYqrEBKdEjvm
-	 qrwJJdR2PUSRRGth401wMetmUaIOC4gleSjtktdXnivYL34Kxs9ITZdqWqG1QdLy/bzCv
-	 LVzeazfluY4gKyjhuuwObDo+oesk57DRpAiGVBoyd9wUXITf54nl+3Svv1YkKi0glHA==
+	t=1793055034;
+	b=JEuWar9j0tBCbzixlwxHNuy/0cQr0vjcEod7+czJWW4CLnwhIbP/XSJCHjytLyOyYXko
+	 r5iSlYZgjXNyUjUWcgzHD8xfFfzvWMN756l17M9jTno1a8kdW/sc3otxKU4Ie2IwnwnM0
+	 Xh2Heatn4N09AKcj4dqAO4dWQSjK33SuhBPcZuK+Sone2GWaTTtk/JOE4yN4/LhYa+ylI
+	 6R3MIZ6SnsCvE6eBKDJtIfqvpbn2jzvo9j+V3RorUF0MRmQ/Vfv3o5Vpoykpa8A7jJr73
+	 CtqPHZ64hjbtOnQzbMzhe7Ty/Pliid/R5AdPpZauvQT+qdJyu5pu7SFHXPgkPFF9vgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055034;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Yymwnu6zD+vpaCEhbkClPScnqg2Frrzq7tYxOW9Q5bM=;
-	b=o7v0X6pG65hXpBGIuh3UR5LLTOonWJPXjyT8z8X5o4OjWyU28bpfP+HYUzigt/6pjCt6
-	 awEoqG5KDx3jHzuMp6eF+eqnh3Uk2h/UhCQDWCOHPl9e93DL9jyh3tGzAQROj/69Dw2Ll
-	 9AXFk5Tt42yK35vaNX2MWct2qiWdptMifWHnQyuuEUmkTgwEf3ii/6BjMDyDhyaGlEpvW
-	 1BtKn6yuS9zsYvTELlyYhkv4n85B9ZuNETZubr1ZgMty6NzJkdNyreDfswmcck1rf+yfo
-	 fHdSv9tg55Yo69RnArYDWYNNrWNVzrOlKTt9InRSxjdyJB+Zz1vF9fvgRFBlwrErjnA==
+	bh=3bdtNEp42571APEj35U1oavSEcPp9Du+9f+sh1xWMBU=;
+	b=ZQ7uxKQLC+zYSMS8qXI7FYNO+76mLSt4RaOXvXZW32eHgIrbH2xat+mR7sDrVa7VJ6sb
+	 wTyoqH041p/tWVGNFNo0h1QirpfbvvC8Q7WdnXBtWiDngnshO6w+zWIkkXsh8iTwFno/6
+	 Y7+zMGpQX0Qe0hHgf4Pv3Hw7BEH6Dlemm6Wmhk3G7Fz1Oz+reVTleMCnV7O4ZyTPaFp78
+	 hrnCBWhoKe3hopwIjX/BshuEDumqzqOLlPt4A1dvN1ymPVA3ZcwfU9v5tBs/q+W2CUgNl
+	 jpbt4icWY5nNFfataicmVCwgGQDlHYEBJoNBDio97RZX//v5QSWok0xyOm57qx8rjfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZvynyYdM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W913DyTI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05FC7606A328;
-	Mon, 26 Oct 2026 22:50:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A50F606A31A;
+	Mon, 26 Oct 2026 22:50:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZvynyYdM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127041F01828;
-	Mon, 26 Oct 2026 22:50:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W913DyTI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CC51F01825;
+	Mon, 26 Oct 2026 22:50:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793055029;
-	bh=Yymwnu6zD+vpaCEhbkClPScnqg2Frrzq7tYxOW9Q5bM=;
+	s=k20260515; t=1793055034;
+	bh=3bdtNEp42571APEj35U1oavSEcPp9Du+9f+sh1xWMBU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZvynyYdMCDALgwVEZCxDgJMmutrvexEy4mofrRT+G/sqGWK9LzLeBL729MGYzCwf7
-	 1PddGBbjVAhsKkP1TFcZeTM25WoIlVrzTEbCLl16TfxWZy77spwrCGzRFLi3aHPRdj
-	 /dBTYt2ShWbbx6BB3q1caZ5m1eRrmDOhIkXz4ixMhRE2CSl3yCj/f+L4V2hpnIbsQu
-	 CZqbr2bqcbzmHoXx+ox58E7ZimIVK4AV8xoVSm8Dgy1CrT85NDmYprriZtEUImuFfY
-	 N/FAlc34Ls87mJECO5g+fZb2/TWN+IMC4gL0EAzU78yvx17/uFiN/+z8HfIYy0wPLA
-	 AKLqJf5v1MKMg==
+	b=W913DyTISHFqsIeOv8PPYYewH/5SmTAHmggUXp8BVT4wg4z72Ea/JMJV8lL52fMPg
+	 BfAoLJMJfZm8Zd4mGeO3KxmFlqzEX2jtg/CcVF63jF0JRIHkZSlaW4ldXy8SolPV78
+	 YGgVeHCzMOowi2NV2Mn6buoUZ6OWRyAAwCZSwn2i4EUd3OG/Y+iILLDMpVgZEgI/si
+	 e/+EwSBbnvJK05sK2HeZ7EVNt+zmACULdc+HRKyO0Cf8TuKK99Pt0D48cTCnrM8apZ
+	 GS0u+s/3EtI/HPpUcjZy3L211UvhGp3AxaGLOn+/YGhyyLw/5jXXE4uig5R99DYtzG
+	 uvhq6QyMhiXGQ==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -56,10 +56,11 @@ Cc: linux-arm-msm@vger.kernel.org,
 	Manivannan Sadhasivam <mani@kernel.org>,
 	linux-phy@lists.infradead.org,
 	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v2 6/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
-Date: Tue, 27 Oct 2026 00:49:56 +0200
-Message-ID: <20261026224957.1115370-7-vz@kernel.org>
+	devicetree@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v2 7/7] arm64: dts: qcom: sm8450: Add description of pins with MCLK function
+Date: Tue, 27 Oct 2026 00:49:57 +0200
+Message-ID: <20261026224957.1115370-8-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261026224957.1115370-1-vz@kernel.org>
 References: <20261026224957.1115370-1-vz@kernel.org>
@@ -74,240 +75,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add Qualcomm SM8450 CAMSS device tree node to the platform dtsi file,
-the CAMSS input ports are connected to output ports of CSIPHY devices.
+Qualcomm SM8450 SoC provides up to 8 MCLK signals on GPIOs 100 to 107,
+add the correspondent default and sleep pin configurations.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/sm8450.dtsi | 173 +++++++++++++++++++++++++++
- 1 file changed, 173 insertions(+)
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 112 +++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index f429dcaf1075..b4f7672cec94 100644
+index b4f7672cec94..c8e9af8eb66d 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-@@ -3310,6 +3310,173 @@ cci1_i2c1: i2c-bus@1 {
+@@ -4292,6 +4292,118 @@ data-pins {
+ 				};
  			};
- 		};
  
-+		camss: isp@acb6000 {
-+			compatible = "qcom,sm8450-camss";
-+
-+			reg = <0 0xacb6000 0 0x1000>,
-+			      <0 0xacb7000 0 0x1000>,
-+			      <0 0xacb9000 0 0x1000>,
-+			      <0 0xacbb000 0 0x1000>,
-+			      <0 0xacc6000 0 0x1000>,
-+			      <0 0xacca000 0 0x1000>,
-+			      <0 0xacf6000 0 0x1000>,
-+			      <0 0xacf7000 0 0x1000>,
-+			      <0 0xacf8000 0 0x1000>,
-+			      <0 0xac62000 0 0x3000>,
-+			      <0 0xac71000 0 0x3000>,
-+			      <0 0xac80000 0 0x3000>,
-+			      <0 0xacc7000 0 0x2000>,
-+			      <0 0xaccb000 0 0x2000>;
-+			reg-names = "csid_wrapper",
-+				    "csid0",
-+				    "csid1",
-+				    "csid2",
-+				    "csid_lite0",
-+				    "csid_lite1",
-+				    "tpg0",
-+				    "tpg1",
-+				    "tpg2",
-+				    "vfe0",
-+				    "vfe1",
-+				    "vfe2",
-+				    "vfe_lite0",
-+				    "vfe_lite1";
-+
-+			clocks = <&camcc CAM_CC_CAMNOC_AXI_CLK>,
-+				 <&camcc CAM_CC_CORE_AHB_CLK>,
-+				 <&camcc CAM_CC_CPAS_AHB_CLK>,
-+				 <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_CPAS_IFE_0_CLK>,
-+				 <&camcc CAM_CC_CPAS_IFE_1_CLK>,
-+				 <&camcc CAM_CC_CPAS_IFE_2_CLK>,
-+				 <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
-+				 <&camcc CAM_CC_CSID_CLK>,
-+				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
-+				 <&gcc GCC_CAMERA_HF_AXI_CLK>,
-+				 <&camcc CAM_CC_IFE_0_CLK>,
-+				 <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_IFE_1_CLK>,
-+				 <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_IFE_2_CLK>,
-+				 <&camcc CAM_CC_IFE_2_FAST_AHB_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
-+				 <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
-+			clock-names = "camnoc_axi",
-+				      "core_ahb",
-+				      "cpas_ahb",
-+				      "cpas_fast_ahb",
-+				      "cpas_vfe0",
-+				      "cpas_vfe1",
-+				      "cpas_vfe2",
-+				      "cpas_vfe_lite",
-+				      "csid",
-+				      "csiphy_rx",
-+				      "gcc_hf_axi",
-+				      "vfe0",
-+				      "vfe0_fast_ahb",
-+				      "vfe1",
-+				      "vfe1_fast_ahb",
-+				      "vfe2",
-+				      "vfe2_fast_ahb",
-+				      "vfe_lite",
-+				      "vfe_lite_ahb",
-+				      "vfe_lite_cphy_rx",
-+				      "vfe_lite_csid";
-+
-+			interrupts = <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 640 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 468 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 467 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 641 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 469 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "csid0",
-+					  "csid1",
-+					  "csid2",
-+					  "csid_lite0",
-+					  "csid_lite1",
-+					  "vfe0",
-+					  "vfe1",
-+					  "vfe2",
-+					  "vfe_lite0",
-+					  "vfe_lite1";
-+
-+			interconnects = <&gem_noc MASTER_APPSS_PROC 0
-+					 &config_noc SLAVE_CAMERA_CFG 0>,
-+					<&mmss_noc MASTER_CAMNOC_HF 0
-+					 &mc_virt SLAVE_EBI1 0>;
-+			interconnect-names = "ahb",
-+					     "hf_mnoc";
-+
-+			iommus = <&apps_smmu 0x800 0x460>;
-+
-+			power-domains = <&camcc IFE_0_GDSC>,
-+					<&camcc IFE_1_GDSC>,
-+					<&camcc IFE_2_GDSC>,
-+					<&camcc TITAN_TOP_GDSC>;
-+			power-domain-names = "ife0", "ife1", "ife2", "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+
-+					camss_csiphy0_inep: endpoint {
-+						remote-endpoint = <&csiphy0_out_ep>;
-+					};
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+
-+					camss_csiphy1_inep: endpoint {
-+						remote-endpoint = <&csiphy1_out_ep>;
-+					};
-+				};
-+
-+				port@2 {
-+					reg = <2>;
-+
-+					camss_csiphy2_inep: endpoint {
-+						remote-endpoint = <&csiphy2_out_ep>;
-+					};
-+				};
-+
-+				port@3 {
-+					reg = <3>;
-+
-+					camss_csiphy3_inep: endpoint {
-+						remote-endpoint = <&csiphy3_out_ep>;
-+					};
-+				};
-+
-+				port@4 {
-+					reg = <4>;
-+
-+					camss_csiphy4_inep: endpoint {
-+						remote-endpoint = <&csiphy4_out_ep>;
-+					};
-+				};
-+
-+				port@5 {
-+					reg = <5>;
-+
-+					camss_csiphy5_inep: endpoint {
-+						remote-endpoint = <&csiphy5_out_ep>;
-+					};
-+				};
++			cam0_default: cam0-default-state {
++				pins = "gpio100";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
 +			};
-+		};
 +
- 		csiphy0: phy@ace4000 {
- 			compatible = "qcom,sm8450-csi2-phy", "qcom,x1e80100-csi2-phy";
- 			reg = <0 0x0ace4000 0 0x2000>;
-@@ -3349,6 +3516,7 @@ port@1 {
- 					reg = <1>;
- 
- 					csiphy0_out_ep: endpoint {
-+						remote-endpoint = <&camss_csiphy0_inep>;
- 					};
- 				};
- 			};
-@@ -3393,6 +3561,7 @@ port@1 {
- 					reg = <1>;
- 
- 					csiphy1_out_ep: endpoint {
-+						remote-endpoint = <&camss_csiphy1_inep>;
- 					};
- 				};
- 			};
-@@ -3437,6 +3606,7 @@ port@1 {
- 					reg = <1>;
- 
- 					csiphy2_out_ep: endpoint {
-+						remote-endpoint = <&camss_csiphy2_inep>;
- 					};
- 				};
- 			};
-@@ -3481,6 +3651,7 @@ port@1 {
- 					reg = <1>;
- 
- 					csiphy3_out_ep: endpoint {
-+						remote-endpoint = <&camss_csiphy3_inep>;
- 					};
- 				};
- 			};
-@@ -3525,6 +3696,7 @@ port@1 {
- 					reg = <1>;
- 
- 					csiphy4_out_ep: endpoint {
-+						remote-endpoint = <&camss_csiphy4_inep>;
- 					};
- 				};
- 			};
-@@ -3569,6 +3741,7 @@ port@1 {
- 					reg = <1>;
- 
- 					csiphy5_out_ep: endpoint {
-+						remote-endpoint = <&camss_csiphy5_inep>;
- 					};
- 				};
- 			};
++			cam0_sleep: cam0-sleep-state {
++				pins = "gpio100";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam1_default: cam1-default-state {
++				pins = "gpio101";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam1_sleep: cam1-sleep-state {
++				pins = "gpio101";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam2_default: cam2-default-state {
++				pins = "gpio102";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam2_sleep: cam2-sleep-state {
++				pins = "gpio102";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam3_default: cam3-default-state {
++				pins = "gpio103";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam3_sleep: cam3-sleep-state {
++				pins = "gpio103";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam4_default: cam4-default-state {
++				pins = "gpio104";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam4_sleep: cam4-sleep-state {
++				pins = "gpio104";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam5_default: cam5-default-state {
++				pins = "gpio105";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam5_sleep: cam5-sleep-state {
++				pins = "gpio105";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam6_default: cam6-default-state {
++				pins = "gpio106";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam6_sleep: cam6-sleep-state {
++				pins = "gpio106";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cam7_default: cam7-default-state {
++				pins = "gpio107";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-disable;
++			};
++
++			cam7_sleep: cam7-sleep-state {
++				pins = "gpio107";
++				function = "cam_mclk";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
+ 			cci0_default: cci0-default-state {
+ 				/* SDA, SCL */
+ 				pins = "gpio110", "gpio111";
 -- 
 2.51.0
 
