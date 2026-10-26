@@ -1,111 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792995947;
-	b=E/V8UHsVLs/0DlUmRMwCLDgDZ9OJD11pfuxhXHwVIBleqkhUZyQzZxF/3ca2f0yOyKBP
-	 ohbppmIMnmMwFlDk+Z53PDy87oZ72sgkslcOYJG3mbPRIyU8Znmtjq8583YdNVXp44qQF
-	 OVJtgbUxAe9nGX+dvvhB5DiFNHKEWlTRz2JW5K3zUCdoXCxb3DlcLrIUbrgEkVtONG+TC
-	 t2Sl0WzYgIwgGkCO2RbmfMi1MlDMO6mh4GUTp1JyWrx02AfxUqEURFAm1CrCv1qVu7CK6
-	 zsQzF3jo9R5uuLJzJ8BcQ5PXo4Yus1OQyfwI+AFaBKik5S4ifNnm5a7htFoiOyMlYmA==
+	t=1792999072;
+	b=nulLcAKX10BxPQStkxgvd9DQd3Sv3JevEJCxP79Qn0M2fOMk+vRFNCaQf+Uv1CX7Y14B
+	 nnRNM2ErRGTP1swf7gmclF0nLmh2137FPm4enR+xv/TPjUjw6Bo52BWUKrBc07EMaTQJX
+	 b+oHnnbJRxpOooeOyaMg6bWc6EO8aMIr5TnThTtl9niM8Ido6HwNU4y/87I8vz0Ome65j
+	 kf91FX9/U09TB3Tjt69HWITqiQM9o7IHmK1HDkiTnk1Lf3KB/kFSgWp4CK550qXqpeR5x
+	 0OEIKjGoTuf/4p+uJIaY0cf8jtvUgcpHBDfyx3QE+LyvHNPGudQtqINhaXnrzEp+wCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792995947;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=FCnvFyOtoxqBwa/Gstd7a10Uc74nGWW4NE9dwrU5Y1I=;
-	b=CS5r0VehMkuH9pTY1yLnJm2cTedZverbWCy0WxQ0E4hJmwkPlKCWOm+k1ZHzG6zoRRIF
-	 UkNRicSb2gCSuZu+UncEJu7QJYQjVVR1seXrLoyXOWIbzLYsmGQRQ/+dfHyx89V8kwmoj
-	 ug/d32CX6eJN61gv+o6kGVOtNJwmlkqT2C2NL8pP2eIh/iu2oig8EkVydJ/wMIodJuF5u
-	 aRqKi9IcajvRPv9R08Nd+cFMYzBN2BJDgRBJxd99gQo1R7Coo0tIlyCdtfDbnP+Ydsim0
-	 ZNYJz2F6P6RKumVnO/JVPaMgl7gAV8waneVzDgkt/Ti4k2bulk74E3xHp/5SYCBjk6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792999072;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
+	b=A4Z+E5oByo8fPltjt4qQ8SGA/Ra2zH7EhbMMYrWT34DochPg7JmZElX4jkZ5nBqewXRI
+	 rhHdF5yCCGXOIs0mgzKLDX6wPT4yEU4ZFyOBIFHJd3rhs2xMFhPvbyAqk9XziExaEUYbi
+	 JaV+q0/vN6iTku6s8xCLcs/72hSgP+04jhLFroAvaIS8BMobHQvhY52HAJSGYkFYVA9zJ
+	 elTbGD/fYJOiP/VrGMx/jL21pQfPkNHakLOTTrwGTaUI/omK6KexXg6LKSi9a+3hZMO3I
+	 64Wxoi+eCOvD4I8wOTysk2SGYXGof7EfGdjZ0P5GEiY6lwDOeofaOc1yTHq4niXfDlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AF2QO09t;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QODEv9JY;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0tFNOOj;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16C33606A322
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 06:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16C33606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C4A606A31F
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 07:17:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0C4A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AF2QO09t;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QODEv9JY
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69Q4as703303625
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 06:25:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	FCnvFyOtoxqBwa/Gstd7a10Uc74nGWW4NE9dwrU5Y1I=; b=AF2QO09tuvUM3jqZ
-	pSCUqmKrO4lnRGeBAuqNE4HoMghuuf9ANxMv2q8JOwcryBTLC9Rdf8xBqaJnQuD2
-	GxzGJdBANbr4UO/monIXFFvfVL5AHC24jI1aFWk3VW46rDw58JNfR0rcj+EPlXRN
-	eX+D/VAva651BTctxF+S3TAoiKqqevZaHryYBOLUUf2PMNqNVG2/MT9wGVifnsu5
-	bAsE/AWM9z4BFjOP+UMzwbjTUK1qAIsVCcAkxym3FK2GwsDnT9h5QPpfgYR9vkK4
-	YTl0r4uPspz5zb/WFIrbwBjxUNx2BBnbNRoQv9anEe7IewLpX16fg4kor6aj+mVp
-	VEMIMg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgkmsd5bf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 06:25:46 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e601800e58so48553855ad.2
-        for <linux-media@vger.kernel.org>; Sun, 25 Oct 2026 23:25:46 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g0tFNOOj
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1576233f8f.1
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 00:17:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792995946; x=1793600746; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FCnvFyOtoxqBwa/Gstd7a10Uc74nGWW4NE9dwrU5Y1I=;
-        b=QODEv9JY4TwGQsU1lqAN+2oer1EuPUiLIimkGBCdF9aK5BQhhR1QPkrCIejNemF80I
-         RrVHu+7VAfI6DPHccIkc9gyQ8ED0qkophI5Z+r5bKfXvCzH4bJsfqm2TyamxLJ91Az8t
-         hGcjT40Eth2R2InuRIgobIFOqri/Z93GrXva4VVqSKZuY1xEDWduRjlJIv+GXCKvRwXb
-         VSHZV43olkf3+hnHk7VWE7xNRFiVxStdLkfoblkbGuCdqq4waJiJcLo9cHktifQHTsm1
-         oekKZUL11mc8+WQslavq1vEiExAPdEhVpL0FD4/Ee4KNYNPLlOlaawo3bxi6XbYF9Ow5
-         2M3A==
+        d=gmail.com; s=20251104; t=1792999070; x=1793603870; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
+        b=g0tFNOOjjbxDQCczODTc2/oN+MH7WTPjugxRyVbZvu7hhjD4oR6htskt9tZ04lnHQ5
+         j6xMvY+MaoG54zOuQlymxac93Iup9ePkEzBdVpBzgA3TIkxQIhy3ueSKlsp3rogCK73o
+         yIOBxqPRwo1H7pGB4hNC10LtqOdmQXe9y20ResPNlsNsx/I7u3BNQeUFQHk2/Ue2HGNo
+         RNww6MIHIurU08kMVUaGji7BZiV/SCN0uY1CKK9mVZHpG+v4nNsKg5axjl6e5M9Vc9zw
+         wVpOhsA++vZgPf6AFNIcTtqvGpENwyeJQ7f8liL/eDh0bwPKNDRThKpe6gihKgwwHG7D
+         vIXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792995946; x=1793600746;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FCnvFyOtoxqBwa/Gstd7a10Uc74nGWW4NE9dwrU5Y1I=;
-        b=U3lU4azkM2RRu6IqUi2kaVKKrXh0feJBR7WffT3a8cUj4ofXeWfW01VT9UNfsSzJ6h
-         OfJIQ2LcC5HHHPC5L61sOpt9G6Erm0k5ZuTZPFEnexouk2p4XnvkxTNYm5qEc3DmY831
-         +g/f0vXWGOLA3Zv2khZS+7Hr5Hq5hMI8geGXfwGMVkSRoT5FbvPReovvjXhD8uQB3nz2
-         /s/Q/6kGOOWlXJQF8PKhBByu/eVxRhTKTqH1A0DvVGVSSiQeuLAbjSXONlOYqo0WmC6+
-         llOgbLoIczIXTYq7eEOLIZ1sgiCaX6h/6oHMg8nzS3PbaaGHAhCbdu3JHFB5SkPni/BF
-         8tgg==
-X-Forwarded-Encrypted: i=1; AKwUvBypuhXwnN++7mAw6E2AFxXPyfPn/WKm0B2Q9b1qQsPNqd7WRIPXF1G0Bpnh9oBtqMhUuFOnT5IukMWGgA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLC5UNUHsdim98tnXZv0yUbVoPA4kaFh4VD2rQ1kFDt5vuFRamc
-	o9eLI0uUEZSivNV33x1SIXFuThPy245HGJzk0WZDDEYlZVhfPorevNvbB+Swj+p/BXFQAMHNPPg
-	Kq3c9lhbItTjwLQOUAba6TPY49HvRwgPL3vEqrib2ncQxEtw+jU1N3Cj+/Zyxk64LHw==
-X-Gm-Gg: AYBFou1B3SRL8nx/Wzu18Rpu3Bxvr1yiVpucC1j081pLqDZubLT/9v8IWx2NXbsxe6S
-	TwuCtp7910TFrzzPmaCqXql5/JQwVqFb0WsTl/qcDErAQ4QGVOP0xKVHpquCEbdWe3Vq5TggmnC
-	CKre+G+vVNQliqrosy4X11fM6RpJaAJYYP4IHFKPxolKu1ShT8PX3KUjhyIKce7YmrWWgI5y04a
-	J7tXSo+dlCtC4fIV3xnZsGjiPQi1vmW4CtW/Ppd0y+Jrcmilni7OeYnkpDNI04kBd6LSb3MlAPV
-	6YF2HBy9tWR9bBJRXN3tHgKmEDUojCDnmTTxe8ILX3qRaQyhwnwp3RS4NXnSPwzcp3B+nbpAeUF
-	yCyUsF5JZvPFvWctdswCzDnwvO0ltx5mugw==
-X-Received: by 2002:a17:902:cf12:b0:2e9:73db:3c78 with SMTP id d9443c01a7336-2ea9c63efcamr48839005ad.17.1792995945645;
-        Sun, 25 Oct 2026 23:25:45 -0700 (PDT)
-X-Received: by 2002:a17:902:cf12:b0:2e9:73db:3c78 with SMTP id d9443c01a7336-2ea9c63efcamr48838845ad.17.1792995945230;
-        Sun, 25 Oct 2026 23:25:45 -0700 (PDT)
-Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea9b1a1c56sm12633415ad.44.2026.10.25.23.25.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 25 Oct 2026 23:25:44 -0700 (PDT)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Mon, 26 Oct 2026 11:51:33 +0530
-Subject: [PATCH v2 23/23] arm64: dts: qcom: hawi: Add DCP support
+        d=1e100.net; s=20260707; t=1792999070; x=1793603870;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HGCg69LbAWBbuCTTtP179KzH2F4LVTblzOcbjp1ClJc=;
+        b=X4ax31jH55Qjq9IkT9OukkFU43feLUAQoxv6ZJ6pLTAxHCVk+ZI4koivoVSXWmbErG
+         Uf2r0A4fo3sK6kJkQhScbTBR8uRN3ssvmwCU9Px/rebQiiFoExtxQz02CEvR3WKAFUjb
+         0jNI6yheDjRJLOlcc4LHq7CBpbxZcgBK5XhLhja3/MWJ3tEOCs0mzz8EQi8/CQ55K2q0
+         KnhoNTl8H07WX/COhGJaWZjOZ8b7DVwElo/1Qkgqjp2ZsCKmsvEmk4IMi1KSTZWToeZ8
+         yRMKdg3oi0+2WDgWrzv2c8mjtjzFpJj5nbpjm/Jndo7jjC9ctzIH/aA45f/ZItAqauBH
+         RwpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwK+nbpHlfIP3Fjd28uLe+Bv2YPgEStcNkJ2dTIoVfhFnqnROAbcV8JRGjXNIZvgSx0ORklGRh2ufqIA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJuyVvrvQTCO65FiqoavM0lM8lIAZLFkz9usSnHySJUu1cOgvJt
+	AS6gD6G1pQimOXgpLBXEOmCL43xy1RSHOEea0+gqIRC3H8Dws1iqC4te
+X-Gm-Gg: AYBFou0Ih9gvWdv0rTgIUDaTxGp8HzTQy1WjOUQqAXcb+xYN5VLmzV4K/U/JUm7SP02
+	YXocwmAIJ59GmG0DfabSyVYIrqBPzIlQlAL2jwe/p+o0YY1qab6OzicWcNaRHz15OV7+FhzUgl8
+	jg/KiGROTAad5OmDQwi7qh45505UXl+Yi6ac64sDe75w0r+FdC+Mmw86zPOcnQbjkOYaMNnlboT
+	mKTfFsXO3O+/SMWaTd9gXUtwxfG8UwOIdg0VxLQJUMWpGDdYVAC7zSstSLULoFNCgSn4TPmqGOo
+	Nn2jy1UzZ09V7CpPIPw6TWvnOghpDKu/ETcPrsxiK9cnM040QdVoXk12V2fpCnC3TWD88xmUA4U
+	HMAnS2gdgRhA4xh6VYy5rud3ThsjdtOpu7XYeF2xfXmpdoxyZLTriqKD03zL9JLTFbkfDV8C3oL
+	nFUj8nl+5WlRVxV+Q9iyOopXP0ye8S4jRgG5CEQdPaJ/XAsIyGkY5fjFqqcP79HIsn2l7F4fvao
+	GUvqPusazW3orjDT50pmAVstPjKmYpVHGnYnz4Rrv+UVjebvEBvvSMuhQj4M+PX9gWhjLXFTih+
+	pMdDFJoYM5idOEklXjLg2dBzgvYVvq3aAGcim9ZLoZF1MqhxjofEYmus2EJmnqWQe1OIDsm5aFP
+	SAwTLMT7U9oS046vE0kqnFuyEa9tLNeyF+rougVM0PWeGtQ7Bi2gXomJjDOcLUrzP7Q==
+X-Received: by 2002:a05:6000:41c3:b0:48e:f07:160e with SMTP id ffacd0b85a97d-48e3eb98eeemr9291878f8f.38.1792999069985;
+        Mon, 26 Oct 2026 00:17:49 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-b1a4-1201-5c78-89f4-99d8-70d7.310.pool.telefonica.de. [2a02:3100:b1a4:1201:5c78:89f4:99d8:70d7])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3932sm15758606f8f.18.2026.10.26.00.17.48
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 26 Oct 2026 00:17:48 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
+Date: Mon, 26 Oct 2026 08:17:35 +0100
+Message-Id: <20261026071735.37220-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,297 +101,154 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261026-jshekhar-dcp-hlos-v2-23-7cf014efdee1@oss.qualcomm.com>
-References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
-In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Michael S. Tsirkin" <mst@redhat.com>,
-        Jason Wang <jasowangio@gmail.com>,
-        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
-        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Flemin Jose <flemin.jose@oss.qualcomm.com>,
-        Mahadevan P <mahap@oss.qualcomm.com>
-Cc: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
-        virtualization@lists.linux.dev, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
-        iommu@lists.linux.dev
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792995687; l=5616;
- i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=JWax6SHxXqnSdz0sR52ZG2fr/5xHogt+xoHHZShHbR4=;
- b=3phvyPAWLpPk42PFcsZstSJQNZG3MKuNnHg2gCbX6SuTSkcshSlrsuGkDS29WnsFK2MrUgree
- GAjJ2fJdmXzC8b2UQG8TZFR1oKZzbT3VTflheMwfWxfPdFCg0+kVtOU
-X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
- pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Proofpoint-ORIG-GUID: rtCAQHP5PnAlJ6zO87sa8N7DA0oLLJeg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfX9izAhLKKhC4v
- zKtFCieX0f4iSJH+aUtxGYrMBxXnOpt3knUFHVO/c/ZJc/aPQf+6vRTj529rPgypO2mCglu4+Vs
- 0WeO/pA3nxYXwSIAS+JGdDZtENofw5+UfQ16YcdJbFzGSzGhKR3NUueYyVVCSI6WqABmf6QkasV
- c9LsPInaqd4+M9Nd6d2wEZV7N5r+VMlCBhkEtCzk1WaSXGP28ECWsTUupIw5njqXzeM5ceM0clj
- ligi6/NOAqwfQRPUoCmRd+i7dS4ywH/oDbHzVGrL/GAjEv0UZz98H/d7KUaTJpsrzKBrxoN3Jq4
- 45khekBMQrx03T5bNEpjwJwvSIFhjaWokUQk3ADMcT7mNPjtw/8APoWnVYOIwzeUJ7wjtREo/7i
- SIwOFMDFXbdOH+rUEz8bkRsws3JnZdF1fG7Dsdvz7J+iqUMiCyNXREnfTqlnHyQvp6Ucnhycewg
- 7QDo8mBMZS91tEbM4Sg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDAyNSBTYWx0ZWRfX3ZSVl7UuNlZ8
- RLju4iEe9oB6+kThCFbmhWrs+OyIdt/bUWorDRjj0RCFf2BnF8CgU3aJv94JEqLFbOpa0eEcCnl
- BfgbmbfGfmCEn1QXZw5GjNh+i5M4jf8=
-X-Authority-Analysis: v=2.4 cv=UqX2pOwB c=1 sm=1 tr=0 ts=6adef26a cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=cp69EZODLtjo7xmYzNYA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: rtCAQHP5PnAlJ6zO87sa8N7DA0oLLJeg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-26_01,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 bulkscore=0 phishscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610260025
+Content-Transfer-Encoding: 8bit
 
-Hawi display hardware is owned by DCP firmware, so the platform device tree
-must describe the Qualcomm transport wrapper, firmware display subsystem,
-power-notify channel, IOMMU contexts, and display graph used by the MSM DRM
-driver.
+VIDIOC_PREPARE_BUF leaves a buffer DEQUEUED after calling buf_prepare()
+and the prepare() memory operation. VIDIOC_REMOVE_BUFS accepts that state
+but frees the buffer without calling the matching finish operations.
 
-Describe the Qualcomm DCP transport and its VirtIO-MMIO child,
-the IPCC power-notify channel, IOMMU assignments, firmware-visible IOVA
-range, and DSI display endpoints on Hawi. Enable the DCP display device on
-the Hawi MTP platform.
+With VIDEO_ADV_DEBUG, vivid reports:
 
+  unbalanced counters for queue 000000009fa716f8, buffer 0:
+       buf_prepare: 1 buf_finish: 0
+       prepare: 1 finish: 0
+
+Factor the per-buffer cancellation tail out of __vb2_queue_cancel() into
+__vb2_buf_cancel() and call it from vb2_core_remove_bufs() after the
+range check, so prepared buffers are finished and reinitialized before
+being freed.
+
+Fixes: a3293a85381e ("media: v4l2: Add REMOVE_BUFS ioctl")
 Assisted-by: LLM
-Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/hawi-mtp.dts | 129 ++++++++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/hawi.dtsi    |  40 +++++++++++
- 2 files changed, 169 insertions(+)
+v2:
+  - Factor the per-buffer cancellation tail out of __vb2_queue_cancel()
+    into __vb2_buf_cancel() and call it from vb2_core_remove_bufs()
+    after the range check (Tomasz Figa).
+  - Send standalone ahead of the rest of the series while the cache-API
+    questions on patches 2-4 are resolved:
+    https://lore.kernel.org/r/20261019063401.3674-2-kmehltretter@gmail.com/
 
-diff --git a/arch/arm64/boot/dts/qcom/hawi-mtp.dts b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-index c38e5fab7a2c..a27003f69d02 100644
---- a/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-+++ b/arch/arm64/boot/dts/qcom/hawi-mtp.dts
-@@ -34,6 +34,18 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
-+	display_panel_vdd: regulator-display-panel-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "display-panel-vdd";
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		gpio = <&pmd8028_e1_gpios 2 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		pinctrl-0 = <&sde_disp0_vdd_active>;
-+		pinctrl-names = "default";
-+	};
-+
- 	clocks {
- 		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
- 			compatible = "fixed-factor-clock";
-@@ -142,6 +154,7 @@ sdcard_vdd_3p0: sdcard-vdd-3p0 {
- 
- 		vin-supply = <&vreg_bob1>;
- 	};
-+
- };
- 
- &apps_rsc {
-@@ -995,3 +1008,119 @@ &usb_dp_qmpphy {
- &usb_dp_qmpphy_out {
- 	remote-endpoint = <&pmic_glink_ss_in>;
- };
-+
-+&dcp_dsi0 {
-+	panel@0 {
-+		compatible = "novatek,nt37801";
-+		reg = <0>;
-+
-+		pinctrl-0 = <&sde_dsi_active &sde_te_active &sde_esync0_suspend
-+			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
-+			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
-+		pinctrl-1 = <&sde_dsi_suspend &sde_te_suspend &sde_esync0_suspend
-+			     &sde_mdp_vsync_p_1p2_active &sde_mdp_vsync_p_1p8_active
-+			     &sde_disp0_rst_1p2_active &sde_disp0_rst_1p8_active>;
-+		pinctrl-names = "default", "sleep";
-+
-+		vddio-supply = <&vreg_l12b_1p8>;
-+		vci-supply = <&vreg_l13b_3p0>;
-+		vdd-supply = <&display_panel_vdd>;
-+
-+		reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
-+
-+		port {
-+			panel_dcp_in: endpoint {
-+				remote-endpoint = <&dcp_intf0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dcp_intf0_out {
-+	remote-endpoint = <&panel_dcp_in>;
-+};
-+
-+&pmd8028_e1_gpios {
-+	sde_disp0_vdd_active: sde_disp0_vdd_active {
-+		pins = "gpio2";
-+		function = "normal";
-+		input-disable;
-+		output-enable;
-+		bias-disable;
-+		power-source = <2>;
-+		qcom,drive-strength = <2>;
-+	};
-+};
-+
-+&pmh0110_d_e0_gpios {
-+	sde_mdp_vsync_p_1p2_active: sde-mdp-vsync-p-1p2-active-state {
-+		pins = "gpio9";
-+		function = "paired";
-+		input-disable;
-+		output-enable;
-+		power-source = <2>; /* 1.2v */
-+	};
-+
-+	sde_mdp_vsync_p_1p8_active: sde-mdp-vsync-p-1p8-active-state {
-+		pins = "gpio10";
-+		function = "paired";
-+		input-enable;
-+		output-disable;
-+		power-source = <1>; /* 1.8v */
-+	};
-+};
-+
-+&pmh0110_f_e0_gpios {
-+	sde_disp0_rst_1p2_active: sde-disp0-rst-1p2-active-state {
-+		pins = "gpio9";
-+		function = "paired";
-+		input-enable;
-+		output-disable;
-+		power-source = <2>; /* 1.2v */
-+	};
-+
-+	sde_disp0_rst_1p8_active: sde-disp0-rst-1p8-active-state {
-+		pins = "gpio10";
-+		function = "paired";
-+		input-disable;
-+		output-enable;
-+		power-source = <1>; /* 1.8v */
-+	};
-+};
-+
-+&tlmm {
-+	sde_te_active: sde-te-active-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	sde_te_suspend: sde-te-suspend-state {
-+		pins = "gpio86";
-+		function = "mdp_vsync";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	sde_esync0_suspend: sde-esync0-suspend-state {
-+		pins = "gpio88";
-+		function = "mdp_esync0";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+
-+	sde_dsi_active: sde-dsi-active-state {
-+		pins = "gpio211";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	sde_dsi_suspend: sde-dsi-suspend-state {
-+		pins = "gpio211";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-pull-down;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/qcom/hawi.dtsi b/arch/arm64/boot/dts/qcom/hawi.dtsi
-index 6b0a0ff0faa4..836970cdef71 100644
---- a/arch/arm64/boot/dts/qcom/hawi.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hawi.dtsi
-@@ -6841,4 +6841,44 @@ timer {
- 			     <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
- 			     <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>;
- 	};
-+
-+	dcp: virtio@9be8000 {
-+		compatible = "qcom,dcp-virtio";
-+		reg = <0x0 0x09be8000 0x0 0x1000>;
-+		interrupts-extended = <&intc GIC_ESPI 956 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&ipcc 13 5 IRQ_TYPE_EDGE_RISING>;
-+		iommus = <&apps_smmu 0x15a3 0x0>;
-+		iommu-ranges = <0x0 0x84000000 0x0 0x04000000>;
-+		dma-coherent;
-+		mboxes = <&ipcc 13 5>;
-+		mbox-names = "dcp-power-tx";
-+
-+		dcp-subsystem {
-+			compatible = "virtio,device34";
-+
-+			iommus = <&apps_smmu 0x400 0x2>;
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+					dcp_intf0_out: endpoint {
-+
-+					};
-+				};
-+
-+			};
-+
-+			dcp_dsi0: dsi@0 {
-+				reg = <0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+	};
- };
+ .../media/common/videobuf2/videobuf2-core.c   | 88 ++++++++++---------
+ 1 file changed, 47 insertions(+), 41 deletions(-)
 
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index b0a6084f17573..29e539ee002e9 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -1717,6 +1717,46 @@ int vb2_core_prepare_buf(struct vb2_queue *q, struct vb2_buffer *vb, void *pb)
+ }
+ EXPORT_SYMBOL_GPL(vb2_core_prepare_buf);
+ 
++static void __vb2_buf_cancel(struct vb2_buffer *vb)
++{
++	struct media_request *req = vb->req_obj.req;
++
++	/*
++	 * If a request is associated with this buffer, then
++	 * call buf_request_cancel() to give the driver to complete()
++	 * related request objects. Otherwise those objects would
++	 * never complete.
++	 */
++	if (req) {
++		enum media_request_state state;
++		unsigned long flags;
++
++		spin_lock_irqsave(&req->lock, flags);
++		state = req->state;
++		spin_unlock_irqrestore(&req->lock, flags);
++
++		if (state == MEDIA_REQUEST_STATE_QUEUED)
++			call_void_vb_qop(vb, buf_request_complete, vb);
++	}
++
++	__vb2_buf_mem_finish(vb);
++
++	if (vb->prepared) {
++		call_void_vb_qop(vb, buf_finish, vb);
++		vb->prepared = 0;
++	}
++	__vb2_dqbuf(vb);
++
++	if (vb->req_obj.req) {
++		media_request_object_unbind(&vb->req_obj);
++		media_request_object_put(&vb->req_obj);
++	}
++	if (vb->request)
++		media_request_put(vb->request);
++	vb->request = NULL;
++	vb->copied_timestamp = 0;
++}
++
+ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int count)
+ {
+ 	unsigned int i, ret = 0;
+@@ -1746,6 +1786,10 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int c
+ 			goto unlock;
+ 		}
+ 	}
++
++	for (i = start; i < start + count; i++)
++		__vb2_buf_cancel(vb2_get_buffer(q, i));
++
+ 	__vb2_queue_free(q, start, count);
+ 	dprintk(q, 2, "%u buffers removed\n", count);
+ 
+@@ -2253,48 +2297,10 @@ static void __vb2_queue_cancel(struct vb2_queue *q)
+ 	 * be changed, so we can't move the buf_finish() to __vb2_dqbuf().
+ 	 */
+ 	for (i = 0; i < q->max_num_buffers; i++) {
+-		struct vb2_buffer *vb;
+-		struct media_request *req;
+-
+-		vb = vb2_get_buffer(q, i);
+-		if (!vb)
+-			continue;
+-
+-		req = vb->req_obj.req;
+-		/*
+-		 * If a request is associated with this buffer, then
+-		 * call buf_request_cancel() to give the driver to complete()
+-		 * related request objects. Otherwise those objects would
+-		 * never complete.
+-		 */
+-		if (req) {
+-			enum media_request_state state;
+-			unsigned long flags;
+-
+-			spin_lock_irqsave(&req->lock, flags);
+-			state = req->state;
+-			spin_unlock_irqrestore(&req->lock, flags);
+-
+-			if (state == MEDIA_REQUEST_STATE_QUEUED)
+-				call_void_vb_qop(vb, buf_request_complete, vb);
+-		}
+-
+-		__vb2_buf_mem_finish(vb);
+-
+-		if (vb->prepared) {
+-			call_void_vb_qop(vb, buf_finish, vb);
+-			vb->prepared = 0;
+-		}
+-		__vb2_dqbuf(vb);
++		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+ 
+-		if (vb->req_obj.req) {
+-			media_request_object_unbind(&vb->req_obj);
+-			media_request_object_put(&vb->req_obj);
+-		}
+-		if (vb->request)
+-			media_request_put(vb->request);
+-		vb->request = NULL;
+-		vb->copied_timestamp = 0;
++		if (vb)
++			__vb2_buf_cancel(vb);
+ 	}
+ }
+ 
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.43.0
+2.39.5 (Apple Git-154)
 
