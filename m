@@ -1,123 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793024203;
-	b=kV54CZ4ZilOTGZ6g7wCMvJYKhVdkit2TlS5COda0UF/eGbbgUjRoysmHA+davw+imzEQ
-	 YcKuJYic5WKUGZoK+j6LO6o424lC0DTYK6vRGbhuQR9AGetOtbY1+hacC6cofJFhJRBXb
-	 4pdaGyt88HU+QutJopmyv1Pq9c7ITzILkHswdIphv52CMxqAzwdnGPQSwcXdEDu0T8mM4
-	 0AbegWFLGQzQa7SHbQooyW48exWuGhSFPl5acHqorN/Q0h31EWTOdZCllsvgifmi3ZH7d
-	 NpxmeIGiF2A1u1An2K/mXrFiNi+9MbPvjMqmaJxHqbfij51KcTR/cptTd0YNO6D7lqQ==
+	t=1793024450;
+	b=G2kVcej2pfR/jCGaGetkYYIWJfA+uQOocg0nWVGrOP8srCdvUjOEuM/xc+6F7hx26lSe
+	 lS0+01Tah80+mi/hTCLJ42NvBMPZ8BdoWb5xZINmQv3PnYPMhTpuLC3JRtJcAjIU6YLNi
+	 0iNGIXzyfpruIZR74x0QDmeOYz5E7cmuhf06UYSH52AiO1IqRSrd4vK3xvLhoOfHKWI6/
+	 Tjz12bytsNZPiMjnZ12zR1NN7phaPLfJpK75DRr8VEf4ZOHPFMY9NDdgJ5LssPPjaye4X
+	 GtxWwsWT9fSYvL/qjgqQeMSEC1O8R7T6S3LalyZ/GvektCgEy8TnGjGzyHLmnEfanng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793024203;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=lN7LmDxK/3IJS+spc2D933xtZU2kguufCVVuiL1xDzc=;
-	b=VdVRzBDgLc8PEmTUczBDUKlAVaeXmPt88b/VNmyZOkUJ9/02hq78LPmG7Wb4xAPRdx1C
-	 reqfAyEr5NDZBheNmdQQNuHdMBHiEGHYpF/nyf3RZ64QmSwKAHXTeOPPkoVL1rcMP/yh+
-	 R+M5Ee+RTlgH21lBmEV5Ia3BOaX8o3x+8MoeWrbz2jXdk0B2CZz/cGckvN6/wHHQ8e55F
-	 1x9U7et9+sRRK8YkqdPfDFSkWMNSRvpjNO5r3B0mUDTDEW/f9V6D7Nx3pQjfQ/Dd1GBTC
-	 T7FSiPMLPhcGwNdOyk8UtwWinsophxXOW+735YRCvQXq/5j0pPyaIRmdkG7qT+yXa3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793024450;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=C2HHrlRp9L/SfQGFTahAQ/ZmI7daYrPt8M6w3ijLAkg=;
+	b=T9aaaNaOJEk0/Ta87JfLaMnFkQTGYt2L+f5wUYaKJjJjFR462fku7mdFT5oPjbzRITgS
+	 Fs3qql97QnsVK14a7fUXQ/EQGSWG9vDrra7kebELeudMdzxmzXkXq3P+bnYDQDdkAAW01
+	 HQLqFPybiZfLCagzBjXPQUV9qlvAXAf0RV24oKySt4tICCt9EYezp+yS8ruo+8wWsh9dm
+	 Fn7qApEHcZ/WJFPoG87PZG5wTPElebMhR8vS7uck2lZZVmlZ8eyg+MW59jrgzIlAKMyJs
+	 gYKTPGHXoR6gnwx6LqGXr6LWn/sk9La+ophVE6v5TfxhgUyMSJFL4Q9oA37wdVIr6TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=b1iVQ1DZ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y1XSoMIH;
-	arc=none smtp.remote-ip=202.12.124.145
-Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIai2ghn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9D7606A31A
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 14:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D9D7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C36606A33C;
+	Mon, 26 Oct 2026 14:20:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm1 header.b=b1iVQ1DZ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Y1XSoMIH
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.stl.internal (Postfix) with ESMTP id A46A71D00037
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 10:16:42 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Mon, 26 Oct 2026 10:16:42 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793024201;
-	 x=1793110601; bh=lN7LmDxK/3IJS+spc2D933xtZU2kguufCVVuiL1xDzc=; b=
-	b1iVQ1DZJBRqEyqC6YxoQmQv0TiElJ243JNv4rIAM6Hw10c9or5EcZ1a1HPqaQa0
-	05gnSt45rENlHolJtgtZkzecq/t4y0SbklliZId7gORpwNtr+1EBMSHn+wB9h7eV
-	E6lP/Zn222YGwFYhWiqx7hFDPikjTMcQserDoDEXg1QFYQnufly+ux3fscrAHgHv
-	aUonJ+QKVhzKgmDcSrIjavPXg3LtzzFNhJNw2fCB6AMsfPwxY9LSKP0r17kTe1gQ
-	/NSikIZnSDSnfMVxYHHl1F4/+P9epBjiflf09y1vOuzXMfbMgri5bgQpn5vEuK2w
-	4NCw4+WAcBebRi08bXsBVw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793024201; x=
-	1793110601; bh=lN7LmDxK/3IJS+spc2D933xtZU2kguufCVVuiL1xDzc=; b=Y
-	1XSoMIHrloCxON8y9ik6gqBvIqzJQN/m62QxekMtbgYsKaNkvi7J63yFqR6Sl/Bh
-	NAmx04E2Q6U2vdrhgftoyxHqVIhZ9vSGC+/eepevHlfAitV6Maz/FEUOSaM+IdjY
-	lyWn6HHU2UzCEtd2eSpzfw4tEttMEXHIgpyf5Uh8bb8xO1KGK00TglC99G5JKfxU
-	nuZZFu1Jp5rz3w6tx1Eps4WdQGx/khoB4e+mgi5VgYS5y/0wNAiP1Gz6gkrPBuPE
-	eP6vwxpxzlIG3F0uI1gryjjdvq9mdWd/vXKwnTlWz0xZngK4/O0feenwc52xwgnW
-	Oa/HjCoNf/drv55vfqY4g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793024201; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm1:rsa-sha256:RsaEgqN9EQYRWYzFPUXI8Qn0sLaJYMQPbiN86P25JV+sd4h
-	NLrKqQDNvdZ9oLLkEhk5Poer0AVEVeNioYdnzXbBCVyEwrJeU3RAnbZL7iJ7elg0
-	PNugK3Ll7Jpf3iKW0OUd6c0+VQ57zK0aTai4zV3Xvwl1XaKhjSkMteA46DWSrygp
-	fbwouAYeJEfAc9HxU4QiH5TpNFB7OTWrw/fLpcQdRThcLY/IEzzkTGUJBRTIzHmg
-	wPC4A0uJ89moMNn7Qk6pndVhIOyFp0EzS4hiQo+j+eSsxXJ4wt8ko+YtYGkBBLxf
-	t/FDSdNA5aA/NKBV3HShI8t3rCB53AEuj/ure9A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:QahsNuh5XYJc0FLjC6hsidNC8Uvi5ftiI4cXENOpFME=:sGNXjRn5pi18sFJOomDnd5TGDvinCOpZGoqo/HfzmqM=;
-X-ME-Sender: <xms:yWDfaj-02u2P86-OknagyGQwH-3N329uAPyNzGPvDZ0vcFNywpuIdw>
-    <xme:yWDfapDIEHQ2kfL4Oc89AkdRFWmVNBwQF3SnITA8ei6T0TllqQE4vIgqTfqK84Tcm
-    Sj7Rl8yBqp4RNhEfkQNp-9ge97iCiqOw69Dl4xHq5xSColkyHTrJg>
-X-ME-Received: <xmr:yWDfaoSUjKqDecycMixf0a4X9vCHfI8IorYuV8m5vFgtW_oYnLUdIPEeknoprwS1El9mSdj5IEnz92D3KFrwMWSndJNiBRQ>
-X-ME-Proxy-Cause: dmFkZTGfqf4YI65uSXb3gqys6a0fU5HXFkZ3HR1R1+Espo5ChuLb83M9R+ep7gBGGds3mf
-    awyHrH8DKL122P+rb9aAtD0LbHVVgTzNc+6/DvveGtseAXt2yNwmlTZxBs7vyQyTjkxpJG
-    E+A1PlOasdPMqo02cWdu+J8R2oBCaLp/+iS8G5r0/lzQiADO5An9TFyBXE29ZDAnP8Jqla
-    DzuclfjDuTh82kpVaU5qTS1bJOQnwUPCqp3HifjeT6daXKxN3IM9lAF9i3tXc9aiDDc28V
-    BfKj+3d4xFEup5J+Qun9gVM/r97vQM2qLkTjEnoJQ2LuHgauYF5mllMrrr6uTa7OpYpgW4
-    7MLJvCfTFnwez41Hv166vEYW8bKE1XrM48DXc3WK0KYmAHcokJvFRP4lJ8xxtNOb7rTgqX
-    wXySfr1DaSYzCtHtGyDhd4ijENkulHxCsW7BKxAf5xjkGsgrrbZp4qXS/45Ry3hT+7Hk9R
-    AKGuYvpjwCDilKMW4Fk3sLYqIemxWXOHpiJl7pi+qlfhZC5Qp1pC2duT0tSk/2UXC7Cqjh
-    kwconrACv8YaW2+F41Mm0Xok6BuPNCOnKCeYVrxbQCY5PAuwrbPWtJlS+66aqGVmKcnWd5
-    ytv/wvNi4hOdtXzQhP9AQsdjKSpuAe3tm0hVxIWFEc5MjIlTJZzQQjg2GHOw
-X-ME-Proxy: <xmx:yWDfagvzKdwFbjYwRaDJJtL4Ibo-WPGt-lY_1GMhl3PTBljGyL8bow>
-    <xmx:yWDfak3UZBRhhEE1LVLba2wdngXx9vw1_4ok6A5B6Tug-hGqxyCIhw>
-    <xmx:yWDfahWXdcFTI4yWfdO7Wi8ZIBEGX6DzqwreMiCjT3zE_wgx59O8eg>
-    <xmx:yWDfavINbm0W_7mxbYvx27iB4LNUO7BAIR6vBafNDBG-tH88csFLVw>
-    <xmx:yWDfavOyuro71_P2tkTWYWWSRGJyJpNai_aPHMbPkPxy5XtvK_QOtWVI>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 26 Oct 2026 10:16:41 -0400 (EDT)
-Date: Mon, 26 Oct 2026 15:16:39 +0100
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1] media: rppx1: Update shadowed registers
-Message-ID: <20261026141639.GD1959885@ragnatech.se>
-References: <20261026135814.564457-1-barnabas.pocze+renesas@ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MIai2ghn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF0351F01825;
+	Mon, 26 Oct 2026 14:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793024449;
+	bh=C2HHrlRp9L/SfQGFTahAQ/ZmI7daYrPt8M6w3ijLAkg=;
+	h=From:To:Cc:Subject:Date;
+	b=MIai2ghnQdq34w5JBGVmeA6HhT7WYKC2zTuRfrCr4hC3H5ilmncWdsuMjAlIKj6fg
+	 VK7eWvK3pNRV5D/dplNhdij1KsElKKc+1YFXMe/4g7HafD5Xc/T5UweTYgCPt3MvYA
+	 nt4m5TZ9BUJvZIUvNSwEkEo4sFIKwUTsu6LbQngDtYMyri/as6WWFdUTOoFkEVphxa
+	 nJBcNBkAbrNBEJ4md25m1wAmGIUsivgioHSQ7N2VzqV58iXURCJ4F+YffJL9C1OAHn
+	 u6Y4cwZVLiO7YgC3l5aACoghco4Ivvkd4//JMbpq9/UtHAqz56/59JMSCOYbxWpUVT
+	 NrF/ikM0bdlWA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Sumit Semwal <sumit.semwal@linaro.org>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH] drm/amdgpu: Harden against potential deadlock
+Date: Mon, 26 Oct 2026 15:15:42 +0100
+Message-ID: <20261026141541.469727-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -127,159 +64,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026135814.564457-1-barnabas.pocze+renesas@ideasonboard.com>
 
-Hi Barnabás,
+amdgpu's KFD eviction fence's dma_fence ops->enable_signaling() contains
+a dma_fence_is_signaled() check.
 
-Thanks for your patch.
+ops->enable_signaling() is currently consistently being called with the
+dma_fence lock held. dma_fence_is_signaled() might try to take this lock
+in its dma_fence_signal() call.
 
-On 2026-10-26 14:58:14 +0100, Barnabás Pőcze wrote:
-> Certain registers are shadowed and changes to those must be explicly
-> applied. Updating the shadowed registers after a frame is complete can
-> be done by writing `RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD` to the
-> `RPPX1_RPP_HDR_UPD_REG` register.
-> 
-> This is already done in `rppx1_start()`, but this auto-update feature
-> is documented as "self reset at picture end". Therefore setting it
-> at start will only auto-update the registers once, after the first
-> frame.
-> 
-> For example, this causes that the LSC module cannot be toggled after
-> the first frame. This behaviour can be tested by reading the first
-> bit of `LSC_STATUS_REG`, which will show the same value after the
-> first frame regardless of what was last written to `LSC_CTRL_REG`.
-> 
-> Fix this by unconditionall triggering an auto-update when a parameter
-> buffer is processed in `rppx1_params()`.
+This deadlock can currently not occur because the amdkfd_fence_ops do
+not implement ops->signaled. Should that ever be added, however,
+deadlocks might occur occasionally once the fastpath check in
+dma_fence_is_signaled() is skipped.
 
-Nice catch. Indeed all my CI test of the different modules setup one 
-use-case and do not change any shadowed registers.
+Replace dma_fence_is_signaled() with dma_fence_is_signaled_locked().
 
-> 
-> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
-> ---
-> 
-> I made the minimal amount of changes to get the desired behaviour because
-> I don't know how the maintainers would prefer the registers in headers.
-> So I simply copied only a subset, but it feels a bit suboptimal like this,
-> hence this is an RFC.
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+As detailed in my recent discussions with Christian [1], I also think
+that drivers should be very tightly constrained as to what they do in
+the fence_ops. I think at the very least they shouldn't use any
+dma_fence functions there.
 
-I prefers to have as small scope as possible for the defines, but of 
-course it needs to be useful. As the scope prior to this change fit 
-inside the .c file I kept it there.
+So we could also remove this check here completely;
+__dma_fence_enable_signaling() already checks the signaled-flag, after
+all, but I'm not sure whether that might break amdgpu.
 
-Now it does not and I think it would make sens to move all of the 
-register defines in rppx1.c to rppx1.h to keep them together. With that 
-changed I think I'm happy with this change.
 
-> 
-> ---
->  .../platform/dreamchip/rppx1/rpp_params.c     |  3 +++
->  .../media/platform/dreamchip/rppx1/rppx1.c    | 23 -------------------
->  .../media/platform/dreamchip/rppx1/rppx1.h    | 21 +++++++++++++++++
->  3 files changed, 24 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> index a75a27a8afd09..cbc9847ba5be6 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> @@ -110,6 +110,9 @@ int rppx1_params(struct rppx1 *rpp, struct vb2_buffer *vb, size_t max_size,
->  		}
->  	}
->  
-> +	/* Trigger update of shadowed registers after frame is done. */
-> +	write(priv, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
-> +
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(rppx1_params);
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.c b/drivers/media/platform/dreamchip/rppx1/rppx1.c
-> index c502be7979146..4794672e088cf 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rppx1.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1.c
-> @@ -15,7 +15,6 @@
->  #include "rppx1.h"
->  
->  /* RPP_HDR Base Addresses */
-> -#define RPPX1_HDRREGS_BASE			0x0000
->  #define RPPX1_HDR_IRQ_BASE			0x0200
->  #define RPPX1_RPP_OUT_BASE			0x0800
->  #define RPPX1_RPP_RMAP_BASE			0x0c00
-> @@ -26,25 +25,6 @@
->  #define RPPX1_RPP_MVOUT_BASE			0xc000
->  #define RPPX1_RPP_FUSA_BASE			0xf000
->  
-> -#define RPPX1_RPP_HDRREGS_VERSION_REG		(RPPX1_HDRREGS_BASE + 0x0000)
-> -
-> -#define RPPX1_RPP_HDR_UPD_REG			(RPPX1_HDRREGS_BASE + 0x0004)
-> -#define RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD	BIT(1)
-> -#define RPPX1_RPP_HDR_UPD_REGS_CFG_UPD		BIT(0)
-> -
-> -#define RPPX1_RESERVED_3_REG			(RPPX1_HDRREGS_BASE + 0x0008)
-> -
-> -#define RPPX1_RPP_HDR_INFORM_ENABLE_REG		(RPPX1_HDRREGS_BASE + 0x000c)
-> -#define RPPX1_RPP_HDR_INFORM_ENABLE_ENABLE	1
-> -#define RPPX1_RPP_HDR_INFORM_ENABLE_DISABLE	0
-> -
-> -#define RPPX1_RPP_HDR_OUT_IF_ON_REG		(RPPX1_HDRREGS_BASE + 0x0010)
-> -#define RPPX1_RPP_HDR_OUT_IF_OFF_REG		(RPPX1_HDRREGS_BASE + 0x0014)
-> -
-> -#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_REG	(RPPX1_HDRREGS_BASE + 0x0018)
-> -#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_ENABLE	1
-> -#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_DISABLE	0
-> -
->  #define RPPX1_RPP_ISM				(RPPX1_HDR_IRQ_BASE + 0x00)
->  #define RPPX1_RPP_RIS				(RPPX1_HDR_IRQ_BASE + 0x04)
->  #define RPPX1_RPP_MIS				(RPPX1_HDR_IRQ_BASE + 0x08)
-> @@ -349,9 +329,6 @@ int rppx1_start(struct rppx1 *rpp,
->  	/* Immediate commit update for shadows. */
->  	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_CFG_UPD);
->  
-> -	/* Then for operation update shadows with picture synchronization. */
-> -	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
-> -
->  	/* Clear any pending interrupts. */
->  	rppx1_interrupt(rpp, NULL);
->  
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.h b/drivers/media/platform/dreamchip/rppx1/rppx1.h
-> index 3bf3955afbaed..c6bd82f504560 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rppx1.h
-> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1.h
-> @@ -13,6 +13,27 @@
->  
->  #include "rpp_module.h"
->  
-> +#define RPPX1_HDRREGS_BASE			0x0000
-> +
-> +#define RPPX1_RPP_HDRREGS_VERSION_REG		(RPPX1_HDRREGS_BASE + 0x0000)
-> +
-> +#define RPPX1_RPP_HDR_UPD_REG			(RPPX1_HDRREGS_BASE + 0x0004)
-> +#define RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD	BIT(1)
-> +#define RPPX1_RPP_HDR_UPD_REGS_CFG_UPD		BIT(0)
-> +
-> +#define RPPX1_RESERVED_3_REG			(RPPX1_HDRREGS_BASE + 0x0008)
-> +
-> +#define RPPX1_RPP_HDR_INFORM_ENABLE_REG		(RPPX1_HDRREGS_BASE + 0x000c)
-> +#define RPPX1_RPP_HDR_INFORM_ENABLE_ENABLE	1
-> +#define RPPX1_RPP_HDR_INFORM_ENABLE_DISABLE	0
-> +
-> +#define RPPX1_RPP_HDR_OUT_IF_ON_REG		(RPPX1_HDRREGS_BASE + 0x0010)
-> +#define RPPX1_RPP_HDR_OUT_IF_OFF_REG		(RPPX1_HDRREGS_BASE + 0x0014)
-> +
-> +#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_REG	(RPPX1_HDRREGS_BASE + 0x0018)
-> +#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_ENABLE	1
-> +#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_DISABLE	0
-> +
->  #define RPPX1_IRQ_ID_256HIST			BIT(27)
->  #define RPPX1_IRQ_ID_PRE2_DPCC			BIT(25)
->  #define RPPX1_IRQ_ID_PRE1_DPCC			BIT(24)
-> -- 
-> 2.56.0
-> 
+P.
 
+[1] https://lore.kernel.org/dri-devel/320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org/
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+index 9b10d015671c..61621eebb2b0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+@@ -123,7 +123,8 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
+ 	if (!fence)
+ 		return false;
+ 
+-	if (dma_fence_is_signaled(f))
++	/* The enable_signaling() ops is called under lock protection. */
++	if (dma_fence_is_signaled_locked(f))
+ 		return true;
+ 
+ 	if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, fence->context_id, f))
 -- 
-Kind Regards,
-Niklas Söderlund
+2.56.0
+
