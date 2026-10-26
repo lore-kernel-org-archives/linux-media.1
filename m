@@ -1,98 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.5
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793039485;
-	b=bpwPLXZSSDKxLsOEdUOCq98yD74AgQFPI5eHnFrL5RFBxkzJyuEA5+Jor/DLxCKg/JkG
-	 7dDc6nX4iM/0PVctvRQkpXbjjpiD2PzuhOw7d9ZM1sdu4CtT0CWMMZesH8SKFmUED5LcV
-	 n3oMSAPVflmYYLxgCXMlZQKNpa5YviDGoPaTeJ9t7RqmVWUAuxmSjzfS6GdWBxUD9tsOI
-	 jZE/xGX3z6UiisVD1rlECtD0gOSCskEi3ffsXWOweql7+sfekE2v+rAJqdfBeSQ+adVOw
-	 8Lb5W7nWEBVIXRdsE2c1NJ9BDtxKrK1Lq5xveWfFtayDg5um1Ay7A91AI9ezRynWGcg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793039485;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:
-	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=EmjOYDXOtcQdXu/OjdB9xSLSrZr64ecA41VbMTQc9oI=;
-	b=FuN2hFjGutPFz9fOMbbRhawOrRAeNDJWpXzsH2qAKcpsrb67MjDeSPZih+Cc4Z2nST7S
-	 4FnDlBM12F3w95AQF6Ph4tIdn9DOR5A4DsbRpEjJeggHFRBJ9ixey4B13q0RWvHpPANrf
-	 5fZU2HN3UKnDH5WkmWeggkrsuPBQdmCEmExmz5B5aB68CIwCb6pACVhPNc5qZYtSWTTUy
-	 NLRdhUiVyxOJeFvmwVI00WKRkiPb42pN9DKptEwTK6ECsclLUOlyEYvjvUJtXjfVTzEcV
-	 J6ppaPdaqQ4MHb/KLk9RwqNN3jlyUh0XHHBrGRRcxtXelT75tQ37wnzMV3YP0CfqQpg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xYRYERGs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.5
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011005.outbound.protection.outlook.com [52.101.62.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793040807;
+	b=YHWYBpHjZkg9bM2kfBk9ISXSc5lNbwkglzgZHZm6gptJKVEKVX060KkOin+rbltPN/Rc
+	 mYMc98Jf/HxTTrpghvOyi/jS0eUM1jqnopyP0dFARJyfQuoNXRLGXPHajPb2b+rt+hGCQ
+	 hlwCsifQqmYOitdw13jwBD5Cu2iXNmkOHDHZKw6hudoZLZ1YmbidCstK0CZGWj1ttwyy3
+	 Nd+E51cOfnamKwOpWxta1kJYCUqAncqmc6Eit+GZObjVOM5qjjA/ZNgS20dEWBgfgsmHH
+	 xuiyv5ItLoWl3u1sHfqf1BkL4o/F0NTaOAD+irbHELsoXaIeCl8Dld4sldB6fnNjfqQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793040807;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=o5NLvHyayaKTthbgjkTC6jcIWBDJBQQe45RTaipv8Ko=;
+	b=TepwJOBv1YRxkRJlmC6bX9SAvx/Lmj9/9gFb9LaJ7DIdFa+2UMj00MwDvHpnZcc6sCit
+	 zokMiBgC4ak4uDjpb1mlWHFHfOVFwz5IQ+oQ3TsVrOh9UxtO72TtziCBIV4PWWWDf103v
+	 M05x76psSl1V+Dbh/uug/CbF4B3RJN6hMpPbBR4MHOtDqslTKINSIA3mZqD3H3y949Xib
+	 W/fYrDu7/kdr7wP6Oi0tuWB0zwTiMg3s+u5tzbWiyDmQtrGYN4zUb8/IR0p7yoqcXbjqq
+	 9gwq/+9J4/cYrCThEoggKmbZTSB/H8p5cd6Xf29ptR7u1w5mKeZHgGYCFiYxQbW6kig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Wkzy88xo;
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22D6606A31A;
-	Mon, 26 Oct 2026 18:31:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B22D6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E106606A31D
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 18:53:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E106606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xYRYERGs
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vIt4Wtn6Db1wF2WyqsK8VW2wd+1bZQ3G63M5U9+l9dl1qoHSPHRXoQz7enrZ03AFEEsPZzs+DLrpdcFE4b7tKPKMO0odVpEOXHvBZF6OlwwQp4PBZt3YhUT0l7yShLwm8MQr67dof5pVAumHWVL+V9rrwzh4ZT5FbyTZ39EGRbRIwmxcmSNpD4D4OnwMvL3zug8h6O1QMumxQKLmuLk5I5OyizPLdGvUE8LdKubINIo+hrsbn3MWkxiZpdLEVVoBjE/hwEmAcaCCtXkUz2Corf9QXVgbnH4AydZWsFNMTN6Wow0Kpo93Kk4eogGisQD1QviH41QyDjjUMRrgt7rI4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EmjOYDXOtcQdXu/OjdB9xSLSrZr64ecA41VbMTQc9oI=;
- b=DdSR7OEScOQsYfuf1t7TgsDOV29YMTE3DfUXFokfnV7sr24x2enkarZdiL05glzUffhSEjrf4LlDNVbbhelCK5BFIjUgmap6DGD+6pqmcGGX1x45pdOQe4qDwId8LSJ8K+rIsCbtDV4YqR9tYxIPidlFmWR8OR5ad7nkiU/WMtIqN5Ey9gppYvCZctzq6j9LV14q6R3Fr2bIe5BpNHyVgXUN/0TcVMqQfrWqJJ8k7RrS5Ov4LO8h5i++4iw610/oaJHxP98YznLh2CVtUbUh4U4kLMjdUiLeCESWXKKQkHhfvyYWmhF4IAuMwogUIMCbhRzAhk4i2R4kav8RbyTM1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EmjOYDXOtcQdXu/OjdB9xSLSrZr64ecA41VbMTQc9oI=;
- b=xYRYERGsALMU+i9cUndiUTz2VhgCWZUyQ3aOd5b1MZYIAMKNAemfgcQ5WdR5o9baAZNDlLo244Ji2cMFyVwt8vDz5FdPML9IJjsK72yAXe9Ii0gBKAo2zNG5Xgmc65nZ36vZYamluohoSK3F9VbftIvfEMUuI0MRCnuLC45o/LM=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607) by DM6PR12MB4042.namprd12.prod.outlook.com
- (2603:10b6:5:215::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
- 2026 18:31:15 +0000
-Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- ([fe80::67a7:9feb:71ef:964a%8]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
- 18:31:15 +0000
-Message-ID: <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
-Date: Mon, 26 Oct 2026 14:31:14 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Harden against potential deadlock
-To: Philipp Stanner <phasta@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20261026141541.469727-2-phasta@kernel.org>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20261026141541.469727-2-phasta@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0094.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2d::33) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::607)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Wkzy88xo
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6ae305e3bd9so5796998a12.0
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 11:53:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793040805; x=1793645605; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o5NLvHyayaKTthbgjkTC6jcIWBDJBQQe45RTaipv8Ko=;
+        b=Wkzy88xoh3nKXld5wCIX3oC6PIm1RMJPNeh0lJRvxXGSozwQehTTLcJGzFKOcWVKJd
+         PT0wihWO91zQ2Q5PojGCxcxR7+iEjGGbwgmJuRIzgu++ByF++DPBrFtEVxo1gGXVxDnO
+         K/4B1xQe1X7m3sHpWQymZM1NgXRyquVRUnI9M=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793040805; x=1793645605;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=o5NLvHyayaKTthbgjkTC6jcIWBDJBQQe45RTaipv8Ko=;
+        b=XKUBZ+j6lIg+wXi+eZ9ekqSuXpH+m5qzUhQ9tFc7pfGV8PqDq922WzGZbEswWo/Lau
+         wX90ovLb3UMkSMTg6qmn5XMofkzJ8ClsVP4zvou4AWcX0LnX7QarCb6g6oEYO218jPaf
+         X4Rvo+ybQm4ekhuBf7A+iEv64YHwklruYPefvK1nFH5E04rQLX1TF7Cg0Z3D/q/r9ocQ
+         b3hV2ZnywpiEMpGRwZbqVMc7caIsWmAJNvv6TJvYnIqAeKa7ikURzJisulCMbRS8hbfI
+         /A7oxiSwZ/h47gNI94qde4H+5VdVolxBM1SV/rIoaJhFWX9HRc0QP4LyyZK6lEtLQuZh
+         gf2Q==
+X-Forwarded-Encrypted: i=1; AKwUvByehWyJUdXFa/6BonSbjYdMW31oayhMn/IO5pVWS+RSieoi9j5l/9IrenUjdtoJw8aXsG4icl/z/HWH2g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOOlpA+tA7Sg785qhg+xi7Kr9mUzc/wPAfVd5dERWe6wGKxpVJ
+	Ykkt4REUjTFi3b96obsicKt36U/6KNfFkLE610gP0DvRixvQpTMYH4rIkusPvyWFotT+kf95HvP
+	VT8/CULk=
+X-Gm-Gg: AYBFou0gyxGRLtqMnNDToBiFdC++JL8Yyd7X3TwZaxRHQDLt4B1KKPB6CiEx/1cyLvV
+	+blIGe5tCrfyXgbmUoxmt3RcYXudWvXez/Xli4EXaq1jcUSdR961ApL+s9AFwTnoSua2b5dgk5N
+	XHCVTmsh8KD6KseWUBEcs9JDVHbB0GvDCR/tQPkyNGi/6xz69eOnmCfAvLzpLl//EIiaQVZJbvO
+	VwnAMO9BVPdlyk7hEPZi4z86+nMI0YVaR3d7tSKIP/i+MGBQdZK+2R9C2zis+2l5zHe6yszHA0M
+	kCokRNhM9kZmSNsslfxeM21i/y4DN9I9XqdFDVkwwMzZBMYiSuQaUzjXSqvye6eXB1L2bYoSxjX
+	Qfo8rmzB4ytlSLOl+Y0Y+5ZHYYcu5hVGDVkCGzTQfmBAgTfUlfNszvyZ+i/cQstpR22l+f8TsyA
+	bLCQWLk76U7QhX90YzhC1bUF15TZZi40RCbPHqw4Jah0PRCB8ihebC5SBeA+bF7VdHtsj4Kl8DS
+	PxbIE34PYfh/TJcRg1o+iot4L10+q7nUCUXspDTccbD0aeJRUXqMzeTyG0IW5/nasRWseUhM4az
+	R3ENEBLuHQ0aYXaUyN2Kaw0m1ppQow==
+X-Received: by 2002:a05:6402:c502:10b0:6b1:c6ad:ae3f with SMTP id 4fb4d7f45d1cf-6b442ff6f87mr6192240a12.35.1793040804621;
+        Mon, 26 Oct 2026 11:53:24 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b47a2cedbbsm291859a12.4.2026.10.26.11.53.23
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 26 Oct 2026 11:53:24 -0700 (PDT)
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so202116a12.3
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 11:53:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByrxw+/hPYl00THuLldYpdXpiwZe8nJFXfVdbrhb5/dMO3lUIM/3EpwgU+2bFC7/zrz4n9uFYLA8Qb30g==@vger.kernel.org
+X-Received: by 2002:a17:906:9c86:b0:c40:dfec:50c6 with SMTP id
+ a640c23a62f3a-c46bde12b55mr849392166b.21.1793040803209; Mon, 26 Oct 2026
+ 11:53:23 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,131 +93,53 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|DM6PR12MB4042:EE_
-X-MS-Office365-Filtering-Correlation-Id: fa23a9e1-8a17-4470-57f0-08df338f51ab
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|18002099003|6133799003|261026121527099003|22082099003|56012099006|11063799006|10067099003|261009223027099003|261022075727099003|261022105027099003|261021121427099003|261026140227099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	41yH2wqjuWX/XD297wUrIppGg0bO5gF8ruCsVSKTV8VpjKP7fthzw1hnUjic9fyES197GS7rAp/GtMmy0Ra13CtDPHOZLKcbH+epNMRvQp6P9JMl1CjO0BbhyEWCJMpihrlQFXIk96B37GDoeE8EzHNe/yeuypbk5LmPOYwt/1BepbniNMoEoHOMpyNQX/avzV8iluitDpZ570EtaA7sLI3+S6PgM38oa0hUOwdGSbpOwzuKOP7hVNd8E5iacvDSYNURRZLCeayiMpBrayNPvywZ/H20ji8JoFvaliA0dK24EaZPmu2BlBHia8gT20Rk4w97hPvuHdePNx88qxZqJt2n0t/8l/h1Sjbwuz2sNFR5aUsxk3nzc3o7HBg1KTro6ohnrdt+RGAepG6CKAgxiIqG3crzuOY5gV0r72C2J3fBOZ77pwsXgHhwaYNqrMY9IEPccA/oBCnY6Cg0IEGo4vE1DsgcSLVvF8Kte8QSWvkI4wZmLB/ZSCG9P1BMfd5kw8A22af4jMUypY2Iyufm1nvySofDhlOX4WXj+n7ryBAMg36dB2IjLedAAphQdkCJTskCpHvBIIGhl/QsPQ+pN2VUBy0VPwCBwA0rMNnt8YifUCvAf//37VTb9YEn85VZ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(18002099003)(6133799003)(261026121527099003)(22082099003)(56012099006)(11063799006)(10067099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K05uUzBTektlRGZMZFZJeExJVCt4RWs0dm1ia1EyYlZXWW5pS1N2cnlEeDhE?=
- =?utf-8?B?aHQ1cEN6R1RSSmxaMis0dmFLUUltS2E2TjRJSUovRnlwREZWRVlHMVh1NUlm?=
- =?utf-8?B?ZU96dnRWdGpDV2FiMWNCdDVlZ0Y5M1daUVdyY1pxaFphTWhWTEF6N293eUJq?=
- =?utf-8?B?MWlGUFRhSitnYnhhb2JJaGdGaGpud2R2b2ZwMzNNL2dydGRPSTBxOTRPL3ov?=
- =?utf-8?B?eWlua2Q3R0RlRnBBR3M0Z2pONWVGdWdoeVFkUldFcU4xbzNZZkcwb1FhKzk2?=
- =?utf-8?B?YXBnWHNpVGp4Q3pySGRuWW1PUDFYSGVrQlBrQTFKUlRiSUJZdGlVb2JiYlE3?=
- =?utf-8?B?SnJmcVUvYVBudFd0YytuQ3ZIc1pIcEpidGVQcU00K0c0U00vVThkVHNhbXBW?=
- =?utf-8?B?TWd6TXUxMlFvK3F3c1lNcGZVcnVsaXE3MVBlY3FSeXRyWlJGMWJFbDhCMkVi?=
- =?utf-8?B?TmFzaG41Z3BkZ0VSdDE1cU83NDFBKzdKZEkranVhd2k0TUwyYjlZc3p2ME9a?=
- =?utf-8?B?MUtWTHJ5ZEVheFJzd2xXZzkvbVRlU2c1VTBPaUNOUEV5eWZlVDNodnZFbnFh?=
- =?utf-8?B?YkYrR2s2dElSbEVITFEyYXJlcjNwT1VjVGNPNnNZU3RFMFRiNSs3Y3B5bjBO?=
- =?utf-8?B?WkdXWXJiaDBlNi94dC9QM1RJR3AxeFRHMkc4RE1oMDBUN21TcU5hM2dsWXYw?=
- =?utf-8?B?R3pWeVAzempOeGRCRkd4Qmt4UEE3cVBrUU5NNWlad01SREhJcnNHOHRKZHJ4?=
- =?utf-8?B?VEM2c3BoZjdjYWh2MUVLdnorMEZqK2lEbGVUd0dZL3hCOTBxL0srbGRmN1N2?=
- =?utf-8?B?aDhzMzZSdXpQZW4xY2pRbU5tNWRYT0FYVStYVEp4aTdWT1E3VVdnYTJjNHZK?=
- =?utf-8?B?SFdaSFBDY09WOXVwYkd4QXp5TEI0TGc2andHNStYZDB2elR0T0VWWkFoVlNN?=
- =?utf-8?B?bktLN1VRZWtTYkg5Zmk0ZFYxaE1VclFPclRGNklraXc1N2dPRjlGY3lvNjRN?=
- =?utf-8?B?SDh0RHFoTW51d1Vhb0w0czdrZUdERy9UZk16bzZPb25MQmhpdHhPeTNTMVRZ?=
- =?utf-8?B?aTJodVE2cjFra1ROV1BYa3NJTFpsdzFzZXVYMlZJSGpNZHRDTlR5cVNwKzJY?=
- =?utf-8?B?Wjl5N0JGa3d6NmU4RkkyNkFQeG5jZmc5M2hFdzh0RnBmSXlaQkFYbVoyT05R?=
- =?utf-8?B?Z2NFVlFrVjVuQjFUMDJobEhWRHgzaVFtdm1IZ29HbkptZml5Y0pkeUJJOUNP?=
- =?utf-8?B?d0k2UlpJUENBekRySElqMFNtNFowbm5TT000N2tLOUR1SEkvVi9qcUtLeStK?=
- =?utf-8?B?QUduN3hoc0cySXk4NDB4MTZXd0NvUWFxcjFnbXJHdUtGTHhtUW5MWmlzSTZu?=
- =?utf-8?B?dHhLbVY4dXFxY0FGMnJLTk5XYXVGRUgxaGlDR0hDQVU5SkZkWThhQ08wWWUr?=
- =?utf-8?B?ZTUreGJzaW5uZmo5RHR6VWR5STdtY2owdm5vdE5DOHlTM3ZVYmkwUitDVml5?=
- =?utf-8?B?RE9kTWhyMVVTSHBmVUlzM21abXRpMjJWZW9vck56ZHpSRlhTSytKNVpicFNu?=
- =?utf-8?B?QnBQZmNLQ0VDMkFnYWZlOGwwM1pBK1RJS0FCOUtWUEJ6dWJlUXVCeHFiNlA2?=
- =?utf-8?B?TDhobG12aElLRVJ1VkxLcDZ6VlgvakxuekxJZml3RGxRdElnb21LVjdzWWs2?=
- =?utf-8?B?UGZKVFB4RU1ML2JjZmlTN0d6ZExkQ2Z3anRHdktTQkxIRWRvemZad1RoaDlH?=
- =?utf-8?B?NmRFbk9aM2ZTeEVwcHluaE9heXVueGdhT3Q4Q0VWUUY3L1RWbG9EMjFEY0NM?=
- =?utf-8?B?anE2SjhlL0toeGNGN2JzWGw2K25uNVhLU1ZqNGhTS280UWtWTXdzZC9vL3p0?=
- =?utf-8?B?VnBCMGRoaUhSUGZyMWRZaXAvM1dGc0ZCeGR0dUFwaVZDbjMxNExKM0pISFNQ?=
- =?utf-8?B?N0pPTzZLTUkzZ2phSUhueUFJWHJURzRlNGgrdlhYNmRmUS9Da1BZbVFhVDBx?=
- =?utf-8?B?cWlHSDJOamIzcnZrZjdFd0hWMnI1Z2pseVJZMXFGWE5oM0w3L1RUMjVaNzBD?=
- =?utf-8?B?Rng0YnJZZ0RtMkhiT0FyWkwvWEVjZTBpbExPalBIVnptVE1JaEFiVXY5R1RZ?=
- =?utf-8?B?cWE1d0dSejl5N1hCNHBkRHFZejhpUDZ2VnZBWE5qL2taYnl2aDF2VlcvaFBq?=
- =?utf-8?B?NGZ6NmFhWkVvRms4Wm9vNlB3QkVGYlI4WG1zWmczVVd1WEhiYVhmNXFmdzQx?=
- =?utf-8?B?Kzh6OHI5K09jMmFoRmJDK005cUtEM0JyTENQend5bEsveXloSU5xRFVIMnRk?=
- =?utf-8?B?OHgxUVdtdHBYQnltK3BTVi9TdXRhSXlqcllIUm1nRzhmYi80OFFhQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa23a9e1-8a17-4470-57f0-08df338f51ab
-X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 18:31:15.4734
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: inbC8KiPqHrsN1oYUOyXU66ABR8396R+JQAY5KPhoxJ8Hr9JCEqwkdfTGLc9KRKa4JuKYbQGT7L3bBXU+wGUSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4042
+References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+ <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+In-Reply-To: <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 26 Oct 2026 08:53:07 -1000
+X-Gmail-Original-Message-ID: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+X-Gm-Features: AclHuK_noOhKvajafCF6Y4vLLjiCQi1lIip37NTkzc_fA8PG6fPCuM1fAW3-Gms
+Message-ID: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+Subject: Re: [GIT PULL for v7.4] media updates
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil <hans@jjverkuil.nl>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-10-26 10:15, Philipp Stanner wrote:
-> amdgpu's KFD eviction fence's dma_fence ops->enable_signaling() contains
-> a dma_fence_is_signaled() check.
+On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 >
-> ops->enable_signaling() is currently consistently being called with the
-> dma_fence lock held. dma_fence_is_signaled() might try to take this lock
-> in its dma_fence_signal() call.
->
-> This deadlock can currently not occur because the amdkfd_fence_ops do
-> not implement ops->signaled. Should that ever be added, however,
-> deadlocks might occur occasionally once the fastpath check in
-> dma_fence_is_signaled() is skipped.
->
-> Replace dma_fence_is_signaled() with dma_fence_is_signaled_locked().
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> As detailed in my recent discussions with Christian [1], I also think
-> that drivers should be very tightly constrained as to what they do in
-> the fence_ops. I think at the very least they shouldn't use any
-> dma_fence functions there.
->
-> So we could also remove this check here completely;
-> __dma_fence_enable_signaling() already checks the signaled-flag, after
-> all, but I'm not sure whether that might break amdgpu.
+> The patch in question puts camera sensors and related chips in line with
+> how the rest of the drivers are selected elsewhere.
 
-Looking at the code, I think it should be safe to remove the check. 
-There is another one in kgd2kfd_schedule_evict_and_restore_process, 
-which is called from amdkfd_fence_enable_signaling, which is also redundant.
+.. and other places could probably be improved too, I agree.
 
-We don't implement ops->signaled, and we explicitly signal the fence 
-from SW with dma_fence_signal or dma_fence_check_and_signal. So the 
-signaled flag should be the only thing that needs to be checked. The 
-flag is only set while holding the fence lock, and checked while holding 
-the fence lock. So in theory, relying on the check in 
-__dma_fence_enable_signaling should be safe.
+But this made things *worse*. Much worse.
 
-Regards,
-   Felix
+The thing is, at least hide them behind some "embedded camera options"
+that in turn is hidden behind "EXPERT" or something like that.
 
+Don't make *normal* people who build their own kernels have to see or know.
 
->
->
-> P.
->
-> [1] https://lore.kernel.org/dri-devel/320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org/
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> index 9b10d015671c..61621eebb2b0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
-> @@ -123,7 +123,8 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
->   	if (!fence)
->   		return false;
->   
-> -	if (dma_fence_is_signaled(f))
-> +	/* The enable_signaling() ops is called under lock protection. */
-> +	if (dma_fence_is_signaled_locked(f))
->   		return true;
->   
->   	if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, fence->context_id, f))
+Let's say that you have a laptop or something that actually uses one
+of these sensors for a webcam, then it STILL does not help to ask a
+user
+
+ "Do you want a driver for the Analog Devices ADV7170 video encoder"
+
+Because (a) that chip legacy and likely not in any laptop anyway and
+(b) even if it was, no laptop user is going to *know* that.
+
+See what I'm saying? You literally make things worse. Don't do that.
+You're making the kernel Kconfig script ask insane questions. They are
+insane because you cannot reasonably expect people to actually know
+the answer to the questions.
+
+In other words: don't ask questions that you know the user cannot answer.
+
+There was a REASON why those menus were hidden.
+
+                  Linus
