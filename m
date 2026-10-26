@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793004507;
-	b=LspttDCEHS8LeedwUyzu0TCS06ybYAe4Po/uD45pVDbiapPVxTdwqkjZBRZr8TQK7Xl/
-	 fOztg1bcGEQZ1qBJkibKsXJYhu3s4bDLBN6NRE6CaW+ZqnHdb9aD2KES3WVfgSbQr2LCU
-	 6tN0gaxtQ7GqiwKh16mn8d45AWZZv1DeDctQMWHToS1AKT3YSyvzP23FHhl8C0mk3JYv2
-	 ucbAwuDIfWBJReqPYWWGmVZrozhcLORWVwzmMUOcUydvgecuiDRZuF2HabBvwYvpwzUmZ
-	 lILoigBOJ6R97fmu8A+jiToJWwBdbnlPjFpxiitaCR8IKKRH3bPAShBQ7wM35CkPErg==
+	t=1793005654;
+	b=1wQXZqlIQo4632lduOoUdwHAKsZ+dX2sDiEOACV74B+ului59RXdUy7y+WCpIRkiUNDx
+	 AZMfkO6Utg4LSqaLx4V3PQQoaV3I/SWV2Ry9JxFd2MKnwgt8Cn8eWGPmAwY6jtgYrcmzv
+	 sGEcfPkIjTMI9TOmd9n7b57c5Vufx+ITk+NxrxTaBiPFQCSmFAINkIwBXFv7sjF3VmYea
+	 Cy+WIdTifzoUmNdsxCAb8L95V9c+/nyObFPk43McQQ23iQkoPZPL7fmfTFkymyyiHi3bg
+	 idZpxa0RVyWSuVC5//ILf/Ap2nQJzLQviZkBjEMJC4pE4F2RfFXWSG9EEdrBp+UD71A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793004507;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=GJIdHUDURKARMVE++829HGtEZJc3Rwdb7GbNiy4iZIE=;
-	b=g9uBbC5++XHukLApvEToe64mfJ4Ix2zaYn1ZOS03zW3kCv9TPFD/TWDZOlVcHZeovyAw
-	 Khn5h3zPlbbeVRoyHJvpxzy+GN5b1JcYYWrZM5Ipk6RhfyJNabxTqJTp5F+E04fPjNWM8
-	 Bu5y6ASro5OcxV+onKPxPyP24vLuTOlIMAHtGUQq4pXfe9OvQz3TrBhJ68TNPICBTf2T2
-	 WYPx25LfwhfP2xV55fem/9Po3wB/HdVtpt5u0Psc7qv048e5HN7RVOoD+JGTwf16p0bnk
-	 NY0e2Zo4t6y1lt9SzEwtLPi+ktj0RIQUkSfVhJl78d6Ihd0cltqfIwxEqpbKdFM6dag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793005654;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=YtWdo2H9TfM8LZ55Dc5W3Wu+JOuYT5pQ3KZ/kp0eaFs=;
+	b=aob33e0cNvK9v0xtemxOt8yW3I5yHhpmxKLQmCP/ezIqS1AfSq9Z6Xz6cHigdH0mlURj
+	 xhYLQl8Vx9BAP03znmVoIbuZP+EFutVZjPLyM4BOk7SV1UNwobo1yUSU4Qzx3qs774Pk3
+	 an7TK5SWku56illeuLm+RhTk4NH9pPXj3kwI1G+b+/knulYKGrHZHpKlxVhADZLmIWest
+	 YP6AzBB+vUk4/3S8yVKezEwgLWxwZj8sBGCMsYaDdKLR7tkYAik5lryNW431wT3LHvBeY
+	 WkIalm6fQGRj3PwPyZKDRZfn/LWSZ9ZlkxxwBZf29BRGJ0DKQqPB7yCEkFc0LNV+RMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nnG8nTNJ;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=nxsw.ie;
+	spf=pass smtp.mailfrom=nxsw.ie;
+	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=pdGZbNFY;
+	arc=none smtp.remote-ip=79.135.106.100
+Received: from mail-106100.protonmail.ch (mail-106100.protonmail.ch [79.135.106.100])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165E6606A31D;
-	Mon, 26 Oct 2026 08:48:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 165E6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669EE606A31E;
+	Mon, 26 Oct 2026 09:07:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 669EE606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nnG8nTNJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793004506; x=1824540506;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=B4JrJS+LcP/FV0QEPGWYpAcyBST1tsHu+12sGaLYHxM=;
-  b=nnG8nTNJM8HcVVkDoFdRmrPcS1MHoleyXNWTp0QEFpLcbqgi2/GtrA6F
-   8kk/vDjNVYuaaaxVrKElgCmt/p6ux9bRqR+qtd6ljuj5RMWxmwpoaMmaz
-   qTvv2Ab+PjVnQhrTt9lfA6NPiE6YLOo1uLYoJr57FKhOI6O46VSQVXcAh
-   V5dDEpPDLfc/cJyMpL0QOkCpD2HKv7lX/0d3AABThHswcT3Y6xQ1/R0ZA
-   wiPlRG/+cnIJow022fKaBNjQwzBzRTJMfF5fW2Ttu6eLMJnyCn1+X0PBM
-   8StbFEelcTndCiVHQ8tbEnIc40WsSXwMChEF0euGDE/eSDn84X67hq5M7
-   w==;
-X-CSE-ConnectionGUID: G4a7SrKuRESWyOjKYwJt9w==
-X-CSE-MsgGUID: dCBeCYiaT9W9HtAsdc1/jQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11946"; a="1549358"
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="1549358"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 01:48:25 -0700
-X-CSE-ConnectionGUID: QxhVh/rjS3iQ9Ac4qObP6Q==
-X-CSE-MsgGUID: EAChRZzTSaeF0/CQk7so9Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,179,1787036400"; 
-   d="scan'208";a="6037876"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.73])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 01:48:24 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id BCB34121C55;
-	Mon, 26 Oct 2026 10:48:25 +0200 (EET)
-Date: Mon, 26 Oct 2026 10:48:25 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Arnd Bergmann <arnd@kernel.org>,
-	Cosmin Tanislav <cosmin.tanislav@analog.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ceclan Dumitru <dumitru.ceclan@analog.com>
-Subject: Re: [PATCH] media: i2c: maxim-serdes: reduce
- max_des_update_streams() stack usage
-Message-ID: <at8T2QchGh_YGegL@kekkonen.localdomain>
-References: <20261014103201.859465-1-arnd@kernel.org>
- <as9okp5GgBgc5Hlp@kekkonen.localdomain>
- <5b26153a-768a-4b33-bda3-19d3dea88634@app.fastmail.com>
- <atCfd-drVomrTS5X@kekkonen.localdomain>
- <901b5203-7095-4c8f-8644-bef6847a8bf7@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=pdGZbNFY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail2; t=1793005649; x=1793264849;
+	bh=YtWdo2H9TfM8LZ55Dc5W3Wu+JOuYT5pQ3KZ/kp0eaFs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pdGZbNFYOxZhusYl123TsqM3URLJqVWLb1dx42FkSGg7PTBAvehBfi6ThMb00JdeV
+	 N5W/IPQP2NGle4/4sHQUbc6FALN3wos0wR9WmP/BoYFslArWUh1k71fgpqtJgtaSP8
+	 QCzGNEOaDfCSbZ7GVB2Y0zPtptB9NzTrIhikhQ6xyJsDG3Q/57Ep/xjWW2r1IlDEqf
+	 ++q70zAqDrHlvRpiDBjsQZ95trsUH3NDOXhUKUKaTSFVYpJKiru/46zLR4HnC3fRB4
+	 TN/haQXNI7NZjDPVzS4ADFLI2/y6VQ+/3mulWNK+WBQyR0qRxVtapIFatA3kP5nvQi
+	 b/ANPjij8Ix6Q==
+Date: Mon, 26 Oct 2026 09:07:23 +0000
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] media: qcom: camss: factor out the VFE minimum clock rate
+Message-ID: <a7f9426a-8d0b-42d9-8c11-f02d28abbd2c@nxsw.ie>
+In-Reply-To: <20261024094027.3095475-2-atanas.filipov@oss.qualcomm.com>
+References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com> <20261024094027.3095475-2-atanas.filipov@oss.qualcomm.com>
+Feedback-ID: 136405006:user:proton
+X-Pm-Message-ID: 2b52d1add7e6b7f8ef0934319cce357bf17b3f6b
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,68 +64,19 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <901b5203-7095-4c8f-8644-bef6847a8bf7@app.fastmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Arnd,
+On 24/10/2026 10:40, Atanas Filipov wrote:
+> vfe_set_clock_rates() and vfe_check_clock_rates() both compute the
+> minimum clock rate needed by the VFE lines from their pixel rates,
+> inside the loop over the VFE clocks. The result is the same for every
+> clock.
+>=20
+> Move the computation into vfe_get_min_clock_rate() and call it once
+> per VFE, so that the clock loops only select and check rates. No
+> functional change.
+>=20
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-On Thu, Oct 15, 2026 at 12:06:28PM +0200, Arnd Bergmann wrote:
-> On Thu, Oct 15, 2026, at 11:40, Sakari Ailus wrote:
-> > On Thu, Oct 15, 2026 at 08:45:26AM +0200, Arnd Bergmann wrote:
-> >> On Wed, Oct 14, 2026, at 13:33, Sakari Ailus wrote:
-> >> > On Wed, Oct 14, 2026 at 12:31:33PM +0200, Arnd Bergmann wrote:
-> >> Right. I see there are more allocations in max_des_update_pipe_remaps(),
-> >> and max_des_update_pipe_vc_remaps() called through max_des_update_links()
-> >> that could fail as well, and may have the additional problem of
-> >> leaking allocations every time a stream is enabled and disabled.
-> >> 
-> >> Can you tell if those should be fixed as well?
-> >
-> > There seem to be devm_*alloc*() functions being used but that doesn't look
-> > like a memory leak -- there's devm_kfree() use as well for the same
-> > pointers.
-> 
-> I see. Yes, that is a bit unusual but not a bug.
-> 
-> Seeing that the max_serdes_vc_remap array is only eight bytes long, the
-> devm_kzalloc() does seem like a very heavyweight operation here, that one
-> can just go on the stack and into struct max_des_pipe in place of
-> the pointer ;-)
-
-Indeed.
-
-> 
-> >> Are ->enable_streams() and ->disable_streams() always serialized
-> >> or can they be called concurrently on the same subdev? If there
-> >> is only one of them at a time, the allocation could just be
-> >> done ahead of time in max_des_allocate().
-> >
-> > Access to sub-device state which these ops operate on is serialised using
-> > the sub-device state mutex i.e. these aren't called concurrently (on the
-> > same sub-device).
-> >
-> > Also cc Dumitru.
-> 
-> Ok, so maybe the easiest way would be to just put everything into 
-> max_des_priv, including all the currently dynamically allocated
-> arrays. Since all the maximum sizes are 4 or 8 in the driver
-> and most of the structures are short, using fixed-length arrays
-> will make it use less memory than the minimum of two cache lines
-> per devres object.
-
-We're also trying to remove state outside sub-device state. I guess this is
-still driver internal and not visible in the try states so it's not
-strictly mandatory yet but still preferred.
-
-I haven't fully read the code so I don't know if it'd be feasible to use
-the information gathered directly rather than through an intermediate data
-structure that is now the case.
-
-I'd try smaller types now to see if the data structure would fit nicely
-into the stack and leave the rest for later.
-
--- 
-Regards,
-
-Sakari Ailus
