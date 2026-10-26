@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793006029;
-	b=xOgKAriAUAVXtk+flrrQ5uQiZqqajbT1Lx3j93DNciYizRnKMmneGuFYFrrjWgegEf8I
-	 Ua6FVrqUepjoCr5LIRz58Wcdb86Ogc+hRiT/Y0eMGn4Rh4uimvws8CTEtmZCHgJS3diw7
-	 byDjLwcoAhsqJagSBw/tBUTTpuR08Stgl4DTwZBez94/K9Lh6Wu8S7rqFpuPtB0avXmEQ
-	 jiuW7pHDuqst4DoaCC/XCqI7Luus4kpP6wgnyMcenOp7yIpgmi6JZIeri5qk8u3eYIaoZ
-	 Wu1LrQTU8kv0BgH6AcCeQD9zq4aSkkQ1oXzIQVupp2VmaZA9/OVoYaXRvZwu83wKMkg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793006029;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=43pDqq6vFSrPujroVpHFrIOYtAlfbhzMNFlambJDvYU=;
-	b=pKEYMCPqaRy32zXd8J2V6sfeqN+OPTPP8lt98KK+DRKPiui4nHtqzXC2bO8VM0DL5UF1
-	 dngdYU9/2cmRc49MZw0UTYbjcJl1UmYJfo64ERqWTz1OrLmzBJMLpWBn1bPV+lLl5kOuG
-	 PYfM3tEklPkbtFeq6mO39raxVi9wLI6TQYMWs9AQBe8DY6q41NHWmZBeqaRIdCfq7hDOn
-	 LegnMs5diz1qLDBsIiK0kZoQu/+6ln1LPzZ2+sBvwcrGtML20F/5qzuzc17LCuha3ZDXu
-	 r5usXhDBQfb0oO53JNErXEl7GKvUnCEyZc3fz2VSp1PznIlXt68Oal5pVNAU42E3N/A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxsw.ie;
-	spf=pass smtp.mailfrom=nxsw.ie;
-	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=k0vbnGt6;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793006222;
+	b=S84GGXxH/wA715ZSstqwAxOYVoJ4bB506UCSoIQYLMZDq1TYpUbqUzNNPm8HSJZXyiJ/
+	 gvMkqL2Ngu/hDjkUSkxMwSxKNBZXYBOarG+SG697Tth6raN7mdlvcpVY3I+8h/Q1/m0MQ
+	 ZjNza1VlrPQypKVWZlIhWJnoUiNOVDL6kt3RDypMAgS7iEoa0OyKR1rxxR5fM0DyX5ujR
+	 DvynRHsTXk4YJgR43Z6UECoHINSQEAUTYTNHN8EUs1UyN3ENSHveGuEpUIWw58riZ3kkB
+	 HgGJXNcOel6Tl6ZPKJvKA2LF4Vg88QLt87Vim34eALhzAj6AY/SqljCEGDDSAUJ+dQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006222;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
+	b=fVBBP4znRqavXj0Eehg+y1f5D3kX6LJlQ+THZYjkR3UmppHFRJoUBuzfdMYDZH3XedLS
+	 3cs5HZKyzeeSz9xOBRTwjs5HjSuRygcHaAlhUq2TKI+74dwQ996lyMceyveTwoDDCWXj6
+	 VEe1BkwdrJL367MR7gKgm2Z8RcBl8V0W1kTrml4tcfSwphWfWstAJmltT75VncpjozHhM
+	 /U6tMq/kuSqCvwn5Icg/50bD9gwVz9WwMHDOGoDfKEX8+4zkidWBMEmWvkDUjl33PbiPG
+	 lgRTwFfekvNVm6CYMKIPL983kDUDV2Ix2dEPy4RIT3EgsgS8TRx6KEhWr+pid8xzG2g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=yDdXj6ZR;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.59
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011059.outbound.protection.outlook.com [52.101.57.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E657D606A31A;
-	Mon, 26 Oct 2026 09:13:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E657D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2A2606A333;
+	Mon, 26 Oct 2026 09:17:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C2A2606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=k0vbnGt6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
-	s=protonmail2; t=1793006026; x=1793265226;
-	bh=43pDqq6vFSrPujroVpHFrIOYtAlfbhzMNFlambJDvYU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=k0vbnGt6SA00S/ZTZ2pTxa3t+Yd0kPoKH7Q43Ik1CU6iahsNUQXItsKWSvR9ZvoDt
-	 8Qpj2n/ksnKgTQHhsSCpEAByYhguGrrLQ3RxbOKH/R3iPIblWF54u5CfQCFR7EC5yx
-	 2l2kIzln1giHMYm7CYP0au3BXnZOMeUkoLjrg6fnWVUqfJgrEH/Ku+WAUiGupse2cz
-	 N/aXiGAUsW4/wBNnifdGzddEOeCiLAFgXMii9Ipc3ePqY2OZFkmZyPWaYSYkIp9M1+
-	 YQl3cTGTMN5iZDiKNbMtgiqFsH5pPonU6NhFVF5/5jkZf+CTvCV4mL3Rj/1IR6DAX3
-	 Ps3X+i9AubbrQ==
-Date: Mon, 26 Oct 2026 09:13:40 +0000
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Bryan O'Donoghue <bod.linux@nxsw.ie>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] media: qcom: camss: share VFE clock sources by the highest rate
-Message-ID: <4d01af69-0942-47a8-a1cc-be52f520184d@nxsw.ie>
-In-Reply-To: <20261024094027.3095475-5-atanas.filipov@oss.qualcomm.com>
-References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com> <20261024094027.3095475-5-atanas.filipov@oss.qualcomm.com>
-Feedback-ID: 136405006:user:proton
-X-Pm-Message-ID: 2a8ea65834f7989086f16bec1556eeae0430390c
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=yDdXj6ZR
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Jd4M0upXbkBlT9LqMb/U/jte9GElMj3Zy+coe+zzxDrfK13q6QAEYv46C2d202riS0j0ckQuLj1mdKOrZB39jtjvGY1n3k0rVFm90QKyqwRIRgL6Qz8Ee3Hy/IzXBZXO7i34jv1Shl/SY2nWOY4Pug1Z1YG18WRXr8VKNtB1ccROMPx06fi9DBFvaiZ3sgKOemEyNS6TM38BqqaTMC/nVweC7lH2qlLe8H5zA9DDkz36lbImlbD7lnxjSRIEnEScaVTzgL3yx0Vacebr332skeZGyrhHTRebQWGg8ZhIsmv/DgXoL5wxOAQI1ZYSTdmZjyJ703l6wDHsG1kJTKg1yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
+ b=pTJT7i1cxP3dIK4lIBNCoqkBLhDX8P/vdL4LNO9msUVKXXW1VYxavlmBLS3rnSTGcgckERVnCW+zoDF4wA9JyRMa4THFM8iX/ZItg4BpnPsGUv69TBzUgp3IHnZUY+Xnifd1t91/6r8P52ye76woDFpvq15wFdCAjR8mL/rIHOPFcPe+RD4XH6WhX24bMx6FiZMFA1DtlImxoiKeJIiLA7MczU+iYr9g7HRD5RwTHV7XaBvV3nzD5JTwtf6gfmSmHPUieuc+nNGNukj8Nwaduyl+FJA/LR/hOxSGQ4DQi7o/8I3Hl0DgD1ThhlzMKekSoZRKARPJZfJqZCdTIEJQTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gkkT4hOOdOXSTPZp5qqoBCqrwk72h6p7FWIDAlx3ot4=;
+ b=yDdXj6ZRr33xNdmSwoSTe/upNG/icAzxAfp7425k2TfIioxG3G21RncaaZZvSkUXgFCBSzukaJVxm6nGqudN8ux7c0krDQ37NoNOvcMiL5M4yMjszVxZkmpu+Cpz2Dy2goeItTv9/9+Cm20NSq4+ObvuS9xUtGrX8DoemJSCNVA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW3PR12MB4473.namprd12.prod.outlook.com (2603:10b6:303:56::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Mon, 26 Oct
+ 2026 09:16:58 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Mon, 26 Oct 2026
+ 09:16:58 +0000
+Message-ID: <8bb2f7a6-f7de-4805-9b6f-fe2f500d1be5@amd.com>
+Date: Mon, 26 Oct 2026 10:16:53 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
+To: Val Packett <val@invisiblethingslab.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20261021093533.1990028-1-val@invisiblethingslab.com>
+ <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+ <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
+ <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
+ <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <3d654cee-81a5-4f0c-bf15-a24e31db60d0@invisiblethingslab.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0268.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e8::13) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,63 +101,121 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4473:EE_
+X-MS-Office365-Filtering-Correlation-Id: 115ccdcb-9b75-4786-1407-08df3341e2a4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|4143699003|11063799006|56012099006|261022113327099003|261022105027099003|261021121427099003|261022075727099003|261021123027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	PigpMqR1L8xb5jWM2WGGdq3bkvqRH/6ShgTcblcAZkjxgyLXwYAa6Pa/XnDkXyrpKUV7A27UVxxrkOIb3vfouNB5rer5UMnN9HaDvzBy4beWgYHTvF9fsN8ir3ngI5u5SueY9U5+rBinC116VPjPaFcOrHcwmdjoiEwSMJpg87sGQOu18YrD001q5n+J1Dci4Zti4Se7ZAdfe43IgYKkQvNzrvoH51LNycYC8tUwKc0jp7xCkp0F8P3cBZXLk4dSHXvq7/Q9Rjg+i1nApDxxeb8NbipWdpiY1QTj54Xq35Hf9TZyEe/a6fQLcxLNGetQdazkrEfEnoBueVXV75k0TfJ8CUhAK9OrGXGB0YTGgHqd7YDiz4RWepBsJhV3qHRI9RTTnSI1NffMDshR1/eByop4j0D51/9o1h18wX3iwwCy6cgciM4JeD8bxd9oBXOYl3tBWEAeWJf7QWPcHHL2Wa0Rv2GP6Ktdo49dySROxqSsU1UVygmgOLFJpToc/1b+/9PP4CAI4NIEWcx/r2agQw8k3fHdJ8zeGOm1vmjffX7dxdsh5dofZl6wUT8egHNKPoavzptVEczeQ0SL6i1QWytKAV4Vret4t9z5mepf26AGZsaQgutyCj+vCUZnuEJNX7RbE/0jWhfpLk/DZ3byppNPE/MmArcmWzXdgjRn7F8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(4143699003)(11063799006)(56012099006)(261022113327099003)(261022105027099003)(261021121427099003)(261022075727099003)(261021123027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q2lIVlpRWlNmS3ZsVEkwZHBaWTU3VnlLRzFrUGpnczYyTzJhR1crSUtYU25r?=
+ =?utf-8?B?eGs2dXdUZk9ob3JPcnF0SHpJTDZmMUJPaUQzT0dNSlU1eXYzRldOL05qaWEv?=
+ =?utf-8?B?MG9DdkJIcWxreEZ3U3FXa0dDOGM1SE9YcFIyMko5bGtDTEoyTGNOVm5LdUVw?=
+ =?utf-8?B?ckIwWVZqc1c1U0hQdVZ0OWtRL0U0QndSeW9qcWpvaFE1WlVVTDYybzV2UktT?=
+ =?utf-8?B?RFBzdGVsZlNaWW9HYzV5Nk5RRlo1SExFeVdZdWJmbnI2SzJ2Y1ZCbngrTXdt?=
+ =?utf-8?B?SlIwN0lEMjFXRWxGaGptVUVjRUhJN1NhUndLRDZTNWc4b0d0R2Z6b1Z4QkpG?=
+ =?utf-8?B?OFNsd1JxMVZzU2MrY2phRzY2S0xFUmxxNGhOQ203RU9abnNhK1MyT1lpdC9n?=
+ =?utf-8?B?ZTRiaXo2MWVsSWhwM1I5eXF4eC9ieUIwQ0pVWW1tUjd0aDNmOU9XZFQxUm5Z?=
+ =?utf-8?B?SU5vVDRiWmVMNFg5Y09rN2JKcFZuNkFnY1Rpa3BvOC9LVVM5akRDdFQ0KzVq?=
+ =?utf-8?B?cnEwVEN6aUkrOEwzdEY0bG5wcW5mcEFVcGptZDFqZ1BLU3ZLUkRzNUE3UmtQ?=
+ =?utf-8?B?UDlXMWl5cm1HMm9yaW9JYkFpeDBXYnFIaWdjVmhRYWhEbjRnNmtUTWZSWE5p?=
+ =?utf-8?B?L0hxcExRTzJPcGNPSWlHN1RtQ0dlZkRvNTdsWVpmNWhXNVhYN2pUbVo2TXl2?=
+ =?utf-8?B?Ni9aZHlKczNGU1VCQlZjbHhYbXZNRVpGWmhOQ3NQVGRZR1R1dG9WQTR5MGUy?=
+ =?utf-8?B?NHpvM081b0p1WE5aMmpWeFd4YlkzcTR4WTdKR2thR1Q0ZDZXWW9kRktNeXJS?=
+ =?utf-8?B?MFJwV2ZnVFNXMWN0bjZjZExFazB5ZXVkR3h5M081ajU4UC9zV29VQmQxY0hL?=
+ =?utf-8?B?TDdFUHRBMkpXSTkzd2dNbmVLemZ2UnE5ZTd3NXdnbVVEWlUxL3IxbC9mNGlN?=
+ =?utf-8?B?V1RvbHdhWWpPcnN5QWFxZUc2alhKY3Y3cm5FU1U1OFVuQ3JiNWtSeWVvd1Ur?=
+ =?utf-8?B?U2lsY000MC9mM2FuRFROUzd4dXF6SWp5dFFZWUtOd0RqaGNkeDlEQlQ1TVdN?=
+ =?utf-8?B?dUpRaEFHRWd3OEovTVBFTyt0L00xTkhhclpZaXIyc05SOVhmNytHRkxpd2g5?=
+ =?utf-8?B?S1JmYW5PcmZyQ05ndVdMem55aWZHNDg5VndKMWtEZGZuYWhveGpKQ3RSZlI5?=
+ =?utf-8?B?YjdUS0QwSE1Idi9rc0cvcjZzVzRRQ093cytOUGJ0ZGpjd04zSUF2b1VBU25R?=
+ =?utf-8?B?bHBHT2o4N2pscXduNStnaXJoZTZwU0xheGxGK1hZSXdhclBHUlR5VUE2MURV?=
+ =?utf-8?B?cWVRbTEybFNhUFNHTGtaZ0UxVDVRRjBodFdsTkJzRGgrY2JWL1RWeDloODVP?=
+ =?utf-8?B?NWo5aWpoM21pSEFiOFVUc1pDOXptOElYN20ydENuOVltMkk1N2hSUnE2ZmFK?=
+ =?utf-8?B?YjdnRXkyck8zd1d1YjFmRklXMkVQd1JxTFhyVDNVUk81TkQ5Z2pTdzdxZU94?=
+ =?utf-8?B?eFpTeTBlSjUwK0lxYWJHVFRJcnowOUdodW1IZERRTEROS3BRWlZpVUhEUThU?=
+ =?utf-8?B?Y2FsVWNYMWJ5dGlrK0hIYk54QnJ0N0tKQVU4TWJzSnVQS01nT1AzSGZNd0Fr?=
+ =?utf-8?B?OFRDMFNFVDdFY29uNTBRdUtObnEyZ0VYSG5LbVRoRkp1ZzRpZkEyS25qUWIv?=
+ =?utf-8?B?dzJxMXBnbzF6TWx2S1A4VG5vUXdGK3ErU05idXFkeHd6bzluaGJ3ZlYxd1lr?=
+ =?utf-8?B?VGxLU21BVzFzZWMzWS94RVZNZmlobVJuUEpCb3dVeEsxVmp0VnEraHJtR2FU?=
+ =?utf-8?B?eDdyRVZkRGNIZEhjT1hZYkNnYWQ3Y2I3bGF0SGVEejVSbFJtUzlVc25LNVNv?=
+ =?utf-8?B?dUppZmV3bEtESkxUL1paQmtITXZMUHI5c2JqV1QrL1BZVk5PQVZxdHI0QmJn?=
+ =?utf-8?B?N0FEQm5GQkt5T2dkYmQxamg5MWlVbmZ4d1BpdUNuVmtlMURlQUF3cFkyNVFU?=
+ =?utf-8?B?UG9oQ1lrRHdseHdXcmNTeEludGxiNndkTUcxRXJSSUxlRWZZOGRHbnZLUTZN?=
+ =?utf-8?B?RUcyUDU5UEVORHRobXZuUjU2K0JuenR4RHVNM0ltR3ZLbXZUeWMyZ3VpbkVM?=
+ =?utf-8?B?bXZmZEFwTFZubURWTmFXTFgrOWZkcHBaNE9YcmUyS3RXZ1BySzVkL29jYW9M?=
+ =?utf-8?B?Yy91OWVNa0dPTy9JMmkzWGg3Um9haDZCVEduR3ExYjNBTzdJNHJRZ0xsL29C?=
+ =?utf-8?B?SUlZRWZWbVFmM0dIcmV5MnZORFNhU21QZmloSktWNGFJSlFGNE5IbWZqanE2?=
+ =?utf-8?Q?dRng0dsXRmxwZivEks?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 115ccdcb-9b75-4786-1407-08df3341e2a4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2026 09:16:58.0251
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kfDCtkO6uwDFLAAM+o/9H7ejlEoJ+Gkw8v8Mg58Ze6gQj0WtU6HFcOYe5WKVA2US
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4473
 
-On 24/10/2026 10:40, Atanas Filipov wrote:
-> Clocks of different VFEs can be fed by one clock source, and each VFE
-> sets such a source to the rate it needs. A VFE started later at a lower
-> rate then lowers the source under a VFE that is still running.
->=20
-> For example, on SM8250 the two VFE Lite share one core clock source,
-> which the VFE sets to 400 or 480 MHz from the pixel rate. With VFE Lite
-> 0 streaming the CSID test pattern at 480 MHz, starting an imx577 stream
-> on VFE Lite 1 sets the shared source to 400 MHz under the running VFE
-> Lite 0.
->=20
-> Group the VFE clocks with rate tables by their clock source at probe
-> time. A source shared by several VFEs follows the highest rate requested
-> by its running VFEs and drops to the highest remaining one when a VFE is
-> powered off; with no VFE left it keeps its rate, as it may feed
-> consumers outside CAMSS. A source used by a single VFE is dropped to its
-> lowest rate on power off. Clocks whose rate the VFE does not set are
-> left untouched.
->=20
-> In the example above the shared source stays at 480 MHz until VFE Lite
-> 0 stops, and then drops to the 400 MHz still requested by VFE Lite 1.
->=20
-> Grouping is enabled through the vfe_clock_domains resource flag, so far
-> only on SM8250. The current parent of an RCG depends on its last rate,
-> so other SoCs keep setting their VFE clocks directly.
->=20
-> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-I think this patch can be dropped.
+On 10/23/26 02:36, Val Packett wrote:
+> On 10/22/26 9:26 AM, Christian König wrote:
+>> On 10/21/26 22:16, Val Packett wrote:
+>>> On 10/21/26 10:43 AM, Christian König wrote:
+>>>> [..]
+>>>>> The buffer lifecycle coordination we need this for applies to KVM as well
+>>>>> and it generally doesn't make sense to have this as a provider-specific
+>>>>> thing since it's not related to the provider in any way, it's just
+>>>>> something we want from dmabufs in general.
+>>>> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
+>>>>
+>>>> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
+>>>>
+>>>> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
+>>> Well, we already need it with both udmabuf and gntdev-dmabuf..
+>>>
+>>> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
+>> No, exactly that is what I'm trying to avoid.
+>>
+>> Nobody except the original creater should be able to insert an eventfd here.
+> 
+> If there's no replacement allowed anymore, what could possibly be harmful/undesirable about "someone else" being able to do this?
+>
+> With a "first caller only" policy, the original creator already can be 100% sure that no one else is able to insert an eventfd:
 
-clk_set_rate_range() is a CCF provided aggregator which will allow a VFE=20
-or another consumer of the same clock to set an effective floor -=20
-without having a driver-specific voting framework.
+Ok that sounds like you my argumentation wasn't fully clear: That approach is exactly what I try to avoid!
 
-/* vfe_get() */
-ret =3D clk_set_rate_range(clock->clk, rate, ULONG_MAX);
+> If the original creator calls this API before sending the fd to anyone else, well, the original creator *is* the first caller, that's it.
+> 
+> Otherwise, i.e. if the original creator is not interested in this API.. it's unlikely a different process would use it, but if one does for some reason, I don't see any negative consequences from that?
 
-/* vfe_put() */
-clk_set_rate_range(clock->clk, 0, ULONG_MAX);
+First of all if this gets added as common DMA-buf API the functionality suddenly becomes available to every exporter, not just the ones who explicitly implement it.
 
-This should subtract:
+That in turn would be rather questionable because lifetime is something only the exporter of a buffer can fully deal with.
 
-- camss_clock_domain
-- camss_clock_vote
-- camss_init_clock_domains()
-- Associated boiler-plate code, mutexes etc
+For example it is very common that the exporter delegates cleanup from the ->release callback to a work item and your whole approach with the eventfd on the DMA-buf then doesn't work any more.
 
-This holds for camnoc_axi and vfe_lite clocks.
 
-On release, relax the range first and then clk_set_rate() to the lowest
-listed rate explicitly.
+Then second when the add this as common DMA-buf functionality then it should be usable by everybody and not just the first one who asks. Otherwise you can run into all kind mess with that when you give a DMA-buf where the eventfd slot is already used up to some other process which expects to use that functionality.
 
-Bundle that into patch #6, a driver-specific clock aggregation mechanism=20
-isn't required.
 
----
-bod
+For now that functionality only seems to make sense for the original creator and a limited amount of exporters where it actually works. So my suggestion is to either add some functionality to the exporter(s) or add some common functionality to dma_buf_export_info to aid exporters with their implementation.
+
+Apart from that the approach with the eventfd looks perfectly fine to me.
+
+Regards,
+Christian.
+
+> 
+> 
+> 
+> Thanks,
+> ~val
 
