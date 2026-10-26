@@ -1,81 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793013038;
-	b=izzsnNwTv1pS/kXzdMgFmBululhO1NA0ok/TIfyHeE9CG9WL0dzJvQ55URacpQ96GxX5
-	 XblkrcM8TVX+vyb7D4L7Fu/kSn8N/2SlQukMT6mf+JjEmYni7k3hkNn9jiAt/9Gdw25Yo
-	 HWBeW4eBXX3PIVneuEhoDjTVaoU8ekAlUU50FUYSl27hbuh+MAUQDS7DSOceJ3wUUEkJl
-	 gH7tGRK321GMa0VK3kHIiLnkXh3RL3VRyMamoziiR0KGUgsirx6TFsau84eRwxwE1wHkN
-	 fVkGVXeKB8mT0BZSvAuHvKaljA2yaaICMv8l9tSJk6f8aK8JtC9wUJWAXW7nEOvZoHg==
+	t=1793013040;
+	b=X7E9F1Ze0yqvCEX1Ohsw0lfFR0W/TtvzSJE1SdNYNt0wcPKb1yFIg7ok6abtIfua8rzp
+	 QklEm3MJQEOhtrRprUg6aCUoFVT+8lqByg87qG6kqPSeKkA7VvzN8ZZzdQyWL3XuyxO8H
+	 jX7LZ7ppSlgagUekZGdQTV/ZG2Jh28SXR832NvhyPFUXcCXLq9F365n9UpemF+r/E1Dh1
+	 t1HFlZcgwnOfrfvZ/HFRpFy08VU6xCpBJmAKCDuHTImjFuxdom8PtFJmETNvkX/xHkbd9
+	 gI8cM6s92V6GFpzHvDc/dinlIu94cYkkhh0Pe+X//0zPuB1gssbYUH1zQginECzWqCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793013038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793013040;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ygOfLFGA6D6eDRDgr2JvGUAeMnNwYneJ217o1J504M4=;
-	b=ol3Fg5LJZrG2VTip4fnLZ/hjlmVvXHdxKcVf6cnzvpDdSFzsP5YPTpeVtp9wdrR7wxrB
-	 nMc2qpWilxzY6crAL5eKAu+1ZMUt2y1da/7lRFwTLXCcRjNtLZCmJECx1+11jzR5eZ+2F
-	 yH2ecgPxwsYSUp6ijJXuAio7pL3YNp3qhMuiXyrLaFoKhFYnyP32JkHBufJZnU4xnQAf0
-	 rDclGgkEBD2RzHFVmy47ey9lKD7x7y0cU66jCW6nMtcpxQJEol34OFDDkO3dy4oJ3lves
-	 2cFcLpQ6Ghz9Fs7feIRjdDrG9fFM1c/VSysrte2yQ3v6+WMTPZ2KjNEskMvKkNXHoPQ==
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nPvZd6ipcHhyyKgSYRp44a/mOJGJPLjA8+pqMRT1rUc=;
+	b=q8TXvTUj/RiKdo7QTIrMwZ/ZBrjBfxiYRVh3851oR7Y50U7IUpNPgX485NQ7HjRVms+R
+	 pFdWgR7ac7XEE9mKZjSOah+dkoND+yGwBZkaGi5347+GTdjdy9rmhvA3IO7u/EnE0QXZA
+	 yAP+Olfa+cdJcNeeWkxNW4R4Uo7HH7lbpth6zJ7PgiZ89fln1m8NiuIQqjuKVP08LDdq2
+	 QRvsazoHauOK1tJctUXW3P1+iYwTeZlBPRme8DbS9lFApfE8/O76PlFaDnZ0K6MPySiLP
+	 OtqqXJxLK2+Cb97b79vSutMJdtLkJ8Y+xcnfhO8l2ZPGfh2OvBQENk70EXrT0q9ebcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=leJC5g4W;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NFrt4eiV;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC38160A3837
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 11:10:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC38160A3837
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D75060A5BFC
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 11:10:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D75060A5BFC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=leJC5g4W
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-870e8b21121so129923b3a.3
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 04:10:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NFrt4eiV
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-870e8b21121so129927b3a.3
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 04:10:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793013037; x=1793617837; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ygOfLFGA6D6eDRDgr2JvGUAeMnNwYneJ217o1J504M4=;
-        b=leJC5g4WhfPokxZgfHYbnuy2QxMXj1zphFraeVCq15RtgR9yc5yrI7X0s9BAE8ILqs
-         Us5TUEWtF2hKbu++rqdGky9mkb+52JiKjFsZp3EvrTMTiDWdzf3HDG+cpF1DWZdIsWs1
-         8BHZ8ytKT/qPzNudmtjQiYs7uroY/Fs7C1kryO0tXp4x7u4Xg+zvkBwWDM3Vr/vqtMUU
-         s/ShbBptletrivewS5iHSSfhSUttq2RRWEWnfHpj0lRK1hJuxFnTA+tu5/6Bfj269rS7
-         vF0mGy/H6GsLKb7eA3gitPSl5aSSF5gI8mmQpZdrltW4X0CTQh3mnsNovlLzUmRwNY74
-         seuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793013037; x=1793617837;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1793013040; x=1793617840; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ygOfLFGA6D6eDRDgr2JvGUAeMnNwYneJ217o1J504M4=;
-        b=gy5I18kX6hWvpDfly9+5pn+BdqOf+StMo+9SjbaQOt7H5mKMYD2nuon2YtX2KLj+dk
-         2xXD9GzThsufk8bi5dbZQ0n8t2mtxX0diPL2XdcacChfHaZaue3ifCgzYNjulRWp3eAC
-         j7gZDID0aiWYXUocauWf+nHIxldqJAX88SgBlviktv92m0vdo4UmSCvJyKcNWHWsN9LV
-         XfPBYN/Y61myFi5hFF/yo+SXKALp2dyygVGz/9eFJLtA9eWsWPYe9W5MSNjWNoImQq7r
-         wQYB8PlMs6yJhCJhbCWNt4AOg41L7uWOYQAJFCwiJprmoRm1xYq76XdMuMDhl4wI3XvI
-         s4tw==
-X-Gm-Message-State: AFq9FYK81K8cg8wGFrnCqzdrHvB4J4hp0ABHKKN0OLiAfayAIdvL/P2F
-	3KysZk8G/laNauGiAiXB+HFEFabN86Q0NMMcfU3etsw+N7oYFAB83SpW1EkopA==
-X-Gm-Gg: AYBFou2cWhq7ynMaBTkWuf3s9idqGkLFiMCQq6eEWEm3Z0bQ0GOHpQEM0Ybrh/arAsA
-	Y6DoR51dpVoAhTOdaiMe5RJDBcjdJ7CN+iw3a4iNfm0Tt7YXpMoiymWWGWFCuRRC7hB/wjL8bLZ
-	OLlwUG2DFDwDkqaduKNYVu9ErhY/3eYgr52VgDPkiDVMn1V12+jMRD3Je7tOmtRZv15CYC4Wtxw
-	vgHXiQGhMn5rTs8Fw9PJCWjiGQ8O46xD6ItqSZRbTKCZftwz7AD8HWsvFQeBYdytvwx3md98prX
-	RNc8hUhyF0FIiGbmRv2ER431YHb4hX0GyRvXV0523bqfDI+iZqKMtv1DqRogK0iRlDFAr4WgycW
-	M0+alA3uFLKlB0xHnscArvaIXEHROiCg97egzffMEhJbaaf1WPsWdkRQff7c+/XfZV+gCr6J37F
-	vcAZkKc+lq2ujolXs+mnHHjfKev/1uFDDUh5/3NupoJvjTxwFzj2FPqvs6dJ1tE7WDeJIvUXOAt
-	nCCzVYCRelDKzEx9LxYijFpJiJzwYsNxAcVmo+eDWn9AE3fvLZwr2mLJKJo4dO6nErNSBvwh5xG
-	GgpDq5M8c+mtKge9Vlx+3CXv+/SEl05yvlVDa/vNi+BZ0iWAoWGioRHkb7JXvbEOqj9SXeXbZUa
-	SYwijQ68vse2/E/4GEFDsVbp8Tj69oI8Km2QTMQKeT4mVYQ==
-X-Received: by 2002:a17:90b:438a:b0:3ae:629:ca12 with SMTP id 98e67ed59e1d1-3ae0629cee5mr4238879a91.3.1793013037033;
-        Mon, 26 Oct 2026 04:10:37 -0700 (PDT)
+        bh=nPvZd6ipcHhyyKgSYRp44a/mOJGJPLjA8+pqMRT1rUc=;
+        b=NFrt4eiVbq4Mp8B0y4o25ojFp+FFa+4f66uMwJtHoVi/woM9GOFpLAcZWlD8iPQMSV
+         s4eoGDF/diHSBsKR/tsnpoY7RrRmG20QTZe5kqKT7s2fYLf301xS5hunbFVxI9gR9T4A
+         CjFVGigZlaPXSYWVSZ64dZMArV19RYkeO02mm6MWuMvpRbxdFqXuDTrloQPz8eXMtyZ4
+         5+tz5yEDhOTfPLYDXvKgvClHmd/AoBm5hig71DxXYHskC02+iPVBWKVJTS6EJAXsSx4c
+         lZFEg+Bf4wA1B0szWc/6Zmx0DNhbtRiN8q+GMGbsYOIJe8+xVAAy6354QW73xycIxW9t
+         edPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793013040; x=1793617840;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nPvZd6ipcHhyyKgSYRp44a/mOJGJPLjA8+pqMRT1rUc=;
+        b=Tswk9dGcvPn4kp9KDhGqSWlBqvZGnqH6ywx0CafhGfh8o4QTlH+vJt2oyTEGLO4/xb
+         vmrcfDBg396IOHgH3s5sknlCvS1Evfly8F+RCdgtJo87S0ytHiDYw3NgS6NZaKdvRV/5
+         T5L5xGENWtRFYSoCygVczlhYK4ER8mL/6aKgl1WV2lwajSsTQfxgx8oVa5scIp2ZiEIC
+         gFuMMMhU5dr4Xo5iYPi+dhiIHENlhQ7CKPiGYfFtN7YRZKXS5XnjivJfcBOXYK0Ljhm/
+         xC8Lq146kt+DKRJJDPq6YgvHOU+/KHyjwEsN5ke5yMA+6oI5OCAkQ71+qOWplzpKAHVb
+         2QIQ==
+X-Gm-Message-State: AFq9FYJ843xtbYyzyhxQ1VAZ7qgLoo+U2QmXQUVjFv5GIvx4DdBIMrjo
+	I5oATRRoMk77VC+xM0XQ4FwPKxt92yCcAsRLjSJFhm89k2R4mAvUZCfybhW/ikg32uA=
+X-Gm-Gg: AYBFou0Pvoo6rIcVwfGKMySYHPq1DBOAJKP6elH9rdhfpSPwAvGh4q8nhGvrtM9wf5+
+	tSRiyvhXllXJWvD/lZzdsBhZ6Y6nGZsl4D/e6nduguPHQ1vbqHhbA5xltHTeo9d37rWFqJc1w9l
+	zF6XQ3NjLKgUIe0jAY17RYow6Ud2dQvs2/Z7vCTOVP7wfswIDt20R1V8khAmsSKJja3lh+X8hTT
+	9+3vPKxNjNJDwO66iTg+vREhIp2ymLitTNzifDUXsA1ulL6ZT4xPgLg3D6YBOduh0yn2cabS9ML
+	DjWEvcNQBu3RksdvASeJPdnuPn0mrY5HYUOaj3zN7fB4LMnlcmMmGNiS4iY6ImrEhBNXeEvmz57
+	ur7fbiq+xow1zhSGXTrEefN3wdaQD+sKs7wvcXWn5f5HQv+aOpu7Z8Oj/oEsl/Qth8e9xgR1rhs
+	ee0Ii/syJK6FDaK/62aOkgo6lh5wPNAsVxQlQK8B2mdradmc2FwAybaTflti8HPLRWZtxWQs5NW
+	N/KQwJNq+Rf7VO3/jzQ89tqg7bKV9uRZDdk56O5w4hO1ODLyJPZku1WCIUiJrQSQk6d8lpFwW2r
+	4elHV82qlVZSG7bqPatknZFJdI8IIvKs2CdrQwt1RUQIbeb7ekTaI6lRj530X8BSxuG2EBFFVNz
+	zOuV0glnjmc66guw0EJ+NcTvYDc3cIKwweXndQvP5FH/qeQ==
+X-Received: by 2002:a17:90b:524d:b0:3a6:e1d1:e511 with SMTP id 98e67ed59e1d1-3adeafddb1bmr8922396a91.4.1793013039674;
+        Mon, 26 Oct 2026 04:10:39 -0700 (PDT)
 Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa82sm8023593a91.8.2026.10.26.04.10.34
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3adebadfa82sm8023593a91.8.2026.10.26.04.10.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 04:10:36 -0700 (PDT)
+        Mon, 26 Oct 2026 04:10:39 -0700 (PDT)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
@@ -85,11 +87,14 @@ Cc: sakari.ailus@linux.intel.com,
 	hansg@kernel.org,
 	andriy.shevchenko@linux.intel.com,
 	linux-kernel@vger.kernel.org,
-	Antoine Pichot <antoine.pichot@gmail.com>
-Subject: [PATCH 0/7] media: i2c: ov7251: fixes and infrared strobe for Surface Book 2
-Date: Mon, 26 Oct 2026 20:10:25 +0900
-Message-ID: <20261026111032.88355-1-antoine.pichot@gmail.com>
+	Antoine Pichot <antoine.pichot@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
+Date: Mon, 26 Oct 2026 20:10:26 +0900
+Message-ID: <20261026111032.88355-2-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026111032.88355-1-antoine.pichot@gmail.com>
+References: <20261026111032.88355-1-antoine.pichot@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,104 +106,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Book 2 has an OV7251 infrared camera (used by
-Windows Hello) next to its front camera, both on the Intel IPU3 camera
-interface. Its 850 nm emitter is wired to the sensor's STROBE output
-pin: the ACPI tables describe no LED, GPIO line or regulator for it.
-With the mainline driver the camera streams, but always unlit.
+ov7251_check_hwcfg() stores i, the index into the firmware's
+link_frequencies array, in link_freq_idx, which the driver then uses to
+index its own link_freq[], pixel_rates[] and pll1[] tables. The matching
+driver entry is j. Store j.
 
-Patches 1 to 3 fix bugs found while testing on this machine, patch 4
-adds the placement controls:
+Observed on a Surface Book 2, where ipu-bridge lists one link frequency,
+319.2 MHz, which is link_freq[1]: V4L2_CID_LINK_FREQ reads 240000000,
+and the pixel rate and PLL registers are off the same way.
 
-- 1: the link frequency index is taken from the firmware list instead
-  of the driver's table, so the sensor runs at 240 MHz while
-  ipu-bridge asks for 319.2 MHz (Fixes, Cc stable).
-- 2: the 60 and 90 fps frame intervals are accepted but the sensor
-  keeps streaming at 30 fps, the vertical blanking control not being
-  updated (Fixes, Cc stable).
-- 3: control events, the one v4l2-compliance failure on the sensor.
-- 4: orientation and rotation controls from firmware.
+Fixes: cc125aaa5a78 ("media: i2c: Provide ov7251_check_hwcfg()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+---
+ drivers/media/i2c/ov7251.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Patches 5 and 6 add the emitter. 5 moves the strobe registers, which
-the three mode tables write identically, out of the tables without
-functional change. 6 adds a V4L2_CID_FLASH_STROBE_OE control that
-enables the STROBE pin, pulses it on alternate frames and makes the
-pulse follow the exposure, from 52 lines up to 45% of the frame and
-never more than 776 lines. This matches the Windows driver installed
-on this machine (Intel ov7251.sys 30.18305.6.5127, read with a
-decompiler): all four of its streaming modes enable the STROBE pin and
-clamp the pulse to the exposure within 52 to 776 lines; the two modes
-Windows Hello uses light alternate frames (0xaa), the other two every
-frame (0xff). A register dump taken on a Surface Book 2 during a
-Windows Hello sign-in [1] matches the 30 fps alternate mode. V4L2 has
-no per-frame illumination flag, so user space tells lit frames from
-dark ones by brightness; the dark frames give it the ambient-light
-reference a face liveness check uses. With every frame lit and filmed
-by a phone at locked exposure, each pulse is 1.1x (default exposure)
-to 1.2x (776-line pulse) as bright as during a Windows Hello sign-in
-on the same unit; with alternate frames the average emission is within
-the same ratio of Windows'.
-
-A linux-surface pull request for the Surface Pro 7+ [2] instead turns
-the emitter on unconditionally while the sensor streams, with a module
-parameter to disable it. This series leaves the choice to user space:
-the control is off by default, and the emitter is off whenever the
-sensor is not streaming.
-
-Patch 7 makes ipu-bridge report a rotation of 90 degrees for the
-infrared sensor, whose frames show an upright scene turned 90 degrees
-clockwise while the firmware says 0. It adds a DMI quirk table next to
-the existing one for upside-down sensors. A user-space project for the
-Surface Book 3 rotates that model's infrared frames by 90 degrees as
-well [3]; the quirk covers only the Book 2, the one checked.
-
-[1] https://github.com/linux-surface/linux-surface/issues/739
-[2] https://github.com/linux-surface/linux-surface/pull/2252
-[3] https://github.com/linux-surface/linux-surface/pull/2289
-
-Tested on a Surface Book 2 (i7-8650U) with the series built out of
-tree against linux-surface 7.2.12 (test suite, logs and a v4l2loopback
-bridge for applications: https://github.com/antoine79/surface-ir-camera):
-
-- link frequency 319200000, pixel rate 63840000, 30.01 fps unchanged
-- v4l2-compliance -u on the sensor: 0 failures (was 1)
-- --set-subdev-fps 60 / 90: 60.16 / 90.45 fps measured (was 30.01)
-- orientation front, rotation 90 (0 before patch 7); the colour sensors
-  still report 180
-- dark frames and the sensor test pattern unchanged after patch 5
-- strobe span read back while streaming: 504 lines at exposure 504,
-  776 at exposure 1704 (30 fps), 258 at exposure 552 (90 fps)
-- mean pixel value of an indoor infrared frame at analogue gain 128:
-  19 unlit; with the strobe enabled the lit frames read 496 at
-  exposure 504 and 587 at 1704, the dark frames in between 18 to 20
-- strobe off and sensor suspended within 2 s of the stream stopping
-- 10 unbind/unload/load cycles: no warning in the kernel log
-- Howdy face login enrols and recognises through a v4l2loopback bridge
-  that passes the lit frames
-
-The remaining v4l2-compliance failures are in the ipu3-cio2 capture
-driver (buffer creation and mapping checks) and unchanged by this
-series.
-
-I developed this series with an AI coding assistant (Claude): the
-design choices (alternate frames, the pulse limits, the exact SKU
-match), the reading of the Windows driver and the measurements above
-are mine, and I reviewed and tested every patch on the hardware
-before signing it off.
-
-Antoine Pichot (7):
-  media: i2c: ov7251: Fix link frequency index
-  media: i2c: ov7251: Reset vblank when the frame interval changes
-  media: i2c: ov7251: Add control event support
-  media: i2c: ov7251: Add orientation and rotation controls
-  media: i2c: ov7251: Move the strobe registers out of the mode tables
-  media: i2c: ov7251: Add strobe output enable control
-  media: ipu-bridge: Add a 90 degree rotation quirk for Surface Book 2
-
- drivers/media/i2c/ov7251.c           | 203 ++++++++++++++++++++++++-----------
- drivers/media/pci/intel/ipu-bridge.c |  22 ++++
- 2 files changed, 161 insertions(+), 64 deletions(-)
-
+diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+index fce6344b51..1413f1856e 100644
+--- a/drivers/media/i2c/ov7251.c
++++ b/drivers/media/i2c/ov7251.c
+@@ -1523,7 +1523,7 @@ static int ov7251_check_hwcfg(struct ov7251 *ov7251)
+ 		goto out_free_bus_cfg;
+ 	}
+ 
+-	ov7251->link_freq_idx = i;
++	ov7251->link_freq_idx = j;
+ 
+ out_free_bus_cfg:
+ 	v4l2_fwnode_endpoint_free(&bus_cfg);
 -- 
 2.53.0
 
