@@ -1,93 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793005978;
-	b=os+B6QOU79RE4dvMubPzc7YNr/u0eZ2tPzvpyGwRljqt6ESldSkt4dF2ECIxkYldLwFz
-	 pBtsSw2Szaze/+TqjSA3bDhVMobiEIF8IvXMH+gON6SE7C17QIU7orCuR8EYZG5FDBGSP
-	 fNdEaBWhUkPfRHYoAXT7JJQ+E8EahN0UDCZlDuhFctr/3NouEteMZHIIqu3ap4ad2TfhK
-	 yvJYcyqlIoM9h13bURj/LxHwBPzqlfyJ/0Gzh4efqeZEAPTjLrCSmno/XFQWwoIY5h4LS
-	 xxGEXErhnrHCKjPgBOM5T0h2Nnjc9IdXBY3CzyJeEBqRalhkhyD6ZhaICj1KBdRqK6w==
+	t=1793006029;
+	b=xOgKAriAUAVXtk+flrrQ5uQiZqqajbT1Lx3j93DNciYizRnKMmneGuFYFrrjWgegEf8I
+	 Ua6FVrqUepjoCr5LIRz58Wcdb86Ogc+hRiT/Y0eMGn4Rh4uimvws8CTEtmZCHgJS3diw7
+	 byDjLwcoAhsqJagSBw/tBUTTpuR08Stgl4DTwZBez94/K9Lh6Wu8S7rqFpuPtB0avXmEQ
+	 jiuW7pHDuqst4DoaCC/XCqI7Luus4kpP6wgnyMcenOp7yIpgmi6JZIeri5qk8u3eYIaoZ
+	 Wu1LrQTU8kv0BgH6AcCeQD9zq4aSkkQ1oXzIQVupp2VmaZA9/OVoYaXRvZwu83wKMkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793005978;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jOqGr+4VH9N6GlKfGmUukDwomZHNdNuh4F7gexUqV3o=;
-	b=ViPG18IUF6XiH4TnzzTG9oIpumH91HKqPJ2nWPMD/+COkISYZ0ZOwsNjzovAtn5ia5yT
-	 7GMYjHq+NiihG9E/5fuBAuXBni/4x6U9K5Lm3ZzXJY2af1QEmC7Xeinq4Bkf0oLdfEt25
-	 buUNZVZ6ywVvCn7+z7SROC14IpCKCPhAwZBEqNah/cbV7EWM2sZgXtPaqizR7Yy1LdNU0
-	 RxYzHSAj5AVTdQ9pwkAI1i8hQ6+gAoIXY9505Idjszv+ikVkGDPCxcyrGQQTWqp0djXTG
-	 obaxwhV62Z/2xNHiUyUZMzprBisxYP69sW7qAZgSNLI8t+FB3Wyn4v9xyS1h9epSHhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793006029;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=43pDqq6vFSrPujroVpHFrIOYtAlfbhzMNFlambJDvYU=;
+	b=pKEYMCPqaRy32zXd8J2V6sfeqN+OPTPP8lt98KK+DRKPiui4nHtqzXC2bO8VM0DL5UF1
+	 dngdYU9/2cmRc49MZw0UTYbjcJl1UmYJfo64ERqWTz1OrLmzBJMLpWBn1bPV+lLl5kOuG
+	 PYfM3tEklPkbtFeq6mO39raxVi9wLI6TQYMWs9AQBe8DY6q41NHWmZBeqaRIdCfq7hDOn
+	 LegnMs5diz1qLDBsIiK0kZoQu/+6ln1LPzZ2+sBvwcrGtML20F/5qzuzc17LCuha3ZDXu
+	 r5usXhDBQfb0oO53JNErXEl7GKvUnCEyZc3fz2VSp1PznIlXt68Oal5pVNAU42E3N/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mdS8MSbe;
-	arc=none smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=nxsw.ie;
+	spf=pass smtp.mailfrom=nxsw.ie;
+	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=k0vbnGt6;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2781606A31B
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 09:12:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2781606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E657D606A31A;
+	Mon, 26 Oct 2026 09:13:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E657D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mdS8MSbe
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be4b61fd3dso2027988e87.3
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 02:12:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793005976; x=1793610776; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jOqGr+4VH9N6GlKfGmUukDwomZHNdNuh4F7gexUqV3o=;
-        b=mdS8MSbeYI79Muy+hJjnohCiVzSsynw2fmRAW/u/+UoxVkZ14F/CcNqAKNShTqhGwF
-         ji09kpzPhi+LR54m7vTSN1y9TNALdGiFNyfR6k+nCf+Ig4fyU93hG9+19FapsNW++ocR
-         R2NkqLW0yfLAx6UOOtcX87auL0mz13gb9WjZ0WZ47gVUDvT3Axt6aoFgTZIYI3Z+UbKk
-         U8AedD3NUq+8V3S/BIDYyntISSzP5DaJPEAoQ0I8HgraJrofQSNWaPN9zhP+baerHjOK
-         WgmyV+txIAEMOo8/S7HX8KpPzy/xpHzr0NCFymi029ENv5IVlh5t83auDG9BzkSh5SD5
-         AD8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793005976; x=1793610776;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jOqGr+4VH9N6GlKfGmUukDwomZHNdNuh4F7gexUqV3o=;
-        b=rv34QPXVd9qRNJ9gOF7Ybwwx7LYiQJ+2ThOcpiwz/6OmlTNa3wMCpLnMWf8mmthc6O
-         Jq4E9xdGUaA5IPeDL20YPmEsYgml9lnAHIN+jCeNu8Cb9UYZFuB2LtC0ixV9nP+RuLHu
-         1oPAl/KOhbWpwR/DLVuyBMnbS61Zmf16zb4AjLoRW0/Eb6XU/2XwBLQ/2HLQoPjMKFOZ
-         PQBxQ/Nk0+CILM90qR+rAR8hmTikUE0ltIkH0+pesMzhTMzZXH3p4XRaFYhnt3iZecwu
-         pQWcJL4wJwmPxi7+0X6+eZp5IPIDreb7Kx3cvvmBcR+ZCMpr2rtf3KDdFdaA1XCnX122
-         V9cA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9Sq6SHBXDceYPQyd/6LXUN+s4FXI2ds/3+MyZPnadX3fLA9JpVq/haIj2z796nukBuKPFMAotq2hRRQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIAfMRSq7lLcms2Su9p8q3FRTghdchCYdFL7NnzPYhoK9NC62wa
-	/g2ngJfaYUlIie61BAAut811iIRiDm5IShAH58iTXvwwDmotuUQrZJMZGkV9cw==
-X-Gm-Gg: AYBFou2HsAGsWS6scPiegFnnqjyPtTkmAtVG3Hldxyv2g8MgNFnA/BB9mu5+RvuhUq1
-	ouckP8ADT1jE6f0nBfjMLPyPT+ouZkXHs6Av1lBYHZnFyYLKFCJl3kyc/K09qRApWagMNQMrRLv
-	28qpx+8yAv/WekoYDmsxILv/X7rY1hy+gsfMNF9wcF95WLShVTuFZb3XE5s2NpUQ/4D4IVUqbeh
-	J1RkdsL5VH2COOfLQFUjBxUJ+5QjCVHCG9LM2kI0gMqp6+klqJqlGe6ln8F2zHOLcX6rpHTGBlQ
-	sqik3MIc7svaDhfF0SpMHwAUnx8/wmPLXJIdfuEVSwaPDqDLSaitxbf+kDyCZ2z6xT6Jfuh8DCB
-	AA9NRoJBRc18eOMSwIgGddQ3HjyYoUUqvh+m0E+L6qNhnSQOi1kN7N6g4Bi/qi6pCmnRLb+ahVj
-	U3UDknkKJyoM/EjpX/xaTihfzOJXbPys9J8qfm1PnwqkN7NLjeoPemJcBytHRFuGFLWUcAhiaP+
-	kv02WSVLJ6c55jFZZUMe8BqYhVqCr83BCBOXZQAyCzH75gUmPolwuOR56/uYi6B6sH/7EO0IBku
-	lL6gxPnqGux7LV+RtnJ1DGV1+Ddq
-X-Received: by 2002:a05:6512:39c7:b0:5bf:b14f:beb6 with SMTP id 2adb3069b0e04-5bfb71ceab6mr1969582e87.55.1793005975522;
-        Mon, 26 Oct 2026 02:12:55 -0700 (PDT)
-Received: from quietus.tail91f8a6.ts.net (ppp91-79-33-192.pppoe.mtu-net.ru. [91.79.33.192])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac708ba9c0sm14694951fa.5.2026.10.26.02.12.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 02:12:55 -0700 (PDT)
-From: Ruslan Koreev <koreev.r@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Dan Scally <dan.scally@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rillian Grant <rillian.grant@gmail.com>,
-	linux-media@vger.kernel.org
-Subject: media: ipu-bridge: lifetime of retained software-node properties
-Date: Mon, 26 Oct 2026 12:12:52 +0300
-Message-ID: <20261026091252.676350-1-koreev.r@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=k0vbnGt6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail2; t=1793006026; x=1793265226;
+	bh=43pDqq6vFSrPujroVpHFrIOYtAlfbhzMNFlambJDvYU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=k0vbnGt6SA00S/ZTZ2pTxa3t+Yd0kPoKH7Q43Ik1CU6iahsNUQXItsKWSvR9ZvoDt
+	 8Qpj2n/ksnKgTQHhsSCpEAByYhguGrrLQ3RxbOKH/R3iPIblWF54u5CfQCFR7EC5yx
+	 2l2kIzln1giHMYm7CYP0au3BXnZOMeUkoLjrg6fnWVUqfJgrEH/Ku+WAUiGupse2cz
+	 N/aXiGAUsW4/wBNnifdGzddEOeCiLAFgXMii9Ipc3ePqY2OZFkmZyPWaYSYkIp9M1+
+	 YQl3cTGTMN5iZDiKNbMtgiqFsH5pPonU6NhFVF5/5jkZf+CTvCV4mL3Rj/1IR6DAX3
+	 Ps3X+i9AubbrQ==
+Date: Mon, 26 Oct 2026 09:13:40 +0000
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/6] media: qcom: camss: share VFE clock sources by the highest rate
+Message-ID: <4d01af69-0942-47a8-a1cc-be52f520184d@nxsw.ie>
+In-Reply-To: <20261024094027.3095475-5-atanas.filipov@oss.qualcomm.com>
+References: <20261024094027.3095475-1-atanas.filipov@oss.qualcomm.com> <20261024094027.3095475-5-atanas.filipov@oss.qualcomm.com>
+Feedback-ID: 136405006:user:proton
+X-Pm-Message-ID: 2a8ea65834f7989086f16bec1556eeae0430390c
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -97,25 +64,63 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari, Dan,
+On 24/10/2026 10:40, Atanas Filipov wrote:
+> Clocks of different VFEs can be fed by one clock source, and each VFE
+> sets such a source to the rate it needs. A VFE started later at a lower
+> rate then lowers the source under a VFE that is still running.
+>=20
+> For example, on SM8250 the two VFE Lite share one core clock source,
+> which the VFE sets to 400 or 480 MHz from the pixel rate. With VFE Lite
+> 0 streaming the CSID test pattern at 480 MHz, starting an imx577 stream
+> on VFE Lite 1 sets the shared source to 400 MHz under the running VFE
+> Lite 0.
+>=20
+> Group the VFE clocks with rate tables by their clock source at probe
+> time. A source shared by several VFEs follows the highest rate requested
+> by its running VFEs and drops to the highest remaining one when a VFE is
+> powered off; with no VFE left it keeps its rate, as it may feed
+> consumers outside CAMSS. A source used by a single VFE is dropped to its
+> lowest rate on power off. Clocks whose rate the VFE does not set are
+> left untouched.
+>=20
+> In the example above the shared source stays at 480 MHz until VFE Lite
+> 0 stops, and then drops to the 400 MHz still requested by VFE Lite 1.
+>=20
+> Grouping is enabled through the vfe_clock_domains resource flag, so far
+> only on SM8250. The current parent of an RCG depends on its last rate,
+> so other SoCs keep setting their VFE clocks directly.
+>=20
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+I think this patch can be dropped.
 
-While moving the LM3643 board description into ipu-bridge, I noticed an
-existing property lifetime issue in media next d7e7bca71698.
+clk_set_rate_range() is a CCF provided aggregator which will allow a VFE=20
+or another consumer of the same clock to set an effective floor -=20
+without having a driver-specific voting framework.
 
-The bridge deliberately keeps its software-node graph after module unload,
-but link-frequencies still points at cfg->link_freqs in module storage.
-The lens-focus property name is also a module string literal.
-software_node_register() retains these pointers without copying them.
+/* vfe_get() */
+ret =3D clk_set_rate_range(clock->clk, rate, ULONG_MAX);
 
-This predates my local flash integration, whose new nodes own their backing
-storage. This finding is from source review; I have not yet tested unloading
-a populated sensor graph.
+/* vfe_put() */
+clk_set_rate_range(clock->clk, 0, ULONG_MAX);
 
-I propose a separate media fix that copies the remaining names and values
-into graph-owned storage, with a VM unload/reload test. Would you prefer
-that as a prerequisite to the flash integration, or handled independently?
+This should subtract:
 
-Regards,
-Ruslan
+- camss_clock_domain
+- camss_clock_vote
+- camss_init_clock_domains()
+- Associated boiler-plate code, mutexes etc
+
+This holds for camnoc_axi and vfe_lite clocks.
+
+On release, relax the range first and then clk_set_rate() to the lowest
+listed rate explicitly.
+
+Bundle that into patch #6, a driver-specific clock aggregation mechanism=20
+isn't required.
+
+---
+bod
+
