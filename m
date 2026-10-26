@@ -1,98 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793003157;
-	b=00SKsuIqRbJiyEL7CGD4MirPN5YINxp9mvUFoTvAPQ/VomShvfeqOPjGwrHqmhrCM95l
-	 JQc++QCf0h0TRmPrclkJx2YfDJf/S+At0JR1zcuqOHht50E4A5pb0i0xrh6km9dLVGVOM
-	 fI9txPTBQNomdbuKBg81ZbAra2w7R+XP164b3HzeLu87NIXxFFSsZVTBRFU8faeIz4sVU
-	 LQj8sM0NutJCvNvwLP1tyAxMf+xUhAzmEqvvFoP6g7UMP5OupCjqPKAfbzvzPC6cHaRhM
-	 VLnayB1a45NNcjz7AiNOS977wURy/XGS9Ouh9mdFpSgLYmub8t+pFP4pCzAFcDpM8SQ==
+	t=1793003283;
+	b=VVgImotYglXM9RaBoiHcii28CIRTD/ZaXjcMy5MFpr+7OLCYvdoRhZrFCzxSY7sv9eXi
+	 i6JDko3EV29IMGwbyqTsKuXG6S9YpwsdgPRJsOjBfOwsf2VF9bu2Du8mqMA/yy02VcJPn
+	 RGeYOIEI9FvAozvpmUe6OEkrGHqC9QykkzsqByR0FWrPU1ISbltuJYhZVraQ1LGA6NLHp
+	 kTwht0vkyp22Fv1ikEmtZruvrycc1yy92q8yxo2clYhhmMgmCB6yW10Uhc6xHmyZb1657
+	 dyPQAczzc6aOETscU9xxZlNYPrxkzvmt9LWwkKO4iD60ow02RAIMXQcQwLJ91sJTz1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793003157;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=z9O6BgWW6yaoipar2Lx1Z0Xt+u9evhaGrz9gWofeNXw=;
-	b=3qh3WQQlS/KQWJHyajwRy8oILKMu4DJaCMmNGJdN20lhEph5D81eshTIXJq2JGY9HusI
-	 wUuzeBPgeI3cMDh6fBLjSs2DCbGSjZ7PKDyGD93+35diONpypzQPvPAYmxJGa8FGh++3G
-	 Kx+4pVqO8O2bXdtoTvyGaRZpHYooU7eqdy65DpIYTqcTdrc3IVOfVUmEN1g5xbHJ7BRE1
-	 dedgloammajgUFoCGdYvj76iuGk5qd6OrW0suV7dkicisX6And6bs551mSKWPhZfHJZJg
-	 hJbRfhongMXzsdnths8UYib+FQfyRJtgGEGkh86b+Uv9SZvGYgLLhbl8fYhJ5ZIdMow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003283;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ihYV+mcM/pIIr2OdkPHUw/Z9MQ6f23kGw1ypoiRMOtk=;
+	b=O0dw3v5XgnUnRly37aRsO1SYsObaG0TnnZ8GvAnuse8a/ilEfDI+4YH9y9DreZMjApop
+	 T8BAsj7EYbBjlBiNfceIEUpURcXJluBZITmuTiHJYCnxKPBGY8DW2mvaKeBWe5bVkwVLG
+	 x8DgDOZ+omP+8khzxJSeWmHLBCyX3+GmlZdtfj4WU49YCSUQsjuj7WUD+FjHfXoOGDkrY
+	 7lI4r8+xCbHWkWm3dLZNe5zymXZnopf976ldH9whgg1ucdMdanu13qm/GpuFr50vlYWst
+	 RNin9sALqjw/ApeTiez2FQMGz4AZDuxkLGrPbAUPKqXCBC9/an/qgAxiA09dvAQHuFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IeuF7SNg;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C2B60A2604
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 08:25:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C2B60A2604
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IeuF7SNg
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so16883375e9.0
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 01:25:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793003156; x=1793607956; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z9O6BgWW6yaoipar2Lx1Z0Xt+u9evhaGrz9gWofeNXw=;
-        b=IeuF7SNgsWKr8mfHuqMn3piad19yrIPng7Qi5/R9ATgZt6+pxrUyTpRgf7mHwPtoPU
-         x6eyhDcTEkq82eXc/wwnNWi+qnd6TJxkEzafUiyKIbet12xmHy0ImvG4h34Gmv2VNhIb
-         EfLMFcrxug60OtriEIVRKdK6Wcv6oBbQ12mtNyEjwYTVHJTNjn12nvVe4LCucRIzJH7c
-         sgYtfOFTGjXz/Qz+W+rCNStKreQgi5AwEi3aU30d9+exkKdwKWbbKplKOfeaGMaRrZCn
-         kwjr8RH8wAzH1os1sw4mb74Rd+h9mFKQKb+3RWjXZ2zXjgl8kRGqmuysqwfnD7UYA2vT
-         f89Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793003156; x=1793607956;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z9O6BgWW6yaoipar2Lx1Z0Xt+u9evhaGrz9gWofeNXw=;
-        b=XwSW1TGEIWOam8dKemXLW5KXYr5q8MYsRR3XLVbcC1W3+k0bTAobqVjramvz+vdyhj
-         qlH0gHvSFk1pqknSjOTHiPHdqVnuDYeeMhQJddZPNRag4REX1Ff8R6yX4G/4aheBhx1T
-         7fznBK+B+XOQuzMAD62LCcjorshIWeGEI72HmekHAtCqnL/Lf17v/bp7vUUaxPZYlH7a
-         n9CuZ5u37qLfi3guBv2AXEltkBik8Od42b5iZDsLa2Wg6MStTkmZy0suDRnxTbN+tg7m
-         SCX6iy/JdI/gPofzL0v/OOryXDEZ1EskALnkfOGMJgOkm2eWiPN9SdQKvK6KTAZuDGmA
-         i/MA==
-X-Forwarded-Encrypted: i=1; AKwUvByykQyTc2bHBMZORxbnKXJeOeEGAMa/CYe5bRxGzE2GUBNq6lGREY2aczwOqVM/5JEdR7FcpbP6kCUn3Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKna3ZzXsl2VN2X61j/Pixkgct9x05GBUI/TLZUeJj/rzg7/Rop
-	OnN5/Z7jC/FZJl4IXnz9UTelMixqY7YCJTy/Oz8yis3M0exq4E5XMc8=
-X-Gm-Gg: AYBFou2NQOd+i32Q6FAGdq8gnrLJhXwNmVcG/tAXrBLKiA1fX8Fg4qHPQefZ9zE+vIc
-	OA+WsQLy0cyluRRlCHtrIfX6YFWYTiYQ02/TEECqpdFBiN5SqeO5WJxMvmX8Hi1gqAymW4j/JWF
-	4XWg/n3sgxzHlXlYtk/kk5lEySsv2GlPqrtYCaB5KTgYABS9JzYO7/uQtua3nBQkfrKNfoRq+su
-	GXZB32KSvX9xv3Tjwk1rsmv61WOdkpVF6M2CqdPzjpcMY5/Yb4yXLHaoYOAZsEVBR1iPjQ8SikK
-	UrYK9F4C4HJaGvhGBzWxq2wBdBK65r1bE6SeCioqgexrjpqFBcnc3vDR1WZ7xgyqw0kuvtmOu3F
-	GLvgRBv9owOf5Cc4HW+rmqiPP6mO4vuaRvwnY6aulJ0/m48IycKmc4PO6Ggvrnw9z3C5i4bzy2C
-	n8SsIiIbLrbBdGvNv1v+GztjwSD/ShS2WeT1ZGVMihNxjfhKHXLWsJzhJhdkQ40k8NVSUDLRdBu
-	XunHbZmKzxQTGpcJvJ2gvJ6rGdR7t+mwDAIysswHZ7lyLl/EzeycGKsnqI9I2ZAozmzmCgab2+7
-	s3w8L6A7nGQtNvIQa4nEYViQ/m73YEfiZMWS
-X-Received: by 2002:a05:600c:6384:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4a35ac3acb7mr104137425e9.3.1793003155767;
-        Mon, 26 Oct 2026 01:25:55 -0700 (PDT)
-Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359ff2189sm211058215e9.1.2026.10.26.01.25.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:25:55 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	johannes.goede@oss.qualcomm.com,
-	dan.scally@ideasonboard.com
-Cc: mchehab@kernel.org,
-	fernandorimoli11@gmail.com,
-	lsa.uz@pm.me,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D23E5606A31A;
+	Mon, 26 Oct 2026 08:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D23E5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 25c90f08d11711f19a56ed5b684f684d-20261026
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:48b8ec55-9216-432a-ba82-046e1ba312fd,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:2cc7dfedd116a540874866a81ca6db60,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 25c90f08d11711f19a56ed5b684f684d-20261026
+X-User: chenchangcheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <chenchangcheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1938705012; Mon, 26 Oct 2026 16:27:57 +0800
+From: Chen Changcheng <chenchangcheng@kylinos.cn>
+To: markus.elfring@web.de
+Cc: chenchangcheng@kylinos.cn,
+	hverkuil+cisco@kernel.org,
+	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 2/2] media: ipu-bridge: reuse the software nodes on rebind
-Date: Mon, 26 Oct 2026 09:25:49 +0100
-Message-ID: <20261026082549.662885-3-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261026082549.662885-1-dmanresa@gmail.com>
-References: <20261026082549.662885-1-dmanresa@gmail.com>
+	mchehab@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: dm1105: fix rc_dev leak on probe error paths
+Date: Mon, 26 Oct 2026 16:27:18 +0800
+Message-Id: <20261026082718.89558-1-chenchangcheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <6217c190-e8f1-4faa-b934-b1774501a3af@web.de>
+References: <6217c190-e8f1-4faa-b934-b1774501a3af@web.de>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,74 +75,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The software nodes are deliberately never unregistered so that a rebind
-can reuse them, but ipu_bridge_init() only takes that path when the IPU
-kept its secondary fwnode link. Removing and re-scanning the IPU PCI
-device clears that link, so the next probe tries to register the IPU HID
-node again and fails:
+dm1105_ir_init() registers an rc_dev that must be cleaned up by
+dm1105_ir_exit().  However, in dm1105_probe() the return value of
+dm1105_ir_init() is ignored, and neither the workqueue nor the
+request_irq error path calls dm1105_ir_exit().  If IR initialization
+succeeds but a later step (create_singlethread_workqueue or
+request_irq) fails, the registered rc_dev is leaked.
 
-  sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
-  intel-ipu6 0000:00:05.0: Failed to register the IPU HID node
-  intel-ipu6: probe of 0000:00:05.0 failed with error -17
-
-after which the cameras are unusable until reboot.
-
-Look the registered node up instead and restore the device's secondary
-fwnode, keeping the reference the lookup took. software_node_notify()
-resolves a device's software node through its secondary fwnode, which is
-not set yet when device_add() calls it, so it takes no reference, while
-the device_del() of the next remove does resolve it and calls
-swnode_put(). Dropping the lookup reference as well would cost the node
-one reference per remove/rescan cycle: measured on a Surface Pro 7+, it
-was gone from /sys/kernel/software_nodes by the fourth.
-
-Assisted-by: LLM
-Fixes: 803abec64ef9 ("media: ipu3-cio2: Add cio2-bridge to ipu3-cio2 driver")
-Signed-off-by: D. Manresa <dmanresa@gmail.com>
+Fixes: 519a4bdcf822 ("V4L/DVB (11984): Add support for yet another SDMC DM1105 based DVB-S card.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/media/pci/dm1105/dm1105.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index aea4699..45a304c 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -1098,6 +1098,7 @@ static DEFINE_MUTEX(ipu_bridge_mutex);
- int ipu_bridge_init(struct device *dev,
- 		    ipu_parse_sensor_fwnode_t parse_sensor_fwnode)
- {
-+	const struct software_node *ipu_node;
- 	struct fwnode_handle *fwnode;
- 	struct ipu_bridge *bridge;
- 	unsigned int i;
-@@ -1108,6 +1109,27 @@ int ipu_bridge_init(struct device *dev,
- 	if (!ipu_bridge_check_fwnode_graph(dev_fwnode(dev)))
- 		return 0;
+diff --git a/drivers/media/pci/dm1105/dm1105.c b/drivers/media/pci/dm1105/dm1105.c
+index ae4544042a74..9d49e95c8182 100644
+--- a/drivers/media/pci/dm1105/dm1105.c
++++ b/drivers/media/pci/dm1105/dm1105.c
+@@ -1125,14 +1125,16 @@ static int dm1105_probe(struct pci_dev *pdev,
+ 	if (ret < 0)
+ 		goto err_dvb_net;
  
-+	/*
-+	 * The nodes registered by a previous bind are still there, but the
-+	 * PCI remove/rescan cycle dropped the IPU's secondary fwnode link to
-+	 * them. Registering them again would fail with -EEXIST, so reuse
-+	 * them and restore just that link.
-+	 */
-+	ipu_node = software_node_find_by_name(NULL, IPU_HID);
-+	if (ipu_node) {
-+		fwnode = software_node_fwnode(ipu_node);
-+		/*
-+		 * The node only becomes the device's secondary fwnode here,
-+		 * after device_add() has run, so software_node_notify() took
-+		 * no reference on it. Keep the one from the lookup for the
-+		 * swnode_put() that software_node_notify_remove() will do on
-+		 * the next device_del().
-+		 */
-+		set_secondary_fwnode(dev, fwnode);
-+		dev_dbg(dev, "Reusing the previously registered software nodes\n");
-+		return 0;
-+	}
-+
- 	if (!ipu_bridge_ivsc_is_ready())
- 		return dev_err_probe(dev, -EPROBE_DEFER,
- 				     "waiting for IVSC to become ready\n");
+-	dm1105_ir_init(dev);
++	ret = dm1105_ir_init(dev);
++	if (ret)
++		goto err_dvb_net;
+ 
+ 	INIT_WORK(&dev->work, dm1105_dmx_buffer);
+ 	sprintf(dev->wqn, "%s/%d", dvb_adapter->name, dvb_adapter->num);
+ 	dev->wq = create_singlethread_workqueue(dev->wqn);
+ 	if (!dev->wq) {
+ 		ret = -ENOMEM;
+-		goto err_dvb_net;
++		goto err_dm1105_ir_exit;
+ 	}
+ 
+ 	ret = request_irq(pdev->irq, dm1105_irq, IRQF_SHARED,
+@@ -1144,6 +1146,8 @@ static int dm1105_probe(struct pci_dev *pdev,
+ 
+ err_workqueue:
+ 	destroy_workqueue(dev->wq);
++err_dm1105_ir_exit:
++	dm1105_ir_exit(dev);
+ err_dvb_net:
+ 	dvb_net_release(&dev->dvbnet);
+ err_disconnect_frontend:
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.43.0
+2.25.1
 
