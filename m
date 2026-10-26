@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793009084;
-	b=IFt81kIo8w8QK3QL0sv/5f8EiYVVU0C52d+GCIVZ0p+x7Yu9AacMECSrvOi7FUEmy4pN
-	 12TEkCl3sjl2ufAMhMSiiX4D6s2FB+bf9eTLnM1cS7pUpLLSocgsSYD7eYbT0g+hnqqAJ
-	 TCUF88rq3VaPaZhjXBwFBDFNncyu/OexTXTSRIqbfnPkxpO4yHJR8lKt6UzEhbZn+f2cI
-	 yX1E811c1beOoAeM8Oh80gc2Alu6vEAyqg02pkOm9EehZEsPe/TbcMSotlRaPPN3Az6fW
-	 emq6Br5gZOzrgI2KTKL0FBES8MPqjmuNSPfxPZfUyjGVdKhBA4Fs4jSZtZkkp2cu9Vg==
+	t=1793009135;
+	b=qCQnAmRwuM19+pDn3T5ypId5iVZgTR2Zh4cx+2TvwuiteATj3kcLZbgP4CzfWHFiTQPF
+	 exlWLa54aswW/M1x9Rrul1MEovzj43iI69l/wPsDXyYAtICHOFXGJMxP1UeIe0vt6/x+y
+	 Wi1ptDilZk0N91vxKqNYLKCAhLOLwAJ0SV9iFGq1hwBIcpY6x8sDEpXQPxbT3Rhfg+F+p
+	 NJ20p3WjkHJIagj74EHm62b8eEbdeoMxgenorab/G163D2LwT5PXE8vhdJ/cb/eWwKBGC
+	 G5jJybiubtyQvOifNphN1aoQKsa7yWn5wgngWVcT9WdJicnpS7Cyeg/itxnul8hJtiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793009084;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793009135;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=KFMxr7an5tNIKPbCe3wThekzv3eRib5vNm+X6SDA2co=;
-	b=YoIkO46VjDjRykcv617kuPLklV468EZfmrynyiAQVqckttDab3tE6znqGP37nTzD2UhU
-	 X4dwjLnapzkcUt859KDiA60TzywFK2XmmpFP1/u5MGGIWHBFFUU71JgyzWwVY9dGfytq+
-	 40Drc/ItVo5s/HEbuCZbfdCqsEO5u43M+KwZFk4+IYHYTs0md1tHcgvjGjqhRI9oE0XH2
-	 wESVnxfRnmXnS98lZlwrbRuyEF89cZk4CvkIOpJ7ZI7HyFXFA+HRvyZlaJgiaXpHLTO6Q
-	 n/05+y3tUd1LQvB4TGbMBgpT4LVaOJ4u6kbbE3ftpdYWV5fTUXpn/05Ylk3lG+/SWtQ==
+	bh=v3NFjaWHJ7bvY/XjUsWqfVhJKdXmtOe9orl9OG18QrE=;
+	b=FOeEuo8xvLcyfMdkbC90x7F9WfNvsLDC3dIUJzrK7LS0i6SelRHWRitTOcjoZSwRiONe
+	 2A/tUEy0agALusu/10LYgyZ83DsC5dlzTNYTi5GlHzDrdYnoMApIMVH6ashDZ2Zmv0iKZ
+	 W/Hkugh/dxo3R9dvdfWAVgfs77iSpcoGEb4GVJ5BLNTRhQ6NIwlSkp5g8kvRHAAP2YZfx
+	 XWg60bOSsNmB0c3WyVbN6DORYE8iaQvLvA6fCvIvam/IA/YJ6qIy3TxCIcyOWEpQCBOTV
+	 AmLcFDoXgA8Dk7fmEkoJbe8yCbqQ52L9PRwis5zKuke3Mz8AdsZbSUYiw/SF0NZadlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWQdiUXF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JNUmY/f1";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD8760A2601;
-	Mon, 26 Oct 2026 10:04:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43DD360A380C;
+	Mon, 26 Oct 2026 10:05:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWQdiUXF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0BB1F031E4;
-	Mon, 26 Oct 2026 10:04:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNUmY/f1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231101F01280;
+	Mon, 26 Oct 2026 10:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793009083;
-	bh=KFMxr7an5tNIKPbCe3wThekzv3eRib5vNm+X6SDA2co=;
+	s=k20260515; t=1793009134;
+	bh=v3NFjaWHJ7bvY/XjUsWqfVhJKdXmtOe9orl9OG18QrE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jWQdiUXFHi6BRp5+uRvy4vT6gb5MFB3TkbW+n+E/QeU9GMbl/oljUHn7kBTsTK+UX
-	 3zuqiVtzQnmQ9bzCtC6MTNYg28RLIeB+NU1/P4E4QBNQN4K3ldp4Trj+X/MrlWEU0N
-	 /WmXEubg5cJHRFS8+csk6tcHDzw4fATen5Ym5+qgDU8NuqSgDMLt1Tx/TwRRcQD61y
-	 Qk0OYQl5HHM3EqKBfT2+UdYeTLQw2ug/4UUlhJi6UYwKYNPL/ZghSF4eIlGLb5ORkO
-	 68wn2WCLkB1fwnHjSiXwJg8/B8Fgv6PxVAVca36V9nZbcz+5A+7FRrME0qOMUvRiHf
-	 AL4BbTCcsyNHQ==
-Date: Mon, 26 Oct 2026 11:04:41 +0100
+	b=JNUmY/f1bWpfjbH9LtqVnLBAlIdmMwk6N0DcxVqbLTL2BtepF/2tBpP4UX+lGhgAD
+	 5msOx7ZpM68mrWl0skdAip46EVF3ulm3nKhPMeKQw6TJV7SCaDzTDbp+1Gs5zx6nRY
+	 AXhGZbhQLbhQRN0wc0fGHLJzCiDdl/rcrEfOKihGDQ+LIYrxeLDyfW+6JCWmZBeoVU
+	 +EQRhTt7MRXWkjOChsNF+KpewRw3pCTHTV1GtrnqVw6vCKeBYmBxbwDbqb1uI98x+T
+	 Czz1zpBVZTh5Ng4aWDUFSEXpsfw/fq3sim7FmujJtt9mHNyD5o0EH4iroxGbpSNc9u
+	 NT2FVNhke6CBw==
+Date: Mon, 26 Oct 2026 11:05:31 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Vladimir Zapolskiy <vz@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Vladimir Zapolskiy <vz@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+	Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
 	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
 	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
 	linux-phy@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/7] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Waipio
- compatible
-Message-ID: <20261026-saffron-hyrax-of-performance-0dc6d9@quoll>
+Subject: Re: [PATCH 2/7] arm64: dts: qcom: sm8450: Add CSI2 PHY device tree
+ nodes
+Message-ID: <20261026-zippy-diligent-curassow-448dfe@quoll>
 References: <20261023163057.775917-1-vz@kernel.org>
- <OlcKP8HHAIXkRzYX6vdMrXfEbLNpOVLfNZytB-qiRopju0IaQ_xxKo-mlzphnAO1Pdg-y8mu0lcw0UsQZC0ZuQ==@protonmail.internalid>
- <20261023163057.775917-2-vz@kernel.org>
- <3dd8d329-a25a-4afb-935c-311cb8ddf094@linaro.org>
+ <20261023163057.775917-3-vz@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -68,44 +66,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <3dd8d329-a25a-4afb-935c-311cb8ddf094@linaro.org>
+In-Reply-To: <20261023163057.775917-3-vz@kernel.org>
 
-On Fri, Oct 23, 2026 at 11:43:03PM +0100, Bryan O'Donoghue wrote:
-> On 23/10/2026 17:30, Vladimir Zapolskiy wrote:
-> > Qualcomm Waipio SoC has six CSIPHY IPs, which are compatible with Hamoa
-> > ones:
-> > 
-> >      qcom-mipi-csi2-phy acec000.phy: CSIPHY 3PH HW Version = 0x40010000
-> > 
-> > Hardware supports up to three different 0.9v level power supplies for
-> > CSIPHY0/1, CSIPHY2/3 and CSIPHY4/5, but there is just a single 1.2v
-> > power line VDD_A_CSI_1P2, which supplies all CSIPHY devices.
-> > 
-> > Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> > ---
-> >   .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 4 +++-
-> >   1 file changed, 3 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> > index 1f1e2a4993b2..2a11ca7c7d11 100644
-> > --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> > +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> > @@ -19,7 +19,9 @@ properties:
-> >       oneOf:
-> >         - const: qcom,x1e80100-csi2-phy
-> >         - items:
-> > -          - const: qcom,glymur-csi2-phy
-> > +          - enum:
-> > +              - qcom,glymur-csi2-phy
-> > +              - qcom,waipio-csi2-phy
-> >             - const: qcom,x1e80100-csi2-phy
-> > 
-> >     reg:
-> > --
-> > 2.53.0
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+On Fri, Oct 23, 2026 at 07:30:52PM +0300, Vladimir Zapolskiy wrote:
+> Add device tree nodes of six CAMSS CSIPHYs found on Qualcomm Waipio SoC,
+> and a shared CSIPHY OPP table for them.
+> 
+> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8450.dtsi | 280 +++++++++++++++++++++++++++
+>  1 file changed, 280 insertions(+)
 
-No. There is no such thing as Waipio.
+Ordering of these patches feels completely random. DTS is between
+bindings, before another DTS, before drivers.
 
 Best regards,
 Krzysztof
