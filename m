@@ -1,42 +1,43 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793019488;
-	b=ACWkwdIgiMI8IT681499CnRYJNb2xdA+UwsX+6SHvSaVVmwzxcR6tV4dlc8UmgCjyVLy
-	 1ngM7ESsv36QtdaRnfa/81At/aIvK0E9eZjtnUUjjcMtyU/5yMfNRNJ1KZUN6+Kn6L79P
-	 qg1arFrOzOKDnos3i/FZoIN8n4/1y33x9e5Q4/3p+L2Jb5uz/b83Sv9rXuI/N7wAAHxnq
-	 Vtmt2OTIQE18kPknmBy515qn9i3+NUn9Wa6ZzaDllGGTAUwhi3U/KVUZ+JGyf7JUY4Lcd
-	 fmGf4M5Nb+SodvHSonCUkHwZ2cMq9nE19rDlAekf4QX+ll28hCertNVyZ0dU/sDpPFA==
+	b=RrQ04w9klaRPxztGKE5sZloUaYAkvzahyZH6G4X4YzbP5ToJGUVf59VDlslWpLN0jY4p
+	 oNUAmxdD2IeDAjM3fH8YEiypFWAto3KK2BDByLO3IKYMZscVBvs0CHCdn36gkhVNp09bM
+	 5D/1l7G+t1ZKjzme9HjBjmSfgYNhMvU25f2MptLlB8M+7w0ZhGTX49PINbgr8JHyQHGg3
+	 +fdpjER1BMbRkWqG6JZ0CNhnfh9N1ITVfBKoRW8bmIXHy/8DnJiAxP5O2BxvhXrYjiYPd
+	 +PKgAqOw+AMx3r5QNmr7fgDC7CLQTTmnJqan/F+3JwaHLNz6UHgbYYTKO9qR7GfFRcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793019488;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ZpdLqLxS1Nl3Vs+KqK21bSakObyAjxQEXejJEvQQgJA=;
-	b=AwNYiONDieYmGqy/fSsvAejFl2ahQTexKrxiGTsjPleSyPJMAvk6mwnabdUZ4w2ubXwe
-	 LeNl0r3kLe++U8cdzjBiT2klcxOPLEub8lZv5MW2yAUG+IZ/NnHlywvbxlBdIG89rmSvI
-	 dTfIKgXkO5ycelio/avKx7Gxi0vHgM8nSmq+cDOReq8bkyniEDysxpUA7z1eFoxqDjwyX
-	 0sa6l2mtwP8Jy93SkLSRMGC6AGgEvOF7JfIVGxT0J0viMrWqhsD2s6nABNquv3y4bCG0y
-	 v7meLo6ToVhfloXWzZeNMNSOKlNNfkyeDTpvCAuebeF2vsOftc0K6mgj4SNU3iNKpWw==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=lZl2kSIwMNJIkCLglscnuCt3O0TybLkz70TCo4UfuW8=;
+	b=VQYJtZPwIKc0GZ4DOurzqF42SDPy4uCiogBy15GoA1Hbm+9EbFgcPcC/4MIZShEm4ffQ
+	 l2DhzwxWmQHDpIqAws5eE8IXG9yzZ9dhdhQ9sG4TYp9vM9AmpxAFXaPgIKF0EZjMnVAI8
+	 m0iQZ6Ew9XA1WPTUKQkG02QlNHTjAHOg/XJW+vvrZ1oHBIkTrUjkzE0Fi179KT894+Jlf
+	 CHmpkkarHpruO/gZFRmJ4Hizb4EMoEDEgW2HmVXhQB46BtMQM69VmIggrJbnK+jNT6Hrz
+	 +bMZK/u805B69IcWdMyEa+nJftDTzsA7moThgXE25CPK9nJa0jdgMPk6cps0aG7qlIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.xidian.edu.cn;
 	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
 	arc=none smtp.remote-ip=162.243.164.118
 Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E72E0606A31B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E74C1606A320;
 	Mon, 26 Oct 2026 12:57:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E72E0606A31B
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E74C1606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=ZpdLqLxS1N
-	l3Vs+KqK21bSakObyAjxQEXejJEvQQgJA=; b=4SfkruKFJPCgYSxQOH6RUW8nk6
-	jKwDU2iUhTwGKVKNhca0aCHqJNRWO1UTefuiLKTxl4ZJ+RQCw8snqyLbHy6k3/fG
-	mrNOKl2Xs3rbpjfNTqUlPJLLQxXTWPhIxmOqpIYGYpmvqx5bJTb99W9miw01ZuJd
-	a/JYTWgF07ywKwSUc=
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=lZl2kSIwMNJIkCLglscnuCt3O0TybLkz70
+	TCo4UfuW8=; b=QnuhWUjtE04W8Eoe0tqGvEFE7Xfm/3dcmvnasdLILAqeUb7rpt
+	7coohlYSPBm6VCWKOcEyssZ22tW8TunkOBzSdMwM79TPZoZE94kcsf7L3vMBBgbZ
+	2OAShrz/F2w6yKmaBeOp/V08WICmWrzdEizTepwh/d9VAm8tYZGezE9J4=
 Received: from localhost.localdomain (unknown [113.200.174.126])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWGwFJTt9qbqzpAA--.7289S2;
-	Mon, 26 Oct 2026 20:57:46 +0800 (CST)
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDWGwFJTt9qbqzpAA--.7289S3;
+	Mon, 26 Oct 2026 20:57:51 +0800 (CST)
 From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 To: Sean Young <sean@mess.org>
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -46,10 +47,12 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 0/2] media: rc: ati_remote: fix NULL input device handling
-Date: Mon, 26 Oct 2026 20:57:29 +0800
-Message-ID: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v2 1/2] media: rc: ati_remote: fix NULL input_dev on rc device open
+Date: Mon, 26 Oct 2026 20:57:30 +0800
+Message-ID: <20261026125731.1952-2-25031212351@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
+References: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,61 +63,151 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkDWGwFJTt9qbqzpAA--.7289S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF4xJw4kCF1fGrW7GFW5GFg_yoW8XFW8p3
-	y5Ca45Kryqkr4a9rnaq3WUZ3WfGrs7Zw15ZFySq3409rs8uryFyryUKa47Xa4UGa4FvFy5
-	t3y3Jw4kuFyUAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVWxJr0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
-	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
-	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxG
-	rwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xr1l42xK82IYc2Ij64vIr41l4I8I3I
-	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
-	GVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
-	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0
-	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJbIYCTnIWIevJa73UjIFyTuYvjxU4ksqDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUSD2reG1O7tQABsq
+X-CM-TRANSID:BLQMCkDWGwFJTt9qbqzpAA--.7289S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxZw48KF13Gr43ZF48AF1rXrb_yoWrKF1fpF
+	W3CayFgFZ5Kr1jga13Kw1UZa45Wr4xZay5ur1fX34a9rs5Zr9YyFyDtFy7JayUAFy09Fy5
+	tw15J3y8uFyUAF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmSb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUCVW8JwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62
+	kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2
+	z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I
+	0En4kS14v26r126r1DMxkIecxEwVAFwVW5JwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE
+	7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI
+	8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWU
+	CwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r
+	1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBI
+	daVFxhVjvjDU0xZFpf9x07j4dgXUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUSD2reG1O7tQACsp
 
-This series fixes two ways ati_remote can pass a NULL input device to
-input_event():
+ati_remote_probe() registers the rc device before it allocates and
+assigns the mouse input device:
 
-  1. ati_remote_probe() registers the rc device before it sets up the
-     mouse input device.  The rc device can be opened as soon as it is
-     registered, which submits the interrupt URB, and a report arriving
-     before ati_remote->idev is assigned dereferences the NULL pointer.
-     Move the input device setup before rc_register_device(), and free
-     the input device only after the rc device has been unregistered and
-     the URBs have been killed.
+	rc_register_device(ati_remote->rdev);
+	...
+	ati_remote->idev = input_dev;
 
-  2. With the "mouse" module parameter disabled, the mouse input device
-     is never allocated, but the rc device still accepts mouse scancodes
-     and reports them through ati_remote->idev.  Restore the check that
-     drops mouse events when there is no mouse device.
+The rc device can be opened as soon as it is registered, either through
+its evdev node or through /dev/lirc0; both call ati_remote_open(), which
+submits the interrupt URB.  The completion handler ati_remote_irq_in()
+reports the events it receives through ati_remote->idev, so a report
+that arrives before the assignment above is passed to input_report_rel()
+and input_event() as a NULL device:
 
-The two issues have different root causes and are fixed in separate
-patches.
+	BUG: kernel NULL pointer dereference, address: 0000000000000028
+	#PF: supervisor read access in kernel mode
+	...
+	RIP: 0010:input_event+0x41/0xa0 drivers/input/input.c:394
+	...
+	Call Trace:
+	 <IRQ>
+	 input_report_rel include/linux/input.h:450 [inline]
+	 ati_remote_input_report drivers/media/rc/ati_remote.c:634 [inline]
+	 ati_remote_irq_in+0xf45/0x1420 drivers/media/rc/ati_remote.c:657
+	 __usb_hcd_giveback_urb+0x238/0x550 drivers/usb/core/hcd.c:1657
 
-The series applies to v7.3-rc7 and was validated with checkpatch, by
-replaying it on a clean tree, and by building drivers/media/rc/ with
-W=1 for x86_64.
+input_event() dereferences the device it is given and the faulting
+address 0x28 is the offset of evbit in struct input_dev.  ati_remote is
+zeroed when it is allocated and ati_remote->idev is never written back,
+so the pointer is NULL because it has not been assigned yet, not
+because an input device was freed.
 
-Changes in v2:
-  - Do not call rc_unregister_device() when rc_register_device() fails.
-  - On input_register_device() failure, unregister the rc device and
-    kill the URBs before freeing the input device.
-  - Add a second patch for the mouse=0 case.
+Allocate and initialize the mouse input device before the rc device is
+registered, so that ati_remote->idev is valid before any path that
+submits the interrupt URB exists.  input_register_device() keeps its
+place: input_event() is documented to be safe before registration, the
+events are then simply not delivered to any input handler.
 
-YuanZhe Liu (2):
-  media: rc: ati_remote: fix NULL input_dev on rc device open
-  media: rc: ati_remote: fix NULL input_dev when mouse=0
+Free the input device only after the rc device has been unregistered and
+the URBs have been killed, so that a completion still in flight cannot
+report through an input device that is going away.
 
- drivers/media/rc/ati_remote.c | 37 +++++++++++++++++++++++------------
- 1 file changed, 25 insertions(+), 12 deletions(-)
+Fixes: c34516e599d9 ("[media] ati_remote: migrate to the rc subsystem")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/rc/ati_remote.c | 34 ++++++++++++++++++++++------------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/media/rc/ati_remote.c b/drivers/media/rc/ati_remote.c
+index 51d85de24fae..8543612d5a60 100644
+--- a/drivers/media/rc/ati_remote.c
++++ b/drivers/media/rc/ati_remote.c
+@@ -813,7 +813,7 @@ static int ati_remote_probe(struct usb_interface *interface,
+ 	struct usb_endpoint_descriptor *endpoint_in, *endpoint_out;
+ 	struct ati_receiver_type *type = (struct ati_receiver_type *)id->driver_info;
+ 	struct ati_remote *ati_remote;
+-	struct input_dev *input_dev;
++	struct input_dev *input_dev = NULL;
+ 	struct device *device = &interface->dev;
+ 	struct rc_dev *rc_dev;
+ 	int err = -ENOMEM;
+@@ -893,37 +893,47 @@ static int ati_remote_probe(struct usb_interface *interface,
+ 	if (err)
+ 		goto exit_kill_urbs;
+ 
+-	/* Set up and register rc device */
+-	err = rc_register_device(ati_remote->rdev);
+-	if (err)
+-		goto exit_kill_urbs;
+-
+-	/* Set up and register mouse input device */
++	/*
++	 * Set up the mouse input device before registering the rc device:
++	 * opening the rc device submits the interrupt URB, and its
++	 * completion handler reports mouse events through
++	 * ati_remote->idev, so that pointer has to be valid before the rc
++	 * device can be opened.  input_event() may be called before
++	 * input_register_device(); such events are then simply not
++	 * delivered to any input handler.
++	 */
+ 	if (mouse) {
+ 		input_dev = input_allocate_device();
+ 		if (!input_dev) {
+ 			err = -ENOMEM;
+-			goto exit_unregister_device;
++			goto exit_kill_urbs;
+ 		}
+ 
+ 		ati_remote->idev = input_dev;
+ 		ati_remote_input_init(ati_remote);
+-		err = input_register_device(input_dev);
++	}
+ 
++	/* Set up and register rc device */
++	err = rc_register_device(ati_remote->rdev);
++	if (err)
++		goto exit_kill_urbs;
++
++	/* Register the mouse input device */
++	if (mouse) {
++		err = input_register_device(input_dev);
+ 		if (err)
+-			goto exit_free_input_device;
++			goto exit_unregister_device;
+ 	}
+ 
+ 	usb_set_intfdata(interface, ati_remote);
+ 	return 0;
+ 
+- exit_free_input_device:
+-	input_free_device(input_dev);
+  exit_unregister_device:
+ 	rc_unregister_device(rc_dev);
+  exit_kill_urbs:
+ 	usb_kill_urb(ati_remote->irq_urb);
+ 	usb_kill_urb(ati_remote->out_urb);
++	input_free_device(input_dev);
+  exit_free_buffers:
+ 	ati_remote_free_buffers(ati_remote);
+  exit_free_dev_rdev:
 -- 
 2.34.1
 
