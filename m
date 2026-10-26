@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793055017;
-	b=Y+9y0ASpUUcmlF/Pp2NqxS+UwF8nx3MeyKNfLr7WtBQ18DkXqviKrJlsX9SnMKicp3+x
-	 GIGsX10hF1gIHpAJbfQ0ff9F54w8lyWQDIOZ5odRY4NPW0uCMuBY3PklN44MNZHq+ky17
-	 j7lXnV0XeLbXtIE3scLj7VCOLrnXvMR3CDXb+W+0zOM8itc+Hp8/aVAUZYXGBcbnFx0Cg
-	 Gob1zUa9YcQbMhmdA7FdewuWxOCCHDgcicxiLkSk4zPnQhBL5gBdB72GfVRTfTcK1rf1C
-	 O7kwBp1/2m7sl3GYU0PUJAeAMjJFCgg9WdkZUyhDxg7Q5ay+/POuauqCLnCWjdaP2Hw==
+	t=1793055004;
+	b=RlinG1ZAl3NjQ8wVfmka0PvVy8FN19sZ+RZfWY1++JGKecwYjz48s/bKFPVpdEzQiI7f
+	 FjIY6QDHuVEGvL5hzjKl/objg+HgiTzDGXfEUG7e+oiP3q6y5UA5iwjgrWSGOx7/rpNVH
+	 PYybuUk6JUdVjzOPkcDMwRGNlq7syAVhg3qfW0PlNsO0xivDhUbUaMT/aF3wdJ7plEd7P
+	 QMMewqTCF+B+AraocDbw1pnEvLAN8YwW/JYj1xBZbWXdFb9xWlox01TB1Qk/3WMMwkKqi
+	 RcFqzFom0EDc7t2mWcHg2DVOyeUHpTN/oW4KUI7xuzlogLlplM4q3N8I43u3AijBEoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793055017;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793055004;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EVk+yjL8wX++W59cZlj03JU3r1mhQtWxs7tNqn9bqvI=;
-	b=T2QBes+v8CJRrykz8hzXH8Z5DDn7nJgkz/LOI2GS+ML8Xf5FQlrMLCxSs0I76A3uOGF0
-	 ysRr2wQoUUGBg9mpapfrfbrJlDvDcIDQOwufsgDSFMFdbn3dEZx7F+DjfmfcOBGezBAWb
-	 ixM4C3p1TgQSMNqGFC1dm9Jx/VCvbtIXvX0Rf4I1Dl7uvCh0SCuJqfDq2NA0eqFyt5jF6
-	 zkexyy8Cy3yjjWcKX/3cj5KhdfhAa7KwzI3Y+Qwqb1Yr7T8BdwLYErVxFG/J7mmvDZxRr
-	 nWZDbJWQHKqPC9V4w7FEAG7SvMiFTV9f9N+x+UbKTlQMjoOyFzN61aFITJH0Tlm5fPA==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=t7JehZMn3Nl/lxkYG/xWHY5X5HT1Ppoe07eraMxeFB8=;
+	b=C+fTKfXSwQFjAeZ3xq/+zIPJXNvetYhj3IQnFPy0BKYzPhX9TugrcfLmALvTP83wwFMn
+	 nGqoVL5SMaz05pHhiYq3qlQ8XhJ9eQrq6FNkesEAQWm+lQMqrSlhfSmQ+w742yrONEcKM
+	 RG53wFMxam2vtd5RdLV6nnEOlg71VG6P4lp2iZ5CL+6rGyRflx8QQaTZl8ZT3ictx3NDl
+	 5cPAoYw3srWayhoAufKKWgqK07JpOcMoBtyEYVGakjirGihYnQTBQqtfEv4AF9NQzls3S
+	 3OJICgmKGhyDz50SpsufcZyktsUQIihkH37s1BtcPby1uMgmuF6zY7CocvIvPM3Cx1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgHcbQI0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OdN/9mtj";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ACB2606A31D;
-	Mon, 26 Oct 2026 22:50:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 186EE606A31A;
+	Mon, 26 Oct 2026 22:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jgHcbQI0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F04AD1F01828;
-	Mon, 26 Oct 2026 22:50:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OdN/9mtj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7FF1F01825;
+	Mon, 26 Oct 2026 22:49:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793055016;
-	bh=EVk+yjL8wX++W59cZlj03JU3r1mhQtWxs7tNqn9bqvI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jgHcbQI09A3d3M0g/KmmtEpTADbCvZC/tSH0rghK+sXC66YowBmkjj4kU47nQ2esu
-	 I5bAe6PuHSTgGorvWHVYf0/Gw7cXB83ntq1USkuM6sq0T6JO55+t5UzaNkWDJjRCdu
-	 1xokByT60JmhoChA/V3lAIiKCH6UZ8/1iYMdbAtCQSuNnodd9IYFQsrquAEYGOnYxo
-	 RUQxuhM1JuBd7AWT8f30BGBfBICItYko+hOX9ZIMdI+sU5L9A1i1pPBy5+6n+G9GTv
-	 ZaPextkgy1ow5F+QLR2iZ9wmCuOI8DxOPW6lOjqyckJnu5HE3ue2fe/aujQhJuPlsw
-	 gxOtMdeHbaBHA==
+	s=k20260515; t=1793055003;
+	bh=t7JehZMn3Nl/lxkYG/xWHY5X5HT1Ppoe07eraMxeFB8=;
+	h=From:To:Cc:Subject:Date;
+	b=OdN/9mtjOk1dKJ6xkM1gNYxz2hYE+Sd1gZtHVyuGFOZ38XHV7tm187e5xxlR6Hmva
+	 a9fzW1SE4muojYgFTd9AecGrsycLE7bV1hEnFOSUOr6iG6JcnHDuoQElakfZZJ7iws
+	 VJxxi80KiVRpySfEYTrQJMqfpkfVNPYcrdM2o9xi0y6pJhFE2HG5A7MoD95/E6RYmq
+	 Av3c3Pdh0jPvhvb3xIvmg6dhz56YMs+yQm+JJXE+ZAg3DYGop0yUFedFuedTWrqXKM
+	 6jL4j1CX/7oTM5B8aNVy9vEBFVO7RMqQhCgbJ+qhIAtXGSWiqqm0fnln7qqs69wtYw
+	 WL9/3QR/rmNcg==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -57,12 +57,10 @@ Cc: linux-arm-msm@vger.kernel.org,
 	linux-phy@lists.infradead.org,
 	Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org
-Subject: [PATCH v2 3/7] media: qcom: camss: Allow CSI2 PHY devices without CSIPHY resources
-Date: Tue, 27 Oct 2026 00:49:53 +0200
-Message-ID: <20261026224957.1115370-4-vz@kernel.org>
+Subject: [PATCH v2 0/7] media: qcom: camss: Add SM8450 CAMSS support
+Date: Tue, 27 Oct 2026 00:49:50 +0200
+Message-ID: <20261026224957.1115370-1-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261026224957.1115370-1-vz@kernel.org>
-References: <20261026224957.1115370-1-vz@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -74,91 +72,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If CAMSS CSIPHYs are supported by the stand-alone CSI2 PHY driver only,
-there is no need to provide description of legacy CSIPHY resources in
-the CAMSS driver, therefore if CSIPHY resources are not given for some
-supported platform, use CAMSS CSIPHY port numbers as CSIPHY identifiers.
+This series adds support of Qualcomm SM8450 Camera Subsystem.
 
-Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
----
- drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++++++++---
- drivers/media/platform/qcom/camss/camss.c        |  8 ++++++--
- 2 files changed, 19 insertions(+), 5 deletions(-)
+The CSIPHYs are described as separate CSIPHY devices compatible with
+X1E80100 ones, there is no legacy CSIPHY resource description in
+the CAMSS driver, and this option is not intended to be supported.
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index f99eea2ef228..8ecd514451d2 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -799,6 +799,11 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
- 	return ret;
- }
- 
-+/* Fallback to generic SDM845 compatible formats for non-legacy CSIPHYs */
-+static const struct csiphy_subdev_resources csiphy_res_phy = {
-+	.formats = &csiphy_formats_sdm845,
-+};
-+
- /*
-  * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resources
-  * @camss: CAMSS structure
-@@ -808,7 +813,7 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
-  */
- int msm_csiphy_subdev_init(struct camss *camss, u8 port)
- {
--	const struct camss_subdev_resources *res = &camss->res->csiphy_res[port];
-+	const struct camss_subdev_resources *res = camss->res->csiphy_res;
- 	struct csiphy_device *csiphy = &camss->csiphy[port];
- 	struct device *dev = camss->dev;
- 	struct device_node *ep, *remote;
-@@ -836,8 +841,13 @@ int msm_csiphy_subdev_init(struct camss *camss, u8 port)
- 	}
- 
- 	csiphy->camss = camss;
--	csiphy->id = res->csiphy.id;
--	csiphy->res = &res->csiphy;
-+	if (res) {
-+		csiphy->id = res[port].csiphy.id;
-+		csiphy->res = &res[port].csiphy;
-+	} else {
-+		csiphy->id = port;
-+		csiphy->res = &csiphy_res_phy;
-+	}
- 
- 	snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy->id);
- 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index c54185c93a8a..b0d60e70e4bb 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4796,7 +4796,10 @@ static void camss_detect_legacy_phy(struct camss *camss)
- 	struct device_node *remote;
- 	struct device_node *ep;
- 
--	camss->legacy_phy = true;
-+	/* Legacy CSIPHY description implies the provided CSIPHY resources */
-+	camss->legacy_phy = !!camss->res->csiphy_res;
-+	if (!camss->legacy_phy)
-+		goto done;
- 
- 	/* Find first remote-endpoint and determine if its a PHY */
- 	for_each_endpoint_of_node(camss->dev->of_node, ep) {
-@@ -4810,6 +4813,7 @@ static void camss_detect_legacy_phy(struct camss *camss)
- 		break;
- 	}
- 
-+done:
- 	dev_dbg(camss->dev, "legacy phy mode %s\n",
- 		camss->legacy_phy ? "true" : "false");
- }
-@@ -4841,7 +4845,7 @@ static int camss_init_subdevices(struct camss *camss)
- 
- 		if (ret < 0) {
- 			dev_err(camss->dev, "csiphy %d init fail\n",
--				res->csiphy_res[i].csiphy.id);
-+				res->csiphy_res ? res->csiphy_res[i].csiphy.id : i);
- 			return ret;
- 		}
- 	}
+The change can be immediately tested on any SM8450 powered board by
+running an image stream from TPG to CSIDs, CSIPHY IPs are equal to
+the ones found on Hamoa platform, and were tested on a private board.
+
+The series was based and tested on linux-next-20261023.
+
+Changes from v1 to v2:
+* renamed Waipio SoC name taken from downstream to SM8450 (Krzysztof),
+* pushed DTS patches to the end of the series (Krzysztof),
+* added Reviewed-by tags by Konrad and Bryan,
+* minor non-function commit message and blank space changes.
+
+Link to v1:
+* https://lore.kernel.org/linux-arm-msm/20261023163057.775917-1-vz@kernel.org/
+
+Vladimir Zapolskiy (7):
+  dt-bindings: phy: qcom,x1e80100-csi2-phy: Add SM8450 compatible
+  dt-bindings: media: Add Qualcomm SM8450 CAMSS
+  media: qcom: camss: Allow CSI2 PHY devices without CSIPHY resources
+  media: qcom: camss: Add SM8450 CAMSS support
+  arm64: dts: qcom: sm8450: Add CSI2 PHY device tree nodes
+  arm64: dts: qcom: sm8450: Add CAMSS device tree node
+  arm64: dts: qcom: sm8450: Add description of pins with MCLK function
+
+ .../bindings/media/qcom,sm8450-camss.yaml     | 274 +++++++++
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml  |   4 +-
+ arch/arm64/boot/dts/qcom/sm8450.dtsi          | 565 ++++++++++++++++++
+ .../media/platform/qcom/camss/camss-csiphy.c  |  16 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c |   2 +
+ drivers/media/platform/qcom/camss/camss.c     | 244 +++++++-
+ drivers/media/platform/qcom/camss/camss.h     |   1 +
+ 7 files changed, 1100 insertions(+), 6 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8450-camss.yaml
+
 -- 
 2.51.0
 
