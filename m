@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793001808;
-	b=BLUpVVCkUey+tLAWFlRjezFEByTtORCyY4P+jB9XjG+2fE+MIiHmAma7ZnIa+axMI5Mf
-	 LboIdud05+7tQCrKzIRPBRAwuKNLMLZZpgMSw2eEDCnBWR36Y0lGeDysNkoS8vUUeYP1U
-	 3KONWln2uD1yRy2OlUHgjHX8NovFCrBgZGDDC9GDvs6HFdO7359oGVBnaQE5LFJa1ztiz
-	 ZkDVIh/7fVBLoL1LoqQijjXE/Zu8KJ9/sbYjD2F6rZIY/l4dsLIXaaNfPxoQWxYEFW7Qk
-	 egntNzcOsDDtSkff6PbnkaGWj9Rok+pvyRJHYUSZCdxDMKk5Tc5juE8N3557Fomk+/w==
+	t=1793003155;
+	b=BtjvXIEusl8RPFqpTrQyy5Iy7QDautYn6DFAKBZe09XC94j1ajlBiEg8KkoHdaEtMPqw
+	 5vNA8k2ETwgb1ilULc9oFJhrxkhql6RzXjNXqF9grc1lm06ro6S32t17rILy6yHP0HZNr
+	 apCPZdxrNTd2H5TAXyxbfRrvQQGl4SR+fO3wEc+em9O9pMfK4DAUGcawRSRkUMdyiK3qx
+	 Gw8SLcDfbr8+JT4EuLlLHSrDoYw26+dF59dk5ShxUDPf7Fl+UTZ+CFdCj1d2ZayNQWJUj
+	 INrl/GDK+jBkBIEY6mdTKDPwFOmhMzCiJlKiBZx9+k8HmsBi92N8smKsFyV3FzZPaRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793001808;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793003155;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=oue2gY3N148Z5QjebnGzECChsQECIfu8P/sF36ovlgA=;
-	b=iQGRAKzszgrA118lRyCfsefv07pSK5ui8j5FBvW7tYAUyjkua9EAyZsK/SoE+TTGu3a0
-	 NVMnZZ/DtLNDB8PoUsSH1XHZfqV7J8+2rt/K9b/g8xZnw6PQXzM8wufIFtoJlYlTA8u9V
-	 hwDUlSadlH78sA3Qj484ILkZVhHek/2iCEG/NR4zvz2qN694Ity2JizmKCJVvEu5gVntR
-	 2geo4K9wRjhbvfDrx4bcwQGB9f0GUuHDLBL7HGccKA5zLgvnZR8sHnqTd0hd96K/SwmfX
-	 tiK1oCWDhk0khoSyoSHLJlDu5Wydmf6GyEErAdAaYVCBqlz+uOqEi3WN5EnBTbptO9Q==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3xQwU3ZXVkpG6YMTBCPOnzgaVBcLxcmMgkLkbyRVzIw=;
+	b=twPvhK3B7OxdEXQTRMJwKzRXbNEbngRJ5X6MTLuDM4cb8JKoMgeySVQsz9aVR53twYK0
+	 dSE2ArXiu5KR4iTsFEhtCzICqdpk9qvJb9gBaG2zLtK88StYuB6v/7wTE/ms5HMU4lffC
+	 Nt4Q7yhWRJJMqKPH1jVMkQ+2pUKW2xj49G4uFIScmcC3mZXv1EDQwxsXAK3YuciApO5uk
+	 xeuGoWVUHxhugL0QdNFG7skGPhndL1uscODaWFqe85iF6dyvO/Ix/sP1BWMZAta99pcBA
+	 NSh3fUI76D92irrkRbxjjaO+e8MsqzlrfIrVAoFzYHRIbon34/Y438wLil6K8H5e15w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CeDkfV1X;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCF1606A31E
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 08:03:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFCF1606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43EF606A31A
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 08:25:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A43EF606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so14137485e9.2
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 01:03:27 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CeDkfV1X
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso23714645e9.3
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 01:25:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793001806; x=1793606606; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oue2gY3N148Z5QjebnGzECChsQECIfu8P/sF36ovlgA=;
-        b=bC638255INWrPGEz0y4VxyECSaE1+RFwT0AYvc57JZMnX/SDkH2oYoQlp72ynZKxQA
-         09imCDi3xA5Wxyz96Q5/B+fO67UzULiZJuMTb9xIJe4Qac/NjbBvoWY1D5+Qmq6ERYQ1
-         ZFS7ptfkGN6W6kgUD76g35ultPKI3Mn/+cgreu7FkFJ2k0W16L7i8kfiTy8CwbVazJfc
-         2p5DDHzw6V0BVn6v0rpVZCSd6WDMjFyze/50hKPWV5GT2NJ70rtCbkeUXzJU3Tt90+To
-         JlBd6INSJAx0qJMl9u7FX/1KF6i6I84SmGVSG1eu523g0VcXNZ48mfUbTefcone1dpDU
-         0JrQ==
+        d=gmail.com; s=20251104; t=1793003153; x=1793607953; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3xQwU3ZXVkpG6YMTBCPOnzgaVBcLxcmMgkLkbyRVzIw=;
+        b=CeDkfV1XfS/6dRaMvzJ864AaRT5CsTHHS5gc/xeNh33mV6z7lrAobckfyemgrFQKK/
+         FxrDeQE8cgBFP+Mg21zUJD/qwXJeBTCE2on3OLuBLKxXNY4ux4tgmW3fRiVcur4TLief
+         9CsabOFBoS8lrxQTB77bVDSmlgUw+jN0+o9T53xNxBeKWPmaauo7c2wHm3lteHrR5q0a
+         6czWLZ1JN/hFs08xV6RUUHGoyf55R7wRstwyI2RvsChABtG6McWDEFpJANG5XGaWuXBW
+         eijYlPXYiPQ/r8/OxCducJpQgfcDNQEXIio6hSiwrWjPbonXcgcSXp3VcmYr/ZCV/qem
+         U4bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793001806; x=1793606606;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oue2gY3N148Z5QjebnGzECChsQECIfu8P/sF36ovlgA=;
-        b=04cCOvpH6HoCFUo//R+sC5V0NrjyQI3PCHpd8Nwd9wRkqBNBqXPB41LTq9XHPzH1hG
-         VFr+XqJp8pZMZEsxqzbVb77v/WcYFBsp6F3p0mGlFX1FTH/HMRCl2kD4lNa71uBpv0kz
-         J4CXai2FhcWZNvqd3y4lOzy3wMcKGKqAIKZV0DE8kC9W1eOap31syeTcjM/sZ55uwd/P
-         2FQnpU5gr5Zgwmu+oJw7UFtphb98716yyIv/uqFvxqkH4J1ws1i4ybpr6gQqma9htOoF
-         KUT//N96VMU609PjOt2UnSNA5p+ctg7+OVD5t0/Hig6HUJbmEi02EoNJ2vkAGLbPWeEW
-         ODfA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6G8WosaISUL23zw06vyl5DDXB8Lkt9AQHATxhdoMkBLs8HKz63FmdUzPf4sGs4gwZIYcitkZKrf4vuA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLS4lwx/PrvCMAwDmY17wgMyPu71mGAc7DWQUz+BBGnG0/y1Ehf
-	nDZ9Z+fsyYEsMIlVRVoov9Tl8srWNV73AGxmg1zaydxCh8R1a3luLWTk
-X-Gm-Gg: AYBFou2Z9E57qsXd6FT4c8i0hgBvwyqNIfsXVSkqjiwHAiZTsMgMShArKElqpfGeQLP
-	d1ML4HWjhdeIKN8Gt1tGXR2BK6xw8jPTzkbAyZ0Th2HMF5TzjqLFmy92H0dMqphnRRvfJe7fMH3
-	POuls8EiW4KJSAw/V/772ffY4277VW1HCZPvpREkNyDT3omG6cNABSPF/x1t7YEo15miqAmJeXR
-	tMRHZWd1Nv4C0BuV4fBbstETLKT4su8rZOLk+ubcFrrdWnCpMXfKA6XA8JQUMYbuwvzS2jiUarC
-	HPvWNxX5OgUHMcB2au0GHyTA6/oR/hk9YI5UhVpJGHJy6mtbFt/C2/x3HNQz0ugivcr00mdIsEa
-	Ww18KJ0Rqdxi2TzBK1Oy0PrScxnyAVFt1QmqOKCTIhYOgxdclqkJCm+IeVHgVJepOqd7LuOrQbx
-	oLbSB4d7PtpdhLyb6zQjGPkOOcNWSKeGfCrjmRN+gyRPtQ0rKyZH6jK3xRTtFflz5IOS+RVgA2a
-	KCy0giPwJICX+7rpSA+bdMKlWrjqvKmOgiBFGy5+klp58XNS6PsGZ4VITWKlPPy/Bh/EYZ4K0K3
-	xZz3MYPhdMire05T6+qB4Wo5YvVMTDre1abBzTvBBcjk5yFNTKGfzmJJMdhEnV7rMHjQ7Ynuig+
-	wAbpJG5eZjALQAZV+k381VYbTT71YG6qqLAwffsIKBellyO/in9chwhYid80f9A==
-X-Received: by 2002:a05:600c:3f12:b0:4a4:7a8d:c436 with SMTP id 5b1f17b1804b1-4a47a8dc6e6mr85645335e9.11.1793001805868;
-        Mon, 26 Oct 2026 01:03:25 -0700 (PDT)
-Received: from unknown748F3CBA5068 (dynamic-2a02-3100-b1a4-1201-5c78-89f4-99d8-70d7.310.pool.telefonica.de. [2a02:3100:b1a4:1201:5c78:89f4:99d8:70d7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a35a04ad39sm473163315e9.1.2026.10.26.01.03.24
+        d=1e100.net; s=20260707; t=1793003153; x=1793607953;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3xQwU3ZXVkpG6YMTBCPOnzgaVBcLxcmMgkLkbyRVzIw=;
+        b=Eu8iOmazq0lsNMXqF4og6PCoeXlZus91I/CZNhr7wrjNEEEOTB/FaWHzVeb2Ej7wJ+
+         Ip3Z2czacOHirk0uiAWmwPkwXJRzYMmNPBwwrk0cVEqXYTz9fuR0claMt3FKWFvHQU9E
+         1LuMzqgHYN7iitMTo0G7zJttPw1toi5oHeMvqGfLfYdPiR+hbeSr5piZSoXTB2jdi07+
+         lpbLLwXsI/nFC1td5j9tPx9IhVAXYwiOG79Gnekft0OTLuEF2OBndsdVie/unLzSOsU1
+         NsFgMFXiYZWUoG0L/SSsOBCXNvgINi10le/ZVRE0A/b3tRi/D10rZm2HNS5w+QMWD8qQ
+         UqnQ==
+X-Forwarded-Encrypted: i=1; AKwUvByYhRsMfEAxHLTrrPZpE7yI8tvXuar7UpPDkxjVc44UDK8b5U9s8dkUeX7zBYf40dF6MLSX5TtzHCtxQA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeoJcT0s7IcuS9/GdfUNEhFNKZyIHnPyU0ftfOFKG6EyAWwDIP
+	ZUOSV3yCdHOPe3/lnBiLNsr7uPILRZWM916aAvQwWklZiMQskz+kx+I=
+X-Gm-Gg: AYBFou3Pk0WW+F1Sc5tADdUZ6Nel//FBjvzQrDR20JOKlvw3mSigjF/qbNEFglGRaW8
+	IMbpt/PMpyTKgT9vPILbMYWq98t98mq0B3n3z5fAQaA/23cHW0+7Xeia7jjTv9kFhXxatUm4bah
+	6NVOgFaWABpiFkAM6ylgC+iNTEV+yVvHvUzvc+YEIJgqJJzKtaqsYaB0O6DSnymybYoQCAuXKjh
+	M1W7ngCBmDdv7k/RTI5zASeVHLfdrwVN3hvC5r8oLPYEHehrDmhWQtQ4vdD6ZrWMQ3IVDpAqqVn
+	Id6TrG/wg1HEt2MFxnpQ8fXiyroQfxs4fh7A2+eM/ytff/0B2LJS5Yh2WgEwj/4NcHb6TkEor+R
+	4YHjkrnXpXvyV9OalwD/FonlW9F4Ht5M6VDv6YHOdf7I+ScwlB+zEEYEh4FQZCITcfcBz9iICdm
+	RjyAsG6ILRvQ5J4Euv/5HfygHBrOzt+6CW39orL958NvMEXU6aBQP4rtB+vAeMJkqcEXY2Pkxmj
+	qe/XB5pQ6iMjiQhNhPJfr3JNvObv+WCpIOz/dZf3BMxp2WYRhgWnDlCxyaB03eLwNQXs4LfbFFs
+	Uoq38DsX3bxK2WvT9QYvW22/F1a20fFe4KSP
+X-Received: by 2002:a05:600c:c173:b0:4a2:1a:a129 with SMTP id 5b1f17b1804b1-4a35acb9b05mr94608505e9.35.1793003152709;
+        Mon, 26 Oct 2026 01:25:52 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a359ff2189sm211058215e9.1.2026.10.26.01.25.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 01:03:25 -0700 (PDT)
-Date: Mon, 26 Oct 2026 09:03:22 +0100
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Alistair Popple <apopple@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
-	sumit.semwal@linaro.org, jgg@nvidia.com, 
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
-	Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
-	Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
-	iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
-	treding@nvidia.com, jhubbard@nvidia.com
-Subject: Re: [PATCH 05/26] dma-buf: Let the exporter select mapping type at
- pin/map
-Message-ID: <at8IQZ34wkHQ_5PL@gmail.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
- <20261026053623.202642-6-apopple@nvidia.com>
+        Mon, 26 Oct 2026 01:25:52 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	johannes.goede@oss.qualcomm.com,
+	dan.scally@ideasonboard.com
+Cc: mchehab@kernel.org,
+	fernandorimoli11@gmail.com,
+	lsa.uz@pm.me,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/2] media: ipu-bridge: survive module unload and reuse the software nodes on rebind
+Date: Mon, 26 Oct 2026 09:25:47 +0100
+Message-ID: <20261026082549.662885-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,61 +99,101 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026053623.202642-6-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 26, 2026 at 04:35:56PM +0100, Alistair Popple wrote:
-> +struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
-> +					enum dma_data_direction direction)
-> +{
-> +	struct sg_table *sg_table;
-> +	int ret;
-> +
-> +	might_sleep();
-> +
-> +	if (WARN_ON(!attach || !attach->dmabuf))
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	dma_resv_assert_held(attach->dmabuf->resv);
-> +
-> +	ret = dma_buf_mapping_select(attach);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	sg_table = __dma_buf_sgt_map_attachment(attach, direction);
-> +	if (IS_ERR(sg_table))
-> +		/* Nothing was established, so the choice may be made afresh */
-> +		attach->selected = false;
-> +
-> +	return sg_table;
-> +}
+Hello,
 
-The map-failure report from Sashiko [1] reproduces with a KUnit test
-against the full series:
+v5 fixes a reference counting bug that 2/2 had in v4, and carries
+Fernando Rimoli's Tested-by on 1/2.
 
-  pin selects B -> map returns -EIO -> selected is cleared
-                -> retry selects A, with the original pin still held
+A correction before anything else: in v4 I wrote that the Surface Pro 7+
+was leaving my hands and that the patches were compile-tested only. It
+is still here for a few more days, so this version is tested on it.
 
-The exporter pin count stays at 1. Preserving selected when it was true
-on entry makes the test pass. Patch 7 needs the same fix.
+2/2 as posted in v4 dropped the reference software_node_find_by_name()
+takes, on the grounds that the node is never unregistered. That is the
+wrong half of the story. software_node_notify() resolves a device's
+software node through dev_fwnode(dev)->secondary, which the IPU does not
+have yet when device_add() calls it, so it takes no reference;
+software_node_notify_remove() does resolve it on the next device_del()
+and calls swnode_put(). The reuse path has to hand its reference to that
+put.
 
-Could dma_buf_mapping_select() report whether it made a new selection?
-Then the error path could undo only that choice, without dropping one
-established by an earlier pin or map.
+Measured on the Pro 7+ with a module that reads the kobject reference
+count of the INT343E node directly:
 
-On the Sashiko failed-pin report:
-("Because the attachment is not pinned, the exporter may migrate the
-buffer elsewhere without invalidating it")
+  v4 2/2 as posted   4 -> 3 -> 2 -> 1, and the node is gone from
+                     /sys/kernel/software_nodes on the fourth
+                     remove/rescan cycle. Reproduced twice.
+  v5 2/2             4 -> 3 on each PCI remove, back to 4 on each
+                     bind, over 16 cycles, children intact.
 
-I don't think this follows from the documented contract.
-select_mapping() requires the exporter to keep the recorded type
-servable and invalidate before an incompatible move. That obligation
-still applies if ops->pin() fails.
+The decrement happens at the PCI remove, not at the module unload, and
+only the IPU node is affected: the sensors' own nodes (INT33BE-4,
+INT347A-1, INT347E-5 here) hold steady, since those devices are never
+deleted. A remove that follows a failed bind costs nothing, because
+there is no secondary fwnode left for software_node_notify_remove() to
+resolve.
 
-Is retaining the selection after a failed pin intentional? If so, this
-can be added as a test documenting that alongside the map-failure
-regression test.
+The series itself, on a Surface Pro 7+ (IPU6 Tiger Lake, 8086:9a19 at
+0000:00:05.0, OV5693 + OV8865 + OV7251) running 6.19 with the equivalent
+change:
+
+ - without the series, the PCI remove -> modprobe -r -> rescan ->
+   modprobe sequence fails exactly as the 2/2 commit message describes,
+   with -EEXIST, and the cameras stay dead until a reboot;
+ - with it, four cycles complete and all three sensors stream after
+   each one.
+
+Two things that cost me time, in case they would cost a reviewer the
+same:
+
+ - modprobe -r intel_ipu6_isys intel_ipu6 leaves ipu_bridge resident at
+   reference count 0. Without an explicit modprobe -r ipu_bridge the
+   module image is never freed and neither failure reproduces.
+ - the reuse path logs at dev_dbg(), so it is invisible without
+   dyndbg=+p.
+
+The asymmetry underneath this is in drivers/base, not here: a software
+node that becomes a device's secondary fwnode after device_add() gets a
+swnode_put() at device_del() that no swnode_get() ever matched. I am
+accounting for it in the bridge because that is where this series is,
+but if it should be balanced in software_node_notify() instead, say so
+and I will send that.
+
+Unrelated but worth flagging: Sergey Lebedev's "Add the Surface Pro 11
+infrared illuminator" series touches the same two lines 1/2 does
+(dev_properties[3] and the "lens-focus" name), so whichever of the two
+lands second needs a trivial rebase.
+
+Changes since v4:
+ - 2/2: keep the reference from software_node_find_by_name() instead of
+   dropping it, and say in the comment what consumes it;
+ - 2/2: commit message notes the reference counting;
+ - 1/2: Fernando Rimoli's Tested-by (Surface Pro 9);
+ - tested on hardware, where v4 was compile-tested only.
+
+Changes since v3:
+ - 1/2 and 2/2: commit messages cut down;
+ - 1/2: lens_focus moved into struct ipu_property_names and link_freqs
+   into struct ipu_sensor;
+ - 2/2: reuse-path comment shortened.
+
+v4: https://lore.kernel.org/linux-media/20261010155626.2766298-1-dmanresa@gmail.com/
+v3: https://lore.kernel.org/linux-media/20261008132614.2456716-1-dmanresa@gmail.com/
 
 Thanks,
-Karl
+D. Manresa
+
+D. Manresa (2):
+  media: ipu-bridge: don't reference the module image from software
+    nodes
+  media: ipu-bridge: reuse the software nodes on rebind
+
+ drivers/media/pci/intel/ipu-bridge.c | 34 +++++++++++++++++++++++++++++++---
+ include/media/ipu-bridge.h           |  6 ++++++
+ 2 files changed, 37 insertions(+), 3 deletions(-)
+
+-- 
+2.43.0
+
