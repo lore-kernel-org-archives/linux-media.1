@@ -1,120 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793021862;
-	b=ezvGy9odICyeEpm07yUQzYQnNhQ01eWA4R1/8LzsClv56rsXaCwjAxJfKS3NwCVVooTp
-	 gPmNdijox9lFrqeRJFcAmHPKZbZle4R0royl1B5Bvg1cIS0iDcXlGHH+q3eHPhSshF8hS
-	 KoKAW06sV+dXpiWD9mFrwS2dwn5JHhhcJKQXyaFwA+OTqxFloCwVolLATZsTYGIFZdMQ9
-	 WDt70cUNzfMi5DEDt6i3hgcFW5+V9zjkfZDHMNS6newGuL2m62b0YaBQGprEIrcq+m36Z
-	 D+ySKt+rjwvpBdNvqjhcEOFUtg268luegkz64uCpFv5qzTVBMO2qczZtLHxJy++jmFg==
+	t=1793021950;
+	b=bsmI1LCA5HLaZfyTrpUI7iPmrf9zf/1EvFvGCf9TeHNbf/eaTPUFF7nF+UZaXygiDs9r
+	 ixJrCE18StWPX6DRVgss/5b900j+Y+1M/9mUyCgXs8lrXxOYVJFpAlIlpvQc2wKra/xqI
+	 MzCNFursqmB3bf9o1abizcY7g8twbt72zcDIfvIukyy5jtaGoaLRpXsslLj8LBTe8Gc4s
+	 6AgY764aRraxnyV5a9QGZe4VrrqQNgYVTXKtfBOIqpTcM8vVxiFCDgp3pYeEBvzFAc8cF
+	 M5u89EBgRzPvzUX2F8hTbXMlTa6Wk44wH1LLYARhdOWTYokuKvV0IFChBDd0RohiFmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793021862;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793021950;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=RuRFymShgsilHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=;
-	b=LqPkBL6+1LvQj/WRy5owE9JG/GXQjm3Y6Y5gQFHQEoKbKBucrVQR00lEcd4lgbHQjU1/
-	 16m1mQ8tZtXTqSIeZf7JtWs3g1P2bbARoEfBcfY1+FwKrkd5ze5wof705aPD7JE3lR3bs
-	 CXelBkoZfFafppf/XJAvqtI6XNyoI1tWrdMlgIpPIOyyCoJgFNifY+Immn2eLkPjhCfdz
-	 RBUvHY1+6JVMfXGv2WixgIcYhqB5lfzjZkqHCLfKwV3FkFq3MDM30j6ozF2hnBcFf0arL
-	 nKjYQnj+wGX09ThrQ7hGsmUq1DEC/nonPby74nJCUHpS+QQARt8p/Zv3yBllwJ/5p4g==
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=0ku0n+AWyS068N8ZBaElNH97qO9hdY5SJN2t7eC4tJw=;
+	b=Ga8B67zgxoiIomMYva3+T+HCgKtEzLQzeVSG4yETAdQ+z2ByeUvulgKUHtxeaMV/3D4Q
+	 5welFss2jN8KME+qcj77+vgR5b/O9SWoZfbQBK0Y6wJdyLz0ITQqKmqL6qnf78X3LWUqG
+	 LnfRDhFy1Cmo4eUhoTdJ7MS1iyvUKUfq1/Q9/7/+eTuelWMND6JrYdU/2TID7J5eLuAIO
+	 +d7g+G/LOfDH9OtV3lDJNovs7yCYW/N9IXS9Elbfy+9SPzQ4OM/zWIBUt+eeRBx251nqE
+	 YZL9I4x91Wp1bSB9+rYl2L+/pTC0vqXBvcRe4QF7pU1TiXpLKGIsdporrtufpBtqMfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cBb+Js1J;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uq5BcEw2;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mLCwVPeM;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b+utxqYO;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3106072CC9
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 13:37:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E3106072CC9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5B15606AD19
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 13:39:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5B15606AD19
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cBb+Js1J;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Uq5BcEw2
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAt8Io4126455
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 13:37:42 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mLCwVPeM;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=b+utxqYO
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69QAtMdP2009940
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 13:39:08 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=RuRFymShgsi
-	lHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=; b=cBb+Js1Jgge4rwa4NlyBBYDN+I8
-	3hfWHZe3O2TgATdMd/pJfZLA1UmEPDgdjAz3slyXXnK0jMu9SM9lNpnN1xDC1oOm
-	rUoCKjBykCiOF5T2RnX16yQWjQ4jk4TG/mZtpozeHt+o7zqxUyY6t6Ig0MbUCqKM
-	4qmmc9c88rCWcjSGYdbn4VgkTjpzxLmyNpUS+8W8g5JnbHWs/KdGehkR+MgYEWdB
-	WI9tdK32Uw9VQq1hl2w2+zTDv4n8WNQy153L46qO47bVpHARDzscPFrWn2c5NIzQ
-	I+idRdcPp5A5Fkx1gp5ief3FV40bNoGCNB0YIaOLL+xP5LejWq0T/jIgT5g==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hhshptm79-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=0ku0n+AWyS068N8ZBaElNH
+	97qO9hdY5SJN2t7eC4tJw=; b=mLCwVPeMvRM/fvlW3h+5P30HlbQiwcV699Ln0z
+	bs8CTF1D5vzH3zDE7zTFmz+pkLkJ3fPEuXmLPp4ZGTrcnPs5gE85x4iGpsBbGKbG
+	8DdWHZP9iaQUTC/GkgzlrDtn/dgWu34g2ZA8oXHfDQO92gokOob8pkYSdc/oJFoE
+	jHWydzuYEt6qRRXmzVgO8efQV4o0O1669IHFfZBTtr9Dr0AJ1xC1qBfjBi5kjfS5
+	s8qR22tnOfHoN0QjG0UcJqes6K+BKoKMSSrFx682qn7E8fUxI+S9vgV9nty5W/G9
+	/N5lgW0AT0muPr7fZYElTsfQx9J53APiKJVsjG1oEhkMX9Fw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hgn27xm72-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 13:37:41 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5337f26ee19so54434171cf.2
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 06:37:41 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 13:39:08 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f322ef7d3so672055185a.0
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 06:39:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793021861; x=1793626661; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RuRFymShgsilHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=;
-        b=Uq5BcEw2rdrYvjKRHHdBvR7cj7rPh9PM1HQgSGGX2Qk9anwQ2mmabb4W1QrbkFwwaV
-         No3e5+dI5ysq0L2ylk9/BXFypaK3D9R7p8sO49wuGV2RMfuC9W1tRJTf7kBn5UUavug8
-         6aWNKnggoP5y8Vih4tG+803u90mV8Gghg/LwdX8XTgIiihx19pquB0kwQb+liIi1nUCN
-         c/hlt8IJKsom7dNb/F1UgrET+p4tUh58KwJzZ+izVeFDUvM4ZufSigB3tamlJfdZhG6c
-         tbSOpuAHCYAfvzjJpvCLYUf/8/26+8vxGMHuCZ2RbGpbZ7AB3AfFMOaYcKa3Uuet7MyC
-         gYIQ==
+        d=oss.qualcomm.com; s=google; t=1793021948; x=1793626748; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0ku0n+AWyS068N8ZBaElNH97qO9hdY5SJN2t7eC4tJw=;
+        b=b+utxqYOH0kRQUugC+B4wRTmAkddh8mZAT0qm7mQb5lYvqxw2MOZ7+2gL+t3a4GJ5/
+         680vzN7Jw6iWuL0rPbhEBeXbZmesyq1eRJNpIun0FghD7l4amILeeGrHtbxEeobPkdaw
+         lu2wI2/sxyIoqu9DFDBvdrtca64U4N2cI2y6mkzzd2Uacjx6y17TAbrtu+U5RvAE95p/
+         YGYM0KqGh9bsjpGQLPhGh/NJIMR2+dGmhgbwq0g8s6u6Ata19sTSCUon4hQhHsL2G0n8
+         sFrU/S/hHqWScfY9UdCWDQdzatGgf8Ldfp19q5t2rieqZVuBVgoVaW7rn/guuEhS41Ke
+         hC5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793021861; x=1793626661;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RuRFymShgsilHwdTJCHghvu8/w7kYi6eDSMaIMLmBKI=;
-        b=TIFR61GTSfY8SC2QGGdH4DB7/h9vm6XbAXgTYMzKf63ta+E1bhCRhJCbYARuM52y9n
-         6Wx2MG0XJ9wUbFlzh3mgfMr2OYPxYpJb7sE0eV45L6QBqDcQVd92VutexG1jCGX33dhC
-         NL7DJEafa9obETYiWQ7bAXMUzpzSq1fddF92fZFx7fyiES+aFAOx7P+DyuNXqoUdcfOR
-         awdnLgCn9XW7VlTzk0wRsWePi/XAscBC7+hGsBn0vMI1J8BasKcdT8MxEvrAArnHayFj
-         7eFgIdmv8FZv3xXPV67XD5t/98QM9tDZ12GTXIXp1BOgUPwrd+xdD29ewGvwEuF8IpPJ
-         Gn+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzNLDerIlh0iJRrUVnjQP3OTIWlsod1g/PqnlF0l9vm36ZG3+34srz/ST3lxY20jeITFKR94+e8f3WZ8g==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmuKlEU1VUW4YWhw/pe6o4bBHijyX7T9NThQPMQP6rOC3qEx6N
-	I4A4262O3/Vh1ZkZQtVfUX2WwUpN6mtODDHTuf3WZu1IXL70OkPxVeKnmF9LIVtVvWfcFytw+sQ
-	4LfvH/eDodeC+z5DrCBGUFyjqjYfM/l1xqB/ZnU8h3FIPD35W7NlGwTJCdIGgp9fNAA==
-X-Gm-Gg: AYBFou1oFRTfs+xbmmwB+GtFyIqIKZOhP0c8T6oD07+I1qK5AGwioUlzrXJuMMbeMND
-	s7lM8Cd5uLrFfFmnp/q7iQ1HXeG/iUW18vSH1jyxe1ioi46H8rnvHaERQuAgVmLjIBqEIGs2FYa
-	kCtecPTCtodDOTPJCu/YkhkJTrW2/7s2tkd9QbS8rMtE8Hr8F+rAXNneVok7EafH5sQXF3PSezs
-	DdU7FJmqVdRtrSmT4dZmj7g1tljDRahZraUBvYQ5dLk78ry1gMcIwR4QqoBDX/NtP372WwX2soh
-	9RSZ8ydqWC9PBOjqq0sMCN6X+jKwqaLK/MnHZmrOIysqQz5LFMUSdJx2ATl71aVFc9TNU+skzNO
-	DfsiHucSTzj8mdSLswGIfUFNF
-X-Received: by 2002:a05:620a:46a4:b0:93f:2f48:c9e5 with SMTP id af79cd13be357-940ef8c944cmr1071687085a.34.1793021860735;
-        Mon, 26 Oct 2026 06:37:40 -0700 (PDT)
-X-Received: by 2002:a05:620a:46a4:b0:93f:2f48:c9e5 with SMTP id af79cd13be357-940ef8c944cmr1071681385a.34.1793021860265;
-        Mon, 26 Oct 2026 06:37:40 -0700 (PDT)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f305sm15376512f8f.3.2026.10.26.06.37.38
+        d=1e100.net; s=20260707; t=1793021948; x=1793626748;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0ku0n+AWyS068N8ZBaElNH97qO9hdY5SJN2t7eC4tJw=;
+        b=bXhyfrvFrAxOk8PEzHr6rCl6H3sTgmBqFanIyOufQVwfHB040j0UZDDlap5E460H8Y
+         FmOuLuCZH/3WsYoDXRyD9iL8LJwh5JxJzLhAMNjlSnobMOqOgSIjdeH7pwKGa8DqbzCk
+         uLHmvTh32SM3QBKe+xPEwo/E3+WstzFMuKsfD9bu7pmsXTKSC68yhAAGTbRkMk1gj2Tv
+         XhG5Np1KjtJaSuXFh2/tIwx7rImnwdRdnmNfBYd4p7vjzuRhz0AYxTZBkPtMGVH+edgP
+         MxxCPPzctf8H0dVlkURvW/a4L5OJ1xgk+22DqtQfi/qspZdewWqgGk4s7Ad+oarQoBls
+         2WFQ==
+X-Gm-Message-State: AFq9FYLXuHS368Yu6wDVo9MpsdmAP6Oox2c/hNc3AhShTVVEbyEvfaLt
+	Yiak4eJe3OcaUyra2n1DFeoI7C4B/7HUk0Nfo08n7uRUrEP+4EbatkD/Cqx449IcRkt+oqruqs3
+	nYK0IQiLHqyDtcI7ix+BI9TxlvJ7UVeikNFUgLy2vrieKpzPr0HFvp2GjBT9bDvsp+Q==
+X-Gm-Gg: AYBFou2+wkcs5GDuC4A+LgsHRLBa+WNWtJoROQD0rXplhA3k+WEg//QNeWzAr4eLW6e
+	3cEg3UfJ3tRIhqUE1bTASfL8VhlixzSw8CMC0h+ywo5RGcWlylPYvcrqOkbeg9TeV0cIre7rOSd
+	/kEmdHCHMIhByGy6LBAvj/jWiyCqX8C9ToSSSHXEZuancVFX4Mq6ABXH2J0IXUcCzx7w/5BNkdB
+	LZuFaMJToTbGLflNnEmG6XQ3ho/rLVUHOpDryF790L51HdMH6vobsc86JvWknTOEh7IWB/vER+i
+	1K4UbyW+xpDHkcqdGUUtBT5YyXDvTI5VlX+Mf60WzY0jnYgomPA+jSL2Q9OBN9qX0qhkq6NBATK
+	c6XA/UH0dRA==
+X-Received: by 2002:a05:620a:700c:b0:93e:c12c:9b71 with SMTP id af79cd13be357-940ef9d9d92mr934129285a.76.1793021947801;
+        Mon, 26 Oct 2026 06:39:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:700c:b0:93e:c12c:9b71 with SMTP id af79cd13be357-940ef9d9d92mr934122985a.76.1793021947160;
+        Mon, 26 Oct 2026 06:39:07 -0700 (PDT)
+Received: from [127.0.1.1] ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ece5e4asm16285861f8f.59.2026.10.26.06.39.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 06:37:39 -0700 (PDT)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: atanas.filipov@oss.qualcomm.com,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v3 5/6] media: qcom: camss: sm8250: set the VFE AREG clock rate from the VFE
-Date: Mon, 26 Oct 2026 15:37:25 +0200
-Message-Id: <20261026133726.3249235-6-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261026133726.3249235-1-atanas.filipov@oss.qualcomm.com>
-References: <20261026133726.3249235-1-atanas.filipov@oss.qualcomm.com>
+        Mon, 26 Oct 2026 06:39:06 -0700 (PDT)
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Date: Mon, 26 Oct 2026 15:39:00 +0200
+Subject: [PATCH] media: iris: Unload the firmware before hibernation
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -124,110 +111,156 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfXwe0ILLWZZiEa
- 6SY4AC7r+rHCPtPs1Rymj+/qASSojA1pGm+6sbIt0ui0o3aUHNy/LZ363fu3lfQvAEE9cM3Gypm
- bvIXQiTaeAC92R6tvedSiOdzwzDTUFM=
-X-Proofpoint-GUID: 3iZv84ejgjJPpSMC_6rPwIOdb9i3zhAf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfX9RJYak4nGaIh
- ozsLeowuavgMZ8PcND6ZYWoYWTx62Mj3noCqMUgZdzSC2fRS3jMDQYXklKLYTqK5XU9RwYYIcyX
- tulG5DJAt9Uko4j+1DShinJSmFDSPMGgQgyy1Hv++OF0MRCAJ7uJLkBSF9W4f3gK5UNwnT+bgar
- wTHTM2RJjbJCdHb/BomEEZgWwU0E3YtNDPnriE7y20J5RnngU40oCiXC9+7F86ElzXbPRN3BJod
- JMMmJXqaI+TOh0qdS3T/bGFPrOWMoiH+ksEVda5ASYTbZBxXFW+tj90nxmgvXti80e1fc5h1F2Z
- znlXMJH11EA2ZH6sgTAeqXnyqVW7RDgVlq03rOxtzo1R5cq70OtJ0gIj7q3dJwINzLqMCqjiXWl
- gf42RuukHfb75sLBb9qRDQSC2busADIj61A0dMYwz5/ok4mZxQSlP5YhJTGD6Wa4+QSg1+b2xKN
- gwHoDzEcwsVQ5bleiKA==
-X-Authority-Analysis: v=2.4 cv=HZWB3SE8 c=1 sm=1 tr=0 ts=6adf57a5 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=QxXRlGHHTI4QcL78iLwA:9 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-ORIG-GUID: 3iZv84ejgjJPpSMC_6rPwIOdb9i3zhAf
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261026-b4-media-iris-unload-firmware-hibernation-v1-1-c1af57ac16b1@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAPNX32oC/yXNwQrCMAyA4VcZORvoOpHqq4iHtM1cxHWSbCqMv
+ btVj9/l/1cwVmGDU7OC8lNMplLR7hpIA5Uro+Rq8M4fWuc7jHscOQuhqBgu5T5Rxl50fJEyDhJ
+ ZC821gsfOUQicIrsAtfdQ7uX9e50vf9sSb5zm7wC27QOpCOBMjQAAAA==
+X-Change-ID: 20261023-b4-media-iris-unload-firmware-hibernation-930a88ecbe08
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3166;
+ i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
+ bh=8kyPkDfI6goc5Kr9jMIvZXHilfKwZ4176ZzMJD7CRwA=;
+ b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBq31f4TjpkujEUP9uK28XPMCxTt4dz5qRdn6JeI
+ 2hT1TpUrFKJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCat9X+AAKCRAbX0TJAJUV
+ VqDgD/9NZ0deArMjTnahK9H7mCyQGnu030zgWKjouuK7fjU4f4INDfWo6FRlzv3sbWBonF+57I6
+ qx4LcQOJC+eXOvUnJ/W1sY2B9Ctvv7LSPo7X1fajmMmlFzq+If0MEkEUg1pC3aIAdc+4DiI9vFi
+ sGiyuBiA3gS718PYmwURqTnejPNNAOD+tGJeMBxDEP1URN8li6iEzLQgTy0vzxGyA0qggXCNl10
+ I15oKbm6UXsCGDYgggNBm6yLgMP49EkVaZoM2pI50Y3JhcAS42MemqV7pSy1yznqsGEg3Op/kbh
+ vZ2RA3wS7cji/zoN7HB+oAH1YeWmnwoM6+LcSzcSsdAezZ38AmirNxqEAKu+/cCW2s5ZQwyX4EH
+ k/cqEAPr5pbBrOulINF7oqVtCoeTHFji+SNDDsuLzI7F+3xpfxWDMsIUk/FKVA/6/yBND6BNo88
+ PpAJILS1h5FMFCT39gM3jVX2kdskAOTvX0rHoQJV1wArXqE6vk7l85PC84N4UHwZ7swnmSBa1Mv
+ 1M0yjs6XIBJrDgG4VveB6PhJO4g+apMCQy3yjI20Yb4sHkOG+JwrudfvCVrsvoRxu01eJdtj/q1
+ Aoq2tAIBU+hS/mVor6NISBQ+D6JJHICE/n93/HXNKwa20VhwYOg7mE8LLoarvxlH9lqKzmhNLi6
+ WkuQKhQE6NJ4flA==
+X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
+ fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
+X-Authority-Analysis: v=2.4 cv=G7GJgNk5 c=1 sm=1 tr=0 ts=6adf57fc cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=kFMsFxLcyhbFiWjYUuMA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: 746skoPBZWT2jA7SA3_YIRq02oJQdRtL
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfX8BNWMkEuIgC9
+ BoHXFXG8kEhSD/WUI1yeDH1GoaFcUtYMC4VLWNkPVJ3gGOXivfu9oQAYtviQaLvqAgvmInbxarU
+ pI8GldIa4vhV/t0hu22TMsnfS6QKsds=
+X-Proofpoint-GUID: 746skoPBZWT2jA7SA3_YIRq02oJQdRtL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI2MDA1NCBTYWx0ZWRfX5g/WRcBSLHp9
+ jYXfaJrvoiiV3rWgV2gc1gIwM8iqlLU4/2Lzmvvej0+ffBHEaiOB7H9Vw8lqV/jhRoA/2e828g3
+ 54mENZeO8/1HrLhcgIJ+C+Ft0HtTCMJwWHkfurxqWKv3W1QJernK1V79cC5dUjjLFNnYlaVRphI
+ gCz/VRWLBDjMaxgPw6KCH3uaH8JwlJHdDlKSLeKxBaBS3l+p2tGlNSrkX7Ky6ngc264DHPyOiEX
+ yoXq8d4Wy/X+8m3YIj5JiAogEiS6VJ5BRhUyR9v5ygNKJ01a0FcWzEpbzOj/5OuhxC4tYGWQJyF
+ +85M83dFOXJ5ja2lJid9E06/A8TOvJpjVDXu9rbe5YddL8ICVfqATS8KlZGP+lSvjEkTx43rTkY
+ Ba775ysGPtgniELzcmhX4fI/EAQyP2QowGvSvWIeQvSYVpzzwvH+o6BVL/ArefonAPI8jIofzqo
+ LJp9SfRu44rQ1LTzAjA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-26_02,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610260054
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 spamscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610260054
 
-The SM8250 VFE AREG clock lists four rates, 100, 200, 300 and 400 MHz,
-in both the VFE and the CSID resources. The VFE only enables it, as
-vfe_match_clock_names() does not match the AREG clock name, so its rate
-is set by the CSID, which always selects the lowest one.
+A hibernation image is restored after a power cycle, by a kernel that
+may have loaded the firmware itself. Neither the firmware, which lives
+in memory the image does not hold, nor its authentication by the
+TrustZone survive that, so resuming the core from the restored kernel
+fails:
 
-Match the VFE AREG clock in vfe_match_clock_names(), list a single
-400 MHz rate for it and drop its levels from the CSID resources. The
-AREG clocks of VFE0 and VFE1 are separate clocks on the fast AHB
-source, so a fixed rate keeps one VFE from lowering it under the other.
+  qcom-iris aa00000.video-codec: failed to resume
 
-Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Make sure the image does not hold an initialized core. Unload the
+firmware before the image is created, and before the kernel that loads
+the image jumps into it, so that the next session loads it again. Keep
+the system error handler disabled meanwhile, so that it cannot load the
+firmware again behind our back.
+
+Refuse to hibernate while the device is open, as its sessions cannot
+survive this. Failing them the way a system error does would let
+hibernation go on, but would break every open file handle on each
+hibernation, without userspace having a chance to tear the session
+down cleanly.
+
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/camss-vfe.c | 3 +++
- drivers/media/platform/qcom/camss/camss.c     | 8 ++++----
- 2 files changed, 7 insertions(+), 4 deletions(-)
+Prepared with help from an LLM-based assistant.
+---
+ drivers/media/platform/qcom/iris/iris_probe.c | 44 +++++++++++++++++++++++++--
+ 1 file changed, 42 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-index 30504e614e4b..d38491a845d8 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-@@ -907,12 +907,15 @@ static int vfe_match_clock_names(struct vfe_device *vfe,
- {
- 	char vfe_name[7]; /* vfeXXX\0 */
- 	char vfe_lite_name[12]; /* vfe_liteXXX\0 */
-+	char vfe_areg_name[12]; /* vfeXXX_areg\0 */
+diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
+index 41dec90f3e2b..ea77c573b333 100644
+--- a/drivers/media/platform/qcom/iris/iris_probe.c
++++ b/drivers/media/platform/qcom/iris/iris_probe.c
+@@ -411,9 +411,49 @@ static int __maybe_unused iris_pm_resume(struct device *dev)
+ 	return ret;
+ }
  
- 	snprintf(vfe_name, sizeof(vfe_name), "vfe%d", vfe->id);
- 	snprintf(vfe_lite_name, sizeof(vfe_lite_name), "vfe_lite%d", vfe->id);
-+	snprintf(vfe_areg_name, sizeof(vfe_areg_name), "vfe%d_areg", vfe->id);
++/*
++ * Neither the firmware nor its TrustZone authentication survive hibernation,
++ * so do not let the image hold an initialized core.
++ */
++static int iris_pm_freeze(struct device *dev)
++{
++	struct iris_core *core = dev_get_drvdata(dev);
++	int ret;
++
++	scoped_guard(mutex, &core->lock) {
++		if (!list_empty(&core->instances)) {
++			dev_err(dev, "cannot hibernate while the device is open\n");
++			return -EBUSY;
++		}
++	}
++
++	/* Keep a system error from loading the firmware again */
++	disable_delayed_work_sync(&core->sys_error_handler);
++	iris_core_deinit(core);
++
++	ret = pm_runtime_force_suspend(dev);
++	if (ret)
++		enable_delayed_work(&core->sys_error_handler);
++
++	return ret;
++}
++
++static int iris_pm_thaw(struct device *dev)
++{
++	struct iris_core *core = dev_get_drvdata(dev);
++
++	enable_delayed_work(&core->sys_error_handler);
++
++	return pm_runtime_force_resume(dev);
++}
++
+ static const struct dev_pm_ops iris_pm_ops = {
+-	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
+-				pm_runtime_force_resume)
++	.suspend = pm_sleep_ptr(pm_runtime_force_suspend),
++	.resume = pm_sleep_ptr(pm_runtime_force_resume),
++	.freeze = pm_sleep_ptr(iris_pm_freeze),
++	.thaw = pm_sleep_ptr(iris_pm_thaw),
++	.poweroff = pm_sleep_ptr(pm_runtime_force_suspend),
++	.restore = pm_sleep_ptr(iris_pm_thaw),
+ 	SET_RUNTIME_PM_OPS(iris_pm_suspend, iris_pm_resume, NULL)
+ };
  
- 	return (!strcmp(clock->name, vfe_name) ||
- 		!strcmp(clock->name, vfe_lite_name) ||
-+		!strcmp(clock->name, vfe_areg_name) ||
- 		!strcmp(clock->name, "vfe_lite") ||
- 		!strcmp(clock->name, "camnoc_axi") ||
- 		!strcmp(clock->name, "camnoc_rt_axi"));
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 80eab898611d..911ceb7202ab 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -2053,7 +2053,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.clock_rate = { { 400000000 },
- 				{ 400000000 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 0 },
- 				{ 0 } },
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
-@@ -2070,7 +2070,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.clock_rate = { { 400000000 },
- 				{ 400000000 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 0 },
- 				{ 0 } },
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
-@@ -2128,7 +2128,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 				{ 19200000 },
- 				{ 0 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 400000000 },
- 				{ 350000000, 475000000, 576000000, 720000000 },
- 				{ 0 },
- 				{ 0 } },
-@@ -2154,7 +2154,7 @@ static const struct camss_subdev_resources vfe_res_8250[] = {
- 				{ 19200000 },
- 				{ 0 },
- 				{ 0 },
--				{ 100000000, 200000000, 300000000, 400000000 },
-+				{ 400000000 },
- 				{ 350000000, 475000000, 576000000, 720000000 },
- 				{ 0 },
- 				{ 0 } },
--- 
-2.34.1
+
+---
+base-commit: 20a33c6b6cbe7e4805dfb6cd68816937443aa148
+change-id: 20261023-b4-media-iris-unload-firmware-hibernation-930a88ecbe08
+
+Best regards,
+--  
+Abel Vesa <abel.vesa@oss.qualcomm.com>
 
