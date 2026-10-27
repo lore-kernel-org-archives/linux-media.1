@@ -1,96 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793101930;
-	b=2YtBuHBrsgLH3UXk7554SmpdXuuM1GcHWou7wiaLMvsiHqCiRdG4fttmQxqmx3OOf0TC
-	 qFBaFXmv/p8cwYeTVyK4k22ntrfgUQBzotZzv5OfHl2y6I9kneITCJSSf+jWcKebs+brA
-	 W8yY1Ym4oTTwzdoml7TRGULTgz484fllOxJsZflW8I5bbcfgcEOJVNWN8k543kNWGwOYi
-	 FIkJVeuxIE6lS5QVXOcHJD2YoDUG8V4IuDHNpiDqxx0RXgVua7NwEMFn798h56Gs/NC1E
-	 nyx78oBq2tiIvi0BK9IeOyXemxgBaOdddnyK1zLPqOiEG7luMxALBvgEjF4Yij/Kjyw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793101930;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Kxt+qCO1e5YJyMPr7jhe/tSp8GNBclL8zqh8VLZYqok=;
-	b=LWOjKJUdGF2CpZeL1zCkJ50D1tCAUKpQjhZiS5WsLwLHMaasUPR7ZeLWkG+5iIWNaJbK
-	 4V89NgsRGxH8nOYhVrFZ2fJUEunkqjjXTLDXXjXhWdFML4k9UmuhPr1X+uiCbD91dCoRk
-	 alfQS0B8tU7pKODOnT6XOqnkqwUKnXZwEBJTSRGPnTZzSF4vNt15vjnEWje9HPOfGdsCi
-	 nm57qDBR6Fr7ynO6BzYCzIy57bF5V++Ph/TiAhttKCa9y+FeSjDmCjGmQ3/pIq9v20EtJ
-	 rPuTEavJgEBMfZvWyzLVaISB0OpPgmsWcanYTwAecYP2DuokXXDilPV+ygu3Cii/LrA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M7yW6w+q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.31
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012031.outbound.protection.outlook.com [40.107.209.31])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793102336;
+	b=swvoaGAWfYbXWBM0jHyCURj0GhEeUplbOW+EhD5dYYjKnTj3z8BH8Ht9kY52nBOTUMib
+	 zh+xLMMu25Ubk8oq2ttUfjYznUjMugg2uR0u0HVtb5EcLL74flXLvHBtxVULLCfnM5RR4
+	 f0kFpG5QNgRs1nFuzAPpD47bwn/yJXkBmR8T+KA4tStz8aWNlMIqNSjRtJO3nqhba6yi7
+	 UR3VLpclzbj7GX5r/nBx1w9wk2iMKhm2Rr89ZUhTHIh1hUMwyhjq68+Yd+HMWszNqeiqc
+	 0SklRhF4uz7OecYwZ9W1U+eiKIsG0WVdBMpnBKBptldQmwzAInvZ1cM4MR0AqzuPJIA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793102336;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=;
+	b=fgspoj1YOd51/vlILuCjmiUXdCazqzW48IO9TgfEGCGx3I12lgrdGmZyj/7KTfxkW0uO
+	 PPS6gnOfENZwlvbf9tEZXPGlmp9dWev/uPe3S4kRG/bPV9lGOZUnylQ4X6e56FP15U/xY
+	 Z5G8eaPfYFT6Ry1Z5MurKBTLvmwECvW+8n050tIYsuVf5AaBI/DK3eBrJ7GQ2TEiQ7gOf
+	 r+0sfMlFYRwZDsxgrvU578GcbL9Whci9HVhj1MdlCbON20JY/Gfs5HdiIYdGdQ4LzwnUU
+	 +ym61j7Jh05Yc6lSwmZOKPXX2kXqMGr/hQ0u+eXUVj3YawxZxLRaL3aXcLhqF+U9SAQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kBfSKDWU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YSMKRUSo;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D508606A31A;
-	Tue, 27 Oct 2026 11:52:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D508606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6647A606A321
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 11:58:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6647A606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M7yW6w+q
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Atu5CaX5CvtMHgpB4XaGK0kTMd4mnaOBcXKPiQfYeBPvd+FBTnETyIvLOetX5S1l+yOjvRSYkktXwAhjLzjhyRN9GqOzUw47I/KKmhTHGTTZ1A921+klq8XWr8lmOs/6aRdlbvSoxImgKQlnLNypzXyi/Sbr6UyfSxZWiZwnwV7IC0qyEMQmSEvOcWeVzr0N84cw9CbCsjZUOJQ4vic8bEb+Y0/J9d2afpar03KYuRhCuBhpAuUik9IoK88eR7ou4NJcqqPZumRam3tHXVdih6r1kZHZCneibKpXjost1ekAHm/E4rNMu35M1M+GCaD3+L6c9pC25ZcjenXkcxPjJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kxt+qCO1e5YJyMPr7jhe/tSp8GNBclL8zqh8VLZYqok=;
- b=pDwBEn9nqel4kFGkRsIq86tVKIWE0cmr5HXWRZT0UeWNusUBbv/prDy8rRaw74XueyGUu+DvxggRJegvaq9vJK9jyGrS7Dlv0U4bXjP3cN0TfuMNpw/0stwmH50gpg1ih8v5yalyH0xOjTR9t4Jtf2jYm+Ll4cDzPKNCmH06Jcksr6StohzN/tmX6DynGrBzWzxFu7tSkBQOA5fgFmpNrcroD3/k46wQN47ymwhI0Vcmp62Pm2ZQibmOZu4aSoiYg5a4XkVu5vVirDgkoCQQcrwHytYdCHUwFe9goZCMGR2mNK3F3YXMELjc+6fbtuOj94dzjrOrcn6FemrWt9y6ZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kxt+qCO1e5YJyMPr7jhe/tSp8GNBclL8zqh8VLZYqok=;
- b=M7yW6w+qSeu1p2c2b22AEtUGCnbyOzo928ZXq3eZrj7WK6m9W6lQdHGYszQJp2g1rOowsIsqrXjEhpb+wOvQUJ8UTvrIY5SjHaDpvuTyL+Orkrpozxq+NwST2WvEDBoNNQ9YWSKatkEc4QtByoydoojRImiwO1JOGwwcCXJBXRk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB8108.namprd12.prod.outlook.com (2603:10b6:510:2bc::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 11:52:07 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 11:52:00 +0000
-Message-ID: <1ed5c075-c66a-4144-b23b-a9d80e1fc2c1@amd.com>
-Date: Tue, 27 Oct 2026 12:51:56 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Harden against potential deadlock
-To: Felix Kuehling <felix.kuehling@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-References: <20261026141541.469727-2-phasta@kernel.org>
- <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <bcd63af3-d2ce-488c-ab96-2b11536cd50c@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0358.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kBfSKDWU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YSMKRUSo
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69RAeJe81427419
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 11:58:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=; b=kBfSKDWUMiXE2MWx
+	UfYT9MTCvVbTk9XVkED0JWhz24h90TOvx3quBRZyIGkuBmeOcLVAASYHkSPc5jd9
+	20OL1qOFckWZdVF22xCb4DHsImDKQJ+HY0gE9Puoq8vfCxMql1dRBYs6BmAlVWkH
+	RckL2BFQH4slxrpmXRzhtbMnE3opd90cHsq4rPjmX5givw+9B3vXRWeJObmuRz6N
+	eIczvP7UgFt+gMQysBziSYzWN+aCk2AJj+H9AcxTNT5TBbx8jcMrNpGfkkboZj58
+	MM8fBhuJ041bi8ILWgKK1X+7Svs5sFcPpxWAhjOsO50G+lKkwvnJnlDOD4CQpqOn
+	EscHRw==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hjbmmbeq4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 11:58:50 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-99062be02ddso624830241.3
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 04:58:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793102329; x=1793707129; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=;
+        b=YSMKRUSoTN6aZOeO30RSSBlTZlAakUihClrYYK2jR/b1TGQ++0B6/4BB+BruxdBJp0
+         rYf4Z322azPRXU+ydtKwBLhjblFlF0aceSBWUr3CcfKKmAOKahGk7HFUYSZrwYEbwcDY
+         CpWTPc3o1PKfLR5QbkU0TMHc0U9Vt/oAfYRWQmv7/SbdVzaGcj7RUcZz3Tek4Pde2BeJ
+         dRhNFA1RtKkCmXk+pOvDD7UDsPD98+pR7TEogjOGdnvOMmPd5W+E3K5QHvuy5FQX7h1/
+         Zkf2wU21333XEZf9UyUto5+2dC3Erl94Hbb2PqA7qSpWvjAl+OZqNwpO3SPKHVSovJx4
+         n31g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793102329; x=1793707129;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8WFUrHNWaio59C4MJug1pehFmtY/vUi9V1RMigc1CXo=;
+        b=F3Y6CrxWJ/1A1sAu8sBdOMUJ90bb9w9npXByao1BY0A+uNei6rlRlqobCX8n6HCBBf
+         uvO8hqtNdsfMRxnNz8kEPIizoCroQbUNEhdJRq7IMKnez0A3BMQZ1Y2z7+kb7Xc1ZbA/
+         9fBIojWjkZEsFWPSfn1Fv8gqc+CKeJTcF8lsZOsz7/WnkoTOFx1/lwcFJxA5Rrbs3lGg
+         Wd252U5MrQR0JeWy28TSkscRwnlDKzH9RaLh84ZYVZtNaPB9YqSSMANUZToK1zhMeMoo
+         5YYj4qFboCIjUBl5/BYNbFqACSoglI4/ERgRe6GfcdLAaqZ19BQ1wvQ532mytN6LpRgJ
+         P5kg==
+X-Forwarded-Encrypted: i=1; AKwUvByvJUIIxn7jrq0hSAnetilP4La7ILudO2ko0eqkvsHFD++vf/nXwJDtC5n1I37JvLrDShz5+SS14xcMSA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLo62Gp8s4pacIVea+qPKr3Rop2D/k7iKK3IARKb2j6WEREeP1
+	TcGXkFS7RlAks9HcN+v7Rga3hOuX3F1PKgoiTQHL6xgN/nx/NBUtAHka/N5ix9gp/H1zubdyngp
+	XRkWOVYlqBWRHgD4//Rm3bCyz+q7rxGTAEAYRrN1OwrhD6Izhn0oX24hOQeYP4bUJDQ==
+X-Gm-Gg: AYBFou1/6vlIKahWAJK7HGzmOPonBRivo3RR5EJKEqWOwWnoLO+hie49/vZgTPdXdiR
+	vzq+sG9Ct6bYPj/Q5TN2zJXvZFYn+q5WXseDK8LdrFHrAb+qMovSlUK/2ff/MgxcreicrirGoPr
+	BkSmt6cWJngAuRsRwRnnSG0dHhLoRUQZztCfXFkrW9avhhJUd6QjdhMXWQ4Gtt2qvhpaoWXDG8w
+	1t63j5IPUQr2OHGiwMGYCWWmVr0M2h11USFtJafrByk4y0rY/86INMVRnIRPAfnCpNna0ucdPbF
+	BXMPkpYQy6HTiJvjONuGabb0JssDWkLdgmWnIDCmNGbSlLC9HhFLy0WXsgzD9YyJ46mZPb0TmOl
+	anV6cB8yltiPuXDWaeUeje71gmkDgL2mrlq5jinEPrYDVkwK6GotYV99MkA89moDIMSxzR1mfu6
+	ZhThopwmj0wall
+X-Received: by 2002:a05:6102:2ad2:b0:7c3:875e:593b with SMTP id ada2fe7eead31-7ce5ce246dfmr3089873137.32.1793102329183;
+        Tue, 27 Oct 2026 04:58:49 -0700 (PDT)
+X-Received: by 2002:a05:6102:2ad2:b0:7c3:875e:593b with SMTP id ada2fe7eead31-7ce5ce246dfmr3089855137.32.1793102328285;
+        Tue, 27 Oct 2026 04:58:48 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfb7a6aca4sm2092776e87.15.2026.10.27.04.58.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 04:58:46 -0700 (PDT)
+Date: Tue, 27 Oct 2026 13:58:45 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang <jasowangio@gmail.com>,
+        Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Flemin Jose <flemin.jose@oss.qualcomm.com>,
+        Mahadevan P <mahap@oss.qualcomm.com>, virtualization@lists.linux.dev,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org, iommu@lists.linux.dev
+Subject: Re: [PATCH v2 00/23] drm/msm/dcp: Add Qualcomm DCP display support
+Message-ID: <55uzx3sa4jor5p7i5erhyuangyfvc3ssp5rgelagk4ysply2ip@3x46t7swwj56>
+References: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,134 +147,175 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB8108:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a31acfb-5dfa-4c33-5256-08df3420b600
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|261009223027099003|261021123027099003|261022105027099003|261022075727099003|261021121427099003|10067099003|56012099006|261026140227099003|6133799003|18002099003|22082099003|261026121527099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	51C8fR19QL7D1PhsH7UInpSRwZXawiZI3tjbPhllxQTQ0d6JnmrdoXtX8j64jF5phQG8e+ZWTsy6kaYlj8so6ZEMZs6VRXbxVWxlFByGCLkf/fr7lzZpJKJv/vboVNHJZCZ/BLoR5qNigUDg/G5M46riF54Q9+0j2qQk6/6Yd4DBtFRHvW3x/GW+g+KOkUduyHKp/3enUZ5fFYumzFfQM9jpghvhHo6FmddZ6AfAdLovBRl7iyly10jd22s3O7pYJyMO1u+6WDWZHd8LKG52uyBqE0ATgzBnFFySp3+qs8mJ9sB2r0BywSP0sRqbErSWgEaIfiCtdtNdusLCNST2vzFu85jDZyxjDg2tQ5ftTyQffkII35Iptc7mYyIfUfx0KhkWFu65Nlk2tiz93dn9mGaWCtr7LcJQHYljhmjyaCHghCmZndZW/u0D7LT/Ed55UTBfL8ZNzafvyXfFc0Z0M5GI+J1CPKOg8aoV+Z2aLKZgXeaRfteL2VRgCRhh/+MnKtqJBAnP1lH2o1ZIzl5uspgXRcIBLS0G2az4txTTP6+awE/hObEGNtap1adOC27YmQTF9uQ5S4wVYtU935Yy02KU5BezQKGGQZunTA3caS1QDRS5WIG7C9AqjP9Eyv3q
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(261009223027099003)(261021123027099003)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(56012099006)(261026140227099003)(6133799003)(18002099003)(22082099003)(261026121527099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OXh0TGl0Y3l0c2YwckVzcGJISnNpaVpYZE84S3FQa0JXZzBpMCtYT1lMMDJL?=
- =?utf-8?B?TTcwYnNiM2I3QUp2WW5vZEdCQVBDTE5Yb2U5LytlaUlON0FOdm00TDA4aFQw?=
- =?utf-8?B?eWJjVnp0bCtob29jZDhuelAwUDlWYXpmQ2N0b1hZZW5adThzdVRZMlRYTlRF?=
- =?utf-8?B?a1VjR2o5TloxMC91MjUvdzRWVEJNTEtnWmxIN1dlK3BNZ2JyZWR4bkhjSmdu?=
- =?utf-8?B?VjJYRUg2R2JaOEtOQVZGYkViMzl6MW4wc0VWb1pmZzg4aVNtcWN1YWsyakRy?=
- =?utf-8?B?OXRFdmJJNGdjbHdXMjlWak12OWVXQ2RSd2RkK2hIOEs1TGFVT0V1eldEejBu?=
- =?utf-8?B?cGh0dlMrYlN0Znp6WWx6VkJSK1FTSGNSdjRDUXNUeUFVTVpxZUVwSlRpWk9F?=
- =?utf-8?B?OCszc2N1TlRuRkxoUVlSWTY2WWcveVJ0MFZkbURnaFRZYWlLZEdIMlZZOU9E?=
- =?utf-8?B?WTE1d0gxdFZsU2U0TkRQbm53SzhYNU9XQk04bHBYZ3U2OXIwQUpTR3lzK0tt?=
- =?utf-8?B?STZBbjRRc01GbWp0VmdVWk9xVERlTk1tazJ4bm1QZE5vdXlvK2xURDczRjZW?=
- =?utf-8?B?RWFHYkFQdWQ2ZHBQNVNFYUlpWFVVREN1cEJRMmFUMGVjL2JJNzNOQnNCdTJX?=
- =?utf-8?B?Y1drb1R4Y3d5eDlSNVR0ZXVnT3M4WWlwODBOa2ZYRllhN2M2NFZMdU13VHp4?=
- =?utf-8?B?dlpBY0tUQUxzMTBoT1lDUS9KaXdCU2lPMDlzaHNnYWZzNDVZMVpXTnJ4dTFm?=
- =?utf-8?B?T29VSnZscm5NSXByVHVLNVpueFF3c3NzUm5yS1VDdWNrWmV5WGVsMzZEVjFH?=
- =?utf-8?B?VnNVK1hmYUhOcnRGcnc2YUs2NzFPaXpkVXhZc1lFbmlrellqZk5keGFrak9x?=
- =?utf-8?B?VmxsNndOUTFEWXNFUUJLWnNTcDJTR1NzalJQZCtMN0NBSmR2eFlTRklwNjBw?=
- =?utf-8?B?em5zOS9UMnQwOHRGR2xwek1wcm5Ickl0RGptUVp2bGhXZlhmclVsZ2V1OXhH?=
- =?utf-8?B?Y0grUjY3NFAwUTVCWlI2bUoyVGRaSXBMUEp0V3BwR3dXZEVvVnc4T09xMGZP?=
- =?utf-8?B?OTNSYUFnSFlvYkJTYzBoa2FQQ2U0S0ZybVJXRmFwQm1DZkNkUlpUQkpwTUhN?=
- =?utf-8?B?a01BNzBDeTRNcVcrNjI5VXZOTnhSSlE3QjBiK1E2YVlhd1lYdHptVW16OTFu?=
- =?utf-8?B?TWJ0Z3FKdUhjb2ZIajhrVGNpS1ZpRjducFlsdE0xR0haZVQ1dTZBdE84SGxV?=
- =?utf-8?B?V3l6QVRCVVFSbEM4dU8yTnl3MlJwak1KMjJsaEMwNVJLZ3pCUDdvK2xBUlRp?=
- =?utf-8?B?Y2lENXBwaTd2eE93LytIck5PNHBHS2RISm9IaTBpaUtETDUxRnUyazB2SGUz?=
- =?utf-8?B?NVoydXEwOVhJTElhbmVYa1JBRS9RQWJDYkNTOE1TL1VwVHpHcGtxaFU4YWJN?=
- =?utf-8?B?bHFpU0F0dUllY1BXdzROaGpFVTZDQmhVQVZ0RjI2SFNlVTNsY3B3WEx4Si9U?=
- =?utf-8?B?TUVRSkZibVRENEVyb1hrM0hnTCtic0tLSmFURTdNY1hTOHRzeUZ6NitFMWs4?=
- =?utf-8?B?YVpDSGY1S1NhQ2FrTlhBeDR6VkpobUNxQ3ZuUGI0bUlxL2pUWkdlYk96Mnc5?=
- =?utf-8?B?K29peCs3a1gyY2Y0VCs3Tlp1dnVsWXA1N2J1akZBYUZ4cHdER01ha3RLaVJB?=
- =?utf-8?B?YkorMnp4cEFQSjRVajU5T3c2SWxkMnljd25acTF3V29hbm1uVWhLSUtwTWR2?=
- =?utf-8?B?V094QThCSUR6bk56dVZ4ODdGYSszOXMvK0Q4QTdiQkpEb2pRYVlnbUFhZUx1?=
- =?utf-8?B?NGoxYm9HV2owK3JUMzI0VUdLSko0Z2gwdHlXeEFqNnZyNkNqalBkbXJUSWFN?=
- =?utf-8?B?QU04VGpYUkJDWXpINGlaekFNaTVac1dqYy9rekl5VFFubkdRbUJEQjRkU3I2?=
- =?utf-8?B?Q0ZCbklreUFnckdpTmZPRnBSNnpxSHNwTEM2TlVIaWdRdW9ORzd6YitBMHZ0?=
- =?utf-8?B?UTZpQTh4M21CVmp6SGhHT1JYb3pVTHRrUWExVmpvZVNzYVVEM0w0Wm9SK1R5?=
- =?utf-8?B?MldBeFdnR3B4K0V4MXFveThBVm5FekQ2OURsZ3FoUkg5eFkvWFdWRVNQTTlS?=
- =?utf-8?B?YkE3L21rOGZyVzZEeXpTSnFiSmhaTlpVaDA5U0JNRGU3SUgxOHdmejRsUTRM?=
- =?utf-8?B?b2YzbVNlWjE1Zjh5STV0N0NDMGtWYXp6dXBsYWFZU0FxeUd2ak1rQ2VGNW1L?=
- =?utf-8?B?Y0hHOElkOThHSzNxMVlBWnhqREVWMkc1N1I2L0pmeUNYNFgycjY3L1hMNG9r?=
- =?utf-8?Q?OQ1h4s8KAnxQhI9LZ5?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a31acfb-5dfa-4c33-5256-08df3420b600
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 11:52:00.8313
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7wTTtDGvTlPsp9Emzoy6M72NTk6M6K2gqMcYeffsjhyW+T9rHPZ+L+8c+5aoIQrh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8108
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261026-jshekhar-dcp-hlos-v2-0-7cf014efdee1@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX4OAnbu+F9Wi+
+ 9WkBanjf0Dwpd0yTVsSdiHB55b4b3GmgpDvQjCBIeJPLPtJcU6DA2o9soD/9cZLgEM6KMKO3xEy
+ WDIZKv8i0ibVnzz2LrbY8ff3KmViGBs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI3MDA0NyBTYWx0ZWRfX9rkL4oicLTzD
+ adMx7WYIs0n26qUxy/lVGfGEBqYtl8vKls/fBWP6hpyaBjCBfLbdMfoLSbmOO3s1w5eNGaggr8r
+ zEeFBtKtaD8iotXmF+zY4Jvb2qjLs0ZFytoZ0j9Mx/6f9R/jLKP+UePYkQ6r1Tv1Ax+uR3wUc2Z
+ evHI/wXxuctmHcDFIpvCFSnjgyagg4DOg0oTOiIiJ43lh9xGQIblgmvyOZb+f2kNzCUHsVsnHU7
+ eUUXLqeEfwUL6UxO2kieGFqxqyH+MPiCfbuIaYIzhUDYVroVIAK4dmT9lwAPzhZoPBJ9SnSbCel
+ Iy4AORJiZ72roaRS2Fwviz0SNvg5kBzOIj0zcnBesLWfZJAgAFziHe0W491q9aIdAKTgGoMUblo
+ U6Vn+7sePwvQ+rTXpxpjw9rekZbvlqvQmjuGlLLJLnFq2R1hyg7EVCjZVM0Z/cwmtVSbveJ+We7
+ tsJ7VYqnHl1QsrLLF9A==
+X-Authority-Analysis: v=2.4 cv=PrkG/AM3 c=1 sm=1 tr=0 ts=6ae091fa cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=sWvDS1lmqIG2hvCGZjwA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-ORIG-GUID: wubjfQD-IhWZ-BPLUDt93UEJzzXZZNwv
+X-Proofpoint-GUID: wubjfQD-IhWZ-BPLUDt93UEJzzXZZNwv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-27_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610270047
 
-On 10/26/26 19:31, Felix Kuehling wrote:
-> On 2026-10-26 10:15, Philipp Stanner wrote:
->> amdgpu's KFD eviction fence's dma_fence ops->enable_signaling() contains
->> a dma_fence_is_signaled() check.
->>
->> ops->enable_signaling() is currently consistently being called with the
->> dma_fence lock held. dma_fence_is_signaled() might try to take this lock
->> in its dma_fence_signal() call.
->>
->> This deadlock can currently not occur because the amdkfd_fence_ops do
->> not implement ops->signaled. Should that ever be added, however,
->> deadlocks might occur occasionally once the fastpath check in
->> dma_fence_is_signaled() is skipped.
->>
->> Replace dma_fence_is_signaled() with dma_fence_is_signaled_locked().
->>
->> Signed-off-by: Philipp Stanner <phasta@kernel.org>
->> ---
->> As detailed in my recent discussions with Christian [1], I also think
->> that drivers should be very tightly constrained as to what they do in
->> the fence_ops. I think at the very least they shouldn't use any
->> dma_fence functions there.
->>
->> So we could also remove this check here completely;
->> __dma_fence_enable_signaling() already checks the signaled-flag, after
->> all, but I'm not sure whether that might break amdgpu.
+On Mon, Oct 26, 2026 at 11:51:10AM +0530, Jayant Shekhar wrote:
+> On Qualcomm platforms using the Display Co-Processor (DCP), the display
+> hardware is owned and programmed by firmware. Linux does not access the
+> display controller, DSI controller, DSI PHY, display clocks, or other
+> display pipeline registers.
 > 
-> Looking at the code, I think it should be safe to remove the check. There is another one in kgd2kfd_schedule_evict_and_restore_process, which is called from amdkfd_fence_enable_signaling, which is also redundant.
+> The display pipeline must nevertheless be exposed through the DRM/KMS
+> interfaces so userspace can perform modesetting, framebuffer updates,
+> panel control, and page flips.
 > 
-> We don't implement ops->signaled, and we explicitly signal the fence from SW with dma_fence_signal or dma_fence_check_and_signal. So the signaled flag should be the only thing that needs to be checked. The flag is only set while holding the fence lock, and checked while holding the fence lock. So in theory, relying on the check in __dma_fence_enable_signaling should be safe.
-
-I actually had a patch to remove that one send out month ago already, it was just never merged.
-
-The call absolutely doesn't make sense since the ops->signaled callback isn't implemented and the bit tested before the enable signaling callback called.
-
-I can take care and push the removal to amd-staging-drm-next when I find time.
-
-Regards,
-Christian.
-
+> This series adds a DCP KMS backend to MSM DRM. It represents the
+> firmware-owned display pipeline and translates DRM operations into HFI
+> commands.
 > 
-> Regards,
->   Felix
+> DCP communicates with Linux over VirtIO and uses the HFI protocol for
+> command and response handling, capability discovery, and display events.
 > 
+> This series adds:
 > 
->>
->>
->> P.
->>
->> [1] https://lore.kernel.org/dri-devel/320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org/
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
->> index 9b10d015671c..61621eebb2b0 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
->> @@ -123,7 +123,8 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
->>       if (!fence)
->>           return false;
->>   -    if (dma_fence_is_signaled(f))
->> +    /* The enable_signaling() ops is called under lock protection. */
->> +    if (dma_fence_is_signaled_locked(f))
->>           return true;
->>         if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, fence->context_id, f))
+> - Device-tree bindings for the Qualcomm DCP VirtIO transport wrapper,
+>   firmware-visible IOVA ranges, separate transport and framebuffer IOMMU
+>   contexts, IPCC power notification, interrupts, and the external DSI
+>   display graph.
+> 
+> - HFI protocol definitions and packet helpers for capability discovery,
+>   modesetting, plane and CRTC configuration, DSI, and panel control.
+> 
+> - A Qualcomm DCP transport wrapper which initializes the IPCC channel,
+>   sends the required power notification, and registers the DCP VirtIO
+>   device directly. The wrapper also implements the MMIO transport and
+>   keeps VirtIO queue activity ordered with DCP power transitions.
+> 
+> - VirtIO command and response queues. HFI command, response, and
+>   capability buffers are allocated through the DMA API in the address
+>   space visible to DCP firmware.
+> 
+> - Synchronous command tracking, asynchronous response dispatch, timeout
+>   handling, and queue teardown synchronization for safe device removal.
+> 
+> - Capability discovery for displays, CRTCs, mixers, VIG and DMA pipes,
+>   DSI interfaces, and panel resources.
+> 
+> - DRM planes and CRTCs using the standard atomic-state model. DRM state is
+>   translated into HFI properties for layer configuration, mixer limits,
+>   bandwidth and clock properties, frame sequencing, and triggering.
+> 
+> - An MSM KMS backend, DCP encoder, and DSI bridge. The backend reuses the
+>   existing MSM DRM device, GEM and framebuffer handling, atomic commit
+>   infrastructure, encoder, bridge, and connector support.
+> 
+> - Asynchronous VSYNC, frame-scan completion, and error events propagated to
+>   DRM for vblank and page-flip completion.
+> 
+> - IPCC power notifications to wake DCP firmware and coordinate HFI queue
+>   activity across firmware power transitions.
+> 
+> DCP is integrated as an MSM KMS backend rather than a separate DRM device.
+> This preserves the userspace-visible MSM DRM device and allows Linux to
+> retain normal DRM/KMS semantics while display hardware remains owned by
+> firmware.
+> 
+> The initial implementation supports the DSI output described below and
+> uses resources reported by firmware. Split-pipe, multirect, cursor-pipe,
+> partial-update, DisplayPort, and writeback support are deferred.
+> 
+> Tested on the Qualcomm Hawi MTP with an NT37801 DSC command-mode panel:
+> 
+> - Display console at 1440x3200.
+> - Panel initialization and DCS transfers complete successfully.
+> 
+> Device Tree Topology
+> ====================
+> 
+>   qcom,dcp-virtio
+>   ├── transport IOMMU context
+>   ├── firmware-visible iommu-ranges
+>   ├── VirtIO and power-notify interrupts
+>   ├── dcp-power-tx mailbox
+>   └── dcp-subsystem
+>       ├── compatible = "virtio,device34"
+>       ├── framebuffer IOMMU context
+>       ├── port@0
+>       │   └── endpoint ─────────────── panel endpoint
+>       └── dsi@0
+>           └── panel@0
+> 
+> The DCP INTF endpoint connects directly to the panel endpoint. Firmware
+> internal paths, including the INTF-to-DSI connection, are not described in
+> the device tree.
+> 
+> Runtime Architecture
+> ====================
+> 
+>   Linux DRM/KMS
+>   └── DCP MSM KMS backend
+>       ├── planes, CRTCs, encoder, connector, and DSI bridge
+>       └── DRM atomic state and commit handling
+>                   │
+>                   ▼
+>       DCP VirtIO function driver
+>                   │
+>                   ▼
+>               VirtIO core
+>                   │
+>                   ▼
+>       qcom,dcp-virtio transport wrapper
+>       ├── IPCC initialization and power notification
+>       ├── MMIO register access
+>       ├── VirtIO queue setup and interrupt handling
+>       ├── VirtIO device registration
+>       └── suspend/resume power sequencing
+>                   │
+>                   ▼
+>               DCP firmware
+>               ├── HFI command and response handling
+>               ├── display pipeline and VIG/DMA pipes
+>               ├── DSI PHY and controller
+>               └── display clocks and resource handling
 
+Going through the series, I have come with the quite generic comment.
+Please split the series into two independent parts:
+- Documentation/devicetree/bindings/virtio/qcom,dcp-virtio.yaml
+  drivers/virtio/virtio_dcp_*.[ch]
+
+  Driver for the DCP + IPCC VirtIO host. The driver should not know
+  anything about the display interface.
+
+- Documentation/devicetree/bindings/display/msm
+  drivers/gpu/drm/msm/dcp
+
+  The actual driver for the DCP display engines. It must not know or
+  care at all about the particular VirtIO host (or SoC FWIW). It should
+  not use IPCC. If we pass it through to the VM via virtio-mmio or
+  virtio-pci it must work as is.
+
+Possibly submit those as two separate series.
+
+
+-- 
+With best wishes
+Dmitry
