@@ -1,116 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.55
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793113200;
-	b=NQZZXEw27vDlxFerjQe9kli+a29iUolmZQvoyw+JmgbrM+WOsOrckZtvtm7VStlNy+GT
-	 QaCxqfcQDIwW23fp7SHU7w0aO+OJBeN2J4I0AS/9x144tetDT3UVQ5tRutkmv5z5YyX1W
-	 DkpVVmBQXNT6W1zLDZlk5ydy+YQvSVzfFrfB7BWzAhPfZTSLBK9ILBsBDLMpSaJZcy5Hc
-	 79a4z3d0iE/NEyBGgxU2SNaSdbm+AusgDzEfNr7+LjBVydvM+8qe7p6+qvFKlNNn2jKHb
-	 Ir32wQ0MJ75LoIsCNqm/V2J3iGhG0WbG09yJjzDiZtZWEeJlAWLfY+GIgch1fUvDJkA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793113200;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=pABlS6hjZixmx7DLsVt+Gh3/D2QR7yvzOR3o2BqpkiI=;
-	b=f6lWguxfmZ0WQ35Ef9rJGAMuXGp3OyQjGlRGFHDImwVCCa5jb2zwkyABNWJP0SPr4iGS
-	 duarDggC/GQhw08oZaETfd62T1a/RXP3zj/QXgxzgtpmcWZRZ6LTYzgLkhOzp2OdfOVIQ
-	 GOIjvkzc5HDqO1u3vMbHVV6dEM4edMud452iVPZAfpAtX8fSJlWQd+/k1cVa6QuEFEZ8d
-	 tSa8Q9uqSp6ftJWTUDKUAI6pF62WtLNub9b8ouOUY87o1UE+FKdS9pIgImMZ6KmOrZdWW
-	 a/QEAjlg2xn78h3H5uWrGMs5x4S2TBvqIAVxLFyD0PZVlubdgJ+9NuqX3PyvFGN//fw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=N79ZeVuX;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.55
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793113402;
+	b=2kc+RNpUTl7//4XW6hvs7CTfoaHgTCd3Crtm6mdTX/15eQ7BInmOY5dIM+T9GOd5+MRN
+	 9cM64qp/j9pltHz3VpumjbdAnqoFDbb8SMLOCw4hvaf5ow/Y+BPlcI6+HXY9H2jQ8xpNc
+	 af8I9BQKFm89QV7y/3pJQIZiOJ0CK2wtSVWKyLBe073XTwI9x8+uk/HrNabVw8GLReQwB
+	 HsjbT9e6McoTRaAQDLkSfcpnjwwgHADEvc/9CJpP3Y4htOhly0QxX2zvIPax38TNocL/+
+	 90m5nPBVTu6WDbZcAg2hydP3KWWk5bXaQmNJwjXkuo0c+qQYbUGAId+sW914q50iH1g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793113402;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key:X-Scanned-By;
+	bh=aOf0mUhnEWGXt/wT5adZbPR4knhMHoXNhBntHVrI1Yw=;
+	b=2NiVZgc8Qmykopy7c988LmkHCGNXlW8pC8dXXQ5d1R/hPD2ePQu+oQUYgJr0GShz1VWd
+	 R0u9jyPx2u2H1p7DacTg6tw1jqVvqQnE0U/EHs2ed5hP59cYLWxmAMhkq7IfW0F7adRkx
+	 WIkaEaIf3Xwi0OPriVJQPBZm7kRRz07NSwZGZnik/tL6+IDl5IZUJvZ8EpzXPxxtJtkLM
+	 XBVa7J9FkkFZq+2JlInSNTi2YHHh4j8t0nN+qwbK2utEp1POS7Fa4UObDvjk3u920HJJ6
+	 xXHZPIFAGZWqr3zJ5vFa4CdNv4mBTLKQ89cXSEep3C9cg48vGCYuylS45PfFMnuk6AA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="Otgn/Mfr";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D88B606A31D;
-	Tue, 27 Oct 2026 14:59:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D88B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70101606A321
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 15:03:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70101606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=N79ZeVuX
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oVNiXEyTzDIrBLWDPN10HICUvUJdh7LwKVzVTc/o0H+0959j/8c3iYruwFjcvKjXeUPI2GvyL3WZzDEWKEu2XwfdiNWI1NVSw9kHs58cIuOWxcTPlt1UpdJIWBb0zeaI+utDRD++2uCnL+p5BVfU6ADC5B6f225P2xshlAqhDznNQ/LiUtmh5MwDjkCIX7E6606BCOEvn9oYhyXRajzG0jAVXUtE0Hk8Xu6hJTlUufRGuSG9iIphODKt1ivZloRZBTiMhlMuPPag93/XTCSbctcTMOdYXt5hA+d/oZvBKnW2GMtZer8R2NOKUF2FI7WBlvN56JetqCt07ZhmgfZrCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pABlS6hjZixmx7DLsVt+Gh3/D2QR7yvzOR3o2BqpkiI=;
- b=xNif/K4Iy/OPNQymS7Pi+E65P76FhZFXzoWtaOUvYHmT4BkqVSQJJQ1YwcaghPimoCZjBs82w65Shs0B+gtjyhnEYIAXCqHBWeE0aB4x+3LwzPvo10xULJEflERlkn9m/KKn3ISOKH9JLbJ/X/01VfmBJqT1VvKmlBQMDw/cr+rtc9dmgCZ2etYfaUKmafyWnyRZhRb29d82KDQKwFs6sidZATyvX5nFHBKOOfbw79PgNTKn65qpov6XaY7Hy0G8qEQbIE346/Px+XAFD42xSkqEk5pJ4qzVnXPFsSJFiYIt3fXLxKu1JwCbDErIDiEkUXzbi+SC8VwZJV0TcgrZVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pABlS6hjZixmx7DLsVt+Gh3/D2QR7yvzOR3o2BqpkiI=;
- b=N79ZeVuX4XEkoF0V+UavXEDLEJnueV6t55DC0hN+3WXLy0Ak5Gnb8XjjRNpQmysMacIgiaSwaeyKtCJH55y2z4RLUUrbTzu84yFmG5+Z0WC9plgBVs0bJ7UN3LojnxUIWT0jChOHeiQIWsOIRwgstiHBiaqDYM+XnK3xdytQhrA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CYYPR12MB8872.namprd12.prod.outlook.com (2603:10b6:930:c8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 14:59:56 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 14:59:54 +0000
-Message-ID: <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
-Date: Tue, 27 Oct 2026 15:59:45 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-References: <20261020100034.759183-2-phasta@kernel.org>
- <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
- <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
- <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
- <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
- <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
- <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0222.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e4::8) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Otgn/Mfr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793113400;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=aOf0mUhnEWGXt/wT5adZbPR4knhMHoXNhBntHVrI1Yw=;
+	b=Otgn/Mfr25iVb/sVwiz5J1aXVYH8MvhUZkXhlcusTo/NhohcoNpqmMucItUiIOrl08en3b
+	tMT0gIe38frSRnIU9XsrzfId/eXfHyg/PpaUCHsnmTuODEpOJMSRQP8PzYSHPDa93BQ8QC
+	LuLDa9rY3yAswEskeHTdQqLXZDVKJ2w=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-630-UjIdhJ72O6-uXk9AZAUySw-1; Tue,
+ 27 Oct 2026 11:03:16 -0400
+X-MC-Unique: UjIdhJ72O6-uXk9AZAUySw-1
+X-Mimecast-MFC-AGG-ID: UjIdhJ72O6-uXk9AZAUySw_1793113392
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DFCFA18009F0;
+	Tue, 27 Oct 2026 15:03:09 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D01D018002B1;
+	Tue, 27 Oct 2026 15:02:59 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v3 0/8] memcg: dma-buf cgroup accounting and charge
+ transfer
+Date: Tue, 27 Oct 2026 16:02:43 +0100
+Message-Id: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -120,139 +73,176 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8872:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8c7c9e24-0f89-4390-63ee-08df343af5a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|18002099003|6133799003|22082099003|261026140227099003|921020|56012099006|11063799006|4143699003|261021121427099003|261021123027099003|10067099003|261022105027099003|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	Fxfcg+0D0A+KVfPGIf9Vtz+6OXu1nDn0niuTgbNlAjhcOmnuQUuQs0bU/9CJWe95T1AJ6Jy9+buFSGZaQime+JmHPGPpUi719NPS7LQNX75LseVr/7KM+ILufyB34ma3zz9Uqd61CmcRUhiVUQDc/yNy72wTNlWuSKcjdzhT92E75Y23YflrP14dURLte20RzMT9TB7G8YVolPQ3VztMq4e/ojqCmzInZq8LYxpIp9M5Jg9wjKRUR0sJvbBxIg6a43PHe+SmulConnmtAZhjWm1SbXUyaiIhwlIDYQ0+EV6TWVhP0sn/EKD+7dDrlzuf1P32bKYndiG9swCQR8vOFTaOmbJefHfLcQL4fukkMkoFI2kSwlMcEGWxBhWIGp2ux/syZW7g0AqKBUI2HVV1fTxeS7LoklulddoZKE2XSkvBetz+Voo+GnwQGTPP/Ljhafzwb6hPRFZKU2NmoDgAPr9YujGIA4cZMY+iR8Fjtvx6o0d3uU99MgkQJdSqiyo0sUmiLCVU1HvQfnqZfFhy3LZRRNvZZpIM6E+BLuHljNjPj7on7es56SQM3PhKSW/VMUZZ8iNSQ/ARiItCckyqi3YmadWrRKFLfDp+gDzVxO1K8crlBVnUeir4WnPd9973CMGXDHeWOy3O0xSf959WAIvFDoJiVHKfHze7WCotFGPSPfV2Asj9WZL5cwBAgL9oOqfEZYEHFZe36JSLwfhgUQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(18002099003)(6133799003)(22082099003)(261026140227099003)(921020)(56012099006)(11063799006)(4143699003)(261021121427099003)(261021123027099003)(10067099003)(261022105027099003)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dVljTGgwZDN0VHdHRDI4TzRxbHBqTjIyRWNHVWhOTjZTdmUyOFVVTytmR0NC?=
- =?utf-8?B?SFJaRU5wTTVXNlFOSHEvVUJ2eFFUZXJjdWkzV1BBeUlJT3UvYUFMcjJERHRV?=
- =?utf-8?B?cWdUZms0MEVGaWpPRWFtYlc4Uk51bXVuZWJBS0Nad3NCOGhwOG9CeFd6Q0ly?=
- =?utf-8?B?SkpQTnI5a3Z2VldqbHl5M2VxTnRvblAvOE1MRUZzMnU2SDl5Q3llR1F6NVVa?=
- =?utf-8?B?NVFLR3I2UTE4cEVoaW9MRFhqYURXNzhUWmdoRTQyNlcyenRYN0lqbW0rUDBp?=
- =?utf-8?B?RTBsV1NSSG1xQXFKSExVNkFoQWVCYUkvc1k0WkFhaS93dm5GVXMyU0xDWXpR?=
- =?utf-8?B?ZFJ2V3JKUy9FekVWdHE3QUZFOHl3TE1RNWxYZUpiNU85c0xDaHVyeU1CdnVz?=
- =?utf-8?B?SnpPNU9Vb2ROM2lRV2JYMHRPM0ZpZlQxWDhBc243Z2dsNFNIWG4zMHh1YlhN?=
- =?utf-8?B?SDVRcEdRemxMLytRR0pOVnI1MWFNUUFjV0ZMR28zejdRWW1FV1dhQWVHNHBv?=
- =?utf-8?B?Y3ZtUmJEZjVOODlqak9NVnVld1VUdzg1ZWN0cVVVbVF6ZzNaRzB1Q1VFTlR0?=
- =?utf-8?B?ZTlVYU9yNVBMUzJvcm56NVpJQ085OHBMRTZnK281U3B0cTdVK1krOXhub3ZU?=
- =?utf-8?B?eHJIR2lIeFo3TnNWdkR6OE5HbEt0UGFLZlJSM3VvUUwyek1rUkdHS1FGVW4v?=
- =?utf-8?B?SWlWdS9lQXN3QXNQRXkvSG9OYlpYb2FiTEVoUjNxNUxrUFhDbnppV0NsSEtN?=
- =?utf-8?B?QlVYaGxRSWxIb2J1MndEZEpXcW5kUjliMEtCN2VpdFBSNmJ1R2llU3NYdmps?=
- =?utf-8?B?VjhEamlwM1NLS3FIYm0wd2ExWk1jUFc4YVdKN2JTVmNtTmU4N0RrSktTeDIz?=
- =?utf-8?B?SVFKelpvMTBmTHN2MVVqdzFrTFliemZCRHJwSThkdS9jeGRuOGxLdFdoSnd6?=
- =?utf-8?B?OXQySW5LQ05uOVNMWEtsZU1MTUQ5SXp3U2lLa3VpMklDMEp5dkV5OS92L3ha?=
- =?utf-8?B?SmUrSVpzUWZCL1Y5dkNpTVVva2IzbllCMDJTcHNOcjRQaGkzNk5Db3ZRdWE4?=
- =?utf-8?B?S0NHcnJ1MW93ZUJrRHoxS0dlTXRRWW1KTXNOS0wrMVRrN01GVnVueU5Ic1VX?=
- =?utf-8?B?ZDUxUjlzV053Q1ltVlRSdjB3bk9lMEN1RDl1Z3ZxblAyY1VkRTE0c3pRTXM4?=
- =?utf-8?B?a1NGNWxuWW5DdVNLSzFHMDdGT2hjRnJHazZ6TWJDQlFTeXZ4S2I2TFhNWUtS?=
- =?utf-8?B?M1NUMzMvQ01OUUU1TFNMM2FUMFYzRFdPTG41TE90Ykd3NlNrV0F6N093MDNX?=
- =?utf-8?B?ZE1kQzVZU0lEejNTOFBjeXZwSUs3TU5aYmgzOWFKQ2ZTQ1FqdmpFb251VUxm?=
- =?utf-8?B?RlRxQ05qMDRuc3ZFdms1U2paRTdYeXV5aWlhZTZVcGZRK0o3NEZwVTNuUW9G?=
- =?utf-8?B?Y2t2cmlOa2o4bWZYdlkzUGJjUGpudjJFb21HSWVSa2o1QmZjclJ6K0tUdUhz?=
- =?utf-8?B?ZVR5L1QwazdiR3YvTkovYk5kZ3VNRitCQ3lkb1NlbTg1VEVHVHBBSmpqVVVk?=
- =?utf-8?B?Tmw3YWh5cWhpQ1owMzB4TTBUb1pnaVJSNXg3b1BUQkxxL0pzaE0vcGJHOWZT?=
- =?utf-8?B?RVlmVWlmQ0pKdXNlSnBiYnFQdHNCNEpLR0JiWlFhZzJqQkdMQVFvbUVoZnlB?=
- =?utf-8?B?bkdxUzZDb1ZkbmhjR29WU21MR3RHUVBvbzl0V2dpQXMwa1BOMkdsMlM1Z3hi?=
- =?utf-8?B?ODRPd1RDbHd3UDN3dncyY1ZsZHYxaTlaYUN6V2pXaW9qbFZQeW9ZNW5WTW5n?=
- =?utf-8?B?MzZMNFRjK3VLeWt0V1d4ZS9oUWhpSm5SYld1OEdNc1gxWHVabUVnRDgwQkJL?=
- =?utf-8?B?NUpnQWQzcWdvT2xUTE14NDRUbWJLMG0xaGRqaDd0cThIakxQWWlTMzMrUXMz?=
- =?utf-8?B?RkZHaytkOXowWEdQVnJ6OWJhN1UyRXo0MEI3MnpEZ000TENTRWkxeHkrWG9r?=
- =?utf-8?B?d3h4cjh6SmluQTNzY1FiY1hIdXhYTXd5UVNvTm5HY29yVmhOQlUycnZrSUR0?=
- =?utf-8?B?OVhUam8yZmp4NVZkTk1STVdqZC9vbFJhVUV4Z1dxU1VwSmI2NjZnbk1pMUdy?=
- =?utf-8?B?RXBvc1dDQ2dvM1I2dTMyTFIvTmVxRWFRY2FreVhLeCtzMWNyWHozTVFyT3Bv?=
- =?utf-8?B?QjNseDlOZlFUTlkxUkEwSVVMZkhraVNXMVAxdDhNK1c4ZEpROHVIeVcxWTZ3?=
- =?utf-8?B?QnNNWEQ1OU1GeW9Uck1wRUU3OVNZRS93SkhyVkt3WnZUZndEWGpRRm5VRG16?=
- =?utf-8?Q?AlxWSjYoir99RHEoRa?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c7c9e24-0f89-4390-63ee-08df343af5a6
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 14:59:54.5350
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zzN4NHXMBMwd/TaEYD1LAcuT2hA2pFwCV5H4b1GVjV8/F2/Fmk5IHQHy1RoJffq3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8872
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQrCMBAF0KuUrI1kJm2srryHSKnppI3YRpISl
+ NK7mxYRXOlu/nx4f2KBvKXADtnEPEUbrBtSkJuM6a4eWuK2SZmhQCUKUfKIVbqlAJTVeO3Ja0u
+ +ap1rb1Rp13OT50abC6hCCpaYuydjH+vE6ZxyZ8Po/HNdjLB83zjgbzwCF1xJVDsBWqo9HD01X
+ T1uU8kWPeJHBIHwh4hJJKOIsGlKXegvcZ7nF8pnAWwjAQAA
+X-Change-ID: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>, 
+ echanude@redhat.com, mripard@kernel.org
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793113379; l=6757;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=SbSaiBkIq+YUC6r+fSuC8xTCAnJdm8Vr2zNeXnNL3ao=;
+ b=rMh42d3K7ZdvbxPJmt30LjOl76ZkQ62Z6Ul1YgWdi/7V4axPrJSy681qwSjEcG3Y17eHAsv1y
+ +LmSEK2BvnsDaNYSlWiHuv0bXrBqtI3n02cWTu6Y6kXEFNbK6b8jRpu
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 10/21/26 14:49, Philipp Stanner wrote:
-> On Wed, 2026-10-21 at 13:53 +0200, Christian König wrote:
->> On 10/20/26 17:36, Philipp Stanner wrote:
-> […]
-> 
->>>
->>> Nope, I want to protect shared data, which is the signaled-state. Which
->>> is currently a race-condition worked around with RCU (and sometimes
->>> with manually doing the right thing (locking!)) [1], stemming from the
->>> fact that the fence's spinlock is not used consistently.
->>
->> The fence spinlock is consistently used for protecting the fence
->> signaling, in other words it always happens with the spinlock held,
->> same for adding callbacks.
->>
->> The only thing which happens without the spinlock held is the fast
->> path checking of the signaled and enable_signaling bits and as far as
->> I can see that is ok as well.
-> 
-> No, it isn't. It makes the API fragile.
-> 
-> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+Shared-memory allocator services (e.g., Android's gralloc)
+allocate dma-bufs on behalf of client processes in different
+cgroups. Today those allocations are charged to the allocator's
+own cgroup, leaving client cgroups with no visibility into their
+actual memory consumption and defeating resource limits.
 
-This bug is exactly what I'm trying to prevent here.
+This series adds memory cgroup accounting for dma-buf allocations,
+building on T.J. Mercier's earlier series [1] and incorporating
+feedback from previous versions and LPC discussions [2].
 
-This problem only exists because we call the backend operations with the lock held!
+Patch 1 introduces the MEMCG_DMABUF stat and reserve/commit/cancel
+and uncharge helpers. Rather than charging at the page level via
+__GFP_ACCOUNT (which would require every dma-buf exporter to implement
+charging, and makes cross-cgroup transfer impractical without access
+to backing pages), we track charges externally on struct dma_buf via
+a MEMCG_DMABUF stat counter and route all accounting through a single
+path, removing the __GFP_ACCOUNT flag from system-heap allocations
+to avoid double counting.
 
-What nouveau does is to delegate the cleanup since it can't do that in the signaling handler because of the lock inversion.
+Patch 2 adds a charge_fd field to DMA_HEAP_IOCTL_ALLOC, accepting
+either a pidfd or a cgroupfd to identify the target cgroup at
+allocation time. If the target cgroup cannot accommodate the charge,
+the allocation returns -ENOMEM.
 
-This problem doesn't happen any more if you just completely drop the approach of calling the backend operations with the fence lock held and then re-structure the cleanup handling in Nouveau.
+Patches 3-6 add access control for cross-cgroup charging. Letting
+userspace decide who to charge needs to be a privileged operation
+because it has material impact on OOM decission and resource limits.
+We gate it via LSM hooks for the two charge_fd flavours:
+security_dma_buf_charge_task() gates the pidfd path (target
+identified by task credentials) and security_dma_buf_charge_cgroup()
+gates the cgroupfd path (target identified by cgroup directory label),
+with SELinux implementations under a dma_buf object class.
 
-> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+Patch 7 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+dma-buf fd to transfer charges post-allocation. This covers the
+double-hop allocator case (SurfaceFlinger -> gralloc -> kernel)
+and works for buffers from any exporter (DRM, V4L2, etc.). A new
+memcg_account flag is added for dma_buf_export() to ensure that
+transfer/charge is only applied for buffers backed by reclaimable
+system memory. If the receiving cgroup lacks capacity for the charge,
+the ioctl returns -ENOMEM and the original charge is preserved.
 
-I already discussed that with Simona back then. Simona actually explicitly rejected my approach to take the spinlock to check for signaling. Pointing out that amdgpu is using the API in a wrong way.
+Patch 8 adds selftests.
 
-The problem is that amdgpu doesn't track the callback structure and so can't remove the callback. It's on my TODO list every since to fix that miss use of the API.
-> There are certainly more related bugs around.
-> 
-> Also think of the various ordering issues between signaled-bit and ops
-> pointer that you and I observed.
+Known limitations:
 
-It's just that we changed the behavior so that we drop the ops pointer and are missing places where that pointer is used.
+- Single-owner model: a dma-buf carries one memcg charge regardless
+  of how many processes share it.
+- Only memcg accounting. CMA heaps would additionally need dmem
+  controller integration.
+- If a transfer of an uncharged buffer fails, it remains uncharged.
+  The allocator (userspace) is expected to handle this (retry, free, ...).
+- The LSM hooks are intentionally narrow. Broader cgroup access controls
+  (e.g. for the memfd/kexec handover case [2]) could be a separate effort
+  reusing the same pattern.
+- Only system heap sets memcg_account today. Other exporters
+  (DRM, V4L2, etc.) can opt in by setting the flag, but are not
+  covered by this series.
 
-I wouldn't really call that ordering issues, but rather something we have overlooked.
+[1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@google.com/
+[2] https://lpc.events/event/20/contributions/2416/
 
->> The problem here is not about the state of the fence, but if the
->> callbacks are still executed or not. And that is not a good task for
->> a lock, instead what is usually used for that is a barrier and that
->> is exactly what RCU provides.
-> 
-> Locks are for mutual exclusion. Which is what you want here: you want
-> to exclude someone from signaling the fence while you are working on
-> it.
-> 
-> Tell me one thing:
-> If locking is the wrong approach, then how come it was added to
-> literally all callbacks except for set_deadline()? Seems to me that it
-> must have solved some issues.
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v3:
+- Split mem_cgroup_charge_dmabuf() into reserve/commit/cancel three-phase API
+- Extract mem_cgroup_get_from_fd() helper shared by allocate and xfer paths
+- Rename __padding to flags in struct dma_buf_transfer_charge
+- Fix UAF race: move mod_memcg_state() before cmpxchg in transfer
+- Add memcg_account opt-in flag; xfer returns -EOPNOTSUPP if unset
+- Wrap dma_buf_charge_cgroup hook in #ifdef CONFIG_CGROUPS
+- Fix TOCTOU in SELinux charge_cgroup xattr length handling
+- Link to v2: https://lore.kernel.org/r/20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com
 
-Well, it's because concerns with the lock inversion brought up by Alex and me was ignored and the patches merged anyway.
+Changes in v2:
+- Move charge_pid_fd to charge_fd, accepting cgroupfd in addition
+  to pidfd per Christian König.
+- New DMA_BUF_IOCTL_XFER_CHARGE ioctl for post-allocation charge
+  transfer on any dma-buf, not just dma-heap buffers per Christian König
+  and T.J. Mercier.
+- Moved __GFP_ACCOUNT removal to patch 1 per Barry Song.
+- dma-buf charge/uncharge helpers take struct dma_buf * directly
+  to avoid the need for caller to manage size calculations.
+- Added test_xfer_charge_cgroupfd_self to dmabuf-heap selftests.
+- Added LSM and SELinux hooks for cgroupfd-based charging.
+- Rebased to v7.3-rc7.
+- Link to v1: https://lore.kernel.org/r/20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com
 
-This is just another one of those DMA-buf design problems which would have been fully preventable if I would have clearly NAKed that stuff from the very beginning.
+---
+Albert Esteve (7):
+      dma-heap: charge dma-buf memory via explicit memcg
+      security: dma-buf: Add dma_buf_charge_task LSM hook
+      security: dma-buf: Add dma_buf_charge_cgroup LSM hook
+      selinux: Restrict cross-cgroup dma-buf charging
+      selinux: Restrict dma-buf direct cgroup charging
+      dma-buf: transfer memcg charges via DMA_BUF_IOCTL_XFER_CHARGE
+      selftests/dmabuf-heaps: Add dma-buf memcg accounting tests
 
-Back then I made the mistake to believe the argumentation you come up here as well and so I don't explicitly rejected that approach, but by now we have strong evidence that this was a mistake and I'm trying to fix that mistake ever since.
+T.J. Mercier (1):
+      memcg: Add MEMCG_DMABUF accounting infrastructure
 
-We should have never taken the lock for the callbacks in the first place, this just made the implementation much more complicated and caused way more problems than the few raised by putting the ops pointer under RCU.
+ Documentation/admin-guide/cgroup-v2.rst            |   5 +
+ drivers/dma-buf/dma-buf.c                          |  46 ++++
+ drivers/dma-buf/dma-heap.c                         |  28 +-
+ drivers/dma-buf/heaps/cma_heap.c                   |   3 +-
+ drivers/dma-buf/heaps/system_heap.c                |  22 +-
+ drivers/tee/tee_heap.c                             |   3 +-
+ include/linux/dma-buf.h                            |   9 +
+ include/linux/dma-heap.h                           |   3 +-
+ include/linux/lsm_hook_defs.h                      |   4 +
+ include/linux/memcontrol.h                         |  52 ++++
+ include/linux/security.h                           |  18 ++
+ include/uapi/linux/dma-buf.h                       |  26 ++
+ include/uapi/linux/dma-heap.h                      |   7 +
+ mm/memcontrol.c                                    | 192 ++++++++++++++
+ security/security.c                                |  34 +++
+ security/selinux/hooks.c                           |  44 ++++
+ security/selinux/include/classmap.h                |   1 +
+ tools/testing/selftests/cgroup/Makefile            |   2 +-
+ tools/testing/selftests/cgroup/test_memcontrol.c   | 290 ++++++++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/config        |   1 +
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 227 +++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/vmtest.sh     | 226 ++++++++++++++++
+ 22 files changed, 1228 insertions(+), 15 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
 
-So even if it is possible to implement the backend with those locks being held I will keep pushing hard for removing that.
-
-Regards,
-Christian.
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
 
