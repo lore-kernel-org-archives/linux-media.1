@@ -1,104 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793067370;
-	b=e/VuI+mzBG6Yl1tmVMvatsrDIlsVnTWTfF/o/lC5tdwrOrwVbH/IduN0ltlrnjQa6ZdX
-	 pSOe2i1gfwPi321d0IThFMl2DoBCamzoYT6YBC2LPyBIgemC/IX71fnKxpJ9s2Tbd6099
-	 cxr2MW9jT7lAgxPR55Hrs2KQY44VA6LuYtUw13rBGEM51nuE8URUqU1p4fcsrBr7xc5aR
-	 ZUzkKKrSgDlLXt8oPqyohSxBvcPIprR+5gqZcXGIbfhjKJLkRqiH1vNPyEnTGHeg3fOjL
-	 +BQmsvx3yBgFCEJ0UWEnkZhXQb3PZ7TrGknEA7BzfbJ9RDjtr9T/URruKtASlfBswNw==
+	t=1793067456;
+	b=NUAMA1JtcovCqgH/cqiTUBAxf0fC0IhFjy/yJDI51S7erMoS4hXrfQyWjJ0+2kkXdKCU
+	 1Ucf2HfGEp8akr2r6zPlVwQx7io7IVyRQmIZ8FwdyGz9KgGHzf41GuN1X+yqwMwZxh7UA
+	 B/OcxhO2oy4z5fOhNDxUkXCgqssFEAE6C1oCOvYWVHxGou14SWnLe2hynRYU0DeMnZyBY
+	 /fOiLx5C33avrIbPVTsYFv0lLOdCV3cI3fl0QuC245mxbCph+u4Jy9tK3TYrV2ZaGeR+C
+	 mBODu71pVPGU1lIMzZsME55VIkk2HgSiwKZ47nW2d08tkEY+hzQW+P14xixnpvtOBSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793067370;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=213hVxaY8zz7NJ3gzXzSYUeeO0Hb0kJ1MH6CZUy6aio=;
-	b=ehnftWYHDlERY8D6wjLnlDiq8w1DgAua+O6uyVtSkCcUXi20KECCjooI+hwiJjc5zX4f
-	 Ng9YHdHMdcA8ZHaUqBBfsy/cnA9sHLsR71PmzGx1jDUmboMluk746IS/yHL+oZvkjaSGI
-	 +NVTjF32Z18Yc4QODwjHV1o4XW8v7m4e/RfHHEIt4Z3flkrrt794cAXxGJdLFCoNZO1uX
-	 amZMfQt3ghYfZFrkTWXkXuLTa57+vjAxWmdIpLxXfKJwMUGgLTbiPZGOVUGOCHpQ5XJG+
-	 ePxJhVEnDSTlKyLFruXcX4HKWpRAzlDRB4h6u3P8WM6jk8gi9l9hGT6/tNeHXEVVD2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793067456;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Z+78x8Sds6faPgLtpH+RiZhgHTBSFQl1dM4NHGQ6pLM=;
+	b=y+6RVjYJqtbjGfl6046QwezatNsjaqgFWaR9EyVBXZycoDj+4p9c9rCRU1Nmm/HFn8/t
+	 3Jbr7v1FhkzBx2Z6rBktTJ+ShRopGpQ+Iw4AOZIlY9WeziCcwsg86UoiIWRFKGX28shH2
+	 L+uU2kMVnGleFmGykz8O/yLXNpyXAwsq8DDA3O8WVAArEFP0n9b64pU8TSjafyTb6CLX/
+	 qdmNPkRikZganOuJAQmy2nQmHfPWW3+LhhLUGSxhoaci+Tj7VVxLqnRDnXH/ze0fy0JPQ
+	 PSjlu15PArza0gqkJmVVFujq7M5hcBedB13KxAmAGWLvcs/jb+ir+G68xfPmv6yMgEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TtZulEcb;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96035606A322
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 02:16:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96035606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TtZulEcb
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso2159581f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 19:16:09 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 25F1E606A31A;
+	Tue, 27 Oct 2026 02:17:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F1E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793067368; x=1793672168; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=213hVxaY8zz7NJ3gzXzSYUeeO0Hb0kJ1MH6CZUy6aio=;
-        b=TtZulEcbNFyPlav19CVn8JOkrTSk7zs5dARKhv/oeoNxPjJo58m0J8bDm9HAf9vao/
-         8uZSan2SUjjiCCDBxLRs8IF5s57PpOn73FCF22A5kq4GpKRfcSDCmUa/Ydya2gdhjRpl
-         Ez7bf27k4X4CIx8vN52T+Hib0PJbfYbJXIa1FWytTOLGP7IJp5CmR55JW9w2yJeqbhtQ
-         HCDFHOFmOq9K+fvXfhW+tkfafj5ok0zg3TAabBQASrvYyWvCy59VBXNfNj4CLRe2fzP6
-         s4M63mxt1ERrLwgQCvR4oWTyymbUt6Fyyoe6QR7IkJ80D4GR6dzBQcz1zrFf+yNjvahP
-         S5Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793067368; x=1793672168;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=213hVxaY8zz7NJ3gzXzSYUeeO0Hb0kJ1MH6CZUy6aio=;
-        b=N0oF8GQJfdWqNw8Tm0LIUHVDqBNjuroI6w/hf1mKLQx411uBCUaRsUcuj7hveKC30r
-         mqWZ5BOgqoYj8BIJBS9bEGTh9dTqohFiYz6Vh+hR68sGRGIWM9CkdkMEmdlgks+y8/Ng
-         BMmBRNZCrq3Xk2z7M5QGW9l14JEgjbZg+rfLxZAimmtjMX2sDckbRIRFX27lLq1iDmVQ
-         oFLreDyH3h3CjVpMTlKGHdmkaJTQaWJI4R789DxNTfpNGd+gPypXFvBenYxyyp2PG/Vk
-         UXJ1VMjHmXMk8l+a1beNjs1wjjD2tnsjyrtTuofp8i6oJYfx5ZFwIKHoqUbh9u8zcAN8
-         JZXA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXAWv9QyoRzzeHrzq0gBO2BbLy7WXmEpL2ZApqQ/O+2emic6RarvsOIFLjHiCdeSnfiELE+csgEbYnDg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL171gOi9r7JLS8z6GSMNyQmpGS7+gj1xSqTgz4SX2G31bWwrib
-	+99hL9WQOSkYUCTvWLjC8fvevLxxG00dK2n6jXyVZr5CE6/tpFi+38t3
-X-Gm-Gg: AYBFou0sdyI31KB0iUoCFYa/x3HyR5EdSi/ylg8rVB1t6Or1+RYvjicZsvxRkhY3Y4g
-	XLygavcWhL5p6nR1nqZ+IF4REyt1G1Durq4rG0F0oZejGPsDW1TVQkXQRS0KCVODqW7kL5JMvSm
-	ciAKHDBPV79pDuY9OA2bcas+qo7Juzk6+xlgZZ+9gnvTIbe/A+FNY0BQJ0ry6iiLl40Lrg24/+G
-	ZxbK7if2ckx0pQbRvnkb3iinOPpnTMY9FnrMf5uHWojPdPbP+kTa7/71jGQr2vMf6CjWjpzaf//
-	HT+C0nljBb3bACwq8GaO60H1EkoBPTsAiNUtQL3qApvKa1XfCQj6OL2JHkTipSoPGd2PiCRg6uD
-	+olnOn0J3/9p/pBcFekfIWkoFe0xOlKscJre+VhZ+VoTiGij/ngdKEqalohkDPWPtUEGm4CNQAn
-	8TM82hnaP1LEzOy1kzLrWbeGAPwm/U+7nCoyu3v+6qHGVtGncKqSAOHmHR6uCX8GZOWJNdE8dNx
-	ktJg2mxjrcrUcPmihoCVAPcefGG1DD1/BdZ1q4h6WLuFZ6++SENsJUH0x3akk0YlkAemQcWbeWj
-	IwB9N3rWsQBPiqDyRC02i4yNnexpAWNXTA+jj00xDiDS2nRTa3HPsZAsE1oQzVl+tbErGra2pcJ
-	iqDxsjo3IOhtXH8PrL6ukq9zU/0w0S3wO9rjSyFb7
-X-Received: by 2002:a5d:6406:0:b0:48e:202:6718 with SMTP id ffacd0b85a97d-48e3eb8bbe9mr13317253f8f.25.1793067367758;
-        Mon, 26 Oct 2026 19:16:07 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-095-117-118-122.95.117.pool.telefonica.de. [95.117.118.122])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebc3dcbsm19591505f8f.14.2026.10.26.19.16.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:16:07 -0700 (PDT)
-Date: Tue, 27 Oct 2026 03:15:34 +0100
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Alistair Popple <apopple@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com, 
-	sumit.semwal@linaro.org, jgg@nvidia.com, 
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona.vetter@ffwll.ch>, 
-	Matthew Brost <matthew.brost@intel.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
-	Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>, 
-	Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>, 
-	Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org, 
-	iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, 
-	treding@nvidia.com, jhubbard@nvidia.com
-Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
- dma_buf_sgt_attach()
-Message-ID: <auAIO0y09SXk34CN@gmail.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
- <20261026053623.202642-24-apopple@nvidia.com>
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=Z+78x8Sds6faPgLtpH+RiZhgHTBSFQl1dM
+	4NHGQ6pLM=; b=ysu0jrb/RyfRQvljwiEvv2or7chdYs4WZuSMzOhsMDYDYijQmt
+	UOCaztIVlIWoXNTb5uDyL64LMr3wfIDXPCR22En9tcyWoghDJv1dbexV8mXDBTXC
+	n5nL+Fte4XIq8r33nECGiqiKxqAL2BigLhsjJJE7IRhaFs/8r8jrHr8rg=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkBmjQOvCeBqqsjsAA--.46970S2;
+	Tue, 27 Oct 2026 10:17:20 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	=?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
+Date: Tue, 27 Oct 2026 10:17:18 +0800
+Message-Id: <20261027021718.14264-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
+References: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -108,36 +61,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026053623.202642-24-apopple@nvidia.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkBmjQOvCeBqqsjsAA--.46970S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CFy8Cr15AF1xZw4Duw1UGFg_yoW8trWfpa
+	yrKFyrArWqqrWkursrZw4Iva4vvw4xJFs5uryrGayDuw45Cry7tFWSqFy5ua4q9rykC3Zr
+	tFnxX3y8u3yUAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4UMxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU8dwI3UUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FLigAAsB
 
-On Mon, Oct 26, 2026 at 04:36:14PM +0100, Alistair Popple wrote:
+Hi Sean,
 
-Testing the series on a Jetson Nano exposed this path. A 3 MiB system-heap
-buffer was imported into Tegra DRM and scanned out over HDMI. With
-CONFIG_DMABUF_DEBUG=y the PRIME import succeeded, but scanout immediately
-produced display SMMU faults starting at 0x300000.
+The v2 below does not apply to linux-next/next-20261026 (f1ac44c32cba):
+rc-main.c has been reworked by your series in the media tree, in
+particular ec7cb49871e5 ("Fix race condition during rc_register_device()")
+and 37efd09ba2c6 ("Ensure registered is cleared in error path").
 
-Tracing the fault led here:
+37efd09ba2c6 already covers the lirc side of the problem, so the
+out_lirc part of my patch is redundant.  However, the original uevent
+use-after-free still looks possible in the current code:
 
-> @@ -475,7 +475,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
->  	 * domain, map it first to the DRM device to get an sgt.
->  	 */
->  	if (tegra->domain) {
-> -		attach = dma_buf_attach(buf, drm->dev);
-> +		attach = dma_buf_sgt_attach(buf, drm->dev);
+	out_rx:
+		rc_free_rx_device(dev);
+	out_lirc:
+		scoped_guard(mutex, &dev->lock)
+			dev->registered = false;
 
-tegra_bo_import() passes the attachment SGT to iommu_map_sgtable(), which
-uses sg_phys() and sg->length. The SGT mapping contract only guarantees the
-DMA address and length fields. The debug wrapper clears the page-side fields,
-so iommu_map_sgtable() maps zero bytes. 
+rc_free_rx_device() calls ir_free_table(), which sets rc_map.name to
+NULL under rc_map->lock and then kfree()s it.  rc_dev_uevent() takes
+dev->lock, checks dev->registered (still true at this point) and reads
+rc_map.name at rc-main.c:1660 without taking rc_map->lock.  A reader can
+therefore take the pointer before it is cleared and dereference it after
+the kfree(), which is the slab-use-after-free originally reported:
 
-Tegra only treats negative returns as errors and keeps the reserved
-IOVA, which scanout then faults on.
+  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
+  lib/vsprintf.c:737
+  Read of size 1 at addr ffff888007ca9d80
+   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
+   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
+   uevent_show+0x1af/0x380 drivers/base/core.c:2756
 
-This page-side use predates the series, so the fault is not itself a v2
-regression. Is dma_buf_sgt_attach() valid for this call site, or does Tegra
-need a page/physical mapping type first?
+This path is taken when ir_raw_event_register() fails, i.e. when
+kthread_run() fails, which is the reported case.
 
-Karl
+Would it work to clear registered before freeing the keymap in out_rx?
+Something like:
+
+ out_rx:
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = false;
++
+ 	rc_free_rx_device(dev);
+ out_lirc:
+ 	scoped_guard(mutex, &dev->lock)
+ 		dev->registered = false;
+
+The second clear is then redundant on the out_rx path, but it is still
+needed for the failures that jump straight to out_lirc (lirc_register()
+and rc_setup_rx_device()).  A separate label could avoid the duplicate
+if you prefer.
+
+I am happy to send a rebased patch against linux-next if that is easier
+for you; otherwise feel free to fold this into your series.  If you do,
+a Reported-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn> for the
+analysis would be appreciated.
+
+Thanks,
+YuanZhe
+
