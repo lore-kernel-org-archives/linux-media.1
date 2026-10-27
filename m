@@ -1,48 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793117508;
-	b=kpFXSLsda/rV4DGGHY+y6uCwZsPdkEcI3vw14UrTaAj7LpusAggqZ58aOIOdNaQj9LjC
-	 0X4V5yIYy4coECG7+OgqKRVmzSCNqLsnDNsgGdUGnClDrm4MlMVKsBRpAnTVXEhp2mKKL
-	 GQ4wPbflkBzoWVJ9oEPjWQomzBTSccbnzknmgBv9AkPVFN9/FpdQ97WcDpeDXRZ5VfYZR
-	 S+8+Gl6r5wzlf1F860Y1oBG7D3LJuJUGFROJwin+afozcOznHBrGndDJR1ZwIVcTSRRDT
-	 tw1l5XlEFlFinS8TDaVDaZQ4+rBK2VDY+Ocnqi086VUZiTad2KUZzMO3j1D3LEZ+Llw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117508;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=8rZ5yGrWp1dl4AtnWdtal5EGRywwPc08IAgIauG15qI=;
-	b=PvQsTpUmbq4oFC7/v2SPsMR0aewdjaR7HKvM8wx/XZlvwk+uxs9a8skCTmgGn60xpj5G
-	 aNODvn0Gk/ZfOiTnI38VnbuCjFVQxS5sjfR1IMoSX5SAGJeaLG2jddR6dnvuxU2pjTyRJ
-	 7FZ5CVrLUE4ycqtvnzi7CeZfFYrXgsxpwx5WuperWV+8bUULpb7qL34tRSarldtvv5kWt
-	 IXdUjXh6JLTFNk/sWrEgkTChcFq3LDtnxffpmJBCT89mzbCOZ166A8vo8dFMcEfXEwz7U
-	 s7f7WilMM0SwNDOdkdHRjnZpZP2CrSq6LQvDRe2oJm5h0AE3DwcXzzHQwhn+F0QEYgQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsLyJXRJ;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793117743;
+	b=NPYGo1VkzbV4TrZ4vymtJDndi+OW35mkP47djHEpYrKdnIWCN64KAjY4xzvlcYmETzGl
+	 wAnKKInk+W1ZETPdesdfWe80Joooc0SmSC2YTUwV4QRBSc8AHlS4xy/RvKNM8tMRW8LbR
+	 fVOqXVGWtHaNRkLIJg88FV2Ag8Pm8Gv+qBVGYSd4wmhAc2BZwXlqV/PiCcceeGf67Uxqm
+	 qSMoE9vJ5/y346bBQdN7RlVkRRdR+oevRuZxp4sue5CC5HEoJ+8w+8PhJ/NyMsaVbAg/G
+	 iA8+q0DP5LEqYDIC1koD/IcsTfWtQo0nSJjBITlldEQNokitBo1+AShEWMP4KiQVkmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117743;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
+	b=AV74Hb6txwbNAR/f0HE2Dm5HnAH6IHmPb7OPyiV435rQ5sbWs6Ep7QByXPbLMCExY/o5
+	 oxxsBCgOjyyVqtP+sD84Ie1zHIAlZ9oREQEp5k15f5vM3chqQ1Sh9RG8iW4LClLW71XFg
+	 WSJePeIGFeWjpkzqsSxfGuwclhsvS5YOCxJwec4FJkkGgE6y1wfTCM98RJ9DboVR90Lsx
+	 V0oxsbEX0pe/j8+qyVPvB3cExm67vc/O/Ce0XAgJvImyDLOGda+vopiqAMLMdMxLteAKI
+	 D4ApdpZmf8HW+5c53QxdBG3qlLGqRaacnWwlnce/npewLhcxh7iBN0pD/Iq02F39OFA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516D8606A33C;
-	Tue, 27 Oct 2026 16:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF2D606A31A;
+	Tue, 27 Oct 2026 16:15:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsLyJXRJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C03C1F01829;
-	Tue, 27 Oct 2026 16:11:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793117742;
+	b=iF6S0g6aFF9OklV15d6JH/oEqZr3oWuk+3KAqV+FAfxOUF9izHQOqWPOckECC7Vw//Oy
+	 mYPyxhuGahHhpqM2EAoGHohnghIdMoN+Aqc5BKAJU8fFSM5lFYkDMP2znE0P6NLUfLTLA
+	 MbTkfDA7h6oCbw2gkJrdYBqfZ2cZOOSHQraVS01Yd4CGjC4oLajW11kDQtfVLGRnqJQr9
+	 XZprXW3jLGg7WI5TrS1SEg6GbaS/bad3zVwbw9FD9dYq9sAmIuiTM6EbYPCtv6sKzU8nT
+	 /EB4tzILFVyL9FNCnholu6c0Bov9LqCJgdVv2dRvVegxVI3AGZcPwjQlog6wZEXwOkg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793117742;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
+	b=w81KB7+f0OFR6veUC6B22OUG83Qo3sDYmayqpOLXWCLRjaCHFQpZxSgzKQWi3qpiOEXF
+	 5BOmGbP2dYwl+0pmxoafZfLqEjm89Yrk8wwDIidAWVtnIUx/PpsvM+6fSiX0DnCeAFtvx
+	 UOv8cUVaAtnJ/IGDjtb6P+rtyBT/7DKGOvlxlmkZo62+LAmsdpj12boi7ocEo1fcfCeE9
+	 giVj4lzHVwvyViE7+MGkKbA3Yexpk5r0zJq1Ws14ZDMFfw3si4HdrsuaUO5ovT39vSere
+	 EHkUDqOfX9bgNiphWduN31Al4DMTJ/H6+HoZo9WL3Wxiu9zz19zhyjAnvZ5KFD3cfUw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id EBF0F1F01825;
+	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793117507;
-	bh=8rZ5yGrWp1dl4AtnWdtal5EGRywwPc08IAgIauG15qI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=SsLyJXRJd71VzIuMmqAfKCLI1VlK1W4wyFlG+R2t4FYEAVQSc4v8VP7x7FTU3Tl3m
-	 1NzsUfH6rYSktgDxBaT8WFwdWrYHRrxoRVR6sTgbj8hantNxBFmqZOUXscEtS+1egz
-	 wd5xi1/1qclEhjsc+kF7QpnMXWMR/ey4AKFg7BRIhfLuHBhEGpKGvnOXpZe3pUddu/
-	 hfqxlMftfqTl9gMc726sb/AgfvKF8XpeF2zkhKYZNc7rcaDe8g5TvKqrXFiB7fZb8E
-	 n2FICjGaEPxfWG7ZHl3SKxsi64Y9yZ1JLGaexHsYkdh5fqmjS+5+LCD/5FN9FRAotK
-	 UBCWZ3LxGclEA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 27 Oct 2026 17:11:28 +0100
-Subject: [PATCH RFC v5 6/7] media: mali-c55: Sequence clocks explicitly
+	s=k20260515; t=1793117742;
+	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=KHaksePsMes3VvIBAzpo/Vewuvon9PnUhpFXHRp1Ycr3iZK6d3/vdXTS682Awbd3a
+	 jNTAI3wHNeJPCqdSQUbTlcPTEGT/1vBHbsiDf4jHJsLXvYpGIriK8eNi+AbuFggu4c
+	 YHgtHVvtLiy7/OybE1UDlssf4QX0ISBHuzjsAd9DV1tGt7uMdt/5fvgsg5fwU8eQrE
+	 Fj8k+iiWBYP8M9Dn6gzhFfyZwPAwRx30cS+vIM1MRZ6AdMo88HOj8MNdpIw9fZZzv7
+	 4Sc2qsTMn9FAGzJWbwreTVT3s21VdpIon3VAqVWdXkE+lx08OpMABMsyC9+r0m7VW2
+	 t46EOEfZdmRSg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4E35745153;
+	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Tue, 27 Oct 2026 17:15:37 +0100
+Subject: [PATCH v3] media: qcom: camss: Don't reject sensor links faster
+ than 4x the CSIPHY timer
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,175 +84,122 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261027-mali-c55-renesas-dts-v5-6-51bbb43969c1@kernel.org>
-References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
-In-Reply-To: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
-To: Daniel Scally <dan.scally@ideasonboard.com>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>
+Message-Id: <20261027-csiphy-sdm845-limits-v3-1-c58917e14107@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNOQ7CMBQFr4JcY+QlMYGKeyCKeCMfkUW2sRKi3
+ B07FKkQ5UjvzczIGwfGo/NuRs5E8NB3Cfh+h1RTd3eDQSdGjDBBKsaw8jA0E/a6rYoSP6GF4LG
+ khmtZ21LzCqXr4IyFcdVeb1/2L/kwKmRXXjTgQ++mtRtp3v1JRIop1lwQaY8qZewFRggH9UY5E
+ NmmONHih4IlhWBMy7IWRlqyKZZl+QBo78HLCwEAAA==
+X-Change-ID: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3007; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=YngNkwq0tcL9PzNnoy5oOuxivPBzZW+yX4YIxcz9VjA=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq4M4sHysknjH4WTsZyWkGpInzz0sse10LN+oGu
+ LzBgYQacXGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCauDOLAAKCRBgAj/E00kg
+ ct0GEACJ8rn600wBR0k5Z1JbaLYFD61PRSQA05cvG01mbkv3yrDyjRxDJSDoLU1Hud9eZh0PlmN
+ g3V0sUmz/i6gzp/bgieRRnXGLj7gTElwpYQORX04ggzT/Q+HB302jsvkuxuBUf2/Ly+9Zc9Uu3x
+ 2ThAX7a0ufkI7KlDtKJHtOTJPPNZkjxrErGYonI9bHNCIh6oifO4J9DUOew7lRnF0/UtvhUvZZj
+ jonRCzQQOP63yxrS80V+uZXHrCfcnXaC6tVRBxpN+d9GrFCkjGNbAa+nkK+pP1m+wapQ5lyxODB
+ Cen/fMp+IPA7zlXN6iE73Vf49+gHNnCvGZGOOE5hDIEdpaNsEg1BQQw3LtYzcPTJWYemukMq08s
+ uqacGib7nDzC0lFq5Yj6VdipZhgf6R9df2pWOGYzZmwGF2FE7nwI8WHNiPc0YmWNNHZkR3C9X2b
+ RIq1Dfl2CebMQlcpsNnRvbfhSI0+SI36LThMxKjlIa3eH9tanNcg8lyjJioC6B2YCxmnejl1+eQ
+ U/70CCqLTn7UFWiHBmEUa8/Qoh6kZWiWREIjN4RWB3bJjYhZozCWwHr35DNC2ckI6hB4Tvy36oK
+ n9glKnmFI77jx3URR4NZmCeqEwfqsYBAHf0x/zrkirs/4xSEtHQsQRpS0guLfxwdyDkHVoTwjkd
+ Ln2CQ+ROZ/2mvxQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-Reporters avoid a register-access hang on RZ/V2H by swapping the first
-and third clock and reset identifiers in the ISP node. Test the clock
-ordering from that configuration without changing the DT assignments.
+From: David Heidelberg <david@ixit.cz>
 
-Acquire hclk, aclk and vclk individually by name. Enable them in that
-order and disable them in reverse order. With the current RZ/V2H DT,
-this requests clocks 0xe2, 0xe4 and 0xe5, matching the reported working
-configuration. Unwind successful enables in reverse order on failure.
+The timer clock has no such relationship to the link rate. Both the 2ph
+and 3ph code use it only as the reference for csiphy_settle_cnt_calc(),
+where a faster link makes the settle count smaller, not larger: at
+269.33 MHz the count converges to 16 as the link rate grows. The vendor
+driver pins the timer to 269.33 MHz for every sensor (it is the highest
+rate in the SDM845 clock plan) and streams this exact link with it.
 
-This RFC changes the driver's sequence only. The CPG power domain can
-enable clocks in DT order before the runtime-resume callback, and shared
-users may already hold clocks enabled. It does not guarantee the same
-order of physical clock transitions as the DT swap.
+Clamp to the highest listed rate instead of failing, the same way the
+unknown-link-rate case is already handled.
 
-The report changed clocks and resets together, so clock ordering alone
-has not been shown to fix the hang. Target hardware testing is needed.
+Solves issue on sdm845 that caps the link at ~1.02 GHz,
+so the Samsung S5K2X7SP, ~2.3 Gbps/lane, link 1.15 GHz) fails with
+Pixel clock is too high for CSIPHY
 
-Signed-off-by: Linus Walleij <linusw@kernel.org>
+Fixes: bbde31047434 ("media: camss: Use optimal clock frequency rates")
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../media/platform/arm/mali-c55/mali-c55-common.h  |  5 +-
- .../media/platform/arm/mali-c55/mali-c55-core.c    | 59 +++++++++++++++-------
- 2 files changed, 44 insertions(+), 20 deletions(-)
+Tested on SHIFT 6MQ with sdm845-next-20260820-9.
+---
+Changes in v3:
+- Added R-b and Fixes: tag.
+- Link to v2: https://patch.msgid.link/20260914-csiphy-sdm845-limits-v2-1-622db5a6ebf0@ixit.cz
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-index 13a3e9dc4243..b1ac50d6b30e 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
-@@ -38,7 +38,6 @@
+Changes in v2:
+- Drop the camcc change entirely; the 269.33 MHz ceiling stands. (Konrad)
+- Fix the check in camss instead: clamp the timer clock to the highest
+  listed rate rather than failing, matching the vendor driver.
+- Link to v1: https://patch.msgid.link/20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz
+---
+ drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+index f99eea2ef2289..985171276ce47 100644
+--- a/drivers/media/platform/qcom/camss/camss-csiphy.c
++++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+@@ -159,25 +159,23 @@ static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
+ 			long round_rate;
  
- #define MALI_C55_DEFAULT_MEDIA_BUS_FMT	MEDIA_BUS_FMT_RGB121212_1X36
+ 			camss_add_clock_margin(&min_rate);
  
--#define MALI_C55_NUM_CLKS		3
- #define MALI_C55_NUM_RESETS		3
+ 			for (j = 0; j < clock->nfreqs; j++)
+ 				if (min_rate < clock->freq[j])
+ 					break;
  
- struct device;
-@@ -237,7 +236,9 @@ struct mali_c55_context {
- struct mali_c55 {
- 	struct device *dev;
- 	void __iomem *base;
--	struct clk_bulk_data clks[MALI_C55_NUM_CLKS];
-+	struct clk *hclk;
-+	struct clk *aclk;
-+	struct clk *vclk;
- 	struct reset_control_bulk_data resets[MALI_C55_NUM_RESETS];
- 	int irqnum;
- 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index f28e9f4354ac..0caef871cad4 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -64,12 +64,6 @@ static const unsigned int config_space_addrs[] = {
- 	[MALI_C55_CONFIG_PONG] = 0x22b2c,
- };
- 
--static const char * const mali_c55_clk_names[MALI_C55_NUM_CLKS] = {
--	"vclk",
--	"aclk",
--	"hclk",
--};
+-			if (j == clock->nfreqs) {
+-				dev_err(dev,
+-					"Pixel clock is too high for CSIPHY\n");
+-				return -EINVAL;
+-			}
 -
- static const char * const mali_c55_reset_names[MALI_C55_NUM_RESETS] = {
- 	"vresetn",
- 	"aresetn",
-@@ -668,7 +662,9 @@ static int mali_c55_init_context(struct mali_c55 *mali_c55,
- static void __mali_c55_power_off(struct mali_c55 *mali_c55)
- {
- 	reset_control_bulk_assert(ARRAY_SIZE(mali_c55->resets), mali_c55->resets);
--	clk_bulk_disable_unprepare(ARRAY_SIZE(mali_c55->clks), mali_c55->clks);
-+	clk_disable_unprepare(mali_c55->vclk);
-+	clk_disable_unprepare(mali_c55->aclk);
-+	clk_disable_unprepare(mali_c55->hclk);
- }
+-			/* if sensor pixel clock is not available */
+-			/* set highest possible CSIPHY clock rate */
+-			if (min_rate == 0)
++			/*
++			 * The timer clock is only the reference for the
++			 * settle count and does not need to track the link
++			 * rate. Use the highest listed rate when the link is
++			 * faster than the table covers or unknown.`
++			 */
++			if (j == clock->nfreqs || min_rate == 0)
+ 				j = clock->nfreqs - 1;
  
- static int __maybe_unused mali_c55_runtime_suspend(struct device *dev)
-@@ -687,20 +683,30 @@ static int __mali_c55_power_on(struct mali_c55 *mali_c55)
- 	int ret;
- 	u32 val;
- 
--	ret = clk_bulk_prepare_enable(ARRAY_SIZE(mali_c55->clks),
--				      mali_c55->clks);
-+	/* Enable the register interface, AXI and video clocks in that order. */
-+	ret = clk_prepare_enable(mali_c55->hclk);
- 	if (ret) {
--		dev_err(mali_c55->dev, "failed to enable clocks\n");
-+		dev_err(mali_c55->dev, "failed to enable hclk\n");
- 		return ret;
- 	}
- 
-+	ret = clk_prepare_enable(mali_c55->aclk);
-+	if (ret) {
-+		dev_err(mali_c55->dev, "failed to enable aclk\n");
-+		goto err_disable_hclk;
-+	}
-+
-+	ret = clk_prepare_enable(mali_c55->vclk);
-+	if (ret) {
-+		dev_err(mali_c55->dev, "failed to enable vclk\n");
-+		goto err_disable_aclk;
-+	}
-+
- 	ret = reset_control_bulk_deassert(ARRAY_SIZE(mali_c55->resets),
- 					  mali_c55->resets);
- 	if (ret) {
- 		dev_err(mali_c55->dev, "failed to deassert resets\n");
--		clk_bulk_disable_unprepare(ARRAY_SIZE(mali_c55->clks),
--					   mali_c55->clks);
--		return ret;
-+		goto err_disable_vclk;
- 	}
- 
- 	/* Use "software only" context management. */
-@@ -734,6 +740,15 @@ static int __mali_c55_power_on(struct mali_c55 *mali_c55)
- 			   val, !val, 10 * USEC_PER_MSEC, 250 * USEC_PER_MSEC);
- 
- 	return 0;
-+
-+err_disable_vclk:
-+	clk_disable_unprepare(mali_c55->vclk);
-+err_disable_aclk:
-+	clk_disable_unprepare(mali_c55->aclk);
-+err_disable_hclk:
-+	clk_disable_unprepare(mali_c55->hclk);
-+
-+	return ret;
- }
- 
- static int __maybe_unused mali_c55_runtime_resume(struct device *dev)
-@@ -788,12 +803,20 @@ static int mali_c55_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(mali_c55->base),
- 				     "failed to map IO memory\n");
- 
--	for (unsigned int i = 0; i < ARRAY_SIZE(mali_c55_clk_names); i++)
--		mali_c55->clks[i].id = mali_c55_clk_names[i];
-+	mali_c55->hclk = devm_clk_get(dev, "hclk");
-+	if (IS_ERR(mali_c55->hclk))
-+		return dev_err_probe(dev, PTR_ERR(mali_c55->hclk),
-+				     "failed to acquire hclk\n");
- 
--	ret = devm_clk_bulk_get(dev, ARRAY_SIZE(mali_c55->clks), mali_c55->clks);
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to acquire clocks\n");
-+	mali_c55->aclk = devm_clk_get(dev, "aclk");
-+	if (IS_ERR(mali_c55->aclk))
-+		return dev_err_probe(dev, PTR_ERR(mali_c55->aclk),
-+				     "failed to acquire aclk\n");
-+
-+	mali_c55->vclk = devm_clk_get(dev, "vclk");
-+	if (IS_ERR(mali_c55->vclk))
-+		return dev_err_probe(dev, PTR_ERR(mali_c55->vclk),
-+				     "failed to acquire vclk\n");
- 
- 	for (unsigned int i = 0; i < ARRAY_SIZE(mali_c55_reset_names); i++)
- 		mali_c55->resets[i].id = mali_c55_reset_names[i];
+ 			round_rate = clk_round_rate(clock->clk, clock->freq[j]);
+ 			if (round_rate < 0) {
+ 				dev_err(dev, "clk round rate failed: %ld\n",
+ 					round_rate);
+ 				return -EINVAL;
+ 			}
 
--- 
-2.56.0
+---
+base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
+change-id: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
