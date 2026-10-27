@@ -1,98 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793117267;
-	b=hRgnNgNV+HIVuNtG1/Un5AX+wBqxRwhFE7mUMWxrYhVQP2dHhyoClzokqbdXhVOtLdSQ
-	 gqAYcRgmRrPjZVylo0SfvpJXOxTNFra07Aqyy+BZFW7WD7L3ayNvjrOsjMXPj6wotcwh1
-	 N1CaoKiHYT70mhRSP2Tu1d53I7KgQ9110Ovj3uCsqlKUcBx3wPxyosVs9bAfe1py7grgC
-	 hIb2+90dV09rRc4YsjNgnK9zSP55zw7w5mddhfIk2OpMen/Hryw8gO2nJPPeeMQKp7Ont
-	 kHhPKPMwlR0YjyvJVxKOsYYfaL/aup/EcmpYCp0EEXGznprx7uPNh/tN+nkXnnu+qDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117267;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=8jPyN8UBAoTt1syShGwjJH8u4vc12+sDCIMGCA9qSRM=;
-	b=erDHKoS0L3rmxTUzXnhLfkn5fzgI+H7tCTmGvLrPTjNrV2HG8jqfHLH+34S8m0FMTYeN
-	 ws8iaIquuJ5bRODRPVYEXElOnrbp2BrcutjIiA6ZXQnZoQNK4db0X/hMYD4tAThh86gbB
-	 BlcrX7lZ1JEz4uAwQVn6h85S3zub/oy8RgZGZllc2y9DzV9/CxSfw+SdnBKMWfpK6cINY
-	 Gb1sNXZtwECF7wdkzlMw9Uw8abQi1NDDtJNy4Uh1vWOSUlqD3nhEc+a5dnzBm4KdRcVY+
-	 REAS+FNJkcUHVdtmRd6R4EGG5TPd/gk34eSERZcVXJDIARSWVkXJNECDaJcnfCqAn8A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jfzLECHW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.172
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793117489;
+	b=IKy5m5fMnQxm154zbd/giXD5F8sG5eEIfu5VbsL69IH6g83KYPsX3VHTA+w+Q2RbR8c6
+	 EaOnnkERz0IoSA2/u7KWDjcmnZcPbISzIiBfyP5b/sH4tD2DYp3hmPAHd0KXMJdVE7Kbd
+	 J9zTVv98WpsUH+4Rl/gr9X/oF4JSjNxtkBH1EaLixthxdgzizrDAij4ALXs6LINe/VwjJ
+	 T2le8nKVF4RNSklYjXRx4lYKL2/74Dw+pMkMAGSRLZd0pFO7oj+97Wvb4mOeN7uUHD+5Q
+	 A23NqtqSeqixj1QwNZqhoFdwQSt/Nd+FCeVX/qtScANr5M8Tq5MWWuPvayNbEwt27JA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793117489;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer;
+	bh=D1rdsulDw7RWj1Ih/pNXLSB+0U2zWU4Psnbf9sp2cLk=;
+	b=rkXXnxyzwbUBRTZdZSbDMEdabxv1n3F+9awLfcR3J+wduKQiznsyYb+hZzcpH0PD9wN4
+	 jHuxkHxZOxxOY2ON/7tU8gaMwYmHZvEkdSEvCWv9cafFQVWO2eSZhAG0gPAILd2bs+jJv
+	 nq/Yyx9Fjo3TihpPzVdKbd7GyOyEUv405DmRtbJvL3mbefVO8kd6o0QUpHwRN1KqbPRvF
+	 eNAbEWi+pR68bEcIfjc2fyMiyUYl2whMSmKzvWBVtToeEBI5MRY6gPK+JzM85slzFls55
+	 JJL7ifgoUoy0bHYMjR0dsbg5GaD7rlZrVcx8WuaZf7ZyuQv1hpR56w/cAPrHSOiyrUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nom5AtKA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A968A606A31A
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 16:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A968A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB940606A31E;
+	Tue, 27 Oct 2026 16:11:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jfzLECHW
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8ab432273c5so36605337b3.3
-        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 09:07:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793117266; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RktxAXEFRYLgZcqDyXWWplXQ8lrpwsvYzW/8lQ2cScNiPcCWRJpHGSKhkw5Gz/2C4Z
-         aDMTZ6zX7XXHtRCWTU0rIgxz3zkzZ8YRFqrGa7RLWDpom67HAzdJs3IJdhu1E9wjjYqP
-         rjo4D7yi6D0+epc1iyOpZzj6uvP1C8pIaCohkp3E3ygzdabk7WJoMLTQrgMKYhylPK2P
-         xIP38YFwcNjALySMOUzcXY5r2OG2hFOhfwku0lUic4PzmJaNd+p7JJItPBny47xxK8yv
-         YF1l7AjsusBCv3ikK2uSVT1i7Xq3U0tcXL/bEAeciAHRRjxchPr+1ukeKOEut9vmqrMj
-         JW6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=8jPyN8UBAoTt1syShGwjJH8u4vc12+sDCIMGCA9qSRM=;
-        fh=+l7UwA2mI2qqg/CiEWSf4gfwP6z31Vtm+Q8s2sTglPw=;
-        b=Qz0B5RSO333Gm+YVXwp76bVbhb9KEpmVugKYbHT9CU9WVcwhRvJlG1bPjzY7g+RXOd
-         6ACQ4VOu+qBb/kZirTeW41NazwcEc1k9reK4upfjS9KXfUJOJoiX51Qp6IAih4lrKa6P
-         TB77ACmKol+ZcygauGQBHE4aC+zvch2LwR3Dir1Z2YP849nbiZhJZrV/xyITFAApgRnH
-         uujsm4XDAhmjEMXTQOuzwmTwwp1+aRXtUdLwyBkT+wsBNp0NrlFFmHTHEiJZM2fyRDV9
-         3lnw/IgdTPvoaE3zdvas3MeHUjMZiK/lUX9oK+vMR8x8r7EOfH54prXYcFp0qgbi1u3Z
-         gndQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793117266; x=1793722066; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8jPyN8UBAoTt1syShGwjJH8u4vc12+sDCIMGCA9qSRM=;
-        b=jfzLECHWtgikqAV3sYKqCY3EVo9ZnNUcHFWDBBDr9Jkx8XeME6ub/D706zos00tQGf
-         2GTK1JzUhb/5O4GgRY4NQ9o21M346ZyR98WN+3E4VB1qIT+doQPmWPh6g57hVW7q8TMC
-         jQwM6pB2W/vXxKv1KjS9ss4d2mCrO0iVOmE2rPeUTCCY3qyRAdxz/nTRE6No4KFFidRw
-         MyX5aSi9U4bnDnrzOHSYTj4iB3hR9pJlO25aOYlUKpkEgzd5zht/yM3eRbFf2S0DrrX9
-         Q2QWzVbtwI2GSW/dMEsBvzyJf8sN4x7K+MxhJCB8x8Fnq7gL6RTLwmtt2VW2OAyQtvUD
-         s5XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793117266; x=1793722066;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8jPyN8UBAoTt1syShGwjJH8u4vc12+sDCIMGCA9qSRM=;
-        b=O9U0SW94TgGdMpHZ9x7Jp1WGBgNkdUfFE3qhAm3hXnN7H3aLpThLg/jBquOUyEamxJ
-         Y9NJ7yjmxe4MO5Tm6ms6zHaGI2bt/QATNsk7rzGCO5Y/1Nxn8uNXbT0P4tx7ew2meVHM
-         b5gTgErsIwpO2NMOFSDIa+olBtAZ6PEmd7DEAWfeuHnDdke0cY6RcuuyBUEAwawyfOft
-         nGiUAeb+BV8kvEo3m9BZr+Q86wkg1hETcj64dLTbQiZwm8/REbdPHWi2SDhtxI52vkpF
-         kuHIDq2vzI5nhnBYQZTq3nG+KqJEoy6LdW2gRjzaGjSyUfSGg7DTXuISFp/3ExojPvqT
-         NKvQ==
-X-Gm-Message-State: AFq9FYKe9Vc3YSFR1Z5+LUnHhWKcOvzzB9TyOXkDA7lKv03B7q0HtBAz
-	mZ/MqV97Pmxu0Dfee3pM4BszgWAUManWI1mbsSofSWkHD+nnwZ6s5iNwLzbSsF+jLJCUnHhXWdk
-	3W4wX8RGIrmritgRoVEUh6H+bhsmFrCs=
-X-Gm-Gg: AYBFou1mYcELqIrJ8ByJ182MF/gvsECUo6JjB0SVcbKqCirW7O4RdkU5gjKcrrAsMYP
-	Ab+pPcVAiTg3ZPpHPeEg9t0wNsEJhZPupkgEN+LTsZPKpGRJcD7Yza41iI4oKbhxZheSi+iWy+r
-	o/ry4mhdNBAsA1BMi02PlGpSS52x+/5A+ErEHBTSHEYBWS/4D6hKofqkJyuPBrdom357CFBdidt
-	hUNosUsxYYRAp4W9pMmywezr8rR+LvNgefpYh/RfP9RYWMyFeDEaXH4CGqs3vztRQHV8Hvk9eak
-	GEdzWkVBNdGTEA3UY8AmnZYykuw7P69p8nSQKH7f0P11qCs5PP3o4p0uiXhZ6e8+bt9eY+qe8cA
-	dIcY0sgaLPVlinp/zefCO5RkcoxWkucnQtgVMSA==
-X-Received: by 2002:a05:690c:e01c:10b0:8b0:d978:db70 with SMTP id
- 00721157ae682-8b166cb369fmr65516297b3.49.1793117265671; Tue, 27 Oct 2026
- 09:07:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nom5AtKA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897E41F01828;
+	Tue, 27 Oct 2026 16:11:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793117488;
+	bh=D1rdsulDw7RWj1Ih/pNXLSB+0U2zWU4Psnbf9sp2cLk=;
+	h=From:Subject:Date:To:Cc;
+	b=nom5AtKA4ozXB6mQnpt9Hd+HDiB/WgtelIj2WEqoKRSZsTvgCCY8ipXH4CxncNHOI
+	 fc8z904CFETzH+v3wqex1xqXWYkHeVp28MWpf2aSlrSCzMkzWSX5Ae5GONKBEJR6rC
+	 Ql/Pi5turRrec/D0lSbLlp8OzQc94vf83jgucj52pYfbL7YigHvhfxRQQdVQe2GiqM
+	 +WCReKHyFqDuImoI3wlhShC7FfbW/xTgxWNg85LSQ2RLq8w3MMA/qI2FMSk+tXPJX7
+	 VxLNS9Lzg5Y4W4mAXA0UN9yrJ+cSafniiq8Kip01eVJFVX3STIt9qmImiglpJvXbOX
+	 PifJOMjsBGfJg==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v5 0/7] arm64: dts: renesas: Enable ISP and IVC on RZ/V2H
+ EVK
+Date: Tue, 27 Oct 2026 17:11:22 +0100
+Message-Id: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,95 +54,111 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: valery bokov <vlry.bkv@gmail.com>
-Date: Tue, 27 Oct 2026 17:07:28 +0100
-X-Gm-Features: AclHuK8HxBVgGSDH8O5FMY3o9Fnlzoy22rwsKT8VAnGzxxIcOYW2MTlNtInOlI8
-Message-ID: <CAN9BvprvMN+PX3nsktab6UDCn=Hy0mbh4WG6FUf6VFX1cuw9aw@mail.gmail.com>
-Subject: Re: [BUG] rkvdec-vdpu383-h264: wrong pixels at horizontal de-blocking
- edges y=4 and y=12
-To: linux-rockchip@lists.infradead.org
-Cc: linux-media@vger.kernel.org, Simon Wright <simon@symple.nz>, 
-	Detlev Casanova <detlev.casanova@collabora.com>, 
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XP3YrCMBAF4FeRXG+WZJI0rVf7HuJFfiaaXW2Xp
+ BZF+u4mLogiZS8PnPkOcyUZU8RM1qsrSTjFHIe+BPWxIm5v+h3S6EsmwKBhHQA9mkOkTimasMd
+ sMvVjplp6qUEH1aEi5fQ3YYjnO7vZ/uV8st/oxmrVxj7mcUiX++7Ea++fiYlTRp1vhPNWcSbE1
+ w+mHg+fQ9qRujHBs6IWFChK0wUNrZFaGnhTxLPSLiiiKOCCRqtlg9a+KfKhcMaXPpL1I8kZQst
+ sAP+izPN8A8KOUZidAQAA
+X-Change-ID: 20260922-mali-c55-renesas-dts-74d4727f59e5
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: b4 0.16.0
 
-Hi all,
+Describe the optional ISP DMA line-tick and IVC frame-start/frame-stop
+interrupts. Add the RZ/V2H(P) IVC and Arm Mali-C55 ISP nodes, connect their
+video endpoints, and enable both blocks on the RZ/V2H EVK.
 
-A follow-up to my previous mail about 0x27b00618: I now know what it
-is, and there is a much larger speed-up behind it.
+Two additional RFC patches replace bulk clock and reset operations in
+the Mali-C55 driver with explicit sequences using named handles. They
+reproduce the driver call orders from the reporters' working DT swap
+while keeping the clock and reset assignments unchanged.
 
-What the register is:
-The Rockchip BSP (rockchip-linux kernel develop-6.1,
-drivers/video/rockchip/mpp/mpp_rkvdec2.c) maps the RK3576 decoder=E2=80=99s
-=E2=80=9Cregs=E2=80=9D bank at 0x27b00100 with size 0x600. Before every dec=
-ode,
-rkvdec_vdpu38x_run() programs three =E2=80=9Ccache reference=E2=80=9D regis=
-ters,
-offsets relative to that base:
+The Device Tree does *not* guarantee any sequencing of resources,
+so these sequences must be handled in code.
 
-RKVDEC_REG_CLR_CACHE0_BASE   +0x510 (0x27b00610) =3D 1
-RKVDEC_REG_MAX_READS         +0x518 (0x27b00618) =3D 0x1c
-RKVDEC_REG_CACHE0_SIZE_BASE  +0x51c (0x27b0061c) =3D CACHEABLE_ACCESS |
-                                                   READ_ALLOCATE |
-                                                   LINE_SIZE_64_BYTES
-                                                 =3D 0x13
+Clocks are enabled hclk, aclk, vclk and disabled in reverse order.
+Resets are deasserted vresetn, aresetn, hresetn and asserted in reverse
+order. These are driver-only experiments: the CPG power domain can
+enable clocks in DT order before the callback, and IVC may already hold
+shared resources active. The physical transition order is not guaranteed.
+These RFC patches have not been tested on hardware.
 
-So 0x618 is MAX_READS. Mainline maps only 0x100-0x5ff of this bank and
-writes none of the three, so they keep their power-up values. On our
-board 0x618 comes up as 0x0 or 0x2 (the slow/fast lottery from my last
-mail), and 0x61c as 0x1 or 0x111. The READ_ALLOCATE bit was clear in
-all eight dumps.
+After these patches, and enabling the right Linux drivers, we get
+this in the console:
+mali-c55 16080000.isp: Detected Mali-C55 ISP 9000043.31032022.0
 
-Measurements:
-Same setup as before (Smatek T10PE / RK3576S, 6.18.34 with Simon=E2=80=99s
-priming patch, GStreamer 1.28.2 v4l2slh264dec). The full 654-frame
-2688x1520 High-profile clip was decoded with sync=3Dfalse, all within
-one power-up held with power/control=3Don, changing the registers
-between runs. Each setting was run twice with identical results:
+This was done in order to enable booting mainline with mainline
+device trees.
 
-0x610  0x618  0x61c    ms/frame   fps
--           0x0      -               65.4        15   (slow power-up,
-earlier runs)
-0x0      0x2      0x111       22.5         44   (fast power-up)
-0x0      0x1c    0x111       7.2           139
-0x0      0x2      0x13        8.6           117
-0x0      0x1c    0x13        3.6            ~278  (BSP values)
+The patches were authored with the assistance of an LLM.
 
-0x610 reads back 0 after the write, so it appears to be self-clearing.
-The fps figures include gst-launch start-up, so the fastest rows are
-slight underestimates.
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v5:
+- Add two RFC driver patches for explicit clock and reset sequencing.
+- Match the call order from the reported DT swap using named handles.
+- Link to v4: https://patch.msgid.link/20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org
 
-With the BSP values the decoder is about 18x faster than a slow
-power-up and about 6x faster than a fast one. MAX_READS and the
-read-allocate cache each contribute, and the effects combine. This may
-account for a good part of the mainline-vs-BSP gap noted in Simon=E2=80=99s
-FIX.md (4K ~30 fps vs ~112 fps).
+Changes in v4:
+- Provide interrupt names in both bindings, their examples and SoC nodes.
+- Use Renesas RZ/V2H interrupt numbers in the binding examples.
+- Link to v3: https://patch.msgid.link/20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org
 
-Correctness:
-For each register setting I hashed every decoded picture
-(v4l2slh264dec ! videoconvert ! NV12 ! fdsink | md5sum, so buffer
-padding cannot affect the hash). All five settings gave the same md5
-over the whole clip, and no kernel errors were logged. Two caveats:
+Changes in v3:
+- Correct the ISP video and register clock/reset mappings by swapping
+  vclk/hclk and vresetn/hresetn.
+- Add an optional ISP power-domain binding and attach the RZ/V2H ISP
+  to the CPG power domain.
+- Link to v2: https://patch.msgid.link/20260925-mali-c55-renesas-dts-v2-0-69f728a474a2@kernel.org
 
-I cleared the cache once, while the BSP clears it before every frame.
-The clip still decoded identically, but I would not rely on that for
-other streams.
-The md5 shows the settings agree with each other; I did not compare
-against a software decoder in this run.
+Changes in v2:
+- Add separate IVC and ISP binding patches describing the optional IVC
+  frame-start/frame-stop completion and ISP DMA line-tick IRQs.
+  Show all six IRQs in the examples using consecutive mock numbers.
+- Add the IVC frame-start/stop and ISP DMA line-tick interrupt lines
+  using the confirmed SPI assignments, addressing Geert's IRQ review.
+- Correct the IVC and ISP register sizes to 64 KiB and 512 KiB,
+  respectively, as requested by Geert. GPV_VIDEO0 is a separate bus
+  interconnect region.
+- Compact the clock and reset properties and remove blank lines between
+  properties, following Geert's review.
+- Link to v1: https://patch.msgid.link/20260922-mali-c55-renesas-dts-v1-0-cd63cdb51033@kernel.org
 
-Suggested fix (not written yet):
+---
+Daniel Scally (2):
+      arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+      arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Add ISP and IVC nodes
 
-Extend the VDPU383 =E2=80=9Cfunction=E2=80=9D reg range in the RK3576 DT to=
- 0x600, as
-the BSP does; or map 0x27b00610-0x27b0061f separately.
-Program the three registers like rkvdec_vdpu38x_run() does: before
-every decode run (not only at runtime resume), with CLR_CACHE0 =3D 1,
-MAX_READS =3D 0x1c, and CACHE0_SIZE_BASE =3D 0x13.
+Linus Walleij (5):
+      dt-bindings: media: renesas,r9a09g057-ivc: Describe additional interrupts
+      dt-bindings: media: arm,mali-c55: Describe DMA line-tick interrupts
+      dt-bindings: media: arm,mali-c55: Add power domain
+      [RFC] media: mali-c55: Sequence clocks explicitly
+      [RFC] media: mali-c55: Sequence resets explicitly
 
-I=E2=80=99d appreciate a view from the maintainers on the preferred way to =
-map
-the range. I=E2=80=99m happy to test patches on this board.
+ .../devicetree/bindings/media/arm,mali-c55.yaml    |  27 +++-
+ .../bindings/media/renesas,r9a09g057-ivc.yaml      |  22 +++-
+ arch/arm64/boot/dts/renesas/r9a09g057.dtsi         |  47 +++++++
+ .../boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts    |   8 ++
+ .../media/platform/arm/mali-c55/mali-c55-common.h  |  11 +-
+ .../media/platform/arm/mali-c55/mali-c55-core.c    | 136 +++++++++++++++------
+ 6 files changed, 205 insertions(+), 46 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260922-mali-c55-renesas-dts-74d4727f59e5
 
 Best regards,
-Valerii Bokov
+--  
+Linus Walleij <linusw@kernel.org>
+
