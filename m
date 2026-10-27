@@ -1,72 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793070434;
-	b=E9GGMxpsUOETVByBevNqFjUsdvBTSyqFt8dMrj+4rkuNdz8NAIeQqzUM93onkMEMBJBn
-	 YkOc9v1yEYlGjgE1G+EkQ96DiKwjO76zKfVUA1L0yGvt/LjrIRBMW59MklOOLlOc5sgmG
-	 +Jppl8mh2YHgdDzZLG1VoXvJMkEaQcyusy/A+/ntHpeVasv9xJnnPUTWjjR9Loex/mje1
-	 jh6YS005oX3PnVXtbg+R3CFAWiXO5EQ7ouZb0R7DRJbLP4Hcmx+GxTBboe/yNp7sGDnK3
-	 lLUdA/YVsaKM2aPsz2n8rw7gj65YWXduCkwrL5Kl9/C5f39PcBW/fKfq6iWZgC67tRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793070434;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
-	bh=zPsRhvAj2KjNdGnX8BKq1TiCS12g1Yck2EzZySS8ELc=;
-	b=eZkuF77/gAKBe71AvH3y46CHlVhbZq32KsAXgHemL6l2G1Etum4q62p91gPPKrYUZdkJ
-	 YtIc+/g2EfEOSpOXFor0TqGPqwSxHgRjlJKxPzrL7B6GpCAcBzxvpWRrfO1helUPMw39k
-	 TkR0jWYUHdCliXrAmQOb/6S5StLdnzy9xNxhNIGNV+d0wePMPnoKd3dz07YtG2RkHP0gC
-	 G2dgjHymvNDQtIJv6WL23juIZru87bmecmHpn5RHJWg+GD2xHgXXm6uv0UxyVMNRI+3aZ
-	 efcBtA9dhNkSVlRz6o4A24Cu7EPw13cNkquZ/4Q2TCC29UGcPO7rwSFv+8lH/4bYFtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k9WJoWe9;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793072560;
+	b=COx5MpLrw4btmYvkV38EmWuNDlW65j2rAIxRG0ansKND4HdxHlCfVylBNufYEwn1LI4W
+	 rZ2RQRAe/yUQqa9qSVTvzA0uykqMe8GerKdOJomFBECox6ySrwa8cp3cdwtIMyLchhq76
+	 W8h4fZFiUtmQvvxqDsKLHg7W2wI9fCejeeBfSsnitFA/1hVz4S+UKnfPpnrfDI14DPfZY
+	 k9qh3syJHacBlJkUuA3x8jnOfcXzjb7yC/MvT45vHu1scv459LNu/O/VAPByE+4iDf0M7
+	 5jP8up8bg94+NLu9wzjAlJSMdz5z0iiLe4JEEGfGOAd7AuoA7O0ZCyfmku62j+qLfdA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793072560;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=bIr823/UzfsG9CRAeLIu2WbktM8BknLKIBPc+Dr9qXU=;
+	b=0sO59QrKrudSu1yzEVJfUG5svepQLX4EJqh++LWrVGCYGLG4zXpCGP0wglfv2BkrXdp2
+	 NSJ4HYuslScXG+nPHoVtTWJTrI0oImWjii3mvZ3wdHSFcKE0wJCoyieujuedVVwZZi3pO
+	 v3LLy5MJe5lBArvHdP17Bo7/xLDQ3Tu1hizgbAreXCKlB/0npR9RRW5TitWpbVd08dwNM
+	 YT7Ais5LQvKq8QYkzZzwP8Wspo1SO7udZpp26I9iINc2hLyecuIh3nLTjBbuUYA1zPfQh
+	 d9ryGHQLSI63h3T8L2MZfFtC+YAVse92AYUQ8zQBRH52XKdF4q9Ur9lwGGzP1VH+p/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BOndQ1Hm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.47
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013047.outbound.protection.outlook.com [40.107.201.47])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED378606A323
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 03:07:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED378606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1F6606A31A;
+	Tue, 27 Oct 2026 03:42:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E1F6606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k9WJoWe9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793070434; x=1824606434;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=a337CpttHxENc6aU5FBXxE6RHOOLsQmPMK7UYRW+ghk=;
-  b=k9WJoWe9G4vdZ89oCKCrk2VYW6/H15qOk0rV3WDrV41ksug+SAErbj9Z
-   X2L9JrxWcZctUN9UTg5dncL9RiO8BHZXkC1lgziW2IMht56woHo01GJWI
-   QZHkAGhAqTZfsXMyBUGgGYX4lxE/73s+Zjmv1Dae2UAQabZQK+UWHCgZf
-   Of/DazHmFiSSQG5dNa1np0RsQTia4exS/GdXRDHfar6vnLl866z2Z/jpo
-   9A6yjfEa9MFV+9LsNlhYIoxZ92Pb4YIUyVU314o8wrKvsRmLHoHC6VQkc
-   p9wjvJJ2RXV/wSWa69B1zoYvA1t5lnkSJIvHwMfFz5lZFkFRkJ503d7b6
-   Q==;
-X-CSE-ConnectionGUID: 6HuWjD1qRZyEMpFqn85QPw==
-X-CSE-MsgGUID: Oe5AUVYZSFWuXDdOfYQn6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1769246"
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="1769246"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 20:07:13 -0700
-X-CSE-ConnectionGUID: 6mCkHrXARl66SPYevaf3kQ==
-X-CSE-MsgGUID: WZ06hZcFRbSdOMp6BmDR+g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
-   d="scan'208";a="4515957"
-Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 20:07:11 -0700
-Date: Tue, 27 Oct 2026 11:07:07 +0800
-From: kernel test robot <yi1.lai@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-media@vger.kernel.org,
-	yi1.lai@intel.com
-Subject: [sailus-media-tree:media-ref] [media]  696502a495:
- BUG:kernel_NULL_pointer_dereference,address
-Message-ID: <202610271039.7cc92f63-lkp@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=BOndQ1Hm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=K1bENl+UGN4TfrQI45+YBe0se/6GR7zvWF7f7itucI5C4u9mXPrS87aFi96zFVLh4qUJOv8/QJodQcXbjXfemjT3350PiLInJwG242a4x9E58kqWPRvWv/Z+oFrPeKLFokCy9iHNUJ9zEJQIqIQaD2dvDxXMW/10kR94BvWv6NgX9xxc2GF0ufU3PRADrU5Y8b4B7nRXSYSH6N3IzZFSBWub6AshHKNEqbxCNw0jYHWrACe/HcjcAQaoEoR1AUPeCVxqy5KTQfYfGu+89tnWApb8KLZCF9mOc8w+8O6zcuKmyeOEX/5ha3f3VGh4UDcqmDKwDOZgt3w5QVg0hxgIjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bIr823/UzfsG9CRAeLIu2WbktM8BknLKIBPc+Dr9qXU=;
+ b=fnPJyGgsBkuIngJvzosgiDbHqs/IpTpRpGlAsdayo4jTDPMtSunaUQfIviiWGx17zIl66g2uLRYFAf1+XfnSgHTEZ+FAxm8HyxdAYlZW4FaGn5Tf/SyT3j1txmFSY9I0zRiVh1UYvX18M1VMAb76zw1LdYyiVww0aAH+ZyG4fx1FU86io+MDCI3KpEEQnjTbuDqDk6TqSOnUWuFYwqSQ+iZz5YAZBZEPdkck/JtjR54HU1bzqYKjJF4iktiKhqi35wilBvZgnplMUA6vgiQd5PEvZLnbPqmk/M1uchf78cI7F+kQVmFMeaMQr3F8G+7/Yd7IQf2wvXFr83FXy5j6gQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=bIr823/UzfsG9CRAeLIu2WbktM8BknLKIBPc+Dr9qXU=;
+ b=BOndQ1HmuhqJ7eMDjkK6G8BbGEXMo50YlznzoGH+4VUINexj/O2WLcHYP+Nj2fS/NPddkOKiM8pJK98/YhVed6VKicGzLCj7UN86nRPSLWEgNLGpTYHktg19+ofthrVVV1G9CMyPbVqD98SVfK8fBYPw5KrGbVzLOrInmex1ymUGY//fUIlcrXLUhS+UyyHPjxurl669KpVgm7L0ilFHm4cYAhyHZ+1EGBFVSeLPmoTh8rCRMQglaRDrRStmT1A0WAbNYqrGs3mRqWaQLhJ5Id0HVpzkGi8QHO8CI+pmMMX9OlW2lUoj+ZiH//g4XsEa+BOPlxypz0tcvbTtahyzBA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by LV8PR12MB9665.namprd12.prod.outlook.com (2603:10b6:408:297::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
+ 2026 03:42:36 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
+ 03:42:36 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Alistair Popple <apopple@nvidia.com>, linux-rdma@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, christian.koenig@amd.com,
+ sumit.semwal@linaro.org, jgg@nvidia.com,
+ Thomas =?UTF-8?B?SGVsbHN0csO2bQ==?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com,
+ treding@nvidia.com, jhubbard@nvidia.com,
+ Karl Mehltretter <kmehltretter@gmail.com>
+Subject:
+ Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to dma_buf_sgt_attach()
+Date: Tue, 27 Oct 2026 12:42:32 +0900
+Message-ID: <jB0baKUEStaR7DFEykw_Qw@nvidia.com>
+In-Reply-To: <auAIO0y09SXk34CN@gmail.com>
+References:
+ <20261026053623.202642-1-apopple@nvidia.com>
+ <20261026053623.202642-24-apopple@nvidia.com> <auAIO0y09SXk34CN@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCPR01CA0161.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b1::11) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -76,179 +112,120 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|LV8PR12MB9665:EE_
+X-MS-Office365-Filtering-Correlation-Id: e798faec-de9f-4ce4-ce5b-08df33dc572f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|10070799003|1800799024|366016|23010399003|261026121527099003|4143699003|11063799006|56012099006|261021121427099003|261022105027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	btsvxWYuKcB1hzxqjl/79VqPSfsRwqK9UwoaSlZSLHuP7MeEbTB0he+ds3tuuKGl6FeogV50eOVCMyRt+z++7Y5151nz4ZBRa9e66eJk8x+7ESHsf3YUt2wHEFMbureRlelkL8PyK3mvNNqNaFdjQZpIuYd8I8+vkC01lv2nBoL+XlTrBCPJNc7Sbeb4x/xPx6upo/ZgceciUweUzfuzYrjNnBtHpYRDcolMggRpgQC6Z+cJ+J3XQIvI8DHi7Jw/BD9pJA2QKvYrDzNvFTKOEVbpEVoB6mV+zkuE794hztNtFWRtNEam4n3oPboHNxPcv8w4sRqBpIK0yPk70ufUiKjaIrq+PEjvSqd5rlrUbzARImJEnOnrhT9QDBb1TlvYhsdM9/Yy6/N+P0JjL1Lt+0hRAW5PcJgduAkh5XiJQ+IkjYxqXeBJ8Fe+sPwp7JaxuvDpb9PIuKkDy+DPXFwaTQdvuYIV4QSpyT7BDJbLot4MQfk40P3lKF50SaAN2AfgdBOYVCAoyhvv8KDsvgGe4EyNsF1CeaI2k255I0t03vVHTgGlcnJ6rD5RBGPUdFcUi3ah4tSV5g+0wYtHdRN/ST6opYFrpavQsHXR0zTY8DkuWqm3vWwU4qH7Ipms0L4RpRfhtSfZqicZp8HPIb1v11LZ/wVX9Ch9suE2oizqVP0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016)(23010399003)(261026121527099003)(4143699003)(11063799006)(56012099006)(261021121427099003)(261022105027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T0NKSlpaNElMMGpBN2J4aC8yRElZcmlNVDNLN3dyRFVXRmx2U2VTL3dkdkRF?=
+ =?utf-8?B?YUVWRG8zNEJITGtZTzMwRmV0TGorNHFDdWJZTURiTWk2MHhqcERQVzJqaW5k?=
+ =?utf-8?B?eUdIL05iUnlZdm8wVGZGRUcraXdTTEk0Y0pTNm14ejFFQzJkVTN5Skl6N1I5?=
+ =?utf-8?B?WnAxRXg0bDVFUWVKV3JWY0pZRldVMkRTVUd5U01zazVBM1JjZ1NkWE4rbisy?=
+ =?utf-8?B?R3JvVnpTWkdmZmZSa0cxbGdaNWJUS0NzNDI0TUZSaEtEV3VIK043anJjVTJY?=
+ =?utf-8?B?UnNvUGlCUE1UZWZLWTFpK3FGU01QUjZsRFRhbmo2S2dYMmpWMkhOVURGRytB?=
+ =?utf-8?B?YW1qMlljRGhSSENYSThOMjVSa0o5cExIeGlUR2wzRm1KQVhsbllCamlkeXhK?=
+ =?utf-8?B?enhTVk9ueXZQL1ZwSW9lL05RKytZSFBSTThIOElTTFFGM25iK0tiM2FkdTd5?=
+ =?utf-8?B?VlBXSWR2bDNqMER4STJNMnI3L1VGbmRsQ1hRRjhseDJxM21maXJDaVB2L2tl?=
+ =?utf-8?B?M1lJK2VpSFB5ZmtCaU90bnlHSWpUSlB5aVNSTWZVY0dzUjFEK1JTTHBkcHY4?=
+ =?utf-8?B?dU1Wb2ZZb0lSd0RQUElaV2oyWHhpTk82aTBGekE0Sklxb1dFYUFqTFRGQmZn?=
+ =?utf-8?B?a3R6dGlWdDdkdEM3M1Q2V1JNY0J2eHh2SzNBRUxNalhCcVovOFBaUGNLZVpv?=
+ =?utf-8?B?Yi9xeGk3RndCRUlGdWhrdEp5ZHBRYWJIdVRkTHg0MEZUdlhWNUh2dzZtL3Az?=
+ =?utf-8?B?VnJsTDcxK1NkS25TYzJRai82OW9hK2lRU3EvYVkxTzc0N1VWb2NTbmFJUGdO?=
+ =?utf-8?B?QWxCdTZkeENaQzJOL3BDSkIyby9GQlV5MnFsY2lEWklxMUx3Tk1LYWV1Rm1S?=
+ =?utf-8?B?aGFIN0VuazJOckRXZ1ZYWjlIZmhUbG5UQ25PYXFsODluVlRrdGIyc1hKWlBi?=
+ =?utf-8?B?d1Rvc1RWbTZKR3ZlN0JIUnBzSGlKb1VTVml1VkVxOGsrYXFTVG1FSWdkeVdO?=
+ =?utf-8?B?aGdBSHJjMGhUTXZiTUdzbDBYTzRZSmpDcGlkU3ppanNJT0FuMlh6bW05RXA5?=
+ =?utf-8?B?UTFGckcwZkRJMkRDN0RSTGRKM1hiUWdReWR4VVZCeFN4d1FMcTBxNWxJL0s0?=
+ =?utf-8?B?ZjFDQklFMjdzWU5GMXB2VlpiaUllRXRNV0twcXZIVGlIWFJNc3ptRUtXS2gx?=
+ =?utf-8?B?TDdnK1NBcThHOWVmeG8vL3FuTzlnL1AwcGsrNXVuZ0p5ZVBRWkZrVlh1ajNy?=
+ =?utf-8?B?WHpZYUhneGRLR2lGcUdwVVlaVktna0tYeVNjZU4xOThWVWhvWVg5dVRDdkha?=
+ =?utf-8?B?bGQ5bnc5WmZsanl4enFWVGlveDErMHpDajliZWxhYk5RemlVTjhkYVl5ZC8x?=
+ =?utf-8?B?WDZ3YWpidjMrZHJiTGdKWnlDOHJKRVVCSnJVekxLZCt6a2FXQkRoZEpaOVZi?=
+ =?utf-8?B?aXdTTkt3N0VWdGdhSjhNTEdqR29HTDZmeXhaSXRXUVdaK1lJcU1ud2NvSWVj?=
+ =?utf-8?B?VzRnU2x1VUFHRnVoSGE2ZHJXMmpyT3doSUJTNnBrL0dWNllmdG51M2tzTkVD?=
+ =?utf-8?B?Zmhna203c1FScUtubmUyZWVhandJdGVZOEFLTkhtUEFGMFdCd2drNTlUbmRz?=
+ =?utf-8?B?cEgzbThQS1dUS1U3ZCtkcEZ4NTBzSFZ5SFhIL1lxNmxid2JPcTNXaUlPN2JE?=
+ =?utf-8?B?UWxOZGJFaS9KdzZoalRXeFN1SEd4a1ZDY0hVQVllaGNQdWRydTFjL2ZGcFVV?=
+ =?utf-8?B?L2IwMEdVUHZIVmh1VHNPRnU2eXhVUEkxSDhEMFpsMXIwb0tGUVhydTVCMVVM?=
+ =?utf-8?B?OWtyQU13czBQVlNEU05RT3hNVFhRUWJLQjFJekdRV0QwL3c3b01nZThhVy9F?=
+ =?utf-8?B?NmVTb0h0bmRKS2IvUkxJMnc2ci90VDhVeHZuamh0TnR2UEtaSnY2NHppWWEr?=
+ =?utf-8?B?MDZBNWNBaUFqRkdXak8vemVmRmovMHJHQnUyaGJnZkhVSjk4SU1FTUJNRlQz?=
+ =?utf-8?B?dnFtOWNBZGhvaHpHK2RNVmY5NTVBUmlNM1RONnhXRWVhQUVVQ09VUG1wWkxa?=
+ =?utf-8?B?ZnhNQ3pOZkVJRWFHdXRVZDNtaFh0YmZTN0pZbnIvMGdIYzZ5eFMzMng4U0t0?=
+ =?utf-8?B?RUNhZm1odmVzN3BFdVcvYTIvWFM0elhxR2dkM25HbWVCRXFGNEh0dlJMR29C?=
+ =?utf-8?B?ZERRWG1QSDE5UEE4cmtVMzEyVnh1UUxZSU90SVJZN2htQzFLSzZQWDNIUWNj?=
+ =?utf-8?B?WWV4Vmp5Tnk4WDVUM2lYTUdpL1BNUDk1c2hhTzcyWGpueGNoOTIzK0F6TjFI?=
+ =?utf-8?B?Q1FvQ1pRVkxCdVJDTFJ0WFhZcTBrMEJBbjdVcGVBQ2ZkMyszOG1CVngrV3VN?=
+ =?utf-8?Q?uANqSSZEUqFWtcBq8Ox16qaVfwSc5NZ+gifCVn95cDkna?=
+X-MS-Exchange-AntiSpam-MessageData-1: B/HnEOwHuQxkxQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e798faec-de9f-4ce4-ce5b-08df33dc572f
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 03:42:36.0242
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D3s6wqKZeX4bA7FOhFSdvS3A1TGPcl/LsJ0vjFKi3aOCjPhaGCTF+RQBlVebaL5anjN68m1lUY8y1YO9lc7NAg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9665
 
+On Tuesday, October 27, 2026 11:15=E2=80=AFAM Karl Mehltretter wrote:
+> On Mon, Oct 26, 2026 at 04:36:14PM +0100, Alistair Popple wrote:
+>=20
+> Testing the series on a Jetson Nano exposed this path. A 3 MiB system-hea=
+p
+> buffer was imported into Tegra DRM and scanned out over HDMI. With
+> CONFIG_DMABUF_DEBUG=3Dy the PRIME import succeeded, but scanout immediate=
+ly
+> produced display SMMU faults starting at 0x300000.
+>=20
+> Tracing the fault led here:
+>=20
+> > @@ -475,7 +475,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_=
+device *drm,
+> >  	 * domain, map it first to the DRM device to get an sgt.
+> >  	 */
+> >  	if (tegra->domain) {
+> > -		attach =3D dma_buf_attach(buf, drm->dev);
+> > +		attach =3D dma_buf_sgt_attach(buf, drm->dev);
+>=20
+> tegra_bo_import() passes the attachment SGT to iommu_map_sgtable(), which
+> uses sg_phys() and sg->length. The SGT mapping contract only guarantees t=
+he
+> DMA address and length fields. The debug wrapper clears the page-side fie=
+lds,
+> so iommu_map_sgtable() maps zero bytes.=20
+>=20
+> Tegra only treats negative returns as errors and keeps the reserved
+> IOVA, which scanout then faults on.
+>=20
+> This page-side use predates the series, so the fault is not itself a v2
+> regression. Is dma_buf_sgt_attach() valid for this call site, or does Teg=
+ra
+> need a page/physical mapping type first?
+>=20
+> Karl
+>=20
 
+Sounds like a bug in TegraDRM; we should be using the DMA addr/length=20
+for the explicit IOMMU mapping as the sgt attachment is for the dummy=20
+DRM device explicitly intended to give us physical addresses.
 
-Hello,
+I'm currently in the process of removing the whole explicit IOMMU path=20
+so if this only occurs with CONFIG_DMABUF_DEBUG enabled, I don't think=20
+there's a pressing need to fix this before then.
 
-kernel test robot noticed "BUG:kernel_NULL_pointer_dereference,address" on:
+Thanks for the bug report!
+Mikko
 
-commit: 696502a4953ea062964ebe1f3b1a09a9d6c8a591 ("media: mc: Implement best effort media device removal safety sans refcount") git://linuxtv.org/sailus/media_tree.git media-ref
-
-in testcase: boot
-
-config: i386-randconfig-011-20250511
-compiler: gcc-14
-test machine: qemu-system-i386 -enable-kvm -cpu Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
-
-(please refer to attached dmesg/kmsg for entire log/backtrace)
-
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <yi1.lai@intel.com>
-| Closes: https://lore.kernel.org/oe-lkp/202610271039.7cc92f63-lkp@intel.com
-
-
-[    5.959887][    T1] BUG: kernel NULL pointer dereference, address: 00000000
-[    5.961338][    T1] #PF: supervisor read access in kernel mode
-[    5.962189][    T1] #PF: error_code(0x0000) - not-present page
-[    5.962189][    T1] *pde = 00000000
-[    5.962189][    T1] Oops: Oops: 0000 [#1] SMP
-[    5.962189][    T1] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                T   7.3.0-rc1+ #1 PREEMPT(full)
-[    5.962189][    T1] Tainted: [T]=RANDSTRUCT
-[    5.962189][    T1] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[    5.962189][    T1] EIP: strlen (x86/lib/string_32.c:148)
-[    5.962189][    T1] Code: c4 ac 38 e0 74 09 84 c0 75 f7 be 01 00 00 00 89 f0 48 5e 5d 31 d2 c3 8d 76 00 3e 8d 74 26 00 55 83 c9 ff 89 e5 57 89 c7 31 c0 <f2> ae b8 fe ff ff ff 5f 5d 29 c8 31 c9 c3 66 90 3e 8d 74 26 00 85
-All code
-========
-   0:	c4                   	(bad)
-   1:	ac                   	lods   %ds:(%rsi),%al
-   2:	38 e0                	cmp    %ah,%al
-   4:	74 09                	je     0xf
-   6:	84 c0                	test   %al,%al
-   8:	75 f7                	jne    0x1
-   a:	be 01 00 00 00       	mov    $0x1,%esi
-   f:	89 f0                	mov    %esi,%eax
-  11:	48 5e                	rex.W pop %rsi
-  13:	5d                   	pop    %rbp
-  14:	31 d2                	xor    %edx,%edx
-  16:	c3                   	ret
-  17:	8d 76 00             	lea    0x0(%rsi),%esi
-  1a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
-  1f:	55                   	push   %rbp
-  20:	83 c9 ff             	or     $0xffffffff,%ecx
-  23:	89 e5                	mov    %esp,%ebp
-  25:	57                   	push   %rdi
-  26:	89 c7                	mov    %eax,%edi
-  28:	31 c0                	xor    %eax,%eax
-  2a:*	f2 ae                	repnz scas %es:(%rdi),%al		<-- trapping instruction
-  2c:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
-  31:	5f                   	pop    %rdi
-  32:	5d                   	pop    %rbp
-  33:	29 c8                	sub    %ecx,%eax
-  35:	31 c9                	xor    %ecx,%ecx
-  37:	c3                   	ret
-  38:	66 90                	xchg   %ax,%ax
-  3a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
-  3f:	85                   	.byte 0x85
-
-Code starting with the faulting instruction ===========================================
-   0:	f2 ae                	repnz scas %es:(%rdi),%al
-   2:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
-   7:	5f                   	pop    %rdi
-   8:	5d                   	pop    %rbp
-   9:	29 c8                	sub    %ecx,%eax
-   b:	31 c9                	xor    %ecx,%ecx
-   d:	c3                   	ret
-   e:	66 90                	xchg   %ax,%ax
-  10:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
-  15:	85                   	.byte 0x85
-[    5.962189][    T1] EAX: 00000000 EBX: 87846e08 ECX: ffffffff EDX: 00000000
-[    5.962189][    T1] ESI: 00000000 EDI: 00000000 EBP: 80be5d90 ESP: 80be5d8c
-[    5.962189][    T1] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00010246
-[    5.962189][    T1] CR0: 80050033 CR2: 00000000 CR3: 0347f000 CR4: 003506d0
-[    5.962189][    T1] Call Trace:
-[    5.962189][    T1]  simple_start_creating (linux/fortify-string.h:218 libfs.c:2302)
-[    5.962189][    T1]  ? simple_pin_fs (libfs.c:1112)
-[    5.962189][    T1]  debugfs_start_creating (debugfs/inode.c:397 debugfs/inode.c:362)
-[    5.962189][    T1]  debugfs_create_dir (debugfs/inode.c:575)
-[    5.962189][    T1]  __media_device_register (media/mc/mc-device.c:892 (discriminator 1))
-[    5.962189][    T1]  vicodec_probe (media/test-drivers/vicodec/vicodec-core.c:2180)
-[    5.962189][    T1]  platform_probe (base/platform.c:1507)
-[    5.962189][    T1]  really_probe (base/dd.c:628 base/dd.c:706)
-[    5.962189][    T1]  __driver_probe_device (base/dd.c:868)
-[    5.962189][    T1]  driver_probe_device (base/dd.c:898)
-[    5.962189][    T1]  __driver_attach (base/dd.c:1292 base/dd.c:1232)
-[    5.962189][    T1]  ? __device_attach_driver (base/dd.c:1030)
-[    5.962189][    T1]  bus_for_each_dev (base/bus.c:383)
-[    5.962189][    T1]  driver_attach (base/dd.c:1310)
-[    5.962189][    T1]  ? __device_attach_driver (base/dd.c:1030)
-[    5.962189][    T1]  bus_add_driver (base/bus.c:763)
-[    5.962189][    T1]  driver_register (base/driver.c:174)
-[    5.962189][    T1]  __platform_driver_register (base/platform.c:995)
-[    5.962189][    T1]  vicodec_init (media/test-drivers/vicodec/vicodec-core.c:2254)
-[    5.962189][    T1]  ? cxd2880_spi_driver_init (media/spi/cxd2880-spi.c:663)
-[    5.962189][    T1]  do_one_initcall (main.c:1357)
-[    5.962189][    T1]  ? rdinit_setup (main.c:595)
-[    5.962189][    T1]  ? debug_smp_processor_id (smp_processor_id.c:58)
-[    5.962189][    T1]  ? rcu_is_watching (linux/context_tracking.h:128 rcu/tree.c:753)
-[    5.962189][    T1]  do_initcalls (main.c:1419 (discriminator 1) main.c:1435 (discriminator 1))
-[    5.962189][    T1]  kernel_init_freeable (main.c:1455 main.c:1670)
-[    5.962189][    T1]  ? rest_init (main.c:727)
-[    5.962189][    T1]  kernel_init (main.c:1560)
-[    5.962189][    T1]  ret_from_fork (x86/kernel/process.c:158)
-[    5.962189][    T1]  ? rest_init (main.c:727)
-[    5.962189][    T1]  ret_from_fork_asm (x86/entry/entry_32.S:736)
-[    5.962189][    T1]  entry_INT80_32 (x86/entry/entry_32.S:940)
-[    5.962189][    T1] Modules linked in:
-[    5.962189][    T1] CR2: 0000000000000000
-[    5.962189][    T1] ---[ end trace 0000000000000000 ]---
-[    5.962189][    T1] EIP: strlen (x86/lib/string_32.c:148)
-[    5.962189][    T1] Code: c4 ac 38 e0 74 09 84 c0 75 f7 be 01 00 00 00 89 f0 48 5e 5d 31 d2 c3 8d 76 00 3e 8d 74 26 00 55 83 c9 ff 89 e5 57 89 c7 31 c0 <f2> ae b8 fe ff ff ff 5f 5d 29 c8 31 c9 c3 66 90 3e 8d 74 26 00 85
-All code
-========
-   0:	c4                   	(bad)
-   1:	ac                   	lods   %ds:(%rsi),%al
-   2:	38 e0                	cmp    %ah,%al
-   4:	74 09                	je     0xf
-   6:	84 c0                	test   %al,%al
-   8:	75 f7                	jne    0x1
-   a:	be 01 00 00 00       	mov    $0x1,%esi
-   f:	89 f0                	mov    %esi,%eax
-  11:	48 5e                	rex.W pop %rsi
-  13:	5d                   	pop    %rbp
-  14:	31 d2                	xor    %edx,%edx
-  16:	c3                   	ret
-  17:	8d 76 00             	lea    0x0(%rsi),%esi
-  1a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
-  1f:	55                   	push   %rbp
-  20:	83 c9 ff             	or     $0xffffffff,%ecx
-  23:	89 e5                	mov    %esp,%ebp
-  25:	57                   	push   %rdi
-  26:	89 c7                	mov    %eax,%edi
-  28:	31 c0                	xor    %eax,%eax
-  2a:*	f2 ae                	repnz scas %es:(%rdi),%al		<-- trapping instruction
-  2c:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
-  31:	5f                   	pop    %rdi
-  32:	5d                   	pop    %rbp
-  33:	29 c8                	sub    %ecx,%eax
-  35:	31 c9                	xor    %ecx,%ecx
-  37:	c3                   	ret
-  38:	66 90                	xchg   %ax,%ax
-  3a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
-  3f:	85                   	.byte 0x85
-
-Code starting with the faulting instruction ===========================================
-   0:	f2 ae                	repnz scas %es:(%rdi),%al
-   2:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
-   7:	5f                   	pop    %rdi
-   8:	5d                   	pop    %rbp
-   9:	29 c8                	sub    %ecx,%eax
-   b:	31 c9                	xor    %ecx,%ecx
-   d:	c3                   	ret
-   e:	66 90                	xchg   %ax,%ax
-  10:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
-  15:	85                   	.byte 0x85
-
-
-The kernel config and materials to reproduce are available at:
-https://download.01.org/0day-ci/archive/20261027/202610271039.7cc92f63-lkp@intel.com
-
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
 
 
