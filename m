@@ -1,57 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793121011;
-	b=ugs6D0BXssjUyfAR2TLLlNOQuS7TQtoxFYwq773FX95jgcKTZhRybjogo9XePEt83Su2
-	 UG9SCx4qjx5U5V5OerfDgV6GuPBf7FslZ1uBCJgTEoao4XHFRR1wEOCkZSU0PNNcvc5iU
-	 4SzxhXI1KYcLYGOG7e8IJqLTUG5S8j0bsJwFQ3hK2mJafqNKMPibhdPd8kWEp/t6+hZhI
-	 yUp1afDrE6xOC4yV2wmrFwxsB7kVLLwEU7VNumFHR3R5nf5EYrDXYWhsTCZD1dKM1Hr5K
-	 HCxeHzbBQiIVKkL7Gei31+9JnanlyZsKGOjJI0M24NHKzx6dryVB/2skS6nWpmgazUg==
+	t=1793121987;
+	b=mM1c0ue8ayssBZYxEjxx3wWQm3pJk4Ko2JrJn2XmuLYRRXcQB/pbgzQIiEcv1ZvnQD9c
+	 RU+4YtLteTNKczieZOMFxqe/3vbwvmMHo0QbH7yOA/1H8tL6k+iHiK0lzL4/A0w1gT67r
+	 5+BATPAwIcHOQ+IoC/661oVkSI946fYYMbegARD9hszLHOcxwxoiOB9AB1ZfdHTjKGmKA
+	 Ts368Xak7Z2UUC0aeJBCJtMCjqAic3qo6saBdMM4++az1V1XoKYyVb/BpSfc9Uvj8bZiv
+	 VIABq/Ire9d6pIYQTNN3o/2hK9G93xe/BPb7KVVyaxIFyNHh1kDKYuqkzagXhOxhBWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793121011;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6z1Q2FnRPqUpv8sUMbKaLkx2bL6vjkoG2SyuClqSAmw=;
-	b=YBTjL8B+S3oi2b+DCgM2d4t0QU/mPY+7IT4XkiXF0EyybwhI2Qn9X2zMG6ctMpgJIUd3
-	 EFPm1XAYarB3Xe9c5zhdl/GV1Qiduyd9qpXuP90HXI9OVjQF3oqgPd1oq1ladA5J7RaPM
-	 LEHQVZ6N9UizdI4LE4PCzvDcF9uhef2gzntH4NwlfzN4cFJTfkWr45SvbBkSM9HyVph/g
-	 0MuzpdOkVKClmcayPwWmeOchlpLrcuhy93rqoK63iS7o9oDcIY1e1wEqp4co7pQhxpTcC
-	 WKzhZsRITbiocf1FEElkQlp5kjH83zVHNpF9TtWy+CbHNREbjfm7NKpZAKbwOxtDDaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121987;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
+	 Organization;
+	bh=VnUYDOsMXf4pJLOf13L3AnAE5vL5VsLeCMCBl/d4u2o=;
+	b=lcOMI6bImbKfeZ0hYDipT5dsjRjfp0Bu7hwtF1R7YUWyLzXtNMDoF38ElC6e2YJf0Ue/
+	 ItNtOV0ZSdHaK/Lwc+x8pizw0McfN/xkJDu0lwG6bEkZ3Rnhj2/P+KZnNkCuyrwxXZhjG
+	 LsANt76TjHzg7AG/zg3zWIJgQPpNik58+PyVBAY7dj1dA0Eqrt+/9+CUnDP2cjCZdStpF
+	 47Zq0TqwK/mrSmD6EousBybV4mPu8mlxnFwTKP4cid+EFKvnjPWIzOtCXLbDcgcxJ5vX+
+	 9kvqWw0AD/el4hXj8LgK3f59mpZ7YkaQS2yZeK/+pSYdPuUj0kbX+ybfPImBBLizATw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HWK8m1XM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6lF9NHX;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03FC606A31F;
-	Tue, 27 Oct 2026 17:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5EE606A31D;
+	Tue, 27 Oct 2026 17:26:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F5EE606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HWK8m1XM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89321F01829;
-	Tue, 27 Oct 2026 17:10:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793121010;
-	bh=6z1Q2FnRPqUpv8sUMbKaLkx2bL6vjkoG2SyuClqSAmw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HWK8m1XM89Z1t2ZqEzF0wRXMZCN9YZF/stXxZmx4P5l48J3KslfwBTpVL1ZkY5d3L
-	 cFvF95td4+ABHcQ5gNSdxOOvGC2DaMLIdn9qCisjLWSWqYS2Hu0bLOOfjFyE4JONkm
-	 3yjLt1FT3xNx6nJCxFHXlGgb9Rl8NYHV9oLjIDEg=
-Date: Tue, 27 Oct 2026 10:10:09 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com>
-Cc: cl@gentwo.org, hao.li@linux.dev, harry@kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- linux-usb@vger.kernel.org, rientjes@google.com, roman.gushchin@linux.dev,
- syzkaller-bugs@googlegroups.com, vbabka@kernel.org, mchehab@kernel.org,
- rohithmatham@gmail.com, hverkuil@kernel.org, duoming@zju.edu.cn,
- linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [syzbot] [mm?] [usb?] WARNING in corrupted (4)
-Message-Id: <20261027101009.18e9136537144533915008e4@linux-foundation.org>
-In-Reply-To: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com>
-References: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d6lF9NHX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793121986; x=1824657986;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=TW1TXakyl8lV05rxtEra6EM04XKiaOHLbID/+oD0Dgs=;
+  b=d6lF9NHXDp65bE/9hSeCgjIhIXOEB6J3zVWCSoM4Qq5LOOFfTUPKji5X
+   /ne2I6Cxt9P6doVh1gN4RzxTkgVhjVnWeqgrry7t+HhcViFJVcrr+GRCY
+   aAGvlGdNC+TXJQgFWum8SRTIKCwRi5BscQnmeLSd1np4ZX6VrI6w1x+hO
+   Rv2snz9yylKjtwQ+fS36uc6vSen2CYqkdu/HJZy4ytrxRPm0dLFw324bo
+   ZbaAScc8yPUwSfkv7xzDa2QmNTBQaBTuC+5/l5QK1stR6/uGV+RLhaik1
+   RsqE+uFIWSx/z6KLufrwsy6n5QLWEsp/41EHINcpm9FP+D7L4ori0YDgA
+   A==;
+X-CSE-ConnectionGUID: kWLByR2oQqGHMcJLyKBGag==
+X-CSE-MsgGUID: /IReErhVSwCgn4+5vCdDTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1816492"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1816492"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:26:25 -0700
+X-CSE-ConnectionGUID: NDcdK9R9QyqueNVuHWVVkQ==
+X-CSE-MsgGUID: qKOSaz9KQM6YTIPs2vTUlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6471129"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:26:22 -0700
+Date: Tue, 27 Oct 2026 19:26:20 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/5] media: atomisp: queue: move remote queue handling
+ into helpers
+Message-ID: <auDevM3eddfKEzPb@ashevche-desk.local>
+References: <20261027120341.2305533-1-vladurares@gmail.com>
+ <20261027120341.2305533-3-vladurares@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,59 +85,121 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261027120341.2305533-3-vladurares@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, 27 Oct 2026 05:08:56 -0700 syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com> wrote:
-
-> Hello,
+On Tue, Oct 27, 2026 at 12:03:37PM +0000, Rareș-Mihai Vladu wrote:
+> Move the remote queue branch of every queue operation into its own
+> static helper, written the way the function is meant to look once the
+> unused local queue support is gone, and call it from the existing
+> function after the local branch.
 > 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    5b0764a53235 Merge tag 'drm-next-2026-10-21' of https://gi..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=13739fc9580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=fd1433abd362f255
-> dashboard link: https://syzkaller.appspot.com/bug?extid=9fe09db3795456e0b442
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-> userspace arch: i386
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11cb9b0d580000
-> 
-> Downloadable assets:
-> disk image: https://storage.googleapis.com/syzbot-assets/05ac8658d211/disk-5b0764a5.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/9cfb73243216/vmlinux-5b0764a5.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/fc45c7faf785/bzImage-5b0764a5.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com
-> 
-> ------------[ cut here ]------------
-> !PageLargeKmalloc(page)
-> WARNING: mm/slub.c:6855 at free_large_kmalloc+0x97/0x110 mm/slub.c:6855, CPU#0: kworker/0:1/10
-> 
+> This prepares for removing the local queue support in the next patch
+> and keeps that change easy to review. No functional change intended.
 
-Thanks.
+...
 
-> This report is generated by a bot.
+> +static int ia_css_queue_dequeue_remote(ia_css_queue_t *qhandle, uint32_t *item)
+> +{
+> +	ia_css_circbuf_desc_t cb_desc;
+> +	ia_css_circbuf_elem_t cb_elem;
+> +	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+> +	int error;
 
-So is this report ;)
+> +	if (!qhandle || NULL == item)
 
-This looks like a double free in the Siano USB media driver, rather
-than an MM bug.
+While at it, do some small improvements on the moved lines, like
 
-The failure occurs during USB probe error recovery. The allocation
-comes from smscore_register_device(), and the page-owner records show
-that smscore_unregister_device() has already freed it. The USB core
-can then attempt to free the same memory because smsusb_submit_urb()
-sets URB_FREE_BUFFER on a buffer owned by the Siano core.
+	if (!qhandle || !item)
 
-Rohith Matam posted a patch in June which removes URB_FREE_BUFFER
-and fixes several related URB teardown races:
+> +		return -EINVAL;
 
-https://lore.kernel.org/r/20260601201639.63171-1-rohithmatham@gmail.com
+> +	/* a. Load the queue from remote */
+> +	QUEUE_CB_DESC_INIT(&cb_desc);
+> +
+> +	error = ia_css_queue_load(qhandle, &cb_desc, ignore_desc_flags);
+> +	if (error != 0)
 
-I don't know why that patch hasn't resolved this problem, but it
-would be worth revisiting before developing another fix.
+Drop all these ' != 0' parts where it appropriate.
 
-This doesn't appear to need any MM changes.
+> +		return error;
+> +
+> +	/* b. Operate on the queue */
+> +	if (ia_css_circbuf_desc_is_empty(&cb_desc))
+> +		return -ENODATA;
+> +
+> +	error = ia_css_queue_item_load(qhandle, cb_desc.start, &cb_elem);
+> +	if (error != 0)
+> +		return error;
+> +
+> +	*item = cb_elem.val;
+> +
+> +	cb_desc.start = (cb_desc.start + 1) % cb_desc.size;
+> +
+> +	/* c. Store the queue object */
+> +	/* Set only fields requiring update with
+> +	 * valid value. Avoids unnecessary calls
+> +	 * to load/store functions
+> +	 */
+> +	ignore_desc_flags = QUEUE_IGNORE_SIZE_END_STEP_FLAGS;
+
+> +	error = ia_css_queue_store(qhandle, &cb_desc, ignore_desc_flags);
+> +	if (error != 0)
+> +		return error;
+> +
+>  	return 0;
+
+So it's simply
+
+	return ia_css_queue_store(qhandle, &cb_desc, ignore_desc_flags);
+
+>  }
+
+...
+
+> +static int ia_css_queue_is_full_remote(ia_css_queue_t *qhandle, bool *is_full)
+> +{
+> +	ia_css_circbuf_desc_t cb_desc;
+> +	u32 ignore_desc_flags = QUEUE_IGNORE_STEP_FLAG;
+> +	int error;
+> +
+> +	if ((!qhandle) || (!is_full))
+
+Drop useless parentheses.
+
+> +		return -EINVAL;
+> +
+> +	/* a. Load the queue from remote */
+> +	QUEUE_CB_DESC_INIT(&cb_desc);
+> +	error = ia_css_queue_load(qhandle, &cb_desc, ignore_desc_flags);
+> +	if (error != 0)
+> +		return error;
+> +
+> +	/* b. Operate on the queue */
+> +	*is_full = ia_css_circbuf_desc_is_full(&cb_desc);
+> +
+>  	return 0;
+>  }
+
+...and so on...
+
+With all above being addressed in the whole patch feel free to add
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+...
+
+>  	if ((!qhandle) || (!is_full))
+>  		return -EINVAL;
+
+(But no need to touch the lines that are going to be removed!)
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
