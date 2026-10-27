@@ -1,84 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793128883;
-	b=enYWeHYD3CgDmuKeHL44QbUgngD5KEKkJMTkBIhfBKRTB6M8z7bkHurAgxwYHuzMvCdm
-	 cZBZZ3ixqMioZTQKN1GeFGEbYW2cIIAPqIvElEn/+dyG9Y9AGLPNUCeUg7TLI4nb85++S
-	 OeedugkIONhi56vg2XNaB3155+SJmX4ZMZVS03l8bVQFZIlLY6cEQhLxaKpi0NuM+SdWM
-	 uUpKvtXP//13h4bqbnj8ej+xxUHpuweczg2ZwR0K/m8cIocMgc8Xq5KDsaTMizHbajGHs
-	 cWDzL3agzVu0InoRJFco1J22/tjOufLkSUI+R3GBtN+Kwzh7+tgfa/tlWt+K8PkJEow==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793128883;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
-	 To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=xnFNtyz8/784i5O5Y8tV5H7w2jusUzA2q79eDaSlxJw=;
-	b=CrPW56nM2jGmjmCamBXmsMNv3uiQ6Usj74UodxwhUpNXDiRs5KTGxIB41Zf6uTZkt7x4
-	 Bs8DGeyZW2bL5UbCpxJg0/Pr8D5HoayS9fOaXMDpjL+ThdZ9HEqc+yqSblC/QWLsYurJf
-	 G+qiYEGOC/5zmhOXh/tz4Y3h7SgU6ngk8xi2Eklfbjmq3Juoz/zf6sHXnox1JTAfaLuhG
-	 XBFBdUGcrz/pn3FHR4XOqL5gnjtsnku8/X5tR5yvj9zMVr7JPaghg2xR/d7QwG81wy8Kw
-	 RPwqrNWoRpfm0tKvDEQedLxNlBOy+07g94TOKqcZZ41lI+PnCN/Ujv/2A5bxBYrqLhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793132988;
+	b=HCEQffzuB/R2FmXpA9a5GiF+4H4T5BGSH7G654aOhuLLh5p1D4B0GfC2zXWDC5Ljxsdp
+	 RsmHE+21eCfE1srgRtvgFDO0lSxvSv9HCitt3I6XodbeDs7L7/LXg+HEterdnnkedfwQo
+	 yG6P/o9vWCxx55AQ+LluhzxhDg+afxBASO9dcMC4evZ9HM58Z07e5z2nAI3dsHxE3fX5g
+	 vXaFcZDyTlu4mQ9orV0V9TNjlNjpniURrB0I+9zub6QfbPNYYowC8ROorLaD5xm2coUyK
+	 RPnUDxI0HOiw4r3i847NZUyiGbjodtNFE/AzJKCItqyhLlODEW1sOG3KeS4NLgCJVmQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793132988;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VEZ+JLR/9WVBYPNaIRM0kUPmoKwXWz1Ip828TDbB3XY=;
+	b=fUvm2xLMREMXm4BxGEhHUxtL9pQYNOnlI2Gbx4fBzuhFwLMuoYDVx5CbNbBdgN+oLfy3
+	 Q0oUXNAMORbLCiYDgJl79vXrKhm5u1aKfAD+Jhp4eCScxKp0cJNnsbRmpeNl6MyidawQL
+	 W8pGlEI7Bs98L3pI7cRyGsdl46Ne+eUh92rmi7pi6Acj56sRoZ/82A0soLQqJG8RYIBXO
+	 ntrjG9YfFGMsDhlXOE72C2Rm/nM7CtKMeN+Pl2/oj0ClId5iup5mpS1bPz2+wR3hD/5/8
+	 ElktjgAh4KHqdiguWp5QuwS6I1lGS+7JQ4lEAYusCBKepIT712yb8xZZzQJWOIheDlg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcHT0C1q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63AB606A906;
+	Tue, 27 Oct 2026 20:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcHT0C1q
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793132987;
+	b=qmM5fslZ9zt4KJZ9B16JIvXdVXTHINdw5WhbiwgBGI0ZnoQV2ROa6osywf/eo+mQTRwN
+	 CNamBOTBoMqdwvy5eommNLr+PviUM53xsz3m3WEkxm6j1ewv2Yhpbm1PwT042Bi6nx0FH
+	 YSl74N5hKEFeQTd0MT6/YzSS6TPc1V4RkJOZru8hvcdRQygO9rmvuncbGLOiC0W2hR4rp
+	 PFUvuEc/+dEmKAixu2eueQw39OAzCWb9ebD3/SvNpGnuL0FciqZiVoukXVna7nRH/+tqN
+	 GlUfNygN74GXY1OdjEzoJ2SCWfPTFF2OqwafJPtyLEDRZK6oWHwgfwLZMsu11jLCbEw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793132987;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=VEZ+JLR/9WVBYPNaIRM0kUPmoKwXWz1Ip828TDbB3XY=;
+	b=UlkfDnidRLHbcWDGChnoJ9TkjUjUkazAKb6C4VLziKyPhh1i64FRTJqO2BAbkiOsoDIq
+	 xn+tQWbHXEe9q5WX0qL2DiWp80B+yE87OR0Z0MncRaQMbltY685COVtpnUgEs/u5EDj1I
+	 IhqfT03hBrqGyfRcY9xclh5Xql/uMMybRbyc0SMXMWeN2/aKae1v9SwAmN41h1+HJOisF
+	 ZYPLn52nzem2mjvbP0tb41XDE82g3bRo0084CwaFkgNZtVSQg7gZLqVv9H3slJYfIm8wj
+	 DeKXrfby8T5qmyFWhXmzy/ymTixO0XzjEXVpZPF11BFl2vOMAkPmVpLMWT0bsZdASVg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D65606A31A
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 19:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02D65606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4956869750eso1286085e9.2
-        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 12:21:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793128881; x=1793733681;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xnFNtyz8/784i5O5Y8tV5H7w2jusUzA2q79eDaSlxJw=;
-        b=0Dx5NUID4DWBksmuBG/Poag+VTZZCvk0UJ9aXXLSacAVgYoZehuNuQ2B+BXu89fOtW
-         2KExlBzn5lr8vW2WF+G5vlYDJV7jNae3yR3YEBvAhju80B5Dc2xo0FSxs+jx6j1GAU05
-         wR2C9NmMIw/NJrBQdamcr47Dq5Rcdt7zNKpyVsy2p8w7KVO3b7Wi7hxPxdOtH6+Ti0iN
-         ZzkkVjQtFKDQy0euAe7AWJBquFWXV6CdI39EJKGb7Y/TfXytf7fehBGTazIkibtDgtZJ
-         EdNxEwGaKeeIfIah2YHRtzyRpHDBubh/W3rhjMAcWyZeFQvAEpnczneXcxB7VR02nWCS
-         m9fA==
-X-Forwarded-Encrypted: i=1; AKwUvBzD6PFK3lYdX/L1yICBpayNoWQpp/WUyquRRi+iC+zSUn10ldATmDX2aNGg0c2m7t9LUwRUI499AHWFhA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIKmAkXcfXYJlya+WS+4w4M9EeTAY59AoTba3rqrw2kCHZD7q0/
-	bH6n2lIPQBPNaHNHacDvMv6o1BpAOLLZdW24qlc98gKfG6rYHtpfChk=
-X-Gm-Gg: AYBFou3fUoBiA/INIfpiLgxMuLp18T2OaiFVlhMWcRKDGAvFELNs/6ibfRvLGnxhRXE
-	EIa0Op/oUW3cHa2wOz3ebTyRSK0NaAIl+/t/FMTIhEu6c3k+LW+KzHWqEWOigBr6VTzOEjwnr9c
-	W1SNN5+kbUguXFar230PB4EhQe/uYb8QBp03Lih3a4Dbor6blwYFlqCtUi/CrenYZc+rXBEL/ru
-	G+G6MqbozEZchdmJ+Zdfhqp5gy0UnGYDHn8vby4EZnMEa/REeGbj6OZbMriGMrR9KD2QEtrZu5T
-	qI9SrkUDzx+/cyubDxbtpef7XnGorv+tVpbhxtuPOz7sQQU9+UEYk6EVPx+BWz5z0RQOlh3dodX
-	ZVFQdWQO9F8gyhvzdPNZAO9i+kkojqUujzjuze0/bQXK5CrLnmmOTuTWM3kNeEO+lgR4AJVOAnV
-	39wLWxhru+cHSwPxJOUBWheybzSUIIXZT7iScf4Bc3OLIBKpyg8IHTh/Y9nk/i18nmzeFjqnnPF
-	G+FU1eivxeF+rrMJXGmPstDACUI/NC4fQr0Sc+4Q95eLg4DfEOLeRhzfEREW5M7LoDCKQ+mRSl4
-	TThFMotwyBvwh4H1NG2temkCZcEJQzy/JNKl7Sc=
-X-Received: by 2002:a05:600c:1987:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a35ac3a777mr219295385e9.1.1793128881120;
-        Tue, 27 Oct 2026 12:21:21 -0700 (PDT)
-Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a94e8a43b1sm2679415e9.11.2026.10.27.12.21.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 12:21:20 -0700 (PDT)
-Message-ID: <6ae0f9b0.a39f85ff.264c73.e463@mx.google.com>
-Date: Tue, 27 Oct 2026 12:21:20 -0700 (PDT)
-From: D. Manresa <dmanresa@gmail.com>
-To: koreev.r@gmail.com, linux-media@vger.kernel.org
-Cc: fernandorimoli11@gmail.com, sakari.ailus@linux.intel.com,
- dan.scally@ideasonboard.com, hansg@kernel.org,
- andriy.shevchenko@linux.intel.com, rillian.grant@gmail.com, lsa.uz@pm.me
-Subject: Re: media: ipu-bridge: lifetime of retained software-node properties
-In-Reply-To: <20261027143023.3312353-1-koreev.r@gmail.com>
-References: <20261026091252.676350-1-koreev.r@gmail.com>
- <20261026111108.34186-1-fernandorimoli11@gmail.com>
- <179303518584.774397.17279190841735842653@gmail.com>
- <20261027143023.3312353-1-koreev.r@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.kernel.org (Postfix) with ESMTPS id A75951F031E0;
+	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793132987;
+	bh=VEZ+JLR/9WVBYPNaIRM0kUPmoKwXWz1Ip828TDbB3XY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=UcHT0C1qf00Psj0rLSW3OPgUoCT5w9MRGNDccZ8cghw4Vjeznvcj/UI8/Y5HCPnIp
+	 WCp251cKfYPuKq5v3rjXWmDM+Lcv4M84hFytBxH8AUojtqc3lagYLvM5Vgk1YwSqAv
+	 IP3pR/jkmieuzu6QaBsTAXYSNabxAQjhyjBsoJJS+YpGgKjZcYEMJS3jKi64dNsEZd
+	 Odgft5L7rBIxfZXUnaupIcvFn+HkubU7TcpRbd1ffF2+l/N2EStFdtV+L8MuwcpH6p
+	 zS2HjVZ8JgYyj8vJRaEg0qMQ3dIvX5A5CT/E/pXzkfaWWlPAktFLtVIKrxSavAOIG/
+	 Cp70JiEavedLg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 23B024520D;
+	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
+From: Marco Ziliani via B4 Relay <devnull+rylos78.gmail.com@kernel.org>
+Date: Tue, 27 Oct 2026 21:29:46 +0100
+Subject: [PATCH 2/3] media: i2c: ov5693: Keep the Bayer order when flipping
+ at full resolution
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,98 +83,151 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261027-ov5693-fixes-v1-2-3c8ab1ae104d@gmail.com>
+References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>, 
+ Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>, 
+ linux-kernel@vger.kernel.org, Marco Ziliani <rylos78@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132984; l=4327;
+ i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
+ bh=bY5qiR9F/Y1aGuZr5TS65OJX6ey1ya1/HNWGJsKosVA=;
+ b=9lwlbZoEg/2kfHXqrliosIUbaOzuhB1NR2kWmo6Ce7MfCiDmQ1m70k+0mO1go4vtLCfv+PyS/
+ 2QMiTEWRBNED7i/9d5+flisg6dpy+SsItVF8qdQ0QvGrzm3Ka9acvjJ
+X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
+ pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
+X-Endpoint-Received: by B4 Relay for rylos78@gmail.com/20261027 with
+ auth_id=1333
+X-Original-From: Marco Ziliani <rylos78@gmail.com>
+Reply-To: rylos78@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Hi Ruslan,
+From: Marco Ziliani <rylos78@gmail.com>
 
-On Tue, Oct 27, 2026 at 05:30:23PM +0300, Ruslan Koreev wrote:
-> Could you confirm that capture works again on each previously working
-> sensor after module reload and repeated PCI remove/rescan with the full
-> v5 series?
+In the full (unbinned) readout each of the horizontal and vertical
+flips moves the Bayer phase by one column. With exactly one flip
+enabled the CSI-2 receiver gets GBRG instead of the SBGGR10 the driver
+reports, which gives a magenta and green image; with both enabled the
+two shifts cancel out.
 
-Confirmed on the hardware. All three sensors on this Surface Pro 7+
-(IPU6 Tiger Lake, 8086:9a19) delivered frames after a module reload and
-after each of 8 consecutive PCI remove/rescan cycles, with both v5
-patches applied. No cycle failed and no reboot was needed.
+The crop start is only honoured in steps of two pixels, so compensate
+by shifting the output window by one column when hflip XOR vflip, and
+widen the crop by two columns, within the pixel array, so that the
+window still fits. Reprogram the window when either flip changes. The
+binned readout is left unchanged.
 
-  stage                  ov5693 front  ov8865 rear  ov7251 IR
-  baseline                   frames       frames      frames
-  v5 fresh load              frames       frames      frames
-  after module reload        frames       frames      frames
-  PCI cycles 1 through 8     frames       frames      frames
+With this change, raw 2592x1944 frames come out BGGR at all four
+hflip/vflip settings on the Surface Pro 5 (IPU3); the same change in
+the linux-surface tree gave BGGR at all four settings on a Surface
+Pro 7 (IPU4P) and a Surface Pro 9 (IPU6). Without it, the order is only
+right with both flips off or both on.
 
-I am quoting frames rather than frame rates on purpose: the per-stage
-captures were 30 frames (10 for the IR), which is too short to measure a
-rate. A separate 120-frame run on the rear with v5 installed gave 30.07
-fps with no dropped buffers.
+Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
+Link: https://github.com/linux-surface/kernel/pull/181
+Signed-off-by: Marco Ziliani <rylos78@gmail.com>
+---
+ drivers/media/i2c/ov5693.c | 56 +++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 48 insertions(+), 8 deletions(-)
 
-One thing worth saying before the rest, because it would have made the
-whole test worthless: the module installed on this machine turned out to
-be v4, not v5. I built v5 from the patches as posted, and before loading
-it I removed the software nodes the v4 module had registered at boot, so
-v5 created all five nodes from scratch rather than inheriting v4's.
+diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+index 579aa55b7..ca0968498 100644
+--- a/drivers/media/i2c/ov5693.c
++++ b/drivers/media/i2c/ov5693.c
+@@ -361,6 +361,49 @@ static const u8 ov5693_test_pattern_bits[] = {
+ 
+ /* V4L2 Controls Functions */
+ 
++/*
++ * In the full (unbinned) readout each flip moves the Bayer phase by one
++ * column, so with exactly one of them enabled the CSI-2 receiver gets GBRG
++ * instead of the SBGGR10 the driver reports; with both enabled the two shifts
++ * cancel out. The crop start is only honoured in steps of two pixels, so
++ * compensate by shifting the output window by one column instead, and widen
++ * the crop so that the window still fits.
++ */
++static bool ov5693_bayer_shift(struct ov5693_device *ov5693)
++{
++	const struct ov5693_mode *mode = &ov5693->mode;
++	bool hflip, vflip;
++
++	if (mode->binning_x || mode->binning_y)
++		return false;
++
++	hflip = ov5693->ctrls.hflip && ov5693->ctrls.hflip->val;
++	vflip = ov5693->ctrls.vflip && ov5693->ctrls.vflip->val;
++
++	return hflip ^ vflip;
++}
++
++static int ov5693_window_x_configure(struct ov5693_device *ov5693)
++{
++	const struct ov5693_mode *mode = &ov5693->mode;
++	bool shift = ov5693_bayer_shift(ov5693);
++	u32 crop_end = mode->crop.left + mode->crop.width;
++	int ret = 0;
++
++	/* Widen the crop for the shifted window, within the pixel array */
++	if (shift)
++		crop_end = min(crop_end + 2,
++			       max_t(u32, crop_end, OV5693_NATIVE_WIDTH - 1));
++
++	/* Offset X */
++	cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG, shift, &ret);
++
++	/* Crop End X */
++	cci_write(ov5693->regmap, OV5693_CROP_END_X_REG, crop_end, &ret);
++
++	return ret;
++}
++
+ static int ov5693_flip_vert_configure(struct ov5693_device *ov5693,
+ 				      bool enable)
+ {
+@@ -373,7 +416,7 @@ static int ov5693_flip_vert_configure(struct ov5693_device *ov5693,
+ 	if (ret)
+ 		return ret;
+ 
+-	return 0;
++	return ov5693_window_x_configure(ov5693);
+ }
+ 
+ static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
+@@ -388,7 +431,7 @@ static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
+ 	if (ret)
+ 		return ret;
+ 
+-	return 0;
++	return ov5693_window_x_configure(ov5693);
+ }
+ 
+ static int ov5693_get_exposure(struct ov5693_device *ov5693, s32 *value)
+@@ -566,16 +609,13 @@ static int ov5693_mode_configure(struct ov5693_device *ov5693)
+ 	cci_write(ov5693->regmap, OV5693_CROP_START_X_REG, mode->crop.left,
+ 		  &ret);
+ 
+-	/* Offset X */
+-	cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG, 0, &ret);
+-
+ 	/* Output Size X */
+ 	cci_write(ov5693->regmap, OV5693_OUTPUT_SIZE_X_REG, mode->format.width,
+ 		  &ret);
+ 
+-	/* Crop End X */
+-	cci_write(ov5693->regmap, OV5693_CROP_END_X_REG,
+-		  mode->crop.left + mode->crop.width, &ret);
++	/* Offset X and Crop End X follow the flips, see ov5693_bayer_shift() */
++	if (!ret)
++		ret = ov5693_window_x_configure(ov5693);
+ 
+ 	/* Horizontal Total Size */
+ 	cci_write(ov5693->regmap, OV5693_TIMING_HTS_REG, OV5693_FIXED_PPL,
 
-What the properties actually read with the bridge unloaded
-----------------------------------------------------------
+-- 
+2.56.0
 
-This is the part your QEMU runs and mine are both really testing, so
-here are the values, read back by a probe module while ipu_bridge was
-fully unloaded and the nodes had been created by v5:
 
-  INT33BE-4 (ov5693)  link-frequencies[0] = 419200000
-                      clock-frequency = 19200000, rotation = 180
-  INT347A-1 (ov8865)  link-frequencies[0] = 360000000
-                      lens-focus -> 'dw9719-1', reference resolves
-  INT347E-5 (ov7251)  link-frequencies[0] = 319200000
-                      clock-frequency = 19200000
-  INT343E             data-lanes intact on port@1 (1,2,3,4),
-                      port@4 (1,2), port@5 (1)
-
-Nothing poisoned, and identical when re-read after the 8 cycles. The
-lens-focus property, whose name was the module string literal, still
-resolves. As a functional check of the same thing I re-modprobed
-ov5693, ov8865 and ov7251 with the bridge still unloaded: all three
-bound to their i2c clients with no "supported link freq not found" and
-no errors.
-
-The refcount, per cycle
------------------------
-
-With dynamic debug on, every cycle logged "Reusing the previously
-registered software nodes" exactly once, and the INT343E kobject
-refcount went
-
-  4 (before) -> 3 (after PCI remove) -> 4 (after re-bind)
-
-flat across all 8 cycles, with every child node still present. For
-contrast, v4 measured earlier on this same machine went 4, 3, 2, 1 and
-the node was gone by cycle 4.
-
-What this test cannot tell you
-------------------------------
-
-This kernel has CONFIG_KASAN, CONFIG_PROVE_LOCKING, CONFIG_LOCKDEP,
-CONFIG_DEBUG_LIST and CONFIG_DEBUG_KOBJECT all unset, and slub_debug is
-not on the command line. So the absence of a KASAN report here means
-KASAN was not available, not that it was clean. The property read-back
-and the refcount are the evidence; the quiet log is not. If someone has
-a KASAN-enabled kernel on IPU hardware, that run is still worth doing.
-
-A build note for anyone repeating this out of tree: v5 changes struct
-ipu_sensor, so the modversion CRCs of ipu_bridge_init and
-ipu_bridge_parse_ssdb change and an out-of-tree intel-ipu6 must be
-rebuilt against the new symvers, otherwise modprobe fails with
-"disagrees about version of symbol ipu_bridge_init". An in-tree build
-never sees this. intel-ipu6-isys only imports
-ipu_bridge_instantiate_vcm, whose CRC is unchanged.
-
-sensor->vcm_type still points into module rodata in the surviving
-struct, as discussed earlier in this thread. Not a live bug today, and I
-agree with keeping that cleanup separate.
-
-This machine leaves in a few days, so if there is anything else you want
-exercised on real IPU6 hardware with three sensors on the bridge, now is
-the time to ask.
-
-D. Manresa
-
-(Written with AI assistance, directed and reviewed by me.)
