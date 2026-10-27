@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793139977;
-	b=NLHqQgGZsRaxTQs79JXkzQroGNSOMnb+j2ilY0MjUdgm7xvqRVpKcdDMgBchhAu2hsdd
-	 kku7mLoVB7hLm8Z027liAnbPWDkEVvino0M6BbV8VwhQwNQo9QTKJdMcWT9VQvST4OV3H
-	 GUOeVrBvJKs+oSGqFlHeuIn8q4UkWsFNSSE7ijhvSveWj/z6VAAHWft3ujiP1hHb5+X4X
-	 CRdNa4dqBwqDFhtSt7RZfJI0UoggnHkTIqiFL/lqrD/OCpb3JKVvzPngS+wGu7r1k+VtZ
-	 d/xsDNOD6oy7FwcRgE7PyCSL7S1lsnJRcbNb4Yvm0KO50veq3x7gOIeAxncyaFJUVYw==
+	t=1793140601;
+	b=LR/mUVTJKZXBwMBdzOvbA1C3JOHLMOsA/ZqPWFFIxHLhvtmPKvL/Q7QYZh8ByyJzJ/P+
+	 cEDrmW0CEyJHYb1aDt2fF0ZggMUDxt6RTfDRpPtFbH+COk001pNtX9gLzp9d4jZAHm952
+	 klbHBBLemt3++3KK7yCtHfRyDVbzEy3gCeahkAu1Zj7pVSrKPevGClxVLdSlTxUHMeOUK
+	 AmMybtvWnN+l0wlYHlQLLYWtRbwohnZZAkHQ08hOzKW08LDicJt3zxwdtj+/uOaEdRbos
+	 ev/7O/sS6gGVnuITryTB+3R5TRbg+8jmuyHGSj06WNM869g5vBAAGPc9mcOunMxVrrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793139977;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793140601;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=Hi1S5o6/5Hn+eb9Uz4vswpv5KcMHmoQwPjO3j1ggNbs=;
-	b=KfP4qmg+4ztCXEMb6AKkGeD96p4kSjhgvSLwZTAVSl3TrVL+E+lrkMkCu3Nesdue7kBK
-	 ts/9E8ls13WMSDv8h0Rs4kpc2tUHnBK09nVk9q2sytHh+NHv7dz4xJ7DCL0lM23Iipj21
-	 rqBUj+giXKhL0B0nvcJrSPZYgWOOafttGfXk9JoYXONIdVD/efY0x/qN4e08hArrQSPI6
-	 dxQbeqTQJWf+cp56HWZfYFMlMjf1tpx+j7YZvumXi+uWjU0fr5CIblW/4pcgTLocZfT56
-	 eKy89WIaJjuSXgKK2oAehPizVjTNYBLnuhF6Vki7Av11Lz95JnyyZPkiTHTfvXUJ5dw==
+	bh=XZI5qDPhTmZVj1Qw6YTy5ddVyLHtDr9zUld9Eh7NGNY=;
+	b=CggeVDlTst1xwDT4/guT+kBH+ZtE7tJSTUD0Okqd9sXTRncgtfD12Y86onTiB/d4lhRB
+	 cLu+aJLHKMoWSHYP6VB2Qy3Xr4/ae46oxqbLiASrsTxcCBckl2CH7zghDCGPcHoJPcXcv
+	 S3o3tDJ9kY7giaw6WUBIqMnH7xDHJBk9UX2cNMuuC98E9MHaQvTI6yWYV8qeaXJQTwo/X
+	 IDrEqHHM1p9HX2IYekjdbJAFFWcJUDjq27p9k/bQFQNHOeBQqXVa/R0dbJ/511PsPcbVC
+	 C3vzvALrHjrS7ToLu2W1nw/SP40hOQPvIum/8xuzWb/atz0leqHIrtz7WWPRnMUNiPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVSifXhF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lF6yiStj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4A9606A31D;
-	Tue, 27 Oct 2026 22:26:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94303606A31D;
+	Tue, 27 Oct 2026 22:36:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVSifXhF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982A61F01828;
-	Tue, 27 Oct 2026 22:26:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lF6yiStj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9AB1F01825;
+	Tue, 27 Oct 2026 22:36:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793139977;
-	bh=Hi1S5o6/5Hn+eb9Uz4vswpv5KcMHmoQwPjO3j1ggNbs=;
+	s=k20260515; t=1793140601;
+	bh=XZI5qDPhTmZVj1Qw6YTy5ddVyLHtDr9zUld9Eh7NGNY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QVSifXhFjn8eJF2swarmFpOkNB9wFhZbCgDfBXFrTQdK3Gm7df82T4AuV9W8G4mSk
-	 dXvAIwgrQlEC0t4/K1At7qgul4PIg7wBSL+fAaCV7Rli56RkKv5HjLYUrhEmh8mYuw
-	 kA07W8RlgnXV8BqQpa1zUSpxhPLXEDxpwrupyX7rMqJpqz2OXGr+vsHNS57d+kjxaU
-	 hVI51J43YNl5xfQ6gl4OcvXgEgEIOCGHG1waDPf6BvKJ9WXP9ngRejmRxFpSwyHK1o
-	 2M9s9ohuZ2aWGyuPyhY464SqCqsHIjvBr3HJ6q/qD8T7xawS5XBl0IpyNfRn4RJLEg
-	 gCoBMP4PLHi4w==
-Message-ID: <cd9fcbf0-fc93-4c0e-b2b7-34c4057e5b56@kernel.org>
-Date: Tue, 27 Oct 2026 23:26:09 +0100
+	b=lF6yiStjYM/71CMyOoLtytdD4zW7yZ+z52IEnXogMaB4klnlnPD8oulGlVpX4Hyaq
+	 Td8E+oxHTj8EmR2ncPQ8iLvEUwbPIPOtrJ6k++W0yF14wxvH9I6bHTg/pMnn0aB+Vi
+	 4N3/rISFHUVGDTv99Qc/MzN8vEY6Bez5O3wWzfEtxFM4ZuB09SHOT3pShh6F8lWIpZ
+	 GLJD9iJFZfIC/WPEmrhF8a5N29wJNiBRPXOEkUvPm3tuNyeJ/IsyKebRCskCaVdeiL
+	 7wdUfUTOdr2fybvWBU+P9oH0S43t35UA6Ve0nW9zVjdt9T3Av/CeIC1naLh41ciY6R
+	 uQXL2i1cp84yg==
+Message-ID: <9a02ffa7-5ea5-4952-9ef8-45c7fee8f0fe@kernel.org>
+Date: Tue, 27 Oct 2026 23:36:38 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/5] media: iris: Don't flag an empty source change
- LAST buffer as an error
+Subject: Re: [RFC PATCH 2/5] media: iris: Update the CAPTURE stride and size
+ on S_FMT(OUTPUT)
 To: Christian Cortner <ccortner@gmail.com>,
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
@@ -61,77 +61,45 @@ Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, Birk Skyum <birk.skyum@pm.me>,
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
 References: <179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com>
  <20261027021934.22113-1-ccortner@gmail.com>
- <4Sunhzjffw3cqD9pTWQfGRsBoB9-FxgAMHNeS-RmLbNdPD2Ufk1spnI_codV5v6qtyyD0Go5uZFrAk6E_1EvCA==@protonmail.internalid>
- <20261027021934.22113-2-ccortner@gmail.com>
+ <wAdJeeSreSNXfknQstuVnZ0f_y_udNQMiMQa7xh12xaNjRrqWiYB8hprj6vd23FuMiQaYY3pMbZsk05LQjLOIA==@protonmail.internalid>
+ <20261027021934.22113-3-ccortner@gmail.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20261027021934.22113-2-ccortner@gmail.com>
+In-Reply-To: <20261027021934.22113-3-ccortner@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 27/10/2026 03:19, Christian Cortner wrote:
-> When the firmware completes a source change, it returns the last capture
-> buffer from before the change flagged HFI_BUF_FW_FLAG_PSC_LAST, and that
-> buffer can be empty. iris_hfi_gen2_handle_output_buffer() sets
-> V4L2_BUF_FLAG_ERROR on every empty capture buffer returned while
-> streaming unless it carries HFI_BUF_FW_FLAG_LAST, the flag that ends a
-> drain, so the empty buffer that ends a source change reaches the client
-> flagged both LAST and ERROR.
-> 
-> The stateful decoder interface says of this buffer, as it does of the
-> one that ends a drain, that it "may be empty (with v4l2_buffer bytesused
-> = 0) and in that case it must be ignored by the client, as it does not
-> contain a decoded frame". With the ERROR flag, ffmpeg's h264_v4l2m2m
-> decoder reports "capture: driver decode error" and outputs a corrupted
-> frame.
-> 
-> Exempt HFI_BUF_FW_FLAG_PSC_LAST as well.
+> Setting the OUTPUT format also updates the width and height of the
+> CAPTURE format, but bytesperline and sizeimage keep their old values,
+> those of the 320x240 default on a new instance. For a 640x360 stream,
+> VIDIOC_G_FMT(CAPTURE) then reports 640x384 NV12 with a sizeimage of
+> 147456 bytes. VIDIOC_REQBUFS(CAPTURE) allocates buffers of that size,
+> and iris_vb2_buf_prepare() rejects every one of them with -EINVAL,
+> because it checks them against the size computed from the new width
+> and height.
 
-I really had to read the commit log, the code and then the commit log 
-again to understand what this was saying.
+Again the commit log is a word salad. A much clearer problem statement 
+should be possible.
+"When updating the OUTPUT format we fail to update some variables which 
+we should be updating i.e. bytesperline and sizeimage."
 
-Significant reduction of prose and more concise statements.
+Simple and clear, like myself ;)
+
+> Move the per-format rules S_FMT(CAPTURE) uses into a helper and call it
+> for both queues, so that S_FMT(OUTPUT) leaves the CAPTURE format exactly
+> as S_FMT(CAPTURE) would set it for the same size.
 > 
-> Fixes: 7adc11e6abf6 ("media: iris: Send V4L2_BUF_FLAG_ERROR for capture buffers with 0 filled length")
-> Cc: stable@vger.kernel.org
+> Fixes: 8aadfd445373 ("media: iris: Update CAPTURE format info based on OUTPUT format")
+> Cc:stable@vger.kernel.org
 > Assisted-by: LLM sparse smatch
-> ---
-> Reference only, not for merging (no Signed-off-by); see the cover
-> letter.
-> 
->   drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> index f0782c4b1e6e..b4fe9066fcb8 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-> @@ -390,8 +390,13 @@ static int iris_hfi_gen2_handle_output_buffer(struct iris_inst *inst,
-> 
->   	buf->flags = iris_hfi_gen2_get_driver_buffer_flags(inst, hfi_buffer->flags);
-> 
-> +	/*
-> +	 * The empty buffer that ends a drain (LAST) or a source change
-> +	 * (PSC_LAST) is not an error, the client just ignores it.
-> +	 */
->   	if (!buf->data_size && inst->state == IRIS_INST_STREAMING &&
-> -	    !(hfi_buffer->flags & HFI_BUF_FW_FLAG_LAST)) {
-> +	    !(hfi_buffer->flags &
-> +	      (HFI_BUF_FW_FLAG_LAST | HFI_BUF_FW_FLAG_PSC_LAST))) {
 
-If the analysis is correct then this fix makes sense.]
+On the substance here I like it.
 
-Where do we get the conclusion from though - persumably from observing 
-packet types returned by firmware ?
+- Functional decomposition
+- Reuse
 
-That would be a more convincing thing to put into the commit log than a 
-log declarative.
+So... I'd be inclined to take this. It fixes a real bug.
 
->   		buf->flags |= V4L2_BUF_FLAG_ERROR;
->   	}
-> 
-> --
-> 2.56.0
-> 
 ---
 bod
