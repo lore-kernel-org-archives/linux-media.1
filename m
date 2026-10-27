@@ -1,47 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793120447;
-	b=14Skn0wQBmW8P25tdCSdlTn1mQVjT4Z3c/rj0Q0ihRnthR47S+X9nfREdDuWxhaZ3IcZ
-	 z95iMbnEN+v/q1ffHFYYBtGh6h9eUnUr+ppdmywb+A4KdKvngNJ2m3Weu3XCJUVrH2Kcj
-	 lgJ/Ng+g1T/EyhmcEGMXgLwdmMWrv8uiDMVnViUCVTm9jp82VBDP0M/3en1eP69Fauonr
-	 rLTKZNHyI7E34Mf8/w4yPd5zCPHFORqYN9cb0YWBQrKpTXWSzMFo56KSyEdbyyKgu48U7
-	 0UcaD86zNwWFWnnz1mtTOgIdC+NJtbKZUs3b/u4uHUKBJMBnnsW9Vv2rr74HwhVGQgQ==
+	t=1793121011;
+	b=ugs6D0BXssjUyfAR2TLLlNOQuS7TQtoxFYwq773FX95jgcKTZhRybjogo9XePEt83Su2
+	 UG9SCx4qjx5U5V5OerfDgV6GuPBf7FslZ1uBCJgTEoao4XHFRR1wEOCkZSU0PNNcvc5iU
+	 4SzxhXI1KYcLYGOG7e8IJqLTUG5S8j0bsJwFQ3hK2mJafqNKMPibhdPd8kWEp/t6+hZhI
+	 yUp1afDrE6xOC4yV2wmrFwxsB7kVLLwEU7VNumFHR3R5nf5EYrDXYWhsTCZD1dKM1Hr5K
+	 HCxeHzbBQiIVKkL7Gei31+9JnanlyZsKGOjJI0M24NHKzx6dryVB/2skS6nWpmgazUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793120447;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793121011;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=MWogW9v4I9IYrvgTyhl6LKMKwTAkz80m1q6fFg2x4yc=;
-	b=TPnFYU9icEcx8EMfhMnMHPEwbkMigEKUU27exjz4V7d2nDL2IqzvjbYRca6+9WvTGdF1
-	 +ad2mNri+TTCtGGia2KUX3GNqCdmulpiNqMg0YZvlaTw18y0TTRT97zGOL6/8yBv1yE/s
-	 /nT4tCXP+4FsXOIdSX9F869R2fP/muLPVhQHzmo1KxHCjEYf4u9ROQwNpiLSSgPI3HuEI
-	 4zK/BZCESgpUCb8TM9FcHvRyiPlJIpVIDE1NpyfxqVPnKoJaHolFJJsHD4/Ohw7PXxDQS
-	 ip0SLI9SvnO+uym6+ZuOaLkuH6zCDfvWJFiAzUZN69GkrhcrNOz6N7ED7G6QT9xo3hQ==
+	bh=6z1Q2FnRPqUpv8sUMbKaLkx2bL6vjkoG2SyuClqSAmw=;
+	b=YBTjL8B+S3oi2b+DCgM2d4t0QU/mPY+7IT4XkiXF0EyybwhI2Qn9X2zMG6ctMpgJIUd3
+	 EFPm1XAYarB3Xe9c5zhdl/GV1Qiduyd9qpXuP90HXI9OVjQF3oqgPd1oq1ladA5J7RaPM
+	 LEHQVZ6N9UizdI4LE4PCzvDcF9uhef2gzntH4NwlfzN4cFJTfkWr45SvbBkSM9HyVph/g
+	 0MuzpdOkVKClmcayPwWmeOchlpLrcuhy93rqoK63iS7o9oDcIY1e1wEqp4co7pQhxpTcC
+	 WKzhZsRITbiocf1FEElkQlp5kjH83zVHNpF9TtWy+CbHNREbjfm7NKpZAKbwOxtDDaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2Bt5010;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HWK8m1XM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B978606A31A;
-	Tue, 27 Oct 2026 17:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03FC606A31F;
+	Tue, 27 Oct 2026 17:10:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f2Bt5010
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 392071F01825;
-	Tue, 27 Oct 2026 17:00:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793120447;
-	bh=MWogW9v4I9IYrvgTyhl6LKMKwTAkz80m1q6fFg2x4yc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f2Bt5010mode/v1AcQmeCHwLvfIEEb58IsTo5RDyviSkvUbpQOyn4kxx+WIau3jC3
-	 FlDRp6uO6LcGJIWb+uNgJ3VoAYew13QuiKEQnzwVPgXm7abXYgvgZCUohOWrHxn7Jn
-	 qIdxdsZN6qP/UnbT9VDtjzlsHiakVkLd4WZqc2fgabMLmAGc/iBQr9lkqUOD1SiZ9C
-	 bl4W6sX3zzh54Q5AM+WXpK0vs7QxVw1cgZxx1ygHX6Y4roF0HBjjMZLvRF2ZBY5O/j
-	 0ziVYaXLTobcTd+ShMtPC532EcR2DDQgrYlFtx6F9YZa6BPEccEOukxwXLise02bVd
-	 ll8LYZRsFP18w==
-Message-ID: <271ccc9b-ccf1-4254-9664-2f00b504a5a9@kernel.org>
-Date: Tue, 27 Oct 2026 19:00:41 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=HWK8m1XM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B89321F01829;
+	Tue, 27 Oct 2026 17:10:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793121010;
+	bh=6z1Q2FnRPqUpv8sUMbKaLkx2bL6vjkoG2SyuClqSAmw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=HWK8m1XM89Z1t2ZqEzF0wRXMZCN9YZF/stXxZmx4P5l48J3KslfwBTpVL1ZkY5d3L
+	 cFvF95td4+ABHcQ5gNSdxOOvGC2DaMLIdn9qCisjLWSWqYS2Hu0bLOOfjFyE4JONkm
+	 3yjLt1FT3xNx6nJCxFHXlGgb9Rl8NYHV9oLjIDEg=
+Date: Tue, 27 Oct 2026 10:10:09 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com>
+Cc: cl@gentwo.org, hao.li@linux.dev, harry@kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-usb@vger.kernel.org, rientjes@google.com, roman.gushchin@linux.dev,
+ syzkaller-bugs@googlegroups.com, vbabka@kernel.org, mchehab@kernel.org,
+ rohithmatham@gmail.com, hverkuil@kernel.org, duoming@zju.edu.cn,
+ linux-media@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [syzbot] [mm?] [usb?] WARNING in corrupted (4)
+Message-Id: <20261027101009.18e9136537144533915008e4@linux-foundation.org>
+In-Reply-To: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com>
+References: <6ae09458.f0fe5aea.79aa1.008e.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -50,152 +60,59 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/7] media: qcom: camss: Allow CSI2 PHY devices without
- CSIPHY resources
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Vladimir Zapolskiy <vz@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20261026224957.1115370-1-vz@kernel.org>
- <20261026224957.1115370-4-vz@kernel.org>
- <CAFEp6-16WAoyS+aY2BzPknsMtHa1cSfVYNmYvTKHm_MWqqW_ag@mail.gmail.com>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <CAFEp6-16WAoyS+aY2BzPknsMtHa1cSfVYNmYvTKHm_MWqqW_ag@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 10/27/26 12:52, Loic Poulain wrote:
-> Hi Vlad,
+On Tue, 27 Oct 2026 05:08:56 -0700 syzbot <syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com> wrote:
+
+> Hello,
 > 
-> On Mon, Oct 26, 2026 at 11:50 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
->>
->> If CAMSS CSIPHYs are supported by the stand-alone CSI2 PHY driver only,
->> there is no need to provide description of legacy CSIPHY resources in
->> the CAMSS driver, therefore if CSIPHY resources are not given for some
->> supported platform, use CAMSS CSIPHY port numbers as CSIPHY identifiers.
->>
->> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
->> ---
->>   drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++++++++---
->>   drivers/media/platform/qcom/camss/camss.c        |  8 ++++++--
->>   2 files changed, 19 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
->> index f99eea2ef228..8ecd514451d2 100644
->> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
->> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
->> @@ -799,6 +799,11 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
->>          return ret;
->>   }
->>
->> +/* Fallback to generic SDM845 compatible formats for non-legacy CSIPHYs */
->> +static const struct csiphy_subdev_resources csiphy_res_phy = {
->> +       .formats = &csiphy_formats_sdm845,
->> +};
->> +
->>   /*
->>    * msm_csiphy_subdev_init - Initialize CSIPHY device structure and resources
->>    * @camss: CAMSS structure
->> @@ -808,7 +813,7 @@ int msm_csiphy_subdev_init_legacy(struct camss *camss,
->>    */
->>   int msm_csiphy_subdev_init(struct camss *camss, u8 port)
->>   {
->> -       const struct camss_subdev_resources *res = &camss->res->csiphy_res[port];
->> +       const struct camss_subdev_resources *res = camss->res->csiphy_res;
->>          struct csiphy_device *csiphy = &camss->csiphy[port];
->>          struct device *dev = camss->dev;
->>          struct device_node *ep, *remote;
->> @@ -836,8 +841,13 @@ int msm_csiphy_subdev_init(struct camss *camss, u8 port)
->>          }
->>
->>          csiphy->camss = camss;
->> -       csiphy->id = res->csiphy.id;
->> -       csiphy->res = &res->csiphy;
->> +       if (res) {
->> +               csiphy->id = res[port].csiphy.id;
->> +               csiphy->res = &res[port].csiphy;
+> syzbot found the following issue on:
 > 
-> So, can't we simply drop the above assignment and keep only the
-> port/csiphy_res_phy below? That would provide the same behavior for
-> all non-legacy PHY initializations, regardless of whether legacy
-> CSIPHY resources are described or not.
+> HEAD commit:    5b0764a53235 Merge tag 'drm-next-2026-10-21' of https://gi..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=13739fc9580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=fd1433abd362f255
+> dashboard link: https://syzkaller.appspot.com/bug?extid=9fe09db3795456e0b442
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> userspace arch: i386
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11cb9b0d580000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/05ac8658d211/disk-5b0764a5.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/9cfb73243216/vmlinux-5b0764a5.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/fc45c7faf785/bzImage-5b0764a5.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+9fe09db3795456e0b442@syzkaller.appspotmail.com
+> 
+> ------------[ cut here ]------------
+> !PageLargeKmalloc(page)
+> WARNING: mm/slub.c:6855 at free_large_kmalloc+0x97/0x110 mm/slub.c:6855, CPU#0: kworker/0:1/10
 > 
 
-Please note that 'csiphy_res_phy' was introduced a few lines above
-by this change, it's only purpose is to provide the needed supported
-media formats, and this is unavoidable.
+Thanks.
 
-This change follows the assumption that pixel formats from all
-non-legacy PHYs are SDM845 compatible, that's true for this platform,
-it is expected to be true for the most of approaching non-legacy
-platforms, and on demand it may be changed later on.
+> This report is generated by a bot.
 
-The current form likely is the most compact and the least invasive
-change, which gets to the point of supporting CAMSS on platforms
-with no CSIPHY resources given in the CAMSS driver.
+So is this report ;)
 
-For instance, note, the recently proposed Glymur CAMSS [1] references
-X1E CSIPHY resources, which is actually incorrect, since there is
-no "csiphyX" I/O resources anymore for Glymur. This change can be
-reused for Glymur as well, and its reference to X1E CSIPHYs can be
-dropped, but any better proposal or improvement are welcome.
+This looks like a double free in the Siano USB media driver, rather
+than an MM bug.
 
->> +       } else {
->> +               csiphy->id = port;
->> +               csiphy->res = &csiphy_res_phy;
->> +       }
->>
->>          snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy->id);
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
->> index c54185c93a8a..b0d60e70e4bb 100644
->> --- a/drivers/media/platform/qcom/camss/camss.c
->> +++ b/drivers/media/platform/qcom/camss/camss.c
->> @@ -4796,7 +4796,10 @@ static void camss_detect_legacy_phy(struct camss *camss)
->>          struct device_node *remote;
->>          struct device_node *ep;
->>
->> -       camss->legacy_phy = true;
->> +       /* Legacy CSIPHY description implies the provided CSIPHY resources */
->> +       camss->legacy_phy = !!camss->res->csiphy_res;
->> +       if (!camss->legacy_phy)
->> +               goto done;
->>
->>          /* Find first remote-endpoint and determine if its a PHY */
->>          for_each_endpoint_of_node(camss->dev->of_node, ep) {
->> @@ -4810,6 +4813,7 @@ static void camss_detect_legacy_phy(struct camss *camss)
->>                  break;
->>          }
->>
->> +done:
->>          dev_dbg(camss->dev, "legacy phy mode %s\n",
->>                  camss->legacy_phy ? "true" : "false");
->>   }
->> @@ -4841,7 +4845,7 @@ static int camss_init_subdevices(struct camss *camss)
->>
->>                  if (ret < 0) {
->>                          dev_err(camss->dev, "csiphy %d init fail\n",
->> -                               res->csiphy_res[i].csiphy.id);
->> +                               res->csiphy_res ? res->csiphy_res[i].csiphy.id : i);
->>                          return ret;
->>                  }
->>          }
->> --
->> 2.51.0
->>
+The failure occurs during USB probe error recovery. The allocation
+comes from smscore_register_device(), and the page-owner records show
+that smscore_unregister_device() has already freed it. The USB core
+can then attempt to free the same memory because smsusb_submit_urb()
+sets URB_FREE_BUFFER on a buffer owned by the Siano core.
 
-[1] https://lore.kernel.org/linux-arm-msm/20261015-glymur_camss_dts-v2-0-e7b1f403146f@oss.qualcomm.com/
+Rohith Matam posted a patch in June which removes URB_FREE_BUFFER
+and fixes several related URB teardown races:
 
--- 
-Best wishes,
-Vladimir
+https://lore.kernel.org/r/20260601201639.63171-1-rohithmatham@gmail.com
+
+I don't know why that patch hasn't resolved this problem, but it
+would be worth revisiting before developing another fix.
+
+This doesn't appear to need any MM changes.
