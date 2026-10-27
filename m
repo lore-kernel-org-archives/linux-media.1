@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793140601;
-	b=LR/mUVTJKZXBwMBdzOvbA1C3JOHLMOsA/ZqPWFFIxHLhvtmPKvL/Q7QYZh8ByyJzJ/P+
-	 cEDrmW0CEyJHYb1aDt2fF0ZggMUDxt6RTfDRpPtFbH+COk001pNtX9gLzp9d4jZAHm952
-	 klbHBBLemt3++3KK7yCtHfRyDVbzEy3gCeahkAu1Zj7pVSrKPevGClxVLdSlTxUHMeOUK
-	 AmMybtvWnN+l0wlYHlQLLYWtRbwohnZZAkHQ08hOzKW08LDicJt3zxwdtj+/uOaEdRbos
-	 ev/7O/sS6gGVnuITryTB+3R5TRbg+8jmuyHGSj06WNM869g5vBAAGPc9mcOunMxVrrQ==
+	t=1793141076;
+	b=P3L1nysYxtZzD+LKMaAjP1vStMkTCaJZIBSJmbtBCJPSK2iYlFyPbzHK89EFKoHdUTwW
+	 RKNlvPj731myMKElAHYvcO2IHDO1H+ML+iXmVSu17bf8tjVQWsQAOkHy3aIpDBYkFkRre
+	 dvi6YMczNp+EwnXuJNnB0kDpMZl9dvcwPe3mjP5tsliFJK78dGbY6Zs0iv92GlpMSHbtp
+	 em4ZsRlZFogbb/ocatQShhyr9et/JikqSf0CxWhmzGJ9WVsX33uNynOKaB1KIRlWHFJLX
+	 iTMNFWELiP0QdtUF+cXMBUel7ErD+sSmbzyG8YY5x8oB8I0WAXuCWxRGmImjXaF1iiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793140601;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793141076;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=XZI5qDPhTmZVj1Qw6YTy5ddVyLHtDr9zUld9Eh7NGNY=;
-	b=CggeVDlTst1xwDT4/guT+kBH+ZtE7tJSTUD0Okqd9sXTRncgtfD12Y86onTiB/d4lhRB
-	 cLu+aJLHKMoWSHYP6VB2Qy3Xr4/ae46oxqbLiASrsTxcCBckl2CH7zghDCGPcHoJPcXcv
-	 S3o3tDJ9kY7giaw6WUBIqMnH7xDHJBk9UX2cNMuuC98E9MHaQvTI6yWYV8qeaXJQTwo/X
-	 IDrEqHHM1p9HX2IYekjdbJAFFWcJUDjq27p9k/bQFQNHOeBQqXVa/R0dbJ/511PsPcbVC
-	 C3vzvALrHjrS7ToLu2W1nw/SP40hOQPvIum/8xuzWb/atz0leqHIrtz7WWPRnMUNiPw==
+	bh=rJO7rSe9eLqzFXmbbsuCfMtpPVfF/GMPvzghtsTBDCU=;
+	b=cZKrtRvKzlkCp3fsRKFZODTkesqEtL4vLk5QE79kdBI+TJOSEprRU1aupINaD42jf5R4
+	 7iLZo7XcaS/pSXEPQhlMKP6qG0dkRF2obpsyogz7gToIPupNSxXHJXe8Bmk4wf+I+PZpu
+	 AocncbiRDgdNxP3voOhUVgGrVxG02XkDa9KaiXalnbpBw/fnMQey9+eRQeZYJ45CeuA2E
+	 yhseCeEtMu2xF+bUw7KOn0YgsXWMUq91lU9gbs4EKe8l1xyRtGyZQXWmRqyny0Eng2MkM
+	 Dm1CceBOLrgjZGIWLVTJZJmxS+UmmpNcYqLgVwKoQ+XHJed76LJwl2GrgzCLcDGZysg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lF6yiStj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GojsxI3h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94303606A31D;
-	Tue, 27 Oct 2026 22:36:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64A5606A31A;
+	Tue, 27 Oct 2026 22:44:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lF6yiStj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9AB1F01825;
-	Tue, 27 Oct 2026 22:36:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GojsxI3h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 464471F01825;
+	Tue, 27 Oct 2026 22:44:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793140601;
-	bh=XZI5qDPhTmZVj1Qw6YTy5ddVyLHtDr9zUld9Eh7NGNY=;
+	s=k20260515; t=1793141075;
+	bh=rJO7rSe9eLqzFXmbbsuCfMtpPVfF/GMPvzghtsTBDCU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lF6yiStjYM/71CMyOoLtytdD4zW7yZ+z52IEnXogMaB4klnlnPD8oulGlVpX4Hyaq
-	 Td8E+oxHTj8EmR2ncPQ8iLvEUwbPIPOtrJ6k++W0yF14wxvH9I6bHTg/pMnn0aB+Vi
-	 4N3/rISFHUVGDTv99Qc/MzN8vEY6Bez5O3wWzfEtxFM4ZuB09SHOT3pShh6F8lWIpZ
-	 GLJD9iJFZfIC/WPEmrhF8a5N29wJNiBRPXOEkUvPm3tuNyeJ/IsyKebRCskCaVdeiL
-	 7wdUfUTOdr2fybvWBU+P9oH0S43t35UA6Ve0nW9zVjdt9T3Av/CeIC1naLh41ciY6R
-	 uQXL2i1cp84yg==
-Message-ID: <9a02ffa7-5ea5-4952-9ef8-45c7fee8f0fe@kernel.org>
-Date: Tue, 27 Oct 2026 23:36:38 +0100
+	b=GojsxI3hCpZtttAdK3MIvfpu80WQCB5lsatKlIvifYvu1L/4m1RrMcqO125KORlDT
+	 0BRYsyhwSvsVo9uShqCas1lvIQd+feOiHSQtkbWQ0bLX6BR2pmsnVde4sGEV0BkOpR
+	 cel2GOR9fCv2ff96bU65tEw4Htg3PNx5RltP0Rg3e1tZ4vzWau+goQ94E+7E7AzJPA
+	 lVgWEL/YINmpSRKxd66CdsGpvMwSpDJniSQBUv8A3XiJbxTAZ6hrBUP4XeXXnbxGUH
+	 nKUzOtbxCw2fKg0rupggaoMBk8tt8a0lxiSTyNQ3E6JBliiE/yR6Lh1YnDt/679XCz
+	 jJfKD50lOe2hw==
+Message-ID: <7ee16d85-9cc2-48a0-ab38-3eb131c6282f@kernel.org>
+Date: Tue, 27 Oct 2026 23:44:32 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/5] media: iris: Update the CAPTURE stride and size
- on S_FMT(OUTPUT)
+Subject: Re: [RFC PATCH 3/5] media: iris: Signal V4L2_EVENT_EOS only at the
+ end of a drain
 To: Christian Cortner <ccortner@gmail.com>,
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
@@ -61,45 +61,95 @@ Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, Birk Skyum <birk.skyum@pm.me>,
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
 References: <179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com>
  <20261027021934.22113-1-ccortner@gmail.com>
- <wAdJeeSreSNXfknQstuVnZ0f_y_udNQMiMQa7xh12xaNjRrqWiYB8hprj6vd23FuMiQaYY3pMbZsk05LQjLOIA==@protonmail.internalid>
- <20261027021934.22113-3-ccortner@gmail.com>
+ <3m0nX8uY072pf3fCrsvbTIMw_7hAaOyUSSCQSUBMwviYGnMBOVkNnJR5fTde258Lm8YY6PrvlqvlmTrFk1AbHw==@protonmail.internalid>
+ <20261027021934.22113-4-ccortner@gmail.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20261027021934.22113-3-ccortner@gmail.com>
+In-Reply-To: <20261027021934.22113-4-ccortner@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 27/10/2026 03:19, Christian Cortner wrote:
-> Setting the OUTPUT format also updates the width and height of the
-> CAPTURE format, but bytesperline and sizeimage keep their old values,
-> those of the 320x240 default on a new instance. For a 640x360 stream,
-> VIDIOC_G_FMT(CAPTURE) then reports 640x384 NV12 with a sizeimage of
-> 147456 bytes. VIDIOC_REQBUFS(CAPTURE) allocates buffers of that size,
-> and iris_vb2_buf_prepare() rejects every one of them with -EINVAL,
-> because it checks them against the size computed from the new width
-> and height.
+> iris_vb2_buffer_done() and iris_vb2_buf_queue() queue V4L2_EVENT_EOS and
+> mark the m2m context as stopped for every capture buffer flagged
+> V4L2_BUF_FLAG_LAST, including the one that ends a dynamic resolution
+> change. In the stateful decoder interface the (deprecated) EOS event is
+> part of the drain sequence only, and a resolution change is not the end
+> of the stream: a client that still acts on the event, like ffmpeg's
+> h264_v4l2m2m decoder, stops decoding at the first resolution change in
+> the stream. And since nothing in the driver clears the stopped mark
+> again, the EOS event of the drain at the real end of such a stream is
+> never sent.
 
-Again the commit log is a word salad. A much clearer problem statement 
-should be possible.
-"When updating the OUTPUT format we fail to update some variables which 
-we should be updating i.e. bytesperline and sizeimage."
+More word salad. I'd almost drop that entire paragraph - hitting you 
+with these stuttering paragraphs is !elucidating - kind of the opposite.
 
-Simple and clear, like myself ;)
+> Queue the event, and mark the context as stopped, only when the LAST
+> buffer ends a drain, that is when IRIS_INST_SUB_DRAIN_LAST is set. Both
+> HFI generations set it before they return the LAST buffer of a drain,
+> for the decoder and the encoder alike.
 
-> Move the per-format rules S_FMT(CAPTURE) uses into a helper and call it
-> for both queues, so that S_FMT(OUTPUT) leaves the CAPTURE format exactly
-> as S_FMT(CAPTURE) would set it for the same size.
-> 
-> Fixes: 8aadfd445373 ("media: iris: Update CAPTURE format info based on OUTPUT format")
-> Cc:stable@vger.kernel.org
+This is much clearer.
+> Fixes: 84e17adae3e3 ("media: iris: add support for dynamic resolution change")
+> Cc: stable@vger.kernel.org
 > Assisted-by: LLM sparse smatch
+> ---
+> Reference only, not for merging (no Signed-off-by); see the cover
+> letter.
+> 
+>   drivers/media/platform/qcom/iris/iris_buffer.c | 7 ++++++-
+>   drivers/media/platform/qcom/iris/iris_vb2.c    | 4 +++-
+>   2 files changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+> index eb8de60c1177..ff2a1b331ac2 100644
+> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> @@ -913,7 +913,12 @@ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
+>   	}
+> 
+>   	if (vbuf->flags & V4L2_BUF_FLAG_LAST) {
+> -		if (!v4l2_m2m_has_stopped(m2m_ctx)) {
+> +		/*
+> +		 * Only a drain ends with V4L2_EVENT_EOS: the LAST buffer of a
+> +		 * source change is not the end of the stream.
+> +		 */
+> +		if (inst->sub_state & IRIS_INST_SUB_DRAIN_LAST &&
+> +		    !v4l2_m2m_has_stopped(m2m_ctx)) {
+>   			const struct v4l2_event ev = { .type = V4L2_EVENT_EOS };
+> 
+>   			v4l2_event_queue_fh(&inst->fh, &ev);
+> diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/platform/qcom/iris/iris_vb2.c
+> index 8faf709c26c1..b820b3e43910 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vb2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vb2.c
+> @@ -324,7 +324,9 @@ void iris_vb2_buf_queue(struct vb2_buffer *vb2)
+>   			vbuf->field = V4L2_FIELD_NONE;
+>   			vb2_set_plane_payload(vb2, 0, 0);
+>   			v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_DONE);
+> -			if (!v4l2_m2m_has_stopped(m2m_ctx)) {
+> +			/* EOS ends a drain only, see iris_vb2_buffer_done() */
+> +			if (inst->sub_state & IRIS_INST_SUB_DRAIN_LAST &&
+> +			    !v4l2_m2m_has_stopped(m2m_ctx)) {
 
-On the substance here I like it.
+Adding the flag over and over again is pretty mindless.
 
-- Functional decomposition
-- Reuse
+Add a function or wrapper to capture this logic - we had functional 
+decomposition in the previous patch - but distinctly lacking here.
 
-So... I'd be inclined to take this. It fixes a real bug.
+=>
 
----
-bod
+$ grep -r v4l2_m2m_has_stopped drivers/media/platform/qcom/iris/*
+drivers/media/platform/qcom/iris/iris_buffer.c:		if 
+(!v4l2_m2m_has_stopped(m2m_ctx)) {
+drivers/media/platform/qcom/iris/iris_vb2.c:			if 
+(!v4l2_m2m_has_stopped(m2m_ctx)) {
+
+
+>   				v4l2_event_queue_fh(&inst->fh, &eos);
+>   				v4l2_m2m_mark_stopped(m2m_ctx);
+>   			}
+> --
+> 2.56.0
+> 
+
