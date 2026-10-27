@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793132988;
-	b=HCEQffzuB/R2FmXpA9a5GiF+4H4T5BGSH7G654aOhuLLh5p1D4B0GfC2zXWDC5Ljxsdp
-	 RsmHE+21eCfE1srgRtvgFDO0lSxvSv9HCitt3I6XodbeDs7L7/LXg+HEterdnnkedfwQo
-	 yG6P/o9vWCxx55AQ+LluhzxhDg+afxBASO9dcMC4evZ9HM58Z07e5z2nAI3dsHxE3fX5g
-	 vXaFcZDyTlu4mQ9orV0V9TNjlNjpniURrB0I+9zub6QfbPNYYowC8ROorLaD5xm2coUyK
-	 RPnUDxI0HOiw4r3i847NZUyiGbjodtNFE/AzJKCItqyhLlODEW1sOG3KeS4NLgCJVmQ==
+	b=AzeR17ePZtLVv1wO096RSAJQ0ewWn1PKX7lfSVPZ7nw/LA8sRIJ7Obkhm3hQS+a22CZ+
+	 dTaW9WdIM2A+PcZK9m6FkjAVyyuUYTFzTW7yT9a5kjye0AxfYZSdgSg94Gik0oRUVVATA
+	 +yhfSpGZvC9s953U/X7jq27/molV5nDbKf7+mp1PkCpQC++9lLIk+OJidePG/26/886LM
+	 BHyGceOXhJ8d/SKGV+gK1Ccvxtiax8gncIBf/Lbzd9YDuABrkvXl7xM0sbWgekSmChYtk
+	 TiTHj21zoMkdGayEugVoYpbdWYo/MSWfSuSkxMXmLvd7wv68OrCMH9uTLJSWr7opxrA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793132988;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VEZ+JLR/9WVBYPNaIRM0kUPmoKwXWz1Ip828TDbB3XY=;
-	b=fUvm2xLMREMXm4BxGEhHUxtL9pQYNOnlI2Gbx4fBzuhFwLMuoYDVx5CbNbBdgN+oLfy3
-	 Q0oUXNAMORbLCiYDgJl79vXrKhm5u1aKfAD+Jhp4eCScxKp0cJNnsbRmpeNl6MyidawQL
-	 W8pGlEI7Bs98L3pI7cRyGsdl46Ne+eUh92rmi7pi6Acj56sRoZ/82A0soLQqJG8RYIBXO
-	 ntrjG9YfFGMsDhlXOE72C2Rm/nM7CtKMeN+Pl2/oj0ClId5iup5mpS1bPz2+wR3hD/5/8
-	 ElktjgAh4KHqdiguWp5QuwS6I1lGS+7JQ4lEAYusCBKepIT712yb8xZZzQJWOIheDlg==
+	bh=8oojwC4mibHluiptbodzWdpbf9DVD5AEQTgnZSOxIkY=;
+	b=4GePuN8s2pf5ywQ8TGBtgsaVILcjiOIvWp46efWsDlXAZoV3yiCjm4eQO5DMhiuw8BTK
+	 iYMO6xMdjq+9xr5seEhZqBYrcgYonxVhJA1E3HnsDiF1aPjj/Few31SktzsHNsKVnmq8s
+	 9OYpw1PCG/JLchmYm9/L5GXHt1nmALOELeZDRjVX93C54TuCqtFm9+3fQU1oeMT4Q9HmN
+	 K2rugqw8w+qajYvUoFY2ULuwiSDq2OAwU7exMD7orABgNf1h4Q/MWj0adF2WNaV3SXdIY
+	 /QZB+LpxsEMRz165q1NRpnzm3/I0wrkL7p9P5kRi7vBe9+nCGBPyccq6Vq37ob0eGbw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcHT0C1q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8TrWfCQ;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63AB606A906;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B190E606A904;
 	Tue, 27 Oct 2026 20:29:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UcHT0C1q
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C8TrWfCQ
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793132987;
-	b=qmM5fslZ9zt4KJZ9B16JIvXdVXTHINdw5WhbiwgBGI0ZnoQV2ROa6osywf/eo+mQTRwN
-	 CNamBOTBoMqdwvy5eommNLr+PviUM53xsz3m3WEkxm6j1ewv2Yhpbm1PwT042Bi6nx0FH
-	 YSl74N5hKEFeQTd0MT6/YzSS6TPc1V4RkJOZru8hvcdRQygO9rmvuncbGLOiC0W2hR4rp
-	 PFUvuEc/+dEmKAixu2eueQw39OAzCWb9ebD3/SvNpGnuL0FciqZiVoukXVna7nRH/+tqN
-	 GlUfNygN74GXY1OdjEzoJ2SCWfPTFF2OqwafJPtyLEDRZK6oWHwgfwLZMsu11jLCbEw==
+	b=QrK04iyuPJO1aBmos1lgh8g/66NVYcSgstdXgGntntEmMIWW/Zq8IjFa6BmkRdAG8uiQ
+	 oke2JDPwRzSuatBXs5q+qrIh9elu2ThV4iPcTXzG6ZsBNvY/3z/AWAHd7qNdXsmm3a2hS
+	 CC1Cq6vyGQ7U84oKkr7QVvZW5dklB9YtiMC4hwKyDbanYXLMh3uqo7LFHnkF4bEwv87XD
+	 MSuiHxhrZp/cAR/+eNvmp+jJHbPG45HFpOau7QCmEI5H/6H24hrFshHGxKqu3SH/ueYym
+	 gMw5OSpXzKWHleKhe36FgOWe2bBw8NCX0kn3oKMS7Y+T2nyrhf7Cm+tHwJoS3F8SG2w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793132987;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=VEZ+JLR/9WVBYPNaIRM0kUPmoKwXWz1Ip828TDbB3XY=;
-	b=UlkfDnidRLHbcWDGChnoJ9TkjUjUkazAKb6C4VLziKyPhh1i64FRTJqO2BAbkiOsoDIq
-	 xn+tQWbHXEe9q5WX0qL2DiWp80B+yE87OR0Z0MncRaQMbltY685COVtpnUgEs/u5EDj1I
-	 IhqfT03hBrqGyfRcY9xclh5Xql/uMMybRbyc0SMXMWeN2/aKae1v9SwAmN41h1+HJOisF
-	 ZYPLn52nzem2mjvbP0tb41XDE82g3bRo0084CwaFkgNZtVSQg7gZLqVv9H3slJYfIm8wj
-	 DeKXrfby8T5qmyFWhXmzy/ymTixO0XzjEXVpZPF11BFl2vOMAkPmVpLMWT0bsZdASVg==
+	bh=8oojwC4mibHluiptbodzWdpbf9DVD5AEQTgnZSOxIkY=;
+	b=JS6L20xe78YvcheqR4YCOixb54gXHRDZlus5S+nDuJNoxan7XisWO2eBjktyH09dBJpL
+	 qi9Y/V5LosGKHF8jnoI6C0WEqsLsXxKEmxwXGXZgdaYFZ0wH49mkUqKOfFLbwZOmL+MEi
+	 l9UB1x/7ja0VIEys4bciLjZo8Qgqtev9ZuaAFjCZ3U4tCQVkL/QoWC2GvH6YcWGW3ilk7
+	 Ymbu6BLmFrKu+/xTlGwl9QRvZvVmAzcEhQkEOfFHkLwkc6Ja5SouTf9NXu7uxOqGAdcHq
+	 WPTDMTKJBUcdtT9obPfOfPkJkOOK+J1qPurdQaePgbveokM9xl0Lh0olBKmZNkViB2g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A75951F031E0;
+	by smtp.kernel.org (Postfix) with ESMTPS id A71BE1F01828;
 	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793132987;
-	bh=VEZ+JLR/9WVBYPNaIRM0kUPmoKwXWz1Ip828TDbB3XY=;
+	bh=8oojwC4mibHluiptbodzWdpbf9DVD5AEQTgnZSOxIkY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=UcHT0C1qf00Psj0rLSW3OPgUoCT5w9MRGNDccZ8cghw4Vjeznvcj/UI8/Y5HCPnIp
-	 WCp251cKfYPuKq5v3rjXWmDM+Lcv4M84hFytBxH8AUojtqc3lagYLvM5Vgk1YwSqAv
-	 IP3pR/jkmieuzu6QaBsTAXYSNabxAQjhyjBsoJJS+YpGgKjZcYEMJS3jKi64dNsEZd
-	 Odgft5L7rBIxfZXUnaupIcvFn+HkubU7TcpRbd1ffF2+l/N2EStFdtV+L8MuwcpH6p
-	 zS2HjVZ8JgYyj8vJRaEg0qMQ3dIvX5A5CT/E/pXzkfaWWlPAktFLtVIKrxSavAOIG/
-	 Cp70JiEavedLg==
+	b=C8TrWfCQxXAD7hi5ChWZN3HYr+1hqB7L6Zrz07eh9dIZPKQDHXbAwh7glesdGQXq8
+	 +oiDNgWaaYRkT09HBH1MOwU5LM3YmuUzkRad8LYRDkQ0hqymyf4Q3RfbO0enG4wD8Q
+	 R3cgSfMOC39wB1yU8O6dYY+gzMh3Xpcx7UnJ+4al1NDcREcH2DGBBJ3ens6gfls6vD
+	 OHOx699ahQPuB82Rff3eqAtR160STGD/sO1fYl3WCReFyBXc4b15XVwKwIGpr5+q0o
+	 B1D8xeCEm8EKMbKiHjOQL5bNpWJtPyLwtBml6s5sRJGv7jTsQuskX32lJSsbwM6NA0
+	 oY69yAMg6SQ0Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 23B024520D;
+	by lkml.kernel.org (Postfix) with ESMTP id 17D3D45211;
 	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
 From: Marco Ziliani via B4 Relay <devnull+rylos78.gmail.com@kernel.org>
-Date: Tue, 27 Oct 2026 21:29:46 +0100
-Subject: [PATCH 2/3] media: i2c: ov5693: Keep the Bayer order when flipping
- at full resolution
+Date: Tue, 27 Oct 2026 21:29:45 +0100
+Subject: [PATCH 1/3] media: i2c: ov5693: Program the mode registers on
+ stream start
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-ov5693-fixes-v1-2-3c8ab1ae104d@gmail.com>
+Message-Id: <20261027-ov5693-fixes-v1-1-3c8ab1ae104d@gmail.com>
 References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
 In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
 To: Daniel Scally <dan.scally@ideasonboard.com>, 
@@ -94,11 +94,11 @@ Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>,
  Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>, 
  linux-kernel@vger.kernel.org, Marco Ziliani <rylos78@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132984; l=4327;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132984; l=2580;
  i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
- bh=bY5qiR9F/Y1aGuZr5TS65OJX6ey1ya1/HNWGJsKosVA=;
- b=9lwlbZoEg/2kfHXqrliosIUbaOzuhB1NR2kWmo6Ce7MfCiDmQ1m70k+0mO1go4vtLCfv+PyS/
- 2QMiTEWRBNED7i/9d5+flisg6dpy+SsItVF8qdQ0QvGrzm3Ka9acvjJ
+ bh=vr4kUaykaNDDTvI/XPwM7e2iqb7XHZfVu3/G5P8saTI=;
+ b=KEbjbj4KD+HU3Jj/r8hT87ZGcaPSoRdLqR0IID7Onp7iL1z1AJquILfFx5czVp/hu8n+pe0zz
+ ZW+D/64usIrBl4yOySMrymilFd9USnYeQ+VhAUdM6CDlJuZacGEKZUh
 X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
  pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
 X-Endpoint-Received: by B4 Relay for rylos78@gmail.com/20261027 with
@@ -109,123 +109,63 @@ Content-Transfer-Encoding: 7bit
 
 From: Marco Ziliani <rylos78@gmail.com>
 
-In the full (unbinned) readout each of the horizontal and vertical
-flips moves the Bayer phase by one column. With exactly one flip
-enabled the CSI-2 receiver gets GBRG instead of the SBGGR10 the driver
-reports, which gives a magenta and green image; with both enabled the
-two shifts cancel out.
+The mode registers (readout window, binning and subsampling) are only
+written from the runtime PM resume handler, and ov5693_set_fmt() merely
+stores the requested mode. If the sensor stays powered between two
+streams, the new mode never reaches the chip: the sensor keeps
+streaming the previous mode while the CSI-2 receiver expects the newly
+negotiated format.
 
-The crop start is only honoured in steps of two pixels, so compensate
-by shifting the output window by one column when hflip XOR vflip, and
-widen the crop by two columns, within the pixel array, so that the
-window still fits. Reprogram the window when either flip changes. The
-binned readout is left unchanged.
+This happens whenever the format is changed while the sensor is still
+powered. On a Surface Pro 7+ (IPU6), with the sensor held powered
+between two streams, OUTPUT_SIZE_X read back over I2C showed the sensor
+stuck in the mode it was powered up in, and 0 of 16 streams that asked
+for a different mode produced a frame. With this change, 32 of 32
+streams completed and the register followed the requested mode. A
+Surface Pro 9 (IPU6) gave the same result: without the change
+OUTPUT_SIZE stayed at 2592x1944 in all 32 streams of 16 such switches,
+with it the register matched the requested size in all 32. On a
+Surface Pro 5 (IPU3), switching between 2592x1944 and a 1920x1080 crop
+the same way, OUTPUT_SIZE_X stayed at 2592 and none of the 16 streams
+in the new size produced a frame; with this change, 32 of 32 streams
+gave 10 of 10 frames at the requested size.
 
-With this change, raw 2592x1944 frames come out BGGR at all four
-hflip/vflip settings on the Surface Pro 5 (IPU3); the same change in
-the linux-surface tree gave BGGR at all four settings on a Surface
-Pro 7 (IPU4P) and a Surface Pro 9 (IPU6). Without it, the order is only
-right with both flips off or both on.
+Program the mode on every stream start, before the controls, so that
+the mode registers don't clobber them. This matches what commit
+4e1446ac169a ("media: i2c: ov8865: Program the sensor on stream start")
+does for the ov8865.
 
 Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
 Link: https://github.com/linux-surface/kernel/pull/181
 Signed-off-by: Marco Ziliani <rylos78@gmail.com>
 ---
- drivers/media/i2c/ov5693.c | 56 +++++++++++++++++++++++++++++++++++++++-------
- 1 file changed, 48 insertions(+), 8 deletions(-)
+ drivers/media/i2c/ov5693.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 579aa55b7..ca0968498 100644
+index 56599f9ca..579aa55b7 100644
 --- a/drivers/media/i2c/ov5693.c
 +++ b/drivers/media/i2c/ov5693.c
-@@ -361,6 +361,49 @@ static const u8 ov5693_test_pattern_bits[] = {
+@@ -1000,6 +1000,19 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
+ 			return ret;
  
- /* V4L2 Controls Functions */
- 
-+/*
-+ * In the full (unbinned) readout each flip moves the Bayer phase by one
-+ * column, so with exactly one of them enabled the CSI-2 receiver gets GBRG
-+ * instead of the SBGGR10 the driver reports; with both enabled the two shifts
-+ * cancel out. The crop start is only honoured in steps of two pixels, so
-+ * compensate by shifting the output window by one column instead, and widen
-+ * the crop so that the window still fits.
-+ */
-+static bool ov5693_bayer_shift(struct ov5693_device *ov5693)
-+{
-+	const struct ov5693_mode *mode = &ov5693->mode;
-+	bool hflip, vflip;
+ 		mutex_lock(&ov5693->lock);
 +
-+	if (mode->binning_x || mode->binning_y)
-+		return false;
++		/*
++		 * The mode registers are otherwise only written on runtime PM
++		 * resume, so a format change on a sensor that stays powered
++		 * would never reach the chip. Program the mode first, then the
++		 * controls, so the mode registers don't clobber them.
++		 */
++		ret = ov5693_mode_configure(ov5693);
++		if (ret) {
++			mutex_unlock(&ov5693->lock);
++			goto err_power_down;
++		}
 +
-+	hflip = ov5693->ctrls.hflip && ov5693->ctrls.hflip->val;
-+	vflip = ov5693->ctrls.vflip && ov5693->ctrls.vflip->val;
-+
-+	return hflip ^ vflip;
-+}
-+
-+static int ov5693_window_x_configure(struct ov5693_device *ov5693)
-+{
-+	const struct ov5693_mode *mode = &ov5693->mode;
-+	bool shift = ov5693_bayer_shift(ov5693);
-+	u32 crop_end = mode->crop.left + mode->crop.width;
-+	int ret = 0;
-+
-+	/* Widen the crop for the shifted window, within the pixel array */
-+	if (shift)
-+		crop_end = min(crop_end + 2,
-+			       max_t(u32, crop_end, OV5693_NATIVE_WIDTH - 1));
-+
-+	/* Offset X */
-+	cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG, shift, &ret);
-+
-+	/* Crop End X */
-+	cci_write(ov5693->regmap, OV5693_CROP_END_X_REG, crop_end, &ret);
-+
-+	return ret;
-+}
-+
- static int ov5693_flip_vert_configure(struct ov5693_device *ov5693,
- 				      bool enable)
- {
-@@ -373,7 +416,7 @@ static int ov5693_flip_vert_configure(struct ov5693_device *ov5693,
- 	if (ret)
- 		return ret;
- 
--	return 0;
-+	return ov5693_window_x_configure(ov5693);
- }
- 
- static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
-@@ -388,7 +431,7 @@ static int ov5693_flip_horz_configure(struct ov5693_device *ov5693,
- 	if (ret)
- 		return ret;
- 
--	return 0;
-+	return ov5693_window_x_configure(ov5693);
- }
- 
- static int ov5693_get_exposure(struct ov5693_device *ov5693, s32 *value)
-@@ -566,16 +609,13 @@ static int ov5693_mode_configure(struct ov5693_device *ov5693)
- 	cci_write(ov5693->regmap, OV5693_CROP_START_X_REG, mode->crop.left,
- 		  &ret);
- 
--	/* Offset X */
--	cci_write(ov5693->regmap, OV5693_OFFSET_START_X_REG, 0, &ret);
--
- 	/* Output Size X */
- 	cci_write(ov5693->regmap, OV5693_OUTPUT_SIZE_X_REG, mode->format.width,
- 		  &ret);
- 
--	/* Crop End X */
--	cci_write(ov5693->regmap, OV5693_CROP_END_X_REG,
--		  mode->crop.left + mode->crop.width, &ret);
-+	/* Offset X and Crop End X follow the flips, see ov5693_bayer_shift() */
-+	if (!ret)
-+		ret = ov5693_window_x_configure(ov5693);
- 
- 	/* Horizontal Total Size */
- 	cci_write(ov5693->regmap, OV5693_TIMING_HTS_REG, OV5693_FIXED_PPL,
+ 		ret = __v4l2_ctrl_handler_setup(&ov5693->ctrls.handler);
+ 		if (ret) {
+ 			mutex_unlock(&ov5693->lock);
 
 -- 
 2.56.0
