@@ -1,85 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793124679;
-	b=tzpiznkYBWCKdKR4pc3y1LDJPwadkky20JjhuFuQ9K/HGjjcGqEQVbzHT+f9lqaL2Njj
-	 6FbHGAwghhtBANPzbA2hL3kaUCg921//AuVUcElqayZtIAHLtMWw/MEPTsvSg4cLWe4i1
-	 ggZoZDbw0kW+8OpBiZooh0i6yDI5S3EU+OttMoDLFwGbsZ1RCL/ucyH6VOTKkA/FEU3t5
-	 JNlvnVWnG44uP47C07upNRzmCG69uIGUkEsO47hTXx5dvWNOCnZ/aOrCV2R26sQAI9ufZ
-	 1TPEjKwMg/wmXc2/lijHgB6j0QxjIEZ5Z2VggBwMOcI4ryCGMymEsv6m6LLmerRwnHQ==
+	t=1793124844;
+	b=BnpVPYey0JlY5WtzdPiO5/n0oIotf5a85VdcdCVtxkVQT+HwuHmJEEbTt5qk+B3lnZrx
+	 DFZjJoH55xaTDAAYW2mSqbPiLFTii2uIdN1RrFtNuAGc5J3DpjwbFU3JCbAFKTpeswbP3
+	 tSqiPtjVAMY1mj3n/J33eSVvlvlxtI+xx7rUlZ1aIUC6BrVKAp9dsHmMnVQTMpGsezve2
+	 1KsyQKdZq2Wk7RGYdcRf7YyzTOw5VF+bqDlTvUoyVhk3gGVMfACjBGdvL5hKq3mgdxlAc
+	 kF/V8rfGF8tJJSJEVJClNivinb4oopipWX3eR+LKBdgmBeWUQkKv8wDwLTaxR1fzMzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124679;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
-	 To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=bS6Nvy1g1jBhJA4aHeDMQWCoFHQ0poVPxAlc9gBdDwY=;
-	b=VPUCo3RS18b71uDf8+IyEI9PHvhnii0sCiaHcX8Xz0dPbONS6Tuaq3OTGHh4+ZlKKHYD
-	 P7eoG9WeizpmC+eHjyIhoM7UTWNkZ/6UlxC0wK/TXSk7VLcoGFMKJ5hBBBNFAV8QQYvtC
-	 nWkPV5oSpRQsutZAc36qJVPA0CusVVbpdjG0Z95irj+1ILRE3oH/8AU4FwiPjbWcEmvok
-	 seRalWQef0smYDKQGDuEsRrF/oQuEZXMLcuHZRoBheEkoEPrfKfJ6vSV+OdGl6JDiucr+
-	 lZR2kA6QHREo031KrvtRJ3FMRHBH+gzhOzLcGvt6eQk/4Q1D2PmUaHPxzmDKlw5rShQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793124844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Type:MIME-Version:Content-Transfer-Encoding;
+	bh=K4o0hsfCr8qItqNcAeYTl+Awx2cc8eddNn4H7ZE/4Hc=;
+	b=oPv4bRv7fG7tsANYTpcr4OVasbhB/x3wmrQRmIHuq6prLcwpSZZFR9TxY6v66OcZJMBV
+	 g1JPfxha42sMhyvp2JBVEORs2/SmOJd4LdEpfjow7pNMyaEtMpdgOsiyPfJk3ppSItu+d
+	 //yvfqD4dpL7vLUWvoJB1BuU9H5lxp/4mQO7f7bVLTtaksyfQZsPuUxWj0IJRqNmr/8c6
+	 ZOwj5khiOk+unYcy9QiuoINhwa0S/GmYgvHNhojMW8s6GCPUCSbeAlAeUDZFeERqpO3Bb
+	 wFZmvooQpinlezaLF2uTM0/YjYLjseeOav6NWH/u7Dz+7kiklo0+KmGeeh9T0kEHkrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TptjDx4j;
+	arc=none smtp.remote-ip=74.125.224.46
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAFA606A322
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 18:11:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAAFA606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09E4606A31D
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 18:14:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C09E4606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so1232975e9.3
-        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 11:11:18 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TptjDx4j
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-679e6ab6471so1362318d50.0
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 11:14:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793124843; x=1793729643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=K4o0hsfCr8qItqNcAeYTl+Awx2cc8eddNn4H7ZE/4Hc=;
+        b=TptjDx4jMAwg2Qt8cQIV+w83R5Lt3MX0LsbgWQijLZHqjkjQQbvu7Z3XTrLZH4PdVf
+         skRLuY++QPeeBvoH+DHJknO4wi0B9BRZHMkE9qZVwztQVdBVsfLz2Umn8p/PgbRbQwC2
+         x+7Pc0QObk7soUTHFSYWn00ibUkzPeuRYdfex0wvJBYz0xA7EUxeq839QhrlPa3ARG3L
+         dXsCmsxSC/TgSz6iWKQacNWhFgXh4uQMDJZy7XvBp8sbslOWhGaQ936WHBKDjEVtPsX0
+         BOaXtNYwBCDJ1+EHE6bM0wEbyrGkZxDxk+fbBGu/mkSNljIQ8ttMMfsepGfWZ+jzTSlU
+         y4fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793124677; x=1793729477;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+        d=1e100.net; s=20260707; t=1793124843; x=1793729643;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=bS6Nvy1g1jBhJA4aHeDMQWCoFHQ0poVPxAlc9gBdDwY=;
-        b=FTiKVBHX05W5mTynEsmYMbK01dt9rwx7G4x44LOclGSdQtH9AeZUYv9cSPYLuOS2qz
-         582kc4RCMQgEABth5b+z/rPDTOJ3qqGl31/ql6Pf+As5aMv+xE1JPhkNt5LF4Urrn3Iz
-         UrSq/LJoJG32+1eo9LjnBSEF2lh16bRbKwjugAMlqZGERcJpmHfNDf9LFeUiA+nynYUW
-         DuHTYwDHGM7fTvC/HI7QpZvQGv4WTzcGirn0w8fSG0iZNXAMfO91Xtn0JNsnxHp06zY1
-         6dNgUnBC/0yOnGVlhK9UyURsY/ZLbePfEL3YwDCxzzs4/erWdt1hZtglJ1X7tzVoWSe7
-         AJ1w==
-X-Forwarded-Encrypted: i=1; AKwUvByqL+9073TGOo9utUBBzKzP7ijLQpbh48okpgEXdJSNBeKZfgL5JmC+z3GOokETKApO/axshc4FxmL7/A==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7IvorCPAAmCPitMZZWAEK9X1FB/uMY+HjHNE7Q69b0iyaXTYm
-	/gkdgEJ1RFPay7BN7Osvq5pgK2529IBV3PulTvG2aJgoowEuaHy0pMA=
-X-Gm-Gg: AYBFou04W8kbdcUFqSvXnsLR4XU/cHIV0TMP7pSXNBDXlo3z2ASc05iLrESP9opjkrE
-	AjtRX3iZIzuuPsizszqSL67pf+9iNUwuBCDgd90oI5qvXWXoOOa+EIlrA9439go58v2P1xme0dJ
-	stpp6KF84d0/HE/HoIgG8wgfSii2nKVh+A6ERXMeJCLOA+EaY8Pdn5DnNyAxnWxf9VhwX+aBVHp
-	BVM3+VFG9fAsXhgPkCMC7GNWKBL+p2FhUR3jnLkf0zovOnGY5G+QFmq8CNiUYbTdYN3Pgr3bz+q
-	BiGDvLgwN/yRfE/lidOIwxRxrF4CN6oWnc0DFl9+lTiBOJQ4XniWVK8e1K+lQo8nsTl14rn+1we
-	A2HRQEO+2kujxCnKIoTgr/SBFCKGf4QCR1Fszq89hxmiP6s47i/PnYBCJZBf7Cuz7LCl+bEeSGE
-	7lImnxUcFQEZ7/hTFl7VR0D1SMHSOjc992w8mV5JXY/LdhGJHVNc0VEX0nCFcJ/0TlAvtNPv7tu
-	EJC0k6qLkCHkQLxEr/jt5qKNIEHYQspreeHL2YndcrcBDgyCaMaJLY4TmiGzlcDbXSA/CC6iImJ
-	l80YBefL2o3MnKeXbSFqR5QfgY3kGbpZtcXDXMo=
-X-Received: by 2002:a05:600c:524c:b0:4a2:8c5:5e5 with SMTP id 5b1f17b1804b1-4a35ac8c0fdmr214486665e9.7.1793124677050;
-        Tue, 27 Oct 2026 11:11:17 -0700 (PDT)
-Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a93123323dsm5491625e9.14.2026.10.27.11.11.13
+        bh=K4o0hsfCr8qItqNcAeYTl+Awx2cc8eddNn4H7ZE/4Hc=;
+        b=SkNzQRcJ45tNShQKk4Ykb2B+4CITd01mPD0irpBkGPLNcgOGMDyCRh43K4cp7XX78u
+         0D0xeqOkX9nTXSTq5cTBBq6eKuwN33T1e0c/I3K2XEQ4nxo6GD6YmbAqHWqNv35qorTq
+         MicFG9vAQ2RH7oeN7kC8tNlqN5BnUdlOo8oVdfGGhAJc3ETkd4D7u4/C42s9A0eebtpB
+         h/SprzntvpftheRuxMnn1qBPEmXJmrKuaWvgUMw2HZ8VPiPPKMqv0UdA7b4n/F2yic6E
+         /Dg8wv07zQOiKaNCNw+/EJmcjtyRBBmKl1xtJPDcs0CUItS7Bh2bWcm0Q9D+HWtVSFEE
+         lnIA==
+X-Forwarded-Encrypted: i=1; AKwUvBzB8ki4BB87fuO6ZvsqQbZKSq/yO8Qu/PuMkFuxOOtK7HuESntMTitN5F/DVzc9hwEvSgDX5lHfcYEHQg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYI8caY01SkFbyGzCn5KEv7MZcb5q4gmf5ouJQD4yxKHpf/FV0/C
+	ypCE+s83SZDx2Z2kZ/h6Xiw23kWYOrWshzgjApbyuQUFiNTJybkhhIEK
+X-Gm-Gg: AYBFou2yqviSFdAqqEWQYiTYnDVfShSMIKHG3D9UWrZLLbhKqH3pde+dEcRA2sHZotl
+	p/hWWhcG/rMNjZUgyBC/iWrzhI9+qmDEyVAx7zIMaBWYY11deVj3Le6CSP6Nt9EBEIqqVeCN9K2
+	0EhHps9jXkIH+cfaoPm6X2HebCtqWOHsYVoI9Jt+N/ikJHSmsHjjzQ1wKjP/Qny9OSEL3/RiwpJ
+	5UVYSYFR9xAJLSho/yXgS/ferYELeML5gqYAgMI7bbTcDu7jOH8WJedWDiPc07UG0ief1itM+Rv
+	paHILpnpce5Ama45LQ7PRsrl91PktX3jZxRdnOmRpjvIoovrCSRuZLofTSStb7H5qrIFbY5LcUt
+	Pi75yFPeyMZ3VVhTX19yY8nTMCY3Xpafh7hMrnWMhdRcYegl6+eWyxTSPRi691qhW1yMmCf4qUU
+	jvGBB+aH+hrR95V/N1uMHakjVYKk2D+Q2d40vUF9atmRyrZcpw0zmWqcdBCmmwgCfKS1BKXOhUa
+	rFReR5qO4jYygB8ZJAtUy9zUICR/tFuNKRhF+mZIv+XxWc56el18Q0nBomBHwCKbaS4KINV5Nxu
+	bs2nK3tb9SxldlLOnRXeZLkEZe0Kdx19FvTo3i1z8MmpbxtfPSM4sw==
+X-Received: by 2002:a05:690e:414a:b0:677:cb43:4b10 with SMTP id 956f58d0204a3-67a6de9d295mr2246308d50.6.1793124842656;
+        Tue, 27 Oct 2026 11:14:02 -0700 (PDT)
+Received: from localhost (h159-112-31-107.euclwi.broadband.dynamic.tds.net. [159.112.31.107])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a79f365b0sm543038d50.3.2026.10.27.11.14.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 11:11:16 -0700 (PDT)
-Message-ID: <6ae0e944.b6db0abd.16b13d.d261@mx.google.com>
-Date: Tue, 27 Oct 2026 11:11:16 -0700 (PDT)
-From: D. Manresa <dmanresa@gmail.com>
-To: antoine.pichot@gmail.com, linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
- dan.scally@ideasonboard.com, hansg@kernel.org,
- andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
-In-Reply-To: <20261027132637.540222-1-antoine.pichot@gmail.com>
-References: <20261026111032.88355-1-antoine.pichot@gmail.com>
- <20261026111032.88355-2-antoine.pichot@gmail.com>
- <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
- <20261027132637.540222-1-antoine.pichot@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+        Tue, 27 Oct 2026 11:14:02 -0700 (PDT)
+From: Christian Cortner <ccortner@gmail.com>
+To: Birk Skyum <birk.skyum@pm.me>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [BUG] media: iris: resolution change handling stops ffmpeg's h264_v4l2m2m decoder on glymur
+Date: Tue, 27 Oct 2026 13:14:01 -0500
+Message-ID: <179312417145.10007.14957642704462684875.iris-birk-reply@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <179310500796.73918.9946996824482992887@pm.me>
+References: <20261026160952.22082-1-ccortner@gmail.com> <36201ae2-1cee-4d8d-9381-dfc9013c522e@kernel.org> <179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com> <179310500796.73918.9946996824482992887@pm.me>
+Content-Type: text/plain; charset="us-ascii"
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,136 +103,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi,
+On Tue, 27 Oct 2026 12:43:32 +0000, Birk Skyum wrote:
+> On the unmodified driver ba stops as well, without the errors. After
+> START the client gets a second empty LAST buffer, START then returns
+> EBUSY, and every DQBUF gives EPIPE, which looks like the stopped mark
+> from your problem 3. The fatal errors come only when the count rises.
 
-On Tue, Oct 27, 2026 at 10:26:37PM +0900, Antoine Pichot wrote:
-> Could you please try the two patches below, the first alone and then
-> both, with your 150-frame measurement?
+Thanks for running it. I booted the qcom-iris.ko of my kernel
+package, which has none of the five changes, and got the same here:
+when the client resumed with V4L2_DEC_CMD_START, both streams stopped
+after 30 of 60 frames (2 of 2 runs each), ab with the five fatal
+errors. With -A both decoded bit-exact (one run each).
 
-Done. The swap fixes the link completely on this receiver. Details
-below, but first a correction to my own numbers, because they are wrong
-in the archive.
+With kprobes on vb2_buffer_done() (recording its caller),
+iris_vb2_buf_queue(), iris_dec_cmd() and iris_vdec_start_cmd(), the
+stop traces back to problem 2 rather than to the stopped mark. In all
+four START runs:
 
-Correction to the dropped-buffer figures in my previous mail
-------------------------------------------------------------
+1. iris_vb2_buffer_done() completes the empty PSC_LAST buffer as
+   VB2_BUF_STATE_ERROR (the client sees flags=ERROR|LAST). For an
+   ERROR buffer it returns early, before it sets
+   inst->last_buffer_dequeued.
 
-I read v4l2-ctl's output wrong. It prints a line roughly once a second,
-and "dropped buffers: N" is the drops in that interval, not a running
-total; the suffix is omitted entirely when there were none. The column I
-posted was the last line of each run, so it was the drops in the final
-second, not the drops in the run. Summed over the run the figures are
-some fifty times larger. The CSI-2 error counts came from dmesg and are
-unaffected.
+2. Within 0.2 ms, before it has dequeued that buffer, the client
+   requeues a frame buffer. DRC_LAST is set and
+   inst->last_buffer_dequeued is false, so iris_vb2_buf_queue()
+   completes it at once as a second empty LAST. That branch also
+   queues the EOS event and sets the stopped mark.
 
-With that fixed, 1/7 alone at 30 fps, three 150-frame runs:
+3. The START for the first LAST returns 0. The one for the second
+   returns -EBUSY without reaching iris_vdec_start_cmd(), since the
+   first START already ended the resolution change. vb2 then returns
+   EPIPE for every DQBUF: only a START that iris accepts or a CAPTURE
+   STREAMOFF clears last_buffer_dequeued.
 
-  dropped (sum over run)   1181    388    926
-  CSI-2 error lines        >=4996  >=1931 >=3785
-  elapsed for 150 frames   47.0 s  18.8 s 38.4 s
+The stopped mark doesn't halt decoding: in the ba runs the firmware
+completes all 16 CAPTURE buffers within 11 ms of the first START,
+and the client can't dequeue any of them. With -A the second LAST is
+made as well, but the client's CAPTURE STREAMOFF discards it.
 
-A clean run of the same capture takes 5.2 s. Error totals remain lower
-bounds: the printk is rate-limited and I add the "callbacks suppressed"
-counts, but the suppressions of the last partial interval are never
-printed.
+On my kernel with the five changes, where patch 1 stops flagging the
+PSC_LAST buffer, ba decodes all 60 frames bit-exact (2 of 2 runs). In
+today's run, with the same kprobes, the client got flags=LAST and
+iris_vb2_buf_queue() completed no buffer. I haven't tested patch 1 on
+its own.
 
-The divider swap
-----------------
-
-Your 0001 removes the problem here. Every run: 150 of 150 frames in
-5.20 to 5.24 s at 30.00 fps, zero dropped buffers, zero CSI-2 error
-lines. Thirteen runs. Readback over i2c mid-stream, with 0x0100 = 0x01
-confirming the sensor was streaming:
-
-  build          30b0 30b1 30b3 30b4 30b5 4837  link_freq  pixel_rate
-  unpatched      0x0a 0x01 0x4b 0x03 0x05 0x19  240000000  48000000
-  1/7            0x0a 0x04 0x85 0x01 0x05 0x19  319200000  63840000
-  1/7+0001       0x0a 0x01 0x85 0x04 0x05 0x19  319200000  63840000
-  1/7+0001+0002  0x0a 0x01 0x85 0x04 0x05 0x1f  319200000  63840000
-
-The only difference from 1/7 alone is the two dividers, with the link
-frequency and pixel rate unchanged, so this is the VCO as you say and
-not the link speed.
-
-0002 adds nothing measurable: ten runs, the same perfect result as 0001
-alone. 0x4837 = 0x1f is confirmed in the hardware, so that is a real
-null and not an unapplied patch. It does no harm either.
-
-Why I ran more than three of each
----------------------------------
-
-Because on this machine each stream start is a lottery and three runs
-cannot see it. A run is either perfectly clean or uniformly broken for
-its whole duration, with nothing in between, and the unpatched driver
-began failing later in the session too, so results taken in blocks are
-confounded by drift.
-
-So I interleaved: unpatched, 1/7, 1/7+0001, 1/7+0001+0002, one 150-frame
-run of each per cycle, swapping the module every time, seven cycles.
-
-  build            runs with any CSI-2 error   stalls
-  unpatched                1 of 7                 1
-  1/7                      4 of 7                 3
-  1/7+0001                 0 of 7                 0
-  1/7+0001+0002            0 of 7                 0
-
-Pooled with the block runs: unpatched 3 bad of 13, 1/7 7 bad of 10,
-1/7+0001 0 of 13, 1/7+0001+0002 0 of 10. The +0001 build was also
-re-checked immediately after the worst runs of the session and was still
-clean, so this is not simply a good patch of time.
-
-One caveat for the record: this receiver intermittently fails to lock
-even with a completely unpatched driver, 3 of 13 runs at 30 fps
-including two 60-second stalls. The Pro 7+ has a baseline instability of
-its own. 1/7 makes it far more likely; 0001 removed it entirely in this
-sample.
-
-So v2 with the PLL table fix before the index fix, both Cc: stable,
-matches what I measure here. Send it and I will run it on this machine
-while it is still with me.
-
-2/7 at 60 and 90 fps, without 1/7
----------------------------------
-
-The error count follows frame starts, not the link. The link is 240 MHz
-/ 480 Mbps at all three rates (0x30b3 = 0x4b, 0x30b4 = 0x03 confirmed by
-readback), and vblank follows the mode as 2/7 intends: 1244, 380, 92.
-
-One module load, then 30, 60 and 90 fps interleaved, five cycles. That
-block fell entirely in the bad regime, which is what makes the rates
-comparable:
-
-  rate    errors per frame start   errors per second   mean dropped/run
-  30 fps          3.62                   104                 867
-  60 fps          3.70                   204                 517
-  90 fps          2.72                   222                 262
-
-Per second the count doubles from 30 to 60 fps over an identical link.
-Per frame start the three collapse onto each other, and 90 fps is about
-25% lower per frame while carrying three times the payload of 30 fps.
-The bad 1/7 runs at 319.2 MHz sit in the same range, 3.5 to 4.6 errors
-per frame, so the per-frame cost of a bad lock is the same at both link
-frequencies.
-
-That reads as a failure to lock at stream start which then persists for
-the whole stream, rather than anything accumulating with transported
-bits. It is also why errors per run vary by two orders of magnitude
-while errors per frame do not.
-
-On the cover letter
--------------------
-
-6/7: I would rather re-run it than have the tag carried across a rewrite
-I did not test. Send me the v2 version and I will repeat the clamp sweep
-and the photometry while the machine is still here. If v2 goes out
-before that, carry it, since you say the result is unchanged, but I
-would rather earn it.
-
-Thank you for the pixel_rate explanation. I had taken 63840000 at face
-value.
-
-7/7: I will answer on the orientation in a separate mail.
-
-D. Manresa
-
-(Written with AI assistance, directed and reviewed by me.)
+Christian
