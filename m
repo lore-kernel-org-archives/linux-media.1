@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793065327;
-	b=oTHEnqZ6qUXW/Hk3DW/LnqsYVAOV+ydh3szDDMDlZEgygCY4DORfceER1RfmZiUrzZaS
-	 FVWX3deGlUFWxD5neFeOo2FOKjJTEJumKVc6cgifhwO0nAvawlljTaz6wb+Zw5IGWZ7CY
-	 0E6o0pkZOsMQ7pLssURJXvHWSlbFR1IeAiKdaquKOW/LE3PiGDaS/Qq6GVgf2tvW9DzsX
-	 4jp3J9bwY3m1dd0a8a+kxugehlEQ2n3v/VRD8cjzI3GUEKpc9RO7qGQRcwB86y+WGLfP9
-	 WK7RT23ypo7I0/cRbQ5QwzhYQFaUCSB9G2xQ6Ivg5FxuSQn/+jOg2Z9KozyGtw6RTfg==
+	t=1793066301;
+	b=FrcIkszWGqOSfyp69cn1fPzL5G21PU5PL/sTlHICqrI5LvnapeZb/yzNpws+XI6V3xLQ
+	 X0s9gXHkWUKSsmomnsySqkVaHI2CGFogT/xH9oeHhb2fHQ0ZFCrHC5BR2uBNYNrGQf+qv
+	 wnU/C8IenJwixYdL+RdwGKYrq0Nk2JQC2kZlKIYqx/sGADNGIO+x6TtHDrDC/R/KIDmBF
+	 igFLvgrY4ztG2VIlU+IhB416/d7Ry1Zr5RCm+Feb0xHkR/+reFfQQekc24jPLdWDA0bXd
+	 UIOKLif1dGbq/pSPH6RhgDvkvjmFG6pIlDickCAiVC+tWuCmkpD+WI5toTlRs0vIujQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793065327;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793066301;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=QPrihA68+s7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=;
-	b=vCpkcZIf84BR2caN87fC2sbgKXLBSz0sP/cncGqQAqnZWY8mtTGwPyPVJqCdMwPO5Vwn
-	 T9aBl6ucCmTSdE82tiDmOIkSjHbChrcpdpT/ecQzzNI31MkXior6VcbViPHXgcPu293m9
-	 Ta1uvO7Fj30tIaTG59EYSxueSiBh7l93BHYDAHnD0FuMTXG4r4ESWTa8rlFLBL/adOxjc
-	 74VHMV/3XhoNa3YTwjc7G43uUMkubQKK6mDvRqgvroLg/pF9dS1Fd8K0SJkAeI/Ky26Iw
-	 K3zNofp+75P5hLj90z2B50t1pSwmJhBa+DYbkXAFUWLtkS86cFRvctBkd2dVT3Uk+KA==
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=V0hkJ099LgoWieByR8yk4rk9sO86OA12IjSyPFW9TO8=;
+	b=zGOqr1RsphpzP3dcrjwj9OZYlwt2fdRYxLtNknPBDFhTJCXn80/diOiHpL9z8EIUvjDX
+	 fDqosupCHXHPTEeGpNOmveEOoYnO3FPoNNl5F0S/du7EHJ42wH2FlmYVuEYzXVDwuTau/
+	 AafCeXreRWguyxdMbVSmiswsUw5x/NetBJKwrPbca8eiaUKJeFQyHBDiDduY2Pi5y7PFO
+	 buzYNg2NIi3tEiUKgqoBJLEmH01slaHFPZrvYKwUbK8YGvB11xlTdiGEH3gRurBCTR2wS
+	 bT29fiuQu/6V5HSRpl4KywzL7dnS1feBL6rP5GscgTGyLtggn7NqqTgy4Kz18Q65QlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.xidian.edu.cn;
 	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
 	arc=none smtp.remote-ip=162.243.164.118
 Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 28D13606A31A;
-	Tue, 27 Oct 2026 01:42:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D13606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A43C9606A31D;
+	Tue, 27 Oct 2026 01:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A43C9606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=QPrihA68+s
-	7bx9jPC5nNtA5h81Z0wGgJQ69n7dzB+zg=; b=aJWRJ5Pr668VyEYwztZVjQl2v7
-	ezuQcdj6N58AZdu+Z0QLK0xhJb4u4UM7+MnAlflrQUoVLs1n8ZQU74CH42Et9oPZ
-	6c3eL01nv6mAGlz3QPMQm7Q/EW1+GuCwONUWGxGBDM53S5zXAU8aPByjwjBLKcPN
-	PZYPPhoYUqJnLxjh8=
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=V0hkJ099LgoWieByR8yk4rk9sO86OA12Ij
+	SyPFW9TO8=; b=tD/h0kiNoCbBaxjabrx2sCoq5LaDyPqJ1EDk5Tf0UMH2VnVfPO
+	odpjK8ISmlojl60V2sNw9ODuQPf04XV6M5gvolQBTDRy8FwFo1VHeHma4b4WAiPx
+	m/SwQ9lBnqs2VNb7bUnqhurRuLd6w2qes01x614i7cqhuUAAO9r2ZC0yY=
 Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkCGrwVYAeBqGKLsAA--.50649S2;
-	Tue, 27 Oct 2026 09:41:45 +0800 (CST)
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnAEsBeBqxnzsAA--.34537S3;
+	Tue, 27 Oct 2026 09:58:10 +0800 (CST)
 From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: =?UTF-8?q?David=20H=E4rdeman?= <david@hardeman.nu>,
-	linux-media@vger.kernel.org,
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
-Date: Tue, 27 Oct 2026 09:41:44 +0800
-Message-Id: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn>
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Subject: [PATCH v3 1/3] media: dvb-core: fix use-after-free in dvb_remove_device()
+Date: Tue, 27 Oct 2026 09:58:02 +0800
+Message-Id: <20261027015804.13148-2-25031212351@stu.xidian.edu.cn>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261027015804.13148-1-25031212351@stu.xidian.edu.cn>
+References: <20261027015804.13148-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,130 +63,144 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkCGrwVYAeBqGKLsAA--.50649S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAr15AryftF4xGryDArW5ZFb_yoWrXF43pa
-	n5Wa4rtryjgrsrWr47Xw42qa4rua1Iy398Zry8Kw1q9FZ3Ary3tFZ5JFyUCa4UJry0yFW3
-	tFW5J3y8uayUuF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6w4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUcID7UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FCrgAAss
+X-CM-TRANSID:BLQMCkBWnAEsBeBqxnzsAA--.34537S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxZFWxJF15Gr4fuFyfZF4kCrg_yoWrZF4UpF
+	Z8ua45KrWjgrs2gr47AF109F98Gr1Sv34ruryakwn7Kr4fJrWIyryqyFyYq3W3ArZ7JFWU
+	XFW7J3Wkuw4rGrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmv14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vY
+	z4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7Mx
+	kF7I0En4kS14v26r126r1DMxkIecxEwVAFwVWkMxAIw28IcxkI7VAKI48JMxC20s026xCa
+	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
+	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
+	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
+	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
+	cSsGvfC2KfnxnUUI43ZEXa7VUjBbytUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2rfbNNHyAAAsd
 
-If rc_register_device() fails after device_add() - for example when
-ir_raw_event_register() cannot create its kthread - the unwind path
-frees the keymap via rc_free_rx_device() while the device is still
-visible in sysfs, and never clears dev->registered.
+dvb_remove_device() clears dvb_minors[] and drops the minors-table
+reference while holding minor_rwsem, but then keeps using "dvbdev":
 
-A userspace reader of the uevent attribute then enters
-rc_dev_uevent(), passes the registered check under dev->lock and
-dereferences the already freed dev->rc_map.name:
+	down_write(&minor_rwsem);
+	dvb_minors[dvbdev->minor] = NULL;
+	dvb_device_put(dvbdev);          /* may kfree(dvbdev) */
+	up_write(&minor_rwsem);
 
-  BUG: KASAN: slab-use-after-free in string+0x483/0x4c0
-  lib/vsprintf.c:737
-  Read of size 1 at addr ffff888007ca9d80
-   rc_dev_uevent+0xd7/0x1d0 drivers/media/rc/rc-main.c:1628
-   dev_uevent+0x28d/0x570 drivers/base/core.c:2709
-   uevent_show+0x1af/0x380 drivers/base/core.c:2756
+	dvb_media_device_free(dvbdev);
+	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
+	list_del(&dvbdev->list_head);
 
-Fix it the same way rc_unregister_device() does: take dev->lock,
-close the input device if it is still open and clear
-dev->registered before releasing any resources. rc_dev_uevent()
-then observes the cleared flag and returns -ENODEV instead of
-reading rc_map.name. The same sequence is also needed when
-rc_setup_rx_device() fails: lirc has been registered by then, so
-an open /dev/lircX file descriptor would otherwise keep calling
-driver callbacks that access the torn down device.
+If the put() happens to drop the last reference, the remaining three
+statements are use-after-free. KASAN reports the read of dvbdev->minor
+inside device_destroy(), and the list_del() then writes list poison
+into the freed object.
 
-Fixes: f56928abaa6d ("[media] rc-core: cleanup rc_register_device")
+The reference accounting itself is fine: dvb_unregister_device()
+pairs the put() with its own one for the caller, and direct callers
+such as dvb_unregister_frontend() and dvb_ca_en50221_release() rely
+on dvb_remove_device() consuming the minors-table reference only.
+The problem is the ordering, so move the put() after the last use of
+the object. The entry is already gone from dvb_minors[], hence no
+concurrent open() can acquire a new reference in between.
+
+While at it, fix the error paths of dvb_register_device(): once the
+new device has been installed in dvb_minors[], a failure in
+dvb_register_media_device() or device_create() frees it with kfree()
+without clearing the array entry. dvb_minors[minor] is then left
+pointing to freed memory and the next open() dereferences it. Clear
+the entry under minor_rwsem and release both the minors-table and
+the caller's reference with dvb_device_put() instead of freeing the
+object directly.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Co-developed-by: Bin Yu <byu@xidian.edu.cn>
 Signed-off-by: Bin Yu <byu@xidian.edu.cn>
 Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
 Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
 Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-
 ---
-v2:
- - Clear dev->registered on the rc_setup_rx_device() error path too;
-   lirc is already registered there and open file descriptors can
-   still reach driver callbacks.
- - Factor the lock/close/clear sequence into rc_unregister_device_state()
-   and share it with rc_unregister_device().
----
- drivers/media/rc/rc-main.c | 29 +++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
+ drivers/media/dvb-core/dvbdev.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index dda3479ea3ad..3ac5d532c6dc 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1888,6 +1888,24 @@ static void rc_free_rx_device(struct rc_dev *dev)
- 	ir_free_table(&dev->rc_map);
- }
- 
-+/*
-+ * Prevent userspace from accessing a device that is being taken down.
-+ *
-+ * The uevent attribute, the lirc character device and the input device
-+ * all check dev->registered under dev->lock before using driver data.
-+ * Clear it while still holding that lock, and call dev->close() for an
-+ * input device that is still open, exactly as rc_unregister_device()
-+ * does, before the resources they use are freed.
-+ */
-+static void rc_unregister_device_state(struct rc_dev *dev)
-+{
-+	mutex_lock(&dev->lock);
-+	if (dev->users && dev->close)
-+		dev->close(dev);
-+	dev->registered = false;
-+	mutex_unlock(&dev->lock);
-+}
-+
- int rc_register_device(struct rc_dev *dev)
- {
- 	const char *path;
-@@ -1954,8 +1972,10 @@ int rc_register_device(struct rc_dev *dev)
- 
- 	if (dev->driver_type != RC_DRIVER_IR_RAW_TX) {
- 		rc = rc_setup_rx_device(dev);
--		if (rc)
-+		if (rc) {
-+			rc_unregister_device_state(dev);
- 			goto out_lirc;
-+		}
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..610f8634e8d4 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -537,10 +537,10 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 			kfree(new_node);
+ 		}
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
+ 		*pdvbdev = NULL;
+ 		up_write(&minor_rwsem);
+ 		mutex_unlock(&dvbdev_register_lock);
++		dvb_device_put(dvbdev);
+ 		return -EINVAL;
  	}
  
- 	if (dev->driver_type == RC_DRIVER_IR_RAW) {
-@@ -1970,6 +1990,7 @@ int rc_register_device(struct rc_dev *dev)
- 	return 0;
+@@ -556,11 +556,16 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 			kfree(dvbdevfops);
+ 			kfree(new_node);
+ 		}
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		up_write(&minor_rwsem);
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
++		/* drop the minors-table and the caller's references */
++		dvb_device_put(dvbdev);
++		dvb_device_put(dvbdev);
+ 		return ret;
+ 	}
  
- out_rx:
-+	rc_unregister_device_state(dev);
- 	rc_free_rx_device(dev);
- out_lirc:
- 	if (dev->allowed_protocols != RC_PROTO_BIT_CEC)
-@@ -2024,11 +2045,7 @@ void rc_unregister_device(struct rc_dev *dev)
- 	timer_delete_sync(&dev->timer_keyup);
- 	timer_delete_sync(&dev->timer_repeat);
+@@ -575,11 +580,16 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 			kfree(dvbdevfops);
+ 			kfree(new_node);
+ 		}
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		up_write(&minor_rwsem);
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
++		/* drop the minors-table and the caller's references */
++		dvb_device_put(dvbdev);
++		dvb_device_put(dvbdev);
+ 		return PTR_ERR(clsdev);
+ 	}
  
--	mutex_lock(&dev->lock);
--	if (dev->users && dev->close)
--		dev->close(dev);
--	dev->registered = false;
--	mutex_unlock(&dev->lock);
-+	rc_unregister_device_state(dev);
+@@ -598,7 +608,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
  
- 	rc_free_rx_device(dev);
+ 	down_write(&minor_rwsem);
+ 	dvb_minors[dvbdev->minor] = NULL;
+-	dvb_device_put(dvbdev);
+ 	up_write(&minor_rwsem);
+ 
+ 	dvb_media_device_free(dvbdev);
+@@ -606,6 +615,13 @@ void dvb_remove_device(struct dvb_device *dvbdev)
+ 	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
+ 
+ 	list_del(&dvbdev->list_head);
++
++	/*
++	 * Drop the minors-table reference only after the last use of the
++	 * object above: should this be the last reference, freeing it any
++	 * earlier would turn those statements into a use-after-free.
++	 */
++	dvb_device_put(dvbdev);
+ }
+ EXPORT_SYMBOL(dvb_remove_device);
  
 -- 
 2.34.1
