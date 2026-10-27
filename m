@@ -1,47 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793124302;
-	b=Y8VxSfcvvVxYjk5I4KofXkE9YLm+Yov7DEHA07WOJToObbfhR1/BVYaJbtdWRhEl7I8c
-	 wt1vaT4vhWrALLdaBMuaL/eHpbe7J7gubovD08iJfrJz5LhCYvDrUBLFH/Xv3wm4Mfp+z
-	 95MDQNE2Xo+p8/9sPuebK4Fq6SUAKVN6zSoYHTgtI0t7UDEfmyjEj7qDr/zZBSrd+sqO0
-	 SvaDvpfMddwY560KJzafm+CbB9PBV7dxSfAyL8QbJYGoHR94C2msPqD495YYUI21CH9U7
-	 5wrysHch43NJ2bx1XwXXJeHIrKTnnrXRNE3ZI1PShpvK2Tyn12yCC4u5BQUZd/Wyf9g==
+	t=1793124679;
+	b=tzpiznkYBWCKdKR4pc3y1LDJPwadkky20JjhuFuQ9K/HGjjcGqEQVbzHT+f9lqaL2Njj
+	 6FbHGAwghhtBANPzbA2hL3kaUCg921//AuVUcElqayZtIAHLtMWw/MEPTsvSg4cLWe4i1
+	 ggZoZDbw0kW+8OpBiZooh0i6yDI5S3EU+OttMoDLFwGbsZ1RCL/ucyH6VOTKkA/FEU3t5
+	 JNlvnVWnG44uP47C07upNRzmCG69uIGUkEsO47hTXx5dvWNOCnZ/aOrCV2R26sQAI9ufZ
+	 1TPEjKwMg/wmXc2/lijHgB6j0QxjIEZ5Z2VggBwMOcI4ryCGMymEsv6m6LLmerRwnHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793124302;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8z2CBj/EKYO5Y66Zr9RSL2mMB4Gef9c3F5jiAKSME5A=;
-	b=wk1WmDqPfgal3U/gF577YfEQ23TsBcF2ZT5SiCjgz02/Lv2OzHOazSX4XEnKJ8x0cZkM
-	 +7Ks3nAiJV08NamA0kTQak6Tql2Kil1n+sr/HRIRVDkL9N1ZN9HECER7RqLZxH7Tb+7Er
-	 Sabyp4FaTXPsEUGqKGrDanE9pjS/b8Pmcwyh83WhaVfbsUZ69a44RtPYk89B7+fAbZVDM
-	 bgJ2B+K3hGy8Ea3xEybtYTj2pP9Ewm+JitvZZ1wuTAnTVYP1GSiN2QRiEwbaLFUY+UBqL
-	 sr3g12qsVhXGrbseGzkNyBnmHuRx4FX+MZF9Z8K4BC5qrMA803Fho315jwrFg0yWdMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793124679;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
+	 To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=bS6Nvy1g1jBhJA4aHeDMQWCoFHQ0poVPxAlc9gBdDwY=;
+	b=VPUCo3RS18b71uDf8+IyEI9PHvhnii0sCiaHcX8Xz0dPbONS6Tuaq3OTGHh4+ZlKKHYD
+	 P7eoG9WeizpmC+eHjyIhoM7UTWNkZ/6UlxC0wK/TXSk7VLcoGFMKJ5hBBBNFAV8QQYvtC
+	 nWkPV5oSpRQsutZAc36qJVPA0CusVVbpdjG0Z95irj+1ILRE3oH/8AU4FwiPjbWcEmvok
+	 seRalWQef0smYDKQGDuEsRrF/oQuEZXMLcuHZRoBheEkoEPrfKfJ6vSV+OdGl6JDiucr+
+	 lZR2kA6QHREo031KrvtRJ3FMRHBH+gzhOzLcGvt6eQk/4Q1D2PmUaHPxzmDKlw5rShQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="B/z51m2t";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5949D606A31F;
-	Tue, 27 Oct 2026 18:05:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B/z51m2t
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C67D1F01825;
-	Tue, 27 Oct 2026 18:04:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793124301;
-	bh=8z2CBj/EKYO5Y66Zr9RSL2mMB4Gef9c3F5jiAKSME5A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=B/z51m2tPmKn27BcfhX9jtP+pAtMGLeSc+65jhqJIz66+2cXgRJgdjl4WAMVoxCRT
-	 UjkXoNyQbsrjtawckMZa3OJdVszqzfIFpTXI1EVVslKx8QoxD1AM0kpyOjGbPZutfD
-	 9RoFTUdIfgsI93i32ds/JI2Av3BRiH9xEt7c+INtAEnX5GORiUxfwQeMhw+mc4yOeM
-	 pmh3EBbny8AN8ufd9+PWLaKx0tcIkdNw33yRFGo0E3SVn6Sp/Kolno6zMnHByzNSMK
-	 n4Avi1OKn8twQQ8haS15IOKjrnLxCK3vAVs3cAc8VEMvJZ6niP7ZQmN4e9pS/LkRyn
-	 MiYC+t1RM+5DA==
-Message-ID: <c8e6c0e7-397c-4692-a478-d9778b312886@kernel.org>
-Date: Tue, 27 Oct 2026 19:04:55 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAFA606A322
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 18:11:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAAFA606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so1232975e9.3
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 11:11:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793124677; x=1793729477;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bS6Nvy1g1jBhJA4aHeDMQWCoFHQ0poVPxAlc9gBdDwY=;
+        b=FTiKVBHX05W5mTynEsmYMbK01dt9rwx7G4x44LOclGSdQtH9AeZUYv9cSPYLuOS2qz
+         582kc4RCMQgEABth5b+z/rPDTOJ3qqGl31/ql6Pf+As5aMv+xE1JPhkNt5LF4Urrn3Iz
+         UrSq/LJoJG32+1eo9LjnBSEF2lh16bRbKwjugAMlqZGERcJpmHfNDf9LFeUiA+nynYUW
+         DuHTYwDHGM7fTvC/HI7QpZvQGv4WTzcGirn0w8fSG0iZNXAMfO91Xtn0JNsnxHp06zY1
+         6dNgUnBC/0yOnGVlhK9UyURsY/ZLbePfEL3YwDCxzzs4/erWdt1hZtglJ1X7tzVoWSe7
+         AJ1w==
+X-Forwarded-Encrypted: i=1; AKwUvByqL+9073TGOo9utUBBzKzP7ijLQpbh48okpgEXdJSNBeKZfgL5JmC+z3GOokETKApO/axshc4FxmL7/A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7IvorCPAAmCPitMZZWAEK9X1FB/uMY+HjHNE7Q69b0iyaXTYm
+	/gkdgEJ1RFPay7BN7Osvq5pgK2529IBV3PulTvG2aJgoowEuaHy0pMA=
+X-Gm-Gg: AYBFou04W8kbdcUFqSvXnsLR4XU/cHIV0TMP7pSXNBDXlo3z2ASc05iLrESP9opjkrE
+	AjtRX3iZIzuuPsizszqSL67pf+9iNUwuBCDgd90oI5qvXWXoOOa+EIlrA9439go58v2P1xme0dJ
+	stpp6KF84d0/HE/HoIgG8wgfSii2nKVh+A6ERXMeJCLOA+EaY8Pdn5DnNyAxnWxf9VhwX+aBVHp
+	BVM3+VFG9fAsXhgPkCMC7GNWKBL+p2FhUR3jnLkf0zovOnGY5G+QFmq8CNiUYbTdYN3Pgr3bz+q
+	BiGDvLgwN/yRfE/lidOIwxRxrF4CN6oWnc0DFl9+lTiBOJQ4XniWVK8e1K+lQo8nsTl14rn+1we
+	A2HRQEO+2kujxCnKIoTgr/SBFCKGf4QCR1Fszq89hxmiP6s47i/PnYBCJZBf7Cuz7LCl+bEeSGE
+	7lImnxUcFQEZ7/hTFl7VR0D1SMHSOjc992w8mV5JXY/LdhGJHVNc0VEX0nCFcJ/0TlAvtNPv7tu
+	EJC0k6qLkCHkQLxEr/jt5qKNIEHYQspreeHL2YndcrcBDgyCaMaJLY4TmiGzlcDbXSA/CC6iImJ
+	l80YBefL2o3MnKeXbSFqR5QfgY3kGbpZtcXDXMo=
+X-Received: by 2002:a05:600c:524c:b0:4a2:8c5:5e5 with SMTP id 5b1f17b1804b1-4a35ac8c0fdmr214486665e9.7.1793124677050;
+        Tue, 27 Oct 2026 11:11:17 -0700 (PDT)
+Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a93123323dsm5491625e9.14.2026.10.27.11.11.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 27 Oct 2026 11:11:16 -0700 (PDT)
+Message-ID: <6ae0e944.b6db0abd.16b13d.d261@mx.google.com>
+Date: Tue, 27 Oct 2026 11:11:16 -0700 (PDT)
+From: D. Manresa <dmanresa@gmail.com>
+To: antoine.pichot@gmail.com, linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
+ dan.scally@ideasonboard.com, hansg@kernel.org,
+ andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
+In-Reply-To: <20261027132637.540222-1-antoine.pichot@gmail.com>
+References: <20261026111032.88355-1-antoine.pichot@gmail.com>
+ <20261026111032.88355-2-antoine.pichot@gmail.com>
+ <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
+ <20261027132637.540222-1-antoine.pichot@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,82 +89,136 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: regulator: add Will Semiconductor WL2868C
- PMIC
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, Mark Brown
- <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261027051055.213301-1-xiaqinghuan@mail.ustc.edu.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027051055.213301-1-xiaqinghuan@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 06:10, Qianhui Xu wrote:
-> Add DT binding for the Will Semiconductor WL2868C camera PMIC with
-> seven programmable LDOs.
-> 
-> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
->  MAINTAINERS                                        |    6 ++
+Hi,
 
-Looks like broken patch. Please use git or b4 to generate patches.
+On Tue, Oct 27, 2026 at 10:26:37PM +0900, Antoine Pichot wrote:
+> Could you please try the two patches below, the first alone and then
+> both, with your 150-frame measurement?
 
+Done. The swap fixes the link completely on this receiver. Details
+below, but first a correction to my own numbers, because they are wrong
+in the archive.
 
+Correction to the dropped-buffer figures in my previous mail
+------------------------------------------------------------
 
->  .../bindings/regulator/willsemi,wl2868c.yaml       |   67 ++++++++++++++++++++
->  2 files changed, 73 insertions(+)
-> ---
->  .../bindings/regulator/willsemi,wl2868c.yaml  | 67 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 73 insertions(+)
+I read v4l2-ctl's output wrong. It prints a line roughly once a second,
+and "dropped buffers: N" is the drops in that interval, not a running
+total; the suffix is omitted entirely when there were none. The column I
+posted was the last line of each run, so it was the drops in the final
+second, not the drops in the run. Summed over the run the figures are
+some fifty times larger. The CSI-2 error counts came from dmesg and are
+unaffected.
 
-Anyway, where is any user of this? Why do we want this binding?
-Best regards,
-Krzysztof
+With that fixed, 1/7 alone at 30 fps, three 150-frame runs:
+
+  dropped (sum over run)   1181    388    926
+  CSI-2 error lines        >=4996  >=1931 >=3785
+  elapsed for 150 frames   47.0 s  18.8 s 38.4 s
+
+A clean run of the same capture takes 5.2 s. Error totals remain lower
+bounds: the printk is rate-limited and I add the "callbacks suppressed"
+counts, but the suppressions of the last partial interval are never
+printed.
+
+The divider swap
+----------------
+
+Your 0001 removes the problem here. Every run: 150 of 150 frames in
+5.20 to 5.24 s at 30.00 fps, zero dropped buffers, zero CSI-2 error
+lines. Thirteen runs. Readback over i2c mid-stream, with 0x0100 = 0x01
+confirming the sensor was streaming:
+
+  build          30b0 30b1 30b3 30b4 30b5 4837  link_freq  pixel_rate
+  unpatched      0x0a 0x01 0x4b 0x03 0x05 0x19  240000000  48000000
+  1/7            0x0a 0x04 0x85 0x01 0x05 0x19  319200000  63840000
+  1/7+0001       0x0a 0x01 0x85 0x04 0x05 0x19  319200000  63840000
+  1/7+0001+0002  0x0a 0x01 0x85 0x04 0x05 0x1f  319200000  63840000
+
+The only difference from 1/7 alone is the two dividers, with the link
+frequency and pixel rate unchanged, so this is the VCO as you say and
+not the link speed.
+
+0002 adds nothing measurable: ten runs, the same perfect result as 0001
+alone. 0x4837 = 0x1f is confirmed in the hardware, so that is a real
+null and not an unapplied patch. It does no harm either.
+
+Why I ran more than three of each
+---------------------------------
+
+Because on this machine each stream start is a lottery and three runs
+cannot see it. A run is either perfectly clean or uniformly broken for
+its whole duration, with nothing in between, and the unpatched driver
+began failing later in the session too, so results taken in blocks are
+confounded by drift.
+
+So I interleaved: unpatched, 1/7, 1/7+0001, 1/7+0001+0002, one 150-frame
+run of each per cycle, swapping the module every time, seven cycles.
+
+  build            runs with any CSI-2 error   stalls
+  unpatched                1 of 7                 1
+  1/7                      4 of 7                 3
+  1/7+0001                 0 of 7                 0
+  1/7+0001+0002            0 of 7                 0
+
+Pooled with the block runs: unpatched 3 bad of 13, 1/7 7 bad of 10,
+1/7+0001 0 of 13, 1/7+0001+0002 0 of 10. The +0001 build was also
+re-checked immediately after the worst runs of the session and was still
+clean, so this is not simply a good patch of time.
+
+One caveat for the record: this receiver intermittently fails to lock
+even with a completely unpatched driver, 3 of 13 runs at 30 fps
+including two 60-second stalls. The Pro 7+ has a baseline instability of
+its own. 1/7 makes it far more likely; 0001 removed it entirely in this
+sample.
+
+So v2 with the PLL table fix before the index fix, both Cc: stable,
+matches what I measure here. Send it and I will run it on this machine
+while it is still with me.
+
+2/7 at 60 and 90 fps, without 1/7
+---------------------------------
+
+The error count follows frame starts, not the link. The link is 240 MHz
+/ 480 Mbps at all three rates (0x30b3 = 0x4b, 0x30b4 = 0x03 confirmed by
+readback), and vblank follows the mode as 2/7 intends: 1244, 380, 92.
+
+One module load, then 30, 60 and 90 fps interleaved, five cycles. That
+block fell entirely in the bad regime, which is what makes the rates
+comparable:
+
+  rate    errors per frame start   errors per second   mean dropped/run
+  30 fps          3.62                   104                 867
+  60 fps          3.70                   204                 517
+  90 fps          2.72                   222                 262
+
+Per second the count doubles from 30 to 60 fps over an identical link.
+Per frame start the three collapse onto each other, and 90 fps is about
+25% lower per frame while carrying three times the payload of 30 fps.
+The bad 1/7 runs at 319.2 MHz sit in the same range, 3.5 to 4.6 errors
+per frame, so the per-frame cost of a bad lock is the same at both link
+frequencies.
+
+That reads as a failure to lock at stream start which then persists for
+the whole stream, rather than anything accumulating with transported
+bits. It is also why errors per run vary by two orders of magnitude
+while errors per frame do not.
+
+On the cover letter
+-------------------
+
+6/7: I would rather re-run it than have the tag carried across a rewrite
+I did not test. Send me the v2 version and I will repeat the clamp sweep
+and the photometry while the machine is still here. If v2 goes out
+before that, carry it, since you say the result is unchanged, but I
+would rather earn it.
+
+Thank you for the pixel_rate explanation. I had taken 63840000 at face
+value.
+
+7/7: I will answer on the orientation in a separate mail.
+
+D. Manresa
+
+(Written with AI assistance, directed and reviewed by me.)
