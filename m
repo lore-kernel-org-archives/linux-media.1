@@ -1,67 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793084567;
-	b=EzzqmeUiZeD0Q8/GBK0o9C5oDjBzlsq7iswpuIm1e7PPW0XrJh8oytPAw6yknwrDH51y
-	 kRmsBPOhIYt2XyTFfsdf4tfYA9i30+lM+u39gCMaTfyDqQfJBqpqRxZlm1YVlyIDfYuIX
-	 9kZswzZQQ2jco5e1j/vkw00NN4u1sl5ZJNZysXkxMJPrvuwZn5Mz/0MWDTdAnlUHWU9yV
-	 5/KaOIDKxmAdVZUmkC7wlrAWFjkF3UTpxxOOfsXJFoth4crY85WPUUDRxLTQxXMyxjXLf
-	 O9QAQJl1L0gHqHIvuyxlL4pv487hTa6/inUDFtknB4CV/KRvHgvZtQPh4ztlzbY6Rbg==
+	t=1793086651;
+	b=rs3LeSbBFrBM85HiQwiJ2BJYKZLukbwNxPaSC+UsP8huVbAaZUhAq1eCOntcPslQ6pEC
+	 G7L2BltQjm67OWS2OJVsYiur80aPyDCi2hLJDwvExjtTAuGiKlmAE1b8OHI0Usjc7ESfV
+	 fA98wXNyHznev6bIFxQPDOhRDtTviUx9AOQpI+afJjrWfXEWacRjzAMeOvbaEWdsU7865
+	 sWNArTsXynt4+srm/VBjPU+LN2YcSBqGAc8ds/LKDSEILwrvnM8neenjJpeV+tPAUex4W
+	 kTKr9TcC+z7KYPiwCctz9laZxpJPulvtK0UnQlcIr4XSCcxlHnMnM/FVNjYeM93kYDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793084567;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IGxxK/0rRCVYhR8uVCd/PFtvUOh1YcYCxfBfXc4JAHU=;
-	b=Eb6Iqs0N4m2yuS6P3vqgo7cfcDGXmhbqndtMABYzmUYPC7ySLLVhBh8S6REbQ5d2vUNg
-	 mr1K/0gy4tZ5mvpLc29vPDzurj3stMEVhSZL6aUGwn9Sy3kYurzcEPYtkmFsLCj8cCMFW
-	 BxJorPyemT6THAqk1XFeZUCYvel1yZVymbaIBke+O1zMZk+gfiLGgPpegNid21qrcoeDw
-	 NfbJdRxImvCswsdr4jOb5JEbgtjCgPTu+fc9R14nZXvO+hukYoK3H7p6CzOOMh5v6DqnV
-	 fQ5iEnLCOkFwPwXV7gyZmmguoTnNA+5U427y3ZNqdws0XkjbPj/KZmZHfqd8TBULsLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793086651;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=+29yArDCdFelsSw6+eilN/PClZkfKC+UVplJMN2Zd4E=;
+	b=IqSzpOgLvjZuE1bIQ7nx7uuS4BU/6Pi9mTkwC6++xLfEAKQDF8lJkjojoOPIHSiaZ1/R
+	 7tnOFSrT6wXnjpE2vhu2bawS1bqBHs18BWEQfMR2cjH+10ff+eUb+G8BRbOJ9e/NvtV/a
+	 yrYzJsy/fwRkRnQ/63NZJzQTB9QCe/7Vrz3foaPTShcwjoqLhbr+v7H41sFXMHsWLVPWV
+	 WELnUjXDplYdJynjtXr0bWXustuUhnl0/q4jRKhdsYvWci6uPnyAwxXYGr74Lxur9aQl4
+	 V2Eqzoio04GN/teHZkOZWyHQmEi9ftDLiF5bDJht1VFKH7ZFSfT4aJ8BJVfqMm9oOSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gdpeStxZ;
-	arc=none smtp.remote-ip=111.22.67.151
-Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C51F2606A31E;
-	Tue, 27 Oct 2026 07:02:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C51F2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=gdpeStxZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=gdpeStxZ+ZjdtPmuGrWdMdrRPRK5Q6qqV3TtqjmwjitGtgswKdEsU1q7q6sZ/m3QYp0QRVeTNKRGJ
-	 6D4xMkJESfsoacLwf154tcu6g6adlKmH2TV0S3wX89TO6uIhggAkDewe3+lzufhmlXk2SPFt0bLdZo
-	 PHJzhomKwZ2g2j2w=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ae04c90be8-90f25;
-	Tue, 27 Oct 2026 15:02:43 +0800 (CST)
-X-RM-TRANSID:2ee26ae04c90be8-90f25
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181456177947 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr10-12010 (RichMail) with SMTP id 2eea6ae04c913e8-d18ff;
-	Tue, 27 Oct 2026 15:02:43 +0800 (CST)
-X-RM-TRANSID:2eea6ae04c913e8-d18ff
-From: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-To: linux-media@vger.kernel.org
-Cc: crope@iki.fi,
-	mchehab@kernel.org,
-	linux-kernel@vger.kernel.org,
-	andi.shyti@kernel.org,
-	syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com,
-	Zhao Feng <zhaofeng2@cmss.chinamobile.com>
-Subject: [PATCH v2] media: dvb-usb-v2: ec168: reject zero-length I2C reads
-Date: Tue, 27 Oct 2026 15:02:41 +0800
-Message-ID: <20261027070241.1475-1-zhaofeng2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51BFD606A321;
+	Tue, 27 Oct 2026 07:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51BFD606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 082F54BB;
+	Tue, 27 Oct 2026 08:35:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793086510;
+	bh=LuZw3twwubyd1xRHjyBg1PG1GSitNssD581FJ4JnyuM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Mm6bHsNqAcqxPbiF/11HH6vnpPGk0M1lQo9FyVRelcQlcevCBsBiocrKBL+1ejszp
+	 coGGi4RiaD1NdlqShjhn+umFUoEzPy3SiDIn1IcSa5m8bo9059HhLj0pBcXYU/HBIx
+	 AqHULMr0q3giHvDcN0ZlaIFLFexyuTidRYch99sM=
+Date: Tue, 27 Oct 2026 09:37:20 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>
+Subject: Re: [GIT PULL for v7.4] media updates
+Message-ID: <20261027073720.GD2005298@killaraus.ideasonboard.com>
+References: <20261024185058.20410953@foz.lan>
+ <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+ <at-a-2wTtf7bJQwU@kekkonen.localdomain>
+ <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+ <20261027005656.6ce24b82@foz.lan>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -71,53 +66,111 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261027005656.6ce24b82@foz.lan>
 
-ec168_i2c_xfer() validates the length of the write-phase message of a
-combined write-then-read transaction, but not the length of the
-read-phase message.  A userspace I2C_RDWR ioctl on the adapter's
-/dev/i2c node can therefore pass a zero-length read message, which
-makes ec168_ctrl_msg() issue an IN-direction control transfer with
-wLength == 0.
+On Tue, Oct 27, 2026 at 12:56:56AM +0100, Mauro Carvalho Chehab wrote:
+> On Mon, 26 Oct 2026 08:53:07 -1000 Linus Torvalds wrote:
+> 
+> > On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> > >
+> > > The patch in question puts camera sensors and related chips in line with
+> > > how the rest of the drivers are selected elsewhere.  
+> > 
+> > .. and other places could probably be improved too, I agree.
+> > 
+> > But this made things *worse*. Much worse.
+> > 
+> > The thing is, at least hide them behind some "embedded camera options"
+> > that in turn is hidden behind "EXPERT" or something like that.
+> > 
+> > Don't make *normal* people who build their own kernels have to see or know.
+> > 
+> > Let's say that you have a laptop or something that actually uses one
+> > of these sensors for a webcam, then it STILL does not help to ask a
+> > user
+> > 
+> >  "Do you want a driver for the Analog Devices ADV7170 video encoder"
+> > 
+> > Because (a) that chip legacy and likely not in any laptop anyway and
+> > (b) even if it was, no laptop user is going to *know* that.
+> > 
+> > See what I'm saying? You literally make things worse. Don't do that.
+> > You're making the kernel Kconfig script ask insane questions. They are
+> > insane because you cannot reasonably expect people to actually know
+> > the answer to the questions.
+> > 
+> > In other words: don't ask questions that you know the user cannot answer.
+> > 
+> > There was a REASON why those menus were hidden.
+> 
+> I agree with Linus on that. You're basically rolling back a feature
+> that simplifies a lot the life for normal users: let Kconfig choose
+> options that only a media expert can answer.
+> 
+> Now, I understand why it is tempting to do that to help with IPU
+> support: camera sensors can now be easily interchangeable on new 
+> Intel hardware.
+> 
+> If you look on some drivers from the old days, like bttv, saa7134
+> and cx88, they had similar problems, but they still do support
+> autoselect mode.
+> 
+> For instance, drivers/media/tuners/Kconfig has this:
+> 
+>    config MEDIA_TUNER
+>         tristate
+>         depends on (MEDIA_ANALOG_TV_SUPPORT || MEDIA_DIGITAL_TV_SUPPORT || MEDIA_RADIO_SUPPORT || MEDIA_SDR_SUPPORT) && I2C
+>         default y
+>         select MEDIA_TUNER_XC2028 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_XC5000 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_XC4000 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_MT20XX if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TDA8290 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TEA5761 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+>         select MEDIA_TUNER_TEA5767 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
+>         select MEDIA_TUNER_SIMPLE if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_TDA9887 if MEDIA_SUBDRV_AUTOSELECT
+>         select MEDIA_TUNER_MC44S803 if MEDIA_SUBDRV_AUTOSELECT
+> 
+> which is meant to support the most popular I2C tuners.
+> 
+> In the specific case of IPU (and atomisp, once moved out of staging),
+> the right solution would be to have something similar to it, e.g.
+> something like:
+> 
+> 	config VIDEO_INTEL_IPU6
+> 	select VIDEO_OV2680 if MEDIA_SUBDRV_AUTOSELECT
+> 	select VIDEO_OV2685 if MEDIA_SUBDRV_AUTOSELECT
+> 	...
+> 	
+> for each sensor that might be possible to be used there. Another
+> alternative would be to do it the reverse way, e.g.:
+> 	
+> 	config VIDEO_OV2680
+> 		default MEDIA_SUBDRV_AUTOSELECT && VIDEO_INTEL_IPU6
+> 
+> or, maybe even better:
+> 
+> 	# Make setup easier by identifying PC MC-based drivers on a single place
+> 	config MEDIA_SENSOR_AUTOSELECT
+> 	depends on VIDEO_INTEL_IPU6
+> 	default y
+> 
+> 	config VIDEO_OV2680
+> 	default MEDIA_SENSOR_AUTOSELECT
+> 
+> Placing MEDIA_SENSOR_AUTOSELECT on sensor drivers. We may need
+> similar code also for other I2C drivers that could be used on IPU.
 
-The USB core treats a zero-length control transfer as OUT-direction,
-so it detects the pipe direction mismatch and emits the "BOGUS control
-dir" dev_WARN_ONCE() in usb_submit_urb(), which panics on systems
-running with panic_on_warn.
+You're forgetting that this affects not only Intel-based machines with
+raw sensors, but a lot of Arm laptops too. We would end up selecting a
+vast majority of sensor drivers unconditionally. If we want to go that
+route, a single option to select all camera sensor drivers would be
+simpler.
 
-Reject zero-length reads the same way the driver already rejects
-zero-length writes.
-
-Fixes: 2bf290be4f3e ("V4L/DVB (13364): ec168: add new driver for E3C EC168 DVB USB")
-Reported-by: syzbot+ed3ada41c4eb1c4ab78e@syzkaller.appspotmail.com
-Closes: https://syzbot.org/bug?extid=ed3ada41c4eb1c4ab78e
-Signed-off-by: Zhao Feng <zhaofeng2@cmss.chinamobile.com>
----
-v2: add missing spaces around '+' flagged by checkpatch, add Fixes tag.
-    Link to v1: https://lore.kernel.org/linux-media/20261023025535.90-1-zhaofeng2@cmss.chinamobile.com/
-
-Note: Andi Shyti has posted an identical fix for the same syzbot
-report (https://ci.syzbot.org/patches/80b80f7f-e688-493b-b3eb-1516027aec7b);
-happy to defer to his version.
-
- drivers/media/usb/dvb-usb-v2/ec168.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/dvb-usb-v2/ec168.c b/drivers/media/usb/dvb-usb-v2/ec168.c
-index 0e4773fc02..193c752b6a 100644
---- a/drivers/media/usb/dvb-usb-v2/ec168.c
-+++ b/drivers/media/usb/dvb-usb-v2/ec168.c
-@@ -115,7 +115,7 @@ static int ec168_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg msg[],
- 	while (i < num) {
- 		if (num > i + 1 && (msg[i+1].flags & I2C_M_RD)) {
- 			if (msg[i].addr == ec168_ec100_config.demod_address) {
--				if (msg[i].len < 1) {
-+				if (msg[i].len < 1 || msg[i + 1].len < 1) {
- 					i = -EOPNOTSUPP;
- 					break;
- 				}
 -- 
-2.39.2
+Regards,
 
-
-
+Laurent Pinchart
