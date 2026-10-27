@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793077854;
-	b=AKBKq1jl7YRMj/RUd0HVc07rgDJKniThr/1kWmVKcUKK9yO4zyvRvB4nle2AcpnCkejL
-	 221aJGeZFpxr1HpcaVglbW3c8i1tjmXHCLjvcnY7XZzoks7RPsX+ldxpR8SgRiOkWuctp
-	 nce5jNxmbq5PqTP2ap39k6l4abjbvYU/vPLrkKccU/Op8GPDEPzdNVoKnIw5784U0r+Kp
-	 X1dUbGyCuNMu1LOAlIUp+fzkGtt+BUUuFMvw4UYIUKRJ8oWhkTib2r6SRpC6SHWsmZwoR
-	 POKPHth/kk/nhrfndU6dyUZlRjInaPoGj/91gzz1DjwfENXYhzK2QWTlUsaexdJMiSA==
+	t=1793079528;
+	b=UufKCKJBnXLPHbGH5XggCInL3d3OSfu0x6oJ8Dg40FWyl5120SNN2sgUfkp2bdpsha1K
+	 /SPk9Qj2CyK/89FqIIR00jpVFEsviWjKh+ktPAiOL/K+ivR6dPCPLY7eMTPLNRErJ9zwZ
+	 TLR++r50PwOVHjtyU6H5dmhZlp+UNqYqt1YOZoP5WxvwH/mDiRHDhwZQ0+rTzti+hmWDD
+	 cWOvLLVZx/YEEwMU3ZxEbfJZo9r5msLoNf1k8qgaLNC3RVEDc69cz6cKW00hpm6emLnzJ
+	 oJ1TiU0zE258gXsu08riAE99+wC8Q3vA9mGfgSUkXohL4bwdvPu/Oiod5UnTyuPFxEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793077854;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=E06s/cYl/MF+dF1juoGfGqRiNSBz0/IyMNMQSo10dNw=;
-	b=zcNsBsYtCYBbzsCG+jiqGufvaxLrUC97fjSmrXfgQe0jmyCog/A4JOHGWP8uhYu/UdZc
-	 mpxWfCNSyUdY8PxGEotCXaYnLHqgYWpmJZ1AYYT3RpQJml/OB1J2Q+2YIOdIqfdTDHQxR
-	 PT10JIqZnU2IvaK4UbyY2N90c69o1zKjP8IIDuRxH+O4jULwQGbjciV2H0AIonCALD7cU
-	 4AfVzQcSgMBhE9nvOCQ1M1/uia9R78XWxj38FoOvwzTTM2N0sc38M/ASSKUYccDdjJAd1
-	 r5slpT2TAzp7AKUC5TDjrBwaj6baIbw+rKo6NNPcrsXg7FZCw05qKz5IvJdsgzecoow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793079528;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
+	b=uVi2PeWyhKdTNeFViY2T9qweSuC/+er+i6scK5puCKqy1BIHmKiap1srFJqT8R8RndjC
+	 0Obn3YB4gykjBUGlDHR9vrkS3hhTT+hs/IwJj8hN554VPi/3jANY8l6hxCXDQamJiWhtS
+	 LZydvZK27SfSnXkCgeLYIsTPj+uDwVT5tRt0uXv/qHetnnCKrfjEuqrxnhp9A44HEiDzU
+	 BiiONVAlIK+llx+gBLFOQhGcXpyDChiJCtqjoOgO1LXrrQSJw9jqe0IbOJQ/gHX6E9W+W
+	 t/ZCuv4YCSPbVXGXHXsXwFgn0ZFAthQAeLHj6ZCsWYgyqFZHRNfe0cCfFU/RtSdhDAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=qP0yYSWH;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4FFD606A31D;
-	Tue, 27 Oct 2026 05:10:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FFD606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSkQFWYI;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2B7606A31D
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 05:38:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2B7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=qP0yYSWH
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSkQFWYI
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so5587825e9.0
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 22:38:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=E06s/cYl/MF+dF1juoGfGqRiNSBz0/IyMN
-	MQSo10dNw=; b=qP0yYSWHhbSCBYHrIxRzKmhHo2V79unQnm1UFF90J4vQ6ftBNf
-	d3pA1n7oo0A8tLXYS58IHGm/HturAbXkttccOhPag3QCzc5+5N+72PFJdZr+WYkY
-	Aujhb9aH1lGCeO7M+cNhb69w+zTl2lIzGTxeIDfgjpkLXNqjowbUupres=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.11])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szdYMuBqJIhOAA--.1146S3;
-	Tue, 27 Oct 2026 13:10:49 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: media: i2c: add Giantec GT9764 camera lens actuator
-Date: Tue, 27 Oct 2026 13:10:47 +0800
-Message-ID: <20261027051048.213177-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261027051048.213177-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261027051048.213177-1-xiaqinghuan@mail.ustc.edu.cn>
+        d=gmail.com; s=20251104; t=1793079527; x=1793684327; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
+        b=TSkQFWYIAY24u+ILeLbmhdWwPjIVoVVXpqG5lie4a0TD0iurDBdtWm2LBlRGSeSCZf
+         6QfeRhnWM6Vrj5Ub8z8ZmIrrNgO8EB8XgQo64WPWLLr7G1CU+HjPgI1StMuuSWc0gCLS
+         QDjM9FXGo6H5PRN1URiNXrIGjaTNKQgQgFeEhyPBQUSrnxnfBxdvMGkeV9EQKyhx/6gS
+         ax4CXmlwEya78+lnBJq0AosH+5p/vX5yZclku6vtb5IHoV8C3UAWakPgRaFT+4wBhl9S
+         cO5/j4/Bp36DFC1zXi4hwG83TF++b6LaI9gB6CXf2SPtbCFDEVKglVDCS10L2zm0vUvL
+         2c3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793079527; x=1793684327;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
+        b=D59OduymyIpOgJJ9UJiRQNpgb9B71jTiJamuaHIXBC6etWzl+huWFf16ZkoPAELT4I
+         cdpGbNzofunPngcsPnN65GSi7x4XvUMry/G6ruJse8BSpr5B/FqHz+3Fod39cFl39oUd
+         l6I21HtW1KGQq35w6Gr7WhCBstBTRv+ZXRi4bFpVfQCnabX3R8VqzKAgecHu8BoyCl/F
+         KoQd8O8/vqIvpGN6RL9J/Z+5uQmhlFIMUzdSUdIdkZ5N9n2BpBEGij0dpkK1CjMGDkhC
+         Z4+JmiWHZ6zD9aPzJHGC0eLSyv8+ww+xdUTHGJOUSUK38RMumty5L5V3yo86iENu7Fxg
+         cLCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwo/Lmy9dzJl0p605boio8dgXD3AsyuCjmjZ9VELQJ5J2RhzN8cGWyoM5BJ7aYmxYVOlx0cr0VXDMJyPg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVef//97m/BT+I8G0Rr6KQ7ad9GcgltJKck8r4i2+LtsUEqODj
+	d8GMd4qkR4KTaFHrIxmUkPNsdR3XQcsKouWmGIyK9AeaNOcb+cshPBYR
+X-Gm-Gg: AYBFou0gjbtR3MTKahqo8O0JC2CYbDlzJ10pbXSdG6hMnGN0XdoJn1KYEZho/j4r8uA
+	uYjooo5oautOGrjBX/dvPUVfFHlJhqzacKz6PZCxRL74KVRQ+KX0PPaSeNUf4FrktLPqDIO5HzZ
+	0BZmbf+ndpdXRFxgpsf23o6m+FCL0y2Q4qMr1pnrZbHWPjHX/mUZGQecOlDBYOoP8spyANY1X8Q
+	aPROv2iJTDGvjD2clZOy8iXPZKU95dBltyBvaAVzo0V6Xho6uN/AnkDsk2QUGTAft0wuvKX5QjT
+	E7v1XfgHUf4k39l7KIMz4Cda/bKlLzlGGjry3jXbb3FrApvAq+3223ONhve0Ad7AXRJSgLW5Rn1
+	SJeT/o0Oo/N5PCG3cOaQtlBMGSmRzWzh6wcAMl3/vaGQxj0nUo9t/1MwsG284LRZXCeOl0y+A5C
+	9IdEXYpuudUqfrdp2HAbmz+QEWdXVxB+6lmp5i8u4fvsb6KxCkZWL516qZRpGqweWREK234ngCm
+	/uqeJdl6pqPNWZvZ6KqC6NT71goeNobAd+GID7/uZAnrpCiCRhD
+X-Received: by 2002:a05:600d:849a:20b0:49e:795e:ba89 with SMTP id 5b1f17b1804b1-4a7c3856e2fmr26530125e9.6.1793079526864;
+        Mon, 26 Oct 2026 22:38:46 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f248sm20057407f8f.6.2026.10.26.22.38.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 22:38:46 -0700 (PDT)
+Date: Tue, 27 Oct 2026 08:38:42 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+Cc: dan.carpenter@oracle.com, hansg@kernel.org, mchehab@kernel.org,
+	gregkh@linuxfoundation.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: atomisp: Fix memory leak in
+ atomisp_alloc_dis_coef_buf
+Message-ID: <auA44kPevsJUudhR@stanley.mountain>
+References: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,134 +97,21 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3szdYMuBqJIhOAA--.1146S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFWrGw4DJFWruF1ftr17GFg_yoW5ur45pa
-	ykGrn8Jr92gF17Wws3tw1IgF1rW3Z7AryrGasxX340yFWFqFWftw4akwn0ka4xAr1UC347
-	Xa9IgrW7KF48AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBIb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY
-	1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4
-	xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCa
-	FVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28Icx
-	kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
-	xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42
-	IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY
-	6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aV
-	CY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8t3kJUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rfqlYHDgA2ss
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
 
-Add DT binding for the Giantec GT9764 I2C lens actuator. It provides a
-10-bit position DAC and module-dependent advanced actuator control (AAC)
-parameters.
+On Tue, Oct 27, 2026 at 12:19:40AM +0000, Abdullah Mohammd Sifat wrote:
+> Free the allocated dvs2_coeff memory if ia_css_dvs2_statistics_allocate
+> 
+> fails to prevent a memory leak in the error path.
+> 
+> Signed-off-by: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
- MAINTAINERS                                        |    6 ++
- .../bindings/media/i2c/giantec,gt9764.yaml         |   71 ++++++++++++++++++++
- 2 files changed, 77 insertions(+)
----
- .../bindings/media/i2c/giantec,gt9764.yaml    | 71 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 77 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/giantec,gt9764.yaml
+The commit message says it is a bug but there is no Fixes tag.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/giantec,gt9764.yaml b/Documentation/devicetree/bindings/media/i2c/giantec,gt9764.yaml
-new file mode 100644
-index 000000000..febffa359
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/giantec,gt9764.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/giantec,gt9764.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Giantec GT9764 camera lens actuator
-+
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+
-+description:
-+  I2C-controlled lens actuator with a 10-bit position DAC and advanced actuator
-+  control (AAC). AAC parameters depend on the lens module's mechanical response.
-+
-+properties:
-+  compatible:
-+    const: giantec,gt9764
-+
-+  reg:
-+    maxItems: 1
-+
-+  vddio-supply:
-+    description: Digital I/O supply.
-+
-+  vdd-supply:
-+    description: Actuator supply, independently switched for the lens.
-+
-+  giantec,aac-mode:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+    description: Module-specified AAC mode configuration (register 0x06).
-+
-+  giantec,aac-timing:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    maximum: 255
-+    description: Module-specified AAC timing configuration (register 0x07).
-+
-+  settling-time-us:
-+    minimum: 1
-+    description:
-+      Minimum interval after programming a lens position before issuing
-+      another position command, based on the lens module's damping response.
-+
-+required:
-+  - compatible
-+  - reg
-+  - vddio-supply
-+  - vdd-supply
-+  - giantec,aac-mode
-+  - giantec,aac-timing
-+  - settling-time-us
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        lens@c {
-+            compatible = "giantec,gt9764";
-+            reg = <0x0c>;
-+            vddio-supply = <&camera_io>;
-+            vdd-supply = <&camera_af>;
-+            giantec,aac-mode = <0x40>;
-+            giantec,aac-timing = <0x7c>;
-+            settling-time-us = <7000>;
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8..6872ad5fe 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10866,6 +10866,12 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/media/i2c/galaxycore,gc08a3.yaml
- F:	drivers/media/i2c/gc08a3.c
- 
-+GIANTEC GT9764 LENS VOICE COIL DRIVER
-+M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/giantec,gt9764.yaml
-+
- GALAXYCORE GC2145 SENSOR DRIVER
- M:	Alain Volmat <alain.volmat@foss.st.com>
- L:	linux-media@vger.kernel.org
--- 
-2.53.0
+However, it is not a bug because the memory is freed in the caller.
+
+regards,
+dan carpenter
 
