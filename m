@@ -1,107 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793108614;
-	b=Hzigp8iS8I8PGAcb/Z0F9kzv/NHb/YJkbTMFX0fEEUF8n1718zQNwvA87qPesiIYRJ1f
-	 zYjOrvVoVWCevyTFA/TLUpx/D/I0MlX5/JVmwS54JmOp/rJnvcs65u1aRntd84FKB3l3T
-	 kXbsYMFqoF+9tBDWtcbsb+oWu+t7La3cuPzZdnOhC6khFLKZua9aATGTRJ9IluCkQZJEq
-	 wMJK0sGay0UTUcLI8zdN9kjRTxYc0DaqK2wQd+ifB8W8+dBJiNNTSk00gncawjLb3m9pS
-	 etI1gZ/xsQKM+RBQPj7S8he+DU+RY4R/Rk8FZJHEBW8icYPTRX/OV9WSFNmDWIgkL8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793108614;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UjdwSN+oDNQxx1eqCxnif8nncHXZexKX3t0nAwz3luM=;
-	b=AqL0nuz5hPmLU9oB5pcLwnezjoF83qzeHWDEu023vqeqRMOqh4ys5R2FRfRI9xna7QRn
-	 I8cmxNy1cgRfTW/pwxJqa2Wq83lOEi0+Ut00JZDxpLfTuXpONh+rLaem4Al3Iitfze6T5
-	 Ql7FauFtdT34bUrdAaJ/QZ2g0DmoWnMjf3H9I8817ScIHG55VYI1Uz+joldXO7LtA7AGA
-	 VykXbjMkBBuaTv50pV3oXnVxLspgyQupi5572EmukmH9pMat5gynlkNYn25H6l4E0t6Bc
-	 BJQQTUsL1hnVtkBEi2/srKGrY74Lc7+ION6Ll7pgiZWuQ3GkJ3NPyyq/3+8czO+HgWQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jRvhxt0C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.20
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010020.outbound.protection.outlook.com [40.93.198.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793109310;
+	b=nkBaXSHMGd2qWldyLHDXx1i5csFoK1bus5bXo1nmCLLqQRxe5wDXm2sCVusXQ/lKUvPJ
+	 VL9BXTm/7H6m8sYK789AXLx0O8uAHCUXtjBkPf/Q96flCqHvpjiXdkbIoBMB5CdcQoYBS
+	 BXPpHD7Kq6Nzd2JtYW9drsIy+ddN/NEebUarnAGAYGz9CuI1AX7Zwva3Zx7a+oG+iL3XB
+	 2+r+eSS3LzwpNWHRPLLv58sWxSrn+Xb/RAhXeqElh9jp15KyanLcdaWsBB1pzE6teERIi
+	 TAyEJM2hqgahUKIHenhnr+Y+PrCKFYevU+tz7v8HJuzAUdCQAk9ZZcN4mtxJQfoOMaQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793109310;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GVkvb7RyNltb2aNxqylXfnad8kaMLOY9LcxHWp3fmdQ=;
+	b=BgCK6YY9bnGT8tWaStJLsbiz7g1hxJK/JsLH5MlSmgL3mDYI7bBCeyNjIkESFJUaqgvI
+	 IJGu27SUt8sTTLko8ubcThEzkoVr+W/EdkS/GVzOOE1Sed5DnrOKsW7Gx5GHKEm5z2c9o
+	 yfJYMQZMKbHr1vwiElyXt3wQ2jLOeLJDqQOLTyiXg/zh7eafsCfAnKuf5EWTnsr6l+55D
+	 VCg47AMjw6UVvO6+pOv95AJhjT1pJZVJXBUAik3JJS8p29LJZLk53MPuFnBr952IPmnnc
+	 3kwGi1cMSeLTXXd0NFuidBhKlbBj7lGQL0gaTKy/1l7oOzizH42PiBXp/fMEn0kpKyA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UuW6jW7i;
+	arc=none smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F45606A31A;
-	Tue, 27 Oct 2026 13:43:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1F45606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95417606A326
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 13:55:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95417606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=jRvhxt0C
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QOQgnjvekEMJlwIeXCP3LxbCykDPDe3bRInJuzcpNpJZof3mzqaF2X3up4ZF9ElgZMs9MfdOTUFPwjitg71iHp8vFB8AANrvi53k4tY/0G4l2/4fC0mKftk3adZHUOU/h5IHD+tgMTEa2YZbMG+HTzoDJtzT3T4yj5JLsDEn1vNZ5TLkzGqh0ra7SYqqGKXO0Oz/7MdH2eWkKUGhzRexjTITGXO7mPmFe8kuVMTV5ed3Uy/V6j+2jcYjKEW7Pg+i9hCs1PrzH8aR5VrPVL93Y3GiEz/d1HStK0bk7fsEVK+LR6Ae7l3/9zM64ediw1buSNJyxrMFmGwufx7DGTD9qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UjdwSN+oDNQxx1eqCxnif8nncHXZexKX3t0nAwz3luM=;
- b=phaomx1VQ9xIHsMqmlD1zhOMtPDOqtAjW8dirp2shrszZLDYULsctp1kznO33cYMTSWGb6e8dTfwSFYRUcadyNN+8MdAV6jn65QDnNoWW0y89KgyslaUv0xt7iKqq51oQuvkeZFAKKvzVHPOyJkOS+GP/MKZEy1iv5ut7Ef1Cq8v+Nag83q5ggzloxWX7iOa0wVGM9vflH65qDKJ6kNXfF2zrLGTN+nZeBVOy0pnBfSWZ+a1Ov8daEracL7kmkiKlX/piGS/FNaSNEmmhTTYtYPsbhiyg5EWoUSd2r/RkeFIpVhSh9OQ0OWYRrig+jGVtQLgf4tza5WTzwfg+/uCdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UjdwSN+oDNQxx1eqCxnif8nncHXZexKX3t0nAwz3luM=;
- b=jRvhxt0Cr5ousrbyTvymJZbWiqCdz0WRm/uboTngaOrIWUn+KmuUJSowEpBaO9Hwuq4wxXUmQ74LNHqTZS+GY2Ic+aSPcZGuXQtnBIXEPtpK7nYKqHjmlOXeFH3d59cOhZIRS5vHRaNAFGBMjLEvzZW86KbnAdlNr5A+BnuVd8I=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV3PR12MB9168.namprd12.prod.outlook.com (2603:10b6:408:19a::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 13:43:30 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 13:43:30 +0000
-Message-ID: <2d530a22-8817-459c-89f7-66aacfd64792@amd.com>
-Date: Tue, 27 Oct 2026 14:43:23 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 23/26] treewide: Rename dma_buf_attach() to
- dma_buf_sgt_attach()
-To: Mikko Perttunen <mperttunen@nvidia.com>, linux-rdma@vger.kernel.org
-Cc: Alistair Popple <apopple@nvidia.com>, dri-devel@lists.freedesktop.org,
- sumit.semwal@linaro.org, =?UTF-8?Q?Thomas_Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Leon Romanovsky <leonro@nvidia.com>,
- Kevin Tian <kevin.tian@intel.com>, Xu Yilun <yilun.xu@linux.intel.com>,
- Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- iommu@lists.linux.dev, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com,
- Karl Mehltretter <kmehltretter@gmail.com>, Jason Gunthorpe <jgg@nvidia.com>
-References: <20261026053623.202642-1-apopple@nvidia.com>
- <jB0baKUEStaR7DFEykw_Qw@nvidia.com> <20261027123308.GC1671235@nvidia.com>
- <Rajx42GMRO6ivDcA4gzBaQ@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <Rajx42GMRO6ivDcA4gzBaQ@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0428.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:d1::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UuW6jW7i
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso1692300a12.0
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 06:55:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793109308; x=1793714108; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GVkvb7RyNltb2aNxqylXfnad8kaMLOY9LcxHWp3fmdQ=;
+        b=UuW6jW7iVqbFqu22iOXCQSLtTllYEgotxHU7UyRSfjx+7NxQW4a003XnHfqUqlfSwp
+         PW5t3QcGz9Q5jEv10yNg/qTofJLqo80Y69DueWYvGN2xoWMZgwxQ7PBkQmUJCmXd8dII
+         Z4bLEsKwdBj4nLF2BfSX1E+5X6qyb2FZYd78HiqHNCQdDijdO020WIE81bgqXfWPoJ5U
+         Q3oxhj8O1hr3QBfnRE/FZf3Khp7fggxQSqctuRwaRQDn4y3Vatk7P8ONrujZ+skuHVgA
+         IV8Vz5DryvpCfJax3XXfYMJXzLUa4P32GvkfEGBTPAkMPXxCbCtD4aO6S1hV7D9n2lfh
+         W3Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793109308; x=1793714108;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GVkvb7RyNltb2aNxqylXfnad8kaMLOY9LcxHWp3fmdQ=;
+        b=bgYickjXlCmENu3Lool0V2pZqWaj/IjkvrBcPIK6ocu+z17ZdAldAWiy2n71T/LdA3
+         SnV5+34iGHqv3Yz+j4QbF2CmaCygC57dxyPMAhtOvCXu12jzrp+WRTvZE8yU/qjz1htC
+         CdB4vwPt4nIbgbLZtnRI4bDQV9yM8ELMxrMwZqft8xXn5hjO47+PQb5VeAEdNNGOPHWh
+         QBuXPMOe15f68AJ7ZqqR294qkv6uXf/iSp3X3TkqRkv5xcCstLuD7AQE+dFPUt3HoZXs
+         rQ8ctd4N/L8LfpDjKyqRpHwre+0174BKXnZPBjA3LOlbKqwDxHuJQ/lkPDH1XjLn2tGl
+         bGVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwy29hdkMP/KePiVYvsFTsUeDjGLMAhJyI44GK/hkDGL6lEYsyhOKTfZgULFWcBtKSgZ7GVq8BblenIJQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLkWAmT2gTxbjqsFENCpGvLK7/rgeR1JRW7R7EFNvEP5e/byfNC
+	1thyIvjTbORm23fkYc9857+fUc4p9qgt/Z5QbmA/TJkRRJZhzfSHGzOE0Kg6tg==
+X-Gm-Gg: AYBFou0hW55gzNNn/JbKLyBIgH4QlrOY/nDEe98i/3awaiagGqulpBf7uKdUPG7nIjE
+	/S45G3QZLoYbKpkYROC0GZE6G5KC0npC3JxwBtCji7eSO9NRPMlQf/wq4mynyyeB10Hyxix2eU4
+	MRx128xRdiUYPg2jC45OQLvXeo7my3oWcC9rpl1Eri0DSsvFq/72d3JbwKr9yWcU+3FFQEk3XyY
+	OzkFcJ6nZ8eAWB3vvkFEVlyHt5AKgqGX9cg4PXOUPdpN9qIGA8IgBoeQesM4YlVHQqlq1elKswG
+	9vZsgplNpfZCbfThn6vTepQs28An2EoeGlri/jOA+erFZFV+3/TlIwBpWAphLbk52PY7uNqQocz
+	CPqiSfujGVuYefbBjDAjimfpZXh4aPIB+sFbu6Uy+ooI6yNhFDJqGS3FkYPr8XK6cwBPSQc3vdR
+	aJyYOhOW/YUiQTC+FkCf2lttxFejJoPy0Om+6cA+q8Uzy0KvUPVRpGWJQ0wLeqpr2OHVsQqKl8v
+	D92SNZvDLD3xQLfgSUYxrvpqmXiPdZCYt5iGHV1ha9kNYyqreObgDzVCnnZEHVCyRuyjxO5jZHd
+	PVePGZCe1OcGUWJ0zqtwFzq5lkSlLVs8rPRO500EBC6MKBjpoTJxJZY4ALIebLa/dCocDJzTsR2
+	Yf5RLv7BKtWqqDfS53pmBEAuWHqpU
+X-Received: by 2002:a05:6402:c4d6:10b0:6b4:8b1e:2866 with SMTP id 4fb4d7f45d1cf-6b48b1e2b36mr688570a12.16.1793109307845;
+        Tue, 27 Oct 2026 06:55:07 -0700 (PDT)
+Received: from [10.54.182.141] (82-132-213-26.dab.02.net. [82.132.213.26])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b49640c339sm63568a12.17.2026.10.27.06.55.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 06:55:06 -0700 (PDT)
+Message-ID: <749e9437-85a6-45fa-b984-b155a1eeddaf@gmail.com>
+Date: Tue, 27 Oct 2026 13:54:57 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -111,109 +93,106 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV3PR12MB9168:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82f8fd8e-8d24-4b87-1c03-08df3430496c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|261021123027099003|261022075727099003|261021121427099003|261022105027099003|10067099003|56012099006|261026140227099003|6133799003|18002099003|22082099003|261026121527099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	ZDviRu5NoPC+UoNMAl65C7GMnmbjchsv4Rh34czYFMGb6ipxr2A7W3EGAY1DT4M8qOT+gqAW4+6QhfhEvV9mct9rlL1cbwMSej24WJaYdpw5knAuZh3fe1TQipO6v6dcZNw63zBiotnier4bt6cWZgp2nBHht3dKvtCFJv1FxCylC4Fi+lD7CO0QyNvuk070Lb8Ytwenezmk/9ZCA92poGUNrHlzqWGGSrzuXLn3SDOPKtQOWaoWxEOJ/U9Q40zm41SJvRyuPY2tnt4KTbYsvHDQgANU0f1cI+6LYmH0r0Ea7TD/gchcp64SvDgCu8MQ2mnolvUHdYsHZiSHn2fSIBCvkblN+NkIv9lJqfNZWCnJ4jH9NyujRRQXO31rcZ6DhzSP0CM/EfX7N0AStsx/FD5pew0cDwvFj2+4J0Tuokfw3D6cR3a6DsyWFg5S0GyJulJzKWJ0UVvCOQl0P+6zmFRCWdnoji3Pu6iTsfQXfENOnmEv2h4Fg/IDseeGCEdhS3FY7zYdj6BsDejZYKo7w2v8ImFE+rkvNuj5zxSod/B/G7a+9rJQbLCxk1tZZ6OC1COKOUiDzdDPjRvK9aJ6y1TMJqRBMebaNIqCNinI7JVFsIJNNF+oRGDruqa6IB4iZwhgq+T7lW5oEw8nirlGk/HRYzknIh3qNaxtkfmw+iY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(261021123027099003)(261022075727099003)(261021121427099003)(261022105027099003)(10067099003)(56012099006)(261026140227099003)(6133799003)(18002099003)(22082099003)(261026121527099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Um5SK3dtbllod3E2OWl2a0V6NmRLVEE0V3VCL1BFeDhkck5FWGdjSGo2cHVK?=
- =?utf-8?B?SzRQWGdtbHBYRGxmNlA4WU1yOVBnSEtOZFhQeG1sb2hOUGZQQzNCdDRoVFB4?=
- =?utf-8?B?OGx6cUxhM2lLL29tYTV1dXhueWIwTThnNlFUbjcrcTJreC9rTnNscW4xYmxP?=
- =?utf-8?B?bzBmMmZzMldVMHhwOTA3SkNmRlppbmRVQkJtODJBN0dMZktIZENBSVh3d3FV?=
- =?utf-8?B?MkNmb1pXaWp6YWpybVpzcW0zVnJ6UklpbGdkNlNJeVppdGJsdXZrUEF0bUR6?=
- =?utf-8?B?a1l5M0lzZ1FKeUJZM01tMnJBYmM1dE4vQmRTV3RJZWREV3lWWDQzUlI5RTN0?=
- =?utf-8?B?S1FCTnFJSlRtcWxDemVQYzlweGk5TlZjZHI3ZHJFWGxDaktsWkxvQXdOZmQ3?=
- =?utf-8?B?U1lGQTM3TWZsYkowZTRZRTBvNjh3cmhaRnkwbW1MUk9LUG1jblhXNHV4YzVQ?=
- =?utf-8?B?QVBCc1BsSkNUUjcwVWp4TVhWU2k3d0xkdHBFUUFRTFF4ZUNjTnF0UEZtWmRD?=
- =?utf-8?B?ckNQTGlNSGV4SlJOenllMWJLYjJ6cHdMNE5uYTNOSFRib0NoUXJwdXlZejIy?=
- =?utf-8?B?S1JvQXhqWmZrclVkeWh5Y0RNNHJQZjhWQUtsV1FrSTFsNjVhQ0F1YUphMVZW?=
- =?utf-8?B?RTlQSFcwM3VycjIvQVNiQ2R5cWVXOC9HdGNCQUtkOG9Ib2pIQzY3bU5aOHV1?=
- =?utf-8?B?TkJaZzlBMGJ3TCtvSFNBRWxWcmpBR3ZNNjVaS0VWenhMOXdERVRWWXJkYWhM?=
- =?utf-8?B?M2JFc3BZY0NaeitVdFJKeE1ZVXdKeGRIZXlpcDVZRnArekdJdXdNZG5LZGNo?=
- =?utf-8?B?ZkZJWkZObkNsMEpNRmQzbWFMMDVqTVN3T3ZPSkNyQkxGYmpPckltNmI2Y3dS?=
- =?utf-8?B?ZVM4YURxRDQzdFZrUXkrWkNmcFBDSGpFNkhhaldiMmdxUkFQd21LQ0xOSlhI?=
- =?utf-8?B?TWlWOHpQNk5mNlk2a3Z3WVVjdWF3L3UraWRHbkd4aC9IVWJzVHNKRXlvV01B?=
- =?utf-8?B?dm4vWGRXeGhDeTdKUVhTbmJoWXg1Qk4rRzlHMG1wQUtBVTJKY2o3aWtaUFI5?=
- =?utf-8?B?SXdHR0ptbVBWOXYxdkhVVDN2eFgyczR6YmtZZXBxWjBFOFF6Vnh5Z0t2a2pU?=
- =?utf-8?B?QzJUMXNJam44MEJYd0xiUDhCOS93bXh2RGh6eWZnNVJ4VTZFeGVRSWRiRFR6?=
- =?utf-8?B?dlVLMTY3YzFQTXgzZ2Q5S21nZXo3ZHpCSzByNlcwaTB4eWtHMFRVb0U2WTUz?=
- =?utf-8?B?YWhYU0owZTBMMWNxdXpzMnl6Tm9XQ2cyQVdNZEhGOG5IbXVWekJVKzV2L0hp?=
- =?utf-8?B?WlZCUnV4TXZFU3ZXdnJjTG5ONkFiWWhZcUNxMjlpa0k1UkNkUmNncHkyN3RF?=
- =?utf-8?B?ZFJBSWRGbzZaWUdiK01XQ05mb05oU1g4cU00czNOU0pPcGdNUDI5TmlrSDZ3?=
- =?utf-8?B?N3pibXIrZm4xcEJIQlJ2c3pUTFpLVEpCTEgrUHMxbDQyUUdhK0xrYUQxdG0v?=
- =?utf-8?B?Si84MWlVcDhHVVZrSmRDN0hqUEgrUUZDNWduY3NHTTNGRXhFWHZSRmUwK3lN?=
- =?utf-8?B?cWlHNUE0UngzOU5LSTVDcFlQQmxCdzBTL2hLcXJxUzIvOWFoMDQ4dzR4cS92?=
- =?utf-8?B?TkVLT0s5NEpkaVF6a1FBVllqaVV5amJPTnpmRXMvOXZ3cGpLQTlVNUpKNzNC?=
- =?utf-8?B?azhqQzFpSEdYMFU2UzRMZHNLak1UWEdIdjJSZlVQcVRTSXQxYjlnWkpwaFlX?=
- =?utf-8?B?TVdqNXRGbXhKdnJaNm1uSTdQcURyUUZ2OVhSVUlXWTVLZE12WlR4QkxhV1g5?=
- =?utf-8?B?ZFA5eE96M3hkckhLTHZueWdNTXJXb3lLNmdtcDBYZjVnMWptNmFhRDMzdFds?=
- =?utf-8?B?U1VMbHlqVllEZEpDbTlvQ0tsS1VnbzRhak9WeTREYUxORkFzdlhsT1pFK21s?=
- =?utf-8?B?M0N6cWdoc1FLblg2QzFQSE01L3A5K0hWV2hMNkViOVBISDRGbklzZEo1cGhU?=
- =?utf-8?B?TFVucENjcWFtUGhDNlhiazRDRGNyYkJxd05KcklnV3lrQmkzdmJQOCtnUytK?=
- =?utf-8?B?THFqd3ZKdVhNTUFVTUNQaDR3c3ZYWWlRZm9vMmJBN1ZLL0liZDVBOWRIQXkw?=
- =?utf-8?B?VU5TYlhyTURMR2lHV2U2Smh3MklzZk1INTdzWUtWOUJMVGVJNTV5NmFJajhw?=
- =?utf-8?B?ZDhPNzNrN09QZ251SDVyc2d0Zjh4bFdLM2RSYmZoNVRla3NIbVEzYVJ3ZzJk?=
- =?utf-8?B?ckpaRlF1eUtVcTM2NTZrb3VGeURZdmdGNGxJbXRRNlJIcC8waGhUZ3JaRDNG?=
- =?utf-8?Q?klnG/tKJr8D0Q2GcV8?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82f8fd8e-8d24-4b87-1c03-08df3430496c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 13:43:30.6362
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XF8ovOZAWGozEZwTeWaFPEpdnB1g2wg9OwFEzxzSx3jvx4ZdpA9+W/jtWyyn58hM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9168
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/1] misc: fgds: introduce GPU-File direct I/O via
+ dma-buf
+To: Li Wang <liwang@kylinos.cn>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <20261027090853.30099-1-liwang@kylinos.cn>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20261027090853.30099-1-liwang@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 10/27/26 14:34, Mikko Perttunen wrote:
-> On Tuesday, October 27, 2026 9:33 PM Jason Gunthorpe wrote:
->> On Tue, Oct 27, 2026 at 12:42:32PM +0900, Mikko Perttunen wrote:
->>
->>>> This page-side use predates the series, so the fault is not itself a v2
->>>> regression. Is dma_buf_sgt_attach() valid for this call site, or does Tegra
->>>> need a page/physical mapping type first?
->>>
->>> Sounds like a bug in TegraDRM; we should be using the DMA addr/length 
->>> for the explicit IOMMU mapping as the sgt attachment is for the dummy 
->>> DRM device explicitly intended to give us physical addresses.
->>
->> No, you cannot connect dmabuf to an iommu_domain. It is 100% always
->> illegal. DMABUF does not support this. Do not pass sg_dma to iommu
->> functions either.
-> 
-> Sure, I agree -- so let's say it's a bug on top of the baseline crimes 
-> TegraDRM commits :)
+Hey Li,
 
-Well the initial crime was to abuse sgt to transport dma addresses, don't document how all of this works and then be surprised when everything blew up.
+On 10/27/26 09:08, Li Wang wrote:
+> This patch introduces a driver named fgds that allows moving data between
+> a GPU dma-buf and a regular file on NVME without staging it through the
+> page cache. This is particularly useful for LLM workloads, such as model
+> loading, KV cache offloading, and checkpointing. The fgds device
+> corresponds one-to-one with the PCIe GPU on the machine. The usage is
+> straightforward: an application first calls ioctl on the corresponding
+> fgds device with REGISTER_BUF, passing the target GPU memory buffer
+> address (represented as a dma-buf fd). Subsequently, the application can
+> perform direct data transfer between a regular file on NVMe and GPU memory
+> by invoking ioctl on the fgds device with READ/WRITE, passing the file
+> descriptor and the handle returned by REGISTER_BUF.
+> 
+> This solution allows both applications and the fgds device to work
+> seamlessly with GPUs from different vendors without any modifications.
+> Furthermore, applications no longer need to call vendor-specific
+> proprietary APIs (such as NVIDIA's cuFile API) or install vendor-specific
+> kernel modules (such as NVIDIA's nvidia-fs.ko) for different GPU vendors.
+> We have tested fgds on NVDIA and AMD GPU cards, and theoretically, it also
+> works on GPUs from other vendors that support exporting GPU memory via
+> dma-buf. Some performance test results can be found in [1].
+> 
+> This implementation offers several advantages:
+> - Simplicity and Efficiency: It provides a lightweight and intuitive
+>    interface. The single ioctl call mimics the parameter structure of
+>    pread/pwrite, and its return value semantics are fully compatible with
+>    pread/pwrite
+> - Isolation and Security: The interface is independent and has a minimal
+>    impact scope. This isolation facilitates fine-grained permission control
+>    on the device node, enhancing security management
+> 
+> Changes since v1:
+> - Refactor implementation per Christian's feedback, on top of Pavel's
+>    DMA-buf support for io_uring [2]
 
-But yeah don't touch the pages in sgt exposed by DMA-buf, that is pretty much one of the most fundamental rules we have now.
+People already replied, but I'm going to elaborate a bit. That series
+[2] already exposes a uapi via io_uring, it's device agnostic and all
+that. The framework was made to allow multiple users, perhaps folks
+have some kernel-internal users in mind, but a completely new
+read/write uAPI looks unnecessary, especially an ioctl() based one.
+It sounds like [1] is already using io_uring, so it doesn't sound
+like a problem that the entire uapi is io_uring based(?).
 
-Regards,
-Christian.
+> - Add validation checks in the XFS I/O submission path to ensure that
+>    bios with the REQ_DMABUF flag are only processed via direct I/O, and
+>    prevents the kernel from attempting to fall back to buffered I/O, which
+>    is incompatible with DMA-buf backed GPU memory regions. While currently
+>    supports only XFS, the underlying mechanism is filesystem-agnostic and
+>    can be adapted for other filesystems with similar minor changes
 
+xfs support it a it orthogonal to the uapi question, but it should be
+implemented in xfs and not side stepped. There is an RFC on the mailing
+list from Anuj and Nitesh that is trying to do that.
+
+> - Address the comments from Greg and the Sashiko AI
 > 
->>
->>> I'm currently in the process of removing the whole explicit IOMMU path 
->>> so if this only occurs with CONFIG_DMABUF_DEBUG enabled, I don't think 
->>> there's a pressing need to fix this before then.
->>
->> Yes I think this is probably the only way to fix it :| You have to
->> always use the DMA API
->>
->> Jason
->>
+> [1] https://github.com/Storage-and-OS-for-AI/fgds
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux.git/
+>      tag/?h=for-7.4/io_uring-dmabuf-20261023
 > 
+> Mengmeng Zhao (1):
+>    misc: fgds: introduce GPU-File direct I/O via dma-buf
 > 
+>   .../userspace-api/ioctl/ioctl-number.rst      |   2 +
+>   drivers/dma-buf/dma-buf-io.c                  |   3 +
+>   drivers/misc/Kconfig                          |  16 +
+>   drivers/misc/Makefile                         |   1 +
+>   drivers/misc/fgds.c                           | 506 ++++++++++++++++++
+>   fs/iomap/buffered-io.c                        |  11 +
+>   fs/iomap/direct-io.c                          |  23 +-
+>   fs/xfs/xfs_file.c                             |   4 +
+>   include/linux/iov_iter.h                      |   4 +
+>   include/uapi/linux/fgds.h                     | 124 +++++
+>   lib/iov_iter.c                                |   1 +
+>   mm/filemap.c                                  |  22 +-
+>   12 files changed, 713 insertions(+), 4 deletions(-)
+>   create mode 100644 drivers/misc/fgds.c
+>   create mode 100644 include/uapi/linux/fgds.h
 > 
-> 
+
+-- 
+Pavel Begunkov
 
