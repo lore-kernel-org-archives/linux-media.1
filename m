@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793079528;
-	b=UufKCKJBnXLPHbGH5XggCInL3d3OSfu0x6oJ8Dg40FWyl5120SNN2sgUfkp2bdpsha1K
-	 /SPk9Qj2CyK/89FqIIR00jpVFEsviWjKh+ktPAiOL/K+ivR6dPCPLY7eMTPLNRErJ9zwZ
-	 TLR++r50PwOVHjtyU6H5dmhZlp+UNqYqt1YOZoP5WxvwH/mDiRHDhwZQ0+rTzti+hmWDD
-	 cWOvLLVZx/YEEwMU3ZxEbfJZo9r5msLoNf1k8qgaLNC3RVEDc69cz6cKW00hpm6emLnzJ
-	 oJ1TiU0zE258gXsu08riAE99+wC8Q3vA9mGfgSUkXohL4bwdvPu/Oiod5UnTyuPFxEg==
+	t=1793079633;
+	b=mfY6aXG0HFJnSPf8XCwqBu2yiNjeahi+ZC2087ZqVoEO6VjMQaTlptOch5gicZZT3NTa
+	 GfPyHb+SQT3SUKXEg8dO/5qNuZ8pk8+rUxvmRnlGr7d/nblmxrdR1OJAV1/6atb+IYQqm
+	 Fgcf/Y3f4rvyQT/rvpcsJ8kBcxvyHjifuxL6775n5hfJYlhvCex2+dW2DqekkYPd7zbmq
+	 557dnnIF08euIReV/9dT8IMJkMclmQxBIzIAUVuHr4cJSUcJ3Qto2v7J1MPqLXy+GjZHr
+	 Zw+qSQN1qMzYId96D6OFlGQi6fOo8G8HUDRFvEMI3NIMTmXJJDxAehBM+Lpr4u8do9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793079528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793079633;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
-	b=uVi2PeWyhKdTNeFViY2T9qweSuC/+er+i6scK5puCKqy1BIHmKiap1srFJqT8R8RndjC
-	 0Obn3YB4gykjBUGlDHR9vrkS3hhTT+hs/IwJj8hN554VPi/3jANY8l6hxCXDQamJiWhtS
-	 LZydvZK27SfSnXkCgeLYIsTPj+uDwVT5tRt0uXv/qHetnnCKrfjEuqrxnhp9A44HEiDzU
-	 BiiONVAlIK+llx+gBLFOQhGcXpyDChiJCtqjoOgO1LXrrQSJw9jqe0IbOJQ/gHX6E9W+W
-	 t/ZCuv4YCSPbVXGXHXsXwFgn0ZFAthQAeLHj6ZCsWYgyqFZHRNfe0cCfFU/RtSdhDAw==
+	bh=7MtvTda9c8jDrNpv0a5ikKu9DGEM1JaWO2UAKaYBnKY=;
+	b=jjkeQVLzi9jJ0RG0nAll9QLtQWUgCqFEtpAPGP5oRf3JlHVslbwYvNUktgPtPrsoWWX+
+	 lLfTuIqsRKQZ0jVzXdzuzXWCu6+rH7zOtQ5OwNiWYPk6pgpvueik2lfqbdyQ74Z2TQsTW
+	 1RtohRNG0RI1nwUbhKaVPPZRUfk7CLoF7YG1z7GeHJc0ktcOytGZLM7eghoEyr4hc8yjP
+	 UiwAvOMX3AuBw3xaTN+tWfZW1UWXIxawBoOv24LlrBKL0ZFAD8Gds+f3FAxr4NgkwR3Ho
+	 VIFDf4ZsRVdkeNqhYQ0T003Mu+saQYvpOoOoSRye5f3SSWVx50b6syP0DnW6wl9tPHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSkQFWYI;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qNDKeJ6E;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2B7606A31D
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 05:38:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2B7606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B65606A31B
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 05:40:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6B65606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TSkQFWYI
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so5587825e9.0
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 22:38:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qNDKeJ6E
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso2357896f8f.1
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 22:40:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793079527; x=1793684327; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793079631; x=1793684431; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
-        b=TSkQFWYIAY24u+ILeLbmhdWwPjIVoVVXpqG5lie4a0TD0iurDBdtWm2LBlRGSeSCZf
-         6QfeRhnWM6Vrj5Ub8z8ZmIrrNgO8EB8XgQo64WPWLLr7G1CU+HjPgI1StMuuSWc0gCLS
-         QDjM9FXGo6H5PRN1URiNXrIGjaTNKQgQgFeEhyPBQUSrnxnfBxdvMGkeV9EQKyhx/6gS
-         ax4CXmlwEya78+lnBJq0AosH+5p/vX5yZclku6vtb5IHoV8C3UAWakPgRaFT+4wBhl9S
-         cO5/j4/Bp36DFC1zXi4hwG83TF++b6LaI9gB6CXf2SPtbCFDEVKglVDCS10L2zm0vUvL
-         2c3g==
+        bh=7MtvTda9c8jDrNpv0a5ikKu9DGEM1JaWO2UAKaYBnKY=;
+        b=qNDKeJ6EAHh1ox1z+OeiukJIQXKpgzItCUrRu4sxv9erfy0SgZlzslWGBIUDXf9txi
+         2A6fw/VzaSlr4uAmdy17VvZH82y3jqNgfm38dgey8gpCYMiULlzMMkGY/cCwUC+SmILP
+         7ufYTJvFCsk/uBT3vLT0sOH3jaU2+UBOpIlVc1h0HTjEwtnVRrCC+rLIGz/MVF8NzcHn
+         SnH3ysjGxCs4JFIVNRnNDSeQK1iM9Kp0jlTVmOhdHkCPU2B8KnCj8aHdlNlfHo09bbjz
+         +ElV3ll6O5sN8BzNzeidv1VixsUC2Nyu0pHzqlUX1UNIaFwgB1BeNA+ecqNAMusj06y4
+         ijTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793079527; x=1793684327;
+        d=1e100.net; s=20260707; t=1793079631; x=1793684431;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EeCv2zoswoi1cyVuV3aMhSAQS6klpYnNlB3thV2Q9FE=;
-        b=D59OduymyIpOgJJ9UJiRQNpgb9B71jTiJamuaHIXBC6etWzl+huWFf16ZkoPAELT4I
-         cdpGbNzofunPngcsPnN65GSi7x4XvUMry/G6ruJse8BSpr5B/FqHz+3Fod39cFl39oUd
-         l6I21HtW1KGQq35w6Gr7WhCBstBTRv+ZXRi4bFpVfQCnabX3R8VqzKAgecHu8BoyCl/F
-         KoQd8O8/vqIvpGN6RL9J/Z+5uQmhlFIMUzdSUdIdkZ5N9n2BpBEGij0dpkK1CjMGDkhC
-         Z4+JmiWHZ6zD9aPzJHGC0eLSyv8+ww+xdUTHGJOUSUK38RMumty5L5V3yo86iENu7Fxg
-         cLCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwo/Lmy9dzJl0p605boio8dgXD3AsyuCjmjZ9VELQJ5J2RhzN8cGWyoM5BJ7aYmxYVOlx0cr0VXDMJyPg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVef//97m/BT+I8G0Rr6KQ7ad9GcgltJKck8r4i2+LtsUEqODj
-	d8GMd4qkR4KTaFHrIxmUkPNsdR3XQcsKouWmGIyK9AeaNOcb+cshPBYR
-X-Gm-Gg: AYBFou0gjbtR3MTKahqo8O0JC2CYbDlzJ10pbXSdG6hMnGN0XdoJn1KYEZho/j4r8uA
-	uYjooo5oautOGrjBX/dvPUVfFHlJhqzacKz6PZCxRL74KVRQ+KX0PPaSeNUf4FrktLPqDIO5HzZ
-	0BZmbf+ndpdXRFxgpsf23o6m+FCL0y2Q4qMr1pnrZbHWPjHX/mUZGQecOlDBYOoP8spyANY1X8Q
-	aPROv2iJTDGvjD2clZOy8iXPZKU95dBltyBvaAVzo0V6Xho6uN/AnkDsk2QUGTAft0wuvKX5QjT
-	E7v1XfgHUf4k39l7KIMz4Cda/bKlLzlGGjry3jXbb3FrApvAq+3223ONhve0Ad7AXRJSgLW5Rn1
-	SJeT/o0Oo/N5PCG3cOaQtlBMGSmRzWzh6wcAMl3/vaGQxj0nUo9t/1MwsG284LRZXCeOl0y+A5C
-	9IdEXYpuudUqfrdp2HAbmz+QEWdXVxB+6lmp5i8u4fvsb6KxCkZWL516qZRpGqweWREK234ngCm
-	/uqeJdl6pqPNWZvZ6KqC6NT71goeNobAd+GID7/uZAnrpCiCRhD
-X-Received: by 2002:a05:600d:849a:20b0:49e:795e:ba89 with SMTP id 5b1f17b1804b1-4a7c3856e2fmr26530125e9.6.1793079526864;
-        Mon, 26 Oct 2026 22:38:46 -0700 (PDT)
+        bh=7MtvTda9c8jDrNpv0a5ikKu9DGEM1JaWO2UAKaYBnKY=;
+        b=z8zrSi23fb+UGSeA8h8cBNISM+LQvY0g5NtgC6G7D0ok8TRIZafP02riWsQ1SRHzn6
+         LSQaitvG9fgKARxJZ1MZIdu32Lq9PprOQ21XdZCuKtnHD7zd5fPd4j4dVAkbswLUTyJc
+         ddx1NunIzrVCsqR7GfmbVz86b/mW0Pwzy3RqlPds5YxfWMReC/gfiJd7/vdmaqQlcqkC
+         zeFVa8LuhNLVZ415CDiuxg+w492fAI4VO9gaRjCK+Gag0rcSEZucr2CTZUaVYB0Y9y7V
+         WB+T633SySczno0hdKJTQNV6Sdkr0b2LaikOgkWSviL24+i96OBOWYEeSN9GFD+zhrwy
+         mVrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+AbVsa8wXb2JeLydPPwCURSjmLEX8O6ojqL7jqejp7qhQ/2X8bVzsdS83EgmZ+34AlG4paORTbyN/CA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLQ0yH/08LJ4zqfeMeAkFJxMmpudghcj1tguWRCDawDsndC6h3b
+	JPM5k0+9lB9rvTwMwBgZR6OI/udWCYlvEZKKNaMYq4NEKg2kMyauXRLC
+X-Gm-Gg: AYBFou2CV1H1r/Hpbe3ACZL4jdMjYTDpJiB4G1n3cZOebhijlOQdFUEzG/GX8zFJkDh
+	wvBv7sAKo47FhYF8AhFhU5Ds4nkhnusNEguRU4jlzVFuY7ArfqiQFAUX+4fGloYQQ2GS/DkHRkC
+	H79NzIXXLOSn2s2GXj4kifQO1NA1SivimVYmQdNBz8UsgnCwDCmCO3Nx+KOYO4ptiSiL9OOtMby
+	DEb+eApbqManRCZTt2dnxREh9FA/oQzitOVYm01VuCIJn0jb/qtrNE4JKVkDCn6vggQmqdXZ/qG
+	bK3ExxOj/xUawWs0/OPzhjsksH6JHdoMK1ngfcG0m/Ib6lp/loIf8GQ1WCVUBAlN/MFhGLU1M1E
+	g1VoJfZCAGPTjPh/qZbBUq63YebjpiSmNGpK5X4/euojXD9YFFpHouKIBxowvLIs/a7mZ4gQ3+A
+	Kw/2wX8l+gpx1EE/x6hpwFfwn+4p6cWpeCwCw/YSZtF6Rf2LjKurnPNXbZE5xJKMDLpsEb/A54l
+	GuQGQGKQBgQ+e9FqlNq6/LuXyYr62nIRTGIy4eSXh9HrAZQeiHp
+X-Received: by 2002:a05:6000:2c05:b0:48a:f8fb:cd49 with SMTP id ffacd0b85a97d-48e3eb88590mr17346250f8f.22.1793079631109;
+        Mon, 26 Oct 2026 22:40:31 -0700 (PDT)
 Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3eb8f248sm20057407f8f.6.2026.10.26.22.38.45
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd3418sm18500026f8f.41.2026.10.26.22.40.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 22:38:46 -0700 (PDT)
-Date: Tue, 27 Oct 2026 08:38:42 +0300
+        Mon, 26 Oct 2026 22:40:30 -0700 (PDT)
+Date: Tue, 27 Oct 2026 08:40:26 +0300
 From: Dan Carpenter <error27@gmail.com>
 To: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
-Cc: dan.carpenter@oracle.com, hansg@kernel.org, mchehab@kernel.org,
+Cc: dan.carpenter@linaro.org, hansg@kernel.org, mchehab@kernel.org,
 	gregkh@linuxfoundation.org, linux-media@vger.kernel.org,
 	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH] media: atomisp: Fix memory leak in
  atomisp_alloc_dis_coef_buf
-Message-ID: <auA44kPevsJUudhR@stanley.mountain>
-References: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
+Message-ID: <auA5SoRV1MDwHrw8@stanley.mountain>
+References: <20261026175840.13979-1-sifat.yt.2.0c@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,18 +99,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
+In-Reply-To: <20261026175840.13979-1-sifat.yt.2.0c@gmail.com>
 
-On Tue, Oct 27, 2026 at 12:19:40AM +0000, Abdullah Mohammd Sifat wrote:
+On Mon, Oct 26, 2026 at 05:58:39PM +0000, Abdullah Mohammd Sifat wrote:
 > Free the allocated dvs2_coeff memory if ia_css_dvs2_statistics_allocate
 > 
 > fails to prevent a memory leak in the error path.
+
+Extra blank line is strange.
+
 > 
 > Signed-off-by: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+> ---
 
-The commit message says it is a bug but there is no Fixes tag.
-
-However, it is not a bug because the memory is freed in the caller.
+See my comments to the other thread.  This is a false positive.
 
 regards,
 dan carpenter
