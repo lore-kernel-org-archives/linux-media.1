@@ -1,47 +1,115 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793115170;
-	b=EzqFoS3H8miA2YPVTSEuxT5ipo15tzajVdgkvN31zDH/ur2ZxkCke6ux1Rx8M1DU2Sqt
-	 bHd5F3orCie9WxaGs74Q5PZaZfUXPw8/jGxYUV/uFkPcH5nN1AbRENE79PqedkWFouf3P
-	 O72zCMv6zB01AV2jyyCw9B3JB1ex0TnpS/sCSL27kJwGnbaHi+Yopxq7dw4TScmpCK31t
-	 Nia+N8aYm8RRpLzdLoklAjroTlhGylZXkKEDPd+d6O2BScWcRA8hKLImoyF8GXwLguUUk
-	 nqHO2KB10mghRRyLlI69l5lcF6s6RkJ2Jw/Y8kk6QDZ8BMXMwPZ9VX8voFmxUC09e/g==
+	t=1793115854;
+	b=wooqsxDh2+Prqj/6IFzP/iIKvHEgD23q8v33nxCIPG3J35J1khJnbn8Ymo1irxkXO3vq
+	 uzFvPLQZFg9PCargr0amCuFQQshM0uIXZEgeZRUbWGuvRqGd9L/CBEwtxMUxBg+ushKD7
+	 guMAqtOswMXlT9+YzeAdtFfT0QbaiJyw+93BXp4c0SDiIurCcSU4DToYfcWw4r3hEqYWb
+	 2J8EZtwfP2MlfFu8/h2NShF85naZDhB7elxtjzICQW0R0ixwEbnFo36VCeJbCbE7IyUat
+	 EEyZeJb38MQEO3PVQ2QHP7DtHoO4pzVR/OjDaI/1/wJ5fShTMIJY0NE4c6H9TJ/uqhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793115170;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
-	b=uotcF8SQbRHfYPKmTS2U1Nfd3v6t8RHeKxClVjb5INFlrmCa8NL6r0ivcVy70Rb7sl+v
-	 7rkBPU3L3aJ8IstmQNdKDvd5jx4vUy263qOp/IWRXoy/eVsjNB3ylA4gvBJib62jg2XPn
-	 4MnZOHQhXqVImAESW0swmGhuGpuSI6+iIpoZgCs2QTF4k6M/tga7U4zF2h+WYPzPBeaKb
-	 0+FqjG/W0RGN5DHiPFFB/0QRhKerv0GULtJYIlhlvwQlFltIpo4T55vbG0QdHf6JHuP8s
-	 WWzFZOCXTuEheZeTL7ttoQhct1r1kQQ3K03JfR9aPKJU6mqvdeOBnKLvdRsXZ74o+EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115854;
+	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
+	 Cc:Subject;
+	bh=Gkqrjit9+J4CJctXBbr9aEQ6wG9MjsFcQbJJ6qRHxxM=;
+	b=JNyXMGXzHkTG7YfNES3i4SMbiF/Jq7pnTUv7vuyAe54dOISZthLtlK50dt2yqC99M0Nh
+	 y+rcujszbb9CXJY+Y16k2o2jUT0qUoKhqa6Ur3npQwSTRnPrsFsSL4xd4Gq4dU4//9SiA
+	 6IQrb1MQb6nZ1tTzbZyYk6n/5x0w3LBuPqxBAIFnHbRUYaQ7a6TAmJEPbo2Kf64Y0XwNG
+	 VbWdJB0/Jnq62f3SJc1nKFk+MlpXZTaaH51Ag8qKTtVl5kFX9OLugR6V+WZ2pPLfxMC9e
+	 5+9TKEj9V/bN1+4SohmD+ukI3im7XjXbRHJ3HGgEHEVtbmXYXQ4p5uoQANeNyJGAMsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgHnkTyo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857F606A31B;
-	Tue, 27 Oct 2026 15:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89F4606A31A;
+	Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0452A1F01825;
-	Tue, 27 Oct 2026 15:32:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgHnkTyo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7463C1F01825;
+	Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793115169;
-	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=dtEwIKUUeNK/0V3q72RuhjcM3XB9lvACZ3yKUhInj8Zf+PtknFhFFKjhNFk5Efdkp
-	 xpANNTMa9TXxqHgWiccafR7WvvDydpYotUzIOI5DNnocm2KagZ4TLJqbciqwQLDZM9
-	 vcWbnU+CUX/0GkNzKsFrWSl5vheOnQzevABytfwin/U9fc9d2YLjHBknOiunYPulRo
-	 cBVAKaLp9o6rAcYW5iz4YSXOWSHlIIREcpLNS5k89b9hozEB09uf6sUB7Cf0yCLiTk
-	 8/qgCOZRxIDRGOiNCcAcboen3xq2yxLY8oYoZ7dfpniILZNhE0t/9FMlMBhKPcSfrz
-	 qaGSp5cSzwymQ==
-Message-ID: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
-Date: Tue, 27 Oct 2026 16:32:44 +0100
+	s=k20260515; t=1793115853;
+	bh=Gkqrjit9+J4CJctXBbr9aEQ6wG9MjsFcQbJJ6qRHxxM=;
+	h=Date:From:To:Cc:Subject;
+	b=fgHnkTyo/8WH2NlGS3UEDZvLhFLuCcOEbT+Biv5UEH1BUma4S/V5vvpgD1O/LP0/b
+	 xbLkNjjzP/s+eC/0hWq+4g4uhHGrZB2n8vgSCfwSdJNG8i3IjVSFjTQaMtsjzxB7LC
+	 7gAy3GMidabLmrmgTj1mKC894dAMw43YvNchPD+EPbVs93iIEhrZy8UsU8qzMU2jgO
+	 9mneIY8c2mg6ULvLXhbXV4IcAib11uQClk0ZzkWc3/Oz3pCpMTcAg9kifHr9cIxLDP
+	 JQGfmBoAH8jakGVW3hwWb3nzcqjyfnPtGjxKzmddkD6u3roLx2eKrjl/efNEP+G2Gm
+	 DDCt6HBJe0EiQ==
+Received: from rostedt by gandalf with local (Exim 4.100.1)
+	(envelope-from <rostedt@kernel.org>)
+	id 1xLjLQ-000000078eo-2Z1f;
+	Tue, 27 Oct 2026 11:44:12 -0400
+Message-ID: <20261027153658.703730257@kernel.org>
+User-Agent: quilt/0.69
+Date: Tue, 27 Oct 2026 11:36:58 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Vineeth Pillai <vineeth@bitbyteword.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Aaron Conole <aconole@redhat.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>,
+ Chanwoo Choi <cw00.choi@samsung.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ David Airlie <airlied@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eelco Chaudron <echaudro@redhat.com>,
+ Eric Dumazet <edumazet@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Ilya Maximets <i.maximets@ovn.org>,
+ Ingo Molnar <mingo@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Jiri Pirko <jiri@resnulli.us>,
+ John Fastabend <john.fastabend@gmail.com>,
+ Jon Maloy <jmaloy@redhat.com>,
+ Koby Elbaz <koby.elbaz@intel.com>,
+ Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ "Martin K. Petersen" <mkp@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ MyungJoo Ham <myungjoo.ham@samsung.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Philipp Stanner <phasta@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Thomas Gleixner <tglx@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ tipc-discussion@lists.sourceforge.net,
+ Tung Quang Nguyen <tung.quang.nguyen@est.tech>,
+ Xin Long <lucien.xin@gmail.com>,
+ x86@kernel.org,
+ amd-gfx@lists.freedesktop.org,
+ bpf@vger.kernel.org,
+ dev@openvswitch.org,
+ dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org,
+ linux-pm@vger.kernel.org,
+ linux-scsi@vger.kernel.org,
+ linux-sctp@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
+Subject: [PATCH 0/9] tracing: Use trace_call__FOO() for tracepoints behind trace_FOO_enabled()
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -50,90 +118,61 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261027145313.136305-1-lgs201920130244@gmail.com>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261027145313.136305-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 27/10/2026 15:53, Guangshuo Li wrote:
-> fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
-> DMA address does not satisfy the firmware alignment requirement,
-> but leaves is->memory.vaddr non-NULL.
-> 
-> Because firmware loading is asynchronous, this error path may run
-> after probe has returned successfully. A later remove can then
-> attempt to free the same DMA allocation again.
-> 
-> Set is->memory.vaddr to NULL after freeing the buffer so the
-> existing NULL check in fimc_is_free_cpu_memory() skips the
-> already-freed allocation.
-> 
-> This issue was found by our static analysis tool under development.
-> 
-> Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
+This is a rebase of patches Vineeth Pillai created back in May[1].
+This series fixes the "double static_branch" that Peter Zijlstra complained
+about. When there's some extra work that needs to be done specifically
+for a tracepoint, that work should be behind a trace_FOO_enabled() "if"
+statement so that the work is only done when the tracepoint FOO is enabled.
+The issue that Peter complained about is that both the trace_FOO_enabled()
+and the trace_FOO() use a static branch which has the nop/jmp switch.
+There's no reason to have the trace_FOO() use that if it is behind a
+trace_FOO_enabled() as that test has already been checked.
 
-More of postings by bot ignoring any feedback.
+Vineeth created a trace_call__FOO() which calls the tracepoint logic
+directly without doing the static_branch. This is to only be used when
+the tracepoint is called behind a trace_FOO_enabled() check. That code[2]
+has been upstream since 7.1. Vineeth also sent out changes to update
+all trace_FOO() callers behind a trace_FOO_enabled() to use the new
+API. But not all maintainers took it nor gave an ack.
 
-Best regards,
-Krzysztof
+This is a rebase of that work for the maintainers that did not ack nor
+take the patches. This is to give those maintainers another chance to do so.
+Maintainers may either take the patches or ACK them and I'll take it.
+
+[1] https://lore.kernel.org/linux-trace-kernel/20260515135903.2238731-1-vineeth@bitbyteword.org/
+[2] 677a3d82b6407 ("tracepoint: Add trace_call__##name() API")
+
+
+Vineeth Pillai (9):
+      net: Use trace_call__##name() at guarded tracepoint call sites
+      accel/habanalabs: Use trace_call__##name() at guarded tracepoint call sites
+      devfreq: Use trace_call__##name() at guarded tracepoint call sites
+      dma-buf: Use trace_call__##name() at guarded tracepoint call sites
+      drm: Use trace_call__##name() at guarded tracepoint call sites
+      scsi: ufs: Use trace_call__##name() at guarded tracepoint call sites
+      net: devlink: Use trace_call__##name() at guarded tracepoint call sites
+      kernel: time, trace: Use trace_call__##name() at guarded tracepoint call sites
+      x86: msr: Use trace_call__##name() at guarded tracepoint call sites
+
+----
+ arch/x86/lib/msr.c                        |  6 +++---
+ drivers/accel/habanalabs/common/device.c  |  9 +++++----
+ drivers/accel/habanalabs/common/mmu/mmu.c |  3 ++-
+ drivers/accel/habanalabs/common/pci/pci.c |  6 ++++--
+ drivers/devfreq/devfreq.c                 |  2 +-
+ drivers/dma-buf/dma-fence.c               |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ++--
+ drivers/gpu/drm/scheduler/sched_entity.c  |  5 +++--
+ drivers/ufs/core/ufshcd.c                 | 31 ++++++++++++++++---------------
+ kernel/time/tick-sched.c                  | 12 ++++++------
+ kernel/trace/trace_benchmark.c            |  2 +-
+ net/core/dev.c                            |  2 +-
+ net/core/xdp.c                            |  2 +-
+ net/devlink/trap.c                        |  2 +-
+ net/openvswitch/actions.c                 |  2 +-
+ net/openvswitch/datapath.c                |  2 +-
+ net/sctp/outqueue.c                       |  2 +-
+ net/tipc/node.c                           |  2 +-
+ 19 files changed, 52 insertions(+), 46 deletions(-)
