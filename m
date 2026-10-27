@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.49
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793119584;
-	b=1NXmMg++oRvkr5gLg1252E6DWGKOpaeIjbjJoPkpqQO2ccDBITQTovenyt4fibBExX/g
-	 mRRhpSZ4EFrUzOoVAnMA0/HB/jeru27ECnTI/SDi+sVj3vzZ5vdMg+r2d2HDmK9jmnnEw
-	 hIKbHtQq/qiv1CwGv47wRb32zJXHNmBmfUu6vkalexFOT7vgvwWU9BGpnimkEeUBJDJdY
-	 BNSE2JtGXazM58sHEbzJ1UOL83Sr4Rc4IQ7hlv2tWcrE2JnwkQS9IlWO1MqtUmPG3Z/vJ
-	 IxC1uPkN0cji3qSFv7FEPWTOHrP69VULIuyVdr510LXynU0425gd7Alo3eT2I5hS2bQ==
+	t=1793119866;
+	b=L+VXw+rpkkGk1cbLRCha6s/G67U8MvQQmI+MyDcF42dTRLmNpWGeG7rVasCMXnAj5bXg
+	 ydFpwpMLj0WYmJEM0k1m6ywwQIQ8jUCbRrXiaUdyUMtZ9IpFsx6/GSjklfl2AQECkX9Ir
+	 ajNwCzc/b068J6JiYomjWku/vLAps0IzpH/18peuiL0EHbaBtzM/ffxtDuoCHT0LAmUiB
+	 FmnuC37XXu8L+iDAa4ypANyeSE9xANig/JuIBkkD66VProKaPTJRoj1NH1IqgA35PZY8Z
+	 SMqhBmBPG6sjYipIG9VtgLcYBYzHgF6bnJDn/vdMgoMTNtNx+OptyQjLjYWqp641fUg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793119584;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=OHSlqZqo46L9vrovILxn8NMeCKrLZCM3Xql+8iqpkj0=;
-	b=W8uw4kwyGyy9QPMT3FfWl1tC/RywA4fvnrYZVsmWuKHIA/bpl9XVZJFPk8TGc9Ruasy/
-	 9bOJTgJGBvVPpIWeqcrf8GCIe5FdSyTlSQVms4miDweqzTr94mFAobPL6aQP9dEmgKqNm
-	 ONTAwvaoZFrDbQPcNZB02ExrwTQy+a1ofaEXQS3PZ+wtT+5dRSdtc65fhswnXKzkL75QN
-	 3uEk4CChGfSuaVLRBze8OnWXOWsXJhp1dFKQqFouapMMmjy769t0hiCKKQKBvRSu+CGed
-	 KUl9PGdSmgyLhTuGuFQvpftGtC23CzVYj7aT2sNRxCfcP1wj1X3yyx4xbVWfqUs3VPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793119866;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
+	b=ygc+Tfuyof18Ua1T/cx+bzacOorB6oF3TpCn7K5zJPILj1r1Aimx/tJ2t6NOCs6XXkMK
+	 wX9Y4kw577Py6YCP8M785pewFPKJO77QqkzIkQWR62A6SNtjRV3RHd3sorc3JGughgmg+
+	 bSxTybN0L379h8WHs8kmx0E+Rz157t/BUzic5hCZmC/gEX1ovWbp8ABVcrTRZ7K6T56lU
+	 rSQJGnrwhpo1pDMJiQd+4e77ush1Xa0sK0yj/d76QqcmqO66mDZ4ufBUj08zXdnqPQ/XI
+	 yeMtDEuvl8X69jzGi+TfGVWIY0CWRbjF3DaCup0HonYYY+0k6QhiFRISLppuEKszGgA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherry.de;
-	spf=pass smtp.mailfrom=cherry.de;
-	dkim=pass header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=UJ6x+nGz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.1
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013001.outbound.protection.outlook.com [40.107.162.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=f2AcRrWv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.49
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE40606A320
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 16:46:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAE40606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF54606A31E
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 16:51:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEF54606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=UJ6x+nGz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pGJPT2v8qsAneqojCxNTAM50v7f5IwZ3n25GZYxPhtq/n7D2SY82Wl6xRnh8f2qbh07yzhpPVH31V5HVeQbbH6dSEOKwb194LV31Tj5MX2XKpEju1M/UmyRJeNUYdOi0pjvamUnNUxVQPRe7PCIIf6ACLYz/gGa15nOaUeOK1pTlIYoXSV+JZ0wxE73mmvnMGSibDZr0IOtkREtqWVNtQXMANFnPG2TU0+uCef6sLAXnc8KtKHafQwbPg7g/8jlM0AfumUAGI5wwFWisIVRiZq9BBhLyUaZvrAsVIiUw+9zlUtQ3rYjkzIai03ckawC/U/a6cJS3VnZEAMCrvc/51g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OHSlqZqo46L9vrovILxn8NMeCKrLZCM3Xql+8iqpkj0=;
- b=AAyUab6wr+PkZSoBtPZwjKrMhcZjuGf/HBXY5otuGe6yiTMO4wDsrt4++B/WT/WRzYlf7qIwWAL1i9HBZyntPayGqAs3gxuvhvKxvq74taqaQexJdbbwIrUvtQ/F4sCyxCIXyljpSpLEqUfflkXUy58caR/NxJPPVSJSsqqFWspK1B4iT0SRXiA2f5yfjpBzQyxMw2unMb1tX7WWA70niIR97DTY/IDcOIO5IOIjiA8vtonIWAeN8VkXLXG9dz5RatnoVveaGgWO7L9ohWZqDgap5bBU1tNalTH80D5KkEeJagjY+fwzi16eYOPZ9RMd2qPffWdXsZNO05Mv4aSqdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
- dkim=pass header.d=cherry.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OHSlqZqo46L9vrovILxn8NMeCKrLZCM3Xql+8iqpkj0=;
- b=UJ6x+nGzoE2BeUbELRUQCNOM+QNsjVjIFpiSgfJJ5FEq/ZEaMSliXeDEWXx30GEPvxRuinQOEnYpCORpkLIIOXf8t/nsiJS8AgluWZpD8uhG9zX7iZ+azpAa4jiu2ZclSJonvezfni1iTHAwAJVl8DLxLXYq+C6uItTdrMEuAMk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cherry.de;
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com (2603:10a6:102:4ab::7)
- by PAXPR04MB9022.eurprd04.prod.outlook.com (2603:10a6:102:20e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Tue, 27 Oct
- 2026 16:46:17 +0000
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d]) by PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d%5]) with mapi id 15.21.0546.021; Tue, 27 Oct 2026
- 16:46:17 +0000
-Message-ID: <ab6082ba-176b-4301-bfda-13a4a27f2024@cherry.de>
-Date: Tue, 27 Oct 2026 17:46:16 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] media: i2c: ov5675: Fix type of xvclk_rate
-To: Heiko Stuebner <heiko@sntech.de>, sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- Heiko Stuebner <heiko.stuebner@cherry.de>
-References: <20261026101646.2450051-1-heiko@sntech.de>
- <20261026101646.2450051-2-heiko@sntech.de>
-Content-Language: en-US
-From: Quentin Schulz <quentin.schulz@cherry.de>
-In-Reply-To: <20261026101646.2450051-2-heiko@sntech.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0049.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::15) To PA3PR04MB11153.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::7)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=f2AcRrWv
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4a6f2825dd6so35994fac.2
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 09:51:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793119865; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cYnsvb//8aCOfAj2iWO+xJQkAdVmiDcRWh2ECbFC8Mp4H3DkYmY6IQ4IgkKIIUUSCi
+         odDM+AkMB9DYLhhNC3nqHmVHGY58dRHlX+sPbCDQ6TWE72HI/vNVNik3qn7fwI19DZda
+         rS7Dz7LQ3JHKmstTlCCI+5y3k4N5DeVzJUZQziGQr2VGARmBN90ioG91ZQl9e8qtFJs1
+         so5j8sDhjcimNk2DAB/BuGaGSpHOF2WnJIYO4cL8e1mCWb0rFWoVFT4DPa8v7aTzTmzm
+         53Y13OVzdI38aaZv/DNacEXdqxtFiqNcOXh1AIzrELnfORYRF8YHJEq6odlTPjK1+AS8
+         LqZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
+        fh=tGHurcCrg7MRfmk5n2yOOFiewXDbw2V0/f8Rds+JktU=;
+        b=T6Qdyv2OrVIiFyqgqiUchjh0icjEclCQDUvHU+gRB7t+hX+dt/PD+OXHcgPTEbCqz3
+         L+NtaEJvHpOOkgtFOCA63xKYN++4iBo82x9QsrLSxvh18htFpb6YSnW/SLAxMTzgDsHy
+         Z8i+Xdc7xUS6pq8yqpIV2OTJI1IHcsHrQQFBom695xOBqY1GFyVirXndMiPjxdcGsjg4
+         PqcKVRsMf4GLw24HUwVsuDPPciMNSBC+zz8aawWTsz6j2lORDwpRL4YR1hGxdLsP9qm+
+         v2cJQNNU9rwm1qknSfheH5D7Eu+TvWOZKagh+SgjNly00JVF996wHGn4pksR+1rLLHMb
+         dUww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793119865; x=1793724665; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
+        b=f2AcRrWv5oi1ivQNNe9pviZGHpfiK1uiUFT8pQSXULYzdF+YGe/NCMqF+VONT4YcMy
+         USUN9cHI8CB25BG4MuVk9Uo+sUb5OqCFcD+CwWgJorVgGmS41UzAfoMStWXY2Mw0ved+
+         YtxBLBoUx3LFFlM5gBvrjrGIFDDRp9GncBafYJPjQ5ySeLnXd8n9GtT16YFUqEcm4R5m
+         tToxLd3MkjgAnM+DdQWCi9UkKuuGdGK9WkIWxE9cy9LuB8WtAC/q/QssIgtrXvskHXT8
+         MbFY3h/OXGffCL1rDyKIQbbd2cB+SdtloBYfaQEjvYEf2UHUEs4IqjYERIFuVvj3RJB+
+         svpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793119865; x=1793724665;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gL6dJRyC87gSi0UJQ1axnIT4yInKJxdawRq198/IQ5k=;
+        b=a+viwQhDm6IYR2rxSNHgzyPFNZbvmuQu/wcqkcfUPJJT376XpzFMlpp4Hh3/U+USfD
+         mW3MUAXuSweB8EeS/A6gQTI9U/zGjNbyMw06NZo4uq7Vvuuyh3fiGqTF/zygMjmLa+GI
+         7Nng/Vr4lxcHjB3DH3m8dby47qUROyGmBCv7wal1wUBEJqUYEtDRTNOaIHKGUqkvoTLh
+         KGeszPVIulfUlvM9CJsQioQ44L+L2B1YqJBE5uQHktiPVrnUvrvAmPPIeDYXzxs6Tnw0
+         v0L+llSq0nZiPXXQROky2S4dKyx0VLSgTTKqWpwv3KuqdLJHPAs1muyZ5YY2kbLekskc
+         uM/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwquYLB+5lxtVX+IbcWU17dQ1SAQvqeMOUCYW2dxNieWz1+pUsn/DlAlmC5orz9jbVRDs+nsfRsaQHbLQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+6TE42EFns5lRloNz94k6RnSIfvgnmALfGpG5rVtH1xGPlWht
+	4Uc+G+ifFV/+ZmUE2M/5AIwfs7mQDYjuEpM7qd+sN/bDNbmlb5xk9NPB4nyDtrMj2JQuCsONu2h
+	LJlihZCdeuh3D7IE2Scfo7rPon3AJ3j4du1kRuGYdAw==
+X-Gm-Gg: AYBFou1c67kt89pWWoTSvKPH7lIf8jIIxTvib1wvs9NJMctqVif2waL/LmgnSnlK7u/
+	chO1D0sAMnbezI4LQnn0d1Ma1mpIpmTqAUdDfcLwh+NYd8LSKQZVtkXLAvvxcrcOO26aIlSOJTP
+	lRN0A8AX+fSLs/SjId6lVHxQXchKry3myumOrNCHTJNJF9biLD9MljxGXDYaDRmo4R/M65HH0nX
+	juJ2Ah3y4sCT6Y8qmvviBDDXSpUWvwnka0EQ/sikAErHuee4cnoVTGFEvJ5GxJwX8EBxywR4Ssx
+	zqSzQ8RCnitE1F+U6FuEw4TSelEumNjDFCl/YeBCFKf9opsiwuY6bdqyp/s6j+dj+MMHwG79v9R
+	shQDyJsHORN04wZCoGUoOimWzjj0XgFB6GDi1EVFusfqhaN+MKDUDu6iJKAyU1VqkytXgTL+9lo
+	ElK2+0YCxfnZiJTKsDqiyIny5+6vB7wLdnRc6UsUNImV91tZF9KzQREg==
+X-Received: by 2002:a05:6870:d889:b0:46a:c217:c56d with SMTP id
+ 586e51a60fabf-4a8bb1737f0mr98260fac.2.1793119864501; Tue, 27 Oct 2026
+ 09:51:04 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,80 +104,151 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3PR04MB11153:EE_|PAXPR04MB9022:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee6dd85d-5d01-46e9-de47-08df3449d1eb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|10067099003|56012099006|261026121527099003|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	CZXz48P34oCSaKRjYQs5BLWVe6GAyRVh8KYXnrsW0ra5LcFMm3pAb44LG7NX1cLCe55i7SQWpPTEV1os9O9TvG5bR4nntJrGXCnkCopqXIoeo8QvDFLrJa2LFuyeTJ+J0j9oD/IH4V6MWp3NSBT0R7XxgHpLmB75UamFH6Cg3KMDtE0aON57KT6W8YyFFQl1U1c0YU0l9RCJSpRbBRIid8S8W098PvTbzLBvGqa/bf6KVE5cl/d3dcMEnWwuVtArTeaRxq5cUZocsdwBy33aODvxY8tn9uGXae+FKVKsaqAz+1wqYmYpukgj+yPnUewsATfpt7tp8M5RA7aoSpm2YKghri/p9HphtokUq/tP/o4BW+w/K2IhzOFpunvA8VK3UjHKHy+uZBAmjsNEWAM3Rdg10fPloUICn4eXvjHWYxiHAWBGAPFLVI6tdzn14XCQikQVwve2ex+tDJr+uPyd/FmlYeYEpxOvheCYCQexs/ixvQtP0cxEVkwyMzRZPY+ihAjj/4ORiOOXPMK6N7xbFioUQ8x1UK5rH0H9HT8mheYh/ezh6FIaz4OCZG5f24FaJ8lKHEmOSfdTrpS5iVOKMqa6bOocRFDya8i0Mac04NHASdOjFr7VOLqLnp018BrvZvjBQaNOvvV2nThdk/PBOG1gybg00voDP/Oebs6hgZs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11153.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(10067099003)(56012099006)(261026121527099003)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3FGSlRxZjdOMU11bTFLUENoTWZpWlh1cElrazZjZE0ydE9SelR4Ly9ZeUNW?=
- =?utf-8?B?NFZuaFdwL0J5a0IxWDd2Q3RNQ0JtUnh3WTlSOHViK0dvdFNFdTF0WW5LdlF5?=
- =?utf-8?B?cDU1Z2JLcU9vUEVSVk5Rd1AvS01QL0dvYjVxc1VpTVVSMWpPd0d0ODJMeTJX?=
- =?utf-8?B?U3BwaWJIMGZ2MDR3Vms0ZUcrV01HVzZSQW1iRFlRRnBVWmNpQk5xbU83SGo1?=
- =?utf-8?B?Tk9vRmJyNUQya1E2K3pkbGVIOStOaU9hWlRXN3hJWjQ0Q05vQkZRcWhhdkZQ?=
- =?utf-8?B?cktldUx1Y1hkenZHTkdsU0FOTkpLYmxhNFFLT0VMems0dTNOaDFOdmhDdHJN?=
- =?utf-8?B?MTlSZnVSaWJSQ05ZalVERTYzbythMlM1MDV4SjF2eUJ3cGxHbWNFTjlUTDht?=
- =?utf-8?B?SEJiMFlYZ0JXaGZsbktWSzR5cG5QckJIM2xlblZENTc5TW10V3hiYXNxc0hQ?=
- =?utf-8?B?K2xkV29nTEEvSUxoNmlSN1UyL1pUektpZURYSXdycDgwVy9FbVpLZ3FzbmNn?=
- =?utf-8?B?MjlrVHhOSTRyeExXdkN0UUYvYkFlQlM1ZlpOSjRJVVkzc1BiKzE3empOMkVu?=
- =?utf-8?B?Q1NkcUJTOERJN2w2TmtDWHU5OThtaUJsKytqYnhuUkc1TTFyWGVDR3pVNjRZ?=
- =?utf-8?B?V2RPS2k1VWZMK2NBNEpPb25iMENkZDhMbEFFUnZPT0NUMUhyYStGcCsvdHBW?=
- =?utf-8?B?RWNkTDdoVUxQVjVVU2xwTlNIZ0NsUGxEWjFXTXpjSThzcTlNUXIyUzJtcFFo?=
- =?utf-8?B?ZVlid3gwdGVjcVpBMGY2VkZRbHF1bUN3aHNJTklaMG8vY1VZYkZyOTJYdVY5?=
- =?utf-8?B?dVB4dTVDdXhqd3hQMjU0cXVCc1kyN1NrenZ5N0V4b1ltSkZUenZjaE9zckRa?=
- =?utf-8?B?N0hCbitFcGdLMDFXaGpRRW9rbE9lM2VjZEpUS296U29ZODIyQ3BTOUd5aDVE?=
- =?utf-8?B?dTVSVkJOVzRUVk41bSs0S05ObkZZRnR5UVlkUnllQ2k5dHZWZ1RNTGhvVGt0?=
- =?utf-8?B?QjlRM0M2WEZMTVB3S3hKTUdJS041dVY5bTlmY0dObE1ldWZTRElsRXBZeXJK?=
- =?utf-8?B?aUthOXNZVEdJRTFJNUhlWlBhdGVMeGZHMzhUbXM2ZHR1M3lzb3FHSE0ySWVs?=
- =?utf-8?B?K0U4eVB5TTdIR2RGdjFUZVd6b0Z1cTYzWWV0T2JQTG9xL0JNTDE5bVI3VDFS?=
- =?utf-8?B?Zk43U1ZyRU4zWmo1MDUyY0JWTjhJOTVQUU1BU3NQbEdwb0MvQWI0UmFkNmMv?=
- =?utf-8?B?eUIrNlEvQk9YSUFBYmhIRHkxdlQrRkZJSDJzUmVkZzc3VGMraUgzbkdwWHhD?=
- =?utf-8?B?VjN5Q0RaMUcwRU05UXZVeXQ1YVAycHBzUGgrZy9jbDFRWENsVGRzQnFLVEMr?=
- =?utf-8?B?Zkd4WlhGNnFjWWNkVWlvZ3YrQkNONlZub2VkNWJwMUYxaDJ3MHlOZmlNQ3lr?=
- =?utf-8?B?NlFPbDdRYmozMFB1ZW9Nc25zTXowNjdCMEpGaHFiR01LODREL29SdHFCOXFl?=
- =?utf-8?B?dU5JL1J1eTVVR3djamlBODhmZDdsV1VuejgyQ0lOaFczdG5wZXpISVBzSzZE?=
- =?utf-8?B?TEZ4UzZhSHgrT1cvRE5kQUVJeXczN0VsYUszOEpHL0RxVHhWQ21wcEowT1o3?=
- =?utf-8?B?elBiZXFROW0rZDJoUHV5QStEblB1TVRLUFcwdVRxWjAvQnNaWHduV050WnVE?=
- =?utf-8?B?MUp5eGdNWDVRbU0zZXA4N3hhWFF3OFpIVkhSTTMzckFzTmVLMUdhZGlOckUy?=
- =?utf-8?B?UkdNQ3N0czlqL3hWQ2lVOVBnUlNaYlNwYzNCQWNKeDdDY0JqbURVRXdkczFi?=
- =?utf-8?B?Q21zcEl4eVFpVEE1SCtGTXkra1JEV2NKR2VITzhXNE5TNjRkWlFpSmlyaDVi?=
- =?utf-8?B?NXc1WTRsTFdwTnh6QWRjTEdQK1lJSWJlaGRlRnZ1ZDlabkc2dVdWUG1WOE94?=
- =?utf-8?B?clQwTi9sTFVyRnJQOEN0SklocEJxb3Y3a1g1UU5XRUMydUZSLy9rWlhoOCtY?=
- =?utf-8?B?c1VOTzNXeEZMTjdTbFAwT1ZFVUVNM2hwY3lBb3dJL1lQOEpSemNQTSswT3B1?=
- =?utf-8?B?L3IvSlRwTTg3MElPc0MwdFJUWkd2Ti9EMUh0cGRTR2pRRGZjWEpMd0h3cXcv?=
- =?utf-8?B?RW90QndlK3BveUxDQU5TeUJOdTVvM1VlUEpaZlhrM0szdElpbW40Q3M3dUlK?=
- =?utf-8?B?KzZJeTJWVjc2VVVJUG4rbml1QmVFQ1NVVjY2K1I4aGRnTytpQWVUU0FRM3Nn?=
- =?utf-8?B?VFJ2RnlOc3prSHlobTdrK0d1RG4xT3Uvdk1nZWwwYkd4VUlhTWhLVFVGanhX?=
- =?utf-8?B?UkREVzVrOFUzU1Y4L1lxZXpiQTg4WWtMdWdpc3BsNk5NQTJxaHhrdz09?=
-X-OriginatorOrg: cherry.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee6dd85d-5d01-46e9-de47-08df3449d1eb
-X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11153.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2026 16:46:17.0408
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w86qd6QtLi9dTNIV1S6kmbq/H3oEKWbvL2e1l9O5egAK8cd3Y819cFWy8XVzpTt1ZYyqlQWQnzaJTjcBQLhALmBMC5yC65F19K+KZyh2O2k=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9022
+References: <20261026111032.88355-1-antoine.pichot@gmail.com>
+ <20261026111032.88355-2-antoine.pichot@gmail.com> <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
+In-Reply-To: <6ae07c65.e52dcaf0.293af3.e7d5@mx.google.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 27 Oct 2026 16:50:48 +0000
+X-Gm-Features: AclHuK-6apCrsSW-JKKLxfQ64Ax9KsC9jd8-Haw-R9qIe3JqmapOTsN1wSNV7Ks
+Message-ID: <CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com>
+Subject: Re: [PATCH 1/7] media: i2c: ov7251: Fix link frequency index
+To: "D. Manresa" <dmanresa@gmail.com>
+Cc: antoine.pichot@gmail.com, linux-media@vger.kernel.org, 
+	sakari.ailus@linux.intel.com, mchehab@kernel.org, djrscally@gmail.com, 
+	dan.scally@ideasonboard.com, hansg@kernel.org, 
+	andriy.shevchenko@linux.intel.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Heiko,
+Hi Antoine and D. Manresa
 
-On 10/26/26 11:16 AM, Heiko Stuebner wrote:
-> From: Heiko Stuebner <heiko.stuebner@cherry.de>
-> 
-> clk_get_rate returns an unsigned long, so don't be creative by using
-> a different type in the driver.
-> 
+On Tue, 27 Oct 2026 at 10:27, D. Manresa <dmanresa@gmail.com> wrote:
+>
+> On Mon, Oct 26, 2026 at 08:10:26PM +0900, Antoine Pichot wrote:
+> > Observed on a Surface Book 2, where ipu-bridge lists one link frequency,
+> > 319.2 MHz, which is link_freq[1]: V4L2_CID_LINK_FREQ reads 240000000,
+> > and the pixel rate and PLL registers are off the same way.
 
-Reviewed-by: Quentin Schulz <quentin.schulz@cherry.de>
+I'll agree that the link frequency isn't abided by, and your patch
+does fix that. However testing on a DT based system (Raspberry Pi)
+with a 24MHz extclk I'm also seeing issues.
 
-Thanks!
-Quentin
+I'm working with the datasheet from
+https://static6.arrow.com/aropdfconversion/dedba0a4f2b52e9b6587341a0e31cd115a2c3a46/ov7750_ov7251_csp3_rev1f_ds_2.12.pdf
+
+As I read it, the pixelrate is configured via PLL2. Those settings are
+identical between the 2 link frequencies, so the pixel rate should be
+48000000 in both cases. Without that I was getting 75fps from
+libcamera when I asked for 100fps. 100 * 480 / 638.4 = 75.1fps.
+The settings for PLL2 with a 24MHz extclk exactly follow the sample
+PLL configuration in table 2.10 of the datasheet. For 24MHz the
+multiplier is 0x28 / 40dec vs 0x32 / 50dec for 19.2MHz, resulting in
+the same rate.
+
+The settings for PLL1 seem to be all over the shop if the datasheet is correct.
+
+With a 24MHz extclk and measuring with an oscilloscope, the "240MHz
+link freq" actually runs at 400MHz. The "319.2MHz link frequency" runs
+at 454MHz.
+If I follow the datasheet, then the 240MHz mode does fall out at 400MHz
+For the 319.2MHz mode I reckon that the VCO is well out of spec -
+2.128GHz when the limit is 800MHz.
+
+The numbers for the 19.2MHz modes look sane in their ratios, but I
+can't test them.
+The 240MHz link freq does a prediv of 3, multiply by 75, and divider
+of 1, which keeps things in range, and 19.2 / 3 * 75 / 1 = 480MPix/s,
+or 240MHz.
+The 319.2MHz link frequency uses a prediv of 1 and multiply by 0x85 /
+133 gives a VCO frequency of 2.55GHz, when again the limit is 800MHz.
+That then gets divided by 4 afterwards for a supposed result of
+638.4MPix/s or 319.2MHz.
+
+@D. Manresa it'd be worth trying using a prediv instead of (post)div:
+static const struct ov7251_pll1_cfg ov7251_pll1_cfg_19_2_mhz_319_2_mhz = {
+    .pre_div = 0x04,
+    .mult = 0x85,
+    .div = 0x01,
+    .pix_div = 0x0a,
+    .mipi_div = 0x05,
+};
+
+So I'll agree the patch is correct, but it'll show up other failures
+that were currently masked. I'm not fussed about the 24MHz mode, but
+it sounds like there are devices using the 19.2MHz / 319.2MHz mode.
+
+(I've also noted that the driver allows V4L2_CID_VBLANK to go down to
+1, when 40 or below seem to give corrupt images for me. Implementing
+set_frame_interval for a raw sensor is also wrong, particularly when
+V4L2_CID_VBLANK is also implemented. I'll see if I can find some time
+to patch it up).
+
+Hope that helps.
+  Dave
+
+> The diagnosis holds on a Surface Pro 7+ (IPU6 Tiger Lake, 8086:9a19).
+> ipu-bridge gives this machine the same single frequency as yours:
+>
+>   IPU_SENSOR_CONFIG("INT347E", 1, 319200000)
+>
+> and unpatched, the sensor reports
+>
+>   link_frequency ... value=0 (240000000)
+>   pixel_rate ... value=48000000
+>
+> exactly the mismatch you describe.
+>
+> Applying the patch makes this machine worse, though, and since it carries
+> Cc: stable I think that is worth resolving before it goes in.
+>
+> The fix does not only correct a reported value: it reprograms the PLL and
+> moves the link from 480 to 638.4 Mbps.
+>
+>                      unpatched v6.19     + this patch
+>   link_frequency     0 (240000000)       1 (319200000)
+>   pixel_rate         48000000            63840000
+>   PLL1 0x30b1/b3/b4  0x01 / 0x4b / 0x03  0x04 / 0x85 / 0x01
+>
+> The IPU6 receiver here does not hold that link. 150-frame captures of the
+> 640x480 30 fps mode, counting dropped buffers from v4l2-ctl and csi2-5
+> error lines from dmesg (including the "callbacks suppressed" lines):
+>
+>   unpatched  run 1  dropped 23   csi2 errors ~7216
+>   unpatched  run 2  dropped 23   csi2 errors 13277
+>   unpatched  run 3  dropped 13   csi2 errors 4722
+>   patched    run 1  dropped 106  csi2 errors 120788
+>   patched    run 3  stalled: 50 frames, then none for 60 s
+>
+> The errors are DPHY fatal error, SOT sync error, inter-frame short/long
+> packet discarded and frame sync error. The frames that do arrive look
+> normal, so this is the link and not the image.
+>
+> Two things to be honest about. This unit is not a clean baseline: even
+> unpatched, mainline already logs thousands of CSI-2 errors per run at
+> 30 fps, and the out-of-tree Surface driver sidesteps the whole area with
+> a vts_boost parameter -- at its production VTS of 3448, 15 fps, I measure
+> zero CSI-2 errors. And the sample is small: three runs each, one unit.
+> What makes me report it anyway is that the one-line difference was
+> consistent in every run, that it introduced hard stalls I never saw
+> unpatched, and that going back to a build with only that line reverted
+> gave 568 consecutive frames with zero CSI-2 errors.
+>
+> One hypothesis tried and failed, so you do not repeat it: the out-of-tree
+> Surface driver notes that the vendor runs the 319.2 MHz PLL with the MIPI
+> divider at 0x01 rather than 0x05. Building this patch with mipi_div
+> changed to 0x01 in the 19_2_mhz_319_2_mhz entry was worse, not better --
+> 3 frames in about four minutes. So the divider alone is not the missing
+> piece. The vendor path also uses VTS 522, which I did not try.
+>
+> So either ipu-bridge's advertised link frequency is wrong for this SKU,
+> or mainline's 319.2 MHz PLL entry needs more than the index fix to be
+> usable. I have the machine for a few more days and can run whatever would
+> help decide which.
+>
+> The rest of the series tests well here; I have replied to the cover letter
+> with that.
+>
+> D. Manresa
+>
+> (Written with AI assistance, directed and reviewed by me.)
+>
