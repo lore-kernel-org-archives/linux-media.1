@@ -1,84 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105350;
-	b=HN+tpQ0qpKBCrV77HKwboJAXkcaSnZjtegOUQ/YYs9nepwrjEdJfZ+exWL6cwpqmrZlM
-	 oGmJ8qbC0jMXcC8oTLpK03qgE4JKXO9elENTnPeljJq08om5mHh6AAybeaToFQJJDFTeY
-	 CxTbKVasnPbEtjCYn/rstvYswpuL5nnu2XPXBVGzEMWKyNF9HgmJ+I2COCNnoMRLKpQTV
-	 GLsGnBvFAe4lPuKrfH6i0Gqk/S3ois5ouQsTa1tF9xpwGF4VJGFaRJWLlWPh1Yb4xMviv
-	 c4NBpbxhBJ6SqQKZ+4Tcj1flVCOveSXnvR5Glh4j5zZ//zqSrWfhAqNh/4+x/xYG3FA==
+	t=1793105858;
+	b=32ig/YH3NctxQ2nO7n1xmR2LBlSgbstzGkJL7VX6mC9lM3fc9aJ2+FWWAr8SmU1nMg9J
+	 J6uB62UK8r4eWilQ3ePEn81NtJC73bmWlHeIMpRZBOHDjUROnW3dwdrhFgvfL99kc3Mcz
+	 lhrbXy6Uq42qP6CdA418sWZm4GY2gWogCVOp3EVQxXO8sAt39uWvlt/ezveP+cDrFwXoD
+	 Nvijd45dA80c1sPOjTlnfxCn0b7Ifp3NtBgFMg8f4ygQWy//PcX7rz/Imz16hlKPAWFxe
+	 y1g8SXTTIChZKQQe04u9+c/9LB2wWhpd0ZYR8QkaH5xtMwODxtUFmVrZCmAf7v9Zxqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105350;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105858;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Fk4tWvtlQqWKIFqJ5KSuzG0MEcWeW6IEPLtAR2pn3Ag=;
-	b=cQXOQ/TySyra3sQd2hlYzfkP0nvo0VXXgoJtVStK/WpOlYDLHQcB1jfh6xcORMCwrnmM
-	 fIDovN77hj0ER721vMOSZldH2mnxtLVCaiYdmHv1jP9eU0LBhhxZLUJMruzrr0m844diI
-	 ZtY8EHf3ylllWGNIfGyzEWhEvBjnEcdvQ06lUfO/nmEeFNkvES75392c4KwprUCmzWj9o
-	 mIiopC9iGyG3Lakt4/Nb4xnrE50coqTvhKHCXLYLGq09spimoUkB5+cicvRpWx1PHb8i+
-	 59JdcEF8oakb5hBdvZSKPmFTHiilFcZMXaQp04+bRBzPMAWfsxf2Jr0oe9Dox3GR+dA==
+	bh=ladm7VNw3w94qCYNsul6pq86i2SGy96Tryu3X7+mFyY=;
+	b=23aMJRzZ+fBTZ7JoBtpzTCbu62WU7FBFxcUFPQD/gG18OuHcijUQ3jQQ3rQDBUKfjiPt
+	 DmCMhnjXU662pDKpX0w7Ve5hL8eihUEpWqmCAFY1KDlwSZ4HRvEJemWDl7T0xdhUQZ8AU
+	 e/Zjrgetj8KozjQZv6VsS3a91uNDE92fANrF41srHsLeqvf84Igpe1cbA7YUC4jCRssDg
+	 F1q/TbusdEga5ov/ams3VWNkLuao1qbv3CNRJ+p2bLw6myvhwySNkdCdUl+MDr5+N5N8Q
+	 gACrKuXVKX3QVpgZ5Th1rMOCKgKAvHgPA427Pah0JrLhG79gtQZF24eBlqoZ4mkimWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ieee.org;
-	spf=pass smtp.mailfrom=ieee.org;
-	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=WiLlRCPE;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRc9dkJP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B2D606A33E
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 12:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19B2D606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F853606A31B;
+	Tue, 27 Oct 2026 12:57:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=WiLlRCPE
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93cbc3ab2fdso180953685a.3
-        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 05:49:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ieee.org; s=google; t=1793105348; x=1793710148; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fk4tWvtlQqWKIFqJ5KSuzG0MEcWeW6IEPLtAR2pn3Ag=;
-        b=WiLlRCPEdcKxVRkxZZqDI0Of8j/YUHQ6LS4ozirUJJdpxPXPdnzPLdYFRcQOvo4/Qh
-         kaM1KrVlcAdeEQlKG7Dp5+1ZbNXqS8mP0v8jn7zOVZpb+/XX4ik2Un0lMLbRgcwUhbOk
-         ZgM7HTwfGtUGBuxb1l3NzKDURXoUGn6pOrbic=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793105348; x=1793710148;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Fk4tWvtlQqWKIFqJ5KSuzG0MEcWeW6IEPLtAR2pn3Ag=;
-        b=p6mWszPaiTFrGqJ4PCW7R3kJZiRtLSIwFm5UEajXp1soVHePxoZg9+6NP6Bm6M8jfk
-         11DdKoWBqX+tZYWp2vlTaHyUGsYUtZLT9zJWWQxpIj9rsoEgm00xbpgR9EjqAlxlqgO8
-         nV4uNSvT9Zr26g4m05Iq9LDeHTqb04fUXjd0Z+ab0O82296xWEhJmBuKwwQGRdRWBoyG
-         oIhoHvM/kmoyd0kxYiRRESQj4AmOkP2Nf90qaieMHIJXqoJFIWTcIHqedSwB+ksJpp1Q
-         Ca59U2YI/i5g892WqJ4PROy1fEpIGkU2doaBPuw5hdsF0JnAa3Jg5hg6afhfnfGHaYg+
-         oS9A==
-X-Forwarded-Encrypted: i=1; AKwUvBwPDsA3vo8UiRyuROswRIleiKQ5FIR2cBC1MJzWL1+Z39TXYH/uilFiNQSFurPpb3VzV2w6k0g2h75aaQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIs/uopvmA+KB3LgcqB7NUE0JHuHYNusaxvmPr/DHQdEFh7TSTj
-	Z+8IGpDEDOHPqZLhbMmAeJgWJ9L4uf2qe/XHgMrNjerw7RSYhb+Oggf7944D7tWlvA==
-X-Gm-Gg: AYBFou3aYtLbY0KU7slAO4bUyLQB1CvIZrN/PU7uwKvR34u2bKD24/9A4a75rrtSJnR
-	YXr4Z4D/ukYWLq0Fv0jMZUKhBXIXd3bWxyxgf+ZXUnR/FgjY7S/KDqye+y9t/qLNv7CD7z4gRQJ
-	e39ahfhxBS/ZqfzERb/LZ/CJgfOg6jybzF/ce2kUvFLEmxTffxTLFj3e+4cli2IqsSPm3kQhavP
-	FHDFmkc/IUFDPa1d0xNfsaBY9Ibd7Mde9HM0MWx5OE+T9WXdxbFZSBG9B/TzyYNK9Py1XXqlBwG
-	1ROJkOhmWf17Z5dJavcOhuXiqNu2pBwVT/94SGPRO2PcseE3JZ939yCfFLerRxjDxe95wNENLuK
-	5TS34X/VT4b70gb5X53cTLibpeGaDklHe5Oash6mSxDhI/Kgy0drpdi1DCEMTy7SNKgAFmROgSW
-	ikQMPY+8oe2aoQD1ZsGxwyfT7tOZ/3h4Ws/p+xqscSIW0LjjYeMqYspe13da+CEHnswWzEAVPHD
-	Ox7mcGFjJm19Bu2+QBfk1ozQKVWRDZPz+JKjDf/hgVsm2OSKLU=
-X-Received: by 2002:a05:620a:801c:b0:93e:7944:b874 with SMTP id af79cd13be357-940ef93a596mr1396495185a.33.1793105347945;
-        Tue, 27 Oct 2026 05:49:07 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.googlemail.com with ESMTPSA id af79cd13be357-940f0a8549fsm956941085a.39.2026.10.27.05.49.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 27 Oct 2026 05:49:06 -0700 (PDT)
-Message-ID: <ccf0300c-80e8-41a5-a394-6ec55fddc913@ieee.org>
-Date: Tue, 27 Oct 2026 07:49:03 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mRc9dkJP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BB821F01825;
+	Tue, 27 Oct 2026 12:57:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793105857;
+	bh=ladm7VNw3w94qCYNsul6pq86i2SGy96Tryu3X7+mFyY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mRc9dkJP49MiwKf3rSOK32sJbhXthHhtbOG/JfyMsNlpq7pddc8gs2aJtUy8AY7Mh
+	 e6fQH/rpFVkUt8zIxrDEPKetT2/IVD5SDxlMNlpd4B1KjR5E/NPJRgUKtMPNeeyJUp
+	 wRqyNNMGOH8MgTooKcF+gd8ErmtonbxJKyUs5/hmKrrBE5bjsaaRYSdHsZwtWl0DVx
+	 i3IFSra+WQuJmNFXuA28aJnUOLl4TvRN2SffGsty6xKJq99kBbfX1DA/1BPL2AyAXs
+	 DEUqcdLKfPs7C4l3dOWepcqNoiFYD9dOggir6Vsr3/0u3ZWs8O58uYpDxNriGMY/SF
+	 dncx6iS/hqWuw==
+Message-ID: <6358dcdc-cdf4-4986-ba6b-a5cca4a093fa@kernel.org>
+Date: Tue, 27 Oct 2026 14:57:31 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,130 +52,172 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/8] net: ipa: migrate firmware loading to
- qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Alex Elder <elder@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jeff Johnson <jjohnson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org
-References: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
- <20260925155737.4161358-6-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Alex Elder <elder@ieee.org>
-In-Reply-To: <20260925155737.4161358-6-mukesh.ojha@oss.qualcomm.com>
+Subject: Re: [PATCH 4/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-msm@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-media@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+References: <20261023163057.775917-1-vz@kernel.org>
+ <20261023163057.775917-5-vz@kernel.org>
+ <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
+ <378094fb-5f7f-42c6-a91f-158e2083a6cb@kernel.org>
+ <CAFEp6-3XTotgkOKRACGLT91wUw30CgFB=44RtHnXfA6cOF7bVA@mail.gmail.com>
+ <0d25a732-ccd5-4a7b-9809-93e67899b4e7@kernel.org>
+ <CAFEp6-1fAAfG+dMsS+bK4KDjX795OXhWBSrkWZKzM4P9r7+m1g@mail.gmail.com>
+From: Vladimir Zapolskiy <vz@kernel.org>
+In-Reply-To: <CAFEp6-1fAAfG+dMsS+bK4KDjX795OXhWBSrkWZKzM4P9r7+m1g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/25/26 10:57 AM, Mukesh Ojha wrote:
-> ipa_firmware_load() calls qcom_mdt_load() which bundles metadata init,
-> memory setup, and segment loading with no PAS context, then calls
-> qcom_pas_auth_and_reset() which skips the shmbridge prepare step required
-> before TrustZone authentication.
+Hi Loic.
+
+On 10/27/26 12:31, Loic Poulain wrote:
+> Hi Vlad,
 > 
-> Replace the open-coded memremap()/qcom_mdt_load()/memunmap() sequence
-> with devm_qcom_pas_context_alloc() and qcom_mdt_pas_load(), then pass
-> the same context to qcom_pas_prepare_and_auth_reset().
 > 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-
-I think this does the right thing, however the IPA driver does
-not use resource-managed (devm) interfaces, and this would be
-a first.
-
-Why does "qcom_pas.c" not offer an interface that can be used
-without devm_kzalloc()?  What if someone wanted to pass in a
-preallocated structure to be initialized with the (publicly
-defined) PAS context?
-
-I was going to suggest that you just rework the code to use
-gotos and the cleanup path as used everywhere else in this
-driver, but it looks like that's not easy.
-
-I'm willing to ack this but I would have preferred to preserve
-consistency.
-
-Reluctantly:
-
-Acked-by: Alex Elder <elder@riscstar.com>
-
-
-> ---
->   drivers/net/ipa/ipa_main.c | 24 +++++++++++-------------
->   1 file changed, 11 insertions(+), 13 deletions(-)
+> On Tue, Oct 27, 2026 at 10:54 AM Vladimir Zapolskiy <vz@kernel.org> wrote:
+>>
+>> On 10/27/26 11:07, Loic Poulain wrote:
+>>> On Mon, Oct 26, 2026 at 11:39 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
+>>>>
+>>>> Hi Loic.
+>>>>
+>>>> On 10/26/26 18:32, Loic Poulain wrote:
+>>>>> On Fri, Oct 23, 2026 at 6:31 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
+>>>>>>
+>>>>>> Add Qualcomm Waipio CAMSS device tree node to the platform dtsi file,
+>>>>>> the CAMSS input ports are connected to output ports of CSIPHY devices.
+>>>>>>
+>>>>>> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
+>>>>>> ---
+>>>>>>     arch/arm64/boot/dts/qcom/sm8450.dtsi | 167 +++++++++++++++++++++++++++
+>>>>>>     1 file changed, 167 insertions(+)
+>>>>>>
+>>>>>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>>>>>> index babf1a4196a1..7f5b0501a23e 100644
+>>>>>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>>>>>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>>>>>> @@ -3310,6 +3310,167 @@ cci1_i2c1: i2c-bus@1 {
+>>>>>>                            };
+>>>>>>                    };
+>>>>>>
+>>>>>> +               camss: isp@acb6000 {
+>>>>>> +                       compatible = "qcom,waipio-camss";
+>>>>>> +                       reg = <0 0xacb6000 0 0x1000>,
+>>>>>> +                             <0 0xacb7000 0 0x1000>,
+>>>>>> +                             <0 0xacb9000 0 0x1000>,
+>>>>>> +                             <0 0xacbb000 0 0x1000>,
+>>>>>> +                             <0 0xacc6000 0 0x1000>,
+>>>>>> +                             <0 0xacca000 0 0x1000>,
+>>>>>> +                             <0 0xacf6000 0 0x1000>,
+>>>>>> +                             <0 0xacf7000 0 0x1000>,
+>>>>>> +                             <0 0xacf8000 0 0x1000>,
+>>>>>> +                             <0 0xac62000 0 0x3000>,
+>>>>>> +                             <0 0xac71000 0 0x3000>,
+>>>>>> +                             <0 0xac80000 0 0x3000>,
+>>>>>> +                             <0 0xacc7000 0 0x2000>,
+>>>>>> +                             <0 0xaccb000 0 0x2000>;
+>>>>>> +                       reg-names = "csid_wrapper",
+>>>>>> +                                   "csid0",
+>>>>>> +                                   "csid1",
+>>>>>> +                                   "csid2",
+>>>>>> +                                   "csid_lite0",
+>>>>>> +                                   "csid_lite1",
+>>>>>> +                                   "tpg0",
+>>>>>> +                                   "tpg1",
+>>>>>> +                                   "tpg2",
+>>>>>> +                                   "vfe0",
+>>>>>> +                                   "vfe1",
+>>>>>> +                                   "vfe2",
+>>>>>> +                                   "vfe_lite0",
+>>>>>> +                                   "vfe_lite1";
+>>>>>
+>>>>> Is there a camss "top" register to describe here? e.g. to retrieve the
+>>>>> CAMSS hardware version.
+>>>>
+>>>> I'm not aware of anything like that. What is "CAMSS hardware version"?
+>>>>
+>>>> CAMSS embraces various blocks, there are CSID and VFE, full and lite
+>>>> IPs, and all these components do export their versions individually.
+>>>
+>>> I mean, CAMSS usually has a top-level register block (often top or
+>>> cpas_top) that contains the Titan/Spectra version information, along
+>>> with various global configuration and mux registers.
+>>
+>> On SM8450 there is "cpas_top" register <0xac13000 0x1000> (not in the
+>> series), I believe you reference to it.
+>>
+>> Is CPAS a natural part of CAMSS? Can it be modelled differently, e.g.
+>> as a separate device/driver, like it was done with JPEG or CSIPHY?
+>>
+>> I see that there are only SM6150 and SM6350 platforms mention this
+>> register, to capture and process frames on SM8450 there is no need
+>> to program CPAS.
+>>
+>> Note, that even SM6150 and SM6350 platforms do not use this register,
+>> it makes it redundant.
+>>
+>>> In particular, exposing this block could be useful for reporting the
+>>> Spectra version to userspace, for example through libcamera.
+>>
+>> It could be so, but adding dead code is an anti-pattern in software design.
+>>
+>>> Moreover, if the goal is to describe the CAMSS hardware exhaustively
+>>> in DT, this block should probably be represented as well. Whether it
+>>
+>> Here I oppose such a goal as impractical, the set goal is to get working
+>> camera on the platform with the minimum of irreversible changes. It was
+>> proven multiple times in the past, that "an exhaustive description"
+>> equals to "the totally broken description", and brings nothing valuable
+>> but irrecoverable ethernal problems to overcome.
+>>
+>>> belongs in this specific binding is open for discussion, but my
+>>> inclination is that it does.
+>>
+>> This register is not needed to get CAMSS up to the functionally
+>> working stage, which is represented by the series.
 > 
-> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-> index 14ac2d2faf7c..6964395caedd 100644
-> --- a/drivers/net/ipa/ipa_main.c
-> +++ b/drivers/net/ipa/ipa_main.c
-> @@ -585,12 +585,11 @@ static void ipa_deconfig(struct ipa *ipa)
->   
->   static int ipa_firmware_load(struct device *dev)
->   {
-> +	struct qcom_pas_context *ctx;
->   	const struct firmware *fw;
->   	struct resource res;
->   	phys_addr_t phys;
->   	const char *path;
-> -	ssize_t size;
-> -	void *virt;
->   	int ret;
->   
->   	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
-> @@ -615,24 +614,23 @@ static int ipa_firmware_load(struct device *dev)
->   	}
->   
->   	phys = res.start;
-> -	size = (size_t)resource_size(&res);
-> -	virt = memremap(phys, size, MEMREMAP_WC);
-> -	if (!virt) {
-> -		dev_err(dev, "unable to remap firmware memory\n");
-> -		ret = -ENOMEM;
-> +	ctx = devm_qcom_pas_context_alloc(dev, IPA_PAS_ID, phys,
-> +					  resource_size(&res));
-> +	if (IS_ERR(ctx)) {
-> +		ret = PTR_ERR(ctx);
->   		goto out_release_firmware;
->   	}
->   
-> -	ret = qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL);
-> +	ret = qcom_mdt_pas_load(ctx, fw, path, NULL);
->   	if (ret) {
->   		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
-> -	} else {
-> -		ret = qcom_pas_auth_and_reset(IPA_PAS_ID);
-> -		if (ret)
-> -			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-> +		goto out_release_firmware;
->   	}
->   
-> -	memunmap(virt);
-> +	ret = qcom_pas_prepare_and_auth_reset(ctx);
-> +	if (ret)
-> +		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
-> +
->   out_release_firmware:
->   	release_firmware(fw);
->   
+> CAMSS already supports reading the hardware version from such
+> top-level register blocks and exposing it through the media framework.
+> While this is not strictly required, it will likely become useful to
+> libcamera in the future.
 
+Likely so, and I didn't know about the fact that "cpas_top" stores some
+hardware version information, which may be utilized by userspace, thank
+you for sharing this.
+
+Anyway at this stage, if there is no strong objections, I'd prefer to
+follow the conservative model of not adding "cpas_top" to CAMSS.
+
+Like it's been said, it might be preferred to create a new stand-alone
+CPAS device abstraction, with no conflict for I/O regions with CAMSS,
+especially assuming the latter one just does not need this I/O region
+at all to be functional.
+
+Also, I'm a bit concerned when the abstraction inversion is used as
+an argument, here the kernel should not depend on libcamera or other
+userspace component, but the opposite is to be satisfied, i.e. libcamera
+should work properly with 90% of CAMSS variants, which do not export
+"cpas_top" info, like this or many other recently added CAMSS variants.
+
+>> I believe someone may create a new fancy CPAS device driver or so, and
+>> the new device driver will utilize the "cpas_top" register and other
+>> CPAS resources in a better way, the register shall not be nailed to
+>> the CAMSS preliminarly.
+> 
+> Well, yes, we could certainly model it as a syscon node, especially
+> now that CAMSS is no longer the monolithic block it used to be.
+> 
+
+Sure, that's the view I share to exploit the modularisation at maximum.
+
+As always, thank you very much for review!
+
+-- 
+Best wishes,
+Vladimir
