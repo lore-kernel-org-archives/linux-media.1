@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793069354;
-	b=LcRz/S7SEkqoHHeKLsjGb2l8kJRfb5/BqJZ0RZjdCWgI4wjP8kmuhoTVnsiP7xTocjuu
-	 ChtdgFGr0kj5U1AeW/TpTLqdnp1tsVsQj7BdESqgMilKzCUDvZ5ORYz1wjH9gVYGkgEJe
-	 WI4tguAl+oJy6x3aQwjZWGwFy+3yar/bHb5otAjd335G6JdcXGEJ39jWa5WIW6aWMiqv8
-	 9Ag847Hoqa9L8KHBtANcCsgr16YwbpwmNHNSmOP/LJksmtbTg0ok7+DNnHLJSD7EvwB68
-	 q+rq0NPl6W5YrxBZMBpEZ1AmaRxy0KnUNqvPpXL2lsVOR0pOAH3eY6PkeK6aVbVM7Zg==
+	t=1793070434;
+	b=E9GGMxpsUOETVByBevNqFjUsdvBTSyqFt8dMrj+4rkuNdz8NAIeQqzUM93onkMEMBJBn
+	 YkOc9v1yEYlGjgE1G+EkQ96DiKwjO76zKfVUA1L0yGvt/LjrIRBMW59MklOOLlOc5sgmG
+	 +Jppl8mh2YHgdDzZLG1VoXvJMkEaQcyusy/A+/ntHpeVasv9xJnnPUTWjjR9Loex/mje1
+	 jh6YS005oX3PnVXtbg+R3CFAWiXO5EQ7ouZb0R7DRJbLP4Hcmx+GxTBboe/yNp7sGDnK3
+	 lLUdA/YVsaKM2aPsz2n8rw7gj65YWXduCkwrL5Kl9/C5f39PcBW/fKfq6iWZgC67tRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793069354;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=G934Mq/keLoDolgJR1gPsMrdwz79ahRc6imGh8/HQtc=;
-	b=e4MJLrRrv6fB9lM2xwNqqrud2aVGhNOzT1k11qxmDePDw/KGzUyOZEAWVgq5t1g/V/1h
-	 uAqozlLlXggtTMaZ2pkQ/n6QNrjTrOV5qww4Z86Pa0zhXP6Ja4HNwn4BJkdaco7OyDz+p
-	 XsZ4QsGUNuYzGQ4dTT3Tdi/J8JMaYyA5aDEAcJ1FXV1sugzbxK7l6WDamVosupROsen91
-	 UTqByIXL8vS/vhsRbWz2Jq43bVPKsCri0k/VrxqT5elYwr6hjppTZe6BcfBQSAGV2okON
-	 nt54X5JsmMJSSMdxE381cJmypbNo3CVcJyTHouA0SVajrUsbGxU7QlbhHcpw0xGKzaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793070434;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition;
+	bh=zPsRhvAj2KjNdGnX8BKq1TiCS12g1Yck2EzZySS8ELc=;
+	b=eZkuF77/gAKBe71AvH3y46CHlVhbZq32KsAXgHemL6l2G1Etum4q62p91gPPKrYUZdkJ
+	 YtIc+/g2EfEOSpOXFor0TqGPqwSxHgRjlJKxPzrL7B6GpCAcBzxvpWRrfO1helUPMw39k
+	 TkR0jWYUHdCliXrAmQOb/6S5StLdnzy9xNxhNIGNV+d0wePMPnoKd3dz07YtG2RkHP0gC
+	 G2dgjHymvNDQtIJv6WL23juIZru87bmecmHpn5RHJWg+GD2xHgXXm6uv0UxyVMNRI+3aZ
+	 efcBtA9dhNkSVlRz6o4A24Cu7EPw13cNkquZ/4Q2TCC29UGcPO7rwSFv+8lH/4bYFtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9E997606A31B;
-	Tue, 27 Oct 2026 02:49:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E997606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=G934Mq/keL
-	oDolgJR1gPsMrdwz79ahRc6imGh8/HQtc=; b=p332BPPAyEK8lvaqrhyr+p5gdh
-	6wyZ0Jb6hmB8UqSWRHUE/xrDgymSzs1VzyDC8k+BYW61CwY7im5FkMvKybXdGl4a
-	zL6RdIiwI2FwIiYESfxfc3TuuZBMSMBrWiYbihmjrwmDouZ/dExxXjaA/iTA6B3p
-	NHyb7z4/diitGnQ0Y=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.115])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkBWnwQZEeBqBLjsAA--.49584S2;
-	Tue, 27 Oct 2026 10:48:58 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v4 0/3] media: dvb: fix use-after-free family in dvb-core and dvb-usb disconnect paths
-Date: Tue, 27 Oct 2026 10:48:53 +0800
-Message-Id: <20261027024856.22764-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k9WJoWe9;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED378606A323
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 03:07:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED378606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k9WJoWe9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793070434; x=1824606434;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=a337CpttHxENc6aU5FBXxE6RHOOLsQmPMK7UYRW+ghk=;
+  b=k9WJoWe9G4vdZ89oCKCrk2VYW6/H15qOk0rV3WDrV41ksug+SAErbj9Z
+   X2L9JrxWcZctUN9UTg5dncL9RiO8BHZXkC1lgziW2IMht56woHo01GJWI
+   QZHkAGhAqTZfsXMyBUGgGYX4lxE/73s+Zjmv1Dae2UAQabZQK+UWHCgZf
+   Of/DazHmFiSSQG5dNa1np0RsQTia4exS/GdXRDHfar6vnLl866z2Z/jpo
+   9A6yjfEa9MFV+9LsNlhYIoxZ92Pb4YIUyVU314o8wrKvsRmLHoHC6VQkc
+   p9wjvJJ2RXV/wSWa69B1zoYvA1t5lnkSJIvHwMfFz5lZFkFRkJ503d7b6
+   Q==;
+X-CSE-ConnectionGUID: 6HuWjD1qRZyEMpFqn85QPw==
+X-CSE-MsgGUID: Oe5AUVYZSFWuXDdOfYQn6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1769246"
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="1769246"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 20:07:13 -0700
+X-CSE-ConnectionGUID: 6mCkHrXARl66SPYevaf3kQ==
+X-CSE-MsgGUID: WZ06hZcFRbSdOMp6BmDR+g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,180,1787036400"; 
+   d="scan'208";a="4515957"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Oct 2026 20:07:11 -0700
+Date: Tue, 27 Oct 2026 11:07:07 +0800
+From: kernel test robot <yi1.lai@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: oe-lkp@lists.linux.dev, lkp@intel.com, linux-media@vger.kernel.org,
+	yi1.lai@intel.com
+Subject: [sailus-media-tree:media-ref] [media]  696502a495:
+ BUG:kernel_NULL_pointer_dereference,address
+Message-ID: <202610271039.7cc92f63-lkp@intel.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,269 +76,179 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkBWnwQZEeBqBLjsAA--.49584S2
-X-Coremail-Antispam: 1UD129KBjvJXoWfGrWxAr1kZF17CFW8Kr1kGrg_yoWkKryfpa
-	95GrWYyrWDKwn7Zr47A3WUGr95Aa1Sya4Fgry3Gwnagr4rG347tr97K3W5uws8Grs7Ja4q
-	qwn8Wry8CF47A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9C14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr
-	0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVAC
-	Y4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJV
-	W8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
-	0VAGYxC7MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW8JwCF04k20xvY0x0EwIxGrw
-	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
-	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
-	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxK
-	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
-	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUkHUDUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2rfb0FSYwAAsx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi all,
 
-this is v4 of the series fixing a use-after-free family in the
-DVB-USB disconnect path, seen with a Pinnacle PCTV 400e USB DVB-S
-receiver (ttusb2 driver) on 7.1.2 + KASAN/UBSAN.  v4 keeps the v3
-structure and addresses the points raised while reviewing v3 (see
-the changes below).
 
-The root cause is a lifetime mismatch:
+Hello,
 
-  1. open("/dev/dvb/adapter0/frontend0") grabs a dvb_device ref and
-     starts kdvb-ad-0-fe-0;
-  2. ioctl(/dev/bus/usb/BBB/DDD, USBDEVFS_DISCONNECT_CLAIM) unbinds
-     the ttusb2 driver -> dvb_usb_device_exit() -> dvb_usb_exit() ->
-     frees everything the still-open descriptor can reach;
-  3. the fd's ->release(), or the in-flight frontend thread / i2c
-     transfer, then dereferences the already-freed
-     "struct dvb_usb_device" (usb_mutex, i2c_mutex, i2c_adap) and
-     the already-freed "struct dvb_device".
+kernel test robot noticed "BUG:kernel_NULL_pointer_dereference,address" on:
 
-Patch 1 fixes the "struct dvb_device" object itself:
-dvb_remove_device() dropped the minors-table reference before it was
-done using the object, and dvb_register_device() published the file
-operations before the registration steps that can fail, so an error
-there freed them underneath a concurrent open().  The minor stays
-reserved from the start, but the file operations are installed only
-after device_create() has succeeded.
+commit: 696502a4953ea062964ebe1f3b1a09a9d6c8a591 ("media: mc: Implement best effort media device removal safety sans refcount") git://linuxtv.org/sailus/media_tree.git media-ref
 
-Patch 2 fixes dvb_frontend_release() and the dvb_frontend_open() error
-path, which read dvbdev->users after dvb_generic_release() may already
-have dropped the last reference (KASAN at dvb_frontend.c:2903, and the
-same pattern in the open() failure unwinder).  The reference needed for
-the check is taken before dvb_generic_release(), while the file's own
-reference still guarantees that the object is alive, and it is dropped
-again right after the check.
+in testcase: boot
 
-Patch 3 gives "struct dvb_usb_device" a kref and a "dead" flag.  The
-reference is held for the whole lifetime of each registered frontend
-and dropped from a wrapper around fe->ops.release(), so the release
-callback that runs when the last descriptor is closed after a
-disconnect still sees live memory.  The embedded "struct usb_device"
-is pinned the same way, and the USB/i2c workers check ->dead while
-holding a reference and bail out of the actual hardware I/O instead of
-touching a gone device.  This covers crashes in i2c_transfer(),
-dvb_usb_generic_rw() and ttusb2_i2c_xfer(), including the qspinlock
-UBSAN splats caused by unlocking mutexes inside freed memory.
+config: i386-randconfig-011-20250511
+compiler: gcc-14
+test machine: qemu-system-i386 -enable-kvm -cpu Icelake-Server-noTSX,enforce,lm=off -smp 4 -m 4G
 
-Crashes addressed (excerpts below the diffstat):
+(please refer to attached dmesg/kmsg for entire log/backtrace)
 
-  KASAN: slab-use-after-free Read in i2c_transfer        (reports 1, 9)
-  KASAN: use-after-free Write in dvb_usb_generic_rw      (report 2)
-  UBSAN: array-index-out-of-bounds in i2c_transfer       (report 3)
-  KASAN: slab-use-after-free Read in dvb_frontend_release (report 4)
-  KASAN: null-ptr-deref Write in ttusb2_i2c_xfer         (report 5)
-  UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer    (report 6)
-  KASAN: slab-use-after-free Read in dvb_remove_device   (report 7)
-  KASAN: slab-use-after-free Read in dvb_device_open     (report 8)
 
-All three patches pass checkpatch with zero errors and warnings, apply
-on top of the media fixes base (git am reproduces the exact trees) and
-are build-tested on x86_64 with gcc 11.4: drivers/media/dvb-core and
-drivers/media/usb/dvb-usb are compiled with CONFIG_DVB_USB_TTUSB2=y,
-once built-in and once with CONFIG_MODULES=y and CONFIG_MEDIA_ATTACH=y
-so the module reference accounting in patch 3 is compiled as well.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <yi1.lai@intel.com>
+| Closes: https://lore.kernel.org/oe-lkp/202610271039.7cc92f63-lkp@intel.com
 
-Changes in v4:
 
-  - [PATCH 1/3] keeps dvb_minors[minor] reserved from the start but
-    installs dvbdev->fops only after device_create() succeeded;
-    dvb_device_open() returns -ENODEV for such an entry without
-    taking a reference, so the error paths free the file operations
-    and the object with no concurrent user in sight;
-  - [PATCH 3/3] dvb_usb_fe_release() calls dvb_detach() on the
-    driver release callback it calls, and the wrapper is installed
-    together with a matching __module_get(THIS_MODULE), both under
-    CONFIG_MEDIA_ATTACH, so the dvb_detach() that
-    dvb_frontend_invoke_release() applies to fe->ops.release stays
-    balanced; the wrapper is only
-    installed after a successful registration, because the early
-    registration failure paths do not set fe->dvb yet;
-    dvb_usb_adapter_init() unregisters the frontends it already
-    registered when a later step fails;
-    dvb_usb_device_init() marks the device dead on its error path;
-    ttusb2_i2c_xfer() re-checks ->dead after taking i2c_mutex;
-    dvb_usb_i2c_exit() restores the i2c adapter data pointer after
-    i2c_del_adapter() cleared it.
+[    5.959887][    T1] BUG: kernel NULL pointer dereference, address: 00000000
+[    5.961338][    T1] #PF: supervisor read access in kernel mode
+[    5.962189][    T1] #PF: error_code(0x0000) - not-present page
+[    5.962189][    T1] *pde = 00000000
+[    5.962189][    T1] Oops: Oops: 0000 [#1] SMP
+[    5.962189][    T1] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                T   7.3.0-rc1+ #1 PREEMPT(full)
+[    5.962189][    T1] Tainted: [T]=RANDSTRUCT
+[    5.962189][    T1] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[    5.962189][    T1] EIP: strlen (x86/lib/string_32.c:148)
+[    5.962189][    T1] Code: c4 ac 38 e0 74 09 84 c0 75 f7 be 01 00 00 00 89 f0 48 5e 5d 31 d2 c3 8d 76 00 3e 8d 74 26 00 55 83 c9 ff 89 e5 57 89 c7 31 c0 <f2> ae b8 fe ff ff ff 5f 5d 29 c8 31 c9 c3 66 90 3e 8d 74 26 00 85
+All code
+========
+   0:	c4                   	(bad)
+   1:	ac                   	lods   %ds:(%rsi),%al
+   2:	38 e0                	cmp    %ah,%al
+   4:	74 09                	je     0xf
+   6:	84 c0                	test   %al,%al
+   8:	75 f7                	jne    0x1
+   a:	be 01 00 00 00       	mov    $0x1,%esi
+   f:	89 f0                	mov    %esi,%eax
+  11:	48 5e                	rex.W pop %rsi
+  13:	5d                   	pop    %rbp
+  14:	31 d2                	xor    %edx,%edx
+  16:	c3                   	ret
+  17:	8d 76 00             	lea    0x0(%rsi),%esi
+  1a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
+  1f:	55                   	push   %rbp
+  20:	83 c9 ff             	or     $0xffffffff,%ecx
+  23:	89 e5                	mov    %esp,%ebp
+  25:	57                   	push   %rdi
+  26:	89 c7                	mov    %eax,%edi
+  28:	31 c0                	xor    %eax,%eax
+  2a:*	f2 ae                	repnz scas %es:(%rdi),%al		<-- trapping instruction
+  2c:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+  31:	5f                   	pop    %rdi
+  32:	5d                   	pop    %rbp
+  33:	29 c8                	sub    %ecx,%eax
+  35:	31 c9                	xor    %ecx,%ecx
+  37:	c3                   	ret
+  38:	66 90                	xchg   %ax,%ax
+  3a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
+  3f:	85                   	.byte 0x85
 
-The patches are real git diffs, produced by "git format-patch" against
-the media fixes branch.
+Code starting with the faulting instruction ===========================================
+   0:	f2 ae                	repnz scas %es:(%rdi),%al
+   2:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+   7:	5f                   	pop    %rdi
+   8:	5d                   	pop    %rbp
+   9:	29 c8                	sub    %ecx,%eax
+   b:	31 c9                	xor    %ecx,%ecx
+   d:	c3                   	ret
+   e:	66 90                	xchg   %ax,%ax
+  10:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
+  15:	85                   	.byte 0x85
+[    5.962189][    T1] EAX: 00000000 EBX: 87846e08 ECX: ffffffff EDX: 00000000
+[    5.962189][    T1] ESI: 00000000 EDI: 00000000 EBP: 80be5d90 ESP: 80be5d8c
+[    5.962189][    T1] DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068 EFLAGS: 00010246
+[    5.962189][    T1] CR0: 80050033 CR2: 00000000 CR3: 0347f000 CR4: 003506d0
+[    5.962189][    T1] Call Trace:
+[    5.962189][    T1]  simple_start_creating (linux/fortify-string.h:218 libfs.c:2302)
+[    5.962189][    T1]  ? simple_pin_fs (libfs.c:1112)
+[    5.962189][    T1]  debugfs_start_creating (debugfs/inode.c:397 debugfs/inode.c:362)
+[    5.962189][    T1]  debugfs_create_dir (debugfs/inode.c:575)
+[    5.962189][    T1]  __media_device_register (media/mc/mc-device.c:892 (discriminator 1))
+[    5.962189][    T1]  vicodec_probe (media/test-drivers/vicodec/vicodec-core.c:2180)
+[    5.962189][    T1]  platform_probe (base/platform.c:1507)
+[    5.962189][    T1]  really_probe (base/dd.c:628 base/dd.c:706)
+[    5.962189][    T1]  __driver_probe_device (base/dd.c:868)
+[    5.962189][    T1]  driver_probe_device (base/dd.c:898)
+[    5.962189][    T1]  __driver_attach (base/dd.c:1292 base/dd.c:1232)
+[    5.962189][    T1]  ? __device_attach_driver (base/dd.c:1030)
+[    5.962189][    T1]  bus_for_each_dev (base/bus.c:383)
+[    5.962189][    T1]  driver_attach (base/dd.c:1310)
+[    5.962189][    T1]  ? __device_attach_driver (base/dd.c:1030)
+[    5.962189][    T1]  bus_add_driver (base/bus.c:763)
+[    5.962189][    T1]  driver_register (base/driver.c:174)
+[    5.962189][    T1]  __platform_driver_register (base/platform.c:995)
+[    5.962189][    T1]  vicodec_init (media/test-drivers/vicodec/vicodec-core.c:2254)
+[    5.962189][    T1]  ? cxd2880_spi_driver_init (media/spi/cxd2880-spi.c:663)
+[    5.962189][    T1]  do_one_initcall (main.c:1357)
+[    5.962189][    T1]  ? rdinit_setup (main.c:595)
+[    5.962189][    T1]  ? debug_smp_processor_id (smp_processor_id.c:58)
+[    5.962189][    T1]  ? rcu_is_watching (linux/context_tracking.h:128 rcu/tree.c:753)
+[    5.962189][    T1]  do_initcalls (main.c:1419 (discriminator 1) main.c:1435 (discriminator 1))
+[    5.962189][    T1]  kernel_init_freeable (main.c:1455 main.c:1670)
+[    5.962189][    T1]  ? rest_init (main.c:727)
+[    5.962189][    T1]  kernel_init (main.c:1560)
+[    5.962189][    T1]  ret_from_fork (x86/kernel/process.c:158)
+[    5.962189][    T1]  ? rest_init (main.c:727)
+[    5.962189][    T1]  ret_from_fork_asm (x86/entry/entry_32.S:736)
+[    5.962189][    T1]  entry_INT80_32 (x86/entry/entry_32.S:940)
+[    5.962189][    T1] Modules linked in:
+[    5.962189][    T1] CR2: 0000000000000000
+[    5.962189][    T1] ---[ end trace 0000000000000000 ]---
+[    5.962189][    T1] EIP: strlen (x86/lib/string_32.c:148)
+[    5.962189][    T1] Code: c4 ac 38 e0 74 09 84 c0 75 f7 be 01 00 00 00 89 f0 48 5e 5d 31 d2 c3 8d 76 00 3e 8d 74 26 00 55 83 c9 ff 89 e5 57 89 c7 31 c0 <f2> ae b8 fe ff ff ff 5f 5d 29 c8 31 c9 c3 66 90 3e 8d 74 26 00 85
+All code
+========
+   0:	c4                   	(bad)
+   1:	ac                   	lods   %ds:(%rsi),%al
+   2:	38 e0                	cmp    %ah,%al
+   4:	74 09                	je     0xf
+   6:	84 c0                	test   %al,%al
+   8:	75 f7                	jne    0x1
+   a:	be 01 00 00 00       	mov    $0x1,%esi
+   f:	89 f0                	mov    %esi,%eax
+  11:	48 5e                	rex.W pop %rsi
+  13:	5d                   	pop    %rbp
+  14:	31 d2                	xor    %edx,%edx
+  16:	c3                   	ret
+  17:	8d 76 00             	lea    0x0(%rsi),%esi
+  1a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
+  1f:	55                   	push   %rbp
+  20:	83 c9 ff             	or     $0xffffffff,%ecx
+  23:	89 e5                	mov    %esp,%ebp
+  25:	57                   	push   %rdi
+  26:	89 c7                	mov    %eax,%edi
+  28:	31 c0                	xor    %eax,%eax
+  2a:*	f2 ae                	repnz scas %es:(%rdi),%al		<-- trapping instruction
+  2c:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+  31:	5f                   	pop    %rdi
+  32:	5d                   	pop    %rbp
+  33:	29 c8                	sub    %ecx,%eax
+  35:	31 c9                	xor    %ecx,%ecx
+  37:	c3                   	ret
+  38:	66 90                	xchg   %ax,%ax
+  3a:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
+  3f:	85                   	.byte 0x85
 
-YuanZhe Liu (3):
-  media: dvb-core: fix use-after-free in dvb_remove_device()
-  media: dvb-core: keep dvb_device alive while checking users count in
-    frontend release paths
-  media: dvb-usb: refcount dvb_usb_device to fix disconnect UAF on open
-    chardevs
+Code starting with the faulting instruction ===========================================
+   0:	f2 ae                	repnz scas %es:(%rdi),%al
+   2:	b8 fe ff ff ff       	mov    $0xfffffffe,%eax
+   7:	5f                   	pop    %rdi
+   8:	5d                   	pop    %rbp
+   9:	29 c8                	sub    %ecx,%eax
+   b:	31 c9                	xor    %ecx,%ecx
+   d:	c3                   	ret
+   e:	66 90                	xchg   %ax,%ax
+  10:	3e 8d 74 26 00       	ds lea 0x0(%rsi,%riz,1),%esi
+  15:	85                   	.byte 0x85
 
- drivers/media/dvb-core/dvb_frontend.c    | 19 +++++++
- drivers/media/dvb-core/dvbdev.c          | 37 +++++++++++--
- drivers/media/usb/dvb-usb/dvb-usb-dvb.c  | 66 ++++++++++++++++++++++--
- drivers/media/usb/dvb-usb/dvb-usb-i2c.c  | 11 +++-
- drivers/media/usb/dvb-usb/dvb-usb-init.c | 47 +++++++++++++++--
- drivers/media/usb/dvb-usb/dvb-usb-urb.c  | 21 +++++++-
- drivers/media/usb/dvb-usb/dvb-usb.h      | 14 +++++
- drivers/media/usb/dvb-usb/ttusb2.c       | 24 +++++++--
- 8 files changed, 221 insertions(+), 18 deletions(-)
+
+The kernel config and materials to reproduce are available at:
+https://download.01.org/0day-ci/archive/20261027/202610271039.7cc92f63-lkp@intel.com
+
 
 --
-Excerpts from the KASAN/UBSAN reports (Pinnacle PCTV 400e, 7.1.2,
-CONFIG_KASAN=y CONFIG_UBSAN=y):
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
-Report 1: KASAN: slab-use-after-free Read in i2c_transfer
-
-  BUG: KASAN: slab-use-after-free in i2c_transfer+0x324/0x360
-  Read of size 8 at addr ffff8880050a0f08
-
-   i2c_transfer+0x324/0x360 drivers/i2c/i2c-core-base.c:2312
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-   __fput+0x3a6/0xac0 fs/file_table.c:510
-
-  Underlying object is the dvb_usb_device, freed by dvb_usb_device_exit()
-  on USB unbind while the fd was still open.
-
-Report 2: KASAN: use-after-free Write in dvb_usb_generic_rw
-
-  BUG: KASAN: use-after-free in mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
-  Write of size 8 at addr ffff8880050a4eb8 by task kdvb-ad-0-fe-0/268
-
-   mutex_unlock+0x5b/0xa0 kernel/locking/mutex.c:579
-   dvb_usb_generic_rw+0x216/0x460 drivers/media/usb/dvb-usb/dvb-usb-urb.c:59
-   ttusb2_msg+0x1f2/0x5a0 drivers/media/usb/dvb-usb/ttusb2.c:97
-   ttusb2_power_ctrl+0x8a/0xa0 drivers/media/usb/dvb-usb/ttusb2.c:483
-   dvb_usb_fe_wakeup+0x84/0x2d0 drivers/media/usb/dvb-usb/dvb-usb-dvb.c:254
-   dvb_frontend_thread+0x216/0x1620 drivers/media/dvb-core/dvb_frontend.c:677
-
-  The frontend kthread issues CMD_POWER while the device is being torn
-  down; d->usb_mutex belongs to the freed dvb_usb_device.
-
-Report 3: UBSAN: array-index-out-of-bounds in i2c_transfer
-
-  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
-  index 6996 is out of range for type 'long unsigned int [2]'
-
-   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
-   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
-   rt_mutex_lock+0xa9/0xb0 kernel/locking/rtmutex_api.c:89
-   i2c_transfer+0x1b3/0x360 drivers/i2c/i2c-core-base.c:2312
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-
-  Mutex in the freed dvb_usb_device has a garbage ->owner tail;
-  decode_tail indexes out of the per-cpu qnode array.
-
-Report 4: KASAN: slab-use-after-free Read in dvb_frontend_release
-
-  BUG: KASAN: slab-use-after-free in dvb_frontend_release+0x28b/0x2b0
-  drivers/media/dvb-core/dvb_frontend.c:2903
-  Read of size 8 at addr ffff88800632bd60
-
-   dvb_frontend_release+0x28b/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2903
-   __fput+0x3a6/0xac0 fs/file_table.c:510
-
-  Allocated by dvb_register_device+0x1d6/0x1230 dvbdev.c:472 /
-  dvb_register_frontend+0x3ed/0x640 dvb_frontend.c:3051.  The struct
-  dvb_device is freed by dvb_remove_device/dvb_device_put on disconnect,
-  then read at line 2903 ("dvbdev->priv") by the still-open fd's
-  release().
-
-Report 5: KASAN: null-ptr-deref Write in ttusb2_i2c_xfer
-
-  BUG: KASAN: null-ptr-deref in mutex_lock_interruptible+0x61/0xb0
-  kernel/locking/mutex.c:1059
-  Write of size 8 at addr 0000000000000ed0
-
-   mutex_lock_interruptible+0x61/0xb0 kernel/locking/mutex.c:1059
-   ttusb2_i2c_xfer+0x60/0x660 drivers/media/usb/dvb-usb/ttusb2.c:374
-   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-
-  i2c_get_adapdata() returned NULL after the dvb_usb_device was freed
-  (0xed0 is the offset of i2c_mutex inside it).
-
-Report 6: UBSAN: array-index-out-of-bounds in ttusb2_i2c_xfer
-
-  UBSAN: array-index-out-of-bounds in kernel/locking/qspinlock.h:68:9
-  index 8284 is out of range for type 'long unsigned int [2]'
-
-   queued_spin_lock_slowpath+0x7de/0x820 kernel/locking/qspinlock.c:285
-   _raw_spin_lock_irqsave+0xae/0xb0 kernel/locking/spinlock.c:166
-   mutex_unlock+0x9a/0xa0 kernel/locking/mutex.c:582
-   ttusb2_i2c_xfer+0x490/0x660 drivers/media/usb/dvb-usb/ttusb2.c:428
-   i2c_transfer+0x1c6/0x360 drivers/i2c/i2c-core-base.c:2292
-   tda10086_release+0x100/0x180 drivers/media/dvb-frontends/tda10086.c:692
-
-  mutex_unlock(&d->i2c_mutex) on the freed dvb_usb_device wakes a waiter
-  list that no longer exists.
-
-Report 7: KASAN: slab-use-after-free Read in dvb_remove_device
-
-  BUG: KASAN: slab-use-after-free in dvb_remove_device.part.0+0x1f9/0x250
-  drivers/media/dvb-core/dvbdev.c:606
-  Read of size 4 at addr ffff88800611ce2c
-
-   dvb_remove_device+0x1b/0x30 drivers/media/dvb-core/dvbdev.c:596
-   dvb_unregister_frontend+0x62/0x90 drivers/media/dvb-core/dvb_frontend.c:3080
-   dvb_usb_device_exit+0x1a4/0x490 drivers/media/usb/dvb-usb/dvb-usb-init.c:338
-   usb_unbind_interface+0x188/0x770 drivers/usb/core/driver.c:458
-
-  Freed by dvb_remove_device.part.0+0x1c8/0x250 (dvbdev.c:601): the
-  function frees dvbdev via dvb_device_put() and then still reads
-  dvbdev->minor at line 606 for device_destroy().
-
-Report 8: KASAN: slab-use-after-free Read in dvb_device_open
-
-  BUG: KASAN: slab-use-after-free in dvb_device_open+0x32c/0x350
-  drivers/media/dvb-core/dvbdev.c:99
-  Read of size 8 at addr ffff888004b50618
-
-   dvb_device_open+0x32c/0x350 drivers/media/dvb-core/dvbdev.c:99
-   chrdev_open+0x145/0x400 fs/char_dev.c:411
-
-  Freed by dvb_device_open+0x29c/0x350 (dvbdev.c:113): open() grabbed
-  the dvbdev from dvb_minors[] under minor_rwsem and the
-  dvb_device_get() succeeded, but f_op->open() then failed and
-  dvb_device_put() at line 113 freed it; a concurrent open() follows
-  the stale pointer.
-
-Report 9: general protection fault in i2c_transfer
-
-  RIP: 0010:i2c_transfer+0x1b0/0x360 drivers/i2c/i2c-core-base.c:2312
-   R14: ffffffff81ff8926  (call *(%r14) - garbage lock func ptr)
-
-   tda10086_read_byte.isra.0+0xe7/0x190 drivers/media/dvb-frontends/tda10086.c:65
-   tda10086_release+0xa3/0x180 drivers/media/dvb-frontends/tda10086.c:692
-   dvb_frontend_release+0x179/0x2b0 drivers/media/dvb-core/dvb_frontend.c:2934
-
-  Same i2c_transfer UAF as report 1, but here the freed memory was
-  reused so adap->bus_lock points to a garbage function and the
-  indirect call faults.
-
--- 
-2.34.1
 
