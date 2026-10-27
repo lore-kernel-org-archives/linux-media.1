@@ -1,93 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793161340;
-	b=tHnVK7Q7xIOzoiraJQFxcUb6cOV3ggBcXCg0eykuUKJK8wQ7m+F71kaKp3S5/74LCaBO
-	 Be1ZviKc1LpLY1yN4o1m6xD480qtSL8AceXBEFQB5gqiSwje/oJ8QJMA5qL4pn6ULg2rG
-	 cxRsSf4+2OsTgYqqMAtywrzzH10zC5Qc5R8Uo005+vfHd5mxcx+bTNihKDuglufxKh3+X
-	 4UaMhE1FLf+WZd16gUJAwObTqHmsW2y2tImpuHTtd5tC/6MNYDDeYhRUfZQpaGxHdWTxI
-	 JksB3aWK2si+XS6SUCtUfsobdpLx7Tc8tJrPmRuG95Nq/RVtBbzicFLKMXagOhUmYHA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793161340;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=2YqpHNpqDOLT8VYNbKToqFKV9CXwboGOUTNMy2MCQ04=;
-	b=OianaOXLMehQnCDxH4UQ763vyMJTw2rscvj/USxzsJonOgTX8GVlAcjvnIPe79a+pJzV
-	 3m9uDXM/Pasb+aRraUQlrlfRoF71AdcM4uIXu3vIWNPH/JB4UT8+B7+AuWig97FTRbpgZ
-	 AviLmu66WuKuiKEDed8iBvdvykWbqqBwveN8OXaqHXYivoIYwSCblq8O6iTnd8kqZ4Wiy
-	 Atg9naZE5mUklfnNFlol8yCX2eRF2uqQI1aJ476g/IbvR5M6L+qGWQJuL1+FeDYl50Zh0
-	 3pSx3SL6EwwHguPrPstUbL/XtUpNXGw/ZwHGLVBJh9n6/EWbuFIek+xVWN5+Y0Ey6LQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I1JGt23F;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793163541;
+	b=jnLgCxC13Dr/TBO9dJM7lT45XFC00CgEP0udys8HN/K4aEZ7HxeXavHsUI5ZUcjZLem5
+	 cITNV7aYe9zMqPGo8iKijwM6iSMq8gOnGwP79PZ8o0iqVPEw7H9XzaNVVUmSOWF1n7Ghg
+	 FTbtaavM8Datw5vuCukDy8wA3keKYIgsyl/DEu/QYehCyMf+dSdSdZj//WP+ZLSou8zkO
+	 UeEff8zXAtf75/hU/UHPVDaBW4k43PXmBpqjCbWZSVTTY5XSVtYREW22mM2MWI+hyGYde
+	 VOcE76xJLxQSGlyHJudNToldrGHZcKfg0ELUGyxsDUYgq3GPkte5bYX7+o3PpDuHDvg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793163541;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Zoho-Virus-Status:X-Zoho-AV-Stamp:
+	 X-ZohoMailClient;
+	bh=OUO6u9lHxIp5jWGKrEGttxrGgPfI29vxmJkzdRVVfDY=;
+	b=ru/9otoHmJpczDmX2IroC4xC6nMdIfDUmfVj7wqgeaeoyd/lYDKFoNTYzaf+Jv9NLVr8
+	 ZvDzGfZ8eycvwKar+icisdhK/7ydpzlgoJ3RFc6tF9JQhRgFEilLIMTGXDpXAGFj8v5jv
+	 k5wmBDY4erN3aTx/lOjspuX3V+mtqGwVi24TaGCHBvt2/OsKZ55Qu5uVdpRuVQo1odthX
+	 A377nSDl/TGoKXRXdX1tV/VZDbqP2qKEtNrSIya4AkjcVnWu9w3s0uFhrEU2Q4bQpHdUo
+	 5IihGFW0na08v6vfcIr+o+Pb2/71RlGnfDJm3FTkPuuwMOt3HlpzN+pGcXKynUlb2nA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=sebastian.reichel@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=iTgeNgkW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9735606A31A
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:22:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9735606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB97606A31D
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:59:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFB97606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I1JGt23F
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so414171a91.3
-        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 21:22:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793161339; x=1793766139; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2YqpHNpqDOLT8VYNbKToqFKV9CXwboGOUTNMy2MCQ04=;
-        b=I1JGt23FsHtgCOscyKDdKGx5k/HZmyZWe0YBK2uJx8EpM+33TUn+kE7JGAkMnn+xJ7
-         kvWotbmiCHFo2fZ+lAor4COcxEb+FjyWiHMyJ+Q8WAKaN/aB0Fd0mP58A13UwCZLWRi/
-         Dhl2vISj6YIljMsi02mxodV4rAJ60nfdHNUdOQ+bnzpzLG6WRhb3JUtiQfVArs+cMPgq
-         bafiqn95fiDdSU9nlPldMoQDEMwLOUW0cO6pu+oGOcxsZoSqO5oYRl+GdAXuxtVebrrU
-         XGAl/AwHYmghVIwn4mEhvXaukADgKXiDBY4/lW4jsxLeuRZMXc8StdezhMuwSX0y5TR5
-         L5EA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793161339; x=1793766139;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2YqpHNpqDOLT8VYNbKToqFKV9CXwboGOUTNMy2MCQ04=;
-        b=KENZhX1hzqRDfPsFA9J1VpR2RR89Nffr9ILIebnkYAzewsxCwBiYcGJZOw6k3HWWPd
-         kwTGhMAl01BJMEUBZr1JLavGPGpM8dEfHFej7I6y7MHsuVzj2OoveA9nitRoVeVUcIon
-         Tsf4e8aYrVLj2T664H22ThboGgEdSdAZv5XkFAQKE9xR7s/OMZX8njf+hST1jDO/l8VH
-         PaThylUO23yjV4opeVPwH7wJFZf0S66MuTZAE4mV5kCSSPTrziVkkMNx9H4NE1M8wcOB
-         +AEdCzD4Auk57kj1u9ANdVTN9IYPzwHQxmLO/GGT1ItGpZAYym21k3bB/1V1tlcUv9Pa
-         MZWw==
-X-Gm-Message-State: AFq9FYIjga2rk7GFiV3lqNgiwljIzHwtgRSXm0XWp8+RcBjTVszPxcgM
-	GsFyydY8dleCw30Ocy+T7avMcbjTI3sdfG0oTc8YiQMSn0fPEtPyuLDx
-X-Gm-Gg: AYBFou0Q0ZL6zZhIqiY3nq3cxbA3wNoP43n/P+klVYfzJAcEFI0j1jpTeoASGlgn+0F
-	lXaDcranFipSv3A2OdYv7aL7y2m5tmUFG4vWOc3s5EAr3WUIpajBs0ojPHMo+kTvxtKPRAjItG0
-	c6jdrBopdhE6AyAByBobAuQxlem/NndKtByEQaoPcW0qSAhIgzMDRiNrrEa9A2hfN2wEyDUSquo
-	nRaPgHH4x2uILX2f3F8xhGmUXGNLWFzqFXddM1BjV8zWDHzMVc5zhjTFhuL/P2NJYp3HojzqGGW
-	zwi9EKsAVCEcmp3QnswGlEMYxlP8zC4K59+hcvWZ1vIKH6VCFq/lV45hphST4rYFF9ZPlX6dxdq
-	9O/svHvQ2rLl96SJKHkbTpGh9mPRgQy5pHtsLfjB7wlUdwrsZXbtUAMii9Wz5rDUqZbGllGuuMv
-	YTcVdOjKkoRD7vChmMc3JSJqBfVchio49nEuLMq2JTlggVaYiuQKO1uSYt6rBRS4UFmnRXlPQJZ
-	4yN/xkzNXqXpWgWvzzqGambncxQ5NNHiQdn9uGtzE8JAcRPnTNht6MnFdbPewCQxIB/dAXMABEQ
-	56l9npxrR9TZeQg0K9mp5hWSb/8KV41dVAHQB8KDGhBcwPju
-X-Received: by 2002:a17:90a:ec84:b0:3ad:c4e9:7beb with SMTP id 98e67ed59e1d1-3ae58299f81mr884221a91.43.1793161339299;
-        Tue, 27 Oct 2026 21:22:19 -0700 (PDT)
-Received: from spiderman.taila3fd8c.ts.net ([202.112.47.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae5a501083sm1163714a91.8.2026.10.27.21.22.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 21:22:18 -0700 (PDT)
-From: Li Ximo <lixicaicai@gmail.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wang Haoran <haoranwangsec@gmail.com>,
-	Li Ximo <lixicaicai@gmail.com>
-Subject: [PATCH v2] media: mtk-vcodec: vdec_vp8_if: guard list_first_entry on empty fb node pool
-Date: Wed, 28 Oct 2026 12:22:13 +0800
-Message-Id: <20261028042213.2729117-1-lixicaicai@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=iTgeNgkW
+ARC-Seal: i=1; a=rsa-sha256; t=1793163522; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=O5CHFE5Fj80njiA6oWhNJemejxeSylV8Gi2XYQkHCYfRIugxDPGnHNLhsS4wqp4SUttTE3taQ/dc/1GUl5YlvWfSnymdHGZSFnIf9MMr53uy+O6vYKrgbNkZKf2eHH0OmL4LHeHcY5S1fRdws9hMCgu/w/B9bCMfd0fHFugIdrg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793163522; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OUO6u9lHxIp5jWGKrEGttxrGgPfI29vxmJkzdRVVfDY=; 
+	b=kemyADKiPHA7M2iGzLWgKn3gx0AmZ1tsEFfH0NwfVBqgGZVgqeftvGYvC0xd3as/gv1JOO4g3SjnrDV9beyAwrxCWLiom5wULc31jzHhGCnbIw6MyVOStb6rmQzLh7VaTL/zUzWTl6G4pInTBp27L2dsXeeaeocb3gYaTpBjlKE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1793163522;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=OUO6u9lHxIp5jWGKrEGttxrGgPfI29vxmJkzdRVVfDY=;
+	b=iTgeNgkWfgujCpwYxQ+7PmDb2ILK+AXt4vzGtX8g2TN9k69bROmh1KDm4BZwx3HQ
+	1+Crb4cRTdO4SdvpL59ysOre7hiVd3VZfmflRaGBbqo8cS2POV8xkAMfcELri+im9UG
+	d5RiGMqPrCzdACynmGch87BCJIj8H0OX5i3qg4C4=
+Received: by smtp.zohomail.com with SMTPS id 1793163519353675.8261939490759;
+	Tue, 27 Oct 2026 21:58:39 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id EC0231805DC; Tue, 27 Oct 2026 23:32:16 +0100 (CET)
+Date: Tue, 27 Oct 2026 23:32:16 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: valery bokov <vlry.bkv@gmail.com>
+Cc: linux-rockchip@lists.infradead.org, linux-media@vger.kernel.org, 
+	Simon Wright <simon@symple.nz>, Detlev Casanova <detlev.casanova@collabora.com>, 
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
+Subject: Re: [BUG] rkvdec-vdpu383-h264: wrong pixels at horizontal
+ de-blocking edges y=4 and y=12
+Message-ID: <auEjQ3mRw0xR1b7w@venus>
+References: <CAN9BvprvMN+PX3nsktab6UDCn=Hy0mbh4WG6FUf6VFX1cuw9aw@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -97,93 +75,141 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2fao6gss7xz6es2n"
+Content-Disposition: inline
+In-Reply-To: <CAN9BvprvMN+PX3nsktab6UDCn=Hy0mbh4WG6FUf6VFX1cuw9aw@mail.gmail.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/293.157.76
+X-ZohoMailClient: External
 
-From: Wang Haoran <haoranwangsec@gmail.com>
 
-list_first_entry() does not return NULL on an empty list; it returns a
-wild pointer computed by container_of() on the list head, and
-dereferencing it corrupts memory. vdec_vp8_if.c has three unguarded
-list_first_entry() calls on inst->available_fb_node_list: two in
-vp8_dec_finish() (one unconditional, one on the show_frame path) and
-one in add_fb_to_free_list(). The pool holds a fixed number of nodes
-(VP8_MAX_FRM_BUF_NODE_NUM = 10) prefilled by init_list(), nodes leave
-the pool on every successful decode (two per show_frame decode and via
-the vpu error / resolution-change paths), and they are returned to the
-pool only through the userspace-driven get_disp_fb()/get_free_fb()
-calls -- which themselves use list_first_entry_or_null(), i.e. the
-driver already treats the pool as exhaustible on the return path but
-not on the take paths. If the VPU firmware keeps reporting a stale or
-zero prev_y_dma, or if userspace decodes more frames than it
-reclaims, the pool is exhausted and the next list_first_entry()
-returns a wild pointer into struct vdec_vp8_inst, after which
-node->fb = ... and list_move_tail() perform an in-structure
-out-of-bounds write and list corruption. This was found by code
-audit; we do not have a reproducer on real hardware.
+--2fao6gss7xz6es2n
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [BUG] rkvdec-vdpu383-h264: wrong pixels at horizontal
+ de-blocking edges y=4 and y=12
+MIME-Version: 1.0
 
-Fix this by switching the three take sites to
-list_first_entry_or_null() and bailing out when the pool is empty,
-matching the existing style of get_disp_fb()/get_free_fb() in the same
-file. On exhaustion vp8_dec_finish() now logs an error and stops
-tracking the frame instead of corrupting memory, and
-add_fb_to_free_list() simply drops the buffer.
+Hi,
 
-Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-Link: https://lore.kernel.org/r/20261023075633.3662574-1-lixicaicai@gmail.com
-Reported-by: Li Ximo <lixicaicai@gmail.com>
-Link: https://lore.kernel.org/r/20261023075633.3662574-1-lixicaicai@gmail.com
-Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
----
-v2: add Link: tag referencing the v1 submission as requested by the
-media CI; no code change.
+On Tue, Oct 27, 2026 at 05:07:28PM +0100, valery bokov wrote:
+> Hi all,
+>=20
+> A follow-up to my previous mail about 0x27b00618: I now know what it
+> is, and there is a much larger speed-up behind it.
+>=20
+> What the register is:
+> The Rockchip BSP (rockchip-linux kernel develop-6.1,
+> drivers/video/rockchip/mpp/mpp_rkvdec2.c) maps the RK3576 decoder=E2=80=
+=99s
+> =E2=80=9Cregs=E2=80=9D bank at 0x27b00100 with size 0x600. Before every d=
+ecode,
+> rkvdec_vdpu38x_run() programs three =E2=80=9Ccache reference=E2=80=9D reg=
+isters,
+> offsets relative to that base:
+>=20
+> RKVDEC_REG_CLR_CACHE0_BASE   +0x510 (0x27b00610) =3D 1
+> RKVDEC_REG_MAX_READS         +0x518 (0x27b00618) =3D 0x1c
+> RKVDEC_REG_CACHE0_SIZE_BASE  +0x51c (0x27b0061c) =3D CACHEABLE_ACCESS |
+>                                                    READ_ALLOCATE |
+>                                                    LINE_SIZE_64_BYTES
+>                                                  =3D 0x13
+>=20
+> So 0x618 is MAX_READS. Mainline maps only 0x100-0x5ff of this bank and
+> writes none of the three, so they keep their power-up values. On our
+> board 0x618 comes up as 0x0 or 0x2 (the slow/fast lottery from my last
+> mail), and 0x61c as 0x1 or 0x111. The READ_ALLOCATE bit was clear in
+> all eight dumps.
+>=20
+> Measurements:
+> Same setup as before (Smatek T10PE / RK3576S, 6.18.34 with Simon=E2=80=99s
+> priming patch, GStreamer 1.28.2 v4l2slh264dec). The full 654-frame
+> 2688x1520 High-profile clip was decoded with sync=3Dfalse, all within
+> one power-up held with power/control=3Don, changing the registers
+> between runs. Each setting was run twice with identical results:
+>=20
+> 0x610  0x618  0x61c    ms/frame   fps
+> -           0x0      -               65.4        15   (slow power-up,
+> earlier runs)
+> 0x0      0x2      0x111       22.5         44   (fast power-up)
+> 0x0      0x1c    0x111       7.2           139
+> 0x0      0x2      0x13        8.6           117
+> 0x0      0x1c    0x13        3.6            ~278  (BSP values)
+>=20
+> 0x610 reads back 0 after the write, so it appears to be self-clearing.
+> The fps figures include gst-launch start-up, so the fastest rows are
+> slight underestimates.
+>=20
+> With the BSP values the decoder is about 18x faster than a slow
+> power-up and about 6x faster than a fast one. MAX_READS and the
+> read-allocate cache each contribute, and the effects combine. This may
+> account for a good part of the mainline-vs-BSP gap noted in Simon=E2=80=
+=99s
+> FIX.md (4K ~30 fps vs ~112 fps).
+>=20
+> Correctness:
+> For each register setting I hashed every decoded picture
+> (v4l2slh264dec ! videoconvert ! NV12 ! fdsink | md5sum, so buffer
+> padding cannot affect the hash). All five settings gave the same md5
+> over the whole clip, and no kernel errors were logged. Two caveats:
+>=20
+> I cleared the cache once, while the BSP clears it before every frame.
+> The clip still decoded identically, but I would not rely on that for
+> other streams.
+> The md5 shows the settings agree with each other; I did not compare
+> against a software decoder in this run.
+>=20
+> Suggested fix (not written yet):
+>=20
+> Extend the VDPU383 =E2=80=9Cfunction=E2=80=9D reg range in the RK3576 DT =
+to 0x600, as
+> the BSP does; or map 0x27b00610-0x27b0061f separately.
+>
+> Program the three registers like rkvdec_vdpu38x_run() does: before
+> every decode run (not only at runtime resume), with CLR_CACHE0 =3D 1,
+> MAX_READS =3D 0x1c, and CACHE0_SIZE_BASE =3D 0x13.
+>=20
+> I=E2=80=99d appreciate a view from the maintainers on the preferred way t=
+o map
+> the range.
 
- .../vcodec/decoder/vdec/vdec_vp8_if.c         | 22 ++++++++++++++-----
- 1 file changed, 16 insertions(+), 6 deletions(-)
+It is already mapped separately in DT, the driver just does not get
+this extra range, since it does not use any registers in it. But this
+should work:
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
-index fd15d462b..ba34c71f7 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
-@@ -308,15 +308,23 @@ static void vp8_dec_finish(struct vdec_vp8_inst *inst)
- 	}
- 
- 	/* available_fb_node_list -> fb_use_list */
--	node = list_first_entry(&inst->available_fb_node_list,
--				struct vdec_fb_node, list);
-+	node = list_first_entry_or_null(&inst->available_fb_node_list,
-+					struct vdec_fb_node, list);
-+	if (!node) {
-+		mtk_vdec_err(inst->ctx, "no available fb node");
-+		return;
-+	}
- 	node->fb = inst->cur_fb;
- 	list_move_tail(&node->list, &inst->fb_use_list);
- 
- 	/* available_fb_node_list -> fb_disp_list */
- 	if (inst->vsi->dec.show_frame) {
--		node = list_first_entry(&inst->available_fb_node_list,
--					struct vdec_fb_node, list);
-+		node = list_first_entry_or_null(&inst->available_fb_node_list,
-+						struct vdec_fb_node, list);
-+		if (!node) {
-+			mtk_vdec_err(inst->ctx, "no available fb node");
-+			return;
-+		}
- 		node->fb = inst->cur_fb;
- 		list_move_tail(&node->list, &inst->fb_disp_list);
- 	}
-@@ -352,8 +360,10 @@ static void add_fb_to_free_list(struct vdec_vp8_inst *inst, void *fb)
- 	struct vdec_fb_node *node;
- 
- 	if (fb) {
--		node = list_first_entry(&inst->available_fb_node_list,
--					struct vdec_fb_node, list);
-+		node = list_first_entry_or_null(&inst->available_fb_node_list,
-+						struct vdec_fb_node, list);
-+		if (!node)
-+			return;
- 		node->fb = fb;
- 		list_move_tail(&node->list, &inst->fb_free_list);
- 	}
--- 
-2.30.2
+void __iomem *cache =3D devm_platform_ioremap_resource_byname(pdev, "cache"=
+);
+
+> I=E2=80=99m happy to test patches on this board.
+
+I suggest you write and test the patch and then send the patch :)
+Ideally use https://b4.docs.kernel.org/ for this, which helps to
+avoid common mistakes in the submission process.
+
+Greetings,
+
+-- Sebastian
+
+--2fao6gss7xz6es2n
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmrhJm0ACgkQ2O7X88g7
++ppJMA/9G0tRV8hDuQ2tfcOjtThDSGtvvtBlf2JqygDwqg/ER3k/1lPVHN9WjNqH
+bs0Lc/PgIf46HZFimFdHpPHPB8NxDwdXOdFpspdRQ+KxxHEeW4zWUlcZ4mPI8l+o
+yYSw4PaAtp0pdV9aSSpj7qO+IVtdJWeV7kVCynlj0oOIo8JwP6UtyLV61eQIQbTV
+4DlMV3Xi77XnOwaOicC1MfSmwgz0JXABqzzSMl6/FHQ82iyOgR7KkcyLH+OXlUr1
+HdSquu4KgG33dsw9jp5PR5BbreeeOrPCRUmqCd6Xn/cQdmlqN+jIHAwTToC6SCOC
+IvzIo90CrTz4O8lJ/D3N9sXCp9708f/D0abpfOIE7imxOH9s6TlEFs/mEUGqk53u
+US49qPFW3sTI2ccMt6z6lSt67bJKSgaMueSKR7Sz1ZcI0sbJdzuyltUoxfOPvKtm
+klt60C4J2y5mBB62wL+1JhVEOJtbXdrpD52NE13l6BYxiqBdBMyNK7LTNLqwK2cL
+l+fF0MzPb7C1rkLkZoU6W/WdjKKoS7iuHihjmfhhGcIF5cxmztFCc7corSComDXt
+qf1/BAvdaDMiBdWeO+pgPT+n2FFm81+LryhrYTEzesyET60hDN7paxsdQ7I8xleF
+vwgjpt3nY33g5XoKECqs+URWro11tcE007ydUDyDJiC2bWPb2VI=
+=pEf5
+-----END PGP SIGNATURE-----
+
+--2fao6gss7xz6es2n--
