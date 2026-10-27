@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793067576;
-	b=OB4KwnzrFih6KakIQePpkie6PTvYcoXJt7kiiXmCBqb3dB7waEQWZIMwsgSinSo3Qwes
-	 py9zo4aszadqw6xpHPtA1WiPbwGpuA2ZXpdbuV0cWyOKSbxp5g4Pl0B/RUbTLAlxKVs8d
-	 Pn2gcOPQvMurARTeCZpZcWDKP1mKdzbuyuB4mc+b/Fcl6rYoTZuxRn9+UFp6OYF1BMBwr
-	 SeSnsF0ibhG70Im3lkj4ZAsBP+mRaeLjFVK91RI9umKz2OCh9lbFnYhH72mQGem6XolEt
-	 gPYKB/Hjiw5TuLdQNzWKU0wK7xswcdh/8QgDF8OBqaBZLuwwoG0hGse/6NWfKkBy7Og==
+	t=1793067582;
+	b=dFmNDJgKGFkbiR0RCLWHWTIheLBR0bmn0sr9oJVdX7puuZqONefImpyv1UQo+0aqqsvJ
+	 Z8FryV78ZGV3Ly2Wpi1Ee4vOWFComYZZRx2gt8L4JCn/sdhesWDgnmhA347PXjEuX89IX
+	 5BQ+yt2lNefesY+Xv+F+95Jn9Zb2Gc1ngjG/f5N+9TMmWiloza/2dcCm2XSAwAIiPz0+d
+	 4p0bwXMuJ2Oei6Ehwe1eLWNRnyQGp6rGZKrd9yPEpXtdsN6Hx7csW/QCNFQxiTVmiOwvt
+	 QNfPcCPP2WW7634R50yksueuzr7KqWbZq7ACzUiB6bLRPGdYw7cR0jIAPmrPAuUpNGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793067576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793067582;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=DHrcVfVURsCK7PM42eHtwMFIpRh89A5AI9d7463hUf4=;
-	b=d27GdxGGbgl94umDXhzsSrY20OlyJ4zJymoQDRcsWGnsQdNjGtuT1cAlk1wyIa/Cd5BP
-	 l7ERU3/DPKEOQYS3ZLpl1YTXS6jg878g0Er85AtfoC6hA9K3yZI+BbGvTMLB/t7UHdMWf
-	 c1pymEeKLDe0UizE1xS5gpm91TcnWQE+QBEzAmvI8FNKZK23OYyzLYGU7vqp/2/cKRWpm
-	 TOPhnN3DX6nnCwue72rI5xaie057Ah5i9iNAUrwZOFxE/DedIpzQgUwFhRDs5tODNu0hv
-	 Ax4LSY4qSp+usLa24+PJ4mXeXDVvN7uWBR0Ix1F8cKSnezjNlWDKTQa6i4P0IvcAwWw==
+	bh=8sPZW7BtjLgIfMNQPd2G87W+N+MdCTWgP1ukE8s6uFQ=;
+	b=I0ia4j1ZIfxSecuYgAif1KQBrP9LVlkWjqm/g2FdJD17HpJpdzgDSXidHKvOYAoxUbhW
+	 TCIrfu+5a2CAe7ufwxo0JrCydJJGxLKAfNRMdJhEvIQimdA53G8zy+GmdiRdImFQxdcbK
+	 6Uml46cFrj52vOWmJlOahy1A2gD13o4REi+S8QI7Z+6q8oRiJCBYUw3lp7/ei3/ruNEhB
+	 p/GcJqwRYYnzIfYjAtNrJbd74odHAhTJEh1voF6MQ73cYGr3tT8k5P8b3H6SkCtSdIQKU
+	 k8WYJXqp0LnD05nvhvBmDLdw75aPBJqg1usDPaYUO1IkE5+os1NHEtJkbLbZ8T9jLkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aYDYfTgx;
-	arc=none smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Nl3RMrvG;
+	arc=none smtp.remote-ip=209.85.128.171
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F64606A322
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 02:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44F64606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3295606A339
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 02:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3295606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aYDYfTgx
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b13c7bb0deso24029337b3.1
-        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 19:19:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Nl3RMrvG
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8a83d2706fdso31521627b3.0
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 19:19:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1793067575; x=1793672375; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1793067581; x=1793672381; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DHrcVfVURsCK7PM42eHtwMFIpRh89A5AI9d7463hUf4=;
-        b=aYDYfTgxhzNih+KCle5OtOY1DQZ369aokBe0Rqzdo5j/hFQOe1MypyJTghY7w+VYm/
-         M0XXqRTk8QJYAKHbr/zQwjtxd+f1j5z/pTFovlDvQwINK651iKJh60jIdQeS4BUeA1FD
-         weUO8PRTDBFve3SyaomNJ6t3PYGcOG14+rILLGEe9CoPaLSbAjBIy9QTvL/WeIXC7Ohh
-         +oSyb4kBg2ohivAjYgsCH1zUQQHkOwkOUyDZief9rBJxLQ+VPI5zoz2NMdDuSdIK5eDq
-         db24jCOC9sCaj3sGw6RQV9sptk1dbWuiSfrTpmUyyaUMQ5KpGmPrpYxtFgZi+vs/ye0j
-         vsrg==
+        bh=8sPZW7BtjLgIfMNQPd2G87W+N+MdCTWgP1ukE8s6uFQ=;
+        b=Nl3RMrvGrd70mj1q49iHuIq7nD3Q/0BwiIEstw7zlVxq1Wu6bNG/3Mw5J55VrsVKmk
+         ykjvUsA77JFdAWkZUkNVD6/7k7JJ2Dv6lQLSJkilS4ASgQR6keNuiwy1V+ObZ6AjP9h5
+         sgUHZS2B6K1exF0R9alf8sxBMoEZ3+6ctFIYZojl+iF/EDIyxoXLiNNL0i5L6WK0Gx+s
+         nBu0UzJv872pi7OuxvwHIHCJDJt59/yjxoXK3pWJTDV+aTzKvQUnWvBnJlvqbTj8EskV
+         68Sdvazpv0aPR4SVoxzKitCPy4QVb5IXRr98kcUczQkePL5ah6HakDhuXs9JuKp3pV1I
+         5efA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793067575; x=1793672375;
+        d=1e100.net; s=20260707; t=1793067581; x=1793672381;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DHrcVfVURsCK7PM42eHtwMFIpRh89A5AI9d7463hUf4=;
-        b=BvMjhhrTjfQ4WbVHhrzbeP+WGGoZl/iNKCpxLkO1UFA6uLtB7TR3AE0qcgxebJE8Gv
-         0pmzoqHPiz2xoa0WVLQosst/veWaZtggXe6vz7mlNRrnvFsDFrQX3Qu6dsNglKFXjjI3
-         3d3Nb4m7azqV6hVKr7ryHRGft1jo53ry4TtRgT+LZde0d62weQO2faQ6c/LvQwy1kFFb
-         5Vv/r+k48ntmdFoBkDWh1oSfJ4iODuyJnkU4DjYSdaz6n9RiLLZzIdp0SX9lNSm1ByAD
-         3C0Uw2rZzSSZTnJhQinC1Rja/Ko5o5qU+Ha4vhSopDawnGP7g1UxesvndQYWed+LAtWK
-         eyNA==
-X-Forwarded-Encrypted: i=1; AKwUvBzixCIhKWsVPC8Ha0JcOlRpgcnTwQd31kjiiZaSmHbRGm0YtfkObwycnZMZ/2Drk/R9fkfhedFYV575iA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWnfkbO0Fi/2TWZ9vbhcGlI5+o9v3DhS1+6tF7Ie1zwDWt4HPZ
-	F/8arzrgeNzY3VRG8W2vpd9Kxgljit2LAz8mbyVeJ+nyxrvqyNjvXbVIS6w6W0WAzy0=
-X-Gm-Gg: AYBFou2ErY2UGipTcrr5rJHDyVj8MdnTLrXx4exkXOglKRA6ueIWQGeCl82I3OtgJ+E
-	4ioAUc1s4lcq7XZa56i45scg4hFeXzCB4b4UU/W5SeOcJSImf36XV/I3Ap3fW2vfDzH9kO8VT/v
-	TCUtUyuQtpWAhNnEjiqv2s7fsO7vXoRBfQjCp8P1D43LRh0mRO34X2X7cbFH6NOzpwK3FOy3l3o
-	aGI50TL/kMrSMJ6d2vVFx+kOP9TW3jlkM88NYhzzN+5k+DjrRflV4Q+Wfbf6uan2sm6QgQYig0G
-	gCly7HFEmK6Lp7X8J2lGFdmY2TWK3m8mpXSXGtY9sT+HchfrT8E2WfeJz31+DUL6RxxZXBaR+Kj
-	qQcyIM2SgdIQpzdStOlP3mCxT0F1dVkHnseKsZ8vsidxqbsA2KO8syJAo44fHLWDjgIZ/zWagO2
-	VO/ZUr/x/m+R+B37kuoAYYXKASUWL5QBKTIK1D+tGgVEQWWMHOXEeI/AlVl6MoFqthCujSadk23
-	9ZZfS8EyJwb/Ue335MKSPruqyesOBtH7pQgcvWg7FfihVsp3Or721Auk3rGs0t18shB/YBQKkAG
-	O2U20zOwnb7k0Qma5BaYXj21QKwWf85m
-X-Received: by 2002:a05:690c:4028:b0:8b0:c673:9958 with SMTP id 00721157ae682-8b1669cb3a2mr50043147b3.3.1793067575123;
-        Mon, 26 Oct 2026 19:19:35 -0700 (PDT)
+        bh=8sPZW7BtjLgIfMNQPd2G87W+N+MdCTWgP1ukE8s6uFQ=;
+        b=i0B2BmY/zLII+aKa0KY2lPWW6+BDC8+tHwS4eSaHYKlYYuxHH8Z8TM3/PtcKAAHgNb
+         cT6yh+TZ9sFE49oJQa/WnOxCjcXPfzn1b8IxkwSakbSxa2XZmdc+rFLhsRNFs4S+Qzop
+         GkQ7AgmeAii9ZqJ5xXUMjHNfWd4PGL5GV7PAZWuaBH2PpKCeSDSK4srfUTLN3GiOJ4vj
+         87QR/m3jwplW3sjyBuPpjhXJiQr4nTgRsULwwuDfCvsmVlaZr07TK+nyDWNHEQD8QodI
+         yJi0fcAEDI3rG+ajgEwX+lWVz5PGmVamvv0P96Jxcp+1s2/ujIWITsdWX4DNNbgrlJgk
+         +9XA==
+X-Forwarded-Encrypted: i=1; AKwUvBxePZuG9PBmQI6YWWSHnn/Yy3OnsVRaBIv0EceR71sEQpRPuwARQlxEoY4b1750fXo4RXAy3afQ9EtHjw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDAa+eMWoavFTVdPEICA/9vd7PjgjmJEIeSdLiDVfAOPbS5jFu
+	TVzv7zvquDrTL8O7On+qq6+E8VqVyucDLuJq8h6o6g8eAqwFKfLYGkWf
+X-Gm-Gg: AYBFou1zx1JQDVHWb1Mbrtw2ad5l2n9ykdlPjJJLovIy88ZjRqJalDaEiKwRWHDpBvV
+	SKt1q/15VUirawrKaDRROF+AD1SiRYXqyGZ495aGRWZkknrc9KaynDy2UuE22xbQcpcp7VnwOZP
+	lvIcjdO1Ti0i4aJJV5JZq7PfehPdf5apKYEq94xvDq73de8UWzFmHmCxIJl8GPhfZEmJtQH1g1/
+	GtnxITgJC3LZuq/WUkexQp/ZunclZ5vMnkRsTACpA0BstrcVGx791LSeHT4qxXeo6koO2/w9u/P
+	85BAuJMVrWs/MGMWlLkC3e0qy/oOjVTvSYu2GAUOKJfLD1aeorSEx/GVQFXwuCjb4hGPoA2pRnd
+	ZffMPiOT20ckzBoYwxDNFvk2BrYW0XSmwccsjYPPdGE/TJhJPc4tppCV6pkt+NxchOyjhB6DEx5
+	NJOhtd/GKGWNAsU1E9NVXNsEIMcoAu08lZnRfWbvdwSPLZXKwWCqv1AwI03PVFRU3Ud6sMcLkfC
+	MAGZhMKQTvpw74ZdDjG338O7I7eUbODtAwRQK1WnWELSfL+nzMizTZZxdcImSqwBwoJ88ZeHb1P
+	inUFt2+rVrQYV0ItUWMusQmWEtN51kLn
+X-Received: by 2002:a05:690c:c354:b0:8b0:d421:e024 with SMTP id 00721157ae682-8b166be0d33mr40575747b3.44.1793067580715;
+        Mon, 26 Oct 2026 19:19:40 -0700 (PDT)
 Received: from localhost (h159-112-31-107.euclwi.broadband.dynamic.tds.net. [159.112.31.107])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b19e61d0cdsm5033647b3.40.2026.10.26.19.19.34
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a4626fb03sm4215129d50.17.2026.10.26.19.19.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 26 Oct 2026 19:19:34 -0700 (PDT)
+        Mon, 26 Oct 2026 19:19:40 -0700 (PDT)
 From: Christian Cortner <ccortner@gmail.com>
 To: Bryan O'Donoghue <bod@kernel.org>,
 	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
@@ -86,12 +86,13 @@ Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
 	Birk Skyum <birk.skyum@pm.me>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
-Subject: [RFC PATCH 0/5] media: iris: ffmpeg decoder flow changes, for reference only
-Date: Mon, 26 Oct 2026 21:19:29 -0500
-Message-ID: <20261027021934.22113-1-ccortner@gmail.com>
+Subject: [RFC PATCH 4/5] media: iris: Let a resolution change drain before stopping CAPTURE
+Date: Mon, 26 Oct 2026 21:19:33 -0500
+Message-ID: <20261027021934.22113-5-ccortner@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com>
+In-Reply-To: <20261027021934.22113-1-ccortner@gmail.com>
 References: <179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com>
+ <20261027021934.22113-1-ccortner@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,74 +104,146 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These are the local changes behind my report "[BUG] media: iris:
-resolution change handling stops ffmpeg's h264_v4l2m2m decoder on
-glymur" [1], posted because Bryan asked for the code [2]. They are for
-reference only, not for merging, and carry no Signed-off-by, because I
-can't review or defend kernel code myself. An AI coding assistant
-(Claude, by Anthropic) traced the driver, wrote the changes, their
-commit messages and a test client, and ran the tests below, in a long
-interactive session that started from "make hardware video decoding
-work on this laptop". Each patch has an Assisted-by tag.
+The stateful decoder interface lets a client abort the implicit drain of
+a dynamic resolution change by stopping the CAPTURE queue, and ffmpeg's
+h264_v4l2m2m decoder does so about 10 us after it dequeues the source
+change event. If the stop reaches the firmware before the firmware has
+reported the end of the drain (HFI_BUF_FW_FLAG_PSC_LAST), the firmware
+returns all capture buffers without that flag and
+IRIS_INST_SUB_DRC_LAST is never set. At the next
+VIDIOC_STREAMON(CAPTURE), iris_process_streamon_output() then finds no
+completed resolution change and resumes the firmware without
+reallocating the internal input buffers. The firmware still returns the
+PSC_LAST buffer it owes, 1.3 ms later in our trace,
+iris_inst_sub_state_change_drc_last() rejects it because the input is no
+longer paused, and the instance goes to IRIS_INST_ERROR: no buffer is
+returned after that, and the client waits forever. Completing the
+resolution change at that STREAMON instead, by reallocating the internal
+buffers before resuming the firmware, did not help: the firmware then
+returned nothing at all.
 
-Patch 5 does not work for most real streams, see [3]. It resumes the
-firmware through iris_vdec_start_cmd() while the driver's internal
-buffers are still sized for four frame buffers, so streams that need
-more, x264 at its default settings among them, end in a fatal
-firmware error. It is included only to show where the driver could
-resume a first source change itself; a working version would have to
-re-create the internal buffers first, or resume only when they fit.
-The commit message of patch 4 notes that re-creating them at a later
-VIDIOC_STREAMON(CAPTURE), in a different situation, made the firmware
-return nothing at all.
+Wait in iris_vb2_stop_streaming(), for at most 500 ms, until the
+firmware has completed the drain of a pending resolution change before
+stopping CAPTURE. The client's STREAMON then takes the normal resolution
+change path. The wait queue is woken wherever IRIS_INST_SUB_DRC_LAST is
+set, for both HFI generations; gen1 sets it in the same event handler
+that sets IRIS_INST_SUB_DRC, so there the wait ends at once.
 
-The patches and the problems in [1] they address:
+Fixes: 84e17adae3e3 ("media: iris: add support for dynamic resolution change")
+Assisted-by: LLM sparse smatch
+---
+Reference only, not for merging (no Signed-off-by); see the cover
+letter.
 
-  1/5  Don't flag an empty source change LAST buffer as an error  (2)
-  2/5  Update the CAPTURE stride and size on S_FMT(OUTPUT)        (5)
-  3/5  Signal V4L2_EVENT_EOS only at the end of a drain           (3)
-  4/5  Let a resolution change drain before stopping CAPTURE      (4)
-  5/5  Resume the first source change if it fits the CAPTURE
-       setup                                                      (1)
+ .../media/platform/qcom/iris/iris_instance.h  |  3 +++
+ drivers/media/platform/qcom/iris/iris_state.c |  8 +++++++-
+ drivers/media/platform/qcom/iris/iris_vb2.c   | 19 +++++++++++++++++++
+ drivers/media/platform/qcom/iris/iris_vidc.c  |  1 +
+ 4 files changed, 30 insertions(+), 1 deletion(-)
 
-Testing: the same changes, in the form that applies to the linux-msm
-laptops tree, ran on the glymur laptop from [1]; the functions they
-change are the same there and in media-committers next, apart from one
-line of context. These versions, on media-committers next, are
-build-tested only: each builds with W=1, sparse and smatch without new
-warnings, and checkpatch --strict warns only about the missing
-Signed-off-by and, because my clone is shallow, the commit ids in the
-Fixes tags. The H.264 and HEVC results in [1] came from clips encoded
-with -preset ultrafast. With x264-default clips at 640x360, 1024x576
-and 1280x720, the test client from [3] decoded bit-exact when it set
-up CAPTURE after the first event, so that patch 5 did not act. Not
-tested at all: other SoCs, and HFI gen1, which patches 3 and 4 touch.
-
-[1] https://lore.kernel.org/linux-media/20261026160952.22082-1-ccortner@gmail.com/
-[2] https://lore.kernel.org/linux-media/36201ae2-1cee-4d8d-9381-dfc9013c522e@kernel.org/
-[3] https://lore.kernel.org/linux-media/179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com/
-
-Christian Cortner (5):
-  media: iris: Don't flag an empty source change LAST buffer as an error
-  media: iris: Update the CAPTURE stride and size on S_FMT(OUTPUT)
-  media: iris: Signal V4L2_EVENT_EOS only at the end of a drain
-  media: iris: Let a resolution change drain before stopping CAPTURE
-  media: iris: Resume the first source change if it fits the CAPTURE
-    setup
-
- .../media/platform/qcom/iris/iris_buffer.c    |   7 +-
- .../media/platform/qcom/iris/iris_common.c    |   3 +
- .../qcom/iris/iris_hfi_gen2_response.c        |  40 +++++-
- .../media/platform/qcom/iris/iris_instance.h  |   7 ++
- drivers/media/platform/qcom/iris/iris_state.c |   8 +-
- drivers/media/platform/qcom/iris/iris_vb2.c   |  23 +++-
- drivers/media/platform/qcom/iris/iris_vdec.c  | 117 +++++++++++++-----
- drivers/media/platform/qcom/iris/iris_vdec.h  |   3 +
- drivers/media/platform/qcom/iris/iris_vidc.c  |   1 +
- 9 files changed, 176 insertions(+), 33 deletions(-)
-
-
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+diff --git a/drivers/media/platform/qcom/iris/iris_instance.h b/drivers/media/platform/qcom/iris/iris_instance.h
+index 771269e705d9..1013ed2911a1 100644
+--- a/drivers/media/platform/qcom/iris/iris_instance.h
++++ b/drivers/media/platform/qcom/iris/iris_instance.h
+@@ -7,6 +7,7 @@
+ #define __IRIS_INSTANCE_H__
+ 
+ #include <linux/kref.h>
++#include <linux/wait.h>
+ 
+ #include <media/v4l2-ctrls.h>
+ 
+@@ -56,6 +57,7 @@ struct iris_hfi_session_ops;
+  * @metadata_idx: index for metadata buffer
+  * @codec: codec type
+  * @last_buffer_dequeued: a flag to indicate that last buffer is sent by driver
++ * @drc_wq: woken when IRIS_INST_SUB_DRC_LAST is set
+  * @last_buf_ns: start time of received input buffer for current one second FPS window
+  * @frame_counter: input buffer counter for current one second FPS window
+  * @frame_rate: frame rate of current instance
+@@ -104,6 +106,7 @@ struct iris_inst {
+ 	u32				metadata_idx;
+ 	u32				codec;
+ 	bool				last_buffer_dequeued;
++	wait_queue_head_t		drc_wq;
+ 	u64				last_buf_ns;
+ 	u32				frame_counter;
+ 	u32				frame_rate;
+diff --git a/drivers/media/platform/qcom/iris/iris_state.c b/drivers/media/platform/qcom/iris/iris_state.c
+index 5552725c614e..dd8e0093b972 100644
+--- a/drivers/media/platform/qcom/iris/iris_state.c
++++ b/drivers/media/platform/qcom/iris/iris_state.c
+@@ -209,6 +209,7 @@ int iris_inst_sub_state_change_drain_last(struct iris_inst *inst)
+ int iris_inst_sub_state_change_drc_last(struct iris_inst *inst)
+ {
+ 	enum iris_inst_sub_state set_sub_state;
++	int ret;
+ 
+ 	if (inst->sub_state & IRIS_INST_SUB_DRC_LAST)
+ 		return -EINVAL;
+@@ -222,7 +223,12 @@ int iris_inst_sub_state_change_drc_last(struct iris_inst *inst)
+ 
+ 	set_sub_state = IRIS_INST_SUB_DRC_LAST | IRIS_INST_SUB_OUTPUT_PAUSE;
+ 
+-	return iris_inst_change_sub_state(inst, 0, set_sub_state);
++	ret = iris_inst_change_sub_state(inst, 0, set_sub_state);
++	/* a CAPTURE STREAMOFF may be waiting, see iris_vb2_stop_streaming() */
++	if (!ret)
++		wake_up_all(&inst->drc_wq);
++
++	return ret;
+ }
+ 
+ int iris_inst_sub_state_change_pause(struct iris_inst *inst, u32 plane)
+diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/platform/qcom/iris/iris_vb2.c
+index b820b3e43910..bc2f201fea0e 100644
+--- a/drivers/media/platform/qcom/iris/iris_vb2.c
++++ b/drivers/media/platform/qcom/iris/iris_vb2.c
+@@ -228,6 +228,15 @@ int iris_vb2_start_streaming(struct vb2_queue *q, unsigned int count)
+ 	return ret;
+ }
+ 
++/* a source change whose drain the firmware has not completed yet */
++static bool iris_drc_draining(struct iris_inst *inst)
++{
++	enum iris_inst_sub_state sub_state = READ_ONCE(inst->sub_state);
++
++	return sub_state & IRIS_INST_SUB_DRC &&
++	       !(sub_state & IRIS_INST_SUB_DRC_LAST);
++}
++
+ void iris_vb2_stop_streaming(struct vb2_queue *q)
+ {
+ 	struct iris_inst *inst;
+@@ -238,6 +247,16 @@ void iris_vb2_stop_streaming(struct vb2_queue *q)
+ 	if (V4L2_TYPE_IS_CAPTURE(q->type) && inst->state == IRIS_INST_INIT)
+ 		return;
+ 
++	/*
++	 * A client may abort the drain of a resolution change by stopping
++	 * CAPTURE, but if the stop reaches the firmware before the drain is
++	 * complete, the resolution change can never finish and decoding
++	 * stalls after the next STREAMON. Let the drain complete first.
++	 */
++	if (V4L2_TYPE_IS_CAPTURE(q->type) && inst->domain == DECODER)
++		wait_event_timeout(inst->drc_wq, !iris_drc_draining(inst),
++				   msecs_to_jiffies(500));
++
+ 	mutex_lock(&inst->lock);
+ 
+ 	if (!V4L2_TYPE_IS_OUTPUT(q->type) &&
+diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+index 05aab6e3005d..0df0a5915e16 100644
+--- a/drivers/media/platform/qcom/iris/iris_vidc.c
++++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+@@ -201,6 +201,7 @@ int iris_open(struct file *filp)
+ 	INIT_LIST_HEAD(&inst->buffers[BUF_PARTIAL].list);
+ 	init_completion(&inst->completion);
+ 	init_completion(&inst->flush_completion);
++	init_waitqueue_head(&inst->drc_wq);
+ 
+ 	iris_v4l2_fh_init(inst, filp);
+ 
 -- 
 2.56.0
 
