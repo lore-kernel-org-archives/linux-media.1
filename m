@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793114422;
-	b=SJV9mIIXycNN3w7BIW7CnG5M0og99p7+LeJkH4q5HntkI1cmjwwwr8QvkSFBoP+fLWpr
-	 31qmmP1USGUSQxhUBefDL6JwMSCySmZjrr0FvM4R/GBK2r5THgd5c0ZuXx+qbvYVmsbkA
-	 Y/g+9ljqQB5f/CzJFb/knaQqXPWbqht9Dxghd4xqAzk1n/DBFlsov6HWlkjoFro7W3Tca
-	 QS3Br2ox06jhkIIZ1DPD6XZauPTHgj+VYuKyb7y/gGFJWShVmlX/aWYpfgzpGUF08EAKf
-	 bEVUNXmNX1bx3Ojs8TZ3CgFmaAqFl9H00O5TryaAd4UVREAyxorjpDYGUcJcsTpsICQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793114422;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Qv6gNPL+7OArAfIgFNXbA5f6QRBx0hrB7lSppVy66X4=;
-	b=H4X3jtKEi4PSv2F4eOkd1UbOhRBAzWFtyVQDN95mTbsXmjokUAHb1dxA7zqAXhflHdT+
-	 yuNLOCx8aqP+xLMtxotQBr/w4ZDDxAlDjsMm1H1rXjC4W+6s4c7kh9cwOiaziQURA9OMu
-	 AcK4Q3XA0y2KApbgmCTB2YWipe/pJQ155okUW6Za6FZtCtHWQ5D0u2OMO6A48dkq5gg70
-	 uM2Lt5l3+zWjNm1CSpJOJe5R0V6D/QtjX6bkg3PTO1nd6C8Zm4/doIbPx7r9zsYrP2yPi
-	 hBPcX097neF3V5HlpzeEXY5IW2+ePkfwNBIcncf2+x+/MLdLtZ8LkDy44s8e04RKfng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UeZ9sZQT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793115170;
+	b=EzqFoS3H8miA2YPVTSEuxT5ipo15tzajVdgkvN31zDH/ur2ZxkCke6ux1Rx8M1DU2Sqt
+	 bHd5F3orCie9WxaGs74Q5PZaZfUXPw8/jGxYUV/uFkPcH5nN1AbRENE79PqedkWFouf3P
+	 O72zCMv6zB01AV2jyyCw9B3JB1ex0TnpS/sCSL27kJwGnbaHi+Yopxq7dw4TScmpCK31t
+	 Nia+N8aYm8RRpLzdLoklAjroTlhGylZXkKEDPd+d6O2BScWcRA8hKLImoyF8GXwLguUUk
+	 nqHO2KB10mghRRyLlI69l5lcF6s6RkJ2Jw/Y8kk6QDZ8BMXMwPZ9VX8voFmxUC09e/g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793115170;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
+	b=uotcF8SQbRHfYPKmTS2U1Nfd3v6t8RHeKxClVjb5INFlrmCa8NL6r0ivcVy70Rb7sl+v
+	 7rkBPU3L3aJ8IstmQNdKDvd5jx4vUy263qOp/IWRXoy/eVsjNB3ylA4gvBJib62jg2XPn
+	 4MnZOHQhXqVImAESW0swmGhuGpuSI6+iIpoZgCs2QTF4k6M/tga7U4zF2h+WYPzPBeaKb
+	 0+FqjG/W0RGN5DHiPFFB/0QRhKerv0GULtJYIlhlvwQlFltIpo4T55vbG0QdHf6JHuP8s
+	 WWzFZOCXTuEheZeTL7ttoQhct1r1kQQ3K03JfR9aPKJU6mqvdeOBnKLvdRsXZ74o+EQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C56606A32E
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 15:20:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9C56606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A857F606A31B;
+	Tue, 27 Oct 2026 15:32:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UeZ9sZQT
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0dba37a7fso36501217b3.0
-        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 08:20:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793114421; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Tpc/kWX/hGaxdV76V0XDYsrsyFazpiMrhDzl1sALeCaczIb182vZlyqajbKfWrmVRW
-         GDf+UYAUk64SNpXbj7XFO3Fp2u39LV6369sbm2LoIATJunQ5eEzM5Epezbc2ne81jqur
-         602aHM19MXK9BLPfk6KJWZ5SUr+RmFfn8Iv5FR2NBIt3TDNVoTMBjC1wBU/4zO0f6X5R
-         V3wNEYRGcIauviqdXJNGRPc7Y4FRLplej1p5eM46KEmTE5Sq6HR2hAKRK5zSQTwmTW73
-         AtDPsldfNetTr9p0remagcF6llvr/EW6GZHsTSF0Dtmv+Za8KEgvi3Yk4WK6qSF0zy4K
-         nBZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=Qv6gNPL+7OArAfIgFNXbA5f6QRBx0hrB7lSppVy66X4=;
-        fh=+l7UwA2mI2qqg/CiEWSf4gfwP6z31Vtm+Q8s2sTglPw=;
-        b=EB1283MJmM2IRPh9r1RCyWsG+Wy7/Oo0gT4xlnAnQwmTrTE+EbnToKRCueY1zgVD28
-         jtVCoojU+gKqWdY9H+Fl3LfharSWQjekNIT/FHO2u+rjBVLCC0LuG7E0fGEzHZCPTJwK
-         rIUyw71BNWTj78zt7dZWEfd4cj7daROnaRquGbq/aubAZ2lGnqz2dmEVxVbmo0/sXZHB
-         Ey0ogE7N6y2phmpUuFvBTIhhE6rmMwta0hCHL6KqY+w4aolEdcvPCWlEXBpAboDivzAG
-         UKFGlsMaQTgFu5FA0dOvtHOqYXewju/rpzGWitT4F+BUQj+VosRVCPd36gXDh/pb5I9U
-         9URg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793114421; x=1793719221; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qv6gNPL+7OArAfIgFNXbA5f6QRBx0hrB7lSppVy66X4=;
-        b=UeZ9sZQTF5ehZq4eA54yxX9FBHPiJiDjx9k8Yn9UitztMHLh/fGNmNeSqg7VoMmPFy
-         mVYJ4MszltDWf5K9EptvOhzfTo/LixQUHiYoNWspG4NxcjAQL0ynAonLhh7B/LSgPrJ5
-         3nq4N+YJPoUH1MO5omf7wTYWb2TE8Qx7pmu3K5UMn08H5OBEDn+PavXnlWs+5ijR3DSw
-         T9zO55CFONB6fnZpSD72TqAOkYK149g8owFjEaKvGeI6t5qoYb0zUBD8uIo/8USm15k3
-         nL81knjx1WCeuGgim/pnjQEiUdIxMc+S74BAw05Xo5NC0MIwQTC/huPRL/lZfZ9Dq/dM
-         zUhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793114421; x=1793719221;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Qv6gNPL+7OArAfIgFNXbA5f6QRBx0hrB7lSppVy66X4=;
-        b=vTsNIr2SlTnupXp3U+O53CwppuQpBwgVcGLna/LJC8m+D07bP+LqbMCc5scn0RhZ/9
-         h8WUf6CplCliSFcArARmLkkWOc/4GpHMbUxEuwFc0rMHNz/pBfw4oVFated56AtCIFER
-         wzdE+y/Dswar6+/wUYl08AarFLcVs3GpPz7s4Ih3pEPF/F4huqKcoZHM12x4gImUEYFK
-         51rz1tfVkvpAb5R68Vviw7NQQbLmlBFvVmD9sc+XZVit3wJHpGg4VvwMONEbvteZY/Em
-         orrujdrquAYrq1RwBZslKevUZlrzsqEa7T/5IP6hsVuFn9TkpkLBPOT8fn3GUaLEEANJ
-         MDIA==
-X-Gm-Message-State: AFq9FYKr1ExN8GEBXiCKdw556aRY4QSV28Cygy5xhKYqAcXjYoiXJUdi
-	WnO5sFI0Vpv7CvKbsCUH+L3veMxVvbn1lZNJBaN5cJ2G993hsuyoODwxbMXsMFd1gP6hTFGkcF0
-	YNGms4c6I8yjpmmSdTVEXUcNBWNwJ3uM=
-X-Gm-Gg: AYBFou16sGxJ1Do57L6z+3bn3cFqhpQvAUnFDmZHKre2RJbBB0wp9Xe+xWobln6V2MK
-	8kknmU1AMWM0JE9k/oGY5p5vppwcIKvkIFOA+NceTG3Dr8Ag7vj/JYSbYQtRnw+fCC1R4XrLNAp
-	liTIhhKStjfyKVerfwIcv4x90OLUUk7WtMXUD4suy3kO0W5j7vXorud2JivXiD96sRa5tge5nGK
-	lZJF+dhP16+Ido1LYRyl9C7e5Hdw8LQZI0xTuhLPuWsGzWR8X4NBOuA5Xw2ME0qdW1FN815b0Ji
-	PcrkDHe5qdZsG6f/pJvejq3Yw/bLyQFLCkFCQBYdIjk6jL/HlgUHIRFJ6tV6Ci7DVPC5MThdNPm
-	tEWOngW7MGML2PAe7xFCap4jXFi+uvIQ96XCcGg==
-X-Received: by 2002:a05:690c:ec4:b0:8b1:ce5:be42 with SMTP id
- 00721157ae682-8b166bb1ba8mr67068377b3.28.1793114420578; Tue, 27 Oct 2026
- 08:20:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dtEwIKUU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0452A1F01825;
+	Tue, 27 Oct 2026 15:32:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793115169;
+	bh=+0oWagLcvTtnewCSM432qJhSUImGZTNxgsC62eUA90o=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=dtEwIKUUeNK/0V3q72RuhjcM3XB9lvACZ3yKUhInj8Zf+PtknFhFFKjhNFk5Efdkp
+	 xpANNTMa9TXxqHgWiccafR7WvvDydpYotUzIOI5DNnocm2KagZ4TLJqbciqwQLDZM9
+	 vcWbnU+CUX/0GkNzKsFrWSl5vheOnQzevABytfwin/U9fc9d2YLjHBknOiunYPulRo
+	 cBVAKaLp9o6rAcYW5iz4YSXOWSHlIIREcpLNS5k89b9hozEB09uf6sUB7Cf0yCLiTk
+	 8/qgCOZRxIDRGOiNCcAcboen3xq2yxLY8oYoZ7dfpniILZNhE0t/9FMlMBhKPcSfrz
+	 qaGSp5cSzwymQ==
+Message-ID: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
+Date: Tue, 27 Oct 2026 16:32:44 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,110 +51,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: valery bokov <vlry.bkv@gmail.com>
-Date: Tue, 27 Oct 2026 16:20:03 +0100
-X-Gm-Features: AclHuK-MdX_Hzt4OwqOiaJ-I61AC9gcNh6UiQj_02nZKr5_6rMD8PX9hJQ27IUA
-Message-ID: <CAN9BvpqAL_Hb2cR52EkYmkdm37ej2qKxFh2bj7F6Ei_bg-Sw0A@mail.gmail.com>
-Subject: Re: [BUG] rkvdec-vdpu383-h264: wrong pixels at horizontal de-blocking
- edges y=4 and y=12
-To: linux-rockchip@lists.infradead.org
-Cc: linux-media@vger.kernel.org, Simon Wright <simon@symple.nz>, 
-	Detlev Casanova <detlev.casanova@collabora.com>, 
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261027145313.136305-1-lgs201920130244@gmail.com>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261027145313.136305-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Simon, all,
+On 27/10/2026 15:53, Guangshuo Li wrote:
+> fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
+> DMA address does not satisfy the firmware alignment requirement,
+> but leaves is->memory.vaddr non-NULL.
+> 
+> Because firmware loading is asynchronous, this error path may run
+> after probe has returned successfully. A later remove can then
+> attempt to free the same DMA allocation again.
+> 
+> Set is->memory.vaddr to NULL after freeing the buffer so the
+> existing NULL check in fimc_is_free_cpu_memory() skips the
+> already-freed allocation.
+> 
+> This issue was found by our static analysis tool under development.
+> 
+> Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
 
-Thanks for the priming patch: it removed the deblock corruption on our
-board. While benchmarking it I found a second power-up issue on the
-same IP. It affects decode speed rather than correctness, and it looks
-like the same kind of uninitialised state.
-
-Setup:
-
-Board: Smatek T10PE tablet, RK3576S
-Kernel: 6.18.34 (Yocto), with your patch =E2=80=9Cmedia: rkvdec: prime VDPU=
-383
-deblock state on RK3576 power-up=E2=80=9D applied; dmesg shows =E2=80=9CRK3=
-576 H.264
-deblock-priming workaround enabled=E2=80=9D
-Userspace: GStreamer 1.28.2, v4l2slh264dec
-Test: a 30 s H.264 recording (2688x1520, High profile, 654 frames), decoded=
- with
-filesrc ! h264parse ! v4l2slh264dec ! appsink sync=3Dfalse drop=3Dtrue
-max-buffers=3D1 wait-on-eos=3Dfalse
-
-Symptom:
-Decode speed is bimodal. Each run is either ~22 ms/frame (~45 fps) or
-~65.4 ms/frame (15.3 fps), never in between. Roughly 60% of runs are
-slow. Within each mode the timing is very stable. A 640x360 stream
-shows the same effect (~1.6 ms vs ~4.2 ms per frame). The slow mode is
-not caused by:
-
-- clocks: clk_rkvdec_core is 594 MHz in both modes
-- extra hardware jobs: exactly one decoder IRQ per frame in both modes
-- the CPU: 1-3% in both modes; unaffected by CPU affinity (A53 vs
-A72), memory load, compaction, or the pause between runs
-- userspace setup: GStreamer=E2=80=99s caps, buffer counts and allocation a=
-re
-identical in both modes
-
-The mode is decided at each decoder power-up:
-The device runtime-suspends 100 ms after it goes idle
-(autosuspend_delay_ms=3D100), so every run normally starts with a fresh
-power-up. With power/control=3Don, every run within one power-up gets
-the same mode (20 of 20 runs across 5 power-ups). Each new power-up
-rolls the mode again.
-
-The register:
-I dumped 0x27b00000-0x27b007ff through /dev/mem (32-bit reads) in two
-fast and two slow power-ups, both right after power-up and after
-decoding. Exactly one word is the same within each mode and different
-between them:
-
-0x27b00618   fast: 0x00000002   slow: 0x00000000
-
-It already differs right after power-up, before any frame is queued.
-Its neighbours 0x61c, 0x620 and 0x628 also come up with varying values
-that don=E2=80=99t correlate with speed. So the whole 0x600+ area appears t=
-o
-be left as whatever the hardware powers up with. The driver only
-claims 0x000-0x0ff (=E2=80=9Clink=E2=80=9D) and 0x100-0x5ff (=E2=80=9Cfunct=
-ion=E2=80=9D) in
-/proc/iomem, so nothing in mainline (or in the priming patch) can
-write it.
-
-Causal test:
-Within a single pinned power-up:
-
-- slow power-up (0x618 =3D 0x0): write 0x2, read back 0x2, and decoding
-becomes fast at once (78 -> 252 frames in 6 s; repeated: 78 -> 257)
-- fast power-up (0x618 =3D 0x2): write 0x0, and decoding becomes slow at
-once (257 -> 78)
-No kernel errors, and decoding stayed correct. The value resets at the
-next power-up.
-
-Questions:
-
-- Does anyone know what 0x618 is? It=E2=80=99s outside the documented funct=
-ion
-register range; I=E2=80=99d guess a cache, prefetch or bus-interface enable=
-.
-Does the BSP (mpp_rkvdec2 / rk3576 init) program it at power-up?
-- Your FIX.md notes mainline throughput is well below the BSP=E2=80=99s (=
-=E2=80=9C4K
-is ~30 fps vs the BSP=E2=80=99s ~112 fps=E2=80=9D). Some of that gap may be=
- this bit:
-on our board, runs that come up with it clear are ~3x slower.
-
-A fix would presumably set bit 1 of 0x618 in rkvdec_runtime_resume,
-next to the priming. That needs the register mapped, either by
-extending the =E2=80=9Cfunction=E2=80=9D reg range in the DT or with a sepa=
-rate
-mapping. I haven=E2=80=99t written that patch; I=E2=80=99d rather first hea=
-r whether
-the bit is known and whether other bits in that area need setting too.
+More of postings by bot ignoring any feedback.
 
 Best regards,
-Valerii Bokov
+Krzysztof
