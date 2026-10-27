@@ -1,80 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793132988;
-	b=GG14gSOOAXU4+pmyN/Ftm1p+96WDQVDd9uDR3rXtcw56PNRo5rR6m+jE23PVLUY0Qt7K
-	 72jPhmp54/65sdYmyxa9JO48gSRjwWpr+BPX4qN1r6XTWoWqAC+nNYxOgUhYe/GCq7PYK
-	 UPJjvCSRhfFO43xwiYsl52Gd6eWfVfc3vO+Zgg3ZonXM9I9BLJeeWPN6X+PKvZGEkT+us
-	 kMBbX16rnlrktjUGTcKd2NlUmdVknqeXCfuH3xlgPy33HZyUyRTOard+inoOMCV8z4pEB
-	 DNi/t4ePJxZ+o8ka3vVGMiYEUh5KajiIbX6ghCLWTqRZqI5BVX0TSBfcTj1tYPpUVDg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793132988;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=AyVK32z5B5Pj4unDquiQhRrEdn3raP4zBUK+ARpmv30=;
-	b=UN4W7tQl0g8liml3gnpP8HTKxGrtnu4KcfAkuR8ko2aQg7Oj1TwM9wnRXtx9QfiKMnSZ
-	 0ZCBSTzHk7mjyKI4hvu5Jvyuh05Pztbg30XjnQauFya3MsnwFaKvFdhHYNgxbXSjWUqHI
-	 YxZkImFXLk4LmnIiY1xG1FX6xL/WyV03Dmaypa4M0Ew6efWjCEgp0xYpUSBsme7o2O/EP
-	 U7oDR/R8/yIu6p6Wv4/duaoxGe4K+rJ6cNhHwfWu2Lly1LWpgxyxT7le9HXaa6ouC7hD9
-	 vVoli1fL/zRLO2c9tXBs/NWhcJBOok9sjwOqhNbNiMSSTptQ5U70JLsAiJM5U+9lMow==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNvYqS3P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA6C9606A31A;
-	Tue, 27 Oct 2026 20:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JNvYqS3P
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793132987;
-	b=x3zcFhwT9SBgjkus4zyA5xKnFEJgN3M1BDerqpXIeF3dKirISUPGyFm91Qda2z9n/pWP
-	 pzp/TBTHy+5g4sSBCTmNzFfRpzqX+/cNXxano04R39H5BRStc6bZlomiMbE6aleJQdyac
-	 uRN4Oh/KuY55GraodS/MhujEGLgEtJNMqyrbCS2jCe/0+OfirycC5ULQQ2sFMMy2Zy/LB
-	 wAPmxEnn9FYOSsf4bCuu9Uf3fzdTjYz3sYsMTmsdCWg8iy9dx2zJvaq3tlkI8yymBqvGH
-	 BvyYYrTozKHO4qCss/MXEknOjPGZCf47Cj24cbOgQ8SxQOf8zddABjqJt0lQV5PUwVw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793132987;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=AyVK32z5B5Pj4unDquiQhRrEdn3raP4zBUK+ARpmv30=;
-	b=v8IzmdNNYVXriQS0z6W7Y6ZZ8fo7MiQ83s3zE3vQxK8CvEvxzYlVE6SLEWZ24079fgOc
-	 869uO2klysXZ0/In+Va7zSpGeU/catmSC8fC9ZD0YCciN39n5Clw2B6J4vtAVT4KkRTzp
-	 eyJrktJ+2kt91NGKVmIvzq5/elP0/jkVDQFVopDYHLXHLYaOaoKb+Pnds5e95OnzDWaGf
-	 Zl0OFG/ukQIRQzukyrtys87Tq4yrhx7JSFcejOeylkPvhAu+eS7ZSnfzKBxqgD5SSl+Su
-	 B+g0wG4bdTW/w7Ni59dQT9Rk9MDEElfcp1Z7RgQRaYtZ5PzpBI+V/OEWj2XPE43tL/g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793135324;
+	b=NVB+0lohINYzMzAh3IBtp7tMwKJ+01OgOsvo3Hs50hw4B4pGghqnx56sUP/pOYliYXtS
+	 Yd+fXo7TXyQtJAK+ndJ961HDGSaDcydb+QGfAWHRTBLRmDCGcogkjxZkfKOoCs3Szis3z
+	 4hN+G7qDmgk4wN7nMGrilHRWUDRU2l7O+GGfrjkNCKlUKHGUAFWdQhU9sucbxjdWN7tPu
+	 gxiunavquR1zPtRisrYTeU0BxVnaaOWo4q06GpG6I07ET7Ys8cu1amDmaRahNiJtekZkN
+	 Asp8Aik3HCovL/6o7k5JFazz+VlbW/eDO14rMDO7rhYyNAZXMgMM2nuRGIA0EFgl5hA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793135324;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=wBbCfwwWjZkUqDc8LVdfW0e57s/UTOwtgRob+ow3T68=;
+	b=Oz4OxJCU8/bzt1SQyy6GcpjODVO2xMk70AmJGpcSNwaF5u/sa9/3P+8Oo+9MGAi/azsw
+	 /e+vujkZ4Ofq7WIilj4Zf2A/XSd2IuLZvi7tq2/GG0+wkpSdeSixpVj7Qwv9CeWC1+YQg
+	 L0TBd+vWnusJvsy+NZ59YbPA2ThYF8Gel+aCKUhKUiexeaZ4XsA7jL5Kdbu1CYWQHrTZi
+	 LhEH77zgQ6CWdIPzuM3fVpUBJl1hC48wC3DbkZNDNOLw1PkH/WE3nnb0/iTnnfDyND7s0
+	 zZt6Q3rfdr9w6EeV+XNAWCCO1tii6vrm60Wen1qxb4En6tS2SYFQlKcMgmOvvEeqAyQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=nilk.net;
+	spf=none smtp.mailfrom=nilk.net;
+	dkim=pass header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=Eg7+23UP;
+	arc=none smtp.remote-ip=209.85.160.52
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A70F11F01825;
-	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793132987;
-	bh=AyVK32z5B5Pj4unDquiQhRrEdn3raP4zBUK+ARpmv30=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=JNvYqS3PJemCJS5UGfgrUgaEQUJCXATHsHw44V/+IeKFzvwOCadTv3bPLlJaqRuTF
-	 5NVS2jJ3s5bLT4zjfxFwi3N/HpL8xdnF5tBxknRRl6JMnW0kle/EynvW+JPcsCDrud
-	 nA3rFlPiIhXLIy/HF82vjvrzaQFm0AjkmiIkp2G/juEtHaxTv90HPybQy58EsPpBX1
-	 DGeP7OLw7W5Rxf4TBoawp3ZH0s/QqbYcTqsB627+0hz0vhL6mg1NpQCgTI3dJmI/4z
-	 nSFqfQu8BUL5m6B1f3VD4g2EoU4rKhh3FrM6Y1YRc/mHoCJm2q6MNVrxfgr5ht9lUf
-	 uJXFT6zMcFZxg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 0B7F0451F9;
-	Tue, 27 Oct 2026 20:29:46 +0000 (UTC)
-From: Marco Ziliani via B4 Relay <devnull+rylos78.gmail.com@kernel.org>
-Subject: [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and
- autosuspend
-Date: Tue, 27 Oct 2026 21:29:44 +0100
-Message-Id: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A91B606A31D
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 21:08:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A91B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=Eg7+23UP
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-499f20c7054so193466fac.0
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 14:08:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nilk.net; s=nilk; t=1793135322; x=1793740122; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wBbCfwwWjZkUqDc8LVdfW0e57s/UTOwtgRob+ow3T68=;
+        b=Eg7+23UP50mz1Qlv4ERIvfc7AXiy6cSmsmUGcfTJxfGQjKjyzdsj8D6fw3s4xmZDnI
+         VP91qMb1ybsGj6pD9yNkNTp6cBc9/dVmfSHxwMAL7PpucHcjT+fOv1FCL6CDq7R7m4SH
+         mFY4vqFg3cSfRLV8ET4CFNxDmM9jkUZiTOrzE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793135322; x=1793740122;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wBbCfwwWjZkUqDc8LVdfW0e57s/UTOwtgRob+ow3T68=;
+        b=PBMGH1p/vP0zW+3+hNVmjKYf1PMdhRd7xnG7vHGOm2D3N5+HgrB7uX43DBZfNOE189
+         KjsLghxpsheKzbOWe53xO7oBQvxjTRRE2S80z/egkmxK2UXq798zqOIl9uOCyuoAj9iN
+         uSzlIf43noYFFVd/PskpGpDEc2nT2tLXQlXqxTEWpMd2k8mEsbzv/n5AbgTe4P1jzuRR
+         JpGhORPb3S+Zx21gcdr39q2aHFqrTFm0aU7FtCl4MCgVRfGNVPbdBS+wLDkgZry0hyy3
+         Gy9jRmvImePHuwOMmVzIMe/o91XbOUo6IwvFBq29AhDqMk2T67oTcSiEStN01jCDazmp
+         lG3A==
+X-Gm-Message-State: AFq9FYKlijBPhNX/i4V0yHSZqYkrjfUBSnVc75c0DGnTQ35vA7hDcLps
+	64SEEA148g/cUzJLvpJcxF8ZRIjFmaIbrwccYU1Z0XA91+li9s6wUDMokBW0JigUsg==
+X-Gm-Gg: AYBFou2tOCWvB5vUuWs+c2+yNg3xoLTYFLaZBSYTYZ+3jpbeA0JzODd6a5uw7ac+PPO
+	1VkBGsVxCtfalgcgRpkyLwtK1ndDCoVWYBm8gbpg6vqY8DXtBQpm14IebyStDKaLKGEyGreOA2x
+	VXDfiuqXcxPFvApriQHRYShWszUQo+U3OmjD4uHJNt8AUgMq7bKOsB0ICSc2Iwh8ZbT6GGLDupw
+	1Ey29EJtWGfffiF+cEPqb8JxLQLlvHll7lfMsal5pQshpT4Lw5jEmYCpOrQx7vtR1rflfdwlS90
+	JSJgITcDd/5gR/6HNW1CUqKNclZNJmezrZIWpES0wIURCQL3gk8x5Vi7E6weclVIeMAkhm7asrr
+	LrZyz7dHsUyrr5s+yvl9TDTDVKvRbSPtGosOLYI3hykBZ/27sYw1T7oRxT/1Kb+2xa1cYjHSzIo
+	aMJ/uvUS8jbzD4HQQbDfhnH3Z3N+OCMihWa5tgyj6/hJv79hdnAtgY/K5Pe8JHBXTjnYaA+V4NY
+	VbxAbxyNgJAo9fre4NXUVBFTWYrGzta8D2txvePOgB7s0DcR1xBemagC82dX4X+qflCVqxgGkiV
+	KEm9uzJWKSp6tzuhAwu3SA4YXsF+cCW2hBpqSOYsXEOVi2DUfZa6xLbeJFgK+CoOnPcJq6IXZwj
+	h0gjDFLEwsQalPsHA+h68W8fm9U3vcob9x1VMvoW2XWRmNyL74jK+07snyPWDSNhfhibJ5zvlGz
+	W9+7IbDx3ulut8P8LRoxIoD1++RQkXaBsDDA==
+X-Received: by 2002:a05:6870:1410:b0:49e:4ed0:11ca with SMTP id 586e51a60fabf-4a8bbd30979mr536120fac.53.1793135322487;
+        Tue, 27 Oct 2026 14:08:42 -0700 (PDT)
+Received: from [192.168.0.114] ([187.14.252.108])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a8b74c0a7fsm970446fac.2.2026.10.27.14.08.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 14:08:41 -0700 (PDT)
+Message-ID: <111a2ccc-a1d3-4516-89d3-897823e05331@nilk.net>
+Date: Tue, 27 Oct 2026 15:08:41 -0600
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,80 +89,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDVhpKWuIhbUYCyQDiIRd1csv
- 7z87wIhzyRQRhd4Olh4mQPSOAI3NvNAirtgwARNmmCulkMbm6meTxJVkEObayxs1kBIVk/fEIq
- q/i17O5Hb3g+47wc/tte7cAAAAA==
-X-Change-ID: 20261027-ov5693-fixes-8ec29752893a
-To: Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and
+ autosuspend
+To: rylos78@gmail.com, Daniel Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>, 
- Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>, 
- linux-kernel@vger.kernel.org, Marco Ziliani <rylos78@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793132984; l=2340;
- i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
- bh=b+xs0p06/qWDzb+PB6KudqXqlOojT5He/NY8G0f4Yus=;
- b=bYnjA7bQi0B7AN/cS16FsNuFrp6oV/gD/3QR9pnQNOLPapiYWOIPuY+4LmsWbtgXL/pv4DSPH
- uGv30dHlRncCXFdCozIgweW1w7f/f/XW6eMuOEalPLB7fbGmteQCh/J
-X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
- pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
-X-Endpoint-Received: by B4 Relay for rylos78@gmail.com/20261027 with
- auth_id=1333
-X-Original-From: Marco Ziliani <rylos78@gmail.com>
-Reply-To: rylos78@gmail.com
+Cc: linux-media@vger.kernel.org, Simon Kruse <simon0x+git@proton.me>,
+ "D. Manresa" <dmanresa@gmail.com>, linux-kernel@vger.kernel.org
+References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+Content-Language: en-US
+From: Chris Simpson <chris@nilk.net>
+In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Three fixes for the ov5693, found while getting the front camera of the
-Microsoft Surface Pro 5 (IPU3) to work, and since tested on IPU6 and
-IPU4P Surfaces as well.
+Tested on a Surface Pro 9 (Intel Alder Lake-U, i7-1255U, IPU6, front
+OV5693) in a 7.3-based kernel, with the series applied to an ov5693.c
+that matches the base-commit (d7e7bca71698) apart from the pad ops'
+client_info argument, against the same file unpatched, using raw
+captures from the ISYS video node:
 
-Patch 1 programs the mode registers on every stream start. They are
-only written on runtime PM resume, so a format change on a sensor that
-stays powered never reaches the chip. This is the ov5693 counterpart of
-commit 4e1446ac169a ("media: i2c: ov8865: Program the sensor on stream
-start").
+- Patch 1: with the sensor held powered between streams, OUTPUT_SIZE
+  (read over I2C during each stream) matched the requested size in
+  32 of 32 streams requesting 2592x1944 or 1296x972, and every
+  stream delivered image data. Unpatched, it stayed at 2592x1944 in all
+  32 and the binned streams gave no image.
+- Patch 2: raw 2592x1944 frames are BGGR at all four hflip/vflip
+  settings. Unpatched, the order is GBRG with exactly one flip on.
+- Patch 3: with autosuspend_delay_ms at 3000, the sensor suspended
+  3.4-3.7 s after stream stop (the delay plus the 25% timer slack),
+  after both 1 s and 5 s streams. Unpatched, 1-2 ms after a 5 s stream.
 
-Patch 2 keeps the reported SBGGR10 order when a single flip is enabled
-at full resolution: each flip moves the Bayer phase by one column, so
-the output window is shifted by one column when hflip XOR vflip.
+The test scripts, the analysis of their output and this summary were
+prepared with an AI coding assistant (Claude); I ran the tests on my
+Surface Pro 9.
 
-Patch 3 drops the usage count at stream stop with
-pm_runtime_put_autosuspend(), so that the autosuspend delay counts from
-stream stop rather than from the last resume.
-
-Patch 1 has been public and in testing in the linux-surface tree since
-2026-10-23 [2]. Simon Kruse's active state conversion [1], posted this
-morning, makes the same change as part of a larger rework. Patch 1 is
-kept here as a small standalone fix with a Fixes: tag, so that it can
-be applied and backported on its own; should the rework land first, I
-will rebase patches 2 and 3 on top of it.
-
-Patches 1 and 2 were developed in the linux-surface tree and tested
-there on a Surface Pro 5 (IPU3), a Surface Pro 7 (IPU4P) and a Surface
-Pro 7+ and Pro 9 (IPU6); patch 3 follows a report by Dario Manresa in
-the same thread [2]. The three patches as posted here have also been
-run on a Surface Pro 7 (IPU4P) and a Surface Pro 9 (IPU6) there.
-
-[1] https://lore.kernel.org/linux-media/20261027074933.21921-1-simon0x+git@proton.me/
-[2] https://github.com/linux-surface/kernel/pull/181
-
-Signed-off-by: Marco Ziliani <rylos78@gmail.com>
----
-Marco Ziliani (3):
-      media: i2c: ov5693: Program the mode registers on stream start
-      media: i2c: ov5693: Keep the Bayer order when flipping at full resolution
-      media: i2c: ov5693: Use autosuspend when stopping the stream
-
- drivers/media/i2c/ov5693.c | 71 ++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 62 insertions(+), 9 deletions(-)
----
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20261027-ov5693-fixes-8ec29752893a
-
-Best regards,
---  
-Marco Ziliani <rylos78@gmail.com>
-
-
+Tested-by: Chris Simpson <chris@nilk.net>
