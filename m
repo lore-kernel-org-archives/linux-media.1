@@ -1,60 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793105019;
-	b=sXGThL63n/+Ua3IEInVTES7zbxFG4UKZLFvGIq0KprIz1OTKGurbp3uA79a/CeXn7aEm
-	 wOnpK+HJ3NJ0uWmxstK1uMsUfll9RiLvnsG1CG+055+mPeCVpX4C5ti7ueL6UBw8vVn3e
-	 SQpDpaSxFdmeTRNF2z/cJJj+yBZjszhsyFXd9sPkLEghsoaBw74VirbnPfabx30TCsZ5v
-	 R/GldXZpemdYVQUdY1ClC0prj/jt4NpNmLUtdrMj/O7q/xiOpbBy5oxiXKnwLbkawJncD
-	 Gvy3UarEwWP5juWsxF5yM3v0ogOPN+mmcMkYriSIHgFU5q507sQWPCFhHSdMEb3piSg==
+	t=1793105350;
+	b=HN+tpQ0qpKBCrV77HKwboJAXkcaSnZjtegOUQ/YYs9nepwrjEdJfZ+exWL6cwpqmrZlM
+	 oGmJ8qbC0jMXcC8oTLpK03qgE4JKXO9elENTnPeljJq08om5mHh6AAybeaToFQJJDFTeY
+	 CxTbKVasnPbEtjCYn/rstvYswpuL5nnu2XPXBVGzEMWKyNF9HgmJ+I2COCNnoMRLKpQTV
+	 GLsGnBvFAe4lPuKrfH6i0Gqk/S3ois5ouQsTa1tF9xpwGF4VJGFaRJWLlWPh1Yb4xMviv
+	 c4NBpbxhBJ6SqQKZ+4Tcj1flVCOveSXnvR5Glh4j5zZ//zqSrWfhAqNh/4+x/xYG3FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793105019;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xoEWK29GLcrWcExukGcRGFJ8+4/LLLLzfDVl+1tkX9E=;
-	b=IioHpVI04vsNhieIyBoHBxaVKEMzmIJuCUaZPnEdAj7FjLWGEnslXBs6AimgESyhyDa7
-	 MpUwfh8DBkoQzjeG/fbELFiNKM1tcdhyRZF9tp2Oyh8GEhVJmuj0UakZe4q5IKwlzpaij
-	 XmtqUxiq0qGUDUktt8XEZ87cPz1qFLYc8x+mbVT2QMw30xYI1G8ZC/DaAUXjZYtbmITgZ
-	 FZyDRmJERdpiQX8FhDFcIucPDDBUjLx8T+GFEesAyF2QiKdVBd9CkUoc89QkLFKgeg0dK
-	 /i5cJeE5gW8VGDY8+Q/TGg+HLcpNcvo62KPd5jpzS4NpYWIPuDW2BXvupZwP1tHMTLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793105350;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Fk4tWvtlQqWKIFqJ5KSuzG0MEcWeW6IEPLtAR2pn3Ag=;
+	b=cQXOQ/TySyra3sQd2hlYzfkP0nvo0VXXgoJtVStK/WpOlYDLHQcB1jfh6xcORMCwrnmM
+	 fIDovN77hj0ER721vMOSZldH2mnxtLVCaiYdmHv1jP9eU0LBhhxZLUJMruzrr0m844diI
+	 ZtY8EHf3ylllWGNIfGyzEWhEvBjnEcdvQ06lUfO/nmEeFNkvES75392c4KwprUCmzWj9o
+	 mIiopC9iGyG3Lakt4/Nb4xnrE50coqTvhKHCXLYLGq09spimoUkB5+cicvRpWx1PHb8i+
+	 59JdcEF8oakb5hBdvZSKPmFTHiilFcZMXaQp04+bRBzPMAWfsxf2Jr0oe9Dox3GR+dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="U/m11y57";
-	arc=none smtp.remote-ip=185.70.43.16
-Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=ieee.org;
+	spf=pass smtp.mailfrom=ieee.org;
+	dkim=pass header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=WiLlRCPE;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7848A606A31D
-	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 12:43:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7848A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B2D606A33E
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 12:49:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19B2D606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ieee.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ieee.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=U/m11y57
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793105016; x=1793364216;
-	bh=xoEWK29GLcrWcExukGcRGFJ8+4/LLLLzfDVl+1tkX9E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=U/m11y57KmxG03YshGWxr+g+mkG8gfCTlP82mmTKsVJRezPX+s/s1CSv2Fy61+Cqp
-	 IWUoSmmFziYRBLDgmhIXjMEbqA4nAIApZ8VoEIrQuadq0JyaBpCDFC+jKEoguM9zyO
-	 iEtOjq5dWb371s7m0H1xwLzTRINcGQkMuBJ7MZvtL1LsW2hXO4UXb1JpMvGeKghf3a
-	 INWPRqTurFLwBHMFa+onZ6n/+XJV7M+3EK2sZZYKLmDQqY+0Hx8jxn9gjsic2Va7Qt
-	 9Iu7iOhf281njFyyNwcW67OgzJVY5GwpEEnDuIF/Z7QO1Z6SLwPFnNkhV4rvDb5Ql+
-	 mCZYgERbLJz3g==
-Date: Tue, 27 Oct 2026 12:43:32 +0000
-To: Christian Cortner <ccortner@gmail.com>, Bryan O'Donoghue <bod@kernel.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [BUG] media: iris: resolution change handling stops ffmpeg's h264_v4l2m2m decoder on glymur
-Message-ID: <179310500796.73918.9946996824482992887@pm.me>
-In-Reply-To: <179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com>
-References: <20261026160952.22082-1-ccortner@gmail.com> <36201ae2-1cee-4d8d-9381-dfc9013c522e@kernel.org> <179306719855.20070.15625203453374418392.iris-rfc-reply@gmail.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 21821e2aec1b4d378e2fc7aac8b1d807231603ed
+	dkim=pass (1024-bit key, unprotected) header.d=ieee.org header.i=@ieee.org header.a=rsa-sha256 header.s=google header.b=WiLlRCPE
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93cbc3ab2fdso180953685a.3
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 05:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ieee.org; s=google; t=1793105348; x=1793710148; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fk4tWvtlQqWKIFqJ5KSuzG0MEcWeW6IEPLtAR2pn3Ag=;
+        b=WiLlRCPEdcKxVRkxZZqDI0Of8j/YUHQ6LS4ozirUJJdpxPXPdnzPLdYFRcQOvo4/Qh
+         kaM1KrVlcAdeEQlKG7Dp5+1ZbNXqS8mP0v8jn7zOVZpb+/XX4ik2Un0lMLbRgcwUhbOk
+         ZgM7HTwfGtUGBuxb1l3NzKDURXoUGn6pOrbic=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793105348; x=1793710148;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fk4tWvtlQqWKIFqJ5KSuzG0MEcWeW6IEPLtAR2pn3Ag=;
+        b=p6mWszPaiTFrGqJ4PCW7R3kJZiRtLSIwFm5UEajXp1soVHePxoZg9+6NP6Bm6M8jfk
+         11DdKoWBqX+tZYWp2vlTaHyUGsYUtZLT9zJWWQxpIj9rsoEgm00xbpgR9EjqAlxlqgO8
+         nV4uNSvT9Zr26g4m05Iq9LDeHTqb04fUXjd0Z+ab0O82296xWEhJmBuKwwQGRdRWBoyG
+         oIhoHvM/kmoyd0kxYiRRESQj4AmOkP2Nf90qaieMHIJXqoJFIWTcIHqedSwB+ksJpp1Q
+         Ca59U2YI/i5g892WqJ4PROy1fEpIGkU2doaBPuw5hdsF0JnAa3Jg5hg6afhfnfGHaYg+
+         oS9A==
+X-Forwarded-Encrypted: i=1; AKwUvBwPDsA3vo8UiRyuROswRIleiKQ5FIR2cBC1MJzWL1+Z39TXYH/uilFiNQSFurPpb3VzV2w6k0g2h75aaQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIs/uopvmA+KB3LgcqB7NUE0JHuHYNusaxvmPr/DHQdEFh7TSTj
+	Z+8IGpDEDOHPqZLhbMmAeJgWJ9L4uf2qe/XHgMrNjerw7RSYhb+Oggf7944D7tWlvA==
+X-Gm-Gg: AYBFou3aYtLbY0KU7slAO4bUyLQB1CvIZrN/PU7uwKvR34u2bKD24/9A4a75rrtSJnR
+	YXr4Z4D/ukYWLq0Fv0jMZUKhBXIXd3bWxyxgf+ZXUnR/FgjY7S/KDqye+y9t/qLNv7CD7z4gRQJ
+	e39ahfhxBS/ZqfzERb/LZ/CJgfOg6jybzF/ce2kUvFLEmxTffxTLFj3e+4cli2IqsSPm3kQhavP
+	FHDFmkc/IUFDPa1d0xNfsaBY9Ibd7Mde9HM0MWx5OE+T9WXdxbFZSBG9B/TzyYNK9Py1XXqlBwG
+	1ROJkOhmWf17Z5dJavcOhuXiqNu2pBwVT/94SGPRO2PcseE3JZ939yCfFLerRxjDxe95wNENLuK
+	5TS34X/VT4b70gb5X53cTLibpeGaDklHe5Oash6mSxDhI/Kgy0drpdi1DCEMTy7SNKgAFmROgSW
+	ikQMPY+8oe2aoQD1ZsGxwyfT7tOZ/3h4Ws/p+xqscSIW0LjjYeMqYspe13da+CEHnswWzEAVPHD
+	Ox7mcGFjJm19Bu2+QBfk1ozQKVWRDZPz+JKjDf/hgVsm2OSKLU=
+X-Received: by 2002:a05:620a:801c:b0:93e:7944:b874 with SMTP id af79cd13be357-940ef93a596mr1396495185a.33.1793105347945;
+        Tue, 27 Oct 2026 05:49:07 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.googlemail.com with ESMTPSA id af79cd13be357-940f0a8549fsm956941085a.39.2026.10.27.05.49.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 27 Oct 2026 05:49:06 -0700 (PDT)
+Message-ID: <ccf0300c-80e8-41a5-a394-6ec55fddc913@ieee.org>
+Date: Tue, 27 Oct 2026 07:49:03 -0500
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,35 +88,131 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/8] net: ipa: migrate firmware loading to
+ qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Alex Elder <elder@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jeff Johnson <jjohnson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org
+References: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
+ <20260925155737.4161358-6-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Alex Elder <elder@ieee.org>
+In-Reply-To: <20260925155737.4161358-6-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 21:19:32 -0500, Christian Cortner wrote:
-> Birk, if you have a moment, the client would show whether X1E80100
-> behaves the same; the fatal errors you saw on an unmodified driver
-> might have the same cause, but I can't tell from here.
+On 9/25/26 10:57 AM, Mukesh Ojha wrote:
+> ipa_firmware_load() calls qcom_mdt_load() which bundles metadata init,
+> memory setup, and segment loading with no PAS context, then calls
+> qcom_pas_auth_and_reset() which skips the shmbridge prepare step required
+> before TrustZone authentication.
+> 
+> Replace the open-coded memremap()/qcom_mdt_load()/memunmap() sequence
+> with devm_qcom_pas_context_alloc() and qcom_mdt_pas_load(), then pass
+> the same context to qcom_pas_prepare_and_auth_reset().
+> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-It does. Same Yoga Slim 7x and kernel as before, so the resolution
-change path is unmodified, with your client built from the attachment
-and your two streams (min_buffers 3 and 6 here too):
+I think this does the right thing, however the IPA driver does
+not use resource-managed (devm) interfaces, and this would be
+a first.
 
-  ab, START after LAST   30 of 60 frames, five fatal errors (2 of 2)
-  ab, -A                 60 of 60, identical to ffmpeg (2 of 2)
-  ba, START after LAST   30 of 60 frames, no errors (2 of 2)
-  ba, -A                 60 of 60, identical to ffmpeg (2 of 2)
+Why does "qcom_pas.c" not offer an interface that can be used
+without devm_kzalloc()?  What if someone wanted to pass in a
+preallocated structure to be initialized with the (publicly
+defined) PAS context?
 
-On the unmodified driver ba stops as well, without the errors. After
-START the client gets a second empty LAST buffer, START then returns
-EBUSY, and every DQBUF gives EPIPE, which looks like the stopped mark
-from your problem 3. The fatal errors come only when the count rises.
+I was going to suggest that you just rework the code to use
+gotos and the cleanup path as used everywhere else in this
+driver, but it looks like that's not easy.
 
-The fatal errors in my ffmpeg runs follow the buffer count too. With
-h264_v4l2m2m on 3 second 640x360 MP4 clips, 24 runs each:
+I'm willing to ack this but I would have preferred to preserve
+consistency.
 
-  x264 -preset ultrafast    fatal errors in 0 of 24 runs
-  x264 default settings     fatal errors in 5 of 24 runs
+Reluctantly:
 
-Both end after one frame in nearly every run, as in problems 1 to 3.
+Acked-by: Alex Elder <elder@riscstar.com>
 
-Birk
+
+> ---
+>   drivers/net/ipa/ipa_main.c | 24 +++++++++++-------------
+>   1 file changed, 11 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
+> index 14ac2d2faf7c..6964395caedd 100644
+> --- a/drivers/net/ipa/ipa_main.c
+> +++ b/drivers/net/ipa/ipa_main.c
+> @@ -585,12 +585,11 @@ static void ipa_deconfig(struct ipa *ipa)
+>   
+>   static int ipa_firmware_load(struct device *dev)
+>   {
+> +	struct qcom_pas_context *ctx;
+>   	const struct firmware *fw;
+>   	struct resource res;
+>   	phys_addr_t phys;
+>   	const char *path;
+> -	ssize_t size;
+> -	void *virt;
+>   	int ret;
+>   
+>   	ret = of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
+> @@ -615,24 +614,23 @@ static int ipa_firmware_load(struct device *dev)
+>   	}
+>   
+>   	phys = res.start;
+> -	size = (size_t)resource_size(&res);
+> -	virt = memremap(phys, size, MEMREMAP_WC);
+> -	if (!virt) {
+> -		dev_err(dev, "unable to remap firmware memory\n");
+> -		ret = -ENOMEM;
+> +	ctx = devm_qcom_pas_context_alloc(dev, IPA_PAS_ID, phys,
+> +					  resource_size(&res));
+> +	if (IS_ERR(ctx)) {
+> +		ret = PTR_ERR(ctx);
+>   		goto out_release_firmware;
+>   	}
+>   
+> -	ret = qcom_mdt_load(dev, fw, path, IPA_PAS_ID, virt, phys, size, NULL);
+> +	ret = qcom_mdt_pas_load(ctx, fw, path, NULL);
+>   	if (ret) {
+>   		dev_err(dev, "error %d loading \"%s\"\n", ret, path);
+> -	} else {
+> -		ret = qcom_pas_auth_and_reset(IPA_PAS_ID);
+> -		if (ret)
+> -			dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
+> +		goto out_release_firmware;
+>   	}
+>   
+> -	memunmap(virt);
+> +	ret = qcom_pas_prepare_and_auth_reset(ctx);
+> +	if (ret)
+> +		dev_err(dev, "error %d authenticating \"%s\"\n", ret, path);
+> +
+>   out_release_firmware:
+>   	release_firmware(fw);
+>   
 
