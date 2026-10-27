@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793117743;
-	b=NPYGo1VkzbV4TrZ4vymtJDndi+OW35mkP47djHEpYrKdnIWCN64KAjY4xzvlcYmETzGl
-	 wAnKKInk+W1ZETPdesdfWe80Joooc0SmSC2YTUwV4QRBSc8AHlS4xy/RvKNM8tMRW8LbR
-	 fVOqXVGWtHaNRkLIJg88FV2Ag8Pm8Gv+qBVGYSd4wmhAc2BZwXlqV/PiCcceeGf67Uxqm
-	 qSMoE9vJ5/y346bBQdN7RlVkRRdR+oevRuZxp4sue5CC5HEoJ+8w+8PhJ/NyMsaVbAg/G
-	 iA8+q0DP5LEqYDIC1koD/IcsTfWtQo0nSJjBITlldEQNokitBo1+AShEWMP4KiQVkmQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793118154;
+	b=k20txFN1AVKrTC37NJmzbSk9VfeJWaG82d94mZxq0AQTR3eYLXBrsECFKJT9KNquD/wl
+	 hN9au4YsYmLIwKw5MyS3TduExSyGtOX5WaostZ8dEdjibyqGLqS2Z6my8NrOHiTBlN3k7
+	 cIAKX5JXr1WWKcDBoEqLZ2N83MzttIqnOM074Al39DR537ZLoq1EKOkkZxq6DMzX8aFz/
+	 pjLO9aaG2Gh57LReGFe163B4dhvT+AOzs5XzKbZx3SwrBRyyeIA0Bcrfq7Qz6ADXt700O
+	 nVJrdMVgyoglxDHM3eWuEAJ3jb7PjM/5JTzk0b6rvNAJy8B0QnFBmh5WK+EI1mle/NA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793117743;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
-	b=AV74Hb6txwbNAR/f0HE2Dm5HnAH6IHmPb7OPyiV435rQ5sbWs6Ep7QByXPbLMCExY/o5
-	 oxxsBCgOjyyVqtP+sD84Ie1zHIAlZ9oREQEp5k15f5vM3chqQ1Sh9RG8iW4LClLW71XFg
-	 WSJePeIGFeWjpkzqsSxfGuwclhsvS5YOCxJwec4FJkkGgE6y1wfTCM98RJ9DboVR90Lsx
-	 V0oxsbEX0pe/j8+qyVPvB3cExm67vc/O/Ce0XAgJvImyDLOGda+vopiqAMLMdMxLteAKI
-	 D4ApdpZmf8HW+5c53QxdBG3qlLGqRaacnWwlnce/npewLhcxh7iBN0pD/Iq02F39OFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793118154;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+	b=LdWO3otcbQGnCDR2LOpQn5jjnuOK9Exgn7HlxzsGtHOG7Rr2VCrdALIiHWtCub8XMkVU
+	 YMCZQFdbUcKkcvSTm/xo90Ohe0JBFDQ5/BzdKgNzPLzxAb5JHbwUq61tAk7qE6emVkY/k
+	 iunas2X8KVQ4JIZkIi2fvdHX+tiiblCb6lCo9X8NZH2m3J+JcBXOjNJdktcovStg3OXSB
+	 grJ6uRDclrDwCLfxlzgsG97091FjurJjTwC87i66+CxU8wker/X0b5DY1Mu5KicwwmAf/
+	 j98Oo0h9GITvwgjwj1X9LQ1VJkosnjb+zqc2LIedgln7mKyxEQQLyTNjOJdymO2TKhw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF2D606A31A;
-	Tue, 27 Oct 2026 16:15:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KHaksePs
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793117742;
-	b=iF6S0g6aFF9OklV15d6JH/oEqZr3oWuk+3KAqV+FAfxOUF9izHQOqWPOckECC7Vw//Oy
-	 mYPyxhuGahHhpqM2EAoGHohnghIdMoN+Aqc5BKAJU8fFSM5lFYkDMP2znE0P6NLUfLTLA
-	 MbTkfDA7h6oCbw2gkJrdYBqfZ2cZOOSHQraVS01Yd4CGjC4oLajW11kDQtfVLGRnqJQr9
-	 XZprXW3jLGg7WI5TrS1SEg6GbaS/bad3zVwbw9FD9dYq9sAmIuiTM6EbYPCtv6sKzU8nT
-	 /EB4tzILFVyL9FNCnholu6c0Bov9LqCJgdVv2dRvVegxVI3AGZcPwjQlog6wZEXwOkg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793117742;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
-	b=w81KB7+f0OFR6veUC6B22OUG83Qo3sDYmayqpOLXWCLRjaCHFQpZxSgzKQWi3qpiOEXF
-	 5BOmGbP2dYwl+0pmxoafZfLqEjm89Yrk8wwDIidAWVtnIUx/PpsvM+6fSiX0DnCeAFtvx
-	 UOv8cUVaAtnJ/IGDjtb6P+rtyBT/7DKGOvlxlmkZo62+LAmsdpj12boi7ocEo1fcfCeE9
-	 giVj4lzHVwvyViE7+MGkKbA3Yexpk5r0zJq1Ws14ZDMFfw3si4HdrsuaUO5ovT39vSere
-	 EHkUDqOfX9bgNiphWduN31Al4DMTJ/H6+HoZo9WL3Wxiu9zz19zhyjAnvZ5KFD3cfUw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1iQHa5S;
+	arc=fail smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EBF0F1F01825;
-	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793117742;
-	bh=/1+qVb57zvLsyGfD3ibPABn1ocLm+f+LfQNxDlA5Sa4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=KHaksePsMes3VvIBAzpo/Vewuvon9PnUhpFXHRp1Ycr3iZK6d3/vdXTS682Awbd3a
-	 jNTAI3wHNeJPCqdSQUbTlcPTEGT/1vBHbsiDf4jHJsLXvYpGIriK8eNi+AbuFggu4c
-	 YHgtHVvtLiy7/OybE1UDlssf4QX0ISBHuzjsAd9DV1tGt7uMdt/5fvgsg5fwU8eQrE
-	 Fj8k+iiWBYP8M9Dn6gzhFfyZwPAwRx30cS+vIM1MRZ6AdMo88HOj8MNdpIw9fZZzv7
-	 4Sc2qsTMn9FAGzJWbwreTVT3s21VdpIon3VAqVWdXkE+lx08OpMABMsyC9+r0m7VW2
-	 t46EOEfZdmRSg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 4E35745153;
-	Tue, 27 Oct 2026 16:15:41 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 27 Oct 2026 17:15:37 +0100
-Subject: [PATCH v3] media: qcom: camss: Don't reject sensor links faster
- than 4x the CSIPHY timer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0536606A31F
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 16:22:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0536606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W1iQHa5S
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b0d126f631so39360187b3.2
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 09:22:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793118153; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UT/I/jFdRikv+GLOQFclobPW0mTizWiHLRPEO2/JKjGV2TWd/aRcLayrjuKctdfnTi
+         5uyD5dFFw910Aojz7Z/RemJh5NB93w3FF2vp1+Br67iAkALhsBdAuC1hFHdiAXsB8eNF
+         UGpRSm4pEZu7Gn5nJzbjE9sKCww5qLcycswNO7gG/Rjw2tb1MonUMCFTvAXmegTOuqXs
+         V/Jag59xUTWtc4vSkdj/v89oKYeLAUbbzxGEU4/yUQ6uLtYyashtfdqGCh6j0XpDJDKl
+         H1U06MR8V+87ZWgpa4HS/OB+74NislrMe2qaRYq9FnfA8Cnlq0TNqT/KRJ4WEhvVKubb
+         SnJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+        fh=qM9oo0xUzDiXv7B96zmLmJ2snGvbFh5b5suTEeqkIkk=;
+        b=jlRHcSe3tBjh2wfp04ycB2MJoqNS9EjE3tayLFxzrayO6j1HixLDQWBP2uA/yRmQb/
+         Vu2ggDw9X6cVtY+7Mc/HHKFFDFdFzfKCoIGcVa5EEFdR5/N7Rf0Lk6jOz++IM2qAaf9l
+         d7yHdpj95pPs77wtDCnztg1qJtaCarw3tkulYURPSLnbVUf+Ha+Zzd0yv2VlmH/OYMEF
+         djxtie5cPYjF9lUUnavQZJuzVai/mCcdbvjHYEbI0PfmO8AXcSrV7d16q4QQMOCu7Lvu
+         HjTRFjnkRCYKB9IhbDkTnB9SEcRK8Gkbs1n7w4H/WJe4B4F+DOJY1JwelNLXoRefy8nA
+         qO6g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793118153; x=1793722953; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+        b=W1iQHa5SX/Qc+pJyHgnzeP49i7n4MyoEA1Sg3k4vdH/8WuPlX0on9nVDrySw3Zna8i
+         VmAyaK3ohLRAwCwDkIuGUhl6lFASHb9v/c6ua/hWP4ZnWIS4Pg/QPxL+h/j2+M/ph6tF
+         1vS3HMQklRX7SsooBGhCqQgqAsP87LL1H8P0aiSVUl4bKJTDy8l9YqnJ0x5Ec1X5CdbS
+         J+/smu1iGC4WhXJMXPInRtuGzDFJObu3iEpaPAiN+VC9nv1zNGfLCEZH1FiQpKqwIiPf
+         VWeWPMWfSjW129zws8g4m5xGzmWq5KHVcVk+cQtM/DXfJbdUlA+dhI85l6M9pPu5/00F
+         GlHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793118153; x=1793722953;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Je9f2sBUTCO/EZacvnUN8CZNhT1Vz5vHYja71Ddfujk=;
+        b=uTZEQV+Ky/NkLjguV8oTdXDZ4HG7dQSFvFz7AawQG+1XxADcpSRLdlmMJmQRXPlaGv
+         0J6tgWWwrqgA8u/2iEmR7J7fRxUrlhTtc2Ar6I7/9OGmS/+EdzTcpLsckcKGQ97wrz3w
+         hp79/oVREm24i4G1vjRNxSQxbRNOvICDdZ0IQokCFNhpE7dc4UGNbfqnjyo6MWvL2mP7
+         B62J3AKiHMIpe8kffB6lP/T3VmMKFyjMDINHQDcPdIbdAwjuJFdTumPINwXG6iYaKrJC
+         ZgrW9uDf9oljA5XU37OlxHti47bilobvd4mQLnq/fuwwSCv2e1odEJGAorKv3oLFvQnw
+         nCNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwIwb45h5aJ0uDtW91JRKPPNMznfsY036cPuJMCt1Wo55RU51b/XSXKHK7vXwzUVJhi2S15GjMv24Pbeg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+zisXmvsLg+09zc3K+kjxsMSGWCvBEHCZxpkf6ESW4KWlODjU
+	hVWNW1Bww4RWs92fT2UMzeE3brX+y+FV8LMgFXmyLJrxpBhE3mMpZzYYCsZtN8MuBMXMqoMJcmL
+	eLmYsrkCcGTdPbvq2PFsSCDtBsImrZgk=
+X-Gm-Gg: AYBFou2ep1kS0ZBMZKEp7enQAU6Dz8MsvA8v1gYmCYTucF6Al5h3uyo332L+CGo7k7s
+	dWXjr3TSq+j3h7AtfxSWABUNAw1hP3grND+8Wd9u79YQh3kDAU2KLRgq7ARpWr74PV0GPxp1n33
+	7Qnss98iUQalRGNEE+7zQipzR8iJpyEraSB4Q+wWzRyc7MFNl5nCRqohGBSdXIk1oHcGgusPETL
+	djRgckLs+oKaKKWXmOFyaDiN3ldEu1NyvBPSwB6PwUiQQS0U2tnrXhSkbv0TSdjyL0By9qRVQtx
+	t6CqEQNYh/mDHYA35kCuLWuPkic3oaG22FCK0024Wn8ow3NbtJdT7vzrgXoc7nz0yecjHKcJJoZ
+	mZZWCSYs7EZCaQt83/Gx4RBs3OTnPE7dcjYpZ
+X-Received: by 2002:a05:690c:dd6:b0:8b0:cee8:53cf with SMTP id
+ 00721157ae682-8b1669cb374mr84387667b3.3.1793118152555; Tue, 27 Oct 2026
+ 09:22:32 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,123 +103,66 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261027-csiphy-sdm845-limits-v3-1-c58917e14107@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNOQ7CMBQFr4JcY+QlMYGKeyCKeCMfkUW2sRKi3
- B07FKkQ5UjvzczIGwfGo/NuRs5E8NB3Cfh+h1RTd3eDQSdGjDBBKsaw8jA0E/a6rYoSP6GF4LG
- khmtZ21LzCqXr4IyFcdVeb1/2L/kwKmRXXjTgQ++mtRtp3v1JRIop1lwQaY8qZewFRggH9UY5E
- NmmONHih4IlhWBMy7IWRlqyKZZl+QBo78HLCwEAAA==
-X-Change-ID: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Bjorn Andersson <andersson@kernel.org>, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3007; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=YngNkwq0tcL9PzNnoy5oOuxivPBzZW+yX4YIxcz9VjA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq4M4sHysknjH4WTsZyWkGpInzz0sse10LN+oGu
- LzBgYQacXGJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCauDOLAAKCRBgAj/E00kg
- ct0GEACJ8rn600wBR0k5Z1JbaLYFD61PRSQA05cvG01mbkv3yrDyjRxDJSDoLU1Hud9eZh0PlmN
- g3V0sUmz/i6gzp/bgieRRnXGLj7gTElwpYQORX04ggzT/Q+HB302jsvkuxuBUf2/Ly+9Zc9Uu3x
- 2ThAX7a0ufkI7KlDtKJHtOTJPPNZkjxrErGYonI9bHNCIh6oifO4J9DUOew7lRnF0/UtvhUvZZj
- jonRCzQQOP63yxrS80V+uZXHrCfcnXaC6tVRBxpN+d9GrFCkjGNbAa+nkK+pP1m+wapQ5lyxODB
- Cen/fMp+IPA7zlXN6iE73Vf49+gHNnCvGZGOOE5hDIEdpaNsEg1BQQw3LtYzcPTJWYemukMq08s
- uqacGib7nDzC0lFq5Yj6VdipZhgf6R9df2pWOGYzZmwGF2FE7nwI8WHNiPc0YmWNNHZkR3C9X2b
- RIq1Dfl2CebMQlcpsNnRvbfhSI0+SI36LThMxKjlIa3eH9tanNcg8lyjJioC6B2YCxmnejl1+eQ
- U/70CCqLTn7UFWiHBmEUa8/Qoh6kZWiWREIjN4RWB3bJjYhZozCWwHr35DNC2ckI6hB4Tvy36oK
- n9glKnmFI77jx3URR4NZmCeqEwfqsYBAHf0x/zrkirs/4xSEtHQsQRpS0guLfxwdyDkHVoTwjkd
- Ln2CQ+ROZ/2mvxQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-Content-Transfer-Encoding: 7bit
+References: <20261027145313.136305-1-lgs201920130244@gmail.com> <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
+In-Reply-To: <f7d242b6-a401-4ea0-bfac-e988f1497bc0@kernel.org>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Wed, 28 Oct 2026 00:22:22 +0800
+X-Gm-Features: AclHuK9WhSZ_5Xj4ee9jEQ2X-wRviwNJD5dHM2yTu5byUlkX8Eudsa4g1RS5X-w
+Message-ID: <CANUHTR_RYcMEOTevXWRF2iS83oNDc4pXqsbBZKLV7QbSUeYh=A@mail.gmail.com>
+Subject: Re: [PATCH] media: exynos4-is: fix DMA memory double free
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Hans Verkuil <hverkuil@kernel.org>, 
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: David Heidelberg <david@ixit.cz>
+Hi Krzysztof,
 
-The timer clock has no such relationship to the link rate. Both the 2ph
-and 3ph code use it only as the reference for csiphy_settle_cnt_calc(),
-where a faster link makes the settle count smaller, not larger: at
-269.33 MHz the count converges to 16 as the link rate grows. The vendor
-driver pins the timer to 269.33 MHz for every sensor (it is the highest
-rate in the SDM845 clock plan) and streams this exact link with it.
+On Tue, 27 Oct 2026 at 23:32, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 27/10/2026 15:53, Guangshuo Li wrote:
+> > fimc_is_alloc_cpu_memory() frees the coherent DMA buffer when its
+> > DMA address does not satisfy the firmware alignment requirement,
+> > but leaves is->memory.vaddr non-NULL.
+> >
+> > Because firmware loading is asynchronous, this error path may run
+> > after probe has returned successfully. A later remove can then
+> > attempt to free the same DMA allocation again.
+> >
+> > Set is->memory.vaddr to NULL after freeing the buffer so the
+> > existing NULL check in fimc_is_free_cpu_memory() skips the
+> > already-freed allocation.
+> >
+> > This issue was found by our static analysis tool under development.
+> >
+> > Fixes: db47622c13ae ("media: platform: exynos4-is: remove all references to physical addresses")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> > ---
+>
+> More of postings by bot ignoring any feedback.
+>
+> Best regards,
+> Krzysztof
 
-Clamp to the highest listed rate instead of failing, the same way the
-unknown-link-rate case is already handled.
+Thank you for your feedback, and I apologize if our recent submissions
+gave the impression that we were ignoring your previous comments.
 
-Solves issue on sdm845 that caps the link at ~1.02 GHz,
-so the Samsung S5K2X7SP, ~2.3 Gbps/lane, link 1.15 GHz) fails with
-Pixel clock is too high for CSIPHY
+We did take your earlier suggestions into account and subsequently
+submitted a patch series accordingly.
 
-Fixes: bbde31047434 ("media: camss: Use optimal clock frequency rates")
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Tested on SHIFT 6MQ with sdm845-next-20260820-9.
----
-Changes in v3:
-- Added R-b and Fixes: tag.
-- Link to v2: https://patch.msgid.link/20260914-csiphy-sdm845-limits-v2-1-622db5a6ebf0@ixit.cz
+For the more recent patches, however, since they address issues in
+different drivers, we thought it would be more appropriate to submit
+them separately rather than group them into a single series.
 
-Changes in v2:
-- Drop the camcc change entirely; the 269.33 MHz ceiling stands. (Konrad)
-- Fix the check in camss instead: clamp the timer clock to the highest
-  listed rate rather than failing, matching the vendor driver.
-- Link to v1: https://patch.msgid.link/20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz
----
- drivers/media/platform/qcom/camss/camss-csiphy.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+We certainly did not intend to disregard your feedback. We appreciate
+your time and guidance, and we will be more careful with our future
+submissions.
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
-index f99eea2ef2289..985171276ce47 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
-@@ -159,25 +159,23 @@ static int csiphy_set_clock_rates_legacy(struct csiphy_device *csiphy)
- 			long round_rate;
- 
- 			camss_add_clock_margin(&min_rate);
- 
- 			for (j = 0; j < clock->nfreqs; j++)
- 				if (min_rate < clock->freq[j])
- 					break;
- 
--			if (j == clock->nfreqs) {
--				dev_err(dev,
--					"Pixel clock is too high for CSIPHY\n");
--				return -EINVAL;
--			}
--
--			/* if sensor pixel clock is not available */
--			/* set highest possible CSIPHY clock rate */
--			if (min_rate == 0)
-+			/*
-+			 * The timer clock is only the reference for the
-+			 * settle count and does not need to track the link
-+			 * rate. Use the highest listed rate when the link is
-+			 * faster than the table covers or unknown.`
-+			 */
-+			if (j == clock->nfreqs || min_rate == 0)
- 				j = clock->nfreqs - 1;
- 
- 			round_rate = clk_round_rate(clock->clk, clock->freq[j]);
- 			if (round_rate < 0) {
- 				dev_err(dev, "clk round rate failed: %ld\n",
- 					round_rate);
- 				return -EINVAL;
- 			}
-
----
-base-commit: 151a134a4e6ec66f69db8750c66006f5207f7a9d
-change-id: 20260822-csiphy-sdm845-limits-b1e3dbaf5d38
+Thank you for your understanding.
 
 Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+Guangshuo Li
