@@ -1,80 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793122747;
-	b=eId7tSY17mXQmN5imH84KSFevBcD8AFizVc5myZZgCtj8k5O5burBDgouvHGiuQKhC8N
-	 bsMzR3YnKK+9zzI/fC30K4sxWr4r7o9njCjaYyleJCMlcDKpYcmjd3sMObrdn0mTT14CE
-	 iM+K4bbCj+a7J/FLXrJquj3hon3XpenHorUBqnxno0TkxQ0vkvB5LN1mYQdIXC7CmcCT0
-	 7oJBki+FaLUa9hRA+98k2I+LbO83jA/JYI4Ni/qpuxdPxabX9YeyXncQio3OjAnu7Tth+
-	 GxxHbjizAPk7mex59E+pJF1z42poGRT6r9STc4r08XP9/00MXU1W1iODNP91Kk3p5Kw==
+	t=1793122821;
+	b=5N1kGh0R8NDQTLmifHw33jiW987lA24bXYfrDaqt/qeyevpxZZn0YtvIVn6tu7ghWaae
+	 YKRGwfqiPG2gED1pXrGp6WqaBco8S1AcLYrj6Si22OkPhDvA5WmOTBOUp22qeUL7YI5PQ
+	 U80NrvFqvS4r8IR/hY5X1PEP25cyQ26MCiakmhSvgwByu0pRKeGkEJB/cQoE+IodrsTsl
+	 Pv1J0RpqEK2iuSCjjvHlbD9KwaUcLqMgcGquNV9dTeLrnxJjQzGNsQmXvJCGc1TQZcHvA
+	 SmXW/M+ZNK9BGJZMpbn/vuLhn6rSSH/eKEwp5FCh3AgZ7ocI1JiABLWOyy7CD/+RuyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793122747;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=GMLoZqn9hUz7CF6Vy6FF9tNhZQTvAeSqJAal3eoYO48=;
-	b=BvwSe76GytdX6c6mchfAcaEzW0exlJKpwEqThV6h07fq9suaXkUsqVY53bGLXPwZ7ynq
-	 8BF8IONBo+MpnvtHXx4pasCfH9yMof46zW9L4JdBxNRARA3MFODkj7P3/KHPnbi7GPon2
-	 U8FcDX66GhcXIFzBO/lqNK+tvKk7AgTuzCD0IrkHW/q7v/E8/WARHH2hn+4X1DZtCUFOk
-	 kz4UQA5Yqc7B2DuTjk9ehnFDFpaaQaGOBzeY2flAjr+TlhiU11hkg/b3+zj14qgLz7BVC
-	 +ZXRs//4/SepDwq302U7/iQqiqeZvwpESa0kDrGSAeJM7eWUujEh35YLbcYIzGfDAjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793122821;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Co4uS0oaq+dGkYZsO6YucjUClFdzoKosdUQvmkQf2P8=;
+	b=g8fNOxgWAD8RrLGHXyPW21qgddEEA6CSZN382YQMefddBxL2fVh5PZjjm7s9y24uRsUZ
+	 cuMAg/OggyLLgp9A62OOfB5bm/NzdmLo7SNLkmml2/OziqF9dyqRmZni3XsBPfcdy+YJN
+	 bVGWU4ReypYXxnLXNLYk2ydeC9CCnxyxyjC6WPI1eA0bGmtSMxYPgW+3FY1uX6gP3h7sI
+	 ynqS8IL1U8xLXXiuyzdDFtiy/AdpVj0zXGV9BYqEyMtH4mKleqr7GGiFQgJjAxCKiiXIR
+	 lnfr37aqRDgnw1IXHp8ennZiXobPLNznRtFYfU/AVAtJI+1yOlr8KfzYncPHFdaNiAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqyexwYF;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YvrKIEIA;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F2A606A321;
-	Tue, 27 Oct 2026 17:39:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08F2A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2711606A31A;
+	Tue, 27 Oct 2026 17:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2711606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cqyexwYF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793122746; x=1824658746;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=+MxEiuBZ/L0ubNP9ZUsiWv6JkZZH6q8NBc49BPiB3FQ=;
-  b=cqyexwYF5u2DX9SPcyWciTroJ2F8wPeHV9ejTYhfKbZtQpn/o+xHfZrL
-   P20S/HM/NcIupEeGpkHnoqp73x+EdWLs2x+BR6nORjgf3rfslILnsZ2ot
-   tirInmbTbaim93jNRVQ/luR3BuHfB0KtMcj8QQVrHDwP7Q3TVi6z9627y
-   ci+5cP7kr1ACN967b6emwUaoFkprkbbjw4fg5c5uEOnXcRJWRSp60HaNA
-   fw/g8moWKOw+SIxGCNjZ/KyGQQNKkBXIiokk2YRhD/WiaXHTW4PRoh1pF
-   Twy+VaP9ajfMS51jQInpCnT/rLdsKmO7vphdH2u0jUUeB8WGKhpgnS9Vg
-   g==;
-X-CSE-ConnectionGUID: 4w02iSAWRYSSurM3O17Ugw==
-X-CSE-MsgGUID: 3RT8oe5ySPmLIJ5YFBGTjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11948"; a="1718084"
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="1718084"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:39:05 -0700
-X-CSE-ConnectionGUID: QWVD5rq2SAmBbkxIBx4vRg==
-X-CSE-MsgGUID: mL7lmYsUSTaE4Fxi9cNa8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
-   d="scan'208";a="6474352"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.196])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 10:39:03 -0700
-Date: Tue, 27 Oct 2026 19:39:00 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: =?utf-8?Q?Rare=C8=99-Mihai?= Vladu <vladurares@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 0/5] media: atomisp: remove the circbuf library
-Message-ID: <auDhtEFGht8PQnET@ashevche-desk.local>
-References: <20261027120341.2305533-1-vladurares@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YvrKIEIA
+Received: from pb-laptop.local (185.221.143.99.nat.pool.zt.hu [185.221.143.99])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8B0D44BB;
+	Tue, 27 Oct 2026 18:38:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793122686;
+	bh=TB3BA3rMh2UG+iRzpT4eyAl5X1c+8JakRBmUU+aJteo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YvrKIEIAIk9oQfLxRY6zZflqSV6ZCE8b6aO2anjScz6k+Pmdyk8qRMOBren4+LAoX
+	 2OZEm6WJjFrDS0YS9smQ2eVg9sbFw5OLc4LlIsD52GseYnwLiQOic9WWje2m8q2xPK
+	 xsGzfEOAGqPEMPu0MpRfJRI1C3EFd3uXTF6Z4x18=
+From: =?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Barnab=C3=A1s=20P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
+Subject: [PATCH v2 2/2] media: rppx1: Update shadowed registers
+Date: Tue, 27 Oct 2026 18:40:14 +0100
+Message-ID: <20261027174014.315061-2-barnabas.pocze+renesas@ideasonboard.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261027174014.315061-1-barnabas.pocze+renesas@ideasonboard.com>
+References: <20261027174014.315061-1-barnabas.pocze+renesas@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,49 +66,61 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027120341.2305533-1-vladurares@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 27, 2026 at 12:03:35PM +0000, Rareș-Mihai Vladu wrote:
-> Thanks to Andy for suggesting, in review of my earlier typedef
-> patch [1], that I look at converting the custom circbuf code to
-> circ_buf or kfifo, and for reviewing the previous versions.
-> 
-> While looking into it, I found that the circbuf API is only used by
-> the local queue path, and ia_css_queue_local_init() has no callers,
-> so as far as I can tell that path is unused. The remote queues only
-> need the descriptor and element layout shared with the SP firmware
-> and a few small helpers.
-> 
-> So this series first moves the remote queue handling into helpers,
-> then removes the unused local path together with the queue type that
-> no longer seems to serve a purpose, moves the few remaining pieces
-> into ia_css_queue_comm.h and drops base/circbuf/. I may well be
-> missing something, so please let me know if a different approach
-> would be better and I will rework it.
-> 
-> checkpatch warns about new typedefs in patch 4 and about MAINTAINERS
-> in patch 5. The typedefs are only moved from ia_css_circbuf_comm.h,
-> which patch 5 deletes, and MAINTAINERS has no entries for the removed
-> files.
+Certain registers are shadowed and changes to those must be explicly
+applied. Updating the shadowed registers after a frame is complete can
+be done by writing `RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD` to the
+`RPPX1_RPP_HDR_UPD_REG` register.
 
-Almost there! The few minor amendments to the patch 2 and I think we
-good to go, I believe next version will be final for this part of job.
+This is already done in `rppx1_start()`, but this auto-update feature
+is documented as "self reset at picture end". Therefore setting it
+at start will only auto-update the registers once, after the first
+frame.
 
-> Compile-tested only.
-> 
-> This supersedes the typedef patch [1].
+For example, this causes that the LSC module cannot be toggled after
+the first frame. This behaviour can be tested by reading the first
+bit of `LSC_STATUS_REG`, which will show the same value after the
+first frame regardless of what was last written to `LSC_CTRL_REG`.
 
-And thanks for doing this! This is the real cleanup series from people who
-want to learn while doing something against staging. I will point others
-in the future to this success story.
+Fix this by unconditionall triggering an auto-update when a parameter
+buffer is processed in `rppx1_params()`.
 
+Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+---
+ drivers/media/platform/dreamchip/rppx1/rpp_params.c | 3 +++
+ drivers/media/platform/dreamchip/rppx1/rppx1.c      | 3 ---
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+index a75a27a8afd09..cbc9847ba5be6 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
++++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+@@ -110,6 +110,9 @@ int rppx1_params(struct rppx1 *rpp, struct vb2_buffer *vb, size_t max_size,
+ 		}
+ 	}
+ 
++	/* Trigger update of shadowed registers after frame is done. */
++	write(priv, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(rppx1_params);
+diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.c b/drivers/media/platform/dreamchip/rppx1/rppx1.c
+index c03dd061783a5..a3c923a57d922 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rppx1.c
++++ b/drivers/media/platform/dreamchip/rppx1/rppx1.c
+@@ -257,9 +257,6 @@ int rppx1_start(struct rppx1 *rpp,
+ 	/* Immediate commit update for shadows. */
+ 	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_CFG_UPD);
+ 
+-	/* Then for operation update shadows with picture synchronization. */
+-	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
+-
+ 	/* Clear any pending interrupts. */
+ 	rppx1_interrupt(rpp, NULL);
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
