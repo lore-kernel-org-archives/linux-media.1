@@ -1,51 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793115854;
-	b=wooqsxDh2+Prqj/6IFzP/iIKvHEgD23q8v33nxCIPG3J35J1khJnbn8Ymo1irxkXO3vq
-	 uzFvPLQZFg9PCargr0amCuFQQshM0uIXZEgeZRUbWGuvRqGd9L/CBEwtxMUxBg+ushKD7
-	 guMAqtOswMXlT9+YzeAdtFfT0QbaiJyw+93BXp4c0SDiIurCcSU4DToYfcWw4r3hEqYWb
-	 2J8EZtwfP2MlfFu8/h2NShF85naZDhB7elxtjzICQW0R0ixwEbnFo36VCeJbCbE7IyUat
-	 EEyZeJb38MQEO3PVQ2QHP7DtHoO4pzVR/OjDaI/1/wJ5fShTMIJY0NE4c6H9TJ/uqhg==
+	b=4lglhReqNazRjjhHSdm1lzTHJpjkH3uHZKUvP7623tBxqEdo7uV84MQlsWBjQgttnIH4
+	 S6QUkQh8dXv8NmjiOwspeMdpFaV758pI4NoqZPdG1oRbau44L26PavJsFYhihyUt3lgXE
+	 pvvgmsESxAD34ZEVysKK+zxHMPO6xHSkRNyMOkdmrDqIEyoyrPPy2STbT3WErmULeie6x
+	 /7wiu2EJpT1SBBFMADblA95kjog95DD42rmwg+9iHD2uZE6Eq1VS8VLHH8QFRb93Q7gof
+	 h6XcD4XunP4m/gjah4n9QRYKloMqzX37fZriVZb+3xPTqsHtoI/99p1MvExRezlHWkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793115854;
 	h=Received:DKIM-Signature:Received:Message-ID:User-Agent:Date:From:To:
-	 Cc:Subject;
-	bh=Gkqrjit9+J4CJctXBbr9aEQ6wG9MjsFcQbJJ6qRHxxM=;
-	b=JNyXMGXzHkTG7YfNES3i4SMbiF/Jq7pnTUv7vuyAe54dOISZthLtlK50dt2yqC99M0Nh
-	 y+rcujszbb9CXJY+Y16k2o2jUT0qUoKhqa6Ur3npQwSTRnPrsFsSL4xd4Gq4dU4//9SiA
-	 6IQrb1MQb6nZ1tTzbZyYk6n/5x0w3LBuPqxBAIFnHbRUYaQ7a6TAmJEPbo2Kf64Y0XwNG
-	 VbWdJB0/Jnq62f3SJc1nKFk+MlpXZTaaH51Ag8qKTtVl5kFX9OLugR6V+WZ2pPLfxMC9e
-	 5+9TKEj9V/bN1+4SohmD+ukI3im7XjXbRHJ3HGgEHEVtbmXYXQ4p5uoQANeNyJGAMsg==
+	 Cc:Subject:References:MIME-Version:Content-Type;
+	bh=JM8xIfdgR8N97X1b3lbIpuPAQb06bQ+UjBVoY3gvbrQ=;
+	b=e7JxThDZ833kY/m+03Rxhyli4gDE5ERQPMfNxmDbRceZVQdzo8vFTArDLUbNwyvX8hRa
+	 qzGJCXycV+6yc0htgbo/wr/JzEGmuIy3oiXfzxEwJHdg1evlkepaSShMVDavb8+UjJwrB
+	 IozvZyXR8hFZc9v0qNdpq7N2CxcjF9SjfFjvoADNJSL1Rgx/ayaF/QRWes0OJfzblpcIa
+	 x1Y6zBIy+txlq08TF3CBRpnMp/OKpdjorvOXP1HO1zDlnzMPeEPBNbJVFAblX9UbqkYYK
+	 3jMZauW9pJ8oF+Y1AAYOgSbFZMupfFLKYnvi7wyHZSY97knwrV0Ut+IeNv0SFxtCwtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgHnkTyo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89F4606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7A5606A31B;
 	Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgHnkTyo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7463C1F01825;
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774F21F01828;
 	Tue, 27 Oct 2026 15:44:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793115853;
-	bh=Gkqrjit9+J4CJctXBbr9aEQ6wG9MjsFcQbJJ6qRHxxM=;
-	h=Date:From:To:Cc:Subject;
-	b=fgHnkTyo/8WH2NlGS3UEDZvLhFLuCcOEbT+Biv5UEH1BUma4S/V5vvpgD1O/LP0/b
-	 xbLkNjjzP/s+eC/0hWq+4g4uhHGrZB2n8vgSCfwSdJNG8i3IjVSFjTQaMtsjzxB7LC
-	 7gAy3GMidabLmrmgTj1mKC894dAMw43YvNchPD+EPbVs93iIEhrZy8UsU8qzMU2jgO
-	 9mneIY8c2mg6ULvLXhbXV4IcAib11uQClk0ZzkWc3/Oz3pCpMTcAg9kifHr9cIxLDP
-	 JQGfmBoAH8jakGVW3hwWb3nzcqjyfnPtGjxKzmddkD6u3roLx2eKrjl/efNEP+G2Gm
-	 DDCt6HBJe0EiQ==
+	bh=JM8xIfdgR8N97X1b3lbIpuPAQb06bQ+UjBVoY3gvbrQ=;
+	h=Date:From:To:Cc:Subject:References;
+	b=kORGCCK5ceCR9W1JSe8erJ5KVSujbKUR6xlP36EcnI1w/pi9sfO8Dv9mOkHB3XHQy
+	 kmjOS8Mdq2flJuSlUp6bUHmz0888PX+f9NOJbey3BbM/Jzkf0r1aSnqGj+TnSmk3VL
+	 HMyiIMOaMpD414IHg/LprZN30QWTV20w9awBG/q6DGVFwKw1ufgsOTYhlhm6/1v3JC
+	 7I5SOyCuPo9S2BtKrP0w4Pt+rjcmDZRpXa0joOXTOXweQdSHhuJm2dwVCpCY58HBOO
+	 7RZXHFFCQvzAu3v7MVZ4vG1pCWNm/YeF/etjrnoQMS+hTVZx7OTk17B/37mXDZ18/e
+	 8Dj3WQ78oIVOw==
 Received: from rostedt by gandalf with local (Exim 4.100.1)
 	(envelope-from <rostedt@kernel.org>)
-	id 1xLjLQ-000000078eo-2Z1f;
+	id 1xLjLQ-000000078fQ-3QXz;
 	Tue, 27 Oct 2026 11:44:12 -0400
-Message-ID: <20261027153658.703730257@kernel.org>
+Message-ID: <20261027154412.637514479@kernel.org>
 User-Agent: quilt/0.69
-Date: Tue, 27 Oct 2026 11:36:58 -0400
+Date: Tue, 27 Oct 2026 11:36:59 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org,
  linux-trace-kernel@vger.kernel.org
@@ -102,14 +99,13 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  bpf@vger.kernel.org,
  dev@openvswitch.org,
  dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org,
  linux-pm@vger.kernel.org,
  linux-scsi@vger.kernel.org,
  linux-sctp@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org,
  netdev@vger.kernel.org
-Subject: [PATCH 0/9] tracing: Use trace_call__FOO() for tracepoints behind trace_FOO_enabled()
+Subject: [PATCH 1/9] net: Use trace_call__##name() at guarded tracepoint call sites
+References: <20261027153658.703730257@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -118,61 +114,116 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 
-This is a rebase of patches Vineeth Pillai created back in May[1].
-This series fixes the "double static_branch" that Peter Zijlstra complained
-about. When there's some extra work that needs to be done specifically
-for a tracepoint, that work should be behind a trace_FOO_enabled() "if"
-statement so that the work is only done when the tracepoint FOO is enabled.
-The issue that Peter complained about is that both the trace_FOO_enabled()
-and the trace_FOO() use a static branch which has the nop/jmp switch.
-There's no reason to have the trace_FOO() use that if it is behind a
-trace_FOO_enabled() as that test has already been checked.
+From: Vineeth Pillai <vineeth@bitbyteword.org>
 
-Vineeth created a trace_call__FOO() which calls the tracepoint logic
-directly without doing the static_branch. This is to only be used when
-the tracepoint is called behind a trace_FOO_enabled() check. That code[2]
-has been upstream since 7.1. Vineeth also sent out changes to update
-all trace_FOO() callers behind a trace_FOO_enabled() to use the new
-API. But not all maintainers took it nor gave an ack.
+Replace trace_foo() with the new trace_call__foo() at sites already
+guarded by trace_foo_enabled(), avoiding a redundant
+static_branch_unlikely() re-evaluation inside the tracepoint.
+trace_call__foo() calls the tracepoint callbacks directly without
+utilizing the static branch again.
 
-This is a rebase of that work for the maintainers that did not ack nor
-take the patches. This is to give those maintainers another chance to do so.
-Maintainers may either take the patches or ACK them and I'll take it.
+Original v2 series:
+https://lore.kernel.org/linux-trace-kernel/20260323160052.17528-1-vineeth@bitbyteword.org/
 
-[1] https://lore.kernel.org/linux-trace-kernel/20260515135903.2238731-1-vineeth@bitbyteword.org/
-[2] 677a3d82b6407 ("tracepoint: Add trace_call__##name() API")
+Parts of the original v2 series have already been merged in mainline.
+This patch is being reposted as a follow-up cleanup for the remaining
+unmerged pieces.
 
+Link: https://patch.msgid.link/20260515135909.2238774-1-vineeth@bitbyteword.org
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Suggested-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Vineeth Pillai (Google) <vineeth@bitbyteword.org>
+Assisted-by: Claude:claude-sonnet-4-6
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ net/core/dev.c             | 2 +-
+ net/core/xdp.c             | 2 +-
+ net/openvswitch/actions.c  | 2 +-
+ net/openvswitch/datapath.c | 2 +-
+ net/sctp/outqueue.c        | 2 +-
+ net/tipc/node.c            | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
 
-Vineeth Pillai (9):
-      net: Use trace_call__##name() at guarded tracepoint call sites
-      accel/habanalabs: Use trace_call__##name() at guarded tracepoint call sites
-      devfreq: Use trace_call__##name() at guarded tracepoint call sites
-      dma-buf: Use trace_call__##name() at guarded tracepoint call sites
-      drm: Use trace_call__##name() at guarded tracepoint call sites
-      scsi: ufs: Use trace_call__##name() at guarded tracepoint call sites
-      net: devlink: Use trace_call__##name() at guarded tracepoint call sites
-      kernel: time, trace: Use trace_call__##name() at guarded tracepoint call sites
-      x86: msr: Use trace_call__##name() at guarded tracepoint call sites
-
-----
- arch/x86/lib/msr.c                        |  6 +++---
- drivers/accel/habanalabs/common/device.c  |  9 +++++----
- drivers/accel/habanalabs/common/mmu/mmu.c |  3 ++-
- drivers/accel/habanalabs/common/pci/pci.c |  6 ++++--
- drivers/devfreq/devfreq.c                 |  2 +-
- drivers/dma-buf/dma-fence.c               |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c    |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  4 ++--
- drivers/gpu/drm/scheduler/sched_entity.c  |  5 +++--
- drivers/ufs/core/ufshcd.c                 | 31 ++++++++++++++++---------------
- kernel/time/tick-sched.c                  | 12 ++++++------
- kernel/trace/trace_benchmark.c            |  2 +-
- net/core/dev.c                            |  2 +-
- net/core/xdp.c                            |  2 +-
- net/devlink/trap.c                        |  2 +-
- net/openvswitch/actions.c                 |  2 +-
- net/openvswitch/datapath.c                |  2 +-
- net/sctp/outqueue.c                       |  2 +-
- net/tipc/node.c                           |  2 +-
- 19 files changed, 52 insertions(+), 46 deletions(-)
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 1a09e7869118..447894e09239 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -6685,7 +6685,7 @@ void netif_receive_skb_list(struct list_head *head)
+ 		return;
+ 	if (trace_netif_receive_skb_list_entry_enabled()) {
+ 		list_for_each_entry(skb, head, list)
+-			trace_netif_receive_skb_list_entry(skb);
++			trace_call__netif_receive_skb_list_entry(skb);
+ 	}
+ 	netif_receive_skb_list_internal(head);
+ 	trace_netif_receive_skb_list_exit(0);
+diff --git a/net/core/xdp.c b/net/core/xdp.c
+index 1d679e8fd649..d6296d59f8e3 100644
+--- a/net/core/xdp.c
++++ b/net/core/xdp.c
+@@ -362,7 +362,7 @@ int xdp_rxq_info_reg_mem_model(struct xdp_rxq_info *xdp_rxq,
+ 		xsk_pool_set_rxq_info(allocator, xdp_rxq);
+ 
+ 	if (trace_mem_connect_enabled() && xdp_alloc)
+-		trace_mem_connect(xdp_alloc, xdp_rxq);
++		trace_call__mem_connect(xdp_alloc, xdp_rxq);
+ 	return 0;
+ }
+ 
+diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
+index 12e339cbf791..044feae58e6f 100644
+--- a/net/openvswitch/actions.c
++++ b/net/openvswitch/actions.c
+@@ -1278,7 +1278,7 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
+ 		int err = 0;
+ 
+ 		if (trace_ovs_do_execute_action_enabled())
+-			trace_ovs_do_execute_action(dp, skb, key, a, rem);
++			trace_call__ovs_do_execute_action(dp, skb, key, a, rem);
+ 
+ 		/* Actions that rightfully have to consume the skb should do it
+ 		 * and return directly.
+diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
+index b2a0b09fd4a5..11b438c7e039 100644
+--- a/net/openvswitch/datapath.c
++++ b/net/openvswitch/datapath.c
+@@ -336,7 +336,7 @@ int ovs_dp_upcall(struct datapath *dp, struct sk_buff *skb,
+ 	int err;
+ 
+ 	if (trace_ovs_dp_upcall_enabled())
+-		trace_ovs_dp_upcall(dp, skb, key, upcall_info);
++		trace_call__ovs_dp_upcall(dp, skb, key, upcall_info);
+ 
+ 	if (upcall_info->portid == 0) {
+ 		err = -ENOTCONN;
+diff --git a/net/sctp/outqueue.c b/net/sctp/outqueue.c
+index e92fb9da4647..e3d7be7009e3 100644
+--- a/net/sctp/outqueue.c
++++ b/net/sctp/outqueue.c
+@@ -1268,7 +1268,7 @@ int sctp_outq_sack(struct sctp_outq *q, struct sctp_chunk *chunk)
+ 	/* SCTP path tracepoint for congestion control debugging. */
+ 	if (trace_sctp_probe_path_enabled()) {
+ 		list_for_each_entry(transport, transport_list, transports)
+-			trace_sctp_probe_path(transport, asoc);
++			trace_call__sctp_probe_path(transport, asoc);
+ 	}
+ 
+ 	sack_ctsn = ntohl(sack->cum_tsn_ack);
+diff --git a/net/tipc/node.c b/net/tipc/node.c
+index 53b0993c2c23..6c32618cc625 100644
+--- a/net/tipc/node.c
++++ b/net/tipc/node.c
+@@ -1953,7 +1953,7 @@ static bool tipc_node_check_state(struct tipc_node *n, struct sk_buff *skb,
+ 
+ 	if (trace_tipc_node_check_state_enabled()) {
+ 		trace_tipc_skb_dump(skb, false, "skb for node state check");
+-		trace_tipc_node_check_state(n, true, " ");
++		trace_call__tipc_node_check_state(n, true, " ");
+ 	}
+ 	l = n->links[bearer_id].link;
+ 	if (!l)
+-- 
+2.53.0
