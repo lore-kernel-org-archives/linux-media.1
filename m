@@ -1,62 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793059471;
-	b=y7xw36677VHPvbIea4xLK5KHjCS10boMRmvNj3jTDTdZUlO3EbJ+r+hqFHQ6kWuprDid
-	 yHG6uUBYLjpX8TRM+/GxulM27jFohsPdc4dUzv64IBu4j+OSKnfbFhqIWO6lKHuFrpErv
-	 gvpyBvyQYVEw/eNgomf9hkIbaEWVL+aaPbMPS3zVbByGnLdGi0Lssi3lrZYU4hakj3VA9
-	 AqDPsZZlK7vSYh3tFWsKbWtf+MmVmSE/CLRwM5D9spFtd16eGGX0xMbBdedt+EbpPMBW4
-	 O2yNFop3UNqL0EVXGcmYU5i1pDNrrJOTBOVlKvSoh+HjPeDyWAy8QMp2PbiKHA6Liuw==
+	t=1793060546;
+	b=VYewMnR+tFSgYby5sgxoOw2/tbuSr2Qg7WqA8Bqa2TKbcFly7bOzlCiyL+4UtD/ib6Iu
+	 9yzY55VYfrYGTyBnCMDRINT1M7EUmvVTqANt6sDkTlvR3NP9rZjjZKJ5YrvqBDNiK2pEI
+	 8vRxJtpVqORFiILhwrljWqjJdi8VLdO43m5ggVmVzbXikMDucY8QwGzv5g+lYxdKnyBqv
+	 M63aVSuspxxa54eGrOy/fYvQq433KjWvkpwy2h834ckMqV+YvqMznRSLQqn77Sst4RZ8v
+	 qWopowK6MNJHJ74uMuDxI+b2AdIMSij9j/Zq/gPjGudyc5g+sKxUholyfA6HMgJZvBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793059471;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1ZOHch2AmqXMqZdqDWn3RFjQbiJzddizdcbqQ8vsH1U=;
-	b=WqFGkyQqCdtYxYb1yoVnCjK1OcL1m4IMKzcPmQLfiTtCBKkKhLdK7e/xlI8+QU0TZIKT
-	 3gm6GBTx3rt76y03BE59CZHvIjpVzs2m6SK64A3MnhhbVvNtffKs0zyFvSrjBT6Vm8STq
-	 NMZveXOWZiaqdP+qdqBa1R/Ltg59kg/aPPmVXc/yNPQBHzP31kVgCSUWYYixUE0Ukzhv6
-	 oWlMvxATDTUgQeCtgDflRVjtxJzgfuTE4ezqkXEqayDVjzYjLynqXO4b5BI1i09PCVo/B
-	 agxFid8CbTj8mOcPJn0OB1sF4A18FRMq54yI9e3TMjJsiBWPp8kGP7O9+KlVTpiyTXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793060546;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=1qBZmfgPT2INlHLC5uDOw8q+VbmsUhEO4KbGb0W1nwg=;
+	b=dRhrdqPfd8udKhHoM83lGENPCJuoqGSp8/R4naZFOJs/CwEtcO+DGemeOaIHnzAVToOL
+	 bBUw4PbtS7mjAxjPZBiyhfYYPRNO+eP/cWh2nyntNDbcWXOqxvyYIiO2/oSW1Bku5nAE3
+	 DFGPVaErsZeatTdQUS4zK9ysDwQVgNeKSUxbHcrwKhL7MGOT5iLARfo29DzuCRcnnL6IW
+	 SKUgsv8lf5kbgENY4+80Bvc6zpdivRWBeShcb5KjjErkx6LWN2Lg0V2toGxvXh41rV8H4
+	 NF2enqK/9+XX3+yEPJ1XpJjDDDwro6pAlkaXizMa9HJYW+bhCLaUv+qkDzFgYwowmog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EL36OXiW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RqVRwstE;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2C8606A31B;
-	Tue, 27 Oct 2026 00:04:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437B5606A31B
+	for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 00:22:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 437B5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EL36OXiW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671E21F01825;
-	Tue, 27 Oct 2026 00:04:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793059471;
-	bh=1ZOHch2AmqXMqZdqDWn3RFjQbiJzddizdcbqQ8vsH1U=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=EL36OXiW5AARx0AQxa6nUBL4ebsw8YX4eKxo5NQRcCoLXigVT9lpNROmMBTegjQav
-	 s+aSXZKRRBo8aT55KS15R+vctCyD1s/nxmwGhTnuQ29edqGMAxsG2B8uezeQabciu8
-	 AdeMznDrjzVoZPe5+ukcjc92Tck6rqzFmIPPxUB0UfxbU7Jys6v4QEX3YLyURE4svh
-	 MpdpPFYwl8dZ68F/GGHlq58WmrqB9eICH9Zz2r8OGWTCfpgt8QFwvZlsC4APxRCwsG
-	 a9QuIu2Z0Qxx3TMF7MEJoOWoWKcctowUiVrb37t0xTgK8OW0z/km82rWh7J6wnFgRy
-	 bOuvf5WTPEOSw==
-Date: Tue, 27 Oct 2026 01:04:26 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil
- <hans@jjverkuil.nl>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Subject: Re: [GIT PULL for v7.4] media updates
-Message-ID: <20261027010426.126d96a8@foz.lan>
-In-Reply-To: <20261027005656.6ce24b82@foz.lan>
-References: <20261024185058.20410953@foz.lan>
-	<CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
-	<at-a-2wTtf7bJQwU@kekkonen.localdomain>
-	<CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
-	<20261027005656.6ce24b82@foz.lan>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RqVRwstE
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1438d9363fbso440510c88.0
+        for <linux-media@vger.kernel.org>; Mon, 26 Oct 2026 17:22:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1793060544; x=1793665344; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1qBZmfgPT2INlHLC5uDOw8q+VbmsUhEO4KbGb0W1nwg=;
+        b=RqVRwstEk0IAtB01732EcshaanpMY5DypEHX5WxS7yKbFTV8unwaPj7JU2c6j+Kz9S
+         sxMWWcScesjf6lZxo4chZlxpVFqI/t+OpJ4Dsx8s4ar4RN/9Fq5owjyN5hnWrZZ+Ht9w
+         dIQdya0CG3PvNK965IBtrFGG433MIrZh6+W57OYG59ZiQMxSE/Flzj7uM0wP7mRBg9gA
+         EKLLqiTeEzAIW7BxeL1nPIfEEAfMlFLyRXDT6CsYt4FsBOV7BW3IbeV2vCvMNdhh9mmO
+         dwA2I9YAUo6r6XkpMHbg3lpJdKP3U1ab+Yw6useqOybgE4aUUFcIMXuCuXboTAQBhFvs
+         XB8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793060544; x=1793665344;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1qBZmfgPT2INlHLC5uDOw8q+VbmsUhEO4KbGb0W1nwg=;
+        b=iXQBVbA36yMxIuWIarRnmDc5AIxdLWrORpfbeC5NH82lfSL1qt/klYPqiWy+I6BZqo
+         Fn3SBlpn5sfJNQYC16Fav2Dpqe89OX3slCUj8BMIPpfc0AVwLoAzowwdO1aHOCykOpXS
+         sDErLwyK7ZJP8GxbkYVRB8tCDHYXIYtKrh8rGUWgbHcHClcny1S5BhmJt6qGOR63uL8I
+         d3293WbNyvoBi2jbsqfvWsxWJ9GWGEqpS9IrP6nqcTndyz+MfFVpkfBByaTS2GhGhE1+
+         KYg44o4t9KaPkx13nazGaarcdn6VhfXA8yaQ5e/I5Uv7IjZk2VmDrX8CxjLFIgTi8yeL
+         3fnA==
+X-Gm-Message-State: AFq9FYLvyrtNP2b840LMJ8ijvgsij3GL5r4JxFh+1WKySK59suiNQSlX
+	sivKIvHK4+LoxWxeUBotTT1jh6nYJsV8Qg4C/A6QeZqbrkPUg+ZUIJam
+X-Gm-Gg: AYBFou11SI5XP1l6IM2yPDT2p4+1WrL2XtJQLjSYamUsxdzThAqtR5p9mXHqk+Lz/FW
+	b4DjrkxD2xaVpfBWsZpJNwjTj9A5CxgjL1zH6g4SjwzIYGoSx+MYBmZo+m8n4kW5Wf4YrLI+4Pi
+	aMhZ/Co7eiF17g1r1O9yglDT3ROWaYcBAmEWV0qprOB9MtaLhyYF0DY9WLNul6VWIDep6rDAuL+
+	bJbiifhi0Nm1amc5VvaYuO8J8TKjLZ5vmq1z1GbcGLl70CqkWv1UCLasD2vm+ImwGPuumFYaxTc
+	LdChpxIJjoNPKmk2QhUbI/1soeiTp7g0/sl3Gb0uk+a6nvy/6lCnszlMl6rGgLHS4r9Fgr3dq7O
+	HwRrpqKjTi2O7HKR7gLy5C8hruFUW2erGSK9cstdlHvha9J2uBYiC/+UyzDNrg7FEAIHzLpunFQ
+	g0d+znw5TmGQjTnKH2P4H90JyG9b7tQThgmI67fjeuVhCS6LsOtXWAH9YNI9LG+wE0kMBQiG/p+
+	rer1oOFqQHrdB/EbQ6QCZL5SAswY0Rp3ifwvpYn/etje0jUh+AqNO/gA4ppXe9gZerEtuKvWb7i
+	wmQaPWBnEpQ+32u43z+APoZrt0me
+X-Received: by 2002:a05:701b:240e:b0:182:d0a8:d1a9 with SMTP id a92af1059eb24-1a3bde8faaamr1245749c88.0.1793060544072;
+        Mon, 26 Oct 2026 17:22:24 -0700 (PDT)
+Received: from localhost ([103.204.210.88])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-198a21bc6cbsm27529598c88.16.2026.10.26.17.22.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 26 Oct 2026 17:22:23 -0700 (PDT)
+From: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+To: error27@gmail.com,
+	dan.carpenter@oracle.com,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+Subject: [PATCH] media: atomisp: Fix memory leak in atomisp_alloc_dis_coef_buf
+Date: Tue, 27 Oct 2026 00:19:40 +0000
+Message-ID: <20261027001940.20565-1-sifat.yt.2.0c@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -66,118 +98,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 00:56:56 +0100
-Mauro Carvalho Chehab <mchehab+huawei@kernel.org> wrote:
+Free the allocated dvs2_coeff memory if ia_css_dvs2_statistics_allocate
 
-> On Mon, 26 Oct 2026 08:53:07 -1000
-> Linus Torvalds <torvalds@linux-foundation.org> wrote:
-> 
-> > On Mon, 26 Oct 2026 at 08:25, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:  
-> > >
-> > > The patch in question puts camera sensors and related chips in line with
-> > > how the rest of the drivers are selected elsewhere.    
-> > 
-> > .. and other places could probably be improved too, I agree.
-> > 
-> > But this made things *worse*. Much worse.
-> > 
-> > The thing is, at least hide them behind some "embedded camera options"
-> > that in turn is hidden behind "EXPERT" or something like that.
-> > 
-> > Don't make *normal* people who build their own kernels have to see or know.
-> > 
-> > Let's say that you have a laptop or something that actually uses one
-> > of these sensors for a webcam, then it STILL does not help to ask a
-> > user
-> > 
-> >  "Do you want a driver for the Analog Devices ADV7170 video encoder"
-> > 
-> > Because (a) that chip legacy and likely not in any laptop anyway and
-> > (b) even if it was, no laptop user is going to *know* that.
-> > 
-> > See what I'm saying? You literally make things worse. Don't do that.
-> > You're making the kernel Kconfig script ask insane questions. They are
-> > insane because you cannot reasonably expect people to actually know
-> > the answer to the questions.
-> > 
-> > In other words: don't ask questions that you know the user cannot answer.
-> > 
-> > There was a REASON why those menus were hidden.  
-> 
-> I agree with Linus on that. You're basically rolling back a feature
-> that simplifies a lot the life for normal users: let Kconfig choose
-> options that only a media expert can answer.
-> 
-> Now, I understand why it is tempting to do that to help with IPU
-> support: camera sensors can now be easily interchangeable on new 
-> Intel hardware.
-> 
-> If you look on some drivers from the old days, like bttv, saa7134
-> and cx88, they had similar problems, but they still do support
-> autoselect mode.
-> 
-> For instance, drivers/media/tuners/Kconfig has this:
-> 
->    config MEDIA_TUNER
->         tristate
->         depends on (MEDIA_ANALOG_TV_SUPPORT || MEDIA_DIGITAL_TV_SUPPORT || MEDIA_RADIO_SUPPORT || MEDIA_SDR_SUPPORT) && I2C
->         default y
->         select MEDIA_TUNER_XC2028 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_XC5000 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_XC4000 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_MT20XX if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_TDA8290 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_TEA5761 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
->         select MEDIA_TUNER_TEA5767 if MEDIA_SUBDRV_AUTOSELECT && MEDIA_RADIO_SUPPORT
->         select MEDIA_TUNER_SIMPLE if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_TDA9887 if MEDIA_SUBDRV_AUTOSELECT
->         select MEDIA_TUNER_MC44S803 if MEDIA_SUBDRV_AUTOSELECT
-> 
-> which is meant to support the most popular I2C tuners.
-> 
-> In the specific case of IPU (and atomisp, once moved out of staging),
-> the right solution would be to have something similar to it, e.g.
-> something like:
-> 
-> 	config VIDEO_INTEL_IPU6
-> 	select VIDEO_OV2680 if MEDIA_SUBDRV_AUTOSELECT
-> 	select VIDEO_OV2685 if MEDIA_SUBDRV_AUTOSELECT
-> 	...
-> 	
-> for each sensor that might be possible to be used there. Another
-> alternative would be to do it the reverse way, e.g.:
-> 	
-> 	config VIDEO_OV2680
-> 		default MEDIA_SUBDRV_AUTOSELECT && VIDEO_INTEL_IPU6
-> 
-> or, maybe even better:
-> 
-> 	# Make setup easier by identifying PC MC-based drivers on a single place
-> 	config MEDIA_SENSOR_AUTOSELECT
-> 	depends on VIDEO_INTEL_IPU6
-> 	default y
-> 
-> 	config VIDEO_OV2680
-> 	default MEDIA_SENSOR_AUTOSELECT
-> 
-> Placing MEDIA_SENSOR_AUTOSELECT on sensor drivers. We may need
-> similar code also for other I2C drivers that could be used on IPU.
+fails to prevent a memory leak in the error path.
 
-In time, the "indirect" approach of using config foo with a
-default is due to drivers like this one:
+Signed-off-by: Abdullah Mohammd Sifat <sifat.yt.2.0c@gmail.com>
+---
+ drivers/staging/media/atomisp/pci/atomisp_compat_css20.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-	config VIDEO_OV2732
-	        tristate "OmniVision OV2732 sensor support"
-	        depends on OF
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+index eacd7ee5c050..48196a358ad9 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+@@ -1373,8 +1373,12 @@ int atomisp_alloc_dis_coef_buf(struct atomisp_sub_device *asd)
+ 	/* DIS projections. */
+ 	asd->params.dis_proj_data_valid = false;
+ 	asd->params.dvs_stat = ia_css_dvs2_statistics_allocate(dvs_grid);
+-	if (!asd->params.dvs_stat)
++	if (!asd->params.dvs_stat) {
++		ia_css_dvs2_coefficients_free(asd->params.css_param.dvs2_coeff);
++		asd->params.css_param.dvs2_coeff = NULL;
+ 		return -ENOMEM;
++	}
++
+ 
+ 	asd->params.dvs_hor_proj_bytes =
+ 	    dvs_grid->aligned_height * dvs_grid->aligned_width *
+-- 
+2.53.0
 
-which requires dependencies, so we can't simply use select directly
-on drivers that aren't dependent of OF (in this example).
-
-Long term, such indirect approach usually is usually easier to
-maintain.
-
-Regards,
-Mauro
