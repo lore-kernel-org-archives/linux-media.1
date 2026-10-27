@@ -1,47 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793094882;
-	b=IwX2AbEmc3YTmxP5YACycq1lmMYMu5N2oufx03ODiy9Qs6ZDGHT/3AiarF0Nd7rOz7xO
-	 3n7hpd32y3RipNElxFK6DfWrqKN1UFNNg1dMfRU7DMxj2N+vWfri2szHYD8t9DH2Sq1K5
-	 3itn8637F5XxrrBWopsSe/3LgD5JR+oCPyQps/rbugYJT4dKaCkFZDiUpyIJDanXJ1Kbh
-	 gFvlIZNtdhTwah1bi4OzJsDjTJZGA4cWmUv470WvQc+KFiLPKLboQCNHYItZYVqi53RkH
-	 t/7iePT5T66zIPQTBMwz1s3Ptb8/N7GL/EiusW/JNrSnhD+wGUFqkzlqqgCOn8FmClQ==
+	t=1793095757;
+	b=Ed9tpwzN8m/kDIbX4lNAouSlQMgQVluW607YRt1wdFnf5266N05D7+YpVRxjlVFYQ1G5
+	 +lOCKg91mZif7/DfwMwY+cw9tNFFiHc77upbsLWywRtMH1oi7RGoKo94LkkBjzQWMVYvO
+	 lAvNQrhgSDf7rXrzLokXxu9uqoFBK1KDYH7TsOzW/trv1HuThUkvwb9LE2T5aNJR8CwPp
+	 xpvhlcStwFMOmZaIYtT8d5UKZJXxfaI950VxIpx5nXu01HYTygPbnWpCRFX4hZLStQRVL
+	 dFd8w75iXg8MRX1UQ3H7H/TiSwsCOeMrOko46rgJ3A3Fuk6NrqdLZZGG8Fqqo9CIHMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793094882;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RC3LSUj/Y+l+ZeEFgu7Mk7yghLVJQ1fv0cPULmplmrs=;
-	b=msvjsoRA58TAlkkjgcZpVX6aw0ePA5z1xaz+Ap5bA72afxJ9kSorldIh9kWx7NvYK1iM
-	 uM94tPJO1vPFX/Vgpyj531shnW1Gl0+CJNOEbcPl/HeJvv96eHwJIMZxMw28Oc/YJhzV1
-	 z72UFeMKxTqYSljyqM2rb2ZgAGgA4G51UFDJ2ObvbuZRCKAO8J1Ole6Jwm3vsVWeYTTHU
-	 qu4HuMF4X7PR3dzMloj5LzxcFg5BzOAvo8ZuxpcnA/xDUFzhn2675QMHI3Of/vXN6RpP4
-	 97G05QYNV0pOO7kAEDMH1cx9txdStiER5Hct6MXLsiP46WsoxEk/PA0HxL6nITzXwhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793095757;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=XlCCWPrEFK3RXddfXN6QH3zLg0Y/vHPMqyByA8OlxLg=;
+	b=b28OgO0n0crkxJJHW+OG9TlnaEJBZoNEfaJxuO0s9C6cGxDmu0gWDF5X3YXvFPQGdoyv
+	 3Ki8gZxmf8wnq5M+6Vka6hUlc39BZmESORIX+Wr7OOYnqmqK4TiZp2PFmagk4SHDsgNxb
+	 mJd5yVR20gXIW6jciqxkEqq3sdCOEB5KTdCBAdwVowdHt/zhhi1g1JTlJf1ein0VTcKOF
+	 eEm+pbN6zn1nkj+nMxMmAy23lQgPXqrIrib+Y3j2gyQxK870zA/684/SOO088m04UhlfC
+	 GOUw3IqLwDqYDJ8cdoz31oIv6uhAdqNdf/8H02HAKam3bcMRKDtQKpyGg7Sa6JmcFhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz6FXYNF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Tb/P+VBs";
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63086606A31D;
-	Tue, 27 Oct 2026 09:54:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CC3606A31E;
+	Tue, 27 Oct 2026 10:09:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36CC3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nz6FXYNF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC17E1F01825;
-	Tue, 27 Oct 2026 09:54:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793094882;
-	bh=RC3LSUj/Y+l+ZeEFgu7Mk7yghLVJQ1fv0cPULmplmrs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Nz6FXYNF9tnhKYD9PyCm7v6VZQOj/GALYwmAKkx3L+/JLInlfcZ3cM3fZDEgu5Sk4
-	 pyH/Zjew3vKJ+/xZHyEbAz6XCyINKIs7EE7SA4dgnQPUkr0aJzB07EWJN0A6uq6JSZ
-	 inBBEfdX6cw5C0YYCNdyXRRA3yOpE+a2PTdLlaZKhpXknmEuQrtqdBubJjWSc/QJ7O
-	 rFBDaSDgIHxyqnD8WTKAouX2i9wQpEOOKenKfyMH89isbtDlaRE0ft4t13scKEOI0s
-	 qRXqWCo8G9c7MsUcqlqAIvhxlB+j/U3+Oaq2ANP8PnpCqVbAT9EkA8u5l/xEj6Kmr+
-	 bEJoYiLoIcxyA==
-Message-ID: <0d25a732-ccd5-4a7b-9809-93e67899b4e7@kernel.org>
-Date: Tue, 27 Oct 2026 11:54:36 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Tb/P+VBs
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793095757; x=1824631757;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=jeV6wtKK2ekUAK9tJVtT+fAgjBdc7aMzHqV8Q44/Umk=;
+  b=Tb/P+VBsKVPbXkpbZ0fYtzzc0E2673LMTzoGTnXVixM/5KTd+0/u/bve
+   TnOiEuoYSheADqNUKD4jbpnqVUjG0/K3062Fl+qt8c90jplZqIgAhirc+
+   vZXQF8AvAKcme1fMSdjyNL2XlG21gtF2KYQsTDbKd+VebmFfegy1fgHwk
+   jt8k/v62QMwy8kFo8PW5I66OL5BIYSG+fpDJUsyBbPnXWCHR1vkJ1rW09
+   rYmeFyL25klk/KslgPUUR73vvQ7sfSLkKZZxSWtnAvRK6BVCcAj+t81rA
+   R3XDJ5ubsSJc91iRQx+gapCnHS/glCMgYSj/DkweRISjIhM430VJwzm7e
+   g==;
+X-CSE-ConnectionGUID: 7YuZVZDHSB+nrqyWMAfs9A==
+X-CSE-MsgGUID: v3wZqJC4QGOpCONbVdgMuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11947"; a="1667362"
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="1667362"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:09:17 -0700
+X-CSE-ConnectionGUID: VX+fSFlNRFGhu30zQY5FmA==
+X-CSE-MsgGUID: ge2Xt8SbR/CfDPX0/AJhkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,181,1787036400"; 
+   d="scan'208";a="6255212"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.2])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Oct 2026 03:09:14 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 455FE121CEC;
+	Tue, 27 Oct 2026 12:09:17 +0200 (EET)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1xLe7I-0000000H0VP-2hdz;
+	Tue, 27 Oct 2026 12:09:16 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Linux Media Mailing List <linux-media@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Hans Verkuil <hans@jjverkuil.nl>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Subject: [PATCH 1/1] =?UTF-8?q?Revert=20"media:=20Don't=20hide=20I=C2=B2C?= =?UTF-8?q?=20or=20SPI=20drivers=20by=20default"?=
+Date: Tue, 27 Oct 2026 12:09:16 +0200
+Message-ID: <20261027100916.4053512-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
+References: <CAHk-=wiVxA+1x-eNCp3-e4=emCKXUw9HnSg-ng5A_Ndf6-3mxA@mail.gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,132 +93,127 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] arm64: dts: qcom: sm8450: Add CAMSS device tree node
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20261023163057.775917-1-vz@kernel.org>
- <20261023163057.775917-5-vz@kernel.org>
- <CAFEp6-03Kqxya74Cd+hgueZ0D4xAcYNOx_R1sNqdMu2JrMBynw@mail.gmail.com>
- <378094fb-5f7f-42c6-a91f-158e2083a6cb@kernel.org>
- <CAFEp6-3XTotgkOKRACGLT91wUw30CgFB=44RtHnXfA6cOF7bVA@mail.gmail.com>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <CAFEp6-3XTotgkOKRACGLT91wUw30CgFB=44RtHnXfA6cOF7bVA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 10/27/26 11:07, Loic Poulain wrote:
-> On Mon, Oct 26, 2026 at 11:39 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
->>
->> Hi Loic.
->>
->> On 10/26/26 18:32, Loic Poulain wrote:
->>> On Fri, Oct 23, 2026 at 6:31 PM Vladimir Zapolskiy <vz@kernel.org> wrote:
->>>>
->>>> Add Qualcomm Waipio CAMSS device tree node to the platform dtsi file,
->>>> the CAMSS input ports are connected to output ports of CSIPHY devices.
->>>>
->>>> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
->>>> ---
->>>>    arch/arm64/boot/dts/qcom/sm8450.dtsi | 167 +++++++++++++++++++++++++++
->>>>    1 file changed, 167 insertions(+)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>> index babf1a4196a1..7f5b0501a23e 100644
->>>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->>>> @@ -3310,6 +3310,167 @@ cci1_i2c1: i2c-bus@1 {
->>>>                           };
->>>>                   };
->>>>
->>>> +               camss: isp@acb6000 {
->>>> +                       compatible = "qcom,waipio-camss";
->>>> +                       reg = <0 0xacb6000 0 0x1000>,
->>>> +                             <0 0xacb7000 0 0x1000>,
->>>> +                             <0 0xacb9000 0 0x1000>,
->>>> +                             <0 0xacbb000 0 0x1000>,
->>>> +                             <0 0xacc6000 0 0x1000>,
->>>> +                             <0 0xacca000 0 0x1000>,
->>>> +                             <0 0xacf6000 0 0x1000>,
->>>> +                             <0 0xacf7000 0 0x1000>,
->>>> +                             <0 0xacf8000 0 0x1000>,
->>>> +                             <0 0xac62000 0 0x3000>,
->>>> +                             <0 0xac71000 0 0x3000>,
->>>> +                             <0 0xac80000 0 0x3000>,
->>>> +                             <0 0xacc7000 0 0x2000>,
->>>> +                             <0 0xaccb000 0 0x2000>;
->>>> +                       reg-names = "csid_wrapper",
->>>> +                                   "csid0",
->>>> +                                   "csid1",
->>>> +                                   "csid2",
->>>> +                                   "csid_lite0",
->>>> +                                   "csid_lite1",
->>>> +                                   "tpg0",
->>>> +                                   "tpg1",
->>>> +                                   "tpg2",
->>>> +                                   "vfe0",
->>>> +                                   "vfe1",
->>>> +                                   "vfe2",
->>>> +                                   "vfe_lite0",
->>>> +                                   "vfe_lite1";
->>>
->>> Is there a camss "top" register to describe here? e.g. to retrieve the
->>> CAMSS hardware version.
->>
->> I'm not aware of anything like that. What is "CAMSS hardware version"?
->>
->> CAMSS embraces various blocks, there are CSID and VFE, full and lite
->> IPs, and all these components do export their versions individually.
-> 
-> I mean, CAMSS usually has a top-level register block (often top or
-> cpas_top) that contains the Titan/Spectra version information, along
-> with various global configuration and mux registers.
+This reverts commit 3bf8c26a085c7b00dbec67a919b93fa8b7ad70e0.
 
-On SM8450 there is "cpas_top" register <0xac13000 0x1000> (not in the
-series), I believe you reference to it.
+In order to avoid exposing fairly rarely needed drivers to ordinary users,
+revert this patch. People needing these drivers will need to enable
+CONFIG_EXPERT until we have a better solution for this.
 
-Is CPAS a natural part of CAMSS? Can it be modelled differently, e.g.
-as a separate device/driver, like it was done with JPEG or CSIPHY?
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/media/i2c/Kconfig | 11 ++++++++++-
+ drivers/media/spi/Kconfig |  4 ++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
 
-I see that there are only SM6150 and SM6350 platforms mention this
-register, to capture and process frames on SM8450 there is no need
-to program CPAS.
+diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+index 7de2d095c969..11c30252540e 100644
+--- a/drivers/media/i2c/Kconfig
++++ b/drivers/media/i2c/Kconfig
+@@ -1042,12 +1042,14 @@ endmenu
+ # V4L2 I2C drivers that aren't related with Camera support
+ #
+ 
+-comment "audio, video and radio I2C drivers"
++comment "audio, video and radio I2C drivers auto-selected by 'Autoselect ancillary drivers'"
++	depends on MEDIA_HIDE_ANCILLARY_SUBDRV
+ #
+ # Encoder / Decoder module configuration
+ #
+ 
+ menu "Audio decoders, processors and mixers"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_CS3308
+ 	tristate "Cirrus Logic CS3308 audio ADC"
+@@ -1210,6 +1212,7 @@ config VIDEO_WM8775
+ endmenu
+ 
+ menu "RDS decoders"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_SAA6588
+ 	tristate "SAA6588 Radio Chip RDS decoder support"
+@@ -1226,6 +1229,7 @@ config VIDEO_SAA6588
+ endmenu
+ 
+ menu "Video decoders"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_ADV7180
+ 	tristate "Analog Devices ADV7180 decoder"
+@@ -1585,6 +1589,7 @@ source "drivers/media/i2c/cx25840/Kconfig"
+ endmenu
+ 
+ menu "Video encoders"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_ADV7170
+ 	tristate "Analog Devices ADV7170 video encoder"
+@@ -1683,6 +1688,7 @@ config VIDEO_THS8200
+ endmenu
+ 
+ menu "Video improvement chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_UPD64031A
+ 	tristate "NEC Electronics uPD64031A Ghost Reduction"
+@@ -1711,6 +1717,7 @@ config VIDEO_UPD64083
+ endmenu
+ 
+ menu "Audio/Video compression chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config VIDEO_SAA6752HS
+ 	tristate "Philips SAA6752HS MPEG-2 Audio/Video Encoder"
+@@ -1726,6 +1733,7 @@ config VIDEO_SAA6752HS
+ endmenu
+ 
+ menu "SDR tuner chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ config SDR_MAX2175
+ 	tristate "Maxim 2175 RF to Bits tuner"
+@@ -1742,6 +1750,7 @@ config SDR_MAX2175
+ endmenu
+ 
+ menu "Miscellaneous helper chips"
++	visible if !MEDIA_HIDE_ANCILLARY_SUBDRV
+ 
+ source "drivers/media/i2c/cvs/Kconfig"
+ 
+diff --git a/drivers/media/spi/Kconfig b/drivers/media/spi/Kconfig
+index da3e225d420d..4656afae5bb4 100644
+--- a/drivers/media/spi/Kconfig
++++ b/drivers/media/spi/Kconfig
+@@ -1,11 +1,15 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ if VIDEO_DEV && SPI
+ 
++comment "SPI I2C drivers auto-selected by 'Autoselect ancillary drivers'"
++	depends on MEDIA_HIDE_ANCILLARY_SUBDRV && SPI
++
+ menu "Media SPI Adapters"
+ 
+ config CXD2880_SPI_DRV
+ 	tristate "Sony CXD2880 SPI support"
+ 	depends on DVB_CORE && SPI
++	default m if !MEDIA_SUBDRV_AUTOSELECT
+ 	help
+ 	  Choose if you would like to have SPI interface support for Sony CXD2880.
+ 
 
-Note, that even SM6150 and SM6350 platforms do not use this register,
-it makes it redundant.
-
-> In particular, exposing this block could be useful for reporting the
-> Spectra version to userspace, for example through libcamera.
-
-It could be so, but adding dead code is an anti-pattern in software design.
-
-> Moreover, if the goal is to describe the CAMSS hardware exhaustively
-> in DT, this block should probably be represented as well. Whether it
-
-Here I oppose such a goal as impractical, the set goal is to get working
-camera on the platform with the minimum of irreversible changes. It was
-proven multiple times in the past, that "an exhaustive description"
-equals to "the totally broken description", and brings nothing valuable
-but irrecoverable ethernal problems to overcome.
-
-> belongs in this specific binding is open for discussion, but my
-> inclination is that it does.
-
-This register is not needed to get CAMSS up to the functionally
-working stage, which is represented by the series.
-
-I believe someone may create a new fancy CPAS device driver or so, and
-the new device driver will utilize the "cpas_top" register and other
-CPAS resources in a better way, the register shall not be nailed to
-the CAMSS preliminarly.
-
+base-commit: f39567cc92272f987c056d8c92f7c93f3fdf53ef
+prerequisite-patch-id: a907c42a90ccc410e6fffdee8c9300233a5cd4be
+prerequisite-patch-id: 82ecd20999da94a7472cd1061a0fdf8cffbac325
+prerequisite-patch-id: 7d09c7afa4c3d4109642db3fd8435b21605854c6
+prerequisite-patch-id: f9e361e419752c2c3b2d845b535e33407c7544f6
+prerequisite-patch-id: 48a068cfdcbf7d53806dd8ff9e48f5de529fc67c
+prerequisite-patch-id: ba262f258d655a87b99432ebce1e579594a16950
+prerequisite-patch-id: 64c1f90be9a61ce4b6ee3988606ab0a24e630d42
+prerequisite-patch-id: 69ddc210ad98238341ef358dfddb0a42f20b9ea0
 -- 
-Best wishes,
-Vladimir
+2.47.3
+
