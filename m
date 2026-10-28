@@ -1,84 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186537;
-	b=aZ8H3ptvTyjPl4YcsFKGb8ORY5Vi+q5Sba43nxGKfBt7+3tUYl1kvnVSSOIXITf3wSfH
-	 UEr9m50pXBWkWGd5lSgSiuFMjN69wdTujfYG7Twn+SiMAv+Xmmt65rKZUvoCfjXZYpQqr
-	 Fe5Zd7fojcDsUVZLVl1WGfMS0FDmCWziEt31VrGUnFgrKwHH+ohjU8k1lbXVPOqYYLHTj
-	 r6ckpT2HXtxkSCoaaaaOPQfKjtb5abKBSBEQ2Be0mqddCpw3AW9SrcfKGZmPt/Hvqus8c
-	 NBtQG11NhKp2s0HvstltumOvdtJ4YHDAIgP9vFRzIFdZec6rZVp9ytp7uXlE1gWRTUg==
+	t=1793186540;
+	b=TMgoPKbAI0e9ssu7FT0NVp+VkzLdVAunKG65kVBy3aefGKDZWpBUKXoSmalOEAyl4bGE
+	 Wum5axQPYHRejXo3gAj5PFUYPxjo6zmLrjmJdRkevodXiMwJ5UnQExqECZd+Ry4VUfePX
+	 nYt66erXl9r8Kr0mKYkn482+FBMsA2r9ThVM7kfz56eyDHEFjzJbog44u78YjWQ+owgnQ
+	 E0RlshE4GRE9EYXZiQe9TcTrdU/OdPVQkUWD89kATuXrJTd1n6p/hH54NjGC+R9AyCWUg
+	 LTXN//TaJsFtozRAupxJN10O2gmFwHIxxM/r2vZXt0xGEM9DCv4ccKF6Jru2B6vrIEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186537;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186540;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7HveEJ2C4RUbIkJr1+d3vrT5XPh0GNrPluA7ej7bKw8=;
-	b=ThtWMkDiw3nmCEyPR3SEy/mODnB2ibIuoe7gJhGddZcj7Tlax6oa897/tJK0YxZko7Ab
-	 e4Qdd+O+2B+LoX61aA5mz80OZWKJpgwdm24P64nw4Bajj/x6UkFwO/9z5KwnhQ5VzYCz2
-	 DgDk1hF3ghY1wpuVx9W9U1RInZ+08X9FkcyBNK+UQlq6+3wSkAsgcMVxBIEanTJb0x98q
-	 i/SDyai+GMS1SvB05uqbVdeQjNoeJXujEqRUJljwpJAkyKf2kbDb+ukaTmcmAu81zqop2
-	 IjmhIuMbzh0OXG7apkt0Mm/hsBGArIVVc/FwDnGqPTa+/X3QX/MR/bg0XtSY4QTwO1g==
+	bh=OLyWFyCgu7t4ByHDaTSSabBvSfvT9CHVlsCVomXFHGI=;
+	b=e4F+hox9pxpJh/QqmqEH5B9jvNWuzOp0xwHbvkRzaaTdWLbugZMgSM+lkd+ktFHsBxPb
+	 XhNPcQNCyVEvGde7b1mnyzYnoSbYo5DMbJHcVx9q/1Q4nHpMpU7VVHsLngYyTSIgpiLmB
+	 H8qM3qf/jcVx05iGifpSPai/fmlpe6yujnvM3CABg8Gr3FZEmA9x7Idz9D4PyMLSM/OcM
+	 P1uBnBqr4FgBjps7mHgDfhegfpsPbSUPCQ2qsCk3OxvMDjJzTQKDYWZx4j2O9DkFMa7Vy
+	 3BzoHKRIl37sC7drumgL0RSom1MrRA9O9sRo8R4uUHVCUpE9foVwDHl9Aj0DdGKx5/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FXvvWg7c;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bmhb6Got;
 	arc=none smtp.remote-ip=209.85.214.176
 Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76D0606A31D
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 11:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C76D0606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B7C606A33A
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 11:22:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4B7C606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FXvvWg7c
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2eac4936dfdso1707035ad.2
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:22:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bmhb6Got
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2e83d2cc8a2so2022495ad.0
+        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:22:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793186536; x=1793791336; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793186539; x=1793791339; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7HveEJ2C4RUbIkJr1+d3vrT5XPh0GNrPluA7ej7bKw8=;
-        b=FXvvWg7cyjsZ8/5TSFJLJVrKqw08jFQAqnklg6/EMUazs5Pl39g8Z3FPE/2sTUKN/J
-         koJXODjeq1hl5OSG72+c/9U/Lh2kT/sfZA96qoS8wNYbdQ6RRgE7jLo+QEQ2mub6uNC+
-         CPOhXXghOaAWR2a51WbOMTt1xTPkMU2HZT1qq3Fx+KufhekdnkjVuPVO0zpTNZmcJtN7
-         cR6lkVSRh3HB11k5dGbA3+L/cVqwy9sCSV95B2dAETsaM8xTgAdOmAQRGwinsicikthR
-         brctEmKmQw3RcqZvqGjiUozXVZqh6PsiN6CyXhUSCsv4UhULHJMYX71x5e3jVvzpzh0n
-         wnjw==
+        bh=OLyWFyCgu7t4ByHDaTSSabBvSfvT9CHVlsCVomXFHGI=;
+        b=Bmhb6GotV3ZT83S6xNZs7LvLoMgg8ohxnow2Jw8CFHuuwB/k4hJyIObcJjNX9A9vaQ
+         Sf06RiEPZwHHO2mAT8MaUhh4X955KNk7OqWoXICe7PAklIttGJurswawZAAYH4GxVXuO
+         qjDFxysFLijr12oAXyNkopUKWjexas7ToN4sEYgsRSJKD23csddW76c226EhkCt+8PG8
+         s1oGaCK0A1cdSq8h+4QFduI9Dp4Smrg3F33eRjUzt+LAelew9+/IwPawydPPNCCe1lbA
+         k+FY7j0sZv+7bSeelUcbpcnKDeFjw2Txpyqb6ZxVNBxm093R6Es7n6rH3iOGiNx2CaBW
+         hI4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793186536; x=1793791336;
+        d=1e100.net; s=20260707; t=1793186539; x=1793791339;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7HveEJ2C4RUbIkJr1+d3vrT5XPh0GNrPluA7ej7bKw8=;
-        b=keAvkCVEcjTwkF9zDIx0SNupTonsrmLOek5KrXTrZuid2DiJQ1OWhfxDf+sS2WvdMO
-         3sshancUhHwRfBPfORomgBO2HtGtlDzGCTZI6mfQuJQx6Tp6h6nxbNZ8XDAxb4DSF5vr
-         oURcrgvixEGqj3OpPSxzgajeIYfxKRDLX8ndXVFDHdDvAoLDt0SCrSmnEzmpaEtltGir
-         zLiIqo+BumiEMc7nAoND46WWB91xyperA2cY7KZHHM3fvndwCNRUS0Lm2Prh1lv4GbD7
-         zVq+vaZ9/ZfNDFD+YpOTZH8buXgM73uZbx8fk3trviPXtz85Rbg7YSk2SoIMglOIO1z1
-         qDzw==
-X-Gm-Message-State: AFq9FYJ4gCcrQ3rV7Wjll43WbOHav7K++LjdkXJBkEa9YtpYNNmv0C1I
-	u9lAzM5R9PYrX4eaJn1xSJ1VqyWhYgiSx3xWwVYBKjZlC+xA2vXP/beokdRnZDx2Rn0=
-X-Gm-Gg: AYBFou0N8+yNY6UcAl6bA4aFUSTN4+wLqu3BgcySuwC8hci6DDSNq3E2WvBCDUPfjMt
-	LAFmtb9zDjX/3svXMTTCEz/fHz7wg8vHmQm9z1Y5BnstxvauO6wWDW0wSCyrZKSfNRLWSssj7cC
-	lETMfo4/5aKoDdP/SvBLkh4my+J/Nvwj9njKhZYE79dL+gEiMy/LYIoHgtGup/969dUKkDY1KsU
-	w+8oe84i/CIujHM3DMyTBBSEs+VwS0w4EVRT1dEYrlG0aF8yD/WT7CAGv5O1Coz27ANkbhOgHga
-	v99wA4Y0VJ3I7YIGxKIHMAC1Qoqb5V/22YovH9st9DAXzYDHFM9L0Ev2BFJpDFGGmx79yLuySr6
-	ghMqd/n1ct13Mk+npBbzuD/qRXsK8LmJidJQjJxPp3Wji7ZV66xn22OkjgORJFXt8iEHPW+TkqD
-	R6xsW2yBLU+kWhjJ4udUGt91kckNLFbOWA3NTwZPNqq1jnD43PUQrGWy6SoR+5lX3rXf2BhzgN8
-	YDmRNGJWEaRIAJTrxuqyEUg167MNq67sg7ugJznm8dA74F4Ag4vEUxdaS5DqLRxO7r23NJ+fXSW
-	lGnxA//pG5121tQaAF+6BxLTWBcv4CQFSrpR2aFcbGLVtWF53RvdCVv5KmmLQpHL6rIbKfi84g5
-	bRUXgH0ls5PXstddQ460YAuftIMUNbqZLgFtx5lBIP5D5CXmBGQ9dG9ucxPKFMb88/rlgRhtkWt
-	ikyWPwJlSnESHW3OTkcLw=
-X-Received: by 2002:a17:902:f607:b0:2e9:5714:607a with SMTP id d9443c01a7336-2eb002be8a8mr33330655ad.2.1793186536102;
-        Wed, 28 Oct 2026 04:22:16 -0700 (PDT)
+        bh=OLyWFyCgu7t4ByHDaTSSabBvSfvT9CHVlsCVomXFHGI=;
+        b=wZmlcM0i3AzLZk0kXyIEDLpmrR31HWhKKzJB42Fj4oA/DlHMM/Gr2bvNP0VSgxqdG2
+         eIapo3SNWNRq2+O+rsv+MovCfUHtPdi+Ipu4WqgsV0l5hvmWGEQUNxvw3tfTKhPXv/7F
+         SVRfuw/cPWN0iC9lAUoc/ubfA1xRr8ckQS/RarGoJDsO9AFht80Olvf+Ju7u0qITIgWZ
+         BqZQYp1d+Sz/ee7YZTJ5XosdhkJEJfpkkauJKizwTj3tTWhqgHGDJ9MbFJTAFS0yoP9F
+         TgZV3/ErJ2z8+svbdudlD+c3pK9FVzqCP0YMh0DxDJfk4+mpfSiALUc6jthgUg7aBxCn
+         YHAg==
+X-Gm-Message-State: AFq9FYKitmoM/PoGwMf2QN5dvYBxYgo+egVX9VVcc3jLqCOatYlJnVGG
+	9n5RhlMK+qQl5JOXhTBy900oGZIyOv1JxTA/8hCaPMtWytsb2lGzOaIKooCnjxwVOHQ=
+X-Gm-Gg: AYBFou3BSA9n+1tQTHom/lDEnh44iZRSWKC/GqU10BCCWi6lcKWQGLlGvh1OP1FGDuI
+	wo01HTHOn2gn1wSXptZXr3IZWPdoMNNe8zXY5ezyfWEpf8Mht6MsMwRfzawx345LAIcR3gRlgSF
+	4hK/UxFVPl43KYEmRtMgCu8wqq3MSvcWqLphTjS3SeAUmzM+R/d9i47b4Q2SqO1bU36IcSek+cs
+	k4koYcaD9urd7qxjAiWmSWbxAfuRjDrblK/5Wv1xUWJmB8gIEXOVK0K1xzL66XYsM+uSfDaRSsY
+	aQn0NQw2HYkhuIiqIXbacvALSWVJ58sR49gY9hIoVIw2K1ayOFzL9D034eyfuiXtdCGA/G8ypRi
+	a3d9eWKcMLqDtFDz2DqyPFBBce7KrjMZKzaFCZVab1sXlV9qvlEvTzWCSMsfDjLauMo/Ch28Yrb
+	1WgbZFMRIhFW6l32Qn3CSnV8re5pPhPK3+PXax3B+JP9wFyiQ8JgdKtSMiHqT115TUBvmB36it4
+	uENOXEUIo8qYDksV8Gl71OTycBKxTDlwlUghPIYz5V8oV7pYDUEtY9khWYd08qy1vneuTmsfSQl
+	C0o2GHS/qd43wJcYJpbnecfdm5QacMKmpa27jnMSLij46tqlHjMlvoFyQrGwE/DoPTIG5WUUSQJ
+	lazQTL9mGTI0jFXIZ36KNyZ+jjTdtAUbFNVzaFKGk/3nkfRQ59iJr2QabbrfZchbUepWAHup0QO
+	aq+Ar0aoVqnRl9KhUCI0ruZS4/yazHfzMIxr9vJIuQ
+X-Received: by 2002:a17:903:1af0:b0:2e9:5c29:9955 with SMTP id d9443c01a7336-2eb003e9998mr30356015ad.4.1793186538927;
+        Wed, 28 Oct 2026 04:22:18 -0700 (PDT)
 Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eafcdb52e6sm10157945ad.74.2026.10.28.04.22.13
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eafcdb52e6sm10157945ad.74.2026.10.28.04.22.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:22:15 -0700 (PDT)
+        Wed, 28 Oct 2026 04:22:18 -0700 (PDT)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
@@ -90,9 +90,9 @@ Cc: sakari.ailus@linux.intel.com,
 	dmanresa@gmail.com,
 	dave.stevenson@raspberrypi.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 6/9] media: i2c: ov7251: Add orientation and rotation controls
-Date: Wed, 28 Oct 2026 20:21:51 +0900
-Message-ID: <20261028112154.855185-7-antoine.pichot@gmail.com>
+Subject: [PATCH v2 7/9] media: i2c: ov7251: Move the strobe registers out of the mode tables
+Date: Wed, 28 Oct 2026 20:21:52 +0900
+Message-ID: <20261028112154.855185-8-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028112154.855185-1-antoine.pichot@gmail.com>
 References: <20261028112154.855185-1-antoine.pichot@gmail.com>
@@ -107,56 +107,176 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Parse the firmware device properties and register the
-V4L2_CID_CAMERA_ORIENTATION and V4L2_CID_CAMERA_SENSOR_ROTATION
-controls, as documented in
-Documentation/driver-api/media/camera-sensor.rst. libcamera uses them to
-place the camera and to correct the image orientation.
+The three mode tables write the same values to the STROBE pad output
+enable bit (0x3005) and to the strobe control block (0x3b80-0x3b96).
+Move these writes to a separate register array written right after the
+mode table at stream start, and name the registers a following patch
+needs: SC_REG5 (0x3005, whose bit 3 enables the STROBE pad output), the
+strobe frame pattern (0x3b81) and the 32-bit strobe frame span (0x3b8c).
 
-While at it, bump the control handler size hint to the number of
-controls the driver now creates.
-
-On the Microsoft Surface Book 2 the ACPI _PLD (via ipu-bridge) reports
-the IR sensor as front facing with no rotation.
+The values written are unchanged, only the order of the writes within
+the stream start sequence changes. No functional change intended.
 
 Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
 Tested-by: D. Manresa <dmanresa@gmail.com> # Surface Pro 7+, IPU6 (8086:9a19)
 ---
- drivers/media/i2c/ov7251.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov7251.c | 93 ++++++++++++++------------------------
+ 1 file changed, 33 insertions(+), 60 deletions(-)
 
 diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-index 8277e28ac645..d591b9169de8 100644
+index d591b9169de8..d08bd373b3f3 100644
 --- a/drivers/media/i2c/ov7251.c
 +++ b/drivers/media/i2c/ov7251.c
-@@ -1512,10 +1512,16 @@ static int ov7251_detect_chip(struct ov7251 *ov7251)
- static int ov7251_init_ctrls(struct ov7251 *ov7251)
- {
- 	const struct ov7251_mode_info *mode = ov7251->current_mode;
-+	struct v4l2_fwnode_device_properties props;
- 	int vblank_max, vblank_def;
- 	int hblank;
-+	int ret;
+@@ -55,6 +55,9 @@
+ #define OV7251_PLL2_DIVIDER_REG		0x309d
+ #define OV7251_PLL2_SYS_DIV_REG		0x309a
+ #define OV7251_PLL2_ADC_DIV_REG		0x309b
++#define OV7251_SC_REG5			0x3005
++#define OV7251_STROBE_FRAME_PATTERN	0x3b81
++#define OV7251_STROBE_FRAME_SPAN	0x3b8c
  
--	v4l2_ctrl_handler_init(&ov7251->ctrls, 7);
-+	ret = v4l2_fwnode_device_parse(ov7251->dev, &props);
-+	if (ret)
-+		return ret;
+ #define OV7251_NATIVE_WIDTH		656
+ #define OV7251_NATIVE_HEIGHT		496
+@@ -239,8 +242,31 @@ static const struct reg_value ov7251_global_init_setting[] = {
+ 	{ 0x303b, 0x02 },
+ };
+ 
++/* Strobe output settings, the same for all modes */
++static const struct reg_value ov7251_strobe_regs[] = {
++	{ OV7251_SC_REG5, 0x00 },
++	{ 0x3b80, 0x00 },
++	{ OV7251_STROBE_FRAME_PATTERN, 0xa5 },
++	{ 0x3b82, 0x10 },
++	{ 0x3b83, 0x00 },
++	{ 0x3b84, 0x08 },
++	{ 0x3b85, 0x00 },
++	{ 0x3b86, 0x01 },
++	{ 0x3b87, 0x00 },
++	{ 0x3b88, 0x00 },
++	{ 0x3b89, 0x00 },
++	{ 0x3b8a, 0x00 },
++	{ 0x3b8b, 0x05 },
++	{ OV7251_STROBE_FRAME_SPAN, 0x00 },
++	{ 0x3b8d, 0x00 },
++	{ 0x3b8e, 0x00 },
++	{ 0x3b8f, 0x1a },
++	{ 0x3b94, 0x05 },
++	{ 0x3b95, 0xf2 },
++	{ 0x3b96, 0x40 },
++};
 +
-+	v4l2_ctrl_handler_init(&ov7251->ctrls, 11);
+ static const struct reg_value ov7251_setting_vga_30fps[] = {
+-	{ 0x3005, 0x00 },
+ 	{ 0x3012, 0xc0 },
+ 	{ 0x3013, 0xd2 },
+ 	{ 0x3014, 0x04 },
+@@ -313,25 +339,6 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
+ 	{ 0x3834, 0x00 },
+ 	{ 0x3835, 0x0c },
+ 	{ 0x3837, 0x00 },
+-	{ 0x3b80, 0x00 },
+-	{ 0x3b81, 0xa5 },
+-	{ 0x3b82, 0x10 },
+-	{ 0x3b83, 0x00 },
+-	{ 0x3b84, 0x08 },
+-	{ 0x3b85, 0x00 },
+-	{ 0x3b86, 0x01 },
+-	{ 0x3b87, 0x00 },
+-	{ 0x3b88, 0x00 },
+-	{ 0x3b89, 0x00 },
+-	{ 0x3b8a, 0x00 },
+-	{ 0x3b8b, 0x05 },
+-	{ 0x3b8c, 0x00 },
+-	{ 0x3b8d, 0x00 },
+-	{ 0x3b8e, 0x00 },
+-	{ 0x3b8f, 0x1a },
+-	{ 0x3b94, 0x05 },
+-	{ 0x3b95, 0xf2 },
+-	{ 0x3b96, 0x40 },
+ 	{ 0x3c00, 0x89 },
+ 	{ 0x3c01, 0x63 },
+ 	{ 0x3c02, 0x01 },
+@@ -368,7 +375,6 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
+ };
  
- 	v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
- 			  V4L2_CID_HFLIP, 0, 1, 1, 0);
-@@ -1563,6 +1569,9 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
- 					   OV7251_TIMING_MIN_VTS, vblank_max, 1,
- 					   vblank_def);
+ static const struct reg_value ov7251_setting_vga_60fps[] = {
+-	{ 0x3005, 0x00 },
+ 	{ 0x3012, 0xc0 },
+ 	{ 0x3013, 0xd2 },
+ 	{ 0x3014, 0x04 },
+@@ -441,25 +447,6 @@ static const struct reg_value ov7251_setting_vga_60fps[] = {
+ 	{ 0x3834, 0x00 },
+ 	{ 0x3835, 0x0c },
+ 	{ 0x3837, 0x00 },
+-	{ 0x3b80, 0x00 },
+-	{ 0x3b81, 0xa5 },
+-	{ 0x3b82, 0x10 },
+-	{ 0x3b83, 0x00 },
+-	{ 0x3b84, 0x08 },
+-	{ 0x3b85, 0x00 },
+-	{ 0x3b86, 0x01 },
+-	{ 0x3b87, 0x00 },
+-	{ 0x3b88, 0x00 },
+-	{ 0x3b89, 0x00 },
+-	{ 0x3b8a, 0x00 },
+-	{ 0x3b8b, 0x05 },
+-	{ 0x3b8c, 0x00 },
+-	{ 0x3b8d, 0x00 },
+-	{ 0x3b8e, 0x00 },
+-	{ 0x3b8f, 0x1a },
+-	{ 0x3b94, 0x05 },
+-	{ 0x3b95, 0xf2 },
+-	{ 0x3b96, 0x40 },
+ 	{ 0x3c00, 0x89 },
+ 	{ 0x3c01, 0x63 },
+ 	{ 0x3c02, 0x01 },
+@@ -496,7 +483,6 @@ static const struct reg_value ov7251_setting_vga_60fps[] = {
+ };
  
-+	v4l2_ctrl_new_fwnode_properties(&ov7251->ctrls, &ov7251_ctrl_ops,
-+					&props);
-+
- 	ov7251->sd.ctrl_handler = &ov7251->ctrls;
- 
- 	if (ov7251->ctrls.error) {
+ static const struct reg_value ov7251_setting_vga_90fps[] = {
+-	{ 0x3005, 0x00 },
+ 	{ 0x3012, 0xc0 },
+ 	{ 0x3013, 0xd2 },
+ 	{ 0x3014, 0x04 },
+@@ -569,25 +555,6 @@ static const struct reg_value ov7251_setting_vga_90fps[] = {
+ 	{ 0x3834, 0x00 },
+ 	{ 0x3835, 0x0c },
+ 	{ 0x3837, 0x00 },
+-	{ 0x3b80, 0x00 },
+-	{ 0x3b81, 0xa5 },
+-	{ 0x3b82, 0x10 },
+-	{ 0x3b83, 0x00 },
+-	{ 0x3b84, 0x08 },
+-	{ 0x3b85, 0x00 },
+-	{ 0x3b86, 0x01 },
+-	{ 0x3b87, 0x00 },
+-	{ 0x3b88, 0x00 },
+-	{ 0x3b89, 0x00 },
+-	{ 0x3b8a, 0x00 },
+-	{ 0x3b8b, 0x05 },
+-	{ 0x3b8c, 0x00 },
+-	{ 0x3b8d, 0x00 },
+-	{ 0x3b8e, 0x00 },
+-	{ 0x3b8f, 0x1a },
+-	{ 0x3b94, 0x05 },
+-	{ 0x3b95, 0xf2 },
+-	{ 0x3b96, 0x40 },
+ 	{ 0x3c00, 0x89 },
+ 	{ 0x3c01, 0x63 },
+ 	{ 0x3c02, 0x01 },
+@@ -1301,6 +1268,12 @@ static int ov7251_s_stream(struct v4l2_subdev *subdev, int enable)
+ 				ov7251->current_mode->height);
+ 			goto err_power_down;
+ 		}
++		ret = ov7251_set_register_array(ov7251, ov7251_strobe_regs,
++						ARRAY_SIZE(ov7251_strobe_regs));
++		if (ret < 0) {
++			dev_err(ov7251->dev, "could not set strobe defaults\n");
++			goto err_power_down;
++		}
+ 		ret = __v4l2_ctrl_handler_setup(&ov7251->ctrls);
+ 		if (ret < 0) {
+ 			dev_err(ov7251->dev, "could not sync v4l2 controls\n");
 -- 
 2.56.0
 
