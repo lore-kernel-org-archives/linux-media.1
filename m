@@ -1,50 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793175546;
-	b=fUJ7FnDHvOJQDfCxpXBBJ6Ov0x6IE+aBY/Im/cPmGsOKJ0vGj0n60hqRWD7MSnJcy65+
-	 U5QFs/I1DsG6UeNC+JkYvSyx+mAbe54HCjAK87Sufnp1K8HNy8INDnDxpIRS5r8KzeaM+
-	 lZ/USfbTvTxbRyC+1yR5u/wL77WjWOwvUVEFa0M2e0pMjHP6hSVAKnHXd1ODvlgWQej2v
-	 vEx97S1vQ7Bffmur7fu9aUA+qhBnJzJTJ1dRWGKgyBAHyRXbvewjtSd4rQSy4SvOWGhGF
-	 WSAV3n2Tr1SW888C/RHL1flAOIyfKYbxLjtpNfEAJLU40e7DhUZ6O83mbZTBQpPW9OA==
+	t=1793176179;
+	b=kGgImZvGdLkNM5fB+DgmneJ6ZOHLEuyOTOEAx5hJN3mpYnFBFGi++aN6LbZaZ4F5c9fx
+	 4TSjpWxRKcLi3EangTgOFmMw6UthIuhDutTsHb/f2snad51nDP6eqseFjjfbasYCQVZ8b
+	 0Tu8Oq3KJ83vE+I6F7xWNcHa8fKV8LPWXXzMuW2UfcZq1qEDm5N36CUllB0X80WJ3sCiM
+	 i4MqEEsDvqD0aSxwrMp4QmfjR67kSRJqkKjH5kF2dogtfTiJuvutIyYqIp0NQQNrEzxXE
+	 Wl5UjKml0Q0NlWOu823EYPUOgMpEETbkcBtnZTAW66kb2N6pE97wE3UbUZyTgvTatqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793175546;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793176179;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=35AvFCOz2079sviJ8Tev4re9xiiqZIZFJhIi2bKIuUk=;
-	b=ejEns1kyzDBuYSF5nS/L3lbsmSiduIJD4crKc7bkzW13P/M77T9ycJOTJIXkPWnDb9f5
-	 SlBoEGgqwQmwNNSZkTt8lK1ro2RbEcpg4qoeLYc62rjiWR7c9bbruxyxxHWe9w4Nxmntz
-	 jwSPTGjx/r2V8WfkGj5+8vmLtCkSX4lN9mmKzgA/+I3FRoKHhfxsEvVjOOG0qQv33/c4g
-	 QLIzLHWXXRM62iYZxboE/RMWdH1dgxkKayJzjqSXHoMR09vxBjl15kdkaNTwmf2Cz/BLc
-	 CQdy5/MFb2/KBEE8bfOfbzz8jsWO8A/N4wUTul42LWVYVxPRf8c2NVnCRxawx4nh/Sw==
+	bh=h/BXNV5KmnftMz4JbY+xYVAt+31U1Mno5Ert58DSwbE=;
+	b=RRQKtoEKijGgbc/Ph5WR4cMa0B2Aona+Tcjl10YLBQ9MBmCyTF+r7QHxu854GJAo8Kl6
+	 St9spHoXI8hSvM7TsOaiNSvSgYG/b2vcvqD1A+fidsgIm63yUtdc5XnBm0FndX2/5ttQJ
+	 De3DZt0nnZb4PE1WqXrNhVrNiLIYKK9E4c+2tNKe+xV8arpknRhjwae1XyhZzo6grOuSq
+	 igc1i5jTGv6yaQCEIftPq8d5EI7Cr9JS9wEjNvWbGgJFVWSZDapTg0OKwaT4AKTyj0fvY
+	 lZ0JS/4QMydyP26hylO6XdEPI91CnbYpLHYQtzQLEoBCgqLV2hG5VIWG9SDljHuwbug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UCgvqE25;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=lUt0kdQS;
+	arc=none smtp.remote-ip=185.70.43.16
+Received: from mail-4316.protonmail.ch (mail-4316.protonmail.ch [185.70.43.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E3B606A31F;
-	Wed, 28 Oct 2026 08:19:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20E3B606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96E2606A31A;
+	Wed, 28 Oct 2026 08:29:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C96E2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=UCgvqE25
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EAC63C1;
-	Wed, 28 Oct 2026 09:16:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793175410;
-	bh=ylQ6axDdwtfjvRU+2qs8niTWWhpNNu50zy5DOU3vbP8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UCgvqE25oIHOWQnSXUgM6ekhENm205Ea4Wa1l15GqGgdwrJNhbbuqTwG+BolY98a1
-	 WV4esfSjFo9AkqBBj5GPIgQ1iP6qFiW8VwZc/3M/tTJhWmuz3LSxrHSuy/DgZOEYWP
-	 Qma5UspGYbtSR2e0VPpPRFy1fegARn0CsJ3/qC98=
-Message-ID: <aca04907-1ace-4fe2-8ca9-280c56b4b3e6@ideasonboard.com>
-Date: Wed, 28 Oct 2026 08:19:00 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=lUt0kdQS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1793176175; x=1793435375;
+	bh=h/BXNV5KmnftMz4JbY+xYVAt+31U1Mno5Ert58DSwbE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=lUt0kdQSS4nc3g30V5241BayPjShY+BHQEYKoDdxdL/1KG0FrZtMHVyTCifCxQOjX
+	 VcOfV5MzXoySVZCOZ+EANqaYLdITcNzBH8GLxjCAUtwN/H7FnfdtLazuBuwZVeMHCv
+	 mXXmLPT/Ii4dcTE7MY1hZEyZYIiNOOZUP/Gpo+ImvPWiI4MIVgfEuJ3KKe+UXKA9Sy
+	 Y5rjBKDz2b+fPkX41/hPGGrvalq7gqDDD1Li64W3Oe1sWAarJ4E32vIIsT6rDLWCXF
+	 t/XO83f4XmPNh2v3AQhw9mQWxzCcICtuSm3IND7bgrrUmXZXPey9/LjunJ4wDtQj/C
+	 bAmtRYAezEq4g==
+Date: Wed, 28 Oct 2026 08:29:32 +0000
+To: Marco Ziliani <rylos78@gmail.com>
+From: Simon Kruse <simon0x+git@proton.me>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Chris Simpson <chris@nilk.net>, "D. Manresa" <dmanresa@gmail.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and autosuspend
+Message-ID: <20261028082920.63853-1-simon0x+git@proton.me>
+In-Reply-To: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
+Feedback-ID: 50827409:user:proton
+X-Pm-Message-ID: 400b86fdf90199f6f45c4cee69955c781dc19203
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,69 +64,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] media: i2c: ov5693: Use autosuspend when stopping the
- stream
-To: rylos78@gmail.com, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>,
- Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>,
- linux-kernel@vger.kernel.org
-References: <20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com>
- <20261027-ov5693-fixes-v1-3-3c8ab1ae104d@gmail.com>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20261027-ov5693-fixes-v1-3-3c8ab1ae104d@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Morning
+Hi Marco,
 
-On 27/10/2026 20:29, Marco Ziliani via B4 Relay wrote:
-> From: Marco Ziliani <rylos78@gmail.com>
-> 
-> The driver enables runtime PM autosuspend with a 1 second delay at
-> probe, but drops the usage count at stream stop with pm_runtime_put(),
-> which doesn't update the device's last busy time. The autosuspend
-> delay is then counted from the runtime resume at stream start rather
-> than from stream stop, so after any stream longer than the delay the
-> sensor is powered off right away.
-> 
-> Use pm_runtime_put_autosuspend(), which marks the device busy, so that
-> the delay counts from stream stop as intended, and a following stream
-> started within it doesn't power the sensor up from scratch again. With
-> the mode now programmed on every stream start, keeping the sensor
-> powered between streams no longer leaves it in a stale mode.
-> 
-> On a Surface Pro 9 (IPU6) with autosuspend_delay_ms set to 3000, the
-> sensor suspended 1-2 ms after a 5 s stream stopped; with this change,
-> 3.7 s after it, i.e. the delay plus the autosuspend timer slack. On a
-> Surface Pro 5 (IPU3) with the default 1 s delay, the sensor suspended
-> as soon as a 2 s stream stopped; with this change, 1.1 s after it.
-> 
-> Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
-> Reported-by: D. Manresa <dmanresa@gmail.com>
-> Closes: https://github.com/linux-surface/kernel/pull/181#issuecomment-6436016335
-> Signed-off-by: Marco Ziliani <rylos78@gmail.com>
-> ---
->   drivers/media/i2c/ov5693.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-> index ca0968498..ef5e7285c 100644
-> --- a/drivers/media/i2c/ov5693.c
-> +++ b/drivers/media/i2c/ov5693.c
-> @@ -1070,7 +1070,7 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
->   		goto err_power_down;
->   
->   	if (!enable)
-> -		pm_runtime_put(ov5693->dev);
-> +		pm_runtime_put_autosuspend(ov5693->dev);
+On Tue, Oct 27, 2026 at 09:29:44PM +0100, Marco Ziliani wrote:
+> [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and autosuspend
 
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+Thanks for Cc'ing me. Your 1/3 is the same change as the mode move in my
+active-state conversion [1], and it stands better on its own, so I will
+drop that part from my patch.
 
->   
->   	return 0;
->   err_power_down:
-> 
+Unless anyone objects, I will rebase v2 of the conversion on top of
+your whole series rather than the other way around. The conversion
+then also moves your flip/Bayer window helpers from ov5693->mode to the
+active state. v2 will keep the driver mutex as the state lock, as Dan
+asked, and say in the cover letter that it depends on your series.
+
+I will run your series on a Surface Pro 9 and reply with the result.
+
+[1] https://lore.kernel.org/all/20261027074933.21921-1-simon0x+git@proton.m=
+e/
+
+Regards,
+Simon
 
