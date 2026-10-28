@@ -1,141 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793203784;
-	b=I6buHAi/DKz4UHkg8N6+ZjDk4C9K/6E0QjPaykl1rd/20pcf8IaHD3ZNaO7Dox5E7R/W
-	 YmYH+xuDvGo/e/G3yBM+DNfGrRg+71a+kJZ7ZyCt0vTWU9q4/A+LPMSwRdcZk99ydvccU
-	 KeL1/sz+p7qClSUy3kGrW5jk1UZcflZcBDGdLB6q/ATyeUAY7D1mD4xSveafAiju4a/Jn
-	 pyPufTMuPf9MZUcc5uEReDOgZznGJf7Ms/X8EF5AVYUGC96BgkGvMn5FxFQVb6zwFtHYY
-	 1DxQolXBhQTJCw+rZFuMaTvxc+pkvM7oLPwRR2a+JCAq09J2igCZOTwJyNf6Li/W14w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793203784;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=imaDU6OqxxyB3WUul5kus+HSiegxiNA7Olof0Bywi2g=;
-	b=ZymGNyclPg6RlYC8C1j7rkH/qtolHAuwSnyokZKdYEy7JU5qumGtE96pbl+MUDH1uGnI
-	 zPq575qh0EpFjwMec/+ATKo9OfEq/BpUttcbc+0logz7g2WgHCokVYVGIMz2F7cq7U7uU
-	 PKktLy7JZlYYerqwvySZWR1jERoxSIgGDBzKQD5xQ2dOR0hI1+otkCPwvd5zNcQ0UO5WH
-	 tlDKJ77nC6lxON+a/n3pkbACGgOhrQncvzL3c8A2EYCmgWDXDlz3hJpsuO1mmGwHZW/7x
-	 gdA8rFZMybmz+OBy4dBq34xXlu1XNc8bqAq3QxxzSEJLTO/rdTwOj1r0LMpdNJYccPw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dPEXn1W5;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ij4YVSTl;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793205390;
+	b=22Wrv1LXTQvMJFdAegtINUfSDkhhTspkYairFfMNpTzneF1HV+LdvZRxTfFI3FNZzAJk
+	 v+4GZeaOr0voCvNSHrVcOdHhbTaydV6AnGSpVPuwTWjUmBMAZdKhnq/tJTAuv8SQUHVJf
+	 mKIqdMMM8bi9WTqtoo/Qs24dR6e0W8Yg/YTDTapvAZana3S39Pjqq6964SAKGD/wMj/6C
+	 n0oa8Kzh7oOp+5oce6C10ydFt4zVyqulCqNAbvYsx5cj4f2JfbmsdN+NqoNzarol56pwM
+	 2okLO9Zdverb+jSFjc1YmZaP0I8qpGBzk/38nSrt96u9JxLoCcfl0rFEWHZhKKbe3fg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793205390;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=q5t3Rh9YkGOdmO6RznnXKL/OB+E6bNdFE1taktSfjrQ=;
+	b=Mbg7lIhQwjnhuQVG7H6d/oPZjOdUlq3ZYA5VB7BTgTN0rZkhEk0rVslYI1U79150wio2
+	 WqgkEIwJApNixY+wsa/WtK1X7ugJrrrMap0TuRy7yN3PByZr/1vrkN2DNpKgsZKqQZyZJ
+	 dxGjsP4SJS4/FRDweUIEh3sk/LrTvcBsOmlSqtrRRaW4Zwple1enW1NMN+djcL9ZubvU+
+	 trRwFTFxDfJek5lK1dHeZiTdvZ+dxTuvSCHjGDLBjy94GGHAG43ITOsRoCbayQW0SceKo
+	 4OMK/5gS4OnqLEAhhX5sdS3GeAp9jY3sfE1NwMN2g4i/ay8VQS09B+F8eVajiQOw4Tw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cOzzyruz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eaDKKqAi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D477606A31F
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 16:09:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D477606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080F9606A330
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 16:36:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 080F9606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dPEXn1W5;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=Ij4YVSTl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793203782;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=imaDU6OqxxyB3WUul5kus+HSiegxiNA7Olof0Bywi2g=;
-	b=dPEXn1W5b5WNvLbcG2I76LWotzK2OYBMen9W3iNyYZEe1XuaTbDlsjGx8M+LdMuY7tHujN
-	K2j96mp8XtoNiDIJMC3JrCb8LSbbud51VWjqdVO0nM6xvQrx7qmDuq3cAwZO8Yh8/4p5b/
-	WBXA79NKgJ8cDfP9QWZV04yfcPhzjKI=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-624-aq__9RN-N3uIkLb8NhpDYA-1; Wed, 28 Oct 2026 12:09:40 -0400
-X-MC-Unique: aq__9RN-N3uIkLb8NhpDYA-1
-X-Mimecast-MFC-AGG-ID: aq__9RN-N3uIkLb8NhpDYA_1793203780
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a9d51dc486so4120285e9.1
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 09:09:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cOzzyruz;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eaDKKqAi
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SFA4og1471855
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 16:36:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	q5t3Rh9YkGOdmO6RznnXKL/OB+E6bNdFE1taktSfjrQ=; b=cOzzyruznl/3f+kd
+	dF8gHc4ZnOyeaQuF2Wzu+i1zbM2sU17jP2pI56YSWaZCcndRivqpYnA0iUAF7t5R
+	dR4koZyQ7itVu6aj1uhpT5IclnlqeqgIUaqnfh06ic7KoVCQLuUXSg+F6neRTUpg
+	kJOqf99d1xlzYx5FxsO//GZMilHJvro/YNXBLW3h4yeCTXxlI1qd1ctEhF+vQJlZ
+	8WXxQ19Ajyb/ZHNqXsa8wYI6oC8hR4bbBJr7hdQYpQh957PukZDYaXLKDTgZdcml
+	3KMJjQ+hURRL8V4vbToS2yodWc4Tmgr/D+gm8enyenPi3XNO/L37vYWIhvhyV869
+	hy7VDw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkfehhgxk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 16:36:27 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cbf2fd504so187886385a.2
+        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 09:36:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793205387; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FmeUGl9auzWWSGQeKRYQjpmpHE+8ZKid2dgPQ1TUIP5n48LE3APKxZmm0VEgl/o5Ef
+         UTWzanoaNl0rG/3aaBnnJvMqGUvetZ+5Eo2wCwp0Lgf8cPgLwnVMWYqWV0pJDZ9aDBKc
+         B9Qh+pBowjXyAYQdXAIyeJNZ0Y8GT+Ll7eD0iM4Uy1/VHWrsD3z8ut7b1OykyGlq9MWg
+         uh5NY+3Lh68Id/5uPxdEfbqi8G6jZN2sDoegH/DF7CiUT5bFX/Rtfmld+sDyUIhuDP0T
+         1i2Id2zf64PKCdQNJ0AQlyv6OfXLJYeuUudsSi5Lv8zDO31eFmEhPQpb1zrcnNLFc3Ik
+         +mXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=q5t3Rh9YkGOdmO6RznnXKL/OB+E6bNdFE1taktSfjrQ=;
+        fh=ZVvXYtbwNXInd255kENNe6yoh+qL71piKCvDcXVwS1A=;
+        b=IqLN98Pu86v8zDuDdrY3m8YTp0WXidaHnJe+VhJa4v3965pEJG4HglcemwcR8aq99r
+         sLmXEPTc7aNje9ivsjXsp0yOx9VBBZna51bQiYeL5PgSpOvNNbs5M4fNzRxjAtsJsgKw
+         FJJ0DBBs09hiagPYxng8AIFe5glRVjipumW8TS9w6JUI1Y5pMP8OjUzAk/xsQteK2ygB
+         /FGmeVCviyhBfl942Tm1gFnKi5Z1hqfUJ5MQuIi8mCNu/sHcO5oqLPXIap8iFVHNIMog
+         ldkRzwd76vx+3XdMXTGlqYZaXgqsiPLjB4/vBFGhwf3WWTLZXHTjYMiLeaBLTKTywDnJ
+         uv/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793203779; x=1793808579; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=imaDU6OqxxyB3WUul5kus+HSiegxiNA7Olof0Bywi2g=;
-        b=Ij4YVSTlo+S28v+Oub89zKAkV2L4XR/zDYU1v72Gna0be29bYQwS8EhScBveFcWzcu
-         OV8IgBBIONHDtI/FiB9vt4gjOgk/0nVuQjgNCuKkERgtwPvfjrNwPt/4q304V0FMz9hX
-         wjLYRdfb7M2O+YJlK0grCfU6SlWg2D51ya88dJnO86SADgvGiGb8l2QJWH4bI16W/JWu
-         /CUMqdH9BlAxcB68vVMpcFvrHFpk1863prLtYPHGPr7kSEpSmDaOPC8CnOXxGx7KLlS0
-         qeNO4/Tgny0kEnE1Q9tFEuhoERsDQ0LYLEnx5n54ukXmEBNCWriEu5IYIAYjr2EqU+Qg
-         Vl1A==
+        d=oss.qualcomm.com; s=google; t=1793205387; x=1793810187; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q5t3Rh9YkGOdmO6RznnXKL/OB+E6bNdFE1taktSfjrQ=;
+        b=eaDKKqAimoKXzHBvGTzw7/eOwOWxuwo+uodnhWumVpLTcMvC0z7hPY4+8GOhZMS3aY
+         X+FOFOqViaAYip5I+8xuA9fdDrMsPakSPJweijA+fZLk4HzoK5kiwgsxFZHKltcz1+H0
+         tMJHPAIcozBFN0B/DtXTsW7iK2jR1tQp353mLWouz7AHAr2FAF2F9cFR2rNYufyKYkCz
+         Pd0tIXOIeuYacYZiB2XhqNtiuWXOTpdfruQ8+UxoOj5vXrPVjOMW3TahOnR0k/qkWxG2
+         HsoTunswRH7ubdGN5LFtml0WmTbgzeqXiKOdXkFIbSj6RU8H9t9GNb6kNUbn1mGeuRPk
+         YsjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793203779; x=1793808579;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=imaDU6OqxxyB3WUul5kus+HSiegxiNA7Olof0Bywi2g=;
-        b=KcBaiVPzRBiA4lLNyZ15lJp+jXLdlaqyE8Fz6pG5wOtjYhkfVg1Hh1d6Fp/GVSgNHW
-         KwhA/ooWLPHtndbHM8cSgJnUD4pY7hc89mmMbzsC+0/mN6i7CT834ewRjknpBqgoRTu/
-         4Pk4+vj7uFUwLoJuohkcxKzkAbjTzRJ4CPxXBoB4QwET1C7MJjHao49sCEYbVydxEMdi
-         UGzvj9f2DeQ2fGc0x04dYQCuuUlquBklyRMKB+Z5h6dfZF4ELd/fz6FZFtODlR4cf+Lp
-         GvGlPdelKqzdcpRcxrlL9EmYKp6l8f4hn0mbMDTfRJpgSV5LChuIf3I19mUpKtWLJY/b
-         skaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxydAzyDVDHSIyuYlPiBStGDU3eBY/NUz5wICpFnMfr49BW7BmJb88K2TS7X2Nn/4WQNnmgKixYMdc9Gw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUOpw+AAWHdSBC884Pbw6QzhHmTmxXAYvETs5cUjGYJMsVhyLO
-	PHvcJnrzdkjjAck+/2DeJQBbRwnCIrpzFS7XW6YSaPLehABiOBLg1zbgAlSKRhJsFTXcSBdtRJ/
-	Si0m2GI9dX1wx9jIJjgcY3bmlVm9Zs3zZHO+DdMKNddj11N8gY3vCSVXMIUWtevN+
-X-Gm-Gg: AYBFou1sxE4vNy5t4VZFFTl9FYjj6akgig9j0AVvxzzpY/Z+HJ5FSFOJo9AKVZ0xzbe
-	wUjLRtAI9kPnYR4y22W1/7jw2TpTPHoHFe0BSq528qVS3LK71aKz9Ac6iaNHlfFNAbzMqbqmQaH
-	omoXwZAglIYOKOwS9mjvYpRgVYGbLbQWIsOXstWw+pPk5A46Yu0h0aQJhihcNWRbkcriL0lJYe5
-	Dd/ncDZq3n22mOKgkCqnO26r6wj74bmX+A2StnmWs1Mmbkq1cDylKXPO9dYaa8c1nt1UwvOBE80
-	12fbKcfmVUmqdfDTAHZ8ZxaQJrpwf8L0sbZjZiiARTHbrOdGUiSXihl9BkhACXXfrGFKMc2ZXsA
-	QbZLJLR9xXD9BjvxA2mrsA40cYMHa+fCmqJCZBOHfNy0=
-X-Received: by 2002:a05:600c:4f84:b0:4a7:72b1:c8bd with SMTP id 5b1f17b1804b1-4aa8823d762mr103975e9.15.1793203779466;
-        Wed, 28 Oct 2026 09:09:39 -0700 (PDT)
-X-Received: by 2002:a05:600c:4f84:b0:4a7:72b1:c8bd with SMTP id 5b1f17b1804b1-4aa8823d762mr103225e9.15.1793203778959;
-        Wed, 28 Oct 2026 09:09:38 -0700 (PDT)
-Received: from localhost ([139.47.30.142])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7c5063e3sm3064185e9.0.2026.10.28.09.09.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 09:09:38 -0700 (PDT)
-Date: Wed, 28 Oct 2026 17:09:37 +0100
-From: Albert Esteve <aesteve@redhat.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
-	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
-	Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
-	Jens Wiklander <jenswi@kernel.org>,
-	Sumit Garg <sumit.garg@kernel.org>, cgroups@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org, linux-mm@kvack.org,
-	linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, op-tee@lists.trustedfirmware.org,
-	echanude@redhat.com, mripard@kernel.org
-Subject: Re: [PATCH v3 7/8] dma-buf: transfer memcg charges via
- DMA_BUF_IOCTL_XFER_CHARGE
-Message-ID: <auIeQU0nAnOLdKUB@aesteve-thinkpadp1gen8.rmtes.csb>
-References: <20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com>
- <20261027-v2_20230123_tjmercier_google_com-v3-7-78d2c4cb8647@redhat.com>
- <d76d8bfe-e955-4e90-9f5f-e3e914c0869c@amd.com>
+        d=1e100.net; s=20260707; t=1793205387; x=1793810187;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q5t3Rh9YkGOdmO6RznnXKL/OB+E6bNdFE1taktSfjrQ=;
+        b=dADjGP1HT1mVQeXT9Fa9YesZ8sAD7yJuAFRopDIWvuRsDDYx0T+mZLpiGqeyTPspft
+         kkH6ppRmkNuVvk2p+LI8ygun6Wrvwh0Acm354BXdNmRVs0p9XgDFZGITNZFSCwqzDd1X
+         b1DTDVnuAXrMv9zDiP60Hq/ghU4kwA6Fxgu48xG0xagujPPloN3zXl4WpP4SgfaXRXmq
+         qPeKs98Rq46ALjxD3rxdxW3YE7fJubQRg7k7vQRZF7C5C+mPjE8yhSbeQsXLBcom9j1N
+         OVYBuDiIenolPashCvSMPGEhNnNnGA6hfWEAUjZ8feIa5tXyWEqYQnt4IvnWFzzhx2YI
+         VWQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxEHiVzB0ZbPgaGp4x/7Xqi+B9ZUfn0Q6KJVf5iO4RqP7wzlR0o8v85W44Lb6xEMxZ0qWpymTjacHKJ3Q==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZfZ0MKVdc31YV5nUapUqLl380+kESE1l6nSf4b1mq5tXw61Lp
+	FLeUwPdicJiBehibvCq/7df9pgM6vsHh8pjJPcHwcv1zTxXgaX62sOpsP6FPVHCRmOnw5heYFqp
+	FOdAi/EaZetzQqeH7yL9y9qEMYP1Eg0PmqkrxpO0gPLWEgF6yMaBC4V88DNFjLX6vbXDrU46HQ5
+	JasUATWTONCHyKHZoSpQhNIrhXXAaHw+zn5Td4vOvb
+X-Gm-Gg: AYBFou3GkPsmbQYn8pjNIpuCYgAuar5jJfy4uU20Vi7Lfo7FOfF6v5DL+kxJ38o0t39
+	AyqAN/kfAI0FHO0acAPztgU3hmScnfsu6pY+XOHjM5AknVaan8OjCuyEuxheZcsTdik8Tx8oq4f
+	FE4Lpn2eXf+EEkkHNUSvDkF2J0WSCh7zUsNgsgi5KlsKIr6rBu+ffcl1XyWgX7g06LGmfdZr7cs
+	Y/OQuadZc9310jFCnmrNeoAV9ojPx+8trd6FC6ePPIiMqDSi3EsGJV2L/Z3q7iRuSBADidl4yLb
+X-Received: by 2002:a05:620a:46a6:b0:93f:2b23:481b with SMTP id af79cd13be357-94408aa219dmr459954585a.22.1793205387000;
+        Wed, 28 Oct 2026 09:36:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:46a6:b0:93f:2b23:481b with SMTP id
+ af79cd13be357-94408aa219dmr459949185a.22.1793205386506; Wed, 28 Oct 2026
+ 09:36:26 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -145,319 +128,217 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d76d8bfe-e955-4e90-9f5f-e3e914c0869c@amd.com>
+References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com> <20261028-kaanapali-camss-v23-4-95f250b18612@oss.qualcomm.com>
+In-Reply-To: <20261028-kaanapali-camss-v23-4-95f250b18612@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 17:36:15 +0100
+X-Gm-Features: AclHuK_qZnIsa3_FMMHTiw2iXEoQpzgN5rjHWMbnvqMU6BVIbLYMNtYuWHeQqVU
+Message-ID: <CAFEp6-1QvF+=XQQrdDQS0kM8f1zoz3s3MZECOOdmYjAaJeBZQQ@mail.gmail.com>
+Subject: Re: [PATCH v23 04/15] media: qcom: camss: Add addr_update hooks and
+ guard CSID reg_update
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA2NiBTYWx0ZWRfX4xVo7IfMKcCF
+ JuiHQBjbtPQxBS6Rlvb6cOP3kxmhvZn3L5NNI/BjKYwy6Zh6obhk28HK+TU8alu8qGsHdKgrhEY
+ iSM126dDFd2wBJQ423PbUegfDUWL9O/tnND+qpqxDDGDSTEJ/lDZ4lYBO56lyho4oOjE4RrFc2r
+ te3L6pArB7UmtDaokqPysjiMDYphbO61SwOoD0SN+HpVxcCqED9Kc9KsyCxCmJj2rPXVIeoW/Bw
+ Up8w2NEDsC+OqgUIboGPatxiuAHBheXJ4ACo69XM3FN7Ytj8BmcxPPHjX7iyT55RTJOZSoRcQOO
+ KZva2QUa+FfGaz4OJv9y/Umg86U6qdOoNf6O70MR8W/ySIvHH+/OdSIcG3icH8EgSqqERT/XO+m
+ IckVX/Mt47sdDdgPQ7VVWL63Z+kb9nAFjbbpyAhuiSzj7xCJVeVUFbIKJrm5LqoIOmyOKsIqWgM
+ vsnBcPdLwq/2waH3wjA==
+X-Authority-Analysis: v=2.4 cv=A/T5rKWG c=1 sm=1 tr=0 ts=6ae2248b cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=vOQjydwpf4klcLd5GhIA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: _ieSJplx8QmEpVB33UuHUlPxYjCzHnGR
+X-Proofpoint-GUID: _ieSJplx8QmEpVB33UuHUlPxYjCzHnGR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA2NiBTYWx0ZWRfX5h8ZOKPqN2Pk
+ Ma33w18T8uy0EOst6rCbHwFZFCK1Tx8u2hStc5DarXWDgbga3naQCNCWIjhJyMw0ow64IXlviRg
+ nNAgai/6S2ygcRcmB3RETy3sSNa49tk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280066
 
-On Wed, Oct 28, 2026 at 10:08:19AM +0100, Christian König wrote:
-> On 10/27/26 16:02, Albert Esteve wrote:
-> > dma-heap already supports charging a specific cgroup at allocation
-> > time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
-> > originate from any exporter (DRM, V4L2, etc.), and the allocator may
-> > not know the final owner at allocation time.
-> > 
-> > Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
-> > to a different cgroup after allocation. The target is identified by
-> > charge_fd, which may be a cgroupfd or a pidfd.
-> > 
-> > The transfer charges the new cgroup before uncharging the old one,
-> > preserving the original charge on failure. An atomic cmpxchg on
-> > dmabuf->memcg prevents races with concurrent transfers.
-> > 
-> > Not all dma-buf exporters back their buffers with reclaimable system
-> > memory. Some represent device registers, VRAM, or carved-out pools
-> > where size is not a meaningful memory cost. Add a memcg_account flag
-> > to dma_buf_export_info that exporters set when their buffers should
-> > participate in memcg accounting. The xfer ioctl returns -EOPNOTSUPP
-> > for buffers that do not set the flag. Currently only the system heap
-> > sets it, other exporters can opt in as needed.
-> > 
-> > Usage example:
-> >   int cg_fd = open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECTORY);
-> > 
-> >   struct dma_buf_transfer_charge xfer = {
-> >       .charge_fd = cg_fd,
-> >   };
-> >   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
-> >   /* charge now on app1's cgroup */
-> >   close(cg_fd);
-> > 
-> > Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> > ---
-> >  drivers/dma-buf/dma-buf.c           | 43 +++++++++++++++++++++++++++++++++++++
-> >  drivers/dma-buf/heaps/system_heap.c |  1 +
-> >  include/linux/dma-buf.h             |  5 +++++
-> >  include/linux/memcontrol.h          |  9 ++++++++
-> >  include/uapi/linux/dma-buf.h        | 26 ++++++++++++++++++++++
-> >  mm/memcontrol.c                     | 41 +++++++++++++++++++++++++++++++++++
-> >  6 files changed, 125 insertions(+)
-> > 
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index f31f49ebd0af..07513ecedc10 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -540,6 +540,45 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
-> >  }
-> >  #endif
-> >  
-> > +/* Transfer a dma-buf's memcg charge; see struct dma_buf_transfer_charge */
-> > +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
-> > +				const void __user *user_data)
-> > +{
-> > +	struct dma_buf_transfer_charge arg;
-> > +	struct mem_cgroup *memcg;
-> > +	int ret = 0;
-> > +
-> > +	if (copy_from_user(&arg, user_data, sizeof(arg)))
-> > +		return -EFAULT;
-> > +
-> > +	if (!IS_ENABLED(CONFIG_MEMCG))
-> > +		return 0;
-> > +
-> > +	if (arg.flags != 0)
-> > +		return -EINVAL;
-> > +
-> > +	if (!dmabuf->memcg_account)
-> > +		return -EOPNOTSUPP;
-> > +
-> > +	memcg = mem_cgroup_get_from_fd(arg.charge_fd);
-> > +	if (IS_ERR(memcg))
-> > +		return PTR_ERR(memcg);
-> > +
-> > +	if (dmabuf->memcg == memcg)
-> > +		goto skip_transfer;
-> > +
-> > +	if (!mem_cgroup_transfer_dmabuf_charge(dmabuf, memcg)) {
-> > +		ret = -ENOMEM;
-> > +		goto skip_transfer;
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +skip_transfer:
-> > +	mem_cgroup_put(memcg);
-> > +	return ret;
-> > +}
-> > +
-> >  static long dma_buf_ioctl(struct file *file,
-> >  			  unsigned int cmd, unsigned long arg)
-> >  {
-> > @@ -590,6 +629,9 @@ static long dma_buf_ioctl(struct file *file,
-> >  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
-> >  #endif
-> >  
-> > +	case DMA_BUF_IOCTL_XFER_CHARGE:
-> > +		return dma_buf_xfer_charge(dmabuf, (const void __user *)arg);
-> > +
-> >  	default:
-> >  		return -ENOTTY;
-> >  	}
-> > @@ -750,6 +792,7 @@ struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info)
-> >  	dmabuf->size = exp_info->size;
-> >  	dmabuf->exp_name = exp_info->exp_name;
-> >  	dmabuf->owner = exp_info->owner;
-> > +	dmabuf->memcg_account = exp_info->memcg_account;
-> 
-> The initial charging should probably be done here as well.
-> 
-> This way DMA-buf heaps only needs to pass in the charge_fd and we can re-use the functionality for other DMA-buf exporters as well.
+On Wed, Oct 28, 2026 at 4:21=E2=80=AFPM Hangxiang Ma
+<hangxiang.ma@oss.qualcomm.com> wrote:
+>
+> From CSID 680 on, CAMIF was moved into the CSID and the CSID became
+> responsible for issuing RUP commands. Starting with CSID 980, RUP and
+> AUP are issued separately, and each command must have its corresponding
+> SET bit asserted in RUP_AUP_CMD; otherwise, the hardware ignores it.
+>
+> CSID 980 and newer require a specific stream-on sequence. After the RX
+> is configured and before the RDI path is enabled, the CSID must first
+> issue an AUP and then a RUP. A RUP issued before that point would leave
+> the VFE without a BUF_DONE event. Therefore, once addr_update is set,
+> the VFE must skip the initial RUP during stream-on.
+>
+> Add addr_update hooks and camss_addr_update, and make camss_reg_update
+> handle a missing callback safely. The VFE keeps issuing its initial RUP
+> during stream-on and behavior is unchanged if nullify addr_update. The
+> skip takes effect once a generation that sets addr_update is enabled.
+>
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-The problem with doing the charge here is that it happens too late.
-That is the reasoning for this proposal to move all the charging logic
-into heap allocators before pages are allocated.
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-What we could do is fill the dmabuf->memcg field when the flag is set
-(i.e., committing into the dmabuf in the patch semantics). But for that
-we'd need adding the memcg we want to charge it to into exp_info in
-order to support charging to cgroups other than the allocator's (for
-the common case would be simpler as we can just look at current).
-Maybe that's what you meant?
-
-> 
-> >  	spin_lock_init(&dmabuf->name_lock);
-> >  	init_waitqueue_head(&dmabuf->poll);
-> >  	dmabuf->cb_in.poll = dmabuf->cb_out.poll = &dmabuf->poll;
-> > diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-> > index adeea8cd328b..a764167167ba 100644
-> > --- a/drivers/dma-buf/heaps/system_heap.c
-> > +++ b/drivers/dma-buf/heaps/system_heap.c
-> > @@ -479,6 +479,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
-> >  	exp_info.size = buffer->len;
-> >  	exp_info.flags = fd_flags;
-> >  	exp_info.priv = buffer;
-> > +	exp_info.memcg_account = true;
-> >  	dmabuf = dma_buf_export(&exp_info);
-> >  	if (IS_ERR(dmabuf)) {
-> >  		ret = PTR_ERR(dmabuf);
-> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> > index 23ec0ff23fba..ac0ec88cab93 100644
-> > --- a/include/linux/dma-buf.h
-> > +++ b/include/linux/dma-buf.h
-> > @@ -433,6 +433,9 @@ struct dma_buf {
-> >  
-> >  	/** @memcg: the cgroup to which this buffer is currently attributed */
-> >  	struct mem_cgroup *memcg;
-> > +
-> > +	/** @memcg_account: account buffer memory to cgroup */
-> > +	bool memcg_account;
-> >  };
-> >  
-> >  /**
-> > @@ -505,6 +508,7 @@ struct dma_buf_attachment {
-> >   * @flags:	mode flags for the file
-> >   * @resv:	reservation-object, NULL to allocate default one
-> >   * @priv:	Attach private data of allocator to this buffer
-> > + * @memcg_account:	account buffer memory to cgroup
-> >   *
-> >   * This structure holds the information required to export the buffer. Used
-> >   * with dma_buf_export() only.
-> > @@ -517,6 +521,7 @@ struct dma_buf_export_info {
-> >  	int flags;
-> >  	struct dma_resv *resv;
-> >  	void *priv;
-> > +	bool memcg_account;
-> >  };
-> >  
-> >  /**
-> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> > index 6b30baa79fa9..36fddafbef4e 100644
-> > --- a/include/linux/memcontrol.h
-> > +++ b/include/linux/memcontrol.h
-> > @@ -679,6 +679,9 @@ bool mem_cgroup_reserve_dmabuf(struct mem_cgroup *memcg, gfp_t gfp,
-> >  void mem_cgroup_commit_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
-> >  			      unsigned int nr_pages);
-> >  
-> > +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> > +				       struct mem_cgroup *new_memcg);
-> > +
-> >  void __mem_cgroup_uncharge(struct folio *folio);
-> >  
-> >  /**
-> > @@ -1206,6 +1209,12 @@ static inline void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg,
-> >  {
-> >  }
-> >  
-> > +static inline bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> > +						     struct mem_cgroup *new_memcg)
-> > +{
-> > +	return true;
-> > +}
-> > +
-> >  static inline void mem_cgroup_uncharge(struct folio *folio)
-> >  {
-> >  }
-> > diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
-> > index e827c9d20c5d..ea957f4b1d38 100644
-> > --- a/include/uapi/linux/dma-buf.h
-> > +++ b/include/uapi/linux/dma-buf.h
-> > @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
-> >  	__s32 fd;
-> >  };
-> >  
-> > +/**
-> > + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
-> > + *
-> > + * Any holder of a dma-buf file descriptor can perform a
-> > + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
-> > + * cost to a specific cgroup, or move it from one cgroup to
-> > + * another.  The ioctl charges the new cgroup before uncharging
-> > + * the old one atomically.  On failure the original charge is
-> > + * preserved.  If the buffer has no existing charge, a new
-> > + * charge is established.
-> > + */
-> > +struct dma_buf_transfer_charge {
-> > +	/** @flags: Reserved, must be zero */
-> > +	__u32 flags; /* unused for now */
-> > +	/**
-> > +	 * @charge_fd: File descriptor identifying the target cgroup.
-> > +	 *
-> > +	 * May be either a pidfd, in which case the charge moves to the
-> > +	 * memory cgroup of the referenced process, or a cgroupfd obtained
-> > +	 * by opening a cgroup v2 directory, in which case the charge moves
-> > +	 * directly to that cgroup's memory controller.
-> > +	 */
-> > +	__u32 charge_fd;
-> > +};
-> > +
-> >  #define DMA_BUF_BASE		'b'
-> >  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
-> >  
-> > @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
-> >  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
-> >  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
-> >  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
-> > +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct dma_buf_transfer_charge)
-> >  
-> >  #endif
-> > diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> > index 7b841b905759..3adc84fe6668 100644
-> > --- a/mm/memcontrol.c
-> > +++ b/mm/memcontrol.c
-> > @@ -5786,6 +5786,47 @@ void mem_cgroup_cancel_dmabuf(struct mem_cgroup *memcg, unsigned int nr_pages)
-> >  		refill_stock(memcg, nr_pages);
-> >  }
-> >  
-> > +/**
-> > + * mem_cgroup_transfer_dmabuf_charge - move a dma-buf charge
-> > + * @dmabuf: buffer to transfer charge
-> > + * @new_memcg: target memcg; caller must hold a reference
-> > + *
-> > + * Transfers the charge for @dmabuf to @new_memcg and, on
-> > + * success, stores @new_memcg in @dmabuf->memcg.
-> > + * Returns %true on success, %false if the charge against @new_memcg
-> > + * failed or a concurrent transfer raced on @dmabuf->memcg.
-> > + * On failure the caller retains its reference to @new_memcg.
-> > + */
-> > +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> > +				       struct mem_cgroup *new_memcg)
-> 
-> I would make that more generic instead of dmabuf specific. E.g. something like this:
-> 
-> bool mem_cgroup_transfer_charge(struct struct mem_cgroup **ptr_memcg, struct mem_cgroup *new_memcg, enum memcg_stat_item item, unsigned int nr_pages)
-
-Ah yes, I like this generalization. And the implementation remains
-mostly the same. Thanks!
-
-> 
-> > +{
-> > +	struct mem_cgroup *old_memcg = READ_ONCE(dmabuf->memcg);
-> 
-> > +	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
-> 
-> This way we can also document in the DMA-buf caller that this conversation must be ok when memcg_account is true.
-> 
-> Regards,
-> Christian.
-> 
-> > +
-> > +	if (mem_cgroup_disabled())
-> > +		return true;
-> > +
-> > +	if (!mem_cgroup_reserve_dmabuf(new_memcg, GFP_KERNEL, nr_pages))
-> > +		return false;
-> > +
-> > +	mod_memcg_state(new_memcg, MEMCG_DMABUF, nr_pages);
-> > +
-> > +	if (cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) != old_memcg) {
-> > +		mod_memcg_state(new_memcg, MEMCG_DMABUF, -nr_pages);
-> > +		mem_cgroup_cancel_dmabuf(new_memcg, nr_pages);
-> > +		return false;
-> > +	}
-> > +
-> > +	if (old_memcg) {
-> > +		/* Uncharge old cgroup */
-> > +		mod_memcg_state(old_memcg, MEMCG_DMABUF, -nr_pages);
-> > +		mem_cgroup_cancel_dmabuf(old_memcg, nr_pages);
-> > +		mem_cgroup_put(old_memcg);
-> > +	}
-> > +
-> > +	return true;
-> > +}
-> > +
-> >  /**
-> >   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
-> >   * @dmabuf: buffer to uncharge
-> > 
-> 
-
+> ---
+>  drivers/media/platform/qcom/camss/camss-csid.h |  8 ++++++++
+>  drivers/media/platform/qcom/camss/camss-vfe.c  |  9 ++++++++-
+>  drivers/media/platform/qcom/camss/camss-vfe.h  |  3 +++
+>  drivers/media/platform/qcom/camss/camss.c      | 15 ++++++++++++++-
+>  drivers/media/platform/qcom/camss/camss.h      |  2 ++
+>  5 files changed, 35 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/med=
+ia/platform/qcom/camss/camss-csid.h
+> index 5296b10f6bac..2f7e593defed 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid.h
+> +++ b/drivers/media/platform/qcom/camss/camss-csid.h
+> @@ -137,6 +137,14 @@ struct csid_hw_ops {
+>          * @is_clear: Indicate if it is clearing reg update or setting re=
+g update
+>          */
+>         void (*reg_update)(struct csid_device *csid, int port_id, bool is=
+_clear);
+> +
+> +       /*
+> +        * addr_update - latch buffer address update through AUP
+> +        * @csid: CSID device
+> +        * @port_id: Port id
+> +        * @is_clear: Indicate if it is clearing addr update or setting a=
+ddr update
+> +        */
+> +       void (*addr_update)(struct csid_device *csid, int port_id, bool i=
+s_clear);
+>  };
+>
+>  struct csid_subdev_resources {
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765..4f8867daea4c 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -487,6 +487,8 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+>                 ops->vfe_wm_update(vfe, output->wm_idx[0],
+>                                    output->buf[index]->addr[0],
+>                                    line);
+> +               if (ops->addr_update)
+> +                       ops->addr_update(vfe, line->id);
+>                 ops->reg_update(vfe, line->id);
+>         } else {
+>                 output->gen2.active_num--;
+> @@ -525,6 +527,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+>
+>         spin_lock_irqsave(&vfe->output_lock, flags);
+>
+> +       if (ops->addr_update_clear)
+> +               ops->addr_update_clear(vfe, line->id);
+>         ops->reg_update_clear(vfe, line->id);
+>
+>         if (output->state > VFE_OUTPUT_RESERVED) {
+> @@ -552,7 +556,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+>                 output->gen2.active_num++;
+>                 ops->vfe_wm_update(vfe, output->wm_idx[0],
+>                                    output->buf[i]->addr[0], line);
+> -               ops->reg_update(vfe, line->id);
+> +               if (!ops->addr_update)
+> +                       ops->reg_update(vfe, line->id);
+>         }
+>
+>         spin_unlock_irqrestore(&vfe->output_lock, flags);
+> @@ -588,6 +593,8 @@ int vfe_queue_buffer_v2(struct camss_video *vid,
+>                 output->buf[output->gen2.active_num++] =3D buf;
+>                 ops->vfe_wm_update(vfe, output->wm_idx[0],
+>                                    buf->addr[0], line);
+> +               if (ops->addr_update)
+> +                       ops->addr_update(vfe, line->id);
+>                 ops->reg_update(vfe, line->id);
+>         } else {
+>                 vfe_buf_add_pending(output, buf);
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.h
+> index ae9dad353a37..8312e4c91e98 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+> @@ -99,6 +99,9 @@ struct vfe_line {
+>  struct vfe_device;
+>
+>  struct vfe_hw_ops {
+> +       void (*addr_update)(struct vfe_device *vfe, enum vfe_line_id line=
+_id);
+> +       void (*addr_update_clear)(struct vfe_device *vfe,
+> +                                 enum vfe_line_id line_id);
+>         void (*enable_irq)(struct vfe_device *vfe);
+>         void (*global_reset)(struct vfe_device *vfe);
+>         u32 (*hw_version)(struct vfe_device *vfe);
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index c54185c93a8a..be58a39f4a8b 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -5049,7 +5049,20 @@ void camss_reg_update(struct camss *camss, int hw_=
+id, int port_id, bool is_clear
+>         if (hw_id < camss->res->csid_num) {
+>                 csid =3D &camss->csid[hw_id];
+>
+> -               csid->res->hw_ops->reg_update(csid, port_id, is_clear);
+> +               if (csid->res->hw_ops->reg_update)
+> +                       csid->res->hw_ops->reg_update(csid, port_id, is_c=
+lear);
+> +       }
+> +}
+> +
+> +void camss_addr_update(struct camss *camss, int hw_id, int port_id, bool=
+ is_clear)
+> +{
+> +       struct csid_device *csid;
+> +
+> +       if (hw_id < camss->res->csid_num) {
+> +               csid =3D &camss->csid[hw_id];
+> +
+> +               if (csid->res->hw_ops->addr_update)
+> +                       csid->res->hw_ops->addr_update(csid, port_id, is_=
+clear);
+>         }
+>  }
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/pl=
+atform/qcom/camss/camss.h
+> index 7dc2fd9f03e0..431afeb381aa 100644
+> --- a/drivers/media/platform/qcom/camss/camss.h
+> +++ b/drivers/media/platform/qcom/camss/camss.h
+> @@ -182,5 +182,7 @@ void camss_delete(struct camss *camss);
+>  void camss_buf_done(struct camss *camss, int hw_id, int port_id);
+>  void camss_reg_update(struct camss *camss, int hw_id,
+>                       int port_id, bool is_clear);
+> +void camss_addr_update(struct camss *camss, int hw_id,
+> +                      int port_id, bool is_clear);
+>
+>  #endif /* QC_MSM_CAMSS_H */
+>
+> --
+> 2.34.1
+>
