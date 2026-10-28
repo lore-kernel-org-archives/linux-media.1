@@ -1,77 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180872;
-	b=XTXlABvtShnaxiZQUtGTNbJfNENcKULg5w3DvSz81Ca1BIphe7pn8pnbg2c14f117RJg
-	 SydjKU4P2Y3VLLO2j5RItV6tvcxqZnAVGW1l9EpgsCGffRiRLkFZ0pSb9o5eHeRoal+CA
-	 IeHbbJhorLxE/lGiEDr/Dw3f2DKIasmXdiyLb1SeMMCZHXjfPB7JbfFAiWZNKVQQ5thM9
-	 2i2YgixWqiayMs3QVYORu5sHCvKazf/QEDBQjio/NhZgkShFscsZNfpCbg0ksgaELpQFp
-	 xOfo8+9nqyuNtnxPtcjR9NH7go0bYXb1wHwK7n6Ac1GzIvYagVWGU3vB2wWFXHZhhFg==
+	t=1793181520;
+	b=oMmZ2w7xPgVwjh1ehzL403L/Wn0PRpCrz+6PfL3I/l/koma4sS9+/jQgpd60LiGzoRk6
+	 IHN5xzMXwjIKwOn4+egh770YiNOq1o+2aDwWaWQM9ZjP/9Hsg094hOAG80Y4OHGELQ+Ye
+	 zURv28gSZAwvu1x3/Q62gW4MNbszisBkbNahgYwgNnY+kDKlsid/VTRXFuMSINz0Smj8A
+	 +Ql6290x3wZQSBVq/Qd3ChM/X7UI/YPfs0cZx1FRwjdU0+0P7FIHNJAZIE5hm65yBrtaQ
+	 aJEunPW1oYge+f/DBftOz4pLd06tsNGzrAEa6+9Wgi4L9o8EnN49/xlvV3kgQgkQ+TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180872;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=i6WwPrncRptE8GYzBIDI4FfU9ppzTybRR7dkLJbVscM=;
-	b=hWWcAsKG2zHRfFj7wcWYXMuPm10YtL6LKm9pY9TzBUNJmi2i1w6VamLsl+Y/D6D05u5C
-	 S3unCjqnM0/IjDBctW7dnKroQPRGrShmgQ9WD9CdPkNanPe2Eaa7ZspaPqcNzrGZgEkbN
-	 +BQIgrebCugKfojIvqliOdZOxcCCnWSSs73lOxKT3szP5qUZugkoFvH51UVsQYY8DFdsN
-	 W/3UXLm1M+fqzQaKh1VAu1kWmq4MnViIdncCmuky0AYQH+tIEJ5+JrqbG19xOJ02/VDSP
-	 OnyLABB3hZolc+bW3XEhgH70k9GiYrE5XQOJRP007HifHe1dUtDxo90lilEac+LlMSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181520;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MupPZO+0cNzAw2UMt75TvJxigWXUI1JXRockTaGvT3g=;
+	b=d+mqPswWrtDGGpiJ3pURBeRxtjGPSs/kXJ50IaqYYcTOE4kUACoN22gSXP1XT5LKDsIl
+	 DcJF1XrA2G+HkNX/hpQ+9gav51jJocoCWrG4LX2v6i8WUZVEXsKiu7BJHe6YcQ2nlO3N3
+	 NPtOOfhT6OyW6RE08W2jCxkTqRohJUAfev3Bcceh2yJLky6m+7O+iPkMoQ6hzdMrw2u4d
+	 svB2bFPfm/Gp3t+C12vNDkY3DpCm6qKIyAnjh+1eQHRwi1MRYHFmnSRYalEjIj6ozrUPM
+	 9YM3Lv7i7+c4PQlVwGJjDBIY3bRpU4PblR0Jwudv5szXsYyJxU6KwElQB8dzFjqMiLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.54
-Received: from mail-ua1-f54.google.com (mail-ua1-f54.google.com [209.85.222.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InsMRDbI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B40606A329
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 09:47:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9B40606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f54.google.com with SMTP id a1e0cc1a2514c-9912c47367cso496555241.1
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 02:47:51 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180871; x=1793785671;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i6WwPrncRptE8GYzBIDI4FfU9ppzTybRR7dkLJbVscM=;
-        b=zC6ZTeJwA0CqvHEfbl7c1CuU2dOcDNr/bQeZlR/Jy51Hm4EeBa433gPmtopvxS+knx
-         q7CFoClInwgVjRUBFJrbF0NJZfZT5K685fzvTwen0nbAPqSdNFF+XCI4MtwhoPoSvr/w
-         vghpiaqz5NJokXC9jFN86u2O5urMJ+EaqxBAK83iafXru7E7nEYw78/DA8VGyog8hQs/
-         d2G/Bh1hwXe4VcbtGTknPSx6ReZaC74LV6N+Waw5MQgrR3vz61qDFcSq+nOsiM7tnHHi
-         S4NXN+wLB1X8EofEQlW7B0Cp+UTRu3IiD8pEWT2uu755CP2IKYTPZdvrStjRArQ4q9JX
-         NPYg==
-X-Forwarded-Encrypted: i=1; AKwUvBzRGYcrx7++ivDXJ0kGofh4HLnuR0907Ilm3JlQn8h0Z6XI1Owntruf8oCW4LoQjjZvDmFLD4X/Dg9m7A==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOkXmtb1XLNe1s+MpxSWcQ1NnP0v0G/Phk4Z1H3Rmk2UJtAmkB
-	2mBGRBx4W8gdR1bJhSKEb4j3EXhAp/to3olywUjZRKfyyiKiC2dW7KwjqYfb+WyQ
-X-Gm-Gg: AYBFou2MMzk9BYiGbFgpufaagUa6Oupmh63CHl6z/0zep+q8t7rD+HJ+/CzC3mL+1F/
-	nIqAMK0Wo+Z/SMDL+B8V7PURUgEi+WffbDqb+9LZrCCktyn6/8VCqD8wySw4FHc/zCZ2bv50mr5
-	VznFRtw4CV3/PatVPi6XRpP5wZjr8kxDvZ3f0BGHoHyMg3Is+ST7HGVils3nzkHxqYhBWGJ6lpa
-	bCXQMtlNtKd+4vNLH4jSyWm/AgnYJzPtkmJyx+J5K9VNnp2D3j/UtUMLc8wHhXP4tR+gZaF/pbg
-	5w+x5PWV2FVJSYAGCqrL1KAl9LraUD8kD6g0ZzajPoWL05qRfs7zRYA2jpQ+kvqRES+Q/w/VjV8
-	BiNqTh8kWB4F7ChyzsmbuttV9Ot8tK/vPNQnfARj11Siq4IhYB38r8klFSGtQgFKUyiSIb2D1Pq
-	+tA5FLt7jd+cE2ikSSOWTrrpjS7Z5hlQY8Mtu6WKFcfU7GL3h8/zR7CQlFM/uq45cQnq9SB9xGs
-	ZbrS4rigJ/ZbyET6sAZEvW45zQUDWadERbgFAK6t4xUmUis/unazlGpJQCRgHvgC+OiK20KEx5g
-	wwrmH7acBNPpPDdkxG6QXzno4/a5ETjv1i/T8l/+BCdqx4/rSQ0u0LevKcPVuL3gPS4=
-X-Received: by 2002:a05:6102:32c9:b0:7c8:78bd:fd7a with SMTP id ada2fe7eead31-7cea154c2c3mr1648388137.25.1793180870882;
-        Wed, 28 Oct 2026 02:47:50 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-991259eb01asm5432961241.8.2026.10.28.02.47.50
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 28 Oct 2026 02:47:50 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-78fb1fb9508so1407060137.1
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 02:47:50 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByWXYDQ8RW58kXnvbbyhmBlDt3E1WLBhlkexW7M+GJvaW/Jqsp6gUsUk7KrW6FQ/ydmUFyGNOKpvAorzw==@vger.kernel.org
-X-Received: by 2002:a05:6102:a4a:b0:7ce:645a:139e with SMTP id
- ada2fe7eead31-7cea1529d88mr1771764137.23.1793180870303; Wed, 28 Oct 2026
- 02:47:50 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09443606A335;
+	Wed, 28 Oct 2026 09:58:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InsMRDbI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9881F01825;
+	Wed, 28 Oct 2026 09:58:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793181519;
+	bh=MupPZO+0cNzAw2UMt75TvJxigWXUI1JXRockTaGvT3g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=InsMRDbIjvCCpVYJK6h1JFyHQkVysACEIw/37HVT5zCy9l8HVOoB4jlgupwidmuZy
+	 +jRGWrM+XgVc8avmIjQ4iqC5Dfqj0Ju2WuYlpVEHIVz+tL5rNlBSFsrZlvdJwVjFlt
+	 5o1UDBiEYyh9EeBsVO4E2IqNL+yCo8ZuZ3xY0JE7V2jwlYzIl86aZ4mUIJAKJlFsUZ
+	 o4EdiU914pIOmgzvupPhSEt9Aybc4eaZP+k9F3kakDoxg7Rnt+RpJih0qcZRl8jMoH
+	 XmedBv5/lFmMw1Tu8gkw1FiIK4DpH2gl56I+vE1EbD/3fXi3k898eZe5Wpfpnhf3ob
+	 h/hWLM368Is+A==
+Message-ID: <58599b61-a56b-4d6b-b09f-03d813a64c1c@kernel.org>
+Date: Wed, 28 Oct 2026 09:58:35 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -81,57 +51,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
- <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
- <asz8oEtow_lrUU7K@zed> <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
- <atXol9eFjLKxgTpg@zed> <CAD++jLm5iRKbb6=ZY0r1q_bb-zO3DAe3a7MxdDbpBT3ZU6_z_w@mail.gmail.com>
- <CAMuHMdWKH2pPR1-j-AxV2LVy5xeuoymYv4MnXw1KSvAu4F-brw@mail.gmail.com>
- <CAD++jL=0ak_CzxvLf14XntE-cZGFVN6ZpGtkZfTJ8ae0G+RR1A@mail.gmail.com> <auG_dr3VFeWaBxKw@zed>
-In-Reply-To: <auG_dr3VFeWaBxKw@zed>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 28 Oct 2026 10:47:37 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
-X-Gm-Features: AclHuK89t2jEOgptSQIEsLA7Aen2x9jD1gfdTZXyhURhxZaUPJB2xF4KJi3cnsI
-Message-ID: <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
-Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Linus Walleij <linusw@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] phy: qcom-mipi-csi2: Add support for single
+ power-domain SoCs
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <ZW6-XDf5dgEFD66QI7ZA8WIK_alWTQD2RWolsXjlSql7pO5IUj9PM1T95LMfBd2Y3zKxRhDXXde1R4asZWzgKw==@protonmail.internalid>
+ <20261028052047.2738893-1-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261028052047.2738893-1-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jacopo,
+On 28/10/2026 05:20, Anusha Arun Nandi wrote:
+> -	if (ret < 0 || csi2phy->pd_list == NULL) {
+> -		if (ret == 0)
+> -			ret = -ENODEV;
+> +	if (ret < 0)
+>   		return dev_err_probe(dev, ret, "Failed to attach power-domain list\n");
+> -	}
 
-On Wed, 28 Oct 2026 at 10:28, Jacopo Mondi
-<jacopo.mondi@ideasonboard.com> wrote:
-> On Wed, Oct 28, 2026 at 09:38:05AM +0100, Linus Walleij wrote:
-> > On Tue, Oct 27, 2026 at 7:39=E2=80=AFPM Geert Uytterhoeven <geert@linux=
--m68k.org> wrote:
-> > > The driver uses Runtime PM, but I see no calls to
-> > > pm_runtime_resume_and_get()?
-> >
-> > It gets grabbed in *params.c and *stats.c:
->
-> pm_runtime_resume_and_get() is called in the .start_streaming handler
-> for all video nodes (capture, params and stats)
+Shouldn't this be
 
-OK, but not from .probe(), which does hardware initialization
-before that?
+if (ret < 0 || ( csi2phy->soc_cfg->num_genpds > 1 && csi2phy->pd_list == 
+NULL) {
 
-Gr{oetje,eeting}s,
+i.e. you are dropping the NULL check for the case of multiple power-domains.
 
-                        Geert
-
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
-
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+---
+bod
