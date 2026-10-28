@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793159020;
-	b=HNT3ekIaZX4LBqClb5Qvp7SVt829WUIXo2hX1tTIT6VPAdGBjgCbi6s2LOptY2xy/bdo
-	 0PyG4b7MZH/d8r8jjpLAsxAqdPsFEY4S8tMdZbeA0GGru6hxW/AzaDtIo8UbS+u3NEVu2
-	 5MLCbRde3kTOelRBFL/SCaHVkpAwAcj+zJQd/i8sJq7WQ6HPGXvulc94+sgiF2v/hJlZ1
-	 lGjvUTrES1/j+ETj1J8ssgdYUZwuSN+ByZ59c+NsDFG1luwpBDNahIPVSPykLWDEXJcFu
-	 zVyU6Sm0PoRxaYlMaHKvXCeSKruKAiIA+RvwIOvCACzBk/ZpWlZu+ARQd2OG+rpOymQ==
+	t=1793159021;
+	b=xiH8ECC7gRDOmikAvk9zTCmZcLGkixRovR+TZbxOl9j9Mg+wC9swwnI8JEfnoCMHOYtN
+	 G+1CwqAV/hAL9PtgVLZlQaz/dwO7ZjVl/sETt2HhFPqUbRbZuqJOQDM7Fnb6fbVJ/G/cx
+	 hsw9v3NcxcSjhMhqkOvcCBVr9g/ajpS/eqL2tFkvDONT+IrPICNwSQNG+N6a7JiTTvrKE
+	 9vmOzLfpfBQXa/mApEkTtkviGlApucLoi5yjP/0KjCVbMSyGhuMC1frTFFY2UJ8it7LhW
+	 uAk+gQuP6RM/qoLgsJOOfs29brqcRYoQ9lgZsTqszJuGJ/0GsA+Yq4YZuuW8SPsR0bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793159020;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793159021;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=AguqB2hO77OHSGF5DZldrtOnUiAVpJyfCorfpUrLfyc=;
-	b=fhNbP9nuj8uZGtjCqxFk62fb5pfvQZcycgToEV+hXvvyHeTNn1uQ+AbWiGOhwFp/zatN
-	 c4M8OcOL5S8mV85gc9rRaMi5g5nAG70OmmhE0e1jW6p5H5LQzOkWzHKYPyOcbpebdRmyF
-	 VUsqoKPtwE5E/ZqkV2nfuWi7P/xTYU4TFqIk4chVb8E1uQYB9YoDvmrtBXrSgENWY9WgM
-	 kaXSPBQT8tmmofdVDm7lU3f7yAwvTS7qrhrVX1xDK1khChr2bl0KpL2GMSvWdvY2Tzmx7
-	 pI+s9U2ujAmbHZ3W2kW9irWiDnzNgRO7RpPFCLcbJhiLklnjNlOot0cbls/gOyJm+GQ==
+	bh=NCfNFDiz5anKslE6LtWIXyi/+ISikbv6moJ2/L/2xxc=;
+	b=MLuLYyt/GRy2QJTCV1+J3jPb7Z/hzcpBj/3U/ABBUtaJbwqEJZ1bAj/X6mEq987s/1UL
+	 6eI91buJ47V6WjlNQKyTsjyTsLv7IrqK3e/O6cd5GIE4rI8H47bjN4eA2rmSvUHJuLLVl
+	 iF43a8aHivVh9IOqzyOAM+OeCfyeXmSid/bAAyFZPeaevBBG9DksPXPzVkOpA6a4NE4vb
+	 jiImoMUfJphSV3ujX8w966gZTHJTqYvD7SrsR4ZtPyZ3IKm4dajbmt5vZ/9rNf+Ajnv8d
+	 v/L+iiIqgJbqlWW1f/zpOUjLy2Zne5oZFBQ6DCepLsYT/HSs0qj/2ji07bJYo3Mjgxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UzBy48qb;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wqvxGPWh;
+	arc=none smtp.remote-ip=209.85.219.53
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 128F7606A32A
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 03:43:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 128F7606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5007D606A331
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 03:43:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5007D606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UzBy48qb
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f1e5d7450so42322885a.2
-        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 20:43:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wqvxGPWh
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-917a64f28d0so19176866d6.0
+        for <linux-media@vger.kernel.org>; Tue, 27 Oct 2026 20:43:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793159019; x=1793763819; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793159020; x=1793763820; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AguqB2hO77OHSGF5DZldrtOnUiAVpJyfCorfpUrLfyc=;
-        b=UzBy48qbaAVds69XB0OB9iaLL9WXaRk77Z45TS4mH3FNhwE31+4GHHYBELtDeV2sWv
-         G0MQByRGkKelSyu3+rm7xoN+8z5/BqfLjDDtaXCiaySFPU26R2FqU1rnG0f6kvc77UoK
-         uamOmYRdO0pEiCkAfkTzDyKJtygNTw5MobmdUSTUs4hcfSCedtTH3zm8ScKULNhx+Sjc
-         kcksRZ+palIfqZkKlIDJMp6a/PT08j9qorOU6wi4A0rv6aY4YJ7E+CDvIGxKepcX11Al
-         M4B70G5ix7PbrLbYwgKVj8r7H8HVHitxe4CfLEgWRTGRPDqI+4WQ9Qg81nHrox0vu9hs
-         1xJg==
+        bh=NCfNFDiz5anKslE6LtWIXyi/+ISikbv6moJ2/L/2xxc=;
+        b=wqvxGPWhyARyaD8Mng7Gb3wOuF8WnHch2DceFI7VAQTvlwdhKcLA6kLkgA1BzNUy2B
+         PpSf1L+8u2srkfRpzdQMiVqrKyx7FHH8T/rqVIy9kIIyy0Rn2QkofLZ/HL8UuhHgjG0o
+         4yHbl5e2GWyYiQY0JP8RDg3J45ytBUm8gFjTU36rVGFiqvLj9sERyyS7gZVoCekGeYS9
+         V4ntUJt/io7lUEvn6UeIJNkQnEFZ/0Zqs764Y8LHLE8gjQ5Oq7UtRT0VcB4qAKbTSPMm
+         Z20GtynY5oGmxQz+HnzxKe1J9R6bkB1dgTEzyGsp/Y8v8K8cYtaQD/T2fDRLFf0XqOqM
+         6/hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793159019; x=1793763819;
+        d=1e100.net; s=20260707; t=1793159020; x=1793763820;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AguqB2hO77OHSGF5DZldrtOnUiAVpJyfCorfpUrLfyc=;
-        b=PSPpXgx4ihPqh2NSm0kgIvX+RgLL58z44Oc+WyZ9Fc30OpeCXBJUbrq5SYAsb3ptCG
-         +ULvT9iyUUDL7SKXujpkCcH5j2OoCpgH0FN2RkNeIrmLVnCth+7ffwNRALR3ycn5naLT
-         ct2vL144yLQ43bHV87weQu1T6h9EwT5jifwm/xFMZDeiAjodyBzbcOmet/sOPG5AHIhB
-         oazle6YXDF1K0My+G1LdpPbaowBnW4fhFXwPlQ+d2fKUcRkyvqpBk8i6kUbqhsnzAYdw
-         +aZNc/8rebIOPJQld15LKI0rWbXNd95MF0qV0JZtz267JJHMBkAw2gqMxO3ZH4dZcWEK
-         yCLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7oHst4RSp7pks9Frz84xHxex6PDVZU1YSHJNG9BJMIaBZEA4f4iWjkLWFy8f5xx8wRs/7u+pEnDYkPw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYI34QBbafOvFCM4dqKrCyhG3vavZyvq9Cy9/U1nWANgPTlav3Go
-	namOyFlBGaaUN97p87lFRzwMPQfpc3MZLMt7ve0e117De2UZcgmDVuwK
-X-Gm-Gg: AYBFou1LDS7/+0vOagqOckoeGf7M91dQffCKTImTMjKpHkNp0UmboTMgFx+s6LjVjxy
-	nWozLXDzqhMGjRDWIiC0/sve2siQcJ+X5YNef2NxKEUrTXSJMi6Yvbzr2YIiQq/t/MfpPm3VWja
-	a6386JXrGQz3fFEamZEpA/3YLSUgDXQZPbxpWwbjerW2kpCcnKg+RiTzz3teGgC8NutaqQjOcgo
-	Ad/X8ZbJBU+RfjbTAFD8btUogb3RrRB9elEjpa3n1G/NNbLBbAwxne76yirnA2vIGFbMUhBHyM+
-	22MvZPuuraNIscE6xyCrZwJwh1pUPDe88YLqHWp8/YiqPa8z/U6VgZwhNx0UTW3tKh4i3E0p9Tk
-	QjWu/FEKscoJhj5dZTqL8zz9vOagvXLVqt8ti8mFQORnDTaCkzPqixBbFrHhVtj21U20JFiqDXk
-	pCtceXq5Xf9iQ7/bqfvsDdQxwenWiv+p/sgIPhr3J567FJtuQlkcmRKrXBcw0uEXazGzGrxQWug
-	A+IlFF3P12cKYmAGoSqgZ+kk8Cbm+fpWzMweL6yiZqpCis2rFYMgDoKHNTJOpG7oIIbH9gsWvOi
-	UTmgmy5CDRM6qW8GzfZib4hjskfqs7Bx3kcigV1NBJDzGKd9FlNVJIlF94y6SlHRCfKVX8kocPI
-	f2MWLgg==
-X-Received: by 2002:a05:620a:17a9:b0:93a:2d07:142f with SMTP id af79cd13be357-9440896db89mr147075985a.7.1793159018981;
-        Tue, 27 Oct 2026 20:43:38 -0700 (PDT)
+        bh=NCfNFDiz5anKslE6LtWIXyi/+ISikbv6moJ2/L/2xxc=;
+        b=Z9HziP/qd5C29p9d1GgynywiAoB19OH7iQ/Z6mgB4dojppCOTmfcxQoO1KnvfYhX8F
+         RTyqy6BUmqf3ws0sCWLOAwtmihbLMuQLX63dChe9wBfjN8Pizuec0LslQvFnqMxLNZVu
+         VvxS6H5gmUl5LFbw/X90SopQvBzivA+XsR/Y7jSItD9qcOqSQfQxjnht7oHUjAC3lZA0
+         F9weTu7zq82orHB8O4PvyEcN9snvz765ACZ1bMzXI13dBsGS3uE7J2zRxcshtAs+edzQ
+         C2VbCZpnpgbugy7yOryNqufz//NPBM+jqWC3oDDFHKQUtrRc9xsitLOG6Tb8K1zaKZDP
+         oPNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzSh6uLIHAq/XMyiRvFDuF80YVdTFgyXybwThDCTHy5o3MGf5WGdt4dNizsOjwdO7lJMMteXBwOmvROLg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMO5gpFDOQgkm5fz9yqXaZWkh3/pQdHT57muI9p7940n7pamKL
+	HrDGuO9lL/xTVGrnCbsDWbgOxTtzf253IKIl1ozNRes4gf8tUCyPz03B
+X-Gm-Gg: AYBFou3SmZAUh+x0M5aTqMik2scYFkDqjNqKhgscvMDExr0O31aupGakhrcsVBOQ3kw
+	MeynNnPyqXV4V+5PYdQWEmSoWwQUwTIVDzmvCbp+VIndGH519CN7bfCPQlrk22BswjwSf9yqCs0
+	GEgXS++Z6JhW6Cdsb1isoJST2+JMdLQ3tzNsOeMqbJ4mFaesHuhYGUyFKOi7754ZGCw5KcwVANL
+	PloAlzoCpaLuqV8r9U7mC8KVzkXU3c0GBVSQ+hGFMTY6Q4bK9tcVusgLaB3plPex7cJkOTZ251h
+	mKYnSm/7T+iBQ439rsYPzjHHwCNTjS5GsHZ9LwJZrmCPpEDetQzPL11Kb1X+PaC8zLfG117RMRa
+	uKJITvphKGPd7Xc7fg5WbzXCl7BHmSS22bATIwHYZMA8c6yoXg7RrGjIRprGc89tUdXBOpU71wA
+	k3OCbTx2qAK+6K9NYEAoZfpH9MpMDkv4y2YH871ZRJA5uGyWb0/jJB97e0/ge996sDjgKuh8BOg
+	aU7MGrBeLH7/6N2EhEFQzuvPb/EK+dAeEsOlAJN8RyjDK1nAOyCkhQN6XoTvyssgtQcI1T1m+ps
+	S3q63Q96UpEPYlyJ0sRXLpC+T6UjbJBiW517cmgLb+ZaxHz1AdODg+z8x/80DASCipSAEiaX7EV
+	PvDQ/Hg==
+X-Received: by 2002:a05:6214:2403:b0:914:cdbf:b6e with SMTP id 6a1803df08f44-91c819ed1c4mr3215366d6.22.1793159020236;
+        Tue, 27 Oct 2026 20:43:40 -0700 (PDT)
 Received: from localhost (h159-112-31-107.euclwi.broadband.dynamic.tds.net. [159.112.31.107])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-940f05b20d5sm1151879485a.2.2026.10.27.20.43.38
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c755b557bsm29991026d6.20.2026.10.27.20.43.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 27 Oct 2026 20:43:38 -0700 (PDT)
+        Tue, 27 Oct 2026 20:43:39 -0700 (PDT)
 From: Christian Cortner <ccortner@gmail.com>
 To: Bryan O'Donoghue <bod@kernel.org>,
 	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
@@ -87,9 +87,9 @@ Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
 	Birk Skyum <birk.skyum@pm.me>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
-Subject: [RFC PATCH v2 2/4] media: iris: Update the CAPTURE stride and size on S_FMT(OUTPUT)
-Date: Tue, 27 Oct 2026 22:43:33 -0500
-Message-ID: <20261028034335.26075-3-ccortner@gmail.com>
+Subject: [RFC PATCH v2 3/4] media: iris: Signal V4L2_EVENT_EOS only at the end of a drain
+Date: Tue, 27 Oct 2026 22:43:34 -0500
+Message-ID: <20261028034335.26075-4-ccortner@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028034335.26075-1-ccortner@gmail.com>
 References: <20261028034335.26075-1-ccortner@gmail.com>
@@ -104,107 +104,106 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-S_FMT(OUTPUT) updates the CAPTURE width and height but not
-bytesperline and sizeimage, which keep the values of the previous
-format. With a 640x360 stream, REQBUFS(CAPTURE) then allocates buffers
-that iris_vb2_buf_prepare() rejects with -EINVAL.
+V4L2_EVENT_EOS is queued, and the m2m context marked stopped, for every
+LAST capture buffer, including the one that ends a source change. With
+a stream that changes resolution, a client gets EOS at the change and
+none at the end, and ffmpeg's h264_v4l2m2m stops decoding there.
 
-Move the CAPTURE format rules of S_FMT(CAPTURE) into a helper and use
-it for S_FMT(OUTPUT) as well.
+Do both only when IRIS_INST_SUB_DRAIN_LAST is set, which both HFI
+generations do before they return the LAST buffer of a drain. Use one
+helper for iris_vb2_buffer_done() and iris_vb2_buf_queue().
 
-Fixes: 8aadfd445373 ("media: iris: Update CAPTURE format info based on OUTPUT format")
+Fixes: 84e17adae3e3 ("media: iris: add support for dynamic resolution change")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM sparse smatch
 ---
- drivers/media/platform/qcom/iris/iris_vdec.c | 61 +++++++++++---------
- 1 file changed, 33 insertions(+), 28 deletions(-)
+ .../media/platform/qcom/iris/iris_buffer.c    | 26 ++++++++++++++-----
+ .../media/platform/qcom/iris/iris_buffer.h    |  1 +
+ drivers/media/platform/qcom/iris/iris_vb2.c   |  6 +----
+ 3 files changed, 21 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/iris/iris_vdec.c b/drivers/media/platform/qcom/iris/iris_vdec.c
-index 0dd33ff447bb..472e8e50830d 100644
---- a/drivers/media/platform/qcom/iris/iris_vdec.c
-+++ b/drivers/media/platform/qcom/iris/iris_vdec.c
-@@ -212,6 +212,35 @@ int iris_vdec_try_fmt(struct iris_inst *inst, struct v4l2_format *f)
- 	return 0;
+diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+index eb8de60c1177..178e50eadcf7 100644
+--- a/drivers/media/platform/qcom/iris/iris_buffer.c
++++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+@@ -870,9 +870,26 @@ static void iris_get_ts_metadata(struct iris_inst *inst, u64 timestamp_ns,
+ 	vbuf->timecode = inst->tss[inst->metadata_idx].tc;
  }
  
-+static void iris_vdec_set_capture_size(struct iris_inst *inst, u32 width,
-+				       u32 height)
-+{
-+	struct v4l2_pix_format_mplane *pix_mp = &inst->fmt_dst->fmt.pix_mp;
-+	struct iris_buffers *bufs = &inst->buffers[BUF_OUTPUT];
+-int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
++/*
++ * Queue V4L2_EVENT_EOS and mark the m2m context stopped, once, when a LAST
++ * capture buffer ends a drain. The LAST buffer of a source change does not
++ * end the stream.
++ */
++void iris_vb2_signal_eos(struct iris_inst *inst)
+ {
++	static const struct v4l2_event eos = { .type = V4L2_EVENT_EOS };
+ 	struct v4l2_m2m_ctx *m2m_ctx = inst->m2m_ctx;
 +
-+	switch (pix_mp->pixelformat) {
-+	case V4L2_PIX_FMT_P010:
-+		pix_mp->width = ALIGN(width, 128);
-+		pix_mp->height = ALIGN(height, 32);
-+		pix_mp->plane_fmt[0].bytesperline = ALIGN(width * 2, 256);
-+		break;
-+	case V4L2_PIX_FMT_QC10C:
-+		pix_mp->width = roundup(width, 192);
-+		pix_mp->height = ALIGN(height, 16);
-+		pix_mp->plane_fmt[0].bytesperline = ALIGN(width * 4 / 3, 256);
-+		break;
-+	case V4L2_PIX_FMT_NV12:
-+	case V4L2_PIX_FMT_QC08C:
-+		pix_mp->width = ALIGN(width, 128);
-+		pix_mp->height = ALIGN(height, 32);
-+		pix_mp->plane_fmt[0].bytesperline = ALIGN(width, 128);
-+		break;
-+	}
-+	pix_mp->plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
-+	bufs->min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
-+	bufs->size = pix_mp->plane_fmt[0].sizeimage;
++	if (!(inst->sub_state & IRIS_INST_SUB_DRAIN_LAST) ||
++	    v4l2_m2m_has_stopped(m2m_ctx))
++		return;
++
++	v4l2_event_queue_fh(&inst->fh, &eos);
++	v4l2_m2m_mark_stopped(m2m_ctx);
 +}
 +
- int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
- {
- 	struct v4l2_format *fmt, *output_fmt;
-@@ -263,10 +292,8 @@ int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
- 		output_fmt->fmt.pix_mp.quantization = f->fmt.pix_mp.quantization;
++int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
++{
+ 	struct vb2_v4l2_buffer *vbuf;
+ 	struct vb2_buffer *vb2;
+ 	u32 type, state;
+@@ -913,12 +930,7 @@ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
+ 	}
  
- 		/* Update capture format based on new ip w/h */
--		output_fmt->fmt.pix_mp.width = ALIGN(f->fmt.pix_mp.width, 128);
--		output_fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, 32);
--		inst->buffers[BUF_OUTPUT].min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
--		inst->buffers[BUF_OUTPUT].size = iris_get_buffer_size(inst, BUF_OUTPUT);
-+		iris_vdec_set_capture_size(inst, f->fmt.pix_mp.width,
-+					   f->fmt.pix_mp.height);
- 
- 		inst->crop.left = 0;
- 		inst->crop.top = 0;
-@@ -281,30 +308,8 @@ int iris_vdec_s_fmt(struct iris_inst *inst, struct v4l2_format *f)
- 		fmt->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
- 		fmt->fmt.pix_mp.pixelformat = f->fmt.pix_mp.pixelformat;
- 		fmt->fmt.pix_mp.num_planes = 1;
--		switch (f->fmt.pix_mp.pixelformat) {
--		case V4L2_PIX_FMT_P010:
--			fmt->fmt.pix_mp.width = ALIGN(f->fmt.pix_mp.width, 128);
--			fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, 32);
--			fmt->fmt.pix_mp.plane_fmt[0].bytesperline =
--				ALIGN(f->fmt.pix_mp.width * 2, 256);
--			break;
--		case V4L2_PIX_FMT_QC10C:
--			fmt->fmt.pix_mp.width = roundup(f->fmt.pix_mp.width, 192);
--			fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, 16);
--			fmt->fmt.pix_mp.plane_fmt[0].bytesperline =
--				ALIGN(f->fmt.pix_mp.width * 4 / 3, 256);
--			break;
--		case V4L2_PIX_FMT_NV12:
--		case V4L2_PIX_FMT_QC08C:
--			fmt->fmt.pix_mp.width = ALIGN(f->fmt.pix_mp.width, 128);
--			fmt->fmt.pix_mp.height = ALIGN(f->fmt.pix_mp.height, 32);
--			fmt->fmt.pix_mp.plane_fmt[0].bytesperline =
--				ALIGN(f->fmt.pix_mp.width, 128);
--			break;
+ 	if (vbuf->flags & V4L2_BUF_FLAG_LAST) {
+-		if (!v4l2_m2m_has_stopped(m2m_ctx)) {
+-			const struct v4l2_event ev = { .type = V4L2_EVENT_EOS };
+-
+-			v4l2_event_queue_fh(&inst->fh, &ev);
+-			v4l2_m2m_mark_stopped(m2m_ctx);
 -		}
--		fmt->fmt.pix_mp.plane_fmt[0].sizeimage = iris_get_buffer_size(inst, BUF_OUTPUT);
--		inst->buffers[BUF_OUTPUT].min_count = iris_vpu_buf_count(inst, BUF_OUTPUT);
--		inst->buffers[BUF_OUTPUT].size = fmt->fmt.pix_mp.plane_fmt[0].sizeimage;
-+		iris_vdec_set_capture_size(inst, f->fmt.pix_mp.width,
-+					   f->fmt.pix_mp.height);
++		iris_vb2_signal_eos(inst);
+ 		inst->last_buffer_dequeued = true;
+ 	}
  
- 		inst->crop.top = 0;
- 		inst->crop.left = 0;
+diff --git a/drivers/media/platform/qcom/iris/iris_buffer.h b/drivers/media/platform/qcom/iris/iris_buffer.h
+index ab8e5d953101..a8d2002e00ee 100644
+--- a/drivers/media/platform/qcom/iris/iris_buffer.h
++++ b/drivers/media/platform/qcom/iris/iris_buffer.h
+@@ -120,6 +120,7 @@ int iris_alloc_and_queue_input_int_bufs(struct iris_inst *inst);
+ int iris_queue_buffer(struct iris_inst *inst, struct iris_buffer *buf);
+ int iris_queue_deferred_buffers(struct iris_inst *inst, enum iris_buffer_type buf_type);
+ int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf);
++void iris_vb2_signal_eos(struct iris_inst *inst);
+ void iris_vb2_queue_error(struct iris_inst *inst);
+ 
+ #endif
+diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/platform/qcom/iris/iris_vb2.c
+index 8faf709c26c1..bb713da20605 100644
+--- a/drivers/media/platform/qcom/iris/iris_vb2.c
++++ b/drivers/media/platform/qcom/iris/iris_vb2.c
+@@ -290,7 +290,6 @@ int iris_vb2_buf_out_validate(struct vb2_buffer *vb)
+ 
+ void iris_vb2_buf_queue(struct vb2_buffer *vb2)
+ {
+-	static const struct v4l2_event eos = { .type = V4L2_EVENT_EOS };
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb2);
+ 	struct v4l2_m2m_ctx *m2m_ctx;
+ 	struct iris_inst *inst;
+@@ -324,10 +323,7 @@ void iris_vb2_buf_queue(struct vb2_buffer *vb2)
+ 			vbuf->field = V4L2_FIELD_NONE;
+ 			vb2_set_plane_payload(vb2, 0, 0);
+ 			v4l2_m2m_buf_done(vbuf, VB2_BUF_STATE_DONE);
+-			if (!v4l2_m2m_has_stopped(m2m_ctx)) {
+-				v4l2_event_queue_fh(&inst->fh, &eos);
+-				v4l2_m2m_mark_stopped(m2m_ctx);
+-			}
++			iris_vb2_signal_eos(inst);
+ 			inst->last_buffer_dequeued = true;
+ 			goto exit;
+ 		}
 -- 
 2.56.0
 
