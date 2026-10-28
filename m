@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793186534;
-	b=iK2/SUUdWVkEQW/Nd/qd3kC2RJAQb53Jm5bkOp1IfQjkxvSEDXe1tRiBEnH1KR42SGZj
-	 AzUmjjTZZyKF5asCvNzsDWJ4ITh1hluRhlQMecQkxaU1M/8x40j0F72rqBNh10FW4OBcq
-	 yrZnS3MpJKpiRRXon5WhJdl4BcfEEVeoxz2Pzg+t0QO1vYIXQVKVdom3AKQMN/9JRSkSF
-	 7uuI6SzknI6bCxZ4TOayM/fHUBsEeaFOyuTq/ga2WOajYMoSyBOJMuYAqqjGUcEN8oQqK
-	 GNPEtiHnw9kjr73Wlc9zeGNo2A9aEl7Z37i/XpzEvwpcAPB+e5oo4YojieuWKKYmPOw==
+	t=1793186537;
+	b=aZ8H3ptvTyjPl4YcsFKGb8ORY5Vi+q5Sba43nxGKfBt7+3tUYl1kvnVSSOIXITf3wSfH
+	 UEr9m50pXBWkWGd5lSgSiuFMjN69wdTujfYG7Twn+SiMAv+Xmmt65rKZUvoCfjXZYpQqr
+	 Fe5Zd7fojcDsUVZLVl1WGfMS0FDmCWziEt31VrGUnFgrKwHH+ohjU8k1lbXVPOqYYLHTj
+	 r6ckpT2HXtxkSCoaaaaOPQfKjtb5abKBSBEQ2Be0mqddCpw3AW9SrcfKGZmPt/Hvqus8c
+	 NBtQG11NhKp2s0HvstltumOvdtJ4YHDAIgP9vFRzIFdZec6rZVp9ytp7uXlE1gWRTUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793186534;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793186537;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=54m2TSB1ZZXs4hqFBBBvsB03IQL64h1FC7FnVxPFkyY=;
-	b=Hjp4y1ZI1Rj/AtHObh3H7vyQNaG2S3A9zV1hC4/I8QRhTbKaxHbpNLxcatDUQ3VEqFXf
-	 prUNeFOwQ1+jDSlUm8/olc/jmRhLh8/3zNXrKIOM/QdlRTAsKfzAUrlv//K06H53Wl7n9
-	 ICLQCQ6l9TVsfGRCWcpOYtTsZ4V9j9WtGW1kXcqZhgvOzJifcU76eUD8jl9hQyyMYW9s6
-	 0Jtx+Z0v023xJ7VKCuF3EEwC2h6D0TR/dDnn8MakKz6y9x8HPaFAEkREy0QuZmS3wCyqo
-	 IrvDfvbJz2Br/ouKD5swW1tsQtszHhLd5sku3eHSY35zWmd1SrRYAZMXxqsYhtCf9KA==
+	bh=7HveEJ2C4RUbIkJr1+d3vrT5XPh0GNrPluA7ej7bKw8=;
+	b=ThtWMkDiw3nmCEyPR3SEy/mODnB2ibIuoe7gJhGddZcj7Tlax6oa897/tJK0YxZko7Ab
+	 e4Qdd+O+2B+LoX61aA5mz80OZWKJpgwdm24P64nw4Bajj/x6UkFwO/9z5KwnhQ5VzYCz2
+	 DgDk1hF3ghY1wpuVx9W9U1RInZ+08X9FkcyBNK+UQlq6+3wSkAsgcMVxBIEanTJb0x98q
+	 i/SDyai+GMS1SvB05uqbVdeQjNoeJXujEqRUJljwpJAkyKf2kbDb+ukaTmcmAu81zqop2
+	 IjmhIuMbzh0OXG7apkt0Mm/hsBGArIVVc/FwDnGqPTa+/X3QX/MR/bg0XtSY4QTwO1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m1leh29n;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FXvvWg7c;
+	arc=none smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EBE606A33D
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 11:22:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9EBE606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76D0606A31D
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 11:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C76D0606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m1leh29n
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e9ae47b00cso1346685ad.3
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:22:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FXvvWg7c
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2eac4936dfdso1707035ad.2
+        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:22:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793186533; x=1793791333; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793186536; x=1793791336; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=54m2TSB1ZZXs4hqFBBBvsB03IQL64h1FC7FnVxPFkyY=;
-        b=m1leh29n9ZvLnc9HfzJL3HREV0Um85dQjLJ6fHl6jZbUjuy+MNirq5wswy9tua8Mx0
-         gg2O8hbpklz57RrMW0ZLeQumm7UE+36+Ebp0nWPO2fd7q4A+GrCgkAGjrAG6ykc5j86h
-         12+7GkX85rlGrBsxDpATYeGmVro0F7G6B8tUQ/roiHExBbcMY5gWgiMd/+h04HPu36Ry
-         Ck270BF//HjlYMp1pGcWlqNrvsIwIv9IvbMclIQSTWFQz/7Boop4ef9ZE248zODXH+5v
-         B+7dv6HBRvwgs737VzrTku4GvVcUpELZ7f0RjfYxxC2Bxod86UuHv2bnni5A6nipVZ5d
-         azcw==
+        bh=7HveEJ2C4RUbIkJr1+d3vrT5XPh0GNrPluA7ej7bKw8=;
+        b=FXvvWg7cyjsZ8/5TSFJLJVrKqw08jFQAqnklg6/EMUazs5Pl39g8Z3FPE/2sTUKN/J
+         koJXODjeq1hl5OSG72+c/9U/Lh2kT/sfZA96qoS8wNYbdQ6RRgE7jLo+QEQ2mub6uNC+
+         CPOhXXghOaAWR2a51WbOMTt1xTPkMU2HZT1qq3Fx+KufhekdnkjVuPVO0zpTNZmcJtN7
+         cR6lkVSRh3HB11k5dGbA3+L/cVqwy9sCSV95B2dAETsaM8xTgAdOmAQRGwinsicikthR
+         brctEmKmQw3RcqZvqGjiUozXVZqh6PsiN6CyXhUSCsv4UhULHJMYX71x5e3jVvzpzh0n
+         wnjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793186533; x=1793791333;
+        d=1e100.net; s=20260707; t=1793186536; x=1793791336;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=54m2TSB1ZZXs4hqFBBBvsB03IQL64h1FC7FnVxPFkyY=;
-        b=AiLajCfkIozG7kZhC9eKi7SOzt0stArJrBU9MRylWeoR/lDwWK7MeWRCALJsATnegL
-         j5iWGZj5viOZkl3qcbhGowXRbPS33FeCb/KrLwb2r2P/9wATYvtUqopw8MqH2bU2yAtw
-         UNZGnvpM8dV3iCRoqzx37a+8UxkPAyp9PX9v6Jw1vHOkOqf015eefJlp1ensPNybMxOS
-         YqmPXdeh9It5WPogNwp1hOM0Qcp72yTaBJdCmCGlGC376IvyQrLDiZXXo6MZR8PtjWd+
-         zUbYlGW8rgwr8RD6txumIB+XlXPEDKqsLhUGcwwsJxkKNyRqzqg6Qht/u8FUA0prLiXT
-         s5CQ==
-X-Gm-Message-State: AFq9FYKyVSw1vh1CHRQl8Xs25w6Fv3CQf/R/Ek71hwR2xm1MWUqr8yJj
-	vxg4U1cS6ZCvnfcqjBZNu16Gq9SSHq22JHYWglbJ9rekzSgISYBbsHPQc3HOpdwNeQk=
-X-Gm-Gg: AYBFou1w0Fy7GeL0i98UZKvQzf4GuLaCdUUTgO6LpmMXoEmlS79Yr0J8G9MMxpIFfWm
-	SrnvhIi2q+07LndAaAb+xdaFFK1UE6++mmdqrT7+JN6NlAwkVpUUb39b37qHl4OeXB16Xk62tNg
-	+E2WDx1j9wC05ZnAvZ4q0QiAXvup14aDdcHulsAkeK5wPHpSWUO+VBbZDb0XshL3cmL8iUYGPG9
-	xBE0SHnMc0qPrt0NKsQCRM6vFg6J6S+soe7PKLCP6AhenIALrDVQmBHGiU4JbazhSF1j3SYf0oR
-	XJWTJsf7SfAldjeHxWSXYbm9ooDjBc4g8XFzmj88gBjGSKn/FY3h46Q+oXt6LBgV+PrrZ1BFl8h
-	gDd7izQP+8W+RYbefbyt3SpqPjsg4rviFEd5tcE1h5HJeH0mjNF8VzZOFeAZGBFe5L1DeyFy/lS
-	H4Q3nGZt0Auefp/4QoEKhTEocnFQqu+KgZQ5jdQKIR301naWTAby5l330LlEhQZFEQ8LA4Hv0Ro
-	VkQOFO9new4jS3IGMSUQf39Oo+Fj9gmHTxaXaQdWTUYFx6If+f0QTifrr2QLwINwmiEmmWAz6B2
-	bsTS9X00fP+4nNHwtQzYzagZnFKeX83jaq4yhjfXa1eZfdZBYcz83LeOVQuzKXRN327KeS1cKu3
-	cojahyQnGYVs49YrcI7mD+bb62pZret7JTMmDzbjz/1qlAu4QdUISbHYu3dLLHrqvKD720wa0Z2
-	3BrUW9zLaa7e5wK6YeTrE=
-X-Received: by 2002:a17:903:1b25:b0:2e2:d929:9c7c with SMTP id d9443c01a7336-2eb003297f4mr35850435ad.2.1793186532991;
-        Wed, 28 Oct 2026 04:22:12 -0700 (PDT)
+        bh=7HveEJ2C4RUbIkJr1+d3vrT5XPh0GNrPluA7ej7bKw8=;
+        b=keAvkCVEcjTwkF9zDIx0SNupTonsrmLOek5KrXTrZuid2DiJQ1OWhfxDf+sS2WvdMO
+         3sshancUhHwRfBPfORomgBO2HtGtlDzGCTZI6mfQuJQx6Tp6h6nxbNZ8XDAxb4DSF5vr
+         oURcrgvixEGqj3OpPSxzgajeIYfxKRDLX8ndXVFDHdDvAoLDt0SCrSmnEzmpaEtltGir
+         zLiIqo+BumiEMc7nAoND46WWB91xyperA2cY7KZHHM3fvndwCNRUS0Lm2Prh1lv4GbD7
+         zVq+vaZ9/ZfNDFD+YpOTZH8buXgM73uZbx8fk3trviPXtz85Rbg7YSk2SoIMglOIO1z1
+         qDzw==
+X-Gm-Message-State: AFq9FYJ4gCcrQ3rV7Wjll43WbOHav7K++LjdkXJBkEa9YtpYNNmv0C1I
+	u9lAzM5R9PYrX4eaJn1xSJ1VqyWhYgiSx3xWwVYBKjZlC+xA2vXP/beokdRnZDx2Rn0=
+X-Gm-Gg: AYBFou0N8+yNY6UcAl6bA4aFUSTN4+wLqu3BgcySuwC8hci6DDSNq3E2WvBCDUPfjMt
+	LAFmtb9zDjX/3svXMTTCEz/fHz7wg8vHmQm9z1Y5BnstxvauO6wWDW0wSCyrZKSfNRLWSssj7cC
+	lETMfo4/5aKoDdP/SvBLkh4my+J/Nvwj9njKhZYE79dL+gEiMy/LYIoHgtGup/969dUKkDY1KsU
+	w+8oe84i/CIujHM3DMyTBBSEs+VwS0w4EVRT1dEYrlG0aF8yD/WT7CAGv5O1Coz27ANkbhOgHga
+	v99wA4Y0VJ3I7YIGxKIHMAC1Qoqb5V/22YovH9st9DAXzYDHFM9L0Ev2BFJpDFGGmx79yLuySr6
+	ghMqd/n1ct13Mk+npBbzuD/qRXsK8LmJidJQjJxPp3Wji7ZV66xn22OkjgORJFXt8iEHPW+TkqD
+	R6xsW2yBLU+kWhjJ4udUGt91kckNLFbOWA3NTwZPNqq1jnD43PUQrGWy6SoR+5lX3rXf2BhzgN8
+	YDmRNGJWEaRIAJTrxuqyEUg167MNq67sg7ugJznm8dA74F4Ag4vEUxdaS5DqLRxO7r23NJ+fXSW
+	lGnxA//pG5121tQaAF+6BxLTWBcv4CQFSrpR2aFcbGLVtWF53RvdCVv5KmmLQpHL6rIbKfi84g5
+	bRUXgH0ls5PXstddQ460YAuftIMUNbqZLgFtx5lBIP5D5CXmBGQ9dG9ucxPKFMb88/rlgRhtkWt
+	ikyWPwJlSnESHW3OTkcLw=
+X-Received: by 2002:a17:902:f607:b0:2e9:5714:607a with SMTP id d9443c01a7336-2eb002be8a8mr33330655ad.2.1793186536102;
+        Wed, 28 Oct 2026 04:22:16 -0700 (PDT)
 Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eafcdb52e6sm10157945ad.74.2026.10.28.04.22.10
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eafcdb52e6sm10157945ad.74.2026.10.28.04.22.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:22:12 -0700 (PDT)
+        Wed, 28 Oct 2026 04:22:15 -0700 (PDT)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
@@ -90,9 +90,9 @@ Cc: sakari.ailus@linux.intel.com,
 	dmanresa@gmail.com,
 	dave.stevenson@raspberrypi.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/9] media: i2c: ov7251: Use sub-device active state
-Date: Wed, 28 Oct 2026 20:21:50 +0900
-Message-ID: <20261028112154.855185-6-antoine.pichot@gmail.com>
+Subject: [PATCH v2 6/9] media: i2c: ov7251: Add orientation and rotation controls
+Date: Wed, 28 Oct 2026 20:21:51 +0900
+Message-ID: <20261028112154.855185-7-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261028112154.855185-1-antoine.pichot@gmail.com>
 References: <20261028112154.855185-1-antoine.pichot@gmail.com>
@@ -107,433 +107,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Port the ov7251 driver to the sub-device active state.
+Parse the firmware device properties and register the
+V4L2_CID_CAMERA_ORIENTATION and V4L2_CID_CAMERA_SENSOR_ROTATION
+controls, as documented in
+Documentation/driver-api/media/camera-sensor.rst. libcamera uses them to
+place the camera and to correct the image orientation.
 
-The driver kept its own copies of the active format and crop rectangle
-and selected between them and the try state with a pair of helpers
-switching on the format's "which" field. Move the format and the crop
-rectangle to the sub-device state for both the try and the active case,
-drop the helpers and the private copies, and use the v4l2_subdev_get_fmt
-helper for get_fmt. The init_state operation now fills whichever state
-it is given through set_fmt, so the explicit ov7251_init_state() call at
-the end of probe goes away; the exposure control gets the default mode's
-range at creation instead of being adjusted by that call.
+While at it, bump the control handler size hint to the number of
+controls the driver now creates.
 
-The driver mutex went away with it. The control handler's own lock now
-serves as the state lock as well, so the control framework and the
-sub-device core serialise the pad operations, the control operations
-and the stream start between them; s_stream takes the active state lock
-itself. The mode pointer, which the frame interval operations still
-select by frame rate, stays and is protected by the same lock.
-
-Behaviour is unchanged for applications. As a side effect the core now
-reports V4L2_SUBDEV_FL_HAS_EVENTS for the sub-device and handles control
-event subscription, so v4l2-compliance's VIDIOC_(UN)SUBSCRIBE_EVENT test
-passes without the driver having to declare the event operations.
+On the Microsoft Surface Book 2 the ACPI _PLD (via ipu-bridge) reports
+the IR sensor as front facing with no rotation.
 
 Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+Tested-by: D. Manresa <dmanresa@gmail.com> # Surface Pro 7+, IPU6 (8086:9a19)
 ---
- drivers/media/i2c/ov7251.c | 154 +++++++++++--------------------------
- 1 file changed, 43 insertions(+), 111 deletions(-)
+ drivers/media/i2c/ov7251.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
-index 859bf6c42341..8277e28ac645 100644
+index 8277e28ac645..d591b9169de8 100644
 --- a/drivers/media/i2c/ov7251.c
 +++ b/drivers/media/i2c/ov7251.c
-@@ -130,8 +130,6 @@ struct ov7251 {
- 	struct v4l2_subdev sd;
- 	struct media_pad pad;
- 	struct v4l2_fwnode_endpoint ep;
--	struct v4l2_mbus_framefmt fmt;
--	struct v4l2_rect crop;
- 	struct clk *xclk;
- 	u32 xclk_freq;
- 
-@@ -157,7 +155,6 @@ struct ov7251 {
- 	u8 timing_format1;
- 	u8 timing_format2;
- 
--	struct mutex lock; /* lock to protect power state, ctrls and mode */
- 	bool power_on;
- 
- 	struct gpio_desc *enable_gpio;
-@@ -1041,8 +1038,6 @@ static int ov7251_s_ctrl(struct v4l2_ctrl *ctrl)
- 					     exposure_max));
- 	}
- 
--	/* v4l2_ctrl_lock() locks our mutex */
--
- 	if (!pm_runtime_get_if_in_use(ov7251->dev))
- 		return 0;
- 
-@@ -1130,52 +1125,6 @@ static int ov7251_enum_frame_ival(struct v4l2_subdev *subdev,
- 	return -EINVAL;
- }
- 
--static struct v4l2_mbus_framefmt *
--__ov7251_get_pad_format(struct ov7251 *ov7251,
--			struct v4l2_subdev_state *sd_state,
--			unsigned int pad,
--			enum v4l2_subdev_format_whence which)
--{
--	switch (which) {
--	case V4L2_SUBDEV_FORMAT_TRY:
--		return v4l2_subdev_state_get_format(sd_state, pad);
--	case V4L2_SUBDEV_FORMAT_ACTIVE:
--		return &ov7251->fmt;
--	default:
--		return NULL;
--	}
--}
--
--static int ov7251_get_format(struct v4l2_subdev *sd,
--			     struct v4l2_subdev_state *sd_state,
--			     struct v4l2_subdev_format *format)
--{
--	struct ov7251 *ov7251 = to_ov7251(sd);
--
--	mutex_lock(&ov7251->lock);
--	format->format = *__ov7251_get_pad_format(ov7251, sd_state,
--						  format->pad,
--						  format->which);
--	mutex_unlock(&ov7251->lock);
--
--	return 0;
--}
--
--static struct v4l2_rect *
--__ov7251_get_pad_crop(struct ov7251 *ov7251,
--		      struct v4l2_subdev_state *sd_state,
--		      unsigned int pad, enum v4l2_subdev_format_whence which)
--{
--	switch (which) {
--	case V4L2_SUBDEV_FORMAT_TRY:
--		return v4l2_subdev_state_get_crop(sd_state, pad);
--	case V4L2_SUBDEV_FORMAT_ACTIVE:
--		return &ov7251->crop;
--	default:
--		return NULL;
--	}
--}
--
- static inline u32 avg_fps(const struct v4l2_fract *t)
- {
- 	return (t->denominator + (t->numerator >> 1)) / t->numerator;
-@@ -1220,12 +1169,9 @@ static int ov7251_set_format(struct v4l2_subdev *sd,
- 	int vblank_max, vblank_def;
- 	struct v4l2_rect *__crop;
- 	const struct ov7251_mode_info *new_mode;
--	int ret = 0;
--
--	mutex_lock(&ov7251->lock);
-+	int ret;
- 
--	__crop = __ov7251_get_pad_crop(ov7251, sd_state, format->pad,
--				       format->which);
-+	__crop = v4l2_subdev_state_get_crop(sd_state, format->pad);
- 
- 	new_mode = v4l2_find_nearest_size(ov7251_mode_info_data,
- 				ARRAY_SIZE(ov7251_mode_info_data),
-@@ -1240,16 +1186,16 @@ static int ov7251_set_format(struct v4l2_subdev *sd,
- 					       1, new_mode->exposure_max,
- 					       1, new_mode->exposure_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ret = __v4l2_ctrl_s_ctrl(ov7251->exposure,
- 					 new_mode->exposure_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ret = __v4l2_ctrl_s_ctrl(ov7251->gain, 16);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		vblank_max = OV7251_TIMING_MAX_VTS - new_mode->height;
- 		vblank_def = new_mode->vts - new_mode->height;
-@@ -1257,17 +1203,16 @@ static int ov7251_set_format(struct v4l2_subdev *sd,
- 					       OV7251_TIMING_MIN_VTS,
- 					       vblank_max, 1, vblank_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ret = __v4l2_ctrl_s_ctrl(ov7251->vblank, vblank_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ov7251->current_mode = new_mode;
- 	}
- 
--	__format = __ov7251_get_pad_format(ov7251, sd_state, format->pad,
--					   format->which);
-+	__format = v4l2_subdev_state_get_format(sd_state, format->pad);
- 	__format->width = __crop->width;
- 	__format->height = __crop->height;
- 	__format->code = MEDIA_BUS_FMT_Y10_1X10;
-@@ -1280,27 +1225,21 @@ static int ov7251_set_format(struct v4l2_subdev *sd,
- 
- 	format->format = *__format;
- 
--exit:
--	mutex_unlock(&ov7251->lock);
--
--	return ret;
-+	return 0;
- }
- 
- static int ov7251_init_state(struct v4l2_subdev *subdev,
- 			     struct v4l2_subdev_state *sd_state)
- {
- 	struct v4l2_subdev_format fmt = {
--		.which = sd_state ? V4L2_SUBDEV_FORMAT_TRY
--		: V4L2_SUBDEV_FORMAT_ACTIVE,
-+		.which = V4L2_SUBDEV_FORMAT_TRY,
- 		.format = {
- 			.width = 640,
- 			.height = 480
- 		}
- 	};
- 
--	ov7251_set_format(subdev, NULL, sd_state, &fmt);
--
--	return 0;
-+	return ov7251_set_format(subdev, NULL, sd_state, &fmt);
- }
- 
- static int ov7251_get_selection(struct v4l2_subdev *sd,
-@@ -1308,15 +1247,10 @@ static int ov7251_get_selection(struct v4l2_subdev *sd,
- 				struct v4l2_subdev_state *sd_state,
- 				struct v4l2_subdev_selection *sel)
- {
--	struct ov7251 *ov7251 = to_ov7251(sd);
--
- 	switch (sel->target) {
- 	case V4L2_SEL_TGT_CROP_DEFAULT:
- 	case V4L2_SEL_TGT_CROP:
--	mutex_lock(&ov7251->lock);
--		sel->r = *__ov7251_get_pad_crop(ov7251, sd_state, sel->pad,
--						sel->which);
--		mutex_unlock(&ov7251->lock);
-+		sel->r = *v4l2_subdev_state_get_crop(sd_state, sel->pad);
- 		break;
- 	case V4L2_SEL_TGT_NATIVE_SIZE:
- 		sel->r.top = 0;
-@@ -1340,14 +1274,15 @@ static int ov7251_get_selection(struct v4l2_subdev *sd,
- static int ov7251_s_stream(struct v4l2_subdev *subdev, int enable)
- {
- 	struct ov7251 *ov7251 = to_ov7251(subdev);
-+	struct v4l2_subdev_state *state;
- 	int ret;
- 
--	mutex_lock(&ov7251->lock);
-+	state = v4l2_subdev_lock_and_get_active_state(subdev);
- 
- 	if (enable) {
- 		ret = pm_runtime_resume_and_get(ov7251->dev);
- 		if (ret) {
--			mutex_unlock(&ov7251->lock);
-+			v4l2_subdev_unlock_state(state);
- 			return ret;
- 		}
- 
-@@ -1381,12 +1316,12 @@ static int ov7251_s_stream(struct v4l2_subdev *subdev, int enable)
- 		pm_runtime_put(ov7251->dev);
- 	}
- 
--	mutex_unlock(&ov7251->lock);
-+	v4l2_subdev_unlock_state(state);
- 	return ret;
- 
- err_power_down:
- 	pm_runtime_put(ov7251->dev);
--	mutex_unlock(&ov7251->lock);
-+	v4l2_subdev_unlock_state(state);
- 	return ret;
- }
- 
-@@ -1403,9 +1338,7 @@ static int ov7251_get_frame_interval(struct v4l2_subdev *subdev,
- 	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
- 		return -EINVAL;
- 
--	mutex_lock(&ov7251->lock);
- 	fi->interval = ov7251->current_mode->timeperframe;
--	mutex_unlock(&ov7251->lock);
- 
- 	return 0;
- }
-@@ -1417,7 +1350,7 @@ static int ov7251_set_frame_interval(struct v4l2_subdev *subdev,
- 	struct ov7251 *ov7251 = to_ov7251(subdev);
- 	const struct ov7251_mode_info *new_mode;
- 	int vblank_def;
--	int ret = 0;
-+	int ret;
- 
- 	/*
- 	 * FIXME: Implement support for V4L2_SUBDEV_FORMAT_TRY, using the V4L2
-@@ -1426,7 +1359,6 @@ static int ov7251_set_frame_interval(struct v4l2_subdev *subdev,
- 	if (fi->which != V4L2_SUBDEV_FORMAT_ACTIVE)
- 		return -EINVAL;
- 
--	mutex_lock(&ov7251->lock);
- 	new_mode = ov7251_find_mode_by_ival(ov7251, &fi->interval);
- 
- 	if (new_mode != ov7251->current_mode) {
-@@ -1434,16 +1366,16 @@ static int ov7251_set_frame_interval(struct v4l2_subdev *subdev,
- 					       1, new_mode->exposure_max,
- 					       1, new_mode->exposure_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ret = __v4l2_ctrl_s_ctrl(ov7251->exposure,
- 					 new_mode->exposure_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ret = __v4l2_ctrl_s_ctrl(ov7251->gain, 16);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		vblank_def = new_mode->vts - new_mode->height;
- 		ret = __v4l2_ctrl_modify_range(ov7251->vblank,
-@@ -1452,21 +1384,18 @@ static int ov7251_set_frame_interval(struct v4l2_subdev *subdev,
- 					       new_mode->height,
- 					       1, vblank_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ret = __v4l2_ctrl_s_ctrl(ov7251->vblank, vblank_def);
- 		if (ret < 0)
--			goto exit;
-+			return ret;
- 
- 		ov7251->current_mode = new_mode;
- 	}
- 
- 	fi->interval = ov7251->current_mode->timeperframe;
- 
--exit:
--	mutex_unlock(&ov7251->lock);
--
--	return ret;
-+	return 0;
- }
- 
- static const struct v4l2_subdev_video_ops ov7251_video_ops = {
-@@ -1477,7 +1406,7 @@ static const struct v4l2_subdev_pad_ops ov7251_subdev_pad_ops = {
- 	.enum_mbus_code = ov7251_enum_mbus_code,
- 	.enum_frame_size = ov7251_enum_frame_size,
- 	.enum_frame_interval = ov7251_enum_frame_ival,
--	.get_fmt = ov7251_get_format,
-+	.get_fmt = v4l2_subdev_get_fmt,
- 	.set_fmt = ov7251_set_format,
- 	.get_selection = ov7251_get_selection,
- 	.get_frame_interval = ov7251_get_frame_interval,
-@@ -1582,18 +1511,20 @@ static int ov7251_detect_chip(struct ov7251 *ov7251)
- 
+@@ -1512,10 +1512,16 @@ static int ov7251_detect_chip(struct ov7251 *ov7251)
  static int ov7251_init_ctrls(struct ov7251 *ov7251)
  {
-+	const struct ov7251_mode_info *mode = ov7251->current_mode;
+ 	const struct ov7251_mode_info *mode = ov7251->current_mode;
++	struct v4l2_fwnode_device_properties props;
  	int vblank_max, vblank_def;
  	int hblank;
++	int ret;
  
- 	v4l2_ctrl_handler_init(&ov7251->ctrls, 7);
--	ov7251->ctrls.lock = &ov7251->lock;
+-	v4l2_ctrl_handler_init(&ov7251->ctrls, 7);
++	ret = v4l2_fwnode_device_parse(ov7251->dev, &props);
++	if (ret)
++		return ret;
++
++	v4l2_ctrl_handler_init(&ov7251->ctrls, 11);
  
  	v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
  			  V4L2_CID_HFLIP, 0, 1, 1, 0);
- 	v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
- 			  V4L2_CID_VFLIP, 0, 1, 1, 0);
- 	ov7251->exposure = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
--					     V4L2_CID_EXPOSURE, 1, 32, 1, 32);
-+					     V4L2_CID_EXPOSURE, 1,
-+					     mode->exposure_max, 1,
-+					     mode->exposure_def);
- 	ov7251->gain = v4l2_ctrl_new_std(&ov7251->ctrls, &ov7251_ctrl_ops,
- 					 V4L2_CID_GAIN, 16, 1023, 1, 16);
- 	v4l2_ctrl_new_std_menu_items(&ov7251->ctrls, &ov7251_ctrl_ops,
-@@ -1703,14 +1634,10 @@ static int ov7251_probe(struct i2c_client *client)
- 		return PTR_ERR(ov7251->enable_gpio);
- 	}
+@@ -1563,6 +1569,9 @@ static int ov7251_init_ctrls(struct ov7251 *ov7251)
+ 					   OV7251_TIMING_MIN_VTS, vblank_max, 1,
+ 					   vblank_def);
  
--	mutex_init(&ov7251->lock);
--
- 	ov7251->current_mode = &ov7251_mode_info_data[0];
- 	ret = ov7251_init_ctrls(ov7251);
--	if (ret) {
--		dev_err_probe(dev, ret, "error during v4l2 ctrl init\n");
--		goto destroy_mutex;
--	}
-+	if (ret)
-+		return dev_err_probe(dev, ret, "error during v4l2 ctrl init\n");
- 
- 	v4l2_i2c_subdev_init(&ov7251->sd, client, &ov7251_subdev_ops);
- 	ov7251->sd.internal_ops = &ov7251_internal_ops;
-@@ -1725,9 +1652,16 @@ static int ov7251_probe(struct i2c_client *client)
- 		goto free_ctrl;
- 	}
- 
-+	ov7251->sd.state_lock = ov7251->ctrls.lock;
-+	ret = v4l2_subdev_init_finalize(&ov7251->sd);
-+	if (ret < 0) {
-+		dev_err(dev, "could not initialize subdev state\n");
-+		goto free_entity;
-+	}
++	v4l2_ctrl_new_fwnode_properties(&ov7251->ctrls, &ov7251_ctrl_ops,
++					&props);
 +
- 	ret = ov7251_set_power_on(ov7251->dev);
- 	if (ret)
--		goto free_entity;
-+		goto subdev_cleanup;
+ 	ov7251->sd.ctrl_handler = &ov7251->ctrls;
  
- 	ret = ov7251_detect_chip(ov7251);
- 	if (ret)
-@@ -1768,11 +1702,9 @@ static int ov7251_probe(struct i2c_client *client)
- 	ret = v4l2_async_register_subdev(&ov7251->sd);
- 	if (ret < 0) {
- 		dev_err(dev, "could not register v4l2 device\n");
--		goto free_entity;
-+		goto subdev_cleanup;
- 	}
- 
--	ov7251_init_state(&ov7251->sd, NULL);
--
- 	return 0;
- 
- err_pm_runtime:
-@@ -1780,12 +1712,12 @@ static int ov7251_probe(struct i2c_client *client)
- 	pm_runtime_put_noidle(ov7251->dev);
- power_down:
- 	ov7251_set_power_off(ov7251->dev);
-+subdev_cleanup:
-+	v4l2_subdev_cleanup(&ov7251->sd);
- free_entity:
- 	media_entity_cleanup(&ov7251->sd.entity);
- free_ctrl:
- 	v4l2_ctrl_handler_free(&ov7251->ctrls);
--destroy_mutex:
--	mutex_destroy(&ov7251->lock);
- 
- 	return ret;
- }
-@@ -1796,9 +1728,9 @@ static void ov7251_remove(struct i2c_client *client)
- 	struct ov7251 *ov7251 = to_ov7251(sd);
- 
- 	v4l2_async_unregister_subdev(&ov7251->sd);
-+	v4l2_subdev_cleanup(sd);
- 	media_entity_cleanup(&ov7251->sd.entity);
- 	v4l2_ctrl_handler_free(&ov7251->ctrls);
--	mutex_destroy(&ov7251->lock);
- 
- 	pm_runtime_disable(ov7251->dev);
- 	if (!pm_runtime_status_suspended(ov7251->dev))
+ 	if (ov7251->ctrls.error) {
 -- 
 2.56.0
 
