@@ -1,45 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158876;
-	b=UfnCpTztilGJMwzK0Z9xe1ptkWtadNrKeA4ZlOaNp3OSTYpHBcuKQ17pyZPWKl/9hKmx
-	 fLhr6zaNbyL6uAqA99EmfUj47uIuZoOdwDqyo6Fu8mDj1eQxPl8w+bXuZIspN00dmzZRO
-	 0XRJKPFTeHyUQ10DcMEbdC6Fl6llaIkIhz5d3MYyPjjG0/XB3A4h8NWEiDOuA112Asm7p
-	 FKjfrfHNeP6YMTM+uUnWzFmzkpUSWUImby/PFcR64gTmJlrtrJ3FYnogwLAHrBqaYbTcI
-	 kJL3KWgL/IfytlxN1/LuH2VX2W/+KXdZPftTg5dxsrEjWcvFKTp1HtESR+/bmseF0PQ==
+	t=1793158882;
+	b=eyzBO8TtBdKkNxUr0ocH2mIBoQFNg69yIVVBHekSMTxDyVCKaKrlS/57ZzyQHDd+BZYw
+	 ReEb4RC1rtKLc9O3ZZvuzoQqodGdFBB4giolV/1XDSfKQ0v5VB/FihtcL3s/AXKq/er67
+	 0cShtDUJl3HtI8WIQ/o/Pu3CGHosLb2VZxrF1oCasKv91dEFQuxpIUCXZivL2gcF8HTqG
+	 yH+X+Te9LOZ6ReAjLhVpIxM44wUhP33mhZDhgBKBUhc0k6YtNhG7UDSMWjQRR4gfnyHMM
+	 9I3MsxxMjlauEWoLWgDMTmr0+UmXrUmRJ0USx1P5C22Tcp7+qtnwu7Se5y2C8M414Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158882;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=lFOWfscv7nnPS5/K/4A8JM63NlFiokNweWuzY3uTuAg=;
-	b=u0DBnhieWIbANlamh1m4VSokb4DTasVmLmYERsZyEu8yNz704z+P4JgRBQdURl+rnZT0
-	 I1WMx04zO7bht4/B7pfaN4lnzGuI+TcBx+3SnL2oXaPtrsvhT947OLbkFBCrFpQxtjxUQ
-	 LUgiHjYA68VrO3fhztoja05o/EUqdDKe+BbjzKOD2Lj4wVXBy1uDGardSHBX3ybS2EyE9
-	 WEKx3Kam+63xdiJUNSN4W/tcFZNKpz6mvgCC+FYEqKEuI8c4TMjMuV+ee5F1ntk6EY6eB
-	 6izGDpfdLdAYoeYEny9WcHZXUwDFuaAdmqgHadQOie8eL3Gg5viDU7SvnopWu/dtb/A==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=dvaUQlg4+H4XNXm3Q0CN6g0pDrqka5ZZ/lTHw0ML2SE=;
+	b=1ZoohfbAnI3pAPN+oTYFnPhkzNKRJSrUeMkVOCCDtjM35QSLvykSCxT3eiSBd3Yrgja9
+	 zs8t6/hgW3OfXEazYlBSiKhNMVcH75sE9vP+/hOJPQ5hC2vytWDjky35B49+RV2e6kQ/1
+	 PA5CP7mBMSzACespyMU8qsPXE7pGHWkEIG4JFKgdgP2ZM/2ZxBNW1nFZP4m7y/1PMB0Jz
+	 DqyGNH1i+ui2K6UNI1DD9vOPKxcHllFum4GQV5O9Wz3gEuhd7XOM6tBrRjKDMUNyZzHoE
+	 ska1Z5YUz214pwZkbHuGhq7iXAa0c89iQ27HLGirD4KWSvR2bHgzxTOFAyPh4/PQdbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="LhG8xw+/";
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iKZ14VEF;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F78E606A321;
-	Wed, 28 Oct 2026 03:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F78E606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E7759606A329;
+	Wed, 28 Oct 2026 03:41:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7759606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=LhG8xw+/
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iKZ14VEF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=lFOWfscv7n
-	nPS5/K/4A8JM63NlFiokNweWuzY3uTuAg=; b=LhG8xw+/Xk+OLOyx10hoA3ohk9
-	8PVdnwEDhnPjMucaRFBVZ5ttLv2BZBDKb2dN6RsRppBWdlgR7K7MpcRhpHu7iUbS
-	puEKekhaop1gYII/EUdpjye6DE7nMNTBH0FjLhGDelnzl6BQPlOg07EpF1TJZrgb
-	/e49wbdiAOANJZZN4=
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=dvaUQlg4+H4XNXm3Q0CN6g0pDrqka5ZZ/l
+	THw0ML2SE=; b=iKZ14VEFdIIiSKQ0tHq5hHS/BYrjmthds2Lkp8/gLBVxc0UzFr
+	FldvBpVUtplGUtF0aAe+Q2BgB+XEy+67zmHCSTFXZe88Fl4jnm6NMNUUV0mB39i4
+	ukypCIttmW9SkVUUfS4+qcYfux4chgKgMIbECH0/PpdpF78Py9e5B49P8=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S2;
-	Wed, 28 Oct 2026 11:41:06 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S11;
+	Wed, 28 Oct 2026 11:41:17 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -53,10 +54,12 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/9] media: camss: add SM8750 support
-Date: Wed, 28 Oct 2026 11:40:56 +0800
-Message-ID: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 9/9] arm64: dts: qcom: sm8750: add the camera subsystem
+Date: Wed, 28 Oct 2026 11:41:05 +0800
+Message-ID: <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,103 +70,227 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuF47uFWrKF1fuw1DWF47CFg_yoWrZry5pF
-	WrK3y5GrZ7Gr4Ivr1xJw18XFW3Awn3tayUGF42v34jv3y5Jr1xWr43KF1YgrWDCrWrta42
-	yr4jqrW7uF4YvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkI
-	wI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU5GksPUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABEsN
+X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S11
+X-Coremail-Antispam: 1UD129KBjvJXoWxtrW3KFyfGF1xZFy3Zr4ruFg_yoW7uF47pF
+	4xCFW5Grs7t342kay7C3W8XF1xAay8u3WkJr9rJF12yF4fur4UKr4I93WSkF15tay8Xay2
+	v3W5Wr18JFW5Zw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmEb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI
+	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
+	87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
+	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
+	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI
+	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcI
+	k0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4U
+	JVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7IU8_b15UUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABNsE
 
-This series adds camera capture support for the Qualcomm SM8750 SoC
-(camera subsystem block with four CSID, six CSIPHY, three VFE and two VFE
-lite instances).  It was developed on a Lenovo TB322FC (Y700 Gen4 tablet)
-and both of its sensors (rear s5kjns, front gc08a8) capture at full
-resolution and 30 fps with it, through libcamera.
+Describe the camera subsystem as the single platform device the camss
+driver binds to: the SM8750 block has four CSID, six CSIPHY, three VFE and
+two VFE lite instances, all behind one register window, one clock and one
+power domain list, with one interrupt per instance.
 
-The block is close to the SM8650 one, but the capture interrupts move from
-the VFE to the CSID: the VFE of this generation has no useful interrupt
-sources, and the CSID reports RDI buffer done, register update completion
-and CAMIF start-of-frame per CSI2 stream.  That drives the two structural
-changes in the series:
+The node is left disabled; boards enable it and describe their sensors and
+CSIPHY ports on top.
 
- - camss-csid-980.c adds the CSID registers of this generation, with the
-   full and the lite variant; the full one splits the register update into
-   separate RUP and AUP commands that need an extra trigger write.
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 179 +++++++++++++++++++++++++++
+ 1 file changed, 179 insertions(+)
 
- - patches 4 and 5 keep the "add the generation" and "report frame starts
-   from the CSID" parts apart.  The latter is the architectural change:
-   frame start moves to the CSID, V4L2_EVENT_FRAME_SYNC is raised from
-   there, the sequence number is only incremented on a frame start, and a
-   buffer whose frame never started is reported with
-   VB2_BUF_STATE_ERROR instead of silently being numbered.  An SOF can
-   also arrive after an as-yet unhandled completion, so the EOF and SOF
-   timestamps are compared and the completion is reported first in that
-   case.  Generations that still report frame starts through the VFE are
-   unaffected: the new vfe_hw_ops callback is only provided by the VFE
-   implementations that need it.
-
-Patches 6 and 7 are generic video-node fixes the newer write master needs:
-a buffer payload has to be physically contiguous because the frame
-increment registers describe one linear range, and a start that fails
-halfway must stop the subdevices already started.
-
-The CSIPHY 2.4.0 lane values in patch 2 are the ones the vendor CSIPHY
-2.4.0 driver uses for the two-phase variant of this PHY: address, mask and
-parameter type match for all 103 entries and the data byte for 99, the
-four remaining ones being the SKEW_CAL data bytes, which are left at the
-vendor value.  The three-phase variant of the same PHY uses a different
-address layout, so its table cannot be reused here.
-
-Not included on purpose, to keep this series reviewable: the CCI/I2C
-control path of this platform, the CSID to VFE instance pairing and the
-repeated RUP on the initial buffers.  Those are being prepared separately.
-
-Patch 9 describes the block in the SoC dtsi, so that dtbs_check exercises
-the binding together with the node; the node is left disabled and boards
-enable it on top.
-
-Qianhui Xu (9):
-  dt-bindings: media: add the Qualcomm SM8750 camera subsystem
-  media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
-  media: camss: csid: unwind the power-on path through a single error
-    label
-  media: camss: csid: add the 980 generation
-  media: camss: csid: report frame starts from CSID
-  media: camss: video: check that a buffer is DMA contiguous and add a
-    prepare hook
-  media: camss: video: stop the subdevices already started when a start
-    fails
-  media: camss: vfe: add the gen4 block and SM8750 camera subsystem
-  arm64: dts: qcom: sm8750: add the camera subsystem
-
- .../bindings/media/qcom,sm8750-camss.yaml     | 435 ++++++++++++++++
- arch/arm64/boot/dts/qcom/sm8750.dtsi          | 179 +++++++
- drivers/media/platform/qcom/camss/Makefile    |   2 +
- .../platform/qcom/camss/camss-csid-980.c      | 468 ++++++++++++++++++
- .../media/platform/qcom/camss/camss-csid.c    |  45 +-
- .../media/platform/qcom/camss/camss-csid.h    |   3 +
- .../qcom/camss/camss-csiphy-3ph-1-0.c         | 124 +++++
- .../platform/qcom/camss/camss-vfe-gen4.c      | 212 ++++++++
- drivers/media/platform/qcom/camss/camss-vfe.c |  69 ++-
- drivers/media/platform/qcom/camss/camss-vfe.h |   5 +
- .../media/platform/qcom/camss/camss-video.c   |  78 +--
- .../media/platform/qcom/camss/camss-video.h   |   1 +
- drivers/media/platform/qcom/camss/camss.c     | 369 ++++++++++++++
- drivers/media/platform/qcom/camss/camss.h     |   2 +
- 14 files changed, 1931 insertions(+), 61 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
- create mode 100644 drivers/media/platform/qcom/camss/camss-csid-980.c
- create mode 100644 drivers/media/platform/qcom/camss/camss-vfe-gen4.c
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index dd738d13d..12dcf2f33 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -3495,6 +3495,185 @@ dispcc: clock-controller@af00000 {
+ 			#power-domain-cells = <1>;
+ 		};
+ 
++		camss: isp@ad27000 {
++			compatible = "qcom,sm8750-camss";
++
++			reg = <0x0 0x0ad27000 0x0 0x2b00>,
++			      <0x0 0x0ad2a000 0x0 0x2b00>,
++			      <0x0 0x0ad2d000 0x0 0x2b00>,
++			      <0x0 0x0ad6d000 0x0 0xa00>,
++			      <0x0 0x0ad72000 0x0 0xa00>,
++			      <0x0 0x0ada9000 0x0 0x2000>,
++			      <0x0 0x0adab000 0x0 0x2000>,
++			      <0x0 0x0adad000 0x0 0x2000>,
++			      <0x0 0x0adaf000 0x0 0x2000>,
++			      <0x0 0x0adb1000 0x0 0x2000>,
++			      <0x0 0x0adb3000 0x0 0x2000>,
++			      <0x0 0x0ad8b000 0x0 0x400>,
++			      <0x0 0x0ad8c000 0x0 0x400>,
++			      <0x0 0x0ad8d000 0x0 0x400>,
++			      <0x0 0x0ac86000 0x0 0x10000>,
++			      <0x0 0x0ac96000 0x0 0x10000>,
++			      <0x0 0x0aca6000 0x0 0x10000>,
++			      <0x0 0x0ad6e000 0x0 0x3000>,
++			      <0x0 0x0ad73000 0x0 0x3000>;
++			reg-names = "csid0",
++				    "csid1",
++				    "csid2",
++				    "csid_lite0",
++				    "csid_lite1",
++				    "csiphy0",
++				    "csiphy1",
++				    "csiphy2",
++				    "csiphy3",
++				    "csiphy4",
++				    "csiphy5",
++				    "csitpg0",
++				    "csitpg1",
++				    "csitpg2",
++				    "vfe0",
++				    "vfe1",
++				    "vfe2",
++				    "vfe_lite0",
++				    "vfe_lite1";
++
++			clocks = <&camcc CAM_CC_CAMNOC_NRT_AXI_CLK>,
++				 <&camcc CAM_CC_CAMNOC_RT_AXI_CLK>,
++				 <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
++				 <&camcc CAM_CC_CAM_TOP_FAST_AHB_CLK>,
++				 <&camcc CAM_CC_CAMNOC_RT_TFE_0_MAIN_CLK>,
++				 <&camcc CAM_CC_CAMNOC_RT_TFE_1_MAIN_CLK>,
++				 <&camcc CAM_CC_CAMNOC_RT_TFE_2_MAIN_CLK>,
++				 <&camcc CAM_CC_CAMNOC_RT_IFE_LITE_CLK>,
++				 <&camcc CAM_CC_CSID_CLK>,
++				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
++				 <&camcc CAM_CC_CSIPHY0_CLK>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY1_CLK>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY2_CLK>,
++				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY3_CLK>,
++				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY4_CLK>,
++				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY5_CLK>,
++				 <&camcc CAM_CC_CSI5PHYTIMER_CLK>,
++				 <&gcc GCC_CAMERA_HF_AXI_CLK>,
++				 <&gcc GCC_CAMERA_SF_AXI_CLK>,
++				 <&camcc CAM_CC_TFE_0_MAIN_CLK>,
++				 <&camcc CAM_CC_TFE_0_MAIN_FAST_AHB_CLK>,
++				 <&camcc CAM_CC_TFE_1_MAIN_CLK>,
++				 <&camcc CAM_CC_TFE_1_MAIN_FAST_AHB_CLK>,
++				 <&camcc CAM_CC_TFE_2_MAIN_CLK>,
++				 <&camcc CAM_CC_TFE_2_MAIN_FAST_AHB_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
++				 <&camcc CAM_CC_QDSS_DEBUG_XO_CLK>;
++			clock-names = "camnoc_nrt_axi",
++				      "camnoc_rt_axi",
++				      "cpas_ahb",
++				      "cpas_fast_ahb",
++				      "cpas_vfe0",
++				      "cpas_vfe1",
++				      "cpas_vfe2",
++				      "cpas_vfe_lite",
++				      "csid",
++				      "csid_csiphy_rx",
++				      "csiphy0",
++				      "csiphy0_timer",
++				      "csiphy1",
++				      "csiphy1_timer",
++				      "csiphy2",
++				      "csiphy2_timer",
++				      "csiphy3",
++				      "csiphy3_timer",
++				      "csiphy4",
++				      "csiphy4_timer",
++				      "csiphy5",
++				      "csiphy5_timer",
++				      "gcc_axi_hf",
++				      "gcc_axi_sf",
++				      "vfe0",
++				      "vfe0_fast_ahb",
++				      "vfe1",
++				      "vfe1_fast_ahb",
++				      "vfe2",
++				      "vfe2_fast_ahb",
++				      "vfe_lite",
++				      "vfe_lite_ahb",
++				      "vfe_lite_cphy_rx",
++				      "vfe_lite_csid",
++				      "qdss_debug_xo";
++
++			interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 605 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 376 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 89 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 433 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 606 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 377 IRQ_TYPE_EDGE_RISING>;
++			interrupt-names = "csid0",
++					  "csid1",
++					  "csid2",
++					  "csid_lite0",
++					  "csid_lite1",
++					  "csiphy0",
++					  "csiphy1",
++					  "csiphy2",
++					  "csiphy3",
++					  "csiphy4",
++					  "csiphy5",
++					  "vfe0",
++					  "vfe1",
++					  "vfe2",
++					  "vfe_lite0",
++					  "vfe_lite1";
++
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&mmss_noc MASTER_CAMNOC_NRT_ICP_SF QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++			interconnect-names = "ahb",
++					     "hf_mnoc",
++					     "sf_mnoc",
++					     "sf_icp_mnoc";
++
++			iommus = <&apps_smmu 0x1c00 0x00>;
++
++			power-domains = <&camcc CAM_CC_TFE_0_GDSC>,
++					<&camcc CAM_CC_TFE_1_GDSC>,
++					<&camcc CAM_CC_TFE_2_GDSC>,
++					<&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "ife0",
++					     "ife1",
++					     "ife2",
++					     "top";
++
++			dma-coherent;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
++
+ 		camcc: clock-controller@ade0000 {
+ 			compatible = "qcom,sm8750-camcc";
+ 			reg = <0x0 0xade0000 0x0 0x20000>;
 
