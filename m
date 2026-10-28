@@ -1,101 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793180665;
-	b=TR4OqhsvJrn0yLZ9TbcgnTITBRkm1aKwHpfRuXPfwq/X9/mA9oJ7oeX+hrglOzk/bLao
-	 eZ1n5Afn11bVjyTQTnX9RTysCFzuTGMbPa+V36oFayTOKm4OlJylBxJKbOZ5xJuRQXrwY
-	 IO3Ps4x9eG8kqNqkY9wvzDcvJekTmMP63KFJIYStfyh8TBTd7zflaJqQ7WrhZw32ci0RE
-	 A9Ym01naMAm3BsTvd2el2EIWsgS9lwBedvb1ZnkTwSnULjAIQHvC1DLIO7BzsmwaTYldJ
-	 24YVkvhQqEA22PLAXt9poF+iA+IAQxupPuUg0Jjg/1L35XJ8mhl0cFx3Nefvq9guOTA==
+	t=1793180850;
+	b=HW+7uNvJAkIFzxP1XxMWDYkLXyuRFWUKtyA0M40DpM2+hld4XoShipa+NRXBzx8DmLxF
+	 aXI1qIlzUSwCpl2KZIsCes5zS6siFTYpnY3E10nUrzzhva1mUsRuoA88sdojTS+mDH7vc
+	 j+0FtFMbNb4LNWaHuom2CaBBrUosek6PV4YcizL3PL4bhyzom6f0Sj9XU0gszON7t5bLV
+	 3rqNieJy69aSkcZhmVyd5OHdu9pomXiu2Lqm14PdiTVMOkZITzHPtAcyYMjH0mJw8rqPa
+	 STGqcGu5yigRSLvJese0jugXy89oSpbaPzMcr4RVGAGpsqQgv3jfsyACKzWxYXH6yvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793180665;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AGi/fq5S3uVapjyEXBvCZExutq4hUdJTl4OnYwdmmHI=;
-	b=LlQc1LuYxhnHGpdOmO3hrKNdDz7UI/DjEhlo6N4n/wWKHfeCYn9kBs55orZAFTaFMhCG
-	 ONbZJUciGaZGL/AkQkP9ZFt6AdD3GTXxj5CIal8Ul8zkWRp3uJycLcF3nqMGwJhnbRXVm
-	 Es8bt78M23HjaNqZqNGyAJldmdNHUTuI2x+THXanjrXi1KITmNHn8AwA0gY2iRfXkw86i
-	 VTQgNPl601ri+v9GuEaE32WGtIthy6q93G+KIXJp34Ey4FucUKlZF1zr/WQomRlS2bKxj
-	 1wcJLMgd9l8SO3mlbXLZWmwKEG9wWcGaYpAP2HrIL6V8CCQV1EN/6w6EqS+qQZSx2AQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793180850;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=nKYFxQRH1vuVIe7/MLAy4kkLQU+A9Me4O9WKmx61f9U=;
+	b=OzdztJsnyFDv23c7OYM1Raqway8UBJONqD6R1XmlpEeQd4/iA7sAcWcfFftKEiAXalar
+	 o9pZBrk4YbSyM8PhoQO11Tk5z5KMmBBKzKz7Go3zUGaWqFm09V3PjFhmPF/bsdqwDJ/LX
+	 XrjcSIh3fFXQObCBwHHbzQHGcpiVRbNR3moECAh/igH2VUtkP5D3v9PKzsO6Q0qgY7y1d
+	 hrgNDoULJhlLk/+Yo2BLmpsjTkOBL9WmTab5qBjpTIFlUcGJiqvltEy6KXrdf7lHX8kxu
+	 Lf5u2UDjTimkGnx7Pg/Pk6YxwpnIpYG6WSLq/t9r22x1+jKoobjTmRANRlveEVtdjcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yGaw0Tu+;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=wxh7nxPZ;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB6AE606A31D
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 09:44:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB6AE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9030E606A31C;
+	Wed, 28 Oct 2026 09:47:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9030E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yGaw0Tu+
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e09aa5264so362658f8f.2
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 02:44:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793180663; x=1793785463; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AGi/fq5S3uVapjyEXBvCZExutq4hUdJTl4OnYwdmmHI=;
-        b=yGaw0Tu+lQn1sWU7zA/mYAVKKBVR7nOAu6mb67iT3zoNq3Wp87S2RrN1/EflDlYxlT
-         IRl8yR5fwcy/Zva++3P4VfLi1oePleYWxLyL3MjDpjchi+eLR3kTIt7XmSWXkZzfn5so
-         Yz8lK3F6RFmsXHjCOnI05kV9BA+ebH/uB3YQerXOs+D1oxf1Uegg59kBAk5YqcQx+kcO
-         ekpEoltSWiqwmyr7O9Wp/mPFSsDM0JeIVZR9Id7wwErOBW4YZNBi6auE+TjCNbWLn9iK
-         YJC6rJFrH910ayxEpYvnvIUG2IEl5VyAUAtWGTtOCGCDzw449oMQBXvltQi8ONU3I0+M
-         yA2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793180663; x=1793785463;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AGi/fq5S3uVapjyEXBvCZExutq4hUdJTl4OnYwdmmHI=;
-        b=FsrxSnIifVxFtNsiRvVV+ZPXVIZYb83pJBlCnsPp9/3Oy10s/1u2zxp8EBPsm7LLbR
-         NS1yaVowETO9WEy6FIAYOmH73MgmePTAMtwqqlW8Hgg4uF2p63BK6UvO6Dq+H/kt1nQG
-         f1VBQ9Kv3ITUQugCA3HmLtBBmqOupUdT4jDElV0uTzdBN1AYmCbR/DnQgn05avuOrGXZ
-         xUJFWSOkrzeuiYzVUet2eAQ2EsPejo5ZuSfH8NP6tHLuahB31bNTzRIFxvW1kagqjIYm
-         QAqiYkZNUnqX4Wm+QPmjgSJYWo7yXl1xqyrN/nOiv2RnKIWjsQLzjt92Es9nzhGWELaj
-         4DXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyXBNURe1RU+81suEB412FYbXwNsBRz9rjDW7EmTCDZlqkz6WiQQdeFusfCLHaiX3OYXkt8iyamjX/Hg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLC9Lq/Tc6do59QLTMYjtyr+t+U/UwbbpnnWLiP6pbGxEeVCF11
-	F5wtOhxlJ7lFXD/fXjdVHZasSVjsU2ahAtYd+1OPgYPD6aCch+sHzAU5
-X-Gm-Gg: AYBFou2R3PwG/vPMfKwvynU1eke51bZmYGQziEbzU5Pi/0kSRMQKOyS8/ujW7VGmX25
-	i6+o80GkKr0Y0/cV71Sun9xwvlMRWlHlSjwnHP2mpeSAkS27ocaWkGW37xb8KjcPr/XWPP00Nmk
-	ZpKhPLcNKM5pGSTkKGoXNffimb6AEcSUxd5PJl2D9umo1PlS/P5uRb88bIziL5ajU8gfau4Sg2+
-	9sEYma7YUqNycowCxGy58UWc9bvxTv0N17HMCo/4NhZS6kNKCvD/wf94TztgEVMIJ6aUYPEJqKK
-	y1S06nNtgbqYMxi9s60CwlTn/P5yFHXJkkyNTgrzNh00uaTryUWJn7NdQpEZTsoy2UpgmnALD4k
-	u1bOS7+YzSIosFnr+t0LZ0efnT0iM8mNIU8KO0KqvGWBwRdutIrbrrK1G+fe5cXMGUDtUSS+Rra
-	b4qYpS3nwrm26iSj57AhDvIajdUMpyrE2qZSVngDYWtTqXf6ATq2BqyN6xZKD9L9K7L5hvz9KZe
-	5tI7pyikg1lUtM47LtG3hV/lATcqg70Lwi4XbJxnRtDpLMu2ElRXarIAGMG6ijhBzIYhV+MSNVu
-	6+doGRp0kRsR1lCu2G9DGTeYG4I7N3hNOgzDDkfusdWT/9VQCTzYjnp41jqicF0TRmppBv6dJ44
-	xzibIhdCoMrhimJGGw05Uyj/Wm0NxfRLhZ2Jc6fyvE1vOt9XnAP1w5ydt8h5KgCCoX0U=
-X-Received: by 2002:a5d:5e8d:0:b0:487:b50:101c with SMTP id ffacd0b85a97d-48e5d567ec6mr4561241f8f.5.1793180663164;
-        Wed, 28 Oct 2026 02:44:23 -0700 (PDT)
-Received: from PC-Marco.lan ([151.59.117.24])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ebd4bc5sm27514349f8f.34.2026.10.28.02.44.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 02:44:21 -0700 (PDT)
-From: Marco Ziliani <rylos78@gmail.com>
-To: Simon Kruse <simon0x+git@proton.me>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Chris Simpson <chris@nilk.net>,
-	"D. Manresa" <dmanresa@gmail.com>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Tony Garcia <tony@loafecho.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] media: i2c: ov5693: Fix mode changes, flips and autosuspend
-Date: Wed, 28 Oct 2026 10:44:18 +0100
-Message-ID: <20261028094418.13598-1-rylos78@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028082920.63853-1-simon0x+git@proton.me>
-References: <20261028082920.63853-1-simon0x+git@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=wxh7nxPZ
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jF2b05FVDzKnB8;
+	Wed, 28 Oct 2026 10:47:24 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793180844; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nKYFxQRH1vuVIe7/MLAy4kkLQU+A9Me4O9WKmx61f9U=;
+	b=wxh7nxPZ3iBUYyzqOmx2XDE76ZphfykyCRuAosYPWP47z0Pzf1bVpl04m5X6WPVpxqDb76
+	C9IMwFNXAO0Bc/rF0AAjmptGHmYtscrD+MmJRaj/SMYdBhD9TAhIG4oNy7QPVoISU0+tSj
+	562hrglSu9820+OAFhoF3wrPOV73urXb1ouVgfb5bJhZdcOcsMoyOXcAKr1+nU1H2xdUCj
+	ukuSIDc2A/mpXaPld+JwbzLD3X9yYXpOQPYSOTLZX1z3YZZv6pKWrKVn0s2f0PVZWxFC96
+	6SS7e7Jgkb/AWiKJedqhGOu5sXW+OwHfal+83mB+gJZ1DHVXpTo7rR+UsLY3ow==
+Message-ID: <f9a47d563f896e0789fffa72df5847e2878cbe5e.camel@mailbox.org>
+Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Date: Wed, 28 Oct 2026 10:47:18 +0100
+In-Reply-To: <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
+References: <20261020100034.759183-2-phasta@kernel.org>
+	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
+	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
+	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
+	 <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
+	 <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
+	 <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
+	 <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,17 +98,190 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 16b7de5af4c5b86025a
+X-MBO-RS-META: rb53xxngg1k75mcmbijsukd3yebomd1t
 
-Hi Simon,
+On Tue, 2026-10-27 at 15:59 +0100, Christian K=C3=B6nig wrote:
+> On 10/21/26 14:49, Philipp Stanner wrote:
+> > On Wed, 2026-10-21 at 13:53 +0200, Christian K=C3=B6nig wrote:
+> > > On 10/20/26 17:36, Philipp Stanner wrote:
+> > [=E2=80=A6]
+> >=20
+> > > >=20
+> > > > Nope, I want to protect shared data, which is the signaled-state. W=
+hich
+> > > > is currently a race-condition worked around with RCU (and sometimes
+> > > > with manually doing the right thing (locking!)) [1], stemming from =
+the
+> > > > fact that the fence's spinlock is not used consistently.
+> > >=20
+> > > The fence spinlock is consistently used for protecting the fence
+> > > signaling, in other words it always happens with the spinlock held,
+> > > same for adding callbacks.
+> > >=20
+> > > The only thing which happens without the spinlock held is the fast
+> > > path checking of the signaled and enable_signaling bits and as far as
+> > > I can see that is ok as well.
+> >=20
+> > No, it isn't. It makes the API fragile.
+> >=20
+> > 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+>=20
+> This bug is exactly what I'm trying to prevent here.
 
-On Wed, Oct 28, 2026 at 08:29:32AM +0000, Simon Kruse wrote:
-> Unless anyone objects, I will rebase v2 of the conversion on top of
-> your whole series rather than the other way around.
+What is your proposed strategy for preventing it?
 
-Thanks, that works for me. I'll post v2 with Dan's comments on patch 1
-addressed (ov5693_mode_configure() moves out of ov5693_sensor_init()),
-so please base the conversion on that one.
+>=20
+> This problem only exists because we call the backend operations with
+> the lock held!
 
-Regards,
-Marco
+Nope, this particular bug exists because Nouveau thought that it can
+drop its reference when dma_fence_is_signaled() returns true, which is
+not the case, because the fence backend has a race condition there.
+
+A race condition that was allowed for performance reasons.
+
+
+> What nouveau does is to delegate the cleanup since it can't do that
+> in the signaling handler because of the lock inversion.
+
+What signaling handler are you referring to?
+
+>=20
+> This problem doesn't happen any more if you just completely drop the
+> approach of calling the backend operations with the fence lock held
+> and then re-structure the cleanup handling in Nouveau.
+
+ops->signaled() is typically not called with the lock held. You might
+be referring to ops->enable_signaling(), which is consistently locked.
+
+>=20
+> > 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free
+> > of VM")
+>=20
+> I already discussed that with Simona back then. Simona actually
+> explicitly rejected my approach to take the spinlock to check for
+> signaling. Pointing out that amdgpu is using the API in a wrong way.
+>=20
+> The problem is that amdgpu doesn't track the callback structure and
+> so can't remove the callback. It's on my TODO list every since to fix
+> that miss use of the API.
+
+You mean the issue is that amdgpu cannot deregister callbacks?
+
+I don't see how that's related. The lock-unlock-cycle clearly ensures
+that amdgpu cannot continue while the fence is signaling.
+
+To clarify: our conversation circles around two partially independent
+topics:
+
+a) the signaled-bit is read without lock-protection as a fast path in
+dma_fence_is_signaled() and
+
+b) the ops are not consistently called with the lock held.
+
+>=20
+> > Tell me one thing:
+> > If locking is the wrong approach, then how come it was added to
+> > literally all callbacks except for set_deadline()? Seems to me that it
+> > must have solved some issues.
+>=20
+> Well, it's because concerns with the lock inversion brought up by
+> Alex and me was ignored and the patches merged anyway.
+>=20
+> This is just another one of those DMA-buf design problems which would
+> have been fully preventable if I would have clearly NAKed that stuff
+> from the very beginning.
+
+My impression was more that central design criteria for dma_fence (like
+module unload of the driver who issued your fence, which is designed to
+live arbitrarily long) were ignored, there was no clear guidance for
+drivers how they should use what callback, and then driver problems
+were solved in dma_fence, for instance with this shared lock. So same
+story as with drm_sched.
+
+If *everything* would have been locked from the get-go, that would have
+forced drivers to design their locking correctly, and decide wisely
+what tasks they want to perform where.
+
+>=20
+> Back then I made the mistake to believe the argumentation you come up
+> here as well and so I don't explicitly rejected that approach, but by
+> now we have strong evidence that this was a mistake and I'm trying to
+> fix that mistake ever since.
+
+Well, I am a different person with my own background that informs my
+thinking. Please keep that in mind.
+
+The "strong evidence" you claim to exist has still not been shown to
+me. I show you concrete bugs that we could have prevented, but the only
+piece of code you ever showed me where something would break is the
+list_del() in nouveau.
+
+>=20
+> We should have never taken the lock for the callbacks in the first
+> place, this just made the implementation much more complicated and
+> caused way more problems than the few raised by putting the ops
+> pointer under RCU.
+
+Lock-inversions are not being solved by just not taking the lock, they
+are addressed by having good lock design. We recently solved exactly
+that in the Rust JobQueue, where drivers also reported lock-inversions,
+but we could eliminate them with just a few discussions, discovering
+that the driver does not need these locks when interacting with the
+JobQueue.
+
+Often enough btw the only object the driver really needs is the
+sequence number anyways, which can trivially be passed and shared
+around.
+
+Now with dma_fence, I strongly suspect that the problem came to be
+because of no clear guidance by dma_fence as to what the driver must
+and must not do in its ops implementation.
+
+The only evidence I have ever seen is the fence-list-lock, and it's
+just not clear at all why any callback would need access to that.
+
+
+Let's walk it through together, shall we?
+
+ops->release() and ->wait(): deprecated
+
+ops->get_XXX_name() -> never needs driver locks
+
+ops->signaled(): "Driver, here you read an atomic integer, the sequence
+number, and tell the fence backend whether this fence shall be regarded
+as completed"
+No need for any driver lock.
+If this particular driver also signals fences through an interrupt
+handler, it can take a list lock, then signal the fence. The ops must
+not do that.
+Why would a driver need both modes, sw *and* hw signaling? And why then
+is it supposedly the case that both paths need to keep a list updated?
+
+
+ops->enable_signaling(): "Make sure that this fence will get signaled.
+Register an interrupt or schedule a work item". These locks also don't
+interfere with the fence-lock.
+
+ops->set_deadline(): clock up the CPU frequency. The only implementor
+trivially does that through a work item, too =E2=80=93 after voluntarily ta=
+king
+the fence lock over the entire section.
+
+
+As you saw from our recent amdgpu discussions, the confusion of what a
+ops is even good for caused drivers to mess around with the fence
+directly in their callbacks, checking for the signaled state etc.
+
+It was too much freedom that has caused the trouble. There are no
+canonical solutions now.
+
+
+So except for updating the linked list in ops, can you show me any code
+example where a lock inversion would occur? I'm quite confident that it
+will turn out that the driver has no good justification for performing
+the related acts in the ops in the first place.
+
+
+P.
