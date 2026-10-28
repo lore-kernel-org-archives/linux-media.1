@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189386;
-	b=XV3DpICzjW6Mjao9PzERLqFY+zsmtNrtP1Zr4kDkFcpb4sIDQkR0ZxYYGPWf1/HLNKqJ
-	 uXj07aAXrhcz029DqUUDr8N2YZoS1c3aZyH/3mpBRWlFtcY23XJvVxbRRBn7qUkX+iJYR
-	 19fe+y2g5WTPpfHBs6o2iv9YzRdoNVGCN1MGANghwCys1xwXrS/pGpJHYay9LLc0n8iEM
-	 4qxZgAMreynbHR6eSq5m/mACR3/C26TlH7VlG/pKzHHUKQp2Ro2s/jy2zASSaic2Iey4H
-	 mLo2vgaNN5DkJ/Xr4Hp8Kgrn26Oe86XCFwyKlPpTiBk8VpuFrVLD4olhVDh0PX2Rm3w==
+	t=1793189776;
+	b=eUWLJvj6ekRY8qthppxkLi4NoOZKGLioYiJ78A9IWfeY/7a72LL6EPJ0FZ/7xNDLfqrL
+	 okDI9XzhibULxcOeFh/YGcp80uZ/6T52+6m4jpTe90SRQpRtB9c99MrRYwebcuoPrjKHF
+	 TUMvolrjvui6R/XjM72cN5UZIObKgqI5kPKUjIsNXkUemmykN4kTZ1NtpHUj+LzY6Mkqk
+	 3XCaNiMQo0R4+2h/aVVOAy77X+P212wZuRhgKZzC33eNabIM2XJfQvXJnD5Q5gdf/WwWf
+	 QnSva4hnrjaR9jjSLB9SJlKXH716DRtnjTmgJfNwkwDGExoIXxeVPUUXOTk6A9kN5SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189386;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189776;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bvZsWGjE5bOOOfMNzS9INtnRdMpQ11g4gS7L2uDyTi8=;
-	b=f9cA9nxAEI0UAS5s2DmWbMJeEH7qKkeWumjraflTCrUHqVbUCxv2MmMmNk35RdZ7joEI
-	 xFC/7tdrLcKuzNCHTk5Ut+YaP/6oW/J9z5heyYppYOILBf4PQIwCisMCCQz8V2I+m2tZG
-	 T7O1T6y4LR8OFNVtdGNwdg2JUuAVGslABws/RitCNaaLQfb4y27IpXQa047yVxWbkvfRh
-	 EnOoGddra82iT3FMcJ5YuiihhzRGXY2kuoZl2rOh8tbycJ1sDuV23DoocrzGNjI3i5Bre
-	 UldGeV/RMCzRWW9P5P2ut5UVGjlovrQrNK3AMILbPqHS0OUFNGzEkON7Xpav1GTWxbA==
+	bh=PT15hZrsV2gtc4raeVCA1OF7bgelk/5T/f1X4EOOnYU=;
+	b=KklohdtvhxdoJfotqMP2WISzcNDKE7Ss9WfPG0N4cOsA9BwZJNkNZlfiitHQp/B5V1RG
+	 0U/eYHr+zj2mJytfpYEb9HX+FkhuevUyj9D/ZegI1fvybV6uekAc0jRorZf/dJh9+lz5O
+	 oxmxUImkcXF7DdU8fN6oRV2UD/VkVDWBBA5Icx5W1zXBxVbC7VQjvHdFtKM9iIIiOz0oG
+	 t7lnfO4HyKwZlXHPKf/0BfbW7lM9lQ5Frvw6G0pkuu0YRSmlCWu+uBK0/JqrkAGf2FbsE
+	 4WNPuU+3b5mNkh3hJPj2cuQuRxQ1o3yKWjcAAmCtga9i0a3wbw4dDsJxB78k/mw71lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MM62gqiK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="com/B+Qt";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3687E606A31F;
-	Wed, 28 Oct 2026 12:09:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B907606A31A;
+	Wed, 28 Oct 2026 12:16:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MM62gqiK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E7451F01825;
-	Wed, 28 Oct 2026 12:09:45 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=com/B+Qt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36841F01825;
+	Wed, 28 Oct 2026 12:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793189385;
-	bh=bvZsWGjE5bOOOfMNzS9INtnRdMpQ11g4gS7L2uDyTi8=;
+	s=k20260515; t=1793189775;
+	bh=PT15hZrsV2gtc4raeVCA1OF7bgelk/5T/f1X4EOOnYU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MM62gqiKS2/oZGrVIYik3VvmM2YN0UvVIeo+uvT/paMBKTy6nYfrK1+3Vs0grys1C
-	 6GwZmi7JkJ9AGG0l5L428XfkDaIYCAe6wBmlVFXQCjXO2xnVtm8CKu7xk6d/ZgZW1R
-	 TGaPIyeebuxoQ8WS5kZZjkQnqBYPOpcPOmeUSPlnd8ctpn4/AlD56irsmZSoikF0l6
-	 mBo/zjhWtXJw51FB3UtNCNjLEyKpfz4ULuP4GpmhuMJswqCEedyuczGjUGjwVmPcGc
-	 2hGIgkDybXZg3+4IIN4M5mWzTWOri4npvffJt+jBY71Ys8L7BdRvBAn8zgW5tDSYlr
-	 cgiJVrztQI3MQ==
-Date: Wed, 28 Oct 2026 13:09:42 +0100
+	b=com/B+QtHCvKrTu0jqM601D/1rwGYmdu4LUPo36GMx5NdNgRPtcCcKQAUK9bKxKA8
+	 JSgpvA8kip3US/shhLTkQWXMo8qTZJJjmo9pPeTH8+kMGJBkfRM9/TyWGwZb8eEf7D
+	 8xO99z+SulKuG2zHrIHyq0AWZ752mUqolZw6Kvc0T2zP8tkrAnV98AulEVSU4NoP3A
+	 4X2F+g2SoACFt0lJgdYeG1q8tj924bRg1xmj9ltD8of5kFZpoFuH/fQtyJw7bUaG5J
+	 BWzlCcsxvgD2RjImR5PikpR0M3gStdu7/CGUBa1P9JE28wODCNl+dVF9S/i7EBkmY7
+	 ASp2QErZIfoLQ==
+Date: Wed, 28 Oct 2026 13:16:11 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Vladimir Zapolskiy <vz@kernel.org>
 Cc: Bjorn Andersson <andersson@kernel.org>, 
@@ -49,13 +49,11 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
 	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
 	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-phy@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: Re: [PATCH v2 1/7] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- SM8450 compatible
-Message-ID: <20261028-abiding-soft-beagle-18a1bd@quoll>
+	linux-phy@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/7] dt-bindings: media: Add Qualcomm SM8450 CAMSS
+Message-ID: <20261028-spiked-musical-doberman-7d7fb1@quoll>
 References: <20261026224957.1115370-1-vz@kernel.org>
- <20261026224957.1115370-2-vz@kernel.org>
+ <20261026224957.1115370-3-vz@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,25 +65,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261026224957.1115370-2-vz@kernel.org>
+In-Reply-To: <20261026224957.1115370-3-vz@kernel.org>
 
-On Tue, Oct 27, 2026 at 12:49:51AM +0200, Vladimir Zapolskiy wrote:
-> Qualcomm SM8450 SoC has six CSIPHY IPs, which are compatible with Hamoa
-> ones:
+On Tue, Oct 27, 2026 at 12:49:52AM +0200, Vladimir Zapolskiy wrote:
+> Add Qualcomm SM8450 CAMSS device tree binding, it contains
+> * three CSID and two CSID lite blocks,
+> * three VFE and two VFE lite blocks,
+> * three CSI test pattern generators,
 > 
->     qcom-mipi-csi2-phy acec000.phy: CSIPHY 3PH HW Version = 0x40010000
+> Six CSIPHY blocks are described as separate CSIPHY devices connected
+> to CAMSS input ports.
 > 
-> Hardware supports up to three different 0.9v level power supplies for
-> CSIPHY0/1, CSIPHY2/3 and CSIPHY4/5, but there is just a single 1.2v
-> power line VDD_A_CSI_1P2, which supplies all CSIPHY devices.
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 > ---
->  .../devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  .../bindings/media/qcom,sm8450-camss.yaml     | 274 ++++++++++++++++++
+>  1 file changed, 274 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8450-camss.yaml
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
