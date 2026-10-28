@@ -1,70 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199200;
-	b=NZ9phZjq71KVITBpnNy/qVuu1VRaWXkcyFkQGctL+zCZKFTpVQeY8XqSqwwOR+NAUhId
-	 4XoldvqH1Mr7g4/cSJcZqJIca8g6OaG22K0y69uVSAxT+5VLe5onbx08nzZWkdye9i24m
-	 ZrneRcMtgylovYc8urgA2XtyqTeLHRqQOLlOE/oGplIJBR59UJ7ZGXrE4rFsA8DQkBljk
-	 s5orh13BSy9kIIK6qsJZ+U+hx546lTdYvIQZ4g9pgG2KWhd8b6e6BZObUJKAeXXpbncGS
-	 1KxwyodPTt7d1Q3+qSQcFJet3io06wm9NDhxe5CSornZK47NAqsZcSiKGzxKh403+5g==
+	t=1793199434;
+	b=NvDmgxPCCduRpxiVvS/LI+LaQJ2xeX3f0ifwMjhCUecAm0O7xcPOBfaXMASuVtasMJ/1
+	 vnZIEfA5kMD/M/uXiLNulyMSmxOUhMoLJcagznJADWN5TMR6EfmpK/vSVLpVRnlpRGGFa
+	 VwXGwCq3x/Z0uklJbMs0dfq8UD4YW9l8aKLDy/EcIVH/dWL7eTnG7MLOFWwQE8jTCR3Y/
+	 d/yqrqQRLJl7MtOSPan3ZI3jIN6BF3d8LGIMV2yL9b6TCaB9fySLnPWYP3MB8UfPhs9Te
+	 04cPJFOU1WJc3vxyfTpvTtBzzkr/44rk74rFQWwMB+cIzUnzVgVhWqDIMavyztuoG8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199200;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=w0XcyVuxu+AYup+CNvj4V5SJOuKSRNC3QzsPNAgpgU8=;
-	b=tCyq8eOtOT3Z/eampuamkKODmknkl1uJAbcJLeXd6cdUVBt1nR5DPXUolXrVLpRvoO0C
-	 zuO42gMFOQoxyhh6GlIRcTdg6Z31XHkVNYsCUQ1pMJSrIFdSpjLbFx1Ya1qnUdX1jaaUv
-	 Cs8mwvL6+iXOJbKNtoGdhXzJceWwp2yRtlUGKMsuaaW4ceBGU94xlRYil7F1dNU+UYtor
-	 5UUx2XTTyISInVBbkPtZGPgOkmmBmiVN3SToKTUn9FePmkPVi/lNfdvYq8SX84GKecgUe
-	 y7o/IyCv3Ju6ypheNLLYkMrXPWQeSg4FdNKiqg65HBBu5iw2azN/j9LEgoLXv/EeNmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199434;
+	h=Received:DKIM-Signature:Received:X-Gm-Message-State:X-Received:
+	 Received:Received:From:In-Reply-To:MIME-Version:References:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=CoPZ9bZ1JfxYkZSWgqFP1SNfY/PR7Bkxfv9+CJFVndE=;
+	b=efFrYlTNPTRsVL+6r41G+ChGFyo+WDPEOyX+9OPs66CwoBtoBRfPLCSTQrcOHrL418Xj
+	 35g7geDh6gv7JtHF1JCSzjtjWYS2Hi1mvH+k3NCyxWYKbrCHCY3GFR7MtruPwRS6epTiS
+	 IpU9EoviKzgfJuT2jY7WNtACzZ66UViVOi6KxReOWsyCAxo0QV9vrgVIEiheiLdb00O/Y
+	 5MiaO6gd1Kd2HEJ0d0e0gU38K3FcUPz9wFTR5HcFa+0vkODTBoP4mdjqJG/VGlCpdAOkL
+	 cXqr9aaRd0T/vxs30gLbAJouX5W9QzOVlvPX7xSTkXIXf7IdraRSnBnCeq4j3MIZjPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rlUpQot1;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ly7btzAc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6051F606A31C;
-	Wed, 28 Oct 2026 14:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6051F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE02606A321
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:57:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=rlUpQot1
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3D8384F1;
-	Wed, 28 Oct 2026 15:51:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793199064;
-	bh=azW8YPi+emTx4FgT7E7yfRZY1IuV97x3JqPiSHLS0rQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rlUpQot1XLCeJ4LMqTuTyNgNXRdJJDfVT1PNxwHpwGlwnKGsQOpC7YfVP9GlA9WQx
-	 F8JgpZ5o/hZkJ6EX33tW5OYxKeH7wFnIohvku/Gm44uhjaqKRSNh4J/vGnJK76QQ2B
-	 x0WwjNaoS4NL5yGvhFl2RWl2Z/BuYdVS+gQAKW3g=
-Date: Wed, 28 Oct 2026 15:53:13 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Linus Walleij <linusw@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP
- nodes
-Message-ID: <auILoa4Tn2sgkC8P@zed>
-References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
- <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org>
- <asz8oEtow_lrUU7K@zed>
- <CAD++jLnnSLXeYzxonkfnZA3OxLE9Hssma9fHsL=U=NmVn7ZVOg@mail.gmail.com>
- <atXol9eFjLKxgTpg@zed>
- <CAD++jLm5iRKbb6=ZY0r1q_bb-zO3DAe3a7MxdDbpBT3ZU6_z_w@mail.gmail.com>
- <CAMuHMdWKH2pPR1-j-AxV2LVy5xeuoymYv4MnXw1KSvAu4F-brw@mail.gmail.com>
- <CAD++jL=0ak_CzxvLf14XntE-cZGFVN6ZpGtkZfTJ8ae0G+RR1A@mail.gmail.com>
- <auG_dr3VFeWaBxKw@zed>
- <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ly7btzAc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA671F01825
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:57:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793199434;
+	bh=CoPZ9bZ1JfxYkZSWgqFP1SNfY/PR7Bkxfv9+CJFVndE=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=ly7btzAcgI8DSYXiri5X1CFDQGPjvpCFhks2uprh/Q7PSzBqDkFvR1dK8uOQizpfL
+	 Tu3G6D3UFfIiUF2r1EM4nWbCvYd4Gi1NlGNamAoeFtqJTyKkHEM8Q6rwoTg7leuusV
+	 HRpF6fu0eIGoZSfxTkVToQdBdcbTsyIP1ldj51mHTPBBZWNDO13pYIo+Xl/GQ37xL8
+	 1jZ1WJ6Izhtt35Pa2AoA4tDcYPvMvN6uAeoexnkqkztHNFE4eeDx166qtdKCvHoEo5
+	 XFjU/kHJu74S30cjZOm8APZjDSx0DrCBGsvrZt13Nylh8vI4S0r6nLI6LRdTgYepad
+	 18G7VLH6mfxJg==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a75f960be3so10073541fa.2
+        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 07:57:14 -0700 (PDT)
+X-Gm-Message-State: AFq9FYLf7ImHBmidkDD/OLZ1i1LOmRwVtEn7I59GSwXFjlJmILGE3UB3
+	xukYzI1dfAckyr63qEO+FVsWg/NEOXhLjJcgaXFccaLA1mdUSR8UQqpDQFTHgyeqMZXT0meA9LZ
+	cuKz12THpyRXF77lfMU2WYJ0KXKdlrVaQFyoIGsWXTw==
+X-Received: by 2002:a05:651c:545:b0:3ac:41ca:1104 with SMTP id
+ 38308e7fff4ca-3ac9cd18eb6mr6038071fa.0.1793199432903; Wed, 28 Oct 2026
+ 07:57:12 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 09:57:11 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 28 Oct 2026 09:57:11 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <179319850512.1175157.6497185322070247884@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -74,71 +64,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdUYXn_tZ8r5Her0y-TYfN3qd3DZ0JH1N3_fmEUHh4e0xw@mail.gmail.com>
+References: <20261026082549.662885-1-dmanresa@gmail.com> <179319850512.1175157.6497185322070247884@gmail.com>
+Date: Wed, 28 Oct 2026 09:57:11 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Me+YxMji7N2o3iksh-1ZC_ruBsQpxh_xktbHFkeZBxDqg@mail.gmail.com>
+X-Gm-Features: AclHuK_0nUuHwOQ1NO522yTX8cvpHIe2hJ_RPxWSJ1He1R9EGj-tAd3Drrug8pY
+Message-ID: <CAMRc=Me+YxMji7N2o3iksh-1ZC_ruBsQpxh_xktbHFkeZBxDqg@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] media: ipu-bridge: survive module unload and reuse
+ the software nodes on rebind
+To: "D. Manresa" <dmanresa@gmail.com>
+Cc: linux-media@vger.kernel.org, Eduardo Ruiz Duarte <toorandom@gmail.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Hans de Goede <johannesgoede@oss.qualcomm.com>, Dan Scally <danscally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Fernando Rimoli <fernandorimoli11@gmail.com>, 
+	Sergey Lebedev <lsauz@pm.me>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 28, 2026 at 10:47:37AM +0100, Geert Uytterhoeven wrote:
-> Hi Jacopo,
+On Wed, 28 Oct 2026 15:41:45 +0100, "D. Manresa" <dmanresa@gmail.com> said:
+> Hello,
 >
-> On Wed, 28 Oct 2026 at 10:28, Jacopo Mondi
-> <jacopo.mondi@ideasonboard.com> wrote:
-> > On Wed, Oct 28, 2026 at 09:38:05AM +0100, Linus Walleij wrote:
-> > > On Tue, Oct 27, 2026 at 7:39 PM Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> > > > The driver uses Runtime PM, but I see no calls to
-> > > > pm_runtime_resume_and_get()?
-> > >
-> > > It gets grabbed in *params.c and *stats.c:
-> >
-> > pm_runtime_resume_and_get() is called in the .start_streaming handler
-> > for all video nodes (capture, params and stats)
+> Eduardo, Andy, Bart: an apology, and a caveat on this series that comes
+> out of your thread.
 >
-> OK, but not from .probe(), which does hardware initialization
-> before that?
+> The cover letter above says that the asymmetry underneath 2/2 is in
+> drivers/base rather than in the bridge, and ends by offering to send a
+> fix for software_node_notify() "if it should be balanced there instead".
+> I wrote that without noticing that Eduardo had already reported exactly
+> this on 11 October, with a reproducer and a splat:
+>
+>   https://lore.kernel.org/linux-media/20261011131518.48838-1-toorandom@gmail.com/
+>
+> that Andy had pointed it at the core two days later, and that Bart had
+> answered on the 15th that it looks like a bug in swnode.c and that he
+> would send a fix proposal. That was on the list I was posting to, eleven
+> days before I posted. I should have cited it instead of presenting the
+> observation as mine, and the offer at the end of my cover was redundant
+> with Bart's. Sorry for the noise.
+>
+> The analysis in that thread still holds on current mainline, for what it
+> is worth: the code it quotes predates c393ef0741d4 ("software node:
+> provide wrappers around kobject_get/put()"), so the calls now read
+> swnode_get()/swnode_put(), but both are plain passthroughs to
+> kobject_get()/kobject_put() and nothing else moved. The put in
+> software_node_notify_remove() is still outside the "if (swnode->managed)"
+> block, and dev_to_swnode() still resolves dev_fwnode(dev) and then its
+> ->secondary, which is what makes the two sides unbalanced: at device_add()
+> time a device that has no secondary fwnode yet gives NULL and
+> software_node_notify() returns before its swnode_get(), while at
+> device_del() the secondary is set, dev_to_swnode() resolves, and the
+> swnode_put() runs.
+>
+> Now the caveat, which is the part that actually matters for this series.
+>
+> 2/2 depends on that imbalance on purpose. The reuse path keeps the
+> reference that software_node_find_by_name() returns, instead of dropping
+> it, precisely so that there is something for the unmatched swnode_put()
+> to consume on the next device_del(). That is what makes the count flat
+> across a PCI remove/rescan cycle (4 -> 3 on remove, back to 4 on bind,
+> over 16 cycles) rather than losing one per cycle.
+>
+> So if the core put becomes balanced, 2/2 as posted leaks one reference
+> per remove/rescan cycle and the IPU node is never freed. Eduardo's patch
+> is in the same position for the same reason: its fwnode_handle_get()
+> before set_secondary_fwnode() has no counterpart once the core stops
+> putting what it never got. Both are compensations for one core bug, at
+> two different sites, and whichever core fix lands should take both of
+> them with it.
+>
+> They do not collide textually: Eduardo's hunk is in
+> ipu_bridge_instantiate_ivsc(), on the mei-csi device, and mine is in
+> ipu_bridge_init(), on the IPU PCI device.
+>
+> Sakari, Hans: given the above, I would rather you did not apply 2/2 as
+> it stands. 1/2 is independent of all this and can go on its own. I am
+> happy to rework 2/2 on top of whatever lands in swnode.c, or to drop it
+> if the core fix makes it unnecessary.
+>
+> Bart, if you have a proposal in a tree somewhere I can run it on the
+> Surface Pro 7+ that produced the numbers above: three sensors on IPU6
+> across PCI remove/rescan cycles, with a module that reads the node's
+> kobject reference count directly. The machine is being given away in a
+> few days, so that offer has a short fuse; after that I have no IPU6
+> hardware and someone else would have to.
 
-The driver doesn't depend or select PM (to be honest, I don't see why
-we would run without PM these days, but that's how things are the
-moment).
+Yes, I've sent a series[1]. So far no reviews but please leave your Tested-by
+under this thread if you could.
 
-So the peripheral is manually powered up and pm_runtime enabled in
-'active' state
-
-static int mali_c55_probe(struct platform_device *pdev)
-{
-
-	ret = __mali_c55_power_on(mali_c55);
-	if (ret)
-		return dev_err_probe(dev, ret, "failed to power on\n");
-
-	ret = mali_c55_check_hwcfg(mali_c55);
-	if (ret)
-		goto err_power_off;
-
-	ret = mali_c55_init_context(mali_c55, res);
-	if (ret)
-		goto err_power_off;
-
-	mali_c55->media_dev.dev = dev;
-
-	pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-	pm_runtime_use_autosuspend(&pdev->dev);
-	pm_runtime_set_active(&pdev->dev);
-	pm_runtime_enable(&pdev->dev);
-
-If that wasn't the case, the driver would have failed to identify the
-peripheral and would have bailed out in mali_c55_check_hwcfg()
-
-
+And yes: with the driver core change merged, the code in media should not be
+changed as it will lead to a reference leak instead.
 
 >
-> Gr{oetje,eeting}s,
+> Assisted-by: LLM
 >
->                         Geert
->
-> --
-> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
->
-> In personal conversations with technical people, I call myself a hacker. But
-> when I'm talking to journalists I just say "programmer" or something like that.
->                                 -- Linus Torvalds
+
+Does this mean you had an agent write this email? This would explain why it's
+way too long for what it needs to say. :( I have nothing against using LLMs
+for writing code and reviews but would appreciate it if we could keep human
+interaction, well... human.
+
+Thanks,
+Bartosz
+
+[1] https://lore.kernel.org/all/20261023-swnode-dev-notify-balance-v2-0-948d920a79f6@oss.qualcomm.com/
