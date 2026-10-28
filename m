@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793158876;
-	b=g7FXRzcyB2ak1FDZRl4+LbXpbBvJTvm75l9cx6I8LpKT7LlW6dyEsYMxm9J9GMQjKp5u
-	 r01Z8ne8ob0aPOk3L9Uh1OYaH+GSOvwsxWRX16Ac11E0sh/wWFTOAQaL3G9wihRpKVm2c
-	 unZDghxCeQGanFBjFxfAocIKJ8Rf9xMaf4or/1L5FyZj9QninjfOzy9HiMrhp697LSaJe
-	 QSCxgE+erNCin+hcTlSfCjLBneOFuYEfiweTShUZlpe9HBzSwUUygaOtOM2uvUAyXNwN8
-	 ++zKlNfUgaNVwjbMqsVQeQCmf4jsmuIzjZ8tzoR2xJooE/0VdCjjPOfiQWngIRFgGAg==
+	b=wtOMBxmScmO9dz2l4xEW2hvdkzm+jELnKTxHf2tcqX26JnwPUcQiBilwl/XJdSPjeKVa
+	 CS7bQ33WzTJZdr2/3KLK/WM02tukWFimcP+aHyhKQUdttdUymCo76/PUZiH7eLMkg3X52
+	 E7JsPvyrwPxoXRTjEcu7bQueQSoK6XqREd9uErZetT44d3kEcjK0RTfYauTQ5ArcUDpvk
+	 b7E33okl13r/Z5o6J0cMf8p029QndpDyyyyEbFyHoYYSTH3tk9ZzAX2KPXYqjVg2pOW9p
+	 tiESNUcxbZPVW7aQXHqnFcrr8B+9zjD9XaDo3sozUvrOG/OFOD3v12SuxftGE6iQRrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793158876;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=3vxwTI1S9uj30Tr0EOivKuiBwaqKNoCCtJyCkbtIGZg=;
-	b=ea0lLHZ8AHdM6ZzqJkA7ReNWpKFQijckNBRUHJQcVep7ztJElnvrWaTMydYMddp57znQ
-	 AZMbKJ7//hGa+0B5tuthockl9edJ31xtWy+orfU93XPqDK1XR5pAftx0zwFPHh+kWoQYo
-	 Kjh03g5Uyq5ywuUQyspKeHXNeQbqkjsizrtxnkblHg95Gx3q54uuwV/FHJg0dDg653Gc9
-	 hxmzHFgVz+Mv6d3PBuanFrIVBDwULwnP9fWef2PmCkRZmQN8asprqn1ehBX86701T5mH2
-	 cNF43M43ZLv/k3NUxZG5J3p6ho0oO4OFDNmKsxUYQHA1d2I1gpTpr1oaaN26vyz+R4Q==
+	bh=UoIZl448FJJkqJPP3ijtv3pIg6dmLp5Be/uRBZcH2Mw=;
+	b=neVVWpu1YkY/8FeRPOlcX++o88fnlRdo4KdK9pGzLc0s94QlzRWMBfCKKkAv7EJvQNhy
+	 +lgm3D6tHNk/2+xY5l4cqA+excXnaAmlRibQmYsKenL2Jc1ImRQZ1w3/5TZ76+xsPvudC
+	 3OuC0gZLvY7A+eOU3BkJz0uKbG+S9TFpNADuQgujBWBufL/i2rxv/zmF95MWPczveYAfe
+	 FgOfGQ99+F2fTksV5/evENp8AJTv85aNIxhR3FdhppM9jUOZ7Zd/v2fqHDMKDWYOPcWOk
+	 8mWlVaHW+fWZXIS9jDGQ7CMrfZCRKVOg2jPBn+VcLJwgiZQYTJt2UbCFfoZ1M3lgZvw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="nkVWX/zk";
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ZUL+szct;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F7D9606A325;
-	Wed, 28 Oct 2026 03:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F7D9606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38DD6606A31A;
+	Wed, 28 Oct 2026 03:41:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38DD6606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=nkVWX/zk
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ZUL+szct
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=3vxwTI1S9uj30Tr0EOivKuiBwaqKNoCCtJ
-	yCkbtIGZg=; b=nkVWX/zkHjL3Wie7arnp3jKkvlh95CyYboLyRo9XL0NBtf6eOg
-	vs1wxGTM5vQHdJJjo2YphdX1gyxhVeW8k7Ow04Qpyp/wN1EDAW6l9YfjIoxvzABK
-	E7DtYb883YyXbsKLk1qDy5A7sRYOXo6JNDDYx0AAkVLDP5qDEguSpf8RA=
+	Content-Transfer-Encoding; bh=UoIZl448FJJkqJPP3ijtv3pIg6dmLp5Be/
+	uRBZcH2Mw=; b=ZUL+szctEaB4d/NHNvDONovnLlsX0oPZszgNQJHFynnOUqsCR9
+	ODe437MkBLzTApovgVbEt8Hxe+EoisTVMjcDz6VD2VPvvj5ueRLLuhKwP7JFMY7p
+	XVr0DCD32PV/FYMPs05oibsWb8956pbEpMRCewwW2uQWQjIa0vT9GCrJ8=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S3;
-	Wed, 28 Oct 2026 11:41:07 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S7;
+	Wed, 28 Oct 2026 11:41:09 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -54,9 +54,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/9] dt-bindings: media: add the Qualcomm SM8750 camera subsystem
-Date: Wed, 28 Oct 2026 11:40:57 +0800
-Message-ID: <20261028034105.326535-2-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 5/9] media: camss: csid: report frame starts from CSID
+Date: Wed, 28 Oct 2026 11:41:01 +0800
+Message-ID: <20261028034105.326535-6-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -70,476 +70,266 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3Zw48Wr1UAr47Jr13XFy3twb_yoWkJryrpF
-	Z3CFW8Gr4xtry5ua1UC3WxJF13Jan5u3WrAr97XFy3tFZ7KF4jqw42kw1F9F15GFykXa42
-	vF15WryxtFWYyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S7
+X-Coremail-Antispam: 1UD129KBjvJXoW3Jw4ktFWDGw4kXry8Cw1xKrg_yoWfZw4rpF
+	WkK3sIkr45XF47uw17Jw1UZF4aywnY9ayjkrWkA34S9w15Kry7tF4xKFy5try5Cryqk3W3
+	Ar4UtayUua13uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmCb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
-	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCa
-	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
-	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
-	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
-	cSsGvfC2KfnxnUUI43ZEXa7IUYrcTPUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABFsM
+	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI
+	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
+	87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
+	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
+	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI
+	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7
+	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
+	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07br_-QUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABJsA
 
-SM8750 has six CSIPHY instances, two full and two lite CSIDs, and two
-full plus one lite VFEs behind one camera subsystem.  Document the node
-with the register ranges, clocks, interconnects, power domains and the
-sub-block layout of that SoC.
+The CSID of generation 980 moves the capture interrupts away from the VFE:
+that VFE has no useful interrupt sources, and the CSID reports RDI buffer
+done, register update completion and CAMIF start-of-frame per CSI2 stream
+instead.
+
+A buffer is only complete once its frame started, and the sequence number
+of a frame is defined by its start: turn the CSID start-of-frame interrupt
+into the frame start source.  camss_frame_start() forwards it to the
+paired VFE, which raises V4L2_EVENT_FRAME_SYNC on the video node,
+increments the sequence only there, and marks buffers done before their
+frame started as erroneous.  A start-of-frame may also follow an as-yet
+unhandled completion, so the end-of-frame and start-of-frame timestamps are
+compared and the completion reported first in that case.
+
+Hardware generations that still report frame starts through the VFE keep
+the previous behaviour, as the new vfe_hw_ops callback is only provided by
+VFE implementations that need it.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../bindings/media/qcom,sm8750-camss.yaml     | 435 ++++++++++++++++++
- 1 file changed, 435 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
+ .../platform/qcom/camss/camss-csid-980.c      | 25 +++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c | 54 ++++++++++++++++++-
+ drivers/media/platform/qcom/camss/camss-vfe.h |  3 ++
+ drivers/media/platform/qcom/camss/camss.c     | 12 +++++
+ drivers/media/platform/qcom/camss/camss.h     |  1 +
+ 5 files changed, 94 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
-new file mode 100644
-index 000000000..e0e0722a8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/qcom,sm8750-camss.yaml
-@@ -0,0 +1,435 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/qcom,sm8750-camss.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/platform/qcom/camss/camss-csid-980.c b/drivers/media/platform/qcom/camss/camss-csid-980.c
+index 45f3b3786..8acc1efea 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid-980.c
++++ b/drivers/media/platform/qcom/camss/camss-csid-980.c
+@@ -108,6 +108,7 @@
+ #define CSID_CSI2_RDIN_IRQ_CLEAR(rdi) \
+ 	((csid_is_lite(csid) ? 0xF4 : 0x11C) + 0x10 * (rdi))
+ #define		INFO_RUP_DONE				BIT(23)
++#define		INFO_CAMIF_SOF				BIT(4)
+ #define CSID_RDI_TOP_IRQ(rdi)		BIT((csid_is_lite(csid) ? 8 : 16) + (rdi))
+ #define CSID_RDI_IRQ_PATTERN(rdi) \
+ 	((csid_is_lite(csid) ? 0x548 : 0xE50) + (csid_is_lite(csid) ? 0x100 : 0x200) * (rdi))
+@@ -295,6 +296,8 @@ static void csid_configure_stream(struct csid_device *csid, u8 enable)
+ 		if (csid->phy.en_vc & BIT(i)) {
+ 			u32 mask = readl(csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
+ 
++			writel(INFO_CAMIF_SOF, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
++			mask = enable ? mask | INFO_CAMIF_SOF : mask & ~INFO_CAMIF_SOF;
+ 			writel(mask, csid->base + CSID_CSI2_RDIN_IRQ_MASK(i));
+ 			mask = readl(csid->base + CSID_TOP_IRQ_MASK);
+ 			mask = enable ? mask | CSID_RDI_TOP_IRQ(i) : mask & ~CSID_RDI_TOP_IRQ(i);
+@@ -327,6 +330,18 @@ static void csid_subdev_reg_update(struct csid_device *csid, int port_id,
+ 		__csid_aup_update(csid, port_id);
+ }
+ 
++static u64 csid_read_timestamp(struct csid_device *csid, u32 offset)
++{
++	u32 hi, lo;
 +
-+title: Qualcomm SM8750 Camera Subsystem (CAMSS)
++	do {
++		hi = readl(csid->base + offset + 4);
++		lo = readl(csid->base + offset);
++	} while (hi != readl(csid->base + offset + 4));
 +
-+maintainers:
-+  - Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
++	return (u64)hi << 32 | lo;
++}
 +
-+description:
-+  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+ /**
+  * csid_isr - CSID module interrupt service routine
+  * @irq: Interrupt line
+@@ -359,6 +374,16 @@ static irqreturn_t csid_isr(int irq, void *dev)
+ 			if (val & INFO_RUP_DONE)
+ 				csid_subdev_reg_update(csid, i, true);
+ 
++			if (val & INFO_CAMIF_SOF) {
++				/* A new SOF may follow an as-yet unhandled completion. */
++				if (done && csid_read_timestamp(csid, CSID_RDI_EOF_TS(i)) <
++				    csid_read_timestamp(csid, CSID_RDI_SOF_TS(i))) {
++					camss_buf_done(csid->camss, csid->id, i);
++					done = false;
++				}
++				camss_frame_start(csid->camss, csid->id, i);
++			}
 +
-+properties:
-+  compatible:
-+    const: qcom,sm8750-camss
+ 			if (done)
+ 				camss_buf_done(csid->camss, csid->id, i);
+ 		}
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index d1b66033a..f42fc56e7 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -444,6 +444,34 @@ u32 vfe_hw_version(struct vfe_device *vfe)
+ 	return hw_version;
+ }
+ 
++void vfe_frame_start(struct vfe_device *vfe, int wm)
++{
++	struct v4l2_event event = { .type = V4L2_EVENT_FRAME_SYNC };
++	struct vfe_output *output;
++	struct vfe_line *line;
++	unsigned long flags;
 +
-+  dma-coherent: true
++	spin_lock_irqsave(&vfe->output_lock, flags);
++	if (vfe->wm_output_map[wm] == VFE_LINE_NONE)
++		goto out_unlock;
 +
-+  reg:
-+    maxItems: 19
++	line = &vfe->line[vfe->wm_output_map[wm]];
++	output = &line->output;
++	if (output->state != VFE_OUTPUT_ON)
++		goto out_unlock;
 +
-+  reg-names:
-+    items:
-+      - const: csid0
-+      - const: csid1
-+      - const: csid2
-+      - const: csid_lite0
-+      - const: csid_lite1
-+      - const: csiphy0
-+      - const: csiphy1
-+      - const: csiphy2
-+      - const: csiphy3
-+      - const: csiphy4
-+      - const: csiphy5
-+      - const: csitpg0
-+      - const: csitpg1
-+      - const: csitpg2
-+      - const: vfe0
-+      - const: vfe1
-+      - const: vfe2
-+      - const: vfe_lite0
-+      - const: vfe_lite1
++	/* Count frames even when there is no buffer available for capture. */
++	event.u.frame_sync.frame_sequence = output->sequence++;
++	output->frame_started = true;
++	spin_unlock_irqrestore(&vfe->output_lock, flags);
 +
-+  clocks:
-+    maxItems: 35
++	v4l2_event_queue(line->subdev.devnode, &event);
++	return;
 +
-+  clock-names:
-+    items:
-+      - const: camnoc_nrt_axi
-+      - const: camnoc_rt_axi
-+      - const: cpas_ahb
-+      - const: cpas_fast_ahb
-+      - const: cpas_vfe0
-+      - const: cpas_vfe1
-+      - const: cpas_vfe2
-+      - const: cpas_vfe_lite
-+      - const: csid
-+      - const: csid_csiphy_rx
-+      - const: csiphy0
-+      - const: csiphy0_timer
-+      - const: csiphy1
-+      - const: csiphy1_timer
-+      - const: csiphy2
-+      - const: csiphy2_timer
-+      - const: csiphy3
-+      - const: csiphy3_timer
-+      - const: csiphy4
-+      - const: csiphy4_timer
-+      - const: csiphy5
-+      - const: csiphy5_timer
-+      - const: gcc_axi_hf
-+      - const: gcc_axi_sf
-+      - const: vfe0
-+      - const: vfe0_fast_ahb
-+      - const: vfe1
-+      - const: vfe1_fast_ahb
-+      - const: vfe2
-+      - const: vfe2_fast_ahb
-+      - const: vfe_lite
-+      - const: vfe_lite_ahb
-+      - const: vfe_lite_cphy_rx
-+      - const: vfe_lite_csid
-+      - const: qdss_debug_xo
++out_unlock:
++	spin_unlock_irqrestore(&vfe->output_lock, flags);
++}
 +
-+  interrupts:
-+    maxItems: 16
+ /*
+  * vfe_buf_done - Process write master done interrupt
+  * @vfe: VFE Device
+@@ -478,7 +506,13 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ 	}
+ 
+ 	ready_buf->vb.vb2_buf.timestamp = ts;
+-	ready_buf->vb.sequence = output->sequence++;
++	if (ops->frame_start) {
++		ready_buf->vb.sequence = output->sequence - 1;
++		if (!output->frame_started)
++			state = VB2_BUF_STATE_ERROR;
++	} else {
++		ready_buf->vb.sequence = output->sequence++;
++	}
+ 
+ 	index = 0;
+ 	output->buf[0] = output->buf[1];
+@@ -544,6 +578,7 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 	output->state = VFE_OUTPUT_ON;
+ 
+ 	output->sequence = 0;
++	output->frame_started = false;
+ 	output->wait_reg_update = 0;
+ 	reinit_completion(&output->reg_update);
+ 
+@@ -1972,8 +2007,23 @@ static int vfe_link_setup(struct media_entity *entity,
+ 	return 0;
+ }
+ 
++static int vfe_subscribe_event(struct v4l2_subdev *sd, struct v4l2_fh *fh,
++			       struct v4l2_event_subscription *sub)
++{
++	struct vfe_line *line = v4l2_get_subdevdata(sd);
++	struct vfe_device *vfe = to_vfe(line);
 +
-+  interrupt-names:
-+    items:
-+      - const: csid0
-+      - const: csid1
-+      - const: csid2
-+      - const: csid_lite0
-+      - const: csid_lite1
-+      - const: csiphy0
-+      - const: csiphy1
-+      - const: csiphy2
-+      - const: csiphy3
-+      - const: csiphy4
-+      - const: csiphy5
-+      - const: vfe0
-+      - const: vfe1
-+      - const: vfe2
-+      - const: vfe_lite0
-+      - const: vfe_lite1
++	if (!vfe->res->hw_ops->frame_start ||
++	    sub->type != V4L2_EVENT_FRAME_SYNC || sub->id)
++		return -EINVAL;
 +
-+  interconnects:
-+    maxItems: 4
++	return v4l2_event_subscribe(fh, sub, 16, NULL);
++}
 +
-+  interconnect-names:
-+    items:
-+      - const: ahb
-+      - const: hf_mnoc
-+      - const: sf_mnoc
-+      - const: sf_icp_mnoc
+ static const struct v4l2_subdev_core_ops vfe_core_ops = {
+ 	.s_power = vfe_set_power,
++	.subscribe_event = vfe_subscribe_event,
++	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
+ };
+ 
+ static const struct v4l2_subdev_video_ops vfe_video_ops = {
+@@ -2080,6 +2130,8 @@ int msm_vfe_register_entities(struct vfe_device *vfe,
+ 		v4l2_subdev_init(sd, &vfe_v4l2_ops);
+ 		sd->internal_ops = &vfe_v4l2_internal_ops;
+ 		sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++		if (vfe->res->hw_ops->frame_start)
++			sd->flags |= V4L2_SUBDEV_FL_HAS_EVENTS;
+ 		if (i == VFE_LINE_PIX && vfe->res->is_lite == false)
+ 			snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d_%s",
+ 				 MSM_VFE_NAME, vfe->id, "pix");
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index c402ef170..621eee07d 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -77,6 +77,7 @@ struct vfe_output {
+ 	};
+ 	enum vfe_output_state state;
+ 	unsigned int sequence;
++	bool frame_started;
+ 
+ 	int wait_reg_update;
+ 	struct completion sof;
+@@ -118,6 +119,7 @@ struct vfe_hw_ops {
+ 			     struct vfe_line *line);
+ 	void (*vfe_wm_stop)(struct vfe_device *vfe, u8 wm);
+ 	void (*vfe_buf_done)(struct vfe_device *vfe, int port_id);
++	void (*frame_start)(struct vfe_device *vfe, int port_id);
+ 	void (*vfe_wm_update)(struct vfe_device *vfe, u8 wm, u32 addr,
+ 			      struct vfe_line *line);
+ };
+@@ -286,6 +288,7 @@ int vfe_enable_v2(struct vfe_line *line);
+  * @wm: Write master id
+  */
+ void vfe_buf_done(struct vfe_device *vfe, int wm);
++void vfe_frame_start(struct vfe_device *vfe, int wm);
+ 
+ /*
+  * vfe_get_output_v2 - Get vfe output line
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index 2123f6388..92d536986 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -5044,6 +5044,18 @@ void camss_buf_done(struct camss *camss, int hw_id, int port_id)
+ 	}
+ }
+ 
++void camss_frame_start(struct camss *camss, int hw_id, int port_id)
++{
++	struct vfe_device *vfe;
 +
-+  iommus:
-+    maxItems: 1
++	if (hw_id < 0 || hw_id >= camss->res->vfe_num || port_id < 0)
++		return;
 +
-+  power-domains:
-+    items:
-+      - description:
-+          IFE0 GDSC - Global Distributed Switch Controller for IFE0.
-+      - description:
-+          IFE1 GDSC - Global Distributed Switch Controller for IFE1.
-+      - description:
-+          IFE2 GDSC - Global Distributed Switch Controller for IFE2.
-+      - description:
-+          Titan GDSC - Global Distributed Switch Controller for the entire camss.
++	vfe = &camss->vfe[hw_id];
++	if (port_id < vfe->res->line_num && vfe->res->hw_ops->frame_start)
++		vfe->res->hw_ops->frame_start(vfe, port_id);
++}
 +
-+  power-domain-names:
-+    items:
-+      - const: ife0
-+      - const: ife1
-+      - const: ife2
-+      - const: top
-+
-+  vdd-csiphy0-0p9-supply:
-+    description:
-+      Phandle to a 0.9V regulator supply to CSIPHY0 core block.
-+
-+  vdd-csiphy0-1p2-supply:
-+    description:
-+      Phandle to a 1.2V regulator supply to CSIPHY0 pll block.
-+
-+  vdd-csiphy1-0p9-supply:
-+    description:
-+      Phandle to a 0.9V regulator supply to CSIPHY1 core block.
-+
-+  vdd-csiphy1-1p2-supply:
-+    description:
-+      Phandle to a 1.2V regulator supply to CSIPHY1 pll block.
-+
-+  vdd-csiphy2-0p9-supply:
-+    description:
-+      Phandle to a 0.9V regulator supply to CSIPHY2 core block.
-+
-+  vdd-csiphy2-1p2-supply:
-+    description:
-+      Phandle to a 1.2V regulator supply to CSIPHY2 pll block.
-+
-+  vdd-csiphy3-0p9-supply:
-+    description:
-+      Phandle to a 0.9V regulator supply to CSIPHY3 core block.
-+
-+  vdd-csiphy3-1p2-supply:
-+    description:
-+      Phandle to a 1.2V regulator supply to CSIPHY3 pll block.
-+
-+  vdd-csiphy4-0p9-supply:
-+    description:
-+      Phandle to a 0.9V regulator supply to CSIPHY4 core block.
-+
-+  vdd-csiphy4-1p2-supply:
-+    description:
-+      Phandle to a 1.2V regulator supply to CSIPHY4 pll block.
-+
-+  vdd-csiphy5-0p9-supply:
-+    description:
-+      Phandle to a 0.9V regulator supply to CSIPHY5 core block.
-+
-+  vdd-csiphy5-1p2-supply:
-+    description:
-+      Phandle to a 1.2V regulator supply to CSIPHY5 pll block.
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    description:
-+      CSI input ports.
-+
-+    patternProperties:
-+      "^port@[0-5]$":
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description:
-+          Input ports for receiving CSI data on CSIPHY 0-5.
-+
-+        properties:
-+          endpoint:
-+            $ref: video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+              bus-type:
-+                enum:
-+                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-+                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+
-+            required:
-+              - data-lanes
-+
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - interrupt-names
-+  - interconnects
-+  - interconnect-names
-+  - iommus
-+  - power-domains
-+  - power-domain-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,sm8750-gcc.h>
-+    #include <dt-bindings/clock/qcom,sm8750-camcc.h>
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interconnect/qcom,sm8750-rpmh.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        isp@ad27000 {
-+            compatible = "qcom,sm8750-camss";
-+
-+            reg = <0x0 0x0ad27000 0x0 0x2b00>,
-+                  <0x0 0x0ad2a000 0x0 0x2b00>,
-+                  <0x0 0x0ad2d000 0x0 0x2b00>,
-+                  <0x0 0x0ad6d000 0x0 0xa00>,
-+                  <0x0 0x0ad72000 0x0 0xa00>,
-+                  <0x0 0x0ada9000 0x0 0x2000>,
-+                  <0x0 0x0adab000 0x0 0x2000>,
-+                  <0x0 0x0adad000 0x0 0x2000>,
-+                  <0x0 0x0adaf000 0x0 0x2000>,
-+                  <0x0 0x0adb1000 0x0 0x2000>,
-+                  <0x0 0x0adb3000 0x0 0x2000>,
-+                  <0x0 0x0ad8b000 0x0 0x400>,
-+                  <0x0 0x0ad8c000 0x0 0x400>,
-+                  <0x0 0x0ad8d000 0x0 0x400>,
-+                  <0x0 0x0ac86000 0x0 0x10000>,
-+                  <0x0 0x0ac96000 0x0 0x10000>,
-+                  <0x0 0x0aca6000 0x0 0x10000>,
-+                  <0x0 0x0ad6e000 0x0 0x3000>,
-+                  <0x0 0x0ad73000 0x0 0x3000>;
-+            reg-names = "csid0",
-+                        "csid1",
-+                        "csid2",
-+                        "csid_lite0",
-+                        "csid_lite1",
-+                        "csiphy0",
-+                        "csiphy1",
-+                        "csiphy2",
-+                        "csiphy3",
-+                        "csiphy4",
-+                        "csiphy5",
-+                        "csitpg0",
-+                        "csitpg1",
-+                        "csitpg2",
-+                        "vfe0",
-+                        "vfe1",
-+                        "vfe2",
-+                        "vfe_lite0",
-+                        "vfe_lite1";
-+
-+            clocks = <&camcc CAM_CC_CAMNOC_NRT_AXI_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_AXI_CLK>,
-+                     <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-+                     <&camcc CAM_CC_CAM_TOP_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_TFE_0_MAIN_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_TFE_1_MAIN_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_TFE_2_MAIN_CLK>,
-+                     <&camcc CAM_CC_CAMNOC_RT_IFE_LITE_CLK>,
-+                     <&camcc CAM_CC_CSID_CLK>,
-+                     <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
-+                     <&camcc CAM_CC_CSIPHY0_CLK>,
-+                     <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY1_CLK>,
-+                     <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY2_CLK>,
-+                     <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY3_CLK>,
-+                     <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY4_CLK>,
-+                     <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
-+                     <&camcc CAM_CC_CSIPHY5_CLK>,
-+                     <&camcc CAM_CC_CSI5PHYTIMER_CLK>,
-+                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
-+                     <&gcc GCC_CAMERA_SF_AXI_CLK>,
-+                     <&camcc CAM_CC_TFE_0_MAIN_CLK>,
-+                     <&camcc CAM_CC_TFE_0_MAIN_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_TFE_1_MAIN_CLK>,
-+                     <&camcc CAM_CC_TFE_1_MAIN_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_TFE_2_MAIN_CLK>,
-+                     <&camcc CAM_CC_TFE_2_MAIN_FAST_AHB_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
-+                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
-+                     <&camcc CAM_CC_QDSS_DEBUG_XO_CLK>;
-+            clock-names = "camnoc_nrt_axi",
-+                          "camnoc_rt_axi",
-+                          "cpas_ahb",
-+                          "cpas_fast_ahb",
-+                          "cpas_vfe0",
-+                          "cpas_vfe1",
-+                          "cpas_vfe2",
-+                          "cpas_vfe_lite",
-+                          "csid",
-+                          "csid_csiphy_rx",
-+                          "csiphy0",
-+                          "csiphy0_timer",
-+                          "csiphy1",
-+                          "csiphy1_timer",
-+                          "csiphy2",
-+                          "csiphy2_timer",
-+                          "csiphy3",
-+                          "csiphy3_timer",
-+                          "csiphy4",
-+                          "csiphy4_timer",
-+                          "csiphy5",
-+                          "csiphy5_timer",
-+                          "gcc_axi_hf",
-+                          "gcc_axi_sf",
-+                          "vfe0",
-+                          "vfe0_fast_ahb",
-+                          "vfe1",
-+                          "vfe1_fast_ahb",
-+                          "vfe2",
-+                          "vfe2_fast_ahb",
-+                          "vfe_lite",
-+                          "vfe_lite_ahb",
-+                          "vfe_lite_cphy_rx",
-+                          "vfe_lite_csid",
-+                          "qdss_debug_xo";
-+
-+            interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 605 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 376 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 89 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 433 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 606 IRQ_TYPE_EDGE_RISING>,
-+                         <GIC_SPI 377 IRQ_TYPE_EDGE_RISING>;
-+            interrupt-names = "csid0",
-+                              "csid1",
-+                              "csid2",
-+                              "csid_lite0",
-+                              "csid_lite1",
-+                              "csiphy0",
-+                              "csiphy1",
-+                              "csiphy2",
-+                              "csiphy3",
-+                              "csiphy4",
-+                              "csiphy5",
-+                              "vfe0",
-+                              "vfe1",
-+                              "vfe2",
-+                              "vfe_lite0",
-+                              "vfe_lite1";
-+
-+            interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-+                             &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
-+                            <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
-+                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+                            <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
-+                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-+                            <&mmss_noc MASTER_CAMNOC_NRT_ICP_SF QCOM_ICC_TAG_ALWAYS
-+                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-+            interconnect-names = "ahb",
-+                                 "hf_mnoc",
-+                                 "sf_mnoc",
-+                                 "sf_icp_mnoc";
-+
-+            iommus = <&apps_smmu 0x1c00 0x00>;
-+
-+            power-domains = <&camcc CAM_CC_TFE_0_GDSC>,
-+                            <&camcc CAM_CC_TFE_1_GDSC>,
-+                            <&camcc CAM_CC_TFE_2_GDSC>,
-+                            <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+            power-domain-names = "ife0",
-+                                 "ife1",
-+                                 "ife2",
-+                                 "top";
-+
-+            vdd-csiphy0-0p9-supply = <&vreg_0p9_supply>;
-+            vdd-csiphy0-1p2-supply = <&vreg_1p2_supply>;
-+
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
-+
-+                port@0 {
-+                    reg = <0>;
-+
-+                    csiphy_ep0: endpoint {
-+                        data-lanes = <0 1>;
-+                        remote-endpoint = <&sensor_ep>;
-+                    };
-+                };
-+            };
-+        };
-+    };
+ /*
+  * camss_register_entities - Register subdev nodes and create links
+  * @camss: CAMSS device
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index ef45eea00..6a17ec027 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -178,6 +178,7 @@ int camss_vfe_get(struct camss *camss, int id);
+ void camss_vfe_put(struct camss *camss, int id);
+ void camss_delete(struct camss *camss);
+ void camss_buf_done(struct camss *camss, int hw_id, int port_id);
++void camss_frame_start(struct camss *camss, int hw_id, int port_id);
+ void camss_reg_update(struct camss *camss, int hw_id,
+ 		      int port_id, bool is_clear);
+ 
 
