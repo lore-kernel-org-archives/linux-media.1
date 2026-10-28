@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793181520;
-	b=oMmZ2w7xPgVwjh1ehzL403L/Wn0PRpCrz+6PfL3I/l/koma4sS9+/jQgpd60LiGzoRk6
-	 IHN5xzMXwjIKwOn4+egh770YiNOq1o+2aDwWaWQM9ZjP/9Hsg094hOAG80Y4OHGELQ+Ye
-	 zURv28gSZAwvu1x3/Q62gW4MNbszisBkbNahgYwgNnY+kDKlsid/VTRXFuMSINz0Smj8A
-	 +Ql6290x3wZQSBVq/Qd3ChM/X7UI/YPfs0cZx1FRwjdU0+0P7FIHNJAZIE5hm65yBrtaQ
-	 aJEunPW1oYge+f/DBftOz4pLd06tsNGzrAEa6+9Wgi4L9o8EnN49/xlvV3kgQgkQ+TA==
+	t=1793181617;
+	b=i8L8cHF3SdEsYNKCLso//5hccF9RYESJBzc8AIOBeSQF1+8eFS0KdGQuJDPEl5W3jizw
+	 EE0lIl2W7SsF2aOBowgdmA9RLBOxks5mynfOa8e81xUJQWaCpyd6o/Cyo4+PGknYpw9WV
+	 bK+yTHkPI+yzQ1Wm4pm6Gk5vdAxM6kjF99CoBNftTkqWNgsuvWOKFBc3e4X0e18M9vvq+
+	 i6BHovsS5PdOUkjVpzDjZPammnASZlR2/708wC+GQT+6YJu/A7/F/yuecHeCmmykf6osl
+	 QOWmhJ6atH9rcQVj14gIqfG3nl59hDL38XHHK3zqEUoYr+SJ00pYDrFO6yW2BdzUl6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793181520;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793181617;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=MupPZO+0cNzAw2UMt75TvJxigWXUI1JXRockTaGvT3g=;
-	b=d+mqPswWrtDGGpiJ3pURBeRxtjGPSs/kXJ50IaqYYcTOE4kUACoN22gSXP1XT5LKDsIl
-	 DcJF1XrA2G+HkNX/hpQ+9gav51jJocoCWrG4LX2v6i8WUZVEXsKiu7BJHe6YcQ2nlO3N3
-	 NPtOOfhT6OyW6RE08W2jCxkTqRohJUAfev3Bcceh2yJLky6m+7O+iPkMoQ6hzdMrw2u4d
-	 svB2bFPfm/Gp3t+C12vNDkY3DpCm6qKIyAnjh+1eQHRwi1MRYHFmnSRYalEjIj6ozrUPM
-	 9YM3Lv7i7+c4PQlVwGJjDBIY3bRpU4PblR0Jwudv5szXsYyJxU6KwElQB8dzFjqMiLQ==
+	bh=s5fN7zqfY0FT1clO7TLSZQSrDeAgwSiZ8frqUs18I+w=;
+	b=hVJXCkaWRUFyQVNcRWQI74Rz43USTeZXlfz2nRg6rM0NZn5Hv2DWedi975wtXCLxx/Yv
+	 Kh8LeCmMc2p/8myIB7VPgEn17fT6aE7kzquIE22fA1z7QlGWO0CeYo+jWU7sWMUYgowK4
+	 W9/u+mGVbbpPoovr1kW44eHlEv+VYI6a2J7N6eQtPBp14/SrUX5yprvTsB3bIxoqFrr4l
+	 EnSQPz9IdiitfROqZmKGp5UcP+faKh63VGqxZxIXIdnSKijuUKwrHRgKeANRwyu+Wxi+w
+	 BR32MGn1kA3Ze2pBzUvjQK4Jx8GjnlxLwizohWYRVoAUT/eEPXP4hM/VTS69Q4PyDdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InsMRDbI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VREr7TVD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09443606A335;
-	Wed, 28 Oct 2026 09:58:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F5D606A31D;
+	Wed, 28 Oct 2026 10:00:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=InsMRDbI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9881F01825;
-	Wed, 28 Oct 2026 09:58:37 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VREr7TVD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0894D1F01825;
+	Wed, 28 Oct 2026 10:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793181519;
-	bh=MupPZO+0cNzAw2UMt75TvJxigWXUI1JXRockTaGvT3g=;
+	s=k20260515; t=1793181616;
+	bh=s5fN7zqfY0FT1clO7TLSZQSrDeAgwSiZ8frqUs18I+w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=InsMRDbIjvCCpVYJK6h1JFyHQkVysACEIw/37HVT5zCy9l8HVOoB4jlgupwidmuZy
-	 +jRGWrM+XgVc8avmIjQ4iqC5Dfqj0Ju2WuYlpVEHIVz+tL5rNlBSFsrZlvdJwVjFlt
-	 5o1UDBiEYyh9EeBsVO4E2IqNL+yCo8ZuZ3xY0JE7V2jwlYzIl86aZ4mUIJAKJlFsUZ
-	 o4EdiU914pIOmgzvupPhSEt9Aybc4eaZP+k9F3kakDoxg7Rnt+RpJih0qcZRl8jMoH
-	 XmedBv5/lFmMw1Tu8gkw1FiIK4DpH2gl56I+vE1EbD/3fXi3k898eZe5Wpfpnhf3ob
-	 h/hWLM368Is+A==
-Message-ID: <58599b61-a56b-4d6b-b09f-03d813a64c1c@kernel.org>
-Date: Wed, 28 Oct 2026 09:58:35 +0000
+	b=VREr7TVD5CF7eXhkDuIrS0jvFsTToXJQ1D6dX3B9ctvGLS2GJDAfl+Llmut+NVSgC
+	 7xl+i8jOrBIOKUm+zj859JULbrB7CSAI4mdOEteaIGg8EAKlZBIPxFo0NhF8gW9dV5
+	 bQ0l80qDVMpSfIqycysPDfsaCPRe2YVRCmTvHGyv14A5HeHTH/9ZdXKwUXxkyDQR3O
+	 J6FjkPq9I6ws5p5CoJ5AKUCDRm0pMxWy9RQQYL8J122ss4rlDmHUCce/l1Jt73uaFb
+	 qKNvDLdJC49GBwGBynIKutNr5y+QFnaqFLfWwgrVaYxaOszFi0W0J6m9XRVH7S0D3f
+	 FT1YvbaeWI/DA==
+Message-ID: <6ae04312-5c60-40f9-8468-4cb0674c0949@kernel.org>
+Date: Wed, 28 Oct 2026 10:00:13 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,18 +52,15 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] phy: qcom-mipi-csi2: Add support for single
- power-domain SoCs
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- gjorgji.rosikopulos@oss.qualcomm.com,
- hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
- jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <ZW6-XDf5dgEFD66QI7ZA8WIK_alWTQD2RWolsXjlSql7pO5IUj9PM1T95LMfBd2Y3zKxRhDXXde1R4asZWzgKw==@protonmail.internalid>
- <20261028052047.2738893-1-anusha.nandi@oss.qualcomm.com>
+Subject: Re: [RFC PATCH v2 0/4] media: iris: decoder fixes for resolution
+ changes
+To: Christian Cortner <ccortner@gmail.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, Birk Skyum <birk.skyum@pm.me>,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <-D3aZIsoO4_H5CdnB-7Co7GWmm5F9FuU6aFuhXWogBXhfqNOaqC2Y8tkBxT9ljDcy84UAX1jmUWGl7NtGUG6Mg==@protonmail.internalid>
+ <20261028034335.26075-1-ccortner@gmail.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -109,24 +106,60 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261028052047.2738893-1-anusha.nandi@oss.qualcomm.com>
+In-Reply-To: <20261028034335.26075-1-ccortner@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 28/10/2026 05:20, Anusha Arun Nandi wrote:
-> -	if (ret < 0 || csi2phy->pd_list == NULL) {
-> -		if (ret == 0)
-> -			ret = -ENODEV;
-> +	if (ret < 0)
->   		return dev_err_probe(dev, ret, "Failed to attach power-domain list\n");
-> -	}
+On 28/10/2026 03:43, Christian Cortner wrote:
+> Four fixes for iris decoder problems at resolution changes, reworked
+> after Bryan's review of v1 [1]. There is no Signed-off-by from me,
+> since I'm not a kernel developer and can't vouch for the code; please
+> take over whatever is useful. An AI assistant wrote the code and the
+> logs (Assisted-by in each patch). I'm happy to test.
+> 
+> Tested on glymur (Zenbook A16, laptops tree 65f4ae73 with these four
+> and the iris patches listed in [2]): v4l2-compliance passes, and
+> GStreamer and a spec-following client decode bit-exact across
+> resolution changes. ffmpeg's h264_v4l2m2m still stops at the first
+> source change when it sets up CAPTURE early (problem 1 in [2]).
+> Build-tested on media-committers next with W=1, sparse and smatch.
+> 
+> Changes in v2:
+> - 1/4: shorter log, with the traced firmware flags (Bryan)
+> - 2/4: shorter log (Bryan)
+> - 3/4: one helper for the EOS check (Bryan)
+> - 4/4: comment states the 500 ms limit, no domain check, warn on
+>    timeout (Bryan)
+> - v1 5/5 dropped: too much for stable, and broken (Bryan)
+> 
+> [1] https://lore.kernel.org/linux-media/20261027021934.22113-1-ccortner@gmail.com/
+> [2] https://lore.kernel.org/linux-media/20261026160952.22082-1-ccortner@gmail.com/
+> 
+> Christian Cortner (4):
+>    media: iris: Don't flag an empty source change LAST buffer as an error
+>    media: iris: Update the CAPTURE stride and size on S_FMT(OUTPUT)
+>    media: iris: Signal V4L2_EVENT_EOS only at the end of a drain
+>    media: iris: Let a resolution change drain before stopping CAPTURE
+> 
+>   .../media/platform/qcom/iris/iris_buffer.c    | 26 +++++---
+>   .../media/platform/qcom/iris/iris_buffer.h    |  1 +
+>   .../qcom/iris/iris_hfi_gen2_response.c        |  7 ++-
+>   .../media/platform/qcom/iris/iris_instance.h  |  3 +
+>   drivers/media/platform/qcom/iris/iris_state.c |  8 ++-
+>   drivers/media/platform/qcom/iris/iris_vb2.c   | 26 ++++++--
+>   drivers/media/platform/qcom/iris/iris_vdec.c  | 61 ++++++++++---------
+>   drivers/media/platform/qcom/iris/iris_vidc.c  |  1 +
+>   8 files changed, 91 insertions(+), 42 deletions(-)
+> 
+> 
+> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+> --
+> 2.56.0
 
-Shouldn't this be
+Thank you for your bug report and suggested fixes.
 
-if (ret < 0 || ( csi2phy->soc_cfg->num_genpds > 1 && csi2phy->pd_list == 
-NULL) {
-
-i.e. you are dropping the NULL check for the case of multiple power-domains.
+I will mark is as under-review and ensure we do Closes: and 
+Suggested-by: with whatever lads upstream.
 
 ---
 bod
