@@ -1,61 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.209.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793199456;
-	b=UYdRMqj/DLbTVbsaAa+QlsOIANCxMo6dFZgaEV61dcNMZUHk3opVSZ/1PVRcSzas0QSA
-	 xKlvUPAjELRFJDQlvJHObFMHUxO/bd3o0pGE2WmFp7egmY9OaEwFKEMLYM0GxF9/QQIcp
-	 /pu8dpHfiWKfVsfFiCgHXYchzlloaNxIhAy8MIzmJGVKvN4Zc0auFZLysAofWti8EWo3n
-	 hV5gmKSAZbXtCAHmVZlPrhxtNVPxh3ukBmPfnV2ukvuZnGpkMHv423aNvZtL0mE0hpXTx
-	 BHlLp51NSt+0ExFzzIHgS/6dRW7LkIBAitbcB+p5kH1O7XUlurD91S7GcNS45m1VwRg==
+	t=1793199575;
+	b=Aw3keIbwWSAvpUAXb9HAWX734ml/BUPhudHo/XnwICSqAMpbAeMDKH0foUsn/27Uxy9e
+	 BhYhi9Vfpk2yWH1olK/1xkeeqzbsanjRTBPNOwLITZd+8o/b/u7G2fQEr4m+1vs7hA5+U
+	 LcIwfctcNPGrdQm+dViGif6dRl5ZjCLoe3NdK1S8p+r7P/Y2LUlrIXlFhN5db6IoL7dZM
+	 f4+YVN62RJtlYG3BFLs5FKWHj1RJKFZmU++y005owE5lg7BATIKlX6X5CeAhPCkMLnlNF
+	 LsjDzDorrYNsmwC27xJzy2zkeVb0Wet1lUU5EBjIslmhDd6c/BAsfX1msSehbwrLMkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793199456;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=mIGs1095/pi5A3phf200bT5vD03Lp1U81y8sX9m5/iA=;
-	b=cMPIFxQm5Mge4DMxTOWJzKb0mvqadpZmzImBmRomfm3kRuOr3ghP4nieN4PO9r3Xakf+
-	 rDdfuddHfY/MM3Ku9/1kP+yHSbarFtqzFYMMrTCznTylnU68hS+n7QPRARhTLa7C1+r2W
-	 t8bVNWOEWvcoS52n5RYImp00FnIbFS0zsHQ+LyLezsB4qgtKRuDkPb4gKky60U1ZUIEQR
-	 Sn4FEDdBxqLOTn94QE2gF7EPc7KQ0eGJsfeP8JrmeP7cc6eMsFjdqClCLdFSyKWE3KNpw
-	 QQpsVn4Cnl8I6Sc26jrvAyggTQ4lOsnaGBXk5kI0YwMrLHgn6Y0zClHjn3hBM/PrTNQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793199575;
+	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
+	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Tank-Harmony:
+	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:
+	 DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To:User-Agent;
+	bh=XE3Je+ocroISKFHAV5JHSwDyP53+LTrgvXdNFl0b/Vo=;
+	b=iKBWGhr3h446ontAcsDi3HE8+YNTJM893v1P/o0S5Fgfj9syMq/KqwEIN90i7fx36ADk
+	 bhmi+u8d2KZWTJjJA9RU63vV2/p1bLdJ0cqzbepMI0Djlq4gu+L/vRloh96/h4UTQWHXg
+	 YJJg+eSAXyQK7Z6T4sjUIrgDv/MnFZrn9pGQkR1cpP9BLyioR7ziCbOUvkZCwKLO06zrL
+	 Xa3acTfwLBPkqHMAq63XDhOPiFlKFvDvAjkeJLZ6NN2fAMfEUGstTv7k+3/gURK9sNt8k
+	 GNLaIPIkmE4ZLDyhwdH50wVD4lV4sh9pfS4G8jdMC1GTvc4iUOBa2Pd5KPEBIihIVjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jMdI/a00";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=stgolabs.net;
+	spf=fail smtp.mailfrom=stgolabs.net;
+	dkim=pass header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=GGaWa+Mw;
+	arc=none smtp.remote-ip=23.83.209.135
+Received: from olivedrab.birch.relay.mailchannels.net (olivedrab.birch.relay.mailchannels.net [23.83.209.135])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54988606A320
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:57:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF479606A31A
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:59:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF479606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMdI/a00
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BE31F031F3
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:57:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793199456;
-	bh=mIGs1095/pi5A3phf200bT5vD03Lp1U81y8sX9m5/iA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=jMdI/a00XCHeoltZkWKqXpcnERaff94e8hUKV8fOm4MaNY8O7y8prtqZlsS9V/TkO
-	 RKGsHZDgxOXPjYTyHI9CJivdGW0s6UtXpw76OxzGTPoDgIC7iHh9yHraCorypu9A24
-	 f13SbMaf8ehpJ1Vrn5gwEG45lQsOTRogifSRjAcKVDsVICaojZ3L6MiUauU5qEyNMj
-	 qdSbdcvGdfG5xCBzqJn0bcDbuYF1FWV3HjEfaA9067wejwOomt/ISv4QmQZPp64M9I
-	 2GQTCVbh2sJlrSjd6LsK2ctiDl2gbWRxESTSbGZXlkBjr7n38p7Qedfk5K1irUEH8I
-	 YCwFtpin54F8g==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a98fc80925so12202581fa.0
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 07:57:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzNMmUOjJ3yJjx8+CxJ0Cljl+eHuTMZpExVPdpMbM6QMpZFb5tfPoPCsIgYkV2TC+gRprXvjqYkzhXfZA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKxa2Jnws5v5jxujqeT0xSegkdvwyydJ6jfiMJUgT7nY3c8DSTr
-	ARd49NHmN1NNJHY/0TQ2sJQHRMLE4AV/zynGysytffKdhUi0TJF8z08sYzkwK3Kv3fjuzTLIulY
-	XlnPWK2NqjEMHGnYU9yLqDMjSSKyqYFveFXACsKomWA==
-X-Received: by 2002:a05:651c:1543:b0:3a9:d756:bfdd with SMTP id
- 38308e7fff4ca-3ac9cf1d2cdmr6179361fa.7.1793199454407; Wed, 28 Oct 2026
- 07:57:34 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 07:57:32 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 28 Oct 2026 07:57:32 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=GGaWa+Mw
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+	by relay.mailchannels.net (Postfix) with ESMTP id B933742AA0;
+	Wed, 28 Oct 2026 14:59:28 +0000 (UTC)
+Received: from pdx1-sub0-mail-a220.dreamhost.com (trex-green-7.trex.outbound.svc.cluster.local [100.96.16.126])
+	(Authenticated sender: dreamhost)
+	by relay.mailchannels.net (Postfix) with ESMTPA id 4EEF042727;
+	Wed, 28 Oct 2026 14:59:28 +0000 (UTC)
+X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
+X-MailChannels-Auth-Id: dreamhost
+X-Tank-Harmony: 78d2f747042e4d5d_1793199568528_2959092911
+X-MC-Loop-Signature: 1793199568528:3909109401
+X-MC-Ingress-Time: 1793199568528
+Received: from pdx1-sub0-mail-a220.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+	by 100.96.16.126 (trex/8.0.2);
+	Wed, 28 Oct 2026 14:59:28 +0000
+Received: from offworld (unknown [76.167.199.67])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dave@stgolabs.net)
+	by pdx1-sub0-mail-a220.dreamhost.com (Postfix) with ESMTPSA id 4jF9W359VYzYD;
+	Wed, 28 Oct 2026 07:59:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
+	s=dreamhost; t=1793199568;
+	bh=XE3Je+ocroISKFHAV5JHSwDyP53+LTrgvXdNFl0b/Vo=;
+	h=Date:From:To:Cc:Subject:Content-Type:Content-Transfer-Encoding;
+	b=GGaWa+MwRpGj+V0CBz4xbroyakBCHQenmvHnq/o7cQqoJrgM1qLdgSG9hhmj31gQb
+	 VG2lJrz6tgCacbSb49HP9NlBVrDdKfbK/yNf+qiog+J9XS2GDK3G3EwtMKV/Vna+fP
+	 67BgL4Rcd5b8XWWgG8fkEz2R8s/+zhyX//YLt/840k6U+4rXBhMPSLxVEg/RMocTYu
+	 ApIo5WpF5WO81u+Kz1OHrVlTdM92edipvDrBC9Rwuqp74L6ROIwDjUhdCC+OnyXCPI
+	 p5k5HrNcPS0Vl1IxgVp5iLANMmcsDtu2CX5R56JsnULeMwkYNVtFEbmIHANr2XkODq
+	 ZjxpCnl4cXSoA==
+Date: Wed, 28 Oct 2026 07:59:24 -0700
+From: Davidlohr Bueso <dave@stgolabs.net>
+To: Christian =?utf-8?B?S8Ovwr/CvW5pZw==?= <christian.koenig@amd.com>
+Cc: sumit.semwal@linaro.org, phasta@kernel.org,
+	benjamin.gaignard@collabora.com, jstultz@google.com,
+	tjmercier@google.com, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 0/2] dma-buf: system_heap: 2MB chunks on x86
+Message-ID: <20261028145924.5gcjfjbjd2ejgozt@offworld>
+References: <20260928195850.1982569-1-dave@stgolabs.net>
+ <20261007120745.bvhqqa6cowqnt3jc@offworld>
+ <52a82bea-3105-4bb5-a6e0-b1a0e3b808b3@amd.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,68 +94,21 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028120216.2657397-1-robh@kernel.org>
-Date: Wed, 28 Oct 2026 07:57:32 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Md2xhYPdUEQ2SeqiGq9uG1qcc9Hi77T4k3ta_wmd56BhQ@mail.gmail.com>
-X-Gm-Features: AclHuK-L3iqt92WsRHLJE8OI5aNBBhyNCiN5RHrPr_WcVOO_RomVfpU-3_RxU7E
-Message-ID: <CAMRc=Md2xhYPdUEQ2SeqiGq9uG1qcc9Hi77T4k3ta_wmd56BhQ@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Abhinav Kumar <quic_abhinavk@quicinc.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	freedreno@lists.freedesktop.org, imx@lists.linux.dev, 
-	dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org, 
-	linux-media@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, Bjorn Andersson <andersson@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>, Yinbo Zhu <zhuyinbo@loongson.cn>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Kevin Hilman <khilman@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Tiffany Lin <tiffany.lin@mediatek.com>, 
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Ryder Lee <ryder.lee@mediatek.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Christian Marangi <ansuelsmth@gmail.com>, Eric Anholt <eric@anholt.net>, 
-	Kuogee Hsieh <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>, 
-	Aakarsh Jain <aakarsh.jain@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <52a82bea-3105-4bb5-a6e0-b1a0e3b808b3@amd.com>
+User-Agent: NeoMutt/20220429
 
-On Wed, 28 Oct 2026 13:02:12 +0100, "Rob Herring (Arm)" <robh@kernel.org> said:
-> Property names within if/then schemas currently go unchecked whether
-> they have a type defined or match what's in the top-level schema. Adding
-> a check finds a number of instances of typos. The typos result in the
-> schema having no effect on constraints.
+On Wed, 28 Oct 2026, Christian K=EF=BF=BDnig wrote:
+
+>I've just pushed patch #1 to drm-misc-fixes.
+
+Thanks.
+
 >
-> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
-> exposed by the name correction.
->
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
->  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
->  .../bindings/display/msm/dp-controller.yaml          |  2 +-
->  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
->  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
->  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
+>I'm still wondering if #2 is actually optimal. From what I've heard only 2=
+MiB should be used and especially 64k doesn't make sense any more on modern=
+ HW.
 
-For GPIO:
-
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+I have no problem removing the 64k for x86 in v3.
