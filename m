@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793190620;
-	b=wB7kO72h2LEN5S53+5mNe50utPBmz8TsQiv7zq9kF8DM1gSZWLpqMNYUQf5K2rgWaQ/4
-	 Uoj6MF3FbOHiFHybH3XacC1wm8VBCkKP4wvV3w+mpeb2FSpEEmiw6QlsWD8YLdexWbtCY
-	 bp/SkT69X/yWh4CQgu4ZoSyUeoVPH/TP8OYbvqDtFYUKm5QHfPun2OpV4bNP6ZjWyW6MV
-	 6MKCjdt8vD1yMjmVQ/6SQY/Irqmh2JIUS5en+WfhYgLLWTxQKpH6uE+OsQDFj1u4DcGu7
-	 bSC60yHfFxuoXGJHnNkG4TXztgIJujy+4eSSSY2W/fRVYaH7pFhko+lHcucFLet9ZRw==
+	t=1793190740;
+	b=PIh6bsIqRqcZGnCkGA2zEO/ZSQYe/XAwMM6ufih0eyUL6Rt+etR1oNqYysHJQTYEsPim
+	 5IeJZPESKT+xlb5Ibt7BNT6SGNmDxIlOoCHdStFrk1h1C90Wj+nG98IUm0hzlezfJVGhr
+	 n64RxJ0Hp6eBVjMKqyTHDeCGeMflmfkDPPwPLtB2qJmnTekyPJjBAq/rZbpApslSJgvYv
+	 U/TBJCb7B/1OyPcQIePYo952eYygqExU80b1gtGXGdGwgqRSopJ2NrtDVryRk0Z1uxBxz
+	 p9W8Ww/E8SG/A5RzWOwCouPavDmIsNVukyy9ITbPjuBPw93IvdAZxL3GZQyz4vPRVKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793190620;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793190740;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=f3zvwFtXoRLmIuZbcTwtOqk4DHsl7Ag5Goosg4GIb78=;
-	b=A1QzaYi2h25qSUu1QnuTvP/ircrKd+bu2KcbXPzA5TT0o6TH/hF6/zB6Xr2NomWSV+n7
-	 ldxGQ8YUGMLjNbpNfqfsCKcaJaU1+FHuaxb2dqJkqACJ8mPVrwkfJH4nqMPsM3y5C5cPy
-	 lvSF/VRZHR0p6LLbbbgUcuQe+HOywPm0qmySM31qda5AHTws7G3hf2fk8k9RPUPIUjmsw
-	 M7f0N4BhuINaTZ6ckFb0uvBOeHVFHUbGaP2KSk4eZ0qsK+rX6jpyQWFlY3xMYknRU6PL9
-	 smnMFlqZxJ0spnMBPx7wQjYPvFhv0MpeLO2cL0f/9dqXNOhkUs7KsRmSCLzEWblQtwg==
+	bh=v9I8aBwYQiXna0K4b9R5EzdMw2Iyv8e6dSEyABp9uOI=;
+	b=LEaqsBqknH2sYB24hjqoubCnRD0b2tWOeOtX93G8Kx+ZtmTG7v+BLilkJQb8H9LBOJWZ
+	 aUpX9Pp8h+li93DkvP3DyYhbGJNlVMaEahUSCdj7eAqzygB87SDYakGIWjK49kkOSr7Ak
+	 FOrCgblNIEMzqioDTwzy4RXkSEKLfrcSQB8XzbLVi2lyp/IwbXq9DFNe3eoV1bJqwZE2r
+	 W2RR1PcrFf89OIck50BW/1t1oBF5ipQatu5uuwmd6gEP/DVXkCnTnc7gMq3WkQaivQPz2
+	 H/biYpeL8iyDh1Y3MbsapD27qhCWoHklZuTwlSWGS2VqA6CIzi79KttAHq1saA54sfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrLtIEJO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqH5FBNU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF9A606A31D;
-	Wed, 28 Oct 2026 12:30:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1AE606A31A;
+	Wed, 28 Oct 2026 12:32:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lrLtIEJO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A35CE1F01828;
-	Wed, 28 Oct 2026 12:30:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bqH5FBNU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3821F01828;
+	Wed, 28 Oct 2026 12:32:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793190620;
-	bh=f3zvwFtXoRLmIuZbcTwtOqk4DHsl7Ag5Goosg4GIb78=;
+	s=k20260515; t=1793190740;
+	bh=v9I8aBwYQiXna0K4b9R5EzdMw2Iyv8e6dSEyABp9uOI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lrLtIEJO3aOGm+W9qfoKDCPM9nPAzl/qXGkuhBCK92zhO1UZpUVyqigvG89qeGKAl
-	 8N7lguTVXGt3ulzhaC1QedPuNmbzKcNAxfrXMdPCdolHWPdOK+MHPAYkmiFbVvGWXV
-	 SVClED3CJ0j6ivz7aVab+2gqaUj9yVe7jWU8ATQ+o6mImw5+qkzcajfIZG3qVUbgIU
-	 gvKt3FHubrJsE0PVxmXacPn1C9vgHDQSgTRXfWLTi9hTs8XKge8xnzPFVFWkcC4U9Y
-	 YOrQrjchDlF0FIfNDwpuJ8i2MIS+8ngAjo79y7WFouwlBVM1fA69Tb3GCiWvOqUprg
-	 Zg8hhrc0fj2EQ==
-Message-ID: <84bc6332-1db6-4c9c-a956-51b76f96352a@kernel.org>
-Date: Wed, 28 Oct 2026 12:30:15 +0000
+	b=bqH5FBNUwWBoVI2G2c+7UPWAdL6oXWKWhvaa4sWh2CFSm7sZKUiyjNb9H665iWUU4
+	 ePEe5BBHybJYpWfOQF+bfkzuNp1/x2onspl99RhN64L6cAmIiW4gi0eTZ/j2blG/w0
+	 U5C7m6RIDXm/uw981ZGOMqRe9m/dMPaMgO5oc7bhQ3Ty8uW9MHa+jlSpqcSRQ1W3X3
+	 /27YzeNK1kPKZOUzJXICGQMCVJDnhMjXvMm5r7NhawV1EUAis0LfUbZWHfGw/o5BKu
+	 /7DCY019NQzFWsdYP0pJGcGATj0jiQJtq+GeKlI3XMXwfoTetzMMW1JqVMbMqNHX6/
+	 qo1zPIo8jk2+A==
+Message-ID: <0f436944-fa9a-49f9-ac1d-8779a36ab13d@kernel.org>
+Date: Wed, 28 Oct 2026 12:32:15 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,7 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/9] media: camss: csid: report frame starts from CSID
+Subject: Re: [PATCH v2 6/9] media: camss: video: check that a buffer is DMA
+ contiguous and add a prepare hook
 To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
  'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -63,8 +64,8 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
- <k2dZHJ94733JT5DJusl2nP9NvOh_j_-E6u4zAseXkHe8U1G3fkMGJbK6ZAN6r_hynH5O4Zsu20d0-0e69jXARA==@protonmail.internalid>
- <20261028093003.722745-6-xiaqinghuan@mail.ustc.edu.cn>
+ <aNP6BDdaIMVxdesvKY18R93EboeI2PlecN-rVQlfwEmM5q0sXv8D1LEtDOxZZ356tjWL-gFqH5nxl-CKK1uAMg==@protonmail.internalid>
+ <20261028093003.722745-7-xiaqinghuan@mail.ustc.edu.cn>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -110,26 +111,65 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20261028093003.722745-6-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261028093003.722745-7-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 28/10/2026 09:29, Qianhui Xu wrote:
-> +			if (val & INFO_CAMIF_SOF) {
-> +				/* A new SOF may follow an as-yet unhandled completion. */
-> +				if (done && csid_read_timestamp(csid, CSID_RDI_EOF_TS(i)) <
-> +				    csid_read_timestamp(csid, CSID_RDI_SOF_TS(i))) {
-> +					camss_buf_done(csid->camss, csid->id, i);
+On 28/10/2026 09:30, Qianhui Xu wrote:
+> The write master of the newer VFE generations can only be programmed with
+> a buffer whose payload is physically contiguous, because the frame
+> increment registers describe one linear address range.  Check that the DMA
+> mapping of every plane is contiguous for at least sizeimage bytes and
+> reject the buffer otherwise, instead of silently writing past the end of
+> the first scatterlist entry.
+> 
+> Also let the SoC code add its own alignment requirements to a queued
+> buffer through a new prepare_buffer() video operation, which runs after
+> the generic checks.
+> 
+> Signed-off-by: Qianhui Xu<xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>   .../media/platform/qcom/camss/camss-video.c    | 18 +++++++++++++++++-
+>   .../media/platform/qcom/camss/camss-video.h    |  1 +
+>   2 files changed, 18 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+> index 0852eb6f1..027cf024f 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -155,7 +155,10 @@ static int video_buf_init(struct vb2_buffer *vb)
+>   	const struct v4l2_pix_format_mplane *format =
+>   						&video->active_fmt.fmt.pix_mp;
+>   	struct sg_table *sgt;
+> -	unsigned int i;
+> +	struct scatterlist *sg;
+> +	dma_addr_t end;
+> +	unsigned int i, j;
+> +	size_t contiguous;
+> 
+>   	for (i = 0; i < format->num_planes; i++) {
+>   		sgt = vb2_dma_sg_plane_desc(vb, i);
+> @@ -163,6 +166,16 @@ static int video_buf_init(struct vb2_buffer *vb)
+>   			return -EFAULT;
+> 
+>   		buffer->addr[i] = sg_dma_address(sgt->sgl);
+> +		end = buffer->addr[i];
+> +		contiguous = 0;
+> +		for_each_sgtable_dma_sg(sgt, sg, j) {
+> +			if (sg_dma_address(sg) != end)
+> +				break;
+> +			contiguous += sg_dma_len(sg);
+> +			end += sg_dma_len(sg);
+> +		}
+> +		if (contiguous < format->plane_fmt[i].sizeimage)
+> +			return -EINVAL;
+>   	}
 
-SOF and buf done need not happen in the same interrupt and quite likely 
-won't.
+Is it really the case we can only do physically contiguous on sm8750 ?
 
-This logic can't hold over idle entry/exit scenarios.
+Hrmm, first I've heard of this, it would be a gigantic step backwards too.
 
-Also I think we need a different approach to latching qtime regs, generally.
-
-In fact let me follow up this email with a series to enable 
-V4L2_EVENT_FRAME_SYNC which is the right way IMO to latch SOF.
+Can you cite some sources to prove this out ?
 
 ---
 bod
