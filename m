@@ -1,100 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793213552;
-	b=tH9zR9SlZcQjpT5xoqqayDs9WybHaNtGAGc/TQtWiyjnvumxOEaVOXRr/WqsRT5HK9Zj
-	 TxjriwJF8WCre8S+Kb4ZgTdDQIf3VH6GnWwuH8yL+wNQk7ud+/qUNK1dn47J+rAtwDV7y
-	 hsVwtdjR3v+feZxS2IMhaBK1W/rkccOnXCFGoVhFkVNOcnJiUkfydK4VVuTbWzor0Yjci
-	 fxvJIHK4hw5/72B89PsgbHqyzBKs2t62KrTguIud4IkCljGcJ3QiGvLWxuUYUMQFyL2Ty
-	 72it13XTmkOwQDlMjhuF3fzQdQtMNU+BtJIzY72H7f+H58LC1uyIAMQRtk6Nhy3FxKQ==
+	t=1793217244;
+	b=mmHXEOfLvVC80L9JJfxo9LP6kPlaJ36KjVHs1B0d+jJ0jvzHuDiFTSpunJOwytqkSgqK
+	 fTZM8MvVQwFoSu7clQaCS7L0AsL3qgaytd2WDE6XAPT9zEEIqoOYpyVcifcv+PZOsxhH/
+	 YcEFA1fnyzaxggabDVwE4qk8JQaVQHo34uLMx2fDuk11o4B6TOqDL3DMXkhNalIhJRBNk
+	 Nvbox5zgWHVa3ZpbkPilQKck+AuYI8wGA/5E6SDuXsGdfI6fPWhEs+ignGfGi8obgMYZK
+	 TxzVNLz8tuC0gnrtjB+JJIpwsiOFQhtvJsYlyCg+gyFyEilR9Ira1r2yl0Ei+hlUe6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793213552;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793217244;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=0BEsHb9r/ZqDzu9FPC1kBx0oe94gE6mCVbWLiXY+XYs=;
-	b=Nnb4DHztS62Lu41TyIbH2uuUYANPEdj2Pv/T0NMkrKr+DWguV34Vi7Yao3hpjkwH1DbN
-	 kvPxfVEiO0JXJVneIATsR5ZZp40HZPgXu2rkJcplaiA+KIifEkQA+RqAVLWgWmwhCN8Vd
-	 zynA0o800UIJKLHPN9KHKdmA6+6p1TlApJ/VjYIWPDj0NDt7FEN/nnuG/1/Z25E+MqzEo
-	 lPVW+th/yvnTj6fdjNWH35DQ4Vj6AG2U1Yjsq578VBCUOJH6BfjwHuc5UVTv5Wl/dcOQd
-	 yzv9lUDx/GaHnhx6rx1M4UDzBa2V+oAhr2DRC02iA4/c3uzOCer3fmCyNHAeGIn3p5g==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:User-Agent:MIME-Version;
+	bh=U4Z20M5yrzVdkZ8pUfnazTFG6IRUwC17SyWpCdk396M=;
+	b=J4rwb4Eb24ezyBmyEJFeTcJ13GOJu4lvofIRcmsAN86u/E8rGFGR1W8C9VD23W/StHbs
+	 mXJqpaATbtm7MBt9wjkU+XkJ2X09SMS4naeud1f5fZ8AjbjKkqxqfi7uVFlXSxKMq6LzV
+	 RWG4g6BFf/sOU19hqIIwt7TqJxJgZ+3x+gLu7tFpSVeR4rRcvETCG7qwDDax8+VGk2bAD
+	 P9TkHejM2/4IER4HXteplDIGsXIgoJ1g7zP3LL97RGV8A+jV4Uywm8N6e3maqrUTtESjC
+	 X5c4gVDK79HLRO+MoL4cIA/SJcZDlE+JAKNg3eeE0EQ7bGYqXGf3H4oLZjFwQIRaOHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kerneltoast.com;
-	spf=pass smtp.mailfrom=kerneltoast.com;
-	dkim=pass header.d=kerneltoast.com header.i=@kerneltoast.com header.a=rsa-sha256 header.s=google header.b=Lu+FtGbL;
-	arc=none smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gA8NHJ+U;
+	arc=none smtp.remote-ip=74.125.230.193
+Received: from mail-qk2-f1.google.com (mail-qk2-f1.google.com [74.125.230.193])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97EA606A31C
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 18:52:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E97EA606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kerneltoast.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kerneltoast.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C18F1606A31E
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 19:53:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C18F1606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kerneltoast.com header.i=@kerneltoast.com header.a=rsa-sha256 header.s=google header.b=Lu+FtGbL
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-679334baa1fso1714050d50.2
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 11:52:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=gA8NHJ+U
+Received: by mail-qk2-f1.google.com with SMTP id d75a77b69052e-5332a0f6dbbso17566711cf.1
+        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 12:53:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kerneltoast.com; s=google; t=1793213550; x=1793818350; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793217238; x=1793822038; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0BEsHb9r/ZqDzu9FPC1kBx0oe94gE6mCVbWLiXY+XYs=;
-        b=Lu+FtGbLOGkDFrmG4LD06Eq2dbLYRKTP3mSbPtrWUrAaexIpL6XN0j7NR348Hb/q32
-         JvT86Lv4PZ5WHRy0RAtvCwdA+yDG9sU675DOv9Mb/mC2OZf8iIl+Hih+bzI/mjoLghDb
-         9DignMrctd+QcfrOLFl/bqKn2kt0xEwMB/bh5PJy+oWU1aodgoNxGgXA/2uFht7fqyXu
-         kB9GXSjqC9F4CkOuBZnTRougezgJHBLeZ5pytXOWF3RRpIJ5UE4Dqik02LCAgGkoOMz1
-         SEt3olgSE6z69gWgPSb7DXqxNMo9XdMO2dSc3WoL9zUbEcgNNQdAX8CBcJLIAwvHV8EM
-         lDMA==
+        bh=U4Z20M5yrzVdkZ8pUfnazTFG6IRUwC17SyWpCdk396M=;
+        b=gA8NHJ+UM409Pb2djn7TARhTXL8Cvgm60g/OVah6ioaVdFYAw9AWWw5+4lTvqA+/41
+         D3tAZxairdTiOAek/OnzQdDPfkMR9FgKyVvUYHpGhJp6RPvLJtc1YlXnynSwQomIktOa
+         2/KoZ9qgHe0ePSfxYWHcNRO73O0clP/E+3XMwoNncVn4ITtF+9xs85IqlW9JnMaFh2pb
+         6th30oqcaa3ixdINLDMT7JGLkuVhrjZBNBzF3bBY5a8W/rfDQnLmmmdQoEgIfxwMCqC1
+         3dOJw4ViPrqKVIBnJ6Il6g8D5HaIGG6V0NQ24WTI/Gwd7wxDdW5lMwPH9N+F2xDzO7Qa
+         2dmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793213550; x=1793818350;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793217238; x=1793822038;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0BEsHb9r/ZqDzu9FPC1kBx0oe94gE6mCVbWLiXY+XYs=;
-        b=UihIqmHRR4w5aIu511wZB7mFZB/g+hYOgxGp6hMU5n3IDfVqFQpF25Dk7V3Lbi028t
-         u0r89wSNQCCaxYLs6WYqZp0tvGIEY8GcpFoVg7M5iaMw7Uh6o9KxdNhkKYzYp/HFJaRP
-         FAFShK03zi1DddamvEMtDr3L/Ws5dNTrzcHWBPBK7KEm8ZEe3CklGsKfRL/Z+V2r5mrf
-         UDmvkO9u2lhvq2zWrZ76ZoyVrj7/w3pEuMCptIxXWZGbgMCiM73VMvvpevuwNKEOiHZm
-         VDYnu6Y9O1C3+rYpCQgMjONN8TjaMVDBxXwkIqwDl0xNReo5dbhitC5VuSOdjVIW2P2P
-         n/yA==
-X-Forwarded-Encrypted: i=1; AKwUvBwED67jL4c1HN7FRBKPwaTbMzn+czOzkMg/2gZ7obqcGzQyfZOsJRg6A1QbRe0tCYnyp48vVliq5tvMaQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFlXRJmPy0ws4iYeq6zek/AApgTSZoA2lfO0JSknpw4NJCYeyY
-	ssNYlDaC7qJ3JaEBAlMhuL8s3jr5otVMIUfuupn3Tifbkbm6ifm6+DIAX7QC1gqAXbnG
-X-Gm-Gg: AYBFou1tX11BtJM1T5FnPMtOb7FWj024wtL15EJKRuxP170z9cdsqKg1bcC25g+r3hN
-	IwWPlbeI6M2feUHLqgukDdmpg/m4djD/N3o22OD3zoLA4TnXERFn3kajcp9lNukKzAYxtyPj4vp
-	bgGUVUk4oT2I9hgLMuBXz4XDm6YIAUvtdg5m+0bik9EqWdTTtSrciF1ZLJLFxEIu8pp8xlcJa2v
-	RVQZVjFP8FPIn2wmRxawI7P0C8h+suPpIiUbbGBpv52VfZrjm4k2ja0QQAtx9ckMxr4JBi5DD+c
-	9vLj+2HOKIBoBQ8+4TpWOEYqsxo+Ia8fyxvzeC/bnLG6M45MvEenXDgBC86Z0iXtqCubHRfyOWE
-	K6IRKZGzvy1N4a9louxUS6Flx3JInnT2jKjfV/hhgQLvoh9XOLmlA0ZJ8MPOonwS+DMXzBRMccG
-	HHwxoiXdm3/vFuJDGg/wJOhFHpgzl2ON+53zM2dtfcZs9nehTRo/sFo7Slr427TVBWWO1qPdgsB
-	vFORW/VQqPg1e0wOVxxfNdopTlV47Z82b2AOJUtAQnQROHqxJAaGqy+ykVGtEcYdpsNNykb9IhM
-	1rpcrAnVQU9lhKdJyzcxWkAz3hbwEeYe
-X-Received: by 2002:a53:ee0c:0:b0:679:9afd:c0dd with SMTP id 956f58d0204a3-67a7bd81c47mr1564139d50.111.1793213549589;
-        Wed, 28 Oct 2026 11:52:29 -0700 (PDT)
-Received: from sultan-box ([142.147.89.222])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a79f38dfesm2247957d50.1.2026.10.28.11.52.27
+        bh=U4Z20M5yrzVdkZ8pUfnazTFG6IRUwC17SyWpCdk396M=;
+        b=XPXgoa8605ZdOSceT/oLSkB1S0+XbF+xvK65vsqrUGa7AJNuUVaSZW/7OCFW0p6UNu
+         WCVbiZUhInqXb8j5qLq+/ZHjNnBkMV6/WC8gFYZzWMKex9AThQWW4kr1dGy7BzBPqYc9
+         +7Hmrn3J9ZM3QjN8yh8SYcKmBlKR1Y107RS4wRzo221bJrAxMX9nzi663jHTRQVUK399
+         VAKDT3Z6CWlbq12qzWA7vWAWdI4TcJOJTyJkNnLNaZO1aCIwwmEELuytK4m7Kq2+J4W0
+         DQzXjsl7E7WSJr36ObJqVrxzmJuKFDBVDXNZZme/EZBrUCpLIpD2quSAPRR1f+H7QM6k
+         WrpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxG/NnRNPEb1tEFU7IDTAh/zlufc/yt/tZiuCgIErWMdDF/OR04nwl/y5xtyelE3tlZPRUKRmRGYNqpgg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0VG4N701CtecVrjN4uVu9jewZwrtxBio6fWmJikwJ/xB3hPtO
+	ETBCJQdekSO5M7FlAu3kk6MyBgQ6nvoC5hIxOVziX85dxl4KRp0uiXgEjyGWkmVzJmw=
+X-Gm-Gg: AYBFou14HIHcq/wZvAReZLLrkZK5tGPtWtjZw18ifrwSZuf7mm6HGyHmrZQ19j5FAWK
+	Pyf+hiKQAgYxrySEwUuNdTi7gCA5hIH1zyUUCxtq3NAdLk4VTx9RM/vph6oMD9J+5ScshTlQePR
+	LlHWlkFH61KlgUTUdd2sIle19iEshLxGi8j/HQVOs7wCeQzddkZF5X/Numcc5IJE8mZNYXQLMaK
+	YYEFvQWR7kNb1EEz7AVTs+PUHTAYnLlzPvgd0HTCesErYWZPUnuJDDixFIaVrLBLlDzSLHdUztc
+	IloQKJ5/nxjn35Jm5qtlzI/noLd/YRwZqCk12PJoIWLhRkj5VRu95eeLrNG1t3own9B1erkOD1e
+	2LjcvoXOnkicvnjzb2Hqets+dpHXctg5aX1IYZXLIX0fa8BTNWxLlN80Oq88J6EUAzezV+pzMPo
+	8M9rD+3TopEK4Q4wVX5+W3SoRb+Vo/gVhdcomz6uWgYEcPm/qJYYhq1Pw6jrWpSf2F1D1lQZn99
+	SO9AyqpUIutCesU+2I0hJ6SSTffBEn9zjum2LSFz5eWHOW8S0JPmwJtRBqwwbdtH31rfSnzqqm8
+	6DqbRB8CUCHmsw4jGPwh0zeXCm83kDfO9RuU4Tl3gVp0sAJoD8W/iyJtIsLF2wnpD0Rud85B9a5
+	I
+X-Received: by 2002:ac8:5a50:0:b0:536:6abc:54b1 with SMTP id d75a77b69052e-53fcb509e99mr60729391cf.28.1793217237708;
+        Wed, 28 Oct 2026 12:53:57 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:11:34bd::5ac? ([2606:6d00:11:34bd::5ac])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53838cf49c9sm113417671cf.3.2026.10.28.12.53.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 11:52:29 -0700 (PDT)
-Date: Wed, 28 Oct 2026 11:52:25 -0700
-From: Sultan Alsawaf <sultan@kerneltoast.com>
-To: caspar.adriani@proton.me
-Cc: Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Benjamin Chan <Benjamin.Chan@amd.com>, King Li <King.Li@amd.com>,
-	Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>,
-	Yifei Gao <gyf161023@gmail.com>,
-	Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: amd: isp4: fix self-deadlock in
- isp4sd_start_stream() error path
-Message-ID: <auJEaXevXj6hNTsK@sultan-box>
-References: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
+        Wed, 28 Oct 2026 12:53:56 -0700 (PDT)
+Message-ID: <bfc4481a817e761ed9ccc265484dfbdfc1e59490.camel@ndufresne.ca>
+Subject: Re: [PATCH v7 2/4] media: rockchip: Add JPEG decoder driver
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Torsten Duwe <duwe@lst.de>, Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Lucas Sinn <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
+	 <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Date: Wed, 28 Oct 2026 15:53:53 -0400
+In-Reply-To: <20261022190026.6cb0a534@rocky.lan>
+References: <20261022-rockchip-jpegdec-v7-0-3fd7dd55f408@pengutronix.de>
+		<20261022-rockchip-jpegdec-v7-2-3fd7dd55f408@pengutronix.de>
+	 <20261022190026.6cb0a534@rocky.lan>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-vP+iZzvr5GpVmxFar41J"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,119 +121,129 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
 
-On Wed, Oct 28, 2026 at 03:05:41PM +0100, Caspar Adriani via B4 Relay wrote:
-> From: Caspar Adriani <caspar.adriani@proton.me>
-> 
-> isp4sd_start_stream() takes ops_mutex with guard() and, when
-> isp4sd_init_stream() or isp4sd_setup_output() fails, jumps to
-> err_stop_stream and calls isp4sd_stop_stream(). That function takes
-> ops_mutex again, so the task blocks on a mutex it already holds. Every
-> later open, close or ioctl on the device then blocks behind it, and
-> only a reboot recovers:
-> 
->   INFO: task .v4l2-ctl-wrapp:38440 blocked for more than 122 seconds.
->    isp4sd_stop_stream.isra.0+0x43/0x1d0 [amd_isp4_capture]
->    isp4sd_enable_streams.cold+0x8b/0x26c [amd_isp4_capture]
->    v4l2_subdev_enable_streams+0x1ff/0x360 [videodev]
->    isp4vid_qops_start_streaming+0xf2/0x160 [amd_isp4_capture]
->   INFO: task .v4l2-ctl-wrapp:38440 is blocked on a mutex likely owned
->   by task .v4l2-ctl-wrapp:38440.
-> 
-> One way to reach the error path: start and stop a stream, then start
-> it again without setting the format. isp4sd_uninit_stream() clears the
-> subdev pad format on stop, so isp4sd_get_str_out_prop() fails on the
-> second start with "fail to get out prop" and "fail to setup output".
-> 
-> Move the body of isp4sd_stop_stream() into __isp4sd_stop_stream(),
-> which expects ops_mutex to be held, and call it from the error path.
-> 
-> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Caspar Adriani <caspar.adriani@proton.me>
-> ---
-> Tested on an ASUS ROG Flow Z13 (GZ302EA) on v7.3, with a local,
-> not-for-upstream change that adds its OMNI13B1 sensor to the ISP4 ACPI
-> tables so the capture device is created. The stock firmware does not
-> support that sensor, so no frames arrive, but the start and stop paths
-> run. Sequence: v4l2-ctl --set-fmt-video=1920x1080 NV12 --stream-mmap,
-> stopped after 10 s; the same without --set-fmt-video; then the first
-> command again.
-> 
-> Without this patch (v7.2.8, same setup) this failure hung the task as
-> shown above. With it, VIDIOC_STREAMON returns -EINVAL after "fail to
-> get out prop" / "fail to setup output", v4l2-ctl exits, no task is left
-> blocked, and the third run starts and stops the stream normally.
-> Not run: lockdep (CONFIG_PROVE_LOCKING is off in this kernel).
-> ---
->  drivers/media/platform/amd/isp4/isp4_subdev.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> index a108d90ace..08512f060a 100644
-> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> @@ -745,15 +745,15 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->  	return -EINVAL;
->  }
->  
-> -static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> -			      struct v4l2_subdev_state *state, u32 pad)
-> +static void __isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +				 struct v4l2_subdev_state *state, u32 pad)
->  {
->  	struct isp4sd_sensor_info *sensor_info = &isp_subdev->sensor_info;
->  	struct isp4sd_output_info *output_info = &sensor_info->output_info;
->  	struct isp4_interface *ispif = &isp_subdev->ispif;
->  	struct device *dev = isp_subdev->dev;
->  
-> -	guard(mutex)(&isp_subdev->ops_mutex);
-> +	lockdep_assert_held(&isp_subdev->ops_mutex);
->  	dev_dbg(dev, "status %i\n", output_info->start_status);
->  
->  	if (output_info->start_status == ISP4SD_START_STATUS_STARTED) {
-> @@ -786,6 +786,13 @@ static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
->  	}
->  
->  	isp4sd_uninit_stream(isp_subdev, state, pad);
-> +}
-> +
-> +static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +			      struct v4l2_subdev_state *state, u32 pad)
-> +{
-> +	guard(mutex)(&isp_subdev->ops_mutex);
-> +	__isp4sd_stop_stream(isp_subdev, state, pad);
->  
->  	/*
->  	 * Return success to ensure the stop process proceeds,
-> @@ -836,7 +843,7 @@ static int isp4sd_start_stream(struct isp4_subdev *isp_subdev,
->  	return 0;
->  
->  err_stop_stream:
-> -	isp4sd_stop_stream(isp_subdev, state, pad);
-> +	__isp4sd_stop_stream(isp_subdev, state, pad);
->  	return ret;
->  }
->  
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-isp4-start-stream-deadlock-6c33a97d3297
-> 
-> Best regards,
-> --  
-> Caspar Adriani <caspar.adriani@proton.me>
 
-Reviewed-by: Sultan Alsawaf <sultan@kerneltoast.com>
+--=-vP+iZzvr5GpVmxFar41J
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Funny coindicidence, I ran into this independently 2 days ago on v7.3 when
-Chromium restarted a stalled stream, and I made a similar fix locally. The
-trigger you mentioned is a another bug: the subdev format shouldn't be cleared
-when streaming stops, since the video node keeps its copy and userspace can
-restart streaming without VIDIOC_S_FMT. I have a fix for that, plus one to power
-off the ISP when starting the stream fails, which I'll send on top of this.
+Hi Torsten,
 
-Sultan
+Le jeudi 22 octobre 2026 =C3=A0 19:00 +0200, Torsten Duwe a =C3=A9crit=C2=
+=A0:
+> Hi Sascha,
+>=20
+> first: thank you for driving this :)
+>=20
+> On Thu, 22 Oct 2026 13:06:40 +0200
+> Sascha Hauer <s.hauer@pengutronix.de> wrote:
+>=20
+> > Add a driver for the JPEG hardware decoder Rockchip integrates into a
+> > number of its SoCs.=20
+>=20
+> [...]
+>=20
+> > +static int rkjpegd_enum_fmt_vid_out(struct file *file, void *priv,
+> > +				    struct v4l2_fmtdesc *f)
+> > +{
+> > +	if (f->index)
+> > +		return -EINVAL;
+> > +
+> > +	f->pixelformat =3D V4L2_PIX_FMT_JPEG;
+> > +	f->flags |=3D V4L2_FMT_FLAG_DYN_RESOLUTION;
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int rkjpegd_enum_framesizes(struct file *file, void *priv,
+> > +				   struct v4l2_frmsizeenum *fsize)
+> > +{
+> > +	/* The decoded format follows the bitstream, nothing to enumerate. */
+> > +	if (fsize->pixel_format =3D=3D V4L2_PIX_FMT_NV12 ||
+> > +	    fsize->pixel_format =3D=3D V4L2_PIX_FMT_GREY)
+> > +		return -ENOTTY;
+> > +
+> > +	if (fsize->pixel_format !=3D V4L2_PIX_FMT_JPEG)
+> > +		return -EINVAL;
+> > +
+> > +	if (fsize->index)
+> > +		return -EINVAL;
+> > +
+> > +	fsize->type =3D V4L2_FRMSIZE_TYPE_STEPWISE;
+> > +	fsize->stepwise.min_width =3D RKJPEGD_MIN_WIDTH;
+> > +	fsize->stepwise.max_width =3D RKJPEGD_MAX_SIZE;
+> > +	fsize->stepwise.step_width =3D RKJPEGD_CODED_STEP;
+> > +	fsize->stepwise.min_height =3D RKJPEGD_MIN_HEIGHT;
+> > +	fsize->stepwise.max_height =3D RKJPEGD_MAX_SIZE;
+> > +	fsize->stepwise.step_height =3D RKJPEGD_CODED_STEP;
+> > +
+> > +	return 0;
+> > +}
+>=20
+> Can it do JPEG, MJPEG or maybe both? AFAICT the difference is minimal,
+> so maybe try to be more permissive?
+>=20
+> [...]
+>=20
+> > +static const struct v4l2_ioctl_ops rkjpegd_ioctl_ops =3D {
+> > +	.vidioc_querycap =3D rkjpegd_querycap,
+> > +	.vidioc_enum_framesizes =3D rkjpegd_enum_framesizes,
+> > +
+> > +	.vidioc_enum_fmt_vid_cap =3D rkjpegd_enum_fmt_vid_cap,
+> > +	.vidioc_g_fmt_vid_cap_mplane =3D rkjpegd_g_fmt_vid_cap,
+> > +	.vidioc_try_fmt_vid_cap_mplane =3D rkjpegd_try_fmt_vid_cap,
+> > +	.vidioc_s_fmt_vid_cap_mplane =3D rkjpegd_s_fmt_vid_cap,
+> > +
+> > +	.vidioc_enum_fmt_vid_out =3D rkjpegd_enum_fmt_vid_out,
+> > +	.vidioc_g_fmt_vid_out_mplane =3D rkjpegd_g_fmt_vid_out,
+> > +	.vidioc_try_fmt_vid_out_mplane =3D rkjpegd_try_fmt_vid_out,
+> > +	.vidioc_s_fmt_vid_out_mplane =3D rkjpegd_s_fmt_vid_out,
+> >=20
+>=20
+> You are populating only the *_out_mplane members and not the single
+> plane ones? So a greyscale JPEG needs to go _mplane with 1 plane?
+
+Drivers only implement one queue type, MPLANE is the recommended one. There=
+ is
+pixel formats for single allocation and multi-allocation that userspace can=
+ pick
+from. So a driver can do MPLANE and support both NV12 and NV12M formats as =
+an
+example.
+
+>=20
+> And for color, the colorspace on the decoded side should be
+> V4L2_COLORSPACE_JPEG, not sRGB, I think.
+
+Should actually match what the JPEG header says, RGB jpeg exist.
+
+>=20
+> Would you mind to give a hint about your test setup?
+
+I believe Sascha has been testing with GStreamer, the element is called
+v4l2jpegdec.
+
+Nicolas
+
+>=20
+> Thanks,
+> 	Torsten
+>=20
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+
+--=-vP+iZzvr5GpVmxFar41J
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauJS0QAKCRDZQZRRKWBy
+9FbtAQDQq1LHLIEYGFdpJt3hiBBdUv17DM2qsOM4AzolcnZ4QQD/ber/FxSYvItX
+/Z3gWh4nz808VmJqoajvRuATRpq4NQo=
+=niJB
+-----END PGP SIGNATURE-----
+
+--=-vP+iZzvr5GpVmxFar41J--
