@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793187104;
-	b=nkhbxgePgHW3fTE9bJKdi9dUE9fKI2/FdcjIsptU9i+FbyHlWFo4UEUUohdGFCUiCxTp
-	 d944McR2GYzq1na6QN5uh2nQksqO84/SbQvliz9zXaZP9GnxEHBXxjIOK8lF2SNHxNCED
-	 izD3aJJBYNy8QM0TsaSbHZfGY5nquuRJrxjGCRQ5Ah1ODxMunyTLImf2bjqWCpVW4aHYq
-	 wnZr1dEEJTQ7rYEGzf6UiQb8oDYE/UKjZmaTaYCe6jhbWpZzzg40+OIyzdb2ozNAJr/8j
-	 NAimazisaD88IjRAOBg4l81Juu3mX27gKUm2XD3VTOQS1o2abE/ZybWlPBXMYMXMgiw==
+	t=1793187101;
+	b=025ZuGHvmINYftFJx0Dz59p/V65ioa8TN6SAVSnH+ZT5LqSgD1CcK1uuV1Kzr6Dn0HnV
+	 IMFzGxElK+pRCBcC2GU+Qc51Y4QTOINF17Acx6Hl3lbceW7HYm81QkPpuLbKvtjn/SIhM
+	 XDY5AI26F1YrfW1e6TMvgU20M3B8mNovg0ariMlMFZuxOPQVRLCyYz92bLD8I0YlR/asn
+	 tZYoPmQV+A30NrFUwE0ac3jGHZHZuukzoQlivKimebqxkUkCZgNebGg40l2fU1puLKubd
+	 sNJqRbFT3NldMlUqEpZMtX1nBwsHZIt8eihbKcyARufrnxRGiCHsGdA35pnTsPKMb4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793187104;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793187101;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=e0w3/7eOAnrV3ingLK0gM3yAmxvAMwUud/Elq71vzUo=;
-	b=B+z5QYwWgBp1UO8FKSQHPbMDOGoHcJ66v2ekc3LDvXOJab9QcylLnD3Ck+cR2EVL4Ky8
-	 ulqPH7lbWabD4+QPoEborAZy2BTxB1wfQviSs4xCfKzsmnTn3P68p5U7Y2N5FBFWd8yny
-	 S/ZPFYziKYzUpIdG5yqEyat4MKXOLXCJ2n3/h9tugcIbwKiEIWytHy3LZ0CY97vlNlat5
-	 IbPa2osOi2TpC41eK0m44faRGGGiihPg5g2b6MQRiCLpJ5n/v7+M5fUYgzv+bk8ie3bVi
-	 dYob01CYbBd3DSCnxLk468b1E1n4Jy2stFblH1UfYjg1W86+a3KIRwB6XRH24kfK9ZA==
+	bh=ZuVQNaWid9pWYXFR5sJM/0dx1+C32mmdmGQdiGyQ+Qs=;
+	b=xlwqoN5/+TvNyc2Wa8t2Aw8EACKrpT3cOhwHMDtmNrg3cQMKxNRXHv8lE5/RtwZw0KRu
+	 0buBTXigAg3Hco7vpKZlUkVKY2bHjqy1wfFUzptuYkLCAR2fCf4EiJlOMJja8MFH5sfDR
+	 Q8ZErkZUG393gGtMRPPN4bCDmc18aqP1ZRGnEAD5Rutq344ehMGzIgnn0N3zVxFpcKCfB
+	 tD39zE3f+POhAA7toErKnAdQeO+vNpCKfZvsO963NQLGa9QkkEG1ICgPqSpwdX96J/qWt
+	 R6E7CcIEReeUJM81wXjgfXscmKuTT83HASxb9OAuqAa0K7oolJUbVqQp3CCtv2OUiuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bNUPTu7U;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="rzC/RiYb";
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2243606A31D
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 11:31:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2243606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A0A5606A31A
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 11:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A0A5606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bNUPTu7U
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso8813575e9.1
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:31:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rzC/RiYb
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so7947355e9.0
+        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 04:31:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793187102; x=1793791902; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793187100; x=1793791900; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e0w3/7eOAnrV3ingLK0gM3yAmxvAMwUud/Elq71vzUo=;
-        b=bNUPTu7UGuNl9pImSlXTUoZnmq0Y0UH4j7dN3HWf2cVAyuEDrOmXho+YJPU/3YYj9D
-         DWsEJw9Loqx0JiCK9k+hyCX2x/P4hb5pEqylKu8Bb1fIjJVCZBlZjO3HVybxbCezTDnf
-         JPB64eomSETBOBTntHIXlpQ1imL4VGAm7t9kULSHHoZMWu1J8ZVmnzKWSuq/KECG7lZW
-         y/nhOWeDKEFRh69aeVctxixRCXzQQFyHRFHIm32uQwKmLLUgTOg7hmc2AqHOvJ5gdZPF
-         IwGUbJqENl2mJ+CGQTg154VvdexkyFaYb/ZWmZoucTNOs9kXUCEnjKEeVDaKirW/dNqK
-         TFFQ==
+        bh=ZuVQNaWid9pWYXFR5sJM/0dx1+C32mmdmGQdiGyQ+Qs=;
+        b=rzC/RiYbWvBXA2P565MellKyXzy3OLBZHsPXUzchhH9CD9zSbNGGuQPPT6M+tYvTCh
+         Yuk3owPEQXYdclywO47Aa8Feei31oXB0GOBAxAzDxGgQ8YFQeagzW0GeuDO/n2RxJKjG
+         19GAzCGFDXZwwWUsPH5Nm03BEzVsE1XJ6od4B6jI1FzJZcFIBHu80YIwgbNOFBrpu2EX
+         Ny/OwLurBh9eljPCKwhK2stMULN9YUKrX0y2QYYBMZ+mRBR95ViPp/VHpkeZbctfNX+K
+         sJHJDw8OvegYMUdFmcPTt8j86nfLsMu1ZsIkRlTLvK1G51x49TkUBZe0GmJLXTOBj2Fo
+         AkwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793187102; x=1793791902;
+        d=1e100.net; s=20260707; t=1793187100; x=1793791900;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=e0w3/7eOAnrV3ingLK0gM3yAmxvAMwUud/Elq71vzUo=;
-        b=l79VCeMbf5arNNvdYE+dRBtUEs+OdnTKk/Ya8ci4/oRWRWJVSLLr8LZ9Hvp2BN2WSV
-         pCTZulVHaxJwKX5aNFsYkxcsGgn5soUhNvkaL3vikGLgTWdrGu1ajtxuo53xb5IdFkkD
-         RQGqOoxZQFpO1BOvaTrNetdhFj9wOmBZpqcl2KfIgu92NkcwHzOJMrheUXPLWWYpJI9c
-         jYrwRZWduOZTTOSgnHgm1hWf6/U24SQwRDUYdTWn/tbfFTb1DU7gbI5CPTIcN7ngP6DH
-         bs6zQ0ytyBYl9Kyu7OCtw+feoo+B/2ApB8wJl+m1a3h2ATady83GHJ35/uhYRtBIv4PL
-         JtMQ==
-X-Forwarded-Encrypted: i=1; AKwUvByWI1t/2pL/O+eVnacPaWIvZIhNF/BIa16dESHFnTmtja6LE6roNE0S053hZuD+Q5I9Kc1GnV2JkQvsLw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ4rQ37CQQ2E1uQ9A4V2MepTUPMjDGZSYMVkAN1ef6eg21mjjEQ
-	TZtpZ0GeL5/lWTek4DLJ2Sy5KRoEEbkL7GEIV4Na4K6IYX+Snya6xjS6
-X-Gm-Gg: AYBFou3jVByCSjHHuANHIkekNQ2kDqfeIItwVcMu5eLs+uj1bFicxEYOyrmXdSUoTML
-	WzhpEzFHkYJ0wq1BHNJ6a12KcWrilyk3k2HWuWvlGTdTY6f9x//ZjZ0SU9sCM3siXmmAlIPCrw0
-	bjMsvrcGFstY55lpNkLaW1ce+UQcGMxzkHT2saNJoEoaithdi1JzPCLsrVbAzDs40v8OCVd3mOE
-	Y17cSFJIhBn/Ja2qvwLMcH+zaWCGQNptujxoNlNTeUOPyMy8elQhduMjlGEoSPUBW6gGyx3+d+D
-	Mvin+rq4931U8nn5gTOanWoeEPAzdrRVHMmfroqUTXO2rHuy9liyCa+VJTLBzUnuyvGpKd1/qdD
-	OPdy50wvXh0liY7FULmVcbbMQkOkEs0miLD12BlgBfh8r/KJqK+yQjlUosaH7ZsEZaGDiJEWsTT
-	JfGiHFj+fuQxC1o4qJputx0OfZCe7zyDfwNX8fABvivBhmtMjGjKyYPnaJZwp6QHXWdnUzX/Y0v
-	EPP4Q3EPU5c1Iupj1mPGQSpBR9N4iraxZ1ZhUGJs756cvkUWoAgaTvo0NqCt/xSeE3/WM1CD7CV
-	PNYyjqtTarigs5DIm1/vQ807/dQfEJ7ENnbV3LYL2f2e0sO0nOcQS0F4xOopP2O02Jsn59lqdyf
-	HvXgNEzhpq+W41XgldSspG+vJsHi7BZbRoNH9uwNYbwLYqoMhUC1P6ImH1zeK2bfDmA==
-X-Received: by 2002:a05:600c:c117:b0:4a2:cbe:beac with SMTP id 5b1f17b1804b1-4a9672f814emr31095005e9.23.1793187102007;
-        Wed, 28 Oct 2026 04:31:42 -0700 (PDT)
+        bh=ZuVQNaWid9pWYXFR5sJM/0dx1+C32mmdmGQdiGyQ+Qs=;
+        b=pNJ652zB/cICUQnIHAgDbsjFydiY59CQ8Lf+UVXYt3IlHEAT36j01g52/lp4/BUjb4
+         W73gxzEGNymfIN1QlUEaIpbSeg25hGaJJfr9DTgnm8L/HlIjzq0hFV0qk18EOWDHFKMh
+         pDFh7W5dI4d2fmd1lOWGMm5gS3/idYTawM8Ig/VlnnhvSg9o+R+i6sbcqieNSZ5TCvzj
+         qNAjj7Xo+pCYjoXuz1OcrryFq2scGqCgr5bf56zpG2YlWlMhZ/5Zmn9tw1Z0fE6vyq0c
+         zqCySp9uwwIQfhEgA+2TSdvFtZ+qYBBb93fsyMdJW1MYwlzj2hAsSeCMOWR/RG4a0/bi
+         HCBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzG7X+Go4soiKudcxgcAfxDp9lkclxdRAWl5EIUcjh1ukX6D6buEItF+SSX6moW49K03meBGiKL+n4/Ew==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZ1xJKvgbANEzJcBgAynQlRR6AYjvY+G9SAtkVvmfv/IlwLo72
+	jN9yi2iA5FVmGoTn47u7RDIrH1DX7YgyNF7KvwwIrr5TlNArBjmO0q8h
+X-Gm-Gg: AYBFou2b2LuOJBA9lsJaV50q1SAEOcMVxC19eg95uiT3jtkacYvo9P5t31eJpHmvKw3
+	Nq9YBmECgbTDf8jD54tF+C4jrzBArCBp/m5cStlZexfs9FFOKouHdeRnMYYaC1nseIiQ7fNv98j
+	fvbY5lfE5hNj4Ce8oI7C4Kgnu6MU90VLR/X3u2CG1CN7v8VHe5507bkFQSlhZj2576RaPeKrxgI
+	xKf67AGEpXG4VzAVBY9tIqOGhhzdacvGJVTwmBp8C44rIFWI05SUCxsd1dn2KjleJtsGhF4K+eo
+	KXtt4VpJbuWPQq1REK+Uz33XnbrfK+FOyQ5dPsbr9JWj59dvQZ/wqmJiAapZkQgjHFDEig0WkPp
+	3xuBGuoEx+lvylEpd4TqVTSmoFVoGdtdx+xg2oPEfM1f/lSC/A6fJq/4CTblJateN10eYrVY3Sd
+	iBh7l1de9ntQUfnXujZzSU0nptOqCIotrbQq4qNpiVP4K8WFGdMQd0dnsmSNTjNK4YVAgKiTEcG
+	m6K0Ps5w6gqy/alvZBvIaApGQ9A/rMbeyGhwZr0jK7ux0Y+g24IBWoHsgfUVuRBNe+9PBk9DliU
+	sF5Dl9TINMcEF7jriZjUyiw/hZVoL/00iFo2gCgpEn9Nr+yyhDCilQJE2c0rH6aDvN7Q40PvCQC
+	qG2tbT5NoR1twbfq1urRcwgDI+Q0iodjTMNL+Y5aA2Zre8o7+33RaF/wkJS3kQXmaxGKjTzTiSF
+	sHnwe10Uzisaw=
+X-Received: by 2002:a05:600c:3f0e:b0:4a3:5da2:38ae with SMTP id 5b1f17b1804b1-4a99781ff60mr36159265e9.14.1793187099590;
+        Wed, 28 Oct 2026 04:31:39 -0700 (PDT)
 Received: from PC-Marco.lan ([151.59.117.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a97a093e86sm38764415e9.1.2026.10.28.04.31.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a996aa0ff3sm16684455e9.1.2026.10.28.04.31.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 04:31:41 -0700 (PDT)
+        Wed, 28 Oct 2026 04:31:39 -0700 (PDT)
 From: Marco Ziliani <rylos78@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	libcamera-devel@lists.libcamera.org,
+To: Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Harvey Yang <chenghaoyang@chromium.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>
-Subject: Re: [RFC PATCH 0/2] libcamera: Power down the lens while the camera is idle
-Date: Wed, 28 Oct 2026 12:31:39 +0100
-Message-ID: <20261028113139.36605-1-rylos78@gmail.com>
+	Chris Simpson <chris@nilk.net>,
+	Simon Kruse <simon0x+git@proton.me>,
+	"D. Manresa" <dmanresa@gmail.com>,
+	Tony Garcia <tony@loafecho.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: i2c: ov5693: Keep the Bayer order when flipping at full resolution
+Date: Wed, 28 Oct 2026 12:31:36 +0100
+Message-ID: <20261028113136.36524-1-rylos78@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028102323.GB2587630@killaraus.ideasonboard.com>
-References: <20261028102323.GB2587630@killaraus.ideasonboard.com>
+In-Reply-To: <30b2925b-0518-4692-ae2a-f70fd11ce43b@ideasonboard.com>
+References: <30b2925b-0518-4692-ae2a-f70fd11ce43b@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,39 +107,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Laurent,
+Hi Dan,
 
-On Wed, Oct 28, 2026 at 12:23:23PM +0200, Laurent Pinchart wrote:
-> I want this discussion to involve the kernel side.
+On 28/10/2026 09:31, Dan Scally wrote:
+> Hm. But what's the right approach? To allow flips without changing the
+> media bus format code by offsetting the output rectangle, or to have
+> flips change the media bus format that the driver reports and flag the
+> flip controls with V4L2_CTRL_FLAG_MODIFY_LAYOUT. At the moment that
+> would mean that you couldn't set flips whilst streaming though, which
+> is suboptimal.
 
-Agreed, adding linux-media and Sakari.
+I went for the offset because it keeps the flips usable while
+streaming and keeps the format the driver has always reported, so
+nothing changes for existing users. Other drivers do the same: ov13b10
+and ov01a10 shift the window offset by one pixel when flipping to keep
+the Bayer order, and in imx290 the sensor itself moves the readout by
+one pixel for the same reason.
 
-For the kernel side, the problem in short: lens (VCM) drivers such as
-dw9714, dw9719 and ak7375 power the lens up on subdev open() and down
-on close(). On ACPI platforms ipu-bridge also adds a DL_FLAG_PM_RUNTIME
-device link from the VCM to its sensor, which Hans confirmed earlier in
-this thread is needed because of shared power rails and I2C gating.
-libcamera opens the lens subdev when it enumerates the cameras and
-keeps it open, and the WirePlumber camera monitor keeps the
-CameraManager alive for the whole session. On IPU3 and IPU6 Surface
-devices the rear sensor therefore stays powered for as long as a user
-is logged in.
+The cost is one extra column of the pixel array, which is why the crop
+end is widened by two columns, clamped to the array. The reported
+format, crop rectangle and size don't change, and the binned modes are
+left alone since the flips don't move their Bayer phase.
 
-The options I can see:
-
-1. userspace opens the lens subdev only while the camera runs (this
-   RFC, and Harvey's patch [1]), which works with current kernels;
-2. the kernel powers the VCM together with its sensor's stream (Hans'
-   series [2], or calling .enable_streams() on the VCM as Jacopo
-   suggested), with VCM drivers no longer powering up on open().
-
-They are not exclusive: 1 fixes current kernels and stays correct once
-2 is in place.
-
-I can test either on a Surface Pro 5 (IPU3, ov8865 + dw9719).
-
-[1] https://patchwork.libcamera.org/patch/21649/
-[2] https://lore.kernel.org/linux-media/20240901211834.145186-1-hdegoede@redhat.com/
+If you and Sakari would rather have the MODIFY_LAYOUT approach, I can
+switch to it in v2.
 
 Regards,
 Marco
