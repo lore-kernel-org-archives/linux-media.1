@@ -1,143 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.21
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793197603;
-	b=G77mkdDU9zVH1bPJpgI3ho9XKYUbqxq/ZyCeV+hoWJ7WoU72YeanpAZ2/PNNmen74aEg
-	 uAf/p7oj5KaleLCMoAhiycafDeI8UyNDKvPLmwNB6aMIClgWKVt5qip83JOn6jsi5Khoe
-	 2afzyaWIouhhFsM0ZMgF/ypFTtITzbYjhDnI5REIrzIV3nej1p5RpFZ8tJAZ5wko1Q5oM
-	 rsslzOyQH5jFSJPeBaEjkPnCcs0IRr09PtNpF88GvAAjBaKnOA4V+G4MW1qk4elbw/PaS
-	 TNsx9RgSPYpvknO1wmeTCzu/pnxQxsHfTLrMrrVjZreZT07laIboqZuFrbCkIegHZnw==
+	t=1793197917;
+	b=373UQTnWyZ2l8NTa4SrGOBeF15T3Sp8f5NhMX2s53GA3nx0u00gqjmJo7+4HjrxgTSCy
+	 92BcpZwoQB6gNsxV9DW8q5H9hfiJtgiyDqUnFolhGkXPsx6GrKbFHegW0NlnJoVK0ia62
+	 eLYUt9/pMtsuUp1WyDSD5N/SqrvyyNeMfH5PtsBAqUS8O1cnen5Ftx5VrXYBwExkSG2gr
+	 Jm3WwQDM6PNSh1csSzC3pV6h5MtrHrcgWc8bm97pwtFF1t9hGrdAIP55fTmNl8yAZ5gRI
+	 5SiEgAOc5XZcSBb7MMgXNcabXUg4ZYy8wpzGKqRZCBxi3ZqrZ+3I0r3Dm4lkNFcWyHQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793197603;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=PugH5ADTgWBNgCzo2c+KFwnk0r1PS5zDUpNv2SsWnUo=;
-	b=e2YwDzOM4V+sC9NuoKhk2XkbWltNXlMh4wc3DnXzM02Q6qUTUxRjBL+ULtyrrbSQP0ja
-	 USQ89hwOQrLaNAgvJd06ooKONhpOjkSqWJeSV779Ll+hZw512Jp8OgHgSz1a1lLz8yml0
-	 kW3sL/pv0E4DBhKvSKtb/A0Gq8LVYthzmYz3sFOP/HhsAHWe3xY1ccgBpxkPgNH8n6+0x
-	 fdly20ws2wwzy0X+iPT/XrXsAyU4RyKSJiXGZ2XZQuUfwlJsal/+lrCEifMcC3YnDpuqs
-	 L9850BWpcuNuFRS7R5m6J6isO+5QcuGqhp+gUHRy8dRTo+6oXBX2S4E6lJCcT9uOeGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793197917;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=FD1eush/RY/6jcM3VK3+vNkMLz2HWHW5vG8JAOLsPng=;
+	b=NhDWysFY2VbbWChP/a1qa/z29Z1/OQSOVzyjfvOtZoSSqgeRKuPkjWCMJ/ViTGv32XCI
+	 avUvLmYO1YVv3zQUiGm8R6Hhf/lNbbIb3MYfqfURJN90mJrLAGKNZKYKsK64OOC2YOztV
+	 cLyIteJTCdvUVBqlz55hrrsRoygk4qboDd06wx4dmXOkHhwWJ4qIwSZCXVdw0jYrkrn6W
+	 rzHScYiKx4ymhczKgeZvBvm/tvsH5CfoPkJasg5JMQ2mbGWPZxcNgyYSwhxEfWMfjmIJS
+	 pU7PZicMu512BgUDUq85yktgiDnf7nH60EJMiH0FF4DcQA+S4UtLWjglQlPK/zfFxNQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=iWAMacif;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.21
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013021.outbound.protection.outlook.com [52.101.83.21])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ip5EjwMR;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B1CCQ8Wl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D739606A327;
-	Wed, 28 Oct 2026 14:26:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D739606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236BA606A31A
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:31:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236BA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=iWAMacif
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EUzwkxM+5U4c4djubNdkw5RXK63QafpWqgHpEtrm0fB5uAsxWrwmazQpKzNwQxPUVBDDCz6BVTiAqFuNGaF8kLJqDzY2LFJlU3nSjFHYvJr9yRgfZG83AcuyjjEcnrg/l/G1o98ikYXsdXWpHZH2H7sqB9fFXfT4zEVf0Bkd8NhNGUW8WwEABmVD7f4ZP6hNtRSWsXVJycIzu9zNS+llo/+5yhFGnH3xnpOP8N/brtbFQefVDOlYH6fBCuooh9Vccb79i/9BGUwIL2ofT+0zg0QAfav/N7B2U3+VD6+PyzUQZ+PVdyin/3eT1UH4BANC/CqW+yKQ+gDCwhr4DMu7yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PugH5ADTgWBNgCzo2c+KFwnk0r1PS5zDUpNv2SsWnUo=;
- b=JQVpgOrqGZHrVNs3QTVt/HbATgeZfHtJ9PnI3eXo63FfaG6+8FrdQTiFPYg9VGIBUlEakFTMP9UR90QodP8KS5UHgXtd7Ob7HqWex7BJxFX7aSiU1hYdQZtXuXiojj9SkELkMEIiY7EjLNuuuYx0sKb0qYcjMHiCiQH6KZUh2lWMC7JOrB1WDJumNTw5O6Run61xTI7YDuNNSnB5iTDiaPP/nyDEcYig1v0fmAkTbvm+Uut1w7ZPLC16CwFUA9JLCbauy1lv4jGFp8xE0hbUpP5nASzwvBaQ/CL9R62TRQnNg+8/7OOks+hmeIyGJ7UHtOmfWUHEXedfEze41eOEug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PugH5ADTgWBNgCzo2c+KFwnk0r1PS5zDUpNv2SsWnUo=;
- b=iWAMacifbwocz+lHil0qO84MTMkMOvglnubW7bzl47kSj8aDd/2iJBVrA0AMZXLeOWpYpL1FngTp/a/DVauU9sHv2cwkDIQdvc/zSe96Vv9BV7o5/ztL7qeb5o9UGh+CfwlLY1c24Y8s7sq2ClColacayPq6oRGDMU9Lsf+cau0+iTPd+NvPDgt+1oYH2DgFfb9rLGSMx2lVizp8slVdtYwuEYnppE13e2paZvpU4TJvtAPC5NjcJTe6682OuHhdu3nO070j3rAwPrnlkd786Z/ryrx31b9WrEDMMwSZIj5V/aX7fYfMPVWNVnI2ffGsXF9IO+d1moDU4MP68ODO3g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by PAXPR04MB9186.eurprd04.prod.outlook.com (2603:10a6:102:232::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Wed, 28 Oct
- 2026 14:26:37 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 14:26:36 +0000
-Date: Wed, 28 Oct 2026 09:26:13 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	Frank Li <Frank.Li@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Yinbo Zhu <zhuyinbo@loongson.cn>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
-	Eric Anholt <eric@anholt.net>,
-	Kuogee Hsieh <quic_khsieh@quicinc.com>, Peng Fan <peng.fan@nxp.com>,
-	Aakarsh Jain <aakarsh.jain@samsung.com>,
-	Abhinav Kumar <quic_abhinavk@quicinc.com>,
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	freedreno@lists.freedesktop.org, imx@lists.linux.dev,
-	dmaengine@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-media@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH] dt-bindings: Fix property name typos in if/then schemas
-Message-ID: <auIGBc2Wo21H6Rdm@SMW015318>
-References: <20261028120216.2657397-1-robh@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028120216.2657397-1-robh@kernel.org>
-X-ClientProxiedBy: PH7PR02CA0020.namprd02.prod.outlook.com
- (2603:10b6:510:33d::28) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Ip5EjwMR;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=B1CCQ8Wl
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69SBeArB1606928
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:31:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FD1eush/RY/6jcM3VK3+vNkMLz2HWHW5vG8JAOLsPng=; b=Ip5EjwMRu8GypD8d
+	vmz7DbjstSvLvVFPMsypePAHwg8buUeQgw00rGjw7YZzvHjvzbQ2XZy/bAoqFp0n
+	Ae1cxOec6EaoiBkw5orNHBN/+w5CPm4zhBaIdhYfCqRJzdyf39jsK3QKU4hCPwyA
+	HuoIN06dyAi8Us/jvpJjxKSDXMt6ZE9TJmlwJ5V9fvUZw1Er96kYm+Z/Arn0HiYo
+	bdtrUybRSJ1XBqfHAnKDV58ualIQYh42uaIM9vsVPwYdNjx0EIlDJFLsDpBs6rON
+	cqrCVMcCqaMdY8nxbSn8FxIHeO5fM+Yh4UGTkunUzZVkB/mmHCaww7Fj74GnhkHN
+	oc06Tw==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hk7g7jmyj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:31:54 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-67994010b21so1757267d50.3
+        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 07:31:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793197914; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FRBPhQos3BQrQErLjUc1rMagbnhkPlhPl4+bZ4L2rSDCTWn14iip8CIjC6aa4tAW7z
+         o+8KDtkU9gWMVypMpyhUoONIMRVnUkPzz2BW0zoKQjaUuF+HM5FZoQOHK3IBwCy6k3Fj
+         93pfeJTAhhFzsGkv80Z47qb1Dm38yzaPWkSrpZCNGPfTKXOPoian0lV4w+kQ4ZlXzmlE
+         Q6txCpYHAi/loEo/s/KtgJYRa+3XPLd0aqyUfYK7lggvp4XGE83HLxtmkyXzG5fMxjWm
+         zMl2C0lHOciCKrnrELGu/R36K6Wy3gIyL9uRf9YJGWZlfFgwuzfnbNUrMcKEOqiY7o2J
+         +8Yg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FD1eush/RY/6jcM3VK3+vNkMLz2HWHW5vG8JAOLsPng=;
+        fh=zeM76vNfSJpDCDlk6003+1uouxkhrtzUWPIwYoBQjFo=;
+        b=F4Y8kv8petna2NHcFc+4NaN/eKnTm0PnRYcYG6x9vRuNeU5zTNSTYAtFGYkjNUJ4tD
+         IEOpRbre6JSNZmVSWLVSVHuYR68kb87PlsIY6Fzs2CsWn+Rap8uKe26CzVAp20cyAm1e
+         eBBQ3n3UwJkA2tIWku5BpqFwwNPNc343N50hJmIiXl5zUMVNI2t89BmZCr4LwloHRm/E
+         6myprLqYSHfKm213+V3BCO+s2PPM01xmCmoq+3ROwaWt8vUFr3/yrgKOzP16KaHJWd5X
+         89xuhS/4SSQgjGhCkaNeSBauxn9v3dSJOebN+BUtFZbmt0E3FvcAsnjfqmvJq12ePTU+
+         NTaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793197914; x=1793802714; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FD1eush/RY/6jcM3VK3+vNkMLz2HWHW5vG8JAOLsPng=;
+        b=B1CCQ8WlPbHOxHSGlEQJHyf2cIBsnEazIur5nmeVCdJqSdObS9xpFYrVMMwQM+JqL2
+         AgunTgJhBAxRDmN5gVxmcUfD8mU3YUJ2p7htl0Ri/2r+VB3G6svO6nDWIuUdpJmomXmc
+         TZH76o6OnTp/b8HPK/g/Ix+UV5PR34YVXFmjvWm4FpVjegZIXPlgEb8OxCu0JM9Ybsgq
+         ihePli8x7s9oL/QL4mw876BQfZFCxx00/y5ppMdJJpggQAUzzqAX3bDud0O17Ax/e9fl
+         XloD73cJcnwYOygWZ9b/GFnp+dPF4bAs+meXkcaw9c3zeZypNaseVX/HICFYPwJlRjfS
+         3wgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793197914; x=1793802714;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FD1eush/RY/6jcM3VK3+vNkMLz2HWHW5vG8JAOLsPng=;
+        b=GCFaULMSjvztHJwbLBZjIFQ+L5CcOtQMxMV28RqvSQlH8X7r+vZh2ymTLpnRHqTqJ5
+         zy0a16KYepag27LfOpRdY2QV2ab8ku5K40lrjznt/cqxJ+RkZOkZR3m4UzXUQG3nPqKB
+         tFeHJl0u9xh6bZtQTJfEJiapqpdHlkB/5aImNp+321WC8qA8WRSSjXphJQi5nYxkFrvH
+         TCNfFfVr6Fb32fGJLlPfo7Okb4+eg7zC1MG0l7yBUU1BPW0jW38eTPbTSxkGaK6tmGuR
+         fELAQsebif28pJjhIo4k6GOUv78zp7wSpdcVESPXQ+iLD7gxegxbHFZx9t6iO0rLPTpa
+         LW2g==
+X-Forwarded-Encrypted: i=1; AKwUvByPp8GL23PXV5x8Yu77YSeQJ1CoWeqGgFrHL6inMIEsIBeWKx/C1SHKuJD7n38ngAGgtxxNZzZ6DuRDvw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKW8oQF7jVgapZG0hHkLfnPvuAh8zRMVYIIHHZcISX6XPR4wT2R
+	n1wMtEJhTnWwPYa8/dGyP9VPHHAdUmxm6CGvRb//V2jVqgOgO3fo4lpif0rOdB42wVpfxxmP1Qp
+	T9CYUXVAPfwHIBlsRaB6qAmxrhnCzzeEjgQYuAFbSM2vgb9qPMNiqhn+OOYRTunn5qREIESJ6oA
+	6Q5IXCApIUx3sTKjcg0vLeI9/UCx0ifVpPtfHlSaOY
+X-Gm-Gg: AYBFou2AABbGgc80PWPVm6zpsux5viqVOrxAU1avYU40k0yK9MdflejLxIA2yB0uD+U
+	uDt0SFP9lKPhwWCQVpmIYECMlVgcPqH+XtJptOeqhMBiE7q/e7zLEb7TEUwcUyVfRvikid/e3Gl
+	CyQBZitRXu1y1y843GAq7PtgwRFmYjAvSXZmwiOdqCuNm8cNmDozjXnXbwjN9uLK5f/43vNu6Gd
+	NMY9cj5fBe5vxqRB1XqB6jcYKli7Tu86XqGJqjpEgoM2vGvWmHx9t26pm5iWnYtZdTyMrT/dmg=
+X-Received: by 2002:a53:de12:0:b0:67a:693a:b1c1 with SMTP id 956f58d0204a3-67a7bd37dc9mr1724001d50.107.1793197914370;
+        Wed, 28 Oct 2026 07:31:54 -0700 (PDT)
+X-Received: by 2002:a53:de12:0:b0:67a:693a:b1c1 with SMTP id
+ 956f58d0204a3-67a7bd37dc9mr1723945d50.107.1793197913680; Wed, 28 Oct 2026
+ 07:31:53 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -147,287 +128,164 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|PAXPR04MB9186:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee112b64-b16e-4703-361e-08df34ff7912
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|19092799006|7416014|1800799024|261026140227099003|11063799006|56012099006|261026121527099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	PJnUc1WGA8a9fo4wsN9yLiJ6vA5jbebBB+U2liGAOGkTaLqzc0fWb10tCiLjM+PF0yRnGzgQiNOWoSMDuKujWM3xjbJA6IVi9NRE/dO5lLDsDFuBmfACI3ffyL0XkEZ/xlItnJ67Y4Ha0xSMz9+FYO0EpiSULbJdz/HyuG0CHYgCAxnr4Mpq7eK5DldLlG6ieUrgtIR+peeX/B3VHg7e/A6NrJrtluh4szGpg8NRmKHyLVPL61pUHNX5Gmq8iNNZVCT+UXLonwxybLqKBxSLIvqujHrPfMcceSIYn2HOBlQz4CTjRrRYPon1QgttoLy1ZOmYYrAHGFtWRctZ1DwxXgyrOLR+EC1kNPbXDd1asyBBYGRzFd9nOQN9aXi8d19wiphqDemPt7KMbMTgM10sA9zsZ1bpULDbGdFUEumnzPVJ4XRWuzz6/uUnn7XATiPeOMe9S9SKsfeo+DkambXEmRxt9Xutj2bpMe1WTI26z33ni/vrf/C+03GWnXzx5HHB5AlnOukvwgpf12LTEPc6ORhOOsAuP9B4tAco03CEg2JxkLhdgRJ14QjDKGfY+TFR1QfhL63l6W84q2EkVc0dfKIrj2kTvrHW5XzY+YbjrDcLTlERuxAdA85BwC1U6GdzJNCOULrhRJuWV6xFpK49Vjn0HpJwA67A9d14uN5sMao=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(19092799006)(7416014)(1800799024)(261026140227099003)(11063799006)(56012099006)(261026121527099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?yhoz00PVsJqtF9EPEGywCcxhtZzWfcPJ2a+fSI+CijO6DYTWCvNdLXi+bPrn?=
- =?us-ascii?Q?ZeKh1fIb0GP+Ummi+pEAjQls/FlH+Ad7FEMSo092qWc02Bak1tfgK/u2V3ka?=
- =?us-ascii?Q?BDo1wVM+Ol2lHwOpGD4BijqT9l5cuKnZsRg4oPOaOrkpq/Sx/x3pX22AFbGb?=
- =?us-ascii?Q?lNwJ58LQgM3x/PYjuCD7uOIVk1KalCYg2NWMjEWhDboCjEcYi04A8K865dbG?=
- =?us-ascii?Q?YrQiocw+U3/PvvEiHkxs8l4Wkpc4cyoWB0OBhcnjXO9TCs3R4t7kW3Pn0nJO?=
- =?us-ascii?Q?YbLS8uJsgFmoiP5kM8mCvXrg7yG9KQQvYtnVuMLRiU0juAaOnmFvxGdR9N2B?=
- =?us-ascii?Q?Ghhx05bRvwK8vxSiry9NEJW0ZSx0yRNrmSkfTv9g9FbnDNYwz+DTZe2QNyL1?=
- =?us-ascii?Q?B7radpUCui8gAMsbtKAgrWpPGimcDJqjj5osDs2/PUGyGqLM0YVkCY3DbGxp?=
- =?us-ascii?Q?2dtRofJqYRg84QCxQvk2VrVVEA/WBrgJgkIMytJB5x3wX5Q3MNHYjwwBYnfk?=
- =?us-ascii?Q?2ALEbNV3i+KzF0Pj0eqydxYwWMm3UTzim1htmPTLKchI+OP2HKDGvQ+Ohwla?=
- =?us-ascii?Q?w6lTA15BaP46alY0xfFr2SGNX1gGfQP6RAmPwHf2jOyS1I3gUDQyfxuAb/ub?=
- =?us-ascii?Q?KxWOW/7WXvJJJRWyERMjyxjPrJ5F0SpGo7kzY8ktCDOEgxp2l68VyFNdN8Ej?=
- =?us-ascii?Q?icQufBWl9ibG5SXMJS1l5Xv7B4nxGD4B/zM0+1I53UtU+A3AEuKIeBju2id2?=
- =?us-ascii?Q?X47vCHaO6QON+9yxQUAkUA60GlsiyUZEdOGywnDVTAlP5JRWsYTAdUSw09K9?=
- =?us-ascii?Q?eV0gJw+s7LdP/SPj5AvY0nbMAREN5L/hKf/GdB9eniNOtQ3qCluDNDjshpTi?=
- =?us-ascii?Q?K832WPxVIQ2eNy2mJZ2TPH52cGmKm+/wZwMPGyi2uHd2um1lvM4rQZ2FNZ5X?=
- =?us-ascii?Q?swyeD1c1MXhKbMiJEYAKcItRhVC/94cauWDUVVWujZbfMieGv4sDJRPtLjGl?=
- =?us-ascii?Q?n/66c7UWc/k5hUjIUV/7NnyznpkJ97C502iOz2eU1ZOK3l6qsEaH/HwbUh6g?=
- =?us-ascii?Q?TdTmie/iU8eKDSd2N3xtL+h00IStPlZND/eem85Y/zJFxK4G0R5LreUL3ANp?=
- =?us-ascii?Q?yQSzyyTvJW9ltrGUVpTjDDdr1drGRKjIuhexOF1b/bFBJExTrUUjnJcDcKGS?=
- =?us-ascii?Q?9xDz59VM3PapXAL6dE3vd5iDby3TZzJtNAFdHsJ/j4NVkHYS4pvclaeW+mx7?=
- =?us-ascii?Q?rynV/rKj2Kqz/rLdbRLnWUD2DyW7gsfZzF5it0yVFQI4DhTlKkLus8K9xh/t?=
- =?us-ascii?Q?Loxo1CYtDQEir6vQEzA5Fkq53rihfyDYPgpM0vSLCTC4QL+oZ7dJ1h2cFRNO?=
- =?us-ascii?Q?AsLLXWCovcCX+0cSQa32ja0rSe1XjONdqIcrCyBJQjsy13618dMiKIp0DoHv?=
- =?us-ascii?Q?kdHcr9J/e348pElrKJzUgXNv2UZvnGFZaJ19sBWCbop2tasK/bapL7iXMrP3?=
- =?us-ascii?Q?/Tc+e6sH84p7OHRrxFZj2bHZs9E4ANbG5Khv0PZ7RwpT+BjfDBLSoZht3Qok?=
- =?us-ascii?Q?TMwmGoggaCWkowZNqzQ0+ZNvXKZz12AWOMN9XIjkDNn05/3dDRPFgjRJNvRT?=
- =?us-ascii?Q?+6moCkdl500/4XQUaE28rAzSkv9AvzOJ4q2IXjLCzvNxXovL5KmDTCuiLMPH?=
- =?us-ascii?Q?uxjOrKGHTFDcdB57snUoBua/nYypyM/OCICX2xm5Ypq/RAksaW+hbBxYxlF2?=
- =?us-ascii?Q?JiVQzMzKGVIAAUNgBLWs8LmwMuHZdZ8rUDcuVFV5SXN7t1QhNkQv?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee112b64-b16e-4703-361e-08df34ff7912
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:26:36.4955
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZH/uQIX74lyS4VQF0juYZ9Pq0oADROx4SlEDjn+RN7+ybXxf6O0CUlCrijxHFlbr6RQysbMT6euZyhNsqJNUkY84246+IuBVQr6rei29eBcSZtkNXqcpcgdGna8PnrEF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9186
+References: <20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com> <20261028132403.3505037-3-atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <20261028132403.3505037-3-atanas.filipov@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 28 Oct 2026 15:31:42 +0100
+X-Gm-Features: AclHuK-ZetXLnRlYyVA0Aar_ekVy_y16swNN82xfp1QmruhUCAZreqlcaSWQtgI
+Message-ID: <CAFEp6-14LzGwZmX19fGP+TTBcUft3=_JahLjg5P1SC4sW6euOQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/6] media: qcom: camss: clamp VFE clock rates to the
+ highest level
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI4MDA1NyBTYWx0ZWRfX8A031kNVyiZw
+ wQpHpjwz8vLHb8twzgbZEWD+t4Km5dBiZ2tDP0ZFyNQIyi61NFXIBk+SCYn9A4Lki18ezOTTsoe
+ E2jMc6tJi5qg88zYPG8rjo5TR+i+Lqo=
+X-Authority-Analysis: v=2.4 cv=SoIFe/O0 c=1 sm=1 tr=0 ts=6ae2075b cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8 a=04hEKUbGTPlOapuoViwA:9
+ a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
+X-Proofpoint-GUID: AZGwSoEoqCD79IFBtpc5HDcNRDvNe9tQ
+X-Proofpoint-ORIG-GUID: AZGwSoEoqCD79IFBtpc5HDcNRDvNe9tQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI4MDA1NyBTYWx0ZWRfX/TieKRj8K3Wh
+ Yb2SQYg9HCcBtKJLwL9gjBer6XSAH/HZEOgyoq/vKof6u/OfPDof9Bnim8tgBzspzXxkPhjUx4l
+ vyRwOAS53u/58jRGk1VYcpdS05I4omOcYxfGUiJInOpEdtl+BywQO9RQzeW3Fkaag1LaxP2raaI
+ f/D5rGAQDi3zykM1NZKamyzMYgddtwj65/iSDtbsYU1UBu/2fxtZ7TLv9cjAkokSrwhvdfbajZf
+ uSY3PISQYCwf2CGkMk+4k3xyH8NgUVdLVd7osUACF5Xtv7SwrD+mkBqvkT8kSSmY1wPw74IAFWI
+ WuPFfN9ul8z1z+UR8o3t95Dt/hcxBcLjFXieyx4neOrrC1jJDnDLSeflFDJqSi7IeGeFxtmRLzO
+ c2cPptk+Nevo2WE/ja2Fx0Hbln2uwaim1DFFCS3JOhCqepTtf1IMERcbP4/H1N6AWKJlYmxYdqQ
+ I40TVDmGh6X8n/mWH8Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-28_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 spamscore=0 phishscore=0
+ impostorscore=0 adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610280057
 
-On Wed, Oct 28, 2026 at 07:02:12AM -0500, Rob Herring (Arm) wrote:
-> Property names within if/then schemas currently go unchecked whether
-> they have a type defined or match what's in the top-level schema. Adding
-> a check finds a number of instances of typos. The typos result in the
-> schema having no effect on constraints.
+On Wed, Oct 28, 2026 at 2:24=E2=80=AFPM Atanas Filipov
+<atanas.filipov@oss.qualcomm.com> wrote:
 >
-> With this, fix the mediatek,vcodec-encoder 'clocks' count constraint
-> exposed by the name correction.
+> The VFE fails to power on when the pixel rate exceeds the highest rate
+> listed for any of its clocks. The rate tables of the VFE clocks are
+> independent and need not have the same number of levels, so a clock
+> with a lower top rate than the VFE core clock, such as the SC7280
+> camnoc_axi clock, makes the VFE reject pixel rates the core clock
+> still supports.
 >
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> Keep failing when the pixel rate exceeds the highest rate of the VFE
+> core clock, and clamp the other VFE clocks to their highest listed
+> rate instead. Take the clamp into account for the other clocks when
+> another line powers on an already running VFE, so that a clock
+> running at its highest rate does not reject the request.
+>
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+
+Just a minor style nit, but the dev_err() messages could fit on a single li=
+ne.
+Anyway:
+
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+
 > ---
->  .../devicetree/bindings/clock/qcom,kpss-gcc.yaml     |  2 +-
->  .../bindings/display/brcm,bcm2711-hdmi.yaml          |  2 +-
->  .../bindings/display/msm/dp-controller.yaml          |  2 +-
->  .../devicetree/bindings/display/msm/hdmi.yaml        |  4 ++--
->  Documentation/devicetree/bindings/dma/fsl,edma.yaml  |  2 +-
->  .../devicetree/bindings/gpio/loongson,ls-gpio.yaml   |  2 +-
->  .../bindings/iio/adc/amlogic,meson-saradc.yaml       |  2 +-
->  .../bindings/media/mediatek,vcodec-encoder.yaml      | 12 ++++--------
->  .../devicetree/bindings/media/samsung,s5p-mfc.yaml   |  2 +-
->  .../devicetree/bindings/pci/mediatek-pcie.yaml       | 12 ++++++------
->  10 files changed, 19 insertions(+), 23 deletions(-)
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
+> Changes in v4:
+> - Keep -EINVAL for the VFE core clock, clamp only the other clocks,
+>   drop the warning (Bryan O'Donoghue, Loic Poulain)
+> - Dropped Reviewed-by due to changes
 >
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> index 88b7672123a0..ed347096df46 100644
-> --- a/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> +++ b/Documentation/devicetree/bindings/clock/qcom,kpss-gcc.yaml
-> @@ -62,7 +62,7 @@ then:
->      - '#clock-cells'
->  else:
->    properties:
-> -    clock: false
-> +    clocks: false
->      clock-names: false
->      '#clock-cells': false
+>  drivers/media/platform/qcom/camss/camss-vfe.c | 40 +++++++++++++++++--
+>  1 file changed, 36 insertions(+), 4 deletions(-)
 >
-> diff --git a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> index c1cefd547391..fd4d598f6ff8 100644
-> --- a/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/brcm,bcm2711-hdmi.yaml
-> @@ -145,7 +145,7 @@ allOf:
->              - description: CEC stuck at low interrupt
->              - description: Hotplug connected interrupt
->              - description: Hotplug removed interrupt
-> -        interrupts-names:
-> +        interrupt-names:
->            items:
->              - const: cec-tx
->              - const: cec-rx
-> diff --git a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> index 094a6383bb77..f72d1b354007 100644
-> --- a/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/dp-controller.yaml
-> @@ -304,7 +304,7 @@ allOf:
->          clocks:
->            minItems: 6
->            maxItems: 6
-> -        clocks-names:
-> +        clock-names:
->            minItems: 6
->            maxItems: 6
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 59be37f83df3..bcc2c1929af1 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -918,6 +918,20 @@ static int vfe_match_clock_names(struct vfe_device *=
+vfe,
+>                 !strcmp(clock->name, "camnoc_rt_axi"));
+>  }
 >
-> diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> index dfec6c3480f3..02d27ccad024 100644
-> --- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-> @@ -113,7 +113,7 @@ allOf:
->              - const: core
->              - const: master_iface
->              - const: slave_iface
-> -        core-vcc-supplies: false
-> +        core-vcc-supply: false
+> +static bool vfe_match_core_clock_name(struct vfe_device *vfe,
+> +                                     struct camss_clock *clock)
+> +{
+> +       char vfe_name[7]; /* vfeXXX\0 */
+> +       char vfe_lite_name[12]; /* vfe_liteXXX\0 */
+> +
+> +       snprintf(vfe_name, sizeof(vfe_name), "vfe%d", vfe->id);
+> +       snprintf(vfe_lite_name, sizeof(vfe_lite_name), "vfe_lite%d", vfe-=
+>id);
+> +
+> +       return (!strcmp(clock->name, vfe_name) ||
+> +               !strcmp(clock->name, vfe_lite_name) ||
+> +               !strcmp(clock->name, "vfe_lite"));
+> +}
+> +
+>  /*
+>   * vfe_check_clock_levels - Calculate and set clock rates on VFE module
+>   * @clock: clocks data
+> @@ -1001,9 +1015,14 @@ static int vfe_set_clock_rates(struct vfe_device *=
+vfe)
+>                                         break;
 >
->    - if:
->        properties:
-> @@ -136,7 +136,7 @@ allOf:
->              - const: core
->              - const: alt_iface
->              - const: extp
-> -        hdmi-mux-supplies: false
-> +        hdmi-mux-supply: false
+>                         if (j =3D=3D clock->nfreqs) {
+> -                               dev_err(dev,
+> -                                       "Pixel clock is too high for VFE"=
+);
+> -                               return -EINVAL;
+> +                               if (vfe_match_core_clock_name(vfe, clock)=
+) {
+> +                                       dev_err(dev,
+> +                                               "Pixel clock is too high =
+for VFE");
+> +                                       return -EINVAL;
+> +                               }
+> +
+> +                               /* Other clocks are clamped to their high=
+est rate */
+> +                               j =3D clock->nfreqs - 1;
+>                         }
 >
->    - if:
->        properties:
-> diff --git a/Documentation/devicetree/bindings/dma/fsl,edma.yaml b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> index f609038e35ae..0260d177c7d0 100644
-> --- a/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> +++ b/Documentation/devicetree/bindings/dma/fsl,edma.yaml
-> @@ -172,7 +172,7 @@ allOf:
->              const: fsl,imx7ulp-edma
->      then:
->        properties:
-> -        clock:
-> +        clocks:
->            minItems: 2
->            maxItems: 2
->          clock-names:
-> diff --git a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> index 69852444df23..07c8b233c6bd 100644
-> --- a/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/loongson,ls-gpio.yaml
-> @@ -80,7 +80,7 @@ allOf:
->          - resets
->      else:
->        properties:
-> -        "#interrupts-cells": false
-> +        "#interrupt-cells": false
->          interrupt-controller: false
->          resets: false
+>                         /* if sensor pixel clock is not available */
+> @@ -1045,10 +1064,23 @@ static int vfe_check_clock_rates(struct vfe_devic=
+e *vfe)
+>                 struct camss_clock *clock =3D &vfe->clock[i];
 >
-> diff --git a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> index 70ab4e140e71..535213ba0c5e 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/amlogic,meson-saradc.yaml
-> @@ -92,7 +92,7 @@ allOf:
->      else:
->        properties:
->          nvmem-cells: false
-> -        mvmem-cel-names: false
-> +        nvmem-cell-names: false
->          clocks:
->            minItems: 4
->          clock-names:
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> index 4505e66876a2..52f471a070d5 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-encoder.yaml
-> @@ -110,19 +110,15 @@ allOf:
+>                 if (vfe_match_clock_names(vfe, clock) && vfe_check_clock_=
+levels(clock)) {
+> +                       u64 req_rate =3D min_rate;
+>                         unsigned long rate;
 >
->      then:
->        properties:
-> -        clock:
-> -          items:
-> -            minItems: 1
-> -            maxItems: 1
-> +        clocks:
-> +          maxItems: 1
->          clock-names:
->            items:
->              - const: venc_lt_sel
->      else:
->        properties:
-> -        clock:
-> -          items:
-> -            minItems: 1
-> -            maxItems: 1
-> +        clocks:
-> +          maxItems: 1
->          clock-names:
->            items:
->              - const: venc_sel
-> diff --git a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> index b46cc780703c..4488d5ca9b9c 100644
-> --- a/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> +++ b/Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
-> @@ -174,7 +174,7 @@ allOf:
->              - const: mfc
->          iommus:
->            maxItems: 2
-> -        iommus-names: false
-> +        iommu-names: false
->
->  examples:
->    - |
-> diff --git a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> index c009a7a52bc6..7c40361f95ec 100644
-> --- a/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> +++ b/Documentation/devicetree/bindings/pci/mediatek-pcie.yaml
-> @@ -127,7 +127,7 @@ allOf:
->          phy-names:
->            const: pcie-phy1
->
-> -        power-domain: false
-> +        power-domains: false
->
->        required:
->          - resets
-> @@ -150,7 +150,7 @@ allOf:
->            minItems: 2
->            maxItems: 2
->
-> -        reset: false
-> +        resets: false
->
->          reset-names: false
->
-> @@ -171,7 +171,7 @@ allOf:
->          clocks:
->            minItems: 6
->
-> -        reset: false
-> +        resets: false
->
->          reset-names: false
->
-> @@ -193,7 +193,7 @@ allOf:
->          clocks:
->            minItems: 6
->
-> -        reset: false
-> +        resets: false
->
->          reset-names: false
->
-> @@ -215,7 +215,7 @@ allOf:
->          clock-names:
->            maxItems: 1
->
-> -        reset: false
-> +        resets: false
->
->          reset-names: false
->
-> @@ -223,7 +223,7 @@ allOf:
->
->          phy-names: false
->
-> -        power-domain: false
-> +        power-domains: false
->
->          mediatek,pbus-csr: false
->
+> +                       if (!vfe_match_core_clock_name(vfe, clock)) {
+> +                               long max_rate;
+> +
+> +                               /* A clock already at its highest rate ca=
+nnot go higher */
+> +                               max_rate =3D clk_round_rate(clock->clk,
+> +                                                         clock->freq[clo=
+ck->nfreqs - 1]);
+> +                               if (max_rate < 0)
+> +                                       return max_rate;
+> +
+> +                               req_rate =3D min_t(u64, min_rate, max_rat=
+e);
+> +                       }
+> +
+>                         rate =3D clk_get_rate(clock->clk);
+> -                       if (rate < min_rate)
+> +                       if (rate < req_rate)
+>                                 return -EBUSY;
+>                 }
+>         }
 > --
-> 2.53.0
->
+> 2.34.1
 >
