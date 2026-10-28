@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793189776;
-	b=eUWLJvj6ekRY8qthppxkLi4NoOZKGLioYiJ78A9IWfeY/7a72LL6EPJ0FZ/7xNDLfqrL
-	 okDI9XzhibULxcOeFh/YGcp80uZ/6T52+6m4jpTe90SRQpRtB9c99MrRYwebcuoPrjKHF
-	 TUMvolrjvui6R/XjM72cN5UZIObKgqI5kPKUjIsNXkUemmykN4kTZ1NtpHUj+LzY6Mkqk
-	 3XCaNiMQo0R4+2h/aVVOAy77X+P212wZuRhgKZzC33eNabIM2XJfQvXJnD5Q5gdf/WwWf
-	 QnSva4hnrjaR9jjSLB9SJlKXH716DRtnjTmgJfNwkwDGExoIXxeVPUUXOTk6A9kN5SQ==
+	t=1793189878;
+	b=4lZgX4tk4qMcceM2bvZp6L5k52B5VrxO4F3IPA22dYtzuEbX9afV/qIKYKJfjv9qZs3v
+	 2h7UqLr/VHhEYBjXY0WPYN9/h3Z2bMSFvtof5YnZ8FDP86bHCOdFI55r147/aJGNXrJLQ
+	 oqvTMJ2Zx3ssXNlRmSW753a14mJBGkgPm+/kXX44FlU3ve8wg8n3WRCaa96jn0VRshEKQ
+	 0iLtFhi6ggRBNeRjN4XjkiqSfX+JQIZCleJy2MzT7XznyIcYGCnZ+7ePwB0X7qRdJ3NPR
+	 491mG2A2gP2NwnflsnUBXejor3AC+pcMfoa9W1cN0dPVCt6PFI0GkrtE/woN6XofHWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793189776;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PT15hZrsV2gtc4raeVCA1OF7bgelk/5T/f1X4EOOnYU=;
-	b=KklohdtvhxdoJfotqMP2WISzcNDKE7Ss9WfPG0N4cOsA9BwZJNkNZlfiitHQp/B5V1RG
-	 0U/eYHr+zj2mJytfpYEb9HX+FkhuevUyj9D/ZegI1fvybV6uekAc0jRorZf/dJh9+lz5O
-	 oxmxUImkcXF7DdU8fN6oRV2UD/VkVDWBBA5Icx5W1zXBxVbC7VQjvHdFtKM9iIIiOz0oG
-	 t7lnfO4HyKwZlXHPKf/0BfbW7lM9lQ5Frvw6G0pkuu0YRSmlCWu+uBK0/JqrkAGf2FbsE
-	 4WNPuU+3b5mNkh3hJPj2cuQuRxQ1o3yKWjcAAmCtga9i0a3wbw4dDsJxB78k/mw71lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793189878;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=6J9Uh0hoxB/gNf641kzWbidAFl+WxrL7aoy5ugqaa8Q=;
+	b=qKQMnwRhz+VQkLeOH8Xlf7E5XgkYO5qfmlWCIy0TFtbFoDVNir/x1TQVGdxjd/2wizqZ
+	 snIxsitiseC/RGb2Ukc2hnr54s2Yzb05qQSRLx7gJb1EDiq20s+06LR+yPaAbPZGe1dl4
+	 yWWN1p8IH923nKcCjZD2S18rARQ2VvdW7GOPgoIgAfHZRdWYRBqvXJFeN8AU2rHxtLdLD
+	 I4d5I4+0rpSO9wsiQ1vy1RHMnYpLCj5jBDvqNbTH5irGggyZD8unY5zw7AKZ8Uc3AelF4
+	 yDM7wqdwCdFSom7RAwMWCQBf00O6HI0+je6tjS27cCECCpG73BqqM7EUPLWP8sjaj6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="com/B+Qt";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=nxsw.ie;
+	spf=pass smtp.mailfrom=nxsw.ie;
+	dkim=pass header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=kev13gsE;
+	arc=none smtp.remote-ip=185.70.43.20
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B907606A31A;
-	Wed, 28 Oct 2026 12:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E078D606A31F;
+	Wed, 28 Oct 2026 12:17:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E078D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nxsw.ie
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxsw.ie
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=com/B+Qt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A36841F01825;
-	Wed, 28 Oct 2026 12:16:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793189775;
-	bh=PT15hZrsV2gtc4raeVCA1OF7bgelk/5T/f1X4EOOnYU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=com/B+QtHCvKrTu0jqM601D/1rwGYmdu4LUPo36GMx5NdNgRPtcCcKQAUK9bKxKA8
-	 JSgpvA8kip3US/shhLTkQWXMo8qTZJJjmo9pPeTH8+kMGJBkfRM9/TyWGwZb8eEf7D
-	 8xO99z+SulKuG2zHrIHyq0AWZ752mUqolZw6Kvc0T2zP8tkrAnV98AulEVSU4NoP3A
-	 4X2F+g2SoACFt0lJgdYeG1q8tj924bRg1xmj9ltD8of5kFZpoFuH/fQtyJw7bUaG5J
-	 BWzlCcsxvgD2RjImR5PikpR0M3gStdu7/CGUBa1P9JE28wODCNl+dVF9S/i7EBkmY7
-	 ASp2QErZIfoLQ==
-Date: Wed, 28 Oct 2026 13:16:11 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vladimir Zapolskiy <vz@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
-	Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	linux-phy@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/7] dt-bindings: media: Add Qualcomm SM8450 CAMSS
-Message-ID: <20261028-spiked-musical-doberman-7d7fb1@quoll>
-References: <20261026224957.1115370-1-vz@kernel.org>
- <20261026224957.1115370-3-vz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=nxsw.ie header.i=@nxsw.ie header.a=rsa-sha256 header.s=protonmail2 header.b=kev13gsE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxsw.ie;
+	s=protonmail2; t=1793189873; x=1793449073;
+	bh=6J9Uh0hoxB/gNf641kzWbidAFl+WxrL7aoy5ugqaa8Q=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=kev13gsEjsiAANnn9k4xFyEOJBkjr3qA5fwKcZ6CUWWOkhxgSjoGVySNILhl9g6a0
+	 xsZzreHTtD+M2gLlqtiwcQ5Mn/tN59fo+XP6wd0r3WZ/9VOysOXuJfT2T+r/c7nMwL
+	 7b3PgsB1ZSe0Vln/6T6akOLZlLlmyIiDeBXECnuBRlqq1f913Tl/mCI60VcEDYlj08
+	 RjRCeu6uYcEC8cFbTKMIe0CB7tc0VSjLezx+ak27mDZkwN5fyqOruPi9Z4bxkVQLW/
+	 XzZE9VVO9bC9bh1UmumqpbUBXI544pSbFVtL2217uWk96SxpgCin8olCClMwBoGMSj
+	 BjDYcyuj9q8Eg==
+Date: Wed, 28 Oct 2026 12:17:46 +0000
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Bryan O'Donoghue <bod.linux@nxsw.ie>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
+Message-ID: <5d886ac3-4baf-49c7-a703-7cb737ef48da@nxsw.ie>
+In-Reply-To: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028093003.722745-1-xiaqinghuan@mail.ustc.edu.cn>
+Feedback-ID: 136405006:user:proton
+X-Pm-Message-ID: f155534f5168fee2d99aa0a8bcd32c788bea221f
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,26 +65,24 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261026224957.1115370-3-vz@kernel.org>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 27, 2026 at 12:49:52AM +0200, Vladimir Zapolskiy wrote:
-> Add Qualcomm SM8450 CAMSS device tree binding, it contains
-> * three CSID and two CSID lite blocks,
-> * three VFE and two VFE lite blocks,
-> * three CSI test pattern generators,
-> 
-> Six CSIPHY blocks are described as separate CSIPHY devices connected
-> to CAMSS input ports.
-> 
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> ---
->  .../bindings/media/qcom,sm8450-camss.yaml     | 274 ++++++++++++++++++
->  1 file changed, 274 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/qcom,sm8450-camss.yaml
+On 28/10/2026 09:29, Qianhui Xu wrote:
+> This series adds camera capture support for the Qualcomm SM8750 SoC
+> (camera subsystem block with three full and two lite CSIDs, six CSIPHY,
+> three full and two lite VFEs and three CSITPGs).  It was developed on a
+> Lenovo TB322FC (Y700 Gen4 tablet) and both of its sensors (rear s5kjns,
+> front gc08a8) capture at full resolution and 30 fps with it, through
+> libcamera.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+8750 is on-list for a while.
 
-Best regards,
-Krzysztof
+https://lore.kernel.org/all/20251126-add-support-for-camss-on-sm8750-v1-0-6=
+46fee2eb720@oss.qualcomm.com
+
+Could you have a try of that and then any additional changes you propose=20
+base on top ?
+
+---
+bod
 
