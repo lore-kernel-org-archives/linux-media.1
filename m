@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793158876;
-	b=NK4V/MAwczYB55P/ZEFYiSp+VihWE/BaMbuXf3yMuqbnF8sbaX6pMgJ+wv+uSj7YWT4l
-	 wjAzzO3VdaLsbHYtE6iy1YsV7KQqs05SueJQlS8lqkfa0edbb+r0ENd3+NOYwkDHD56s+
-	 NQLtPfKdZSc8ed0elGXYIRv98r+tvHaSObi/2qabgMF5qVgiytzVBH6CC5PYl9zgpv+0g
-	 x5Y2gDsB56ZavilfP64gspQKr82iWTYH6a2TlqzP+NUQqfP/HJq3J8WR8j/1W4oJr03pJ
-	 XvrlCOmIeaZ3DPpdPph/6Ilhl5+kMyt+qbu4gcNDNRcSe1DxfWwYMNu/rKJbt8UyB+Q==
+	t=1793158881;
+	b=bFIrB26u790Yrh2DyGsJufkr1lVz9UzLtbKik8NqObLbdAT77yuumDWCbuY3OSyNua9R
+	 ap9OhX6SgAwx2DCsg+a/RVoFGHJSDb+3TKfPoSPPTDerGRXJtSywCQIzz06FoeGA4JrtT
+	 qtSAj2bHpD4K7WEIabRmV+zTNtAeunNi8I/1tjNs5jdvyJpngr5K4+Ja7BOJUioV7O0pO
+	 W8ITfQiWNkA3d/qtwmbqneDfbdc1qSphl3G2FU/252GpHeEy3LxVAH9HXyMzehb2PYa//
+	 tTOlvQNkB693oXzEibo5CFiqhsGKc5HFNgLdfERtWyeo6eWxqqIQJ/NVc2pEGRg7GrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793158876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793158881;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=opNdEUOG0KkydBM4oZ/S1z7kxkArD0ssYQrsYr7WgxM=;
-	b=nyjevDto5Ypmb45gmPnx0s27v/Kq7xqxVMIJM/vK0nFbDkYGhoDiIuHIMzqVA9V67O9E
-	 lzxr6B2Nas11OTCtjuMuSXIaHqo+zOAjdMbrutKD0cbhkV12e7pASld/iyOtUUZx8payn
-	 krEx3kqCvqWcKk3XnS2wfyC/GPavw3cor55uiC2kMOKe1RSAw1HFmwi18OoDbc9z7YDo9
-	 1zGDKLDsqP86adI2FMFOS89jn1fL21DTUZqzTAz/5QyaeKVBSWw0F/c9r1m6gwuHUBkNq
-	 cWK240zutlTNBTXMP9Pism+40OnB3zM0gkGjM3h2E9BBU4gxlmc4xMOQqXz0tH7Xsvg==
+	bh=qNIYdo0QTw7MYwq6uSkCBhOdOivMefRpPYVKU2rOFlY=;
+	b=MYgI41G5nTr3B2cjJukWZcc+UoErekPGThAdXkoQcA/L4PIHQW/LDGQOkB4tARmAR4Pv
+	 VE1PviInE4IdFyeBSZkbVx7NVxMW1QyBbW8lv/7Yu4phME3Dio78DY0H1szo+I7TLj//O
+	 Q3kJHwsJ36rt9lFeFyE85a7MF16sKbBHyZzxgP8TLRxJJ8umZSd99m6I8g2dApsZ3+1LO
+	 50j5cUINN/smuHz2gb9uUdtbZn62aDwfneTNMVa/gASJhHgv1+aKeya5Ri62t8Y2tGWc0
+	 J+6S/GVuVxC5cI8wHiM5pg19Gur5iOb7oS/v+UaYhpUBtZB6aDC0SJ92V9BxpBdPh6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=N8e1JqDC;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=rlgYrWUM;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F67A606A31D;
-	Wed, 28 Oct 2026 03:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F67A606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 31478606A322;
+	Wed, 28 Oct 2026 03:41:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31478606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=N8e1JqDC
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=rlgYrWUM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=opNdEUOG0KkydBM4oZ/S1z7kxkArD0ssYQ
-	rsYr7WgxM=; b=N8e1JqDCeTHR7WBcIYi/fISZScmuHiHKDbVwWnMFPAiUgeP+4S
-	923xCdrkb1ImE2gLj6fvZo7ZxgdDrmVbOd30GIU5RFJkLExuqjlrgRsoKBqlTHxJ
-	DFUpF/D2Y7Df/1C7MZEwmis7h5snX90Z8antp2tVBbKqWjEvNlgYCjgYU=
+	Content-Transfer-Encoding; bh=qNIYdo0QTw7MYwq6uSkCBhOdOivMefRpPY
+	VKU2rOFlY=; b=rlgYrWUM90SsWokaHwZAhgtqNzl58kIR/6wWKxMP32xt/CQF8m
+	cBhhK8keT9jM5y1ypxpM+b8Mxxi2QeWXD4kf9NCVGLOii6HgqQR1suoI1BlPRkbi
+	XU37d8H45th/ndjMiXAh/MwWJJYr1loZteS/GXjrYhbYsWZa/wNSEN2p8=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.180.23])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S4;
-	Wed, 28 Oct 2026 11:41:08 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3szfSbuFqyQlWAA--.2887S8;
+	Wed, 28 Oct 2026 11:41:10 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: 'Bryan O'Donoghue' <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -54,9 +54,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/9] media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
-Date: Wed, 28 Oct 2026 11:40:58 +0800
-Message-ID: <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 6/9] media: camss: video: check that a buffer is DMA contiguous and add a prepare hook
+Date: Wed, 28 Oct 2026 11:41:02 +0800
+Message-ID: <20261028034105.326535-7-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -70,225 +70,96 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxtw1UKFWrAF4fuFWfGFykKrg_yoWfAF4xpa
-	10yr18Cr92yFnIgFsaqrn2yr1rKF9aqrs8Z3WUtryrt3W0va1UXr45Kr9rKFZrZF1UJFy2
-	gr1qvF15ur4DZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmvb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+X-CM-TRANSID:3pYKCgA3szfSbuFqyQlWAA--.2887S8
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw1DurWrurWrGF4rGr4rZrb_yoW5XFWkpF
+	WrKrW5GFW2qF4UAw4xJw4UuF4aywnYga4UGrW7Zw1Yk3Z5tr13ur45KFyayrW5JryxKF17
+	tr4jq3yfuF4YvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmCb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7
-	CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCa
-	FVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_Jr
-	Wlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j
-	6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUv
-	cSsGvfC2KfnxnUUI43ZEXa7IU5WrW7UUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABGsP
+	8067AKxVWUAVCq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28C
+	jxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI
+	8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E
+	87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
+	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm
+	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI
+	1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7
+	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
+	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jzyIUUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARENB2rg+9YEMABKsD
 
-SM8750 uses the CSIPHY 2.4.0 CSI PHY.  The block keeps the register layout
-already handled by csiphy_ops_3ph_1_0 (four data lanes at a 0x400 stride,
-clock lane at 0xc00, common block at +0x1000), so the generation-2 lane
-programming sequence applies unchanged, but the per-lane values differ from
-the 2.3.0 block used on SM8550/SM8650:
+The write master of the newer VFE generations can only be programmed with
+a buffer whose payload is physically contiguous, because the frame
+increment registers describe one linear address range.  Check that the DMA
+mapping of every plane is contiguous for at least sizeimage bytes and
+reject the buffer otherwise, instead of silently writing past the end of
+the first scatterlist entry.
 
-  - the lane register 0x0000 default is 0x8c instead of 0x8e,
-  - every lane gains the four SKEW_CAL registers
-    (0x0094/0x005c/0x0060/0x0064),
-  - the common status block sits at 0x138 instead of 0xb0.
-
-Add lane_regs_sm8750[] with those values, report CAMSS_8750 as a
-generation-2 PHY, and select the new table together with the 0x138
-common status offset in csiphy_init().
-
-The register map is the one the CSIPHY 2.4.0 vendor driver uses for its
-two-phase variant (csiphy_2ph_v2_4_0_reg, 103 entries): address, mask and
-parameter type are identical for all 103 entries, and the data byte is
-identical for 99.  The four remaining entries are the SKEW_CAL data bytes
-of the four lanes (0x005c and its per-lane copies), which are 0x00 here,
-i.e. the vendor value.  This SoC wires the PHY in two-phase mode; the
-three-phase variant of the same PHY (csiphy_3ph_v2_4_0_reg, 72 entries)
-uses a different address layout, so its table cannot be reused.  The
-0x138 common status offset is where the vendor parameter block of this
-generation points its status register window (0x1000 + 0x138).
-
-These settings are the ones the CSIPHY runs with on a Lenovo TB322FC
-(SM8750), where both the rear s5kjns and the front gc08a8 sensor stream
-at full resolution and 30 fps.  Enabling the SKEW_CAL data byte of the
-four lanes (0x005c = 0x54) instead of leaving it at the vendor value was
-also measured on that device: 90 frames with each setting, no error
-reported, 30.26 fps and 53.81 vs 53.78 frame time deviation, i.e. no
-measurable difference, so the vendor value is kept.
+Also let the SoC code add its own alignment requirements to a queued
+buffer through a new prepare_buffer() video operation, which runs after
+the generic checks.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../qcom/camss/camss-csiphy-3ph-1-0.c         | 124 ++++++++++++++++++
- drivers/media/platform/qcom/camss/camss.h     |   1 +
- 2 files changed, 125 insertions(+)
+ .../media/platform/qcom/camss/camss-video.c    | 18 +++++++++++++++++-
+ .../media/platform/qcom/camss/camss-video.h    |  1 +
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index dac8d2ecf..9cf22ff17 100644
---- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-+++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-@@ -804,6 +804,123 @@ csiphy_lane_regs lane_regs_sm8650[] = {
- 	{0x0c10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
- };
+diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+index 0852eb6f1..027cf024f 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -155,7 +155,10 @@ static int video_buf_init(struct vb2_buffer *vb)
+ 	const struct v4l2_pix_format_mplane *format =
+ 						&video->active_fmt.fmt.pix_mp;
+ 	struct sg_table *sgt;
+-	unsigned int i;
++	struct scatterlist *sg;
++	dma_addr_t end;
++	unsigned int i, j;
++	size_t contiguous;
  
-+/* GEN2 2.4.0 2PH 4 lane DPHY mode */
-+static const struct
-+csiphy_lane_regs lane_regs_sm8750[] = {
-+	/* LN 0 */
-+	{0x0094, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x00A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0090, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0098, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0094, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0030, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0000, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0038, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x001C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0014, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x003C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0020, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0008, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0010, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 2 */
-+	{0x0494, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x04A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0490, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0498, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0494, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0430, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0400, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0438, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x042C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0434, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x041C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0414, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x043C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0404, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0420, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0408, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0410, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0494, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x045C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0460, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0464, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 4 */
-+	{0x0894, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x08A0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0890, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0898, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0894, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0830, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0800, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0838, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x082C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0834, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x081C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0814, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x083C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0804, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0820, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0808, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0810, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0894, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x085C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0860, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0864, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN 6 */
-+	{0x0C94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0CA0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C90, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C98, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C94, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C30, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C00, 0x8C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C38, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C2C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C34, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C1C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C14, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C3C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C04, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C20, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C08, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0C10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0C94, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C5C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C60, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-+	{0x0C64, 0x7F, 0x00, CSIPHY_SKEW_CAL},
-+
-+	/* LN CLK */
-+	{0x0E94, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0EA0, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E90, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E98, 0x08, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E94, 0x07, 0xD1, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E30, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E28, 0x04, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E00, 0x80, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E0C, 0xFF, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E38, 0x1F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E2C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E34, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E1C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E14, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E3C, 0xB8, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E04, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E20, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{0x0E08, 0x19, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
-+	{0x0E10, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
-+};
-+
- /* 4nm 2PH v 2.1.2 2p5Gbps 4 lane DPHY mode */
- static const struct
- csiphy_lane_regs lane_regs_x1e80100[] = {
-@@ -1139,6 +1256,7 @@ static bool csiphy_is_gen2(u32 version)
- 	case CAMSS_845:
- 	case CAMSS_8550:
- 	case CAMSS_8650:
-+	case CAMSS_8750:
- 	case CAMSS_8775P:
- 	case CAMSS_X1E80100:
- 		ret = true;
-@@ -1259,6 +1377,12 @@ static int csiphy_init(struct csiphy_device *csiphy)
- 		regs->lane_regs = &lane_regs_sa8775p[0];
- 		regs->lane_array_size = ARRAY_SIZE(lane_regs_sa8775p);
- 		break;
-+	case CAMSS_8750:
-+		regs->lane_regs = &lane_regs_sm8750[0];
-+		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8750);
-+		regs->offset = 0x1000;
-+		regs->common_status_offset = 0x138;
-+		break;
- 	default:
- 		break;
+ 	for (i = 0; i < format->num_planes; i++) {
+ 		sgt = vb2_dma_sg_plane_desc(vb, i);
+@@ -163,6 +166,16 @@ static int video_buf_init(struct vb2_buffer *vb)
+ 			return -EFAULT;
+ 
+ 		buffer->addr[i] = sg_dma_address(sgt->sgl);
++		end = buffer->addr[i];
++		contiguous = 0;
++		for_each_sgtable_dma_sg(sgt, sg, j) {
++			if (sg_dma_address(sg) != end)
++				break;
++			contiguous += sg_dma_len(sg);
++			end += sg_dma_len(sg);
++		}
++		if (contiguous < format->plane_fmt[i].sizeimage)
++			return -EINVAL;
  	}
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 93d691c8a..ef45eea00 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -95,6 +95,7 @@ enum camss_version {
- 	CAMSS_845,
- 	CAMSS_8550,
- 	CAMSS_8650,
-+	CAMSS_8750,
- 	CAMSS_8775P,
- 	CAMSS_X1E80100,
- };
+ 
+ 	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
+@@ -193,6 +206,9 @@ static int video_buf_prepare(struct vb2_buffer *vb)
+ 
+ 	vbuf->field = V4L2_FIELD_NONE;
+ 
++	if (video->ops->prepare_buffer)
++		return video->ops->prepare_buffer(video, vb);
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/media/platform/qcom/camss/camss-video.h b/drivers/media/platform/qcom/camss/camss-video.h
+index d3e56e240..af046ecb7 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.h
++++ b/drivers/media/platform/qcom/camss/camss-video.h
+@@ -28,6 +28,7 @@ struct camss_buffer {
+ struct camss_video;
+ 
+ struct camss_video_ops {
++	int (*prepare_buffer)(struct camss_video *vid, struct vb2_buffer *vb);
+ 	int (*queue_buffer)(struct camss_video *vid, struct camss_buffer *buf);
+ 	int (*flush_buffers)(struct camss_video *vid,
+ 			     enum vb2_buffer_state state);
 
