@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793148055;
-	b=QEXYWlP6hvccjuDZXG7H7DP3Z3Wu/NDWiC2ARTWe0dx1CHJ/23T8u8mvJVXl87hnNuBk
-	 /Q5us8vKj+5WjbPawpVOHM96HA79QvNHk1t2suubc2zKmbz/at1yPO5SKeMCrOYDr/3U9
-	 hTDT4RxYJrhWsz615IaeYviebvXftN4M9Sj5vCh9DZXjzJFoShUDvMkF+5M9jZV52Smmm
-	 Hb5GL8eXECAT/7kJOxIlIrjcyZQKKPS5IQGLsMJVFtwaKyQZFIGoLVBcZL29UoO5Hv3NW
-	 CM9Jb8h2NTZLPCf8BWFOJbKNaZkl5PG96qpRiATRNs4x+uuh38uMHqxNBBTzJ7bFFEg==
+	t=1793156487;
+	b=SdAkav1lnuiTgnCxvho6KIqQ8h9BpXh7lBujO9veUCH9uiLeRuL19jZqFF7uCN4CydGo
+	 DQY8IxbDY8DGBVOCb1sBES7ksUWd5/aK6N3UQJG1WhNRa/O/Ju9UB8ajHhUngdSbg05DE
+	 uqApISLSXEmo0vF7lWw/Nh8fX9z6iPmtpJFKGY3iL31lQOZjgYxDuP50vEGtG2GkJXmia
+	 eEXl5LWZQ8h7nAh542abE2laf2tDIWzbUCgNV2NeLQkTMSJaFn0KS+idnTkDTA3qBc9Qt
+	 dJ4wWvgRjsJ4wMByK7WMF+pwEN9RQJp1c6aSwvli4f4xvSvgm6yirn3zeppSMDusQrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793148055;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ZsT62UrOKu5ehmONQfEamwQ9FD9QNaqPUN74IlzPbT8=;
-	b=G7C3U9WQ6nGEiUy0GblrVzbGilbp4MtMZB0fOS6RzR/AYsICJyE/0lACEBqpSUK80KSh
-	 QIdDrjr5uKx52tvWceHqWr+Uh4eqqU24ByvKSm2qsaDK8LM1IVQXgJRNTkIbw7aq1p2FM
-	 0hY1j6TRSrkURTrdzcsiFb23n1sA5UGA6PrvWUd4amepsRst1K8n/HgpQO9MitBYGKnsn
-	 wt1iLajYB7NF+LPM0uVqxok6ujL9oss7/ISdviirXXTMLBHJ//RK9koz40vb4VbexH5hh
-	 69xXyC5Y2L79TQgE2Y+fu7EW6Ki7hnQRp6l1sAL+fQ1Ie5OvoDqO6/wy3c6AtMfDlRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793156487;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=VBv5hcAUgEzlTojiQ+eEt+6YeW08V6/WtaCaBZ/AZQI=;
+	b=YT4RZNOPDZ/El0DjNHOZuwzfusuNQ4mXS8l19O0F1HkVmJsZfsk12fwIBoJiqTB5lZOg
+	 IxUJT25kWB00rs+TRdYgk+BiwBGv/2jnW6Phr8FBciySsIKLyOtVfzayB+Fbz9ze52Rdf
+	 9t8dF9CAQiFpySIS07Bb/AGu9P/xt+f0pfbXJsLgZZVHaYXWP7ZBidYsopqlUdMwJT3LD
+	 FZzAoBeXg5nNgSETRH3TL/inFDcGePHSKFATcF0Y8jXzzEkS4mWJM0sjoZn6Vi7j/1mzb
+	 JAOSmoXUr6bO+wwhfiWvZ64maQoD6X7x/3TCVqYdvB2G3QhEU8wq+8zNMxHAjHfXztw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nijYtPeM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C4D6606A31A;
-	Wed, 28 Oct 2026 00:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nijYtPeM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1831F01825;
-	Wed, 28 Oct 2026 00:40:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793148055;
-	bh=ZsT62UrOKu5ehmONQfEamwQ9FD9QNaqPUN74IlzPbT8=;
-	h=Date:From:To:Cc:Subject;
-	b=nijYtPeMwjyzXB1D0/H0bENnltbW+qg6hmDIOg5VP6Wo25pZQCUL8HanRG+mqdbiz
-	 TI8thfDPCQx1pJ4GjlxtXH7HlTb6ViZg9W+TjWXmYjGaP6qwe0r5e6yyiU6mH7jfkQ
-	 OZY8/rtgclRGRmRzViF8choKMp/wCQ/1ZiM108X4crH1CK+g6kPS1Q9Am6bcBVD3ow
-	 JusTwRFwCm+E+tEOfAMPWPx8jN6nYa/rOLFKRiW4dsCuSinTuk/MUXjeLwTXfgKPAL
-	 TN3cWaal/TL8jkS4ey5LUcxOxv+5I1nj/JPgqdhgPIJNQySY7Eb3lhqsqiG7bXZ7jF
-	 OrC0vTmRYpaVQ==
-Date: Wed, 28 Oct 2026 01:40:50 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton
- <akpm@linux-foundation.org>, Linux Media Mailing List
- <linux-media@vger.kernel.org>, Linux Kernel Mailing List
- <linux-kernel@vger.kernel.org>
-Subject: [GIT PULL for v7.4] media updates
-Message-ID: <20261028014050.3614d83a@foz.lan>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34778606A321;
+	Wed, 28 Oct 2026 03:01:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34778606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d9c973fcd27b11f19a56ed5b684f684d-20261028
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7f81a148-96a7-4485-ac9b-e83a73b42a4c,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:7b7f5bdb2756e189ad9093bde4904cfc,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
+	EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d9c973fcd27b11f19a56ed5b684f684d-20261028
+X-User: liwang@kylinos.cn
+Received: from [10.42.16.85] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 374288869; Wed, 28 Oct 2026 11:01:20 +0800
+Message-ID: <36d782c9-d8a2-410e-8bb8-36bb6e9f9549@kylinos.cn>
+Date: Wed, 28 Oct 2026 11:01:17 +0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,45 +62,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/1] misc: fgds: introduce GPU-File direct I/O via
+ dma-buf
+To: Pavel Begunkov <asml.silence@gmail.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jens Axboe
+ <axboe@kernel.dk>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20260908131545.105987-1-liwang@kylinos.cn>
+ <20261027090853.30099-1-liwang@kylinos.cn>
+ <749e9437-85a6-45fa-b984-b155a1eeddaf@gmail.com>
+Content-Language: en-GB
+From: Li Wang <liwang@kylinos.cn>
+In-Reply-To: <749e9437-85a6-45fa-b984-b155a1eeddaf@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+Hi all,
 
-Please pull from:
+On 27/10/2026 21:54, Pavel Begunkov wrote:
+> Hey Li,
+> 
+> On 10/27/26 09:08, Li Wang wrote:
+...
+> 
+> xfs support it a it orthogonal to the uapi question, but it should be
+> implemented in xfs and not side stepped. There is an RFC on the mailing
+> list from Anuj and Nitesh that is trying to do that.
+> Thanks for the feedback!
+As far as we know, Pavel's current work only supports direct data transfer 
+between GPU memory and NVMe raw block devices. As Pavel pointed out, I 
+tended to prefer an implementation that was as non-intrusive to the 
+filesystem as possible. My rationale was that GPU-NVME direct data transfer 
+would ideally not require filesystem opt-in, since there was no readahead, 
+no caching, and no complex metadata operations involved here. In most cases, 
+the filesystem merely helps translate file offsets into disk block addresses. 
+Additionally, adopting an ioctl interface had a smaller impact scope and 
+provided a simpler userspace synchronous operation interface.
 
-	git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git medi=
-a/v7.4-2
+We will track the community progress, and we appreciate being let know if 
+there is anything we can help contribute to, as we are active users of 
+this feature.
 
-For a patch reverting "media: Don't hide I=C2=B2C or SPI drivers by default=
-".
-
-Regards,
-Mauro
-
----
-
-The following changes since commit d7e7bca7169873b46e857c025c10f3336c1258d8:
-
-  media: i2c: imx576: Fix line length register (2026-10-09 12:34:05 +0200)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git tag=
-s/media/v7.4-2
-
-for you to fetch changes up to 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005:
-
-  Revert "media: Don't hide I=C2=B2C or SPI drivers by default" (2026-10-27=
- 14:16:20 +0100)
-
-----------------------------------------------------------------
-[GIT PULL for v7.4] media updates
-
-----------------------------------------------------------------
-Sakari Ailus (1):
-      Revert "media: Don't hide I=C2=B2C or SPI drivers by default"
-
- drivers/media/i2c/Kconfig | 11 ++++++++++-
- drivers/media/spi/Kconfig |  4 ++++
- 2 files changed, 14 insertions(+), 1 deletion(-)
+Thanks,
+Li Wang
