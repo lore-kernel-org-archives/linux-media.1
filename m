@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.21
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793196196;
-	b=x8Xomf0Fft+LQsPaPXCAeza6GN6zmlAbes8f9mfagU/5/nRYjPIryVmuNGdAolN66C/N
-	 x6tnWpy8O9UeYk5bg2/6ZmYZGpD7YeXv2FUuK81m24iHKUSmjwuar8OefwQGU5adalH+0
-	 uOlDdwHkTmoPnvDk9nYb0yavQDU9zNjJ9JPort8K6ZQ1N0Z9/hWHcJsde2pdSB+hOdlZs
-	 MdLkFdOtZn5hHuPVk2NpNxYI767R5beEi0h8PdDM5EowKZvWS3atmnNqIayyheF+E/Tdi
-	 yUoDsMDiVOtLfj479C87Kj3x60+zp+XlCKMRPLkWm0BKau9kYrmVs12iifFp5+9fBmw==
+	t=1793196387;
+	b=L4BNq3jI5c7icIV4FVX8ZnimWqdQO07yXaoqisYp9IKvCKeBRvevVbK/7Y2RFXAKg36A
+	 fjYhRBZkxWW7lifc+RjdGnHuhTMKB4BSJ3nSASfZQFZWdPKEdIcGyKO0iXkrSOIJ86Ocd
+	 2Ip3/4vu++xeToNxD9Wom/BZbCRuwkQ9hBVUbFfW9dy3UP2zDYurrEVdtwrEnpSEMgeLN
+	 /oRasTO0h1yhIIB5tATGGuNc3VJ057YzfIoTjT078NbR3VuvEtZqsW6WkoqslX98Akhk9
+	 EC/tGqQntiPqBPr/Mybk3dyN1kLomx0AqIZK76qWm6kAY6AW5Ni3QI0b3RwcIrTIYKw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793196196;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=fBRHM/dYBJXFpqQucE3MolM3R+rfLw6UNPmgzLOD6Rc=;
-	b=Ot9nYFPeJ6IAwwZBZwoptVAnvU1OtIC8vVJEGof6wmZlzUGHGFTYFl094pMjBgTkUY0p
-	 BefSsip0PrMCpmoJ/HAVIB4ZkNg0gRCfvbmihOxs7/y8psRGltM38cAIAS+ywwEumxmIl
-	 e5WTVdFuDbecsDW0QIGk785SMDVCjZHgo1j79dP9UniIsUf18OAS+kl68Q4F2XXr8IQoh
-	 6SkGrhMLwTa5OxQUQpVAtBAQ6qWE68+LkmxO3GJtDbNECDy7JN0Hm8a9ypdrQvT4sHa2v
-	 rrpW5iCjXcwNkcREuccg3uE76k7cWgJHB9PL5dGh/Son4fbTwR5xEGXpcwzHirn7Row==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793196387;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i+4HsX7u15luUerB3ybl59m8EoZRssUv4SeGg+A6dv0=;
+	b=CLZuKhWdg83zr3QRBtMY3nS1uh6tQE798PAJ76AnLGLYVjbMQSQ7c+fK+b6tX5yicjmp
+	 wWwvk23dgaHfywM4B7Tg38NqpzWmUWHz5SNcEjh62SlaYbRQ53t/E93qBMRtfoHwZbmqB
+	 F2TBXm2fuhANZgRH+fXfgGEOGnCnASXD4p/muY2TZdN9dRFDkAUrpCUbr0vZZgN/Cno9F
+	 RgM9eclQujbau5PapHPNdmOeATIpIgomsuLhRj3BKuSTWSBZVzdeFLc8kKTFaz4lkQn4j
+	 oKTqgZ4vaFKK9lPxIT7cknRCtscMnM4UOw/0Jy4+c7NHuXBP2HjzI7LNYiKoE98WTbw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="wNxjDQ/E";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.21
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010021.outbound.protection.outlook.com [40.93.198.21])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VeDRYdXG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C110C606A31A
-	for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 14:03:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C110C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688E8606A31D;
+	Wed, 28 Oct 2026 14:06:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=wNxjDQ/E
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ninfdi4xIbyOUU8rbx4J98tNMfP77ik2zWdAZPNjKmTPDBtxFlasH/QDEyu8+XhdDRpkxH1C9AKU0+leTAh8zIFKMwK6JSmb0tG9v6TyplY1J/4r/th1Q47KRQWC+8l5ehTveLt+FRdzmOE3RYZwTHgttdSVtq5e/71WW22nUJSFv60YjmElrCCmB6zzYN5VZTTBrEzHX6dgM0U2qbg7jC9meKIWBC6FqrOBDERtTtADF1u1Da4mIg0MouyEzXriIH2hkWkQBz8v0JObQ9gMW5nUcaLTdkRs7WBYiFh9YFhTNk3YYvkbrGHhklKtK9wuqP34PfjDY/i3l0YH4jsyKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fBRHM/dYBJXFpqQucE3MolM3R+rfLw6UNPmgzLOD6Rc=;
- b=N9O3mqvnbHVgjgFjKXJfqzhUC20PsZzMMDKP1WbFwLTBtySu874vVBJdGnmgbtfyWTrYr98B3MA0rA0PIgzIDLXOWESs65dEFvRZ53I6xi1y94RCVFmdubgaPyr07fHwkmPFBx2P+0bzABMs2bwMLQFOlII2f6PA0P6Os1YjTyTYxSPR15FW9JcNeORnTJ8pAr8PGtVxMYE+/oXL0wvz7pMAW4cl15oLyxbYlhyaxSEdiIqbsmInJflXNL2M8fKC+2XBI+5Oc6t3pEDcGVDTFU1SMnf1IjYdGxk7EQxm1a8aljUGoavLQo+San62GO+HIGLK9iKHt4kiX9GwLDlJmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fBRHM/dYBJXFpqQucE3MolM3R+rfLw6UNPmgzLOD6Rc=;
- b=wNxjDQ/EoEXqpgCWfa4lAx308Z/Ta/2a/LJ8eArImuDmNzIArquUyR8nhBkSyw+Zw/MuDjlA+vgTeqthNIGEgDqVOl+KdwIcsiSdjGs2S6NLBx7hIohVchiJ2EidDnzkb+3sHSdsveKmItuZi0u+BFvo8unKJiC4ug+g7zykPoQ=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CH4PR12MB590718.namprd12.prod.outlook.com (2603:10b6:610:50f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.8; Wed, 28 Oct
- 2026 14:03:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.021; Wed, 28 Oct 2026
- 14:03:13 +0000
-Message-ID: <52a82bea-3105-4bb5-a6e0-b1a0e3b808b3@amd.com>
-Date: Wed, 28 Oct 2026 15:03:07 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] dma-buf: system_heap: 2MB chunks on x86
-To: Davidlohr Bueso <dave@stgolabs.net>, sumit.semwal@linaro.org,
- phasta@kernel.org
-Cc: benjamin.gaignard@collabora.com, jstultz@google.com,
- tjmercier@google.com, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-References: <20260928195850.1982569-1-dave@stgolabs.net>
- <20261007120745.bvhqqa6cowqnt3jc@offworld>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261007120745.bvhqqa6cowqnt3jc@offworld>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0067.namprd13.prod.outlook.com
- (2603:10b6:208:2b8::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VeDRYdXG
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793196387;
+	b=XVXZv3hZgk9MAUNRGYjhnuNZn9/grcqydX5dIZ9dJxjtlCwUoPBhMF2O/W359uUGovIm
+	 Zx9m/VB6jOKE5dqd8Ca5tqtS1vf/8PvQatDooK52N+vCHMSyde/sDPCFt7en/c54EAXkn
+	 i+qX/J7tb3KrJvlys4j0vExQubHwe9xBjke7qK4L047lvgFpHljoD/ezlUlkOKbv3QG8B
+	 fSoJYBe/qQgXcFG3ec5P5wJZwyiSWtaLjJq0t2vCRtApr0vIiR8U/V8b/bePuKu/SocuC
+	 CM5Sy3xTO92GuaWSessgxKnizOvlLoVhZbXmla2IABC+XQim1exWlV+iWiWIxBmhtTw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793196387;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=i+4HsX7u15luUerB3ybl59m8EoZRssUv4SeGg+A6dv0=;
+	b=g/hj7QZpWBfrT3RCzOKi0yNahFeiEvd3s/AatAinfoIWYZAekvTYQfB8EDbYUrxciVG6
+	 XLkyPrSDvW0fo3+V6hN0INzMsmBITrHbhmGUGIWdAURt5AYMSRncOF2CCkQpJbrVREGvS
+	 mGQQK9bpahYIiZE9VY5I3BctUDWgjl1AivZ1JuVEo2MAKk2zjqAzyTL1d7xVgYAjHzPIJ
+	 Ui7iZxQX+nVMuVBPffqejszmAK31a/XR6l/VMdO/5le3XoXMjHu0ttQk+a4l49wOQck3I
+	 DXhPyKc+f/SHsTpwjMvT2bkEfivfzPMwhhRghSAni9FK6EtvTmDNZSHnX3O9j5bJ0jQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 60FE91F01825;
+	Wed, 28 Oct 2026 14:06:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793196386;
+	bh=i+4HsX7u15luUerB3ybl59m8EoZRssUv4SeGg+A6dv0=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=VeDRYdXGaQMPygta93Tspvu7im++IALOP+LLYT7m1BuddzgBDsgIh1aw7Jeqnhzrc
+	 18oqBQ8frY+lBLKH7gYkC3wZ3XS0IpebSX9z7hV1eIpZg6u6NnTJIhA8pLpei+4roS
+	 tLFw1h8EIxfKMRSS0jSlD39WnZO6n1hAoC7JdSlZlNrohK4XUwoqbg0QlO+s4UcGGv
+	 eVGQepuwEPhdlhgA+Awi2XGtTZsGcgdN6fKxCb/g6u8lD8Jxg+cKV3NTF7PFiDFrcF
+	 MMXgMD/HROjO4+FY/zagtBRSBmL9bBmTmhRW3ntkwdp/1Xh82V4hYLMW8E9QUiHtCX
+	 BLy5e26CLlZBg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id B0CDF4548C;
+	Wed, 28 Oct 2026 14:06:25 +0000 (UTC)
+From: Caspar Adriani via B4 Relay <devnull+caspar.adriani.proton.me@kernel.org>
+Date: Wed, 28 Oct 2026 15:05:41 +0100
+Subject: [PATCH] media: amd: isp4: fix self-deadlock in
+ isp4sd_start_stream() error path
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,108 +83,135 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH4PR12MB590718:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6f0053df-54fe-4498-005b-08df34fc3448
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|11063799006|4143699003|5023799004|56012099006|261009223027099003|261022105027099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022075727099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Lr3qCr3FT2Cb6OFmehfKG+E92mOPGJOO5GnroUr9rSGcbdw8lqoYMVs3C3x7IxuZkCGRqNgi4tF1bdI1T89oIPpTWCsbiy1kGWSydT/6rOUIjXBm6UD5oxbc6mMCdyYVbeR0B21lPOqmSX/4vnsxVgba7KA+Gbo7G0ShGYkg7Avk6JZcF9z1SXio3S+EyhLKljcdY1RFS4EEZpBCuWKDqNXG6rt16OGt2qYNJfJLgIcJ9Ntz1IIwSvRE5mwPuphn+jL8UQJW79cdv2Ww5Dgn2OfsAE+kFgjeqgiIUTaD1eFk0AqY2YlKnsyBhqFOBXrpYprGeRbuy96hSl0IZXGsRS6wyRe8KJcQASh6IBrnyXjaGh96Nn56SW+o1JVUmbSAvI6Uz8IkuzoK3wl06pBFKWkNCMmQg8jMtARB2kukyElhfLJdmd7qXCIK+TvaenstVu2L12vEhw+irU2q5yqkxyt2jPcbLYb9OXrpQfLNjRJxQFyFD49HwD6EtucXkeLywKbvQLjebPrnIuYC5fMVrBH+gFqeqNhGavOMrJJmUW7G2RGJDk2+Wp5KiBWzVw7BPbGulyfmn+N9g6lMfeXYcm/tL7VW01YPiEu7JoI79E//GlAZJ/VMosvkuPSdu43b
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(4143699003)(5023799004)(56012099006)(261009223027099003)(261022105027099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022075727099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q1BORDkwV1ZDMG9ld3hVSjEyNFQ1cGZhZzhCS1o2c2huOUZ1VGRseW52SGpJ?=
- =?utf-8?B?V3FJNUkrWEJlekk2Q2pJMXZyMmJLU0VQZk9tZVdxeC9VankvWXZ5TlYrQ0N3?=
- =?utf-8?B?dThJZmhGYm9jZk5WeHNvaytZbktJL3ZSa1VmbHRoMU5JNnRZMUZXMUQxR1BM?=
- =?utf-8?B?UkhqN3RJaWdVSjM3Z21rWmR6QzN3Q1VYMGdkVTNFcWFMN0VJYmlsOFBMaFRL?=
- =?utf-8?B?WVBJcTg2d0FDRmNqbHkrQjg0UTIrYkkzR1JvYlNFMGMycUhoaGl3bHg3NTFS?=
- =?utf-8?B?Y2p5enJ6dFpwQkxsNG0xbVpDMHNSYkdnRzJMbURpVS9NYWFnKytjNG1Lbndm?=
- =?utf-8?B?ako2VTU3UWF2MjBwNmJ0QlI4RmpKeU9nNm5nSy9ScTFpelVHSmFUdTZ1TGgy?=
- =?utf-8?B?dWFUYWExcHBVSS83ckQ3ZW92Y29BMUh3aXN3eHlOa2FhdUtDSXppTGw3ZUZL?=
- =?utf-8?B?K0lTWG80RDJtOFJZQ21uSHdGZUhRU2N1OGcvUlpEajhwR29WR25JcjJYZHJ6?=
- =?utf-8?B?L0h5S1ZRUnZtc3grRnZ1ZGVZZENDaHN6eWF3SmhDc0lhWlRNTFBULzZldEZs?=
- =?utf-8?B?VThrZ1VBZ3ZyUXFVQ1NWMmR4R0RxUWJ3THptWUhnOVhsOWJYb281dU5RVnVt?=
- =?utf-8?B?cU9pTlBDR0FUMjRCbng4cDJubm80Nmx6eUJmWVE2aHlzSXJxUTlabUVBakpM?=
- =?utf-8?B?QnV3OGt0SkdyRFlNeTFWaGtEeXVFUGpCTGRvVC91MGZuQkRlNDRsbjFpS3Np?=
- =?utf-8?B?bE5LdkVManp2SUYxMjQ3VGN5ZlRpelNPYzhkSmp2UzBzMkJ1bWZFMTYyYWR2?=
- =?utf-8?B?SEZBV1BheUF5a3lEVitPZnJXUVhDUEZOOWtaeHlxcjR5L3B6aUQ5Uiswdk1q?=
- =?utf-8?B?OUx2cUViZTRVNXFrbndENHIxQ0w1TkVvZ0Vmc0dyK2E5YW1hcGhjbFJLS2tG?=
- =?utf-8?B?OXFqK0JvdnIreVhzUnZzM3JHU0cybmNiZ054aG9ZYTM2VG1kQTJxakpad3N1?=
- =?utf-8?B?UE9lWXpDMWt6STBxaVcwdE43andVWGlabi9IMlhBT3ZUUjRkbVAydzNsbFlt?=
- =?utf-8?B?UEdJS3dCMFB1MExMUGlXYkhNQWZEVVl5aWRmSWc5RUg1WE9yeTkrZko0TzIy?=
- =?utf-8?B?dnZ1cU9ZQi9KYU9Jd0xJRzhTdlBkK1N4T28xZjJCSExpTkRrU0RLWUZ0R3ZO?=
- =?utf-8?B?dkJuL202L285ZTdhcHY2YytmTnFNamthaXpiMFp1VjZ5Y0h6Um1LblpRVFpI?=
- =?utf-8?B?U25obTNqSW5WdHFkVXVmbDlISlR0dm9mRDJvZ1BGUU9WTEdWUVd2UTJwaFIz?=
- =?utf-8?B?d2t1VUVKSmdWd1ZYQllMM0FUN3p1SHU3Y2ovNzdrMktFc2dIbi9vc0lIVVhB?=
- =?utf-8?B?VWw5NGFtc20xVXRZaldwdzRvVDNES3ZvSC9MVlBuTjE4b1hzYW5MV2NFSHZX?=
- =?utf-8?B?UlR4MEZDM0tHU0Y4WWdKbFF4QnFxeCtmMnlhUUZ1aWhTTnNZdGN5azJDOFpB?=
- =?utf-8?B?MVdkZTE3M1haVlVOaGNkN05PaUY5OHhPaGVIcVU0ZWhGdHJqM3NJQjNKblpY?=
- =?utf-8?B?TFFIUlRJcks4eVFBRkg0VFVJUlBnZW5vUXJUMjY3RTh6Nm9MZWZ1OVNYZlVO?=
- =?utf-8?B?OWR0YnV6ZjF4N3A4cjE5Q3hidTdVTlRuRzlNNmtsR0htOWxtekJVRVY1ZFZz?=
- =?utf-8?B?a1lHWkp0YW9lNDRidlViTG0vUzdCeXZnRG10dEpxekNrVjdXb3R1ZGU1QUpC?=
- =?utf-8?B?N0NZZklwUHdaSzF5VUVTczAwM1RNdTZ6dnREekxjbm9wQ1hxQkJZUmxGWWxO?=
- =?utf-8?B?UUNtbU1KM0c0OGtVSlM3K3FMdkI3UzV6Vk52bXgwd2x1d2dUV29iM0V5dUVk?=
- =?utf-8?B?YkRXeXptTW5aNWZSRFVFdlZVTE1keGJqQTgvbXc0aGRmU0NzN1VYcklxUGtk?=
- =?utf-8?B?eS9lYU9qNnJONzFDRkg4Z1phYm1CUnNyTW1pUldON0ttUVNDSG13MDJKdFZR?=
- =?utf-8?B?eVBBelhqK1hhYVhDay9nVHZtRElFMHZHV1BxL0tIVWxZc1ZmRlg3cWpmc3Ix?=
- =?utf-8?B?MVRXR1YrUTRoOC9ZTVN5WkZhcGZabDBVNEhlalR5OVVvcmh2VmpacVZNQnRM?=
- =?utf-8?B?cHkrNWxrRTJzU25BKzM5RmZqVEtWSWQrSFUxTnlGVkZLeHp5ZjBiaGhoaG85?=
- =?utf-8?B?Y3hLWGhhei9ZVHM3dkJGYjlzdU5wOXhJWlZjL1Z1MUgvZGlFN2VTWGdYSkpX?=
- =?utf-8?B?WE8rS013enozcnJBM1pGM2xJcHpJaGUyWVUyUUcveHhhMWdwY3R1eU5rLzFp?=
- =?utf-8?Q?IN8VybB3qGAPuoy8/2?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6f0053df-54fe-4498-005b-08df34fc3448
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2026 14:03:13.3585
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jfgcBLij+YElZtsLDZtikNZ/MTbGCC46vJJb2TLWKhc654BXo96SfMmfv4MrA0fp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB590718
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
+X-B4-Tracking: v=1; b=H4sIADQB4moC/yXMTQ6CQAxA4auQrm0CMwbEqxgWdaZq/QHSDsSEc
+ HcH3Lzk27wFjFXY4FwsoDyLydBnVIcCwoP6O6PEbHClq6vSnVBsPKIl0pSrTB+MTPE9hBfWwXt
+ qm+hd20AejMo3+e7zS/e3Tdcnh7QdYV1/FCsNcX4AAAA=
+X-Change-ID: 20261028-isp4-start-stream-deadlock-6c33a97d3297
+To: Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Benjamin Chan <Benjamin.Chan@amd.com>, King Li <King.Li@amd.com>, 
+ Sultan Alsawaf <sultan@kerneltoast.com>, 
+ Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>, 
+ Yifei Gao <gyf161023@gmail.com>, 
+ Seifelden Abdelmonem <saif.elden.hatim@gmail.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Caspar Adriani <caspar.adriani@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793196385; l=4193;
+ i=caspar.adriani@proton.me; s=20261028; h=from:subject:message-id;
+ bh=Wpb8Myl41MGt4qqba1ihIdNcWGW2EqaKevO8Ep7ksRM=;
+ b=bqMhtGPN1DmAUCg+oEEF0sAc5Qdp3/5Vtsb+TW6TWfV0LK1NrFyYsGEam0v0Jbb+UtCnbQCRu
+ 2KQX3yfy2+FCZ4kjFQmfv1nJz3/4VAfGwvXGZ/DZw/WIc7AOT89ldJA
+X-Developer-Key: i=caspar.adriani@proton.me; a=ed25519;
+ pk=cTxx5jb7r3X/atKU2VZ3+evuxnjAt/muekxKfcMI4Hc=
+X-Endpoint-Received: by B4 Relay for caspar.adriani@proton.me/20261028 with
+ auth_id=1344
+X-Original-From: Caspar Adriani <caspar.adriani@proton.me>
+Reply-To: caspar.adriani@proton.me
+Content-Transfer-Encoding: 7bit
 
-I've just pushed patch #1 to drm-misc-fixes.
+From: Caspar Adriani <caspar.adriani@proton.me>
 
-I'm still wondering if #2 is actually optimal. From what I've heard only 2MiB should be used and especially 64k doesn't make sense any more on modern HW.
+isp4sd_start_stream() takes ops_mutex with guard() and, when
+isp4sd_init_stream() or isp4sd_setup_output() fails, jumps to
+err_stop_stream and calls isp4sd_stop_stream(). That function takes
+ops_mutex again, so the task blocks on a mutex it already holds. Every
+later open, close or ioctl on the device then blocks behind it, and
+only a reboot recovers:
 
-Regards,
-Christian.
+  INFO: task .v4l2-ctl-wrapp:38440 blocked for more than 122 seconds.
+   isp4sd_stop_stream.isra.0+0x43/0x1d0 [amd_isp4_capture]
+   isp4sd_enable_streams.cold+0x8b/0x26c [amd_isp4_capture]
+   v4l2_subdev_enable_streams+0x1ff/0x360 [videodev]
+   isp4vid_qops_start_streaming+0xf2/0x160 [amd_isp4_capture]
+  INFO: task .v4l2-ctl-wrapp:38440 is blocked on a mutex likely owned
+  by task .v4l2-ctl-wrapp:38440.
 
-On 10/7/26 14:07, Davidlohr Bueso wrote:
-> ping? if nothing else patch 1 should be picked up.
-> 
-> Thanks,
-> Davidlohr
-> 
-> On Mon, 28 Sep 2026, Davidlohr Bueso wrote:
-> 
->> Hello,
->>
->> Changes from v1 (https://lore.kernel.org/all/20260914212258.2657788-1-dave@stgolabs.net/)
->>
->> - The bug fix is now patch 1, unchanged from v1, picked up tags.
->> - Removed patch that adjusts per base page size (arm).
->> - The 2MB order is x86 only, so Arm keeps what it has. Left other platforms
->>  as is as well to reduce the change impact. (Christian)
->> - The orders and the fragmentation trade-off are documented, both in the
->>  code and in the userspace heap documentation. (Christian)
->>
->> Thanks!
->>
->> Davidlohr Bueso (2):
->>  dma-buf: validate the attachment before asserting its reservation lock
->>  dma-buf: system_heap: allocate 2MB chunks on x86
->>
->> Documentation/userspace-api/dma-buf-heaps.rst |  4 ++++
->> drivers/dma-buf/dma-buf-mapping.c             |  4 ++--
->> drivers/dma-buf/heaps/system_heap.c           | 24 ++++++++++++++-----
->> 3 files changed, 24 insertions(+), 8 deletions(-)
->>
->> -- 
->> 2.39.5
->>
+One way to reach the error path: start and stop a stream, then start
+it again without setting the format. isp4sd_uninit_stream() clears the
+subdev pad format on stop, so isp4sd_get_str_out_prop() fails on the
+second start with "fail to get out prop" and "fail to setup output".
+
+Move the body of isp4sd_stop_stream() into __isp4sd_stop_stream(),
+which expects ops_mutex to be held, and call it from the error path.
+
+Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
+Cc: stable@vger.kernel.org
+Signed-off-by: Caspar Adriani <caspar.adriani@proton.me>
+---
+Tested on an ASUS ROG Flow Z13 (GZ302EA) on v7.3, with a local,
+not-for-upstream change that adds its OMNI13B1 sensor to the ISP4 ACPI
+tables so the capture device is created. The stock firmware does not
+support that sensor, so no frames arrive, but the start and stop paths
+run. Sequence: v4l2-ctl --set-fmt-video=1920x1080 NV12 --stream-mmap,
+stopped after 10 s; the same without --set-fmt-video; then the first
+command again.
+
+Without this patch (v7.2.8, same setup) this failure hung the task as
+shown above. With it, VIDIOC_STREAMON returns -EINVAL after "fail to
+get out prop" / "fail to setup output", v4l2-ctl exits, no task is left
+blocked, and the third run starts and stops the stream normally.
+Not run: lockdep (CONFIG_PROVE_LOCKING is off in this kernel).
+---
+ drivers/media/platform/amd/isp4/isp4_subdev.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
+index a108d90ace..08512f060a 100644
+--- a/drivers/media/platform/amd/isp4/isp4_subdev.c
++++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
+@@ -745,15 +745,15 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+ 	return -EINVAL;
+ }
+ 
+-static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
+-			      struct v4l2_subdev_state *state, u32 pad)
++static void __isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
++				 struct v4l2_subdev_state *state, u32 pad)
+ {
+ 	struct isp4sd_sensor_info *sensor_info = &isp_subdev->sensor_info;
+ 	struct isp4sd_output_info *output_info = &sensor_info->output_info;
+ 	struct isp4_interface *ispif = &isp_subdev->ispif;
+ 	struct device *dev = isp_subdev->dev;
+ 
+-	guard(mutex)(&isp_subdev->ops_mutex);
++	lockdep_assert_held(&isp_subdev->ops_mutex);
+ 	dev_dbg(dev, "status %i\n", output_info->start_status);
+ 
+ 	if (output_info->start_status == ISP4SD_START_STATUS_STARTED) {
+@@ -786,6 +786,13 @@ static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
+ 	}
+ 
+ 	isp4sd_uninit_stream(isp_subdev, state, pad);
++}
++
++static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
++			      struct v4l2_subdev_state *state, u32 pad)
++{
++	guard(mutex)(&isp_subdev->ops_mutex);
++	__isp4sd_stop_stream(isp_subdev, state, pad);
+ 
+ 	/*
+ 	 * Return success to ensure the stop process proceeds,
+@@ -836,7 +843,7 @@ static int isp4sd_start_stream(struct isp4_subdev *isp_subdev,
+ 	return 0;
+ 
+ err_stop_stream:
+-	isp4sd_stop_stream(isp_subdev, state, pad);
++	__isp4sd_stop_stream(isp_subdev, state, pad);
+ 	return ret;
+ }
+ 
+
+---
+base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+change-id: 20261028-isp4-start-stream-deadlock-6c33a97d3297
+
+Best regards,
+--  
+Caspar Adriani <caspar.adriani@proton.me>
+
 
