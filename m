@@ -1,65 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260443;
-	b=vI2tgdNZ2A807yyDHAbWuCCtd5PLlTswX7yG5fH6Glnb+zG3A1ERDBM4tKSOGHP9Kmtf
-	 6b3JBgmWvjpUq+SFlTzJtyg/4ctaGUV9Y6juyZxG6pqalPSvoAF4uclHcHPeAgFD3L7sg
-	 BoneI1TEHcKFLzfo2Ov9ThSHXSlfqBu1jMtr4wkkCA9POX3T4RTdEGSitNLNS2VvIhopQ
-	 G9+KkRDuXUQc7Bt2pzlJLD61GcQq35SMfcH2bNDhnPS7VlnEAr34wT+uQyokv0tMwVyh6
-	 AkuxSeaNSz68xw4oiuAWsCaTCovCdeWw9T1PsF5Nd4mCiT+YZn1AJrk+Kj8FuzEd9WQ==
+	t=1793260460;
+	b=ZFWC00hAUxOYgHVgGdSg6/tMQFLhmTZkD4Cl/kJLizo3tuKBAF9Lk4hajhr8YHWnRc0r
+	 BNmA3gOpzi7eFMZEt2h0NmdwtZa89cS6Y5klvmelAHLynvouQrR4gNKXlUUw5REdQPR/0
+	 zmXqDGBE9hVQnNQhNu6xI2j+W0AHQizWII1eLPK3zmcWUVWt8kVS/J+fG1AOMK/Vxs3rL
+	 fpr4OX0OkN/0Oxmos6biA64QbCXuiFz9eL33jHVVdYm2jz8Tnp8jcQodAoip+ezHvhSYL
+	 an3ATQXmEkAD4UcbLRtaXRRKHodF9xQhQ25FaCIJmvwefROYHiL6A+f3qc9Jhk1RyyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260443;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260460;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=uzNPW9Z1A5OMJEgLlGk/ev674kvO8zy8ZuPotkyvMA8=;
-	b=BHmIueVmW37jt6FsJFkJ6WhroaRc+vpX2S1eiLZuYJNJXifdrHyQwYxrS467h0U80+w5
-	 aGYdy9keqtUDT4n4aTfWVqaWcK37Z0HioBd15DXbBkmXGKsDauzIMfdH2Viv526R9AjbV
-	 D/ZcztBGNxC91lXQizByQ6ZbDekaikqhTg1YN2XjiSJm1NArBjJjKTRp+CtjGg7wfEi2t
-	 Hg7QE47fgKj0h4dvYZxwMUqALPk0B9TC8EsBoua0EcbtskZqWeSltyy3q6lUdhPW7twd0
-	 Oo2NXBBE0/pZ/6t3AJzOS8sKrQa4GoK9vCG4JB6qprFx5LX7FEVbGoGR/YeHio8kDkw==
+	bh=zarMwuSQY4X5KqyFYldbtD6By9egYAYuPFBFtzqZucg=;
+	b=YNPBJLOCxzAu6ceSQRuzzsVbOPW5y4gcxLj2RnPIC/qei+L2BZEPsVBH1hwHWhwOiwiV
+	 uHBSTqiQzgmJeoIsQvPpzUTojK9iZ9+aMsjKlN/eO6n7AenqVra9CF4bd0O2d3LlbEfe0
+	 HoT2KmVxlkEimFBWSPyYi/hU7M8LWt82mZ5UW1JtTOUk5wEnUmYPczITSWiqPg3kEAGT2
+	 76TON64+Rl40b/mE2ktNlHzMyrUM4vrWqTerlV/uQ8GiIsgG/x8PFvLwAVMMToDfgnEUq
+	 57OvuFBXPzfI5XHS5EaShrgGvEpSoB0/jnrmULSg0n1i2oSO+TbqNcPJm7qWsSLpcrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BxTwrrB9;
-	arc=none smtp.remote-ip=203.205.221.153
-Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com [203.205.221.153])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gwRtz7S2;
+	arc=none smtp.remote-ip=203.205.221.205
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4880606A33F;
-	Thu, 29 Oct 2026 07:54:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4880606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F6560A6F50;
+	Thu, 29 Oct 2026 07:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01F6560A6F50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=BxTwrrB9
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=gwRtz7S2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793260433; bh=uzNPW9Z1A5OMJEgLlGk/ev674kvO8zy8ZuPotkyvMA8=;
+	t=1793260451; bh=zarMwuSQY4X5KqyFYldbtD6By9egYAYuPFBFtzqZucg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BxTwrrB9g8/9sBfNrbRXqDcKxrMtT41fqwENdllmX3Jt1sSD1lTh/5sz8qcpCbAfP
-	 LfTFZAW9EFlkdpRo8uJ4nIUQUjVPwwBv/hwwMjWBRgduwr9uAzAI1/xL5y1JrxuVEx
-	 rbrHkhHxsdmvaBkGVoHDB4p0c2MWwU7yJdBEqUF4=
+	b=gwRtz7S2yWAzintgqkHs+NkdsAPTsZb3L5fgNaeFDpfHr5W8L57KNqk8Ldl8Uh5GJ
+	 WcVu4dPw+WODBuMo2TkKxUZBLBsL6jNcJaZFtYrScqqCRkacCgZjT5YUNoRwo/tIcE
+	 g8oNliDNKUmI5U6m9gunXs8rNkelUAUzow3Y8cHU=
 Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id D72B54D1; Thu, 29 Oct 2026 15:53:50 +0800
-X-QQ-mid: xmsmtpt1793260430t668yju5m
-Message-ID: <tencent_D8BA93484FB26CC87737CDE3FA8A814DE00A@qq.com>
-X-QQ-XMAILINFO: MMvVzQSdFuTppOYJSOTANJnlYcIIuqSwAik6qc77uSYXBNxBn+cQDC22xPvHA0
-	 6mwN9fAA0iA/MQv9LfptzLzuPZe9+ZXM21R8b6xlBmDRnvnGu+hrAX2kZrgNuxPo1h/Wq4ypvsxz
-	 QtYrDbPa404AGgIBHZzme7qZyu81Vo6E8kM9z1bZ4pyeBotICQXWEM05JnM/S780wE4HGxwlg/Fj
-	 gULymvHaCp+pxej43G3X2vX8z9PFJD6MJ7/bhaNBZIFzCx50m96RU20eTXAoTCAiD2iopv6QsPZ+
-	 emGKD8eyKAhTHcIhbpH8TerZkEvZ3Gce6jBrS5bZcxuBN9eQf0r98J0ws3h5NNogBO6iNm1/b51D
-	 frQceaHJrdRZTrSMDYY7a479F2nvcKBLv5S/CLJ2TSyiA78am/btU62phfY6Vrp787/7gfMILVEK
-	 b4oBWu8JCLTkd+XSgGQ4pLVUKg3ts9T3aEFrXjdbfrw9rq40WjuFXTYtRM8IzQNn5VQdR1wTXfeU
-	 AOf36qnBehLMhpW568sYAd5jj5NwlnThdO2DEtzS2y37Gj7Up4XhWn74hws4VcZHM65Ifrmm9MbB
-	 8mG2HfNZODjOjA9Dg5id3W36cfPiMpFbBXCHGlE3fJc3LIpUvrov+X02cGXE0EXxxfQ2M8CJVgrZ
-	 TirV+OWGCjX/elxXbGFjSt8uRmLoxnIKnNtm8nmJ1t3eP8RJuJKc38t2gKKWpQGioocrcrCg2FNt
-	 6xEJHLPIEMQTJba21+nOUDfD1Qhv7f67IQQbwl0XP6a2is/QxiRBKc6yfmQmuE53G1WEiJhDfu4S
-	 vSF36DL8gkeo/HCGfWaAvLPMlFOuIexcpopjaF/V9NhwH7kS1CgqJyDlsF/ISirXh3L2Aq42P047
-	 9Uqebvx781xiS9KthQI2Z2odFVhm3s0a/LzwrdMeGe0SDhWXbeE7HEpDS7mvXZbBOYJMsfh+a53i
-	 yBMGhXsv5UBJpac0jo7lukuD9SXL0Z7NvFUfbHdoNS/2Gi8x7qirlBCQpYfmvW88rOZczv2Dv86V
-	 FMF+a2SqL0R7ZywjmdO6sPZ/03ar3wDC6IgCqUnh5KFtp14NeQYzR/c4iHSvA=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id D879DC34; Thu, 29 Oct 2026 15:54:07 +0800
+X-QQ-mid: xmsmtpt1793260447t1r6eh427
+Message-ID: <tencent_448218F104903BBC74140B91BC5B93362E06@qq.com>
+X-QQ-XMAILINFO: NZDLPLkmlc+zhVmsY/wjaXxHdQKTrxnCdbnghMeDGbidoY68qzMmo5Q0QIikMN
+	 gOyOY590ZsRIb/AEHSDoHJNFnh7QdEsK3SVybAK7VRFmu1zAr6xb7CnwK+/73om6/OtH+gPQULGL
+	 Epl0evOQeXm2csp+4g5YfEVPY4G0T9lC6jLz4Ww+eYvm9aPKGEy2hOwbZW/2ipC80oV3Ps3VHHEU
+	 lhjf6610nUTEfwPszrLB4nr2thnKLDfz4WQC8VrixehUaJZ9s9weJx4uC8I5qFg83l5/TEEUMUh0
+	 6aSZI1madTT8xAdF0pFndIzHWi7vXS8FxV/Hq2fNxfHRu0NlGBf2FviG9g/Rf1QSl/kFGIx1KEOw
+	 4E2r4pzpxKczhtYKycTrElutmchn5vjAKe53o1E8q2qkpa3JzbakstJNLQNttoG1tP9hG8yKHhJv
+	 2CDIsEYYvkPJgmEXFRCHMfe9ri8QXZ+Ut00SBjJ92cwpl8EI2dPY8JxG33eqQFQsvd3lHZi9u/5c
+	 peZ7o1pABwqyD3CKPatRBv6kgn6Hg7GDa3EgcgQ3ZrLKcMNBfqMJbCVtHEspiND2ZghmFtYF2N+E
+	 pLs/E1MYj3CmnpvKAtHevhjo8svXEROlt+pn2l/cNoJ7T/kVgFrBdUscBR1LpaHS3cnuQGDpWH3K
+	 geVGk1bgu1qviU1sJcTl+26g/vzzv80A09ni5VNTMKvJUl8eYiujshlOv1MeDFoFKmq0FRmSA7Gg
+	 3ioPKnCc/PLA2FZE3nvfinhALuvtQp7zjSm5EBRpCFt86diLmaFRGxaZizDAT0s3zlzLuLl01Zk/
+	 hKxBCuJ9qnAGj6XrHZo7/GyKJ9FBnEDRoJ/MX0eREkbQmqwyup7p6qzoCBARwQbSgtR44S5mt1Pv
+	 n7m+cYqhh6d5JZ4jmQ/8oytJPv5iknBRuJIbXsTtVUMFG/gLsHPunVvRX+hbBe/fB1UT1+MF4M7z
+	 5Lgg5GJV6SOC9cXskFs0i2SdP0erfzlS9qnrLR2vsKDBbTWqkVH6+aCpgIskGH66FO/vWRqvs5wj
+	 dXNeZTfGpf7BJElm7thOhVaX9xr+PGnuAdSKc0FaZSi0zwtBB36gb0ewQDwEugJ1yhIefb69cF9a
+	 89eOMadzSNxsuyjiU1jY04bnyfUQrPjfZLTLE6
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: Shuai Liu <847807867@qq.com>
 To: linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
@@ -71,12 +72,12 @@ Cc: Shuai Liu <847807867@qq.com>,
 	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/9] media: camss: csiphy: add CSIPHY 2.4.0 lane settings for SM8750
-Date: Thu, 29 Oct 2026 15:53:50 +0800
-X-OQ-MSGID: <20261029075350.2906476-1-847807867@qq.com>
+Subject: Re: [PATCH 9/9] arm64: dts: qcom: sm8750: add the camera subsystem
+Date: Thu, 29 Oct 2026 15:54:07 +0800
+X-OQ-MSGID: <20261029075407.2907313-1-847807867@qq.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-3-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-10-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,36 +92,25 @@ Content-Transfer-Encoding: 8bit
 
 Hi Qianhui,
 
-Reviewing the series (built for x86_64 with COMPILE_TEST, checkpatch
-clean, no functional testing - no hardware here).
+The node itself matches the binding from patch 1: 19 register ranges,
+35 clocks, 16 interrupts, four interconnects and four power domains all
+line up with qcom,sm8750-camss.yaml, so from a schema point of view
+this looks right.
 
-> The register map is the one the CSIPHY 2.4.0 vendor driver uses for its
-> two-phase variant (csiphy_2ph_v2_4_0_reg, 103 entries): address, mask
-> and parameter type are identical for all 103 entries, and the data byte
-> is identical for 99.  The four remaining entries are the SKEW_CAL data
-> bytes of the four lanes (0x005c and its per-lane copies), which are
-> 0x00 here, i.e. the vendor value.
+One nit in the commit message:
 
-The commit message and the table contradict each other.  The four
-SKEW_CAL entries added by this patch program 0x54:
+> the SM8750 block has four CSID, six CSIPHY, three VFE and
+> two VFE lite instances
 
-  {0x0094, 0xD7, 0x00, CSIPHY_SKEW_CAL},
-  {0x005C, 0x54, 0x00, CSIPHY_SKEW_CAL},
-  {0x0060, 0xFD, 0x00, CSIPHY_SKEW_CAL},
-  {0x0064, 0x7F, 0x00, CSIPHY_SKEW_CAL},
+The node describes five CSIDs (csid0, csid1, csid2, csid_lite0,
+csid_lite1), not four - three full plus two lite.  The VFE counts
+(three full, two lite) are correct.  Patch 1/9 and 8/9 carry the same
+miscount in their commit messages.
 
-while the commit message states twice that the 0x005c data byte is
-"0x00 here, i.e. the vendor value" and that "the vendor value is kept".
-
-As posted the correction does exist, but it is buried in patch 4/9,
-which flips exactly these four entries back to 0x00 - so the final tree
-matches the prose, but patch 2 as applied does not, and readers of
-patch 2 alone cannot tell which value is intended.
-
-Please make patch 2 self-consistent: if the vendor value (0x00) is what
-ships, program it directly here; if 0x54 is intended, fix the commit
-message instead.  Either way the csiphy hunk in patch 4/9 should go
-away (see my reply there).
+Minor: the node declares the camera subsystem as "isp@ad27000".  The
+existing qcom camss nodes use "camss@" or "isp@" inconsistently, so
+this is fine, just noting it for the record since the binding example
+matches.
 
 Thanks,
 Shuai Liu
