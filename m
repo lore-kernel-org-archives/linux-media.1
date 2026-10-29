@@ -1,100 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.69
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793268563;
-	b=PZzhiJgahwOueA+zRVgPvAwS2dN5SRqUQgwGicIl51pcigtDlNOKCM7eIXmVUAM6sR9u
-	 eND00WMkLsSn2PHPPh/3dWfs4iRrsZg7oNgWKV2qgl7lBPVKbbHvn+hR9bsuj1tyQO8Lm
-	 CjmiRhO60v1ljFp25rFd3uPMFsKdvU0DOV/p7W11puhrZeNVLtPbymBS1Jxq2T8ENwWJS
-	 OPP3g+pH89hts2Z5da/Cqxno6S9Pfy5USC4Ljt4H2nU2ceTVbWoZ+SsJ9gmJ5aQbAqQil
-	 p9pMIQ1XgBRD/Ii7s6gEf5rVlik2TcP3KlcMgEAKlK8n6uakwwUFKXJ9o9qBEQAoyFg==
+	t=1793268675;
+	b=r7ZkX5SWr0KzvhuKDn9zYCsCUZeHp+XydgwWn7qA7xEWO7ba7hYAPgF97I+GvADDUQxC
+	 sAw9jk993zMYoTGMamLEML8xUzgQS93sBib7yWQKbc4mdQr+9IzqS96PWKLZ8eAYx8MBM
+	 Jgi5WkX6z/5rlyhn3j1nNlGKTvxRkAjmzzO6v4urKRu85G5Fp8FI70t6aqnhYtyoaSOoD
+	 dteVfPj0tu5xOwUcxUjCswVYqogr8Cq6DWgGLTqxNNxqguyL13lj747fxJdYbpMQ3Zofr
+	 wl8BuEOb0I0V1wDLmcBi/LMf9oBhJhkvtzuJGzBgZ7PdZwZ+8zD4pybuk55OQcUr30w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268563;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KyuIfd4+/d2h8FuaDCuGD4pNWtas/JVLM3EycuWpWC0=;
-	b=Lco4FMnzY3zY+IsPYEeEdzFs/Bv7xxkGZkkTaf5T9d/2vIgDPBSxSX/ZxsfdynJzN1lz
-	 Aa0y18c9TKB93jVsYA4J6dQaztYLtJ3h2FXi/wZy52fO0BcwVNXiDBScfEcSbzTfkIalu
-	 RYAr+k0r/IufGfv6aZn9l2qJSyUEYNUqydHxGikXwm3STfrq75CUxZHAsOTSKvHS2JkqA
-	 Mp4cYRIhLgGTQamcAu2iurSHxhOumbJOWgsdUFN1ovovk9IKc/agH2tCHkzVw07Q/2kIh
-	 mkp3/wgaKrC/5QCtbKFd9t2ZiLgZBdHx/b0Q5dUn+Y8Mjj71ziJHR+faea3zw5ZdwGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268675;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Rfsypwn1yaFQQNUM4PUmNxrXwfW4P3G155hubvNmzlc=;
+	b=C42unXtCCca/Bz1lLL+MuaYqHvBQWDjI5kzGJb5nRTNFl0oIqg2qTmbqHD4ADd8VoTfL
+	 qYSrVEORbPDYgFZz5B4YgMirkIQTpw+Ia6wZcMF1gnUdFcuUI7/BlRhTUVJ+vf7GFRn8Y
+	 84yBC2dfULuBRFr1uPPo8UoBAYUAyEpZWNtMzro8VpRWxky9qRdbNSUYAiz4uS3UWHaQO
+	 WFzTaO2IEEQ/WUmLNL8giqwtX5Oqe2xUWkwLTX9GDqZlEDoVddoRT8FtlAB0T/bbgUsbi
+	 A5mddF5SvySEvuwyjUo513SCkbx/I8u9x1UyKrkMlKsywyqpUeF/Db6eOOjwNQiyNDg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=MYCRSkid;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.69
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010069.outbound.protection.outlook.com [52.101.69.69])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fudzGipZ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=O5W6rwBc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44CD606A323;
-	Thu, 29 Oct 2026 10:09:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A44CD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1289606A31E
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 10:11:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1289606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=MYCRSkid
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aaF8QE2ommy5D35aL0/ymetV7KnDqzEmpQrLCA06pUIdy9NmBrye79qRr2ViTHPHpLrIkXfLQZifr4nwVaDKUz8vhiGijb6XQNLYBcu8pk/k679eRotq4ADajenM0nWKdOcFAE1Z0OxXOltf7y+EQbzkDZ/m6UQ/JmtGozOPd9WLJuBB6/r9uv9uidG3x7Sraxn95nI9Yz7lQn2gyYiGryFTD5PDO9XyT8jF+QZLXgN7TLCr/edxZyo+9vu2sOC/NxPE15fhAonJmumDQSxciZfMoD27rtr956PVgw5QCgrqf4QsMqpRctzvFmFWtcrmZJUDNJyHcLZFOW/myQgQ/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KyuIfd4+/d2h8FuaDCuGD4pNWtas/JVLM3EycuWpWC0=;
- b=A0qF1qoJHoXYLqj+r5nCj7Z0r2AYys0WPamsAhPXorkchWrzXpX7vwaYgQZKC1XAzWWboAmwBDN3q4XEl5BRiB02ZPLtLJIWptt1s9vyf0rp/+/W10uKjEJwOjqWlj16hI6f5PSqq3NkOVRXCd3u/TDHFiOUnIF9tabLHqNC4qx5PMoXIZCEALoNt/0RHXjo6qEM2pHhLC+dYn6qStmR1qPRAoqIGKqLTqWGXRpusPHcVBRqt+bhbpCAqRTCWoN6mra4rAb2LZ5787WYUIKPlDmuZF6v/LXSQEATFeJ1jlptTCB1ASZ0K5G1/MmtAM+JTifzrti1gQEQ9ezGndwPow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KyuIfd4+/d2h8FuaDCuGD4pNWtas/JVLM3EycuWpWC0=;
- b=MYCRSkid5qs40B6pLDrDqJeagnKfNPP/+r8v8/CsRyu8lpPMU6s9qBA1+xwaZgJWpaWBqj2oIeATyotO6Qq+X9Up8yBBhVCAdCJAMMwRH0a5CqhnDugBf+tLWC0suFtbsbuvoxVJyOhwkBCUGIQWaVBlcMUHkn1aGQxHEOssVWudziVIyNJ6LnEaJzqgfNUAr1I1zwVS9aVbPiVU+jBvUDRdQVjfpSTRb0640QQDG6dBN7BixFleTaSxhPfSzS9UlW68x4UB7R847sy6EeXOsx36VmyB0PY5wqCG2YvwTJKcOB4mPJ3gJ+DJ79xaRBkKyXZDanM1F6+/g8zYA05XKA==
-Received: from AM8P189CA0012.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:218::17)
- by AM7PR10MB3190.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:10d::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
- 2026 10:09:18 +0000
-Received: from CPH1EPF00000522.eurprd05.prod.outlook.com
- (2603:10a6:20b:218:cafe::8e) by AM8P189CA0012.outlook.office365.com
- (2603:10a6:20b:218::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Thu, 29
- Oct 2026 10:09:18 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- CPH1EPF00000522.mail.protection.outlook.com (10.167.241.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 10:09:17 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 29 Oct
- 2026 11:09:42 +0100
-Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 29 Oct
- 2026 11:09:16 +0100
-Message-ID: <b8103168-c440-4650-92f1-45eb8f855521@foss.st.com>
-Date: Thu, 29 Oct 2026 11:09:25 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fudzGipZ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=O5W6rwBc
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vGY13775365
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 10:11:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Rfsypwn1yaFQQNUM4PUmNxrXwfW4P3G155hubvNmzlc=; b=fudzGipZEvyd+XgO
+	QWGV5n4ZCXgsn03WU0DMc7jKGGj2ifB4aRZM3zdUY+lDwNLQUj/Cc4V9YYTvKlWg
+	Eag3a9k7rX0/bw2bU32hPpcJzXjIQSV/kcP8hv0vGh+n11EsMnW3K79my90cRso6
+	ImmJyEbKBwwCXjeDKY0n9dHcjjGt6DBHJJUPzyAR9zkzlSz5FtqdOjN3/X0Sdu3t
+	IM/5hRlY8GbmgFOM7huMiICyBfParCTRGA2mJv7dB8Z1JI/FmvjlsEWBg+HK0Ji+
+	N7MX/krL2ffmPEmZUzcdvxB7oNTG9xdX7lCfi3pi8Tze6AOb40fumhAJekTuLMCk
+	mjXCtg==
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkxshs8s4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 10:11:13 +0000 (GMT)
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4ea2c058e67so2449238b6e.1
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 03:11:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793268673; cv=none;
+        d=google.com; s=arc-20260327;
+        b=I8FFFDgJjCgNoi5kEEo5ZutmgPwrUembC/t+HRQxWlP26nb2Pc7sjWV10r0W85uFrv
+         1W1diNHTDSQgnWkky2gcQkLPeodXvpu80BqRq8kRk2pCRhcIwWUKRWt3PiwCunqiT7ZC
+         NqRLl0k+Qu5ZfX/6czVpBIqrOdoNO7rxmlCmp1g6EV3QpxVICEQPykftlRRvc/NP0wXQ
+         VcmVLywLxElYeY7sxyEaKDerSZiKc/HFrkgeZ78z4+MbGZwmb/c1AtWwc9SSvAWCLf1m
+         GFfw9Z6i8l0w84/5zYvC2mp6HEQrHaIe/iHsIFwMhY2WDHkxG5HmEV8sdJu3saG5EEwc
+         JDfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Rfsypwn1yaFQQNUM4PUmNxrXwfW4P3G155hubvNmzlc=;
+        fh=tvPtE+Td5Hck7AEtRDPptq8o8a1n/xno1XGVyIYUrHA=;
+        b=fp/SOvP3lnyusGTM70WIr/bxOjZ0TsXdF0MJCrf+M3f39Kf7uTw4L19l8RXyzaSMDe
+         BL0dFBGWX0rFSvJ9uNHILSMmAIsSHDqGWvINLL1MmoM4hRB+/Tr0J0bjvRReB249fm9W
+         hVXtXWHrBxeRoGYSddDXVBbWI9+TWu11PPlBVmPgSp5/3pFXac4ipGdg4CR8iE2cN3Um
+         v5W/igrzQ1aoDMLjFzUY9qTvhNxGuxb4WJGczObE91/ATu/p+uVzBoXVnhiEnwwET0t1
+         E5qYN2aze2f9ldApGQfCvtBPp9D3pCqZDUi7/nDpmXASxnSKOqHnJUcJeuOEXviylHAv
+         BV1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793268673; x=1793873473; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Rfsypwn1yaFQQNUM4PUmNxrXwfW4P3G155hubvNmzlc=;
+        b=O5W6rwBcAUQV70q0m25uH52slKrbyjwqTIdpq9QK2a1WnvNGFpzUykjlo0bbcXZkZh
+         yrfZ6RVSH9XyCA8KEx9lV4JDhgv4y/Mnsz4o+htWMPnWyHUO0cxEkVbV0/WdpQoIqh71
+         gM1tkd0nGAxHsnGVGZmyPjB2kKosJOvECo06+P/seK40oeroU4iqMS1ThsemcgyFit/7
+         SEJBB4Li0vagUA43T1cK5oEM/QVIVpi/HaL+7ofjOJzpGFSCS8nyWhEmFEJPuScpckAK
+         y4mMdoqvZCPPoXkO1BeOxNLq8KnimNiXGZ9o0jbgBpWGBN8bfEq2X2m8sDzAQuCjT7w0
+         uFGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793268673; x=1793873473;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rfsypwn1yaFQQNUM4PUmNxrXwfW4P3G155hubvNmzlc=;
+        b=zGBce/0n0wy1wi0IYRJttNc6jl62eFGMyDWTb6rFtg0KiBhXRk9JupPdKZ86n8l1Rt
+         jPOCXbOBaRa7LqmJaLKhfWAxbO4+Q4cXrBfs86Xsw8pNg9a1w9VmCjYcqS5VxPf8/U5F
+         SuwWeEJRHkkyYZ6wnrMR3PrKLT05EywjhMJaWgoS5Wno/r0Wx+KolUUg+Y+RjnA03cIy
+         EADLuESY3c2lCUfyX0Xd6PrYHlB37hrRtZ2jvodf7xFK5hoPCgK9WOeZz3zACD3kLoI6
+         qnuVfhrRY/qLemOtUN+K1cccReuymU1DhI8E6uEjQTKaXGC6zgNL/rve9r3MZAGeldQe
+         Uz6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxmgR46vS3d3M6LpmGFxsCr2JzL48WbWmekkw7lCOSxbYnz11BOJdoEnunbTzU1pn/1Rl28kOa8KvWuxg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLc8qxbtomRkJTHIqd4AfgFhXeaIRdolQlwg7rCzqYlqq691fx/
+	eHxFjTWXkkHWzipTbqxg/otBLzlUIUCMy2ywQYxxwkDnFX6RhPcxgEXNt+ew/5IW0YAxnb8R0Bt
+	uYMyPEoGF6VNfgRozy+NcbXV/bOIL6D4HMxTS7KG1ZPVOBDkstmP+9dvU2TibrJzqAW7Eftk8RW
+	flCZiAPkeGiI4HAL/xSTU2Gp+ZRlJNKRS7BhoNTmF/
+X-Gm-Gg: AYBFou21nnOOwY18BJ24fIbzHt6Y5FO55D3gn1eoTBzjwPEGBT/WQDkdfn/Xnybchyb
+	Ovk6Q2vZpkXs3Q9XXIae7MFE+uwaGcEB05l782q9G0nXt8sJWwzGJ5HnJf9rA9ZXDmCkRvCSGwf
+	kLrbV5z7mG/R7/wv+qlrgpx0BK9c8Z4QZKX/b2TNATQuC3wVibKJreTUobLPIk1F6f3kDyMgAd3
+	+uKX4x8Jtm1Q6lgprmGySHrmqC+xxx40sWI26aICcdExPu2WqHWVyyaF6QZI4g6T+83gmKhkld5
+X-Received: by 2002:a05:6808:2210:b0:4bc:336d:7494 with SMTP id 5614622812f47-56382b85c85mr3149381b6e.30.1793268672893;
+        Thu, 29 Oct 2026 03:11:12 -0700 (PDT)
+X-Received: by 2002:a05:6808:2210:b0:4bc:336d:7494 with SMTP id
+ 5614622812f47-56382b85c85mr3149355b6e.30.1793268672379; Thu, 29 Oct 2026
+ 03:11:12 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,103 +128,227 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: i2c: vd55g1: Mark the AE lock and bias
- controls inactive in manual mode
-To: Fernando Rimoli <fernandorimoli11@gmail.com>, Sylvain Petinot
-	<sylvain.petinot@foss.st.com>
-CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, <linux-media@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261025154031.27083-1-fernandorimoli11@gmail.com>
- <20261025154031.27083-2-fernandorimoli11@gmail.com>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20261025154031.27083-2-fernandorimoli11@gmail.com>
+References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org> <20261029-v4l2-frame-sync-v1-1-d37992559c58@kernel.org>
+In-Reply-To: <20261029-v4l2-frame-sync-v1-1-d37992559c58@kernel.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 11:10:59 +0100
+X-Gm-Features: AclHuK9x9my2OlOHIgychMs8UmvS7ZOc7etOB2PEl3rVyZPOEQF2pLuDR1Sgguw
+Message-ID: <CAFEp6-0H=9=KM8eiJ690GEgpCqPKe3034gGLJbz4RrVxHP28bg@mail.gmail.com>
+Subject: Re: [PATCH 01/14] media: qcom: camss: Introduce CPU latency QoS
+ during streaming
+To: bryan.odonoghue@linaro.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF00000522:EE_|AM7PR10MB3190:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7bbce4e7-537b-4b0a-a884-08df35a4b173
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003|261028144727099003|10067099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261009223027099003|261026121527099003|261026140227099003;
-X-Microsoft-Antispam-Message-Info:
-	GZa/r4K5o0bMpotg3zDSFEbCxzaHMUVOavjtILo4Cxs696tmtrcNGyeR3VWvFxKctCG1wxYtaURkoT63DuKgCFJp//PZPC2acyhxDzau94trYxS2pvKRo650NTpy9LOdUf5I9PXywv90vw0UJrG/tpTRh912OKmLhgSgnNilsFQpRZ7qvpwuAJel7wKweCe3cEO4frRFyQ1zWDZCn4tC4U1eD/rFDP2SPRozibvHZc4chhMHvth6GjbWjaNIh1HQMB23BAgdtqOjKRiJBUHYdv5EJXvFk62VGH2uEd0/rxVEAQN+FEHGmHhuMNsE60QKS/xXQ1ABUUuPSdWSEybKVJpIJ2wuIhFTDwMKb52WzB9QX4rckvFhTGAXREpJImnwkKrCk7bLhS4/jJ9GQNIpOw0VLHZVKC/j3PVKlvw38wVPITG2RvQo2wypwmlMXtnTacGbgOcdOATUgDK8S30mrt7rFaBWEgDkYrXahFEzO92ERxVrLUdqBfXzh+OXr8wCsKvHxt1qbp0xXzPFrQJTz9ifblZOjhRd5Rpu2RV3eRokRnRYz0jQ+AqdF65Tuw/xh2s2Br2XYl2ScJHoYcZG8DIjg+QFojhAt1uqosjnW1WE8ba8QZwVeXH6BZ7MSsrTvarWdrFxXWnuwf/LAlh2bkaWu1ABYZbaqTXLZan4b9iYcrU961a4lAx8fGh8F8iDH+rufYI+txEA/xT1BqVZ6w==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261028144727099003)(10067099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SFBmxSLl+E0JkzEI9F77QSXK93oQLyKOsLZcoQrrwSKvxpEiAlLDSAdU3CICV3OKIU5dM88XQ6BU840Tf99XIOoQRKa+WRWKwlFHqi/CA4i52BTEOwc7PpHlMdG8nq1IcJqGas/ZMRHg3CYXO+FcySgBCwd5X8RnCcHJyjlmjruCXUUJoCQVDCZ3/ZbGtyw27vVj1lDvlts1+gQK/GDCAnXyCtLx9UVqBMuFXO612USbC6t8hHuZOwxZrV0lfw0l17kUg5d+J2SnXOklZINdgiIj4+H7da28YnsotfhC4GYcRKR+60sROJ5tNqsug+YbVznM5PUdr7Nh5ndBSNihFGYwccDRR2852F9Tfr0GepJ38YD3jYRF96Ova9quO3WPjy743UT4U5hS160VUGu/PW9xhL/WPgaWsOeUeoWu9N5JnbrFokq+PbtaTdgQduiL
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 10:09:17.6906
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bbce4e7-537b-4b0a-a884-08df35a4b173
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CPH1EPF00000522.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3190
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: LII5_KekCDMBU2aG7Mga7wamf6v1VF6B
+X-Authority-Analysis: v=2.4 cv=H6BOUOYi c=1 sm=1 tr=0 ts=6ae31bc1 cx=c_pps
+ a=WJcna6AvsNCxL/DJwPP1KA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=KKAkSRfTAAAA:8 a=Lkb8NMqpfrSbSyvDPywA:9
+ a=QEXdDO2ut3YA:10 a=_Y9Zt4tPzoBS9L09Snn2:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfX/XsQNgttWTfp
+ h6+3Y+Mx4E/pX0/K9SNS6I7GYD7lCaNEQe3rPmShZIRhldGTw9LO4a8NyZ0tX4iik8DYXDaA19i
+ GD2q8Sn1VM7RkBaTTo4T9xiBWRCYv30=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAzOSBTYWx0ZWRfXwH4b4tKaULj8
+ XzT9mfm1EwukSKtzqcziZO3KSogP/QXTFe3tHkpf/2SzjXPoRoGOvFUL7pz+ebJUSYIyBDh62UM
+ IXSXK3Kc6Q4wTi/Sa+qoeNw/C0l/kygBlwdEjOjxiJSCCooGdrV8y1ts9xz6vAI8tvF88Jd+wtN
+ zVixxng1dADk7s/w+aIP7QaA+wRQiJxShxXPhM75mcRlM1owbdxlyiQP8w0hoi+3V5rCa9rnn+G
+ zirN0RGEUk6pevd2P5rqoMLwZuHvhyUweR5q5KWuzvB/JCjiuKnUKDMZaa01hIO+Xw4P8pwBidg
+ T95Cdqf9vFdDbAs9Ap52NWmAvuS3cB0hdeajLKyILcMXZ4zdn/vHGaI5QNFgMBO5c9uYGEjDlM0
+ 6yr9vj6rwcjIKwrfDrKwG0G5SmDR7kBmveaHCj57BdQWFpoCWIPn+FCwo1IcdgVvML/se4QrLST
+ iWeGgrTEYRQrIajEYrg==
+X-Proofpoint-ORIG-GUID: LII5_KekCDMBU2aG7Mga7wamf6v1VF6B
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610290039
 
-Hi Fernando,
+Hi Bryan,
 
-Thank you, both patches LGTM.
-
-Le 25/10/2026 à 16:40, Fernando Rimoli a écrit :
-> In manual exposure mode the auto exposure lock and bias controls have
-> no effect, and the driver marks them grabbed. The grabbed flag means a
-> control is temporarily locked, for instance while streaming, so
-> v4l2-compliance fails on it while the sensor is idle:
-> 
->   fail: v4l2-test-controls.cpp(134): GRABBED flag set
->   test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: FAIL
->   test VIDIOC_QUERYCTRL: FAIL
-> 
-> A control that does not apply to the current configuration is what the
-> inactive flag is for. Use v4l2_ctrl_activate() instead.
-> 
-> Setting the controls in manual mode now stores the value rather than
-> returning -EBUSY. That has no effect on the sensor:
-> vd55g1_lock_exposure() writes only in auto mode, and the bias sets the
-> auto exposure target, which the sensor uses only once auto exposure
-> resumes.
-> 
-> Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
-
-If you add a Fixes tag you also need to CC stable ;)
-
-The driver should have passed v4l2-compliance at the time I submitted it
-so I think it's better to drop the Fixes tags from both your patches
-instead of CCing stable. I see them as improvement rather than fixes.
-
-> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+On Thu, Oct 29, 2026 at 10:55=E2=80=AFAM <bryan.odonoghue@linaro.org> wrote=
+:
+>
+> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>
+> On a quiescent system - for example the X1 CRD booted to a simple ramdisk
+> rootfs during development of V4L2_EVENT_FRAME_SYNC it was observed that
+> interrupt for buffer done could be delayed until after the SOF for the ne=
+xt
+> frame.
+>
+> Fiddling about with the interrupt bits, clearing them and changing the
+> logic of V4L2_EVENT_FRAME_SYNC to buffer completion didn't work and besid=
+es
+> "felt wrong".
+>
+> Tracing it looks like this:
+> <idle>-0       [000] d.h1.    36.374380: csid_isr: rdi0 sof=3D1 done=3D0
+> <idle>-0       [000] d.h1.    36.406601: csid_isr: rdi0 sof=3D1 done=3D1
+> <idle>-0       [000] d.h1.    36.439910: csid_isr: rdi0 sof=3D1 done=3D1
+> <idle>-0       [000] d.h1.    36.473245: csid_isr: rdi0 sof=3D1 done=3D1
+> <idle>-0       [000] d.h1.    36.504786: csid_isr: rdi0 sof=3D0 done=3D1
+> <idle>-0       [000] d.h1.    36.506350: csid_isr: rdi0 sof=3D1 done=3D0
+>
+> Tracing with /dev/cpu_dma_latency =3D 0 looks like this:
+> <idle>-0       [000] d.h1.   556.149115: csid_isr: rdi0 sof=3D1 done=3D0
+> <idle>-0       [000] d.h1.   556.181338: csid_isr: rdi0 sof=3D0 done=3D1
+> <idle>-0       [000] d.h1.   556.182880: csid_isr: rdi0 sof=3D1 done=3D0
+> <idle>-0       [000] d.h1.   556.214643: csid_isr: rdi0 sof=3D0 done=3D1
+> <idle>-0       [000] d.h1.   556.216185: csid_isr: rdi0 sof=3D1 done=3D0
+>
+> The second is the pattern you expect CSI SOF followed by data.
+>
+> We will require SOF to track and understand which data-frame is correlate=
+d
+> to which camera stastics and parameters frame. On an ordinary system with
+> several things pinging off at once, WiFi, display, keyboard you will be
+> unlikely to hit deep idle and hence unlikely to see the long exit. Howeve=
+r
+> we should design for the case where the system is otherwise quiescent wit=
+h
+> only the camera streaming.
+>
+> Choosing a request of 300us - 1000us seemed to work fine but cutting the
+> margin finer, similar to the value on IPU6.
+>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
->  drivers/media/i2c/vd55g1.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-> index e3939bb..69ffb3a 100644
-> --- a/drivers/media/i2c/vd55g1.c
-> +++ b/drivers/media/i2c/vd55g1.c
-> @@ -1503,8 +1503,8 @@ static int vd55g1_s_ctrl(struct v4l2_ctrl *ctrl)
->  		break;
->  	case V4L2_CID_EXPOSURE_AUTO:
->  		is_auto = (ctrl->val == V4L2_EXPOSURE_AUTO);
-> -		__v4l2_ctrl_grab(sensor->ae_lock_ctrl, !is_auto);
-> -		__v4l2_ctrl_grab(sensor->ae_bias_ctrl, !is_auto);
-> +		v4l2_ctrl_activate(sensor->ae_lock_ctrl, is_auto);
-> +		v4l2_ctrl_activate(sensor->ae_bias_ctrl, is_auto);
->  		break;
->  	case V4L2_CID_HDR_SENSOR_MODE:
->  		/* Discriminate if the userspace changed the control value */
+>  drivers/media/platform/qcom/camss/camss-video.c |  4 ++++
+>  drivers/media/platform/qcom/camss/camss.c       | 27 +++++++++++++++++++=
+++++++
+>  drivers/media/platform/qcom/camss/camss.h       |  7 +++++++
+>  3 files changed, 38 insertions(+)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/me=
+dia/platform/qcom/camss/camss-video.c
+> index 0852eb6f13154..191cb71d02e19 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -286,6 +286,8 @@ static int video_start_streaming(struct vb2_queue *q,=
+ unsigned int count)
+>                         goto error;
+>         }
+>
+> +       camss_cpu_latency_get(video->camss);
+> +
+>         return 0;
+>
+>  error:
+> @@ -306,6 +308,8 @@ static void video_stop_streaming(struct vb2_queue *q)
+>         struct v4l2_subdev *subdev;
+>         int ret;
+>
+> +       camss_cpu_latency_put(video->camss);
+> +
+>         entity =3D &vdev->entity;
+>         while (1) {
+>                 pad =3D &entity->pads[0];
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index c54185c93a8a9..06e1bf82f4836 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -5064,6 +5064,29 @@ void camss_buf_done(struct camss *camss, int hw_id=
+, int port_id)
+>         }
+>  }
+>
+> +#define CAMSS_CPU_LATENCY_US   300
+> +
+> +void camss_cpu_latency_get(struct camss *camss)
+> +{
+> +       mutex_lock(&camss->cpu_latency_lock);
+> +
+> +       if (camss->cpu_latency_users++ =3D=3D 0)
+> +               cpu_latency_qos_add_request(&camss->cpu_latency,
+> +                                           CAMSS_CPU_LATENCY_US);
+> +
+> +       mutex_unlock(&camss->cpu_latency_lock);
 
--- 
+I agree that we need such a latency request mechanism, but the current
+approach requires additional logic and locking.
+
+What about one of the following alternatives instead?
+- Move the latency request handling to the suspend/resume paths. The
+request lifecycle would then be naturally serialized and balanced, and
+in practice there are very few cases where the device is resumed but
+not actively streaming.
+- Alternatively, add a dedicated latency request instance to each VFE
+and let each VFE manage its own request during start/stop. That would
+keep the ownership local to the VFE and avoid the need for extra
+locking altogether.
+
 Regards,
-Benjamin
+Loic
 
+> +}
+> +
+> +void camss_cpu_latency_put(struct camss *camss)
+> +{
+> +       mutex_lock(&camss->cpu_latency_lock);
+> +
+> +       if (--camss->cpu_latency_users =3D=3D 0)
+> +               cpu_latency_qos_remove_request(&camss->cpu_latency);
+> +
+> +       mutex_unlock(&camss->cpu_latency_lock);
+> +}
+> +
+>  /*
+>   * camss_register_entities - Register subdev nodes and create links
+>   * @camss: CAMSS device
+> @@ -5429,6 +5452,10 @@ static int camss_probe(struct platform_device *pde=
+v)
+>         camss->dev =3D dev;
+>         platform_set_drvdata(pdev, camss);
+>
+> +       ret =3D devm_mutex_init(dev, &camss->cpu_latency_lock);
+> +       if (ret)
+> +               return ret;
+> +
+>         camss->csiphy =3D devm_kcalloc(dev, camss->res->csiphy_num,
+>                                      sizeof(*camss->csiphy), GFP_KERNEL);
+>         if (!camss->csiphy)
+> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/pl=
+atform/qcom/camss/camss.h
+> index 7dc2fd9f03e0d..9341fdc9bca0e 100644
+> --- a/drivers/media/platform/qcom/camss/camss.h
+> +++ b/drivers/media/platform/qcom/camss/camss.h
+> @@ -11,6 +11,8 @@
+>  #define QC_MSM_CAMSS_H
+>
+>  #include <linux/device.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm_qos.h>
+>  #include <linux/types.h>
+>  #include <media/v4l2-async.h>
+>  #include <media/v4l2-device.h>
+> @@ -141,6 +143,9 @@ struct camss {
+>         struct icc_path *icc_path[ICC_SM8250_COUNT];
+>         const struct camss_resources *res;
+>         bool legacy_phy;
+> +       struct mutex cpu_latency_lock;  /* Guards cpu_latency_users */
+> +       unsigned int cpu_latency_users;
+> +       struct pm_qos_request cpu_latency;
+>  };
+>
+>  struct camss_camera_interface {
+> @@ -182,5 +187,7 @@ void camss_delete(struct camss *camss);
+>  void camss_buf_done(struct camss *camss, int hw_id, int port_id);
+>  void camss_reg_update(struct camss *camss, int hw_id,
+>                       int port_id, bool is_clear);
+> +void camss_cpu_latency_get(struct camss *camss);
+> +void camss_cpu_latency_put(struct camss *camss);
+>
+>  #endif /* QC_MSM_CAMSS_H */
+>
+> --
+> 2.56.0
+>
