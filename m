@@ -1,101 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793285020;
-	b=a1Nsfau93v21BgzW25qfcuVZspXR1BcDZTEV2EEshbSNcTSieuF3opBMNamkxUNZAK59
-	 No024xHBjikIZyxnX5sbAdUDYqhXyoc8ty2PgLR9b5SHZoUGv4KJ1ztJanQA0A4J7iy28
-	 28GAS7Dv/eSjTDK7PF+7xbDvVsvnpPJ+RAG3DaBdHug0RpN3CVno7quqJdJF00lWaeIut
-	 BQ84Xp7VkSVC5xX7+jNX/rQMwQKq3Ri9n0fEeHHL5BsVDUT9uENt5jq2jgkvU+jYNXrki
-	 6e6ByMpH/v5K42r2f/hYmwgSfdJVUq8az0v12VYEb5eJ5EYBwqODsT/4giBxxgKXynQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793285020;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793285085;
+	b=I/aCFyyM54NbC8jo3Pv4ppNdwZ8y0PZHFhfGy4QLraMKqjXtrBcHYjJ1bBXWug0VYnFi
+	 L3BiU2hmcBIPHjH+tnkTImLCP4wL3vlwbOkmBSDEItKeAop+o9Do81yV2u2svrDdcgpUS
+	 SvQU1DoDo8Nnrzi2AokoYBYsjHOzrfNQnehUr4grbWCY2lz5GOqMciGQ2GD6pTNfLPv6C
+	 BU6KL7P4ul6Nmij45Vq87qBNqII1s4FPyKu9R/Td0GukKZu2YXtZR6WXQ9En6x6fv9Aq7
+	 KHr45X3Dhz1n81K9rYUQm8c3JrRY1lYMSn2lEpEk3fsWrYeHPZ9TKvmL5oOLKaTWiDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793285085;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Z145znUTSRyPKtFzUaXDyFLwmD4HnEY3Xx0IIr8udHg=;
-	b=BlpFtsgx+7OYvigcl0W/Z0CJ2NYQcbLTC62J0bun/XJLJFL9meZ0kaz2rc33XdC3YynN
-	 uMD7vyd6IyeyjGK5Bwl1r27YAyaB/fLLDw4t/MYSeQLOKpD9aXHsKlIdHTNHVPPgeIVvw
-	 8wXiWL4xxXesQ9xOeuD9LrhTv1Pvplqa7sq2Jln3y7u9sWR53p7RqHkDjJB6SvmBH2M7c
-	 nxkW1QALFtmSL8Rwji4M2sYEA0ZTjAhZnCxAc8r5Rv5SIXpRXfDKOgrcPZbYixAJbPN1g
-	 n4ADPvBZAB3PxoGcUSSnNqd9TmL0VGO7RWSSjE6WnGBtCyJWLpFByKbdIxJy4U5Dh0w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=raspberrypi.com;
-	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LGEsOJ3Q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=VXJiIJztfvKEYzgXyd91oDviaSHCAjxYzQPx+8XFimc=;
+	b=p/ErR8igLByMpe8yfZalZ0lMUWDRUhfRR2knbzM838SHpI9R6liie0muIe8OWVIhmHDx
+	 j/N+zlIA6Wy+OZ2O1HhtykxcJSUD5PmuUL0vb5hrluFgwDSrQ5DISjNF1gRRmUtoLmJ/7
+	 yNBwR70G6GpqpPrNakCdoPOFaRWAEuZQOrmjHDznrpv6ENZCINFAiqJn0nvWrnT07jdnF
+	 ssQO5Kfmxz9PvW47DrgV7iyASok06uPngtAMMMp3sNKJUPqrTK8pbcLwZO5qP9eKmEYBs
+	 obnvmEzZiwnA2keeE36IDhMDxCKQaXeBJbRsG3LzYcaCHcvYYGwDYjC0cMgqBN9IHUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f35w1GXN;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F1D606A31A
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 14:43:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8F1D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED9E606A31A
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 14:44:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED9E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LGEsOJ3Q
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-7037daaa820so1029071eaf.2
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 07:43:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793285019; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ngbE3D4/+KmgoWr9x96ZP5ojGIOryW74uCYQatUdHkuneBxvdthlNa9sBu4qX9Dtyx
-         kX5l+vu3jtoHiTSD53FQtxBQCiQQvTLO+13S9DMISgweyoANKvbS56mT3UX/nlRVIPOW
-         YOl8a+vDZ9XZV19l/DAo77eJ7+MKykd0kCl9TgH5KD1lhmDQxKhFa1DEoXgi6ytF0THq
-         in8doeE3o+C6a8P1f+ftALA5JX6vGSSADttXMpGqFhWoyQRFh++8iYH7x4G2U45JHhcq
-         O3iqyfchNJVzhg3wB4EgVMot9iXKwTrvlYwZzKIoXdnFtokcIwhKTOqptvxZtKz75cg8
-         cQ5g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Z145znUTSRyPKtFzUaXDyFLwmD4HnEY3Xx0IIr8udHg=;
-        fh=X8oClh+x7BMvUE1/1qsCN/sBZsSL5oYtLkQU6wSCSzM=;
-        b=IX/GwnYLpPicp1ot6f51hcpV1Ghf71Ia76EShsJEcQW+FQkqMFEwn2Ib30aMavbVxm
-         vv3dqwp/fVVL6BxnHdO2dPWMlmpc8BXmKfGnURrh0+Iw4D//uhEcgKuUAvkE5gKXjplr
-         VMlC8mdQ8bvgm+S1dwDyJuGYKC6QewIUr3DGD5NMhyI4QNukxTI6FxnCc4wxRA4LmRPj
-         J0obA2lzv3lD5/DEleOpUsF47Txbu0OjIaLxCgGZFsBMEACDxVTTHMnxaEOWYqvEN/o9
-         +EM4QhANsoXnkzYkPmKCHPBMy7fDyXOKVOhQIAXoqk9GaTMM9rr7+Bg3CMjrf90NXbhh
-         mWYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=f35w1GXN
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so19902295e9.3
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 07:44:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793285019; x=1793889819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z145znUTSRyPKtFzUaXDyFLwmD4HnEY3Xx0IIr8udHg=;
-        b=LGEsOJ3QYduacOrB/GeiIi+kGiHmrU2C3iF7B1awE1Dxal4fLPMbrVAp2a4cqhHbxx
-         Xjef6gflgHBeMfGxI+ZqH/fGiW2/JLFtbN3eH5AhqNtDtN3FWNE539F6uKXq1WX+QjId
-         T420BEGt3MfUYC1T5Dyal3j6uqFetxosTOYAbTHyJpDZVWtW+pC9phgVaH/xNEcPhpYP
-         Re+V3KI0CiQWZ6ZnvsA1LnNL82fpeTK8EN1dj+wfdiuX6S+Zh8GHua7/Yoe8FTZoEJgL
-         ic23LAiArCbcF2OGAR61ZMazg864Uy46AWwsA6BhFi39En3yWkJyj7NLVY/NHU+cx62c
-         rSYA==
+        d=linaro.org; s=google; t=1793285083; x=1793889883; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VXJiIJztfvKEYzgXyd91oDviaSHCAjxYzQPx+8XFimc=;
+        b=f35w1GXNb+QP3vb1z/ZT4B9wxGtYH3rCUt78LQMgmP14X/rgFyiKTLepY9jvV7Ntkz
+         rolvC3pUztbkQQFX73wE06y9kP00UY1/mHlLshrZUbGqmUrPAIF1IZZGFFSLHF1HeoaO
+         meNgj5byKe2ntEP7bZOmVVl9z/8qWRTwo8R9XQFOq3brfm0pntzSg2oTHi8YB3XfDabD
+         czmZ2dSvLzi/f3IlDItTAHSkUfm8wnR4HG237kx889Q48ee3Eicf5UJnNVWVTRKD8V2h
+         LsHO9hTjEZa34zvE8owpPVPwNOpKjX/Cd0zF1Ma2MfXcytH+3pirIJFUbvFBF8ekSX05
+         VQMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793285019; x=1793889819;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z145znUTSRyPKtFzUaXDyFLwmD4HnEY3Xx0IIr8udHg=;
-        b=D3Ljf0jlvLNCcYuXvq4HlSqyHRwFQkyx1cC7EiCj5lCSrhcjtQp4+itKUW35QT8BR7
-         hN7aPfJ+aBnOW7n27oC90CAfeaJaCGygyYcC63H9yVS7/4daMrZ5h8LjIvShdOak0YvQ
-         fVdBzNvMpc/8px8m04/4BAEfAOgvnQ7vo6TvAl7zedbdW+YcOOan9wG4/4F7MOEfjoDG
-         CEGygXx4ruoVjxEa5eOYYOi6PcxP5Ru7vhF9wjqkxKimlZUBS4OL1R9Hm3NBvDDKGOzI
-         hWf0ieB3dKMeWDln60KLR66tSa707tM4choj9SPd782BxQG6BlXGsYejeRQ34U0sGibb
-         4k8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw7k8ngsGqvD4n+9vMW0knm59hvroZ/iVC5gsNDeXbV950xrAaYdw4KNHlVMf0+yIVvbZ80I7EYXw/HfA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMThakc4GkbVtTH+yR8EDZSjuBmAUns99Zxwb6MJiAcqT4k9nS
-	CZAgf1vgLI70XiglF7LLdCaZyBb6+blF5Du2xA+cIxw2/ky9AcQIJElEwIHrbEbnwpgkMo/e5L+
-	vjzbQf/YZMZEDfGKIxYNYVVP68qCQoyJri2khXzq+qA==
-X-Gm-Gg: AYBFou2KjKJAD9u25mMTTtrR3S8iUbrCD33ZPRwuhDrkdOgWx+jxU/Fk5uVjHeq9h42
-	KcrjWPm/MW/lO49Jdg+Mrh/Y6zMqVbbrNXvaY8P/+RvqVPT6jcd2fbyPp3bp2T/HMJDAKf5BLRJ
-	DH6SkFSObKctwuVIEifxg9vDNfswf8WBtKSAkYLouT0HRVE3Ws+jOemn8lzQsT6Q9zZBFYq+74r
-	pwF2mxCfDpmovGQtwy/YpZZ3cCXKeFE9r58Eo8y/FsjXs5go388HEqbbqDh9OBmQsRKd8N0GlS6
-	VNfXpZBUEcnIQSHBCJ4B4k/koPKYcW26Q5LrxUl/St/9uCdq6GEu0vGlXtvgtQkuCdfu49chlhJ
-	cI/EmkRazjW4vK1ukPqsg0Jm5yUhTugR2hRzVEoq71ov3Yq/R5mFMQ3T/Pl2OUr+Q1a0SDIWHCK
-	ryoXwiJ9fClQ1Ida7N+WcGZt74Z1SDT8kXV2LYuQc05TsDpclNB1bMTg==
-X-Received: by 2002:a05:6808:16a8:b0:4c1:5614:acab with SMTP id
- 5614622812f47-56382d81203mr3829523b6e.37.1793285018819; Thu, 29 Oct 2026
- 07:43:38 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793285083; x=1793889883;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VXJiIJztfvKEYzgXyd91oDviaSHCAjxYzQPx+8XFimc=;
+        b=gRCeRm+P1r02jSahg4PSncPr7QxmSJ5IukcEpPN0+3GNrgDqG64apIc9EnReFMxNaK
+         A5u6lmNkrD5+Jjju4GUcBC5UZ2xeFU8JKsPVdB5lQ1JCza1NInPybJxbiuu+bi8TTR7f
+         WoQDhC9raw/MHuUHfmm+hfycWFGqIo96ffilhzM46QGTSUvNCrdhe/70eItUEgk/g/Ud
+         +GUBzQqfnhG4yPYEq56Lwgma833SdOzxv4KXkTfiiJ1y9HzWKoqyG4XZB/ZLsa54A38H
+         2thEwffcYYLQ40awtyyf1EDoLbEpgzQy1CIQUv3b3jOjoU11OY9yzyaqaGJk/2G/D3vK
+         CZkA==
+X-Gm-Message-State: AFq9FYJwaOVn7urgu2s6piwvCWdFvAqmjQIfIH+NKOBpD6GvQZPkAUjc
+	dTgljaZ6X3JXZXzdyQ9FNn8VKBsptTGHNi4R+4rcTrHGtzi0yg83h8wvYm4EMGQ9h4Y=
+X-Gm-Gg: AYBFou3vH/6CvnoITol7fRZst33WBeL+xkPvXZuOhrSCo6noPMI1ESWrKOsevHLDqI7
+	qFVImjNckuCM76bYoB2WdVsxHw75PyMvzSyj3fRh7s0GPDIbDWRKcMXaWmNdNB5C12+DY0Yyl1H
+	QMIHna1Zpwim4rSbOkcv2hY9pDQ8yWN8NAgsEbw4aJr04hMxD7o2fD1K/osgkrwYLmZlbToImGB
+	Hd2dd0o0vdYR6eWgIzmGSbnrw4e4raD9l1TA27XLroGmaCcZZSx3E9PmtDIeNm6ug8xaJY3yIyL
+	792NtAhdoic8TGedj55PliJ9rGRzP4nnK8bWtcGr1DUwYgGUOZrwRh30dccVLzHWwpYOqmc6eh6
+	0gBlBwf/NsxIsn0PTgVIQ+KBl5ltSrqu+pGpMgzj8O6s2hDnlG0DhodouZ4DLFUweiBteoh25ex
+	sE0uQuRr5FolInDJB9478BrlpY8do4bqU/VyupcFBVzW413IIBdHas6AcbfYqfNJg05YlDzvz4m
+	k2sZZLjxXiS54pEVjIG8JAGjEXGPY3bKvXtZ4WkCnRzh0RuInvvFJYlBEJZS7gbjidXbkFsHwh9
+	Q9M22q4HUglB/EVUmK3/EFYfKYORnXW+p528m3dA
+X-Received: by 2002:a05:600c:4445:b0:4a3:5a91:5f64 with SMTP id 5b1f17b1804b1-4a9674e5f2fmr123956765e9.27.1793285082985;
+        Thu, 29 Oct 2026 07:44:42 -0700 (PDT)
+Received: from [192.168.0.167] ([64.43.45.156])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a96a32eef4sm80961585e9.3.2026.10.29.07.44.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 07:44:41 -0700 (PDT)
+Message-ID: <22d2cfcd-045d-48dd-bbde-c1ac2d958737@linaro.org>
+Date: Thu, 29 Oct 2026 14:44:40 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,205 +89,107 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-3-3bb376d8b1a9@linux.dev>
-In-Reply-To: <20261014-ov9282-fixes-v2-3-3bb376d8b1a9@linux.dev>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 14:43:22 +0000
-X-Gm-Features: AclHuK8HEINmU3r1FVIqsPNHE0UWIKCBJ0QrPdQvofVLfeWv7-01NAJbHLdiNlE
-Message-ID: <CAPY8ntCP80YX7mkOVhjXhOSaZ_EFW-JKP=GBjrQYu1ciBQusew@mail.gmail.com>
-Subject: Re: [PATCH v2 3/8] media: i2c: ov9282: fix flash duration to/from
- microseconds conversion
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>, 
-	"Paul J. Murphy" <paul.j.murphy@intel.com>, Martina Krasteva <martinax.krasteva@intel.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
-	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/14] Add SOF/EOF sequence logic
+To: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
+ <05313835-c868-45b1-b246-f98cfb8a1d6a@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <05313835-c868-45b1-b246-f98cfb8a1d6a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> w=
-rote:
->
-> Currently the flash duration is converted to/from microseconds using a
-> fixed OV9282_STROBE_SPAN_FACTOR constant. This is inaccurate as it was
-> found that the "step width of shift and span" (which is not documented
-> further in the datasheet) scales with the line, so the span is counted
-> in lines. This was verified by comparing the stobe pulses measured on
-> the camera module against the calculated line times.
->
-> As this is the same conversion as for the exposure: rename those function=
-s
-> to a more generic ov9282_us_to_lines/ov9282_lines_to_us and use them also
-> for the flash/strobe duration.
->
-> Fixes: b95d8058a2786 ("media: i2c: ov9282: implement try_ctrl for strobe_=
-duration")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
+On 29/10/2026 13:28, Gjorgji Rosikopulos (Consultant) wrote:
+> Hi Bryan,
+> 
+> On 10/29/2026 11:55 AM,bryan.odonoghue@linaro.org wrote:
+>> This series enables SOF AND EOF event tracking making use of both events.
+>> Whilst the code is actually very simple the functionality we want to build
+>> off of that simple code is not.
+>>
+>> - SOF
+>>    Serves two functions. Firstly. Informing user-space of CSID SOF events.
+>>    Standard Linux V4L2_EVENT_FRAME_SYNC is trigger from this event.
+>>    User-space wants to capture this trigger because it allows user-space to
+>>    better align the time a frame begins to events elsewhere such as IMU
+>>    event timestamps.
+>>
+>>    That functionality is directly applicable in this series.
+>>
+>>    However we will also build on the SOF event in later patches to allow us
+>>    to begin programming of shadow-registers for the next camera frame.
+>>
+>>    When the EOF event happens, we switch from one shadow bank to the next.
+>>    This is only possible if you have the SOF event.
+>>
+>>    So SOF serves the immediate purpose of timestamp alignment in user-space
+>>    as well as the 'evil plan' to trigger off of it programming camera
+>>    parameters for the next frame.
+>>
+>> - EOF
+>>    EOF even on its own is useful because it allows us to increment
+>>    vb.sequence for each frame as per the spec not just when we have
+>>    buffer-data.
+>>
+> It is great to finally have V4L2_EVENT_FRAME_SYNC support in CAMSS. 🙂
+> 
+> I would like to share my opinion on tagging vb.sequence at EOF.
+> 
+> The EOF event is received from the CSID decoder when the EOF short packet
+> is decoded. In contrast, buffer completion is reported when the write
+> master has finished writing the corresponding buffer.
+> 
+> Because the processing pipeline includes buffering and line buffers,
+> buf_done on the pixel path may be received after the EOF.
+> Conversely, when cropping is enabled on an output, buf_done may be
+> received before EOF.
+> 
+> That is why using EOF to assign the buffer sequence may result in inconsistent
+> sequence numbers across buffers.
+> 
+> I would propose:
+> 
+> SOF
+> Increment the frame sequence and generate the V4L2_EVENT_FRAME_SYNC event
+> for userspace.
+> 
+> REG_UPDATE
+> Once REG_UPDATE occurs, we have a guarantee that the configuration for the
+> new frame has been latched. At this point, we can iterate over all active
+> buffers being processed and assign them the current sequence number.
+> The bus-write active-status register indicates which address is currently being
+> processed by the bus-write engine and could also be used to detect frame skips,
+> if necessary.
+> 
+> BUSWR_DONE
+> Complete the corresponding buffer as usual. Optionally, we can verify whether its
+> sequence has already been updated. If it has not, we can determine how the buffer
+> should be handled.
+> 
+> This approach ties the buffer sequence to the point at which the frame configuration
+> is latched, rather than to the arrival of EOF, which may not be ordered consistently
+> with buffer completion.
 
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Come to think of it, I'm not entirely sure an EOF or reg-update 
+additional variable is required.
 
-> ---
->  drivers/media/i2c/ov9282.c | 65 +++++++++++++++++-----------------------=
-------
->  1 file changed, 24 insertions(+), 41 deletions(-)
->
-> diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index 5907f57b34523..e2a1f875160b9 100644
-> --- a/drivers/media/i2c/ov9282.c
-> +++ b/drivers/media/i2c/ov9282.c
-> @@ -136,8 +136,6 @@
->  #define OV9282_REG_MIN         0x00
->  #define OV9282_REG_MAX         0xfffff
->
-> -#define OV9282_STROBE_SPAN_FACTOR      192
-> -
->  static const char * const ov9282_supply_names[] =3D {
->         "avdd",         /* Analog power */
->         "dovdd",        /* Digital I/O power */
-> @@ -491,18 +489,31 @@ static u32 ov9282_line_time_ns(struct ov9282 *ov928=
-2)
->  }
->
->  /**
-> - * ov9282_exposure_to_us() - Convert an exposure register value to micro=
-seconds
-> + * ov9282_lines_to_us() - Convert a number of lines to microseconds
->   * @ov9282: pointer to ov9282 device
-> - * @exposure: exposure register value to convert
-> + * @lines: line count to convert
->   *
-> - * Return: microsecond representation of the given exposure register val=
-ue.
-> + * Return: microsecond representation of the given line count.
->   */
-> -static u32 ov9282_exposure_to_us(struct ov9282 *ov9282, u32 exposure)
-> +static u32 ov9282_lines_to_us(struct ov9282 *ov9282, u32 lines)
->  {
-> -       return div_u64((u64)exposure * ov9282_line_time_ns(ov9282),
-> +       return div_u64((u64)lines * ov9282_line_time_ns(ov9282),
->                        NSEC_PER_USEC);
->  }
->
-> +/**
-> + * ov9282_us_to_lines() - Convert =C2=B5s to line count
-> + * @ov9282: pointer to ov9282 device
-> + * @duration: microseconds value to convert
-> + *
-> + * Return: number of lines fitting into the given duration
-> + */
-> +static u32 ov9282_us_to_lines(struct ov9282 *ov9282, u32 duration)
-> +{
-> +       return DIV_ROUND_UP((u64)duration * NSEC_PER_USEC,
-> +                           ov9282_line_time_ns(ov9282));
-> +}
-> +
->  /**
->   * ov9282_update_controls() - Update control ranges based on streaming m=
-ode
->   * @ov9282: pointer to ov9282 device
-> @@ -551,7 +562,7 @@ static int ov9282_update_controls(struct ov9282 *ov92=
-82,
->   */
->  static int ov9282_update_exp_gain(struct ov9282 *ov9282, u32 exposure, u=
-32 gain)
->  {
-> -       u32 exposure_us =3D ov9282_exposure_to_us(ov9282, exposure);
-> +       u32 exposure_us =3D ov9282_lines_to_us(ov9282, exposure);
->         int ret, ret_hold;
->
->         dev_dbg(ov9282->dev, "Set exp %u (~%u us), analog gain %u",
-> @@ -579,34 +590,6 @@ static int ov9282_update_exp_gain(struct ov9282 *ov9=
-282, u32 exposure, u32 gain)
->         return ret ? ret : ret_hold;
->  }
->
-> -static u32 ov9282_us_to_flash_duration(struct ov9282 *ov9282, u32 value)
-> -{
-> -       /*
-> -        * Calculate "strobe_frame_span" increments from a given value (=
-=C2=B5s).
-> -        * This is quite tricky as "The step width of shift and span is
-> -        * programmable under system clock domain.", but it's not documen=
-ted
-> -        * how to program this step width (at least in the datasheet avai=
-lable
-> -        * to the author at time of writing).
-> -        * The formula below is interpolated from different modes/framera=
-tes
-> -        * and should work quite well for most settings.
-> -        */
-> -       u32 frame_width =3D ov9282->cur_mode->width + ov9282->hblank_ctrl=
-->val;
-> -
-> -       return value * OV9282_STROBE_SPAN_FACTOR / frame_width;
-> -}
-> -
-> -static u32 ov9282_flash_duration_to_us(struct ov9282 *ov9282, u32 value)
-> -{
-> -       /*
-> -        * Calculate back to microseconds from "strobe_frame_span" increm=
-ents.
-> -        * As the calculation in ov9282_us_to_flash_duration uses an inte=
-ger
-> -        * divison round up here.
-> -        */
-> -       u32 frame_width =3D ov9282->cur_mode->width + ov9282->hblank_ctrl=
-->val;
-> -
-> -       return DIV_ROUND_UP(value * frame_width, OV9282_STROBE_SPAN_FACTO=
-R);
-> -}
-> -
->  static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->  {
->         struct ov9282 *ov9282 =3D
-> @@ -672,7 +655,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->                 break;
->         case V4L2_CID_FLASH_DURATION:
->                 ret =3D cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME=
-_SPAN,
-> -                               ov9282_us_to_flash_duration(ov9282, ctrl-=
->val), NULL);
-> +                               ov9282_us_to_lines(ov9282, ctrl->val), NU=
-LL);
->                 break;
->         default:
->                 dev_err(ov9282->dev, "Invalid control %d", ctrl->id);
-> @@ -691,11 +674,11 @@ static int ov9282_try_ctrl(struct v4l2_ctrl *ctrl)
->
->         if (ctrl->id =3D=3D V4L2_CID_FLASH_DURATION) {
->                 u32 us =3D ctrl->val;
-> -               u32 fd =3D ov9282_us_to_flash_duration(ov9282, us);
-> +               u32 fd =3D ov9282_us_to_lines(ov9282, us);
->
->                 /* get nearest strobe_duration value */
-> -               u32 us0 =3D ov9282_flash_duration_to_us(ov9282, fd);
-> -               u32 us1 =3D ov9282_flash_duration_to_us(ov9282, fd + 1);
-> +               u32 us0 =3D ov9282_lines_to_us(ov9282, fd);
-> +               u32 us1 =3D ov9282_lines_to_us(ov9282, fd + 1);
->
->                 if (abs(us1 - us) < abs(us - us0))
->                         ctrl->val =3D us1;
-> @@ -1277,7 +1260,7 @@ static int ov9282_init_controls(struct ov9282 *ov92=
-82)
->         v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
->                           V4L2_CID_FLASH_STROBE_OE, 0, 1, 1, 0);
->
-> -       exposure_us =3D ov9282_exposure_to_us(ov9282, OV9282_EXPOSURE_DEF=
-AULT);
-> +       exposure_us =3D ov9282_lines_to_us(ov9282, OV9282_EXPOSURE_DEFAUL=
-T);
->         ov9282->flash_duration =3D
->                 v4l2_ctrl_new_std(ctrl_hdlr, &ov9282_ctrl_ops,
->                                   V4L2_CID_FLASH_DURATION, 0, exposure_us=
-, 1,
->
-> --
-> 2.53.0
->
->
+SOF.seq should do.
+
+- Reading SOF.seq @ crop is fine because the SOF.seq always preceds
+- Reading SOF.seq @ buf_done is fine ditto
+- Reading SOF.seq for params return stamping is correct
+- Reading SOF.seq for stats frame correlation is also correct
+
+We want the EOF signal but we don't need a second seqno to accompany. 
+And with one source of seq truth we don't need to change the point at 
+which we latch since pre-frame-drop SOF < everythign else.
+
+---
+bod
