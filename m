@@ -1,75 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793287869;
-	b=ZSdhhAQB7pVgCBurL85NT/SgQA0Y/aikrcJ/CFFlQUk5CvDAJeUL0ZD6XqiNtdqks1sc
-	 R5/a3twZLMkaV6iWlxA/L3qbWhhytJV69aR05gcoA24V8yjTcg5ewHa/u7fxJYggtb4aT
-	 2tVHJOYIXVGX8NZ83e9mlW9aFoSDdHtlPzGW+/426YWB3YAsUVwqKaZ6AKmzdu2Mdcz6d
-	 2K9thWJB1TvZAKh00FSz1VfuqRVzkG+l4/Tx2fkVFUiRr7CReYIVXvVW3XwC4wTMYW4Si
-	 tLMsFgM+pxXGaLGXFGL2K9Bme29O7p587jrrb0zo7ycEhMceO8mcI6mQkRzFrNUrA8w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287869;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793287962;
+	b=bCT6bEGUI3zTNfpa0zWIY61TSqLx3YoCLynRf5c0B9f5p3mO9JD05uafvO/fiinwIhkS
+	 jBV5g9isavGqUGXP8ag1SDAMuy/ASUwUu4OgliIyVNXqAPsITZrtWCZX5L0YqQV5zg73y
+	 n9bseoEuX/lGhH6aqin6355Vc3PlQboqQspm/7zgLE82umYWDizWkEafitoebh32JBGnp
+	 eH28gW49vMO8SxhmfvdlG4yFfjUatcwu6Xj/cocKhsonfR3APGKhm2qt4e2yY0LeZXNi2
+	 cl13QnbCurTF1XgSa+lPydc7ILgRGlePVKYG+3sHS/pUFVqpOUQ58f0E4zFjZ+xP9fA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793287962;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=ISmQbHJ7E1otoJaW2dt+FlesrUoFsyUjDXvzRtBHdQk=;
-	b=qCZwRKuxAtelo3nxSv2h9NcWX2Lvafb5jd3l8zgC5VHCXxLYInEDZCKL1tb/dEOzIX3K
-	 sKK2gHkKUyCZXfzpA1+AsAHvlcXNZWLi/wo65exul7jTMqn4izC7l3Q/RvTg5l4HHAJua
-	 coyfauVfPy03lOsF1/gHenxwo2t9ofcKzVi7494dSgjhZnA0Uany0ghSspEzUMLtJ8c2h
-	 1PV1tZe2Zhu36S4dqP43vwPfqDwxGikNlXNF+l6sO4fS6TRIoDSTFJEZOvxz0eDCcPkPK
-	 HPEGDyDMMGHxBf4VD5YPMBCVJjmtRHqdZtw4QWFwVqoy0Ut+zZ6HtVHRCLtxcQJdpGQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
+	b=ujzTuqTiR+8WbZzl1C5pJZHbiG7GtOIrOaN2evxSpgG1nHLjLu1jd6SgrSzcrhb1uLv4
+	 At5vxorbyk1GcNMiFIX+e93tdu6TkQVIzPV55uZ3tCvWe8EfXkAXGIu2W5LS61dVXo/wF
+	 iwepkw2j5/lzUhfvF1sx0MOxHCN8xhyKZcv0FxCT07WuqB5U9W5BK/gl6J3+D8X1oMSvz
+	 zTLnR3XHv1dVNayv8rQdnkhW21prSouD/jXcshvUfxG+FKNNzoed/vcViWA2pz+GJI4lP
+	 csDO0Y/ESY2+fSNhc1+PT4Z61gh6n9Dh5tCJCLV1jCJPfToiMRVod827dZG92AJCmBw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=H8B+SE4M;
-	arc=none smtp.remote-ip=209.85.219.72
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UdE+OCXV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA24606A327
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:31:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FA24606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5653C606A31A
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:32:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5653C606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=H8B+SE4M
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91c861b562eso32697896d6.0
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:31:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UdE+OCXV
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2eb0a52d605so75055ad.0
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:32:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793287961; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OrquMRCUncdwz36A83cJF1CfPw2I7zjHtyPclJCfrXOUk9ThIdzKpHs6T+BmqqZ+9S
+         Bjxi7EnHcATy94A93paPe3iym0Mi0fme36QeB0gLVHPQnzn6xdja7E4RY1eAxHhMRrdk
+         o8dmklcsnNyvGsM4JH08KliduFhjoaQ+9DD844pZmA1aJXzMQoC/koVc+BKLSiBd7VYk
+         izuQwWafLHqS2nEOyYF5srVe6c9AZo73PiaH6IQPh7bC1UtklhmhOTQWMlAcpmOrk+K2
+         fzkmunq0692RmfmYhl4Eed/VpUw6iifQbIQ9skahaXk/ayciwnqnCDrrUDXG+O1OQ7m4
+         /9bQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
+        fh=+/b4jmMhh1qSp4G5F2PYNDLgutuDwJgu47qVyyyTytc=;
+        b=j5kAnzoJg2DXx9zaFJBXLHktuA4nK2VVykgDse4xU5+Ibr4RBx9hnPmSAK2m6wlMFj
+         EKtyKnI7VWX5m1lF5dcwgkkXtUr4vpk9+pfrx0Si3UaBi4ygiOD+koKvuP6CVkHRvmMK
+         2BS10OUt2ElMpD5kdYHe4DQtlJB4I0WeLWIyuqtIgXi/StypHMxdopehT1Q1Dt556soB
+         XxfTNrbh8lLO2YY8qnsws4/JtwpIIspINwCgWPmhI1YCW1n5Pz5xwQlEC+rkbwJN1Czf
+         HrFag1yLkjiJb2NLEQweoSbgGZ1V7t0PNTe+PutgyqRu/Z2tqVFkt6vP3tjtjHMk+quY
+         awBA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793287867; x=1793892667; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ISmQbHJ7E1otoJaW2dt+FlesrUoFsyUjDXvzRtBHdQk=;
-        b=H8B+SE4M2JKWB30KPDCj2L65iFX7wl2Jed38CxMKUJJD3oN5dC9aeYJLGsZkH1NubC
-         pb3P0jBG5CzQL5wK/wwv+BCriT+ABn+VlO4GZmKnRGWPRD2aB74VynUCdEohmRWOLwkK
-         jcg0neZQzrJb4oI/6Ik01hh9Qdryr4MbC+4tHpCP1K43vtiBVScA5CwyY9ah9siVTKB8
-         0JSxcHhJBylwiLB1vEZLJwkdZREkBsZM5FGT7NWy1HJhoUgQmoF1OtTIFkf78hN1zjJn
-         jFBD/1p0+LXsn9Ic7Zk5hf3gcVfjDFunA2kUFmcS0p6GIrHDkCPeleFBbMaDP3qVmGG/
-         N5/g==
+        d=google.com; s=20260707; t=1793287961; x=1793892761; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
+        b=UdE+OCXVkKdUREc/7UmgDU/RZ0Tas2CCgTDK0o4PMOf8sTpumCTR/MPsk3BuVqtjBm
+         IH7RgNDNjNHmLxC4wxqFlnHRQtTTsWFiMNeX7pvYykQJg3JlLZ+3Hsjl1v1ZrDWr5k/6
+         jqjprRr/DKa8fgh0bdR/nFlQ7DJ5MEMXCEOHyxOIViehpSwvJdHHCnNEbXAu0ow1iE4t
+         4fm2KYbp1n3VUv+o40peGeMrQp0cdnPcN6m0XGzUUBaoeDvPZ3Grb4Cy/eobPIbDX/AO
+         enN479Cy3lfjfe0lv/zmGQgHtERoblS+u5PlT6v6958WGQ6Z4tN5ERoDs/CfFfPacpny
+         +HRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287867; x=1793892667;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ISmQbHJ7E1otoJaW2dt+FlesrUoFsyUjDXvzRtBHdQk=;
-        b=K0DfXkfJ9dTZX692bIRzVh9YVp+20Na9r1nhUNVxJfFvRbB+5GLI+zMVuIahAeiJFN
-         exgMOYk8zA7O8FMEo5McX/bHzf/ywQiVTxOGIICXez2udeMu1tL8+l5Tab9mjA4EGbix
-         NpA1B2uaaUt9D366cxHr9DgRM1sUvN//MX+mhDye8yE0Tn/GaD+Sk61GaynNCybXlqCX
-         asl0Zq9ILxKtCqDhGF9rNQY5TgwY2oQeieyvuMx8OWWBdpFAtY8YXZsSqtrNs22M8BE0
-         O1W4k8V/12NgxvzX3OYBXBJfYCyz+PDqDVJr1zx+5Bv2aLOUXMa3oXO6XjEk58lEFkyW
-         fQwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQJHBGn9c1KvcRDtFp8BisefcL83xL2MxHC7vME5zwi0wDgRMjCMOaI4wa0565xYfnGJyb8ybXkDxAvQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLzbHNZYOM5T8ST5x66QrOAUUGV05QaA0nNfX6/jIdoWsRrAeVc
-	h5ryQQtDRhR/aVI5aP2Mx6xwj7jlm9Yg5c2YpPnofzif962jiL8RyitUSXXJMcS+KLDXE0psraM
-	dwPVrdkF6oUBlZY2BB8+RNlti+Du0
-X-Received: from qvblx10.prod.google.com ([2002:a05:6214:5f0a:b0:91b:a45d:abd3])
- (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
- 2002:ad4:5aa6:0:b0:91c:15ce:66ce with SMTP id 6a1803df08f44-91c7cf74d8emr88908796d6.11.1793287866204;
- Thu, 29 Oct 2026 08:31:06 -0700 (PDT)
-Date: Thu, 29 Oct 2026 11:30:38 -0400
-In-Reply-To: <20261029153038.3800747-1-briandaniels@google.com>
+        d=1e100.net; s=20260707; t=1793287961; x=1793892761;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
+        b=mKNkZiU7pPRzYIMGjQQsdog24iGKefKXHiqjYtLMBfRFlo+hTB236SDOO2MyV7lQ3z
+         xin6WRNaXXeVPp60VI6N7dFhSwCYoakD6DQkJ/e8WwECHpzAkU2KzTckCxt5shbTJ/n2
+         iCWN0iUZDWoT+RE69ewp6I1joRp8wi1EKa8hOkRJQKlc0y4d+C1xkftB9XlwJg12gNsJ
+         ulFGhTRPIupp7g7lJGAVMRBBRd0DV+QHUD/1z6kIqHLm9+88ZrLEzkqr5Ya8fMwcFHcY
+         wmTJdWhzDrnxc4b6OncfB1hXjvbwPEp8XuTxg+PIhSpi9is+SUmCguJoB6STfNvZHT4o
+         G3Lw==
+X-Gm-Message-State: AFq9FYKRu9o+ZToaf34fhcTCvgJzMiiPfRqdDVFB0SMmARexRaNDccBl
+	zlOAMF3Ege+aySdtAHgKo+TkXfMgCMc5lW5Mesnz+qErhFSeAWBJoR7jmDYhg50eSUSnCgvu1fw
+	qOP3JB6nDPTbjULK1A6Msc0aK5sJaBIG6F2gm+WGRCnga+ShMeCUOgnmGag==
+X-Gm-Gg: AYBFou0cw//8V6WAnXAsAASiiyreMlBtIK+4tpzveBytPQZXyVBAwoYyco7I3GirIaC
+	3pBgGYEhEfFVk5dQo3FUdF34ja4xTSiah/oHw50EycSTV8uSdgRuFntRZXaHoaE0xdmqEI00NGF
+	fcSbV6IyN7Vmu5Vs35CvfH/uRyCvVZy/GFHLMyDjQQCVxu+7ZHqYNm1cFetO9X8kXjgTK22Lc5q
+	0D4NGhxWpHxEWNbH4nKNf21+Ix1tliUW2SCQRy1XcCSnVMsEvLpW2ua2vY6LL3KJrjl9hNL0GXf
+	XLSkjmGEDrWT/+dKpO6U+K3JLZQbUS1pax8Cef9QFojy1Q4VjY4cgT7J1pIAMPNuJRrVjvYtX7J
+	kjjob0TyxuzRTN9K7X2stz8CblSY+p5IuT6uA+lNGg4OTATi7T9873x2q5PaXch+L
+X-Received: by 2002:a17:902:bd95:b0:2e9:5a0b:9f3 with SMTP id
+ d9443c01a7336-2eb1b2ca80bmr4692345ad.7.1793287960943; Thu, 29 Oct 2026
+ 08:32:40 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -78,400 +102,197 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261029153038.3800747-1-briandaniels@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261029153038.3800747-6-briandaniels@google.com>
-Subject: [PATCH v10 5/5] media: virtio: Add MMAP buffer mapping support
+MIME-Version: 1.0
+References: <20260528163448.4031965-1-briandaniels@google.com>
+ <CAD4i_GRm4=0vTkpnwx6yrcha1YTgeQR0H39JRqi0PZN4TxwqUA@mail.gmail.com> <a0b95ba3-c75c-4843-b2ab-b7f94571c084@kernel.org>
+In-Reply-To: <a0b95ba3-c75c-4843-b2ab-b7f94571c084@kernel.org>
 From: Brian Daniels <briandaniels@google.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
-	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
-	gurchetansingh@google.com, hverkuil@xs4all.nl, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mst@redhat.com, nicolas.dufresne@collabora.com, 
-	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com, 
-	dbassey@redhat.com, laurent.pinchart@ideasonboard.com, 
-	Brian Daniels <briandaniels@google.com>
+Date: Thu, 29 Oct 2026 11:32:28 -0400
+X-Gm-Features: AclHuK-52htXy6ZJSXEXQ3dYUhClzCMKJLWsQFI-Mn00t666KQqf2Ty5vVKYfNU
+Message-ID: <CAD4i_GSf8-+qEM5WqzYt4CsUb7M7-PHbjxAcVMayBJXy2qNzbw@mail.gmail.com>
+Subject: Re: [PATCH v4l-utils] v4l2-compliance: Add an option to override the
+ driver name
+To: hverkuil+cisco@kernel.org
+Cc: linux-media@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Alexandre Courbot <gnurou@gmail.com>
+Hi Hans,
 
-Support mapping V4L2_MEMORY_MMAP buffers into guest userspace through
-virtio shared memory region 0.
+Sorry for my late reply, appreciate the feedback! I've implemented
+your suggestion in a v2:
+https://lore.kernel.org/all/20261029152030.3764241-1-briandaniels@google.co=
+m/
 
-Query the shared memory region during device probe and implement the
-mmap file operation and VMA close callback using VIRTIO_MEDIA_CMD_MMAP
-and VIRTIO_MEDIA_CMD_MUNMAP, remapping the host-provided shared memory
-offset into userspace via io_remap_pfn_range().
+Thanks,
+Brian
 
-Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
-Assisted-by: LLM
-Co-developed-by: Brian Daniels <briandaniels@google.com>
-Signed-off-by: Brian Daniels <briandaniels@google.com>
----
- drivers/media/virtio/session.h             |  14 +-
- drivers/media/virtio/virtio_media.h        |  13 +-
- drivers/media/virtio/virtio_media_driver.c | 152 +++++++++++++++++++++
- include/uapi/linux/virtio_media.h          |  67 +++++++++
- 4 files changed, 236 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/media/virtio/session.h b/drivers/media/virtio/session.h
-index 16bb86bf4..c074ffc2c 100644
---- a/drivers/media/virtio/session.h
-+++ b/drivers/media/virtio/session.h
-@@ -63,12 +63,12 @@ struct virtio_media_queue_state {
-  * @nonblocking_dequeue: whether dequeue should block or not (nonblocking if
-  *                       file opened with O_NONBLOCK).
-  * @uses_mplane: whether the queues for this session use the MPLANE API or not.
-- * @cmd: union of session commands ``close`` and ``ioctl``. A session can have
-- *       one command currently running. The rest of the commands are handled by
-- *       &struct virtio_media.
-- * @resp: union of responses to session commands. A session can wait on one
-- *        command only. The rest of the responses are handled by
-- *        &struct virtio_media.
-+ * @cmd: union of session commands ``close``, ``ioctl``, and ``mmap``. A
-+ *       session can have one command currently running. The rest of the
-+ *       commands are handled by &struct virtio_media.
-+ * @resp: union of responses to session commands ``close``, ``ioctl``, and
-+ *        ``mmap``. A session can wait on one command only. The rest of the
-+ *        responses are handled by &struct virtio_media.
-  * @shadow_buf: shadow buffer where data to be added to the descriptor chain can
-  *              be staged before being sent to the device.
-  * @command_sgs: SG table gathering descriptors for a given command and its
-@@ -91,10 +91,12 @@ struct virtio_media_session {
- 	union {
- 		struct virtio_media_cmd_close close;
- 		struct virtio_media_cmd_ioctl ioctl;
-+		struct virtio_media_cmd_mmap mmap;
- 	} cmd;
- 
- 	union {
- 		struct virtio_media_resp_ioctl ioctl;
-+		struct virtio_media_resp_mmap mmap;
- 	} resp;
- 	__dma_from_device_group_end();
- 
-diff --git a/drivers/media/virtio/virtio_media.h b/drivers/media/virtio/virtio_media.h
-index 8b21c1941..7acb2b842 100644
---- a/drivers/media/virtio/virtio_media.h
-+++ b/drivers/media/virtio/virtio_media.h
-@@ -26,14 +26,15 @@
-  * @commandq: virtio command queue.
-  * @eventq: virtio event queue.
-  * @eventq_work: work to run when events are received on @eventq.
-+ * @mmap_region: region into which MMAP buffers are mapped by the host.
-  * @event_buffer: buffer for event descriptors.
-  * @sessions: list of active sessions on the device.
-  * @sessions_lock: protects @sessions and &struct virtio_media_session.list.
-  * @events_lock: prevents concurrent processing of events.
-- * @cmd: union of device-level commands. Session commands are handled by
-- *       &struct virtio_media_session.
-- * @resp: union of responses to device-level commands. Session responses are
-- *        handled by &struct virtio_media_session.
-+ * @cmd: union of the device commands ``open`` and ``munmap``. The other
-+ *       commands are handled by &struct virtio_media_session
-+ * @resp: union of responses to device commands ``open`` and ``munmap``. The
-+ *        other responses are handled by &struct virtio_media_session
-  * @vlock: serializes access to the command queue.
-  * @wq: waitqueue for host responses on the command queue.
-  */
-@@ -46,6 +47,8 @@ struct virtio_media {
- 	struct virtqueue *eventq;
- 	struct work_struct eventq_work;
- 
-+	struct virtio_shm_region mmap_region;
-+
- 	void *event_buffer;
- 
- 	struct list_head sessions;
-@@ -56,10 +59,12 @@ struct virtio_media {
- 	__dma_from_device_group_begin();
- 	union {
- 		struct virtio_media_cmd_open open;
-+		struct virtio_media_cmd_munmap munmap;
- 	} cmd;
- 
- 	union {
- 		struct virtio_media_resp_open open;
-+		struct virtio_media_resp_munmap munmap;
- 	} resp;
- 	__dma_from_device_group_end();
- 
-diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
-index 877ac154b..865b6dfad 100644
---- a/drivers/media/virtio/virtio_media_driver.c
-+++ b/drivers/media/virtio/virtio_media_driver.c
-@@ -6,6 +6,7 @@
-  * Copyright (c) 2024-2026 Google LLC.
-  */
- 
-+#include <linux/bits.h>
- #include <linux/device.h>
- #include <linux/dev_printk.h>
- #include <linux/mutex.h>
-@@ -20,6 +21,7 @@
- #include <linux/workqueue.h>
- #include <linux/dma-mapping.h>
- #include <linux/poll.h>
-+#include <linux/mm.h>
- 
- #include <media/v4l2-dev.h>
- #include <media/v4l2-device.h>
-@@ -32,6 +34,12 @@
- 
- #define VIRTIO_MEDIA_NUM_EVENT_BUFS 16
- 
-+/* ID of the SHM region into which MMAP buffer will be mapped. */
-+#define VIRTIO_MEDIA_SHM_MMAP 0
-+
-+/* Bit mask for the VIRTIO_MEDIA_MMAP_FLAG_RW flag */
-+#define VIRTIO_MEDIA_MMAP_FLAG_RW_MASK BIT(VIRTIO_MEDIA_MMAP_FLAG_RW)
-+
- /**
-  * virtio_media_session_alloc() - Allocate a new session.
-  * @vv: virtio-media device the session belongs to.
-@@ -687,12 +695,148 @@ static __poll_t virtio_media_device_poll(struct file *file, poll_table *wait)
- 	return rc;
- }
- 
-+static void virtio_media_vma_close_locked(struct vm_area_struct *vma)
-+{
-+	struct virtio_media *vv = vma->vm_private_data;
-+	struct virtio_media_cmd_munmap *cmd_munmap = &vv->cmd.munmap;
-+	struct virtio_media_resp_munmap *resp_munmap = &vv->resp.munmap;
-+	struct scatterlist cmd_sg = {}, resp_sg = {};
-+	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
-+	int ret;
-+
-+	sg_set_buf(&cmd_sg, cmd_munmap, sizeof(*cmd_munmap));
-+	sg_mark_end(&cmd_sg);
-+
-+	sg_set_buf(&resp_sg, resp_munmap, sizeof(*resp_munmap));
-+	sg_mark_end(&resp_sg);
-+
-+	cmd_munmap->hdr.cmd = VIRTIO_MEDIA_CMD_MUNMAP;
-+	cmd_munmap->hdr.__reserved = 0;
-+	cmd_munmap->driver_addr =
-+		(vma->vm_pgoff << PAGE_SHIFT) - vv->mmap_region.addr;
-+	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_munmap),
-+					NULL);
-+	if (ret < 0) {
-+		v4l2_err(&vv->v4l2_dev, "host failed to unmap buffer: %d\n",
-+			 ret);
-+	}
-+}
-+
-+/**
-+ * virtio_media_vma_close() - Close a MMAP buffer mapping.
-+ * @vma: VMA of the mapping to close.
-+ *
-+ * Inform the host that a previously created MMAP mapping is no longer needed
-+ * and can be removed.
-+ */
-+static void virtio_media_vma_close(struct vm_area_struct *vma)
-+{
-+	struct virtio_media *vv = vma->vm_private_data;
-+
-+	mutex_lock(&vv->vlock);
-+	virtio_media_vma_close_locked(vma);
-+	mutex_unlock(&vv->vlock);
-+}
-+
-+static const struct vm_operations_struct virtio_media_vm_ops = {
-+	.close = virtio_media_vma_close,
-+};
-+
-+/**
-+ * virtio_media_device_mmap() - Perform a mmap request from userspace.
-+ * @file: opened file of the session to map for.
-+ * @vma: VM area struct describing the desired mapping.
-+ *
-+ * This requests the host to map a MMAP buffer for us, so we can then make that
-+ * mapping visible into user-space address space.
-+ */
-+static int virtio_media_device_mmap(struct file *file,
-+				    struct vm_area_struct *vma)
-+{
-+	struct video_device *video_dev = video_devdata(file);
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session =
-+		fh_to_session(file->private_data);
-+	struct virtio_media_cmd_mmap *cmd_mmap = &session->cmd.mmap;
-+	struct virtio_media_resp_mmap *resp_mmap = &session->resp.mmap;
-+	struct scatterlist cmd_sg = {}, resp_sg = {};
-+	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
-+	int ret;
-+
-+	if (!(vma->vm_flags & VM_SHARED))
-+		return -EINVAL;
-+	if (!(vma->vm_flags & (VM_READ | VM_WRITE)))
-+		return -EINVAL;
-+
-+	mutex_lock(&vv->vlock);
-+
-+	cmd_mmap->hdr.cmd = VIRTIO_MEDIA_CMD_MMAP;
-+	cmd_mmap->hdr.__reserved = 0;
-+	cmd_mmap->session_id = session->id;
-+	cmd_mmap->flags =
-+		(vma->vm_flags & VM_WRITE) ? VIRTIO_MEDIA_MMAP_FLAG_RW_MASK : 0;
-+	cmd_mmap->offset = vma->vm_pgoff << PAGE_SHIFT;
-+	cmd_mmap->__reserved = 0;
-+
-+	sg_set_buf(&cmd_sg, cmd_mmap, sizeof(*cmd_mmap));
-+	sg_mark_end(&cmd_sg);
-+
-+	sg_set_buf(&resp_sg, resp_mmap, sizeof(*resp_mmap));
-+	sg_mark_end(&resp_sg);
-+
-+	/*
-+	 * The host performs reference counting and is smart enough to return
-+	 * the same guest physical address if this is called several times on
-+	 * the same
-+	 * buffer.
-+	 */
-+	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_mmap),
-+					NULL);
-+	if (ret < 0)
-+		goto end;
-+
-+	vma->vm_private_data = vv;
-+	/*
-+	 * Keep the guest address at which the buffer is mapped since we will
-+	 * use that to unmap.
-+	 */
-+	vma->vm_pgoff = (resp_mmap->driver_addr + vv->mmap_region.addr) >>
-+			PAGE_SHIFT;
-+
-+	/*
-+	 * We cannot let the mapping be larger than the buffer.
-+	 */
-+	if (vma->vm_end - vma->vm_start > PAGE_ALIGN(resp_mmap->len)) {
-+		dev_dbg(&video_dev->dev,
-+			"invalid MMAP, as it would overflow buffer length\n");
-+		ret = -EINVAL;
-+		goto cleanup;
-+	}
-+
-+	ret = io_remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
-+				 vma->vm_end - vma->vm_start,
-+				 vma->vm_page_prot);
-+	if (ret) {
-+		dev_dbg(&video_dev->dev, "io_remap_pfn_range() failed\n");
-+		goto cleanup;
-+	}
-+
-+	vma->vm_ops = &virtio_media_vm_ops;
-+	goto end;
-+cleanup:
-+	virtio_media_vma_close_locked(vma);
-+end:
-+	mutex_unlock(&vv->vlock);
-+	return ret;
-+}
-+
- static const struct v4l2_file_operations virtio_media_fops = {
- 	.owner = THIS_MODULE,
- 	.open = virtio_media_device_open,
- 	.release = virtio_media_device_close,
- 	.poll = virtio_media_device_poll,
- 	.unlocked_ioctl = virtio_media_device_ioctl,
-+	.mmap = virtio_media_device_mmap,
- };
- 
- static void virtio_media_release(struct v4l2_device *v4l2_dev)
-@@ -763,6 +907,14 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
- 	vv->eventq = vqs[1];
- 	INIT_WORK(&vv->eventq_work, virtio_media_event_work);
- 
-+	/* Get MMAP buffer mapping SHM region */
-+	if (!virtio_get_shm_region(virtio_dev, &vv->mmap_region,
-+				   VIRTIO_MEDIA_SHM_MMAP)) {
-+		dev_err(&virtio_dev->dev, "Failed to get shared memory region");
-+		ret = -ENOMEM;
-+		goto err_del_vqs;
-+	}
-+
- 	vd = &vv->video_dev;
- 	vd->v4l2_dev = &vv->v4l2_dev;
- 	vd->ioctl_ops = &virtio_media_ioctl_ops;
-diff --git a/include/uapi/linux/virtio_media.h b/include/uapi/linux/virtio_media.h
-index da5c5baf0..2ea28770e 100644
---- a/include/uapi/linux/virtio_media.h
-+++ b/include/uapi/linux/virtio_media.h
-@@ -171,6 +171,73 @@ struct virtio_media_sg_entry {
- 	__le32 __reserved;
- };
- 
-+/**
-+ * VIRTIO_MEDIA_MMAP_FLAG_RW - Bit position of the VIRTIO_MEDIA_MMAP_FLAG_RW
-+ *                             flag.
-+ */
-+#define VIRTIO_MEDIA_MMAP_FLAG_RW 0
-+
-+/**
-+ * VIRTIO_MEDIA_CMD_MMAP - Command for mapping a MMAP buffer into the driver's
-+ *                         address space.
-+ */
-+#define VIRTIO_MEDIA_CMD_MMAP 4
-+
-+/**
-+ * struct virtio_media_cmd_mmap - Driver command for VIRTIO_MEDIA_CMD_MMAP.
-+ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MMAP.
-+ * @session_id: ID of the session we are mapping for.
-+ * @flags: combination of VIRTIO_MEDIA_MMAP_FLAG_*.
-+ * @offset: mem_offset field of the plane to map, as returned by
-+ *          VIDIOC_QUERYBUF.
-+ * @__reserved: must be set to zero by the driver.
-+ */
-+struct virtio_media_cmd_mmap {
-+	struct virtio_media_cmd_header hdr;
-+	__le32 session_id;
-+	__le32 flags;
-+	__le32 offset;
-+	__le32 __reserved;
-+};
-+
-+/**
-+ * struct virtio_media_resp_mmap - Device response for VIRTIO_MEDIA_CMD_MMAP.
-+ * @hdr: header containing the status of the command.
-+ * @driver_addr: offset into SHM region 0 of the start of the mapping.
-+ * @len: length of the mapping.
-+ */
-+struct virtio_media_resp_mmap {
-+	struct virtio_media_resp_header hdr;
-+	__le64 driver_addr;
-+	__le64 len;
-+};
-+
-+/**
-+ * VIRTIO_MEDIA_CMD_MUNMAP - Unmap a MMAP buffer previously mapped using
-+ *                           VIRTIO_MEDIA_CMD_MMAP.
-+ */
-+#define VIRTIO_MEDIA_CMD_MUNMAP 5
-+
-+/**
-+ * struct virtio_media_cmd_munmap - Driver command for VIRTIO_MEDIA_CMD_MUNMAP.
-+ * @hdr: header with cmd member set to VIRTIO_MEDIA_CMD_MUNMAP.
-+ * @driver_addr: offset into SHM region 0 at which the buffer has been
-+ *               previously mapped.
-+ */
-+struct virtio_media_cmd_munmap {
-+	struct virtio_media_cmd_header hdr;
-+	__le64 driver_addr;
-+};
-+
-+/**
-+ * struct virtio_media_resp_munmap - Device response for
-+ *                                   VIRTIO_MEDIA_CMD_MUNMAP.
-+ * @hdr: header containing the status of the command.
-+ */
-+struct virtio_media_resp_munmap {
-+	struct virtio_media_resp_header hdr;
-+};
-+
- /* The values for these events are set by the virtio-media specification. */
- #define VIRTIO_MEDIA_EVT_ERROR 0
- #define VIRTIO_MEDIA_EVT_DQBUF 1
--- 
-2.56.0.317.g454f8302e1-goog
-
+On Wed, Sep 9, 2026 at 10:28=E2=80=AFAM <hverkuil+cisco@kernel.org> wrote:
+>
+> Hi Brian,
+>
+> Apologies for the delay, it's been very busy and v4l-utils patches are lo=
+w priority.
+>
+> On 28/08/2026 16:38, Brian Daniels wrote:
+> > CCing some more people to hopefully start the discussion. Thanks!
+> >
+> > On Thu, May 28, 2026 at 12:35=E2=80=AFPM Brian Daniels <briandaniels@go=
+ogle.com> wrote:
+> >>
+> >> When using the virtio-media driver, the host and a guest VM are used,
+> >> with the guest VM proxying requests to a host device. The driver name =
+in
+> >> the guest VM is reported as "virtio-media", when really its proxying
+> >> requests to a driver with a different name (for example, "uvcvideo").
+> >> For the test to pass, v4l2-compliance needs to know the driver name of
+> >> the device on the host because it changes its behavior depending on th=
+e
+> >> driver under test.
+> >>
+> >> With this new option, the name of the host driver can be passed in on
+> >> the command line so the test running in the guest can adapt accordingl=
+y.
+> >>
+> >> Assisted-by: Gemini CLI:gemini-3.1-pro
+> >> Signed-off-by: Brian Daniels <briandaniels@google.com>
+> >> ---
+> >>  utils/v4l2-compliance/v4l2-compliance.cpp | 17 +++++++++++++++++
+> >>  utils/v4l2-compliance/v4l2-compliance.h   | 15 ++++++++++++++-
+> >>  2 files changed, 31 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/utils/v4l2-compliance/v4l2-compliance.cpp b/utils/v4l2-co=
+mpliance/v4l2-compliance.cpp
+> >> index 4e5c9d00..ddb4e7a7 100644
+> >> --- a/utils/v4l2-compliance/v4l2-compliance.cpp
+> >> +++ b/utils/v4l2-compliance/v4l2-compliance.cpp
+> >> @@ -52,6 +52,7 @@ enum Option {
+> >>         OptHelp =3D 'h',
+> >>         OptSetMediaDevice =3D 'm',
+> >>         OptSetMediaDeviceOnly =3D 'M',
+> >> +       OptDriverName =3D 'N',
+> >>         OptNoWarnings =3D 'n',
+> >>         OptNoProgress =3D 'P',
+> >>         OptSetRadioDevice =3D 'r',
+> >> @@ -87,6 +88,7 @@ bool exit_on_warn;
+> >>  bool is_vivid;
+> >>  bool is_uvcvideo;
+> >>  int media_fd =3D -1;
+> >> +std::string override_driver_name;
+> >>  unsigned warnings;
+> >>  bool has_mmu =3D true;
+> >>
+> >> @@ -130,6 +132,7 @@ static struct option long_options[] =3D {
+> >>         {"help", no_argument, nullptr, OptHelp},
+> >>         {"verbose", no_argument, nullptr, OptVerbose},
+> >>         {"color", required_argument, nullptr, OptColor},
+> >> +       {"driver-name", required_argument, nullptr, OptDriverName},
+> >>         {"no-warnings", no_argument, nullptr, OptNoWarnings},
+> >>         {"no-progress", no_argument, nullptr, OptNoProgress},
+> >>         {"exit-on-fail", no_argument, nullptr, OptExitOnFail},
+> >> @@ -255,6 +258,8 @@ static void usage()
+> >>         printf("                     then this defaults to 90%%.\n");
+> >>         printf("  -E, --exit-on-fail Exit on the first fail.\n");
+> >>         printf("  -h, --help         Display this help message.\n");
+> >> +       printf("  -N, --driver-name <name>\n");
+> >> +       printf("                     Override driver name with <name>.=
+\n");
+> >>         printf("  -C, --color <when> Highlight OK/warn/fail/FAIL strin=
+gs with colors\n");
+> >>         printf("                     <when> can be set to always, neve=
+r, or auto (the default)\n");
+> >>         printf("  -n, --no-warnings  Turn off warning messages.\n");
+> >> @@ -1026,6 +1031,15 @@ void testNode(struct node &node, struct node &n=
+ode_m2m_cap, struct node &expbuf_
+> >>                 printf("Compliance test for device ");
+> >>         else
+> >>                 printf("Compliance test for %s device ", driver.c_str(=
+));
+> >> +
+> >> +       struct v4l2_capability real_vcap;
+> >> +       node.querycap(real_vcap);
+> >> +
+> >> +       std::string real_vcap_driver =3D reinterpret_cast<const char *=
+>(real_vcap.driver);
+> >> +       if (driver !=3D real_vcap_driver) {
+> >> +               printf("(overridden from %s) ", real_vcap_driver.c_str=
+());
+> >> +       }
+> >> +
+> >>         printf("%s%s:\n\n", node.device, node.g_direct() ? "" : " (usi=
+ng libv4l2)");
+> >>
+> >>         if (node.g_caps() & (V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_VBI_CAP=
+TURE |
+> >> @@ -1811,6 +1825,9 @@ int main(int argc, char **argv)
+> >>                                 }
+> >>                         }
+> >>                         break;
+> >> +               case OptDriverName:
+> >> +                       override_driver_name =3D optarg;
+> >> +                       break;
+> >>                 case OptColor:
+> >>                         if (!strcmp(optarg, "always"))
+> >>                                 show_colors =3D true;
+> >> diff --git a/utils/v4l2-compliance/v4l2-compliance.h b/utils/v4l2-comp=
+liance/v4l2-compliance.h
+> >> index 4a7af5f5..563075c6 100644
+> >> --- a/utils/v4l2-compliance/v4l2-compliance.h
+> >> +++ b/utils/v4l2-compliance/v4l2-compliance.h
+> >> @@ -311,7 +311,20 @@ static inline double fract2f(const struct v4l2_fr=
+act *f)
+> >>         return (double)f->numerator / (double)f->denominator;
+> >>  }
+> >>
+> >> -#define doioctl(n, r, p) v4l_named_ioctl((n)->g_v4l_fd(), #r, r, p)
+> >> +extern std::string override_driver_name;
+> >> +
+> >> +inline int wrapped_doioctl(struct node *n, const char *name, unsigned=
+ long cmd, void *arg)
+> >> +{
+> >> +       int retval =3D v4l_named_ioctl(n->g_v4l_fd(), name, cmd, arg);
+> >> +       if (retval =3D=3D 0 && cmd =3D=3D VIDIOC_QUERYCAP && arg !=3D =
+nullptr && !override_driver_name.empty()) {
+> >> +               struct v4l2_capability *cap =3D (struct v4l2_capabilit=
+y *)arg;
+> >> +               strncpy((char *)cap->driver, override_driver_name.c_st=
+r(), sizeof(cap->driver) - 1);
+> >> +               cap->driver[sizeof(cap->driver) - 1] =3D '\0';
+> >> +       }
+> >> +       return retval;
+> >> +}
+> >> +
+> >> +#define doioctl(n, r, p) wrapped_doioctl(n, #r, r, p)
+>
+> Ah, this I don't like. There really is just one place where the driver na=
+me
+> is checked to modify v4l2-compliance behavior (the start of testNode()), =
+and
+> that's where this override_driver_name should be used.
+>
+> Hiding it in this macro is not nice.
+>
+> Thinking it over, it might be better to just introduce two option: --is-v=
+ivid and
+> --is-uvcvideo instead of hacking the driver name. If provided, then v4l2-=
+compliance
+> should just act as if it was a vivid/uvcvideo driver. Those are the only =
+two special
+> cases at the moment.
+>
+> Regards,
+>
+>         Hans
+>
+> >>
+> >>  const char *ok(int res);
+> >>  int check_string(const char *s, size_t len);
+> >>
+> >> base-commit: f2a3cb8a59bcce9ac9f7a7c5b71429610d638a12
+> >> --
+> >> 2.54.0.794.g4f17f83d09-goog
+> >>
+> >
+>
