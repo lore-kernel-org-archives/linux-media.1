@@ -1,89 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793266087;
-	b=Hk7ZGXn7oKyjQZuCniB47Z5S0xfm8gfYIIZIAV2LsIHbIR4Jn4JNtRu84VO3N0IzL0H0
-	 BUpARWxzdcu+Y1/O2KDWwIb+ViK8ZmbdrgXFMYS5KWSLZJtLI0dR5+ZAdn/pzlyagFhSX
-	 zrWUFp32bUUXcnGP+8bcoEzMLLAmbEnCJcLf3Fy8niji2ITvggWsv2EMBJaLaNpAsnuqq
-	 uxv+palvsBu/am/K8Iz5wbBjT0mPbIQJpjOVNzJaa7vTMO2dZTBUd2vmjf1W4EWUCGwM0
-	 2iKMR8LsQ8r+1gvvzhcbJYXZDrJQ8EA2c5A7aT8WZn6vvGRWYMavyCk3bid1FvX1v/w==
+	t=1793266664;
+	b=aYbQt0f8afGYcs//CcFgnFoQsKtWOYfpj0m8gsy2lnEX/qXt458ohCdZ/0lo8GkiA2Ek
+	 B/oY/N3wKEn/HLmuJ8Zpgx1qZfVX6w4IwhAzOtXy4JqhiwFnjdh9Jt6IotXtpJjQ6GTKL
+	 mbATvM49oXzabM5tAvH61GrAlFusGChu5W3eNR/Yz8DbJ2iluO7i2Oe0Srkqz9M2IncpH
+	 OIyfmK0jSKWXIZ1UWtoe8G5rrVUXY0RhMYVQQVUUMDnxxAMRWKxsbpz9qCFegs3qKqGWo
+	 VKYGvWDVwrA2tn2r+ar1ewF0fOlwR0AiSViU+GqYJh+w7KlmdpKWNDN0JrwauGlfKNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793266087;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266664;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=w+KCgDr9UJJbQIx7mC4i/I2OBN1kJKNwj5V2SZ0eQ6k=;
-	b=Ny4fgOCzOsDjBg3EtngOKj03y/ywL0Tyl3BU8mZ1Zq5e1uUFzE++tmnnCMaWfXkKr2uD
-	 1va+CKxods/3d+5IBlBEiFvQe2SOojS4zIH+mp9U/WHeS5wBcNeHDTGfr0Jf7MD9jhpV+
-	 FfugNQPTP1WHsDjRPzrh0Kg8sDsWo8EAV2IbMlSoGKvEgZ05cFGhch1+xmezxcW1gKVnu
-	 3HsHK0b1rHRG+lMrghZ1YBwFRtSmxQcps8wlCmZ32YBlxZ58lffJshRb/NAv0bV3aIPiu
-	 AFcxIdelyL/Ezos88SwuBc2C7J9P+45l4XQnd8ky1u0L9JeZRloFwfQ0xqIdsuUHjKQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=DM2Q/kSYWYqLMCbF8lnJCCCQdVX+uPwPiquxROWwhc0=;
+	b=HiDIfRiyloNsB+cSPFTVISufiBARgMx0iklRTjV5hziy8pjoPVXkfuBqqQW/rVewazKM
+	 OrGmIxjiVH2kL0eWa3lk8EvnwXILCJg964hSVe2j52SfJCFm418yQiS2e5+VkwvgTedL4
+	 gJ/pH4dtkoILyGOGUPreGnEo2/8lAOchBg8FPwUhSl6XgwE74SHTUD8TEjDVpRPMi8MHd
+	 WRW1pzo1uT236ikdBt9PlTZid5+nXylulLiod4ofrGXVByRuxlqPg6mYPuWn3/9SgxsBQ
+	 3gRQ1TeiWRGZeeIYBJrpWVq5bC8UgmBdLY8r7sJaHtvRZ4F/x0PBKHEt4ky1+pQia+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gXkK1GyT;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Tvlfi9kk;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7F6606A331
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:28:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB7F6606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249F3606A320
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 249F3606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gXkK1GyT
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a7992e2f7dso16548305e9.3
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 02:28:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Tvlfi9kk
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so16894305e9.2
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 02:37:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793266085; x=1793870885; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w+KCgDr9UJJbQIx7mC4i/I2OBN1kJKNwj5V2SZ0eQ6k=;
-        b=gXkK1GyTNmWf7o0dX1xpL7bTBKfWl9+vIFq0LUAtw/jC/by41htTXRcD/DLb0GSNMV
-         OOsFuITCrsYgHZw2yjXVb+ss1pzvslxE4siBCX9ISWmrUWeyJPpBdeSYWG+93o2ASOwF
-         Vf38cTYqwXkmoiZ8/iPSL6Df/qEE5E9Sd3Nn0mHzzes6p6RtgKEDfyz4GFAwPXcrK+f3
-         2kS2oCsIG6l8Gm8U03g4izsbQZnuzdlyXR1uG72q9qhwa60ecFUJew88NU+XQY9l4Q5T
-         6v15XFE4wiscDhe7IDNfkiBYsVc8pitmmQxZiAlFjKLRXAMYLByj/DLNe2VsdGNYjt+W
-         humg==
+        d=linaro.org; s=google; t=1793266662; x=1793871462; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DM2Q/kSYWYqLMCbF8lnJCCCQdVX+uPwPiquxROWwhc0=;
+        b=Tvlfi9kkVZdSPhIzlLydhHuDpvCbtkpigMXcPJSx/VgUJ3csemwFPH3EtWdV6Etp+P
+         NbA66dOQOQlfNFxvQLgA9rBK2HoBeYyqhpjO0SbDlVPDOrALYrUSrno76UJXo9pW1MtN
+         GXMHERCWzFSHDCvPpVUfyp11hY5p9q9zI8gWDawSaayo1Q6ztGlGglgWXUN6gbuF2xa4
+         Bfh8q3hoAvJ8jPs7HKaplnHqDmF5d+EdmhP0mzlcJdQ+/ddbPkZoNoxdb28lC7EeIBoU
+         /xjeUhZnu9Sq8QYLDi9HwKGYgp7EqJfa8ogCGSD01XRIv1RxASB9WH2WSeJht6btVfxT
+         TPYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793266085; x=1793870885;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w+KCgDr9UJJbQIx7mC4i/I2OBN1kJKNwj5V2SZ0eQ6k=;
-        b=thYzbGnBhUPFJPNiO64wG854DORJFYA2ilTzAgkzR/mfK9IeLqR8F7MpzLGl4OtraH
-         Ih8mQa3N9qoIb7OK/W/Mbv5d00BJptRZOZzlNWafueINVZM7WXDyIo+zH+q+z/L3zc8a
-         NHysF+J98qLvNdoDuVQP3slAeC+TzgTECLnBzAuwFeOFL12t/1IgkGS7LACywN4rYebw
-         ddniJ1FXuX8PtukcfaqG83kAwkvDVvlPvTTDg/rCIy+8TVO7ITPdiuTJPzpbmw+3Zb0c
-         6vX7yjU+Bqb+6qlaLvU5sm4wAH4X5+txW9d5gtIyfBEzmnF7HMxtJ5sINRZJmwVIfU2L
-         6l0g==
-X-Gm-Message-State: AFq9FYIW+ehHEkUXUnJJQeXIQmDv6xC8j8Ru/qt/6rZy5tJtUwWlH0EF
-	fQnqKaillpRvZr9do5kXg2zg8pzYuHhFlij5KLPqQwG8MDpDeJkm+a8HFfuhi/G/
-X-Gm-Gg: AYBFou36QerG1hs1Kdj9f2iiSWXCkHwkg+CVwx5NiGcEkiZ7smZFH22QQ4eft8KOqDf
-	qOyCN8wbVXZLbfq+0DY9svHD1jRdavSZT6FndqOgqVwLjLOLIhFU2Hb+QEipiJHLN+c2OfjL6n5
-	x5UBKXQflJu071BhRbg/cHmppUpjA0Cs+ujEhtEmJyT342QmdiZ4WQwiX7s5F7Beb5nyDRsfT8q
-	8iLz0sq+TgFabzD6RYp2U/6sZ5MCkhQb9A4VK7K0Ch/H4HOnj/LpHNJADs3Q/dxXSyHRwanbWA0
-	HtF1de3WjIuQ6wmKO+xWoMfy9pzdqKTxKHI4G5dxvb3FVsx/esGCCr/W1EC1LhNlMBEho7mV1Xf
-	9WE+Mucn7QEEsCQnJ2rj6qY2vKR138ekvOBoIbdTtfE+WVRtjvw/JPlKuL7jwDXndi0PQ4zJAN7
-	damMMG8EhDO9gcXg9NBN/EWGtbqfa05XVEpj57Miao4Nk7mcU7oV6UGx+yz67s/cE3D+U9fB8Ml
-	KCyPtMKbeJOiNliDr74BejItk0OBObdoywZ1qVZHWwcSvxBnOLlKrUYGQcqyOq8YwyVQ1ArgQKq
-	cuSEwQwRBjmFTLnZzzof4jLQ1sUtaHUaxliWTnBTZfqAjWY8wB3hC/rZh6HdV08jtJ39NRdX0eX
-	3iTQsWTzHbHWetgb99RLdtudKutJ9O2q0+6zvUSIVLG3b2LIIM0w0IucqMU9Qglc9nwRQ
-X-Received: by 2002:a05:600c:3541:b0:4a1:f68a:9736 with SMTP id 5b1f17b1804b1-4a9672014d4mr112987925e9.26.1793266084969;
-        Thu, 29 Oct 2026 02:28:04 -0700 (PDT)
-Received: from PC-Marco.local ([151.59.117.24])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm50821065e9.11.2026.10.29.02.28.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:28:04 -0700 (PDT)
-From: Marco Ziliani <rylos78@gmail.com>
-Date: Thu, 29 Oct 2026 10:27:54 +0100
-Subject: [PATCH v2 3/3] media: i2c: ov5693: Use autosuspend when stopping
- the stream
+        d=1e100.net; s=20260707; t=1793266662; x=1793871462;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DM2Q/kSYWYqLMCbF8lnJCCCQdVX+uPwPiquxROWwhc0=;
+        b=El33b4UMQPU7xRB//2S4HxiIkz0Fsxd5GqDNwIxXhb4uUMVTAdI+uL6kdkS7cEvcPn
+         o0kQ8a87jS1J31kZBWVrpeS7ENrSCXO/k3PH/HE2qFb1+GZ6+NaIez9aW0EaWiykHfFY
+         /9PSQkThx7VIpBTRGe6yFocZKo1uTe5jgse3DtWJ9V5U5tlLTiSN0o+S74JW+KkxcAuZ
+         5dIq5S9FS/oxxtUnnzK4VhJWrYfX+F276lflIp6CC7OPHSNTuVjk4faGDVABdWaLVXZh
+         FumASrKCriAg+72P7x2NuXlw3XUJjLlhDEi0JtYSrGylvTZBCySJr4AJgR3jDr4YeB/c
+         LpKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzoKgRvVMEZ9V8m9RPCi4Sg2WzFh9EA3KZ9w3xsDevmtXVC0SZunh8QXodDRrpnYR4xNfE9vOviIUakiw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJPvTe4S6r16FoZTMdL4JCOhCur5yaHgQag12A3yWqehoVf/Tfk
+	8ss1TNTcIClBtt4BPPcOYtY9xv3ZWplhc31WHGgGkQkHaPHMgGWbi16nYRuoB7RDbHs=
+X-Gm-Gg: AYBFou0lyc9YJ0D9cwD2LOhRVL0mUsoAo2VatNgo6B0OgY1Lt/MzMRSGtS+lK8iUDMU
+	8YxHMH7K/DTUIs7iATFmrzJVGOXr/2ZwH5SaU5wYI5uMQnbqgLuNpSSxb4JvwfHyIZ75EhvAyCv
+	EmdqyYeKNVOmXC/mYmGZiItVpJhn8V53ptQbzDh8TcQE1GJX5BdRG62vw+JSAKvB0cLQ6lt5XqM
+	dsQ9VmVoLI65SJndbRxt7secIRtxRhreRPwy0tosdgBjiSSa1nKNP64mKtFOSH1O3KwEJ18EM4z
+	L6AC7AAFfNqI8O8PscVFDy/u1S1OjPw6ByiUW3aX4dQCGmLNB6oy33TUTpywuWpW37B72mh04Il
+	hGFwDjrR6sGCwhBPoqPrPTrf9qQQ1hpohhqarVsqm7US5L2YN0rP8k7vOjGxWSddlKqRztf2sqH
+	z0qz5D2dMQ+bhMzNwPxuqwLTzZXsXXk9KXOfqz/53gdVesHLu/MO6zhnjCndkbJPISDiDpFu8H9
+	DvjMg+NJO9dM4+B4xlWKRVMN4w/fl4wSpXbM4uC5e5+pNy33fuSHFowxtcJF9DxCoOh+/9A/uR3
+	6kBEEaaQp0bDqN8/Q9Ik23bvzuHth4PiV9hHE1gi
+X-Received: by 2002:a05:600c:4455:b0:4a3:59c7:f226 with SMTP id 5b1f17b1804b1-4a965ec950amr104208525e9.6.1793266662424;
+        Thu, 29 Oct 2026 02:37:42 -0700 (PDT)
+Received: from [192.168.0.167] ([64.43.45.156])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f7f4cdbsm59460365e9.7.2026.10.29.02.37.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 02:37:41 -0700 (PDT)
+Message-ID: <f3a1ad00-5c74-4922-9c65-dd7a56c72582@linaro.org>
+Date: Thu, 29 Oct 2026 09:37:40 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,71 +90,30 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-ov5693-fixes-v2-3-2526d7b13030@gmail.com>
-References: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
-In-Reply-To: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/9] media: camss: add SM8750 support
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>, 
- Tony Garcia <tony@loafecho.com>, Simon Kruse <simon0x+git@proton.me>, 
- "D. Manresa" <dmanresa@gmail.com>, linux-kernel@vger.kernel.org, 
- Marco Ziliani <rylos78@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266079; l=1994;
- i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
- bh=BqAoIHyVW+q0T8uthFLboYE8msP1bRHlLUc4VCxhsMQ=;
- b=Y0QvG3xcjMxxLXTF4F+2flEq82TPB7jiPZad8NGBRrx41VECDt0aFdmfPrXTHRbjwh0dKJgCu
- bTWvI5jf3TADUeL/wFqcbs2nwGwxWQDvoxU2XyC0rNuU8rzP0np3ahW
-X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
- pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The driver enables runtime PM autosuspend with a 1 second delay at
-probe, but drops the usage count at stream stop with pm_runtime_put(),
-which doesn't update the device's last busy time. The autosuspend
-delay is then counted from the runtime resume at stream start rather
-than from stream stop, so after any stream longer than the delay the
-sensor is powered off right away.
+Hi.
 
-Use pm_runtime_put_autosuspend(), which marks the device busy, so that
-the delay counts from stream stop as intended, and a following stream
-started within it doesn't power the sensor up from scratch again. With
-the mode now programmed on every stream start, keeping the sensor
-powered between streams no longer leaves it in a stale mode.
+Thanks for your series but, I'd like to proceed with Hanxiang's 
+contribution.
 
-On a Surface Pro 9 (IPU6) with autosuspend_delay_ms set to 3000, the
-sensor suspended 1-2 ms after a 5 s stream stopped; with this change,
-3.7 s after it, i.e. the delay plus the autosuspend timer slack. On a
-Surface Pro 5 (IPU3) with the default 1 s delay, the sensor suspended
-as soon as a 2 s stream stopped; with this change, 1.1 s after it.
+If there are further fixes you'd like to submit on top of that enabling 
+series, please feel free to do so.
 
-Fixes: 89aef879cb53 ("media: i2c: Add support for ov5693 sensor")
-Reported-by: D. Manresa <dmanresa@gmail.com>
-Closes: https://github.com/linux-surface/kernel/pull/181#issuecomment-6436016335
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-Tested-by: Chris Simpson <chris@nilk.net>
-Tested-by: Tony Garcia <tony@loafecho.com>
-Signed-off-by: Marco Ziliani <rylos78@gmail.com>
 ---
- drivers/media/i2c/ov5693.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-index 9fedc087e..086f9df07 100644
---- a/drivers/media/i2c/ov5693.c
-+++ b/drivers/media/i2c/ov5693.c
-@@ -1065,7 +1065,7 @@ static int ov5693_s_stream(struct v4l2_subdev *sd, int enable)
- 		goto err_power_down;
- 
- 	if (!enable)
--		pm_runtime_put(ov5693->dev);
-+		pm_runtime_put_autosuspend(ov5693->dev);
- 
- 	return 0;
- err_power_down:
-
--- 
-2.56.0
-
+bod
