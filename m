@@ -1,128 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793269744;
-	b=QDf7E+HWqveHk5Ly8fi8hOvsV2tvSkENnmIOaC8YKtsmH5y/V4re/gb2rMlkCsIRGrQ7
-	 K3RVTZl9Tx8z/yYq74Taj1gGt2qJrnU66RGPe0xwhoGIEbodBte6H8BvzsAygcWx+j5he
-	 /oYRSRNkahgqt3mrI4iixiHz0AfsFajxxfpd6tIzqWwWfDPiMVoPVky4rvD+iyxUQtwkJ
-	 ukcPTxNzmWb6GArOp255SMqdjM8374LwldwAAGEzYrZcpKOIWLH1cyaFySBeq/10Jsvz7
-	 TXctPMX7nd5gyTxQ2VF6FJGxAleN4RhCqXywTzMlaqLXt17BmCElV1qRLoEqLZ8r5dA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793269744;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=PQfG2Km+YKrxCDPAAbbWYdryEevMUab9CWpj+Sh05TA=;
-	b=Xs+iTgw6VhhYUbyhejm/DW4DfoY0qUIGeXMPidvnBzLO5IqbxsMgHOU2H3GxMRFNKo+O
-	 GlV3s1tFk5Max++syaR3DWVZdUG8uA4yYDsCDSyp+3PC7TadA0+tQ/aUWj93x07PAXbwM
-	 5rSOTRTPaZgVceh5wIRjfwbb9O6Pwcu6uCfBjvJvcr+CSNWf+0nAf7zWWb2haZJwYHBST
-	 +mRf+fCIakCbQPMI987SDXHaGI7bLV4nn9FrrEN5XDBXZEQ0Ssixlr46GYLkok3oDRI42
-	 jtxBKTdurv0S6O8Bd9MD003wG1hanb50Dka5Y3jbb0MwPIAS8DTQedqxokKDmwQJCzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=owjb1PqO;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793269799;
+	b=zO5rRyexeSyVC6oIedJXOK6Sdm3Z1ip2pHLt/X1IBXtXZ/uiFYB79mdNLyq+acmHu+qz
+	 3idGYalt7XbsJFaI3wOVMUtbKPmQBhEhUJ2PZHyangmwma5T0iSVh3fekZUjh3TITKx5k
+	 L26jDWB9S6hQq11W2yBTtaZJCITwFF2X7n7qoqGLTfzsVqF0sxwaGkXI4ydja6CPWkf4G
+	 O1RwhttfgfnviwvI0R4+0/FYM1ilZW07aDl30zGVV37SAROjkbqRKT86pT3jJ0UQgC39i
+	 JtKC6wxIQICjNUNO3fWoBheZqAR/xXEWCZmDenSA7MIpP6jROxS/C+pg6uqbR+s/bBA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793269799;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=DNplS0zzpx7i/xZRFiwu1m1gWz/uU3B841QxYLsWDE8=;
+	b=F4CzWQ2zhUkEODuUE4Ju+G1L3j0Sbdg9hmxPvAZVIQy0qvRz0bzvGeAvYzc3Fs7gf11u
+	 YHD5de1HivexYDa1plcLlrbFxAY8QX4aLXrrsVegJJInKbKAP1eQGFN12gMfxCjuOqdeh
+	 xgZayW9jvQfIAXsiUdE3+ckqjH3B7yeC0xK11fhHeaHedwcrB52p0sGtpn6rq0h4Dc98/
+	 n/qh5T6At8dJRbucMUg5RIbJp4tFrBP3BEfGLyH2D2DKuvYJ3txy3hSbpd4uS72aMRlc8
+	 prmh9HMLcaKKv86KIj17At5hMwO/4Y9C9OXxRO567eqvRcE4XLY3tJ2pgfadmRvxXeQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ouu3AuL0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1255B606A31C;
-	Thu, 29 Oct 2026 10:29:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1255B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4533606A31A;
+	Thu, 29 Oct 2026 10:29:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4533606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=owjb1PqO
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jFgSW3XgszMlJf;
-	Thu, 29 Oct 2026 11:28:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793269739; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ouu3AuL0
+Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: lst@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 4DBAB200467;
+	Thu, 29 Oct 2026 11:29:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793269795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=PQfG2Km+YKrxCDPAAbbWYdryEevMUab9CWpj+Sh05TA=;
-	b=owjb1PqOwF30L04GcK9Gww366AX2aDnKYxBGxkid6fiIMNw14Fg6DhRRdvbRSRfBeVSMQl
-	WaxlytFFpjs1RJoZ5N45Sz33bL9w1qJBlyeR1eU5rt65f55C6aO6qdifwEcZ130ppK53tP
-	pSveThL3uREOnABjLcdpsunrn9gRUFcZLXwXOSMIY/Byy+6Sd2LBtfvMGzoSgr9hC9w0Ly
-	5xXQ0diqvtpnZBddkWZNE4v0Z6yBzfp+Ldvy08kYgCZJDjkf6XZXF1wQdHfrhUyKVv7ICE
-	Oy4tVehaRM110/poQ6AB8ew8cPWmwyLlOdtLmIRxn5M7f9zit58chkxeIOjPjA==
-Message-ID: <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
-Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Lucas Stach <l.stach@pengutronix.de>, Philipp Stanner
- <phasta@kernel.org>,  Min Ma <mamin506@gmail.com>, Lizhi Hou
- <lizhi.hou@amd.com>, Oded Gabbay <ogabbay@kernel.org>,  "Rob Herring (Arm)"
-	 <robh@kernel.org>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Karol Wachowski	
- <karol.wachowski@linux.intel.com>, Andrzej Kacprowski	
- <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
- <sumit.semwal@linaro.org>,  Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Russell King	
+	bh=DNplS0zzpx7i/xZRFiwu1m1gWz/uU3B841QxYLsWDE8=;
+	b=Ouu3AuL0td/GA4CXCAjqkAnzYyeT5NMT8eTLTB/dP/g70gpRL2muYm+LHuykTlbc7pzZmX
+	6FD0solH2WX/omdPMbWp4gj5e5PgcI7mOmj1pdSNARzNjb8GSxPNFkZOCst1+2jxoitcrH
+	9rz4m555/XT0xz2e0J+yN9s/0yCiVkJIL7a0KRNwpYUb5l9gl0F//PVZBnHRTjUbMm4Fn1
+	z6CJjulAGMOz888RDmKJ0gU2A9Mr2mCRWD36yUJHP44GLDMPVCN1utoTCoClbjqaJG7E6u
+	qpilQFSuo29FPvslQNVLOzgdcnZVLqvM0clx8BE6Ka63yWbnNLbLTAB0XLAN8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1793269795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DNplS0zzpx7i/xZRFiwu1m1gWz/uU3B841QxYLsWDE8=;
+	b=YQ16bMiv/93sxnl9JqbF24Sbj6pC0xgEZhW9f5RaWujz0EMIt5Dcs87Int1qAwHJ77GEV/
+	Z/tju4N6Wgc9ElEvrgI/1mjkVK1twZD8knwuEB93hF+XnyLiijsFDgit0nvA72ElQWG5El
+	iE8+NPfzcVxw0gZ9AUSQi0axsvLqNJM1miWNBZuLRLsJuT6JCvPxziJZvnmbGKXczqrBOC
+	dbiTh8bAKFYrLsxyZwpH27weRWS/NqhtTBvCMevWJEEQNic8XUPWQTk+1nSkNlKzqe87Mw
+	8sCnaQ74l+xLGzzEdf1lh7DMhJ41ZJLv0gvQo/Dv/Jy29hSuT+/JgCfAiaxaPg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793269795; a=rsa-sha256;
+	cv=none;
+	b=fWBfDvbpU5d8hVbO1VhAWCs2Snz+MZ/iyDtvFGSV42bwV9cs0FSgeo27XWBUGshFI6KUlY
+	yH7T4D8JP4FoNqIOcu+DpGB+XD2TT4ogF01tFarf2X2qyw7o8tUJl4rr76chynHPgYdJJm
+	egKCyG9TmQNepL+yZehQKfnwW6wprc2xsbluqTmNvVlwJgbdCY+c2pvnamdoSQAqI7xK+Z
+	5pej/vDshrujw9SUnTb64FyFXYU1D2lX20hnK+BMv97xwsYRGrhKb+Ec3uXLv/FTay0l41
+	A/gT95DSGSG1E+qHW0+CpM9yp6W3/n+BqPgkeK5LOh0xMf5m+XdQG4ajv/nWXw==
+Message-ID: <70665d4cee43685f603beb94f220848cd00e02ab.camel@pengutronix.de>
+Subject: Re: [PATCH 1/2] drm/etnaviv: etnaviv_fence: Put base class first
+From: Lucas Stach <l.stach@pengutronix.de>
+To: Philipp Stanner <phasta@kernel.org>, Russell King	
  <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
- <christian.gmeiner@gmail.com>,  Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alessio
- Belle	 <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>,  Qiang Yu <yuq825@gmail.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov	 <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
- <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Boris Brezillon
- <boris.brezillon@collabora.com>, Steven Price	 <steven.price@arm.com>,
- =?ISO-8859-1?Q?Adri=E1n?= Larumbe	 <adrian.larumbe@collabora.com>, Liviu
- Dudau <liviu.dudau@arm.com>, Dave Airlie	 <airlied@redhat.com>, Gerd
- Hoffmann <kraxel@redhat.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Natalie Vock <nat@pixelcluster.dev>, Arun Pravin	
- <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal	
- <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance	 <kernel-list@raspberrypi.com>, Dmitry
- Osipenko <dmitry.osipenko@collabora.com>,  Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
- <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Cameron	 <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>, Kees
- Cook	 <kees@kernel.org>, Jesse Zhang <jesse.zhang@amd.com>, Timur
- =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>,  Kexin Sun <kexinsun@smail.nju.edu.cn>,
- Prike Liang <Prike.Liang@amd.com>, David Rosca	 <david.rosca@amd.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>, Marco Crivellari
- <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
- =?ISO-8859-1?Q?H=F6gander?=	 <jouni.hogander@intel.com>, Thadeu Lima de
- Souza Cascardo <cascardo@igalia.com>,  Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes
- <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,  Neill Kapron
- <nkapron@google.com>, Michael Bommarito <michael.bommarito@gmail.com>, Sam
- Day <me@samcday.com>,  Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
-	etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
-	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
-	spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-usb@vger.kernel.org
-Date: Thu, 29 Oct 2026 11:28:39 +0100
-In-Reply-To: <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
-References: <20261029095542.1526750-3-phasta@kernel.org>
-	 <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
+ <christian.gmeiner@gmail.com>,  David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>
+Cc: etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Date: Thu, 29 Oct 2026 11:29:55 +0100
+In-Reply-To: <20261028103129.1036380-2-phasta@kernel.org>
+References: <20261028103129.1036380-2-phasta@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
@@ -135,40 +96,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: j7weafhpcaunystyo7r38dam3cyszcnz
-X-MBO-RS-ID: 051d97976afa34da498
 
-On Thu, 2026-10-29 at 11:23 +0100, Lucas Stach wrote:
-> Hi Philipp, hi Christian,
-
-Jo Lucas
-
+Am Mittwoch, dem 28.10.2026 um 11:31 +0100 schrieb Philipp Stanner:
+> struct etnaviv_fence contains a struct dma_fence, which is its base
+> class. The base class should always be the first member of a class.
 >=20
-> Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
-
-[=E2=80=A6]
-
-> I think we would all be interested in the actual use-case that's
-> sensitive to this kind of latency.
-
-Me too.
-
-Let me use this opportunity to stress that in the future, in DRM,
-whenever we have [to accept] a racy "optimization", both commit
-messages and code comments must document why it exists and who
-requested it with what proof.
-
-Would save us lots of time when those things are discussed >5 years
-later.
-
+> This allows for removing a deprecated callback in a subsequent patch.
 >=20
-> However, I wonder if this is even an issue anymore with the lock
-> inlined into the fence structure.
+> Make struct dma_fence base the first member of struct etnaviv_fence.
+>=20
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-Almost no one uses inline-lock so far. So unfortunately, we might
-regress old drivers, maybe.
+Reviewed-by: Lucas Stach <l.stach@pengutronix.de>
 
-But sounds as if you're in favor of phasing the locklessness out :)
-
-
-P.
+> ---
+>  drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etna=
+viv/etnaviv_gpu.c
+> index 5c23182f4d33..e51a310c8d70 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> @@ -1148,8 +1148,8 @@ int etnaviv_gpu_debugfs(struct etnaviv_gpu *gpu, st=
+ruct seq_file *m)
+> =20
+>  /* fence object management */
+>  struct etnaviv_fence {
+> -	struct etnaviv_gpu *gpu;
+>  	struct dma_fence base;
+> +	struct etnaviv_gpu *gpu;
+>  };
+> =20
+>  static inline struct etnaviv_fence *to_etnaviv_fence(struct dma_fence *f=
+ence)
+>=20
+> base-commit: 731ba09867520c047c7de53f92e384808e0b638e
