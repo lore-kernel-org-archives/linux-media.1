@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793268461;
-	b=ObsW3N2kIaaevaU7ERANAaI1Q0rXKyiLaYbhWct9tB9OZRVlvM5Dp8/9zxSFmjkToL4S
-	 GIiaEcqLq3kf5M8kM++gGCCrPORKfsv8RZ5dFYQuXJH4nZp1JLfIE2XrLKzWxihcKiN3C
-	 lx3jKtCQMiY8/TuynrhGbhKO6023BIjgF2Qfud0atil2CR2zm3bmwVLGoG36jOyB8p3f2
-	 UqUE6ZQeMna13/GPKaY0rd07lAJTBkHJ3eSUTHJBOng8uNwXF7DzhAewb2lSXzOuwD6Hk
-	 AqKVE2vWU857W8xe9BpBpsSZkV3i/TSqNiaZHEjMzl8enFxeQOYYLEaFsgYpuWWhH1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793268461;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TOvq++jCji0OxeCBeMHz8Jlu+ISSCvZ02t935RLGN40=;
-	b=nT7fC1ep1b8xYGMumGjUUdLU322d1hQfHpk8dyR8+4ufPeKleKn4H8opYnIdBeVHk7e9
-	 wNYmlWXHJgBLNYrlS4W0z631TwdHz1I69AkFXVKwxHQNey3a5xeA8n1LGLFiZ38Z1cHGr
-	 +O3Fm/ugbsl0Lji72XNQhcH3LlufDKVPaG3NNHV+BFE8xX52aACNBUD6bK7UG4mVwstFF
-	 kccYJ9IahMNvk1ahsoS3+m4kfewcw2F3t/zm+RX582bRZMA5086cHWLS0m+zXmvS8bxsx
-	 YhkiXcoz9XM1ez0QeT9YsKbVHNIDQbyz7eJTfZC+wyU6fF+Qw2knGwxahpK4WwSswCA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjPno7zX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.69
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793268563;
+	b=PZzhiJgahwOueA+zRVgPvAwS2dN5SRqUQgwGicIl51pcigtDlNOKCM7eIXmVUAM6sR9u
+	 eND00WMkLsSn2PHPPh/3dWfs4iRrsZg7oNgWKV2qgl7lBPVKbbHvn+hR9bsuj1tyQO8Lm
+	 CjmiRhO60v1ljFp25rFd3uPMFsKdvU0DOV/p7W11puhrZeNVLtPbymBS1Jxq2T8ENwWJS
+	 OPP3g+pH89hts2Z5da/Cqxno6S9Pfy5USC4Ljt4H2nU2ceTVbWoZ+SsJ9gmJ5aQbAqQil
+	 p9pMIQ1XgBRD/Ii7s6gEf5rVlik2TcP3KlcMgEAKlK8n6uakwwUFKXJ9o9qBEQAoyFg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793268563;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=KyuIfd4+/d2h8FuaDCuGD4pNWtas/JVLM3EycuWpWC0=;
+	b=Lco4FMnzY3zY+IsPYEeEdzFs/Bv7xxkGZkkTaf5T9d/2vIgDPBSxSX/ZxsfdynJzN1lz
+	 Aa0y18c9TKB93jVsYA4J6dQaztYLtJ3h2FXi/wZy52fO0BcwVNXiDBScfEcSbzTfkIalu
+	 RYAr+k0r/IufGfv6aZn9l2qJSyUEYNUqydHxGikXwm3STfrq75CUxZHAsOTSKvHS2JkqA
+	 Mp4cYRIhLgGTQamcAu2iurSHxhOumbJOWgsdUFN1ovovk9IKc/agH2tCHkzVw07Q/2kIh
+	 mkp3/wgaKrC/5QCtbKFd9t2ZiLgZBdHx/b0Q5dUn+Y8Mjj71ziJHR+faea3zw5ZdwGA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=MYCRSkid;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.69
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010069.outbound.protection.outlook.com [52.101.69.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C532606A31D
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 10:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44CD606A323;
+	Thu, 29 Oct 2026 10:09:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A44CD606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YjPno7zX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE5F01F01825;
-	Thu, 29 Oct 2026 10:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793268461;
-	bh=TOvq++jCji0OxeCBeMHz8Jlu+ISSCvZ02t935RLGN40=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=YjPno7zXsS+XffsrD7dcOKjF9DimgPHXU9CJHGBdCtHnU4oVsG3Q3diZWVUKBfbuH
-	 5ZxMJOyZwHEh+8013uXMPhrD20hAGdPGay7XT9In44lx42ZBsG+2bqbn8CENH6x3SX
-	 meTrS0/jQSlM5KRXUiHbKEm6YtQ5/ZuEYPQ22z00ifRFziRnZhONsOpl+wYFqCODk3
-	 GmMfmXZoCSUT0JclkTE0Vy2gQtmSR/VkQ84KSqB+1FrGFeRzlxL6fCQ9eWhe5u7wIp
-	 aCQnukgpTefyJ9FYfgojlILvcUi6kT46AJ6FkUY+9TaYwvVg+8bIEkC9wO9ZYRHn0t
-	 q/xX/g6URrlSQ==
-Message-ID: <b4aa95de-174b-4a4d-b55d-136aaa2dabff@kernel.org>
-Date: Thu, 29 Oct 2026 11:07:38 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=MYCRSkid
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aaF8QE2ommy5D35aL0/ymetV7KnDqzEmpQrLCA06pUIdy9NmBrye79qRr2ViTHPHpLrIkXfLQZifr4nwVaDKUz8vhiGijb6XQNLYBcu8pk/k679eRotq4ADajenM0nWKdOcFAE1Z0OxXOltf7y+EQbzkDZ/m6UQ/JmtGozOPd9WLJuBB6/r9uv9uidG3x7Sraxn95nI9Yz7lQn2gyYiGryFTD5PDO9XyT8jF+QZLXgN7TLCr/edxZyo+9vu2sOC/NxPE15fhAonJmumDQSxciZfMoD27rtr956PVgw5QCgrqf4QsMqpRctzvFmFWtcrmZJUDNJyHcLZFOW/myQgQ/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KyuIfd4+/d2h8FuaDCuGD4pNWtas/JVLM3EycuWpWC0=;
+ b=A0qF1qoJHoXYLqj+r5nCj7Z0r2AYys0WPamsAhPXorkchWrzXpX7vwaYgQZKC1XAzWWboAmwBDN3q4XEl5BRiB02ZPLtLJIWptt1s9vyf0rp/+/W10uKjEJwOjqWlj16hI6f5PSqq3NkOVRXCd3u/TDHFiOUnIF9tabLHqNC4qx5PMoXIZCEALoNt/0RHXjo6qEM2pHhLC+dYn6qStmR1qPRAoqIGKqLTqWGXRpusPHcVBRqt+bhbpCAqRTCWoN6mra4rAb2LZ5787WYUIKPlDmuZF6v/LXSQEATFeJ1jlptTCB1ASZ0K5G1/MmtAM+JTifzrti1gQEQ9ezGndwPow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KyuIfd4+/d2h8FuaDCuGD4pNWtas/JVLM3EycuWpWC0=;
+ b=MYCRSkid5qs40B6pLDrDqJeagnKfNPP/+r8v8/CsRyu8lpPMU6s9qBA1+xwaZgJWpaWBqj2oIeATyotO6Qq+X9Up8yBBhVCAdCJAMMwRH0a5CqhnDugBf+tLWC0suFtbsbuvoxVJyOhwkBCUGIQWaVBlcMUHkn1aGQxHEOssVWudziVIyNJ6LnEaJzqgfNUAr1I1zwVS9aVbPiVU+jBvUDRdQVjfpSTRb0640QQDG6dBN7BixFleTaSxhPfSzS9UlW68x4UB7R847sy6EeXOsx36VmyB0PY5wqCG2YvwTJKcOB4mPJ3gJ+DJ79xaRBkKyXZDanM1F6+/g8zYA05XKA==
+Received: from AM8P189CA0012.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:218::17)
+ by AM7PR10MB3190.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:10d::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Thu, 29 Oct
+ 2026 10:09:18 +0000
+Received: from CPH1EPF00000522.eurprd05.prod.outlook.com
+ (2603:10a6:20b:218:cafe::8e) by AM8P189CA0012.outlook.office365.com
+ (2603:10a6:20b:218::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.8 via Frontend Transport; Thu, 29
+ Oct 2026 10:09:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.59) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ CPH1EPF00000522.mail.protection.outlook.com (10.167.241.133) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.569.4 via Frontend Transport; Thu, 29 Oct 2026 10:09:17 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 29 Oct
+ 2026 11:09:42 +0100
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 29 Oct
+ 2026 11:09:16 +0100
+Message-ID: <b8103168-c440-4650-92f1-45eb8f855521@foss.st.com>
+Date: Thu, 29 Oct 2026 11:09:25 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,118 +105,102 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [v4l-utils] [RFC/PATCH] v4l2-compliance: Don't check bytesused or
- timestamp for error buffers
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@iki.fi>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>
-References: <20261027191929.2528156-1-laurent.pinchart@ideasonboard.com>
-Content-Language: en-US, nl
-In-Reply-To: <20261027191929.2528156-1-laurent.pinchart@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] media: i2c: vd55g1: Mark the AE lock and bias
+ controls inactive in manual mode
+To: Fernando Rimoli <fernandorimoli11@gmail.com>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, <linux-media@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261025154031.27083-1-fernandorimoli11@gmail.com>
+ <20261025154031.27083-2-fernandorimoli11@gmail.com>
+Content-Language: en-GB
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+In-Reply-To: <20261025154031.27083-2-fernandorimoli11@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF00000522:EE_|AM7PR10MB3190:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7bbce4e7-537b-4b0a-a884-08df35a4b173
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|23010399003|376014|1800799024|6133799003|22082099003|18002099003|56012099006|11063799006|4143699003|261028144727099003|10067099003|261022105027099003|261022075727099003|261021121427099003|261021123027099003|261009223027099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	GZa/r4K5o0bMpotg3zDSFEbCxzaHMUVOavjtILo4Cxs696tmtrcNGyeR3VWvFxKctCG1wxYtaURkoT63DuKgCFJp//PZPC2acyhxDzau94trYxS2pvKRo650NTpy9LOdUf5I9PXywv90vw0UJrG/tpTRh912OKmLhgSgnNilsFQpRZ7qvpwuAJel7wKweCe3cEO4frRFyQ1zWDZCn4tC4U1eD/rFDP2SPRozibvHZc4chhMHvth6GjbWjaNIh1HQMB23BAgdtqOjKRiJBUHYdv5EJXvFk62VGH2uEd0/rxVEAQN+FEHGmHhuMNsE60QKS/xXQ1ABUUuPSdWSEybKVJpIJ2wuIhFTDwMKb52WzB9QX4rckvFhTGAXREpJImnwkKrCk7bLhS4/jJ9GQNIpOw0VLHZVKC/j3PVKlvw38wVPITG2RvQo2wypwmlMXtnTacGbgOcdOATUgDK8S30mrt7rFaBWEgDkYrXahFEzO92ERxVrLUdqBfXzh+OXr8wCsKvHxt1qbp0xXzPFrQJTz9ifblZOjhRd5Rpu2RV3eRokRnRYz0jQ+AqdF65Tuw/xh2s2Br2XYl2ScJHoYcZG8DIjg+QFojhAt1uqosjnW1WE8ba8QZwVeXH6BZ7MSsrTvarWdrFxXWnuwf/LAlh2bkaWu1ABYZbaqTXLZan4b9iYcrU961a4lAx8fGh8F8iDH+rufYI+txEA/xT1BqVZ6w==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(23010399003)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261028144727099003)(10067099003)(261022105027099003)(261022075727099003)(261021121427099003)(261021123027099003)(261009223027099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	SFBmxSLl+E0JkzEI9F77QSXK93oQLyKOsLZcoQrrwSKvxpEiAlLDSAdU3CICV3OKIU5dM88XQ6BU840Tf99XIOoQRKa+WRWKwlFHqi/CA4i52BTEOwc7PpHlMdG8nq1IcJqGas/ZMRHg3CYXO+FcySgBCwd5X8RnCcHJyjlmjruCXUUJoCQVDCZ3/ZbGtyw27vVj1lDvlts1+gQK/GDCAnXyCtLx9UVqBMuFXO612USbC6t8hHuZOwxZrV0lfw0l17kUg5d+J2SnXOklZINdgiIj4+H7da28YnsotfhC4GYcRKR+60sROJ5tNqsug+YbVznM5PUdr7Nh5ndBSNihFGYwccDRR2852F9Tfr0GepJ38YD3jYRF96Ova9quO3WPjy743UT4U5hS160VUGu/PW9xhL/WPgaWsOeUeoWu9N5JnbrFokq+PbtaTdgQduiL
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2026 10:09:17.6906
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bbce4e7-537b-4b0a-a884-08df35a4b173
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF00000522.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3190
 
-Hi Laurent,
+Hi Fernando,
 
-On 27/10/2026 20:19, Laurent Pinchart wrote:
-> When DQBUF returns a buffer marked with the ERROR flag, the bytesused
-> and timestamp fields are not meaningful. Don't check them.
+Thank you, both patches LGTM.
+
+Le 25/10/2026 à 16:40, Fernando Rimoli a écrit :
+> In manual exposure mode the auto exposure lock and bias controls have
+> no effect, and the driver marks them grabbed. The grabbed flag means a
+> control is temporarily locked, for instance while streaming, so
+> v4l2-compliance fails on it while the sensor is idle:
 > 
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>   fail: v4l2-test-controls.cpp(134): GRABBED flag set
+>   test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: FAIL
+>   test VIDIOC_QUERYCTRL: FAIL
+> 
+> A control that does not apply to the current configuration is what the
+> inactive flag is for. Use v4l2_ctrl_activate() instead.
+> 
+> Setting the controls in manual mode now stores the value rather than
+> returning -EBUSY. That has no effect on the sensor:
+> vd55g1_lock_exposure() writes only in auto mode, and the bias sets the
+> auto exposure target, which the sensor uses only once auto exposure
+> resumes.
+> 
+> Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
+
+If you add a Fixes tag you also need to CC stable ;)
+
+The driver should have passed v4l2-compliance at the time I submitted it
+so I think it's better to drop the Fixes tags from both your patches
+instead of CCing stable. I see them as improvement rather than fixes.
+
+> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
 > ---
-> I'm sending this as an RFC because the V4L2 API documentation isn't
-> clear on the subject.
+>  drivers/media/i2c/vd55g1.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> For the bytesused fields, I'm fairly confident that this change is good.
-> A driver can't be expected to provide data for buffers with errors,
-> especially if a transmission error occurred.
+> diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+> index e3939bb..69ffb3a 100644
+> --- a/drivers/media/i2c/vd55g1.c
+> +++ b/drivers/media/i2c/vd55g1.c
+> @@ -1503,8 +1503,8 @@ static int vd55g1_s_ctrl(struct v4l2_ctrl *ctrl)
+>  		break;
+>  	case V4L2_CID_EXPOSURE_AUTO:
+>  		is_auto = (ctrl->val == V4L2_EXPOSURE_AUTO);
+> -		__v4l2_ctrl_grab(sensor->ae_lock_ctrl, !is_auto);
+> -		__v4l2_ctrl_grab(sensor->ae_bias_ctrl, !is_auto);
+> +		v4l2_ctrl_activate(sensor->ae_lock_ctrl, is_auto);
+> +		v4l2_ctrl_activate(sensor->ae_bias_ctrl, is_auto);
+>  		break;
+>  	case V4L2_CID_HDR_SENSOR_MODE:
+>  		/* Discriminate if the userspace changed the control value */
 
-Dropping all the bytesused tests if ERROR is set isn't a good idea.
-If ERROR is set, then bytesused is allowed to be 0, but you still want
-to check that e.g. bytesused isn't > length. Otherwise applications that
-do not check for the ERROR flag might try to read beyond the buffer size.
-
-So we have to ensure that what the driver returns for data_offset and
-bytesused won't go beyond the buffer size. But they may be 0 if the ERROR
-flag is set.
-
-> 
-> Similarly, timestamping a buffer upon error may not be something we can
-> always expect from drivers. I'm a bit more hesitant here though: while
-> precise timestamping can't be guaranteed, a driver can always use some
-> sort of timestamp. Doing so could cause issues though, as a driver for a
-> device that provides hardware timestamping would need to switch to a
-> software timestamp source for buffers with errors. That would not just
-> complicate drivers, but would also make it awkward for userspace.
-
-Makes sense.
-
-> 
-> There are a few open questions:
-> 
-> - Are there other buffer fields that we should ignore ?
-
-Possibly the 'field'. In practice I think this might only be an issue for
-interlaced formats. If we run into problems with that in v4l2-compliance,
-then we can always address that later.
-
-> 
-> - Shoulg (some of) the ignored fields be required to have a specific
->   value ? For instance we could require the timestamp to be 0 on error.
-
-No. Leave that to the driver. You'd have to analyze the existing drivers
-just to figure out what they are doing today, and drivers using
-V4L2_BUF_FLAG_TIMESTAMP_COPY may still copy the timestamp if they have
-enough information to tell which output buffer originated the error.
-
-But perhaps adding a note in the documentation saying that the timestamp is
-unreliable for an ERROR buffer would be useful.
-
+-- 
 Regards,
-
-	Hans
-
-> ---
->  utils/v4l2-compliance/v4l2-test-buffers.cpp | 22 ++++++++++++---------
->  1 file changed, 13 insertions(+), 9 deletions(-)
-> 
-> diff --git a/utils/v4l2-compliance/v4l2-test-buffers.cpp b/utils/v4l2-compliance/v4l2-test-buffers.cpp
-> index dba471e5b488..47d4627ee373 100644
-> --- a/utils/v4l2-compliance/v4l2-test-buffers.cpp
-> +++ b/utils/v4l2-compliance/v4l2-test-buffers.cpp
-> @@ -393,16 +393,20 @@ int buffer::check(unsigned type, unsigned memory, unsigned index,
->  		warn_once("V4L2_BUF_FLAG_TIMECODE was used!\n");
->  
->  	if (mode == Dequeued) {
-> -		for (unsigned p = 0; p < g_num_planes(); p++) {
-> -			if (!(g_flags() & V4L2_BUF_FLAG_LAST))
-> -				fail_on_test(!g_bytesused(p));
-> -			if (!g_bytesused(p))
-> -				fail_on_test(g_data_offset(p));
-> -			else
-> -				fail_on_test(g_data_offset(p) >= g_bytesused(p));
-> -			fail_on_test(g_bytesused(p) > g_length(p));
-> +		if (!(g_flags() & V4L2_BUF_FLAG_ERROR)) {
-> +			for (unsigned p = 0; p < g_num_planes(); p++) {
-> +				if (!(g_flags() & V4L2_BUF_FLAG_LAST))
-> +					fail_on_test(!g_bytesused(p));
-> +				if (!g_bytesused(p))
-> +					fail_on_test(g_data_offset(p));
-> +				else
-> +					fail_on_test(g_data_offset(p) >= g_bytesused(p));
-> +				fail_on_test(g_bytesused(p) > g_length(p));
-> +			}
-> +
-> +			fail_on_test(!g_timestamp().tv_sec && !g_timestamp().tv_usec);
->  		}
-> -		fail_on_test(!g_timestamp().tv_sec && !g_timestamp().tv_usec);
-> +
->  		fail_on_test(g_flags() & V4L2_BUF_FLAG_DONE);
->  
->  		// The vivid driver has unreliable timings causing wrong
-> 
-> base-commit: c6600a7e342ef6e336fba02212c90b60a36ca02d
+Benjamin
 
