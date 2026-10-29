@@ -1,86 +1,86 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793288869;
-	b=B/ran7coNjugj02wWi6uQgRTD7kx3MrARG9o6zVbdA7Vi6YUhEI5wWJHdfPebI2/56yB
-	 4UinqUJiyXEw52k+9bxNVzrCibmw/RHrCW08MOxwvjjGh8xOaNCy03dDWFEW8aNkfMPZz
-	 t1SbWKu4zaZryk8hTfiQE8/OP716zeAFMvdUcWMMdpYiYJYDlqABJJtWhIBgj3gHdPpqk
-	 EYbHaCtc8ohY4kHrH2VHq8uz89i8HyGgq1kDR1bRbehs5VZzgv+NszMOwEC9WcexRESxw
-	 oNiz8zJcUnGqhQHTQu1E0dV9BwG/T+lnfpzsmeqyOSwqUTxUBELsc45YwSTG/HF56NA==
+	t=1793288984;
+	b=l5UpDQ786WUanOsQRbyaRzOWzet+WUUgsUmx7qhRdo2S2BHRhVHDZmerjQ5qN7Vi2SYq
+	 S1viUWPjSLH/7VjrKSZpKZjHAQVBhJaBj6cYW0WL/EV9oaTVmkLsu5d7oDRkF/4LzAGNr
+	 QMALYV2VVBBhJPgMiYYJ8Eu2o7SUpREZWmG3FcsZ2IhzizuR9y/u1kluiVVAoYhxhoc+6
+	 ZVPQtQeBV5dfJy6obRVyA8gXnWRX3JIUnzWExqOC2796AIenf8o36y2l4jvudGAsEmjE6
+	 KvEFiAdMSxjI5ZpgYXpZkF0PhtI/u9Q8mG/xOwW+mveDl+1k/6cc3YjLlavHE+KYBYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793288869;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288984;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
 	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=b3Nm/KNlTBzRFfI2r+/vpAKCtLu6IBibLwEKHK4FKus=;
-	b=xSK7BKsfc42PNdbWDBVUvQrUKv51VspQTp1uQL8kvJsgkHx5yE71KecN4af179OrA3R7
-	 ByMNtet1XiJuPEH4WWIqOpDwJG6SbXeQbJ9kpwHtEhq34u3HSnoWVnQC/jYMelHKTu2VG
-	 2gsYxQ63rrvHtK2vKbRvCrljcaYvGo9a0D+zc2KRrA6iKnaPqlqOi5rT/zVj4gtKkgK7d
-	 nk38ypwFVh8QZoXeFJAmAjz727f6MF4G64WcpS66vHWdPX+AtxFKAA4fZsfFKo+C1f06s
-	 sTwL3apCa4qX5lAuumyshg8mDsoNZ/7dZK/BbGV7v8QVyBC2YsHIhYjDPvyssQuGHXQ==
+	bh=jSgvmgpq5zwepgf5zmdwKf4Rb7D77FgNf6wQESej3Zs=;
+	b=J8hxdAxDQX7tm4K1piQdfKYY4NyMCyISX1m9sLcWnSijBkpoZg5v2sFHRlu5BvKduOrq
+	 A79OFvPGbaE+87+tw0fjjZvIqVc/ILuUaZU9FaI8xyj14bxK7G0sV1N7mu67OgmveeGlf
+	 mqA+XotCmnrNdEGd5V20dU8qdcR0MCSEKFxwZLf9ARSDYQwlnFtwCuXTvbHUw94dGhL5V
+	 ODHcTcnLy6GjARQWJhvPJ0G1ibnilwXOfymkbudTDCEQrSo6gqcHGvBNBALMMrYDSzWkv
+	 uxkFsu4PNkmymQywRG2rwmFE2VrXhR50SsWrfJQmvcyK1+lTLeNeJw7nGqBqBymn7dQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KSwjS1wy;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=y2KtIZVB;
 	arc=none smtp.remote-ip=209.85.218.42
 Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0C3606A32D
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:47:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C0C3606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DFEE606A320
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DFEE606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=KSwjS1wy
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c46822eefb6so298710266b.2
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:47:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=y2KtIZVB
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4682977f9aso292511266b.1
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:49:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793288868; x=1793893668; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793288982; x=1793893782; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b3Nm/KNlTBzRFfI2r+/vpAKCtLu6IBibLwEKHK4FKus=;
-        b=KSwjS1wyFZZ0wmUt7u/O+xAKuUIlPR8di9BtQxjno2CwsgUh4poj4+MFpIlSeziGb8
-         SUYlPuXpDxk2dhQu1/2Uh4gaBh+UB70pg/VgD2V/QMbKvypYOgm8Op1mjXhha3JQ4Zr8
-         KivtJJ+TYGcApPb/6StRX2AQneR+Lh5B9TWbyOyUY2VhKvWLQeS6kAMovaM1byI0CvP0
-         UZsLZEHmiuyGa8f2JwJu8lJwULONhI7kUhFclX4vWj71BtulpM416/M56H98HF7/eaZN
-         tOF6pubgIFNpj9vAj+YG0AMiGqFuGtiy/UUMg3newc5piiEm/dtpD0uPj0XdFHIuJrq5
-         5fZw==
+        bh=jSgvmgpq5zwepgf5zmdwKf4Rb7D77FgNf6wQESej3Zs=;
+        b=y2KtIZVBXtmEzm9KYq10is51yoTw2GIuRE3BfODGCqJBgLFAABS/s3IRpKGSZ6mac4
+         4PgDjfCDYP9pQTkCT+pA5MmplPx6MILiJ2tWeOUVLPnqgPZbrFQPP0pkgPr80YCI4TfC
+         WYGNyfMVMpzS+ZFqxQ+Ec6IYWAw+K8DzAvADEdvoM4lHZEOGSKdCCeq77fF2DL93h2zD
+         PGgEoEQDm1axADypCf0Gqic0C9Xy+iwvJ4CjrhqSV5w27ATAT5suICLAp0KCj4YKNi91
+         SgUORdM2cB/nXVPmXDwKtLKdO4TQ0jxAoMMlVJ0VMqjBUMZZe/VskxGYJDptGuMrho8C
+         pUkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793288868; x=1793893668;
+        d=1e100.net; s=20260707; t=1793288982; x=1793893782;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b3Nm/KNlTBzRFfI2r+/vpAKCtLu6IBibLwEKHK4FKus=;
-        b=LH1ARTqBKIJwx+MSmcC6cZPEQwSZtfLqSMxdKYp2zQA2xA+BMDp15jO2//9dhdO0IO
-         188c45YA1NPvAwg2zB94TQUNFtMUbXvk/sFH6h7qpsDHl53mkgZQ0PinwoiQ1dl8d+9l
-         rR6OU8bLws2X/OpHLcplcPtz8EC7L2bv4jjv24RjiXy/PgCuaQer4erVrFlLnnMjef8R
-         BiaUxpwTgjnOw5kGjfP+6i/zq28ieZjtnmKcFfZrKKj5NMABpe+M6cnfibpN3fzh6DHU
-         KZljuid1CjVhaWYG9VynlfzGBFISKEQwiRBa9blbS6rBkdH24+Cs1ruv3966rgHsK5gl
-         Ckuw==
-X-Forwarded-Encrypted: i=1; AKwUvBxQ0o1Ybs3gcAgq4EaTtDF81sfTJ9Mp07jlDv/GoUFE4V1tGxCpOMhGuVWKwrgWQIQ5kf5NmyX16gV46A==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdR+f0PUIaxf7FHalEDF4heNkhwNAJjgZv0HdJiLFubO0/ZlSP
-	p9c7WGmnfjHCvQRPD1Agf6ZgqvUZFA+/aK8lFPmiBQ/GY4etNtRU1+gq0zu/dIHaNAw=
-X-Gm-Gg: AYBFou3Ifovs33QRdhVPzi9tAz38jZYj8JRudJAIXCvQL4+hXZ0ktb8ctKyuRXkoCC4
-	JmJj7+h7qgvna9Gi4eRwiR4Z0RUO1gioJIXadvT7nsy+Xv89EB3dlyJB2dtoZHORINbZPj4/3QJ
-	9i7uYbtaT6kGeLZv8dbvs5gWkA3wLIO3+WQaRoPLXVrN5hakm1ENwYUUzXCO72QdQjUnoSL0/s8
-	WnlnttDhoBEYhWddogDAXCYxp8Hj0UV/65tA/6rfzG8u1UiPGV4UJC4p+wb9GZ3zcIa/90eIlso
-	iWwEi1bYYF1xFk7nMaLl9BJMWS6YTlhbzdFw60URnIC7xJoxFVdA0f2xr33x0YqA65dCiJTQ/bO
-	64IMtALi1iwXpfxbP4UcTpXzNwMDYHklCGMdumT/dcHTj7x0s74qIt9UcIbdcfnu/LEHEjYvhpc
-	2jjEM5MbX5tRAyc8SqSOSgjdDKOslqtpJww5oP+12BmnjG4xPILctasO7khc7tBje/ndvSUkan2
-	H98MoMh6sYFN1Z7My4CUhq1HynSF3plXs1LKEOdVpGiFltCI3GY5may8ETBA/ksaRxR2GpAlhOp
-	gijK07rhRsWmYklTzyzZM0fTRI3DuGvdr3VD4Xhi
-X-Received: by 2002:a17:907:cb88:b0:c40:80eb:c544 with SMTP id a640c23a62f3a-c49bdda7123mr536994966b.4.1793288867635;
-        Thu, 29 Oct 2026 08:47:47 -0700 (PDT)
+        bh=jSgvmgpq5zwepgf5zmdwKf4Rb7D77FgNf6wQESej3Zs=;
+        b=zs5DhXLO0tqRqm5N8rwG/ub4Enu2J5CbGjLKhcPAZKNPEt6DmayMROH/QyPCvCsAQ+
+         5BQxApXULIjOkeqlZvn9tCqtXCUl7IDQNtBf2dnw9FOZCzRFRBuTcgiA37LczQlwzicK
+         hvePiDG//mCEYdfg+xdAA5fxbbU8SK5phMzA5BxLat4nm5YWhbTPM+wlRnRrwOjQTRdF
+         qs2kN2lOH8h/IlIAlvI2iK7tJCtMUBTXzYVpAgJDrlffJvbe35pwtQVwkKEmk34t7vyG
+         mIjh++K9YOUXl4SrLPbGOMbWK3hnthypOvGD0Ts4xVNNzZZfTvyS/1vs8A75cCzyRQdn
+         7TEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzCTbNVfXcl6Awpq5V0DLr/uRpusBqZZsmTVoJAbv6kGyUSdRG+EW964bxx6FgpeBgxJpsr3wl1VTsJ1g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYICTvdmW+N4SEH3u03aTyDljfdJu3a7xBaXM+/uY2XcukqH8bOk
+	9Q3eA17aG5HP9Rodv9xYoidnZubjvUf+CYlO6x86MDrf5eS9JShwhlXCuZhokY1Z2U8=
+X-Gm-Gg: AYBFou3xTkuzj24J7VOGxZYRUCkwZfx+9l7BZGSSs8FNSHMj3TKZCxQ8ayJl7BJslI2
+	rU3SHFXBHds3jIYTOnDSR2bgauPTXfSU/wWQdbnlhln6h6wz+/WLrcynLX0QO7wohMGjXbNSqyD
+	gK0avJA6ghzvDaDM1mw+0VWMFc5XuvoPv8jyS60pW+wGP5rapJCEO6HxJ6E3IvATLh3BatHh8c4
+	FsyOLarjZPrI+uLxWlWOgdpKipO7X6gEH8cDuO3ja2r6QsZxN1oXt/ByeIwu0OnLvuaEtiZcAMM
+	p8fwDhfjx2ytDDQ2sja+ztptdT0pXN4Buh3Tnq45pbNWiG9fFlLVecwEcS9HPuwf/t07I+f5oYk
+	bQ1yIE5v5nHGjKYxW12BifXxVpN2e+cTja+NpwptVin8TlejHk7Oi3sSiqHE6mdh40uPgeWhTY7
+	5QokdvOu6f57YeLVffG+jdssmNLxV9hu9m2nS5v4M4zTRpvMszEBBdC1lM2NaHX56y/sqYmAbMS
+	PJ+5ayCPQ1LgLOorVgIdlvJiXc2vme/zhYRHPKd0aC6FvueJbnW40z6Ha6ZyucoAoEFql9Lgvd4
+	tDH2dAB8+m1F8OxW8XsrovA9SBdOV/51F3iDL+Fk
+X-Received: by 2002:a17:906:7312:b0:c41:55b4:d88b with SMTP id a640c23a62f3a-c49bdf7a5c4mr522279766b.43.1793288982497;
+        Thu, 29 Oct 2026 08:49:42 -0700 (PDT)
 Received: from [192.168.0.167] ([64.43.45.156])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca255d350sm8340566b.11.2026.10.29.08.47.46
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4ca264d484sm7985666b.27.2026.10.29.08.49.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 08:47:47 -0700 (PDT)
-Message-ID: <a1f10794-d816-4d52-9868-2fd14b02d5fe@linaro.org>
-Date: Thu, 29 Oct 2026 15:47:46 +0000
+        Thu, 29 Oct 2026 08:49:41 -0700 (PDT)
+Message-ID: <1371d5b5-d347-4456-963e-8effb4a82f27@linaro.org>
+Date: Thu, 29 Oct 2026 15:49:41 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,54 +101,27 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
  <20261029-v4l2-frame-sync-v1-5-d37992559c58@kernel.org>
  <CAFEp6-2ykusk85REekU3mmFw=4g3yjB=doOi=i=1LS5JEe4T3g@mail.gmail.com>
+ <CAFEp6-1Y=OyFHPnGER0GvGfTpc4o3_wTvXncvLWM81T9M-7+kA@mail.gmail.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <CAFEp6-2ykusk85REekU3mmFw=4g3yjB=doOi=i=1LS5JEe4T3g@mail.gmail.com>
+In-Reply-To: <CAFEp6-1Y=OyFHPnGER0GvGfTpc4o3_wTvXncvLWM81T9M-7+kA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29/10/2026 15:43, Loic Poulain wrote:
->>                          __csid_configure_rx(csid, &csid->phy, 0);
->> +                       __csid_configure_rdi_irq(csid, enable, i);
-> Is this something that should also be tied to frame_sync_en?
-> 
-> Also, just thinking out loud, are there cases where we'd want to
-> toggle this dynamically at runtime based on any V4L2 configuration or
-> pipeline path? For example, should it be enabled for the pixel path
-> but disabled for RDI?
-> 
-> I'm asking because one of the appreciated strengths of CAMSS is its
-> relatively low-latency and lightweight capture path. As we add more
-> features, it may be worth preserving that characteristic where
-> possible. Not saying this particular feature has a meaningful latency
-> or compute cost, but more as a general design consideration.
-> 
-> Regards,
-> Loic
-> 
->>                          __csid_ctrl_rdi(csid, enable, i);
->>                  }
->>   }
->> @@ -279,6 +303,9 @@ static irqreturn_t csid_isr(int irq, void *dev)
->>                          val = readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
->>                          writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
+On 29/10/2026 15:46, Loic Poulain wrote:
+>> Is this something that should also be tied to frame_sync_en?
 >>
->> +                       if (val & INFO_INPUT_SOF_IRQ)
->> +                               csid_sof_event(csid, i);
+>> Also, just thinking out loud, are there cases where we'd want to
+>> toggle this dynamically at runtime based on any V4L2 configuration or
+>> pipeline path? For example, should it be enabled for the pixel path
+>> but disabled for RDI?
+> Obviously, if userspace subscribes to the related framesync event, we
+> should enable it regardless.
 
-I considered dynamic enable but
+That's the behaviour already :)
 
-1. The design here is to move ~ everything to SOF vb.sequence
-2. Standard design pattern with FRAME_SYNC is to generate the event
-    having consumers either trigger on it or not
-
-For that second case I opted to only send the signal when we know 
-there's a consumer though
-
-=>
-
-+	if (atomic_read(&csid->frame_sync_users[id]))
-+		v4l2_event_queue(csid->subdev.devnode, &event);
+Again though we want SOF so that we can drive seqno which really 
+_should_ come from the CSID signal not from buf_done() *
 
 ---
 bod
