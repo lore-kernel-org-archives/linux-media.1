@@ -1,78 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282661;
-	b=aoX8+g9GQwouujQC9Y6l0dmsv36slFDWRXrliHDrpj+khGo9R48gym7OFgPytpkswYap
-	 Z31sZQMUXe/7MW+851FTTUcqDcmVi7x8E47g1OZ3V8zfvEM1RemUEb6kDIYW7MeQxwTMe
-	 9rnDA7vGWTzw5yj9DGEK4QaId8wbM8qWlEiBHPIymSxNAzQuZ4pufxwntm1GFSraBR4Hv
-	 YF7ygc/q9S+aNTCCfFmpI1Tukal/GlapW8UEzP3Y3P9lIMUqS3/xVsu1K2PRfwIIZjpn5
-	 K6s8VBoBIAfmph2ubBOkAEmQPM3qmOygD4jNz5CG3SqVUSD0CcEfxKAlia1aTe3cl+w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282661;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=GHUMGEdyC276HDhVeE4eFAKQ8gxK43dXDeTPJnFTDjE=;
-	b=uNwVpbpBMWEkgCh6r6XdQezqPgt0KJWek3hz9yW6eBpqrOEfoa7uGI9sOFhDhfGK9A5Q
-	 IsURXqD+0cDBF2DNR3LFez3U6f8vcA6KrNKPDO+EPbLXHENu74WyHGcfbFxjpJf+/Hzz3
-	 AmT0mN0fZUBRazthpcThXUFoT5oZ69JNfMQJsVY3jrq5oo3fvsroxbL+7od2oEdJgpf6V
-	 asc9dKXqV7Bv8zjmmfvb+V4tXB2+XqQoT23sLReQTRF0lKlo8qNd5Bcz6EQnqoOIcixXS
-	 gbSEQZl68hxILbHUonoMBSFF6Q5UnlhXCbXJjX9MZQYT2vsOPOTCrE8Fd68OHRir+3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k8tyWfLK;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793282773;
+	b=C6Gf7950S+rOF12/t7LeerFpcUDg16a5dwCw2/GjgOjWvJx4tBOzBqYTlkXNJEB0kVr2
+	 FWJZRvggKefC3jQ90NxaOH0PuirLhPJxPAhhB76ihzV86F1HBXLHowJUT92YAM7Nxa4W1
+	 j0W2G+i03NeqjBAxAhYMXcJp0hhqMcYNzz8gnK4dJJZhQsVCt33QinnmgjMuULOLn/fAK
+	 huyuvt0+neyp4CfCuog+mJCYsxCQ0t9L5kL9c+iVpo0I14gPrzaL8nHqAeXS7yXx0X11W
+	 PYe5DKEqyjIlGSKZNSisau0GhJy6Vwbtdb34QqTVh+tMHvpi0Xu7ZaPZlE9ETf7RdqQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282773;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5AFMA62x81Eod9qLhy82JE4hw8ngyRnLnh0416nT1Yg=;
+	b=Hgyaw+84DEUFpliPqIsIofDZaqxwJWv2UbnnirtEh3LFMp7gF1mFLowrCsUmNPEZLS3e
+	 PaVIrCJ+iR7ylGEd0aPPK8f1z41a5Mrl2VYxxdR3FpbT6Quuz4ctrox1xHe30rVnRM85L
+	 MXcGSDqqBuMGYbRq3OCIrHlOp6F/jyBRSPP8QjHsxjLytxgrql57/0WTDQiBcd0jlDc1Q
+	 DBbVPk3muV8tz9tRcqfwjbiaBwlo1tnQ4GFLSKhPgwuhsJDXqe3F08Se6MY+xOeF0s2Si
+	 b+nYdDk5liMeeSV+W9FhmGIFWD5hgBN6JZyX2pWfIpderNjjCX+x/Hl3K5b5urehNdA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PUMIvSwQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4666F606A31A;
-	Thu, 29 Oct 2026 14:04:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4666F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A7E606A31A
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 14:06:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7A7E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=k8tyWfLK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793282660; x=1824818660;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=bQ5OUJWFYkxc3nRdKrCXbaenz2Nh7NiAYBBqw1kij0c=;
-  b=k8tyWfLK0LAmzzMo6EDLg9KI8T5icjKS8JCLmFxfuM3YiJ47LPeWWcmk
-   9AfSDf/Tl5K+3bjU9L6rKAtbV3K5f8kCKF0jSHWGEbSip8Q6QmZ1SGXmQ
-   fmpn3/dji6gh8HQ65JIhAcDyFal49haHfdHgM2vrem0YTlCPnZUnJMtF/
-   NvEfx8eEAf9IjOkfqnCnB3Atwv5Lw9LZel9rSVgj/Td1HhUIQI3OGKq64
-   ff2KQM25ewZ8mYVl3DXoRy/05bcqw1zo5DlrOZvMlltRxOHrp+fxYC2my
-   BwqGR5t7laux5EgMV75RXbIeFhoEyk2gonMWA7pPHedW/ykGdUEHoTC8W
-   g==;
-X-CSE-ConnectionGUID: uxzzl/0ZQA63t290FVx9sQ==
-X-CSE-MsgGUID: 77hTxJvNRKa36ONbXEmR2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1908366"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1908366"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:04:20 -0700
-X-CSE-ConnectionGUID: ckuPjJMuSdy/tT5qWzBsWw==
-X-CSE-MsgGUID: IBVZkT9pSqyMPjIJ9gTHCw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5701409"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 07:04:17 -0700
-Date: Thu, 29 Oct 2026 16:04:15 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
-	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
-	djrscally@gmail.com, dmanresa@gmail.com,
-	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 9/9] media: ipu-bridge: Add a rotation quirk for the
- Surface Book 2 and Pro 7+
-Message-ID: <auNSXxxqA75T6Xwm@ashevche-desk.local>
-References: <20261028112154.855185-1-antoine.pichot@gmail.com>
- <20261028112154.855185-10-antoine.pichot@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PUMIvSwQ
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-353804b591eso3341984eec.0
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 07:06:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793282772; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bspChnTOX28b1lt4vxvwAgCSZyP1rh6nNYndLCLKhx+Cymiw4ECbsUPts6epTtl/4x
+         pkwf34Eil4l352pRoXVv0Q0SmR1oKT64f8G7MtAPM4v8GOMLIJBkCOlO9OX6WHXyK+rF
+         OtSneyrAzcAeI77dr/vDs0aitULNuiUUnRwSdYTO0XGzGzqQ+3yqdopQQqOWYQpwEhcg
+         vDZMAt9kPe+Fe6G1NWOhRcAvN80Mg1EpcilzwvICKQ6W4wPBr7poYuHjlCGGoQgCTxEX
+         QMEhKo9kieAksXR0G0uJO4l9ADFGdlSSolJVwQ6Ue7XJE5zdl7JPbH/BgnvoB0HQXnHY
+         VZyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5AFMA62x81Eod9qLhy82JE4hw8ngyRnLnh0416nT1Yg=;
+        fh=7HKLRgf0JwtSc18W0qrc65xR9FBBgH7up+6tToZAX4k=;
+        b=AlQqq4Fqmlc5MJNTHFVQeHsm+UorhMzihkYzCMGm4SxkV1USExDUTvbXWvd1EaNEUb
+         RxwkKpko+U9YSQtwDrFFjsf84axoUYi/1q9f/bMUGfIUe6mhBlWvGZETv+Si9Ihai9jZ
+         gjQs1EcjuSsncZMAP9F7FDys3TpMF1cXzcyeI/KXZVP9dQK0uXJbQ/aOOfGXxqsp4CGO
+         YfxQJSvxcK467a19TsLgD9HqySpru0t8LeDf0n2XX9OxOjRdyzcjKvmV/xIeaHYak9MS
+         7Zzxd7JLJTAp/mVEA9Tft3bDaL+XpjToqv3EtF+r+YHbg878DHqlR4W50JFYj0J7/NNZ
+         QHMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793282772; x=1793887572; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5AFMA62x81Eod9qLhy82JE4hw8ngyRnLnh0416nT1Yg=;
+        b=PUMIvSwQU+R4CLSlB5Lx/jStEGM2g7fWdLaGdT88RoWpXvqMpGBFUnGMn2je4Drajj
+         zKzZ/hcw+7aDkUlZ/mLyWEAepcg+lcT2wAP9YwRBYWCHSm1fGMKyYQHabWrLx0tfNecl
+         ZgT/Fr+HfZJcaDm5h0++hm+hv05vSxLNZmr+n+rexbNQKK/oTL0E1qhRj9DnN9pa1IzP
+         59zS2mtCLGf6oE8pmIY0NttEBy+BRG6jCoqzuUu0RbrqveTk5tPtZCo6/mlPDaA5gbhR
+         OBhC58I/7yWrg1nDGhyv0T5mjPl9FUGXaGN49B6cE6vUwOWF4pqrp6UArrajWppcGDSx
+         gKGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793282772; x=1793887572;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5AFMA62x81Eod9qLhy82JE4hw8ngyRnLnh0416nT1Yg=;
+        b=WpoLarW7Fad1qcF4rGdREU3eKu4M1JI91k3mRLHV2Tw7rDzHoIL0oLUBJRFGgLi6Rn
+         95Q+Pn6ws0oGuXFZjub0plwZzjCqBihGS7Y9hXBp9GhxEwi8UAYxpwXBsAMwN925rAi8
+         p4kl5yDBmNTHhlptaj8vj0BBpPTbRn1z1v3fZNVZgAWpSXDkzsXmLop7pJq/hzLPEQmI
+         ziPvvB0uDzK06u5QVP6mFaV0EynXBO5xirTjQFp0/ea8b4wNZG+PkDtz7gWw0GLJobLp
+         sflEKy9ZyrvDyfs5HVlxMP97hnFIIbiTrHm67gvNH1Vl4AhSSZtwflTPsXi6g0d6ZUm7
+         Xr5g==
+X-Forwarded-Encrypted: i=1; AKwUvBw7lx9FCnnTKHOUUOuL9iFucbuqQuh0zUIZjie+G2p7hDBvVwe6K4TqwEnBF+4m2c7gIJaVjgw6GfKdvg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJxK/XrjcAi5Y3LFu++qfpnVy2eDAfzVBsDHtvWOOxs2NaUx1T
+	49ekbCx305ROYgIrqtLf9gnWytZwH5C0W5mjJpQVEL0ZUGkAsRLzzTp1PtQZ7AdgMrCCaRgFQfg
+	AcpWyacBjeGgGs/n8l3PhtxI3XoVpZdGBsn1EMlAY
+X-Gm-Gg: AYBFou04n2CcDCp8fV4ySzZvGMIVTyrMsdgWVfW4RLubDAeR5U6oXg8+ciuDfvgmx8T
+	Fr9maocB8lP0iyIMLiA5b8obeWlydyuDdodxlPZXsoPLTNblWalmOEMAgBCw3INsmjsoZBMjEFO
+	1uHMwXE4vIYMPEc3ybkuneaJrN2akMQaL4+8c0kY4mC4+DgB9wEe//+PFow/0y6RPhwd0ucp5bQ
+	/NB4yck5mj/4G+TCC1SzvcaEYj3WUwmCqmvoeNiMP/XulOocoMbhmf4BqF8MWbweYZ00SBwkSpt
+	NGow5nTCf2mn+6pl/aXKPnYbcOq70kIq4fK/rk79veBZLvsEQhMeDYc/X1RhQhNBQP5wzo5GU31
+	pPH4ytJUghlBv0rlWUDzrv7V98GQEkQemPNx2ASS7gEpDCp9+j5cEdc6xHBIWrpKGlGvBaavja4
+	NbO6sGkNJh2WAfOBDiN/VTdd351kbo9OU8HTRdeo/KqU5gObXVC0In0gKQBaL8PMOI
+X-Received: by 2002:a05:693c:87d0:20b0:369:daea:812a with SMTP id
+ 5a478bee46e88-36a203e04ebmr7980604eec.30.1793282771027; Thu, 29 Oct 2026
+ 07:06:11 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,55 +105,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028112154.855185-10-antoine.pichot@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261022162116.2282295-2-phasta@kernel.org>
+In-Reply-To: <20261022162116.2282295-2-phasta@kernel.org>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Thu, 29 Oct 2026 15:05:53 +0100
+X-Gm-Features: AclHuK_SoizvoU1-Dr6Iy33-0wETUO3c6OG-X77GiKNsKuJD9voK4ASEhNNET7I
+Message-ID: <CAH5fLgiDRJuid2usngucBVNd4tP3R6Xavx-WWoKpN7xMQqv+zQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: DmaFence: Implement Deref for FenceContext
+To: Philipp Stanner <phasta@kernel.org>
+Cc: Danilo Krummrich <dakr@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 28, 2026 at 08:21:54PM +0900, Antoine Pichot wrote:
-> The infrared camera of the Microsoft Surface Book 2, an OmniVision
-> OV7251 with ACPI ID INT347E, is mounted rotated by 90 degrees. An
-> upright scene appears rotated 90 degrees clockwise in its frames, with
-> the top of the scene at the right edge of the image, while a frame
-> taken at the same moment by the colour camera next to it shows the
-> scene upright. The degree field of the sensor's SSDB buffer in the ACPI
-> tables is 0, and so is the rotation field of its _PLD, so
-> ipu_bridge_parse_rotation() sets the rotation property to 0 and
-> userspace has no way to know that the image needs correcting.
-> 
-> The firmware is wrong here, and ipu-bridge is where the firmware data
-> is turned into the rotation property: it already carries DMI (Desktop
-> Management Interface) quirks for sensors mounted upside down without
-> the firmware saying so. Add a second table for sensors rotated by 90
-> degrees, checked the same way, with entries for the Surface Book 2 and
-> Surface Pro 7+ infrared sensors. Following
-> V4L2_CID_CAMERA_SENSOR_ROTATION, 90 is the counter-clockwise rotation
-> to apply to correct the image. The Book 2 entry matches on the SKU of
-> the 13 inch model, the one checked; the 15 inch model has its own SKU
-> and has not been checked. The colour sensors of this machine (INT33BE
-> and INT347A) already report 180 degrees and are unchanged.
-> 
-> D. Manresa measured the same rotation on a Surface Pro 7+ (IPU6), whose
-> infrared sensor is also an INT347E: an upright scene comes out rotated
-> 90 degrees clockwise, with both flip controls at 0 and the firmware
-> reporting a rotation of 0, so the Pro 7+ gets an entry too.
-> 
-> Tested on a 13 inch Surface Book 2 (SKU Surface_Book_1832) with a
-> 7.2.12 kernel: V4L2_CID_CAMERA_SENSOR_ROTATION on the OV7251 reads 90
-> instead of 0, the colour sensors still read 180 and the orientation
-> controls are unchanged.
-> 
-> Link: https://lore.kernel.org/linux-media/6ae0f151.0f9a9df6.1cace3.5239@mx.google.com/
+On Thu, Oct 22, 2026 at 6:21=E2=80=AFPM Philipp Stanner <phasta@kernel.org>=
+ wrote:
+>
+> A FenceContext carries data, which the user should be able to access.
+>
+> Implement Deref for FenceContext.
+>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 
-Add a reference here
-
-Link: $URL [1]
-
-and use [1] in the text above.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
