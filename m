@@ -1,56 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271306;
-	b=eDBy7PFggslhiFc0X4jyb9DfNUkzuA6Tme3Tt7OroPsYF6DdiwEwKtm0c6ygUPjvYw9Q
-	 rtrttsC/WNgpHhKk100kBODTlXDDv7Q7o0+DNxWVZvyEAMgjkcgc45Mvu6zVNjBex7IFl
-	 U1Znr5eJiG+/sN6+5hVKt3gwiNb246pIFlbUShZRQjH+lOTg3tp1fXz5BlaED1iuxJPQh
-	 qKoZfo3KAmt2xrQRxIs2HnU6HTRAtUl3Fi7DTAqS+XiHY1M/l9oC6hac/ODnVnyqdzSjN
-	 TtUXVaY2xP0KW47zXGaYRY9SCJGQzLB0YgOIx/yKXF7Tby8XPjVsij3sDsPRR6aobLA==
+	t=1793271784;
+	b=zxHVL7Aa8G/GMfsy+JSPnaK+BHRixml3LQn7sVZVyIUKMuJUZRuacfsGBxWZJrDVYJv3
+	 IXYdLW4xYnxg0hWBwRwXd1mkuVlPBRb8BzXQZOspcdtk0Hryoa9gyVgv0cM9rCSQSWJo+
+	 6E+aHO59EPzI63v/o2s2U0AFs5TyeHeQJx0u5GM/lRkC+dkcpU7aRrciu6PL/BRAY9iyN
+	 uP7QxtPg2b7BbyiRFxWYwM8VgAF7y84Q4LxM3VKzS4OCB0quR4O7/GOVlOIp8CEYxSIt5
+	 zMmLCu5bu/kPsmBvPN3e6uwih9UN5VWVKPx+R9kqYvqColTTG9v0rPFzyKP6SOKjqyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271306;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=WTx7pmASk7/nsv1yYc69FRa7+fLFzGFr42sP00Tprpo=;
-	b=HkQqEyiMfuZUbyWouJKdPrDHXfLUlkn5N65dIElnkpmzPtk24KwNgceA4lNqwDRq0Sez
-	 243oxHl2lOq/UCk26johT1+79BqCslwkeVGB1CZUrwwS3c730BTafnu4q+1WHJWtBMpaV
-	 nJUTjxTCNkbiCs15XIsw9S9FgeGV/Mjh0d9iMzbdRawUGK2UJl61RHU2hOykC6uKmSmz2
-	 1LEyZgHJf14QdwJUTPaFMtOWtUCz25c/jUbpd/0lEGSvuQttA2tTy0DTx2skRXStIlSXp
-	 siXIvqkar3DARI9JxZcsBYf+6Jq12ZrVG9xlXWJp13AO4UaNJL3xS8XEctZX7ziaqNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793271784;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=lqdjZkQwVXgTMSk1QocnJZhAE2sMU/4Mo4N5OcDK2FQ=;
+	b=buOaXeXFr43SqTDJaB6Ys343YRlLjrmAIL29jTAEB1NS6FyGAXRF0Cs0+5GS6E+0GOxO
+	 WeWjsNJSeD9q09oenVMTUwXWFZQnlqnh+fYnUdfY8KopCZRygtTBNQ9hAyH52J2tLu32L
+	 TutvQ1WmhTUoEWxfDI5e94R4vKA61QrujiJKBO9Gmg/blt70hEpXXvk9gUz7eGdlz4jEX
+	 2mddW3H+U3qqMeYuBiqNMbEl2PqEpFOxn+/r5RF6Q4BC86zLYvIfs/Z69vVHI5mE9w8LQ
+	 /5G+eVc9seZ1ws0ivnPe9WsA1ygL6UoWmzPerS/G+SXsXI7UrE54V3Oxq4brzhmiJXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B4F67606A31A;
-	Thu, 29 Oct 2026 10:55:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4F67606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=WTx7pmASk7
-	/nsv1yYc69FRa7+fLFzGFr42sP00Tprpo=; b=PadOlEUt5v70rFNboilPcsVY14
-	vvFkObsZDr713Pl+2bmjJp+efO1Rf1m5NEV+Z3ek9klvamweCesHJx2CM/AwoRvN
-	B9XNghvxz42Xf4pVQgdcouKItHA0US9E5n1eZGv0mCuP2tO1t0c0Oc9DlysQTJ9s
-	rZ60IJ/VFlWUkqK4Y=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.47])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkD2HAP7JeNqTWL+AA--.51457S2;
-	Thu, 29 Oct 2026 18:54:53 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lei Huang <huanglei@kylinos.cn>,
-	Dean Anderson <dean@sensoray.com>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: s2255: cancel the in-flight firmware URB before reloading
-Date: Thu, 29 Oct 2026 18:54:50 +0800
-Message-Id: <20261029105450.5852-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdlFVKzu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6676F606A31C;
+	Thu, 29 Oct 2026 11:03:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdlFVKzu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6951F01828;
+	Thu, 29 Oct 2026 11:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793271784;
+	bh=lqdjZkQwVXgTMSk1QocnJZhAE2sMU/4Mo4N5OcDK2FQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MdlFVKzuWxOxSjNjAhnFHwPZSKwPu5DlnspZZDlB0/cJmbVUI+7dUAXHJcsUW2pPb
+	 3wLgn9zUorPGJNR4YgijvuBCkqfz0wmaR1NLHrTH+50fiHo9vx5iT1682o0qKET4J+
+	 5PLKVBtfJJnwdtRit0dsHNmfyBzPkvN/VPmirZM5R9NfuC8ppWwrYM5xQPuSEzu0l1
+	 +xZhdpSEbo8k3dgPtmHi35AzoOXVtHjLAjruYIiQl/1fya5kQKNoIvPs5a2evjEHoV
+	 rv6b2t6D/WWkoxy7tA0MkFAFM4dJJUT54FMBICT5N3KKpMqy/1y1+GNCO0AjfVoDGU
+	 /lz+sftOX6tjQ==
+Message-ID: <8a675e45-eed1-406c-a503-e1490d10b638@kernel.org>
+Date: Thu, 29 Oct 2026 11:03:00 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,130 +51,96 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkD2HAP7JeNqTWL+AA--.51457S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCryrZw48AF45WFyrWFy8Xwb_yoWrCryrpF
-	WFga90kFWDGw18Crs7Cr47u3W5Zws5JFZ8KFy2ya4vyr15J34DCFZ5t3y7XFyDArySya13
-	Jryqvry5u390qaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUg0D2UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUBD2riEkGqlQAAst
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/14] media: qcom: camss: Introduce CPU latency QoS
+ during streaming
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>, bryan.odonoghue@linaro.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
+ <20261029-v4l2-frame-sync-v1-1-d37992559c58@kernel.org>
+ <C5h3n3GoAvX7tdfEig7r4z8hDirrcGnY7QGp0x-H3DZbiSXQh2wMHxeydOkYcYOIARD07F7-bhic3uHlUpkgxQ==@protonmail.internalid>
+ <CAFEp6-0H=9=KM8eiJ690GEgpCqPKe3034gGLJbz4RrVxHP28bg@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFEp6-0H=9=KM8eiJ690GEgpCqPKe3034gGLJbz4RrVxHP28bg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The driver uses a single URB to upload the firmware. s2255_timer() submits
-it one second after s2255_fwload_start() filled in the first chunk, and
-s2255_fwchunk_complete() resubmits it for each following chunk.
+On 29/10/2026 10:10, Loic Poulain wrote:
+>> +
+>> +void camss_cpu_latency_get(struct camss *camss)
+>> +{
+>> +       mutex_lock(&camss->cpu_latency_lock);
+>> +
+>> +       if (camss->cpu_latency_users++ == 0)
+>> +               cpu_latency_qos_add_request(&camss->cpu_latency,
+>> +                                           CAMSS_CPU_LATENCY_US);
+>> +
+>> +       mutex_unlock(&camss->cpu_latency_lock);
+> I agree that we need such a latency request mechanism, but the current
+> approach requires additional logic and locking.
+> 
+> What about one of the following alternatives instead?
+> - Move the latency request handling to the suspend/resume paths. The
+> request lifecycle would then be naturally serialized and balanced, and
+> in practice there are very few cases where the device is resumed but
+> not actively streaming.
+> - Alternatively, add a dedicated latency request instance to each VFE
+> and let each VFE manage its own request during start/stop. That would
+> keep the ownership local to the VFE and avoid the need for extra
+> locking altogether.
+> 
+> Regards,
+> Loic
 
-When the transfer does not complete within S2255_LOAD_TIMEOUT, s2255_open()
-stops waiting, sets the firmware state to S2255_FW_FAILED and returns
--EAGAIN. The next open() calls s2255_fwload_start() again, which refills
-the URB and arms the timer while the previous transfer may still be owned
-by the USB core.
+yeah both of those would work.
 
-One second later s2255_timer() submits that URB again:
+I'll have a think about that, thx
 
-  URB 00000000b9ed398a submitted while active
-  WARNING: drivers/usb/core/urb.c:379 at usb_submit_urb
-
-usb_submit_urb() returns -EBUSY, the firmware state is set to
-S2255_FW_FAILED and the device stays unusable. Rewriting the fields of a
-URB that is still in flight is unsafe as well.
-
-Cancel the outstanding transfer and the pending timer before reusing the
-URB, and serialize restart attempts so that two open() calls cannot refill
-the URB while another attempt is running. A killed transfer completes with
--ENOENT, so do not report it as a transfer error.
-
-Fixes: 38f993ad8b1f ("V4L/DVB (8125): This driver adds support for the Sensoray 2255 devices.")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
-v2:
- - Serialize firmware restart attempts with a mutex so that concurrent
-   open() calls cannot refill the shared URB while another restart is in
-   progress.
----
- drivers/media/usb/s2255/s2255drv.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/s2255/s2255drv.c b/drivers/media/usb/s2255/s2255drv.c
-index 15012d73975c..ba717cdf31ad 100644
---- a/drivers/media/usb/s2255/s2255drv.c
-+++ b/drivers/media/usb/s2255/s2255drv.c
-@@ -179,6 +179,7 @@ struct s2255_fw {
- 	int		      fw_size;
- 	struct urb	      *fw_urb;
- 	atomic_t	      fw_state;
-+	struct mutex	      fw_lock;	/* serializes firmware restarts */
- 	void		      *pfw_data;
- 	wait_queue_head_t     wait_fw;
- 	const struct firmware *fw;
-@@ -490,7 +491,9 @@ static void s2255_fwchunk_complete(struct urb *urb)
- 	int len;
- 
- 	if (urb->status) {
--		dev_err(&udev->dev, "URB failed with status %d\n", urb->status);
-+		if (urb->status != -ENOENT)
-+			dev_err(&udev->dev, "URB failed with status %d\n",
-+				urb->status);
- 		atomic_set(&data->fw_state, S2255_FW_FAILED);
- 		/* wake up anything waiting for the firmware */
- 		wake_up(&data->wait_fw);
-@@ -1502,6 +1505,7 @@ static void s2255_destroy(struct s2255_dev *dev)
- 	}
- 	release_firmware(dev->fw_data->fw);
- 	kfree(dev->fw_data->pfw_data);
-+	mutex_destroy(&dev->fw_data->fw_lock);
- 	kfree(dev->fw_data);
- 	/* reset the DSP so firmware can be reloaded next time */
- 	s2255_reset_dsppower(dev);
-@@ -2187,6 +2191,16 @@ static void s2255_stop_readpipe(struct s2255_dev *dev)
- 
- static void s2255_fwload_start(struct s2255_dev *dev)
- {
-+	mutex_lock(&dev->fw_data->fw_lock);
-+	/*
-+	 * A previous load attempt may still have a transfer in flight, e.g.
-+	 * when s2255_open() timed out and the next open() restarts the load.
-+	 * Serialize restart attempts and cancel it before rewriting the
-+	 * shared URB.
-+	 */
-+	timer_delete_sync(&dev->timer);
-+	usb_kill_urb(dev->fw_data->fw_urb);
-+
- 	s2255_reset_dsppower(dev);
- 	dev->fw_data->fw_size = dev->fw_data->fw->size;
- 	atomic_set(&dev->fw_data->fw_state, S2255_FW_NOTLOADED);
-@@ -2199,6 +2213,7 @@ static void s2255_fwload_start(struct s2255_dev *dev)
- 			  CHUNK_SIZE, s2255_fwchunk_complete,
- 			  dev->fw_data);
- 	mod_timer(&dev->timer, jiffies + HZ);
-+	mutex_unlock(&dev->fw_data->fw_lock);
- }
- 
- /* standard usb probe function */
-@@ -2227,6 +2242,7 @@ static int s2255_probe(struct usb_interface *interface,
- 	dev->fw_data = kzalloc_obj(struct s2255_fw);
- 	if (!dev->fw_data)
- 		goto err_fwdata1;
-+	mutex_init(&dev->fw_data->fw_lock);
- 	mutex_init(&dev->lock);
- 	mutex_init(&dev->cmdlock);
- 	/* grab usb_device and save it */
--- 
-2.34.1
-
+bod
