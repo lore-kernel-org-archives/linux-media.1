@@ -1,79 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793282353;
-	b=ZQEmSne6nTwifXPe68UMP9wTxA2xk3qPvsz5RXycSor8j+ILQRPRx/L0yLhC2widwb+F
-	 mA+sXhCDnzsyp4k7lWDW+jR3+ikYLN+zjRkU2JVwOBwZUViYb21bX5yEBkTBYX1Vt9A3k
-	 J6xfEN9qPsqYKx/1FNZFXODr8XvvKPQNQR7UFsaejwXVqY3hfohZNI/kznygEg5BFQ8Ma
-	 qLZT7P2CvVKICY2Ny0ndl6iV/VsOds7I2OagfDbkClcjMzAwbWCl0MQjW4UuJV1vbKZCE
-	 3Sy8FgoXgLEIkY8Wwa1At5YZNdS1kzGao10eOIACPrMuT7fWphUNqUy9N9DSukbN7Ow==
+	t=1793282548;
+	b=eR4vJ3m3R4NyhC42ZZODOWNtjyElISutl6rownilu1ejhEB/GxnukPe+/AdUfpyasB4F
+	 1wwH3nK06rQ4PlGM3iebGw7DiObdQ72PVzSjKhY347gggAnVHRsGg08u26onWAldFs6oZ
+	 Dce7bunXHX4wFNKvBEYU4FHWUByi7Ubu23NthEZ/QCn3rjdCzu7yla/azRmWC1CbnF41W
+	 xudeRntUvuBaBtMU4OSLgLxSQXWjEXC+MHAOivp1qlfa0w7G9oMvpfquopGBt88BV6X3E
+	 qahhIie2ydcb4oEGGcfK9bIX/dCo7g1VkMIdJcC0a8WoAKeGt3JrKmR1uWeUIBmpKOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793282353;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=uMHXUOFE7AZZDX+LsX6dXeRhGFEiwL4Q1GknxPdY3Lk=;
-	b=IGhmYWV6U3pM+qNLSCXoITj9MUf3DbmVzGtoYyJntAtsWecG1mozFiaU2RHO79NxI9Ic
-	 BVX+fMpAoXxoKCKnzKEncm/3q3hQyTnKraD/vuOTysLXCYdGecBRu5QALwM5+/5QwCImF
-	 ua98r6bq6clBZZuPBucjnbi1BScsiwoQRM4G1jWMQv4CE/DNhw2f6B61qJHn1IgZm2n0o
-	 oadGnGGTNrTiBypu/po2Q58bI00siAT2njSMxaPAAbIElkb6fpw5X1YdDAwSe6sYsF6ck
-	 ppYXkUC46ND5BIPO1O/D0dAxJmjpeRBjX0BhHoCtPc47427SUtltFp+2cH/MjYNvhWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282548;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=0RQgg9XkQQjNtxOZRFyZActChBDX4Rkx4IIWd03eO+o=;
+	b=ixfRk8s2F41Vtmg3XS2arnoHW9GBISK0+lxmyeCwfMk9M4J7jfGfNuNYlAdl175bOlcq
+	 Y4+62xvCaQYpe3ivzN6yeJPA7Ft4Mlvc3cKKOLTlCnaVy5zRQeKPOmnEnifmeXM48T8RO
+	 RWgvHm0HKu9wsNmPkotzbT9B6eoLxAGNDGMs5vm+jHRlBk/lLOkwJzIILIInDLwh4iauJ
+	 DQ7qMKbzwHzWXt/FB0EFN6D4HN53cfMXopgSr6GS47C1b/hV+nkVtOaabkx/RPvWCxcCH
+	 T59Qo9Js0FI8a3duDB7nDASELLxuBvsIxEsVJe/tbudlhHKbyP1/l3pvyNTO0Rgcz+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O4kuHfCw;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sBcjZp6B;
+	arc=none smtp.remote-ip=209.85.218.42
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 852AD606A31A;
-	Thu, 29 Oct 2026 13:59:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 852AD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E60606A321
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 14:02:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72E60606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O4kuHfCw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793282353; x=1824818353;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6y2zegGNR4BIjDGrQ4yACT78u9RtDlzbO8PSVZOswc8=;
-  b=O4kuHfCwDvlgac2o+0ut3PGOaowvaFp7HdaeRBoTAhhkyahK+rhxgnGH
-   4SV7QkKEzB62Q6KXEKyxlEHGJ6Mvecb2VufP9UtyRa6vdKc9yNxF3cvRd
-   3zjq9x7dQPyqlnhmIvtJCd/nB6aOTg8pcdnzFIHD/6UZasLJeEN1uLMAn
-   6ZJM7m1H2WtUeZ0m/VLTStaf5RIrhkpFpiZ/9FO7YHKnFaxQKSj76RKkv
-   FjFV+CP+PxFoVdO8jbQpiPnW8P4TuCnemLvp9lqBkSM/z6dNPaCo+MNvt
-   YiQwpWQGfV+lqeYyR0KscK0GyuhuPcf+2cqnWNLpEi5XrJCKbbHv+sOiF
-   g==;
-X-CSE-ConnectionGUID: 7fvV+HqRSvS1VS+uZySmWA==
-X-CSE-MsgGUID: 62snd5jeQlKakbvIWCNgjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="1938066"
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="1938066"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:59:12 -0700
-X-CSE-ConnectionGUID: G42LKDdkS2ezAcmcJfP6Hg==
-X-CSE-MsgGUID: DBMiwUJ8R8qCvmWT+sAADw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
-   d="scan'208";a="5115670"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:59:09 -0700
-Date: Thu, 29 Oct 2026 15:59:06 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Antoine Pichot <antoine.pichot@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
-	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
-	djrscally@gmail.com, dmanresa@gmail.com,
-	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 3/9] media: i2c: ov7251: Report the pixel array rate
- for both link frequencies
-Message-ID: <auNRKsUghekdXM_q@ashevche-desk.local>
-References: <20261028112154.855185-1-antoine.pichot@gmail.com>
- <20261028112154.855185-4-antoine.pichot@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=sBcjZp6B
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c49c32650adso249055766b.0
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 07:02:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793282546; x=1793887346; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0RQgg9XkQQjNtxOZRFyZActChBDX4Rkx4IIWd03eO+o=;
+        b=sBcjZp6BHuS2Mqniaxa/BhZVVnB/63U2jR35l97q4rKbQ+CW0qM1uw3OOFEyGfo/Eu
+         hxE0h2diZb2jBMFgdBqs69qLfEmYz6HoKbyt1uCDSinEQaAj5oWG6NTSz00tl7+O+o0R
+         PVL5n2uQ1iCb2hwvSCmZvpvVkhpm5K0zxc5lQXhbbf6YGBGCiKr9k9p8ixmkVOjwbT24
+         KQHgQ669rsQsScvqCQHnrmGBd44jx5ZlfKc8KLTYEYVC6yX6BZba8rtjgBM38epYIw/E
+         znjOmqjB4HqhT7bDFGGblDr6PBAXOdN59+0cRuiAKo697MSzNTS5HwbH4uYef9gu8MDJ
+         bUqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793282546; x=1793887346;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0RQgg9XkQQjNtxOZRFyZActChBDX4Rkx4IIWd03eO+o=;
+        b=FQNT7a2B2ZicvhdDZssFutRda2eI+DbHyIr/jW7j2vhVqi0T2wBRV+s21oCxea+Zex
+         oXmKEU44hPcZOTYS934kkLFmH4U/W+TThsgJeEfXHXd46c5hIVa4t4p64Fg7U0Yksz6X
+         XTV4pIrU1OzhgQv7f7M7PHXoDiQ5lOHo3ds5Qnn/cMBsZJ7lcRWi8IdX0Jedr9G8dJAj
+         5xKvk7jpm4jHW8k9Wvppdpys/0eBB7W+d4PvYFXk3rn3s09P8X/zgwHgS1KHZ1VpSqcy
+         OTfhxvxTdcTDpjXEwk39wPb5adwcMTm9Peicca4TpTW9dsJNmHWSbWw6JQgojKTvtos+
+         d0eA==
+X-Forwarded-Encrypted: i=1; AKwUvBzejITJptnOUTek9Zu8er4Hfh6o0/gXTZ2jDjE4SME/lkaJFPMXrchZlxDurCFexV/8f7VaEXcHlpGrkg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKXCNL6x0Vk+G99xa7LE+9pEyCZ9/8bPvWW0Q70rwq1x1zjZHYN
+	8HbU5fhAnJgO6HH64gkUtnYvPCIeskj5GuVhfdrT0QJYHyNgtxNucvsjIUJlDIZn5oU=
+X-Gm-Gg: AYBFou1IciEh8oa6AR1Ds+volFQmfeTDR/JI5VeQ3LA5CFUP8WthNQ3PHVMPtZcXeJf
+	wxWm5Gag/Sefyoum2fnPLZwnBZf69kLIUuTjeLk4ms9RMarjwaHuIv3pW77R68ttTcxUj83WSeJ
+	Qg6jQ+kwQiktt7B65ItCbgVkT/pzu8ZF5oAT7FXmWIXeFUvfk8dYMEDFrhfLznULhSCWPoghIsy
+	Jcbz+yc4sNxO+TDKaYH6Mg6Dhrsnqce6xfgnycMSJHgq64PzAMeOoDFvGbXRDyIBD9KVYv7FXGk
+	gCHsWW5NNQn0HuBRuhUhcXHQOf/ZZgiDrNJFSM4Y+1hFT4NStqhl9ZvhUBpY46+y8H/51ruqMSG
+	9TnWvr7vV3kNn7JBrFel/a9DISjGuBibWqVgBr4jBYQekQ2Uf1z/ir+jGZEnArCIMKF/P4VnX+s
+	D8wAjfEp1imYmdDm1cgJcTuNTqwDmChtFB5NDCN4rCS5nmoSjXSTCT91TLNQ98YBz1glU/OTBa1
+	otbf6EMMvRJXQLQqGZ6Atuhmk/qiEQywx/hFVr8Ni6WNfxetaxZjOGPBVTkhh0A7cPTW6wowq4/
+	QHKGo1FJCzvwwWQjkq/S9jhKgMYzANZdUxGYNZwA9DE8GT8mMEHSRj0T6LnvxQ==
+X-Received: by 2002:a17:906:68db:b0:c49:df71:14f5 with SMTP id a640c23a62f3a-c49df7118bcmr106503866b.31.1793282545315;
+        Thu, 29 Oct 2026 07:02:25 -0700 (PDT)
+Received: from [192.168.0.167] ([64.43.45.156])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46bd4e784esm720921666b.19.2026.10.29.07.02.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 07:02:23 -0700 (PDT)
+Message-ID: <4d7de0cb-4a88-4af2-a407-a53d060d04a8@linaro.org>
+Date: Thu, 29 Oct 2026 14:02:21 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,52 +90,134 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261028112154.855185-4-antoine.pichot@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] media: camss: video: check that a buffer is DMA
+ contiguous and add a prepare hook
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>, linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261029123107.28705-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261029123107.28705-3-xiaqinghuan@mail.ustc.edu.cn>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261029123107.28705-3-xiaqinghuan@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 28, 2026 at 08:21:48PM +0900, Antoine Pichot wrote:
-> pixel_rates[] gives V4L2_CID_PIXEL_RATE 48 MHz for the 240 MHz link and
-> 63.84 MHz for the 319.2 MHz link, which is the CSI-2 bus rate of each
-> link (one lane, 10 bits per pixel). The control is the pixel array rate,
-> and Documentation/driver-api/media/tx-rx.rst says the bus rate "is not
-> the same thing as the pixel rate on the camera sensor's pixel array
-> which is indicated by the V4L2_CID_PIXEL_RATE control".
+On 29/10/2026 12:31, Qianhui Xu wrote:
+> The write master of the newer VFE generations can only be programmed with
+> a buffer whose payload is physically contiguous
+
+The first problem is that is _not_ what your code checks - you should 
+use sg_phys() for that - which gets the physical address of a CPU 
+scatterlist entry.
+
+What your code currently does is check that the IOVA addresses are 
+contiguous.
+
+But what happens is an IOVA allocation is made which is linearly 
+contiguous in the IOVA address space and then SMMU entries map the IOVA 
+back to physical entries.
+
+So all we need to do is give the IOVA base to CAMSS and it can write 
+IOVA buffers - its the SMMU's job to ensure the resulting upstream 
+writes land at the right physical address.
+
+> increment registers describe one linear address range.  Check that the DMA
+> mapping of every plane is contiguous for at least sizeimage bytes and
+> reject the buffer otherwise, instead of silently writing past the end of
+> the first scatterlist entry.
+
+> Also let the SoC code add its own alignment requirements to a queued
+> buffer through a new prepare_buffer() video operation, which runs after
+> the generic checks.
 > 
-> The pixel array runs from PLL2's 48 MHz system clock at both link
-> frequencies: the PLL2 registers are the same in both tables, and the
-> measured frame rate is 48000000 / (928 x VTS) with either link. On a
-> Surface Book 2 at 319.2 MHz, VTS 1724 gives 30.0 fps; 63.84 MHz would
-> give 39.9 fps. A Surface Pro 7+ measures 30.01, 60.16 and 90.45 fps at
-> VTS 1724, 860 and 572, the same 48 MHz. Dave Stevenson saw the same on
-> a Raspberry Pi with a 24 MHz clock, where libcamera asked for 100 fps
-> and got 75, the ratio of the two rates.
-> 
-> Report 48 MHz for both link frequencies and drop the table.
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 
-...
+And I can prove it too.
 
-> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
+buildroot# uname -a
+Linux buildroot 7.3.0-rc1+ #19 SMP PREEMPT Thu Oct 29 13:26:34 GMT 2026 
+aarch64 GNU/Linux
+buildroot# dmesg | grep -i crd
+[    0.000000] Machine model: Qualcomm Technologies, Inc. X1E80100 CRD
+buildroot# dmesg | grep "plane 0"
+qcom-camss acb7000.isp: plane 0 chunk 0: phys 0x000000089a800000 len 8388608
+qcom-camss acb7000.isp: plane 0 chunk 1: phys 0x000000089a600000 len 2097152
+qcom-camss acb7000.isp: plane 0 chunk 2: phys 0x0000000899900000 len 1048576
+qcom-camss acb7000.isp: plane 0 chunk 3: phys 0x0000000899b00000 len 131072
+qcom-camss acb7000.isp: plane 0: 11677696 bytes, 6 cpu entries, 5 
+physical breaks, largest physical run 8388608, 1 dma segments, 0 iova 
+breaks, iova 0x00000000ff000000
 
-Same comment about Link tag.
+Plane 0 == 11677696 bytes
+Largest physical run = 8388608
 
-...
+Interestingly we see some physically adjacent allocations here and then 
+also non-contiguous allocations, which is the negation of the thesis, 
+constraining IOVA to physically contiguous maps is provably incorrect.
 
-> +/* PLL2 sys_clk: the pixel array clock at both link frequencies */
-> +#define OV7251_PIXEL_CLOCK 48000000
+NAK
 
-Perhaps
+diff --git a/drivers/media/platform/qcom/camss/camss-video.c 
+b/drivers/media/platform/qcom/camss/camss-video.c
+index 0852eb6f13..d2df368d5f 100644
+--- a/drivers/media/platform/qcom/camss/camss-video.c
++++ b/drivers/media/platform/qcom/camss/camss-video.c
+@@ -146,6 +146,44 @@ static int video_queue_setup(struct vb2_queue *q,
+  	return 0;
+  }
 
-#define OV7251_PIXEL_CLOCK_Hz (48 * HZ_PER_MHZ)
++/* DEBUG: how a plane is laid out in physical and IOVA space */
++static void video_buf_dump_sg(struct camss_video *video, unsigned int 
+plane,
++			      struct sg_table *sgt)
++{
++	dma_addr_t iova = sg_dma_address(sgt->sgl);
++	unsigned int j, pbreaks = 0, dbreaks = 0;
++	size_t total = 0, run = 0, maxrun = 0;
++	struct scatterlist *sg;
++	phys_addr_t pend = 0;
++	dma_addr_t dend = 0;
++
++	for_each_sgtable_sg(sgt, sg, j) {
++		if (j && sg_phys(sg) != pend) {
++			pbreaks++;
++			run = 0;
++		}
++		if (j < 4)
++			dev_info(video->camss->dev, "plane %u chunk %u: phys %pa len %u\n",
++				 plane, j, &(phys_addr_t){ sg_phys(sg) }, sg->length);
++		run += sg->length;
++		if (run > maxrun)
++			maxrun = run;
++		total += sg->length;
++		pend = sg_phys(sg) + sg->length;
++	}
++
++	for_each_sgtable_dma_sg(sgt, sg, j) {
++		if (j && sg_dma_address(sg) != dend)
++			dbreaks++;
++		dend = sg_dma_address(sg) + sg_dma_len(sg);
++	}
++
++	dev_info(video->camss->dev,
++		 "plane %u: %zu bytes, %u cpu entries, %u physical breaks, largest 
+physical run %zu, %u dma segments, %u iova breaks, iova %pad\n",
++		 plane, total, sgt->orig_nents, pbreaks, maxrun, sgt->nents,
++		 dbreaks, &iova);
++}
++
+  static int video_buf_init(struct vb2_buffer *vb)
+  {
+  	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+@@ -163,6 +201,7 @@ static int video_buf_init(struct vb2_buffer *vb)
+  			return -EFAULT;
 
-(will require units.h to be included)?
+  		buffer->addr[i] = sg_dma_address(sgt->sgl);
++		video_buf_dump_sg(video, i, sgt);
+  	}
 
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+  	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
