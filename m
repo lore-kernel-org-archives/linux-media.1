@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292860;
-	b=EhSv1knLW1F1qS3/GSaQZ9ASxPnFGlMFNUGzonqm4I1R2P3Iduf3d6OZ7kwYavkGHGyD
-	 6H0koW1Kk3AHAMBZVsemkqMdKrngPsGBn0Om0/J65FZyYImJjcdQ9VAhDkSX0/teIgNk7
-	 eXOEwcoonnpbw2sMHraG9620+rqjorqMP3hU2rnsQg760HeS2TivKm2skQTyYJyugeXbF
-	 jw+wa/hr1xldnJsM/yc8yrm712FEXGHhe6v6Wydc3tdezFvB1h4RgfSY2/mehqTphX4JH
-	 A5AugWa8OxuuwSk7lL2GSJ0D8R5pFpEMBgmNiETCSx1doOG1TQ/q3GHbWE+2GJSMWIA==
+	t=1793292861;
+	b=Ivl5qbBuvb3/PK4doF1am9uUXHLUWaNRK4ODAu5P6yO1txJ3U7pH7C1FzfM6grBGj4Kp
+	 KtZidOQmej6GAvBgITaiZ0InNnVoUBSiQM2PP6zTvN34DaEWjGE3gIl+t60/o1PyUssvL
+	 mNms4DmUqH2iPDhaZal4Y8t8e4Jje71jOxsACpa1IMbmOUIokAXjUIbHhsoe+J0IILpbk
+	 PA51R8WAt2PT6hrEL6EzQtBOtadxOB6jH60xsDa9XYqzuvdfTYasx/oou6KgwfR4sglU1
+	 PBz3hcikByCuaHuX84u+6tdEa0lgvqT3v5YfliyNlm39UoXMUb1T9aPG8bNe566OgWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292860;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793292861;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=4fqK3hAODSRW6r1VhiRWGFiqfL+4gwc3km1pG7Ow6As=;
-	b=XYfnd9CoLrD2nJq9EpXHawcvwfvnXsLz6DVEt9NCvNqqCe9dxXY/a5M/2Avw8ymvTRk7
-	 ZO3CQaGABbDuW03i5kw7qjEgKTUXnRTmi0yiXzm2ypQZMzUKrElKGybCqiwoY3W2+s2SB
-	 /lzu0fitRqn3lMOgM2cYy3Zk8JvOwU2FFRSb66gghjCwOcSK0soZewgbwXRQur/vEcRzZ
-	 drA1T5lHwksqOHp81JRaBEctp1xIwXqm25n/JkKGNdXlmRj10+pM02BxdH0EVnmf40kgL
-	 5m92PGO9WTw9Braij7LU2PpzxBPcGCB2bqop8RaFqVGl5viP/nPqmJBhhL/Mbs8x4jA==
+	bh=rWfNIvd9KHSVhrKI7F5X/cP2Aw32Q6yFR8REkiH5EXY=;
+	b=X6ggBeB/KpyqnWl+mzlKuddMRTqt0nL7nItw2vYlfSMY4OeLSjRVsByrx957ut0FaWdO
+	 Qz04u5lKiMgNXJDbL+Mfa2/YF6AdTS0yz4ezFFpC2ZgBLN8QlB6GpvB7BtdUk4tBWyKey
+	 R22y6PnN6U0k60dnJ6L0O8Ojv6aLnomooe51yJIAK28j0MFMF9z2dpNAbGOhFqNFxsC7y
+	 En8yRJG6uQMdBaEgfs99pnX2nEAmCeLkb679I/HCX0UAWO01v5CPZiPFfJKXE3AJLogI/
+	 yRrGqWpVCFBYmeIxNebNqWqDU2CAlECAGeuUOM1GwxnLSHADC0872q8/rR1WjR++vpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=thegoodpenguin.co.uk;
 	spf=pass smtp.mailfrom=thegoodpenguin.co.uk;
-	dkim=pass header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b="nP1Da/z/";
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dkim=pass header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=FTIkw6Pk;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AFFF606A31C
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 16:54:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1AFFF606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27771606A323
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 16:54:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27771606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thegoodpenguin.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=nP1Da/z/
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1383604f8f.1
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:54:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=thegoodpenguin-co-uk.20260707.gappssmtp.com header.i=@thegoodpenguin-co-uk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=FTIkw6Pk
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48e0d1da913so702689f8f.1
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:54:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thegoodpenguin-co-uk.20260707.gappssmtp.com; s=20260707; t=1793292857; x=1793897657; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4fqK3hAODSRW6r1VhiRWGFiqfL+4gwc3km1pG7Ow6As=;
-        b=nP1Da/z/q/xW8Au3vEhGnd4WDCw2F+3e2aLKen3ZNVKStYAKk770M2M08RSZm75Pvo
-         nmQj6uUlhRItsPyH4DYchXhqA9Hp1r+Es95lmD0OfGPaU6s06ku/2khG3oxaXDSqtPns
-         fEUpKsgWTBpQXPqvMvLQ9sMQ5jEDsV4gN+MPXQxlItWW8Dw9J2bojh/ABbwzOP/rGvUI
-         6v1GyP+cAunRbRJ13x3djc3tKIiYrMtTek+S97/rtreb+LN2tlI9E39cN7MAbp6gGz4W
-         9CMe6N1v0NCgioWXq+IE0cIFUkRVg/emiOH98T1agIZ0FbM5dJsgmd0XTJ8NlmMQpyTu
-         oTJA==
+        d=thegoodpenguin-co-uk.20260707.gappssmtp.com; s=20260707; t=1793292858; x=1793897658; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rWfNIvd9KHSVhrKI7F5X/cP2Aw32Q6yFR8REkiH5EXY=;
+        b=FTIkw6PkN/tJBLpPjCD5eLda/R7udutck5k9tmyoNRO0xtJ+Yqxw4qkWhUzLBXPBX/
+         QN0yEuAJQug62Z9jCa28dse2m30LDvEidEOChn3cWnP7PKp93HheoBvreB5ahapQDtob
+         GOCdwgJMo2VUyw6avEXB9Q004IVCxZx9RQtIAJLtYNfnUwykQVVxljfLTrkA7mRESez3
+         pVFgxLItrTPRYF7I8w8yfv1J42GKqYT+pwoDgkeVAbIoguTbbQI7p9w7pwFRBMAp4HK3
+         6VlTl1grNBnZbeAqqJnam1HGsrK6EUq/M/zbtE98wx26qjmRcZVcvmO2m1xWpSGQFhex
+         h64A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793292857; x=1793897657;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4fqK3hAODSRW6r1VhiRWGFiqfL+4gwc3km1pG7Ow6As=;
-        b=SNlcIegOraloV4SuWk+IfzOK7zv3a9pls6k8C//7b6Td7PgMgqmB1zrakAERXUyUhE
-         yhfc7yMUvFXX/B9Wqh0pkhIS3ItEXFFP0Q2v1Dz3GKMxyFeDkJc7NA2mOYAVHH2Rq5Rl
-         Qc34i5EkYZ2GE1+cXcQqoHGe6q1BXIqvmp/ASWfw755F9cehjha92d4dATkraPsJ83TX
-         vm0n0Fxrhn4MlEk6s1eZWgDI6FIge30cZqyfQpvY+6UMEACrDs0ehH/+Gcv2kHh3m4Mk
-         Os4j/M4moV12XRXtkwg+hXbeqnLvULsSffE0gOUVQtMFt+Yq+cIMka7fnPEHZ+FpWAE0
-         9YKQ==
-X-Gm-Message-State: AFq9FYLeTg/74KwwW2M8qIC346kC12hQ/At0z2BIH8fH1OIwor2FLGoq
-	8Oeo0SwTyBPsHDPdEI5d71yi284IQysLKM/C/NUaPr88a3yIvq3Ubn9/0GcnszVZ/es=
-X-Gm-Gg: AYBFou3WdEOhNf35CEfSpZjYBcc/+aVr6GAz6E5MfPljeDbPi75jDZhklMp7k9FFAdw
-	6seCfNFfqbsW5UPNRzBJeHpBVc/bAY/uID6AkjUCamCQms/M/eaWFRBxDIbvtjk0b8PzuxIwyke
-	qhe/RTfSrZa3UcI4bRVOonu+Cscby08QHuL3R8qFKNKFdNk9UcFjhv9X/6E0FC4MKFnAIQksGRb
-	Gqj0DFuojXCBaF13tYVDRsw2U5d7W6xBbuPac0Y44Q0N2xUsTXSni+KMwPV4RwjXZOy7zvG21LJ
-	GFT99a5WsrB2h1/YVWeLBZmLLHXLkc74tiV1DsJLsPNyHBKKhP1U/TBNekKZ0Toc9oquC0rHD71
-	RjA5kSIb38Hj+JmNJRC7aO/Vayb2W+gsYnUX9nemd4RY81hSTI7WROmMJe0jQW1viap+66LBdMv
-	pCXfwHUt20qhaP2Ln40NYHhELQRyGCSAQlQUMnpYdCVK93mJ/4VdcPNI9ZYki+X/axLcdhmxIzn
-	dS+/kB2szf8oAsx4egOZfAyt+HxQb9pMo1AOa2+FB9hDVIWFFIVKSLHOxuv4j/z9M7ehidy/ZzZ
-	J+TlVV0io/j8i1mk49mBX9S9CltzUXgVyqqtVGNxh2vvis7brubYbTuDVuoY6mKr
-X-Received: by 2002:a5d:64c4:0:b0:48e:4831:ae20 with SMTP id ffacd0b85a97d-48e5d5c431bmr13761110f8f.37.1793292857370;
-        Thu, 29 Oct 2026 09:54:17 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793292858; x=1793897658;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rWfNIvd9KHSVhrKI7F5X/cP2Aw32Q6yFR8REkiH5EXY=;
+        b=taVcEeEC9o7ZD45oVcKNdTfD2USIB04fwQmg4aj1XLerFsgDhxsPZjSrzt6eYCBW3S
+         YsN+0S8VAyk20IpQ4iJ3m/pX70iogGdz5o/rOUrbvh11wNPW02iAs7D5pkFU7xZ8RM3T
+         3ZWI9X9TafZHNY3ES9hAcoFmv0pzLxV52d7fQ+lAxtXaW8B4BclgLAVuiU94Mx7rrn3P
+         lcbhjIqY+E1XDuM8fdMvGjF5j9Jc+oWlvZKoHzLa0ubfmSIZjSl+A9NoGYdEiIoGLzxd
+         +q9Maeuis/uJqFbw6qcFVfxVG8PwBtEJMkWcUUf/QF6HQNNm3W3gK2dqIx/MDfKdy0ID
+         duzA==
+X-Gm-Message-State: AFq9FYLziF7Mb/SULgggyl1x1rXVpwesKZJ0IXd/lKbWZYVzoZChEa3c
+	yPMyOPbCKJ8P8ZSSTgfTRGr73YHvH9vUXr5kPJppC6qbZRC86M79c17bdCU+5voecww=
+X-Gm-Gg: AYBFou0r8ny5m7CjIIaYxgURIcv7V0EU4n0UXqprtc6w0Ju9BgJaAxHz2/E9homeOGw
+	t7dDlOUo8BnpBBmOYPj0Abw9IjtxMqlYvu6ix3Eh27/3UK5F3XzYedf1YHLxp426uWqMSUadJlg
+	wMLPjkJx5f7dFkN45wCP/Xt47/XLyTSYWNojOO8A8lWNHLlzI++4kuVCdKaWDDCfK1mw+EYh8md
+	SMf5fG7HdUtZXPic80vyBPxlNC4GEYBCn6aZiIuGLAnEk1aD2mOkWjIRVEXCemRXvIKW+zX/xly
+	2GyrjDYfjXRB6Y5HBEBylzDh3nB/W3uRMu5qcbZl31tRlw9+ZKSgM1EWC30beUXHlQQKNhKlCZM
+	pWwNR7n3DmNML1Hf5adFDKr1Z24o1nkK2SAeFpAbsDnPbfG2LtyGN2P0fDAeAVfb30A6+r0TxXI
+	3HssV0j24h7Dj5u26OKuzgP3m7ymNP0EfZrn/c7qDaAFVoYmc2vIUs1yn6IK8ARDH7sRPqS4y9X
+	QaiVNlLRCcz0P1V8IlyjsrybDabRZPdmc9tRnmliyHAJ5vSKhIubcafNwCcvNMLUWQyA9Wu5ntN
+	WU2GgWmH35Z9TmxCrR5aesVXorBlLU73cW4NkegKdqo=
+X-Received: by 2002:a5d:69c9:0:b0:48e:55bd:9ce2 with SMTP id ffacd0b85a97d-48e64cc70d2mr5526326f8f.20.1793292858506;
+        Thu, 29 Oct 2026 09:54:18 -0700 (PDT)
 Received: from [10.42.0.1] ([2a00:23c7:1d1a:9c01:db5:c0cf:53f4:d20])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6df87fdbsm310880f8f.13.2026.10.29.09.54.16
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e6df87fdbsm310880f8f.13.2026.10.29.09.54.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 09:54:16 -0700 (PDT)
+        Thu, 29 Oct 2026 09:54:18 -0700 (PDT)
 From: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Subject: [PATCH 0/5] media: use designated initializers for acpi_device_id
-Date: Thu, 29 Oct 2026 16:54:12 +0000
-Message-Id: <20261029-acpi-media-v1-0-eb50f0a34e36@thegoodpenguin.co.uk>
+Date: Thu, 29 Oct 2026 16:54:13 +0000
+Subject: [PATCH 1/5] media: cec: seco: Use named initializers for
+ acpi_device_id
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,10 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDVhioWriEU7HYzET1pEIu6uW
- H6L9y4I7IUD1MkFng8JsswReZoADWbuWYmLBsywyjNEZWgVNbETo7DotKVSW3QEMVg9d3J+s6b
- 9HXY7Mm3vAe77Ac8n3qFuAAAA
-X-Change-ID: 20261022-acpi-media-24f3bc53b2dc
+Message-Id: <20261029-acpi-media-v1-1-eb50f0a34e36@thegoodpenguin.co.uk>
+References: <20261029-acpi-media-v1-0-eb50f0a34e36@thegoodpenguin.co.uk>
+In-Reply-To: <20261029-acpi-media-v1-0-eb50f0a34e36@thegoodpenguin.co.uk>
 To: Ettore Chimenti <ek5.chimenti@gmail.com>, 
  Hans Verkuil <hverkuil@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -112,92 +112,43 @@ To: Ettore Chimenti <ek5.chimenti@gmail.com>,
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793292856; l=3700;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793292856; l=1075;
  i=pzalewski@thegoodpenguin.co.uk; s=20260430; h=from:subject:message-id;
- bh=aKOyFQMF1NTxCOSdz5v1PrBbwjwRSZJSG4pYy2yMJls=;
- b=tv5LWl+kMT80WwiF33uegV2YVkKehIr0bD6GKTR8Wv0i3YImBKYyChxIHLtTE1oz3VMiJCms4
- 8Kb61GRZHWxBGEM29cHAMjJgfH6OBXIrQfrdonWKqMhUFdsYuARA6zS
+ bh=G7LrNd+dF624ZiXyk14jYht6szTrrJKNGSWqp5QLf+U=;
+ b=oc0ISUO/Ys+wXb++/90Cl1FqTqKn4Mgr63H2IC6cDhi+ghcSZwFbi4USMACYUSeNTnvayaC0S
+ zBVVDIec7ogC12jzUBzS15DTuUhzoP3n7V/XuE1moxfBQsIKCTBEPW7
 X-Developer-Key: i=pzalewski@thegoodpenguin.co.uk; a=ed25519;
  pk=vHq4n9IonORH2GTzLv8r6CWAFHzgfBuNkQPXA8NSly0=
 
-This series is converting lists that contain the acpi_device_id struct,
-which is defined in the include/linux/device-id/acpi.h to make use of named
-initializers (which they do not use currently). This work is part of the on
-going effort in the kernel associated with device-ids [1]
+Use a designated initializer for the acpi_device_id fields which makes the
+code more readable and consistent with how lists are initialized in the
+rest of the kernel code base. Also drop explicitly setting fields to 0
+where it is redundant.
 
-The plan is to convert acpi_device_id::driver_data to have an anonymous
-union, similarly to what was introduced for PCI and I2C device ID tables.
-The goal is to increase type-safety (most of the existing casts are gone),
-to improve readability and to make use intent a bit more clear:
-
-```
-union {
-	kernel_ulong_t driver_data;
-	const void *driver_data_ptr;
-}
-```
-
-But for that to work all lists containing the structs need to use named
-initializers first to avoid triggering -Wmissing-braces. I already have
-patches that implement this and touching a lot of kernel subsystmes that
-use the acpi_device_id struct and that list keeps on growing. Therefore,
-I have decided to split the series per every subsystem into:
-- pre-clean-ups that convert the lists to use named initializers
-  (which is this series)
-- actual implementations that make some of the modules use the new
-  driver_data_ptr member
-
-That way the task can be fragmented into manageable and independent chunks
-of work and makes this effort easier to review.
-
-Tested builds on x86-64 and a64 in Yocto using 7.3.
-
-[1] https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre.com/
+Unify the list terminator to have a single space between the brackets and
+no trailing comma.
 
 Signed-off-by: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
 ---
-Pawel Zalewski (5):
-      media: cec: seco: Use named initializers for acpi_device_id
-      media: i2c: ccs: Unify list terminator for acpi_device_id
-      media: i2c: cvs: Use named initializers for acpi_device_id
-      media: i2c: Use named initializers for acpi_device_id
-      media: pci: intel: Use named initializers for acpi_device_id
-
  drivers/media/cec/platform/seco/seco-cec.c | 4 ++--
- drivers/media/i2c/ccs/ccs-core.c           | 2 +-
- drivers/media/i2c/cvs/core.c               | 8 ++++----
- drivers/media/i2c/gc0310.c                 | 4 ++--
- drivers/media/i2c/hi556.c                  | 4 ++--
- drivers/media/i2c/hi847.c                  | 4 ++--
- drivers/media/i2c/imx208.c                 | 4 ++--
- drivers/media/i2c/imx258.c                 | 4 ++--
- drivers/media/i2c/lt6911uxe.c              | 4 ++--
- drivers/media/i2c/mt9m114.c                | 4 ++--
- drivers/media/i2c/og01a1b.c                | 4 ++--
- drivers/media/i2c/ov01a10.c                | 4 ++--
- drivers/media/i2c/ov02c10.c                | 4 ++--
- drivers/media/i2c/ov02e10.c                | 4 ++--
- drivers/media/i2c/ov08d10.c                | 4 ++--
- drivers/media/i2c/ov08x40.c                | 4 ++--
- drivers/media/i2c/ov13858.c                | 4 ++--
- drivers/media/i2c/ov13b10.c                | 8 ++++----
- drivers/media/i2c/ov2680.c                 | 4 ++--
- drivers/media/i2c/ov2740.c                 | 4 ++--
- drivers/media/i2c/ov5670.c                 | 4 ++--
- drivers/media/i2c/ov5675.c                 | 4 ++--
- drivers/media/i2c/ov5693.c                 | 6 +++---
- drivers/media/i2c/ov7251.c                 | 2 +-
- drivers/media/i2c/ov8856.c                 | 4 ++--
- drivers/media/i2c/ov8865.c                 | 2 +-
- drivers/media/i2c/ov9734.c                 | 4 ++--
- drivers/media/i2c/t4ka3.c                  | 4 ++--
- drivers/media/pci/intel/ipu-bridge.c       | 8 ++++----
- 29 files changed, 62 insertions(+), 62 deletions(-)
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261022-acpi-media-24f3bc53b2dc
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Best regards,
---  
-Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
+diff --git a/drivers/media/cec/platform/seco/seco-cec.c b/drivers/media/cec/platform/seco/seco-cec.c
+index 12db6dca602b..2d7ee5638eba 100644
+--- a/drivers/media/cec/platform/seco/seco-cec.c
++++ b/drivers/media/cec/platform/seco/seco-cec.c
+@@ -768,8 +768,8 @@ static SIMPLE_DEV_PM_OPS(secocec_pm_ops, secocec_suspend, secocec_resume);
+ 
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id secocec_acpi_match[] = {
+-	{"CEC00001", 0},
+-	{},
++	{ .id = "CEC00001" },
++	{ }
+ };
+ 
+ MODULE_DEVICE_TABLE(acpi, secocec_acpi_match);
+
+-- 
+2.53.0
 
