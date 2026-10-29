@@ -1,89 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793283530;
-	b=ZL4Vo6OHLHnvFrmkLuJXmTC8OsaQ0mHy2+6rSudJOtrCKFJ/Rlefckhf1/Z2tmMsj/3b
-	 UbC0f5eVsN4wCLvKLku0UH76B4xBDuz8PPRvD2L4e6y6NJxhFLnefyI0dWJYAaYGK7ll/
-	 bMRksVwwGgIbiW3ogwWKpQQtbAguhb1AqZXb5LTGguAocr8HwD4BAJgTtLBrjb1dSlxTK
-	 5SNw0lgI9/N+66z1e/dxicFR67lh84X2P3Va5UCpRy2m2bUsJbYkBAJHBHIJCPCg9F/Zo
-	 modcGMIzpH9h0dE8avVXNmIuNdn4kg+Aw7gT881tG2XwRB1Xvuz1dV4dkeDldbxehvw==
+	t=1793283525;
+	b=DCi/MF+uX/0etXWk5zr5QQOjCFHN+1nNpFfRRmLygPp3ldxowyTMrz9lGbtGdSIZqKv8
+	 uwy7VeScMNYSm9GFQS4j6Y8dTFHJisZ61phH3648ExS1gO1y3ErPIRxBy3zx5RhxmcbWm
+	 vQ0xFyZ2ymWg42dEdhzagSnutsPRXf6ARtB5mEEgh8RuQlu9yjoFcOMiBJ4ZA90UCDSVU
+	 OLnMWIJ5M+yQzNKQ2T9G9Y4ui6pkadYD157K/CGmrGAsAeeKRDhi4HFp/7k5E5u/S52jn
+	 kmUGT9oWTMzxc+ZiD71vEv1EyWehQ3Dg4+BOkNpWGTbcruw96wPSAkIpbhe9zGFp0+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793283530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793283525;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=sUF6T1CjdM7KPykBK1rJtL5GvAJtQ2hOBe2P+sd0pXk=;
-	b=jsBqMzi7DsIkx90QLXPbrOuiu6spm2g8MgYPXVsQGmWfPYrfZWzDPyBrEmhX7heEcOmf
-	 j5QHoo8iSkTl1SjtgZVTiRfNmE3WBjQJRRaKmTACBeYTOM+gYRx4Ct4jPDzEmDFaSELTI
-	 OVKNcTDwoAB5V/k1awPS9NIG+iESNSq4HrXxhxqjAu/yKatF11S7slO3HqhiohsHk2LIP
-	 iz5eNnA0OJhmhfeHSFHWkfuVa+Mz0wsxxlgx85v3RQAzkrqbeXPs0AxzXdnPtF+R9Hq8/
-	 auUYP/WqE+vJkOyNp+c/w3g5Pwl5u5ILSbIbpGR2w3e87BACoRvLa4quOZQMboKt3QQ==
+	bh=feAclFqGqANXGk5ANej1oUGx0E55rEkA+ZUZcmvKBcM=;
+	b=IHSRM4CSvTKq4JtAoCAWnCYtMQqj3QBL6DTfVBkpVko1cxwuYrH7DeNKd6g/y32vLm3A
+	 COXBeGa7T2uOhuNfJXEWLTIbBUs+cJ4X6m5LRO/Fr2F4Du06veIkf1JKk2pgVP6VAflox
+	 Gr8oXS//dzpoemG2qqghwFQCizzEUkHFKucNLqiHcGK9KuKlfN8dF4j9K8MGfE4fW0DLL
+	 swvM3Eh7Sni0bS7TW/AsNVeK02ipfD0dylL/x3lUMh7gAmI61JHltksAV2yJxFMA3YSGO
+	 IHMz4jPDimw0f5L3s+JJZX5XjXEi3yh7CgZX6cUH0tZCxJLkjDhAKVBThS5AqHXcPTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=raspberrypi.com;
 	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LMzM6aTL;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=D9bqhAwT;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E008660A5BE9
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 14:18:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E008660A5BE9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC8660A262F
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 14:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDC8660A262F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=LMzM6aTL
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so7494905e9.0
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 07:18:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=D9bqhAwT
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so22863125e9.3
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 07:18:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793283528; x=1793888328; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1793283523; x=1793888323; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sUF6T1CjdM7KPykBK1rJtL5GvAJtQ2hOBe2P+sd0pXk=;
-        b=LMzM6aTLoKd8Cru+xZpRaMXjmDhPnBRho+NfETPuWNz4M11boDRJCoeJ2fje8SG8Vk
-         vwk2rDplqnrhRNENUapJJssuWVZUQLAqa2qyvw1iRwl1ISvrOPdDs6K0mP6eR201aTGo
-         av0YFV2H1V81z/Ih5rXCN13dJuK1nymT2kMGfT+bLMj5GLvEM+A374z9HN68unNMxH4E
-         dqWROmO5uI3lr1vF1CaUFrvse6zx3gZ+nqr/3hfKcPmb6UBmg1BcRt7LuRh4c3Tx31h8
-         hGRqQV8rY3peSeeMwAnLZCU+lDkjqcKdfW9g6OLuDrXyYgjPsEm1K5LMsj2TjwIgJ6Wp
-         sNlg==
+        bh=feAclFqGqANXGk5ANej1oUGx0E55rEkA+ZUZcmvKBcM=;
+        b=D9bqhAwTjUreboS+Y2SDyLVCsHDfEKR4fwP8eUIlHEaeJbUvJNQd2JxuFsITZLMPRH
+         fchxd5hpKCJ+n75TIaWFPzc0xISn1LGkaFC++PLBiX1PogG3ncv9SbIjPDjaJ5IXTkXr
+         wLV4ocPUmGnSURInwpLuXkyvlPRUrm4A8CBti4RCyyjqVun+xx9qngRG1B1QjNEEpUK7
+         vIikImjy7teud8Qhs7l1PeaOA0DiMRkIB457AM/k1yGUXGSpwZ8ja23QIrrXDqyEYiP5
+         ElVVIfyv9A08p5Ov6SpxO2zusLcp0Tv2wBPq/pcKmP4MGDS/vurYAMnr7RHJvhXo2c9g
+         KsPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793283528; x=1793888328;
+        d=1e100.net; s=20260707; t=1793283523; x=1793888323;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=sUF6T1CjdM7KPykBK1rJtL5GvAJtQ2hOBe2P+sd0pXk=;
-        b=QXhdTNMgSnrAZswiGGR8H44mOYtQz1/vcP1CYDhcE4VdImTQ6TpsyUWEA3mrHLwjlM
-         qf4gmdbvblpjRWZUyzfYBWTAPDtw5/gP4LWoCZ71VeVUEEXcuAdSGOLF+eJLiORFDsk9
-         qjLNzYoj9qk6HmN727b30zr8hR9i4esBFlCq9SlkgSlkUluJfKH60krdGXvl9skxW7kF
-         XTACRtDpgLmj0yva6AdUcnZjRSNXFxpiJ1yAVilLbYDftwlf4aO1X1qA865p66Ze9qYo
-         eCplWyQ/NwGQ2t4QJiV7O8GHgiesEeTEbexIy6U310K9wmwWGm2lYyJXffsotqMY224z
-         7u+g==
-X-Forwarded-Encrypted: i=1; AKwUvBy1c4XQQhb7OptQMa9CwnFeJ8IObTdvwr5mtV4ZifD1pk9apVqcHVZK2p9ys3yI/FzDZvI0xatIoySIHA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaiU6D0a//i9zdYeLL0+VaIF1qqRHJIof5KIdZNx9IYCffxh25
-	fHqDjTW88Oyn+aEMQek1FyzcMjaOFFo9f6KHBPnSl5O15zUw0ORcO+IW2C/Q0I7BbZ4=
-X-Gm-Gg: AYBFou04AHEonN7zBpgJ/TRz0LcjZ6msa248/rVq2Al8UBVkKvrNK49WuHUtyBQUkLc
-	XohKlVqw69cfy873tcriUuRL7qp2NldSi/bgAIwNP0tGtAlAhRKmHMgzvM31Du2Rf+hWwGhgx/N
-	iHUndpHQIyIZE6HVtMDu0Pzr9IXAhuR13h+lAR3K0E2UxGcW66Z8b9oty5Yk9UUUHH69wZuveL+
-	NOKUWUYvDrfXfNhS+l0ZxQLHcPXrtolWarGDbVeNUylyqp1ZB1wwXf/f4euKpmrQYJz5wbkyI1/
-	9PNDXj1YpVz1WXMfK86UZObfTvHz/a7a5Ms834nKErHF6GEJuknyBFj0P4aehpAmXhNuwuKLlVM
-	NIz2aJsOP+q6X16Cfrb0ONexTwiE7vYBYiqIwULS9mjEblgMXXlHYRybmBRaV7Topl7txeptgo7
-	aoTK5RkHfSpP1kZWMmmYiMcOiOB23hJkiJYCSWHa7+XEMN4C6bG1529FxmoKA0u8hP+jMzfPen+
-	+pd2hodITAwbkxuqVBUZkADAK9tAQc2QqJW8INbLLUBhRVcyUc+0opj9ulwCsUxN8GZQ0hGYVtT
-	7D6qfwNUF/sRdAuvq9hqmsc+BHiCQ6FIFCHKaQlV5rH7HuT3n65t9cJmrqXIVhot5DVLO6V4N9g
-	VZ386
-X-Received: by 2002:a05:600c:e558:20b0:4a3:5da2:38ae with SMTP id 5b1f17b1804b1-4aa87d702f4mr44584355e9.14.1793283528130;
-        Thu, 29 Oct 2026 07:18:48 -0700 (PDT)
+        bh=feAclFqGqANXGk5ANej1oUGx0E55rEkA+ZUZcmvKBcM=;
+        b=EMAPVrx05FSUKDPhtudjc4qdqBQ8ECM/4BqJz3gB50Ncfa1G734egwsNiphecck0Fr
+         WibjHLljI/sUcmulW5rewYKt4tzDjhi/zX6hN0fFjrHwLwg/yEJaBWSgXtOs1EmsZ8M6
+         /PvH3HZZ7W8vZO0bTowaXJYgqrFIFHAVp6myQx5CloiwPbWNWHRJjXO8EXWnEaYIVj8Z
+         +tBcRyEJlmd793GcU7OOpisUA4+EsN9tiJqj0Kkb84id5WPzQ59seRwwSKDGcd5ymseh
+         kT1OCvKa2LXYtlYwcHwc+RiUw+pBiha54o0ICXjJPzIFMycQWUMccnaBjx06JOoYC+Tx
+         DFYg==
+X-Forwarded-Encrypted: i=1; AKwUvBybhiZ3LqV67T5fkmcaCSaZg1lSql0Ta+0g4Fz1tRbWm5Sh/d41oeclUqXytGkBOEnxOQbgIUFayGPaNw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKID54hAgPautQ4MLjjmsqBRmO2JHmLY7KIFyBVycCHzZ60zOI5
+	eMoncC1JAWRK0HjrjgyXzy47e46iAKSbLkYcqKMOi56xvN+GbCDCG6PrFq2TUpY8Bh0=
+X-Gm-Gg: AYBFou2RWP96jW9RNYUtKfZTVxtdM7DhLs2QBWYLe9LDmS7qFumjuOqO1GuXeFit313
+	Qg4ffHRwZ8G4EQZBbIkAtK2q2c++jLHQahilLYooTjT7yTq4k07smofgjCObuYnk/pzgakcWPqd
+	GlTa3rdlC7ttzc88P5027BMVyoaTUqPfk5kB1ef0b+M2enPxLGiWun0sHSS9vUY4a3bySZ88i28
+	6s8FFgdVVr/GfqUYDlCqujDfUJ2e5Cb5au1CIC7zmmraMZkT5r/otASlR0OPcGSMtAPv0D+yAPp
+	P7K2ziN872RN1BU+Tut9UbRnmvcBrnFSxueWDY3GIzJ9u59hXZiU/ZUsw1fRlewoseSlZaO8vzh
+	kvD9lGv8IZ5vL+m+Wy8OQUCPA6Qt1rDn1aN+wJD2qfq0Qc9Q7NA6irOiGLi09hHsFMP17Gbj9wK
+	+sBDdoHUXyohjpbxlOmA9v9hnmZ8G+Nn5cg3lpb/nwA6n+u23363rfZzAjiFMQzzTGmZjekVg2W
+	t429zBw411Eu7NCyJou+dJXsO+TFnAj1Uwyd4QWZtIaz5R24TiP8WxnKEbGvaRjGKbFJJTcp3Bz
+	M6F2kyf018jXUVubx2xLbAOK6h5HqOm1iLRxUW7o9XYlXpH7R3LvKjOxeHVnYLrib4yCCafjjPV
+	C00UAOHD23zzuz4JMYc1eE85XMQ==
+X-Received: by 2002:a05:600c:b99:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4a9676d42d9mr119898525e9.32.1793283523465;
+        Thu, 29 Oct 2026 07:18:43 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.47
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm66702755e9.11.2026.10.29.07.18.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 07:18:47 -0700 (PDT)
+        Thu, 29 Oct 2026 07:18:42 -0700 (PDT)
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 14:18:31 +0000
-Subject: [PATCH v7 10/18] media: dt-bindings: sony,imx678: Add other
- Starvis 2 family members
+Date: Thu, 29 Oct 2026 14:18:26 +0000
+Subject: [PATCH v7 05/18] media: sony-starvis2: Rework 2 lane support for
+ higher link freqs
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-media-starvis2-v7-10-b33a1332fdfc@raspberrypi.com>
+Message-Id: <20261029-media-starvis2-v7-5-b33a1332fdfc@raspberrypi.com>
 References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
 In-Reply-To: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -106,91 +106,97 @@ To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Alexander Shiyan <eagle.alexander923@gmail.com>, 
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ devicetree@vger.kernel.org, Dave Stevenson <dave.stevenson@raspberrypi.com>
 X-Mailer: b4 0.14.1
 
-There are multiple members of the Sony Starvis 2 image sensor family
-that have the same hardware requirements as imx678.
-Add them as options to the imx678 binding, rather than duplicating it.
+With some Starvis 2 sensors, the link frequency on 2 lanes is sufficient
+to achieve a lower line time than the 4 lane value divided by 2, as
+the 4 lane value hits the minimum that the pixel array can handle.
+That can't easily be handled with the way the values are currently stored.
+
+Storing the 2 lane hmax alongside the pixel array's minimum allows the
+4 lane support to divide the value by 2, and then clip to the pixel
+array value as a minimum.
 
 Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- .../devicetree/bindings/media/i2c/sony,imx678.yaml | 44 ++++++++++++++++++----
- 1 file changed, 37 insertions(+), 7 deletions(-)
+ drivers/media/i2c/sony-starvis2.c | 34 ++++++++++++++++++----------------
+ 1 file changed, 18 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-index 098f72544216..0115f7b00d5f 100644
---- a/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
-@@ -5,29 +5,59 @@
- $id: http://devicetree.org/schemas/media/i2c/sony,imx678.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-starvis2.c
+index b54e1c68afa0..5dcd760c1a27 100644
+--- a/drivers/media/i2c/sony-starvis2.c
++++ b/drivers/media/i2c/sony-starvis2.c
+@@ -176,15 +176,15 @@ static const u64 link_freqs[] = {
+ 	[STARVIS2_LINK_FREQ_1188MHZ] = 1188000000,
+ };
  
--title: Sony IMX678 Sensor
-+title: Sony IMX678 and Starvis 2 Sensors
+-static const u16 imx678_min_hmax_4lane[] = {
+-	[STARVIS2_LINK_FREQ_297MHZ] = 1584,
+-	[STARVIS2_LINK_FREQ_360MHZ] = 1320,
+-	[STARVIS2_LINK_FREQ_445MHZ] = 1100,
+-	[STARVIS2_LINK_FREQ_594MHZ] =  792,
+-	[STARVIS2_LINK_FREQ_720MHZ] =  660,
+-	[STARVIS2_LINK_FREQ_891MHZ] =  550,
+-	[STARVIS2_LINK_FREQ_1039MHZ] = 550,
+-	[STARVIS2_LINK_FREQ_1188MHZ] = 550,
++static const u16 imx678_min_hmax_2lane[] = {
++	[STARVIS2_LINK_FREQ_297MHZ]  = 3168,
++	[STARVIS2_LINK_FREQ_360MHZ]  = 2640,
++	[STARVIS2_LINK_FREQ_445MHZ]  = 2200,
++	[STARVIS2_LINK_FREQ_594MHZ]  = 1584,
++	[STARVIS2_LINK_FREQ_720MHZ]  = 1320,
++	[STARVIS2_LINK_FREQ_891MHZ]  = 1100,
++	[STARVIS2_LINK_FREQ_1039MHZ] = 1100,
++	[STARVIS2_LINK_FREQ_1188MHZ] = 1100,
+ };
  
- maintainers:
-   - Jai Luthra <jai.luthra@ideasonboard.com>
+ struct starvis2_inck_cfg {
+@@ -632,7 +632,8 @@ struct starvis2_variant {
+ 	const struct cci_reg_sequence *common_regs;
+ 	unsigned int num_common_regs;
+ 	unsigned int vmax_default;
+-	const u16 *hmax_min;
++	const u16 *hmax_min_link_freq;
++	u16 hmax_min_pixel_array;
+ };
  
- description:
-   Sony IMX678 diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type solid-state
--  image sensor with a square pixel array and 8.40M (3856x2180) effective pixels.
-+  image sensor with a square pixel array and 8.40M (3856x2180) effective pixels,
-+  and part of the Starvis 2 family of sensors. Other members of the Starvis 2
-+  have the same hardware requirements, and therefore share this binding.
+ static const struct starvis2_variant imx678_variant_def = {
+@@ -658,7 +659,8 @@ static const struct starvis2_variant imx678_variant_def = {
+ 	.common_regs = imx678_common_regs,
+ 	.num_common_regs = ARRAY_SIZE(imx678_common_regs),
+ 	.vmax_default = 2250,
+-	.hmax_min = imx678_min_hmax_4lane,
++	.hmax_min_link_freq = imx678_min_hmax_2lane,
++	.hmax_min_pixel_array = 550,
+ };
  
- allOf:
-   - $ref: /schemas/media/video-interface-devices.yaml#
+ struct starvis2_model_info {
+@@ -1207,11 +1209,8 @@ static const struct v4l2_subdev_internal_ops starvis2_internal_ops = {
+ static int starvis2_init_controls(struct starvis2 *starvis2)
+ {
+ 	struct v4l2_ctrl_handler *ctrl_hdlr;
+-	const u32 hmax_4lane =
+-		starvis2->variant->hmax_min[__fls(starvis2->link_freq_bitmap)];
+-	const u32 lane_scale =
+-			starvis2->lane_mode == STARVIS2_LANEMODE_2L ? 2 : 1;
+ 	struct i2c_client *client = v4l2_get_subdevdata(&starvis2->sd);
++	const struct starvis2_variant *variant = starvis2->variant;
+ 	struct v4l2_fwnode_device_properties props;
+ 	struct v4l2_ctrl *link_freq;
+ 	s32 hblank, max_hblank, vblank, max_vblank;
+@@ -1228,7 +1227,10 @@ static int starvis2_init_controls(struct starvis2 *starvis2)
+ 		return ret;
  
- properties:
-   compatible:
--    items:
--      - enum:
--          - sony,imx678-aamr
--          - sony,imx678-aaqr
--      - const: sony,imx678
-+    oneOf:
-+      - items:
-+          - enum:
-+              - sony,imx585-aamj
-+              - sony,imx585-aaqj
-+          - const: sony,imx585
-+      - items:
-+          - enum:
-+              - sony,imx662-aamr
-+              - sony,imx662-aaqr
-+          - const: sony,imx662
-+      - items:
-+          - enum:
-+              - sony,imx675-aamr
-+              - sony,imx675-aaqr
-+          - const: sony,imx675
-+      - items:
-+          - enum:
-+              - sony,imx676-aamr
-+              - sony,imx676-aacr
-+          - const: sony,imx676
-+      - items:
-+          - enum:
-+              - sony,imx678-aamr
-+              - sony,imx678-aaqr
-+          - const: sony,imx678
-+      - items:
-+          - enum:
-+              - sony,imx832-amr
-+              - sony,imx832-aqr
-+          - const: sony,imx832
+ 	starvis2->vmax = starvis2->variant->vmax_default;
+-	hmax = hmax_4lane * lane_scale;
 +
-     description:
-       The IMX678 sensor exists in a colour variant (IMX678-AAQR) and a mono
-       variant (IMX678-AAMR). The variant-specific compatible describes the
-       exact sensor variant, with the generic IMX678 compatible as a fallback.
-+      The same applies for the other sensors in the family.
++	hmax = variant->hmax_min_link_freq[__fls(starvis2->link_freq_bitmap)];
++	if (starvis2->lane_mode == STARVIS2_LANEMODE_4L)
++		hmax = max(hmax >> 1, variant->hmax_min_pixel_array);
  
-   reg:
-     maxItems: 1
+ 	/* PIXEL_RATE is fixed and read-only */
+ 	v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops, V4L2_CID_PIXEL_RATE,
 
 -- 
 2.34.1
