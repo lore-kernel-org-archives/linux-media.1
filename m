@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793262665;
-	b=xgsOohjMc7EOIbzFA/PIC+WCt0X5OSfPX1MEYHiwS/GgmgjA1Z/HH/D3DXGnL1bJ+jqj
-	 MJrTFZm3ZSYvq52SVaDdwcCFOe8zCKpisrelSf/WSxSX9RFr4LSsC/HVw3PMmWLWEwQv0
-	 LOjZRVhPa9vD1BOMagVJRUdgCUuoEtQAwA+lzmRk+O7d6n6tBiKQfESFpish6asVn/yzD
-	 vDJLbJPImz2VhM4xiDpp49cmsb6VYEh7kjQKnC34tKYFuvpfcp6U+cxiwh5Fdt2lj5qz3
-	 2I2Sho8ptZKA3Zq+KRN+JBTvlGvEO534XWCWHjX8Jobm7K5ewQpMoDV90u83hiUmOzA==
+	t=1793262819;
+	b=TFqttRSIg4ujc2cgcQJIWLReeTcfHWqpudmrKVyvprMdHCI7gaaf90Uo48qSj+OpV/JH
+	 0erIJnCDju2U7Snc6N+zWBTgOC4ruX6JG66lIMKVx3iV7XcDPM7djZAf/iAOtn8u9hLfz
+	 ppCp1brmPm9M8nucsgfIQCeBcmkd60jjWokQbRLU087QOT1u4CibbL/DFNUon1bRKnU+K
+	 D5M+ewBLmHKXEg3RM9IzywSK5I732ZvLr/x2vz1wiUV4i4CtTEgpwHx4D3Q/TlSJwws6I
+	 45Ny6sFCXAGCDFvx4UQH9wDeENSK339RnTGIimgagsI6VBaKBX1n3J6t8u4wuUJysew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793262665;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wSx9wCcjJKvOn/7c6bUYnvLr92t6bdv4PcrFzzJjwD0=;
-	b=c2iVZR+OPzn3zFGl8fLzrS/r2e+V76YHKNgttIjHPDeaj7ovuOWtRnqQQAapamZltE1m
-	 PQQgu8FKtP0Q4TPzHM7o0Tr/xJffwq/HbOe8XWFe3djV94IbIWQWvdtP7Ffia2E1THbC/
-	 QYzt5RSuQ1D0K01YtaoFfOT+FWLBJIShWJWqZqqYBcZtRDjaQGRvSMzGgWaiFZalaTiTG
-	 WKIu+f1tZld71oBe27aA74P1u4suCuedqrTuvZtZwyUMqVk/FPXE43tKtXrlayDVzDPA7
-	 suZrjg4NdoIpdWMLlDVBMW3Ha/Yxh+Qe3U9BWntFJepHzQL0i4gD0NIqy3/kcW+1dFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793262819;
+	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
+	 Date:Message-ID:User-Agent;
+	bh=A5PJVAbWpxbZoD5wzRR3B/q33/96P8Z7eWKDkrRAWug=;
+	b=4qFez1bp3L9GbzjKe9PLNHAIe1xdyk6+9O0sdCvSmd2O+8w5RdJpGlQFrODDoi3/Xgnq
+	 1i+SvgBiLU1JMp0WtuznKeWVfrFTn2LeM/ycp2CgnE5iZD9lpmkVKn3UiPZZLN+vtzTjA
+	 H47WDYpmAko4jkoQd54Pol3KFbhPNToSS/eXMDIx+G0m0juJbDaC+/Qpek2WnsWLH+gRo
+	 KJ1cNj68sT2HxDV+XQKGJ8fuhVIVV+OLfVWDRTnZzBC09xb+ZEZMqbCdzc+Zvm0pzJ82o
+	 wMA+tJCG5FD5qzQcuPZPNCqH0xl8wL7ov6+5iV3iMJ8kt4JiL23pPJm/9zqHOc/1wmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=xiaopeng.com;
-	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=a3kfMKr5;
-	arc=none smtp.remote-ip=115.124.28.100
-Received: from out28-100.mail.aliyun.com (out28-100.mail.aliyun.com [115.124.28.100])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ilR4iNLO;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A112B606A31E;
-	Thu, 29 Oct 2026 08:31:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A112B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A75A606A31A;
+	Thu, 29 Oct 2026 08:33:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A75A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=a3kfMKr5
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1793262661; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=wSx9wCcjJKvOn/7c6bUYnvLr92t6bdv4PcrFzzJjwD0=;
-	b=a3kfMKr5P5D8V+YGv4YRFJaVEheO+avCzAISNp8yn7u64Gv1EyAFS0KXTUCNGUo3So5ivGblL+5BQQAD5NrTxYrX4CdSI8EdKp7F7Ie8ClBd7byZ4xrChy6LIuT4giSAmdJ9vh3Vcd0YQnUAM/e3W7w3187Mi0cJsZZPb+fOegI=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.8749246|0.1059115;CH=green;DM=|AD|false|;DS=CONTINUE|ham_system_inform|0.0833209-0.0015473-0.915132;FP=14879031229243279073|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023087102;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jsHP3Mw_1793262659;
-Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.jsHP3Mw_1793262659 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 29 Oct 2026 16:31:00 +0800
-From: Guo Zihao <guozh23@xiaopeng.com>
-To: hverkuil@kernel.org
-Cc: mchehab@kernel.org,
-	niklas.soderlund+renesas@ragnatech.se,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: adv7604: fix out-of-bounds access with a one-block EDID
-Date: Thu, 29 Oct 2026 16:30:59 +0800
-Message-ID: <20261029083059.546070-1-guozh23@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ilR4iNLO
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:cdf:7464:6c04:36e4:ee87])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C1789BE;
+	Thu, 29 Oct 2026 09:31:20 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793262681;
+	bh=81jOwX+yqVIy7Vh/+w4HRjDXxQYCNkpXYFAZ5hraABc=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=ilR4iNLO43M2xWL/zCKetRrMn9gK5lLL9JcOnc1gc9V6febV3r/lUWedUb3vsC98g
+	 LS/p/eHs42Jd1DwB2eUyF+vq/WQuNci8Dd1Wz+Tcm7H/TRCcW3Xu/b2WzjvVS6S6qA
+	 tLVNUoX2VdIlgfWqvRNXbXvCrvV+V1oFlZkJMVcY=
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,75 +53,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261029050002.3880-3-lachlan.michael@sony.com>
+References: <20261029050002.3880-1-lachlan.michael@sony.com> <20261029050002.3880-3-lachlan.michael@sony.com>
+Subject: Re: [PATCH v6 2/2] media: i2c: Add Sony IMX908 image sensor driver
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com, Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org, Lachlan Michael <lachlan.michael@sony.com>
+To: Lachlan Michael <lachlan.michael@sony.com>, devicetree@vger.kernel.org, hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com
+Date: Thu, 29 Oct 2026 14:03:28 +0530
+Message-ID: <179326280897.506110.417578504765133305@freya>
+User-Agent: alot/0.13.dev39+gd90228221
 
-When VIDIOC_S_EDID is called with a one-block EDID (no CTA extension
-block, hence no Source Physical Address), v4l2_get_edid_phys_addr()
-leaves spa_loc at 0. The fallback path then sets spa_loc to 128 and
-reads edid->edid[128] and edid->edid[129], 2 bytes past the end of
-the 128-byte kernel buffer that check_array_args() allocated for the
-EDID data. The physical address is subsequently written back at the
-same out-of-bounds location, so this is both a 2-byte out-of-bounds
-read and write of kernel heap memory.
+Hi Lachlan,
 
-This regressed when support for EDIDs up to 4 blocks was added:
-commit 54b74981c86c ("media: adv7604: writing a one-block EDID
-failed") carefully handled the one-block case, but the fallback that
-was added six days later undid that protection again.
+Thank you for the patch.
 
-Only take the spa_loc = 128 fallback if a second block exists, and
-only write the physical address back into the EDID if a SPA location
-was found. This restores the one-block behavior of 54b74981c86c.
+Quoting Lachlan Michael (2026-10-29 10:30:02)
+> The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+> output interface. The driver supports RAW10 and RAW12 output formats,
+> exposure and analogue gain controls, image flipping, blanking controls
+> and test pattern generation.
+>=20
+> HDR modes and RAW16 output are not currently supported.
+>=20
+> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
 
-Fixes: c730ff32b917 ("media: adv7604: support EDIDs up to 4 blocks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
----
+Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
-Triggering this requires nothing more than a VIDIOC_S_EDID call with a
-single-block EDID on a subdev node, i.e. the most basic EDID a
-userspace application can pass.
+> ---
+> Changes in v6:
+> - Simplify runtime PM handling by removing the CONFIG_PM conditionals.
+> - Rework probe power sequencing to power the sensor explicitly before
+>   identification and enable runtime PM after initialization.
+> - Parse the firmware node earlier in probe, before hardware resource
+>   acquisition and sensor initialization.
+> - Minor whitespace cleanups.
 
-Verified by an ASAN-based userspace reproduction of the
-check_array_args()/adv76xx_set_edid() path (kmalloc(128) buffer,
-blocks=1, no SPA):
+[...]
 
-    ERROR: AddressSanitizer: heap-buffer-overflow
-    READ of size 1 ... 0 bytes to the right of 128-byte region
-
-With this fix applied the reproduction is clean. No regressions for
-multi-block EDIDs containing a SPA: the spa_loc != 0 paths are
-unchanged.
-
- drivers/media/i2c/adv7604.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/i2c/adv7604.c b/drivers/media/i2c/adv7604.c
-index ac9c69ce438f..c007ac0bd8e5 100644
---- a/drivers/media/i2c/adv7604.c
-+++ b/drivers/media/i2c/adv7604.c
-@@ -2358,7 +2358,7 @@ static int adv76xx_set_edid(struct v4l2_subdev *sd, struct v4l2_edid *edid)
- 	if (err)
- 		return err;
- 
--	if (!spa_loc) {
-+	if (!spa_loc && edid->blocks > 1) {
- 		/*
- 		 * There is no SPA, so just set spa_loc to 128 and pa to whatever
- 		 * data is there.
-@@ -2404,8 +2404,10 @@ static int adv76xx_set_edid(struct v4l2_subdev *sd, struct v4l2_edid *edid)
- 				  mask, (spa_loc & 0x100) ? mask : 0);
- 	}
- 
--	edid->edid[spa_loc] = state->spa_port_a[0];
--	edid->edid[spa_loc + 1] = state->spa_port_a[1];
-+	if (spa_loc) {
-+		edid->edid[spa_loc] = state->spa_port_a[0];
-+		edid->edid[spa_loc + 1] = state->spa_port_a[1];
-+	}
- 
- 	memcpy(state->edid.edid, edid->edid, 128 * edid->blocks);
- 	state->edid.blocks = edid->blocks;
--- 
-2.50.1
-
+Thanks,
+  Jai
