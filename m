@@ -1,79 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793289802;
-	b=2+ZtJGGM4vNvnDjsFo+1U58IwySL/1M0KNxxWFX43izpwxi/A51kqph5U+rnR9nY1C4g
-	 yXw3yncNT4NnmKhvYEaq1nOYpHKaasQ35iLqPweHMP6oBNr9v++7Yh3dxEUkGQyckuIYq
-	 NbFNXYpirLlq32UEFe7TBTlHChP4mPyf1n6jBQjNBISurabe9OXbQGYWnKDOSvquT0FhK
-	 rxfWj77HEnXiaxGxeEUCB5bSfV15x+UN8FYnFKF7aTi0F8ovyCRczFBBhR0NXsHQgja9D
-	 Ww9FoPAtKz26yfL+2nIIem55wxwmdwdRHyuxMR4kvwU8MJWSEVMerlPgvdfdCGc7EXg==
+	t=1793290668;
+	b=QiIuhx8geNAQj9XRznBbushJpfbH+Wua8zZTWh/R+riLKkoNGCu3aZnNK7t0PWjFtsU6
+	 tzUDJwuj6eXLquJiTu+VZbj0Ox8cQO8of6e1IGF1hrR1BGZhjPjWLI2gaUaqYsoJZfsRx
+	 cCq/Uka4MnLCiri5xvAki/RzmStzKmuJ2jFZMrmwsfeFlY4bVEfWHL8/Sf3ayuOornEea
+	 7Q+3uqwgQLHgDv99YWW5jTOClb7sWqTrbt/GYx0NkyWZJp5x/RU0jhFrgTlmcdW/+K1wo
+	 r+A7+E2FdWBxjs8SudOxwmcN3vbqd52X3MDpvssyQ+lWZO4boh8IxSe0JDPrkI7RFsA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793289802;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=i0wp/mm6haAP0V/K/nQCNw1NRVKeQLSfU1S8NxuwQDQ=;
-	b=kBcwDg3nbjb2SjrDa+fLx97Ra/NSgusQmWnyPhv1UyX8ERc86qRI6FQpbqFxWoL0mDdj
-	 bhZ69LEBDASeQ8967t9N71j/Nc1N0qO4eKOEw3XB+CjStqjUPV8ECVIFl8ZmqFSsA0UxU
-	 qTa/R8HwV0Bf0/Mqbvn73L6v6bluSgj6KqFuCmd54Tt8v4s0ZhIiBgMI0C8FpnmIRjDmt
-	 RpZa8yntTOv6KcHA5mMktiwFRryXE72rc0hJVIXWg7N/qBm8V6EamDE8qq6gJr1b6ramB
-	 N/SA8mP50MBAmFCpgInjtUn3QRM/og6KUB8e9zLzU6WuSmAwNet0y1xV6YoFeI9MiMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793290668;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=tbiM1kSqrWfjQZmWbHN5MwVp2C6WI/0lQqYu/tg3TVI=;
+	b=gMauw1nePwTIHc5GwzWLLi99l3CzVQqtGXKXOHxtJnTg+5OXJFr7TiKkzPUOmFyHbxrY
+	 o7xqEvtusp1Uv/gOkb8asx1NqiXOSlZFPJUHVOXLNTqjT4l7XOaI15tWBPg1WHExQU5/h
+	 waHHApJySUK3MfXMsXq9D5tP6leVvs9MMhs2O538mHGxcgN1yLmaJIXFvs3iAsjJWEk/Y
+	 MZCCm/UMZcXABf3y47iv6ybSwgiZoW2Edw7FnXawE/ojwf2iWCxwVGAzBQjL6vz8SDBT/
+	 FNhbujNoZuXvvGUAabQT6GyBlX8y1mO27rjDUp0isDPzXMO4TVY3drW5u84Zn6dklIg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhJfjsrl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1184B606A31A;
-	Thu, 29 Oct 2026 16:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhJfjsrl
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793289801;
-	b=3NouYxLtblll+fibHA640MjR88teZn3wNrBNUceF+tOjHIXZZ/XEtYz7OynPEyE+jjgc
-	 dEP0ko4GRKBpl/RhB44qKjZuhOl3PLXjiUoX90OgcD9Um6G6h5q0GtojZKEptcA8vb9rt
-	 YdEOVXEoSByKhTqtsDdaYEMB6QCd6Q0eoiDKppEe1aW+I1IzcKiW089afWXs/xjgknz64
-	 +3LsjTD1E6Vfl4U4fqw1EMBTfPJyGrXqCntb8C0GYEzWgD/h7G5XBLE+wuxkRGDuDnqWa
-	 ZfTQkyMtGUdY5kS1tyD+Xe7B45CficZylqcLrWe/1jdzfcV7SCQ17+7Yk50WtBB8KDA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793289801;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=i0wp/mm6haAP0V/K/nQCNw1NRVKeQLSfU1S8NxuwQDQ=;
-	b=K8yDwhx0y4kv1sEtmWtrCAkNWQMjzRxYONFpP499PU7LWUYZlslfiifcCnuMnfnDuG7S
-	 +v6lYojilhrCgRGhAX82NKT6F9hu7FKfqcfKFL7bqh4u+skAMJ67BHPQRCPF8fgmks3Xz
-	 TO+943a2yZSXsfnVUXZqY8lBGxtkdn8S5aAAVc8mg9B5g+4YWQ43wVgyqsLDSRvwQcBVm
-	 NN7n9ExCycq77a63fOqyXy8RM3+eG6P5SyESi1rZUvMI4WK/QiKws5GsyTrUg+K0gPNLo
-	 R+eX1iCtq/sY500b6H2MCxu82VaQb2cvSPnWa5h4s/Rq/n8ubn7atw8sLgB16xVyshQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=lQwA6HCT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BFCEA1F01816;
-	Thu, 29 Oct 2026 16:03:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793289801;
-	bh=i0wp/mm6haAP0V/K/nQCNw1NRVKeQLSfU1S8NxuwQDQ=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=GhJfjsrlCuCw0OSIETBXxl10iwXWD3c4naGs9sDVveqkd0WJI6zVaWic0JsF0thNA
-	 w4NDwmb4w+2S4ZTjltHhfM9/ZAQvDZ+DiWQ4U0y1X+2FLrVjwvQiEdJUmPPxs0QW+N
-	 8s4j4SHL1CGcomxeC+Te6Mc6ZXHD4/7lq65bQOVsFUxA7wDd+wYp2+4O7CSur3r+12
-	 FqgUUpRCYmvjjtghW2Qtf6LEfNiEJw3YbzSU68XOArTa7JuR6yjqYsaphh2Rce68Ae
-	 dQXU/li8+bt+DaDXjAobwKgnXEIxjKoPCMYF2eIrlyvK/bCOrgbzJlNe/o99C4UI0e
-	 XN3waOn5E8hMA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 42276458F2;
-	Thu, 29 Oct 2026 16:03:20 +0000 (UTC)
-From: Valerii Bokov via B4 Relay <devnull+vlry.bkv.gmail.com@kernel.org>
-Date: Thu, 29 Oct 2026 17:03:13 +0100
-Subject: [PATCH v2] media: rkvdec: vdpu383: configure the reference read
- cache
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190F9606A31C
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 16:17:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 190F9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=lQwA6HCT
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-49e1251674cso1011654fac.2
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:17:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793290666; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QNUMqvhfX99jI0bmeqIJBrVyjgHh8biJi7t/KQwu67Y2N5YdL1EdCW3K0vi77ir5sv
+         85HWJcBT9EIdNv+ODdYJpyRfjAM6H3ZjkWrt+PKmhW3usis0ArzM4HcbHlG3KTXju+fp
+         3AU36PbIzYf4+ANL5UEfsYMJfv9DgfCfmhYEKz3V+eg/vjgX7OdjRUMCQQsd76TLAaj6
+         AiZCUym3Wj4A+tWdp9CTEo8eNyuCavSHjMSib/wg+4c4c741liVIDjpYczqM+HxGbhLN
+         Jah0elC+baoWxMLKpHVYIYsT/Tx0I98OyAMSPAveKNZ1Olw77byjjC7QlMBwJvx1NtFi
+         5jVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=tbiM1kSqrWfjQZmWbHN5MwVp2C6WI/0lQqYu/tg3TVI=;
+        fh=NBznWYjyaDILHyI3qePvI2dARPEudXQh32emusRRSjI=;
+        b=IDVdXv51qdcs/g+wPGtP5x8RTdPHhmRLMdY5hGFsxmPldxZT/Wp1pbsm65YpQwUZkG
+         1Y0TbFE5dQ1amns/3sk9Av4krCU9FcHg1tVJwetbOq9GNnpQqdeYMXUCBr7aPCdV13iz
+         VUaoFXdZ6kgaD4vG0vpGznU24mumr4ympgRET3Osuh1Bk57AVl1SyOeHKy7Iz1DVrm8P
+         J5QH2/DRQvVjtF7pd7b7uPKfrhSIDGtsvHFS7/Z8/RoKnvZVMZ3RA5B6B9QkgM6Q6UIz
+         pxQJccGznKol8DHgdKYOdhidszC/ewYW3qj6gEZA5ZY5y6yb2qAt4x4VHtNTdiw5vB0V
+         qvVQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793290666; x=1793895466; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tbiM1kSqrWfjQZmWbHN5MwVp2C6WI/0lQqYu/tg3TVI=;
+        b=lQwA6HCTlJowMc3fUQb7f1jdQFm07tgAPzK91ILicAIBwml/CuxI55Rk+m5fu163EA
+         yeN5Idq3BZZyKkkbK0q7S8RocwFypKDHO1LSSEMCppvokNQl5EmIBHOYjaaq2xP5Ejf9
+         8b/07vyk/MkBNsXGFwyV2HBmszy/Tifv5Ri4vYuGBoUAL2EOclfvcnVZk+t0G7KyHpeW
+         AjFNj8K721EsryPPCeWL42+iied00pDshoEoTcovNdqHEwkF18Kjdpa05hCFA0IJ0fx9
+         tpaUOI6iU0DJb6mb2PQColERxTbhUucglLmyVULiZpKFULkkJ4pVRo0d+8ENn0Jr0Pnj
+         KfEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793290666; x=1793895466;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tbiM1kSqrWfjQZmWbHN5MwVp2C6WI/0lQqYu/tg3TVI=;
+        b=n9z09ZwA/zqHLUtTtxM8gZEgYI7+/YVfcnAg1JYQvRIPe41FeCEAW42S71t3uz+sKs
+         hM6x0iAQKfrH262Hu9kv7X9LM/F7NWslXGZMhQ/mQAXsEuBcU7n/8Vb3at4Exw01KPAk
+         NwDR82JtxfmHUCv7IjeUL+Mngh/KBKoc2PQyAYbk5UtD8scN+qS9fNYH1AXEureHvZpE
+         9N0Ibs6lHT03B2lbPaMALS7NtjyFXC+t71WscOhCH8/dr9v76Q5FK5T2DjaSN1Y2HWcg
+         7Tm8NAb+S/nYDz5CcxOPyRB34p6xaxUdf0RtpB1yj2EzjQ33woTfLbgsmX70DfFWwcSH
+         5RkQ==
+X-Gm-Message-State: AFq9FYLpGvwikKtG8UzEZ/Ywgy1XhstF9PiOUFbl802IoitC8UU/prdE
+	vvJFrdLGwTGNH9AL3Y7yhjAqDCbH4SKCecRbzL+/0c9bHJhStsw88EcWDafk3YRWFuLxpAX0KjX
+	XZLQ3jg3pGQul0K66zUtlGbq25YhgoABr87holWVObw==
+X-Gm-Gg: AYBFou07x3J8kt1aK8z22isZxvBlMZZibmJ1Qg9nKE0hkcne+WbZRGJv82BezLqpFWN
+	iAvAV0QBnVbhHXaxNvPbyMSOS3VjAI5gaTZ65uiJ/VdK8NtpEQ1E9un8xZtlTiorDJG+K14DmLy
+	VTZNCJ0KgSr50ryT9D6IKQv5aTFJ0+yV6BIqaYzFwW231QPD+8B25/gilPrgg2/TzWUx1PbAd+U
+	RzLX2hWGeKEFedUfS7Zv9JIUFGOwZzapAMAI01+XmvgwoRNT70sth5d8hcQMgvZOb7kumPOSOOp
+	ik9rxlAM2iUmipxfDXNrBQn92zbOaniyvCjPTPLl51tSTRvcK2MnCcvCJpFIoRdcSfKZ6lJ2zWI
+	AcckUCEzCK6uZdOAL/X+Sto34izpWIc8fLaFosrSrO65gDCxcC15JZmSwv7/kNliiYL2pFm80Bo
+	aF0+LxzlopeCyv/iDwb+Oh3Jc8ILbqCKjeDm7e0SLZt/A3oXxGUzVoVQ==
+X-Received: by 2002:a05:6870:322c:b0:494:888b:33e8 with SMTP id
+ 586e51a60fabf-4a8bb9635f6mr4642047fac.20.1793290666459; Thu, 29 Oct 2026
+ 09:17:46 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,273 +103,210 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261029-rkvdec-vdpu383-cache-v2-1-859bb44e03a0@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNTQ6CMBBGr0Jm7RjaEdK48h6ERWkHmCg/abXRE
- O5u5QIu30u+920QOQhHuBYbBE4SZZkz6FMBbrTzwCg+M+hS16rUBsM9eXaY/PoiQ+isGxlN33W
- 9IUXeEuTpGriX95Ft2syjxOcSPsdLUj/7J5gUKvRUXYynjipT34bJyuPslgnafd+/F+3q4LgAA
- AA=
-X-Change-ID: 20261028-rkvdec-vdpu383-cache-8fbbf8313da3
-To: Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Valerii Bokov <vlry.bkv@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793289799; l=10924;
- i=vlry.bkv@gmail.com; s=20261028; h=from:subject:message-id;
- bh=vPKssOpH7rm17FJw7zQKtZ43E9tGtwv6Ww4Ilm5fdec=;
- b=NJ2r8ar99fkcqCDQWka9Y8mDyUdUbetqcb3yBxSNBm++tTqt10b7NvOFyN6IcYAyHuR+yUDqP
- NEaAyB+Qip7C6gU9HqEOzAEaHfshR9tDbYZ/dbpHqPIGfYucWdwi5nL
-X-Developer-Key: i=vlry.bkv@gmail.com; a=ed25519;
- pk=u/rk2lx5DMp734XMF4ThLZD2H0AqvfYuikR7wu2iyNA=
-X-Endpoint-Received: by B4 Relay for vlry.bkv@gmail.com/20261028 with
- auth_id=1342
-X-Original-From: Valerii Bokov <vlry.bkv@gmail.com>
-Reply-To: vlry.bkv@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261026111032.88355-1-antoine.pichot@gmail.com> <20261026111032.88355-6-antoine.pichot@gmail.com>
+In-Reply-To: <20261026111032.88355-6-antoine.pichot@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 16:17:29 +0000
+X-Gm-Features: AclHuK92Pqhgpz4CY3r4Mn98MdOq_5fPo7ARJt1Ycmz9acusfVL0tHSkEH0sYpM
+Message-ID: <CAPY8ntAzJ=jA-c9LoLW5tQS=bpQZ3SfepcGVuvhq4cRzXvRK=A@mail.gmail.com>
+Subject: Re: [PATCH 5/7] media: i2c: ov7251: Move the strobe registers out of
+ the mode tables
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	mchehab@kernel.org, djrscally@gmail.com, dan.scally@ideasonboard.com, 
+	hansg@kernel.org, andriy.shevchenko@linux.intel.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Valerii Bokov <vlry.bkv@gmail.com>
+Hi Antoine
 
-The VDPU383 has a reference read cache with its own register region,
-"cache" in the device tree, which the driver does not map. Its
-configuration and read limit are therefore left at their power-on
-values, and those differ between power-ups. On RK3576 this makes H.264
-decoding of a 2688x1520 stream take either 22.5 ms or 65.4 ms per
-frame, depending on the power-up, while the values the vendor driver
-programs bring it to 3.6 ms per frame.
+On Mon, 26 Oct 2026 at 11:15, Antoine Pichot <antoine.pichot@gmail.com> wrote:
+>
+> The three mode tables write the same values to the STROBE pad output
+> enable bit (0x3005) and to the strobe control block (0x3b80-0x3b96).
+> Move these writes to a separate register array written right after the
+> mode table at stream start, and name the registers a following patch
+> needs: SC_REG5 (0x3005, whose bit 3 enables the STROBE pad output), the
+> strobe frame pattern (0x3b81) and the 32-bit strobe frame span (0x3b8c).
+>
+> The values written are unchanged, only the order of the writes within
+> the stream start sequence changes. No functional change intended.
+>
+> Signed-off-by: Antoine Pichot <antoine.pichot@gmail.com>
+> ---
+>  drivers/media/i2c/ov7251.c | 93 ++++++++++++++------------------------
+>  1 file changed, 33 insertions(+), 60 deletions(-)
+>
+> diff --git a/drivers/media/i2c/ov7251.c b/drivers/media/i2c/ov7251.c
+> index b6579a56a5..ad66422d9e 100644
+> --- a/drivers/media/i2c/ov7251.c
+> +++ b/drivers/media/i2c/ov7251.c
+> @@ -53,6 +53,9 @@
+>  #define OV7251_PLL2_DIVIDER_REG                0x309d
+>  #define OV7251_PLL2_SYS_DIV_REG                0x309a
+>  #define OV7251_PLL2_ADC_DIV_REG                0x309b
+> +#define OV7251_SC_REG5                 0x3005
+> +#define OV7251_STROBE_FRAME_PATTERN    0x3b81
+> +#define OV7251_STROBE_FRAME_SPAN       0x3b8c
+>
+>  #define OV7251_NATIVE_WIDTH            656
+>  #define OV7251_NATIVE_HEIGHT           496
+> @@ -240,8 +243,31 @@ static const struct reg_value ov7251_global_init_setting[] = {
+>         { 0x303b, 0x02 },
+>  };
+>
+> +/* Strobe output settings, the same for all modes */
+> +static const struct reg_value ov7251_strobe_regs[] = {
 
-Map the "cache" region and configure it statically: enable cacheable
-read-allocate accesses with 64-byte lines and set the read limit
-(MAX_READS in the vendor driver) to 0x1c. The registers lose their
-configuration whenever the decoder is powered down, so they are
-programmed from runtime resume, which also covers the first use after
-probe. As the vendor driver does (rkvdec_vdpu38x_run() in
-mpp_rkvdec2.c), the cache is still cleared before every frame, because
-reference buffers are rewritten between frames.
+Is there a real need to add a new array of registers for these, or can
+they be added to ov7251_global_init_setting? As long as it's after the
+{0x0103, 0x01} reset, then order shouldn't matter.
 
-The region is optional: on a device tree that does not describe it, the
-driver probes as before and leaves the cache unconfigured.
+Seeing as there obviously are others using this sensor, I'm looking at
+upstreaming a few of the obvious clean ups, and I have a couple of
+patches in the downstream Pi kernel.
+One of the first steps is to pull all the common registers out of the
+ov7251_setting_vga_* arrays into ov7251_global_init_setting, and this
+change is partly going in the opposite direction.
 
-Decode time per frame for a 2688x1520 H.264 stream on RK3576, within
-one decoder power-up, with the registers set between runs:
+Thanks
+  Dave
 
-  MAX_READS  CACHE0_CFG  ms/frame
-  0x0        power-on        65.4  (slow power-up)
-  0x2        power-on        22.5  (fast power-up)
-  0x1c       power-on         7.2
-  0x2        0x13             8.6
-  0x1c       0x13             3.6
-
-The decoded output was bit-identical in all five cases. These numbers
-were taken by setting the registers from user space through /dev/mem.
-
-The registers were identified with the help of an AI coding assistant
-(Claude, model claude-opus-5-5), which diffed register dumps of fast
-and slow power-ups and matched the result against the vendor driver.
-It also drafted this patch and its changelog, which I reviewed. The
-measurements and tests were run on an RK3576 board.
-
-Link: https://lore.kernel.org/r/20260619111810.564384-1-laszlo.fiat@tuta.io
-Signed-off-by: Valerii Bokov <vlry.bkv@gmail.com>
----
-Testing on RK3576 (Smatek T10PE) with this patch applied, on top of
-6.18.34 with Simon's priming patch:
-- The cache registers are programmed on every runtime resume: zeroed
-  by hand while powered, then suspended and resumed without decoding,
-  they read back 0x1c/0x13 (4/4).
-- 2688x1520 H.264: 4.0-4.2 ms/frame on a 257-frame clip across 8
-  separate power-ups, no fast/slow lottery left.
-- Output is bit-exact against FFmpeg's software decoder (per-frame md5,
-  all 257 frames) for that H.264 clip and for an HEVC Main clip with
-  B-frames encoded from it.
-- 10 minutes of a live 2688x1520 H.264 RTSP stream at the camera's
-  25 fps: 24.4 fps average (23-25 fps in every 30 s window), 14% of
-  one CPU core, no kernel or decoder errors.
-
-Open questions:
-- I have not checked whether the decoder's soft reset (after a timeout
-  or error) also resets the cache registers. If it does, they need to
-  be reprogrammed after a reset as well.
-- Simon's out-of-tree priming patch also modifies
-  rkvdec_runtime_resume(), so the two will conflict textually there.
-
-Possibly related, not part of this patch:
-- VDPU381 (RK3588) may have the same problem. The vendor driver
-  programs three caches there before every frame (CACHE0/1/2 in
-  rkvdec2_run(): cacheable, read-allocate and 64-byte lines, plus a
-  clear of each), and mainline programs none. I have no RK3588 board to
-  check whether its decode speed also varies between power-ups.
----
-Changes in v2:
-- Configure the cache statically from runtime resume instead of before
-  every frame, as suggested in review. The values are constants, so
-  "restore" is a plain rewrite; there is nothing to save.
-- Keep clearing the cache before every frame, as the vendor driver
-  does. Happy to drop it if that is preferred, but I have only shown
-  bit-exactness with a single clear on one clip, which is not enough to
-  rely on.
-- Make the "cache" region optional. v1 returned an error from probe
-  when it was missing, which would make the decoder disappear on any
-  device tree that does not describe it.
-- Map the region only for the VDPU383 variant, since the configured
-  values are specific to it and are now applied from shared code.
-- Link to v1: https://lore.kernel.org/r/20261028-rkvdec-vdpu383-cache-v1-1-d3548d3b3586@gmail.com
----
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  2 +
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  2 +
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h |  9 +++++
- drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 46 +++++++++++++++++++++-
- drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  2 +
- 5 files changed, 60 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-index 5ec755733..efb1f6975 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-@@ -441,6 +441,8 @@ static int rkvdec_h264_run(struct rkvdec_ctx *ctx)
- 	timeout_threshold = h264_ctx->regs.common.reg013_core_timeout_threshold;
- 	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
- 
-+	rkvdec_vdpu383_clear_cache(rkvdec);
-+
- 	/* Start decoding! */
- 	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD);
- 	writel(0, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-index 3462d995d..6223b89e2 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-@@ -568,6 +568,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
- 	timeout_threshold = hevc_ctx->regs.common.reg013_core_timeout_threshold;
- 	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
- 
-+	rkvdec_vdpu383_clear_cache(rkvdec);
-+
- 	/* Start decoding! */
- 	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD);
- 	writel(VDPU383_IP_CRU_MODE, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-index 04eb23297..f64d56a22 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-@@ -42,6 +42,15 @@
- #define VDPU383_STA_INT_SOFTRESET_RDY	(BIT(10) | BIT(11))
- #define VDPU383_STA_INT_ALL		0x3ff
- 
-+/* Reference read cache, in the "cache" register region */
-+#define VDPU383_CACHE_CLR_CACHE0	0x10
-+#define VDPU383_CACHE_MAX_READS		0x18
-+#define VDPU383_CACHE_CACHE0_CFG	0x1c
-+#define VDPU383_CACHE_CFG_CACHEABLE	BIT(0)
-+#define VDPU383_CACHE_CFG_READ_ALLOCATE	BIT(1)
-+#define VDPU383_CACHE_CFG_LINE_64B	BIT(4)
-+#define VDPU383_CACHE_MAX_READS_VAL	0x1c
-+
- struct vdpu383_regs_common {
- 	u32 reg008_dec_mode;
- 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index fbcd0f175..405df54cc 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1158,6 +1158,29 @@ void rkvdec_schedule_watchdog(struct rkvdec_dev *rkvdec, u32 timeout_threshold)
- 	schedule_delayed_work(&rkvdec->watchdog_work, msecs_to_jiffies(watchdog_time));
- }
- 
-+/*
-+ * The reference read cache and the read limit lose their configuration at
-+ * every power-down and come up with values that vary between power-ups,
-+ * several times slower than the vendor driver's. Program them whenever the
-+ * decoder is powered up.
-+ */
-+static void rkvdec_vdpu383_config_cache(struct rkvdec_dev *rkvdec)
-+{
-+	writel(VDPU383_CACHE_CFG_CACHEABLE | VDPU383_CACHE_CFG_READ_ALLOCATE |
-+	       VDPU383_CACHE_CFG_LINE_64B, rkvdec->cache + VDPU383_CACHE_CACHE0_CFG);
-+	writel(VDPU383_CACHE_MAX_READS_VAL, rkvdec->cache + VDPU383_CACHE_MAX_READS);
-+}
-+
-+/*
-+ * Reference buffers are rewritten between frames, so the cache is cleared
-+ * before every frame, as the vendor driver does.
-+ */
-+void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec)
-+{
-+	if (rkvdec->cache)
-+		writel(1, rkvdec->cache + VDPU383_CACHE_CLR_CACHE0);
-+}
-+
- static void rkvdec_device_run(void *priv)
- {
- 	struct rkvdec_ctx *ctx = priv;
-@@ -1807,6 +1830,19 @@ static int rkvdec_probe(struct platform_device *pdev)
- 		rkvdec->link = devm_platform_ioremap_resource_byname(pdev, "link");
- 		if (IS_ERR(rkvdec->link))
- 			return PTR_ERR(rkvdec->link);
-+
-+		/* VDPU383 reference read cache; device trees may not describe it */
-+		if (rkvdec->variant == &vdpu383_variant) {
-+			if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "cache")) {
-+				rkvdec->cache =
-+					devm_platform_ioremap_resource_byname(pdev, "cache");
-+				if (IS_ERR(rkvdec->cache))
-+					return PTR_ERR(rkvdec->cache);
-+			} else {
-+				dev_info(&pdev->dev,
-+					 "no \"cache\" region, reference read cache not configured\n");
-+			}
-+		}
- 	}
- 
- 	ret = dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(32));
-@@ -1875,8 +1911,16 @@ static void rkvdec_remove(struct platform_device *pdev)
- static int rkvdec_runtime_resume(struct device *dev)
- {
- 	struct rkvdec_dev *rkvdec = dev_get_drvdata(dev);
-+	int ret;
- 
--	return clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-+	ret = clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-+	if (ret)
-+		return ret;
-+
-+	if (rkvdec->cache)
-+		rkvdec_vdpu383_config_cache(rkvdec);
-+
-+	return 0;
- }
- 
- static int rkvdec_runtime_suspend(struct device *dev)
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-index a24be6638..ab13b880a 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-@@ -136,6 +136,7 @@ struct rkvdec_dev {
- 	struct clk *axi_clk;
- 	void __iomem *regs;
- 	void __iomem *link;
-+	void __iomem *cache;
- 	struct mutex vdev_lock; /* serializes ioctls */
- 	struct delayed_work watchdog_work;
- 	struct gen_pool *sram_pool;
-@@ -180,6 +181,7 @@ void rkvdec_run_preamble(struct rkvdec_ctx *ctx, struct rkvdec_run *run);
- void rkvdec_run_postamble(struct rkvdec_ctx *ctx, struct rkvdec_run *run);
- void rkvdec_memcpy_toio(void __iomem *dst, void *src, size_t len);
- void rkvdec_schedule_watchdog(struct rkvdec_dev *rkvdec, u32 timeout_threshold);
-+void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec);
- 
- void rkvdec_quirks_disable_qos(struct rkvdec_ctx *ctx);
- 
-
----
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261028-rkvdec-vdpu383-cache-8fbbf8313da3
-
-Best regards,
--- 
-Valerii Bokov <vlry.bkv@gmail.com>
-
-
+> +       { OV7251_SC_REG5, 0x00 },
+> +       { 0x3b80, 0x00 },
+> +       { OV7251_STROBE_FRAME_PATTERN, 0xa5 },
+> +       { 0x3b82, 0x10 },
+> +       { 0x3b83, 0x00 },
+> +       { 0x3b84, 0x08 },
+> +       { 0x3b85, 0x00 },
+> +       { 0x3b86, 0x01 },
+> +       { 0x3b87, 0x00 },
+> +       { 0x3b88, 0x00 },
+> +       { 0x3b89, 0x00 },
+> +       { 0x3b8a, 0x00 },
+> +       { 0x3b8b, 0x05 },
+> +       { OV7251_STROBE_FRAME_SPAN, 0x00 },
+> +       { 0x3b8d, 0x00 },
+> +       { 0x3b8e, 0x00 },
+> +       { 0x3b8f, 0x1a },
+> +       { 0x3b94, 0x05 },
+> +       { 0x3b95, 0xf2 },
+> +       { 0x3b96, 0x40 },
+> +};
+> +
+>  static const struct reg_value ov7251_setting_vga_30fps[] = {
+> -       { 0x3005, 0x00 },
+>         { 0x3012, 0xc0 },
+>         { 0x3013, 0xd2 },
+>         { 0x3014, 0x04 },
+> @@ -314,25 +340,6 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
+>         { 0x3834, 0x00 },
+>         { 0x3835, 0x0c },
+>         { 0x3837, 0x00 },
+> -       { 0x3b80, 0x00 },
+> -       { 0x3b81, 0xa5 },
+> -       { 0x3b82, 0x10 },
+> -       { 0x3b83, 0x00 },
+> -       { 0x3b84, 0x08 },
+> -       { 0x3b85, 0x00 },
+> -       { 0x3b86, 0x01 },
+> -       { 0x3b87, 0x00 },
+> -       { 0x3b88, 0x00 },
+> -       { 0x3b89, 0x00 },
+> -       { 0x3b8a, 0x00 },
+> -       { 0x3b8b, 0x05 },
+> -       { 0x3b8c, 0x00 },
+> -       { 0x3b8d, 0x00 },
+> -       { 0x3b8e, 0x00 },
+> -       { 0x3b8f, 0x1a },
+> -       { 0x3b94, 0x05 },
+> -       { 0x3b95, 0xf2 },
+> -       { 0x3b96, 0x40 },
+>         { 0x3c00, 0x89 },
+>         { 0x3c01, 0x63 },
+>         { 0x3c02, 0x01 },
+> @@ -369,7 +376,6 @@ static const struct reg_value ov7251_setting_vga_30fps[] = {
+>  };
+>
+>  static const struct reg_value ov7251_setting_vga_60fps[] = {
+> -       { 0x3005, 0x00 },
+>         { 0x3012, 0xc0 },
+>         { 0x3013, 0xd2 },
+>         { 0x3014, 0x04 },
+> @@ -442,25 +448,6 @@ static const struct reg_value ov7251_setting_vga_60fps[] = {
+>         { 0x3834, 0x00 },
+>         { 0x3835, 0x0c },
+>         { 0x3837, 0x00 },
+> -       { 0x3b80, 0x00 },
+> -       { 0x3b81, 0xa5 },
+> -       { 0x3b82, 0x10 },
+> -       { 0x3b83, 0x00 },
+> -       { 0x3b84, 0x08 },
+> -       { 0x3b85, 0x00 },
+> -       { 0x3b86, 0x01 },
+> -       { 0x3b87, 0x00 },
+> -       { 0x3b88, 0x00 },
+> -       { 0x3b89, 0x00 },
+> -       { 0x3b8a, 0x00 },
+> -       { 0x3b8b, 0x05 },
+> -       { 0x3b8c, 0x00 },
+> -       { 0x3b8d, 0x00 },
+> -       { 0x3b8e, 0x00 },
+> -       { 0x3b8f, 0x1a },
+> -       { 0x3b94, 0x05 },
+> -       { 0x3b95, 0xf2 },
+> -       { 0x3b96, 0x40 },
+>         { 0x3c00, 0x89 },
+>         { 0x3c01, 0x63 },
+>         { 0x3c02, 0x01 },
+> @@ -497,7 +484,6 @@ static const struct reg_value ov7251_setting_vga_60fps[] = {
+>  };
+>
+>  static const struct reg_value ov7251_setting_vga_90fps[] = {
+> -       { 0x3005, 0x00 },
+>         { 0x3012, 0xc0 },
+>         { 0x3013, 0xd2 },
+>         { 0x3014, 0x04 },
+> @@ -570,25 +556,6 @@ static const struct reg_value ov7251_setting_vga_90fps[] = {
+>         { 0x3834, 0x00 },
+>         { 0x3835, 0x0c },
+>         { 0x3837, 0x00 },
+> -       { 0x3b80, 0x00 },
+> -       { 0x3b81, 0xa5 },
+> -       { 0x3b82, 0x10 },
+> -       { 0x3b83, 0x00 },
+> -       { 0x3b84, 0x08 },
+> -       { 0x3b85, 0x00 },
+> -       { 0x3b86, 0x01 },
+> -       { 0x3b87, 0x00 },
+> -       { 0x3b88, 0x00 },
+> -       { 0x3b89, 0x00 },
+> -       { 0x3b8a, 0x00 },
+> -       { 0x3b8b, 0x05 },
+> -       { 0x3b8c, 0x00 },
+> -       { 0x3b8d, 0x00 },
+> -       { 0x3b8e, 0x00 },
+> -       { 0x3b8f, 0x1a },
+> -       { 0x3b94, 0x05 },
+> -       { 0x3b95, 0xf2 },
+> -       { 0x3b96, 0x40 },
+>         { 0x3c00, 0x89 },
+>         { 0x3c01, 0x63 },
+>         { 0x3c02, 0x01 },
+> @@ -1369,6 +1336,12 @@ static int ov7251_s_stream(struct v4l2_subdev *subdev, int enable)
+>                                 ov7251->current_mode->height);
+>                         goto err_power_down;
+>                 }
+> +               ret = ov7251_set_register_array(ov7251, ov7251_strobe_regs,
+> +                                               ARRAY_SIZE(ov7251_strobe_regs));
+> +               if (ret < 0) {
+> +                       dev_err(ov7251->dev, "could not set strobe defaults\n");
+> +                       goto err_power_down;
+> +               }
+>                 ret = __v4l2_ctrl_handler_setup(&ov7251->ctrls);
+>                 if (ret < 0) {
+>                         dev_err(ov7251->dev, "could not sync v4l2 controls\n");
+> --
+> 2.53.0
+>
+>
