@@ -1,47 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793277968;
-	b=XOLFAVk/4iGaza7lvEKBJo5qRtSOgBDGf+D0/ku7dzFYz23UWyRcZPHTIO7tT0YnqGQx
-	 PbsSGfMn4wFYLEY6CDjVQfEDzBnkNz044emWJPXltcx/esWn6CDP7UDYExgoxOD/eA5co
-	 T1gYU0IivowgSFBZVQ3Vr/gscQCn13OC5k0v1KNVzzHEvfdS+2hNsuZtrqEp2pUuc/oqu
-	 FRbyhnYn0csWW2O3SSrabrARKihpZ2ZRrc9wZyU+2ij55POyEG4+bQThE9TVF1iEEeDC6
-	 kfhWIwzEXLWkux4d9NBKRe6yjVpKIxmW2N864dWQWVQLGVMV6uVp03fQimpS5vzq2mA==
+	t=1793278324;
+	b=tLGlAhna0C47i8qtr2foW+H26s9n1nIFEXlh4G8v2XCBttQbU8Vt9jujYzWfZCntyVsO
+	 XfRjQS5l34xeik8VnRpLuDbTckP49t6sxsdb/adrHILQH6A3zMSeGTFp/bH3CJn8JfRSO
+	 CtfMEV4t0QC2fzlZfbS8K9ePFER3YOpFiL7mn8qczHrCLZFzlqYgRaPuE+LrKKAPQhGB8
+	 fbsjfxAwCE82Y8aAD2R5ddhVcI9BOBsfQiMGD3jQKSNVGsH/xlcQdWcSukZqa/8sg2hck
+	 HS+dIsF1XSmpJKyuIhImFuP7CkcMMlBCKe9M0ANb/D6r5AZdNweUS3tQx6+qw3V5Lrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793277968;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=pyqfF0vPEy9uP//rnIsCRwzN7gKyNeQUfHgeOSmrvJY=;
-	b=qX+k0artU+PmTSipuw8tMpyj5DA/nmOUSDrPEehN0ZPBGt4JraxPFQNnZFWmiYYDd65C
-	 NOhZ/CWlSP6UoM3vXkhousFgLMD47bJ21CUJrgAbtY5mNSacoxsOo0E4EQPzGNNr3MkBb
-	 qqTxG7uHcd7mCeMva/kmbh3AkgmnEGVVKFM6OLEF5OSVwgY1bfV+6PefH+r3lzlTHsj94
-	 uY5Dp4FghTV+HFHeRGmb27gsL+KQPK+w5ChewmhnaNhJ6z+HRpfHI3mN0ZYmpXk8KXFhM
-	 gNwnwYf/2GLOKLAmDf7AS9uMKhYdou+UU9NBs1tRYPXkz1B+GiAut2bmI40UI8moLFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793278324;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Iid3eWpVe8olQMkvpXTW8m9qOGkSJpcW1KaQejtRK1Y=;
+	b=GDCg67qWIT/Z8CAkv9p/8ko4h67v+IB2+s1V4417mydLP7zpq9IfJCiR1s9Z3k0kHljG
+	 ZtkIOPv+4exSGwzLlIIAUhBPQWZ8Hn5BaEw76m+Jxn5Trf23WPo6riOMEchiP+LbbtJWL
+	 Dezn1OBODSk7/6UDNciTPUiVSbfodNFXM11yaLzekcHiAz9zBeZWgZg3x11bdmC/u+0I/
+	 apyiVYzng+/4nOe+348tIdIDxiOylPAoenR/b8k8hQKLGtj/p1urpHjTHsjt0oYzzcUdD
+	 JK0QlAq086KsvO0hmQwiGFRrr0+xsLvtxVTyxCwgzcuLWBVxyII+NJdFBLGR6x8lShA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULCbiumh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IS8J38Eu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4A7606A31C;
-	Thu, 29 Oct 2026 12:46:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87ED0606A31A;
+	Thu, 29 Oct 2026 12:52:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ULCbiumh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CFB1F01825;
-	Thu, 29 Oct 2026 12:46:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IS8J38Eu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6A01F01825;
+	Thu, 29 Oct 2026 12:52:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793277968;
-	bh=pyqfF0vPEy9uP//rnIsCRwzN7gKyNeQUfHgeOSmrvJY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ULCbiumhSBpvHWfABnOL+qWWXTjf5N0lA/5Ith6C7WGBILoqVTaUf6N2ERWnc6PJn
-	 mPID/jQLcmV4/Xm4aptEUXchkZbYCFJWE8D7f8RT1lXY+VzoBSij8nkqf+VibG2yso
-	 r+U/MDpD+SlRVf5AipnN9Q+6+Pav3UJO49dGl7FzzVJz1b6LopuGCs+Mc8sJI3XR5d
-	 ARbPI4PTuYtKzc/1NrZU/6xh4BzaZCU13h8stp9MwyR/sv+iwY1VmrAVz/IEBGnUc7
-	 1ANZNumOHdFnNnFPdihV/Pl7af6B91QQeFxgf6U4A1JPTjy+3Y+t/o89uww0hfBvyE
-	 cyP+KJfpdD7bg==
-Message-ID: <7c254ab7-579e-4c17-80fb-596e6fdd29a9@kernel.org>
-Date: Thu, 29 Oct 2026 13:46:04 +0100
+	s=k20260515; t=1793278324;
+	bh=Iid3eWpVe8olQMkvpXTW8m9qOGkSJpcW1KaQejtRK1Y=;
+	h=From:To:Cc:Subject:Date;
+	b=IS8J38EuHK3inR5WNoXkUqRieBG6uy85jRetqgdMxEnVwBvk8dONXaq2UW5HwB2rI
+	 meRNHV3CmcRbii+uCmvEhqk28UdZs/URUOOf9niOzOrpmoU0OaycS9kFCtw1f11nSX
+	 uT50qCMRLJyfOkjZtxWRDqIXYLjOu0BbKEVOgdL2SxSDmBmHOqJjN/RAg49P0Z1UFu
+	 W8a22kipU+v1QfjsTFTdj/YBvbZk27ESBknMui5dYniY28Krmup6SyPFySTnPhjY8W
+	 rRHJTkztfBKIUstMZqoOsoCDaBeR63CeDb/lOa2r7Je60uY7EFK9R0AT5Xjdt667I3
+	 e5lXTnBQm/Orw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Paul Cercueil <paul@crapouillou.net>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Sam Day <me@samcday.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
+Date: Thu, 29 Oct 2026 13:51:44 +0100
+Message-ID: <20261029125143.1744481-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,119 +68,46 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK
- camera
-To: Kuangyi Chiang <ki.chiang65@gmail.com>, laurent.pinchart@ideasonboard.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261029033106.7374-1-ki.chiang65@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20261029033106.7374-1-ki.chiang65@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The dma_fence_ops function ops->release() has been deprecated because it
+prevents drivers from unloading. f_fs's implementation merely frees the
+fence. The dma_fence backend performs this deallocation automatically in
+the correct manner if ops->release() is not implemented.
 
-On 29-Oct-26 4:31 AM, Kuangyi Chiang wrote:
-> UVC control requests issued when preparing a video stream sometimes
-> time out on the HIK 1080P Camera (2bdf:0280):
-> 
-> [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0280)
-> [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 26).
-> [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110 (exp. 26).
-> [   58.592967] uvcvideo: Failed to initialize the device (-5).
-> 
-> Adding a 1ms delay after each control message avoids the issue.
-> 
-> Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
-> 
-> Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
+The backend simultaneously correctly frees struct ffs_dma_fence since
+struct dma_fence is its base class.
 
-Is this a USB-2.0 camera connected to a XHCI controller ?
+Remove ops->release().
 
-And if yes, how old is this camera model ?
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+ drivers/usb/gadget/function/f_fs.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-The reason why I'm asking this is because the EHCI USB-2.0 controller
-interface causes a natural delay between consecutive ctrl commands queued
-one by one till the start of the next USB frrame, so they get spaced
-1 ms apart.
-
-Where as the modern XHCI controller interface will put these back-to-back
-on the USB bus. We've seen some issues with (older) USB devices before where
-they needed some delay because they were originally only validated with
-EHCI controllers and the hw/ff assumes it will get some "breathing space"
-between control messages.
-
-Regards,
-
-Hans
-
-
-
-> ---
->  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
->  drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
->  drivers/media/usb/uvc/uvcvideo.h   |  1 +
->  3 files changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc7..c720d75 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] = {
->  	  .bInterfaceSubClass	= 1,
->  	  .bInterfaceProtocol	= 0,
->  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) },
-> +	/* HIK 1080P Camera */
-> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> +				| USB_DEVICE_ID_MATCH_INT_INFO,
-> +	  .idVendor		= 0x2bdf,
-> +	  .idProduct		= 0x0280,
-> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
-> +	  .bInterfaceSubClass	= 1,
-> +	  .bInterfaceProtocol	= 0,
-> +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELAY_1M) },
->  	/* Insta360 Link */
->  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
->  				| USB_DEVICE_ID_MATCH_INT_INFO,
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index fc3536a..4667f86 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
->  {
->  	u8 type = USB_TYPE_CLASS | USB_RECIP_INTERFACE;
->  	unsigned int pipe;
-> +	int ret;
->  
->  	pipe = (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
->  			      : usb_sndctrlpipe(dev->udev, 0);
->  	type |= (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
->  
-> -	return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> -			unit << 8 | intfnum, data, size, timeout);
-> +	ret = usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> +			      unit << 8 | intfnum, data, size, timeout);
-> +
-> +	if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
-> +		usleep_range(1000, 2000);
-> +
-> +	return ret;
->  }
->  
->  static const char *uvc_query_name(u8 query)
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4..1426d14 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -81,6 +81,7 @@
->  #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
->  #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
->  #define UVC_QUIRK_MSXU_META		0x00040000
-> +#define UVC_QUIRK_CTL_MSG_DELAY_1M	0x00080000
->  
->  /* Format flags */
->  #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index c64a268e98a4..e8672b37e890 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -1479,18 +1479,9 @@ static const char *ffs_dmabuf_get_timeline_name(struct dma_fence *fence)
+ 	return "";
+ }
+ 
+-static void ffs_dmabuf_fence_release(struct dma_fence *fence)
+-{
+-	struct ffs_dma_fence *dma_fence =
+-		container_of(fence, struct ffs_dma_fence, base);
+-
+-	kfree(dma_fence);
+-}
+-
+ static const struct dma_fence_ops ffs_dmabuf_fence_ops = {
+ 	.get_driver_name	= ffs_dmabuf_get_driver_name,
+ 	.get_timeline_name	= ffs_dmabuf_get_timeline_name,
+-	.release		= ffs_dmabuf_fence_release,
+ };
+ 
+ static int ffs_dma_resv_lock(struct dma_buf *dmabuf, bool nonblock)
+-- 
+2.56.0
 
