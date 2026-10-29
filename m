@@ -1,86 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.179
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793292978;
-	b=Tn+B/mtlc1hu5d89N72ugtqp8dzcmgSUs1WEXUSyjBKxr++Gf1qD19LmgQCV+HZzUHOO
-	 T8LugYz/m/H69snEeOKkupTfiUbB2i2KLOjR4cQzyi7EIaOz40U8GPe7KFCVgsryUPXDr
-	 y/aGJH08mJz82doMOLsmpZC/U8Ip3SfNBMcakC9MVTA+mnbWoJbu9d4u8J0+nU23Ha3Ma
-	 41boiIfpvMLEyVy9H5Vc0Z46707n/SVjP/ypzJHnn9LSMIPNeXxzLByyFApkCXq71lsJF
-	 RhYcrNeb3ZC4LHQurm4lnNXB5XAD7TDOJVQAujnDmUDX4dolFCte2MI4EqNXcwC8mdw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793292978;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793294326;
+	b=cfyUU2vUWk3PMkOOLDDSnhAR6A5zgf/k6yknFUhbWptX7n781ABGw29AglTZ1he9keMP
+	 iy+YiFwCH1XifD6S/JjC5erK/vbfm3FU0f5tn5cH1c5fV2WY948JpZQ8b5odQqaXlN6aD
+	 pGTzer2cO46LFNS0HR7BNgw1pam69DIz0yPUW+j2+fmbPhwKzcIV1WwGWuzk/p2ubRdpJ
+	 v/dAfrXTuxUyIUgYqebtdsCfqoh41y/hej90HmtA3MjbXVu10p+nCGocLLDCCdhbcW0Bx
+	 YdcGUcQpHMSpBCqfuCBmp4mnoz2Y6myzFDirddtWwmG4q31CWZZz58v69UcsIbhqr5A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793294326;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=kL5j3EEqbMn3qYBmWtzp3XXkY9AfG36sC38Zmkd8NNA=;
-	b=0KcXnihQUYvsAz5JbwI6ZpRco9dgYGLniiWF0mv0efXW/nxALYvMaKDdveWqt72LdPrt
-	 aS+QDbBRMVGqEAR2l/aaT3VcozYrzHpB46SkS6hvFxMmw6JaDSR6Xp4/OI2RzgPGg97f2
-	 EAonMwqsgOeEVQK4ubO4v2BJDUCIibxfp8eTw3kMatSvSxvLX5ZeqDmt75GFiW2cctvOv
-	 4KvLoJEiqlD+PKwAFCnJmvap9zahBIdwIBCT27WFZHnJwMyicK3uvMT92SL2ZXKpHxDhG
-	 ogvicFmJziFCLmRzJQi77ebyiYQ4wCMkkfBEyuaoEUsUOZ9IjrEaXBJFr86gYUP2UdQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=nilk.net;
-	spf=none smtp.mailfrom=nilk.net;
-	dkim=pass header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=fHewcwhQ;
-	arc=none smtp.remote-ip=209.85.167.179
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=dFKLhXBlkA8pRyjNJSGOZ/8FNYsid2vBNfEp2bvdi+8=;
+	b=DcCcmV4HoojwcKlZNhCeCcbmDmLP53/xgPj4LwdygkLT6rtLRKG3gwnj5fVmVgf7aO3l
+	 DwE08cJcbzGyv6aTZig6YQZGDfc91QybPBmfjylf4t9O3HfChYd78Mp+t+CPBZ5l7XC/g
+	 E+8a/o8ChJMAw8ENIhq7t2RKNBW39ds8p7h2E8mELhz46nTUwCFUqfQ344Ka6xl58QL8X
+	 WoOT7xRHgbK/kPRcZNPMiwGED7fT/Qz/fFq5WB0vl98E7rUM4O7NZ6/1lLwOlusDN1ubv
+	 1AWttN0MfVhufYdSa/ZY8YAaiNVQ6TGPNiI2UBYn2RMN4md+/y1TtePbXkaO04int8Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=b5KQ2lYS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D77606A31D
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 16:56:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6D77606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nilk.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nilk.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5601606A31A
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 17:18:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5601606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=nilk.net header.i=@nilk.net header.a=rsa-sha256 header.s=nilk header.b=fHewcwhQ
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-4e4a4d77e5bso667524b6e.0
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:56:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=b5KQ2lYS
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-70b875f6f13so1803359eaf.0
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 10:18:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793294324; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IyL/B5/XUerorHof8ueEUzJ0pBK8pRCLeUdLsm+4LdppV6XuTfzumKQJNBphFwIqYx
+         BWZX3C64n6tKS1Md7gMe0uoxG1Bdnc6QJRHNfMuOeHUUmiAc59rFeKL/HU54AM7+JBAg
+         guMevRXkkUujcb348gS8hLD6FKJH109o56Mm89Qjz051QUFkySDjsR3WxAuC+D7/1WXN
+         3g/JbXo/NkfPtvXCoB0RbXq03LxS+X3i9/PjgIS9KSTXjKWcB0bkYRhCHRKcxly6OaZ/
+         Uy7j381R3zaDHmnVwEHlVN+x2at2YrfmQYgCgLrqWwRQJktc3HavZaL559XJEtQGLp4e
+         lYzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=dFKLhXBlkA8pRyjNJSGOZ/8FNYsid2vBNfEp2bvdi+8=;
+        fh=b9xnAV/TL4uS1p6CA3GIab0RmD+0UZpk5QwUJXAJ0GA=;
+        b=qUAnqDRRmc1VOZ95naHPBvPC0Ymqna8B36SI5aPd4Bqk4FHHGDav/2NjEyCePoOZc0
+         f03nOPY2SFCEwi+hVSq5gmzf3gg4CfJBrVywcXvWnwEwBgQ5Yr8U5R2DKiy9GTZKJ8q9
+         ti75OJeFFKwLw/aGnlwilTSsWItg1aFR5tf2YXM6lYtL7+kzNU+bbS71UqLLRxhwkgRq
+         coyDexJenXs+YeGJY6z+2+NTwyK2b7S5CRpKTeW6AEXxhHS6Bc+9BSy0rVNYUAd4KNLC
+         FS0EuxQbMs6jEZxBx1YSJJSZ7xJTyAvlxZ6ApC9TjtypF9Gth4+goNANSOMVwRYcPOQe
+         94kA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nilk.net; s=nilk; t=1793292977; x=1793897777; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=raspberrypi.com; s=google; t=1793294324; x=1793899124; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kL5j3EEqbMn3qYBmWtzp3XXkY9AfG36sC38Zmkd8NNA=;
-        b=fHewcwhQIjNO0M14v2tyKKNcwasiZIxpd0YZ6NF/ma/Eh29ffF64GuU5nLtuXnlDQc
-         75PDEGdKkSZM+xRlXuJX8lxNAs+aOJUskHSWRdHzJ57hxZ1ksqbdPhqcXIemcRBEnsYD
-         CHM+zuGGkz9hoSKp1i6IlU5pLHpT8pIfaPHMk=
+        bh=dFKLhXBlkA8pRyjNJSGOZ/8FNYsid2vBNfEp2bvdi+8=;
+        b=b5KQ2lYSxNerltYtHigc8dsXLgdQytyZsMhlbKoquFGpbCqUw79L/N7+UJw7ox8Hb3
+         7DBmtTp0FwugbPFY5e80g3iaOaBpbu8qQp4GLVaFfvNvvZbxQNky7QbBqqEMPK46L1V4
+         HygtrE9kUsiZ79UYvAbcB5ouDsPwWOM12D45IF89Ny/45md5LqmP7/fWJXIXoDs69lf6
+         eZE2IOmEKLYmdsmL9N6tPDlnx8pDeTnP4MX5DMLockfHOmaeNTx148QyVXKDNK6sXkGL
+         QB+VR47Ob1mYXNK/PBTfy++vQxbvsvNKiSVO7SCZBXxMDC/m3qLgyj/anjNMO9m00MIN
+         gIDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793292977; x=1793897777;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kL5j3EEqbMn3qYBmWtzp3XXkY9AfG36sC38Zmkd8NNA=;
-        b=EIoK/cUvefV3527AlCH13/tzu9jMMzKB16PT84zShQkLEeHBJeweAynZohK5UgsXgZ
-         9GHZ7c6zyW/a6IhjpzwcbcB9URV9MWFLMOw4aj6oAmSkaHDrWeaNd9x2xo9mkP8AX6pk
-         Ks6161KJhbwS76mkoC2/5T2rbAcDDHWwe5Fm5aTHEtllRoAkt4G/Rrf98wd+CWK8cMjy
-         zfPl5q3UEolkZtMwdPyzPf9MzKwjEh2IvSY2oVOisuluTV3gUQ9Tusllluh+Ebagg2oi
-         I+YgEymweidgqwL2wOJtIjX8fT1Hv6sZCDmQXfmMqW6eBMxI7tk0ugsPc+J3W8eXS8FH
-         79JA==
-X-Gm-Message-State: AFq9FYIUJvG9/Lf1Y15fOvqVx6Troh47UcRZov/lUC/KvsHKKsvgNAc4
-	FLsnARzuo9EZccwywTlsvfh/nDO77pjpDTMvtXdkZ0qnNcVg2PTYvArByHYb2zNM+Q==
-X-Gm-Gg: AYBFou37Pla3pr14p0B9uKqx9ogB1DBaTlgLT7o7SZrO+/n/sMhibQDpPV/T7EMp0Yw
-	IXS2Qugio3Qrh0XJ5WvbvRYUEaumKePwtY7m0UHTsddV2cR1Tz3XoEuXEmdFC2HY0Ufi52BuNAw
-	9w3N1iwi1N7miiufftcQT8mBbXaLeG7JviycTBlPnEj5y0Xk/mrH0/M8SoLg1iPzW7NTXQ57AeL
-	3XdWKZv9dWQ+gV8ZrOAK11TzEyqyAq1/Kk7xRROsWOBIhpAgNgJukeZrnkf+/d8Nsatt0CjhXxI
-	hBv4wOF9ZZAdXZzZN8RZ048wEKL3ytAKiMCry296qkyAXEPBqvqiAr0H+oybVvQaJ41Yu1Ty0Fo
-	set4ra3JXTeeBYnZM6+CR6SBf+76agAdjhcmWpPzrD66qmmCPqELieE9sQh0uSjq7+pRBPN4Trn
-	mLlN25lKZIJuHk+F2jzOUidZ7MApz+xXJbNLDW4jDnii5P6cRhDNlVy8QcExcmsjq2rJ9cZ6rVQ
-	4wyKzWawM9mHWYbs3F+Sk2ApDSPgwzYstfdHnDg+wqjDSVAQ7KW1x5jpq5fw7e8qN3XQW94dkmq
-	HIfA1BC3hrzrT1k327EzlynysPhI3FRB2u3z3bKYjVVM7l269Cl/1MROn84pagzBl3cyGcQpMEW
-	szpmiiaRx6WzH4D6vJugdeNJ9Ou4jgVO7U4OGNNwtfl2Chjw+sEzI0RBymFpgiiIB9Zf6aGbJug
-	zPwA4r3H55bzUqMzVxrHbDqcxepG0fBytXtBncX03iTKcPjShTaNcZtr1h4MIV4ofP3lFZ7s3cs
-	9H0zerL
-X-Received: by 2002:a05:6808:1b2b:b0:4b8:46e3:e224 with SMTP id 5614622812f47-563ef728ba8mr1823577b6e.16.1793292976579;
-        Thu, 29 Oct 2026 09:56:16 -0700 (PDT)
-Received: from [192.168.0.114] ([187.14.252.62])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-563c634709asm4289499b6e.12.2026.10.29.09.56.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 29 Oct 2026 09:56:15 -0700 (PDT)
-Message-ID: <1dd56310-9286-4321-ad1b-e4643aeaf60e@nilk.net>
-Date: Thu, 29 Oct 2026 10:56:13 -0600
+        d=1e100.net; s=20260707; t=1793294324; x=1793899124;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dFKLhXBlkA8pRyjNJSGOZ/8FNYsid2vBNfEp2bvdi+8=;
+        b=ST/2FBvgsdYViXgIu6/z8n6hWBy3atdg6s7aGE54eLwPoRdNjAACyjZX7fKnHliii9
+         kAUW91mwnVr8fF7er5LANO0GZIfc8cI5VUh1NXRBHtA3S2u47Z62dG74qyoBBtmdINqy
+         wB1g5K3A37KJPcD5wLCTQFyI+nKKOWfxZMAJ63o7QvLnisccGMrwAVXpLEMXo5tzPaHx
+         E7M+4OEWIBY6ULDcHsNAeWbajpItYD1NYvtYKCNDCvnz/8ludQyIsJaS0DfokyyxVlH1
+         62hAiprWLRvgrLxjPqBVkt7G3PMwwms2IMMpxXbkxwMx73+syAtmFU97FoOtfKNEHbGM
+         8UNA==
+X-Gm-Message-State: AFq9FYKL3gX3nrw86dJPAB0G7iGklnMWjkPtnxOYIPtXJ0TqudC1mllk
+	jUln0YsFaqeePJFlNagLrkHjy2c/cl+cmGU9+W1Vumpqnr6NsnnMkm7M8VfLAHMULcJvRf9lbhe
+	oowAr8BzQJ9oU33mkxWuhdSBFo0Vd8BJsZNCxHu0FDoBj5GA2A1xNmqa7ug==
+X-Gm-Gg: AYBFou2gYynHwLEPc4ketqjBS0E5eTwjA2pyPBrqHHD7PwN7MLUCLTlapco9e1y/7NY
+	V7pwIN211NNfdG8nBPnVvyj5Zj+KRIGmLZ5bZOKvJT11gk7R+NPXHvukHIzTQ+gLj8pL82rbe32
+	FmLAsA8Eop369yEFxr15FlhI/A7y1Pse8g+hLsGXGBhh5vD/JSNpP850CrqjJVwyhViA6jtvXPu
+	y3b+XdNG/jA6GGJzjPSwO1o5tWeo2ei4Q/jFuKBmAr/+LsIlSJQ2IKiBlEIEQ9+ZOKaBqw1p7Ej
+	mFDnhLaf3Sc0+fGnevnuZlc5M1IQVcLCW6606X/fwzCg6QENH5lmxHPpSvrLtnZ3/BZCxlaLcAr
+	3Q4uyRgKU0ewx8dK+mADHVT6eeGZaJRLpHQ3GZ+tFPs/Dmvt0hXNI3zHuQAvw97D9m9+34iBQRp
+	yKJsgGBdKQwSvAb3qcbG6XvH/kITi8j60wGKw9lh3NXcsm6JNwTKkDjA==
+X-Received: by 2002:a05:6820:3389:10b0:6df:7bd3:21e1 with SMTP id
+ 006d021491bc7-713f23690e0mr2746880eaf.88.1793294324177; Thu, 29 Oct 2026
+ 10:18:44 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,41 +103,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] media: i2c: ov5693: Program the mode registers on
- stream start
-To: Marco Ziliani <rylos78@gmail.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, Tony Garcia <tony@loafecho.com>,
- Simon Kruse <simon0x+git@proton.me>, "D. Manresa" <dmanresa@gmail.com>,
- linux-kernel@vger.kernel.org
-References: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
- <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
-Content-Language: en-US
-From: Chris Simpson <chris@nilk.net>
-In-Reply-To: <20261029-ov5693-fixes-v2-1-2526d7b13030@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261029-media-starvis2-v7-0-b33a1332fdfc@raspberrypi.com> <6ae37d7f.d4759c36.21f552.d80f@mx.google.com>
+In-Reply-To: <6ae37d7f.d4759c36.21f552.d80f@mx.google.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 29 Oct 2026 17:18:28 +0000
+X-Gm-Features: AclHuK-sdO1CHdkLHZlRthkszghVPlf1x-iBd-spLL3Y2Y5dvzuBtbfJED-8pbI
+Message-ID: <CAPY8ntCwohmi6=JmBWukJTXEQCmOk29nqwk7Se+xKKOJXrS0GQ@mail.gmail.com>
+Subject: Re: [v7,00/18] Update imx678 to act as a common Sony Starvis 2 driver.
+To: linux-media@vger.kernel.org
+Cc: Linux Media CI <media-ci@linuxtv.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Tested on a Surface Pro 9 (Intel Alder Lake-U, i7-1255U; IPU6, front
-OV5693) in a 7.3-based kernel, with the v2 series applied to an
-ov5693.c that matches the base-commit (d7e7bca71698) apart from the
-pad ops' client_info argument, against the same file unpatched, using
-raw captures from the ISYS video node:
+On Thu, 29 Oct 2026 at 17:08, Patchwork Integration
+<patchwork@media-ci.org> wrote:
+>
+> Dear Dave Stevenson:
+>
+> Thanks for your patches! Unfortunately the Media CI robot detected some
+> issues:
+>
+> # Test checkpatch:./0001-media-imx678-Rework-into-a-common-Starvis-2-sensor-d.patch checkpatch
+> ERROR: missing sentinel in ID array
+> #1455: FILE: drivers/media/i2c/sony-starvis2.c:1450:
+> +static const struct of_device_id starvis2_of_match[] = {
+>  { .compatible = "XXXXXXXXXXXXXXXX", .data = &imx678_aamr_info },
+>  { .compatible = "XXXXXXXXXXXXXXXX", .data = &imx678_aaqr_info },
+>
+>
+>
+> total: 1 errors, 0 warnings, 0 checks, 1411 lines checked
+>
+>
+>
+> Please fix your series, and upload a new version. If you have a patchwork
+> account, do not forget to mark the current series as Superseded.
 
-- With the sensor held powered between streams, OUTPUT_SIZE (read
-  over I2C during and after each stream) matched the requested size
-  in 32 of 32 streams requesting 2592x1944 or 1296x972, and every
-  stream delivered image data. Unpatched, it stayed at 2592x1944 in
-  all 32 and the 1296x972 streams gave no frames.
-- With each stream started from runtime suspend, the path v2
-  changed, OUTPUT_SIZE matched the requested size in 12 of 12
-  streams (as it did unpatched), all with complete image data.
+Checkpatch false positive reported to the maintainers -
+https://lore.kernel.org/all/CAPY8ntCh-6-54Tp4c2srp_kAhaCs-gHixEq_=qMPf+rNSWsTtQ@mail.gmail.com/
 
-The test scripts, the analysis of their output and this summary were
-prepared with an AI coding assistant (Claude); I ran the tests on my
-Surface Pro 9.
+  Dave
 
-Tested-by: Chris Simpson <chris@nilk.net>
+> For more details, check the full report at:
+> https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/114379315/artifacts/report.htm .
+>
+>
+>
+> Best regards, and Happy Hacking!
+> Media CI robot on behalf of the linux-media community.
+>
+> ---
+> Check the latest rules for contributing your patches at:
+> https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
+>
+> If you believe that the CI is wrong, kindly open an issue at
+> https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-all
+> to this message.
+>
