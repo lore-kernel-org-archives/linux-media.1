@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.169
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793286627;
-	b=kGyI4F4DaZ95VmiLA5PaNHcn1ZWdmsBDtZpWFcNMvnG283+vEqaSwgFozxNjsoWGHjHd
-	 h27pKYjTNJ6Jwcyz3Gu8tOmiIuYtuXAht3RKmeKmABRddOjhpG0Ljs4zG4ksi78U1gxsI
-	 JUSZQM3ErMrrEiRpq3GEFWd+bO0jiSwAErptpGlb2iCzyoxyVVDaZAA3j6TOpkYzonunt
-	 9tZmvBpSFKpr2Rqikpy4nGF7BytQbko71otJZApQcIF+2/7WK2jmXGidJHvyW2/Ws/8wa
-	 fKRgMyu4x479/JA4gAYDcODzP/yReE7Oni6UAJjVoYdkgbrRRbvYvGS32MSEpaSJZgw==
+	t=1793286758;
+	b=2pG+bVb3M/b8tyfMf700BPRJvT2jXNPtnhnf9iPnMzqcc/GOxeD68r++uzg6pWJWMqSe
+	 rh/nClv9Swbrq5ok2+brxrkq8FyvDsnl2a6Z+Mmi5YRRDuUTJCbLOSeC4FQmwj/tcuzX1
+	 ONXaAKH1byHLs3dkXQYYG2UOqaA/XwwITUUk99g9VJAfsMxwozeYRoh6s+8E9utzeiOgG
+	 ZtbHHSBNEwdInzIhudoQOtjv5+N/mPlxbrrhj63o48y7n+u7IjqzyzHosggv1pxQqTFuU
+	 H7uBfu6nw4oV52goJxijvvKamurrac9UeVHb8diBT9lPDNtPAkXO1IlDWvAbDajZJzw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793286627;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793286758;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-	b=KV3oMwMGtqxoOLS04maZi50jqu/mD075Kctr+5JglMqEaM1gbXXT5P8diJKV39jkeXk0
-	 CdQK+EF900+DN2z9Ql4zuBbvMZqfE9KXx/fxu56QLIOsXXLFvhKiOiHuB7ZOEOt9CaXdE
-	 2XFksZCUZKLuvmJ0GXJZcn4qHfwofCHcHUwWX3aIh7CGle3w4Bl6VhmNmhAQfCwd1rHTZ
-	 wIMimiV5eVl57+tTIOyy7xA1Mv5ZBIIxhMEeW3Uzkqh6bXSh0nkKqK9hcqZaU+JOt/9GO
-	 Em/PNbbwdzJuh1oVbdkzAwFRFW2OrB4+fkrv5YJ4LGndP1DPqbX9gkVJWqcl2fIxsvw==
+	bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+	b=FE+WFBCOLJTDbw5lF9NTNXOk7EvzSEfqi0oHVT4VFtDXFaO7UoyUr2F2iXx5ZdR1AqJE
+	 ezg8VU17xFDj/JrfQSvgZ8l+T0zbsZVYaknsOyyY8qErxEClpWf87AZysitQgLeTEwOQz
+	 SCxQbwt8nxr5b0uLbRcecTj+1acEuZGXFIMqrXoWR28pVSaoSwnfOv6SkhYwORONPmB2Y
+	 QgYQ4HRT48sxFuGX630feEQPmXdp8VZy8RiDbgnxcBvqYVJYkl4M1wS8cpjI+d8LMm6HH
+	 hm/gIeMTnWwZ+nSwvh8PAD76mtijYmOWUy2C3f6VifF7fxeZsnd2j18sVhLbAZtJyjQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=raspberrypi.com;
 	spf=pass smtp.mailfrom=raspberrypi.com;
-	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=QJ1PuZIJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A2E606A31D
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:10:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92A2E606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F169606A31A
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:12:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F169606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=t0HEKi3J
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-4a89b4a59a1so700876fac.1
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:10:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793286625; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=QJ1PuZIJ
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-9440304604aso93918685a.0
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:12:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793286756; cv=none;
         d=google.com; s=arc-20260327;
-        b=Rh16t82VCXEslrUUp9pcT/IKM4MQX8cak6YZ/scLjLYo6i38eXk0ffCFRrylV8PPyq
-         +DRf9XpptZuEd28RREIm5lLmXNDe0CTljyZBouTZ7shtWOYtyNP5euyHAF6Y4np1AZCd
-         9baYdI5qCUSUMY+4P0ZEy7XuVBFqrWSZUVq50U7Q9AFajAXGOTzb0Cl56CObdA95nQc/
-         Mv8Tx6jy6xGYJPAr1qr+qA0cQANicQ+9RQnluNc0/RuVJl5y/WpTPeB0mKLD9YgDHKz+
-         iCNmd3ZxYOFW246K0p0G5kFM5xWHdFV2S3z/5u5DQDVEKdLKKKviCTFC7tm49XAHksX7
-         VBYw==
+        b=f+AfDzB/eMN/2q78+xoAVGfkbsk8sgHvU+4soouWtN8fGbKpkHEmnnr/fptKL4R5jw
+         f/wUekaAebw/7f2kCyihJn0zuYVjnCN/giC0KPSOkWduSFv8NVFuFFmWHa3cIntKYplx
+         atBmIfXRx22JTXmGzikPhZN3/Z9Vtvo8RfXuaB6TZVwFi85/durq/clYflVNn4wC2ejy
+         lZozBpxcapZOs309EyO69vs8mtY9hrFD5Kvi//flW0OFk4OFJMccTUhe18o37m4PHrjM
+         p00GSzTcXs/bCdiThyV0SMVlicBj4Ia/+3eaPRVQSRd4YnaTEqomA+joXfXFuRCfLsCF
+         77dw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-        fh=OdMQmljo3uaSIgQ7CC6jUw/RWPzSa43bsXe+7AUI8Zg=;
-        b=p8LDMstYej5p/N4NY3V5psgH3rpDrSxqArfhQgp4xuzPMebye0trhOZTi1RvZ9fQKk
-         H8fFV3CfuwRnfFaPBlNelCVoCNkN5stQsRCTL6j4Nx7H1b2zwoXWe6oiK7Qf1AcVKnTe
-         NwmsTobt9SARoMe+NywwkLaZ7cTyLmsrewU+bsL+ztpYaSn1xpqKVmyynXFT8wyQgYF2
-         +0opR5onTkWFRPYZwU+XvI+hdtUQXGJdRUnuvZyo+TJHjSkXlg5P9Xxeuw6OFv565nFZ
-         ++PLJmWsyIaacrbJdsCJOKyw43dcuQ2HLVP3cHdiM9ncrFSNYtm+7H2867GlcPywKyx9
-         aQAA==;
+        bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+        fh=wTcG7kHUWtvKGRllOvtDBzvHH0MJo58KAPkB/ZofKcA=;
+        b=iyPU7ZBSiFYdb5CA2FcF2Mg7cMQ6myog02Xvv5Xl7RqSvv8XY29maJhdonkOgWrm+S
+         NiFWLN6vqW5RVSf26zciY53OTko1221CTP8hwGw2w9m/OYUTVJfDBawB+PPlBOshlE8o
+         NQlaR0SgOBm1hvbnjS/usWifI273dUE8VcMqcHyq4oRU1nwWjDveE5ZW7Orl8nhm3uco
+         IZBIwNpIPxinTekb1LH17tecOZcBw9PInIL03Vc6IRgqhJwYOHulcsZud7hIPgxj6Rgv
+         s6YlVEVyX3j7aHMPDiJU7Mv4IjJ9c/3NVRC1VUi5T4Gii3WqKbLbROsZs8Fsp3ik/1ks
+         x5xg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1793286625; x=1793891425; darn=vger.kernel.org;
+        d=raspberrypi.com; s=google; t=1793286756; x=1793891556; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-        b=t0HEKi3JEuYusOJQ2BlME+lteEzd9dpBkx0PYrvDTF6m0Gk0Q+n2i1EUE9nTUzuobE
-         jgmDRB3BuFqDIcfk3pKSMf2ZVBNUYhnBJi4AQOlRU1v3BE8YfrL4dMUtUtwXzB/LkkKh
-         W7hTXlaauGp2j3cYctzuHfnaObEhfhmydvxsoNvTEELOKG/xAuPZi8zu3cSrRxrthG9T
-         avMlZ8RsvJk4iVIODKrTJFIFU/7bXBHJevI9/zHVtmfcpFhc6TuQMMeYsurZ/VZCOEbo
-         gau2V+U2q/NGCK5o+dlwIHFTFBtIjsuOXnSt/D3Csq8dhKQoq2F4U0glozDN4haqHNSm
-         PwoQ==
+        bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+        b=QJ1PuZIJLWdMBXB20D11/pW68AEffCEZP0jC5HvR/4LAIyPKqEYKmk2GV4gXi5OuWV
+         nduYlh40ec0IXb8Q/+bhffsj0v6WHrymaZViiBHHP4xdGYu0zj4O6AJB83RY5cMrjqKl
+         s9/dJn4APLOlerpSdceYhotqJxOtP4u2BMA5207mnIIZpqEMlkuvwunItfiyr/nD3r9A
+         1lWWpiKUd8haObDhrH6LdTTpyj3Ib6IBUwk6CT2Ra31tORapyLETRFk8+PD7wH2R0waO
+         RtVLFcGhW0PA647M04h8X/tpW26M3ESXdgD7gUBvYy7rROo2jU8yHgDMgsIPaOGaV4z5
+         l+pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793286625; x=1793891425;
+        d=1e100.net; s=20260707; t=1793286756; x=1793891556;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=2b3vVP1vEHIm/JW4JfzuulbZR3cusd4/fTQxKoNUz94=;
-        b=JOWgXhekz2Eh5VwfViVPMCSh7JvqhgfQyxF1qNSp/XWdK8cQtf+1GB0fBMDObUm9nr
-         gVCIGlYWqMkfUMP2p74vtKBmJoO1EJtA9BCfiomAYUtGybQGo0KpbyBeDvLT+fqo06oO
-         tkOxgEFzoWLLZHtlUtPVfDahnAkvNoNQfKjc0i8TRf500FaleJrl6SeDvGs0y/N0/nxD
-         CE2dz/4xdnHF58R8P2hoXOlLaN6HZqKH5YH7TFBkGxE8arfOwACKn/eDwEuHrajcqQHP
-         cqfHeYOO7hCFTe8y8dfxof0Jvze+0mHss3s0xnwe5ZlIW3LqZwPFwk6W7Rm7+RTJg1Nn
-         0+Mw==
-X-Forwarded-Encrypted: i=1; AKwUvBxhhryA6p/iSMCUpEHrwkT3KVzUUuzxemdKDz91lPQGIZ6sSq/YqhWEKi4kkgaWXbIKQG83WRqk2Lk+DA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK0J690dkADo7hZr7PIeeETkaNWyPmjzpLtao594wdVFZlRxZbL
-	ZzaeIcUMeYtaXNEVUVJlJZWMjj8GllnN2LEBq1rbeNg7TsusiED3Wtd0hRTr2W5iuYMTbwPuL8U
-	ul7DRSlk2jh0AZSig83FXjHPbpYN257+LRj19ytBplw==
-X-Gm-Gg: AYBFou3jz5GNLtD879XGW9jQmq9oC32vOmATx9MPv/8Skomey394n8E4SNYlTr9zj8w
-	wQNQkenvLpmN1ameQfXjWYDE5Wa5OOQwYACGDCxNn3Rei4lT4SvTfWwwjuR1D/9EK5mPsgL9A4y
-	RywXlEI8WmVO3KpkI6LUfni6G579vZs0Qp1gHIaCVUrTPdpUpVe/f935VPlNYPcWGI2Eqb1khzx
-	KxzK8qdIRV5BkkColI/uPfHQZLnfJvd0P7uc6u4cbAXDGwCEWhYU/zNifBQJABBcqgHN8mdQLXD
-	bezm4KC0ewmtxGOL8IBf8DPMmDDh0F+hbAzaxhEgCuG87Wki0vPkbGTRFFKY69J8cax0oWDSxEz
-	QT59NNU6M7HoGE0RYq3ykXRAGdPO13sPvpM0ztZYqAavkyrFZ0i5214jCaS1/UxRJpHPE5mCLdY
-	gd01PV9O1htV51/myiTk3Dtj0xFtO0FNOTsdiyoq7Yye791Bnm5ySGVA==
-X-Received: by 2002:a05:6871:2102:b0:49e:33ff:6bda with SMTP id
- 586e51a60fabf-4a8e06a7791mr1577014fac.16.1793286625298; Thu, 29 Oct 2026
- 08:10:25 -0700 (PDT)
+        bh=VpLpdA+yCrDrK4tzoP5LaLfSg6uFoDAIq4N1ZuvvpEw=;
+        b=JqXwNKrRGsKpSQOz3gXeIzT+R5VQh40yLjIWY1bpm27vKbvLh8KcugRE+9jTIm988z
+         6+JPfDy8eXbSvRpg2krUchfNbK5BgL4vyqc/VtjcDx/QfD8+YGxB1rgZutooK8KXGXjo
+         hvBqarMg9nuh9o4DRNxULFr6Jj6Qu3TM1hFw/my8OlzBveDT/wdukEdfvZeS0TBhw+mh
+         A+61zUfqQdXq64+sRNMnw4eNs7+Bcoltd67yudSx3wiL4Gsft2Vv1sYj4nAIIhGwcKmZ
+         y4UJQEdnT/k65Lj3bR+CgIVtqIxcxhno5k9VyJo4NNXrB9v3vfpvoREccX+bK5N4KLwz
+         B/ug==
+X-Forwarded-Encrypted: i=1; AKwUvByHkQUBTw11GIX+kGw7rqfMcWJYPqwhNajnaVbUSU0BKONWxpi3FTY39/KRD3hHpgQrStKRGetjJmJJgg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpb/ujzCce9TXalx97QzQEKrKy9hdvLO9EvLTNliwzwWWEpZlW
+	88HxVGXEv3bxfSgwUupoBSG/OSg2QtUBLZ5Jn4PUm22/4POURXFxcWKN2dAkrGBKwViG4kC038F
+	pQ1Rn4xVVPchLDWB9a9YsikDG7/9vLWJscwf6330yrg==
+X-Gm-Gg: AYBFou1/V3cGwAZInjvDttazBDUpx4kBORGEPC+oePiO6DKysNd9BS/RfmlT2S8npev
+	ld+8dBc9lQ29TfgkQmt0dFe4/3TIG9GImpMy1Vw32TmoQWbWzMe1TMNVuWz0vebuhJN4xr9vEcT
+	B8LjbYJ7Jad/3gmi+/2sKVn8bT9mG279KUTtkc+bu85SNP3H0A7v+99poyWDegIWJecCbjhWGD4
+	OeHfLI2aEJdib4yICYmBmciDc59egQd+QSbOuR4Ph7h2AZit8TBDHBN31AIpcNRQ7oX/S3eErnU
+	1bMvROlfd1vJDtTrswXc/G04xUCkBaOqKrkxmz6pBdmilGni6jJkokOG9QV2QUmIPSESBlCrdd9
+	xIu6AJ4YgAN2DzyLy8kba30LZWuBTo70BymKm3x7xZNhkNxWtkoy4GIFJFA+INYuw0Ah9hvx7eF
+	trYRfEuyPuzixksML0Rp81VoNDkmyFzgTjuIzdZh18Xifnyd5yoGc3jkkBqMcegeXxuV3o3pDtt
+	B4=
+X-Received: by 2002:a05:620a:4052:b0:93c:290e:9e9c with SMTP id
+ af79cd13be357-9441337e6c2mr427309985a.16.1793286756364; Thu, 29 Oct 2026
+ 08:12:36 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,14 +105,13 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
-In-Reply-To: <20261014-ov9282-fixes-v2-6-3bb376d8b1a9@linux.dev>
+References: <20261014-ov9282-fixes-v2-0-3bb376d8b1a9@linux.dev> <20261014-ov9282-fixes-v2-8-3bb376d8b1a9@linux.dev>
+In-Reply-To: <20261014-ov9282-fixes-v2-8-3bb376d8b1a9@linux.dev>
 From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 29 Oct 2026 15:10:09 +0000
-X-Gm-Features: AclHuK-NCoRP1AFBwcEcpT9lZOpueGQS9GFk1YygW8gcMAFUBjXyhMvfoBBBJz0
-Message-ID: <CAPY8ntC1G0Q=MFGkLNSC+bCq-iJh+estq1FeDgE7aV4UksyuyQ@mail.gmail.com>
-Subject: Re: [PATCH v2 6/8] media: i2c: ov9282: recalculate strobe span on
- HBLANK change
+Date: Thu, 29 Oct 2026 15:12:17 +0000
+X-Gm-Features: AclHuK-uUWfGkjzNpPgxkc9h9-DVCMS05G89F7iEGV7DilP91VXl08Uhulon7tc
+Message-ID: <CAPY8ntAYERfaKFs5ub9xpu0Ds45dFz6+aABGsdmzZMay+LT-gw@mail.gmail.com>
+Subject: Re: [PATCH v2 8/8] media: i2c: ov9282: harmonize dev_err_probe usage
 To: Richard Leitner <richard.leitner@linux.dev>
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
 	Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -120,64 +120,116 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>, "Bryan O'Donoghue" <bod@kernel.org>, 
 	Jacopo Mondi <jacopo@jmondi.org>, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
 	Gyula Kelemen <gyula.kelemen@advasolutions.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 On Wed, 14 Oct 2026 at 07:49, Richard Leitner <richard.leitner@linux.dev> wrote:
 >
-> When HBLANK changes the line time changes. This means the time base for
-> the strobe duration calculation changed. This results in the v4l2
-> strobe_duration control value and the strobe_span register value being
-> out of sync.
+> Use dev_err_probe() for all error messages during probing. This ensures
+> there's a common "look-and-feel" in the drivers source code as well as
+> the system log.
 >
-> Fix this by recalculating the strobe_span register value on HBLANK
-> writes using the currently configured strobe_duration. This results in
-> the strobe_duration configured by userspace being kept, but the
-> underlying register value being changed. To ensure the values are
-> applied on the same frame guard the writes with OV9282_REG_HOLD.
-
-Group hold will do what is intended, but if control updates from
-userspace for eg gain and exposure generally get too widely spread
-then, we've got much bigger problems.
+> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-> Fixes: 84ec7597ae1af ("media: i2c: ov9282: add strobe_duration v4l2 control")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 > ---
->  drivers/media/i2c/ov9282.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
+>  drivers/media/i2c/ov9282.c | 32 +++++++++++++++-----------------
+>  1 file changed, 15 insertions(+), 17 deletions(-)
 >
 > diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-> index b48c959b9c908..5114fbf28a26c 100644
+> index f877cb9e78c38..8b01d9d43f0df 100644
 > --- a/drivers/media/i2c/ov9282.c
 > +++ b/drivers/media/i2c/ov9282.c
-> @@ -625,6 +625,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->         u32 exposure;
->         u32 lpfr;
->         int ret;
-> +       int ret_hold;
+> @@ -1077,9 +1077,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+>         ov9282->reset_gpio = devm_gpiod_get_optional(ov9282->dev, "reset",
+>                                                      GPIOD_OUT_LOW);
+>         if (IS_ERR(ov9282->reset_gpio)) {
+> -               dev_err(ov9282->dev, "failed to get reset gpio %pe",
+> -                       ov9282->reset_gpio);
+> -               return PTR_ERR(ov9282->reset_gpio);
+> +               return dev_err_probe(ov9282->dev, PTR_ERR(ov9282->reset_gpio),
+> +                                    "failed to get reset gpio\n");
+>         }
 >
->         switch (ctrl->id) {
->         case V4L2_CID_VBLANK:
-> @@ -677,8 +678,14 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
->                                       OV9282_FLIP_BIT, ctrl->val ? OV9282_FLIP_BIT : 0, NULL);
->                 break;
->         case V4L2_CID_HBLANK:
-> -               ret = cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
-> -                               (ctrl->val + ov9282->cur_mode->width) >> 1, NULL);
-> +               ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
-> +               cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
-> +                         (ctrl->val + ov9282->cur_mode->width) >> 1, &ret);
-> +               cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
-> +                         ov9282_us_to_lines(ov9282, ov9282->flash_duration->cur.val),
-> +                         &ret);
-> +               ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
-> +               ret = ret ? ret : ret_hold;
->                 break;
->         case V4L2_CID_FLASH_STROBE_OE:
->                 ret = cci_update_bits(ov9282->regmap, OV9282_REG_OUTPUT_ENABLE6,
+>         /* Get sensor input clock */
+> @@ -1095,8 +1094,8 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+>
+>         rate = clk_get_rate(ov9282->inclk);
+>         if (rate != OV9282_INCLK_RATE) {
+> -               dev_err(ov9282->dev, "inclk frequency mismatch");
+> -               return -EINVAL;
+> +               return dev_err_probe(ov9282->dev, -EINVAL,
+> +                                    "inclk frequency mismatch\n");
+>         }
+>
+>         ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+> @@ -1112,16 +1111,15 @@ static int ov9282_parse_hw_config(struct ov9282 *ov9282)
+>                 bus_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
+>
+>         if (bus_cfg.bus.mipi_csi2.num_data_lanes != OV9282_NUM_DATA_LANES) {
+> -               dev_err(ov9282->dev,
+> -                       "number of CSI2 data lanes %d is not supported",
+> -                       bus_cfg.bus.mipi_csi2.num_data_lanes);
+> -               ret = -EINVAL;
+> +               ret = dev_err_probe(ov9282->dev, -EINVAL,
+> +                                   "number of CSI2 data lanes %d is not supported\n",
+> +                                   bus_cfg.bus.mipi_csi2.num_data_lanes);
+>                 goto done_endpoint_free;
+>         }
+>
+>         if (!bus_cfg.nr_of_link_frequencies) {
+> -               dev_err(ov9282->dev, "no link frequencies defined");
+> -               ret = -EINVAL;
+> +               ret = dev_err_probe(ov9282->dev, -EINVAL,
+> +                                   "no link frequencies defined\n");
+>                 goto done_endpoint_free;
+>         }
+>
+> @@ -1352,8 +1350,8 @@ static int ov9282_probe(struct i2c_client *client)
+>
+>         ret = ov9282_parse_hw_config(ov9282);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "HW configuration is not supported");
+> -               return ret;
+> +               return dev_err_probe(ov9282->dev, ret,
+> +                                    "HW configuration is not supported\n");
+>         }
+>
+>         ov9282->regmap = devm_cci_regmap_init_i2c(client, 16);
+> @@ -1364,12 +1362,12 @@ static int ov9282_probe(struct i2c_client *client)
+>         ret = ov9282_power_on(ov9282->dev);
+>         if (ret)
+>                 return dev_err_probe(ov9282->dev, ret,
+> -                                    "failed to power-on the sensor");
+> +                                    "failed to power-on the sensor\n");
+>
+>         /* Check module identity */
+>         ret = ov9282_detect(ov9282);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "failed to find sensor: %d", ret);
+> +               dev_err_probe(ov9282->dev, ret, "failed to find sensor\n");
+>                 goto error_power_off;
+>         }
+>
+> @@ -1379,7 +1377,7 @@ static int ov9282_probe(struct i2c_client *client)
+>
+>         ret = ov9282_init_controls(ov9282);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "failed to init controls: %d", ret);
+> +               dev_err_probe(ov9282->dev, ret, "failed to init controls\n");
+>                 goto error_power_off;
+>         }
+>
+> @@ -1392,7 +1390,7 @@ static int ov9282_probe(struct i2c_client *client)
+>         ov9282->pad.flags = MEDIA_PAD_FL_SOURCE;
+>         ret = media_entity_pads_init(&ov9282->sd.entity, 1, &ov9282->pad);
+>         if (ret) {
+> -               dev_err(ov9282->dev, "failed to init entity pads: %d", ret);
+> +               dev_err_probe(ov9282->dev, ret, "failed to init entity pads\n");
+>                 goto error_handler_free;
+>         }
+>
 >
 > --
 > 2.53.0
