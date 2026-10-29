@@ -1,59 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257192;
-	b=V3pvnYQUcf4Hfh4ZWxm6EHJyXPklMLRWA/LkCL6XU1GScWrWpSSc9h97f6ClKpq3n7DN
-	 rpSIHrOHXLYW5LZ0sfQlLBG/8GA9IQdXd7/qqNEEhcvHQRlYv8jzY4fU8Ao92Bj15S/BQ
-	 UOJq4iZsI0GQk8N/EJ5g6YR96C1AUT+8JHGcGzqsW+pad4afG5EieCJT2zVFGE0V+cGOu
-	 D/Y86KW0DYamGWq5PWa6d3TNhV53ndbl8i8B4GAEOO7NA0z0XWWe2j/9dhLY3Wix2DirH
-	 1lpAXSlAL9spfH7iFZsnY5605rMF+Tib3pxVZzsF7Qmymh8qXJwv/zePZYZJfSski5w==
+	t=1793257654;
+	b=CUo50H1iYcNZ0XcV92Smai+6lk0De2g2T9gIZAKZxmaD7lbaDtX/+1PDlmeq4ruICqCU
+	 Gw0pKTCCj2uO1TjeYppspV5McXWycmFktrUdOnlllot6dnoRgdGKYpMVnxEWkp2ZQjo/w
+	 KXPcd/LAVUJUSgy7iYBSbgekV/hMR9kOJZwMRI9msjsnMj+ClCjrSmeLmxf7YrAbsrzHd
+	 33Tglg0qJSP/R+ZyDrcl0zFtr6PiOH/dCnhSKnqOP01tyP+VBVvB6O6eZnEc/IM+xb1HS
+	 WQKzK4x5MeY0ylY3R7qdGySO52gZcjvObQX5I8QUSfSigRaiACm2luXuiEVpwutX7Ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257192;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Kh6fyYM9A3q0ohWlsJcJ/n23PnS3m9HxS4zy/xnmjAA=;
-	b=PKqimAlA6bLknHHYx44EPH3PVFGPK4Y76pw2Ncqh6D6DwExmgx8kKcp0+ZwmwUVR4LxI
-	 ngwTq45HBUnW4ASvJuj+EwsaAP/0+r8JB0Xl0d0kwVTlTpPhpC3yDroOXLRPkfKpLUXMk
-	 tkooUXZ0AnMyP1HalSWuCv1CciCn4K6U0C4k3zwN/AleQMI16eCR8vh2yitLuZqXwToxo
-	 tzYb3oMaxGOIJq+ZLaz3q2q+qhIvlKBrFlXpXCA3ITgzRymzHw41dobfXDK2JG8OXtbHo
-	 oNUun1fJZs7/mbwdnjyIyXv7MQUbFKPtYMz7cK1ZYb4a8VNcdRS6mqWpe/UXt7GWzyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793257654;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fCqPovCUaMSKnEyTs0813ILdLCl30RRGnjF8iUllIzE=;
+	b=UTO/x1IDLQCnRSzUWD+J1C7f+4De3Sp9yRLuhezM+uv6/5ubnd5Z8j5Qy/2hEPf4QMKL
+	 BZ+L2h3RDBMuTl+oLhX/YaUHT3hUwq3xHT4IeNl1prZoAwERkpFik0Q20opZiF0IE4Zkh
+	 vPPn9JliPIcE3NAtubUUAat9br1zQMYU2glbdTlB6PB0Run47V3HM+/3zdxSk1oX7hAv5
+	 z3V8kKAxE7y+ta+ciF+wCl1fE9qhZ8mG46xNWUkPCWDZtc2iPzLNEB+1eFCow44Mu9jcD
+	 0z9c/GlDU3LIj3gZxFQ3/u2CkqEFcWg8u3Jx7i280cdVrI7F2XKCxo0/MoiczbgpO9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=X0xPqkDR;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D45D606A31A;
-	Thu, 29 Oct 2026 06:59:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D45D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5ZQ4uOS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1557D606A31A;
+	Thu, 29 Oct 2026 07:07:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=X0xPqkDR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	MIME-Version; bh=Kh6fyYM9A3q0ohWlsJcJ/n23PnS3m9HxS4zy/xnmjAA=;
-	b=X0xPqkDRu438dSh+eexVUHKzriBscbwvdl09W0lKduWsPgkR/kZMNkh33j58Xi
-	ydOGXKml8sAP7Z/G5l8ndZA7zXKFw7Il7iBVAo8R5olnweMhF1WvkQlspWMnB3SC
-	nM16XdCbrr84U9ghCceXTOY/cx25BYRHk+MWUz1T2fXsI=
-Received: from [127.0.1.1] (unknown [114.214.224.240])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnHjPa7uJqqPNeAA--.374S2;
-	Thu, 29 Oct 2026 14:59:38 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Bryan O'Donoghue <bod@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
-Date: Thu, 29 Oct 2026 14:59:38 +0800
-Message-ID: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
-In-Reply-To: <5d886ac3-4baf-49c7-a703-7cb737ef48da@nxsw.ie>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5ZQ4uOS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBD51F01828;
+	Thu, 29 Oct 2026 07:07:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793257653;
+	bh=fCqPovCUaMSKnEyTs0813ILdLCl30RRGnjF8iUllIzE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=b5ZQ4uOSwVo0TKfcMA8KM+g/qKqoUOM/CiH6Hk68YncwF3UMlzEr4uaNSrvccoVle
+	 +zDWiIwh6E0IXcFTW4sSfdeqU9nypc1CAurWs6po+btYPCitbnC+mAcmOrT2HSCY+E
+	 eNY8aUae00Md3abpJimfu8q17tY5La0AZibAVK/d5yz1dJVZXSFuVUIkZu4eQckQHL
+	 ZohkPtm7QpW8OpTA+ipZGJXMgabWyWy3pAe1kYCKqJWtIeHlRl/9+nNpg16iOWX4Vw
+	 3s8iqQa3gsd5KEEFgCy36qCD9PdtdaR94aJnGXXaW1n/xTU3V+Mn6lCnrnvXMl5qP8
+	 zLS6xoHEdUXwQ==
+Message-ID: <fe9765cf-ef10-4068-ad43-26346d842c12@kernel.org>
+Date: Thu, 29 Oct 2026 08:07:27 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -63,41 +51,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgCnHjPa7uJqqPNeAA--.374S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrur1rKr4UZFW5Wr4DZF1xuFg_yoWfZFg_u3
-	9rAr92ga1qvrn3Wa1DuF4q9rn8tw1ft3s8Wr4kXw1Ik34qyFs5Was2kw1Sqr4fXry09rnx
-	G39Ygay09r909jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaAYjsxI4VWkKwAYFVCjjxCrM7AC8VAFwI0_Gr0_Xr1l1xkIjI8I
-	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
-	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0
-	cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r47MxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU5GhFDUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREPB2riTVYsUAASsl
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Answering the open points in one message, short.
+On 29/10/2026 07:59, Qianhui Xu wrote:
+> Answering the open points in one message, short.
 
-1. Kaanapali camss v23 (20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com)
-   covers what our series tried to do, and its CSID patch already does the
-   reg_update/addr_update split. We are dropping our binding, CSIPHY, CSID 980,
-   VFE gen4 and DTS patches; no parallel submission from us on those files.
+What are you referring to? I'll just drop this.
 
-2. Frame start reporting: agreed, CSID should not be the reporter. Dropping that
-   patch and looking at V4L2_EVENT_FRAME_SYNC on our side first.
-
-3. Three patches we still think stand alone, none SM8750-specific and none
-   touching files v23 touches:
-   - media: camss: video: stop already-started subdevices when start fails
-   - media: camss: csid: unwind power-on on failure
-   - media: camss: video: require DMA-contiguous buffers (with the citation you
-     asked for, or dropped)
-
-   We will post them as a small series after rebasing on v23. No dates promised.
-
+Best regards,
+Krzysztof
