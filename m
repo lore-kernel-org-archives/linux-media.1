@@ -1,50 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.92
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.183.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793246330;
-	b=oMA6woiyExn5v+ywtIIUF6gpz4ur7KhMOxnPQV7yPr/r+vOQbxyIVKMm65MdDvmRuVeC
-	 HjK4U+JCtLFWFtoAAh0ytELfFIQuL9KfzVazeGF1Wl9bFr24m4VD8c44TU3mMDqK9IF9G
-	 Baz66aU2nHwVb6zaDOTjOr42RsmGcWvxFxqDtVOHnUFuniFn5DE4ramxzD4yAId4e8Lo/
-	 3hMLwcWj/KqxcbkytSBauVfIF5V1rwrZU5UpIBXon3MqUZsFedxpkCzsMvQgbQZyqBdqd
-	 xxWHCfdtXxbOzyGoEaj52e1ENtNLIKGd2D7Tgz66ycyLN04gSslRlt2u12B6ebHQEoQ==
+	t=1793250036;
+	b=19EXzls3znrvQ9DEDrpKcFaWabTr3ckNCodIpKsvbRXEzokoYfEC2tadYOHBV8jM5AlQ
+	 DOtwPjUVQ7aZOzfWltIWwrb6bLSfqJw8E9Gkc2CnRkmEb0v35/zqIPWVDkCxyr9U+KZeo
+	 wn6NK4vTXbpKxx2q3JaIRuLpEr1KuWalRrW6tA2o4mxYC425D8GVyncNpz7B4mYka0J0C
+	 USD5Ry3d1O0D741wokHtT8aYabI6OpDaiXL7V+frKSzmJQNtbTJh1jf0uCJWLct1eQYeb
+	 LnsSpJMktrvn4kfAlcYo3FS+xMj5ERROYZy6gZ2sTXINURNX5VDo8JlC/87DhPLBooQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793246330;
-	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
-	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=IgbNz+SNgouia/IOvlHkxYnX76eQZ+kGE/jr65hcj7c=;
-	b=tFvOw7cu/9l/o82tUrcwcCkiA9HYNZpLTwFIq8CMKZNgnTS+YDZSs9O4Eq3En2dvUN+h
-	 PkHcZZnq0TrH2JYcVbYxOeXP6lrVidMHeEh6kzKDE4koloepVoPkj7+mM5hpRuQxLXBQR
-	 eapyWHzG33HOSHlBWpQpT9S8IyaoQi30KVD+/+PDwk4Q4S/ZkM3G68sGFNLIb06QlY8qm
-	 F9Jr5Lut4Ux6aFWW5RjIqTGIagzitpyfoewVm/u+RV+68mvntaR4FoPmPKqcIDj8Pr/9v
-	 2GFKUq1wrUGUhrqSsQewO+dipeUf63mc0hsW/rmmt8LQ61PbyRBntZzm6VfUEScSfYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793250036;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-Proofpoint-Reinject:X-Sony-BusinessRelay-GUID:
+	 X-Proofpoint-Virus-Version:X-Sony-EdgeRelay-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Sony-Outbound-GUID:
+	 X-Proofpoint-Virus-Version;
+	bh=G114mY7zeouD/coYG3dnUhZJ95VWXi4H5iiRVPw/5to=;
+	b=OJNZyVwjQzCyBk/ecHnKSIYOtvgc0eqEuuxHsBihdZTUJVrBXqlvh86U6NQJabHsMv6z
+	 x/W5a0wZx5t2P6LODjAVF1vKxyXwNBfr1ISrZduJH6ChWzJqup1PqP93Ky9keIni3w3Ee
+	 b0x0xmx/uDgzIizKeWpt1k8HJZIVnsxjtP3rv3bRHoG9igT5L8lOHAweH01Ok94WrGJG1
+	 EPL6+65+wbfezV+3CJAfyozBmlLwFjCOqpvLAh5BYLaxujIkuVy54ad9y53H+OHdyGV6H
+	 LwHzTpyGSuUH6AbzzXnAwP+XGUNBJwlsnB+dVc+Che9k40z7mCNaS7QhXySV3+s+JhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=radxa.com;
-	spf=pass smtp.mailfrom=radxa.com;
-	arc=none smtp.remote-ip=54.254.200.92
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=sony.com;
+	spf=pass smtp.mailfrom=sony.com;
+	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=sdpjJi5Y;
+	arc=none smtp.remote-ip=185.132.183.11
+Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71774606A32F;
-	Thu, 29 Oct 2026 03:58:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71774606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip2t1793246308t7553b4d1
-X-QQ-Originating-IP: 8S/q3VMDhlXxy5MiBaIKvjvTI/fNn/VqPiFYkd4YxAk=
-Received: from [192.168.30.244] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 29 Oct 2026 11:58:25 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7907422778241273766
-EX-QQ-RecipientCnt: 17
-From: Xilin Wu <sophon@radxa.com>
-Date: Thu, 29 Oct 2026 11:58:10 +0800
-Subject: [PATCH 5/5] media: iris: Recycle decoder buffers for non-display
- pictures
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C52606A31A;
+	Thu, 29 Oct 2026 05:00:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90C52606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=sdpjJi5Y
+Received: from pps.filterd (m0209325.ppops.net [127.0.0.1])
+	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T2PBiU1982673;
+	Thu, 29 Oct 2026 05:00:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=p1; bh=G114mY7zeouD/coYG3
+	dnUhZJ95VWXi4H5iiRVPw/5to=; b=sdpjJi5YlwVD71ZR3MTXnfxBnlvEndZ7pb
+	bWtWUTc3UtNYypAFPksi2iu4EGruTmVdtPV/Wae2xLdZ0apE9mO1agaVjjLrOUTV
+	D12HyVJnmvY2hR/AjXhvdpdEW58+wPuaNNcYc/bssfQlDvK+p7aeumFKaFbKKdjt
+	4iEJfW0dr0nmildE8AkF6VIwpkyupZXYBeq8DchtFrG4trLQVdb5DY8mz7lypJGm
+	VbsQBtfLkKidPP7RQf3gnZ/cMwD2jUhGMP+cubphYWUSm/nAw1/HFtPBC07LIick
+	9yN+5N7GjgVHGxxvz/6Z0bjXsWJjgefBGpZsIdmhkCmFFZ+U/n5w==
+Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
+	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hghwvpd64-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+	Thu, 29 Oct 2026 05:00:12 +0000 (GMT)
+Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69T4muKm1272018;
+	Thu, 29 Oct 2026 05:00:11 GMT
+Received: from sgppsbm01v.s.gdce.sony.com.sg ([146.215.113.217])
+	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4hgnrhpnnx-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 29 Oct 2026 05:00:11 +0000 (GMT)
+Received: from pps.filterd (SGPPSBM01v.s.gdce.sony.com.sg [127.0.0.1])
+	by SGPPSBM01v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 69T3hSTi1070511;
+	Thu, 29 Oct 2026 05:00:10 GMT
+Received: from localhost.localdomain ([146.215.113.251])
+	by SGPPSBM01v.s.gdce.sony.com.sg (PPS) with ESMTP id 4hgnrk1g2n-2;
+	Thu, 29 Oct 2026 05:00:10 +0000 (GMT)
+From: Lachlan Michael <lachlan.michael@sony.com>
+To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
+        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com,
+        Kazumi.A.Sato@sony.com, Yuji.John.Takahashi@sony.com,
+        linux-kernel@vger.kernel.org,
+        Lachlan Michael <lachlan.michael@sony.com>,
+        Conor Dooley <conor@kernel.org>
+Subject: [PATCH v6 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+Date: Thu, 29 Oct 2026 14:00:01 +0900
+Message-ID: <20261029050002.3880-2-lachlan.michael@sony.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261029050002.3880-1-lachlan.michael@sony.com>
+References: <20261029050002.3880-1-lachlan.michael@sony.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,190 +94,188 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-iris-va-fixes-v1-5-44a2783f782b@radxa.com>
-References: <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
-In-Reply-To: <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- dragon@radxa.com, Chris Obbard <chris.obbard@oss.qualcomm.com>, 
- Deepak Sikri <sikrid@qti.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Loic Minier <loic.minier@oss.qualcomm.com>, 
- Jason Pettit <jason.pettit@oss.qualcomm.com>, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5731; i=sophon@radxa.com;
- h=from:subject:message-id; bh=vbrIyfaSgxCS/czmR4f/8hxsAEFbVTZnOXusQwoLvVo=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPjgT1Sds/WjN3hxBnsYDDx6MfNHVYOMoftM57Un83V
- jqspGtSRykLgxgXg6yYIotCPMNc9srca0/FSvVg5rAygQxh4OIUgIkcrWD4n8RhEPqJZ0qT9F2x
- H6t2Z+5OsLI7Fubb9O2Pnlq5n+yX34wM8wR4lATtz8UaPH53i53jvYqKb+/UqVp72efKfXkU2uL
- CDQA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NhFh/C1ssL5wjn7ePSJWjXWuC/2KMVAOuw4//sHTQFBMyhzUHoMJTMVS
-	RRrC4L87jNi9Y9t21yf1NPDyMIzZETgTyGFg7RuLgDqTUxn1dSPReCtPIanEJIrhQO1jMq/
-	0Mn9avOLvNnJx08IT069tDt33FcNgdDdfvoS2bHfEFh+g8CRqEoBk8iejvLJG8wktVuK2zo
-	1X/Gdfs29QFkIjyadKvhjvLKyfEoaSBjHfr/3NtkHfxLcLES9LDXC+KKLluuvSIJgUzvIyR
-	IkB9zNXOtupgKPyZ5TpmGKJnEtwEG/OabZ0HrOg8h194nmCLbAA5XyxSetN4hKgMbpXX5+P
-	oKEAfy7esi7ZzvggNrBCUNXEYtIL3dfqyXP9EStpjKEQiP9ykEK2xH9g2kgNSsTcEu2+UwY
-	HFaHUAerU0Qt+M0MMtCrDEoQKt7ivAqF16W+73qGh5xm3XuZ6aUaRL3L+fLS/rNl35IntVw
-	So3qUyzv4q1OZU8x91l7EFBGJnS0EKVSScqDGYVNCiJnCpt6BbVbAo/UdlYFwg8axecNo/T
-	vrv69PACfGhnjL0k18vmX5wc0Xr5sq1wTorKxvklKDW5Imgm7+WXR8h7dfwmNGN+//xkrHK
-	5Kqg2jqC2bPimHPW8BvuWVMOYd5XkDnH5DfgnMiW+fU4yk4/pHcmio1zH84pdop/vEVF5N7
-	UMlQ1T/ai4RsoIJqip9lAZ5c/oHqn7devvjwaVAR3ENd4jqc0K+wC5bFlX+ynPv0QEe47YI
-	QMJe2TpqzKr7aR8c2Sq1TxTM5GItyYA5uY0eFqX/khMzG/jxRW7++oikgaM5+bAt3YsPPa0
-	num+2/YfI4uT0mwr7PtCLxFFCmsPPVHTlaQhIT07IX91fS2Bm6gn/k7yTx6KgSDNpzZPrzp
-	mJBLQHRV5mWkoUnPaYPTPRwh5PIbzcRMLDR/hHmLxD6UBoNhwEvZdiM4OOps76Nr8IsOHAf
-	lcAr5to9cbNs0ciXxkGihrr48Emf6Lsuwqz4lmwK73rNjTxZMEiRfAYN+hlSvq+h/Zs14Z9
-	8qisplZDeQjlM9TbNHeRMIa2lHEMam6d781rlG4RJQsiDIqEX4ILv0ucyFgnhzXZy5qWk73
-	Q==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Sony-BusinessRelay-GUID: aa5uurz6SAiVfgVwaHDLSYZwC9WGof9N
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
+X-Sony-EdgeRelay-GUID: bvD6LGc7-7CkNsOtO0HfX6b4EcawJH1X
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-GUID: o8v14snD6GilfJhpQ4GLqN8MkukKEoaN
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDAxOCBTYWx0ZWRfX+7fJgF3oA+W+
+ 26TiQsp4jYbb/19LKIHApiKGlEbC/t/sDNfcUS5N+wQTaSBuxrP1BHrdj4gF2eFRyJBPlj4+em0
+ 6GWkw5Jl2WQQACAIEu9PfnwtZzy26HPArk1z2QPMdEwd/jPmaJiZ
+X-Authority-Analysis: v=2.4 cv=AMzCycPh c=1 sm=1 tr=0 ts=6ae2d2dd cx=c_pps
+ a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
+ a=FGjXJT7Bex8XaPnzAX5M:22 a=gEfo2CItAAAA:8 a=P1BnusSwAAAA:8 a=VwQbUJbxAAAA:8
+ a=z6gsHLkEAAAA:8 a=pGLkceISAAAA:8 a=CjxXgO3LAAAA:8 a=l1DErWBwqTL5L6UNyDoA:9
+ a=sptkURWiP4Gy88Gu7hUp:22 a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDAxOCBTYWx0ZWRfX4TUYESxNzHic
+ bRyAgfltGAtrOWDdkroZ4hGqS2rKLUmwVepsenmQRzOyxQaslKQULngzU3kDYCUO+w5pylJR9Qv
+ niy6oOwpHDniuIWOdxijgEoTBWH6JALDeq+ISQBZi9he5pNPAz0fQaGSxoOjnX7xedgmjDa5w5v
+ MsKU87GPeHPLkaQPeupDCpLRyJ29WgWvetbzS7Zd1HAO80VSHVT1gjcRRsa3QTbZ9RAH+D2qZ2x
+ 5S6I61WHhlScAXEPCRcDYHgU17pIG87WnMyZ9QL2GclQv/0/Kwf8Yu6Vffb8jJPHF332hXtAOLz
+ 5epsbhlmNwpAUCRdwM9Ll7LiUPuulqc5yn6YcybuS+Fs/k2HNnxbHWSspW+wR3UnferysHqrClm
+ G0KNu4ggxQ14smntVCZi08+vQmPpIPLxVhEXAPKPmh/E5ougIOZDwfF79MVBQrvnUxgDnwQkv4O
+ peMpRptw8ppYVijhZgg==
+X-Proofpoint-ORIG-GUID: o8v14snD6GilfJhpQ4GLqN8MkukKEoaN
+X-Sony-Outbound-GUID: o8v14snD6GilfJhpQ4GLqN8MkukKEoaN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_01,2026-10-21_02,2025-10-01_01
 
-HFI gen2 reports non-display pictures with HFI_GEN2_PICTURE_NOSHOW, but
-Iris returns them as errors. For AV1, hidden and displayed pictures can
-share a timestamp, so GStreamer's v4l2av1dec drops the pending frame and
-loses the displayed picture.
+The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
+over 2 or 4 data lanes.
 
-Recycle successful non-display buffers within the driver instead of
-returning them to userspace as errors. This also fixes VP9 streams using
-hidden alt-ref frames.
+Add device tree bindings for the sensor.
 
-Fixes: ac72ad9deafa ("media: iris: Add handling for no show frames")
-Signed-off-by: Xilin Wu <sophon@radxa.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Acked-by: Conor Dooley <conor@kernel.org>
+Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
 ---
- drivers/media/platform/qcom/iris/iris_hfi_gen2.h   |  2 +
- .../platform/qcom/iris/iris_hfi_gen2_command.c     | 11 ++++-
- .../platform/qcom/iris/iris_hfi_gen2_response.c    | 47 ++++++++++++++++++++--
- 3 files changed, 55 insertions(+), 5 deletions(-)
+Changes in v6:
+- Use unevaluatedProperties instead of additionalProperties to correctly
+  handle properties evaluated by referenced schemas.
+---
+ .../bindings/media/i2c/sony,imx908.yaml       | 107 ++++++++++++++++++
+ MAINTAINERS                                   |   5 +
+ 2 files changed, 112 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
 
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.h b/drivers/media/platform/qcom/iris/iris_hfi_gen2.h
-index 21ab58e0aa84..79aac2d4e500 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.h
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.h
-@@ -20,6 +20,7 @@ struct iris_core;
-  * @packet: HFI packet
-  * @ipsc_properties_set: boolean to set ipsc properties to fw
-  * @opsc_properties_set: boolean to set opsc properties to fw
-+ * @output_stopping: capture STOP command is awaiting its response
-  * @hfi_frame_info: structure of frame info
-  * @src_subcr_params: subscription params to fw on input port
-  * @dst_subcr_params: subscription params to fw on output port
-@@ -29,6 +30,7 @@ struct iris_inst_hfi_gen2 {
- 	struct iris_hfi_header		*packet;
- 	bool				ipsc_properties_set;
- 	bool				opsc_properties_set;
-+	bool				output_stopping;
- 	struct iris_hfi_frame_info	hfi_frame_info;
- 	struct hfi_subscription_params	src_subcr_params;
- 	struct hfi_subscription_params	dst_subcr_params;
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-index a285e6fc8728..77ea153bf2d7 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_command.c
-@@ -1172,7 +1172,16 @@ static int iris_hfi_gen2_session_stop(struct iris_inst *inst, u32 plane)
- 	if (ret)
- 		return ret;
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+new file mode 100644
+index 000000000000..3957872abda0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+@@ -0,0 +1,107 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright 2026 Sony Semiconductor Solutions
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx908.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX908 CMOS Image Sensor
++
++maintainers:
++  - Lachlan Michael <Lachlan.Michael@sony.com>
++
++description:
++  Sony IMX908 diagonal 6.42 mm (Type 1/2.8) CMOS active pixel type
++  solid-state image sensor with a square pixel array and 8.39 M
++  (3856x2176) pixels, supporting MIPI CSI-2 output with
++  RAW10 and RAW12 formats, configured as either 2 or 4 data lanes.
++  The I2C target address is selected by the SLAMODE0 and SLAMODE1 pins.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx908
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: Input clock (24 MHz, 27 MHz, 37.125 MHz, 72 MHz or 74.25 MHz)
++    maxItems: 1
++
++  dvdd-supply:
++    description: Digital supply voltage (1.1V)
++
++  ovdd-supply:
++    description: Interface supply voltage (1.8V)
++
++  avdd-supply:
++    description: Analog supply voltage (3.3V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO. Active low.
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - dvdd-supply
++  - ovdd-supply
++  - avdd-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++         camera@1a {
++            compatible = "sony,imx908";
++            reg = <0x1a>;
++            clocks = <&cdce913_cam0 0>;
++            dvdd-supply = <&cam_dvdd_1r1v>;
++            ovdd-supply = <&cam_ovdd_1r8v>;
++            avdd-supply = <&cam_avdd_3r3v>;
++            reset-gpios = <&tca6416_cam0 5 GPIO_ACTIVE_LOW>;
++
++            port {
++                imx908_out: endpoint {
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <720000000>;
++                    remote-endpoint = <&csi0_in>;
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5d39ec6feb03..91aaba2cf764 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25578,6 +25578,11 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+ F:	drivers/media/i2c/imx678.c
  
--	return iris_wait_for_session_response(inst, false);
-+	/* The response wait drops inst->lock, allowing buffers to be returned. */
-+	if (plane == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
-+		inst_hfi_gen2->output_stopping = true;
++SONY IMX908 SENSOR DRIVER
++M:	Lachlan Michael <lachlan.michael@sony.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
 +
-+	ret = iris_wait_for_session_response(inst, false);
-+
-+	if (plane == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
-+		inst_hfi_gen2->output_stopping = false;
-+
-+	return ret;
- }
- 
- static int iris_hfi_gen2_session_pause(struct iris_inst *inst, u32 plane)
-diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-index f0782c4b1e6e..a545410d1e8d 100644
---- a/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-+++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2_response.c
-@@ -101,9 +101,7 @@ static int iris_hfi_gen2_get_driver_buffer_flags(struct iris_inst *inst, u32 hfi
- 		HFI_GEN2_PICTURE_CRA | HFI_GEN2_PICTURE_BLA;
- 	u32 driver_flags = 0;
- 
--	if (inst_hfi_gen2->hfi_frame_info.picture_type & HFI_GEN2_PICTURE_NOSHOW)
--		driver_flags |= V4L2_BUF_FLAG_ERROR;
--	else if (inst_hfi_gen2->hfi_frame_info.picture_type & keyframe)
-+	if (inst_hfi_gen2->hfi_frame_info.picture_type & keyframe)
- 		driver_flags |= V4L2_BUF_FLAG_KEYFRAME;
- 	else if (inst_hfi_gen2->hfi_frame_info.picture_type & HFI_GEN2_PICTURE_P)
- 		driver_flags |= V4L2_BUF_FLAG_PFRAME;
-@@ -345,9 +343,40 @@ static int iris_hfi_gen2_handle_input_buffer(struct iris_inst *inst,
- 	return 0;
- }
- 
-+static int iris_hfi_gen2_requeue_output_buffer(struct iris_inst *inst,
-+					       struct iris_buffer *buf)
-+{
-+	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
-+	u64 timestamp = buf->timestamp;
-+	int ret;
-+
-+	buf->data_size = 0;
-+	buf->timestamp = 0;
-+	buf->flags = 0;
-+	buf->attr &= ~BUF_ATTR_DEQUEUED;
-+	buf->attr |= BUF_ATTR_DEFERRED;
-+
-+	/* Leave stopped buffers for streamoff cleanup or the next streamon. */
-+	if (inst_hfi_gen2->output_stopping ||
-+	    (inst->state != IRIS_INST_STREAMING &&
-+	     inst->state != IRIS_INST_OUTPUT_STREAMING))
-+		return 0;
-+
-+	ret = iris_queue_buffer(inst, buf);
-+	if (ret) {
-+		buf->attr &= ~BUF_ATTR_DEFERRED;
-+		buf->attr |= BUF_ATTR_DEQUEUED;
-+		buf->flags = V4L2_BUF_FLAG_ERROR;
-+		buf->timestamp = timestamp;
-+	}
-+
-+	return ret;
-+}
-+
- static int iris_hfi_gen2_handle_output_buffer(struct iris_inst *inst,
- 					      struct iris_hfi_buffer *hfi_buffer)
- {
-+	struct iris_inst_hfi_gen2 *inst_hfi_gen2 = to_iris_inst_hfi_gen2(inst);
- 	struct v4l2_m2m_ctx *m2m_ctx = inst->m2m_ctx;
- 	struct v4l2_m2m_buffer *m2m_buffer, *n;
- 	struct iris_buffer *buf;
-@@ -390,8 +419,18 @@ static int iris_hfi_gen2_handle_output_buffer(struct iris_inst *inst,
- 
- 	buf->flags = iris_hfi_gen2_get_driver_buffer_flags(inst, hfi_buffer->flags);
- 
-+	if (inst->domain == DECODER &&
-+	    inst_hfi_gen2->hfi_frame_info.picture_type & HFI_GEN2_PICTURE_NOSHOW) {
-+		/* A hidden reference picture is neither a display frame nor an error. */
-+		buf->data_size = 0;
-+		if (inst->state == IRIS_INST_ERROR)
-+			buf->flags |= V4L2_BUF_FLAG_ERROR;
-+		if (!(buf->flags & (V4L2_BUF_FLAG_ERROR | V4L2_BUF_FLAG_LAST)))
-+			return iris_hfi_gen2_requeue_output_buffer(inst, buf);
-+	}
-+
- 	if (!buf->data_size && inst->state == IRIS_INST_STREAMING &&
--	    !(hfi_buffer->flags & HFI_BUF_FW_FLAG_LAST)) {
-+	    !(buf->flags & V4L2_BUF_FLAG_LAST)) {
- 		buf->flags |= V4L2_BUF_FLAG_ERROR;
- 	}
- 
-
+ SONY MEMORYSTICK SUBSYSTEM
+ M:	Maxim Levitsky <maximlevitsky@gmail.com>
+ M:	Alex Dubov <oakad@yahoo.com>
 -- 
-2.56.0
+2.47.3
 
