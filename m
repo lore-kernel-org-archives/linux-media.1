@@ -1,88 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793267733;
-	b=Hox5a4bNQO2UsukmSI9goZeVZO/fF9zhpfRqJjh409bwJhkSG8jOgEcSCF6sBteZpxY2
-	 wvH492s07X1BTjHLacJfrIODP/Cu6CPYqsX/6qv23Yv22cXkIPyuagSj+V7npGMWJVpQT
-	 mLELlgpXNjhEI0hYk3KP2ydtWJfpBLZSQpAoyBz8Fw6qQMYEx7Xw1zJup8NEZYR5KIphc
-	 /5BiiMAexBVSV5QE5MuC37n82KQhVMe7u5XJkC0Q+TpuGLcHuF1cVd+RwDc+RIcPmBqjJ
-	 EXA+O6TQ6hIDTTMg3PedjAvLrxJRg4qo9t6Nt3uPbYN5UKZoqchv3+XUG3H0SMNgg5w==
+	t=1793267915;
+	b=QTI7p51ynBMs2mLb/WT00Bdm7IoLt+DjKOcRc1YtdMcIXDy7C7+LcAAgXcYdDluYIrHD
+	 aElOX12JDansrk2VOfWxAACu0IhgW/kJTynvmyAstU/R/eqUq8BWVAfcT1AafyV+ZTklK
+	 /9mB4D74kKFzlG/NAxwjsb/GwsPDgV+Du6mC1LBQq84AkWZTngFqn5Dnbgb6XCk0sr6h1
+	 XLxBq0eSBbivfGqeH8BMcIfOSOybg+kzUC6MjM1Vl2BRZnRit8W47VmT4VodFliQIGAzx
+	 sw3ffJCQ2SIdHoHdpFyQaWgInzDCFiN0p9DgXSNB9sxN71J3CQqXX+RT3OZRkdc8wbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793267733;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Y5UC01j4F8lmz2PBAs58kTyKDbkcUBqBSZpVnV2QVa8=;
-	b=UwD3PQvRv2dnL6pxycMCcqYZPsv2uiKlLpFL8hfA6YhSzT43wowSjCpiGhg7/VIa/3Mp
-	 dW4YwAvxiTKtD6zWcTTTRLkx5Y9CQrUoXIk9Qqxz1yF38XjU58lGzfs/+l0KRbdvWvWSi
-	 KTwgDjOV+fpSKDG9fjUDIl8q2o22CDTULCd5K0ALupp7ltC3SXL5SjFyoT0SXCA+nCSXu
-	 DOcHNhj41hg0styrbjlsh6lM/uqzcc64bKW8vd7cdlHJp0InJDw5Z4gENk7ySx4EFQFNQ
-	 u/rqmYiAZNs+LXjnCvJ+WhfmJtyL6lzBlURQn6+BOFipt1PKWGDUAdbFRPlfGB1QvXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793267915;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pvyVptf34gNXi8Bay+Y0wQ1+su1zbi4JW/reYBgb1VQ=;
+	b=iXWipHfQ9P8yqBpD1L+ahnnTIzBFtQ7ppqeF9S6cpC9TBDMCC9eQ/2GMzz2KM9H6EUhg
+	 6G7RWEZxcq6f2/Jr60SFJJjBUvWbY4jQJbPgCGMJAmxzuSlD0w7/BJ40ndvsucV9BrQvS
+	 iejOUI4ddT/0uxjaK4/vTFQx338G7xmI21OdUZZ7v6SpeYsM3I/IGCgzI9JKm4bMSBJ8G
+	 XIbZ8I4Dj3Q6cGQsigL3VhiHO2+Cs8aXbD1Zbse0sTqapXYnptvIa2NddeJZZaR860pjq
+	 Z2FxYFZCMoguMfYqseNBTip+zeJTmHrUUdn2PLs9+AA1OqUTR+JnqcHRRZ7IU0v8WRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iKU8tuov;
-	arc=none smtp.remote-ip=209.85.221.45
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9blAECY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A162160A2619
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:55:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A162160A2619
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E047606A31C;
+	Thu, 29 Oct 2026 09:58:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=iKU8tuov
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so1129910f8f.3
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 02:55:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793267731; x=1793872531; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y5UC01j4F8lmz2PBAs58kTyKDbkcUBqBSZpVnV2QVa8=;
-        b=iKU8tuov9IstN0CtOvIksd/jZJFIVz+/Lpj5Oqt7C3sZU5OBRocdxyZANHhrnVs+j2
-         D4MxwKsWV3zvtMcLoXlzM8fE/5WfogWTeArUuNwDXNdCK/t2U6svcy1oOKyRxNQQt0g5
-         rL8dm2/tzTWZpa7152Pxxxx+7i6/Me5Rjuc5VW/M+oKRNN/25yT7i/lU/rbf/zVLcc2+
-         RgMcVkVf8FxiYrQph4dd/Pd+URcuV5UH8AtP8KyV6MWo6AmCSTRQwHoouGMHIV97p8rY
-         mgfXuIUjwZLd+NswUFl7WPdJ24sbDeo0IVAZAqeKC2RNY398TKB3qFrNxHqxFAWQJFhh
-         V7FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793267731; x=1793872531;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y5UC01j4F8lmz2PBAs58kTyKDbkcUBqBSZpVnV2QVa8=;
-        b=rbQHVmvZXOfzPgLzho26T6b4YsA3RI1OJvS2ZUc6+ix38U1gEH/acS62J0VRG7fKv7
-         SbfhK0TTdOeNZLg/LkxqEvYn5HE2+W7dOMygmVkP6xrWhZoet7YR9maw/WnP92SQJyXq
-         aEC/lGfJQqX8vzzsUXVlwlBY/GzQXrDbNMzUIbGzncQLvcnQ3EH68m4ehwpGu/ERPDgX
-         Q+i7ExJ7qZg7WOe+yUmwNHM6tVug4dc4FjfBYszL4YxwTTXato0jnp40r61vkxj2htMD
-         OSDmfwBEu0CrpYmIdbdCUrSJBhnlDXTCTtRp2IieHR1yGyg8Tb/HGffpm7Ki53e5zwPw
-         LNkQ==
-X-Gm-Message-State: AFq9FYJzK+7ZtAAC55lblpJ35CfDP0aHYpLCS74uYjggdaQKummzEM0b
-	xKSkztggjmzHuKwuK72K6nLkqJXlJoXfIcR0lmTFUIc1fvQVziM/CmJpKFjwAoiTogo=
-X-Gm-Gg: AYBFou3HMuA93EFRZ2R7ez9O1MqjYvTFIIYVoT+TC0cuV8/+LqtLeEav90Jg5XCJh8L
-	82HJMOf2z4afT7Kj1YyBf6swIpIzWGY2l+mM/JTRisIkFfh+n/zLwnN5LxGnhZXyU+yQ92yyZQD
-	G7OPnuf8epxVbHYNIqOqaspq761RljhoWPlJwWY9Xn6hBQI6/WebNdt3R4aZJ8fvnyiDHXtbLyO
-	3mSHtQNHgmocFaI9kNqo8sT31/RQHhPxz7BzxGXOYAHZB8ZTEfRKgnsQwqEw2u0pLQPOFBmWD8q
-	vXJtgwgSge0mWKwhxLlhNOsIPwJsxomK6hPVewKXYEZujr3n0+d5fdFpKd4cnNp23G3F+H1Jj8J
-	NOaUpFJW9NW/G6hdu/FKBKkT0hGVxAKb5G814AyJN0MgzuUdw6C5+JT6XxacvZ4IwBHpk6uCcds
-	lyva1nJAMJIHizIxehoT29AvKKLmoEQnI076JPh/esba5YO1YcnkjrML2xLEDdlKCvYtkglNz9M
-	8IK/E0vwzxv8O5tYvzO8AkGIy69Ygv2mxSdt2fPp2e+H0zkGnaoG7C5AeNBJx2X5I/0X4/AZDJU
-	OZe7XXRjYqouFK477Ks=
-X-Received: by 2002:a05:6000:260b:b0:48d:ffe8:ace6 with SMTP id ffacd0b85a97d-48e5d5ab5f0mr11444415f8f.42.1793267730894;
-        Thu, 29 Oct 2026 02:55:30 -0700 (PDT)
-Received: from [127.0.0.1] ([64.43.45.156])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e3ecd37f4sm40437160f8f.44.2026.10.29.02.55.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 02:55:30 -0700 (PDT)
-From: bryan.odonoghue@linaro.org
-X-Google-Original-From: bod@kernel.org
-Date: Thu, 29 Oct 2026 09:55:12 +0000
-Subject: [PATCH 03/14] media: qcom: camss: Introduce SOF sequence tracking
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E9blAECY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D52E1F01825;
+	Thu, 29 Oct 2026 09:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793267915;
+	bh=pvyVptf34gNXi8Bay+Y0wQ1+su1zbi4JW/reYBgb1VQ=;
+	h=From:To:Cc:Subject:Date;
+	b=E9blAECYp6KG8AN9sCB1a35WZl4tql7Y8ZXp0RDyDE91uhItcOlCubJTDFxxfFQ1c
+	 FQ1oLcDZUFCI5NNc2ysWVgB/YRzMjzSxsJmTuSY+45io7wuL8LjueztYWrgRcpOECH
+	 VewapS1H9J02mVTfUi3oCFQKKGmnMRyzM3asO2oNSoHkcLOi0Td6e3tzSkHmyLmid0
+	 hdfX9MCzFdHpolJc2F/hD/ot11Mq8ijC0ZN/oRoyiR3cb6617vJjq0MXOsWWjMlgvu
+	 0oeqVetAnnaBq4kfE+Rq5DaPVbXmQggZR+obBEtf/xce5dNpC92pf3UDffILLhhSf6
+	 rLTIHQ1YDRYGA==
+From: Philipp Stanner <phasta@kernel.org>
+To: Min Ma <mamin506@gmail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Russell King <linux+etnaviv@armlinux.org.uk>,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Qiang Yu <yuq825@gmail.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Arun Pravin <arunpravin.paneerselvam@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Melissa Wen <mwen@igalia.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sunil Khatri <sunil.khatri@amd.com>,
+	Kees Cook <kees@kernel.org>,
+	Jesse Zhang <jesse.zhang@amd.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	Kexin Sun <kexinsun@smail.nju.edu.cn>,
+	Prike Liang <Prike.Liang@amd.com>,
+	David Rosca <david.rosca@amd.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Neill Kapron <nkapron@google.com>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Sam Day <me@samcday.com>,
+	Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	etnaviv@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	imagination@lists.freedesktop.org,
+	lima@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
+Date: Thu, 29 Oct 2026 10:55:37 +0100
+Message-ID: <20261029095542.1526750-3-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,172 +152,112 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261029-v4l2-frame-sync-v1-3-d37992559c58@kernel.org>
-References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
-In-Reply-To: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4802; i=bod@kernel.org;
- h=from:subject:message-id; bh=wdQwdb0LybEUqhSOVKQnsey9TO6QXlFm0V/2+glPoa0=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq4xgKcwkwKsCinUZhzf+bn8pQ23TsMcOW3S5XV
- TYvLc4zkoWJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauMYCgAKCRAicTuzoY3I
- OijsD/43ILDcqRcqei8pz1pYj1g/maPd6boKzdPOEBGrpudZ4QsswZPtSl6Z3ar9furlXhfmUSa
- d9zgfQmAS9IZiS8Pqb4kTe4mjwN+J5TwOxzzYNqvumVHLmzVCbuYiuFbKz7BrcujjlWfFriTtcz
- uJjQ0SzBy7M+lk6PNaN/1pnrQAyzDyHs2wYO1ApAj3XzwGexqyvxr0iXPjcN6urNPIxgDhAeMdJ
- coxaJj726xNHdpytcR11NUe4UlVqw1MwsE5fBvHgNDYpEsd70k57kn0w5H3Bvx7Qz1Z5BYAjJnY
- BL2vH0sGOi5VWMRApS62GSuXrE6YPJDquWZ8TwqcWQsY7adTRIX0GTvCqQ0V2OwANWChUW1pUY9
- nTiiMDggDt0Kw/L6ysUKML1K5n/h4w6PXG6EDZUT7vawuKwpogCKnZsOsO7l5wveWQ2BlDkhCG/
- 8EU6XudAg+h4o8KIdGdGQd80p8ukt8xjRwZlpuN4cH9O3dNb8D3RopewUqJOHYr7tsEqVOuIVgo
- Fyme8ao++faC1XTiTRbOOUai8k8hpkaHGFk67lkmYt6JLqFyNY/PfZjzAbBV0KSgITFgc4lV83q
- R7LGNrj7K+l4N+Fy9r8eConLUXv2zkAyTWORdlSJ0UixeM8NK2ktp6M1U7X8yUZ5edULjPltcDA
- aZTJ3078UvOd7Cg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+dma_fence_is_signaled() can return true *while* the fence is signaling.
+This has caused explosions before and I guess we can agree that it's
+just not ideal.
 
-In order to communicate to user-space CSI2 SOF events we will need to hook
-into and control v4l2_ctrl_subdev_subscribe_event. In-line with other
-implementations of FRAME_SYNC have CSI decoders which support the event
-always generate it in our case if and only if an atomic user count
-indicates it should be so.
+The fundamental issue is that the fence-signaled-bit is set under lock
+protection but read without it.
 
-A flag in the CSID descriptor indicates if frame_sync_en is supported so
-for each SoC that supports it this flag should be true. Since bool is false
-by default no negative enumeration of existing or in-flight CSID is
-required.
+So ideally, we would read it with the lock. This would not change the
+relative order, i.e. the bit would still be true in the fence callbacks.
 
-Subsequent patches will enable on a per-CSID basis.
+Christian informs us that taking the lock causes people to complain
+about performance regressions because the lock-taking shoots down copied
+cache-lines. (which is weird since it would mean that someone is
+repeatedly polling on fences instead of just registering a callback to
+notify himself once it signals)
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- drivers/media/platform/qcom/camss/camss-csid.c | 54 +++++++++++++++++++++++++-
- drivers/media/platform/qcom/camss/camss-csid.h | 12 ++++++
- 2 files changed, 65 insertions(+), 1 deletion(-)
+Let's accept the potential for regressions as true for now.
+Nevertheless, I think I can propose a path towards removing the race:
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index a00791b00feb7..2f1426e77e87c 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -760,6 +760,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
- static int csid_set_stream(struct v4l2_subdev *sd, int enable)
- {
- 	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+	unsigned int i;
- 	int ret;
- 
- 	if (enable) {
-@@ -778,6 +779,9 @@ static int csid_set_stream(struct v4l2_subdev *sd, int enable)
- 	}
- 
- 	if (csid->phy.need_vc_update) {
-+		for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
-+			atomic_set(&csid->sof_seq[i], 0);
-+
- 		csid->res->hw_ops->configure_stream(csid, enable);
- 		csid->phy.need_vc_update = false;
- 	}
-@@ -1316,9 +1320,57 @@ static int csid_link_setup(struct media_entity *entity,
- 	return 0;
- }
- 
-+static int csid_frame_sync_add(struct v4l2_subscribed_event *sev, unsigned int elems)
-+{
-+	struct csid_device *csid = v4l2_get_subdevdata(vdev_to_v4l2_subdev(sev->fh->vdev));
-+
-+	atomic_inc(&csid->frame_sync_users[sev->id]);
-+
-+	return 0;
-+}
-+
-+static void csid_frame_sync_del(struct v4l2_subscribed_event *sev)
-+{
-+	struct csid_device *csid = v4l2_get_subdevdata(vdev_to_v4l2_subdev(sev->fh->vdev));
-+
-+	atomic_dec(&csid->frame_sync_users[sev->id]);
-+}
-+
-+static const struct v4l2_subscribed_event_ops csid_frame_sync_ops = {
-+	.add = csid_frame_sync_add,
-+	.del = csid_frame_sync_del,
-+};
-+
-+static int csid_subscribe_event(struct v4l2_subdev *sd, struct v4l2_fh *fh,
-+				struct v4l2_event_subscription *sub)
-+{
-+	struct csid_device *csid = v4l2_get_subdevdata(sd);
-+
-+	if (sub->type != V4L2_EVENT_FRAME_SYNC)
-+		return v4l2_ctrl_subdev_subscribe_event(sd, fh, sub);
-+
-+	if (sub->id >= MSM_CSID_MAX_SRC_STREAMS || !csid->res->frame_sync_en)
-+		return -EINVAL;
-+
-+	return v4l2_event_subscribe(fh, sub, 0, &csid_frame_sync_ops);
-+}
-+
-+void csid_sof_event(struct csid_device *csid, unsigned int id)
-+{
-+	struct v4l2_event event = {
-+		.type = V4L2_EVENT_FRAME_SYNC,
-+		.id = id,
-+		.u.frame_sync.frame_sequence =
-+			atomic_fetch_inc(&csid->sof_seq[id]),
-+	};
-+
-+	if (atomic_read(&csid->frame_sync_users[id]))
-+		v4l2_event_queue(csid->subdev.devnode, &event);
-+}
-+
- static const struct v4l2_subdev_core_ops csid_core_ops = {
- 	.s_power = csid_set_power,
--	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
-+	.subscribe_event = csid_subscribe_event,
- 	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
- };
- 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
-index 5296b10f6bac8..2e48b08b93592 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.h
-+++ b/drivers/media/platform/qcom/camss/camss-csid.h
-@@ -141,6 +141,7 @@ struct csid_hw_ops {
- 
- struct csid_subdev_resources {
- 	bool is_lite;
-+	bool frame_sync_en;
- 	const struct csid_hw_ops *hw_ops;
- 	const struct parent_dev_ops *parent_dev_ops;
- 	const struct csid_formats *formats;
-@@ -167,6 +168,8 @@ struct csid_device {
- 	struct v4l2_ctrl_handler ctrls;
- 	struct v4l2_ctrl *testgen_mode;
- 	const struct csid_subdev_resources *res;
-+	atomic_t frame_sync_users[MSM_CSID_MAX_SRC_STREAMS];
-+	atomic_t sof_seq[MSM_CSID_MAX_SRC_STREAMS];
- };
- 
- struct camss_subdev_resources;
-@@ -248,4 +251,13 @@ u32 csid_hw_version(struct csid_device *csid);
- u32 csid_src_pad_code(struct csid_device *csid, u32 sink_code,
- 		      unsigned int match_format_idx, u32 match_code);
- 
-+/*
-+ * csid_sof_event - Track SOF generate V4L2_EVENT_FRAME_SYNC
-+ * @csid: CSID device
-+ * @id: CSID src-stream ID
-+ *
-+ *  Called from the CSID interrupt handler on SOF of the path driving the event.
-+ */
-+void csid_sof_event(struct csid_device *csid, unsigned int id);
-+
- #endif /* QC_MSM_CAMSS_CSID_H */
+This series suggests taking the lock in dma_fence_is_signaled() *unless*
+the driver explicitly asks for a check with a race-condition.
+
+As a preparation, I allow drivers to set flags when initializing fences.
+Then, we add a flag with which the driver can switch locking off for
+that particular function.
+
+By default, we let all drivers take the lock.
+
+Should we then, in the kernel release process get reports about
+regressions, we can set the race-flag for the affected driver and
+restore the old behavior.
+
+Should there be no reports, we could phase the flag out again after a
+few releases, always taking the lock.
+
+New users would always see the lock.
+
+I put all potentially affected parties on Cc. Please point out if you
+can already foresee your driver being negatively affected by this.
+
+P.
+
+
+Philipp Stanner (6):
+  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+  dma-buf: dma-fence: Add flag for using 64-bit seqnos
+  dma-buf: Port users of dma_fence_init64()
+  dma-buf: dma-fence: remove dma_fence_init64()
+  dma-buf: dma-fence: Close race in dma_fence_is_signaled() by default
+  drm/nouveau: Remove hacky fence check
+
+ drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+ drivers/accel/ethosu/ethosu_job.c             |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+ drivers/accel/rocket/rocket_job.c             |  2 +-
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence-chain.c             |  4 +-
+ drivers/dma-buf/dma-fence.c                   | 44 +++++------------
+ drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+ drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+ drivers/dma-buf/st-dma-fence.c                |  2 +-
+ drivers/dma-buf/st-dma-resv.c                 |  2 +-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/drm_crtc.c                    |  2 +-
+ drivers/gpu/drm/drm_writeback.c               |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+ drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_drm.c         | 13 -----
+ drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+ drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+ drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+ drivers/gpu/host1x/fence.c                    |  2 +-
+ drivers/iio/industrialio-buffer.c             |  2 +-
+ drivers/usb/gadget/function/f_fs.c            |  2 +-
+ include/linux/dma-fence.h                     | 48 +++++++++++++++++--
+ 52 files changed, 115 insertions(+), 105 deletions(-)
 
 -- 
 2.56.0
