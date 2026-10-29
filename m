@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793281799;
-	b=5MQFpwRA5cgbCeds4TixfjSmvKiW0oj4LEf/2+dmSF4DzpS2a1JhdgZLH6GVL2e0c7vt
-	 UIO85SoOhyNbeiA90gFsgB3XjEZMqH7HmSB9tnClKMeedRwGiC7BL5ZhLd6XsJ5/pqc/v
-	 pRq/iR5umn1w4uIJ31wQ21RvH/41a++LHBRzBXnyxHjiuk8GYRnyty+i7PEZY/JMJNDjv
-	 PMs1P3ziCK09h0N2kugcdXTVtcKVOVfysm9QX/DdDoMU5TNLY6uFDNwNH4XceSre3u7Hx
-	 1sqa5SqzoIibUtRB0IjKEYhMpAsmmF5Mf7cIkegIJl2wpkG/7aQA7dO9RJfUfAxCdNQ==
+	t=1793282234;
+	b=g3jsXI7bxLXGcpOkrsvTJc9LVlMZBX+3BQK0uuQHipsBox8uagnuzagvoF4XE1SIss3f
+	 gUiF2NzkcHyuo64LlpIh+a1L7h/R0WrpOh1TmTAVIpOt3LkihYL1VTHH4+LaIgOLOprg6
+	 zh0HrfNLcVxgjCz7i42rKI3JrkqkaVjmEMltlzvTPHbcQlLBL0in5IuFtd2GhBWV0N4CO
+	 gE5WMzrp3Pc2NlmxKomPok7ywAIFPJfJRsMijPCz6fkoRXRIfyDIkGKy8C25bMCQwk0Sf
+	 dTqL5keDlGBnFIeb8c2qGsPn/x2q1LnIzFXDSHIvcP9FsU4et0bVVTjl9HSfr6709LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793281799;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=axwW0A/5PYCIOuQ7ZqJPwr1VhkoJypT5+8pks0+szpM=;
-	b=Jt4v4XFEQORuHk8amKNZsJeGX049hI3unu4GlD7RxNHHHBnyaoCGJrnI/OPrJUE2B2Ig
-	 Q/8xpTFmXaF+5arzz6BUOWjQI/yyPX09E6/IzFWJh2250SGu3vZ3MEzMaOVM+bpzhahZQ
-	 8Mc56gwcljqxgDWhxhm6dJuX10dkTrFJDHw8NtVIZC4t8D95DDizngDj8lYShpf4Qqm82
-	 iftBdKurcOZ4/1ZQJEAU+lfB7SFS1vyZJ2mLhX5IxtmrT7stjCnDVJQRvDGQWblx0jd58
-	 VLE1iAzczG796FtruDfJXiLE4LwmnXFveq6bhN7b26/RiglzG51yS6Ia5OBZGJLXqSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793282234;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=NiX/cLR+QfDZhplLTlVQLvgD5zI9h5feELCeYcvxbYE=;
+	b=bd3p42THB85veCNrslDVTvkp5B5WrVs5X5POMRLEzfdcamD2U9BgmS4uDkc+d70Wn5MT
+	 Lu2bLjjYd5HZsHri+bJ4//dVaqhtgtw43iq2KxY+sy0+WfP33kjp/olJnkEogPmpupfGC
+	 c1S6f5JIxkvtLdNz4jNtPCmH4e3kiKFpqbNAkg8AB66HSKhNTtj9JIQcqeoE9pVk/J2j4
+	 EduQ6A1nXdUl4DBLfpX4LT3MNYrsWSMWUsKZuTumXeKbK5hyFv1v/Iy8GgauhVRtOo8v9
+	 oc7/d8CeW09STLGXpFK8P3Sd/3NopATLZo+qd0E3TJVsfbUe1HZ90fAZAxEKlWFJ64Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=gmdlD1wN;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWh1OtRI;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E4D606A323;
-	Thu, 29 Oct 2026 13:49:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2E4D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06D0D606A31D;
+	Thu, 29 Oct 2026 13:57:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06D0D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=gmdlD1wN
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jFlwL0qV8zMlfS;
-	Thu, 29 Oct 2026 14:49:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793281794; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=axwW0A/5PYCIOuQ7ZqJPwr1VhkoJypT5+8pks0+szpM=;
-	b=gmdlD1wN7AGG6nQfxtq23dGCuMxmNrkZ+NrXKYNfVEL0xlliMv+IdjSR2N1Cm3L0ebA7Ex
-	a49o2Ord2frm0n5vrPCmgzzrEY6tcsO7HruzWv8gsdxI/I2DLI5s0RRiI6dNaGMCLZNk3g
-	v4BRv4gw0phbhr2SMiHJZbEfB85nvC0imGNuKGAQyU13rVb5Wys8EhLIXm4FMIrKfS9N1D
-	l/HB6KFi4v910J0tjwXRRHiPDCkEjMb4AjI7G9gozZ6rdiTzShW82Notr6YNkkMZgIhFl+
-	1bbQwKh9uDQLkWCu279NGWJikwm8R1A1ENlTml5UpT4wyPy/ekFyOgMKeyUkNw==
-Message-ID: <e30a0a03cb7d393cbd88565bf81e156d2f38b293.camel@mailbox.org>
-Subject: Re: [PATCH] usb: gadget: f_fs: Remove deprecated dma_fence->ops
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Paul Cercueil <paul@crapouillou.net>, Philipp Stanner
- <phasta@kernel.org>,  Neill Kapron <nkapron@google.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Sumit Semwal	 <sumit.semwal@linaro.org>,
- Christian =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Al Viro
- <viro@zeniv.linux.org.uk>, Nuno =?ISO-8859-1?Q?S=E1?=	
- <nuno.sa@analog.com>, Sam Day <me@samcday.com>, Michael Bommarito	
- <michael.bommarito@gmail.com>, Gabriel Prostitis
- <prostitisgabriel@gmail.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org
-Date: Thu, 29 Oct 2026 14:49:49 +0100
-In-Reply-To: <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
-References: <20261029125143.1744481-2-phasta@kernel.org>
-	 <7fd62daa875e4a3772e980127d368704a849caee.camel@crapouillou.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LWh1OtRI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793282233; x=1824818233;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=UTwuOZzBKT+oSeIKRBmbdLB4Bl52OeZiXuXEIQeBCAY=;
+  b=LWh1OtRIVDdxnDPmaIBw8RNClw1ZA44Tt9nPL2FPVvaifGdZ6/TeO92Y
+   WXdGhy/o/C2Id1deckQW+YTEAOa5bsyLi8yoSzhbKCm1/Kcvrw+sBfD60
+   7+dATvjj8o/LvMazBjR6ivr4vek16MtpLZBD+PRD4E2Pct/oYJrhfkdRY
+   Mi2A/234pABT7nwP4R8vn7QK44pyxDIogvbRoXEVhxaYu+fTCvFwygdNu
+   fn4WXUse0Q0NyPz0YLHSLWGG98i26dEPeJyntLSg7lrKe2CDW2sihxJMs
+   1oZSlCnv1VzZV5AA+RAa31XV9/md88GP15nP6guVCClzZsQMaOfPlkhJK
+   g==;
+X-CSE-ConnectionGUID: uNtvhw8+QGqlkW5EPqFotg==
+X-CSE-MsgGUID: 1IRrpUrYQRGsPvrkFz4ZiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11949"; a="2022198"
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="2022198"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:57:13 -0700
+X-CSE-ConnectionGUID: 3L6qMBxPQHGxrz9O4tQEmQ==
+X-CSE-MsgGUID: 3h8p5xRmSp6MI0Cr4QH+iA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,184,1787036400"; 
+   d="scan'208";a="5050203"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Oct 2026 06:57:10 -0700
+Date: Thu, 29 Oct 2026 15:57:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
+	mchehab@kernel.org, hansg@kernel.org, dan.scally@ideasonboard.com,
+	djrscally@gmail.com, dmanresa@gmail.com,
+	dave.stevenson@raspberrypi.com, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers
+ for the 319.2 MHz link
+Message-ID: <auNQs08xnsmvr8bI@ashevche-desk.local>
+References: <20261028112154.855185-1-antoine.pichot@gmail.com>
+ <20261028112154.855185-2-antoine.pichot@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,42 +83,50 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: fsoima31pgmrfkhcj7aypxgy1bshnaqn
-X-MBO-RS-ID: 80be9851aa58a305405
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261028112154.855185-2-antoine.pichot@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi,
+On Wed, Oct 28, 2026 at 08:21:46PM +0900, Antoine Pichot wrote:
+> The 19.2 MHz PLL1 table for the 319.2 MHz link frequency puts a
+> pre-divider of 1 before the multiplier of 133 and a divider of 4 after
+> it, so the PLL1 multiplier output (the VCO) runs at 19.2 x 133 =
+> 2553.6 MHz before being divided down to 638.4 MHz. The OV7750/OV7251
+> datasheet (rev 2.12, table 2-11) limits it to 300 to 800 MHz.
+> 
+> Use pre-divider 4 (register 0x30B4 = 0x04) and divider 1 (0x30B1 =
+> 0x01). The multiplier output is then 4.8 x 133 = 638.4 MHz, inside the
+> range, and the MIPI clock stays 638.4 Mbps, so the link frequency does
+> not change. The Windows driver programs these values for the Surface
+> Book 2's Windows Hello mode.
+> 
+> On ACPI systems this table has been unreachable since it was added,
+> because ov7251_check_hwcfg() selects the wrong index. The next patch
+> fixes the index, so the two must go in together. With the index fix
+> alone, a Surface Pro 7+ (IPU6) had CSI-2 errors in 7 of 10 150-frame
+> runs, 3 of them stalls; with this change 0 of 13. A Surface Book 2
+> (IPU3) streams clean with either table. Dave Stevenson measured on a
+> 24 MHz Raspberry Pi board that the out-of-range tables miss their
+> nominal frequency and proposed the same values. The 24 MHz tables are
+> left alone because nobody in the thread can test a change to them.
 
-On Thu, 2026-10-29 at 14:19 +0100, Paul Cercueil wrote:
-> Hi Philipp,
->=20
-> For context, this .release() callback was added to avoid the implicit fre=
-e of
-> the base class, which IIRC was a request I got during the review process =
-of this
-> change set.
+> Fixes: ed9566ce1946 ("media: i2c: Add support for new frequencies to ov7251")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/linux-media/6ae0e944.b6db0abd.16b13d.d261@mx.google.com/
+> Link: https://lore.kernel.org/linux-media/CAPY8ntBFJJPg3y46gC=bNq_55QifC7mKmeq8+pAEDVN42fGUXw@mail.gmail.com/
 
-Can't say anything about the request you got, but fences are reference-
-counted and the ability to free itself exists since at least
-3c3b177a9369 (2014).
+These Links are not referred in the text above, make sure they are being
+referred, otherwise Linus T. becomes grumpy on this. On top, consider
+using Reported-by and Closes tags if applicable.
 
-From dma_fence's perspective it's certainly the desired canonical
-pattern since the release() ops prevents fences from the important
-feature of decoupling fence producer and consumer.
+...
 
->=20
-> I'm personally fine with the change, but do we need a "keep this field at=
- the
-> top" comment for the base class in the ffs_dma_fence struct? Or what's th=
-e
-> policy here?
+Code wise LGTM (I followed the discussion).
 
-When I got into the kernel I was told that it's common practice to
-always have the base class as the first element. That also allows for
-obtaining the parent class by a mere pointer-cast instead of
-container_of.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-But the reality is also that some users are not aware of this rule. I
-can document it in a v2 if you like.
 
-Regards,
-Philipp
