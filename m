@@ -1,99 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793287962;
-	b=bCT6bEGUI3zTNfpa0zWIY61TSqLx3YoCLynRf5c0B9f5p3mO9JD05uafvO/fiinwIhkS
-	 jBV5g9isavGqUGXP8ag1SDAMuy/ASUwUu4OgliIyVNXqAPsITZrtWCZX5L0YqQV5zg73y
-	 n9bseoEuX/lGhH6aqin6355Vc3PlQboqQspm/7zgLE82umYWDizWkEafitoebh32JBGnp
-	 eH28gW49vMO8SxhmfvdlG4yFfjUatcwu6Xj/cocKhsonfR3APGKhm2qt4e2yY0LeZXNi2
-	 cl13QnbCurTF1XgSa+lPydc7ILgRGlePVKYG+3sHS/pUFVqpOUQ58f0E4zFjZ+xP9fA==
+	t=1793288647;
+	b=W5xJEMzqqhi14GYcXco5+Z8XtLvDeHcr3Phuik10aH4MunMHwm4njYCtdFOnugaYpps3
+	 IL+NeWqvgPjDpmpBP+Uqc4glfdRuHfDA4wG7XMp82WIE9lsx0ULRtZ5JqzyPJlSurhH0I
+	 3ATOUaRoshAEnToXFJ7o6Sg1gz2vZVCTHO6l/w+RF4wB5m8XPfscjL32pSlosyiZmzsTI
+	 B0Wp1UuvsPTx53NqZWSgZErLYp+ZJNsG15124QrunjrkDiF2SDw3Mm7hC3nkFRV+FbecA
+	 33hJ95Kdzsc8Zyt7qynOSTPKnON6IWhgkzHwXYY+7RfUvM0CgOdX6HcQUWJB8HfSVpQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793287962;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
-	b=ujzTuqTiR+8WbZzl1C5pJZHbiG7GtOIrOaN2evxSpgG1nHLjLu1jd6SgrSzcrhb1uLv4
-	 At5vxorbyk1GcNMiFIX+e93tdu6TkQVIzPV55uZ3tCvWe8EfXkAXGIu2W5LS61dVXo/wF
-	 iwepkw2j5/lzUhfvF1sx0MOxHCN8xhyKZcv0FxCT07WuqB5U9W5BK/gl6J3+D8X1oMSvz
-	 zTLnR3XHv1dVNayv8rQdnkhW21prSouD/jXcshvUfxG+FKNNzoed/vcViWA2pz+GJI4lP
-	 csDO0Y/ESY2+fSNhc1+PT4Z61gh6n9Dh5tCJCLV1jCJPfToiMRVod827dZG92AJCmBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793288647;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=t+2r/9PfTubZjd4lLMkfZfAHyJrC3B//dU+UHnZewOk=;
+	b=xkuLx+rbf1yluIIQsrNcgZ9JMBj/sMgUykngLTEuBQkSAh185SJjVnvlEg0x9nkWADVx
+	 RPVQcd1Eg5xofhshJMp2/duO2wpiyJ1/wjoUOCcTH/sTcywP+cWUFFsBIGUom7RHLNdO9
+	 MozetRrcCz4Jqwg2taNC71ruYX42HXvphP6vwdFUXUEH6kON1DHJMihKj4UxKuDn9Kkxz
+	 /r64h3zXyK1x2BqUi89q2UcczcH3EKo7dZXiH6AlZiHy3spR5a/R2meA6TXQUDez2U/4/
+	 ePvMg00L1PGkjp/RKAUKFAI4xUwT5EwP+q4VdqBNHqya93Gzy44L7/sEpChhkCfHrLQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UdE+OCXV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L0sJSXE9;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CKbGRPoD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5653C606A31A
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:32:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5653C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B68606A31D
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88B68606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UdE+OCXV
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2eb0a52d605so75055ad.0
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:32:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793287961; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=L0sJSXE9;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CKbGRPoD
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69TDaBlc3521348
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:44:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	t+2r/9PfTubZjd4lLMkfZfAHyJrC3B//dU+UHnZewOk=; b=L0sJSXE934S1b5Q7
+	4WWQgqoR2Vqai6mvLXVRqTP2hf7Y5fgh0epPFI7WRP4hb0OR/tXwD9NZi7lxXxpa
+	MAyKrq9Lk8ja5g8meTTEzPcJh2iOXvrfxn7QzTJ1Zrv5R8XXxLCMtSbRLMqFmeA+
+	TvE1nr0KRq4kS7HXH4q/U9p0/e0a3hiFODZv/uejPlF/2E6ifrAQ6XGGjXrWeBVN
+	c9QUvJwW/9vIuw+iw/tmzHz4k805gZwvxkGk2tJ35aIp5uN+jtFbq4A+rtRuUg0x
+	I1ABIkmTGB4kGoy9tgmZMSSRFYsbawz/lvWbVJCH/krpJn5FZl/mR9beosYnuDpp
+	iMoCXg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hm7620kf2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 15:44:05 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9440b27c1feso349032585a.2
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 08:44:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793288644; cv=none;
         d=google.com; s=arc-20260327;
-        b=OrquMRCUncdwz36A83cJF1CfPw2I7zjHtyPclJCfrXOUk9ThIdzKpHs6T+BmqqZ+9S
-         Bjxi7EnHcATy94A93paPe3iym0Mi0fme36QeB0gLVHPQnzn6xdja7E4RY1eAxHhMRrdk
-         o8dmklcsnNyvGsM4JH08KliduFhjoaQ+9DD844pZmA1aJXzMQoC/koVc+BKLSiBd7VYk
-         izuQwWafLHqS2nEOyYF5srVe6c9AZo73PiaH6IQPh7bC1UtklhmhOTQWMlAcpmOrk+K2
-         fzkmunq0692RmfmYhl4Eed/VpUw6iifQbIQ9skahaXk/ayciwnqnCDrrUDXG+O1OQ7m4
-         /9bQ==
+        b=ZR6YQm2uertb+Giy91FRfqP9tgPMgagCskBrsqrEmK2pbZqIFz5mRZVnfqnB9PQ7ad
+         HCdk8rqNVEWDUt7ESoeELnDb5F3IvwzMu2sxxpZd8PtJ4uHOBfa4peqcUakY/JyuPgeq
+         v3AojEsQAZix+E2UiIYWzYp1P/n52jCx/mIyOkh97Gmls7/XCbl/JGXCkOXb1zttzGh8
+         ne8bS4X77e5GCa1TdqMJNuXRU+VhOeu+otVDNETItkp8puqdVNHcPIhEOtcqouy+kSn9
+         V+tAxgKTvQg2daHAx9OmRphqpqTRMJQPRSDz3s+zO4fdWzJ1h3ZWLxU3BtQJsV0hRSRv
+         RzMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
-        fh=+/b4jmMhh1qSp4G5F2PYNDLgutuDwJgu47qVyyyTytc=;
-        b=j5kAnzoJg2DXx9zaFJBXLHktuA4nK2VVykgDse4xU5+Ibr4RBx9hnPmSAK2m6wlMFj
-         EKtyKnI7VWX5m1lF5dcwgkkXtUr4vpk9+pfrx0Si3UaBi4ygiOD+koKvuP6CVkHRvmMK
-         2BS10OUt2ElMpD5kdYHe4DQtlJB4I0WeLWIyuqtIgXi/StypHMxdopehT1Q1Dt556soB
-         XxfTNrbh8lLO2YY8qnsws4/JtwpIIspINwCgWPmhI1YCW1n5Pz5xwQlEC+rkbwJN1Czf
-         HrFag1yLkjiJb2NLEQweoSbgGZ1V7t0PNTe+PutgyqRu/Z2tqVFkt6vP3tjtjHMk+quY
-         awBA==;
+        bh=t+2r/9PfTubZjd4lLMkfZfAHyJrC3B//dU+UHnZewOk=;
+        fh=+TW974fAi1qggHgekvfl+EMMIayN3qolElj34PxN7Vc=;
+        b=NxI6q+WFW3vxpJAPkVDhzyTTDwAW4Kk7doe+uhPRkWBqDcAOJ7bsWvbkJKLyHVwDxC
+         M/SQ7BajMEWayPsyPcGvlfvCn8+6MTcNO301lNZ/pTTRCKM5oGPAbk1VdKqir4Fl5vbL
+         w1FiMprbn+8OM5hKyunlCPXG0FX4O13s8ieSUzp2iu+MzzkJXljKMirAZGz9t/M0r0d+
+         mGK3lN6jgGV1jSU2nNYP1Wjg5ZfzGlOgygwCyh5YbQaD+iojCn/Wx25wVKsqaEbtLQEB
+         WQv7uRhhoHCuCiZ+lPJKtVm6Gl/Es8NuLuvvbB0HzJq+d8Odmlr+de3Aznju+eBq1BM3
+         Ur+A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793287961; x=1793892761; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793288644; x=1793893444; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
-        b=UdE+OCXVkKdUREc/7UmgDU/RZ0Tas2CCgTDK0o4PMOf8sTpumCTR/MPsk3BuVqtjBm
-         IH7RgNDNjNHmLxC4wxqFlnHRQtTTsWFiMNeX7pvYykQJg3JlLZ+3Hsjl1v1ZrDWr5k/6
-         jqjprRr/DKa8fgh0bdR/nFlQ7DJ5MEMXCEOHyxOIViehpSwvJdHHCnNEbXAu0ow1iE4t
-         4fm2KYbp1n3VUv+o40peGeMrQp0cdnPcN6m0XGzUUBaoeDvPZ3Grb4Cy/eobPIbDX/AO
-         enN479Cy3lfjfe0lv/zmGQgHtERoblS+u5PlT6v6958WGQ6Z4tN5ERoDs/CfFfPacpny
-         +HRg==
+        bh=t+2r/9PfTubZjd4lLMkfZfAHyJrC3B//dU+UHnZewOk=;
+        b=CKbGRPoDHFs5KdTOKD9KY8k00fesNObZr8GlbxFSr2HWiKtJQwki38kesekBCNUPGR
+         g6gCqTaKln0464b8Th3LyxRCd6iRT2an+EJrWedvRpL954aIXj3oYEIBAGodPHOr6i1H
+         1XMkd4uYu+h56dxZKw1SWIAt9Yj/UizJ76NuZDw9MNjqKnyxHhjNNNsJ4ZBNViRiRwVD
+         beoWsD93cOzApWsZgpljYJhBVwauR/EB9Ayrvmx9s2cdl+fEW9pmsDQYezB3mPuxiEBN
+         z8d3yoaigtzyehR+j7a1DNwa8F9Pj6KHFMwwXI1M3a4I7sL20n4/DhAQWNwWB08eJgqb
+         CyzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793287961; x=1793892761;
+        d=1e100.net; s=20260707; t=1793288644; x=1793893444;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mgjozZfcfxRUL0L6/Quey9cER2eEb7R9joV0ZOwrsqc=;
-        b=mKNkZiU7pPRzYIMGjQQsdog24iGKefKXHiqjYtLMBfRFlo+hTB236SDOO2MyV7lQ3z
-         xin6WRNaXXeVPp60VI6N7dFhSwCYoakD6DQkJ/e8WwECHpzAkU2KzTckCxt5shbTJ/n2
-         iCWN0iUZDWoT+RE69ewp6I1joRp8wi1EKa8hOkRJQKlc0y4d+C1xkftB9XlwJg12gNsJ
-         ulFGhTRPIupp7g7lJGAVMRBBRd0DV+QHUD/1z6kIqHLm9+88ZrLEzkqr5Ya8fMwcFHcY
-         wmTJdWhzDrnxc4b6OncfB1hXjvbwPEp8XuTxg+PIhSpi9is+SUmCguJoB6STfNvZHT4o
-         G3Lw==
-X-Gm-Message-State: AFq9FYKRu9o+ZToaf34fhcTCvgJzMiiPfRqdDVFB0SMmARexRaNDccBl
-	zlOAMF3Ege+aySdtAHgKo+TkXfMgCMc5lW5Mesnz+qErhFSeAWBJoR7jmDYhg50eSUSnCgvu1fw
-	qOP3JB6nDPTbjULK1A6Msc0aK5sJaBIG6F2gm+WGRCnga+ShMeCUOgnmGag==
-X-Gm-Gg: AYBFou0cw//8V6WAnXAsAASiiyreMlBtIK+4tpzveBytPQZXyVBAwoYyco7I3GirIaC
-	3pBgGYEhEfFVk5dQo3FUdF34ja4xTSiah/oHw50EycSTV8uSdgRuFntRZXaHoaE0xdmqEI00NGF
-	fcSbV6IyN7Vmu5Vs35CvfH/uRyCvVZy/GFHLMyDjQQCVxu+7ZHqYNm1cFetO9X8kXjgTK22Lc5q
-	0D4NGhxWpHxEWNbH4nKNf21+Ix1tliUW2SCQRy1XcCSnVMsEvLpW2ua2vY6LL3KJrjl9hNL0GXf
-	XLSkjmGEDrWT/+dKpO6U+K3JLZQbUS1pax8Cef9QFojy1Q4VjY4cgT7J1pIAMPNuJRrVjvYtX7J
-	kjjob0TyxuzRTN9K7X2stz8CblSY+p5IuT6uA+lNGg4OTATi7T9873x2q5PaXch+L
-X-Received: by 2002:a17:902:bd95:b0:2e9:5a0b:9f3 with SMTP id
- d9443c01a7336-2eb1b2ca80bmr4692345ad.7.1793287960943; Thu, 29 Oct 2026
- 08:32:40 -0700 (PDT)
+        bh=t+2r/9PfTubZjd4lLMkfZfAHyJrC3B//dU+UHnZewOk=;
+        b=JsOewa1A4Edk+HBNqoGsAW/+kTp4TJu7CnTXeaBV5Xng8SjLyl4PH3eDP2KQYn6038
+         I/calA1tTFCkL3oH0Ki8FMnpt0dn6G/p03PIAr1UifgUaGYmY8UWtpwQ48QfZ1dQYsOX
+         q1DA6pyPOPfevr8yD6r4EcAys7/tZ5l7Lo9W+Y1zTdNvDbjhydWcN+/AipexBlce2B9f
+         IkTSOFV2UnfhlAJ44AXw0aKyy2hCci0LcuJzPZ/ogdHFvInS4dd174reSpLuhKHUskXI
+         ptCBdjRcupdoLCJptxcbDBjBEfu4YueSoNXODuJvlXmJ0g+95/eqveoAcRa7/57ksbiX
+         KUDA==
+X-Forwarded-Encrypted: i=1; AKwUvBzj9FzhtuNrgHGfYb+w5ORJEJzsjmdXmfKxPFbrQL3p8P/b3Xaq+f4Tih/gd0vaRvbcrIrtX1Mqu/yf9g==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjkxOi8uoGKnosdLh39XCDw1UOE2BxvDhgbwH6Z8s3XGVsghmR
+	L/8e7ik+1Qz4mo646BB8BhOn2USa2KnSypJ8zNP3/O0act7ewjOoxTEc+S4wtTXK09HMi+Il1oE
+	gWXVgUCqrQ8iGaww2kDDvId1jwC2rSnLN5IySEhobL5njRpLFUgQtE9w01yNviqIQ8FJML3PIMY
+	hyOdif0ovpafEmKjJXehHtjgELbB9Rr+bZuztLx3Rl
+X-Gm-Gg: AYBFou1Pn4HLF4ymjCoQGvPFNGMI7csSs1kCH9olppjXDcjePL1ueH0r3Bu+ii1OWDT
+	wPNRidyoIimNFcWi4PTzAmeb4gLKfwwgL+cNOGmxJnT4+YCEcZnTDGTHBg8jhif6aezPfUXkk8D
+	vhMGuZEPTtQv07VbFVK5ypc0YfPEn+AUG0JFMRONT1PkL4c2hc24tj00uX+hZJZ/dUbqsA47TN7
+	K6PUyvnExO0NCPMLf/afv6Augp5Ne/pn5Hxmr8kr/+26C25RpmDLYvMPVMO/Vm3Sif/id3KjSYf
+X-Received: by 2002:a05:620a:17a9:b0:93e:94f2:ada9 with SMTP id af79cd13be357-94408cf77dbmr902384885a.58.1793288643993;
+        Thu, 29 Oct 2026 08:44:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a9:b0:93e:94f2:ada9 with SMTP id
+ af79cd13be357-94408cf77dbmr902378885a.58.1793288643316; Thu, 29 Oct 2026
+ 08:44:03 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,196 +128,153 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260528163448.4031965-1-briandaniels@google.com>
- <CAD4i_GRm4=0vTkpnwx6yrcha1YTgeQR0H39JRqi0PZN4TxwqUA@mail.gmail.com> <a0b95ba3-c75c-4843-b2ab-b7f94571c084@kernel.org>
-In-Reply-To: <a0b95ba3-c75c-4843-b2ab-b7f94571c084@kernel.org>
-From: Brian Daniels <briandaniels@google.com>
-Date: Thu, 29 Oct 2026 11:32:28 -0400
-X-Gm-Features: AclHuK-52htXy6ZJSXEXQ3dYUhClzCMKJLWsQFI-Mn00t666KQqf2Ty5vVKYfNU
-Message-ID: <CAD4i_GSf8-+qEM5WqzYt4CsUb7M7-PHbjxAcVMayBJXy2qNzbw@mail.gmail.com>
-Subject: Re: [PATCH v4l-utils] v4l2-compliance: Add an option to override the
- driver name
-To: hverkuil+cisco@kernel.org
-Cc: linux-media@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org> <20261029-v4l2-frame-sync-v1-5-d37992559c58@kernel.org>
+In-Reply-To: <20261029-v4l2-frame-sync-v1-5-d37992559c58@kernel.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 16:43:50 +0100
+X-Gm-Features: AclHuK9NubgRSXuctoCBUtKUfM90zobYJmwFx0BidUU7P_UDH-kzWoIpGwxYW38
+Message-ID: <CAFEp6-2ykusk85REekU3mmFw=4g3yjB=doOi=i=1LS5JEe4T3g@mail.gmail.com>
+Subject: Re: [PATCH 05/14] media: qcom: camss: csid-gen3: Enable RDI SOF driving
+To: bryan.odonoghue@linaro.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, "Bryan O'Donoghue" <bod@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-ORIG-GUID: eMTB-5jdev1qhAF3X7d4HE16OG-JaLnD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA2MSBTYWx0ZWRfX0yWRJUG7jG2E
+ QUNY08uuiQHamVmXIDFS+2R6ByHaqTP2YZq+xbfMCpRoz4IuUIsDOFalpMiYys1f6NI91HNN8bH
+ 8XFsuX61vk+sTF41kyVnjNU6bhqwXxBOrZhG7Ai6iA8LMUHkSwXx0doIos8IogvjEm14wPTtB6G
+ z0Q2zCKflYOPEBLQKpoB9tfrNooApoSSaVr9/79bSGktLqGx2vSUm3V1FjuDUQWN3Jj1ynxETPZ
+ ZOIXmWIGGUxs+NFGy3JOf8HAMB45eaQaVAqOMhu1GdOMZknDvf+8khKq5/0QpiFKLPWZ3jtsV1S
+ 4JsUYl/Is0Im2OsMNUNsACZ/WCpfKCSBGhT5mXVghrvzECyIEAfDf75+IdQap6VTtYid9mS6fIe
+ hL1aGiIGwTk4GoH2Kbi0e2ognXTrj7K+RpoAbjcIFMI/04zEdsllM1MUlfeX+048EcLflATHeGh
+ ruXHd+eBCaBC1BUBXGw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA2MSBTYWx0ZWRfX55yVja0xkZ/r
+ X/z6fNi9Lb4hWtyAGIieyLYY2pjH/3nwMRt8bnwH8BjhzwgQXwh5DlSS0XzX6niIUObmn0uKPGK
+ mUhDB0qvzy5wAS9Fmaa3m10KxHl9D1I=
+X-Authority-Analysis: v=2.4 cv=Kv3YSmWN c=1 sm=1 tr=0 ts=6ae369c5 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=KKAkSRfTAAAA:8 a=1sShYwCD-S9XEYFb0O0A:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: eMTB-5jdev1qhAF3X7d4HE16OG-JaLnD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 lowpriorityscore=0 bulkscore=0 adultscore=0 phishscore=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290061
 
-Hi Hans,
+On Thu, Oct 29, 2026 at 10:55=E2=80=AFAM <bryan.odonoghue@linaro.org> wrote=
+:
+>
+> From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>
+> Add in silicon enabling code to generate SOF and trigger the routine whic=
+h
+> produces V4L2_EVENT_FRAME_SYNC based on SOF per standard v4l2 behaviour.
+>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  .../media/platform/qcom/camss/camss-csid-gen3.c    | 27 ++++++++++++++++=
+++++++
+>  1 file changed, 27 insertions(+)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen3.c b/driver=
+s/media/platform/qcom/camss/camss-csid-gen3.c
+> index 0fdbf75fb27db..6a538d825f78b 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-gen3.c
+> @@ -34,6 +34,7 @@
+>  #define                CSID_RUP_AUP_RDI(rdi)           ((BIT(4) | BIT(20=
+)) << (rdi))
+>
+>  #define CSID_TOP_IRQ_STATUS            0x7C
+> +#define                TOP_IRQ_RDI(rdi)                BIT(8 + (rdi))
+>  #define                 TOP_IRQ_STATUS_RESET_DONE      BIT(0)
+>
+>  #define CSID_TOP_IRQ_MASK              0x80
+> @@ -58,6 +59,9 @@
+>  #define CSID_CSI2_RDIN_IRQ_STATUS(rdi) (0xEC + 0x10 * (rdi))
+>  #define                RUP_DONE_IRQ_STATUS             BIT(23)
+>
+> +#define CSID_CSI2_RDIN_IRQ_MASK(rdi)   (0xF0 + 0x10 * (rdi))
+> +#define                INFO_INPUT_SOF_IRQ              BIT(12)
+> +
+>  #define CSID_CSI2_RDIN_IRQ_CLEAR(rdi)  (0xF4 + 0x10 * (rdi))
+>  #define CSID_CSI2_RDIN_IRQ_SET(rdi)    (0xF8 + 0x10 * (rdi))
+>
+> @@ -219,6 +223,25 @@ static void __csid_configure_rdi_stream(struct csid_=
+device *csid, u8 enable, u8
+>         writel(val, csid->base + CSID_RDI_CFG0(port));
+>  }
+>
+> +static void __csid_configure_rdi_irq(struct csid_device *csid, u8 enable=
+, u8 rdi)
+> +{
+> +       u32 val =3D 0;
+> +
+> +       if (enable)
+> +               val =3D INFO_INPUT_SOF_IRQ;
+> +
+> +       writel(val, csid->base + CSID_CSI2_RDIN_IRQ_MASK(rdi));
+> +
+> +       val =3D readl(csid->base + CSID_TOP_IRQ_MASK);
+> +
+> +       if (enable)
+> +               val |=3D TOP_IRQ_RDI(rdi);
+> +       else
+> +               val &=3D ~TOP_IRQ_RDI(rdi);
+> +
+> +       writel(val, csid->base + CSID_TOP_IRQ_MASK);
+> +}
+> +
+>  static void csid_configure_stream(struct csid_device *csid, u8 enable)
+>  {
+>         u8 i;
+> @@ -230,6 +253,7 @@ static void csid_configure_stream(struct csid_device =
+*csid, u8 enable)
+>                 if (csid->phy.en_vc & BIT(i)) {
+>                         __csid_configure_rdi_stream(csid, enable, i, 0);
+>                         __csid_configure_rx(csid, &csid->phy, 0);
+> +                       __csid_configure_rdi_irq(csid, enable, i);
 
-Sorry for my late reply, appreciate the feedback! I've implemented
-your suggestion in a v2:
-https://lore.kernel.org/all/20261029152030.3764241-1-briandaniels@google.co=
-m/
+Is this something that should also be tied to frame_sync_en?
 
-Thanks,
-Brian
+Also, just thinking out loud, are there cases where we'd want to
+toggle this dynamically at runtime based on any V4L2 configuration or
+pipeline path? For example, should it be enabled for the pixel path
+but disabled for RDI?
 
+I'm asking because one of the appreciated strengths of CAMSS is its
+relatively low-latency and lightweight capture path. As we add more
+features, it may be worth preserving that characteristic where
+possible. Not saying this particular feature has a meaningful latency
+or compute cost, but more as a general design consideration.
 
-On Wed, Sep 9, 2026 at 10:28=E2=80=AFAM <hverkuil+cisco@kernel.org> wrote:
+Regards,
+Loic
+
+>                         __csid_ctrl_rdi(csid, enable, i);
+>                 }
+>  }
+> @@ -279,6 +303,9 @@ static irqreturn_t csid_isr(int irq, void *dev)
+>                         val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STA=
+TUS(i));
+>                         writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR=
+(i));
 >
-> Hi Brian,
+> +                       if (val & INFO_INPUT_SOF_IRQ)
+> +                               csid_sof_event(csid, i);
+> +
+>                         if (val & RUP_DONE_IRQ_STATUS)
+>                                 /* clear the reg update bit */
+>                                 csid_subdev_reg_update(csid, i, true);
 >
-> Apologies for the delay, it's been very busy and v4l-utils patches are lo=
-w priority.
->
-> On 28/08/2026 16:38, Brian Daniels wrote:
-> > CCing some more people to hopefully start the discussion. Thanks!
-> >
-> > On Thu, May 28, 2026 at 12:35=E2=80=AFPM Brian Daniels <briandaniels@go=
-ogle.com> wrote:
-> >>
-> >> When using the virtio-media driver, the host and a guest VM are used,
-> >> with the guest VM proxying requests to a host device. The driver name =
-in
-> >> the guest VM is reported as "virtio-media", when really its proxying
-> >> requests to a driver with a different name (for example, "uvcvideo").
-> >> For the test to pass, v4l2-compliance needs to know the driver name of
-> >> the device on the host because it changes its behavior depending on th=
-e
-> >> driver under test.
-> >>
-> >> With this new option, the name of the host driver can be passed in on
-> >> the command line so the test running in the guest can adapt accordingl=
-y.
-> >>
-> >> Assisted-by: Gemini CLI:gemini-3.1-pro
-> >> Signed-off-by: Brian Daniels <briandaniels@google.com>
-> >> ---
-> >>  utils/v4l2-compliance/v4l2-compliance.cpp | 17 +++++++++++++++++
-> >>  utils/v4l2-compliance/v4l2-compliance.h   | 15 ++++++++++++++-
-> >>  2 files changed, 31 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/utils/v4l2-compliance/v4l2-compliance.cpp b/utils/v4l2-co=
-mpliance/v4l2-compliance.cpp
-> >> index 4e5c9d00..ddb4e7a7 100644
-> >> --- a/utils/v4l2-compliance/v4l2-compliance.cpp
-> >> +++ b/utils/v4l2-compliance/v4l2-compliance.cpp
-> >> @@ -52,6 +52,7 @@ enum Option {
-> >>         OptHelp =3D 'h',
-> >>         OptSetMediaDevice =3D 'm',
-> >>         OptSetMediaDeviceOnly =3D 'M',
-> >> +       OptDriverName =3D 'N',
-> >>         OptNoWarnings =3D 'n',
-> >>         OptNoProgress =3D 'P',
-> >>         OptSetRadioDevice =3D 'r',
-> >> @@ -87,6 +88,7 @@ bool exit_on_warn;
-> >>  bool is_vivid;
-> >>  bool is_uvcvideo;
-> >>  int media_fd =3D -1;
-> >> +std::string override_driver_name;
-> >>  unsigned warnings;
-> >>  bool has_mmu =3D true;
-> >>
-> >> @@ -130,6 +132,7 @@ static struct option long_options[] =3D {
-> >>         {"help", no_argument, nullptr, OptHelp},
-> >>         {"verbose", no_argument, nullptr, OptVerbose},
-> >>         {"color", required_argument, nullptr, OptColor},
-> >> +       {"driver-name", required_argument, nullptr, OptDriverName},
-> >>         {"no-warnings", no_argument, nullptr, OptNoWarnings},
-> >>         {"no-progress", no_argument, nullptr, OptNoProgress},
-> >>         {"exit-on-fail", no_argument, nullptr, OptExitOnFail},
-> >> @@ -255,6 +258,8 @@ static void usage()
-> >>         printf("                     then this defaults to 90%%.\n");
-> >>         printf("  -E, --exit-on-fail Exit on the first fail.\n");
-> >>         printf("  -h, --help         Display this help message.\n");
-> >> +       printf("  -N, --driver-name <name>\n");
-> >> +       printf("                     Override driver name with <name>.=
-\n");
-> >>         printf("  -C, --color <when> Highlight OK/warn/fail/FAIL strin=
-gs with colors\n");
-> >>         printf("                     <when> can be set to always, neve=
-r, or auto (the default)\n");
-> >>         printf("  -n, --no-warnings  Turn off warning messages.\n");
-> >> @@ -1026,6 +1031,15 @@ void testNode(struct node &node, struct node &n=
-ode_m2m_cap, struct node &expbuf_
-> >>                 printf("Compliance test for device ");
-> >>         else
-> >>                 printf("Compliance test for %s device ", driver.c_str(=
-));
-> >> +
-> >> +       struct v4l2_capability real_vcap;
-> >> +       node.querycap(real_vcap);
-> >> +
-> >> +       std::string real_vcap_driver =3D reinterpret_cast<const char *=
->(real_vcap.driver);
-> >> +       if (driver !=3D real_vcap_driver) {
-> >> +               printf("(overridden from %s) ", real_vcap_driver.c_str=
-());
-> >> +       }
-> >> +
-> >>         printf("%s%s:\n\n", node.device, node.g_direct() ? "" : " (usi=
-ng libv4l2)");
-> >>
-> >>         if (node.g_caps() & (V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_VBI_CAP=
-TURE |
-> >> @@ -1811,6 +1825,9 @@ int main(int argc, char **argv)
-> >>                                 }
-> >>                         }
-> >>                         break;
-> >> +               case OptDriverName:
-> >> +                       override_driver_name =3D optarg;
-> >> +                       break;
-> >>                 case OptColor:
-> >>                         if (!strcmp(optarg, "always"))
-> >>                                 show_colors =3D true;
-> >> diff --git a/utils/v4l2-compliance/v4l2-compliance.h b/utils/v4l2-comp=
-liance/v4l2-compliance.h
-> >> index 4a7af5f5..563075c6 100644
-> >> --- a/utils/v4l2-compliance/v4l2-compliance.h
-> >> +++ b/utils/v4l2-compliance/v4l2-compliance.h
-> >> @@ -311,7 +311,20 @@ static inline double fract2f(const struct v4l2_fr=
-act *f)
-> >>         return (double)f->numerator / (double)f->denominator;
-> >>  }
-> >>
-> >> -#define doioctl(n, r, p) v4l_named_ioctl((n)->g_v4l_fd(), #r, r, p)
-> >> +extern std::string override_driver_name;
-> >> +
-> >> +inline int wrapped_doioctl(struct node *n, const char *name, unsigned=
- long cmd, void *arg)
-> >> +{
-> >> +       int retval =3D v4l_named_ioctl(n->g_v4l_fd(), name, cmd, arg);
-> >> +       if (retval =3D=3D 0 && cmd =3D=3D VIDIOC_QUERYCAP && arg !=3D =
-nullptr && !override_driver_name.empty()) {
-> >> +               struct v4l2_capability *cap =3D (struct v4l2_capabilit=
-y *)arg;
-> >> +               strncpy((char *)cap->driver, override_driver_name.c_st=
-r(), sizeof(cap->driver) - 1);
-> >> +               cap->driver[sizeof(cap->driver) - 1] =3D '\0';
-> >> +       }
-> >> +       return retval;
-> >> +}
-> >> +
-> >> +#define doioctl(n, r, p) wrapped_doioctl(n, #r, r, p)
->
-> Ah, this I don't like. There really is just one place where the driver na=
-me
-> is checked to modify v4l2-compliance behavior (the start of testNode()), =
-and
-> that's where this override_driver_name should be used.
->
-> Hiding it in this macro is not nice.
->
-> Thinking it over, it might be better to just introduce two option: --is-v=
-ivid and
-> --is-uvcvideo instead of hacking the driver name. If provided, then v4l2-=
-compliance
-> should just act as if it was a vivid/uvcvideo driver. Those are the only =
-two special
-> cases at the moment.
->
-> Regards,
->
->         Hans
->
-> >>
-> >>  const char *ok(int res);
-> >>  int check_string(const char *s, size_t len);
-> >>
-> >> base-commit: f2a3cb8a59bcce9ac9f7a7c5b71429610d638a12
-> >> --
-> >> 2.54.0.794.g4f17f83d09-goog
-> >>
-> >
+> --
+> 2.56.0
 >
