@@ -1,47 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793257654;
-	b=CUo50H1iYcNZ0XcV92Smai+6lk0De2g2T9gIZAKZxmaD7lbaDtX/+1PDlmeq4ruICqCU
-	 Gw0pKTCCj2uO1TjeYppspV5McXWycmFktrUdOnlllot6dnoRgdGKYpMVnxEWkp2ZQjo/w
-	 KXPcd/LAVUJUSgy7iYBSbgekV/hMR9kOJZwMRI9msjsnMj+ClCjrSmeLmxf7YrAbsrzHd
-	 33Tglg0qJSP/R+ZyDrcl0zFtr6PiOH/dCnhSKnqOP01tyP+VBVvB6O6eZnEc/IM+xb1HS
-	 WQKzK4x5MeY0ylY3R7qdGySO52gZcjvObQX5I8QUSfSigRaiACm2luXuiEVpwutX7Ag==
+	t=1793258766;
+	b=12U9UoZN+SYnD5RI4xqV5I+y2lMWvHHNUFLbX84YRzZFOniAvfxqLH2u4cbo9FgfwI2l
+	 TguyEqS+r2haSiW02Tc36og0pwc470yOjpKyjisgYH2qMmn3Ff2XIgBAZEAPoWzU5ZuDG
+	 K1gVZL8wLB9a4js1dQIBOv6A+yNKg0+S/fRBCbkTPVOIEYaELExM1ZkbWYU1Y4IS9zLd1
+	 qDBWiY+4+EC2y9jLVY9StCCsjcso+Lo4A3DHRkZkF/KWTiFVNPKnwP/x5310oMIhaOZ6Q
+	 91hF6SA8irOwT5MB68r0AKiv29uJgC1KAnQrAa067ctx7mldeI9+M7oIKV3orP6BItw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793257654;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fCqPovCUaMSKnEyTs0813ILdLCl30RRGnjF8iUllIzE=;
-	b=UTO/x1IDLQCnRSzUWD+J1C7f+4De3Sp9yRLuhezM+uv6/5ubnd5Z8j5Qy/2hEPf4QMKL
-	 BZ+L2h3RDBMuTl+oLhX/YaUHT3hUwq3xHT4IeNl1prZoAwERkpFik0Q20opZiF0IE4Zkh
-	 vPPn9JliPIcE3NAtubUUAat9br1zQMYU2glbdTlB6PB0Run47V3HM+/3zdxSk1oX7hAv5
-	 z3V8kKAxE7y+ta+ciF+wCl1fE9qhZ8mG46xNWUkPCWDZtc2iPzLNEB+1eFCow44Mu9jcD
-	 0z9c/GlDU3LIj3gZxFQ3/u2CkqEFcWg8u3Jx7i280cdVrI7F2XKCxo0/MoiczbgpO9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793258766;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KfTmqV1ZRBoeeX2MvP1wgx+YgUBgfae9dIpdFcZDNUU=;
+	b=yz8Kj7RDDJEdoR0LiOPTkY6QO56QYqrH6L2AtAIqOeyP8CEaCTu+Uwwzlm6xz7BxlGc6
+	 M0ANVwKsyFHXP5sC3X2dAFltBi3aHMgytQpaq+jkTajhg/rmdU3q+RJjhoLoU4entZQvX
+	 WeibyjsM+huSKWyLChYk7ldwkjYssoKZws6qHJz4P++SbLbztLl9uOwEGRznp2Y0HVKzU
+	 4s3OhykpfiFSYlrhrw5i9NRR/ZOGdcy+sEGcWLZohTJz6S5+c9xNicJoHNETe6OvmcKyj
+	 llhAIf8+BfoRWT/VRCp7NlUUlqRtjlZdzD8fZb4B/u+vsrwKJzwhu03BLZ0NjsDaVnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5ZQ4uOS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=Y0E5wm04;
+	arc=none smtp.remote-ip=115.124.28.219
+Received: from out28-219.mail.aliyun.com (out28-219.mail.aliyun.com [115.124.28.219])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1557D606A31A;
-	Thu, 29 Oct 2026 07:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDB1606A323;
+	Thu, 29 Oct 2026 07:26:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DDB1606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b5ZQ4uOS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EBD51F01828;
-	Thu, 29 Oct 2026 07:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793257653;
-	bh=fCqPovCUaMSKnEyTs0813ILdLCl30RRGnjF8iUllIzE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b5ZQ4uOSwVo0TKfcMA8KM+g/qKqoUOM/CiH6Hk68YncwF3UMlzEr4uaNSrvccoVle
-	 +zDWiIwh6E0IXcFTW4sSfdeqU9nypc1CAurWs6po+btYPCitbnC+mAcmOrT2HSCY+E
-	 eNY8aUae00Md3abpJimfu8q17tY5La0AZibAVK/d5yz1dJVZXSFuVUIkZu4eQckQHL
-	 ZohkPtm7QpW8OpTA+ipZGJXMgabWyWy3pAe1kYCKqJWtIeHlRl/9+nNpg16iOWX4Vw
-	 3s8iqQa3gsd5KEEFgCy36qCD9PdtdaR94aJnGXXaW1n/xTU3V+Mn6lCnrnvXMl5qP8
-	 zLS6xoHEdUXwQ==
-Message-ID: <fe9765cf-ef10-4068-ad43-26346d842c12@kernel.org>
-Date: Thu, 29 Oct 2026 08:07:27 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=Y0E5wm04
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1793258756; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=KfTmqV1ZRBoeeX2MvP1wgx+YgUBgfae9dIpdFcZDNUU=;
+	b=Y0E5wm04S3lz83urXcWWOWCCanocrQoMkjRDV9AcYnWibQqGEXB1JX8VyuOk4HGHNuWn/9xZi3Li46cDeoGnV362kRnShXIKH1MwLpujsWfMYV6OysRmw5Hx930G07CDY0nYADnM/113K5MN2Xa5YCwc+QGKpH43bXT6DUgUXTE=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07677579|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00397865-0.000802535-0.995219;FP=16677390569107637430|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034020;MF=guozh23@xiaopeng.com;NM=1;PH=DS;RN=5;RT=5;SR=0;TI=SMTPD_---.js5ME5r_1793258755;
+Received: from localhost(mailfrom:guozh23@xiaopeng.com fp:SMTPD_---.js5ME5r_1793258755 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 29 Oct 2026 15:25:55 +0800
+From: Guo Zihao <guozh23@xiaopeng.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Manu Abraham <abraham.manu@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: dvb-frontends: tda665x: fix stack overflow in get_status()
+Date: Thu, 29 Oct 2026 15:25:54 +0800
+Message-ID: <20261029072555.4133415-1-guozh23@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,71 +61,59 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] media: camss: add SM8750 support
-To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <179325717815.489400.16602455641444097904@mail.ustc.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 29/10/2026 07:59, Qianhui Xu wrote:
-> Answering the open points in one message, short.
+tda665x_get_status() declares a single-byte stack variable and passes
+its address to tda665x_read():
 
-What are you referring to? I'll just drop this.
+        u8 result = 0;
+        err = tda665x_read(state, &result);
 
-Best regards,
-Krzysztof
+tda665x_read() builds an i2c_msg with .len = 2 and .buf = &result, so
+the I2C transfer writes two bytes into a one-byte buffer: the second
+byte, controlled by the tuner's response, lands on whatever follows
+result on the kernel stack.  The get_status callback runs on every
+FE_READ_STATUS ioctl, which frontends typically poll in a tight loop.
+
+Verified with a userspace copy of the two functions under
+AddressSanitizer: the 2-byte write into the 1-byte buffer reports
+"stack-buffer-overflow WRITE of size 2".
+
+Make the buffer two bytes wide and test the lock bit on the first
+byte, matching the register layout of the driver.  The buffer is
+zero-initialized so the unused second byte stays well defined.
+
+Fixes: 3e978a828408 ("V4L/DVB (13797): [Mantis/Hopper/TDA665x] Large overhaul,")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+---
+ drivers/media/dvb-frontends/tda665x.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/dvb-frontends/tda665x.c b/drivers/media/dvb-frontends/tda665x.c
+index b2201ec14..7b876c16a 100644
+--- a/drivers/media/dvb-frontends/tda665x.c
++++ b/drivers/media/dvb-frontends/tda665x.c
+@@ -66,16 +66,16 @@ static int tda665x_get_frequency(struct dvb_frontend *fe, u32 *frequency)
+ static int tda665x_get_status(struct dvb_frontend *fe, u32 *status)
+ {
+ 	struct tda665x_state *state = fe->tuner_priv;
+-	u8 result = 0;
++	u8 result[2] = { 0 };
+ 	int err = 0;
+ 
+ 	*status = 0;
+ 
+-	err = tda665x_read(state, &result);
++	err = tda665x_read(state, result);
+ 	if (err < 0)
+ 		goto exit;
+ 
+-	if ((result >> 6) & 0x01) {
++	if ((result[0] >> 6) & 0x01) {
+ 		printk(KERN_DEBUG "%s: Tuner Phase Locked\n", __func__);
+ 		*status = 1;
+ 	}
+-- 
+2.50.1
+
