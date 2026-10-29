@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793264174;
-	b=CpxF7EzEIRpZhWD7EYKo3mFKGoS4kFnHrsCWaCahD2jhBSAgtE+PTAOzlVgQq5PfemdS
-	 nzK3eOvDhSu3/GsQxyG569eba9ahUfyRf7VSxlV2QNX/ujXS9swYmv+2CW2fGiVpp4ft6
-	 YI/ANqXE3eJGgzowqcjMB1EzADKdgLgea71N96u4FyxxGKO7IHa2Xo/JAzLURVeCO+M2E
-	 Ij7HVlVHbX9JrR8QXbJPJ3ZmrUibA3deqTeyyDzn2o0phjSmRbPu+a+X46TKm8E+bEEYQ
-	 H/If29nv63F9Mz+TmOeeohGMe3csVKjihhLXH6+iR6a25sjdm180GYzsn2FqZp+6ZJw==
+	t=1793266083;
+	b=H/KUrbPwqMIizcLLag3gb1FTFTxbbt//oeotER66W6J3iCCztJXi0XNsWPWKAN7/OQFe
+	 OWxONhKZGPtcAVYUQ60PycC6rWcF8iFhtLVyHh5adjA/txRWQIV8dHtBv9ctsYIZwQdw1
+	 e8Dbf0PBYZRIOJfnhKTHKECu6vaHZTBiAAdLeK7srKXtFE790St95k3FgbNHEzvdV7AAe
+	 MiVvS620zhQLW8Vhz3QF5YeK+8oP64Rsk0J+GszFJZb5yFZe8S0k0URKwRSGY9/NfOgp0
+	 gMD1FE9yQRS2aaFCmIxWe9gI+vatWz7oPnmzj91JRaig1pHk1UQ8HKZ6n2eAU/8YLjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793264174;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=nPwSPsyZbXl/IjjBxekKC+O0xydHzhe1kjdW6d72i64=;
-	b=4o1at9T3Ck7Ah5vXTnf5ePrRjwHhDKVgsA0maetAIpcyXU3KnF431BW7agBU/eBJMN4O
-	 T/GQcUaOBF9CWBqcAQSVJzTd5ZdHRFgu+72T9UHMnBjl6bv0v8vgGB5LsvLoIM6nNeMOR
-	 Jc1wydWdM313NMv+jwZYrHf5UvhNrZKRuR+jpB6kZJtfA1Y1fNWwsfaiRmi+fHXFosFCN
-	 lj7VDN8OFOjzfKJEwvNpTEdq6us4Y5pX93RblN6iglRV93MTKmO8Xcq2g4p/q5t/yV1av
-	 gWw5CdxKlNwO1RCxXrgRP/1heYJcPYf6gqio80wL8+WASY+IEH3Rhmq0ybsA9BLazZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793266083;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=5zdr5q0MxiovcRnfzUe2SVTt891ZTRt93a2yHAzSjag=;
+	b=Sdbam21kPBU2BktnY21exUe1rL5v3fXlTqTPsXd4D7nc8LOa5eUYmyHFg9rhzl2ljcs7
+	 D9PuLG8Ebo3FxL5Q9sibMFtplCYUYuFXwo7pWoJbnrmfeiChBQ00hpD5Q8arrwfRsz6fD
+	 eY2IfXgiikpPEEZL59vwbOJY8XJ7TdeOtRW7E0UTQjG+mEdVs8kXivQ6um9FoioZqwJc/
+	 kxN+3o6ByY7dpyA3VmdkTMOL0HbbCTGTRM9LNtWHRKDI3myBRLo3ijbD17jc/Em24NU30
+	 ZNTVN04dzix2Zc4WIadYafsyG3/MJV+iITZgRn21wRknn7RchZCp+qP7E29wl2FLCOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=S9QiWH+1;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rx0KOKVL;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A2F606A31D;
-	Thu, 29 Oct 2026 08:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49A2F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD012606A31A
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 09:28:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD012606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=S9QiWH+1
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CA433BE;
-	Thu, 29 Oct 2026 09:53:57 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793264038;
-	bh=GcRRU/3tEMhNeOSUogjmLD1GIWxyuUhdnrCH9im4Lho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=S9QiWH+1nCdV+NGzs62XvGl+nrs+sYGQ4K8sueyz+YDbB4AtMAotPp1FIxIJSS/mD
-	 pVzrLwvkUqzWajOHVN+tpHkhGiKaOlTz91V4TPWzvRJYuXvLcwHtAboEtU4ZMLYNAm
-	 zkxEJzB/WsAG0yS/gGXpSr9CaSMhEibsEA96dS2A=
-Date: Thu, 29 Oct 2026 10:56:10 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Kuangyi Chiang <ki.chiang65@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK
- camera
-Message-ID: <20261029085610.GC2673734@killaraus.ideasonboard.com>
-References: <20261029033106.7374-1-ki.chiang65@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rx0KOKVL
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so22501785e9.0
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 02:28:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793266081; x=1793870881; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5zdr5q0MxiovcRnfzUe2SVTt891ZTRt93a2yHAzSjag=;
+        b=rx0KOKVLhXOLtgkh6gm5uFMNwfyeKaEo149+rYwz88BtAbZ8e3yPhQrXF1NTWVh0Op
+         6TY6jVOclWcQrolsMh5kSjW9VNgK1PJ4MbQpX42ACCuI8kUL5W7gWpSHmitQy9i7dVe9
+         uftGbXy+aQwN2hgmSkaZJb8fi6bxo37JMHp+4dwa5TmLIBUXiBcC11irG6AqbNv8hNJK
+         BDhXTZXrLBlYa0ViSrm1sRInTYFIKrj27jaRbOS2e+cYF7biFWFO7qquAhFiLWGWRSpr
+         G4e+H+hHQMZxz056vUVrvygzUOqlRtek7Eu8NmaMqVtOvbmLp+x/eGA9CXq+QvdMrEGu
+         xbig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793266081; x=1793870881;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5zdr5q0MxiovcRnfzUe2SVTt891ZTRt93a2yHAzSjag=;
+        b=1lNxR3+NDDXejMuA7XAWpFjABeIFeP9w/4Rcas5EjGafgQB6qyrMMX8hQsrlstNrxv
+         UHfX4cGTEPFRNBEA4Aa0/KgTpLL3FEVr6NvBB9c9ZdaTk6r5JPBgYKBKFml4cbJFHi//
+         7JWQvrPdUGzEbQv9HqWxnvqghqxmCMM3La2hJbk3Adq6E1ib5wqSQ7JzJXMQ+FTM0OxN
+         sRacJFHbEZgEuzOjxpUtiSXNR1SbPFbitvmu1hEocMXpJD1eMz55e3dArwA6CC6Jl+MI
+         XBw+txeMcklJ+ukT6bBuiG4dd88T5bhXdHTJAxSFtw+kbBpvgn1gvNcdHpF+cixReVc8
+         +Jmg==
+X-Gm-Message-State: AFq9FYIsmmvXzMCtnF7DMeVkehBKW/5FXR1WVZveYwNyK2QimZlwRCmQ
+	2+uarW/kLyh9X1KJfWF4PxggE9GnztwntArrr5bGzY4ffMTvtfXpH1vR
+X-Gm-Gg: AYBFou0Z/8AdgOQC/BdxKPs8UrseiRDaqNPDNN8ljyskNQt67dvz2JwvFAcuNDQhXi6
+	qb2tcDfU2ZgVkZpCFhDinYRejvDsC7KG1ijNFtYR8KTdpeWe9k7+O9njafugg0OWgMWV1qHoV5K
+	UGCt6wINQzMXUOwM7WEumlaw7Xw/kTdUEWM5VxdDDoJyy/N/LO4I+z9QZzKikgdCs6PSGeDanif
+	0KKpiWIgh5aADcus2ZAXStq+h+bZs5XapyJwE0cSmCz5AXelOEqemy9n8iRiaEVEC2scUCu2jZo
+	/DVWjkSgJdR/qNzPSPQ+W3gKaIGbnjazm2bIVLLiPbnBdX2hkIvc605nmhGM2wM2cPlhi6PR5qZ
+	BjUtBHhx3fUt6aYCynuHAHrw28iEGYRP5ZLjrszZ8ITE0mI0iaB+d2GfGUgpC0PbEWElUg42bYi
+	YX7t9iQoKjpu+u7NLq1joqcl2Tsc3/P1JGzb5/86g0Ezz7elD4q+dt2/gBKbC3HFj47F6yrBaft
+	fA/BWCz0NJNIYIaiZ7uhIbM2uQgkDNUSE5/E/xV1nFOuBuWnHyn8xy3xQAabLJRK2wHlzcseR7T
+	qE8TbNidpFPbxSl4RBMOoO9oW+p9WOvr4kFG5434+ykSGKu+/SYPQraHRNnHpDEotIEXB6ZsN0p
+	8cxAYHmFOlDptQRSY49SWgRCwOx3sGRLGNe7SojLwB/fnY+uXuIsB0O9izv/Vx1fbZSJM
+X-Received: by 2002:a05:600d:604d:b0:4a1:e0d5:293e with SMTP id 5b1f17b1804b1-4a966c3f65amr108419745e9.21.1793266080986;
+        Thu, 29 Oct 2026 02:28:00 -0700 (PDT)
+Received: from PC-Marco.local ([151.59.117.24])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7fdb7691sm50821065e9.11.2026.10.29.02.27.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Oct 2026 02:28:00 -0700 (PDT)
+From: Marco Ziliani <rylos78@gmail.com>
+Subject: [PATCH v2 0/3] media: i2c: ov5693: Fix mode changes, flips and
+ autosuspend
+Date: Thu, 29 Oct 2026 10:27:51 +0100
+Message-Id: <20261029-ov5693-fixes-v2-0-2526d7b13030@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -61,92 +93,88 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261029033106.7374-1-ki.chiang65@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBREf4XctTV9yMuV/2FYlHKFa4SaFhsN6
+ b/b4trlycyZ2cCjI/RwLjZwGMiTXRLIQwFm0suIjIbEILmsBJc1s6GsWsVu9EbPGjSyrUvZtEp
+ DUp4O9yAZ1+7H/tXf0ax5Izcm8qt1n/0viNz7Mx0E40yZRvdCo+Cn4TLOmh5HY2foYoxfC1YBg
+ LoAAAA=
+X-Change-ID: 20261027-ov5693-fixes-8ec29752893a
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, Chris Simpson <chris@nilk.net>, 
+ Tony Garcia <tony@loafecho.com>, Simon Kruse <simon0x+git@proton.me>, 
+ "D. Manresa" <dmanresa@gmail.com>, linux-kernel@vger.kernel.org, 
+ Marco Ziliani <rylos78@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793266079; l=2839;
+ i=rylos78@gmail.com; s=20261027; h=from:subject:message-id;
+ bh=ZMe4p5t2dBD1+hxYPT90U/cvW5WSFutzIjG2Y7t8jxc=;
+ b=ttIGzE4etY/Ud9k80UAK0aM7yjY2VE/UPFzCAVoLWFPTkRbm2HMK2Ad3n95MlggIP5h+1IX2e
+ jP/jfMkDdIzDLgUG5d6ioLRCH6wKHKpodH6ifBe9zwHcN++3zAMhqaT
+X-Developer-Key: i=rylos78@gmail.com; a=ed25519;
+ pk=nXCfiK5yExPZCMp+lfKif3gdXkfjkUK2qk7bDW+ixMo=
 
-On Thu, Oct 29, 2026 at 11:31:06AM +0800, Kuangyi Chiang wrote:
-> UVC control requests issued when preparing a video stream sometimes
-> time out on the HIK 1080P Camera (2bdf:0280):
-> 
-> [   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0280)
-> [   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 26).
-> [   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110 (exp. 26).
-> [   58.592967] uvcvideo: Failed to initialize the device (-5).
-> 
-> Adding a 1ms delay after each control message avoids the issue.
-> 
-> Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
+Three fixes for the ov5693, found while getting the front camera of the
+Microsoft Surface Pro 5 (IPU3) to work, and since tested on IPU6 and
+IPU4P Surfaces as well.
 
-We don't add random delays. This needs a root cause analysis.
+Patch 1 programs the mode registers on every stream start instead of
+on runtime PM resume, so that a format change also reaches a sensor
+that stays powered between streams. This is the ov5693 counterpart of
+commit 4e1446ac169a ("media: i2c: ov8865: Program the sensor on stream
+start").
 
-> Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
->  drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
->  drivers/media/usb/uvc/uvcvideo.h   |  1 +
->  3 files changed, 18 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc7..c720d75 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] = {
->  	  .bInterfaceSubClass	= 1,
->  	  .bInterfaceProtocol	= 0,
->  	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) },
-> +	/* HIK 1080P Camera */
-> +	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-> +				| USB_DEVICE_ID_MATCH_INT_INFO,
-> +	  .idVendor		= 0x2bdf,
-> +	  .idProduct		= 0x0280,
-> +	  .bInterfaceClass	= USB_CLASS_VIDEO,
-> +	  .bInterfaceSubClass	= 1,
-> +	  .bInterfaceProtocol	= 0,
-> +	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELAY_1M) },
->  	/* Insta360 Link */
->  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
->  				| USB_DEVICE_ID_MATCH_INT_INFO,
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index fc3536a..4667f86 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
->  {
->  	u8 type = USB_TYPE_CLASS | USB_RECIP_INTERFACE;
->  	unsigned int pipe;
-> +	int ret;
->  
->  	pipe = (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
->  			      : usb_sndctrlpipe(dev->udev, 0);
->  	type |= (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
->  
-> -	return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> -			unit << 8 | intfnum, data, size, timeout);
-> +	ret = usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-> +			      unit << 8 | intfnum, data, size, timeout);
-> +
-> +	if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
-> +		usleep_range(1000, 2000);
-> +
-> +	return ret;
->  }
->  
->  static const char *uvc_query_name(u8 query)
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> index b6bcee4..1426d14 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -81,6 +81,7 @@
->  #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
->  #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
->  #define UVC_QUIRK_MSXU_META		0x00040000
-> +#define UVC_QUIRK_CTL_MSG_DELAY_1M	0x00080000
->  
->  /* Format flags */
->  #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+Patch 2 keeps the reported SBGGR10 order when a single flip is enabled
+at full resolution: each flip moves the Bayer phase by one column, so
+the output window is shifted by one column when hflip XOR vflip.
 
--- 
-Regards,
+Patch 3 drops the usage count at stream stop with
+pm_runtime_put_autosuspend(), so that the autosuspend delay counts from
+stream stop rather than from the last resume.
 
-Laurent Pinchart
+Patch 1 has been public and in testing in the linux-surface tree since
+2026-10-23 [2]. Simon Kruse's active state conversion [1] made the same
+change as part of a larger rework; he has since dropped it from his
+patch and will rebase the conversion on top of this series.
+
+Patches 1 and 2 were developed in the linux-surface tree and tested
+there on a Surface Pro 5 (IPU3), a Surface Pro 7 (IPU4P) and a Surface
+Pro 7+ and Pro 9 (IPU6); patch 3 follows a report by Dario Manresa in
+the same thread [2]. The three patches as posted here have also been
+run on a Surface Pro 7 (IPU4P) and a Surface Pro 9 (IPU6) there.
+
+[1] https://lore.kernel.org/linux-media/20261027074933.21921-1-simon0x+git@proton.me/
+[2] https://github.com/linux-surface/kernel/pull/181
+
+Signed-off-by: Marco Ziliani <rylos78@gmail.com>
+---
+Changes in v2:
+- Patch 1: move ov5693_mode_configure() from ov5693_sensor_init() to
+  ov5693_s_stream() rather than calling it in both, and shorten the
+  commit message (Dan)
+- Patch 1: Tested-by tags not carried over, since the code changed
+- Patch 2: unchanged; whether to shift the window or to use
+  V4L2_CTRL_FLAG_MODIFY_LAYOUT is still being discussed on v1, happy
+  to switch if that is preferred (Dan)
+- Patches 2 and 3: collected Reviewed-by and Tested-by tags
+- Retested the series on the Surface Pro 5 (IPU3)
+- Link to v1: https://patch.msgid.link/20261027-ov5693-fixes-v1-0-3c8ab1ae104d@gmail.com
+
+---
+Marco Ziliani (3):
+      media: i2c: ov5693: Program the mode registers on stream start
+      media: i2c: ov5693: Keep the Bayer order when flipping at full resolution
+      media: i2c: ov5693: Use autosuspend when stopping the stream
+
+ drivers/media/i2c/ov5693.c | 76 +++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 62 insertions(+), 14 deletions(-)
+---
+base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+change-id: 20261027-ov5693-fixes-8ec29752893a
+
+Best regards,
+--  
+Marco Ziliani <rylos78@gmail.com>
+
