@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.202
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793260456;
-	b=RCRZzxqg6dlm+bXHw0NQs4lyWydqRfDfwcJIS0//RZNabCZConTr9tE8kJMHTwV1GXBF
-	 PaCxueGEAqPK6UFFKHh6uoeh7obC8oim9HDopytWVX/dUSIWnNkqcIKSVosujPVXRiyUC
-	 avu9en02BH3EF8uJW6Fny/V1V4PUZP8Dn6a5GL+us3y4/AhpGDcm9ks7p+qHeJtbj7mNH
-	 U9glvn1oCzfrIvnIPxVRiXle8o9cHriNqLamHmdUdv5PQMz//TNHUhcrARLjpAS5ZZMlg
-	 E0qQXPgE3ZwecaJtbmOgsQaWg3r99ibEll6hFP7yzkobBliUxH/WZNLaTHYr0wMf7Yw==
+	t=1793260457;
+	b=2QIpeVwW3wIiWO6+8B2dyG2j1uz7Yj13ZCSifoxhBc4eT1ViREKwbm5FBbNtbLKo3tKG
+	 +eMtf+4Kgvs6wtnJLJFqREUN8uhGGVEvSHqkt8LswLpe7igmtrJ4D5TCqELGz92m79KWB
+	 k6Dx/1R8z/y+Mij2K2xUkANG/2W4Z13oNGdp9Cj/pZECOSRNabKKcmuxArljIMUTu7AT5
+	 tXZm/ug4JOKBHUyuIdCmUuL+eeiIzj2NAwOWuMyRabHLTP8PUJkyaIETDSsjq9E66iVjs
+	 8jBuDWwKoXnLLDWwjcXSwXcsqAN2nemgsKatR3Y/5ki90pn6bcy8jx5nWWkbQsq0OAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793260456;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793260457;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LUJG6W0I1xzh0G74P9mtxDG1PajG0W47AUf3Z48yEDM=;
-	b=DDEgkk9URy5c5d/HmbPs0N6hY6qtWuXdqiR0AIjhfU6Jnn16TM/5O2Rc0RjFeoNNjvrb
-	 vh3nxrIqTdvgHjgdJV83x6tPXYPFtQx5SueW9h16hZu1i/uKGEst6nhsejVK5O7s59jN3
-	 nmYgcKb3AuM4uErVoOdZJ8rh0l1rxo32bbdxRU0dB0C5oPWelhieboddHOESZIUixAOXy
-	 WWbJpJlZYuKJBnBC9dSnw7tQ5MxywJwlc96fFkEFrRInPRu1vwCflwi6PrNgkcItveGow
-	 O+2fB4B8Mbp7c4oZCcZoFmRf0i+jdKA8AVRSUnF2eHjS/LYfRYsmaBpy5rl07isu1HA==
+	bh=LrVJrASEPDAnWNObrp4qXrz8WW/eaSb8dl6O3NDVmxg=;
+	b=fCJ1YMUXb3GulejkHb1aKEIg+QHx02SbaWUv70hpDP+r4ii0ylfQLTqRsjDzEUji7ZRg
+	 B5qGEes3mhSpsh5MpnynpEt2GxukW5V3pw1301LzZOjyK5Ra6Kvqi5ywn2eCn78zP7uEF
+	 SCG70R0Ldu0AcVaka8qS99iEV6k/roHiAzXh8r01Oxw8fuI0vfKVqN2jGxOaJf6SKpFR6
+	 GLtyxgcN3TIM0jWeaneuyjWNiZUgnZYJYC4tkV5C7e6tIVaby1kmS5/h5ZdMPtbzTz/KF
+	 rw5n5pqEEQ0dFhrWF8Nyjv/9sJdBsdaSD5ZJNbYRQq2Au8uC+fRDwxOQwVWolVaQG4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JBjATnG7;
-	arc=none smtp.remote-ip=203.205.221.202
-Received: from out203-205-221-202.mail.qq.com (out203-205-221-202.mail.qq.com [203.205.221.202])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=W3Z6vY6T;
+	arc=none smtp.remote-ip=203.205.221.209
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4606D606A338;
-	Thu, 29 Oct 2026 07:54:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4606D606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3030860A5BCC;
+	Thu, 29 Oct 2026 07:54:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3030860A5BCC
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JBjATnG7
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=W3Z6vY6T
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793260446; bh=LUJG6W0I1xzh0G74P9mtxDG1PajG0W47AUf3Z48yEDM=;
+	t=1793260448; bh=LrVJrASEPDAnWNObrp4qXrz8WW/eaSb8dl6O3NDVmxg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JBjATnG7GSJU1nY1lGr3R+qFabkuhnTJQbfZ6HDV0TyI1+qH7zd4LiGPHJUjEZwLQ
-	 etK5F2pWuY5l4dnDVDIuZShRRGjwB8BuOkoT8PtQ0biIlAh6bgnws82o9sx5she3TO
-	 dhnYkSUjWn8mbF2DVAP2lqD8IplhlzO5cmdfaR4E=
+	b=W3Z6vY6TZfHAy4Y+vPcSyooBMikEHi52D0m+7YuCYNRgfX6FlWK6muPjrXxx64N+U
+	 A6sc6wJoYN7Q4nUK+ZH10BMkTh7q/UoanX50F6UcqH73jn21/8QlTAeabUpo+4pAio
+	 RkeGaSWY1zAt5bG6AfXcVywiHcGkgREymcxSbXAU=
 Received: from shuai-VMware-Virtual-Platform.. ([171.8.225.58])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id D83806E5; Thu, 29 Oct 2026 15:54:03 +0800
-X-QQ-mid: xmsmtpt1793260443twdo29r82
-Message-ID: <tencent_E9EEF3D2AF2C6DF28E4DC1B855625913D908@qq.com>
-X-QQ-XMAILINFO: NGZp1yYNf7Y+RwdaRveXY64mwAjpzX9uahC56Xqj6ngdp9u5ZJrA7j+/izsbJF
-	 HweR20KZTm69AWnNnvnfYz9j56PWsJAGwwFD/b/tssFkWDpF2Thh4G/ZhsVswBardeCRkLuRkcV8
-	 OOvX/kcWCvJLlH9obG77qEaV+Caz3ZmHgoiPMGeUgzUw4wmkCzlVuHb1kxLjmQChV1VKbbFPt76P
-	 lHtrrNFVVaS1eH/tNQLFkrwBnkAr+IRS4WAP2f/HVccXJbYEBylUU8UiQXlFu/jvJyf9bpoBazlR
-	 OiVNAmTZ2jjoL639NceClexMkNiRBiFGjEEb5EQRGkyhk0kI0AEI3PQQLEU1KFD6EppzrXu/Tp7m
-	 JXN6dLfWd7vAETY3FqR8HPjfy7IN+BikHndSqNGl/MaDQXnM5CrtP88WpPFkMG1sxEhZk5AhnK+2
-	 DEFkIovewjDiWIhKPSlt3lRnbSWc8WdR6xPRoa0DIySjUMw+akCV2TLRP/AdBCYuC/uM8wPOPi6M
-	 djA778y8wCUV3rQ+Y/vv107uAChtlxKocc6EID7IRcTebXVj3mhnumIusMWkNG+OJ//eoZFIFFeH
-	 5BXkVRnZ5l7PL9Mu/Xd+U+qJ8A8Acl42fyCwll6KgjiB/gdvob2beZ4f83eC2Wmijd92w9hrwBmT
-	 Vr/kfPKtVmZjg0I1GtyUr/D+G/soBIs1DbrDS8BEd0vLmOqOt9M2szCiJbSPt3AW1CzfOdCCKoh3
-	 vyKboTnD3UEGuvetVArAW1OVgIguYWAZcuM3UZKXvQGM47YIsABDHaOHHwJ6Yi2/FtkQDMEpDZ9d
-	 BGQ6s1ZYvsdHCoSUkkZOYrSWzdkY4mfOIEG881Zj655vtOBzHAxtVBxUmwyW2FvlHd0nlOr4YisX
-	 P9i4HbhpYhewa1WbuZL4nlA3kZTp8O5Bx+fQPBTufMEj8DkwMskQV1j1KeagRreGCE3sdM0eYGx+
-	 0MEcTp6ckioLlJqdW3gFSiutmFtgM+zoPkkYOxnawXhnQSUqynhWBm2M6mGgfwvli3q4sTUlLUl+
-	 uTNxYPYStzRBbXdnaIirDnxpjYdIkcwSFd+TYfvXBVjSnKCEjfmgB9BXtSPtrFwNhMpOm66/VIpS
-	 RmvOmW
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+	id D859381F; Thu, 29 Oct 2026 15:54:05 +0800
+X-QQ-mid: xmsmtpt1793260445teksvypk4
+Message-ID: <tencent_3B08CBAEFC7B931B6E90D8D8C4BF3BB1B406@qq.com>
+X-QQ-XMAILINFO: Nm45YswcjhU8BGGHyu3meqLQYIY8JWZJk2uFMM7hVoKjeFDhPGQ5iaBRydXQlX
+	 6ysxzfp8GF9U0uLGslMwuDHRF8YCzqmyEX6yRa098A90l59tqR69MUJmgLNU2l3HRSFBT4fOLBTV
+	 kL5M8C6qLfPVUwCayo3/PXhtatIymY/WMLyQRHjQBMucJO5A3SoV6RGPcgpYGAIb/37AR95sXZ7R
+	 +fgERJ6QDkMBqBSBbvBawh4aX4JPNC8ovL13Nri6vcDkTwijbDLPYmKoNPHa+1GMceo9bD+lCB/t
+	 99cJP4dItZKTLUOMa3r1D/JbGorFwpe6668ty3iA2jJEYG45ED+ys9/hrzzfsFu28nxZLj0FuKGb
+	 MAEfcIAqG6LBSyaEKsgYV7pmcq2dbaeNDTZJPepVRLcls8FHDQv0p8kb0PvssRJPhS7mD1q2+W9v
+	 8tCuVNkEfuIWMQMr7FUg/hmxQ6vFToQeHMzl59eaLcc3fl6uonguJlDTQOYuMW3jDXCeuPzDPGyE
+	 DhetIZeLXUBDK8OVvTWg5hZoL7IF48UnzcHrTId32ELzKy3EO/bVHyhb3HkNuWCRMYctxyWrJAQx
+	 Z47oP6my2qKajZbGXgePtnctxBeJ+C00h3jhTMlyU/HBMaHTRj/JmTMyvXG/MbNyhYlXV2n74IMx
+	 luI5FcueViqws2SQXx7OgwiViqz/j+n2GaIt2Zp8pN7InI3FP54mmJB9FyASV4INW+ox6K+WMbTF
+	 mkTd+SO27OAjNdrNTgJzZTkkNxKlw7wELSRWSANSDYd6OYy0w2vSHdmUtEmFr/0Lyza2W/8xouaY
+	 p8wjruLLucmoAD1pP4A4PT5N+7dFHz3e9DJcyRjMb9qdM6Gl+JTcAKemc6rUPPCUUknvtA98k8Yv
+	 LpXlD1dhmRwkYSGFu99gwNvIuunT4W7+5RJJfg+8Hb5cN576dtFGY08tUDycD9ov1146p3LcvPyT
+	 kEtHK2S9yOE3qYmVRjpbuXBcImtcRgqi+GXRupr84rKVnYzxm9fDN3F2gkT7J6Tph4aOFo1Z7gOK
+	 p/JNEYxhvBK6e1E0ZyBR1F0EUeF0GRmem5uQOk2KQIAc8kqE9WK69bM4Cxc3GcNQXZ2FmEJGIKai
+	 h6BIb3SVOI5MZjwBcPvze8a4RC8xb5u2fc0RIFbWntUuExUxQ=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 From: Shuai Liu <847807867@qq.com>
 To: linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
@@ -72,12 +72,12 @@ Cc: Shuai Liu <847807867@qq.com>,
 	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/9] media: camss: csid: add the 980 generation
-Date: Thu, 29 Oct 2026 15:54:03 +0800
-X-OQ-MSGID: <20261029075403.2907098-1-847807867@qq.com>
+Subject: Re: [PATCH 8/9] media: camss: vfe: add the gen4 block and SM8750 camera subsystem
+Date: Thu, 29 Oct 2026 15:54:05 +0800
+X-OQ-MSGID: <20261029075405.2907239-1-847807867@qq.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261028034105.326535-5-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-5-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028034105.326535-1-xiaqinghuan@mail.ustc.edu.cn> <20261028034105.326535-9-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,39 +92,51 @@ Content-Transfer-Encoding: 8bit
 
 Hi Qianhui,
 
-The csid-980 register map and RDI configuration itself look sane to me
-(the vc=0 stream programming matches what gen2/gen3 already do, and the
-split RUP/AUP handling for the full variant is clearly commented).
+The gen4 write master programming itself matches the gen3 conventions
+(the FRAME_INCR >> 8 formula, the 256-byte unit addressing, RDI_WM()
+offsets), so only three things stand out:
 
-> Only the register map, the RDI stream configuration and the
-> buffer-done reporting are described here; frame start reporting is
-> added on top of it by a separate change.
+1. The interconnect table does not match the binding
 
-The commit message does not match the patch content, though.  As
-posted, this patch touches six files, not three:
+The binding in patch 1 and the DT in patch 9 declare four interconnect
+paths for sm8750-camss:
 
-1. drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c is modified
-   to flip the four SKEW_CAL data bytes (0x005c and per-lane copies)
-   from 0x54 to 0x00.  That is a correction to patch 2/9 and belongs
-   there - patch 2 should simply program the intended value, otherwise
-   the series carries a value its own commit message calls wrong.
+  ahb, hf_mnoc, sf_mnoc, sf_icp_mnoc
 
-2. camss-vfe.c and camss-vfe.h carry groundwork for patches 5/9 and
-   8/9, none of it described by this commit message:
+but icc_res_sm8750[] only contains two entries (ahb, hf_mnoc), and
+camss requests paths by the names in this table, so the sf_mnoc and
+sf_icp_mnoc paths never receive any bandwidth vote.  For reference,
+sm8650 keeps the binding and the driver in sync: both declare exactly
+ahb and hf_mnoc.
 
-   - the v4l2-event.h include and the hoisting of `line` plus the new
-     `state` variable in vfe_buf_done() (needed by 5/9);
-   - the new reg_update_after_csid_config flag in struct
-     vfe_subdev_resources and the corresponding gating of the
-     reg_update() call in vfe_enable_output_v2();
-   - the CAMSS_8750 cases in vfe_src_pad_code() and
-     vfe_bpl_align_rdi(), and the extern declaration of
-     vfe_ops_gen4 (all needed by 8/9).
+Please either add the missing entries with real bandwidth numbers, or
+reduce the binding and DTS to the two paths the driver actually votes
+on.  As posted, the extra DT paths are dead weight and the bandwidth
+they are supposed to guarantee is never requested.
 
-Please fold the csiphy fix into patch 2, the vfe_buf_done/event
-groundwork into patch 5, and the gen4 enablement into patch 8 (or
-describe the split here if you prefer to keep it), so that each patch
-stands on its own.
+2. The commit message miscounts the instances
+
+The message says "two full and two lite CSIDs" and "two full and one
+lite VFEs", but the binding, the DTS and this patch's own resource
+tables all describe three full CSIDs (csid0/1/2) plus two lite
+(csid_lite0/1), and three full VFEs (vfe0/1/2) plus two lite
+(vfe_lite0/1).  Patch 1/9's message has the same numbers.  Please fix
+the commit messages.
+
+3. vfe_prepare_buffer() rejects formats at buffer-queue time
+
+The 256-byte alignment of pix->plane_fmt[0].bytesperline * pix->height
+is a property of the negotiated format, not of a particular buffer.
+Format negotiation does not guarantee it: camss_format aligns
+bytesperline per format (5 bytes for RAW10) and height is not aligned
+at all, so plenty of resolutions pass try_fmt/s_fmt and then fail every
+QBUF with -EINVAL and no explanation.
+
+Suggest enforcing the constraint where the format is chosen: either
+round bytesperline up to a 256-byte alignment for gen4 (which makes the
+payload 256-aligned for any height), or reject unaligned formats in
+try_fmt/s_fmt with a clear message, and keep only the per-buffer
+address alignment check in prepare_buffer().
 
 Thanks,
 Shuai Liu
