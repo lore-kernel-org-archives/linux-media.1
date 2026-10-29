@@ -1,94 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.207.19.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793244675;
-	b=H3OBRDgwL9aLO8dFpgzwmqAdJeFTMVVl9nOr7ol77Z4HLi16KZF9HYZbZbt5yKqaj7U0
-	 vYVZmel1T5Slkwo+ECAhv3KYrp/cYkBx32j+L/ZwOgu+Cn0OwKe0w/He2nphEsP73xVvE
-	 i/HULTLBKOuQGSimF1JuY5+E2AMQ51xXSg904x7Fs0eYLpUYQ9isXiMphd0gOFI3C4PTd
-	 XVSdtqzARRDsx2TSEH7bS//LlI3L/KA3OxOoBakIQ3srg82iQhVqaYHCC+dbRCLWBD0LV
-	 GjAB4wx+mzjRocyJqbA2MzkldbNmL3dcp4R6/6DOsxE/N9WPC+hdavsEIrnBe1PnPLQ==
+	t=1793246319;
+	b=qTlPTN2AaaBlBpEcfJU4Bqoopju6Cv14L20zuG0aLk/fsG3eeY8bO0VqebyrGfjHBKZ/
+	 AQcOacq3EvadciBMwX45Lx9uZaG8ZXICd495lG/oc3Gz+5ZLIcI+1YsLphhczKKuQlPwE
+	 2XC+CFIRd2j3o8QnaQRzObtwB3A2o1jZVkddpNEI9eMTQ0tXIhKhkDnlPE5EOr9Veh8nD
+	 8CHeOfTY+LFquhfB8l2+At6upGvlg2edaeCNR9CvjTTVoXz6cnIdCTXlPrBjak3Gn0NE2
+	 lbkcxpXYsNfWZby2FQU712geYo7xncf9L4pYPuGjaSKJXlU2tFXSVepGbh6T8CfEzoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793244675;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tXqVgIHedAkUX1I4ngPnM2GuJZyv0UpTtxGtSVGkbxk=;
-	b=DVtrkHrY9SQ3WgetC2MH73Xa5zf8ry/E1nuqD8oLSrQPhRpDTpDPO4erwhKLhXM8W2BE
-	 yK8SCZ7z9INl64nCPJ4TJ6ewQ3F0b01FcgzfCE2DZOqM7VxH760SqFTQ/rSBaIHNz3L9z
-	 umpFr1gPSHD75yzgY2sUxPNmy6q/ECeyl2SNRtf1RiN6tGP3IIXk+prTSYFcmMpOwix0A
-	 qBz+gyiihJNUn1lzY5IRuwwJn5xWp1Cp67cd1yrZKClt7LCOS+8WRUry4smGPDFcYo6Wh
-	 xTlIwKipkCAbiMub1fa/35jN9B7NVBV6Aa71Yaf9JuHClkvdHKi8grlzDF+BsfHWRFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793246319;
+	h=DMARC-Filter:X-QQ-mid:X-QQ-Originating-IP:Received:X-QQ-SSF:
+	 X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
+	 X-QQ-RECHKSPAM;
+	bh=BFyLvxz4SXBn37Mm+VHu0liQCJYb3+5Wnq/m/6TzgMQ=;
+	b=RMwvPQXbf5RIIJv1dVjO6qpkwbHH4CQxNTIJdPZN3AmM3hD+EmXDLt0lspYPPp7gyvt3
+	 M7EbarZIu9hc/9M8rz4Smczc+MwD6kYe47/k0ViGRj73in6T7gMXBwGyI6xE0il4GX1zu
+	 wn4iZQ7fa8rexay+S/alLYy1Dr6rDD0PSzLfFLlmcpZ6k1RoxxEk04/RYXz5g+TayriJf
+	 C7ZTeex0C4RFSAXkMr6Bx8frsbnQk75oQjTgYMuoDlrYktGJGDGNacfNc/68lwfdQ4Z8D
+	 p5u+5N1yVn6vF33M1k+fvQM8UTk9tzgKly1xpNw92JW+wcePapAtsSs4xpJAISRwwCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYX39ZuJ;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=radxa.com;
+	spf=pass smtp.mailfrom=radxa.com;
+	arc=none smtp.remote-ip=54.207.19.206
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F402606A31C
-	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 03:31:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F402606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zYX39ZuJ
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc7d154ec4fso799619a12.0
-        for <linux-media@vger.kernel.org>; Wed, 28 Oct 2026 20:31:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793244675; x=1793849475; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tXqVgIHedAkUX1I4ngPnM2GuJZyv0UpTtxGtSVGkbxk=;
-        b=zYX39ZuJSN0UsvntbvUpb3KShsqH1yk55dbvdt2Ka+E4wcr6yk/MDMhfutRbsSFuql
-         4/1q6devLsWltIva8YOiGifbaH9flU+l1q2C+XxTND0Q1PD8eEFBcC7fAaw1J8v4CJDP
-         3uEYqGgklov6SdcABncf9CrYparZY5XTulR67I2EGT/ZzLdYG83GpdDJ5hb96X7U8UYn
-         ile1SN32hs29/bhF+1b+MuzM6CeRocE0rxEF0sMc8yM5RhEuqyneQ/lksigYB55Jau+z
-         ZuYx36Ip5/vRYeseQTofc2UjZFBifXUJH6pKdf+16GsVIVdZkfp6tAmdGQc5PyV8Ru+Q
-         4VXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793244675; x=1793849475;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tXqVgIHedAkUX1I4ngPnM2GuJZyv0UpTtxGtSVGkbxk=;
-        b=SZd0jqaMMVFrAZ2nmlLNE35zrYirTi6TalmcchIcHaGNjxWI5E1/U+YC0EqOf3l4aY
-         t/S04HByK4h11fr7ngWKaP2TUfB+2EysoBhx2UzrXLzHMU7YTiFUSaVQ+1z3+oT+s+Ld
-         noZ6PX8+y6HpqlXAUNzlN9Rmo/mpyLfVdmcguXh9H5WBwNtZboszJxDuKEuQknEC8xBm
-         WXN8+kVBHFAaGfVNzs1GSUX0ZCy8ieRImfa3jqgzMRKMW+JwV3i/EwzBg1MfhcOrUH7y
-         dzjF8UQmXTtJ6gQoZmyFdIc4zz3/crSiD6WJKhAcosjmGyEhAF/R/OTGPT+87VgdcI0P
-         90vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpMon4sTFST1WMmRBABH7Vex3vz0e1oewcNOYt6uUqiPzqqjypcjL7yED2mQNgEN9ua4dt40PHGh+rcw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeDa2VQMqlg35qOp3+Bphw+dL6Ku3IzkWLv0ecDjgizI/KOf6p
-	6WGQzp88D+EdS6K3sofoqg7day5czh5GXrJ0AytmdfAau5tuP5Dtkq/3
-X-Gm-Gg: AYBFou2ijRiu7DeCY8hjS5JI2AWncuXr0y1kZ0ruMvW18E4ZiERmOips4I6p1z98+7B
-	1vGjEwpgYXOHHidiEAXfjftvQ2JxM+qr8WjWFa4yjhiR9UNfes4yDY0yLtf95TnH8qtLSEyDjLF
-	Q7DgsMFBMEkT+0FyXaNPg/PzFin0V+3k1UanTotnQeAZaxBEJZn8VT25s5quYxoWbzHJz69n87d
-	cQI4EPfIYWvvqYTDpzlamrYJYaXhuqKth4URx8/KAP0a/ljNcQ45iUqUw6xInFtjNt9na7r4mEc
-	RJO/2BYsH2C46DN4gEseofFzN1Lo2bwtI7+Gg11a48nMvZuwB4aQUFB3h1JSvjTJ2yLRcePBFO0
-	l4KYCwiovFCg/tpTA/BwIJ80G02ALjzjxzuzTY4WUn93Q+UPKZIZVLRJDV0JXzIB55ruFh7kQpk
-	kOvEwr26KyDYUP6Nk0GT6jUswFB/nUZ74KRCcpq946HlvvQSg9zS98zOUOhhL9czbMawaUT3DQs
-	wowKMdz+BZ5aDPiN+MrK6C7ARZxz7gILWR3TxdwYzL2dvL978pXM9wUESbDA/d+9caHhbWoaZRZ
-	n6jKPJWi8/hnGWvJN8ieJcYHa6v19TpZOwQ3o5SoP+6fi4UIYid89FFXpeABwVcdMWTqYJo/EyB
-	cerzFgfSJZa4G5PnKu00SNY0=
-X-Received: by 2002:a17:90b:1343:b0:3ab:2236:6b3d with SMTP id 98e67ed59e1d1-3ae5822fdf8mr3208481a91.27.1793244674909;
-        Wed, 28 Oct 2026 20:31:14 -0700 (PDT)
-Received: from kic-machine.localdomain (122-117-151-175.hinet-ip.hinet.net. [122.117.151.175])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e898317sm1824393a91.16.2026.10.28.20.31.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 28 Oct 2026 20:31:14 -0700 (PDT)
-From: Kuangyi Chiang <ki.chiang65@gmail.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ki.chiang65@gmail.com
-Subject: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK camera
-Date: Thu, 29 Oct 2026 11:31:06 +0800
-Message-Id: <20261029033106.7374-1-ki.chiang65@gmail.com>
-X-Mailer: git-send-email 2.25.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6877C606A32D;
+	Thu, 29 Oct 2026 03:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6877C606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpip2t1793246298t9a167de4
+X-QQ-Originating-IP: nweIdh7gutCYAe23QkulISMAwB3Hw2QnoC6AogDnQUc=
+Received: from [192.168.30.244] ( [localhost])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 29 Oct 2026 11:58:16 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8137748758459802009
+EX-QQ-RecipientCnt: 17
+From: Xilin Wu <sophon@radxa.com>
+Date: Thu, 29 Oct 2026 11:58:07 +0800
+Subject: [PATCH 2/5] media: iris: allow larger capture buffer pools on HFI
+ gen2
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,85 +54,79 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261029-iris-va-fixes-v1-2-44a2783f782b@radxa.com>
+References: <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
+In-Reply-To: <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ dragon@radxa.com, Chris Obbard <chris.obbard@oss.qualcomm.com>, 
+ Deepak Sikri <sikrid@qti.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Loic Minier <loic.minier@oss.qualcomm.com>, 
+ Jason Pettit <jason.pettit@oss.qualcomm.com>, Xilin Wu <sophon@radxa.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1038; i=sophon@radxa.com;
+ h=from:subject:message-id; bh=zBt5EWF02554zl4wui+IeGIlpE3r7mVcyNeUaq/LzB8=;
+ b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFmPjgTZVMpNWXdg0sPfZ72vx23a2GrTPG3vevvJJvPXs
+ D55qW8Y0FHKwiDGxSArpsiiEM8wl70y99pTsVI9mDmsTCBDGLg4BWAi1vIM/8slBJbaGzXujZG3
+ uMV/hX3XWvccyYzLbsfCDijf2Pfl0xVGhq0tP18IbH7x5ETW0ox7y/gfKkim8+3QnP7I73I1j7u
+ 7PR8A
+X-Developer-Key: i=sophon@radxa.com; a=openpgp;
+ fpr=205F009D07796DD6E516752E32C31567AD9E324E
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NmRjDopJZVxOniNVEP/DuHqvmxWTJff6es9/tHb3fB4XiE/wc5r/yCMA
+	PGWI6UB/FwKv+CF6+d3Fu5rIpkZapcqCxlNGoI8fwn54nT+SqKj6dQTGs5oW2cR/d3dIkBb
+	v0XWPzcrXffkwmbLXQcsQIw9tQk9DNZPrRjRFo7HjGjwle+XVDSpJid23sNMv7omxoSpYi6
+	7Ji+27At+tFsL3MVUp0mAakFH16rQ57bGeNt3Zpf5+i4VfhNYodd8DQlNuqBdIp2C/k04hN
+	QzRJAb+VS1cb1WIyhGsi/Kuo7qOU3FHo2LSLRNSUvUwMNRYmq0pE8i/6+jxUX00GV+/1sA9
+	0bHzxCWp6bYHPwjVIHnCWkGe/yzRAXW0ZUNBYuPgpvAGB8U9vYWZrk9dlEak8dFL3P2vfoX
+	lUONErL+6/e4A0fMF/kDmLMPfK6HVUcuiJ1Kt2HBePaJwBPLuVYUhqdksVu5EywIjoY5RmM
+	GyOoSpdBMe8Xk4J/fKuc06tPfk0ZVFXG4dNKAXPsA0tdz2oP0flDClWl/jy9JmUrjODsXx/
+	RQzj47j+lM38lO+N+The9ylw/Fauh+JgqEo1MwXPdB1VvOOV9/MF1AD2ntb7TRNqMjNa0q+
+	fKSb7auisSQVefApzIOxaAOCHEjdlVr9KRVX7F2mLQte8XZC52VpqI9AldEGVw6Z0hn5Swg
+	3bEOb1gWTyUSsLxHdIDr6udW3UoF0RXz51ks/F2oEyUPVgvKZFeE8oLb+BEwIlUrid3hKpA
+	6S186ThVSZeJQnyVbStSN2D1FdGtjvWV+N9Dd5AvylOo+I7JfC74XjLdbVUWy8CcTKXIlj4
+	r6dHVSDGqgVhBzK6rJ6gF9L1p84LK57KLZ9mcSHu3aNhswKGrkiPX+fKtfZHioJo6j6fHev
+	pOS7tb5Vh53xdTBOAUGhv8P0MGhME4ftHPG7EZG3Xp8Q3A8hQZlZH56VrM7Uvw3xcz2oRB6
+	Bwr/uWrJ/6FAY90mXOmvwCdmOfeGKpMnZ444bF3LHac3bp6vptAoNA0axcksRAqhi9jPHTg
+	2j8fiYFqkwYhcODXspXrhytOxT+MldPO7I5IrmYGKHopeAmK2eLfjTj3i4R40Ljz186NaWR
+	g==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-UVC control requests issued when preparing a video stream sometimes
-time out on the HIK 1080P Camera (2bdf:0280):
+VLC with VA-API frame threading can require more than the default vb2
+limit of 32 CAPTURE buffers.
 
-[   48.363671] uvcvideo: Found UVC 1.00 device HIK 1080P Camera (2bdf:0280)
-[   53.465662] uvcvideo: Failed to set UVC probe control : -110 (exp. 26).
-[   58.585653] uvcvideo: Failed to query (129) UVC probe control : -110 (exp. 26).
-[   58.592967] uvcvideo: Failed to initialize the device (-5).
+Raise the HFI gen2 decoder CAPTURE queue limit to 64 buffers.
 
-Adding a 1ms delay after each control message avoids the issue.
-
-Introduce UVC_QUIRK_CTL_MSG_DELAY_1M for this device.
-
-Signed-off-by: Kuangyi Chiang <ki.chiang65@gmail.com>
+Signed-off-by: Xilin Wu <sophon@radxa.com>
 ---
- drivers/media/usb/uvc/uvc_driver.c |  9 +++++++++
- drivers/media/usb/uvc/uvc_video.c  | 10 ++++++++--
- drivers/media/usb/uvc/uvcvideo.h   |  1 +
- 3 files changed, 18 insertions(+), 2 deletions(-)
+ drivers/media/platform/qcom/iris/iris_vidc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index e289cc7..c720d75 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -3162,6 +3162,15 @@ static const struct usb_device_id uvc_ids[] = {
- 	  .bInterfaceSubClass	= 1,
- 	  .bInterfaceProtocol	= 0,
- 	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_FORCE_BPP) },
-+	/* HIK 1080P Camera */
-+	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
-+				| USB_DEVICE_ID_MATCH_INT_INFO,
-+	  .idVendor		= 0x2bdf,
-+	  .idProduct		= 0x0280,
-+	  .bInterfaceClass	= USB_CLASS_VIDEO,
-+	  .bInterfaceSubClass	= 1,
-+	  .bInterfaceProtocol	= 0,
-+	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_CTL_MSG_DELAY_1M) },
- 	/* Insta360 Link */
- 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
- 				| USB_DEVICE_ID_MATCH_INT_INFO,
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index fc3536a..4667f86 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -35,13 +35,19 @@ static int __uvc_query_ctrl(struct uvc_device *dev, u8 query, u8 unit,
- {
- 	u8 type = USB_TYPE_CLASS | USB_RECIP_INTERFACE;
- 	unsigned int pipe;
-+	int ret;
+diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
+index 05aab6e3005d..8c96b007b391 100644
+--- a/drivers/media/platform/qcom/iris/iris_vidc.c
++++ b/drivers/media/platform/qcom/iris/iris_vidc.c
+@@ -140,6 +140,9 @@ iris_m2m_queue_init(void *priv, struct vb2_queue *src_vq, struct vb2_queue *dst_
+ 	dst_vq->drv_priv = inst;
+ 	dst_vq->buf_struct_size = sizeof(struct iris_buffer);
+ 	dst_vq->min_reqbufs_allocation = MIN_BUFFERS;
++	if (inst->domain == DECODER &&
++	    inst->core->iris_firmware_data == &iris_hfi_gen2_data)
++		dst_vq->max_num_buffers = DEFAULT_MAX_HOST_BUF_COUNT;
+ 	dst_vq->dev = inst->core->dev;
+ 	dst_vq->lock = &inst->ctx_q_lock;
  
- 	pipe = (query & 0x80) ? usb_rcvctrlpipe(dev->udev, 0)
- 			      : usb_sndctrlpipe(dev->udev, 0);
- 	type |= (query & 0x80) ? USB_DIR_IN : USB_DIR_OUT;
- 
--	return usb_control_msg(dev->udev, pipe, query, type, cs << 8,
--			unit << 8 | intfnum, data, size, timeout);
-+	ret = usb_control_msg(dev->udev, pipe, query, type, cs << 8,
-+			      unit << 8 | intfnum, data, size, timeout);
-+
-+	if (dev->quirks & UVC_QUIRK_CTL_MSG_DELAY_1M)
-+		usleep_range(1000, 2000);
-+
-+	return ret;
- }
- 
- static const char *uvc_query_name(u8 query)
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index b6bcee4..1426d14 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -81,6 +81,7 @@
- #define UVC_QUIRK_INVALID_DEVICE_SOF	0x00010000
- #define UVC_QUIRK_MJPEG_NO_EOF		0x00020000
- #define UVC_QUIRK_MSXU_META		0x00040000
-+#define UVC_QUIRK_CTL_MSG_DELAY_1M	0x00080000
- 
- /* Format flags */
- #define UVC_FMT_FLAG_COMPRESSED		0x00000001
+
 -- 
-2.25.1
+2.56.0
 
