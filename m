@@ -1,47 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793271784;
-	b=zxHVL7Aa8G/GMfsy+JSPnaK+BHRixml3LQn7sVZVyIUKMuJUZRuacfsGBxWZJrDVYJv3
-	 IXYdLW4xYnxg0hWBwRwXd1mkuVlPBRb8BzXQZOspcdtk0Hryoa9gyVgv0cM9rCSQSWJo+
-	 6E+aHO59EPzI63v/o2s2U0AFs5TyeHeQJx0u5GM/lRkC+dkcpU7aRrciu6PL/BRAY9iyN
-	 uP7QxtPg2b7BbyiRFxWYwM8VgAF7y84Q4LxM3VKzS4OCB0quR4O7/GOVlOIp8CEYxSIt5
-	 zMmLCu5bu/kPsmBvPN3e6uwih9UN5VWVKPx+R9kqYvqColTTG9v0rPFzyKP6SOKjqyg==
+	t=1793272945;
+	b=DBNKBMoeR6pq8LvRn5SsIL/MxlSlrnDghW/ko4SPewIKD+hUUS/8QQwJgmWP/o4O9rzW
+	 lMzaPTf8rqNqJH9MTXrt9YxDzD8dAoJbAIUqQSwWamx/iITnpVj0/upi2xo9huxj0c3hm
+	 tjoJER/J26HZzQzhWrC8Y+WmqLFla7T7wOWkk6Wz1ztpbIi0qvJZNPdCtb8lASqKpvatD
+	 TMJ+vD1ZyVaA8wPewsDNZo7x0hfXi+I8cDpHzuUxGLRA2deZZpZiGXJnPCAk52wmiUt+5
+	 E2gQKqtda8UaYt3GGA7v0oheDNJshVZguWZ+utmAKqGN+oEzY5E3wspLQm6cFx4M2KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793271784;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=lqdjZkQwVXgTMSk1QocnJZhAE2sMU/4Mo4N5OcDK2FQ=;
-	b=buOaXeXFr43SqTDJaB6Ys343YRlLjrmAIL29jTAEB1NS6FyGAXRF0Cs0+5GS6E+0GOxO
-	 WeWjsNJSeD9q09oenVMTUwXWFZQnlqnh+fYnUdfY8KopCZRygtTBNQ9hAyH52J2tLu32L
-	 TutvQ1WmhTUoEWxfDI5e94R4vKA61QrujiJKBO9Gmg/blt70hEpXXvk9gUz7eGdlz4jEX
-	 2mddW3H+U3qqMeYuBiqNMbEl2PqEpFOxn+/r5RF6Q4BC86zLYvIfs/Z69vVHI5mE9w8LQ
-	 /5G+eVc9seZ1ws0ivnPe9WsA1ygL6UoWmzPerS/G+SXsXI7UrE54V3Oxq4brzhmiJXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793272945;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=eGx18/X/MEhaPoukM+MtHDbnzcqUw1U0EbIZxX6ggtY=;
+	b=41cCmgK6pLKRuwQOmFqCFPDPyPn7ap7fhhdx6C/eIk5nPm0S5nE+oLhr5xL+oqAgy5Yz
+	 12jaztMEmxqmFgjlK4zAubYxPoHCTifjCqScbgdBqMSf6zzWS2tEGPEUYBRKBbvHT/ej7
+	 sosRIwb9Lrg15tPqrzEmyUg1FY7XC3KQ8LIC7KkCHXnEnKjJzcJSvU7tipuekBoJPGJ3B
+	 YZTCdkvAPAwxGWlWVe8ls9MtDRejBeO+JzAqBqE9c9KgfYfxdwrBxtv+m8l+M1yDNY665
+	 9sNtsSTPI8xiw4p3qsFa+G3qBM401kh4Cb8fMuSrL0ktaB5OIh1qHH1KTWqw3IHBvOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdlFVKzu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TzQyhEOo;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6676F606A31C;
-	Thu, 29 Oct 2026 11:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA043606A31A
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 11:22:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA043606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MdlFVKzu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F6951F01828;
-	Thu, 29 Oct 2026 11:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793271784;
-	bh=lqdjZkQwVXgTMSk1QocnJZhAE2sMU/4Mo4N5OcDK2FQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MdlFVKzuWxOxSjNjAhnFHwPZSKwPu5DlnspZZDlB0/cJmbVUI+7dUAXHJcsUW2pPb
-	 3wLgn9zUorPGJNR4YgijvuBCkqfz0wmaR1NLHrTH+50fiHo9vx5iT1682o0qKET4J+
-	 5PLKVBtfJJnwdtRit0dsHNmfyBzPkvN/VPmirZM5R9NfuC8ppWwrYM5xQPuSEzu0l1
-	 +xZhdpSEbo8k3dgPtmHi35AzoOXVtHjLAjruYIiQl/1fya5kQKNoIvPs5a2evjEHoV
-	 rv6b2t6D/WWkoxy7tA0MkFAFM4dJJUT54FMBICT5N3KKpMqy/1y1+GNCO0AjfVoDGU
-	 /lz+sftOX6tjQ==
-Message-ID: <8a675e45-eed1-406c-a503-e1490d10b638@kernel.org>
-Date: Thu, 29 Oct 2026 11:03:00 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=TzQyhEOo
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B4BB24DC;
+	Thu, 29 Oct 2026 12:20:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793272808;
+	bh=uLjLJv0jCXEPB2COZuXAlnt9/yGgPXUsTB6GmGtYsKg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TzQyhEOoL7tC1N3Wrzhn7K2A3zUaPebq8iTgeJr5MksZhQBD4GGtFjc0G+WKQ2H/q
+	 0AiNqkmgnl+nQafVbmNYPrGNrJ/PiRic+pkSCKkzDOAzHjMvIduwLvr90n10IOQIxe
+	 NYP4U+F2CdJoFipxeRENW1l2yJtjn6cc+UAYtGcQ=
+Date: Thu, 29 Oct 2026 13:22:20 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, Sakari Ailus <sakari.ailus@iki.fi>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>
+Subject: Re: [v4l-utils] [RFC/PATCH] v4l2-compliance: Don't check bytesused
+ or timestamp for error buffers
+Message-ID: <20261029112220.GB2587681@killaraus.ideasonboard.com>
+References: <20261027191929.2528156-1-laurent.pinchart@ideasonboard.com>
+ <b4aa95de-174b-4a4d-b55d-136aaa2dabff@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,96 +63,117 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/14] media: qcom: camss: Introduce CPU latency QoS
- during streaming
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>, bryan.odonoghue@linaro.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org>
- <20261029-v4l2-frame-sync-v1-1-d37992559c58@kernel.org>
- <C5h3n3GoAvX7tdfEig7r4z8hDirrcGnY7QGp0x-H3DZbiSXQh2wMHxeydOkYcYOIARD07F7-bhic3uHlUpkgxQ==@protonmail.internalid>
- <CAFEp6-0H=9=KM8eiJ690GEgpCqPKe3034gGLJbz4RrVxHP28bg@mail.gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <CAFEp6-0H=9=KM8eiJ690GEgpCqPKe3034gGLJbz4RrVxHP28bg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b4aa95de-174b-4a4d-b55d-136aaa2dabff@kernel.org>
 
-On 29/10/2026 10:10, Loic Poulain wrote:
->> +
->> +void camss_cpu_latency_get(struct camss *camss)
->> +{
->> +       mutex_lock(&camss->cpu_latency_lock);
->> +
->> +       if (camss->cpu_latency_users++ == 0)
->> +               cpu_latency_qos_add_request(&camss->cpu_latency,
->> +                                           CAMSS_CPU_LATENCY_US);
->> +
->> +       mutex_unlock(&camss->cpu_latency_lock);
-> I agree that we need such a latency request mechanism, but the current
-> approach requires additional logic and locking.
+Hi Hans,
+
+On Thu, Oct 29, 2026 at 11:07:38AM +0100, Hans Verkuil wrote:
+> On 27/10/2026 20:19, Laurent Pinchart wrote:
+> > When DQBUF returns a buffer marked with the ERROR flag, the bytesused
+> > and timestamp fields are not meaningful. Don't check them.
+> > 
+> > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > ---
+> > I'm sending this as an RFC because the V4L2 API documentation isn't
+> > clear on the subject.
+> > 
+> > For the bytesused fields, I'm fairly confident that this change is good.
+> > A driver can't be expected to provide data for buffers with errors,
+> > especially if a transmission error occurred.
 > 
-> What about one of the following alternatives instead?
-> - Move the latency request handling to the suspend/resume paths. The
-> request lifecycle would then be naturally serialized and balanced, and
-> in practice there are very few cases where the device is resumed but
-> not actively streaming.
-> - Alternatively, add a dedicated latency request instance to each VFE
-> and let each VFE manage its own request during start/stop. That would
-> keep the ownership local to the VFE and avoid the need for extra
-> locking altogether.
+> Dropping all the bytesused tests if ERROR is set isn't a good idea.
+> If ERROR is set, then bytesused is allowed to be 0, but you still want
+> to check that e.g. bytesused isn't > length. Otherwise applications that
+> do not check for the ERROR flag might try to read beyond the buffer size.
 > 
-> Regards,
-> Loic
+> So we have to ensure that what the driver returns for data_offset and
+> bytesused won't go beyond the buffer size. But they may be 0 if the ERROR
+> flag is set.
 
-yeah both of those would work.
+Good points. I'll send a v2.
 
-I'll have a think about that, thx
+> > Similarly, timestamping a buffer upon error may not be something we can
+> > always expect from drivers. I'm a bit more hesitant here though: while
+> > precise timestamping can't be guaranteed, a driver can always use some
+> > sort of timestamp. Doing so could cause issues though, as a driver for a
+> > device that provides hardware timestamping would need to switch to a
+> > software timestamp source for buffers with errors. That would not just
+> > complicate drivers, but would also make it awkward for userspace.
+> 
+> Makes sense.
+> 
+> > There are a few open questions:
+> > 
+> > - Are there other buffer fields that we should ignore ?
+> 
+> Possibly the 'field'. In practice I think this might only be an issue for
+> interlaced formats. If we run into problems with that in v4l2-compliance,
+> then we can always address that later.
 
----
-bod
+There was a failure with the libcamera v4l2-compat adaptation layer that
+didn't set the field in that case, leaving it to 0. I've handled that in
+libcamera for now, hardcoding V4L2_FIELD_NONE as we don't support
+interlaced formats. We can revisit that later if needed.
+
+> > - Shoulg (some of) the ignored fields be required to have a specific
+> >   value ? For instance we could require the timestamp to be 0 on error.
+> 
+> No. Leave that to the driver. You'd have to analyze the existing drivers
+> just to figure out what they are doing today, and drivers using
+> V4L2_BUF_FLAG_TIMESTAMP_COPY may still copy the timestamp if they have
+> enough information to tell which output buffer originated the error.
+> 
+> But perhaps adding a note in the documentation saying that the timestamp is
+> unreliable for an ERROR buffer would be useful.
+
+OK, I'll do that.
+
+Thank you for your thoughts on the topic.
+
+> > ---
+> >  utils/v4l2-compliance/v4l2-test-buffers.cpp | 22 ++++++++++++---------
+> >  1 file changed, 13 insertions(+), 9 deletions(-)
+> > 
+> > diff --git a/utils/v4l2-compliance/v4l2-test-buffers.cpp b/utils/v4l2-compliance/v4l2-test-buffers.cpp
+> > index dba471e5b488..47d4627ee373 100644
+> > --- a/utils/v4l2-compliance/v4l2-test-buffers.cpp
+> > +++ b/utils/v4l2-compliance/v4l2-test-buffers.cpp
+> > @@ -393,16 +393,20 @@ int buffer::check(unsigned type, unsigned memory, unsigned index,
+> >  		warn_once("V4L2_BUF_FLAG_TIMECODE was used!\n");
+> >  
+> >  	if (mode == Dequeued) {
+> > -		for (unsigned p = 0; p < g_num_planes(); p++) {
+> > -			if (!(g_flags() & V4L2_BUF_FLAG_LAST))
+> > -				fail_on_test(!g_bytesused(p));
+> > -			if (!g_bytesused(p))
+> > -				fail_on_test(g_data_offset(p));
+> > -			else
+> > -				fail_on_test(g_data_offset(p) >= g_bytesused(p));
+> > -			fail_on_test(g_bytesused(p) > g_length(p));
+> > +		if (!(g_flags() & V4L2_BUF_FLAG_ERROR)) {
+> > +			for (unsigned p = 0; p < g_num_planes(); p++) {
+> > +				if (!(g_flags() & V4L2_BUF_FLAG_LAST))
+> > +					fail_on_test(!g_bytesused(p));
+> > +				if (!g_bytesused(p))
+> > +					fail_on_test(g_data_offset(p));
+> > +				else
+> > +					fail_on_test(g_data_offset(p) >= g_bytesused(p));
+> > +				fail_on_test(g_bytesused(p) > g_length(p));
+> > +			}
+> > +
+> > +			fail_on_test(!g_timestamp().tv_sec && !g_timestamp().tv_usec);
+> >  		}
+> > -		fail_on_test(!g_timestamp().tv_sec && !g_timestamp().tv_usec);
+> > +
+> >  		fail_on_test(g_flags() & V4L2_BUF_FLAG_DONE);
+> >  
+> >  		// The vivid driver has unreliable timings causing wrong
+> > 
+> > base-commit: c6600a7e342ef6e336fba02212c90b60a36ca02d
+
+-- 
+Regards,
+
+Laurent Pinchart
