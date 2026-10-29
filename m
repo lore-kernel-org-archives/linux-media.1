@@ -1,149 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793273032;
-	b=w6QBzIFMEW8tEdQ3aiWTG8yaRyNGM6fnKj0NBgCnhwEmCh8xTSdQpXPjCXdOp1AO0Rw3
-	 POpDSLoYh1v/fzaD5pqnbmyNajGZzpF23ZOG6Vijbx/iTpSI3ZI3GHZc1dWcmgdVD6446
-	 GfmCPa3tgiAUmc3nH8S0+gIaLxkHgceI0MXsYoGkl3v0S6+Fk9Xhyt/slTnvzR9+mww3l
-	 g4m8xJByhPCuxUp26rV6diMF8WmfYkP1TQBZzqowH+rBPluR1pRt3NIIi/uW56TH9mk3N
-	 x16rFwtx1ZdNRXiSlWE8k8mEvIJ/o3t52RONVxkaP2PbIHUcxZ00ECrdn8QY+g77UEw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793273032;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
-	b=PmWTb+KEy4cOaOjeBxs9dQ9UP32u+M6sWjiUE/ABOoBv0gmiIIMNhAe5EwXN38G8+puz
-	 5QNuNb7hKB4Njg7z+pvT/qVhnPv8kCt6nXIjo0FEEOtfqh2zUtfKq8FzjBnDcRZehryn1
-	 iFZBNEel6cv6bO1VCl/lU0mDrEAURzQKlBUdApQWbnicQMlvIlJ9gJ3zeuWh1F0CZRXz4
-	 OZoYiCn9ugXsxtb8oKdHe1L77dXFCO1plwXoxsbh9lt5FTzDheP9XmHfTieuGAe4FHfFb
-	 KuJAE37azJwpbfOy4wkemGj02JZ7UijkeO+FrN4meRDkF4g4x8/Kpxg8Ke+Sf3wiYMA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YhheDy8E;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793274335;
+	b=aQeMkTnsWJ3kE6F5R2tcQw1UVM6VfAgGgj+GzzDWuAPG0VLKBromp3Z9cuX7xQqeTYs5
+	 BD05jJDaFdaySCeS+lshVV8a0F1ngBz0AkXsEMLukM3c/mp56dw6mp6rKCaQTdhEIQGYl
+	 CSiKUPmCaSP6hfnbhRCOV2hGQXTRCbVK+5Z01kUNsgvK88pl0cwvUPeOdcHjqvwH7lpoQ
+	 6aW3o7U3RKWYCXPuB1ATO83mC06QsqtPNvQXt/K5Ddm+VpambxChcNaAuQvTW9bnPCfrR
+	 NcVGYO+gZuoKQZz4i7zmG1S/nzCZtHO+4i4KP67Kp5YJH1ZrAoMwXuH2oOjvUOy1FVA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793274335;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=TMWXkVvY7365bUcSbC/c1WgzijbCguJDPiJAF5/hEqY=;
+	b=dzpW4PNni2IxSPl3mM5OSDJ0S3yi5vxifMP9izH6vFqAySv+FgTPTxsy61YnicM9WEMg
+	 mleBHN1vA+oK8kQEz8hZZni9MsGD+h4gs0sTihe0p3VtJBkwtQMA5v23d1SF9mjy/EXu5
+	 BNVLY9zgc1/DPmyTCg/OQA7ySSmOS2vMKpBhTPJd/JhFtyP/YvDC99enAZiQLC40810Lf
+	 wAdt6YntoiDdkeFvSsqJAnc3A3VSXdAnbgetTf31HwoV1CX5ltm5JLGctOHPUxuDtDhr+
+	 SwwE+BLQNsWGj5kd243Afxg13DXHfkUrsBq8kvdGg5HlR6PTu0pZe3RpMBwQ1iI1W+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EDewjzYH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fPta+DZU;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7746606A31A;
-	Thu, 29 Oct 2026 11:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7746606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17589606A31D
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 11:45:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17589606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=YhheDy8E
-Received: from [IPv6:::1] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: lst@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 418BC2007F9;
-	Thu, 29 Oct 2026 12:23:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793273028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
-	b=YhheDy8EfCQv89DyrUXN/Yqh1aav8HKOaPDt4/Y3XFIPfM2HQZksNK1Q4J8Xiva3N9Z1Am
-	tkP2eX7Gmfxohg3zXmJeyevXeiaQVGhGYtgf5DW7WiXDKCn+YIxVKqJUBhnT18fBqcR9od
-	pNUOxHrNlb/aeBZqcMinomv32QEtNIj5iOvnDLzi8UenUwl35U/mEBFZgBoAEnX3k3vgMh
-	WQOKG6XE+gjRy2dunur160DUflwOCoaEEllxXNkae4RdWnLlHPVfWZgcVG5KwuGlYdMS4j
-	K8l8J5jfGgLMMk0a9E7oE+GBGvUkDtPQtpWfP+urJK7Rg8cIfoftFRGLPfWCxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1793273028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=s4uscHTSNNyFgyqCTfvm7pgyQFz42LzvHFK7u0x0Cw0=;
-	b=YtyTqxntKVSuf0cXkpc84IWDjijQempbl/OM6z3jYncGCiwf/Ln99mK5+x8W0cyO9xO1gA
-	kZBUATT4teV385wTGMVEaT2ftHDv466XZMo/nCHJ+3VBjvaefh76HC4h6ZqGpVZBZzIif0
-	B0s67a7gzHS6sPKR61gN4QKr3LIKCsgfOapXu1CZ/XgwBY8WD5Dr2jHZMjCr5H6sThWMxU
-	MsRJbd3Mcfr33CLRmW8Bp3z2gPWqfmC5Y9O64Vqrjxd/mFXxtXsuyhRNEFalbt43sftG6G
-	xJ0leaBmncxO0k6VjKMNj5ycc2G3vyKocU53toT9hpLpEM+cmebxYVR8EEEN+Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=lst@pengutronix.de smtp.mailfrom=l.stach@pengutronix.de
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1793273028; a=rsa-sha256;
-	cv=none;
-	b=CMz7Ii0BbFpIf3JOy1xOkUy1/GalemR2HX7An2NH4NYYc7nV9uA9ia33/CLwhOM5TIZVCO
-	r5SjbN1jtUnItbnYc85Z8xd4yR28RKXjpQwR04UflRreGYa/mpCLkcKsFkvwIJI+HcAAQT
-	e6tyb0XkfNDiCGGfk7D6jVoenCj3H0aH4beZaCr4Eu2G+Ql31BsMOvYsHkb91GsL5HKzlk
-	3XcSZVASLqeWZ4KZWuMaxSYPs7oxi8oIKtwvZ2vU+4PLj3JdRq+wZ2/4S5M1ckb3lR6s7O
-	ZyHtIMqbdSoBMc5gGXlEKgsiCFaxc5lHEpetkI/HR6kfcn8G0LRnwE1RHAFQyQ==
-Message-ID: <d0610126883f23bec3472f41e528aae786f27c8c.camel@pengutronix.de>
-Subject: Re: [RFC PATCH 0/6] dma-buf: Phase out is_signaled() race
-From: Lucas Stach <l.stach@pengutronix.de>
-To: phasta@kernel.org, Min Ma <mamin506@gmail.com>, Lizhi Hou
- <lizhi.hou@amd.com>,  Oded Gabbay <ogabbay@kernel.org>, "Rob Herring (Arm)"
- <robh@kernel.org>, Tomeu Vizoso	 <tomeu@tomeuvizoso.net>, Karol Wachowski
- <karol.wachowski@linux.intel.com>,  Andrzej Kacprowski
- <andrzej.kacprowski@linux.intel.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <christian.koenig@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alex
- Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter	 <simona@ffwll.ch>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Russell King	
- <linux+etnaviv@armlinux.org.uk>, Christian Gmeiner
- <christian.gmeiner@gmail.com>,  Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
- <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Alessio
- Belle	 <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>,  Qiang Yu <yuq825@gmail.com>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov	 <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
- <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
- <marijn.suijten@somainline.org>, Lyude Paul <lyude@redhat.com>, Danilo
- Krummrich <dakr@kernel.org>, Boris Brezillon
- <boris.brezillon@collabora.com>, Steven Price	 <steven.price@arm.com>,
- =?ISO-8859-1?Q?Adri=E1n?= Larumbe	 <adrian.larumbe@collabora.com>, Liviu
- Dudau <liviu.dudau@arm.com>, Dave Airlie	 <airlied@redhat.com>, Gerd
- Hoffmann <kraxel@redhat.com>, Matthew Brost	 <matthew.brost@intel.com>,
- Natalie Vock <nat@pixelcluster.dev>, Arun Pravin	
- <arunpravin.paneerselvam@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>,
- Melissa Wen <mwen@igalia.com>,  =?ISO-8859-1?Q?Ma=EDra?= Canal	
- <mcanal@igalia.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance	 <kernel-list@raspberrypi.com>, Dmitry
- Osipenko <dmitry.osipenko@collabora.com>,  Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>, Zack Rusin
- <zack.rusin@broadcom.com>,  Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Thierry Reding	
- <thierry.reding@kernel.org>, Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Cameron	 <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=	 <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Sunil Khatri <sunil.khatri@amd.com>, Kees
- Cook	 <kees@kernel.org>, Jesse Zhang <jesse.zhang@amd.com>, Timur
- =?ISO-8859-1?Q?Krist=F3f?=	 <timur.kristof@gmail.com>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>,  Kexin Sun <kexinsun@smail.nju.edu.cn>,
- Prike Liang <Prike.Liang@amd.com>, David Rosca	 <david.rosca@amd.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>, Marco Crivellari
- <marco.crivellari@suse.com>, Shixiong Ou <oushixiong@kylinos.cn>, Jouni
- =?ISO-8859-1?Q?H=F6gander?=	 <jouni.hogander@intel.com>, Thadeu Lima de
- Souza Cascardo <cascardo@igalia.com>,  Pierre-Eric Pelloux-Prayer
- <pierre-eric.pelloux-prayer@amd.com>, Joel Fernandes
- <joelagnelf@nvidia.com>, Al Viro <viro@zeniv.linux.org.uk>,  Neill Kapron
- <nkapron@google.com>, Michael Bommarito <michael.bommarito@gmail.com>, Sam
- Day <me@samcday.com>,  Gabriel Prostitis <prostitisgabriel@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
-	etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
-	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
-	spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-usb@vger.kernel.org
-Date: Thu, 29 Oct 2026 12:23:45 +0100
-In-Reply-To: <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
-References: <20261029095542.1526750-3-phasta@kernel.org>
-		 <abca3f0039b07999e29558690c27fef23292bea3.camel@pengutronix.de>
-	 <3565783722927fa48a30f48b063ef99bcd703eab.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=EDewjzYH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fPta+DZU
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69T8vE6V3824988
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 11:45:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	TMWXkVvY7365bUcSbC/c1WgzijbCguJDPiJAF5/hEqY=; b=EDewjzYHcRMdlJLo
+	VoGq91+Z+QOaXmM2eq6RMF1b3n+Zuc3wLUqFQZU15c8jb5G/dsFesPMWuBdWK6WR
+	gc9pMK6TM/posn2sPLcSdoK13tRAraVKuczXAAAFVTTL1kgSyGZ6aHf0R/X3IEz0
+	y9cZWih+vxDyalJLCyS9QisNtUjQ6eS68oWqhfkIYg0++A9dmYoQLPJsTovRoSqG
+	pvLbYeKlx6eKtQ0T/mDbiGSNrB7aDz08+MRwYwXJbPQXxNzXsPXT1MUK09L9dcDM
+	KV3YSjcE5YKvWb36JEATgBRakZPdvg2GeNOtVuAbYcCtEZ3bav5dLbj3ywHaVIFd
+	gzKyJw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hkut3j6d4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 11:45:33 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ce7a85f04so400751885a.0
+        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 04:45:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793274332; x=1793879132; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TMWXkVvY7365bUcSbC/c1WgzijbCguJDPiJAF5/hEqY=;
+        b=fPta+DZUfoRqdIsHPdNqc2ByeXobXmP91o0berZN0lnGB1/OT05KuQd4SJ68osHkJA
+         rBsSyJd3f6pYSNY+z3so7BB+RTEQIIdoo3Dd5kC1R87Q4uCyLkj8R7RNymfSue8KYI25
+         gZxYyJwrT4dGR47n7VWvx/El0ftBndX1Kv+fJHy99fxNk+vJhFNRcfXeB3uCpZ38g+lP
+         EUzCVAimf7+8Nb1gdZ0cM0BeeQnyvWj72b+b4qzIezpbRTsG6YcBE3ltP8VuFOCrj3Lf
+         RpAMPnnhzMpjpnqYiDulWwjMABAXmhS6ICe8jTn8+F6VBhqsKSrVvqpgn+a1lRwpd0PR
+         X/Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793274332; x=1793879132;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TMWXkVvY7365bUcSbC/c1WgzijbCguJDPiJAF5/hEqY=;
+        b=NJPkv1VGkPZva/wmD0rWJzy2lp6G67iU4zGrOACsTnEL0rgwQzA41oW2BDphdwXJfQ
+         hvma3S2kOK861qD6DhGDzNcoNDMx2RW2HmuqZRltNwIfI+4MMgkNtIDh2ZcSGp/XDRe9
+         oowZ+2uoNotqR+0Ci/uEy+pe3SSQvyKi30hbSv9W/YT9XxBSin0uhjEdD7x3aWSELSDb
+         GZGGckNrqzIX2rkcRtzAikgRXZFfhpk1i9m0OVZXxWA5e+D3Y2jeBjHBxRMHM7HVh7ZK
+         ZISiPsyWBJPkN4NJZLYM5sCEeJur5XH3x1ziSeZHHddV+0bDSFVvLTVEZxdDdht5YvEi
+         MIVA==
+X-Forwarded-Encrypted: i=1; AKwUvByYrOLsl/aFP+GLbnH0FSv/eOfkoOwo4+r3kxO0ukoRXufvV2DOS4B5LkgfZKyQl7OcBelpQYv8X920Dg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYInVMQB5LT8rNwqpBXUQvweYO3NPvpB/MQ3YxDb/cvjm8bIkKbZ
+	HBdmuyWq7/o9dqlKgZs6DPlCIHpr6Zp476Hw4mzJUKTVkb7PDrjDCGuWsoATn43fnfsGwDm80KY
+	vjHVhqbskugD/b+lDUf7vUPtVbr0UO6Ax9m1HR5GFhamgM42F7aQCvTVhqrzQTmcqjg==
+X-Gm-Gg: AYBFou017u0df+t5ZJuaqi5VPHCk65+qwpKzxCHVHf64zGjXzhNDRCVJxIqj8fcWTb5
+	UZSvRZUoeH6McFKYKvRdyV4FW3s9lseyqJerrFOQr2YayEraN/I5RZhccze3/GKuRzGNsKodViD
+	RTjSrFXy+7QkzDlySYqiR7t+AWVRCCVpfCOq/y33HVc0pw7zpQRNaSwc2ExPw6gicyiNkOAe/Qp
+	9D41+gt0fUBEu4HIWdLphqtyJZOvNE1czoin/LjLKmcb847TW0s5h3ysKINnJKZKZWjHFcjMvqR
+	BDkfYc2DKJVEsDkjyAxY8I536zbeQ02b0a3CUwGLvdL3BxXB9igPdQTmKQPdDT/1UYkobNPrkA2
+	VqjbzGGITqPfuOUzRge336ft1aAkEGVGOGd9HiElI6KlsBnU8gpZoe+BOI8biheY18i/468adtO
+	cmEUy+RX/Ub/MK
+X-Received: by 2002:a05:620a:1a0a:b0:93c:a191:88fe with SMTP id af79cd13be357-94408984e70mr723490585a.8.1793274331983;
+        Thu, 29 Oct 2026 04:45:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a0a:b0:93c:a191:88fe with SMTP id af79cd13be357-94408984e70mr723485485a.8.1793274331265;
+        Thu, 29 Oct 2026 04:45:31 -0700 (PDT)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a92de010bcsm102028895e9.0.2026.10.29.04.45.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 29 Oct 2026 04:45:30 -0700 (PDT)
+Message-ID: <cbc783dc-cc2d-420d-8e80-3a39744218ce@oss.qualcomm.com>
+Date: Thu, 29 Oct 2026 13:45:28 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -153,72 +116,149 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/6] media: qcom: camss: share VFE clock sources by the
+ highest rate
+To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20261028132403.3505037-1-atanas.filipov@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDI5MDA0NSBTYWx0ZWRfX6xtOBAbNILd3
+ M9dEMCTm5VGxrM/Hv9wD0L6iV8zxNYC8Xv4fVahd5zdOkOh3+Q5emBdporTd7sJI7+fZNdqXz/s
+ JtFvaEd8bcfpQ68KiAyR2nOC+0Gtlec=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDI5MDA0NSBTYWx0ZWRfXzdtNfS1u6Uks
+ EHeqZ+PT0APLDlIXy4rjDxHa4Pz2UWz1ZaRuZTK1D+QaDRw927IdGiwWF70yHn2E4khLf3P+y+4
+ ZW0Wqt1jGvJJbXjmk2+dwSVSvtxqMFmjgCoUlrKbJAzmCuO/01mfw8Am59IpiDlg6l7K7e8MZko
+ Nqnic9cdOgu3T6xSCTIJeGCVquHw7K416uktiKE1ldTViy9xXeHOONdPyx+jvDOPYN/3M9/xw48
+ DOKRM3CVtv0F3T4Yjnj+YcPQNnu02ZXd6TZdmgbb3+WZyt8lIKMlmN4QerPf2v/ENqyhMrwgRjZ
+ CMjFvngC2O2WKWN9zH2FgtzzOYKV6WbneUhJv63pkiSiDJXpKM5IMdpEjfg+iiWI+FFFD4wON+H
+ 3Phr2UTAAJq7blSiAcUrCq28wwvT9c7gPXpANxJumImtUKPNuD1iP8JS3ywOZrOoOKNWpzOJSJN
+ N/AKDzTbMu7CFEmZvUg==
+X-Proofpoint-ORIG-GUID: vAYllEqGlFMxeP-l52ZvZQvt0wuFXCOT
+X-Proofpoint-GUID: vAYllEqGlFMxeP-l52ZvZQvt0wuFXCOT
+X-Authority-Analysis: v=2.4 cv=HYSB3SE8 c=1 sm=1 tr=0 ts=6ae331dd cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=sgnbebFuhaldx4-h5P8A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-29_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610290045
 
-Am Donnerstag, dem 29.10.2026 um 11:28 +0100 schrieb Philipp Stanner:
-> On Thu, 2026-10-29 at 11:23 +0100, Lucas Stach wrote:
-> > Hi Philipp, hi Christian,
->=20
-> Jo Lucas
->=20
-> >=20
-> > Am Donnerstag, dem 29.10.2026 um 10:55 +0100 schrieb Philipp Stanner:
->=20
-> [=E2=80=A6]
->=20
-> > I think we would all be interested in the actual use-case that's
-> > sensitive to this kind of latency.
->=20
-> Me too.
->=20
-> Let me use this opportunity to stress that in the future, in DRM,
-> whenever we have [to accept] a racy "optimization", both commit
-> messages and code comments must document why it exists and who
-> requested it with what proof.
->=20
-I don't fully agree that this is a racy optimization. To me it seems
-the most critical issue here is that "fence is signaled" is under
-specified.
+Hi Atanas,
 
-Does it purely mean that the actual hardware operation that the fence
-is guarding is done? In that case the current implementation is fine,
-as the bit is only set after the HW told us that it is done. This is
-the interpretation I would assume was the original intent behind the
-current implementation.
+The whole series were verified on RB8 board (SA8775P).
 
-Does it mean that the hardware is done and all registered callbacks
-have been run, even if the actual work is done in a (indefinitely)
-deferred worker? You mentioning explosions caused by the pure signal
-state check outside the lock would imply that some consumers of the
-fence took the signaled state to mean this interpretation.
+Tested-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 
-> Would save us lots of time when those things are discussed >5 years
-> later.
->=20
-> >=20
-> > However, I wonder if this is even an issue anymore with the lock
-> > inlined into the fence structure.
->=20
-> Almost no one uses inline-lock so far. So unfortunately, we might
-> regress old drivers, maybe.
->=20
-> But sounds as if you're in favor of phasing the locklessness out :)
->=20
-I'm in favor of ripping out hard to reason optimizations if they turn
-out to not provide any optimization after all. However, before going in
-either direction we need to clarify the fence signal state interface.=C2=A0
+~Gjorgji
 
-Either we keep the (in my interpretation) original intent of the signal
-state only telling about HW progress state and thus declare some
-current uses as wrong usage of the interface, which need to be fixed.
-Or we need to include the SW callbacks too, but then your current lock
-approach only guards against code directly executed in the callback
-functions. If the implementation of the callback defers anything to a
-worker this may still be racy.
-And that's also my criticism to this patchset now that I thought a bit
-more about this: by simply putting things under the lock you serialized
-more of the SW state without actually better defining the guarantees
-that this changed fence interface provides or doesn't provide to the
-consumers.
+On 10/28/2026 3:23 PM, Atanas Filipov wrote:
+> On SM8250 several VFE clocks are fed by one clock source: the AREG
+> clocks of the two full VFEs share the fast AHB source, the two VFE Lite
+> share one core clock, and all four VFEs share the camera NoC AXI clock.
+> Each VFE sets such a clock to its own rate, so the last VFE to power on
+> wins and can lower the rate under a VFE that is still running. The CSID
+> also sets the VFE core clocks to their lowest level when it powers on
+> after the VFE, and nothing sets the camera NoC AXI rate, so the camera
+> NoC runs from XO and two concurrent streams stall.
+> 
+> Two examples on RB5 (QRB5165):
+> 
+> - VFE0 streams the CSID test pattern and VFE1 then starts an imx577
+>   stream. Nothing sets the camera NoC AXI rate, so the camera NoC stays
+>   at XO (19.2 MHz) and one of the two streams stalls. With the series
+>   the VFEs set it to 300 or 400 MHz and both streams complete.
+> 
+> - VFE Lite 0 streams the CSID test pattern at 480 MHz and VFE Lite 1
+>   then starts an imx577 stream that needs 400 MHz. The two share one
+>   core clock, so VFE Lite 1 lowers it to 400 MHz under the running VFE
+>   Lite 0. With the series the clock stays at 480 MHz until VFE Lite 0
+>   stops.
+> 
+> This series lets the VFE own its clock rates:
+> 
+> - Patch 1 moves the minimum rate computation out of the VFE clock
+>   loops, with no functional change.
+> - Patch 2 keeps failing when the pixel rate exceeds the VFE core
+>   clock, and clamps the other VFE clocks to their highest listed rate,
+>   as the VFE clock rate tables need not have the same number of
+>   levels.
+> - Patch 3 stops the CSID from setting the VFE core clock rates.
+> - Patch 4 sets the VFE clock rates as minimums with
+>   clk_set_rate_range(), so that a shared clock runs at the highest
+>   minimum of its running VFEs. This applies to all SoCs.
+> - Patch 5 lets the VFE set the AREG clock at a fixed 400 MHz.
+> - Patch 6 drops the unused camera NoC AXI RCG from the VFE clocks and
+>   lets the VFE set the camera NoC AXI rate.
+> 
+> The camera NoC AXI clock is also used by drivers outside CAMSS, and how
+> to aggregate their requests with the CAMSS one is still being discussed
+> on the CAMNOC interconnect series. Patch 6 only covers the CAMSS VFEs
+> and fixes the concurrent stall today.
+> 
+> Tested on RB5 (QRB5165) with imx577 and ov9282 sensors and the CSID test
+> pattern generator, on single, concurrent test pattern plus sensor, and
+> concurrent dual sensor RDI captures on all four VFEs: all streams
+> complete, no shared clock is lowered under a running VFE, and the
+> camera NoC AXI clock runs at 300 or 400 MHz while streaming.
+> 
+> Also tested on the Lemans EVK (SA8775P) with imx577 and the CAMSS TPG,
+> on single and concurrent test pattern plus sensor RDI captures on all
+> seven IFEs: all streams complete and no shared clock is lowered under
+> a running IFE.
+> 
+> Changes in v4:
+> - Keep -EINVAL for the VFE core clock and clamp only the other VFE
+>   clocks, without a warning (Bryan O'Donoghue, Loic Poulain)
+> - Use clk_set_rate_range() on all SoCs and drop the vfe_clock_ranges
+>   flag (Loic Poulain, Bryan O'Donoghue)
+> - Add Suggested-by to patch 4 (Bryan O'Donoghue)
+> - Drop Reviewed-by from patch 2 due to changes
+> 
+> Changes in v3:
+> - Replace the CAMSS clock domains with clk_set_rate_range() and fold
+>   the rate ranges into patch 4 (Bryan O'Donoghue)
+> - Fix the VFE AREG clock at 400 MHz (Bryan O'Donoghue)
+> - Collect Reviewed-by tags
+> 
+> Changes in v2:
+> - Split the minimum rate computation out of the clock loops into its
+>   own patch (Loic Poulain)
+> - Add the Fixes tag to the CSID patch (Bryan O'Donoghue)
+> - Split the clock grouping from the AREG clock change and add an
+>   example to the grouping commit message (Bryan O'Donoghue)
+> - Rename the per-clock entries of a clock domain from user to vote
+>   (Bryan O'Donoghue)
+> 
+> Atanas Filipov (6):
+>   media: qcom: camss: factor out the VFE minimum clock rate
+>   media: qcom: camss: clamp VFE clock rates to the highest level
+>   media: qcom: camss: sm8250: do not set VFE core clock rates from CSID
+>   media: qcom: camss: share VFE clock sources by the highest rate
+>   media: qcom: camss: sm8250: set the VFE AREG clock rate from the VFE
+>   media: qcom: camss: sm8250: set the camera NoC AXI rate from the VFE
+> 
+>  drivers/media/platform/qcom/camss/camss-vfe.c | 182 +++++++++++-------
+>  drivers/media/platform/qcom/camss/camss.c     |  44 ++---
+>  2 files changed, 136 insertions(+), 90 deletions(-)
+> 
+> 
+> base-commit: bd1ecbb61afefc6a8b876ccbc31e9228b44e9eab
 
-Regards,
-Lucas
