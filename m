@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.51.104
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793356468;
-	b=yMNpHx9eRv4bsirsNxSv5wabXQryAkaxHT3MKWmsdZj73IH22UscTBOoNcPekQ15wmMe
-	 t5ZHp7pozK5CwzwdC4TMa9GaOtCd0uOnGBjcn9jmWDM0EKoJ7z9foqLZqplydfTDsg5e0
-	 GcmicPpeGBZz88YvqSbGyUHW1lDM9SsiI7uu7JN2UL3HUuwbzaDR0gvnJozVNMFMa9YKc
-	 oX/LVinqVKFcqMFpqUajagpCzrrynbkoA9Ybncu3ppxQNnjsqaY4LZhziIaupHygsGiQh
-	 wbE0vT+qBPrvicI6P7BvS5w7E3Pv86QAfFIZE32rhPMNapir+OtzSTAcbMJ+lkD4EYA==
+	t=1793356469;
+	b=5tek+Azw3VM1nJbHNtv4G4LQu4gtyaa6B97vwAj3sSTAPViB282km0++KFwVHWpUFRi1
+	 6PpxX2nFfzK6beYEsVIyoNdeekw5ZDO1CXzEf+ZAH58baM/JKEG0M2FMl4w7uNTflD+sh
+	 2ViFjk5yFVIO5hZEynzG0GK5doLgqu75YXgGuOJbT7fxWPHtJgvvD8WOPGCfqDYFgsnOz
+	 HmELEzkjC8uHP1K2duFX0Z8gxrcfOY6+dBFPA9MGpPAKh8xb5+43kaYgJfKHoRT2VYkrf
+	 Jiq1QSGMhhf+l34X7DTok4grQ+nCuxdAsAc6TygvNBdY/v2JSojDeY5n0LBNaF8yqqA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793356468;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793356469;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -25,69 +25,69 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ICgWWywauF7jNA7531RZHSOsVExrer8px1HakVu8gTM=;
-	b=ggdKYptLHvYEdYv2tCKZQhMrYRe3M3ToktzxaAc12RQ9Haqd2TugUz8uuhM+jlD4N9Ls
-	 R27pBmY5ig3EvkWeB0fi0+Uh0ilLdtaybdqJKShvtcSEWwCpDfQSyTQLzcaSN31dAYnDA
-	 jlX5B3VMSY+zjvyeaxxFJhnc0iLpYH6KEHTUDp/bBht2MLY5rxbZn8h69zxDy4DMgMYH7
-	 /dzfaZ93TEOg88uTsI4XvL8oYYf6pcsX+07S4Eb4pM0/LHEmd7pQiCU5dO7qfUwjlBQ7M
-	 +KmnS5VzEGJeaIkGQUB4IVAz7cEfP+TaeRqQsNA/DTHMk74Esq4+ybvP3yjze5ZfUeQ==
+	bh=koENmtD5NcsRdmfzVREjg2pFo+rAudbV1bAN4vwml3Y=;
+	b=eAuRmp1iXpKkjCQ+h1lnZG+kLRqOVQ+N7nA+b+pid4/Cj+fhfJPTURvp70A1DPjv0yyc
+	 qiHgfX2+crATCE8wsbXxl7QLGI0CDCkSHcG4msyKmtxHgAusY2iBkP8bCeDso9yMuhK8F
+	 ztiXV+qkqUtntMDEze62HYI2L8MPJ3zEMyFtpCxzObkbhVTDUbO2wZrNUdUsXklcMUXcX
+	 XK6hBsTFX2GHcGpBkM6X08FBmRvsqkk5RYEtFRLscJkelkN6Vio2gXH3NbwaZrTM1EFls
+	 C3a8cwWBV/Xa67lZwjLkrab2Ek5cJVue68B+iqCg/DAT6ySZNjmICPj4ykftMx+5VKg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siliconsignals.io;
 	spf=pass smtp.mailfrom=siliconsignals.io;
-	dkim=pass header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b="ld+fc1/U";
+	dkim=pass header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=bV2XsauH;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.51.104
 Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021104.outbound.protection.outlook.com [40.107.51.104])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC47660A2623;
-	Fri, 30 Oct 2026 10:34:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC47660A2623
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2803606A329;
+	Fri, 30 Oct 2026 10:34:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2803606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=ld+fc1/U
+	dkim=pass (2048-bit key, unprotected) header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=bV2XsauH
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iYvdSEEX36xVTlciGKrWxFhpkW3jFOQHhPmtmkvqhRECLtEqDxv+B5sUrxYupChs5hdch7L6p8dgg34WlfkiHNDsNe3LXfxYNuI15oll2+PEU4lNWHuUSI7O74KpYMV4Mxkv96rrcx4OekcT269ifjO2rkv3I0XtgpjpSQftuBP7om+QHLiAjCIztEJiIIhO5fzoUpUuZAiBrnFLi0rNbV4e8+dZr8Nv+5yN0JoN1WlefTvf/ogOWnJSOe8eVPDlc/q2WSGvThoKP8paTBH24mJUk9IcYgK5vL5/oZXQ59oYON57V8IUeC3ZSrO7wEtcgK0bqGMwbe23Y21EbsMSZg==
+ b=Y3UpzEpgJGyHH+kIpOSrqgxWUnWHvi81Ifs9HCO1F5AjfURpBnhD+/K/WsBJZzyH71Xq7lXceJ6AHugrYuvIC7q4HUct4ELRWHs7tpqbwB4A4dQjflaZeXFfL2XTAck81aRkHfjqnpheMhYd8y8XQ9S4yD92eYdzSwnqTy3/05puevMwT9CRKxawavCTmhAnldrMytfIfBSgrQ1mOs0zlgonxnvS9MgUZyA+Yhu/YjuNSOaTY2gWLh7Kw57+5acZUeY+EiuvijezV60u1iBdgSSkaFrOwyM7aAY9Hw533S2O7l7XXiniYsjR3/TCAvpGr7no2drbPZnntdv78LDuaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ICgWWywauF7jNA7531RZHSOsVExrer8px1HakVu8gTM=;
- b=JjHy0M0rs5wkxyrLjzGbAee88LdcWh6MU/8J8FFynTf0hvEWZ5b4Zg+FBw2vT0n7cHEOPz/a+0gdoV95KE6P5UpcO2JD9gWVR5jbDsNvsZt6326NupALkuC2QC6oTlV1XDWPLlq6MizdN6SA22gNGOliOINkS3UZ2d6Q9YcxmG2A8CheNo1qpjsQNiW/8WstKpti6YL8hBkaRk9AqC3WCoqH490dk9o/wwstIKDVVDuEBIA2bw6bYQz/T8XHQp22YO3MNXxqerPdy6MoMTgFgzTIMlHIOpU4Oz43mS5auFYpF7wD1wZ0V1qUezRJ6ruLQUtBeGGhhfBUc+mNA8VmTg==
+ bh=koENmtD5NcsRdmfzVREjg2pFo+rAudbV1bAN4vwml3Y=;
+ b=N00aAdogLtZ/fC200dfZ5luNk/AyrvE2q/iKAxBRZr4y/do4EPGA/jKz7eBCdbuzb2/04USF1ixSwZAcb2HuC10dTNcxhVkXa4kjKlW97F/YrgyveDfJDZKVZpjwHO8zyZJsPXxW13grfxiA8R0ocbd6GQWMbCVh9Ey7DBiLowxJDId6wY9Z2xSjv0OAxtXrzqBBmVI0RCUj1PZvdqWKJT3XrgEOsMy+Mtoq4n9BVFv7BKEXHZX6kxU+jy0zCeQv5LYH4cnVSGCQDr10RrpzqffXBOCwvpIuIEmJoFZKUjN2RSf7Jb8cjFAwKkFneWORi/S21iAijf9axBzap4dETA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ICgWWywauF7jNA7531RZHSOsVExrer8px1HakVu8gTM=;
- b=ld+fc1/U74vfvuVUTBQ6IWA+jHhjPM3zgnkbAV5sa7t495NX3iQ1D8k4EcBdag0UCSR28OQrtTlgAHr/Fqj43jzJrqJZXZJ4zHOiNwGbNuxLWlyqF6f9vDkFQ5PrSjmckyq7EtCKXOvRR3ucTQSAVHlMd/2geNp0bPT1f3fe3vca0HF4soXYOFZufwsO1k1lZk6mO9jCZz4tEwHkG2Jtf0GJh2O6cLewYthcuESLJtiZt3pjSl/8fziAKMi/NJ6CMuoeUqcgRaqqbn1RSahWGhcHNzR7PRlwLcsp2ogLHNg29VJlXSp98hho3d2eix4gjYGaq44hXRCgEsQIVuQ1KQ==
+ bh=koENmtD5NcsRdmfzVREjg2pFo+rAudbV1bAN4vwml3Y=;
+ b=bV2XsauH9dWAIMgpCFlkFx4J5OhgC9Ii6FnBB5ZUivHB8dOOx4EIMpch7MNuTVVbGCSaY/x3+tT/Y1fPTVMLqydDLXW/Xxd+Vj1AXZ2Jn7svXTfbJ9kYX9rqAPowHWz6CAdAvF8spwHIO6zppD3PM2wnbBCy4f9STNLwDuabhUhdr12JiTpFFjc4ihMID1Fr9/L2CAF1jLBDEHtpQi54G6R6Q6TA4TwWhdVxa0sqHEbnb81+0f+EusTbU9mG0W37CpKqCh8h+RiRLdcVvEofbkFGwIdqC5L/6AfALfSItSqrd6HbYPF2s5oYBuVj9khaC8w8IhpH5RqqIUuygTBTjw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=siliconsignals.io;
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
  by PNXP287MB4299.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:2c1::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 10:34:24 +0000
+ 2026 10:34:25 +0000
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 10:34:23 +0000
+ 10:34:25 +0000
 From: Tarang Raval <tarang.raval@siliconsignals.io>
 To: sakari.ailus@linux.intel.com
 Cc: jai.luthra@ideasonboard.com,
 	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
 	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 06/15] media: i2c: os05b10: split common and mode-specific init registers
-Date: Fri, 30 Oct 2026 16:03:38 +0530
-Message-Id: <20261030103348.1222201-7-tarang.raval@siliconsignals.io>
+Subject: [PATCH v4 07/15] media: i2c: os05b10: remove unused control fields, simplify error handling
+Date: Fri, 30 Oct 2026 16:03:39 +0530
+Message-Id: <20261030103348.1222201-8-tarang.raval@siliconsignals.io>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261030103348.1222201-1-tarang.raval@siliconsignals.io>
 References: <20261030103348.1222201-1-tarang.raval@siliconsignals.io>
@@ -107,309 +107,166 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN3P287MB1829:EE_|PNXP287MB4299:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05fa3acd-ac01-49a6-e953-08df36715d5f
+X-MS-Office365-Filtering-Correlation-Id: 43422937-a13c-437e-b33d-08df36715e77
 X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|1800799024|52116014|23010399003|376014|3023799007|6133799003|10067099003|18002099003|22082099003|38350700014|56012099006|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261009223027099003;
+ BCL:0;ARA:13230040|366016|1800799024|52116014|23010399003|376014|10067099003|18002099003|22082099003|38350700014|56012099006|261026121527099003|261026140227099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|261009223027099003;
 X-Microsoft-Antispam-Message-Info:
- F6VhKyw7+8RxBlKyKArcBmK6QH+7Zw+UkjUCurulkkJaf9UvsDmg+hiW12t9U3GwKc04TU2CLpN99sGUH6irG199k5hwEWlDFg6AwdxfEan/Mnr8tF7tmGqNfUnj2Zz8OB8XphPFmLnyz0Vc+Yhk1I/V1fEX7qOOALSsz8IK3X3yrEVWAzmJd7EuC9JXGiLLUX2YiYiVaAUGwOtmPysr74WADY2H8U2JXMKlN2jb4IYVk0Sogf1R5/WCB/ULmAtbylRBBm203L0fYIWrP9whi7hOd2xNYtnUy02GJpG3jTiHXuV12gpAsyp68B799mYP2QACR0YloIapJvN1++q+7H68V1nlTtkO2tTFvxLi3tye0qUQLGkp4BUfsQE2JWzabg1F4aw70UJj9MUyUyK3z5E7PuB4+bVUjJFnD3uc5CzMnLbHgWB2PUP4HsNIO0PTsiOaHfrqkxZZN6YqWnDcnuHhWPGzHOs7CO4RaOELIsH7sNhz9CG361Hhi81o82RrZyCMq+SjKVj53DSPHtCdnHfE/iSgP/ZfQMCUcKEhqN34XJYhOMZoBkOBE9EdtELeiVvQkczGlXwT5aG9ijh3MjLHopCdNgNpSqSHbcgtU4Gin1SMBq8ibIICZjniyrkcRPVIv9ae3c6jhTSVbOZB3Y0FG+nwnfgVirWjdD6UcGth3VC4GF7bp6CuzNB2eSUVGVXBbLIU4trkBk+tEHe/SJG/UHLa72Rcgyf6BPzlWto=
+ IBA56jQSRQKgyqYg+9IS/FFyyh9dJryMHMgbxyMtIE+z427KchJz3OSOym92oHOgE3affd2JW0Lseo42pxtFlkkZIG5mS+oczUj7XwWdzY+NkicbCPRzRlFx55Sj3bHwwZbCjgAOCLxSv09Yn3oVNley8cbHSv+wcqCbrnKUEy5bvSzQSIY0kQ0Wv1Gyx0gbb6gZbSP2i/FXeZ90CVjte7cbNXdQNjFCxnEwFX5t0W38FoWlKIOJhzCOCz3f9gLhvSNwvoWyJhxSJIjWq9W+qdlsRLCJZwY+e1NBj1H1GmjW6uBHrM2ZGMa7TwboAzsqeCK0t3ZP8pB77yYwHXZHhedshkUveOyEeQ2h50LhtEZbVfL92rYWH/tOaRudkSsJmtqut1UwohRx3YnIXFh8tsvHQM0/pxcV7yVQsMZt1g+POoXeu1M+c7PDLaABJcV0C3aLhVsFTUlm/apTWJa/Y7ZeGr1xPCsyCI1bTWopCjOu8u4DnRS5nlYo3EsSNbVCyv/lrXsdRU0yTOv42bh12kGTlyoNY3B2rztHrhWtXcGS623MmJJmUtIbz/8jjPjJLG7mrUYcLdU7eQ/yuGfvIQGk7Mj2pUZwY3D7Vl4t93YHYIeKJwPDLaOMqEsiHFIAcIqFDCO1E3I3lzflvX0kC+dvcKHRYEvR28sW4bMvJqmDLFUKFXD6+1k8xb2Ou8ZXWq2l0QabbUhQYxmoMEm9QR6gwR0zfPchGXxAbyCgEfo=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(23010399003)(376014)(3023799007)(6133799003)(10067099003)(18002099003)(22082099003)(38350700014)(56012099006)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(23010399003)(376014)(10067099003)(18002099003)(22082099003)(38350700014)(56012099006)(261026121527099003)(261026140227099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261009223027099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?llOoZ6m3berwcVXMnEHTUTY1l/Dc5PjWLcIJMagedwXqLp6mc8+JqZ+rOH6L?=
- =?us-ascii?Q?VpLYpXq1ZjHBGhEAN54pfkq2vVD/kUlqnmD0jZVOct/yHuUggyMiiCfW5oHA?=
- =?us-ascii?Q?ItZ1EGwtfX0Yc5xf7K1zZp6ROc8R2FdUAXaXEyTxUFku6rdikBlFSYbV/T7g?=
- =?us-ascii?Q?GYZexjeNlGySWwTAQPKnrBnOtOySuVwxrQfuazEbcQbrYoTKcojLrBW0ZwBg?=
- =?us-ascii?Q?NdgOxQ6gr4xXm0/lPLLTTgqFSFssX7Br14063btPHSKqQlmATPral7tR1J2r?=
- =?us-ascii?Q?gaIdl3LD9jBZFFDfdJNBt8habo7AnuoEfKHxi8F4tJRagaqg82FpB3fzq7dI?=
- =?us-ascii?Q?owq1esVOHVGKe7Ue7SCN3UEyKnomSC2jqUehzhLmv2wXPMIsCdKvlCJYuhaO?=
- =?us-ascii?Q?iVvxh6nnFtB/JDpota9h4rnHhT6+5r0ehePun+XKKCTR8l/3RMUb1iBy7gSh?=
- =?us-ascii?Q?wi4pJuNT+58TbBPkpOoT72Ib/wucQ7GA5E0c8RtrZko39m8mY6IaqyKuaQAD?=
- =?us-ascii?Q?zn+eLlrhC/Z4yuXTRYGmXseAPDAWlwnSj7ean9iMjB8u+fjkBe5MTPYVL5Oh?=
- =?us-ascii?Q?nZ0lKb1yrCsxLULPK1C4VQGbFlgG0jlxC0Ansy6kqQMyoQhlWoTHWSNrBSgj?=
- =?us-ascii?Q?9Wmln+VMZyupgIAxZWjeOcqOkmwUIZeLg7Ew4lc/pY0hbOCTbwSyFUA69aTO?=
- =?us-ascii?Q?cxW9998ZFc8I9EqEHn5i2VqllWKMUNDqyTxROzmnNfcqZIVXWhFfwdBKZS2q?=
- =?us-ascii?Q?aXR3olom+yjfSJ2xbTdcAZz5Hgw+ceKSEYz/ClbV0bE8TmWtolAIrCVS5yRg?=
- =?us-ascii?Q?E2FYlvhuihunDuvu7TK0hhi3pKtsiWsPtktAYLAgIu0VXfOf/VPqJnCsDK1u?=
- =?us-ascii?Q?wIDhF/vU9z6PaPmvrxXGqoZFbsOIf0pgET90Qv6ScayBGd9lX94fX8SmxGcB?=
- =?us-ascii?Q?A5j2rLPHUctREI++YO2P7GDTRUDg8Q5tRVSEUoByF/xbHddEa6fpbGBTvOV+?=
- =?us-ascii?Q?fsryPUYtyvDi6Xxs2qOLqZaNvOd4zjAYIxh2nMBLgmkxoLSdnS7c0tCbZtzD?=
- =?us-ascii?Q?1z6GtgfrpR67PS4lqvjUDe9zfygfwVUx2ECcm2cfePee1YaHYzkWDjgy3pOi?=
- =?us-ascii?Q?0D3mff+bz3o2Gl0hhuVocpVICarTQY+B40zNPvC5VuFDh3y47+AWv03x3hvw?=
- =?us-ascii?Q?wkh0hChmWC9DSrNOmtaOZGhYoSjaXOIW9c+/J01WkWhhCqdaNi7n0jiRg14P?=
- =?us-ascii?Q?kk78yj0GpEoDIf97+21OSmbDbLjrHXYbXpUTgPTW78q+gDbgGAoUcLP5l1Z1?=
- =?us-ascii?Q?MpUfXDQ1Qb/FRKr5wIZTwDL2VPWd4cCK1GkAJaBsalEe/jBdojLZ6d9cKajT?=
- =?us-ascii?Q?1Q/zZfM641WJk3ucF5te7i5S3uTvu1vBKiTs/T5H2+Ng2mX87QlFzxIg9uHa?=
- =?us-ascii?Q?08gLTXffvx1e420WVstbqLLlo4JZ2qeWXDmDnFZc51OGvaECpsVXFB6/EdNi?=
- =?us-ascii?Q?3+wfaymdFR4dFfW94IsWRtcuHwBicBdU5neKbk+OqzGlgmA+DXuJD0GYCMsk?=
- =?us-ascii?Q?nOf2dsXHytNSI1I63XRrq4EVIFkzJbz3BHYuCjm8jA388gCkxs9qTNRww7bX?=
- =?us-ascii?Q?Re4frtQXb4M3RPOH5Fvsb5dsK9yZXNDG1SatMY++Bcx92ONz1xnWPvlzjTzd?=
- =?us-ascii?Q?tvUZ+o/7a3rKxs8IzrhFn8UylfzsI/vmldy1uWUueGZbO2kv0VT/Oc8H8Uoz?=
- =?us-ascii?Q?rTcK9tFZJEX1dbsGk6aif4JQC2nd/jo=3D?=
+ =?us-ascii?Q?s33e4h/GcICMLvMF6K9r21MRclAkHZFrylPUbhiC+7XZp9hZysUQzDXsQ0DF?=
+ =?us-ascii?Q?SHKqHiMQnlCVykkpOP/gHIRr75A21+udbD5xocb1k4UJ373lhbZqUv1DL/92?=
+ =?us-ascii?Q?sd5v3ltdkwnvGxeaCM0axDNOCtRTCLJGJWshk84NWooAjzPYaTVdQjLReC/g?=
+ =?us-ascii?Q?tVkZxWnkbPvvQL355MoWlmkYlBJfPfGcQLbj9UG43xx43kCkO8N+lBp6aQif?=
+ =?us-ascii?Q?HTXwRAgHrU/hACdAzP9g8OEe67pFIdCugma05X5guJcuhXB3uN45OYvMVwrR?=
+ =?us-ascii?Q?dtLmM5zbuT4Nw8qhUcTcZF77QBGhQEEHmTvz1vHHPBTXMtXjRHjTcnbQB/zc?=
+ =?us-ascii?Q?28RT5LlYrrYm5DrIdaPqeE0fgF3D4opMrOoIFWN3lUsu+vB8NLuZrb+UOB1r?=
+ =?us-ascii?Q?SnMYjSCBqiLT90soclLkqgWRKHloJOsoT5kiEUrVt7A34Apde0ly+FWqx2d2?=
+ =?us-ascii?Q?AE5EKy1CjYM/HK2r1LbslmGCmtr0yRE8fu560Zufu9LMRQqmBaDGmFucYOxF?=
+ =?us-ascii?Q?UIu4amNPT76QkdI3AKlM3Ix7N2SCwkJYMtuuehPNTKYTa+FKugGuKXukBGua?=
+ =?us-ascii?Q?xHY1zldW1IQwQSyl3vq3s/Tf5jaJLbGMW78V6d3l5Tx4/2+nd6jE4F39b8x2?=
+ =?us-ascii?Q?gEiXh5NRSaLh6oUxT8fK4JjqaK6e5b14PZUEdjb0svKiqAppn2EclO2WSokI?=
+ =?us-ascii?Q?8/1H1N280e3I5jIzOXN1Zu5W3ACvD/WX1L2tz3U+kbHP4tDGNEDVjtdUvLhT?=
+ =?us-ascii?Q?XpFeRk4Y2+/n8J+Khr58SCRvgvPF8KfiWZhywX0SqrGQgtkAW0LDeofOhnkh?=
+ =?us-ascii?Q?axO4KckKPBNYCvVP23tQH4wOobXYhy3WJqDsg5vrCC4xHh39At6sulqBykXU?=
+ =?us-ascii?Q?+BdqhuQRLLpUTRWgvAIXHYPbiP76gZcNbyETZR7hBHNCPDub6YmTh9eGNaw0?=
+ =?us-ascii?Q?PCrbkLKv0EJrGsIxxH33JjgK6CHb4mteKRvxFlY9rOYoolrDyDAPzF+CbtG1?=
+ =?us-ascii?Q?TLBVXr7QhdlW20w3iEcGnvObW6ZioTGBQqu0t9I2+rzwp+JUSjEsMtLB7dF1?=
+ =?us-ascii?Q?UIZ7Uwuxt5GC1Kcs5ncci1wgMGsitqiDJxe7Go6axF7Flwjm3vs7TnZlv66V?=
+ =?us-ascii?Q?YXCyhSp6x4utjy3AJBn5M6GCmf0/QpZJ+N3nr1OqdDLuc/NA/QCzjc0Wbt1D?=
+ =?us-ascii?Q?owaWSdxh1E4UGDHcFerBp5p8fRDql7ShriDingsrb29mypTSCKhuQbtEASM3?=
+ =?us-ascii?Q?BS923G9d4zHtCAYkt+I6jPg0lHO3ZdsRBlzifC+9STH7Ypvl72g6Zeh3eVi6?=
+ =?us-ascii?Q?ARmAi3nZcz/1+hXzBq3f2VsXzWXJ/scfwGEKdm+PhmszyJbkARKSq/xPNZD9?=
+ =?us-ascii?Q?i391glydns9cww2SRYOkqQJL9MkGfzIEujNCkw2yVglMTPqR4bhzXFckigMX?=
+ =?us-ascii?Q?B02JPZYYLCSlj5rcZxjcDTDdzEBBjOoNsCPxQfNDJcreQqVaJ3Hh6aUtUtUH?=
+ =?us-ascii?Q?8jm4l9C/IT+ftVlOYwernwDTKARToHZZasKw4CUDctQqhbVPxyWjCtKH8GUe?=
+ =?us-ascii?Q?ClRKz0PCO0OkWUj0w01AqjUJWVY2E54T9CfR/rXo20inHjFzIFjEwLVBl7BE?=
+ =?us-ascii?Q?6NvXobHUe+7Hbt2+v8xtwxPdx2d3C9Df3oglJI+lCbhoxdQjs9hPM8HRKDtm?=
+ =?us-ascii?Q?4buqVw2IUi+Im4Se5obv8QwsHT5XEwuRwC5VdT9E0+cAf+YC4uv2EcZbcsP6?=
+ =?us-ascii?Q?gqwHTz4T9H3Utri+IcnKvgxCXZvlBPE=3D?=
 X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05fa3acd-ac01-49a6-e953-08df36715d5f
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43422937-a13c-437e-b33d-08df36715e77
 X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:34:23.6645
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:34:25.5395
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6brZdfXON60jE79PFgmcF5+BbU0CL7PjvpwMC+RVwqIKqByp7dputwVqTpXIDBLaIyBTc6kdvKqE6fJVXzZkQ/Gspgnk8hhQgni4TLhJhPU=
+X-MS-Exchange-CrossTenant-UserPrincipalName: xhb7RgzqgCJk8JpeKK9Goa6n/tHqV5Rhxc+9wnaw2tQQ+3fREc6o6LrnLDxKqhhCHdU6xcpAxd5Z4f3ekQoYoDDGxYJCTcwyalZME/b+FHc=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNXP287MB4299
 
-Separate common initialization registers from mode-specific settings.
-Move resolution-dependent registers into a per-mode register list and
-program them during stream enable.
+link_freq and gain don't need to be stored in struct os05b10; make
+them local.
+
+Parse the fwnode properties up front and register them before the
+single ctrl_hdlr->error check, so all controls are covered by one
+check and the per-control NULL guards before setting flags can be
+dropped.
 
 Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
 Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 ---
- drivers/media/i2c/os05b10.c | 96 ++++++++++++++++++++++++-------------
- 1 file changed, 63 insertions(+), 33 deletions(-)
+ drivers/media/i2c/os05b10.c | 46 +++++++++++++++----------------------
+ 1 file changed, 18 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index 3f478bad1fbc..46d514d2a479 100644
+index 46d514d2a479..abcb7c766754 100644
 --- a/drivers/media/i2c/os05b10.c
 +++ b/drivers/media/i2c/os05b10.c
-@@ -138,16 +138,13 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ OS05B10_REG_EXPOSURE_SHORT, 0x000020 },
- 	{ CCI_REG8(0x3600), 0x4d },
- 	{ CCI_REG8(0x3601), 0x08 },
--	{ CCI_REG8(0x3610), 0x87 },
- 	{ CCI_REG8(0x3611), 0x24 },
- 	{ CCI_REG8(0x3614), 0x4c },
--	{ CCI_REG8(0x3620), 0x0c },
- 	{ CCI_REG8(0x3632), 0x80 },
- 	{ CCI_REG8(0x3633), 0x00 },
- 	{ CCI_REG8(0x3636), 0xcc },
- 	{ CCI_REG8(0x3637), 0x27 },
- 	{ CCI_REG8(0x3660), 0x00 },
--	{ CCI_REG8(0x3662), 0x10 },
- 	{ CCI_REG8(0x3665), 0x00 },
- 	{ CCI_REG8(0x3666), 0x00 },
- 	{ CCI_REG8(0x366a), 0x14 },
-@@ -231,7 +228,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x370f), 0x1c },
- 	{ CCI_REG8(0x3710), 0x00 },
- 	{ CCI_REG8(0x3713), 0x00 },
--	{ CCI_REG8(0x3714), 0x24 },
- 	{ CCI_REG8(0x3716), 0x24 },
- 	{ CCI_REG8(0x371a), 0x1e },
- 	{ CCI_REG8(0x3724), 0x09 },
-@@ -240,7 +236,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x3730), 0xe1 },
- 	{ CCI_REG8(0x3735), 0x80 },
- 	{ CCI_REG8(0x3739), 0x10 },
--	{ CCI_REG8(0x373f), 0xb0 },
- 	{ CCI_REG8(0x3740), 0x28 },
- 	{ CCI_REG8(0x3741), 0x21 },
- 	{ CCI_REG8(0x3742), 0x21 },
-@@ -286,8 +281,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x37ac), 0xa0 },
- 	{ CCI_REG8(0x37be), 0x0a },
- 	{ CCI_REG8(0x37bb), 0x02 },
--	{ CCI_REG8(0x37bf), 0x05 },
--	{ CCI_REG8(0x37c2), 0x04 },
- 	{ CCI_REG8(0x37c4), 0x11 },
- 	{ CCI_REG8(0x37c5), 0x80 },
- 	{ CCI_REG8(0x37c6), 0x14 },
-@@ -296,7 +289,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x37cd), 0x17 },
- 	{ CCI_REG8(0x37ce), 0x01 },
- 	{ CCI_REG8(0x37d8), 0x02 },
--	{ CCI_REG8(0x37d9), 0x08 },
- 	{ CCI_REG8(0x37dc), 0x01 },
- 	{ CCI_REG8(0x37e0), 0x0c },
- 	{ CCI_REG8(0x37e1), 0x20 },
-@@ -309,25 +301,10 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x37f5), 0x00 },
- 	{ CCI_REG8(0x37f6), 0x00 },
- 	{ CCI_REG8(0x37f7), 0x00 },
--	{ OS05B10_REG_X_ADDR_START, 0x0130 },
--	{ OS05B10_REG_Y_ADDR_START, 0x0000 },
--	{ OS05B10_REG_X_ADDR_END, 0x0b5f },
--	{ OS05B10_REG_Y_ADDR_END, 0x07a7 },
--	{ OS05B10_REG_X_OUTPUT_SIZE, 0x0a20 },
--	{ OS05B10_REG_Y_OUTPUT_SIZE, 0x0798 },
--	{ OS05B10_REG_HTS, 0x06d0 },
--	{ OS05B10_REG_ISP_X_WIN, 0x0008 },
--	{ OS05B10_REG_ISP_Y_WIN, 0x0008 },
--	{ OS05B10_REG_X_INC_ODD, 0x01 },
--	{ OS05B10_REG_X_INC_EVEN, 0x01 },
--	{ OS05B10_REG_Y_INC_ODD, 0x01 },
--	{ OS05B10_REG_Y_INC_EVEN, 0x01 },
- 	{ CCI_REG8(0x3818), 0x00 },
- 	{ CCI_REG8(0x3819), 0x00 },
- 	{ CCI_REG8(0x381a), 0x00 },
- 	{ CCI_REG8(0x381b), 0x01 },
--	{ OS05B10_REG_FORMAT1, 0x88 },
--	{ OS05B10_REG_FORMAT2, 0x00 },
- 	{ CCI_REG8(0x3822), 0x12 },
- 	{ CCI_REG8(0x3823), 0x08 },
- 	{ CCI_REG8(0x3824), 0x00 },
-@@ -337,7 +314,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x3829), 0x03 },
- 	{ CCI_REG8(0x382a), 0x00 },
- 	{ CCI_REG8(0x382b), 0x00 },
--	{ CCI_REG8(0x3832), 0x08 },
- 	{ CCI_REG8(0x3838), 0x00 },
- 	{ CCI_REG8(0x3839), 0x00 },
- 	{ CCI_REG8(0x383a), 0x00 },
-@@ -358,26 +334,19 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x38a7), 0x04 },
- 	{ CCI_REG8(0x38b8), 0x02 },
- 	{ CCI_REG8(0x3c80), 0x3e },
--	{ CCI_REG8(0x3c86), 0x01 },
- 	{ CCI_REG8(0x3c87), 0x02 },
- 	{ CCI_REG8(0x389c), 0x00 },
- 	{ CCI_REG8(0x3ca2), 0x0c },
- 	{ CCI_REG8(0x3d85), 0x1b },
--	{ CCI_REG8(0x3d8c), 0x01 },
- 	{ CCI_REG8(0x3d8d), 0xe2 },
- 	{ CCI_REG8(0x3f00), 0xcb },
--	{ CCI_REG8(0x3f03), 0x08 },
- 	{ CCI_REG8(0x3f9e), 0x07 },
- 	{ CCI_REG8(0x3f9f), 0x04 },
- 	{ CCI_REG8(0x4000), 0xf3 },
- 	{ CCI_REG8(0x4002), 0x00 },
- 	{ CCI_REG8(0x4003), 0x40 },
--	{ CCI_REG8(0x4008), 0x02 },
--	{ CCI_REG8(0x4009), 0x0d },
--	{ CCI_REG8(0x400a), 0x01 },
- 	{ CCI_REG8(0x400b), 0x00 },
- 	{ CCI_REG8(0x4040), 0x00 },
--	{ CCI_REG8(0x4041), 0x07 },
- 	{ CCI_REG8(0x4090), 0x14 },
- 	{ CCI_REG8(0x40b0), 0x01 },
- 	{ CCI_REG8(0x40b1), 0x01 },
-@@ -397,7 +366,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x4305), 0x83 },
- 	{ CCI_REG8(0x4306), 0x21 },
- 	{ CCI_REG8(0x430d), 0x00 },
--	{ CCI_REG8(0x4505), 0xc4 },
- 	{ CCI_REG8(0x4506), 0x00 },
- 	{ CCI_REG8(0x4507), 0x60 },
- 	{ CCI_REG8(0x4803), 0x00 },
-@@ -409,7 +377,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x481f), 0x30 },
- 	{ CCI_REG8(0x4825), 0x34 },
- 	{ CCI_REG8(0x4829), 0x64 },
--	{ CCI_REG8(0x4837), 0x12 },
- 	{ CCI_REG8(0x484b), 0x07 },
- 	{ CCI_REG8(0x4883), 0x36 },
- 	{ CCI_REG8(0x4885), 0x03 },
-@@ -442,6 +409,42 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
- 	{ CCI_REG8(0x3222), 0x03 },
- };
+@@ -457,10 +457,8 @@ struct os05b10 {
  
-+static const struct cci_reg_sequence mode_2592_1944_regs[] = {
-+	{ OS05B10_REG_X_ADDR_START,	0x0130 },
-+	{ OS05B10_REG_Y_ADDR_START,	0x0000 },
-+	{ OS05B10_REG_X_ADDR_END,	0x0b5f },
-+	{ OS05B10_REG_Y_ADDR_END,	0x07a7 },
-+	{ OS05B10_REG_X_OUTPUT_SIZE,	0x0a20 },
-+	{ OS05B10_REG_Y_OUTPUT_SIZE,	0x0798 },
-+	{ OS05B10_REG_HTS,		0x06d0 },
-+	{ OS05B10_REG_ISP_X_WIN,	0x0008 },
-+	{ OS05B10_REG_ISP_Y_WIN,	0x0008 },
-+	{ OS05B10_REG_X_INC_ODD,	0x01 },
-+	{ OS05B10_REG_X_INC_EVEN,	0x01 },
-+	{ OS05B10_REG_Y_INC_ODD,	0x01 },
-+	{ OS05B10_REG_Y_INC_EVEN,	0x01 },
-+	{ OS05B10_REG_FORMAT1,		0x88 },
-+	{ OS05B10_REG_FORMAT2,		0x00 },
-+	{ CCI_REG8(0x3610), 0x87 },
-+	{ CCI_REG8(0x3620), 0x0c },
-+	{ CCI_REG8(0x3662), 0x10 },
-+	{ CCI_REG8(0x3714), 0x24 },
-+	{ CCI_REG8(0x373f), 0xb0 },
-+	{ CCI_REG8(0x37bf), 0x05 },
-+	{ CCI_REG8(0x37c2), 0x04 },
-+	{ CCI_REG8(0x37d9), 0x08 },
-+	{ CCI_REG8(0x3832), 0x08 },
-+	{ CCI_REG8(0x3c86), 0x01 },
-+	{ CCI_REG8(0x3d8c), 0x01 },
-+	{ CCI_REG8(0x3f03), 0x08 },
-+	{ CCI_REG8(0x4008), 0x02 },
-+	{ CCI_REG8(0x4009), 0x0d },
-+	{ CCI_REG8(0x400a), 0x01 },
-+	{ CCI_REG8(0x4041), 0x07 },
-+	{ CCI_REG8(0x4505), 0xc4 },
-+	{ CCI_REG8(0x4837), 0x12 },
-+};
-+
- struct os05b10 {
- 	struct device *dev;
- 	struct regmap *cci;
-@@ -464,6 +467,11 @@ struct os05b10 {
- 	u32 data_lanes;
- };
+ 	/* V4L2 Controls */
+ 	struct v4l2_ctrl_handler handler;
+-	struct v4l2_ctrl *link_freq;
+ 	struct v4l2_ctrl *hblank;
+ 	struct v4l2_ctrl *vblank;
+-	struct v4l2_ctrl *gain;
+ 	struct v4l2_ctrl *exposure;
  
-+struct os05b10_reg_list {
-+	u32 num_of_regs;
-+	const struct cci_reg_sequence *regs;
-+};
-+
- struct os05b10_mode {
- 	u32 width;
- 	u32 height;
-@@ -471,6 +479,7 @@ struct os05b10_mode {
- 	u32 hts;
- 	u32 exp;
- 	u8 bpp;
-+	struct os05b10_reg_list reg_list;
- };
- 
- static const struct os05b10_mode supported_modes_10bit[] = {
-@@ -481,6 +490,10 @@ static const struct os05b10_mode supported_modes_10bit[] = {
- 		.hts = 1744,
- 		.exp = 1944,
- 		.bpp = 10,
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mode_2592_1944_regs),
-+			.regs = mode_2592_1944_regs,
-+		},
- 	},
- };
- 
-@@ -652,8 +665,16 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
- 				  u32 pad, u64 streams_mask)
- {
- 	struct os05b10 *os05b10 = to_os05b10(sd);
-+	const struct os05b10_reg_list *reg_list;
-+	const struct v4l2_mbus_framefmt *fmt;
-+	const struct os05b10_mode *mode;
+ 	u32 link_freq_index;
+@@ -920,8 +918,13 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+ 	u64 hblank_def, vblank_def, exp_max, pixel_rate;
+ 	struct v4l2_fwnode_device_properties props;
+ 	struct v4l2_ctrl_handler *ctrl_hdlr;
++	struct v4l2_ctrl *link_freq;
  	int ret;
  
-+	fmt = v4l2_subdev_state_get_format(state, 0);
-+	mode = v4l2_find_nearest_size(supported_modes_10bit,
-+				      ARRAY_SIZE(supported_modes_10bit), width,
-+				      height, fmt->width, fmt->height);
++	ret = v4l2_fwnode_device_parse(os05b10->dev, &props);
++	if (ret)
++	        return ret;
 +
- 	ret = pm_runtime_resume_and_get(os05b10->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -666,6 +687,15 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
- 		goto err_rpm_put;
+ 	ctrl_hdlr = &os05b10->handler;
+ 	v4l2_ctrl_handler_init(ctrl_hdlr, 8);
+ 
+@@ -929,21 +932,16 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+ 	v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops, V4L2_CID_PIXEL_RATE,
+ 			  pixel_rate, pixel_rate, 1, pixel_rate);
+ 
+-	os05b10->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os05b10_ctrl_ops,
+-						    V4L2_CID_LINK_FREQ,
+-						    ARRAY_SIZE(link_frequencies) - 1,
+-						    os05b10->link_freq_index,
+-						    link_frequencies);
+-
+-	if (os05b10->link_freq)
+-		os05b10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os05b10_ctrl_ops,
++					   V4L2_CID_LINK_FREQ,
++					   ARRAY_SIZE(link_frequencies) - 1,
++					   os05b10->link_freq_index,
++					   link_frequencies);
+ 
+ 	hblank_def = mode->hts - mode->width;
+ 	os05b10->hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
+ 					    hblank_def, hblank_def,
+ 					    1, hblank_def);
+-	if (os05b10->hblank)
+-		os05b10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 
+ 	vblank_def = mode->vts - mode->height;
+ 	os05b10->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
+@@ -958,27 +956,19 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+ 					      exp_max, OS05B10_EXPOSURE_STEP,
+ 					      mode->exp);
+ 
+-	os05b10->gain = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
+-					  V4L2_CID_ANALOGUE_GAIN,
+-					  OS05B10_ANALOG_GAIN_MIN,
+-					  OS05B10_ANALOG_GAIN_MAX,
+-					  OS05B10_ANALOG_GAIN_STEP,
+-					  OS05B10_ANALOG_GAIN_DEFAULT);
++	v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
++			  OS05B10_ANALOG_GAIN_MIN, OS05B10_ANALOG_GAIN_MAX,
++			  OS05B10_ANALOG_GAIN_STEP, OS05B10_ANALOG_GAIN_DEFAULT);
+ 
+-	if (ctrl_hdlr->error) {
+-		ret = ctrl_hdlr->error;
++	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &os05b10_ctrl_ops,
++					      &props);
++	if (ret) {
+ 		dev_err(os05b10->dev, "control init failed (%d)\n", ret);
+ 		goto error;
  	}
  
-+	/* Write sensor mode registers */
-+	reg_list = &mode->reg_list;
-+	ret = cci_multi_reg_write(os05b10->cci, reg_list->regs,
-+				  reg_list->num_of_regs, NULL);
-+	if (ret) {
-+		dev_err(os05b10->dev, "fail to write initial registers\n");
-+		goto err_rpm_put;
-+	}
-+
- 	/* Apply customized user controls */
- 	ret = __v4l2_ctrl_handler_setup(os05b10->sd.ctrl_handler);
- 	if (ret)
+-	ret = v4l2_fwnode_device_parse(os05b10->dev, &props);
+-	if (ret)
+-		goto error;
+-
+-	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &os05b10_ctrl_ops,
+-					      &props);
+-	if (ret)
+-		goto error;
++	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	os05b10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 
+ 	os05b10->sd.ctrl_handler = ctrl_hdlr;
+ 
 -- 
 2.34.1
 
