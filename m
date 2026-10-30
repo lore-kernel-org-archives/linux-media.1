@@ -1,47 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793379684;
-	b=Sq54z6VKp/g80Qen+YG5YGeIwsN/iV+MHbWE8k2NWO/uuc49tYmauCm2ig3+A05OisKv
-	 qsu0m/FxaPchFy0G6gDuzy+qmSv326Y8qSFQJdZyreMT1fAEq9K5Xa4aFT8wGWinvsLfL
-	 sDwQGL7I/TZLyuXYp1weKNwIr/LyabaISzcUPoETZo0gJhwYrT7qrn+nuSWKYCMaGFr+u
-	 tche7CDVV99Mpyapq47B6TlxPfT7ms0+OPsCHeM0l5DQs7by2DfX62LBaGuuDVkeg3Dnh
-	 /lPT2+lsSNzfzmfZgPuaGCL0wbwAOJQIj9ZxLQJ0+lfoAIV1sKZDLola03Sz4mFueXQ==
+	t=1793381875;
+	b=JLNS030Pjmc6Ee1CEMmucouBAxTh6NcUMPYFxhpUNrSm7OwFmFm1SkcEKSzAw71pdN7j
+	 IvFRlgjxWJl0VQvmmSD+6IPzKTn3pW0FTJAvriyA4/q2JER5Kt+v61mTMjpfwIIfoeb6N
+	 qB/X6CqSs7i05R/ruBdNb039nF8OZEWNIHPMI3Qk98c2xdqo8c74BoY2zmwgujbjcgidJ
+	 ONZNGhocNP9rF8Ei/3I0QaE7cwQ+42nmIyux++1Yt9X2VJnRtrJSTTTBw20LJsw2Ng2kM
+	 0m61gQvsoQY6BOXSGMhewca8GV9xQd1GP2TW1Kb8FWWdBxSpqQEB9Q8h9lcUzQNlMtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793379684;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=DNr7OLUBSCbML7hIxgDudpyYYElYAev1OqTZx9LmESE=;
-	b=utkoGcnQC0/xrBjCmOzY78xEQOlPtgy00pfyBIyxUswRC4f8gDsFLLHLIu2PdpZnMxPM
-	 pNUxPpEHsuSfazT2U/9JJYS7LzcVO+LkgMPsk8PAf2ix1PNJFlbww1DZxM7Han8Z6gjm2
-	 0yOfOroHoKsqUi1uZQAGECpS8dig9B8/ywEMSQrLphbc4UD69XxIROQPyA8X7v6TtGlNB
-	 mmeYQ72W5pLFZ6FwTfRpjYtbEQMSz8lB4HfcVy7/K0H6itCceJm7Y9AaeRCMpkshVT41W
-	 vpFUWuo0UWBB5wAYd0B0wCvWGwD33cCND4m62RF5Co4unCUlzUR91hNCX5UATFqgdoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793381875;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=ejTqMbm2YF8hq1t2Q7Q+G5E5tccW21ZfrvOT83EL3B4=;
+	b=EQoSCtq6PbnhjwiX/2kkjj5w4p7TR33o1P/pzZ68ykqMDmsTNnjc8gl6mKm2MhcIz62i
+	 unJ4Q2ltWWFihbwyHDBk/DfzAQdyrv0batakC9OSdyywzs/JbXPYNJWNzLpKnfj8C1mzi
+	 sHosdTSh0Yufq15sPpR04F5C0R5u9c/L++3gFeNaHOJrAGwZj+4jw5qQ5ZAIyTccR1pxu
+	 DJ1TRY15s0vLBbhtpSXIuDTlw6q9OGPfbum5KCox+oAKikkbkxtrQFhTlISZcRWx1jNjX
+	 YiOa8Z300rkN2ICXViAseR0xoTKXqZQSz3skwH9NJZY/wxBBOk3wurBlxrK5BaxQV8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EVZEjJgx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D671606A31A;
-	Fri, 30 Oct 2026 17:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EVZEjJgx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FD11F00A15;
-	Fri, 30 Oct 2026 17:01:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793379683;
-	bh=DNr7OLUBSCbML7hIxgDudpyYYElYAev1OqTZx9LmESE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EVZEjJgxFjp77aRkeTOGzxfcthGvnE0LjQ6Wio0xTI8wgXmIl1FwXtRjVhYjMtcdz
-	 vWPM0Is2dyRtX54rJSy9/NqsN5DGzUIdk8HgrhwY/yDVWGy+HBe5LDIv7CetyoxXXi
-	 dEUTQx+yu/AIF/iwi95xKuG62eidslE7o5UmmLt2VBZS9N6aoD9pGR5xEcimpSmHzE
-	 BlaZ1Gdo8plzyhtVY++dXYhaG4kgUuS9CikRNBaN8h8IbXJ8/E9EAKAvZavNvi+wOA
-	 XC0Y65Z77gsRffE3hU6mlMx2VVankH2qR6Ph0o/Y6yiscLjmpib+LkM4DakYArx9Vk
-	 hCg77b+zemkSQ==
-Message-ID: <dea88756-39d3-4c61-83d9-939ddb9336fa@kernel.org>
-Date: Fri, 30 Oct 2026 19:01:17 +0200
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ADDA7606A31A;
+	Fri, 30 Oct 2026 17:37:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADDA7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:MIME-Version:
+	Content-Transfer-Encoding; bh=ejTqMbm2YF8hq1t2Q7Q+G5E5tccW21Zfrv
+	OT83EL3B4=; b=zUcd13LynVjs1KFuhjKL495ZBghCeqtXXal0wpin9hqY5OR4jF
+	0U1MeulCKOtZaXSUyU0GhxkqshLMQOr+7hQUT5iEW6a4RNWxkFf6y7BOvno6eU+a
+	TNN3taR0+cMZif66jL5TSDwdnz9y+icLCfF0sQRppuOJ7/K5XJZUC95oU=
+Received: from localhost.localdomain (unknown [113.200.174.17])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkDG5Prl1eRqbKcMAQ--.10589S2;
+	Sat, 31 Oct 2026 01:37:42 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Anssi Hannula <anssi.hannula@iki.fi>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Subject: Re: [PATCH v2 0/2] media: rc: ati_remote: fix NULL input device handling
+Date: Sat, 31 Oct 2026 01:37:28 +0800
+Message-ID: <20261030.pref-08.0e2173b9093240d0@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.45.1.windows.1
+In-Reply-To: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
+References: <20261026125731.1952-1-25031212351@stu.xidian.edu.cn>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,70 +64,38 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v23 08/15] media: qcom: camss: csiphy: Add support for
- v2.4.0 two-phase CSIPHY
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
- <20261028-kaanapali-camss-v23-8-95f250b18612@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vz@kernel.org>
-In-Reply-To: <20261028-kaanapali-camss-v23-8-95f250b18612@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkDG5Prl1eRqbKcMAQ--.10589S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYH7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1I
+	6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr
+	0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JMxkIecxEwVAFwVW8MxAIw28IcxkI7VAKI48JMxAqzxv26xkF7I0En4
+	kS14v26r1q6r43MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4l
+	x2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrw
+	CI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI
+	42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z2
+	80aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0UxhJUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUCD2rkstQVmgAAsu
 
-Hello Hangxiang.
+Hi Mauro,
 
-On 10/28/26 17:20, Hangxiang Ma wrote:
-> Add support for the v2.4.0 two-phase CSIPHY found on Kaanapali, where
-> the PHY is driven by the standalone phy-qcom-mipi-csi2 DPHY driver
-> rather than by CAMSS. Add the mipi_csi2_dphy_3nm_kaanapali configuration,
-> which reuses the x1e80100 lane sequence, clocks and supplies but selects
-> the v2.4.0 common status offset, adds Kaanapali power domain and register
-> the "qcom,kaanapali-csi2-phy" compatible.
-> 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 47 +++++++++++++++++++++++++++++++
->   1 file changed, 47 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index a64242c66cf0..b0b63dd3d958 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -38,6 +38,51 @@
->   
->   static const struct parent_dev_ops vfe_parent_dev_ops;
->   
-> +static const struct camss_subdev_resources csiphy_res_kaanapali[] = {
-> +	/* CSIPHY0 */
-> +	{
-> +		.csiphy = {
-> +			.id = 0,
-> +			.formats = &csiphy_formats_sdm845
-> +		},
-> +	},
-It makes no sense to bloat the code for no good reason, especially if
-these empty tables are to be added for every new supported platform.
+Could you please review this patch series?
 
-CSIPHYs is not a part of the CAMSS on this platform, hence resources
-shall not be statically allocated for CSIPHYs in the CAMSS driver.
+  [PATCH v2 0/2] media: rc: ati_remote: fix NULL input device handling
 
-See also https://lore.kernel.org/linux-arm-msm/20261026224957.1115370-1-vz@kernel.org
+It fixes NULL input device handling in ati_remote during early RC open
+and when mouse support is disabled.
 
--- 
-Best wishes,
-Vladimir
+The series is unchanged. I am copying this address for visibility.
+
+Original submission:
+https://lore.kernel.org/r/20261026125731.1952-1-25031212351@stu.xidian.edu.cn
+
+Thanks,
+YuanZhe
+
