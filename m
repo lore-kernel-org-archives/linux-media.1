@@ -1,22 +1,23 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.22
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.22
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793326200;
-	b=xiRZLh6w1qVe2LIFVFkYkBympDT6Q5TXay4IpvP/b96ORZiwqd/s+kVOfvhcjnN3NKG3
-	 WETEtltRRs+J90bUowAgQ/A0p2oEZ52fo9vBfKZfFkoY9DgFMYVuflESh5H2iJN6gNQaB
-	 N2KF0b6wQ7GD+AkP2FQUooReDr/m1ylZYS4RSr1I2n+iexQAoaJGRVHzzsuem1ySmydwk
-	 pVK9YajxiPW09EPu03FO4jY5qkUrno2dEuzJ7Lx9g36G4KtVXcFBYQdHPhZMP0MZpJe+q
-	 FU4St4FXgxcDxN1M+MtxMVWua/7QFy5wpH7ogtqvmtlX4Jhr7anF0PPtzUb+1zwk6+A==
+	t=1793339666;
+	b=tHc+uHydWoc2pPWuBuLo234ISlz3hBLngXJhFRy+xLX8MiAaRk4fSTE7YoJE40NFF0H+
+	 ZFsdTLNCuZp/zTpqPXnQJGuq/bU8EZyryBs7kBJhidf7dBsfFGZLkLbo9v8dzE/WG1Zt/
+	 Qh+fTeSUpRm77PEfGZ5OgMBfXjZvXuczzirzjvoP3CDA9xRu2DZjjomkxkLM8mv+zWXUJ
+	 4NUI7sZch0Zu7EytfowSciIviKhvytNLES2ZFMAf9+vvZLhtRF0j/IlfUvob7dOYDRFXd
+	 yYauj1hyq+LScsa2D6d7RARfae1bWvN1E5dXqUDFoSCcTq7fLHyoqTvUlPDZk0n87PQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793326200;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793339666;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
@@ -24,77 +25,75 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gfanOOaozXx+NMgSq0Z71/Ofp9shW0FRiDHYkg0Mg0c=;
-	b=RTASJXoZyusZWGJ3Bkzznc+lCrFldvoYOIK5WLeXGl3TkyjLfvqguP/WqDdQOX7nzqwH
-	 7H9qgAhID7CCHavH4KVLh0q7q93SJ0Pu199ynGGzuPcnOPyiodCwDt1jqpEQhcYkSUcIG
-	 Iwnza6Pg8sowlgCF6TXHOlvXNKSytFM19W5wu5Um8QAKtSV1Y2QQkr7/rzM16itproIT5
-	 V0JS9AEXWXsq55ISIk+ZWxm80/7/Sv30pNd0+YYSAvte0LMVLOQ7MoQEe5L00cZ6XsKcY
-	 D6b6qk2FojobUrH5ryZECkWfZ9gcnwKkGGOPh21lYvPaYToIzzE/rpl6vvKibXhNTJw==
+	bh=L77iIrv7ZZ3h/89dP9A3PvLYwPbUGsppcJgOlAG4TtA=;
+	b=3RYRlOkICqE9QCcwgj1U/b5WqMcyjgRVhpoeTSoAJehv32/bC5P6hVIBN1unyiD2ikac
+	 sYtCvAtP9BDd0D//Jsok7X89ClaztQXNFq/PJSrB/HbiqDY/zl71U7zI6aGqEHJBE1rsi
+	 yYuQzO/Gvc5a+BVu58Wid5gOxeyp7hjiZtNz909RGrEEJlbsnWr91nuZUrL+kdfjC0pOj
+	 VPGUj9FYEyCdq8S6L4U1MDn2qAJbQCrpe0OdVKTSMO/nfFHXnOivZpg0T5TGL02lxcnPZ
+	 jgQsYUuxFgvVQAsMjpJY0cfMXYC45h9BiEeg3f0MaO0iTS1KWqBTeu3wXjE09W0ZelQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DTAiLZtO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.22
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013022.outbound.protection.outlook.com [40.107.201.22])
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PQ8R1X42;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.22
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012022.outbound.protection.outlook.com [52.101.43.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98220606A31A;
-	Fri, 30 Oct 2026 02:09:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98220606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4DC0606A31A;
+	Fri, 30 Oct 2026 05:54:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4DC0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DTAiLZtO
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=PQ8R1X42
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a8oddOVqopzjSVrxVFuDXgV9vK9eEgemIuQNM24mw9vLWKPfhKn5dFgmr2bHM83bXIy9XnRuPUAkfD4pyIIBNDlIQ32SwzZwZiUhPu00KvJ5Z+s8JeKPUQjJ6Kwqgfwl2EnpMrVW8iWpan5FX/K9DB61fGNfC5quN0byLcMGnhp65jV0cAglg4B4NOPGaN3V2iGP0d137a3w0bh15obvHvZzWGhixzV/ZE7BvU3QoOAlHPobGlTesheek6M0BGOvOFNSW3HAExa2RwhT5NKZZS1rNqIREUdfj81Y41bMD7Bb+QHr8MEJpUOq8KalK8PY3UaX8wmVADLA0Fao5NG8Bg==
+ b=E8VDxOeavt8cm4iKEPnh2SWrss0O7SflZ/D+LaHMNdWnK52ezeihSNedLAGKoI16wnXchJ4kqC2ATQ61HKa07cAKGWomAgb4grur+36cwj7EVa6Da4v8sFCZfS/wVmBO/LsrOfNJvaJC0zcaNONOzf1jEWvPa1JoSqvfb9dngRFlM+qD6vvdHKNG6y37Mi2AaXnijQRI1XHdi7veXr/A0acX+KX1GvPM29VY94hfC7/Eh5ZFHexXyPPnnXJVXM+APEpDtxW0u2oLhxxUiglo9xNdWYRPsqp6S8rCbFZXb+3vyzCM0mOxB3F5DGkS264Toien7Iu3NEh3cXvU654AQA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gfanOOaozXx+NMgSq0Z71/Ofp9shW0FRiDHYkg0Mg0c=;
- b=m+XSe/PoRknPj2OJ73Q/nzOtEVefDWXAyQIKcUAoRu7CCrZQLLM1VJpKFsxMu98PFYFaPqnpawgOELBYNSVPxZUwDMGN/HjBP89MrpaPjIGgvl5D7NEwYhNN9XzSEW1OovWFj1vZLvALjGn2I6ETwH39ac5jWjCz9EE4z1FG3YUgONL4+M9y8bkjcONgVfwzJ/vjga70c3hE3P8QNh30EGO0rY0Jt71b4uvpbHU1hLsJGqcdvP6q76qoT01sJhCmmSAhAMbTqlxAZ43dvvdnODCUjjpoibMs1auOeovjrd50H19w0iGVuEd9yQaISsgwsDqLNyvuZfpKuqTMndQnkw==
+ bh=L77iIrv7ZZ3h/89dP9A3PvLYwPbUGsppcJgOlAG4TtA=;
+ b=kzt4B4yUcDxSSnmMkvw0NYvJ8yW7aiYMWEeTljcQ9+K0aQaFFcsJKuLcQEpEFWGUMp1Z1GSH+GyAK0nawIbck0RaUDIP5GE97wuKrNjoxeF3iX1reV1p1nDlepU8qUrWJi5d1GqPTWDY0Cwv6Javkl4QggzPWIyWlHNxYlPMe5zayHLVwTa+JpKJBDEfxOb7Ikq5WNHPnNxZM4vLYQtxeNVEG5l4927HCRETk8OL1EXWHeC3AqDCRBi4LEZiw00XIVzR2YTZdNHp47ZElSRhjm//pvjY2X42DaTDSsD9uqF4RKFElZN360ldP9he4aTsCjvxVX0acV+vloryWz/e0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gfanOOaozXx+NMgSq0Z71/Ofp9shW0FRiDHYkg0Mg0c=;
- b=DTAiLZtOb5ccTKQBW3lNzLjssqetBAyMuwJ1Pk4MITaim1iYUxWVCjEWn/5JshkJNptB1TWWjwgjlG0BiANQMFnZZPH5rVpahzLkBtOdhvkDXbdbEbhYRqmDpDU/GsR1+4h4i61ffTcrYsdFAaI6BN+cXdCTrDBC5D03K9v6Am8=
+ bh=L77iIrv7ZZ3h/89dP9A3PvLYwPbUGsppcJgOlAG4TtA=;
+ b=PQ8R1X42lhJSM4/IR6vv3qehZEj71FYbPSVXF0iPWtR0L/12tVJvjcw6lLiEVfI5TuMtlM0sgpZoGm/kccCfpKPg6QgNkqD1rEZA2OWJggGb48tPkS5o1tpwAg8IMMszI8ALmbAFi1tUf1/ow+v3pLv55u5OyWIQbD3vtUsrHBnB3NOUeyLZ6ZC0Sqmp+wlpV6auQEMwven/+U1Ky0tMs8OhMFfXQSYAkMBFVnZWxu7gqvRZ3/3/F86OrQnd+E2fHqCuVe3y8uhZ6Da0Si3dvtLh2WMO0SA809xJV6u+5cDFZEIa2p9Z8vaU89SQu2FiQkGT0AKzGcxHTvJEYJJbhw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
- by DS5PPFB8FBD73EA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65e) with
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS0PR12MB6582.namprd12.prod.outlook.com (2603:10b6:8:d2::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 02:09:55 +0000
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589]) by DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589%5]) with mapi id 15.21.0569.007; Fri, 30 Oct 2026
- 02:09:55 +0000
-Message-ID: <4fd44cc2-ce8b-4919-bfcf-586ba0c20469@amd.com>
-Date: Fri, 30 Oct 2026 10:09:47 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: amd: isp4: fix self-deadlock in
- isp4sd_start_stream() error path
-To: caspar.adriani@proton.me, Nirujogi Pratap <pratap.nirujogi@amd.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Benjamin Chan <Benjamin.Chan@amd.com>, King Li <King.Li@amd.com>,
- Sultan Alsawaf <sultan@kerneltoast.com>,
- Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>,
- Yifei Gao <gyf161023@gmail.com>,
- Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Language: en-US
-From: Bin Du <Bin.Du@amd.com>
-In-Reply-To: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI2PR04CA0010.apcprd04.prod.outlook.com
- (2603:1096:4:197::11) To DS0PR12MB7747.namprd12.prod.outlook.com
- (2603:10b6:8:138::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.22; Fri, 30 Oct
+ 2026 05:54:21 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
+ 05:54:21 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>, linux-media@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Karl Mehltretter <kmehltretter@gmail.com>
+Subject: Re: [PATCH] drm/tegra: Fix dma-buf reference on import errors
+Date: Fri, 30 Oct 2026 14:32:23 +0900
+Message-ID: <rOjrytXLQoKMi-JohQNB0A@nvidia.com>
+In-Reply-To: <20261026055842.96484-1-kmehltretter@gmail.com>
+References: <20261026055842.96484-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: OS7PR01CA0074.jpnprd01.prod.outlook.com
+ (2603:1096:604:253::10) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -105,171 +104,146 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7747:EE_|DS5PPFB8FBD73EA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e7c6455-6560-4821-fd65-08df362ae3bb
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS0PR12MB6582:EE_
+X-MS-Office365-Filtering-Correlation-Id: 93ed2bea-c76a-437d-05f6-08df364a3e9b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|6133799003|18002099003|22082099003|3023799007|11063799006|56012099006|261022105027099003|261022075727099003|261021121427099003|10067099003|261021123027099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003;
+	BCL:0;ARA:13230040|7416014|10070799003|376014|1800799024|23010399003|366016|261026140227099003|11063799006|261028144727099003|261026121527099003|10067099003|261021123027099003|261022075727099003|56012099006|261021121427099003|261009223027099003|261022105027099003|22082099003|18002099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	4jx22mmPl8k7iNLK2cMAJqVhzc01Kp75nKm4wSkfHIVryQIWoZvObu+GWXgBth4amhc0t7HYaDL2dNFdaCii5SUTcny3L8zMishOuFB+d8Wm081QI7sbAoeHfX2+ssUSNNSyWhUlWfL6Py6XJc41OY2E7TSG+fPMi7ii3pHMGGxLHDuO03f5vDTUoUXwyKQRleJGclO/HAMCtj/uQr30UmoH7F33wnsnBu1ki7e4DEYFk0+uvetP1lci7sULjtJXtEOtfto8PVTrc1WLFrNjuiPiw2zVqemkuvZ9+wfq61weZBkqmRko2kWX1vAa+PFNq5vYoUzbgqGn8PdZMSohu+Tgm8dvbYQ+f+3uKmMXEYJr8bOX24s7hnHZlwfwkYAZxVFVATpD6H13fGSgbwP6LzEctYoxIPLj6jApew7jQSTywjO+4ws7tsTdz5iJo/5bQqHW+eBZobwnwD+90nW+iehgWqj1aHxEW5YVt5oPNVb22CQVmZ6KAxrEJef1wbByitgdo8JB78UDnqMBS8CYdRunbFd8PtQ/p1jJ052LhiuskApUsl41aPpeGKg2aKavnQ47j4oJwu1kjYopNEbqwFZQPAkYps3hLyCdgh2AzsdYAUFZn43ioYLLr008rlFBX8XFaQv0CpKCyKLOr7zoKHUit2gfu++t2J5HDu3L3dQ=
+	rucRruHn/k0dxCqrulxGxlcC2acJgDcHiGhVHWY2VWz1hep4/Szg6HARoRBI2AbmAaNeHHGGpvEYVwstgf/6O4wy0FImywFTdBp194Pkhe9r18wr0hqT6XdNxt3JpdVA2q8qve5WdponaUmlJU+Xx5PSe7RDxUupz+J/Aqk11unKbepIla/c2In3TF7Oa+2iZ82Ns7qLeNXjibtwUs6cn9SrSEgMytx69e0s0IDfBG48KBTPhVCm3MXA+wz0Tr5aCurgyCk0zYZ4SPSknfyorVjlHgQmf21zv068eDGLZQQuQZs0DOd/TZXlufsHf0a1ufRZIKxyz5yARUR2lP2nAHUiTJxufCqLLNcWGTYSQkzUUZmk7UU5A4m8IIc/YPWWRnk3BFXI9pTigBMxsxUZAh1AE0xr6sbTT9HnX7Yd1wUdz5FVgV+lBFQfU8z/+86jXVRhhf+loBYb3YT9KEB0TKFJ6LDvNAS3/tuhSgTAOhPmEXSHNFiLMC6yzf1ePoLO8HMqHp11zscJbOlo5+BOzIU+CtOxb2DMXENDNMv71NEzAhshJDQp7wUHv+Xt68cMpqGDCq25fR5LoIzj5QmhxxcRwUxV2+/AL45/AWbwu2c0YWQe4sNOt0mo6WCJH+Q6zBrYzp8bqyxdh2sfz56v2cb3CMkz0TluTU0fp4i20ac=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7747.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(261022105027099003)(261022075727099003)(261021121427099003)(10067099003)(261021123027099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(10070799003)(376014)(1800799024)(23010399003)(366016)(261026140227099003)(11063799006)(261028144727099003)(261026121527099003)(10067099003)(261021123027099003)(261022075727099003)(56012099006)(261021121427099003)(261009223027099003)(261022105027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d3FDM2ZJL3FqMm1zblBmVXV6TWV4c1JKQmN0VnpPVXZPQU16TSs2OHhYNlI0?=
- =?utf-8?B?bFZlY0FBaldVKzB5UURia0lab1BHd1RVbzNpVW5Ldm1YM25qYW1pQzZ1SXlQ?=
- =?utf-8?B?MmEvdXpvYnZXSGFPUThsMnRVQlR6WWhEYjFRUWFxc2JhSmhERDl3dHFWQVox?=
- =?utf-8?B?bzI0SEFQeUlxdjhJbzkrK3ZuNWdVcDU4eFJmUUMybDVCY2JDZTF3SHdweU1V?=
- =?utf-8?B?MGM4cFc0TVpTR0F4SWxiZFliQTJQcWdSQktiZUl2VGNyamFDREV5N1lwUjlk?=
- =?utf-8?B?WmRndElQN3FybXlSWnI2a2lMcFlraUVhUTJ5Wko4Y0VFWGpDN2FmRkhRQlpw?=
- =?utf-8?B?UzJtUTB5S2xyckEzcmpaU2xWbktiZ2wrVjVidTF2UllsVWRHZWFNRUp1T2lV?=
- =?utf-8?B?ZkdSVlg5b0t5dnFlVVIyM0taQk1weWthNGd5WkZUS0R5S0JINkNFVm9BRU9L?=
- =?utf-8?B?QlVIcXFlWERRZDlaQTJpNGE2SFQ2cG1wRzc1VmhhSmplWGlQREtDZHluSGE2?=
- =?utf-8?B?Y25SRFdLMGovd0hYQUw3WWgrdU5SSzZkaDhERjlzc2N4Mkx5NGkxKzVTWmhK?=
- =?utf-8?B?MEhvVEFCYmVER0dYZzFWSEkxWXJHTDExcWtVZ2p3ZjdHRnArc3BCbDI0VUZa?=
- =?utf-8?B?THJiWnB3eVVUL083TVFCMCt2MGRlY2I2d2ozWVZ5NWJ5bFhCZ0MwN2IwUkhC?=
- =?utf-8?B?WVBrRGJxa1dRalAwck9Db2FGUXlHSHlyRTZkak4zYTN0cldHYTZGejhkUUx3?=
- =?utf-8?B?aHBlUVdudVhsNG9kbjVUZFdSc3JqcFU2cWluZmtoakcya3g1OTUyU0hDQ0Nu?=
- =?utf-8?B?NGgwS3V6cW0yRlB5N2Zva1ZVdHJmLzkyOW5QWWZHTjY2OWFxemU5MUdSVzFS?=
- =?utf-8?B?ZFdnRXRKMkM1aG5Pamd0ai9OejdBbnlyRkZxUzlkNjMxSE9MUFFFamdldXVN?=
- =?utf-8?B?Ri8xSlN0SUYvZUk2dXFpNFdmUEEwYVI4aXFkNzJSUkhnQXpYTzJYejFBanlz?=
- =?utf-8?B?QlJFdXVNeGdZaHJ4SUg0QU1NRGRpcHl5cnpyNUN5N29rMjZGZEJkZ1dZQ0Rp?=
- =?utf-8?B?Znd0NTBxeTBldXRSSWQ3ZHZmWGZZbkZia3FxeEVBdXl0ZGhhNDZZc0dUV1BL?=
- =?utf-8?B?MDdLQ2haNmZ3Z1FpZ0hUanRReE5VeEZRQVR4cUtKWjE5OUhiYmRJN2dpakhn?=
- =?utf-8?B?d3d6b3k3WlZWRXV4STJYUG9uL1JzWEJHa1NlWE5wdG45RW9adDZnczdKdjEz?=
- =?utf-8?B?OHBUdkN0b0I3WVdYSEJzZTJaNVZNbjBIVUZSZThsTGtRbW9KWlNadUVMNVJ2?=
- =?utf-8?B?UkRJdU0xbnBuSHdiVWVpcklEK2IrTmNmeEFoNDhJSXUydDdXaHc0Wm5ZUEky?=
- =?utf-8?B?VWhsbEhXRDFweXhYL1pPSWd3NHF0aDI3U1JQaU9TK1ZpOHFCMGJQRzI5Vkt3?=
- =?utf-8?B?T1ltRVRDSDJCTHpsakwwWUpjd2xYZnY5SUdDaWxJc3YxZU5UOEs5dDgxL1ZH?=
- =?utf-8?B?L1A0R2pIY3FkQUFnK0ZoUFV5UzhVNmVTQjhkdlFtRU0yZFNFVWtWYUdDRVRi?=
- =?utf-8?B?ODR3T2JSRlNMMytuUXE0LzZmUnRidTBVTzFxOXdJMlpxL09TeVNqMExpNUE2?=
- =?utf-8?B?ZHBndmxXM2p5Rld6b3lXVXJlcldGZVdlNi9aRVVTa21LbjBvNFQ4SVhIV2J2?=
- =?utf-8?B?U3dMakRkVEpPallkekhNM1JpODRFdXR3QlhFVTNkbXQrakJGbk5KLyt5eW1n?=
- =?utf-8?B?N01kRWhGR0VDRGUwamRNdjRUUHBsekNuamI1OUsrWmJYUVQwbnNqSVVPN3Zr?=
- =?utf-8?B?MlMybDhIemVHMTY2Z0tnWTdQMmgrcjAvamM5ektib25hb2o2ZDUxaHZPWDNh?=
- =?utf-8?B?Y2kyd2pJSXNZMnhxUVhXa01oYUJWeDQ5OG5ld2V1V1F0ZnBQaHJpRFgya1Bh?=
- =?utf-8?B?ZXZzNzdTUzkyR0lFd29qK3JndzR4TG51VjJFZURjWXJDR1k4TnZMeGxlcXhR?=
- =?utf-8?B?aUpUUm5DYisyRzRCRkluYmt0aytTaWVIYUtLMEhCaUI2SFVtZ2cxOGJNZmp1?=
- =?utf-8?B?dUl2aEpMYk1RL0U0VTJGb0EzMUxvc3IyUzZxaUdsNkVxMVpTOFF0bU1oVVdo?=
- =?utf-8?B?ZGN4c3RDeHoxWHdFZnVMVXErZXB0RGxIZUFjeTBlMXNGRmYxb2I5VEx1RHNW?=
- =?utf-8?B?c29ZakxzaU1QaXlEMU82dnBaVHhaNHVoRzYxcUJQYjg5TENYZFE5VDNXc0ZC?=
- =?utf-8?B?L3o2QTgyMUtxVWlpQW5NVkRQcHc3VUlTeHBia0VWOTExMnZtWG5mRGRxQXZB?=
- =?utf-8?Q?pSqj86IZOnGwqIkMCQ?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e7c6455-6560-4821-fd65-08df362ae3bb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7747.namprd12.prod.outlook.com
+	=?utf-8?B?L3p4a2w5Nlk5aUdacFJwRUkvUEhuMHVady9zQ2VTVWV5Z20wclBDZ2oyZGpi?=
+ =?utf-8?B?WDBqY2ZOM0pIaDdBY0VYQTZSVVBaRURvdUZwOHBDVWc1bGxVMmxIOWZkcG9l?=
+ =?utf-8?B?UjU3Q2dOcndMSlBGcXA2eS85aEdSU1FCM3BKZUNJenQ2K1hVVkQyS3lNejRO?=
+ =?utf-8?B?emJ0MFRJK2FvWStaZkh6OVViSjNvQW9FWVBoTjB5Y1FKSmVNUG9SeFJSdWta?=
+ =?utf-8?B?Nml3bG9tUENIQUFQeWhBTmRWRFA1K0pzcFFlQW1CMFNDdW16VlBuZGlIMFpw?=
+ =?utf-8?B?cVBBRUdESllkdldVS3VNNFp2UU4zYVR4UHJKdER1ZTZrSkVMZ3Y2S0ZXOTBB?=
+ =?utf-8?B?V2lZVlp1OHlnVjJiVW0zYnJEUDZVMHFvdG9RaTRSMjU5OUswRUdSUis2YmxZ?=
+ =?utf-8?B?M2hsMUxHZ1pJK0xCcUZPY0FKVmI4eUFERXViZTJHdElVUTR0a0tyZnFJbWFY?=
+ =?utf-8?B?d2tzRTNHbU14bUpjbmllU21sQTRCY3lUNktoRWp4Mld1NGMySlJvS1NRdUww?=
+ =?utf-8?B?S01MbDFrdmdVWTgrK1dKa0tSYVZlYnpsM2RaUFdWMk12RzVZNzB0bkVSTjR1?=
+ =?utf-8?B?VDVDeDFqRUdKMWV3dDRUQ3dtQWZhTHovZ3hsZkw1bGMvcEI0TVFCdXNFUnA4?=
+ =?utf-8?B?akE3NUlaZVc1blNzRjk1dlFYeTRFb1YxZHNWVGhPVlJJOEtWTXkxblZtd0I5?=
+ =?utf-8?B?TjUrU0lQM2NHdStIWU00dEZ0TW9GMXhraHJkUGVWWExEQ1JZd0gyZk9oVG5R?=
+ =?utf-8?B?Z1lXNmNWS0pSaEh4SCt0WXZEbUxteDFvbGg3dWliUkZzbjhvbmhlemtiLzlG?=
+ =?utf-8?B?ZkNlOFFrbnFxRHJQditiS2pIMmczU0dkOUpsRE1JWm5vK2Nzd3BNWnpaMTFJ?=
+ =?utf-8?B?bCtoWS92VkVyZzU1Mk1GSXl1bnRSdytDM1pOekRaVVM1dE1FdW10OVp0RUE4?=
+ =?utf-8?B?VWM4MzlXeGJ5MVB0Tm01Qzl6L0YyZGRYQUw1OFRRMFlBN1hMc2IzOXFrQzFw?=
+ =?utf-8?B?bTFHMFRpU1ZHb0c4S3BxblJJMGltR1RjcCtPOUlMOFpDU1I4Y28vUEdkS0Fr?=
+ =?utf-8?B?dkhJajIxbk10NStuU01kZEtrckRjckN0V2VtbVhzdU1KYUZYREJYWlhYR1RY?=
+ =?utf-8?B?endSWkp4b1ZXTmtpZmR1VkZXSzBFWWcrZThyOTYvQlYrbTcwUjQxS3ZhaFdx?=
+ =?utf-8?B?S0oza3Bmd21IanA5YjJTNDZhY2ZMYm9rUkdiVlhvMEpkL3d3U0tVT2g0bE5C?=
+ =?utf-8?B?alE5ZDNkZXB1RGRUYXVHczFDMEdBSW43SnpsaGlQTitYVFNjdXcrKzFqK0pt?=
+ =?utf-8?B?M2M5aVNsbWI0SUk5blo1ay9wMnB1SnBMNnBXZXJ5ZmxPNVZGQ3VvME80VUNX?=
+ =?utf-8?B?ejhycnRDQUpYR2U1L2x0RFkzQVloWVcwd21ud0pGYUhWQkloTEloa2pMcDV3?=
+ =?utf-8?B?L2RaTWVMQm5nUU9BSFlCUGxPRVRFcjdrdTNMcVJsZFluN1hvUHlLUmpoc3BJ?=
+ =?utf-8?B?QnRCQS96M3ByaStPT2tyS0Z5QmN1QUdFa2tWWTgzME1qVDR5NTVMaUVHQSth?=
+ =?utf-8?B?SStDLzMzSzdsdVhuN0l4dmVRTUVqVFdtcU9ITVUwaVdHKzJJc2NnTjJrV2Jo?=
+ =?utf-8?B?eG44aTNFMVY4emMxSUVRajhZQldIb3g3UmV3amNOSGlpb1FoTjhDRllFT25V?=
+ =?utf-8?B?ZzRBNit4MXljcDJ1QnFLOXZGQVdUbURWK0VRcWhnV0tTNm8wZFBKTUtWWjNI?=
+ =?utf-8?B?V1VRK0Z2VWFSV2FsWFdxaU1TTnk3L1JnclB1bEVCVVBzR3l2SW1OdDdBS0Z5?=
+ =?utf-8?B?SFY0TnlhYmpLY0FoNHBQZ1MyVjByclJ3NWpibHUzVzU2TXp6RlFsWmp4RDhM?=
+ =?utf-8?B?bWxHL2g2N0NVLytjMVFQZ21FWnpHYytEanhwc05rZkpuL0Q1RWF4MWpsZkVF?=
+ =?utf-8?B?UjZacWRReWxRaEszTjE2ZEZwbXJiTlk5WTRwZG5RWG9KbCsrWmsyUDQwZjNR?=
+ =?utf-8?B?aHlOWkozQmppZ1cxUFp2QmJkb3Y1T0lUVmlicEs0eHpRSHA1TmtoNFgybk9B?=
+ =?utf-8?B?M0RFMVozb1FBcFl5SVUwK1JRd1FDUTlyZWVaTUwzZnZveEx3TVJrVUJ5NXNq?=
+ =?utf-8?B?WDN0TDloNzdoVFlId0VYUzRUQzRnWnk0am9vSWFJYi8vVEgvVXJpT0h4cWRq?=
+ =?utf-8?B?U1NEbldoTWwwby9IWk8wbmt0SEo1a1k2QW1wVzVJYTUvMDhuTTlHWFo4cEhZ?=
+ =?utf-8?B?dWV6TXFsck1RT3BSM1JZLzBaS3V6aDJwZFJVeVZDY1Y4WUlWRDdxTk02ejVO?=
+ =?utf-8?B?bGN1UkJTS1k0b3o4MUhsQ2laTUY5OFdJRTl5d3F2eXdKdm9kQXdBd1VUdUFR?=
+ =?utf-8?Q?TlTt1LK8vWPOgZUWO8Uh3V/7Ogu4REAye74TCjCS0z4Ef?=
+X-MS-Exchange-AntiSpam-MessageData-1: 2z2MD/9irrLGVQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 93ed2bea-c76a-437d-05f6-08df364a3e9b
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 02:09:54.9596
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 05:54:21.8135
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mzqLvpgSj9yOtGfPHLvLuwaPCQLbVdZ6gkFzn5eJ/pCd5oC97I7+ooCYUyLi9icC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFB8FBD73EA
+X-MS-Exchange-CrossTenant-UserPrincipalName: xKWxzNWMVaKJJzof9LkCCEBLXPRTNaRkxa2sPXtjHG7JcC+laF+2YQ5WkA8geFaKmFqQo6TNuf9ZHEJEV2WOgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6582
 
-Reviewed-by: Bin Du <bin.du@amd.com>
+On Monday, October 26, 2026 2:58=E2=80=AFPM Karl Mehltretter wrote:
+> tegra_bo_import() acquires the reference retained by a successfully
+> imported object only after all attachment and mapping operations have
+> completed. Its detach error path nevertheless calls dma_buf_put().
+>=20
+> drm_gem_prime_fd_to_handle() holds a temporary reference while invoking
+> the import callback and drops it after the callback returns. Consequently=
+,
+> when mapping fails after a successful attachment, tegra_bo_import() drops
+> that borrowed reference and the caller drops it again.
+>=20
+> With only the installed file descriptor and the temporary import
+> reference present, these two puts reduce the file reference count to zero=
+.
+> This queues the dma-buf file for release while its descriptor remains
+> installed, leaving the descriptor without a live reference for later use
+> or close. On a Jetson Nano, forcing the mapping to fail after attachment
+> produced:
+>=20
+>   VFS: Close: file count is 0 (f_op=3Ddma_buf_fops)
+>   imbalanced put on file reference count
+>=20
+> Remove the unmatched dma_buf_put(). Successful imports continue to take
+> their own reference before storing bo->dma_buf, and tegra_bo_free_object(=
+)
+> drops that reference when the imported object is destroyed.
 
-On 10/28/2026 10:05 PM, Caspar Adriani via B4 Relay wrote:
-> 
-> From: Caspar Adriani <caspar.adriani@proton.me>
-> 
-> isp4sd_start_stream() takes ops_mutex with guard() and, when
-> isp4sd_init_stream() or isp4sd_setup_output() fails, jumps to
-> err_stop_stream and calls isp4sd_stop_stream(). That function takes
-> ops_mutex again, so the task blocks on a mutex it already holds. Every
-> later open, close or ioctl on the device then blocks behind it, and
-> only a reboot recovers:
-> 
->   INFO: task .v4l2-ctl-wrapp:38440 blocked for more than 122 seconds.
->    isp4sd_stop_stream.isra.0+0x43/0x1d0 [amd_isp4_capture]
->    isp4sd_enable_streams.cold+0x8b/0x26c [amd_isp4_capture]
->    v4l2_subdev_enable_streams+0x1ff/0x360 [videodev]
->    isp4vid_qops_start_streaming+0xf2/0x160 [amd_isp4_capture]
->   INFO: task .v4l2-ctl-wrapp:38440 is blocked on a mutex likely owned
->   by task .v4l2-ctl-wrapp:38440.
-> 
-> One way to reach the error path: start and stop a stream, then start
-> it again without setting the format. isp4sd_uninit_stream() clears the
-> subdev pad format on stop, so isp4sd_get_str_out_prop() fails on the
-> second start with "fail to get out prop" and "fail to setup output".
-> 
-> Move the body of isp4sd_stop_stream() into __isp4sd_stop_stream(),
-> which expects ops_mutex to be held, and call it from the error path.
-> 
-> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
+Please edit and compact your LLM commit messages. All of this verbosity=20
+and description of only tangentially related code just obscures the=20
+actual issue.
+
+>=20
+> Fixes: f5b8794e17e4 ("drm/tegra: gem: Don't attach dma-bufs when not need=
+ed")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Caspar Adriani <caspar.adriani@proton.me>
+> Assisted-by: LLM
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 > ---
-> Tested on an ASUS ROG Flow Z13 (GZ302EA) on v7.3, with a local,
-> not-for-upstream change that adds its OMNI13B1 sensor to the ISP4 ACPI
-> tables so the capture device is created. The stock firmware does not
-> support that sensor, so no frames arrive, but the start and stop paths
-> run. Sequence: v4l2-ctl --set-fmt-video=1920x1080 NV12 --stream-mmap,
-> stopped after 10 s; the same without --set-fmt-video; then the first
-> command again.
-> 
-> Without this patch (v7.2.8, same setup) this failure hung the task as
-> shown above. With it, VIDIOC_STREAMON returns -EINVAL after "fail to
-> get out prop" / "fail to setup output", v4l2-ctl exits, no task is left
-> blocked, and the third run starts and stops the stream normally.
-> Not run: lockdep (CONFIG_PROVE_LOCKING is off in this kernel).
-> ---
->  drivers/media/platform/amd/isp4/isp4_subdev.c | 15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> index a108d90ace..08512f060a 100644
-> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> @@ -745,15 +745,15 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->         return -EINVAL;
->  }
-> 
-> -static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> -                             struct v4l2_subdev_state *state, u32 pad)
-> +static void __isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                                struct v4l2_subdev_state *state, u32 pad)
->  {
->         struct isp4sd_sensor_info *sensor_info = &isp_subdev->sensor_info;
->         struct isp4sd_output_info *output_info = &sensor_info->output_info;
->         struct isp4_interface *ispif = &isp_subdev->ispif;
->         struct device *dev = isp_subdev->dev;
-> 
-> -       guard(mutex)(&isp_subdev->ops_mutex);
-> +       lockdep_assert_held(&isp_subdev->ops_mutex);
->         dev_dbg(dev, "status %i\n", output_info->start_status);
-> 
->         if (output_info->start_status == ISP4SD_START_STATUS_STARTED) {
-> @@ -786,6 +786,13 @@ static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
->         }
-> 
->         isp4sd_uninit_stream(isp_subdev, state, pad);
-> +}
-> +
-> +static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                             struct v4l2_subdev_state *state, u32 pad)
-> +{
-> +       guard(mutex)(&isp_subdev->ops_mutex);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
-> 
->         /*
->          * Return success to ensure the stop process proceeds,
-> @@ -836,7 +843,7 @@ static int isp4sd_start_stream(struct isp4_subdev *isp_subdev,
->         return 0;
-> 
->  err_stop_stream:
-> -       isp4sd_stop_stream(isp_subdev, state, pad);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
->         return ret;
->  }
-> 
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-isp4-start-stream-deadlock-6c33a97d3297
-> 
-> Best regards,
-> --
-> Caspar Adriani <caspar.adriani@proton.me>
+> Found while auditing Tegra PRIME-import error handling for
+> CONFIG_DMABUF_DEBUG testing.
+>=20
+> Tested on a Jetson Nano (p3450-0000) with CONFIG_DMABUF_DEBUG=3Dy and a
+> separate change that rejects zero-byte IOMMU mappings to exercise the
+> post-attachment error path. Without this patch, the forced failure
+> produced the diagnostics quoted above. With this patch, 100 consecutive
+> failures returned -EINVAL, preserved the original dma-buf FD and left zer=
+o
+> dma-buf objects. No file-reference warnings or DMA-API errors occurred.
+>=20
+> Additional regression coverage passed 33 dma-buf heap selftests, with
+> three vgem-only tests skipped, and all seven udmabuf selftests using a
+> volatile 2 GiB HugeTLB pool.
+>=20
+>  drivers/gpu/drm/tegra/gem.c | 1 -
+>  1 file changed, 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+> index f76af73..ed35a34 100644
+> --- a/drivers/gpu/drm/tegra/gem.c
+> +++ b/drivers/gpu/drm/tegra/gem.c
+> @@ -502,7 +502,6 @@ detach:
+>  		dma_buf_unmap_attachment_unlocked(attach, bo->sgt, DMA_TO_DEVICE);
+> =20
+>  	dma_buf_detach(buf, attach);
+> -	dma_buf_put(buf);
+>  free:
+>  	drm_gem_object_release(&bo->gem);
+>  	kfree(bo);
+>=20
+> base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
+> --=20
+> 2.39.5 (Apple Git-154)
+>=20
+>=20
+
+
+
 
