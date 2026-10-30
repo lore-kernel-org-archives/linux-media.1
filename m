@@ -1,109 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793341979;
-	b=bmeRYfYdpXLyHBUR20uRxwP3I7lXtEM4KIy6eS0jMHfu/oirIMaZNRKejScJICt2jaHz
-	 YJCFUAiPZjGZN5YnZNNIaW8BkjmHApoknQD0edQiKjKFG8lB9tisIkmpLY3tM2bG+MYHy
-	 ZeuEjpLxRDQ+/PAyBAmGs054hyYiJuXQ+6p7u0o+yuonSUIWrgzz7vUtFyMJ05efS0Wm0
-	 9XYCzxggoW9sd1/XKmxztzZU63QsHxtV+MAW1BS9eSwNoAsWyDo3lAT15sNjfdjzt+U15
-	 rPOyY1C7b7J01E13f2iTDMlkQWzLMbN3tpDzb5FdK3gvWBDey5wtNjlFvBViwugwE2g==
+	t=1793349346;
+	b=1X3dATSBFcUKpL2duvtIVAQ0Cb2HlXlHFJtq5XChcihXTfMF693KJxaRvgEuFOSJGUKx
+	 IdomkUKKswxpRlHjz3ry1xwjhATE6tC3l1INtIuxHOI75JgSBO+2Vc9eFWLJFcGVseFjG
+	 TlbHDeX48nYRTP7m0VIS9NNI5hmps8+7qHIn/TiZ+vsMGj0vR7olUTkN7noT/ytBrxOWj
+	 M+pRomnuBxDyTL1BSuUeSjSchRK7XdppHMfT4S0BEG1TUbOeAHku2iWMR1NEpEiH2Tcaj
+	 WdprdqwwiJJIO3TM3jApyb0bKk9RP7n6uSA2vDbO2DDhB7S3TpkJa5rUTB4bbYWM0mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793341979;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
-	 X-Received:X-Received:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=beTUv6ZC0r4hmBh8uJ0k1FYHfA/4l5fpP/vwiQFYCVU=;
-	b=1nEhZNKSPKTEC0KDYhBAOO4QG4QRlmL7zfNU0Qei+/sy8YSG+lMxeUzMth0aJSKQQb/j
-	 qVUsGgbd85EaCgnHwujVZD4yv1a5F6m+Vrxf9B/aMbivXse80wm+/EmhngOXuuadhCDGI
-	 DELin5OomQcGrThMi5/9DVTDUlGEFv0ni7H82gvB81OdFOos6zc8assQphumHRMXbUmJp
-	 uu2MjnJ0eiGODel/8j/pJ86MRUw9+BXLMPqz6NYTDvYfSBGu+a6uDzsyX40V1tB3V6wE2
-	 Rsowe9KB2tQfWZdL4J18h2IO4/x0kkuWFsAb6awgCWvNVgzI/nUWgG5zOpETOhF9wnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793349346;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=1JSuP/hmF6Fi8nJPp3ZX98qfwOmuW23quiYMNH551tA=;
+	b=gc5URKQ7EAntci8HUc5ourvOnpODT75A23VsTiA5YOSQJG8HLiJYHBSlLFW9CRYqscF/
+	 mHE0JkuAo2btLY6ulz8ptP6BKSVNTGVRDNJLGpWTwOhAq4nbl32fTsUozXrEWgXc2VuOB
+	 q0oBv0pxQzoonZrNGgYh034PnyKRnvP7h7veLymMBkpZ2CtHoImlkMzBiGLslO57eq/FU
+	 RoLpQKE/gqJ9dqVuSUX7TDuqE1GK+HYbNHaUDYwfU4lIxNtf7WHFLIapWV3fwN6JEDfRz
+	 XTp7Ur/2aJhW2qvT3uPDo431zTfyAUVKgGM9jOLHO/ifI6tPKDbUIqbRd/XpFyAN6GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pUwx2Q1g;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SyBetCcG;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TEQEPlAo;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D672606A323
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 06:32:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D672606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E766606A31A
+	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 08:35:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E766606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pUwx2Q1g;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SyBetCcG
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U5FBsq1367519
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 06:32:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=beTUv6ZC0r4hmBh8uJ0k1F
-	YHfA/4l5fpP/vwiQFYCVU=; b=pUwx2Q1gKlOJNLIbDstDUHE4Dr5wqQYakiw+Ub
-	f6g707vM0ePbXU88XAFcJhZz1NKAUtf3hAU9kadAJzAgaMzX6T5ykusQTJrrVIO7
-	xbii1nyHNPX6jZANFStM4jNPhV1TiPMC0Xfurbp9BoJa6ymTQgdSP5KjPqGeZI7m
-	uMmtyNjXGo6ZzU6nMQrJiZugxRATpINwD05yc6XwJgUBkTH7P4/KpA1KmbKz7fKg
-	zh+rdAMj1/EA+895ZMDWd8UYFCB2ZyuOFkDiHWjZtHBEb2XIwjeJ6LDCHnPITq2n
-	5QJuGkFYLB88qL5vZW27ccEzi8RshIf9aObZi72DrOI6AvNQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6p9hhq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 06:32:58 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a223755e4so1915457eec.0
-        for <linux-media@vger.kernel.org>; Thu, 29 Oct 2026 23:32:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TEQEPlAo
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso1315470eec.1
+        for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 01:35:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793341978; x=1793946778; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=beTUv6ZC0r4hmBh8uJ0k1FYHfA/4l5fpP/vwiQFYCVU=;
-        b=SyBetCcG3zDR5Nsb3bNev4SWxdOn/JAbSrNKfVMo6KO5YNwbAVADnpyJ/6Kusi5QWt
-         YdcQ+WoHh07qcPQc87UYXgncliRxDcOUml20ciIMzzdx58XYsKGDfJnwwvx4I5GEi79A
-         I2hkA0Co8JYG2KTtzCkvM0X/3P1XsFE42doWSojNZA8N2n99wkPyD1Q+j2h1SABIE/MH
-         2d6kn0XvvJtbiH2A2GiaqQ1MJTAlQEMs0zHpsmWcgG1AsZZ8gUsR8SEjgXJDEtPYUUJJ
-         RnD+wMIOuvX/S5yRiYKxxS3dXrnOwkwfmkndvTvvp3HBUYU72heAWC1dEQZsUxjhF0dO
-         +G7w==
+        d=google.com; s=20260707; t=1793349340; x=1793954140; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1JSuP/hmF6Fi8nJPp3ZX98qfwOmuW23quiYMNH551tA=;
+        b=TEQEPlAoekXBpR64xw57LwD2ebFmB5ASh9F10Af3Eexq/jhfRBlWp8Xjgjr+8t2hzI
+         Hci1wSvBAfJSTu61TvVMVuL0zeJbcikoNGRoLv+x1wJDGc9k4KAEC/n3xjCsfbVbBayk
+         OMeydaxNn66VWh4NcdetcFvLgkX4hbP45qror+4ZwqCnAfddETW4j2cH1XKCQQ4ptuJX
+         0S24WZHdjqIhcEfEkMlz/xwCzWurZqEZnMAYB0NB1Pn0KvTSASThh+qBWJaZl8D9Y5Mf
+         OnU8EugU29v1ictQa+McfRjXGHc33JKso4hRLLHkJ7Bqy9PF5UjpSa3V7luBGcPai4PV
+         tCmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793341978; x=1793946778;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=beTUv6ZC0r4hmBh8uJ0k1FYHfA/4l5fpP/vwiQFYCVU=;
-        b=GUwJ+zzA81Kfjmnt9vxFKkKUHDgrHoUppuVA69Laar4qjBTmRVGbthr7BwOZ1JKvWk
-         VAJUU7WFd7itsGfE3z8iFKxmvee95ptWEQLZa5bBFpoUwEtBJCperSSj9BBMZoTx6k3l
-         xtnzyMOir5dvlpVuBo3xZrpqwxxDHgtL02I1kQ6NWdIkf4b23lx2js539qbasRa72v0A
-         Jg6HQoLlguTrnzjqMsgr6N8geZIOez6rVTXxqHo9D3NNtyjXZKtEo63kY7/aEArb1BX4
-         E+/RPa2WmooC/bXTBFX6DIssGiuq7uY45Cl4Vxu5LrKcCKc0zvJu3dSIH6tkYOxbXExP
-         Q+Tg==
-X-Gm-Message-State: AFq9FYK4/jF689r15MDxOgp6ga4SVut4hSg34A1tLJ/4ztufGWiTmDiw
-	1/JouJ5s3gyFjjEGx/7DXAsDbvbf309xhgWMk+mtv/eYnJE2/UDUryv+9vrzULgVCBH+HX/TXsp
-	E1ptlmZHEju+E/GoPE9wjgkcQg/EXdk9bAuzEqc83lLPIA3zzdVA3YsgxwMHHmbOzgA==
-X-Gm-Gg: AYBFou293Bp2IboY+niVh/ubUqERnK5tE2NaHG13Hdl2B4Kx5buNfEDmaxEHwvSNP8n
-	8eld5ZnG8fpsPnBjClm2SADUg4QUZ/lLT+J+epkWScvyafo8vbsxaPB8SsMblWzRUY25cG8O1fq
-	537xrlLhawdY4JnoZjqlECdYK1JVu9eCLdxPdbQFeiGbSNvDh07SkmeVUbOXdoVEoxgif7Z7GqN
-	zFKLNBAJXbLz90m6WmKuGjuxh/vKTO2eOMEiSIkh539+zGliJOQvNK0bVHWsth/UhvZZJv/Sx36
-	8T/Oo49x8T05BVKNbJSyhwztOBqNCphbR/zqtdsH0S5f3K7YmBodOpitkoOMbo1bsz3EwlztLJi
-	oSruFxR4TFVaLGr3fNqsv0gGJWGCwiGlUAIcyTeybrXuOfo/vRUJAFYpt0CfO2ur0JscPgCQMrQ
-	V2i2Kv
-X-Received: by 2002:a05:693c:65cb:b0:35c:8abb:b4ae with SMTP id 5a478bee46e88-36a423b3f59mr2005620eec.25.1793341977430;
-        Thu, 29 Oct 2026 23:32:57 -0700 (PDT)
-X-Received: by 2002:a05:693c:65cb:b0:35c:8abb:b4ae with SMTP id 5a478bee46e88-36a423b3f59mr2005588eec.25.1793341976843;
-        Thu, 29 Oct 2026 23:32:56 -0700 (PDT)
-Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4291e38fsm4903419eec.15.2026.10.29.23.32.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Oct 2026 23:32:56 -0700 (PDT)
-From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-Subject: [PATCH v3 0/2] add MBR type rate control for encoder
-Date: Fri, 30 Oct 2026 12:02:37 +0530
-Message-Id: <20261030-b4-add_sc7280_mbr-v3-0-8fadcc873953@oss.qualcomm.com>
+        d=1e100.net; s=20260707; t=1793349340; x=1793954140;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1JSuP/hmF6Fi8nJPp3ZX98qfwOmuW23quiYMNH551tA=;
+        b=Q1/jnXKqF1ic9raszSyJI+m2SM2wJcgjcuFRs8ZOs4uxqqg4crLY3XQVj5MM53Z61Y
+         91JF39s6uJ0z3uSE3n6wdZXbVqKEraU2V5WxPP3fNVsAlE8B/Kd5tTZxgx51kKF2HxEX
+         jED514CmXn5pxaQF7o9Hy4z96vkjgbrqTO4hQQnUIoZKjvzvNiEGBe1vDRm0teWgYSGh
+         96ldAaZyemXLSUsrYUlTC1xovqiAmy7iIwf6Cso01+jNTa1/2+nZpg1heB+AF4T6Usa3
+         mZkU2iyU7upO9JuJQZbmp2JH2Bo4xe7wElAf22PPv/T0rj06bUi3RTqqCsk5PEo4lEzs
+         RA1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz8tNfB0ughj8awlCwvI4TOkJQ8cZZDO8SEzr9+f1E/8osOTtFQninb85Zes5rrjYbPYjPH6KVaBN/HzA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLR8XrlJZOOPRMSMXNHSK8kckkKwSV1P3rtr68zYACO/47/7Vau
+	n3WJ/IjILI0VqS5xkmxJj9uRpcClLzSa7cKcb033UeLnnu2IWx+p+YAOlEG++4Ry1nQmoXQD2Bi
+	/TgRSIqx+WhxT3tufvOAkzW+ozw==
+X-Received: from dybnj7.prod.google.com ([2002:a05:7300:d087:b0:369:fc78:c914])
+ (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:7301:4543:b0:353:5d0a:dba4 with SMTP id 5a478bee46e88-36a4248a4bcmr2685687eec.36.1793349339731;
+ Fri, 30 Oct 2026 01:35:39 -0700 (PDT)
+Date: Fri, 30 Oct 2026 08:35:34 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -112,102 +75,144 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAY65GoC/22NQQ6CMBREr0L+2pL2Iy2w8h6GkFKKNBGq/Uo0p
- He34tbNJG+SebMB2eAsQZNtEOzqyPklQXHIwEx6uVjmhsSAHCVHgaw/Mj0MHRmFFe/mPrCyVtp
- IUfZ1ISDtbsGO7rU7z23iydHDh/d+seK3/dkU8j+2FZlgGnUlR1nwsVQnT5Tfn/pq/DznKaCNM
- X4A/Ki5d7kAAAA=
-X-Change-ID: 20260212-b4-add_sc7280_mbr-597ac615b931
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793341973; l=2218;
- i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
- bh=tnGE1jsNNcOs2BMpFfCevOPApRPSWJ8iWdCJqnyxXsQ=;
- b=g9d5DaR31byDvnJQ/a3n2/zYmHdc/K891oMJgv4bl51jmiTtQ/mAzfUjnulQYBmhusdLvUc5u
- pVKYzDRgSWkAM+Q5aXbRzD9kKm6sPYTU3l8b01dfze2ZzngGgzmYfhw
-X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
- pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX0CNUUYirNGFL
- eMpOHpPW8kaVdHrDSts7iy06y4XhmmNr23eNfDCqzdx8m15shqEnabPHT9bp/mBKnqWfJ9/4ujT
- 5FwBdd5sSEimWz78SqjBc3JfVktLZeJ1zBl4hJFNwhYdFUJi/Z3fI6t6Z9uD4vgJ/AMiaLOsKtm
- U7cqDsfSR4dSYYCVYl8tia42bVF/k3/bXZeCE5P5tygoCe24zUAom2gggbvJtBN2zYj7u18FR09
- f5TlNnHSOj7lt7l0UknznGQMgRxuhtSQLh1+P1Te2P5T4bEC3qh/bo187u0d5xD/oeDkBjYWV7r
- Qo0Xk/nztDm60vGJ5IYL1tRshKwl5y/zIXdoF2DXgFoIoGeY5/t/GKjNBLMocrbbEYfzICg/cAc
- w05q+MyosBNzESHMtJeI9BMPBZYocgZnoUP3qr1K3jJCY5fIkohOZY0qTqts5oQRSpkPKoL+tp0
- hmEonZvM1nOECu9SZwA==
-X-Proofpoint-GUID: GnYcvrNtm0ZhbqXH1GeUX8BLjYriqg6u
-X-Authority-Analysis: v=2.4 cv=Lp4HWXdc c=1 sm=1 tr=0 ts=6ae43a1a cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ptQNJT_TkX00A5QJh-kA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: GnYcvrNtm0ZhbqXH1GeUX8BLjYriqg6u
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAyNSBTYWx0ZWRfX1Xic9JOUuD13
- +vti0qEvjBaAlfY6Jm0MXpX2vCpXSccZ977Xlx2F5H89JcULusDS2X3xv9ralI/uPp3i4c61aYL
- HajE0DFbdsQxg525wvr0D/VnBZDk5sk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-30_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 impostorscore=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300025
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+Message-ID: <20261030083539.777877-1-almasrymina@google.com>
+Subject: [PATCH net v5 0/4] net: devmem: fix RX and TX binding teardown on
+ device unregistration
+From: Mina Almasry <almasrymina@google.com>
+To: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, Paolo Abeni <pabeni@redhat.com>, 
+	Stanislav Fomichev <sdf@fomichev.me>, Mina Almasry <almasrymina@google.com>, 
+	Kaiyuan Zhang <kaiyuanz@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
+	David Wei <dw@davidwei.uk>, Taehee Yoo <ap420073@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, 
+	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, Stanislav Fomichev <sdf.kernel@gmail.com>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
+	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>, 
+	Dragos Tatulea <dtatulea@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 
-This patch adds support for the MBR rate-control mode in the Iris driver.
+Fix two device-unregistration lifecycle bugs in devmem TCP bindings and
+add netdevsim support plus selftests covering both RX and TX device
+unregistration. These issues were found via LLM-assisted code review
+(Sashiko) and reproduced and verified with the new nl_netdev.py
+selftests on netdevsim (not tested on real hardware):
 
-Changes in v3:
-- Split into two patches: add V4L2_CID_USER_QCOM_IRIS_BASE to
-  v4l2-controls.h (patch 1), and base V4L2_CID_QCOM_MBR_RATE_CONTROL
-  on it (patch 2).
-- Reserve 64 controls for the iris control base instead of 16, to
-  leave room for future iris encoder controls.
-- Link to v2: https://lore.kernel.org/r/20260720-b4-add_sc7280_mbr-v2-1-a2a86f630f57@oss.qualcomm.com
+1. net: devmem: unmap dma_buf synchronously on queue uninstall
+   Synchronously unmap and detach binding->attachment under binding->lock
+   when the last RX queue is uninstalled in mp_dmabuf_devmem_uninstall()
+   or closed in net_devmem_unbind_dmabuf(), and unmap remaining unbound RX
+   bindings on NETDEV_UNREGISTER, preventing slab-use-after-free in
+   dma_unmap_sg_attrs() when the binding is freed after dma_dev. Factor
+   out net_devmem_lock_dev() and net_devmem_unlock_dev() to synchronize
+   netdev_nl_sock_priv_destroy() and __net_devmem_dmabuf_binding_free()
+   against NETDEV_UNREGISTER.
 
-Changes in v2:
-- Per upstream review feedback, convert MBR enablement from the
-  generic V4L2_MPEG_VIDEO_BITRATE_MODE_MBR menu value to a new
-  Qualcomm IRIS vendor-specific boolean control,
-  V4L2_CID_QCOM_MBR_RATE_CONTROL.
-- Drop the now-unneeded generic V4L2_MPEG_VIDEO_BITRATE_MODE_MBR
-  enum, its "Maximum Bitrate" menu string, and its documentation
-  (previously sent as a separate patch 1/2).
-- Drop the separate inst_fw_cap_sc7280_enc[] table (a near-complete
-  duplicate of inst_fw_cap_sm8250_enc[]); sc7280 now reuses the
-  shared encoder cap table and layers in only the MBR-specific cap
-  entry via the new mbr_rc_supported flag.
-- Link to v1: https://lore.kernel.org/linux-media/20260213-b4-add_sc7280_mbr-v1-0-e8d95b4e4809@oss.qualcomm.com/
+2. net: devmem: detach TX bindings on NETDEV_UNREGISTER
+   Extend net_devmem_dev_unregister() to fully detach and unmap TX
+   bindings when binding->dev unregisters, or clear binding->vdev alone
+   when only a virtual device unregisters while binding->dev lives.
 
-Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+3. netdevsim: support devmem RX and TX bindings
+   Enable PP_FLAG_DMA_MAP | PP_FLAG_ALLOW_UNREADABLE_NETMEM, 64-bit DMA mask
+   on nsim_bus_dev, and NETMEM_TX_DMA on netdevsim so devmem RX/TX bindings
+   can be exercised in software selftests.
+
+4. selftests: net: add devmem RX and TX netdev unregister tests
+   Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
+   to tools/testing/selftests/net/nl_netdev.py.
+
+Cc: Tariq Toukan <tariqt@nvidia.com>
+Cc: Kaifeng Wang <kaifengw@google.com>
+Cc: Dragos Tatulea <dtatulea@nvidia.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+
 ---
-Sachin Kumar Garg (2):
-      media: uapi: v4l2-controls: Add control base for Qualcomm iris driver
-      media: iris: add new rate control type MBR for encoder
+v5:
+- Rebase onto net after the net-next merge and state how the issues were
+  discovered and tested (Jakub).
+- 1/4: Inline net_devmem_dev_unregister_rx() into
+  net_devmem_dev_unregister() (Stanislav). Factor out
+  net_devmem_lock_dev() and net_devmem_unlock_dev() and clear binding->dev
+  after unmapping and re-acquiring the xarray lock so
+  __net_devmem_dmabuf_binding_free() cannot free the binding while
+  net_devmem_dev_unregister() is still accessing it, and reject RX devmem
+  net_iovs in validate_xmit_unreadable_skb() (Sashiko).
+- 2/4: Inline the TX unregistration check into net_devmem_dev_unregister()
+  (Stanislav), clear binding->vdev under the xarray lock, and lock
+  binding->dev in __net_devmem_dmabuf_binding_free() for TX bindings as
+  well (Sashiko).
+- 3/4: Configure the DMA mask and dma_parms in nsim_bus_probe() gated on
+  dma_pci_p2pdma_supported(), require PP_DMA_INDEX_BITS before setting
+  PP_FLAG_DMA_MAP, check for NULL ns->rq in nsim_pp_hold_write(), and drop
+  unreadable or net_iov skbs at the start of nsim_start_xmit() (Sashiko).
+- 4/4: Tolerate non-UTF-8 dma-buf names in debugfs bufinfo (Sashiko).
+- Link to v4: https://lore.kernel.org/netdev/20261015163915.1166043-1-almasrymina@google.com/
 
- drivers/media/platform/qcom/iris/iris_ctrls.c      | 101 +++++++++++++++++----
- drivers/media/platform/qcom/iris/iris_ctrls.h      |   4 +
- .../platform/qcom/iris/iris_hfi_gen1_command.c     |   1 +
- .../platform/qcom/iris/iris_hfi_gen1_defines.h     |   1 +
- .../platform/qcom/iris/iris_hfi_gen2_defines.h     |   1 +
- .../platform/qcom/iris/iris_platform_common.h      |   2 +
- .../media/platform/qcom/iris/iris_platform_vpu2.c  |   1 +
- include/uapi/linux/v4l2-controls.h                 |   6 ++
- 8 files changed, 100 insertions(+), 17 deletions(-)
----
-base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
-change-id: 20260212-b4-add_sc7280_mbr-597ac615b931
+v4:
+- 1/4: Unmap RX bindings in net_devmem_unbind_dmabuf() once their queues
+  are closed, and make netif_mp_close_rxq() report queue restart
+  failures, so the NETDEV_UNREGISTER walk only handles bindings whose
+  queue failed to restart. Drop net_devmem_lock: walk the bindings under
+  the xarray lock and take the instance lock of binding->dev in the
+  final free. (Stanislav) Record a queue in bound_rxqs before opening
+  it. (Sashiko)
+- 2/4: Detach and unmap TX bindings directly from the walk, without a
+  grace period or a second pass. (Stanislav)
+- Link to v3: https://lore.kernel.org/netdev/20261014161754.3782346-1-almasrymina@google.com/
 
-Best regards,
+v3:
+- 1/4: Run the NETDEV_UNREGISTER walk under the netdev instance lock,
+  and skip it when the device only moves to another netns. (Sashiko)
+- 2/4: Detach all matching TX bindings, then synchronize_net() once
+  before unmapping them. (Sashiko)
+- 3/4: Only request page pool DMA mapping with CONFIG_HAS_DMA, refuse
+  pp_hold on memory provider pools, and drop unreadable skbs in the
+  software PSP checksum path. (Sashiko)
+- 4/4: Check only the test's dma-buf in debugfs, skip instead of passing
+  silently, clean up on errors, compute UDMABUF_CREATE per arch, and
+  add the needed config options. (Sashiko, Dragos)
+- Link to v2: https://lore.kernel.org/netdev/20261012174300.2338784-1-almasrymina@google.com/
+
+v2:
+- 1/4: Don't unmap when a leased queue is unleased. Keep bindings in
+  net_devmem_dmabuf_bindings until freed, hidden from TX lookups by an
+  xarray mark, and unmap unbound RX bindings on NETDEV_UNREGISTER. Update
+  the binding->lock and binding->ref comments. (Sashiko)
+- 2/4: Detach TX bindings from the same net_devmem_lock-protected walk,
+  which now also covers unbound TX bindings, and clear the LIVE mark
+  instead of erasing the ID. The walk no longer uses RCU or takes
+  binding references (Stanislav).
+- Link to v1: https://lore.kernel.org/netdev/20261010025532.839559-1-almasrymina@google.com/
+
+Mina Almasry (4):
+  net: devmem: unmap dma_buf synchronously on queue uninstall
+  net: devmem: detach TX bindings on NETDEV_UNREGISTER
+  netdevsim: support devmem RX and TX bindings
+  selftests: net: add devmem RX and TX netdev unregister tests
+
+ drivers/net/netdevsim/bus.c              |   9 ++
+ drivers/net/netdevsim/netdev.c           |  33 ++++-
+ drivers/net/netdevsim/netdevsim.h        |   1 +
+ include/net/page_pool/memory_provider.h  |   4 +-
+ net/core/dev.c                           |   4 +-
+ net/core/devmem.c                        | 181 +++++++++++++++++++----
+ net/core/devmem.h                        |  37 ++++-
+ net/core/netdev-genl.c                   |  16 +-
+ net/core/netdev_rx_queue.c               |  26 ++--
+ tools/testing/selftests/net/config       |   4 +
+ tools/testing/selftests/net/nl_netdev.py | 125 +++++++++++++++-
+ 11 files changed, 373 insertions(+), 67 deletions(-)
+
+
+base-commit: 5838f10563d58afca6711edb5e4eda968ca181d9
 -- 
-Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+2.56.0.385.gac671c819a-goog
 
