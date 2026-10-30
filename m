@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793359407;
-	b=ZkLe3/cRZ2m2ES0D1Z8Xrg+sfBIXF41cFluZKo5bRCli7M0+Ng2EbG1KTooJwzSAEQFo
-	 XG8aUhky9tmPIs2SFZQ+eWQUms88JBjkLU1jZHEwyCn+5dVPc7jVqfPEC66lEhfZh9NJT
-	 MOtwrtA0YxKF7Uvlp2ezeHNndkcvshEadxfjzOcqQQUQa/innb1HejE9esVp3DcaX4cDn
-	 /6tAmM7D5LtzoVlnWjiXotyCkqDOlr3dD0EMyxrgl5BwPUraM/x72IkoHKHsUccUW8TbE
-	 IFxnikYgpfBASnO61Bo9ovsCQ0xJp+I8R+k/g0uh9A9iJ+CN6Rmn0O8KwLXixVOE8Tg==
+	t=1793359586;
+	b=CFHriLISpF/fSCiczu14gI15sqYs7CgIm50CLznEjKkOtlRyzCLRrDMRUn4JkPTMZbKf
+	 PyTHb8zj5AifrsUHtwQF1kceK1mwLc7lbqKrJZXOGeptPmfb8vPXG30o+qSayC7q0tr4L
+	 axDclQZvPP414FEJJCx4i0pa44uYqWrW8SlSLozyA8LAQKERM/OzbmaeIx3tE0efVvZrV
+	 2nNTdRvcarGD4Yv3xndPBEAkL6kmcqK9+E/ds78cAJHcBcWo7ayfpORZBNmMEGEN2h+d/
+	 qkccr4gXPJHmcOHOSbRgpi91T+wRXqy9ca2l5XQH0H/5JhH2eqCRCEhq+JZhFoaQTrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793359407;
-	h=DMARC-Filter:Received:DKIM-Signature:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:In-Reply-To:References:Subject:From:Cc:To:
-	 Date:Message-ID:User-Agent;
-	bh=wsIZPagL2IQRTwmwls/PPWyxZ/KEnFizPaME6ORoduc=;
-	b=mikYkR8C6ckQ5EepJSX/pR78My6eN+6RyB8/qMX3GfOORkHpalAA3Eavyab8mys3ThvB
-	 1MbUv5bJVgA7Bvhx9NvPowQk3wxDF0xPNplisVNxI6QPJny58i8b5ycfdnXzHLSYZV5iG
-	 AfI0Ehchf4fQNEexYNfPj3kDDMYDboIxP97XaTsvo9F1s1ibvRId1EGSN6dmKYZvQpgIJ
-	 X7dKvAfgWZHEhhKgNHODqeAPQyFJTSH/F9godxIqAKvud8+OVqIAmCcdUtwiAd/YJlh0M
-	 RPu6EvZ0Y6e2SbyHvdl7gijYEglng7ZzmtWQqeK3pTSBkqMyHRNyp5IKC9QVSnjDoDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793359586;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=3lYBSPOUkDUYx/GqJ2cXYoKcfGUJRnJswQ+l9oWZRUo=;
+	b=wDpmTkVoNWQQsiV4yuPGuS3zJMeYTT1Czj8vLMkOvZMR72zPPFhmxJ2GUbJQB4gjhj3H
+	 EEYNIPxfN9hyl+nG6mmp82Xrk4tPHN/3wcG4fem8KzzXHXdL+vEn+JrYBUN0jgtxugaPh
+	 5Z/RVX7w1+9z852zRZKkw7+QdXSKlC8fIaFUPttztIBxkwEob029JYQF2PXn4EsbhsLiy
+	 ucJXVcekxYJRo6Xa0BPH0hGhorLla4AOusjIpV4yGol6NFIoZnTZecvVNbghMcLJ2ldMa
+	 erbG6tLwWklq7He9VPYPK/QuW8CbPinxc2/o/E+72UJwFTacxHwgyBAtEwhQoOXNBEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Qe4w790L;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbIUdlYA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09FFC606A31D
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 11:23:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09FFC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF851606A326;
+	Fri, 30 Oct 2026 11:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=Qe4w790L
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 066BD63C;
-	Fri, 30 Oct 2026 12:21:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793359271;
-	bh=arP8i43YmlWYv841bkHPI1ng1w48zW7asMrimOt1l34=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=Qe4w790LsPREx/pn6PhbVHL3p+9rmcRi+uqcdJaxY1eNWDLrUBivaRphWgsUxakqF
-	 vlZK1Ps2m/mFfLMLqZ9LoGoCL8lwFqsD5vb+EjdQ8O8WvRVTPQqSsR0f/Evn1COsZB
-	 2AiatjTXhjV9e8/bSJUppi5d+41/1PQ++IgLVkPY=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PbIUdlYA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D08E11F000C1;
+	Fri, 30 Oct 2026 11:26:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793359585;
+	bh=3lYBSPOUkDUYx/GqJ2cXYoKcfGUJRnJswQ+l9oWZRUo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PbIUdlYAuEN1TYtmyKypruUtd4NjkwrZpTosLekKjzcewGM6vjUENVRHwRu0hqMLZ
+	 oorY8DnEAbTVLkZTITWVYFxfWUDpHYccUG/dKYqBbZzb7tMDvHBiwLdpoRkBRvuuQw
+	 +SC+7woRfRXndicdbFvj9JDH7K2huS7whb7CApIE5/2d4yLUpz5Detz2hxD60os84E
+	 nNEHvTXusrgMFolxG8iYCNTmGU/O0bjFm8SxQ3qcgv/JVQgmBXdDU0hrbysxLufhQE
+	 HcvSeuqokgSgAyvag5CuV4y3Y8i8wmxnluFj8rwNcPESOiYRvK19dPwgpHi4H22cBr
+	 ormOcqlnf5kpg==
+Date: Fri, 30 Oct 2026 12:26:21 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: zhentao.guo@amlogic.com, mchehab@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Christian Stefan =?utf-8?B?S8O2dsOpci1EcmF4bA==?= <ckoever@outlook.de>
+Subject: Re: [PATCH 02/11] dt-bindings: media: amlogic,s4-vdec: describe both
+ decoder cores
+Message-ID: <20261030-adorable-garrulous-flounder-d4bd09@quoll>
+References: <20261025192507.210058-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192507.210058-3-christian.koever-draxl@student.uibk.ac.at>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,59 +61,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261030093552.3030999-1-laurent.pinchart@ideasonboard.com>
-References: <20261030093552.3030999-1-laurent.pinchart@ideasonboard.com>
-Subject: Re: [PATCH] media: i2c: thp7312: Fix maximum value of FOCUS_ABSOLUTE control
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Paul Elder <paul.elder@ideasonboard.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org
-Date: Fri, 30 Oct 2026 11:23:22 +0000
-Message-ID: <179335940244.4174506.14920266420860705868@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+In-Reply-To: <20261025192507.210058-3-christian.koever-draxl@student.uibk.ac.at>
 
-Quoting Laurent Pinchart (2026-10-30 09:35:52)
-> The thp7312 driver uses the value of the V4L2_CID_FOCUS_ABSOLUTE integer
-> control to index the thp7312_focus_values array. The control is created
-> with an incorrect maximum value that can cause an off-by-one read after
-> the last array element. Fix it.
+On Sun, Oct 25, 2026 at 08:24:58PM +0100, christian.koever-draxl@student.ui=
+bk.ac.at wrote:
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 >=20
-> Fixes: 7a52ab415b43 ("media: i2c: Add driver for THine THP7312")
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> The S4 video decoder has two cores: VDEC for H.264, MPEG-1/2 and MJPEG,
+> and the HEVC core for HEVC, VP9 and AV1. Update the description and
+> name the individual reg, interrupt, clock and power-domain entries.
+>=20
+> Signed-off-by: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
 > ---
->  drivers/media/i2c/thp7312.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  .../bindings/media/amlogic,s4-vdec.yaml       | 24 ++++++++++++++-----
+>  1 file changed, 18 insertions(+), 6 deletions(-)
 >=20
-> diff --git a/drivers/media/i2c/thp7312.c b/drivers/media/i2c/thp7312.c
-> index f1c7f149c06c..e6bb790dd988 100644
-> --- a/drivers/media/i2c/thp7312.c
-> +++ b/drivers/media/i2c/thp7312.c
-> @@ -1266,8 +1266,8 @@ static int thp7312_init_controls(struct thp7312_dev=
-ice *thp7312)
->                                           0, 1, 1, 1);
->                 thp7312->focus_absolute =3D
->                         v4l2_ctrl_new_std(hdl, &thp7312_ctrl_ops,
-> -                                         V4L2_CID_FOCUS_ABSOLUTE,
-> -                                         0, ARRAY_SIZE(thp7312_focus_val=
-ues),
-> +                                         V4L2_CID_FOCUS_ABSOLUTE, 0,
-> +                                         ARRAY_SIZE(thp7312_focus_values=
-) - 1,
+> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml=
+ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> index e3c2ab4000aa..6c98d7013029 100644
+> --- a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
 
-eeep. We should really just teach computers to start counting at 1.
+There is no such file. Do not send in-flight patches with fixes, just
+fix the source.
 
-/me ducks.
+> @@ -11,15 +11,19 @@ maintainers:
 
+>    - Zhentao Guo <zhentao.guo@amlogic.com>
+> =20
+>  description:
+> -  The Video Decoder Accelerator present on Amlogic SOCs.
+> -  It supports stateless h264 decoding.
+> +  The video decoder (DOS block) of the Amlogic S4 family. It has two cor=
+es,
+> +  VDEC for H.264, MPEG-1/2, MPEG-4 Part 2 and MJPEG, and the HEVC core f=
+or
+> +  HEVC, VP9 and AV1. Both run microcode that the secure world loads, and
+> +  are exposed as a stateless V4L2 decoder.
+> =20
+>  properties:
+>    compatible:
+>      const: amlogic,s4-vdec
+> =20
+>    reg:
+> -    maxItems: 2
+> +    items:
+> +      - description: DOS register block, both decoder cores
+> +      - description: DMC request control, gates the cores' memory reques=
+ts
+> =20
+>    reg-names:
+>      items:
+> @@ -27,10 +31,16 @@ properties:
+>        - const: dmc
+> =20
+>    interrupts:
+> -    maxItems: 3
+> +    items:
+> +      - description: HEVC core
+> +      - description: VDEC core
+> +      - description: third DOS mailbox, not used by the decoder
+> =20
 
-Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Aren't you just duplicating names properties? I would check... if that
+file ever existed :/
 
->                                           1, 0);
->                 thp7312->focus_method =3D
->                         v4l2_ctrl_new_custom(hdl, af_method, NULL);
->=20
-> base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
-> --=20
-> Regards,
->=20
-> Laurent Pinchart
->
+Best regards,
+Krzysztof
+
