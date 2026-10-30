@@ -1,85 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793370491;
-	b=eDHDmQqpTtC5A0olG/BpCAlsnd+YSUHEfN53vs5HIHBpm+zgB5qqwi/Y9sVamnGje3F6
-	 CC4/51HIwwb9ujtyald9d7htrk2MfPqbW/esY0DuP/iTt8QZu7okmzs8I4pBscecBUaqy
-	 aNvTQ2qDydUgKEie4AIrOrlChZV5QALdjC1Ijee2HG3RiwJ9Krzv+6GPFik41s37tNO53
-	 HLV3+6O9CraHAOlI7ZQkJh++t78/V8sVJ1KsRyciXOdgQliOu+XX3dkZkkVXnKZBn7dX3
-	 4eVB4eHAiqwCVUXXxQB/Y3GjnQJkd79oQiQfoJZigyvxeIPTznYLOHDaD+Hu6cfeO3w==
+	t=1793372656;
+	b=dmQLFq7l//1qJIZ7HNJvQwZZG5U2fTllVgATONeWJ/XsLyDnki87WVFQEnOCk/Pf39bi
+	 GIotJz4FHo5CGIq8R5OHPq5uPBVJUH4iMeyOIHk6CY6ENPrkqcpOYQPJg+yeU10xNtaiS
+	 vo2Cy5urhbi6TEql+LfEwggLmyR4wRgeJgx0jhR7Z1PWn3DV9Oyaa/JpA6zekwJidA3Yk
+	 VrBAZUYLVidVH9H3nu8IVihX6mG1aLObYRa5laYEoyDtpF/5MYs7f5z+G5HbcoRbSbtyn
+	 iqBHnNLX/L2CY2eZ56SnfwhN00U7z1OS1iEW1oOmYhU/dQKj4OdwP/OKiWKWg3PnXXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370491;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=jb0UUIPqHeTvqxXRmuce2uufcIVFotyqcoN9aAY32/w=;
-	b=t6ZxaWnnMPX4NH0NpRqboEskk/CTPIcVpnvi+KyjR6U8ydsZaAk8QzraX+wHRjX14ERT
-	 VVexi/G7ju8mGC7PdlZCTFNOb0bhJeodeki3cWWpixubTOJEEinMxJixS7cXq66WPaDdP
-	 tX/RIQzsIIBGDJtdN4B5GcSB3NXoQdTOMCCEd6T3bWto6TUBrrkhD2Fq2oEK/zYy6P4B4
-	 3MlhtOFeLioZ53xNUoTA5ovafSBS4EfooOvTo7QkL4tlN00r0TatPDrDwDJkMSTswl8s9
-	 ei03VpOk7rIVW+fDbrE+tpTb83OBhjKOPoJJMzL48WTK8PLMJFa47cMYCuIAb9bFwYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793372656;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=3ejU+QwuvUUVlsjsPfu0/M64lUD5vHCXgteWpYlp2rI=;
+	b=XYVOV0KkbK0JaSW/JWDxW4us08DP2QtxipAmXCBMUeqOPLRL15+M7RG0Cs1AycVNXsLl
+	 tAuualHFm+O+ODyNDAPcKyaYs27257UksgW09iOezqZ+orRFuqm3/Q0DX9yPLWlNLs+x7
+	 SaDwhvLt4UOG+dnOYULYqOteAyCMMPCLN9OU1zmuEJwHigXusq/pxsYlGggfR/z5ffsJ5
+	 bmI/09rhuo/b1KAfSzkf/qjVPg9ZuRLfZSHQkCcFFs4qSRdF958o27GOTUchppubVQZiW
+	 6wXTv9QCIWrWY8hARtqJ68VNwYdX7lC82bTUnJFsDU7pmlVE3hu3BlzCypfJ2s46P4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jmCuwfAH;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+xpX27b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD60C606A31D
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 14:28:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD60C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF05606A31D;
+	Fri, 30 Oct 2026 15:04:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jmCuwfAH
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a210470b49so5688675e9.2
-        for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 07:28:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1793370488; x=1793975288; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jb0UUIPqHeTvqxXRmuce2uufcIVFotyqcoN9aAY32/w=;
-        b=jmCuwfAH1CPTN8+mXIj6qPJx442DYL1aTnIIIWOVWiZegQVRIFn3R9Rmlu+wVFk/Q1
-         qjr0GyO6OYqSG+JpENqWyICsbWea0t4k+e8bfeh63CwkToIcFD9Lc+5Pl88NM4vjtkdA
-         hOlaadfDH7CaA5sQzJj9gHFemWBXIocfM+pzIWAOWpTKjlrBaOaZuIVuJTZ7N5H5WHW+
-         KLESNqOfJk4VztQGyiobnxzEORUCO9NINvql6Y0jjVEs/8OkRe6i2s22zRDkydoQtmSi
-         WPlaTz+IjyJRCxWtLoBVqUUlEgynmw/XJ78hh/5U9KHq4zrG0HOJT8R06SP/mYZL8KGL
-         YXKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793370488; x=1793975288;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jb0UUIPqHeTvqxXRmuce2uufcIVFotyqcoN9aAY32/w=;
-        b=k/6NEUemaaI0oPRWSeBJM5B6R/inw2hun6ulvUu8WReFPsA6NYjJEQSdEgCiT3/GiU
-         liPAS+/Lt1JcUNt3rot34/iUo4+5Wqqp1BBS2HeQxrZlaovuQtbbLBwkQDeFZKxDNm8t
-         UvyYEGKxB58DvW+yomE+I1zDx0Dys56asZFq9H8Lv4md8AoKlSHbx1UR7v4AJBG4aEw7
-         ztpwak9juIiiiwaEmd1VvtlGv3zNXd8PzxsEc+x2+a8apprzX4EyC01bCXRD0lwz/x3k
-         YwTqYTRJXwNpUycYeYNHuG58TSgoDr7kfeZBzH63qtsUHeiWspNuDB0WQRV4623XMOej
-         dC/w==
-X-Forwarded-Encrypted: i=1; AKwUvBwU+CmizTwJdXmK0l1E3p9LhWG0veMquHgZ779b6b5xHL1VV5NxqOE6NHamRSqGJodZZfI9CaoYZsRzOQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLA4yTDFG8Kefv/ZGj639z47qYKRGES0yxPd74Br6O0wSwXqRAz
-	oIq4jPMusV2GmEKtqaZeY+aIlSHGkCf7OwFuLnJkQwR5HiHVj50VCzcvFgNeExodMJE=
-X-Gm-Gg: AYBFou3h3nngAzq1iDQ4W0/Tm3v+FIjX/XDXkB8NLfP8r1SKWAWJuOg1EbkmD6vywj3
-	1ZLIKHVMGxQ1Kdb68bz5pJYbEA40Qpb1Xfu2ZNcDcwtwusYiXhjKq33qd71+UY84rVxupfBd5Yg
-	DLjOTK1YSJzDO6dff8LWKvG/iKsvGg3uIcwChOaiiPP9Rhbi1WiU2BbDguykWifNVibjiPTaDpW
-	PBJdrMPJDi5/eucpfH8svv2amGLZEkrsyl14aJm2HzPgk+tq/MOIPJ4zXk6SYODJ/UhzQcPc0lz
-	TsEtP9fZlmP2AnOlNvv+fWKxeQiGoWUIK79gI58EE8Ucl8K6+FGJMu8Bdv5xhgZyff+6qurvqWr
-	upxzGU/TQLuEPtnpp2XsWzzCAk2HKEkY9PtfrfjupujTp8InOpMn2eMnHiauf+T7U2VpZ8AeMC0
-	zkWumoqrWoBRvM4YkzHcl/0BJDORSay/uXfE/EEgrfGrqywqahaLw/5JoQMlm3odrYV2zv3dc8a
-	a60PdYtNzPHFvBmHY8sO7kD9gwqEhWTMV81iLx7ut3H3kprOoPvuOXyHgN4DJtXIei3/JDBzgRs
-	tSJR44X9GeAVDvwhThgtp7QW2SIYXsjEjMNgh2Vc/udPuVZQz9a8AOSePNcMfRTTZu0Rzv733RL
-	yRZjj/ByOQ5gnKhf9Uxu8d+XxQ23Z6q2DwQ3fV2hmCHHDbUiHvS1hJJintRmDUn9JsQHY0MA=
-X-Received: by 2002:a05:600c:8b63:b0:4a1:f688:a5d5 with SMTP id 5b1f17b1804b1-4ac187a7655mr51642025e9.23.1793370488309;
-        Fri, 30 Oct 2026 07:28:08 -0700 (PDT)
-Received: from chomik.local (ory90.internetdsl.tpnet.pl. [46.170.50.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm53158235e9.4.2026.10.30.07.28.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:28:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=n+xpX27b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8E881F000C1;
+	Fri, 30 Oct 2026 15:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793372655;
+	bh=3ejU+QwuvUUVlsjsPfu0/M64lUD5vHCXgteWpYlp2rI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=n+xpX27bPWE+A2TwUPOE3kmmTRkiwZ/zopIYTmEws4IWwKWLejW2Z7Ym5/KEZUFFl
+	 FsZLfRob1h5sCFMrSQdL+5cazhsLr0XHvEyPqH6sTaTI/oJy+apdaOfOWbDRZ/RjOU
+	 stnzbFpT2HB8K1dQc52sODuD+SWGC9AQbf+v+TLlNIV5f61ODrleB9Ht26auRm+GRr
+	 gFgb9NDKqc2vn6JKdfqE/RVZhr5+6fFBImL223SGX5Zx4CixItBqK6Urd9YtnYexM4
+	 R0Jl/2tJMKrYuSFyd+8tOUJbGHQEmUgPrJTA2jFUst56IwjQVfZrLQWdaWi75g+z2C
+	 arEnhZ87VsAfA==
+Message-ID: <5817be6b-7180-407b-acb5-8c5fdef4edfb@kernel.org>
+Date: Fri, 30 Oct 2026 15:04:09 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,46 +51,92 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for
- S4
-From: =?utf-8?q?Wojciech_Biega=C5=84ski?= <wbieganski@baylibre.com>
-To: Zhentao Guo <zhentao.guo@amlogic.com>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
-Date: Fri, 30 Oct 2026 15:24:06 +0100
-Message-Id: <179337024629.131241.9227206619077693683.b4-reply@b4>
-X-Mailer: b4 0.15.2
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] media: qcom: camss: Add support for Hawi
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org
+References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
+ <fFfGGWaoXA-LdO6s8Xh_kQWQfncXe9YNdpcj2yNkphWHAR_V69LdLOcuhXPsbg8dEUSN4j4yygq4wPre5cz79w==@protonmail.internalid>
+ <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi,
-I tested v12 series on AQ222 board with v7.2-rc1. Firmware version:
-'v0.4.ff.I0c83495.75444b3' build 'Thu Apr 16 18:18:55 2026'.
+On 30/10/2026 12:43, Nihal Kumar Gupta wrote:
+> +static const struct camss_subdev_resources csid_res_hawi[] = {
+> +	/* CSID0 */
+> +	{
+> +		.clock = { "csid", "csid_csiphy_rx" },
+> +		.clock_rate = { { 480000000 },
+> +				{ 480000000 } },
+> +		.reg = { "csid0" },
+> +		.interrupt = { "csid0" },
+> +		.csid = {
+> +			.parent_dev_ops = &vfe_parent_dev_ops,
+> +			.hw_ops = &csid_ops_1190,
+> +			.formats = &csid_formats_gen2
+> +		}
 
-RAW NV12 frames at the decoder output were visually OK across typical
-resolutions and H.264 profiles (main, high, baseline) with and without
-B-frames in the stream, also with I-frames only streams. I used Gstreamer's
-(ver. 1.26) 'v4l2slh264dec' element on Trixie with both mmap and DMA-bufs
-buffering (on the capture queue only). Input bitstreams where
-FFmpeg-generated (testsrc2 + libx264) or publicly available test videos.
+This looks strange, why is there only one clock rate ?
 
-Decoder (and the output) remained stable with simulated (non key) frame
-drop at max resolution (1920x1088, noise generated by FFmpeg's bitstream
-filter).
-
-The performance at max resolution, tested with 'filesrc ! parsebin !
-v4l2slh264dec ! fakevideosink' pipeline was ~85 fps (fixed number of
-outputted frames divided by the total execution time).
-
-Tested-by: Wojciech Biegański <wbieganski@baylibre.com>
-
+---
+bod
