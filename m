@@ -1,86 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793364555;
-	b=RiHTOYKERH69ioe2MABQw3rW0cil6ZkdoVQIwfmoZokV0llspeLlrXnS6BPoaIEfjy1W
-	 ZNS3i4zqk02jn6+1edoB1h1dKvuW1TRHGc84rQQwOs6wezAGNfB1697RSoAXtWwXS0IsP
-	 FvKvSiQqNA5aBseYeJrcevFNjTw9SgQXiRohWFIPsoVTJMKgiC5ODbmaybxU/ha0slLX4
-	 8oy1l1mZx+FOpcYXsbvpuZwBl3i/xbSQLwYsatf0kNJfok88wqzacEdx1XUiMI5w4WiL9
-	 nWHyayvBtpswJFq2DdItuXqpvT0PpLzeSKiiWQUA7C43xEVOXX1M8RBwOnovOH3fK5A==
+	t=1793365556;
+	b=zYvkP8SRlGYsxwBgWiNpg8lSjPBoY1WvL5PLOmN/+paFPID4f0JIaX+zZkMLl0lGfrzH
+	 863ATNRYFxoUpt2Qkn+SuiQg18YBk7hqHQfdzIvaDM1ynEYPhflJIotJRCVc/DR5kvhsi
+	 JTnAZZyaYCwXstPc8/1SpbXhxvzosAjUmRICDJcNRQue4FnDjmJzg0RbLTBVZTguVAtdM
+	 kF6PoedxRyZsz4x5m/bLcWDrdvFthi6a6BohKaqSjDXT1/is8+vZZkCZJGU64qNpudspZ
+	 ulLd3qg/rasBCwT7dUP6+M9mh6r09+w5CqYMJ3P7zzpv9xzh3TwxA35iHkXyig2a3pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793364555;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=5NgGtSrDL6xzCswDYaRWwi+bXBJ29klM0xRwGKRqsL0=;
-	b=f20xOOXHIdMzSNFgQ/h/hyh1fviUqEuB8+1kbrmPwqvI54W/6oeJEoBr1T6thOCW3mCG
-	 k8h0WWLwLMheixLxBN2HoN5W7a64vyzxNJHVkeLMLGnlZWuR8hM51yICqbYQE0jlemZAq
-	 RIv2L8j22P7q9AoyruB1ZpzddwQSiF0h9+oZLTX9rbnjp0hCdiI1KS1yDuXTf2P+kcH8e
-	 tZl/hQTJB0fgLt+rCikOl8c9BNwZ95zr1Yhzi1ytT8yyCelmcFK7KvSBbNi8LXGTS4Gr4
-	 zLd2nQuD+HL1kKb9dMjMOhlClGltEcxLUA1LbYEpdY/oaEm54dgl6n+deTDqDP2A6Ug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793365556;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=UTx52JTaNLihAvuaFwu6EdyQhcOp4tcp7+Zh6xi+HS8=;
+	b=LF9lsCtL4ZOGgx/HbXsiT9VqAmdmcz5uGMrHWo/em1Fi+GNEILEYZBmSiHzanTRtKIzD
+	 SDsRg9FnQ99OP4YY9+T426l+9SJgyWAZ3cEMxJUCws0HmCiZU1paYakp3aQata96IYuDF
+	 ewezKZtxH/ZyPpumrliw3frXMnUkc9CJ3TA7jctHPQLcK0Z1cUCF+cQUDC1s6tioVQ4Tx
+	 I8XpWlSfZZnm4CKESy+YicofUcrxseZiAMpgJ1tvS2DLvK5+kLegRB5vmh3/YzFdG6d5H
+	 J0AhaLK9/ig7O/WW4LbH1hzMUKSyhxgRrQZA5yk9huK1eqwV2tmZUgT1ap/JBT6/ypA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GoAtWKhI;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A104606A31A;
-	Fri, 30 Oct 2026 12:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A104606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GoAtWKhI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793364547;
-	bh=KlAsEMUoh8SqMK535dsRdRC/2BXgKedTejkSjok4NIg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=GoAtWKhIvjsma323nTKdjX9UTokJbCgbQ7d9/UT5FOB/SFdzkpNgXp2n2f/d2p4lk
-	 oGcgZ66mcU5aQJEhRGToUuHU16bJwxF53mH176R0q9mKFWRI2FRbyknQ3ZIlXFl/kP
-	 AIi8buKDKTPluHT5GMgrObmLB6lYfrGffyIu/KixOTt6IakJtqT7M5uHlk6XdlkMTr
-	 myL7SY6Cd6LTPIw1vDQqIREACm5cUGhhu1L3KEOzNtL3bh2gjasTEo6IfuR3AKiO5g
-	 3C3Oh8bahCDoQjDcZoG24Rigzu3QeTRzWpv5dkqTedmki6Iid9ObxkczGlFFYBfXlj
-	 t7Oj80WlqF5Pg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 884DB17E0053;
-	Fri, 30 Oct 2026 13:49:05 +0100 (CET)
-Message-ID: <76e2e993fa5a8fd054bad97505907d3c4e88e11c.camel@collabora.com>
-Subject: Re: [PATCH] media: rkvdec: Do not keep the clocks enabled from probe
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: iav@iav.lv, Detlev Casanova <detlev.casanova@collabora.com>, Ezequiel
- Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Diederik de Haas	
- <diederik@cknow-tech.com>, Jonas Karlman <jonas@kwiboo.se>, Francesco
- Saverio Pavone <pavone.lawyer@gmail.com>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-Date: Fri, 30 Oct 2026 08:49:03 -0400
-In-Reply-To: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv>
-References: <20261030-rkvdec-runtime-pm-clocks-v1-1-fb2c5b629e79@iav.lv>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-ruCLDIpENIOKgPK2wLA7"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6AA30606A31C;
+	Fri, 30 Oct 2026 13:05:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AA30606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=UTx52JTaNLihAvuaFwu6EdyQhcOp4tcp7+
+	Zh6xi+HS8=; b=cymqIvohehS50JDj0kO4gmvdgDC2BBy3b7P08RDo1bA99S80Eb
+	qf+LOFFO5dogWG1Oc+C19USOBfa6Bva+cGMO+2kmmIYig6MilgHqhWOB4M9z165B
+	Nu5ktt83Q2C35OXj4xMlhxUq/AOl3XeEGjM9k0W+0u5ecevggBtH7cF+c=
+Received: from user-virtual-machine.localdomain (unknown [223.160.172.89])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkDmKwEgluRq1XcKAQ--.39307S2;
+	Fri, 30 Oct 2026 21:05:37 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Sean Young <sean@mess.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	=?UTF-8?q?David=20H=C3=A4rdeman?= <david@hardeman.nu>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: Re: [PATCH v2] media: rc: fix use-after-free of rc_map.name on register error path
+Date: Fri, 30 Oct 2026 21:05:35 +0800
+Message-Id: <20261030130535.2921-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <auRsPM9YO4aXd8qL@extorris.mess.org>
+References: <20261027014144.9144-1-25031212351@stu.xidian.edu.cn> <20261027021718.14264-1-25031212351@stu.xidian.edu.cn> <20261030.pref-04.ec83d43911ee476d@stu.xidian.edu.cn> <auRsPM9YO4aXd8qL@extorris.mess.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,106 +62,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkDmKwEgluRq1XcKAQ--.39307S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXFWDXrWrtFykWr1UXrW7XFb_yoW5GF1rpa
+	yrKas8K3yqkr4jqwsIqF4UZa429w4fAw4rAry5Gryjk3y5uryftFZ5AFyUWa4UAr97CFyU
+	trZ8tw48Z398CaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9qb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVWxJr0_GcWlnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
+	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
+	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxG
+	rwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4vE14v_Xr4l42xK82IYc2Ij64vIr41l4I8I3I
+	0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWU
+	GVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI
+	0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0
+	rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJbIYCTnIWIevJa73UjIFyTuYvjxUyDPiUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUCD2rjY8GjNQADs0
 
+Hi Sean,
 
---=-ruCLDIpENIOKgPK2wLA7
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+You are right, and thanks - that is a good point. Once rc_dev_uevent()
+returns -ENODEV, dev_uevent() fails and kobject_uevent_env() bails out,
+so the KOBJ_REMOVE event is never sent at all. udev has seen the
+KOBJ_ADD, so suppressing the remove leaves it with a stale device. That
+is the wrong direction.
 
-Le vendredi 30 octobre 2026 =C3=A0 03:33 +0200, Igor Velkov via B4 Relay a =
-=C3=A9crit=C2=A0:
-> From: Igor Velkov <iav@iav.lv>
->=20
-> Since commit 6a846f7d72c7 ("media: rkvdec: Enable all clocks without
-> naming them") the clocks are fetched with devm_clk_bulk_get_all_enabled()=
-,
-> which keeps them enabled from probe until unbind. rkvdec_runtime_suspend(=
-)
-> disables them on top of that, so their enable count never drops to zero
-> and the clock gates stay open while the decoder is idle.
->=20
-> On RK3399 this also breaks restore from hibernation when the boot kernel
-> has not enabled these clocks, for example with rkvdec built as a module:
-> the gates are closed when the restored kernel takes over, while it still
-> counts the clocks as enabled. Powering on the vdu power domain then finds
-> the count at 1 and leaves the gates closed, and the first QoS register
-> write of the domain never returns.
->=20
-> Get the clocks without enabling them and let runtime PM enable them while
-> the decoder is in use, as before that commit.
->=20
-> Fixes: 6a846f7d72c7 ("media: rkvdec: Enable all clocks without naming the=
-m")
-> Cc: stable@vger.kernel.org # v7.0+
-> Signed-off-by: Igor Velkov <iav@iav.lv>
-> ---
-> Tested on ROCK Pi 4A (RK3399) with v7.3, rkvdec and panfrost built as
-> modules, panfrost not loaded:
-> - idle decoder: the vdu clocks have enable_count 0 (1 without the patch);
-> - hibernate, power cycle, restore: 3 of 3 (0 of 3 without the patch, the
->   restored kernel stops after bringing the secondary CPUs up);
-> - H.264 decode with GStreamer v4l2slh264dec, 300 frames of 720p High
->   profile: output identical to avdec_h264 (md5 of all frames).
-> The QoS hang was traced with debug prints in rockchip_pd_power() on a
-> 7.3-based kernel.
->=20
-> This is separate from the unbind leak in Jonas's patch that Francesco
-> posted [1]: here the extra enable comes from probe.
->=20
-> [1] https://lore.kernel.org/all/20260717154505.83935-1-pavone.lawyer@gmai=
-l.com/
-> ---
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/me=
-dia/platform/rockchip/rkvdec/rkvdec.c
-> index 061281f903f3..45c541ae3029 100644
-> --- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-> @@ -1788,7 +1788,7 @@ static int rkvdec_probe(struct platform_device *pde=
-v)
->  	if (ret)
->  		return ret;
-> =20
-> -	ret =3D devm_clk_bulk_get_all_enabled(&pdev->dev, &rkvdec->clocks);
-> +	ret =3D devm_clk_bulk_get_all(&pdev->dev, &rkvdec->clocks);
+The strings themselves are not the problem at the point the remove
+uevent is generated: rc_map.name, driver_name and device_name are all
+still valid until the driver frees the rc_dev after rc_register_device()
+returns, which is well after device_del(). What we need is that nothing
+is freed before the uevent is sent, not that the uevent is suppressed.
 
-With the explanation above, it seems pretty clear we have an issue. Now, th=
-e
-problem with this is that PM ops are set with:
+So the error path should keep the device registered until device_del()
+has sent the remove uevent: at out_rx only unregister the input device
+(it is a child of dev->dev), keep the keymap for the uevent, and move
+both the clearing of registered and the freeing of the keymap after
+device_del(). device_del() drains the sysfs readers, so rc_dev_uevent()
+cannot run afterwards and rc_map.name can be freed at that point.
 
-  #define pm_ptr(_ptr) PTR_IF(IS_ENABLED(CONFIG_PM), (_ptr))
+Something like this against next-20261026:
 
-So if CONFIG_PM is not set, the initial resume will never occur, and first =
-mmio
-access will likely hang the CPU. We need a clean pattern to handle this, an=
-d
-perhaps review other similar drivers while at it.
+ out_rx:
+-	rc_free_rx_device(dev);
++	/* Keep the keymap until the remove uevent has been sent. */
++	if (dev->input_dev) {
++		input_unregister_device(dev->input_dev);
++		dev->input_dev = NULL;
++	}
+ out_lirc:
+-	scoped_guard(mutex, &dev->lock)
+-		dev->registered = false;
+-
+ 	lirc_unregister(dev);
+ 	device_del(&dev->dev);
+-	/* registered already cleared above */
++
++	/*
++	 * The remove uevent has been sent and the sysfs readers have
++	 * been drained; lirc file descriptors that are still open must
++	 * not reach the driver any more.
++	 */
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = false;
+ 	goto out_free_table;
 
-Nicolas
+out_free_table already frees the keymap after device_del(), so the
+out_rx path gets the deferred free without a new label. rc_dev_uevent()
+keeps its registered check: it is still what keeps open lirc descriptors
+away from the driver, and it now runs only after the uevent has been
+delivered.
 
->  	if (ret < 0)
->  		return ret;
-> =20
->=20
-> ---
-> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> change-id: 20261030-rkvdec-runtime-pm-clocks-41adcf141271
->=20
-> Best regards,
+The same ordering exists in rc_unregister_device() since 4f0835d6677d:
+it clears registered and frees the input device and the keymap before
+device_del(), so the remove uevent is suppressed there as well. I am
+happy to send the error path patch only, or to extend it to
+rc_unregister_device() as well - let me know which you prefer, and I
+will rebase it on linux-next.
 
---=-ruCLDIpENIOKgPK2wLA7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+If you fold this into your series, a Reported-by: YuanZhe Liu
+<25031212351@stu.xidian.edu.cn> for the analysis would be appreciated.
 
------BEGIN PGP SIGNATURE-----
+Thanks,
+YuanZhe
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauSSPwAKCRDZQZRRKWBy
-9LLJAP9JGmJUIntmEuLPCbktfBqHUFX1/7ZfGaC/KbjrAiMyawEAo53JgFggAOMr
-y8Uub/MI2Wlho7axDbJbc7ZVrOuyVw0=
-=+8na
------END PGP SIGNATURE-----
-
---=-ruCLDIpENIOKgPK2wLA7--
