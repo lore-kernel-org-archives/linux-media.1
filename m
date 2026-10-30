@@ -1,70 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793397953;
-	b=x9uWp8SI9botKTSDW4m4v/9+w5C9JI5/rF6aNapqVUT7GuZdk77lqsIteAVa6xm7If8x
-	 KebK/Ok5reubKbtsrVr5VcFv/jL7Xf/ZCYmvTlHJauJCXrWsPTYE+PYJ1rNxwa5VJhQVX
-	 LNxGRLti4OgAyt3fLLVD5mZUEvZrOJZkBkEstlBE/KZ8Qd41ztZEdxaLu8tLaOfdmRson
-	 0Wjr+gYm1zXr7MJVBXULYMJUaXO7YigEyKoUq6g9NGNJmwfKwuQ612oJzRwy3SvVeTu0I
-	 NhWh+yJs4VgytUZyUDn+OUewUN9Lipo+LqtoY4vDoEMDD4+UNaO+wnTVSKeirSA/PYg==
+	t=1793400331;
+	b=jtn47UpvoGVLoNYkKNBLtLLQEfaNJ7kn7p+sGZvD6SDvDp/ENtQxDoRGcGcPRnrg+lSZ
+	 /6EicnS2+okyBJN1qwoGWrv6qzCA6wbeGpyaIv2b7WIuZow3DNxAWbrq4liOlLYvYXB/J
+	 9fkgOq6mQvH3mJp9ve5C4+BQ5U+Fj3s/Vkfqvtkq1z/VlJi7eW0iXoQGjquHu7xCiOMgB
+	 69Dn0gu66x8Ucmirjarw2LiYNINExo/kmiV81adOeLXRl5MI0AEMZTjgU8sQT+i9ABaTm
+	 WwsSJ/z1DpeDqo1fxQeGJwaP3Yp2vsh26miK6jQny1OGKc2uwQmWoji3o0SzRNRgtmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793397953;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=vBJMC4GJvj0qjaTPwYTt5q30xb5b2ZksOkUaeaR7BVM=;
-	b=pzwk2wau/gKX3Fj97chHI3lIy54lIa8ocD3rfOjQJE4Tl4TkWmV/oUogSA/J29Pfdhq3
-	 cOf4m8DIoHt+EYiD7RjcfSeWZQWjenphwXseNk9vWwxwqi90odkB7IyoJIlLtrlU2g7cZ
-	 /i5toORuTsPkCDMJmEKneTD+QacUqoMjFX6mqxXdDtUBUgb1/rf1cPPuU7udR6YtLPkYG
-	 QheTmo1P2xS60dSCADtDKblcm2+WuoTW0vvptrabwMaX6bR7V6tCVXYmnuoqdT6jZPX4T
-	 yzMxagWl9f7LM/0tAZIDBaSyN25pyn/p4uP4uippGrSTPstQvO4/JiRh3qIi4aks6tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793400331;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=2yXPCghD4HtJhKnd45tIgCVhaxQCotBo+SDg/yWeoA4=;
+	b=gW0wkrb7Sersu9u7xSuUTI8D6hmu11rdrYVEYkZhOkjpYtjCFOuoKHj6THLRcrjP1YYM
+	 MLHsPVzBNX3MF2H6JSrp5+v125pPDFBo7Gj4gZY0U4IRkUmG7cn3xuNeaTAE2CALmQTKz
+	 1OLL5cwJwSIy/6+7J7hUTEXZYQaL6hfap9P9dOQ+gGLMrHcA/uSFdd4GqfPIclB9QiJtq
+	 0npDfJRYg0CNEbPI8b1XrGfS5n3MD+kdWWy9nzd0ohoAeauxipZ4Y7VOEk6IuVlNiy0s/
+	 0buStpNZ+gONANDzUqyM7rUoKE710i7LhIPhCSvz6X7r4wbD20HjHYVMYcngAWSJaZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YgPQIJJc;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOzGoj8m;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9ECB606A31A;
-	Fri, 30 Oct 2026 22:05:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9ECB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F590606A31C;
+	Fri, 30 Oct 2026 22:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F590606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=YgPQIJJc
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6323F447;
-	Fri, 30 Oct 2026 23:03:36 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793397816;
-	bh=X4vKdAe6tCIGUMBGk95lp3ykmxTWgC6GkF33THOI3As=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YgPQIJJcZCU7Qs0ZADaMzgFJVe0SzS1pAKe4q3A2qBJVEN//BmnybrCyMLOv3Iwjj
-	 i/FnFPBj2jPdj47R+swC22zYL4x5wp62KWb1+WVe0DxcUm94c3JkwG/xfICyMLlXcc
-	 MOdfVC6KaKYekw/iw+GuuC3e1lmSrBKqkNHfa0NY=
-Date: Sat, 31 Oct 2026 00:05:49 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Paul Elder <paul.elder+renesas@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MOzGoj8m
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793400330; x=1824936330;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1Fn2pxKKvk3BBbz8SBlqHGp+ZY9AeRFTROeqNefvLPg=;
+  b=MOzGoj8miUebD/6eL05UVgwKBS+u6aXteDvhH7Vf/t1+Vw9PUrfy032V
+   anJj7q8SIJsB7N/ybG5EbzxoBiEwbB8j0OlVwOlNIpDTto54trsjANG5C
+   4NTCDVaoM0lIugGdA/PsI6rvnpLVUsPXWp+7GRYeIm3mwP/s+QCOhbmGf
+   J3RFSmmN6C4k0/1sgqWpKSK1OPgAthikmHYDmaEmOITi7YXshFNjrlElz
+   xyKkregeUIgPbFMBoDjKyrz5gPrXFm/ErNrnq4qLL/xRHhRVuioF3dwzk
+   EvDTnbLAxHVtZd0v2zTQhAzOPyjTvnso44JVl8eg64rHhXbSCQFwVnQrx
+   A==;
+X-CSE-ConnectionGUID: AUhXp65WRuWB1dKrJM3X5w==
+X-CSE-MsgGUID: W6f7bnOPQE273E/ocqQOwQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2049381"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2049381"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 15:45:29 -0700
+X-CSE-ConnectionGUID: VWGASS47RUWa2XwHK0yW1g==
+X-CSE-MsgGUID: mtv4XWKLRlK/Qh8b1qPScQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5936487"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.110])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 15:45:28 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id EC6D5121B75;
+	Sat, 31 Oct 2026 00:45:34 +0200 (EET)
+Date: Sat, 31 Oct 2026 00:45:34 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Valerii Sokolov <valerii.sokolov@pm.me>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	Sarang Sapre <sarang.sapre@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Manik Bajpai <manik.bajpai@intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH DNI v3 03/15] pmdomain: renesas: r8a78000: Add maps for
- VIO for SCP FW SDKv4.36
-Message-ID: <20261030220549.GH3178046@killaraus.ideasonboard.com>
-References: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-0-e052903a3832@ideasonboard.com>
- <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-3-e052903a3832@ideasonboard.com>
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 08/11] media: intel/ipu6: return an error from
+ ipu6_dma_map_sgtable() on failure
+Message-ID: <auUeDraiy9tu1NDg@kekkonen.localdomain>
+References: <20261023195446.22578-1-valerii.sokolov@pm.me>
+ <20261023195446.22578-9-valerii.sokolov@pm.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -74,105 +88,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261015-epaul-v7-3-rc1-x5h-vsp-fcp-v3-3-e052903a3832@ideasonboard.com>
+In-Reply-To: <20261023195446.22578-9-valerii.sokolov@pm.me>
 
-On Thu, Oct 15, 2026 at 04:51:43PM +0900, Paul Elder wrote:
-> Add maps for VIO for the VSP and FCP power domains and reset domains.
+Hi Valerii,
 
-s/reset domains/module control/ as its not just reset (and there's no
-"reset domain") but also module control clock ?
+Thank you for the set. These are really nice fixes!
 
+On Fri, Oct 23, 2026 at 07:55:58PM +0000, Valerii Sokolov wrote:
+> ipu6_dma_map_sg() returns 0 when ipu6_mmu_map() fails, but
+> ipu6_dma_map_sgtable() only treats negative values as errors. On failure
+> it therefore sets sgt->nents to 0 and returns success, and callers such
+> as ipu6_isys_buf_init() and ipu6_map_fw_region() go on to hand the
+> hardware an address that is not mapped in the IPU MMU.
 > 
-> Signed-off-by: Paul Elder <paul.elder+renesas@ideasonboard.com>
+> Return -ENOMEM when ipu6_dma_map_sg() maps no entries.
 > 
+> Fixes: daabc5c64703 ("media: ipu6: not override the dma_ops of device in driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 > ---
-> Changes in v2:
-> - add VSPD and FCPVD
-> ---
->  drivers/pmdomain/renesas/r8a78000-mdlc.c | 54 ++++++++++++++++++++++++++++++--
->  1 file changed, 52 insertions(+), 2 deletions(-)
+>  drivers/media/pci/intel/ipu6/ipu6-dma.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/pmdomain/renesas/r8a78000-mdlc.c b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> index a0d83f27735e7deacb060e4102e510726b34e62e..cabe6435ecd791e358fd6987ce9394898d8c87f8 100644
-> --- a/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> +++ b/drivers/pmdomain/renesas/r8a78000-mdlc.c
-> @@ -861,6 +861,56 @@ static const struct mdlc_info r8a78000_mdlc_fw_4_28_0[] = {
->  	{ /* sentinel */ }
->  };
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+> index a923a1e4bd..37b5c25259 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+> @@ -459,8 +459,8 @@ int ipu6_dma_map_sgtable(struct ipu6_bus_device *sys, struct sg_table *sgt,
+>  	int nents;
 >  
-> +static const struct power_map_in r8a78000_mdlc_vio_power_fw_4_31_0[] = {
-> +	{ 0, 4 },	/* PD_VIO0 */
-> +	{ 1, 5 },	/* PD_VIO1 */
-> +	{ 2, 6 },	/* PD_VIO2 */
-> +	{ 3, 7 },	/* PD_VIO3 */
-> +	{ 7, 11 },	/* PD_VIO4 */
-> +	{ -1 }
-> +};
-> +static const struct mod_map_in r8a78000_mdlc_vio_mod_fw_4_31_0[] = {
-> +	{ 0x70, 26 },	/* VSPD0 */
-> +	{ 0x71, 27 },	/* VSPD1 */
-> +	{ 0x72, 28 },	/* VSPD2 */
-> +	{ 0x73, 29 },	/* VSPD3 */
-> +	{ 0x74, 30 },	/* VSPD4 */
-> +	{ 0x75, 31 },	/* VSPDB0 */
-> +	{ 0x76, 32 },	/* VSPDB1 */
-> +	{ 0x77, 33 },	/* VSPDB2 */
-> +	{ 0x78, 34 },	/* VSPDB3 */
-> +	{ 0x79, 35 },	/* VSPDB4 */
-> +	{ 0x7e, 40 },	/* FCPVD0 */
-> +	{ 0x7f, 41 },	/* FCPVD1 */
-> +	{ 0x80, 42 },	/* FCPVD2 */
-> +	{ 0x81, 43 },	/* FCPVD3 */
-> +	{ 0x82, 44 },	/* FCPVD4 */
-> +	{ 0x83, 45 },	/* FCPVD5 */
-> +	{ 0x84, 46 },	/* FCPVD6 */
-> +	{ 0x85, 47 },	/* FCPVD7 */
-> +	{ 0x86, 48 },	/* FCPVD8 */
-> +	{ 0x87, 49 },	/* FCPVD9 */
-> +	{ 0xf9, 163 },	/* VSPB0 */
-> +	{ 0xfa, 164 },	/* VSPB1 */
-> +	{ 0xfb, 165 },	/* VSPB2 */
-> +	{ 0xfc, 166 },	/* VSPB3 */
-> +	{ 0xfd, 167 },	/* VSPB4 */
-> +	{ 0xfe, 168 },	/* VSPI0 */
-> +	{ 0xff, 169 },	/* VSPI1 */
-> +	{ 0x100, 170 },	/* VSPI2 */
-> +	{ 0x101, 171 },	/* VSPI3 */
-> +	{ 0x102, 172 },	/* FCPVB0 */
-> +	{ 0x103, 173 },	/* FCPVB1 */
-> +	{ 0x104, 174 },	/* FCPVB2 */
-> +	{ 0x105, 175 },	/* FCPVB3 */
-> +	{ 0x106, 176 },	/* FCPVB4 */
-> +	{ 0x107, 177 },	/* FCPVI0 */
-> +	{ 0x108, 178 },	/* FCPVI1 */
-> +	{ 0x109, 179 },	/* FCPVI2 */
-> +	{ 0x10a, 180 },	/* FCPVI3 */
+>  	nents = ipu6_dma_map_sg(sys, sgt->sgl, sgt->nents, dir, attrs);
+> -	if (nents < 0)
+> -		return nents;
+> +	if (nents <= 0)
+> +		return nents < 0 ? nents : -ENOMEM;
 
-The values look fine. After rebasing the MDLC v4 from Geert,
+I think this has been written as-is since the thinking has been a negative
+error code is returned on error. So I'd fix this on ipu6_dma_map_sg() side
+instead.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+dma_map_sg() returns 0 on error (which is probably the source of this
+discrepancy) but I don't think we need to align the error codes to that.
 
-> +	{ -1 }
-> +};
-> +
->  static const struct mod_map_in r8a78000_mdlc_pere_mod_fw_4_31_0[] = {
->  	{ 0x30, 193 },	/* PERE_GPIODM0 */
->  	// No CLOCK_ATTRIBUTES { 0x31, 194 },	/* PERE_GPIODM1 */
-> @@ -997,8 +1047,8 @@ static const struct mdlc_info r8a78000_mdlc_fw_4_31_0[] = {
->  		/* FIXME .mod_map = r8a78000_mdlc_vips_mod_fw_4_31_0, */
->  	}, {
->  		.base = 0xc5000000 /* mdlc_vio */,
-> -		/* FIXME .power_map = r8a78000_mdlc_vio_power_fw_4_28_0, */
-> -		/* FIXME .mod_map = r8a78000_mdlc_vio_mod_fw_4_31_0, */
-> +		.power_map = r8a78000_mdlc_vio_power_fw_4_31_0,
-> +		.mod_map = r8a78000_mdlc_vio_mod_fw_4_31_0,
->  	}, {
->  		.base = 0xc08f0000 /* mdlc_pere */,
->  		.power_map = r8a78000_mdlc_pere_power_fw_4_28_0,
+>  
+>  	sgt->nents = nents;
+>  
 
 -- 
-Regards,
+Kind regards,
 
-Laurent Pinchart
+Sakari Ailus
