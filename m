@@ -1,75 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793349346;
-	b=tIp44QSt3hvqzBH+61zRN78t3NDF3rFucC1d6w5kVuxDKNvLNHHAdjtQeV5n/FwkC6Pe
-	 4QGDpdiIRqYEoJwPKJ76XgApQGfy0Dw7ZKGQCTocGi5Wu2Iamwd+TJFGgU7EjmnM8hCKn
-	 Gns9jXL6B84OnLEP0IlU16jjXlxvJ7qCe/SK5yUxL9H6H3eE0H9uVADCue8a8LboPYlcP
-	 0oJOmwb0Yyit6m7qo4FjDudLPg06A/YtMDdVzoRmokcx6Q9XaRh1cjkuxe6/jNH0GNQup
-	 JsVLO9eHmf/6ttKDD0UfYAFGIrUYjBc7nBrykxP/kubTe1/1mbZDckwYlAyf4zK2yuw==
+	t=1793350664;
+	b=t1+feQbsae7mZBoBfbUu/hXjXDecktn6O+CIvIGtX/VtkHjR1apSD/lY3DEfruEMLIIN
+	 fbtESGnx43a3WghDCfBLaRZb0KJ7lHSCjLG7fh5Xx8zHtlBFAmQFhyDc4s8gM/YZz9hNM
+	 yqqAw7gUqQqPQg5uPxKA+0Bk/CJeH3ZSXW8862i9DqCOrm2aZ+YfNCy9FbC0GW/dj56aB
+	 EhpSMz+/xjSupRNeC5q9A/bMi2s9ldLUfLjl+5d3ZXa1Pj9NvI1Eh5J1xetMNaz88A2rS
+	 nQKAZgHOHYnm9Opcq6fBYq1KkPIV2maHTex7ZpMoNsdPTw/mOKjCAtX9lFmn/ZohqDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793349346;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=m0sDspwW9famWxd+HN3UrvDuJp+BbUhgcFyf3tAv+Sc=;
-	b=WIOFn0l8i/Hq1QFgsHfFy/VTZ1RiGXJFz2t+UbjEH9wX3IF4YARXX76c31tDr1TMwmce
-	 /q1aKYyWjsmdklHg5jhlPrcbWN4Xy5egWHpUREx49GjO8EpacYYecWS4FAG3qrcLQaQsR
-	 WVl6HhIS/qQ9AjaQpqEdz8DX3f1PaFsYXJNzCqBCsPk3vu7ucHH6R7s4fyLp125DC3HES
-	 Z46+NB1wzyBkdXEShvjQ1tqIr3Bvk03iNgqkr0urO1vulsrH9BfMtVMFNtj+apXAL++5I
-	 PJRLSZYJ2TrFLAMzH7k/0ARR7L7fUsZPeZlZPAAyHlwemo5IQNQKMxtIfYTTaZo82HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793350664;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=eGH1sgh8fHcD1YzHQAXXHU+ICjz/GR3arUB8DIO7xaI=;
+	b=cRd3WNwOcp82N+5BbTERaiFge8tLXG5fO7pmT+c6sA0tzejBPam8VXM8//xQOgosTrKS
+	 56BeuPbnU3s48xNHPeuxG23ygMWm6IfZyIj+FBNNyJ08NkBrY7LaZT70D/hd6KGrTdk4g
+	 NMIu48Ct4o+bHfwLY1rnXcCnxCr7qK05K7MgvOOa3Be8vKIAb5dXjG1MzrRGS9esHDfFg
+	 lydQ0NwNOHsbMhZBxikzCNK/La7VlqPIO5pYvZvK4Kd8Zr+hQ4xPKyJhrGP0yg7IL8bBp
+	 JKLw0y6kZ/Shp+AwfEx1tv9VTKf0u9aiCIrazfaZotqDCeQqOvIjjIlnnQz/SAI51uw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lGZ673nF;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L79pU4vW;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0434E60A262D
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 08:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0434E60A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273FF606A31C;
+	Fri, 30 Oct 2026 08:57:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 273FF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=lGZ673nF
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-359b81ad4e8so760115eec.0
-        for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 01:35:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793349345; x=1793954145; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=m0sDspwW9famWxd+HN3UrvDuJp+BbUhgcFyf3tAv+Sc=;
-        b=lGZ673nF2H/b1E27jZ4a9hERtvOODWCeNAJ/60x70fbZ0TltYXTvjyZ3lkZwRhHUFa
-         rkrB2uS/l72voiAj0zIMKBM1Fawb63yTB5qg1BXTb24erHVvNpIUkEPy8B4Ih86OJgdW
-         m0RUhc0GDvx0FhtWhp4M+DVtsGQjrMSJ6K7S1MRrxo96rCxeXzDFy2uWzjhuMXsNXma+
-         1JuZt5OlP9OSpZZa5Axlcmz64f2M9LWpJNnoKzINKBTtT4SYmvkCdMSZfq1/SaVynmvz
-         6PXQwX14Fg02It266DLJzOiXJhHY5HTWwSPtl3Jjtn9H6dZHYPLqaKYPTi84Ox/UGI1q
-         CQXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793349345; x=1793954145;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m0sDspwW9famWxd+HN3UrvDuJp+BbUhgcFyf3tAv+Sc=;
-        b=qNxm/kjSfk8b0cPzSeo9e4YOIjb55Wa6OOe2lYPlLINMDoas3gZL/fyeO22ZdPyd4P
-         PgbbzWrlub02FM/jLuE53BR79CcFpXo0dK7FrSPYQtQkdqHrPNWJB1LWFd5IkhO14D83
-         imRXgEYSgyja41UvRMk/bEzsNbQyNK0JDCbB8UQ+kAiIoC4Ntd4Zh/NR48M4hDc/Vvw9
-         h4bGRlOJQ14AfE3Qgam4A5a+PzhpYNxII7/FwAJ0uJAZrTrrgAl7DfHNXNcizQbi+wm8
-         23n3jA3fzrQT8OAI8Sb//Do1yKo5cbiRHiDwaZ7Wi7rpH0piYFI6I5otlkctz7dliUvK
-         XhDw==
-X-Forwarded-Encrypted: i=1; AKwUvBwGB+GuUOCeg7+cc5d8Yc6Opy3a8fO4XglMIJPTde72QzlRKBWMeLDKaPgS2LysZwj+ZszNybjl2Uxogg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJfzX6qnhDWHGWbBUoR2GXRt8KIBCE/NE7Ha1Mgm9Tkdq0BCbvD
-	t6y9UPpyL6VtZuCa5/P5jzc68w9bH0cBZ6k4oZg9hKeqwqPu8WIdf8z1eXTvYUQilj5QvQtaPfT
-	wt1Ae5ofCcbxu1rpj8nYMN1S9vw==
-X-Received: from dycnr19-n1.prod.google.com ([2002:a05:7300:e9d3:10b0:36a:60f:3e5d])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7300:f285:b0:367:50ee:f7e0 with SMTP id 5a478bee46e88-36a4244116fmr2463232eec.39.1793349344278;
- Fri, 30 Oct 2026 01:35:44 -0700 (PDT)
-Date: Fri, 30 Oct 2026 08:35:38 +0000
-In-Reply-To: <20261030083539.777877-1-almasrymina@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L79pU4vW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793350664; x=1824886664;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XC9L0N0lGS0WxoaPGxJtRF+Dcu7w/yLaO4BtytOzzuQ=;
+  b=L79pU4vW7uY7s26CgOQnkqh84RSv936RavEmcjrDTUnS4Siipvtjaxv9
+   niC/LQALmZglumppct7FEwQIro1Gz/w674bkYPVoPpUs7WdYYrKj8S4dh
+   pzbje3C7Tok8W3ejcrBifgXwizUFSAgAZknUyf1X1uEdKEqzYRhBhmM0u
+   VNlUIdPpedishVRl3xlDdhyqLpVcFReAGuJNt3+ZcVVbHXOZqNHIQYCE2
+   8QV4MERFL9+uvL8WvzD28keURSTx3+k6K3S4QyMJ7JQJlkHCDQlO1o6kH
+   qSxXemxc78C/HhTKxmdFwkZvq4LJevHZJxeCyUkDpo2OWXghEEAascIs9
+   w==;
+X-CSE-ConnectionGUID: rsO5rGNMSNKICgyZGCqLdw==
+X-CSE-MsgGUID: ZTeF+5WvTq2wwTAtPCe8dA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11950"; a="1987135"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="1987135"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:57:43 -0700
+X-CSE-ConnectionGUID: 2ZQs9CufQJ2aI+tvMlBntg==
+X-CSE-MsgGUID: YTk54IPeRM2APeu2Ec1IKw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5265993"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.19])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 01:57:35 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2CDB9121B77;
+	Fri, 30 Oct 2026 10:57:36 +0200 (EET)
+Date: Fri, 30 Oct 2026 10:57:34 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Frank.Li@oss.nxp.com
+Cc: Frank Li <Frank.Li@nxp.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Alex Elder <elder@kernel.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Guan-Yu Lin <guanyulin@google.com>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org, linux-hwmon@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, netdev@vger.kernel.org,
+	imx@lists.linux.dev, Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH 1/1] PM: runtime: change stub pm_runtime_get_if_active()
+ return 1 when !CONFIG_PM
+Message-ID: <auRb_r8ZSSU-eHZA@kekkonen.localdomain>
+References: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -78,251 +106,31 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261030083539.777877-1-almasrymina@google.com>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261030083539.777877-5-almasrymina@google.com>
-Subject: [PATCH net v5 4/4] selftests: net: add devmem RX and TX netdev
- unregister tests
-From: Mina Almasry <almasrymina@google.com>
-To: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, Paolo Abeni <pabeni@redhat.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, Mina Almasry <almasrymina@google.com>, 
-	Kaiyuan Zhang <kaiyuanz@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Bobby Eshleman <bobbyeshleman@meta.com>, Pavel Begunkov <asml.silence@gmail.com>, 
-	David Wei <dw@davidwei.uk>, Taehee Yoo <ap420073@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, 
-	"=?UTF-8?q?Christian=20K=C3=B6nig?=" <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Stanislav Fomichev <sdf.kernel@gmail.com>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
-	Daniel Borkmann <daniel@iogearbox.net>, Nikolay Aleksandrov <razor@blackwall.org>, 
-	Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>, 
-	Dragos Tatulea <dtatulea@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029163044.3062958-1-Frank.Li@oss.nxp.com>
 
-Add devmem_bind_rx_unregister_check and devmem_bind_tx_unregister_check
-to nl_netdev.py to verify that unregistering a netdevsim device while a
-netlink socket holds an active RX or TX devmem binding synchronously
-detaches the dma_buf attachment and cleanly closes the netlink socket
-without use-after-free or page faults.
+Hi Frank,
 
-Add the dma-buf, udmabuf and devmem options the tests need to
-tools/testing/selftests/net/config.
+Thanks for the patch.
 
-Cc: Tariq Toukan <tariqt@nvidia.com>
-Cc: Kaifeng Wang <kaifengw@google.com>
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
----
-v5:
-- Tolerate non-UTF-8 dma-buf names when parsing debugfs bufinfo (Sashiko).
+On Thu, Oct 29, 2026 at 12:30:37PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> When CONFIG_PM is not enabled, all devices runtime PM state should be
+> treated as active.
+> 
+> __pm_runtime_resume() returns 1 (called by pm_runtime_get()).
+> pm_runtime_get_if_active() is the try-and-get version of pm_runtime_get().
+> stub pm_runtime_active() also returns true. So pm_runtime_get_if_active()
+> should return the same value as the stub pm_runtime_get(), which is 1.
 
-v3:
-- Count attachments of the test's own dma-buf only, and skip instead of
-  passing when debugfs bufinfo is not readable (Sashiko).
-- Close the netlink socket after removing the device, clean up with
-  defer(), and skip on EOPNOTSUPP from bind-rx/bind-tx (Sashiko).
-- Replace the hardcoded UDMABUF_CREATE value with a helper that computes
-  it for the running architecture (Sashiko, Dragos), and close the memfd
-  and /dev/udmabuf fds on errors (Sashiko).
-- Add the needed options to tools/testing/selftests/net/config (Sashiko).
----
- tools/testing/selftests/net/config       |   4 +
- tools/testing/selftests/net/nl_netdev.py | 125 ++++++++++++++++++++++-
- 2 files changed, 126 insertions(+), 3 deletions(-)
+Shouldn't the same change be done to pm_runtime_get_if_in_use()? It's
+otherwise the same, except that it requires also the use count to be
+non-zero.
 
-diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
-index d4416f8bdcfd1..7a89e2618d4c4 100644
---- a/tools/testing/selftests/net/config
-+++ b/tools/testing/selftests/net/config
-@@ -12,6 +12,7 @@ CONFIG_CRYPTO_ARIA=y
- CONFIG_CRYPTO_CHACHA20POLY1305=m
- CONFIG_CRYPTO_SHA1=y
- CONFIG_CRYPTO_SM4_GENERIC=y
-+CONFIG_DEBUG_FS=y
- CONFIG_DEBUG_INFO_BTF=y
- CONFIG_DEBUG_INFO_BTF_MODULES=n
- CONFIG_DUMMY=y
-@@ -79,6 +80,7 @@ CONFIG_NET_CLS_BPF=m
- CONFIG_NET_CLS_FLOWER=m
- CONFIG_NET_CLS_MATCHALL=m
- CONFIG_NET_CLS_U32=m
-+CONFIG_NET_DEVMEM=y
- CONFIG_NETDEVSIM=m
- CONFIG_NET_DROP_MONITOR=m
- CONFIG_NETFILTER=y
-@@ -123,6 +125,7 @@ CONFIG_OPENVSWITCH=m
- CONFIG_PAGE_POOL_STATS=y
- CONFIG_PSAMPLE=m
- CONFIG_RPS=y
-+CONFIG_SYNC_FILE=y
- CONFIG_SYN_COOKIES=y
- CONFIG_SYSCTL=y
- CONFIG_SYSFS=y
-@@ -133,6 +136,7 @@ CONFIG_TEST_BLACKHOLE_DEV=m
- CONFIG_TLS=m
- CONFIG_TRACEPOINTS=y
- CONFIG_TUN=y
-+CONFIG_UDMABUF=y
- CONFIG_USER_NS=y
- CONFIG_VETH=y
- CONFIG_VLAN_8021Q=y
-diff --git a/tools/testing/selftests/net/nl_netdev.py b/tools/testing/selftests/net/nl_netdev.py
-index ceb44c8e1fec5..dd0321c0b463a 100755
---- a/tools/testing/selftests/net/nl_netdev.py
-+++ b/tools/testing/selftests/net/nl_netdev.py
-@@ -6,10 +6,14 @@ Tests for the netdev netlink family.
- """
- 
- import errno
-+import fcntl
-+import mmap
-+import os
-+import struct
- from os import system
--from lib.py import ksft_run, ksft_exit
-+from lib.py import ksft_run, ksft_exit, KsftFailEx, KsftSkipEx
- from lib.py import ksft_eq, ksft_ge, ksft_ne, ksft_raises, ksft_busy_wait
--from lib.py import NetdevFamily, NetdevSimDev, NlError, defer, ip
-+from lib.py import EthtoolFamily, NetdevFamily, NetdevSimDev, NlError, defer, ip
- 
- 
- def empty_check(nf) -> None:
-@@ -366,6 +370,119 @@ def page_pool_stats_ifindex_check(nf) -> None:
-     ksft_eq(cm.exception.nl_msg.extack['bad-attr'], '.info.id')
- 
- 
-+def _udmabuf_create_ioctl() -> int:
-+    """Return UDMABUF_CREATE, _IOW('u', 0x42, struct udmabuf_create)."""
-+    machine = os.uname().machine
-+    if machine.startswith(("alpha", "mips", "ppc", "powerpc", "sparc")):
-+        ioc_write = 4 << 29
-+    elif machine.startswith("parisc"):
-+        ioc_write = 2 << 30
-+    else:
-+        ioc_write = 1 << 30
-+    return ioc_write | 24 << 16 | ord("u") << 8 | 0x42
-+
-+
-+def _create_udmabuf(num_pages=64) -> int:
-+    """Create a sealed memfd-backed udmabuf fd for devmem tests."""
-+    if not os.path.exists("/dev/udmabuf"):
-+        raise KsftSkipEx("/dev/udmabuf is not available")
-+
-+    size = num_pages * mmap.PAGESIZE
-+    memfd = os.memfd_create("devmem-ksft", os.MFD_ALLOW_SEALING)
-+    try:
-+        os.ftruncate(memfd, size)
-+        fcntl.fcntl(memfd, fcntl.F_ADD_SEALS, fcntl.F_SEAL_SHRINK)
-+        devfd = os.open("/dev/udmabuf", os.O_RDWR)
-+        try:
-+            req = bytearray(struct.pack("IIQQ", memfd, 0, 0, size))
-+            return fcntl.ioctl(devfd, _udmabuf_create_ioctl(), req)
-+        finally:
-+            os.close(devfd)
-+    finally:
-+        os.close(memfd)
-+
-+
-+def _dmabuf_attach_count(dmabuf_fd) -> int:
-+    """Return the number of devices attached to dmabuf_fd, from debugfs."""
-+    path = "/sys/kernel/debug/dma_buf/bufinfo"
-+    try:
-+        with open(path, "r", encoding="utf-8", errors="replace") as f:
-+            lines = f.read().splitlines()
-+    except OSError as e:
-+        raise KsftSkipEx(f"{path} is not readable: {e}") from e
-+
-+    ino = os.fstat(dmabuf_fd).st_ino
-+    found = False
-+    for line in lines:
-+        fields = line.split("\t", 6)
-+        if not found:
-+            found = (len(fields) == 7 and fields[5].isdigit() and
-+                     int(fields[5]) == ino)
-+        elif line.startswith("Total "):
-+            return int(line.split()[1])
-+    raise KsftFailEx(f"dma-buf {ino} not found in {path}")
-+
-+
-+def _devmem_bind(bind, attrs) -> None:
-+    """Run a devmem bind op, skip the test if the device can't do devmem."""
-+    try:
-+        bind(attrs)
-+    except NlError as e:
-+        if e.error == errno.EOPNOTSUPP:
-+            raise KsftSkipEx(f"devmem binding not supported: {e}") from e
-+        raise
-+
-+
-+def devmem_bind_rx_unregister_check(_nf) -> None:
-+    """Verify RX devmem bindings detach dma_buf synchronously on netdev unregister."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    with EthtoolFamily() as ef:
-+        ef.rings_set({"header": {"dev-index": nsim.ifindex},
-+                      "tcp-data-split": "enabled"})
-+    _devmem_bind(nf_priv.bind_rx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+        "queues": [{"id": 1, "type": "rx"}],
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
-+def devmem_bind_tx_unregister_check(_nf) -> None:
-+    """Verify TX devmem bindings detach cleanly on netdev unregister without UAF."""
-+    dmabuf_fd = _create_udmabuf()
-+    defer(os.close, dmabuf_fd)
-+    nf_priv = NetdevFamily()
-+    defer(nf_priv.close)
-+    nsimdev = NetdevSimDev(queue_count=2)
-+    defer(nsimdev.remove)
-+    nsim = nsimdev.nsims[0]
-+
-+    ip(f"link set dev {nsim.ifname} up")
-+    _devmem_bind(nf_priv.bind_tx, {
-+        "ifindex": nsim.ifindex,
-+        "fd": dmabuf_fd,
-+    })
-+    ksft_ge(_dmabuf_attach_count(dmabuf_fd), 1)
-+
-+    nsimdev.remove()
-+    ksft_eq(_dmabuf_attach_count(dmabuf_fd), 0)
-+
-+    nf_priv.close()
-+
-+
- def main() -> None:
-     """ Ksft boiler plate main """
-     nf = NetdevFamily()
-@@ -379,7 +496,9 @@ def main() -> None:
-               page_pool_check,
-               page_pool_dump_ifindex,
-               page_pool_ifindex_leak_check,
--              page_pool_stats_ifindex_check
-+              page_pool_stats_ifindex_check,
-+              devmem_bind_rx_unregister_check,
-+              devmem_bind_tx_unregister_check
-               ],
-              args=(nf, ))
-     ksft_exit()
 -- 
-2.56.0.385.gac671c819a-goog
+Regards,
 
+Sakari Ailus
