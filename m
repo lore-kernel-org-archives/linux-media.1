@@ -1,79 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793353283;
-	b=a367q53BFZsa4mt/uAW3Tj5HISEQ6v5XQAPX68u+81kB0VXrI54LjaCa0a6zBCrughJM
-	 xVy1J5luWaybQU0RNxQYSpCQa8HJzh7JeQaZJjRuRW/KR2s37JhhDWyOniDNGrekuzFB7
-	 a0Q6yRRqcQ11H4LrIoUQCeKoyS6Coe4bai7LHa0kvddvUxXRNhRG6PPt0K+reNbFx625o
-	 Bi420lKMRimSmVkCxBa5xbn0ItXRDQVCazbqtF7nVByTjdtymsH2CzPTygX+pEU9hvqmB
-	 qAYMOVbdt+UeEHoByXTlvfzoJjiIspEAud6o7S3s4P9A/aGO9dFG/PdNlU0HWW50m6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793353283;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Hr4h9G1hUeV4rDSzSox1jGks7F1bXsYZ0PH59ZWrH+I=;
-	b=5j8xTXPe0Y+PCeZad/sqdI5mRUZTnmEW0cFUNqZwUgQBsHEDb7fgem9UBUblTbug+nrI
-	 nrmU9D3bIgpYzmwqItVDk3sPwWdeyfjUl8pLz1LRxzvJyS5S+73kW3SlQVixYF1YMKhCR
-	 pLqFVfelOTo4hgciQj2fhL4RgA85yey9xXX7GDCL4/yxm1vTUur8FJNZxr2G8HBHf/VqJ
-	 Yzii2V93GerPpSGSK58GZnuZmKLvcU9lgpjEdikCeGCApSm7bDWSADYg4NUGpnxsyzZ5n
-	 q6Kx/ibfgSdtI/Vv8y/jQR1fqdXMSq5fpXxbbN14BJQLHdXsGcA72x+RCv0+drgFjgQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le5tAoEz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19975606A31A;
-	Fri, 30 Oct 2026 09:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=le5tAoEz
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793353282;
-	b=FdZua2TweUP13BrG9JNqmYVfCWmNsYBLwksSGMsa7YPar3TR1AbVVTfaVtk+K/Uj0Ixv
-	 o1QOtStB8vbOs1MZxs3Qc1xQFYmQ4prxq0Jq8AKG/UxafblzBSInGVYb0v4VnDS1TNE26
-	 8KrASJTCjpkEr0yks3BJ9k4oEhy/+Z35BfluDf/NwtISVrHGxqdA0ipUWTA8uEEFUFHiT
-	 dgYbGgTUH0fVDaL7dz737fdpTALP15EYkucGIEaTycpA0e0sb9zwPgKPszH0uh0aFQd8e
-	 r8J25/5dSp3pWequO1AvqjJE2rvIvGeBQ4euFeTZakTH+mDzeGhvk/njJ8YHbtuKNEQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793353282;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Hr4h9G1hUeV4rDSzSox1jGks7F1bXsYZ0PH59ZWrH+I=;
-	b=PoHJIUQgxwbiF+MCBEHv4vqMSvariNyOqF+3aSFHnjRqFydPjqlW6d4I+IhAD2F2KOvM
-	 cdrZx4TJNDHj/oZ6go2lRvnrIcDAfWxfncfC9bD8dDkVrYtY6USRtJWtrg7wFAv2/ZGX4
-	 CDhnJBnjvz+CiOcCLZ5Dlp9tA8L8dautrvWBNgs8lMRimi9xyRwoY4E9xubE0KTfEVbog
-	 qHmmLXKHNtczLkTwSXFoUYmLPIB5BxNvL6k44cClD8Itvh+XGwbSuuaXMXxJohqIq7ux5
-	 6swFrH8R31pDIPnLGz0Ec4N0WuGoyd2yZF1rW9rPdbPEI5D6MRJXAxrxqHguryW/BIA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793353657;
+	b=JEBoY9MIwNSUZbgUxuYK8e/KBlCULPIlArG5qgzGIgwxcqz0HELWzB8pGl+5W5NQ9MLf
+	 dH85jB5fLVM/n9nXPmmbrt1Wd4J+1qFzT9yDdohXt2sqUWifgS2FzPq+QP9pIfYKH/Sp0
+	 qYPpBNztIUUn0DXXZ8XsRnsi3KKXVQ8nUq0eMxExyvBGrwSw4YtWBSHif/A86rpRpnqFY
+	 kZn34cThO9ABR+E0wRnHlM/sG4qpgYQgveOi5cR8bxuJ1EuSJXQsOn1CcbSuYtaMYXliR
+	 tsYUDV014Vzc+UDlrCq3BdQxFRbDZ7k2ky60hjotywQw77YZwHDcXt6yNoxUMzs7Asw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793353657;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=yAuzy/PmCFCD96ZvLiIzUHqzkYoqgYKNYRzD5tr14vw=;
+	b=LUwE6rkc6uKyEZRtLBuiDLpiDUG+ohe0RvVIaUD0+wgiTcPl89FN+xNx7NNbnpCdjyZO
+	 kUVLMlNwxnSO5Hf+TJrB925vvKHvwNnhTXCa6RZOMzdHzKwG7v2frKWrYFscgKrKoH5JL
+	 szAfcuPMq23ryEZ6QJfSdS8BbBP9i1ZwEfGDaSoBuNBx39sZOLQ29sZQAzEWMnyEHGf+E
+	 K+F38cPfGJqBEgE11H2C2TyRynfQSWsu46JZfp7yLz6RxKjYqt4jSSDv6rUJ/st4LNaGp
+	 KAp+TjM4xhPag1Iq8B51xqL4K6cOhVqZf5ohqtMHgXUFsI5VeXkbLZ5GiWwKrm1UP+Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F33gHJe7;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WEt1MuEh;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DA11A1F0093A;
-	Fri, 30 Oct 2026 09:41:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793353282;
-	bh=Hr4h9G1hUeV4rDSzSox1jGks7F1bXsYZ0PH59ZWrH+I=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=le5tAoEzbc0ls8h6/09tBrIN/Vw2I1323jE8IkSr+RPVKaHnX14UyusskirQBqn/U
-	 03tIu7AhgrVJ/4M4wvpJAbz3x1wfWpEmjXAH7DbJ92QWgI9fh61od2qLRt/Xvl5kL3
-	 gsgahzcq5uJC2UuN3SEM4xnpTJ3nvfGBo7PeLyQHoM7tzmIISdQCB8xdiqJ7GQ2UUY
-	 u4NlwaUpvUArtpuWASOvFQFzsxRHxt1zk4KQMSvLed3Y0aQwR3WK/uW9YMXtqod7hA
-	 T36xtDjMnIsgXjrJQmiwUdYLFyANIfnxjGMcVB7HCYInOsYgfyqmEYRWiO9sQdsPhs
-	 J7vQ7mbxsQZQQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5416F43707;
-	Fri, 30 Oct 2026 09:41:21 +0000 (UTC)
-From: Valerii Bokov via B4 Relay <devnull+vlry.bkv.gmail.com@kernel.org>
-Date: Fri, 30 Oct 2026 10:40:43 +0100
-Subject: [PATCH v3] media: rkvdec: vdpu383: configure the reference read
- cache
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A07E606A321
+	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 09:47:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A07E606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=F33gHJe7;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WEt1MuEh
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69U8F06i2721648
+	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 09:47:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=yAuzy/PmCFCD96ZvLiIzUH
+	qzkYoqgYKNYRzD5tr14vw=; b=F33gHJe7W6G8acXNd7x6T0F3xPC62qRzTmHY50
+	nP8dnv15vNczyHdGjPHaPhhQzO4weA0HvuAbJyks6USNDJjRpU0hKzB8jX3gCx63
+	UnC1OFxLfLXJS57O98aXgRNZPdreuEM3vWY/qB0mhtoMzWWda3OFc+5YBz75a8sS
+	MlkkTVAKp+fpbUEbMYzy+WXE/8SeQaP/G/EOKCukmYoDsQjUw/flCY0mxRisnI4a
+	+j38uyGBZT+Dc8rM/bmphjYA95N/achpt0LfdfUzrT9JTAYRcj1ctJn95XuZf5XV
+	TBL8SgjJGsy4lvVUSXtOowXQsSnnxrL5oG7FtrczdQOhGhRg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hme6qj9v8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 09:47:35 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-944101e6367so101337685a.1
+        for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 02:47:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793353655; x=1793958455; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yAuzy/PmCFCD96ZvLiIzUHqzkYoqgYKNYRzD5tr14vw=;
+        b=WEt1MuEh6Zlykbu3vcNIDwfU9JTFVZJDwsisw8P+aoBmVtGLIyAlEFNLrLM3M/BwRM
+         p/HQTc6wF8I0riSCJ4149rYUmBosE5bB0uHJoFE2n8oWwsNWa706kxhNLzpjuqAcCgmQ
+         /XslZfWnFmDXv8fLDGM4XO6kNpIwutS5dH57khzRminD6J/ilRdKoi1cRxnEbBRbmisy
+         QPXX7vuc3x5Wxavw5ryW6dAvytjWVlD+rPUwgIXXHIxUMsqiGXBfO6SmDbr9bmDrJGaP
+         dg7RbSUA7eGIP5oC2UB/4HajFh0aosdHdA6akqTQvNHhXnqTcp1RNR6EwGw4emXF3eX0
+         OFxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793353655; x=1793958455;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yAuzy/PmCFCD96ZvLiIzUHqzkYoqgYKNYRzD5tr14vw=;
+        b=UkLly+PUO1sDSF4oFbwHWAAO/+vQBhcG4DIYTilwJj35KptxA11I3T8dxgr57miqBw
+         x0Eb/v0FcTQickVDACKsCZ7ITvR9j100W3ZaPSR/HdPRJeNAHkSdbAceRtVssLG5qpXp
+         kPNgB8YGxDJQlHO5zydcIM+JizzS7G/2/0Wxd7B5oOUXPtaeUrUuOYN2yiSPhoLrDLi1
+         IIR3e0mowysB/WT9acQp8NaDA3wlX+MWZ8iJAGsIalnoC//B0rSc0pUctXTPP41/uQca
+         jk0gBdDThpwW59028PmBy/+kCJA/762lAjo0GOAOzneaNg/veBKHJSaQY7+NrRUGf1wU
+         EDsQ==
+X-Gm-Message-State: AFq9FYL1tN+07uZbCgft1QMdh55U7nWHNdlu9SGDxKdtfTKx3sCOCymU
+	2pcRD/hRfFZnAtgwKR4H/KCbD+HzynFzBt551W673KWuSTz8Vc3U1MErLxiM1Tpvpn+SgZP8h6o
+	ECeutxM2egmPIbVz5jhCKsBUlq1SVwZch4EH1e9ck7NWuurIIr3uEebBpvkSahTsocg==
+X-Gm-Gg: AYBFou0M60LeML9EH2NGi4YPsb40EXV6ILWI5FxIQMLlwtpCP2rO+OHF1RdZ2LCuR12
+	FufYbkALVS7hnL7ifJYY3vql3UmfzuSzbYz4Jjgqhux2cNWN0RXQzrBqg4ItfdhMP9IJSsodlpt
+	Jkp+HEDhQq2C4t5i0+RE05TSdwHUW1kV2EW/nIYO/MCy+AIInWbfvrpReSdIw4z2M7tlvU1660S
+	QwkFJKpARs8QE6UO6KwSVRekoLfnlQBCQyEEnpHlC3qp3uvfEjEaHdZAMZddOsaBfNI1+UIWPja
+	rX6sJibWKNA/7Ys0M0O2Zg5b2EJXWcK6qnsaVR5PZDSESG0EOLFvqZZ36wF7/YJTwkCivuI3rXm
+	oq3MCIYxaWLjOLxmMY8YL/bSeht+SgRBuScqS3EShPp3RD+BUUEk/XI/gXHmnLr6YaLptf+Z8Cl
+	kI2680X7+T/f8GiYbrAHLyEBoutH1AeApufvicvnwV12GkhzPL+Fndwt+Jk8vFOddQXNMZ87abc
+	Djp1S9PfGWa7ab3AK+8Muwj6lVP
+X-Received: by 2002:a05:620a:2628:b0:93a:1196:ce5 with SMTP id af79cd13be357-944133c93b4mr695058985a.33.1793353654704;
+        Fri, 30 Oct 2026 02:47:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:2628:b0:93a:1196:ce5 with SMTP id af79cd13be357-944133c93b4mr695056685a.33.1793353654246;
+        Fri, 30 Oct 2026 02:47:34 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:9d77:8e43:b62f:d85d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77c132sm35354695e9.1.2026.10.30.02.47.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 02:47:33 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 30 Oct 2026 10:47:31 +0100
+Subject: [PATCH v2] media: qcom: camss: vfe: Clear active buffer pointers
+ after flushing
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,325 +115,101 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261030-rkvdec-vdpu383-cache-v3-1-ae188ccda977@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNTQ6CMBCG4auQWVvTdoAUV97DuOjPAI0ipNVGQ
- 7i7hRUb4/L9knlmhkjBU4RTMUOg5KMfHznwUIDt9aMj5l1ukFzWgkvFwi05siy56YUKmdW2J6Z
- aY1qFAp1GyKdToNa/N/Zyzd37+BzDZ/uSxLr+AZNggjmsSuXQYKXqczdofz/acYAVTHKPND8Qm
- RFVNcaUJXHUfI8sy/IFbBPY3f0AAAA=
-X-Change-ID: 20261028-rkvdec-vdpu383-cache-8fbbf8313da3
-To: Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Valerii Bokov <vlry.bkv@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793353280; l=13314;
- i=vlry.bkv@gmail.com; s=20261028; h=from:subject:message-id;
- bh=5eZ4QT44xRMtAkb6T5sESJ96DERGplqGY0zj08cgGdw=;
- b=noGK/Wy+e1Ezk0yShtS09fpncwSQuqaOHLCwIYsXERDJ1ltN1xiBHBis7Qksg4lyqVwGTshHm
- X/l5NCNdJKaDqinwfmmAeNFtJsHmB38NFtQ2dhepB37oloosMDY3OQR
-X-Developer-Key: i=vlry.bkv@gmail.com; a=ed25519;
- pk=u/rk2lx5DMp734XMF4ThLZD2H0AqvfYuikR7wu2iyNA=
-X-Endpoint-Received: by B4 Relay for vlry.bkv@gmail.com/20261028 with
- auth_id=1342
-X-Original-From: Valerii Bokov <vlry.bkv@gmail.com>
-Reply-To: vlry.bkv@gmail.com
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261030-camss-fix-v2-1-51fe96b348cf@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIALJn5GoC/22MQQrCMBBFr1JmbcokLQ1x5T1KFyGZ2oBpNKNFK
+ bm7sWs3H97j83ZgyoEYzs0OmbbAIa0V1KkBt9j1SiL4yqBQDRI7FM5GZjGHt+iNVoPRNBskqP9
+ 7pqqP1jhVXgI/U/4c6U3+7L/KJoUU5JzU2PXKo78k5vbxsjeXYmzrwFRK+QJeRiTUqQAAAA==
+X-Change-ID: 20261030-camss-fix-4972697ef90e
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-ORIG-GUID: JrMky-G9L2SmO1OFvLHXoKa2vSI3XE0K
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMwMDAzOCBTYWx0ZWRfX0TBCRWXCvDrP
+ mDrjhe7vet7zMzgYTV1duNMEcfe8bRXOtLKcIcLXf0rHFFvoJNiNE8ADLUN81CEiFfEDwuGSDk5
+ CHXSA9gC/U9QR9pcKHEp2ZMGYl6429g=
+X-Authority-Analysis: v=2.4 cv=DfSCOftW c=1 sm=1 tr=0 ts=6ae467b7 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3pNaL92NREA4lOQ_sX4A:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-GUID: JrMky-G9L2SmO1OFvLHXoKa2vSI3XE0K
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMwMDAzOCBTYWx0ZWRfX6YolTwAwIXGm
+ u5LN1QSYyd7Oku8iCpHhT4jlZZvC4eci8zveP6axUtymRS7q0JlG8UjD9i+alj+6+bcd9TICk3x
+ +7fpErwczko2s2hmtSiw9irB/stMHoVVIP9wPsYE0DM0Cz06uARm5k6L6Uiun9XFnZTsPIL+3lY
+ SeBOJZ7MsWUTjWn1QGJsre/i314W94GIRk2pqSxxs2gk3XB4V1CkeYvDe3dKjYXxiEv5+P8Pe7P
+ msRiJ6lWPbYqbYIzLsIgv+J/S6Mk5LyCox35lZ0gVYZYGHq71OXh1XKTu3m1GWMy1ZNGHi/tWXd
+ ocriThbsbRSXHcab9bl2rSSf7xRdELdlVlnX02v1wLePzYvPmS7rtlTDnlHTIYzwz2kLq63XR02
+ eAAYccIQBLgETZtnTICVnUWP6Tfi8oZbV23ck2+WQTeWIYbkg5a2FiAxAsZiEi0YOQCYUAsbqVA
+ 93Qrb9+4YOwNQGGg9/A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-30_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0
+ phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610300038
 
-From: Valerii Bokov <vlry.bkv@gmail.com>
+vfe_flush_buffers() returns all active buffers to vb2 but it leaves
+output->buf[0] and output->buf[1] pointing to the completed buffers
+despite the lost of ownership.
 
-The VDPU383 has a reference read cache with its own register region,
-"cache" in the device tree, which the driver does not map. Its
-configuration and read limit are therefore left at their power-on
-values, and those differ between power-ups. On RK3576 this makes H.264
-decoding of a 2688x1520 stream take either 22.5 ms or 65.4 ms per
-frame, depending on the power-up, while the values the vendor driver
-programs bring it to 3.6 ms per frame.
+This can lead to subsequent flush or completion paths operating on
+stale state and potentially completing the same buffer more than once.
 
-Map the "cache" region and configure it statically: enable cacheable
-read-allocate accesses with 64-byte lines and set the read limit
-(MAX_READS in the vendor driver) to 0x1c. The registers lose their
-configuration whenever the decoder is powered down, so they are
-programmed from runtime resume, which also covers the first use after
-probe. As the vendor driver does (rkvdec_vdpu38x_run() in
-mpp_rkvdec2.c), the cache is still cleared before every frame, because
-reference buffers are rewritten between frames.
+Clear the buffer pointers explicitly.
 
-The region is optional: on a device tree that does not describe it, the
-driver probes as before and leaves the cache unconfigured. It is mapped
-for any variant whose device tree describes it and configured through a
-new per-variant config_cache() callback, which only VDPU383 implements
-for now, so other variants can add their own cache setup later.
+Note: vfe_enable_output_v2 is supposed to overwrite those pointers with
+pending buffers when streaming is restarted, but nothing guarantees that
+enough pending buffers will be available to overwrite all entries.
 
-Decode time per frame for a 2688x1520 H.264 stream on RK3576, within
-one decoder power-up, with the registers set between runs:
-
-  MAX_READS  CACHE0_CFG  ms/frame
-  0x0        power-on        65.4  (slow power-up)
-  0x2        power-on        22.5  (fast power-up)
-  0x1c       power-on         7.2
-  0x2        0x13             8.6
-  0x1c       0x13             3.6
-
-The decoded output was bit-identical in all five cases. These numbers
-were taken by setting the registers from user space through /dev/mem.
-
-The read limit is a 5-bit field whose meaning is not documented; 0x1c is
-the vendor driver's default. With the cache configured, decode time per
-frame of the same stream against the read limit:
-
-  MAX_READS  1     2    4    8    12   16..28
-  ms/frame   12.8  9.2  6.3  4.6  4.1  4.0
-
-so the default sits where decoding stops getting faster.
-
-The registers were identified with the help of an AI coding assistant
-(Claude, model claude-opus-5-5), which diffed register dumps of fast
-and slow power-ups and matched the result against the vendor driver.
-It also drafted this patch and its changelog, which I reviewed. The
-measurements and tests were run on an RK3576 board.
-
-Link: https://lore.kernel.org/r/20260619111810.564384-1-laszlo.fiat@tuta.io
-Signed-off-by: Valerii Bokov <vlry.bkv@gmail.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-e617a776-3d96-47cb-8d60-a769340c25a7
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Fixes: 4c98a5f57f90 ("media: camss: Add VFE files")
 ---
-Testing on RK3576 (Smatek T10PE) with v2 of this patch applied, on top
-of 6.18.34 with Simon's priming patch (v3 only restructures how the
-region is mapped and configured, and renames a define):
-- The cache registers are programmed on every runtime resume: zeroed
-  by hand while powered, then suspended and resumed without decoding,
-  they read back 0x1c/0x13 (4/4).
-- 2688x1520 H.264: 4.0-4.2 ms/frame on a 257-frame clip across 8
-  separate power-ups, no fast/slow lottery left.
-- Output is bit-exact against FFmpeg's software decoder (per-frame md5,
-  all 257 frames) for that H.264 clip and for an HEVC Main clip with
-  B-frames encoded from it.
-- 10 minutes of a live 2688x1520 H.264 RTSP stream at the camera's
-  25 fps: 24.4 fps average (23-25 fps in every 30 s window), 14% of
-  one CPU core, no kernel or decoder errors.
-
-Open questions:
-- I have not checked whether the decoder's soft reset (after a timeout
-  or error) also resets the cache registers. If it does, they need to
-  be reprogrammed after a reset as well.
-- Simon's out-of-tree priming patch also modifies
-  rkvdec_runtime_resume(), so the two will conflict textually there.
-
-Possibly related, not part of this patch:
-- VDPU381 (RK3588) may have the same problem. The vendor driver
-  programs three caches there before every frame (CACHE0/1/2 in
-  rkvdec2_run(): cacheable, read-allocate and 64-byte lines, plus a
-  clear of each), and mainline programs none. I have no RK3588 board to
-  check whether its decode speed also varies between power-ups.
----
-Changes in v3:
-- Rename the read-limit value to VDPU383_CACHE_MAX_READS_DEFAULT, set it
-  apart from the register definitions and document it, with measured
-  decode times for values 1-28 (the field is 5 bits wide).
-- Map the "cache" region for any variant whose device tree describes it
-  and configure it through a per-variant config_cache() callback,
-  instead of checking for VDPU383 in probe.
-- Link to v2: https://lore.kernel.org/r/20261029-rkvdec-vdpu383-cache-v2-1-859bb44e03a0@gmail.com
-
 Changes in v2:
-- Configure the cache statically from runtime resume instead of before
-  every frame, as suggested in review. The values are constants, so
-  "restore" is a plain rewrite; there is nothing to save.
-- Keep clearing the cache before every frame, as the vendor driver
-  does. Happy to drop it if that is preferred, but I have only shown
-  bit-exactness with a single clear on one clip, which is not enough to
-  rely on.
-- Make the "cache" region optional. v1 returned an error from probe
-  when it was missing, which would make the decoder disappear on any
-  device tree that does not describe it.
-- Map the region only for the VDPU383 variant, since the configured
-  values are specific to it and are now applied from shared code.
-- Link to v1: https://lore.kernel.org/r/20261028-rkvdec-vdpu383-cache-v1-1-d3548d3b3586@gmail.com
+- Remove unrelated changes/diff from this patch
+- Link to v1: https://lore.kernel.org/r/20261030-camss-fix-v1-1-ecc170342d0d@oss.qualcomm.com
 ---
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c |  2 +
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c |  2 +
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h | 16 ++++++++
- drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 47 +++++++++++++++++++++-
- drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  4 ++
- 5 files changed, 70 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-vfe.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-index 5ec755733..efb1f6975 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-h264.c
-@@ -441,6 +441,8 @@ static int rkvdec_h264_run(struct rkvdec_ctx *ctx)
- 	timeout_threshold = h264_ctx->regs.common.reg013_core_timeout_threshold;
- 	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 2680a9914765fa2c8f3c2b38a5f4f0e0bcf4d873..8e297e2bcafcbf30b09fc2ad6e57f484a4e41898 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -1187,11 +1187,15 @@ int vfe_flush_buffers(struct camss_video *vid,
  
-+	rkvdec_vdpu383_clear_cache(rkvdec);
-+
- 	/* Start decoding! */
- 	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD);
- 	writel(0, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-index 3462d995d..6223b89e2 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-hevc.c
-@@ -568,6 +568,8 @@ static int rkvdec_hevc_run(struct rkvdec_ctx *ctx)
- 	timeout_threshold = hevc_ctx->regs.common.reg013_core_timeout_threshold;
- 	rkvdec_schedule_watchdog(rkvdec, timeout_threshold);
+ 	vfe_buf_flush_pending(output, state);
  
-+	rkvdec_vdpu383_clear_cache(rkvdec);
-+
- 	/* Start decoding! */
- 	writel(timeout_threshold, rkvdec->link + VDPU383_LINK_TIMEOUT_THRESHOLD);
- 	writel(VDPU383_IP_CRU_MODE, rkvdec->link + VDPU383_LINK_IP_ENABLE);
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-index 04eb23297..da46f8601 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-@@ -42,6 +42,22 @@
- #define VDPU383_STA_INT_SOFTRESET_RDY	(BIT(10) | BIT(11))
- #define VDPU383_STA_INT_ALL		0x3ff
+-	if (output->buf[0])
++	if (output->buf[0]) {
+ 		vb2_buffer_done(&output->buf[0]->vb.vb2_buf, state);
++		output->buf[0] = NULL;
++	}
  
-+/* Reference read cache, in the "cache" register region */
-+#define VDPU383_CACHE_CLR_CACHE0	0x10
-+#define VDPU383_CACHE_MAX_READS		0x18
-+#define VDPU383_CACHE_CACHE0_CFG	0x1c
-+#define VDPU383_CACHE_CFG_CACHEABLE	BIT(0)
-+#define VDPU383_CACHE_CFG_READ_ALLOCATE	BIT(1)
-+#define VDPU383_CACHE_CFG_LINE_64B	BIT(4)
-+
-+/*
-+ * Maximum outstanding reads, a 5-bit field. Its meaning is not documented;
-+ * 0x1c is the vendor driver's default. On RK3576, H.264 decoding stops
-+ * getting faster from 16 upwards, and is several times slower at 0, which
-+ * is what the register holds after some power-ups.
-+ */
-+#define VDPU383_CACHE_MAX_READS_DEFAULT	0x1c
-+
- struct vdpu383_regs_common {
- 	u32 reg008_dec_mode;
+-	if (output->buf[1])
++	if (output->buf[1]) {
+ 		vb2_buffer_done(&output->buf[1]->vb.vb2_buf, state);
++		output->buf[1] = NULL;
++	}
  
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index fbcd0f175..65b84e34a 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1158,6 +1158,29 @@ void rkvdec_schedule_watchdog(struct rkvdec_dev *rkvdec, u32 timeout_threshold)
- 	schedule_delayed_work(&rkvdec->watchdog_work, msecs_to_jiffies(watchdog_time));
- }
- 
-+/*
-+ * The reference read cache and the read limit lose their configuration at
-+ * every power-down and come up with values that vary between power-ups,
-+ * several times slower than the vendor driver's. Program them whenever the
-+ * decoder is powered up.
-+ */
-+static void rkvdec_vdpu383_config_cache(struct rkvdec_dev *rkvdec)
-+{
-+	writel(VDPU383_CACHE_CFG_CACHEABLE | VDPU383_CACHE_CFG_READ_ALLOCATE |
-+	       VDPU383_CACHE_CFG_LINE_64B, rkvdec->cache + VDPU383_CACHE_CACHE0_CFG);
-+	writel(VDPU383_CACHE_MAX_READS_DEFAULT, rkvdec->cache + VDPU383_CACHE_MAX_READS);
-+}
-+
-+/*
-+ * Reference buffers are rewritten between frames, so the cache is cleared
-+ * before every frame, as the vendor driver does.
-+ */
-+void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec)
-+{
-+	if (rkvdec->cache)
-+		writel(1, rkvdec->cache + VDPU383_CACHE_CLR_CACHE0);
-+}
-+
- static void rkvdec_device_run(void *priv)
- {
- 	struct rkvdec_ctx *ctx = priv;
-@@ -1729,6 +1752,7 @@ static const struct rkvdec_variant_ops vdpu383_variant_ops = {
- 	.irq_handler = vdpu383_irq_handler,
- 	.colmv_size = vdpu383_colmv_size,
- 	.flatten_matrices = vdpu383_flatten_matrices,
-+	.config_cache = rkvdec_vdpu383_config_cache,
- };
- 
- static const struct rkvdec_variant vdpu383_variant = {
-@@ -1807,6 +1831,19 @@ static int rkvdec_probe(struct platform_device *pdev)
- 		rkvdec->link = devm_platform_ioremap_resource_byname(pdev, "link");
- 		if (IS_ERR(rkvdec->link))
- 			return PTR_ERR(rkvdec->link);
-+
-+		/*
-+		 * Optional: not every device tree describes the cache region. It
-+		 * is configured by the variant's config_cache(), if it has one.
-+		 */
-+		if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "cache")) {
-+			rkvdec->cache = devm_platform_ioremap_resource_byname(pdev, "cache");
-+			if (IS_ERR(rkvdec->cache))
-+				return PTR_ERR(rkvdec->cache);
-+		} else if (rkvdec->variant->ops->config_cache) {
-+			dev_info(&pdev->dev,
-+				 "no \"cache\" region, reference read cache not configured\n");
-+		}
- 	}
- 
- 	ret = dma_set_coherent_mask(&pdev->dev, DMA_BIT_MASK(32));
-@@ -1875,8 +1912,16 @@ static void rkvdec_remove(struct platform_device *pdev)
- static int rkvdec_runtime_resume(struct device *dev)
- {
- 	struct rkvdec_dev *rkvdec = dev_get_drvdata(dev);
-+	int ret;
- 
--	return clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-+	ret = clk_bulk_prepare_enable(rkvdec->num_clocks, rkvdec->clocks);
-+	if (ret)
-+		return ret;
-+
-+	if (rkvdec->cache && rkvdec->variant->ops->config_cache)
-+		rkvdec->variant->ops->config_cache(rkvdec);
-+
-+	return 0;
- }
- 
- static int rkvdec_runtime_suspend(struct device *dev)
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-index a24be6638..c4b9a2211 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
-@@ -30,6 +30,7 @@
- #define RKVDEC_8K_PIXELS		(7680 * 4320)
- 
- struct rkvdec_ctx;
-+struct rkvdec_dev;
- struct rkvdec_rcb_config;
- 
- struct rkvdec_ctrl_desc {
-@@ -75,6 +76,7 @@ struct rkvdec_variant_ops {
- 	irqreturn_t (*irq_handler)(struct rkvdec_ctx *ctx);
- 	u32 (*colmv_size)(u16 width, u16 height);
- 	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int row_length);
-+	void (*config_cache)(struct rkvdec_dev *rkvdec);
- };
- 
- struct rkvdec_variant {
-@@ -136,6 +138,7 @@ struct rkvdec_dev {
- 	struct clk *axi_clk;
- 	void __iomem *regs;
- 	void __iomem *link;
-+	void __iomem *cache;
- 	struct mutex vdev_lock; /* serializes ioctls */
- 	struct delayed_work watchdog_work;
- 	struct gen_pool *sram_pool;
-@@ -180,6 +183,7 @@ void rkvdec_run_preamble(struct rkvdec_ctx *ctx, struct rkvdec_run *run);
- void rkvdec_run_postamble(struct rkvdec_ctx *ctx, struct rkvdec_run *run);
- void rkvdec_memcpy_toio(void __iomem *dst, void *src, size_t len);
- void rkvdec_schedule_watchdog(struct rkvdec_dev *rkvdec, u32 timeout_threshold);
-+void rkvdec_vdpu383_clear_cache(struct rkvdec_dev *rkvdec);
- 
- void rkvdec_quirks_disable_qos(struct rkvdec_ctx *ctx);
- 
+ 	if (output->last_buffer) {
+ 		vb2_buffer_done(&output->last_buffer->vb.vb2_buf, state);
 
 ---
-base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-change-id: 20261028-rkvdec-vdpu383-cache-8fbbf8313da3
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+change-id: 20261030-camss-fix-4972697ef90e
 
 Best regards,
 -- 
-Valerii Bokov <vlry.bkv@gmail.com>
-
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
