@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793370393;
-	b=4hIN+fy9LMSqcYZMRqNACAi+zof4M5lO1PMaOwnTrunOhytHHF5aynBXoM9U/JoTZd3z
-	 BofPpIu/VUtMGPCoVC74+zeWD6AlIw3lLDc6c+wPwL1xIJq8EsUPk4wDKp8JH97noiXdE
-	 mZAYsP4BmiOtbfiRFs2ZWGZSFyxOUS5xyHU2IeUzNuGZIINJyFy0lZDPDpc6R0IJKi7UY
-	 BddizL/qE1ggFOvbmq0NgsJz0pWJ9ee3e3DURkkB6/mSSwp2UlXXylZoWMygQKpXSbavl
-	 AB4iOHU2bzHH73R8rnZeuvcQTlAUSoRtBtuQb4SFYBIRFGMvlb3tjMPnyFmFbixugxQ==
+	t=1793370389;
+	b=IrvJteKZ9MZCVpjdLQVZdMK7UetfvDHz1dUERnshlafciNaYZcMzijXWZhI/cejMmHwS
+	 za4CwBCSYvcwUUk8E5DM7ffMA/sPX/Lb6CzfWX7x4bCxcmbFvM0iTufz8VUKr+rDFP8YY
+	 Tb1/8EydeczKGNtXu+nlKO5cGUXBddUr8QOho+ZVeTY46xSxdDOt0NFvPT9trEGefyPDR
+	 N6P4+nyvG17+8Ox4Lt8Ffb8CrY8weBlubPKpCnVoYtXKLHrmdgCf6RSkijMWYhew9nWRY
+	 3RmF+Cy9pnlk7jO9zYcGLgFEuY5AcZ+Aw3MHK61BNnlGGVhSxLET9j+tYQ15BtiIcUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793370393;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793370389;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=yYG4TpWP5CQGOegvlqLkoK/4FyE8KxdOkg6JKG40puU=;
-	b=y83c/uVHQ3ATR77B1oVR5Fvi2hB+bAUw6QcqihnCPZ0YaZ64KiYpzCM+qzQkdsvzUInh
-	 ddVTemiSw0BRfYKaPb3q84x5T9YK1ih1ibERGhfYe6o4DL/tP+Av1pBtWPXyQ9zDUgMiE
-	 KNh/62rre3JQ7cKUdVGCfu5+X2Lhi9IUqn7ADpP21ESoeM1hCjXa3MoQP+FbvFRUv8WtD
-	 GhX0Uaqi5mjP0M2cVXVzpGoN+DpfcvGL/KZGT9vGTxpA9fjX9OF4+jKBCdJhG8Yuu7tpy
-	 7+AWRRwXYN7ZuerrIMz2Nm+p1mJ3gwjhhh0x7dm4kw78EUjIWSQ7sH+ZutX/uy2JCxQ==
+	bh=sAoD4mQFdz5KOYnm3Mb3Er1f5ViHeAPHJb+fiv/iKuU=;
+	b=wifn8i12f3LqQulCbXOnbOiIUDu/uMfQ/ANmBJ6Px9EAYfFLaih2bD1JXrEOPNI6JxtF
+	 kWmzf1Y9fIzrB4G/UG7rt/iYlAoK740T1RAln1auPNp9tJkq8RFhBcbKxsKYwb8Hc3YIz
+	 mJfRLuvX2QZ0KBAoinRCDMRTtxju2ZcuLeDkAG6A/5AJUQViFzr5A9gNWMsjzPTzCn0sA
+	 //FmS6HwQk2rLWc3mih74a2LyHdZjiHFpiVDCqdDqSsvVWkvCjNgzXTO2Xc32dGocuezC
+	 QS4WN0BoDEwRJww9uiiBJys7EBh14iuOccx1HVpYCf1+rqdm1R/mM+l0g9xneLXXweA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WnvadyXG;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oer7YIdo;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874C4606A31E
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 14:26:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 874C4606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB18606A31D
+	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 14:26:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FB18606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WnvadyXG
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9ae47b00cso1476515ad.3
-        for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 07:26:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oer7YIdo
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a0eecf73fso149359eec.3
+        for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 07:26:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793370393; x=1793975193; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793370388; x=1793975188; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yYG4TpWP5CQGOegvlqLkoK/4FyE8KxdOkg6JKG40puU=;
-        b=WnvadyXGGrMdYZywmz4E7FRaPFe0uYQwczsQEhWGlq9T9cqB65QKUIj3nRfUbitk+l
-         cxOd7ULRNzWxx6zI/Qr9R3bXk/pktDMwzZoIXqQf8h4cadqo4KVugcXFZJ7Y9g6TWWpL
-         wfBNbs3Jra50FiW7Eo05t2OK/e6tp0MN4F2E+IHUquQb5UXe2v659DTr2Hfbf24qojCu
-         76ifXUa+r3Lcu2Undt8vlwmT3Y1K1nTdhKK02FtttnB77NyImJOXfy4Hu4sBKPqkP0/L
-         giyDzG6zB7bcfznN3oC1jXWczugk5A/PokqP8T3mEiqhrNucSMm9AbPtbtel0ft+gMXt
-         cTzQ==
+        bh=sAoD4mQFdz5KOYnm3Mb3Er1f5ViHeAPHJb+fiv/iKuU=;
+        b=oer7YIdotKz/JXRB0qdpxYIPan9ozLr+1Yi+VxrAD9kMoAS3kXA9PaZbyNOJyvMrbS
+         v5fjw3XXmiEoi9gPbOXeUp2UbBBzqJztqgXUFxAgQVMjR9/jjE7+Na4ZasF4q3YRWgaa
+         GhPMPJhn5SXgAJkQrRyxYp3+2mmlwe+tUW4/F8CyVOQky43y+AbcJAfjoPl/b6CJm+0s
+         S+APslvYn7nYiXfzHxsT8UDd0tH5mTfRNwrCYIPe8f12gGx8hUF5dMSqG0eHC6LikE+p
+         ekUQJD7QyZPHN8mBaH7V2gXWHApDzpBCNnG4/Uba7HY6byMSbN5w8aX2NoR4GmLRucM+
+         Bl4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793370393; x=1793975193;
+        d=1e100.net; s=20260707; t=1793370388; x=1793975188;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yYG4TpWP5CQGOegvlqLkoK/4FyE8KxdOkg6JKG40puU=;
-        b=KZ65EDi88f+ZDAvxcDYdNmKa1Bs2xARpA/2h8d4qJhsHUyTh64mibJuNziwfW2yuGn
-         fMuqzv3XFd945G8yL8CHtmN9zXCcw+6L+cS63E6b3O3xfV/OaBerA3VQwgWAYiL8nDv2
-         Mcawj8eIGcGYWADv8sjNpSBjbK1op1BppNLn44sJ0wTvDiHP2PRckyLGGwrNkjVURJdJ
-         mbJpZqMTLrsjIoavklxF0du/O0Gh5V7lKS4MvHMdrApk8cGgJ9cAyK6hRI6YcuTJsEOz
-         2v48tDUKSIo2muDnvxjb/g0B2rEnxBLCCVs8HA/Jw6XzQW6hEs85EkDKWtMlmtHiNojF
-         yDvg==
-X-Gm-Message-State: AFq9FYIFUWu2K0abcIxEYEt1gTDDrqoOB4CZwYJMNousPAXHJf9Qdojn
-	HPNdDtW2mxSFwewqx6CS7JAy7jje5voC3qZ+9oLoGFO3mkuiteDqqRcH
-X-Gm-Gg: AYBFou0dufV6M+AcCD2QpydV0zhZn8hPKiC3sVthM5Z6jo6USRe7T/M+rhcjIIeXbps
-	NQSEBJSGJN53gv4w/rPzLjb+wX5qSM106D0ad3VxqVjdy2cYMc65vA9uAjviQyaoY8E1h3cYq+s
-	dWSuhGwoKGuLsgu/HgogghLose62Hz0Vg8EQ+HCpwYJBB3aZs9HldGVyotGDNqpoQVqyCIA5yuX
-	2YlO47EevjP38jXWQDNFaoCLMbeli4PCu26wQ1SDEpA2/wUf6a/0WMBvJRnUR3ckFzsAAZto4Fw
-	7xIZP4+f/+Z84ia0bxPiF1WkGyyv9zwzygBK+ixsNYydTuC6GRnKAdVXofk3DYUmmbRl9xmSoq8
-	mEyMycq+SMipfgRwmEuKe6GQih9S4TYxGpqUb37596ykfnXdnJ7RvMpxpr5vJIp6sBRgk4ArsdD
-	+Odk4lVZKz4geTwPYSyPfnBf/kYY9wKHGYmaqVWzrvjcrtydHAj4OQWAupnqABNJXA+QpYa6IzT
-	v+De2IDzHcn4mbUs7UIkKIaHO5a12hVnrD0+OO2KA3gXiB9dvMeSMR5TNR98EOc95SnwF0xtvo1
-	7IIAZTKrLROQ/qSPAuEzax3a5INhZD8dfyss+VysQNjNeFEsEfhrL+NjY92SQr3q2fL4bBYlLyg
-	TpnIYUyYDweK901DP4S8O2GV/eXPBAga97ynaShfQJ1u/xJfKOzxsJSA3zpv29/lXaPRpkNZslC
-	+5dE9ZDsfBt4JUmuoAHvk=
-X-Received: by 2002:a17:902:cccc:b0:2e9:d00d:1307 with SMTP id d9443c01a7336-2eb3649f10dmr43213015ad.3.1793370392712;
-        Fri, 30 Oct 2026 07:26:32 -0700 (PDT)
+        bh=sAoD4mQFdz5KOYnm3Mb3Er1f5ViHeAPHJb+fiv/iKuU=;
+        b=R8vBPdBe8DklEIwCRQai+3hWSdf9NaWqAZv8a/gc1Qm3teuqGqBJ/RKEaKxEUYQwBB
+         M+w9w6Ag3lwXLZPtFQtD0RNyFv5Fm1eJcVSN7xs5WCa5hELeE30D9wvEVZzhYEwBiPhS
+         caM3KJMVonkMswdxaQFrlzaAh56O8oxeRocXNUA9lFkqfEwfbVrkfLGhcxssFV6uvwfB
+         Cpc7EYnHZ14EgfFFGXjZT3UokKNXKRM2AsY5Yx+PwSFiYfFbADijT3E8ZLPCQgQ1VUVN
+         Rgfz9bLd389zagHnGb+nVKjqwGBHHCOAheHIAL6LJab7DsYIF1DETnP3WtznHeQ2quUZ
+         mxQw==
+X-Gm-Message-State: AFq9FYIp1wWw6xKw+umM8su+P6nup8DupCyM4nlNP8Qdp36WyU7q0neZ
+	y8sl6yEaZWivjJ1vSZjuAyTNWozruaYB25mow76MF0H8eKe7fzunStT6
+X-Gm-Gg: AYBFou0wDbmJJOG5N/DHVEdMznHPHNNLNNbgRGUn3abqjcjV6bcb4oinG8miUhwYNCI
+	WmXAPrD6FeATwKNuKgWLfXMTMKD8unoaW/4zNvS4ZADYd+DkQjS9TTYrGsmSTsh6AubitGX/r9N
+	7KAl2hOYq+iwX/rBCxhRxkzuMfDhPmByycDi+VFG781zVb4BcNruaOcaNpNXLgojJ29mEw6EaAj
+	cpIg9Qm7d6ZfuE0lEmq+iwkSexOuU0Ztpd0D0KUgggjVOEtAHorTSjZzuTgdC+RYnXiVKLj+aRw
+	hIQ7+ZMKG6iD1jz3CBBmItlNaOMpOoktjj4PACOLjYXYyc1JA+ALl8cULQ8aHCYrQhvgLapH+QK
+	0fQtR0NPmPi6sBJf7G65mk4PstjtN7plRSeXYyv7qvG5drQWipQ9nsLVj7M7+Fh/U5sUsYXj/BI
+	m12P5lH2PtAbrfABDjDzpBkIR2Du4cdGmzyyv3wGY+6dszTyzo/NaR9IQhSFse8yVYTe0pkyLEW
+	EMIAHSGrNIfHWTjDNGAq/CGUOqNGV4LwB0FqZ+c8XD2it2cnQKNrGyKgiwS7gyjS0wRWoTR27kq
+	pi41TJcpUZUgc2UmDZ/x91XNxH18JEuEpLrMvlROAeeq4ZvNX20QFeRRK9OWMJxGAIo+m+JCcQo
+	TwZONyKwFwGHnTwp2JyTatd3YNxPio4TJjIbtirdAEXxIdp8uB2cgd22krh0+6XpOAwXUE88Ejl
+	V7fJ4LUoH2SRtlHJC42JvucQJtLcQzrkeD0DZHW3CL
+X-Received: by 2002:a05:693c:6304:b0:368:1f8c:5f23 with SMTP id 5a478bee46e88-36a4205b0bfmr5705081eec.0.1793370388197;
+        Fri, 30 Oct 2026 07:26:28 -0700 (PDT)
 Received: from esteban.tail1178e6.ts.net (132.20.31.150.dy.iij4u.or.jp. [150.31.20.132])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3923153csm8108695ad.13.2026.10.30.07.26.30
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4239ca82sm7869265eec.0.2026.10.30.07.26.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 07:26:32 -0700 (PDT)
+        Fri, 30 Oct 2026 07:26:27 -0700 (PDT)
 From: Antoine Pichot <antoine.pichot@gmail.com>
 To: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Cc: linux-media@vger.kernel.org,
@@ -92,8 +92,8 @@ Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
 Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for the 319.2 MHz link
-Date: Fri, 30 Oct 2026 23:26:28 +0900
-Message-ID: <20261030142628.2235190-1-antoine.pichot@gmail.com>
+Date: Fri, 30 Oct 2026 23:26:24 +0900
+Message-ID: <20261030142624.2235132-1-antoine.pichot@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <CAPY8ntArdj338V8bcSxrmwKQecy-pAcCXMbkWy=qLckX=hawNQ@mail.gmail.com>
 References: <20261028112154.855185-1-antoine.pichot@gmail.com> <20261028112154.855185-2-antoine.pichot@gmail.com> <CAPY8ntArdj338V8bcSxrmwKQecy-pAcCXMbkWy=qLckX=hawNQ@mail.gmail.com>
@@ -111,170 +111,59 @@ Content-Transfer-Encoding: 8bit
 Hi Dave,
 
 On Thu, Oct 29, 2026 at 07:06:31PM +0000, Dave Stevenson wrote:
-> The cleanups do raise the question of what registers 0x3016-0x301c do,
-> and which of the 2 variants is preferable (60 and 90fps both use the
-> same values). The datasheet SC_CLKRSTx naming isn't exactly
-> descriptive. I don't suppose you have any information?
+> I have a 24MHz module and had tested with it, which you'd acknowledged
+> in the previous sentence.
 
-The datasheet calls them the system control clock/reset registers
-(SC_CLKRST0-6, table 7-1) and names every bit: per internal block, a
-clock gate in bits 7-4 and a reset in bits 3-0. I checked them on the
-Book 2 and believe they can safely move to ov7251_global_init_setting
-for all three rates with the 60 and 90 fps values, 0x3016 = 0x10 and
-0x00 in the other five: timing control clocked, every other gate and
-every reset clear. Here is why:
+You are right, sorry. v3 replaces that sentence: the 24 MHz tables are
+left to a separate change, with your measurement cited.
 
-a. Poked bit by bit mid-stream, any reset bit set holds its block
-   (frames stop or come out empty), and only one gate matters for
-   streaming, the timing control's (0x3016 bit 4): cleared, frames stop
-   at every rate. Two other gates matter only to blocks the driver does
-   not use, group hold and the OTP. Every other gate and the debug bits
-   changed nothing I could see. None of this depends on the frame rate.
+> I've pushed where I am to
+> https://github.com/6by9/linux/tree/rpi-7.3.y-ov7251. Patch "media:
+> ov7251: Add support for a 400MHz link freq" fixes up all the 24MHz PLL
+> settings. I've also done the conversion to use the V4L2 CCI library.
 
-b. Written as whole values at 30, 60 and 90 fps, mid-stream and with
-   the sensor restarted from software standby, this value, every gate
-   set (the 30 fps table's 0xf0), the reset values and a set with only
-   the documented gates on all streamed identically to the driver's
-   values: same frame rate, lit and dark frame means, black level at
-   gain 16 and 1023, test pattern bars, no sequence gaps, errors or
-   kernel messages. So did a rebuilt driver started from power-on
-   with the six lines in the init table, this value or 0xf0, right
-   after the reset or at its end, and with the lines simply removed.
-   Every bit clear gave no frames at any rate.
+Thanks. For v3 I am taking your "Move the common registers into the
+global init table" as patch 7, under your authorship, in place of my
+strobe-register patch: the strobe registers now sit in
+ov7251_global_init_setting, which answers your question on 5/7 of v1.
 
-c. It is what the Windows driver for this module (ov7251.sys
-   30.18305.6.5127) writes in all four of its modes, 30 fps included,
-   what ov6211 and the other vendor tables I found use (Intel Aero,
-   NVIDIA CyberDog, Allwinner, Unisoc, Sophgo, Ingenic, Cypress, at
-   most one bit apart in 0x3018 and 0x301c), and what your rpi-5.15.y
-   commit 63843c4bb331 [1] ran at all three rates. The 0xf0 set I only
-   found in 30 fps tables derived from Qualcomm's auto-generated
-   sensor library (ov7251_lib.h), which the 2018 driver's tables
-   match: its 30 fps mode carried 0xf0 and its 90 fps mode 0x10/0x00,
-   so the two variants look inherited, not chosen.
+The move has two side effects on the bus, both in the commit message:
 
-Not writing them at all works too, then; I prefer the value above
-because it is the one everybody else runs. A driver that adds group
-hold one day sets 0x301c bit 5.
+- The common registers are written at power-on instead of at every
+  stream start, so a restart within the runtime PM autosuspend delay
+  skips them. The datasheet allows it (table 2-8: software standby
+  keeps the register values).
+- Register 0x3820 holds 0x40 while the sensor streams, where it held
+  0x00 before. The flip control writes back the value probe cached,
+  and probe now caches it after the init table has written 0x40, not
+  right after the reset when it read 0x00. I poked the old value in
+  during a lit stream: brightness, picture, orientation and frame
+  rate did not change.
 
-Details follow: block names, bit map, method and results.
+Tested on the Book 2 against v2: the clock, timing, PLL, flip and
+strobe registers read back while streaming at 30, 60 and 90 fps are
+identical apart from 0x3820. On a sensor kept powered, a restart and
+mode switches from 30 to 90, to 60 and back to 30 fps give a correct
+first frame every time, at 90.45, 60.15 and 30.0 fps.
 
-[1] https://github.com/raspberrypi/linux/commit/63843c4bb331c07492adcceb7c693fd39c26d88b
+The rest of your branch (400 MHz, CCI, HBLANK and MIN_HTS, the
+optional enable GPIO, the gain rename, the VBLANK minimum) I leave to
+you as you offered, to keep v3 to the fixes and the IR camera. I can
+test them on the Book 2 (19.2 MHz, 319.2 MHz link) when you post them.
+Two things for that:
 
-Details
-=======
-
-Block names, as abbreviated in the datasheet; the expansions are
-OmniVision's usual ones, the confidence is mine:
-
-  name    block                                        confidence
-  fc      frame control (starts and ends each frame)   high, tested
-  tc      timing control (line and pixel counters)     high, tested
-  aec     automatic exposure control (unused here)     high
-  blc     black level correction                       high
-  isp     pixel pipeline                               high
-  vfifo   output line buffer                           high, tested
-  mipi    CSI-2 transmitter                            high, tested
-  otp     one-time programmable memory                 high, read it
-  grp     group hold (applies writes at a frame edge)  high, tested
-  bist    built-in self-test                           high
-  srb     serial register bus (I2C register block)     medium
-  asram   asram_tst, internal RAM test logic           medium
-  sync    snr_sync, frame sync to an external signal   medium
-  ac, src, mipisc (mipi_sc): datasheet names only      low
-  dbg     "Debug control", undocumented                n/a
-
-Decoding, from table 7-1 of the datasheet (rev 2.12), which names
-every bit: each register holds four blocks, their clock gates in bits
-7-4 (sclk_, * = pclk_) and their resets in bits 3-0 (rst_), at the
-same position except in 0x301a. The reset column is the value after
-the software reset (0x0103), from the same table.
-
-  reg    reset b7     b6     b5     b4     b3     b2     b1     b0
-  0x3016 0xf0  fc     dbg    aec    tc     fc     dbg    aec    tc
-  0x3017 0xf0  blc    isp    dbg    vfifo  blc    isp    dbg    vfifo
-  0x3018 0xf0  dbg    mipi   ac     otp    dbg    mipi   ac     otp
-  0x3019 0xf0  dbg    dbg    dbg    dbg    dbg    dbg    dbg    dbg
-  0x301a 0xf0  dbg    dbg    vfifo* mipi*  dbg    mipisc dbg    dbg
-  0x301b 0xf0  src    dbg    asram  sync   src    dbg    asram  sync
-  0x301c 0xf2  bist   srb    grp    dbg    bist   dbg    grp    dbg
-
-Method: v3 driver streaming at 30 fps, where the seven registers read
-0xf0 (every gate set, every reset clear), frames captured with
-v4l2-ctl, emitter pulsing alternate frames in a dark room or test
-pattern on. From user space over I2C, one bit rewritten mid-stream
-and the block's visible output compared before, during and after; a
-reset bit held for 2 s. Group hold and the OTP, which a stream never
-exercises, were driven directly: an exposure write under group hold
-then launched, an OTP load into its buffer, one attempt per stream,
-bit set against bit cleared. Nothing persists, the driver resets the
-sensor at every power-on.
-
-Then whole values, at 30, 60 and 90 fps each: every bit clear; the
-timing control gate alone (0x3016 = 0x10, the rest 0x00); every gate
-set (0xf0 in all six); every documented gate set and the debug bits
-clear; and the reset values of the table above. The six registers
-were written mid-stream, and written with the sensor in software
-standby (0x0100) and restarted, the nearest thing to the init table
-without a driver rebuild. Each run checked the frame rate, the lit
-and dark frame means (strobe on alternate frames), the black level
-at gain 16 and 1023 with a 1-line exposure, the test pattern bars,
-the sequence numbers and the receiver's kernel messages against a
-run with the driver's own values. Finally from power-on: the driver
-rebuilt with the six lines moved to the init table (this value at
-its end and right after the reset, 0xf0 at its end) or removed,
-streamed at the three rates with the same checks.
-
-Results (n/m = streams):
-
-  clock gate cleared       effect
-  0x301c b5 grp            group-hold write dropped 4/4 (applied 4/4
-                           with the bit set), 30 and 60 fps
-  0x3018 b4 otp            OTP load works 16/32 (16/16 with the bit
-                           set), whatever the wait, rate or the other
-                           five registers
-  0x3017 b7 blc            none: black level still tracks a gain change
-  0x3016 b6 dbg            none: strobe still fires
-  0x3016 b4 tc             frames stop, no error, resume when set
-                           again (30 and 60 fps)
-
-  reset held for 2 s       effect
-  0x3016 b3 fc, b0 tc,     frames stop, no error, resume on clear
-  0x3017 b0 vfifo,         (mipi: one CRC error at release)
-  0x3018 b2 mipi
-  0x3017 b3 blc, b2 isp,   empty frames: a frame sync error and a
-  0x3018 b1 ac,            0-byte payload per frame at the receiver,
-  0x301b b3 src, b0 sync   sometimes a few CRC errors at release
-  aec, otp, asram, bist,   nothing visible
-  grp, mipisc, the debug
-  bits, 0x3019 at 0x00
-  and at 0xff
-
-  whole value (6 runs each)        effect
-  timing gate alone (0x10, 0x00)   all four: identical to the driver's
-  every gate set (6x 0xf0)         own values in every run, same fps,
-  documented gates set, debug      lit/dark means, black level at gain
-  clear (b0 d0 70 30 b0 e0)        16 and 1023, bars, no gaps, errors
-  reset values (0xf0, 0x301c 0xf2) or kernel messages
-  every bit clear                  no frames at any rate; 0x3016 bit 4
-                                   cleared alone does it, frames stop
-                                   cleanly and resume when it is set
-
-  cold start, rebuilt driver       effect
-  this value at the end of the     all identical to the runs above:
-  init table or right after the    registers read back as written,
-  reset; 0xf0 at the end; lines    same fps, lit/dark means, black
-  removed (reset values)           level, bars, no gaps, errors or
-                                   kernel messages
-
-(The standby restart itself truncates one frame at the receiver at
-60 and 90 fps, with or without new values.)
-
-So a reset bit at 1 holds its block; a clock gate at 1 keeps its block
-clocked, and at 0 the chip clocks the image path anyway while
-streaming, except the timing control, whose gate stops the frames
-like its reset does. Every reset and the timing gate released
-cleanly, the receiver never needed a restart.
+- A data point for the VBLANK minimum. A sweep on the Book 2 in the
+  30 fps mode (exposure 400, gain 16, 20 frames per value) gives
+  normal frames down to 41, white frames from 40 to 26 and frames
+  rolled sideways from 25 to 16, both without CSI-2 errors, CRC
+  errors from 13 and a stalled receiver at 10. The same boundary as
+  on your Pi.
+- At the tip of the branch (fde519da0503, "media: ov7251: Reduce
+  OV7251_TIMING_MIN_HTS"), unless I misread it, ov7251_set_vflip()
+  writes OV7251_TIMING_FORMAT2 (0x3821) rather than 0x3820, probe
+  stores the 0x3821 read in timing_format1 rather than
+  timing_format2, and the return value of devm_cci_regmap_init_i2c()
+  is not checked. In case it helps before you post.
 
 Thanks,
 Antoine
