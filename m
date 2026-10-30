@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.142
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.57.103
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793357411;
-	b=BFlAcN+JD49/ZBpnw97hIBILehmwxEH9kjI4gMRU9MmlAGXnC3AHwSRd/Kr505WT+AW+
-	 YwWYMUmk+/p+0Lt+rf+x2xY1JoFTpJC/YCED6vNhT6aplnX17s3+ArjixzTp96B56mBB6
-	 if0RdYfOgohQhSO8AC0rwz8XHNlINb82UBZlwWnL/3etvKZonuGCmJKdiqNA+pz9/qzM0
-	 /WKfkWkt5QXWvbM/sjc1tS+OSHDMnxudg3pn1zyhHcdzxI76MpdL7eCgWTtQ+lMe2Mq8Y
-	 sIjWqW+vAPEtS5BCq8ZzYEnFz4zb4EwWfYs2kHXlMSOh0CzAhj5lVDCsQcTDPbxLTPg==
+	t=1793357401;
+	b=qP64IITxrn7jaa5UsIYJhYqdE0Yp3Uh4wIyN7CHuGR3oFdlzP9VPvDrp8PjvhS3LCKVP
+	 CXKn1XAItflRYlSbOOqKOcrwBRUyoU++jAmSfH30RSDJxIS8fC6aGGYrRf6AFo5+/qJxk
+	 06KIHAi40EE2lpl/KQNOgJColP93ktVYwd3CgjT/jxa4mXOkiF/57ZLUOLLxbIb+ly6TJ
+	 /84rffmu75tKklaNofTKIE9RxjcVYIymrDmzumWMvfrfGvFGexebGjqvO2LoCP0Doz8RN
+	 NQTtoal23UQOGV8WYeS01Eu57sIEvK4bS31cf1jet7GjonLjBBhChPFRdm03dlwg8aA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793357411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793357401;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -25,54 +25,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=49KRd8UxR1pQMrPCAVOAW1/OVAyicUCL3MeSGgaWqWw=;
-	b=Sjyp8UVHYPe7LPZM36/moMAwUmLSLhWl+vW9/5nZVjq/3AZu8pg62feIDPx658lsZozh
-	 jKt41ygOFrOT/ef6ZAoJbE4ILYMJPll+OQwXT/OV3gQa3XiCb2lfoZgMhVfrEXxh7/BW/
-	 OYkX3H9bRlnThzMtn3Rx2sueg3xFxRld1xaSCpBkseUoGHax6q6Of8t3OIAF6hW9Htu2r
-	 HfMmS7NPOVFM1TilAJFPZXQo70pdJ13sKdGpcTEkT7XcGBPQ19irRO8/7zT54Bh3Tzhpa
-	 D5cmv+hi+v6szPN0IcpWa5rtxJe45kRAXzrwcWn0r+FRbVUr2oiWm2YURihpvi+I5MA==
+	bh=K1XKIDmrHIkX5ULlUlVJ8YITkOcV6cbBGqapkpjQo4I=;
+	b=N4Koj+gPYgaogCUY/Q+2cCctqXEF6lOKZujsQHS/1NlBKR/kIRqYyRI/NdQHEAernmSW
+	 PI85Xr6Lr9V95qyibRvT9BKOMSth/6oOjmiKbleaOjxS6rHzEdo56lC947yCFW4ehxmY8
+	 xQkQJPfH9crj6AEakE0GN3apFJXNc/0cAXHdJIkCG7nL256GoXLABG9vIUG4J9FOKKSBq
+	 1/RBKfrdCKOrSGP61yTcSG5gQj55PTjFi1ooWLodjyGHkf5PVMKP4UfOkUyYCm4K120ES
+	 wBFL99DzUt82qP/xGqdfdOc/fw504bW/jI7Vokc7KYD06tvoFC/S+SUomEOBWSHE/BQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=siliconsignals.io;
 	spf=pass smtp.mailfrom=siliconsignals.io;
-	dkim=pass header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=HqL4DLSk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.225.142
-Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020142.outbound.protection.outlook.com [52.101.225.142])
+	dkim=pass header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=chwUjiXE;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.57.103
+Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021103.outbound.protection.outlook.com [40.107.57.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEBA960A5BC8;
-	Fri, 30 Oct 2026 10:50:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEBA960A5BC8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A28060A2608;
+	Fri, 30 Oct 2026 10:50:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A28060A2608
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=HqL4DLSk
+	dkim=pass (2048-bit key, unprotected) header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=chwUjiXE
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rpPTJHspXUnjxbOEnear29e36TBe86nwA/P+NrQG/xIQzS/qRlElJjnpaUeeqKeggJ0Qv8ZCAPAxjpZm9QVkPuzH18nPrzA+dDcyXBKVUF49LJX1e3Z4T38MSGFVGV2aEa2IgYyyo0WdQvBiBOnDKR13D+sRtDirEwroQuG7k2N2rGhNxfn2e20gRUB4QzmevudAmfJnxqoQQrPIcipRfhLIloKxfN/ODWDyLzBd+wB/3V8CiYQ0oDqVsEpvZ2f/iDA7H8gn034Y3mKvc9bqRVzU5Ff4WpuG7CDw3g04H+UvnmsnZvk4x5jTsAszZwAT3zcL4nmsT6YiIKq4nZvXIA==
+ b=XWkGmlxWkAZWJtPRg5+gQEpW/pe1NUJv5iKJo91k5Z74ZOn/fgdcB/TJY6hzub5EkBHx907fh9UbMUSy8ee23okr2SjG6tEAPM0MyS3LdpZI+yzqyVxJkzTbif8qLFKkm4EVb110/SiKkCn2B5J6gbpPBZexBFZ58aupxDHGjCvOwH9fo2NHTH7GXt3HXor4RzAt/lGhl59LB0LW6zIwa+xC4oEl1zA2Fs/Eyf0y+cbFH7KMaHGBHY96mV8Pw2rV9soCU53JeJNJTb9mZoJL/4fT0HTkz+YXQXo6xSkioutJlY3iXj6D2nwdnJEKddCmiBEqdvwPIP4kO0fj1wkuIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=49KRd8UxR1pQMrPCAVOAW1/OVAyicUCL3MeSGgaWqWw=;
- b=gs+O5dphuKs2aSrZtSHtNz1c3BiPo1IVq2k0bO3ZFfrX7uYkVzI6OUWQrX7vNeixHC6B43X+8P8APqrZt03ePUj7COq6CuqH8l7KP7C0EE4Y9PYJpKymN42oHQFhsQUqO2zmpaMx1Y07VdMiOm1C1IMyBQ20/LGJjBiMR8QHjOfIrTR2W52P6YOmssMzHR3rOQQf8t1thv3Kja7iIeH9BnLJmk4huzA51c8yvKj3J2kqHX65d0/R5T/vj6VFehvLWDVdBQUoBss9HNI75Ze5CJrVccP+lHjRFBXJwnTJBf8pillc8gBZJfxwzDIxAS1iDai3m5Q+akzGDxXjPm3VCw==
+ bh=K1XKIDmrHIkX5ULlUlVJ8YITkOcV6cbBGqapkpjQo4I=;
+ b=d6FPDLOyqEtXErR/BPZzsqC5G2mzLsdod7oL/k25ozoAebOWhK5j6sfNSzJIX4yxpGGe/o3nEoOMY/M2dghS12k5AfK4FKUU3ulzRg7EYU/s2oaBeToF74v4hZpSrRe++7AOQdf8icGS6RRcaxzLVg19EWXFwtqCPRJfXxmbdkH6QIUPV0jTmmdcZfHi5wCVLMvLMFS/MrmGw6Ct+zHOndoG1xjF4RmFfb4DsjUqMAR9IvZ745wSgIamLmTsK8Psltu72F0skXX1cfalkM+7LlAYuM0cjgELwJ32AIwo9HqPDuysgSEAqL9nZpQEDBkpQWifR9q1I4c9RiNCufBOuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=49KRd8UxR1pQMrPCAVOAW1/OVAyicUCL3MeSGgaWqWw=;
- b=HqL4DLSk5IwXaAvZ3R/wq/o1FndY162EAHxIjBsQAZ9jMpOM1lxFS6XveKAc3PQsjEhvfmQjvpcZ1BAZIld7mkzTYZ9QimgFHSJzW8fnsL4yjmLa0rd1L6PpLtmE9bn7lduolwSRStjqdezcy6sdTEAReSAhLLPz6LPb6s9y5quzhpdntq/qRnhdFYkp7oJxBDi3SwVV4CY8Keg0GElHrL+P7kU/DdRTcaR39FAoPeiMFMTqomP5ODmTqRclxldfrQlodXxp0R8mKL/qwhGtbP8aaC7bL0RWV/Q2fLji98jtwenAYde2YZLUmc4vp0grTqHbgE0hhLI/Tma86t9Pdw==
+ bh=K1XKIDmrHIkX5ULlUlVJ8YITkOcV6cbBGqapkpjQo4I=;
+ b=chwUjiXEDS1XBKAYxPiJpEOi3P7IP/A09qT2z4JNmzr9nJO9YR1DlkQ0INfPx2oJH7/HRiXrrB+Ya5RKrfQlxXEmoFBtw3+ObbG/izaSclTLyAbqfbE+vrBlDb38jg0mgoxmZGgVhwtTXzUs78JT9qU68NLeUtMqtE7brNTCdOU9SZm4HXEyVijgsAa5+AePBsb6qaWxiW+QZkU01t7VL10fsX6TzsmztN2g5Y7VyTYfgBIN63h8AaZLXBtmckbNs0es5P7TAqFWzvXqjXooiNJTGYtITKvD2WeSfX1Hgv1IG1RwhFqL+d5QKzBzOZQ0yo7tTRR7XDajQPTzEJbEsw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=siliconsignals.io;
 Received: from PN2P287MB1787.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b1::8)
  by PN2P287MB0975.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:136::12) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Fri, 30 Oct
- 2026 10:50:08 +0000
+ 2026 10:49:57 +0000
 Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
  ([fe80::3d7f:7f9:3b6e:4781]) by PN2P287MB1787.INDP287.PROD.OUTLOOK.COM
  ([fe80::3d7f:7f9:3b6e:4781%6]) with mapi id 15.21.0569.008; Fri, 30 Oct 2026
- 10:50:08 +0000
+ 10:49:57 +0000
 From: Tarang Raval <tarang.raval@siliconsignals.io>
 To: sakari.ailus@linux.intel.com
 Cc: jai.luthra@ideasonboard.com,
@@ -80,14 +80,14 @@ Cc: jai.luthra@ideasonboard.com,
 	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
 	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 15/15] media: i2c: os05b10: fix horizontal blanking calculation
-Date: Fri, 30 Oct 2026 16:18:04 +0530
-Message-Id: <20261030104806.1223991-16-tarang.raval@siliconsignals.io>
+Subject: [PATCH v5 09/15] media: i2c: os05b10: Add H/V flip support
+Date: Fri, 30 Oct 2026 16:17:58 +0530
+Message-Id: <20261030104806.1223991-10-tarang.raval@siliconsignals.io>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261030104806.1223991-1-tarang.raval@siliconsignals.io>
 References: <20261030104806.1223991-1-tarang.raval@siliconsignals.io>
@@ -107,171 +107,225 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: PN2P287MB1787:EE_|PN2P287MB0975:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5decbb4d-23ee-410a-d943-08df36736c70
+X-MS-Office365-Filtering-Correlation-Id: eaa960d8-f113-4625-e1eb-08df3673656e
 X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|366016|1800799024|52116014|23010399003|376014|3023799007|6133799003|10067099003|18002099003|22082099003|38350700014|56012099006|261026121527099003|261026140227099003|261022115727099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261009223027099003;
+ BCL:0;ARA:13230040|366016|1800799024|52116014|23010399003|376014|10067099003|18002099003|22082099003|38350700014|56012099006|261026140227099003|261022115727099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|261022075727099003|261009223027099003|261009221227099003;
 X-Microsoft-Antispam-Message-Info:
- hVYTP50CKytYyl4sGGxABHbwD2Gs0VKiPaj+Y9djracXqrj5KTxrpUV6C00g8Rcfm6UUlOJ9WwWN+EnHZBo5QskjJSHAIUUGBni9tgG5KTLDUUFzZzkNUDV15o9zGdZ0DvsKPxO9ZcQ4ouG5vY64Mxhj6xjzDTmbrMKbqhMGQ8jj8CDo24CGb8k6kkDaF2tibQyBZI6XoGkfpdafga3V0Pyz28GwM2bWToGOJvLxeDFtkXd43tf8AoxL2DKVX0csMDonPqkIJbILQAWcxeUiQW1Ao4aCVe/yLMY9gJ4j/l/u38p/O0GmA3CKEEUkegnWCH/ASXnB4wgnoG7JPRW7kdoQb0LTAYofU4o4fs0jQDdyfwdEtM3z28VpruIjGlMgbRjMmhRjAIMpMH/hir85t4M0eWMn515bOXwsBwtEh8zIP9XjBvK4yR2Ne7VQLOGsqbYg597cOSY9iJsrJNq/79fLu0eJ0YxzePpVyFSYF7FA1ew+HO0iOXuF84AILW/uzFzWICKIaKdbwrk7crq90qAUCbNJgm3I+N80omxv0xjTKAluvV5hslI0zQOL5zqP8HAj4dk4i0W5DQETRN+Ch6RDIrAHn/JYDrOcu9hVc1b+MhyJMC4cNmfyottQI6kKsPJe1OdU79q913kTyts2+F8akWdgKvL5PUBctPsj/JSxHOi/NCoVki6zb6E9gSx+51j005A8AAsr+AjT3ysQrJjomkdcioslEjZYcefB3+M=
+ c07HBDZ0yvlf/cisf9gYK98khriNY5bhr9GW5rCdW/JOBfpA3oIhZEuwwBSJltHk/JX/+hWqp6EfzavpPFkjUWcWDjqw3XtmkFXYEa9+z+tlz+12tbNVqellismNfM6SMeKF9uX56DEm8FVXLBG5iPn3/2DvDeIkv7+HTABFauMgYtZIWvmF+n9SU4vVKRvOzjEyx8o8ZKA7VG2XQf6bHGZYDEOo1qUyO4ffCzpyDJR2/aPy4v9C6QxTyicwk9urELj9ylcRYrTvHjfq2ypUgFnf7G0MpaLUDWC/IPTUyvF2RUIE8skw3E6qVG8xgZpaIWiyeJJx/7HAu/mzNN736F4LEoFJx2CGI8OpTtgGuxf7x5QN6GaONzZqtu97Hj31p/O6zxF0pRUykDxzDjQ9sCV5eV9/gsXVJwd27EOwgtRtuPQQXmQCHTLDL/ZMAf+YEri6MsCnfwHACijefv3q2Gz1iKyBOoMXg5V2dBjr9zJYcAmkmBYmNHXvC7L4Dtn/KHwb80xMbTzZsCAZ57i02bU20OCOUDLmZynDtnjBkN8AK5QC4vP3TOa8si0hi/jJQUKyPOJV7JQFlRE1vBCMlBeFbzkOU+iLqAdKVuYcnQ90UfvcBtaPl7hM8ju0loXgylS1x6b9lwCwBm//OpTZPRE907khIjAnS/bBKLCGUhQ3aNi/yq3Pd/qmNbhMs81htJCHvreXrE4osh/EFf6m5xi8/RjlnorZV7i5VRabYbY=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2P287MB1787.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(23010399003)(376014)(3023799007)(6133799003)(10067099003)(18002099003)(22082099003)(38350700014)(56012099006)(261026121527099003)(261026140227099003)(261022115727099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN2P287MB1787.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(52116014)(23010399003)(376014)(10067099003)(18002099003)(22082099003)(38350700014)(56012099006)(261026140227099003)(261022115727099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261022075727099003)(261009223027099003)(261009221227099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?O9Y8J0IejKFVvDnMGbhDCEhkAI+2HgIs6KXv4GeQ0UMLSmYkTgywlfPl90u+?=
- =?us-ascii?Q?2wRTFwT9HBfZD6MiYrx+broDlQsLJ4BvbIIXBGCL815Pl46PLEVT2aMmLGk1?=
- =?us-ascii?Q?Ycy/BlCpoWE9ayZEKS+qfMxAYHwbjoGACmaRpDqLcg3dg3x2brM5lLkwCILb?=
- =?us-ascii?Q?1U0/CTHbC1kxf6XXqAoYL5ovjv4j6PgPkhn/g3t3f22JY1trCY9FFm6DW1bi?=
- =?us-ascii?Q?1X+CUwiHo023FO5BEnxvZV73eaTYy2SHhuklOQ1v/WkccLDgHnj+KnwCPcU8?=
- =?us-ascii?Q?3j4JUAjHDHkehrCo3n5mLKWUZPCbaR73pe2Ulu4r5ljOqSoVent3u0MENjvn?=
- =?us-ascii?Q?MbljRR+NdBVWVIbh9yyfVJYolEJtK+0jMFfrjRUhmtA9TUUsD0mKx+1Y4OC7?=
- =?us-ascii?Q?JxvSZ1t1xvwk0S8bHsvbw+QRJXypH4QQstSq141MXRPWTuKML9oAjdmXGuPg?=
- =?us-ascii?Q?4QrcMNZW+cZWqIBKQdBuOHasjM3jrJdKyN/NOr9OmAuGKT6ni07ntS3/MTIS?=
- =?us-ascii?Q?RJp/nJ5HdsX9E06K7Gx7+zbliobL2gGR46G+K+BYZx25as/MHZfuQQbEq7mF?=
- =?us-ascii?Q?scyHXEjqFWkbcsZKRpBOdQqaWN50vYB/y7duCqE2STcH0Sp5PF/qpo4c6wGT?=
- =?us-ascii?Q?7ZpViouFRYbjywZhTa/4pcWkoY5OAKd3g25bfXBSxZgMqGQZNprOA7i7VM7c?=
- =?us-ascii?Q?kWo0hP9GPvQlN3xyWAsqrdv2UnUe915fOY4bH7al/oLCWE3DU2+s1qmetRZK?=
- =?us-ascii?Q?8Tvk2ARimxSqz6pLT1HJQq9RpqYq3+wvcmIHSbmENuY22CMize/uhJB0ueXY?=
- =?us-ascii?Q?9j8DxrHWXqsNErHR4rt3taPlD470vl1f1VGJHzl30EXAPOS+oLkYZnAhWHvv?=
- =?us-ascii?Q?LM4ZBanubH5YSPu0J5fXm61o+q3+P/DL6iZ5ZXy/K3pIsaiQxJRVdCw1e96u?=
- =?us-ascii?Q?KWemJsTWYfRztjfFgOKI9iFhcKiN0ZEPCulPAJY3ePNAwDmIcoTeFmIWFcDF?=
- =?us-ascii?Q?a+y/s9PnWlw60ihNdsI/gPjUcWwCllHbUD5S/H2AHEPMmuyA6Pvp29B+XjBO?=
- =?us-ascii?Q?CJdkF8ZzCKWJlanTZ1KThUhuM7GgAA0NzC4vgao4MIOU5CRJy4Z7z8Trq7Ek?=
- =?us-ascii?Q?65JWGHFWxYUozVTuc1hic3rLUw2DGMwcJFHljsT5XAVEhwgUJu65/ROYablZ?=
- =?us-ascii?Q?fQEbGr67/wuLoCl6dpwai7xXSwKoqltXqDwnMuHOaMF37+d6CT4lnfuueXFt?=
- =?us-ascii?Q?PwQXxzVeGI4BRnBWjVjhbVi++OaFloeY1mTvfKHVbg9PGi4DhEn9oHnGXdaq?=
- =?us-ascii?Q?A/bVtGtJHkOqlJNpgRskXYRSbs9lQY3jqBEfBT924aiY4GW2fTqHy42mMpWE?=
- =?us-ascii?Q?so+sGN/XjJY/KEvS/991IgTR9gccidQyJTj85epBHNR3opOjdbMaI843E2C7?=
- =?us-ascii?Q?WpPEKjsXqFdgBagjMRm9V5lV4toV8dH3GAKTVj9Gj6LaYJnGtcQqx2E3pg/b?=
- =?us-ascii?Q?FqPdN3bQXSMiPovy9Jr/c+3Xml6vf+MCWTxI0Cyr9vCXrPt2tdkV58auBoYv?=
- =?us-ascii?Q?DcCMnoVjwTgG4TeVG0RxDQ5YqqL1iW3eFu5ILEugJjtCTeIDwO6cl4C/wyeS?=
- =?us-ascii?Q?PumBMji5TXcAk8FOgHa6Ey182LlINekK2cojE1SeelR8jfki3xBjL53qPdJ0?=
- =?us-ascii?Q?2bUNOj0pex5cudQMcZoKbnLJs8d5dsxreVDSkSV8mYKvCCRZLDmyST1sppPf?=
- =?us-ascii?Q?obNFXDswb2hl/6nCDyQYDsGujTfcC+4=3D?=
+ =?us-ascii?Q?j6gauE4NbX2+N3+maOmcnNf/d2C96JpFtq2fLN+/kOuqnE90FZTflhYhqcDa?=
+ =?us-ascii?Q?4eSjmHaSY+D+dozDGGRUXqFUV7z3G+bQMR7kX87PgDohWcQ6kVMZYQlFlZjf?=
+ =?us-ascii?Q?iQfyiQa2E24IJaHj1/eE7RBvf0hlydg23Wi+08kDbVLJ3Pmh0UDaVUe74la6?=
+ =?us-ascii?Q?hwb7EqpAJoasIIEBkBPk//iqa8C4FkUXTqWDas9rf7jMu7fyhHqE6KCCb9gW?=
+ =?us-ascii?Q?mZzrA8M0wJs2IaUlIW9CGnOA+GvM5Vr98VsWBrZP/kOtqQ7jxeQiZFTKw9YO?=
+ =?us-ascii?Q?CUnSnpgbNRVWWgjjcxSdbEi10insc9qvTwqRehmX4EnSKF1mF3dd0usz3QNH?=
+ =?us-ascii?Q?YqLuP8t7tcgvYMm5zYp1jLgrBMrwEjVJInjjur1tCNiXk2IpJwTGnJ9gZt5c?=
+ =?us-ascii?Q?V5aMyxZD6KSOv4MEWZZ6t3cxN2oTugap6cl7Avgw7FhZCQGNY8RwU/qPzwjn?=
+ =?us-ascii?Q?eS8ltKim4gusMyo9up+dBciUDmugOOejvFnleaT6JTpTX3vmrBEXtKXUBy+u?=
+ =?us-ascii?Q?omfQ5fIN5R2Wdmu75dGybSprsDgqMpJurExu063tyVksixH/TcxHifR6mlSL?=
+ =?us-ascii?Q?UVcK86b71evWm9lc3DkRLHZ4qG77UBFzYLCBmNbfGRd2j92CMJDPPqCu6E+3?=
+ =?us-ascii?Q?CkCQuYibhbJEBzOqeMt9uz6Rfs/Yz35RV7YiiYy1EnMxvueoSlL5VQ9XN+eF?=
+ =?us-ascii?Q?dfI71WAwQwDpGjjUD48Jb8gbV+wVlWV3R0X9aqlcUJFd7WK8bPJDf5hCVkWq?=
+ =?us-ascii?Q?yC0twRybtEmfJzuuhB3rtS0FQSwIX3fEGf+9ZfrzKQSTXqQ1mEM/nes8VsjJ?=
+ =?us-ascii?Q?crz7UegEsIPn7PEZIHPPl2LK2Jnxdg8OZtvuPQsxxNEYjdNiUCvVe8KTivJW?=
+ =?us-ascii?Q?g3LS3+cFDxxSvQgRJtpTfsU0udKeJxcU3XlgkgMfdUNinvMVP+9mWUARytTU?=
+ =?us-ascii?Q?j8tjBXOFMLPYux6XfmoAaGxkCDzFJCy409nvz7imZJi2YbT/7SLeJNo6jJAn?=
+ =?us-ascii?Q?BAksyC8LVr+ZI9JhIC/ehoSRfJtVaYUnE36clZlv5AAcxofzQfTHnXFvbMyI?=
+ =?us-ascii?Q?op+kVaN/QLq44AJ6B+CbPfmoZrJ18ESvOVJPpY+8TfngR/xBB3//QMf369hR?=
+ =?us-ascii?Q?7tKOa7il+D9N9jxdQVQ/zAs9mO0zQ1jD6tDmXzU6ba8jYs8veFUK3Z83b1vb?=
+ =?us-ascii?Q?xXwuSReZaggoX2es0OYo7FxM+69IjBiVtM8Dz2p+4PcpFKVWxD/ZvLoIsVDU?=
+ =?us-ascii?Q?BFujR3KEaFjjQjhxsA1MlEAx971DhARH4w8hgF2RNqRxmrX548uvPOHgPZiP?=
+ =?us-ascii?Q?4P3Ik6EZEGYf0mJcN78edWzjSsNSfxQWACHnaX2lK78QWd3I0WTojAEfWoPC?=
+ =?us-ascii?Q?+DE2NRC768ZU5K2ZB4hKDCrOhI6vBdJ0/FukZevvHdyxTq4j0wcTQMcY6/oJ?=
+ =?us-ascii?Q?HhKgiiMJLUGj6XLp5bli+ncf2GamKZU78FjzKKIev2PY9uSt2Odjb9RQ2zJN?=
+ =?us-ascii?Q?x5ahk0hFayS/PYzMuMMOEV2jUziBafab3as6z7PEr/3X+M1NaDY6ACj0mi8j?=
+ =?us-ascii?Q?XnF+GpAe198KvAsRpXAbwVWSRAI5nktI9sYph9RUpcyubXNb5O7InvhQk7ZG?=
+ =?us-ascii?Q?Udvyahv5RR4crRCWT/dbMDDkXV5Ry1Rn2B2lCBCPde7YxShcoNZOpUdvLdM5?=
+ =?us-ascii?Q?915/j44wX/AofVXRLKxbp8SRau+Enr4XmbSYkVINqrDKSwjuYC4zw6FrWYBp?=
+ =?us-ascii?Q?AFoUYea68QO3EWO+kzyV3YZutGOeRYU=3D?=
 X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5decbb4d-23ee-410a-d943-08df36736c70
+X-MS-Exchange-CrossTenant-Network-Message-Id: eaa960d8-f113-4625-e1eb-08df3673656e
 X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:49:07.9620
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Oct 2026 10:48:56.1610
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: oyGX5sn4Qe1x4X9z3px0/XT84AZLSNjC44aXU3ArAfThkB/E0hJXSqCh7GnWsy19mOHNCbtN7rTuvhtsNWeNenB6OYCL0XB1fnUR5jP6Kwk=
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5qiCGsRa8CZHvLggIJikyVp74BSCrdtDf8FlmqBrVKTttywEquno+hLPym5N63+R8MlkBaiecIQS4dP0+LbBvEY/80xnWgtjFS/g1Z8cVXE=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2P287MB0975
 
-The HTS register is not counted in output pixels, so "hts - width" is
-meaningless: for every mode hts < width (e.g. 1744 vs 2592 for
-2592x1944) and the u32 subtraction wraps. v4l2-compliance flags the
-resulting HBLANK range:
+Add HFLIP and VFLIP controls, lock them while streaming, and update
+the reported Bayer format based on the flip state.
 
-    fail: v4l2-test-controls.cpp(413): returned control value out of range
-
-The timing generator counts lines in internal clock cycles that cover
-several pixels. At 30 fps in the 2592x1944 mode (HTS 1744, VTS 2006) the
-line timing is
-
-    HTS * VTS * fps = 1744 * 2006 * 30.01 ~= 105 MHz
-
-which is half of the 210 MHz system clock. Use 4 pixels per cycle, which
-gives an internal pixel rate of 105 MHz * 4 = 420 MPix/s.
-
-Compute HBLANK as HTS * 4 - width, with a step of 4 pixels, and report
-the fixed 420 MPix/s as PIXEL_RATE so that
-fps = PIXEL_RATE / ((width + HBLANK) * (height + VBLANK)) holds. This
-rate does not depend on the bit depth or the number of MIPI lanes, so
-stop deriving it from the link frequency.
-
-Fixes: 3aa9296a23ec4 ("media: i2c: add os05b10 image sensor driver")
 Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
 ---
- drivers/media/i2c/os05b10.c | 38 +++++++++++++++++--------------------
- 1 file changed, 17 insertions(+), 21 deletions(-)
+ drivers/media/i2c/os05b10.c | 59 ++++++++++++++++++++++++++++++++++---
+ 1 file changed, 55 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-index 9284b21a92c7..4e87a9bd0f4d 100644
+index 14046f1c9324..4b87ef60a2a7 100644
 --- a/drivers/media/i2c/os05b10.c
 +++ b/drivers/media/i2c/os05b10.c
-@@ -113,6 +113,15 @@
- #define OS05B10_LINK_FREQ_600MHZ	(600 * HZ_PER_MHZ)
- #define OS05B10_LINK_FREQ_750MHZ	(750 * HZ_PER_MHZ)
+@@ -92,6 +92,10 @@
+ #define OS05B10_MIRROR			BIT(3)
+ #define OS05B10_FLIP			GENMASK(5, 4)
  
-+/*
-+ * HTS is not counted in output pixels: the timing generator runs at half of
-+ * the 210 MHz system clock and handles 4 pixels per cycle, giving an
-+ * internal pixel rate of 105 MHz * 4 = 420 MPix/s. This is independent of
-+ * the bit depth and of the number of MIPI lanes.
-+ */
-+#define OS05B10_PIXEL_RATE		(420 * HZ_PER_MHZ)
-+#define OS05B10_PIX_PER_CLK		4
++#define OS05B10_REG_ANALOG_FLIP	CCI_REG8(0x3716)
++#define OS05B10_FLIP_ENABLE		0x04
++#define OS05B10_FLIP_DISABLE		0x24
 +
- static const struct v4l2_rect os05b10_native_area = {
- 	.top = 0,
- 	.left = 0,
-@@ -872,9 +881,9 @@ static int os05b10_set_framing_limits(struct os05b10 *os05b10,
- 	u32 hblank, vblank, vblank_max, max_exp;
- 	int ret;
+ #define OS05B10_REG_FORMAT2		CCI_REG8(0x3821)
  
--	hblank = mode->hts - mode->width;
--	ret = __v4l2_ctrl_modify_range(os05b10->hblank, hblank, hblank, 1,
--				       hblank);
-+	hblank = mode->hts * OS05B10_PIX_PER_CLK - mode->width;
-+	ret = __v4l2_ctrl_modify_range(os05b10->hblank, hblank, hblank,
-+				       OS05B10_PIX_PER_CLK, hblank);
- 	if (ret)
- 		return ret;
+ #define OS05B10_LINK_FREQ_600MHZ	(600 * HZ_PER_MHZ)
+@@ -227,7 +231,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
+ 	{ CCI_REG8(0x370f), 0x1c },
+ 	{ CCI_REG8(0x3710), 0x00 },
+ 	{ CCI_REG8(0x3713), 0x00 },
+-	{ CCI_REG8(0x3716), 0x24 },
+ 	{ CCI_REG8(0x371a), 0x1e },
+ 	{ CCI_REG8(0x3724), 0x09 },
+ 	{ CCI_REG8(0x3725), 0xb2 },
+@@ -459,6 +462,8 @@ struct os05b10 {
+ 	struct v4l2_ctrl *hblank;
+ 	struct v4l2_ctrl *vblank;
+ 	struct v4l2_ctrl *exposure;
++	struct v4l2_ctrl *vflip;
++	struct v4l2_ctrl *hflip;
  
-@@ -1260,23 +1269,10 @@ static int os05b10_parse_endpoint(struct os05b10 *os05b10)
- 	return ret;
- }
+ 	u32 link_freq_index;
+ 	u32 data_lanes;
+@@ -507,6 +512,16 @@ static inline struct os05b10 *to_os05b10(struct v4l2_subdev *sd)
+ 	return container_of_const(sd, struct os05b10, sd);
+ };
  
--static u64 os05b10_pixel_rate(struct os05b10 *os05b10,
--			      const struct os05b10_mode *mode)
--{
--	u64 link_freq = os05b10->link_frequencies[os05b10->link_freq_index];
--	u64 pixel_rate = div_u64(link_freq * 2 * os05b10->data_lanes, mode->bpp);
--
--	dev_dbg(os05b10->dev,
--		"link_freq=%llu bpp=%u lanes=%u pixel_rate=%llu\n",
--		link_freq, mode->bpp, os05b10->data_lanes, pixel_rate);
--
--	return pixel_rate;
--}
--
- static int os05b10_init_controls(struct os05b10 *os05b10)
++static u32 os05b10_get_format_code(struct os05b10 *os05b10)
++{
++	static const u32 codes[2][2] = {
++		{ MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10, },
++		{ MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10, },
++	};
++
++	return codes[os05b10->vflip->val][os05b10->hflip->val];
++}
++
+ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
  {
- 	const struct os05b10_mode *mode = &supported_modes_10bit[0];
--	u64 hblank_def, vblank_def, exp_max, pixel_rate;
-+	u64 hblank_def, vblank_def, exp_max;
- 	struct v4l2_fwnode_device_properties props;
- 	struct v4l2_ctrl_handler *ctrl_hdlr;
- 	struct v4l2_ctrl *link_freq;
-@@ -1289,9 +1285,9 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+ 	struct os05b10 *os05b10 = container_of_const(ctrl->handler,
+@@ -550,6 +565,25 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		ret = cci_write(os05b10->cci, OS05B10_REG_EXPOSURE,
+ 				ctrl->val, NULL);
+ 		break;
++	case V4L2_CID_HFLIP:
++	case V4L2_CID_VFLIP:
++		ret = 0;
++		cci_update_bits(os05b10->cci, OS05B10_REG_FORMAT1,
++				OS05B10_MIRROR | OS05B10_FLIP,
++				(!os05b10->hflip->val ?
++				 OS05B10_MIRROR : 0) |
++				(os05b10->vflip->val ?
++				 OS05B10_FLIP : 0), &ret);
++
++		cci_write(os05b10->cci, OS05B10_REG_ANALOG_FLIP,
++			 (os05b10->vflip->val == 1) ?
++			 OS05B10_FLIP_ENABLE : OS05B10_FLIP_DISABLE,
++			 &ret);
++		if (ret)
++			break;
++
++		fmt->code = os05b10_get_format_code(os05b10);
++		break;
+ 	default:
+ 		ret = -EINVAL;
+ 		break;
+@@ -564,10 +598,12 @@ static int os05b10_enum_mbus_code(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_state *sd_state,
+ 				  struct v4l2_subdev_mbus_code_enum *code)
+ {
++	struct os05b10 *os05b10 = to_os05b10(sd);
++
+ 	if (code->index >= ARRAY_SIZE(os05b10_mbus_codes))
+ 		return -EINVAL;
+ 
+-	code->code = os05b10_mbus_codes[code->index];
++	code->code = os05b10_get_format_code(os05b10);
+ 
+ 	return 0;
+ }
+@@ -708,6 +744,9 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
+ 	if (ret)
+ 		goto err_rpm_put;
+ 
++	__v4l2_ctrl_grab(os05b10->vflip, true);
++	__v4l2_ctrl_grab(os05b10->hflip, true);
++
+ 	return 0;
+ 
+ err_rpm_put:
+@@ -728,6 +767,9 @@ static int os05b10_disable_streams(struct v4l2_subdev *sd,
+ 	if (ret)
+ 		dev_err(os05b10->dev, "failed to set stream off\n");
+ 
++	__v4l2_ctrl_grab(os05b10->vflip, false);
++	__v4l2_ctrl_grab(os05b10->hflip, false);
++
+ 	pm_runtime_put_autosuspend(os05b10->dev);
+ 
+ 	return 0;
+@@ -736,6 +778,7 @@ static int os05b10_disable_streams(struct v4l2_subdev *sd,
+ static int os05b10_init_state(struct v4l2_subdev *sd,
+ 			      struct v4l2_subdev_state *state)
+ {
++	struct os05b10 *os05b10 = to_os05b10(sd);
+ 	struct v4l2_mbus_framefmt *format;
+ 	const struct os05b10_mode *mode;
+ 
+@@ -743,7 +786,7 @@ static int os05b10_init_state(struct v4l2_subdev *sd,
+ 	format = v4l2_subdev_state_get_format(state, 0);
+ 
+ 	mode = &supported_modes_10bit[0];
+-	format->code = MEDIA_BUS_FMT_SBGGR10_1X10;
++	format->code = os05b10_get_format_code(os05b10);
+ 
+ 	/* Update image pad formate */
+ 	format->width = mode->width;
+@@ -929,7 +972,7 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+ 	        return ret;
+ 
  	ctrl_hdlr = &os05b10->handler;
- 	v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+-	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
++	v4l2_ctrl_handler_init(ctrl_hdlr, 11);
  
--	pixel_rate = os05b10_pixel_rate(os05b10, mode);
+ 	pixel_rate = os05b10_pixel_rate(os05b10, mode);
  	v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops, V4L2_CID_PIXEL_RATE,
--			  pixel_rate, pixel_rate, 1, pixel_rate);
-+			  OS05B10_PIXEL_RATE, OS05B10_PIXEL_RATE, 1,
-+			  OS05B10_PIXEL_RATE);
+@@ -967,6 +1010,12 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
+ 	                  OS05B10_DIGITAL_GAIN_MIN, OS05B10_DIGITAL_GAIN_MAX,
+ 	                  OS05B10_DIGITAL_GAIN_STEP, OS05B10_DIGITAL_GAIN_DEFAULT);
  
- 	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os05b10_ctrl_ops,
- 					   V4L2_CID_LINK_FREQ,
-@@ -1299,10 +1295,10 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
- 					   os05b10->link_freq_index,
- 					   os05b10->link_frequencies);
++	os05b10->hflip = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
++					   V4L2_CID_HFLIP, 0, 1, 1, 0);
++
++	os05b10->vflip = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
++					   V4L2_CID_VFLIP, 0, 1, 1, 0);
++
+ 	ret = v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &os05b10_ctrl_ops,
+ 					      &props);
+ 	if (ret) {
+@@ -976,6 +1025,8 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
  
--	hblank_def = mode->hts - mode->width;
-+	hblank_def = mode->hts * OS05B10_PIX_PER_CLK - mode->width;
- 	os05b10->hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK,
- 					    hblank_def, hblank_def,
--					    1, hblank_def);
-+					    OS05B10_PIX_PER_CLK, hblank_def);
+ 	link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 	os05b10->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	os05b10->hflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
++	os05b10->vflip->flags |= V4L2_CTRL_FLAG_MODIFY_LAYOUT;
  
- 	vblank_def = mode->vts - mode->height;
- 	os05b10->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &os05b10_ctrl_ops,
+ 	os05b10->sd.ctrl_handler = ctrl_hdlr;
+ 
 -- 
 2.34.1
 
