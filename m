@@ -1,62 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793480351;
-	b=H2riEpiqkn+Zu13sNh0ySGRc50cZj5QFodhYh/OFW98mp+BnNe3iX7cm1pe045cQ7872
-	 L9tkEdCpdilq51L9OHhpGTMKjH4vZ6ZWlICwK4pVvc5cBPVtx2ccuIVQh9wIbkKmDYwTr
-	 q7gTu4yywRfryEx1A+JACfRq3Kr/9AAC4AGBhvcMIe/JzrsATKKkrRzfx13I0nf/02EwO
-	 S4SdWIkIiBLZD/9Szl6gcbEQz9oifJCY8zs499AMAIeqlecpBn8mt1xyB3xKBYxHvoK7P
-	 2pvApwLk+oAuoMXxvLwVbsAUGJpDMaSUTydmOn5SBrm+xOZ6Za3rY2V3G4ldIuU6Ywg==
+	t=1793480968;
+	b=BTAUf/zEO5kGbkq9UDSaxbuLPn8fh8X6S0QVcjfOpryAi4gVFZq/MDE5mHRKGjUIOBqk
+	 eLsDDQOyHidScJ17Uh5h1CldsvmjpKzdYuCn9tX47qvcoMDZcvae9Oonyoymy8lkmLNpR
+	 jfJIPhqvXEnlWuDgjV/Moe0Gf8OtOQLdjgMjI/hmmsKnTIRUOJ3D+yKS8g83XXXRF7uvx
+	 PpxlYXAg9wob0vmVH6qLAf9TIANdwSIWWFD8qZyW7uqqiGpYu+CmT5tA+Qc9mbmifBVIs
+	 MYb16AUBRoBt22Tbs0h08AqDMXca/WwgD6JJk/tAIOALJVExX1lk2qxCaL2SHG1mz2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793480351;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=vE5h/yx8/zL5y/9bVhY/d/nCK5S2dR4yjgKbW3Cj/RU=;
-	b=mtjelxkDtT3Qnb97nNhJsJ8K3YPTwM9pc96Qy1Vv7CUkY+x3e4stcCebWcHujuT63Bws
-	 ynWJB1vLD3U6pu7IZM+VnjdEXHlkyPIDK//KRIAsV8JEkUUwbcOxvY39Qlc1cde2Akb0P
-	 L3vOBkV+ZEnzfIbbzTspIo+Mb1dmlejJN1VLuuJlw1w2fGuMgjRPOeJmFQmf6P3UUXyi6
-	 ulQrlkkLZTvsMwyfyqjzBt1sLquo1xB98vHluTC6t61kPY0Ld5C+z3c7tcznUKVx4bYxN
-	 fZiv3Vk/Vq7CvZ8kM6PvUDVFilAzOhYOdROPn8WDdjIVKPJx1nQ4xe1vLzAd9GcBIAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793480968;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=w/8hoYbs4XtN+m/HSlOA+igEXqiDy3aZFHqgsjMNcQk=;
+	b=28Am7bUWwhOPqraATEyEd5cTJmeQ7qyiPvpnbt5WwGjEYEjO3/6JEpT3I+RjgypIGljQ
+	 uPbjla3hNOs6NC2DlFjnDPub4F8dQQs/mFKeHOW4g3Fj0IYIHZkHNn/HPdbs60ZLXuYSs
+	 THy9QfiMQVBOtB4JKNMroYSR+T4FMszbn81SqcE9BfbXsKkp1Dh30Ry9ogVu6NXb41Y2X
+	 sQCYUNXyRhh9cXjekyezs3H0o7aAm+L0Gsdwi9iDLpQpNNzZk9QYVOhxm5su5Doq5wSi3
+	 lECNjDkZgaGrCM5FsAW7SpKnR1KH0aAU/6JXJg7D3VqlEixqbmgz1tddwOzCcbkeJfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=XyeeDSbE;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uqYbYdvg;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50329606A31A;
-	Sat, 31 Oct 2026 20:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50329606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD19606A31C
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 21:09:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DD19606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=XyeeDSbE
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 998CCC1;
-	Sat, 31 Oct 2026 21:56:45 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793480205;
-	bh=hZ6wxHe7flnyW2Otc3yTvX00TNNSJqtOeZppvOl9ZFE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XyeeDSbEiS26R5eqV58/jMD244ohGGgum/nf7blVlok/MLKMG5eXdVvY1c0NQ7mui
-	 ecYh+Dqs1woNhEpGahqnRZL38/Ove2snK4DcPW6nQLBPw3LkWCVQrF9WSULHE9UGey
-	 +3eq6SRjTgZsiBDAFbxmmfgsruYyQXP46msFWY9o=
-Message-ID: <30c65bce25544fc867abfa5abdadf9fc@killaraus.ideasonboard.com>
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Samarth Narang <samarth.colleges@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Samarth Narang <samarth.colleges@gmail.com>,
- Michal Simek <michal.simek@amd.com>, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] media: xilinx: dma - stop_streaming does not wait for a
- running DMA completion callback
-Date: Sat, 31 Oct 2026 22:58:34 +0200
-In-Reply-To: <20261031202653.4110846-1-samarth.colleges@gmail.com>
-References:  <20261031202653.4110846-1-samarth.colleges@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uqYbYdvg
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so981972f8f.0
+        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 14:09:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793480966; x=1794085766; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w/8hoYbs4XtN+m/HSlOA+igEXqiDy3aZFHqgsjMNcQk=;
+        b=uqYbYdvguytgoD7FHJG5tY6rU8OIQiX6tqmAZwTE61SMy0wE28EnrcSxS59sQ2fW2q
+         0ZdszXd8P9zhRcp/q2O+3QYWesl+NJbOte+HC5NowJThc+/fBZooJUc7tBKiVXZ70LJx
+         DMky81QW7YSd2TXrzRj3WaSGT7meRbPZaqv9IwKBGzelACshDnTZXIACQJjcyXhEa0i8
+         7RzjcauZfQmGGELTG3wiw01jfXR+tvLsEr3UTDe4Gh3y7dl4L+B0gduv/5tevT/YiSLC
+         aRJT3gPWCVB643970/gcfVh9bH/uiCSUGXyDRFF0BFK3WOk9HZEr7HnTPm28IU2DST19
+         oTWw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793480966; x=1794085766;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w/8hoYbs4XtN+m/HSlOA+igEXqiDy3aZFHqgsjMNcQk=;
+        b=pM71Cu6Vhw4CIxL9u4aNO6tKqfnZRMe8/g2oxy8QNBieyK6T+ew672fpUiowoZAI9q
+         wDjkmJH6S5fNKDnwaU9WKHVDIZxusLNpqkBoezxzG2yAHoEjn9QdFW1eus9Cqujdupb0
+         vyUmSzpwhhEOcjYUTNXQpwcAPtBBNNEBJPE48bhck1d1NQD3T/01JxZBxTh9dtWjKqmg
+         bYqRJfVhEIrMdhThc7vYthW2ZEAN7OlumZhHK6A1deAg0ScVV67pfkbyGxyyK0zOYuDz
+         F9Crew0b/MVgQDH0eHoHqxHywToCZL8aoBOAaGxtEw8LmYK+JPSL8TCTlCahC3PH1Fvs
+         w6WA==
+X-Forwarded-Encrypted: i=1; AKwUvBxc/hAd5f7t4lwoF2vSspAh+sANOcF6ttDey1dOQYFX2xcZZeg/XaQ2TFO80+3/u+/9g8WToIc5eteCHw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIU/GZEK2pce5Egq/FTJ4uIYwshbfZrtOAHPTRJHV0AhXBtOBFy
+	0SVOIOaL+EDx6Kspqp0a95J02daGOzStHN0bxN80WW3PI1plC65s3+CSC4lCcA==
+X-Gm-Gg: AYBFou1005jnN+M0v3XxYeP8ILRpodSv61tT6qyvz+OJbhi/iUUjfJHocZRoZ/QV7+7
+	KUjrZGl5J1JilU1SUWEg/Hs65M11tB7kGfUip+Lk+Ns64Ha/gjNcEI1zZwwEmbQjeaYkiBMqk2c
+	fa2UVk66d3h2WPaqkuY2EB5dQOGCjiLSp0lzEx0ECGH+H9O/RozJGgmLsHJ+znZkChUdzw/1UtY
+	xyx90g2IXqhO8gmLxkoT+PCWWWYvPfkN1d2VtAXRex0ot8iuhjmU9jneN2wzFyvslOcPFLBzVjE
+	iDEkwN4M3X3IgHm//WqgQE3yCB5dSoI4Km2oWkOWn6zryAn/shf5zx+qO0vvXjegZOPkw74nXNe
+	eBB6fQiLwlw/+/Wz5YWeb+x7gjY5gdld6RV/tYWJp1Bct+j7qL5H11lJ8E7Ki6loNyy5nG8vGuT
+	0dWVMYp5p7dOnHRnO6biH5txuwoBhv3YbjjN6AXsBI9bkAnfpn6Cfo2jGOCIkmqaL6wYcVXBdL3
+	SFj5FyUuJVvx9xrUuX5qvGjko7KypjI+te3wj+futN9VBJFZ8jeVPy0s+OsK0PZc3SUZClx38ts
+	PSow7NUReuQ5KShHeJLAmWYsPLgwkOG6kStuTKdQITJzMeUc9ulQmQJY0edTjGUG9lgc5tWWdxO
+	SPQSyzUSJ++ZPaWtHPdQRDGlD
+X-Received: by 2002:a5d:64c9:0:b0:48c:585b:8825 with SMTP id ffacd0b85a97d-48e6e2db4a1mr16251497f8f.18.1793480965675;
+        Sat, 31 Oct 2026 14:09:25 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.98.98.195])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba24f6sm10793317f8f.51.2026.10.31.14.09.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 14:09:25 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: linux-usb@vger.kernel.org,
+	syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: em28xx: fix v4l2 use-after-free after failed init
+Date: Sat, 31 Oct 2026 22:09:21 +0100
+Message-ID: <20261031210922.323-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -66,109 +100,85 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello,
+em28xx_v4l2_init() publishes the new object in dev->v4l2 before the
+video device is registered. If a later initialization step fails -past
+v4l2_device_register-,  the error path unregisters the device nodes and
+drops the initial v4l2_device reference, but previously left dev->v4l2
+pointing at the freed object.
 
-This is an automated reply.
+syzbot reported:
 
-You have sent a patch or bug report that appears to have been generated
-by an LLM. The commit message, code and/or problem description show
-little to no real understanding of the issue and changes being proposed.
+BUG: KASAN: slab-use-after-free in v4l2_device_disconnect+0xa4/0xc0
+		drivers/media/v4l2-core/v4l2-device.c:78
 
-Such patches or reports require a large amount of work to handle. They
-rely on maintainers to propose - and often even implement - a proper
-design. The probability that the author will learn from the experience
-to improve their future contributions is close to zero.
+em28xx_v4l2_fini() is called later from USB disconnect. It reads
+dev->v4l2 before taking dev->lock, and on the failed-init path it owns
+no reference. The last close of the video node can therefore drop the
+final v4l2_device reference and free the object between that read and
+its use in v4l2_device_disconnect(), causing a use-after-free.
 
-As a result, to make good use of maintainer time and keep the kernel
-development process sustainable, your contribution has been rejected.
+Fixing this by clearing dev->v4l2 under dev->lock in the init error path
+before dropping the initial reference, and read it under dev->lock in fini.
+This makes fini see NULL after a failed init, while the successful path
+continues to hold the initial reference until fini is done.
 
-If you believe the change you proposed is important, take time to study
-the problem, learn, and develop a solution without AI assistance.
-Answering this e-mail or generating a new version of a patch by feeding
-this reply to an LLM will only result in your e-mails being ignored.
+Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+Reported-by: syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1e71765881a6fc43185f
+Cc: stable@vger.kernel.org
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+---
+v2: added unlock in early return in em28xx_v4l2_fini
+v1:https://lore.kernel.org/all/20261031204723.1415-1-drifabdelmalekmohamedsaid@gmail.com/T/
+ drivers/media/usb/em28xx/em28xx-video.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-Please note that if your patch attempted to address an important
-problem, maintainers or other contributors can submit and merge a
-similar or entirely different fix without crediting you.
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d486..924a3f7977c9 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2414,7 +2414,7 @@ static int em28xx_v4l2_open(struct file *filp)
+  */
+ static int em28xx_v4l2_fini(struct em28xx *dev)
+ {
+-	struct em28xx_v4l2 *v4l2 = dev->v4l2;
++	struct em28xx_v4l2 *v4l2;
+ 
+ 	if (dev->is_audio_only) {
+ 		/* Shouldn't initialize IR for this interface */
+@@ -2426,13 +2426,17 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		return 0;
+ 	}
+ 
+-	if (!v4l2)
+-		return 0;
+-
+ 	dev_info(&dev->intf->dev, "Closing video extension\n");
+ 
+ 	mutex_lock(&dev->lock);
+ 
++	/* matches em28xx_v4l2_init error paths */
++	v4l2 = dev->v4l2;
++	if (!v4l2){
++		mutex_unlock(&dev->lock);
++		return 0;
++	}
++
+ 	v4l2_device_disconnect(&v4l2->v4l2_dev);
+ 
+ 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
+@@ -3129,6 +3133,9 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	/* matches check in em28xx_v4l2_fini (under the same lock) */
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+-- 
+2.43.0
 
-Your contributions to the Linux kernel will be welcome if you genuinely
-desire to invest your time and learn.
-
-Thank you,
-
-Laurent's mail bot
-
-On Sat, 31 Oct 2026 20:26:53 +0000, Samarth Narang <samarth.colleges@gmail.co=
-m> wrote:
-> Hi,
->=20
-> I think xvip_dma_stop_streaming() can race with an in-progress DMA
-> completion callback, potentially causing a buffer to be returned twice
-> or accessed after it has been released. The line numbers below refer to
-> mainline at 36aad21d50d1.
->=20
-> In drivers/media/platform/xilinx/xilinx-dma.c, xvip_dma_stop_streaming()
-> calls dmaengine_terminate_all() (line 442) before taking queued_lock and
-> returning the buffers on queued_bufs with VB2_BUF_STATE_ERROR (lines
-> 449-454). Meanwhile, xvip_dma_complete() takes the same lock, removes
-> the completed buffer from the list, and then calls vb2_buffer_done()
-> with VB2_BUF_STATE_DONE after releasing the lock (lines 283-296).
->=20
-> The Xilinx DMA provider invokes completion callbacks from a tasklet
-> after releasing the channel lock. Although xilinx_dma_terminate_all()
-> halts the channel and frees its descriptor lists, it does not wait for
-> a callback that is already running. That synchronization is handled by
-> xilinx_dma_synchronize(), which calls tasklet_kill()
-> (drivers/dma/xilinx/xilinx_dma.c, lines 2739-2743), but is not invoked
-> by dmaengine_terminate_all().
->=20
-> If a completion callback is already running when streaming is stopped,
-> the two paths can race over the same buffer. If stop_streaming()
-> acquires queued_lock first, it may remove the buffer and return it with
-> VB2_BUF_STATE_ERROR before the callback attempts to remove the same list
-> entry and return it again with VB2_BUF_STATE_DONE. Even when the
-> callback removes the entry first, it may still be using the buffer after
-> stop_streaming() returns, at which point videobuf2 may release it. This
-> is a callback synchronization issue rather than an outstanding hardware
-> DMA transfer, since the engine itself has already been halted.
->=20
-> Since stop_streaming() can sleep, I believe dmaengine_terminate_sync()
-> would address the race, following the approach used for stm32-dcmi in
-> ab32b2c3636b ("media: stm32-dcmi: remove deprecated
-> dmaengine_terminate_all()"):
->=20
-> --- a/drivers/media/platform/xilinx/xilinx-dma.c
-> +++ b/drivers/media/platform/xilinx/xilinx-dma.c
-> @@ -439,7 +439,7 @@ static void xvip_dma_stop_streaming(struct vb2_queue *v=
-q)
->  	xvip_pipeline_set_stream(pipe, false);
-> =20
->  	/* Stop and reset the DMA engine. */
-> -	dmaengine_terminate_all(dma->dma);
-> +	dmaengine_terminate_sync(dma->dma);
-> =20
->  	/* Cleanup the pipeline and mark it as being stopped. */
->  	xvip_pipeline_cleanup(pipe);
->=20
-> There is also a related question about the error path in
-> xvip_dma_start_streaming() (lines 422-427), which returns previously
-> queued buffers with VB2_BUF_STATE_QUEUED without terminating the DMA
-> channel. As far as I can tell, their descriptors remain pending and
-> could be issued by a subsequent dma_async_issue_pending(). Is that the
-> intended behavior?
->=20
-> This issue was identified by a research static analyzer for DMA
-> lifecycle ordering and subsequently checked against the client and
-> provider implementations. I have not reproduced it on hardware, as I do
-> not have access to a Xilinx video pipeline and QEMU does not emulate the
-> relevant VDMA or video IP. The proposed change has been compile-tested
-> on arm64 with W=3D1.
->=20
-> If someone with suitable hardware can confirm the race or test the
-> change, I would be happy to submit it as a proper patch.
->=20
-> Thanks,
-> Samarth
->=20
->=20
