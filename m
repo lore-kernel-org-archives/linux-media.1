@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793449767;
-	b=lpCIMQQfjRXfSKkkqtdhNxsqLK97Oi8rC0O5YeHIT8kO0e0JEv3XOn6DYXOXTtkx6B3r
-	 /pyImUcMdFJSm2zL2hXfNstLaqafsgwsmEUahRBhWVZjH+b0jnQYTR9iC0kHDJdK6NVMg
-	 OIQMCM0RS4oKqEtYGHoEb2n1ir+iy7ca2WfS3SqCItAi6M1tFBHjWgmzgCZPfxYtIdFxy
-	 TC6uFy8jH47DxWVo+6FocnWVNBtNC4bsOI7gjfLHyIbHZiDmvuZhOY3e2D+iMWLr/DE5/
-	 c/nrt4yR6uBhaxvsDkDTKj2MrRjtY8A0g2cJWFqtbGnkhX3w1CtIUjoQEh/DYQn2WQA==
+	t=1793449895;
+	b=XzcLbailzO2L+nz8EzxuUVjYUyunWAw0AWb7jj3FD4NJt8thaip1NdMrVubHog2rLC+h
+	 lHDSehn4kvU7P78nYO10ijgqpBKbTxvVfRESlTkLLGygUuuFfEUxI3woD4fj66R2Hp6ik
+	 LHVlaChPKzFcPAivKQOwyjFxK4H0DXMEZR6CNxxr0pga6jaV0zeK1hlSLJK8UJjjbddEo
+	 EcpcnukbplbeHyuGJhHdKq1bg3FECATvEeJJx8C34PNNvhCtY867XftHf4Vqhk9Ei9NId
+	 +AKvi8rwZwGlNOUawypee1JVL+lkUg26Szz4ubBaqieddJCBXq4QlIWmiy7hZ1Wjr9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793449767;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793449895;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=QKwM/G3d8cDDqbj3kEze5vJBx9xtFiM+MKTaWbpMyNY=;
-	b=KfYOEz8OCypmA1LpktTryykCL9CaCXbMySOhg93JJogl78HGjmVUXurvpW1RbsvKWEXG
-	 SaNzfypK7BhvI3k9UCppu+XFqzwl4rzpoHh/FnfWTVUdRxbYXf8himpKaW9BFs7OAeoey
-	 8GIHnI/Z+VWN/KV1iM5jmA43Jy6uNTpgIiozk+oIefrOGHiOlLJQchH3bpkE6k3zAz3iB
-	 ItDREmy8m0OcSLffUaI3176l8LAqBQ04NesDjQbN4oiYek6ArH2dvlBpGa5j3dzyKMGen
-	 YQ7LVF3ykUsEVUezrlYvYOFZRo6mZAP9zSna84lvmAZlNduBz3Dfy0QYmKhCW9txzhA==
+	bh=3EbV+pW+21RM9atjNvR8Df+NflIGHLYqMLecEZlZNJ4=;
+	b=KmuQcwA28/H5/d0172WMF56cRcy+/cZecM2A9t53hzj4A1TWcfaoKC0QIdVGKe3pE4Ix
+	 g6MyzL8QzSyoYyfzgleFNYnPMPT8f/SaThRs5wIYJ6lKVGj2uTKo/oILNnRJ6uThB1ghs
+	 LBylvro/GFC3Jd/H/qRIQH7e+foxKhZJc2pyTcxD7cCw9pNrJ6Puxsz1k6Yc0o4XXSzb8
+	 AzZuzYWY1oKc8SbHh3r7RISb2MAEajo8i+T8fw7uu0bK/7LpFKt1d6wjO2RGxyp9Gtr06
+	 3xJHhFccgf263qauFRn3UekA3YlCVRZtWFal/ZLK1ahUlD6ebVzoZaJKgl0EAJPJjRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=lczqcwury5dnvlu3pftvohahlq.protonmail2 header.b="nCRH/zQt";
-	arc=none smtp.remote-ip=109.224.244.30
-Received: from mail-24430.protonmail.ch (mail-24430.protonmail.ch [109.224.244.30])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=o9AdQ3fq;
+	arc=none smtp.remote-ip=109.224.244.31
+Received: from mail-24431.protonmail.ch (mail-24431.protonmail.ch [109.224.244.31])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2346D606A31A
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 12:29:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2346D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 466E8606A31A
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 12:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 466E8606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=lczqcwury5dnvlu3pftvohahlq.protonmail2 header.b=nCRH/zQt
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=o9AdQ3fq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=lczqcwury5dnvlu3pftvohahlq.protonmail2; t=1793449764;
-	x=1793708964; bh=QKwM/G3d8cDDqbj3kEze5vJBx9xtFiM+MKTaWbpMyNY=;
+	s=protonmail2; t=1793449892; x=1793709092;
+	bh=3EbV+pW+21RM9atjNvR8Df+NflIGHLYqMLecEZlZNJ4=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=nCRH/zQt+lDdW7vrtIAk7vzs9B+GM4CoZjwXZULW1IQxHQ61QaoaSHDYYXpX+Pr55
-	 Juqne0cTZXjvnIdwXJzjWHf2to4E/yQDdmCOiud2GHooJVgUKewWIlcOOcV0Kju790
-	 dQWint+udv5yBfO8gvq6GgyuGbSAOfkeI7dMePDN1CtQ0MjBZuC9eR9JbxQ2lhnrgd
-	 RMuMRYv5VEzcttuS7nie48bKlE8tDQxEXfx1CqhZ2kXT9qiWwfy5EXY5I42iP/G03x
-	 KD/JE76yjPu62oJ4xrdm4POZEACzWPLjoH4y4957MMVGDM1pxmvfYFv6VZLTNZrWm1
-	 KLxTHiwy6FyRg==
-Date: Sat, 31 Oct 2026 12:29:19 +0000
-To: Ruslan Bay <ruslanbey@proton.me>
+	b=o9AdQ3fqhZbyoV9k8r6NhOewiMND5bDs3/fNu8Edr2W9ulj4vrnC6j22RkLuwy4MJ
+	 kBAp1HTyk8Nfu3ZMkWkaQfIpwCN2Dgh+CALcBhR3jgHMv8cc9pCTGvdNtwnAzV7wJf
+	 NBOhF1vKuXJPbGouQQgOCY2zENVVUrsRxoRTRBUuEfaaDICvAAxtRDowBo3sbYtT6p
+	 ZZPz30b62SwGUBtXQSYNRwlQvMh4+HlpEyA3iA07nFPyyBxiXnjv5gXSjUpJmtx5cE
+	 d+1A8kqFNAY+MiwQqWlG4TKPHiycFic2KswMybnEq5gHb+iBa9L1kTfQiMfaaoGzhb
+	 b3cx+ZADBDQLg==
+Date: Sat, 31 Oct 2026 12:31:28 +0000
+To: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 From: Ruslan Bay <ruslanbey@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, Antti Laakso <antti.laakso@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: [RFC PATCH v2 02/12] media: ipu6: Add IPU4P MMU support
-Message-ID: <HIqY305sMFUHwl9wyKbGQ0DCE3QOKwFva_k_NSdEz_Rp9xb1o6GM6uTjXTP4ejKQwXlePFZaTVUWmL3UN4-wUXmfrB1p4hWNaWOeiP_A4bg=@proton.me>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: [RFC PATCH v2 03/12] media: ipu6: Add IPU4P buttress support
+Message-ID: <dxiseBxpo43MCJmKSifa4B3wCb7LUo8rIpVr0mGqSQ3iY_uJubyeh5YTLLMkcwddOe1imYnPpQdC5Cjy-_8zCU1_rbfqaQF2hnx4YkX2Mzw=@proton.me>
 Feedback-ID: 183606634:user:proton
-X-Pm-Message-ID: 16792ef14ad2162e31e18fdea38234d853e8b78a
+X-Pm-Message-ID: f59962b1e95d4c4d40ee4f80e6ef57a957ded6b4
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,287 +64,291 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-IPU4P uses the same MMUv2 programming model as IPU6, but has different
-MMU register offsets, instances and stream allocations.
+IPU4P uses different power-state fields and frequency-control layouts
+from IPU6, and has a different bootloader status register.
 
-Add IPU4P-specific ISYS and PSYS MMU data and select the corresponding
-operations during initialization.
+Add IPU4P-specific power management and firmware authentication
+handling.
 
 Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c    | 114 ++++++++++++++++--
- drivers/media/pci/intel/ipu6/ipu6-mmu.c       |   7 +-
- drivers/media/pci/intel/ipu6/ipu6-mmu.h       |   1 +
- .../media/pci/intel/ipu6/ipu6-platform-regs.h |   8 ++
- drivers/media/pci/intel/ipu6/ipu6.h           |   2 +
- 5 files changed, 122 insertions(+), 10 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 59 ++++++++++++++++---
+ .../intel/ipu6/ipu6-platform-buttress-regs.h  | 18 ++++++
+ .../media/pci/intel/ipu6/ipu6-platform-regs.h |  6 ++
+ drivers/media/pci/intel/ipu6/ipu6.c           | 40 +++++++++++++
+ drivers/media/pci/intel/ipu6/ipu6.h           |  2 +
+ include/media/ipu6-pci-table.h                |  1 +
+ 6 files changed, 119 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c b/drivers/media/pci=
-/intel/ipu6/ipu6-mmu-hw.c
-index 2b395fbd596..e05fc3f7752 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
-@@ -38,7 +38,66 @@
-=20
- #define TBL_PHYS_ADDR(a)=09((phys_addr_t)(a) << ISP_PADDR_SHIFT)
-=20
--static struct ipu6_mmu_hw ipu6_isys_mmu_hwdata[] =3D {
-+static const struct ipu6_mmu_hw ipu4p_isys_mmu_hwdata[] =3D {
-+=09{
-+=09=09.offset =3D IPU4P_ISYS_IOMMU0_OFFSET,
-+=09=09.info_bits =3D IPU4P_INFO_REQUEST_DESTINATION_PRIMARY,
-+=09=09.nr_l1streams =3D 0,
-+=09=09.nr_l2streams =3D 0,
-+=09=09.insert_read_before_invalidate =3D true,
-+=09},
-+=09{
-+=09=09.offset =3D IPU4P_ISYS_IOMMU1_OFFSET,
-+=09=09.nr_l1streams =3D IPU4P_MMU_MAX_TLB_L1_STREAMS,
-+=09=09.l1_block_sz =3D {
-+=09=09=095, 16, 6, 6, 6, 6, 6, 8, 0, 0, 0, 0, 0, 0, 0, 5,
-+=09=09},
-+=09=09.nr_l2streams =3D IPU4P_MMU_MAX_TLB_L2_STREAMS,
-+=09=09.l2_block_sz =3D {
-+=09=09=092, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-+=09=09},
-+=09=09.l1_stream_id_reg_offset =3D IPU4P_MMU_L1_STREAM_ID_REG_OFFSET,
-+=09=09.l2_stream_id_reg_offset =3D IPU4P_MMU_L2_STREAM_ID_REG_OFFSET,
-+=09},
-+};
-+
-+static const struct ipu6_mmu_hw ipu4p_psys_mmu_hwdata[] =3D {
-+=09{
-+=09=09.offset =3D IPU4P_PSYS_IOMMU0_OFFSET,
-+=09=09.info_bits =3D IPU4P_INFO_REQUEST_DESTINATION_PRIMARY,
-+=09=09.nr_l1streams =3D 0,
-+=09=09.nr_l2streams =3D 0,
-+=09=09.insert_read_before_invalidate =3D true,
-+=09},
-+=09{
-+=09=09.offset =3D IPU4P_PSYS_IOMMU1_OFFSET,
-+=09=09.nr_l1streams =3D IPU4P_MMU_MAX_TLB_L1_STREAMS,
-+=09=09.l1_block_sz =3D {
-+=09=09=092, 5, 4, 2, 2, 10, 5, 16, 10, 5, 0, 0, 0, 0, 0, 3,
-+=09=09},
-+=09=09.nr_l2streams =3D IPU4P_MMU_MAX_TLB_L2_STREAMS,
-+=09=09.l2_block_sz =3D {
-+=09=09=092, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-+=09=09},
-+=09=09.l1_stream_id_reg_offset =3D IPU4P_MMU_L1_STREAM_ID_REG_OFFSET,
-+=09=09.l2_stream_id_reg_offset =3D IPU4P_MMU_L2_STREAM_ID_REG_OFFSET,
-+=09},
-+=09{
-+=09=09.offset =3D IPU4P_PSYS_IOMMU1R_OFFSET,
-+=09=09.nr_l1streams =3D IPU4P_MMU_MAX_TLB_L1_STREAMS,
-+=09=09.l1_block_sz =3D {
-+=09=09=092, 6, 5, 16, 16, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 3,
-+=09=09},
-+=09=09.nr_l2streams =3D IPU4P_MMU_MAX_TLB_L2_STREAMS,
-+=09=09.l2_block_sz =3D {
-+=09=09=092, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-+=09=09},
-+=09=09.l1_stream_id_reg_offset =3D IPU4P_MMU_L1_STREAM_ID_REG_OFFSET,
-+=09=09.l2_stream_id_reg_offset =3D IPU4P_MMU_L2_STREAM_ID_REG_OFFSET,
-+=09},
-+};
-+
-+static const struct ipu6_mmu_hw ipu6_isys_mmu_hwdata[] =3D {
- =09{
- =09=09.offset =3D IPU6_ISYS_IOMMU0_OFFSET,
- =09=09.info_bits =3D IPU6_INFO_REQUEST_DESTINATION_IOSF,
-@@ -86,7 +145,7 @@ static struct ipu6_mmu_hw ipu6_isys_mmu_hwdata[] =3D {
- =09},
- };
-=20
--static struct ipu6_mmu_hw ipu6_psys_mmu_hwdata[] =3D {
-+static const struct ipu6_mmu_hw ipu6_psys_mmu_hwdata[] =3D {
- =09{
- =09=09.offset =3D IPU6_PSYS_IOMMU0_OFFSET,
- =09=09.info_bits =3D
-@@ -159,10 +218,21 @@ static struct ipu6_mmu_hw ipu6_psys_mmu_hwdata[] =3D =
-{
- };
-=20
- struct ipu6_mmu_hwdata {
--=09struct ipu6_mmu_hw *hwdata;
-+=09const struct ipu6_mmu_hw *hwdata;
- =09unsigned int nr_mmus;
- };
-=20
-+static const struct ipu6_mmu_hwdata ipu4p_mmu_hwdata_lookup[IPU_SUBSYS_NUM=
-] =3D {
-+=09[IPU_PSYS] =3D {
-+=09=09.hwdata =3D ipu4p_psys_mmu_hwdata,
-+=09=09.nr_mmus =3D ARRAY_SIZE(ipu4p_psys_mmu_hwdata),
-+=09},
-+=09[IPU_ISYS] =3D {
-+=09=09.hwdata =3D ipu4p_isys_mmu_hwdata,
-+=09=09.nr_mmus =3D ARRAY_SIZE(ipu4p_isys_mmu_hwdata),
-+=09},
-+};
-+
- static const struct ipu6_mmu_hwdata ipu6_mmu_hwdata_lookup[IPU_SUBSYS_NUM]=
- =3D {
- =09[IPU_PSYS] =3D {
- =09=09.hwdata =3D ipu6_psys_mmu_hwdata,
-@@ -256,17 +326,21 @@ static int __ipu6_mmu_hw_init(struct ipu6_mmu *mmu)
- =09return 0;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/p=
+ci/intel/ipu6/ipu6-buttress.c
+index f1d236054cf..b1d2f762d29 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+@@ -450,6 +450,44 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *=
+isp_ptr)
+ =09return ret;
  }
 =20
--static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *de=
-v,
--=09=09=09=09   void __iomem *base)
-+static int __ipu_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev=
-,
-+=09=09=09=09  void __iomem *base,
-+=09=09=09=09  const struct ipu6_mmu_hwdata *hwdata_lookup,
-+=09=09=09=09  unsigned int max_l1streams,
-+=09=09=09=09  unsigned int max_l2streams)
++static int __ipu4p_power(struct device *dev,
++=09=09=09 const struct ipu6_buttress_ctrl *ctrl, bool on)
++{
++=09struct ipu6_device *isp =3D to_ipu6_bus_device(dev)->isp;
++=09u32 pwr_sts, val;
++=09int ret;
++
++=09if (!on) {
++=09=09val =3D 0;
++=09=09pwr_sts =3D ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
++=09} else {
++=09=09val =3D BUTTRESS_FREQ_CTL_START;
++=09=09if (ctrl->subsys_id =3D=3D IPU_ISYS) {
++=09=09=09val |=3D FIELD_PREP(IPU4P_BUTTRESS_IS_FREQ_CTL_RATIO_MASK,
++=09=09=09=09=09  ctrl->ratio);
++=09=09=09val |=3D FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK,
++=09=09=09=09=09  ctrl->qos_floor);
++=09=09} else {
++=09=09=09val |=3D FIELD_PREP(IPU4P_BUTTRESS_PS_FREQ_CTL_RATIO_MASK,
++=09=09=09=09=09  ctrl->ratio);
++=09=09=09val |=3D IPU4P_BUTTRESS_PS_FREQ_CTL_OVRD;
++=09=09}
++
++=09=09pwr_sts =3D ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
++=09}
++
++=09writel(val, isp->base + ctrl->freq_ctl);
++
++=09ret =3D readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
++=09=09=09=09 val, (val & ctrl->pwr_sts_mask) =3D=3D pwr_sts,
++=09=09=09=09 100, BUTTRESS_POWER_TIMEOUT_US);
++=09if (ret)
++=09=09dev_err(&isp->pdev->dev,
++=09=09=09"Change power status timeout with 0x%x\n", val);
++
++=09return ret;
++}
++
+ static int ipu7_isys_d2d_power(struct ipu6_device *isp, bool on)
  {
- =09const struct ipu6_mmu_hwdata *lookup;
--=09struct ipu6_mmu_hw *mmu_hw, *src;
-+=09struct ipu6_mmu_hw *mmu_hw;
-+=09const struct ipu6_mmu_hw *src;
- =09unsigned int i, nr_mmus;
+ =09u32 target =3D on ? IPU7_BUTTRESS_D2D_PWR_ACK : 0U;
+@@ -632,7 +670,9 @@ int ipu6_buttress_power(struct device *dev,
 =20
- =09if (mmu->mmid >=3D IPU_SUBSYS_NUM)
- =09=09return -EINVAL;
+ =09mutex_lock(&isp->buttress.power_mutex);
 =20
--=09lookup =3D &ipu6_mmu_hwdata_lookup[mmu->mmid];
-+=09lookup =3D &hwdata_lookup[mmu->mmid];
- =09src =3D lookup->hwdata;
- =09nr_mmus =3D lookup->nr_mmus;
-=20
-@@ -275,8 +349,8 @@ static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu=
-, struct device *dev,
- =09=09return -ENOMEM;
-=20
- =09for (i =3D 0; i < nr_mmus; i++) {
--=09=09if (src[i].nr_l1streams > IPU6_MMU_MAX_TLB_L1_STREAMS ||
--=09=09    src[i].nr_l2streams > IPU6_MMU_MAX_TLB_L2_STREAMS)
-+=09=09if (src[i].nr_l1streams > max_l1streams ||
-+=09=09    src[i].nr_l2streams > max_l2streams)
- =09=09=09return -EINVAL;
-=20
- =09=09mmu_hw[i] =3D src[i];
-@@ -289,6 +363,28 @@ static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mm=
-u, struct device *dev,
- =09return 0;
- }
-=20
-+static int __ipu4p_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *d=
-ev,
-+=09=09=09=09    void __iomem *base)
-+{
-+=09return __ipu_mmu_init_hw_data(mmu, dev, base, ipu4p_mmu_hwdata_lookup,
-+=09=09=09=09      IPU4P_MMU_MAX_TLB_L1_STREAMS,
-+=09=09=09=09      IPU4P_MMU_MAX_TLB_L2_STREAMS);
-+}
-+
-+static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *de=
-v,
-+=09=09=09=09   void __iomem *base)
-+{
-+=09return __ipu_mmu_init_hw_data(mmu, dev, base, ipu6_mmu_hwdata_lookup,
-+=09=09=09=09      IPU6_MMU_MAX_TLB_L1_STREAMS,
-+=09=09=09=09      IPU6_MMU_MAX_TLB_L2_STREAMS);
-+}
-+
-+const struct ipu6_mmu_hw_ops ipu4p_mmu_ops =3D {
-+=09.init_hw_data =3D __ipu4p_mmu_init_hw_data,
-+=09.hw_init =3D __ipu6_mmu_hw_init,
-+=09.tlb_invalidate =3D __ipu6_tlb_invalidate,
-+};
-+
- const struct ipu6_mmu_hw_ops ipu6_mmu_ops =3D {
- =09.init_hw_data =3D __ipu6_mmu_init_hw_data,
- =09.hw_init =3D __ipu6_mmu_hw_init,
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/in=
-tel/ipu6/ipu6-mmu.c
-index 1a564ceb747..824408b21cc 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-@@ -684,7 +684,12 @@ struct ipu6_mmu *ipu6_mmu_init(struct device *dev,
- =09if (!mmu)
- =09=09return ERR_PTR(-ENOMEM);
-=20
--=09mmu->ops =3D (IS_IPU7(isp) || IS_IPU8(isp)) ? &ipu7_mmu_ops : &ipu6_mmu=
-_ops;
+-=09if (IS_IPU7(isp) || IS_IPU8(isp))
 +=09if (IS_IPU4P(isp))
-+=09=09mmu->ops =3D &ipu4p_mmu_ops;
++=09=09ret =3D __ipu4p_power(dev, ctrl, on);
 +=09else if (IS_IPU7(isp) || IS_IPU8(isp))
-+=09=09mmu->ops =3D &ipu7_mmu_ops;
+ =09=09ret =3D on ? __ipu7_power_on(dev, ctrl) :
+ =09=09=09   __ipu7_power_off(dev, ctrl);
+ =09else
+@@ -774,6 +814,7 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
+ {
+ =09struct ipu6_buttress *b =3D &isp->buttress;
+ =09struct ipu6_psys_pdata *psys_pdata;
++=09void __iomem *base;
+ =09u32 data, mask, done, fail;
+ =09int ret;
+=20
+@@ -842,9 +883,12 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp=
+)
+ =09=09goto out_unlock;
+ =09}
+=20
+-=09void __iomem *base =3D (IS_IPU7(isp) || IS_IPU8(isp)) ?
+-=09=09=09     isp->base + IPU7_BUTTRESS_REG_FW_BOOT_PARAMS7 :
+-=09=09=09     psys_pdata->base + BOOTLOADER_STATUS_OFFSET;
++=09if (IS_IPU4P(isp))
++=09=09base =3D psys_pdata->base + IPU4P_BOOTLOADER_STATUS_OFFSET;
++=09else if (IS_IPU7(isp) || IS_IPU8(isp))
++=09=09base =3D isp->base + IPU7_BUTTRESS_REG_FW_BOOT_PARAMS7;
 +=09else
-+=09=09mmu->ops =3D &ipu6_mmu_ops;
- =09mmu->mmid =3D mmid;
- =09mmu->ready =3D false;
- =09INIT_LIST_HEAD(&mmu->vma_list);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.h b/drivers/media/pci/in=
-tel/ipu6/ipu6-mmu.h
-index ff113384c12..8434dd5324c 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-@@ -197,6 +197,7 @@ struct ipu6_mmu {
- =09const struct ipu6_mmu_hw_ops *ops;
- };
++=09=09base =3D psys_pdata->base + BOOTLOADER_STATUS_OFFSET;
 =20
-+extern const struct ipu6_mmu_hw_ops ipu4p_mmu_ops;
- extern const struct ipu6_mmu_hw_ops ipu6_mmu_ops;
- extern const struct ipu6_mmu_hw_ops ipu7_mmu_ops;
+ =09ret =3D readl_poll_timeout(base, data, data =3D=3D BOOTLOADER_MAGIC_KEY=
+, 500,
+ =09=09=09=09 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
+@@ -1154,9 +1198,10 @@ int ipu6_buttress_init(struct ipu6_device *isp)
+ =09=09ipu7_buttress_setup(isp);
+ =09=09b->ref_clk =3D 384;
+ =09} else {
+-=09=09dev_dbg(&isp->pdev->dev, "IPU6 touch 0x%x mask 0x%x\n",
+-=09=09=09readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
+-=09=09=09readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
++=09=09if (!IS_IPU4P(isp))
++=09=09=09dev_dbg(&isp->pdev->dev, "IPU6 touch 0x%x mask 0x%x\n",
++=09=09=09=09readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
++=09=09=09=09readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
 =20
+ =09=09writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
+ =09=09writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h b/d=
+rivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+index 4c4ca95c7d5..153bf93f93f 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+@@ -6,6 +6,24 @@
+=20
+ #include <linux/bits.h>
+=20
++#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_SHIFT=0920
++#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_MASK=09GENMASK(24, 20)
++#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IDLE=090x0
++#define IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IS_RDY=090xc
++
++#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_SHIFT=0925
++#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_MASK=09GENMASK(29, 25)
++#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_IDLE=090x0
++#define IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_PS_PWR_UP=090x10
++
++#define IPU4P_BUTTRESS_IS_FREQ_CTL_RATIO_MASK=09=09GENMASK(7, 1)
++#define IPU4P_BUTTRESS_PS_FREQ_CTL_RATIO_MASK=09=09GENMASK(15, 8)
++#define IPU4P_BUTTRESS_PS_FREQ_CTL_OVRD=09=09BIT(7)
++
++#define IPU4P_IS_FREQ_CTL_DIVISOR=09=09=094
++#define IPU4P_PS_FREQ_CTL_DEFAULT_RATIO=09=090x12
++#define IPU4P_BOOTLOADER_STATUS_OFFSET=09=09=090x8000
++
+ /* IS_WORKPOINT_REQ */
+ #define IPU6_BUTTRESS_REG_IS_FREQ_CTL=09=090x34
+ /* PS_WORKPOINT_REQ */
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h b/drivers/me=
 dia/pci/intel/ipu6/ipu6-platform-regs.h
-index b883385adb4..01a7abddd6d 100644
+index 01a7abddd6d..8006af84201 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
 +++ b/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
-@@ -14,16 +14,23 @@
+@@ -14,12 +14,14 @@
   */
  #define IPU6_UNIFIED_OFFSET=09=09=090
 =20
-+#define IPU4P_ISYS_IOMMU0_OFFSET=09=090x000e0000
-+#define IPU4P_ISYS_IOMMU1_OFFSET=09=090x000e0100
++#define IPU4P_ISYS_OFFSET=09=09=090x00100000
+ #define IPU4P_ISYS_IOMMU0_OFFSET=09=090x000e0000
+ #define IPU4P_ISYS_IOMMU1_OFFSET=09=090x000e0100
  #define IPU6_ISYS_IOMMU0_OFFSET=09=090x2e0000
  #define IPU6_ISYS_IOMMU1_OFFSET=09=090x2e0500
  #define IPU6_ISYS_IOMMUI_OFFSET=09=090x2e0a00
 =20
-+#define IPU4P_PSYS_IOMMU0_OFFSET=09=090x000b0000
-+#define IPU4P_PSYS_IOMMU1_OFFSET=09=090x000b0100
-+#define IPU4P_PSYS_IOMMU1R_OFFSET=09=090x000b0600
- #define IPU6_PSYS_IOMMU0_OFFSET=09=090x1b0000
- #define IPU6_PSYS_IOMMU1_OFFSET=09=090x1b0700
- #define IPU6_PSYS_IOMMU1R_OFFSET=090x1b0e00
- #define IPU6_PSYS_IOMMUI_OFFSET=09=090x1b1500
++#define IPU4P_PSYS_OFFSET=09=09=090x00400000
+ #define IPU4P_PSYS_IOMMU0_OFFSET=09=090x000b0000
+ #define IPU4P_PSYS_IOMMU1_OFFSET=09=090x000b0100
+ #define IPU4P_PSYS_IOMMU1R_OFFSET=09=090x000b0600
+@@ -37,12 +39,16 @@
 =20
- /* the offset from IOMMU base register */
-+#define IPU4P_MMU_L1_STREAM_ID_REG_OFFSET=090x0c
-+#define IPU4P_MMU_L2_STREAM_ID_REG_OFFSET=090x4c
- #define IPU6_MMU_L1_STREAM_ID_REG_OFFSET=090x0c
- #define IPU6_MMU_L2_STREAM_ID_REG_OFFSET=090x4c
- #define IPU6_PSYS_MMU1W_L2_STREAM_ID_REG_OFFSET=090x8c
-@@ -105,6 +112,7 @@
- #define IPU6_INFO_IMR_BASE=09=09=09BIT(10)
- #define IPU6_INFO_IMR_DESTINED=09=09=09BIT(11)
+ #define IPU6_MMU_INFO_OFFSET=09=090x8
 =20
-+#define IPU4P_INFO_REQUEST_DESTINATION_PRIMARY=09BIT(4)
- #define IPU6_INFO_REQUEST_DESTINATION_PRIMARY IPU6_INFO_REQUEST_DESTINATIO=
-N_IOSF
++#define IPU4P_ISYS_SPC_OFFSET=09=09=090x00000000
+ #define IPU6_ISYS_SPC_OFFSET=09=090x210000
 =20
- /*
++#define IPU4P_PSYS_SPC_OFFSET=09=09=090x00000000
+ #define IPU6SE_PSYS_SPC_OFFSET=09=090x110000
+ #define IPU6_PSYS_SPC_OFFSET=09=090x118000
+=20
++#define IPU4P_ISYS_DMEM_OFFSET=09=09=090x00008000
+ #define IPU6_ISYS_DMEM_OFFSET=09=090x200000
++#define IPU4P_PSYS_DMEM_OFFSET=09=09=090x00008000
+ #define IPU6_PSYS_DMEM_OFFSET=09=090x100000
+=20
+ #define IPU6_REG_ISYS_UNISPART_IRQ_EDGE=09=09=090x27c000
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/=
+ipu6/ipu6.c
+index cdf812c0296..1432c2a1f6f 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.c
++++ b/drivers/media/pci/intel/ipu6/ipu6.c
+@@ -96,6 +96,28 @@ static struct ipu6_psys_internal_pdata psys_ipdata =3D {
+ =09},
+ };
+=20
++static const struct ipu6_buttress_ctrl ipu4p_isys_buttress_ctrl =3D {
++=09.subsys_id =3D IPU_ISYS,
++=09.ratio =3D IPU4P_IS_FREQ_CTL_DIVISOR,
++=09.qos_floor =3D 0,
++=09.freq_ctl =3D BUTTRESS_REG_IS_FREQ_CTL,
++=09.pwr_sts_shift =3D IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_SHIFT,
++=09.pwr_sts_mask =3D IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_MASK,
++=09.pwr_sts_on =3D IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IS_RDY,
++=09.pwr_sts_off =3D IPU4P_BUTTRESS_PWR_STATE_IS_PWR_FSM_IDLE,
++};
++
++static const struct ipu6_buttress_ctrl ipu4p_psys_buttress_ctrl =3D {
++=09.subsys_id =3D IPU_PSYS,
++=09.ratio =3D IPU4P_PS_FREQ_CTL_DEFAULT_RATIO,
++=09.qos_floor =3D 0,
++=09.freq_ctl =3D BUTTRESS_REG_PS_FREQ_CTL,
++=09.pwr_sts_shift =3D IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_SHIFT,
++=09.pwr_sts_mask =3D IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_MASK,
++=09.pwr_sts_on =3D IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_PS_PWR_UP,
++=09.pwr_sts_off =3D IPU4P_BUTTRESS_PWR_STATE_PS_PWR_FSM_IDLE,
++};
++
+ static const struct ipu6_buttress_ctrl ipu6_isys_buttress_ctrl =3D {
+ =09.subsys_id =3D IPU_ISYS,
+ =09.ratio =3D IPU6_IS_FREQ_CTL_DEFAULT_RATIO,
+@@ -347,6 +369,15 @@ static void ipu6_internal_pdata_init(struct ipu6_devic=
+e *isp)
+ =09psys_ipdata.hw_variant.spc_offset =3D IPU6_PSYS_SPC_OFFSET;
+ =09isys_ipdata.csi2.fw_access_port_ofs =3D CSI_REG_HUB_FW_ACCESS_PORT_OFS;
+=20
++=09if (IS_IPU4P(isp)) {
++=09=09isys_ipdata.hw_variant.offset =3D IPU4P_ISYS_OFFSET;
++=09=09isys_ipdata.hw_variant.spc_offset =3D IPU4P_ISYS_SPC_OFFSET;
++=09=09isys_ipdata.hw_variant.dmem_offset =3D IPU4P_ISYS_DMEM_OFFSET;
++=09=09psys_ipdata.hw_variant.offset =3D IPU4P_PSYS_OFFSET;
++=09=09psys_ipdata.hw_variant.spc_offset =3D IPU4P_PSYS_SPC_OFFSET;
++=09=09psys_ipdata.hw_variant.dmem_offset =3D IPU4P_PSYS_DMEM_OFFSET;
++=09}
++
+ =09if (IS_IPU6EP(isp)) {
+ =09=09isys_ipdata.ltr =3D IPU6EP_LTR_VALUE;
+ =09=09isys_ipdata.memopen_threshold =3D IPU6EP_MIN_MEMOPEN_TH;
+@@ -660,6 +691,15 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const =
+struct pci_device_id *id)
+ =09psys_ctrl =3D &ipu6_psys_buttress_ctrl;
+=20
+ =09switch (id->device) {
++=09case PCI_DEVICE_ID_INTEL_IPU4P:
++=09=09isp->hw_ver =3D IPU_VERSION_4P;
++=09=09isp->model_name =3D IPU4P_MEDIA_DEV_MODEL_NAME;
++=09=09isp->cpd_fw_name =3D IPU4P_FIRMWARE_NAME;
++=09=09isp->cpd_metadata_cmpnt_size =3D
++=09=09=09sizeof(struct ipu6se_cpd_metadata_cmpnt);
++=09=09isys_ctrl =3D &ipu4p_isys_buttress_ctrl;
++=09=09psys_ctrl =3D &ipu4p_psys_buttress_ctrl;
++=09=09break;
+ =09case PCI_DEVICE_ID_INTEL_IPU6:
+ =09=09isp->hw_ver =3D IPU_VERSION_6;
+ =09=09isp->cpd_fw_name =3D IPU6_FIRMWARE_NAME;
 diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/=
 ipu6/ipu6.h
-index 4db9f3d85d8..c70ae6bb1d9 100644
+index c70ae6bb1d9..ccf001c2db9 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6.h
 +++ b/drivers/media/pci/intel/ipu6/ipu6.h
-@@ -95,6 +95,8 @@ struct ipu6_device {
- /* The firmware is accessible within the first 2 GiB only in non-secure mo=
-de. */
- #define IPU6_MMU_ADDR_BITS_NON_SECURE=0931
+@@ -15,11 +15,13 @@ struct pci_dev;
+ struct ipu6_bus_device;
 =20
-+#define IPU4P_MMU_MAX_TLB_L1_STREAMS=0916
-+#define IPU4P_MMU_MAX_TLB_L2_STREAMS=0916
- #define IPU6_MMU_MAX_TLB_L1_STREAMS=0932
- #define IPU6_MMU_MAX_TLB_L2_STREAMS=0932
- #define IPU6_MAX_LI_BLOCK_ADDR=09=09128
+ #define IPU6_NAME=09=09=09"intel-ipu6"
++#define IPU4P_MEDIA_DEV_MODEL_NAME=09"ipu4p"
+ #define IPU6_MEDIA_DEV_MODEL_NAME=09"ipu6"
+ #define IPU7_MEDIA_DEV_MODEL_NAME=09"ipu7"
+ #define IPU7P5_MEDIA_DEV_MODEL_NAME=09"ipu7.5"
+ #define IPU8_MEDIA_DEV_MODEL_NAME=09"ipu8"
+=20
++#define IPU4P_FIRMWARE_NAME=09=09"intel/ipu/ipu4p_fw.bin"
+ #define IPU6SE_FIRMWARE_NAME=09=09"intel/ipu/ipu6se_fw.bin"
+ #define IPU6EP_FIRMWARE_NAME=09=09"intel/ipu/ipu6ep_fw.bin"
+ #define IPU6_FIRMWARE_NAME=09=09"intel/ipu/ipu6_fw.bin"
+diff --git a/include/media/ipu6-pci-table.h b/include/media/ipu6-pci-table.=
+h
+index 4c7e724ea15..e04ff2a8b2a 100644
+--- a/include/media/ipu6-pci-table.h
++++ b/include/media/ipu6-pci-table.h
+@@ -8,6 +8,7 @@
+=20
+ #include <linux/pci.h>
+=20
++#define PCI_DEVICE_ID_INTEL_IPU4P=09=090x8a19
+ #define PCI_DEVICE_ID_INTEL_IPU6=09=090x9a19
+ #define PCI_DEVICE_ID_INTEL_IPU6SE=09=090x4e19
+ #define PCI_DEVICE_ID_INTEL_IPU6EP_ADLP=09=090x465d
 --=20
 2.56.0
 
