@@ -1,76 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436052;
-	b=I1XJ18CyRI5dj+q6qZlR78KxzK3su5YwfssIKSE2a6CK9usF4HU7n/q/eFj2EMgDvboZ
-	 hC9727LAFBCsnMWMVB5FZmaEX2T+KypjjJGtKTM7P/Is8uQLU38VjMTEWbEi4pR4FR1JL
-	 tC9jsqs/Ty8m2NEHqdkS3i7UtXxXj/C/mPurmp8rc6JQi4E2WO6ZF2hcM0QGdj0YkGYR6
-	 rT6oFgOf/GJOLkcr8Fti8S61C1t5HcxJuWNw3Kye4VPcNmbFFFIIXgE06ZFtErrngD8iN
-	 Eo45o5W1UBC6t9qCDaDYRoZCcf4H9N99ic/42SqCshGtWpxl9OcBrwpCMNyIVBXOJGg==
+	t=1793443495;
+	b=wSJSziZBLNmsa6Q6I+PbHpVRI6BePf6w1rHvT1yXHIEmyk/LjMQ3kCA7pxi4EvrxaSZk
+	 9H4YR8FhZu1Pgsvho583LS754dWVhDjgdeIjbYZExivpqlpvJ3aJChv5PPx2/EE7o/mU4
+	 6sZxLYg53A54Qo0lVU6cnHqBgLVUFVmE1LA0fZ+s6Qgup87E06SUMPOPZ1RVfPJNgRADZ
+	 YYAGwNLiTqQ7dkZSI4ZEqrdc3+xDxmLgzSEvWn0D7xAZ/l6fUeUf20S5dSuLXEApGXp4p
+	 /Jw9rgkJydhmPxBvE2bCg9RLqZBZlMNJSNvNzYk3JQ1q8QWkEk55XPUxB3Ea8QUs1Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436052;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=6svTTISeQUYx1ZIWsfbO5edWqBQzyZocELnYvruPeJQ=;
-	b=pC7GTyGIKvApg0mGnpzysqYk/2nF3hFTf+nwiqLBKNcLkUIzD5NkJkDsMxtawjRX59Wt
-	 F7lFgHH58PY2qGgfYjQ+AocqFkCEnkbYOj+4twMk18n7APkZNyH93zQhNvYz6bUV501Yq
-	 1NFtWnYnnOB/R1EGxEZWuMkurG3IOnAUV9LFpGkTgEhz4ujw87ymfzEefMJyUjNyQgzIp
-	 qlyA78MBhZ1E4CH1gVtCMDAzmxBXD6yhdOdDEnOciQBtnGxZNeG5svaFRNNGyVKzrO3k5
-	 +ttWIcEYEulZxpVvP5b8VyGqkZHRgmMJdlsUifS32JCONgFla88eVem9D8XZakuEpFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793443495;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
+	b=QoAx7rr+P6xrYrXbY+m2TnCA6lrT478DjYkeC7gxKr0pzfy2SrmXlHXLUYE/dRXDr73X
+	 4sM6WRSmWgeJWUxxTtSERGH45UBLlowe1Gc7TVpKNdPcp9KbyQKhanrXyXzRAej7t/7WI
+	 ZRElMIFxNytAOqRJPRSQUCEaLr3KejxK2+1L5I1AQsYZUBE+jvoayh660UBK9cB5bKAQ1
+	 RhrofXMWBIOiLB+bLDaA9ofwmz5O5LZ77WWoioUMgPbA8mmkIPqu/88CBThkadmTyMoQz
+	 YMec9QHnPS/Y0ViTdqF8bfWyJT5buOqHZmYgvNqVF3MR1O5tpUTnTXE38iDXfUND3jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LNZJGkN5;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UcqEXsLF;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3897606A31A;
-	Sat, 31 Oct 2026 08:40:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3897606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44E2606A31A
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 10:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D44E2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LNZJGkN5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793436051; x=1824972051;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=BF/278JGTfk0RG+nqNh0X0rOdKPRj+r50jvDUKTf/J8=;
-  b=LNZJGkN5fedasx/u5ahJXkPVl9/IPrxuqAP3zyBld8km64y73a01J4qi
-   WWPAWivQaD2yNoBwehBW+puWITbKJDsFGNhips1ZoDzmxTTr8Rw5h7Be/
-   3BhP/n4nb7p2YwY0DdL6wlPnylkphlkZy5hw3YXNsICycWUgKzEgAk7D/
-   OuaNr6E5IBJ7MTXrmheO8hF2vIUtJMaES/xUMZY8kDOSEBrWPyonl8rDZ
-   SvYrj4b1uUdP8G/NHTw2Jjg0AY7O3U9eNeCD0fQFGsSOp3LaAKFyhU/6h
-   U6Nlm1WpPMA/f3WPirQBVh4PQenFcEDBVOHTBWdwZCvIUlGLv56qUqY0v
-   A==;
-X-CSE-ConnectionGUID: seBf/9a7SLygy5yT3URlxg==
-X-CSE-MsgGUID: Ur5zWpxmQWOuAR7hXF5cwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2080793"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2080793"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:40:50 -0700
-X-CSE-ConnectionGUID: GO8Lq7JGTfyf+TJ2wWyVRw==
-X-CSE-MsgGUID: edkas0dCReeUBlowOcjoDg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7429665"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:40:48 -0700
-Date: Sat, 31 Oct 2026 10:40:46 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	andy@kernel.org, gregkh@linuxfoundation.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UcqEXsLF
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1079390f8f.1
+        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 03:44:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793443493; x=1794048293; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
+        b=UcqEXsLFGpK8HluJzwZWCLWSIIOtM1AqH30p/xVJh+ZCGnhCRxz2BiAmobnXB5MK1b
+         C8NxZii/6Ye9x8YoayP6CtCNMiFirmeJ2uu6lrMtSw/FM1dON+/H+7suN35Hke+NMkx6
+         8xP3u+LG/e4fDGo/QRVS9cyPaobpsrM+7CC5buc7VV1JrqWkKH4qelgddG9lRpsdyoFq
+         so16ADc2UqjedDxp2XyPoZ8UoTmBY3xnh+VZlgfQiW/cn8eWNOnNTpqrUBkxsRBsS4df
+         7Yqm4R9ItofReQI2nzy4+116xn5Vc78Ti66dF3eFr0JCssIbdLWtRluFZdovh/x8BEqL
+         2G5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793443493; x=1794048293;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
+        b=revocT7oC2rmlhKBGj33E8q5wJ9bCiQpPP7PiwE36BdQtTVLCLjC5t0+6768VIY5Pn
+         KFDSDeqTp1ypzuuxNOiGqojIeP2zyrJc4xD6cXF76hfpEoERA81fG/Hgt+0VdXzho9xb
+         8v7zUd9Zj28PJnYhmTr7DuU1+SOX2xfVPi6kVorYu7YnN7BVjdqAnnfg1AbECfQOM7vs
+         YFS1hzHl7M5392QRorMXAxJFCp3Nm22wsigXgEAkCenl+rymq1QcF+eA0Z6BwkTpHDaA
+         YNe1uW8rDeTG6LCnY2Aq30Cyi4zUMKUIQPCIivLfeUI0ig2tp2qhnCdF1w6LxkxrBCPa
+         zy1g==
+X-Forwarded-Encrypted: i=1; AKwUvBz/4OwpXDYDrtCYxxR6xmCmI7sVgO22qiFq2qB+DzLLFzaKJXIc7jR7Iii9aggWo5YSjH99rHMM5e5HQA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVfxmzivncE3LPEK81gHKAgm4Q52f1E1TIsNMljxL1zfbTEY/J
+	bM3u3WawQP4HsU1Nq8Qq/Amn+hk6X41rGG4FT86Psr278r6XOpIgwrxH
+X-Gm-Gg: AYBFou2QuLrqP2bJK8OipdI6olaIAELB8VvasRoZlxWCZ8i+lsbuPaFQSmt3GR3o8RG
+	un8yFBAhnHrrFx21WLGo8DhhB9xIdgXD4p1jCwNqu4SHBJgwve46QvrUJaaXmkG8UfbXKp6Gmsh
+	O26oKWMUaGUwehCzF3+XdaZ4tXXnQApsMul+LjBfBoFS4vG+B0+Q2Kpy6NXVBVe2eETCq7vFQBr
+	ERyq3mR00zPjhAkQAyi88tT/6Gp7qs321EAGbS90nde//IkCpOBQMDxTqPkLHxdHIX/aNPfiDQ6
+	RE5kd1um+zfz5yqqXjf/0uLL+3oUQkb7sTWE0s73PRa2I6enfFqY7tqJJ655W8SBUvafGbv/KyD
+	kjFwX5pCvQvXK3UcehnlIuZAFNt1I7vmOCmwDBVQBE+RMa/kJyDDn6VGXqKol1OUcCPPn5+plkJ
+	aXDvX2FmAwEOseSGrPaShvt3aNwjAxTVx+cOK/skBUQlDOUSKNuZmAp/+lMo0/WnwQmHP9ogC90
+	7BikbiseP6vivmCJln6SbeMWsoAhzMACtyXfINeSwPjg79wkETwXTyxqVupnfXUaKLQKGyqsZKq
+	VuPJ2iR2Dix6W/bRk9NcV181pHrAaAlP33dPf7Ph7y8mQ+qzm6Bfxc4HE6RmQNCULIGp37RJHtR
+	KHyeRuZ6g8nxZaD4QRtqSOYAFrl7nm1yfPO7EJKLuDZDUgcyXHuUhQJyLQmJODp5AoYVYhagHJX
+	+fQlmT5U54NYf7Xu9SeBjTeRBLQbSCOig=
+X-Received: by 2002:a5d:64a7:0:b0:48e:5e1f:9a36 with SMTP id ffacd0b85a97d-48e6e50191cmr8399741f8f.42.1793443493010;
+        Sat, 31 Oct 2026 03:44:53 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a81d-e001-9c9b-db33-f166-0fda.310.pool.telefonica.de. [2a02:3100:a81d:e001:9c9b:db33:f166:fda])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728f9sm8093899f8f.10.2026.10.31.03.44.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 31 Oct 2026 03:44:52 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: atomisp: Remove redundant return statements
-Message-ID: <auWpjhhTGEJS09n0@ashevche-desk.local>
-References: <20261030193322.13777-1-chaulagainavishek14@gmail.com>
+Subject: [PATCH v2] drm/tegra: Fix dma-buf reference on import errors
+Date: Sat, 31 Oct 2026 11:44:39 +0100
+Message-Id: <20261031104439.91346-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -80,29 +107,48 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030193322.13777-1-chaulagainavishek14@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 07:33:04PM +0000, Avishek Chaulagain wrote:
-> A return statement at the end of a void function is redundant; control
-> returns to the caller once the closing brace is reached. Remove the two
-> such 'return;' statements in hmm_bo_release() and hmm_bo_vunmap(), as
-> reported by checkpatch.pl.
+tegra_bo_import() takes its own dma-buf reference only on success, but if
+mapping fails, its detach error path still calls dma_buf_put(). That drops
+the reference held by the PRIME caller, which then puts it again, and can
+release the dma-buf file while its descriptor is still installed:
 
-Usually we expect deeper cleanups for this driver, see [1] for the best
-(so far) example how somebody can help with it without having deep knowledge
-on the particular hardware.
+  VFS: Close: file count is 0 (f_op=dma_buf_fops)
 
-This type of change has been appeared many times in the mailing list, you
-can study the case why it's still not in the upstream.
+Remove the unmatched put.
 
-[1]: https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurares@gmail.com/
+Fixes: f5b8794e17e4 ("drm/tegra: gem: Don't attach dma-bufs when not needed")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+v2: Clean up the commit message (Mikko). No code change.
+v1: https://lore.kernel.org/r/20261026055842.96484-1-kmehltretter@gmail.com/
 
+Tested on a Jetson Nano (p3450-0000) with CONFIG_DMABUF_DEBUG=y and a local
+change that rejects zero-byte IOMMU mappings to force the error path. Without
+this patch the forced failure produced the warning above. With it, 100
+consecutive failures returned -EINVAL, kept the original dma-buf fd and left
+no dma-buf objects.
+
+ drivers/gpu/drm/tegra/gem.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+index f76af73..ed35a34 100644
+--- a/drivers/gpu/drm/tegra/gem.c
++++ b/drivers/gpu/drm/tegra/gem.c
+@@ -502,7 +502,6 @@ detach:
+ 		dma_buf_unmap_attachment_unlocked(attach, bo->sgt, DMA_TO_DEVICE);
+ 
+ 	dma_buf_detach(buf, attach);
+-	dma_buf_put(buf);
+ free:
+ 	drm_gem_object_release(&bo->gem);
+ 	kfree(bo);
+
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.39.5 (Apple Git-154)
 
