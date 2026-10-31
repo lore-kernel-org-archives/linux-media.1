@@ -1,51 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.250
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793406286;
-	b=J0L9+RDJdGGnGbF7hZfmoXUA0JBhYnhKjrHfIH6JGp3th3UVHiMnTsyjR8Im+HqxiTIp
-	 87jns7Mv7wAA1BGXHPI94ppUfL0/EFdwtSM+bIwrn9pcaVf77gy3OF1cfJz1nLKe+Hmrt
-	 4FvdVWaRcVinNZZVnmzritLV2q/3dgWLPAzXiFh43oZLQ/EXznwlXUvoISVgbZo64qeT7
-	 CX/I5nBilO3bf9e/3kALYnCnqf5FQoJoKIX/6+yp0DY2mtxV2QBHlAX0SbLDU6rEuKQ0F
-	 moGbwNVpLj6eX7FfBPx8I16dkg16YpmbhQoWeSQHVQI2q9MxIvbS8xcRgD81vSEE2YA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793406286;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 Received:Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Info-Out:X-JNJ;
-	bh=4A9Qd+GvOo6shQWv531IdBUtwUe/CubZ+vWEzbUoAwI=;
-	b=cBvZ/WowQMOxnMeOixBIILD2G5bOYmDZsWojIjPbWx2gdtLiXMaFSAZHjQqLS5EaB9WI
-	 1rptsRNb3CgjvmplPMw0FmuZ7EJVfmEz3ng7DrXnzvwrEmkbVt2UvCsRL9bZS7jFfwl6f
-	 fouVDpgHeNcdU6CPw2WX7+FMPTSgMImYJW5mQRIuATZ1as13ps7YMjnTogzO1z9Brd+2i
-	 3QmmH5gBBZhqFE2Ae7ttS6mWEqkN8jl5jMh+s8v41KevgrKWHV0Mz7EGJsI4ijY+yVyha
-	 9HHx40PR/TuPpvux3Yke+E6cuqeGo28mXGD5tBOfpGmrY39mVC4uDaiBkQmpjEMrB3w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b="EgOb/mWX";
-	arc=none smtp.remote-ip=57.103.74.250
-Received: from outbound.ms.icloud.com (ms-2004j-snip4-10.eps.apple.com [57.103.74.250])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.128.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793411095;
+	b=NWJquumAsqBQBVAnCzHvhNAR/FwqoVehGG9Sib3VxCRk3SiD5YG1PgtK+5riYbJVZInY
+	 kXxlx/uEVarkjhuczsZdsqfBbFAAly2kfQM7SPuRHlWHtCdWa8qzq71Ntoy0Yh1nobt7X
+	 8677wtgeR3UQ8ObT8NLHETdu6C+cjiuMnq8bcgS9QZmePR7Sfy+fjFDEHcN6rcAcv/MVh
+	 ECiZQ5+etmZrUCkeNIRmUn5wuBabHvUC+RQlK8j56UOr/w6ft7GDSgmLCRDmJJLueJwk/
+	 WZOaJWjC+kJewfUJDdcklX4cGVGzW/m37nVFy7UVvc352ew6vfbMSV6yqBSuwttOdQA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793411095;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+	b=xBjYLcbnrj7TE8jCff5ErIajBlT2sKF0g6YQx3BbXIKG6kQbdHAuvFe0kHxdyjqU6CiI
+	 RFWmWgzdAaC304Cd/0OM2LDYmVKf2SZ9ZYOd1z+5TwE2xmhFT6nRPcFsZKNXamZJb1Q22
+	 VrOUnbRntLPVw1+nU6FiAfOZHC7wGBYfRczaFhggrRAbv2/gPDlIwSnRwQam3aG93cbxz
+	 VLlOrO4/lFzA6IiIuZ6phgDqIh16h9FP5VjmgA88TxmX9rI29t8BYNwRJMuqp4k+ICBrz
+	 5JSfEEz60RhDsPSqXr/EHLgDgBTuhm49Nj6NU1qATyuxudSETgxMLxRksu6VK4cy1TA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pTSxiqGX;
+	arc=fail smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD70606A31E
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 00:24:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FD70606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28171606A31E
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 01:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28171606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=EgOb/mWX
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-7 (Postfix) with ESMTPS id 0FDCC18002BF;
-	Sat, 31 Oct 2026 00:24:42 +0000 (UTC)
-X-ICL-RepId: 01a18f58-2ca8-75c8-95d2-ba75f3e3f9fc
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQhPHVwGRQBFDFYEWRcOVk1TF1ZDUxFTFFY4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgRQUR1fAgoERwRbF0YDU0VfAxcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8ZWhRcGFNFUR9UWF4EU1YOMXxLBVVxXApdfz1wXBpfAEYPVQpVAVwfRAxLcF9xWwMyCT0CLV4IXh9MHB0OWAYMUE0BQwgKAlEcVg1X
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793406285; x=1824942285; bh=4A9Qd+GvOo6shQWv531IdBUtwUe/CubZ+vWEzbUoAwI=; h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To:x-icloud-hme; b=EgOb/mWXdLWMlMChCEA+YETy0ykmFUs+VPmYod4N8G0u8RidGaW1zWmEaL67RTX3x6pambdf2BHzjKEKiv50ci+3ziYXEmsK2hiMLX7YxYyn3pjWLAXLrBql2yZlrGMPFBjpzDWQIdfgQFNxMh0k0Mc6d99Tx38goi2Ht8XYdPZwpz+xBtmZ1jnXyK9nD4ck/bE0vHC4tpaLKNl40WuowCArVfzOKf9pWmqVXjFvGJ1m2vt9wjw/lQP50gYwjuAe7tsigB2B3HxD02YFhdjtH5YUBGr+2uAfuLyjHU3tDl/zaebNMnw9YxwFKJrw+MwNR8UHOqvMKnN79RxsbzRw0g==
-Received: from smtpclient.apple (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-7 (Postfix) with ESMTPSA id CEFBF180011D;
-	Sat, 31 Oct 2026 00:24:41 +0000 (UTC)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pTSxiqGX
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20d7a8984so10015e9.1
+        for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 18:44:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793411093; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jDW0UR/Or5gAfKgkVHdzIZo5ZyEJ7ZOtLnubnsqk5tiQLRlK7TkRibG2etlbmXH1bE
+         84oACNOZYbrDCKVCWLL8LkhdY+XrcsU5ByhC7NfHz2t8ehEa/XvJqHRi+LTxolGN2rN0
+         /K8MMsj3mhaV+jYKJ3AOkG7BolE/DZMf6x5KJ5eX3z9DZEt2Kr65wlrR+ar1h9PDma5G
+         HZeVC+XKX8WpCGr9A8pCHcyDvgB1WQQ+yG6wClBfXA0uqVwtF7Iu9DY/4Hypca49UGOT
+         E/p3Wtwbsb8QfBTE9J5cQXIkSZl4wqqbqhWRTe0RaF5fR1RJpS+f5Zvw9fVKDBVpXP8J
+         w/MQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+        fh=xhFxbduYF5hdKle9+VLG+YsURO5zV5EzTlJJG3SSLQY=;
+        b=JdSXVgU7UZRISgr9OpGc6VWFgtKVyEJ1Spjy57HZ/FuyEaJ6KdCeSRzdjDE2sq6R0t
+         TIh2vO23J6dFpu+6swyPrq2fcWDorku186OU8zKlvlYy6FcQgCKoWef2KNpCYzstqbRO
+         S7f9me73EwUarLUWFdgG9q2BtOi9+A5+gluJkzEb5v1YU7E5GOOqDe4ihTqJF6YVDFh0
+         R5E2SZyDnEotaZ4+KtVo6nDOY1jFOAurp4cGXa8qYFG5nAW/UpNqji2fmmq8KsVgcksf
+         +Rc2/503OciLcGWbxSd22B96CrSmX+DRdCrSA1xlNauHPMeuCbz2bDrrS0Mh6Y6d/M/E
+         Nv7Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793411093; x=1794015893; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+        b=pTSxiqGXeKnIFTgIRow4invbDjsAiH2zV+0YXZVm+lBwyoVWkFdITWNiMcG7yKVf01
+         6cFyb/HbYDwNG2aATzPG6gFN2IRQV92WN5bNaZ5rHzhBF3AV8/qi+goJOPdgjcZ3rUbk
+         HwmCt4WleDebWqlk/QaMCYAYOXRMXQdZILHvTpCBCsNIFi/RAAuVK98S2ApdGpxqMP7h
+         WpiItQjZE43YaWmQwxk/iuvRBP7zBMLoEqpb2ma3YEiVPHXtaStd19R7h2ZfHRUakUMO
+         e/5/bvnZZYIeuorAp4zSgc8GtEI7GmDxY/j902qLCrndoYz2nr4oFlsy+SZlEFxldOEb
+         HiNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793411093; x=1794015893;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6DRdlfcgy+vOtjFUomjk9wUyOs/aRXJNwlIvfhUtZTw=;
+        b=umOOO/Ed/TFeQKQjs0A75BrU1P6gPOhgRu+KcFqS9bQ3o2Qg6BRa5/Z4EF06m8/8xT
+         xaB9gbkoOh+J1qRpkgpDz/g3VVkTnzm7P4vHFp5W8e02DmnDv9trnLHwoGBO4ntjGcEq
+         xRx6n4GKQ7BZ4GxSAGE4hYDiotXR9QB8urvuqhTE//cvLhODr01iaUCS8a2R9CWpN0Hp
+         jvxah6cD/2TMZOM2flqXlS/fx/xYi4b6BnENyMDAvlXnZKiOswT67zOy1egmQkVvIkHa
+         e4OgFFS3/+QYBV97a56eAlIeMfam07I6VrFc3TQIpXRMgpVCh7yLGaUMEr8xEClHRPvE
+         FVTg==
+X-Forwarded-Encrypted: i=1; AKwUvBw85DA9rsVkjGFkP2PMtDeMYu+YHrMF1IU7c39JOdgbfIiVTIf6WC9MkUDgoUt8rzlgyL8+/WfWG5zKQw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKo13RgdtGuMD+30HGo247HuJWz5kMK40R79RUjTcsiCLHn7Y4l
+	el3iqAIeTDyCfkyLOt090S+FUCRCnM2ERt0F10sYsDdOFL5eGEsTbu7qSUFbcHiC6CMf3hSHBxF
+	aQBcmcQCbbAI0b9Gz20RNffP/Me3T4YJXR97b1Ycx
+X-Gm-Gg: AYBFou2zvdNapC0DW5Sy3WDytBbYygDf0u3rVQYXU0H3fpEJf854OT7F0LscjgwtA46
+	LMrOXDs7xvcFBKihFY1ctBKv9VBYttmq171At6U3Iyn8DEWIsZ6Hf1lqNomNfHJ+mp3MMMnLh9P
+	9XwOF7QBeg85WeJw4a02k34OLt3K3fqBXDS7M+EYOPv0w9ZLs2tWSjqRjfCRXfTnqq6iI6x67N8
+	HLfv6ljLDJgdDJxE28vJpsH/s0nvLVtrR0IuiKkt9tuUd+K1Q8j2j6+oCojAWqS+hzDQOAyk93K
+	VGNoeGq/bf8hu657zXNUrzw98N3LFD6LmsWGHZU7mUznBVuo8qHmLG3LSIWyS4KGv407JynV8VZ
+	YFIOmdtzT02f2HxEewF90StmOfogbFah/xfpTCyYwduu1QE0pOmoZjYz9kIAmMRWL1vt7
+X-Received: by 2002:a05:600c:a183:b0:4a2:ba3:236e with SMTP id
+ 5b1f17b1804b1-4aab73beeffmr1795465e9.14.1793411093182; Fri, 30 Oct 2026
+ 18:44:53 -0700 (PDT)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,111 +103,52 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 0/3] media: ipu3-cio2: support concurrent CSI-2 streams
-From: joe.dzado@icloud.com
-In-Reply-To: <20261031002332.33609-1-joe.dzado@icloud.com>
-Date: Fri, 30 Oct 2026 18:24:30 -0600
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
+MIME-Version: 1.0
+References: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+In-Reply-To: <18e3697ad6321d35.3137322e32332e3235332e313736.e98e6.0000sendgmr@google.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Fri, 30 Oct 2026 18:44:41 -0700
+X-Gm-Features: AclHuK_pX8cbPFC7CZhySlOC0JMrDf_CX2tXJ-CkUmaeXv5SLhTNx2Dk4KoCGew
+Message-ID: <CABdmKX0YRmr0ovk7teNQdXdLmC2LKruT59EQarpDMFcxoOFcQg@mail.gmail.com>
+Subject: Re: [PATCH] dma-buf: system_heap: Reject private mappings in system_heap_mmap()
+To: Chris Wiseman <chriswiseman@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>
+Cc: John Stultz <jstultz@google.com>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <AE368F78-FEC1-4266-9867-453C2F01B0E1@icloud.com>
-References: <20261031002332.33609-1-joe.dzado@icloud.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Dan Scally <dan.scally@ideasonboard.com>,
- Yong Zhi <yong.zhi@intel.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDAwMSBTYWx0ZWRfX7S1xqmOQjfDo
- aJrqzVPOvoO38LrVqK+/iootKpHbiAHrmhDIpWLe1tP4ARnvJv92UD8Q2OWhnNy2+rJkLu5zsT6
- VhQLYW4/1RVC20Boy1QRB7qXe8uc+Gitza2vAYpr/CJggzKmy2whp/DZKXqT8Orbt1PJ8z5IWtL
- INcJOrh1PHFmRFCNfhPSqXzzBChdl7O81Y0m8Ftycnv9b0wV+V9KfH6pb8BbJa7wrjx+4AMMFwb
- +aaMHDI6426DC7u9CKpLceu8/isl8EOjnR2LEcV40N8BV9on2LCZU3p21X2xZURqZInc6whOmJQ
- AldYhlcKB3NR75sMFrp/DVyEzFdrUVEdA80nToKK0n0yDeOFmq82/kiZ6vsycc=
-X-Proofpoint-ORIG-GUID: zbeLFbX5RzHAgfW9nXOsv7-oLS8vQcIz
-X-Proofpoint-GUID: zbeLFbX5RzHAgfW9nXOsv7-oLS8vQcIz
-X-Authority-Info-Out: v=2.4 cv=V7JwEOni c=1 sm=1 tr=0 ts=6ae5354b
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=x7bEGLp0ZPQA:10 a=VxgYvlp6VsgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=v3ZZPjhaAAAA:8 a=k0MeWpvmtCr9dytLNMYA:9 a=QEXdDO2ut3YA:10
-X-JNJ: AAAAAAABJgXtUt2eUwWsCj8WTPMUzlTRQDiVBicdYKduY5E6EBZPkXqqgK3UIMrFeVkLae
- IaLlX6nYmOksO9rcRSM4W7mxPnNOIfvAZfzRmAoKGhIz0iIhNJCLDzBkKagEcZwF9LhQO2
- 8YghkqapOxIRtngWnLclkaJNvb0izMoaHY4gasrSh5BmDN13kCPOtfuWqBqfxxUd/Z7WVA
- 336kp447jSC5xOCRhwQJA4nr8uxuIP61OzCWpObKJsfrFygm603ilQ/trR4FZIcVCnXJlx
- qZmpD43eRGBRFcd98cEWNZx7B5MYBfAG/sly2whArrN5qDAATHUDVH42YcA6XJJ8I5gkKG
- 27FwU8DJ3Rc6fk5HlGW9C2OTfj5xQlTzQX31/6+QOZZx5XPijTMdnLE2aqnBM7ayUepPj9
- EQsfKnp1gA9VoIhZHJnoAi2fhzRyIymp4qr+3XpQrbcSVZ8UXd/0DGEpeOSPeArJ8yoMxL
- HRa8C3CwHUnGcp9Y/v/CI6z7rHxh5lZoBfAFAF3o8KvqGN/WQijycF5L2Hue6dbNF61MRK
- UA2TG3MAt5vNcOIqmIk9azcPjQTRBWlzxcEOff+cXkR4+xY6HuTNtAYoWE/1OLMICSRv5B
- YZzprEtuitzejcJrJY464aN7BKYdVoVyfxBq10QNMg3ugi2Q7g1MLWeeak+ZNs8bMbR3RB
- i8I3b15Mhy79ZpCudgJMmiUPfGN632xNWofFVtXrq6Znx1r9JEu89lIxn/vRqklRxzZ73V
- JXSrktQhKD+x9S9yb7/w0b7/449LPIyy6FmVGmtWX8etfXQQlSF2Lt5pW7i4L8aeRazoo/
- CKKHVFRlFF5LhCZfyvdeEXtFhod9YlQhCn0JQU9Hpt/NEe/O+JphgDEWButsvCCTUMRWa2
- 0U0xoj+1STJHtZMfkD6ej1UJLqNhRsRkEcjj6Xwj/6N66cI0gn+gBNp95vtJP5P+uTq7qa
- FLB7eC3qnvEJqZMsCqIudPQUTqcdYBAABoaaZ/G5zA03gQW9Gf92146/YGMgIKjLNabzRQ
- mJdeG/FG4CmBAMwBzo1NIzp0UwvkpCNNW4gE1UfLEEFBuFFyhzMTmPwHr5JoV11FG+nz+P
- 7QUnWkj6efOT3dwEOMdK1dx+al923us7zaUEdagTmcqDWnoeZC+mZuy7NNo+6fiIrbLYDH
- i3EdJQZAvKdNvJuIa6hX5U996wN23kCZ5GZN/8QdXomKEQRuChptXuLR8wogb2K70QYjbD
- e/rsuZQJLOllsu7Z0riKBgzNhZCWfUmJ/XqKCd5pdm26FEkAu9IbaYTSj02z0TYNIBc6ug
- 6ZzmcI7yXyLvVfVK3B567CEqK11AQ=
 
-I=E2=80=99ve never submitted a patch before, so I=E2=80=99m not sure if =
-I=E2=80=99m following the right process, but I found something while I =
-was creating a person/gesture detection pipeline on my Surface Laptop =
-(1st generation, 2017) =E2=80=94 DMI product_name=3DSurface Laptop (no =
-"2"+), i5-7200U.
+On Fri, Oct 30, 2026 at 1:44=E2=80=AFPM Chris Wiseman <chriswiseman@google.=
+com> wrote:
+>
+> When commit 381295758792 ("dma-buf: system_heap: Rework system heap to
+> use sgtables instead of pagelists") stopped using heap_helpers.c and
+> added a custom system_heap_mmap(), the check rejecting private mappings
+> was dropped.
+>
+> Other exporters and buffer allocators reject private or copy-on-write
+> mappings in their mmap handlers: cma_heap_mmap() and mmap_udmabuf()
+> check that VM_SHARED or VM_MAYSHARE is set, and drm_gem_shmem_mmap()
+> and ttm_bo_mmap_obj() reject vma_is_cow_mapping(vma).
+>
+> However, system_heap_mmap() omits this check and calls remap_pfn_range()
+> even when userspace requests MAP_PRIVATE with PROT_WRITE. As a result,
+> subsequent CPU writes to a MAP_PRIVATE mapping of a system heap buffer
+> fault into do_wp_page() -> wp_page_copy(), silently allocating private
+> anonymous copy-on-write pages whose writes never reach the underlying
+> system heap buffer pages.
+>
+> Reject non-shared mappings in system_heap_mmap() with -EINVAL to match
+> cma_heap_mmap() and mmap_udmabuf().
+>
+> Fixes: 381295758792 ("dma-buf: system_heap: Rework system heap to use sgt=
+ables instead of pagelists")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Wiseman <chriswiseman@google.com>
 
-I wanted to use the RGB and IR cameras at the same time and found I =
-could not. So, I got a patch working.=20
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
 
-=E2=80=94 Joe
-
-
-> On Oct 30, 2026, at 6:23=E2=80=AFPM, Joe Dzado <joe.dzado@icloud.com> =
-wrote:
->=20
-> The ipu3-cio2 driver currently assumes a single active capture: every
-> stream is pinned to DMA channel 0 (CIO2_DMA_CHAN) and tracked through =
-a
-> single cur_queue pointer, with the IRQ handler assuming all completion
-> and start-of-frame events belong to that one queue. On platforms with
-> more than one sensor wired to separate CSI-2 ports (e.g. the Microsoft
-> Surface RGB + IR cameras), starting a second stream reprograms channel =
-0
-> and cur_queue out from under the first, so only one sensor can capture
-> at a time.
->=20
-> This series lets the driver use the DMA channels the hardware actually
-> has, so multiple sensors can stream concurrently:
->=20
->  1/3 dispatches interrupts by DMA channel instead of a single =
-cur_queue
->      and converts the streaming state to a per-queue count (no
->      functional change);
->  2/3 serialises concurrent hw_init()/hw_exit() with a new lock and
->      guards the block-shared setup so bringing up a second stream does
->      not tear down the first (still single-channel, no functional
->      change);
->  3/3 maps each CSI-2 port to its own DMA channel (2*port), with a
->      dma_per_port module parameter to restore the old behaviour.
->=20
-> Each patch builds on its own and is bisectable. Tested on a Microsoft
-> Surface Laptop (i5-7200U, Kaby Lake) with the OV9734 (colour) and =
-OV7251
-> (IR) sensors streaming concurrently on CIO2 ports 1 and 2 for several
-> days without errors.
->=20
-> Joe Dzado (3):
->  media: ipu3-cio2: track the streaming queue by DMA channel
->  media: ipu3-cio2: serialise concurrent stream start and stop
->  media: ipu3-cio2: give each CSI-2 port its own DMA channel
->=20
-> drivers/media/pci/intel/ipu3/ipu3-cio2.c | 283 ++++++++++++++---------
-> drivers/media/pci/intel/ipu3/ipu3-cio2.h |  10 +-
-> 2 files changed, 188 insertions(+), 105 deletions(-)
->=20
-> --=20
-> 2.56.0
->=20
-
+I wonder if we should have this in dma_buf_mmap_internal() though. Any
+thoughts Sumit or Christian?
