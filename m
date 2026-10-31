@@ -1,57 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.167
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793450027;
-	b=I582vU8z9Ssp8vApZjPzhNAKP53Tfa1f/XtyL7hsghsim/bDXuYdGbndXgK0QjrFyeLX
-	 s/Gzbjj4yY3TFkPvQC1nVQODlJtL9J6YJUMGuYvo8pM7ElzCuiJPzn2PVuxHot4CJp+5a
-	 rQOdHBUsmGKGVwksR4Ce0ACs1UpB/oGgTBZ6xDHxK0dvMtZubjOZzJk/L6Ev/A7Mp52iH
-	 m3/6Lp9EGcPKJ5XhY1vmL91gG1h2//qZoqU9QMrI32VZjklS8kgp+01Lv7CupYWIVFZss
-	 Hd6SV9nW+BWBd2KHtgQTuFcFEmEKyax60PHL747OliAdKfg3m3o8bkWazhaZxWboTog==
+	t=1793450094;
+	b=UQqisXGXzt1GEg4YLWmcL4dYxEIMXNvndLEGTjGemIjl/1HedhRUf3vgMdw+yX2WlYHt
+	 hANPVu61L67SkxbZ6gGHLBMST2rs1v84tzsaK3Jxl21koqf7pVmxLMjwFDAseG4JKHogj
+	 Rkk5Ii6ExbpqvXhbKXWnuuZ3U0oFsE3YPp5JOvkifWJPaxPBA3h916yTE3JkhHbMYENaw
+	 mVM57O33CDHUbDjnLK+Gnsq3nulwZOBH1UWwdD13bVrPZVga/NNc6IfQLcu+IRhn79fOA
+	 4UrSQVFmcnNuUEU/+th45aT1fk+rq/RjsHSUDaj8U8ihoYLyQaxEg8PQCYNe6fnjZqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793450027;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793450094;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gsFbRadoKrkTlBY8sbE/fAKh1z1QR7W31Gsgi8c1nhU=;
-	b=T90Q1M46q7JKyLWdcUGsPV87/2OIziKqnwAHaEvYNXf8sEx+QMsZkUGUi6co+1ETfO8p
-	 KA9VUgdToB0WioGLlQcvwANNH6+3moYbKE6bzqWuW99HxBd4qXSHdKYOpR8e1Kz/XHuCb
-	 wc/jI0jlMjdkpp/s//JoyndMGnM5YLTlhGrAJLfjFbd7pPaYHlcXS4UowvLPGSKzIEz6v
-	 ZIkGpzkLHDE1+C389U0kHJnxE1YGeN3pI3sioNamajopRBAGtcXY7meerRZ03a638iyOE
-	 3j9QUPuc8aMpCtSRE5UDJyBKJbKSBL6NOrogg9zPX3Ysq/F9Yg0Nrl205K7AfaOOOpg==
+	bh=v+t4TcfYIxv3yGZVVecyp/ynY/r3hKQNsH2Vq96RZB4=;
+	b=FqoOx9EutGcJW/8ec8PDSVbSUren3uro+burZu8/42Zb+Jn8IEcBZYLMzvKEzJcJyb7C
+	 GUP+63Su87Ai/P1jmcRoLx6IA3mpLpL5WRDxiK0v8ZqEuBK5DXHShvWNISXiQkWI54WKQ
+	 lRagQLDgiXwTUm8XNVVxyaPafffj/1lz8VCeJQfAGKuSfC+UpKKOvqRh/5BgKmVxeDd6T
+	 TvE6STQBHnyFlG6tjraMrwtPGqIeXeTuKM0nfujemgtdmf0Rd1ZAKiTB3xj5PI+7YNzXv
+	 9JwKWvW3JAjgieiEgto/61mwqp4lX12+b0cMi4dsi1y01Xf6X3P0CPa1bfBN2KN8imQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=proton.me;
 	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=jdjJ5Fwz;
-	arc=none smtp.remote-ip=185.70.43.167
-Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=TKHW8ZMD;
+	arc=none smtp.remote-ip=79.135.106.103
+Received: from mail-106103.protonmail.ch (mail-106103.protonmail.ch [79.135.106.103])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF86D606A31A
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 12:33:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF86D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27A57606A31A
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 12:34:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27A57606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=jdjJ5Fwz
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=TKHW8ZMD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1793450023; x=1793709223;
-	bh=gsFbRadoKrkTlBY8sbE/fAKh1z1QR7W31Gsgi8c1nhU=;
+	s=protonmail2; t=1793450089; x=1793709289;
+	bh=v+t4TcfYIxv3yGZVVecyp/ynY/r3hKQNsH2Vq96RZB4=;
 	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
 	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=jdjJ5FwzVlodafdtflustvd8AqbjL38M062Dl9dZ6RkaLzRR+teslP41ZrNwbLnAf
-	 UvKGrgZcqAzSvEesUczGgqUlGRzENWtlXkEcwYeN3jApUPxwlFPPYJOWaxawazR0m2
-	 E1bMgFYFBUW8kHl/05Lg5KNu08d/M44KKiJLOrLjFg0ENj4sOCd9xMXryWOQovJ2yB
-	 0aayfi2iBT/BylHbj1KqUQyCzkt9VNhGv+ZIjkqw7zBSsQpOhjfBM5keva+Eu8gOV6
-	 2ebZQNWgfPMSOuAnjTgxQcPB+SWeAOb9ucmqrJya2P9DRcaBoez9d8EPA0ksJBQFdX
-	 OVJcEQb5SiSjA==
-Date: Sat, 31 Oct 2026 12:33:37 +0000
+	b=TKHW8ZMD4V5xtY6PfV03oKsJBPzPQUv5Sy4itNSCShhef7VxAmh35E//uOy2XNecM
+	 Q1O6nnYRw7qR/79vXycYryZKRuDZFza9mrvMnT19O4fwKtwnIDb3kWuU343FRpIXwT
+	 2GNmJK6eJIMhifMaRLJi9rREuLZMB3dMMrCohBUeMwgn4B8Tgu0lV+zR2qaW8wzXqV
+	 OffX9/F7Iob8NvCDjAoWaUyQyNCLALNDgDiwfVg4e2b7p5Cd5AjKfZU2xclhAhxv0X
+	 D6xY4jIZVfvUySFS30bjIY6r831P+t9FqZ2r015yPBHpg9teC9IK4ZqS9QKWnhLXuj
+	 Kzk6a7+c9xDSA==
+Date: Sat, 31 Oct 2026 12:34:43 +0000
 To: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
 From: Ruslan Bay <ruslanbey@proton.me>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: [RFC PATCH v2 05/12] media: ipu6: Support DMEM-based SysCom in ipu6-fw-com
-Message-ID: <jUdugxrdRdjEf-_lonYLmWWCkan5e4Hfw4LvQ9PpUUUUO_AfsiEgeflzPyJKmgHqHlKaTZLR34WY88THVl5v4TSRDNkjmuECXD0szLi5p3I=@proton.me>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: [RFC PATCH v2 06/12] media: ipu6: Add firmware-specific ISYS response dispatch
+Message-ID: <B4M1vUVEJG-bpgpO3B_4JKq2KUnJn56WFxEbA8byH4SjqblOQWrnG-O2WAzY-PnwccdL03yZzjS8VfD1CsZ-FFyQXbrpN3eB1K13Cp_o_Ok=@proton.me>
 Feedback-ID: 183606634:user:proton
-X-Pm-Message-ID: bd39dcf567811d568ec2815d91f14a2695315cb3
+X-Pm-Message-ID: 6b60c3b003cb72e2a62988d555a0347af32ca8ba
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,144 +64,176 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-IPU4P uses DMEM for SysCom control registers instead of the buttress
-boot-parameter area used by IPU6.
+Route ISYS response dequeueing through firmware-specific operations
+while keeping response handling shared.
 
-Handle the IPU4P register layout during queue setup and firmware
-initialization, shutdown and readiness checks.
+Allow the common handler to skip message-buffer release when required
+by the firmware's buffer ownership rules.
 
 Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-com.c | 48 ++++++++++++++++++++--
- drivers/media/pci/intel/ipu6/ipu6-fw-com.h |  3 ++
- 2 files changed, 47 insertions(+), 4 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 55 +++++++++++++--------
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.h |  4 +-
+ drivers/media/pci/intel/ipu6/ipu6-isys.h    |  1 +
+ 3 files changed, 39 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-com.c b/drivers/media/pci=
-/intel/ipu6/ipu6-fw-com.c
-index 51567c5fc13..fc2fe6f3f3f 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-com.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-com.c
-@@ -97,6 +97,7 @@ struct ipu6_fw_com_context {
-=20
- =09unsigned int buttress_boot_offset;
- =09void __iomem *base_addr;
-+=09bool dmem_syscom;
- };
-=20
- #define FW_COM_WR_REG 0
-@@ -105,6 +106,14 @@ struct ipu6_fw_com_context {
- #define REGMEM_OFFSET 0
- #define TUNIT_MAGIC_PATTERN 0x5a5a5a5a
-=20
-+enum ipu4p_regmem_id {
-+=09IPU4P_SYSCOM_CONFIG_REG =3D 1,
-+=09IPU4P_SYSCOM_STATE_REG =3D 2,
-+=09IPU4P_SYSCOM_COMMAND_REG =3D 3,
-+=09/* Registers 6-7 reserved by ISYS firmware for dual contexts. */
-+=09IPU4P_SYSCOM_QPR_BASE_REG =3D 8,
-+};
-+
- enum regmem_id {
- =09/* pass pkg_dir address to SPC in non-secure mode */
- =09PKG_DIR_ADDR_REG =3D 0,
-@@ -179,6 +188,7 @@ void *ipu6_fw_com_prepare(struct ipu6_fw_com_cfg *cfg,
- =09ctx->cell_ready =3D cfg->cell_ready;
- =09ctx->buttress_boot_offset =3D cfg->buttress_boot_offset;
- =09ctx->base_addr  =3D base;
-+=09ctx->dmem_syscom =3D cfg->dmem_syscom;
-=20
- =09/*
- =09 * Allocate DMA mapped memory. Allocate one big chunk.
-@@ -241,7 +251,8 @@ void *ipu6_fw_com_prepare(struct ipu6_fw_com_cfg *cfg,
-=20
- =09/* initialize input queues */
- =09offset +=3D specific_size;
--=09res.reg =3D SYSCOM_QPR_BASE_REG;
-+=09res.reg =3D ctx->dmem_syscom ? IPU4P_SYSCOM_QPR_BASE_REG :
-+=09=09=09=09     SYSCOM_QPR_BASE_REG;
- =09res.host_address =3D (uintptr_t)(ctx->dma_buffer + offset);
- =09res.vied_address =3D ctx->dma_addr + offset;
- =09for (i =3D 0; i < cfg->num_input_queues; i++)
-@@ -265,6 +276,21 @@ EXPORT_SYMBOL_NS_GPL(ipu6_fw_com_prepare, "INTEL_IPU6"=
-);
-=20
- int ipu6_fw_com_open(struct ipu6_fw_com_context *ctx)
- {
-+=09if (ctx->dmem_syscom) {
-+=09=09if (!ctx->cell_ready(ctx->adev))
-+=09=09=09return -EIO;
-+
-+=09=09writel(SYSCOM_STATE_UNINIT,
-+=09=09       ctx->dmem_addr + IPU4P_SYSCOM_STATE_REG * 4);
-+=09=09writel(SYSCOM_COMMAND_UNINIT,
-+=09=09       ctx->dmem_addr + IPU4P_SYSCOM_COMMAND_REG * 4);
-+=09=09writel(ctx->config_vied_addr,
-+=09=09       ctx->dmem_addr + IPU4P_SYSCOM_CONFIG_REG * 4);
-+=09=09ctx->cell_start(ctx->adev);
-+
-+=09=09return 0;
-+=09}
-+
- =09/* write magic pattern to disable the tunit trace */
- =09writel(TUNIT_MAGIC_PATTERN, ctx->dmem_addr + TUNIT_CFG_DWR_REG * 4);
- =09/* Check if SP is in valid state */
-@@ -295,6 +321,17 @@ int ipu6_fw_com_close(struct ipu6_fw_com_context *ctx)
- {
- =09int state;
-=20
-+=09if (ctx->dmem_syscom) {
-+=09=09state =3D readl(ctx->dmem_addr + IPU4P_SYSCOM_STATE_REG * 4);
-+=09=09if (state !=3D SYSCOM_STATE_READY)
-+=09=09=09return -EBUSY;
-+
-+=09=09writel(SYSCOM_COMMAND_INACTIVE,
-+=09=09       ctx->dmem_addr + IPU4P_SYSCOM_COMMAND_REG * 4);
-+
-+=09=09return 0;
-+=09}
-+
- =09state =3D readl(BUTTRESS_FW_BOOT_PARAM_REG(ctx->base_addr,
- =09=09=09=09=09=09 ctx->buttress_boot_offset,
- =09=09=09=09=09=09 SYSCOM_STATE_ID));
-@@ -326,9 +363,12 @@ bool ipu6_fw_com_ready(struct ipu6_fw_com_context *ctx=
-)
- {
- =09int state;
-=20
--=09state =3D readl(BUTTRESS_FW_BOOT_PARAM_REG(ctx->base_addr,
--=09=09=09=09=09=09 ctx->buttress_boot_offset,
--=09=09=09=09=09=09 SYSCOM_STATE_ID));
-+=09if (ctx->dmem_syscom)
-+=09=09state =3D readl(ctx->dmem_addr + IPU4P_SYSCOM_STATE_REG * 4);
-+=09else
-+=09=09state =3D readl(BUTTRESS_FW_BOOT_PARAM_REG(ctx->base_addr,
-+=09=09=09=09=09=09=09 ctx->buttress_boot_offset,
-+=09=09=09=09=09=09=09 SYSCOM_STATE_ID));
-=20
- =09return state =3D=3D SYSCOM_STATE_READY;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pc=
+i/intel/ipu6/ipu6-fw-isys.c
+index 56bb67869bd..c6066e37ef5 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+@@ -531,20 +531,17 @@ static u32 resp_type_to_index(int type)
+ =09return  ARRAY_SIZE(fw_msg) - 1;
  }
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-com.h b/drivers/media/pci=
-/intel/ipu6/ipu6-fw-com.h
-index b02285a3e43..0323d8e4821 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-com.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-com.h
-@@ -4,6 +4,8 @@
- #ifndef IPU6_FW_COM_H
- #define IPU6_FW_COM_H
 =20
-+#include <linux/types.h>
+-int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
++void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
++=09=09=09       struct ipu6_fw_isys_resp_info_abi *resp,
++=09=09=09       bool release_msg_buf)
+ {
+ =09struct ipu6_isys *isys =3D ipu6_bus_get_drvdata(adev);
+-=09struct ipu6_fw_isys_resp_info_abi *resp;
+ =09struct ipu6_isys_stream *stream;
+ =09struct ipu6_isys_csi2 *csi2 =3D NULL;
+ =09struct isys_fw_msgs *isys_fw_msg =3D NULL;
+ =09u32 index;
+ =09u64 ts;
+=20
+-=09resp =3D ipu6_fw_isys_get_resp(isys);
+-=09if (!resp)
+-=09=09return 1;
+-
+ =09ts =3D (u64)resp->timestamp[1] << 32 | resp->timestamp[0];
+=20
+ =09index =3D resp_type_to_index(resp->type);
+@@ -580,7 +577,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+ =09}
+ =09stream->error =3D resp->error_info.error;
+=20
+-=09csi2 =3D ipu6_isys_subdev_to_csi2(stream->asd);
++=09if (stream->asd)
++=09=09csi2 =3D ipu6_isys_subdev_to_csi2(stream->asd);
+=20
+ =09switch (resp->type) {
+ =09case IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE:
+@@ -606,16 +604,17 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+ =09=09 * firmware only release the capture message until software
+ =09=09 * get pin_data_ready event
+ =09=09 */
+-=09=09if (!resp->buf_id) {
+-=09=09=09dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
+-=09=09=09=09 resp->stream_handle);
+-=09=09=09goto leave;
+-=09=09}
+-
+-=09=09isys_fw_msg =3D container_of((void *)(uintptr_t)resp->buf_id,
+-=09=09=09=09=09   struct isys_fw_msgs, dummy);
++=09=09if (release_msg_buf) {
++=09=09=09if (!resp->buf_id) {
++=09=09=09=09dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
++=09=09=09=09=09 resp->stream_handle);
++=09=09=09=09goto leave;
++=09=09=09}
+=20
+-=09=09ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
++=09=09=09isys_fw_msg =3D container_of((void *)(uintptr_t)resp->buf_id,
++=09=09=09=09=09=09   struct isys_fw_msgs, dummy);
++=09=09=09ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
++=09=09}
+ =09=09if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
+ =09=09    stream->output_pins_queue[resp->pin_id])
+ =09=09=09ipu6_isys_queue_buf_ready(stream, resp);
+@@ -633,8 +632,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+ =09case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE:
+ =09=09break;
+ =09case IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF:
+-
+-=09=09ipu6_isys_csi2_sof_event_by_stream(stream);
++=09=09if (csi2)
++=09=09=09ipu6_isys_csi2_sof_event_by_stream(stream);
+ =09=09stream->seq[stream->seq_index].sequence =3D
+ =09=09=09atomic_read(&stream->sequence) - 1;
+ =09=09stream->seq[stream->seq_index].timestamp =3D ts;
+@@ -646,7 +645,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+ =09=09=09% IPU6_ISYS_MAX_PARALLEL_SOF;
+ =09=09break;
+ =09case IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF:
+-=09=09ipu6_isys_csi2_eof_event_by_stream(stream);
++=09=09if (csi2)
++=09=09=09ipu6_isys_csi2_eof_event_by_stream(stream);
+ =09=09dev_dbg(&adev->auxdev.dev,
+ =09=09=09"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
+ =09=09=09resp->stream_handle,
+@@ -661,7 +661,21 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+ =09}
+=20
+ leave:
++=09return;
++}
 +
- struct ipu6_fw_com_context;
- struct ipu6_bus_device;
++static int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
++{
++=09struct ipu6_isys *isys =3D ipu6_bus_get_drvdata(adev);
++=09struct ipu6_fw_isys_resp_info_abi *resp;
++
++=09resp =3D ipu6_fw_isys_get_resp(isys);
++=09if (!resp)
++=09=09return 1;
++
++=09ipu6_isys_handle_response(adev, resp, true);
+ =09ipu6_fw_isys_put_resp(isys);
++
+ =09return 0;
+ }
 =20
-@@ -29,6 +31,7 @@ struct ipu6_fw_com_cfg {
- =09void (*cell_start)(struct ipu6_bus_device *adev);
+@@ -742,7 +756,7 @@ irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev)
 =20
- =09unsigned int buttress_boot_offset;
-+=09bool dmem_syscom;
- };
+ =09=09writel(0, base + IPU6_REG_ISYS_UNISPART_SW_IRQ_REG);
 =20
- void *ipu6_fw_com_prepare(struct ipu6_fw_com_cfg *cfg,
+-=09=09if (!ipu6_isys_isr_one(adev))
++=09=09if (!adev->auxdrv_data->fw_ops->isr_one(adev))
+ =09=09=09status_sw =3D IPU6_ISYS_UNISPART_IRQ_SW;
+ =09=09else
+ =09=09=09status_sw =3D 0;
+@@ -958,6 +972,7 @@ static void ipu6_fw_isys_prepare_buf_set(struct isys_fw=
+_msgs *msg,
+ const struct ipu6_fw_isys_ops ipu6_fw_isys_ops =3D {
+ =09.init =3D ipu6_fw_isys_init,
+ =09.close =3D ipu6_fw_isys_close,
++=09.isr_one =3D ipu6_isys_isr_one,
+ =09.cleanup =3D ipu6_fw_isys_cleanup,
+ =09.prepare_stream_cfg =3D ipu6_fw_isys_prepare_stream_cfg,
+ =09.prepare_buf_set =3D ipu6_fw_isys_prepare_buf_set,
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/media/pc=
+i/intel/ipu6/ipu6-fw-isys.h
+index 2a679d99596..498cb7f0691 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+@@ -562,7 +562,9 @@ struct ipu6_fw_proxy_send_queue_token {
+ int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys, unsigned int req=
+_id,
+ =09=09=09=09  unsigned int index, unsigned int offset,
+ =09=09=09=09  u32 value);
+-int ipu6_isys_isr_one(struct ipu6_bus_device *adev);
++void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
++=09=09=09       struct ipu6_fw_isys_resp_info_abi *resp,
++=09=09=09       bool release_msg_buf);
+ irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev);
+=20
+ #endif
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/i=
+ntel/ipu6/ipu6-isys.h
+index f4d00f763eb..86b1ab681e3 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+@@ -167,6 +167,7 @@ struct isys_fw_msgs {
+ struct ipu6_fw_isys_ops {
+ =09int (*init)(struct ipu6_isys *isys, unsigned int num_streams);
+ =09int (*close)(struct ipu6_isys *isys);
++=09int (*isr_one)(struct ipu6_bus_device *adev);
+ =09int (*send_cmd)(struct ipu6_isys *isys,
+ =09=09=09const unsigned int stream_handle,
+ =09=09=09void *cpu_mapped_buf,
 --=20
 2.56.0
 
