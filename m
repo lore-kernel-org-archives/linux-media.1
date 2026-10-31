@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793445749;
-	b=TtepTqAHIaOgMYvrHUqAx8YT/sFXEG+fwBgJs/LzPrlvMte0fouEf0sVkwjOIZF3t9iD
-	 neCuCOxOufoHLjDXDdeFm8/FdkuADJEZ3jF/eeIib8X2Ojpz/bJ2FPJef+E5fJ/OoyLUo
-	 B0E0t2IB6gHbue82M774qazcVEWpNlzWZhpC3D2bWQWlLepceFbv5x3jE+ubqAsG0MqV0
-	 Idr88qIQnQjSpMi488WZaNddxYx1jj0JaxfoiclpeCF3L66H3nfb5MK6dGctSw0DaCvXs
-	 BQ8aig0Qq2SVJJ9U2vC54QwYjtlabD1DTdgRtTek4N861ZQzKbt7g2blTCAPZxU6Kxg==
+	t=1793445746;
+	b=NtsSYQl4fQiDc+7TdXr655zbv//JHPIR8S1VE/hB8Yr+ek5ypoSo/vvFrCgZUzdQanZ4
+	 zqlZuIIYYCoVgFTGnVINcXhaOJghfFi/OEdiTvhMrUBP6PeJAsHFIOWLBVl5Y6svhdoek
+	 EQAucqHBTThqKOSisj6PXKxI8swHuJEvDBXu6+gB7ThPsmgmnjlc1TpwGO1YWoZsqAKcj
+	 kmuE8CynmHzNz4vwoU/yt2s5itUbPw606BS6BS3E/kwrq8/eG6wA9vX1eiDj4eB2HTQNc
+	 CHP6Z32kqRVxkkK4gykMF47JIQTCVIJnARauXSpozMVk8reuBo3RY1f3NAyDdqYGGsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793445749;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793445746;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WLBh5BTo8i0xLs394OGDtDxi2667Fm5jki33+xLbOY0=;
-	b=wwr13Tgi9FfjxSjUpZcYaCwc9cPmqSX/1iUftl14gfAPk5x/siHU8ke3smh8y/lmkeYV
-	 g0kWVJb7hToqaUuA7L+W/+TJFG712slDo3Dypudj+cknXpM6nReICYJtTA5z4/dk4PXFC
-	 8+rod7Xu2+aF0ldXu82JFWCLTzWOSBTMD956JTWDH3pxDoVStdRFK9qqQZhtOeub/y+Us
-	 14vDGRoNuz5F4l8tIT5Egmi2PtzkIaZJfbNcLQVeVy6zdvwPOHXckDCDLBM+KEOSnLqcD
-	 TWi9NMriBhSIRGYOjHUlud8Hcdy3NW4enTxyaEuEBBUeHPRC2XOtZ7bK6k6xs0y/YNQ==
+	bh=tpErthRmnc/Sd165TRJRy3hTqpBnrdJ3knKfPzqq1g0=;
+	b=X5N7jbJbetv4EZiaBoCdT4idouU4B7VANjzLRieAx4yQx5morIMzu8WrYFMNWM7avvF/
+	 d9dbWOrqnONsM7vNnZhHRGOxtuN/QmabBXO4dVqVhcHjP04xx8tjGW0hgvUxOcp21ap3Y
+	 uZid82oXk69KXkPWRH+UxExNqmm19L9stOVNoLYdbA/UXCBW9TUysNrvNTeR+R60CjmdZ
+	 eWVvBqL7i3pIxq+c9/z4/mY7lA7upDpa351lUAHMaAXdB/nz3ZQtQoBxt7TtWmTUS4suH
+	 5muPbXHWpQ28cbA4XVfVWPg0pCQyACJi5jH0YbvCbZLFcb90iqdaZJ1mq3Z72dhBmvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="Q89w/7x0";
-	arc=none smtp.remote-ip=209.85.208.174
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=smYomg76;
+	arc=none smtp.remote-ip=209.85.167.47
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1662E606A329
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 11:22:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1662E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC22606A31E
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 11:22:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EC22606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Q89w/7x0
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3ab3cb83f54so1924391fa.0
-        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 04:22:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=smYomg76
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5be3ec14bc5so260906e87.1
+        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 04:22:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793445747; x=1794050547; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793445744; x=1794050544; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WLBh5BTo8i0xLs394OGDtDxi2667Fm5jki33+xLbOY0=;
-        b=Q89w/7x0HRK2iT442mfAC0Z/blCfysHmO3lk80m/FjOgkZKEmLtVzj32YWikPqRi4U
-         qutZF3q5D/mioJ+i5+kpgidXSzYCX9N+Rs8ZJFLCO4ha7GztoVnDD24V58VAfSdNeicv
-         SfjVD36PkV0w7XlWvtZOjTCmaieBbBrOGzLq6Z/pO3IPAKij9Vz7xRLV1mGAi+uX2zMT
-         vm0pPHf+yZAFjP9Y2TQFDgOKcj0d7eVx3h86k5+OnW6Rcc/GZLOSbruUJXAenQ76+R/P
-         nAW0LGVBxP7mpY3I5VysYCyAXBQ6ysEpwyjDMOR/asLyzfE2LbcQFrwEEk5+TrIU1nUE
-         q5fA==
+        bh=tpErthRmnc/Sd165TRJRy3hTqpBnrdJ3knKfPzqq1g0=;
+        b=smYomg76JlBtZyAHVkitLrlxUqVrHWOxG9QTciE1UGoSL6VtHE7yoLtH8ZrLPOE3ER
+         LdAI5hhpM0xD6zCf8ReZkvWqaZ/EsQp9AJw5N3C9PY61euVM/CutyRl6mutSikSNhkzW
+         7ODUxC6ClmoF25ubjB0Xf1cuZPhfu8XLXSaSpP1wtEaD0pFAh1fOCj4l2B4VlHbdduFB
+         V9mXBkmygJw0oY2gVtkMlCKduJrFaA8lme5PrH/4MBTh2nZzDck6nF4kPj6trRDpdRTK
+         qFrVDOrC5RBZ5hzAg63fOqm2dbswqg3Tch6gWHjKeZ/TQZsIuNFY3efD4FSKglhRrNaE
+         7Y8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793445747; x=1794050547;
+        d=1e100.net; s=20260707; t=1793445744; x=1794050544;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WLBh5BTo8i0xLs394OGDtDxi2667Fm5jki33+xLbOY0=;
-        b=pnfUbcS8WvFov3T/2/nyLMlwwVK8fkjFAg4J5hItrDvHxtj8xOorHA9WPcoyJjWMn4
-         6RFGGB9dcwQaJ34Prdxpm3R/71YH9Uoo7mu5o15BHRX1ff9r2rdCtobk/8ctqSS1wXhT
-         gure8VN2Bo0OIAHaVs9rg4wmKpNBl8aSe8zRZ5KX6ZtnR+AlfsDdEqatqeIybJc6Q519
-         0hif38T3z2+wxSxDMesxVXrQYAk92/qezoMVK4IpeQ5plObDopBVEFYF8seMyCs9GLgW
-         AGAXb8KGKSlhGfwi9FH/WYwiP1w+HUikmUZ9h1WRczahuuOd/uZFzlF5Qw3eXY3o+RrD
-         BnFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWO9PeLwb5364pSWLAfFzJhv555m+FJCglFwEMgtV9ZGEgS8PGjPcbc8iCwuT9XcW/gkovOUl4dFgxxg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYITMoeiSXr4hW79+KJXxKzVHFHGxdZQ97EgyolPf72eIK5KBJRY
-	JR30WuWcTIisnFF7K466jQjzNPaugc2dvnQxdHvC+srcTCbQe3Zqp+QjGiczNum5rH8=
-X-Gm-Gg: AYBFou1l32ZUYnpAdm4LHJMUq9LRp5czeRTRSTe7fW5V6sa1DoJZwTIphFBMu6gN4jc
-	ZlBPkdE2OEy8k9xmWM7LBx5JcW7b/M5bCDSYdI6AyyRXjDv86HlV+/5m1YMqGALTmxQVFiuFp/d
-	Me8YJYNIT5xqird7mj2+Wfj+FMFHRcYV40uvsXyiVmy82sKGMT6uGJcD8yuoM2TDuAUHbBrHkWV
-	Sy0EbUiiOuC1TLmXiAwgH6U/oaC9OQAU8xhCcpmVLV9V/W/rl9gYVE0u4Hg9s/r210TUSmxgGAD
-	YreS3RF1QatWrCQ26NjP3uQLFbey6YG1OEM8SPf0xA7XVxNZtoDV+Mi/NW7wrohuiOtdQlQkTjc
-	f8Gt/xT2hOXnHd83SSDZhA3Lznzm/PBO7coVq8LEoDutyy9JKdvocrHQlfqJVopgq+3LbUZgsYD
-	C43LXf8w3OU0RnwVrprb+KAsu07VmjNT7BzapUXiF0FqJPHrmzSLVofXrZKEkYpvmZJxckJwIS1
-	KZjPgbsYWbdCrjkpyOcBkUUjqFlRp6OCXJDyqqMJfB4sJHW6wkZtzfQJdj1sYwP9gK8upWMik4S
-	AxkUsX1yeqBua2U3UCw6yulCSGWc7AUmTzH03nUkgJW0JKySSvWP5zfPRfsL/XGdR3VSyQ==
-X-Received: by 2002:a05:6512:3051:b0:5bf:b9ef:d033 with SMTP id 2adb3069b0e04-5bfd9590eedmr2006098e87.5.1793445747319;
-        Sat, 31 Oct 2026 04:22:27 -0700 (PDT)
+        bh=tpErthRmnc/Sd165TRJRy3hTqpBnrdJ3knKfPzqq1g0=;
+        b=vU7IUi+Vh1OGiFuPGdQeDdgIlo/Vayz9dXaXYN9DjJYhxhsQxBs6DV+8No28dIGX0E
+         3vOG3jJsTmREB4eQIBmhqzMOlQD4qcssmAtc41+VIPqVnFpBOzxmNPHmhCAvLkEgTLAe
+         0C+sCdO4QK4zIP9KMxin82l5TuHyBT9Ovet4ok46mNU+kAKRm7PvsmCW4EXrVsEKnC3C
+         Zw6jpESZPwEQyS05fub1HCQkRVImBqInOb3pZVDr5gEwOyYeKHCyVYVGEP4k02VqBsv9
+         Myq5UJJbumLuB+yGjYL0t2EzaOtAUIwS32SrNc2ieMVtHNgV6y92CcRetb9FJgzDnYAZ
+         lNkw==
+X-Forwarded-Encrypted: i=1; AKwUvBwndb2WAECVWP0Bxq2ow4Qsp7aGRm+TldJiXW+9J9VIha8cuOp/2TMOmPs4S3k+kP+O0mL0Jq4v/3BlQA==@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpFPP/XPDmpS1vbP+iNjx7YmH7Be7rsTl5AHnyPOg9KI7uLz1y
+	aFekl2azqF5xMQp9YdmGzcMHY6PijeKqXF4pLFbjlg8UaPv2OQ6Ryx/BL6kBdduuX+8=
+X-Gm-Gg: AYBFou3MaRpBRpUOdYhbdmc92poUM/go0p8o3alR+a3Awsw1jglZWOpqi7EdPENw5VE
+	emgE9BaBpCUC2bNm35JrwCQ5iPKaXQ05lI+/7HonoIwTiQPbBoBIF4Pf1yElVrADeGmB/wfG/ZB
+	ZdoSap77hLwwyTTl5gk/q9vjPNRRtBkoG7ODUGrxnyNqmly1nc21FHdBUcGJq0GLooTlleG+r1U
+	wB2TC6vBRHnol6dECI8IArvk3bUDR/wWiNu/RQafdTQVOnrkiTQ8Ez1GFw7nJYe8g/juB4hr2iK
+	5ZU94yqhHJEQTS08yYTHTagcAVupF0FTxjSw6UUvaWVVsMJDULI1Qdw5Efk4bAcZ+GXiCV1BNzB
+	vSB3jKwJFWYDfa4MITShyyzLDyngAtRQIAMrFJG2ibsHvsfpzcejInKnhAXZdOVNtSIC0RzNnux
+	XCgK2Awy43aWX1MMjUYsk1/Dz1ybfQy5c2fMs2UrOH0tcVK8IRf1PCG7Yt8ak13L1fpQ92HZfHP
+	qvFBxdQgHg8BCizABpCtKBbrl9n8gYIljiAAngqk+KhiBKjHVB25P6MwVsMS6MTWW5odgjdBh26
+	IFv68gscf5czZreG319KXWb/jcNrIJ3f1eeat8ludUBOwrQKxX7E7yT+kG7zqSDtDXCXlrs=
+X-Received: by 2002:a05:6512:3e20:b0:5bf:d237:449d with SMTP id 2adb3069b0e04-5bfd94c8826mr1847404e87.0.1793445744234;
+        Sat, 31 Oct 2026 04:22:24 -0700 (PDT)
 Received: from thyme (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074aad9sm538469e87.75.2026.10.31.04.22.26
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074aad9sm538469e87.75.2026.10.31.04.22.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 04:22:26 -0700 (PDT)
+        Sat, 31 Oct 2026 04:22:23 -0700 (PDT)
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Loic Poulain <loic.poulain@oss.qualcomm.com>,
@@ -92,9 +92,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: [PATCH 5/6] media: qcom: camss: Add SM8650 TPG support
-Date: Sat, 31 Oct 2026 13:22:02 +0200
-Message-ID: <20261031112203.545319-6-vladimir.zapolskiy@linaro.org>
+Subject: [PATCH 2/6] media: qcom: camss: Skip TPG if its registers are not described
+Date: Sat, 31 Oct 2026 13:21:59 +0200
+Message-ID: <20261031112203.545319-3-vladimir.zapolskiy@linaro.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
 References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
@@ -109,94 +109,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Qualcomm SM8650 CAMSS contains three test pattern generator (TPG) blocks
-of hardware version 2.2.0, add their resources.
-
-CAMSS TPG on SM8650 needs the non-real time CAMNOC AXI clock to be enabled,
-otherwise VFE receives the frame start event, but no data is written.
+If TPG is supported on a platform, CAMSS probe fails on a device tree,
+which does not describe TPG I/O regions. However support for TPG can be
+added to platforms with functionally CAMSS at a later stage, thus
+registration of TPG subdevices should be skipped for sake of backward
+compatibility with old platform CAMSS device tree nodes.
 
 Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 ---
- drivers/media/platform/qcom/camss/camss.c | 53 +++++++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ drivers/media/platform/qcom/camss/camss.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index cf4687a20dba..9eeb7e4a7315 100644
+index c54185c93a8a..cf4687a20dba 100644
 --- a/drivers/media/platform/qcom/camss/camss.c
 +++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -3423,6 +3423,57 @@ static const struct camss_subdev_resources csiphy_res_sm8650[] = {
- 	},
- };
+@@ -4965,7 +4965,7 @@ static int camss_link_entities(struct camss *camss)
+ 		}
+ 	}
  
-+static const struct camss_subdev_resources tpg_res_sm8650[] = {
-+	/* TPG0 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+			{ 0 },
-+		},
-+		.reg = { "tpg0" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+	/* TPG1 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+			{ 0 },
-+		},
-+		.reg = { "tpg1" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+	/* TPG2 */
-+	{
-+		.regulators = {},
-+		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
-+		.clock_rate = {
-+			{ 0 },
-+			{ 400000000 },
-+			{ 0 },
-+		},
-+		.reg = { "tpg2" },
-+		.tpg = {
-+			.lane_cnt = 4,
-+			.formats = &tpg_formats_gen1,
-+			.hw_ops = &tpg_ops_gen1
-+		}
-+	},
-+};
-+
- static const struct camss_subdev_resources csid_res_sm8650[] = {
- 	/* CSID0 */
- 	{
-@@ -5786,12 +5837,14 @@ static const struct camss_resources sm8650_resources = {
- 	.version = CAMSS_8650,
- 	.pd_name = "top",
- 	.csiphy_res = csiphy_res_sm8650,
-+	.tpg_res = tpg_res_sm8650,
- 	.csid_res = csid_res_sm8650,
- 	.csid_wrapper_res = &csid_wrapper_res_sm8550,
- 	.vfe_res = vfe_res_sm8650,
- 	.icc_res = icc_res_sm8650,
- 	.icc_path_num = ARRAY_SIZE(icc_res_sm8650),
- 	.csiphy_num = ARRAY_SIZE(csiphy_res_sm8650),
-+	.tpg_num = ARRAY_SIZE(tpg_res_sm8650),
- 	.csid_num = ARRAY_SIZE(csid_res_sm8650),
- 	.vfe_num = ARRAY_SIZE(vfe_res_sm8650),
- };
+-	for (i = 0; i < camss->res->tpg_num; i++) {
++	for (i = 0; camss->tpg && i < camss->res->tpg_num; i++) {
+ 		for (j = 0; j < camss->res->csid_num; j++) {
+ 			ret = media_create_pad_link(&camss->tpg[i].subdev.entity,
+ 						    MSM_TPG_PAD_SRC,
+@@ -5434,7 +5434,10 @@ static int camss_probe(struct platform_device *pdev)
+ 	if (!camss->csiphy)
+ 		return -ENOMEM;
+ 
+-	if (camss->res->tpg_num > 0) {
++	/* TPG register spaces may be not described in old device trees */
++	if (camss->res->tpg_num > 0 &&
++	    platform_get_resource_byname(pdev, IORESOURCE_MEM,
++					 camss->res->tpg_res[0].reg[0])) {
+ 		camss->tpg = devm_kcalloc(dev, camss->res->tpg_num,
+ 					  sizeof(*camss->tpg), GFP_KERNEL);
+ 		if (!camss->tpg)
 -- 
 2.53.0
 
