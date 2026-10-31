@@ -1,112 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793461334;
-	b=eZSbJLTHMAG2th33s5osESBf9Ft+2bZ4NRBflfOuIjdorIBkPDUDzurySgd0LwAEqRvK
-	 7JDC5u41ygsvrbrJX/oak5OYtCx/1maop3/4XAExfLbJUnhFi8Ih5ByzVuegvh2TYysoI
-	 GpAn99VRERqrRUtBx/Z0rFd3/IeX40nvZw+0fA2mNcbng4XeVkywO8SdUUpe5MwnyBqPP
-	 45Bdi3wtMkW222AcV56MAqK/gkvZhpdE3rFcO9TqQ/UT8xBLcSnTov/QgAhq98r5Aqx9K
-	 KDjCB+F01VJPIL/Fa+v8DIrizs0qiWYXuzzMuBVHf84yqaJbbf/4tQYnnxYImC0Bz1Q==
+	t=1793465066;
+	b=CnfZaT0IqLUwv5NR/2/mCWqWPI+z+VMTybYuicWhL3TeRmOnyc5jA+52BYu1UthIJmXL
+	 1OyHxzPrc/zTLeAx4d+E70QPlS71zuuYQhQgwfbu/ZIVMUTtit0p5A5uBKDgGY9pG8Yq7
+	 67Lig/5rzJxexIjnuTCQ45mpBp6iOpsXIkxnLPQneNaHzEuWs1y3NVPaxQFyyX+SEI0/S
+	 Ko+DwaX2ge96kooerEKhUQHTM4loeaQ/57ZUtfaxfbjZGqA/jWSnot7gVCxHtbg0ApAC+
+	 2+S+w/ckuGXqAGXbnug17yrOVshn3iIJk/bh4M4Pz6Zz+iBuyX7AMv/aBb+uoNBEtLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793461334;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465066;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=aFV3TPaYtQ5flXiMSYRlyBEMDBAUTU6tbyACU0qLOVk=;
-	b=YWxXYyIuSppda6YyiKwRx/1tXEO85raHazKvvSSTBnUwqFaeNE8qahOahm3BfOp6vt/k
-	 eLNjVlNc91Tu+PmP2kUvYGEmI3We+cXu/XltieUhCn5Os5IUQIHT8eNNQBggLSXkr3TxU
-	 +y/DaMojgCXvFqjW6KTvRtRc/U/Lx2vFy1MeAH18x4zT+Hoit/liHGSW5nlBbSvXj4HvV
-	 6Le1CLg6Cb72EQiDtvpiVVQoYC4kKDkdFlK7wtI53pgpDDN7pg1FgcRkeA3KFiANEKzgs
-	 jyNln7TO88wg3m+tw/E24lQHb6TWZQ0wHKyTKlpie+Wo3sowPp+A5VLQf19ctHDrnfg==
+	bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZZOKYyBGhdrFpwB/co=;
+	b=gg094b+uhfp5Djeq66pzP3ZkNzj0PGBZzCewLHFsY6LUZ4Es8qFdf6x42ifnvKYPZdqP
+	 /Jv7Nh4HfSVqhaOsej4UtGa58BlQph521Z7uyQuZRbc5NVj7pbsorNFEmN9kaaqbSuyAR
+	 7X2pTCnb1FSi6pm8v5WpxYjxKPud0meEMeZMkSmf6Za89QqdDoXFzhDg5MD2wBBFhqiF6
+	 T/LhYhALWkkubQTSAriI4cPiW3oNrq4GyRpBgHJalR2bxpBzPTy4Bn0YReK//MTYtA7FG
+	 Xke4mCfStD8uBBE/Co9nlAZMtx11vrnPmmDvxuqq4PpLWOiiDU19Oa41UI8DGMD2pug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jZmKGfkc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IVCHG3jo;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=GapK3r4U;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=vycQHPpv;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5641E606A31D
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 15:42:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5641E606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE79606A331
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 16:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE79606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jZmKGfkc;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IVCHG3jo
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VCxqQa2161133
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 15:42:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aFV3TPaYtQ5flXiMSYRlyBEMDBAUTU6tbyACU0qLOVk=; b=jZmKGfkcQHp/K7Co
-	1SBTyA2or4VZDoYvwyxP/e1gwPL/aAD+pva6G3TGl59sCV4ALs0QuaZ3zQ4U7yt1
-	0TWtfTWVRDKV9oe9WsiJqWKIpTiutiELbnAsnzx0pickcQs42ZU1718wrQnS5NoY
-	ubPRVou3pQU+0AOcGQpnTb7HPfQur/dcnXpzLwkoAO9VnoY0Nf7J1xm+EinKNAMa
-	mG0NUXgIN8MaiHAJgCBK+HKPgGcn2UjEr1GX+yzSgLGyxWdtpZ770AVgqcusx5f4
-	eInPboOgp2Jan5w41YcYmPfcJZdE42HsklZ78lLJaMUtWd/dZX11msvDweBeS6+2
-	m5g7hQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8j2set2-1
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=GapK3r4U;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=vycQHPpv
+Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VDmPQ6629017
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 12:44:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZ
+	ZOKYyBGhdrFpwB/co=; b=GapK3r4UAiGKvHngHi+r0R1DgOpvzZDBYS7+39q8Eq
+	apQz3tClueWSWZ16luQPLQIsMJoDPZN0gmyjyg4MUTHsgmtJxcSvv5qiqxkKsZRv
+	75jab9LKGHNzgTdRL3+csMTlVFWVJ9MdR7sMGduAB5xl65f/I9cvPfihlp4E30qw
+	Ae7i86Q7yMoW9eqO6OVjrvtBeTPL9qIL8jOQFM3N6RtQYhqzmCT4ThjR+vngHHBa
+	KpTUPrLiPD0ItSHh/Se2Gbo2DYWuoPEFPLyFE2Kr6XCO4Ta6Dn2hwPrypPwZ3074
+	HtJRux9p1nlLNUbbqkANEHXRpztS2hbG/MorWfoFXUVQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hnd9ja480-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 15:42:13 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36a3451ea93so2651135eec.1
-        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 08:42:13 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 12:44:24 -0400 (EDT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f1e62510cso389208385a.1
+        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 09:44:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793461333; x=1794066133; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aFV3TPaYtQ5flXiMSYRlyBEMDBAUTU6tbyACU0qLOVk=;
-        b=IVCHG3jopRQppD5o2GU0P34uDiwhFj/mBJ+dihCW5J43JRhHThLFhZfWUlI+6xQTTG
-         4YXtLtctz5g2s7eRwGxWnEIzAc1TT/k9mIc1LexuISgPbd64AT13DvvLxN9kBq+yIhs2
-         bG0gcKv8OYc9Q23JDzaGyBymNqJpUBKop00vbhN97FpJz6XPc9C1cPcBm8uHkPvQ/xIF
-         pOtrVG8hxqy9Oe6aSiKoXBd0B2CCaEChQImrpUuJ91Kc6CFntk9w+qp8/xsjOzL9SdmN
-         /1Q3FywA2bwtAAHKul/SzOSXAOBzf7oakQQ0x85Fv5bIKIc+wiUtJAzEquRkz+w31MoL
-         xVxA==
+        d=columbia.edu; s=lionmail; t=1793465063; x=1794069863; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZZOKYyBGhdrFpwB/co=;
+        b=vycQHPpv/htYqiPtUyog51/mdirSFE/aPCEd3c3kjxniztCvBZQ1xEOb3WEy2hNs29
+         +74daTuH0/skeZRqf3HWiwXNytnLBNSYY4pK6Gp6JBXbxy9yV69jIRUOJc4kiGHpk8/j
+         q25drW2sbp01ABHdCqF2ny9UCoD2pQrmPuuyTZ7O94Invmc8QRc/6vmav8SvplMol4Fh
+         VNwKVig+6sh/99eBqPaYQwIEbaAj4hYox+8OW8rJq97xNjLuWbIpyG84HK8PA+yWtusH
+         5oN9yvRriUtQuLPv9DflNA0voyDjSAf5BGVEvkUM6U0ZjO2Nq9dJSDCX89hfljIyGINx
+         HanA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793461333; x=1794066133;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aFV3TPaYtQ5flXiMSYRlyBEMDBAUTU6tbyACU0qLOVk=;
-        b=bTPlh/r5DECGVB9QYXfxgRW5xG0P5QhqtKPLTNXTUzX/wxY8ug1G2hYVp8hte4ZKMi
-         q3PH2nrPuWZMFw7dfFUMB2JZUvPEi12eroQgDUbrDhCLGGUpN6qun7A+DA9uFV50rsnh
-         OW5HtM/QzWpEdkdYVQCUEIqX6KyrVHA0o/SZQez74NmINKspy6ptbZC8zT3pI9QX3zIA
-         KUq96vlYSPUjyoUeh8v5tpmtrAYTrbfRpxLlwC/ZLX1D5uagesgHxrjIysxUdOROfaVZ
-         FJ01wmK+XB9JKL0U9mgmweAZGjUBk7ue6Kg5ntTmmHocaiAaXiIxROgCkeHtEFQ0iABu
-         WK1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxFMfyfM9QV8e9m3rg1CNeux0CqOdVYpO0esoqRtyo9ljwuJJQ07tbmcOz8Qq4OwExeZhuPEcI+pKFDQg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6m5BhcJA35kpflrfy5g9rALHs9jIWK+FCYERx5KAMMV5CiNIK
-	Zjg+BF8aEtXjVvm1n2ZSLa+wTXOsgx/ag4LlLWJ+as6p5n620/rQDEmoMkOoru65tyX9lHLvwBy
-	pMGhaA2Pw5J/hEOLJROzENf71V9l6inhen+JIHAU9ALWFHzF9LxCFdCPjqCMRDQS6Dg==
-X-Gm-Gg: AYBFou2Qqp2mo9OhQH2GE4z6+fGUGwUxuFHTEda3Dy2ZqUA4NJn51ipMp9eDwfN0E1+
-	NLQlNxDS6NhAy7Ub1XCwwUHls6WfYdZN1/vw8klNMMqrqjHnWD+cvV3HMLOhxXjFj/fbpm4fxyR
-	eWBnBqM27QjN1BHf05xtrk4zW8CRetoEfN7SBno1GMgWLE/JYEdPGa/lkfTQfk3gL5HwNOFh/pA
-	Im8XLsnsizZBWH7pAXFqhLznIe6/MWoBCBAWAX1BGlJpg0FzNp6zR2RAFuHWkke11ZdeogCJpZx
-	8tpB/DZo7iQhIukU/SrqPaMl2oCBqzYSiAznVLpLisDsgHrsAC2FbmTPaoqruqzIz4zkzno52VJ
-	L78i1n0bTTqqTJJmZ+0pxKj3XDyxCW4Bfj7NMRTfCu0/W2uIvdDnaItDR3TWaSam+BqrpOuyS6R
-	Y=
-X-Received: by 2002:a05:7301:1a01:b0:369:f85c:787c with SMTP id 5a478bee46e88-36a4236a1d9mr8367554eec.10.1793461332265;
-        Sat, 31 Oct 2026 08:42:12 -0700 (PDT)
-X-Received: by 2002:a05:7301:1a01:b0:369:f85c:787c with SMTP id 5a478bee46e88-36a4236a1d9mr8367488eec.10.1793461331549;
-        Sat, 31 Oct 2026 08:42:11 -0700 (PDT)
-Received: from [192.168.1.6] ([115.98.177.53])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428aed76sm18944606eec.9.2026.10.31.08.42.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 08:42:11 -0700 (PDT)
-Message-ID: <f033b603-d397-4397-a2de-a3014c997278@oss.qualcomm.com>
-Date: Sat, 31 Oct 2026 21:12:02 +0530
+        d=1e100.net; s=20260707; t=1793465063; x=1794069863;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZZOKYyBGhdrFpwB/co=;
+        b=l6D/0jy2QSnZ3hvDH2adZMnP3JPj3x6qUY1HwVI8cqLcFx5gasVdO+VUsgWaW2NsSK
+         +dAqPdpXUdlY7m33MLGJvmEPWw2QC6brVjn4CCkF2XwIXjCTkcuiGKMbCVUCZi5WRgCm
+         WnnP5rHeQUtWpuf80VKiTr6oqmQbh1n01iKtiWs6oD6h9bPusjwy3hBXpKkjMnso4dAh
+         AtqLKFG0DiORgAISNuK1bRyrp/Hv6dcnJXHeUahN3IsJXSPXH/s+QaR2JLJ5FvpXY4OJ
+         nVaxnJ15gWGITPLva/2pNYlQUmysctqvZlSGX5oN9fCgiCoSsnmLfeVbIssaAU3UdWti
+         7Qig==
+X-Forwarded-Encrypted: i=1; AKwUvBxq4NjnIXz/RAhp/K3q8Ddo/QVGe9vxPW4bCfjQ+M/WotGzdPIQo0zlSe8Ty4lxrq3OfbMLUNcwi18mWQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYKng+2XSHjCQ3KkGkV/sjIeG1gQioBbjLxULzp1uljlCvmOrRlm
+	DTnQxfd8gjRFtkte0DzU5R49iRqt5J02r8lK81WGVjn+wg9ya1znojyYFxBr36ZPIBbUu9Go4Sc
+	QUxaE+/eX2MOqhyxRdNCIVD3ml6fIfTIwG/iGbQGhDJS1rdBBD5PqiSITCAXHdmrNe4x3
+X-Gm-Gg: AYBFou1OdU6FYiszq/7KOukundGCsizj3cG/wFoldw6R8UQKSBXR8vGv7o490Ulc9JO
+	oHwijsPWX3zDAYORunp5oSw4zhGD48wQt+JTvJogn0NxJawmRYsSlenH9TBTYGO8p0ApkCcktzQ
+	6KKmKNzJvh7aiawLzPc8IpmSLyVz1icfj5Qo09lBXxO4ZGlom/TZC378h1fHtOKvczf3ya1sfIg
+	hGqtRzIKJV/NnYEwWh/5MVpWJNFCPJ+Rjq/QCLW5WFlamujVZDsXs8Xkapz7e0pITlZQ27UFnsw
+	hg3UG9rg+TcDQKtjDykBVdRREoJ6etXrZbCWERs2ugi29Sc+rmgHD3HJGr23T8kRRg48xyTUNsA
+	lQpAl1H+beeHt+Qo1WXoaqVKZMIgwFmbwll4IwPOMEvZY00N3+KO2NCQygQ==
+X-Received: by 2002:a05:620a:4487:b0:93e:c12c:9b77 with SMTP id af79cd13be357-94421841ae1mr945199585a.82.1793465063423;
+        Sat, 31 Oct 2026 09:44:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:4487:b0:93e:c12c:9b77 with SMTP id af79cd13be357-94421841ae1mr945196085a.82.1793465062899;
+        Sat, 31 Oct 2026 09:44:22 -0700 (PDT)
+Received: from [127.0.1.1] ([37.142.159.89])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm10420517f8f.44.2026.10.31.09.44.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 09:44:21 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Sat, 31 Oct 2026 12:44:06 -0400
+Subject: [PATCH] media: videobuf2: mark pinned pages dirty when unpinning
+ them
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,84 +114,289 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/7] media: qcom: camss: Allow CSI2 PHY devices without
- CSIPHY resources
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Vladimir Zapolskiy <vz@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        linux-arm-msm@vger.kernel.org,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-media@vger.kernel.org,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, linux-phy@lists.infradead.org,
-        Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261026224957.1115370-1-vz@kernel.org>
- <20261026224957.1115370-4-vz@kernel.org>
- <CAFEp6-16WAoyS+aY2BzPknsMtHa1cSfVYNmYvTKHm_MWqqW_ag@mail.gmail.com>
- <271ccc9b-ccf1-4254-9664-2f00b504a5a9@kernel.org>
- <d35b7934-54e7-425b-a223-570512be0374@oss.qualcomm.com>
- <CAFEp6-23L+4+yzVxX815ZA2x1_tN8SpzL7ciNcb9b+gBT67AdQ@mail.gmail.com>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <CAFEp6-23L+4+yzVxX815ZA2x1_tN8SpzL7ciNcb9b+gBT67AdQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: Km8HdWt4Fr5OhNpv1l0bNP0O3tZPmYAU
-X-Proofpoint-ORIG-GUID: Km8HdWt4Fr5OhNpv1l0bNP0O3tZPmYAU
-X-Authority-Analysis: v=2.4 cv=S5RMU4sP c=1 sm=1 tr=0 ts=6ae60c55 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=iaXPdgsK/hfklW56b25dCw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=fhbCC2ozS9dPJYT3FEkA:9 a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA2MiBTYWx0ZWRfX2LpuuOgQIGV7
- 3ZA8nVddNv+sTFekLB331yeMmJycEo0ATDvW+RYhZ9UX679mC2K8fQJWk0lsY1wUk69lwlDUiBT
- QV0P5vdNZYhq5lpItV1YgA9rWBro8U0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA2MiBTYWx0ZWRfX/Bf9X8WXCZot
- KpQQ3eBMgathtrSIlQiP7h+EF5Hs4mERSs8looabBmLC0gTW1PjhybToCDOj+BpzTPgwB5cHioe
- xaUHOG5zjDHBrQMEnHKIu0cZQ0opImxWMxZCAfYa+4RcVsqZ7ph+BXQWcjv6cuHkAnZxf92GWKk
- DHIIXQgXvEFWEZJICDUjVh0zdRvVTDIcXN1xF4BA/kwsIoqCB0zE4w+xNp1a+QG3KQK69O2ASaQ
- DwCbwKzf/rOialT2yYjojv14uSoAXr0/X4+I0E/2NR6kgI5VqI+pEgiuF/LIx4tYHE8cOaQCnSK
- QQFKRDcaOkHVYhxbYMKkk8V97wr8exIwPJRjh8ckBVVPvaUy3aB78pBnApjISgWUzBDW4AEyNTe
- NtpUYA6RpQbzCy76mYExHlBRs1VJ2dqVOVGi32jKFB5Zbh2IFkkOGKqyk2tW8JmwGyTNI6cTQXZ
- ZHD0LX7nV9tmbGyzA6Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
+Message-Id: <20261031-vb2-unpin-dirty-v1-1-701a22f124a5@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIANUa5moC/yXMTQ5AMBBA4avIrE3SjqhwFbHwMxiLkhYh4u6K5
+ bd47wLPTthDEV3geBcvsw3QcQTtWNuBUbpgIEVGK53i3hBudhGLnbj1xFyTMYoy4oQgVIvjXo7
+ vWFa//dZM3K7vBu77AXD4BLJzAAAA
+X-Change-ID: 20261015-vb2-unpin-dirty-912660272e32
+To: Tomasz Figa <tfiga@chromium.org>,
+        Marek Szyprowski <m.szyprowski@samsung.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793465059; l=9244;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=0Zgg5LuaLNQVXitGF2rcc/q5f373bqNV8WZoIIzGqec=;
+ b=VptzJgCTZbgyasiwYdNAqG11XxP6rlJg51oNYHfNgBHGxifTKsKlgDin88RGrchsLEOLaWWss
+ 6UXMUbOpsUqATAqJ1OQy0Rtb7Wm0VVh4Q01gZSW5pn4EibUjdhACfsq
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA2NiBTYWx0ZWRfX3pb7Ju4nybK+
+ 20ep+L8S5TYuEeoWxjJzydCsNbHCE1IdpuLaXLjCU29FjhwlcKTsnAwvJ5A+U8v6Ruqr8SIstpk
+ qx4DiU5T28o9QS/BQTE20eHptGLhuKX1RgUhmPH5GRcTMsIRRf+8DJleK2H7KiRPyHfj2sDdU79
+ b+cMWoPAA64nkGSrb6L0OCt1CjK8ati0B+VoNpZUN5LR4y417ox4d2Hi/ruBe9x2JhvW5nKgmX0
+ FGaenZDWzSiK6rcPR2C8MNvFJdq2d0eSuttJZxaLxW5NRhXANa0z1xzkkJCyKzptQHG6gL0pmn6
+ JoQxnpWoM/Wd6fDJTaMgXo0s8DoO2IuTWfjK2QQ8YrwAT7vx3iwTbLQl/IX4A96ZYcJX4Cr/SrE
+ ccC4CNo2zxanI9AzeK+Sy8XIGw1uqBaLIBTZiMKWkceM2I7O8fXoT6R1LRi5MWYxUR7kFpdHZpn
+ 52GTqEOnV+jxIgsC15A==
+X-Proofpoint-GUID: 6KyD95KCAjbjgNB4CWdHq_06NNUZ5yp6
+X-Authority-Analysis: v=2.4 cv=TM/Q2Fla c=1 sm=1 tr=0 ts=6ae61ae8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=P+xgYyhW+KadpqoI50EQPQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
+ a=UdNpxy7SnptkXq1s2ckA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA2NiBTYWx0ZWRfXwZoI0kSJPhkE
+ eGTNj0Yrje5OTvzJXRJ50MN44Ob2yCQBWUQuQo03a4/td3gBnE9KI5SeiWWQCkQruah0Fr2HOKz
+ dt9dgTgdolXN30IRjjm4JanalrUSvA7Z+O8d+ZMUhPXwOLk6FeWo
+X-Proofpoint-ORIG-GUID: 6KyD95KCAjbjgNB4CWdHq_06NNUZ5yp6
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11952
+ signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
- malwarescore=0 phishscore=0 adultscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310062
+ impostorscore=10 lowpriorityscore=10 spamscore=0 priorityscore=1501
+ adultscore=0 malwarescore=0 bulkscore=10 suspectscore=0 clxscore=1011
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2610310066
 
+The three USERPTR release paths each loop over the pinned pages with
+set_page_dirty_lock() before vb2_destroy_framevec() unpins them. Use
+unpin_user_pages_dirty_lock() instead by passing a dirty argument to
+put_vaddr_frames(). unpin_user_pages_dirty_lock() works a folio at a
+time, so a pinned THP is marked dirty once rather than once per page.
 
+This removes the last callers of set_page_dirty_lock() in videobuf2.
 
-On 31-10-2026 20:44, Loic Poulain wrote:
->> Bryan, Loic, do you think we need that change now, or should Glymur keep
->> the current approach for this DTS series?
-> I see in the following in your Glymur series:
-> port@3 {
->    reg = <3>;
->    camss_csiphy4_inep: endpoint {
->    remote-endpoint = <&csiphy4_out_ep>;
-> };
-> 
-> Which CAMSS pipeline interface index/instance is CSIPHY4 connected to?
-> If it is connected to interface 4 on CAMSS side, then we should use
-> port@4.
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+---
+ drivers/media/common/videobuf2/frame_vector.c         | 11 ++++++-----
+ drivers/media/common/videobuf2/videobuf2-dma-contig.c | 15 +++------------
+ drivers/media/common/videobuf2/videobuf2-dma-sg.c     | 10 +++-------
+ drivers/media/common/videobuf2/videobuf2-memops.c     | 10 ++++++----
+ drivers/media/common/videobuf2/videobuf2-vmalloc.c    | 14 +++-----------
+ include/media/frame_vector.h                          |  2 +-
+ include/media/videobuf2-memops.h                      |  2 +-
+ 7 files changed, 23 insertions(+), 41 deletions(-)
 
-CSIPHY4 is connected to CAMSS interface/index 4, so the DT should describe
-it as port@4 for a direct one-to-one hardware mapping. 
+diff --git a/drivers/media/common/videobuf2/frame_vector.c b/drivers/media/common/videobuf2/frame_vector.c
+index 41f289c75cbb..d4da45cc5624 100644
+--- a/drivers/media/common/videobuf2/frame_vector.c
++++ b/drivers/media/common/videobuf2/frame_vector.c
+@@ -72,12 +72,13 @@ EXPORT_SYMBOL(get_vaddr_frames);
+  * put_vaddr_frames() - drop references to pages if get_vaddr_frames() acquired
+  *			them
+  * @vec:	frame vector to put
++ * @dirty:	whether to mark the pages dirty first
+  *
+- * Drop references to pages if get_vaddr_frames() acquired them. We also
+- * invalidate the frame vector so that it is prepared for the next call into
+- * get_vaddr_frames().
++ * Drop references to pages if get_vaddr_frames() acquired them, marking them
++ * dirty first if @dirty is set. We also invalidate the frame vector so that it
++ * is prepared for the next call into get_vaddr_frames().
+  */
+-void put_vaddr_frames(struct frame_vector *vec)
++void put_vaddr_frames(struct frame_vector *vec, bool dirty)
+ {
+ 	struct page **pages;
+ 
+@@ -92,7 +93,7 @@ void put_vaddr_frames(struct frame_vector *vec)
+ 	if (WARN_ON(IS_ERR(pages)))
+ 		goto out;
+ 
+-	unpin_user_pages(pages, vec->nr_frames);
++	unpin_user_pages_dirty_lock(pages, vec->nr_frames, dirty);
+ 	vec->got_ref = false;
+ out:
+ 	vec->nr_frames = 0;
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+index 9ce6284cd5f2..94e00e6bc0fb 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+@@ -533,8 +533,6 @@ static void vb2_dc_put_userptr(void *buf_priv)
+ {
+ 	struct vb2_dc_buf *buf = buf_priv;
+ 	struct sg_table *sgt = buf->dma_sgt;
+-	int i;
+-	struct page **pages;
+ 
+ 	if (sgt) {
+ 		/*
+@@ -543,21 +541,14 @@ static void vb2_dc_put_userptr(void *buf_priv)
+ 		 */
+ 		dma_unmap_sgtable(buf->dev, sgt, buf->dma_dir,
+ 				  DMA_ATTR_SKIP_CPU_SYNC);
+-		if (buf->dma_dir == DMA_FROM_DEVICE ||
+-				buf->dma_dir == DMA_BIDIRECTIONAL) {
+-			pages = frame_vector_pages(buf->vec);
+-			/* sgt should exist only if vector contains pages... */
+-			if (!WARN_ON_ONCE(IS_ERR(pages)))
+-				for (i = 0; i < frame_vector_count(buf->vec); i++)
+-					set_page_dirty_lock(pages[i]);
+-		}
+ 		sg_free_table(sgt);
+ 		kfree(sgt);
+ 	} else {
+ 		dma_unmap_resource(buf->dev, buf->dma_addr, buf->size,
+ 				   buf->dma_dir, 0);
+ 	}
+-	vb2_destroy_framevec(buf->vec);
++	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
++			     buf->dma_dir == DMA_BIDIRECTIONAL);
+ 	kfree(buf);
+ }
+ 
+@@ -676,7 +667,7 @@ static void *vb2_dc_get_userptr(struct vb2_buffer *vb, struct device *dev,
+ 	kfree(sgt);
+ 
+ fail_pfnvec:
+-	vb2_destroy_framevec(vec);
++	vb2_destroy_framevec(vec, false);
+ 
+ fail_buf:
+ 	kfree(buf);
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+index b1d0695cda26..c80d3232436d 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+@@ -271,7 +271,7 @@ static void *vb2_dma_sg_get_userptr(struct vb2_buffer *vb, struct device *dev,
+ userptr_fail_map:
+ 	sg_free_table(&buf->sg_table);
+ userptr_fail_sgtable:
+-	vb2_destroy_framevec(vec);
++	vb2_destroy_framevec(vec, false);
+ userptr_fail_pfnvec:
+ 	kfree(buf);
+ 	return ERR_PTR(-ENOMEM);
+@@ -285,7 +285,6 @@ static void vb2_dma_sg_put_userptr(void *buf_priv)
+ {
+ 	struct vb2_dma_sg_buf *buf = buf_priv;
+ 	struct sg_table *sgt = &buf->sg_table;
+-	int i = buf->num_pages;
+ 
+ 	dprintk(1, "%s: Releasing userspace buffer of %d pages\n",
+ 	       __func__, buf->num_pages);
+@@ -293,11 +292,8 @@ static void vb2_dma_sg_put_userptr(void *buf_priv)
+ 	if (buf->vaddr)
+ 		vm_unmap_ram(buf->vaddr, buf->num_pages);
+ 	sg_free_table(buf->dma_sgt);
+-	if (buf->dma_dir == DMA_FROM_DEVICE ||
+-	    buf->dma_dir == DMA_BIDIRECTIONAL)
+-		while (--i >= 0)
+-			set_page_dirty_lock(buf->pages[i]);
+-	vb2_destroy_framevec(buf->vec);
++	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
++			     buf->dma_dir == DMA_BIDIRECTIONAL);
+ 	kfree(buf);
+ }
+ 
+diff --git a/drivers/media/common/videobuf2/videobuf2-memops.c b/drivers/media/common/videobuf2/videobuf2-memops.c
+index f9a4ec44422e..605e24aa710b 100644
+--- a/drivers/media/common/videobuf2/videobuf2-memops.c
++++ b/drivers/media/common/videobuf2/videobuf2-memops.c
+@@ -59,7 +59,7 @@ struct frame_vector *vb2_create_framevec(unsigned long start,
+ 	}
+ 	return vec;
+ out_release:
+-	put_vaddr_frames(vec);
++	put_vaddr_frames(vec, false);
+ out_destroy:
+ 	frame_vector_destroy(vec);
+ 	return ERR_PTR(ret);
+@@ -69,13 +69,15 @@ EXPORT_SYMBOL(vb2_create_framevec);
+ /**
+  * vb2_destroy_framevec() - release vector of mapped pfns
+  * @vec:	vector of pfns / pages to release
++ * @dirty:	whether to mark the pages dirty first
+  *
+  * This releases references to all pages in the vector @vec (if corresponding
+- * pfns are backed by pages) and frees the passed vector.
++ * pfns are backed by pages), marking them dirty first if @dirty is set, and
++ * frees the passed vector.
+  */
+-void vb2_destroy_framevec(struct frame_vector *vec)
++void vb2_destroy_framevec(struct frame_vector *vec, bool dirty)
+ {
+-	put_vaddr_frames(vec);
++	put_vaddr_frames(vec, dirty);
+ 	frame_vector_destroy(vec);
+ }
+ EXPORT_SYMBOL(vb2_destroy_framevec);
+diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+index 63f023696f3e..bf6273f3bc86 100644
+--- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
++++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+@@ -116,7 +116,7 @@ static void *vb2_vmalloc_get_userptr(struct vb2_buffer *vb, struct device *dev,
+ 	return buf;
+ 
+ fail_map:
+-	vb2_destroy_framevec(vec);
++	vb2_destroy_framevec(vec, false);
+ fail_pfnvec_create:
+ 	kfree(buf);
+ 
+@@ -127,25 +127,17 @@ static void vb2_vmalloc_put_userptr(void *buf_priv)
+ {
+ 	struct vb2_vmalloc_buf *buf = buf_priv;
+ 	unsigned long vaddr = (unsigned long)buf->vaddr & PAGE_MASK;
+-	unsigned int i;
+-	struct page **pages;
+ 	unsigned int n_pages;
+ 
+ 	if (!buf->vec->is_pfns) {
+ 		n_pages = frame_vector_count(buf->vec);
+ 		if (vaddr)
+ 			vm_unmap_ram((void *)vaddr, n_pages);
+-		if (buf->dma_dir == DMA_FROM_DEVICE ||
+-		    buf->dma_dir == DMA_BIDIRECTIONAL) {
+-			pages = frame_vector_pages(buf->vec);
+-			if (!WARN_ON_ONCE(IS_ERR(pages)))
+-				for (i = 0; i < n_pages; i++)
+-					set_page_dirty_lock(pages[i]);
+-		}
+ 	} else {
+ 		iounmap((__force void __iomem *)buf->vaddr);
+ 	}
+-	vb2_destroy_framevec(buf->vec);
++	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
++			     buf->dma_dir == DMA_BIDIRECTIONAL);
+ 	kfree(buf);
+ }
+ 
+diff --git a/include/media/frame_vector.h b/include/media/frame_vector.h
+index 541c71a2c7be..daf40b9b3d3d 100644
+--- a/include/media/frame_vector.h
++++ b/include/media/frame_vector.h
+@@ -17,7 +17,7 @@ struct frame_vector *frame_vector_create(unsigned int nr_frames);
+ void frame_vector_destroy(struct frame_vector *vec);
+ int get_vaddr_frames(unsigned long start, unsigned int nr_pfns,
+ 		     bool write, struct frame_vector *vec);
+-void put_vaddr_frames(struct frame_vector *vec);
++void put_vaddr_frames(struct frame_vector *vec, bool dirty);
+ int frame_vector_to_pages(struct frame_vector *vec);
+ void frame_vector_to_pfns(struct frame_vector *vec);
+ 
+diff --git a/include/media/videobuf2-memops.h b/include/media/videobuf2-memops.h
+index 4b5b84f93538..8a66ec46bc71 100644
+--- a/include/media/videobuf2-memops.h
++++ b/include/media/videobuf2-memops.h
+@@ -36,6 +36,6 @@ extern const struct vm_operations_struct vb2_common_vm_ops;
+ struct frame_vector *vb2_create_framevec(unsigned long start,
+ 					 unsigned long length,
+ 					 bool write);
+-void vb2_destroy_framevec(struct frame_vector *vec);
++void vb2_destroy_framevec(struct frame_vector *vec, bool dirty);
+ 
+ #endif
 
-I will raise a patch to update that.
--- 
-Regards,
-Nihal Kumar Gupta
+---
+base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
+change-id: 20261015-vb2-unpin-dirty-912660272e32
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
 
