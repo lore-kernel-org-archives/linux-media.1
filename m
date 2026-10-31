@@ -1,91 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793432886;
-	b=5ZNvCCTIrYxn+SJTAgC+QtKmR96hxTXiPYeCtao7BFLstBfw+lDB50TpdIGKrdvO4Beo
-	 ezG5S6pAp4jB9xNVev/xlZYK8iseyrNY3ZRRCT1qSNxhH47xrCyC1P4UJuZF3RxJUQBSn
-	 fHtH/Tmb5qX6eMDWB3RmaR5WrG1993mFcTtjGaOCy1Vb/Oohl4hS8qBs7W8tIS0NLWldG
-	 HI6YWJ4xW7Kz3gaT79hAOBB+xnJcxRCAqeh64QKCwjGLNhS9zPYR1ArpgIZJoJzP7eSkj
-	 Vrvw/xCjxDT+LPoPWsqVDUwr334xmJpdHk1ZRb8p7eEDOJEUW/44ARksSLtz6CI/6uQ==
+	t=1793436052;
+	b=I1XJ18CyRI5dj+q6qZlR78KxzK3su5YwfssIKSE2a6CK9usF4HU7n/q/eFj2EMgDvboZ
+	 hC9727LAFBCsnMWMVB5FZmaEX2T+KypjjJGtKTM7P/Is8uQLU38VjMTEWbEi4pR4FR1JL
+	 tC9jsqs/Ty8m2NEHqdkS3i7UtXxXj/C/mPurmp8rc6JQi4E2WO6ZF2hcM0QGdj0YkGYR6
+	 rT6oFgOf/GJOLkcr8Fti8S61C1t5HcxJuWNw3Kye4VPcNmbFFFIIXgE06ZFtErrngD8iN
+	 Eo45o5W1UBC6t9qCDaDYRoZCcf4H9N99ic/42SqCshGtWpxl9OcBrwpCMNyIVBXOJGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793432886;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
-	b=WRIyoN0BLDboov0zNYYeYuGfjjMUNrPN7h+BvZoK0GLZxlV0dDeDAP2GG5TU6rYeB84t
-	 QJOVXpWJXS1Ne8klwfK7erpNCbBtkyRb6ku8qZOUenykseGnjXD0aVZvnZUsqNWRYYTjm
-	 O7X730ZsNOPc+e+VXpJFrF7QUwz7K5WzB21UOK8WfmNJNCjAzC7QRZC5Jwk49A2g7jTC+
-	 j6f0zDIfhErNfSeNHpaWnrENw/9A76z3ppopF+i2cjiyNclS1DdR/hDBTvf9csBnY7MqX
-	 CytEuZwPPwgZDmNvr9zW58i91CAy6cabfAkOL0eLLunEqU80G91aMwqdKCjawsNu7kA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436052;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=6svTTISeQUYx1ZIWsfbO5edWqBQzyZocELnYvruPeJQ=;
+	b=pC7GTyGIKvApg0mGnpzysqYk/2nF3hFTf+nwiqLBKNcLkUIzD5NkJkDsMxtawjRX59Wt
+	 F7lFgHH58PY2qGgfYjQ+AocqFkCEnkbYOj+4twMk18n7APkZNyH93zQhNvYz6bUV501Yq
+	 1NFtWnYnnOB/R1EGxEZWuMkurG3IOnAUV9LFpGkTgEhz4ujw87ymfzEefMJyUjNyQgzIp
+	 qlyA78MBhZ1E4CH1gVtCMDAzmxBXD6yhdOdDEnOciQBtnGxZNeG5svaFRNNGyVKzrO3k5
+	 +ttWIcEYEulZxpVvP5b8VyGqkZHRgmMJdlsUifS32JCONgFla88eVem9D8XZakuEpFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=UGq62yiA;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LNZJGkN5;
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31F3606A31C
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 07:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B31F3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3897606A31A;
+	Sat, 31 Oct 2026 08:40:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3897606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=UGq62yiA
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b203527bceso1852754a12.0
-        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 00:48:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793432883; x=1794037683; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
-        b=UGq62yiAsCHbZ2NlaDbor4G+IWiwn6vRFyj+sHuuVA39qNZkdJe2rwZ40MRsjUp5gg
-         0vTZzjodRGNv9RYr/oQkNGdOI9zRr9qHmlSjQHrgyeg5ZtB4OPZXCtZg904OxZt1fiIr
-         OeHwh65HO3Epfz8J1veNj7jLg1hbUf0sOhUmA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793432883; x=1794037683;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
-        b=IXjgx1s9NYW8xBeAhPEI/zZhTvaWaN3B7zt4d1RJvZjqeuuACt4mXbNaL6UaY446hj
-         E/1BicwW1P9aJKR7awH2Ekz6JJZz3OrcOI+nNs6HDXfjPu0uRf4Z7oOaGkVHarcmoRJ7
-         LncOY9tq09Pj12uuKnSLSVtwsCAC/rTKZ0dTp5/kn2LTkqFEU/0IiOxauOniIqEFkMaP
-         pFehbU+ksiBkgvLXIBvR/BDpbLPqT7o2vz79rJUWllJZXZwzob9fZpfjwxsYiM0uGSmI
-         joNGbPAuNEOaPdGPfLh5U7ZpQKDzsg7ZaPpREQsY64ZXIOLqWXvQetwpGLhNrkGPsAvA
-         oD0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByedGJeCMPdSKpj2Fg7Nas4PhKb09xXqqzlglYFwZLyTH3HFDqe2aln5XoZDkAY4mx5K9AUBZq2NdRa9Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKj31S/4KYhZt/NVjNSNEy+eA2tSbRT4edSeApK8CL6LJtKzzJF
-	q/Z6L2O/SySXi0MArOQ1UcLcHPhE5Mn1A8ElbpMC5WoMeYht1cVazfoU4RlgS0l+ZgPfcWnKf1D
-	ihRe6qxU=
-X-Gm-Gg: AYBFou2ISS+nuUxFLzAYE6XqKn7wSMpqpplc9RyDDTvQm3Gqfs6PEdcTYAy2QDR+veC
-	hiJ8zP5IItZvBqo3BnQ880oOjWBV5EMd4A7dUKBsCBOo8weuPM/ZX1t/ssmpUAgqdlsL8gED12s
-	Q0AmEZP3o2piFgVaeAmQQ6rg9OL5RRAq5iktAqGDqiaSwxlfaUOinVtquPzrgqcxlui2bhZcwLm
-	e6j/wJfpWSaJ0mL/mbCVjwLLvXc36pEWxVtheRFYoHKCKCq3wYi5Ph2UIZQSB3GfTcloLG+5LrU
-	f+abYzgvPP+imCpzH/5zydYAfFCk3Tt3oD4uJSwr8WkltzkC0E270T5d9ca1IUQd+xOwqyt5eeN
-	noTmOij24F9uj91QVxcHN+l0kkQ8aTZUzZEQKc/CanM2JQqFiCUgQyAVcQvGra4sqjOi70Wpj0G
-	LFhdRTfI8Mu5rpnpal/1eDZ558zxyr1hxxmrRGbqYrcJGg4qToDRmI+FaSyrld9tjeICrnDDC8X
-	5NJF/nI4nHETK2XXj8meMeZmnuGo2QJofbSt9W3g9VHFHUU87fCW9+hJkRfH943K/W5SV2eaLzO
-	OXbz4WOn+cgegwaTzhYaH3uGx6kkz0TWC344ZjNR8b2M1gXpMGJF7EC7iHmB7tkpEqvYIZNTftS
-	ai/E=
-X-Received: by 2002:aa7:de1a:0:b0:6b4:1037:2b6b with SMTP id 4fb4d7f45d1cf-6b4d6892a9fmr2075426a12.45.1793432883138;
-        Sat, 31 Oct 2026 00:48:03 -0700 (PDT)
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com. [209.85.218.51])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9a7d59sm770599a12.2.2026.10.31.00.48.02
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e8c710847so207888266b.0
-        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwabyo0m5VObp+ltL/So+HJo6o7/Xo09evd/p6Wco6H/cF5XxkKZkVvKhBilNiJRoT2HY/h5KO5vDLQ/A==@vger.kernel.org
-X-Received: by 2002:a17:907:9693:b0:c49:ca4f:ede6 with SMTP id
- a640c23a62f3a-c4ca792e78bmr375730066b.2.1793432881922; Sat, 31 Oct 2026
- 00:48:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LNZJGkN5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793436051; x=1824972051;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=BF/278JGTfk0RG+nqNh0X0rOdKPRj+r50jvDUKTf/J8=;
+  b=LNZJGkN5fedasx/u5ahJXkPVl9/IPrxuqAP3zyBld8km64y73a01J4qi
+   WWPAWivQaD2yNoBwehBW+puWITbKJDsFGNhips1ZoDzmxTTr8Rw5h7Be/
+   3BhP/n4nb7p2YwY0DdL6wlPnylkphlkZy5hw3YXNsICycWUgKzEgAk7D/
+   OuaNr6E5IBJ7MTXrmheO8hF2vIUtJMaES/xUMZY8kDOSEBrWPyonl8rDZ
+   SvYrj4b1uUdP8G/NHTw2Jjg0AY7O3U9eNeCD0fQFGsSOp3LaAKFyhU/6h
+   U6Nlm1WpPMA/f3WPirQBVh4PQenFcEDBVOHTBWdwZCvIUlGLv56qUqY0v
+   A==;
+X-CSE-ConnectionGUID: seBf/9a7SLygy5yT3URlxg==
+X-CSE-MsgGUID: Ur5zWpxmQWOuAR7hXF5cwg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2080793"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2080793"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:40:50 -0700
+X-CSE-ConnectionGUID: GO8Lq7JGTfyf+TJ2wWyVRw==
+X-CSE-MsgGUID: edkas0dCReeUBlowOcjoDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7429665"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:40:48 -0700
+Date: Sat, 31 Oct 2026 10:40:46 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	andy@kernel.org, gregkh@linuxfoundation.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: atomisp: Remove redundant return statements
+Message-ID: <auWpjhhTGEJS09n0@ashevche-desk.local>
+References: <20261030193322.13777-1-chaulagainavishek14@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,63 +80,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
-In-Reply-To: <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 31 Oct 2026 00:47:45 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
-X-Gm-Features: AclHuK-PoafTkfrw-_O-xG5p4dHxh4twzZ1rG1r_WKPFt1VL68cMWA8bARoVDr4
-Message-ID: <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
-Subject: Re: [GIT PULL for v7.4] media updates
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030193322.13777-1-chaulagainavishek14@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, 26 Oct 2026 at 10:34, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Sat, 24 Oct 2026 at 06:51, Mauro Carvalho Chehab
-> <mchehab+huawei@kernel.org> wrote:
-> > Sakari Ailus (60):
-> >       media: Don't hide I=C2=B2C or SPI drivers by default
->
-> This needs to be fixed some way.
+On Fri, Oct 30, 2026 at 07:33:04PM +0000, Avishek Chaulagain wrote:
+> A return statement at the end of a void function is redundant; control
+> returns to the caller once the closing brace is reached. Remove the two
+> such 'return;' statements in hmm_bo_release() and hmm_bo_vunmap(), as
+> reported by checkpatch.pl.
 
-Btw, there's something else *seriously* wrong with the whole media
-tree in a more fundamental way.
+Usually we expect deeper cleanups for this driver, see [1] for the best
+(so far) example how somebody can help with it without having deep knowledge
+on the particular hardware.
 
-The commit dates on those things are pure garbage, and all over the map.
+This type of change has been appeared many times in the mailing list, you
+can study the case why it's still not in the upstream.
 
-Look at this:
+[1]: https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurares@gmail.com/
 
-  $ git show -q --pretty=3D'%h %cd %cn' --date=3Dlocal 0d2ca6403186 0d2ca64=
-03186^
-  0d2ca6403186 Tue Sep 15 03:01:28 2026 Sakari Ailus
-  63c578491cb4 Wed Sep 16 14:09:38 2026 Sakari Ailus
+-- 
+With Best Regards,
+Andy Shevchenko
 
-what that shows is that the commit date of Sakari's commit
-0d2ca6403186 is *before* the commit date of its parent.
 
-That is impossible.
-
-Unless somebody is playing games with rewriting commit dates or has a
-completely broken machine with dates that are several *days* off,
-because there are 11 commits like this, and the worst is off by three
-days.
-
-Sakari Ailus is commonly - but not always - involved. There's a commit
-sequence by Bryan O'Donoghue where the parent commit is three hours in
-the future from its child.
-
-Time doesn't go backwards. And if you have three hours time difference
-(or three *days*) between different machines, you need to fix your
-machines.
-
-And if people are playing games with commit dates, they need to stop
-doing that. NOW. Because I'm not pulling the media tree until this is
-dealt with.
-
-                 Linus
