@@ -1,103 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793443495;
-	b=wSJSziZBLNmsa6Q6I+PbHpVRI6BePf6w1rHvT1yXHIEmyk/LjMQ3kCA7pxi4EvrxaSZk
-	 9H4YR8FhZu1Pgsvho583LS754dWVhDjgdeIjbYZExivpqlpvJ3aJChv5PPx2/EE7o/mU4
-	 6sZxLYg53A54Qo0lVU6cnHqBgLVUFVmE1LA0fZ+s6Qgup87E06SUMPOPZ1RVfPJNgRADZ
-	 YYAGwNLiTqQ7dkZSI4ZEqrdc3+xDxmLgzSEvWn0D7xAZ/l6fUeUf20S5dSuLXEApGXp4p
-	 /Jw9rgkJydhmPxBvE2bCg9RLqZBZlMNJSNvNzYk3JQ1q8QWkEk55XPUxB3Ea8QUs1Pw==
+	t=1793445744;
+	b=Ya4CCuRVx3SUF0UfmLHgOJV1DOEmowYCUNLEHayRK8c06lLyrdMu544Vm8fEwN0BF5tU
+	 7GjlTENt3PqoFDaXGcTisnYbdWzMiYnri+u0Wu2+6ki8YAKFi5aQfMS/cLGTZwKqvB6CU
+	 +f8W5Hs35g4tGCWJhbiF2+qGcXgSHnBMvM60lQGnI2puGukMigDC790gTltfRu5YuwMkQ
+	 QUI4B88gZ/Cj87YcH1MY0Jai2z1qaXSlBpH2yqllQHTMnB15gJgLDDI1rM0B5h3YwoJa9
+	 LqFdAC+JSnyYtGSZQAG07RZjLh6r6f2COIJrtHnoO74m3lkMtN6Fn5V6Yk5UOCjIfCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793443495;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793445744;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
-	b=QoAx7rr+P6xrYrXbY+m2TnCA6lrT478DjYkeC7gxKr0pzfy2SrmXlHXLUYE/dRXDr73X
-	 4sM6WRSmWgeJWUxxTtSERGH45UBLlowe1Gc7TVpKNdPcp9KbyQKhanrXyXzRAej7t/7WI
-	 ZRElMIFxNytAOqRJPRSQUCEaLr3KejxK2+1L5I1AQsYZUBE+jvoayh660UBK9cB5bKAQ1
-	 RhrofXMWBIOiLB+bLDaA9ofwmz5O5LZ77WWoioUMgPbA8mmkIPqu/88CBThkadmTyMoQz
-	 YMec9QHnPS/Y0ViTdqF8bfWyJT5buOqHZmYgvNqVF3MR1O5tpUTnTXE38iDXfUND3jA==
+	bh=e4IDuCl499mXr6HzO6D3TIak1ntyG49jssHPbfhdMlA=;
+	b=Iy/Wvy6UNFYU7LrMa6fE7HY/D7ln1C75IbFMB6spC+ap9LgwLGzgaqsIbP282ULtFxL/
+	 P6JAYFgQNRtpw74Qp/nUtkq2LOo8sfWW4xJHIji6bOFRPc4NPDxe5kqk95N7QXI6x1JLp
+	 gpNHUTdxPWW4SbR7zrOdH9t7NfirxA8QudwNbMruHGNRCujXgJZxguGafzytxLe1LrTYx
+	 Nz7TUI7Qe1lDxVgVEeBi1GLI4yxIaeJgNMO2X1p3Bo3S2/byvtbtZ5bFJNjMFQFmRioRx
+	 VdXAeAxzwSDs7YX/+LBb8WBnLcg59/KN7XxutPtTmrhk5eBrLPLP05nqdlQNoIZQcBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UcqEXsLF;
-	arc=none smtp.remote-ip=209.85.221.41
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uIFEbeX9;
+	arc=none smtp.remote-ip=209.85.208.182
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44E2606A31A
-	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 10:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D44E2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB70A606A31D
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 11:22:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB70A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UcqEXsLF
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1079390f8f.1
-        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 03:44:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uIFEbeX9
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3ab43d1dbceso2744331fa.1
+        for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 04:22:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793443493; x=1794048293; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793445742; x=1794050542; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
-        b=UcqEXsLFGpK8HluJzwZWCLWSIIOtM1AqH30p/xVJh+ZCGnhCRxz2BiAmobnXB5MK1b
-         C8NxZii/6Ye9x8YoayP6CtCNMiFirmeJ2uu6lrMtSw/FM1dON+/H+7suN35Hke+NMkx6
-         8xP3u+LG/e4fDGo/QRVS9cyPaobpsrM+7CC5buc7VV1JrqWkKH4qelgddG9lRpsdyoFq
-         so16ADc2UqjedDxp2XyPoZ8UoTmBY3xnh+VZlgfQiW/cn8eWNOnNTpqrUBkxsRBsS4df
-         7Yqm4R9ItofReQI2nzy4+116xn5Vc78Ti66dF3eFr0JCssIbdLWtRluFZdovh/x8BEqL
-         2G5g==
+        bh=e4IDuCl499mXr6HzO6D3TIak1ntyG49jssHPbfhdMlA=;
+        b=uIFEbeX9KYrdDJbFM6EJhXmfhbfOk867XjudZFcF/TcyOPe0Qn7h/XCsLfXT+svrik
+         V+dty+BAvcNKWDygTdJ3ruXIq9FfDAC2v+ZHefLofDvTyjE2Ow+RUYNQlzAcLEvTV9oJ
+         QCTTso3sK2UOGHrPPhxP3JEcpiBiO0IpDkJAzD0d+8JsJ4hkcKhO7WPmMZ9nbH+bGvTw
+         Z7ONptNZpKgcP00Bhl4Iul2v+3POyO67xGYptvO7qTWtB6WJPt5fBXhWUhSfBb0ty+BZ
+         8+Jp995w22U6HQEs/AA6uxvGx96hNq6W4VIQu4y3UPKi/1XcU73KR8QoEcmKezhc7Mhi
+         bxOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793443493; x=1794048293;
+        d=1e100.net; s=20260707; t=1793445742; x=1794050542;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
-        b=revocT7oC2rmlhKBGj33E8q5wJ9bCiQpPP7PiwE36BdQtTVLCLjC5t0+6768VIY5Pn
-         KFDSDeqTp1ypzuuxNOiGqojIeP2zyrJc4xD6cXF76hfpEoERA81fG/Hgt+0VdXzho9xb
-         8v7zUd9Zj28PJnYhmTr7DuU1+SOX2xfVPi6kVorYu7YnN7BVjdqAnnfg1AbECfQOM7vs
-         YFS1hzHl7M5392QRorMXAxJFCp3Nm22wsigXgEAkCenl+rymq1QcF+eA0Z6BwkTpHDaA
-         YNe1uW8rDeTG6LCnY2Aq30Cyi4zUMKUIQPCIivLfeUI0ig2tp2qhnCdF1w6LxkxrBCPa
-         zy1g==
-X-Forwarded-Encrypted: i=1; AKwUvBz/4OwpXDYDrtCYxxR6xmCmI7sVgO22qiFq2qB+DzLLFzaKJXIc7jR7Iii9aggWo5YSjH99rHMM5e5HQA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVfxmzivncE3LPEK81gHKAgm4Q52f1E1TIsNMljxL1zfbTEY/J
-	bM3u3WawQP4HsU1Nq8Qq/Amn+hk6X41rGG4FT86Psr278r6XOpIgwrxH
-X-Gm-Gg: AYBFou2QuLrqP2bJK8OipdI6olaIAELB8VvasRoZlxWCZ8i+lsbuPaFQSmt3GR3o8RG
-	un8yFBAhnHrrFx21WLGo8DhhB9xIdgXD4p1jCwNqu4SHBJgwve46QvrUJaaXmkG8UfbXKp6Gmsh
-	O26oKWMUaGUwehCzF3+XdaZ4tXXnQApsMul+LjBfBoFS4vG+B0+Q2Kpy6NXVBVe2eETCq7vFQBr
-	ERyq3mR00zPjhAkQAyi88tT/6Gp7qs321EAGbS90nde//IkCpOBQMDxTqPkLHxdHIX/aNPfiDQ6
-	RE5kd1um+zfz5yqqXjf/0uLL+3oUQkb7sTWE0s73PRa2I6enfFqY7tqJJ655W8SBUvafGbv/KyD
-	kjFwX5pCvQvXK3UcehnlIuZAFNt1I7vmOCmwDBVQBE+RMa/kJyDDn6VGXqKol1OUcCPPn5+plkJ
-	aXDvX2FmAwEOseSGrPaShvt3aNwjAxTVx+cOK/skBUQlDOUSKNuZmAp/+lMo0/WnwQmHP9ogC90
-	7BikbiseP6vivmCJln6SbeMWsoAhzMACtyXfINeSwPjg79wkETwXTyxqVupnfXUaKLQKGyqsZKq
-	VuPJ2iR2Dix6W/bRk9NcV181pHrAaAlP33dPf7Ph7y8mQ+qzm6Bfxc4HE6RmQNCULIGp37RJHtR
-	KHyeRuZ6g8nxZaD4QRtqSOYAFrl7nm1yfPO7EJKLuDZDUgcyXHuUhQJyLQmJODp5AoYVYhagHJX
-	+fQlmT5U54NYf7Xu9SeBjTeRBLQbSCOig=
-X-Received: by 2002:a5d:64a7:0:b0:48e:5e1f:9a36 with SMTP id ffacd0b85a97d-48e6e50191cmr8399741f8f.42.1793443493010;
-        Sat, 31 Oct 2026 03:44:53 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a81d-e001-9c9b-db33-f166-0fda.310.pool.telefonica.de. [2a02:3100:a81d:e001:9c9b:db33:f166:fda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728f9sm8093899f8f.10.2026.10.31.03.44.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 31 Oct 2026 03:44:52 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-tegra@vger.kernel.org,
+        bh=e4IDuCl499mXr6HzO6D3TIak1ntyG49jssHPbfhdMlA=;
+        b=BnjGgZVYEI/L4ijpHos/GPRPxE1fwo50UnwEr3mvk73j/2fPZRXnp3hynLyN6R8i49
+         u3DDp8e40fcRwbb37ksjnEtiVeG7K5COOEDXhuO4I44x3fdUwSxLfUXvkty2TSpdCkFh
+         Dj58nlXZ8CQ0MIre2BcDN9iZtkQZJOZ36+XA3Pn73GXzBgw22YLBxi0cZ9cR/TB3BNWh
+         XqBLbO9SKfhLlXDWnWyEggUc+CfVXFJlBYYCrbuIaj2df1hYeX1dAjNgNYox14wo1PDp
+         G0E/0Ya9cEBGqINN1uCuy/Bd/p6fgd9XM0wGlGZqc0Cf5bQA5rn4ghl5cO+W7E//fEIY
+         9tUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBym/5C+Ho9saPQa7GrI8XRcH4gWvXaz0hOccpHCuEreTe3GAI0p4+kSZPZhbHkF6u+yGUPm7C+E+hcr7A==@vger.kernel.org
+X-Gm-Message-State: AFq9FYIeQexa276qW5Bpb3VWS5xL5s5Hxt8mFIskNalOMvWOAmS7iWSF
+	g0AKm+RTCoJnmN5fd6gNVbheINjjjY6geRqG07PxPNAJqdmAlr8rp7tbp2eJSY6mJZA=
+X-Gm-Gg: AYBFou3RByvlHwWIAoL8OqOO1ZpJ16JcLQ+2Fy7tCNHjvAAdjpej/arxv5+M3ZjfY8J
+	PFQf3tImup5e7Nmv1mxSSrpmPwRTB/+CaSwO5pFtdOeOH7AFqyWW6zbgSnkevaNZdjgYMQCp73d
+	bpWm95szS9hre4sRl/CGVfr3GYrlmpQNbYQF5WcI7TcsGDTckM9X5l4xisOjTwg/PUPaUCNFTx6
+	iX3ylIZARGI5YcywAk3TCZFP9rGBWwc4pLkkA5ZM7dMpZK41FeMwyCdWBjM1yhu5wwRmBX8GC0Z
+	AmVPOvx5eusd6ffEPYGJYFiuuG9cxo/hbBRv+bRlftP9uI6lEnmqOZYbJJ1h0QyidTUBoVQtHM1
+	fg5roItrOlA/0PWRtiDQjT6QKaBSRFywKXccWVByyGpJzcxbVv6EDMD9ak2HB2jsMn9b2KMuXYV
+	WuBn9/Ny3ssUMRGSai2CM0fDu7VDFbYn9sU33cRBXwtoFjVT7b4/vhRTlJkQpnS3Xf5V0mx98pm
+	+0JSawuIvXq/QnojTeHSyPhOl6p1DUAmBpel5vD4odN3dG61mSC9rWMZcQvmorzfmelEHGbt3G3
+	RF0KEF+I/NX3BcrCG8T0kqwRfC/J7ZJchBAQjPisuR6I80lZ4zgRPTwlvIs04Wt8HT3zYj58jvI
+	BIq4PkWqdbeRyVyI=
+X-Received: by 2002:a05:6512:4607:b0:5bf:ce1f:cd22 with SMTP id 2adb3069b0e04-5bfd94cc517mr1665400e87.0.1793445741887;
+        Sat, 31 Oct 2026 04:22:21 -0700 (PDT)
+Received: from thyme (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074aad9sm538469e87.75.2026.10.31.04.22.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 04:22:21 -0700 (PDT)
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
 	linux-media@vger.kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] drm/tegra: Fix dma-buf reference on import errors
-Date: Sat, 31 Oct 2026 11:44:39 +0100
-Message-Id: <20261031104439.91346-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/6] media: qcom: camss: Add SM8650 TPG support
+Date: Sat, 31 Oct 2026 13:21:57 +0200
+Message-ID: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -109,46 +107,32 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tegra_bo_import() takes its own dma-buf reference only on success, but if
-mapping fails, its detach error path still calls dma_buf_put(). That drops
-the reference held by the PRIME caller, which then puts it again, and can
-release the dma-buf file while its descriptor is still installed:
+Qualcomm SM8650 CAMSS contains 3 test pattern generator (TPG) blocks,
+describe their register spaces and the non-real time CAMNOC AXI clock,
+which is needed to be enabled to get TPG output written to VFE.
 
-  VFS: Close: file count is 0 (f_op=dma_buf_fops)
+Interface to Qualcomm SM8650 CAMSS TPG v2.2.0 is similar to the ones
+found on later platforms, hence the functional change to support TPG
+is extracted from a change done by Hangxiang Ma for Kaanapali:
 
-Remove the unmatched put.
+* https://patch.msgid.link/20261028-kaanapali-camss-v23-11-95f250b18612@oss.qualcomm.com
 
-Fixes: f5b8794e17e4 ("drm/tegra: gem: Don't attach dma-bufs when not needed")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-v2: Clean up the commit message (Mikko). No code change.
-v1: https://lore.kernel.org/r/20261026055842.96484-1-kmehltretter@gmail.com/
+Hangxiang Ma (1):
+  media: qcom: camss: tpg: Add support for v2.4.0 TPG
 
-Tested on a Jetson Nano (p3450-0000) with CONFIG_DMABUF_DEBUG=y and a local
-change that rejects zero-byte IOMMU mappings to force the error path. Without
-this patch the forced failure produced the warning above. With it, 100
-consecutive failures returned -EINVAL, kept the original dma-buf fd and left
-no dma-buf objects.
+Vladimir Zapolskiy (5):
+  dt-bindings: media: qcom,sm8650-camss: Add test pattern generators
+  media: qcom: camss: Skip TPG if its registers are not described
+  media: qcom: camss: tpg: Support TPG hardware version 2.2.0
+  media: qcom: camss: Add SM8650 TPG support
+  arm64: dts: qcom: sm8650: Add CAMSS test pattern generators
 
- drivers/gpu/drm/tegra/gem.c | 1 -
- 1 file changed, 1 deletion(-)
+ .../bindings/media/qcom,sm8650-camss.yaml     | 24 ++++++--
+ arch/arm64/boot/dts/qcom/sm8650.dtsi          | 16 +++--
+ .../platform/qcom/camss/camss-tpg-gen1.c      | 24 ++++++--
+ drivers/media/platform/qcom/camss/camss.c     | 60 ++++++++++++++++++-
+ 4 files changed, 106 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-index f76af73..ed35a34 100644
---- a/drivers/gpu/drm/tegra/gem.c
-+++ b/drivers/gpu/drm/tegra/gem.c
-@@ -502,7 +502,6 @@ detach:
- 		dma_buf_unmap_attachment_unlocked(attach, bo->sgt, DMA_TO_DEVICE);
- 
- 	dma_buf_detach(buf, attach);
--	dma_buf_put(buf);
- free:
- 	drm_gem_object_release(&bo->gem);
- 	kfree(bo);
-
-base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
 -- 
-2.39.5 (Apple Git-154)
+2.53.0
 
