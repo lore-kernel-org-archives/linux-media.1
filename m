@@ -1,94 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793400500;
-	b=2XUbC72e6PXi7vP3HzJJHJxg5RO7eI+8S4Bc7b0NwkKb+30IJiXZsMqzLbd7o/hw4Re9
-	 h/SGC4MrsrN/DFd7RWdNd9h6b5DjJXePPCq0GzXGVpBjtNrBnWXCP2Y1Hs4B17pN6eHBK
-	 UnymPPm9blBIOUXH7tzMMXqgvfaSgDHfWP07rcsWpJfT4xqbjJc83PDaf3fu4wbVv8D/R
-	 h9tRRFtaQNmJpQezej2SxauXJO28QejDCxSQCmjMinT87U6Rcmd5KNux3MKS/TL/1BMd2
-	 oinpoz9TlwHI5co68BDr0+2sZfzCOW7qiCR4pP4VX8rqYFXW3BPXKXXUGJKxHof1/ag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793400500;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hCY5gWyIoDxvKlbtrzG0Y1Wy+p+3RQddBiJlcOBca6E=;
-	b=BeGfR+v5TmKcvQuUjtLRlNlIhOpLK9k6eYvcybyGJXVWsXD0YGmBoBuXzLem71+tlzs2
-	 LktXBF2b51NqXTC4yoQmMk+fc0qyHBfALP7GNyqFPFdfSYnZrbVF2VqX5apaXTQqToPoc
-	 PiERkEXhtrVJ0UuRPxRQQKFA1itKQKJzFmbMJedCm5bo8Qi89DLvOvCBarLc86BkULtxR
-	 9j/Wiq62UdPtLxpOIFtab08f8Q/cUyZP+i3YqB5VAqhdfDRs4nI/3KLIqEKvMZh/tMZtb
-	 BjTDakDC6W7VNOy1B5t5TYpoXcqd01GUp40kd2y2qPXztyewKbBKrAwpmDZ2sRuoknQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iki.fi;
-	spf=pass smtp.mailfrom=iki.fi;
-	dkim=pass header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=vuVWLu9M;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.185.170.37
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.74.239
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793406235;
+	b=ccXaFg913kbHJYRdBL2GX2+gmzXuocKxubbjr/+/JKp5DRr94aTl3Flh+7F5YlndpWHB
+	 lNyezlGHWtHzyItBYgDVUCb4l1btFuVU/YmWImNID8tZcPrIWbEhDmtQYSiXgfeHPb7eV
+	 m5wEGcsNaWixz9vGF61+Z+UxYSe93q7jegvreAdIYirtfcyEIhqyrdI+vJQ+h9GvYgEbz
+	 XwLkmI/3fMc8D5RqbNYwMAh1QQbTcTodYm/9SsI20YD6OWqrLnXc45PKQXaVEXgqlj7Dt
+	 nhC7pdasiQHXkLGIUsvBcS1XhvF8mkeaGJuds3580kW4QXZGbf8CGDyVkX8+c3F3sIg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793406235;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Authority-Info-Out:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-JNJ:
+	 X-Apple-Category-Label;
+	bh=muC8fCLNwUCBkf87XYQ4RphaPqy8BIi0mWDaPcUgcP4=;
+	b=kCKBFvBuWfhS/mmwBcsvwmt/HwknLJB1e8t6g3LHOj37jZKdGB2bLQureD2AIRiw/3j7
+	 QtuL5R+Pli7Nd6vwAbZED1yE2zXwK8JCZ3XGo5nKr+M1gjq0xGEYmdINwxRRj5asIIjzh
+	 YJ5lA6iZgPHVfLGxVWE9l2C58tGWyV9rl/ywWsXsYKIcBZsWEBiPlPDoXc17qHxp0PkPh
+	 VpBDTMcvbbzlccRA6e0ef1db/G3he35HZTkClPg47wU6U+sX0cTnBoVTwm9WMr1Wdjqq6
+	 zPjk9+AzI6LrH26eNpRNOZeNDwEyumtQcKHwxRJ+yVhRh5i9nosBxGDzcxWBoMOoSOQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=RI9G3ieK;
+	arc=none smtp.remote-ip=57.103.74.239
+Received: from outbound.ms.icloud.com (ms-2004i-snip4-8.eps.apple.com [57.103.74.239])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE12606A31A
-	for <linux-media@vger.kernel.org>; Fri, 30 Oct 2026 22:48:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DE12606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F73606A31A
+	for <linux-media@vger.kernel.org>; Sat, 31 Oct 2026 00:23:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8F73606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=iki.fi header.i=@iki.fi header.a=rsa-sha256 header.s=lahtoruutu header.b=vuVWLu9M
-Received: from hillosipuli.retiisi.eu (n18ws8cotq5gnfn8-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:0:19f:4ce7:0:938c:d2f4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sailus)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4jGbpt42W1z49Q6b;
-	Sat, 31 Oct 2026 00:48:06 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1793400486;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hCY5gWyIoDxvKlbtrzG0Y1Wy+p+3RQddBiJlcOBca6E=;
-	b=vuVWLu9M/4/Q6LntWMZAdDZJh3srbR2JkOySypRKJ791v5ouc2ysNOJCnade7AI0wm+hEE
-	hqs74a3i3zgzNC/rhsob5QlSfnHtjwdtwLFQnJWL1zlToE8OclfGHMjEJLUzTj8s15bOCw
-	aYIZ3aJ3kV2sHBMITPK5EHOj4fyRjOFQ0UIe4okx57tIcc4ZeU0OAJCp+P4xuP0IepCVvR
-	J4k2y97dUF/ZFYL4jKxMs7vmKGqceeIZxdZHqpRmVtyoRIbbn5JUGow2Gmi2i0TSqPlCQ9
-	ojeVyyhD/5aSDPz3ZQliMbP0U7Jo3vwKveh+CxXofFNEHw1nR87Lgl5Qp7QQcA==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1793400486;
-	b=Mj1J386f5hg1pGeSIRsH+/PbU4dTibMOHNHj3kEttsxfAPZdaTb3glE+LXOjnU/b2V1b2H
-	teTbBfsU3K/NY9SrLKhC+EDvNQKULXBEzXnfP7EUgMnnQDhNx4UdHALvzdS+RKfkC4LoWu
-	EliPDLxDJB4XJcZnv+9ppwi2WQCOSjI1EhPH6RTIOIc6eRS6wZUtFvDgdVJ1Ocs3nm0Xdv
-	t38Tchp58VWn0+Hongv6g6mvF/8av1BCz5Bb6qiDM7IVb6JlqZWshTNidnEdc5+6/br0c4
-	YDE9ZcMQNNHL86LXWoY1YkdlufVLvRPcIkxfnVFouzv81EnnIZIv5zHSjRKV2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1793400486;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hCY5gWyIoDxvKlbtrzG0Y1Wy+p+3RQddBiJlcOBca6E=;
-	b=miW49LySdALTsL6y23Zonp8LzsLo5DnKathoTnDQSrbe8fKoZHoNYkRLSMKpSn2oj4BBPc
-	2QiE/QA5MMjkQOv4W7CEOHjeOxCL0UKe4xrT2QWv4fmBoyadcRXUm8Yn/0miZoPAPw2kC9
-	fbGfAT1oi7Bdy+E31HSPswxlZWQ7BmqbcarUMS60Onokt36WoAeZ0D4Hx4tEnnznjiJiHt
-	8A2y6TN6GUWA317aemeuoddCYTDq1G8+oxCixbP4gfzQDiI1E335VNsuG7D7QSi30daAWA
-	VdEgiHYafiqX2daYfPB8vH06OFdB8D3ciepCKu1P18DCIlsFApAF+Yhq0nO1Ug==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=sailus smtp.mailfrom=sakari.ailus@iki.fi
-Received: from valkosipuli.retiisi.eu (valkosipuli.local [192.168.4.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by hillosipuli.retiisi.eu (Postfix) with ESMTPS id F0696634C50;
-	Sat, 31 Oct 2026 00:48:05 +0200 (EET)
-Date: Sat, 31 Oct 2026 00:48:05 +0200
-From: Sakari Ailus <sakari.ailus@iki.fi>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hans@jjverkuil.nl>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: Re: [PATCH] Documentation: media: Document impact of errors on
- buffer fields
-Message-ID: <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
-References: <20261030103815.3098340-1-laurent.pinchart@ideasonboard.com>
- <auR63iwOm_mih97K@valkosipuli.retiisi.eu>
- <20261030140958.GB3109745@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=RI9G3ieK
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-8 (Postfix) with ESMTPS id 6CE5018002CE;
+	Sat, 31 Oct 2026 00:23:52 +0000 (UTC)
+X-ICL-RepId: 01a18f57-66f9-7bef-a592-2cde05231ea9
+X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQ9PHV8ZWQBDF0kLWBcOVk1TF1ZDUxFTFFY4Wg5bBEcUFxtcABcNVk1QG18CQg8cE1YVEx9UVgVQUR1fAgoERwRbF0YDU0VfAxcRUAFYHlZeWhdeTUcfQE1iSQFaGVscQBdKbk1TDw8ZWhRcGFNFUR9UWF4EU1YOQglKBVwHWANACUoAXgVFAUMPSApABkZYH1xWVxdWD10wUBtfAkIPHBNWFQ1NQxJCFQQRUAFYHlY=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793406234; x=1824942234; bh=muC8fCLNwUCBkf87XYQ4RphaPqy8BIi0mWDaPcUgcP4=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=RI9G3ieKjzkH2+uOBSu/1oKFdRlkTxxRrTCu2v/oH4eFvC+SBvVdaCQlar22t9vK3fEWsNqX0UHJ39eINLFvJ4CkwPnt2mh9lZQkHpF1OCFwBYhSL9hmK6ioNhHjV8iLP6sZDsodvezkofjIsWSW9gEgLWdvMroqFvrlMdczpFV18u/PiBBdoN0ApHJnmKtEXWYLvkj6ftRQtjkiMweFCDkHCJipwVsAUMXXIk3CV5XENdK+24p1wEGndOSabKVyG8GMCtgck4yE7f1g5IgsF6/er8qPotdcBhBu6yZKVGYFmQnHN6LJdZfzF6lxP5rZFn08tJytOjdCw9FNB2Y3DA==
+Received: from localhost.localdomain (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-8 (Postfix) with ESMTPSA id 5AD1718000AF;
+	Sat, 31 Oct 2026 00:23:51 +0000 (UTC)
+From: Joe Dzado <joe.dzado@icloud.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Yong Zhi <yong.zhi@intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Joe Dzado <joe.dzado@icloud.com>
+Subject: [PATCH 0/3] media: ipu3-cio2: support concurrent CSI-2 streams
+Date: Fri, 30 Oct 2026 18:23:29 -0600
+Message-ID: <20261031002332.33609-1-joe.dzado@icloud.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,60 +65,76 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030140958.GB3109745@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
+X-Authority-Info-Out: v=2.4 cv=IauKmGqa c=1 sm=1 tr=0 ts=6ae53519
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10
+ a=VxgYvlp6VsgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RYueC7QpxTZu7R4hoRYA:9
+X-Proofpoint-ORIG-GUID: j04pW1lzZ4xsMpMXYNnHQdK_pxYrWtC-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDAwMSBTYWx0ZWRfX5oVLoHA1gv5N
+ /EsEdzOerHuNVgfFpzCeeJa/Ap3kOvtPiK0Fh6CPzpwMv8URZWd51e/ryjv2EVEFP7qmpPhAtCI
+ 1+F1Jeq6VBbJ52e0xa5HBeo+wWkSutyxmn4sLmAfQsInzq7Tu2JQJQ4oXY/1/nLVbW/m7+PCvXB
+ mwZsa8ICiQ9+0XfWV7hfngFVkRDUq0eikBzH2caUTKu5vhmmkHqbOwF0bT9xREf4zGYtbw5BO7S
+ XmpXzIAVkssSw0O/z+ygsGAr+TzZLwvL/IBDMIZOfpI4TlA1k5y/lIuf5rsdeD/RH2yTTjQXK6S
+ 6cgVP/z3QAeV8yZ7S4d7lEDc7jowyxjM9yodb7/OuEmqj36fAUE2fu8R+dQb68=
+X-Proofpoint-GUID: j04pW1lzZ4xsMpMXYNnHQdK_pxYrWtC-
+X-JNJ: AAAAAAABzRsNxKzsOIV76zWEuJMwx9HXJblsmvlQoxFWTYKhJh5BXmr2f1S4yFB7B4hoWr
+ 4yc+mm/OiZEMpRVymoNFKb6W0INyV20eiV7TdtTIhaTRBzNdJutatKdBSCANIpCcuZqbWt
+ TBIO+zLwRFe71dkojYcx1A8iMs8NCtWNOCx/2XNt8ysHd/JYu+DmVK981Xi9syLREObIdo
+ 5p7fQibfgZxZitc2iVaLK7nIUm7EaOjrK5XAwwioolsEKT8RZI/t9IRghS63G4u3Za7mHK
+ 2Jk7eLx58FUKI1BnCPB0oXvbo4a2v74U+TnJhn5gybWK6UliwQMLFZdu0H65SPVfSCbI8y
+ XCajg3mXLVThc0JXpktrbLwUfd2V36mTTcc/aGGXTIg3a7RTs8UTQtB4L7XUdq4XZxXweX
+ xrZPv4YykpVfRGKJR/7WRYXtGDUfn/Mz4fIsSqHNnxfXRKUSdoNYZZDerMTfeDaUBeZq4S
+ Vy+8SpgJwMPQDkqukIadIQk4KPI7WZPF2YUxuy8fvs5nIDODCUrDhhmoOj/MGGgaSGiPo6
+ I91ReL9CkrojsmSyo+CFoN0xAa7kdanOpIwyU7dEM6obRncyVdaszBjmD3aeQtWZyJU2Bv
+ q9ZjlJjp1CV2wWuCVdPWKp1uQQ6Ww8AqVytsRBJMObHywJfdgohqWKspZqPvysKCVE85Kz
+ MRVbyrmruKmXeA1r63AlJDuqOSAmhWDti1YEcpS16B0F2ZtsvYsl9CdAc4RVTWd86wFdq9
+ 2odmmwNxtXeKaYVqGw/ptXv95JpFfZIe/IwtIa/GgYyWAyA9oi2Q22DrBO/R1Enoqvtc8q
+ yJHG5E/l+pO9njXTyagUOVSBnSoOB/vFUmDjc0cvBF13po+qHUTVtkj8vcM7a5Vv7I/dH2
+ J9K/CarLK7m957DQPv65iTSyoIwGreqBiIXc9wfOvShw4DXWv/Pf44/bViAzyPwkVYyXQ9
+ UjKR5whWH9C8pY+7+QtOg+PgzsLoGnH3tJMD3/hchD697x/wwadE3Ugh4M/N/nMmha3Moe
+ 5xauVqx4Z/1kElxN0uwsvXqDIzcU87b9ua/PI6axFw5+QvghE/oxrnjccEw7b/LsQ4skAF
+ 4xFqNsH6hLy9/UCqKxyqWIZKrmAt+omQDPQgMy8i5sbHO5+TQsSwgKR+4SfekaXtFdk/V2
+ TXLgNp3TjJqgdRcflc480clAhdFzOdfftjpUefonEwWDy8wD11K/3Oe6Dqsw/WWEvLifZM
+ BOt8Vux91mll6rvbQ1Es+FP/mjm7YBAcEic+GrU7fOfi7CJrXrhAy6peB9tPjLY=
+X-Apple-Category-Label: MTM3MDgxMjY5NTokY2F0ZWdvcnkkX1BlcnNvbmFsLA==
 
-Hi Laurent,
+The ipu3-cio2 driver currently assumes a single active capture: every
+stream is pinned to DMA channel 0 (CIO2_DMA_CHAN) and tracked through a
+single cur_queue pointer, with the IRQ handler assuming all completion
+and start-of-frame events belong to that one queue. On platforms with
+more than one sensor wired to separate CSI-2 ports (e.g. the Microsoft
+Surface RGB + IR cameras), starting a second stream reprograms channel 0
+and cur_queue out from under the first, so only one sensor can capture
+at a time.
 
-On Fri, Oct 30, 2026 at 04:09:58PM +0200, Laurent Pinchart wrote:
-> Hi Sakari,
-> 
-> On Fri, Oct 30, 2026 at 01:09:18PM +0200, Sakari Ailus wrote:
-> > On Fri, Oct 30, 2026 at 12:38:15PM +0200, Laurent Pinchart wrote:
-> > > When an error occurs related to a captured buffer, hardware can produce
-> > > less data than expected (or no data at all), and timestamps may be
-> > > unreliable or unavailable if the device uses hardware timestamping.
-> > > Document this in the description of the V4L2_BUF_FLAG_ERROR flag.
-> > > 
-> > > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > ---
-> > > I've posted a corresponding fix to v4l2-compliance in [1] to relax the
-> > > bytesused and timestamp checks.
-> > > 
-> > > [1] https://lore.kernel.org/linux-media/20261030103717.3098080-1-laurent.pinchart@ideasonboard.com
-> > > ---
-> > >  Documentation/userspace-api/media/v4l/buffer.rst | 5 +++++
-> > >  1 file changed, 5 insertions(+)
-> > > 
-> > > diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Documentation/userspace-api/media/v4l/buffer.rst
-> > > index 94dc2719e907..5a7a1511cee7 100644
-> > > --- a/Documentation/userspace-api/media/v4l/buffer.rst
-> > > +++ b/Documentation/userspace-api/media/v4l/buffer.rst
-> > > @@ -503,6 +503,11 @@ Buffer Flags
-> > >  	streaming may continue as normal and the buffer may be reused
-> > >  	normally. Drivers set this flag when the ``VIDIOC_DQBUF`` ioctl is
-> > >  	called.
-> > > +
-> > > +	Depending on the type of error, the buffer may contain less or no
-> > > +	data. In such cases the ``bytesused`` field can be lower than expected,
-> > > +	including being zero. The ``timestamp`` field may also be zero or be
-> > > +	otherwise unreliable.
-> > 
-> > Could we say that if bytesused field is non-zero, then there is a
-> > timestamp, but when bytesused is zero, there's no data and probably no
-> > expectation of a valid timestamp either?
-> 
-> How about this?
-> 
-> 	Depending on the type of error, the buffer may contain less data than
-> 	expected, or no data at all. The ``bytesused`` field reflects that
-> 	situation. When ``bytesused`` is zero, the ``timestamp`` field may be
-> 	unreliable and may be zero.
+This series lets the driver use the DMA channels the hardware actually
+has, so multiple sensors can stream concurrently:
 
-Looks good to me.
+  1/3 dispatches interrupts by DMA channel instead of a single cur_queue
+      and converts the streaming state to a per-queue count (no
+      functional change);
+  2/3 serialises concurrent hw_init()/hw_exit() with a new lock and
+      guards the block-shared setup so bringing up a second stream does
+      not tear down the first (still single-channel, no functional
+      change);
+  3/3 maps each CSI-2 port to its own DMA channel (2*port), with a
+      dma_per_port module parameter to restore the old behaviour.
+
+Each patch builds on its own and is bisectable. Tested on a Microsoft
+Surface Laptop (i5-7200U, Kaby Lake) with the OV9734 (colour) and OV7251
+(IR) sensors streaming concurrently on CIO2 ports 1 and 2 for several
+days without errors.
+
+Joe Dzado (3):
+  media: ipu3-cio2: track the streaming queue by DMA channel
+  media: ipu3-cio2: serialise concurrent stream start and stop
+  media: ipu3-cio2: give each CSI-2 port its own DMA channel
+
+ drivers/media/pci/intel/ipu3/ipu3-cio2.c | 283 ++++++++++++++---------
+ drivers/media/pci/intel/ipu3/ipu3-cio2.h |  10 +-
+ 2 files changed, 188 insertions(+), 105 deletions(-)
 
 -- 
-Regards,
+2.56.0
 
-Sakari Ailus
