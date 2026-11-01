@@ -1,54 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521846;
-	b=lrxiVfSc/GCYpe2yl/LkU0r8/w40B9vyQzWsPQUzY/KK3KptWhDaq4YwKL6US+qITSq6
-	 pybFtV+Ua5PUfnaw0Fj54v9qe/7fKpoNiSiPYjFDel/IdjwiT6xcV2xP1erbu//zeYYLL
-	 IxeeRSCVB+dB/apAZJDyP3y4cc9fVHuCj2LCmrviSykvEYKSJSFmyLgfXU/HH7xvfflHY
-	 MaH5H891fi4rdbjP+9NSrCwJbLcZkbeYsJtZQi6ZoNDfuLAHnhQC3oKN+fl17Hu38DHgM
-	 DIqLhn+sm2s8Fxue73+WpRqu9I5sFh4Duhr128ahqZmF/yVsLQpIlALbOZcqFoac+tw==
+	t=1793539472;
+	b=cYWkN6eMfYOfcgOe1T4ccaVA+keaELzyyXlgODENYL4D0fjgGEmBtC7nPywYV8zyt0DT
+	 2KC6tpTx7FOLiAKVwJeGzTUtmaZjKU/YKOAPXgbp5sg4YFPHFpZxOna+60qpyCYenaZ6J
+	 PRYUxzCv1dCedDTDMfowpi+0YvNERL0M4vGyoTG2hga6MJ2IsMF2ihmqzhm7lm7E7WYnV
+	 Ru/l8Z5YpEKbKgaiMjUUFsKlTloxISH5M+FE6RzjUfXRICKybvLMh4CFwYvVgcjMwsBQ4
+	 9kJcioxL6jQSXeD0kPSBlnn8GNrD4dDOYfouJFNlMqmaTfanuR4zXeECFKUIxxuBO1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521846;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=F1c0HdyTRLsIzAFM0JN0P2R0UNqNGHuzxSki4WI7BSA=;
-	b=JZqtHLGRbKT4tIug7kkreF3/t49jJCTes/+PXapRHTwqrj1j0QL+Hk6aqThsx1JmZ6jV
-	 fWb41hi6Cy7nm9E8ywcjD8IpbWuV0aXIBsCmsHCDfZe7rwNDfFUAXqDD6Pqd6KPuCecPM
-	 P21bjar+vULyUji+hUmiosxo6GqqM+uT45+3+GSFYmIYVWWxDaGNXlfQNl9FdEDPvFCBA
-	 eRhK/ECTiwjzsaVul/bIfDbTFkqjSuJcdmIU+QKHloCSvSNmZuKoJS3g8Kko8or4XXeAq
-	 tXG1rE4zguzZCtGV4SeHOys6J/f2MPECQMI9mMGOKSvSFpW35TIL1V0RbLz7/qraY3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793539472;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
+	b=qgzJ9x5aOvHQb72DdNeCetOcMse4V1xXU+3SBJ/HMhfooG+0CwkCBeEmjZiNYtkecXUs
+	 5yM8FfUrJI7y6n5YdV9kKohn++6P3ZL+euAzsAqoq5t3/sUygPTBFl/PafaSNfGdXfMpW
+	 i33ueqIcRlvvUtTP12Qy2eBvSr25rkTnGBOmNZ4PazMmzkIvnTPICBKJ5psMs8QtkUjBY
+	 OOU3r8gPAuw2gRbvV3GE8ekpDiCuCYk1Ht5J9inWNcsVjqQaWyTckeZe7d8+a226m26on
+	 lQ6tlFBaP0LpA1IsK4emb02lRsPg5HCyx1dluuQPou0e3pT2yjFduzWsKMnDRK84xjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1ADA0606A324;
-	Sun,  1 Nov 2026 08:30:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ADA0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=korea.ac.kr;
+	spf=pass smtp.mailfrom=korea.ac.kr;
+	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ETepvLu0;
+	arc=none smtp.remote-ip=209.85.128.181
+Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C18D606A32C
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 13:24:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C18D606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ETepvLu0
+Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b2d149693fso4045547b3.0
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 05:24:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=F1c0HdyTRL
-	sIzAFM0JN0P2R0UNqNGHuzxSki4WI7BSA=; b=UX662lZ+7MwRvSaGww0JuA9nJB
-	FIdNOBqggcOjuaXQ1cussJg78SsSj1mzh+W1/KA44SIL0s23hAKo8VKi6eNL8sMZ
-	9UNQLPkqg2xBS2PSS0VTez9aKVTzUPVHO2nhChrcawXLE4bZ1+CGtUMZuUNQo3iC
-	OrLNsnK808bi117aQ=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.23])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkAWWwCp+OZq3eMUAQ--.23366S2;
-	Sun, 01 Nov 2026 16:30:34 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+        d=korea.ac.kr; s=google; t=1793539469; x=1794144269; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
+        b=ETepvLu0v3btKNzRkiQzA8a2GUrFc5vI1Pg6UN3Q759yFkLyQJh7sqyODCeM0gEGwi
+         YFnwzYXL2dtvZ8q/IIGEb5bveVzbGBsLNLELkCbs/6ARqLbj4G0psW+zjvHZxqTwiGkl
+         PDO1ZJ5sLqwfQB8MMpZ6UB7hwuSf32eYRbvK7rLwgRTBh8679DF+4Q4c4+NgCnxeAwT6
+         ZpFYlyr3cc+eDFZqGot95/cQxNBt3nq3Dimr7tvTiNo4g/Uj8GA27s+YeG4KXWIZVHDO
+         95HNmnIatqbqN4kwgwSbwggyr0tshtyyT++f+F5U319CEWlILSH7awfSkDFGmD3vOCK1
+         atag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793539469; x=1794144269;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
+        b=0OHD1mHowBQXg6H92KCuwdzI70hkEW0wfTZaUoy+5tFury/RMCwEHsDcjW/LKqS8r/
+         2aeDtFLYz8eN2rPkIFlG2cJ5Oug3Xttw9Bpz9zkE2G8WZRv8+Thcu00ZFBJoq2SF/MEs
+         hjc+/Mbcv9JCPkI7pcYIKTuM1JrTbWvfkpvrwaVpuQciSeZ/J9IqxXu09UJbCgSpcR2T
+         29/+8kOurPxTk2WIbF5Kdcc1DxQ9QMAR7IXLGCx3eexEk2hQwIzWkGkinPGxhFEk3TOx
+         t/48YdTF3Ii6R2imaa18S6zbllNrmqN9C+KBZAKuWbxqgBlOl5Qdj50M69sO1dKscVXK
+         JxYw==
+X-Forwarded-Encrypted: i=1; AKwUvBzOvOYSIZC0HfUCQ04Z9GcmpyQmoeVFEIKS4gWLyi/+8TmNMcNPyr6Qtfv5Wt3qt4zVMwz9jKnFy+uwaQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/W/Oul2AUhdahvlN5nDe1dovUWTSV28kkb6gIWY3nARoiDl99U
+	lNtDhuD/7ZBfIFY4d0VTvFs5jG27quO+jGP9WuuHFsc9B/maWN1n8BuUDIMvDbDKGg==
+X-Gm-Gg: AYBFou1HH85x/hIPp0owYhon/YStnMJrBL+Wtdyb2VROv/b2jCUGmvqe/4yFyeMSF5u
+	h8m6+L1pHo4Hvk5ExzZFZD3yBda1ccIVAWQNxa2fXkOdMh1Efu49tpd4pD9zBytYw/nd7+SmXXL
+	crWL3ldRYHXST2tvRBx5Pw41AKXjEu8Na45/zPsyPKTdCMQMcQZmdd1ueU4DNPPN5PwjhQCtHYz
+	XfmrJUPNIYKqkxdpUYq/Q3BWKqsdRwiuyHyoLwZahuROCAuQO1V7TK/ZdaH+LehFHLgEymKRr9M
+	v1b+hIXhzdS2jUVssN2hBVUSo/3utKwmBCoYE4VupP3VHGTIMlrajGgx3KyG8NdxEC7SEq8cCt9
+	t3JMd8YcgCzj29jAgXyjQP1KeMFf3aU/RJKhSkSVsqf+PJBIi3mb8CbmhHSrbusAQDJxaGjsgVv
+	m45a+35nCDPjEGnZaxADr5vlyOKlTGE9BqeY50NvrTv3kHuedWG4khQvmmTas6O6N7jx2skpujn
+	zPF2Yj/h/iGlUCyc6ypR7vj98v2bfuW97ywhYC6GNYIqDKUWVZNUioS1lEjZ4R07d5B1sPW
+X-Received: by 2002:a05:690c:4:b0:8b0:a352:f978 with SMTP id 00721157ae682-8b2b65af008mr40507547b3.4.1793539469488;
+        Sun, 01 Nov 2026 05:24:29 -0800 (PST)
+Received: from s2lab05.. ([163.152.163.130])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b716433bsm37301417b3.26.2026.11.01.05.24.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 05:24:28 -0800 (PST)
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
 	linux-media@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: usbtv: fix use-after-free on device disconnect
-Date: Sun,  1 Nov 2026 16:30:32 +0800
-Message-Id: <20261101083032.14459-1-25031212351@stu.xidian.edu.cn>
+	Ingyu Jang <ingyujang25@korea.ac.kr>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: rp1-cfe: Use IS_ERR() check for media_entity_remote_source_pad_unique()
+Date: Sun,  1 Nov 2026 22:24:22 +0900
+Message-Id: <20261101132422.1396104-1-ingyujang25@korea.ac.kr>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
+References: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,100 +109,45 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkAWWwCp+OZq3eMUAQ--.23366S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGF1fAF18CFyUtry3CrWkCrg_yoW5AFW8pa
-	yrGFWj9a4DGw4DKa1DZw48WrWfCws2yFy5CrW5Za4DCws3AayfAry0yFyDurnYka4rAa4U
-	ZFyjgw12qayYgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s
-	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
-	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
-	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
-	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
-	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8E4EtUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2rmBFRXBAABsB
 
-usbtv_audio_init() passes the USB interface as the owning device of the
-ALSA card with snd_card_set_dev():
+media_entity_remote_source_pad_unique() returns either a valid struct
+media_pad pointer or an error pointer (ERR_PTR(-ENOTUNIQ) or
+ERR_PTR(-ENOLINK)); it never returns NULL. The current NULL check
+therefore never triggers, and the "pad not connected" error path is
+unreachable.
 
-	rv = snd_card_new(&usbtv->udev->dev, ...);
-	...
-	snd_card_set_dev(card, usbtv->dev);
+Replace the NULL check with an IS_ERR() check so the validation
+actually detects malformed media graphs.
 
-snd_card_set_dev() is a plain pointer assignment. It replaces the device
-that snd_card_new() took a reference on, the USB device, with the
-interface device, without taking a reference on the latter, and the
-reference on the USB device is leaked. snd_card_do_free() still puts
-card->dev at the end, so the card drops a reference it never owned.
-
-usbtv_audio_free() releases the card with snd_card_free_when_closed(), so
-the card outlives the disconnect as long as user space keeps a sound
-device open. On the USB side, usb_disable_device() drops the last
-reference to the interface right after the driver has been unbound.
-Closing the last sound file descriptor then runs release_card_device()
-and snd_card_do_free(), and put_device(card->dev) is called on the
-already freed struct usb_interface:
-
-	Read of size 1 at addr ffff8881024a008c
-	...
-	kobject_put
-	put_device
-	snd_card_do_free
-	release_card_device
-	device_release
-	kobject_cleanup
-	kobject_release
-	kobject_put
-	snd_card_file_remove
-	snd_ctl_release
-	__fput
-
-Pass the interface device as the parent to snd_card_new() instead. The
-reference taken by snd_card_init() and the one dropped by
-snd_card_do_free() are then balanced, and the card keeps the interface
-alive until the card itself is released. This also fixes the leaked
-reference on the USB device. The sysfs location of the card and the
-device name used in messages stay the same.
-
-Fixes: 63ddf68de52e ("[media] usbtv: add audio support")
+Fixes: 6edb685abb2a ("media: raspberrypi: Add support for RP1-CFE")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- drivers/media/usb/usbtv/usbtv-audio.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Changes in v2:
+- Add Fixes: and Cc: stable tags, as requested by Jai Luthra.
+- Collect Reviewed-by tags from Dave Stevenson and Jai Luthra.
+- Diff unchanged.
 
-diff --git a/drivers/media/usb/usbtv/usbtv-audio.c b/drivers/media/usb/usbtv/usbtv-audio.c
-index ae0a14e5ed2a..6bdb64051cf2 100644
---- a/drivers/media/usb/usbtv/usbtv-audio.c
-+++ b/drivers/media/usb/usbtv/usbtv-audio.c
-@@ -333,7 +333,7 @@ int usbtv_audio_init(struct usbtv *usbtv)
- 	INIT_WORK(&usbtv->snd_trigger, snd_usbtv_trigger);
- 	atomic_set(&usbtv->snd_stream, 0);
+Link to v1: https://lore.kernel.org/all/20260514193148.2357371-1-ingyujang25@korea.ac.kr/
+
+ drivers/media/platform/raspberrypi/rp1-cfe/cfe.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+index 8375ed3e97b9f..91e9fa0341e06 100644
+--- a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
++++ b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
+@@ -1779,7 +1779,7 @@ static int cfe_video_link_validate(struct media_link *link)
+ 		link->source->entity->name, link->source->index,
+ 		link->sink->entity->name, link->sink->index);
  
--	rv = snd_card_new(&usbtv->udev->dev, SNDRV_DEFAULT_IDX1, "usbtv",
-+	rv = snd_card_new(usbtv->dev, SNDRV_DEFAULT_IDX1, "usbtv",
- 		THIS_MODULE, 0, &card);
- 	if (rv < 0)
- 		return rv;
-@@ -348,8 +348,6 @@ int usbtv_audio_init(struct usbtv *usbtv)
- 		"USBTV Audio at bus %d device %d", usbtv->udev->bus->busnum,
- 		usbtv->udev->devnum);
- 
--	snd_card_set_dev(card, usbtv->dev);
--
- 	usbtv->snd = card;
- 
- 	rv = snd_pcm_new(card, "USBTV Audio", 0, 0, 1, &pcm);
+-	if (!media_entity_remote_source_pad_unique(link->sink->entity)) {
++	if (IS_ERR(media_entity_remote_source_pad_unique(link->sink->entity))) {
+ 		cfe_err(cfe, "video node %s pad not connected\n", vd->name);
+ 		return -ENOTCONN;
+ 	}
 -- 
 2.34.1
 
