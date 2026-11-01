@@ -1,98 +1,97 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793562625;
-	b=KyAEa0k2RLGco6Grk5403xZbz95yl5ua/iH2NKgfOoA1ZZLJIC3D1ilnDUzgljQDUtJh
-	 twzpEHkNdKXgrUE3wD756+TpCYutesqJeVjNV0rxQ/DSs0DA+gQMyhi62WON0YvALTH9A
-	 7tF003KPabdo7NT/8yJEVelRyj5z1W+fp+6Lr4iNa6cFwzud+EZh6MuHO1a3Xh5h1sG0k
-	 unQ/Fn6u9BTyHgTl/eAKPLwmg40jCPUeBfOQRu0P3+G8mpWpXgGouecwHDYyMeIAn4AmY
-	 VelEXeTWtf+diW/4TX/5ipnsm/MEre9ijfH4oi/7dUtGJ0/xTddUFKhYLCOsDLh60Vg==
+	t=1793562615;
+	b=1vspmtojFVaFceC+XPu/Umzg2yWX7mR1981LwEavGu0sK75TUgOI4ieKSRtA3pSvO0d6
+	 Lc5ZZQiBKubULaWitGTweSnYE0axtTuNXG1HpyYB5b4aE5Z54gyQnSqB3BDOsrSDxiWVM
+	 QDpRbblakBali+ouWcnz8W0nh9REPoxO7QNs0FnNG84lLLHV1VVX7OGn/PPJ3uvm9N8OB
+	 HV+INsaJohUotHlIMElj1bQqSaO8dgF5PnprYCoSXdtYS1V83SHTkD3aoMbrZ1d6GPfI3
+	 9Et0e7lmyWZKOmCD8vovSQabq9xARLnnLl6k/pdkzKFZtqaFa+BOXTM9A/DxRwRMxqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793562625;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793562615;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2xnwoRJLMp2H6N6MYwL3CW90RaqThGjRhTOpE4wiGoM=;
-	b=5YKFXpw9V/93CRGgmt1WumV6Lxtp0wzJfivcSWZMnhKaSJLJyVvloliUkP98v4nBCZIm
-	 I37PV6i6xUuQFUb4OwREOWxbGBCQPfmol0nT6wHdAjyWEEXu7wgFR72HaP5mYZm9MSFrv
-	 53uWYx7KCYy3EvyNRgQRdVLgspm4wBGaez+g0SNeLDO+CrFGxBrzXy3Dhm6oNUt/aR7TV
-	 0RptMci2vdFHm4NICG0k5CiV/w8p3g6NcOBho7hfqh8e2qlkasmNiyr5luJ2cmLLLN5hu
-	 gLjg9K3jMSda3i/tQ/MC459oGxSrhH0czK3kb5jPfaoU4F7LmK48uYlyi7M2aaVeDJA==
+	bh=CNhZAWFJxg03dxJBO1MbF9eR9aWYSPoEwZ+ATuYEVfI=;
+	b=IJoHPMjiqATa7wvD+SJ/KGf+Lk9R5tP59KWGnl4oS0BirphkhbAFNS56cuB6eo7/H3vM
+	 Kayq9N355r3FcsCEWdzUqrxmG8nM7t+GI74GVfV6mNHRb7SM5cHwMSW0hUm1POpFFHYSf
+	 9UmJKpdee79hrrmKXneo3Q8wtEjH9O3XrX6GYykJtK3HXa0/xpibsFajGW4fmXd+88WlS
+	 Gvuveya6PtIicoPwzczZG1JL1K8rrkohE8JqTMD5pvoK3Wh4JxhTq9mTOIpVyacAk+FHX
+	 aUwuJ/Otrlfda6a5t6GMq2sjgw22xIalECEGCaSV/KnXfvJXNjYPhQVW5sSDmPmAsXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kPGoeI6Y;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yE1O5shx;
 	arc=none smtp.remote-ip=209.85.128.43
 Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C459606A325
-	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 19:50:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C459606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B49606A33A
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 19:50:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B49606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kPGoeI6Y
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so13673155e9.2
-        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 11:50:25 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yE1O5shx
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a210470b49so18341735e9.2
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 11:50:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793562624; x=1794167424; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793562614; x=1794167414; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2xnwoRJLMp2H6N6MYwL3CW90RaqThGjRhTOpE4wiGoM=;
-        b=kPGoeI6YQsQX7b1vqlJca29y9ZK6b8NJ6NvjrI5IJtlKDTLcp1rwgsDqeOoVI40TO2
-         frta/hjCDWXxyrnV9okm9aQVhROjcD3Eb6ZKnoOMSb/ZMju7xXgD+Sst6AVp3ITC7JY0
-         6ysLQH/UCJNApB/QFQaaKP5hspln8sgEVIvxizSZu+cD25xcmcW+TYGUnJBEbo+ocXCy
-         ilybA2Oo2tmUwjWMd5CDFNmmtZXFYBiEc5bgnKF1n/gTc7dhLKGI5kkUvzMozjWipblZ
-         UiGWjPT9m3lTOSWHSZFQ6lsiCmHl2I1C7yKVzbUmQ/Bb0vlRaKQRZ4y1bfA96eaueMCf
-         8CSw==
+        bh=CNhZAWFJxg03dxJBO1MbF9eR9aWYSPoEwZ+ATuYEVfI=;
+        b=yE1O5shx7Y/VVSTKvIdgClnWdBdbLObRZ5Z/pmxyDuboLVxK9pUHztxUvwUGRwHCGU
+         HZwb50k/0U67/F1ByyDfNGW4BxM1AUwH0jEGFHcViCJetjJLf7jz5Vx1+8NR8A+c5zZK
+         2xlqNKcmzLTRwwvmQb/L9aDIIbJaCw6A1ntDVpSX9Oolqb8V8ne+i0yJ06DoHPVkFUlt
+         c0E0u57HQ+EFHuf3EXpGax6Ahi5xdMYM15urZ9x5uK+wF5qI1Pif3Pa11v0ZuLH460kk
+         24nxyqjjyL+fkkjD+FsKZuweWxiUiA7ItzFgLSVWYzbKUHDTmXP+RodJtfvhRPHnJt/O
+         v/Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793562624; x=1794167424;
+        d=1e100.net; s=20260707; t=1793562614; x=1794167414;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2xnwoRJLMp2H6N6MYwL3CW90RaqThGjRhTOpE4wiGoM=;
-        b=MVzu/XwRnKhd6YUZsAlF9HJeDJ9Mast1MM63DlJGpPnGpW0laDh4tJBRAzvcSOaRGA
-         OxAnj0lxE5Jvm+JBMk79riIQjiraLuD94D3SPWN8NDLpvl3E5/wfWNGwj/ostp4T6wRp
-         tmrGBmZgZFKgcZ4F0e1WGUMDEYF0uv3OM45B9BXrBoWqRMTwtGgo68E24qee95Xc1+yL
-         +ee7v8xq49xiV6hAdz5APvY2RCIQkbCsu5+70q0LJ1n1FDK6qIn1/NKtWHD94lhEdpC8
-         0/42J5hDDWsp1jy7lJvUYwrwjtih8scJA7DfJ9+vcY0mVNJSEQcaNVye8iIRfxTXuYKO
-         7r1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz0DArU3FqgYge8jKIrYs1n6+Bd+6gGBJ26lIE4xRmGdzZysIkl/2REfX3qMYgr7TRhXBYe+jKUWbSWeQ==@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLz8vo5BglNx39n7FZeh8G8HZNE/f5iS9FIpAVguAr/kn0HO/Y
-	LBEtmfIJn9EoBl7pbEANXAz3jU+L5aIJrncyNmlYtRj9R85357j6noYM
-X-Gm-Gg: AYBFou0c3CZnoisV4an34CG7Gl9NMsYpS9u1xlHdudxxd3ocheLXCjeNgLmYFRYa+ey
-	VV5rWKLbpj7PeajOyaVnZ3ZVlk7d1X1WT8/Gb+Iyq0osI98d/AfdZ9QyyuRY/f42Qp88IjFi4g4
-	x2xyVa1rgtoJPZ6jXjtXE7NuTi1QmpPNwfg7y2dNUYanrfo+x+FPYz84y0FpsX2cThfY+rsmQf8
-	pBf6g/SkceKpaX0jnubxPmQNkulkIdxtQI5z4sbvtS23A5XXjJXKCWZ/DROBR38UhuCsilHRuf+
-	4zlebSx5+R+d0ngoI1eUoDwYA42gAuREOfiaKGY0KP91N6Ud1m/1+d1VY7Z4k6k9xmxNcx0oq+P
-	xQ30udErCAAEvQe0SsRVbEv4eNBfugTQske9mutji5MGWieZqnv8dq7HrOFA+f0eRMIRdrdZGdp
-	YIIhWw4QveQHL6I+lNpuX0CkHO3pQT51Mee2HkPxCebgxmZvfDbHbzPV24V2wQkuFgFSmzYcn/2
-	V7sSEglsUdXuRqX2ffBKdOTEkDP1csvX1ahczzxS/3mH/Bdcre0zfRkICJz8hPKWATYOe+LexdX
-	VD5ljU4hmdJYfGsH2FimAg94etyDMVN+qHnwHlDersTkmgOKLT7OOrDiv+/rMZI=
-X-Received: by 2002:a05:600c:314a:b0:4a2:fd2:985d with SMTP id 5b1f17b1804b1-4ac1775316amr183746735e9.12.1793562623673;
-        Sun, 01 Nov 2026 11:50:23 -0800 (PST)
+        bh=CNhZAWFJxg03dxJBO1MbF9eR9aWYSPoEwZ+ATuYEVfI=;
+        b=y1abrzldXaApJbL7GwW/WGhaIpsFj20+i3GH7wWTt0i/B0PqC6+F6KwA2dCvxIcW29
+         uepvj8aLPaW09x0Dw/+QabuO0XwjJoMas3VKEAMa21tr786OdanKLtSvzaOTL0WjY+48
+         T4UR8HKVcaWnfQc8WiUXwFRv0fFi0YIf9cCuEC0jp9nzqXxHKuyx570WuL9T817N/luM
+         7fcNlFA9oNs7sZIdcYSzav6g0fvJLnWdbqs228Ell9xubQXlrnM8iCTkCEMUJ3S7IdiM
+         cuEo0bdKCO0ToIAp0LjVA5dsI8Qx42BxKpV4UZGuJayT8AxarXUmxeemjhvpslcftHtm
+         NQEg==
+X-Forwarded-Encrypted: i=1; AKwUvByccOA5OXcQ395jBLqVLXCATlIru0oJBb4U3m0rvttko9z1nLOndcEu3GivHY910SPYDwh83OyqFO6U1w==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjWSTVeAoPS5aPY+ZU6PwkPrEMoLzvkHI9F/EIZqTNZCXPvdMn
+	Uzw5ruJvViEUqRX1QhIJp3yJ+2oGJtG+P/AcsBkHuqe+jFuaBRx6Cbmo
+X-Gm-Gg: AYBFou1sjVk7/p0ykElBsz8DxtJ4OJUkPbVOEgIcd7vzhCYgCxBRiou0BVNUw/4xIkx
+	M1xWncx2VaIIX0+9s/cJYfUgZijXtakegEf6DYPOEjPObdXpAgZWI2Qa2R++P7oap5TCbw6xWz9
+	nkMPugbb4lZlKd2jk/bCjXiimQGoP/nbffWO6lTdx22h/kZPv15IBrTfKL0UsPoOKAafulEjx3t
+	78NBtPgfGnrsZt1yFuMTTJf7NwjG/Ld/KE1Gjs5Igbu3TmZk1Hi+2+L2+uPcqhAzc4urc6T6Fg/
+	KZ7iqlRUQphWCLXx1YRUnZAeVkBpCyDC7eu8NaucxajF3n5G1/TeshB6hggKHJtlPC/kIjbLEMN
+	IZE7ac5+U+sc036yPNxBytpNEt0Zofk1B6Ipn3F3cNSiMZWB82YlJ+q+WrBT+QmEMH/s+6Bcdl6
+	lLmZSuGe6aVo92CK3rLl1n+1FVC3v9GPfxohJQQXtGOBvMvmLFF9H4u9BnNDFUCOlyUaaEDdOlh
+	kh7ankjHtji4QvQDQLeM9AEp/GCTmhyOkqKF7Hhm0EyH36o2pgc9N6pyC57CM/sWQrBbbZTy5JJ
+	vx9jiCFCr64SBtqhyn3oXgvOcgel6EEFypsfgy/xOzxGGMO2P7lTniVDNSL47Pw=
+X-Received: by 2002:a05:600c:3b1a:b0:4a7:9044:a87 with SMTP id 5b1f17b1804b1-4ac18c73df6mr187976345e9.27.1793562613875;
+        Sun, 01 Nov 2026 11:50:13 -0800 (PST)
 Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm17254258f8f.44.2026.11.01.11.50.21
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f322c46sm281548865e9.2.2026.11.01.11.50.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 11:50:23 -0800 (PST)
+        Sun, 01 Nov 2026 11:50:13 -0800 (PST)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Alain Cousinie <alain.cousinie@laposte.net>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>
 Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Milan Zamazal <mzamazal@redhat.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>,
-	libcamera-devel@lists.libcamera.org,
-	linux-media@vger.kernel.org
-Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors on Intel IPU6/IPU7
-Date: Sun,  1 Nov 2026 19:50:17 +0000
-Message-ID: <20261101195019.220940-1-fernandorimoli11@gmail.com>
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] media: i2c: vd55g1: Support control events
+Date: Sun,  1 Nov 2026 19:50:05 +0000
+Message-ID: <20261101195006.220657-3-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net>
-References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net> <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com> <20261101164311.GA3368923@killaraus.ideasonboard.com> <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net>
+In-Reply-To: <20261101195006.220657-1-fernandorimoli11@gmail.com>
+References: <20261101195006.220657-1-fernandorimoli11@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,24 +103,49 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Alain,
+The sensor subdev exposes controls but does not implement the control
+event operations, so VIDIOC_SUBSCRIBE_EVENT fails and v4l2-compliance
+reports:
 
-> Forcing packed monochrome (`CSI2P`) on VGA sensors (640x480)
-> triggers a systematic `stream stop time out` on Intel IPU6/IPU7.
+  fail: v4l2-test-controls.cpp(1108): subscribe event for control 'User Controls' failed
+  test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: FAIL
 
-Not on every IPU6. On a Surface Pro 9 (Alder Lake, IPU6 8086:465d, 6.19
-kernel) its VD55G0 infrared sensor streams 640x480 R10_CSI2P (800-byte
-lines, 832-byte stride) at full rate and stops cleanly: 120 of 120
-frames, then five start/stop cycles of 30, with nothing in the kernel
-log. R8 and R10 at 640x480 behave the same.
+Add the standard control event subdev operations and set
+V4L2_SUBDEV_FL_HAS_EVENTS.
 
-What does fail here is narrower lines. With Sergey Lebedev's vd55g0
-driver, which offers 320x240, R8 (320-byte lines) delivers about a third
-of the frames, while R10_CSI2P (400 bytes, 448-byte stride) and R10 run
-at full rate. So the limit depends on the platform and the line length,
-and a libcamera rule dropping packed formats at VGA on all IPU6 and IPU7
-would also remove ones that work.
+Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+---
+ drivers/media/i2c/vd55g1.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Which IPU (PCI id) and sensor does your Spectre have?
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index 69ffb3a..162c2d5 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -1447,7 +1447,13 @@ static const struct v4l2_subdev_video_ops vd55g1_video_ops = {
+ 	.s_stream = v4l2_subdev_s_stream_helper,
+ };
+ 
++static const struct v4l2_subdev_core_ops vd55g1_core_ops = {
++	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
++	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
++};
++
+ static const struct v4l2_subdev_ops vd55g1_subdev_ops = {
++	.core = &vd55g1_core_ops,
+ 	.video = &vd55g1_video_ops,
+ 	.pad = &vd55g1_pad_ops,
+ };
+@@ -1918,7 +1924,8 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
+ 	int ret;
+ 
+ 	/* Init sub device */
+-	sensor->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
++	sensor->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
++			    V4L2_SUBDEV_FL_HAS_EVENTS;
+ 	sensor->sd.internal_ops = &vd55g1_internal_ops;
+ 
+ 	/* Init source pad */
+-- 
+2.43.0
 
-Fernando
