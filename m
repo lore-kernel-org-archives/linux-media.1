@@ -1,61 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793519134;
-	b=1E+NOBAZ86EY+6B6Fa127VjBqbGEWkZu9YyhR6POaQc1vxL5TiOhD5eO0u9uMgJ1qVbZ
-	 90AKYm6kHksXxktvYAEcyHQlNEMVPp8hwSBBmvnuIJbbF8hlIVhGCRLWWD2ULQEP+Ia29
-	 O5fYgpDidfNfMC9qTbMnqg5DFwthkLi2Hs/g2QRzZ6g/+P5Q6C7G2jC4AY/PDjycQKXpD
-	 ZxzhDheb+kphpe3S4pGLg2Bm0PM9IEezhKx6G/CeRhiVrItA402e8h/Pl9ZsXK+iAKfp7
-	 2E3Gyd+MX0z91tM+Bdf1+nUk0adCsL+BwsNoq0nuIh+9aAzFePrXDEoghcD9/IHcbiw==
+	t=1793521846;
+	b=lrxiVfSc/GCYpe2yl/LkU0r8/w40B9vyQzWsPQUzY/KK3KptWhDaq4YwKL6US+qITSq6
+	 pybFtV+Ua5PUfnaw0Fj54v9qe/7fKpoNiSiPYjFDel/IdjwiT6xcV2xP1erbu//zeYYLL
+	 IxeeRSCVB+dB/apAZJDyP3y4cc9fVHuCj2LCmrviSykvEYKSJSFmyLgfXU/HH7xvfflHY
+	 MaH5H891fi4rdbjP+9NSrCwJbLcZkbeYsJtZQi6ZoNDfuLAHnhQC3oKN+fl17Hu38DHgM
+	 DIqLhn+sm2s8Fxue73+WpRqu9I5sFh4Duhr128ahqZmF/yVsLQpIlALbOZcqFoac+tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793519134;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=e4EP3Ad5hH7nvwH91+4TgVRsVIVbhxkn0SnVRiywnP0=;
-	b=kNpODCNd5qTafphkE+jLCK35Iv7uiTk/gO4GGqU3SM00IlIU8LyvvN2OFQ5pffGCB1vm
-	 DlK3Amk9kgxyPjZGr/A2mHOmxXHJ/RyKoCFbj/pJKbDPDerpXds8lnmWMx8vQF5nxqfko
-	 OWIq+35CzHw5Gu71w0VQtraHtms2NX0eH4r4sHyqzIqsWMliDiJ9KvnnDu4tQ+4PyfqqQ
-	 Tcd08VqZ9gGPmhbJ+uCbSUTwq/EKGD4zOgCSfD0XfjvOlwXlDnjIzPeF/gbj0XwqKJ4nK
-	 J5dhAMXNSNKX386Rm768ehqJdJV3+H0VKHftJPnu475wgZqGvQVfbq8yaDAftoAGfnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521846;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=F1c0HdyTRLsIzAFM0JN0P2R0UNqNGHuzxSki4WI7BSA=;
+	b=JZqtHLGRbKT4tIug7kkreF3/t49jJCTes/+PXapRHTwqrj1j0QL+Hk6aqThsx1JmZ6jV
+	 fWb41hi6Cy7nm9E8ywcjD8IpbWuV0aXIBsCmsHCDfZe7rwNDfFUAXqDD6Pqd6KPuCecPM
+	 P21bjar+vULyUji+hUmiosxo6GqqM+uT45+3+GSFYmIYVWWxDaGNXlfQNl9FdEDPvFCBA
+	 eRhK/ECTiwjzsaVul/bIfDbTFkqjSuJcdmIU+QKHloCSvSNmZuKoJS3g8Kko8or4XXeAq
+	 tXG1rE4zguzZCtGV4SeHOys6J/f2MPECQMI9mMGOKSvSFpW35TIL1V0RbLz7/qraY3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tafwcz4N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CEA606A329;
-	Sun,  1 Nov 2026 07:45:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tafwcz4N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF82C1F000C1;
-	Sun,  1 Nov 2026 07:45:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793519133;
-	bh=e4EP3Ad5hH7nvwH91+4TgVRsVIVbhxkn0SnVRiywnP0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tafwcz4Nm5xU9CsfeAB+gjvHKCA8kBV5O9Gjw3J3LVYEWJQrxk/3bR6DshKjYM/AA
-	 KZvnH3/1G6K7B776p2auRGeo3ALNX3MYn8JS9s+XiOQPBmMLZ8ZU67fQ1ebeMx6itg
-	 Yj7oqFwzK1IHy/5o75DuiqWkFu6GW9Gq/Ke/hVqpkXqLFGsj0jFDj/mnFxgm6r5EAD
-	 CJGgV6LBzsb+SLIQrPgbIeWjRxV6g4dSnjccB54Yc450kRI/erqZD/zHGbTjAW214o
-	 jODeYooJumvIJxAWvb8KCrB6zRt5p6Ax7CU4jC1+AZZcCu1+NpspFXVIYxTLGVbQRm
-	 8BHBubGuRIdwg==
-Date: Sun, 1 Nov 2026 08:45:28 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil
- <hverkuil+cisco@kernel.org>, Ricardo Ribalda <ribalda@google.com>
-Subject: Re: [GIT PULL for v7.4] media updates
-Message-ID: <20261101084528.53a1e83e@foz.lan>
-In-Reply-To: <CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
-References: <20261024185058.20410953@foz.lan>
-	<CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
-	<CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
-	<CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1ADA0606A324;
+	Sun,  1 Nov 2026 08:30:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ADA0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=F1c0HdyTRL
+	sIzAFM0JN0P2R0UNqNGHuzxSki4WI7BSA=; b=UX662lZ+7MwRvSaGww0JuA9nJB
+	FIdNOBqggcOjuaXQ1cussJg78SsSj1mzh+W1/KA44SIL0s23hAKo8VKi6eNL8sMZ
+	9UNQLPkqg2xBS2PSS0VTez9aKVTzUPVHO2nhChrcawXLE4bZ1+CGtUMZuUNQo3iC
+	OrLNsnK808bi117aQ=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.23])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkAWWwCp+OZq3eMUAQ--.23366S2;
+	Sun, 01 Nov 2026 16:30:34 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: usbtv: fix use-after-free on device disconnect
+Date: Sun,  1 Nov 2026 16:30:32 +0800
+Message-Id: <20261101083032.14459-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,160 +58,101 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkAWWwCp+OZq3eMUAQ--.23366S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF1fAF18CFyUtry3CrWkCrg_yoW5AFW8pa
+	yrGFWj9a4DGw4DKa1DZw48WrWfCws2yFy5CrW5Za4DCws3AayfAry0yFyDurnYka4rAa4U
+	ZFyjgw12qayYgFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8E4EtUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2rmBFRXBAABsB
 
-Hi Linus,
+usbtv_audio_init() passes the USB interface as the owning device of the
+ALSA card with snd_card_set_dev():
 
-On Sat, 31 Oct 2026 14:14:37 -0700
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+	rv = snd_card_new(&usbtv->udev->dev, ...);
+	...
+	snd_card_set_dev(card, usbtv->dev);
 
-> On Sat, 31 Oct 2026 at 00:47, Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
-> >
-> > And if people are playing games with commit dates, they need to stop
-> > doing that. NOW. Because I'm not pulling the media tree until this is
-> > dealt with. =20
->=20
-> Note that this is more than "don't lie" (although that's the biggest
-> issue to me personally - I don't want to see people lying about what
-> is going on).
->=20
-> It actually broke git this merge window. See
->=20
->    https://lore.kernel.org/all/20261031065525.19883-2-torvalds@kernel.org/
->=20
-> for a patch I sent to the git mailing list to make git-describe show
-> the right commit counts.
->=20
-> Git doesn't depend on commit dates for _correctness_, but they are
-> used for a few heuristics for quick history traversal.
->=20
-> So if you lie about commit times, or are committing on a broken
-> machine with dates completely off, the resulting repository data is
-> actively worse.
+snd_card_set_dev() is a plain pointer assignment. It replaces the device
+that snd_card_new() took a reference on, the USB device, with the
+interface device, without taking a reference on the latter, and the
+reference on the USB device is leaked. snd_card_do_free() still puts
+card->dev at the end, so the card drops a reference it never owned.
 
-As Sasha mentioned:
+usbtv_audio_free() releases the card with snd_card_free_when_closed(), so
+the card outlives the disconnect as long as user space keeps a sound
+device open. On the USB side, usb_disable_device() drops the last
+reference to the interface right after the driver has been unbound.
+Closing the last sound file descriptor then runs release_card_device()
+and snd_card_do_free(), and put_device(card->dev) is called on the
+already freed struct usb_interface:
 
-On Sat, 31 Oct 2026 22:25:23 -0400
-Sasha Levin <sashal@kernel.org> wrote:
+	Read of size 1 at addr ffff8881024a008c
+	...
+	kobject_put
+	put_device
+	snd_card_do_free
+	release_card_device
+	device_release
+	kobject_cleanup
+	kobject_release
+	kobject_put
+	snd_card_file_remove
+	snd_ctl_release
+	__fput
 
-> GitLab shows the same pattern for all the commits you found: the copy each
-> committer pushed sits on an older parent with the same committer date, an=
-d the
-> rebased branch that landed was pushed by marge-bot. For your example, Sak=
-ari
-> pushed the alvium fix on top of
->=20
->   b38d06ad1e13 ("media: ipu6: Fix up missing IWYU issue")
->=20
-> His MR with
->=20
->   63c578491cb4 ("media: sun6i-csi: bridge: Use V4L2 subdev active state")
->=20
-> merged at 22:10 UTC on Sep 16, and at 22:11 marge-bot pushed the alvium
-> MR rebased on top of it, still dated Sep 15.
->=20
-> So in both cases it's the tooling being funny.
+Pass the interface device as the parent to snd_card_new() instead. The
+reference taken by snd_card_init() and the one dropped by
+snd_card_do_free() are then balanced, and the card keeps the interface
+alive until the card itself is released. This also fixes the leaked
+reference on the USB device. The sysfs location of the card and the
+device name used in messages stay the same.
 
-Those are caused by the way we merge patches from different sources.
-Currently, we use gitlab mainly because we want its actions to run
-media CI.
+Fixes: 63ddf68de52e ("[media] usbtv: add audio support")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/media/usb/usbtv/usbtv-audio.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-The way it works is that multiple committers can send merge requests
-to it, each starting CI pipelines to do several checks, including
-compilation with different configs, checkpatch, sparse, smatch
-(there is ~10 checks it runs).
+diff --git a/drivers/media/usb/usbtv/usbtv-audio.c b/drivers/media/usb/usbtv/usbtv-audio.c
+index ae0a14e5ed2a..6bdb64051cf2 100644
+--- a/drivers/media/usb/usbtv/usbtv-audio.c
++++ b/drivers/media/usb/usbtv/usbtv-audio.c
+@@ -333,7 +333,7 @@ int usbtv_audio_init(struct usbtv *usbtv)
+ 	INIT_WORK(&usbtv->snd_trigger, snd_usbtv_trigger);
+ 	atomic_set(&usbtv->snd_stream, 0);
+ 
+-	rv = snd_card_new(&usbtv->udev->dev, SNDRV_DEFAULT_IDX1, "usbtv",
++	rv = snd_card_new(usbtv->dev, SNDRV_DEFAULT_IDX1, "usbtv",
+ 		THIS_MODULE, 0, &card);
+ 	if (rv < 0)
+ 		return rv;
+@@ -348,8 +348,6 @@ int usbtv_audio_init(struct usbtv *usbtv)
+ 		"USBTV Audio at bus %d device %d", usbtv->udev->bus->busnum,
+ 		usbtv->udev->devnum);
+ 
+-	snd_card_set_dev(card, usbtv->dev);
+-
+ 	usbtv->snd = card;
+ 
+ 	rv = snd_pcm_new(card, "USBTV Audio", 0, 0, 1, &pcm);
+-- 
+2.34.1
 
-Then, either Hans or myself merge the pull request, preserving the
-original committer and timestamp. The goal of preserving it is to
-preserve who generated the merge request. This is done using a
-tool calling margebot.
-
-We opted to do that instead of using merges, as sometimes we're
-picking very small merge requests with just one patch or two.
-So, if we don't do that:
-
-- a media pull request during the merge window will end with
-  dozens of merge requests on it;
-- a media fixes PR will have several merge requests
-  as each fix will have its own PR.
-
-So, this is due to our attempt to not pollute upstream with
-those internal pull requests.
-
-Now, there two ways to avoid that:
-
-1. a one-line change at marge-bot, applying a patch that Ricardo=20
-   prepared yesterday:
-
-	https://gitlab.com/marge-org/marge-bot/-/merge_requests/676
-
-   This will keep preserving the committer, but will change the timestamp
-   for it to be monotonically increased, losing the original timestamp
-   representing when the committer merged the patch.
-
-   We use this procedure to allow us to have multiple merge requests
-   to run at CI at the same time, as CI usually takes 30m to 1h per
-   merge request. By using this procedure, maintainers can apply
-   multiple merge requests at the same time, letting CI to
-   automatically test each of them, only actually completing the
-   merge after it completes successfully without any errors or
-   warnings.=20
-
-   As test time varis from series to series, it means that merges
-   will be done asynchronously, not preserving the MR order.
-
-2. switch to one merge per each committer merge.
-
-   With that, every media merge request will have its own merge at the
-   media history, which would reflect on upstream merges.
-
-   So, for instance, merges during release candidates will have those merge=
-s=20
-   inside it:
-
-	https://gitlab.freedesktop.org/linux-media/media-committers/-/merge_reques=
-ts/?sort=3Dcreated_date&state=3Dmerged&target_branches%5B%5D=3Dfixes&first_=
-page_size=3D20
-
-   So, for instance this PR:
-	https://lore.kernel.org/linux-media/20261028014050.3614d83a@foz.lan/
-
-   with a single fix would have instead two patches(*):
-
-	Sakari Ailus (1):
-	      Revert "media: Don't hide I=C2=B2C or SPI drivers by default"
-	Mauro Carvalho Chehab (1):
-	      Merge tag 'mr-426' of https://gitlab.freedesktop.org/linux-media/med=
-ia-committers into next
-
-   which is probably not what you want.
-
-   Also, we would need to ensure at gitlab that each merge will=20
-   generate its own tag.
-
-   (*) we could minimize it to only do a merge if the parent is
-       different, but still when we have more than one media fix PR,
-       we'll end with media internal merge requests at the history.
-
-   The ones inside the merge window will also reflect the media
-   merge requests:
-	https://gitlab.freedesktop.org/linux-media/media-committers/-/merge_reques=
-ts/?sort=3Dcreated_date&state=3Dmerged&target_branches%5B%5D=3Dnext&first_p=
-age_size%3D20
-
-   So, you would see dozens of merges on media PRs during the merge
-   window.
-
-   the advantage of this approach would be to keep preserving the=20
-   exact timestamps from the committer.
-
-Based on past discussions with regards to avoiding to send internal
-merges to the upstream tree, I think (1) fits better.
-
-Either way, either (1) or (2) should probably avoid the issues you
-mentioned with git describe.
-
-Thanks,
-Mauro
