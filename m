@@ -1,47 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793574084;
-	b=z0pd565ZtXHppU838/AgYM4yPOda51ZAI7w6+VUXoyXTivHqfq89QtCjI4m6Vh4xIHpY
-	 jp3gzqVuqLBg7w3xRidBJsDt429oGXRoVgULeUQN0l41AMc6Wrq1yDzpjnbQEzgpbm5ce
-	 1PRQt9nBU9SDb7gLTrHK4yT8enaOfqWtW8nCtzTXTlY628oHPY29YZZI2R0cMlFGwfqMh
-	 1UQsuXYUSpJHIo2MDvMiykYsGgbXnXiJJqmQ2TIWtdehwTc5a73KryE6wdAT08UJoinLQ
-	 NijCBkH1HFK/2d71MrqVWVemx/UiBGJu+J9xTGVAiILnefHZGAWHBqRI4ttKv0mdmsA==
+	t=1793574088;
+	b=AtcKz9Nw/nWmMtB4U9ETzOkVqxCMpjDyxSFv7a1Q2H80/E+AsiTuLGbxMwBrk/RCcA+1
+	 dx95Bv2zoZLTRO9JvdxtB/ublKm0k25NDK3TMI+80W68wDY6GaFePG7wVgzJ3WNL5eXpl
+	 Mx2d8KRkmrMz612+4lgJ4oKcJXUmzH7FM9OO2AlqyVLO34vGu+IdM22WtLmOVH0tM/eu8
+	 tiYLyP6UvVRxVbtRCDAQYkng4bZt6LhQ6qm97zkCzfIsWNnMdpjIiKNW9YQ1yfiJIzBbA
+	 29pWwNRxXZe9453tBPcKtiBhxIHjJdu4wEmnF4R8yxlHxxmmGCGQz7QTenb8PQdW5DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793574084;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793574088;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=BPSVnso4oEFqCvt1xPqxZev+hvDlmid64+VAE04eWZU=;
-	b=Rh6zaeV0QachzeQH7WrPmsw3pphz65cUsOUBM9KABzVnqIgj0mE9vqQasM81niHOwRmm
-	 sbwLNQzoY7cTLbOygKECZNr1iFZ2bRqrs42o81lu5RWNiw9oGkb2cY7hL56aXDLOcCVsM
-	 9Z/rU6ZMQ1Z9BIDlDwbU3tMpBQqnoxztFAYrN7k3oktzDSk/CmNEieKO+WIhLM8MS3Cj5
-	 7RxgPBZPkcdsOsqpT5ovw1mALwSTTmRjGkaHkHTRkrpHDRtkkcXokE0GdD1k13FerYNQD
-	 ZdOOzbDofr5BBoUh9U+u+BISuK8VJ+8b4psE+SKAsrwEe8JV8zil7fmdFCsWOSJCkcA==
+	bh=t2MxZtB2T9Bz2tg5DIt4j1dXYuKYbfcmPZ03Fr/VSko=;
+	b=y74rHxLKMNJ0vpsWxNuLB0xAzi1oYxBdipekDFTqUtSfZ9hHguexhXziQKjlVYVzGoyf
+	 Qkesbs6GpPQzpRyqQWZvbFgaLacuyH5zqH0f4MswlAL/7SatHYSS4LqKcKXPjBWCN58Au
+	 /C5wyyyyV2cuhZi0MHXBzPJr5MYuD5XxbY4u1prnkfsqIldDeR6PUiwC9hdcsW2467Wsj
+	 1kr+96PvhCELjR8llq+D2mz+Q90E8j/98zCTfcuc2X7IF/Fu6Sk/GfFFIB2b4301vjCQj
+	 UzCZiUprOLv/5MEujEFygk/AOMziZ2mwolem2eDmXE/sTlvaWEQxSCTBkXBkwlbGEFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXWTxYAc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=avxvdOrw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D220D606A324;
-	Sun,  1 Nov 2026 23:01:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE2A606A329;
+	Sun,  1 Nov 2026 23:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cXWTxYAc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E825E1F000C1;
-	Sun,  1 Nov 2026 23:01:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=avxvdOrw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3071F000C1;
+	Sun,  1 Nov 2026 23:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793574083;
-	bh=BPSVnso4oEFqCvt1xPqxZev+hvDlmid64+VAE04eWZU=;
+	s=k20260515; t=1793574087;
+	bh=t2MxZtB2T9Bz2tg5DIt4j1dXYuKYbfcmPZ03Fr/VSko=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cXWTxYAc09HjtO/v2x8wJl1A3vpPnQu4XURrpMEGf25Ho9paKJlJ/sV+LjPRA6XWv
-	 NFIvBouVCFEusyVeqMvDhIJK8tcSAFbR9fLZycsiy4yB4NEn8x19YP7H8+rSOumaPX
-	 jd1tGm+0sRa4dxl8fbo4I3cDBO3/h96x+1dGsIB0B+bWA0+xFmslqeveOlQS7jTelt
-	 1L6po2NUqwOgtQ9BX0ys7Bwgxu9v/9XLzXrFKO1LWFXw5XUCekx3Y0ZYjL5RaiLD3S
-	 0CODRHJQuVurRVyY4zUVAdf9ZLI/efrl+f0jqqMiNmOSz4B+IrGFpWsHP6CfQj2A3G
-	 1RSbalBd8E1zA==
-Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
+	b=avxvdOrwTRHGrZq0iN80QYgJ56/4BguQdjjbV8AQlXIj9kslbw7j1K/EgI2SnSy1Z
+	 OrLwaVBYKoOBqB6oYBUuiNTW1ysAC2jWgZVIteuXetmmSGnp+DwaN4zOYE4CwhcMSn
+	 Ipu9cicjz3lSLSmITRtZ1ojXclq2ZEI3gyrGbc26x8yBkjQqz370PStx0m2Ys1Gf+F
+	 Nw/MrUWeasTOBcDeQFr0dXUqOLiaXicOSR6LF475ZOy395qWm2wtP6FvRj/qXbz7iR
+	 RaT9FHpjc8bVHIvt2oP3XnoLozkgZOL2f5DWUv3vPlihT1ackXnhwXsVP2pe6JmxJf
+	 /46WCm8kf8HPg==
+Subject: Re: [PATCH net v5 3/4] netdevsim: support devmem RX and TX bindings
 From: netdev-bot+sashiko@kernel.org
 To: almasrymina@google.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -54,11 +53,11 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
  ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
  tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
-Date: Sun, 01 Nov 2026 23:01:21 +0000
-Message-ID: <179357408146.3131.2882435952119280563@kernel.org>
-In-Reply-To: <20261030083539.777877-2-almasrymina@google.com>
-References: <20261030083539.777877-2-almasrymina@google.com>
-X-sashiko-severity: High
+Date: Sun, 01 Nov 2026 23:01:25 +0000
+Message-ID: <179357408589.3131.13149073708335764140@kernel.org>
+In-Reply-To: <20261030083539.777877-4-almasrymina@google.com>
+References: <20261030083539.777877-4-almasrymina@google.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-media@vger.kernel.org
@@ -71,213 +70,84 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The dma_dev use-after-free this patch says it fixes can still
-  happen for RX bindings made on a virtual device that leases queues,…
-
-Pre-existing issues:
-- [Medium] At this commit, net_devmem_dev_unregister() skips TX
-  (DMA_TO_DEVICE) bindings.
+- [Low] Not a bug (baseline: false positive).
 
 --
 
-net: devmem: unmap dma_buf synchronously on queue uninstall
+netdevsim: support devmem RX and TX bindings
 
-This commit unmaps RX devmem dma_buf bindings earlier: when the last
-bound RX queue is uninstalled, when the binding is unbound, or on
-NETDEV_UNREGISTER. Previously the unmap waited until the final binding
-free. Bindings now stay in the global xarray until they are freed, with
-an xarray mark hiding unbound ones from TX lookups, and
-netif_mp_close_rxq() now reports queue restart failures. The aim is to
-avoid a use-after-free of dma_dev in dma_unmap_sg_attrs() after the
-device is removed.
+This patch sets a 64-bit DMA mask on the netdevsim bus device and turns on
+NETMEM_TX_DMA on the netdevsim net_device. It also sets up the page pools
+so they can be backed by unreadable netmem, which lets the devmem bind-rx
+and bind-tx netlink operations be tested against netdevsim. pp_hold is
+refused on memory-provider backed pools, and unreadable or net_iov skbs
+are dropped in nsim_start_xmit().
 
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 32fafbfa1359e..4610de805ef08 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
+> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
+> index eebc02ccc4a92..0372a9bd63bbb 100644
+> --- a/drivers/net/netdevsim/netdev.c
+> +++ b/drivers/net/netdevsim/netdev.c
+> @@ -133,6 +133,10 @@ static netdev_tx_t nsim_start_xmit(struct sk_buff *skb, struct net_device *dev)
+>  	int dr;
+>  
+>  	rcu_read_lock();
+> +	if (!skb_frags_readable(skb) ||
+> +	    (skb_shinfo(skb)->nr_frags &&
+> +	     skb_frag_is_net_iov(&skb_shinfo(skb)->frags[0])))
+> +		goto out_drop_any;
+>  	if (!nsim_ipsec_tx(ns, skb))
+>  		goto out_drop_any;
+>  
 
 [ ... ]
 
-> @@ -143,12 +228,45 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *binding)
->  
->  		rxq_idx = get_netdev_rx_queue_index(rxq);
->  
-> -		netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params);
-> +		if (netif_mp_close_rxq(binding->dev, rxq_idx, &mp_params))
-> +			busy = true;
-> +	}
-> +
-> +	if (binding->direction == DMA_FROM_DEVICE && binding->dev && !busy) {
-> +		net_devmem_dmabuf_binding_unmap(binding);
-> +		WRITE_ONCE(binding->dev, NULL);
->  	}
->  
->  	percpu_ref_kill(&binding->ref);
->  }
->  
-> +void net_devmem_dev_unregister(struct net_device *dev)
-> +{
-> +	struct net_devmem_dmabuf_binding *binding;
-> +	unsigned long xa_idx;
-> +
-> +	netdev_assert_locked(dev);
-> +
-> +	if (dev->reg_state != NETREG_UNREGISTERING)
-> +		return;
-> +
-> +	xa_lock(&net_devmem_dmabuf_bindings);
-> +	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
-> +		if (binding->direction != DMA_FROM_DEVICE ||
-> +		    READ_ONCE(binding->dev) != dev ||
-> +		    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> +				NET_DEVMEM_BINDING_LIVE))
-> +			continue;
+> @@ -1059,6 +1078,8 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
+>  	ns->netdev->netdev_ops = &nsim_netdev_ops;
+>  	ns->netdev->stat_ops = &nsim_stat_ops;
+>  	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
+> +	if (ns->nsim_bus_dev->dev.dma_mask)
+> +		ns->netdev->netmem_tx = NETMEM_TX_DMA;
 
-[Severity: Medium]
-This issue was not introduced by this patch, but at this commit TX
-(DMA_TO_DEVICE) bindings are skipped here. Their binding->dev is never
-cleared, and they stay mapped until __net_devmem_dmabuf_binding_free().
+[Severity: Low]
+This isn't a bug, but the docs and the driver don't quite match here.
+Documentation/networking/netmem.rst describes the mode as:
 
-That has three consequences. The deferred dma_unmap_sg_attrs() can run
-on a freed dma_dev. netdev_nl_sock_priv_destroy()->net_devmem_lock_dev()
-can call netdev_hold() and netdev_lock() on a freed net_device. And the
-invariant in the new net_devmem_lock_dev() kernel-doc does not hold for
-TX bindings.
+    NETMEM_TX_DMA: for physical devices that perform DMA.
 
-The old netdev_nl_sock_priv_destroy() already called netdev_hold() on a
-stale TX binding->dev, so this predates the patch. The next patch in the
-series, "net: devmem: detach TX bindings on NETDEV_UNREGISTER", appears
-to fix it. That patch clears the LIVE mark, unmaps the binding and
-clears dev and vdev for TX bindings with binding->dev == dev. It also
-calls net_devmem_lock_dev() in __net_devmem_dmabuf_binding_free() for
-both directions.
+nsim_init_netdevsim() sets NETMEM_TX_DMA, but nsim_start_xmit() above
+drops every unreadable or net_iov skb.
 
-> +
-> +		xa_unlock(&net_devmem_dmabuf_bindings);
-> +		if (!netif_is_queue_leasee(dev))
-> +			net_devmem_dmabuf_binding_unmap(binding);
-> +		xa_lock(&net_devmem_dmabuf_bindings);
-> +		WRITE_ONCE(binding->dev, NULL);
-> +	}
-> +	xa_unlock(&net_devmem_dmabuf_bindings);
-> +}
+As I understand it, NETMEM_TX_NO_DMA would not work for this test. That
+is because netdev_find_netmem_tx_dev() only resolves a NO_DMA device by
+following leased RX queues to a physical NETMEM_TX_DMA device:
 
-[ ... ]
-
-> @@ -551,16 +669,17 @@ static void mp_dmabuf_devmem_uninstall(void *mp_priv,
->  	unsigned long xa_idx;
->  
->  	xa_for_each(&binding->bound_rxqs, xa_idx, bound_rxq) {
-> -		if (bound_rxq == rxq) {
-> -			xa_erase(&binding->bound_rxqs, xa_idx);
-> -			if (xa_empty(&binding->bound_rxqs)) {
-> -				mutex_lock(&binding->lock);
-> -				ASSERT_EXCLUSIVE_WRITER(binding->dev);
-> -				WRITE_ONCE(binding->dev, NULL);
-> -				mutex_unlock(&binding->lock);
-> -			}
-> -			break;
-> +		if (bound_rxq != rxq)
-> +			continue;
-> +
-> +		xa_erase(&binding->bound_rxqs, xa_idx);
-> +		if (xa_empty(&binding->bound_rxqs)) {
-> +			if (!rxq->lease)
-> +				net_devmem_dmabuf_binding_unmap(binding);
-> +			ASSERT_EXCLUSIVE_WRITER(binding->dev);
-> +			WRITE_ONCE(binding->dev, NULL);
->  		}
-> +		break;
->  	}
->  }
-
-[Severity: High]
-Can the dma_dev use-after-free still happen for an RX binding made on a
-virtual device that leases queues, such as netkit leasing from a
-physical NIC?
-
-In that case binding->dev is the netkit device and bound_rxqs holds the
-netkit rxq. dma_dev is the physical NIC's DMA device, which
-netdev_queue_get_dma_dev() finds by following the lease.
-
-On unlease, the call chain is:
-
-netkit_uninit()
-  netkit_queue_unlease()
-    netdev_rx_queue_unlease()
-      netif_rxq_cleanup_unlease()
-        __netif_mp_close_rxq(phys_rxq->dev, rxq_idx, &p);
-        __netif_mp_uninstall_rxq(virt_rxq, &p);
-          mp_dmabuf_devmem_uninstall()
-
-The lease pointers are cleared only after the cleanup returns:
-
-net/core/netdev_rx_queue.c:netdev_rx_queue_unlease() {
+net/core/netdev-genl.c:netdev_find_netmem_tx_dev() {
     ...
-	netif_rxq_cleanup_unlease(rxq_src, rxq_dst);
+	if (dev->netmem_tx == NETMEM_TX_DMA)
+		return dev;
 
-	WRITE_ONCE(rxq_src->lease, NULL);
-	WRITE_ONCE(rxq_dst->lease, NULL);
+	if (dev->netmem_tx != NETMEM_TX_NO_DMA)
+		return NULL;
     ...
 }
 
-So rxq->lease is always non-NULL here. The unmap is skipped, but
-binding->dev is still set to NULL. netif_rxq_cleanup_unlease() also
-ignores the new return value of __netif_mp_close_rxq(), so even a
-successful close of the physical queue leaves the mapping in place.
+Traffic also behaves the same as before. Under NETMEM_TX_NONE,
+validate_xmit_unreadable_skb() already freed these skbs. Now the driver
+drops them and counts them through dev_dstats_tx_dropped().
 
-After this, which path unmaps the binding?
+Would it help to add a short comment next to this assignment? It could
+say that netdevsim advertises NETMEM_TX_DMA only so the bind-tx control
+path works, and that devmem TX data is dropped in nsim_start_xmit().
 
-net_devmem_unbind_dmabuf() unmaps only when binding->dev is non-NULL.
-
-net_devmem_dev_unregister() on the physical device matches only
-binding->dev == dev, so it never finds this binding.
-
-dev_memory_provider_uninstall() on the physical device calls uninstall
-with the physical rxq. That never matches the netkit rxq stored in
-bound_rxqs.
-
-The binding then stays mapped until __net_devmem_dmabuf_binding_free().
-If the NIC was removed before that, the call to
-dma_buf_unmap_attachment()->dma_unmap_sg_attrs() uses the freed physical
-dma_dev. This is the same KASAN trace quoted in the commit message.
-
-There are two ways to reach this:
-
-Remove the physical NIC while the netlink socket is still open.
-netkit_check_lease_unregister() runs from the physical device's
-NETDEV_UNREGISTER and unregisters netkit. The unlease therefore runs
-while the physical device is NETREG_UNREGISTERING, which seems to
-contradict this part of the commit message:
-
-  "except when a leased queue is unleased: the physical device is
-  still registered and, if restarting its queue failed, may still be
-  using the binding."
-
-Delete netkit first. The physical queue close succeeds, but the unmap
-is skipped anyway. If the physical NIC is removed later, while the
-socket or RX tokens still hold the binding, the deferred unmap runs on
-the freed device.
-
-The leasee branch in net_devmem_dev_unregister() has the same problem.
-It skips the unmap when netif_is_queue_leasee(dev) is true but still
-clears binding->dev, so nothing can unmap the binding before the
-physical device goes away.
-
-Could the lease case decide whether to unmap based on whether the
-physical queue close succeeded, instead of skipping the unmap whenever
-rxq->lease is set?
+>  	netdev_lockdep_set_classes(ns->netdev);
+>  
+>  	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030083539.777877-1-almasrymina%40google.com
