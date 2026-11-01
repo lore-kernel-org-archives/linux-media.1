@@ -1,66 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793574086;
-	b=mskh+Th8gFzaJlmlSws2D3yedWJjs64T5PM1c6ip+N9QOsgNMX1eJD6+wQM8JQR7dCp4
-	 8lNQoAPk1sbvLpa6R9hmOSaAVr5yZK0kidlBGyPoI9KU6R5BQwYN/VYEgagW4Zbc1GPra
-	 OlxaFLl98htRlotR6sTdhCKboxZ9KT8yrlX4ipf0IjGEReUbUEAIqN+/Tx6TFOSm/t3hp
-	 Z1PV3KnbrrOqe2H2VMX4Gcp3wN5Zay3pdO7JQFZy8x0uaYBytnHAF/rz8YCeEpopdgd4L
-	 0P8Z2ade8UWA8BqfwPwcA5auEtgX8n3N0VKcbSm7LCd12AMtMfbBVANXU4iBMJyzc6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793574086;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=y4OUhnmCvJLQBXMOrS9kGGB0AvSLbU3rE7gGaZ0KZtU=;
-	b=3mSPcQoQjmwvE8K7wqNzKFMrv1HHHlGGQcFESwJLHqFZEA+b3+afnrFQrEneDG+dMROk
-	 R4XR/GxPtNxVa21QJPK5fnliv4vJNYxrEfwqIWcW7rD26IJJ4Saxzg6Wy6eOyuZW+42cX
-	 in1Ilmibu/Dj+d9T6l0sSnqWYBMC9UBLOSDA9SxJusbW0irOIpOrxWlu1NTHtIr4wBtO5
-	 LqzEijM+WBvYLlaEakRpgx/5iOwbz1BOFL6AUeGm/QOpvYLvSxAfzDXy2IpSaIQhAXsHu
-	 NlUGS1NAGPGzvUAawQxUTIulBzdNTOAa4qkQ0l3G/GUc22GjhuictPzqh3A6gaxYfVw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPB3zY9S;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1793574118;
+	b=feRkiFkYfmZy+yfBGkzN6PBFnph9+4j+NCITMXwYGpZljTur6gGQgLh1TMb0Bb6xvixH
+	 B+zVA5X1nujPE+VOCWDw9ljA8rznIsHZPhDffL28D03gncASjvj4+S4ksZFnnurffHxpR
+	 lCv3goqR51WlIaOYGt1ke2L4v10gWFxxk2jv50eYpB4MEdH+WRbMOkXp4IFcLBrpKMuwl
+	 K5D2JBCUzmQer3XSs302ZVJxGqN02otEDhuXqbOmjFBecJyd8Zq/e3JAVUnV0X3XoFT+5
+	 wNRqA+dHvvcXp778PHNoSzsNMjBszY5Eavw5WlKVKpvZISkBUrrnFaC1FW9Cx+yYqrQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793574118;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
+	b=EHSrTBoaMqZw7OKkCMu/bzRu0GWnCgMCaHMEDLpJkwYRHLlof5fApoE+DniBoidh+4c1
+	 1DIILVj1SQI+isDuXj5siVx+SaNNCsxQ17xZ8kEW2oOL1cAUxkIUGqMlInwu2tzFci/+1
+	 IOYBoerypn2U1baWREm/xpoYAvLOZafOXJSHEsyHNXR9Nb+oh2xMr8OSTiBMVZEJpTwfI
+	 yP8gTg43alyXU66yBzOUB3+vgTBcloW8WS7XycBxW7H2GDXa7u4k57LEStD3mEN51DAZL
+	 QmTAYoGptOv2Xg16F3H295pEvZl+2BhR5XQDDOD/hIp9I9YfxLF5pd0OQ8lYCm1fVqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nVzGWl6I;
+	arc=fail smtp.remote-ip=74.125.224.44
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8877606A32D;
-	Sun,  1 Nov 2026 23:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBF4606A329
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 23:01:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CBF4606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EPB3zY9S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 107B71F00919;
-	Sun,  1 Nov 2026 23:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793574085;
-	bh=y4OUhnmCvJLQBXMOrS9kGGB0AvSLbU3rE7gGaZ0KZtU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EPB3zY9SusvU7/YIyulwoLXPLZxbJe7asyWwek6N6h+36zLzGFITGSYflezxOsIJK
-	 V+77hZpAYWtC1j7f9lvP4MX9OmTm/YH2IRtAGk45yIwaliqfkbh9Iqg7NGcndk2Yo3
-	 KpGhXqM0idVtX7jQDRlh722CnMHjUVm9VcVqsZ6Zj0K0+Z9mT3/ogGFIF/Hb078xjE
-	 esqVYwwE/BXJLt/AWXBXhwK0eI26h2hVaUiX8SorxcmDZzAqI/t08ifWbXy7pG4765
-	 Hl9goNdd8ZSOsj7j2PijvvLwBB2YiwUE10lDBNkYIVoe/nSvQPj5XK5lG10RxTDEtE
-	 CwGixdaXVTMfQ==
-Subject:
- Re: [PATCH net v5 2/4] net: devmem: detach TX bindings on NETDEV_UNREGISTER
-From: netdev-bot+sashiko@kernel.org
-To: almasrymina@google.com
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me,
- kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com,
- asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com,
- davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
- andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
- ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
- tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
-Date: Sun, 01 Nov 2026 23:01:23 +0000
-Message-ID: <179357408360.3131.16098294926514442303@kernel.org>
-In-Reply-To: <20261030083539.777877-3-almasrymina@google.com>
-References: <20261030083539.777877-3-almasrymina@google.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nVzGWl6I
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67583c777abso2530502d50.1
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 15:01:57 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793574117; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oEMJhQ9/ahp0I7CW+VkT3p+tyhCjHGCeGFl65k484RSRTfsUtxaeQ26KN/KTtCw7Ka
+         oZSRSXhSRUXhUcZhaxqEYJYAtbN9Joqrh4gnjON+JLy3l1iH5c2r9jQXZYYXwtBDJ30k
+         StwvuCTO+35Ooa+pwzCM/7/893XVlLqdmWfSiv3xTe0d/yyWKO0AZ1GRKoQq5meyDuM7
+         nPdYe0N13SNbC73nPETiqFd3JhXsFJVNOTbSITHyUOzgAezK3Xr9Sx7Xqn4OH9Y4Md0O
+         5rCQEF1ndNNX9ymtfvGc66r0G1vmV+1q1XXwvlAFik3VgGErQbvYFgBT0zdAZii6j55g
+         7k5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
+        fh=+Rhn5u3Zt9TKqWlRWf5wzJzygmGjZrWegC7BFN28k5Q=;
+        b=XI5FFowvCEUjxsKFQjnCg91YwZHLTQcNLUEs+OxpyUZSxJSB9DjpieUFbeytbsEmCw
+         6lOOY9fA/hjEO/GsvQ2zUYlR2RUEf9eoH/OgZzb9IsqJz1UfP2CauDXc650hfmH+kDaY
+         SL/RInhP8h4er8r+B0pIyCATV4XFPb4nctyXSI5qZa1ENo3OIC7MnklfDS6XnNPnClsb
+         6mJNDaRU27/k5uhLV0OsbJwdbxk/gkmtCNGBA24cEKqYo5Gg0bT/jR69AenTF/TGKtng
+         kXhvLP16WXSgKlg5+qubZHw2lSoDAqOb7wTd3+Mn9wVbb/YwzWT9eek23lVbL2P8wkW6
+         rDUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1793574117; x=1794178917; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
+        b=nVzGWl6Ix/T3fqktC29agdSx+nhw9+1KkCo2E+r3nGEnlkYi0YDWQWcZKbN8IJSDu4
+         MBaydsTTNFoMQdoqPXGsz5UQ2Wfw9GF21QdGDrbEeljKQuKKEjrBjiB06y5wHhM+nEm8
+         mbw1jHlQf53yWyOYwcEcfi5NeFN6pvbR0q/l02QKIHDF5urwa0edOa9ApbA6HnMYhOll
+         hYFaO8AgH/2IDzyj/ZN+G/EXtaqbcBGKAU3McsnRCQiBihI3r9uHmL5euFuWWyJROzxY
+         BFVBwOhj8y40tAKAF/7koZvCgR0hrPSG/hVB5MytE3KgmxotZbHld46pa7CQa61/nU6D
+         Ougg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793574117; x=1794178917;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
+        b=Bmsz1k2Es1rniRFG02jAPcxhuTPnmbCUfDZx16BZ2Z6OX9F96+qg3jT0A8fsm11Cai
+         teFQy5npC0TKvZ+VfURsacUyyCbp3Ny3OskdfDt2+8amqPiJyJAfnYbuwGGdqZv3pq1E
+         a+AFsmWhnEJBvBIq5lLtxmy1j9jjAD71pnRyqIUtbLqCkrG3BsGfi8wissySiKSe4X7J
+         DumrzsOJFSLcSVPn9gtmrL2t2kk7JMGXdK7A+BeZLnhHHjY2yTVtcMrc/McHspMeNsvo
+         4mRsOZ0HYrA/ZoUxLVSvrGHAY7qpM2qnZPigI8RvIxb3fmuO7X1uXgH3KdjWxB1pxu9t
+         QaoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxcIS52fsQIj6fxH087qtXo/xhExjNzGitK8WRtLZ5WQxj22i0W2y/axZBs5K/xTZo8g1w7xDa9BxirIQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+IMe8aucOfy0CeAT1npg0BdLQNGBlxN8pZ9grgLJtYevFipYs8
+	1qtSYbZ7ddnJPOTz1lFKKSCIStmEsx7luz6r2sMg8c05FkJ2pn+9+xnQdH6CBc3upPUHp6kRXax
+	YxqYz6NDBm9/xCjU0DftxSKeeKr3pwvs=
+X-Gm-Gg: AYBFou0pLb+BgG4Uln+Uj/1cvj8PbqPgRiTZqx64Xw8lu2Xbsw9PZro0Tl7okw8TiyC
+	R977VqSYT80TJoxdEAqXYVvVZMolG8z7jKgv3r3EdNX0n3jNGegaFFRdxHbL3Gm+5tjRzsd3cBr
+	QQOOMRhe1beIcWUIQmwYUkkt7adZijsCPK9zl7j54PQzRmvtrzg0VjA3QCgArlPTgH/EwC9tlU1
+	/YF7BXreXSpXyV84oCK7nOLVV2OLPLWA5BqHMryUBTwFIr98ZGzSo6nEP/SgdBzXvAC22doHKSA
+	7Uega6gNr5cDwVh483AXSI5rzWvainafIl2y6Z72+LDY8G29NJOuAB0immSajXc1Ukanzzuw/9A
+	Tvci3GVRuIHQwSfXcbOWfVqhr5qQhsoakuUweVJRSzWyQS5mX+sg7b7Dl8E99ncURuSNFYA==
+X-Received: by 2002:a05:690e:4084:b0:67a:86d7:b9ae with SMTP id
+ 956f58d0204a3-67a8d60ce47mr8913440d50.42.1793574117117; Sun, 01 Nov 2026
+ 15:01:57 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -70,159 +104,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261025192320.209446-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192320.209446-3-christian.koever-draxl@student.uibk.ac.at>
+In-Reply-To: <20261025192320.209446-3-christian.koever-draxl@student.uibk.ac.at>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Mon, 2 Nov 2026 00:01:46 +0100
+X-Gm-Features: AclHuK_6zPYcTTvvo1ADEqHJgjW6vbl_w9ibYmytUlZi0WtkMQH9WoT0aPoNmLU
+Message-ID: <CAFBinCAaV0WEsO1oNF6q1t1hLF7oeO4oEpJQY_vHXvuQbWA47w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: rc: meson-ir: allow the receiver to wake the system
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
+	jbrunet@baylibre.com, sean@mess.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Christian,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] This patch's TX detach is incomplete.
-
---
-
-net: devmem: detach TX bindings on NETDEV_UNREGISTER
-
-This commit extends net_devmem_dev_unregister() to TX devmem bindings.
-When binding->dev unregisters, the walk clears the LIVE mark, unmaps the
-dma_buf, and clears both binding->dev and binding->vdev. When only
-binding->vdev unregisters, it clears just binding->vdev. The commit also
-makes __net_devmem_dmabuf_binding_free() call net_devmem_lock_dev() for
-TX bindings.
-
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> index 4610de805ef08..5c7d9640e9d14 100644
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
-
-[ ... ]
-
-> @@ -157,8 +157,7 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
->  		     binding->area.num_niovs, binding->free_count);
->  
->  	kvfree(binding->area.niovs);
-> -	if (binding->direction == DMA_FROM_DEVICE)
-> -		dev = net_devmem_lock_dev(binding, &dev_tracker);
-> +	dev = net_devmem_lock_dev(binding, &dev_tracker);
->  	net_devmem_dmabuf_binding_unmap(binding);
->  	xa_erase(&net_devmem_dmabuf_bindings, binding->id);
->  	net_devmem_unlock_dev(dev, &dev_tracker);
-> @@ -252,11 +251,20 @@ void net_devmem_dev_unregister(struct net_device *dev)
->  
->  	xa_lock(&net_devmem_dmabuf_bindings);
->  	xa_for_each(&net_devmem_dmabuf_bindings, xa_idx, binding) {
-> -		if (binding->direction != DMA_FROM_DEVICE ||
-> -		    READ_ONCE(binding->dev) != dev ||
-> -		    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> -				NET_DEVMEM_BINDING_LIVE))
-> -			continue;
-> +		if (binding->direction == DMA_FROM_DEVICE) {
-> +			if (READ_ONCE(binding->dev) != dev ||
-> +			    xa_get_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> +					NET_DEVMEM_BINDING_LIVE))
-> +				continue;
-> +		} else {
-> +			if (READ_ONCE(binding->vdev) == dev)
-> +				WRITE_ONCE(binding->vdev, NULL);
-> +			if (READ_ONCE(binding->dev) != dev)
-> +				continue;
-> +			WRITE_ONCE(binding->vdev, NULL);
-> +			__xa_clear_mark(&net_devmem_dmabuf_bindings, xa_idx,
-> +					NET_DEVMEM_BINDING_LIVE);
-> +		}
-
-[Severity: High]
-
-Can a leased bind-tx still create a TX binding on the physical device
-after this walk has already run for that device?
-
-net_devmem_dev_unregister() runs once per device. It is called from
-netdev_genl_netdevice_event() under netdev_lock(dev), and does nothing
-unless reg_state is NETREG_UNREGISTERING.
-
-Take a virtual device V (for example netkit) with a queue leased from a
-physical device X. When bind-tx is issued on V, netdev_nl_bind_tx_doit()
-locks X and binds to it without checking X->reg_state again:
-
-net/core/netdev-genl.c:netdev_nl_bind_tx_doit() {
-    ...
-	bind_dev = netdev_find_netmem_tx_dev(netdev);
-    ...
-	if (bind_dev != netdev)
-		netdev_lock(bind_dev);
-
-	dma_dev = netdev_queue_get_dma_dev(bind_dev, 0, NETDEV_QUEUE_TYPE_TX);
-
-	binding = net_devmem_bind_dmabuf(bind_dev,
-					 bind_dev != netdev ? netdev : NULL,
-    ...
-}
-
-netdev_find_netmem_tx_dev() only checks netif_device_present(X), and
-unregister_netdevice_many_notify() does not clear that bit.
-
-netdev_genl_nb is registered at subsys_initcall and the netkit notifier
-at module_init, with the same priority. On NETDEV_UNREGISTER of X, the
-netdev-genl walk for X therefore finishes and unlocks X before
-netkit_check_lease_unregister() queues V for unregistration. Until then
-V stays NETREG_REGISTERED and its lease to X stays in place.
-
-That seems to allow this ordering:
-
-CPU1 (unregister of X)              CPU2 (unprivileged bind-tx on V)
-netdev_genl_netdevice_event(X)
-  netdev_lock(X)
-  net_devmem_dev_unregister(X)
-  netdev_unlock(X)
-                                    netdev_nl_bind_tx_doit()
-                                      netdev_get_by_index_lock(V)
-                                      bind_dev = X (via the lease)
-                                      netdev_lock(X)
-                                      net_devmem_bind_dmabuf(X, V, ...)
-                                        LIVE binding, binding->dev = X
-                                      netdev_unlock(X)
-netkit_check_lease_unregister(X)
-  unregister of V
-    net_devmem_dev_unregister(V)
-      binding->dev != V, so only
-      binding->vdev is cleared
-    netkit_queue_unlease()
-      netdev_put() on X
-netdev_run_todo()
-  X is freed
-
-The walk for X never runs again, and the binding holds no reference on X,
-so binding->dev is left pointing at the freed X.
-
-When the netlink socket is closed later, wouldn't
-netdev_nl_sock_priv_destroy()->net_devmem_lock_dev() call netdev_hold()
-and netdev_lock() on freed memory? That is the oops quoted in the commit
-message.
-
-With the __net_devmem_dmabuf_binding_free() change above, the deferred
-free work also calls net_devmem_lock_dev() for TX bindings, so it is a
-second path that dereferences the stale binding->dev. The dma_buf also
-stays attached and mapped to X's DMA device.
-
-The non-leased path looks safe, because netdev_put_lock() checks
-reg_state again under the instance lock. The later patches in this series
-don't seem to touch this path.
-
-Would it close the window to reject the bind with -ENODEV when
-bind_dev->reg_state != NETREG_REGISTERED after netdev_lock(bind_dev)?
-unregister_netdevice_many_notify() writes reg_state under that lock, and
-the devmem walk runs later under the same lock.
-
->  
->  		xa_unlock(&net_devmem_dmabuf_bindings);
->  		if (!netif_is_queue_leasee(dev))
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030083539.777877-1-almasrymina%40google.com
+On Sun, Oct 25, 2026 at 8:23=E2=80=AFPM
+<christian.koever-draxl@student.uibk.ac.at> wrote:
+>
+> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
+>
+> The suspend callback switches the decoder off, so nothing is left to
+> notice the remote and the receiver can never wake the system.
+>
+> When the device is a wakeup source, keep the decoder running and arm
+> its interrupt as a wake interrupt instead. Boards without the
+> wakeup-source property keep the existing behaviour.
+>
+> Tested on an S905W2 board: suspend to RAM, the power key on the remote
+> resumes it.
+Can you help me out with better understanding: is the firmware
+involved in suspend or is this CPU core idle state suspend (meaning:
+firmware is not involved)?
