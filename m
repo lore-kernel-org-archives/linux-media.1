@@ -1,113 +1,113 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571886;
-	b=NUcyuTVz8uExT2QSg7u3nDjQoSjuZOVRSzbqSE8apny5kOgj/ls8u8BGdo8IZdmMhEBV
-	 R0RH8s66bjL+O3qsqqtkH2YCzN3TwDtaPef7rGyolEQ8NnhZdMJJz4paXdWCUEZieNp9c
-	 rv84pHuw23CY71DwLgoP8zD2tPY3bFK730xY4YrUfFvY6Gfh/adawE75zr4aQkcZlqGaq
-	 JxzpVDcKBvyZMtuPUComCyh9+WEUKV+qN+VFaTooVt5Sq0Xu0rvhuFQ2CYgADsIYvXTT4
-	 6cZxc5cKfmbZA/EyI87rBkyMMJrCRuXdTXx4xsBfvpFR3IcPMp25xd+VopbDBpVrFvw==
+	t=1793571898;
+	b=avmqt2mAmjJvyw2Jsu90DUKO58JvbwUFoFDvOZhm5XNSmrBoRPR6MmYy5fnc5pqXtyW1
+	 TFc7Xz8Yi785v/nMtJ/Bl4CR97wFA8h5cVsv/iI70kekddwxKFaQ0pcqI8qAvLPMi6Ex4
+	 XVo8TIiuXH2z0qE+6RfT/Yiwey1qpHU2cubQbHeeQPMYt2wpdQ4MGO0dww2b/nke8wOoQ
+	 KMAIWMfho4bWyPbLuMi4h0h7gSMf4g81Mjse7aSvmMFLr/DCphoIKPxQZZxwbcCCEQjim
+	 RQyBYe3z+QMQpxBqSRbQAhUPk2CbR9tnE0iTkCxL44G6vacBWanPf6Tb/hRa3DSuOAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571886;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571898;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ETCpV5BhRzI4wWLccSeMDl+J3Iw6ow8Qk9nYMHVwpS8=;
-	b=117rbc9R7QepSUMSPqlPyJlwJSLS+tplXkcpXJ+hZcsvdxZ4kWJqs9qR0MspnpDjo5+C
-	 KoJktBsR4BfmSjHqXE5uj1v1WBWafTXrKU2YDpOpiuvIlmk3o8fuG6wa+oNkuOuEYKG3I
-	 CzLHsPLq9f1sPFVb6w8xNUFAwfD52iNbdacx2lQZyaslpK/NPztZvgkkQZfAUkA8/JMpa
-	 aoVO3MqRNIlTt1hSN3U2ofWq58fh0gs+um3hhY9GQB+LPJxt+kJie5YoshhGeA+XRIIJ+
-	 46cooz2qCGKeDPAOAwXR7VYkm+BvB8FVJPL7yzdZxArz/Z5nYhBwCWLPajgGqmte6Rw==
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=JXcq3OQUvWyIpJUnnELONyNVisA+F1dcac0kLyCJwRU=;
+	b=Jm/jOpr6EWAnpvMg9FizlZU+yzN0KQu1B41SiItmDJTdypCTxK8/7Rguc6Zx4iZ3CNv+
+	 fhR8suNA1zi3jBfljWaXwWS+kUSHUUP4etxeOkBtd27c1D7br0MCOvAsFQmjiPzNfLdvp
+	 yJS1EGKYavgYN7dSpTX9oMSkqkbCBMwUkYEXcRKtcn0270oFaB78Nw3n+CKz5OAXPBKYp
+	 MrwfFyq9VahM6bMZd9M2R0wrexFa5Wf8xMJWqs3f8sG1WzVMqrjW7xtXq2WjnofBYU16b
+	 71F+kXS45ot+9bidaN5MuQp6N4j+Fr/SIE9alWUtL9yfX+sLX/Hes87yGQqE2xljysQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MOKqP4WH;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YMwfAmHv;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=chCscoj5;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="SOWj/TOZ";
 	arc=none smtp.remote-ip=205.220.168.131
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B7B606A6F3
-	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 22:24:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32B7B606A6F3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B48606E50C
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 22:24:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4B48606E50C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=MOKqP4WH;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YMwfAmHv
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1KJpMl2776904
-	for <linux-media@vger.kernel.org>; Sun, 1 Nov 2026 22:24:45 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=chCscoj5;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SOWj/TOZ
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1KKEnj192657
+	for <linux-media@vger.kernel.org>; Sun, 1 Nov 2026 22:24:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ETCpV5BhRzI4wWLccSeMDl+J3Iw6ow8Qk9nYMHVwpS8=; b=MOKqP4WHpUGsG97S
-	+RbcfirgnZmqNu6ylxITEuLkP4hUkO2vRmBui5AparsJn4CbJIpwtM6O74ndlbLR
-	hF6oFYDVFXkkzGcwuE49aqocjthBakWKBtqAyV7Y5MM642Lj7956KaJKNoaCsJaP
-	pFqFo5Q8S7Z9MtLeG9Fvp4RjeOi4Z9XBas2et1/HEdrnI/zu/+hvs1zQ65pqiLka
-	OGYq5XNgC7YC8fzvRHvbzWhiC1SANrkiH1Z2TCRfgjtg9j94Gs/uV72DFTTZmMdE
-	nZvH3R4xOdbM+vJw52gTWGA9de7bjNl6IbZSlrWvJnrgpvQ0QTZ+gwq6b9gLmA7I
-	4TIgYw==
+	JXcq3OQUvWyIpJUnnELONyNVisA+F1dcac0kLyCJwRU=; b=chCscoj5g/oZ3PBX
+	TNX5FbiM6g/rpeSORbnHLOZ/8e4qajm5FKUUu3WI+ahkkeGB2cffb578CdQz5VcL
+	EAQFR/xFx/HNaUSh2rRhHdKf0YB/VL44+IMWfDl1HqnX82oTDNuhRVmsWR++Atn/
+	fsp9SaRsUISj3+21Z5z0k0yozaomEU+u+03ucEtnstofP6/1+0Y6l1uWaIdZTq/L
+	2PvlffC2wrlYUEA4WfjKguNSM6Fycu36Gu1mk/oAy6wV6fzJSwqkbTpyv860lEox
+	z3nh9K7tw7T+Bg7gIMIoe2jyhEaPlxxKAM+ztbUIyT9bCFMpyud/7vMuGrcjIIl8
+	kbRiHQ==
 Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn61fvmhe-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn9gk43pb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 22:24:44 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1a2af4c8cbaso694190c88.0
-        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 14:24:44 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 22:24:55 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-189d17eca17so1840382c88.1
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 14:24:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793571884; x=1794176684; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793571895; x=1794176695; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ETCpV5BhRzI4wWLccSeMDl+J3Iw6ow8Qk9nYMHVwpS8=;
-        b=YMwfAmHvPNyw4VxT/aqyojls14PsQQBS4ZH97i8bmWrcEPuZApoLHDgCGUZe/sK7U9
-         jMziRPo7exP3cmTixvKHgNzrtaMJ42asFqbRfXgzSbZntOwDzhsc7svfjAMygwJJ/Epp
-         8BxwPwvjYOVli0GgLHK6/69GsQMKXTyXiV6dhiDlPass9v10fo63RQ8PXbfYVgqeqUC0
-         EaBJD5aXzIMNrITm0ge/wO5Hv4DyVlNMbTdp8X30LDSpsqE82+PI2870Mn0xme2bXWrn
-         Pj2iQuXuWocE0XNCLxvY71iAFu2KbPGBCwuh56smefC5mpqhi0QgQqALAWvTV9JhbfRq
-         zePA==
+        bh=JXcq3OQUvWyIpJUnnELONyNVisA+F1dcac0kLyCJwRU=;
+        b=SOWj/TOZyNUyU3YKx+8jyNRM1KU7rxo94IIhPcJmIb235H/i73GVeII7DjOez3/uTo
+         r3iW8y37afr87+MWCeYZ80wPN2pUNLKphEVwnr4DWI2551K1REDKktzqXKhx4vJS0q1Q
+         uTki0tcNmUbcIJeVlSmPc0+EY9ETKv/pBFAErkf4zlkHQ2ISOcLTmaM/rR2lIN4eABN9
+         Ep3FAhHu9EyIqnwtpKWwt/Q8bSDaRLx0X3L2i3KQboNKK/0PTztQKiijGDe21VesPt1U
+         IKu0kYMqzokMVH7+qKLMnXxABGJH1Fd2PfsemFTVHmFyoHPHoMwSTifnH8kPR2OegtzT
+         ZY1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793571884; x=1794176684;
+        d=1e100.net; s=20260707; t=1793571895; x=1794176695;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ETCpV5BhRzI4wWLccSeMDl+J3Iw6ow8Qk9nYMHVwpS8=;
-        b=mh2eUtFSFB9938ZHT6Hvtuis7b+4Z787uUa9Tg0fUVwtyGqJjROcRBVVWlHD3hBlsC
-         PjbRquSvBH3URYZFfqLG2z1DvOotZfl7ieaJgQtpmgdl6ruZ1R8GMRrjjvvqmGfrqgS5
-         5YOGFuHKOv4Xrmm/tyWB/ihR0VgxJqskl4JVgsNKXmC3iup/X34TG8BU5ThOZYpoveFd
-         kFJRxpBJG8b7Tn24bQshDMhiQ0C8WV6Ei9rYH4F2PJ48Z/hBNbedgjuyCnYrNZSsRH2e
-         ByutCVfVLHjqtg80K6Gk45aItlBl+xBtMGOTFkJ/a1jqi/3P+kUxoNyrvYDVVeS4Zcge
-         qZ7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxk4Qsg2brQD7NBD//42/eRZPf4obGIdnIFwYd1/bC8UG6kl/jpA2jWkTRVT52NDXbVnBAGkSWgAy65aA==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLYyNnRSQ5Ht7DxMAOJ4RKQRtkUFfOgMAQhVroxtysg11tyCN9q
-	Ipqwwt09D5y/SsdQrEjfKhJRjUt0itwjdZSYwS5JSxvmbUqvMBUzGJSRUC2gcLe5gRYDx1U/+Vx
-	4MXCHF4hGgS/mjX+ZHrxwwNF1dugU0O8zUO/rVlZyt9sg3oMVt80BBiYK6CcVEQbovw==
-X-Gm-Gg: AYBFou2ewDFXwgObWmsd5uudcAHpobYjtVVxnei4nzgOjhbj72x8OkKq/2Q7eIvEl7p
-	AuwIUUOwJANotAzhGGP1pzz8f83pQB4AcMGnZaMFrdzoHCK4fiKATHoiUiGOBnK9tgPEP4rr9Np
-	UYChN0xSyj76yIIXVlFn6cyyn4AEzR40grp5JlGsPn2Yekqo2plGf0rVQsGdq8R+bFfDyw9OVUJ
-	q7Yom+YCzwz7lr2z6th3Qn/oerjK/LvMZEQ8eIRQiRVyIAbyCjejUxyRW4SODYlb90vjgnWKNlI
-	TCB+sExXDzh5A5YRF6lfdCgGEH4Um6veXYqs/OjDXdl9kQPUULUq9FBFO4H8eAjvOIYzR/0rb/z
-	J0me5c91nnCPRGI1mwZrd28u+DywPKiEelS04/ujp4opIfGOkWgpl4lwCS2wZQuWQpEOs/ZzijD
-	onTjFsRA==
-X-Received: by 2002:a05:701b:4186:10b0:137:5b9d:cf87 with SMTP id a92af1059eb24-1ac4f91ee96mr13181336c88.0.1793571883965;
-        Sun, 01 Nov 2026 14:24:43 -0800 (PST)
-X-Received: by 2002:a05:701b:4186:10b0:137:5b9d:cf87 with SMTP id a92af1059eb24-1ac4f91ee96mr13181297c88.0.1793571883282;
-        Sun, 01 Nov 2026 14:24:43 -0800 (PST)
+        bh=JXcq3OQUvWyIpJUnnELONyNVisA+F1dcac0kLyCJwRU=;
+        b=AK7clFzjER2sJheEEr9iLhxs2wgoOH+ALCxdqzoVfHg+n9SbnqJb5xH7KaYtSGwLyR
+         8/w271Y7fKT68ZyTntj1gWq+6ixouisqwKpmQiKnxjMlwiyAgkFHyla2h2OO7Nlabx5R
+         2XWz0dN8HAX28S1pfEIVoKAXLNo/xAaic032XLzsAr3dbpX5LH5f89S0IQx3ByEma6I/
+         PYz/5qPr2QlE3THqvI2aU0U+ARw8fmuy4rJkxwF8jtndyxVID5Crvh9EmbaAGqQg58sY
+         hlQDWVUjZSfgKmB5sEppZ1c/0tgpjF+CbYOMpfAumWG5ZwtRh5jI9W6c56LiS4ph1rGJ
+         C7UA==
+X-Forwarded-Encrypted: i=1; AKwUvBx0nywD4PbDADX7jJM+258+aaF2zuFWhjjZwQo3Zn2xtHh9hyvS3BP2m2Prsf9H7kzzYcGMKtq7Czygtg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQanBLseIVg+s+flwSM2DWUjogBG43ZTxS1TS3fmzcjj7CMoUw
+	orAxKBGmCibda92tIufGVZB4jxOpv2OXagRxz/FBJ57h/1SCfHP3MhuGqYSmJdL6JC84xU7GxXt
+	/P/e0OoHRa8qsPKLF9b9AZzALdAVAOX7tjcC6f30FwNfEHXLWOGVaZfeBWfklYlXcRw==
+X-Gm-Gg: AYBFou3Cbe11jMgBW/IGVBChm/5oo811iZv2SqrbaKg3x43jHX/wdIroOO7ea5wiS1G
+	MZgpiXJ3sqYUazs30VSQz23Do9F0MgT4Y+Mpr7pI1SDqOFHQwh72rTgXiShSzGpV6b2DAW2BwzL
+	A7noq90Be3uHMmcF4oosWyxoLYKhVEUxNLnDE79mjkhWkd89dVHiO3fOx2ns6bR0qHlCGlLl06b
+	RnZctt+3AiOUbMuAe/Afbzmc70dklJC4NitGHpRrSb9/XNrZ11zgbov+r1ITwjVQcSXecR43tkz
+	QeM94qaY7qeavxLgKWIwRktretBhO+GCYBZBiXPlrRzmd8Hyg1Lwmb2/gY24jHx7LZgUSuinYkN
+	d07XhgXLrXHMagiOQFQIW8l5h1J6oVqMNXrcgdR4IrpYPpHfTinulxdfFjSCb0U5Op1RY/Ht1/g
+	V1/uE/Ig==
+X-Received: by 2002:a05:7022:2203:b0:18d:c38c:bcc9 with SMTP id a92af1059eb24-1ac56e8a821mr18673834c88.3.1793571894832;
+        Sun, 01 Nov 2026 14:24:54 -0800 (PST)
+X-Received: by 2002:a05:7022:2203:b0:18d:c38c:bcc9 with SMTP id a92af1059eb24-1ac56e8a821mr18673756c88.3.1793571894099;
+        Sun, 01 Nov 2026 14:24:54 -0800 (PST)
 Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1932sm27742653c88.2.2026.11.01.14.24.33
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1932sm27742653c88.2.2026.11.01.14.24.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 14:24:42 -0800 (PST)
+        Sun, 01 Nov 2026 14:24:53 -0800 (PST)
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 03:51:31 +0530
-Subject: [PATCH v4 18/25] accel/qda: Add remote memory unmapping from the
- DSP address space
+Date: Mon, 02 Nov 2026 03:51:32 +0530
+Subject: [PATCH v4 19/25] accel/qda: Add remote memory map and unmap to the
+ legacy shim
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -119,7 +119,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-v4-v4-18-88f2f24a5f0b@qti.qualcomm.com>
+Message-Id: <20261102-v4-v4-19-88f2f24a5f0b@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
 In-Reply-To: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
 To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -147,228 +147,609 @@ Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
         Chenna Kesava Raju <quic_chennak@quicinc.com>,
         Ekansh Gupta <ekangupt@qti.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793571679; l=10517;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793571679; l=24614;
  i=ekangupt@qti.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=AWZQyFdzsOaF7etSPJghL5yJhJX0fEhF3SEzW9eDeRE=;
- b=wbP31vIPeLB5NewaMIgH4YiMQTC6PbubFXGit5A8McQrOa8OQITyBtgRNTs7S3TnueUrF/x0m
- 3zGOcfNvkXQADGbYKzdxoc8uyyOIYjXWHSlotSqMdTQamPkhRyb6CyD
+ bh=TOGGfjmnBJev5B3DLutwHE6RpFN7eDoMJKEkgcbs7gM=;
+ b=zXQqd7GbKuBMB/YYu4bpnWpp9Ln9KZRtl42qtN7nE4Yfd2O0TkcfjABCvgPaoQu67CfxhFFpe
+ NVS++Ur6byPBUKPJFUExXfX34/lZhmQee4Slv4piBVI64ACotphd8pm
 X-Developer-Key: i=ekangupt@qti.qualcomm.com; a=ed25519;
  pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfX3oM/6NksvygH
- flOlsvtHMKbHJUOCgg2tpYlhXi9bfSXOtO2fH6hrg8geuoAreYnWp0Os2rXuXqo3WfAiU7N58A0
- rG9exIJWVb7gxZ8tW5yzEqjP2DAcsgw=
-X-Authority-Analysis: v=2.4 cv=V/LoQuni c=1 sm=1 tr=0 ts=6ae7bc2c cx=c_pps
+X-Proofpoint-GUID: ZafAhqlBSGQl7Yuii1pi8zsdhdgezq_d
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfX9EPRjvcns61+
+ Bm1gm0/hx5ly7T3vgLgym2zlBiSXVwYdO26nRGjuAsjCnE05HKYXVynv8dRzPeJqWEr6+d1WfHM
+ fvlR/0d4E9bWzYgiCLpRtvAzL6xwsnNS0rjp+SXJfymDg+N++zAIcSPOVG+zUszM+MvtQMG73WS
+ +V/2QuG9pC3+s45kzyxpMrglUpme0DIt5FJzgDZkGdJ2VoOCPvfhlO2zc9EPxn1enHWbFJkSxIj
+ gyrZXoE0pOT8qscrM5mIel4N9C51PtXY5KiyCixdNlEYmwETPNZrOjSXvUdCbovpqfAgI1fyye0
+ 1AcxcoWrnylGf2NxH2BR0rhWZBPi4oTW2XIlHoMPp1L8lnY1BU34uWkGeDbOuOSFw0rGObIPb8B
+ LRF+12tAN3F5v2iWy2vF98XNGmrdGZC4R1MIcIM86/L8+rjxPkEWjKwQLUUxMnM06+kBqV+i+pT
+ VIJODm5qsr5LgZR33Zw==
+X-Authority-Analysis: v=2.4 cv=HNBWhYtv c=1 sm=1 tr=0 ts=6ae7bc37 cx=c_pps
  a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=Up_xq6likoeVUbWbdXMA:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-GUID: 0wew1Ff__dmd8vuKtO-rzdVF-8eAXbKX
-X-Proofpoint-ORIG-GUID: 0wew1Ff__dmd8vuKtO-rzdVF-8eAXbKX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfX5EMIjeKJkLwz
- ThoNf8jq2T3ekx5JGFjg/vKBdwioB/fdgrsAGRQ8eW29FbT7Jddnd8vV8bkqzkHitdS9SafpZOV
- YXDJUBu+XfZPTJt6jcv3Rhk3ypoW3Sy6tR9lxmIrFwz0kntX7ujHLo0YJ58uaaKdBCV/FfY9vpj
- GqlvIUyH6/0gSEK3tLSCtRbumipyweM2NsJOBXchfpbKhKARtzo4A4yJPUsTtiJe+dUORai9jdU
- fk3Vi9JYoKdQkS4x84/y11ulD9ub7VcqO/7IrtgM9beVXb6wzUAm4IE0WR+wr7AIm12caI7Q0C6
- pETXLYeKP9vLsyhQ6gl5l3TGCu0xC2/MPpQmhBJzdbLmqwZ8m2ukrYjjO32VjZD505a2wZdFykO
- spycQjYj43eBXwV7+btP+teB5/faadHCD52uEzk101WQsXE260hE4rh8nahhG4QFLkX0q1dFkPz
- uaSAf0beEePKglLOsIA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=iy6etLm9HCI9rwuQ78IA:9 a=GVGhT3VO6GXzNuf7:21
+ a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfX3Zu7oDbqABT4
+ I/+NIE/y97flYJuIHmvWDCF+f3+nFHNKTGyLxBWvsiacpxG7Wgh2spyOdYCan9gzccthj28fMH6
+ SsELSY98gOtfl9BsyeGURoSlWV7ZvcM=
+X-Proofpoint-ORIG-GUID: ZafAhqlBSGQl7Yuii1pi8zsdhdgezq_d
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-01_07,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ adultscore=0 suspectscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010089
 
 From: Ekansh Gupta <ekangupt@qti.qualcomm.com>
 
-A buffer mapped for the DSP stays mapped until it is explicitly
-unmapped, so user space needs a way to take a mapping down once it is
-no longer needed.
+Applications written for the /dev/fastrpc-* interface name buffers by
+file descriptor rather than GEM handle, and have no handle table to
+keep a mapped buffer alive between the map and unmap calls. Serve the
+four legacy map and unmap ioctls by importing the descriptor as usual,
+and track the live mapping on the open file so the buffer stays
+referenced for as long as the DSP has it mapped, exactly the job a GEM
+handle does for the native UAPI.
 
-Add an ioctl that removes a mapping, naming it by the address that map
-returned. As with map there are two flavours, selected by the request:
-one matching the plain mapping and one matching the attribute-based
-mapping, which also carries the DSP-side buffer identifier.
+The buffer reaches the shared mapping code already imported, in place
+of a handle. As for a buffer named by handle, it must be mapped in the
+calling session's context bank, since a descriptor can name a buffer
+another session exported, and the requested length must fit in it.
 
-The buffer itself is kept alive by the handle it was created or
-imported under, so unmapping does not touch it; the mapping and the
-buffer have independent lifetimes and user space is expected to keep
-the handle open for as long as the DSP uses the mapping.
+Two lists are kept per open file, since the two legacy unmap paths name
+a mapping differently: MUNMAP only ever gets back the address map
+returned, while MEM_UNMAP uses the file descriptor as the identifier
+the DSP tracks the buffer by. A mapping is recorded with the address
+and length it was made with, and an unmap must match them: the length
+the DSP is asked to unmap is the recorded one, and MUNMAP with a
+different length is refused. The same descriptor cannot be mapped
+twice with MEM_MAP, as the DSP could not tell the two apart on unmap,
+and a negative buffer offset is refused.
+
+If the DSP cannot unmap a mapping, it stays recorded so the unmap can
+be retried. If the mapping cannot be reported back to the caller, it is
+taken down again rather than left unreachable. Mappings still
+outstanding when the file closes are unmapped on the DSP before the
+buffers they hold are released, so the DSP is never left using memory
+that has been freed.
 
 Signed-off-by: Ekansh Gupta <ekangupt@qti.qualcomm.com>
 ---
- drivers/accel/qda/qda_drv.c     |  1 +
- drivers/accel/qda/qda_fastrpc.c | 73 +++++++++++++++++++++++++++++++++++++++++
- drivers/accel/qda/qda_fastrpc.h | 32 ++++++++++++++++++
- drivers/accel/qda/qda_ioctl.c   | 24 ++++++++++++++
- drivers/accel/qda/qda_ioctl.h   |  1 +
- include/uapi/drm/qda_accel.h    | 30 +++++++++++++++++
- 6 files changed, 161 insertions(+)
+ drivers/accel/qda/qda_fastrpc.c      |  40 ++++--
+ drivers/accel/qda/qda_fastrpc.h      |  17 +++
+ drivers/accel/qda/qda_fastrpc_shim.c | 262 +++++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_ioctl.c        |  64 ++++++---
+ drivers/accel/qda/qda_ioctl.h        |   4 +
+ drivers/accel/qda/qda_legacy_ops.c   |  77 ++++++++++
+ drivers/accel/qda/qda_legacy_ops.h   |  11 ++
+ 7 files changed, 447 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index 7f19380701d9..c5b41b869692 100644
---- a/drivers/accel/qda/qda_drv.c
-+++ b/drivers/accel/qda/qda_drv.c
-@@ -126,6 +126,7 @@ static const struct drm_ioctl_desc qda_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_INVOKE, qda_ioctl_invoke, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_SESSION_CREATE, qda_ioctl_init_create, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_MMAP, qda_ioctl_mmap, 0),
-+	DRM_IOCTL_DEF_DRV(QDA_REMOTE_MUNMAP, qda_ioctl_munmap, 0),
- };
- 
- static const struct drm_driver qda_drm_driver = {
 diff --git a/drivers/accel/qda/qda_fastrpc.c b/drivers/accel/qda/qda_fastrpc.c
-index 744d7317cbe1..dbd14cd07cb2 100644
+index dbd14cd07cb2..b35604fce630 100644
 --- a/drivers/accel/qda/qda_fastrpc.c
 +++ b/drivers/accel/qda/qda_fastrpc.c
-@@ -1072,6 +1072,73 @@ static int qda_fastrpc_prepare_args_mem_map(struct qda_fastrpc_invoke_ctx *ctx,
+@@ -633,7 +633,7 @@ void qda_fastrpc_flush_pending(struct qda_dev *qdev)
+  */
+ void qda_fastrpc_return_result(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
+ {
+-	struct drm_qda_mem_map *margs = argp;
++	struct qda_mem_map_args *map_args = argp;
+ 	struct qda_fastrpc_map_rsp_msg *rsp;
+ 	int idx;
+ 
+@@ -650,7 +650,7 @@ void qda_fastrpc_return_result(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
+ 
+ 	rsp = (struct qda_fastrpc_map_rsp_msg *)
+ 	      ((u8 *)to_qda_gem_obj(ctx->gem_objs[idx])->virt + ctx->args[idx].offset);
+-	margs->vaddrout = rsp->vaddrout;
++	map_args->map.vaddrout = rsp->vaddrout;
+ }
+ 
+ /**
+@@ -935,19 +935,33 @@ static int qda_fastrpc_prepare_args_init_create(struct qda_fastrpc_invoke_ctx *c
+  * buffer is held by the context until the request is done, so that closing its
+  * handle meanwhile cannot free memory the DSP is being told to map. The
+  * region must fit in the buffer, as the DSP would otherwise map past its end.
++ *
++ * A caller with no handle table supplies the buffer already imported. It is
++ * checked as a buffer named by handle would be: an fd can name a buffer that
++ * another session exported, which resolves to the original object, still
++ * mapped in that session's context bank.
+  */
+-static int setup_mmap_pages(struct qda_fastrpc_invoke_ctx *ctx, struct drm_qda_mem_map *margs,
++static int setup_mmap_pages(struct qda_fastrpc_invoke_ctx *ctx, struct qda_mem_map_args *args,
+ 			    struct qda_phy_page *pages)
+ {
++	struct drm_qda_mem_map *margs = &args->map;
+ 	struct qda_gem_obj *qda_gem_obj;
+ 	int err;
+ 
+-	if (!margs->handle)
+-		return -EINVAL;
++	if (args->obj) {
++		if (to_qda_gem_obj(args->obj)->iommu_dev != ctx->session->assigned_iommu_dev)
++			return -EACCES;
+ 
+-	err = get_gem_obj_from_handle(ctx, margs->handle, &ctx->map_obj);
+-	if (err)
+-		return err;
++		drm_gem_object_get(args->obj);
++		ctx->map_obj = args->obj;
++	} else {
++		if (!margs->handle)
++			return -EINVAL;
++
++		err = get_gem_obj_from_handle(ctx, margs->handle, &ctx->map_obj);
++		if (err)
++			return err;
++	}
+ 
+ 	qda_gem_obj = to_qda_gem_obj(ctx->map_obj);
+ 	if (margs->size > qda_gem_obj->size)
+@@ -967,7 +981,8 @@ static int setup_mmap_pages(struct qda_fastrpc_invoke_ctx *ctx, struct drm_qda_m
+  */
+ static int qda_fastrpc_prepare_args_map(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
+ {
+-	struct drm_qda_mem_map *margs = argp;
++	struct qda_mem_map_args *map_args = argp;
++	struct drm_qda_mem_map *margs = &map_args->map;
+ 	struct qda_fastrpc_map_req_msg *req;
+ 	struct qda_gem_obj *kernel_gem;
+ 	u8 *gv;
+@@ -996,7 +1011,7 @@ static int qda_fastrpc_prepare_args_map(struct qda_fastrpc_invoke_ctx *ctx, void
+ 	req->vaddr = margs->vaddrin;
+ 	req->num = sizeof(struct qda_phy_page);
+ 
+-	err = setup_mmap_pages(ctx, margs, (struct qda_phy_page *)(gv + off_pages));
++	err = setup_mmap_pages(ctx, map_args, (struct qda_phy_page *)(gv + off_pages));
+ 	if (err)
+ 		goto out_put;
+ 
+@@ -1020,7 +1035,8 @@ static int qda_fastrpc_prepare_args_map(struct qda_fastrpc_invoke_ctx *ctx, void
+  */
+ static int qda_fastrpc_prepare_args_mem_map(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
+ {
+-	struct drm_qda_mem_map *margs = argp;
++	struct qda_mem_map_args *map_args = argp;
++	struct drm_qda_mem_map *margs = &map_args->map;
+ 	struct qda_fastrpc_mem_map_req_msg *req;
+ 	struct qda_gem_obj *kernel_gem;
+ 	u8 *gv;
+@@ -1056,7 +1072,7 @@ static int qda_fastrpc_prepare_args_mem_map(struct qda_fastrpc_invoke_ctx *ctx,
+ 	req->num = sizeof(struct qda_phy_page);
+ 	req->data_len = 0;
+ 
+-	err = setup_mmap_pages(ctx, margs, (struct qda_phy_page *)(gv + off_pages));
++	err = setup_mmap_pages(ctx, map_args, (struct qda_phy_page *)(gv + off_pages));
+ 	if (err)
+ 		goto out_put;
+ 
+diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
+index 889b41dc20b0..10a99bbfa383 100644
+--- a/drivers/accel/qda/qda_fastrpc.h
++++ b/drivers/accel/qda/qda_fastrpc.h
+@@ -360,6 +360,23 @@ struct qda_init_create_args {
+ 	struct drm_gem_object *elf_obj;
+ };
+ 
++/**
++ * struct qda_mem_map_args - Kernel-side arguments for mapping a buffer into the DSP
++ *
++ * Wraps the UAPI arguments so that a caller with no handle table, such as the
++ * legacy shim, can pass an already imported buffer.
++ */
++struct qda_mem_map_args {
++	/** @map: Mapping parameters; @map.vaddrout is filled in on success */
++	struct drm_qda_mem_map map;
++	/**
++	 * @obj: Buffer to map, in the session's context bank, or NULL if
++	 * @map.handle names it. Borrowed: the caller keeps its reference for
++	 * the length of the call.
++	 */
++	struct drm_gem_object *obj;
++};
++
+ struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_alloc(struct qda_dev *qdev);
+ void qda_fastrpc_context_free(struct kref *ref);
+ void qda_fastrpc_cleanup_handlelist(struct qda_fastrpc_invoke_ctx *ctx);
+diff --git a/drivers/accel/qda/qda_fastrpc_shim.c b/drivers/accel/qda/qda_fastrpc_shim.c
+index 4a2ba20ee01a..c46d2de4f581 100644
+--- a/drivers/accel/qda/qda_fastrpc_shim.c
++++ b/drivers/accel/qda/qda_fastrpc_shim.c
+@@ -8,7 +8,9 @@
+ #include <linux/file.h>
+ #include <linux/fs.h>
+ #include <linux/limits.h>
++#include <linux/list.h>
+ #include <linux/miscdevice.h>
++#include <linux/mutex.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/slab.h>
+@@ -21,9 +23,29 @@
+ #include "qda_fastrpc.h"
+ #include "qda_legacy_ops.h"
+ 
++/*
++ * A buffer the DSP has mapped for an open file. A legacy session has no
++ * handle table, so this is what keeps the buffer alive for as long as the
++ * mapping lasts, the job a GEM handle does for the accel UAPI.
++ *
++ * Plain mappings are found by the address map returned, which is all
++ * MUNMAP carries. Attribute-based ones are found by the fd, which doubles
++ * as the identifier the DSP tracks the buffer by.
++ */
++struct qda_shim_mapping {
++	struct list_head node;
++	u64 key;
++	u64 vaddr;
++	u64 size;
++	struct drm_gem_object *obj;
++};
++
+ /* State of one open /dev/fastrpc-* file */
+ struct qda_shim_file {
+ 	struct qda_session *session;
++	struct mutex maps_lock;
++	struct list_head mmap_list;
++	struct list_head mem_map_list;
+ 	/* Opened through the /dev/fastrpc-<dsp>-secure node */
+ 	bool secure_node;
+ 	/* Properties of the qda_shim_dev this file was opened on */
+@@ -79,6 +101,83 @@ static struct drm_gem_object *shim_import_fd(struct qda_session *session, s32 fd
+ 	return obj;
+ }
+ 
++/* Takes ownership of @obj on success; on failure the caller still owns it */
++static struct qda_shim_mapping *shim_mapping_add(struct qda_shim_file *sf,
++						 struct list_head *list, u64 key, u64 vaddr,
++						 u64 size, struct drm_gem_object *obj)
++{
++	struct qda_shim_mapping *m, *new;
++
++	new = kzalloc_obj(*new);
++	if (!new)
++		return ERR_PTR(-ENOMEM);
++
++	new->key = key;
++	new->vaddr = vaddr;
++	new->size = size;
++	new->obj = obj;
++
++	guard(mutex)(&sf->maps_lock);
++
++	list_for_each_entry(m, list, node) {
++		if (m->key == key) {
++			kfree(new);
++			return ERR_PTR(-EEXIST);
++		}
++	}
++	list_add_tail(&new->node, list);
++
++	return new;
++}
++
++static struct qda_shim_mapping *shim_mapping_detach(struct qda_shim_file *sf,
++						    struct list_head *list, u64 key, u64 vaddr)
++{
++	struct qda_shim_mapping *m;
++
++	guard(mutex)(&sf->maps_lock);
++
++	list_for_each_entry(m, list, node) {
++		if (m->key == key && m->vaddr == vaddr) {
++			list_del(&m->node);
++			return m;
++		}
++	}
++
++	return NULL;
++}
++
++static void shim_mapping_attach(struct qda_shim_file *sf, struct list_head *list,
++				struct qda_shim_mapping *m)
++{
++	guard(mutex)(&sf->maps_lock);
++	list_add_tail(&m->node, list);
++}
++
++static void shim_mapping_free(struct qda_shim_mapping *m)
++{
++	drm_gem_object_put(m->obj);
++	kfree(m);
++}
++
++/* The DSP unmap comes first: the buffer must outlive the DSP's use of it */
++static void shim_mappings_release(struct qda_shim_file *sf)
++{
++	struct qda_shim_mapping *m, *tmp;
++
++	list_for_each_entry_safe(m, tmp, &sf->mmap_list, node) {
++		list_del(&m->node);
++		qda_legacy_ops_table.munmap(sf->session, m->vaddr, m->size);
++		shim_mapping_free(m);
++	}
++
++	list_for_each_entry_safe(m, tmp, &sf->mem_map_list, node) {
++		list_del(&m->node);
++		qda_legacy_ops_table.mem_unmap(sf->session, m->key, m->vaddr, m->size);
++		shim_mapping_free(m);
++	}
++}
++
+ static int qda_shim_open(struct inode *inode, struct file *file)
+ {
+ 	struct qda_shim_node *snode = container_of(file->private_data, struct qda_shim_node,
+@@ -97,6 +196,9 @@ static int qda_shim_open(struct inode *inode, struct file *file)
+ 		return err;
+ 	}
+ 
++	mutex_init(&sf->maps_lock);
++	INIT_LIST_HEAD(&sf->mmap_list);
++	INIT_LIST_HEAD(&sf->mem_map_list);
+ 	sf->secure_node = snode->secure;
+ 	sf->secure_channel = snode->sdev->secure_channel;
+ 	sf->unsigned_support = snode->sdev->unsigned_support;
+@@ -110,8 +212,10 @@ static int qda_shim_release(struct inode *inode, struct file *file)
+ {
+ 	struct qda_shim_file *sf = file->private_data;
+ 
++	shim_mappings_release(sf);
+ 	qda_legacy_ops_table.release(sf->session);
+ 	qda_legacy_ops_table.session_destroy(sf->session);
++	mutex_destroy(&sf->maps_lock);
+ 	kfree(sf);
+ 
+ 	return 0;
+@@ -191,6 +295,156 @@ static long qda_shim_init_create(struct qda_shim_file *sf, void __user *argp)
  	return err;
  }
  
-+/*
-+ * INIT_MUNMAP packed layout:
-+ *   [0] req	sizeof(qda_fastrpc_munmap_req_msg)	IN
-+ */
-+static int qda_fastrpc_prepare_args_munmap(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
++static long qda_shim_mmap(struct qda_shim_file *sf, void __user *argp)
 +{
-+	struct drm_qda_mem_unmap *uargs = argp;
-+	struct qda_fastrpc_munmap_req_msg *req;
-+	struct qda_gem_obj *kernel_gem;
++	struct qda_shim_mapping *m;
++	struct fastrpc_req_mmap args;
++	struct drm_gem_object *obj;
 +	int err;
 +
-+	ctx->sc = QDA_FASTRPC_SCALARS(QDA_FASTRPC_RMID_INIT_MUNMAP, 1, 0);
-+	ctx->handle = QDA_FASTRPC_INIT_HANDLE;
++	if (copy_from_user(&args, argp, sizeof(args)))
++		return -EFAULT;
 +
-+	err = alloc_kernel_args(ctx, 1);
-+	if (err)
++	obj = shim_import_fd(sf->session, args.fd);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++	if (!obj)
++		return -EINVAL;
++
++	err = qda_legacy_ops_table.mmap(sf->session, obj, args.vaddrin, args.size, args.flags,
++					&args.vaddrout);
++	if (err) {
++		drm_gem_object_put(obj);
 +		return err;
++	}
 +
-+	kernel_gem = alloc_kernel_gem(ctx, sizeof(*req));
-+	if (IS_ERR(kernel_gem))
-+		return PTR_ERR(kernel_gem);
++	m = shim_mapping_add(sf, &sf->mmap_list, args.vaddrout, args.vaddrout, args.size, obj);
++	if (IS_ERR(m)) {
++		err = PTR_ERR(m);
++		goto err_unmap;
++	}
 +
-+	req = kernel_gem->virt;
-+	req->remote_session_id = ctx->session->remote_session_id;
-+	req->vaddr = uargs->vaddrout;
-+	req->size = uargs->size;
++	if (copy_to_user(argp, &args, sizeof(args))) {
++		m = shim_mapping_detach(sf, &sf->mmap_list, args.vaddrout, args.vaddrout);
++		if (m) {
++			qda_legacy_ops_table.munmap(sf->session, m->vaddr, m->size);
++			shim_mapping_free(m);
++		}
++		return -EFAULT;
++	}
 +
-+	assign_kernel_gem_arg(ctx, 0, kernel_gem, req, sizeof(*req));
-+	drm_gem_object_put(&kernel_gem->base);
++	return 0;
++
++err_unmap:
++	qda_legacy_ops_table.munmap(sf->session, args.vaddrout, args.size);
++	drm_gem_object_put(obj);
++
++	return err;
++}
++
++static long qda_shim_munmap(struct qda_shim_file *sf, void __user *argp)
++{
++	struct fastrpc_req_munmap args;
++	struct qda_shim_mapping *m;
++	int err;
++
++	if (copy_from_user(&args, argp, sizeof(args)))
++		return -EFAULT;
++
++	m = shim_mapping_detach(sf, &sf->mmap_list, args.vaddrout, args.vaddrout);
++	if (!m)
++		return -ENOENT;
++
++	if (m->size != args.size) {
++		shim_mapping_attach(sf, &sf->mmap_list, m);
++		return -EINVAL;
++	}
++
++	err = qda_legacy_ops_table.munmap(sf->session, m->vaddr, m->size);
++	if (err) {
++		shim_mapping_attach(sf, &sf->mmap_list, m);
++		return err;
++	}
++
++	shim_mapping_free(m);
 +
 +	return 0;
 +}
 +
-+/*
-+ * INIT_MEM_UNMAP packed layout:
-+ *   [0] req	sizeof(qda_fastrpc_mem_unmap_req_msg)	IN
-+ */
-+static int qda_fastrpc_prepare_args_mem_unmap(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
++static long qda_shim_mem_map(struct qda_shim_file *sf, void __user *argp)
 +{
-+	struct drm_qda_mem_unmap *uargs = argp;
-+	struct qda_fastrpc_mem_unmap_req_msg *req;
-+	struct qda_gem_obj *kernel_gem;
++	struct qda_shim_mapping *m;
++	struct fastrpc_mem_map args;
++	struct drm_gem_object *obj;
 +	int err;
 +
-+	ctx->sc = QDA_FASTRPC_SCALARS(QDA_FASTRPC_RMID_INIT_MEM_UNMAP, 1, 0);
-+	ctx->handle = QDA_FASTRPC_INIT_HANDLE;
++	if (copy_from_user(&args, argp, sizeof(args)))
++		return -EFAULT;
 +
-+	err = alloc_kernel_args(ctx, 1);
-+	if (err)
++	if (args.offset < 0)
++		return -EINVAL;
++
++	obj = shim_import_fd(sf->session, args.fd);
++	if (IS_ERR(obj))
++		return PTR_ERR(obj);
++	if (!obj)
++		return -EINVAL;
++
++	/* Reserved before the DSP is asked, so the same fd cannot be mapped twice */
++	m = shim_mapping_add(sf, &sf->mem_map_list, args.fd, 0, args.length, obj);
++	if (IS_ERR(m)) {
++		drm_gem_object_put(obj);
++		return PTR_ERR(m);
++	}
++
++	err = qda_legacy_ops_table.mem_map(sf->session, obj, args.flags, args.attrs, args.offset,
++					   args.vaddrin, args.length, args.fd, &args.vaddrout);
++	if (err) {
++		m = shim_mapping_detach(sf, &sf->mem_map_list, args.fd, 0);
++		if (m)
++			shim_mapping_free(m);
 +		return err;
++	}
 +
-+	kernel_gem = alloc_kernel_gem(ctx, sizeof(*req));
-+	if (IS_ERR(kernel_gem))
-+		return PTR_ERR(kernel_gem);
++	scoped_guard(mutex, &sf->maps_lock)
++		m->vaddr = args.vaddrout;
 +
-+	req = kernel_gem->virt;
-+	req->remote_session_id = ctx->session->remote_session_id;
-+	req->handle = uargs->dsp_handle;
-+	req->vaddrin = uargs->vaddr;
-+	req->len = uargs->size;
-+
-+	assign_kernel_gem_arg(ctx, 0, kernel_gem, req, sizeof(*req));
-+	drm_gem_object_put(&kernel_gem->base);
++	if (copy_to_user(argp, &args, sizeof(args))) {
++		m = shim_mapping_detach(sf, &sf->mem_map_list, args.fd, args.vaddrout);
++		if (m) {
++			qda_legacy_ops_table.mem_unmap(sf->session, m->key, m->vaddr, m->size);
++			shim_mapping_free(m);
++		}
++		return -EFAULT;
++	}
 +
 +	return 0;
 +}
 +
- /*
-  * INVOKE_DYNAMIC: the argument descriptors are supplied by user space, which
-  * is also responsible for having imported every buffer to a GEM handle.
-@@ -1141,6 +1208,12 @@ int qda_fastrpc_prepare_args(struct qda_fastrpc_invoke_ctx *ctx,
- 	case QDA_FASTRPC_RMID_INIT_MEM_MAP:
- 		err = qda_fastrpc_prepare_args_mem_map(ctx, argp);
- 		break;
-+	case QDA_FASTRPC_RMID_INIT_MUNMAP:
-+		err = qda_fastrpc_prepare_args_munmap(ctx, argp);
-+		break;
-+	case QDA_FASTRPC_RMID_INIT_MEM_UNMAP:
-+		err = qda_fastrpc_prepare_args_mem_unmap(ctx, argp);
-+		break;
- 	case QDA_FASTRPC_RMID_INVOKE_DYNAMIC:
- 		err = qda_fastrpc_prepare_args_invoke(ctx, argp);
- 		break;
-diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
-index 1bd696baa95c..889b41dc20b0 100644
---- a/drivers/accel/qda/qda_fastrpc.h
-+++ b/drivers/accel/qda/qda_fastrpc.h
-@@ -46,9 +46,11 @@ struct qda_session;
- /* Methods of the initialisation handle */
- #define QDA_FASTRPC_RMID_INIT_RELEASE		1
- #define QDA_FASTRPC_RMID_INIT_MMAP		4
-+#define QDA_FASTRPC_RMID_INIT_MUNMAP		5
- #define QDA_FASTRPC_RMID_INIT_CREATE		6
- #define QDA_FASTRPC_RMID_INIT_CREATE_ATTR	7
- #define QDA_FASTRPC_RMID_INIT_MEM_MAP		10
-+#define QDA_FASTRPC_RMID_INIT_MEM_UNMAP		11
- #define QDA_FASTRPC_RMID_INVOKE_DYNAMIC		0xFFFFFFFFU
- 
- /* Handle the initialisation methods are addressed to */
-@@ -197,6 +199,36 @@ struct qda_fastrpc_map_rsp_msg {
- 	u64 vaddrout;
- };
- 
-+/**
-+ * struct qda_fastrpc_munmap_req_msg - Request to remove a plain mapping
-+ *
-+ * Layout the DSP expects; do not reorder.
-+ */
-+struct qda_fastrpc_munmap_req_msg {
-+	/** @remote_session_id: Session the mapping belongs to */
-+	s32 remote_session_id;
-+	/** @vaddr: Address the mapping was made at */
-+	u64 vaddr;
-+	/** @size: Length of the mapping in bytes */
-+	u64 size;
-+};
++static long qda_shim_mem_unmap(struct qda_shim_file *sf, void __user *argp)
++{
++	struct fastrpc_mem_unmap args;
++	struct qda_shim_mapping *m;
++	int err;
 +
-+/**
-+ * struct qda_fastrpc_mem_unmap_req_msg - Request to remove an attribute-based mapping
-+ *
-+ * Layout the DSP expects; do not reorder.
-+ */
-+struct qda_fastrpc_mem_unmap_req_msg {
-+	/** @remote_session_id: Session the mapping belongs to */
-+	s32 remote_session_id;
-+	/** @handle: Identifier the DSP tracks the buffer by */
-+	s32 handle;
-+	/** @vaddrin: Address the mapping was made at */
-+	u64 vaddrin;
-+	/** @len: Length of the mapping in bytes */
-+	u64 len;
-+};
++	if (copy_from_user(&args, argp, sizeof(args)))
++		return -EFAULT;
 +
- /**
-  * struct qda_fastrpc_msg - FastRPC wire message for remote invocations
-  *
++	m = shim_mapping_detach(sf, &sf->mem_map_list, args.fd, args.vaddr);
++	if (!m)
++		return -ENOENT;
++
++	err = qda_legacy_ops_table.mem_unmap(sf->session, m->key, m->vaddr, m->size);
++	if (err) {
++		shim_mapping_attach(sf, &sf->mem_map_list, m);
++		return err;
++	}
++
++	shim_mapping_free(m);
++
++	return 0;
++}
++
+ static long qda_shim_invoke(struct qda_shim_file *sf, void __user *argp)
+ {
+ 	struct qda_legacy_invoke_arg *largs;
+@@ -262,6 +516,14 @@ static long qda_shim_dispatch(struct qda_shim_file *sf, unsigned int cmd, void _
+ 		return qda_shim_alloc_dma_buf(sf, argp);
+ 	case FASTRPC_IOCTL_INIT_CREATE:
+ 		return qda_shim_init_create(sf, argp);
++	case FASTRPC_IOCTL_MMAP:
++		return qda_shim_mmap(sf, argp);
++	case FASTRPC_IOCTL_MUNMAP:
++		return qda_shim_munmap(sf, argp);
++	case FASTRPC_IOCTL_MEM_MAP:
++		return qda_shim_mem_map(sf, argp);
++	case FASTRPC_IOCTL_MEM_UNMAP:
++		return qda_shim_mem_unmap(sf, argp);
+ 	case FASTRPC_IOCTL_INVOKE:
+ 		return qda_shim_invoke(sf, argp);
+ 	default:
 diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
-index cd3cea72f50e..17d1b488b4a9 100644
+index 17d1b488b4a9..999afa9e70c2 100644
 --- a/drivers/accel/qda/qda_ioctl.c
 +++ b/drivers/accel/qda/qda_ioctl.c
-@@ -197,6 +197,30 @@ int qda_ioctl_mmap(struct drm_device *dev, void *data, struct drm_file *file_pri
+@@ -185,42 +185,74 @@ int qda_release_dsp_process(struct qda_dev *qdev, struct qda_session *session)
+ int qda_ioctl_mmap(struct drm_device *dev, void *data, struct drm_file *file_priv)
+ {
+ 	struct drm_qda_mem_map *map_req = data;
++	struct qda_mem_map_args args = {
++		.map = *map_req,
++	};
++	int err;
++
++	err = qda_session_mem_map(file_priv->driver_priv, &args);
++	if (err)
++		return err;
+ 
+-	switch (map_req->request) {
++	map_req->vaddrout = args.map.vaddrout;
++
++	return 0;
++}
++
++/**
++ * qda_session_mem_map() - Map a buffer into the DSP's address space
++ * @session: Session to map for
++ * @args: Mapping parameters; @args->map.vaddrout is filled in on success
++ *
++ * For sessions with no handle table to name the buffer by, such as those of
++ * the legacy shim, which supply @args->obj.
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++int qda_session_mem_map(struct qda_session *session, struct qda_mem_map_args *args)
++{
++	switch (args->map.request) {
+ 	case QDA_REQUEST_MMAP:
+-		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MMAP, data, file_priv->driver_priv);
++		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MMAP, args, session);
+ 	case QDA_REQUEST_MEM_MAP:
+-		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MEM_MAP, data,
+-					  file_priv->driver_priv);
++		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MEM_MAP, args, session);
+ 	default:
+ 		return -EINVAL;
+ 	}
+ }
+ 
+ /**
+- * qda_ioctl_munmap() - Remove a buffer's mapping from the DSP's address space
+- * @dev: DRM device structure
+- * @data: User-space data (struct drm_qda_mem_unmap)
+- * @file_priv: DRM file private data
++ * qda_session_mem_unmap() - Remove a buffer's mapping from the DSP's address space
++ * @session: Session the mapping belongs to
++ * @unmap: Which mapping to remove
+  *
+  * Return: 0 on success, negative error code on failure
+  */
+-int qda_ioctl_munmap(struct drm_device *dev, void *data, struct drm_file *file_priv)
++int qda_session_mem_unmap(struct qda_session *session, struct drm_qda_mem_unmap *unmap)
+ {
+-	struct drm_qda_mem_unmap *unmap_req = data;
+-
+-	switch (unmap_req->request) {
++	switch (unmap->request) {
+ 	case QDA_REQUEST_MUNMAP:
+-		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MUNMAP, data,
+-					  file_priv->driver_priv);
++		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MUNMAP, unmap, session);
+ 	case QDA_REQUEST_MEM_UNMAP:
+-		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MEM_UNMAP, data,
+-					  file_priv->driver_priv);
++		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MEM_UNMAP, unmap, session);
+ 	default:
+ 		return -EINVAL;
  	}
  }
  
@@ -382,95 +763,151 @@ index cd3cea72f50e..17d1b488b4a9 100644
 + */
 +int qda_ioctl_munmap(struct drm_device *dev, void *data, struct drm_file *file_priv)
 +{
-+	struct drm_qda_mem_unmap *unmap_req = data;
-+
-+	switch (unmap_req->request) {
-+	case QDA_REQUEST_MUNMAP:
-+		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MUNMAP, data,
-+					  file_priv->driver_priv);
-+	case QDA_REQUEST_MEM_UNMAP:
-+		return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INIT_MEM_UNMAP, data,
-+					  file_priv->driver_priv);
-+	default:
-+		return -EINVAL;
-+	}
++	return qda_session_mem_unmap(file_priv->driver_priv, data);
 +}
 +
  /**
   * qda_ioctl_invoke() - Run a method on the DSP
   * @dev: DRM device structure
 diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
-index afb3ed0e132e..9c053349c3fa 100644
+index 9c053349c3fa..9b868189df0a 100644
 --- a/drivers/accel/qda/qda_ioctl.h
 +++ b/drivers/accel/qda/qda_ioctl.h
-@@ -16,6 +16,7 @@ int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_fil
- int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
+@@ -8,7 +8,9 @@
+ 
+ #include "qda_drv.h"
+ 
++struct drm_qda_mem_unmap;
+ struct qda_init_create_args;
++struct qda_mem_map_args;
+ 
+ int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
+ int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
+@@ -18,5 +20,7 @@ int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *f
  int qda_ioctl_mmap(struct drm_device *dev, void *data, struct drm_file *file_priv);
-+int qda_ioctl_munmap(struct drm_device *dev, void *data, struct drm_file *file_priv);
+ int qda_ioctl_munmap(struct drm_device *dev, void *data, struct drm_file *file_priv);
  int qda_session_init_create(struct qda_session *session, struct qda_init_create_args *create);
++int qda_session_mem_map(struct qda_session *session, struct qda_mem_map_args *args);
++int qda_session_mem_unmap(struct qda_session *session, struct drm_qda_mem_unmap *unmap);
  
  #endif /* __QDA_IOCTL_H__ */
-diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
-index bd2d0f4308b1..43598ddef461 100644
---- a/include/uapi/drm/qda_accel.h
-+++ b/include/uapi/drm/qda_accel.h
-@@ -18,6 +18,7 @@ extern "C" {
- #define DRM_QDA_REMOTE_INVOKE		0x03
- #define DRM_QDA_REMOTE_SESSION_CREATE	0x04
- #define DRM_QDA_REMOTE_MMAP		0x05
-+#define DRM_QDA_REMOTE_MUNMAP		0x06
- 
- #define DRM_IOCTL_QDA_QUERY		DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_QUERY, \
- 					 struct drm_qda_query)
-@@ -32,11 +33,17 @@ extern "C" {
- 		 struct drm_qda_init_create)
- #define DRM_IOCTL_QDA_REMOTE_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_MMAP, \
- 					 struct drm_qda_mem_map)
-+#define DRM_IOCTL_QDA_REMOTE_MUNMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_MUNMAP, \
-+					 struct drm_qda_mem_unmap)
- 
- /* Request types for drm_qda_mem_map.request */
- #define QDA_REQUEST_MMAP	1	/* Map a whole buffer */
- #define QDA_REQUEST_MEM_MAP	2	/* Map a region of a buffer, with attributes */
- 
-+/* Request types for drm_qda_mem_unmap.request */
-+#define QDA_REQUEST_MUNMAP	1
-+#define QDA_REQUEST_MEM_UNMAP	2
-+
- /* Query type definitions for drm_qda_query */
- #define QDA_QUERY_DSP_NAME		1
- 
-@@ -173,6 +180,29 @@ struct drm_qda_mem_map {
- 	__u64 vaddrout;
- };
- 
-+/**
-+ * struct drm_qda_mem_unmap - Parameters for removing a DSP mapping
-+ * @request: QDA_REQUEST_MUNMAP or QDA_REQUEST_MEM_UNMAP
-+ * @dsp_handle: Identifier the DSP tracks the buffer by (QDA_REQUEST_MEM_UNMAP)
-+ * @vaddr: Address the mapping was made at (QDA_REQUEST_MEM_UNMAP)
-+ * @vaddrout: Address the mapping was made at (QDA_REQUEST_MUNMAP)
-+ * @size: Length of the mapping in bytes
-+ *
-+ * Removes a mapping made with DRM_IOCTL_QDA_REMOTE_MMAP, named by the address
-+ * that call returned in drm_qda_mem_map.vaddrout. The request must match the
-+ * one the mapping was made with: QDA_REQUEST_MUNMAP uses @vaddrout and @size,
-+ * QDA_REQUEST_MEM_UNMAP uses @dsp_handle, @vaddr and @size. The buffer is not
-+ * affected, so its handle must stay open for as long as the DSP uses the
-+ * mapping.
-+ */
-+struct drm_qda_mem_unmap {
-+	__u32 request;
-+	__s32 dsp_handle;
-+	__u64 vaddr;
-+	__u64 vaddrout;
-+	__u64 size;
-+};
-+
- #if defined(__cplusplus)
+diff --git a/drivers/accel/qda/qda_legacy_ops.c b/drivers/accel/qda/qda_legacy_ops.c
+index 2b3b3f4fb246..ea815ab0c52a 100644
+--- a/drivers/accel/qda/qda_legacy_ops.c
++++ b/drivers/accel/qda/qda_legacy_ops.c
+@@ -75,6 +75,79 @@ static int legacy_release(struct qda_session *session)
+ 	return qda_release_dsp_process(session->qda_dev, session);
  }
- #endif
+ 
++static int legacy_mmap(struct qda_session *session, struct drm_gem_object *obj,
++		       u64 vaddrin, u64 size, u32 flags, u64 *vaddrout)
++{
++	struct qda_mem_map_args args = {
++		.map = {
++			.request = QDA_REQUEST_MMAP,
++			.flags = flags,
++			.vaddrin = vaddrin,
++			.size = size,
++		},
++		.obj = obj,
++	};
++	int err;
++
++	err = qda_session_mem_map(session, &args);
++	if (err)
++		return err;
++
++	*vaddrout = args.map.vaddrout;
++
++	return 0;
++}
++
++static int legacy_mem_map(struct qda_session *session, struct drm_gem_object *obj, u32 flags,
++			  u32 attrs, u32 offset, u64 vaddrin, u64 size, s32 dsp_handle,
++			  u64 *vaddrout)
++{
++	struct qda_mem_map_args args = {
++		.map = {
++			.request = QDA_REQUEST_MEM_MAP,
++			.flags = flags,
++			.attrs = attrs,
++			.offset = offset,
++			.dsp_handle = dsp_handle,
++			.vaddrin = vaddrin,
++			.size = size,
++		},
++		.obj = obj,
++	};
++	int err;
++
++	err = qda_session_mem_map(session, &args);
++	if (err)
++		return err;
++
++	*vaddrout = args.map.vaddrout;
++
++	return 0;
++}
++
++static int legacy_munmap(struct qda_session *session, u64 vaddrout, u64 size)
++{
++	struct drm_qda_mem_unmap unmap = {
++		.request = QDA_REQUEST_MUNMAP,
++		.vaddrout = vaddrout,
++		.size = size,
++	};
++
++	return qda_session_mem_unmap(session, &unmap);
++}
++
++static int legacy_mem_unmap(struct qda_session *session, s32 dsp_handle, u64 vaddr, u64 size)
++{
++	struct drm_qda_mem_unmap unmap = {
++		.request = QDA_REQUEST_MEM_UNMAP,
++		.dsp_handle = dsp_handle,
++		.vaddr = vaddr,
++		.size = size,
++	};
++
++	return qda_session_mem_unmap(session, &unmap);
++}
++
+ /*
+  * As the GEM_CREATE ioctl, but exporting a DMA-BUF rather than installing a
+  * handle: a session the shim created has no DRM file to hold handles, and the
+@@ -120,6 +193,10 @@ const struct qda_legacy_ops qda_legacy_ops_table = {
+ 	.session_destroy = legacy_session_destroy,
+ 	.init_create = legacy_init_create,
+ 	.release = legacy_release,
++	.mmap = legacy_mmap,
++	.mem_map = legacy_mem_map,
++	.munmap = legacy_munmap,
++	.mem_unmap = legacy_mem_unmap,
+ 	.alloc_dmabuf = legacy_alloc_dmabuf,
+ 	.import_dmabuf = legacy_import_dmabuf,
+ 	.invoke = legacy_invoke,
+diff --git a/drivers/accel/qda/qda_legacy_ops.h b/drivers/accel/qda/qda_legacy_ops.h
+index 05bd1f806c9a..e3126ac10507 100644
+--- a/drivers/accel/qda/qda_legacy_ops.h
++++ b/drivers/accel/qda/qda_legacy_ops.h
+@@ -35,6 +35,17 @@ struct qda_legacy_ops {
+ 			   u32 filelen, u32 attrs, u32 siglen);
+ 	/** @release: Release the session's DSP process, if it has one */
+ 	int (*release)(struct qda_session *session);
++	/** @mmap: Map a buffer into the DSP's address space */
++	int (*mmap)(struct qda_session *session, struct drm_gem_object *obj, u64 vaddrin,
++		    u64 size, u32 flags, u64 *vaddrout);
++	/** @mem_map: Map a region of a buffer with explicit SMMU attributes */
++	int (*mem_map)(struct qda_session *session, struct drm_gem_object *obj, u32 flags,
++		       u32 attrs, u32 offset, u64 vaddrin, u64 size, s32 dsp_handle,
++		       u64 *vaddrout);
++	/** @munmap: Undo a mapping made with @mmap */
++	int (*munmap)(struct qda_session *session, u64 vaddrout, u64 size);
++	/** @mem_unmap: Undo a mapping made with @mem_map */
++	int (*mem_unmap)(struct qda_session *session, s32 dsp_handle, u64 vaddr, u64 size);
+ 	/** @alloc_dmabuf: Allocate a buffer and export it as a DMA-BUF */
+ 	struct dma_buf *(*alloc_dmabuf)(struct qda_session *session, u64 size);
+ 	/** @import_dmabuf: Map a DMA-BUF into a session's context bank */
 
 -- 
 2.34.1
