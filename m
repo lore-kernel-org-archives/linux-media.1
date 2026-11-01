@@ -1,49 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571368;
-	b=N5P6n39ZgJ8GhO+Ha29MOpUOeMaBlWkqIojp1ukz5aq4NanNeH7TL/hOSApkbxccl+E+
-	 KvnYYa6fDfsc3F3Yd9lLwUqDFGY6JHBgBXqk8sEcQPcGKszjEstuJg22gEZxwQlqADR6X
-	 X5g1BXJ1J+BRDBIWbJh/1/yJNimgCQ05Yfup82Wiyc21zwfx9gs7o6AZ7HxpROsI4Rfl2
-	 aN3ynrgePWnzrjGE473iRKm+YK4Er543VPbZrmImEImN4hUC40fpAJoOsTagO2etMKyh6
-	 WvFRTbkRFsdE+iz5j95Fv7u3bsTH2NqdeYEehmFQHJujt+6lk89QawbNPL4S/qp3Opw==
+	t=1793571694;
+	b=ipIgmGxb1CdNa2/4K+7Yrun/ojrchwXEGwTYq4L6rHVkCud7J6hp+5WIneNnp39yVKFD
+	 arurPFkdcvX8oEU1hPoNee9b8hILimerve3bt+tulAe2gecCS9+mqyIFBjzmG1+Xoy5ud
+	 BMzeIkAYnYr/mxgqTfaCpAflAGOBctQLBTDF9w85Q6doSphgvwidCsSp3490DbqI6m3n1
+	 fq5RBEvplSmcTnmvVqvPLVyWy7lB4DdYcwyxQ5AZm7jUU3Py+VZPt5nSkkd2+tc7MoDL1
+	 iURL6yExXr/jUf2v3TKH+S3TJX7bbf5QyUqXTCmDO/obGD9FnOHYHbbxRJQ/MTk1E+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571368;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=ZBbWyt1tVlT8vsng1tUZth+SHT9mZ3wIi2BBqX1Sd68=;
-	b=5hMLsnC6/EWwztuAvhA/rt1M2wn0bWItvceZFj88jbEheKzaHw0rubneE3w16iryHsK0
-	 wPei3i+EZ1s6IGx6PSBlBzuvv08tg9HFDdhCRTaZezm2icHiTowlUztf7BHFYfXvFmE54
-	 Dhhz8FyWg+xdd8Cj87FKbA/oAcgh+FVeBjjbpMv8Yf+yYQzkh0+/DxeSPDjS30BWHCQBh
-	 /sm1zkb2yNquP3kaO05h3wIjoH9fZ34PxZSmifWq26BnwrUQq/4C+WYJZwQHqzVLelNSu
-	 TuzxD3gH/XG7TPs4v4RnvYFBvibZeC54rVAGdjIzMt+St8XUkbB2GFHLKeAdJZLkutA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571694;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=N3RWATaB+aWOJihIl8wvlmI7dxCvdo4R4nH3ZaI7fPM=;
+	b=K2w67Db6ayNx/0zzO/PF4WAZSVhU/T+2xsGAwQOmOqg7wJmHcsj+PDKJbiNC70BbG4Qy
+	 UC6dxhNjl9N7GFEEXhQ02S7aYtXMKBUD8ptbsvs7WyqPcL9fj2SvvKBHn0BCVQo2k2c7b
+	 IYFVRpnDIaD5sNz5s7HX7rGtCD+iJA5vCbYNm4anFhXyrYoixaIIqo4etEnxbQyNcuOIY
+	 Doop43FHr+vM44NZ2kk6c8y8Sv4FcwZGa5Vd8Eu2B2/cM4IchBiTHLqoPzWvdAla+pXMP
+	 BD2be4pbKzrw5YpA5HhTOgXGaZUhR06WzLvc4u/Z2KBUx1OwY4HtvcrVwicHESqmJMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FILr4eAK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OZW+3PCf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iC0WNdoZ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3E860A2600;
-	Sun,  1 Nov 2026 22:16:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EAB606A324
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 22:21:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0EAB606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FILr4eAK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ECB51F00919;
-	Sun,  1 Nov 2026 22:16:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571365;
-	bh=ZBbWyt1tVlT8vsng1tUZth+SHT9mZ3wIi2BBqX1Sd68=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=FILr4eAKrrpVTY1w+0lPnmpm4m+KvSLrl1sI3qLC6vcTCXawxNaX6GqkUyiku2N8g
-	 lSaWKAfAnI1XlRfVF9lnSnyVCerEMHgjtn517BWK4EO9WUPrVqt6SLDsCV7BzVCqjZ
-	 cSQEfzyYjr1CnowfD/wxZKufFzlOXp3QTuyBM9pjdtkgMOzeW3qpLSd39GREJYBd3+
-	 GcPvcSv8rh2pGUVKzlYQVzgfErpTGhd4NvBEJAh0VpIWMt3PNwVujLLLxwc2d4Ogfc
-	 Vs19Xseip7SCtUvLA97omV3Nhf2wU3N3dBTnfASZIsbZSaa3V5IHAJDmRRc9WXQasM
-	 IWbAGr85MFw7Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 031D338003B8;
-	Sun,  1 Nov 2026 22:16:05 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OZW+3PCf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iC0WNdoZ
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1KK3jO2401105
+	for <linux-media@vger.kernel.org>; Sun, 1 Nov 2026 22:21:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=N3RWATaB+aWOJihIl8wvlm
+	I7dxCvdo4R4nH3ZaI7fPM=; b=OZW+3PCfS8qcXjk4AralCI+AmZxQL6oVlV6FYF
+	qAHRRJffamsDNh90E+KfmEelqLvEnAny+QEHyO7CNKU6GU7SwFvEHVy3UPDDn23s
+	PF0gPjvrMVQ8gTqOah9KpJk7y+2CU5KL0bc2s56G+Og+uvtVmOl7irkZYR2Bb5i5
+	bziXlObmkXK2wXT87SrOy7oAMi/OgvJgWbdDwceWpZyweWMoZR+cEXjBIUcBtUIn
+	RWd2px5mazIESV/TyG+jpW7Zoe1gwjXwNgRbEUXA8QNp07hFRVVDwh6zGyqHwB7V
+	MQckLD70hbrehHaR+IHAVNRYLc4k5SVfAGWjpx/H5ZDOsurA==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7wxmay4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 22:21:32 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1b20a4b5f2bso175856c88.1
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 14:21:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793571691; x=1794176491; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N3RWATaB+aWOJihIl8wvlmI7dxCvdo4R4nH3ZaI7fPM=;
+        b=iC0WNdoZ3qLVlGyekppy2sUfeVD6a3PYeZtCF669SZR5EJVrTK6IP2d7dqj0iajBgU
+         zJk0EbaSyI/i5e+5V8E9cO83p4N/ewb071o74d9qY29jaMiHAvM060qWne/YuAAqLi9Y
+         RKYf6AMgkYwulYXlCiNs6uL1qmVTigBU1LTVxf8jK2Kgo1Ojb4aBagWpwOvRCieY1JsC
+         92zbLc8Irhn3nFMNFHqRFUBN7ufgz6MiJ13FzyDNlvB3WannBrI8Me5RcYYxwJNGOPzL
+         h/FaiYDk9BZYcGycZ6h/OE1MeLf7/DZ9SauJHoZl55FhojwpwD4sTrHmIqC9+UB+JOhv
+         jQeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793571691; x=1794176491;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=N3RWATaB+aWOJihIl8wvlmI7dxCvdo4R4nH3ZaI7fPM=;
+        b=LmW/l4b/8rw0h7WUTVeVteqxuzquv6jBIrUol1ixCKAOifb0oGky1i06EXTRJ5Jiol
+         xsmgJ/c+zogRre0y62vnyyGrUx7+CPMGAjpn5cbXxTxFpfUHB70kBhJxO3gt5aRL5WQD
+         agkpsH6nybnc/RJBooZm94gDUEDHia52CO8SDId7Gd/myZdWxGBNfUv/Q5t2B9l+Nggh
+         yYrSKN+n1bRnEru3fcdUx3kvIKvlB9IWgtkucd8rSKRv+vu+eN1CGDTuKSCb8gbvI3Xu
+         d9unfAoPSCLqWl2qby3nHKaeVOONd1gcbPYHDJv8xYXaR5isEG4MOl4TJg1UR29dhH8K
+         wq/w==
+X-Forwarded-Encrypted: i=1; AKwUvBxH4eWYDlPcyu59htR0cyDpakTVNeYQDESCfl94uidPVY8W5JTBfyPKOnLnIq5aE+FhkCTitwVHC+cOaQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjaD1kcvzRIrstsLimCEW+5DfKUvGOHVsq++WFvUCfUqePUS+k
+	wYvEHsYCF/sY+2pxGiMwQqvvfXvB8L9lSZ+IwGPQ7FiaimlVLM+Mq1M+keNVh7Y3eBWw602ZQV2
+	0uBuWTydXQ1Mx/zLvoFk/Z2D7HsAnsXraX+zl+YSgqHgri0vJnmKCTUpTp4RsTyBP9g==
+X-Gm-Gg: AYBFou3TiEtlcUflBrLGPIfF7QoRR/0I1TvZF+GG/oZQ4v1JPaatkFltTKa1CCPi1i5
+	9oB/NFnwCMSfRN5o/qLjzsvLGoIfFsQbZVpmHrkM/fSieovVEh725t3zVvWzK2ITbkeOfHZn08u
+	J8st8U/L1pw0XEEBK1dfxX78hr867xYhwJklzmvrK0lxqwnMy17suMGKuRkL8CbfeA7ynwaMxHD
+	agrW3/J3mNkYipB5DExKadu8X8dJmZLT0JMq0pj8bHqPUp66Guf7v4yaEtGSjke3/G6bFgRgwWQ
+	SmDgP5XK9iOUrKYvhqmG5DlzOEBbB40/wBIYCZfEJqRnFmNlxQIu0DtcJDh+8elYBdTFn3bpDzm
+	gwSdBauBnJGPPYErsZ2Tzm+oBIDRvcpjgJGj5qPdzo4GNMvVAEGP9GHC/ABBH90zkx39kdj3RRp
+	yO1NLm3g==
+X-Received: by 2002:a05:7023:a42:b0:151:ece6:b16b with SMTP id a92af1059eb24-1ac5da755bdmr11225984c88.7.1793571690887;
+        Sun, 01 Nov 2026 14:21:30 -0800 (PST)
+X-Received: by 2002:a05:7023:a42:b0:151:ece6:b16b with SMTP id a92af1059eb24-1ac5da755bdmr11225946c88.7.1793571690095;
+        Sun, 01 Nov 2026 14:21:30 -0800 (PST)
+Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1932sm27742653c88.2.2026.11.01.14.21.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 14:21:29 -0800 (PST)
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Subject: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
+Date: Mon, 02 Nov 2026 03:51:13 +0530
+Message-Id: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,60 +115,431 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 0/6] riscv: Make IPI_MAX visible and use it
- consistently
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357136354.2624073.14746852216689780189.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:03 +0000
-References: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-In-Reply-To: <20260911-ipi_max-v2-0-a77826ff189e@kernel.org>
-To: Guo Ren <guoren@kernel.org>
-Cc: linux-riscv@lists.infradead.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, daniel.lezcano@kernel.org,
- tglx@kernel.org, radu@rendec.net, anup@brainfault.org,
- tiffany.lin@mediatek.com, andrew-ct.chen@mediatek.com,
- yunfei.dong@mediatek.com, minghsiu.tsai@mediatek.com,
- houlong.wei@mediatek.com, mchehab@kernel.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, tip-bot2@linutronix.de, nathan@kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFq752oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyTHQUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMj3TIT3VSLtNQkYyNDIzPjNCWgwoKi1LTMCrAh0bG1tQChdTbjVAA
+ AAA==
+X-Change-ID: 20261102-v4-e8feb321263f
+To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+        andersson@kernel.org, krzk@kernel.org, rob.clark@oss.qualcomm.com,
+        jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+        sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        Ekansh Gupta <ekangupt@qti.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793571679; l=17178;
+ i=ekangupt@qti.qualcomm.com; s=20260223; h=from:subject:message-id;
+ bh=7ulwZDRbVbhnX5VSUAXcebVVwrgoPRyLQkWga1KdhyI=;
+ b=JjzbJKQ6+miuS0jSAWNVCxpyx2YYtKJ7fEaBtdbYj1dJa110KsuqrVzxhkF/GKf1eq6xv/EOH
+ 24RZdWQPUInCFtZhzU8M4r9susfH4vy/3gfy+Lz7k0k44OxRRLQaqbO
+X-Developer-Key: i=ekangupt@qti.qualcomm.com; a=ed25519;
+ pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
+X-Proofpoint-GUID: uFpnbDm9SuMeFlBn-exJVSkalKuiMWXR
+X-Proofpoint-ORIG-GUID: uFpnbDm9SuMeFlBn-exJVSkalKuiMWXR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfXwX9ph+G6ibMx
+ TC++n1o7r6u9++knoDF2cRcOaEVBmh5OS6amTL+kvghps+0zfGpFq29epenOv/aHEmxOjXbg20F
+ /Q9zNMHPoMB2+avNRBGY//NUehsTqe4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfX9JpvHGVVLIq/
+ JrDVIIZNKEMf2FgW+1dgaqHpSUqextm+SEnGGplQXqF/WMFqMEiWkUxFb3hx/liB1H1SQDGwTfV
+ LHwXeS4EXoCEuPmsh7ikXYyQm4heYDw7a3sZIHLW/WUY6BQRGdDAp62FpvXWZPNT4dmiDI7akuk
+ i0BZ8ONgHhO9OLORYLP9rn9vqeSp4RB5kh5V690xO0EfTkvZQLlikiCjW0RYg20jbsEJ3mUZyNs
+ gWpjjwqyax2SxBzsWgTGonuQsQcaSEqKw/evuIBZQfiBWpT+STztsGR373L0iMdmnhN/egy1rbK
+ uhvjTDo35o+xTOAOFGiriXiifzT5S57hB4qXi7gI5mchZ2ow4YBMhYMBvvuNo/3J1AHzN9hJZiM
+ NBVCtVHmQVc30Qwd3H6dIsSJ3nWMZeqLRmm7ycUFTPH/nUemL5VPObxphAQecOWF6dfGjWWzRCW
+ LslABo0a62aZXqO4MFg==
+X-Authority-Analysis: v=2.4 cv=JLquIMKb c=1 sm=1 tr=0 ts=6ae7bb6c cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=J7Ab9oP_6IQewhk8SDcA:9
+ a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-01_07,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010089
 
-Hello:
+This series adds QDA, a DRM accel driver for the Hexagon DSPs on
+Qualcomm SoCs. It is meant to replace drivers/misc/fastrpc.c. It speaks
+the same FastRPC protocol to the same DSP firmware over the same RPMsg
+channel, and it binds the same device-tree nodes. It adds no new DT
+binding or compatible.
 
-This series was applied to riscv/linux.git (fixes)
-by Hans Verkuil <hverkuil+cisco@kernel.org>:
+Existing user space keeps working. The series also adds a separate
+module, qda_fastrpc_shim, which serves the full /dev/fastrpc-* ioctl
+interface on top of QDA. A distribution can therefore switch from
+CONFIG_QCOM_FASTRPC to CONFIG_DRM_ACCEL_QDA without breaking FastRPC
+users.
 
-On Fri, 11 Sep 2026 03:27:08 +0000 you wrote:
-> This series removes the implicit assumption that RISC-V supports exactly
-> eight IPI message types.
-> 
-> Currently, the SBI, CLINT and ACLINT SSWI IPI providers use
-> BITS_PER_BYTE when sizing the generic IPI mux, while IMSIC carries a
-> separate IMSIC_NR_IPI definition set to 8. These values happen to match
-> IPI_MAX today, but neither is the proper source of truth for the number
-> of RISC-V IPI message types.
-> 
-> [...]
+Why a new driver
+================
 
-Here is the summary with links:
-  - [v2,1/6] riscv: smp: Move enum ipi_message_type to asm/smp.h
-    https://git.kernel.org/riscv/c/1ae91dc397eb
-  - [v2,2/6] riscv: sbi: Use IPI_MAX for SBI IPI muxing
-    https://git.kernel.org/riscv/c/2a0d49514f29
-  - [v2,3/6] clocksource: clint: Use IPI_MAX for IPI muxing
-    https://git.kernel.org/riscv/c/f6326e26f602
-  - [v2,4/6] irqchip/aclint-sswi: Use IPI_MAX for IPI muxing
-    https://git.kernel.org/riscv/c/a89546503a0e
-  - [v2,5/6] irqchip/imsic: Use IPI_MAX instead of IMSIC_NR_IPI
-    https://git.kernel.org/riscv/c/5b104000160d
-  - [v2,6/6] media: mtk-vpu: rename IPI_MAX to IPI_VPU_MAX
-    https://git.kernel.org/riscv/c/d1d2645e755b
+drivers/misc/fastrpc.c predates the accel subsystem. As a miscdevice it
+implements its own buffer tracking, buffer sharing and per-process
+state, all of which DRM already provides as common, well-reviewed code.
+It keeps buffers in driver-private per-file lists. It accepts raw
+DMA-BUF fds, user pointers and inline data as invocation arguments. It
+keys state on the calling process. Each of these has needed
+driver-specific fixes over time, and none of the code is shared with
+any other driver.
 
-You are awesome, thank you!
+Converting fastrpc.c in place into an accel driver was discussed on v3.
+The conclusion was to build the core cleanly on accel, and to keep the
+historical interface in a separate shim module that can later be
+deprecated and dropped.
+
+What moving to accel gives us
+=============================
+
+Shared infrastructure instead of driver-private code
+- GEM provides buffer lifetime, reference counting and per-file handle
+  tables, in place of driver-private lists.
+- DMA-BUF import goes through PRIME, the path used across DRM, rather
+  than a FastRPC-specific fd lookup.
+- Device registration, file handling and unplug follow the accel/DRM
+  model. DSP-specific code is limited to the FastRPC protocol and the
+  DSP memory model.
+- The driver is maintained under accel and reviewed against its
+  conventions, alongside the other compute accelerators.
+
+Stronger isolation and a smaller attack surface
+- Every buffer argument is a (GEM handle, offset, length) triplet,
+  checked against the buffer size. The accel UAPI accepts no user
+  pointers, raw fds or inline payloads, so the kernel never resolves
+  arbitrary user addresses on the DSP's behalf.
+- Each session owns one IOMMU context bank exclusively. Context banks
+  are never shared, and a buffer that belongs to another session's
+  context bank is rejected.
+- No state is keyed on PID or TGID, so isolation follows the open file,
+  not the process.
+- Privileged operations (signed process creation, and Root, Sensors or
+  Audio PD attach) require CAP_SYS_ADMIN. The check is made in one
+  place and covers both the accel UAPI and the legacy interface.
+
+More robust runtime behaviour
+- Context IDs carry a sequence number, so a late or duplicate DSP
+  response for a recycled ID cannot complete the wrong invocation.
+- Waits are interruptible. An abandoned invocation keeps its buffers
+  alive until the DSP has finished with them.
+- When the DSP crashes or stops, pending invocations fail with -EPIPE
+  and further ioctls fail with -ENODEV, instead of hanging or touching
+  freed state.
+
+A cleaner, documented UAPI
+- The interface is documented in Documentation/accel/qda/qda.rst. It
+  uses a consistent QDA_ namespace and rejects unknown query types and
+  options, which leaves room to extend it without new ioctls.
+- The handle/offset/length model carries no host addresses, which makes
+  it a better basis for virtualised DSP devices than the legacy ioctls.
+
+No flag day for users or distributions
+- qda_fastrpc_shim keeps the existing /dev/fastrpc-* nodes and ioctls
+  working on the same core, so current user space runs unmodified while
+  it moves to the accel interface.
+- Both interfaces share one implementation of the protocol, buffer and
+  session logic, so a fix lands once and applies to both.
+- Once fastrpc.c is removed, there is one FastRPC driver to maintain
+  instead of two.
+
+Backwards compatibility and the path to removing fastrpc.c
+==========================================================
+
+* qda_fastrpc_shim (CONFIG_DRM_ACCEL_QDA_FASTRPC_SHIM) binds to an
+  auxiliary device that the core creates for each DSP domain. It
+  registers the same /dev/fastrpc-<dsp> and /dev/fastrpc-<dsp>-secure
+  nodes as drivers/misc/fastrpc.c, with the same secure/non-secure node
+  rules, and translates the legacy ioctls onto QDA sessions. All
+  protocol, buffer and session logic lives in the QDA core; the shim
+  only handles the legacy ABI.
+
+* The core is keyed on struct qda_session rather than struct drm_file,
+  so a session can exist without a DRM file behind it. This removes the
+  blocker reported on v3: there was no way to construct a drm_file from
+  outside the DRM core.
+
+* QDA and fastrpc bind the same compatibles and create the same device
+  nodes, so they are mutually exclusive: QCOM_FASTRPC now depends on
+  !DRM_ACCEL_QDA.
+
+Shim coverage, against include/uapi/misc/fastrpc.h:
+
+  FASTRPC_IOCTL_ALLOC_DMA_BUFF       supported
+  FASTRPC_IOCTL_FREE_DMA_BUFF        -ENOTTY, as in fastrpc.c (buffers
+                                     are released by closing the fd)
+  FASTRPC_IOCTL_INVOKE               supported
+  FASTRPC_IOCTL_INIT_CREATE          supported (ELF image passed by fd)
+  FASTRPC_IOCTL_INIT_ATTACH          supported
+  FASTRPC_IOCTL_INIT_ATTACH_SNS      supported
+  FASTRPC_IOCTL_INIT_CREATE_STATIC   supported (Audio PD)
+  FASTRPC_IOCTL_MMAP / MUNMAP        supported
+  FASTRPC_IOCTL_MEM_MAP / MEM_UNMAP  supported
+  FASTRPC_IOCTL_GET_DSP_INFO         supported
+  FASTRPC_IOCTL_SET_OPTION           supported (poll mode)
+
+Known behavioural differences from fastrpc.c:
+- INIT_CREATE with the ELF image given as a bare user pointer instead
+  of an fd fails with -EOPNOTSUPP, as there is no buffer to resolve.
+- INIT_CREATE_STATIC ignores memlen. The Audio PD remote heap size
+  always comes from the device tree.
+- Mappings are tracked per open file. MUNMAP with a length other than
+  the mapped one is refused, and so is mapping the same fd twice with
+  MEM_MAP. Mappings still outstanding when the file is closed are
+  unmapped on the DSP before their buffers are released.
+
+Proposed plan: merge QDA together with the shim, then remove
+drivers/misc/fastrpc.c, then deprecate the shim and eventually drop it
+once user space has moved to the accel interface.
+
+Design overview
+===============
+
+* Context banks: each "qcom,fastrpc-compute-cb" child node becomes a
+  platform device created with of_platform_device_create(), which gives
+  it its own IOMMU domain. No driver binds to it, and no custom bus or
+  iommu_buses[] change is needed. The devices are created before the
+  accel device is registered and destroyed after it is unplugged.
+
+* Session isolation: each session (accel file or legacy file) gets one
+  context bank to itself on its first allocation or import. If none is
+  free, the operation fails with -EBUSY. A buffer that resolves to
+  another session's context bank, such as a PRIME export imported back
+  on the same device, is rejected.
+
+* Memory: buffers are DMA-coherent GEM objects allocated from the
+  session's context bank. Imported DMA-BUFs are mapped into the same
+  context bank and must be contiguous in its IOVA space, because the
+  DSP firmware takes a single base address per buffer. The DSP manages
+  its own virtual address space, so drm_gpuvm is not used.
+
+* Per-SoC data: the stream-ID position in DSP addresses, the DMA
+  address width and poll-mode support come from OF match data on the
+  two existing compatibles, "qcom,kaanapali-fastrpc" and
+  "qcom,fastrpc".
+
+* Invocations: context IDs are allocated from an xarray and carry a
+  sequence number. Waits are interruptible; an abandoned invocation
+  stays alive until the DSP answers or the channel goes away.
+
+* Privilege: the CAP_SYS_ADMIN check sits in the shared session code,
+  so it applies equally to both interfaces.
+
+* Audio PD remote heap: the reserved-memory region and "qcom,vmids" are
+  parsed at probe, and the region is assigned to the DSP VMs with
+  qcom_scm_assign_mem(). It is handed to the DSP only on the first
+  successful Audio PD attach; later attaches, for example after a
+  daemon restart, reuse it. It is returned to HLOS when the channel
+  goes away.
+
+* Capabilities: DSP capability attributes are fetched once per device
+  through the DSP utilities handle and cached. If the DSP does not
+  implement the API, the query fails with -EOPNOTSUPP.
+
+* Poll mode: a session can opt in to polling a completion word for
+  invocations of dynamically loaded modules in a user PD. If the DSP
+  has not answered within 10 ms, the driver falls back to waiting for
+  the RPMsg response.
+
+Changes in v4
+=============
+
+v3 was mistakenly posted as "v2"; this posting is numbered v4 to keep
+the numbering consistent (Krzysztof).
+
+Architecture
+- Drop the qda-compute-cb custom bus and the iommu_buses[] patch.
+  Context-bank devices are now plain platform devices created from the
+  existing DT child nodes (Jason).
+- Add in-kernel compatibility for the legacy /dev/fastrpc-* UABI as a
+  separate module on the auxiliary bus, covering every legacy ioctl
+  (Bjorn, Dmitry, Rob, Krzysztof).
+- Bind the existing compatibles instead of proposing a new one, and
+  make QCOM_FASTRPC and DRM_ACCEL_QDA mutually exclusive (Krzysztof,
+  Bjorn).
+- Explain the motivation, benefits, compatibility model and fastrpc.c
+  removal plan in the cover letter (Bjorn, Krzysztof).
+
+Memory and sessions
+- Replace PID-based context-bank assignment with per-session
+  assignment. Context banks are no longer shared (Christian, Rob,
+  Dmitry).
+- Size the context-bank registry from the DT count, and drop unused
+  fields, NULL checks and stored counters (Dmitry).
+- Reject buffers that resolve to another session's context bank, and
+  check offset and length against the buffer size.
+- Document the import contiguity requirement and the reason for it
+  (Dmitry).
+
+UAPI
+- Buffer arguments are (handle, offset, length) only; the inline and
+  DMA-BUF fd argument forms are gone (Dmitry).
+- Use QDA_ prefixes throughout and document the scalars (sc) layout
+  (Dmitry).
+- DRM_IOCTL_QDA_QUERY rejects unknown query types; drop unneeded
+  padding (Dmitry).
+- Add DRM_IOCTL_QDA_REMOTE_MMAP and DRM_IOCTL_QDA_REMOTE_MUNMAP, with
+  whole-buffer and attribute-based requests.
+- Add DRM_IOCTL_QDA_REMOTE_SESSION_ATTACH for the Root, Sensors and
+  Audio PDs, including the Audio PD remote heap (open item in v3).
+- Add QDA_QUERY_DSP_CAPABILITIES to DRM_IOCTL_QDA_QUERY rather than a
+  separate ioctl.
+- Add DRM_IOCTL_QDA_SET_OPTION with QDA_SET_OPTION_POLL_MODE.
+- Require CAP_SYS_ADMIN for signed process creation and PD attach
+  (open item in v3).
+
+Protocol
+- Handle context-ID wraparound and stale responses with a sequence
+  number (Dmitry).
+- Make the response wait interruptible, and keep the invocation alive
+  until the DSP is done with its buffers.
+- Fail pending invocations cleanly when the DSP restarts.
+
+Process and style
+- Rewrite commit messages to explain why each change is needed rather
+  than what it contains (Dmitry).
+- Put the MAINTAINERS entry in the first patch and add each F: line
+  together with the files it covers (Krzysztof).
+- Use guard()/scoped_guard() for locking (Markus).
+- Use the DRM driver debug category for debug messages.
+- Add the missing newline at the end of drivers/accel/Makefile
+  (Krzysztof).
+- Reorganise the series so each patch adds one feature end to end, with
+  the shim support for a feature following its accel UAPI patch.
+
+Testing
+=======
+
+Tested on <PLATFORMS> with fastrpc_test from the open-source FastRPC
+user-space library, built with the open-source QAIC IDL compiler. The
+test was run both through the accel UAPI and, unmodified, through
+qda_fastrpc_shim:
+
+  fastrpc_test -d 3 -U 1 -t linux -a v68
+
+User space
+==========
+
+- FastRPC library: https://github.com/qualcomm/fastrpc
+  (accel support: https://github.com/qualcomm/fastrpc/tree/accel/staging)
+- QAIC compiler:   https://github.com/qualcomm/QAIC
+
+Patch organisation
+==================
+
+01      Documentation and MAINTAINERS
+02      Driver skeleton and RPMsg binding; QCOM_FASTRPC depends on !QDA
+03-04   Context-bank devices and per-session assignment
+05      UAPI header and DSP name query
+06-07   GEM buffer allocation and DMA-BUF import
+08-09   Legacy ops table, auxiliary device and shim skeleton
+10-14   Invocation: contexts, RPMsg send and receive, argument packing,
+        invoke ioctl, invoke through the shim
+15-16   DSP process creation and release, and through the shim
+17-19   Remote mmap and munmap, and map/unmap through the shim
+20-22   Root/Sensors PD attach, Audio PD attach with remote heap, and
+        attach through the shim
+23-24   DSP capability query, and through the shim
+25      Poll mode for invocation completion (accel UAPI and shim)
+
+Parts of this patch were written with the help of an AI coding assistant
+(Claude, claude-sonnet-5) and reviewed by the author.
+
+Previous versions
+=================
+
+v3 (posted as "v2"): https://lore.kernel.org/all/20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com/
+v2 (posted as "v1"): https://lore.kernel.org/all/20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com/
+v1 (RFC):            https://lore.kernel.org/dri-devel/20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com/
+
+Signed-off-by: Ekansh Gupta <ekangupt@qti.qualcomm.com>
+---
+Ekansh Gupta (25):
+      accel/qda: Add QDA driver documentation
+      accel/qda: Add initial QDA DRM accelerator driver
+      accel/qda: Add compute context bank devices
+      accel/qda: Assign a context bank to each session
+      accel/qda: Add UAPI header and DSP query ioctl
+      accel/qda: Add buffer allocation for the DSP
+      accel/qda: Add DMA-BUF import
+      accel/qda: Add legacy ops base and auxiliary device
+      accel/qda: Add legacy FastRPC shim skeleton
+      accel/qda: Add FastRPC invocation contexts
+      accel/qda: Add RPMsg send and response dispatch
+      accel/qda: Add invocation argument validation and packing
+      accel/qda: Add the invocation ioctl and teardown on unplug
+      accel/qda: Add invocation through the legacy FastRPC shim
+      accel/qda: Add DSP process creation and release
+      accel/qda: Add DSP process creation and release to the legacy shim
+      accel/qda: Add remote memory mapping to the DSP address space
+      accel/qda: Add remote memory unmapping from the DSP address space
+      accel/qda: Add remote memory map and unmap to the legacy shim
+      accel/qda: Add remote attach to root and sensors protection domains
+      accel/qda: Add Audio protection domain attach and its remote heap
+      accel/qda: Add remote session attach to the legacy shim
+      accel/qda: Add DSP capability query
+      accel/qda: Add legacy shim support for DSP capability query
+      accel/qda: Add poll mode for invocation completion
+
+ Documentation/accel/index.rst          |    1 +
+ Documentation/accel/qda/index.rst      |   13 +
+ Documentation/accel/qda/qda.rst        |  222 +++++
+ MAINTAINERS                            |   11 +
+ drivers/accel/Kconfig                  |    1 +
+ drivers/accel/Makefile                 |    3 +-
+ drivers/accel/qda/Kconfig              |   45 +
+ drivers/accel/qda/Makefile             |   21 +
+ drivers/accel/qda/qda_cb.c             |  129 +++
+ drivers/accel/qda/qda_cb.h             |   29 +
+ drivers/accel/qda/qda_drv.c            |  229 ++++++
+ drivers/accel/qda/qda_drv.h            |  187 +++++
+ drivers/accel/qda/qda_fastrpc.c        | 1417 ++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_fastrpc.h        |  452 ++++++++++
+ drivers/accel/qda/qda_fastrpc_shim.c   |  745 +++++++++++++++++
+ drivers/accel/qda/qda_gem.c            |  146 ++++
+ drivers/accel/qda/qda_gem.h            |   53 ++
+ drivers/accel/qda/qda_ioctl.c          |  460 +++++++++++
+ drivers/accel/qda/qda_ioctl.h          |   33 +
+ drivers/accel/qda/qda_legacy_ops.c     |  212 +++++
+ drivers/accel/qda/qda_legacy_ops.h     |   68 ++
+ drivers/accel/qda/qda_memory_dma.c     |   85 ++
+ drivers/accel/qda/qda_memory_dma.h     |   22 +
+ drivers/accel/qda/qda_memory_manager.c |  213 +++++
+ drivers/accel/qda/qda_memory_manager.h |   77 ++
+ drivers/accel/qda/qda_prime.c          |  217 +++++
+ drivers/accel/qda/qda_prime.h          |   29 +
+ drivers/accel/qda/qda_rpmsg.c          |  322 ++++++++
+ drivers/accel/qda/qda_rpmsg.h          |   26 +
+ drivers/accel/qda/qda_soc.c            |   66 ++
+ drivers/accel/qda/qda_soc.h            |   61 ++
+ drivers/misc/Kconfig                   |    1 +
+ include/uapi/drm/qda_accel.h           |  282 +++++++
+ 33 files changed, 5877 insertions(+), 1 deletion(-)
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+change-id: 20261102-v4-e8feb321263f
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Ekansh Gupta <ekangupt@qti.qualcomm.com>
 
