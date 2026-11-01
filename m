@@ -1,104 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793539472;
-	b=cYWkN6eMfYOfcgOe1T4ccaVA+keaELzyyXlgODENYL4D0fjgGEmBtC7nPywYV8zyt0DT
-	 2KC6tpTx7FOLiAKVwJeGzTUtmaZjKU/YKOAPXgbp5sg4YFPHFpZxOna+60qpyCYenaZ6J
-	 PRYUxzCv1dCedDTDMfowpi+0YvNERL0M4vGyoTG2hga6MJ2IsMF2ihmqzhm7lm7E7WYnV
-	 Ru/l8Z5YpEKbKgaiMjUUFsKlTloxISH5M+FE6RzjUfXRICKybvLMh4CFwYvVgcjMwsBQ4
-	 9kJcioxL6jQSXeD0kPSBlnn8GNrD4dDOYfouJFNlMqmaTfanuR4zXeECFKUIxxuBO1A==
+	t=1793548208;
+	b=xPoHgFQY2w8eCHq1m/TlyiPVqT93Sz+laXWwCNZFYQGTb+Su/a7wrSMLDjX1mJezgAO2
+	 BBYL3+uHgDt1MPYxAnfYqnJuZlN4DbO8EVraFodaXeWsCPc7oBGlvkXRboTIea6s7A78/
+	 lwbiah4L+CdToX0zFF5DSuZeP75+r9rGap0+fENsy7nUJWxe+7USn7p+bKj+VCwfri6VQ
+	 rau6hjAw8JkhMuST5x35/W0pCYTDAZF5qNAxv+yJ6h+vbFPFdFP8K2jp1iQruGQSpDB4h
+	 SHJ6UhteAQqGq/Pc56yxF69kg8reKmhdRdWM2oBoC64OtIJZoITwhGyJkx5mgBvKWpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793539472;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793548208;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
-	b=qgzJ9x5aOvHQb72DdNeCetOcMse4V1xXU+3SBJ/HMhfooG+0CwkCBeEmjZiNYtkecXUs
-	 5yM8FfUrJI7y6n5YdV9kKohn++6P3ZL+euAzsAqoq5t3/sUygPTBFl/PafaSNfGdXfMpW
-	 i33ueqIcRlvvUtTP12Qy2eBvSr25rkTnGBOmNZ4PazMmzkIvnTPICBKJ5psMs8QtkUjBY
-	 OOU3r8gPAuw2gRbvV3GE8ekpDiCuCYk1Ht5J9inWNcsVjqQaWyTckeZe7d8+a226m26on
-	 lQ6tlFBaP0LpA1IsK4emb02lRsPg5HCyx1dluuQPou0e3pT2yjFduzWsKMnDRK84xjg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZQZ4ENRlGzy9j1pUwqm6k+qNATZGaMh89x9i7xh06Gw=;
+	b=3CFIDK2b0Sp5HxYiSQLM18yc6fgX1FG7LulJ0cWjO/DMVYqOsrU66NBWX0X6XWMVKH3p
+	 IhSQJuh9A1zDqdybwGdVsPLnbuWhmzyTsZSjcArcBgS1vciI4Y484osbQrpd6G0e89t/H
+	 9M5Sc6AxvU5XW/bTomlbFV2ApQuaXy12LxvHvSsxBohSfU5jSkRaorb3gnPjLt/Z1OGq5
+	 3N7kyXwa8nHxI4+hkgsUhch/Aa4QGqN5oMAkSyIwk20X+CHv6k3WdNEpxQnKKy6Bhopx2
+	 9kwg6RWk9SzlAUIQwuMU+Gyns72BMnALv56nKfNz/HoSgoOg0+eOqzSpVR2VIWDBQrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=korea.ac.kr;
-	spf=pass smtp.mailfrom=korea.ac.kr;
-	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ETepvLu0;
-	arc=none smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I0WcPgM0;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C18D606A32C
-	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 13:24:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C18D606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D147606A325
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 15:50:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D147606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ETepvLu0
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8b2d149693fso4045547b3.0
-        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 05:24:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I0WcPgM0
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35829219da8so3882944eec.0
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 07:50:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=korea.ac.kr; s=google; t=1793539469; x=1794144269; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
-        b=ETepvLu0v3btKNzRkiQzA8a2GUrFc5vI1Pg6UN3Q759yFkLyQJh7sqyODCeM0gEGwi
-         YFnwzYXL2dtvZ8q/IIGEb5bveVzbGBsLNLELkCbs/6ARqLbj4G0psW+zjvHZxqTwiGkl
-         PDO1ZJ5sLqwfQB8MMpZ6UB7hwuSf32eYRbvK7rLwgRTBh8679DF+4Q4c4+NgCnxeAwT6
-         ZpFYlyr3cc+eDFZqGot95/cQxNBt3nq3Dimr7tvTiNo4g/Uj8GA27s+YeG4KXWIZVHDO
-         95HNmnIatqbqN4kwgwSbwggyr0tshtyyT++f+F5U319CEWlILSH7awfSkDFGmD3vOCK1
-         atag==
+        d=gmail.com; s=20260707; t=1793548207; x=1794153007; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZQZ4ENRlGzy9j1pUwqm6k+qNATZGaMh89x9i7xh06Gw=;
+        b=I0WcPgM0JbD3FfxTYT5J0HGnQrDgbk6nAbHGIXMOXSzsnBcUZF3mApN8BFhpSaLx63
+         /6SCyPJBCS9n+8eAhqLkAzYeRrmIvXD24t/MnJyw4Cdbzhoz8lM623vsNsmWlwcgCWlg
+         ft+TpiTTKYr9XMtAtZZqj/5TdSiEQEcmhP+TFmbjn+aKAuw8AZj6ooSnev+KkLuUSfCM
+         vmu3AyhAGLrS42yVydnvX5lbmUgqzjTw3SZ5OKI2kq2Fi79cgQe0iGCaIRcDKHV63EhU
+         WIwGxuSiBzC05w83+sqdfml3azgR3wxOrv2/hmGRsC7mr07eluDzdMNEERPY+ALiBaa7
+         AMAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793539469; x=1794144269;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LzlgOuGdib5YOq34P/i6bRldhrAYEuaYlkzFNFcIg4Q=;
-        b=0OHD1mHowBQXg6H92KCuwdzI70hkEW0wfTZaUoy+5tFury/RMCwEHsDcjW/LKqS8r/
-         2aeDtFLYz8eN2rPkIFlG2cJ5Oug3Xttw9Bpz9zkE2G8WZRv8+Thcu00ZFBJoq2SF/MEs
-         hjc+/Mbcv9JCPkI7pcYIKTuM1JrTbWvfkpvrwaVpuQciSeZ/J9IqxXu09UJbCgSpcR2T
-         29/+8kOurPxTk2WIbF5Kdcc1DxQ9QMAR7IXLGCx3eexEk2hQwIzWkGkinPGxhFEk3TOx
-         t/48YdTF3Ii6R2imaa18S6zbllNrmqN9C+KBZAKuWbxqgBlOl5Qdj50M69sO1dKscVXK
-         JxYw==
-X-Forwarded-Encrypted: i=1; AKwUvBzOvOYSIZC0HfUCQ04Z9GcmpyQmoeVFEIKS4gWLyi/+8TmNMcNPyr6Qtfv5Wt3qt4zVMwz9jKnFy+uwaQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/W/Oul2AUhdahvlN5nDe1dovUWTSV28kkb6gIWY3nARoiDl99U
-	lNtDhuD/7ZBfIFY4d0VTvFs5jG27quO+jGP9WuuHFsc9B/maWN1n8BuUDIMvDbDKGg==
-X-Gm-Gg: AYBFou1HH85x/hIPp0owYhon/YStnMJrBL+Wtdyb2VROv/b2jCUGmvqe/4yFyeMSF5u
-	h8m6+L1pHo4Hvk5ExzZFZD3yBda1ccIVAWQNxa2fXkOdMh1Efu49tpd4pD9zBytYw/nd7+SmXXL
-	crWL3ldRYHXST2tvRBx5Pw41AKXjEu8Na45/zPsyPKTdCMQMcQZmdd1ueU4DNPPN5PwjhQCtHYz
-	XfmrJUPNIYKqkxdpUYq/Q3BWKqsdRwiuyHyoLwZahuROCAuQO1V7TK/ZdaH+LehFHLgEymKRr9M
-	v1b+hIXhzdS2jUVssN2hBVUSo/3utKwmBCoYE4VupP3VHGTIMlrajGgx3KyG8NdxEC7SEq8cCt9
-	t3JMd8YcgCzj29jAgXyjQP1KeMFf3aU/RJKhSkSVsqf+PJBIi3mb8CbmhHSrbusAQDJxaGjsgVv
-	m45a+35nCDPjEGnZaxADr5vlyOKlTGE9BqeY50NvrTv3kHuedWG4khQvmmTas6O6N7jx2skpujn
-	zPF2Yj/h/iGlUCyc6ypR7vj98v2bfuW97ywhYC6GNYIqDKUWVZNUioS1lEjZ4R07d5B1sPW
-X-Received: by 2002:a05:690c:4:b0:8b0:a352:f978 with SMTP id 00721157ae682-8b2b65af008mr40507547b3.4.1793539469488;
-        Sun, 01 Nov 2026 05:24:29 -0800 (PST)
-Received: from s2lab05.. ([163.152.163.130])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b716433bsm37301417b3.26.2026.11.01.05.24.24
+        d=1e100.net; s=20260707; t=1793548207; x=1794153007;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZQZ4ENRlGzy9j1pUwqm6k+qNATZGaMh89x9i7xh06Gw=;
+        b=Bs3VLKl1Q54mLlmbAJkajydct0ePg3pgq9Ji3c7LW+vzAozuOlNDUlKoFfFIak4hJR
+         qDOsxgnZcf97N5LdPqfHJ8qlLb/1aWbzP72dNYr1DIDvC4z5ZBc0agm1TVTVaV9cjqAy
+         P2KarbTf+nkiu7ts8wCmEDX5/qzRR9qSG08hvt7xlhRjqY8O1zduBoWhT9PIftjvTwzE
+         dnteuYL/7Ty6nCQZR2KgvhaKBQ7kC/FzCXtywuR3jVvwPnCuHEUmoikP1WdvLJgzuyQn
+         HEfgsogjV1wKQGB8AIDbCt+ljUmXw5rZ7K3120tf0AtiOy5dJRL4DdDjbWsgZjf6IS9x
+         UG6w==
+X-Forwarded-Encrypted: i=1; AKwUvBy5Iopc3+rLsgoU8Tjj8q/VmjdMZfhz7e8OluVqeJOj7tgtppq9ZuiEklwNyOHUqhS0195z3bU2BPaPfg==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJpY2gI/wY1mKxm06virLHHmC98yLTZ8pKcy5Suq+O+z6tTxEty
+	R2gAeQ2MwJv+BZiDG+9vpWU9idZdoiRd6Idm4LLHE/k5AZCYEhEPx9+q
+X-Gm-Gg: AYBFou2wfliBx8GPvyzPy6kbTPxodAQyeFgmY9o450ENj12E9Agzo1Cej77rfKBdt2t
+	E8JaEqLNS076vPpFc021X1ELKeNpq0038qia1HQpJv36yH5rID3O6vSYkn5faqpWsZ196zmERMf
+	bGR0qMLC6A3SyGkaWaAGUZsy5/ZUkHEN1D9qLrr2hhz1xAAfN+wfExX8stYOLpjmYe3848oBqCu
+	om7lUf1TNcXh9sIi8HVRap7ejbsu68z/898wqkie8T7XweBO5dUJQvK9pIpy9/u+AkcIWZhNfEh
+	qRqkzm/cP3JDJIu2kXHk5NZkL+qOyEWEcIYfXKmL0Z6OUCMqRT7F6r5DJGkxXyDCjA8goNyROx9
+	bHU+sqq4KB+KKzx2i0cZQvzVtk0N1IZM99ldFlaUk8fm4Z5vhouaroqQ52GhoqLudk3fxdlpco0
+	slmzYQKm3Jkh9X/RWpAxoSvoONrVPq22AxW4OFTsj3j+JSlsOa4upz5CkEL6CO2JtZbcYOdEwYR
+	h+kNoPwW8KyB1bnGBRzFAPTK196oF+ovu4Xnlj+T/mmKAlkxOphE6Bn4CgzFXvfhbHkcpjN+DOF
+	/fTfeWJ+4AsUY8PXhjxcJlU2PD//NVXogkdG+KRpAGmCofj7Ib9b/xZwbZS4EJlVeH2jdwyG
+X-Received: by 2002:a05:7022:7f02:b0:156:d588:c881 with SMTP id a92af1059eb24-1a9420e36c4mr15374530c88.2.1793548206589;
+        Sun, 01 Nov 2026 07:50:06 -0800 (PST)
+Received: from X.tail7c3ebe.ts.net ([103.190.40.31])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a136537sm25437817c88.18.2026.11.01.07.50.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 05:24:28 -0800 (PST)
-From: Ingyu Jang <ingyujang25@korea.ac.kr>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
+        Sun, 01 Nov 2026 07:50:06 -0800 (PST)
+From: Avishek Chaulagain <chaulagainavishek14@gmail.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-media@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Ingyu Jang <ingyujang25@korea.ac.kr>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: rp1-cfe: Use IS_ERR() check for media_entity_remote_source_pad_unique()
-Date: Sun,  1 Nov 2026 22:24:22 +0900
-Message-Id: <20261101132422.1396104-1-ingyujang25@korea.ac.kr>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
-References: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
+	Avishek Chaulagain <chaulagainavishek14@gmail.com>
+Subject: [PATCH] media: atomisp: Remove unused atomisp_get_pixel_depth()
+Date: Sun,  1 Nov 2026 15:49:59 +0000
+Message-ID: <20261101154959.381-1-chaulagainavishek14@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -110,44 +102,80 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-media_entity_remote_source_pad_unique() returns either a valid struct
-media_pad pointer or an error pointer (ERR_PTR(-ENOTUNIQ) or
-ERR_PTR(-ENOLINK)); it never returns NULL. The current NULL check
-therefore never triggers, and the "pad not connected" error path is
-unreachable.
+atomisp_get_pixel_depth() has no callers anywhere in the tree. Remove
+the unused function and its declaration.
 
-Replace the NULL check with an IS_ERR() check so the validation
-actually detects malformed media graphs.
-
-Fixes: 6edb685abb2a ("media: raspberrypi: Add support for RP1-CFE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
-Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
+Signed-off-by: Avishek Chaulagain <chaulagainavishek14@gmail.com>
 ---
-Changes in v2:
-- Add Fixes: and Cc: stable tags, as requested by Jai Luthra.
-- Collect Reviewed-by tags from Dave Stevenson and Jai Luthra.
-- Diff unchanged.
+ .../staging/media/atomisp/pci/atomisp_cmd.c   | 41 -------------------
+ .../staging/media/atomisp/pci/atomisp_cmd.h   |  2 -
+ 2 files changed, 43 deletions(-)
 
-Link to v1: https://lore.kernel.org/all/20260514193148.2357371-1-ingyujang25@korea.ac.kr/
-
- drivers/media/platform/raspberrypi/rp1-cfe/cfe.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
-index 8375ed3e97b9f..91e9fa0341e06 100644
---- a/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
-+++ b/drivers/media/platform/raspberrypi/rp1-cfe/cfe.c
-@@ -1779,7 +1779,7 @@ static int cfe_video_link_validate(struct media_link *link)
- 		link->source->entity->name, link->source->index,
- 		link->sink->entity->name, link->sink->index);
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+index e66a7d1c7..4f876b02c 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+@@ -1080,47 +1080,6 @@ static int raw_output_format_match_input(u32 input, u32 output)
+ 	return -EINVAL;
+ }
  
--	if (!media_entity_remote_source_pad_unique(link->sink->entity)) {
-+	if (IS_ERR(media_entity_remote_source_pad_unique(link->sink->entity))) {
- 		cfe_err(cfe, "video node %s pad not connected\n", vd->name);
- 		return -ENOTCONN;
- 	}
+-u32 atomisp_get_pixel_depth(u32 pixelformat)
+-{
+-	switch (pixelformat) {
+-	case V4L2_PIX_FMT_YUV420:
+-	case V4L2_PIX_FMT_NV12:
+-	case V4L2_PIX_FMT_NV21:
+-	case V4L2_PIX_FMT_YVU420:
+-		return 12;
+-	case V4L2_PIX_FMT_YUV422P:
+-	case V4L2_PIX_FMT_YUYV:
+-	case V4L2_PIX_FMT_UYVY:
+-	case V4L2_PIX_FMT_NV16:
+-	case V4L2_PIX_FMT_NV61:
+-	case V4L2_PIX_FMT_RGB565:
+-	case V4L2_PIX_FMT_SBGGR16:
+-	case V4L2_PIX_FMT_SBGGR12:
+-	case V4L2_PIX_FMT_SGBRG12:
+-	case V4L2_PIX_FMT_SGRBG12:
+-	case V4L2_PIX_FMT_SRGGB12:
+-	case V4L2_PIX_FMT_SBGGR10:
+-	case V4L2_PIX_FMT_SGBRG10:
+-	case V4L2_PIX_FMT_SGRBG10:
+-	case V4L2_PIX_FMT_SRGGB10:
+-		return 16;
+-	case V4L2_PIX_FMT_RGB24:
+-	case V4L2_PIX_FMT_YUV444:
+-		return 24;
+-	case V4L2_PIX_FMT_RGBX32:
+-		return 32;
+-	case V4L2_PIX_FMT_JPEG:
+-	case V4L2_PIX_FMT_CUSTOM_M10MO_RAW:
+-	case V4L2_PIX_FMT_SBGGR8:
+-	case V4L2_PIX_FMT_SGBRG8:
+-	case V4L2_PIX_FMT_SGRBG8:
+-	case V4L2_PIX_FMT_SRGGB8:
+-		return 8;
+-	default:
+-		return 8 * 2;	/* raw type now */
+-	}
+-}
+-
+ bool atomisp_is_mbuscode_raw(uint32_t code)
+ {
+ 	return code >= 0x3000 && code < 0x4000;
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.h b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
+index d3d1f2574..937b64ac8 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.h
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.h
+@@ -284,8 +284,6 @@ void atomisp_init_raw_buffer_bitmap(struct atomisp_sub_device *asd);
+ int atomisp_enable_dz_capt_pipe(struct atomisp_sub_device *asd,
+ 				unsigned int *enable);
+ 
+-u32 atomisp_get_pixel_depth(u32 pixelformat);
+-
+ /* Function for HAL to inject a fake event to wake up poll thread */
+ int atomisp_inject_a_fake_event(struct atomisp_sub_device *asd, int *event);
+ 
 -- 
-2.34.1
+2.43.0
 
