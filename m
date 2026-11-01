@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793563605;
-	b=a2wKLTlL2qiNhox2r5Vvz7J8uuYvRkqJ2jeilbd/8PqdQGRxfoWBBxNjZIHK3e5vOUcs
-	 qZ8/u/daCwjwP4DPJ8EnvklrpeE2W1U0PIhsNuVxZNgAQRitcOh+PynBN7YoJ3rrLwInn
-	 mhAfYdv3FYyHeivcOYLb5+xb9JQHLZMG/dd+yF7Wpi0vaf7Y2o968aOccRdksNXNLxI2/
-	 Z0x7Ccpug79CqTUDAO9+Yvc3bYsSJnlATpppAScevhQCiTTfZg1dao7uFODoga8jI6bdm
-	 XQQ5UYSleJpCnqoTgaK8hDbL3ZjtNOTrC6A5f3liSj8N8/qYt/XD/ejnMYoUonp805A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793563605;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=laBzuwzrH9YIVUfs10Hcno3yhz0Vqej/iXwjHqfMmqs=;
-	b=dLdfj7GLqi/nDHOTtdkHOhFnSNCAYaGe/vXY0jgKsRXJFDX0M7ZN9FRLW0pnZdeeJyNS
-	 OuielcT82fud30U0Sa9luNHenPoATbmWaVBQuMPA6bgYsd4r2ZyOM1ujjjiuDhuvtLP2f
-	 zIFsHJeqOmUKOrm/fBxiiwfPsv5AfR0el22aCfUq9O0HXzGQUTEic8ebTOxJ9FuhtDy3o
-	 DZhSHYS2cEEM0g4hMujqvWZcf7h9qPBcuU2NbEiHaDGLOz/3eJTM9fQukaxNMdxJPTuiy
-	 bnzgjf6vwljY3epmWgQuLh7So8rzzX/GNVL18+UWhyozO1/r/2q48GEDd80ckoJm3HA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AR4fJ7YW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793567687;
+	b=dvKdfB1CpW4pNg2M5D5sbHDZm4VU+pqeUsDV+y5IjexO1XE0FRbKgZkbPR5S7RpUJBsX
+	 cAe85gPlqlrnHFZVKrkasaE3gQLVVtHGitxhv27hJkOBHvQDNBZBEiJHgecODWFg61Lk+
+	 5PavKkvFsXgmyYlnIbmEPFjniRIfrGVaqSpOYx9VBhgRz+T/5BfSrOw71c/zPZd2Y98e4
+	 kK518LOAtAVWa38dPcZZvTTnFGBCsgo0oy2D4nLMH724dlj9BMS2vefrC08f61nEcs4cD
+	 9C5T+nMsI5ZJH4oZpG7XINwF6Zc2g26pqnPdD0v3rThKwY4gkWf3tiR23TMip8yLlKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793567687;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=AvHAhlRhkPgLrmgjNSyRuNLh9GxQ9LIIjKdvXbwFnMA=;
+	b=M55CxlHSVEgDwJYQsbN5dplVgKJ6CyO6kUgTAsSw2ZiPyrypsuK6+Ynlc8FxzSgU1VbK
+	 IyI6t/YUGTJUTlOWos1O27gxSQh0E9cD0VPPfoxEbccKJufp+twXlT122V4S8Ehr8TfAj
+	 KmuCmCukbSa8/O0NQfy5n84+RXFOWeEGRVr/FjAo63NuOsh3iN1ZrupUPFkZQGPCGInCf
+	 Z31KSm7VJkkcJRq76lCulcrlh98cd7jBEmfTftd8ThvR6uVzv2l1MKV9x3hpcdGsYxVSZ
+	 nkG+4CL/MxVUegQ2E47hCT+LqS4E0hhEKD6kTDQw3uz/eMIRVMbeEaCoQRED6NV+mSQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4410A606A324
-	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 20:06:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4410A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=AR4fJ7YW
-ARC-Seal: i=1; a=rsa-sha256; t=1793563577; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=he1fGCBJJmmf5MmlOBa8csrv0eH41CKkxSG7oG7tWcFLGLg8/UsKfcfMoYa5Ux9WkPSqxA97CC3z+wgw9zhj7zFq+HUXge3w1liuVJHB9nzNxRH17FD7yPIkpPPe+qzZNnEJpphQWiYOMZgwyMDTyjBrt02divRzLmltEqji2TQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793563577; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=laBzuwzrH9YIVUfs10Hcno3yhz0Vqej/iXwjHqfMmqs=; 
-	b=Z/sTnFx2i93W8cZ+lHIABHKa4WybTqwmf2UerZPLDm8M4kH55dN363H6xQ6BQUREqLSmIGc9chCbUMigCLe6JhLahuwdVXL/1EELIRFvQNsOqg1FrYmbMfGtS9tt7do2PmleEJK3fQtYmihaUXAg06xGCIaie6AhYYGn86tGHVs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
-	dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=AR4fJ7YWwYMT3Ubt5ChFP6oQJYCOzn92Ud2V16/swe/3XF1MlIlH7ZT8tABMszEMzTHwcIN9dnnBQ4/MydjcwUXmjaV4xBxfg6I+0nWRf0/GhLnPsZAOZDRjBtTg+ZwGb8ujPp6Tdt6OPHyCVFJlzJicSnx/CTTZmSgD01Zgygc=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=laBzuwzrH9YIVUfs10Hcno3yhz0Vqej/iXwjHqfMmqs=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793563575236637.5879201460525;
-	Sun, 1 Nov 2026 12:06:15 -0800 (PST)
-Message-ID: <5f4d3457-16cc-465d-83a9-f3df149f28c1@collabora.com>
-Date: Sun, 1 Nov 2026 21:06:10 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2882606A324
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 21:14:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2882606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4a7de733fa9so3692390b6e.3
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 13:14:46 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793567686; x=1794172486;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AvHAhlRhkPgLrmgjNSyRuNLh9GxQ9LIIjKdvXbwFnMA=;
+        b=Ez6QdmH+ltC4d8UnmzEK/Dv15oqGlz2cvI5Kajw1k0ialPLuF1ar+jR1RwCwO7hUFB
+         GuHq0gZA8zYqTSWGEwvM+JZG76U65Up/pZpQrCuAQ7tpWu2KJhCSGpDrDZ8YU0k7sEuX
+         KWI1iW2lBlJA+xRr2bP4Wn2ld/K2jHrpB63Gp23tEBvQyPcrrtuJ1Gk6SNXXjvG7sNYf
+         MpBsV8jgr0704bWJvw74ImypCv1Z24sZW/j7IqYoC1rMG50DwQoAdPzkHAb2sgaXdZFf
+         DGWLaA1XWeVMXZqz5d6jxLnR2HQMmyJnxrXKSkJgQgBHs6WEEm/7izk1L4ktLexBAJpf
+         /nkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbohyXNvTVqPGdzGCvr67lKmYyyRHrYq03IuOArBdeozHvNeZIHBDHcu+DGrqsZKke8Ef59RjImeMafw==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJP9OCwNoJPAxGVy7wUhW8Y/i1ImT1s3z2JtBYa4Xjqjfr3RSMe
+	XEb9u9S9vb9LAK5cQsiGdEw+MIaMB0cIk7VTVKYtWUlEzpvxmQlcHwS4WOo51Sx5m54S6f4Y4xU
+	B7AHTOPMyE5B+47OONDwjsrhx2oVVcfF88okbW6CfU9TZI6sHkla4ivIx91c=
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,117 +58,142 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors
- on Intel IPU6/IPU7
-To: Alain Cousinie <alain.cousinie@laposte.net>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>
-Cc: Milan Zamazal <mzamazal@redhat.com>, libcamera-devel@lists.libcamera.org,
- Sakari Ailus <sakari.ailus@iki.fi>, =?UTF-8?B?8J+Qpy1tZWRpYQ==?=
- <linux-media@vger.kernel.org>
-References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net>
- <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com>
- <20261101164311.GA3368923@killaraus.ideasonboard.com>
- <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net>
-Content-Language: en-US, de-DE, en-GB
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:11cb:b0:55b:f88d:6ebb with SMTP id
+ 5614622812f47-5640df0a2eemr5490383b6e.54.1793567685852; Sun, 01 Nov 2026
+ 13:14:45 -0800 (PST)
+Date: Sun, 01 Nov 2026 13:14:45 -0800
+In-Reply-To: <20261031204723.1415-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae7abc5.64e51036.15cf6a.001d.GAE@google.com>
+Subject: [syzbot ci] Re: media: em28xx: fix v4l2 use-after-free after failed init
+From: syzbot ci <syzbot+ci612f2c3be50482a3@syzkaller.appspotmail.com>
+To: drifabdelmalekmohamedsaid@gmail.com, hverkuil@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-usb@vger.kernel.org, mchehab@kernel.org, stable@vger.kernel.org, 
+	syzbot@syzkaller.appspotmail.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+syzbot ci has tested the following series
 
-On 01.11.26 18:25, Alain Cousinie wrote:
-> Le 01/11/2026 à 17:43, Laurent Pinchart a écrit :
->> CC'ing Sakari and the linux-media list.
->>
->> On Sun, Nov 01, 2026 at 05:31:14PM +0100, Hans de Goede wrote:
->>> Hi,
->>>
->>> Note please use johannes.goede@oss.qualcomm.com note the "oss." in there,
->>> this is also the email which I use as author / S-o-b for all my patches.
->>>
->>> On 1-Nov-26 17:23, Alain Cousinie wrote:
->>>> Hi Hans,
->>>>
->>>> Forcing packed monochrome (`CSI2P`) on VGA sensors (640x480)
->>>> triggers a systematic `stream stop time out` on Intel IPU6/IPU7.
->>>>
->>>> The hardware reason:
->>>> * IPU6 DMA burst requires strides to be a multiple of 64 bytes in
->>>>    pass-through mode (`PIN_TYPE_MIPI`).
->>>> * 640 pixels × 10-bit packed = 800 bytes per line.
->>>> * 800 % 64 = 32. The MIPI End-of-Packet (EOP) arrives mid-burst.
->>>> * The kernel driver requests a stride of 832 bytes. The firmware
->>>>    detects the conflict, starves the DMA controller, and hangs at
->>>>    stream stop.
->>>>
->>>> Unpacked mode (`MEDIA_BUS_FMT_Y10_1X10`) works flawlessly because
->>>> the IPU6 unpacks to 16-bit before DMA, resulting in a perfectly
->>>> aligned stride of 1280 bytes (1280 % 64 = 0).
->>>>
->>>> GPU benchmarks on Intel Arc (MTL) show that packed vs unpacked math
->>>> is entirely Memory Bandwidth Bound. Arithmetic LSB decoding is
->>>> executed for free during memory fetch wait cycles. There is no
->>>> performance benefit to forcing packed mono if it breaks the IPU6/7
->>>> firmware.
->> The whole point of using a packed format is to lower the memory
->> bandwidth usage.
->>
->>>> Can we update the Simple pipeline to exclude CSI2P for monochrome
->>>> formats when an Intel IPU6/IPU7 input bridge is detected?
->>> This sounds like a kernel issue if packed mode cannot work, then the
->>> kernel should not list the packed fmt when the sensor is producing
->>> MEDIA_BUS_FMT_Y10_1X10.
->> It's not just mono formats, it applies equally to bayer formats. Won't
->> that break the patch that fixes crashes in the CPU soft ISP on IPU6 and
->> IPU7 ?
->>
->>> Offering the option to do packed and then expecting userspace to know
->>> the hardware does not support this is not how this is supposed to
->>> work.
->>>
->>> So please modify the ipu6 kernel driver to not report the packed
->>> framebuffer fmt for the MEDIA_BUS_FMT_Y10_1X10 bus fmt.
->> Better, fix the driver to handle the stride correctly and not stall.
->>
-> Hi Hans, Hi Laurent, Hi Sakari,
->
-> As an individual user who bought an Intel-powered HP Spectre laptop with my
-> own personal money, I chose Intel because I appreciate their hardware. I would
-> appreciate them even more if their teams made the effort to communicate more
-> openly with the open-source community. It would be nice if my little IR camera
-> could work without forcing top-tier maintainers to fight over kernel
-> workarounds. Kind and humorous does not mean naive.
->
-> This case highlights a broader political issue: the open-source community
-> willingly works with and supports private companies. This collaboration is
-> a good thing, but its political balance needs to be reassessed when private
-> entities benefit from open code while locking their own logic inside closed
-> firmware boxes, leaving us to guess the hardware constraints.
->
-> Jokes and politics aside, Laurent's point about fixing the kernel driver to
-> handle the stride correctly is the cleanest architectural goal. However, since
-> the restriction is locked inside the black-box firmware microcode
-> (ipu6_fw.bin) enforcing the strict 64-byte DMA burst alignment, we are stuck.
+[v1] media: em28xx: fix v4l2 use-after-free after failed init
+https://lore.kernel.org/all/20261031204723.1415-1-drifabdelmalekmohamedsaid@gmail.com
+* [PATCH] media: em28xx: fix v4l2 use-after-free after failed init
 
-I just wanted to add that AFAICS the 64-byte alignment is also required 
-for our GPU dmabuf import fast-path on Intel. If we don't hit that 
-fast-path we need to do an extra copy. So for the softisp we'd rather 
-have 64-bytes aligned unpacked buffers than packed ones without that 
-alignment.
+and found the following issue:
+possible deadlock in em28xx_release_resources
 
-Regards,
+Full report is available here:
+https://ci.syzbot.org/series/92e27f7a-9ca9-4693-ad76-730262f6efd0
 
-Robert
+***
 
->
-> Sakari, since you are in the loop, do you think the Intel firmware team
-> could look into this unaligned VGA packed stride freeze on stream stop?
->
-> In the meantime, Hans' filtering approach seems to be the only practical
-> safety net for userspace stability.
->
-> Regards,
-> Alain
+possible deadlock in em28xx_release_resources
+
+tree:      torvalds
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux
+base:      cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/5e867cfe-3c44-46f3-be9a-3394e10312c7/config
+syz repro: https://ci.syzbot.org/findings/de514af7-755a-455f-9075-91732cf09a76/syz_repro
+
+em28xx 1-1:1.0: Closing video extension
+em28xx 1-1:1.0: Closing input extension
+============================================
+WARNING: possible recursive locking detected
+syzkaller #0 Not tainted
+--------------------------------------------
+kworker/0:3/5059 is trying to acquire lock:
+ffff88801cd25cf0 (&dev->lock#3){+.+.}-{4:4}, at: em28xx_release_resources+0x75/0x240 drivers/media/usb/em28xx/em28xx-cards.c:3796
+
+but task is already holding lock:
+ffff88801cd25cf0 (&dev->lock#3){+.+.}-{4:4}, at: em28xx_v4l2_fini+0xb7/0x3f0 drivers/media/usb/em28xx/em28xx-video.c:2431
+
+other info that might help us debug this:
+ Possible unsafe locking scenario:
+
+       CPU0
+       ----
+  lock(&dev->lock#3);
+  lock(&dev->lock#3);
+
+ *** DEADLOCK ***
+
+ May be due to missing lock nesting notation
+
+locks held by kworker/0:3/5059: 6, last CPU#0:
+ #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #0: ffff8881032cb948 ((wq_completion)usb_hub_wq){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
+ #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: rcu_read_lock include/linux/rcupdate.h:849 [inline]
+ #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_one_work kernel/workqueue.c:3460 [inline]
+ #1: ffffc900036cfc40 ((work_completion)(&hub->events)){+.+.}-{0:0}, at: process_scheduled_works+0x97a/0x1630 kernel/workqueue.c:3578
+ #2: ffff88816eeb71d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1109 [inline]
+ #2: ffff88816eeb71d8 (&dev->mutex){....}-{4:4}, at: hub_event+0x184/0x4d30 drivers/usb/core/hub.c:5917
+ #3: ffff88801cdfc1d8 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1109 [inline]
+ #3: ffff88801cdfc1d8 (&dev->mutex){....}-{4:4}, at: usb_disconnect+0xfc/0x9a0 drivers/usb/core/hub.c:2346
+ #4: ffff88801ce5a1a0 (&dev->mutex){....}-{4:4}, at: device_lock include/linux/device.h:1109 [inline]
+ #4: ffff88801ce5a1a0 (&dev->mutex){....}-{4:4}, at: __device_driver_lock drivers/base/dd.c:1046 [inline]
+ #4: ffff88801ce5a1a0 (&dev->mutex){....}-{4:4}, at: device_release_driver_internal+0xa9/0x7d0 drivers/base/dd.c:1377
+ #5: ffff88801cd25cf0 (&dev->lock#3){+.+.}-{4:4}, at: em28xx_v4l2_fini+0xb7/0x3f0 drivers/media/usb/em28xx/em28xx-video.c:2431
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5059 Comm: kworker/0:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_deadlock_bug+0x27a/0x290 kernel/locking/lockdep.c:3085
+ check_deadlock kernel/locking/lockdep.c:3137 [inline]
+ validate_chain kernel/locking/lockdep.c:3939 [inline]
+ __lock_acquire+0x25db/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+ em28xx_release_resources+0x75/0x240 drivers/media/usb/em28xx/em28xx-cards.c:3796
+ em28xx_usb_disconnect+0x19f/0x2f0 drivers/media/usb/em28xx/em28xx-cards.c:4493
+ usb_unbind_interface+0x295/0x9c0 drivers/usb/core/driver.c:460
+ device_remove drivers/base/dd.c:619 [inline]
+ __device_release_driver drivers/base/dd.c:1357 [inline]
+ device_release_driver_internal+0x48d/0x7d0 drivers/base/dd.c:1380
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:678
+ device_del+0x524/0x8f0 drivers/base/core.c:3967
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1484
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2355
+ hub_port_connect drivers/usb/core/hub.c:5425 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
