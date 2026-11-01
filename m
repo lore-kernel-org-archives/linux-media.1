@@ -1,100 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.224.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793574118;
-	b=feRkiFkYfmZy+yfBGkzN6PBFnph9+4j+NCITMXwYGpZljTur6gGQgLh1TMb0Bb6xvixH
-	 B+zVA5X1nujPE+VOCWDw9ljA8rznIsHZPhDffL28D03gncASjvj4+S4ksZFnnurffHxpR
-	 lCv3goqR51WlIaOYGt1ke2L4v10gWFxxk2jv50eYpB4MEdH+WRbMOkXp4IFcLBrpKMuwl
-	 K5D2JBCUzmQer3XSs302ZVJxGqN02otEDhuXqbOmjFBecJyd8Zq/e3JAVUnV0X3XoFT+5
-	 wNRqA+dHvvcXp778PHNoSzsNMjBszY5Eavw5WlKVKpvZISkBUrrnFaC1FW9Cx+yYqrQ==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793574947;
+	b=UJGkcCNPjoQcNgUc7qEtmlpqI7k1WnhO75Cdn1MhBPYgEPAb8GFR40x374s9AawKrNam
+	 nPfBNLjHJ6mmcgSXkAY8XgC8dM+8WCQEtDHUTkXUFVHPKqeOH1bHVk2UH4jWc2WM8mXon
+	 4ixlUtnZpXY+kmabPj5esUSZjrSMGnnIj9OHJs8Ju91/ieRdzFvXwOANGX7yyw232INvh
+	 QRoHsYuonaZGei+cZL2T8INK+VpjJJSIZUkoInlYkdQu9FWUoTURjMJSbYc1pz0MZrRrB
+	 eGVkCnz1Jd5Xw8KsYOTx1A6KOat8ZAZSs8SK6kFTQZ949TEeGozQFvXn658/eEI15cg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793574118;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793574947;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
-	b=EHSrTBoaMqZw7OKkCMu/bzRu0GWnCgMCaHMEDLpJkwYRHLlof5fApoE+DniBoidh+4c1
-	 1DIILVj1SQI+isDuXj5siVx+SaNNCsxQ17xZ8kEW2oOL1cAUxkIUGqMlInwu2tzFci/+1
-	 IOYBoerypn2U1baWREm/xpoYAvLOZafOXJSHEsyHNXR9Nb+oh2xMr8OSTiBMVZEJpTwfI
-	 yP8gTg43alyXU66yBzOUB3+vgTBcloW8WS7XycBxW7H2GDXa7u4k57LEStD3mEN51DAZL
-	 QmTAYoGptOv2Xg16F3H295pEvZl+2BhR5XQDDOD/hIp9I9YfxLF5pd0OQ8lYCm1fVqA==
+	bh=b85SCZUlEMSxM24RW75vmTYnk/54bnSaR4ktiJzCCEI=;
+	b=uZwRKrOt/Df/xUTOkzIX74jYt7GYiBM4F95I8jYCc2v6b3gASYsFeJQFVffmeWSONklF
+	 szofHb8yRW2oof3sj+0siTZFmqH/9wxdp6EZYGyDj1JcajanGoIQfmGrP/iPLi48hvoe/
+	 Y8ZpZ1jlj85y3CAaKCgnmqGpdezeIUKqQL+Vozno2HHEAlqBzTDs3AHWSLl+Bn3yYPpwr
+	 +FYZfbsliZmxNQJQ4WCFQO+CQgV42QOxG2jfLk4qk4JNIvfyc8kfG3TAgRE6Jh7OJN3oG
+	 VOfPGDOTJ4vBTvSR7iPWICCIb4kLmrJSMXqHV15sHj3tEelxXQ7j2QDxTh9ElKdCZjg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nVzGWl6I;
-	arc=fail smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBF4606A329
-	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 23:01:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CBF4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=nVzGWl6I
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-67583c777abso2530502d50.1
-        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 15:01:57 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793574117; cv=none;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F9E606A324
+	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 23:15:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4F9E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso11275a12.0
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 15:15:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793574945; cv=none;
         d=google.com; s=arc-20260327;
-        b=oEMJhQ9/ahp0I7CW+VkT3p+tyhCjHGCeGFl65k484RSRTfsUtxaeQ26KN/KTtCw7Ka
-         oZSRSXhSRUXhUcZhaxqEYJYAtbN9Joqrh4gnjON+JLy3l1iH5c2r9jQXZYYXwtBDJ30k
-         StwvuCTO+35Ooa+pwzCM/7/893XVlLqdmWfSiv3xTe0d/yyWKO0AZ1GRKoQq5meyDuM7
-         nPdYe0N13SNbC73nPETiqFd3JhXsFJVNOTbSITHyUOzgAezK3Xr9Sx7Xqn4OH9Y4Md0O
-         5rCQEF1ndNNX9ymtfvGc66r0G1vmV+1q1XXwvlAFik3VgGErQbvYFgBT0zdAZii6j55g
-         7k5Q==
+        b=po731D6jV9bGthFf+MqDcXbvnQP4ShZ4nOpphzOlgOOZbIGPXZhJqyzBD6M8amOhM7
+         lfNwzm8VXZajjdkO2OaJPmVQZvr1fHU9pY9mWxPzbdU4eqzS9qnOf57HHOmt/YHOWltP
+         wjAMvLDbxzNzCZZeSNR6kbmxiUwc+BCwvBt65ZrmERFMweIGyKRSBJm/Bj+v49vp+tKM
+         PybJzxO3+anPN8Z/JJ0twI6YivrYTw0I104nkA5Jo1h+YoBr4qozDxu+pJF57a+iUn6N
+         jVY8/40uZesIPakaizY4+g0fhj06rv7aLt5kd+uPUapyTwUeyeKZZlpc+S+CFAoVDDit
+         7xdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
-        fh=+Rhn5u3Zt9TKqWlRWf5wzJzygmGjZrWegC7BFN28k5Q=;
-        b=XI5FFowvCEUjxsKFQjnCg91YwZHLTQcNLUEs+OxpyUZSxJSB9DjpieUFbeytbsEmCw
-         6lOOY9fA/hjEO/GsvQ2zUYlR2RUEf9eoH/OgZzb9IsqJz1UfP2CauDXc650hfmH+kDaY
-         SL/RInhP8h4er8r+B0pIyCATV4XFPb4nctyXSI5qZa1ENo3OIC7MnklfDS6XnNPnClsb
-         6mJNDaRU27/k5uhLV0OsbJwdbxk/gkmtCNGBA24cEKqYo5Gg0bT/jR69AenTF/TGKtng
-         kXhvLP16WXSgKlg5+qubZHw2lSoDAqOb7wTd3+Mn9wVbb/YwzWT9eek23lVbL2P8wkW6
-         rDUw==;
+        bh=b85SCZUlEMSxM24RW75vmTYnk/54bnSaR4ktiJzCCEI=;
+        fh=aMbmXA255WWpOD3/S5LIBcPlwpoAylfN4V2CVM4lg2A=;
+        b=pWnMci8XorvcoZl0h6UuFk8xKOqrSJEKB0VhYHTn8IY95YKfnI0M2Vma+3aKGeskPA
+         ezYTMILQe/8qMiEVsFhpvCZLDQGNrHEppJylxpCsIJmdUUDOCdjh4CRxCtQZDy9WKKK/
+         3enQyZYD4kyoQIvPXh/VldetQhtEoOUA4hQssjKIozXn8iJOSevUjm7ZGDysF1fQTVyv
+         6yj6gRzJLwD8VSaiSqw4RgMr/+b2YQyGJHYnrBCKEBz7iyIJwiykRh+nMwD9q03EyjYG
+         AyEpFrW7rkmFHby+di+ALMxaFqN6LdzAiis7dA+PyJvFQsEFlI4x87IEJ4NyZ0XpfO9X
+         2btA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1793574117; x=1794178917; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793574945; x=1794179745; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
-        b=nVzGWl6Ix/T3fqktC29agdSx+nhw9+1KkCo2E+r3nGEnlkYi0YDWQWcZKbN8IJSDu4
-         MBaydsTTNFoMQdoqPXGsz5UQ2Wfw9GF21QdGDrbEeljKQuKKEjrBjiB06y5wHhM+nEm8
-         mbw1jHlQf53yWyOYwcEcfi5NeFN6pvbR0q/l02QKIHDF5urwa0edOa9ApbA6HnMYhOll
-         hYFaO8AgH/2IDzyj/ZN+G/EXtaqbcBGKAU3McsnRCQiBihI3r9uHmL5euFuWWyJROzxY
-         BFVBwOhj8y40tAKAF/7koZvCgR0hrPSG/hVB5MytE3KgmxotZbHld46pa7CQa61/nU6D
-         Ougg==
+        bh=b85SCZUlEMSxM24RW75vmTYnk/54bnSaR4ktiJzCCEI=;
+        b=hFbJtLRnNrWh9MczBVUqeHa6U6vBtL5Ropz9byKDoNLVHM87ltQr5NGlVo9+ozlqCE
+         zCDbKcJYaT94e1dxw/Tl2UYTrALEmcu44Sdv+omfskaXW9uWk8l+BS5O+UYhaasoezsP
+         QmUBkekyhVGcuiLRAHX2bsZXRHnGRLg08Qp+xKModUiXTfY2OCjYIvtANXAdTG0v4TNK
+         zRLI7sKCdAUAyM0qQu3FA702xRVGzCQthGPmRzYyviVOrDfcPOzaWtJNM/ZhFIVN763t
+         x+PQrfOvRfHZvM5mLxU1/1lHsxnJniaj65ghOzY5FFLgemheiUlWhWVkM5wETrQ0wSFo
+         nFKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793574117; x=1794178917;
+        d=1e100.net; s=20260707; t=1793574945; x=1794179745;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gD1nfjl7lET5+9wsGqFxfwSgtWUcBXtbEov7qAlr+4I=;
-        b=Bmsz1k2Es1rniRFG02jAPcxhuTPnmbCUfDZx16BZ2Z6OX9F96+qg3jT0A8fsm11Cai
-         teFQy5npC0TKvZ+VfURsacUyyCbp3Ny3OskdfDt2+8amqPiJyJAfnYbuwGGdqZv3pq1E
-         a+AFsmWhnEJBvBIq5lLtxmy1j9jjAD71pnRyqIUtbLqCkrG3BsGfi8wissySiKSe4X7J
-         DumrzsOJFSLcSVPn9gtmrL2t2kk7JMGXdK7A+BeZLnhHHjY2yTVtcMrc/McHspMeNsvo
-         4mRsOZ0HYrA/ZoUxLVSvrGHAY7qpM2qnZPigI8RvIxb3fmuO7X1uXgH3KdjWxB1pxu9t
-         QaoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcIS52fsQIj6fxH087qtXo/xhExjNzGitK8WRtLZ5WQxj22i0W2y/axZBs5K/xTZo8g1w7xDa9BxirIQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IMe8aucOfy0CeAT1npg0BdLQNGBlxN8pZ9grgLJtYevFipYs8
-	1qtSYbZ7ddnJPOTz1lFKKSCIStmEsx7luz6r2sMg8c05FkJ2pn+9+xnQdH6CBc3upPUHp6kRXax
-	YxqYz6NDBm9/xCjU0DftxSKeeKr3pwvs=
-X-Gm-Gg: AYBFou0pLb+BgG4Uln+Uj/1cvj8PbqPgRiTZqx64Xw8lu2Xbsw9PZro0Tl7okw8TiyC
-	R977VqSYT80TJoxdEAqXYVvVZMolG8z7jKgv3r3EdNX0n3jNGegaFFRdxHbL3Gm+5tjRzsd3cBr
-	QQOOMRhe1beIcWUIQmwYUkkt7adZijsCPK9zl7j54PQzRmvtrzg0VjA3QCgArlPTgH/EwC9tlU1
-	/YF7BXreXSpXyV84oCK7nOLVV2OLPLWA5BqHMryUBTwFIr98ZGzSo6nEP/SgdBzXvAC22doHKSA
-	7Uega6gNr5cDwVh483AXSI5rzWvainafIl2y6Z72+LDY8G29NJOuAB0immSajXc1Ukanzzuw/9A
-	Tvci3GVRuIHQwSfXcbOWfVqhr5qQhsoakuUweVJRSzWyQS5mX+sg7b7Dl8E99ncURuSNFYA==
-X-Received: by 2002:a05:690e:4084:b0:67a:86d7:b9ae with SMTP id
- 956f58d0204a3-67a8d60ce47mr8913440d50.42.1793574117117; Sun, 01 Nov 2026
- 15:01:57 -0800 (PST)
+        bh=b85SCZUlEMSxM24RW75vmTYnk/54bnSaR4ktiJzCCEI=;
+        b=DQ4+uC9gQXstSKjenqxPQH4tswx8IA80/uYXDxSlZrU/LzorpcdbB+NpIf5At+2VQ+
+         FCANLJ4QtGBR4ejfXVskUnsjahKK0DtSopEXu8/9v0VzfGLdVyITkkTLTufX/J9j2aQy
+         8eXxNaGuvAFYpkjM5nNHOIkRoZQJasmB7JrE0R10YhJOwTu2YW/6rVnkASZagEtbjLVe
+         smowHuSqqFTlyy04IZppBWPfnYlhjTvnC/7iYhLJ4CLiSbkBf/mQ8WhlBZaw51a8zH4M
+         elIcjjirNsOBAcy0n+OktIktWlMWN0ZGYlx6y4FnpUgrGg1mJN4YmYy8MBWihpNwlMPZ
+         IrjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxYYpimh2Gl+ieglQTlMgTioH8bMUl/RC4+UhkCbQdJPh1FTYvLs4iEMUhjuwtSa39uLPQqM5XhnXaoyQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+u/5ObSmbATxSc2oukt/Vp0Y+CDCVbpkES9bpQZbeDyNFGiv45
+	cdtN6zTh6qxT8IrDDJ+H/s9JMA7RUwjPvbS5zufScf4sXT9hd9QQIS90wNijIj7X5q1uQ132mYd
+	4YXomo27Re/2GaJpbc4c9s/xcGWkitaCen6gmMvzH
+X-Gm-Gg: AYBFou2ddPEKWQuBcc6C/B/WFizm/zq2Nw4c31rqrGeG0agEYMkvnUtmf0mGhEQYHTf
+	/Jpfkgrc9HCy8k46ppf1rZuv+rarkSEVmR1b5b2buavPRpm8FNPgpLBjKM4gfCTsK7m2oBu6Vdu
+	rULOw3AW9XIdGSD2CnISrb3nidciNw+tycU5hQ/yjrtq5ZGNsUSrYuqFWiRTPfoFOfD2kLZRDz2
+	ZFDHleTQRBtPKvVneGheK+opQl+Qs5qtlzBoub8bzJMrZczXZS/j2a4z+IfacL/HElvQtoLMu4b
+	DOUCOZ9fTdbSZd3limm2MFIG941O6sTYbcaokS5b6bfFwgKal0kp1HZEyhuUeT/ieR2SgNXuS8A
+	iaf22xpxKu+70ThrIvN6NKeUGnb+KY5T8pr9I5Tk=
+X-Received: by 2002:a05:6402:1a58:b0:6b4:880b:1b61 with SMTP id
+ 4fb4d7f45d1cf-6b4b3cd2861mr242904a12.12.1793574944562; Sun, 01 Nov 2026
+ 15:15:44 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,40 +101,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025192320.209446-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192320.209446-3-christian.koever-draxl@student.uibk.ac.at>
-In-Reply-To: <20261025192320.209446-3-christian.koever-draxl@student.uibk.ac.at>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Mon, 2 Nov 2026 00:01:46 +0100
-X-Gm-Features: AclHuK_6zPYcTTvvo1ADEqHJgjW6vbl_w9ibYmytUlZi0WtkMQH9WoT0aPoNmLU
-Message-ID: <CAFBinCAaV0WEsO1oNF6q1t1hLF7oeO4oEpJQY_vHXvuQbWA47w@mail.gmail.com>
-Subject: Re: [PATCH 2/2] media: rc: meson-ir: allow the receiver to wake the system
-To: christian.koever-draxl@student.uibk.ac.at
-Cc: mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, neil.armstrong@linaro.org, khilman@baylibre.com, 
-	jbrunet@baylibre.com, sean@mess.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+References: <20261030083539.777877-3-almasrymina@google.com> <179357408360.3131.16098294926514442303@kernel.org>
+In-Reply-To: <179357408360.3131.16098294926514442303@kernel.org>
+From: Mina Almasry <almasrymina@google.com>
+Date: Sun, 1 Nov 2026 15:15:31 -0800
+X-Gm-Features: AclHuK-UFMQ382VldDl9mQXawkR9RuLEX9lDNBBCTFPZuNPb5GUS05WDrMHtxpk
+Message-ID: <CAHS8izO=-DZzaeFbczj=c5yGszo6parXeQNqqGV8oieZbmMW=w@mail.gmail.com>
+Subject: Re: [PATCH net v5 2/4] net: devmem: detach TX bindings on NETDEV_UNREGISTER
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me, 
+	kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com, 
+	asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com, 
+	davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org, 
+	sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
+	andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org, 
+	ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org, 
+	tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Christian,
+On Sun, Nov 1, 2026 at 3:01=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
+e:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [High] This patch's TX detach is incomplete.
 
-On Sun, Oct 25, 2026 at 8:23=E2=80=AFPM
-<christian.koever-draxl@student.uibk.ac.at> wrote:
->
-> From: Christian Stefan K=C3=B6v=C3=A9r-Draxl <ckoever@outlook.de>
->
-> The suspend callback switches the decoder off, so nothing is left to
-> notice the remote and the receiver can never wake the system.
->
-> When the device is a wakeup source, keep the decoder running and arm
-> its interrupt as a wake interrupt instead. Boards without the
-> wakeup-source property keep the existing behaviour.
->
-> Tested on an S905W2 board: suspend to RAM, the power key on the remote
-> resumes it.
-Can you help me out with better understanding: is the firmware
-involved in suspend or is this CPU core idle state suspend (meaning:
-firmware is not involved)?
+I know about the issues with leased devices. That needs a bit of a
+rework, which I have done locally, and would like to send out as a
+follow up fix so I don't hold back this series.
+
+--=20
+Thanks,
+Mina
