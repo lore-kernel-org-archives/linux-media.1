@@ -1,113 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571961;
-	b=aC7xUrN8Q0MqpEL4qW1OexYVzrxSUl2CiJizyUXlpqXFO0fktpFzt4J/+JCdmB7bm108
-	 tbQIGG+Blft7a2S3y7wuuy8nf3qxwIaYbW4yXPDgzjZOc/X7N3MOFp1DtTLP8MsMjiBEw
-	 AtwugRzQvkwWp93HOCVLyLBK21OfyuOXnMScFFumiedoEE8Tk4wzrZPqAtRn1TugDyvTm
-	 f/GMdF1avGzI+q5Ed3Gj66MYLxbVR8ZKufgrMn2imJ+472cS/Di/+cRrGmkgIYrW9G8r9
-	 lbkjUOIzuIE5IfguOkBV84vOO0ab0zieLJYBbq6C+Ei6dQhnIErkd26WZWvzuJlHJww==
+	t=1793574091;
+	b=JfppM3/3xGiHil+j/79kcMCyXU4+5sviwnTwtZ21eV/m6ZY4qpzrtbtHJ7SLJU1qH8RI
+	 ihxWDdrOHUYQ8NoQ0Ho9LBRS44EwsTv2PAHqgqrphImSrJ59R3mY1KhNwVmT1b/AzRveN
+	 c6JT1CCE7+CGJxD1jHgd8qVSyAtGw3SpG5Corhyhn3Xg8mjWClgoaHswyBS+sxnVJBN6j
+	 vYmfra/E+QqFlJ+dHsVUDLqC7kmFsaSFY2W7D1cLhTnDoiKRXO4kEDuy5ueWwTNEyhj5V
+	 vz2w+TeZ/4ulUTAPdaxW+iRoKgqMj5KxK6qP8ilwQgyqX4RIen11xlEWOKbrrXiWd+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571961;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=VH5oZcye/R46VG7GKGZ6vqEDOzHFGzla9wugxvshNp0=;
-	b=CsEjyxv7m+ZuGC/dUPtsNGEbaWKyO85lbE1hmQA9gwp0MehrSVNg74xNFHodleoJkMTR
-	 dGGGi1I/eOP6ENwgohC+qlsGgt0QQd4gDYpofWFq3A4qstzt7H9U6D/cflD5sPLi/3Bzb
-	 3BBTFx5keq6Z6MfKHiOsu7EDBOt3zXRJ9cZrnKGA95NDR2WfFgjWmC6Ffa9Y1aIHgYfcP
-	 DMbz4jVCnsmOVq5qCKnKQjtZ0Itfq5me15FEE0GLCLuCtBq5ou8xi/U/Vqu2mAc78fsIj
-	 KhRNqIDgGPTR/73H6W864MWIeGW+L21xXriOYJcz0TT8OZ7Ybb5rIiTcvBslvQkN8Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793574091;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=0UiNF2mRSaBX03RL18h3QU/ZLYC6k7KWXPLfr5uKQu4=;
+	b=JO/mx3ERjJQO/P1ojJwwdqu0YV7cfojCeMcZGub2xFBCGLWJf99mfZ3h7wuzU55j9Zdo
+	 xwtBqrn3x8yBI9Nyl6Ulpa2sWKwVGJfsMqDnEUzxlJa+fnFS6V5lVzFuHZM5IOY8YCB5c
+	 qS5S5qIQ99zzxQZbMjjvBzrq2h8jpXoz8YTx7tIK5p9fjoIGpq4IbPOtbkM6CggZx/WjB
+	 SK7YIyPBRT0TrdBtB0oplqs0uiWYsJcu17eN+0tyVrvTOiY2iVV0gdzHE3mcLMkrqr0ry
+	 RXc9sFHDbzwI+wxr3/THwdsGjPTR+ITbaE4FneFN86oa2xabPRw6AkAGrC1SenkQ6jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TqIfUXs5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUckKyNQ;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0UZpGav;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E7C606F2C0
-	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 22:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14E7C606F2C0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFB1D606A337;
+	Sun,  1 Nov 2026 23:01:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TqIfUXs5;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=ZUckKyNQ
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1KK9e82822414
-	for <linux-media@vger.kernel.org>; Sun, 1 Nov 2026 22:26:00 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VH5oZcye/R46VG7GKGZ6vqEDOzHFGzla9wugxvshNp0=; b=TqIfUXs5sWgTMRRX
-	FEe2xrUwCuW6Ic5OGPgZJL9qjLZpyf1zJcwTO+tm3fw6q6zFHu8RGTT2NhzXljjn
-	4D7vXnvSEcURiG8C70nRxUhSL2a2trY6RUqoBhsnZFmsstxWQ3P/RNUWbDhO2RW0
-	TT2ziFDPeFeH9P1euEyBU6xrigE1qcAWdYqU4WT6CJXOqqnqBqhLRQR9DPjpIAfx
-	zgC3NRrenpCYuKRCs1g39ogxG6Q7RG+ZRAa2YJTehGqlAuHU7QHBYEuW3KI8OnVr
-	ThufX4WLhtzX+QmH//fT+EkFq+7PQWlccFkmHuJMOzepsWv0tiYimolqlkqftR9f
-	HikMpw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn79rvf71-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 22:26:00 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3425098ae4bso5333092eec.0
-        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 14:26:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793571959; x=1794176759; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VH5oZcye/R46VG7GKGZ6vqEDOzHFGzla9wugxvshNp0=;
-        b=ZUckKyNQ7wJSLzgmTJFTV3XWP2ywAbMC5yahquwcjrpRGAaxF4SYxGXEAm5MWgSv+2
-         HBNCdvxFLVT+hMquA6ve76tq/ZveSTDgCA4DMcHzYjSOvLUnH1TTMjNtSbecCKy1UGwM
-         5THsxskZNDVHgTE9EEVah190IkjRYmyn5FYJyLeKp2ru3NOpXISWug5STQzPCgyEzaMT
-         4zjceuJHTgqgh0tlFaixV5JUHyRK6yUT8A1OQ7ROQOBK9PVjc4VaMVvO7+TtrJdh+WH7
-         x8w/5q+TZq1nJtT2LGMekUdvAx7sW2ybbZ0jOl8VLrNdI8om+zg76B+dNJqqa2Nk7IWD
-         R2TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793571959; x=1794176759;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VH5oZcye/R46VG7GKGZ6vqEDOzHFGzla9wugxvshNp0=;
-        b=iW+JlnrHpvP0wFYQh7MDENPTyrZmwOonz8JFpng2PtBaGhhBqzh7Bm6aPHbooDif/t
-         6jZ5XBgn/GjquBjHod1WRBJ1iff/G7o2UYrHzRZHaRqMRexZFHFRTrQnaeu9mlB+wgBk
-         hHWWRO/fS2PJE7Ykmnczs39dohkrJkzjAGwbywSQDmkPj0Eixmrt1/AoyRRjwEo5NQfU
-         uSYZxqJ9GirvTqLo5vNCc7zCyywIqluv098TOvO+wL4eLZYV5gXKey8TovdnNuPHBz+B
-         sTufV+Wu2Xr9S4ymwdUUelPEvML+UHB02d66jhCSMRUatfM6P1GVBvIAV+BHZgpY2BCf
-         7FCA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcyR4UGev3v3lxW6BLSXJEJoehx7KYjiFKMzPYMPG/UjqQNftpqJxzirtuqmZVGx8sarh0FoSmOAzy3Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsW9R5PAhuOx2fY1t7Am7yzfAijnxwBK7ENSiVtLEcDnU2S/zp
-	ia+QFRCwg+SyiO4Zl+IhjLv9C543z3DD5d/uE/LmXkvAH7Fo7EZWez0eBtu8EU/CZUhX0sccKJi
-	ki1iup3i65dE5J4h/QgXJ57M0T7xvwgOUaQ5EG0Ysmor0ALN3jzQocBzcpp3TrhACrA==
-X-Gm-Gg: AYBFou0fx5lC3YvF29kvwDTJFeG5uoKSLp4cN46DScSBzg7cIsIYsKLkt3aLJUJ5Web
-	iWlCkAzkXSf79z9W7oixcNthaLDPBIOWKzqe/drsgxsiwQvfGwcpW0t1M11a/AJ+2W2kT4Ldzr0
-	i1Jtlbo1fwF1IBruGlBwBpcXPeBESdvQQvP/6lQWh1TTfp73s1u6nBPwMs4ijgMh6B9ks9qlFqC
-	EH/wO7PrwANZeiwRzw5sWkVz+ATO4fyyIJngPttVlZdzd5FtWMI7u1RUQbIkL/FOTUgeW19devc
-	BkGiBMz4gxtWNP8+rULU6CDFxZ29Z+GKEB7Fkv/vsB/VUCrlaPaMMpAZzcBwK13jrncEFXVuCj4
-	J8AGEziaheHiQltT3mJsdBWoPeOVx6kcFRQpdJb7tapejCJaraDHuXby3pKzL2uykTda4NBfzgY
-	9f5DZDeg==
-X-Received: by 2002:a05:7022:b053:10b0:19d:233:989d with SMTP id a92af1059eb24-1ac5b02894bmr12804562c88.14.1793571959290;
-        Sun, 01 Nov 2026 14:25:59 -0800 (PST)
-X-Received: by 2002:a05:7022:b053:10b0:19d:233:989d with SMTP id a92af1059eb24-1ac5b02894bmr12804508c88.14.1793571958553;
-        Sun, 01 Nov 2026 14:25:58 -0800 (PST)
-Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1932sm27742653c88.2.2026.11.01.14.25.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 14:25:58 -0800 (PST)
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 03:51:38 +0530
-Subject: [PATCH v4 25/25] accel/qda: Add poll mode for invocation
- completion
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a0UZpGav
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731061F000C1;
+	Sun,  1 Nov 2026 23:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793574090;
+	bh=0UiNF2mRSaBX03RL18h3QU/ZLYC6k7KWXPLfr5uKQu4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=a0UZpGavCMbxV+NQxzhWQsTFySbnG8gry1G//WQT0WydeYudWgbOp03/WnWxVVZRb
+	 OTZ5O/bObqbOQ2lnvDuqTrbMKrQDSG2mMu8Ic2RZ/QDEWKdcoh7H8BEDWINCPo2y6G
+	 04XXsIRKc5Jce3MPgVCOE4WUHAqwtOA3i67XPp/9/b7vHBI9EssL6xraFBBBZqCIOt
+	 eRizDTPiCH4KElKTyaF9T+XBHHLk2SwwZm4NswkCF2Tzr3pAC/qmsV9DeqgkKYTxpK
+	 PXxGFAsocL6dnXmpZT1ajaFrBNQJ9Fc6BbV5uRRLZF33hUnZHalD2u4mOsNc/JtfyZ
+	 3iZmqZmkwtRiw==
+Subject: Re: [PATCH net v5 4/4] selftests: net: add devmem RX and TX netdev
+ unregister tests
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me,
+ kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com,
+ asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
+ andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
+ tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
+Date: Sun, 01 Nov 2026 23:01:27 +0000
+Message-ID: <179357408797.3131.706180156061595645@kernel.org>
+In-Reply-To: <20261030083539.777877-5-almasrymina@google.com>
+References: <20261030083539.777877-5-almasrymina@google.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,594 +70,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-v4-v4-25-88f2f24a5f0b@qti.qualcomm.com>
-References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
-In-Reply-To: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
-To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-        Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
-        andersson@kernel.org, krzk@kernel.org, rob.clark@oss.qualcomm.com,
-        jgg@ziepe.ca
-Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
-        sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
-        Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        Ekansh Gupta <ekangupt@qti.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793571679; l=20282;
- i=ekangupt@qti.qualcomm.com; s=20260223; h=from:subject:message-id;
- bh=+nPkE5NneCmaTJhchIOEXlxkCnJcDVLKMVDvWgcCpkA=;
- b=6+KxBiSn04aQ8+0IsDOZm32O2gNrJAGFR2fC78J2dqilYzKg1S4VC/UqxfLRD7CZ23VroIn4W
- oPaR5eDnldaAo6gTjGKr1ucceaMjPNLDFSQhiShyrST32Ay0vp1ku/k
-X-Developer-Key: i=ekangupt@qti.qualcomm.com; a=ed25519;
- pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
-X-Proofpoint-ORIG-GUID: i4jKYMab8HO81ClzQ28dTSZSpW6xP9mk
-X-Authority-Analysis: v=2.4 cv=Wtq+otfv c=1 sm=1 tr=0 ts=6ae7bc78 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=ck3PsjUFfxvozorqPcMA:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfX/FcbpHM7+RBv
- TL4i3LJrfIybcEOmaqoj5ye3mO4EcAmfwLnLxmHUVns2/vcPrGQ1F5kT3erUhXlIRpFMZMhwuZZ
- kb6twOr1Ao4yqxXsBP4aRXf+WUd1mdo=
-X-Proofpoint-GUID: i4jKYMab8HO81ClzQ28dTSZSpW6xP9mk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfXzGdy+mYCe+hn
- uVXHGVIMT074t+3+z1eURtG5zsFlznQywBHQN/5s1s/VEL9o05R+arkDwVWkqqVCtKbk5ZDX0KM
- oLN2J6NDLR5fxTNrGV+XlbYOOecF95TEVnAYDMNI/ZMxn3TV2rt2YGm5mqPVrbWfr/H5r8rUbwy
- ZYGjApPrIZoorLc/qTCvtnj83D4yUClTo2HKbLws9py/R57tAqB2mhIERO1E17n2u1u4QI5OtQP
- PRV/p2Kqn+niSi7qXsQFNV5o4Y42rUhJe3zWu/7blg6jKG63r/w0ZRxP/ieegfWHR1OhRQZ115n
- BFgu0HMrUjScAqbV4FeKAC1CQdRZsA4jXuF+VfkC1XMfpOeq/HJmtdpVqO8CMc7dW88XoRhLXas
- rL3Dq3DYwSx0JWLTg8XKlNnQu3BuZn/6mnoKPisbGMfLc8v5iEJtMTZ9CmDIB6Ert+JSHND8GCC
- BuRB+khkCFBn7DL/1+w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-01_07,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- priorityscore=1501 spamscore=0 adultscore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010089
 
-From: Ekansh Gupta <ekangupt@qti.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Let a session opt in to completion polling for dynamically loaded
-module invocations in a user PD via a new DRM_IOCTL_QDA_SET_OPTION
-ioctl (and the equivalent legacy FASTRPC_IOCTL_SET_OPTION), mirroring
-drivers/misc/fastrpc.c's FASTRPC_POLL_MODE.
+Low priority / nit picks for your consideration:
 
-A poll word is reserved at the end of every invocation's metadata
-region. When polling is enabled, in use, and the invocation targets a
-dynamically loaded handle in a user PD, the driver busy-waits on that
-word for QDA_FASTRPC_POLL_RESPONSE instead of immediately blocking on
-the rpmsg response, trading CPU cycles for lower round-trip latency.
-If the DSP has not answered by the time the poll loop times out, the
-driver falls back to waiting for the interrupt-based rpmsg response as
-usual; the two paths share an is_work_done flag so whichever notices
-completion first wins without racing the other.
+- [Low] The patch adds CONFIG_UDMABUF=y to
+  tools/testing/selftests/net/config, but the fragment does not pull in…
 
-Only SoCs whose DSP firmware actually implements this are allowed to
-enable it: qda_soc_data gets a poll_mode_supported flag, set for
-Kaanapali, and a closed list of older platforms using the generic
-default_soc_data is checked as a fallback.
+--
 
-Signed-off-by: Ekansh Gupta <ekangupt@qti.qualcomm.com>
----
- drivers/accel/qda/qda_drv.c          |  1 +
- drivers/accel/qda/qda_drv.h          |  8 +++++
- drivers/accel/qda/qda_fastrpc.c      | 67 +++++++++++++++++++++++++++++++++---
- drivers/accel/qda/qda_fastrpc.h      | 15 ++++++++
- drivers/accel/qda/qda_fastrpc_shim.c | 30 ++++++++++++++++
- drivers/accel/qda/qda_ioctl.c        | 45 ++++++++++++++++++++++++
- drivers/accel/qda/qda_ioctl.h        |  2 ++
- drivers/accel/qda/qda_legacy_ops.c   |  1 +
- drivers/accel/qda/qda_legacy_ops.h   |  2 ++
- drivers/accel/qda/qda_rpmsg.c        |  3 ++
- drivers/accel/qda/qda_soc.c          | 33 ++++++++++++++++++
- drivers/accel/qda/qda_soc.h          |  3 ++
- include/uapi/drm/qda_accel.h         | 27 +++++++++++++++
- 13 files changed, 233 insertions(+), 4 deletions(-)
+selftests: net: add devmem RX and TX netdev unregister tests
 
-diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
-index 51d8ef10c6c1..912dcb2b593d 100644
---- a/drivers/accel/qda/qda_drv.c
-+++ b/drivers/accel/qda/qda_drv.c
-@@ -128,6 +128,7 @@ static const struct drm_ioctl_desc qda_ioctls[] = {
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_MMAP, qda_ioctl_mmap, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_MUNMAP, qda_ioctl_munmap, 0),
- 	DRM_IOCTL_DEF_DRV(QDA_REMOTE_SESSION_ATTACH, qda_ioctl_attach, 0),
-+	DRM_IOCTL_DEF_DRV(QDA_SET_OPTION, qda_ioctl_set_option, 0),
- };
- 
- static const struct drm_driver qda_drm_driver = {
-diff --git a/drivers/accel/qda/qda_drv.h b/drivers/accel/qda/qda_drv.h
-index cbb580d03e0b..ff58bac77319 100644
---- a/drivers/accel/qda/qda_drv.h
-+++ b/drivers/accel/qda/qda_drv.h
-@@ -71,6 +71,12 @@ struct qda_session {
- 	 * ioctls on one file can run concurrently.
- 	 */
- 	struct qda_gem_obj *init_mem_gem_obj;
-+	/**
-+	 * @poll_mode: Poll for completion of invocations on dynamically loaded
-+	 * modules in a user PD. Set through the set-option ioctl, which can run
-+	 * concurrently with invocations on the same file.
-+	 */
-+	bool poll_mode;
- 	/**
- 	 * @msg_buf_pool: Invoke header buffers this session is done with,
- 	 * kept for its later invocations to reuse.
-@@ -146,6 +152,8 @@ struct qda_dev {
- 	struct mutex remote_heap_lock;
- 	/** @audio_init_mem: True once the DSP has been given the remote heap */
- 	bool audio_init_mem;
-+	/** @poll_mode_supported: Sessions may opt in to invocation completion polling */
-+	bool poll_mode_supported;
- };
- 
- /**
-diff --git a/drivers/accel/qda/qda_fastrpc.c b/drivers/accel/qda/qda_fastrpc.c
-index 6044cfad53e9..0617bb4842b5 100644
---- a/drivers/accel/qda/qda_fastrpc.c
-+++ b/drivers/accel/qda/qda_fastrpc.c
-@@ -3,6 +3,7 @@
- #include <linux/bitfield.h>
- #include <linux/capability.h>
- #include <linux/dma-mapping.h>
-+#include <linux/iopoll.h>
- #include <linux/limits.h>
- #include <linux/mm.h>
- #include <linux/sched.h>
-@@ -89,8 +90,8 @@ static u64 calculate_page_aligned_size(u64 addr, u64 len)
-  * import time unless they are. So the metadata region needs exactly one
-  * qda_remote_buf, one qda_invoke_buf and one qda_phy_page per scalar; unlike
-  * drivers/misc/fastrpc.c, which supports multi-page buffers and so may need
-- * several qda_phy_page entries per scalar. It ends with the handle list and
-- * the CRC list.
-+ * several qda_phy_page entries per scalar. It ends with the handle list, the
-+ * CRC list and the poll word.
-  */
- static size_t qda_fastrpc_get_meta_size(struct qda_fastrpc_invoke_ctx *ctx)
- {
-@@ -98,7 +99,8 @@ static size_t qda_fastrpc_get_meta_size(struct qda_fastrpc_invoke_ctx *ctx)
- 		sizeof(struct qda_invoke_buf) +
- 		sizeof(struct qda_phy_page)) * ctx->nscalars +
- 		sizeof(u64) * QDA_FASTRPC_MAX_HANDLELIST +
--		sizeof(u32) * QDA_FASTRPC_MAX_CRCLIST;
-+		sizeof(u32) * QDA_FASTRPC_MAX_CRCLIST +
-+		sizeof(u32);
- }
- 
- /**
-@@ -518,6 +520,10 @@ static int qda_fastrpc_get_args(struct qda_fastrpc_invoke_ctx *ctx, struct qda_m
- 	pages = (struct qda_phy_page *)&list[ctx->nscalars];
- 	/* Kept so the handle list, which follows the pages, can be found later */
- 	ctx->pages = pages;
-+	/* The poll word follows the handle list and the CRC list */
-+	ctx->poll_addr = (u32 *)((u8 *)(pages + ctx->nscalars) +
-+				 sizeof(u64) * QDA_FASTRPC_MAX_HANDLELIST +
-+				 sizeof(u32) * QDA_FASTRPC_MAX_CRCLIST);
- 
- 	for (i = 0; i < ctx->nbufs; ++i) {
- 		rpra[i].buf.addr = 0;
-@@ -598,6 +604,54 @@ int qda_fastrpc_invoke_pack(struct qda_fastrpc_invoke_ctx *ctx, struct qda_msg *
- 	return 0;
- }
- 
-+static u32 qda_fastrpc_read_poll_addr(struct qda_fastrpc_invoke_ctx *ctx)
-+{
-+	dma_rmb();
-+
-+	return READ_ONCE(*ctx->poll_addr);
-+}
-+
-+/*
-+ * Busy-wait for the DSP to write QDA_FASTRPC_POLL_RESPONSE into the poll word,
-+ * which saves the interrupt and scheduling latency of waiting for the rpmsg
-+ * response. The response still arrives afterwards and drops the reference
-+ * qda_rpmsg_send_msg() took for it as usual.
-+ *
-+ * Return: 0 if the invocation completed, negative error code if it has not
-+ * answered within QDA_FASTRPC_POLL_MAX_TIMEOUT_US
-+ */
-+static int qda_fastrpc_poll_for_rsp(struct qda_fastrpc_invoke_ctx *ctx)
-+{
-+	u32 val;
-+	int err;
-+
-+	err = read_poll_timeout_atomic(qda_fastrpc_read_poll_addr, val,
-+				       val == QDA_FASTRPC_POLL_RESPONSE ||
-+				       READ_ONCE(ctx->is_work_done),
-+				       1, QDA_FASTRPC_POLL_MAX_TIMEOUT_US, false, ctx);
-+	if (err)
-+		return err;
-+
-+	/* The rpmsg path records its own status, so only the poll path's is set here */
-+	if (val == QDA_FASTRPC_POLL_RESPONSE) {
-+		WRITE_ONCE(ctx->is_work_done, true);
-+		ctx->retval = 0;
-+	}
-+
-+	return 0;
-+}
-+
-+static int qda_fastrpc_wait_for_completion(struct qda_fastrpc_invoke_ctx *ctx)
-+{
-+	if (ctx->is_polled && !qda_fastrpc_poll_for_rsp(ctx))
-+		return 0;
-+
-+	/* Polling timed out, so fall back to waiting for the rpmsg response */
-+	ctx->is_polled = false;
-+
-+	return qda_rpmsg_wait_for_rsp(ctx);
-+}
-+
- /**
-  * qda_fastrpc_flush_pending() - Fail every invocation still in flight
-  * @qdev: Device whose invocations should be failed
-@@ -617,6 +671,7 @@ void qda_fastrpc_flush_pending(struct qda_dev *qdev)
- 
- 	xa_for_each(&qdev->ctx_xa, idx, ctx) {
- 		ctx->retval = -EPIPE;
-+		WRITE_ONCE(ctx->is_work_done, true);
- 		complete(&ctx->work);
- 		kref_put(&ctx->refcount, qda_fastrpc_context_free);
- 	}
-@@ -680,11 +735,15 @@ int qda_fastrpc_invoke_common(struct qda_dev *qdev, struct qda_fastrpc_invoke_ct
- 	if (err)
- 		return err;
- 
-+	/* Only invocations of a dynamically loaded module in a user PD are polled */
-+	ctx->is_polled = READ_ONCE(ctx->session->poll_mode) && ctx->pd == QDA_USER_PD &&
-+			 ctx->handle > QDA_FASTRPC_MAX_STATIC_HANDLE;
-+
- 	err = qda_rpmsg_send_msg(qdev, &msg);
- 	if (err)
- 		return err;
- 
--	err = qda_rpmsg_wait_for_rsp(ctx);
-+	err = qda_fastrpc_wait_for_completion(ctx);
- 	if (err)
- 		return err;
- 
-diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
-index 7d5cd04943a3..2e01d126addc 100644
---- a/drivers/accel/qda/qda_fastrpc.h
-+++ b/drivers/accel/qda/qda_fastrpc.h
-@@ -75,6 +75,15 @@ struct qda_session;
- #define QDA_USER_PD			1
- #define QDA_SENSORS_PD			2
- 
-+/* Handles up to this value name static DSP services, not loaded modules */
-+#define QDA_FASTRPC_MAX_STATIC_HANDLE	20
-+
-+/* Value the DSP writes to the poll word once a polled invocation completes */
-+#define QDA_FASTRPC_POLL_RESPONSE	0xdecaf
-+
-+/* How long to poll before falling back to waiting for the rpmsg response */
-+#define QDA_FASTRPC_POLL_MAX_TIMEOUT_US	10000
-+
- /* Largest ELF image a process may be created from */
- #define QDA_FASTRPC_INIT_FILELEN_MAX	(4 * 1024 * 1024)
- 
-@@ -342,6 +351,12 @@ struct qda_fastrpc_invoke_ctx {
- 	struct drm_gem_object *map_obj;
- 	/** @pages: Array of physical page descriptors inside the payload */
- 	struct qda_phy_page *pages;
-+	/** @poll_addr: Poll word at the end of the payload, written by the DSP */
-+	u32 *poll_addr;
-+	/** @is_polled: Wait for completion by polling @poll_addr first */
-+	bool is_polled;
-+	/** @is_work_done: Set once either the poll or the rpmsg path saw completion */
-+	bool is_work_done;
- 	/** @work: Completed once the DSP has answered */
- 	struct completion work;
- 	/**
-diff --git a/drivers/accel/qda/qda_fastrpc_shim.c b/drivers/accel/qda/qda_fastrpc_shim.c
-index 2be1dd116ef7..acd1b1b2f2b7 100644
---- a/drivers/accel/qda/qda_fastrpc_shim.c
-+++ b/drivers/accel/qda/qda_fastrpc_shim.c
-@@ -463,6 +463,34 @@ static long qda_shim_mem_unmap(struct qda_shim_file *sf, void __user *argp)
- 	return 0;
- }
- 
-+/*
-+ * The legacy request IDs and values match the accel ones, but they are
-+ * translated rather than passed through, so the two ABIs stay independent.
-+ */
-+static long qda_shim_set_option(struct qda_shim_file *sf, void __user *argp)
-+{
-+	struct fastrpc_ioctl_set_option args;
-+	int i;
-+
-+	if (copy_from_user(&args, argp, sizeof(args)))
-+		return -EFAULT;
-+
-+	for (i = 0; i < ARRAY_SIZE(args.reserved); i++)
-+		if (args.reserved[i])
-+			return -EINVAL;
-+
-+	if (args.request_id != FASTRPC_POLL_MODE)
-+		return -EINVAL;
-+
-+	if (args.value != FASTRPC_POLL_MODE_ENABLE &&
-+	    args.value != FASTRPC_POLL_MODE_DISABLE)
-+		return -EINVAL;
-+
-+	return qda_legacy_ops_table.set_option(sf->session, QDA_SET_OPTION_POLL_MODE,
-+					       args.value == FASTRPC_POLL_MODE_ENABLE ?
-+					       QDA_POLL_MODE_ENABLE : QDA_POLL_MODE_DISABLE);
-+}
-+
- static long qda_shim_get_dsp_info(struct qda_shim_file *sf, void __user *argp)
- {
- 	struct fastrpc_ioctl_capability args;
-@@ -570,6 +598,8 @@ static long qda_shim_dispatch(struct qda_shim_file *sf, unsigned int cmd, void _
- 		return qda_shim_invoke(sf, argp);
- 	case FASTRPC_IOCTL_GET_DSP_INFO:
- 		return qda_shim_get_dsp_info(sf, argp);
-+	case FASTRPC_IOCTL_SET_OPTION:
-+		return qda_shim_set_option(sf, argp);
- 	default:
- 		/*
- 		 * Includes FASTRPC_IOCTL_FREE_DMA_BUFF, which the driver this
-diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
-index c784defd0f70..f43fae60059d 100644
---- a/drivers/accel/qda/qda_ioctl.c
-+++ b/drivers/accel/qda/qda_ioctl.c
-@@ -413,3 +413,48 @@ int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_p
- {
- 	return qda_fastrpc_invoke(QDA_FASTRPC_RMID_INVOKE_DYNAMIC, data, file_priv->driver_priv);
- }
-+
-+/**
-+ * qda_session_set_option() - Set a per-session option
-+ * @session: Session to update
-+ * @request_id: Option to set (QDA_SET_OPTION_*)
-+ * @value: Request-specific value
-+ *
-+ * Shared by the accel UAPI and the legacy shim's FASTRPC_IOCTL_SET_OPTION.
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int qda_session_set_option(struct qda_session *session, u32 request_id, u32 value)
-+{
-+	switch (request_id) {
-+	case QDA_SET_OPTION_POLL_MODE:
-+		if (!session->qda_dev->poll_mode_supported)
-+			return -EOPNOTSUPP;
-+
-+		if (value == QDA_POLL_MODE_ENABLE)
-+			WRITE_ONCE(session->poll_mode, true);
-+		else if (value == QDA_POLL_MODE_DISABLE)
-+			WRITE_ONCE(session->poll_mode, false);
-+		else
-+			return -EINVAL;
-+
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+/**
-+ * qda_ioctl_set_option() - Set a per-session option
-+ * @dev: DRM device structure
-+ * @data: User-space data (struct drm_qda_set_option)
-+ * @file_priv: DRM file private data
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int qda_ioctl_set_option(struct drm_device *dev, void *data, struct drm_file *file_priv)
-+{
-+	struct drm_qda_set_option *args = data;
-+
-+	return qda_session_set_option(file_priv->driver_priv, args->request_id, args->value);
-+}
-diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
-index 329f3809c8ce..277c16742196 100644
---- a/drivers/accel/qda/qda_ioctl.h
-+++ b/drivers/accel/qda/qda_ioctl.h
-@@ -20,6 +20,8 @@ int qda_ioctl_init_create(struct drm_device *dev, void *data, struct drm_file *f
- int qda_ioctl_mmap(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_munmap(struct drm_device *dev, void *data, struct drm_file *file_priv);
- int qda_ioctl_attach(struct drm_device *dev, void *data, struct drm_file *file_priv);
-+int qda_ioctl_set_option(struct drm_device *dev, void *data, struct drm_file *file_priv);
-+int qda_session_set_option(struct qda_session *session, u32 request_id, u32 value);
- int qda_session_init_create(struct qda_session *session, struct qda_init_create_args *create);
- int qda_session_attach(struct qda_session *session, u32 pd_type, const char __user *name,
- 		       u32 namelen);
-diff --git a/drivers/accel/qda/qda_legacy_ops.c b/drivers/accel/qda/qda_legacy_ops.c
-index 8d9d597c76c2..18c17d5a9d2b 100644
---- a/drivers/accel/qda/qda_legacy_ops.c
-+++ b/drivers/accel/qda/qda_legacy_ops.c
-@@ -198,6 +198,7 @@ const struct qda_legacy_ops qda_legacy_ops_table = {
- 	.session_destroy = legacy_session_destroy,
- 	.init_create = legacy_init_create,
- 	.attach = qda_session_attach,
-+	.set_option = qda_session_set_option,
- 	.release = legacy_release,
- 	.mmap = legacy_mmap,
- 	.mem_map = legacy_mem_map,
-diff --git a/drivers/accel/qda/qda_legacy_ops.h b/drivers/accel/qda/qda_legacy_ops.h
-index c79003021fc1..ffb3ebd9b1c5 100644
---- a/drivers/accel/qda/qda_legacy_ops.h
-+++ b/drivers/accel/qda/qda_legacy_ops.h
-@@ -36,6 +36,8 @@ struct qda_legacy_ops {
- 	/** @attach: Attach the session to a DSP-resident protection domain */
- 	int (*attach)(struct qda_session *session, u32 pd_type, const char __user *name,
- 		      u32 namelen);
-+	/** @set_option: Set a per-session option */
-+	int (*set_option)(struct qda_session *session, u32 request_id, u32 value);
- 	/** @release: Release the session's DSP process, if it has one */
- 	int (*release)(struct qda_session *session);
- 	/** @mmap: Map a buffer into the DSP's address space */
-diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
-index b93e906b5793..c2a6798cb50d 100644
---- a/drivers/accel/qda/qda_rpmsg.c
-+++ b/drivers/accel/qda/qda_rpmsg.c
-@@ -132,6 +132,7 @@ static int qda_rpmsg_cb(struct rpmsg_device *rpdev, void *data, int len,
- 	}
- 
- 	ctx->retval = resp_msg->retval;
-+	WRITE_ONCE(ctx->is_work_done, true);
- 	complete(&ctx->work);
- 
- 	/*
-@@ -267,6 +268,8 @@ static int qda_rpmsg_probe(struct rpmsg_device *rpdev)
- 	if (!qdev->soc_data)
- 		return -ENODEV;
- 
-+	qdev->poll_mode_supported = qda_soc_poll_mode_supported(qdev->soc_data);
-+
- 	ret = of_property_read_string(rpdev->dev.of_node, "label", &qdev->dsp_name);
- 	if (ret) {
- 		dev_err(&rpdev->dev, "Missing 'label' property in DT node: %d\n", ret);
-diff --git a/drivers/accel/qda/qda_soc.c b/drivers/accel/qda/qda_soc.c
-index fb316b74103d..c670f747e1f5 100644
---- a/drivers/accel/qda/qda_soc.c
-+++ b/drivers/accel/qda/qda_soc.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+#include <linux/of.h>
- #include <linux/string.h>
- #include "qda_drv.h"
- #include "qda_soc.h"
-@@ -8,6 +9,7 @@ const struct qda_soc_data kaanapali_soc_data = {
- 	.sid_pos = 56,
- 	.dma_addr_bits_cdsp = 34,
- 	.dma_addr_bits_default = 32,
-+	.poll_mode_supported = true,
- };
- 
- const struct qda_soc_data default_soc_data = {
-@@ -16,6 +18,37 @@ const struct qda_soc_data default_soc_data = {
- 	.dma_addr_bits_default = 32,
- };
- 
-+/*
-+ * Platforms that share default_soc_data but whose DSP firmware does implement
-+ * invocation completion polling. The list is closed: new SoCs advertise
-+ * polling support through their own qda_soc_data instead.
-+ */
-+static const struct of_device_id qda_poll_mode_machines[] = {
-+	{ .compatible = "qcom,milos" },
-+	{ .compatible = "qcom,qcs8300" },
-+	{ .compatible = "qcom,sa8775p" },
-+	{ .compatible = "qcom,sar2130p" },
-+	{ .compatible = "qcom,sm8450" },
-+	{ .compatible = "qcom,sm8550" },
-+	{ .compatible = "qcom,sm8650" },
-+	{ .compatible = "qcom,sm8750" },
-+	{ .compatible = "qcom,x1e80100" },
-+	{ .compatible = "qcom,x1p42100" },
-+	{ }
-+};
-+
-+/**
-+ * qda_soc_poll_mode_supported() - Whether the DSP supports completion polling
-+ * @soc_data: SoC parameters of the device
-+ *
-+ * Return: true if invocations on this SoC may use poll mode
-+ */
-+bool qda_soc_poll_mode_supported(const struct qda_soc_data *soc_data)
-+{
-+	return soc_data->poll_mode_supported ||
-+	       of_machine_get_match(qda_poll_mode_machines);
-+}
-+
- /**
-  * qda_soc_dma_addr_bits() - DMA address width of a device's context banks
-  * @qdev: QDA device
-diff --git a/drivers/accel/qda/qda_soc.h b/drivers/accel/qda/qda_soc.h
-index fb5b786d0928..db8f10a30f7b 100644
---- a/drivers/accel/qda/qda_soc.h
-+++ b/drivers/accel/qda/qda_soc.h
-@@ -24,11 +24,14 @@ struct qda_soc_data {
- 	u32 dma_addr_bits_cdsp;
- 	/** @dma_addr_bits_default: DMA address width of all other context banks */
- 	u32 dma_addr_bits_default;
-+	/** @poll_mode_supported: DSP firmware supports invocation completion polling */
-+	bool poll_mode_supported;
- };
- 
- extern const struct qda_soc_data kaanapali_soc_data;
- extern const struct qda_soc_data default_soc_data;
- 
-+bool qda_soc_poll_mode_supported(const struct qda_soc_data *soc_data);
- u32 qda_soc_dma_addr_bits(const struct qda_dev *qdev);
- 
- /**
-diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
-index 07b943a3c822..816f2c10accf 100644
---- a/include/uapi/drm/qda_accel.h
-+++ b/include/uapi/drm/qda_accel.h
-@@ -20,6 +20,7 @@ extern "C" {
- #define DRM_QDA_REMOTE_MMAP		0x05
- #define DRM_QDA_REMOTE_MUNMAP		0x06
- #define DRM_QDA_REMOTE_SESSION_ATTACH	0x07
-+#define DRM_QDA_SET_OPTION		0x08
- 
- #define DRM_IOCTL_QDA_QUERY		DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_QUERY, \
- 					 struct drm_qda_query)
-@@ -39,6 +40,8 @@ extern "C" {
- #define DRM_IOCTL_QDA_REMOTE_SESSION_ATTACH					\
- 	DRM_IOW(DRM_COMMAND_BASE + DRM_QDA_REMOTE_SESSION_ATTACH,		\
- 		struct drm_qda_remote_attach)
-+#define DRM_IOCTL_QDA_SET_OPTION	DRM_IOW(DRM_COMMAND_BASE + DRM_QDA_SET_OPTION, \
-+					 struct drm_qda_set_option)
- 
- /* Request types for drm_qda_mem_map.request */
- #define QDA_REQUEST_MMAP	1	/* Map a whole buffer */
-@@ -248,6 +251,30 @@ struct drm_qda_remote_attach {
- 	__u64 name;
- };
- 
-+/* Request IDs for drm_qda_set_option.request_id */
-+#define QDA_SET_OPTION_POLL_MODE	1
-+
-+/* Values for drm_qda_set_option.value with QDA_SET_OPTION_POLL_MODE */
-+#define QDA_POLL_MODE_DISABLE	0
-+#define QDA_POLL_MODE_ENABLE	1
-+
-+/**
-+ * struct drm_qda_set_option - Set a per-session option
-+ * @request_id: Option to set (QDA_SET_OPTION_*)
-+ * @value: Request-specific value
-+ *
-+ * For QDA_SET_OPTION_POLL_MODE, @value is QDA_POLL_MODE_ENABLE or
-+ * QDA_POLL_MODE_DISABLE. Enabling poll mode lets the driver poll shared
-+ * memory for completion of a dynamically loaded module's invocations in a
-+ * user PD instead of waiting for an interrupt-based response, trading CPU
-+ * cycles for lower round-trip latency. DSPs that do not support it reject
-+ * the request with EOPNOTSUPP.
-+ */
-+struct drm_qda_set_option {
-+	__u32 request_id;
-+	__u32 value;
-+};
-+
- #if defined(__cplusplus)
- }
- #endif
+This adds devmem_bind_rx_unregister_check and
+devmem_bind_tx_unregister_check to nl_netdev.py. They check that removing a
+netdevsim device while a netlink socket holds an RX or TX devmem binding
+detaches the dma_buf right away. The commit also adds the dma-buf, udmabuf
+and devmem options the tests need to the net selftest config fragment.
+
+> diff --git a/tools/testing/selftests/net/config b/tools/testing/selftests/net/config
+> index d4416f8bdcfd1..7a89e2618d4c4 100644
+> --- a/tools/testing/selftests/net/config
+> +++ b/tools/testing/selftests/net/config
+
+[ ... ]
+
+> @@ -133,6 +136,7 @@ CONFIG_TEST_BLACKHOLE_DEV=m
+>  CONFIG_TLS=m
+>  CONFIG_TRACEPOINTS=y
+>  CONFIG_TUN=y
+> +CONFIG_UDMABUF=y
+
+[Severity: Low]
+Will CONFIG_UDMABUF=y actually get enabled from this fragment on a minimal
+base config? UDMABUF in drivers/dma-buf/Kconfig has these dependencies:
+
+config UDMABUF
+	bool "userspace dmabuf misc driver"
+	default n
+	depends on DMA_SHARED_BUFFER
+	depends on MEMFD_CREATE || COMPILE_TEST
+	depends on MMU
+
+CONFIG_SYNC_FILE=y takes care of DMA_SHARED_BUFFER. MEMFD_CREATE has no
+default, though, and can only be set directly under EXPERT. Normally it
+is turned on because TMPFS or HUGETLBFS selects it, and this fragment
+asks for neither.
+
+If the base config has MEMFD_CREATE=n and COMPILE_TEST=n, Kconfig will
+quietly drop UDMABUF. Both new tests would then skip in _create_udmabuf()
+and never reach the unregister path:
+
+    if not os.path.exists("/dev/udmabuf"):
+        raise KsftSkipEx("/dev/udmabuf is not available")
+
+tools/testing/selftests/bpf/config lists CONFIG_TMPFS=y next to
+CONFIG_UDMABUF=y, and tools/testing/selftests/drivers/net/hw/config has
+CONFIG_HUGETLBFS=y. Should CONFIG_TMPFS=y be added here as well?
+
+>  CONFIG_USER_NS=y
+>  CONFIG_VETH=y
+>  CONFIG_VLAN_8021Q=y
+
+[ ... ]
 
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030083539.777877-1-almasrymina%40google.com
