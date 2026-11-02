@@ -1,89 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627829;
-	b=ppRrd0NA44b94jnIt33km5KTPcrXnWBfoIXfhrAjBPlm5QYL/7tCxBZyqDL3kaUIIDCp
-	 hph1mdPtjBq+kCJIOGyMEXSA3F7ZrbzXuef0ddOMgP4p8i2CPrq+80nJxxH9RkBHNC1F6
-	 hJcFvPeA6RYhWvW72djqpAK5sDYX/PTWvjzW8RKGUh3JfbbGZqWN1eg95tx5MVscnJvOf
-	 X9k8TB2YSqj/T8+xbsFscAZ9M94EBkeYNZniHJK4yMThlnT8S612KZAWXvaJgo1woBUKD
-	 lfgsEUvuT1WzQQDRc9Qk0+SNheL3WEQzm1c1SgAB7jWGb49HzUaTz10X2khYJou8cBA==
+	t=1793627937;
+	b=eGqHWMttAaHev3ItIej4qYAh0dNNZe6jsf2gA7bmu9mEexEadg44HZsZtP2SR6lPuv5B
+	 nrw0DGm2mkmt6I2aamEIvT9EvuIBEeG+GZd/JLRHZNZHGv/MTjvdnVJ7fzYCdloVISU40
+	 8OwuGuH+H91jz2VGHEBzFi3N8vjFmE0RFd3cVtM+mIrO2l4Z9k2fE5roYeicwX3KRtu6k
+	 yDDEEyjrkVeK5loQEcvgUsvLRGoGIZm+7xUZcTD9J5Xh2ATn8GBTOQwFKBW/fjzqOjHje
+	 BHXl2oOTyZI9PHDuqAUFeBDQ/QZpa9XwMqucfMZxBwlZJRcMBZsmPk9Zm3Rlc0rE9Gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627829;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
-	 X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=/G+GoCszj8uMGdIOWBMWwoyuQ6G5HkG8rRZwTC2uNlE=;
-	b=PGjogJnlXOwiU3MMS2S/Qci30El/FvmRZFTHkxgB1oSf3itsAyaVZ0eT83gKOrky+Fel
-	 mDAhPJnzYqRp0E7lPpI8rAfxa6Iqn6tSrRkpNPl1IDs/ZPgeJj+H6EgIueAoWGmTCpGHs
-	 fqxm0aqgEFPAjh0tlJ7ag3J8w6309l+Yy/YMYpp4tfiC4ygEo+zxsZyJdKO/i0dKtcPGe
-	 dx9KvyiRGdJm5p2tkz2qqoM/4TvVhE3iyfESNpNH1ZmbL9hLakCFovqv5b0Vgeqh7+T9T
-	 MVsfWVu6ssB9tbz+vIAV+HwI84ZBELiMo+teSszsgpKPAP45gNuTvw5CI8lYeXMmIzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627937;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=F5bX9LxXmM/a058JbeXjccAF344bS/YmCY7trRb5PMQ=;
+	b=XqZYf5TMoHjkdpfe+RjOkeOwZzvIIuiI79wGK5dNvb/GpPTD/xQ2l0uqAqVk8RoywqXg
+	 SoEV3dLL6EgDcpHs0/H3ThcwEoOctypx0NAUq0XfLRom7/DY9EnyyKBEX74kuz/Aw/LBn
+	 CxAbu+MezCk0a3b4+0qZMgZgM9Cbr3OjaiYAF2MozrPZBBUMCtMI+NpUnrGcb/p6fHKUn
+	 fF+tMyUm34JuhZh8/No++CbGrvzj/qVeA3YfpISf7viDsjXJB0puYch6YdX19tlJeBSxq
+	 6WfNU+2MHUnXExtTbXeVxl2IEGe5Mn5FcGrPnJ3MPAocJhNMovhNpW/zjcjAjUTk6zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ERVvzQCu;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26FE60A5BCE
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 13:57:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F26FE60A5BCE
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=ERVvzQCu
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c5358fc28so2457582f8f.0
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 05:57:08 -0800 (PST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EC45C60A3837;
+	Mon,  2 Nov 2026 13:58:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC45C60A3837
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793627827; x=1794232627; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/G+GoCszj8uMGdIOWBMWwoyuQ6G5HkG8rRZwTC2uNlE=;
-        b=ERVvzQCujfWCjYJN9oYZKaimgac+b/IzEOZnWk5PWe8LT/M3Zj8G/TB5fBJbB0hg3J
-         6GBygHtOkJCd7zq1FGVNAOfShOPcweyQm/QNiDSRVXDsAbruG251NUfmpPOudJqndX7l
-         JaIgdJz8CJXqKeOvMvuoBLZAvf15aP3Pw2CAXfVTKSvIxheUlkmuLoDHFc+pfaCP3pbI
-         Dp44C0MKPPNq3VtqcM2bkdaDqCv5f0P7oQSlqMcdxQIzVzpRYZwyo51I4XSTf7IUiZEM
-         PJo+08xy53lH3cp93x9MZzGdSYp0Z78heb59inAqdEKV4tdNSv3dECPCugLN+VqTgiOz
-         hpyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627827; x=1794232627;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/G+GoCszj8uMGdIOWBMWwoyuQ6G5HkG8rRZwTC2uNlE=;
-        b=Zjf/1k5sDAy19ijzkAlCL72bEBxNPfTzf/uYyJuxXuSmagzdI3jXOnaICY2Wxdh1mI
-         sfXQhi0OXJViIDXMdvl3Llz2AURjY6sSI4Cmw+ACLRtw2eVGujN5Gjkn237QBJg/52nM
-         udCer85CMjaLuN8g/a4QE11ksegBKhiSkAQnZfdX/Ul0PuHPG0ePRFKTG6HO3q2sfWfA
-         wubOYUrAXW80XDtgma4REZVRgFcq1YhaUeM4TjPOG+7pmDtUnq2MXsnFzez36UbGOF9x
-         hzIRpDGsYidxlG2G6n22n2E1g8f25ejwapzg62f0u22dtQRPWh3wBVfaCV39AwBdRypl
-         yYcg==
-X-Gm-Message-State: AFq9FYKlKwYxdWtEcMifQ3oFAJ2FddM1HbDs74E0c2eMZf3G4WdbcQG8
-	+ONucBhHfqNR9KROYh34dm6S2dhD8oyjD+2ayC1dV966aRGLHZ62YpM5Yed/vjv1FwA=
-X-Gm-Gg: AYBFou3gBfG4IyNF/J5SJ+A7OFc2YQDc8nhqFH2yjCis3Ywx68fgDy99ZXtvwjFg1qU
-	1oaK11uSlKssyIKfX3bprRH2F7F7gAJc1sf1D8vlD0aHjhQYtU97Ezf2QTvqPvgBi08hU0MTbfF
-	m4/+nJkoDWURmJ1+r9l+pu98V71QvUtWaRaNjpnoWt7DWRHebkGCl/G0ezItCEX88ZMTmNT0lL2
-	WFKYspMX1BFugvcJW3VinPpfqjWSpzlwdnf5rwq0XFfSvLFtXrJQoilR0/RZnGo3IVK8xWzCOYi
-	WeswhNreH8e7nQTsQoacLfjjmfua4dK+vDL91ruLq6v5ATd2uuNolEYtXOBwYOd1hizjPCeEHjZ
-	n3mZhDXaxNHCUEkYgGwRxrMr5i/vBVqe94Mg0pUkNdWLFJimCsFWHiD99HNCXxiqrDkf0DT6cvy
-	zG590VKx9uiChc4GgJeENR3gUQc20p5xO27g2HHXa67EpARoAO1rs/+jOlPD5pI46gltzJkiEN6
-	Ptz6cM3XdHfgqaVqs12f82of9r9sqYusMPP8s/gSzcI1/ajp0rrNz355t1vqFmc2b2fSt1hkHfM
-	gbXNFZIjJWkjiXUyfA==
-X-Received: by 2002:a05:600c:c48e:b0:4a3:2f35:38b4 with SMTP id 5b1f17b1804b1-4ac16bc4829mr238745425e9.10.1793627827311;
-        Mon, 02 Nov 2026 05:57:07 -0800 (PST)
-Received: from [127.0.0.1] ([64.43.42.35])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm126145375e9.0.2026.11.02.05.57.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:57:06 -0800 (PST)
-From: bryan.odonoghue@linaro.org
-X-Google-Original-From: bod@kernel.org
-Date: Mon, 02 Nov 2026 13:56:55 +0000
-Subject: [PATCH v2 9/9] media: qcom: camss: Switch on frame_sync_en for
- csid-gen2
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=F5bX9LxXmM/a058JbeXjccAF344bS/YmCY
+	7trRb5PMQ=; b=thQADmLnRD2cGU0QggbmbEX5++SYWh7vOdWZm5Khn0svek/igK
+	yZCVfAzYnxIkXG7Tp5QGFgHbMcfbm6z+9NBmLYfYJA3FUv7x/8TD7XAArU09qLmS
+	e7bZqnKg8DdP0YNGuUBi3dKyKIxO81ndUsVa/4mjwdoqaKAs5DZwDTV84=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkB2fP8Ql+hqBIAZAQ--.47013S2;
+	Mon, 02 Nov 2026 21:58:41 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Shuah Khan <shuah@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: dvb-core: skip disable_source handler for a released entity
+Date: Mon,  2 Nov 2026 21:58:40 +0800
+Message-Id: <20261102135840.17953-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
+References: <20261102131907.8922-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,290 +63,144 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-v4l2-frame-sync-v2-9-25cbed7a772f@kernel.org>
-References: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
-In-Reply-To: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9253; i=bod@kernel.org;
- h=from:subject:message-id; bh=95tDSJ0WVTpznjgi65qW2It4WcwY5sqHJM/UhObBuA4=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq6JanjOXo7wPWoBVwARpvmig8hyXcQmRwDsUrp
- AGom/wng62JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauiWpwAKCRAicTuzoY3I
- OsqUD/9N741GnuBLpdtxDFC1YqjL8I26xncRsE6hQRvCKzjGxc1N3q09pfMWpk6a1lWSR5/kz1n
- PmZzct+XJdaeC9VgBk4SKrdbdZJ4+nvMnhtVdrFZGDWn6uTH0oMBavhBF05MZmnJ4deTHWuTASx
- L4gpEVMuTBLwBB4Ahfyt8tmIgXYTAx9mDOQsAKvMsvsIabTGNrbD3tFcaWJDGNHSZ5j9lBeVQ0j
- KY6eYxEVlC0ii0qMZqFPn07mChY/slk1bcnZV0wgYQZmplY8uGKrwKmh0hrIoqIsl39JNzoJYlQ
- fEIE5e+oTHfEmkIV8bXfALiLLJ0su2o5uyK5khQxK0qid7QcqQPTtie3Zk76g5Vvwrz68igUxqL
- awG8yUcjhVfVWWkvppYj8SyHtosSiF/V5X4iSYw3GaHqOnjTpg6HtiLJuf4OTN2Gnu0VjOj5bnN
- JZKgEdgAdkp+AYsRhIMq22euR3WfEeY8A0xuBMqaaUHpKpnKt/md2GCOhDVUvbYZnVV1sPf7mM6
- 4V/U2fgMd+vv2xeqop9ZTrIFp73/aE7adziN/0t865nef09YC277AVur9/uPwA371RVN+H2ezpJ
- rdRBKjlSdFtXNfNmuHV5UG2T4iL5BJg4pZVG5T9WqX5uSZs4MiNQBmO3ikBl+7XqLJ09ToEkHhf
- wGzkq8UGa7zeZyg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkB2fP8Ql+hqBIAZAQ--.47013S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxKFyDZFyrtF47Wr18WFWUtwb_yoW7GFy8pa
+	93tayYgrW0ga1UZr42ya17XFn8ZwsYyay5CFy3X39rKr4rXr9aqryFya4DWF17Grs7Aa12
+	q3WaqrZ7u3yrWw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28I
+	cVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx
+	0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY
+	1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_Xr4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxU4fM3DUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdS-+AAAsF
 
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+dvb_remove_device() frees the media entity of a dvb_device through
+dvb_media_device_free() and sets dvbdev->entity to NULL.  The media
+device of the adapter can still be registered at that point: au0828,
+for example, only clears mdev->disable_source in au0828_usb_release(),
+which runs after au0828_dvb_unregister() has unregistered the frontend
+device.
 
-Switch frame_sync_en to true to track and consume SOF/EOF data.
+A file descriptor that survives the disconnect then reaches
+dvb_frontend_release() with dvbdev->entity already NULL and calls
 
-Tested-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> # rb5
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+	fe->dvb->mdev->disable_source(dvbdev->entity);
+
+au0828_disable_source() dereferences that argument unconditionally:
+
+	struct media_device *mdev = entity->graph_obj.mdev;
+
+which faults:
+
+	general protection fault: 0000 [#1] SMP KASAN
+	KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+	RIP: au0828_disable_source+0x27/0xb70 au0828-core.c:445
+	Call Trace:
+	 dvb_frontend_release+0x2eb/0x500 dvb_frontend.c:2946
+
+The error path of __dvb_frontend_open() has the same call.
+
+Skip the handler when dvbdev->entity is gone.  For that check to be
+sufficient, clear dvbdev->entity in dvb_media_device_free() before the
+entity is unregistered and freed: both frontend paths read the pointer
+while holding mdev->graph_mutex, and media_device_unregister_entity()
+takes the same lock, so a reader either still sees a registered entity,
+for which unregister waits, or sees NULL.  Clearing the pointer after
+the unregister would leave a window in which the entity is read after
+it was already freed.
+
+Read the pointer only once, into a local variable, while the lock is
+held.  dvb_media_device_free() stores NULL before taking graph_mutex,
+so re-reading the field to pass it as the argument could still observe
+NULL and hand it to the handler.
+
+Fixes: 68ff5767ddc4 ("[media] media: dvb-frontend invoke enable/disable_source handlers")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/media/platform/qcom/camss/camss.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Changes in v2:
+- Read dvbdev->entity once into a local variable under graph_mutex at both
+  call sites.  dvb_media_device_free() clears the pointer without holding
+  that lock, so re-reading the field for the call argument could still pass
+  NULL to the handler.
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 7911b30494ac9..bfff28e789b04 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -1132,6 +1132,7 @@ static const struct camss_subdev_resources csid_res_670[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -1151,6 +1152,7 @@ static const struct camss_subdev_resources csid_res_670[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -1170,6 +1172,7 @@ static const struct camss_subdev_resources csid_res_670[] = {
- 		.reg = { "csid2" },
- 		.interrupt = { "csid2" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -1361,6 +1364,7 @@ static const struct camss_subdev_resources csid_res_845[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -1389,6 +1393,7 @@ static const struct camss_subdev_resources csid_res_845[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -1417,6 +1422,7 @@ static const struct camss_subdev_resources csid_res_845[] = {
- 		.reg = { "csid2" },
- 		.interrupt = { "csid2" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -1573,6 +1579,7 @@ static const struct camss_subdev_resources csid_res_sm6150[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = false,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -1588,6 +1595,7 @@ static const struct camss_subdev_resources csid_res_sm6150[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = false,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -1603,6 +1611,7 @@ static const struct camss_subdev_resources csid_res_sm6150[] = {
- 		.reg = { "csid_lite" },
- 		.interrupt = { "csid_lite" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -1775,6 +1784,7 @@ static const struct camss_subdev_resources csid_res_sm6350[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -1790,6 +1800,7 @@ static const struct camss_subdev_resources csid_res_sm6350[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -1805,6 +1816,7 @@ static const struct camss_subdev_resources csid_res_sm6350[] = {
- 		.reg = { "csid2" },
- 		.interrupt = { "csid2" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -1820,6 +1832,7 @@ static const struct camss_subdev_resources csid_res_sm6350[] = {
- 		.reg = { "csid_lite" },
- 		.interrupt = { "csid_lite" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2058,6 +2071,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2075,6 +2089,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2092,6 +2107,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.interrupt = { "csid2" },
- 		.csid = {
- 			.is_lite = true,
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2109,6 +2125,7 @@ static const struct camss_subdev_resources csid_res_8250[] = {
- 		.interrupt = { "csid3" },
- 		.csid = {
- 			.is_lite = true,
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2349,6 +2366,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = false,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2368,6 +2386,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = false,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2387,6 +2406,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
- 		.reg = { "csid2" },
- 		.interrupt = { "csid2" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = false,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2406,6 +2426,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
- 		.reg = { "csid_lite0" },
- 		.interrupt = { "csid_lite0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2425,6 +2446,7 @@ static const struct camss_subdev_resources csid_res_7280[] = {
- 		.reg = { "csid_lite1" },
- 		.interrupt = { "csid_lite1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2645,6 +2667,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid0" },
- 		.interrupt = { "csid0" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2664,6 +2687,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid1" },
- 		.interrupt = { "csid1" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2683,6 +2707,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid2" },
- 		.interrupt = { "csid2" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2702,6 +2727,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid3" },
- 		.interrupt = { "csid3" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
- 			.formats = &csid_formats_gen2
-@@ -2720,6 +2746,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid0_lite" },
- 		.interrupt = { "csid0_lite" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2739,6 +2766,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid1_lite" },
- 		.interrupt = { "csid1_lite" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2758,6 +2786,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid2_lite" },
- 		.interrupt = { "csid2_lite" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
-@@ -2777,6 +2806,7 @@ static const struct camss_subdev_resources csid_res_sc8280xp[] = {
- 		.reg = { "csid3_lite" },
- 		.interrupt = { "csid3_lite" },
- 		.csid = {
-+			.frame_sync_en = true,
- 			.is_lite = true,
- 			.hw_ops = &csid_ops_gen2,
- 			.parent_dev_ops = &vfe_parent_dev_ops,
+ drivers/media/dvb-core/dvb_frontend.c | 14 ++++++++++----
+ drivers/media/dvb-core/dvbdev.c       | 14 +++++++++++---
+ 2 files changed, 21 insertions(+), 7 deletions(-)
 
+diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
+index 0286da57f382..37bd909fe0fe 100644
+--- a/drivers/media/dvb-core/dvb_frontend.c
++++ b/drivers/media/dvb-core/dvb_frontend.c
+@@ -2826,9 +2826,12 @@ static int __dvb_frontend_open(struct inode *inode, struct file *file)
+ #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+ 	mutex_lock(&fe->dvb->mdev_lock);
+ 	if (fe->dvb->mdev) {
++		struct media_entity *entity;
++
+ 		mutex_lock(&fe->dvb->mdev->graph_mutex);
+-		if (fe->dvb->mdev->disable_source)
+-			fe->dvb->mdev->disable_source(dvbdev->entity);
++		entity = dvbdev->entity;
++		if (entity && fe->dvb->mdev->disable_source)
++			fe->dvb->mdev->disable_source(entity);
+ 		mutex_unlock(&fe->dvb->mdev->graph_mutex);
+ 	}
+ 	mutex_unlock(&fe->dvb->mdev_lock);
+@@ -2941,9 +2944,12 @@ static int dvb_frontend_release(struct inode *inode, struct file *file)
+ #ifdef CONFIG_MEDIA_CONTROLLER_DVB
+ 		mutex_lock(&fe->dvb->mdev_lock);
+ 		if (fe->dvb->mdev) {
++			struct media_entity *entity;
++
+ 			mutex_lock(&fe->dvb->mdev->graph_mutex);
+-			if (fe->dvb->mdev->disable_source)
+-				fe->dvb->mdev->disable_source(dvbdev->entity);
++			entity = dvbdev->entity;
++			if (entity && fe->dvb->mdev->disable_source)
++				fe->dvb->mdev->disable_source(entity);
+ 			mutex_unlock(&fe->dvb->mdev->graph_mutex);
+ 		}
+ 		mutex_unlock(&fe->dvb->mdev_lock);
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..0b1ac40af164 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -208,10 +208,18 @@ static void dvb_media_device_free(struct dvb_device *dvbdev)
+ {
+ #if defined(CONFIG_MEDIA_CONTROLLER_DVB)
+ 	if (dvbdev->entity) {
+-		media_device_unregister_entity(dvbdev->entity);
+-		kfree(dvbdev->entity);
+-		kfree(dvbdev->pads);
++		struct media_entity *entity = dvbdev->entity;
++
++		/*
++		 * Clear the pointer before the entity is unregistered and
++		 * freed.  The frontend release and open paths read it under
++		 * mdev->graph_mutex and pass it to the disable_source
++		 * handler, so a stale entity must not stay reachable.
++		 */
+ 		dvbdev->entity = NULL;
++		media_device_unregister_entity(entity);
++		kfree(entity);
++		kfree(dvbdev->pads);
+ 		dvbdev->pads = NULL;
+ 	}
+ 
 -- 
-2.56.0
+2.34.1
 
