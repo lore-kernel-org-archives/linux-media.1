@@ -1,107 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793657122;
-	b=NML9OZGe88D+w6mWTBKeNvZ8A1GC+imBfsvYn2wgLf6x9jCyfMyGkHUYrDwWjnjoRKls
-	 +gwQ9Wf9A7ssDbJMCTYy4eZkfSi3WdHVNPx+4ZiiUcpdLWSza/ED1u4ulaZ5rFGbNiIjq
-	 elAnaEBlWDZ6LshTPtwV+09+OkV9zJWg88lOs39Spjnb/Dpg4609W6PlxrULRDjc0jHmq
-	 oFW2ktonVpNKgOJEfe8MQREmi2h1+rHyTagLLF9jEjDVK3HOV836QmEJng/DOmm0DuFIe
-	 MnZsQk7C+8uzvmLnxUkT9Fh3kShVtE+R48/fG/4l16D/l0aqcu4aJL+e+jCOTHqN3UA==
+	t=1793657128;
+	b=bj4IkliffRkAIErwDGfU9kcLRxMu+NDKELxnchhIO6t07Si2v3JM49r5pjy3U9FdrBtf
+	 rAWqkiqzRQ6BeATEsW+gDymyB5oawq+oigj+HckMWm81Oko9FPmLa+57yRhiJFIF7WQB8
+	 cIItxqrG8vGvSnhE8+epKKaVGhzWKrBIEIHitWcvseBKaFzDQ0n1xNgwuSk8kdoFPrzKV
+	 ah+T/BF3qHBtz28/fnCXBi2n+JJgZdhc2UUz5gRvaj4qVmsadoIOqQiA+9qxwRHGkcHyb
+	 80i9Tk9n0Wt9+1uV7wIi3CU18h9bV1iwuk+3bvb1ARYxb8DFDfxy0YHbNlusc31zGJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793657122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793657128;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=1X5bXRL8qqmcC6O9ai7+IAT4c81ATWUWkhjo+536Us8=;
-	b=yI6e4mE2uwXvCooZNk9f/vDIRMMs/m21dfNmcTRowD35yIkqfSebZs5EsblTGu0QxHlI
-	 B5C8fiP7YKt23OcBeWZKT4F6ve58PGP7Z4I5oMXerZQueTLSXrh3ZA7abOh7D6V4t9FD7
-	 nbyb4kod3YaTwS8V4/gGDp5v+krWiHt274AvhCQIDes9TwVpHQBTnqg3Iu7A2OXVxUISk
-	 UNuFTjPFBS2T0J4LFzKNbmHjbsDF2joqK8dFnbon6zkWcCD4qIbQxAmTSfWEtMZBmQLCO
-	 D6OtXlig3+I/iRVqMKL9ABiuNo69oZLW8BlSrGPgIBdrPOgr2kXNG3kRhyKixHGHUyQ==
+	bh=2JasoZs4pU8J575UCokZsfJygggnE4HUTF2MY/ekZJM=;
+	b=3uUmf7dFiCmqc5fkQFJ5fUeIEccwQoxJRoYHyUggp5uZrzwpyG4vfcMXlsiVAt0c8syA
+	 YGZMv9pBKXdC2ej16Qrda6Ohu1vxGs7Hf0uWIm5beGWeg5i/mOwDai+ckv1ZwYp3FmBjR
+	 YHBbydICD1nZEwpKOn8MLzgpsb4+/feIVYHm6pcnD/yNXk/50O7IuHAPRrgJHLq4HHLic
+	 4OqQb+wEf+AT289ue3l7BTujoOHsAC1fpEgYXoKAkvV4+HaK1YVDy/PZk0vMBGy2wIbW8
+	 hR40eNxGsSJ3sfVSVeZkpqncRdBFlaDpwDQftr150/vusXIG+Nl1gm/FVLe2xX+PTMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PUs3mu89;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O99SkEkG;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5D4606D83D
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 22:05:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A5D4606D83D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07618606D807
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 22:05:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07618606D807
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PUs3mu89
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-369f33df08eso6881762eec.0
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 14:05:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O99SkEkG
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36a18fc7a38so6476030eec.1
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 14:05:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793657121; x=1794261921; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793657127; x=1794261927; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1X5bXRL8qqmcC6O9ai7+IAT4c81ATWUWkhjo+536Us8=;
-        b=PUs3mu89+syzBRQDWzZ5ixeKkYfm7Ii2ag28THP8+Pd9LkZZQOro6Z/HEuWYy7rQEf
-         6s25DD6Mt3qyvJ8QfIjMR75zutVoFrxfYCDKAftAiS4v5jL4bj0qUJfNqKmlOqq4zUlR
-         RPafHTP0eJY2vVTf9ppyCe+YK8I7tlameB6HcKJqSgVyGEbnjZHG1HK5MEawyr7VMhOX
-         8ZTHNrPpSQA5BFgYTbWPLSF/R87ic5NTl3MnIuhRRvJNwFmMfHdviPxnyVboRlWk39Mt
-         wghhoMBEaOFeFVHMYbZ2U+snwUafVNI0uu0hGUcxqhrZjFRY9hAWw13syb8TM+TuaWRF
-         N4Kg==
+        bh=2JasoZs4pU8J575UCokZsfJygggnE4HUTF2MY/ekZJM=;
+        b=O99SkEkGgX+yDaEspfPEBwygqQ8yh0ngcnnm/iplfx2/07xIvSVgCWc2jc1qSkcnwO
+         jwtCw1qWTsbouhE1lPeROQ3bJgD/8puj6J3ZcZehM7KiNfcNo5a15Ea1Tn+iKWQN0xcC
+         SVz0yHWR9XOgcrbepl4xvqGN0g4RpL1+2S5tarjVZ127Q6+qaBy9dPX3zPa8fFvAvtMm
+         klf9k68dSi0CUQizgOk+OWsodAUtoJTSo47meAdeX/9NRKcji9hdhBcZyU3a7b35XVVY
+         DH9AisRVVfLhfy/udG35z2389KxygGWgIF/3F/JYdd2ks6xjup4RnAYhSiRQqnJHS7/G
+         9PZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793657121; x=1794261921;
+        d=1e100.net; s=20260707; t=1793657127; x=1794261927;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1X5bXRL8qqmcC6O9ai7+IAT4c81ATWUWkhjo+536Us8=;
-        b=LLoOtlWrOAOtqNpVKUOfyjVMHflyjrkja6Xj0mzi4Lu2Pax9HkmgWDqQGe9amsChXS
-         WAc0/fVHwbLay9XAdFUnkV5YBJQJwdSTJVbZPFO7oHBKOB8nKKsjGyM3fNpnn9VWHhfd
-         WgfChc9pgOn1wxQVOKWpaGc/ynkt4sMfcpQ67v2omBROb7tWRha29lgjInKV21pWDTJo
-         GpdC8pebTD40c6LT8PLCgAwA6B1Jx0DPQnstDEjtNvnGJtINwGIQE5F1/i989NW8Vm43
-         IKvozgil73Yuob7x4EYmkiK8D6m+BpZBRAhfK7D3+/usE9IJlT7/FRJlhxOYhQ3b1WN0
-         TrLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXSC9lwR/DxU1BSATV6iLagruh1wWjPuaVruI0tBJwLdSvO0v7+9y9x92224lbS5P1/IhCnh6F/sN9bA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UgLzrzcJVrJuFP5nuiL+0OTqxZRDpqq2sLaA+Ft7gspMBYOC3
-	+sXf8E3H9KrV2BaUOpepYJvZUEKwaebcnheFFSBp07oswQzhDNz0WND4
-X-Gm-Gg: AYBFou2hRFQWdvGEJ66PG9OTL080lcsb8JdhjB7H5QaHd1W8IBYt0NU83pCDMDRiM/p
-	+5v+81E8KG9XrX/mGRaseuNbyyAhmaCXprDwcliguP/75rN6gKhNLx5pAq2i1f0bn3/k3LNxt2R
-	irbxCHwqPq24FINIY4xLXnkGgl9lBliyS6qLQN2v5HP0R3vmcJKbt7VRwrtBiBkByx1tn9UX0Di
-	0gshhHxQg6Y2H6JEmj6uArpr5icPRJTs2lB9q4SaSSI8KB4Gg7bx0tppdMqmywpQlQjj/rb6ehB
-	SiUbFAg02NR3/Fsfz3l+5EdN4+ORZYUWciP30l7VZcw1qYPKHx/W2iPjm1JVjlPiB9ReGM/w5mU
-	oSSAQLW83PieCKph9pX8hHVnyMtujdp9NcoWOClJ8o2u1QTwbYa8ApiE1IvCd8IyRb3/hisX9tq
-	MP8jwhUTVtZlVUaHSM28n5v9amtiN5NAdMR42yAAUPlgNTQCCE1zZykrHxiYiIvFWBr2IWD2FhF
-	viV0zx8J3beg+CUZgAYIszKz6pjTkvUsiHnZfhd0NQ0G0GN3n2jmUfRjwQRn6BNgIJsDFCuZlFq
-	MUYb6LRZo+77Z+DFBXQR49Fkb+5jMAt220h8hCJJ+2+edeNl51oWlbuh5DIZg4Bcjg==
-X-Received: by 2002:a05:7300:3b0c:b0:36a:238:1485 with SMTP id 5a478bee46e88-36a4244276cmr24803721eec.37.1793657120646;
-        Mon, 02 Nov 2026 14:05:20 -0800 (PST)
+        bh=2JasoZs4pU8J575UCokZsfJygggnE4HUTF2MY/ekZJM=;
+        b=I/46qEKHeQi3VT5/z31kXF1YhGJ0On4j5WXZFT8TZfAQEwdImFDJ/wSeO8uQfcxI9g
+         eAlHWlpJIOjSQexSeH0IzXqeWIlsYhUh3hG236vYou+gIgls1gC/KrHZwaD/gxv6gTsT
+         opODBDoRzxlheXYhssUYFGJec7j60eAdaWSgvEO9tzyNuDtE6DJMOIkRcui7GfeuP3eu
+         F/zgfyIpXDCoDz72bb8Xgppc+6PRQe4SDpOtj9WyoAljkqSNAuUP3aAYN1zYTmU4xfj3
+         PFh3ZHZ8TfkdUubSlkUrIF32hfEKlgk6k6Fzh5vLG+JnNZGF8MShIiRluaVjtnmvuBc6
+         Yb0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy79XEJ2+5MPrhQJ80BJx2OB9ptGZSCrMxBX9rByiYoq5rnYE8HH+TXgULpMHQJ6LERpQgf9NvD4tjlaA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9bPnT9f5y1QIkJ4CnaGglGv2SLhP+tUkl6t+u8lPfq/aFo721g
+	JyNUulVsY4eBRQ7u/0xhG6n+4riUXCPRmMfhEYfg4uznOVJKLEmENbyh
+X-Gm-Gg: AYBFou1QnCYqrt9+8GNhZG92mCtuPwDp3ZjD8Ih3g88mEU+krqFxS3wHIJGiSaqXW1C
+	bs4++V0fNEb6fDsOzCryd/nSk4gG1DtzGmMw2b0+DkTwSBGUPJFOgoStmKeGcXpuV2RcwnmuMn1
+	VFiB3YMsxvVSXQnqURGxIUuxxGDMdnDlCYOkruxJsSz1oo9sVYVHc66JKbnrByS/CuUv1VC1yYk
+	kBbfEFLvTT+JMQM9lXXfdT3HxJiRWc3Zb+felLe7QpRKjoQKDt/FqwfQiXb24pmIRfCd75pH4ZE
+	XBCCbxjL+GGFC0XJIZvlxJG3BlZlfEriqaXMMiAQzBNmSPZDwfCEnn3eXMPdE8/eGU9F+821UKP
+	SSqH1gZhe4ADVoshsFGgEo0s4w539MUdIz414syjn8w+g9Bs+UHtmWCOpoEsz7W7jszdYQhNmNk
+	rMpB080E33cUtxDGmoiLAWfZeQElFRq9RfoFIEUqFbStqA+fGMOXtAdd39kBsSEY5fw7Z4jYn4e
+	NF9Ip8ruiaeu+vw9/O95pt/cBb1dm42ItHCNGr23hR68U3VyqPH9ayz3jDo4Ud0S7odNzynSjRG
+	BWeKGsdYoZ6eidEmGxbtGDDiLZmUBE52pw1H6S/qXQD2
+X-Received: by 2002:a05:693c:6092:b0:361:7ab9:479d with SMTP id 5a478bee46e88-36a423ee70bmr20683512eec.27.1793657127005;
+        Mon, 02 Nov 2026 14:05:27 -0800 (PST)
 Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm42657742eec.7.2026.11.02.14.05.17
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429467cdsm38470009eec.19.2026.11.02.14.05.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 14:05:20 -0800 (PST)
+        Mon, 02 Nov 2026 14:05:26 -0800 (PST)
 From: Joonhoe Kim <26rote@gmail.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
 	Abhinav Kumar <abhinav.kumar@linux.dev>,
 	Bryan O'Donoghue <bod@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Hungyu Lin <dennylin0707@gmail.com>,
+	Stefan Schmidt <stefan.schmidt@linaro.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Birk Skyum <birk.skyum@pm.me>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev,
-	media-ci@linuxtv.org,
-	devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v4 3/6] media: iris: add iris4 specific H265 line buffer calculation
-Date: Tue,  3 Nov 2026 07:05:19 +0900
-Message-ID: <20261102220519.1738-1-26rote@gmail.com>
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] media: qcom: iris: Wait for threaded IRQ completion during power-off
+Date: Tue,  3 Nov 2026 07:05:26 +0900
+Message-ID: <20261102220526.1755-1-26rote@gmail.com>
 X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261001153221.4FAC61F000FF@smtp.kernel.org>
-References: <20261001-kaanapali-iris-v4-0-642f9ac5e699@oss.qualcomm.com> <20261001-kaanapali-iris-v4-3-642f9ac5e699@oss.qualcomm.com> <20261001153221.4FAC61F000FF@smtp.kernel.org>
+In-Reply-To: <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
+References: <20261007-fix-disable-irq-safely-v1-0-45746f9a92de@oss.qualcomm.com> <20261007-fix-disable-irq-safely-v1-2-45746f9a92de@oss.qualcomm.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -114,38 +115,28 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 01 Oct 2026 15:32:20 +0000, sashiko-bot@kernel.org wrote:
-> > +		dpb_obp = size_dpb_opb(frame_height, lcu_size) * num_vpp_pipes;
-[...]
-> > +	return ((ALIGN(dpb_obp, DMA_ALIGNMENT) + ALIGN(se_left_lb, DMA_ALIGNMENT) +
-> > +		ALIGN(vsp_left_lb, DMA_ALIGNMENT)) * num_vpp_pipes) +
-[...]
-> Does this code multiply dpb_obp by num_vpp_pipes twice?
-[...]
-> Is this double multiplication intentional, or should one of the
-> multipliers be removed to prevent over-allocating the line buffer?
+Hi Vishnu,
 
-Some data on this from a Lenovo Y700 Gen 5 (TB323FU, Kaanapali), with
-this patch on v7.3 and out-of-tree Kaanapali support. Hardware decodes
-were compared bit for bit with software decoding:
+Without the series, I hit the same deadlock on a Lenovo Y700 Gen 5
+(TB323FU, Kaanapali, v7.3-rc). It happened when removing the module
+right after a decode session. rmmod waited in __synchronize_irq(),
+and the iris IRQ thread in iris_hfi_isr_handler() waited for
+core->lock. A loop of decode, rmmod and modprobe reproduced it in
+round 4 of 20.
 
-                             HEVC Main10      HEVC Main
-                             1080p   2160p    1080p
-  v4 3/6 as is               pass    pass     pass
-  dpb_obp multiplied once    fail    fail     pass
-  once, OPB lines doubled
-  for 10-bit output          pass    pass     pass
+With both patches on v7.3 and out-of-tree Kaanapali support, the same
+loop passed 60 of 60 rounds. 2/2 needed context changes only. H.264,
+HEVC and VP9 decodes still matched software decoding.
 
-The failures are "session error received 0x4000005: insufficient
-resources" with no frames decoded.
+Tested-by: Joonhoe Kim <26rote@gmail.com> # Kaanapali
 
-With num_vpp_pipes = 2, the second multiplication doubles dpb_obp.
-That is what 10-bit output needs. With one multiplication, Main10
-passes once the size_dpb_opb() part is doubled for a 10-bit capture
-format. 8-bit streams pass without that.
-
-Is the second multiplication meant to cover 10-bit output? If not, I
-can send the 10-bit sizing as a patch on top of this series.
+One question. While core->lock is dropped around disable_irq(), some
+callers take core->lock directly rather than through
+iris_acquire_core_lock(): iris_hfi_queue_cmd_write(),
+iris_set_clocks() and iris_set_interconnects(). These are not held off
+by irq_disabling. Also, in iris_core_deinit() the firmware is already
+unloaded at that point, while core->state is still IRIS_CORE_INIT. Is
+that window meant to be safe?
 
 Thanks,
 Joonhoe Kim
