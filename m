@@ -1,89 +1,89 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627821;
-	b=AfSotsCiFhEoIaTrwrrShnxPNd4bhEvFonIIZLGM6Gd3WNUrY+5wQnbau/1/ZZwTlyYD
-	 VROyDp/vB/3Mq0RSGOeRg1xAaWrbYS+6ake+Qnnm502rzpuWz6mj1ka26h1zCoDTAjJng
-	 6go723bLP/VIbfy5oHQK2bfTB1YjXOdrGUZI21qt+vB2hZIz84SRg08T+6SFS9kSlLhFO
-	 gHj0gIsNIyQ7KLHrTJO383O1uoNk27b8j1PW9kFwY50pYzdm2Vk6PDO6pSZzm93sGWXO2
-	 iNFv0HLTClUA29a52nfAvhrqqm7yl5EuseT+2LaGtZTors8G6FHWw2GRGrZi3510EtA==
+	t=1793627822;
+	b=UCFhYR/14hkkWTWq2yc9iyS9riNBe2Y0DQPLGAgPTJZ6cD254okSVCJQ+8SNzYPwSEBg
+	 xg+x3Iu2E4RFbVWEd/IfNGo7EM0RbOn8xTkumG3W8r3hVS0zTS6x/xhkbe0zJUJ1tbr2Y
+	 4j1sWC5FpDPntshS15fj2WPZ5DWTcMVIKX3NayFR1XUNHVG3C1vXU+x/YdEx8QLzIz9j3
+	 q8b2uiRlro5Cz9wnurN9jd9yCYlPL1+/OnWV4FbQzdSWsfTBGJq8FLUyEyi3xITTI/CXm
+	 I08JNCLJ17PBBJJNHoSvqvYku/GcuGNe0tKB9hRFBOjUhTzl3vCyhA+DxBCFVYyFSDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627821;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627822;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
 	 X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=+YlQw+0gpVkowxrzteiZMk4isWw2njHCkoWRC3kAEmE=;
-	b=J6CQHaP+4FuhFUeohD8c5YtMFDF1n6Q+f+lpXg3iGx8g9qvC9QiO153AG4gfJ37B30RG
-	 182w//MPHZd0efX9k48dUDx+FkslMmYKvBczrKA4UzIUpTnpBMQQv2Hhp26g8nCejqJGE
-	 Z2RkF39zDWu9URxpktVe9qRsYvOuwFcy35HLwA1b01Ap0iUFAhWMrw2c0TgTDxTBCxGDF
-	 hfOyGIxC7dVWV2rNUKM/oJK9pKFKokcubzHOZ9Hqnja+kf/gFjZ2R28z36myM1USPx/Up
-	 r8jOUr72VZ5KmYyuW+dZ8QcE656yUT87Oir/luVzs/+sT8xk8EvMZRJNSn+nKDzQRUA==
+	bh=1yfF9fMJxMLeyUYixvpYHsBI9sOfZXF9h7IOuyspaFU=;
+	b=D1gvP7MsQcwZjYgvZL58ibasyFFger7/5G8gQa72Ft8jBhSjkz09sqnIxZOwkR3IeDCA
+	 H+BvWav0sLw2uG2hZNjR5gD8K7tKu95XsjIyEdYcWzj/aFXMLtw3/nmvYRhdowod7M6JR
+	 kURNIVbdbPVS3EZkiWVDniGkln6PPBLLfU2SrCtaXmoVII2aTKysFxPmaX2xOwfY/+69b
+	 eNg0hzaAME2g5JTX4+XvWzhpjKhziXxzcwkacgLBlhx6KW0Vi5c6sZ8P6nYxWcPMSLnHy
+	 5dNn+T6kXO4IQUDClVtCK0QYDB2Sud9JojcmyBq0HQ0uL7FWBEa42te4LFGKer6GIYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xylirNkO;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Y6ReDMt2;
 	arc=none smtp.remote-ip=209.85.128.44
 Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E7760A2604
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 13:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7E7760A2604
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13B360A2611
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 13:57:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C13B360A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=xylirNkO
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so13563925e9.3
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 05:57:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Y6ReDMt2
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso23841575e9.1
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 05:57:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793627819; x=1794232619; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793627820; x=1794232620; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+YlQw+0gpVkowxrzteiZMk4isWw2njHCkoWRC3kAEmE=;
-        b=xylirNkO0o6AS0pjDdwPMxXgTXZ/mlluoJKgtTiKds9yEH3N8bJttu8l3wzcqtnK4y
-         PN9i0I6RK8bRrFoBDLSB4mHqdAXz0GRSwfAJU2/kcdRrPo+JLksMr/VVnrhpyxXrZzYl
-         lPYRRjVyhbVSm/9tYcgC+4JWYobfOrcPNQrVtYcimn5O6Koc0mMmNTPTp1PNhiZ/mv1+
-         oNvp2SH9TnavKxIEnLuxM/wj+LMAHbqP84QsaL7PWeghIe5L/9f70MD2AqxjEN5oNpVV
-         EKc3rQiWlfA+PMD1ovd4C/BmXFZSkUUxe1+7rA/HuaMr422cq5NCNbutpGApi9I6VnRE
-         a6xQ==
+        bh=1yfF9fMJxMLeyUYixvpYHsBI9sOfZXF9h7IOuyspaFU=;
+        b=Y6ReDMt29AklfD0l7ORu4luRQtookkjBFn+jY6UfBa8mrjyNgdomHhKzvrYKsAsZqx
+         Y2PUdBrPAf8O9YZ/2655SSdSTrqWW5kYMcL2VEvO+d78C9kcOHiEbLLSlnMpIMuhXAJm
+         94CJl4Is1KoQ5y8lqjtbq9DrkJFr0SgUIpF34jtOb1krNVNNX2zcunU/YShvrAYm7b7W
+         v8gcwyj9QzUOo6A9A3GDdl8bg5wceTQwPQgydAjnqrw+0S27YnnW8TLsw3ck9+47efZ6
+         25wg07hN3QwZE0h/zVc3Tl8HL3xrGiQm7XxNYFFZ+kvcbbXTn+NCnhmgOXLWwzofJgWg
+         Auuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627819; x=1794232619;
+        d=1e100.net; s=20260707; t=1793627820; x=1794232620;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+YlQw+0gpVkowxrzteiZMk4isWw2njHCkoWRC3kAEmE=;
-        b=07LCNEY6QBOjFWea97QmPSBz7e6vfx6z1jcNdWa2ufLE1iGDaiO7YLhSnSigUPX8h2
-         kF0l3n1TODuO2JLGhHq1IUlI4ehXlO7OuRhdFGjpCjD1X/y0yLaCzKh4r6QvPpsyTAw8
-         1iM3iCbyPWUCA0ULmP/cB9+a1JMBuJIT4xw5v9WEp/PWkO3M9AgoEQLKBfD9JOX2nNIu
-         vx/XVrbauMybQLftvWLyEwr4atszrA21bL6aAVS6pEzsgdPBK4khVCro8cSGur8kNnk2
-         yp26qIIDoT4kNEFhkyptJygHUiNJW9y4Fcyu0G+Nwy8eq2qG5V+Npr8IfAVP2NvDbEJj
-         aklg==
-X-Gm-Message-State: AFq9FYJTcSLyltjnkkL5eyVSA1sPZY7UAIUdbKMPZxW/RpzzqX8G/Jbj
-	4R/RcC6fGZXd5CCkdh2rEhXXvEt/x6MspZMhTXOV5ElXmQeQ9SmWBc1AU1cPYeuxikg=
-X-Gm-Gg: AYBFou2/rJM/CpJqYaTESlqcqPMH+sd/1DmBtLMwj6BFDRuTVXfTB2qlW+7zyIOJll9
-	Gl1UFbkInj1i8vpZZDDpi3aEnXuftQmwH+lcK527QKAkjw40PFUjx703C5N/WdQhEfrYoW1988Z
-	qfvnp9gVdMnzBjC6gpq/WBS42Ylb1zd5vbdZSzjIBWrsrsadEcWIB9oAXPkcaDv+p15FhOzZ8Pt
-	ZaRII9NCY4RN07F+Pcu6CKEkGA2Kxpl7tIQLFfkJ6WSOiFl214uYNX8mnVG53ye6RICCd6dYJ2q
-	6LR5nzd2CFlSzTXwzUSwaZ3QO6sj/4hdow0QzU1hNH77SNZqhjkOYpSkjhca3S8HARBjDgOPTpO
-	B92PSfQnetd9mS4Ywqu/ZO3aiTh5Vltim2NYbP6zUDVH1TNbqQyDYna6g8yBcDLiDkrYOCIEyqg
-	E0S6v7hhEn89N6VlWfE3UbaXT9n8ovxy2CCsIxM37rxJ1/tQTSj3+cBaLVI7CQYVti7bBeMGza7
-	8/a00+l40a4WaY4P6J5xxy4fw4K4RO9dI3EVJThYt8X1tgVvl/VQ8g5umI1pkgJyImOELYWhK8R
-	fs5AWNLqNMLa31GAWkplxbuQwqs27e5GdmbphYg=
-X-Received: by 2002:a05:600c:609a:b0:4a1:7c56:d4e2 with SMTP id 5b1f17b1804b1-4ac1709aa77mr218843375e9.16.1793627819186;
-        Mon, 02 Nov 2026 05:56:59 -0800 (PST)
+        bh=1yfF9fMJxMLeyUYixvpYHsBI9sOfZXF9h7IOuyspaFU=;
+        b=XYtqoyBy7zTiJ0wDzWCIC7j87TPvpcnnWdVuhRz2ecG3cdRGIS4WXuEf7lF1NLeaWX
+         LbYw+qsp6xSwsSWmBY8/vlgpqlGnRrYZU9uiWxK2Fpx8FRzBUTNCfYxyZI7LwDukxAzI
+         TgEmkj3+8vH9AP+65j0Ed+o700T/2BJ6NquRZqdGWYaQiTSD6TAvSD4QYi/AyGIE9ayJ
+         ZKHMnGCnHgB+KAHc3/P7fMT3SNVUtzygQuLFQIQXmox27U1StZLVyejsphgtsjztBoRs
+         EkC5v9J8qkfrnVy2N2Ki8ooGJElNX2ZacIl37CUoh5ezdYtnVtVzScPVE0po5ZK14mTu
+         Txlw==
+X-Gm-Message-State: AFq9FYIETuOij+ZafLmfhLN+UZZGAF2MkJFBL81SbKpP5/0d2IIRBtXx
+	W3rpM5QlyKW1ZLQR6SK3zKizsh5EYj/21zi8wnYecFeo7GeYJCvPfuk+btyvamw1m9lIN7f26Tz
+	ibRwD
+X-Gm-Gg: AYBFou1mbt1BqlmV0Sk5NdoRcaJmaqA1nd9CEk1D2qMvOL98JW+NzeHPeSTIf0kS8Ji
+	psBNY9ZlckevTFPZo0k84AIJfa6wRCatEHow0WBeh5UmMGAtp6fnMLRrvvxSu3frMixXKq+2CpX
+	7XNJL/cVN6bhRn4Z/DDg6bWLJyk/pnYRfvJG1ovMQktRkxiJOZ2IlcmeB9i7vtWhF8GNXLICYCx
+	rGfx/zWMEMgDRTv/8qhsDFhMCk6CBrMD6srnUcKbApI0W52zUIu4dYniYHzY92/CJ4MwzMRW9X0
+	kJPcfWTuu4m1Hydv1TL+iyYjzeqINhkLie5cyvyHKqNxUTnRdZD3K4SUqQ8/G8qxzoWyQd+ENgQ
+	ZxgxebK6Mm8yr6oMMlUf+NiYmqfL1Ox4aSHkjYYtSt4Rd7nlojrowJJ0sY4H4IWwBeGH2KN3rNB
+	ooPUhYSdRFPdEz85wlwopxs8MgBg+zEpWKtRTEAcaWDeu+u2Td8EIYxiYHDrvLJr6HzdafBNTul
+	eQdOTPIyG7LHcQdkgT7O/d8bjknJ9oU4zQrdwBnaSRzxcqMoNpxpympnXHMBbfvq4/WD1WA4Pm5
+	gB5EBjGflyO3pPOAJw==
+X-Received: by 2002:a05:600c:6211:b0:4a1:80d8:aed5 with SMTP id 5b1f17b1804b1-4ac17191046mr244313045e9.6.1793627820165;
+        Mon, 02 Nov 2026 05:57:00 -0800 (PST)
 Received: from [127.0.0.1] ([64.43.42.35])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm126145375e9.0.2026.11.02.05.56.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm126145375e9.0.2026.11.02.05.56.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:56:58 -0800 (PST)
+        Mon, 02 Nov 2026 05:56:59 -0800 (PST)
 From: bryan.odonoghue@linaro.org
 X-Google-Original-From: bod@kernel.org
-Date: Mon, 02 Nov 2026 13:56:47 +0000
-Subject: [PATCH v2 1/9] media: qcom: camss: Introduce CPU latency QoS
- during streaming
+Date: Mon, 02 Nov 2026 13:56:48 +0000
+Subject: [PATCH v2 2/9] media: qcom: camss: Introduce SOF sequence tracking
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,7 +95,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-v4l2-frame-sync-v2-1-25cbed7a772f@kernel.org>
+Message-Id: <20261102-v4l2-frame-sync-v2-2-25cbed7a772f@kernel.org>
 References: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
 In-Reply-To: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
@@ -105,128 +105,160 @@ To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4032; i=bod@kernel.org;
- h=from:subject:message-id; bh=quPl43LnX/SGT3RTKGubT+RV5/urfGjUwa+drZvVUvk=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq6Jakx2ziV76BQQWnKjYf0WDxVQMsZCzez0O/l
- OGhqqaYeASJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauiWpAAKCRAicTuzoY3I
- OpCaD/9SMXULCUZ5fSQiOROoeOsKFomZlTCtuP9lSrigXPF+g/ADi3XlrRONLFzbP6POWmiky+x
- nGoS4A0noZYAUpwPo3Ejy0T2qFQlGZAPOp6suZqsVfJfdcbvFJTkfTrsC6t3s+wxF1KC3S9LS00
- N2s33/VeSrfwYZTr2Zcv7lQ+2XGzaiGr9T0oYGNBGa1f1EZoA78R/9AQUrxdxb+gzDrqi5ngoAE
- dcMq1xgVXKcbQCrltRzHGk593hQaLNeQrlXC3OYAnzhsQKsYnnKK3AD9lF0VIdG6m/jpXSHS3Jz
- RfLlzU/HYQcbKCohkxUlzS8C+PheyP6wcx7zp3FwGliOmCQlDm3SUO3AAJ17A5ZTvNFnMZDDNcg
- UFe1sPF4I1R/jjy/6XAnEfcRQ7hAPyBnKZ2AA58kJ5F5KcMoHv4LnQA9VqlqmhKwp+Qp/YIzsXk
- n9Xa+0/Q/gsu/Ku/ooKJ7w9J8ldvBpu95gR4y6WLz2AQQ6JKSeH56cp7XI5mN75HCkDeyNPV4j/
- PhvYvSWE741tHj/2o43v5KBdJMfDk2qDD36D+9mke4POmiby8GqvnSU1QIaraC6KQHBJPBixSAX
- PEXxwpOW1CK3KapuHd5Sq85p9v0yMEepzEnwBomzF5YLG+kcpV+bURcU6HGzg+It849DlZ12X7M
- DOKMl22FxfC9nOQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4804; i=bod@kernel.org;
+ h=from:subject:message-id; bh=p1paHPUiTQGfoLQ5bunItwK/01QP6WM97TRBsHxzpBY=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq6JalZfZbbQ4gPVNIKGLdhg6LzDU06B1VXdYFq
+ vlMqXN7FwmJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauiWpQAKCRAicTuzoY3I
+ Op/AEACKdcu0Jx0r6q+gjynzIegkqNAoXfg/i8oBkMm+C1y7i1FQnUxpYKZMY+AKD6inLeqdWFU
+ ROHrJltY6tW3F/p29CuXYXkvWA4tBqVZkegTRZGxojQBjCQ4hnwCfX33jf0mzbjadmzT2XLeMS5
+ 2vM6GPc7uTPXTJbL7xEmkTxFaCp0c4R8tvCtOujPawNlOccG24iZpaOzJlvh0Wetv4T0rXyqdgZ
+ LicvpYq5MjYvnW+tLJj6w2pz26i/BBMce9BSRXeyqQ7Z3sr6MHmP1PLFO8BrgtQ1dy3IPX6zs42
+ HBtTrXZavplAKc3QcayJd+/4M4gTd2UvuGYoAgQN+XBlJuICaZ62rm+zGTIiyirmL1Vrz4pO2To
+ CTX2QMMg7clN9/3/75bEIsjoGKrMLzLhbWXt6IXXRV4t7JxK7NTZ9g27WLCdJ7uzhiPgYBeP1yH
+ V1ks+CU9D+gA4xKbdLAOU1/J9weCnvWLcEKge+X2u1jM7oyVbQZAiRx9rMBJU4I+7dYwu9mdSHb
+ 69UdtwelBNZxvV1xAW7DCRgrdwY/JFIiZCH9jQJXN1HnHaee/K4pFsWp1xm69/togmdUNOgsuKj
+ 6jOPElpXQyWVA7mJtqRtpPc0JareVBZjalC4ZeONd0nOh3iEiM2LtANg/xeK1K4qB6jcTFOLojv
+ Sa4wzg1tTOEELSA==
 X-Developer-Key: i=bod@kernel.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-On a quiescent system - for example the X1 CRD booted to a simple ramdisk
-rootfs during development of V4L2_EVENT_FRAME_SYNC it was observed that
-interrupt for buffer done could be delayed until after the SOF for the next
-frame.
+In order to communicate to user-space CSI2 SOF events we will need to hook
+into and control v4l2_ctrl_subdev_subscribe_event. In-line with other
+implementations of FRAME_SYNC have CSI decoders which support the event
+always generate it in our case if and only if an atomic user count
+indicates it should be so.
 
-Fiddling about with the interrupt bits, clearing them and changing the
-logic of V4L2_EVENT_FRAME_SYNC to buffer completion didn't work and besides
-"felt wrong".
+A flag in the CSID descriptor indicates if frame_sync_en is supported so
+for each SoC that supports it this flag should be true. Since bool is false
+by default no negative enumeration of existing or in-flight CSID is
+required.
 
-Tracing it looks like this:
-<idle>-0       [000] d.h1.    36.374380: csid_isr: rdi0 sof=1 done=0
-<idle>-0       [000] d.h1.    36.406601: csid_isr: rdi0 sof=1 done=1
-<idle>-0       [000] d.h1.    36.439910: csid_isr: rdi0 sof=1 done=1
-<idle>-0       [000] d.h1.    36.473245: csid_isr: rdi0 sof=1 done=1
-<idle>-0       [000] d.h1.    36.504786: csid_isr: rdi0 sof=0 done=1
-<idle>-0       [000] d.h1.    36.506350: csid_isr: rdi0 sof=1 done=0
-
-Tracing with /dev/cpu_dma_latency = 0 looks like this:
-<idle>-0       [000] d.h1.   556.149115: csid_isr: rdi0 sof=1 done=0
-<idle>-0       [000] d.h1.   556.181338: csid_isr: rdi0 sof=0 done=1
-<idle>-0       [000] d.h1.   556.182880: csid_isr: rdi0 sof=1 done=0
-<idle>-0       [000] d.h1.   556.214643: csid_isr: rdi0 sof=0 done=1
-<idle>-0       [000] d.h1.   556.216185: csid_isr: rdi0 sof=1 done=0
-
-The second is the pattern you expect CSI SOF followed by data.
-
-We will require SOF to track and understand which data-frame is correlated
-to which camera stastics and parameters frame. On an ordinary system with
-several things pinging off at once, WiFi, display, keyboard you will be
-unlikely to hit deep idle and hence unlikely to see the long exit. However
-we should design for the case where the system is otherwise quiescent with
-only the camera streaming.
-
-Choosing a request of 300us - 1000us seemed to work fine but cutting the
-margin finer, similar to the value on IPU6.
+Subsequent patches will enable on a per-CSID basis.
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/media/platform/qcom/camss/camss.c | 11 ++++++++++-
- drivers/media/platform/qcom/camss/camss.h |  2 ++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/camss-csid.c | 54 +++++++++++++++++++++++++-
+ drivers/media/platform/qcom/camss/camss-csid.h | 12 ++++++
+ 2 files changed, 65 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index c54185c93a8a9..52bb19f5fbf3b 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5834,6 +5834,8 @@ static const struct of_device_id camss_dt_match[] = {
- 
- MODULE_DEVICE_TABLE(of, camss_dt_match);
- 
-+#define CAMSS_CPU_LATENCY_US	300
-+
- static int __maybe_unused camss_runtime_suspend(struct device *dev)
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+index a00791b00feb7..e9b399fcb9c7a 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.c
++++ b/drivers/media/platform/qcom/camss/camss-csid.c
+@@ -760,6 +760,7 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
+ static int csid_set_stream(struct v4l2_subdev *sd, int enable)
  {
- 	struct camss *camss = dev_get_drvdata(dev);
-@@ -5846,6 +5848,8 @@ static int __maybe_unused camss_runtime_suspend(struct device *dev)
- 			return ret;
+ 	struct csid_device *csid = v4l2_get_subdevdata(sd);
++	unsigned int i;
+ 	int ret;
+ 
+ 	if (enable) {
+@@ -778,6 +779,9 @@ static int csid_set_stream(struct v4l2_subdev *sd, int enable)
  	}
  
-+	cpu_latency_qos_remove_request(&camss->cpu_latency);
+ 	if (csid->phy.need_vc_update) {
++		for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS; i++)
++			atomic_set(&csid->sof_seq[i], -1);
 +
- #if IS_ENABLED(CONFIG_PM_CLK)
- 	return pm_clk_suspend(dev);
- #else
-@@ -5866,12 +5870,17 @@ static int __maybe_unused camss_runtime_resume(struct device *dev)
- 		return ret;
- #endif
- 
-+	cpu_latency_qos_add_request(&camss->cpu_latency,
-+				    CAMSS_CPU_LATENCY_US);
-+
- 	for (i = 0; i < camss->res->icc_path_num; i++) {
- 		ret = icc_set_bw(camss->icc_path[i],
- 				 icc_res[i].icc_bw_tbl.avg,
- 				 icc_res[i].icc_bw_tbl.peak);
--		if (ret)
-+		if (ret) {
-+			cpu_latency_qos_remove_request(&camss->cpu_latency);
- 			return ret;
-+		}
+ 		csid->res->hw_ops->configure_stream(csid, enable);
+ 		csid->phy.need_vc_update = false;
  	}
- 
+@@ -1316,9 +1320,57 @@ static int csid_link_setup(struct media_entity *entity,
  	return 0;
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index 7dc2fd9f03e0d..7564a7c46fa24 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -11,6 +11,7 @@
- #define QC_MSM_CAMSS_H
+ }
  
- #include <linux/device.h>
-+#include <linux/pm_qos.h>
- #include <linux/types.h>
- #include <media/v4l2-async.h>
- #include <media/v4l2-device.h>
-@@ -141,6 +142,7 @@ struct camss {
- 	struct icc_path *icc_path[ICC_SM8250_COUNT];
- 	const struct camss_resources *res;
- 	bool legacy_phy;
-+	struct pm_qos_request cpu_latency;
++static int csid_frame_sync_add(struct v4l2_subscribed_event *sev, unsigned int elems)
++{
++	struct csid_device *csid = v4l2_get_subdevdata(vdev_to_v4l2_subdev(sev->fh->vdev));
++
++	atomic_inc(&csid->frame_sync_users[sev->id]);
++
++	return 0;
++}
++
++static void csid_frame_sync_del(struct v4l2_subscribed_event *sev)
++{
++	struct csid_device *csid = v4l2_get_subdevdata(vdev_to_v4l2_subdev(sev->fh->vdev));
++
++	atomic_dec(&csid->frame_sync_users[sev->id]);
++}
++
++static const struct v4l2_subscribed_event_ops csid_frame_sync_ops = {
++	.add = csid_frame_sync_add,
++	.del = csid_frame_sync_del,
++};
++
++static int csid_subscribe_event(struct v4l2_subdev *sd, struct v4l2_fh *fh,
++				struct v4l2_event_subscription *sub)
++{
++	struct csid_device *csid = v4l2_get_subdevdata(sd);
++
++	if (sub->type != V4L2_EVENT_FRAME_SYNC)
++		return v4l2_ctrl_subdev_subscribe_event(sd, fh, sub);
++
++	if (sub->id >= MSM_CSID_MAX_SRC_STREAMS || !csid->res->frame_sync_en)
++		return -EINVAL;
++
++	return v4l2_event_subscribe(fh, sub, 0, &csid_frame_sync_ops);
++}
++
++void csid_sof_event(struct csid_device *csid, unsigned int id)
++{
++	struct v4l2_event event = {
++		.type = V4L2_EVENT_FRAME_SYNC,
++		.id = id,
++		.u.frame_sync.frame_sequence =
++			atomic_inc_return(&csid->sof_seq[id]),
++	};
++
++	if (atomic_read(&csid->frame_sync_users[id]))
++		v4l2_event_queue(csid->subdev.devnode, &event);
++}
++
+ static const struct v4l2_subdev_core_ops csid_core_ops = {
+ 	.s_power = csid_set_power,
+-	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
++	.subscribe_event = csid_subscribe_event,
+ 	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
  };
  
- struct camss_camera_interface {
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index 5296b10f6bac8..2e48b08b93592 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -141,6 +141,7 @@ struct csid_hw_ops {
+ 
+ struct csid_subdev_resources {
+ 	bool is_lite;
++	bool frame_sync_en;
+ 	const struct csid_hw_ops *hw_ops;
+ 	const struct parent_dev_ops *parent_dev_ops;
+ 	const struct csid_formats *formats;
+@@ -167,6 +168,8 @@ struct csid_device {
+ 	struct v4l2_ctrl_handler ctrls;
+ 	struct v4l2_ctrl *testgen_mode;
+ 	const struct csid_subdev_resources *res;
++	atomic_t frame_sync_users[MSM_CSID_MAX_SRC_STREAMS];
++	atomic_t sof_seq[MSM_CSID_MAX_SRC_STREAMS];
+ };
+ 
+ struct camss_subdev_resources;
+@@ -248,4 +251,13 @@ u32 csid_hw_version(struct csid_device *csid);
+ u32 csid_src_pad_code(struct csid_device *csid, u32 sink_code,
+ 		      unsigned int match_format_idx, u32 match_code);
+ 
++/*
++ * csid_sof_event - Track SOF generate V4L2_EVENT_FRAME_SYNC
++ * @csid: CSID device
++ * @id: CSID src-stream ID
++ *
++ *  Called from the CSID interrupt handler on SOF of the path driving the event.
++ */
++void csid_sof_event(struct csid_device *csid, unsigned int id);
++
+ #endif /* QC_MSM_CAMSS_CSID_H */
 
 -- 
 2.56.0
