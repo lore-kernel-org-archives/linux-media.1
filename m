@@ -1,70 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793652902;
-	b=Wjbi+dqpZStOVhdSOKDRmHck83CHs9LlWnZgcJGYf2MeC5MZyxSXVSD7sELP77tfbAjh
-	 gEVsqFwW+/pDAH6qHogNfE7Snp95iSJzfk3wOHJDVAE52nv9kMdXL1sAhqMLuwrCDYigf
-	 8cXve905dUrjl5ot7vIggCJ+NcLhhDXy/DQN/+HeFbfAyOttMRm8kMWPBiOeK5vvun6X9
-	 qXpxZPAKIMyqff8Lfhhi2kdsYsldg5ct7vAOEK8YPk1x5kFfmxoBdxd9gHEsYezZXx8UV
-	 SX+7J+XyLkeAaclkNwGvRDqTEqohKsjqcaelCBD8rve/lWUWKwIpx9DKVRI/cHx/G4A==
+	t=1793653321;
+	b=tI2hci5iGPEe+gxcMh4XspJtsztj6t82U54b9TYwM9dGo++HHjj4vkEKEgtSPctIy0bw
+	 TlNhkdzCWqxttZk7DxKvEDvAXTQD13TtxeB6zW4JOhLkt+M2OUPChXboajjPN/XopX+b5
+	 wSBJWSFm9LF3/8fIHPkip07lCcrq72p2jNM4/6lVFNW4V7pV0Y2D+enx8yU91phCJZXoj
+	 Fzy/wt7GX9BrtUKbjtG6sHJar0yQrMA/0CGXYxvTwq+M34ojJZluPCc5lmE98m3lg7z+T
+	 B6K7a4BScXfiZeP9VonBD4a40/LVo1J3uaSnHRl8Nbnp0V6G5T3E9qhScIbXCGaskEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793652902;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793653321;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
 	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=P2O5SkjmHgcQNmPWJK18eJtWAJzNO5bZqTidzub+3zY=;
-	b=j6TFte8w/X/KOQzOl6zghcEhHy8v18mOJt9R9bq3kUOQlkBNSkV9MPQ2kXQbhuCA/N4s
-	 l4pv5uZzqq2lVzL5Vh5MAm/bNeuokfi8vzAwH5IZ+pOS4zThTheGXUugbPTR9425Bw9rL
-	 hdG/TViwMPFLZ8zhaDLVWN3/tjobfwDlwo2W4na37n+K6pyz3mZbYeLVtd65Lc0rfw5zQ
-	 MdFvy+F5WCvwmzU8ysBKL8tcXCnOGcGwt/bG7PKnNrp3cMaRr2R0SqnkjRL9ABg7HPVRi
-	 tVQqb1n5009qrV1bGfhLnFSUkPvnx00HqJdCBu8dmBYVLblCjb8O7MZD+RTxog4+9FQ==
+	bh=JITVABxM6trthNhA8uR61OxCoNxK7Cx+C2VvYkdcDHo=;
+	b=00lyTf1PPj/ckMDTpYQAThM79kP3HR1IedyE8ymX3dl1raBPY2DYDhGo/YVAXKCvGak8
+	 OzH8Dj+tCwnyxsLgKjNzf3CD+WdwzhsofPpYckBpFeM/mBVA0cu9JeTfO9ZwRaUC6vKoa
+	 7Erj/PaosLC3pLq2EqmxndHT7FstFBMM05Zq72mek6xd7+ltj8lUYnQ1Ec06OokEpQVBh
+	 8trs/obY9qY75s+amdlBKxB+9iiVFNKNMLDIiVRWzifo4RAifteJI87wDRzkqVi+rqjRu
+	 aFDuU8PBSjIw5qh4JiVSkIrqPDajgb4FhfBw3seU4mjqJ43CcGnLke7y46euI1dskGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M97FjxF6;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iZ3UNLEN;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8068606A326
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 20:55:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8068606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D5E606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 21:02:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46D5E606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=M97FjxF6
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iZ3UNLEN
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793652901; x=1825188901;
+  t=1793653322; x=1825189322;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=EPkO7c1nci7E+GsfPeQ2bfdtT7fVjDPxnTWU7LSVAPQ=;
-  b=M97FjxF60g+UThl1fleUsOaFyGMkDuKa+TmSqUKhSNAY+Ok9Gi7GFcCO
-   RjHw7cBxtazrMB0ZajLInMzW9Vc57RMDvzW0za6WxJIFr0QRertbPajG/
-   75TqhP6o8nkfEMYl8L89HUjTlL7yi7333SUI7DvLeiefvC8rYmIftE28y
-   gkh3m9LeN0GAQQYefQAaodDFfqJDl3jjGQPqEJOQAe5oHuBQiaHkFEwNb
-   JhDlGXDWsdXoRVidKp0ehMAFqQ1TCEBweSqwlBcELqM/yqbPJT+Fzs1zu
-   lmMFEUbppD/OjIrpzoxCKJXceE/k1UxKlNLzbzDwkJ79M7AnBN+2xpVJ2
-   w==;
-X-CSE-ConnectionGUID: +eltF0SHRf+0QWxnHViBcg==
-X-CSE-MsgGUID: NtVitl6UTeSg0iYy3BGVWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2240459"
+  bh=caf39fDU2dIRFBW8zz+2lQeYsWzWC14fqu/6wWVdbJo=;
+  b=iZ3UNLENdqzwy60oC5aAVMET74uxdMHHjXximdamaxCpY1b19S0SQRPG
+   AhNHirtO4eVaB774velBzZASpfDhxYJIf3SrpLkWWVQZAMujIUMUVyts2
+   vfsxti+IctpecxO5eAf051xKXc9X9CUvMr1r2PwlhTMgFllwERn3c7ACq
+   xXoqFSMlxvJ2Ss9NZPsNdUM5WvV81L9dbnA7r/EoadowpRrXJA3Gsq1pv
+   9qVrGLF7SWWePlxqsR2yDWbCyxeLv5tSy7vl5xamohDzW4BDqbvBHtKv7
+   Jha+M06+wXmgGCDbvpo+34zQPkiNNfjQtdUHH/IMdw2oqKJfirr5x1M0c
+   g==;
+X-CSE-ConnectionGUID: t+4e5kitR4iWkC7tohjpDA==
+X-CSE-MsgGUID: FMIlUQOxTJafela3ICnJSA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2375447"
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2240459"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 12:55:00 -0800
-X-CSE-ConnectionGUID: uwsu1+ryRG6vSDehL//EUg==
-X-CSE-MsgGUID: 4q6MvCYOSq+9v6PapPMf0w==
+   d="scan'208";a="2375447"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 13:02:01 -0800
+X-CSE-ConnectionGUID: ewORDfr7RXe414s9lYdlfg==
+X-CSE-MsgGUID: RVxkRbsAR56hfixwVj2mVg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="8055961"
+   d="scan'208";a="6101149"
 Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.242])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 12:54:58 -0800
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 13:01:57 -0800
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 240F211FB41;
-	Mon, 02 Nov 2026 22:55:06 +0200 (EET)
-Date: Mon, 2 Nov 2026 22:55:06 +0200
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C3AF511FB41;
+	Mon, 02 Nov 2026 23:02:05 +0200 (EET)
+Date: Mon, 2 Nov 2026 23:02:05 +0200
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Ruslan Bay <ruslanbey@proton.me>
@@ -77,13 +77,14 @@ Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
 	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
 	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
 	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
 	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
+	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH v2 02/12] media: ipu6: Add IPU4P MMU support
-Message-ID: <auj4qkmm5qyt_IPg@kekkonen.localdomain>
-References: <HIqY305sMFUHwl9wyKbGQ0DCE3QOKwFva_k_NSdEz_Rp9xb1o6GM6uTjXTP4ejKQwXlePFZaTVUWmL3UN4-wUXmfrB1p4hWNaWOeiP_A4bg=@proton.me>
+Subject: Re: [RFC PATCH v2 06/12] media: ipu6: Add firmware-specific ISYS
+ response dispatch
+Message-ID: <auj6TaUQ3A-2P3D3@kekkonen.localdomain>
+References: <B4M1vUVEJG-bpgpO3B_4JKq2KUnJn56WFxEbA8byH4SjqblOQWrnG-O2WAzY-PnwccdL03yZzjS8VfD1CsZ-FFyQXbrpN3eB1K13Cp_o_Ok=@proton.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,282 +96,187 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <HIqY305sMFUHwl9wyKbGQ0DCE3QOKwFva_k_NSdEz_Rp9xb1o6GM6uTjXTP4ejKQwXlePFZaTVUWmL3UN4-wUXmfrB1p4hWNaWOeiP_A4bg=@proton.me>
+In-Reply-To: <B4M1vUVEJG-bpgpO3B_4JKq2KUnJn56WFxEbA8byH4SjqblOQWrnG-O2WAzY-PnwccdL03yZzjS8VfD1CsZ-FFyQXbrpN3eB1K13Cp_o_Ok=@proton.me>
 
 Hi Ruslan,
 
-On Sat, Oct 31, 2026 at 12:29:19PM +0000, Ruslan Bay wrote:
-> IPU4P uses the same MMUv2 programming model as IPU6, but has different
-> MMU register offsets, instances and stream allocations.
+On Sat, Oct 31, 2026 at 12:34:43PM +0000, Ruslan Bay wrote:
+> Route ISYS response dequeueing through firmware-specific operations
+> while keeping response handling shared.
 > 
-> Add IPU4P-specific ISYS and PSYS MMU data and select the corresponding
-> operations during initialization.
+> Allow the common handler to skip message-buffer release when required
+> by the firmware's buffer ownership rules.
 > 
 > Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
 > ---
->  drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c    | 114 ++++++++++++++++--
->  drivers/media/pci/intel/ipu6/ipu6-mmu.c       |   7 +-
->  drivers/media/pci/intel/ipu6/ipu6-mmu.h       |   1 +
->  .../media/pci/intel/ipu6/ipu6-platform-regs.h |   8 ++
->  drivers/media/pci/intel/ipu6/ipu6.h           |   2 +
->  5 files changed, 122 insertions(+), 10 deletions(-)
+>  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 55 +++++++++++++--------
+>  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h |  4 +-
+>  drivers/media/pci/intel/ipu6/ipu6-isys.h    |  1 +
+>  3 files changed, 39 insertions(+), 21 deletions(-)
 > 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c b/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
-> index 2b395fbd596..e05fc3f7752 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
-> @@ -38,7 +38,66 @@
->  
->  #define TBL_PHYS_ADDR(a)	((phys_addr_t)(a) << ISP_PADDR_SHIFT)
->  
-> -static struct ipu6_mmu_hw ipu6_isys_mmu_hwdata[] = {
-> +static const struct ipu6_mmu_hw ipu4p_isys_mmu_hwdata[] = {
-> +	{
-> +		.offset = IPU4P_ISYS_IOMMU0_OFFSET,
-> +		.info_bits = IPU4P_INFO_REQUEST_DESTINATION_PRIMARY,
-> +		.nr_l1streams = 0,
-> +		.nr_l2streams = 0,
-> +		.insert_read_before_invalidate = true,
-> +	},
-> +	{
-> +		.offset = IPU4P_ISYS_IOMMU1_OFFSET,
-> +		.nr_l1streams = IPU4P_MMU_MAX_TLB_L1_STREAMS,
-> +		.l1_block_sz = {
-> +			5, 16, 6, 6, 6, 6, 6, 8, 0, 0, 0, 0, 0, 0, 0, 5,
-> +		},
-> +		.nr_l2streams = IPU4P_MMU_MAX_TLB_L2_STREAMS,
-> +		.l2_block_sz = {
-> +			2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-> +		},
-> +		.l1_stream_id_reg_offset = IPU4P_MMU_L1_STREAM_ID_REG_OFFSET,
-> +		.l2_stream_id_reg_offset = IPU4P_MMU_L2_STREAM_ID_REG_OFFSET,
-> +	},
-> +};
-> +
-> +static const struct ipu6_mmu_hw ipu4p_psys_mmu_hwdata[] = {
-> +	{
-> +		.offset = IPU4P_PSYS_IOMMU0_OFFSET,
-> +		.info_bits = IPU4P_INFO_REQUEST_DESTINATION_PRIMARY,
-> +		.nr_l1streams = 0,
-> +		.nr_l2streams = 0,
-> +		.insert_read_before_invalidate = true,
-> +	},
-> +	{
-> +		.offset = IPU4P_PSYS_IOMMU1_OFFSET,
-> +		.nr_l1streams = IPU4P_MMU_MAX_TLB_L1_STREAMS,
-> +		.l1_block_sz = {
-> +			2, 5, 4, 2, 2, 10, 5, 16, 10, 5, 0, 0, 0, 0, 0, 3,
-> +		},
-> +		.nr_l2streams = IPU4P_MMU_MAX_TLB_L2_STREAMS,
-> +		.l2_block_sz = {
-> +			2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-> +		},
-> +		.l1_stream_id_reg_offset = IPU4P_MMU_L1_STREAM_ID_REG_OFFSET,
-> +		.l2_stream_id_reg_offset = IPU4P_MMU_L2_STREAM_ID_REG_OFFSET,
-> +	},
-> +	{
-> +		.offset = IPU4P_PSYS_IOMMU1R_OFFSET,
-> +		.nr_l1streams = IPU4P_MMU_MAX_TLB_L1_STREAMS,
-> +		.l1_block_sz = {
-> +			2, 6, 5, 16, 16, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 3,
-> +		},
-> +		.nr_l2streams = IPU4P_MMU_MAX_TLB_L2_STREAMS,
-> +		.l2_block_sz = {
-> +			2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-> +		},
-> +		.l1_stream_id_reg_offset = IPU4P_MMU_L1_STREAM_ID_REG_OFFSET,
-> +		.l2_stream_id_reg_offset = IPU4P_MMU_L2_STREAM_ID_REG_OFFSET,
-> +	},
-> +};
-> +
-> +static const struct ipu6_mmu_hw ipu6_isys_mmu_hwdata[] = {
->  	{
->  		.offset = IPU6_ISYS_IOMMU0_OFFSET,
->  		.info_bits = IPU6_INFO_REQUEST_DESTINATION_IOSF,
-> @@ -86,7 +145,7 @@ static struct ipu6_mmu_hw ipu6_isys_mmu_hwdata[] = {
->  	},
->  };
->  
-> -static struct ipu6_mmu_hw ipu6_psys_mmu_hwdata[] = {
-> +static const struct ipu6_mmu_hw ipu6_psys_mmu_hwdata[] = {
->  	{
->  		.offset = IPU6_PSYS_IOMMU0_OFFSET,
->  		.info_bits =
-> @@ -159,10 +218,21 @@ static struct ipu6_mmu_hw ipu6_psys_mmu_hwdata[] = {
->  };
->  
->  struct ipu6_mmu_hwdata {
-> -	struct ipu6_mmu_hw *hwdata;
-> +	const struct ipu6_mmu_hw *hwdata;
->  	unsigned int nr_mmus;
->  };
->  
-> +static const struct ipu6_mmu_hwdata ipu4p_mmu_hwdata_lookup[IPU_SUBSYS_NUM] = {
-> +	[IPU_PSYS] = {
-> +		.hwdata = ipu4p_psys_mmu_hwdata,
-> +		.nr_mmus = ARRAY_SIZE(ipu4p_psys_mmu_hwdata),
-> +	},
-> +	[IPU_ISYS] = {
-> +		.hwdata = ipu4p_isys_mmu_hwdata,
-> +		.nr_mmus = ARRAY_SIZE(ipu4p_isys_mmu_hwdata),
-> +	},
-> +};
-> +
->  static const struct ipu6_mmu_hwdata ipu6_mmu_hwdata_lookup[IPU_SUBSYS_NUM] = {
->  	[IPU_PSYS] = {
->  		.hwdata = ipu6_psys_mmu_hwdata,
-> @@ -256,17 +326,21 @@ static int __ipu6_mmu_hw_init(struct ipu6_mmu *mmu)
->  	return 0;
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> index 56bb67869bd..c6066e37ef5 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> @@ -531,20 +531,17 @@ static u32 resp_type_to_index(int type)
+>  	return  ARRAY_SIZE(fw_msg) - 1;
 >  }
 >  
-> -static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
-> -				   void __iomem *base)
-> +static int __ipu_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
-> +				  void __iomem *base,
-> +				  const struct ipu6_mmu_hwdata *hwdata_lookup,
-> +				  unsigned int max_l1streams,
-> +				  unsigned int max_l2streams)
+> -int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+> +void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
+> +			       struct ipu6_fw_isys_resp_info_abi *resp,
+> +			       bool release_msg_buf)
+
+Could the message buffer be released by the caller instead?
+
 >  {
->  	const struct ipu6_mmu_hwdata *lookup;
-> -	struct ipu6_mmu_hw *mmu_hw, *src;
-> +	struct ipu6_mmu_hw *mmu_hw;
-> +	const struct ipu6_mmu_hw *src;
->  	unsigned int i, nr_mmus;
+>  	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
+> -	struct ipu6_fw_isys_resp_info_abi *resp;
+>  	struct ipu6_isys_stream *stream;
+>  	struct ipu6_isys_csi2 *csi2 = NULL;
+>  	struct isys_fw_msgs *isys_fw_msg = NULL;
+>  	u32 index;
+>  	u64 ts;
 >  
->  	if (mmu->mmid >= IPU_SUBSYS_NUM)
->  		return -EINVAL;
+> -	resp = ipu6_fw_isys_get_resp(isys);
+> -	if (!resp)
+> -		return 1;
+> -
+>  	ts = (u64)resp->timestamp[1] << 32 | resp->timestamp[0];
 >  
-> -	lookup = &ipu6_mmu_hwdata_lookup[mmu->mmid];
-> +	lookup = &hwdata_lookup[mmu->mmid];
->  	src = lookup->hwdata;
->  	nr_mmus = lookup->nr_mmus;
+>  	index = resp_type_to_index(resp->type);
+> @@ -580,7 +577,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+>  	}
+>  	stream->error = resp->error_info.error;
 >  
-> @@ -275,8 +349,8 @@ static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
->  		return -ENOMEM;
+> -	csi2 = ipu6_isys_subdev_to_csi2(stream->asd);
+> +	if (stream->asd)
+> +		csi2 = ipu6_isys_subdev_to_csi2(stream->asd);
+
+If stream->asd == NULL, what can we do here? Isn't that an error btw.? Can
+it happen? I'd add at least dev_err_once() or something. But this change
+still appears to be worth a separate patch.
+
 >  
->  	for (i = 0; i < nr_mmus; i++) {
-> -		if (src[i].nr_l1streams > IPU6_MMU_MAX_TLB_L1_STREAMS ||
-> -		    src[i].nr_l2streams > IPU6_MMU_MAX_TLB_L2_STREAMS)
-> +		if (src[i].nr_l1streams > max_l1streams ||
-> +		    src[i].nr_l2streams > max_l2streams)
->  			return -EINVAL;
+>  	switch (resp->type) {
+>  	case IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE:
+> @@ -606,16 +604,17 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+>  		 * firmware only release the capture message until software
+>  		 * get pin_data_ready event
+>  		 */
+> -		if (!resp->buf_id) {
+> -			dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
+> -				 resp->stream_handle);
+> -			goto leave;
+> -		}
+> -
+> -		isys_fw_msg = container_of((void *)(uintptr_t)resp->buf_id,
+> -					   struct isys_fw_msgs, dummy);
+> +		if (release_msg_buf) {
+> +			if (!resp->buf_id) {
+> +				dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
+> +					 resp->stream_handle);
+> +				goto leave;
+> +			}
 >  
->  		mmu_hw[i] = src[i];
-> @@ -289,6 +363,28 @@ static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
+> -		ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
+> +			isys_fw_msg = container_of((void *)(uintptr_t)resp->buf_id,
+> +						   struct isys_fw_msgs, dummy);
+> +			ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
+> +		}
+>  		if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
+>  		    stream->output_pins_queue[resp->pin_id])
+>  			ipu6_isys_queue_buf_ready(stream, resp);
+> @@ -633,8 +632,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+>  	case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE:
+>  		break;
+>  	case IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF:
+> -
+> -		ipu6_isys_csi2_sof_event_by_stream(stream);
+> +		if (csi2)
+> +			ipu6_isys_csi2_sof_event_by_stream(stream);
+>  		stream->seq[stream->seq_index].sequence =
+>  			atomic_read(&stream->sequence) - 1;
+>  		stream->seq[stream->seq_index].timestamp = ts;
+> @@ -646,7 +645,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+>  			% IPU6_ISYS_MAX_PARALLEL_SOF;
+>  		break;
+>  	case IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF:
+> -		ipu6_isys_csi2_eof_event_by_stream(stream);
+> +		if (csi2)
+> +			ipu6_isys_csi2_eof_event_by_stream(stream);
+>  		dev_dbg(&adev->auxdev.dev,
+>  			"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
+>  			resp->stream_handle,
+> @@ -661,7 +661,21 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+>  	}
+>  
+>  leave:
+> +	return;
+
+No point to have a label just for this.
+
+> +}
+> +
+> +static int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+> +{
+> +	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
+> +	struct ipu6_fw_isys_resp_info_abi *resp;
+> +
+> +	resp = ipu6_fw_isys_get_resp(isys);
+> +	if (!resp)
+> +		return 1;
+> +
+> +	ipu6_isys_handle_response(adev, resp, true);
+>  	ipu6_fw_isys_put_resp(isys);
+> +
 >  	return 0;
 >  }
 >  
-> +static int __ipu4p_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
-> +				    void __iomem *base)
-> +{
-> +	return __ipu_mmu_init_hw_data(mmu, dev, base, ipu4p_mmu_hwdata_lookup,
-> +				      IPU4P_MMU_MAX_TLB_L1_STREAMS,
-> +				      IPU4P_MMU_MAX_TLB_L2_STREAMS);
-> +}
-> +
-> +static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
-> +				   void __iomem *base)
-> +{
-> +	return __ipu_mmu_init_hw_data(mmu, dev, base, ipu6_mmu_hwdata_lookup,
-> +				      IPU6_MMU_MAX_TLB_L1_STREAMS,
-> +				      IPU6_MMU_MAX_TLB_L2_STREAMS);
-> +}
-> +
-> +const struct ipu6_mmu_hw_ops ipu4p_mmu_ops = {
-> +	.init_hw_data = __ipu4p_mmu_init_hw_data,
-> +	.hw_init = __ipu6_mmu_hw_init,
-> +	.tlb_invalidate = __ipu6_tlb_invalidate,
-> +};
-> +
->  const struct ipu6_mmu_hw_ops ipu6_mmu_ops = {
->  	.init_hw_data = __ipu6_mmu_init_hw_data,
->  	.hw_init = __ipu6_mmu_hw_init,
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-> index 1a564ceb747..824408b21cc 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
-> @@ -684,7 +684,12 @@ struct ipu6_mmu *ipu6_mmu_init(struct device *dev,
->  	if (!mmu)
->  		return ERR_PTR(-ENOMEM);
+> @@ -742,7 +756,7 @@ irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev)
 >  
-> -	mmu->ops = (IS_IPU7(isp) || IS_IPU8(isp)) ? &ipu7_mmu_ops : &ipu6_mmu_ops;
-> +	if (IS_IPU4P(isp))
-> +		mmu->ops = &ipu4p_mmu_ops;
-> +	else if (IS_IPU7(isp) || IS_IPU8(isp))
-> +		mmu->ops = &ipu7_mmu_ops;
-> +	else
-> +		mmu->ops = &ipu6_mmu_ops;
->  	mmu->mmid = mmid;
->  	mmu->ready = false;
->  	INIT_LIST_HEAD(&mmu->vma_list);
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.h b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-> index ff113384c12..8434dd5324c 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-> @@ -197,6 +197,7 @@ struct ipu6_mmu {
->  	const struct ipu6_mmu_hw_ops *ops;
->  };
+>  		writel(0, base + IPU6_REG_ISYS_UNISPART_SW_IRQ_REG);
 >  
-> +extern const struct ipu6_mmu_hw_ops ipu4p_mmu_ops;
->  extern const struct ipu6_mmu_hw_ops ipu6_mmu_ops;
->  extern const struct ipu6_mmu_hw_ops ipu7_mmu_ops;
+> -		if (!ipu6_isys_isr_one(adev))
+> +		if (!adev->auxdrv_data->fw_ops->isr_one(adev))
+>  			status_sw = IPU6_ISYS_UNISPART_IRQ_SW;
+>  		else
+>  			status_sw = 0;
+> @@ -958,6 +972,7 @@ static void ipu6_fw_isys_prepare_buf_set(struct isys_fw_msgs *msg,
+>  const struct ipu6_fw_isys_ops ipu6_fw_isys_ops = {
+>  	.init = ipu6_fw_isys_init,
+>  	.close = ipu6_fw_isys_close,
+> +	.isr_one = ipu6_isys_isr_one,
+>  	.cleanup = ipu6_fw_isys_cleanup,
+>  	.prepare_stream_cfg = ipu6_fw_isys_prepare_stream_cfg,
+>  	.prepare_buf_set = ipu6_fw_isys_prepare_buf_set,
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+> index 2a679d99596..498cb7f0691 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+> @@ -562,7 +562,9 @@ struct ipu6_fw_proxy_send_queue_token {
+>  int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys, unsigned int req_id,
+>  				  unsigned int index, unsigned int offset,
+>  				  u32 value);
+> -int ipu6_isys_isr_one(struct ipu6_bus_device *adev);
+> +void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
+> +			       struct ipu6_fw_isys_resp_info_abi *resp,
+> +			       bool release_msg_buf);
+>  irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev);
 >  
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h b/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
-> index b883385adb4..01a7abddd6d 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-platform-regs.h
-> @@ -14,16 +14,23 @@
->   */
->  #define IPU6_UNIFIED_OFFSET			0
->  
-> +#define IPU4P_ISYS_IOMMU0_OFFSET		0x000e0000
-> +#define IPU4P_ISYS_IOMMU1_OFFSET		0x000e0100
-
-We have already a separate file for the IPU7 registers. Could you add
-ipu4p-platform-regs.h for the IPU4P registers, please?
-
->  #define IPU6_ISYS_IOMMU0_OFFSET		0x2e0000
->  #define IPU6_ISYS_IOMMU1_OFFSET		0x2e0500
->  #define IPU6_ISYS_IOMMUI_OFFSET		0x2e0a00
->  
-> +#define IPU4P_PSYS_IOMMU0_OFFSET		0x000b0000
-> +#define IPU4P_PSYS_IOMMU1_OFFSET		0x000b0100
-> +#define IPU4P_PSYS_IOMMU1R_OFFSET		0x000b0600
->  #define IPU6_PSYS_IOMMU0_OFFSET		0x1b0000
->  #define IPU6_PSYS_IOMMU1_OFFSET		0x1b0700
->  #define IPU6_PSYS_IOMMU1R_OFFSET	0x1b0e00
->  #define IPU6_PSYS_IOMMUI_OFFSET		0x1b1500
->  
->  /* the offset from IOMMU base register */
-> +#define IPU4P_MMU_L1_STREAM_ID_REG_OFFSET	0x0c
-> +#define IPU4P_MMU_L2_STREAM_ID_REG_OFFSET	0x4c
->  #define IPU6_MMU_L1_STREAM_ID_REG_OFFSET	0x0c
->  #define IPU6_MMU_L2_STREAM_ID_REG_OFFSET	0x4c
->  #define IPU6_PSYS_MMU1W_L2_STREAM_ID_REG_OFFSET	0x8c
-> @@ -105,6 +112,7 @@
->  #define IPU6_INFO_IMR_BASE			BIT(10)
->  #define IPU6_INFO_IMR_DESTINED			BIT(11)
->  
-> +#define IPU4P_INFO_REQUEST_DESTINATION_PRIMARY	BIT(4)
->  #define IPU6_INFO_REQUEST_DESTINATION_PRIMARY IPU6_INFO_REQUEST_DESTINATION_IOSF
->  
->  /*
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
-> index 4db9f3d85d8..c70ae6bb1d9 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6.h
-> +++ b/drivers/media/pci/intel/ipu6/ipu6.h
-> @@ -95,6 +95,8 @@ struct ipu6_device {
->  /* The firmware is accessible within the first 2 GiB only in non-secure mode. */
->  #define IPU6_MMU_ADDR_BITS_NON_SECURE	31
->  
-> +#define IPU4P_MMU_MAX_TLB_L1_STREAMS	16
-> +#define IPU4P_MMU_MAX_TLB_L2_STREAMS	16
-
-This is fine of course.
-
->  #define IPU6_MMU_MAX_TLB_L1_STREAMS	32
->  #define IPU6_MMU_MAX_TLB_L2_STREAMS	32
->  #define IPU6_MAX_LI_BLOCK_ADDR		128
+>  #endif
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> index f4d00f763eb..86b1ab681e3 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> @@ -167,6 +167,7 @@ struct isys_fw_msgs {
+>  struct ipu6_fw_isys_ops {
+>  	int (*init)(struct ipu6_isys *isys, unsigned int num_streams);
+>  	int (*close)(struct ipu6_isys *isys);
+> +	int (*isr_one)(struct ipu6_bus_device *adev);
+>  	int (*send_cmd)(struct ipu6_isys *isys,
+>  			const unsigned int stream_handle,
+>  			void *cpu_mapped_buf,
 
 -- 
 Kind regards,
