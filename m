@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609269;
-	b=qMne2rGZ8nGOcA7dNg4r52wdQJ6vhCbdoQNS+k6bjuZYcXa+NAr3T50V9jC1eJkNZG1l
-	 k2l8nCsHlVcOakKwprebPPW1Ir4oG1uBsIL9rmaL4nScCWKSi/L/FPLKuZfnCekXGAz1Y
-	 MfSGfGMBoQ/q0eikOxAWEEp+O4pT0ClQ5o0Z9VhNt18NW0u4I/NgXSZ/lI7V574NKhA+v
-	 C38/NLg4akufaxY/N+Em8Z5GVExR1Ki81jWPfd/cWiTz3EMY3fVYi84ea02nxbCeGvLFC
-	 HoctM0gV7EUnCP7b9cF95ZgAVHeghLS3MEi5T6Zdph6Ge9ddtB6ShBakav18tUoBAyA==
+	t=1793609439;
+	b=vcqj9Uuum23kuseAtVjIfVCzuRl6rgvHUlqZquNJHEXMWneNGTQeqadMZqr+PETdbIke
+	 JPG/pXUF1cEhwrok4r2up9GzjLrTcw9yAill/3x+zCa6OmYBt7YPmbLBtyJPis3b9Fynf
+	 mg9Qfth3uQuSGfdQKhp3KO7hzSm7oWK/OHzh6XJVG/qy9fuzBbBuQKiPfLGHzMYzYuvKU
+	 mdswtKJEiHj+AoCsdghgVgEi1SackwdriLQbsiPhds/YSvMcbVf6chEaW3chhJEMQdC5+
+	 FKL2l5U2NeWWbkd5BL+gSJn+GkJc7M+R0pMIgS004jzOj7J7iRzttmE4CpqK0GqwMzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609269;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609439;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=qCavdLGhogJHaxBuLrzi4qYTIdRzJmfVYf3hXtUNwc4=;
-	b=nzc53g+dcqOwbha4gnaTOs8C0A09stbNIJYWNHYREh1q+Sflr64t+n78qk1yg/AKMoDx
-	 KGOvISeIc/4YoKE7J5gtBiFZ4Nb67aHcxNNAN0ED57AmG5W8fuOwNN2HSsXblAax/rDgl
-	 URdN2Jin09zR1yMYKpMhhSG8RkSRuFpcmUcbpbThlJqZ1h4o93W134FU24U99krIUx1Y1
-	 4gikvZcQxIJFQU/+fFWGUvHT4CAAojHICDOoFzgFUfGZDWZ+7skmpiTI2wOtcUkg+QrLl
-	 325WmJ3nu6U6hpFBz3lDQTNfyLIks4EO6CMXszPzBF7bv/DSxAMd8Zu/6Kla6QWjc2A==
+	bh=QaWYWUrLhUfwC4NyrykAqy2T/OO+U82Y2EmtMkUqbZk=;
+	b=Ov9y7qFN4+Psy7dXjanlVxCY78eP8BVBWvZ1k0PU3ZpFfGmLEHcoUQvzLpbBvVgc2KkQ
+	 cvT+SVnT4DFgzxBdIzFDgvaBbL7puJZSjlF+jVhPmfgMZKRdpCxGnrEVYg0jWxyl7G8c2
+	 B2Wb7WCK6f5qlKUVLUJAbDoLQP+IgvvYgFqZGK2Qcxj+mYT3RE5kMIc6PLQ0Bc8gbd6V8
+	 wZ2OKiFxFkaKPnBSY67Iv2xrB6vSuZvcgceAuy4SoLHFtXkRxXzuXw3ldsO5V7SeC+7zI
+	 Bb0L06MxjcIEUfiHfg3dB1ABWTnufm5p2N/q7QxlU87aOyzT22q5KX4sgK8Rojy17Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQoJh4T5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eD3vegNV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE76C606A324;
-	Mon,  2 Nov 2026 08:47:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B797E606A324;
+	Mon,  2 Nov 2026 08:50:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQoJh4T5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A8B51F000C1;
-	Mon,  2 Nov 2026 08:47:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eD3vegNV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D681F000C1;
+	Mon,  2 Nov 2026 08:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793609268;
-	bh=qCavdLGhogJHaxBuLrzi4qYTIdRzJmfVYf3hXtUNwc4=;
+	s=k20260515; t=1793609438;
+	bh=QaWYWUrLhUfwC4NyrykAqy2T/OO+U82Y2EmtMkUqbZk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FQoJh4T5pg0OAr57s0922l3kbWRn471IPn8ENmJ0fjhvOJUsrKbRRxBLDBb7dP7M0
-	 dm+IfJTCz2QiKS4kgVqSnwBpaI7qRm3SH/p4pBoP4N8CO8zcRuLNC4dGqZFE65fCsB
-	 3nc1Hq5I7fJ3X44cuKfEB6p76lYWnL97MX6HMEJ73tGiPBF2I0StwmZnY2JodY8DAA
-	 3VbYqcc8p57FdU9ubQkI+QcUGuwo73iupBt/bxuW8egqWaMXWc4OnRd0CGV90IqUIE
-	 IAhOdhC0PmjQg4GBKdyhqRck9DxP0RlLeqWHy9RUPm7QWlo483mNjjDKOOGi6vXaPc
-	 /ZQvszpNp5OyA==
-Message-ID: <f030a190-0cd9-4f6d-9a71-ab08dd760a02@kernel.org>
-Date: Mon, 2 Nov 2026 09:47:36 +0100
+	b=eD3vegNVhbx15mhQYNYj1Lbl/xaM6BD1eAxTN9bCnpcWXK9J7fCQGKhkq7ad7ZFs2
+	 El6xYwwcjTqrKVhMoICNoQJbGw5b8hbgvFYhZ29g1kujzgTbvK7acgWruYQ/ZITE3g
+	 h5Q5ie2PSEhOzTwirMDCC8SITikqEj90dr5BveB7OLKB41nEyerqOZot9GQZOxNN2U
+	 EdUuyip8aow+qEv+zTiMZK50CZIN4sabSA8i1mnwrHsP5OYaDSC+36Gq68v3r4RhSu
+	 xJA/PH0M4G+Ht2Z1ZcKs+ZZRkayCjgjdwXBNTZSZ7J8DeEP+plHAwkeBSvUmp1UHuy
+	 u7REK5fRtjEVQ==
+Message-ID: <a231be58-d42a-4d16-9e94-625457031d43@kernel.org>
+Date: Mon, 2 Nov 2026 09:50:24 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 16/25] accel/qda: Add DSP process creation and release
- to the legacy shim
+Subject: Re: [PATCH v4 21/25] accel/qda: Add Audio protection domain attach
+ and its remote heap
 To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
  Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
  Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
@@ -77,7 +77,7 @@ Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
  Chenna Kesava Raju <quic_chennak@quicinc.com>,
  Ekansh Gupta <ekangupt@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-16-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -123,28 +123,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261102-v4-v4-16-88f2f24a5f0b@qti.qualcomm.com>
+In-Reply-To: <20261102-v4-v4-21-88f2f24a5f0b@qti.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 01/11/2026 23:21, Ekansh Gupta wrote:
->  	snode->sdev = sdev;
-> +	snode->secure = secure;
->  	snode->miscdev.minor = MISC_DYNAMIC_MINOR;
->  	snode->miscdev.name = snode->name;
->  	snode->miscdev.fops = &qda_shim_fops;
-> @@ -293,8 +346,6 @@ static int qda_shim_probe(struct auxiliary_device *auxdev,
->  			  const struct auxiliary_device_id *id)
->  {
->  	struct qda_dev *qdev = dev_get_platdata(&auxdev->dev);
-> -	bool secure_channel = !of_property_read_bool(qdev->dev->of_node,
-> -						     "qcom,non-secure-domain");
+>  
+> +/*
+> + * The Audio PD keeps the remote heap across daemon restarts, so only the first
+> + * attach on a device hands it to the DSP. The lock is held across the attach
+> + * so that a concurrent one cannot skip the heap while the first is still in
+> + * flight, and the flag is set only once the DSP has accepted it.
+> + */
+> +static int qda_attach_audio_pd(struct qda_session *session, struct drm_qda_remote_attach *args)
+> +{
+> +	struct qda_dev *qdev = session->qda_dev;
+> +	struct qda_static_pd_args sargs = {};
+> +	char *name;
+> +	int err;
+> +
+> +	if (strcmp(qdev->dsp_name, "adsp") || !qdev->remote_heap_size)
 
-You just added these lines two patches earlier.
+That's value from DTB, so where did you document the ABI?
 
-You are adding COMPLETELY new driver, so adding completely new code and
-then removing it is confusing. It means you added something which was
-not needed.
+I see such undocumented ABI in multiple places. Usually requirement
+would be to document it, but not label. Why label 'ADSP' is not correct?
+Why "Audio DSP" would not be correct?
+
+Drop all this label dependency, completely (and do not introduce other
+names, like node name).
 
 
 Best regards,
