@@ -1,121 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793611713;
-	b=gltI+4ydAZWD5EoGSAA35xMDUGJMkpHEfH+gfgHTCADjF0edCl8V8I3ZkxjoykyJGqx7
-	 Ol37aOViXhix/pMNlEgaKwzgAH4BvohWwe/P/4oTDSdQeNhrHcuLg07EJTgiLQaIwqnab
-	 QIJM7jCR7zjk+3XNJGX0+a+89bRLkWBvdjzMOGV7p7do+Go+MNNvw/ltJhNidDGzdE6pK
-	 L+m7tJ09utHGg7x6XDY0mE+jK9hnWR249laprryzeWRQY+Qwqltdtsq7XCXQ6OlVzjaGI
-	 8+ttXX9uD5iyffps8kaLv2JuBCTsWthA4Sju6C5Hei2eFY08PqyMMaF0oH3wkG/jkQQ==
+	t=1793612167;
+	b=D4/TI1sqRAy9n7G7dBoOiAi8I5Lu3gM1bLJ8f2PEaAPIImb/aEffPSrsJEsX+xTLkQJ3
+	 /GZg+mt7TexQ5jVr21JKjT3N7OqJlJHDzpF3mitMVx3DwfqNlAxKTT4626Fu3I18b9v8Z
+	 OqAad4O3Ye+rdwg5m0elm7b5MMlCA+6AoAS37N+cxHeEDL36Ff4EZ7tfBCVfyh+QRunME
+	 gT0FwVP6qkEluTZwScGug2iggh7pIPZC+O6Nv79gIFWtSQXCM98LLYbinW3sLRSfZUZht
+	 +UEcxsrFgsbl/dmaGhj0MAvguz2bhnrjcVJxGD+U6OFOiNAno017br6MX5xvBEdYb3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793611713;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=bcAaWAAo29UXjdHaM07h1b/3hAUH3Swdi0uO92w0ewI=;
-	b=qVyP6crB1o4TWyKLwMSQ744HIMFqQKrTtnC85EedvzHByWC7P748fd9K4nNddw32ZJkD
-	 Ef+iRPW71Dlvnl5lJJH5f/eLBfS0qiXgvSS7IiMj2ELrHeweLBKdTrK6bfZMPBc/Of9RH
-	 4zy4GpQDpbc8U4kZfjAz3myrRIpE5qxSnwI9j4Oyc8GU0Diohuk27GBKFs/HdWVW+l+7t
-	 kssUTGUWiMTlMRkZoJbi+sgDA+WHEcog0u7kbHQLlNYyb1CVHO94py9J8mXXrE+Z8shkR
-	 Bs37MBvXMByVCnlkAqG92SM8oxTDI9HTPMJrrLrnjx8RVQypeo8pvUQRZaw5Lzy/TVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612167;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=+/sMZYds1uhOZXW3Ia/g+6VA7auA/l8PP9TjhomiEy4=;
+	b=M4HSH7aUzHtqfWCQZzcQWYE2HRh+9QEDRzKsTOHOorsEWZyg6pQoSa7eahPZT18Zp2lP
+	 ccsjkVDoIKgzNT+hMTmDmPv/AmK0PsVVAhJmx0IOrS7lLpUlYOTouyVgUqpPezgoFzhHg
+	 m+LOV6p/krdFnQDAVZgXguky4VieZyzGWkoK2GcLLqYAkGPC8cDds2g/8/aS248hipOEc
+	 skMlK4rwYc/reWB/rAudPXDeE5wIEVAleQK/mNt9RGd18eeQPnvX2tA29i/6Upo1tj1z4
+	 lk3YZYhMoBwV3ZnEl+Y9/AokXBxWeZLJWflwYM8EeDkngAHol4rlq0axDPDXjqIEWUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=X8s1xPRn;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UcVLgZ9T;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LdTYYRbv;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6DA606A327
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 09:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F6DA606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131CC606A338;
+	Mon,  2 Nov 2026 09:36:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 131CC606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=X8s1xPRn;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=UcVLgZ9T
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AMof2880846
-	for <linux-media@vger.kernel.org>; Mon, 2 Nov 2026 09:28:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=bcAaWAAo29U
-	XjdHaM07h1b/3hAUH3Swdi0uO92w0ewI=; b=X8s1xPRnEUjh4VACQths5mr/jZ2
-	+M5KMt5X812eVjoFa/aQIybk9po3wOmN9U/JFiupJ6T4YpD+BO942o4fIzRrIXe7
-	GdRNCPNNlh36tULSxUBT499UEhDW9wYY76rpssIf0kyu1NT37P3lcFiiphBFQb29
-	i8gnTKw+9TGxDjFWdgTlKkj/M94y0GEK0eq2sscr5vgrUqNBdBU/UP8OaKqZQcPP
-	3Y0n4bTpSPXG+lZybYWNpT1YCGDvOeaNoOXnN4WXhx3PZuCrLan673vYDD9x50AW
-	Oq5NvkosY2y2YaBC/FlCowXtfyYaQXEEcBYvc/HOJCaa+ICC6bFlLpG9vOw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqfrg4mh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 09:28:32 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f5844e383so453078185a.1
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 01:28:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793611712; x=1794216512; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bcAaWAAo29UXjdHaM07h1b/3hAUH3Swdi0uO92w0ewI=;
-        b=UcVLgZ9TGu1T/Cr8wzochSuGG+ECdSLQqkulavFVT8snQ5baPqdcTB3npdXs6gWREM
-         g3EWQshi/Ut8Jn7x/0xcoSYi7euZNtru3cX88cbqDpyBOaWM34GJKabHvXJXUaobPM9i
-         yOcmlm39hfXPbCBvLhO7X5i9ekD/JevmH7gdnNmMlfCRGGrscQt2Gdb6PBUTqdifGiMb
-         zZ9MALaFV2arZOYPvDTzXUmZ9YpOoQO1U7DyEOdNGDZMiudRqdnwtzHl5Dh/vsfcymmJ
-         6lqJ5oTzL8Gaz0vgaSEhvWw1Yh8OpPYoFUFvQCqWqvGY06UZjjpJLw7wKTF8xo79eBTl
-         ICEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793611712; x=1794216512;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bcAaWAAo29UXjdHaM07h1b/3hAUH3Swdi0uO92w0ewI=;
-        b=kKO//BBDe+oA4DkvYQkYRvwoIovL9QUKWVkYA0floKFpbkRk8S/qa0TS0RrMxQEGrq
-         ELlTEXhbHH+hFpXsSRe3xnzJy13lUucCfdM5bybbTGtqNnGDYXGZC/9INyu5It4DgD3y
-         Us3o997NRae41k+bXJ/3qqHl564QyhFItcYHnl56YARkAVEYGKW8oOfPhDAT2l/xwjQA
-         xWuQxX2KJfKhUuIdD3TKnqRzYGTcnb+Wh24GYlBuhl0C9csLRMwhDS5KYMsbGYPFqxCu
-         xSVmpvrDoO6QdFZ/DereU3Mojbls89hEhdJY8N2QqmTWoN7W/4zzJE2CwUjl5V5n16zK
-         t+rA==
-X-Forwarded-Encrypted: i=1; AKwUvBzly/x0mWJzBzMvmh6RyHb41xKlqD5GL2rCMsh0qEqv3CsC82DpFDWuIKOX1U+xaTs8EsbiL3VztwhPSg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYID2AQ1h/kqz0524ZKV/qLdTEAnGMEw7NMGwOp+d/copPlzF5Qn
-	0CEq2a+skI+K6M1vUkL4MSRTqndgkVC24eAh4PfU6qo/NfmQl8A6RNT404b1tcczNmwltnpp5Bm
-	gIqcwmv47ltFcrOgWLf5Cvwve5ntPinWVJgcXx/sc/VA36tKdrW+F4jEhKHKwj6WZHQ==
-X-Gm-Gg: AYBFou1cJ2588NqpzuHrWKO6NptPVBCliCeH1TwgTcTpt7gHsN9tHqu4vF94YdQlcDV
-	nQYQONXdHA1kvgnLAveggvgGS6Lc67I23GNKu2V57UfcORusiIV8oqqx/lu/5wHCxIHuCMrv3XJ
-	4ckeK9G9F5o8ewjXWLtNVKmKi1bllpvIffimN5jhJz47D2AcYZmSIzAdcPyWqEYs73MKidmqA4x
-	HaLXmdTIjh0gYiAROl7nMXQbIeZOVBmV4f3ur7YZYU1IlZxF+jVyKbEzNFYykt9RvYrLLOaX6fH
-	efqnqkONGxww+GimOpinwbxuZyXV58HPUwLF5Jd4NfPx+jJGYCPZ9FQXKNmYXr7SIdnbegfQ7FF
-	oXjnVRGq0WHMr/YMEYcUL/UOm6fEx5SiX5V0oaDxPvDCLGMULlcbHdYvkaZLOR7zlnqBvTMnfww
-	==
-X-Received: by 2002:a05:620a:3188:b0:93f:2ab9:728c with SMTP id af79cd13be357-94421758732mr1585044685a.71.1793611711484;
-        Mon, 02 Nov 2026 01:28:31 -0800 (PST)
-X-Received: by 2002:a05:620a:3188:b0:93f:2ab9:728c with SMTP id af79cd13be357-94421758732mr1585041585a.71.1793611710931;
-        Mon, 02 Nov 2026 01:28:30 -0800 (PST)
-Received: from lin-0772.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d5dfsm22171893f8f.3.2026.11.02.01.28.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:28:29 -0800 (PST)
-From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: atanas.filipov@oss.qualcomm.com,
-        "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org,
-        loic.poulain@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
-Date: Mon,  2 Nov 2026 11:28:28 +0200
-Message-Id: <20261102092828.3728247-1-atanas.filipov@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <4f7tyzvt2ojfmkneoaviegk3xbt2gegp3yoei57rzijcxkrlyp@b32nycxqybyj>
-References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com> <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com> <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l> <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com> <2rtrk7tsquxekqhk7tsiomjnfzc3xfqg574cbw2m5b4ui4ovt6@2oxme5w4wsqy> <31db3de6-34a2-4ccb-af61-043f56d8f86b@oss.qualcomm.com> <4f7tyzvt2ojfmkneoaviegk3xbt2gegp3yoei57rzijcxkrlyp@b32nycxqybyj>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LdTYYRbv
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ65Z1smrzMlFg;
+	Mon, 02 Nov 2026 10:36:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793612162; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+/sMZYds1uhOZXW3Ia/g+6VA7auA/l8PP9TjhomiEy4=;
+	b=LdTYYRbve+2a9AsrYz20m520ncMvUqWtNFNrebXBDHnKI8ybVi/PYzzpfE9c2aWuFQazCh
+	Yanfhn1iktpfZnQvu6kAr70M9l9F5WvWdkfMTslOXz1AiDpwxsLPj04BF7RZ5NgJt2Mrio
+	YY5bbjEEPl6bCHSmIjrPAAqY8i0x94+e6LlSve+QrM9iyCGTKdUjw9uOK33jJpYH+ZHH/Q
+	ZXCFvol5foGJGa5kgTewdfkcTM6PPV/7x+yH/OVp/6tN+BAr23IGPKCZD7XpsivZOn9fCH
+	C3bAI15a1dLfcj0+ibFzUcP+JhkDXEA4k6fD+tfyudO2wKsvS/NOOAMT/wbNdg==
+Message-ID: <3a81450158fe5a46d76257c5018eaf5592168f18.camel@mailbox.org>
+Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
+ Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
+ Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
+ Krummrich <dakr@kernel.org>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Date: Mon, 02 Nov 2026 10:35:57 +0100
+In-Reply-To: <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
+References: <20261020100034.759183-2-phasta@kernel.org>
+	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
+	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
+	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
+	 <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
+	 <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
+	 <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
+	 <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
+	 <f9a47d563f896e0789fffa72df5847e2878cbe5e.camel@mailbox.org>
+	 <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -125,64 +100,220 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=HMJWhYtv c=1 sm=1 tr=0 ts=6ae857c0 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=MqBAt_2VOQeXeQd1tQ8A:9
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: 9ZFk6_r5doeboFoZA2cFVlayhlkvnl_3
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzNyBTYWx0ZWRfXw1io2tI/+/we
- eH8/K6asi0BJbEcVfEDdwIbiHEjIs3yIhG5142ifzFLXobl2sON2V6/IRzSX2t7F47UCdjn+cY0
- Py4noGRIDV2CS5hrPyLtHCQeU/J76kM=
-X-Proofpoint-ORIG-GUID: 9ZFk6_r5doeboFoZA2cFVlayhlkvnl_3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzNyBTYWx0ZWRfX4xLE7P/xOxmv
- 3nvtuhxYYBMW1aSRco+j+ufP2oh6zbh46p54V4rGbz20DFUHBFH+Z/Z0Em0YwsHB5JMehivRhw+
- KEQc5s8MByyUm8FLuZ9bhrgkDBWMs7N2BPjsB23Sow07nZKKEiqU4ER512JTdlcx2nldsubYFrg
- uMiObI7LNsK91mEXYo5QFi7q5hxvK1iIT4aFTrwPxJunOyGLQV65tTzSLdsfYT0XG5mX4EmV2D7
- YqAfXctg6ZJ3Q/YjmjLzJNFtQx3D4pq3u+Pvknu5gr8nfI1V3cUzqsIdbOfqFfz+QBg80ispWgE
- 49uTaIUkLjAYr2JmNdjtttLtGLxkk6fNJZCrLS9hw58RaTtEtWsR/Kj9+f83e3qQGv1E/5xoAQp
- GpLtCKLfU1f+uTnqTUpYJaalPeusMyIpC8dIjOID0pXtOgM9f7+PN3ABRGL99pQyNgfmxDUxJ3H
- L/NAWut3HBI5gqgjH0w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 malwarescore=0
- phishscore=0 spamscore=0 adultscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020037
+X-MBO-RS-ID: 9c9e0b972831da15e15
+X-MBO-RS-META: rpf1r7o51nkurn4xtfgfh9p8yhndq3x9
 
-On Fri, Aug 21, 2026 at 12:36:26AM +0300, Dmitry Baryshkov wrote:
-> This will be true if:
-> - MMCX is a parent of the TITAN_TOP_GDSC (in Linux kernel)
-> - the driver casts the vote on the TITAN_TOP_GDSC using the opp tables.
+On Wed, 2026-10-28 at 14:38 +0100, Christian K=C3=B6nig wrote:
+> On 10/28/26 10:47, Philipp Stanner wrote:
+> > > > 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race=
+")
+> > >=20
+> > > This bug is exactly what I'm trying to prevent here.
+> >=20
+> > What is your proposed strategy for preventing it?
+>=20
+> nouveau_fence_signal() is consistently used by all signaling path to
+> both signal and cleanup a fence.
 
-Both hold for v7:
+No, you miss the point. Look at the bug. It exists because nouveau
+thinks it can drop a reference now because the fence is signaled.
 
- - camcc-sm8250 attaches MMCX and registers TITAN_TOP_GDSC as its
-   subdomain, so a performance state set on TITAN_TOP_GDSC reaches
-   MMCX unchanged.
- - v7 adds required-opps to every JPEG OPP entry (min_svs to turbo),
-   so dev_pm_opp_set_rate() votes the MMCX level through the single
-   TITAN_TOP_GDSC power domain.
+I grant the point, though, that this is actually a refcounting issue.
+The path that is signaling does not have its own extra reference.
 
-> Checking the 4.19 kernel. cam_cc_jpeg_clk_src casts votes on the vdd_mm
-> (MMCX) power domain, while its parents (pll0, pll2) cast votes on
-> vdd_mx (MX) power domain. Note, that frequencies used by those clocks do
-> not match, so we need separate entries at each of the corners.
+> When we stop calling callbacks with locks held and signaling fences
+> from dma_fence_is_signaled() and dma_fence_enable_signaling() nouveau
+> can call nouveau_fence_signal() consistently from all cleanup paths
+> with the proper handling.
+>=20
+> This makes it completely unecessary to have those cleanup hacks as
+> well as the nouveau_fence_release() callback.
+>=20
+> Background is that you can then put the fence context directly after
+> the fence is signaled=20
+>=20
+> > > This problem only exists because we call the backend operations with
+> > > the lock held!
+> >=20
+> > Nope, this particular bug exists because Nouveau thought that it can
+> > drop its reference when dma_fence_is_signaled() returns true, which is
+> > not the case, because the fence backend has a race condition there.
+>=20
+> No it doesn't, the fence backend works exactly like intended.
 
-Agreed that the PLLs need MX. Upstream nothing votes MX for them
-today: the camcc-sm8250 binding and DT describe MMCX only, and the
-rpmhpd MMCX domain on SM8250 has no MX parent. On SM8450 and later
-the camcc node carries MXC next to MMCX.
+You mean the lockless checking of a bit that is set under lock-
+protection works as intended?
 
-Since MX feeds the camcc PLLs, which every camera consumer shares, I
-think that vote belongs to the camcc-sm8250 clock controller rather
-than to the jpeg-encoder node, so v7 keeps TITAN_TOP_GDSC as the only
-power domain of the JPEG node. Does that work for you?
+>=20
+> I agree that we made tons of mistakes here but that is actually one
+> of the few things which we got right on dma_fences from the very
+> beginning.
+> > A race condition that was allowed for performance reasons.
+>=20
+> Well it is at least partially for correctness as well.
+>=20
+> It is mandatory for quite a number of use cases that the signaling
+> status becomes visible before the callbacks finish because otherwise
+> you run into race conditions with the callbacks again.
 
---
-Best regards,
-Atanas
+That's not what I mean. There are two things here:
+
+a) signaled-bit is read without lock-protection
+b) signaled-bit is set before callbacks execute
+
+fixing a) makes b) irrelevant.
+
+But that's not even my point in this mail.
+
+
+I'm still interested btw in who is busy-polling on a fence, waiting
+until the signaled-bit gets true (that would be the "performance"
+argument).
+
+If you want to know when a fence changes from unsignaled to signaled,
+use this function:
+
+dma_fence_add_callback()
+
+problem solved.
+
+> > What signaling handler are you referring to?
+>=20
+> Take a look at the hack nouveau_fence_is_signaled() does for example.
+> The cleanup part the other signaling call path do is completely
+> missing here because the function can't take the fctx->lock.
+
+Again, ops->signaled() merely has to read an atomic64_t and return a
+bool. Driver locks are not required here.
+
+>=20
+> Yes, but if we want to get away from the external lock concept in
+> dma_fence we must allow drivers to take their own fctx->lock inside
+> the enable_signaling callback.
+>=20
+> Just take a look at what nouveau_fence_enable_signaling() does, that
+> is only possible because the dma_fence framework has grabbed fctx-
+> >lock before calling this function.
+>=20
+> The alternative is forcing drivers to use lockless approaches for
+> their internal handling, and that is much much worse than that a
+> dma_fence signaling status is visible without taking the lock.
+
+[=E2=80=A6]
+
+> Just take nouveau_fence_enable_signaling() as an example, if we don't
+> use fctx->lock as external dma_fence lock then the whole approach
+> used here doesn't work any more.
+
+My entire point is that the driver does not need any driver-lock
+conflicting with the fence-lock-order at all.
+
+I tried to point this out several times, but you keep iterating back to
+"this is what nouveau does".
+
+That nouveau does it does not proof that it's necessary. It just proofs
+that nouveau does it.
+
+> > >=20
+> > My impression was more that central design criteria for dma_fence (like
+> > module unload of the driver who issued your fence, which is designed to
+> > live arbitrarily long) were ignored, there was no clear guidance for
+> > drivers how they should use what callback, and then driver problems
+> > were solved in dma_fence, for instance with this shared lock. So same
+> > story as with drm_sched.
+>=20
+> Yes, exactly that.
+
+Good!
+
+So we agree that the dma_fence backend should give clear guidance about
+what a driver must, must not and should do in its backend_ops
+implementations.
+
+Right?
+
+Because so far the conversation sounded to me like "the driver must be
+able to do whatever it wants and therefore needs to be able to grab
+whatever locks".
+
+>=20
+>=20
+> And that is strong evidence. Nouveau is actually the perfect example
+> of why this approach causes so much trouble for driver
+> implementations.
+
+Calling Nouveau a "perfect example" is like calling Ronald McDonald a
+role model in dietary choices.
+
+Nova is being written right now, for reasons.
+
+>=20
+> And such guidance should not exist in the first place.
+>=20
+> It is up to the driver if they want to use locks for their internal
+> state protection and the dma_fence framework should absolutely not
+> enforce anything it doesn't need to deal with.
+>=20
+> That the dma_fence lock should protect the state of the dma_fence is
+> something I can perfectly agree on, but that does not include the ops
+> call chain because that isn't dma_fence state in the first place.
+>=20
+> > The only evidence I have ever seen is the fence-list-lock, and it's
+> > just not clear at all why any callback would need access to that.
+>=20
+> Because they need to clean things up after signaling.
+>=20
+> > Let's walk it through together, shall we?
+> >=20
+> > ops->release() and ->wait(): deprecated
+> >=20
+> > ops->get_XXX_name() -> never needs driver locks
+> >=20
+> > ops->signaled(): "Driver, here you read an atomic integer, the sequence
+> > number, and tell the fence backend whether this fence shall be regarded
+> > as completed"
+> > No need for any driver lock.
+>=20
+> Incorrect, you can only work without driver locks here when you delegate =
+the cleanup.
+>=20
+> In other words either to a worker or the ->release callback, both are thi=
+ngs we try to avoid.
+>=20
+> Again see nouveau as a perfect example of the problem.
+>=20
+> > If this particular driver also signals fences through an interrupt
+> > handler, it can take a list lock, then signal the fence. The ops must
+> > not do that.
+> > Why would a driver need both modes, sw *and* hw signaling? And why then
+> > is it supposedly the case that both paths need to keep a list updated?
+>=20
+> Because the signaling through the interrupt is mandatory for correct,
+> the signaling through the is_signaled callback is then on top for
+> performance optimizations.
+
+is_signaled() never conflicts with any lock, see my list above.
+
+I think at this point you and I should really first get in sync
+regarding what the backend_ops are supposed to do, because we seem to
+turn in circles a bit in our discussion.
+
+And the only ops that seems to be controversial and that informs the
+nouveau argument is ops->enable_signaling()
+
+What should enable_signaling() do, in your mind? What should we tell
+the driver to do in there?
+
+And why does nouveau even implement it, when its interrupt handler will
+ultimately signal the fence anyways. Since, as usual, nothing is
+documented, and one enable_signaling function carries literally the
+name "no_signaling", I don't give it the benefit of the doubt and just
+assume that this is broken, bad design.
+
+
+My impression is that ops->enable_signaling() and having an interrupt
+handler signaling fences is mutually exclusive design-wise.
+
+
+P.
+>=20
