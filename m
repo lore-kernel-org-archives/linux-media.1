@@ -1,108 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793656869;
-	b=S4XosqyrXapiTCfj4jDeZDc4NJk85DEhRr9YB7fHb8+qdzFeLNtnghoTxec6d61fPsxy
-	 PgS/t668NP6zAgzg9hTrjSAuh5krSnq37UDpKvH15CwFdK42/WrLLbLprA1zDOT2Qq+Kd
-	 uVkFH7jgf9z696+m8Q/+ecF17fsMiLcgGfmv77+zxbtKwOWScmy9GrFkb14thKOGieRK1
-	 KvbPxqlmYtIjpn6/vjPskfVdUQu7W7G/poJoKRVkugd0gjn/kL5+8ZbVZClZ5ieubIGt1
-	 6HBu5mjHOwPBN9OVYtr1jt1OPoPTLoNCzE30ZirxEGEglZTdyngh/y1G0KTSuc/vEag==
+	t=1793656898;
+	b=ES4mcqYH895g+xKU9MvhkwecEBjx09ZJyIy5ft7CfsINglifSd6OJRniW6uq6fbDANaP
+	 uVkFws4yS9jXyBISn6iVcys3wLvaei5UDAAAc6mmmyuZ2vu0+S4Tt5sZwJKZJsNzMWQdi
+	 7PtIU99HJ4GOB6T2V1XDJz6T59Y6qWT3qWRYpRfQTyng2iBnXEDYfVR+wW+VGPbSTHyW9
+	 WsX16c7F+pzO7c9eKWa+rygoW6PJi4G+qJQZoud2pxfbARLmjYM0HLg4m9nmH/kQsoQ9R
+	 OWxXwFS/KpQ9RWOdb03QJsRyZtHM09O3Q2tg7FFnTRuZ7Lys3EcoNdgnBNVz0vRmbQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793656869;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
-	b=yvF7xhiOeQE2RibSngvUTRKEqrMBWIU7g3V0vgaQ11dIOPgo5HYo0hblOz7AgbDMlITP
-	 aKt3KfZ4xV6QmXFzBEf5+T9fJujnQcJ5Y90vZIBafjKshfG+em+zkKJN8ZhQqyMLzgRd9
-	 X/8qwSUuvD5d+2L2pfTyuGEajqOHx7XHjPGOkU6YKqC9oRXuRtcOofw8w/IZeKWa1s7Ge
-	 VREosKY/4DRURR1FfPYZJABDfnYFWb7ghU0fqS8SEcT+4/d3i6HZeEr4IpWiatCrx/3qE
-	 zMXPdc9la5bNJTd57Fpu1gVQ1sGe+M4yZDaSFgS3VkamQyMiInlmSvjE6RdxRYTQt9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656898;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=r4efmrcIXIJUwByw00ASH6DUyTzXwUoRxFs7DJQsUpI=;
+	b=Ed4LUoxwVmrPuFuEDa2KHjyjewGhvTpSzUBaJEWb59IyxB5A4duKtjYnZ5+BsQgkZU7W
+	 tfM6tHXcVoKzumkA6oA3T4+jP5FZzFikjYxP3PK0MegsacfpwKeSLh/uTulK9laJhOo9r
+	 tDC7KFoMUB7QY3SarTs6ZtruQX/zPgMEH94XZY1rl5P9pUm/c2AcEEBiemeKAkr/cQGxh
+	 vywZFV6AeexrTfyiEnn3dbnKL5p03398WnSGJjxkTLKQcXUXB8ddaeip5t66LrzJTbVAk
+	 Kb2+ieX33HO3hdmyz1ju4NbNaTVVArt7o+VzUYyA/lSPFRGpp4knM2ZkeIxjxu70S4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="JY/wmp8u";
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kxub1Oep;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Gw1Gz7fh;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B0A606A324
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 22:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92B0A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E146606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 22:01:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E146606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JY/wmp8u;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kxub1Oep
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793656867;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
-	b=JY/wmp8uEajzUkf1vNeZ7IdqqrYGiqbB+JyZfHIwoBnRWFnXx6MxOMBQ1QPWUuN47HN3vw
-	WfXsqF3y2s4CK8roeZtKzy6VSl6JCH36pHlSmbwr5v1VaCKfqJsb28FskLBuSe+4H8NHu8
-	7PydJ4vC0jswAldSb+/rh1oN5K8jTB0=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-382-SklwBip-PeKbP8aETuJaxw-1; Mon, 02 Nov 2026 17:01:06 -0500
-X-MC-Unique: SklwBip-PeKbP8aETuJaxw-1
-X-Mimecast-MFC-AGG-ID: SklwBip-PeKbP8aETuJaxw_1793656865
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48af5a07314so2223071f8f.2
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 14:01:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793656865; x=1794261665; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
-        b=kxub1OepQwqzw4DlS3rfA1OfAXqLMScfhFOmzNrJ1pTHliNk1VVITv2fVQ/UPxKoLU
-         QfvGseif6c5bt0WFIJ0q12sb2pzR4u2J4YfJgBY7U8Om8in4RhWC7yMK34FmrE+4GSz+
-         5gXSOvnknqCcZQQIYxRFUSH+fmdwg/m1R0R8VfsuasglNTZRYb1vc9L4ZSq03EUkFDpQ
-         EDxoO11i0GUZyyb3Z5IUsmyft32Qt8D4a3HtGkVBQt9F6v0zVqPJqQvaXlauDKBuBqnI
-         GfhxNDuwUIHctovuzeuFDmtxLnWhbV/XbrnwbJ+DDZqa2/otPHbkMbnwSEawQFS4m4PK
-         1XbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793656865; x=1794261665;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
-        b=WS1KYK/CZSNApRlQMlHtnXlAlnKimkJ07jWxePYPtINyZmhNtQ67fXD2U5VUf3Kklc
-         wLHKXmruGIsl9453G3NN9D+WJdrPNSeKKb5aZhtToeUVdE1PnvdhWp18Kf+XWLBnAwon
-         IYb12OZTJT8Ahbx8ZynlH6QUKoFNoedDPGrN2Ja/wlDhr1L/v4R3KsxTAnRTH8s+5oin
-         z+mRBwvgORybAIPDWx2cA4qhWJa+YgS+xqE9yTJwTJay0n+WIM7tEMwvU4CNqhi0qS/x
-         LhQvQTnsLQs13GGMi6vK648ZVr6nwxP0y8xaMBLUNVoYciY8lFy3OSyw8IsXKkXmMLsX
-         DRFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwHTZyeWrTJQEOiXE10GHaoV12xRwO9Gr+J3HE4xUI7bx60bd46Ttj3UBesLbC7NUSYu8Wcpcbwff/DVw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z92qeS1pRAiYvN3DHPij6amp3G/LUyck/MrBG+kzISIDKx3Tzw2
-	7eAb18ExDM7Fs3YmJ+4aLlRWjlTXBEQoDHbGKxysdf4M6tI1GZOCuss+3i2eO6wHiHs4HA4hu/5
-	eH8IpGArIP7ohXPLtxZWNPWfWr6obWsqkUZi03hgBLf4c6pGndNTaDCU7RCs5khld
-X-Gm-Gg: AYBFou0/rqCZupKgdcW+ft/RaJlrgwdnaijd9vbHV2holiYLHpOQOHnI2NrdQTNyVQt
-	EFAgbHzPErQkmk5nGHLNKKDSz69k3MJ9lyNMRUxHJdS7VXwNtM1Swlt8SHyyur5owUcKeStzuWv
-	HSOeH9+COxr9sw0k9bbHUBqP4IVp/lOweEkwq+ykXKCf7OuYHQfirJ2UlS6jwnfxUzWeXTu46Z1
-	amRXa0FES16JIS9mcCU2OebHB8zk85yatG1S47Pz7chbf3VspQ3ZvlTwf6u2luZQe8jrhwQ9hut
-	mrrLBGiZ2DvmqY7OnVROwVlfzudbnlMuvWSWia+nhypLsO/EkTsa4N4S1Y7bknUd2MFXtAmcq3n
-	/xcujXa8XJhshsY64IkmxX3C5EgG6inQ/WmmoluK8Jvpvc33F+QtOVIOx79EVay/u9gGAWOFqGo
-	O5rTe9uJkCfCWrStvGBt8hIKyoEM4qLQuQTiaudRWD0Pg=
-X-Received: by 2002:a5d:5f41:0:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-48e6e2eb83emr27445807f8f.16.1793656864992;
-        Mon, 02 Nov 2026 14:01:04 -0800 (PST)
-X-Received: by 2002:a5d:5f41:0:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-48e6e2eb83emr27445750f8f.16.1793656864628;
-        Mon, 02 Nov 2026 14:01:04 -0800 (PST)
-Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71baa1b3sm20953601f8f.56.2026.11.02.14.01.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 14:01:03 -0800 (PST)
-Message-ID: <f4f0fbd6-63e4-42d3-87bf-9f888a8de1a8@redhat.com>
-Date: Mon, 2 Nov 2026 23:01:00 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Gw1Gz7fh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793656897; x=1825192897;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=uImALSoGgo8cbwNS+J9XqY9ZrjtiADm6Cks0kb4MSQk=;
+  b=Gw1Gz7fh0Xx9Q+Pw0L8BohZHif1oq441aMEz+K1Y5e+hi6RAhaLiA97b
+   mvZ1pJ0/e5rgmRo0UPNH0yluGUmRHEXx9UQZmHR+dsx1e6VsfPHSFxfzr
+   u24wkuJ/n8a8/altFpg6k2L3rF8UAzjlwQ2qaEARDK7XeiGUEbMIPfnUB
+   PJr5sJGZXH9abr7J4RZV/iBgsYHtrPYAaWp/PbXAYfFeeSTVtXVOcy9Dy
+   NuwoWD2VB6OlZrTCFKLSxEuOjWDBePdPNv0cpn9L9P5f12Fr5F1ieZFPq
+   upc5G/lanppTNKB7GUFKNQTa3OUGV9CUnAEpuevRLvrp6eT1lGJPHfJ/t
+   A==;
+X-CSE-ConnectionGUID: KnDiSNHMR3WYAIcwtSrs0Q==
+X-CSE-MsgGUID: TEpg3QqMRKOj1x8YyrXH4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2380394"
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="2380394"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:01:36 -0800
+X-CSE-ConnectionGUID: ovGivDr3TlCbnlMfzV5bKw==
+X-CSE-MsgGUID: UzFiadYtS5SrtLZ0N0yxwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,192,1787036400"; 
+   d="scan'208";a="6096082"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.242])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 14:01:32 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id BE9AA1202C4;
+	Tue, 03 Nov 2026 00:01:40 +0200 (EET)
+Date: Tue, 3 Nov 2026 00:01:40 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Ruslan Bay <ruslanbey@proton.me>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Andreas Helbech Kleist <andreaskleist@gmail.com>,
+	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
+	"tfiga@chromium.org" <tfiga@chromium.org>,
+	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
+	"andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
+	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: [RFC PATCH v2 07/12] media: ipu6: Add IPU4P ISYS firmware
+ operations
+Message-ID: <aukIRKuHl73rsH9s@kekkonen.localdomain>
+References: <Jmj6noRGE-pr4vr97B1H6Qt2u2m3wHDQvZF0tOg9fMulZS1SrNHgIFVW-y2bx0wwnnd6FHLIL1oaKmJ9_57yTU_pedSW_Ni9-R8IJUqaoek=@proton.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -112,72 +94,1551 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- sdf@fomichev.me, kaiyuanz@google.com, kuba@kernel.org,
- bobbyeshleman@meta.com, asml.silence@gmail.com, dw@davidwei.uk,
- ap420073@gmail.com, davem@davemloft.net, edumazet@kernel.org,
- horms@kernel.org, shuah@kernel.org, sumit.semwal@linaro.org,
- christian.koenig@amd.com, phasta@kernel.org, andrew+netdev@lunn.ch,
- sdf.kernel@gmail.com, hawk@kernel.org, ilias.apalodimas@linaro.org,
- daniel@iogearbox.net, razor@blackwall.org, tariqt@nvidia.com,
- kaifengw@google.com, dtatulea@nvidia.com
-References: <20261030083539.777877-2-almasrymina@google.com>
- <179357408146.3131.2882435952119280563@kernel.org>
- <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
- <9afff44d-f8eb-4549-8aae-f99a53339319@redhat.com>
- <20261102185856.1824792-1-almasrymina@google.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20261102185856.1824792-1-almasrymina@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Jmj6noRGE-pr4vr97B1H6Qt2u2m3wHDQvZF0tOg9fMulZS1SrNHgIFVW-y2bx0wwnnd6FHLIL1oaKmJ9_57yTU_pedSW_Ni9-R8IJUqaoek=@proton.me>
 
-On 11/2/26 19:58, Mina Almasry wrote:
-> On Mon, Nov 2, 2026 at 7:29 AM Paolo Abeni <pabeni@redhat.com> wrote:
->> On 11/2/26 00:16, Mina Almasry wrote:
->>> On Sun, Nov 1, 2026 at 3:01 PM <netdev-bot+sashiko@kernel.org> wrote:
->>>>
->>>> - [High] The dma_dev use-after-free this patch says it fixes can still
->>>>     happen for RX bindings made on a virtual device that leases queues,...
->>>>
->>>
->>> I know about the issues with leased devices. That needs a bit of a
->>> rework, which I have done locally, and would like to send out as a
->>> follow up fix.
->> Will such follow-up rework the code touched by  current patch/series?
->> how much? I'm under the impression that at least the fix for the issue
->> reported here would be quite overlapping.
->>
->> /P
+Hi Ruslan,
+
+On Sat, Oct 31, 2026 at 12:35:24PM +0000, Ruslan Bay wrote:
+> Add IPU4P-specific ISYS operations for queue setup, stream
+> configuration, buffer submission and response handling.
 > 
-> I pushed the follow-up branch on top of v5 here so you can see the exact diff:
-> https://github.com/mina/linux/compare/devmem-teardown-v4...devmem-lease-bind-map-dev
-> (commits: https://github.com/mina/linux/commits/devmem-lease-bind-map-dev)
+> Adapt the common ISYS code to IPU4P's stream limits, CSI port mapping
+> and IWAKE proxy controls.
 > 
-> There is some overlap (~55 lines of v5 touched across a 6-patch +262/-99
-> follow-up): it renames binding->dev/vdev to binding->map_dev/bind_dev, passes
-> the net_device explicitly to net_devmem_lock_dev(), factors out
-> net_devmem_close_rxqs(), and replaces the !rxq->lease / !netif_is_queue_leasee()
-> skips in net_devmem_dev_unregister() and mp_dmabuf_devmem_uninstall().
+> Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
+> ---
+>  drivers/media/pci/intel/ipu6/Makefile         |   1 +
+>  drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c  | 880 ++++++++++++++++++
+>  drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h  |   7 +
+>  drivers/media/pci/intel/ipu6/ipu6-bus.h       |   1 +
+>  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   |   9 +
+>  drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  21 +-
+>  .../media/pci/intel/ipu6/ipu6-isys-queue.c    |  36 +-
+>  .../media/pci/intel/ipu6/ipu6-isys-video.c    |  12 +-
+>  drivers/media/pci/intel/ipu6/ipu6-isys.c      | 126 ++-
+>  drivers/media/pci/intel/ipu6/ipu6-isys.h      |  27 +
+>  drivers/media/pci/intel/ipu6/ipu6.c           |   8 +
+>  11 files changed, 1090 insertions(+), 38 deletions(-)
+>  create mode 100644 drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
 > 
-> I kept it separate only to keep this net fix smaller and easier to review,
-> since the lease issue is pre-existing. Happy to either land v5 first and send
-> those 6 patches right after, or fold them into a v6 if you prefer avoiding the
-> churn.
-I hoped for something smaller :)
+> diff --git a/drivers/media/pci/intel/ipu6/Makefile b/drivers/media/pci/intel/ipu6/Makefile
+> index 676bc978b97..54fca25785a 100644
+> --- a/drivers/media/pci/intel/ipu6/Makefile
+> +++ b/drivers/media/pci/intel/ipu6/Makefile
+> @@ -16,6 +16,7 @@ obj-$(CONFIG_VIDEO_INTEL_IPU6)	+= intel-ipu6.o
+>  
+>  intel-ipu6-isys-y		:= ipu6-isys.o \
+>  				ipu6-isys-csi2.o \
+> +				ipu4p-fw-isys.o \
+>  				ipu6-fw-isys.o \
+>  				ipu7-fw-isys.o \
+>  				ipu6-isys-video.o \
+> diff --git a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
+> new file mode 100644
+> index 00000000000..2c0b08ecaf8
+> --- /dev/null
+> +++ b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.c
+> @@ -0,0 +1,880 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 Intel Corporation
+> + */
+> +
+> +#include <linux/atomic.h>
+> +#include <linux/bits.h>
+> +#include <linux/bug.h>
+> +#include <linux/cacheflush.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/errno.h>
+> +#include <linux/io.h>
+> +#include <linux/kernel.h>
+> +#include <linux/list.h>
+> +#include <linux/minmax.h>
+> +#include <linux/slab.h>
+> +#include <linux/spinlock.h>
+> +#include <linux/string.h>
+> +#include <linux/types.h>
+> +
+> +#include "ipu6-bus.h"
+> +#include "ipu6-fw-com.h"
+> +#include "ipu6-isys.h"
+> +#include "ipu6-isys-queue.h"
+> +#include "ipu6-isys-subdev.h"
+> +#include "ipu4p-fw-isys.h"
+> +#include "ipu6-platform-regs.h"
+> +
+> +static const char send_msg_types[N_IPU4P_FW_ISYS_SEND_TYPE][32] = {
+> +	"STREAM_OPEN",
+> +	"STREAM_START",
+> +	"STREAM_START_AND_CAPTURE",
+> +	"STREAM_CAPTURE",
+> +	"STREAM_STOP",
+> +	"STREAM_FLUSH",
+> +	"STREAM_CLOSE",
+> +};
+> +
+> +static int ipu4p_fw_isys_send_cmd(struct ipu6_isys *isys,
+> +				  const unsigned int stream_handle,
+> +				  void *cpu_mapped_buf,
+> +				  dma_addr_t dma_mapped_buf,
+> +				  size_t size, u16 send_type)
+> +{
+> +	struct ipu4p_fw_isys_send_token *token;
+> +	struct device *dev = &isys->adev->auxdev.dev;
+> +
+> +	if (send_type >= N_IPU4P_FW_ISYS_SEND_TYPE ||
+> +	    stream_handle >= IPU4P_ISYS_MAX_STREAMS)
+> +		return -EINVAL;
+> +
+> +	if (upper_32_bits(dma_mapped_buf))
+> +		return -ERANGE;
 
-I definitely would not fold the 2 series.
+Can this happen?
 
-I'm wondering if this could be considered net-next material? pointing to
-net-next will offer better guarantees for all the work to land in the same
-release (no need to repost in such a case, I can apply this one to net-next
-directly).
+> +
+> +	dev_dbg(dev, "send_token: %s\n", send_msg_types[send_type]);
+> +
+> +	if (cpu_mapped_buf)
+> +		clflush_cache_range(cpu_mapped_buf, size);
+> +
+> +	token = ipu6_send_get_token(isys->fwctx,
+> +				    stream_handle + IPU4P_BASE_MSG_SEND_QUEUES);
+> +	if (!token)
+> +		return -EBUSY;
+> +
+> +	token->payload = lower_32_bits(dma_mapped_buf);
+> +	token->buf_handle = (unsigned long)cpu_mapped_buf;
+> +	token->send_type = send_type;
+> +	token->stream_id = stream_handle;
+> +
+> +	ipu6_send_put_token(isys->fwctx,
+> +			    stream_handle + IPU4P_BASE_MSG_SEND_QUEUES);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ipu4p_fw_isys_close(struct ipu6_isys *isys)
+> +{
+> +	struct device *dev = &isys->adev->auxdev.dev;
+> +	int retry = IPU4P_ISYS_CLOSE_RETRY;
+> +	void *fwctx;
+> +	int ret;
+> +
+> +	if (!isys->fwctx)
+> +		return 0;
+> +
+> +	ret = ipu6_fw_com_close(isys->fwctx);
+> +	fwctx = isys->fwctx;
+> +	isys->fwctx = NULL;
+> +	if (ret)
+> +		dev_err(dev, "Device close failure: %d\n", ret);
+> +
+> +	do {
+> +		usleep_range(400, 500);
+> +		ret = ipu6_fw_com_release(fwctx, 0);
+> +		retry--;
+> +	} while (ret && retry);
 
-/P
+	poll_timeout_us()?
 
+That'd be nice to fix in the original, too. Do we need a IPU4P specific
+variant of this at all?
+
+> +
+> +	if (ret) {
+> +		dev_err(dev, "Device release timed out: %d\n", ret);
+> +		isys->fwctx = fwctx;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static void ipu4p_fw_isys_cleanup(struct ipu6_isys *isys)
+> +{
+> +	int ret;
+> +
+> +	if (!isys->fwctx)
+> +		return;
+> +
+> +	ret = ipu6_fw_com_release(isys->fwctx, 1);
+> +	if (ret < 0)
+> +		dev_warn(&isys->adev->auxdev.dev,
+> +			 "Device busy, firmware communication release failed\n");
+> +
+
+Ditto.
+
+> +	isys->fwctx = NULL;
+> +}
+> +
+> +static void ipu4p_fw_isys_start_sp(struct ipu6_bus_device *adev)
+> +{
+> +	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
+> +	void __iomem *spc_regs_base = isys->pdata->base +
+> +		isys->pdata->ipdata->hw_variant.spc_offset;
+> +	u32 val;
+> +
+> +	val = IPU6_ISYS_SPC_STATUS_START | IPU6_ISYS_SPC_STATUS_RUN |
+> +	      IPU6_ISYS_SPC_STATUS_CTRL_ICACHE_INVALIDATE;
+> +	if (isys->icache_prefetch)
+> +		val |= IPU6_ISYS_SPC_STATUS_ICACHE_PREFETCH;
+> +
+> +	writel(val, spc_regs_base + IPU6_ISYS_REG_SPC_STATUS_CTRL);
+> +}
+> +
+> +static int ipu4p_fw_isys_query_sp(struct ipu6_bus_device *adev)
+> +{
+> +	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
+> +	void __iomem *spc_regs_base = isys->pdata->base +
+> +		isys->pdata->ipdata->hw_variant.spc_offset;
+> +	u32 val;
+> +
+> +	val = readl(spc_regs_base + IPU6_ISYS_REG_SPC_STATUS_CTRL);
+> +	val &= IPU6_ISYS_SPC_STATUS_READY | IPU6_ISYS_SPC_STATUS_START;
+> +
+> +	return val == IPU6_ISYS_SPC_STATUS_READY;
+> +}
+> +
+> +static int
+> +ipu4p_fw_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+> +			     struct ipu6_fw_com_cfg *fwcom_cfg,
+> +			     unsigned int num_streams)
+> +{
+> +	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
+> +	struct ipu6_fw_syscom_queue_config *input_queue_cfg;
+> +	struct ipu6_fw_syscom_queue_config *output_queue_cfg;
+> +	struct ipu4p_fw_isys_fw_config *isys_fw_cfg;
+> +	unsigned int num_message_queues;
+> +	unsigned int max_streams;
+> +	unsigned int i;
+> +
+> +	max_streams = min_t(unsigned int, isys->pdata->ipdata->max_streams,
+> +			    IPU4P_ISYS_MAX_STREAMS);
+> +	max_send_queues = isys->pdata->ipdata->max_send_queues;
+> +	max_sram_blocks = min_t(unsigned int,
+> +				isys->pdata->ipdata->max_sram_blocks,
+> +				IPU4P_NOF_SRAM_BLOCKS_MAX);
+> +	max_devq_size = isys->pdata->ipdata->max_devq_size;
+> +	if (!max_streams || !max_sram_blocks)
+> +		return -EINVAL;
+> +
+> +	max_streams = min(max_streams, max_sram_blocks);
+> +	if (max_send_queues < IPU4P_BASE_MSG_SEND_QUEUES + max_streams)
+> +		return -EINVAL;
+> +
+> +	num_message_queues = clamp(num_streams, 1U, max_streams);
+> +
+> +	isys_fw_cfg = kzalloc_obj(*isys_fw_cfg);
+> +	if (!isys_fw_cfg)
+> +		return -ENOMEM;
+> +
+> +	input_queue_cfg = kzalloc_objs(*input_queue_cfg, max_send_queues);
+> +	if (!input_queue_cfg)
+> +		goto err_free_fw_cfg;
+> +
+> +	output_queue_cfg = kzalloc_objs(*output_queue_cfg,
+> +					IPU4P_N_MAX_RECV_QUEUES);
+> +	if (!output_queue_cfg)
+> +		goto err_free_input_queue_cfg;
+> +
+> +	isys_fw_cfg->num_send_queues[IPU4P_FW_ISYS_QUEUE_TYPE_PROXY] =
+> +		IPU4P_N_MAX_PROXY_SEND_QUEUES;
+> +	isys_fw_cfg->num_send_queues[IPU4P_FW_ISYS_QUEUE_TYPE_DEV] =
+> +		IPU4P_N_MAX_DEV_SEND_QUEUES;
+> +	isys_fw_cfg->num_send_queues[IPU4P_FW_ISYS_QUEUE_TYPE_MSG] =
+> +		num_message_queues;
+> +	isys_fw_cfg->num_recv_queues[IPU4P_FW_ISYS_QUEUE_TYPE_PROXY] =
+> +		IPU4P_N_MAX_PROXY_RECV_QUEUES;
+> +	isys_fw_cfg->num_recv_queues[IPU4P_FW_ISYS_QUEUE_TYPE_DEV] = 0;
+> +	isys_fw_cfg->num_recv_queues[IPU4P_FW_ISYS_QUEUE_TYPE_MSG] =
+> +		IPU4P_N_MAX_RECV_QUEUES - IPU4P_N_MAX_PROXY_RECV_QUEUES;
+> +
+> +	/*
+> +	 * The GDA has 128 physical pages and a virtualization factor of 32.
+> +	 * Partition the virtual pages evenly across the message queues.
+> +	 */
+> +	for (i = 0; i < max_sram_blocks; i++) {
+> +		if (i < num_message_queues)
+> +			isys_fw_cfg->buffer_partition.num_gda_pages[i] =
+> +				(IPU4P_DEVICE_GDA_NR_PAGES *
+> +				 IPU4P_DEVICE_GDA_VIRT_FACTOR) /
+> +				num_message_queues;
+> +		else
+> +			isys_fw_cfg->buffer_partition.num_gda_pages[i] = 0;
+> +	}
+> +
+> +	input_queue_cfg[IPU4P_BASE_PROXY_SEND_QUEUES].token_size =
+> +		sizeof(struct ipu4p_fw_isys_proxy_send_token);
+> +	input_queue_cfg[IPU4P_BASE_PROXY_SEND_QUEUES].queue_size =
+> +		IPU4P_ISYS_SIZE_PROXY_SEND_QUEUE;
+> +
+> +	input_queue_cfg[IPU4P_BASE_DEV_SEND_QUEUES].token_size =
+> +		sizeof(struct ipu4p_fw_isys_send_token);
+> +	input_queue_cfg[IPU4P_BASE_DEV_SEND_QUEUES].queue_size = max_devq_size;
+> +
+> +	for (i = 0; i < num_message_queues; i++) {
+> +		unsigned int queue = IPU4P_BASE_MSG_SEND_QUEUES + i;
+> +
+> +		input_queue_cfg[queue].token_size =
+> +			sizeof(struct ipu4p_fw_isys_send_token);
+> +		input_queue_cfg[queue].queue_size = IPU4P_ISYS_SIZE_SEND_QUEUE;
+> +	}
+> +
+> +	output_queue_cfg[IPU4P_BASE_PROXY_RECV_QUEUES].token_size =
+> +		sizeof(struct ipu4p_fw_isys_proxy_recv_token);
+> +	output_queue_cfg[IPU4P_BASE_PROXY_RECV_QUEUES].queue_size =
+> +		IPU4P_ISYS_SIZE_PROXY_RECV_QUEUE;
+> +
+> +	output_queue_cfg[IPU4P_BASE_MSG_RECV_QUEUES].token_size =
+> +		sizeof(struct ipu4p_fw_isys_recv_token);
+> +	output_queue_cfg[IPU4P_BASE_MSG_RECV_QUEUES].queue_size =
+> +		IPU4P_ISYS_SIZE_RECV_QUEUE;
+> +
+> +	fwcom_cfg->num_input_queues =
+> +		isys_fw_cfg->num_send_queues[IPU4P_FW_ISYS_QUEUE_TYPE_PROXY] +
+> +		isys_fw_cfg->num_send_queues[IPU4P_FW_ISYS_QUEUE_TYPE_DEV] +
+> +		isys_fw_cfg->num_send_queues[IPU4P_FW_ISYS_QUEUE_TYPE_MSG];
+> +	fwcom_cfg->num_output_queues =
+> +		isys_fw_cfg->num_recv_queues[IPU4P_FW_ISYS_QUEUE_TYPE_PROXY] +
+> +		isys_fw_cfg->num_recv_queues[IPU4P_FW_ISYS_QUEUE_TYPE_DEV] +
+> +		isys_fw_cfg->num_recv_queues[IPU4P_FW_ISYS_QUEUE_TYPE_MSG];
+> +	fwcom_cfg->input = input_queue_cfg;
+> +	fwcom_cfg->output = output_queue_cfg;
+> +	fwcom_cfg->dmem_addr = isys->pdata->ipdata->hw_variant.dmem_offset;
+> +	fwcom_cfg->specific_addr = isys_fw_cfg;
+> +	fwcom_cfg->specific_size = sizeof(*isys_fw_cfg);
+> +	fwcom_cfg->dmem_syscom = true;
+> +
+> +	return 0;
+> +
+> +err_free_input_queue_cfg:
+> +	kfree(input_queue_cfg);
+> +err_free_fw_cfg:
+> +	kfree(isys_fw_cfg);
+> +
+> +	return -ENOMEM;
+> +}
+> +
+> +static void ipu4p_fw_isys_fwcom_cfg_free(struct ipu6_fw_com_cfg *fwcom_cfg)
+> +{
+> +	kfree(fwcom_cfg->specific_addr);
+> +	kfree(fwcom_cfg->output);
+> +	kfree(fwcom_cfg->input);
+> +}
+> +
+> +static int ipu4p_fw_isys_init(struct ipu6_isys *isys,
+> +			      unsigned int num_streams)
+> +{
+> +	struct device *dev = &isys->adev->auxdev.dev;
+> +	struct ipu6_fw_com_cfg fwcom_cfg = {
+> +		.cell_start = ipu4p_fw_isys_start_sp,
+> +		.cell_ready = ipu4p_fw_isys_query_sp,
+> +	};
+> +	int retry = IPU4P_ISYS_OPEN_RETRY;
+> +	int ret;
+> +
+> +	ret = ipu4p_fw_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
+> +	if (ret)
+> +		return ret;
+> +
+> +	isys->fwctx = ipu6_fw_com_prepare(&fwcom_cfg, isys->adev,
+> +					  isys->pdata->base);
+> +	ipu4p_fw_isys_fwcom_cfg_free(&fwcom_cfg);
+> +	if (!isys->fwctx) {
+> +		dev_err(dev, "ISYS firmware communication prepare failed\n");
+> +		return -EIO;
+> +	}
+> +
+> +	ret = ipu6_fw_com_open(isys->fwctx);
+> +	if (ret) {
+> +		dev_err(dev, "ISYS firmware communication open failed: %d\n",
+> +			ret);
+> +		ipu4p_fw_isys_cleanup(isys);
+> +		return ret;
+> +	}
+> +
+> +	do {
+> +		usleep_range(400, 500);
+> +		if (ipu6_fw_com_ready(isys->fwctx))
+> +			return 0;
+> +		retry--;
+> +	} while (retry);
+
+	poll_timeout_us()?
+
+> +
+> +	dev_err(dev, "ISYS firmware failed to become ready\n");
+> +	ipu4p_fw_isys_close(isys);
+> +
+> +	return -EIO;
+> +}
+> +
+> +static void
+> +ipu4p_fw_isys_dump_stream_cfg(struct device *dev, struct isys_fw_msgs *msg)
+> +{
+> +	const struct ipu4p_fw_isys_stream_cfg *cfg = &msg->ipu4p.stream;
+> +	unsigned int i;
+> +
+> +	dev_dbg(dev, "IPU4P stream config: source %u, VC %u, input pins %u, output pins %u\n",
+> +		cfg->src, cfg->vc, cfg->nof_input_pins, cfg->nof_output_pins);
+> +
+> +	for (i = 0; i < cfg->nof_input_pins; i++) {
+> +		const struct ipu4p_fw_isys_input_pin_info *pin =
+> +			&cfg->input_pins[i];
+> +
+> +		dev_dbg(dev, "input pin %u: %ux%u, DT 0x%x, bpp %u, mapped DT 0x%x\n",
+> +			i, pin->input_res.width, pin->input_res.height,
+> +			pin->dt, pin->bits_per_pix, pin->mapped_dt);
+> +	}
+> +
+> +	for (i = 0; i < cfg->nof_output_pins; i++) {
+> +		const struct ipu4p_fw_isys_output_pin_info *pin =
+> +			&cfg->output_pins[i];
+> +
+> +		dev_dbg(dev, "output pin %u: %ux%u, stride %u, format %u, type %u\n",
+> +			i, pin->output_res.width, pin->output_res.height,
+> +			pin->stride, pin->ft, pin->pt);
+> +	}
+> +}
+> +
+> +static void
+> +ipu4p_fw_isys_dump_frame_buf_set(struct device *dev,
+> +				 struct isys_fw_msgs *msg,
+> +				 unsigned int outputs)
+> +{
+> +	const struct ipu4p_fw_isys_frame_buff_set *set = &msg->ipu4p.frame;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < outputs; i++) {
+
+You can declare i here.
+
+> +		const struct ipu4p_fw_isys_output_pin_payload *pin =
+> +			&set->output_pins[i];
+> +
+> +		dev_dbg(dev, "output pin %u: buffer ID 0x%llx, address 0x%x\n",
+> +			i, (unsigned long long)pin->out_buf_id, pin->addr);
+> +	}
+> +}
+> +
+> +static int ipu4p_fw_isys_resp_type_to_ipu6(unsigned int type)
+> +{
+> +	switch (type) {
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_START_ACK:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_START_ACK;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_ACK;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_ACK:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_ACK;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_STOP_ACK:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_STOP_ACK;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_CLOSE_ACK:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_CLOSE_ACK;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_READY:
+> +		return IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_FRAME_SOF:
+> +		return IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_FRAME_EOF:
+> +		return IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_START_AND_CAPTURE_DONE;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_SKIPPED:
+> +		return IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_SKIPPED;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
+> +		return IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_WATERMARK:
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_SKIPPED:
+> +	case IPU4P_FW_ISYS_RESP_TYPE_FRAME_SOF_DISCARDED:
+> +	case IPU4P_FW_ISYS_RESP_TYPE_FRAME_EOF_DISCARDED:
+> +		return -EOPNOTSUPP;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +/*
+> + * Resolve each pin response by stream, frame counter and echoed handle when
+> + * present. Clear each output-pin bit exactly once so duplicate responses
+> + * cannot release a frame message before all buffers have completed. Never
+> + * dereference a firmware-provided value as a pointer.
+> + */
+> +static bool
+> +ipu4p_fw_isys_complete_pin_response(struct ipu6_isys *isys,
+> +				    const struct ipu4p_fw_isys_resp_info *resp)
+> +{
+> +	struct isys_fw_msgs *msg;
+> +	unsigned long flags;
+> +	u64 handle = resp->pin.out_buf_id;
+> +	u8 pin_mask;
+> +	bool found = false;
+> +
+> +	if (resp->pin_id >= IPU4P_MAX_OPINS)
+> +		return false;
+> +
+> +	pin_mask = BIT(resp->pin_id);
+> +	spin_lock_irqsave(&isys->listlock, flags);
+> +	list_for_each_entry(msg, &isys->framebuflist_fw, head) {
+> +		if (!msg->ipu4p_is_frame ||
+> +		    msg->ipu4p_stream_handle != resp->stream_handle ||
+> +		    msg->ipu4p_frame_counter != resp->frame_counter ||
+
+Does the frame counter really matter? I guess you could complain about it,
+but to ignore a buffer for it?
+
+> +		    (handle && handle != (u64)(uintptr_t)&msg->ipu4p.frame))
+
+Is the u64 cast necessary?
+
+> +			continue;
+> +		if (!(msg->ipu4p_pending_pin_mask & pin_mask))
+> +			break;
+> +
+> +		msg->ipu4p_pending_pin_mask &= ~pin_mask;
+> +		if (!msg->ipu4p_pending_pin_mask)
+> +			list_move(&msg->head, &isys->framebuflist);
+> +		found = true;
+> +		break;
+> +	}
+> +	spin_unlock_irqrestore(&isys->listlock, flags);
+> +
+> +	return found;
+> +}
+> +
+> +/*
+> + * A skipped capture has no PIN_DATA_READY response. Copy the output addresses
+> + * before releasing the frame set, then complete those buffers as skipped.
+> + */
+> +static bool
+> +ipu4p_fw_isys_complete_skipped_frame(struct ipu6_isys *isys,
+> +				     unsigned int stream_handle,
+> +				     unsigned int frame_counter,
+> +				     u32 addrs[IPU4P_MAX_OPINS],
+> +				     u8 *pending_pin_mask)
+> +{
+> +	struct isys_fw_msgs *msg;
+> +	unsigned long flags;
+> +	bool found = false;
+> +	unsigned int i;
+> +
+> +	*pending_pin_mask = 0;
+> +	spin_lock_irqsave(&isys->listlock, flags);
+> +	list_for_each_entry(msg, &isys->framebuflist_fw, head) {
+> +		if (!msg->ipu4p_is_frame ||
+> +		    msg->ipu4p_stream_handle != stream_handle ||
+> +		    msg->ipu4p_frame_counter != frame_counter)
+> +			continue;
+> +
+> +		*pending_pin_mask = msg->ipu4p_pending_pin_mask;
+> +		for (i = 0; i < IPU4P_MAX_OPINS; i++) {
+> +			if (*pending_pin_mask & BIT(i))
+> +				addrs[i] = msg->ipu4p.frame.output_pins[i].addr;
+> +		}
+> +
+> +		msg->ipu4p_pending_pin_mask = 0;
+> +		list_move(&msg->head, &isys->framebuflist);
+> +		found = true;
+> +		break;
+> +	}
+> +	spin_unlock_irqrestore(&isys->listlock, flags);
+> +
+> +	return found;
+> +}
+> +
+> +static int ipu4p_fw_isys_send_proxy_token(struct ipu6_isys *isys,
+> +					  unsigned int req_id,
+> +					  unsigned int region_index,
+> +					  u32 value)
+> +{
+> +	struct ipu6_fw_com_context *ctx = isys->fwctx;
+> +	struct ipu4p_fw_isys_proxy_send_token *send_token;
+> +	unsigned int timeout = 1000;
+> +
+> +	send_token = ipu6_send_get_token(ctx, IPU4P_BASE_PROXY_SEND_QUEUES);
+> +	if (!send_token)
+> +		return -EBUSY;
+> +
+> +	send_token->request_id = req_id;
+> +	send_token->region_index = region_index;
+> +	send_token->offset = 0;
+> +	send_token->value = value;
+> +	ipu6_send_put_token(ctx, IPU4P_BASE_PROXY_SEND_QUEUES);
+> +
+> +	do {
+> +		struct ipu4p_fw_isys_proxy_recv_token *recv_token;
+> +		int ret;
+> +
+> +		usleep_range(100, 110);
+> +		recv_token = ipu6_recv_get_token(ctx,
+> +						 IPU4P_BASE_PROXY_RECV_QUEUES);
+> +		if (!recv_token)
+> +			continue;
+> +
+> +		if (recv_token->proxy_resp_info.request_id != req_id)
+> +			ret = -EIO;
+> +		else if (recv_token->proxy_resp_info.error_info.error)
+> +			ret = -EIO;
+> +		else
+> +			ret = 0;
+> +
+> +		ipu6_recv_put_token(ctx, IPU4P_BASE_PROXY_RECV_QUEUES);
+> +		return ret;
+> +	} while (--timeout);
+> +
+> +	return -ETIMEDOUT;
+> +}
+> +
+> +static int
+> +ipu4p_fw_isys_set_iwake_register(struct ipu6_isys *isys,
+> +				 enum ipu6_isys_iwake_register reg, u32 value)
+> +{
+> +	switch (reg) {
+> +	case IPU6_ISYS_IWAKE_GDA_THRESHOLD:
+> +		return ipu4p_fw_isys_send_proxy_token(isys, 0, 0, value);
+> +	case IPU6_ISYS_IWAKE_GDA_ENABLE:
+> +		return ipu4p_fw_isys_send_proxy_token(isys, 1, 1, value);
+> +	case IPU6_ISYS_IWAKE_GDA_IRQ_CRITICAL_THRESHOLD:
+> +	case IPU6_ISYS_IWAKE_GDA_MEMOPEN_THRESHOLD:
+> +		return -EOPNOTSUPP;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+> +static int ipu4p_fw_isys_isr_one(struct ipu6_bus_device *adev)
+> +{
+> +	struct ipu6_isys *isys = ipu6_bus_get_drvdata(adev);
+> +	struct device *dev = &adev->auxdev.dev;
+> +	struct ipu4p_fw_isys_recv_token *token;
+> +	struct ipu4p_fw_isys_resp_info *fw_resp;
+> +	struct ipu6_fw_isys_resp_info_abi resp = {};
+> +	int type;
+> +
+> +	if (!isys->fwctx)
+> +		return 1;
+
+Can this happen?
+
+> +
+> +	token = ipu6_recv_get_token(isys->fwctx, IPU4P_BASE_MSG_RECV_QUEUES);
+> +	if (!token)
+> +		return 1;
+> +
+> +	fw_resp = &token->resp_info;
+> +	if (fw_resp->type >= N_IPU4P_FW_ISYS_RESP_TYPE) {
+> +		dev_err(dev, "Unknown IPU4P response type %u stream %u\n",
+> +			fw_resp->type, fw_resp->stream_handle);
+> +		goto out;
+> +	}
+> +
+> +	switch (fw_resp->type) {
+> +	case IPU4P_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_SKIPPED: {
+> +		u32 addrs[IPU4P_MAX_OPINS] = {};
+> +		u8 pending_pin_mask;
+> +		unsigned int i;
+> +
+> +		if (!ipu4p_fw_isys_complete_skipped_frame(isys,
+> +							  fw_resp->stream_handle,
+> +							  fw_resp->frame_counter,
+> +							  addrs, &pending_pin_mask)) {
+> +			dev_dbg(dev, "No in-flight frame set for skipped stream %u frame %u\n",
+> +				fw_resp->stream_handle, fw_resp->frame_counter);
+> +			goto out;
+> +		}
+> +
+> +		for (i = 0; i < IPU4P_MAX_OPINS; i++) {
+> +			struct ipu6_fw_isys_resp_info_abi skipped = {};
+> +
+> +			if (!(pending_pin_mask & BIT(i)))
+> +				continue;
+> +
+> +			skipped.timestamp[0] = fw_resp->timestamp[0];
+> +			skipped.timestamp[1] = fw_resp->timestamp[1];
+> +			skipped.stream_handle = fw_resp->stream_handle;
+> +			skipped.type = IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_SKIPPED;
+> +			skipped.pin_id = i;
+> +			skipped.pin.addr = addrs[i];
+> +			ipu6_isys_handle_response(adev, &skipped, false);
+> +		}
+> +		goto out;
+> +	}
+> +	case IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_SKIPPED:
+> +		if (!ipu4p_fw_isys_complete_pin_response(isys, fw_resp)) {
+> +			dev_dbg(dev, "No in-flight pin set for stream %u frame %u\n",
+> +				fw_resp->stream_handle, fw_resp->frame_counter);
+> +			goto out;
+> +		}
+> +		break;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_FRAME_SOF_DISCARDED:
+> +	case IPU4P_FW_ISYS_RESP_TYPE_FRAME_EOF_DISCARDED:
+> +	case IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_WATERMARK:
+> +		dev_dbg(dev, "Ignoring IPU4P response type %u for stream %u\n",
+> +			fw_resp->type, fw_resp->stream_handle);
+> +		goto out;
+> +	case IPU4P_FW_ISYS_RESP_TYPE_PIN_DATA_READY:
+> +		if (!ipu4p_fw_isys_complete_pin_response(isys, fw_resp)) {
+> +			dev_warn(dev,
+> +				 "Unmatched IPU4P pin response for stream %u frame %u\n",
+> +				 fw_resp->stream_handle, fw_resp->frame_counter);
+> +			goto out;
+> +		}
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	type = ipu4p_fw_isys_resp_type_to_ipu6(fw_resp->type);
+> +	if (type < 0) {
+> +		if (type == -EINVAL)
+> +			dev_err(dev, "Unknown IPU4P response type %u\n",
+> +				fw_resp->type);
+> +		else
+> +			dev_dbg(dev, "Ignoring unsupported IPU4P response type %u\n",
+> +				fw_resp->type);
+> +		goto out;
+> +	}
+> +
+> +	resp.buf_id = fw_resp->buf_id;
+> +	resp.pin.out_buf_id = fw_resp->pin.out_buf_id;
+> +	resp.pin.addr = fw_resp->pin.addr;
+> +	resp.pin.compress = fw_resp->pin.compress;
+> +	resp.error_info.error = fw_resp->error_info.error;
+> +	resp.error_info.error_details = fw_resp->error_info.error_details;
+> +	resp.timestamp[0] = fw_resp->timestamp[0];
+> +	resp.timestamp[1] = fw_resp->timestamp[1];
+> +	resp.stream_handle = fw_resp->stream_handle;
+> +	resp.type = type;
+> +	resp.pin_id = fw_resp->pin_id;
+> +
+> +	/* IPU4P manages message-buffer ownership separately. */
+> +	ipu6_isys_handle_response(adev, &resp, false);
+> +
+> +out:
+> +	ipu6_recv_put_token(isys->fwctx, IPU4P_BASE_MSG_RECV_QUEUES);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ipu4p_fw_isys_pin_cfg(struct ipu6_isys_video *av,
+> +				 struct ipu6_isys_stream *stream,
+> +				 struct media_pad *src_pad,
+> +				 struct v4l2_mbus_frame_desc_entry *entry,
+> +				 void *__cfg)
+> +{
+> +	struct v4l2_subdev *sd = media_entity_to_v4l2_subdev(src_pad->entity);
+> +	struct v4l2_subdev_state *state = v4l2_subdev_get_locked_active_state(sd);
+> +	struct ipu4p_fw_isys_stream_cfg *cfg = __cfg;
+> +	struct ipu4p_fw_isys_input_pin_info *input_pin;
+> +	struct ipu4p_fw_isys_output_pin_info *output_pin;
+> +	struct ipu6_isys_queue *aq = &av->aq;
+> +	const struct ipu6_isys_pixelformat *pfmt;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	unsigned int input_pins, output_pins;
+> +	u32 src_stream;
+> +
+> +	if (cfg->nof_input_pins >= IPU4P_MAX_IPINS ||
+> +	    cfg->nof_output_pins >= IPU4P_MAX_OPINS)
+> +		return -EINVAL;
+> +
+> +	pfmt = ipu6_isys_get_isys_format(ipu6_isys_get_format(av), 0);
+> +	if (!pfmt)
+> +		return -EINVAL;
+> +
+> +	src_stream = __ipu6_isys_get_src_stream_by_src_pad(state, src_pad->index);
+> +	fmt = v4l2_subdev_state_get_format(state, src_pad->index, src_stream);
+> +	if (!fmt)
+> +		return -EINVAL;
+> +
+> +	input_pins = cfg->nof_input_pins++;
+> +	input_pin = &cfg->input_pins[input_pins];
+> +	input_pin->input_res.width = fmt->width;
+> +	input_pin->input_res.height = fmt->height;
+> +	input_pin->dt = entry->bus.csi2.dt;
+> +	input_pin->bits_per_pix = pfmt->bpp_packed;
+> +	input_pin->mapped_dt = N_IPU4P_FW_ISYS_MIPI_DATA_TYPE;
+> +	input_pin->mipi_store_mode = pfmt->bpp == pfmt->bpp_packed ?
+> +		IPU4P_FW_ISYS_MIPI_STORE_MODE_DISCARD_LONG_HEADER :
+> +		IPU4P_FW_ISYS_MIPI_STORE_MODE_NORMAL;
+> +
+> +	output_pins = cfg->nof_output_pins++;
+> +	aq->fw_output = output_pins;
+> +	stream->output_pins_queue[output_pins] = aq;
+> +
+> +	output_pin = &cfg->output_pins[output_pins];
+> +	output_pin->input_pin_id = input_pins;
+> +	output_pin->output_res.width = ipu6_isys_get_frame_width(av);
+> +	output_pin->output_res.height = ipu6_isys_get_frame_height(av);
+> +	output_pin->stride = ipu6_isys_get_bytes_per_line(av);
+> +	output_pin->payload_buf_size = 0;
+> +	output_pin->pt = pfmt->bpp == pfmt->bpp_packed ?
+> +		IPU4P_FW_ISYS_PIN_TYPE_MIPI : IPU4P_FW_ISYS_PIN_TYPE_RAW_SOC;
+> +	output_pin->ft = pfmt->css_pixelformat;
+> +	output_pin->send_irq = 1;
+> +	output_pin->link_id = IPU4P_FW_ISYS_LINK_OFFLINE;
+> +
+> +	return 0;
+> +}
+> +
+> +static int
+> +ipu4p_fw_isys_prepare_stream_cfg(struct ipu6_isys_stream *stream,
+> +				 struct v4l2_mbus_frame_desc *desc,
+> +				 struct isys_fw_msgs *msg)
+> +{
+> +	struct ipu4p_fw_isys_stream_cfg *cfg = &msg->ipu4p.stream;
+> +	struct device *dev = &stream->isys->adev->auxdev.dev;
+> +	int ret;
+> +
+> +	memset(cfg, 0, sizeof(*cfg));
+> +	msg->ipu4p_stream_handle = stream->stream_handle;
+> +	msg->ipu4p_frame_counter = 0;
+> +	msg->ipu4p_pending_pin_mask = 0;
+> +	msg->ipu4p_is_frame = false;
+> +	msg->ipu4p_addr_error = false;
+> +	cfg->src = stream->asd->source;
+> +	cfg->vc = stream->vc;
+> +	cfg->isl_use = IPU4P_FW_ISYS_USE_NO_ISL_NO_ISA;
+> +
+> +	ret = ipu6_isys_fw_pins_prepare(stream, desc, ipu4p_fw_isys_pin_cfg,
+> +					cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	stream->nr_output_pins = cfg->nof_output_pins;
+> +	ipu4p_fw_isys_dump_stream_cfg(dev, msg);
+> +
+> +	return 0;
+> +}
+> +
+> +static int ipu4p_fw_isys_stream_open(struct ipu6_isys *isys,
+> +				     const unsigned int stream_handle,
+> +				     struct isys_fw_msgs *msg)
+> +{
+> +	return ipu4p_fw_isys_send_cmd(isys, stream_handle,
+> +				      &msg->ipu4p.stream, msg->dma_addr,
+> +				      sizeof(msg->ipu4p.stream),
+> +				      IPU4P_FW_ISYS_SEND_TYPE_STREAM_OPEN);
+> +}
+> +
+> +static int ipu4p_fw_isys_stream_close(struct ipu6_isys *isys,
+> +				      const unsigned int stream_handle)
+> +{
+> +	return ipu4p_fw_isys_send_cmd(isys, stream_handle, NULL, 0, 0,
+> +				      IPU4P_FW_ISYS_SEND_TYPE_STREAM_CLOSE);
+> +}
+> +
+> +static int ipu4p_fw_isys_stream_flush(struct ipu6_isys *isys,
+> +				      const unsigned int stream_handle)
+> +{
+> +	return ipu4p_fw_isys_send_cmd(isys, stream_handle, NULL, 0, 0,
+> +				      IPU4P_FW_ISYS_SEND_TYPE_STREAM_FLUSH);
+> +}
+> +
+> +static int
+> +ipu4p_fw_isys_send_frame_buff_set(struct ipu6_isys *isys,
+> +				  const unsigned int stream_handle,
+> +				  struct isys_fw_msgs *msg, u16 send_type)
+> +{
+> +	if (msg->ipu4p_addr_error)
+> +		return -ERANGE;
+> +
+> +	return ipu4p_fw_isys_send_cmd(isys, stream_handle,
+> +				      &msg->ipu4p.frame, msg->dma_addr,
+> +				      sizeof(msg->ipu4p.frame), send_type);
+> +}
+> +
+> +static int ipu4p_fw_isys_stream_start(struct ipu6_isys *isys,
+> +				      const unsigned int stream_handle,
+> +				      struct isys_fw_msgs *msg, bool capture)
+> +{
+> +	if (!capture)
+> +		return ipu4p_fw_isys_send_cmd(isys, stream_handle, NULL, 0, 0,
+> +					      IPU4P_FW_ISYS_SEND_TYPE_STREAM_START);
+> +
+> +	return ipu4p_fw_isys_send_frame_buff_set(isys, stream_handle, msg,
+> +						 IPU4P_FW_ISYS_SEND_TYPE_STREAM_START_AND_CAPTURE);
+> +}
+> +
+> +static int ipu4p_fw_isys_stream_capture(struct ipu6_isys *isys,
+> +					const unsigned int stream_handle,
+> +					struct isys_fw_msgs *msg)
+> +{
+> +	return ipu4p_fw_isys_send_frame_buff_set(isys, stream_handle, msg,
+> +						 IPU4P_FW_ISYS_SEND_TYPE_STREAM_CAPTURE);
+> +}
+> +
+> +static bool
+> +ipu4p_fw_isys_buf_to_frame_buf_pin(struct vb2_buffer *vb,
+> +				   struct ipu4p_fw_isys_frame_buff_set *set)
+> +{
+> +	struct ipu6_isys_queue *aq = vb2_queue_to_isys_queue(vb->vb2_queue);
+> +	struct vb2_v4l2_buffer *vvb = to_vb2_v4l2_buffer(vb);
+> +	struct ipu6_isys_video_buffer *ivb =
+> +		vb2_buffer_to_ipu6_isys_video_buffer(vvb);
+> +	struct ipu4p_fw_isys_output_pin_payload *pin;
+> +
+> +	if (aq->fw_output >= IPU4P_MAX_OPINS ||
+> +	    upper_32_bits(ivb->dma_addr))
+
+Is the latter check necessary? Doesn't it require a driver bug for that to
+happen?
+
+> +		return false;
+> +
+> +	pin = &set->output_pins[aq->fw_output];
+> +	pin->addr = lower_32_bits(ivb->dma_addr);
+> +	/* Firmware echoes this opaque handle in PIN_DATA_READY. */
+> +	pin->out_buf_id = (u64)(uintptr_t)set;
+> +
+> +	return true;
+> +}
+> +
+> +static void
+> +ipu4p_fw_isys_prepare_buf_set(struct isys_fw_msgs *msg,
+> +			      struct ipu6_isys_stream *stream,
+> +			      struct ipu6_isys_buffer_list *bl)
+> +{
+> +	struct ipu4p_fw_isys_frame_buff_set *set = &msg->ipu4p.frame;
+> +	struct ipu6_isys_buffer *ib;
+> +
+> +	WARN_ON(!bl->nbufs);
+> +
+> +	memset(set, 0, sizeof(*set));
+> +	set->frame_counter = atomic_fetch_inc(&stream->buf_id) % 256;
+
+& 0xff
+
+?
+
+> +	msg->ipu4p_stream_handle = stream->stream_handle;
+> +	msg->ipu4p_frame_counter = set->frame_counter;
+> +	msg->ipu4p_pending_pin_mask = 0;
+> +	msg->ipu4p_is_frame = true;
+> +	msg->ipu4p_addr_error = false;
+> +	set->send_irq_sof = 1;
+> +	set->send_irq_eof = 1;
+> +	set->send_irq_capture_ack = 1;
+> +	set->send_irq_capture_done = 1;
+> +	set->send_resp_sof = 1;
+> +	set->send_resp_eof = 1;
+> +
+> +	list_for_each_entry(ib, &bl->head, head) {
+> +		struct vb2_buffer *vb = ipu6_isys_buffer_to_vb2_buffer(ib);
+> +		struct ipu6_isys_queue *aq =
+> +			vb2_queue_to_isys_queue(vb->vb2_queue);
+> +
+> +		if (ipu4p_fw_isys_buf_to_frame_buf_pin(vb, set))
+> +			msg->ipu4p_pending_pin_mask |= BIT(aq->fw_output);
+> +		else
+> +			msg->ipu4p_addr_error = true;
+> +	}
+> +}
+> +
+> +const struct ipu6_fw_isys_ops ipu4p_fw_isys_ops = {
+> +	.init = ipu4p_fw_isys_init,
+> +	.close = ipu4p_fw_isys_close,
+> +	.isr_one = ipu4p_fw_isys_isr_one,
+> +	.set_iwake_register = ipu4p_fw_isys_set_iwake_register,
+
+I think this requires some refactoring: the IPU6 doesn't use a callback but
+the main IPU6 specific function calls IPU4P specific callback? I'd do this
+in a separate patch.
+
+> +	.send_cmd = ipu4p_fw_isys_send_cmd,
+> +	.cleanup = ipu4p_fw_isys_cleanup,
+> +	.prepare_stream_cfg = ipu4p_fw_isys_prepare_stream_cfg,
+> +	.prepare_buf_set = ipu4p_fw_isys_prepare_buf_set,
+> +	.stream_open = ipu4p_fw_isys_stream_open,
+> +	.stream_start = ipu4p_fw_isys_stream_start,
+> +	.stream_capture = ipu4p_fw_isys_stream_capture,
+> +	.stream_flush = ipu4p_fw_isys_stream_flush,
+> +	.stream_close = ipu4p_fw_isys_stream_close,
+> +	.dump_stream_cfg = ipu4p_fw_isys_dump_stream_cfg,
+> +	.dump_frame_buf_set = ipu4p_fw_isys_dump_frame_buf_set,
+> +};
+> diff --git a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h
+> index d2d5962b218..15a5dc7c938 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu4p-fw-isys.h
+> @@ -12,6 +12,11 @@
+>  #define IPU4P_MAX_IPINS				4U
+>  #define IPU4P_MAX_OPINS				6U
+>  #define IPU4P_NOF_SRAM_BLOCKS_MAX		8U
+> +#define IPU4P_DEVICE_GDA_NR_PAGES		128U
+> +#define IPU4P_DEVICE_GDA_VIRT_FACTOR		32U
+> +#define IPU4P_N_MAX_PROXY_SEND_QUEUES		1U
+> +#define IPU4P_N_MAX_DEV_SEND_QUEUES		1U
+> +#define IPU4P_N_MAX_PROXY_RECV_QUEUES		1U
+>  #define IPU4P_DEV_SEND_QUEUE_SIZE		8U
+
+Not added by this patch, but these macro names should be aligned.
+
+>  #define IPU4P_ISYS_SIZE_RECV_QUEUE		40U
+>  #define IPU4P_ISYS_SIZE_SEND_QUEUE		40U
+> @@ -26,6 +31,8 @@
+>  #define IPU4P_BASE_PROXY_RECV_QUEUES		0U
+>  #define IPU4P_BASE_MSG_RECV_QUEUES		1U
+>  #define IPU4P_N_MAX_RECV_QUEUES			2U
+> +#define IPU4P_N_MAX_SEND_QUEUES \
+> +	(IPU4P_BASE_MSG_SEND_QUEUES + IPU4P_ISYS_MAX_STREAMS)
+>  
+>  #define IPU4P_ISYS_CROPPING_LOCATION_MAX	4U
+>  #define IPU4P_ISYS_RESOLUTION_INFO_MAX		2U
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-bus.h b/drivers/media/pci/intel/ipu6/ipu6-bus.h
+> index d2f93eb03de..68a3b8e29b3 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-bus.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-bus.h
+> @@ -46,6 +46,7 @@ struct ipu6_auxdrv_data {
+>  	container_of(_auxdev, struct ipu6_bus_device, auxdev)
+>  #define ipu6_bus_get_drvdata(adev) dev_get_drvdata(&(adev)->auxdev.dev)
+>  
+> +extern const struct ipu6_fw_isys_ops ipu4p_fw_isys_ops;
+>  extern const struct ipu6_fw_isys_ops ipu6_fw_isys_ops;
+>  extern const struct ipu6_fw_isys_ops ipu7_fw_isys_ops;
+>  
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> index c6066e37ef5..efcece5620d 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> @@ -599,6 +599,15 @@ void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
+>  	case IPU6_FW_ISYS_RESP_TYPE_STREAM_FLUSH_ACK:
+>  		complete(&stream->stream_stop_completion);
+>  		break;
+> +	case IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_SKIPPED:
+> +		if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
+> +		    stream->output_pins_queue[resp->pin_id])
+> +			ipu6_isys_queue_buf_ready(stream, resp);
+> +		else
+> +			dev_warn(&adev->auxdev.dev,
+> +				 "%d:No queue for skipped pin id %d\n",
+> +				 resp->stream_handle, resp->pin_id);
+> +		break;
+>  	case IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY:
+>  		/*
+>  		 * firmware only release the capture message until software
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+> index 15254542793..ea21ce9b814 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c
+> @@ -3,6 +3,7 @@
+>   * Copyright (C) 2013--2024 Intel Corporation
+>   */
+>  
+> +#include <linux/array_size.h>
+>  #include <linux/atomic.h>
+>  #include <linux/bitfield.h>
+>  #include <linux/bits.h>
+> @@ -914,6 +915,17 @@ void ipu6_isys_csi2_cleanup(struct ipu6_isys_csi2 *csi2)
+>  	csi2->isys = NULL;
+>  }
+>  
+> +static const u8 ipu4p_csi2_fw_sources[] = {
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_3,
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_6,
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_7,
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_8,
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_9,
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_10,
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_11,
+> +	IPU4P_FW_ISYS_STREAM_SRC_PORT_12,
+> +};
+> +
+>  int ipu6_isys_csi2_init(struct ipu6_isys_csi2 *csi2,
+>  			struct ipu6_isys *isys,
+>  			void __iomem *base, unsigned int index)
+> @@ -921,6 +933,10 @@ int ipu6_isys_csi2_init(struct ipu6_isys_csi2 *csi2,
+>  	struct device *dev = &isys->adev->auxdev.dev;
+>  	int ret;
+>  
+> +	if (IS_IPU4P(isys->adev->isp) &&
+> +	    index >= ARRAY_SIZE(ipu4p_csi2_fw_sources))
+> +		return -EINVAL;
+
+Is this a necessary check?
+
+> +
+>  	csi2->isys = isys;
+>  	csi2->base = base;
+>  	csi2->port = index;
+> @@ -934,7 +950,10 @@ int ipu6_isys_csi2_init(struct ipu6_isys_csi2 *csi2,
+>  
+>  	INIT_LIST_HEAD(&csi2->av_head);
+>  	INIT_LIST_HEAD(&csi2->streams);
+> -	csi2->asd.source = IPU6_FW_ISYS_STREAM_SRC_CSI2_PORT0 + index;
+> +	if (IS_IPU4P(isys->adev->isp))
+> +		csi2->asd.source = ipu4p_csi2_fw_sources[index];
+> +	else
+> +		csi2->asd.source = IPU6_FW_ISYS_STREAM_SRC_CSI2_PORT0 + index;
+>  	csi2->asd.supported_codes = csi2_supported_codes;
+>  	snprintf(csi2->asd.sd.name, sizeof(csi2->asd.sd.name),
+>  		 "Intel IPU%s CSI2 %u",
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+> index 23d00e1f89e..5ac34699c3b 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+> @@ -301,8 +301,10 @@ static void buf_queue(struct vb2_buffer *vb)
+>  	struct device *dev = &adev->auxdev.dev;
+>  	struct ipu6_isys_stream *stream = av->stream;
+>  	struct ipu6_isys_csi2 *csi2;
+> +	struct ipu6_isys_buffer *buffers[IPU6_ISYS_OUTPUT_PINS];
+>  	struct ipu6_isys_buffer_list bl;
+>  	struct isys_fw_msgs *msg;
+> +	unsigned int num_buffers = 0, i;
+>  	unsigned long flags;
+>  	dma_addr_t dma;
+>  	int ret;
+> @@ -344,9 +346,15 @@ static void buf_queue(struct vb2_buffer *vb)
+>  	msg = ipu6_get_fw_msg_buf(stream);
+>  	if (!msg) {
+>  		ret = -ENOMEM;
+> +		ipu6_isys_buffer_list_queue(&bl,
+> +					    IPU6_ISYS_BUFFER_LIST_FL_INCOMING,
+> +					    VB2_BUF_STATE_QUEUED);
+>  		goto out;
+>  	}
+>  
+> +	list_for_each_entry(ib, &bl.head, head)
+> +		buffers[num_buffers++] = ib;
+> +
+>  	fw_ops->prepare_buf_set(msg, stream, &bl);
+>  	fw_ops->dump_frame_buf_set(dev, msg, stream->nr_output_pins);
+>  
+> @@ -359,8 +367,29 @@ static void buf_queue(struct vb2_buffer *vb)
+>  	ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_ACTIVE, 0);
+>  
+>  	ret = fw_ops->stream_capture(stream->isys, stream->stream_handle, msg);
+> -	if (ret < 0)
+> -		dev_err(dev, "send stream capture failed\n");
+> +	if (ret < 0) {
+> +		dev_err(dev, "send stream capture failed: %d\n", ret);
+> +		ipu6_put_fw_msg_buf(stream->isys, msg);
+> +
+> +		/*
+> +		 * The command was not submitted. Return only this frame's
+> +		 * buffers, leaving other in-flight captures untouched.
+> +		 */
+> +		for (i = 0; i < num_buffers; i++) {
+
+You can declare i here.
+
+> +			struct ipu6_isys_queue *buffer_aq;
+> +			struct vb2_buffer *buffer_vb;
+> +
+> +			ib = buffers[i];
+> +			buffer_vb = ipu6_isys_buffer_to_vb2_buffer(ib);
+> +			buffer_aq = vb2_queue_to_isys_queue(buffer_vb->vb2_queue);
+> +
+> +			spin_lock_irqsave(&buffer_aq->lock, flags);
+> +			list_del(&ib->head);
+> +			spin_unlock_irqrestore(&buffer_aq->lock, flags);
+> +
+> +			vb2_buffer_done(buffer_vb, VB2_BUF_STATE_ERROR);
+> +		}
+> +	}
+>  
+>  out:
+>  	mutex_unlock(&stream->mutex);
+> @@ -699,7 +728,8 @@ void ipu6_isys_queue_buf_ready(struct ipu6_isys_stream *stream,
+>  			       struct ipu6_fw_isys_resp_info_abi *info)
+>  {
+>  	u64 time = (u64)info->timestamp[1] << 32 | info->timestamp[0];
+> -	bool err = info->error_info.error == IPU6_FW_ISYS_ERROR_HW_REPORTED_STR2MMIO;
+> +	bool err = info->type == IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_SKIPPED ||
+> +		   info->error_info.error == IPU6_FW_ISYS_ERROR_HW_REPORTED_STR2MMIO;
+>  
+>  	ipu6_stream_buf_ready(stream, info->pin_id, info->pin.addr, time, err);
+>  }
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+> index 129016e5744..f4668bf40a7 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+> @@ -673,14 +673,22 @@ ipu6_isys_alloc_stream_firmware(struct ipu6_isys_csi2 *csi2,
+>  	struct device *dev = &csi2->isys->adev->auxdev.dev;
+>  	struct ipu6_isys_stream *stream;
+>  	struct v4l2_subdev_route *route;
+> +	unsigned int max_streams;
+>  	int ret;
+>  
+>  	stream = kzalloc_obj(*stream);
+>  	if (!stream)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	ret = ida_alloc_max(&csi2->isys->streams, IPU6_ISYS_MAX_STREAMS - 1,
+> -			    GFP_KERNEL);
+> +	max_streams = min_t(unsigned int,
+> +			    csi2->isys->pdata->ipdata->max_streams,
+> +			    IPU6_ISYS_MAX_STREAMS);
+
+Can max_streams in internal pdata excee IPU6_ISYS_MAX_STREAMS? At least
+it'd be a driver bug, wouldn't it?
+
+> +	if (!max_streams) {
+> +		ret = -EINVAL;
+> +		goto err_free_stream;
+> +	}
+> +
+> +	ret = ida_alloc_max(&csi2->isys->streams, max_streams - 1, GFP_KERNEL);
+>  	if (ret < 0)
+>  		goto err_free_stream;
+>  
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+> index 094a98e31c0..037eb0a52d4 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+> @@ -124,10 +124,33 @@ struct ltr_did {
+>  
+>  #define ISYS_PM_QOS_VALUE	300
+>  
+> +static int
+> +ipu6_isys_csi2_fw_port_to_index(struct ipu6_isys *isys,
+> +				unsigned int fw_port)
+> +{
+> +	unsigned int index;
+> +
+> +	if (!IS_IPU4P(isys->adev->isp))
+> +		index = fw_port;
+> +	else if (fw_port == IPU4P_FW_ISYS_STREAM_SRC_PORT_3)
+> +		index = 0;
+> +	else if (fw_port >= IPU4P_FW_ISYS_STREAM_SRC_PORT_6 &&
+> +		 fw_port <= IPU4P_FW_ISYS_STREAM_SRC_PORT_12)
+> +		index = fw_port - IPU4P_FW_ISYS_STREAM_SRC_PORT_5;
+> +	else
+> +		return -EINVAL;
+
+Maybe this would look nicer with switch() (using GNU case range extension)?
+
+> +
+> +	if (index >= isys->pdata->ipdata->csi2.nports)
+> +		return -EINVAL;
+> +
+> +	return index;
+> +}
+> +
+>  static int
+>  isys_complete_ext_device_registration(struct ipu6_isys *isys,
+>  				      struct v4l2_subdev *sd,
+> -				      struct ipu6_isys_csi2_config *csi2)
+> +				      struct ipu6_isys_csi2_config *csi2,
+> +				      unsigned int csi2_port)
+>  {
+>  	struct device *dev = &isys->adev->auxdev.dev;
+>  	unsigned int i;
+> @@ -145,7 +168,7 @@ isys_complete_ext_device_registration(struct ipu6_isys *isys,
+>  	}
+>  
+>  	ret = media_create_pad_link(&sd->entity, i,
+> -				    &isys->csi2[csi2->port].asd.sd.entity,
+> +				    &isys->csi2[csi2_port].asd.sd.entity,
+
+Why isn't the port number available anymore in ipu6_isys_csi2_config?
+
+>  				    0, MEDIA_LNK_FL_ENABLED |
+>  				       MEDIA_LNK_FL_IMMUTABLE);
+>  	if (ret) {
+> @@ -153,8 +176,8 @@ isys_complete_ext_device_registration(struct ipu6_isys *isys,
+>  		goto unregister_subdev;
+>  	}
+>  
+> -	isys->csi2[csi2->port].nlanes = csi2->nlanes;
+> -	isys->csi2[csi2->port].phy_mode =
+> +	isys->csi2[csi2_port].nlanes = csi2->nlanes;
+> +	isys->csi2[csi2_port].phy_mode =
+>  		csi2->bus_type == V4L2_MBUS_CSI2_DPHY ?
+>  		PHY_MODE_DPHY : PHY_MODE_CPHY;
+>  
+> @@ -352,16 +375,22 @@ static void ipu6_isys_setup_hw(struct ipu6_isys *isys)
+>  		writel(thd[i], base + IPU6_REG_ISYS_CDC_THRESHOLD(i));
+>  }
+>  
+> -static int set_iwake_register(struct ipu6_isys *isys, u32 index, u32 value)
+> +static int set_iwake_register(struct ipu6_isys *isys,
+> +			      enum ipu6_isys_iwake_register index, u32 value)
+>  {
+> +	const struct ipu6_fw_isys_ops *fw_ops = isys->adev->auxdrv_data->fw_ops;
+>  	struct device *dev = &isys->adev->auxdev.dev;
+> -	u32 req_id = index;
+>  	u32 offset = 0;
+>  	int ret;
+>  
+> -	ret = ipu6_fw_isys_send_proxy_token(isys, req_id, index, offset, value);
+> -	if (ret)
+> -		dev_err(dev, "write %d failed %d", index, ret);
+> +	if (fw_ops->set_iwake_register)
+> +		ret = fw_ops->set_iwake_register(isys, index, value);
+> +	else
+> +		ret = ipu6_fw_isys_send_proxy_token(isys, index, index,
+> +						    offset, value);
+> +
+> +	if (ret && ret != -EOPNOTSUPP)
+> +		dev_err(dev, "write %d failed %d\n", index, ret);
+>  
+>  	return ret;
+>  }
+> @@ -390,6 +419,10 @@ static void set_iwake_ltrdid(struct ipu6_isys *isys, u16 ltr, u16 did,
+>  	struct ipu6_device *isp = isys->adev->isp;
+>  	union fabric_ctrl fc;
+>  
+> +	/* IPU4P must not use the IPU6-specific fabric LTR/DID registers. */
+> +	if (IS_IPU4P(isp))
+> +		return;
+> +
+>  	switch (use) {
+>  	case LTR_IWAKE_ON:
+>  		ltr_val = min_t(u16, ltr, (u16)LTR_DID_VAL_MAX);
+> @@ -485,9 +518,19 @@ void ipu6_isys_update_watermark_setting(struct ipu6_isys *isys)
+>  
+>  	if (force_iwake_disable) {
+>  		dev_dbg(dev, "watermark: forcing iwake disabled\n");
+> -		set_iwake_ltrdid(isys, 0, 0, LTR_IWAKE_OFF);
+> -		set_iwake_register(isys, GDA_IRQ_CRITICAL_THRESHOLD_INDEX,
+> -				   CRITICAL_THRESHOLD_IWAKE_DISABLE);
+> +		if (IS_IPU4P(isys->adev->isp)) {
+> +			/*
+> +			 * IPU4P has no critical-threshold proxy operation.
+> +			 * Disable IWAKE through the supported enable operation.
+> +			 */
+> +			if (!set_iwake_register(isys, GDA_ENABLE_IWAKE_INDEX,
+> +						false))
+> +				isys->iwake_watermark_enabled = false;
+> +		} else {
+> +			set_iwake_ltrdid(isys, 0, 0, LTR_IWAKE_OFF);
+> +			set_iwake_register(isys, GDA_IRQ_CRITICAL_THRESHOLD_INDEX,
+> +					   CRITICAL_THRESHOLD_IWAKE_DISABLE);
+> +		}
+>  		return;
+>  	}
+>  
+> @@ -495,8 +538,9 @@ void ipu6_isys_update_watermark_setting(struct ipu6_isys *isys)
+>  		dev_dbg(dev, "watermark: disabled iwake\n");
+>  		enable_iwake(isys, false);
+>  		set_iwake_ltrdid(isys, 0, 0, LTR_IWAKE_OFF);
+> -		set_iwake_register(isys, GDA_IRQ_CRITICAL_THRESHOLD_INDEX,
+> -				   CRITICAL_THRESHOLD_IWAKE_DISABLE);
+> +		if (!IS_IPU4P(isys->adev->isp))
+> +			set_iwake_register(isys, GDA_IRQ_CRITICAL_THRESHOLD_INDEX,
+> +					   CRITICAL_THRESHOLD_IWAKE_DISABLE);
+>  		return;
+>  	}
+>  
+> @@ -551,19 +595,21 @@ void ipu6_isys_update_watermark_setting(struct ipu6_isys *isys)
+>  				   iwake_threshold);
+>  	}
+>  
+> -	iwake_critical_threshold = iwake_threshold +
+> -		(IS_PIXEL_BUFFER_PAGES - iwake_threshold) / 2;
+> +	if (!IS_IPU4P(isys->adev->isp)) {
+> +		iwake_critical_threshold = iwake_threshold +
+> +			(IS_PIXEL_BUFFER_PAGES - iwake_threshold) / 2;
+>  
+> -	dev_dbg(dev, "watermark: threshold: %u critical: %u\n", iwake_threshold,
+> -		iwake_critical_threshold);
+> +		dev_dbg(dev, "watermark: threshold: %u critical: %u\n",
+> +			iwake_threshold, iwake_critical_threshold);
+>  
+> -	set_iwake_register(isys, GDA_IRQ_CRITICAL_THRESHOLD_INDEX,
+> -			   iwake_critical_threshold);
+> +		set_iwake_register(isys, GDA_IRQ_CRITICAL_THRESHOLD_INDEX,
+> +				   iwake_critical_threshold);
+>  
+> -	writel(VAL_PKGC_PMON_CFG_RESET,
+> -	       isys->adev->isp->base + REG_PKGC_PMON_CFG);
+> -	writel(VAL_PKGC_PMON_CFG_START,
+> -	       isys->adev->isp->base + REG_PKGC_PMON_CFG);
+> +		writel(VAL_PKGC_PMON_CFG_RESET,
+> +		       isys->adev->isp->base + REG_PKGC_PMON_CFG);
+> +		writel(VAL_PKGC_PMON_CFG_START,
+> +		       isys->adev->isp->base + REG_PKGC_PMON_CFG);
+> +	}
+>  }
+>  
+>  /* The .bound() notifier callback when a match is found */
+> @@ -575,12 +621,14 @@ static int isys_notifier_bound(struct v4l2_async_notifier *notifier,
+>  		container_of(notifier, struct ipu6_isys, notifier);
+>  	struct sensor_async_sd *s_asd =
+>  		container_of(asc, struct sensor_async_sd, asc);
+> +	int csi2_port;
+>  	int ret;
+>  
+> -	if (s_asd->csi2.port >= isys->pdata->ipdata->csi2.nports) {
+> +	csi2_port = ipu6_isys_csi2_fw_port_to_index(isys, s_asd->csi2.port);
+> +	if (csi2_port < 0) {
+>  		dev_err(&isys->adev->auxdev.dev, "invalid csi2 port %u\n",
+>  			s_asd->csi2.port);
+> -		return -EINVAL;
+> +		return csi2_port;
+>  	}
+>  
+>  	ret = ipu_bridge_instantiate_vcm(sd->dev);
+> @@ -591,7 +639,8 @@ static int isys_notifier_bound(struct v4l2_async_notifier *notifier,
+>  
+>  	dev_dbg(&isys->adev->auxdev.dev, "bind %s nlanes is %d port is %d\n",
+>  		sd->name, s_asd->csi2.nlanes, s_asd->csi2.port);
+> -	ret = isys_complete_ext_device_registration(isys, sd, &s_asd->csi2);
+> +	ret = isys_complete_ext_device_registration(isys, sd, &s_asd->csi2,
+> +						    csi2_port);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -772,12 +821,13 @@ static int isys_runtime_pm_resume(struct device *dev)
+>  	if (ret)
+>  		goto err_mmu_hw_cleanup;
+>  
+> -	if (IS_IPU7(isp) || IS_IPU8(isp)) {
+> +	if (IS_IPU7(isp) || IS_IPU8(isp))
+>  		ipu7_isys_setup_hw(isys);
+> -	} else {
+> +	else if (!IS_IPU4P(isp))
+>  		ipu6_isys_setup_hw(isys);
+> +
+> +	if (!IS_IPU7(isp) && !IS_IPU8(isp))
+>  		set_iwake_ltrdid(isys, 0, 0, LTR_ISYS_ON);
+
+Maybe this should be done to IPU6, too, but that change should go to a
+separate patch.
+
+> -	}
+>  
+>  	ipu6_configure_spc(adev->isp, &ipdata->hw_variant,
+>  			   IPU6_CPD_PKG_DIR_ISYS_SERVER_IDX, isys->pdata->base,
+> @@ -972,6 +1022,7 @@ void ipu6_put_fw_msg_buf(struct ipu6_isys *isys, struct isys_fw_msgs *msg)
+>  	spin_unlock_irqrestore(&isys->listlock, flags);
+>  }
+>  
+> +static const struct ipu6_auxdrv_data ipu4p_isys_auxdrv_data;
+>  static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data;
+>  static const struct ipu6_auxdrv_data ipu7_isys_auxdrv_data;
+>  
+> @@ -991,8 +1042,12 @@ static int isys_probe(struct auxiliary_device *auxdev,
+>  	if (!isys)
+>  		return -ENOMEM;
+>  
+> -	adev->auxdrv_data = (IS_IPU7(isp) || IS_IPU8(isp)) ? &ipu7_isys_auxdrv_data :
+> -					   &ipu6_isys_auxdrv_data;
+> +	if (IS_IPU4P(isp))
+> +		adev->auxdrv_data = &ipu4p_isys_auxdrv_data;
+> +	else if (IS_IPU7(isp) || IS_IPU8(isp))
+> +		adev->auxdrv_data = &ipu7_isys_auxdrv_data;
+> +	else
+> +		adev->auxdrv_data = &ipu6_isys_auxdrv_data;
+>  	adev->auxdrv = to_auxiliary_drv(auxdev->dev.driver);
+>  	isys->adev = adev;
+>  	isys->pdata = adev->pdata;
+> @@ -1071,6 +1126,13 @@ static void isys_remove(struct auxiliary_device *auxdev)
+>  	mutex_destroy(&isys->mutex);
+>  }
+>  
+> +static const struct ipu6_auxdrv_data ipu4p_isys_auxdrv_data = {
+> +	.isr = NULL,
+> +	.isr_threaded = NULL,
+
+No need to set these if they're NULL here.
+
+> +	.wake_isr_thread = false,
+> +	.fw_ops = &ipu4p_fw_isys_ops,
+> +};
+> +
+>  static const struct ipu6_auxdrv_data ipu6_isys_auxdrv_data = {
+>  	.isr = ipu6_isys_isr,
+>  	.isr_threaded = NULL,
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> index 86b1ab681e3..9f521fefef4 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> @@ -18,6 +18,7 @@
+>  #include <media/v4l2-mediabus.h>
+>  
+>  #include "ipu6.h"
+> +#include "ipu4p-fw-isys.h"
+>  #include "ipu6-fw-isys.h"
+>  #include "ipu7-fw-isys.h"
+>  #include "ipu6-isys-csi2.h"
+> @@ -63,12 +64,18 @@ static inline const char *ipu6_isys_entity_version(struct ipu6_device *isp)
+>  #define IPU6_ISYS_MAX_WIDTH		4672U
+>  #define IPU6_ISYS_MAX_HEIGHT		3416U
+>  
+> +/* IPU4P has 128 physical GDA pages of 1 KiB each. */
+> +#define IPU4P_SRAM_GRANULARITY_SHIFT	10
+> +#define IPU4P_SRAM_GRANULARITY_SIZE	1024
+>  /* the threshold granularity is 2KB on IPU6 */
+>  #define IPU6_SRAM_GRANULARITY_SHIFT	11
+>  #define IPU6_SRAM_GRANULARITY_SIZE	2048
+>  /* the threshold granularity is 1KB on IPU6SE */
+>  #define IPU6SE_SRAM_GRANULARITY_SHIFT	10
+>  #define IPU6SE_SRAM_GRANULARITY_SIZE	1024
+> +
+> +/* Use the 96 KiB usable size for a 128 KiB buffer, as on IPU6SE. */
+> +#define IPU4P_MAX_SRAM_SIZE			(96 << 10)
+>  /* IS pixel buffer is 256KB, MaxSRAMSize is 200KB on IPU6 */
+>  #define IPU6_MAX_SRAM_SIZE			(200 << 10)
+>  /* IS pixel buffer is 128KB, MaxSRAMSize is 96KB on IPU6SE */
+> @@ -148,6 +155,10 @@ struct ipu6_isys {
+>  struct isys_fw_msgs {
+>  	union {
+>  		u64 dummy;
+> +		union {
+> +			struct ipu4p_fw_isys_frame_buff_set frame;
+> +			struct ipu4p_fw_isys_stream_cfg stream;
+> +		} ipu4p;
+>  		union {
+>  			struct ipu6_fw_isys_frame_buff_set_abi frame;
+>  			struct ipu6_fw_isys_stream_cfg_data_abi stream;
+> @@ -162,12 +173,28 @@ struct isys_fw_msgs {
+>  	};
+>  	struct list_head head;
+>  	dma_addr_t dma_addr;
+> +	u8 ipu4p_stream_handle;
+> +	u8 ipu4p_frame_counter;
+> +	/* Bits mark output pins with buffers awaiting firmware completion. */
+> +	u8 ipu4p_pending_pin_mask;
+> +	bool ipu4p_is_frame;
+> +	bool ipu4p_addr_error;
+> +};
+> +
+> +enum ipu6_isys_iwake_register {
+> +	IPU6_ISYS_IWAKE_GDA_IRQ_CRITICAL_THRESHOLD,
+> +	IPU6_ISYS_IWAKE_GDA_THRESHOLD,
+> +	IPU6_ISYS_IWAKE_GDA_ENABLE,
+> +	IPU6_ISYS_IWAKE_GDA_MEMOPEN_THRESHOLD,
+>  };
+>  
+>  struct ipu6_fw_isys_ops {
+>  	int (*init)(struct ipu6_isys *isys, unsigned int num_streams);
+>  	int (*close)(struct ipu6_isys *isys);
+>  	int (*isr_one)(struct ipu6_bus_device *adev);
+> +	/* Optional; NULL uses the IPU6 proxy-region mapping. */
+> +	int (*set_iwake_register)(struct ipu6_isys *isys,
+> +				  enum ipu6_isys_iwake_register reg, u32 value);
+>  	int (*send_cmd)(struct ipu6_isys *isys,
+>  			const unsigned int stream_handle,
+>  			void *cpu_mapped_buf,
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+> index 1432c2a1f6f..10827ababfd 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6.c
+> @@ -370,6 +370,14 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
+>  	isys_ipdata.csi2.fw_access_port_ofs = CSI_REG_HUB_FW_ACCESS_PORT_OFS;
+>  
+>  	if (IS_IPU4P(isp)) {
+> +		isys_ipdata.num_parallel_streams = IPU4P_ISYS_MAX_STREAMS;
+> +		isys_ipdata.max_streams = IPU4P_ISYS_MAX_STREAMS;
+> +		isys_ipdata.sram_gran_shift = IPU4P_SRAM_GRANULARITY_SHIFT;
+> +		isys_ipdata.sram_gran_size = IPU4P_SRAM_GRANULARITY_SIZE;
+> +		isys_ipdata.max_sram_size = IPU4P_MAX_SRAM_SIZE;
+> +		isys_ipdata.max_send_queues = IPU4P_N_MAX_SEND_QUEUES;
+> +		isys_ipdata.max_sram_blocks = IPU4P_NOF_SRAM_BLOCKS_MAX;
+> +		isys_ipdata.max_devq_size = IPU4P_DEV_SEND_QUEUE_SIZE;
+>  		isys_ipdata.hw_variant.offset = IPU4P_ISYS_OFFSET;
+>  		isys_ipdata.hw_variant.spc_offset = IPU4P_ISYS_SPC_OFFSET;
+>  		isys_ipdata.hw_variant.dmem_offset = IPU4P_ISYS_DMEM_OFFSET;
+
+-- 
+Regards,
+
+Sakari Ailus
