@@ -1,107 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639014;
-	b=BnQ03aI9mraiRWpSzVqoBn82Fg89vDCYlk3O0dePQubRb7dRzxDuRcHjWzPyOlCObMmb
-	 e2/YeGKh7Sbqqq04okbRU9NpN0NYiyrufmWqR4TywgRuHhUKb9l8LFsbSLrdi2uoX76FT
-	 ND6IxLEAzuwTpSpHUAhk9YexHCjW8VP7QOYpV7SmkjGSGhsP95WddLuf8g2DT398pWmbz
-	 iOng+gyXe4hHzfZuMSlDtufWpyYFK9YzSW7k0IJUbROnTt+EiNuR6AgG80K5kI8XgiNOf
-	 KTNzMjFnl69cgjcXeB97KIOKRkby5nKdSaLQjzX0OM/JNMXltpSSY6Vk/OzWNLeNDuA==
+	t=1793639571;
+	b=i8hivgyYJ3G21weLeGbZQbOifYC3WslR/QZ90Cd822gT2wM4t9OXbVZLH7OIMp7PR8OK
+	 i4E1L0p1NmmGDw0b/GIflcyK0VNZE+w76gL9cQ5ucYyxYpNY8nd4hBd7a3dBIHLQsUpbX
+	 aEG07aTClns2o13KSE8yUXX6cpAGAT5BzWfFn43w5sb1e4DVGvHYp27T3XqWDPrhoH6pz
+	 h5CumbgAhao+D5gpYGjWemIccuEShC8ZqGU0qoPlivyv3BNe79kxqGVjQ5Lc+nZTB2Hm+
+	 M1cCalzI1vMYat43xvsCCc5T/R8IZD99r+kqdfdNkZpZcrIKWKm5gb0QwL++CC8KYPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639571;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=1JZu6J7aylRQ5JJVlZ6UGCYBdNV4VlQcY/+pJe4FsfQ=;
-	b=tk4STmapg7ill+gxXVHxIGkE3rjLEXfOcxf+X72A7R6TdeQnP05+c+gRXtCYXu9ULnqx
-	 +uIalX8Ixc3I3wi93ARh5+rownPiMGUAHCd73O38MnC5pV0pbZEekOB0AQpljC6IvY2vo
-	 1lBlkFu2ixC6jO2iDicFP56yuMXNhGCwFA0HG84jJetZsnJaequ7xYzIXBQH9YBIIHdAx
-	 0Kr7EX4Ph7LnZz3LC7jxxr0SbewaaY1ooyj0nq2/9WemGvRpMSPRToBjQMkQa01MS4FTr
-	 y8Wn4L7ULkVW2Nd9a2DELb2em3OoOsGWB5m+1Ty3a5L4UC/mp4kQx42D3cuHmbBlBwA==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=8VG88+Iq3vaISnahrDlu9XP6pNoIrIIWL4VTZc72VoQ=;
+	b=YAu3gdENim/gQ6uVgpalOstAwiSL1fNzkvLNSYtACXcJrZqh5rsEui+e6F9pPyyu70tR
+	 V3iPavk3mSZnPEaJLAlL7blciVs+ffYXQG2Q0u/kzvJMOju4ezzcEMo06RdOZmQN+R+6i
+	 W2QZAssohYtFpVuphDiKuDLhNOip3jEcBTrzzeacZN2W0G5cGw0E87re9uG+j4PUBU8I9
+	 FOhICThgNSPmzTclruI+T7MBZ5WbAghYBEhiudsIneRX+BPpRxyb5xivIEBH9DqzVtYKr
+	 XCPl9lB21t5e1vcNI0dAqDQv4TBT/4yTHRpU5T10zapIGODK2TUPCpug7NAwKeLqxzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cPzYbA4t;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="QUj/2aX/";
+	arc=none smtp.remote-ip=209.85.167.46
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8804260AED1F
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 17:03:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8804260AED1F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B786606A918
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 17:12:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B786606A918
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cPzYbA4t
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso27050825e9.1
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 09:03:34 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QUj/2aX/
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be42ae8eb1so1824618e87.2
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 09:12:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793639013; x=1794243813; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1JZu6J7aylRQ5JJVlZ6UGCYBdNV4VlQcY/+pJe4FsfQ=;
-        b=cPzYbA4tnnwJzMaz1ubRBRd7H8YYSihTifsG5AM1MHPzmk1SdV2HZTZh1j+el3V+5p
-         FU+6ggd5R1Y+0x+9JP2r0SeugCKOVeYt3KooX0p8t7WfCJHP4gXIwhpBN++R6nnzK8YE
-         tHVqFY0ZVd2qBi3zyyUAbjE3e0BXSHmqpCGvZbmOMq2rrNr/GDmvmaVeTTjYFzPiDg8B
-         qWxViOqzwMU1bnzfMyhp3kQLMKUROU38rL4WTzUsCxVVQwb9HxiyTjEBueysFWCD27ik
-         S8KC7hSePNpEQNNTQOlGz5ejaUCb68XK6WA5Zw/YMbcc9rCg0c+c0E0pf1we/qEpOBo4
-         6GwA==
+        d=chromium.org; s=google; t=1793639568; x=1794244368; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8VG88+Iq3vaISnahrDlu9XP6pNoIrIIWL4VTZc72VoQ=;
+        b=QUj/2aX/Pwq4cGAOB7apUhZIZsWaAwdu+sFoW0jJU0WB0eQWSyG13Z2acJZ29W6zDE
+         vZorbn+qU1kod/QAAk7ciVbRGz7AXMc+HMeuf1czrqMjb/dW7BjH54VdNhqzULY+O0Ox
+         Xe9/1Rh6NA1xgRt+9ZRVfCjAuWrGaiZxffgr0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793639013; x=1794243813;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1JZu6J7aylRQ5JJVlZ6UGCYBdNV4VlQcY/+pJe4FsfQ=;
-        b=Au56k6qMNe4dl621Ut2qM7wu29o+0rnJYpnfHwQKsqxT2PpXpLKqd0YqEMcRAuaus0
-         qvTl+gPEhIZUeyR7rA/w9sPWz+a7V+TnwWGsmJKHQBxSuHDbzOfWfGPUG4Th1HYOzW3X
-         aOxXjKx5ns8OxSlChUdfv/7PC74rBt+FPbrYlqkf312sfejQvnECQ0Zm3nnkhR5Iue6S
-         QjFkF/AOXoC92pOTK9CLSbNU7U0RMo+iac6xsswD6B4dyYuP7ow2nGpWkekRXuJe1GTL
-         31lKIh+GSfx0aGIfQaT4gjkw1aaK0wUin9/d18UB7gZfoUi2bHOdGzj/+NrOs8xsdC4u
-         HaAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwaDIZ+gfontotgUHwD9qMqhTk5JWa6U7Eqpvhcpb6T/fqTr+ULm7jBx2gQ281UGp0G9NdZGdMwBYaEug==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAO/mZYJo+SQLHOqCHbKraOhj557ccuEGH3voSxMrTZg+O7ouN
-	ipcqJIuO4nJDvILCFYAwbj1tVfULtSj2Ip0xiGaRZzl8zh4zt86IrdAI
-X-Gm-Gg: AYBFou35/ceU1SeJcAIgvTPdju5koOjI2fj5VMSMJ5qp5l4su+3BoLnmabMVQ9j5TNs
-	Z9BITth8mkDExcTf84xbBQAHmG/uZDU+s3K22Ituh3wL7VynzDY8yHN+2z6RigccDCW/ID1C1rh
-	5tHUaWiYS1G7XIATvZaoIiIfEIes7YOdiVbn3/je/90i59/PvRXInuxy1CHR5zhZMqYqbG5zUaZ
-	/TlgTPXG9kYiRrHg48wKOsdPFdi+O27fx039+m3KMUDMxZ4H8qW/WJcvWNbA9n8OPFHtUdDe/yh
-	8b1viui0y2hvgAmfXo0Tb/YNblpgJsRsd8AbdLXVqBRYnJo5AgGK8btkUa74UdGLSwqVcqrnX7y
-	DbWETgw804J0otUmuJ7GgDf8WL8XYgZJlMd0ODBnd3VXU5ZFatvC488GHhosAaNoItYmFclM/RY
-	XyqHGMtFbWiXPzn87LyfcUq1PDm5cL9D5HnWofs4VijBTp/nLFCG3qjcUa3QHE/5uJIDAgZCbTC
-	8OwX7ZCS+fxMA369R5fmvXPc6WB8dZMc4YrkZMgCH0Q//+ftpQbaf6DAJ0k7yAkNQyR6DV1xY4x
-	Fpk7siJnPD+nt3lR+YC2bUFrKjFba9DCr9A77+fX67rIMBJOtQuO8H+P4FSJqnRDp+l8RDtK4yO
-	1X9De7ngLQhEBT3d4eU9xOmX4tMqmgjDZ+GKJSvozXUhq+i4kzU+cfGzutjA0t8YuLfkcsKDf26
-	DXckfc24mVA9HJttL5csSKzzz6JrydXI7Nwq3J/LZ3meuX8sd77sYa6R0EaW0YWRrY4fapp6X/R
-	ieDczhBRReH17u/YzLmRkhCkzib2r5xTEeDqcSvyd1zsy4kzg==
-X-Received: by 2002:a05:600c:a012:b0:4a3:59c9:a747 with SMTP id 5b1f17b1804b1-4ac1793fb0fmr244438125e9.17.1793639012878;
-        Mon, 02 Nov 2026 09:03:32 -0800 (PST)
-Received: from jernej-laptop (194-152-27-116.dynamic.telemach.net. [194.152.27.116])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3cesm23362309f8f.7.2026.11.02.09.03.31
+        d=1e100.net; s=20260707; t=1793639568; x=1794244368;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=8VG88+Iq3vaISnahrDlu9XP6pNoIrIIWL4VTZc72VoQ=;
+        b=G9Zt1ad+vOIbXGXdPJS3mmLcCF8AJyOmqxKUqy4oaXaMbcfph6vn60av7Ys3pkXKHe
+         SiJvznjbk79Jn7+UR3IPFhpCg2bX8yG7KCcXvLJ5II5IdBhseRacGEbfVZkmz51l3J/1
+         WtiGqz0cegVLp2jHaesCq+nm0ptVScatM0ExVIYI9H+lJu+sg7qWWOaPzGjbBEWW+q8+
+         B/x8pEv/gRcB6BAuvpUzh4xHJfv6xXjgqxSO5J5j4H5B+E03PdmY1qgEuHq8g/7BNZ1D
+         Re1BHI0YwN6sBKnDnWUsgKdxj/QzgAMOq47Dz393lI55A8HpolcLed0i0XGj1C3jQyKj
+         3YnA==
+X-Gm-Message-State: APuU4Z+UigzAfOZd0X8siNR9nwEydmp5qKsZpEIiKvB0KAFOyVxW1KbU
+	Z1mqa3kuAGMftWGUNKQHFD5QzzUyWeZKSGLJiKOCB0UFKP71ozuqp1/hBgfsdmmnQw==
+X-Gm-Gg: AYBFou2VErU/sHdrdrfZ9FxllNyvZHJgjkVfPRTG/TDPDk0O5O629Q5THhH903qjjvK
+	jDiNQyF8EkCCZxu0x9O8ByLrpu3vQ0xWZiUqr75B3GpwnfwAChzmAfBLqa0XiE1P+PEZqAB4CY+
+	z3c/crOdJITNyB/ooo8Ne1F+9aZ7LPjj8k9dSWfinE6Rir0QoRTlcBzQZnA9WiRw+7tpDLmAWI9
+	kpO/ZoOWIrk21L6F/B0s0yNnrJ+vuEeaJBu6sTs1R40v0Q8vWCM3zBz+YPGPOEV4J/DKe7vKhmN
+	6Oi3NzzLylPVbbU7EkXI0kD4L5ISroDx7bqF7jnsKHA6w9RoxGbKuqDpFJKpmkN7x/oVwnS2YK6
+	UQqMOIi7aNTPp7zYx8fusJUXoX/xOVozT0I1fGzm6Eo/G/EUoQBSSVwgrFbipILydW7k5gLMFgm
+	JFwsU4OJD44vIztskCZ0RranOcM3MzYJAkg290v9loQ0xvFnKnN+UuTMFms7AURsd4ohwoPKPR8
+	IyNPGPPIR2NJOKrVJbOAi1Y6A8BFUdAekhGxaU8KUPO6s2oEs7bm8HxR4tJFE9PnVCkQy1jCh23
+	FyB+TqXW4e9+2o/S8gQZd5ZLcuoXsA+5d7hACHLm/sWkdg6TqU5/TKPD3y4FPKQko78rKqe3Xal
+	Ells5NaYdBA==
+X-Received: by 2002:a05:651c:4198:b0:3ab:53ca:c746 with SMTP id 38308e7fff4ca-3acb7a9a3f9mr29982501fa.12.1793639568252;
+        Mon, 02 Nov 2026 09:12:48 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acd5c479bbsm566121fa.32.2026.11.02.09.12.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:03:32 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>,
-	Paul Kocialkowski <paulk@sys-base.io>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH 10/10] staging: media: cedrus: vp8: support frames wider than 2048 pixels
-Date: Mon,  2 Nov 2026 18:03:03 +0100
-Message-ID: <20261102170303.1973892-11-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
-References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
+        Mon, 02 Nov 2026 09:12:47 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 02 Nov 2026 17:12:44 +0000
+Subject: [PATCH] media: videobuf2: publish buffers in bufs_bitmap under
+ mmap_lock
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -111,129 +88,313 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAIvE6GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMj3bIkI93c3MSC+Jz85GxdS1PLVIPkZJPUlCRjJaCegqLUtMwKsHn
+ RsbW1ANTThOxfAAAA
+X-Change-ID: 20261102-vb2-mmap_lock-959e0cc4edb3
+To: Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-Above 2048 pixels, the deblocking and intra prediction row buffers don't
-fit into the internal SRAM anymore. Put them into DRAM like H.264 does.
-The vendor library sizes the deblocking buffer as 24 bytes per column.
+vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
+To keep vb2_mmap() safe, newly allocated buffers must not become visible
+in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
+held.
 
-Tested on H616 with 2560x1440 and 3840x2160 libvpx streams, which are
-bit-exact with the FFmpeg software decoder.
+Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
+memory is allocated and without holding q->mmap_lock. As a result:
 
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+- A concurrent mmap() can find a half-initialized buffer, and if buffer
+  allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
+  without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
+- If fewer buffers are allocated than requested, they are already
+  counted as active in q->bufs_bitmap before .queue_setup() checks
+  whether the smaller count is acceptable.
+
+Fix this by keeping new buffers only in q->bufs[] during allocation and
+setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
+and .queue_setup() succeed. Add a memory barrier pair on q->bufs_bitmap
+so lockless vb2_get_buffer() readers also see fully initialized buffers,
+and let __vb2_queue_free() read q->bufs[] directly when cleaning up
+unexposed buffers.
+
+Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
- drivers/staging/media/sunxi/cedrus/cedrus.h   |  7 ++
- .../staging/media/sunxi/cedrus/cedrus_vp8.c   | 64 +++++++++++++++++++
- 2 files changed, 71 insertions(+)
+This patch was generated by an LLM, but supervised and reviewed by a
+human (not the most handsome human, but a human).
+---
+ drivers/media/common/videobuf2/videobuf2-core.c | 97 +++++++++++++++++++------
+ include/media/videobuf2-core.h                  | 13 +++-
+ 2 files changed, 85 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/staging/media/sunxi/cedrus/cedrus.h
-index d28fe91562d1..ca4efa9302fc 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus.h
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
-@@ -156,6 +156,13 @@ struct cedrus_ctx {
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index b0a6084f1757..185393078ce3 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -427,19 +427,36 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
+ }
  
- 			u8		*entropy_probs_buf;
- 			dma_addr_t	entropy_probs_buf_dma;
+ /**
+- * vb2_queue_add_buffer() - add a buffer to a queue
+- * @q:	pointer to &struct vb2_queue with videobuf2 queue.
+- * @vb:	pointer to &struct vb2_buffer to be added to the queue.
+- * @index: index where add vb2_buffer in the queue
++ * vb2_queue_add_buffers() - publish buffers staged by __vb2_queue_alloc()
++ * @q:		pointer to &struct vb2_queue with videobuf2 queue.
++ * @start:	index of the first buffer to publish.
++ * @count:	number of buffers to publish.
++ *
++ * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
++ * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
++ * them visible to vb2_get_buffer().
+  */
+-static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
++static void vb2_queue_add_buffers(struct vb2_queue *q, unsigned int start,
++				  unsigned int count)
+ {
+-	WARN_ON(index >= q->max_num_buffers || test_bit(index, q->bufs_bitmap) || vb->vb2_queue);
++	unsigned int i;
 +
-+			void		*deblk_buf;
-+			dma_addr_t	deblk_buf_dma;
-+			ssize_t		deblk_buf_size;
-+			void		*intra_pred_buf;
-+			dma_addr_t	intra_pred_buf_dma;
-+			ssize_t		intra_pred_buf_size;
- 		} vp8;
- 	} codec;
- };
-diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c b/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
-index 6b00efa77c22..954c0ceb98ed 100644
---- a/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
-+++ b/drivers/staging/media/sunxi/cedrus/cedrus_vp8.c
-@@ -666,6 +666,20 @@ static int cedrus_vp8_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
++	lockdep_assert_held(&q->mmap_lock);
  
- 	cedrus_write(dev, VE_H264_CTRL, VE_H264_CTRL_VP8);
- 
-+	if (ctx->codec.vp8.deblk_buf_size) {
-+		cedrus_write(dev, VE_BUF_CTRL,
-+			     VE_BUF_CTRL_INTRAPRED_MIXED_RAM |
-+			     VE_BUF_CTRL_DBLK_MIXED_RAM);
-+		cedrus_write(dev, VE_DBLK_DRAM_BUF_ADDR,
-+			     ctx->codec.vp8.deblk_buf_dma);
-+		cedrus_write(dev, VE_INTRAPRED_DRAM_BUF_ADDR,
-+			     ctx->codec.vp8.intra_pred_buf_dma);
-+	} else {
-+		cedrus_write(dev, VE_BUF_CTRL,
-+			     VE_BUF_CTRL_INTRAPRED_INT_SRAM |
-+			     VE_BUF_CTRL_DBLK_INT_SRAM);
+-	q->bufs[index] = vb;
+-	vb->index = index;
+-	vb->vb2_queue = q;
+-	set_bit(index, q->bufs_bitmap);
++	/*
++	 * Order the buffer initialization and the q->bufs[] stores done by
++	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
++	 * test_bit_acquire() in vb2_get_buffer(), which is also called
++	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
++	 * from a mem2mem .device_run().
++	 */
++	smp_mb__before_atomic();
++	for (i = start; i < start + count; i++) {
++		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
++			    test_bit(i, q->bufs_bitmap)))
++			continue;
++		set_bit(i, q->bufs_bitmap);
 +	}
-+
- 	cedrus_vp8_update_probs(slice, ctx->codec.vp8.entropy_probs_buf);
+ }
  
- 	reg = slice->first_part_size * 8;
-@@ -849,7 +863,44 @@ static int cedrus_vp8_start(struct cedrus_ctx *ctx)
- 	memcpy(&ctx->codec.vp8.entropy_probs_buf[2048],
- 	       prob_table_init, sizeof(prob_table_init));
+ /**
+@@ -448,6 +465,8 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
+  */
+ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+ {
++	lockdep_assert_held(&vb->vb2_queue->mmap_lock);
++
+ 	clear_bit(vb->index, vb->vb2_queue->bufs_bitmap);
+ 	vb->vb2_queue->bufs[vb->index] = NULL;
+ 	vb->vb2_queue = NULL;
+@@ -460,6 +479,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+  * @first_index: index of the first created buffer, all newly allocated buffers
+  *		 have indices in the range [first_index..first_index+count-1]
+  *
++ * The allocated buffers are stored in q->bufs[] but not published in
++ * q->bufs_bitmap: the caller must either publish them with
++ * vb2_queue_add_buffers() or free them with __vb2_queue_free(), both under
++ * q->mmap_lock.
++ *
+  * Returns the number of buffers successfully allocated.
+  */
+ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+@@ -506,7 +530,9 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+ 		}
+ 
+ 		vb->state = VB2_BUF_STATE_DEQUEUED;
++		vb->vb2_queue = q;
+ 		vb->num_planes = num_planes;
++		vb->index = index + buffer;
+ 		vb->type = q->type;
+ 		vb->memory = memory;
+ 		init_buffer_cache_hints(q, vb);
+@@ -515,7 +541,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+ 			vb->planes[plane].min_length = plane_sizes[plane];
+ 		}
+ 
+-		vb2_queue_add_buffer(q, vb, index++);
+ 		call_void_bufop(q, init_buffer, vb);
+ 
+ 		/* Allocate video buffer memory for the MMAP type */
+@@ -524,7 +549,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+ 			if (ret) {
+ 				dprintk(q, 1, "failed allocating memory for buffer %d\n",
+ 					buffer);
+-				vb2_queue_remove_buffer(vb);
+ 				kfree(vb);
+ 				break;
+ 			}
+@@ -539,11 +563,20 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+ 				dprintk(q, 1, "buffer %d %p initialization failed\n",
+ 					buffer, vb);
+ 				__vb2_buf_mem_free(vb);
+-				vb2_queue_remove_buffer(vb);
+ 				kfree(vb);
+ 				break;
+ 			}
+ 		}
++
++		/*
++		 * Stage the initialized buffer in q->bufs[]; it becomes visible
++		 * to vb2_get_buffer() only after vb2_queue_add_buffers() sets
++		 * its bit in q->bufs_bitmap under q->mmap_lock.
++		 */
++		WARN_ON(vb->index >= q->max_num_buffers ||
++			q->bufs[vb->index] ||
++			test_bit(vb->index, q->bufs_bitmap));
++		q->bufs[vb->index] = vb;
+ 	}
+ 
+ 	dprintk(q, 3, "allocated %d buffers, %d plane(s) each\n",
+@@ -562,7 +595,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+ 	struct vb2_buffer *vb;
+ 
+ 	for (i = start; i < start + count; i++) {
+-		vb = vb2_get_buffer(q, i);
++		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
++		vb = q->bufs[i];
+ 		if (!vb)
+ 			continue;
+ 
+@@ -580,6 +614,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+  * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
+  * related information, if no buffers are left return the queue to an
+  * uninitialized state. Might be called even if the queue has already been freed.
++ *
++ * Buffers are looked up directly in q->bufs[] instead of through
++ * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
++ * never published in q->bufs_bitmap (because a later .queue_setup() call
++ * rejected the allocated number of buffers) are freed as well.
+  */
+ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
+ {
+@@ -587,9 +626,19 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+ 
+ 	lockdep_assert_held(&q->mmap_lock);
  
 +	/*
-+	 * Above 2048 pixels the deblocking and intra prediction row buffers
-+	 * no longer fit into the internal SRAM. The vendor library sizes the
-+	 * deblocking buffer as 24 bytes per (32 aligned) column.
++	 * No buffers were ever allocated (e.g. REQBUFS(0) on a fresh queue),
++	 * only the queue state needs to be reset.
 +	 */
-+	if (ctx->src_fmt.width > 2048) {
-+		ctx->codec.vp8.deblk_buf_size =
-+			ALIGN(ctx->src_fmt.width, 32) * 24;
-+		ctx->codec.vp8.deblk_buf =
-+			dma_alloc_attrs(dev->dev, ctx->codec.vp8.deblk_buf_size,
-+					&ctx->codec.vp8.deblk_buf_dma,
-+					GFP_KERNEL, DMA_ATTR_NO_KERNEL_MAPPING);
-+		if (!ctx->codec.vp8.deblk_buf)
-+			goto err_probs;
-+
-+		ctx->codec.vp8.intra_pred_buf_size =
-+			ALIGN(ctx->src_fmt.width, 64) * 5 * 2;
-+		ctx->codec.vp8.intra_pred_buf =
-+			dma_alloc_attrs(dev->dev,
-+					ctx->codec.vp8.intra_pred_buf_size,
-+					&ctx->codec.vp8.intra_pred_buf_dma,
-+					GFP_KERNEL, DMA_ATTR_NO_KERNEL_MAPPING);
-+		if (!ctx->codec.vp8.intra_pred_buf)
-+			goto err_deblk;
++	if (!q->bufs) {
++		q->memory = VB2_MEMORY_UNKNOWN;
++		INIT_LIST_HEAD(&q->queued_list);
++		return;
 +	}
 +
- 	return 0;
-+
-+err_deblk:
-+	dma_free_attrs(dev->dev, ctx->codec.vp8.deblk_buf_size,
-+		       ctx->codec.vp8.deblk_buf, ctx->codec.vp8.deblk_buf_dma,
-+		       DMA_ATTR_NO_KERNEL_MAPPING);
-+	ctx->codec.vp8.deblk_buf_size = 0;
-+err_probs:
-+	dma_free_coherent(dev->dev, CEDRUS_ENTROPY_PROBS_SIZE,
-+			  ctx->codec.vp8.entropy_probs_buf,
-+			  ctx->codec.vp8.entropy_probs_buf_dma);
-+	return -ENOMEM;
- }
+ 	/* Call driver-provided cleanup function for each buffer, if provided */
+ 	for (i = start; i < start + count; i++) {
+-		struct vb2_buffer *vb = vb2_get_buffer(q, i);
++		struct vb2_buffer *vb = q->bufs[i];
  
- static void cedrus_vp8_stop(struct cedrus_ctx *ctx)
-@@ -861,6 +912,19 @@ static void cedrus_vp8_stop(struct cedrus_ctx *ctx)
- 	dma_free_coherent(dev->dev, CEDRUS_ENTROPY_PROBS_SIZE,
- 			  ctx->codec.vp8.entropy_probs_buf,
- 			  ctx->codec.vp8.entropy_probs_buf_dma);
-+
-+	if (ctx->codec.vp8.deblk_buf_size) {
-+		dma_free_attrs(dev->dev, ctx->codec.vp8.deblk_buf_size,
-+			       ctx->codec.vp8.deblk_buf,
-+			       ctx->codec.vp8.deblk_buf_dma,
-+			       DMA_ATTR_NO_KERNEL_MAPPING);
-+		dma_free_attrs(dev->dev, ctx->codec.vp8.intra_pred_buf_size,
-+			       ctx->codec.vp8.intra_pred_buf,
-+			       ctx->codec.vp8.intra_pred_buf_dma,
-+			       DMA_ATTR_NO_KERNEL_MAPPING);
-+		ctx->codec.vp8.deblk_buf_size = 0;
-+		ctx->codec.vp8.intra_pred_buf_size = 0;
-+	}
- }
+ 		if (vb && vb->planes[0].mem_priv)
+ 			call_void_vb_qop(vb, buf_cleanup, vb);
+@@ -624,7 +673,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+ 		q->cnt_unprepare_streaming = 0;
+ 	}
+ 	for (i = start; i < start + count; i++) {
+-		struct vb2_buffer *vb = vb2_get_buffer(q, i);
++		struct vb2_buffer *vb = q->bufs[i];
+ 		bool unbalanced;
  
- static void cedrus_vp8_trigger(struct cedrus_ctx *ctx)
+ 		if (!vb)
+@@ -676,7 +725,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+ 
+ 	/* Free vb2 buffers */
+ 	for (i = start; i < start + count; i++) {
+-		struct vb2_buffer *vb = vb2_get_buffer(q, i);
++		struct vb2_buffer *vb = q->bufs[i];
+ 
+ 		if (!vb)
+ 			continue;
+@@ -1000,14 +1049,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
+ 
+ 	if (ret < 0) {
+ 		/*
+-		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+-		 * from already queued buffers and it will reset q->memory to
++		 * Note: the buffers allocated by __vb2_queue_alloc() were never
++		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
++		 * straight from q->bufs[] and resets q->memory to
+ 		 * VB2_MEMORY_UNKNOWN.
+ 		 */
+ 		__vb2_queue_free(q, first_index, allocated_buffers);
+ 		mutex_unlock(&q->mmap_lock);
+ 		return ret;
+ 	}
++	vb2_queue_add_buffers(q, first_index, allocated_buffers);
+ 	mutex_unlock(&q->mmap_lock);
+ 
+ 	/*
+@@ -1125,14 +1176,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
+ 
+ 	if (ret < 0) {
+ 		/*
+-		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+-		 * from already queued buffers and it will reset q->memory to
+-		 * VB2_MEMORY_UNKNOWN.
++		 * Note: the buffers allocated by __vb2_queue_alloc() were never
++		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
++		 * straight from q->bufs[] and resets q->memory to
++		 * VB2_MEMORY_UNKNOWN if no buffers are left.
+ 		 */
+ 		__vb2_queue_free(q, *first_index, allocated_buffers);
+ 		mutex_unlock(&q->mmap_lock);
+ 		return -ENOMEM;
+ 	}
++	vb2_queue_add_buffers(q, *first_index, allocated_buffers);
+ 	mutex_unlock(&q->mmap_lock);
+ 
+ 	/*
+diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+index 4b4f4c15c53a..0b32ac7bc8fc 100644
+--- a/include/media/videobuf2-core.h
++++ b/include/media/videobuf2-core.h
+@@ -565,8 +565,11 @@ struct vb2_buf_ops {
+  * @memory:	current memory type used
+  * @dma_dir:	DMA mapping direction.
+  * @bufs:	videobuf2 buffer structures. If it is non-NULL then
+- *		bufs_bitmap is also non-NULL.
+- * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
++ *		bufs_bitmap is also non-NULL. __vb2_queue_alloc() fills in
++ *		an entry before its bit is set in bufs_bitmap, so buffers
++ *		must be looked up with vb2_get_buffer().
++ * @bufs_bitmap: bitmap tracking which bufs[] entries hold a fully
++ *		initialized buffer. Bits are set and cleared under @mmap_lock.
+  * @max_num_buffers: upper limit of number of allocated/used buffers.
+  *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
+  *		     for backward compatibility.
+@@ -1286,7 +1289,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
+ 	if (index >= q->max_num_buffers)
+ 		return NULL;
+ 
+-	if (test_bit(index, q->bufs_bitmap))
++	/*
++	 * A set bit guarantees that the buffer is fully initialized, pairs
++	 * with smp_mb__before_atomic() in vb2_queue_add_buffers().
++	 */
++	if (test_bit_acquire(index, q->bufs_bitmap))
+ 		return q->bufs[index];
+ 	return NULL;
+ }
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-vb2-mmap_lock-959e0cc4edb3
+
+Best regards,
 -- 
-2.43.0
+Ricardo Ribalda <ribalda@chromium.org>
 
