@@ -1,53 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616897;
-	b=Hk7ffNmrbjCe6po4Vv5r7VVjqfsUcSpD3ztE6nXGu95EluvcIvRXfKrPcGmkJ1+RuX/g
-	 BHwuyg2VF3F1f1txzwBWWZaufFznIlA6X8aO66btyH6dO8xpD7tTeFfYPESSH3nhQzLqd
-	 jakRDXl4crnZCQdpNiwo88KX2k0nhz1NTgONmM7FjmBiGq6eWQKgDI2sEuN5+wRrevu3f
-	 4nmdqNJK9Z2EWALhCBbDmdovIWMssju0dLiZ7QGdGHuRqB+HOC+i5ChdhN11bybYfk/Sv
-	 0d7qB/dXvo3vFAeMNHM0J2Mxn01Vbo4B2JD0f4ex9h+Pp47tUGBaH1PjWDmCDoPUdoA==
+	t=1793616900;
+	b=K3D7fICrhLINn6cHqYReUN5yZoQ2XcC4Ta5+wSSwFgRNs8A0F6THFF2rPoHY8z3jYzlj
+	 5BWdbqQ0caHS3yPoUbHNKfAUfTVkWX7qqc1Rh8bBYST3t8rLu6DieXiX1W9dNFqdBXZYY
+	 NHzREWnmmeW4FCO7HMK62CGWezQu4xM6dyuVvK1Qtp3cRIfAwTxS6eLeYYPmwxj+VEgIz
+	 opSnUPaNzYYpg+XtktbhxiUTpg4fcBZ8I1aOinvNk8LaahuTr2bpJOoEJ85EWsHEKN/XR
+	 9bzfIbSQtmT4KKGSec23ERnYdvwAClz8YaktpBCelE+EgqnY5xbUjDlsXm31SNuE6Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616897;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616900;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=MT5gGcOgqmHPEsENGl4BnV4A39kHKd2FN1i2XY47bjs=;
-	b=Gf0DbPZht87cPDP8UX/RjuK4xez0ufqnx4ZIAb5264U+cqe/xRtmrZzqJRcBQM/2LP76
-	 BXqOT7v0NGbKYyee8HB9md/WnJKuR7N+WBw0pC3UtgDxaDfCuEkytvOpuqkGsGDRxVwNU
-	 00VOg0qDaXicubmn6NlyQVaVTInCqIUW2EEsT4CGXKLO5mlZwoqW2ew1md7WePc05TxaL
-	 1H7Tjc8rY2y7epfUo/RKdKsv9IHSoT8gDMY0y2yKPjvwRJFBDjekJgAZXckm0DE7Hm1PB
-	 vKq84aZb+u91m1CcPZnVvsev+XUR/YTaCLe3D8wM+SV26YlCO5tO5qFWug/TQa8H7IA==
+	bh=c8V9WqB9aQgta0XAH5FjnMzK6loax9fei5rQGTIoZqw=;
+	b=slDW4usBRNxFxiZSakhsNvBpOm2hC/UPCtmMlvXl87ZQ1DzAi3ounbrPNoLAvl0KeXLq
+	 ifhfeS+WdGNv2Tl2PJ9a7LcpmcfZQfMR1nL/uG+i55CG+WxvW20WV0KM1mP3vxXdtSVYc
+	 awbuY9EoWlaO73Qmc3VGSyLyva152WRdR2UqN1SKZDwA7n2Jv87clHqNfSlqxX9ML0GwF
+	 T5K52lDJhq8g7ZREgfAsxQVnO3GcY0GTq/D5zKylJ76y+54q4etTF0VPn7T46zAPfffPu
+	 H+fnOZkkwn4q3b3fL1AErRKnFY8Rjfw4VSm6V0DMPmwjpDhFmXKKT90BOz3hOPiF59A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlN54pZh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Abl25Kjt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19136606A324
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:54:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8D1606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:54:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IlN54pZh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42FFA1F00A17;
-	Mon,  2 Nov 2026 10:54:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Abl25Kjt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221961F00A16;
+	Mon,  2 Nov 2026 10:54:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793616896;
-	bh=MT5gGcOgqmHPEsENGl4BnV4A39kHKd2FN1i2XY47bjs=;
+	s=k20260515; t=1793616899;
+	bh=c8V9WqB9aQgta0XAH5FjnMzK6loax9fei5rQGTIoZqw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IlN54pZhbpUd7ne8nVZlAX2gx4Ftn0/XDNcAR1mA0yPcgYT5J2DsHM4LRWLNMuZkh
-	 5jwDLja1z+YDjhryc24Z/HG0p8rNMy3+eu9yDc1mL9W/PwBFYG9Ihnco+uJF4TxDDx
-	 vHYH6GfD8tTVBxTq7K4Hjbnb2l19kynleqRufZCJXaQQLxoehWXLafBRgXwbI6uv8F
-	 ofSQOaYqKttGjOyfUKDNlU5O7uqhrZEF5ShySb+dyzGrMOEgMITuzd0oKH5aiwOZY+
-	 lJ6ZXG/7rDyNrEAbNluKX+OuokpguL6r33FMJofAq91AMwB7dji/6sM3bDSrWEl+On
-	 nF/XQWJJE6k3A==
+	b=Abl25KjtgjcLbxgCMDYwxSKbDp1Acm6tPfXYKPEMlRJsIsGzlfjMlNRXlzIw9KzS9
+	 SVEiIrtXM5xbw/gZHRah5Hg9e4XIcitJxeYwv63nQAQnGWwdhNPt4HHYweaw7vEW3g
+	 zPhzoEqAjnpll7goi4EV+DOibE7PPx8yaHNo0QfQe3bu8hDIo6ajjUzxeG1czVvsOZ
+	 jwxQFOU2EctyF0jKeUAW+aiS1vsOM98A/xkjt03ZmYQFAsRnnw6s9H0MK/+4zp/UUq
+	 0ynYQRogVEXFKWPxSVITCCO+SRbfecRhqImKUSA4LTuICek5h2hOTzd4eOdxEnZgtP
+	 VKsqoCH9+27yQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Alain Volmat <alain.volmat@foss.st.com>,
+	Inki Dae <inki.dae@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
 	Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH 01/13] gpu: drm: sti: call cec_notifier_phys_addr_invalidate if no EDID
-Date: Mon,  2 Nov 2026 11:36:52 +0100
-Message-ID: <86d6a90ff5131a4f6a1edef1d4f1694e65c5b6e6.1793615824.git.hverkuil+cisco@kernel.org>
+Subject: [PATCH 02/13] gpu: drm: exynos: call cec_notifier_phys_addr_invalidate if no EDID
+Date: Mon,  2 Nov 2026 11:36:53 +0100
+Message-ID: <727792a5e9eb05c3c0abd5930bb53ed8cd7d3724.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -71,25 +75,29 @@ This driver is one of the few that was using cec_notifier_set_phys_addr
 on disconnect instead of cec_notifier_phys_addr_invalidate.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Inki Dae <inki.dae@samsung.com>
+Cc: Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Peter Griffin <peter.griffin@linaro.org>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>
 Cc: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/sti/sti_hdmi.c | 2 +-
+ drivers/gpu/drm/exynos/exynos_hdmi.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sti/sti_hdmi.c b/drivers/gpu/drm/sti/sti_hdmi.c
-index 7ba9e0b7ba6c..d392140df235 100644
---- a/drivers/gpu/drm/sti/sti_hdmi.c
-+++ b/drivers/gpu/drm/sti/sti_hdmi.c
-@@ -790,7 +790,7 @@ static void sti_hdmi_disable(struct drm_bridge *bridge,
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index 055dc04f9b3e..d03f4e531e05 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -857,7 +857,7 @@ static enum drm_connector_status hdmi_detect(struct drm_connector *connector,
+ 	if (gpiod_get_value(hdata->hpd_gpio))
+ 		return connector_status_connected;
  
- 	hdmi->enabled = false;
- 
--	cec_notifier_set_phys_addr(hdmi->notifier, CEC_PHYS_ADDR_INVALID);
-+	cec_notifier_phys_addr_invalidate(hdmi->notifier);
+-	cec_notifier_set_phys_addr(hdata->notifier, CEC_PHYS_ADDR_INVALID);
++	cec_notifier_phys_addr_invalidate(hdata->notifier);
+ 	return connector_status_disconnected;
  }
  
- /*
 -- 
 2.53.0
 
