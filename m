@@ -1,84 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639571;
-	b=i8hivgyYJ3G21weLeGbZQbOifYC3WslR/QZ90Cd822gT2wM4t9OXbVZLH7OIMp7PR8OK
-	 i4E1L0p1NmmGDw0b/GIflcyK0VNZE+w76gL9cQ5ucYyxYpNY8nd4hBd7a3dBIHLQsUpbX
-	 aEG07aTClns2o13KSE8yUXX6cpAGAT5BzWfFn43w5sb1e4DVGvHYp27T3XqWDPrhoH6pz
-	 h5CumbgAhao+D5gpYGjWemIccuEShC8ZqGU0qoPlivyv3BNe79kxqGVjQ5Lc+nZTB2Hm+
-	 M1cCalzI1vMYat43xvsCCc5T/R8IZD99r+kqdfdNkZpZcrIKWKm5gb0QwL++CC8KYPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639571;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=8VG88+Iq3vaISnahrDlu9XP6pNoIrIIWL4VTZc72VoQ=;
-	b=YAu3gdENim/gQ6uVgpalOstAwiSL1fNzkvLNSYtACXcJrZqh5rsEui+e6F9pPyyu70tR
-	 V3iPavk3mSZnPEaJLAlL7blciVs+ffYXQG2Q0u/kzvJMOju4ezzcEMo06RdOZmQN+R+6i
-	 W2QZAssohYtFpVuphDiKuDLhNOip3jEcBTrzzeacZN2W0G5cGw0E87re9uG+j4PUBU8I9
-	 FOhICThgNSPmzTclruI+T7MBZ5WbAghYBEhiudsIneRX+BPpRxyb5xivIEBH9DqzVtYKr
-	 XCPl9lB21t5e1vcNI0dAqDQv4TBT/4yTHRpU5T10zapIGODK2TUPCpug7NAwKeLqxzA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b="QUj/2aX/";
-	arc=none smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793641740;
+	b=LN159N6YDtcbL464FDJ2bGdATrRig080szGStO1kc3CzBXEZ/kQEiqstyQ0gFG3kdG6N
+	 sRQ1dk8qoWZyNUbxBIDRSKplE0E8zswIbeyDPXcdgf/DNY9FVwMoZ7y/hfyiclfZVz1Ns
+	 Dg8DJHzbK2vlxEpk4Ju4SWF/FRjpjyMOo320az5hW9yy7gNxIhFSH3Hlzipc52L0WkG/3
+	 UcVaommjzW/abuz58i0Evyaw5vPc3nyhSmVf9bgyD2AJLOeetQx5AU6ezCpLmBXGJAKvk
+	 0cwKTvDV4nsZpbnUegLiIhlzHZLQ5GPECzFzyRS573OCypVV+18KgUudG8v2e9QNxRg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641740;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=eP0Y6oo6faclP+TA9E7YeDBqEgJ7r8KP1TNkcNSer+M=;
+	b=2axmY4n51F/wWB6w/OaJFbEs9SX1NLf9tN17M922KEPdSUXuEJiw0ArNUgjh8c7u6D0I
+	 jrbrHq8KFHs4G4UEhtj494G4yEYXGRlxxZUpfY/JnceWIsDeP4mCeZFDKVN5zzAgEkcj0
+	 /NTlbimUEyuFqgpK3P5E4m6Q/Wx0qUNj9MpbFnRpF9Zcgc3IwTsEJI/frvBejPUJXdEBz
+	 ya1C7VHgzzSZ6Z3JhJnUsTmCzppscyHI5PU18NlsMiOmeutkHUd41oKeuXBGdoPczQJfw
+	 SHL7WoteB/6IAv+SvdRoysuE9ecX5j79FfIu8TW0lqxRIi3FZyFu2Aj0YkA687uLFNg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBEPXcMJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE23606A92B;
+	Mon,  2 Nov 2026 17:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fBEPXcMJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793641739;
+	b=bzYIm5iMChyJCwGOPSYri2vPvWFoC7Sy7XO7e+AYE3R0zf6Kvc6fVj/J3OS/ycxvMdrT
+	 /0PbRwLF+cQP2Kcwc4rALAnv5xd+hu+quhb5+dlRL2zWo/GoNW3LmcLIpmLmoBLBJ4kcd
+	 Wk0kgv/oofbyv8al65d+liK6h2aB4LvjYXbWSkV4HBHPNBXsc2121BdLkZeD3Ae5ySkiu
+	 7sZwEAuvuuY4FSb9C2bfaEMJkwWv7NOpGRIBP6w+hEcfb+Fq1Rlj+6MzEyLorGRNuzkZH
+	 DY6RRn53nMJ5Oyh4ELdXgJD8b99zrKKtYmo4BvAnkIzRrhtSLpp79jDtvzSpVVujw0w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793641739;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=eP0Y6oo6faclP+TA9E7YeDBqEgJ7r8KP1TNkcNSer+M=;
+	b=AUugk16JhTuqTarcAJ50qabVuDEU5pcYPjCrUhUi/9x2qKcG4ibcILokaae1ajmvDpaL
+	 38URAsstCynrVQCG16D1YKsZNK9KVvj2pdB8Z5sdTUQAEz6c8WJvAx9hrC3fhyTo0xMnD
+	 seqSTjyeHHkfL8nJNRkaxNA8vvAL0t49pXXIAHVrRt6OMnTDirPntEMnjm6yjkpvdTNGl
+	 Txsv/VH5m+/aKYK0HOQml2m4Z/vzmCbpkhmEfOTuqYEjtVgGuh6bYcX4VEOSOdvcpJJ/P
+	 +KEFbWvbQf0XyR6y68jHjC1LH13WpBBeRyobwrAJRLOntE36UKyzuxm0w7e3bmcaVeQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B786606A918
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 17:12:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B786606A918
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=QUj/2aX/
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be42ae8eb1so1824618e87.2
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 09:12:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793639568; x=1794244368; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8VG88+Iq3vaISnahrDlu9XP6pNoIrIIWL4VTZc72VoQ=;
-        b=QUj/2aX/Pwq4cGAOB7apUhZIZsWaAwdu+sFoW0jJU0WB0eQWSyG13Z2acJZ29W6zDE
-         vZorbn+qU1kod/QAAk7ciVbRGz7AXMc+HMeuf1czrqMjb/dW7BjH54VdNhqzULY+O0Ox
-         Xe9/1Rh6NA1xgRt+9ZRVfCjAuWrGaiZxffgr0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793639568; x=1794244368;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8VG88+Iq3vaISnahrDlu9XP6pNoIrIIWL4VTZc72VoQ=;
-        b=G9Zt1ad+vOIbXGXdPJS3mmLcCF8AJyOmqxKUqy4oaXaMbcfph6vn60av7Ys3pkXKHe
-         SiJvznjbk79Jn7+UR3IPFhpCg2bX8yG7KCcXvLJ5II5IdBhseRacGEbfVZkmz51l3J/1
-         WtiGqz0cegVLp2jHaesCq+nm0ptVScatM0ExVIYI9H+lJu+sg7qWWOaPzGjbBEWW+q8+
-         B/x8pEv/gRcB6BAuvpUzh4xHJfv6xXjgqxSO5J5j4H5B+E03PdmY1qgEuHq8g/7BNZ1D
-         Re1BHI0YwN6sBKnDnWUsgKdxj/QzgAMOq47Dz393lI55A8HpolcLed0i0XGj1C3jQyKj
-         3YnA==
-X-Gm-Message-State: APuU4Z+UigzAfOZd0X8siNR9nwEydmp5qKsZpEIiKvB0KAFOyVxW1KbU
-	Z1mqa3kuAGMftWGUNKQHFD5QzzUyWeZKSGLJiKOCB0UFKP71ozuqp1/hBgfsdmmnQw==
-X-Gm-Gg: AYBFou2VErU/sHdrdrfZ9FxllNyvZHJgjkVfPRTG/TDPDk0O5O629Q5THhH903qjjvK
-	jDiNQyF8EkCCZxu0x9O8ByLrpu3vQ0xWZiUqr75B3GpwnfwAChzmAfBLqa0XiE1P+PEZqAB4CY+
-	z3c/crOdJITNyB/ooo8Ne1F+9aZ7LPjj8k9dSWfinE6Rir0QoRTlcBzQZnA9WiRw+7tpDLmAWI9
-	kpO/ZoOWIrk21L6F/B0s0yNnrJ+vuEeaJBu6sTs1R40v0Q8vWCM3zBz+YPGPOEV4J/DKe7vKhmN
-	6Oi3NzzLylPVbbU7EkXI0kD4L5ISroDx7bqF7jnsKHA6w9RoxGbKuqDpFJKpmkN7x/oVwnS2YK6
-	UQqMOIi7aNTPp7zYx8fusJUXoX/xOVozT0I1fGzm6Eo/G/EUoQBSSVwgrFbipILydW7k5gLMFgm
-	JFwsU4OJD44vIztskCZ0RranOcM3MzYJAkg290v9loQ0xvFnKnN+UuTMFms7AURsd4ohwoPKPR8
-	IyNPGPPIR2NJOKrVJbOAi1Y6A8BFUdAekhGxaU8KUPO6s2oEs7bm8HxR4tJFE9PnVCkQy1jCh23
-	FyB+TqXW4e9+2o/S8gQZd5ZLcuoXsA+5d7hACHLm/sWkdg6TqU5/TKPD3y4FPKQko78rKqe3Xal
-	Ells5NaYdBA==
-X-Received: by 2002:a05:651c:4198:b0:3ab:53ca:c746 with SMTP id 38308e7fff4ca-3acb7a9a3f9mr29982501fa.12.1793639568252;
-        Mon, 02 Nov 2026 09:12:48 -0800 (PST)
-Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acd5c479bbsm566121fa.32.2026.11.02.09.12.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:12:47 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 02 Nov 2026 17:12:44 +0000
-Subject: [PATCH] media: videobuf2: publish buffers in bufs_bitmap under
- mmap_lock
+	by smtp.kernel.org (Postfix) with ESMTPS id 215071F00A1A;
+	Mon,  2 Nov 2026 17:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793641739;
+	bh=eP0Y6oo6faclP+TA9E7YeDBqEgJ7r8KP1TNkcNSer+M=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=fBEPXcMJshrIU9NPc4PKaWd8Nxn7Pi5bJEwMOvFvBr5J8Tb5tuNbb1hsqOdj302EK
+	 sStRNqQhK1daUO8i1zgNOhBN03QZRXKh8W1loh+URg/uG3qRJt/RCns9VEuPD6w8NX
+	 5kLpdUfCvvuAjsFeQXJcGmDHHx1y7OpQLsULZF47CzKBmPIJyEyIwd/VFY3xsA3nlQ
+	 NEh7QuS/JlsV2Gz4ZZHzwj2df5CqGqK4Gk/S5vnQnrxZD3r/lRZwK3Cph7TpgXElpl
+	 i5YYtJkf+gGLRQp6N7xxYBMLT7Cqo8YL/rTBoqh67z3jTKTkkMbEfx4gBuXU7gdY04
+	 LNfZEeDiJkbYQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id A40D0465C7;
+	Mon,  2 Nov 2026 17:48:58 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Mon, 02 Nov 2026 17:48:57 +0000
+Subject: [PATCH] media: rockchip: rga: Keep the clocks enabled without
+ CONFIG_PM
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,312 +84,75 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-rga-runtime-pm-clocks-v1-1-1bad7807f037@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAAjN6GoC/x3MMQqAMAxA0atIZgNtEUGvIg6hjRrUKqmKIN7d4
+ viG/x9IrMIJ2uIB5UuSbDHDlgX4ieLIKCEbnHG1tcahjoR6xkNWxn1Fv2x+TthQxfVA7AMZyO2
+ uPMj9f7v+fT9WzOPOZwAAAA==
+To: Jacob Chen <jacob-chen@iotwrt.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1515; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=2aAiFLoBlld6RgGQ0EoX3zPXerU1gatyiz1du1lqQ/o=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkvznJuXqItWfLsVZbVh6suzL/lV89km7ZRp2PH05sit
+ 1eWKkY/6ihlYRDjYpAVU2SZcEjjVsaSq3/9PcwfwMxhZQIZwsDFKQAT4W9jZJjTcy61VDnn5Bze
+ xbPXt1cpLQl8znXX89rSD3lnBVTbA9wYfjEt5ojpX778SvpCg1zuTaftVnWsusl/dsJcuQtnvsb
+ K2jICAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAIvE6GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQwMj3bIkI93c3MSC+Jz85GxdS1PLVIPkZJPUlCRjJaCegqLUtMwKsHn
- RsbW1ANTThOxfAAAA
-X-Change-ID: 20261102-vb2-mmap_lock-959e0cc4edb3
-To: Tomasz Figa <tfiga@chromium.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
 
-vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
-To keep vb2_mmap() safe, newly allocated buffers must not become visible
-in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
-held.
+From: Igor Velkov <iav@iav.lv>
 
-Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
-memory is allocated and without holding q->mmap_lock. As a result:
+Only rga_runtime_resume() enables the clocks. Without CONFIG_PM the
+runtime PM callbacks are not registered, so rga_probe() reads the
+version register with the clocks disabled.
 
-- A concurrent mmap() can find a half-initialized buffer, and if buffer
-  allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
-  without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
-- If fewer buffers are allocated than requested, they are already
-  counted as active in q->bufs_bitmap before .queue_setup() checks
-  whether the smaller count is acceptable.
+Enable the clocks from probe in that case, as etnaviv and v3d do.
 
-Fix this by keeping new buffers only in q->bufs[] during allocation and
-setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
-and .queue_setup() succeed. Add a memory barrier pair on q->bufs_bitmap
-so lockless vb2_get_buffer() readers also see fully initialized buffers,
-and let __vb2_queue_free() read q->bufs[] directly when cleaning up
-unexposed buffers.
-
-Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Igor Velkov <iav@iav.lv>
 ---
-This patch was generated by an LLM, but supervised and reviewed by a
-human (not the most handsome human, but a human).
----
- drivers/media/common/videobuf2/videobuf2-core.c | 97 +++++++++++++++++++------
- include/media/videobuf2-core.h                  | 13 +++-
- 2 files changed, 85 insertions(+), 25 deletions(-)
+Split out of the rkvdec CONFIG_PM discussion, as Nicolas asked [1].
+Build-tested only (arm64, COMPILE_TEST, W=1, CONFIG_PM=n and =y):
+ARCH_ROCKCHIP selects PM, so no board runs this path.
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index b0a6084f1757..185393078ce3 100644
---- a/drivers/media/common/videobuf2/videobuf2-core.c
-+++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -427,19 +427,36 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
- }
+[1] https://lore.kernel.org/r/8aafdbbf04a0d939c6b4d7d5577d97bb58d1c439.camel@collabora.com
+---
+ drivers/media/platform/rockchip/rga/rga.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/rockchip/rga/rga.c b/drivers/media/platform/rockchip/rga/rga.c
+index 543a0da75572..c50141bb5654 100644
+--- a/drivers/media/platform/rockchip/rga/rga.c
++++ b/drivers/media/platform/rockchip/rga/rga.c
+@@ -701,7 +701,10 @@ static int rga_parse_dt(struct rockchip_rga *rga)
+ 	udelay(1);
+ 	reset_control_deassert(ahb_rst);
  
- /**
-- * vb2_queue_add_buffer() - add a buffer to a queue
-- * @q:	pointer to &struct vb2_queue with videobuf2 queue.
-- * @vb:	pointer to &struct vb2_buffer to be added to the queue.
-- * @index: index where add vb2_buffer in the queue
-+ * vb2_queue_add_buffers() - publish buffers staged by __vb2_queue_alloc()
-+ * @q:		pointer to &struct vb2_queue with videobuf2 queue.
-+ * @start:	index of the first buffer to publish.
-+ * @count:	number of buffers to publish.
-+ *
-+ * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
-+ * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
-+ * them visible to vb2_get_buffer().
-  */
--static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
-+static void vb2_queue_add_buffers(struct vb2_queue *q, unsigned int start,
-+				  unsigned int count)
- {
--	WARN_ON(index >= q->max_num_buffers || test_bit(index, q->bufs_bitmap) || vb->vb2_queue);
-+	unsigned int i;
-+
-+	lockdep_assert_held(&q->mmap_lock);
- 
--	q->bufs[index] = vb;
--	vb->index = index;
--	vb->vb2_queue = q;
--	set_bit(index, q->bufs_bitmap);
-+	/*
-+	 * Order the buffer initialization and the q->bufs[] stores done by
-+	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
-+	 * test_bit_acquire() in vb2_get_buffer(), which is also called
-+	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
-+	 * from a mem2mem .device_run().
-+	 */
-+	smp_mb__before_atomic();
-+	for (i = start; i < start + count; i++) {
-+		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
-+			    test_bit(i, q->bufs_bitmap)))
-+			continue;
-+		set_bit(i, q->bufs_bitmap);
-+	}
- }
- 
- /**
-@@ -448,6 +465,8 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
-  */
- static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
- {
-+	lockdep_assert_held(&vb->vb2_queue->mmap_lock);
-+
- 	clear_bit(vb->index, vb->vb2_queue->bufs_bitmap);
- 	vb->vb2_queue->bufs[vb->index] = NULL;
- 	vb->vb2_queue = NULL;
-@@ -460,6 +479,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
-  * @first_index: index of the first created buffer, all newly allocated buffers
-  *		 have indices in the range [first_index..first_index+count-1]
-  *
-+ * The allocated buffers are stored in q->bufs[] but not published in
-+ * q->bufs_bitmap: the caller must either publish them with
-+ * vb2_queue_add_buffers() or free them with __vb2_queue_free(), both under
-+ * q->mmap_lock.
-+ *
-  * Returns the number of buffers successfully allocated.
-  */
- static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
-@@ -506,7 +530,9 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
- 		}
- 
- 		vb->state = VB2_BUF_STATE_DEQUEUED;
-+		vb->vb2_queue = q;
- 		vb->num_planes = num_planes;
-+		vb->index = index + buffer;
- 		vb->type = q->type;
- 		vb->memory = memory;
- 		init_buffer_cache_hints(q, vb);
-@@ -515,7 +541,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
- 			vb->planes[plane].min_length = plane_sizes[plane];
- 		}
- 
--		vb2_queue_add_buffer(q, vb, index++);
- 		call_void_bufop(q, init_buffer, vb);
- 
- 		/* Allocate video buffer memory for the MMAP type */
-@@ -524,7 +549,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
- 			if (ret) {
- 				dprintk(q, 1, "failed allocating memory for buffer %d\n",
- 					buffer);
--				vb2_queue_remove_buffer(vb);
- 				kfree(vb);
- 				break;
- 			}
-@@ -539,11 +563,20 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
- 				dprintk(q, 1, "buffer %d %p initialization failed\n",
- 					buffer, vb);
- 				__vb2_buf_mem_free(vb);
--				vb2_queue_remove_buffer(vb);
- 				kfree(vb);
- 				break;
- 			}
- 		}
-+
-+		/*
-+		 * Stage the initialized buffer in q->bufs[]; it becomes visible
-+		 * to vb2_get_buffer() only after vb2_queue_add_buffers() sets
-+		 * its bit in q->bufs_bitmap under q->mmap_lock.
-+		 */
-+		WARN_ON(vb->index >= q->max_num_buffers ||
-+			q->bufs[vb->index] ||
-+			test_bit(vb->index, q->bufs_bitmap));
-+		q->bufs[vb->index] = vb;
- 	}
- 
- 	dprintk(q, 3, "allocated %d buffers, %d plane(s) each\n",
-@@ -562,7 +595,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
- 	struct vb2_buffer *vb;
- 
- 	for (i = start; i < start + count; i++) {
--		vb = vb2_get_buffer(q, i);
-+		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
-+		vb = q->bufs[i];
- 		if (!vb)
- 			continue;
- 
-@@ -580,6 +614,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
-  * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
-  * related information, if no buffers are left return the queue to an
-  * uninitialized state. Might be called even if the queue has already been freed.
-+ *
-+ * Buffers are looked up directly in q->bufs[] instead of through
-+ * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
-+ * never published in q->bufs_bitmap (because a later .queue_setup() call
-+ * rejected the allocated number of buffers) are freed as well.
-  */
- static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
- {
-@@ -587,9 +626,19 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
- 
- 	lockdep_assert_held(&q->mmap_lock);
- 
-+	/*
-+	 * No buffers were ever allocated (e.g. REQBUFS(0) on a fresh queue),
-+	 * only the queue state needs to be reset.
-+	 */
-+	if (!q->bufs) {
-+		q->memory = VB2_MEMORY_UNKNOWN;
-+		INIT_LIST_HEAD(&q->queued_list);
-+		return;
-+	}
-+
- 	/* Call driver-provided cleanup function for each buffer, if provided */
- 	for (i = start; i < start + count; i++) {
--		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-+		struct vb2_buffer *vb = q->bufs[i];
- 
- 		if (vb && vb->planes[0].mem_priv)
- 			call_void_vb_qop(vb, buf_cleanup, vb);
-@@ -624,7 +673,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
- 		q->cnt_unprepare_streaming = 0;
- 	}
- 	for (i = start; i < start + count; i++) {
--		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-+		struct vb2_buffer *vb = q->bufs[i];
- 		bool unbalanced;
- 
- 		if (!vb)
-@@ -676,7 +725,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
- 
- 	/* Free vb2 buffers */
- 	for (i = start; i < start + count; i++) {
--		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-+		struct vb2_buffer *vb = q->bufs[i];
- 
- 		if (!vb)
- 			continue;
-@@ -1000,14 +1049,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
- 
+-	ret = devm_clk_bulk_get_all(rga->dev, &rga->clks);
++	if (IS_ENABLED(CONFIG_PM))
++		ret = devm_clk_bulk_get_all(rga->dev, &rga->clks);
++	else
++		ret = devm_clk_bulk_get_all_enabled(rga->dev, &rga->clks);
  	if (ret < 0) {
- 		/*
--		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
--		 * from already queued buffers and it will reset q->memory to
-+		 * Note: the buffers allocated by __vb2_queue_alloc() were never
-+		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
-+		 * straight from q->bufs[] and resets q->memory to
- 		 * VB2_MEMORY_UNKNOWN.
- 		 */
- 		__vb2_queue_free(q, first_index, allocated_buffers);
- 		mutex_unlock(&q->mmap_lock);
+ 		dev_err(rga->dev, "failed to get clocks\n");
  		return ret;
- 	}
-+	vb2_queue_add_buffers(q, first_index, allocated_buffers);
- 	mutex_unlock(&q->mmap_lock);
- 
- 	/*
-@@ -1125,14 +1176,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
- 
- 	if (ret < 0) {
- 		/*
--		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
--		 * from already queued buffers and it will reset q->memory to
--		 * VB2_MEMORY_UNKNOWN.
-+		 * Note: the buffers allocated by __vb2_queue_alloc() were never
-+		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
-+		 * straight from q->bufs[] and resets q->memory to
-+		 * VB2_MEMORY_UNKNOWN if no buffers are left.
- 		 */
- 		__vb2_queue_free(q, *first_index, allocated_buffers);
- 		mutex_unlock(&q->mmap_lock);
- 		return -ENOMEM;
- 	}
-+	vb2_queue_add_buffers(q, *first_index, allocated_buffers);
- 	mutex_unlock(&q->mmap_lock);
- 
- 	/*
-diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index 4b4f4c15c53a..0b32ac7bc8fc 100644
---- a/include/media/videobuf2-core.h
-+++ b/include/media/videobuf2-core.h
-@@ -565,8 +565,11 @@ struct vb2_buf_ops {
-  * @memory:	current memory type used
-  * @dma_dir:	DMA mapping direction.
-  * @bufs:	videobuf2 buffer structures. If it is non-NULL then
-- *		bufs_bitmap is also non-NULL.
-- * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
-+ *		bufs_bitmap is also non-NULL. __vb2_queue_alloc() fills in
-+ *		an entry before its bit is set in bufs_bitmap, so buffers
-+ *		must be looked up with vb2_get_buffer().
-+ * @bufs_bitmap: bitmap tracking which bufs[] entries hold a fully
-+ *		initialized buffer. Bits are set and cleared under @mmap_lock.
-  * @max_num_buffers: upper limit of number of allocated/used buffers.
-  *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
-  *		     for backward compatibility.
-@@ -1286,7 +1289,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
- 	if (index >= q->max_num_buffers)
- 		return NULL;
- 
--	if (test_bit(index, q->bufs_bitmap))
-+	/*
-+	 * A set bit guarantees that the buffer is fully initialized, pairs
-+	 * with smp_mb__before_atomic() in vb2_queue_add_buffers().
-+	 */
-+	if (test_bit_acquire(index, q->bufs_bitmap))
- 		return q->bufs[index];
- 	return NULL;
- }
 
 ---
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261102-vb2-mmap_lock-959e0cc4edb3
+base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
+change-id: 20261102-rga-runtime-pm-clocks-9a4e6faecda0
 
 Best regards,
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
+Igor Velkov <iav@iav.lv>
+
 
