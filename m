@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616905;
-	b=qWM4bRv5m+lZoYWAmuKQyB5WRQh5ta/Z62OZ3xynATg5lrGRUEYyheZ+OQRmovmV5Yxh
-	 LfMdhCpFY2XIq1/EagnsVaMZ6y5FiKhEkuQRlACAv4YHp6E2DgGpum6FdfHsLLO8MeJX0
-	 oBcsN3oldaHZdwVTwHqSUfoZAyZKpLLEnAjYMBBeCyLr2OmnxWWFzSvwgLeKHD9JvI0eu
-	 gqCNqtddxXMi774QV/pSy2PwPTZ6/XD4KDN+QrfN3R2qLxU3miNQIaDnnbo4iF/tbVtE7
-	 QQoqeasrMb1AFfB+k+tEnE97gwFqGZs56Oj25fVrAkawDaocx6HVeKoDMEhttbQyFMw==
+	t=1793616906;
+	b=Q4Mb2ero6M7yp5hk3U3CuLmlDoj8n0k93ZSDpVr+tEqVRndK8/eBHGpTsV7BSyhqenbP
+	 U4yX4W0WsdVGyGgk1rNRzz/off4MHpwZMkuSC+0q+RlL+uCFTanc18GF3Sb6lSOBEWbvr
+	 39yX2Sfec2KpLJYvxICvM+zVdje76ER1LPu7uvP5EwvlGGmPrikNVoDXnhQiHmuK34b2D
+	 2DXhRmxrJAR/0wMhT67aIHJOhK+F0nOuAXli9MlfPR5M+ZR4QnwsJTjWaZQc+Eern3tpZ
+	 ESg3iGG9BQj5vkY+GG35MKP1WllV/t13z7c8HuHBfHwyDOPieiO1m0UT3bIllZlnC0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616905;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616906;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lUIbwahwAMRQLzx+KlFvcws6g6RsvoBUBmMGB7qssW0=;
-	b=3Ad3ip9JPokumrIx9T7d/ZLBFCJ0VTQ6o/GhxsJLyfm4H/xrl+dIioYlFz65s2P6TYjR
-	 4KfUflRwkQd7xRkmwU0pvKXI4vgaW6bxxjWqx7BpqAToGlIRP679/nULg3+lj5MCeEOjR
-	 pizrOyjCH+8rdLHu/gCgML8pTgy+51orioAcJW0DVlz+SOeWLyUnwvaP3tq/fN8+e50oa
-	 1NaSIDdILJaBJg3oJkO1gGthxUOI9OO36pWaoq4YYCSNwzFFPdnsv9BEs+LGCw8TC9Axj
-	 2VQui4mUscq+xHyHaIKYs3KAuSF+CNlxmZ8N29YWEkPX1TjFEkJ59MaYat9J1QccriQ==
+	bh=ZYGq74QN/HtfXC0Xdi0YdDACmBos9aRbbnKwQ9E50og=;
+	b=wSrYMnnzpHhGKKp+HSZwEQsU3E1qEDPUxl/0kSvUhksGdDgMVOrPAq1bYFK8dbvyXzh0
+	 4ejZ5MRsK6hNHzsqpKTNEX89MB0FX+Uqe4Bt+U92xmN1mRmiaB+YnDegXYA4dd7ay6U2H
+	 oRSBHd8E1OhFTV39sotcVB324GI363hXP/LfBGkZwrFsVgzdFz1theI9n4E3G6/jXicJn
+	 KVVnNUdLDVwhgonKSRXKZbKvZqGGT+07mW0hqyZsQbFBbNgudv7ma/vN9c+o+MI0UAZOP
+	 iBklXVZ1vd0rugzEwWZbobizxXpGoMxZqjMiCsRhgCeHq4CoF806quxxWNeaqLL+GIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Thnqe7Pd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VebnN6sP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5445606A324
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:55:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F613606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:55:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Thnqe7Pd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3831F00A1B;
-	Mon,  2 Nov 2026 10:55:03 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VebnN6sP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA59E1F00A1A;
+	Mon,  2 Nov 2026 10:55:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793616904;
-	bh=lUIbwahwAMRQLzx+KlFvcws6g6RsvoBUBmMGB7qssW0=;
+	s=k20260515; t=1793616905;
+	bh=ZYGq74QN/HtfXC0Xdi0YdDACmBos9aRbbnKwQ9E50og=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Thnqe7PdkXVqPwEsthV5xhNYKyrNS/uhFhWWxFEg5jLMpkPhtfkv4kAtrRg45oHjZ
-	 I0WSgwf7FK+GJJzt63gVoF7yobmku4CIEoWP0ugyvvJyYwGUY7jlMvYWfrJ9o5sk/L
-	 GBofLi37su9pR5gqmOh7bxeh6blK4648hxnl//jO3yvoVGclCmJKs0MNUbDLNzaPMw
-	 S9nGG+YnL6+fGUiPFtL1O1zGctd1gIteGb9wMQiXZYTk+IKfH3pU/SaJXKsope0pXh
-	 Td5O+lCTvIbvngFPofbU8kzGNDhpkIVG9V5/sHsV5N/2ZQoTKOa95UObo6kr1Nq0rO
-	 KAq8/3+R0EMtQ==
+	b=VebnN6sPUB92fyBfGG1AQUT/cDgz4NYxz0XblfwpnZy5gESJKjONoffXF4wlugt66
+	 uBpbOAjbUqsqSwAN/FDU6qLmx9Qd4kDSNKhQv8cjZ3FbEtX7nH9QlVWxVlT2Wptrli
+	 bQqx4SOcMBKH8JIT5H1jQ5yYmQdyQyFk1HFt9b6yRhecgV3R6Qe/nQPy8m2MHCV2jH
+	 2WhSrXkzj2zLPQWiESdhIhZS/u7ad5orPoHfOt064ewXtd9SQbEhROBWWyVlGL9TpQ
+	 L79zoAStweUVFKsl8wr828hzgcsreby00GqJnKLyti0jhxOf/sLgOR47MYWkXwN8os
+	 g8HN2U2biSROA==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCH 05/13] media: cec: extron-da-hd-4k-plus: call cec_s_phys_addr only if EDID is present
-Date: Mon,  2 Nov 2026 11:36:56 +0100
-Message-ID: <82d1f51d30ddccac1cda598e2873e49063801b9e.1793615824.git.hverkuil+cisco@kernel.org>
+Subject: [PATCH 06/13] media: cec: core: improve cec_notifier_phys_addr_invalidate
+Date: Mon,  2 Nov 2026 11:36:57 +0100
+Message-ID: <145607674d4310ee75edd1d7533caa73a233d14d.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -60,35 +60,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If an EDID is present, then call cec_s_phys_addr. If not, then
-call cec_phys_addr_invalidate. This helps the CEC framework differentiate
-between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
-a Physical Address.
+cec_notifier_phys_addr_invalidate must call cec_phys_addr_invalidate
+instead of cec_s_phys_addr. This ensures that the CEC framework knowns
+that there is no EDID.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/media/cec/core/cec-notifier.c | 13 +++++++++++
+ include/media/cec-notifier.h          | 33 +++++++++++++++------------
+ 2 files changed, 32 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-index 1f8ed7ff31e5..0a0724fd89c0 100644
---- a/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-+++ b/drivers/media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c
-@@ -643,8 +643,12 @@ static void extron_irq_work_handler(struct work_struct *work)
- 			extron_read_edid(port);
- 		}
- 	}
--	if (update_pa)
--		cec_s_phys_addr(port->adap, pa, false);
-+	if (update_pa) {
-+		if (has_edid)
-+			cec_s_phys_addr(port->adap, pa, false);
-+		else
-+			cec_phys_addr_invalidate(port->adap);
-+	}
+diff --git a/drivers/media/cec/core/cec-notifier.c b/drivers/media/cec/core/cec-notifier.c
+index 8cf1474d0361..2814ef7d4804 100644
+--- a/drivers/media/cec/core/cec-notifier.c
++++ b/drivers/media/cec/core/cec-notifier.c
+@@ -216,6 +216,19 @@ void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
+ }
+ EXPORT_SYMBOL_GPL(cec_notifier_set_phys_addr_from_edid);
+ 
++void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
++{
++	if (!n)
++		return;
++
++	mutex_lock(&n->lock);
++	n->phys_addr = CEC_PHYS_ADDR_INVALID;
++	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
++		cec_phys_addr_invalidate(n->cec_adap);
++	mutex_unlock(&n->lock);
++}
++EXPORT_SYMBOL_GPL(cec_notifier_phys_addr_invalidate);
++
+ struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
+ {
+ 	struct platform_device *hdmi_pdev;
+diff --git a/include/media/cec-notifier.h b/include/media/cec-notifier.h
+index b1c839734124..15e9bcb5b887 100644
+--- a/include/media/cec-notifier.h
++++ b/include/media/cec-notifier.h
+@@ -80,7 +80,10 @@ void cec_notifier_cec_adap_unregister(struct cec_notifier *n,
+  * @n: the CEC notifier
+  * @pa: the CEC physical address
+  *
+- * Set a new CEC physical address.
++ * Set a new CEC physical address. @pa may be f.f.f.f, indicating that
++ * the EDID does not contain a valid Physical Address.
++ * Use @cec_notifier_phys_addr_invalidate() when there is no EDID at all,
++ * i.e. there is no video sink connected.
+  * Does nothing if @n == NULL.
+  */
+ void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa);
+@@ -96,6 +99,17 @@ void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa);
+ void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
+ 					  const struct edid *edid);
+ 
++/**
++ * cec_notifier_phys_addr_invalidate() - set the physical address to INVALID
++ *
++ * @n: the CEC notifier
++ *
++ * This is a simple helper function to invalidate the physical
++ * address when the video sink disappears.
++ * Does nothing if @n == NULL.
++ */
++void cec_notifier_phys_addr_invalidate(struct cec_notifier *n);
++
+ /**
+  * cec_notifier_parse_hdmi_phandle - find the hdmi device from "hdmi-phandle"
+  * @dev: the device with the "hdmi-phandle" device tree property
+@@ -143,6 +157,10 @@ static inline void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
+ {
  }
  
- static void extron_process_received(struct extron_port *port, const char *data)
++static inline void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
++{
++}
++
+ static inline struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
+ {
+ 	return ERR_PTR(-ENODEV);
+@@ -150,17 +168,4 @@ static inline struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
+ 
+ #endif
+ 
+-/**
+- * cec_notifier_phys_addr_invalidate() - set the physical address to INVALID
+- *
+- * @n: the CEC notifier
+- *
+- * This is a simple helper function to invalidate the physical
+- * address. Does nothing if @n == NULL.
+- */
+-static inline void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
+-{
+-	cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID);
+-}
+-
+ #endif
 -- 
 2.53.0
 
