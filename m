@@ -1,118 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655581;
-	b=K80SUAHJHQ4wYVSJhtbB8GuX11xJGTBTjmuH4iPQwDTLdRFcPMxMZtPbDGkjtWBsoPJd
-	 JgDG28YzyOzGCadTHryzrptR2+49JDG+g8naF4uE6rJNzVDoY5K9NiZEnX0r1KI4eO1N3
-	 nQDnX+6AQIL976/J5eujmls12L0zY4uCx1sW+8xnaTNVAdGCkwjCs34HRFU7enzQ8TLpi
-	 9aCkW+ipm577NXRYBn8MybFYQXQpeNWkG6A+N+lFQUtMbHTJuE4oSEyuMEwDP7MGtTuvl
-	 4UhZa3s56XuKNRSDyFFGrTAYbAnxYk2TNBsBmRSyujaCxBZXwhIph2wnGgu9gLpI5yw==
+	t=1793656869;
+	b=S4XosqyrXapiTCfj4jDeZDc4NJk85DEhRr9YB7fHb8+qdzFeLNtnghoTxec6d61fPsxy
+	 PgS/t668NP6zAgzg9hTrjSAuh5krSnq37UDpKvH15CwFdK42/WrLLbLprA1zDOT2Qq+Kd
+	 uVkFH7jgf9z696+m8Q/+ecF17fsMiLcgGfmv77+zxbtKwOWScmy9GrFkb14thKOGieRK1
+	 KvbPxqlmYtIjpn6/vjPskfVdUQu7W7G/poJoKRVkugd0gjn/kL5+8ZbVZClZ5ieubIGt1
+	 6HBu5mjHOwPBN9OVYtr1jt1OPoPTLoNCzE30ZirxEGEglZTdyngh/y1G0KTSuc/vEag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655581;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=PHBqgIS2a1m9GORwkqpCGvAXjRtw2HSeDsQnUYOO8L0=;
-	b=s+XW1OpYGUonp0CLZO9ImR/OZ3StJbWP7qmk/1ZBO3XG106dGSd51BHKJ4xK1wLUX9Gn
-	 0dIEjfxKTMQJCl+R6rTlTlABSvrMwg/22yKb/NKa/ABcwkEPk4clQK1k4enVpFmmliYgn
-	 1yNyiGFoeboSz0MtXTAKCTQ3RFj/ACpxODHFRWJ3Rcee5u/h9Cdz9jh0j/euFzAjFkUnO
-	 tH7TTHP0OLMgk5SUQyE2ntDbodxhXwnNL+F0rWhIitSTasOZ2Tmcgs/Ci/Evsg4e/9gob
-	 Rkv2/qgYTB9nWhihObjqlewxRAUmc/2n9X8DFoAwipKIf//8nlpx2WZ1jasmbkpHv1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793656869;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
+	b=yvF7xhiOeQE2RibSngvUTRKEqrMBWIU7g3V0vgaQ11dIOPgo5HYo0hblOz7AgbDMlITP
+	 aKt3KfZ4xV6QmXFzBEf5+T9fJujnQcJ5Y90vZIBafjKshfG+em+zkKJN8ZhQqyMLzgRd9
+	 X/8qwSUuvD5d+2L2pfTyuGEajqOHx7XHjPGOkU6YKqC9oRXuRtcOofw8w/IZeKWa1s7Ge
+	 VREosKY/4DRURR1FfPYZJABDfnYFWb7ghU0fqS8SEcT+4/d3i6HZeEr4IpWiatCrx/3qE
+	 zMXPdc9la5bNJTd57Fpu1gVQ1sGe+M4yZDaSFgS3VkamQyMiInlmSvjE6RdxRYTQt9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oJ++aXop;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dNPCmhYf;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="JY/wmp8u";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kxub1Oep;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA9B606A326
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 21:39:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EA9B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B0A606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 22:01:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92B0A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=oJ++aXop;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dNPCmhYf
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2K6ASg372213
-	for <linux-media@vger.kernel.org>; Mon, 2 Nov 2026 21:39:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=PHBqgIS2a1m9GORwkqpCGvAXjRtw2HSeDsQ
-	nUYOO8L0=; b=oJ++aXoppqWbvzDgovVL7Xy9qHXZaRCpJSpIxiQh750QP1mHBZI
-	9BvkWad7l/BLVcBJu5uTMAuf+evP+qIkQJf+eMUeuRkW2VDwqSrTob2pD3bNkC00
-	D1lwh/uC9Sj15vqpo9yxr3OOPmd+s3p8TocMsXWbuYq85YTrlO+lGAEmGnzoeGk0
-	ZYmF0hRoAistcZzOjCaNHPXZEkJ4qrDiCFvD7G3i0YbgA0cacmj7kyNK8vPVusCQ
-	NgevXYfOYgzu62ngtm0jWzGd+FPG+mGKA16mqqf9nRycIGHTCsH+//UfipZMTawe
-	eYKBF4WkjdxDbiIKZ/0V+0wqvCYbdtGB2+Q==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq07r0km9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 21:39:40 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1b0d864826cso5540269c88.1
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 13:39:39 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=JY/wmp8u;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=kxub1Oep
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793656867;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
+	b=JY/wmp8uEajzUkf1vNeZ7IdqqrYGiqbB+JyZfHIwoBnRWFnXx6MxOMBQ1QPWUuN47HN3vw
+	WfXsqF3y2s4CK8roeZtKzy6VSl6JCH36pHlSmbwr5v1VaCKfqJsb28FskLBuSe+4H8NHu8
+	7PydJ4vC0jswAldSb+/rh1oN5K8jTB0=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-382-SklwBip-PeKbP8aETuJaxw-1; Mon, 02 Nov 2026 17:01:06 -0500
+X-MC-Unique: SklwBip-PeKbP8aETuJaxw-1
+X-Mimecast-MFC-AGG-ID: SklwBip-PeKbP8aETuJaxw_1793656865
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48af5a07314so2223071f8f.2
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 14:01:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793655579; x=1794260379; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PHBqgIS2a1m9GORwkqpCGvAXjRtw2HSeDsQnUYOO8L0=;
-        b=dNPCmhYfkOeq1yQ8FA5R/AZKMcmMY4uq4du7cEk7yMZHnlZz9myjLbYCYybTouth9O
-         ivWBXyw0HX7aCbN5P6hZ+sFLino2srWk6Nqz7Go2EPFOwRUKeei0OoP841rQuiCV1Wab
-         K1Wy8WC2ndDLe+nxn/RQ2zRfBBJ4aKb2r4+z42t/syySmi6eKchMaBIeOvff1AHo7M84
-         P3DAK8QD9SfL5pSU6LQbz7VAsGVbMhcVvce5bzBmDV31DQImPB2QXbkQnz5ZMme1Utn5
-         6GsAdbaXJa/wVe8nEzdTbmruKaPsM+v2VbKAp7IGF7vrCYLgmsM57mSFp39a65akkFTj
-         0GCQ==
+        d=redhat.com; s=google; t=1793656865; x=1794261665; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
+        b=kxub1OepQwqzw4DlS3rfA1OfAXqLMScfhFOmzNrJ1pTHliNk1VVITv2fVQ/UPxKoLU
+         QfvGseif6c5bt0WFIJ0q12sb2pzR4u2J4YfJgBY7U8Om8in4RhWC7yMK34FmrE+4GSz+
+         5gXSOvnknqCcZQQIYxRFUSH+fmdwg/m1R0R8VfsuasglNTZRYb1vc9L4ZSq03EUkFDpQ
+         EDxoO11i0GUZyyb3Z5IUsmyft32Qt8D4a3HtGkVBQt9F6v0zVqPJqQvaXlauDKBuBqnI
+         GfhxNDuwUIHctovuzeuFDmtxLnWhbV/XbrnwbJ+DDZqa2/otPHbkMbnwSEawQFS4m4PK
+         1XbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793655579; x=1794260379;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793656865; x=1794261665;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PHBqgIS2a1m9GORwkqpCGvAXjRtw2HSeDsQnUYOO8L0=;
-        b=kezuUtkIMd4/UESGbKC8NZpQzkWtQdUG4GHC75tTvSa2jLsd+o0Hp0GGGgvEvc5ceL
-         MD+L+kPFnyiIKfc4Ho36RFmumeVgy3MVQltcjdSwP+qFBluBGKxTX0RSreHf4wANrfeD
-         EFTNkWNZfnC0fvPjGbio95DFeq/b5xnnBu57mgMekmeNMCPLNLtDCkfSJC6uULEp8RRR
-         qkIFk/VR1/SlCrc/WshUP/0CxfDJFlMvJ31Gi6Xq1dFSGuI0fXjqJ2u8BQIYvsGo9yiN
-         owcICYvXjwXwDxIEnHm/IohDjguAbreTY/04cCeEOmSM/Pt5+kefZRSp8x+shq4oSwf6
-         22hw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/hYtFATIPr/4S5itcOL2SxkJ75yk2Vhc6+0JLhi152eU1sl1bxgH5rM2IDcDOoQIKUpNRhL65RLC4Kw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIwM4tFdd6RWymV94nCPg4b7YSsS1vJO1zBDgABzS26i1A8txlq
-	tzjqcERX0NwWckpW0VowoHUlXWvIBvLkEvzffbuP/LSedhwyOyty7TyK4RnBjreu8bELKbvQy1V
-	/P1jPvjQ+C83CN78kWiMo5kPoVbp5MS8Ge3jcnaYm05pxma9T+nZzReZ0O73I9Z2p8A==
-X-Gm-Gg: AYBFou3+kwn27s7KI1C56EGJ4FZtxSRPScscAyzUkWdBZO5RIubJAcijYd60u11ddD+
-	7pD1Xo7ZOeslNxVm1LHRV3LwPdLq/0em/QupIyHxPZkJng1gbNP0ZRaKz0n7YTgffjNWmgu1tYP
-	72pMLkeVCFY6bE7qCgsh/IJDfcybO/c0cZ50FrFIaueT/1fda2v7jeM822gOwfTKeV1LQUNpabt
-	qtPNinLYupJQkFpOU3kbYVI6833S8r218MkN4tpkrQuYcX+dywzSO91Qq/jvYpZznMPA7/zr9Bm
-	Mfz+kfV0AqixatRFz0PVA13R4NEqN0Kfidjq2I/a16vPWwOjgQl8CA0UsHuuKx1lQHpozp4gel0
-	JZKSCrC1whOYhFYpF4Ob2nJ0KMvUKxwgyVvPA2QWKrf/0phNi1fN7csAhkUG7oKAOxayn4xNIZV
-	hoDsrB6wxkfJhHHqv4IapPljK+2s0=
-X-Received: by 2002:a05:7022:f50a:b0:149:50cb:2175 with SMTP id a92af1059eb24-1ac5cb1881bmr15551207c88.33.1793655578858;
-        Mon, 02 Nov 2026 13:39:38 -0800 (PST)
-X-Received: by 2002:a05:7022:f50a:b0:149:50cb:2175 with SMTP id a92af1059eb24-1ac5cb1881bmr15551155c88.33.1793655578052;
-        Mon, 02 Nov 2026 13:39:38 -0800 (PST)
-Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a61a0csm47056885eec.22.2026.11.02.13.39.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 13:39:37 -0800 (PST)
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v3] phy: qcom-mipi-csi2: Add support for single power-domain SoCs
-Date: Mon,  2 Nov 2026 13:39:36 -0800
-Message-Id: <20261102213936.1251316-1-anusha.nandi@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+        bh=nmYBbIk5usy6FeDyc+DCeJpHSSfN/V5GCfHKFupvluE=;
+        b=WS1KYK/CZSNApRlQMlHtnXlAlnKimkJ07jWxePYPtINyZmhNtQ67fXD2U5VUf3Kklc
+         wLHKXmruGIsl9453G3NN9D+WJdrPNSeKKb5aZhtToeUVdE1PnvdhWp18Kf+XWLBnAwon
+         IYb12OZTJT8Ahbx8ZynlH6QUKoFNoedDPGrN2Ja/wlDhr1L/v4R3KsxTAnRTH8s+5oin
+         z+mRBwvgORybAIPDWx2cA4qhWJa+YgS+xqE9yTJwTJay0n+WIM7tEMwvU4CNqhi0qS/x
+         LhQvQTnsLQs13GGMi6vK648ZVr6nwxP0y8xaMBLUNVoYciY8lFy3OSyw8IsXKkXmMLsX
+         DRFw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHTZyeWrTJQEOiXE10GHaoV12xRwO9Gr+J3HE4xUI7bx60bd46Ttj3UBesLbC7NUSYu8Wcpcbwff/DVw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z92qeS1pRAiYvN3DHPij6amp3G/LUyck/MrBG+kzISIDKx3Tzw2
+	7eAb18ExDM7Fs3YmJ+4aLlRWjlTXBEQoDHbGKxysdf4M6tI1GZOCuss+3i2eO6wHiHs4HA4hu/5
+	eH8IpGArIP7ohXPLtxZWNPWfWr6obWsqkUZi03hgBLf4c6pGndNTaDCU7RCs5khld
+X-Gm-Gg: AYBFou0/rqCZupKgdcW+ft/RaJlrgwdnaijd9vbHV2holiYLHpOQOHnI2NrdQTNyVQt
+	EFAgbHzPErQkmk5nGHLNKKDSz69k3MJ9lyNMRUxHJdS7VXwNtM1Swlt8SHyyur5owUcKeStzuWv
+	HSOeH9+COxr9sw0k9bbHUBqP4IVp/lOweEkwq+ykXKCf7OuYHQfirJ2UlS6jwnfxUzWeXTu46Z1
+	amRXa0FES16JIS9mcCU2OebHB8zk85yatG1S47Pz7chbf3VspQ3ZvlTwf6u2luZQe8jrhwQ9hut
+	mrrLBGiZ2DvmqY7OnVROwVlfzudbnlMuvWSWia+nhypLsO/EkTsa4N4S1Y7bknUd2MFXtAmcq3n
+	/xcujXa8XJhshsY64IkmxX3C5EgG6inQ/WmmoluK8Jvpvc33F+QtOVIOx79EVay/u9gGAWOFqGo
+	O5rTe9uJkCfCWrStvGBt8hIKyoEM4qLQuQTiaudRWD0Pg=
+X-Received: by 2002:a5d:5f41:0:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-48e6e2eb83emr27445807f8f.16.1793656864992;
+        Mon, 02 Nov 2026 14:01:04 -0800 (PST)
+X-Received: by 2002:a5d:5f41:0:b0:48e:68d5:818d with SMTP id ffacd0b85a97d-48e6e2eb83emr27445750f8f.16.1793656864628;
+        Mon, 02 Nov 2026 14:01:04 -0800 (PST)
+Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71baa1b3sm20953601f8f.56.2026.11.02.14.01.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 14:01:03 -0800 (PST)
+Message-ID: <f4f0fbd6-63e4-42d3-87bf-9f888a8de1a8@redhat.com>
+Date: Mon, 2 Nov 2026 23:01:00 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -122,146 +112,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: V07-TTLNL7ZgHIA4ozthdxZ1Ibxr6U7A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA4NiBTYWx0ZWRfX23xTmjvOUHz0
- juXYf4+5z89oMxPyBvSiwnYV2m7VGpOAicOJMkGDZwpdH90dVki6B+XyGzEJw6NjmwOavAN3aXf
- BqJFBWCI86nlT8HBVfz8SSV7cMjEe0kjn9uNJ4K68wNeBfMy+w9DqJwMS0P3UWIRf9r7FZJCrpN
- L4LjHqCFFjP3jzjMUDQqq7vpznyMoSjfNT0k0PfT/jn/lZlqI0hqdt0ei6Y6hjG4QaUdo9Hj7cM
- 76LBtE3VEg1wcmIJUceRpm/3f2IQaMsnAsAgneCYHI8dz9/JSnb7OmtQv1+H9LIsKzoRxP7La2r
- hQT4rblchO9m/2ybuybZjDrlRgkUUJJOFz2sNY9aNfh6aZMrBeINQLBWDKPmx+PCtwmFXhwlij7
- 7LTExFPcQ5Gw6OgcOTUoj6x1ueR7vu8xPNdN8KSShuZdPx6k+3tZtLIRlm26voQKBQFxxzuCiqV
- jRGXKTyGSxOgiPBJk4Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA4NiBTYWx0ZWRfXxoRjS5JKnPuW
- W3RBRM20q5WyApBN0etxDvAq37hNM9Tr+3x7E/iA69zOjl/aQXn5iRXBT0R512OlSGfqgAb5rHx
- IWBe3tw559ApEIw89KlwD4/5YWxCRl4=
-X-Proofpoint-GUID: V07-TTLNL7ZgHIA4ozthdxZ1Ibxr6U7A
-X-Authority-Analysis: v=2.4 cv=NZlzRGD4 c=1 sm=1 tr=0 ts=6ae9031c cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=szogs_k01QmFkf2JtiMA:9 a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_06,2026-11-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020086
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
+ queue uninstall
+To: Mina Almasry <almasrymina@google.com>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ sdf@fomichev.me, kaiyuanz@google.com, kuba@kernel.org,
+ bobbyeshleman@meta.com, asml.silence@gmail.com, dw@davidwei.uk,
+ ap420073@gmail.com, davem@davemloft.net, edumazet@kernel.org,
+ horms@kernel.org, shuah@kernel.org, sumit.semwal@linaro.org,
+ christian.koenig@amd.com, phasta@kernel.org, andrew+netdev@lunn.ch,
+ sdf.kernel@gmail.com, hawk@kernel.org, ilias.apalodimas@linaro.org,
+ daniel@iogearbox.net, razor@blackwall.org, tariqt@nvidia.com,
+ kaifengw@google.com, dtatulea@nvidia.com
+References: <20261030083539.777877-2-almasrymina@google.com>
+ <179357408146.3131.2882435952119280563@kernel.org>
+ <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
+ <9afff44d-f8eb-4549-8aae-f99a53339319@redhat.com>
+ <20261102185856.1824792-1-almasrymina@google.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261102185856.1824792-1-almasrymina@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-sa8775p, qcs8300 and sc7280 each list exactly one power-domain ("top")
-on the CSI2 PHY node. For a device with a single power-domain phandle,
-the generic platform-bus code (platform_probe() ->
-dev_pm_domain_attach()) auto-attaches it via genpd_dev_pm_attach()
-before the driver's own probe() runs. phy_qcom_mipi_csi2_probe() then
-unconditionally calls devm_pm_domain_attach_list(), which fails with
--EEXIST because dev->pm_domain is already set, and the driver treats
-that as fatal:
+On 11/2/26 19:58, Mina Almasry wrote:
+> On Mon, Nov 2, 2026 at 7:29 AM Paolo Abeni <pabeni@redhat.com> wrote:
+>> On 11/2/26 00:16, Mina Almasry wrote:
+>>> On Sun, Nov 1, 2026 at 3:01 PM <netdev-bot+sashiko@kernel.org> wrote:
+>>>>
+>>>> - [High] The dma_dev use-after-free this patch says it fixes can still
+>>>>     happen for RX bindings made on a virtual device that leases queues,...
+>>>>
+>>>
+>>> I know about the issues with leased devices. That needs a bit of a
+>>> rework, which I have done locally, and would like to send out as a
+>>> follow up fix.
+>> Will such follow-up rework the code touched by  current patch/series?
+>> how much? I'm under the impression that at least the fix for the issue
+>> reported here would be quite overlapping.
+>>
+>> /P
+> 
+> I pushed the follow-up branch on top of v5 here so you can see the exact diff:
+> https://github.com/mina/linux/compare/devmem-teardown-v4...devmem-lease-bind-map-dev
+> (commits: https://github.com/mina/linux/commits/devmem-lease-bind-map-dev)
+> 
+> There is some overlap (~55 lines of v5 touched across a 6-patch +262/-99
+> follow-up): it renames binding->dev/vdev to binding->map_dev/bind_dev, passes
+> the net_device explicitly to net_devmem_lock_dev(), factors out
+> net_devmem_close_rxqs(), and replaces the !rxq->lease / !netif_is_queue_leasee()
+> skips in net_devmem_dev_unregister() and mp_dmabuf_devmem_uninstall().
+> 
+> I kept it separate only to keep this net fix smaller and easier to review,
+> since the lease issue is pre-existing. Happy to either land v5 first and send
+> those 6 patches right after, or fold them into a v6 if you prefer avoiding the
+> churn.
+I hoped for something smaller :)
 
-  1. qcom-mipi-csi2-phy ace6000.phy: error -EEXIST: Failed to attach
-  power-domain list
-  2. qcom-mipi-csi2-phy ace6000.phy: probe with driver qcom-mipi-csi2-phy
-  failed with error -17
+I definitely would not fold the 2 series.
 
-x1e80100 is unaffected: it lists three power-domains, so the generic
-code does not auto-attach any of them (auto-attach only applies to
-single-power-domain devices); the driver's explicit attach is the
-only one that runs.
+I'm wondering if this could be considered net-next material? pointing to
+net-next will offer better guarantees for all the work to land in the same
+release (no need to repost in such a case, I can apply this one to net-next
+directly).
 
-For the single power-domain case, call dev_pm_domain_attach() instead
-of devm_pm_domain_attach_list(): it returns early when dev->pm_domain
-is already set, so csi2phy->pd_list is left NULL rather than built up
-by hand. The three call sites that walk pd_list for genpd
-performance-state scaling now guard against a NULL pd_list, which is
-harmless since scaling is unused (scaled = false) on every SoC that has
-a single "top" domain.
-
-devm_pm_domain_attach_list() returns the number of attached
-power-domains on success, so a bare "ret < 0" check in probe() is not
-enough to catch the case where it succeeds without actually attaching
-any domains. phy_qcom_mipi_csi2_attach_pm_domains() now also checks for
-that case directly and reports -ENODEV, keeping probe()'s own check
-unchanged.
-
-Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
-Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
----
- .../phy/qualcomm/phy-qcom-mipi-csi2-core.c    | 25 +++++++++++--------
- 1 file changed, 15 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-index c0a4fa20eaf0..269232499fca 100644
---- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-@@ -43,7 +43,7 @@ phy_qcom_mipi_csi2_set_clock_rates(struct mipi_csi2phy_device *csi2phy,
- 	}
- 
- 	pstate = 0;
--	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
-+	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
- 		unsigned int perf;
- 
- 		if (!csi2phy->soc_cfg->genpds[i].scaled)
-@@ -174,7 +174,7 @@ static int phy_qcom_mipi_csi2_power_on(struct phy *phy)
- unset_rate:
- 	dev_pm_opp_set_rate(csi2phy->dev, 0);
- 
--	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
-+	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
- 		if (!csi2phy->soc_cfg->genpds[i].scaled)
- 			continue;
- 
-@@ -204,7 +204,7 @@ static int phy_qcom_mipi_csi2_power_off(struct phy *phy)
- 
- 	dev_pm_opp_set_rate(csi2phy->dev, 0);
- 
--	for (i = 0; i < csi2phy->pd_list->num_pds; i++) {
-+	for (i = 0; csi2phy->pd_list && i < csi2phy->pd_list->num_pds; i++) {
- 		if (!csi2phy->soc_cfg->genpds[i].scaled)
- 			continue;
- 
-@@ -231,7 +231,11 @@ static int phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
- {
- 	struct dev_pm_domain_attach_data pd_data = { 0 };
- 	const char **pd_names;
--	int i;
-+	int i, ret;
-+
-+	/* Single power-domain devices are already attached by the bus core. */
-+	if (csi2phy->soc_cfg->num_genpds == 1)
-+		return dev_pm_domain_attach(csi2phy->dev, 0);
- 
- 	pd_names = devm_kzalloc(csi2phy->dev,
- 				sizeof(char *) * csi2phy->soc_cfg->num_genpds,
-@@ -245,8 +249,12 @@ static int phy_qcom_mipi_csi2_attach_pm_domains(struct mipi_csi2phy_device *csi2
- 	pd_data.pd_names = pd_names;
- 	pd_data.num_pd_names = csi2phy->soc_cfg->num_genpds;
- 
--	return devm_pm_domain_attach_list(csi2phy->dev, &pd_data,
--					  &csi2phy->pd_list);
-+	ret = devm_pm_domain_attach_list(csi2phy->dev, &pd_data,
-+					 &csi2phy->pd_list);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
- }
- 
- static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
-@@ -369,11 +377,8 @@ static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
- 		return ret;
- 
- 	ret = phy_qcom_mipi_csi2_attach_pm_domains(csi2phy);
--	if (ret < 0 || csi2phy->pd_list == NULL) {
--		if (ret == 0)
--			ret = -ENODEV;
-+	if (ret < 0)
- 		return dev_err_probe(dev, ret, "Failed to attach power-domain list\n");
--	}
- 
- 	ret = devm_pm_runtime_enable(dev);
- 	if (ret < 0)
--- 
-2.34.1
+/P
 
