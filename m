@@ -1,109 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627208;
-	b=2nCjlPnqcazz7egHLN1ilVmcqHvglpW4lHAP4fixOUvJHg+wYwRHheJeIJuv6tbxQT+H
-	 tzPTpUe8L199kLXrYDp6XYqj76jKi1eixm7guirYVpCgsorce9/ZWZ5s6rpbqAix8Rr9V
-	 70PZk81oFNY1hZ93EL3fsdw0zOaWM2VDLYyDWNUB8Sn4MZpnOf/vBmR4GuceqHl4vYAJP
-	 nVDC/dT6JjxLB2sPlOp54VvQIyiHbMxrCemrkXJ7TiL3VzoRq1Q4Yff3JDaijU0ERJZ7y
-	 O8+0PFtsDiBfJCesupe3SE6Ch/5rJ0LRq3cVHwraGcoGHQVBlqgQXWu28f6IhId9B1w==
+	t=1793627819;
+	b=LNPZZI4bTC2iVfC7jV4zGo4T7sjfk7yRHxDsTElacyA0b0eUgUr9N+nO4Seo7DPTd8Wt
+	 WdUG3bSbWE+jVwK3JjWjLllViV1N48DU9vW7AGWOuwbMZadSiBL3JvpnYlGiNGbbz3tBR
+	 NEj/ThPcsZ5T8NvhaxlYqA4Xcj3TE1weLIOCD/QW6uqiKaFbjuZWBnjYs3t+sPfzsVs2w
+	 ssd6jEyQo6QWecaCX6Gdj4wVXCY4oMQgvHFzCuePZ2ucwJpvMntEhA1/V2hozOM3W826t
+	 4K6aRs6pXeZWJlOsc7sUgO6OItm4XiMz9Xw1jMS4QGHO3hBlkm9dEdkSueoTu3OcsGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627208;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=aFpKkAP8HifgEddckPhCbvrWHiSr5ELXk6ODk37kw/U=;
-	b=WXagqRqqFmf6Qq/dyd3UIHkxZsWXW79VlP8QEwhno4r3cddQhfZttoeRJfdpkoWXXlSx
-	 dPusH33/csoRiev6Hqs2LR9tLPouekPSUwtHwtCYWaILJyx+MBbFrc/L/Zp7jijIsPEZL
-	 C4Gf1dACcpTZr+z97nU8YxYnF/XmTnXy7CT/5IL41M6VmcSM+Rse1EiU781xO90tzc0rY
-	 4jlHuPz90h7Ghi8PJNG5wnf74bGV4vI6I3CPd78EVEEbvA1W/m1OLeRop34UVXXD6fnLA
-	 qqpVUb8atq0nroPvzzPM7hSkUtfx532MnyGD6ZkWxiC/+X52xto3i8l86Jap3/6VB/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627819;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:
+	 X-Google-Original-From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=uQ+hpJVqeXPZysFRWhPachckjl/zC4GUz5qUhvBymdA=;
+	b=TgtjsBkLoBxxymL8W5dtg/3iWbutmtdExI7cWAbj93nK7uoKPvXUZZbJ+ReDHPnpYu+x
+	 U/ZXGjGbbu7lQ/OpUgnG9N4B0ohPk8OdwKqERs2oxry4eWjBTRrbUYoSLl3XgtFHPwm2M
+	 Un5h+3d0AX/S7xBwv9+DFPrCN2ltthSBZx3/DA3XzvOEDnQprVQMrfBrr5tfVcWtA7eZa
+	 tNMUGTrI6hnqU7xWtxWZd9Vmj1kETBtk6SLz6aJE8lEv/jFslWmnZrcpuu2YivZNwCZ8H
+	 8KXk2v7HncwiqQbpItRfl2GlSiuOV+nNvCkj2s9HA131JjwUt6MUxDyAA3H3RWRSpow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mp1FzEuY;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dr1ukPsi;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="pJ4wlQl/";
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1E7E606A32F
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 13:46:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1E7E606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E5E606A334
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 13:56:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75E5E606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mp1FzEuY;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=dr1ukPsi
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DANdH388348
-	for <linux-media@vger.kernel.org>; Mon, 2 Nov 2026 13:46:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aFpKkAP8HifgEddckPhCbvrWHiSr5ELXk6ODk37kw/U=; b=mp1FzEuYO9NYzNKW
-	bGaSq90IeO+hYww63wccVULfFJq0/q35fXSReIAL3X638YvXUE/DSsX1QSh0tSXQ
-	zd2akAJKNOlZNm1ENBE7/1UM3VBBf0iaEjU0brM6092iqFgN0YXg9T2KOzpfb3uD
-	14xgQcDTpqO/eJDKAHSR4m8lZ6/+/z/5H1gkbiTJwcK8/Mr/Kb1ozzPwgTKeBn1r
-	7oYGuRGbqP/eoj3OHgPb093ylRxwRCtsndg6Tg+ZyzCRn8//m77vFaU7gpKaceOv
-	g1fg+IRysQOJDE/zOJehL0xMiaBP5R+ISBv47BnJu/NC42Lvb2W5uJexAGVXWsD2
-	6D5Xew==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpph19c1x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 13:46:46 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f6f4fe531so487362485a.0
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 05:46:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=pJ4wlQl/
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so15766445e9.0
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 05:56:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793627206; x=1794232006; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aFpKkAP8HifgEddckPhCbvrWHiSr5ELXk6ODk37kw/U=;
-        b=dr1ukPsiWTURy9B6+33xzZ78uRThhBVxBBK5uB0/uxfro2mH/AE4mrUs3Mwty1T33A
-         6O3gEuMikqt9YNTrhtMeWp3fxNE9384atz4KzEYnl6X272D99zy/pognRu/NJ3k9mnPg
-         z1nIUZFaEbLlfM7WApDox2EBo/OrxhoK+zeo2lbcH8OA2D40k6eJqPhhSzszlZC6uh1T
-         IfRz2O9BwmXOZrmomNdnyolF0KIdJVvHaK48K4KA7zbUy5Zg4FMUShx24s49WvRMrdbV
-         U6r2vcYuUoP/5J+chw/w7sLl718Qz4aOsR+rMXCCj72vUFs3srHhB/2uO8IjUkZ+DJOo
-         a6sw==
+        d=linaro.org; s=google; t=1793627818; x=1794232618; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uQ+hpJVqeXPZysFRWhPachckjl/zC4GUz5qUhvBymdA=;
+        b=pJ4wlQl/Me2ATwWzF3oHtLuPfjXwBefpr5+D0KD8MT10MZw/KS64KNcBi/QWrmbIKw
+         b17cqmXFDAC3Fz/Qin4pn61o8Ymmq92u40bVwYuE+hM83JioQoZov/uKamA9CnmtbnNc
+         ZSSVMIgUYsUfjgP4laHZ/oQa9IYhsF2lmPBSwXjL6j0sGCzoki5c5/0lQwYMPsIsv5Bf
+         ++m9wZ/AlsNTd19jVsytwulihvkiZ1LwJNjg8r3IcvYzwSmEHgr8beOxyMaYXTl7YEJU
+         MClSKtbmYa++/tWGkjzln6zXQrl9klD9ibQ1XS6rfrq1HZPpFDNSeBrF9htKVT02F2q+
+         TEig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793627206; x=1794232006;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aFpKkAP8HifgEddckPhCbvrWHiSr5ELXk6ODk37kw/U=;
-        b=ppS+6wlKOgKBngGc3C6r0P0NqCJmGI0Daji2WEs5SfKKXNIrHvHRf5lVmgqmU+3047
-         JvXRnS3Pu/NWtAm88fSbWKNXo7vfvms94BL7xapkYCDWzcJ/Pn2dXkif9vHYjXUF7SPc
-         ZkRBLXzsv8sqFmOjTLsV1E2X+AdaBJLNixbuN3lOI7IpZyqTcuGin/MzDDrTiaRlYWkM
-         xxq/r8HCmEbf36QyaUIf/Df8yMgXbg3oaCm8a2QmTGWIpe3ZtJTtmMmh5iovk2UPov5K
-         Mb7nZ1PApWxjDIqmYSymRxz5KtkXmRDPm9a+2MStn9cLJzd0N9X2IvrofmHeCX5RtrrD
-         X9QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXP3aFZhHA37xIaS88ksA/LslSdKlM9rWwvTaoJ5/djEE5lQjxqNWqfBLbk0Szju9+x9z7KAvkvC+B7Q==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIJFa+NRiwwhIwE1w0c/UguPea2Dkq7sK0CBjTmxFUFYtWZJqii
-	p/wfqPKEC8Bz1cvUohRcZRo9n3jULHeSV1EW95PRGIQ1F8YfBWeSqsVf4ppoOIdJo/5Euom8i1G
-	GiIwYMFSog1EaJTtJUujRU2lhmUkHOKYRc+WeUMtP1UQ6MsbyMs3ZUtcPHgBFfciEUA==
-X-Gm-Gg: AYBFou3C+ibl2EfDkcinPbpRJymHpCqy8NxsbUCq8qw8qIjs15eNGlx0owR5zJZIXmU
-	XGa3/wgKihHRQ/EfW7C8r/NGd6R4cJy3iRORaMkok1CU+kerc4feeMCRO/Nhs2UXv73vyGAUZU/
-	4d8EQwYc/e9pixkqPKk1PrTqvTDsJr3gaObik/E+uz+UZtks9qhvs2tDrXzTrbd/AcX1FXUqysR
-	0rjtMefolF9ti7AsTP/d+RDFhpcxT2ZYl0bh9PJ/ChLJDdiq0ppv0fTzHIC4LCgtC4wMGY9pz2O
-	qYr44u8tWsBdzstco0EPvBetV5NcSc8NgiAUw3yHGkbCEJOahje7dSIMKXd6X/MbUdl9wCSmhoo
-	7g76OCNqwgIvSanpcpAbXDj/bvGtQ+ltD2VGXHVlvGbVOnSPlHn27wtp3FZMULUVVJeM=
-X-Received: by 2002:a05:620a:19a6:b0:914:afc1:c66d with SMTP id af79cd13be357-94421584b77mr1508273985a.11.1793627205005;
-        Mon, 02 Nov 2026 05:46:45 -0800 (PST)
-X-Received: by 2002:a05:620a:19a6:b0:914:afc1:c66d with SMTP id af79cd13be357-94421584b77mr1508272085a.11.1793627204688;
-        Mon, 02 Nov 2026 05:46:44 -0800 (PST)
-Received: from [10.40.99.77] ([78.108.130.194])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca21356sm3446581a12.35.2026.11.02.05.46.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 05:46:42 -0800 (PST)
-Message-ID: <a76dda2c-dff6-47e3-b330-f77365a8fa4f@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 14:46:41 +0100
+        d=1e100.net; s=20260707; t=1793627818; x=1794232618;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uQ+hpJVqeXPZysFRWhPachckjl/zC4GUz5qUhvBymdA=;
+        b=UAykZPVUa6qKlkGqZZSNS4kUzAXS6OqELWGfO4zfBplJsK0c+wDDOtPrHI72Y0BgLI
+         eRR9PfBHyWDsJUjM8Li1IXJP3iFv3Vpq1/4rm8vuP1CsDVqiHMZ6K20td5Wnw7ESX0/b
+         8wpPysnSQg3J6sFH0Ji+cpu+RnujCHzDYDJXQNeiCoOx+QojNz9WMk6FXP1Qr/W8k2Gc
+         nQyve10zwqLbdyUaSUCN7uFoaCYWSxD0TM7DPJeNY1Hcz74jTuiCa37OLbRqXaGSahOE
+         SXqcaF9VVqFBiCNNlUFZMfe1eSIK391xD0Y41DB18+8/I063lSEOLPiQWbsWYdagfm2I
+         IRhQ==
+X-Gm-Message-State: AFq9FYKBXaghg64s3ZKOKyCB6GcaGwDZrMfIDvhXFBwUMjfmd/q155N0
+	fb1BP/vu8YhjNtSklfFKijYaVdniHSjdskj17egQN3A4QEqTDgkQYwkSijhjspyJ2b/bs3nysyn
+	fIoIP
+X-Gm-Gg: AYBFou1pi1/D1VOrn5SjE3WL0cqLtUEagf9Jr/Lx3bXqwsszKvMFG/iF3wvuP5PoLY5
+	r5YXsPv+hyNLqmC/BR5qA+D3bj/UCyN7NchGeFzTzAQZUG6IBku3kjfV2bl6d4Dr54ojZPTXFCt
+	1/KAgLaHMoVtXRhWEbLCrXV3IE05uo4v67LjI7QeSuNMqxOTVpvzS2X3Bmx0/FpHvDXX5dmS68G
+	MO7YZOh7sQdeLYKfiET+Mzzl7mAJYBBGKqd+7derxOPm7NynlUWCXYDWAoV4oaPBR/+VK65mBdF
+	QbHw2qrW69FgKmCbjHujMS28Iw5W58T7Tz+4qKYU/jfbOI5QPBhFVdX5BrEnDDTt/xUr7HNDRde
+	JOMjXE+Je4pC/SjfrlsxWJuwJaOyxZHnFrKSbmNL7l61VFBf1zP0eJVQ4Dx/b3zw6Osd+xIliUu
+	SqSZB/IYMbCZckuVEpHSJi+GGc9pVGx4/KP2xZe3bBYefbimRChaolu0fcYbcoUHzqmaBZjnaj5
+	t1F6MdlXxoYFcZzsg64im1HGiTazQBv1NU+OVvI16kBr8kikXPbDxAzgg39KRrMYbtgIqwnKc7q
+	vcLPgRE/dPcRXxkcGQ==
+X-Received: by 2002:a05:600c:1990:b0:4a7:462c:6b9e with SMTP id 5b1f17b1804b1-4ac1923581cmr221885265e9.32.1793627817835;
+        Mon, 02 Nov 2026 05:56:57 -0800 (PST)
+Received: from [127.0.0.1] ([64.43.42.35])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm126145375e9.0.2026.11.02.05.56.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:56:57 -0800 (PST)
+From: bryan.odonoghue@linaro.org
+X-Google-Original-From: bod@kernel.org
+Subject: [PATCH v2 0/9] Add SOF sequence logic
+Date: Mon, 02 Nov 2026 13:56:46 +0000
+Message-Id: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -113,74 +93,146 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors
- on Intel IPU6/IPU7
-To: Sakari Ailus <sakari.ailus@iki.fi>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Alain Cousinie <alain.cousinie@laposte.net>,
-        Milan Zamazal <mzamazal@redhat.com>,
-        libcamera-devel@lists.libcamera.org,
-        =?UTF-8?B?8J+Qpy1tZWRpYQ==?= <linux-media@vger.kernel.org>
-References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net>
- <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com>
- <20261101164311.GA3368923@killaraus.ideasonboard.com>
- <auhqOaZmN09mxkqv@valkosipuli.retiisi.eu>
-Content-Language: en-US, nl
-In-Reply-To: <auhqOaZmN09mxkqv@valkosipuli.retiisi.eu>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: zjeGZiGqmgfJFVRNKob_43iYlX8A0nmM
-X-Authority-Analysis: v=2.4 cv=IruL47/g c=1 sm=1 tr=0 ts=6ae89446 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=rrvG0T/C2D967D07Ol03YQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=6yqp5bE4hUTj6ghFmzgA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-ORIG-GUID: zjeGZiGqmgfJFVRNKob_43iYlX8A0nmM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX70VHs7Ii9kRS
- FdBJhZ9MBZi5VOxOs7gUC3zk0T+jeItrgAen74E2rbeBr7Gc4fzOERwdjYRaE2Pn0Pe2Vis85gg
- e0n7Vm7LXwsgPlkQB20M4TDfEBm6ovrXZWpOfuErLyEAOJdE9g79MhHL0k7W1ladoscJ7du7DHy
- bEEv5JwqCzVnuf+cYKf6w9phyT7T1rnGE6FzmACEKOFLbVWOQv+nnaC2LYjP2rzO2vVMCw/P2Vf
- +9Q2EOvYl1o6UYXDM5ju1nnk948nIxY6tXCeUjoNlaJX98KbrgoRVRfKscXGo/dAkWIRMtmPHQK
- 1JYgrKlY4xiNtzlC0UxrzWHCvYbs272ZnH4kHigrIJx8uDj/pO68+h8SBXWxceOzSBDFgPdJb/q
- ljZANdcufd+bwThFBmJnCuanWHMp9KHcbMWBy/eVl6CTaFBwY1ayOARlOx0ZfxNGhWDFrg9qTim
- LSyiNDiDUP8+AxLrT5A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfXz9mOhUniPeV4
- JNFfcHa7iFB/GjrYxEiUW7uauNoMcIIKBHl05WxeAfOn0TGWXVg/8D7J9M5w+TuxwwT6FY9w49y
- yXqPnO0L113OinlUWTnQmAzn/oCZZPc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- spamscore=0 impostorscore=0 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020054
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7ZhSoVpX3sOwgDJAFYqZYiMhv
+ buAa5cvef/9BTyxJQ/XZAGmYL0d3QrykIDpStcS2nplkEKqVEiNIeslNlwOhH52BkWtmkpnZaV
+ Iwbp6MTX2sxfvxY/9u3qQmbbMZnTWTyPP+2VIN+9/PaQosD6dtZZ5rk1+uT2JHfXHkVsoYoxfT
+ aIu2sEAAAA=
+X-Change-ID: 20261029-v4l2-frame-sync-0d6fb94ab6e6
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bod@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4969; i=bod@kernel.org;
+ h=from:subject:message-id; bh=B2LuWUADjK0BpKnOHaWJjWfv7afYZBZdacsyLUUC7vU=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq6JajX9rZkB1r7mLdmBCvw6dF+pKDUnVutmRQT
+ fBjK6MqEjKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCauiWowAKCRAicTuzoY3I
+ Os2yD/wKaDq4dNDib29ewWY3hrTMDa5+VluTqmDooKZrbnpyawQjh0QIJM21tIerbGjJ9ctYit+
+ 2q55x1yHm2U81HrlAQaERT0KTmtrRu+LlQNXcoiR3AZs8utmTdtTAtdzAT6cEdR+Op9B2DYRidy
+ bbn64LLZS30hLbspChgCfUZbcrwgwie556n9G6Sc82s+GhFYp9Y5nuK5dhva7BT3z83a9OE5Cvk
+ RZVmG+0MapSd2uQxxwKEIzn6Njz4wfDy6mbL/GprX1QP/e8ERZ2L2UPm2JdxkmcCSKV3Blus4ac
+ BhHXESOywWvjY0f+sxK8LpTAhVjEadpMsAoJa6ymIZCnBseMZV1sRR5PMLKg+PGCgfNFSw5OTmb
+ uY4FC5NxAialon6ANt/177iW/slulu6Umo7xNoKep8ps8iRauyCFgNaM6Ev46GK1+4vh0KWdzc+
+ ZmulbDh7OPK36nXTnB2FjMCSTnQ4TEVzWDUVXDyMDxrF2V+XB142uvbo7cpRJv+gPMJqVrm9nrA
+ SCi1O8w2nrhu7C9ThqKh5HEt93hETBZU7n3AS2cPbhMLHf2/ELKjqUfCS2Cf+590jZ3anJTaQNY
+ Ywj9qJoJqIg76hkEXuQUYIDKoRaf2PENRLTORTr/KVE0cdEwKNaIvUZhRU4D9b6/+4WPblUhafs
+ lqtubpsXrBLBUsg==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Hi,
+v2:
+- Amends series title to drop EOF
+- Drops EOF inclusion until we actually use it for stats production seq_no - Gjorgji, bod
+- Moves QoS into pm_runtime() callbacks - Loic
+- Switches on vb.sequence change for every SoC the silicon enabling code
+  supports - bod, Loic
+- Link to v1: https://patch.msgid.link/20261029-v4l2-frame-sync-v1-0-d37992559c58@kernel.org
 
-On 2-Nov-26 11:47 AM, Sakari Ailus wrote:
-> Hi Hans, Laurent,
-> 
-> On Sun, Nov 01, 2026 at 06:43:11PM +0200, Laurent Pinchart wrote:
->>> So please modify the ipu6 kernel driver to not report the packed
->>> framebuffer fmt for the MEDIA_BUS_FMT_Y10_1X10 bus fmt.
->>
->> Better, fix the driver to handle the stride correctly and not stall.
-> 
-> This looks like a driver (or firmware bug) while the stride appears to be
-> correct.
-> 
-> Hans: on which system this has been observed?
+v1:
 
-Note: not my bug report, I was just replying to the original bug report.
+This series enables SOF AND EOF event tracking making use of both events.
+Whilst the code is actually very simple the functionality we want to build
+off of that simple code is not.
 
-This has been seen by Alain Cousinie on the system/laptop on which they
-are working on enabling their IR camera.
+- SOF
+  Serves two functions. Firstly. Informing user-space of CSID SOF events.
+  Standard Linux V4L2_EVENT_FRAME_SYNC is trigger from this event.
+  User-space wants to capture this trigger because it allows user-space to
+  better align the time a frame begins to events elsewhere such as IMU
+  event timestamps.
 
-Regards,
+  That functionality is directly applicable in this series.
 
-Hans
+  However we will also build on the SOF event in later patches to allow us
+  to begin programming of shadow-registers for the next camera frame.
 
+  When the EOF event happens, we switch from one shadow bank to the next.
+  This is only possible if you have the SOF event.
+
+  So SOF serves the immediate purpose of timestamp alignment in user-space
+  as well as the 'evil plan' to trigger off of it programming camera
+  parameters for the next frame.
+
+- EOF
+  EOF even on its own is useful because it allows us to increment
+  vb.sequence for each frame as per the spec not just when we have
+  buffer-data.
+
+There is another purpose to having an SOF and EOF event with sequence
+numbers and that is.
+
+User-space submits a parameters buffer. Kernel accepts that parameters
+buffer but can make no guarantee about _when_ the entire buffer will be
+applied.
+
+So when kernel finishes application of the entire params sequence the
+returned buffer contains the sequence number - from the EOF tracking which
+informs user-space _which_ frame vb.sequence its given params buffer was
+applied.
+
+Similarly when kernel produces a statistics buffer that buffer will have a
+sequence number - and that sequence number will align to the frame sequence
+number that the statistics describe.
+
+Thus SOF/EOF tracking is fundamental to passing parameters, returning
+statistics to user-space and for the IPA algorithm in user-space to
+understand which stats, params and frames are related.
+
+The first patch in the series addresses a corner-case when a quiescent
+system can take quite a while to wake from idle, too long in fact such that
+the SOF event is effectively missed.
+
+On 'normal' systems doing lots of things, this is not a problem we would
+see however on my test X1-CRD system running from ramdisk - there's
+basically nothing else happening and the wake-time becomes apparent.
+
+This is not strictly speaking a bugfix since right now nothing in CAMSS
+cares about SOF or EOF so if we take an additional 2.5 ms to process a
+data-buffer on a fully quiescent system, that's not the end of the world.
+
+OTOH as soon as you start to care about SOF/EOF then missing those events
+is no bueno.
+
+The CPU latency value chosen is 100% stolen from IPU7 which seems like a
+good starting point - the stealing obviously - and happens to also work.
+
+This series is really an enabling series for more work to come but even on
+its own is an improvement on the current situation.
+
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+---
+Bryan O'Donoghue (9):
+      media: qcom: camss: Introduce CPU latency QoS during streaming
+      media: qcom: camss: Introduce SOF sequence tracking
+      media: qcom: camss: Use SOF sequence tracking for vb.sequence
+      media: qcom: camss: csid-gen3: Enable RDI SOF driving
+      media: qcom: camss: csid-680: Enable RDI SOF tracking
+      media: qcom: camss: csid-gen2: Enable RDI SOF tracking
+      media: qcom: camss: Switch on frame_sync_en logic for csid-gen3.
+      media: qcom: camss: Switch on frame_sync_en for x1e/x2e
+      media: qcom: camss: Switch on frame_sync_en for csid-gen2
+
+ drivers/media/platform/qcom/camss/camss-csid-680.c | 18 ++++++
+ .../media/platform/qcom/camss/camss-csid-gen2.c    | 15 +++++
+ .../media/platform/qcom/camss/camss-csid-gen3.c    | 27 +++++++++
+ drivers/media/platform/qcom/camss/camss-csid.c     | 68 +++++++++++++++++++++-
+ drivers/media/platform/qcom/camss/camss-csid.h     | 21 +++++++
+ drivers/media/platform/qcom/camss/camss-vfe-17x.c  |  5 +-
+ drivers/media/platform/qcom/camss/camss-vfe.c      |  9 ++-
+ drivers/media/platform/qcom/camss/camss-vfe.h      |  1 +
+ drivers/media/platform/qcom/camss/camss.c          | 63 +++++++++++++++++++-
+ drivers/media/platform/qcom/camss/camss.h          |  2 +
+ 10 files changed, 225 insertions(+), 4 deletions(-)
+---
+base-commit: 6d0933ae9d46674a6ea63a87e9e9ab4e662670c9
+change-id: 20261029-v4l2-frame-sync-0d6fb94ab6e6
+
+Best regards,
+--  
+---
+bod
 
