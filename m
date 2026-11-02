@@ -1,20 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.0
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.20
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793647167;
-	b=5DwEdCwc/BOtMRBmQf62IJddAA4Q9lW/WuuuX9YWYi4rN2y75LrOOUtp8TMUH9GaYJi6
-	 271hMhclYSFlDLhCCiNVaT4jquw7fJ8Y+Tl2Q4v8hGnF3gr2r4GNPvnCKxiNqxEWYDz+J
-	 R6hDWkuevhFJpocAt4g/KVUopZ4c5SKHYOiKjIY6Gm+LKHx/U6Hd7PQ+KpTa0fum9Tx7V
-	 NRspyFwRb2NxTvJhkiGw71rGSZ1rYCYqA5X3EcHfP75o6eUrZnAWHRWBmEtS3rbsS7sig
-	 lICTmZF8ErGtG7436IsQneXEL6glE7n01fPI/lZiZO2xdfa3GB9Hmj9fkzfVNz1KZug==
+	t=1793648830;
+	b=PJp+si6hMsWt1prkVWq/nGJT8mO9v3gk0LIY/irW1kSrSs9CFc1+eh9TdbyS9yXETtwB
+	 aS6c9/zkj+90aPCNjOFRCiqFrbP4mTD3jDvC1k9yOXyglxAJyFmxFZs0eX+a1sdEIPt8m
+	 fVRY216T+GBaZWtK7a9PQHBL3lCQU4y8M1FnrxjAP20rlbxYKZSgwgHw/ud2rSa4yk0pK
+	 5QJplxWtTSv35Jc3PzSh+w7VHRkMTQe7kL2gT1iCb4GHsKAavSVs8YBin+m3N1mLMkqzK
+	 AnGpDJS9p4w5Wk9dqeAKVYMPAN14RcDI5uWMy0a8uTc3YotOBY+NWhSZupRG3szzkYw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793647167;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648830;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,78 +24,69 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rFSxBWUyWD/Jw5BtxHIA0Vj7XnWhnkBjvZImOmimzZY=;
-	b=XxgfxGcUBCUTn3rugPq9lOnwi7756Hz3f44yHgdysi8Mn7gCH0vh4Q/SB2NekAzlwLM0
-	 0TqK3HFEk+GM9M/V7lqutOpuYTdVgCDCaWMeQoiTan9LdAZMLpRR2bHaqALNF7J4IoLpW
-	 X+J9GYTfr4LHWB5UiiTsNGu16LJrqtypqF5Qz6rj5o0IPdiuUQ6yDGpw0/nmUSBrKe6AR
-	 JvEFzrfEg4hwYSjaXWjp/Lo6Wbk2aZsKlToXMcuFYPCx1yOuDMckaGZbUUAhIJYQnXfFs
-	 gSW0mMj80e6ZzY+uUZf2ui2uZfaW7m/yMheJ13gxmtGdwzyxzhD0P57Tmk3orPzv51A==
+	bh=zwTC9RxlDNeO0xRlfBDbtCeAdEMjZXEc0VLk4YQjqsQ=;
+	b=mQc5bAc0Eh0cxzo4APpBqQT8jMGmPqrls+KB9c2i/uKaoZA5hYGILyNQ3ecnCF8q18ho
+	 assT73Ox0UuEep4aCyezwXKNCubAXWnbVXZscmemTS8kWGK6uf7kHfDyhRXurVKwtcKyv
+	 Ib9vvIrS0b1pINLaEBZcaZUEGmfEQ0VUP3KAOyCMe6EjPSbZWSeuPGKWKz704BWFk6yFT
+	 W9ez9BDRZ0AuQdPztNI9kpxkNpQEBRxM1NcyvfTDY0x/hqp06ZT60vsrDR9DQZqq4x/1l
+	 ODVhM08mcnnlvmhFQcpgKMqP/JHTD4M0+cv7Y1koA8xayA3vrJljLIMYtPHacAvUayA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QAT6mCfV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.0
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010000.outbound.protection.outlook.com [52.101.193.0])
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bnanBJu6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.20
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013020.outbound.protection.outlook.com [40.107.159.20])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC484606A324;
-	Mon,  2 Nov 2026 19:19:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC484606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FDA606A32E;
+	Mon,  2 Nov 2026 19:47:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26FDA606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=QAT6mCfV
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bnanBJu6
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rDlYK/fOuTlhtchg8WV6OsELcPSFbkhKsrsYbv0ftUro28gEo2j7+9y0Yv3ABCsYf/LdrcBSODPtqzKijkL71aGOwKOLRk/TYo3yO18Rtrnrfp7uvCCu6Fo0Gw3fsjJCB/zIZhg0CCmtXa5yvu1rjvYkUW1CN++P0B1Z+Ml7j05FXB9QWSgnH1e2+4kTzVOEpS96RSNhpuwZIx7op9/rPZqyrPZ4vbARvyGMG9BbdS2DjO+aFlmqEk3wj5dOIEXuJdCu+a8TGIpNxyPDUNRSgwOfXjNJp7qCsPoFqtxb6wjz34t90w7VUksCqMFLPxuyq1J3xrkhnzDNUorjzYWHBA==
+ b=vu5ZLtqZpOrD64g/17/ZRMpPHbavQ4MSS+kRQ2iLMYtO7WYRuUjojs1crePFPWjlMHwNLxr9Ufb3SHWxawSe73utbSt6MMIs0qK3Ey76/AAXKThl36hGzkNX3k6KblVNcwW5OkSc4A4sinv3p96NZtY18Z74ejz1sMl/KYQnpJPNyAYbAvG8NE09MJTxQDf+4sM1cXqxXNZaqyHUJCD20fp5KBo1Dy54DDQXkC9faqqpQ2C8h2phNmGbqGY8yOK10jfPw5+shQUdDOIrmkS23/F+LhrR+WljDEZk60WGtIym6X+UXTxnfXKffpjlEwa795GXNd0viVY1wW6jnnIX9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rFSxBWUyWD/Jw5BtxHIA0Vj7XnWhnkBjvZImOmimzZY=;
- b=Hk+UOBQhj7q0IIJay3WXJxn3YuLbVvvAf47DIds+8LBv1XoF+WOsNFRtPq2AyPSzaLQXUhCuc/M5ksRq+xpdLhuVFtZBZyRwC1h4q/9hslMP4L/VErt5Och+Vlh26aE8YfRqnQbnJ7quPItlzCuYfaMyXJj3ZBY3gYWHQgd/B7yMsNvMCXREofZilPICRjGMmrXiLLU4vnoFjKocsN/Mje4eoBNxNBOrCoDlEmdzk5sCDfhp3qJv9own5Iid1wXVXHasyckCi6G/VcwgylotRgG+FdebaSUPVsFkf/Gw+gMtobrePFjICfB6y/Rd+dTHtTSxayyxs1dUUtEguVbXxA==
+ bh=zwTC9RxlDNeO0xRlfBDbtCeAdEMjZXEc0VLk4YQjqsQ=;
+ b=Hq3PndVgQgjiLpCiXLLSbSHBdLGx0hD5ccmEMMGLOvvTdBLKEZpnSrW4ahO6ajeZpohN60qOY0uEOGyJVMXdj0LvJFpYsmgxx0iePdUWqL8zIRwmYinpvJcYP8H9He26oKuoJLg7zWiS+vrknsOG0VffXwri5n9D/UhdfQnWpH9JOshGF9oYnzysGQ5Dxr3ziAmkrQW+gMiyACr/aabuQJOs88oh+NXgtuWra3LEBOJ5HNmKApmi+j2VzRafgNJG8ggCQDgff8kVh/Yta3F2nWLDqCfCtQLPrdt+UBKLEXoEfAlEppYKME+iOa+ATDrAwlxmdpAys6qAJZDcKaIVeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rFSxBWUyWD/Jw5BtxHIA0Vj7XnWhnkBjvZImOmimzZY=;
- b=QAT6mCfVBu+sps7RSOtdDbGqL0NmmmFRYhomCaqRuA7mz4XJ49S4GaqbuAz4H8HQ/SLmUpNvqc5hADeWXQgGKqPIAls21KBh6NVSuELWw30r8GIhph8Jj03Bm2pD3YMZQHugCsCmHuCPCamrulxQ4Cr0bKgdw9onngYHhYokzeA=
+ bh=zwTC9RxlDNeO0xRlfBDbtCeAdEMjZXEc0VLk4YQjqsQ=;
+ b=bnanBJu6dRNzNHynMGc8LO0Iuwwf8FRxAVoeNjgmy+eTnoNQnvmrbTc9VzxhumTZLT4ukRC9h7nRDwhtMtFD6RI1JNndMgQcpkPS9FdWwBnIRuDXsjLXVzbIc43O4f68zUgnvabjIpKtXDo6B1j3yIokpiRtnkoOaKwYj3K3ZxXWWZYxP76LjGNpA2Y7Godzh/o8UkpLe/1iOmvTLEpMFhVWUgvV+dFjvJxiGioWytJ2Y2OmcoysRJ3abYbyDV+PXU9Ff/NTaHJnVJQJHJ9It6XLp6b1lT68VKkSq6N/4fzwjNJuRUOyBkPQ0diYnYPxvirucz1r9sdgz8HhCQJyLw==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
- by SN7PR12MB8172.namprd12.prod.outlook.com (2603:10b6:806:352::20) with
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by DB9PR04MB9282.eurprd04.prod.outlook.com (2603:10a6:10:36e::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 19:19:22 +0000
-Received: from LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
- ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 19:19:22 +0000
-Message-ID: <6df15eda-d160-4f61-8cc2-34e528d70764@amd.com>
-Date: Mon, 2 Nov 2026 14:19:21 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: amd: isp4: fix self-deadlock in
- isp4sd_start_stream() error path
-To: caspar.adriani@proton.me, Bin Du <bin.du@amd.com>,
- Nirujogi Pratap <pratap.nirujogi@amd.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Benjamin Chan <Benjamin.Chan@amd.com>, King Li <King.Li@amd.com>,
- Sultan Alsawaf <sultan@kerneltoast.com>,
- Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>,
- Yifei Gao <gyf161023@gmail.com>,
- Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Language: en-GB
-From: "Nirujogi, Pratap" <pnirujog@amd.com>
-In-Reply-To: <20261028-isp4-start-stream-deadlock-v1-1-babd80273148@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT1PR01CA0139.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::18) To LV8PR12MB9133.namprd12.prod.outlook.com
- (2603:10b6:408:188::15)
+ 2026 19:47:07 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 19:47:07 +0000
+From: Frank.Li@oss.nxp.com
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	vkoul@kernel.org
+Subject: [PATCH v2 1/3] media: omap3isp: hist: use dmaengine_submit() instead of ->tx_submit()
+Date: Mon,  2 Nov 2026 14:46:48 -0500
+Message-ID: <20261102194700.4076807-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DS7P220CA0073.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:259::7)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -106,181 +97,88 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|SN7PR12MB8172:EE_
-X-MS-Office365-Filtering-Correlation-Id: b28e9d1b-4bfb-4bab-2819-08df39163366
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DB9PR04MB9282:EE_
+X-MS-Office365-Filtering-Correlation-Id: fcb575cd-3e4d-4294-933e-08df391a13dd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|6133799003|10067099003|18002099003|22082099003|3023799007|261102123227099003|56012099006|11063799006|261021123027099003|261022105027099003|261026140227099003|261026121527099003|261009223027099003|261028144727099003|261021121427099003;
+	BCL:0;ARA:13230040|23010399003|19092799006|366016|1800799024|376014|261021123027099003|261021121427099003|261022105027099003|261009223027099003|261026140227099003|261028144727099003|11063799006|10067099003|56012099006|261102123227099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	gGzK0gYBuD+LMT+2HSAYOhwmCTjKI697MTpwFHxnNlUY6f4DgpKxxk3NCfW+ufEp0gq6Oxlj3+dq8qaPwqiz6mFhg/9OiEjX42WuSWx1E/5ckYlHgLGMx1MCgLBuScaYrPb2AqPmTkjr1ci58brqAMERF97qYmc3+hiu63CQDGcCs7V8E0GUyGM1F/StUrXIrpXzTW+e1LCI3+yZXjC1QXrEQUXohywWlsPFWStMvosw1LfmztbnxA1oKCpkoywaeoepHlooGRRlPp42siMK+/waYq1vNgBGb0rMhc2XkOeukluTVQgcsrA8I2zd3zT6CWxooBKGRcGpKUasEoxRU0Zg/ArYpC7A0zASs3QDVTSzPOCkbxA+zFCNzr89VPttJTagujMznr0OA5mxkqV88NNXj7XUCeEP2Nf99o9fpBdijQZiQCw1iWodChoyuGJco5R/qJBYp7b5sR4ng/yeMa5msrlzD7DcETA4MD0fYmlOD6e1B4939uGY7lmQGGM9XJVAdyZMVvytx3gmxIC/76Po3uJvRL+l0hVfuc37gN/p/ZWAuORDN68lX8z4qvzMHTCPEwbns1qGyCAgZSwrv/FKYbJBCgjIUFKm+95J2sVNoN100552vblesqIXRBV9YwLJp4RkWin4nwXy4J/FYolD8yL0xQ6sciTPgNzkgSA=
+	T/xT1bq6oURi535NJDzQ5GXUCiotjKBiafh9rpbEUkJTbH1C31KJAevljGSwM4bxzyYYhQFx4DC4+9xqJco2y1PFGk4HzShMYiMd+o2tHXXfCIobvbD/osRpny9GSj84pyLy3bYj5JXpkIfKTms4Rjf/1QLdBj6hi0QQyVpqsIlwa8p0g7tz9doP0SuDNa+vh+o7jitN+xur7KJiJYHGY0fMJfRSpoocJrY8YBzckXeNBiHAcAZsjVHwjLZmmcO4hT/cHUECSdtVNs1yyYCvfcClMucrdONxFRWOMlZeDsZkAaoKLYqyLUIPqfFccFxwFIFeq95Z2bfyavULrh44tAwMgwe3HgXryoQirqj0KhiOhAsn3lIamuH6LCdmKuFKNp1bNNxaNY9Pt/pvQyu/LKJCtvrTx6q4fV4MZ1cudEE2vhlMRtTlD61TPnn+ehPLmy2h4/W0WQ/BJZJPpnlyHt3qPS0/aWHGj1WZp9Nf8fmMs2wYknpVS9QLtylXillCFWLYIKA7YcJqM2bWLcL3n/B90xhgB/yGueFWw21+X3Cvq+0XZXjywrLofFofXDbhuDQvFO9iuNoX39lLUdZLfkLJgtcI4leEJzSxe3ti5Kl0kRCiBLiQu1cm6O/AfqFQ1ukLu9wcba+vNELHdChfFFKv1UuabaJKdsvT0SG8IXI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9133.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(261102123227099003)(56012099006)(11063799006)(261021123027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261009223027099003)(261028144727099003)(261021121427099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(366016)(1800799024)(376014)(261021123027099003)(261021121427099003)(261022105027099003)(261009223027099003)(261026140227099003)(261028144727099003)(11063799006)(10067099003)(56012099006)(261102123227099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Lzg5TDYrUVdXT1ZDdDd3dVJGTGxVRnRBdEQvaGU0M0dMeS9DSml3QjF5ZFFq?=
- =?utf-8?B?elY5ZFJEM3ZqL0VIY043UG9YM0NXN2RhQUl6U21kaDYrb205YURxTWlPUFdF?=
- =?utf-8?B?N3Q1a2NWQ21YRThKQUd1MmxJaURYemUxbm02bWRVcGhVb00rYlZJQlJHbU83?=
- =?utf-8?B?Z0lhMTdXUGRkRC9GQUJ6T0pURlYyS2V6SHlPRGJXNjhwMWZZcUhnQXV5L1ho?=
- =?utf-8?B?eFFKTVczSDNuOXM4eHlQVVNheGFaMkhwWDZwMDZpRXdhWUNQdnFmOE9jN1o2?=
- =?utf-8?B?WTNlWm9ySlNHeTZSSTI4VitkTFJCTjk5SjZKODFtbVNxb3pQUVJ5TEp4cGN0?=
- =?utf-8?B?Wno4Y1ovdjV0SU1kejVMWXFXMENld1dYT2kvM3dWZ1dnZkszSkFBc3EyYm41?=
- =?utf-8?B?L0hDNG91OFRvWFZzSTlESHk0aENXSlpMWXFVTE5oZUpESGdiYnlKcmI3ZXhX?=
- =?utf-8?B?aWx2ajZod1BiUFdtR0Nldm5UTkpBbGR1Nm1oaktHMUdTKzhNdWhIc0M3ZmZM?=
- =?utf-8?B?d0cyVERkZmhQM0VyMFU5MUh0QjBTVXo4VGt3Z1duREZSYXRrVE5KZVlKNjdR?=
- =?utf-8?B?NGliem1VLy9zZVRzMCtZRUlESEJCVlFYTGVYRWw0dkRWNEZvc3Y5bGx3Z01G?=
- =?utf-8?B?VzRGZVg2czZUYU02TkhGd0l0UmZrSnBtRU4rZElSdWNSOHgzalZvbWpKZW04?=
- =?utf-8?B?UUowNmVJWnZuVkxrWTVZbmtMZkUvbUxoaXhuNEEzaVF2WkpjUS9JM0dPQ1Ay?=
- =?utf-8?B?RnRMM3hpeVlXNHFkc1YvS3BFdUtwNkxEa3FjaE5rTlpDS3NsZWZQakFYWmtI?=
- =?utf-8?B?d3BNNWNKNzRTQkVMSmFkL2M2b0JsRGxFbUNzb2lLR3dNZTVQV0NRREZXR09H?=
- =?utf-8?B?STAvRFZRSi93M296dU1ublppT29OTkpzSE1KbzZVVkRVaFVPV2RpbDJ6alg3?=
- =?utf-8?B?WnZDSDdzdk1vWnNZTHdFQ3dqSDUybzBWMTZ0VXBhNHc4MGUrZDZOOEIxVVNW?=
- =?utf-8?B?SkFXSXRRUU15dmZrTGpYbC9Td1djeDFnZEd5aVdzTVRISitIYWluVi80NlJz?=
- =?utf-8?B?dVgrVGs2TEFkSlRJRmtuNVRFdVBHTzBTMlA0bk83bFlld2wxWExzdVJsOXE4?=
- =?utf-8?B?SWZITHJZRHdmUnBsOXJEMmNpelZpazBSQW1LL1R2dTZiUjQrbFcxUDVlaW1E?=
- =?utf-8?B?Sk1rdDZxZy96UlA4c000ODRNbVUySDgrNER4Rml4UGRweWoyTTNDRVQ0bVJz?=
- =?utf-8?B?clpIUXZWNUsyUGR6alVWODhORGpQVWxZTHIxT0VGbkc1ZHBNeStGQVliN3NJ?=
- =?utf-8?B?Q2ZzVU4waGUvWEw3K0tka3hmWDFuUlhjVzUxVFZiMjl6QXRNUEZYL3B6cmhH?=
- =?utf-8?B?R05zcHV6NzR0akh0ZXVpYy9KUDJnVnBPSmpFOHdZaDRVTDU4dHZiMEtaakhI?=
- =?utf-8?B?KzVwSHJsaC8veGZraDVJVHMzY0w1U00xUUlxQVQvTENqVmU4TEM1UUs4VjJa?=
- =?utf-8?B?WmtwZVJQekJzcURMY2hYMEpMYzdUWlZEWjVKdTM4VWdTbmlCV3FwSTNiYUhz?=
- =?utf-8?B?cmxIREY4RnpaRG05S01wNlUxbzlidnpuMThqSXhsd2k3SWMrZlhtTjVCbC9u?=
- =?utf-8?B?R05GRXJ4N0ZGOXoxcTVWWjVFRW0rRWRPTFhSSDI4QjVBenpiVnVjN2RKZEpn?=
- =?utf-8?B?UDFaTHhWeWN4UUt5NFY4SzRIUXBTQVd5QjRDZUhUZkdTbHl1aEo4WS9lNEg5?=
- =?utf-8?B?eDA3TXhEMGZCSnVITUFhZzVmK0VLb1F5UVRTRUZsc25wMS95WDlaRDBaSHpt?=
- =?utf-8?B?YjQ4R0IzamJiZEp3MmQwK1poSXFSQ2hBK3pld2wzSmNFMzRsUVZWSUhkcGU2?=
- =?utf-8?B?MzNtejZHTFNvQWowZFNUUmZKVEt4YnpDOUhidmJyTmtnQ1hkbHdpQjV2UUtO?=
- =?utf-8?B?RDFFLzQ1T3BVdmR0V1BtZnhrVmFqOWZ3cXJXeWkvRzNNQ0VYQnRoR3FoUE9G?=
- =?utf-8?B?T3pDR2tMalIvWDQrelpyKzFqOGkwOXRoS3JvUUh4TnVUMXU4d1BQY1owMEhJ?=
- =?utf-8?B?Und2a0IrTDZyNGs1ZUQ5K0ZwVGorTlhCSVY4YldmbXczcVR3bks4OTZqdlRY?=
- =?utf-8?B?eVcyOEFLWWhRbVBROXNkT1MwQjFFNzNveGdVR2RCQThKMENKVGVPbkw0MmJq?=
- =?utf-8?B?SEJ3blFRa2ZWR0duT2pVMUMrLzZaVXk4akg0d1hrb2tHUHF3My94NnhzRU1J?=
- =?utf-8?B?cW1DY3pwNDVQcW04OUd0M0NaSFZucDAxZWhYTmErQ21ZdWY0N3E5REhCYlUy?=
- =?utf-8?B?VVdpcjJkNVdydHBPNDR1bGhqV0V4cFZqYmlGSmZldlhNWFFYLzRLdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b28e9d1b-4bfb-4bab-2819-08df39163366
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
+	=?us-ascii?Q?kZM8l8P0Qu8yact9nNyaiKWliKvVONRmEZZkIGBjCQLW8Z8Lp467bEfFOji/?=
+ =?us-ascii?Q?IC2rQbosvxdrBR6T3ACkgmUE9GdJzZW3Dn91CclYGVFKP0Nacn0LNAWwjMza?=
+ =?us-ascii?Q?MqRv2+Wo033PU6CVSNaPydJtVXqwrsU6f8qfB2Jz8kMonbCWa6DhjjB0IZmw?=
+ =?us-ascii?Q?r9KalLy+8CX249LxUR55UYNoC67m/Aohl7yuGRUNx4jXyU/6Q1xVNyUw9yX7?=
+ =?us-ascii?Q?AnrchfsaC5XvRchVMM7H47VHaYyiZGHnRQqlHfQmubJULhUYKcHT/7FFq5gc?=
+ =?us-ascii?Q?mwVe+bp08BVX/8odstQRCkpjbAmCOTXP3HRHE3mFtacnXj23CvBpFekhKRJq?=
+ =?us-ascii?Q?tVRe77G2OZb+R07rBOawdtsuKyRpQVvYT6s+WXluyE2bHsl7bWqVV8aJ/U40?=
+ =?us-ascii?Q?sr3SpggpzkOnyMQnVnUswQtkzS+coHON/5g66wPdI7e2jReXBsTsy7qJwp4j?=
+ =?us-ascii?Q?asSFq6dK/vmuwA1aZhs6ab8NMr/ezLtbmsRl4Rbyn+g4X5RQI8smRzs0dPZj?=
+ =?us-ascii?Q?J0bPbtTJhIxAwWS/EzSfMREcYFXfeMDWspUKHNufoMq15Pq+MTHsHOcyL14R?=
+ =?us-ascii?Q?ndiEYfIjfU2xJ4evvtelLb/Z7WRHCLwEwKG5vn20udmuflSjGzryxQv8TJvB?=
+ =?us-ascii?Q?zPnM0zeJKzu7FBd143JIp0pV3qsB4WnWKAaJcoqIQoJ42v+tOeLYtir6uJqI?=
+ =?us-ascii?Q?hmfzj8woHsxrRXnUioL9b4/pq3WEiVvP77cAa0ERiFb3ESUR+Rdk8syxA0gZ?=
+ =?us-ascii?Q?Ia7bFo+OOgAg5UV/8Mjm5KrLwem/F/hTnoUuG3sdcTnx6PnaqxbW0YLZ815t?=
+ =?us-ascii?Q?P4zh50Tu4FbRzsDfgmyHiq8W8YOVNK79YhzSrCydxvjjhVgNlYZh0Nt88PC1?=
+ =?us-ascii?Q?GM3O4clN8FXWRUXquQNsteTOL5ukRChQypDo+K6rTWGhXa13RfT3TwcWOtST?=
+ =?us-ascii?Q?afMwICxCVat5/8sjge7XiEb+x2z/W+9keg3iJJoAiAj+GHNIGPwnwJ5R4s9D?=
+ =?us-ascii?Q?DZTNaEjLr323rqbyiWBq6Mls4l4R3tHUaAmH02lgVIFImugPP7GH0VpJ5XvL?=
+ =?us-ascii?Q?LiKPtcA6ba1NOhyyZ9sNtQpgUDrOwN361wiUoLN3acl1eZD4bGX9+CvsvS/M?=
+ =?us-ascii?Q?kJSjlbSgAiu34uYznN34jVvz27zJk3x6UBFu+r5MYmYGa4zir7uP0sGD9bzo?=
+ =?us-ascii?Q?NxjLn7dRWRj8I+WbQcv119YG9R7zKje1Q+ZL4FLvwWy5pVjs7Pq1Aq6VRWqy?=
+ =?us-ascii?Q?X0uGQaDIrb1UmT+X5MosXemothFRxxc+L3WbNyvQOerMmvKwGu/sUG45Wc7Z?=
+ =?us-ascii?Q?TlBb522hiKVmjuJgV5NMCDgIohZgoHDmmXoZPOWy2HzPSoD2NGGNWvh5I7L7?=
+ =?us-ascii?Q?OIwZHhjDX/9BiamDEby/tzIZQmKr11v/a3X+CI+pR4uvqS/BqgQhyuf95POL?=
+ =?us-ascii?Q?QjBdnyd8kzPTlCwqhucgoMeUt1Pt2d3Uz4l6ix25kbtBw5SJVx/5Hbgv+drh?=
+ =?us-ascii?Q?XZJ8HWBJQb6fNvsoBA5buwFABPj7ehV+IKV5WivEI6D/nk7pNOzpq2DsyZe0?=
+ =?us-ascii?Q?zBrAwzvlGPpyFkxtqTOQ5taeoGkO8u7aDzksoY66aHITI7hr6E2XlEtYR7Bv?=
+ =?us-ascii?Q?WRsqUMQnpTxFPAgbZbpGPJsqKWC+MAQz3eoXIrSxhTj+LSa31vpELSn8kyg7?=
+ =?us-ascii?Q?1+O4ccmK3pa3PNj88NPsMyAOhsGAhOvJK7dcBXvx/Os6UQf4k7+LvYKbEEo5?=
+ =?us-ascii?Q?JWgLgpyQOgXEDwNO89g0jSKRoHSlyUnYIwFe7PMKaT/rCtAX3HQI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fcb575cd-3e4d-4294-933e-08df391a13dd
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 19:19:22.6180
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 19:47:07.5778
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +RbXiRZsSc+mDQbQzQ3D2BHqMYbUUhUNSuLgO2UhCf0Ror50TN6Ru44sx0/hyJpWCZizHDJK5xQFu1SnNsZAeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8172
+X-MS-Exchange-CrossTenant-UserPrincipalName: AKV/5C2BY8uxFjetCd95VJa4cmQWGDwgMnR4gaJH/WrunT9YqJzLGGpv1JKg+u3cNpvW5oTXL0a1L0bxhE2tIle2YpWosL2DgrLGw5QkgTmxjZD/nrq4M002ICPexjFY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9282
 
+From: Frank Li <Frank.Li@nxp.com>
 
+Replace direct dma_async_tx_descriptor->tx_submit() call with the
+proper dmaengine_submit() API wrapper.
 
-On 10/28/2026 10:05 AM, Caspar Adriani via B4 Relay wrote:
-> [Some people who received this message don't often get email from devnull+caspar.adriani.proton.me@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> From: Caspar Adriani <caspar.adriani@proton.me>
-> 
-> isp4sd_start_stream() takes ops_mutex with guard() and, when
-> isp4sd_init_stream() or isp4sd_setup_output() fails, jumps to
-> err_stop_stream and calls isp4sd_stop_stream(). That function takes
-> ops_mutex again, so the task blocks on a mutex it already holds. Every
-> later open, close or ioctl on the device then blocks behind it, and
-> only a reboot recovers:
-> 
->    INFO: task .v4l2-ctl-wrapp:38440 blocked for more than 122 seconds.
->     isp4sd_stop_stream.isra.0+0x43/0x1d0 [amd_isp4_capture]
->     isp4sd_enable_streams.cold+0x8b/0x26c [amd_isp4_capture]
->     v4l2_subdev_enable_streams+0x1ff/0x360 [videodev]
->     isp4vid_qops_start_streaming+0xf2/0x160 [amd_isp4_capture]
->    INFO: task .v4l2-ctl-wrapp:38440 is blocked on a mutex likely owned
->    by task .v4l2-ctl-wrapp:38440.
-> 
-> One way to reach the error path: start and stop a stream, then start
-> it again without setting the format. isp4sd_uninit_stream() clears the
-> subdev pad format on stop, so isp4sd_get_str_out_prop() fails on the
-> second start with "fail to get out prop" and "fail to setup output".
-> 
-> Move the body of isp4sd_stop_stream() into __isp4sd_stop_stream(),
-> which expects ops_mutex to be held, and call it from the error path.
-> 
-> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Caspar Adriani <caspar.adriani@proton.me>
-> ---
-> Tested on an ASUS ROG Flow Z13 (GZ302EA) on v7.3, with a local,
-> not-for-upstream change that adds its OMNI13B1 sensor to the ISP4 ACPI
-> tables so the capture device is created. The stock firmware does not
-> support that sensor, so no frames arrive, but the start and stop paths
-> run. Sequence: v4l2-ctl --set-fmt-video=1920x1080 NV12 --stream-mmap,
-> stopped after 10 s; the same without --set-fmt-video; then the first
-> command again.
-> 
-> Without this patch (v7.2.8, same setup) this failure hung the task as
-> shown above. With it, VIDIOC_STREAMON returns -EINVAL after "fail to
-> get out prop" / "fail to setup output", v4l2-ctl exits, no task is left
-> blocked, and the third run starts and stops the stream normally.
-> Not run: lockdep (CONFIG_PROVE_LOCKING is off in this kernel).
-> ---
->   drivers/media/platform/amd/isp4/isp4_subdev.c | 15 +++++++++++----
->   1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> index a108d90ace..08512f060a 100644
-> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> @@ -745,15 +745,15 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->          return -EINVAL;
->   }
-> 
-> -static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> -                             struct v4l2_subdev_state *state, u32 pad)
-> +static void __isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                                struct v4l2_subdev_state *state, u32 pad)
->   {
->          struct isp4sd_sensor_info *sensor_info = &isp_subdev->sensor_info;
->          struct isp4sd_output_info *output_info = &sensor_info->output_info;
->          struct isp4_interface *ispif = &isp_subdev->ispif;
->          struct device *dev = isp_subdev->dev;
-> 
-> -       guard(mutex)(&isp_subdev->ops_mutex);
-> +       lockdep_assert_held(&isp_subdev->ops_mutex);
->          dev_dbg(dev, "status %i\n", output_info->start_status);
-> 
->          if (output_info->start_status == ISP4SD_START_STATUS_STARTED) {
-> @@ -786,6 +786,13 @@ static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
->          }
-> 
->          isp4sd_uninit_stream(isp_subdev, state, pad);
-> +}
-> +
-> +static int isp4sd_stop_stream(struct isp4_subdev *isp_subdev,
-> +                             struct v4l2_subdev_state *state, u32 pad)
-> +{
-> +       guard(mutex)(&isp_subdev->ops_mutex);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
-> 
->          /*
->           * Return success to ensure the stop process proceeds,
-> @@ -836,7 +843,7 @@ static int isp4sd_start_stream(struct isp4_subdev *isp_subdev,
->          return 0;
-> 
->   err_stop_stream:
-> -       isp4sd_stop_stream(isp_subdev, state, pad);
-> +       __isp4sd_stop_stream(isp_subdev, state, pad);
->          return ret;
->   }
-> 
-> 
-> ---
-> base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
-> change-id: 20261028-isp4-start-stream-deadlock-6c33a97d3297
-> 
-> Best regards,
-> --
-> Caspar Adriani <caspar.adriani@proton.me>
-> 
-> 
-Reviewed-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
+Assisted-by: LLM
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+change in v2
+- rebase to v7.4-rc1
+- add more fix at following patches
+---
+ drivers/media/platform/ti/omap3isp/isphist.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-Pratap
+diff --git a/drivers/media/platform/ti/omap3isp/isphist.c b/drivers/media/platform/ti/omap3isp/isphist.c
+index fbfdcbfdb050a..dc02f240ee89a 100644
+--- a/drivers/media/platform/ti/omap3isp/isphist.c
++++ b/drivers/media/platform/ti/omap3isp/isphist.c
+@@ -211,7 +211,7 @@ static int hist_buf_dma(struct ispstat *hist)
+ 
+ 	tx->callback = hist_dma_cb;
+ 	tx->callback_param = hist;
+-	cookie = tx->tx_submit(tx);
++	cookie = dmaengine_submit(tx);
+ 	if (dma_submit_error(cookie)) {
+ 		dev_dbg(hist->isp->dev, "hist: DMA submission failed\n");
+ 		goto error;
+-- 
+2.43.0
 
