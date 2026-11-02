@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.157.188.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793650982;
-	b=lH2NwiZYNOjzHTm9D7oJy5X/ji34W/KdTV0L2XY46zzw0cPRLayFUfT38z8GxpGXn4Kr
-	 J1SVG2oyPV4taDj/SaW5AmAzHRBQfP2qBICOCFs4Pu1jIGUHDeEqSDJlQQibdeen58DzT
-	 bvAKmhNJRStRhqGKUoOy+9SlnrzB3j2Vy+W5WLX103TrWlo29/xLLouRXLDCNub9w0kBQ
-	 OUnbqI7gFQ3JCk+XqTbGGmllHVg3d36XkYtSm3e3irJtAZSwM6dsPxia0Dru+tbkWJXkM
-	 IaaVrqFNn/9sJojQQKduP1J4ljG5CAyWOEJ8CtOyrQaLUQJhJg6zYFGMkQWUZDLiZ6A==
+	t=1793650981;
+	b=CPb3/MPQmsubAp2d4hGgvqOlxdrRI1oZ7Jm+TUA+OaEmz4DCrwmPpyddNpa8X9mzN9ot
+	 H5DDLeY6xwmtK5wwqag4TwyGcf+o/ItorUndzsDiLsrGCr1aGhR96rF7mPeXOT1+qkhEC
+	 8pfGF6422o9J91V62bscYh+N64VvbLHE1rOz0DV+8HWgM+S3lZtufaaKCQrcCjBZNgr+I
+	 r5yBAkocmAmreQnhPXCUIICMAo7SsuO3GSBgKKS8AkojRtaVsDYr8/xeqvasQBzZVz9Gh
+	 JHyE8KwisgV8tydUK6z1LPY6kBIn8VhMqOODs1G3dvb4nr0sMRjxF9/9LAamNrL1BtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793650982;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Infomaniak-Routing;
-	bh=2kKJVl9DVcidPFu4iOOYmwpElNttoyoiGTDFs+dVMJo=;
-	b=CJisL2Od5xZp95uiSqNZk6dNqufldLtXEHlX4tVvvzjysP9UFqPJ76zrRXuGOaN4cLnW
-	 Yq+KPA/2P2Vw5KOJSq0CjCriHOwnU8fiQvZWRJDptCRJJKsG4ymyK3+Aczg6t91MvY1LJ
-	 vDDv2OKulciqrck/RFK1PbcQVvojWJUq8cKGUT/JyCeeKu2/dbZByL8rjVDIxSDVnFoNk
-	 LcZb0pxvzXRlRL5AKs42YN9iVT5NeyvqbBL1eIVIMqpaau1PUV8DESI68VQYxqYHh6zAF
-	 Rt9+rJdmBiYt1PQLFX0LhxURizfObCuOvVGMdJpDEFtSe5/f4ofFXCGMyJm2NkZBFgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793650981;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Infomaniak-Routing;
+	bh=m9MTAoKRAQz3GJf2WRZ9ZD9bHKOwbRExdEqd+I+AA5w=;
+	b=0Nt8l7GsiB6L12NH4dVmDkCrMLjamosAsI/MuaVpTcvC7vKBfQQ4YBRYTwhXWsP3mnlI
+	 uITvktub/D1StfyKRDxIv2+PgopshmFv3hms0VKFHLEQPCIdxrinTLXsKiu7yqqiRv1sj
+	 PnWlKidp2PtmDJ3s8BPp6V36VYOYNbekGyQaQJ2/smCgkf/qdY2LPZy4Lu1/zgqrCYZaI
+	 U6euSaXHLXVzxxG5PYYqybWt29U6ad05pJgOmvxq/4Y1AGBtjoo8h93SAuA/Cp81IaJ5M
+	 TXGrgFx95ZNzNyciuFEk/C2FlGi1hkay4X6h9cr3dMMzc9xky7fYy59hHZpkPO7P+KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=0leil.net;
 	spf=pass smtp.mailfrom=0leil.net;
-	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b="QpH/Wm8D";
-	arc=none smtp.remote-ip=83.166.143.168
-Received: from smtp-8fa8.mail.infomaniak.ch (smtp-8fa8.mail.infomaniak.ch [83.166.143.168])
+	dkim=pass header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=gy4fXoxS;
+	arc=none smtp.remote-ip=45.157.188.15
+Received: from smtp-bc0f.mail.infomaniak.ch (smtp-bc0f.mail.infomaniak.ch [45.157.188.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1300606A327
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 20:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1300606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED360606A330
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 20:22:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED360606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=0leil.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0leil.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=QpH/Wm8D
-Received: from smtp-4-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6b])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJNRw27QJz11;
-	Mon,  2 Nov 2026 21:22:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
-	s=20231125; t=1793650972;
-	bh=2kKJVl9DVcidPFu4iOOYmwpElNttoyoiGTDFs+dVMJo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=QpH/Wm8D/EzZWot2xhnR9ipw9EqwqnRAzXbXg+Nn8g84mWiBKj6thjltCtODKxn+u
-	 HNi79ONsELnm6i1dk8bClBoaR3OMStdIcNjIAqe4adrh/PKWvUlVryOmPp+tXUbbkt
-	 xGaxrbHD5IBf/fGFlAmc7T8QRDg0SsGU8XrjL12sGvuicYcUCfVUfoxkMUwCKKO3G/
-	 oWYW0qu0KGRD5U+Mxs22k+pqLslNFPAYzQetpsT//t7caESYECc+hmkZa6CyWPCzka
-	 xXrt1fRgiUtOdAbhtI2REqhusLDFTbSEmPgJ/eHAGiLR+RZVOFG5LMStvbyYwbF2iH
-	 hYD9tfUY2dLmg==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJNRv25g0zrH3;
+	dkim=pass (2048-bit key, unprotected) header.d=0leil.net header.i=@0leil.net header.a=rsa-sha256 header.s=20231125 header.b=gy4fXoxS
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jJNRv3KgwznQp;
 	Mon,  2 Nov 2026 21:22:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=0leil.net;
+	s=20231125; t=1793650971;
+	bh=m9MTAoKRAQz3GJf2WRZ9ZD9bHKOwbRExdEqd+I+AA5w=;
+	h=From:Subject:Date:To:Cc:From;
+	b=gy4fXoxS7tWOGk1NJhl/stjM92AkcbvQxBivv6TLZwbtQ9+wKsVexZ5Xsf8K6Rexs
+	 sHwghnKxilkKONIgDVyxr6vunoEBYvBSzisNDBstd2FvKtn3UIdUqDnJP+CgjaVE3j
+	 rmFr9vHWjnrWXtc9hxrntNQM+gSN4gnKMsCVeBVRGYPKhp4XuF//MWXhMSh5ASLopB
+	 1k2yq5E2Hx4xgb5+w2I/+IOz0PpfdnGjCcjL0+xEFkF64VtvWmo7uV5xpcj4y2sYrM
+	 3FAX7bUGVky7i0y9pj/RxfD4LsDblJXSyb+jE1tPJSkfzljiatIt7NqCaCCAclQCK/
+	 VmNxwj4y1z+jg==
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jJNRt1KW7znwS;
+	Mon,  2 Nov 2026 21:22:50 +0100 (CET)
 From: Quentin Schulz <foss+kernel@0leil.net>
-Date: Mon, 02 Nov 2026 21:22:42 +0100
-Subject: [PATCH v2 1/3] media: v4l2-common: add V4L2_PIX_FMT_Y10 to
- v4l2_format_info
+Subject: [PATCH v2 0/3] media: support Y8/GREY and Y10 bus/pixel formats
+ for Rockchip VICAP and Synopsys CSI2RX
+Date: Mon, 02 Nov 2026 21:22:41 +0100
+Message-Id: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -63,9 +64,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-v4l-y8-y10-csi-vicap-v2-1-0a4149d96dae@cherry.de>
-References: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
-In-Reply-To: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4V07Zi2AVpc+R+GRR+DjDFAWmxsC
+ P8uYNy5PMm95ywsYiCM7FIsLGCiSOOwgTwVzPVmuCOQ35hJLmvBRQWpfELWkAUHFwkSOTOB7Xj
+ ZeGdUozXbrlPAjt6H9tZ+Ob7sA928u/ZFT3EeQz66Sey7X6L+n0gCOEhlrVbGqLLyV9djCPnsk
+ bXrun4AzlTx58oAAAA=
+X-Change-ID: 20261015-v4l-y8-y10-csi-vicap-bf049dca7988
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Mehdi Djait <mehdi.djait@linux.intel.com>, 
  Michael Riesch <michael.riesch@collabora.com>, 
@@ -76,30 +79,83 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.17-dev
 X-Infomaniak-Routing: alpha
 
-From: Quentin Schulz <quentin.schulz@cherry.de>
+The Media CI robot will complain because the line is too long in patch 1
+but it matches all other lines in the same array, so that shouldn't be
+an issue. I'll answer the same as on v1, I'm fine doing it if a human
+requests it (because I believe the bot request is incorrect).
 
-Add Y10 format to the v4l2_format_info table.
+RK3588 Jaguar can support up to 4 2-lane cameras (two on the main PCBA,
+two exposed on the proprietary mezzanine connector). The only camera
+module available for this device is based on the OV9281 greyscale camera
+sensor.
 
-Co-developed-by: Michael Riesch <michael.riesch@collabora.com>
-Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+The OV9282 driver (which also supports the OV9281) allows two formats:
+- MEDIA_BUS_FMT_Y8_1X8
+- MEDIA_BUS_FMT_Y10_1X10
+
+but they both aren't listed as supported by the RK3588 CSI2RX controller
+and RK3588 VICAP drivers.
+
+Add support for those two bus formats to both drivers.
+
+Capturing a frame with yavta[1] for Y10 only works once
+struct v4l2_format_info formats also exposes V4L2_PIX_FMT_Y10, so do
+that. I couldn't make gstreamer work with Y10, I'm assuming for the same
+reasons explained in this issue[2].
+
+All those patches, suggested by Michael Riesch on IRC. Thanks to his
+support I now can capture shitty 720p greyscale pictures \o/
+
+I am not entirely sure whether V4L2_PIX_FMT_Y10 is the appropriate
+format as we pick MIPI_CSI2_DT_RAW10 as the CSI2 Data Type, which
+according to Documentation/userspace-api/media/v4l/pixfmt-yuv-luma.rst
+(very end):
+"""
+The 'P' variations of the Y10, Y12 and Y14 formats are packed according
+to the RAW10, RAW12 and RAW14 packing scheme as defined by the MIPI
+CSI-2 specification.
+"""
+
+so I would rather expect Y10P. After changing Y10 for Y10P in
+drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c and
+drivers/media/v4l2-core/v4l2-common.c, and patching yavta to support it,
+I also get an image. Other drivers seem to also be associating Y10 (and
+not Y10P) with the RAW10 format, so I guess that's fine?
+
+[1] https://git.ideasonboard.com/camera/yavta
+[2] https://gitlab.freedesktop.org/gstreamer/gstreamer/-/work_items/3738
+
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 ---
- drivers/media/v4l2-core/v4l2-common.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- rebased on current master to fix trivial conflict,
+- Link to v1: https://patch.msgid.link/20261016-v4l-y8-y10-csi-vicap-v1-0-27bb87aa745d@cherry.de
 
-diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index 11ab684024c54..8d5020e3d5e2a 100644
---- a/drivers/media/v4l2-core/v4l2-common.c
-+++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -333,6 +333,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
- 		{ .format = V4L2_PIX_FMT_YVU420,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
- 		{ .format = V4L2_PIX_FMT_YUV422P, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_GREY,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 1, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_Y10,     .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_Y12,     .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
- 
- 		/* Tiled YUV formats */
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Michael Riesch <michael.riesch@collabora.com>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
 
--- 
-2.56.0
+---
+Quentin Schulz (3):
+      media: v4l2-common: add V4L2_PIX_FMT_Y10 to v4l2_format_info
+      media: rockchip: rkcif: add support for GREY and Y10 formats
+      media: synopsys: csi2rx: add support for Y8 and Y10 bus formats
+
+ .../platform/rockchip/rkcif/rkcif-capture-mipi.c   | 26 ++++++++++++++++++++++
+ drivers/media/platform/synopsys/dw-mipi-csi2rx.c   | 10 +++++++++
+ drivers/media/v4l2-core/v4l2-common.c              |  1 +
+ 3 files changed, 37 insertions(+)
+---
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+change-id: 20261015-v4l-y8-y10-csi-vicap-bf049dca7988
+
+Best regards,
+--  
+Quentin Schulz <quentin.schulz@cherry.de>
 
