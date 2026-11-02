@@ -1,47 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609145;
-	b=w+wQ5wXIMq0zss4xw7kcHOZEhW43rxvuQp+sLyfjdN6/tNeE6JIcMUJmVQtBRiyTc1aJ
-	 XZpw3cAzOLWecTVOieovnKJQteah/4GgnRD50zmLmRa+k8pduzo3t4aoL9WcKmHnsbxVw
-	 mxfRHBoXies3udn6hIjrNMSfcoIvo4npBvKWEuP85NQjhU9Jzz0f9/l1B+6s8JbSZDZmZ
-	 V5lC+ZLaaHQOpHsHb1W/7Oj0zWn1gI5hpQjVNzZS/rzBHYxn6CCvivZccTR96X+axV5Ab
-	 pqNFqzy6Ee/DgaUjLlTdpL9aUaTOB6cOqCiFPSyNA2FrcyH9wkdOGm7mFYUBUN5bufQ==
+	t=1793609250;
+	b=Qtj3jPPn8J9zcTzCU7qUGab8ETQyrq6vxaqND3BrmCKVKSSBXn7ZwjojQxcvCI+FgpqY
+	 O6EdTKxEEFg4RrCddjjwPzKBpSxJDd85ZcFmdOFlrvdN8TLnxf8i/a2h9cHQ/bHUfWDTz
+	 39S0uqv1h7J5cp7nrDmtMUBfooIIfjWq5YXgeIEaKdFnOwwsveFBr+q+M2aQKAIeVjYVa
+	 MYdJUtnTb2OOj+58txzo52RCs/LvoVzX5WDv53SG6RmQDZyN5lMKAFQWRWidB7AeHg+ay
+	 hLoaCZ3AJvRMLZngfKGlZp6OSh6Mu2p2zjpbQNsQmoFlr1CMCzjMtQr2yyg4daki8PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609145;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=bLq8tGQUu2myLGSYavn3htnaEwSD1PeKAOiJivnLALg=;
-	b=BB3d/mL5eix7fv6IFug86bDlrCacy+fZ5Dz+fy2+B1ORpy9PYfPXwB3DyvsDdzZzEQZ6
-	 VLlOr4+UQnwFmHLwLgTjNlGEIXvDlLRSXJYtxKoBGeJ72tBPzDc0HUSz5mRODkSuDUj8A
-	 C/p00Us5GcMwDDpgitzPTUdD0C3ruRXAFParYXvKmWSAMIDdB3rDsj7bb2+xph2xNNNiZ
-	 KKIH5vz/lL/6YSztXfSKrhbO38UiQEmrd0nYepxubgSfxUtgOdvSVXxKbVrmYLtw+kXz7
-	 EEZfw2yQfgwMq9J3ey2qNEVUgxV7m2CE+XQ+1twBud2tHn46ZT0x3lvn0iXlmyZuTsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609250;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=l6DsGMOyXtuNDoStZPgvM5A17Ioji7L+0RH6yC6Z3uY=;
+	b=xhDzDuO/elpFmgl0+McnXbbzXwyvZ0FAsXxRFdq86taVUbo25YFYUFeiTzrXpfmL3r9G
+	 vjE6f5ObVaRqQ4nIpVN65iOIZsRZNLDRZMsme7IVl+5YDcISqnbOBlLEqclLlI9uC4/DP
+	 9TGYn5GpzQIE2k+Hxp4ue8Av148XBfWF/IB1KuG8pNAqa8aIz1sH4G4tPh9BX++DGZiJ8
+	 2xlefqzjBOm8Cu3AsaPJgGEO/sql4gde2LSMR3KNyJhOuFO67jHpCv0yzQUdG5J4f83Bt
+	 ct9/Cgmk5fLDfwZ3Etp5Vr3dGJqOgJ5o+TfkY0Y3GDZF1Hu6esPQATbEFyyxwnJ8y7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YaxW1l07;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=GbB3EhDi;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dvTlFKdr;
+	arc=none smtp.remote-ip=103.168.172.147
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A89F606A327;
-	Mon,  2 Nov 2026 08:45:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5935A606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 08:47:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5935A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YaxW1l07
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29DD61F000C1;
-	Mon,  2 Nov 2026 08:45:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793609144;
-	bh=bLq8tGQUu2myLGSYavn3htnaEwSD1PeKAOiJivnLALg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YaxW1l07z86qsmfRrDkoWPU3XOHGAAYxZ/gNGN4innJf0Z/BD+GKWDFfBEH6pOR4r
-	 DCBbefV4oStdg5HksdHZJ/2yw+uC5Z0lZjbV/QkVQPRG80TmUJPlDt7zrZh/N829Hh
-	 /rVto/fymggb8HaRjj3YVOP7liLtPTXHoHd37Ea8aNQ7MJxMaYEAPgRowAgwtyXW5m
-	 laSvMGV3oN6YAz8bqR7LtK3Fc5jVGfNJxcizOWRWSqg5jX8QP5zKt9AfLWW9pALu/P
-	 rYVfSFGfz+O1GYNCwXomLs5xF22s07sjQhlpu0M3yk/VNYAwB5/LYkQPn4kc70UaKY
-	 4fddbJ/QpQZiA==
-Message-ID: <e155f52a-cb04-4334-bc7c-54385973c87d@kernel.org>
-Date: Mon, 2 Nov 2026 09:45:32 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=GbB3EhDi;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=dvTlFKdr
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 5E168EC01FA
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 03:47:29 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Mon, 02 Nov 2026 03:47:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793609233;
+	 x=1793695633; bh=l6DsGMOyXtuNDoStZPgvM5A17Ioji7L+0RH6yC6Z3uY=; b=
+	GbB3EhDiNpybHa8kt4PpX982+k63R35WFRwl8r/oZ1F4VOr08E8yfUQ1svHiAc1X
+	tRX4uR5XKuSpz165KRk6KC4d4H3fi49IH402Du5mWFMBsjG8xTjsL8iBnYiKAlpK
+	RxD0znwWxUMHqj3VfBHVt5JPVoIHDlqLaFGtbXbaicoMOSDsj64H4Sffxoy9s/KE
+	7JkSFWrNx0aa50rsbEz+1eTDTuU8zEdLv1E+3t3xPUm+sDESRYWXU4xfwxFg9ONd
+	FN+NQjyimXhbnssQJWE6dFH1qBKnmJrZbRx6jycAva/EDYJijTobv75ORz4/6sAr
+	AIN/VI1jqQHNbxelQGqr+w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793609233; x=
+	1793695633; bh=l6DsGMOyXtuNDoStZPgvM5A17Ioji7L+0RH6yC6Z3uY=; b=d
+	vTlFKdr58LA/trh6wtB4RBGkXgZBf2uHFU7n50nnjLxtZVHUCYwSCpPRjcxM6wZH
+	LxrppkeYqfBhnotRPXlbD5cgpHXx/R84j/URzmhdBN6NzotlERj14vcKzNXUDCKw
+	Iw681KG1U+nejM2xLvb7Z9KvrG96ZdFEYs03OA8JmQqdEZxrjk9muX48PlhSGxBq
+	R+qsl0rphGUBO3iMlPctsBF7+FcDBaDetAbGYH7myVP2JM4PBeAu7Xl8bp3Uars7
+	leWa6RqFLYUvpN4wGXEneET/hwQLeyb73lEsPjbXwmp79oxvmKukHfsEbDdcoL9l
+	h1hXhOrFKKZXHaC+wwWdA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793609233; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:YPqEUa0VdMasZg32ekdDpXbJqWo0vroMoWENOKPJEYPQC5I
+	6GSKEhUeYnMEkycLMpMPS+H6vrgzn54TVHX21U/CyaXuC0vmuWb/gMAD8/yDqzBe
+	vM/j7WdFB5hqNAvSV+QU2AeHVycNncSMFxZ8Y53CNRuNknmD7jYc/43PNH+zmmT0
+	gomSqA01t5Qe1eg0YYLeH3fUVikd9xTgATwFfuATz8gS7SGsKr1ZqoEIjUhHiTQT
+	vOT+OZ3HzpAl9QgsZ0bM+P+QYifEjqoVQGt3cS5b6MWJMfgXv1IkrHzyPKUyxxNw
+	dBEuPeQVWXR92IRKLxxa5kFqlyuVnj2OzywcDVg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:lY8/s58j5uHeae/SYZn6Q5MKOgAcEGJSIJY/AHMO/84=:hALQvJz53oAZKjfxBv3bBWFXhC+sQXJbjxtuhKKtNsA=;
+X-ME-Sender: <xms:CE7oaj8CMpnVzEzlDwM11LaHHRvnXkh3zegNCVXkqb61X2p7SfeTvw>
+    <xme:CE7oaqhi8rdFHFUVaSnYZ1uxeWonDgJuFWxIEuDhA9rrLDTqE6Ai4N5v9C9i7LNnV
+    BlI3s8MWLKepsOTV4PcUlh33cr_OcW-oHBweAfx3NIyNApudHZfWGak>
+X-ME-Proxy-Cause: dmFkZTF8YngIkqjubXoTQ71/MEbV9w+UTqIQ2wI8bU70Btlsc2Biv/ITwdLY0SySvwyES7
+    0cBjn1ugARCmvsdejCIfHs5UHrReO7j1LcbT/rTxsbJgOi5nIH6NH3thRtOfES4CdcuK0y
+    zK3FDMLxByEff1u1sEFXk2krXDha+mwjuYZcpL/h+vr3E3u6MaeXCwlpmdQHK1IU/z/g37
+    NTOHoLn1u1v+wtgJZtNVn9rPvOzMUQDq+SIVOpp/xLaE/KqN8Zm6Fi08h65Lqay4PM8Llb
+    Bxbh0dxbqxEIeJIIAFSmvxbWgfINpazKjGZKjhE2hVgLH9Bj7AMk1N5TDusFfYP2zdRSnb
+    fIE6C84mJGoOB/MWb6t/w8q/rgm9lYqWKtKM/HqWjWzcx6BuXvIvHHJhrGz2BHSs5uCHzE
+    zN5JGQsQg0zik6gYwK4c+q5H3L3DTufmkhjLycFENbClhxRGu82TzcS9fJDcNzoU7czbkQ
+    uVCm5LvW7Kp2U83Y0EPI/gVXVuQGndTgEa6vci2WGb2OHEyoRLO7EnCdLNF4lTd2VhtAld
+    BbFV+Y7nMWVssapR3ffyTxHJ3mgWTo7UVejJvtQ/O1rSl551rixb/v+LOVff9KAfDNnTBk
+    k0veW72p8FtA96jV+c6Mx3qoI1h3pjZucvr1hZ6uzGkKMp4DRXnhQySEFGIg
+X-ME-Proxy: <xmx:DE7oahEAiOvAF3aBW6R6IiO9l6qaWOltrof37fNBGnErnBkMqjiO4w>
+    <xmx:DU7oagKVDrqScTltvDLGw6O0t4Eta4j22A91W62e2Dx-xB5SxPyx3A>
+    <xmx:DU7oah8plnFzlFw8ivZww5QXYBmAk6dDJQpXGFSfJ5tt0qaohtQbvg>
+    <xmx:DU7oaieG2q6mDfAP91vbWjygVqND_iwRGWAeiYesX6Z1r-BMqgq8zg>
+    <xmx:EU7oaoAUDOt83cZeHMYy1cEuo-AetZ0QcF2Gg0vrhNxTaqjMrAzezNAt>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 36D0532A0097; Mon,  2 Nov 2026 03:47:04 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,98 +115,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 04/25] accel/qda: Assign a context bank to each session
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sumit Semwal <sumit.semwal@linaro.org>,
+X-ThreadId: AqeHuJwVl4no
+Date: Mon, 02 Nov 2026 09:46:43 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Ekansh Gupta" <ekansh.gupta@oss.qualcomm.com>,
+ "Oded Gabbay" <ogabbay@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Randy Dunlap" <rdunlap@infradead.org>,
+ "Srinivas Kandagatla" <srini@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ "Dave Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "Sumit Semwal" <sumit.semwal@linaro.org>,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
- andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+ "Philipp Stanner" <phasta@kernel.org>,
+ "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>, rob.clark@oss.qualcomm.com,
+ "Jason Gunthorpe" <jgg@ziepe.ca>
 Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
- sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
- Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ sandheep@qti.qualcomm.com, "Bharath Kumar" <bkumar@qti.qualcomm.com>,
+ "Chenna Kesava Raju" <chennak@qti.qualcomm.com>,
  dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- Ekansh Gupta <ekangupt@qti.qualcomm.com>
+ "Bharath Kumar" <quic_bkumar@quicinc.com>,
+ "Chenna Kesava Raju" <quic_chennak@quicinc.com>,
+ "Ekansh Gupta" <ekangupt@qti.qualcomm.com>
+Message-Id: <23d04f27-dd2d-414b-acc1-27e46538bfcb@app.fastmail.com>
+In-Reply-To: <20261102-v4-v4-23-88f2f24a5f0b@qti.qualcomm.com>
 References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
- <20261102-v4-v4-4-88f2f24a5f0b@qti.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261102-v4-v4-4-88f2f24a5f0b@qti.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+ <20261102-v4-v4-23-88f2f24a5f0b@qti.qualcomm.com>
+Subject: Re: [PATCH v4 23/25] accel/qda: Add DSP capability query
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On 01/11/2026 23:21, Ekansh Gupta wrote:
-> +
-> +static int qda_count_cb_nodes(struct device_node *parent_node)
-> +{
-> +	int count = 0;
-> +
-> +	for_each_available_child_of_node_scoped(parent_node, child)
+On Sun, Nov 1, 2026, at 23:21, Ekansh Gupta wrote:
 
-I don't see a need for scoped loop.
+>   *
+>   * This structure is used with DRM_IOCTL_QDA_QUERY to query device attributes
+> - * based on @query_type.
+> + * based on @query_type. @dsp_name and @cap share storage, as only one query
+> + * is made per call.
+>   */
+>  struct drm_qda_query {
+>  	__u32 query_type;
+> -	__u8 dsp_name[16];
+> +	union {
+> +		__u8 dsp_name[16];
+> +		struct {
+> +			__u32 attribute_id;
+> +			__u32 capability;
+> +		} cap;
+> +	};
+>  };
 
-> +		if (of_device_is_compatible(child, "qcom,fastrpc-compute-cb"))
-> +			count++;
-> +
-> +	return count;
->  }
+I think it would be better to make this separate ioctl commands
+instead of a multiplexer for each thing you query. ioctl numbers
+are cheap, but complexity is not.
 
-
-
-Best regards,
-Krzysztof
+    Arnd
