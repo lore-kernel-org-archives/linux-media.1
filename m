@@ -1,78 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602729;
-	b=vcLE5jLVAf6C+/dEQ90JWDmWtB/3fN6SLrXUpsaMiwEfwrpiEHv7CKsrN3N7dzBeyCbp
-	 Ydb1C/J9s56faWlQhvLEk+QEdPDN5T5rW2hP5jx2krO+ETxPNvtgLZLT+nHSVvY7FWhwB
-	 7LkYW137useJsfz/a2cZsXDg62ZgS8Qx02bpG0Lbsim+jLyX5lHr/9Du8AcbugwAb4Rm4
-	 URxOV9Ckxz10zh209W7cnrX8KypEy5Pmkur0pjUo7QnPEtTPlsd5ztgFfV9De7Lsmq/q+
-	 /Q76dRFpG0XiQ0XZ6LSTZ+JM1RHpFykX3bNuMFRNOLouwjTKzhJGI6WfEiJHRUPNqNg==
+	t=1793608968;
+	b=29PgrzjrEfG978qvmH7FA2Nk9m3gEErGpGMTgCgajJPQYhbp+UEgOk/tEMFtF8rstLrm
+	 rK2tkJJnlYYemFyjXs7YQNZRMF3Wo2mgr27rvCZpwSkt3jFQcb/Nietu7mJHkfuZlHx/D
+	 AordgQky6aALmGs68zmRSAqisQRuZU0EgFd7U7JO9WWUx+HImFmShfOPc0Gtp1fD/GKcf
+	 2vXZa/lsCoSu7qJUHXoU4lOaAX6xLfnp2PrlrkYfxOPLRw/iOf1UAB2soDjUN12EGYUL4
+	 zOj+EkOb2dIKFscJQy3fhyosL9yB1wXzdRgoeNOEz038tdZ8Cd/cQ/Rvpo9TTKeDvOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602729;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=IZZF6U/ZVUgtpcnr8Hx2KYL3BSBMhJDzbOvkfSE3p7c=;
-	b=hffJm06x37y5x1nRfONWy4CRTIpPCf3xT9SS6iUCxxI5einjrsvkvvuGiaNKQgIyO6g0
-	 ga30QMsi/+kUPvEI92RFkJoNF073njD/rn+6xVX2Tcg4fFdbRj2JQjGQXGYeWRdRMUJML
-	 cQK1/9jBn3BcBkt78JJwr6gOes4P8wWGJGAnDPDyiu4XlP5JA+pjkNiMakKlQIUKBwN0D
-	 LqzAbg9ir+loHSQ78VZvpBV/yTp/CsHJCqsJsf/MCevXs9Hyg3/e1Twe+awWDGjwMrHKQ
-	 QFwzg6cColOTwT06IFUQVgLLYqmUBE5mN7csodOxQHJhAkTkeSxoBZ2kWZ/5qvZxDcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608968;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Z9N1oUYOfEJ8wrfzt4kRP6+m5ByvucuS9GWjxSVa6Kw=;
+	b=ylG9gmRUreELB8lcm0lssk4JKpUieuEEghDsQPWZ/f6Eb62/36Fgi0XG8cBWvFHQeae+
+	 n/VsmADq3vuGs/nyLQMWVznXX06RUgNEc7MEHENO9Oi5UXh4uEhx0SWXyEg1vUsjfJ8Kf
+	 ipkph8AamV3rvEwDj/flGN6+5sHco4H7JcFs7+OzIJ/kiWIMilEXid9KpgQ70/ZlABDmF
+	 4EmVXEnui8msegeIHABQK9APL11xCqxZi7tG6aV8/dLe7kbrBRGBFSV8W6641GzbxKoe/
+	 u8kXvQZMMSeEJKm0+KHrLrnx/plMysFY2FSVKB0hwcrsEsfVh4UZuELHoKpOkNaY45A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mvoyWL+g;
-	arc=none smtp.remote-ip=162.62.57.137
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=il+EJqI1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB8E606A324;
-	Mon,  2 Nov 2026 06:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DB8E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32E0606A326;
+	Mon,  2 Nov 2026 08:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=mvoyWL+g
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793602717; bh=IZZF6U/ZVUgtpcnr8Hx2KYL3BSBMhJDzbOvkfSE3p7c=;
-	h=From:To:Cc:Subject:Date;
-	b=mvoyWL+gv5+kVu33cp/83nqjLzooStWywIniOFePFr9CWv3FG1LYKl+6ILxBKI88q
-	 rvWbezJ9LkzhMHdj8HVARcS4UF5Dl164dZoToYk7MJEKSas5sDSp5cuk+967o0M5fI
-	 mty3Oi5foyq9HZJJsSouuacj+niCy6esX+HqCvIc=
-Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id EA224239; Mon, 02 Nov 2026 14:58:34 +0800
-X-QQ-mid: xmsmtpt1793602714tgkqnxd53
-Message-ID: <tencent_0D164F79882608DC3FB1B70913F736690207@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJ97ztUa9THujk47MNnPJWV6PqGHmIDV3SAFloVm+xp5ENdvmIKT
-	 ZoqgG6wytzf5iLtLTMSjH5MrBl8fP50YVkIMKvymAkOgZVTiWFCPCrbdIFictQntlF/aXlAuWfKk
-	 pGugtUHwKoBvzisu7mAif3eVg4T6IwsAfBLoJN1z8FeU9FQ094Ef503AfKti5fqKyDR+fuiW4Zg5
-	 wMqi4ziFVz7S0WpnavL1NhcN5j+0a2yXm0r+5euv6HtTYevDpDkuhB9fL4+8ib2o485VCVzn+1Sv
-	 Mcg0ecpL3QuVyfCpD+AsVLxZnyQWh1B7VfFnuHF/KdS16w19txdLPRrVpR2SuEIAw7DyfU+s/gOP
-	 7PNt5k9HWFys9eKr+igkaVy+x3xtt2mCPxgrxa15DFWrRKayEOpops8rgSWYlh4HsIpkO8m5z9YJ
-	 KqDURBoO3JBLqXUCcfkYFAnpebdtNR3YZZLCUGGxeTRmuhZwpXAvGbQyzZpjrARs576GWLcngdAH
-	 YqaxXw4u926ypkuILHTMNRJIeIBeAAxMdYh2SKBmeXOaF4qyXE7641TeVuvwIoMn9zO/aR7F02zf
-	 a5esyEileDNC3Q1FhfJJTkZOo7lW4tZ3+9rzf8ABgVQPg+8JH3VvByzxdK1QFBwb79PfmaX8/uxj
-	 RO+oKhhGlpRg+gC9Z3faCbi/JSBaTDcp5aeiKgi8dOt2aXgQuI9MvQvAUE3EK2Y5Zmo6MpqbhEN8
-	 L0qOEUhHPDS/64EYKrJeIZlCwKn8jfS/3uFuOZVnCoHoEw9QUjIAmGu8aEnqLJ6ODYzIdw5aYPNG
-	 jkbC/mrOt6qF+Onvu7VC+TW5yA4csyVOWbje4vpbI4KfParWxnODTMENKkyGouALa9uPCF7fMtzh
-	 ZQjCXVUsK/y9vVLH6F3QO/XJUAsFAgeBBOlqc7UrcPmWDMnfAxp4UzhFN1ZwFH6XYUb76GdM6dHv
-	 g2omucuc2j3NYUBdcLM7wI8nTCEnIjBvc+CWcHw0G9G8RrJLyuDS/Crb2q+4wnNr9VkCxaX8CdK3
-	 45iEyoP1FbbXkn4gKiZ32EUzpbrL8s7AWWaHzTXW3b4Rf8pmB/mTonmIzo/rZzIl3TmOzdGA==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Shuai Liu <847807867@qq.com>
-To: bryan.odonoghue@linaro.org
-Cc: vladimir.zapolskiy@linaro.org,
-	loic.poulain@oss.qualcomm.com,
-	mchehab@kernel.org,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	847807867@qq.com
-Subject: [PATCH] media: qcom: camss: select GENERIC_PHY_MIPI_DPHY
-Date: Mon,  2 Nov 2026 14:58:34 +0800
-X-OQ-MSGID: <20261102065834.191859-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=il+EJqI1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 382971F000C1;
+	Mon,  2 Nov 2026 08:42:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793608967;
+	bh=Z9N1oUYOfEJ8wrfzt4kRP6+m5ByvucuS9GWjxSVa6Kw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=il+EJqI1ya6PSV5bV8nfWpX/VAXmB+PShw94CcxxkVQnd7+SVdCBxSZdF2jtyQYl7
+	 siBwm8xeaYitWaQR8GAy+SgAeqnD29kusfR50WLYcufU+gMRRWLTvy9clpGFa8pLMT
+	 fazRm2zTh7heeVLLjQAt9K2tYkDjk5xpFimmilknBYqFCcfcU5cmw1rHmM2e9PMgT4
+	 wmnVMkSkuFJ2TQk7rBcGRnmGQYC1QuxwVo/32rwrfeLU4OY3sEiAnahCZkSTmYOM1e
+	 wZ1ln5Vssonh3OQ93fK2GQ1DN5ksdRBK2Uwna2Kdl4sLnizyjsWMqBEsmRD6F22f+Q
+	 hx4/++Kr1NpnQ==
+Message-ID: <c4f7b153-feb3-472f-b13c-c7fb0a46f9b6@kernel.org>
+Date: Mon, 2 Nov 2026 09:42:34 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,38 +51,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/25] accel/qda: Add initial QDA DRM accelerator
+ driver
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Srinivas Kandagatla <srini@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+ andersson@kernel.org, rob.clark@oss.qualcomm.com, jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+ sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+ Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ Ekansh Gupta <ekangupt@qti.qualcomm.com>
+References: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
+ <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261102-v4-v4-2-88f2f24a5f0b@qti.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Commit 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API
-devices") added a call to phy_mipi_dphy_get_default_config_for_hsclk()
-in camss-csiphy.c but did not select GENERIC_PHY_MIPI_DPHY, the
-invisible bool gating phy-core-mipi-dphy.c where that helper lives.
+On 01/11/2026 23:21, Ekansh Gupta wrote:
+> +
+> +#include "qda_drv.h"
+> +
+> +/*
+> + * Both compatibles the binding defines are matched here. The glymur, hawi,
+> + * maili and nord nodes name "qcom,kaanapali-fastrpc" as their fallback
+> + * compatible and so are matched by that entry. Per-SoC DSP parameters are
+> + * attached as match data by a later patch, once there is something that
 
-With CONFIG_VIDEO_QCOM_CAMSS=y and no other driver pulling in
-GENERIC_PHY_MIPI_DPHY, the build fails at link time:
+So you add empty or non-working code. No, add these once you actually
+have complete and working table.
 
-  camss-csiphy.c:(.text+0x51d): undefined reference to
-  `phy_mipi_dphy_get_default_config_for_hsclk'
+> + * consumes them.
+> + */
 
-Select GENERIC_PHY_MIPI_DPHY, matching the other MIPI D-PHY consumers
-such as rkisp1, mali-c55, cadence-csi2rx and sun6i-mipi-csi2.
+Drop comment, redundant. Referencing future patches makes no sense in
+source code, because there is no "patch" when looking at the code.
 
-Fixes: 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API devices")
-Signed-off-by: Shuai Liu <847807867@qq.com>
----
- drivers/media/platform/qcom/camss/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+> +static const struct of_device_id qda_rpmsg_of_match[] = {
+> +	{ .compatible = "qcom,kaanapali-fastrpc" },
+> +	{ .compatible = "qcom,fastrpc" },
+> +	{ }
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index b51745c942c9..b18ae4405502 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -8,4 +8,5 @@ config VIDEO_QCOM_CAMSS
- 	select VIDEOBUF2_DMA_SG
- 	select V4L2_FWNODE
- 	select GENERIC_PHY
-+	select GENERIC_PHY_MIPI_DPHY
- 	imply PHY_QCOM_MIPI_CSI2
--- 
-2.43.0
 
+
+
+Best regards,
+Krzysztof
