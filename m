@@ -1,111 +1,112 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616144;
-	b=1fT9ilp+ufBriTx+E1O3yoVkmLmroAw4lxK0jxnLVQr9p+gdz2G9Nph58PlO5dQ1StuJ
-	 TwM2NMQnP9JBBNLPJ71zzIJ1p1dwv+u82uhJeHPRwx/pf3oG5Dci84XQpJ9x7mOyY3R7Y
-	 +kczdxoWvdPyBVSq/CT28WC7nnv3r38II0Hsb+rpGYYlAVCbcWor7FJmoBWp2GF5Ie3wL
-	 Dh/H/h06SCuDJ9dG89RhMmqMm1ENNrkeDBicp9O8gW6NCzN8N1PcNysmoW80dslBX6Zpi
-	 x8taugOaq9fGNPO6qsVUu1Tnzpzx7tkt6agxwSk8Xnyzv2hHBK8oS2VwUwGVFe9D3fA==
+	t=1793616146;
+	b=dxOPYNncW+6oyFDeZW6KqM/+Iq64sUpBwcfOyllpmOKFkWM4GPqs3MPavrJnS6RiSwrR
+	 YeIZq6LxNBc0Pl3AbSfueLHwHRCJ3ulFtjFJPoEM0x79e3Tkun5qrBEp0kIPQzgutOOF8
+	 Y9yi2tKuMynIvCXzQa6V8fDXYUH3iwsn5U+9BBJiRnoC074g5bcwBePMFRC5Ki35tuSGn
+	 gN3xrC0edH3ubXBa/nbVp0yOpsh0NHhK7j8aoL/HN5IKJDimVuz4tLBCIRDJxcIhCN+OR
+	 UTCBPgiP00777w5SHpq1G6MNP5EVrTUPw1g+hi1NCsaUdaI4r0+u8Y8JQI7o/xD2+Jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616144;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616146;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=MID0gSdRFYEtOdMRf2Fnw6acFNQMV+62kE4jNStcaWI=;
-	b=f4yteUsBKSrL8vI8yp7m9efLBYlr1kaABPFCe4zsgb4zZNJDDeLYDnNzmKdww8P85dzd
-	 4PfpmY4TV0mjGLFrM5+QCBxBQCG5FHDRLI3QNE08FmmQDd7kVAggtSsK8OHCA7WLKUK4T
-	 Dpr9qdOZUEGM511JuXRNQAJb+owglh1Fqea/wwvhHzVOJh1ImOcIssJgXfugfKQvYL1d9
-	 zTzCoUt/F0yFjM2IG+YBMNbgzYzzai9IVzWGS2ZFsRhDK4cLCksD9Fi+y9PDVMTgqxDLJ
-	 30iMLVL6YXhiVVBn90laIEaywKNHom209zeHMNu9ePYOiULC6Q7OXuhBTrCZViY4plA==
+	bh=UjRg5ghNYVXD2NVWyWs3nDdXr/lQ+mTWIwgMVJIwbvg=;
+	b=r2hXaiJdu7bjCYw3GODGwECPa4p5H0vNd+cm3LqKz/5Fjm3lzGFTo5Oygle8K9lXCUtD
+	 y9kJr6lITH5R/r19Fj9L3l7D2MxinZaBT5T/x9m/ziwKSi4Bmtpy4scDZ9QChxvONOtzp
+	 6M9llZzvczyIMm+jamez0dmHfuI0nnYMIb4rPwBY9TiDCJ58NiF9NipvrtdBywHj5QDqZ
+	 j3Q2Lq5C3jAC5qcLVmYv/KPXa0OpjCKwdjnAAO4yeRtRhU11S/vIzFDkW4wHYAqZsGs3C
+	 PVmkAkBl3AcvVLYyaG+GcyvN4dcdPeCi5d8H9OPl8uJfWRTwpsWfMHy4i1x3likgg5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pJUbaKvP;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iqGmYOtZ;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OZOBP9dz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YI3IHuZB;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9978B60A261A
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:42:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9978B60A261A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EC560A260D
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:42:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5EC560A260D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pJUbaKvP;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=iqGmYOtZ
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29B1Z74015067
-	for <linux-media@vger.kernel.org>; Mon, 2 Nov 2026 10:42:22 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OZOBP9dz;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YI3IHuZB
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29AX9m3086640
+	for <linux-media@vger.kernel.org>; Mon, 2 Nov 2026 10:42:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MID0gSdRFYEtOdMRf2Fnw6acFNQMV+62kE4jNStcaWI=; b=pJUbaKvPrrcSeGWp
-	Fpdcp3GwLwIwJTuFEuG9cwnvINisD9IPIgcsII4SdQyGFX9xf6HahdObMi4g6XWu
-	wcZ5OvC1vRXtFTk4RRwKgz0qz1Ycdgs1RpNX1/UQse7ItspMfZJwog593Wee7XZX
-	xn6gICP5YSKNdURe/zwvfw1Jg47C9rR8bBJ2ap2E5ij9s+aAskQu3tJp7yEUKeGu
-	ssg0XeQi6Kd7aMddybhXfM0lAq1PO2JMvg6C9W6AJZmu6N3qh52lqccPTQehqD1g
-	9X2Xlz3nmcWG9ofUdq/unY5FE+Enb/Kb5WmbCyqAuTnQQERt81mgY4MLQHbKtOeb
-	7X7k+g==
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6pmfq-1
+	UjRg5ghNYVXD2NVWyWs3nDdXr/lQ+mTWIwgMVJIwbvg=; b=OZOBP9dz1Uprw3Uz
+	iGGU+DTovVKnMMZjPiP7QTuIegNXkSdzHJdUWE84sxJKwCBacbxmEkj0pR2Oy/qa
+	bJQZAr5+9C2SuPluYVFza7Bz692YqIFcjm51kkh24ptW6EvkTNSefExCQPjA9AYM
+	5/TQ24J//zVjGWKiY3ABSTZRcFugbXKTaxZWgHX+bBtNeVgRYsNYbzFKkwzd0kJ9
+	m8OA44ivnDnh2XPYtpc63Zg0IvZpoQ/hiUQj1hXz2nVx2sVB6wqmo0b2mSAl/sss
+	Wi7oZpAfsiqAOXjzylfqDrIwbtEyqukS+qq5MZsfeks1B0QB2UNTNOa201QAa6Yn
+	nT/QQQ==
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpka61d1t-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 10:42:22 +0000 (GMT)
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso3730196b6e.3
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 02:42:22 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 10:42:24 +0000 (GMT)
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e9eso3730220b6e.3
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 02:42:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793616142; x=1794220942; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793616144; x=1794220944; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MID0gSdRFYEtOdMRf2Fnw6acFNQMV+62kE4jNStcaWI=;
-        b=iqGmYOtZXJo/+xupZeV8JrfLw973pMHZB6ERSEAK0C5ZZif2Zs4tFyoK7DHV4UX8NT
-         Qocw7vt0Xpkc+tHNeWK5E/0VWiOsiv9O8cLH4GPxGc47nF6QX8GEOEs0byB5sksmYzoU
-         AojvrRfXDqFb94lmYQDjPAwWS5ImsXLzhAB4gj+RUgk46g5NzSGFLJ0m4tajiihR0HNt
-         jHm7y+DdlR2Sw78UMjjlxwHucZMoEErpaky8HThBa0F89b1va4A4RteKhpmC0v28+93D
-         VkmB69g4DsU5IEenJP1GDtjaCmu9hTl51/KECaMCVeNYUSbBp5lIKn8F6EVF2UktSq8O
-         RRag==
+        bh=UjRg5ghNYVXD2NVWyWs3nDdXr/lQ+mTWIwgMVJIwbvg=;
+        b=YI3IHuZBzP8LDPPV+otWnMVvYxsma4eKW7w+j47uLe0h0IBSB/xDofoLWMlFtVt8Ug
+         N8l0iBLYoKB22oG6XopGf+8TaIHeybAeUrMEKOpdUgmNojE5msh4RKw5cDA5wsH3pMgj
+         atWLfGeYtGX4lKMHjTuLG/kA9fXuVqq2B2dMSu27G9jzWVvRc//Z3XfUSxe+Cr7bIoa7
+         KR8RJFg0M+4ptaS46cjFMZqn6rzIDTJRHxA+we0BfLOrEN1nftUmPt4GYLgQI9IOiqXr
+         OcL6OxDZ1Q57NUWg2G+I6bc6ePaYuT4Amd4qh7fPXW7fpi6r+TmwbSUutZ2T1jN+huw5
+         LDUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616142; x=1794220942;
+        d=1e100.net; s=20260707; t=1793616144; x=1794220944;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MID0gSdRFYEtOdMRf2Fnw6acFNQMV+62kE4jNStcaWI=;
-        b=z6pbs+yvfNOmsMb3Lfn0w5IrtAZfVC4amuVHxH8YUkgC6rPrCszjj0dcG605OIw74x
-         O5wIu/JJ2e0lmLMB9hRHvqeprojqHayCaATma86/qUnWyB+hUG041aFVwJWsm6Skei4S
-         Vc4xpBOy56bJDVzNKF3jqbQOY+B6MEgQYGZjd6sE4l9d03+8F1Huprln0rREXK3U46Mk
-         d7qi13gFIEcIMJaVXwbwAkOolw+dmtDAH3FVyi93N4RNpVlMMlIgeEN1wF5Pa8xJsc+l
-         A1CkqM2uN2OLcjAz6n2GmA325oD6hDrwEtBWnOiTNdzDq5gu7bdrpcRWUWYRvalm9b5m
-         9Olg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8DNn0QG7GoTie9I50TiOyKJIPLya7i2GpHOjIFplHCDNbJnpfYgWRSgtYj6dx2aGMX4RV0eSl2gJxsg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU30hvSYxcbpbtEoNWyuSxKspa/N+vRwaQOpvXndC2PRN7l1LY
-	AaZSsYD76Hwo+poR3UmF6KlN2/E9CJD+2XpwaiE/KbS1qvt/58/bZwM5SnEDkcKbHc5eNToKwfN
-	C0OsLqOF1zxYeyN3r0VIMhs5MViucP11okaptdotZkycooP+iOnRmLFnFKselsZecWw==
-X-Gm-Gg: AYBFou3AE+lsfXz/XBIHaa15kzwAZNIug+XritKgzjO5KwETbSoHp/RKkAjDUwXTEgH
-	pzY0gt+7M+XS1db589W2qHdZXvZyeGFtrnNSCOw6XuWbMfXNd46i7WCYpW6uAgePvD9rec7Xgs0
-	u8SJY5556EIh2iE7Gf/pK0wJGWnjnMYx1U5r+0CbN4AFD6jWuYLGxxF6uZZjlU0QoHmjVh8uDhh
-	mw16Tdxz7cVGtKohAAoFIBx7iReifHKM3YVxflMeCAwtqsomkTo26RvVpXsqQAT7dpKu7WmfsHM
-	xhYJYlWP8hDKWDV8G6+KhpzPqa1ktFynB6esaylTttRqWzq5aDdBw2NSYUSQkZGJnb200+50Iqi
-	0Pfay8pTICTe+ZtzBjXv/c/+eKxeLGgb7cukLPIUEhGNd6/eyF1n4b99jafjWhzPAjUKmR4+S9S
-	bcqs53TIpjVUhipFWXpeeZSeZ+IHKYN49gxInsILetnVHhYxkR2QYJTOH+dRk=
-X-Received: by 2002:a05:6808:6508:b0:4f3:36ff:e521 with SMTP id 5614622812f47-5640df1c54bmr5861949b6e.58.1793616142050;
-        Mon, 02 Nov 2026 02:42:22 -0800 (PST)
-X-Received: by 2002:a05:6808:6508:b0:4f3:36ff:e521 with SMTP id 5614622812f47-5640df1c54bmr5861941b6e.58.1793616141658;
-        Mon, 02 Nov 2026 02:42:21 -0800 (PST)
+        bh=UjRg5ghNYVXD2NVWyWs3nDdXr/lQ+mTWIwgMVJIwbvg=;
+        b=oKUurnrvyynVVAk38WKhN54LjOte/BSfabuTy13UcmjDl6ixGTmWthVKECpDqRfhjx
+         /yjSKoDFh1ckuVbHFJgnorFL6+FGVZ1jnNO6Sw+lqoydDdcP+tAQnm0HeppixFpJbfh7
+         0SFqHBNshhgMy1zmSCDc4JX3qrVrWvUz1xx8WcBEQwwN33h4ENvZV/yCMb8N+gz3w4qn
+         OGLDXMkwJSeynCPUfTOObts/Sw+i7F2wyiZpvw0tKNLPPWFQatBvEzAaPYDnpPRLhtT3
+         ZRanWDq4sTxh52jId0B8hnOzTPEtDVH9x7MOuFaJgRQhxYvqImTXg+r03/omD60YGTVC
+         9uwA==
+X-Forwarded-Encrypted: i=1; AKwUvBy5CzES21t18/6VUYlwyey3ZgcEgcxWY/+qpA8Zag+KvoDWpI0DT5CRHUfCGXIKzFwKzAVL+YnxJ5sBbQ==@vger.kernel.org
+X-Gm-Message-State: AFq9FYJG9o2nGBdQMREipSY5FUrAO89Y4rYcqMS7D5CWTKFQDcK21LO8
+	mOYodoQ+Hg/FNGOvCeaaxU6kjkfdLdWMkotwFJWLU9kBaru9OP7Gcqz+g3yqv11HRgvxdVeo8qz
+	PGWvECuYKQSTLviQqVedW/1UMG3Toziu19NanKpMZMQcYtTjbSd9jSUSNubMKQ89s6g==
+X-Gm-Gg: AYBFou2Iw24knE1PFGHoIJNVOAP6vLma7+s7FWgqvBWR11fPHPxb566LtnE4E1oEo8y
+	nLUM4XG4eELE2utQEzJKRHNkTtMonv1GOOqkmtFsmQc/OK2t9apxLYA28tr71JLzWnU0/he+3f9
+	GzjOk7DUIkYq+PXZaqrPWgq730ktr/HyxTVNQtfIWylClF5x3ZPnCRdZVrkMX6hZn5Dye8WTAwt
+	b+Yq3gw3mBrKGoAqMUerhkSldeZ9WHhFtB7ffBoQSG6sCmQI6ji6PiqMUp/lFeZh7QLNiHJo1fl
+	xRC+eEzTfUXXI8YonPDl4Ksufb6XmGv/KiqGWTbb3TsrHW2aadI16+Wr4KumfT2gzugKF/9cZhe
+	RZ9fRtH23ppRJupFdqQFEJc5i3Gn8fKwA88mNyG/SSVVxWQ0w5xUyxu3bPVnPYzERKy64lIjIa7
+	fUYiZXI1TpanGfGU+tUjyfNuUR3TTVSnUmOopfu2wWneWYn6Hsbp+Plab5ghQ=
+X-Received: by 2002:a05:6808:6413:b0:4eb:e665:bd01 with SMTP id 5614622812f47-5640de56ef7mr6709772b6e.34.1793616144032;
+        Mon, 02 Nov 2026 02:42:24 -0800 (PST)
+X-Received: by 2002:a05:6808:6413:b0:4eb:e665:bd01 with SMTP id 5614622812f47-5640de56ef7mr6709752b6e.34.1793616143545;
+        Mon, 02 Nov 2026 02:42:23 -0800 (PST)
 Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fe0fc77sm7447171b6e.12.2026.11.02.02.42.19
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fe0fc77sm7447171b6e.12.2026.11.02.02.42.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:42:21 -0800 (PST)
+        Mon, 02 Nov 2026 02:42:23 -0800 (PST)
 From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 02:42:11 -0800
-Subject: [PATCH v24 03/15] phy: qcom-mipi-csi2: Add Kaanapali support
+Date: Mon, 02 Nov 2026 02:42:12 -0800
+Subject: [PATCH v24 04/15] media: qcom: camss: Add addr_update hooks and
+ guard CSID reg_update
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,7 +118,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-kaanapali-camss-v24-3-d6b8f3f6f66f@oss.qualcomm.com>
+Message-Id: <20261102-kaanapali-camss-v24-4-d6b8f3f6f66f@oss.qualcomm.com>
 References: <20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com>
 In-Reply-To: <20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com>
 To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
@@ -137,100 +138,176 @@ Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         jeyaprakash.soundrapandian@oss.qualcomm.com,
         Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
+        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 X-Mailer: b4 0.16.1-dev-17221
-X-Proofpoint-ORIG-GUID: 2n0w6PmG5LWYjTyxJoljIpmrH6Gy5Qwy
-X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae8690e cx=c_pps
- a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-ORIG-GUID: Fmr6H9MTWopzOVB7UBqvpVeOcG7Uv2wi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX6RdB/tLRanf4
+ v6YjYmiIrxrSgV0KHHNoXF/CkaU+yCg8hRU6tSgJ0qs1qT7RNoz7DDT1jmABpuOJqJU+P6QyJiN
+ pFu1KgCtTf2QBHrapvoapyb91Aw/VZ0=
+X-Authority-Analysis: v=2.4 cv=ZbyIpcVA c=1 sm=1 tr=0 ts=6ae86910 cx=c_pps
+ a=AKZTfHrQPB8q3CcvmcIuDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1e3Zegj4IIqRqDCgfwkA:9 a=QEXdDO2ut3YA:10
- a=efpaJB4zofY2dbm2aIRb:22
-X-Proofpoint-GUID: 2n0w6PmG5LWYjTyxJoljIpmrH6Gy5Qwy
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX2mwYK1v9RX0o
- Ty0J2T2stWWdBrBQR1Tbn8BOrDHgXKri88UADo+ZaGr0vol/XHJv0jK/J/jMs52WTrMk4fe6sWq
- re027iVf0FjYtVELYxGT0Ckl9FGW0+0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX5h/CK8MdxDHO
- 4j+yK3/UAFuQF/HfRIQ5lvvowsz2/mlXEBsGh9pyi9lNd13BPt6DqdlWHgqM7qn67XV4WyJzNPW
- cBdDbx3pH+EWcfmN/OLAH0UxB+0GqaJUMN/E9urib/SdTyKz6EurTGYCWgruCXvxHf5uw7z75UX
- v8yvGVSrAWl8s3t5QZaCQF3rD1by4AHWMGTmiFGwUpF8h1mopWeqe9xb73bg1n/uQnzwbpYJNc3
- pfd3bMtKwzCrhVFgK0BhUrogvb6GFGCk3uPCMBX/qZjTf4bK8LENJcmOhH3WMnbHUUlDSCJInWl
- WoYOl6bMhvTNFvl/y4xjG7AmaJ7UVCZmDYFgB7wSoIdhB1iddYI9x0VHh93NWj+7XTE1JLtb/ki
- c2/kqOWygFBimM+YahdPgg5Zx0e5qee7oqFY22CGh+e8YvD/eFVpwhXoyqe8XD+kQ7vgrJqKLC8
- DCshxXeMs0WhN/BtI3A==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=8v9F0_qJuxzZnZknmOQA:9 a=QEXdDO2ut3YA:10
+ a=pF_qn-MSjDawc0seGVz6:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX69si4orq3vjj
+ 0M0vw2d8O3g+82uOoWNI6EeUlxqL8sOFfBgsRwBjw/8modmBXEd+uY00MaoJPzR244HmQwcl91U
+ T2D7QC5jsbDUXuwS2oxHpyzuBFsTqlKnXdfcMbqZbErZ5JNT5HaMxw6CL4F7Vmn7ZouXqnfJIwS
+ t6eYVwxprBMT6wSPP/YdV7wYDzA0yK+Rzj6nzybcW37oaUwjaZPJaqaUe/uAKwv698Sp0lBNqo7
+ 6GEwpuTbEi22y5ZM23AFj4rgmNPEcL3KjXta7ux6OjHTIRkS3CLmAM0MFsIYffwchOh8kPFxI0C
+ CwcIL0GJfvgAf7KpSBNuztdIOjma2Z1xUEgVEeRnChiYo8vxXNRSq+wtA0iY/FkPLO+uYDJN3Hz
+ Cote7p8kMggJel//DQSWcr2GYSggtM7KkzO8PTqgiShzKx1M+g2uN45R4MZmIB3mN/VlFDghbWE
+ vzyT4f4Xu1csGx0bYgQ==
+X-Proofpoint-GUID: Fmr6H9MTWopzOVB7UBqvpVeOcG7Uv2wi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020042
+ priorityscore=1501 lowpriorityscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020042
 
-Add the Kaanapali 3nm configuration for the standalone CSI2 DPHY
-driver, including the Kaanapali common status offset and power domain.
+From CSID 680 on, CAMIF was moved into the CSID and the CSID became
+responsible for issuing RUP commands. Starting with CSID 980, RUP and
+AUP are issued separately, and each command must have its corresponding
+SET bit asserted in RUP_AUP_CMD; otherwise, the hardware ignores it.
 
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+CSID 980 and newer require a specific stream-on sequence. After the RX
+is configured and before the RDI path is enabled, the CSID must first
+issue an AUP and then a RUP. A RUP issued before that point would leave
+the VFE without a BUF_DONE event. Therefore, once addr_update is set,
+the VFE must skip the initial RUP during stream-on.
+
+Add addr_update hooks and camss_addr_update, and make camss_reg_update
+handle a missing callback safely. The VFE keeps issuing its initial RUP
+during stream-on and behavior is unchanged if nullify addr_update. The
+skip takes effect once a generation that sets addr_update is enabled.
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 16 ++++++++++++++++
- drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     |  1 +
- drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  1 +
- 3 files changed, 18 insertions(+)
+ drivers/media/platform/qcom/camss/camss-csid.h |  8 ++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c  |  9 ++++++++-
+ drivers/media/platform/qcom/camss/camss-vfe.h  |  3 +++
+ drivers/media/platform/qcom/camss/camss.c      | 15 ++++++++++++++-
+ drivers/media/platform/qcom/camss/camss.h      |  2 ++
+ 5 files changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-index 8cd331cfb4b3..ed40934d67ea 100644
---- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
-@@ -374,6 +374,22 @@ static struct mipi_csi2_genpd x1e_genpds[] = {
- 	{ .name = "mx", .scaled = true },
+diff --git a/drivers/media/platform/qcom/camss/camss-csid.h b/drivers/media/platform/qcom/camss/camss-csid.h
+index 5296b10f6bac..2f7e593defed 100644
+--- a/drivers/media/platform/qcom/camss/camss-csid.h
++++ b/drivers/media/platform/qcom/camss/camss-csid.h
+@@ -137,6 +137,14 @@ struct csid_hw_ops {
+ 	 * @is_clear: Indicate if it is clearing reg update or setting reg update
+ 	 */
+ 	void (*reg_update)(struct csid_device *csid, int port_id, bool is_clear);
++
++	/*
++	 * addr_update - latch buffer address update through AUP
++	 * @csid: CSID device
++	 * @port_id: Port id
++	 * @is_clear: Indicate if it is clearing addr update or setting addr update
++	 */
++	void (*addr_update)(struct csid_device *csid, int port_id, bool is_clear);
  };
  
-+const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_3nm_kaanapali = {
-+	.ops = &phy_qcom_mipi_csi2_ops_3ph_1_0,
-+	.reg_info = {
-+		.init_seq = lane_regs_x1e80100,
-+		.lane_array_size = ARRAY_SIZE(lane_regs_x1e80100),
-+		.common_regs_offset = 0x1000,
-+		.common_status_offset = 0x138,
-+	},
-+	.supply_names = (const char **)x1e_supplies,
-+	.num_supplies = ARRAY_SIZE(x1e_supplies),
-+	.clk_names = (const char **)x1e_clks,
-+	.num_clk = ARRAY_SIZE(x1e_clks),
-+	.genpds = x1e_genpds,
-+	.num_genpds = ARRAY_SIZE(x1e_genpds),
-+};
+ struct csid_subdev_resources {
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
+index 2680a9914765..4f8867daea4c 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.c
++++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+@@ -487,6 +487,8 @@ void vfe_buf_done(struct vfe_device *vfe, int wm)
+ 		ops->vfe_wm_update(vfe, output->wm_idx[0],
+ 				   output->buf[index]->addr[0],
+ 				   line);
++		if (ops->addr_update)
++			ops->addr_update(vfe, line->id);
+ 		ops->reg_update(vfe, line->id);
+ 	} else {
+ 		output->gen2.active_num--;
+@@ -525,6 +527,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 
+ 	spin_lock_irqsave(&vfe->output_lock, flags);
+ 
++	if (ops->addr_update_clear)
++		ops->addr_update_clear(vfe, line->id);
+ 	ops->reg_update_clear(vfe, line->id);
+ 
+ 	if (output->state > VFE_OUTPUT_RESERVED) {
+@@ -552,7 +556,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
+ 		output->gen2.active_num++;
+ 		ops->vfe_wm_update(vfe, output->wm_idx[0],
+ 				   output->buf[i]->addr[0], line);
+-		ops->reg_update(vfe, line->id);
++		if (!ops->addr_update)
++			ops->reg_update(vfe, line->id);
+ 	}
+ 
+ 	spin_unlock_irqrestore(&vfe->output_lock, flags);
+@@ -588,6 +593,8 @@ int vfe_queue_buffer_v2(struct camss_video *vid,
+ 		output->buf[output->gen2.active_num++] = buf;
+ 		ops->vfe_wm_update(vfe, output->wm_idx[0],
+ 				   buf->addr[0], line);
++		if (ops->addr_update)
++			ops->addr_update(vfe, line->id);
+ 		ops->reg_update(vfe, line->id);
+ 	} else {
+ 		vfe_buf_add_pending(output, buf);
+diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
+index ae9dad353a37..8312e4c91e98 100644
+--- a/drivers/media/platform/qcom/camss/camss-vfe.h
++++ b/drivers/media/platform/qcom/camss/camss-vfe.h
+@@ -99,6 +99,9 @@ struct vfe_line {
+ struct vfe_device;
+ 
+ struct vfe_hw_ops {
++	void (*addr_update)(struct vfe_device *vfe, enum vfe_line_id line_id);
++	void (*addr_update_clear)(struct vfe_device *vfe,
++				  enum vfe_line_id line_id);
+ 	void (*enable_irq)(struct vfe_device *vfe);
+ 	void (*global_reset)(struct vfe_device *vfe);
+ 	u32 (*hw_version)(struct vfe_device *vfe);
+diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+index c54185c93a8a..be58a39f4a8b 100644
+--- a/drivers/media/platform/qcom/camss/camss.c
++++ b/drivers/media/platform/qcom/camss/camss.c
+@@ -5049,7 +5049,20 @@ void camss_reg_update(struct camss *camss, int hw_id, int port_id, bool is_clear
+ 	if (hw_id < camss->res->csid_num) {
+ 		csid = &camss->csid[hw_id];
+ 
+-		csid->res->hw_ops->reg_update(csid, port_id, is_clear);
++		if (csid->res->hw_ops->reg_update)
++			csid->res->hw_ops->reg_update(csid, port_id, is_clear);
++	}
++}
 +
- const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e = {
- 	.ops = &phy_qcom_mipi_csi2_ops_3ph_1_0,
- 	.reg_info = {
-diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-index c0a4fa20eaf0..941f8b920b1d 100644
---- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c
-@@ -443,6 +443,7 @@ static int phy_qcom_mipi_csi2_probe(struct platform_device *pdev)
++void camss_addr_update(struct camss *camss, int hw_id, int port_id, bool is_clear)
++{
++	struct csid_device *csid;
++
++	if (hw_id < camss->res->csid_num) {
++		csid = &camss->csid[hw_id];
++
++		if (csid->res->hw_ops->addr_update)
++			csid->res->hw_ops->addr_update(csid, port_id, is_clear);
+ 	}
  }
  
- static const struct of_device_id phy_qcom_mipi_csi2_of_match_table[] = {
-+	{ .compatible	= "qcom,kaanapali-csi2-phy", .data = &mipi_csi2_dphy_3nm_kaanapali },
- 	{ .compatible	= "qcom,x1e80100-csi2-phy", .data = &mipi_csi2_dphy_4nm_x1e },
- 	{ }
- };
-diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-index d6366f809e51..832c8d048b77 100644
---- a/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-+++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2.h
-@@ -93,6 +93,7 @@ struct mipi_csi2phy_device {
- 	u32 hw_version;
- };
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 7dc2fd9f03e0..431afeb381aa 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -182,5 +182,7 @@ void camss_delete(struct camss *camss);
+ void camss_buf_done(struct camss *camss, int hw_id, int port_id);
+ void camss_reg_update(struct camss *camss, int hw_id,
+ 		      int port_id, bool is_clear);
++void camss_addr_update(struct camss *camss, int hw_id,
++		       int port_id, bool is_clear);
  
-+extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_3nm_kaanapali;
- extern const struct mipi_csi2phy_soc_cfg mipi_csi2_dphy_4nm_x1e;
- 
- #endif /* __PHY_QCOM_MIPI_CSI2_H__ */
+ #endif /* QC_MSM_CAMSS_H */
 
 -- 
 2.34.1
