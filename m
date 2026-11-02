@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618902;
-	b=t8Qk+It3Tf1EHZ3HgpnPFidkQdkZfLzGeGaFUONPx8Dcuh++b6ULQqAQEvcXihUHuARQ
-	 hugkfI6bSJvhCMSsb7eXJPetk+fba277i+4GW9f+tNc133iY37S+h1lNoz9WmZLZ3pZLH
-	 VQx+9Zn4ediRsFDWh5XlXS8eo92/55fSyFIdKVxZBKd1i2wa00/Anf0nlbWruIC4uMFDL
-	 +fa+qvjqRr/9kmI9DrML2eYNbH7bz2x9JGubNqRUw1zCb/RpJA5v17/kEQvHSeh6VrcA3
-	 pPVesd0/So7HoLNFMjmEjDpD2KmTJ8E/68CJR/AESqGdjt90yZwB6Gl6q6pWtCdJRrg==
+	t=1793619174;
+	b=JEYoEOv3soSpFLY8zMfjdzH12bAOqlNe0xwKaQpSYjuEYeB1Mi9sfoR5zOwvHebQNVBW
+	 A7f6JiKB1g2OGE3Wcoa+f19KJ86ayTFFsf4YN57mPT+gm61i5aJwHXQiOEKJmguotIwZP
+	 IWxVA1CKjoENUMYQhGwbvh+zf76LzjowJxbSDkb8rY68ArQYK8jaI/ZEZvFZ+ZjuyZ+R8
+	 UGm3p7aRiGGP73ih3qv7Mpx8BoJntJikuRlzZnRnjPv/c6yAbqMSHkvyPbs8EHwrwTVHH
+	 9/KNzN6GJKs6p3sq1NJU1u4tjz8loJ0wbphHunlWJvLn6Mk5VY4YzQsH0bS2FJT5Upw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618902;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619174;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=aIuTXsyHn8ihH8XctHnEFTJmZ5RrcxG5CvKa2c6OoKQ=;
-	b=cbGXzq3I/atxxqV2RGN9QqYfZ5JOPc37Vzk5daOTCGGpz4d5811cFUsNtWaCecc7JiDr
-	 KaNdWDDk7nw15DgA+LMFmMFJoEieAkK/dRKxBLcM2A+CR7TVTOOwpIqWOw183mHScFF2p
-	 IypQrPfmhBsZB6VCLiBTAKDGcMHmv43SJW60eLuCzjHpKLmD2jBC88XO0OM8/Aq9McKNi
-	 R3Z2BolmgmrZDfoPhXrWC7cgPmKBVPxfRMtyiPUKVEy+JnPFcfih8Vevo+NBLZkp4JEAU
-	 jYAdUAFJuAwo62TEW7eoNXVM9NDKytv5oVjJOeq5S+2Cj4Hn7WncgrvoSgUhseMUhww==
+	bh=73xKAjxZ/iUfedvukKH4tAcujSRHdTqC2mzu9O7dGao=;
+	b=zDCanDzENEW9oJp/68E/j3MiH/rz5JnMaSAfnrLId6POjTJfvbHpuR1N/BpR+kmBWM+X
+	 b7l3BAcPRzkmvn8c4NOZpSl+OqH5WL598BioWyQSyhkqi6oFxmRjy1Qu67c1iY/VaOi3G
+	 5Bc2Ye+6kJRoLSmZyCLAWmFJE7LOBsBDfIFn9tE9+Cu25UKD15HwXVgph0/4WsZw6Cgs8
+	 MfBaYvCVMVCnIyXV98jlJL3FrRcnbQcjASMiMIJ6PYOliFq+A1tuNsnQJXdgYlnxM7N/8
+	 uu3RdxWcYwUXTm/WDbOKuIc0QJT4csNfmdDLZAv7/ha8L36BjjfvapEzUSTmuwMWriA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ideasonboard.com;
 	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=hKTQke3g;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=QL4hSh4u;
 	arc=none smtp.remote-ip=213.167.242.64
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97AB3606A32D
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 11:28:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97AB3606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC26D606A32D;
+	Mon,  2 Nov 2026 11:32:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC26D606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=hKTQke3g
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=QL4hSh4u
 Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 387CEBE;
-	Mon,  2 Nov 2026 12:26:03 +0100 (CET)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D2C12BE;
+	Mon,  2 Nov 2026 12:30:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793618763;
-	bh=jVlSgTI/aCwhIEJiTK3f6g78ldwsCruOjjKeNYHsaAA=;
+	s=mail; t=1793619034;
+	bh=6IEb5JlEa93A/QwCVBaWw1bfumGLwlpduvEDjIOXKDw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hKTQke3gMm1I9i1olKx7yx6xPZ9A3GePN70oCW8zyycKT3Zb6bWEvWpIZmouVYNrm
-	 gWJb2bqIpxk5e0PYa0S4MpcNtN2vr2Xe8c1TbrOj0dsgqVKn4Gn2wIsHWGKMCkZOa1
-	 4lxrUAN0kVkI+IlIMiPiqyObMS2xBmR9vCcH9P8w=
-Message-ID: <f96d2a22-5916-4aa9-b2e1-9a5ebd78c5c3@ideasonboard.com>
-Date: Mon, 2 Nov 2026 13:28:16 +0200
+	b=QL4hSh4u5MjmKA6IPEaetV2TRD1Bfz/fu29kHrH3Ei57lI8ZR9BTEyvi3QBOI5cro
+	 zyGHnOrJEI36SLW576iOUArg8EemlycCY9cZY9vD4XDBUEj3taOoBM0Uh0okeAX6Fn
+	 gQ3R2ZpdYDvnNb2RvJAlqUspZII2kFZDrwwHX8aE=
+Message-ID: <b3a85767-9cf5-4e28-a6a0-b6695e63601b@ideasonboard.com>
+Date: Mon, 2 Nov 2026 13:32:46 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -55,37 +55,45 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/13] gpu: drm: omapdrm: call cec_s_phys_addr only if
- EDID is present
-To: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>
-References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
- <d58e8dbe49a0af87e2e98463d620e33a8115c109.1793615824.git.hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v2] media: rp1-cfe: Use IS_ERR() check for
+ media_entity_remote_source_pad_unique()
+To: Ingyu Jang <ingyujang25@korea.ac.kr>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Jai Luthra <jai.luthra@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Naushir Patuck <naush@raspberrypi.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, linux-media@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260514193148.2357371-1-ingyujang25@korea.ac.kr>
+ <20261101132422.1396104-1-ingyujang25@korea.ac.kr>
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Content-Language: en-US
-In-Reply-To: <d58e8dbe49a0af87e2e98463d620e33a8115c109.1793615824.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <20261101132422.1396104-1-ingyujang25@korea.ac.kr>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 02/11/2026 12:36, Hans Verkuil wrote:
-> If an EDID is present, then call cec_s_phys_addr. If not, then
-> call cec_phys_addr_invalidate. This helps the CEC framework differentiate
-> between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
-> a Physical Address.
+On 01/11/2026 15:24, Ingyu Jang wrote:
+> media_entity_remote_source_pad_unique() returns either a valid struct
+> media_pad pointer or an error pointer (ERR_PTR(-ENOTUNIQ) or
+> ERR_PTR(-ENOLINK)); it never returns NULL. The current NULL check
+> therefore never triggers, and the "pad not connected" error path is
+> unreachable.
 > 
-> This driver is one of the few that was doing this inconsistently.
+> Replace the NULL check with an IS_ERR() check so the validation
+> actually detects malformed media graphs.
 > 
-> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> ---
->   drivers/gpu/drm/omapdrm/dss/hdmi4.c     | 7 +++----
->   drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c | 5 +++++
->   drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h | 5 +++++
->   3 files changed, 13 insertions(+), 4 deletions(-)
-> 
+> Fixes: 6edb685abb2a ("media: raspberrypi: Add support for RP1-CFE")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+> Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
 
 Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
