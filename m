@@ -1,100 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793574975;
-	b=OkLBT2/NLaVdreMAT/adRREOFYg+bLVbl3iwCMXIh6FYTyBAlEWLKEHUKPiIMntvorr3
-	 S32e0C7sEO30/ui/ciWvsZQpKSu6aaab1FUBokYvfjVWVAxmRrd3e2kPjcEqxiAObhBWa
-	 b1u/649EBIz8oDy0ABWQBRf+Xg0DElB1+1zho2YjaT1gWB5RGJ68b637Lx94CnCcOpqfJ
-	 AjozBFmgvfHeVRs4f7G9KpcUTlcYtcWAEXZRnbZ4JG++MOgJnvQ5yCdFoCKoev1snDHkn
-	 X2bUuhO3PI79pVuHPM48HnRQ5jZx6PTJTWiXiflZsULQ62+59r7hHDb4hTGLvarf1wg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793574975;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793580495;
+	b=cxNhZBVhEMVfKj8lfrqBU4v0gjpy+9q6rRf8lx2mGktA88MYTi7ddl+SMb+D6y7+mXO1
+	 X63T0ubKcFEWgR9vmGHizsN6FgCLmbH1Ti3/vC4Dy5b2ecjntPS08Ss5HE6VA6Vq7c2sc
+	 qo3DTcdpDg1JzNrOjMo+3TihqHNeCbdZlHjWjn+Q5oAyvD9mdNjaTbi5cS71oHiKV5hKe
+	 QB7s25vXxO0O1CiycF4vfaieKvmPndOr+Cr7+COhZcFkjuT+f9ysGG5rwmMpzdy2SxTEH
+	 6ycTeZZ4D+FW+ybgdx1NhX0RzFxu0fQ+e+4cjafwypgMdQa02vCyT3UdX8MkTzeshug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793580495;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
-	b=AK+AkMu4MK8eA5jLQiw7Bc5cU3MlPUCfryd63qJ6LEbNk2xCoMHZgM1OR7lALYI/6mCa
-	 xCxO0SYsBCn2ZgDJh2nE05uYRRy6Qcm8DZxiolmqOUoxgIIHKB/vyI2hOFE0SSPvTE/XN
-	 E85JD0/vHB2Vp8lMfsy1AIg51Kmk2zwOJlz/ipXOw9qMolVYuxIXbLY1iFBp2ZSGn66OS
-	 MmMGXds3KjQ2Cj8/rfbKX3i7e9lEknPiIUqwCUv2JLiZrCStvtEWYvHHbn0GKgwL9hkDc
-	 UzYR0SlTfC8PcD9t6p/LJhkMzm9+R5+DTGVrIjrbsOqTOoz0KFUs98UCca46KDrM47A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="B6eD/wO5";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=TFa0EQ/jMEbb9GS9xvK0BNyEEOcr4PcUqGB5uPGngVc=;
+	b=i4xsyk5DeI1tDyDz2qBm5nvYHTZGHYLWw5xW4dmxmMIgBikeVrsxWfroIYh3Tr6lcrjg
+	 ZpJHgMLlwPkkgY1cA58eRGmjTKkGOHUSSAG6EGBFnw+MO69nG8DWWymgPGSYge6Lr7Kz7
+	 eUyCvWB0FNV7e2xtM8WqonW9ffMsrucC22bWV/0zQr6Feb/cIW0XE9v+Sh7tne7vuvmRh
+	 l/xT7dv3nwMdOwEkqZr9EMQovQNUJJOE7Qc0V0oBTFa7g0Oc3wGCaNRKGRhz1rl5p5PKW
+	 CrMt0DF3owc3mbC1lvN9nvVQMiJbHT9AKWqOD1xtJWCcP6n36S0vB2A6VpW+SS3021g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="aXOils/j";
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802E1606A32C
-	for <linux-media@vger.kernel.org>; Sun,  1 Nov 2026 23:16:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 802E1606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5A1606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 00:48:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E5A1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=B6eD/wO5
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so9322a12.0
-        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 15:16:15 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793574974; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OEdINL62rl0bUUd1kEtMVCakmwnDq0dB8drlk97ciR1lwAPiSJeuakr+GY527Nuf2R
-         TCSl8xUNg+IK9t8UA+11yAdCY4oUbmfQxdd/XXnPC5DaulrfYxNc/dQeXMWUm6VyZVyw
-         r36QYfD9KjdZTEwgrlGSWkByhhS3iC6za9Oxbim/2lJrJcUPCChjYTEq4iwiXv8TcNjd
-         7k/kjC5TQUAxI8rFfhm0EQcsuuokA4PXBI6UFMTALoCDZRjHpPhu6nwfpjRNv7WygbOB
-         kw830ezBMrHFlql+wwLu8AsbEu8Tg3yF9EgmVYaFRfvUBq5OzY4RFz8ya4Gcmq2G2Cac
-         hB9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
-        fh=roUiUEW1vgKzKOCDYp2ebgJLGUmfYbxFyPQHZcoFMeI=;
-        b=Jw/z5pAQgcO6yvDHyOlvHT0D/dkHNvoHrk6biWZVGkwvYyIVufNAiclQMkHoXf0EOG
-         faHcU62PJhg5+rnpeAg5NybshA7U9rfPqW/ib0425S/gJBCeoApHU0gH4MNxuwUk4RDO
-         Rg8x8JTpNKl17J6RaMrnNUDnJSLMeM7yJ5TzQGjAQHRzFB5Eq1E+5ou6SyMsmTnrCyip
-         Bm3qjgK1YO+bJQzsl0gLU2iucNacY5Pk/17S3hIwPLzG/heWliZck1FaOtpsuen8DW2F
-         qU5VP/oJ0YsUOEEzy7b3Zz7cLiy6Zy1RQL6vTE64yguKZ2ZTBePXvJ/iN9G2u9f4OXDV
-         qXaQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aXOils/j
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so2006421f8f.1
+        for <linux-media@vger.kernel.org>; Sun, 01 Nov 2026 16:48:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793574974; x=1794179774; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
-        b=B6eD/wO5t7w9cr5msgMFDILth1F5IYv2yTF+M3oN3LY5yBUCf8LbsX8b/EG2x90vMc
-         o1ifbd35SU/EjpMruPB9UPjK5pHCrRD2cuHlsD4MZZQaolUEBfaANH7GMS3ZcR0cBYfC
-         Pn/HQAGHTRAxbdUurIHjZmgux4R8Hl73PetNQjifvN5ayQO7L1PgUm3ExnpeEepNgAzg
-         UDBfzpgqcd5dTvc37HDnF2segKwhVXFd4tJrk1GoygafHDKHc4yY44rDa2sFoitlIrgJ
-         WnOMy7XyDHGR7QjkAlpTH09T83L+F3uzmZZLwA7BBZZ4ZKX06XcjrBbyXWiLg2e0uuom
-         V+Kw==
+        d=gmail.com; s=20260707; t=1793580494; x=1794185294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TFa0EQ/jMEbb9GS9xvK0BNyEEOcr4PcUqGB5uPGngVc=;
+        b=aXOils/j+4x3fUKEo0TecqozQsVhSl5mIeLQN/yziPDeJvwpvN6tdnbtR6GfFtoFZq
+         yuVF1tYhasngJGwMCyS0PpLrL35thT0fMM56XgAYaOenmmWK0VgUPDhtUg/p7voStALj
+         ++0BlaUVk2xPEnB2BwF+iyHPJDAFjXUCkeqP1iRSEbKTmH/+E+SC1CsttMNPEXjuO5dC
+         5uNqRGsiWtC6ScSM9MgqPR7rfUF8vDYBLGTmfWkbaD4vJ4fy6TvVj32V2F6uik2yPRG4
+         /6RkVxV1Qaj4RuSiglsAutj6qsSJWzbSVHputFauzizdimhleeksR/ms9oVxws3fOKqg
+         5Hsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793574974; x=1794179774;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ioOyb4xG66q2fTLfsGfTYAyFHyWO5rhiglb9JNcxXHI=;
-        b=R3aL4cc5+bvNSt97tQ/Hj0xwgUkMqp0OhYamDfVCTcIhPF7ravDEG5bGLREJ0Yp0Os
-         iro2pwXKRtLcVvSWepuLYsSimyx0y5JCCCt7utPnL2JORC4L9/4yLpYAKaDM3/ZGboW+
-         +plHMM9RgaSj23L79TUi8V1hmeTLVnpyhi5Sb60CjYie1tmaT9Q0tASOablvejTrAmJ3
-         2XQsnOyOYnjboZ7GLPavNtUDJeeXIDCV4ERpMgTftMXw6oWjNbf+6Apfg+e0hbKrcgQH
-         PBCI0BukEQQLB0xgurtDzyT//9B7YQ/39Qul7FfVe6GsvxUC6lam3GBDArW8LlIJbvXh
-         Ju0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzTEjOfbQW2NR1i46Yf0ezgtbqs+/bFgz45AS+RonxOqM/iqNkfUTi3w0y6ingKDOI/QGL5Zoh92qXooA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9SSoVkkrqavMEBwJQ1S/qje/mZnzxe5bnH5vFL31CRUDfv+E6Y
-	OgKgY+e+P7o7kbHNEhsoHs/fl1j5YN+3Ed9aQAGsrISKiqqCG63d8YrehviPvIreru8NKjQ+5NP
-	44/U5LcSrbDVRJk2mdMneTUWicqh7DDyHpW9siuI0
-X-Gm-Gg: AYBFou1p5CAX6gn48MUCdle+ja/yKuyGipjndia/IRP+ddM9b4VqistxHpC1h/WB+mY
-	yXcZzi4+fIhyTdIfd/Kd5ghiUVrfPeVh5Td/OLlOMqcX8T5Ym5fEZ5Kp9JTvWG0+FwZcnHgYytQ
-	IUzB2KLHN5P8v1Co7Au3ce8yL3+LMLl29J28/yCAjiTxLLprUNlo0EY5UnpN5dp0/042PBEOe5w
-	w5KmeNCrMtAZLmmSNXw/f4TigDt1+vkZmT8rcmjFIE4W2mHn8N1v0CfYrT7OjjV45YM38IbD+JQ
-	2iLC4X5dLex3u73yKlu84PGKxCwGD4EOa73FuAbZed6YetvCZIwavxFA/8ofKpI/+k26t2Q2A+R
-	45CUufnbJ6xRky+oBKGbBp63rT170Qims4iwBwt4=
-X-Received: by 2002:a05:6402:2154:b0:6b3:f12d:7405 with SMTP id
- 4fb4d7f45d1cf-6b4b42a63d3mr252843a12.14.1793574973443; Sun, 01 Nov 2026
- 15:16:13 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793580494; x=1794185294;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TFa0EQ/jMEbb9GS9xvK0BNyEEOcr4PcUqGB5uPGngVc=;
+        b=XVBgpJFgO4hv2Z1dYXj0H0ne3nwchxBbfMmfiWO8HxhlU4Mmv/vNVfZnPZ/MLB9PT9
+         //nR+/Xm7xUnZryfoY0nojWvBzY7c6YGO+sHP98DH+ozULbLBoGI4TxsYEqVTV9Ykjxi
+         fwH4GTX8pTLo0Qqqf/L1VMBzZyDlELt4FHjTOv54t5hUkCl2RW87XXlMEGScYQTvaDco
+         8GxaME1Tzzpc3EuMk2ZyoPAJ4USk7bfbE7mu+WYcLbTTioJW/0xt4cAHiRYZTnl1gGJO
+         MQdE19MOoCj4hLdLhUblbFGBS6FJPoyBaS5OUDsC3o31nj2SmS/wEmMYa+CR6nd3XprW
+         lnFg==
+X-Gm-Message-State: APuU4Z9V5nETeBpdt1ySP4eZZMPcVZRp+MGRDWLUoJlZ+0OO5WtryrT+
+	FFZuu7I2k9+93e8f/7GNTZwUBPYpMJAW5vmBYDHp5YQbp0COKr7pzrY=
+X-Gm-Gg: AYBFou2kC/YBE3aMqlSrd6VF0wEcMpU/RRxJ/6ezj6FeFQkraDvajMC0iRTSEsRPpI+
+	BIA+KUFFCq4HxhrhpL/EzXmXKkhyWktaMHDYwcxUsxZH+MCrlHebQl7yZ0IuQiuETmR2WLkXQB2
+	OfC04KhZsr22Qv6zKRHFk1ZD5zPO0Dz9NS54wnnb3tt7ROLyQXbnzVEB9y5kHyIDIw5/dyBQObb
+	DOaK+ivBH2ZMxd0vqnRLHDvxVw5+08Le0VhBpOJAsYMjBsFYRF1LhDNTXQ/och1qp63vCoPSbPg
+	KhKcgDuFXu3agaCHU1FM+/iGTDYay2QDq+JNzLoJNiRIaP8zTKuXhhlX9c5jdX/PCse5/fknBWA
+	3Brp9Beh04x3wZVyF5VTxG+8ZprgOdQeiXnQ6EmYPFDxMgBAyF9QACcKGbzDxm/+Wrama5/a467
+	0C57CIQsBU77mt/3Eq0t8MALqLQsZtHVwWO5zY5atSQJe3Ln4GPziByyDHqta7b4imL3HpzCW19
+	G7jJhf5OHLsKGYH83EuhrkVG/0+H6uhOSfkSKdLNhfpREsXlLvCzGLtM89Cbyn4cyYplSBvApvl
+	wYltL9o51vtdzSb3PC2yifQNKHwERMHWggTY
+X-Received: by 2002:a05:6000:22c2:b0:48e:21d:7265 with SMTP id ffacd0b85a97d-48e6e50d69emr21050311f8f.34.1793580493996;
+        Sun, 01 Nov 2026 16:48:13 -0800 (PST)
+Received: from sasha-User.lan ([185.159.163.49])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7246fsm17044531f8f.19.2026.11.01.16.48.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 16:48:12 -0800 (PST)
+From: Asdlerto Korry <korryasdlerto@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Asdlerto Korry <korryasdlerto@gmail.com>
+Subject: [PATCH] media: i2c: imx258: Add support for the reset GPIO
+Date: Mon,  2 Nov 2026 02:47:24 +0200
+Message-Id: <20261102004724.346475-1-korryasdlerto@gmail.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,53 +94,87 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030083539.777877-2-almasrymina@google.com> <179357408146.3131.2882435952119280563@kernel.org>
-In-Reply-To: <179357408146.3131.2882435952119280563@kernel.org>
-From: Mina Almasry <almasrymina@google.com>
-Date: Sun, 1 Nov 2026 15:16:01 -0800
-X-Gm-Features: AclHuK_Z0S06xrAeAq_HAO4Ko_jHw-2goCa0w2rOFRiQDckpwHJNSPwxMM9jz2A
-Message-ID: <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
-Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me, 
-	kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com, 
-	asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com, 
-	davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org, 
-	sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
-	andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org, 
-	ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org, 
-	tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 1, 2026 at 3:01=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wrot=
-e:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 0 (1) =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [High] The dma_dev use-after-free this patch says it fixes can still
->   happen for RX bindings made on a virtual device that leases queues,=E2=
-=80=A6
->
+The binding documents an optional reset-gpios property for the XCLR pin,
+but the driver never requests it. On boards that wire XCLR to a GPIO the
+sensor then stays in reset (or is released at an undefined time before
+its supplies and clock are up) and does not answer on I2C.
 
-I know about the issues with leased devices. That needs a bit of a
-rework, which I have done locally, and would like to send out as a
-follow up fix.
+Request the GPIO as optional, keep the sensor in reset while it is
+powered off, and release XCLR after the supplies and INCK are enabled,
+followed by a delay before the first I2C access.
 
- --
-Thanks,
-Mina
+Found on a Samsung Galaxy M52 5G (SM7325), where the ultra-wide rear
+camera (IMX258) has XCLR on a GPIO; with this change the sensor is
+detected and streams.
+
+Signed-off-by: Asdlerto Korry <korryasdlerto@gmail.com>
+---
+ drivers/media/i2c/imx258.c | 20 +++++++++++++++++++-
+ 1 file changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/imx258.c b/drivers/media/i2c/imx258.c
+index 065c33380f60..899dca4be650 100644
+--- a/drivers/media/i2c/imx258.c
++++ b/drivers/media/i2c/imx258.c
+@@ -4,6 +4,7 @@
+ #include <linux/acpi.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
+@@ -681,6 +682,7 @@ struct imx258 {
+ 
+ 	struct clk *clk;
+ 	struct regulator_bulk_data supplies[IMX258_NUM_SUPPLIES];
++	struct gpio_desc *reset_gpio;
+ };
+ 
+ static inline struct imx258 *to_imx258(struct v4l2_subdev *_sd)
+@@ -1130,9 +1132,18 @@ static int imx258_power_on(struct device *dev)
+ 	if (ret) {
+ 		dev_err(dev, "failed to enable clock\n");
+ 		regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
++		return ret;
+ 	}
+ 
+-	return ret;
++	if (imx258->reset_gpio) {
++		/* Release XCLR once the supplies and INCK are stable */
++		usleep_range(2000, 3000);
++		gpiod_set_value_cansleep(imx258->reset_gpio, 0);
++		/* Give the sensor time to boot before the first I2C access */
++		usleep_range(12000, 13000);
++	}
++
++	return 0;
+ }
+ 
+ static int imx258_power_off(struct device *dev)
+@@ -1140,6 +1151,7 @@ static int imx258_power_off(struct device *dev)
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+ 	struct imx258 *imx258 = to_imx258(sd);
+ 
++	gpiod_set_value_cansleep(imx258->reset_gpio, 1);
+ 	clk_disable_unprepare(imx258->clk);
+ 	regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
+ 
+@@ -1389,6 +1401,12 @@ static int imx258_probe(struct i2c_client *client)
+ 		return dev_err_probe(imx258->dev, ret,
+ 				     "failed to get regulators\n");
+ 
++	imx258->reset_gpio = devm_gpiod_get_optional(imx258->dev, "reset",
++						     GPIOD_OUT_HIGH);
++	if (IS_ERR(imx258->reset_gpio))
++		return dev_err_probe(imx258->dev, PTR_ERR(imx258->reset_gpio),
++				     "failed to get reset gpio\n");
++
+ 	imx258->clk = devm_v4l2_sensor_clk_get_legacy(imx258->dev, NULL, false,
+ 						      0);
+ 	if (IS_ERR(imx258->clk))
+-- 
+2.25.1
+
