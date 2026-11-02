@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646199;
-	b=xoOBq9vDcfkmjViWWSe3bqBS1DxmRz642ruHBuu4GVUWQBOqWQqVp1lM3tsSWUTIRBBh
-	 FQgC8eMOgoynPmJf2BFo4fZ7KaxuO2x3YTXJ8HMdk9YDl7QNVDClxHGeXDmH8E4vSrAs0
-	 8+mCIXaUdhrTLxq8x7ISXiDx06a/5fq8+MY/NdArG/GlvwJtC1IvLbkteQsEhf5XMBkeB
-	 Ced8O5MJ2fgd5Di6e6H6pCC8Iik2NwkoGli9/7RY+oMyqAK0qj3AwkiYKIk+77TlrxuSc
-	 pVGQUEEnSOJzG8k5ccGGlHeRYA2ec6weQIgmXnBDV+vheJEVPAv1npSkM8ObSN5m9BQ==
+	t=1793646286;
+	b=gcCkcRHqW4cspFsjO9W+LaMnuc7vH4wfXhQJm3q5yv6B4cAaRffn2EpiHv40RgJ8xoO5
+	 6iEkKx41JasBZJOjfUAx10CJMvmGAPBG40SrbjwVFb3UjBVtuo91PU1wZT6sHLV+oEFH3
+	 sEkEpQ4MJf5aGQZN1FKy2HbhUoInd0mci0CGi3KwowWE+GIko207T5yV8qywvyUTRxyC4
+	 ce5TTM2J2wasd6xZMMchcVVGSF8VasEjrRGM6Xr5C3AlWqXZIasqlG0viEGDDXyML0OGb
+	 INOjCWCNcP3ulr8VBO8VyxFJRm9dOW+RGk0hkkGbxMv+aDrvFpQsHNG3vkq7zz9RlaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646199;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646286;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=CX4y91oCS4X6RsvbXPen90jyyXJyF7CCD61h0ekNQwc=;
-	b=ACuV/aBkkmngYIaI9z/TtOKiw8UEpekiR76SY/UMGuSiKeQiQ4hXw6VG+z9ZCCl38a5G
-	 Vvs2xP5jk5ZFVKFf/DGKNPqvSJYHriygq9ONOMERMss8kszSaSbtVWffU3oDXatLATgk9
-	 JWlJ5RRS+AzsN7YDi0wZpQqaND/SD5V1knUaphPD/r6+r+7TQCopc0rxlVtBm1Z4u3jmy
-	 rW9s6c3Wt+jWVXuMHlwJpOFDyVOq/uH6ShN4Znw6HZHnC9U3RAgiYcSVYJGfPj2rWrMPq
-	 LcBPQyC0iBzxJ5dq9fQMGSw2Uf/SR/t9tjma1UUykDyZcMS/Sga9UGL8HAgmqobOw5w==
+	bh=7OJaoJHgx2GzzDd0wBdvqi7D9JZvRZGfZ3cOJLVNOIg=;
+	b=IFUglmIIAqW90rmsMJw+CxvNcE3lXY39L+FWBKZAjKKde2k0G+wTgf0XbyZwvpo+MoxI
+	 yGalcPkUiSzrn6kkeX7vIy/QkmROQ2L9X6jIxQ0/oiRk/vXIMcJfWl20VOy7phS/zKGeC
+	 BJTxDBGy+UrH91eU8IyS3joPyjVgP9lBCwNwMAfwB3YAuYOHui/0/yCXmChQpG3w19dbJ
+	 rkDRYy+ty8neTD5zR+JRQWKmSZ0+bTnaRMU7ib9wL7N57VP6MjdP4riYYfYNW13ymGvtQ
+	 jsDOuxfCWGV4IyqzaEyfXiNrqu9Nw9Ki5jj3W6amA5UhjU1fwdsgg56It2WB1n7kI3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VyGtwxG0;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QiJwjxGK;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CC9606A327;
-	Mon,  2 Nov 2026 19:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53CC9606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF625606A326;
+	Mon,  2 Nov 2026 19:04:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF625606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VyGtwxG0
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=QiJwjxGK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793646197;
-	bh=IWtvRXFF6VmkuKKK6g4FsEq+PzfJvMm8gmMONaMJar8=;
+	s=mail; t=1793646284;
+	bh=C+N3AeR5hg2ytjeyH4W6gOYQhyf8r2d4UKcvMhRy1z4=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=VyGtwxG0sSBNmwsEpkBWQ30njRSws7Fj7ubr5g5gfpduPk2j2lBW4Bg1cX0AFyZdu
-	 TNGDBaob+zAaq9lgfzLk+3IOUJBvn2iLZMOtbeVlwArfIgjArp7xmLBu5pOZhus/fP
-	 fGqA/TcPjSbQimcydcTPfQI7ORbqbGL6djGYAW5GR4dXRI19y7eZppStJ9qsVWQ35o
-	 8V6ARHAsmVx1PjyFwvvRdJIqO0OYY6O0XJm3hly0LyX3O7/fK0AAaLza7Sa3m8GpXt
-	 bCuCixnyJSKWHRdLh38y28KXTVp80L2y7232Al6srBgpcBmiQwvizpPI7xUvjejrep
-	 kVO3dTsIPIyhw==
+	b=QiJwjxGKiuzRahVoyMzU5SyIhQaK8mgHGJu3C1WdCwm9GTmEjx6So+w7wBCRKBN+9
+	 lZ5oarghRG3A9D9I/0VZtBk+W6xJTh0ComdhBFcFHOdsNGwJ9vx71mGgeZH5WFTKO1
+	 wFqUbjdOxvi9IUt1VBqlYwT5jK1s6oAe+SU9A/cnB1tXr2TxRM+yv7gUOUINaLHMkK
+	 vneYBGKrGY0GntHBndGRK4xGcOkW4YeM7yO8s38sSNGrwMVlRdBVVc/57+kBhcSP4m
+	 Rj8w9ZbHE0hD6UYGhWS/DsEj1KYDuP2h+0wMHeASXsAMYUHhvZr/J8ZBpW8Nb4Jl5S
+	 g6r8muUOb6FbQ==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A0E0817E07F6;
-	Mon, 02 Nov 2026 20:03:15 +0100 (CET)
-Message-ID: <feee5706d6a1e66dc50c21614fdf0469342befc2.camel@collabora.com>
-Subject: Re: [PATCH 06/10] staging: media: cedrus: mpeg2: fix the references
- of field pictures
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 75A9E17E07EF;
+	Mon, 02 Nov 2026 20:04:42 +0100 (CET)
+Message-ID: <3aea33aba09e7696137df25d621b9f1f61263405.camel@collabora.com>
+Subject: Re: [PATCH 07/10] staging: media: cedrus: validate VP8 frame size
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
 	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
@@ -62,10 +61,10 @@ Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
 	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
 	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
 	linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 14:03:14 -0500
-In-Reply-To: <20261102170303.1973892-7-jernej.skrabec@gmail.com>
+Date: Mon, 02 Nov 2026 14:04:41 -0500
+In-Reply-To: <20261102170303.1973892-8-jernej.skrabec@gmail.com>
 References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
-	 <20261102170303.1973892-7-jernej.skrabec@gmail.com>
+	 <20261102170303.1973892-8-jernej.skrabec@gmail.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -81,7 +80,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-YZXbPAR+wWFJqah0WQvL"
+	protocol="application/pgp-signature"; boundary="=-kzIlL7zZnNiNzYsIj0Ze"
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -94,98 +93,71 @@ Precedence: list
 MIME-Version: 1.0
 
 
---=-YZXbPAR+wWFJqah0WQvL
+--=-kzIlL7zZnNiNzYsIj0Ze
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Hi,
 
-Le lundi 02 novembre 2026 =C3=A0 18:02 +0100, Jernej Skrabec a =C3=A9crit=
+Le lundi 02 novembre 2026 =C3=A0 18:03 +0100, Jernej Skrabec a =C3=A9crit=
 =C2=A0:
-> The second field of an I or P frame can be predicted from the first
-> field of the same frame, which the hardware takes from the backward
-> reference. The driver programs the backward reference passed by
-> userspace instead, which doesn't point to the frame being decoded, so
-> the second field is predicted from the wrong picture.
+> A VP8 key frame can change the frame size. If userspace doesn't
+> reallocate the capture buffers, the hardware writes and reads past the
+> buffers, which shows up as IOMMU page faults and decode timeouts.
 >=20
-> Use the current frame as the backward reference of I and P pictures,
-> like the vendor library does. Also fall back to the current frame
-> instead of address 0 when a reference buffer is missing, so the
-> hardware never reads from an invalid address.
+> Check the frame size in try_ctrl, like for the H.264 and HEVC SPS.
 >=20
-> Fixes: 50e761516f2b ("media: platform: Add Cedrus VPU decoder driver")
+> Fixes: 3c39a16d30d8 ("media: cedrus: Add support for VP8 decoding")
 > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
 > ---
->  .../staging/media/sunxi/cedrus/cedrus_mpeg2.c | 29 ++++++++++++++-----
->  1 file changed, 22 insertions(+), 7 deletions(-)
+>  drivers/staging/media/sunxi/cedrus/cedrus.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
 >=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c b/drivers/=
-staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> index 4c8accee5389..0a2f8e77fb29 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> @@ -56,6 +56,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, s=
-truct cedrus_run *run)
->  	dma_addr_t src_buf_addr, dst_luma_addr, dst_chroma_addr;
->  	struct cedrus_dev *dev =3D ctx->dev;
->  	struct vb2_queue *vq;
-> +	struct vb2_buffer *fwd, *bwd;
->  	const u8 *matrix;
->  	unsigned int i;
->  	bool field, tff;
-> @@ -147,15 +148,29 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ct=
-x, struct cedrus_run *run)
-> =20
->  	cedrus_write(dev, VE_DEC_MPEG_PICBOUNDSIZE, reg);
-> =20
-> -	/* Forward and backward prediction reference buffers. */
-> +	/*
-> +	 * Forward and backward prediction reference buffers. As the vendor
-> +	 * library does, I and P pictures use the current frame as backward
-> +	 * reference: the second field of a frame predicts from the first one.
-> +	 * Missing references also fall back to the current frame.
-> +	 */
->  	vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
-> =20
-> -	cedrus_write_ref_buf_addr(ctx, vq, pic->forward_ref_ts,
-> -				  VE_DEC_MPEG_FWD_REF_LUMA_ADDR,
-> -				  VE_DEC_MPEG_FWD_REF_CHROMA_ADDR);
-> -	cedrus_write_ref_buf_addr(ctx, vq, pic->backward_ref_ts,
-> -				  VE_DEC_MPEG_BWD_REF_LUMA_ADDR,
-> -				  VE_DEC_MPEG_BWD_REF_CHROMA_ADDR);
-> +	fwd =3D vb2_find_buffer(vq, pic->forward_ref_ts) ?: &run->dst->vb2_buf;
-> +	if (pic->picture_coding_type =3D=3D V4L2_MPEG2_PIC_CODING_TYPE_B)
-> +		bwd =3D vb2_find_buffer(vq, pic->backward_ref_ts) ?:
-> +		      &run->dst->vb2_buf;
-> +	else
-> +		bwd =3D &run->dst->vb2_buf;
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/stagin=
+g/media/sunxi/cedrus/cedrus.c
+> index 45deebddb630..756243795de8 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
+> @@ -77,6 +77,11 @@ static int cedrus_try_ctrl(struct v4l2_ctrl *ctrl)
+>  					  (sps->pic_width_in_mbs_minus1 + 1) * 16,
+>  					  height))
+>  			return -EINVAL;
+> +	} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_VP8_FRAME) {
+> +		const struct v4l2_ctrl_vp8_frame *frame =3D ctrl->p_new.p_vp8_frame;
 > +
-> +	cedrus_write(dev, VE_DEC_MPEG_FWD_REF_LUMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, fwd, 0));
-> +	cedrus_write(dev, VE_DEC_MPEG_FWD_REF_CHROMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, fwd, 1));
-> +	cedrus_write(dev, VE_DEC_MPEG_BWD_REF_LUMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, bwd, 0));
-> +	cedrus_write(dev, VE_DEC_MPEG_BWD_REF_CHROMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, bwd, 1));
-> =20
->  	/* Destination luma and chroma buffers. */
-> =20
+> +		if (cedrus_check_pic_size(ctx, frame->width, frame->height))
+> +			return -EINVAL;
 
---=-YZXbPAR+wWFJqah0WQvL
+This is affected by my previous comment, let's discuss over the other repor=
+t
+first.
+
+Nicolas
+
+>  	} else if (ctrl->id =3D=3D V4L2_CID_STATELESS_HEVC_SPS) {
+>  		const struct v4l2_ctrl_hevc_sps *sps =3D ctrl->p_new.p_hevc_sps;
+>  		unsigned int bit_depth, max_depth;
+> @@ -270,6 +275,7 @@ static const struct cedrus_control cedrus_controls[] =
+=3D {
+>  	{
+>  		.cfg =3D {
+>  			.id	=3D V4L2_CID_STATELESS_VP8_FRAME,
+> +			.ops	=3D &cedrus_ctrl_ops,
+>  		},
+>  		.capabilities	=3D CEDRUS_CAPABILITY_VP8_DEC,
+>  	},
+
+--=-kzIlL7zZnNiNzYsIj0Ze
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujecgAKCRDZQZRRKWBy
-9BK+AQCDH54gcF4YDMxujVSz7o9opPm5JnaiHGLjqlcvafVZ2QD9HTyF0xiado/u
-5TvCWrlgd1mFralXkVMfG9vP8ymhNAQ=
-=ftEY
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujeyQAKCRDZQZRRKWBy
+9IqGAPoC6fM1L/1ZfNyQBC83a/SNL7rGLwLzEEGJT9Zo48jjkgEA8jwnSm2jXDOH
+YkBEh/HriQ/7ez5trmMvNeCBdwMaKwE=
+=hacm
 -----END PGP SIGNATURE-----
 
---=-YZXbPAR+wWFJqah0WQvL--
+--=-kzIlL7zZnNiNzYsIj0Ze--
