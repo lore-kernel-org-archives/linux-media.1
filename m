@@ -1,108 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633385;
-	b=szx3pONiXzlu4WyIyHU8runoaLJQRimU52FUJPevgcFqPMDXW/DTjkLcuEDwv6hrB4fd
-	 9hatkOFkM7yDsktueOkeDYJ4OLdtSLyxnXMWpteBZFjbSaG7WgWZUztFxSWdADXx5D1Cd
-	 QlTJSBQkdAShFiv+vxj8TWkv+UYCu9oQQudnQn1YRwoxx4uXIHiKxBLjxekmdpRQdABPy
-	 KbzsoWzbmZQEqKAlI7D9yv9yYta39B0+yg8k+8EkF/cdU3jtrjEmEjQ7uUxLZ4U/UbFXc
-	 iF+08AkImSv122PPVpFX6R5A8WXs9sb/uZKBbONjvDDgsRuTvtR+2QuS5uOY9LSuQ2w==
+	t=1793634310;
+	b=WH8b+hsKPDxh67nkeUbvJvXyFRYCuSIyWkj1lr+az26TTKxPNbbmsAyyJsvbI0pY3Nlc
+	 0nBg5Fkek4LQ8rkMfU5YbSJsTqzGGESBsiRiNvgfTpmuFLcY7jSubr6ZBtkjpM7gopLJ2
+	 XyYyHxa+71k32218GVyhbR6mWWLC5RB5qPHNJIC9GACLhsIdb78jvaog6/dZlIT6KyYmR
+	 HnFtdZSoQRcTapw04LIDLr0hloNoR6jqYt5pAHASXZTNpXxzsdRfiD13I39SihT2bcMJs
+	 jWGKM4a6LSzm27ymCOuthGSjkLov/hEiDXwao/FEBLEIg3GsAaVY0NpZo/9NWqcx61g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633385;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1ttXRStBxZjXNHjuvGXMWk9I1gtHZhhcUuBKOaR2A9w=;
-	b=2oVs1X++q4+cm5LDHv0SUwMbgDzsrI9NpQGEzHBCfmF3eeDcf729m6s7N+wvRp4yT7bW
-	 x5Av5LC1RhCMVsQFegdmGXwDQd0u6AEYXPIMqkqjeuzHnaxnF5PMd/8fG/iQZYf5Cnshn
-	 ytzukXS7lKk0ZjRLb2DFA3EO5fznXtRgwloiIeKEjCEmgussSX7Q7ijCvt8Ufkz1/Tcrv
-	 k957Pra1JFG8MOpHtjuoKLg7QMX5w4mqX2muVeZTMqiJRs1BRRdX3v7W0wwU7vNC9dR0r
-	 ker0NuuBxeA6cbrSqBQQ1mWWUiRgsfGrg2ufV9v62VQ6HncjT1jCq/10qlSJQ7w3EDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634310;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+	b=bZro8OYGpp7AdpYbeyjnNaJWc9h0kWCxZTd4PGnAdpJk8u+nr7xzSLw5kspO7aEUMufw
+	 DhapP204Z+y/ECb9JzLDy87zYAQxJjXYBSH2bPTFbs42vBQGn8eCNA1xSvlwCl4F5fnpV
+	 ItoO9FO0JQ0Iwiw1Kn/0GLXmydnZ6D/eUU/kAQtpG+cPCe0PjkRn92+4dG4wfolrCIHw8
+	 39UAZDvwyn54wL4gIH0vt2LsYmdPFcv/MieyYyQDz+ortko9z/1vUuXRvAvFO63RygDZq
+	 6Ztj2kHLLQHV6NX5lNJxRXVmLvAy2a39Xs1jplnAtPIVz6+m3T+7+j4OG7NX9DH9ibA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cvXQHGIB;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hcBLURsf;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOO+oafD;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273E16086952
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 15:29:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 273E16086952
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBD9606DE8F
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 15:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DBD9606DE8F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cvXQHGIB;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hcBLURsf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793633384;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ttXRStBxZjXNHjuvGXMWk9I1gtHZhhcUuBKOaR2A9w=;
-	b=cvXQHGIBaOY0vkQQL+xRf0PdTa43xJoAqkHe5yvohAycfi0JDDbt+Y2JwdmQGbkXAkhAiV
-	5qXM6FLS4aZoSg6M9M/RYo25GT8VY+6NUpL5cODiVTQg9ZY4NBbH8YTwm/AAtJjn9XWFtF
-	dMjpfvyFFQofXumPVcVneGThZ9JkMuI=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-624-XSwZX8nXNOe6czajBtE6Hw-1; Mon, 02 Nov 2026 10:29:42 -0500
-X-MC-Unique: XSwZX8nXNOe6czajBtE6Hw-1
-X-Mimecast-MFC-AGG-ID: XSwZX8nXNOe6czajBtE6Hw_1793633382
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a16dc2323cso27038375e9.3
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 07:29:42 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOO+oafD
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so23924965e9.0
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 07:45:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793633381; x=1794238181; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1ttXRStBxZjXNHjuvGXMWk9I1gtHZhhcUuBKOaR2A9w=;
-        b=hcBLURsfRtjg2HuuwMAZl7i4m7ZriuFIrzulk1WO/LbySuSilVcgSb0b9AOaiuyDNo
-         HtkClw12MfC9nVtlcOjmcdIcX/Kj0jiB93zBsDVi+NOUFVuoSgFbz+enLXX6uZ3Q4pty
-         8JfFEDlwzZ8/F/OqvPYM8QhgShCEguOXy/FFllVBRMV8JKBYEsR07wW1Yhi6jzhvB2Pd
-         7LMpUjGJYX4Fys8YBKp/FsRJZlxmqxj6/4x6y2aoqVdMZOGbyO+eye8GKcZc5AR8fKR8
-         eVVEHf72KhAgUUx4awabpwWdxNXvcWd8p0YAj56XTs2pr7arY1D47AQcO74IrFMv+V04
-         h4cg==
+        d=gmail.com; s=20260707; t=1793634307; x=1794239107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+        b=jOO+oafDQ2vni9CZUtj423urEKRJ69jfP7P1rtCT/lLRYDjvDPw7FUFoXbbgyPo8Cn
+         yt1Oy8naqRqTtH3YENpB/KwgK30dNfiycT12ytLnYPpQA/NKOZ7+zH9XwYEkbtFZA8pu
+         PzdFUh2YdT3h094VfP2ntYWTCzRKfIiB//63Arvj88EkMwFfT+eONgMw6ezvUPafMq4W
+         /x+wSF+8Wt4Vrq7+dGVFU6mzMu7ZRjPOjH/4lXWmJVjTVU04IEkrGL33E6/Vh2NMWgzu
+         cm7A711XcMoQEQf7wAxa+nuf3xplO/L2OK0TCcjTAm0u0in5AiXnE8ypOWmvIUKr888X
+         GPFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633381; x=1794238181;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793634307; x=1794239107;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1ttXRStBxZjXNHjuvGXMWk9I1gtHZhhcUuBKOaR2A9w=;
-        b=dosFcn6xfWzVUkGYXtl41ZWieSIShhjrBkpZc7eEYilc1nAn6THMn+l6/1LHngkGlW
-         ZaOomOig1p7rGIdyFhDR1QazXoxin57oR+RRQppCg1I60ksLrjcSeJ4iG0LQgRznnY+X
-         /1br9hnrnvpYnl/i2WAL48AFS/x4pXG2mOtEes7PW6PixiIWefCuoSpbBbFelL/egZfo
-         n6VhrhKI7Tx/mcmhzzRLmDeFC0Q5qg9IBmcen6JA5ck1hY27t8Ww/95g3lvTYACCarKA
-         Fe4YeHPKLxOOGvdEftAAT7ehDmvtn0fdV7m4N3kL5DSltQ7mv+5S10OPBCpgBy0q84xf
-         lhDA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/0n1BAVYLlDFvwcPYIra+LomIq0rRTSJ5Gcg6ru2+IY5MdlEV9QTxpI2pvVoJ8BjUmP073gCSStbaXw==@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6jnKZ/GzN6LDSpTZCNTH5YrNmnjVxWh/ShKfQSpdMD1MFpu0h
-	hkKjsez/QZi1RqVqGUQ/GgASv+YhA9U0SG2426VBnUuFa7KDEAQIB3lz0rcXcrXpE6wE8MMg/Dk
-	7Z7WaH4LHVP48ntktfr66rkWZ8I1FPSf8iNUzIEUC52wVA46Jsc9RlAnUc3p+VlFb
-X-Gm-Gg: AYBFou3eCBOityIlEkFaBo5lv70udl3l+Fl3aqTgPXtKfxlnwG/9FIs/Ax3cPSw7fHb
-	Zx7+aR5u9zJMt4pw3zO/kNMt/qCdGZ2Hgklg/ER55boxu0iwFa+LNecfbfMWX6qcyDJxDD7Pgr6
-	rXvpvXSu6LWl5jbztfCd8ZMKDYg1Na7BOh/DtqtX6apQIVhO3NRYByv9nXTc998TtdoJxEn7Kpt
-	PbdWeUzZutSGZiPxtf3oFqpQwKH8YsRggnnKomVNkwjKJKHBmVAGzPaAehAM8MVZ59vNUxcIkrT
-	DrmwmbCaUlYVYjguTQM/hs507mSCJlWIt+ZEZJJCMAimj7XEQPs5QMzkNECPKJLiSHM5X6VmUj0
-	h5CiGnw98s20h49swueeTYTSP2ifcGukBQ3rwHPt1dRt8ubfSCNPczfJjeV4Xw1qqrEOuwAUl7r
-	4GQmEY/0jcqMyvA9Zmfr08e7nQql4Qcj6g1xjF3xyntsU=
-X-Received: by 2002:a05:600c:628d:b0:4a1:f7f4:7ced with SMTP id 5b1f17b1804b1-4ac185bd243mr241030065e9.17.1793633381417;
-        Mon, 02 Nov 2026 07:29:41 -0800 (PST)
-X-Received: by 2002:a05:600c:628d:b0:4a1:f7f4:7ced with SMTP id 5b1f17b1804b1-4ac185bd243mr241029635e9.17.1793633381011;
-        Mon, 02 Nov 2026 07:29:41 -0800 (PST)
-Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm352011105e9.4.2026.11.02.07.29.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 07:29:40 -0800 (PST)
-Message-ID: <9afff44d-f8eb-4549-8aae-f99a53339319@redhat.com>
-Date: Mon, 2 Nov 2026 16:29:38 +0100
+        bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+        b=HcTosLnht8Hthw5Ue2jwQY6wmhglx+ZtJKg2VzBoLK4Pcsk1j78NVVAvv0OthCDFdV
+         Obt1ACaXwA7XSZlGywp9FYeIGFU5+ruWzSVjLqyeip/zRWH0bSAV44o0JQExtI7CcsMR
+         E2hZ4BgzOiBLoWt8zc31HnA8PbM4rrUpWsma4odegube71maK4P0GiAhg7EmPrBXTMeP
+         PsBFHODgIJKO3QT1gCT/1iJudv4yrP7EIGgHvkeW+OZzzmNq0vaCAGvTI2tidJ7jtcGO
+         4VlCugJNbzLqmVsEnQ8pV2TLvN3G4Ubs0Gk8LgKPWf+1BSINIY0sZPZTCeQMOyM6ofaN
+         pVRg==
+X-Forwarded-Encrypted: i=1; AKwUvBy6bqC0eAPG+6KOPlAiROEyEyKFEnbFlXFQveLbw1wudoHmHv4Qh6mYclOkiK7olfD8yn9YhwIccNbX7w==@vger.kernel.org
+X-Gm-Message-State: AFq9FYImqQsFG9HQLl7sbRQBCDVFFuqqcil5eyBTbZFfGJ1E7CfROn5/
+	c8NvmkWKTbEiJvpNUw4Bw5yjpHvqvltk/t9ox26jJjGqD08M2V3zBGU=
+X-Gm-Gg: AYBFou3bfJ2Kt7xOIB04nM6YnwP2Ul2QX2msSQ4cYWqHOH5qnt7pFbFoUZpZpVGuDSK
+	AlZ19sW9TBEDAfx60LVPEmUos3zN5NLaD8OIb9S19HtqAfpdKvEqe77YcP3hVel6mrS8SkKl65g
+	XEp3iAJa97nMjby0D24cor2mknXoYizsctb/ir8WL+PorKXD/E/VCeDzy6aQC4MYuRWdndh1bAi
+	MSXTBkQKquzfgmsEW8sSPsuZ1a32Q3csCFER+5cIXGT6M8w1HKyYA6oIEBGGDvnCKKotPlrjz1z
+	/RfuncgMy4pHRTyb9EVyTnUaFV4P5CYVmkXZC+dxeVR7P61cltEXh0ilejxqn8liIm3JVY0TCUk
+	rY7XpmAkQWmCzrvqQYd88Dvj6CRGh8lVlcd5Dkurm/m+QHEUex0kgJXUuKkcqmzOeYfs/YFVPMC
+	wxa87yN8ZCHCW1kBt6o21Rs+OByf8W4wFIRYHFBwVXllOpp0XSgWNCEfmfvK7xrqKEroC6cSrJz
+	U295HMjeZy0tZ21DGCYGm9//QcrUwME59n4yJsCveehVtRL+kyl+DmkD8MGF1OX4d+3ubh463jL
+	7NsLNrS9E+Goa16WtjW6XbtTpvJiLXTy
+X-Received: by 2002:a05:600c:8b04:b0:4a1:db17:c7e6 with SMTP id 5b1f17b1804b1-4ac150b2044mr235626945e9.2.1793634307242;
+        Mon, 02 Nov 2026 07:45:07 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm369026565e9.9.2026.11.02.07.45.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:45:06 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: mchehab@kernel.org
+Cc: linma@zju.edu.cn,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] media: dvbdev: fix dangling minor pointer in dvb_register_device() error paths
+Date: Mon,  2 Nov 2026 15:45:05 +0000
+Message-ID: <20261102154505.1224791-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -112,53 +98,78 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v5 1/4] net: devmem: unmap dma_buf synchronously on
- queue uninstall
-To: Mina Almasry <almasrymina@google.com>, netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, sdf@fomichev.me, kaiyuanz@google.com,
- kuba@kernel.org, bobbyeshleman@meta.com, asml.silence@gmail.com,
- dw@davidwei.uk, ap420073@gmail.com, davem@davemloft.net,
- edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
- andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
- ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
- tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
-References: <20261030083539.777877-2-almasrymina@google.com>
- <179357408146.3131.2882435952119280563@kernel.org>
- <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CAHS8izMt+5HBjkOOsb-FrwKoXxEBuDn=gf5p+64akYS=SAoQrQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 11/2/26 00:16, Mina Almasry wrote:
-> On Sun, Nov 1, 2026 at 3:01 PM <netdev-bot+sashiko@kernel.org> wrote:
->>
->> Thank you for your contribution! Sashiko AI review found 1 potential
->> issue(s) to consider.
->>
->> Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
->>
->> If you believe none of the issues are legitimate, please reply to each
->> issue of Medium severity or higher and explain why the AI is wrong.
->> If any of them are legitimate and you plan to respin, please let patchwork
->> know by including "pw-bot: cr" as a separate line at the end of your reply
->> (one such reply per series is enough).
->>
->> - [High] The dma_dev use-after-free this patch says it fixes can still
->>    happen for RX bindings made on a virtual device that leases queues,…
->>
-> 
-> I know about the issues with leased devices. That needs a bit of a
-> rework, which I have done locally, and would like to send out as a
-> follow up fix.
-Will such follow-up rework the code touched by  current patch/series?
-how much? I'm under the impression that at least the fix for the issue
-reported here would be quite overlapping.
+dvb_register_device() stores the dvb_device in the global dvb_minors[]
+array via dvb_device_get() and releases minor_rwsem before calling
+dvb_register_media_device() and device_create(). If either of these
+fails, the error paths call kfree() on dvbdev without clearing the
+dvb_minors[minor] entry and without going through dvb_device_put().
+This leaves a stale pointer in the array that dvb_device_open() can
+dereference under minor_rwsem, and bypasses the reference count
+established by dvb_device_get().
 
-/P
+Fix both error paths by:
+
+1. Clearing dvb_minors[minor] under minor_rwsem and calling
+   dvb_device_put() to release the array reference.
+2. Replacing the direct kfree() with dvb_device_put() to release
+   the initial reference and allow the release callback to free
+   the object when the count reaches zero.
+
+This mirrors the cleanup sequence in dvb_unregister_device().
+
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/media/dvb-core/dvbdev.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a6..c931c467d4c52 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -551,6 +551,10 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (ret) {
+ 		pr_err("%s: dvb_register_media_device failed to create the mediagraph\n",
+ 		       __func__);
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		dvb_device_put(dvbdev);
++		up_write(&minor_rwsem);
+ 		if (new_node) {
+ 			list_del(&new_node->list_head);
+ 			kfree(dvbdevfops);
+@@ -558,7 +562,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 		}
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
++		dvb_device_put(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
+ 		return ret;
+@@ -570,6 +574,10 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (IS_ERR(clsdev)) {
+ 		pr_err("%s: failed to create device dvb%d.%s%d (%pe)\n",
+ 		       __func__, adap->num, dnames[type], id, clsdev);
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		dvb_device_put(dvbdev);
++		up_write(&minor_rwsem);
+ 		if (new_node) {
+ 			list_del(&new_node->list_head);
+ 			kfree(dvbdevfops);
+@@ -577,7 +585,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 		}
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
++		dvb_device_put(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
+ 		return PTR_ERR(clsdev);
+-- 
+2.47.3
 
