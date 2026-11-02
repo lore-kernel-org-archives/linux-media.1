@@ -1,87 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632901;
-	b=oZiQg9FdGOK0kWo78gurrwfjAUQdcClrlG2fgeFgaEmo8Q5V5Zco0aPnGUHDPB2vkNXP
-	 EF+I100sl5zlAZKfv7JoVrJ9iWFn6j1uiiE+NpjqgtvuBCz0XY/8TMChGFcsrf+p4pOBH
-	 wz1hdI5c6o80nRJfpdqzknVWarukAVTDGWcW421b9a62cxpk4O7u7eO/l4+FIpF6aqVuz
-	 iIDlkQvCCKvp/EmHaHaLnbLeI33hNwsoOASuH/8orjhiETjBlilbY34XVn1qITWzB4ZW7
-	 lFQ+ldrsSg/eRYWitnWs5I9o4OeHZy2cJ2H6hvrs6zUDnDxLKozDyT8hAON0Gu8W0SQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632901;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=oPKZdFeFL57f1TYzik5gLu6fyy7lP0pCyy5vLRZzH0Y=;
-	b=hrStZfo7eP4tT8U5kn5/iiLOJDSEGETRcvcON3T4e6OVjyQgpJwVwLC0JqTV1NVlmxtF
-	 AjtptryEE3dQ7EYmLEIgv9nSTy7pDdqj6p9WoY+kQtb1tZLFT41wDzeYO1b788GEEpAda
-	 d7Ql1t0CHwaSV/gYb0bpDudpNsK7hWCTShvOYhi22t4EM5AURg2JsF3IP0843Oy3FYFB/
-	 29lead2v8es/Yzs6KvFPQ5PacXF3S2S2/XcLIsQZnf/dV1f9RNwaTC8jriDG8Q9bDph8R
-	 eLu4hFbp5C2UvF9eWQ+aq9rAOIHMQLdQu9LMBNAkNFn/0pESeT/NWFT4BqmtqlipESw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uEVFVyOG;
-	arc=none smtp.remote-ip=209.85.208.169
-Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793632979;
+	b=JeZ1G1E6NtA5GmdbSmK85P+7SZWYGJvty72bHGFVKhgby5qqJFFYksjMIqNkYKMPIccV
+	 fX+uGKmAUabRd6FLzNqgiv2/Fqjx2LDh5LwBHpytwb0XE40IFFtv0ZRg93hZX0DesBaGx
+	 E/S3mG3EcijapTzqRaO82sCMmHUejQN8N/OaVW4QhuuuxvV0saBSvQfiW31pXic2tpWdJ
+	 907NHbgjEfCq5UyWFuSgRDkBTw/aVzp/qXH8psRp/nl9pZHQYkVVfu3C+eDNqKVBbOnzb
+	 QlJJNSilseU4ZlzUuuRWhy7vdoGzgSlDzVmOhYTYRbTRKIeppGf8c2ehMi4+pDW0g1A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632979;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aHw52U/fCgmG8rXLdi+T2eomdSE3QiG7fSPiaslIA0o=;
+	b=xFU6hFb063BkIkYl7yYJwemf/0G3pW4Z/+gUZ/+i2EQWzGp54gDJUr5DGTIlf8r+HE8W
+	 GFYQNVPRc+hGQ/4JtRP2kTxY/+pi4LmlaG/6GlT2ZYCBpF/xceEy/hu1pozIKN5h+l8g7
+	 1tT2uW6DwygR1VwMGOblnYsQ/2IGIx4fIImVzNDydjO9LtQDeW6UeiKGgpVgAhKvgMkQs
+	 pWqAas+JNic0vURRuzoHBcg5qCJTYYAIDHKH5Afu7ijSjpYu81TuIcwQGqM6GE0hxZGze
+	 MyHko7OEbhnIThAuA2lf+7vbwgNc38AapuIgGaOH368tB3xSdjUCVB50pA5vrzMcx2w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8koYraH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 381E960C412B;
+	Mon,  2 Nov 2026 15:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c8koYraH
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793632979;
+	b=l0MsnolSoz0totqXE+vHzNzbZEi5pHi6G9lP6QKaya5vnbYW7gOLdeJ7pv4eWNwGw6F+
+	 pv+wWkd5jqhC6Ly2fiqJrdsL0YvFc5k+8ttCN93PT9TwJc/E6eH7NPDUDWQLEvVO0PIDt
+	 5qr2DaAJcHjR1L1PBazxqkPKady1r6qmau6XhpodyTrcVo+6eCzovsfiBk7c6WWrp4I3Q
+	 pWHKF+NPAEYss7AkmCxVDq8y4K+x0CwMK9i+ijOOchVbRO7oRA/jNyw/52oCz9AL5WSvE
+	 QpF4Pbb/dMFglKStrf64TE3ZpXjWkY5upqXhGcTsUSQFKqddiiSiYyH9zlGQwk7NF5A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793632979;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=aHw52U/fCgmG8rXLdi+T2eomdSE3QiG7fSPiaslIA0o=;
+	b=24cXyy0WLgpSBGKm8uZImQfUT7RYngCcU3sPVLRRHza27t/wwQIUufHjgzO0JFAD+Gv5
+	 GnKcab84odBEbgxwQdkRwQKVS/qDGSPjXJDrZQ/G448KmUP63vXWJYheUdO9rXIiNhJu4
+	 /VhrjUqMlmMBEJHIXX1xFJUpaNlrIBjUdwTbTVX22cFTAina1w1LHX7KMMyIhklySrjDi
+	 PeKFhy2GMtrkM3EUGmugv1SnepMUZHzihKoV3RK20S9tRbdNSDL2R+HYjPOmIzWjFtYVT
+	 gRRwCOwtLm4Vi0RRkWREJYU+9zgMO4IH/bgZhUh2fwIMI+jdtEmL0E2NG3E4HYTyCrw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9329F60C310C
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 15:21:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9329F60C310C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=uEVFVyOG
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3ab1cb6eb70so5899951fa.1
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 07:21:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793632899; x=1794237699; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=oPKZdFeFL57f1TYzik5gLu6fyy7lP0pCyy5vLRZzH0Y=;
-        b=uEVFVyOGIk0RY/9ot+HcRUWU+sMnWpraEVUWLacZqldj9h3U0yqpgZ8kfQ7KPPueqf
-         aCOCbp1q9sXfE2ihFbP+tNydspojLemsi9rcrLRaqR9a4jKZTMsB7E1/nhUoQDghuXlv
-         wJJv+wMQk+3a079G6WDqsoCPRPPQTf+bn7k+Xfj5LMRGo3yk3EPjJabwILude8er/7DA
-         jJslthkiqcG4HH9l7AsQlttGor2TcJby6XW0y42sIYkkewlrLryHR3S7EFAQwNJ8iNBX
-         /NuaRtuPTXDHQNJDiLUL2q5ilk0ruaESjpUoXU2c+1rzsm8Hz7dxao7XUsl7f6knc9GH
-         gJuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793632899; x=1794237699;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oPKZdFeFL57f1TYzik5gLu6fyy7lP0pCyy5vLRZzH0Y=;
-        b=yxNRXp35rHk4/yJ01Dz3Gbf5m/4OW+4uAVYGAN43ped7vjakpXynkNJY0Cu4pMfxw7
-         Du6918NqXXFO++24dZebZ6za1CyYQF4BvS9ICkhPD09N1YsezvkvB990MFHkIaH8IJSX
-         DZ5aKpVZeo13raXXz1D146CYWZmUODEu9aahlAfN2SPas/321XlG4tOfADtiZyXD5TBT
-         zzOLeP7Y17BNRqunjikyzm0RST8tb3tZ7x6AyTxF4WK3RyCVo7SExZ1mrr1HK7rDc1eN
-         prBBlrDgTGq3GEnUD4TGtFsqyKGCSqvSGGYPrwpiJqj2TlxjjiBxj+FhBUOuLiBlRyGC
-         MnQg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5vbN08GNK1DuVwBvN5W0hofRIa6ryhs/S6JmNYscDaYe+iTI/sWKarzCOi4XOqF25vAtLJ0rsb2NXmg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YYIGcaH17QfULhiK07iAuHdTb4dRAdy3TaUTJ5fm9T1bEiCfH
-	pl5jxGLbWzB8wdNrStiPpduXDNM0Apd3O6zgSdGTMVi9dQJ+LrdR0rogfk/8NdO+qkY=
-X-Gm-Gg: AYBFou1yfsPiGFHupeaxoPy+dHTCXmHh2LpDFb/SFRQKflTPSLS+WnwccrJL2iKsSnu
-	4W5B5bF+xGDq6M59HowURNUzFMRBM4R2O3mmzhiGN6YayaPOv7k7Q3miEcUe6X+LxXrAmGo2NmN
-	IsjNyM6JWxOJZ3wiwDrb6i/zuVv8O6ys/hd5Vu1gNA2Vrywo8ThKyNLt/XQEQ/SzOfZ2zgVZlVc
-	fKqS/3v10r3vQebNSLDnKtgylS9TabzkrhRw9mQa6EAM09doUbZk39mzW6Yr6S6GfhXdexoWK2c
-	Yke+gq43NjgkxrVt0ATSIRCxJO01pgv1ylmqUrmd/1JoGYS762kMIFp8q4dRVewOCRvARpdGdYS
-	/hzvOCwbihgHNuIzonNklnj+ontZ7gkxeyLyArW1tmgIJGGdJTAIhrIPKSH6NL+RRvZ4hVUm4ZH
-	Yq38wLWQDrUBJ4f/nUKthAFT7sbo3JUxtaV5k7PrXVop0PrhYwGUW47lHzUuG8uqnEu4bIbpxVB
-	xm0h7P62jB09mKRQcBpQKHK7vT0S/R27lcQ+2EfsgfiiFoULujRYsceE/TJtfqCKM0TJye0A8Xk
-	5EcHfpnQnr1zhnZFvaZDwiBtq4Cx/RgWeUso40Uf34JxFdjhKeoYyh6b+Y9afFTobHtKt7tWp9S
-	/iY/18g==
-X-Received: by 2002:a05:6512:4041:b0:5bf:ce24:38c8 with SMTP id 2adb3069b0e04-5bfd95add38mr3190968e87.4.1793632898656;
-        Mon, 02 Nov 2026 07:21:38 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe072c0ccsm1724070e87.30.2026.11.02.07.21.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 07:21:38 -0800 (PST)
-Message-ID: <7523d9ae-85ff-4e4e-ba52-dbe04c943534@linaro.org>
-Date: Mon, 2 Nov 2026 17:21:37 +0200
+	by smtp.kernel.org (Postfix) with ESMTPS id EA1EE1F00A1B;
+	Mon,  2 Nov 2026 15:22:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793632979;
+	bh=aHw52U/fCgmG8rXLdi+T2eomdSE3QiG7fSPiaslIA0o=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=c8koYraHlaD91D/GjrCqUnCamg1iSeR3ahqfHriK0UZaHGraaGKvOtjovh0HwqvL8
+	 Cs7eBtnkXItRkEdxXSkVfVOMCzh7zTwtUznqJcM/xso+5uMIu9R5Nl5KoWVKiLkx7O
+	 iuNq9nI5G+7LNCecb4Swaxz0Jk2dMuC1TJi+KMXO8QTBhi9dhtj835Y9ccbWRWl7tM
+	 qhD0yW/AYhTHfS8bNfSwUXWczUElbHFNSts215Tpi9Rkl8f8OkeQKv1RKdXV+25+fK
+	 tC9272aa6OGUSKupnCGyAzJg7ulo8Z2trtvn0qjleCphAIo0BsoPGmJLPOJ44rQnku
+	 cuhfJg6JqVchw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6805C4656D;
+	Mon,  2 Nov 2026 15:22:57 +0000 (UTC)
+From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
+Date: Mon, 02 Nov 2026 17:22:57 +0200
+Subject: [PATCH 2/2] media: pwm-ir-tx: add regulator support
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,123 +82,145 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] media: qcom: camss: Add SM8650 TPG support
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20261031112203.545319-1-vladimir.zapolskiy@linaro.org>
- <20261031112203.545319-6-vladimir.zapolskiy@linaro.org>
- <cb4fbc79-d72b-48d4-962c-479e4ebc7e51@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <cb4fbc79-d72b-48d4-962c-479e4ebc7e51@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-6768-irled-v1-2-c7064f3afed1@protonmail.com>
+References: <20261102-6768-irled-v1-0-c7064f3afed1@protonmail.com>
+In-Reply-To: <20261102-6768-irled-v1-0-c7064f3afed1@protonmail.com>
+To: Sean Young <sean@mess.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Roman Vivchar <rva333@protonmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793632976; l=2900;
+ i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
+ bh=IhXQr7kOEDLCtAxSwK+rAEvZXOZEWzcPKhKvyEtqCwc=;
+ b=WpatHju56LMszkCTB2MstZbQpeJ0+VIeHY9B2ViWmHW6U5PgXxpnUaZMqWki8mQ+rJktM/yHG
+ kiF5WtstosQBjLdR5tW0MRdSRMh8JI6qzBVYe2qBvUNca1N7rd0h/wn
+X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
+ pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
+X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
+ auth_id=777
+X-Original-From: Roman Vivchar <rva333@protonmail.com>
+Reply-To: rva333@protonmail.com
 Content-Transfer-Encoding: 7bit
 
-On 11/2/26 14:22, Bryan O'Donoghue wrote:
-> On 31/10/2026 11:22, Vladimir Zapolskiy wrote:
->> Qualcomm SM8650 CAMSS contains three test pattern generator (TPG) blocks
->> of hardware version 2.2.0, add their resources.
->>
->> CAMSS TPG on SM8650 needs the non-real time CAMNOC AXI clock to be enabled,
->> otherwise VFE receives the frame start event, but no data is written.
->>
->> Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->> ---
->>    drivers/media/platform/qcom/camss/camss.c | 53 +++++++++++++++++++++++
->>    1 file changed, 53 insertions(+)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
->> index cf4687a20dba..9eeb7e4a7315 100644
->> --- a/drivers/media/platform/qcom/camss/camss.c
->> +++ b/drivers/media/platform/qcom/camss/camss.c
->> @@ -3423,6 +3423,57 @@ static const struct camss_subdev_resources csiphy_res_sm8650[] = {
->>    	},
->>    };
->>    
->> +static const struct camss_subdev_resources tpg_res_sm8650[] = {
->> +	/* TPG0 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
->> +		.clock_rate = {
->> +			{ 0 },
->> +			{ 400000000 },
->> +			{ 0 },
->> +		},
->> +		.reg = { "tpg0" },
->> +		.tpg = {
->> +			.lane_cnt = 4,
->> +			.formats = &tpg_formats_gen1,
->> +			.hw_ops = &tpg_ops_gen1
->> +		}
->> +	},
->> +	/* TPG1 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
->> +		.clock_rate = {
->> +			{ 0 },
->> +			{ 400000000 },
->> +			{ 0 },
->> +		},
->> +		.reg = { "tpg1" },
->> +		.tpg = {
->> +			.lane_cnt = 4,
->> +			.formats = &tpg_formats_gen1,
->> +			.hw_ops = &tpg_ops_gen1
->> +		}
->> +	},
->> +	/* TPG2 */
->> +	{
->> +		.regulators = {},
->> +		.clock = { "cpas_ahb", "csiphy_rx", "camnoc_nrt_axi" },
->> +		.clock_rate = {
->> +			{ 0 },
->> +			{ 400000000 },
->> +			{ 0 },
->> +		},
->> +		.reg = { "tpg2" },
->> +		.tpg = {
->> +			.lane_cnt = 4,
->> +			.formats = &tpg_formats_gen1,
->> +			.hw_ops = &tpg_ops_gen1
->> +		}
->> +	},
->> +};
->> +
->>    static const struct camss_subdev_resources csid_res_sm8650[] = {
->>    	/* CSID0 */
->>    	{
->> @@ -5786,12 +5837,14 @@ static const struct camss_resources sm8650_resources = {
->>    	.version = CAMSS_8650,
->>    	.pd_name = "top",
->>    	.csiphy_res = csiphy_res_sm8650,
->> +	.tpg_res = tpg_res_sm8650,
->>    	.csid_res = csid_res_sm8650,
->>    	.csid_wrapper_res = &csid_wrapper_res_sm8550,
->>    	.vfe_res = vfe_res_sm8650,
->>    	.icc_res = icc_res_sm8650,
->>    	.icc_path_num = ARRAY_SIZE(icc_res_sm8650),
->>    	.csiphy_num = ARRAY_SIZE(csiphy_res_sm8650),
->> +	.tpg_num = ARRAY_SIZE(tpg_res_sm8650),
->>    	.csid_num = ARRAY_SIZE(csid_res_sm8650),
->>    	.vfe_num = ARRAY_SIZE(vfe_res_sm8650),
->>    };
-> 
-> What happens if we apply patches 1-5 but not patch #6 i.e. if we have an
-> old DTB ?
+From: Roman Vivchar <rva333@protonmail.com>
 
-It's expected that nothing terrible will happen in runtime, and TPG registration
-is skipped, since patch 2 from the series is on the list of the applied changes.
+On some boards, the IR LED shares a power rail with other components.
+If that rail is turned off, IR transmission can't function properly.
+
+Add optional regulator support to ensure the power supply is enabled when
+needed.
+
+Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+---
+ drivers/media/rc/pwm-ir-tx.c | 37 ++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/rc/pwm-ir-tx.c b/drivers/media/rc/pwm-ir-tx.c
+index 047472dc9244..f9c95d034493 100644
+--- a/drivers/media/rc/pwm-ir-tx.c
++++ b/drivers/media/rc/pwm-ir-tx.c
+@@ -10,6 +10,7 @@
+ #include <linux/slab.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/regulator/consumer.h>
+ #include <linux/hrtimer.h>
+ #include <linux/completion.h>
+ #include <media/rc-core.h>
+@@ -19,6 +20,7 @@
+ 
+ struct pwm_ir {
+ 	struct pwm_device *pwm;
++	struct regulator *reg;
+ 	struct hrtimer timer;
+ 	struct completion tx_done;
+ 	struct pwm_state *state;
+@@ -63,10 +65,16 @@ static int pwm_ir_tx_sleep(struct rc_dev *dev, unsigned int *txbuf,
+ 	struct pwm_ir *pwm_ir = dev->priv;
+ 	struct pwm_device *pwm = pwm_ir->pwm;
+ 	struct pwm_state state;
+-	int i;
++	int i, ret;
+ 	ktime_t edge;
+ 	long delta;
+ 
++	if (pwm_ir->reg) {
++		ret = regulator_enable(pwm_ir->reg);
++		if (ret)
++			return ret;
++	}
++
+ 	pwm_init_state(pwm, &state);
+ 
+ 	state.period = DIV_ROUND_CLOSEST(NSEC_PER_SEC, pwm_ir->carrier);
+@@ -87,6 +95,12 @@ static int pwm_ir_tx_sleep(struct rc_dev *dev, unsigned int *txbuf,
+ 	state.enabled = false;
+ 	pwm_apply_might_sleep(pwm, &state);
+ 
++	if (pwm_ir->reg) {
++		ret = regulator_disable(pwm_ir->reg);
++		if (ret)
++			return ret;
++	}
++
+ 	return count;
+ }
+ 
+@@ -96,6 +110,7 @@ static int pwm_ir_tx_atomic(struct rc_dev *dev, unsigned int *txbuf,
+ 	struct pwm_ir *pwm_ir = dev->priv;
+ 	struct pwm_device *pwm = pwm_ir->pwm;
+ 	struct pwm_state state;
++	int ret;
+ 
+ 	pwm_init_state(pwm, &state);
+ 
+@@ -107,10 +122,22 @@ static int pwm_ir_tx_atomic(struct rc_dev *dev, unsigned int *txbuf,
+ 	pwm_ir->txbuf_index = 0;
+ 	pwm_ir->state = &state;
+ 
++	if (pwm_ir->reg) {
++		ret = regulator_enable(pwm_ir->reg);
++		if (ret)
++			return ret;
++	}
++
+ 	hrtimer_start(&pwm_ir->timer, 0, HRTIMER_MODE_REL);
+ 
+ 	wait_for_completion(&pwm_ir->tx_done);
+ 
++	if (pwm_ir->reg) {
++		ret = regulator_disable(pwm_ir->reg);
++		if (ret)
++			return ret;
++	}
++
+ 	return count;
+ }
+ 
+@@ -157,6 +184,14 @@ static int pwm_ir_probe(struct platform_device *pdev)
+ 	if (IS_ERR(pwm_ir->pwm))
+ 		return PTR_ERR(pwm_ir->pwm);
+ 
++	pwm_ir->reg = devm_regulator_get_optional(&pdev->dev, "power");
++	if (IS_ERR(pwm_ir->reg)) {
++		if (PTR_ERR(pwm_ir->reg) != -ENODEV)
++			return PTR_ERR(pwm_ir->reg);
++
++		pwm_ir->reg = NULL;
++	}
++
+ 	pwm_ir->carrier = 38000;
+ 	pwm_ir->duty_cycle = 50;
+ 
 
 -- 
-Best wishes,
-Vladimir
+2.56.0
+
+
