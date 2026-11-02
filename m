@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646034;
-	b=WaNDjdZ1BZX72DF244sekho0XSlMprNIre0vUvKDuniVrMeclxGqPIdPgX3S0BlBwGLL
-	 Ajmjj7y4wBtOFJ/qrm5V1yzVhs2bzuX/gmyozYadf8Dj5mc6pRBW8iSG3FbXuqAV+bctu
-	 9/vQoFgmeGp7ZbWnAtDYti1S8YKW1NFa0wYU5fUVX5u0MZiVPqyGwGl2BwfXtC0TuMos/
-	 O0IGKD8tpLRBpwkRRlhSzdt2zIdur2M6bAgdg3rPPDKsguS9baYiDwyyKNrLxRZ77JiCF
-	 9DCwrx3p20a3dueStXhXy4bOR2yM7KYJjoKiEVZhcLFvhkpEXajMxbiN6qROcsHLuOQ==
+	t=1793646199;
+	b=xoOBq9vDcfkmjViWWSe3bqBS1DxmRz642ruHBuu4GVUWQBOqWQqVp1lM3tsSWUTIRBBh
+	 FQgC8eMOgoynPmJf2BFo4fZ7KaxuO2x3YTXJ8HMdk9YDl7QNVDClxHGeXDmH8E4vSrAs0
+	 8+mCIXaUdhrTLxq8x7ISXiDx06a/5fq8+MY/NdArG/GlvwJtC1IvLbkteQsEhf5XMBkeB
+	 Ced8O5MJ2fgd5Di6e6H6pCC8Iik2NwkoGli9/7RY+oMyqAK0qj3AwkiYKIk+77TlrxuSc
+	 pVGQUEEnSOJzG8k5ccGGlHeRYA2ec6weQIgmXnBDV+vheJEVPAv1npSkM8ObSN5m9BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646034;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646199;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=IpJrp3N4n3cXTcMWGiDBwAKw8MhlspUrUrRVTsA/62c=;
-	b=Yhlaiz2hc80VL39J+XUvosaA/33jAcXTB2raJoL1IbY4h9bdaC0+zZcjGXeN5nKkyU8f
-	 G3B0iz/WWXolqj/Rnutx56G+vMh9TnvxULCMzzrU2Xg6STFLHx4g5pW9Jpol/ZU+iFm0o
-	 EmXI9hEz1VBvCcQjjdKtkr7fUhe0bfLb6sSzBb37dEmyHZ3audPDKSZKRanXTPo7YrbBq
-	 5CxsYWMqtoMv9stcwvIlaoUK+A3Ui2vRT6wPMcCstoGXpuRTofi1Q/h91MDDWtXjGZYcW
-	 NQ/kHWmwRKzF4qkHY3ff3NgHArLocar7YwNc5X2JvKfkbfcgtkka4EU7bVrVktH7f+Q==
+	bh=CX4y91oCS4X6RsvbXPen90jyyXJyF7CCD61h0ekNQwc=;
+	b=ACuV/aBkkmngYIaI9z/TtOKiw8UEpekiR76SY/UMGuSiKeQiQ4hXw6VG+z9ZCCl38a5G
+	 Vvs2xP5jk5ZFVKFf/DGKNPqvSJYHriygq9ONOMERMss8kszSaSbtVWffU3oDXatLATgk9
+	 JWlJ5RRS+AzsN7YDi0wZpQqaND/SD5V1knUaphPD/r6+r+7TQCopc0rxlVtBm1Z4u3jmy
+	 rW9s6c3Wt+jWVXuMHlwJpOFDyVOq/uH6ShN4Znw6HZHnC9U3RAgiYcSVYJGfPj2rWrMPq
+	 LcBPQyC0iBzxJ5dq9fQMGSw2Uf/SR/t9tjma1UUykDyZcMS/Sga9UGL8HAgmqobOw5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AT8Tz8je;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VyGtwxG0;
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A0C606A33A;
-	Mon,  2 Nov 2026 19:00:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9A0C606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CC9606A327;
+	Mon,  2 Nov 2026 19:03:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53CC9606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AT8Tz8je
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VyGtwxG0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793646024;
-	bh=7+cVgQKAwNDl4tvndFXaFuD+9S20VGeyFcozWWAl4/8=;
+	s=mail; t=1793646197;
+	bh=IWtvRXFF6VmkuKKK6g4FsEq+PzfJvMm8gmMONaMJar8=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=AT8Tz8je60MbshoZd0M6PPDwIC3OIL0QoKhsTdkYU2mblDuoMqkdO0UsSzymVYs8y
-	 vYRRgg5hAHEsF/59SuSizZ36ZvQUWgxMHJ3i5I0h+3Ap10TIISaCnmfMEMomDGyHXI
-	 rnFVEYOb9LudeS/0jtN0yJ4A75F3HOlZntZ/OGiIEVVjU+yzUxUhV7CN7GKlQYlX8Q
-	 WIId5QEu02g9zzP0DAwyf+9hNXguNJSTGknY6jqP74PzHJgAr/F0ZsR1St3ayDiM75
-	 6ox6d1XwXDs5VcRkrfYXCl4GhpNtvgdMth4gaQq2w+hOohg3AEGz6/MmN5DzP7XkpH
-	 ap4moRcGUxzaA==
+	b=VyGtwxG0sSBNmwsEpkBWQ30njRSws7Fj7ubr5g5gfpduPk2j2lBW4Bg1cX0AFyZdu
+	 TNGDBaob+zAaq9lgfzLk+3IOUJBvn2iLZMOtbeVlwArfIgjArp7xmLBu5pOZhus/fP
+	 fGqA/TcPjSbQimcydcTPfQI7ORbqbGL6djGYAW5GR4dXRI19y7eZppStJ9qsVWQ35o
+	 8V6ARHAsmVx1PjyFwvvRdJIqO0OYY6O0XJm3hly0LyX3O7/fK0AAaLza7Sa3m8GpXt
+	 bCuCixnyJSKWHRdLh38y28KXTVp80L2y7232Al6srBgpcBmiQwvizpPI7xUvjejrep
+	 kVO3dTsIPIyhw==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange secp256r1)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 31C8617E038E;
-	Mon, 02 Nov 2026 20:00:22 +0100 (CET)
-Message-ID: <dd7046d1ca454fa53b51d0cd122f96ad05c7a2c2.camel@collabora.com>
-Subject: Re: [PATCH 05/10] staging: media: cedrus: mpeg2: derive the field
- order of field pictures
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A0E0817E07F6;
+	Mon, 02 Nov 2026 20:03:15 +0100 (CET)
+Message-ID: <feee5706d6a1e66dc50c21614fdf0469342befc2.camel@collabora.com>
+Subject: Re: [PATCH 06/10] staging: media: cedrus: mpeg2: fix the references
+ of field pictures
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
 	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
@@ -62,10 +62,10 @@ Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
 	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
 	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
 	linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 14:00:20 -0500
-In-Reply-To: <20261102170303.1973892-6-jernej.skrabec@gmail.com>
+Date: Mon, 02 Nov 2026 14:03:14 -0500
+In-Reply-To: <20261102170303.1973892-7-jernej.skrabec@gmail.com>
 References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
-	 <20261102170303.1973892-6-jernej.skrabec@gmail.com>
+	 <20261102170303.1973892-7-jernej.skrabec@gmail.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -81,7 +81,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-WApOxz+sTMoS9JafJBm/"
+	protocol="application/pgp-signature"; boundary="=-YZXbPAR+wWFJqah0WQvL"
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -94,149 +94,98 @@ Precedence: list
 MIME-Version: 1.0
 
 
---=-WApOxz+sTMoS9JafJBm/
+--=-YZXbPAR+wWFJqah0WQvL
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
+Hi,
+
 Le lundi 02 novembre 2026 =C3=A0 18:02 +0100, Jernej Skrabec a =C3=A9crit=
 =C2=A0:
-> The hardware uses the top field first bit of the picture header to tell
-> the first field of a frame from the second one. However,
-> top_field_first is always 0 in field pictures, so userspace passes
-> V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST cleared, and the second field of
-> every top field first pair is predicted from the wrong reference.
+> The second field of an I or P frame can be predicted from the first
+> field of the same frame, which the hardware takes from the backward
+> reference. The driver programs the backward reference passed by
+> userspace instead, which doesn't point to the frame being decoded, so
+> the second field is predicted from the wrong picture.
 >=20
-> Detect the second field in the driver instead: it has the opposite
-> parity of the previous field and is decoded into the same capture
-> buffer. This works with unmodified userspace.
+> Use the current frame as the backward reference of I and P pictures,
+> like the vendor library does. Also fall back to the current frame
+> instead of address 0 when a reference buffer is missing, so the
+> hardware never reads from an invalid address.
 >=20
 > Fixes: 50e761516f2b ("media: platform: Add Cedrus VPU decoder driver")
 > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Its quite likely other MPEG-2 decoder are affected. Would have been nice to=
- pass
-the picture structure explicitly in the decode params in the first place. N=
-ot
-your fault.
-
 Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
 
 > ---
->  drivers/staging/media/sunxi/cedrus/cedrus.h   |  5 +++
->  .../staging/media/sunxi/cedrus/cedrus_mpeg2.c | 32 +++++++++++++++++--
->  2 files changed, 35 insertions(+), 2 deletions(-)
+>  .../staging/media/sunxi/cedrus/cedrus_mpeg2.c | 29 ++++++++++++++-----
+>  1 file changed, 22 insertions(+), 7 deletions(-)
 >=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.h b/drivers/stagin=
-g/media/sunxi/cedrus/cedrus.h
-> index 54f867949fba..a523b56a9b8c 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus.h
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus.h
-> @@ -144,6 +144,11 @@ struct cedrus_ctx {
->  			void		*entry_points_buf;
->  			dma_addr_t	entry_points_buf_addr;
->  		} h265;
-> +		struct {
-> +			bool		pair_pending;
-> +			unsigned int	pair_dst;
-> +			u8		pair_structure;
-> +		} mpeg2;
->  		struct {
->  			unsigned int	last_frame_p_type;
->  			unsigned int	last_filter_type;
 > diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c b/drivers/=
 staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> index ca66a3c6b830..4c8accee5389 100644
+> index 4c8accee5389..0a2f8e77fb29 100644
 > --- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
 > +++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> @@ -58,7 +58,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, s=
+> @@ -56,6 +56,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, s=
 truct cedrus_run *run)
+>  	dma_addr_t src_buf_addr, dst_luma_addr, dst_chroma_addr;
+>  	struct cedrus_dev *dev =3D ctx->dev;
 >  	struct vb2_queue *vq;
+> +	struct vb2_buffer *fwd, *bwd;
 >  	const u8 *matrix;
 >  	unsigned int i;
-> -	bool field;
-> +	bool field, tff;
->  	u32 reg;
+>  	bool field, tff;
+> @@ -147,15 +148,29 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ct=
+x, struct cedrus_run *run)
 > =20
->  	seq =3D run->mpeg2.sequence;
-> @@ -87,6 +87,26 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
->  		cedrus_write(dev, VE_DEC_MPEG_IQMINPUT, reg);
->  	}
+>  	cedrus_write(dev, VE_DEC_MPEG_PICBOUNDSIZE, reg);
 > =20
+> -	/* Forward and backward prediction reference buffers. */
 > +	/*
-> +	 * top_field_first is always 0 in field pictures, but the hardware
-> +	 * uses this bit to tell the first field of a frame from the second.
-> +	 * A field is the second one when it has the opposite parity of the
-> +	 * previous field and is decoded into the same capture buffer.
+> +	 * Forward and backward prediction reference buffers. As the vendor
+> +	 * library does, I and P pictures use the current frame as backward
+> +	 * reference: the second field of a frame predicts from the first one.
+> +	 * Missing references also fall back to the current frame.
 > +	 */
-> +	if (pic->picture_structure =3D=3D V4L2_MPEG2_PIC_FRAME) {
-> +		tff =3D !!(pic->flags & V4L2_MPEG2_PIC_FLAG_TOP_FIELD_FIRST);
-> +		ctx->codec.mpeg2.pair_pending =3D false;
-> +	} else {
-> +		bool second =3D ctx->codec.mpeg2.pair_pending &&
-> +			      ctx->codec.mpeg2.pair_structure !=3D pic->picture_structure &&
-> +			      ctx->codec.mpeg2.pair_dst =3D=3D run->dst->vb2_buf.index;
-> +
-> +		tff =3D (pic->picture_structure =3D=3D V4L2_MPEG2_PIC_TOP_FIELD) !=3D =
-second;
-> +		ctx->codec.mpeg2.pair_pending =3D !second;
-> +		ctx->codec.mpeg2.pair_structure =3D pic->picture_structure;
-> +		ctx->codec.mpeg2.pair_dst =3D run->dst->vb2_buf.index;
-> +	}
-> +
->  	/* Set MPEG picture header. */
+>  	vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
 > =20
->  	reg =3D VE_DEC_MPEG_MP12HDR_SLICE_TYPE(pic->picture_coding_type);
-> @@ -96,7 +116,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, =
-struct cedrus_run *run)
->  	reg |=3D VE_DEC_MPEG_MP12HDR_F_CODE(1, 1, pic->f_code[1][1]);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_INTRA_DC_PRECISION(pic->intra_dc_precision=
-);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_INTRA_PICTURE_STRUCTURE(pic->picture_struc=
-ture);
-> -	reg |=3D VE_DEC_MPEG_MP12HDR_TOP_FIELD_FIRST(pic->flags & V4L2_MPEG2_PI=
-C_FLAG_TOP_FIELD_FIRST);
-> +	reg |=3D VE_DEC_MPEG_MP12HDR_TOP_FIELD_FIRST(tff);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_FRAME_PRED_FRAME_DCT(pic->flags & V4L2_MPE=
-G2_PIC_FLAG_FRAME_PRED_DCT);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_CONCEALMENT_MOTION_VECTORS(pic->flags & V4=
-L2_MPEG2_PIC_FLAG_CONCEALMENT_MV);
->  	reg |=3D VE_DEC_MPEG_MP12HDR_Q_SCALE_TYPE(pic->flags & V4L2_MPEG2_PIC_F=
-LAG_Q_SCALE_TYPE);
-> @@ -186,6 +206,13 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx=
-, struct cedrus_run *run)
->  	return 0;
->  }
+> -	cedrus_write_ref_buf_addr(ctx, vq, pic->forward_ref_ts,
+> -				  VE_DEC_MPEG_FWD_REF_LUMA_ADDR,
+> -				  VE_DEC_MPEG_FWD_REF_CHROMA_ADDR);
+> -	cedrus_write_ref_buf_addr(ctx, vq, pic->backward_ref_ts,
+> -				  VE_DEC_MPEG_BWD_REF_LUMA_ADDR,
+> -				  VE_DEC_MPEG_BWD_REF_CHROMA_ADDR);
+> +	fwd =3D vb2_find_buffer(vq, pic->forward_ref_ts) ?: &run->dst->vb2_buf;
+> +	if (pic->picture_coding_type =3D=3D V4L2_MPEG2_PIC_CODING_TYPE_B)
+> +		bwd =3D vb2_find_buffer(vq, pic->backward_ref_ts) ?:
+> +		      &run->dst->vb2_buf;
+> +	else
+> +		bwd =3D &run->dst->vb2_buf;
+> +
+> +	cedrus_write(dev, VE_DEC_MPEG_FWD_REF_LUMA_ADDR,
+> +		     cedrus_dst_buf_addr(ctx, fwd, 0));
+> +	cedrus_write(dev, VE_DEC_MPEG_FWD_REF_CHROMA_ADDR,
+> +		     cedrus_dst_buf_addr(ctx, fwd, 1));
+> +	cedrus_write(dev, VE_DEC_MPEG_BWD_REF_LUMA_ADDR,
+> +		     cedrus_dst_buf_addr(ctx, bwd, 0));
+> +	cedrus_write(dev, VE_DEC_MPEG_BWD_REF_CHROMA_ADDR,
+> +		     cedrus_dst_buf_addr(ctx, bwd, 1));
 > =20
-> +static int cedrus_mpeg2_start(struct cedrus_ctx *ctx)
-> +{
-> +	memset(&ctx->codec.mpeg2, 0, sizeof(ctx->codec.mpeg2));
-> +
-> +	return 0;
-> +}
-> +
->  static void cedrus_mpeg2_trigger(struct cedrus_ctx *ctx)
->  {
->  	struct cedrus_dev *dev =3D ctx->dev;
-> @@ -203,5 +230,6 @@ struct cedrus_dec_ops cedrus_dec_ops_mpeg2 =3D {
->  	.irq_disable	=3D cedrus_mpeg2_irq_disable,
->  	.irq_status	=3D cedrus_mpeg2_irq_status,
->  	.setup		=3D cedrus_mpeg2_setup,
-> +	.start		=3D cedrus_mpeg2_start,
->  	.trigger	=3D cedrus_mpeg2_trigger,
->  };
+>  	/* Destination luma and chroma buffers. */
+> =20
 
---=-WApOxz+sTMoS9JafJBm/
+--=-YZXbPAR+wWFJqah0WQvL
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujdxAAKCRDZQZRRKWBy
-9FEyAQC8/q6Nd1DoHPrJt6RmqNj59GInV2qqqrnhS3ndvJGV7gEAs9tcUUCE4igf
-xOK38RK8vM8z6QMV9E8zb/YjVh7zLAs=
-=xRX+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujecgAKCRDZQZRRKWBy
+9BK+AQCDH54gcF4YDMxujVSz7o9opPm5JnaiHGLjqlcvafVZ2QD9HTyF0xiado/u
+5TvCWrlgd1mFralXkVMfG9vP8ymhNAQ=
+=ftEY
 -----END PGP SIGNATURE-----
 
---=-WApOxz+sTMoS9JafJBm/--
+--=-YZXbPAR+wWFJqah0WQvL--
