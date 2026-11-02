@@ -1,58 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.92.124.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793601124;
-	b=c46nJn7gVIOMV7AzdvhB2U37IrA8Ns+SEhkiM57WrjPo1BOUU+a9ObpZK7krF/9peJwV
-	 F2k6JVJh43BZ1w3H7GtpyH4G7KWiaKamo6KR4P8Q+9K8nrplxK0fq+kpwn+Yj6fWAf/BV
-	 R0w5/C0E8Z+2CaMzD9aAZ02PmABHhx+ooOtcPOgH+3hJ4ERTBGDVyTvvoSwm2PqN4neY7
-	 Qrj+i4mP4t+PXIqswUUH5tpMUJ6RsBIcfjUSFPPE5XhvscwGZ/CrNx2LA5cFMShJjSI5i
-	 hPUCV1jzgnYRfdqev1hDk2oGK8TNZhL9Ig+LcpBC7dew2NH9pp142oLTcqD/n2TXv6w==
+	t=1793601965;
+	b=dJrFxtyg1o4licsdqnoGSr1LAfvcBI1nXn0upqxTP+8wHtnP9dpvR1gA41Huo2E9ykDd
+	 ufFlilAWSwEOjUPWzZhXXoaI1KMxJdPaKzGFTeP1tBvKdlXVdL+wY2idyEYZ6rOz/kChn
+	 DNXZx0f76LgQBhYuOg3oQVB0wfB8T5t8g8lsEIHHc93Wr/DC4UeO9NR/UDpXY/bXAKwsZ
+	 72sBnvy1GDyg7crB8LgAGruvFI/ADOH0eUM+4NeR7FfmmIMth5F227y1vyeDmoPaU7GQg
+	 0ZiyBVeKO+scmLgcwxjBGRrMBxNuvUpvdOGmk3wRLozv8QuUCJS9w9q8gIplmDrUgIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793601124;
-	h=DMARC-Filter:X-mail-filterd:Received:X-mail-filterd:X-lpn-mailing:
-	 X-lpn-spamrating:X-lpn-spamlevel:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 DKIM-Signature;
-	bh=zS5l7jOfx+wJm0xPaDKEiritGL1YwK9e93UHJo5zc6g=;
-	b=1MPntP8uSeKzzB5V6Gq4zWzC3C7SSwRvSv5gz+vXaIhxWEJVrUyhv7jlji4vbRvJjflA
-	 BePybhVAtxuuk2+/nehi/0FrYUzFKTIh2nUyK94mEfc24mfCEYDYtACJrgBnVkzi9zz8m
-	 atOiymu8ZQnkN4kONo2gL8R25cCLJ6Y0SqaRnGOIABaOvKDqauWZDzLkN+9zmudfLHM/C
-	 defayhQIbXcadnIlohKzT6Adbs9AwgZ3tZKP6LQHzcAGvvdMc+uW6FbJcPDoKokFWcfMI
-	 VLig4+gcmSMVvLU/4ua9ocSqQtBVNNkizjKOmA4WJlMbQqK8xbcSjbsbCruAwoGnRUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793601965;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jQyVKf+xKGyYu2gTWeUfHIN4PWX5+OTKCqL+rPAXxBM=;
+	b=y4WTvI4qDWwO0esrJrqqm/u0TWKHyJob9gZ2B2HZTGrmMdgFglAAaqmXdoVp9QTTzGgY
+	 QEsIbrRkNyqcfhbEEX24BM5BCz5CVsMhchpJ8Dpa546pfPHXCLPRK1WayDFUw+vLv3po+
+	 +pCpdTaE2O3W52xjh9LrFopbpzS+VncA9qRz/u52ig+4BrVCtCjb+xNWI78/HQuDWz3nb
+	 8QIiGh7k4pN4QSI70iQxoYKXUb2mRbxBrPvyJsFZFXRWbBSa1rT2dGiwg7Gq/H3HdX51G
+	 peNlbsXtq2pcl+LOiY1OjRQV69VohLAreTgzZ2upB0iILYFMVntf2mjrofLqqtanojQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=laposte.net;
-	spf=pass smtp.mailfrom=laposte.net;
-	dkim=pass header.d=laposte.net header.i=@laposte.net header.a=rsa-sha256 header.s=lpn-wlmd header.b=rqCPsXE0;
-	arc=none smtp.remote-ip=160.92.124.103
-Received: from smtp-outgoing-1802.laposte.net (smtp-outgoing-1802.laposte.net [160.92.124.103])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IzHl1KxN;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD626606A324
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 06:32:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD626606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laposte.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F3A60A260E;
+	Mon,  2 Nov 2026 06:46:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74F3A60A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=laposte.net header.i=@laposte.net header.a=rsa-sha256 header.s=lpn-wlmd header.b=rqCPsXE0
-X-mail-filterd: {"version":"1.9.7","queueID":"4jJ20y4rMMzWf0T","contextId":
- "87465898-de37-487f-a3d9-c28f139d78d1"}
-Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
-	by mlpnf0107.laposte.net (SMTP Server) with ESMTP id 4jJ20y4rMMzWf0T;
-	Mon,  2 Nov 2026 07:31:46 +0100 (CET)
-X-mail-filterd: {"version":"1.9.7","queueID":"4jJ20y0xBZzWf0M","contextId":
- "799da636-4d40-4d02-82de-de679cf02357"}
-X-lpn-mailing: LEGIT
-X-lpn-spamrating: 36
-X-lpn-spamlevel: not-spam
-Received: from [192.168.1.2] (m-dj.hd.free.fr [82.67.82.126])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mlpnf0107.laposte.net (SMTP Server) with ESMTPSA id 4jJ20y0xBZzWf0M;
-	Mon,  2 Nov 2026 07:31:46 +0100 (CET)
-Message-ID: <6cfa9260-b48d-484e-9c88-b75feb0392f9@laposte.net>
-Date: Mon, 2 Nov 2026 07:31:45 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IzHl1KxN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793601963; x=1825137963;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ve5h5MZP7tPfgfDQBI9dQre1wJZbL1TJsT4gIu4qPF0=;
+  b=IzHl1KxNTdi55wEGJIZS8PM3DQ2XGohl9k8S1bykR4r2IAYM1LhQyU4Y
+   dc6vG7GpnVbyeXMbSGm7FMjw+coHNUH5nwOaweFVV6OaYhMGJ3yL0om2q
+   Ul0AYpmMe0cWkXiaoyDxliqMnwQhJWZE7cldJhIpzY+bFWzVIIxy03E/Z
+   8ICCsdaeZ3yP5FHeKC2zfxVhoHawlybWyxiAqyug5HA1zYZHbRMevAJrC
+   9bev+9sMQNAL4JRELo5J7o/nshi8/qk6BJ4snh9U/VUtkncuxWM2OD8zL
+   hhIFG+IqHi9ZlPVhxRLuKOjZI/vM2Fz8WNHek6AZe67Khqz/8Yo/YiUtP
+   g==;
+X-CSE-ConnectionGUID: fQvPO7cbT1izV0mpMaH1pw==
+X-CSE-MsgGUID: aqfMT82vQ6uNK8oRf4aF4A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2314494"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2314494"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 22:46:02 -0800
+X-CSE-ConnectionGUID: 8l3CM987Tjm3P9BwrFglaw==
+X-CSE-MsgGUID: ThJWP+isTvCeYX2carf4Zw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="5867273"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 01 Nov 2026 22:45:55 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xNlnj-00000000gWe-2XRs;
+	Mon, 02 Nov 2026 06:45:51 +0000
+Date: Mon, 2 Nov 2026 14:45:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Ondrej =?utf-8?B?TW9zbsOhxI1law==?= <omosnacek@gmail.com>,
+	Jens Wiklander <jenswi@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v3 2/8] dma-heap: charge dma-buf memory via explicit memcg
+Message-ID: <202611021401.ZN5EGF6G-lkp@intel.com>
+References: <20261027-v2_20230123_tjmercier_google_com-v3-2-78d2c4cb8647@redhat.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,70 +107,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors
- on Intel IPU6/IPU7
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>,
- Milan Zamazal <mzamazal@redhat.com>, Sakari Ailus <sakari.ailus@iki.fi>,
- libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
-References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net>
- <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com>
- <20261101164311.GA3368923@killaraus.ideasonboard.com>
- <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net>
- <20261101195019.220940-1-fernandorimoli11@gmail.com>
-Content-Language: fr
-From: Alain Cousinie <alain.cousinie@laposte.net>
-In-Reply-To: <20261101195019.220940-1-fernandorimoli11@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd; t=1793601115; bh=zS5l7jOfx+wJm0xPaDKEiritGL1YwK9e93UHJo5zc6g=; h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:Content-Transfer-Encoding; b=rqCPsXE0kAKLUdUkVaoAHJ0rJ8eKI+xp93QwscZ4cQ6qRfmABFSZtXAYxbKlx6dJx0zxhpeE5aO+gN4KGzuJdQCW9ZdLHulG6mefGzKFxilKTtd9oysc14PzFlKctdKacRemw4eBi3rNWMGEsrf9KPxiqc3OY4B3T6QwFf5wE9F/XL0C7oKvyVa7qmsqhjxq3r472xf40Vo+9ZkSg2GPpEohWI96/wqqJjNNI16OnHnSGJs4i66JH6iTBdu2c7g+vMlnRLtKRCulLRnWO3UOSNQQxk9QXh7hsu0pDbfy10JP/uHBLy9jTdBo2QvEIupY3uULMQQULhTnroAWsNVKUA==;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261027-v2_20230123_tjmercier_google_com-v3-2-78d2c4cb8647@redhat.com>
 
-Le 01/11/2026 =C3=A0 20:50, Fernando Rimoli a =C3=A9crit=C2=A0:
-> Hi Alain,
->=20
->> Forcing packed monochrome (`CSI2P`) on VGA sensors (640x480)
->> triggers a systematic `stream stop time out` on Intel IPU6/IPU7.
->=20
-> Not on every IPU6. On a Surface Pro 9 (Alder Lake, IPU6 8086:465d, 6.19
-> kernel) its VD55G0 infrared sensor streams 640x480 R10_CSI2P (800-byte
-> lines, 832-byte stride) at full rate and stops cleanly: 120 of 120
-> frames, then five start/stop cycles of 30, with nothing in the kernel
-> log. R8 and R10 at 640x480 behave the same.
->=20
-> What does fail here is narrower lines. With Sergey Lebedev's vd55g0
-> driver, which offers 320x240, R8 (320-byte lines) delivers about a thir=
-d
-> of the frames, while R10_CSI2P (400 bytes, 448-byte stride) and R10 run
-> at full rate. So the limit depends on the platform and the line length,
-> and a libcamera rule dropping packed formats at VGA on all IPU6 and IPU=
-7
-> would also remove ones that work.
->=20
-> Which IPU (PCI id) and sensor does your Spectre have?
->=20
-> Fernando
+Hi Albert,
 
-Hi Fernando,
+kernel test robot noticed the following build errors:
 
-Thanks for your reply.
+[auto build test ERROR on 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907]
 
-I am using an HP Spectre with an Intel i7-155H processor.=20
-The camera relies on IPU6 and uses the `og0va1b` sensor,=20
-which was added in kernel version v7.4-rc1.
-I modified the driver to include the ACPI entry `IPU_SENSOR_CONFIG("OVTI0=
-0AB", 1, 500000000)`=20
-and adjusted the frame rate to 240 fps for a 640x480 resolution.=20
-Currently, the driver is configured for the R10 unpacked format at 60 fps=
-,=20
-whereas the sensor natively supports R10 packed at 240 fps for this resol=
-ution.
+url:    https://github.com/intel-lab-lkp/linux/commits/Albert-Esteve/memcg-Add-MEMCG_DMABUF-accounting-infrastructure/20261027-160244
+base:   24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+patch link:    https://lore.kernel.org/r/20261027-v2_20230123_tjmercier_google_com-v3-2-78d2c4cb8647%40redhat.com
+patch subject: [PATCH v3 2/8] dma-heap: charge dma-buf memory via explicit memcg
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20261102/202611021401.ZN5EGF6G-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261102/202611021401.ZN5EGF6G-lkp@intel.com/reproduce)
 
-It works in the unpacked mode; however, I attempted to add the packed for=
-mats=20
-to the Linux kernel and verified the configuration within `ipu6-isys`,=20
-but it did not work=E2=80=94resulting in timeout errors.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611021401.ZN5EGF6G-lkp@intel.com/
 
-Best regards,
-Alain
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: drivers/dma-buf/heaps/system_heap.ko: symbol 'mem_cgroup_reserve_dmabuf' undefined!
+>> ERROR: modpost: drivers/dma-buf/heaps/system_heap.ko: symbol 'mem_cgroup_commit_dmabuf' undefined!
+>> ERROR: modpost: drivers/dma-buf/heaps/system_heap.ko: symbol 'mem_cgroup_cancel_dmabuf' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
