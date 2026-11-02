@@ -1,112 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616168;
-	b=xjyKN1SYS8PiGw0qp08lsfvnypcC+UyeOsi+UCoECm0oaOPwz1hwG9edinD13xrz4L5L
-	 H6uVUEGmFLqNNi+rB3Z6SNafgfjhqze1sctqcWBReInPMG9S/NI4z+wfUcpB/MJfejB+a
-	 7DtfZQo7rdK47sw2J1FYa7hrI1/DqbWQxE/Hnnyw7Nh5mrKEmQCRf4HHCotvoPiJCaLZn
-	 DLGRWzklMxzvio6MTCKqx/cej/il1YMnPopBh9yApXrlkwnOai4rjkH4Yben3mqSZOon+
-	 DA89hN4SYfmj9YeE2LOYfoR608zNxuHMduXFz6XYAGYYZcDH4MNRlknZySwx2NTgqmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616168;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=CTz1OgoZUkpdSCjZoxvn9PqauEJX7ebBIB6VyhSxGwM=;
-	b=U+P+O9zz4PdTkxkJ23IMyvqXhs6SymcRN/4HFNJQ3PYbI5mghwkBiZsucuUJvYJYtonH
-	 h7Qvneb37toguG2FGkCbRX+jhP0muFGRx5OHkIvuwfUkzczfT6NHZ9/b0xwQpSBMnuBxZ
-	 sA8gAv3Jzkk72LSx36cqxwyYGj9Riip40z9grysZbOiPuZxhOhFCvIYglFBLfRqodDUvo
-	 cAgfnhqLWEpmSLV/CKXr6LOa3U3V1Hv3crJBkaebdAE1Ql70xrlFj4MWEAJmC5jmj+9DJ
-	 VwlyDd9sHDo/5hW7tjynkCo7VrmboPLsvx3fuyuaDjAcq2ucYhCRaPCXNWXJFy7tZ8A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bkcWeQxp;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="au+/5G3Y";
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.6
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793616368;
+	b=M5QEHt2pxOpypb6KGO11DvQf+UU6Vori91pBkzgtKvlb1ag39beefyWE3X8xFZ6XLv7A
+	 sOt9MqaHSnggdKFi7tlf0xUo2YrGKRL8fpL56vOek+sIfZj8fWDCytG7q/GRuJ/qOEogz
+	 KND7Q95fU2NZs3OpE0ZO/n3P7zc2noibNyYhu0DbJrUNN4b3lH/GbBtuSBre03IBjNC92
+	 oxOAXtqUtffOfEUgnXBwIEm7X/XBaimkaefQGA7LQeY/46Y41yU60PJa+t20oWMq4fNQt
+	 EKD5NyGminJDgIN+HsWD0xbzBhWp+rT9beC9KJkkYl4TZXmT5qDGoink9f3f+n017og==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616368;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eYhKLsJCXbY3Viq9xoCBiDnByextfZ3CPyp+K6Xi8/E=;
+	b=XC1dAxXNj2jxsnUpXEpBRjtvM+I/4w0L/hnoC2o2x0M3fiVsvncnBz7O/ppYRMtEOQj/
+	 sBEL3ZhV+ZwMlRI69FqSj3Qw8jNKcFZ6UNcxSJW/DsJS6JOCwDt2EYDH4ZFGKZ1fUcg3Q
+	 80wJ0Az+CGyzQUpnCqUOW/KUnJvlhVp+3d8wXSDAqsJ5/gHr5gdYdvfXtXomqE2hE8iX4
+	 B21IacWotXNuRuHu/s9jgz+ei/Us2qnb7EsogET2mElDDZmGRQ5vE/4LIb7XdwlfRfFxZ
+	 MaRhzJ1+ee08eF1Q+P0ol5YNjgjpEyl7XuEJ3bVwRwTC0JXHs6utj/4zstHbuoISyBQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="PLArGcC/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.6
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011006.outbound.protection.outlook.com [40.93.194.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1D5606A84E
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:42:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C1D5606A84E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285B8606A324;
+	Mon,  2 Nov 2026 10:46:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 285B8606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bkcWeQxp;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=au+/5G3Y
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29A0Eq3402455
-	for <linux-media@vger.kernel.org>; Mon, 2 Nov 2026 10:42:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	CTz1OgoZUkpdSCjZoxvn9PqauEJX7ebBIB6VyhSxGwM=; b=bkcWeQxpavIVYt/1
-	BmrxQgV9R3XBmoC57Q+MwLsxfbdX+Enc2j5u2pZ27vvgH+OMvDbSUGujK8K/MV/L
-	x7Oe/v9qkfzXPl8kCSphjN+mql0p2o5u16FJfRyMhCFt9gNeRc0AxRP6uqdRFniw
-	WWB3UKKxt9pYbYHm1WZ7HnyVR7Lavk0FgnasFxvQIiNEsX7zsr9WRsgAWcYb+eFq
-	UTNqcaSuC8CYybKoc+IwEP80rH5cqx4ZKcGy1avy/ayCxtti9NnN50DBiKWRcZWh
-	7PHvATlwkbv0N1VUM3rXr+LywmHePonOLPtqj3llNjJ3gNYtZ0maYEJdzEfkANwD
-	2C5qRg==
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hppfe8q2b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 10:42:47 +0000 (GMT)
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-44899f99756so5259301fac.2
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 02:42:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793616162; x=1794220962; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CTz1OgoZUkpdSCjZoxvn9PqauEJX7ebBIB6VyhSxGwM=;
-        b=au+/5G3Y4lZT4d9R0ilZzretkA9JIPoyl0yLUuf8aHCJf59xlTcn+SLEzEvMmRL0tX
-         Ke5HJc5dDT4VOOrS4OcRYuO3ghmeM9lT8hKzKyCVzP6Kl36HhjqB8IMyZmckpl9mx7d+
-         x4b+0qkAPshsFmkHlf3kXBsPeVsE1l15QZOSoMWq71TtoDzYDEH9+MPJvL9EaaUshsuq
-         sUINK303Pb+jxxso34PRRBR1l4+HWhvofu7UsmuMomayBhjdZadZdBL2JCoRx1EPGACm
-         +Q8ztaebFaRyoYwuen6b1UyKLAV1MA2xeMY2Qn7VsbeUxrjjvK5+S6+CHaZtDMKN0Ggr
-         We1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793616162; x=1794220962;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CTz1OgoZUkpdSCjZoxvn9PqauEJX7ebBIB6VyhSxGwM=;
-        b=SFeAA1oGctbnvORiZeHuCpCsa7bkxbQYl+jtfbxv/o29RCw6zQ5KysldkVCJ1YbxpV
-         rItu77rMXqjqo05OZ1Co0He5yT9HYb/9Lf27KEhvvDCuUeCQkBfVLeJfzXsS0HnaGrlj
-         nEq2+kBONa0/O5Zb+kuqVPgFRU7RFMuU5OFxcKwUTFVAZ9VSNutQV//w8RWOaI0EoKDF
-         ObGqX2xT2JPADNh58uCWxESWTFCSjtfLooNK0DreLqDctDd25KsuMFfVbFl6Xu1JrkwM
-         Wxam0Zo7OvwnAtjBizwZn+umlm17WbDB06aZzMk/sA8H9kTrcqD6s6nzY3C/sVMNqEzr
-         6TvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxX1gAe1IL0pE29qFfaRv3/6EkH1aAEA+rMvZssxPZijVWAYP5hoocUDbSkp+bH1rXpj9/HTmuHJEffJg==@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGaWyYhNx2AATNOGPeyHQtIXnkTL4b+pRNosjJgoGi7EB7B+j7
-	vTjZJzoA6JZDkFW4h3yxUYztizfsqqni5k45TnscIAvnfS33AnSXDHXdiFQ/pmRtNCyJ0XEsOIs
-	cwq9/B38dIVQr1ZVNnqSmVWQsPOHveZIGGP2w/V0Z7D/J0+L4C1NazPn7isuOkVvZbA==
-X-Gm-Gg: AYBFou0AHgz2uj15hLBKkxair761A1YltVlMCJQutVKrgyINNvyDq6QBDa9c5Z1t18n
-	KnF7/MlJ2NailTFXVl9fR87zu740HnhqsHFxP59n07EmNW2r5VKZuj8OQX4ryUIPNH+1dezixtz
-	vweS28YGyrB1jZKUSSrRQ+ho+ow/BFmjQ56vKRbKIIJBo33HZgOlQxN9/ritzMFhtkQrfhw9KOG
-	8ujdUvDuGDP5oBipxDMsfGllx+ipyE5jkRWbTorDFwFjqzoQ0YLnXxgoSEYA3SZVKSYw+2Ip6Ox
-	LeHkiXsB8liUP7dHmChDq+LRY7x5erD0kvRkWz/iEwlg5xrb7CV9MSJAbiF6/ZV/18y04cedi6A
-	mcU7NtatVWPfA3iwSGtQQClvzd44SyUblVnR9qwEC4FOw7ExNAUVe29BO1hdoHVF23xdIzwxjK0
-	liUJ2CUl1ioomJCwNv0BkQxJ7K3zYdDfcRvXhBzU8FVN62rRFAv+gto9GHWPA=
-X-Received: by 2002:a05:6808:1244:b0:4d5:27da:a492 with SMTP id 5614622812f47-5640de8d66emr6700463b6e.44.1793616162007;
-        Mon, 02 Nov 2026 02:42:42 -0800 (PST)
-X-Received: by 2002:a05:6808:1244:b0:4d5:27da:a492 with SMTP id 5614622812f47-5640de8d66emr6700450b6e.44.1793616161539;
-        Mon, 02 Nov 2026 02:42:41 -0800 (PST)
-Received: from hu-hangxian-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fe0fc77sm7447171b6e.12.2026.11.02.02.42.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 02:42:40 -0800 (PST)
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Date: Mon, 02 Nov 2026 02:42:21 -0800
-Subject: [PATCH v24 13/15] arm64: dts: qcom: kaanapali: Add CCI controller
- nodes
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=PLArGcC/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iDqsYta+sD2q5o8p0DPh7y6Wrcz5zoiHh2zaQ0PwrqkdOIG55q6EzUTS/pnz0c6tHkqdLoek/qRHeah6DRJcts0bUsdIVgQSYmSmhvOGhjVop8ufE7YjF8UYdIDm/RG0jUvVIrB+gL6Ip+Yw4m9zXqqwSjgckoz+Z1hZ4NNkGGHd8sepWpurTfQB7SsWvJa5TjaV4ok/AOP5wb/K7XQgFfN4L/S2/6XjukBkDKRBvaf73/g1BRVkaI4yx7kECcxx59KxpMN4ZYvWziEolStObq7VolQzhhZ/95LPwazwxDpGRHmviS+HBBDeg4q7X97IdSXT0Yx9FBMeNRMCrLPrGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eYhKLsJCXbY3Viq9xoCBiDnByextfZ3CPyp+K6Xi8/E=;
+ b=wKRIDzUscgmgoo+nV7k4CSdO6IISoGJb+WFgrFslNEi5U0sNSPyufX7PFUWNC5LubL+7Z3ZprBB5C6sMGETQsrLNiFm5x1B8H7CogXViVR4ue+GY4f8mp/tzZpefLOacBFNSBpliSlZ8HEsNXXr4ZafnDpj7SSyZ510V0sdCMCiglGJ36n16q7Yq+hCT4qA6iV1BNMkM5R9qdDmwjUkJosK2fp5y/kfpg1b9prlS7KOTKz/QrYiZVfQvLXO7sQf0s+7aJ0dF97N/NymPeOGUtaz8/oHA7FA48UC3OQGQfuqatcnvMLKYm3eOfBrAGmoIGv7hVht2qANxdY17MPWFHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eYhKLsJCXbY3Viq9xoCBiDnByextfZ3CPyp+K6Xi8/E=;
+ b=PLArGcC/jKWZNkDPdyiL4+fJhQXEGQtmieDEqX7CzN6E61DIOcph2VInPrmD6EHN3n7MOGPs9xAI7VXuGHMxY79uDZuS321RvkkNfEe/1pjA+ioDcaWmstTVqgRe2M23YdC/mr0nsEqBNxGUq7wI8VIQE1pAMxa6D/XCEbBat4I=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW3PR12MB4491.namprd12.prod.outlook.com (2603:10b6:303:5c::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 10:46:05 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 10:46:05 +0000
+Message-ID: <5e643ba4-0573-4d1b-9439-25f05e58a8cf@amd.com>
+Date: Mon, 2 Nov 2026 11:45:57 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
+To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Alex Deucher <alexdeucher@gmail.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+References: <20261020100034.759183-2-phasta@kernel.org>
+ <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
+ <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
+ <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
+ <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
+ <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
+ <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
+ <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
+ <f9a47d563f896e0789fffa72df5847e2878cbe5e.camel@mailbox.org>
+ <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
+ <3a81450158fe5a46d76257c5018eaf5592168f18.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <3a81450158fe5a46d76257c5018eaf5592168f18.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1P223CA0024.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:208:2c4::29) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,415 +124,331 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-kaanapali-camss-v24-13-d6b8f3f6f66f@oss.qualcomm.com>
-References: <20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com>
-In-Reply-To: <20261102-kaanapali-camss-v24-0-d6b8f3f6f66f@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
-        Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.16.1-dev-17221
-X-Authority-Analysis: v=2.4 cv=SeZi5fRu c=1 sm=1 tr=0 ts=6ae86927 cx=c_pps
- a=Z3eh007fzM5o9awBa1HkYQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=09nyjJ-fxQ_OzqxZyrIA:9 a=QEXdDO2ut3YA:10
- a=eBU8X_Hb5SQ8N-bgNfv4:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX8fwoniRZrb2h
- kOM9VaWqfT8lRTN87TB8jRG87GM+RjFJd0maU+0pOoUdyx1wGIn8vaC0CX5Udx2y/QowGRhaKwU
- 39hmQy463IFzHlPaaki+U+g/re64wpjwO/zIUxouvfXGSWKa2PKkcT3MvsEfTejfcSS+kLoZQHN
- zgonpIM1uoXTxqd2zWOYlUdhLOQUkiThZm3gdWSN6PIrzf3WR348rKLJcdiyWZxsTuc5KWjLsHR
- OTBV4Wr2Qg/7LhE4GyL3boyIiDLM66a19PQ+ovUsMUFJZDDFY9akci8bDmczD5psopmF0bxgCmZ
- 7KJvk7R4mHwFARqtt0gXoqVH4KCI7lH1uoYhysKZHCWRlvfHU/1R7rcUkAfLgYej7SA2KTq3gHg
- MdaNRNBSk0nIcCcJbjeI9r4dvt+Z174I4HpYHMRm8E7AoHyUkpzKqL9zieStc7X3vHkcI/EPA0E
- 8BBpqDupCKNpmE3VXug==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MiBTYWx0ZWRfX7nmH2FxPsB0N
- ZKrcHIoWa0QlyuFVnlp05brMPgbZ2BaY1Ye/Lfg28+QxTyBWAeaOosvar5YqTmcyrPJhfUM29nv
- Ex8LOh/OmQx0l/G61bt5beg41Dt9N/A=
-X-Proofpoint-ORIG-GUID: UtFPA9CblV5v14YDPVilBVQI1Yr112SP
-X-Proofpoint-GUID: UtFPA9CblV5v14YDPVilBVQI1Yr112SP
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 clxscore=1015 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020042
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW3PR12MB4491:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86b3b191-a3a6-4abb-804f-08df38ce7eaf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|921020|261021123027099003|11063799006|5023799004|4143699003|56012099006|261009223027099003|261028144727099003|261022075727099003|261021121427099003|261026121527099003|261026140227099003|261022105027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	FQ7cRKwTLvk5FaY+OYg3vJJJEroWhCsS7zbKjNzChmGFuUbKjrrcl65ZMAEm+iTbzYQFQ/xVLWSoP2+YvmBJ8B7yPC8VENAJ6dVF1KarTu51h92i9bGiCX3iyDsiXMPhTNt9e8nMmNkn1Sfd2OCK3kPmbW+JDL1/cQvzWy/sn30bLn1RAPWMPrEaAei3bXJt07DpUioH3dcjUSh+SSDbLjm4jkbqHqPI17MBay4OLsdzOi0s51UP5e7G3pX3CIIZwK78R5uspCu8tpuVJK8/xn/C6X3gKveBaok6OmiB6q0bB4+wlptCxzfy1iEy31aQN7n/133wiBfnnT5mQWCLe3qgxDlXH9mTz3WKi+ZiN2Pl7uCs5D+V1JYbXd1Fb7hS27dvDFpCQF73CD6dkj4hx3og2vomL+kK4qc5/K0cKQX7IVfJdEkGiu5L8m44sdyg/6+CiWbBM/kl68K89dtmKuP4Fz9jAyWLUy9pwCaaiZvFYToBKYRK4x25cJL66Zc52UWFeLIkb2ok4tQheh5GDsKUNuCTabxogTtRHMSFiWebOZPMGA/ViZNJG1utfrfUnfG/gBtGxAiS1K+Qa/2C2ekWPw8bWV+Wwc3T4R8n9AUbZoW9EZl3vh8zaHjq3iL3fjrZcyU4DpVYILBXPniZbzKhoubaET65yz3CoNj+mHr3Hlzx8/+FTfbWuPVbLuKi1InN4bappzIeuO9p61Spcg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(921020)(261021123027099003)(11063799006)(5023799004)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261022075727099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZHlUazZ0SmRVOWhoYWtBVklqL1p5aExOMDczSVZMaEc5MFBDSjY5V2NtOEVQ?=
+ =?utf-8?B?YkZid0hXeCsxVjRBa0JJU01qTnJmUWNLQjlCTVJaN2VmT2p2WDBBWWo1QXNJ?=
+ =?utf-8?B?Z3g2Y1JWZVEvcGQyajlUa2lrWFdmUnEvSlNuNEJXcE1ReERiazg0UFE0ckx0?=
+ =?utf-8?B?SmFOMG9VM1pOMHdjUHk0eGt5TGVHQ0dObTRSbno3bWIvdGc1dXlwSmJWaDEw?=
+ =?utf-8?B?SFpobHBseDJmRjNCbmx0MEpESTFXN2xjNTJUc1I2SXZzMHBhdVByVmpIN1VW?=
+ =?utf-8?B?U2plMDVoSEgxa05pSzJKdXVnTEU1ZUhZNHRKWWY4bEY2MFZ6SmV5cmZjVUda?=
+ =?utf-8?B?bGk5cktLQlQrRUg4VitnMkh0TndPeHg3Um5HSytzSUVyUGkweVpaSHZLeUps?=
+ =?utf-8?B?eGswQ2hWN1NaTFRzOVc4aU1CMWN4SFM0WGJleHR2akxkbktBWElLcWNXWUYx?=
+ =?utf-8?B?UGhjdjZBNVNIano0KzI5ZzhZSmZsSmtGcWJiZ0t3TzNCTEUrbWRrTThXSXJJ?=
+ =?utf-8?B?RmJQdGZCNmltMnRKQ1RMNVdYelVGelpUY0ZsclBja3A2dFhLS3ZmMzJUY2JX?=
+ =?utf-8?B?K3VXUkNxS1FsbTZaN0E4RUgxS3hpVnBUZWtQRjRoM0l2T3pyVVlIWXl3K3cx?=
+ =?utf-8?B?Um9nVWVaWEdYMHFhbjRTV0FiYVZzamNNTk40dy9rVlJvd2dCbDdiQ3VTb0NY?=
+ =?utf-8?B?bzhsMkRHNVlTK0hlWkg1TkNJVFRHLzV3Ykppc0xCUkxtTUJ2SytDNEpTaG1z?=
+ =?utf-8?B?SFg4a0NtbXk1MHpjS0pNWEdrUXJBMmxuOHhXZHdFNGE5dHpNVnZsYlZ0WVdw?=
+ =?utf-8?B?VjE2eml6WkIvTlNWUStLSWMxb0NHWFR0NjRHRjRqQUViTk5EelAwTVR1V2Z4?=
+ =?utf-8?B?aEtOYnd4a2lLVzBGVkJ4ZjE0TlZkUEJ1WVNTU3k4YkdhdWhjbXpydVZxT2NW?=
+ =?utf-8?B?dUdzNDMwQk8zRnZFbUxYQmZYZ0RYYTJTc21SOEhSTFdDV3hJN1hudm1nSlQv?=
+ =?utf-8?B?VzlIVzFXWkRZeGlKM2xmRVFQbU4ycWJweGlJOE9FK2M5ZUcwL2pMZkQ5Tlc1?=
+ =?utf-8?B?VVJuWldmN0lqVncyMW8xTEpsOVJrM2lZZ3FDMEdjY3lPbitTeXQ2V2hNdS8x?=
+ =?utf-8?B?amlDRTE1ekg0dEhEUUxTd2hOQmQ2NlE1b1FrSThxRkI3c2Erb29qZTdtWmVX?=
+ =?utf-8?B?UjVIcHdsSHlTK05qUHpibjY1MENmYUpVdTNsVS8xRGNaRWJHZ1NHRmdkb2lN?=
+ =?utf-8?B?d3hncE5LVUJLeloyWHM3OXJ3SGcvWWFxdG9OS0lKamhYejdYSUxDYmNSNU1z?=
+ =?utf-8?B?enhQQ210Y1F4ZlBJSkFxK2dFVjdFb0xKUVBFTmtmMDBJaFlTUm11Sk5taU01?=
+ =?utf-8?B?THozK2ZmdFovSlZHY0VJS3BBNGVRMUJBZkRjenQzTmNGYnVvVlRnbEg1WHZR?=
+ =?utf-8?B?US9vRWE4ellmR24vV2NMUHlienNjSUlYMWdyd2lRRWZnODV4Y3ZuWVJyM2VC?=
+ =?utf-8?B?cXdmTFMyQXpmbiszcVhwQVhFOUdQUlMvaE9rWmc4MjF6UTg3RHZxb3F6engz?=
+ =?utf-8?B?YjFjNWpodWg2UHdzS01wdTczYzFDaTU5WGtVMHRvN2xQTVpKd2JNSGQ2TW1M?=
+ =?utf-8?B?UnRmTG5xUUlicXBERGFRdGhuU0NVRU9RRWliaUJXTWRteE9halNTT2hDUzJD?=
+ =?utf-8?B?YnpUTTdxcys2V0pRUmtwVTBCdlAweUhuVndKMTFsZkZqNTUxYXBCWmUxOTk2?=
+ =?utf-8?B?bTREN2phQVhnd2ExZ0lxdm50YUoxTTI4YVpKMDliNEJUbmxrWGM4RG5aZi9M?=
+ =?utf-8?B?MHFlaEhRK0NTR00yOUxGdk13di9saldvK0s4VmJtUnNSbTJSRkpBK0VQQjFH?=
+ =?utf-8?B?MlZ4c2I1ZklXWDRJSVBSSTJSbWNCeWtXRjNidzlURDk2bVY5RHlQTjNnajRy?=
+ =?utf-8?B?dHYycEY3dE5RenpvUDJreVFJY1Rta0lMQXA4S01YMHRzRWU1NXpYd1A3S2g4?=
+ =?utf-8?B?STgrWkR1T05JdTBHOC9lbHc2NUF4eHpXMy9CQnl5VHpvdFoyZlYvSVV5KzFn?=
+ =?utf-8?B?ZlQ3WDBqUHMxbjFkTHpCSXZrczFsS05Cdm4ydVVSWkpMczdKVmdjcjVzSGFY?=
+ =?utf-8?B?dWJRakZ3MFYzQ2ovYms5R2RuTy8rUzIrL20rcENtc0ExYTBLZER4UHloS1I4?=
+ =?utf-8?B?Y0pXMEIxc0xGengvd1h6R3hzalJkR0xnVms0b2FDT0FhSkI1RXdmVjE5TkxU?=
+ =?utf-8?B?WGNRc3FJMUVMN0dMU1BLMVlEMnVTMzJRV0wrT1F6YWRNcTE0VGlvQ3ZjeFNC?=
+ =?utf-8?Q?MrgAvaup8s2wWf0FMW?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86b3b191-a3a6-4abb-804f-08df38ce7eaf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 10:46:05.1295
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ORHRPEd9tyMaLudUpbSW2qe4zm9JAME0+K0yw+iyIWsXRY5W8oP5TWk4FrZB1N+C
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4491
 
-Add the three Camera Control Interface (CCI) controllers present on the
-Kaanapali SoC. Each controller provides two I2C hosts used for camera
-sensor control, so define the controller nodes and their pinctrl states.
+On 11/2/26 10:35, Philipp Stanner wrote:
+> On Wed, 2026-10-28 at 14:38 +0100, Christian König wrote:
+>> On 10/28/26 10:47, Philipp Stanner wrote:
+>>>>> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
+>>>>
+>>>> This bug is exactly what I'm trying to prevent here.
+>>>
+>>> What is your proposed strategy for preventing it?
+>>
+>> nouveau_fence_signal() is consistently used by all signaling path to
+>> both signal and cleanup a fence.
+> 
+> No, you miss the point. Look at the bug. It exists because nouveau
+> thinks it can drop a reference now because the fence is signaled.
+> 
+> I grant the point, though, that this is actually a refcounting issue.
+> The path that is signaling does not have its own extra reference.
 
-The first bus has two CCI bus master pinouts:
-cci_i2c_sda0 = gpio109
-cci_i2c_scl0 = gpio110
+Well yes and no.
 
-cci_i2c_sda1 = gpio111
-cci_i2c_scl1 = gpio112
+It's true that the path which needs the extra reference should have one and drop it as soon as it doesn't need it any more. But the real question is why does that path exists in the first place?
 
-The second bus has two CCI bus master pinouts:
-cci_i2c_sda3 = gpio113
-cci_i2c_scl3 = gpio114
+What nouveau seems to do here is to install a callback on it's own fence to do some cleanup when the fence signals.
 
-cci_i2c_sda4 = gpio107
-cci_i2c_scl4 = gpio160
+But that is nouveaus own fence, why doesn't it do the cleanup after it has explicitly called dma_fence_signal_*()?
+>> When we stop calling callbacks with locks held and signaling fences
+>> from dma_fence_is_signaled() and dma_fence_enable_signaling() nouveau
+>> can call nouveau_fence_signal() consistently from all cleanup paths
+>> with the proper handling.
+>>
+>> This makes it completely unecessary to have those cleanup hacks as
+>> well as the nouveau_fence_release() callback.
+>>
+>> Background is that you can then put the fence context directly after
+>> the fence is signaled 
+>>
+>>>> This problem only exists because we call the backend operations with
+>>>> the lock held!
+>>>
+>>> Nope, this particular bug exists because Nouveau thought that it can
+>>> drop its reference when dma_fence_is_signaled() returns true, which is
+>>> not the case, because the fence backend has a race condition there.
+>>
+>> No it doesn't, the fence backend works exactly like intended.
+> 
+> You mean the lockless checking of a bit that is set under lock-
+> protection works as intended?
 
-The third bus has two CCI bus master pinouts:
-cci_i2c_sda5 = gpio108
-cci_i2c_scl5 = gpio149
+Yes, exactly that and it is not even a performance improvement in the sense that it makes things execute faster.
 
-cci_i2c_sda6 = gpio115
-cci_i2c_scl6 = gpio116
+In other words we have use cases where the latency needs to be as low as possible and the state change that a fence has signaled visible to other CPU cores *before* the callbacks have finished executing.
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/kaanapali.dtsi | 303 ++++++++++++++++++++++++++++++++
- 1 file changed, 303 insertions(+)
+Take the "gang submit" use case as an example, here we have two submissions to two different HW engines which depend on each other. After filling the common ring buffer submission A busy waits on submission B to start and drain the ring buffer again. This busy waiting inside the HW consumes power and so drivers try to avoid it as much as possible.
 
-diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-index e107bcdf0f8e..fbd65c2ad95e 100644
---- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-@@ -3746,6 +3746,117 @@ camss_csiphy5_in_port: port@5 {
- 			};
- 		};
- 
-+		cci0: cci@941b000 {
-+			compatible = "qcom,kaanapali-cci", "qcom,msm8996-cci";
-+			reg = <0x0 0x0941b000 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 426 IRQ_TYPE_EDGE_RISING>;
-+
-+			clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-+				 <&camcc CAM_CC_CCI_0_CLK>;
-+			clock-names = "ahb",
-+				      "cci";
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+
-+			pinctrl-0 = <&cci0_i2c0_default &cci0_i2c1_default>;
-+			pinctrl-1 = <&cci0_i2c0_sleep &cci0_i2c1_sleep>;
-+			pinctrl-names = "default", "sleep";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+
-+			cci0_i2c0: i2c-bus@0 {
-+				reg = <0>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			cci0_i2c1: i2c-bus@1 {
-+				reg = <1>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
-+		cci1: cci@941c000 {
-+			compatible = "qcom,kaanapali-cci", "qcom,msm8996-cci";
-+			reg = <0x0 0x0941c000 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 427 IRQ_TYPE_EDGE_RISING>;
-+
-+			clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-+				 <&camcc CAM_CC_CCI_1_CLK>;
-+			clock-names = "ahb",
-+				      "cci";
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+
-+			pinctrl-0 = <&cci1_i2c0_default &cci1_i2c1_default>;
-+			pinctrl-1 = <&cci1_i2c0_sleep &cci1_i2c1_sleep>;
-+			pinctrl-names = "default", "sleep";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+
-+			cci1_i2c0: i2c-bus@0 {
-+				reg = <0>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			cci1_i2c1: i2c-bus@1 {
-+				reg = <1>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
-+		cci2: cci@941d000 {
-+			compatible = "qcom,kaanapali-cci", "qcom,msm8996-cci";
-+			reg = <0x0 0x0941d000 0x0 0x1000>;
-+
-+			interrupts = <GIC_SPI 428 IRQ_TYPE_EDGE_RISING>;
-+
-+			clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
-+				 <&camcc CAM_CC_CCI_2_CLK>;
-+			clock-names = "ahb",
-+				      "cci";
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+
-+			pinctrl-0 = <&cci2_i2c0_default &cci2_i2c1_default>;
-+			pinctrl-1 = <&cci2_i2c0_sleep &cci2_i2c1_sleep>;
-+			pinctrl-names = "default", "sleep";
-+
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			status = "disabled";
-+
-+			cci2_i2c0: i2c-bus@0 {
-+				reg = <0>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+
-+			cci2_i2c1: i2c-bus@1 {
-+				reg = <1>;
-+				clock-frequency = <1000000>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
- 		csiphy0: phy@9523000 {
- 			compatible = "qcom,kaanapali-csi2-phy";
- 			reg = <0x0 0x09523000 0x0 0x2000>;
-@@ -4534,6 +4645,198 @@ tlmm: pinctrl@f100000 {
- 			#interrupt-cells = <2>;
- 			wakeup-parent = <&pdc>;
- 
-+			cci0_i2c0_default: cci0-i2c0-default-state {
-+				scl-pins {
-+					pins = "gpio110";
-+					function = "cci_i2c_scl";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio109";
-+					function = "cci_i2c_sda";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci0_i2c0_sleep: cci0-i2c0-sleep-state {
-+				scl-pins {
-+					pins = "gpio110";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio109";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci0_i2c1_default: cci0-i2c1-default-state {
-+				scl-pins {
-+					pins = "gpio112";
-+					function = "cci_i2c_scl";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio111";
-+					function = "cci_i2c_sda";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci0_i2c1_sleep: cci0-i2c1-sleep-state {
-+				scl-pins {
-+					pins = "gpio112";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio111";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci1_i2c0_default: cci1-i2c0-default-state {
-+				scl-pins {
-+					pins = "gpio114";
-+					function = "cci_i2c_scl";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio113";
-+					function = "cci_i2c_sda";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci1_i2c0_sleep: cci1-i2c0-sleep-state {
-+				scl-pins {
-+					pins = "gpio114";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio113";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci1_i2c1_default: cci1-i2c1-default-state {
-+				scl-pins {
-+					pins = "gpio160";
-+					function = "cci_i2c_scl";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio107";
-+					function = "cci_i2c_sda";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci1_i2c1_sleep: cci1-i2c1-sleep-state {
-+				scl-pins {
-+					pins = "gpio160";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio107";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci2_i2c0_default: cci2-i2c0-default-state {
-+				scl-pins {
-+					pins = "gpio149";
-+					function = "cci_i2c_scl";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio108";
-+					function = "cci_i2c_sda";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci2_i2c0_sleep: cci2-i2c0-sleep-state {
-+				scl-pins {
-+					pins = "gpio149";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio108";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci2_i2c1_default: cci2-i2c1-default-state {
-+				scl-pins {
-+					pins = "gpio116";
-+					function = "cci_i2c_scl";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio115";
-+					function = "cci_i2c_sda";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
-+			cci2_i2c1_sleep: cci2-i2c1-sleep-state {
-+				scl-pins {
-+					pins = "gpio116";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+
-+				sda-pins {
-+					pins = "gpio115";
-+					function = "gpio";
-+					drive-strength = <2>;
-+					bias-disable;
-+				};
-+			};
-+
- 			hub_i2c0_data_clk: hub-i2c0-data-clk-state {
- 				/* SDA, SCL */
- 				pins = "gpio66", "gpio67";
+Another example is scheduling dependent page flips etc...
+>> I agree that we made tons of mistakes here but that is actually one
+>> of the few things which we got right on dma_fences from the very
+>> beginning.
+>>> A race condition that was allowed for performance reasons.
+>>
+>> Well it is at least partially for correctness as well.
+>>
+>> It is mandatory for quite a number of use cases that the signaling
+>> status becomes visible before the callbacks finish because otherwise
+>> you run into race conditions with the callbacks again.
+> 
+> That's not what I mean. There are two things here:
+> 
+> a) signaled-bit is read without lock-protection
+> b) signaled-bit is set before callbacks execute
+> 
+> fixing a) makes b) irrelevant.
 
--- 
-2.34.1
+Not it doesn't. It prevents intentional execution of multiple things in parallel.
+
+> But that's not even my point in this mail.
+> 
+> 
+> I'm still interested btw in who is busy-polling on a fence, waiting
+> until the signaled-bit gets true (that would be the "performance"
+> argument).
+
+Well that is the point I'm trying to explain. Nobody is busy polling the signaled bit! That is not why we do that.
+> If you want to know when a fence changes from unsignaled to signaled,
+> use this function:
+> 
+> dma_fence_add_callback()
+> 
+> problem solved.
+
+That would enable interrupts.
+
+>>> What signaling handler are you referring to?
+>>
+>> Take a look at the hack nouveau_fence_is_signaled() does for example.
+>> The cleanup part the other signaling call path do is completely
+>> missing here because the function can't take the fctx->lock.
+> 
+> Again, ops->signaled() merely has to read an atomic64_t and return a
+> bool. Driver locks are not required here.
+
+Yes they are. Take a look why nouveau installs the callback.
+
+>>
+>> Yes, but if we want to get away from the external lock concept in
+>> dma_fence we must allow drivers to take their own fctx->lock inside
+>> the enable_signaling callback.
+>>
+>> Just take a look at what nouveau_fence_enable_signaling() does, that
+>> is only possible because the dma_fence framework has grabbed fctx-
+>>> lock before calling this function.
+>>
+>> The alternative is forcing drivers to use lockless approaches for
+>> their internal handling, and that is much much worse than that a
+>> dma_fence signaling status is visible without taking the lock.
+> 
+> […]
+> 
+>> Just take nouveau_fence_enable_signaling() as an example, if we don't
+>> use fctx->lock as external dma_fence lock then the whole approach
+>> used here doesn't work any more.
+> 
+> My entire point is that the driver does not need any driver-lock
+> conflicting with the fence-lock-order at all.
+
+And that is what I strongly disagree on.
+> I tried to point this out several times, but you keep iterating back to
+> "this is what nouveau does".
+> 
+> That nouveau does it does not proof that it's necessary. It just proofs
+> that nouveau does it.
+
+But nouveau is a really really good example because it never installed the same workaround to the problem modern drivers amdgpu or XE have.
+
+Yes it is possible to work around the problem in drivers, it's just not a good idea because you are moving the problem from the framework into the drivers.
+
+>>>>
+>>> My impression was more that central design criteria for dma_fence (like
+>>> module unload of the driver who issued your fence, which is designed to
+>>> live arbitrarily long) were ignored, there was no clear guidance for
+>>> drivers how they should use what callback, and then driver problems
+>>> were solved in dma_fence, for instance with this shared lock. So same
+>>> story as with drm_sched.
+>>
+>> Yes, exactly that.
+> 
+> Good!
+> 
+> So we agree that the dma_fence backend should give clear guidance about
+> what a driver must, must not and should do in its backend_ops
+> implementations.
+> 
+> Right?
+
+Correct, I completely agree on that.
+
+> Because so far the conversation sounded to me like "the driver must be
+> able to do whatever it wants and therefore needs to be able to grab
+> whatever locks".
+
+Yes, because that is something drivers should be able to do. Not allowing drivers that is a bad guidance from the framework.
+
+It pushes the drivers into the wrong direction of using fragile approaches.
+
+The much better guidance would be to have a single signaling path in which drivers call dma_fence_signal_*() so that drivers can start to cleanup after doing so.
+
+It is still possible that drivers mess things up with both approaches, it's just that I think it is less likely with that one.
+>> And that is strong evidence. Nouveau is actually the perfect example
+>> of why this approach causes so much trouble for driver
+>> implementations.
+> 
+> Calling Nouveau a "perfect example" is like calling Ronald McDonald a
+> role model in dietary choices.
+
+Oh that is a good one. Thanks for brightening up my day :D
+
+> Nova is being written right now, for reasons.
+
+My point is that nouveau is a good example just because it is so broken.
+
+Take a look at amdgpu, it does the whole interrupt signaling with RCU protection and doesn't even implement the is_signaled callback for the same reason nouveau has bugs regarding the fence signaling.
+>> And such guidance should not exist in the first place.
+>>
+>> It is up to the driver if they want to use locks for their internal
+>> state protection and the dma_fence framework should absolutely not
+>> enforce anything it doesn't need to deal with.
+>>
+>> That the dma_fence lock should protect the state of the dma_fence is
+>> something I can perfectly agree on, but that does not include the ops
+>> call chain because that isn't dma_fence state in the first place.
+>>
+>>> The only evidence I have ever seen is the fence-list-lock, and it's
+>>> just not clear at all why any callback would need access to that.
+>>
+>> Because they need to clean things up after signaling.
+>>
+>>> Let's walk it through together, shall we?
+>>>
+>>> ops->release() and ->wait(): deprecated
+>>>
+>>> ops->get_XXX_name() -> never needs driver locks
+>>>
+>>> ops->signaled(): "Driver, here you read an atomic integer, the sequence
+>>> number, and tell the fence backend whether this fence shall be regarded
+>>> as completed"
+>>> No need for any driver lock.
+>>
+>> Incorrect, you can only work without driver locks here when you delegate the cleanup.
+>>
+>> In other words either to a worker or the ->release callback, both are things we try to avoid.
+>>
+>> Again see nouveau as a perfect example of the problem.
+>>
+>>> If this particular driver also signals fences through an interrupt
+>>> handler, it can take a list lock, then signal the fence. The ops must
+>>> not do that.
+>>> Why would a driver need both modes, sw *and* hw signaling? And why then
+>>> is it supposedly the case that both paths need to keep a list updated?
+>>
+>> Because the signaling through the interrupt is mandatory for correct,
+>> the signaling through the is_signaled callback is then on top for
+>> performance optimizations.
+> 
+> is_signaled() never conflicts with any lock, see my list above.
+> 
+> I think at this point you and I should really first get in sync
+> regarding what the backend_ops are supposed to do, because we seem to
+> turn in circles a bit in our discussion.
+> 
+> And the only ops that seems to be controversial and that informs the
+> nouveau argument is ops->enable_signaling()
+> 
+> What should enable_signaling() do, in your mind? What should we tell
+> the driver to do in there?
+
+The enable_signaling callback let's the backend know that some code depends on the fence to signal.
+
+The backend can do different things to enable that, e.g. enabling HW interrupts, start a worker to suspend HW queues, or start a worker to poll the status in certain intervals etc...
+
+The point is the framework doesn't know what the backend needs to do and it also shouldn't limit what the backend can do here.
+
+What the framework needs to do is to give the right guidance, e.g. check if enabled signaling is called multiple times and only forward the first one to the driver, check if the fence is already signaled, check if the backend is even still around...
+> And why does nouveau even implement it, when its interrupt handler will
+> ultimately signal the fence anyways. Since, as usual, nothing is
+> documented, and one enable_signaling function carries literally the
+> name "no_signaling", I don't give it the benefit of the doubt and just
+> assume that this is broken, bad design.
+> 
+> 
+> My impression is that ops->enable_signaling() and having an interrupt
+> handler signaling fences is mutually exclusive design-wise.
+
+Well if a backend wants to implement both use cases then it is necessary for it to enable/disable interrupts based on calls to enable_signaling.
+
+And when you have only one interrupt control for multiple fences then you need to common lock to protect that one interrupt control.
+
+Regards,
+Christian.
+
+> 
+> 
+> P.
+>>
 
