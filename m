@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616901;
-	b=qhpMouNA6JP40ojWzOW4roUCqjkvzw25P5yitArF+UJCOhCYgCsgRKEN8ACPkOpj0Ca0
-	 euctpL4jNBem4tg9yi4106udevt8LufAKWDpr09kviCM9q/4fUDsMuqi88oP54nceRlrZ
-	 1yhTEDCgfhCmzxyBiyRjqISsDLHIFck9BCgx7olYzUO9fKP7PFwqjq/k/KoNZ8kzErkxn
-	 vebfotQP+4lwnW0kRxuaTKI9ssynBRJ2Q2dAeWstrdOtBOQu1myIYXGOp0XQ+FmyAe5tR
-	 JqWAvMPwg+4KCy3K9s7sPBIghbRKk/95d0ZkT243lPbrhMjS8xIz717cGL6Sjvr4GwA==
+	t=1793616903;
+	b=bJyFA/F8sgMT3y94ZRWUjJSrGQB38lDVN0jycgCXhMC6m8LlOZftTl7m6J6SsdfzWPLb
+	 yp+ubCQ+6sXDmtrxUkqO2m0hA90colfjbXPgw8vHq0xqf3LTHcoiZDvFVNiftFargQaV1
+	 DUPDfOcMCiKMW/lg0LHCP8rMK2WCDoFsaVNh064gh3E2zyy3zQA10d9YsoTr+q2DnxfK3
+	 B1ylpcv6EXxIm24m5tHErwM+sU/QE/GZnpoC+HKH4J2zVaREgFUfTsuSbt1gIPLm3dl9I
+	 aL+h/PKOYSldwyCLHj6yolAhMPXk5TH+OJUc6WC+skFhQveVOuxKrCbzvkDmGpbONrA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616901;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616903;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UvuKznDDisWzpXJVj1vFfyQGluqPP7ZnNuIADfdvL1w=;
-	b=DHrEJ2OgND3IjLVZOburHY5d90uj6ZEzuoDVJgjmtIwSifc5/IY+RZX+eFcwBFngWMb9
-	 +7UlJYeT3T1VP6EBLP5XZeFF8Xw6p597e9BRIIiqVUGGKvrrQtUA6DcV11ZxgOUPLYtnf
-	 oiku+nnyEeXB5zlLK+wpunIUiZSE1zxgvTu6AN/3f+9eRmaWFR0ktF2oWCPvUEgzwRq2f
-	 lh5jxP64LmPNppOjMfdPdRjNlX1f+C4v5gi0HhaNqymXR5XbZYEKgzxIa+qPTfLtW84Wd
-	 e43uEZ2Mw/8sZdvHchBzYj6S4fYLAcbQkyYnpbrXS/FK0EuIszM3VyHU+GvHExMsW8g==
+	bh=uSesaCAY+uIr3oSTEUZtMDZF+TzayUSuf5NedXKeA8o=;
+	b=VYiUucBhtM/96J2QsXC/4/iPsWXYx1uAy3L2gHO/YCXGDqTSOoyHjK0kkWJaDx+4pucn
+	 p/LMIFwyeN3RlVBZbf6kcnazyPYnrqLMMbpN9LhWn0enVUmxtSrqUD9sg81XNnulk+4IR
+	 lyjwOCR4HW5oHiwUNVThlEiPeBBbCmehr/BinIXZyNbq4+xyAV3RacmKCXnRoBqP0nPmR
+	 fQZMPUjo0XafJBhUbQMF3MaZ16zZ9PMMApTOpnpIUHA85T0w3nS2i0BKw2B3kpptxCIj4
+	 qoVjNbi/Br/OjjAHL2YmE9mQDy0/zdYuLSV10dg2Dm2Hv+qkUoOXwWFlBHrUg2z5XLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Heh2dHHA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rjf5coCS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C079606A324
-	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:55:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6076606A324
+	for <linux-media@vger.kernel.org>; Mon,  2 Nov 2026 10:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Heh2dHHA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36731F00A1C;
-	Mon,  2 Nov 2026 10:54:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rjf5coCS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7A2D1F00A1A;
+	Mon,  2 Nov 2026 10:55:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793616901;
-	bh=UvuKznDDisWzpXJVj1vFfyQGluqPP7ZnNuIADfdvL1w=;
+	s=k20260515; t=1793616902;
+	bh=uSesaCAY+uIr3oSTEUZtMDZF+TzayUSuf5NedXKeA8o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Heh2dHHAEvcV3QenFMWZTt6kM0t6urxfM1SScVB7aD2B3BdLsP989ZiHK2pNimAAA
-	 70ZuAp/FscS2VGdcdWoU4Y9gZY6VXSP6d+wwLJMpyIN82x6Nu7wrrPWN3ic5nnHlP2
-	 8oMkyYeVKKR28zZuCGKmkh40fcfCl99BqM7HZBwOmaYqe0XyElsUGz24pQmdvV7G2L
-	 jIjTk+uTcF2L4dGsTewGWFDQ8mksSRT5DTdN+xaH21c+045L6reWlmXcGmmxEAfVue
-	 1HbBc2dqYmAxmfguku60QHDLHW7E5QrDnOMmDDEusy2pEdvKBV5zhTZZdCA8itMVKh
-	 kbzaV4xNpcyKQ==
+	b=Rjf5coCSfkwrRqfAnpU69wkPv6Uh1wghXxL6qi/qqJkRqnFy+h62k83jc1wNuKPQW
+	 FsFt9g/ufceyJNJDCK+1grHJS+eG2PQxGaHjVNqfg2j8hJTFog7HoPUM8TKZr5pQrZ
+	 ujjafjev7fogIiAwRY9KFGyc9d2Jq+6MsIMiYbCgXiSsddi/MFeXkgBppLJYq2yS3L
+	 nso1s/C9KYwG766b0oWbNVoIqCkh1bP3+4baFkLtYuOEPbdgJrIHKPyaU4pZKX0VkC
+	 vhnEjTPbglrQ1kL36oTWpLoCbjFYgCLCxHznW1PEmfqA+LeFSRLBE05hjiGkS5wD/Y
+	 Lnnphxk+THv6g==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH 03/13] gpu: drm: omapdrm: call cec_s_phys_addr only if EDID is present
-Date: Mon,  2 Nov 2026 11:36:54 +0100
-Message-ID: <d58e8dbe49a0af87e2e98463d620e33a8115c109.1793615824.git.hverkuil+cisco@kernel.org>
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: [PATCH 04/13] media: i2c: adv7511-v4l2: call cec_s_phys_addr only if EDID is present
+Date: Mon,  2 Nov 2026 11:36:55 +0100
+Message-ID: <2e25c7038aecc2720a5fe9afc43ca840e4609e98.1793615824.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793615824.git.hverkuil+cisco@kernel.org>
 References: <cover.1793615824.git.hverkuil+cisco@kernel.org>
@@ -67,83 +65,23 @@ call cec_phys_addr_invalidate. This helps the CEC framework differentiate
 between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
 a Physical Address.
 
-This driver is one of the few that was doing this inconsistently.
-
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/omapdrm/dss/hdmi4.c     | 7 +++----
- drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c | 5 +++++
- drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h | 5 +++++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+ drivers/media/i2c/adv7511-v4l2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-index bd6c4d2dcdc8..056bede2ec8a 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
-@@ -439,7 +439,7 @@ static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
- 		if (hdmi_runtime_get(hdmi))
- 			return;
- 
--		hdmi4_cec_set_phys_addr(&hdmi->core, CEC_PHYS_ADDR_INVALID);
-+		hdmi4_cec_phys_addr_invalidate(&hdmi->core);
- 		hdmi_runtime_put(hdmi);
- 	}
- }
-@@ -487,12 +487,11 @@ static const struct drm_edid *hdmi4_bridge_edid_read(struct drm_bridge *bridge,
- 		unsigned int len = (edid->extensions + 1) * EDID_LENGTH;
- 
- 		cec_addr = cec_get_edid_phys_addr((u8 *)edid, len, NULL);
-+		hdmi4_cec_set_phys_addr(&hdmi->core, cec_addr);
- 	} else {
--		cec_addr = CEC_PHYS_ADDR_INVALID;
-+		hdmi4_cec_phys_addr_invalidate(&hdmi->core);
- 	}
- 
--	hdmi4_cec_set_phys_addr(&hdmi->core, cec_addr);
--
- 	if (need_enable)
- 		hdmi4_core_disable(&hdmi->core);
- 
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
-index 852987e67e40..60d0d85dccad 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
-@@ -322,6 +322,11 @@ void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa)
- 	cec_s_phys_addr(core->adap, pa, false);
- }
- 
-+void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core)
-+{
-+	cec_phys_addr_invalidate(core->adap);
-+}
-+
- int hdmi4_cec_init(struct platform_device *pdev, struct hdmi_core_data *core,
- 		  struct hdmi_wp_data *wp)
- {
-diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
-index 1ca5b5ca8a99..234690dd3a1e 100644
---- a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
-+++ b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
-@@ -15,6 +15,7 @@ struct platform_device;
- /* HDMI CEC funcs */
- #ifdef CONFIG_OMAP4_DSS_HDMI_CEC
- void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa);
-+void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core);
- void hdmi4_cec_irq(struct hdmi_core_data *core);
- int hdmi4_cec_init(struct platform_device *pdev, struct hdmi_core_data *core,
- 		  struct hdmi_wp_data *wp);
-@@ -24,6 +25,10 @@ static inline void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa)
- {
- }
- 
-+static inline void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core)
-+{
-+}
-+
- static inline void hdmi4_cec_irq(struct hdmi_core_data *core)
- {
+diff --git a/drivers/media/i2c/adv7511-v4l2.c b/drivers/media/i2c/adv7511-v4l2.c
+index 27e0e2c31dbd..1cc87049c6be 100644
+--- a/drivers/media/i2c/adv7511-v4l2.c
++++ b/drivers/media/i2c/adv7511-v4l2.c
+@@ -1466,7 +1466,7 @@ static void adv7511_notify_no_edid(struct v4l2_subdev *sd)
+ 	ed.present = false;
+ 	ed.segment = adv7511_rd(sd, 0xc4);
+ 	ed.phys_addr = CEC_PHYS_ADDR_INVALID;
+-	cec_s_phys_addr(state->cec_adap, ed.phys_addr, false);
++	cec_phys_addr_invalidate(state->cec_adap);
+ 	v4l2_subdev_notify(sd, ADV7511_EDID_DETECT, (void *)&ed);
+ 	v4l2_ctrl_s_ctrl(state->have_edid0_ctrl, 0x0);
  }
 -- 
 2.53.0
