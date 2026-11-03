@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691632;
-	b=ngUO3rA2jOriIHPFlmydTewMqZ4TSRKC/k1EVOCBgZBDZ1o8RXqwSbu2Ehvj3sTfOvnj
-	 CN71HZ9s+RpiKX8SyWHRpn5bCupMUMbmvJL5K8NsutnJ8Z4MF87Q4CJPHN0hEV5M2iVec
-	 zLzOMryMHfGKT49v17T0BCBfmFsGQvLyBNB/5ZfC+jjYRlAre6cZmKBnRu0w5xDtTobZE
-	 9T7z9iuiFzZAGg97+++bfvu5Udd0iRvkSyQri7sOAO5tCAqCRCkN+2l/hhc9PaYcAS+U0
-	 bavBlw2Piv6UP6qx/mrhTq6agECE/yPEK5QOP1gNgqbZqmIc7i+EXMhwQD62CWpOTNQ==
+	t=1793691634;
+	b=KSBWMFA7a0fB9ZmyCRu0FzuOxYHxYLhM0H8tmROkYvXf/CKJKeHQTkht25jN1wb7+43s
+	 bY5ppoQGabShT2stBWPT/70pfTYNajt8wkcoSCw2UDR6HQd2pgMos+KyEP5N5TvumyNwI
+	 5YBJndQ5vmFnwuDscxjj0NKBKLQcs6oSpemztz+TiOIU8m5eIIrWmwglIfjO8VcWshhdt
+	 W7GoLhfO0P2E/y/WkExeLQYaiEfdFKY5rvPzb5ZQLCDg0jTczqtZNBZywPMUSg8aNYXLL
+	 CL1YMtz8VTx4x8Ijz/6CuDN5eaOsJYFaGv4TXZ1VzBZtMw61AJ4nRZQ543korP4S9Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691632;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691634;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Tk4nRbPLQTDD3Vxx5Td4+Sb0G3KcQ+agEAA/kRIvTS0=;
-	b=BDrK/i0w3SgNOAcV2hwLib9buVbXB/qLNNrwf5HwnIEIjQ4OU0ge700kyc+AjgDSUqsR
-	 eWINMFvIb3wpFNUJjZZ5JqCXYBZssTWtCQvWbHgG3iN4BN/ojrzOxCiB6b3cfFnNkZAZ+
-	 qftTOAMmTUbjZ9WtmnjoF4N4nOIIRi9Ge7aFBLDzqdF5xCXKTaRGhr436EuksZbL19djd
-	 rpbCFT21J0KXE08ydRPbm/mhbVN1A+SasxfUqcj7L3OB3MnyZQv5gGaAd0ye6zwEArIYq
-	 Z+nhRwJqUFpO5boU/IpzPphAJ2kNdj97FoegaRBlzi2TGKtIeaNpHfEWaSL8AlHhwSQ==
+	bh=q5D6NcSVIATB1SU1kSC859+uaa0n8diQ4fmz2USuJuI=;
+	b=1lun5S72HrUg4zfwkaff7aYG1rXsW7MfHgLH1SNx4LH0KOxPbxLZ7xEIeqObdiKxdyR7
+	 6UaSJMAdMl6Gk+MNycFmjd3bEvsO2A86B4siUR9KQJn9sNlsOcBWEWoKL2kfHwFHxTrlz
+	 uQ9XNr8aI11ov4yx+7fdcWFukoVgH2k3iGSvZeWwwCmAhyJJaIBEFMPkMf6gLX+qm/ZeJ
+	 QM0icHRhEkBXaFskcF8OOW12BMvDLllvfU29V8WpFVd6vg62ODm2axVdirDx50BA/bJ1k
+	 GHMbjfhyuWz+fzouxOkRb6uQsV0oGBywBJsCZ0BXku9XJldtja6SjLFBUoyiTAvBKkw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dy7im1XX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1LWu+O4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A26B606A324
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E39606A329
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dy7im1XX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 097971F00A02;
-	Tue,  3 Nov 2026 07:40:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1LWu+O4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8618F1F00A1B;
+	Tue,  3 Nov 2026 07:40:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793691632;
-	bh=Tk4nRbPLQTDD3Vxx5Td4+Sb0G3KcQ+agEAA/kRIvTS0=;
+	s=k20260515; t=1793691633;
+	bh=q5D6NcSVIATB1SU1kSC859+uaa0n8diQ4fmz2USuJuI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Dy7im1XX1VJQ/tcbj04356aSPaqfdKnkjpqoN2u0blSHi8i3VZ7IMfqe7xLNdxAds
-	 3AuCXrtKpDaN8G11SMtz2w6XwbYbOJbElyk5mka8f+7pWyBfCk/ZlYiil6eGsbUb90
-	 2HtTWzMREfRUXAhfPKl5pg06+Kg/woNa4jHNYTJ7uL7LiGxTObDQZBL8rI2HVZ7h64
-	 lpyxEaV8Y0a4smVdef0Vv4SDUSONVBIHnexfQEdDbX8/7Nme5NpHAxI/qaYE7CRZF+
-	 yu0+sE/O9HBSB33Pwt2/496ccJKr83iQMuv0XW5KnOe0A79JhB8V1DD1TfT9vzA0U5
-	 UiCarpjyLQvUw==
+	b=i1LWu+O4FR9gejshqQx8l6/Ks4sd1Sn1/foX7xym52VWCWYgkt0Bp09ZhX/L06n/K
+	 NaFm1MhYvKUMcTHLbdHrm6rDjcqAF2d2R52SyYGThYl9F1fLgTKta4fBHsmRvWxRoC
+	 lnA+/2+M6tVf/RZp9Z4X0cZ/mIq6uiI5u4BJM/66D7d9ayieyEtDLAZPGq2L7fncon
+	 wju4r7HoyHYyIhlvyK0oBMMowPRs9ELzib4TVPMQl5Pnt6yJw1heZDQ/QanPOcBdrp
+	 9mOS6lX12OTgLzfCnWk4M/UZqIe2DKJ3YYGdDNRKNo3BjS8eGuFlds83zW1svyuFV6
+	 lUQMlm3kHayUA==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv2 06/13] media: cec: core: improve cec_notifier_phys_addr_invalidate
-Date: Tue,  3 Nov 2026 08:31:57 +0100
-Message-ID: <395c54fe832fcf48626928f858a98ac0fbf1c308.1793691124.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv2 07/13] media: uapi: cec.h: add CEC_CAP_HAS_EDID_PRESENT/CEC_LOG_ADDRS_FL_EDID_PRESENT
+Date: Tue,  3 Nov 2026 08:31:58 +0100
+Message-ID: <b168e5e844ef01f26cbf5aaba92761823df83ff1.1793691124.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793691124.git.hverkuil+cisco@kernel.org>
 References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
@@ -60,155 +60,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cec_notifier_phys_addr_invalidate must call cec_phys_addr_invalidate
-instead of cec_s_phys_addr. This ensures that the CEC framework knowns
-that there is no EDID.
-
-Also update cec_notifier_cec_adap_register(): it has to remember if
-the last set physical address was from an EDID or because there was
-a disconnect.
+Add a capability and a new flag that is used to indicate if an
+EDID is present.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/cec/core/cec-notifier.c | 26 +++++++++++++++++++--
- include/media/cec-notifier.h          | 33 +++++++++++++++------------
- 2 files changed, 43 insertions(+), 16 deletions(-)
+ include/uapi/linux/cec.h | 28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/media/cec/core/cec-notifier.c b/drivers/media/cec/core/cec-notifier.c
-index 8cf1474d0361..5a4588487ea3 100644
---- a/drivers/media/cec/core/cec-notifier.c
-+++ b/drivers/media/cec/core/cec-notifier.c
-@@ -29,6 +29,7 @@ struct cec_notifier {
- 	struct cec_adapter *cec_adap;
+diff --git a/include/uapi/linux/cec.h b/include/uapi/linux/cec.h
+index fdfc97a6e4ec..8f7c7a4cb505 100644
+--- a/include/uapi/linux/cec.h
++++ b/include/uapi/linux/cec.h
+@@ -325,27 +325,27 @@ static inline int cec_is_unconfigured(__u16 log_addr_mask)
+ #define CEC_MODE_FOLLOWER_MSK		0xf0
  
- 	u16 phys_addr;
-+	bool edid_present;
- };
- 
- static LIST_HEAD(cec_notifiers);
-@@ -113,6 +114,7 @@ cec_notifier_conn_register(struct device *hdmi_dev, const char *port_name,
- 
- 	mutex_lock(&n->lock);
- 	n->phys_addr = CEC_PHYS_ADDR_INVALID;
-+	n->edid_present = false;
- 	if (conn_info)
- 		n->conn_info = *conn_info;
- 	else
-@@ -135,6 +137,7 @@ void cec_notifier_conn_unregister(struct cec_notifier *n)
- 	mutex_lock(&n->lock);
- 	memset(&n->conn_info, 0, sizeof(n->conn_info));
- 	n->phys_addr = CEC_PHYS_ADDR_INVALID;
-+	n->edid_present = false;
- 	if (n->cec_adap) {
- 		if (!n->cec_adap->adap_controls_phys_addr)
- 			cec_phys_addr_invalidate(n->cec_adap);
-@@ -162,8 +165,12 @@ cec_notifier_cec_adap_register(struct device *hdmi_dev, const char *port_name,
- 	n->cec_adap = adap;
- 	adap->conn_info = n->conn_info;
- 	adap->notifier = n;
--	if (!adap->adap_controls_phys_addr)
--		cec_s_phys_addr(adap, n->phys_addr, false);
-+	if (!adap->adap_controls_phys_addr) {
-+		if (n->phys_addr == CEC_PHYS_ADDR_INVALID && !n->edid_present)
-+			cec_phys_addr_invalidate(adap);
-+		else
-+			cec_s_phys_addr(adap, n->phys_addr, false);
-+	}
- 	mutex_unlock(&n->lock);
- 	return n;
- }
-@@ -190,6 +197,7 @@ void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa)
- 
- 	mutex_lock(&n->lock);
- 	n->phys_addr = pa;
-+	n->edid_present = true;
- 	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
- 		cec_s_phys_addr(n->cec_adap, n->phys_addr, false);
- 	mutex_unlock(&n->lock);
-@@ -216,6 +224,20 @@ void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
- }
- EXPORT_SYMBOL_GPL(cec_notifier_set_phys_addr_from_edid);
- 
-+void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
-+{
-+	if (!n)
-+		return;
-+
-+	mutex_lock(&n->lock);
-+	n->phys_addr = CEC_PHYS_ADDR_INVALID;
-+	n->edid_present = false;
-+	if (n->cec_adap && !n->cec_adap->adap_controls_phys_addr)
-+		cec_phys_addr_invalidate(n->cec_adap);
-+	mutex_unlock(&n->lock);
-+}
-+EXPORT_SYMBOL_GPL(cec_notifier_phys_addr_invalidate);
-+
- struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
- {
- 	struct platform_device *hdmi_pdev;
-diff --git a/include/media/cec-notifier.h b/include/media/cec-notifier.h
-index b1c839734124..15e9bcb5b887 100644
---- a/include/media/cec-notifier.h
-+++ b/include/media/cec-notifier.h
-@@ -80,7 +80,10 @@ void cec_notifier_cec_adap_unregister(struct cec_notifier *n,
-  * @n: the CEC notifier
-  * @pa: the CEC physical address
-  *
-- * Set a new CEC physical address.
-+ * Set a new CEC physical address. @pa may be f.f.f.f, indicating that
-+ * the EDID does not contain a valid Physical Address.
-+ * Use @cec_notifier_phys_addr_invalidate() when there is no EDID at all,
-+ * i.e. there is no video sink connected.
-  * Does nothing if @n == NULL.
-  */
- void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa);
-@@ -96,6 +99,17 @@ void cec_notifier_set_phys_addr(struct cec_notifier *n, u16 pa);
- void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
- 					  const struct edid *edid);
- 
-+/**
-+ * cec_notifier_phys_addr_invalidate() - set the physical address to INVALID
-+ *
-+ * @n: the CEC notifier
-+ *
-+ * This is a simple helper function to invalidate the physical
-+ * address when the video sink disappears.
-+ * Does nothing if @n == NULL.
-+ */
-+void cec_notifier_phys_addr_invalidate(struct cec_notifier *n);
-+
- /**
-  * cec_notifier_parse_hdmi_phandle - find the hdmi device from "hdmi-phandle"
-  * @dev: the device with the "hdmi-phandle" device tree property
-@@ -143,6 +157,10 @@ static inline void cec_notifier_set_phys_addr_from_edid(struct cec_notifier *n,
- {
- }
- 
-+static inline void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
-+{
-+}
-+
- static inline struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
- {
- 	return ERR_PTR(-ENODEV);
-@@ -150,17 +168,4 @@ static inline struct device *cec_notifier_parse_hdmi_phandle(struct device *dev)
- 
- #endif
- 
--/**
-- * cec_notifier_phys_addr_invalidate() - set the physical address to INVALID
-- *
-- * @n: the CEC notifier
-- *
-- * This is a simple helper function to invalidate the physical
-- * address. Does nothing if @n == NULL.
+ /* Userspace has to configure the physical address */
+-#define CEC_CAP_PHYS_ADDR	(1 << 0)
++#define CEC_CAP_PHYS_ADDR		(1 << 0)
+ /* Userspace has to configure the logical addresses */
+-#define CEC_CAP_LOG_ADDRS	(1 << 1)
++#define CEC_CAP_LOG_ADDRS		(1 << 1)
+ /* Userspace can transmit messages (and thus become follower as well) */
+-#define CEC_CAP_TRANSMIT	(1 << 2)
+-/*
+- * Passthrough all messages instead of processing them.
 - */
--static inline void cec_notifier_phys_addr_invalidate(struct cec_notifier *n)
--{
--	cec_notifier_set_phys_addr(n, CEC_PHYS_ADDR_INVALID);
--}
--
- #endif
+-#define CEC_CAP_PASSTHROUGH	(1 << 3)
++#define CEC_CAP_TRANSMIT		(1 << 2)
++/* Passthrough all messages instead of processing them. */
++#define CEC_CAP_PASSTHROUGH		(1 << 3)
+ /* Supports remote control */
+-#define CEC_CAP_RC		(1 << 4)
++#define CEC_CAP_RC			(1 << 4)
+ /* Hardware can monitor all messages, not just directed and broadcast. */
+-#define CEC_CAP_MONITOR_ALL	(1 << 5)
++#define CEC_CAP_MONITOR_ALL		(1 << 5)
+ /* Hardware can use CEC only if the HDMI HPD pin is high. */
+-#define CEC_CAP_NEEDS_HPD	(1 << 6)
++#define CEC_CAP_NEEDS_HPD		(1 << 6)
+ /* Hardware can monitor CEC pin transitions */
+-#define CEC_CAP_MONITOR_PIN	(1 << 7)
++#define CEC_CAP_MONITOR_PIN		(1 << 7)
+ /* CEC_ADAP_G_CONNECTOR_INFO is available */
+-#define CEC_CAP_CONNECTOR_INFO	(1 << 8)
++#define CEC_CAP_CONNECTOR_INFO		(1 << 8)
+ /* CEC_MSG_FL_REPLY_VENDOR_ID is available */
+-#define CEC_CAP_REPLY_VENDOR_ID	(1 << 9)
++#define CEC_CAP_REPLY_VENDOR_ID		(1 << 9)
++/* CEC_LOG_ADDRS_FL_EDID_PRESENT is available */
++#define CEC_CAP_HAS_EDID_PRESENT	(1 << 10)
+ 
+ /**
+  * struct cec_caps - CEC capabilities structure.
+@@ -405,6 +405,8 @@ struct cec_log_addrs {
+ #define CEC_LOG_ADDRS_FL_CDC_ONLY		(1 << 2)
+ /* Configuration failed */
+ #define CEC_LOG_ADDRS_FL_CONFIG_FAILED		(1 << 3)
++/* EDID is present */
++#define CEC_LOG_ADDRS_FL_EDID_PRESENT		(1 << 4)
+ 
+ /**
+  * struct cec_drm_connector_info - tells which drm connector is
 -- 
 2.53.0
 
