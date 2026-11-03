@@ -1,87 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793738951;
-	b=25smzg6kcvmHt//20DogmlA5GDdFpR8ArtUN8NZSwNW/gsiCQS7+XtTsEDxCowVQ/tSk
-	 Fm2qX7Z/SCYY2CV35LNqL6tqJ+gA1ZrBZyE0k23ZUrV0l7/hpJXuxfe+3jSi9XqEInmAA
-	 6FI8WTqJJymY2ivDTWxa2TrRiRdzOGi0nDyJgqevgWWbx/opMf/k3ZwAXGeBHqt97u6/O
-	 KW4rIAGT2RNgxXhTmsLfqj58aVJifsUWlM5qoOzojC6S5Pza/2MAj5PWLyCbFieQWLk/V
-	 i48dwnWyop8+W/eV4w3C9GgtG+rfNxZ8wTekll8AazCKMFuCmkTj25FODqeYdSTs6jw==
+	t=1793739276;
+	b=alZyIBNAl+dgeU8wja67jnhQQrTQpaKjEaoon3V6Gc2AreN+oag6M4PnAFecdV33rKtN
+	 lNpbCP8GMsA+Z0J/ttS1P9YkEQVnYUnn0X1Qy2wPws6P82MnXDDn/Iq99+6iEE75BgO3S
+	 hT8spnxCYaUA3HUMcr2XDxMrXEri79lpY1DQKVuhkFfOiVCxcz8RjYn6vczUiH3nLRLtu
+	 754l/qLwqIrt0ssuAowmCYvJQRTtzPtZ9LQIdCGXnBX3USRkN2xtGc49heXTFxEn4elkx
+	 ujESgLdsLbaVioxPeiozcikB4XFec0zkDlHrhxTXThh8LH0jRXA7b3Zdprq/+r1o8TA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793738951;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=a1LBtSFDDW+dZd1Ie0BrKFlQ9aP7tXVm4v+Drm1eB60=;
-	b=nBXMePtmhP4WoUoIxcpA2dDIbUDUsfW+zg2khizQo2E18n015L+1ehFWGyu/J0oy+vvW
-	 rfPoZAdLE/yJYeMbzhPgkzWgh19at6vBNc3GoTiHRuH+3wPFgwIbyUsSkLlAVWYdFMJZp
-	 n/sw4TxnsLxvOhHV9AzhSN+TI44iV9XvLGVbJbpXt6qQTUggmuV4O2b1JLE9hLpEI4R43
-	 SvgUfHRVgEYca2hxumyRbUzYeajncL14OM1VdYI1SvXSR1qjDJ8qwimxF1DoV/ZyXlhz0
-	 qCG4SO2VuMbTBVJFJWt1SMNIVLF4Ii7872u32FSrg/n9C3LYYBrOvQeFRJDo2hl2SBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793739276;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=/A80EODLCyXaaGfYKqpHl1AEtmb4ixEKWz6DBGz/WQs=;
+	b=wbF4TmEvo/86gG7pYpSSkKCZHCgzgCUBAS1GqVILHid5gNLEZWBYRUoCx64jDQrJLp3Z
+	 s+DlDwXVWe2rsCNWX+C8v7CcMebBCRejzC6RnXLtd2X0lmrrNXNo1iFGFpglUUCjhV8il
+	 i2LaucvAB98NGLxnxGubivmtp8rDMCP45xsGxnlarYVWJgHqEsALML2AoHRyALJuqMQ46
+	 BBqbttEjOIrg1JZMyte0YynoFh8Pl9UJCH2FOjWQ9lk797a7C0Bpiz2JaLy7NlwUfR/VZ
+	 2auOEO4V+uHJMqIFueLjZLGydFpqCFo8zdL4bGdrnyhgHKa+qdyJq1L1pmGqy7slRPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eSL+j6WB;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xWMKjz2f;
+	arc=none smtp.remote-ip=209.85.128.169
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9D12606A31B
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 20:49:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9D12606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514FE606A32D
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 20:54:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 514FE606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eSL+j6WB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793738951; x=1825274951;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ctuk3FQQsAE0OrXfuppyyWSn2H2HRSx9W6Ybfw7LuC4=;
-  b=eSL+j6WBv8aJ1uHdFzLmYqfrS6u//5N5Pb89ifmSmcW7yKBtWT2vQr3M
-   VcqR5AXCG1tXc9YB5rnZdcAQ14xuovGNLdl0yiwxYirYsmrE86oLQPmbJ
-   Zn4plHuSXzxfQEVYCXLwQE/KzqSN1M0a2QqtSraqtfOmB+Aoco5MyN3pN
-   GLnICaho6YcpNo2g+znlzaQr/Wx0BxB5xAK3ZtdB8/HLywKi+zyGXwo56
-   Bb9gSTNsrwnqdntEauolVd2ZzOivfv7J5DQbG+nxrnFDn0kajnbEiilC3
-   5n1DvnKZ8I0RN2Ze7qI7zuVqunrP+1J6XSDUtyJL6APHsDzFlG1Z3N5uh
-   Q==;
-X-CSE-ConnectionGUID: 4tDSgZ7iQayGUk44oGHdGg==
-X-CSE-MsgGUID: iFotYo28T9edKm5nBy8mgQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2356338"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2356338"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:49:06 -0800
-X-CSE-ConnectionGUID: 8zwDuvcXRyypbwT0656k9A==
-X-CSE-MsgGUID: urKyUDC1SC6zn3Wb86460g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6619497"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 12:49:03 -0800
-Date: Tue, 3 Nov 2026 22:49:00 +0200
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Ruslan Bay <ruslanbey@proton.me>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH v2 07/12] media: ipu6: Add IPU4P ISYS firmware
- operations
-Message-ID: <aupIvPx8vxLl03zg@ashevche-desk.local>
-References: <Jmj6noRGE-pr4vr97B1H6Qt2u2m3wHDQvZF0tOg9fMulZS1SrNHgIFVW-y2bx0wwnnd6FHLIL1oaKmJ9_57yTU_pedSW_Ni9-R8IJUqaoek=@proton.me>
- <aukIRKuHl73rsH9s@kekkonen.localdomain>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xWMKjz2f
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b0f59a5fdaso186627b3.3
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 12:54:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793739274; x=1794344074; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/A80EODLCyXaaGfYKqpHl1AEtmb4ixEKWz6DBGz/WQs=;
+        b=xWMKjz2f24N7OKwl4uSDOvuxlNLn5Py1ca2wVzSkGeUL+AettLzhvVM0YhUWZD4dze
+         PdI2V8dKw6JpN/yJahTam97guOJbvw9Z7BD7CcKiD+0HZtuy/19eQEuvvbnw77oKYu7x
+         hyN3c79ZTgDEdWW24uy714LlOnwpl9GhZqgvF32VJYvOw/bh9l8y+b4mPEbtN6m6FDAo
+         jh5Mdp1BNbAC752TteA7tevs3WR+eA41r30iAXlxRKFgw7WHrpCbqtRJp8wUXhdkZMzp
+         gZSr4rgme9jkfa4P0NTFBoMPBtevKxdOqI8vtjQIEypl3vMbUYroG6wCF8m+y0vN8wwX
+         r0cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793739274; x=1794344074;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/A80EODLCyXaaGfYKqpHl1AEtmb4ixEKWz6DBGz/WQs=;
+        b=JxMG4UgIdW1/zHSHNM6MpbV8C0d0tcKk2Gxf1mUlmGJEfz5CSlh2GHf17SrsicFcNO
+         z0pDhxhgwtn8oz7TKOkpKns1sb4RzSKskhrHDwvz2rxGwop4ie1rXq0Fva0QafxG2Nwn
+         JKpQNYiO/IVrUfPTvMkf/HBv0fvc+UtPybFfRawAuYCW0SQ+cGQm3rllT63tej3IKcBp
+         HMGkr9h4aaiArFxkdtuE7Au21VkXXyS4Zx85qwP9I+4O+9cHFbsEhlxPj/S05rmXO8Wu
+         y2fUr9FTAPpvLOpjKBll/8Tonjb5daMFbHj6UgA4PWNDDCrLQhYdXqGUUwlIVut3Zb8e
+         Gm+w==
+X-Forwarded-Encrypted: i=1; AKwUvBxgiTjyc2rUNfnVwtGXtyQ34Ee6jiDXlexSQN3zBeDu20A9FxfKOXBD2avJBnNYEvOWSXxAFJNjzBs42g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OUSjXbEhytBQUIOWPnjlBaN7E2hhRCd1Z4UZRU/sgOdHgXswX
+	Cw/bfuZpZeuvnKhNBhIl2I99VmlRKvv8SA0sShKW5afY01gBM9d50mLe
+X-Gm-Gg: AYBFou1D2FJyWaH3b6IZRWJsqVxClo1WGqqmiAV6YJCKV+wOZD1ZoCbyX4rB5TGIyFy
+	tm7PJDWPqvzamUFmAqWR1BzZWsOWRJrZ1VHJJ/Skc72yIKNDPE46hsNAGdQff7lwr6chwGPt8lu
+	ikELDlTFG/Iom5AKkZ7pCWh5hPUvdjTYhfGtodDSK5x563pEig9HNXzb2p7vkoqKqKZDPxZzMCS
+	7s3um3j2ym9+z6FqF1fAvynF+LssQmI1suQgJyRn/IzRi8w2wV0BNMc4S6/u6K2srEezUwW7ew3
+	QCKYM4BM0zptkpt+MIqPECWawfpLKK7znUbr6hT6LAdo41lXn4nRmmRp6bCl0tD8e3htlCJnc3H
+	j/yIU7SbHRJHh/lAXbPcKYZ+/z5yZmUpqsurYvif952jD8k9jHl0q+xjzM951A00geMLOf7w1BL
+	EK+Wqfnw4XsNDoqKdf8EiArlaafGHXpTDJiDpmniLn44HXVCtrMMbrSUyyKKK/JAecosUFYMmeY
+	LvJpZlI3w2HZ52plQ6UZAwjvkRkV7tZQyqSaXN275Rp5UbB5rYVdl6e0xFwZehAXrdv8QKfxqgB
+	ZcR3aUibkpvxtGRYhSWs/cg+6mdc5BCeryW4rvqaVfkAG4JCgnN6BhvDdw==
+X-Received: by 2002:a05:690c:4992:b0:8b0:e680:616a with SMTP id 00721157ae682-8b2b66f45dcmr112559257b3.24.1793739274317;
+        Tue, 03 Nov 2026 12:54:34 -0800 (PST)
+Received: from daniel-HP-Stream-Laptop-14 ([172.56.75.102])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b309bb4406sm4805187b3.40.2026.11.03.12.54.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 12:54:33 -0800 (PST)
+Date: Tue, 3 Nov 2026 15:54:29 -0500
+From: Daniel West <daniel.west.dev@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+	Paul Kocialkowski <paulk@sys-base.io>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: [PATCH] drivers: staging: media: sunxi: cedrus: spelling correction
+Message-ID: <aupKBdon3N4Kpnkt@daniel-HP-Stream-Laptop-14>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,41 +102,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aukIRKuHl73rsH9s@kekkonen.localdomain>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 03, 2026 at 12:01:40AM +0200, Sakari Ailus wrote:
-> On Sat, Oct 31, 2026 at 12:35:24PM +0000, Ruslan Bay wrote:
+Correct spelling in comment.
 
-...
+Signed-off-by: Daniel West <daniel.west.dev@gmail.com>
+---
+ drivers/staging/media/sunxi/cedrus/cedrus_h265.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> > +	do {
-> > +		usleep_range(400, 500);
-> > +		ret = ipu6_fw_com_release(fwctx, 0);
-> > +		retry--;
-> > +	} while (ret && retry);
-> 
-> 	poll_timeout_us()?
-
-Why? We have a better fit: read_poll_timeout()
-
-> That'd be nice to fix in the original, too. Do we need a IPU4P specific
-> variant of this at all?
-
-...
-
-> > +	set->frame_counter = atomic_fetch_inc(&stream->buf_id) % 256;
-> 
-> & 0xff
-> 
-> ?
-
-This is awful in any case. This is not atomic strictly speaking.
-What is the idea behind?
-
+diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+index 780da4a8b5af..f57642c0d8fa 100644
+--- a/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
++++ b/drivers/staging/media/sunxi/cedrus/cedrus_h265.c
+@@ -755,7 +755,7 @@ static int cedrus_h265_setup(struct cedrus_ctx *ctx, struct cedrus_run *run)
+ 	}
+ 	cedrus_write(dev, VE_DEC_H265_SCALING_LIST_CTRL0, reg);
+ 
+-	/* Neightbor information address. */
++	/* Neighbor information address. */
+ 	reg = VE_DEC_H265_NEIGHBOR_INFO_ADDR_BASE(ctx->codec.h265.neighbor_info_buf_addr);
+ 	cedrus_write(dev, VE_DEC_H265_NEIGHBOR_INFO_ADDR, reg);
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.51.0
 
