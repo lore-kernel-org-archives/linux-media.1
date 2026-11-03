@@ -1,49 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793695053;
-	b=W6nego3c1GmsIl8JdMkU2/ogAf1v2FQsqAYt0vp3Sa/iiv7c71WMgeIvvNmrNZSSwVmX
-	 xOwxxqPavQM7qYunSsmMlqzoDbWwfIM2Kg5+y0uOzkq+r7emMTe8iqXFuler5GJ8/uSqz
-	 uQbKRxlzEFN0JBGGgWqWtgNWydwmf5hHj0H6wxANmk00/vKrZBV1BN9h0daXvhz6uQCWw
-	 Rnwyty9oUgPHa8Wmk3fc2/xeHBZZ0Lrk6FYgMbDTglqunnSIKSdca0OC+2jjQ81YbOnYp
-	 tssC6Hx6FdOkJqkWabawKR7zXoWjYkZR7O0KJ3PBu9ephvTkpfCdxYag/1LnePavE8A==
+	t=1793695815;
+	b=OnSQfIav49tOxg5X2vosKH45ef7RAtAEwUot6rKF/em/3diA3qxo1EnVTYovo00yxosj
+	 Peex+tgNhro+tOhEHWubzqDR+tFZC4LKSh+VSRoge95/ZNGpnX82aVv8EFVl+4VpzvmaF
+	 auGS0g8eUxBk4UM+hNA4r2fdWQqknLf8Rc315LNkjgGk+b6De6Z0ZJqbTUm6wpbI/EKCh
+	 IshyxwWVzhE+TzR/v+Td60SjdSpl+zqLgwzYGl4sT3+I6DoeqMMNGB9eyVGUNa9ojM6jn
+	 U5Yx+BhV1po3dutuyOfh0uvjTzcXoK3GLEazW1cmQGf9XBN28Iq91rvq9zGxMQ/oc8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793695053;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=I5C/I1Ny4wRL8l6oEnWPJ+zAmm2uMIIbu9aC+PVzetE=;
-	b=r4zstrJufP+ucIyLtRkeRSODWR468HpEUx8K4O4DLiR8FMk/U5paHnJe7i2kf2jnpYuP
-	 uYoakkdS1RomZM81LgKgycLMQ8wyRlmboHt1xwKllp7f2Q/4vPYZNlVhga27uOi6QKMjV
-	 k/BGodx1vNEexnevWttCrJOzniD5NE9vX4OBbpW+3iBOjYC6L8hSqPV8tOV7VpD11V1ew
-	 gyIS4usNnuHYRk8g5zLQpGufIlQSRdFPte+5MHv/+TqMK8JXmQ71CI01eczOxxrD5vyez
-	 FQxIrp3RceC9cRN5fDQXfH5AB5Sfvnklx40XNR5qFuhaGIYMFS2BEQJncAxMRUm6oMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793695815;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
+	 Subject:To:Cc:References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=xyyv00RDv+h2IFmUEvqQmBS2x3EOpc+Kzx0ylyqL+AE=;
+	b=BWpMmkcK+LZ3ydM2q0spiZ19SpebLf2CMt4NHEZe8iwCgrvJeb7eoUSoqOcXAfVqzDMe
+	 Kk/VP+ZfdrPUN3Z7QPH9jR5MGUzF8rYPQRfwSKvHGZ3djIMtv9gu5mAWm0o3AG+Z7zLN0
+	 KvORlns8SPRzlIrPBOtl+61xt4jkJdlETxPE0gm0cy438QVm4KphuMNQvR+6J89qvp87d
+	 UfWj5qhMiKJgLB1c5OAgX7AD2z5YC+6gO8IRyKxaDPOHogHG+ywhfLWqGHyAWj/P3/WZL
+	 6bclBfxNa4oEDqJ0m3lN/sp++HhXqEDcJtVvsYKzSgZ6tMlRU/txT/7K1Yo2ej0+OVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3wjA9Jp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 231A5606EE8C;
-	Tue,  3 Nov 2026 08:37:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 231A5606EE8C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXoZJJnelq9Io6AA--.1832S2;
-	Tue, 03 Nov 2026 16:37:29 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: saa7146: hexium_orion: Unwind failed attachment
-Date: Tue,  3 Nov 2026 08:37:38 +0000
-Message-Id: <20261103083738.1180466-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F620606A327;
+	Tue,  3 Nov 2026 08:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V3wjA9Jp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D8D91F000C1;
+	Tue,  3 Nov 2026 08:50:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793695815;
+	bh=xyyv00RDv+h2IFmUEvqQmBS2x3EOpc+Kzx0ylyqL+AE=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=V3wjA9JpanZ8ZdqwykivW/zvI7NADD+Oxjej2BtlzVenyf9bdeV4DFPTd8D8Ib+kZ
+	 Ree0sY5yumvQYAaIFnUw0eYRoxoOth7QIqkIWhTixgl1YDsJ8dFyWbzt5lAEuYrqxG
+	 8g3A0U2PlbSEHHRpgA3l+ZYG9COGwS53mMDAGMSDNOpBeMQlak11YLfXmDjBbJw3JP
+	 wCFydalGGRA0j3s59lw0Bzd33y1OG3qdqE6p/AnHq6Mo8UWyRCApXw0j0PIEJybwbt
+	 tGMvfyPxxP5YSlCqC1E4bCQoc+AO9VQNBD0rF02aTBEGDGjMQDmK71xJ+OeMSvLIjE
+	 WDTviZTGyFrZw==
+Message-ID: <129153ba-7e5e-470d-86a7-78c346c03d6c@kernel.org>
+Date: Tue, 3 Nov 2026 09:50:11 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -53,84 +51,344 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXoZJJnelq9Io6AA--.1832S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF4rZrWkZFyfurWxZw1fZwb_yoW8KF1kpa
-	93W3Z5trW8Gw47u3W7XF4UuFyrGrWfKay5Was8J3WavrnrCr1qg3s8ta48tFyDJayDJ3WY
-	v34j9w1UWrs5AF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUrv
-	38UUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEAA2rpWwr-jQABsv
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: videobuf2: publish buffers in bufs_bitmap under
+ mmap_lock
+To: Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa <tfiga@chromium.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-hexium_probe() registers an I2C adapter and stores the allocated private
-data in dev->ext_priv. If hexium_attach() then fails to initialize the VV
-layer or register the video device, the core frees its own resources
-without calling the extension's detach callback.
+Hi Ricardo,
 
-Release the I2C adapter and private data on both attachment failures, and
-release the VV layer when video registration fails after successful VV
-initialization. Clear the private pointer and return the actual video
-registration error. This follows the cleanup already used for video
-registration failure by the sibling Hexium Gemini driver.
+Thank you for the patch, some comments below.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/media/pci/saa7146/hexium_orion.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+On 02/11/2026 18:12, Ricardo Ribalda wrote:
+> vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
+> To keep vb2_mmap() safe, newly allocated buffers must not become visible
+> in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
+> held.
+> 
+> Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
+> memory is allocated and without holding q->mmap_lock. As a result:
+> 
+> - A concurrent mmap() can find a half-initialized buffer, and if buffer
+>   allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
+>   without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
+> - If fewer buffers are allocated than requested, they are already
+>   counted as active in q->bufs_bitmap before .queue_setup() checks
+>   whether the smaller count is acceptable.
+> 
+> Fix this by keeping new buffers only in q->bufs[] during allocation and
+> setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
+> and .queue_setup() succeed. Add a memory barrier pair on q->bufs_bitmap
+> so lockless vb2_get_buffer() readers also see fully initialized buffers,
+> and let __vb2_queue_free() read q->bufs[] directly when cleaning up
+> unexposed buffers.
+> 
+> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> ---
+> This patch was generated by an LLM, but supervised and reviewed by a
+> human (not the most handsome human, but a human).
+> ---
+>  drivers/media/common/videobuf2/videobuf2-core.c | 97 +++++++++++++++++++------
+>  include/media/videobuf2-core.h                  | 13 +++-
+>  2 files changed, 85 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+> index b0a6084f1757..185393078ce3 100644
+> --- a/drivers/media/common/videobuf2/videobuf2-core.c
+> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
+> @@ -427,19 +427,36 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
+>  }
+>  
+>  /**
+> - * vb2_queue_add_buffer() - add a buffer to a queue
+> - * @q:	pointer to &struct vb2_queue with videobuf2 queue.
+> - * @vb:	pointer to &struct vb2_buffer to be added to the queue.
+> - * @index: index where add vb2_buffer in the queue
+> + * vb2_queue_add_buffers() - publish buffers staged by __vb2_queue_alloc()
+> + * @q:		pointer to &struct vb2_queue with videobuf2 queue.
+> + * @start:	index of the first buffer to publish.
+> + * @count:	number of buffers to publish.
+> + *
+> + * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
+> + * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
+> + * them visible to vb2_get_buffer().
+>   */
+> -static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
+> +static void vb2_queue_add_buffers(struct vb2_queue *q, unsigned int start,
+> +				  unsigned int count)
+>  {
+> -	WARN_ON(index >= q->max_num_buffers || test_bit(index, q->bufs_bitmap) || vb->vb2_queue);
+> +	unsigned int i;
+> +
+> +	lockdep_assert_held(&q->mmap_lock);
+>  
+> -	q->bufs[index] = vb;
+> -	vb->index = index;
+> -	vb->vb2_queue = q;
+> -	set_bit(index, q->bufs_bitmap);
+> +	/*
+> +	 * Order the buffer initialization and the q->bufs[] stores done by
+> +	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
+> +	 * test_bit_acquire() in vb2_get_buffer(), which is also called
+> +	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
+> +	 * from a mem2mem .device_run().
+> +	 */
+> +	smp_mb__before_atomic();
 
-diff --git a/drivers/media/pci/saa7146/hexium_orion.c b/drivers/media/pci/saa7146/hexium_orion.c
-index 8ef2a4e8235d..95b3efee33ac 100644
---- a/drivers/media/pci/saa7146/hexium_orion.c
-+++ b/drivers/media/pci/saa7146/hexium_orion.c
-@@ -363,15 +363,16 @@ static int hexium_attach(struct saa7146_dev *dev, struct saa7146_pci_extension_d
- 	ret = saa7146_vv_init(dev, &vv_data);
- 	if (ret) {
- 		pr_err("Error in saa7146_vv_init()\n");
--		return ret;
-+		goto err_i2c;
- 	}
- 
- 	vv_data.vid_ops.vidioc_enum_input = vidioc_enum_input;
- 	vv_data.vid_ops.vidioc_g_input = vidioc_g_input;
- 	vv_data.vid_ops.vidioc_s_input = vidioc_s_input;
--	if (0 != saa7146_register_device(&hexium->video_dev, dev, "hexium orion", VFL_TYPE_VIDEO)) {
-+	ret = saa7146_register_device(&hexium->video_dev, dev, "hexium orion", VFL_TYPE_VIDEO);
-+	if (ret) {
- 		pr_err("cannot register capture v4l2 device. skipping.\n");
--		return -1;
-+		goto err_vv;
- 	}
- 
- 	pr_err("found 'hexium orion' frame grabber-%d\n", hexium_num);
-@@ -383,6 +384,14 @@ static int hexium_attach(struct saa7146_dev *dev, struct saa7146_pci_extension_d
- 	hexium_set_input(hexium, 0);
- 
- 	return 0;
-+
-+err_vv:
-+	saa7146_vv_release(dev);
-+err_i2c:
-+	i2c_del_adapter(&hexium->i2c_adapter);
-+	kfree(hexium);
-+	dev->ext_priv = NULL;
-+	return ret;
- }
- 
- static int hexium_detach(struct saa7146_dev *dev)
--- 
-2.34.1
+Move the memory barrier changes to a separate patch. I'm not at all certain these
+are needed. I noticed before that LLMs are very 'generous' with such things and
+I am not sure they know what they are doing.
+
+> +	for (i = start; i < start + count; i++) {
+> +		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
+> +			    test_bit(i, q->bufs_bitmap)))
+> +			continue;
+> +		set_bit(i, q->bufs_bitmap);
+> +	}
+
+So if I understand it correctly, the root issue is that vb2_queue_add_buffer
+sets the bit in bufs_bitmap, even though __vb2_queue_alloc() might free it
+again.
+
+I think these changes are a bit too extensive. How about just dropping the
+set_bit from vb2_queue_add_buffer()? And at the end of the reqbufs/create_bufs
+function call bitmap_set() to update bufs_bitmap?
+
+>  }
+>  
+>  /**
+> @@ -448,6 +465,8 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
+>   */
+>  static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+>  {
+> +	lockdep_assert_held(&vb->vb2_queue->mmap_lock);
+
+It doesn't hurt to have these asserts. But put these in a separate patch please.
+
+> +
+>  	clear_bit(vb->index, vb->vb2_queue->bufs_bitmap);
+>  	vb->vb2_queue->bufs[vb->index] = NULL;
+>  	vb->vb2_queue = NULL;
+> @@ -460,6 +479,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+>   * @first_index: index of the first created buffer, all newly allocated buffers
+>   *		 have indices in the range [first_index..first_index+count-1]
+>   *
+> + * The allocated buffers are stored in q->bufs[] but not published in
+> + * q->bufs_bitmap: the caller must either publish them with
+> + * vb2_queue_add_buffers() or free them with __vb2_queue_free(), both under
+> + * q->mmap_lock.
+> + *
+>   * Returns the number of buffers successfully allocated.
+>   */
+>  static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+> @@ -506,7 +530,9 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  		}
+>  
+>  		vb->state = VB2_BUF_STATE_DEQUEUED;
+> +		vb->vb2_queue = q;
+>  		vb->num_planes = num_planes;
+> +		vb->index = index + buffer;
+>  		vb->type = q->type;
+>  		vb->memory = memory;
+>  		init_buffer_cache_hints(q, vb);
+> @@ -515,7 +541,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  			vb->planes[plane].min_length = plane_sizes[plane];
+>  		}
+>  
+> -		vb2_queue_add_buffer(q, vb, index++);
+>  		call_void_bufop(q, init_buffer, vb);
+>  
+>  		/* Allocate video buffer memory for the MMAP type */
+> @@ -524,7 +549,6 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  			if (ret) {
+>  				dprintk(q, 1, "failed allocating memory for buffer %d\n",
+>  					buffer);
+> -				vb2_queue_remove_buffer(vb);
+>  				kfree(vb);
+>  				break;
+>  			}
+> @@ -539,11 +563,20 @@ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+>  				dprintk(q, 1, "buffer %d %p initialization failed\n",
+>  					buffer, vb);
+>  				__vb2_buf_mem_free(vb);
+> -				vb2_queue_remove_buffer(vb);
+>  				kfree(vb);
+>  				break;
+>  			}
+>  		}
+> +
+> +		/*
+> +		 * Stage the initialized buffer in q->bufs[]; it becomes visible
+> +		 * to vb2_get_buffer() only after vb2_queue_add_buffers() sets
+> +		 * its bit in q->bufs_bitmap under q->mmap_lock.
+> +		 */
+> +		WARN_ON(vb->index >= q->max_num_buffers ||
+> +			q->bufs[vb->index] ||
+> +			test_bit(vb->index, q->bufs_bitmap));
+> +		q->bufs[vb->index] = vb;
+>  	}
+>  
+>  	dprintk(q, 3, "allocated %d buffers, %d plane(s) each\n",
+> @@ -562,7 +595,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>  	struct vb2_buffer *vb;
+>  
+>  	for (i = start; i < start + count; i++) {
+> -		vb = vb2_get_buffer(q, i);
+> +		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
+> +		vb = q->bufs[i];
+>  		if (!vb)
+>  			continue;
+>  
+> @@ -580,6 +614,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+>   * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
+>   * related information, if no buffers are left return the queue to an
+>   * uninitialized state. Might be called even if the queue has already been freed.
+> + *
+> + * Buffers are looked up directly in q->bufs[] instead of through
+> + * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
+> + * never published in q->bufs_bitmap (because a later .queue_setup() call
+> + * rejected the allocated number of buffers) are freed as well.
+>   */
+>  static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
+>  {
+> @@ -587,9 +626,19 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	lockdep_assert_held(&q->mmap_lock);
+>  
+> +	/*
+> +	 * No buffers were ever allocated (e.g. REQBUFS(0) on a fresh queue),
+> +	 * only the queue state needs to be reset.
+> +	 */
+> +	if (!q->bufs) {
+> +		q->memory = VB2_MEMORY_UNKNOWN;
+> +		INIT_LIST_HEAD(&q->queued_list);
+> +		return;
+> +	}
+
+This change looks dubious. It doesn't appear to have anything to do with the actual
+change. If it is meant as an optimization, then I would just drop this: this situation
+almost never happens in practice, so it just adds code for no benefit.
+
+> +
+>  	/* Call driver-provided cleanup function for each buffer, if provided */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (vb && vb->planes[0].mem_priv)
+>  			call_void_vb_qop(vb, buf_cleanup, vb);
+> @@ -624,7 +673,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  		q->cnt_unprepare_streaming = 0;
+>  	}
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  		bool unbalanced;
+>  
+>  		if (!vb)
+> @@ -676,7 +725,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+>  
+>  	/* Free vb2 buffers */
+>  	for (i = start; i < start + count; i++) {
+> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
+> +		struct vb2_buffer *vb = q->bufs[i];
+>  
+>  		if (!vb)
+>  			continue;
+> @@ -1000,14 +1049,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+>  		 * VB2_MEMORY_UNKNOWN.
+>  		 */
+>  		__vb2_queue_free(q, first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return ret;
+>  	}
+> +	vb2_queue_add_buffers(q, first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> @@ -1125,14 +1176,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
+>  
+>  	if (ret < 0) {
+>  		/*
+> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+> -		 * from already queued buffers and it will reset q->memory to
+> -		 * VB2_MEMORY_UNKNOWN.
+> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
+> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
+> +		 * straight from q->bufs[] and resets q->memory to
+> +		 * VB2_MEMORY_UNKNOWN if no buffers are left.
+>  		 */
+>  		__vb2_queue_free(q, *first_index, allocated_buffers);
+>  		mutex_unlock(&q->mmap_lock);
+>  		return -ENOMEM;
+>  	}
+> +	vb2_queue_add_buffers(q, *first_index, allocated_buffers);
+>  	mutex_unlock(&q->mmap_lock);
+>  
+>  	/*
+> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+> index 4b4f4c15c53a..0b32ac7bc8fc 100644
+> --- a/include/media/videobuf2-core.h
+> +++ b/include/media/videobuf2-core.h
+> @@ -565,8 +565,11 @@ struct vb2_buf_ops {
+>   * @memory:	current memory type used
+>   * @dma_dir:	DMA mapping direction.
+>   * @bufs:	videobuf2 buffer structures. If it is non-NULL then
+> - *		bufs_bitmap is also non-NULL.
+> - * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
+> + *		bufs_bitmap is also non-NULL. __vb2_queue_alloc() fills in
+> + *		an entry before its bit is set in bufs_bitmap, so buffers
+> + *		must be looked up with vb2_get_buffer().
+> + * @bufs_bitmap: bitmap tracking which bufs[] entries hold a fully
+> + *		initialized buffer. Bits are set and cleared under @mmap_lock.
+>   * @max_num_buffers: upper limit of number of allocated/used buffers.
+>   *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
+>   *		     for backward compatibility.
+> @@ -1286,7 +1289,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
+>  	if (index >= q->max_num_buffers)
+>  		return NULL;
+>  
+> -	if (test_bit(index, q->bufs_bitmap))
+> +	/*
+> +	 * A set bit guarantees that the buffer is fully initialized, pairs
+> +	 * with smp_mb__before_atomic() in vb2_queue_add_buffers().
+> +	 */
+> +	if (test_bit_acquire(index, q->bufs_bitmap))
+>  		return q->bufs[index];
+>  	return NULL;
+>  }
+
+Regards,
+
+	Hans
+
+> 
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261102-vb2-mmap_lock-959e0cc4edb3
+> 
+> Best regards,
 
