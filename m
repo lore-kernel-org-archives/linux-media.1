@@ -1,114 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673626;
-	b=h751HJFZkrpmfuK02fyXBcREqSiCo8jmuqQEmyGMm6HmBeQsWLJwsRiZ+41GIvKvnAsw
-	 ynl0Rmd3sCFZUVUkD3E3NJb5uykoDTjcKuhHFeYNxDM+Keg/vBgvmQfJg6+sa4t3J8eiv
-	 1tBuXCZWgOpwxEDAALdVkd1gp7WQj6nCJsBHb5dVJPQPg4K0QBDgK7qM2p3GC+vdURNyP
-	 NtfpuQj+4qqStaNR9ouzuqfcFUz0vH+fJXNVaDDh8iD1WqMrC3ysziDypcgV51OgyXT/R
-	 tqR+MYC4AFRd+jhxNcM4gey9L+SN8v0yNkp2CpfZs6sCxv4jl35jIRTpbOVi5gtofkg==
+	t=1793674956;
+	b=uT3Uuok54A5/hFpJMbPJXKbZ9lfxKeWqChQzaQaNAkCjmuvicIWU7Gqimj0KoOdxEP0c
+	 +9vZ2W0XZZzET/G4BVEzeBlJskwTuD18QNK58bhi3Q80RczcmzXTABWjV7lJD9DmyZEoM
+	 3Fr6wLi2cYBwq8IK5bwLj9pOq2E2tMdIr5uhg84LShC0F5vZJKpJhCTL3k8SSzkwGCQTv
+	 oMgravQ+vPe2R3zG92+e8hx+qfPyTuefn/lzmGDZF2iHjrzHVtw5/FPz4cRylCiaelni8
+	 XpDVdPC5GThsMhAYkf4W63pwB7vBLW27Rsl7lZEYkirKvjtQBd36qtEbSGX+PQQFcog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673626;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=CTXFRAlDdP0mqd78M1HJAOng8psZxu116N3LePnYueQ=;
-	b=JEK4Rsgc9ZuaG1PW9o6SwQ7rEhtik9QQiMe2u65iWwIrM57fgmvny8sNCDqbnci5QTDc
-	 t5HRqosVTy8JOaACzj/n0ewVnWeapnH+D8KjRARLzhuPlShFZIm740kQiZ81T8TUc6KJY
-	 f1EuWbO20xx77IcjkaKlUeD+YXY32GAYo7czLWKoQAl9baGMgEeRxa0KW879BWPlBEbbQ
-	 VwOdb9Wi99Oeedf2tZ8gwzfp+mgzizr/e1V6BreKTXtC5rZg6VHgq+uLCYZVriGuT5Oam
-	 4IDYi5SxwySSfKU8nRPKisNxaRF1ajz06fFysNR29Jxx2sdXuMuMFwxL0GvLolU7Ehw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793674956;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 mail-alias-created-date:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
+	 X-Proofpoint-Spam-Details-Enc:X-JNJ;
+	bh=+MqhGtpViVg1xzaxLuI/LRkFUg+bXq2WVpjSwh8nGUU=;
+	b=f1oHXVdOCGM44q4woET+N95meo1ST4LPGq2+kk2NWp3KMD654RdRLLSHxnDy8T5Gpsdi
+	 jTks6EzLidpYbXRcBizn1O/vKSuEx3+hFI02SsPK5xhkGLZ3J9/pwhwBAv6m6QmgLaLSk
+	 Ud2Gs+99kOsh0synnZS+dC3uvE6wmMJRqmKNj727V6MD2HMHVxngPd8Jb9byHUgR9MCFE
+	 RcFENukRzcedTaEHIGwKFg7DthvqoF5uRnJnZWqUxo9nLD7aHGilFWiqUwJmoBAyzvu5u
+	 kFWJ6+n3qToFh6o/IA5wyFiGkVX1NrYSpfzmKHgnkYQ/jfDCV+6wf0f37a/6vQFMKIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hfVeo0UG;
-	arc=none smtp.remote-ip=209.85.222.182
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=jayd.ml;
+	spf=pass smtp.mailfrom=jayd.ml;
+	dkim=pass header.d=jayd.ml header.i=@jayd.ml header.a=rsa-sha256 header.s=sig1 header.b=MrjiSkRd;
+	arc=none smtp.remote-ip=57.103.79.12
+Received: from outbound.st.icloud.com (st-2005a-snip4-10.eps.apple.com [57.103.79.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B3F606A324
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 02:40:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27B3F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29043606A327
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 03:02:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29043606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jayd.ml
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jayd.ml
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hfVeo0UG
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-930c0f9c1b1so380498385a.1
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 18:40:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793673625; x=1794278425; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CTXFRAlDdP0mqd78M1HJAOng8psZxu116N3LePnYueQ=;
-        b=hfVeo0UGQ4On6bcCdQge5BLOJPHiTVzsJsVBBwHHld8ZBSwcx0IxHhPCfl6U+kdGQ/
-         c64jDb+xQvD834Kpjw/wpSIPnPWAd1T9iaP/U0eShhcLHAt9D+3np6BLvhk99m1H/Op8
-         EjAjdl9n8oNIWYmI7ify7GPi2/Gd21/kxZA4adkBBPUUe0xBkAS4Te8Z9ob1VIlNudPA
-         SopWN0sKZm8oDUArunJcBONRSwg/xShumldK34p6V49ZfVqxKWvRJmsfwDUzBqsebBhO
-         f/J5nZ1ZSxczOzCdnM3ToyPJBYg49cKXNqzFffQXR2kGS6meYWJKhF/ZaZI9wfiqoAVE
-         qG/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793673625; x=1794278425;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CTXFRAlDdP0mqd78M1HJAOng8psZxu116N3LePnYueQ=;
-        b=OyXm3Z7iXmy+O3fAhxvz37/RyrAjXp1BZHEjRTd7qC8+xCXSWw4WKr0sS1S7NeY3IR
-         9ZtURju0xqbELFGjAFhg3DNV+oX7KN/dcQHmnejd1SNAMfV3xvdg+nVZrwi6fmVpkZQZ
-         oylA6bQdjU2Ucmx0UTGlYHs5YBzh1hpzLZ3i68IH/YO1j3jfEA9AztWZCbE1k1JdDvqE
-         ncUxwKlMO/AIvLi6P/bWbj0yczrrqltyFmhesbIqpLlEZqIDPXtbnTu1RmxwULbubTlJ
-         DX9iWR7MTR3cFsobvFGckNQ+pqV2aPvurdCLHgcNoVZ2IZfTKrZDTRh1SvFsbT4c9gTv
-         Q1JQ==
-X-Gm-Message-State: AFq9FYJ/MrkglTbfvkXpweWedr0IyqxRl6FyWEYObs3QoODjjA1dbmLh
-	jbX3Dvvv4+lPXDRMQ+oe+tlXhktjDbXu/EnktZ2ETl7RGAcAzwZyG9QiwnTZwK7QsJg=
-X-Gm-Gg: AYBFou0xqgXg+n3rMgVGXHeiM0H0wBTRcWRzmiKghBwoKAFJEjTjNyPFreiSWRLYBQn
-	Zfzy7GKVd2ZLvzdRBI6FlTwRoGsyP7rUayr2FIhQevpRca2GmjSZYnZePJUlPnj8A2Rjn9R/803
-	1eNYdQ2KRlgkJdrdS26tVHgBeEii74Tl4j7crgO1rVjP0w1Hgi0jWuJghubho8l3URbpFZE0/8E
-	UmDIdC8z96EQkmQi0me9TsO/IyAOqqdje/vxCCnjcWxbCHNaQXq4sollo6zce9ftD3MA59YjpqE
-	wbWMmhO6FvVx9kcvYKb4zlrKZRzK2Qr5LjH81fufsLM6R8OifASXjlZoc3U4mibGrKIieVaYz/a
-	9L+8vG9sDD0ll26WC+XkvJDHgI87qOLupBDUV8iTQ4hbdLbGkYIFPHvAiTPB0i9xIX9lvFo8Ylw
-	V8WElySogWqYAFbVc7LMQaUzziqCpV+xo5UZ2m+Vv2BQWrD0ss5H/7Wtai58ujybyUnAcs0lfih
-	QCNcY90TUnhLPFWx6lfia3DGu3DwqlMEzMePFTUsIDmNlM879eR130Olfh1N5MlzHtCdQaF1KZV
-	5+3A0BhkDyqSPPuAGCWHpkvz+M4qw7ncRww1B77K04vNBIUr7fUof1A=
-X-Received: by 2002:a05:620a:1d01:b0:943:e9a0:e1b1 with SMTP id af79cd13be357-944214cb815mr1872793285a.3.1793673625030;
-        Mon, 02 Nov 2026 18:40:25 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94424e79d0bsm970668385a.0.2026.11.02.18.40.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 18:40:23 -0800 (PST)
-Message-ID: <9fe913fc3f750462a4655d51fa1a2f110a02ea18.camel@ndufresne.ca>
-Subject: Re: [PATCH] Documentation: media: Document impact of errors on
- buffer fields
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Sakari Ailus <sakari.ailus@iki.fi>, Laurent Pinchart
-	 <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-  Hans Verkuil <hans@jjverkuil.nl>, Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>
-Date: Mon, 02 Nov 2026 21:40:22 -0500
-In-Reply-To: <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
-References: <20261030103815.3098340-1-laurent.pinchart@ideasonboard.com>
-	 <auR63iwOm_mih97K@valkosipuli.retiisi.eu>
-	 <20261030140958.GB3109745@killaraus.ideasonboard.com>
-	 <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-EXrAhi3yIS3d2L8gm34d"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=jayd.ml header.i=@jayd.ml header.a=rsa-sha256 header.s=sig1 header.b=MrjiSkRd
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPS id 8408B180028A;
+	Tue, 03 Nov 2026 03:02:30 +0000 (UTC)
+X-ICL-RepId: 01a19f5b-b973-7459-92ee-1f2fc5187f59
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQpAHVoHRQBEDFYCXAVLVxQEFVYtXQpLFBcVX01RDw8aWAFXQ1oHEgJaRQFdFwNXHFZFXBhDCV0FVxwdHkNFWxNVF0YJGQhdHRkIRx8KMANCDlYDQwdFAC0ZHFdQXQpLFBcVX01aAlZNBR1WWVVcAUldVQUOUggfRApJVUAOX1dAFBoGWAYIAUUAG1dUAStYEUAcHQBbVRIEQAhWUFQeQQRWFWwJWAZTGVc=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jayd.ml; s=sig1; t=1793674955; x=1825210955; bh=+MqhGtpViVg1xzaxLuI/LRkFUg+bXq2WVpjSwh8nGUU=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=MrjiSkRdTR2a9gR/ZDFpMwHHbxe3u4yn0RCxO1H66YyDhHKVGMHS4hZMlxR6ij5+XIHfEvqh03KSpKK1assYO+4fKHduLHo8m6LkNHh1VYIyacah3OzfVpFS5GoLHYpZ1ziucp4MOjeI3I35uDUGK0eSafDCdHJgdCHIX/tFkW2KoWTpCzsLluobthwuVZ0hzzxzxWG620eTbI6NUi4PI8/6wS+uTOuonwaosqEXaLkUI8nDSeyGyY3UjAesGvNDToXIIhQTjN/fpUPq3oEGe8f6zaNyxZ8Th+nIFxaiEi2g2pvq7BBKYxpPLMHF9x89YM6hnTNcsT39FRr63Tfx1A==
+mail-alias-created-date: 1679885584335
+Received: from [10.0.0.239] (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPSA id 8D4F9180010E;
+	Tue, 03 Nov 2026 03:02:28 +0000 (UTC)
+Message-ID: <ee4b739d-6cec-431f-94e0-b551c359cd96@jayd.ml>
+Date: Mon, 2 Nov 2026 20:02:26 -0700
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -118,94 +57,83 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] drm/msm: fix dma-buf sharing on targets without
+ per-process pgtables
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Antonino Maniscalco <antomani103@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
+Content-Language: en-US
+From: Jayden Milne <me@jayd.ml>
+In-Reply-To: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
+X-Proofpoint-ORIG-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
+X-Authority-Info-Out: v=2.4 cv=GtFPO01C c=1 sm=1 tr=0 ts=6ae94ec9
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
+ a=1oJP67jkp3AA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Vbwzbr4kkUF1MwGzt2IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxMSBTYWx0ZWRfXw8lKd21h0iM8
+ P+SL2ke+6JVzuscwgbjvHpG9kMhpz+bA2LaK2zgVLJ5QZNglJyIGpnSewl2lzyIiWavm4YFGZ1s
+ YD5l0UdmsI7p/ljU1vWeW71rS/ZRcQaxpK98yvNvamcPRIXNDUSR/KXOA8YqT8myS7S6ed6XOaD
+ vtDsd595K3jw/PL2yS6p1UIcnv9FYIwG6LMkBrqrDZ+gVINId063Jxkg21kdnuNBdUb8wGq1a/4
+ V9YsLJU1rQXhyvb41WeKJIfJUQkqP152IpbzNVsrOCuFS5wsfv4SfCkknkRc2kYAGCoG5Mg7MhB
+ aHaXzIwCyNb+r6/JU2wa4RE5HE9qWNp8pviP/M0T+lmDLYwJv64mKcbA6Z8HXc=
+X-JNJ: AAAAAAABdGY6uQq64stNARv7bdWI5eEOuuhXlsdMJGdckKk7f5MFVbUA8Wx1+ShZy7/0mY
+ ZsZEVdX5xoEBYoJR4CYnfOqtWPWPKMf0WsumXTABzn+Dd4qm9NIr8WlaCOlhDPp93siPhY
+ wvAWoQRLrYB+x9LzU8PF+gx5cAmTZWlJPB4JM2hpVty28WuvCxw7kOa4+lXyXjmIxkVjQT
+ Odn/uZWztUNNkSZfHFz+C3S+e6aledGV94ilOEj++Ch/JV8UNSsMpHHe+ysnKnrv5BBE0C
+ 4klNVW0VVqn67f05xuMGypSbZXi0yzCjj4tykP3hW2cRr0FA/sMDZBTpsdLDH+k/IuSvzk
+ V2fqDt6t9QXFR5VOUAP4k1G0ER+U8kklvp7dnQNzz3pjoV9p4N70JSiqtFby8vq3kJbxms
+ gMWvrNBNdKHsIrZ9lybAqD9j2AQUQjIho/haQTal6UHPbrPUzubvsF3pzU2GuOrza22irc
+ D9WwDbQ+qdhbE7C4fxnkGaunpxgIQD1cHm6jibRo7R4yWCNsIvlSZO/xKOiGoXopVqagg9
+ WKNEPmFJReIMA1MQa6lFGrb5cYsaYyMZhvN/61HYDYJYyrm3+t/whn/secPMEgAsPULA1S
+ tfXtIcH6304lj8y5BcYdA/8RX2LWeO2BWArkCh6ECq7hkiyiIpvogQVaEeWfu9uyXQrz4R
+ wYD4QZ1qkfp9GBcQ8ANaufoVlhbZdbkTUEnkGJYLWHSlbe5ANcJnEsxiKgf1Nb0G5YUQ52
+ a1ubEp2/z61WYOKSbmv5+MF2UQK9+qkTiL+xqtqA2EY2sm3tzqzb9aRoc4XTY1Xg0rYcHa
+ /JEephlCSF0Z9cfeb+WEhBILV5EOVMipNaKgIHbmkBZFqH2VKLpbAtXqLTgDZDUYf5pNCq
+ FKlhuOGQ9LdvPAZ9vVASD9YnQDCeDekvZZVDzc+ROTpfdrZJJmB1nhuS+qxv25udDbhpRB
+ EKMVZ8Ko9PL8jPxVDcSenpZwLwDRN64mEnxzA7rYFjPhXf5yMTEfn/mzjn+I0Dvv/Dv6sQ
+ YrqneArkzbRlsJEComYTmi+MrXB9QqO8U6Y73r4TMs2q10yyzTncVk+hgxJF4tRLx+o5gd
+ icRy3oMHh36LCSYIMHvMCqR38NpjgvJzIsTLSxWnE6NNhD7n1n9vOfbyjFjDt+XDx2THA7
+ dAi/tzeiyOs0bz7T/v6vaZORvvLzuI7zaeDo4qEfDt7vJf+Nob3JmlIjmZjGTgKt4dB1c0
+ qUcQH6QRwh8EjfqUs9kvc8Zd1InkyWN5G2P2YZSU2Si3wageDxfsqZQ3tE9Ce00r5KrqDx
+ 5uf1cYC62mZgUIur+GdzR6RC0O+SD+Y0Q3KxrwRXjZbyMNdTm13gIe+9fthG/CdcbwnUuF
+ 0/luFqkMQGpp97uGf4AKeKvIZ36IeEAJDfrRew5xglsuxn+wcyUtMhgEUriK6wriyc3BqW
+ iH4Km4lkyhzohgXGJmz2+N7rFvIGk/rBbP2JSW7zBWZRQz1F6G86UWgvYz43qLNNZSYAJ/
+ 3cYk9Ej8MYXXa30SasWR/E49nkUw3+FAweX3zhrCskvoXmVw7g==
 
+On Sat, Aug 22, 2026 at 11:48:57AM +0300, Dmitry Baryshkov wrote:
+> Targets without per-process pgtables -- everything pre-a6xx, plus
+> a6xx parts where split pagetables are unavailable -- hand every DRM
+> file the GPU's global VM.  The rest of the driver still treats a
+> context VM as private to that context, so closing a handle tears down
+> mappings other files are still using, and frees the iova for
+> immediate reuse.
 
---=-EXrAhi3yIS3d2L8gm34d
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I tested this series on a530 (Samsung Galaxy Tab S3, APQ8096) on v7.3.1
+and v6.19.5 (with some backporting).
 
-Le samedi 31 octobre 2026 =C3=A0 00:48 +0200, Sakari Ailus a =C3=A9crit=C2=
-=A0:
-> Hi Laurent,
->=20
-> On Fri, Oct 30, 2026 at 04:09:58PM +0200, Laurent Pinchart wrote:
-> > Hi Sakari,
-> >=20
-> > On Fri, Oct 30, 2026 at 01:09:18PM +0200, Sakari Ailus wrote:
-> > > On Fri, Oct 30, 2026 at 12:38:15PM +0200, Laurent Pinchart wrote:
-> > > > When an error occurs related to a captured buffer, hardware can pro=
-duce
-> > > > less data than expected (or no data at all), and timestamps may be
-> > > > unreliable or unavailable if the device uses hardware timestamping.
-> > > > Document this in the description of the V4L2_BUF_FLAG_ERROR flag.
-> > > >=20
-> > > > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > > ---
-> > > > I've posted a corresponding fix to v4l2-compliance in [1] to relax =
-the
-> > > > bytesused and timestamp checks.
-> > > >=20
-> > > > [1] https://lore.kernel.org/linux-media/20261030103717.3098080-1-la=
-urent.pinchart@ideasonboard.com
-> > > > ---
-> > > >  Documentation/userspace-api/media/v4l/buffer.rst | 5 +++++
-> > > >  1 file changed, 5 insertions(+)
-> > > >=20
-> > > > diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Doc=
-umentation/userspace-api/media/v4l/buffer.rst
-> > > > index 94dc2719e907..5a7a1511cee7 100644
-> > > > --- a/Documentation/userspace-api/media/v4l/buffer.rst
-> > > > +++ b/Documentation/userspace-api/media/v4l/buffer.rst
-> > > > @@ -503,6 +503,11 @@ Buffer Flags
-> > > >  	streaming may continue as normal and the buffer may be reused
-> > > >  	normally. Drivers set this flag when the ``VIDIOC_DQBUF`` ioctl i=
-s
-> > > >  	called.
-> > > > +
-> > > > +	Depending on the type of error, the buffer may contain less or no
-> > > > +	data. In such cases the ``bytesused`` field can be lower than exp=
-ected,
-> > > > +	including being zero. The ``timestamp`` field may also be zero or=
- be
-> > > > +	otherwise unreliable.
-> > >=20
-> > > Could we say that if bytesused field is non-zero, then there is a
-> > > timestamp, but when bytesused is zero, there's no data and probably n=
-o
-> > > expectation of a valid timestamp either?
-> >=20
-> > How about this?
-> >=20
-> > 	Depending on the type of error, the buffer may contain less data than
-> > 	expected, or no data at all. The ``bytesused`` field reflects that
-> > 	situation. When ``bytesused`` is zero, the ``timestamp`` field may be
-> > 	unreliable and may be zero.
->=20
-> Looks good to me.
+When I was bringing up v6.19.5 KWin would reliably trigger TRANSLATION
+read faults when rotating the screen with the lock screen up - 1800
+observed over 8 rotations. After the series the same test gave no faults
+on v6.19.5 or v7.3.1.
 
-Since its not specified, have you asked yourself if this is CAPTURE device
-behaviour, or if you do believe this should be true for all type of devices=
- ?
+I didn't re-test v7.3.1 without the series - if that would help, I can
+set it up.
 
-I've had recent discussion for M2M in regard to CAPTURE buffer ERROR. The A=
-PI
-has a gap and we don't know if we should complete a capture buffer when an
-OUTPUT buffer triggered an error. If the timestamp copy should be honoured =
-and
-what the byeused size should be and mean.
-
-Nicolas
-
---=-EXrAhi3yIS3d2L8gm34d
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaulJlgAKCRDZQZRRKWBy
-9GCMAQC+8P5jC6mwEzwN8iv842be5roGrs60jeQSGKZgLZFJIAEA0NChh3PuwcC9
-7Nhn83XNtgIH9Qv0h9FAEgIQ6DpsyQU=
-=qxL/
------END PGP SIGNATURE-----
-
---=-EXrAhi3yIS3d2L8gm34d--
+Tested-by: Jayden Milne <linux@jayd.ml> # a530
