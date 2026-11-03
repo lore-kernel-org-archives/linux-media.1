@@ -1,79 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793675112;
-	b=q45eu+uLOjFF0kDUobGyE0q/jQZfoFEzXgOb5Zee5MQMlg5yC2Pm1NeJOrDfMCtZkWV8
-	 Zl96AzzewDs7rasR007zWa172aHHedTSyDpetw/qf45w3DTHGuxIFM/a6S+QZnQ8MP+Qx
-	 97683nn8Lo7ilir4PsDVcVDzfsxjGpszu4IOPUFS6AnjKxZWYE0dAmKBQELbvQsuDQ4Pq
-	 yNlcOF+ukUYq1hBOvbOR8hz64pQqNjUXGB/+rE0XoZVBYfXua1CwwXmIjXj9pTgBOAflZ
-	 A6B/yXpwx106CII9VzQNQ6qYw0M4eeC/NLzuQuObKNgwT4yc8ulmdxIf7n2Xd0jrd5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793675112;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QM50OniaR8o4Eu1kLMclrrbI7Gj6A+dtLejuq/3Zj0w=;
-	b=RNhPEYzSvwNFNKB1Jjqded5qRZHGYtLp6RkhPTANgmT6/orA9RNlT0hZITaqNSpSrr4J
-	 zOSTTTgqVpKroRPg7iYp4u2O+JkF0IC6ndR5tGuh3q4El0vD/jwUPRd4d/6S6eZFK9yPI
-	 yzXDvUgZUFlMiRGIhcRiNBYvxUgW6w6JAOxl2g/ha4MyEfKLwFlxSNInEaybPWqhsXoR3
-	 BibEG1WD2KJ6C+ao2lBRDfJGHs+kmxZEdlPVbeb0FiAuNcj+1gSlnJUAqXmGveywt/GBx
-	 8P7Cmoh0GtDfUxyWiSREnLqTd9yzKojEvajuAJI17BTvKt9CebCiWIZj/ey/MjYnadQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tex4y+xA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8243F606A329;
-	Tue,  3 Nov 2026 03:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tex4y+xA
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793675112;
-	b=japJHn7lPO/IbPDdmspmXjrn0EWkdLlJL8RqntO549G6uBnOhXruDKBzwG4wc48ukfGC
-	 KuBf+0vyLbqziHbli0E6poFd1cSUds0YZeP2GzarckvrtU5uuAjntqQlIogwDIyYiaERH
-	 TlUceTDwdtt6Kj7u7/GIqcA2HwY3eQ0ntWPUEms92kO858jFKwHscyL/kPZ+whbtDob/z
-	 nexwr3Ah1u7tkkFhGxWYgfSrLozA2htN0Tsh6IQmVm5Rrn0lvFTsf6EdIvyPosmsCyJXl
-	 HXxzMmi0j00U/SDEZXYpxZeQ4JOd6ps7l46Eh45vCEvmlMhemGDJQpS5hmvDS6bDVLA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793675112;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QM50OniaR8o4Eu1kLMclrrbI7Gj6A+dtLejuq/3Zj0w=;
-	b=Y3rStk3WVAYotoDBIOC2lZxNgr6KdSipzou/dMhvXAnLLvxNsm4MFORhlPzk8rPuTVFY
-	 eK0liiDLABwafBHu8ApnCdLjUTDc6/p/qm+qLv7PkKZdfwurMuxn2Qls1NlHTUNbT6exu
-	 gLE3MrF1/QrBkvQpfq+b80pArF3Mor0vDC67GiOKWW3gRK2vhvJMt6bpPrrO4hGR7jgH1
-	 u77Jv2WM51K/hQWJiWGhKHTjUlRK3z3ZFOr0XvH16CeRBaIxwESevxr/Y2TFQvFoyGgbg
-	 3f5c7I4tYyBaH0kBdHUITE95rs8JgYjnZKiCC7zJFquI0NI1JHlp2Udg5vK2QLBhiuw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793683775;
+	b=h0PC+QXB7dDWPuSttLA2r75bZJb+yBmTPeg7cle7LRCwcAy+uh3A3TnIeSuTnFBaCL8M
+	 YXrAj2dGAweDNeNhyzyanDSVmbr6e2SBElAKUwWs9r2Q0y7c+Kps0ka3iGUZXo9OzcnuZ
+	 h6roZy3HTm2CWpiGeUbPwFfXfbFyhvH4M8SNOFrF9TUttTaOq+y6y9RsSxOxGSkLqH7yP
+	 rt2hlM5Jf2KUiL2qlN8XNpw7rDz5fgIt4khuHRQqst76VyXkeBWMSNpkDsVMiKqPQ1Jbt
+	 g1iIg3RvN2Fc8x7HnOED9hN1Rdo1NZZa7Aw2yW5bWS7cQWT3vBmkQ9wIJiUdS1gPZ3w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793683775;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=nauR3Qpw4qDzU3M0MToUxdKJrlvc0tM2JwXipe2UNKk=;
+	b=gYmOTA4xo9e0h/bcaCMjo5b4WrZO+t2AfXz1ZSp9KXKVrbmTa/+VUWcwuCNcyN2S40Ys
+	 pvKMi0vq0zqXnMUU4PlqG99ILeGLybt8CtByK1+a+AqNO8+2Qhv9nGAMHAAgjJ61I0PNM
+	 xyRCclyQe5EGpsojTNRv39GdUc3f53COvgNCJYk380Yte5SlrVhFZxT9eHlPuDL16Lscc
+	 lsljZMTUuLuGmmnvQ9DjPu3crqnCdcn/LoKncYMqnEdrdowkiyboLTZbJtdxkvcjhFNao
+	 jR3jYhQDlAA+Kbw8+VA+3Nvh+KUloUjbW9T2RFl3idMbq/K5rt7gMFkP2o/0E+DjT1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q9GBgtRQ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bU69q46f;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 235571F00A02;
-	Tue,  3 Nov 2026 03:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793675112;
-	bh=QM50OniaR8o4Eu1kLMclrrbI7Gj6A+dtLejuq/3Zj0w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=Tex4y+xAmqogX31ObwTkOd4BB0tGx45zQmgYICymsszDVJ7vST/HR2BXxkF+cm7W+
-	 w/gLt1FMhF5w8U00/qP1r80tDR88cOjB0u/qon6XxWXTu265zZ7r9ajB8XjhutqWrf
-	 IHX7IuGZT+vOLlyzHvNBD3JvQckchHGM1B44HXgtFLS5MV8iGR0tJR74p9qltLxrrs
-	 dVm+QnItka6y6UxKhiZR5UeMDxMLV5rs0gWxf/VNAl1LvuSK9f0gVIv9y6O6Akq+Cf
-	 t2IH7OTDKiPGYLiMiTBhCbWpRyfslQ/vFfhy1GP96xIhlDXSzhNRySAbifB37awm8W
-	 o31MCT3WAUKgA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 9420F46770;
-	Tue,  3 Nov 2026 03:05:10 +0000 (UTC)
-From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Tue, 03 Nov 2026 11:05:05 +0800
-Subject: [PATCH v2 2/5] media: i2c: it6625: reject DV timings changes while
- streaming
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE93606A32E
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 05:29:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CE93606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Q9GBgtRQ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=bU69q46f
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A33hrY51141745
+	for <linux-media@vger.kernel.org>; Tue, 3 Nov 2026 05:29:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nauR3Qpw4qDzU3M0MToUxdKJrlvc0tM2JwXipe2UNKk=; b=Q9GBgtRQxImJvKOY
+	7Ikqd4ulqysMzq68hoqVh11FXvbQDDuyCDnJhAZ2zfD2nuYN2KY6K6pliIrhh4PX
+	DKOArf8UsxsbNLt/6tpSl5R2q8T5oyx92eRidHrtxNrtf8ahgd867C2exppBMnDH
+	iYfXrgI2xU4FXvnEa1tTw8UpF0wfmt9FprF7ggY+PwDBJULp+1gMnKD4V1a5qzSo
+	oFk4JMSdS+xNthtrUmcfhG92Q/UW/EJhW1WNHUBflv07tTd19aGwbqvHWDIC0P+2
+	bctHeDnl0BhYgvGQJjmF0zIHz+oaHGk9PZ9AK8FU6F1hQPfmS370Eick7uy6LN7a
+	RZcB0w==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq7ycrbj4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 05:29:29 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e93f266d20so59582865ad.3
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 21:29:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793683769; x=1794288569; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nauR3Qpw4qDzU3M0MToUxdKJrlvc0tM2JwXipe2UNKk=;
+        b=bU69q46f8fRtC3RVqsjaS351YsmeEbDx+xAlBg4trIRUyMFOGvfdFzFOD18ercfo6O
+         i3+TTXypCp2P8AXm6loII9wgXgh0Y5Vb7kFN0xU6FEhE9EXmO+iSev/NhRa2EthmKWUV
+         mJC/23eupq9SfKEiQGB+ZG6AdJHaYZxh9f6KfCnJnJze8WApcjb1RMdV9PQqdYWam8i9
+         HrCVSY0k6vvsq05SwN+YMKIxRnMav1GVLR85Xjz/BXwH8V4Gg/E9274QevzSHA3ZsSgf
+         mQmyYsmCmtzWlunpy0ngsuHV2g2YQuVMPLvdKgWTSaHVp+T863El2Iici1Zok/If/8uF
+         t6xA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793683769; x=1794288569;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nauR3Qpw4qDzU3M0MToUxdKJrlvc0tM2JwXipe2UNKk=;
+        b=DsGvzkWdV2tlWL40THUHoxsDUS8hy0X4FR9d/28fZFW5bBPm3KG/57E2hDbnxxIkql
+         3SmbeFmm2Og6scA8W+8L9QMY1yjjH3hDUbtPrRlVEF8myuI9GTKZI9RtbuYkx3/f+6Fb
+         PIU7e5RxZAkDq9rntupO3QDjgufDx4Pv0cuvlywQJwiv0rey9OFUeig9FYKHigdYc56u
+         g46w+2/NObJVvdCNuK0CxkM+8e72K6WmNCmpy3x75VsqOE4oC7v9ZHE0py1pcHE0VDPl
+         1nVUFhldjvqjKHrPAjfEglgzQlkZn28MV7pNNzuxwfEDipp1gjt2btJ4XDEi6PwBPOmp
+         5Ntw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcb1Q5mmgLtt/409ZGHrHLAHJjJLRlNl7bQmuzDkGqXjspRFXNb68JxLnhOiWsWBYfqJ0yFtN2XVspZQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+i1qi4CWQsAqevE/YHwxFgS0fUHWV1JRxOkvzzTgRuUar2/Kuw
+	eHLV7QeXfE/tV2PvH0AbJb35PYKSZiE1C/UY1hQNme+IdhtTQMSfpKDCaYGR1DUTd4MhDxdbRmA
+	jQch+a+DLnvd4HL6onzUcOxbdG6w6ERX/hm3bTlsuQlvaGwef8nVoA058IMNnHpDT3Q==
+X-Gm-Gg: AYBFou00Yl5HmKHq4puIUPCCFMZUbojAkKxwtjFdmGs8JR224Bu/W2trQAMJ73F+rlH
+	gG3OkiLtsQpRFolheNICUQBfOraXNf3rKw8c6mE2RXtTqS4VLcLM3SOzbD7t/nUwmzPL2caObJF
+	UpmtQz1lnht9yPu+A+oJc+yKfRtrlihE4VW3uTyK/SckWrdhL+J3nC9k8eP9YrbS4cu2sZQ8+UD
+	mvsGVDmR4gtYK+QIxpKYl7laTOfbtZxjRVjDywbaifgz80p9Tw3Lnf5whFo4F6Qig637reblU7n
+	dn6SNQLQ5wyHrGuEoIvKhcXpjhJ22xdYNk7rPeO/E6tQX0E4ANWTv4GWGrS8EAqdEvIkt4eys26
+	Nm2/EzCF2CNK4Z8B2vaLBeEMZdtFhFMyG9EjfkzGrBABWovDNfJh7KNu47uWC97FRXm4rg4BKIh
+	jBJ1HfWciBmeaLDhdA5+NFv7Rjy/yHyJ1C
+X-Received: by 2002:a17:902:f68f:b0:2e9:7dda:bfd1 with SMTP id d9443c01a7336-2eb364c45dbmr110155165ad.30.1793683768725;
+        Mon, 02 Nov 2026 21:29:28 -0800 (PST)
+X-Received: by 2002:a17:902:f68f:b0:2e9:7dda:bfd1 with SMTP id d9443c01a7336-2eb364c45dbmr110154855ad.30.1793683768154;
+        Mon, 02 Nov 2026 21:29:28 -0800 (PST)
+Received: from [10.239.96.176] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3922f56bsm35371005ad.16.2026.11.02.21.29.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 21:29:27 -0800 (PST)
+Message-ID: <d92a8aaa-5cef-4416-b1c9-46ecfc6b2745@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 13:29:21 +0800
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,78 +116,126 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261103-upstream-it6625-dv-timings-fix-v2-2-127b879da6d3@ite.com.tw>
-References: <20261103-upstream-it6625-dv-timings-fix-v2-0-127b879da6d3@ite.com.tw>
-In-Reply-To: <20261103-upstream-it6625-dv-timings-fix-v2-0-127b879da6d3@ite.com.tw>
-To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Hermes Wu <Hermes.wu@ite.com.tw>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793675109; l=1943;
- i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=CK9wpK9WnhVPH9f9YKkPk4BReeAe5JrgiqvMPNRO0G0=;
- b=c82ohfoaJFOuPpgW9GAL/oG44awFpnvpJ05HWugTEwxcCu2u14bYoGGtHpsTurmD1b8pk/RJF
- HgYsVLSHw+9CqdzkxLzpyDFI/43lCwz73K83VEOxETFsSHPdgJLeXq4
-X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
- pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
-X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
- auth_id=310
-X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
-Reply-To: Hermes.wu@ite.com.tw
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 5/5] media: qcom: camss: Add support for Hawi
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-media@vger.kernel.org
+References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
+ <fFfGGWaoXA-LdO6s8Xh_kQWQfncXe9YNdpcj2yNkphWHAR_V69LdLOcuhXPsbg8dEUSN4j4yygq4wPre5cz79w==@protonmail.internalid>
+ <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
+ <5817be6b-7180-407b-acb5-8c5fdef4edfb@kernel.org>
+ <73b1f591-69cf-471b-9763-a0b719c74501@oss.qualcomm.com>
+ <fac8cd6d-c3f7-4ed3-b0d4-7cb8a7a6f451@linaro.org>
+Content-Language: en-US
+From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+In-Reply-To: <fac8cd6d-c3f7-4ed3-b0d4-7cb8a7a6f451@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=V7foQuni c=1 sm=1 tr=0 ts=6ae97139 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=e403w2VLNo3D9SQJzk0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-ORIG-GUID: Qm_kyZoRr63b_At4TMBCO3l4n0q3jxCs
+X-Proofpoint-GUID: Qm_kyZoRr63b_At4TMBCO3l4n0q3jxCs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAyMSBTYWx0ZWRfX575dVBdcsq3F
+ E22F2Zuut2XBFoAcTrSZTLVN2ht8iPiEZVTX6zxggofo8IEsVvUXl/5VOYyEoyhB74hByRqZdqX
+ BsyrOvOv/XVHwkFTnLwh7Uu70cXmXIZXrBr+Aug9Q5Y9w8GtKosj3E5PB4El3mlrDJ+LIPa10UA
+ kpUXW9pDScxt41IHLQtk3BJD4xpLfapXX10ycEmf03SO6ypcVXvFG1EUbPukUAoqQZCUwIwisNR
+ gaz147uw9p2cWan46IvmkW2qrShr2tatBvdFkAqxuOGlhrIKXohfnTH9xpAq45pvZ6hz63/E47F
+ aNOuhq5W7W+dPu/+AxN9THcNZwRaTUaSv70H4cB5L/mGvMGYSMWmpOFRUK/cEpS0e9REHO8ISm1
+ xXnJloq6YYEIZoR8M1Pg+9GAg4l/w7Dko9Jtt1bS/OGtTfKoRq+SGjGKO43wr02um4VG7zmFSta
+ 8199kURseb6xA+6cygA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAyMSBTYWx0ZWRfXwuTuzWbhnT5o
+ J3f/16CDfxJ+MrLtvFxLruA5yEr1QeFxmdNZqvo699OWh/wtUDnk0K9rF/eZonJ43wKvyGj/FfO
+ Ly157vwhwNtpU0xvI4BTBs+cnBeg3ZE=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0
+ adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030021
 
-From: Hermes Wu <Hermes.wu@ite.com.tw>
+On 11/2/2026 8:58 PM, Bryan O'Donoghue wrote:
+> On 30/10/2026 15:25, Hangxiang Ma wrote:
+>>> On 30/10/2026 12:43, Nihal Kumar Gupta wrote:
+>>>> +static const struct camss_subdev_resources csid_res_hawi[] = {
+>>>> +    /* CSID0 */
+>>>> +    {
+>>>> +        .clock = { "csid", "csid_csiphy_rx" },
+>>>> +        .clock_rate = { { 480000000 },
+>>>> +                { 480000000 } },
+>>>> +        .reg = { "csid0" },
+>>>> +        .interrupt = { "csid0" },
+>>>> +        .csid = {
+>>>> +            .parent_dev_ops = &vfe_parent_dev_ops,
+>>>> +            .hw_ops = &csid_ops_1190,
+>>>> +            .formats = &csid_formats_gen2
+>>>> +        }
+>>>
+>>> This looks strange, why is there only one clock rate ?
+>>>
+>>> ---
+>>> bod
+>> Hi Bryan, the current CAMSS CSID code always selects the first 
+>> frequency listed for each clock in the CAMSS resource table.
+>>
+>> In camss-csid.c:
+>>
+>> [...]
+>> } else if (clock->nfreqs) {
+>>          clk_set_rate(clock->clk, clock->freq[0]);
+>> }
+>> [...]
+>>
+>> For the CSID and CSID_CSIPHY_RX clocks, the hardware supports three 
+>> clock rates: 200 MHz, 300 MHz, and 480 MHz. If I remember correctly, 
+>> 200MHz and 300 MHz is not sufficient for the sensor's output pixel 
+>> rate, so we need to use the highest rate, 480 MHz, to meet the 
+>> bandwidth requirement. Thanks a lot.
+>>
+>> ---
+>> Best Regards,
+>> Hangxiang
+> 
+> We have a series from Antans to address this though.
+> 
+> We should list the clocks the SoC supports not constrain that list for 
+> one specific sensor on a test-case.
+> 
+> ---
+> bod
 
-S_DV_TIMINGS replaced the configured timings and the ACTIVE pad format
-while the subdev was streaming, so the reported pad format no longer
-matched the stream being produced. it6625_set_fmt() already refuses to
-change the format while streaming.
+Good to know that Antans has a series addressing this. I agree that we 
+should list all the clock rates supported by the SoC rather than 
+constraining them for a specific sensor.
 
-Return -EBUSY in that case, as documented for VIDIOC_S_DV_TIMINGS. The
-check runs with the active state locked, after the identical-timings
-and validity checks, so setting the same timings again still succeeds
-and invalid timings still get -ERANGE.
+One additional concern: if the clock selection logic still always picks 
+freq[0], listing a lower rate first could leave CAMSS unable to work 
+properly with sensors that need higher bandwidth.
 
-it6625_pad_s_dv_timings() passed on only -ERANGE from
-it6625_update_timings_if_changed() and returned 0 for anything else,
-which would have reported -EBUSY as success. Pass every error on.
+Could you please share the link to the series? I'll rebase the next 
+revision on top of it.
 
-Fixes: 142e5f00bd57 ("media: i2c: add driver for ITE IT6625/IT6626")
-Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/media/i2c/it6625.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
-index 0d3bc83e4e865e55bb9940c7e958b85eedf9869a..a499b5e39acfbb1acaffc077d4f1fbdca3071a40 100644
---- a/drivers/media/i2c/it6625.c
-+++ b/drivers/media/i2c/it6625.c
-@@ -1483,6 +1483,8 @@ it6625_update_timings_if_changed(struct it6625 *it6625,
- 						  it6625_get_timings_cap(it6625),
- 						  NULL, NULL)) {
- 			ret = -ERANGE;
-+		} else if (v4l2_subdev_is_streaming(sd)) {
-+			ret = -EBUSY;
- 		} else {
- 			it6625->timings = *timings;
- 			it6625_fill_timings_format(&it6625->timings, fmt);
-@@ -1588,8 +1590,9 @@ static int it6625_pad_s_dv_timings(struct v4l2_subdev *sd, unsigned int pad,
- 		v4l2_print_dv_timings(sd->name, __func__, timings, false);
- 
- 	ret = it6625_update_timings_if_changed(it6625, timings);
--	if (ret == -ERANGE) {
--		v4l2_dbg(1, debug, sd, "%s: timings out of range", __func__);
-+	if (ret < 0) {
-+		v4l2_dbg(1, debug, sd, "%s: failed to set timings: %d",
-+			 __func__, ret);
- 		return ret;
- 	}
- 
-
--- 
-2.34.1
-
-
+Best Regards,
+Hangxiang
