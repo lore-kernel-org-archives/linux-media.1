@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793707717;
-	b=NqgoXI/awMaeDnfFg4XdkfKYfBk9TSFbVwtLXZMJUELghAw/56owAgAsfFwMgiF9wzm9
-	 ehOqzw+DKye8hBmtJquMsoydd+gFwmbNFvxg8P8yFMkIyxo1NU64XqqfhYXGi3k3TZv6T
-	 VmB2StbJ1VErVjr8fkSvduQRKATlETegrqSQN0GWB7BvaocIqAfXMMkLLCFXwkgLhjsN5
-	 ks0DiQ8IItzYMFWn2EC5R1+eHCoJ5QGCtFS4l4qz63sPAYX3ncnFA41gmDHypt4lvVC8s
-	 IRM5LCaMRVKaonFlgDzFHzsCNiEgs0EXsAjXWfpz6vBR2ILDGIETf2RrBx5qzPjy7oA==
+	t=1793708031;
+	b=f2KNNCOmgC5b6VO2j9Yn9E94+6WnUX3sHyMGfyszdyG41vtyHUBkLmlMEld17glHf+ao
+	 LuYjZJ6axpf1MVm9oxatZCqn4IbDuYgWX9UserR2YvSJPQZDGcCTBeNfpHkj1yZ/wmaR1
+	 OL8lQBwh+RgwUUx8ItK6kzpb2WQZ8zKc79NOHlGlRRwuEZSk2LMSO3GPUHWxnMRXfOHLT
+	 WqNG+xmWT17DNNJhVpQpUCzh+aHNSPYiCEcHG9buV2qe/lymC4i3D7BrV97OdXzhmpoiQ
+	 xxbn5bM4gtCPGOlC+Gz2uexy5b1CHFBHT3OzXJvlVATHS0uwRakHRVuoqXFGeyFcZiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793707717;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793708031;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/x6us06Il7cOBuX1Y5NFLXJj/ZFRDHp6C1Wighv86dA=;
-	b=RIr+2SCN1AQNFZl6RK9b7Tw5hWNRN6u8VxCHZ7cDD503H2DMwNfWdnZMIGa8aDcwEVvV
-	 fwqGgslRXEdOfXHo/6OC6HFTiS+Ntk2TkxHO+hDH+qkdjSs2iaaB2WajR/q6BigYQExuF
-	 8F0ZTdp0miru5cWE5mJQM8XvWSWR7mKn/8vU2Qmc+kdeaZ0a+Kk37VtHxJSjuZJh+yN7c
-	 ID6IKqqxBbnTPcmx2dhp79n5nEPoj3moICrZ0kcn8UXCxNYEmg84kPm09lDE4a3LUo1eQ
-	 kvHUxZr20gQQWywdFMLbU37Z3ID9FODqL4JRYulPYkAZwMzQFX8YoezLcqRHz7hOU0w==
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=n/UFdXyrAd5gl0Qey0z6/JDNLQSoV4VYRc31LKxfmJI=;
+	b=q8lIlc9hT410D6sm3LpoXZ1Mi6JJcY+k3/b5AdBBW+R8kzTPoa47szXa+fpGbRYGQ7Ka
+	 uWY7m/mltZE8z+GxKS+uXXh2s9zlO8/EPYxiVuEE3ujDC+6z6aAgsgPFjw8URcUowRftA
+	 FtRd2p9EqvugGe617DyD9rvpr5rUsau+1IMSbMgVa5+Qjhc7nHI51FutnHx4V9KB4TtTY
+	 1EM+L9lmdyJy3QsYnwfpapn2eFpCZkeyaaJ5OXel+jOJ9rNQON5x1vMh5dVJyaYWAr2zX
+	 vmi46/p+VCg66ZvXMqjOcjh/AVVDSQ3ssFBSBR5NQZAQvlvnKKRfxlI5/GKgclRtfQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BZ5ZHSZM;
-	arc=none smtp.remote-ip=79.135.106.119
-Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=pzM0ga06;
+	arc=none smtp.remote-ip=109.224.244.123
+Received: from mail-244123.protonmail.ch (mail-244123.protonmail.ch [109.224.244.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A3C606A329
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 12:08:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77A3C606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9B1606A324
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 12:13:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB9B1606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=BZ5ZHSZM
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=pzM0ga06
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793707713; x=1793966913;
-	bh=/x6us06Il7cOBuX1Y5NFLXJj/ZFRDHp6C1Wighv86dA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BZ5ZHSZM/I0LtXxu9OGkUKtKV/QAeIsJntO4GzSoEwDTmamrAU8Soo0wgPH3QlV07
-	 +RFyNWdZzVkPN8BfGuLaTWmUsS5oUEBepzJ64HO6wKaW6HR3gkbhNikwq4dF2DsZyG
-	 oEt4AzybXkj0f9FdEttBwpQUGD9EBN7ys0wt5LJSkZoIJMasvlAI7OttSX5BI4dJyT
-	 JdOWqBPHoo+Pq5tEj1ZeVrvkntJbwlVtNQzUn+ySVe6aJC6+Tqo7NRMV+Ge+VpODO9
-	 NG4V7/6neFq+EhZAx2A+vuwScsjcBJTUbiTFjNq1lUKgC2v38X27ZR8gZk1+RIKg4P
-	 BH24CtGBfp4rA==
-Date: Tue, 03 Nov 2026 12:08:29 +0000
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sinan Turunc <enscrpt@pm.me>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] media: cx231xx: Bound audio copies by the PCM buffer size
-Message-ID: <20261103120813.362-1-enscrpt@pm.me>
-Feedback-ID: 48393780:user:proton
-X-Pm-Message-ID: b6799638f4bb857c45e6b0a2e0d6c3c3b2c384ad
+	s=protonmail3; t=1793708028; x=1793967228;
+	bh=n/UFdXyrAd5gl0Qey0z6/JDNLQSoV4VYRc31LKxfmJI=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=pzM0ga06AYTCAwJWKDaysdEveVmzUFBxb3BpYxFhCjIRG+ADe+YrIjkxypiOBI67h
+	 q8XP+itWyT7thYOOr+fNusL6sdeXMKzSuOBPfUS/ETMVJtpdD5DWs0qX6ECIdnovat
+	 0SVzO8n8JdwKBCbciLqNIyUYVpIa5tc+Q3KFzM6TsAuCvF4mOVkZrpwxIJSIacHi4L
+	 ta5BPVA90KGECgiXl30SsBbS65VJa3+PQlDZR8P69IvYny3ITVjUdSz6y7LHUw+Pe2
+	 iMkhFkPz7Dgs7fqwx4Ar7euxS0HINkWNU3HdZLwHq6iVrr7ncvgnmszIz7UgSTdZv8
+	 zyxOOx4fVYEmA==
+Date: Tue, 03 Nov 2026 12:13:42 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
+Message-ID: <20261103121333.39898-1-lsa.uz@pm.me>
+In-Reply-To: <20261103103235.94397-3-lsa.uz@pm.me>
+References: <20261103103235.94397-1-lsa.uz@pm.me> <20261103103235.94397-3-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 45bb7be137328bb37ef3a7c1f693d445054ed23e
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,61 +67,35 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-cx231xx_audio_isocirq() and cx231xx_audio_bulkirq() split the copy into
-the ALSA ring buffer once at the buffer end and wrap hwptr_done_capture
-once, which is only correct when one packet holds at most buffer_size
-frames. The packet size is max_pkt_size from the device's alternate
-setting, while the hw constraints allow 64-byte periods with
-periods_min 2, so a packet can be larger than the whole buffer.
+Sashiko's review of this patch [1] went to devicetree, not linux-media.
+All three points are right; v3 will fix them. Tested on the Surface Pro
+11 with v2 and with the fix:
 
-Clamp length to buffer_size before the copy in both callbacks so the
-single wrap stays inside the buffer.
+1. Auto exposure. Once a stream stops, the exposure and gains read back,
+   and carry into manual mode, the values set before switching to auto,
+   not the last applied ones. No runtime suspend is needed for this:
+   pm_runtime_get_if_in_use() fails as soon as the stream's reference
+   is dropped. Here the stream applied 1796/24/2048; after the stop the
+   controls read 123/7/333, the manual values set before, and a manual
+   stream then applied 123/7/333. v3 returns what the last stream
+   applied, which the driver already keeps for the next cold start; the
+   controls then read 1796/24/2048 and the manual stream applies that.
+   So the v2 cover letter's "carry over to manual mode" held only while
+   streaming.
 
-Reproduced on 7.3-rc7 with a USB/IP device presenting a Pixelview
-Xcapture interface layout and 1024-byte packets into a 128-byte buffer:
+2. Probe. The sensor was runtime suspended 22 ms after bind returned,
+   not after the 1 s autosuspend delay. v3 takes a reference before
+   pm_runtime_enable() and sets up autosuspend before registering, as
+   vd55g1 does, and drops the reference once registered; the sensor
+   then suspends 1.2 s after bind. The error path was not exercised.
 
-  BUG: KASAN: use-after-free in cx231xx_audio_isocirq+0x2c7/0x780
-  Read of size 4294966528 at addr ffff88800e8e0400 by task vhci_rx/82
+3. RUNTIME_PM_OPS() and pm_ptr(): in v3. With CONFIG_PM=3Dn,
+   vd55g0_pm_ops is then no longer in the object.
 
-Fixes: e0d3bafd0258 ("V4L/DVB (10954): Add cx231xx USB driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sinan Turunc <enscrpt@pm.me>
----
- drivers/media/usb/cx231xx/cx231xx-audio.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+With the fix, v4l2-compliance passes 46 of 46, with no KASAN or lockdep
+report.
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/=
-cx231xx/cx231xx-audio.c
-index b24ceef497e..4e5110dd160 100644
---- a/drivers/media/usb/cx231xx/cx231xx-audio.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
-@@ -123,6 +123,15 @@ static void cx231xx_audio_isocirq(struct urb *urb)
- =09=09=09if (!length)
- =09=09=09=09continue;
-=20
-+=09=09=09/*
-+=09=09=09 * A packet can carry up to max_pkt_size, which the
-+=09=09=09 * device chooses, while the ring buffer can be as small
-+=09=09=09 * as two 64-byte periods. The single wrap below is only
-+=09=09=09 * valid for length <=3D buffer_size, so keep what fits.
-+=09=09=09 */
-+=09=09=09if (unlikely(length > runtime->buffer_size))
-+=09=09=09=09length =3D runtime->buffer_size;
-+
- =09=09=09oldptr =3D dev->adev.hwptr_done_capture;
- =09=09=09if (oldptr + length >=3D runtime->buffer_size) {
- =09=09=09=09unsigned int cnt;
-@@ -210,6 +219,10 @@ static void cx231xx_audio_bulkirq(struct urb *urb)
- =09=09=09=09     stride;
- =09=09=09cp =3D (unsigned char *)urb->transfer_buffer;
-=20
-+=09=09=09/* same bound as in cx231xx_audio_isocirq() */
-+=09=09=09if (unlikely(length > runtime->buffer_size))
-+=09=09=09=09length =3D runtime->buffer_size;
-+
- =09=09=09oldptr =3D dev->adev.hwptr_done_capture;
- =09=09=09if (oldptr + length >=3D runtime->buffer_size) {
- =09=09=09=09unsigned int cnt;
---=20
-2.56.0
+[1] https://lore.kernel.org/all/sashiko-outbox-195119@kernel.org/
+
+Sergey
 
