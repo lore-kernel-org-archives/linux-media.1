@@ -1,60 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702005;
-	b=S9DVfnhethkRk9QQrQ90eG+ctuoorJ2492jNOCdqHU1eDACddzi07IkGpvvytPr+poxP
-	 ssluqKomObljrpohG1F52EWwuhiPxAar6jiLdwntiaxsqevG59wp4dihD0KVcW4b89f7g
-	 bq7GQrJmBr40gz+A2wBv+X9eMqt2h2CjdP34XTvRlkwGpgsBhbiU0o/aPRsPtXSc/sQXF
-	 IvgWXqx+1w/fek96yhmU+p3W3NwZoYGyJZnPi/cvUKNPN+VnX4i0Hb1pixXKYg8n/WUxm
-	 BceLAY2v6s/Xu2b6Jn9sIjtdM2ZcumAPXa5wevNGRZvFZjFa2aj1efPScjXAlqgnbFg==
+	t=1793702470;
+	b=rS1LIym2PYJr+3ix/bwX1yWjDpi83WJURq0EIkxkgmemLtJ8aCTJliZJMhJVU14VdjkB
+	 cl+Pt3oAjtKFJczgrQGdN3UlPrViz7bRLDpWwnGfrxE+9/otaT1gLGN2koIFIdIXrbxmR
+	 5XpDUOAkw2+swkIk8y5yuU2En2FvmUEiD+3Uu9gy/GgnbgTjsnRqZgGltGYdKs8qcqlGl
+	 akceKFykSMuAo2WsFm1OvY7aOo0dZO6ywRyNpYzUMlkJ51Gt+mVsXCSFqbE+gO4qeK8AK
+	 uGmcS0gJusNfWFz5ftas4mcGYAFo/lPsI9CCMpWxS+3SdlLTvE5rlQ9jZbZQNOu+sfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702005;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=HXOXhFDJYLDRoGylKYnUE2k2Is7r20kYjCkIfNstnsU=;
-	b=lUM4+7kHpEq+iE8IJEwUZrjK4uhI4wKVEGq15GiyQXfvoTE4VnkUjEU0Xvi6lcUwiR/w
-	 l7B7U5JKe2AMJAn04IzRClJ37gMrVox6JbB6WB+NJ3XCC8tTfZQeJ7d+dyiM2LQ+F5SYK
-	 PGEm96IpewW5xr1OBRtIoXCSw0rwRBNz4IafMjgMiRorXCee66A9n1tKthd0Zta+vSSDL
-	 FqjkLsYfhtAhnLKt2Bo0jtP+jOIkMboUb1ID5EXPMWPZ1Ai61WED/1YCSv4tLnkBMeuAH
-	 6dqGa9aIsyoPfRV6zM6pju3S7TLU+ivgwyA8ICdTyeHKEs7reB/nxQi0XXyfsTHQlDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702470;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2ZChROafYGqElVUd4oASxYtU7K3gh3Nswh9EtnpMFEw=;
+	b=M77NK3c2CNjLVX8UELcI95bR62qiHOj4OiLWX1ot8zd7hkzeILFVmoceCnE0CD8oMlLK
+	 ooG9oBroEiBRrPAxXqF2UFK7dIRMuYtYTH8TATKwG2lCAmOhyVfQcVS66gzhLgjh+OMe8
+	 9GKUJYO0/NfLlLwlAMXZVwB/4NcybjOVqeilj5ZmGXXHKLkj4s/emKokWeosBzGhlHdoR
+	 GiU/Hiwrzfvjcudz0QTLrW/0LzdPGEeqUPA0s7mZ/ZFFo4TbgjVAkkPcEcbjt+jTtGS2s
+	 jJBkmg6/LdXfD/YYUI+n7w85QuEgwkTZANJQ4331UXLqI0MRLqVOVGNHm5dne5morwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=WksIFISt;
-	arc=none smtp.remote-ip=79.135.106.118
-Received: from mail-106118.protonmail.ch (mail-106118.protonmail.ch [79.135.106.118])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNi7+NKi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 923B46070AAC
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 10:33:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 923B46070AAC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965E16082BF4;
+	Tue,  3 Nov 2026 10:41:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=WksIFISt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793702002; x=1793961202;
-	bh=HXOXhFDJYLDRoGylKYnUE2k2Is7r20kYjCkIfNstnsU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=WksIFIStTqavmN78sLXRIZlGAKriJ2SsXHhZq52eCVTXLDOB2iR+oSqjIy7KYz5c2
-	 R4KCm4EB/Kud0sPhY92cYwvmB9ZNwIm2PHHDhcZmpArPwh2uAPh6/b7+kKNE7CWIxB
-	 rbJjakT8cOqjo4JWScp8fmv/PKWNVu4JaHSze0J/aDAa9LtU92mWpLpLe9yf5+Ht9Q
-	 Scr3nG/YsCyJ1zNn1gkt1T22jAjHEciPieuP2sb0yeQBtqIfNDgZdDH+CbVu6wHffr
-	 0u0NOVTqVbGTDPtudDYKR9xXyeiZXisO/fv8B2E+qEgIVdUsldeaPHU0HNXsEWjkuZ
-	 WvIQPHma7KyNQ==
-Date: Tue, 03 Nov 2026 10:33:16 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] media: ipu-bridge: Add the Surface Pro 9 and 11 infrared illuminator
-Message-ID: <20261103103235.94397-5-lsa.uz@pm.me>
-In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
-References: <20261103103235.94397-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 624a34f9112f61ac808e7f74f25f7807559654f8
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNi7+NKi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F371F00919;
+	Tue,  3 Nov 2026 10:41:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793702470;
+	bh=2ZChROafYGqElVUd4oASxYtU7K3gh3Nswh9EtnpMFEw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=DNi7+NKi5mqwTRs7wbCDFlBB32pwn0Zp8J2ZkOcIMYJi4eFXeiLDwB/1ze8ZMMfsc
+	 Ky/qOhent2cDlgDpDPq+E5PVY5FhIXibKfYrhBOwa0Kgmf1ZO/WeQ4X5KVoSEhjpnQ
+	 RsiGQ/Nmrop0L/X3n06UuKP5TP0EnJAWdZ2sIPRjhBt9mUjZOuERbbzoVa9vxA7SWP
+	 aXLiK6X24wEcQ1dtfzFGY3hDsm4OaPVyE53Q1MSdAhlEU1SJxwRBW0hDFdxFZdNIPP
+	 nZGom5Rrz1a2gg3VfBTr3aG8gJtz6o4kQtxOvB9HZiozu76zNzTRbtQFQno2zov5Jb
+	 NZo8DZmTdrYsg==
+Date: Tue, 3 Nov 2026 11:41:07 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>
+Subject: Re: [PATCH] media: cec: extron: release the v4l2 device on disconnect
+Message-ID: <20261103-screeching-llama-of-action-dbde2b@quoll>
+References: <20261103102850.1340434-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -65,182 +57,68 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+In-Reply-To: <20261103102850.1340434-1-vulab@iscas.ac.cn>
 
-On the Surface Pro 9 and on the Surface Pro 11 with Intel, the infrared
-illuminator is driven by the VD55G0's GPIO 1, which strobes it during
-the exposure. The ACPI tables do not describe it, so the sensor driver
-finds no st,leds and offers no V4L2_CID_FLASH_LED_MODE.
 
-Give the sensor's software node st,leds from a DMI match, as the
-upside-down quirk gives a rotation. dev_properties gains an entry for it,
-as a sensor can also have a lens-focus reference. The software nodes
-outlive the module, so the property name goes into struct
-ipu_property_names and the GPIO numbers into struct ipu_sensor, where
-nothing points into the module image.
+On Tue, 03 Nov 2026 10:28:50 +0000, Wentao Liang wrote:
+> extron_connect() registers a v4l2 device, which takes a reference on
+> the underlying serio device. extron_disconnect() never unregisters it,
+> so the reference is never dropped. The extron structure allocated in
+> extron_connect() is not freed either.
+> 
+> Unregister the v4l2 device and free the structure at the end of
+> extron_disconnect(), mirroring the error path in extron_connect().
+> 
+> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-Assisted-by: Claude:claude-opus-5-5 sparse
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
-v2: the st,leds name and GPIO numbers live in the bridge's own
-structs, as the software nodes outlive the module (Fernando); the
-Surface Pro 9 is added (Fernando).
 
-D. Manresa's ipu-bridge series changes the same lens-focus line;
-whichever of the two lands second needs a trivial rebase:
-https://lore.kernel.org/all/20261026082549.662885-1-dmanresa@gmail.com/
 
- drivers/media/pci/intel/ipu-bridge.c | 68 +++++++++++++++++++++++++++-
- include/media/ipu-bridge.h           |  6 ++-
- 2 files changed, 71 insertions(+), 3 deletions(-)
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index cb1d1582fa1..b5ce9a64dde 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -283,6 +283,42 @@ static const struct dmi_system_id upside_down_sensor_d=
-mi_ids[] =3D {
- =09{} /* Terminating entry */
- };
-=20
-+/*
-+ * Sensor GPIOs that drive an illuminator, for machines whose ACPI tables =
-do
-+ * not say which. They reach the sensor driver as its own leds property.
-+ */
-+struct ipu_sensor_leds {
-+=09const char *hid;
-+=09u32 gpios[IPU_MAX_LED_GPIOS];
-+=09unsigned int nr_gpios;
-+};
-+
-+/* The infrared illuminator, strobed by the VD55G0's GPIO 1 */
-+static const struct ipu_sensor_leds surface_pro_ir_leds =3D {
-+=09.hid =3D "SMO55F0",
-+=09.gpios =3D { 1 },
-+=09.nr_gpios =3D 1,
-+};
-+
-+static const struct dmi_system_id sensor_leds_dmi_ids[] =3D {
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Surface Pro 9"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
-+=09},
-+=09{
-+=09=09.matches =3D {
-+=09=09=09DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-+=09=09=09DMI_EXACT_MATCH(DMI_PRODUCT_NAME,
-+=09=09=09=09=09"Surface Pro for Business 11th Edition with Intel"),
-+=09=09},
-+=09=09.driver_data =3D (void *)&surface_pro_ir_leds,
-+=09},
-+=09{} /* Terminating entry */
-+};
-+
- static const struct ipu_property_names prop_names =3D {
- =09.clock_frequency =3D "clock-frequency",
- =09.rotation =3D "rotation",
-@@ -292,6 +328,7 @@ static const struct ipu_property_names prop_names =3D {
- =09.remote_endpoint =3D "remote-endpoint",
- =09.link_frequencies =3D "link-frequencies",
- =09.clock_noncontinuous =3D "clock-noncontinuous",
-+=09.st_leds =3D "st,leds",
- };
-=20
- static const char * const ipu_vcm_types[] =3D {
-@@ -563,6 +600,22 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, st=
-ruct ipu_sensor *sensor)
- }
- EXPORT_SYMBOL_NS_GPL(ipu_bridge_parse_ssdb, "INTEL_IPU_BRIDGE");
-=20
-+static const struct ipu_sensor_leds *
-+ipu_bridge_get_leds(const struct ipu_sensor_config *cfg)
-+{
-+=09const struct dmi_system_id *dmi_id;
-+=09const struct ipu_sensor_leds *leds;
-+
-+=09for (dmi_id =3D dmi_first_match(sensor_leds_dmi_ids); dmi_id;
-+=09     dmi_id =3D dmi_first_match(dmi_id + 1)) {
-+=09=09leds =3D dmi_id->driver_data;
-+=09=09if (!strcmp(cfg->hid, leds->hid))
-+=09=09=09return leds;
-+=09}
-+
-+=09return NULL;
-+}
-+
- static void ipu_bridge_create_fwnode_properties(
- =09struct ipu_sensor *sensor,
- =09struct ipu_bridge *bridge,
-@@ -570,7 +623,8 @@ static void ipu_bridge_create_fwnode_properties(
- {
- =09struct ipu_property_names *names =3D &sensor->prop_names;
- =09struct software_node *nodes =3D sensor->swnodes;
--=09unsigned int i =3D 0;
-+=09const struct ipu_sensor_leds *leds;
-+=09unsigned int i =3D 0, d =3D 3;
-=20
- =09sensor->prop_names =3D prop_names;
-=20
-@@ -624,10 +678,20 @@ static void ipu_bridge_create_fwnode_properties(
- =09if (sensor->vcm_type) {
- =09=09sensor->vcm_ref[0] =3D
- =09=09=09SOFTWARE_NODE_REFERENCE(&sensor->swnodes[SWNODE_VCM]);
--=09=09sensor->dev_properties[3] =3D
-+=09=09sensor->dev_properties[d++] =3D
- =09=09=09PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
- =09}
-=20
-+=09leds =3D ipu_bridge_get_leds(cfg);
-+=09if (leds) {
-+=09=09memcpy(sensor->led_gpios, leds->gpios,
-+=09=09       sizeof(sensor->led_gpios));
-+=09=09sensor->dev_properties[d++] =3D
-+=09=09=09PROPERTY_ENTRY_U32_ARRAY_LEN(names->st_leds,
-+=09=09=09=09=09=09     sensor->led_gpios,
-+=09=09=09=09=09=09     leds->nr_gpios);
-+=09}
-+
- =09sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_BUS_TYPE)] =3D
- =09=09PROPERTY_ENTRY_U32(names->bus_type,
- =09=09=09=09   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 3ef94c2b767..7383bdf5a45 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -12,6 +12,7 @@
- #define IPU_MAX_LANES=09=09=09=094
- #define IPU_MAX_PORTS=09=09=09=094
- #define MAX_NUM_LINK_FREQS=09=09=093
-+#define IPU_MAX_LED_GPIOS=09=09=094
-=20
- /* Values are educated guesses as we don't have a spec */
- #define IPU_SENSOR_ROTATION_NORMAL=09=090
-@@ -136,6 +137,7 @@ struct ipu_property_names {
- =09char remote_endpoint[16];
- =09char link_frequencies[17];
- =09char clock_noncontinuous[20];
-+=09char st_leds[8];
- };
-=20
- struct ipu_node_names {
-@@ -178,8 +180,10 @@ struct ipu_sensor {
- =09const char *vcm_type;
-=20
- =09struct ipu_property_names prop_names;
-+=09/* The software nodes outlive the module, so these values live here */
-+=09u32 led_gpios[IPU_MAX_LED_GPIOS];
- =09struct property_entry ep_properties[IPU_BRIDGE_EP_NUM_ENTRIES];
--=09struct property_entry dev_properties[5];
-+=09struct property_entry dev_properties[6];
- =09struct property_entry ipu_properties[3];
- =09struct property_entry ivsc_properties[1];
- =09struct property_entry ivsc_sensor_ep_properties[4];
---=20
-2.54.0
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
+
+3. Your bot does not even bother running checkpatch, right?
+
+4. Nothing of this was reproduced nor tested.
+
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
+
+Best regards,
+Krzysztof
+
+
 
 
