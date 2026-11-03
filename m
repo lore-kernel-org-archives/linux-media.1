@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691640;
-	b=AVyCsxtWj6wU0Q/YMQ/TpL8nbPyp9SBJzLClmU9wiYrhe82+NT56k59716s7QvNIbje7
-	 CS0oNW88NYNq3hFJBsKUNGLShXw9Jm68Z1TnykUst9XZiDFH5JSBolbnfJninlhkaARmG
-	 mkjyW8/2qzuiKiI/SF9wliVRwFJIdiKkUvzJnrJojau8mV8TaxR0oyqv5CzBMmNGdD23s
-	 KW+CNJXf3ZHck3+UzWFn57lpSfWswNA1WYlip5kbDxrKC3PC8nOvpjGd+5iYtoLHcuxhc
-	 7A1HBcF0A5yJHVKIv+U4zuUhLB+JuZZ7BOA+ElS8PM0Q1UQNAVtbxqTi9gfm3VdJaiA==
+	t=1793691641;
+	b=qdKQVHulxYjpvbwJSfeHW8YmYqNNBew+s7Ws1fRMa8JkYmxtWHUcl0Lob8996G1pLIlk
+	 i1/tu/tmdluSD6rcx/35rr5AZRN4oJL1YT6vSXEKbI8LUEfhF4LQa+34TIBWu1jqFWyOq
+	 Z611BJ5xVAGdL1nR9bmoB53PA9WNEcZVVLFTQkTkRuq7Tkc5gNfdquY76OM5OCHdnHL1p
+	 /ejWVp9RVk+p/5hn4r3ufL535w/J7i1iyJtg8J/a1cP66cnOIdan8LzJy+8QjFEN2id+H
+	 JmPe8u65GSFgA9JvCpjRN6BHqnMaECZaFdMhbYIf9oMN2QRmucWxxWEVanCPItOSPgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691640;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691641;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qdx2BkWqosqnUNeKXOVUifF3kLiaRnwfjemg//knEvA=;
-	b=BqG8uAqF3Pr6BOt0OwyI9OUW4KisUPGuRsQqoAi1DF8rLPtqI898QF8aeGMJ/BuuswS4
-	 STL4T9gwsn8KJsjkK2rgN3G0wf2n0kIIuYvF00omocKNjDBl7QgTFpY0k8avLkHld+KYR
-	 JsgbssE50QQ5D6lGIT6vCUwKS5a+gmeLakF0r1/dYJAn9cZoK3h+KtvnMk+OhC8HYHWXJ
-	 jWBv39YHfcF7eUbV2PTKq02Lr5TgCRyOhP1ZZg3/hQYV7uzDjSq8JBrLxibdF/ikmaITQ
-	 UNGC2I5P8ouoGbraKzDT6PlNMIk9RxWXZAgpjEIT4skXtm3zgWXcMlkiVmufYfMEwtg==
+	bh=bCHawQ0yxotQhJh8sLEUiGEitartFjFESIjtqLTPRqw=;
+	b=siFQC0JZYBZ9wYK+gWzvK+1dpCdTrmIth34WSoXK9jzTnrE9CSnlls7Z/lFXFjPuJ8Fz
+	 GO2jteRNG5vaPlPjdQH4JGqZhgTmCvZlxcCqlW1xumEt9JTjpuDCFG7UwVb5+PV6+QdmK
+	 NVpdRXUs+bR/9Hr5IKD1l/06F6ALNvsF7uOV7pn5wkH2WQCdvg7YFkzyTk+6HaLKq3XZa
+	 AJzsRjVBqPVxbqXEEe13qSIVGOWWIayU7jlZ29sPRQfwWh9u3/jtyGNcVaiiUlE1FbmkU
+	 uGa+uYP5x0w9IpjEogR7CUqgYXsvJSeCu43FfuqZ7c0A4eMOxi1MZ6W8We3FzDDaVjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPTkD4Ja;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWPGO3Jr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F075606A339
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51B60606A32D
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPTkD4Ja
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3421F01577;
-	Tue,  3 Nov 2026 07:40:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fWPGO3Jr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 229811F00A1C;
+	Tue,  3 Nov 2026 07:40:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793691639;
-	bh=qdx2BkWqosqnUNeKXOVUifF3kLiaRnwfjemg//knEvA=;
+	s=k20260515; t=1793691641;
+	bh=bCHawQ0yxotQhJh8sLEUiGEitartFjFESIjtqLTPRqw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PPTkD4Ja/PRJDdfyafN9V/67F9tcKBP2U3+V4R4O7RXIQs5NZp3AkfldxQcuDqBe5
-	 RAnUgi96Z7cj0ZQllZTUxv4MDeup0/PsLTHNjAFFLMHZD3yRtabcC5zBxQekSSbP2Q
-	 I8n4AnIaUc5rcjmOuiAvSjXXHLFAg3W3TULhHe9ykodYSAyBFHDFDsjXpIN5sPIfXH
-	 Uy8T577Do6GOa7mVAg9TFRp7qJOVR9wliV8f3b4m7XY0Qp8YvKXn38HESJ0bEM+19o
-	 KnsjnDPybM2cF+yzMWfBurAt7m7A0kYi6fM4Xm146JfyI7yDlOq2jb05MPB4H7QQVl
-	 Uui3XSQRIxGqA==
+	b=fWPGO3Jr0ph/dR1+K4E02hCGcIe98I4wKnQ7Afd6ZnpmTeZdqzFJfLUbrwh6oExQn
+	 SIjDbJf3Exhx9isQ0Zcxo6pRyRwNq3MKaH5pquFG6jXhwA/6gjrcwhqsx/HWQ/Sc29
+	 1ZYngdHY6zVautPTfkDktcmNer1oc01WY4GX5P5FheLIhZFUlBsLgBdNf8egeVfAPZ
+	 ryfrxMhs4fx2p78hrx7rJfCibZ68h2FxZPL+8aiV3h+DGJ7MrCcU399/yE47q1Xd80
+	 hJEM5v0fItz8N0lTWbIEaZdq+UKnyD5LOhuGeKTYJZKzKS4gKFRA5uaWQhjO57fx9w
+	 Fi9gTMPAXWsEQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv2 11/13] Documentation: media: cec-ioc-dqevent.rst: document STATE_EDID_PRESENT flag
-Date: Tue,  3 Nov 2026 08:32:02 +0100
-Message-ID: <03aefa129e683778cc461142891bcc8eab72a0ff.1793691124.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv2 12/13] media: cec: core: implement CEC_EVENT_FL_STATE_EDID_PRESENT
+Date: Tue,  3 Nov 2026 08:32:03 +0100
+Message-ID: <897c6071fbdca71dbb446b03e32c0e6af219ecf0.1793691124.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793691124.git.hverkuil+cisco@kernel.org>
 References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
@@ -60,49 +60,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document the CEC_EVENT_FL_STATE_EDID_PRESENT event flag.
+Set CEC_EVENT_FL_STATE_EDID_PRESENT if needed when posting the state
+change event.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../userspace-api/media/cec/cec-ioc-adap-g-caps.rst    |  3 ++-
- .../userspace-api/media/cec/cec-ioc-dqevent.rst        | 10 ++++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ drivers/media/cec/core/cec-adap.c |  2 ++
+ drivers/media/cec/core/cec-api.c  | 10 ++++++----
+ 2 files changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-index abd62ac64541..49bd90d9392f 100644
---- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-+++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-@@ -148,7 +148,8 @@ returns the information to the application. The ioctl never fails.
-       - ``CEC_CAP_HAS_EDID_PRESENT``
-       - 0x00000400
-       - If this capability is set, then
--        :ref:`CEC_LOG_ADDRS_FL_EDID_PRESENT <cec-log-addrs-flags>` is valid.
-+        :ref:`CEC_LOG_ADDRS_FL_EDID_PRESENT <cec-log-addrs-flags>` and
-+        :ref:`CEC_EVENT_FL_STATE_EDID_PRESENT <cec-event-flags>` are valid.
- 	This makes it possible to tell apart the case where the Physical Address
- 	is f.f.f.f because no EDID is present, and the case where it is f.f.f.f
- 	because the EDID does not provide a valid Physical Address.
-diff --git a/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst b/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst
-index 71d6a9e81f75..188600dff3c7 100644
---- a/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst
-+++ b/Documentation/userspace-api/media/cec/cec-ioc-dqevent.rst
-@@ -224,6 +224,16 @@ it is guaranteed that the state did change in between the two events.
-       - 2
-       - Set if one or more events of the given event type have been dropped.
-         This is an indication that the application cannot keep up.
-+    * .. _`CEC-EVENT-FL-STATE-EDID-PRESENT`:
-+
-+      - ``CEC_EVENT_FL_STATE_EDID_PRESENT``
-+      - 4
-+      - Only set for the ``CEC_EVENT_STATE_CHANGE`` event type.
-+        If this flag is set, then an EDID is present. This helps tell apart the
-+        case where the Physical Address is f.f.f.f because no EDID is present,
-+        and the case where it is f.f.f.f because the EDID does not provide a
-+        valid Physical Address. This flag can only be used if
-+        ``CEC_CAP_HAS_EDID_PRESENT`` is set in the adapter capabilities.
+diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
+index 1a7b79916e47..52a56cabedcf 100644
+--- a/drivers/media/cec/core/cec-adap.c
++++ b/drivers/media/cec/core/cec-adap.c
+@@ -323,6 +323,8 @@ static void cec_post_state_event(struct cec_adapter *adap)
+ 	ev.state_change.log_addr_mask = adap->log_addrs.log_addr_mask;
+ 	ev.state_change.have_conn_info =
+ 		adap->conn_info.type != CEC_CONNECTOR_TYPE_NO_CONNECTOR;
++	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT)
++		ev.flags |= CEC_EVENT_FL_STATE_EDID_PRESENT;
+ 	cec_queue_event(adap, &ev);
+ }
  
+diff --git a/drivers/media/cec/core/cec-api.c b/drivers/media/cec/core/cec-api.c
+index 1ba080d5a123..77778ff737a6 100644
+--- a/drivers/media/cec/core/cec-api.c
++++ b/drivers/media/cec/core/cec-api.c
+@@ -560,10 +560,7 @@ static int cec_open(struct inode *inode, struct file *filp)
+ 	 * Initial events that are automatically sent when the cec device is
+ 	 * opened.
+ 	 */
+-	struct cec_event ev = {
+-		.event = CEC_EVENT_STATE_CHANGE,
+-		.flags = CEC_EVENT_FL_INITIAL_STATE,
+-	};
++	struct cec_event ev = {};
+ 	unsigned int i;
+ 	int err;
  
- Return Value
+@@ -589,12 +586,17 @@ static int cec_open(struct inode *inode, struct file *filp)
+ 	filp->private_data = fh;
+ 
+ 	/* Queue up initial state events */
++	ev.event = CEC_EVENT_STATE_CHANGE;
+ 	ev.state_change.phys_addr = adap->phys_addr;
+ 	ev.state_change.log_addr_mask = adap->log_addrs.log_addr_mask;
+ 	ev.state_change.have_conn_info =
+ 		adap->conn_info.type != CEC_CONNECTOR_TYPE_NO_CONNECTOR;
++	ev.flags = CEC_EVENT_FL_INITIAL_STATE;
++	if (adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT)
++		ev.flags |= CEC_EVENT_FL_STATE_EDID_PRESENT;
+ 	cec_queue_event_fh(fh, &ev, 0);
+ #ifdef CONFIG_CEC_PIN
++	ev.flags = CEC_EVENT_FL_INITIAL_STATE;
+ 	if (adap->pin && adap->pin->ops->read_hpd &&
+ 	    !adap->devnode.unregistered) {
+ 		err = adap->pin->ops->read_hpd(adap);
 -- 
 2.53.0
 
