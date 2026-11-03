@@ -1,52 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793688296;
-	b=Lie1KAJwZ2F741HJvvGZD9SB6zjX0QcOWBGgQisN4R36fKxwlsjUOiYKp8nU855hg211
-	 4YzY81ax92Y6ONWqZmACLNANpnBUl2Hs3ELK2VPuZ/IpDEZOj0T8nZfKyoUU/MrGSIA48
-	 N9rld7TRgBIwmxvSXwlkzGi3V50cQ0grpxZadUWwMdMTuztDMiwI7TZrDf055r+/q9GY2
-	 Vdp9PoZRF0/W7qCNbHKNrI2c3uYHzhrYfcl64A0vb3+27NfTAUYw0dmNXwvHZFvsPKoxb
-	 bpNSLhLZ06iJcUHhhB23PTdaYs/mHwT1ERo9s25oXLvGD4E4XtMwYgDo+FmivVovnDg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793688296;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=/dOVXsFMDkU6zs9kk0Fxy+2LOf1FqeDj2v2t86/TN+I=;
-	b=v1wun0UMxoeYbh6FIOUdVdPMdjFV97f0GazH8B099hORGvSvdccqaNEZf4vqxIREa+g+
-	 pOW1yz+hHG6xSquefqKPFD347Zq5VKOXh2fKDD1N7OEunPp1I8KF27UnMPEtTsQa4z55L
-	 1JPG1qLwgyDW2BF7R4Vxa5oHPB662P93XqutnSDm0atVQe+pkUJUDMhPG48IarPv1lf2D
-	 rF9KHU4jbrY8gxPwhP66DAJMT0WFEhR8IgwSF3/h7HlFdLP2D9/9cAHieTqKfMCJXUI3p
-	 IDTmrFQM6Jxi3xIDZgJgxw0kAwR7Pwmb5qMonRst95pg33L2zKChQIJ3p3iHV1H+AyQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793688634;
+	b=BN/D1nGXhSV+OfqI9Vfu2uiaNOAReHL7Me30+6u205Lc/un8bXXs7BN4TX8v/G2LPdZA
+	 9hDZFP0us03/zOtNJjaWZdAu5krS3gZVloY0MU+thoZkqQyxRGcUUO4gdDSx5zIq9c+1i
+	 qzGflpbZlSWIwsHIbnaYWp3xW1Jl5xHeMXmqCP9+Z9r9ASIZBsjVlQOj4Dq/qCqrC911R
+	 l72vqEWHaAK1eOMXeVuOPB3fMEZSm3Hr/Cd4zlVLswKWHCZYgXJDYvSr2tPGNLCkTXpb/
+	 yQG1NLBrYPMFqH/o2LuSYeEmAwuzsflIApphD2bvFqi4Tti17ZLKGJsH4Ly6krgoNwA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793688634;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
+	b=p3KsFz+XzSAmLdrJys/9XngWOz9ZnpSldQhKLOLqTGISgH35PJQ7sGyATBtJIvRtzKfL
+	 TBtqCRATgBU1/5n3eRWwhKGwrxwWrVoB9wP+6zF5R+ZR3Drl/C+1rlJ28fgFZfhrCRf1x
+	 ue7Q4kKCsfTzNzAK9mWJW+w3lNt7NKh354SvfwIrQjy6TTBbyWwgQkXl9nLRLgesu2rYA
+	 XVNZob/z+W3HR0CnFPT70X9B+Ar1PaO8rU10PyVqQvINXaEewn0EqgFyDG/xFb5q0A1+L
+	 DISvvaQCkpC2LO5glOYzX4tx3SmzCaWkpIgBIXE6hjcpOzFxWFhN3FOZwsQuoeFQHsg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjWvmr7u;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60BA3606A331;
+	Tue,  3 Nov 2026 06:50:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KjWvmr7u
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793688634;
+	b=BOwc2WJCr+DcDyMswovOfjklm+xfrxY6ic/JAjoYYkQxekwW86hNa2oeYIk7wWigO2fL
+	 F8uxMQ7W+QvYDBYjHaZke9ASbLo9mHpX+FMEzM3lGjrK6pmSqhWcWRRYpnjKXdGxxkke/
+	 /24Lu0CVs9ELHmbhTzUdU4vc0lth6QIftLiX7Oz6PvUasOmlth3tcAhQkJxxs7uth18Vp
+	 b9l9jl07ZaNQzLPlOeGbqCTik6l2RMdN4EeOTVKqfS0TKVojkBZETuXdxilFXhtVMmFnJ
+	 aVJMiSpOtc8F2MJAYnwYxFIIDb7UgFs46HRG+eREJ79I7AX3AMFuG+G6+rtmZX3GFFQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793688634;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
+	b=XXWfe4R6eOgnoYkOWQ9Q8QzRIf+59Bfu3ALtUOKo9jKaxk77Ax88o1tyxLOimyX6gphk
+	 PnCzV0JDwkQfTzRakwNPv6pi+fIA85oBGiHFzmvB0YU2DNRahSF5rzmbQDAG38sPRerel
+	 SXP/AdNYFZYyjx1RAs+CjMpKWxkJDvkyOJqWMUXrIYPZxehww+DgZxJE29ZL2iQ1RZhTT
+	 if8dNxr5egDUd9YKkAT4bU2TITBQ/fvlnP+u3Z0sLOaei027a+jH9ZGUWG/IXywWBIJBv
+	 nWeervIVGKaH1ikO1j5pfxNgX0XmZ/Z6dvllPa8l9PbK2cv9+RFD4RNy8c7CdtWg1Lw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B355606A324;
-	Tue,  3 Nov 2026 06:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B355606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3xZbggulqE305AA--.203S2;
-	Tue, 03 Nov 2026 14:44:48 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: sumit.semwal@linaro.org,
-	christian.koenig@amd.com
-Cc: phasta@kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] dma-buf: Release input fences in the unwrap merge order test
-Date: Tue,  3 Nov 2026 06:44:57 +0000
-Message-Id: <20261103064457.1056056-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.kernel.org (Postfix) with ESMTPS id B14731F00919;
+	Tue,  3 Nov 2026 06:50:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793688634;
+	bh=sQblcdlkbUfmB1DaJ6Kr5GTjgM7QZjkVClqVKNQ5Z6E=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=KjWvmr7uP92FXRO4zGdMOamWGpi2urvBtJwEGPOq0HrqW+ZPCj8aJCLiUNR4Se9xx
+	 /AbxZqx1IAsFt5LZq+6G9L1A71fSvqvPIlc/79XCrBqXy57WotsgMsK08B04VcrOkO
+	 XXgWyZ2UHAdNQQ1ziffKOFmDttCQxI140kUUbcUDBSQEmJ7vfKWMPDY6X6l0xXJYnf
+	 XoC5+DUDl1lL/BKog/v9exDe4A/wPANBxZq0SzxRqnMKHlThG6NM8jMfabBFeslaCL
+	 Xm2CYz8KGm0SetbXY0hi1V9T5rowMHu+8LAUGNw5vOcVDxc+1iALywCKPvwVVaK0I9
+	 h9ENEW/tbo4fA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1DFB2467EE;
+	Tue,  3 Nov 2026 06:50:32 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Tue, 03 Nov 2026 14:50:19 +0800
+Subject: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
+ properties
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -56,58 +83,106 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3xZbggulqE305AA--.203S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF17GF1fKF1kCF1kCF4fuFg_yoW8Jw1Upa
-	yxKF1j9r9xKa10vw1jvF17Xa4akw4fJFyrWF4jk34F9as8ZFy0vFWktFWIvr1DXr98G3yF
-	yw15C3s8XFn5AFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1P
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQAA2rpWtmDRQABsH
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-upstream-it6625-alsa-i2s-v1-1-bb91e2879b01@ite.com.tw>
+References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
+In-Reply-To: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org, 
+ linux-api@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793688630; l=2381;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=YquEGnkfejE8LQ3h36bXPBE3tLh6TFPGHJoLWRG719M=;
+ b=lLa4lYyu0HCAvAC77t+VFLi8mHRGaDxq0l3ShmMhyDEv9x09C/rJmAzz4NtI+UYwIy0FFRS6Z
+ MWSSGIdCtJACYzF2hCf13F7H0z7i5eJ3X0FqCs3gET+azSqwYf7rqnZ
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
+Content-Transfer-Encoding: 7bit
 
-The merge order test creates an array and a chain as inputs to
-dma_fence_unwrap_merge(). The merge takes references to the underlying
-fences but does not consume the input containers. The success path only
-puts the merged result, leaking both the input array and the outer chain,
-which owns the inner chain.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Put the outer chain after checking the merged result and fall through to
-the existing array cleanup on success as well as failure.
+IT6625 and IT6626 decode the HDMI audio stream and output it on an I2S
+interface, driving the bit and frame clocks themselves. The bridge has up
+to eight I2S data pins.
 
-The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
+Add '#sound-dai-cells' so the bridge can be referenced as an audio codec
+DAI, and 'ite,i2s-data-lanes' to describe which data pins are connected
+to the audio receiver, in HDMI channel-pair order. Without the property
+only SD0 is connected.
 
-Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
-Cc: stable@vger.kernel.org
-Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 23 +++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/st-dma-fence-unwrap.c b/drivers/dma-buf/st-dma-fence-unwrap.c
-index c5353b36f0e4..8115a721dc88 100644
---- a/drivers/dma-buf/st-dma-fence-unwrap.c
-+++ b/drivers/dma-buf/st-dma-fence-unwrap.c
-@@ -437,7 +437,7 @@ static void test_unwrap_merge_order(struct kunit *test)
- 		KUNIT_FAIL(test, "Not all fences seen!");
+diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+index 9b621f726249189255692da02049ebcbf1d5b43c..9304a0507903e7eaee44fa565e49c6938e9eb7d8 100644
+--- a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
+@@ -43,6 +43,23 @@ properties:
+   ovdd-supply:
+     description: I/O supply voltage
  
- 	dma_fence_put(a2);
--	return;
-+	dma_fence_put(c2);
++  '#sound-dai-cells':
++    const: 0
++
++  ite,i2s-data-lanes:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 1
++    maxItems: 8
++    uniqueItems: true
++    items:
++      enum: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
++    description:
++      I2S audio data pins (SD0 - SD7) that are connected to the audio
++      receiver, in HDMI channel-pair order. The first entry is the pin
++      carrying HDMI channels 1 and 2, the second the pin carrying channels 3
++      and 4, and so on. The bridge drives the I2S bit and frame clocks. If
++      the property is absent, only SD0 is connected.
++
+   ports:
+     $ref: /schemas/graph.yaml#/properties/ports
+     properties:
+@@ -111,6 +128,7 @@ required:
+   - ovdd-supply
  
- error_put_a1:
- 	dma_fence_put(a1);
+ allOf:
++  - $ref: /schemas/sound/dai-common.yaml#
+   - if:
+       properties:
+         compatible:
+@@ -131,7 +149,7 @@ allOf:
+                   required:
+                     - bus-type
+ 
+-additionalProperties: false
++unevaluatedProperties: false
+ 
+ examples:
+   - |
+@@ -153,6 +171,9 @@ examples:
+         vdd33-supply = <&vdd33_reg>;
+         ovdd-supply = <&ovdd_reg>;
+ 
++        #sound-dai-cells = <0>;
++        ite,i2s-data-lanes = <0 1 2 3>;
++
+         ports {
+           #address-cells = <1>;
+           #size-cells = <0>;
+
 -- 
 2.34.1
+
 
