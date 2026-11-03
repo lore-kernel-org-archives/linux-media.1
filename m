@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703373;
-	b=eRwI/gf8mky35nYizSuEhe4ok/IfNYpQJAw1AnMjo71ATbVB/B47BzVm1V5/aWlht9So
-	 iobqgltHZ2JxrB9+6JVH1gj4sFhacHpa+gPtz2tpeauHXiLZoadMgVwc5mC7BFUqolGjy
-	 8YQXN4OPLEp7xHKnrNCfrPrwiqJORFm1h//O/8N2BYDhsu0i6A/lj6JK2QMqQ4dZcY3ek
-	 l2G6mZtz5Ot8nkNmUQ9sxlLOGrkyk/PyD1oswlXCxnrr0hgpIV2/USF9fQ9SpQeSFACVH
-	 hpN81QHmFRwsw0MXAAcQHUpbJCQo7HphL/wemicmPNvXlk0QTZCgePARFQbfz7O3H0w==
+	t=1793703377;
+	b=cx9Yq0BqP0QS14NNHOhmSRRJoVdMdSoNn9Qe4SQ/MSkmW62s4NC2xnMorJu+L4i1vWCV
+	 UmdcOfifmt95fl9d3MERr9ayZ4wFKXPTAa1NkWKqbW+iaZxLEZJeKt7R/DsRdpNrz8F1+
+	 ZkWNoiQqZDoJ/MFlASLGs6jvd4AGlTAXgvtJJmDz+F+IPy8a/tZPZKEvv4ZVqV6b6znGW
+	 tIupZ8ivHTKmXP1pGVOQAfQlKpeUd7LSPbGxtdwi/ydkY7zcnmYxHkjpZrZ4sYe9uZQFn
+	 toBipxIOj9E6ILI2Dy/N17yJfjotswCTmIU+YeiR77oaCT+yW/QMCg0AAlkxHLLl20Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703373;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703377;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=yKR6z/tivkvMCUb5ROAsGb0r4GFzf/k7VChj5fSZuh8=;
-	b=aTurlfFkFBbC4oO5Zx/1ZJrve5jBrU60dI0PeRncDOHQBtDKKoLD7fvalI0GC+BEnQso
-	 AlbIPNg8fjBpXOkubaEG6Y40vDc0gKQT/Vwc/SUvKfmVMbMGsRyEoZxBwosJIoKCsqooD
-	 zWOT0vpjrsMAuZLrxUYD26uF/XK9CQERSrNkzNi+SVwNfb5aeTDNP4dV3pFXoHrsYRMeh
-	 EELdLXX1vYYvdK++1ZGTubBnzMYlsefNuPUcYWfvO5IXipw+/3UtQy9gRpSRXLDouxnfG
-	 8v4jtsqrVQGpTfXV/7X/rEYiITsY0Ml1tGWpUFV0FJCLNgc8YEg72qazknN2aek7Irw==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=o5m6x1zTq9mQX096k7d8zrZcnlgwQ3oTTf7qyiSE3PY=;
+	b=xurN8SlsF78RrTAxtf1pF9BMC9dfUtcL1NXfh1PW3tUHn34WQOY6Ajeql/BFEICI9Luh
+	 vjtk8jBmYdLrYxo/Sjl5+mK89v/kTDgh3eaJAk5gC6xprvUuEmGADFvGQdp3MvVN+sMn1
+	 EeZS8tJi70zirULLY9LJOT+BBRs3ahBf1/7GcVktpNeVbMUuyujSNieXbLt3TLacaaWx+
+	 q8Gi2X1PtNY41HUvSXSbbzexJSBdoBr8fv2r//GafY+cfUhMqvZDIwRZjQhIGU1WDdeWa
+	 4oZx0WKVV0/4PCUixb8spyqs0UALLiapvIFPFUt3GQXJOKs7Z5mRdPoHC/uKByaC4Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U5XLIyQA;
-	arc=none smtp.remote-ip=209.85.167.48
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XbLYk30j;
+	arc=none smtp.remote-ip=209.85.167.54
+Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FF4606EEB1
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 10:56:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0FF4606EEB1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F3D606EEA8
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 10:56:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13F3D606EEA8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=U5XLIyQA
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5ba35c0df4fso4228181e87.0
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 02:56:12 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XbLYk30j
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso649738e87.0
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 02:56:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793703371; x=1794308171; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yKR6z/tivkvMCUb5ROAsGb0r4GFzf/k7VChj5fSZuh8=;
-        b=U5XLIyQAQ7xr07tOMX3ePVaRpwIzstaLqVeCqgtBITo/8XqXmzudY8QRelIzK2WVYJ
-         gNalBp7TxuO/ON2Df4E4TNztGYb8wkhI9I6pqGpNjxzJFY3YhcNe1Jr6hvABEJWkwMil
-         JdLz+vz7iD75uCG/5Y8PskbJQSOXCyYLXZ8zg=
+        d=chromium.org; s=google; t=1793703370; x=1794308170; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=o5m6x1zTq9mQX096k7d8zrZcnlgwQ3oTTf7qyiSE3PY=;
+        b=XbLYk30jfXunhsEYxjVwplYjk4X+rlhKam6UuehkAzt1FaP3n2VLvzloSSe4MVDJBQ
+         nWd5tH69f0pKXulOG8ihw8TZPrCSll9OXe2Mtdu5fz1uZjBsDWZB44nO4YOsbsU7VEKA
+         ++XSzzNMTzcWucoBurdROfSfmGsXmuPszhqJY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793703371; x=1794308171;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yKR6z/tivkvMCUb5ROAsGb0r4GFzf/k7VChj5fSZuh8=;
-        b=22C73whyw0+kkcyooDR1PFngalBb3CYWRpD5yCV8T5gOBNS4pt1IBYDoy7IE6qwZEz
-         xnWY6PhXYRNt4h3RMmP0SwGw6CrzNpzJDX0jiEU4jBNKQrUqfvziLDgzw01Gsw/ryero
-         9XxJUH7bBgPfFvUXkKI6UQKiZaNDlQZZvWL30nzJUR2jyDAMng3ZU3Qo9N8vnY7c3GVe
-         tIXFO7Lbdl+jjG4L5v9dyxV9AwSdksHTCor50d3Ob5ObS4VYuZ9TKHS/lvKo15bmBk3K
-         T2I6FpYRkgItLSAO2xHBnJXnLv/IM8neNxkSLcsPkqtFA/LiC+N83jRHUfqRxf2H/evH
-         hOqg==
-X-Gm-Message-State: APuU4Z+jZarWBL0oMmjfbE3uM7eR22HNufM4PTP/z11GCdI/WGXRt/rm
-	cYL8TzDV/l9nJABKxbUdZflZCmv8bnchXq/4M+sebKXoHlM3eLnOxabBIXVq1nToJg==
-X-Gm-Gg: AYBFou3NQRG2ejesXFsnlZYCCfwbcLpdZCLq6lcFAPIVKfno9ViAf5FramlWKAis2d6
-	e55qt4rZOcqdqguB4CtzfmOk/dTJLeRRk0cDkYM79JnvFyjUpe8s1ZXWHC5ODIuRIuFXuNixkbt
-	bwFbFl+8o5P5CRiDrIwHYCKLH3w6LiN6sl65NdDHG7WC5IqtEp2L0aezW5A8Jc0tArsndGELG4O
-	45SGNdno4mjn2dzRRhmCmdVhRhOvDWueV5uBi6/xd3R35X3uroOaKzY6E0PrtaTh7omWYPfm4MX
-	yXElbam/hi4U8qRn8hktFQb4za7FFnBiATMgBDRsmxRHaDZeGoahK7sYrsruo9U13PXfCp7knku
-	0zPRu9teM4n3Vgf8Y8lHdm+IRqXSVJA/vfLmKt9/W7jx7N/kRjmfqoz9O+QTjlZzWadf8+itbBN
-	1UUjocvXfFn9MkRErWrrZTLaVhSmCz7EbFXDnQhHl7Ozj8G8DrrGgGj2B/1SGl5IcMkLoHJtMc3
-	lEUI67xokBLJewpiwIgow7SiZyLiUPWN/oHZ6v22NkchTYCckNKylozEpKnHPa3my3tStSdS2Z0
-	cCaL7xV+kstNFL7QW6cuaHhE7/Ce/fya+RKEQ87qOSmuGRW2PWhklvCSmq/GuCRQt99bUxit16J
-	yiU5U18v6aQ==
-X-Received: by 2002:a05:6512:2354:b0:5bf:d6a4:a133 with SMTP id 2adb3069b0e04-5bfd952016cmr4597256e87.3.1793703371356;
-        Tue, 03 Nov 2026 02:56:11 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793703370; x=1794308170;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=o5m6x1zTq9mQX096k7d8zrZcnlgwQ3oTTf7qyiSE3PY=;
+        b=viToTX9KNu0aLp2SBf5hCw/5yy8rjTobLTRBtrX2ULjoSeG/H7L3IS2cDZ2n7RS0wM
+         snoz4ljWFSHJUkLQzJM8RzgOYXLAGFDgyaWrU7HnW6E0qewy5bx5+eW/pMoL7aI89fVe
+         hSlBKvdcZJy5rvTdWaPxpt+oWmKDqRkzo3i3FdI+rj2yl7O6eucoFRB0PoeJ/Oi1vnqm
+         N/olrpFzxbKVpkhujaE/Y4il16nWrjWE6NOy11cqzCDv6qBz4o3eYE045FLd3JcpCsUy
+         SA0cnX1YX5pHyvFX8qmnQSo0HXmzANZv2S0cDly+3yXeK4+FOP304RBYISdFPoiIHFcG
+         mzhw==
+X-Gm-Message-State: APuU4Z9+7u6rmrT8lyFqQc94ja6bVmEY3ftrHLoN70Ltk1ITEgZIE6m3
+	e/tH59wNoodyzXX50tedRVOSATPaLpTBtCwkwZjXIYXn+MS2Ogyu002qPRQ0dcBxnw==
+X-Gm-Gg: AYBFou1kqPUkPst++RElQqeUVNi6eTbQh48o7uzaeb2FCjT8kXb5tX0rWRUDBgeHgRL
+	6cQ06wEy+P4vkhXs+0Q+XOiJg89kgWkAV2x+pLDLJt96QLD+7Rv+ZO0vYAzXAIk2ECSefX9BtCv
+	V7TPdKeD3abEmmfWUFUgv+0DGZgM8oBdx6d5oJJq5belTgbrxHe/lip7TaoHEVeoHiMZG+ebpIP
+	uhOwpG0pTxOtJa7rKTrbg6z5YfwBuo7J1JnUdNi4Ev5p07peuaplI2echHw1AEi3ku8JwzFEzgS
+	q93hb8X2KqmMq2tJ62DAhyZ89wBCXKAq2pewqQHDLMPe0WB3MNSL32ND0uk2ZRVH3HAseluNStN
+	bKAF+py2oS9bAp2zLjmP+rUnI4NXwyrEB0J5RHnhoHUzCnM2f64jkIFZBCuGpFjq9fijiHvrlCb
+	1wb62eV/GTECzIF3MlIPQSETBAvleO2DhLar7EY3hgP9g1we6zQ7RLbs+KmxF2cZvj820yb14Tu
+	QWU984Mc9DGUEhwJf6QJGjfpH6Pl38l8rks98fatW5zYxb4bOxaGAKMY0wkKzrWwbwaGj8cF0Fh
+	Hh/7c4H2VGi/mLzFkpaEzE9LlKsYhUpzIUP/Sto3DZOczRaZMFTIlAx9iHh5KFsL3zzqu4H2wJ7
+	YQ4TfJFhR2HcJjs9O7BdnzYKIVUVCoOU=
+X-Received: by 2002:a05:6512:1325:b0:5bf:a34f:14ce with SMTP id 2adb3069b0e04-5bfd11e9f41mr4389560e87.11.1793703369932;
+        Tue, 03 Nov 2026 02:56:09 -0800 (PST)
 Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe0754779sm2103257e87.82.2026.11.03.02.56.10
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe0754779sm2103257e87.82.2026.11.03.02.56.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 02:56:10 -0800 (PST)
+        Tue, 03 Nov 2026 02:56:09 -0800 (PST)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 03 Nov 2026 10:56:09 +0000
-Subject: [PATCH v2 2/2] media: videobuf2: order buffer initialization
- before bufs_bitmap publication
+Subject: [PATCH v2 0/2] media: videobuf2: publish buffers in bufs_bitmap
+ under mmap_lock
+Date: Tue, 03 Nov 2026 10:56:07 +0000
+Message-Id: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,9 +91,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261103-vb2-mmap_lock-v2-2-054e11dcd013@chromium.org>
-References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
-In-Reply-To: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAMe96WoC/3XMQQ7CIBCF4as0sxYDVIx15T1MY1oYykQpDSjRN
+ Nxd7N7l/5L3rZAwEiY4NytEzJQozDXkrgHthnlCRqY2SC6PQnDJ8iiZ98NyewR9Z53qkGt9QDO
+ 2UD9LREvvzbv2tR2lZ4ifjc/it/6TsmCCWVSKW+QtmtNFuxg8vfw+xAn6UsoXYTpcyK0AAAA=
+X-Change-ID: 20261102-vb2-mmap_lock-959e0cc4edb3
 To: Tomasz Figa <tfiga@chromium.org>, 
  Marek Szyprowski <m.szyprowski@samsung.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -103,65 +104,58 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
 X-Mailer: b4 0.14.3
 
-Stateless mem2mem decoders call vb2_find_buffer() -> vb2_get_buffer()
-from .device_run() without holding q->lock or q->mmap_lock, which can
-run concurrently with VIDIOC_CREATE_BUFS on a streaming queue.
+vb2_mmap() only takes q->mmap_lock, not the main queue serialization
+lock (q->lock). Commit a286b0837e13 ("media: core: Add bitmap manage
+bufs array entries") started setting bits in q->bufs_bitmap inside
+__vb2_queue_alloc() before buffer memory is allocated and without
+holding q->mmap_lock, allowing a concurrent mmap() to access a
+half-initialized buffer and hit a use-after-free if allocation or
+.buf_init() fails, and prematurely counting tentative buffers during
+partial-allocation .queue_setup() re-checks.
 
-Both set_bit() and test_bit() are unordered, and mutex_lock(&q->mmap_lock)
-is only an acquire barrier. On weakly-ordered architectures such as
-arm64, a lockless vb2_get_buffer() caller can observe a newly set bit in
-q->bufs_bitmap before the kzalloc() zeroing, buffer initialization, and
-q->bufs[] pointer store performed by __vb2_queue_alloc() become visible.
+Patch 1 fixes this by dropping set_bit() from vb2_queue_add_buffer() and
+publishing the range in q->bufs_bitmap via vb2_queue_publish_buffers()
+under q->mmap_lock once allocation and .queue_setup() succeed.
 
-Pair smp_mb__before_atomic() in vb2_queue_publish_buffers() with
-test_bit_acquire() in vb2_get_buffer() so that any reader observing a
-set bit in q->bufs_bitmap also sees a fully initialized vb2_buffer.
+Patch 2 adds smp_mb__before_atomic() / test_bit_acquire() ordering on
+q->bufs_bitmap for lockless vb2_get_buffer() callers (such as
+vb2_find_buffer() called from stateless mem2mem .device_run() while
+VIDIOC_CREATE_BUFS runs on weakly-ordered architectures).
 
-Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+This series was generated by an LLM, but supervised and reviewed by a
+human (not the most handsome human, but a human).
+
 ---
- drivers/media/common/videobuf2/videobuf2-core.c | 8 ++++++++
- include/media/videobuf2-core.h                  | 6 +++++-
- 2 files changed, 13 insertions(+), 1 deletion(-)
+Changes in v2:
+- Keep vb2_queue_add_buffer() without set_bit() so __vb2_queue_alloc()
+  stays unchanged, and add vb2_queue_publish_buffers() using atomic
+  set_bit() (rather than non-atomic bitmap_set(), since vb2_get_buffer()
+  has lockless readers).
+- Split the smp_mb__before_atomic() / test_bit_acquire() memory barrier
+  pair into a separate patch with an explanation of the arm64
+  VIDIOC_CREATE_BUFS vs vb2_find_buffer() race.
+- Drop lockdep_assert_held() from vb2_queue_remove_buffer().
+- Simplify the !q->bufs guard in __vb2_queue_free() to 'if (!q->bufs)
+  return;' (still needed as a NULL check now that __vb2_queue_free()
+  indexes q->bufs[] directly instead of going through vb2_get_buffer(),
+  since vb2_core_queue_release() and REQBUFS(0) call it when
+  q->bufs == NULL).
+- Clarify @bufs and @bufs_bitmap documentation in struct vb2_queue.
+- Link to v1: https://lore.kernel.org/r/20261102-vb2-mmap_lock-v1-1-fe550fe03ed8@chromium.org
 
-diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-index 70ef38c3d16a..d0dd4b22b646 100644
---- a/drivers/media/common/videobuf2/videobuf2-core.c
-+++ b/drivers/media/common/videobuf2/videobuf2-core.c
-@@ -461,6 +461,14 @@ static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
- 
- 	lockdep_assert_held(&q->mmap_lock);
- 
-+	/*
-+	 * Order the buffer initialization and the q->bufs[] stores done by
-+	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
-+	 * test_bit_acquire() in vb2_get_buffer(), which is also called
-+	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
-+	 * from a mem2mem .device_run().
-+	 */
-+	smp_mb__before_atomic();
- 	for (i = start; i < start + count; i++) {
- 		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
- 			    test_bit(i, q->bufs_bitmap)))
-diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index 2e93e6985d5f..20b961da21e0 100644
---- a/include/media/videobuf2-core.h
-+++ b/include/media/videobuf2-core.h
-@@ -1288,7 +1288,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
- 	if (index >= q->max_num_buffers)
- 		return NULL;
- 
--	if (test_bit(index, q->bufs_bitmap))
-+	/*
-+	 * A set bit guarantees that the buffer is fully initialized, pairs
-+	 * with smp_mb__before_atomic() in vb2_queue_publish_buffers().
-+	 */
-+	if (test_bit_acquire(index, q->bufs_bitmap))
- 		return q->bufs[index];
- 	return NULL;
- }
+---
+Ricardo Ribalda (2):
+      media: videobuf2: publish buffers in bufs_bitmap under mmap_lock
+      media: videobuf2: order buffer initialization before bufs_bitmap publication
 
+ drivers/media/common/videobuf2/videobuf2-core.c | 74 +++++++++++++++++++++----
+ include/media/videobuf2-core.h                  | 14 +++--
+ 2 files changed, 74 insertions(+), 14 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-vb2-mmap_lock-959e0cc4edb3
+
+Best regards,
 -- 
-2.56.0.385.gac671c819a-goog
+Ricardo Ribalda <ribalda@chromium.org>
 
