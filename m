@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793711102;
-	b=HbmqRcvWdJpDCg+lyPeUQVPChTVRqNqzGRjtLlrrU+KVmF5xpWOUXph6vQzV2iYyBE1A
-	 mAXw5LrFtzotUuVnEduopYuWN6r29/MwvOHFG8gH63Au44z+HPQt1Nb307D3fyXjA5TtA
-	 LFAFHLJVZMi7xbJihQG8nwVYqFnm1mCA8fDFEP367hCR285WsXjE3W0f1e10SgpVxAGj7
-	 0LA0VE8uWGrtXBLfDYNvAb5fxrbZ6oX4R0nCOM2K3XglqUcWeE292fPr9F+Zy0YCKMXzf
-	 jHBIihF04GnPQhnCMdDwb6c6sX12dayc+tmed6nNCoziy6hCfJD+QVgqBfxbVnv/Kxg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711102;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=sdEbF/CdcFTeewgIOfs6NnkfjTHWigrh08gtk/yhio4=;
-	b=Hv5YWz/j6xz4wR1o6z7nxt8QpZq68p6333DQnI0gIK2KEbAmhJfP/2QEOcMx1Ek3Iakk
-	 jL5DS3CgLRTY9LKe1g1jg0vNkUEzgUnr06kkth+DHocaYDdfDz8YnHJprxbM0F7b1vgNG
-	 dD40Iv7iyt9te4QQ8eLbqo/mrovZ3zqI1JQ+iFWrjfKnCE9+Vll8GoEHsouz7gxiz/FZu
-	 ugcKRCRJtzPad2Kncd8P+yDb3AssMUUOLoViX21Y8iRB6CeyOmFiIU0aO5HiiRIAXWv+5
-	 uz5p/Sx3KIu2S+maoK3uJusimqXOJHgOGXtqcQpxkDjlqPqtjY8pbUxoPPq8wf9G4qg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TDNlPvDd;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.99
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793711484;
+	b=t6ogUw9C2jX6VurG7ig16i8ntB4f27mLEfMgftSSl55X3NlyafRsaJz5SZvXyxo2hJg0
+	 NefZFrbFLwa3Ne+vqdzRvUoRHKcXAXaWrXQeUyQddF88HxMMstVlEXV00hN4wfb+mEQdl
+	 MIwjkMJfAX2ELhpcczBO+pcxdDjwQ2ZUjmDlezrXYvtqxeAIA4fdtB8bZmF7OfAn+gtFi
+	 9NMvVkZUv5nTgAsA57FHDumoAiTXnsjUk+jmef9ldgcZP5M0QhDjveDUMRVcF04A1odo6
+	 1qWQf3YPd/3UhIDu7PeCwd33wyC1Ua0N3dw1hj3FLrnZltchHztgKmHKUYBJxMRNg+A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711484;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=GOKsbDtDMpLKuY94AjQAd4iI/SAWCxZ3mt5FXi/9IzE=;
+	b=mYBJVq2yjygbC1ncbgcjdvy4tNiat8QDHDRSbnNzHDhAHV74UzjeEaHs9oSHAz99cV4G
+	 3qayXlWGIlJgyw71ojRjNR+6XI6YEgw6EW1KEW4fIZRVQcsECNhxQoHSuEV3sXZImVgpJ
+	 cuQX/vtmYJDH4R/3+/1CQ/95pHHbA0jGG2PoloPPCfDJUqPaehFJZ/sTJ6FHJU/oAOyNW
+	 FmS0irfpzrABQfenGqVMsSfkJ/QXaBNwbKc+dMEcNQ/4b2Np4/AFL8eNF0UtiGSos/70b
+	 lTBcEWjLUo74cwHe3gFirzaB0HsjsoRNoZV1Rc+GZQmJAQJMWQx5lpYs23/7rCdKTBg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=m3dbao5eqjbpjn4c5zvdmpwkue.protonmail2 header.b=QppwjcFV;
+	arc=none smtp.remote-ip=79.135.106.99
+Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6698C606A327;
-	Tue,  3 Nov 2026 13:05:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6698C606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E05B606EE8D
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 13:11:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E05B606EE8D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TDNlPvDd
-ARC-Seal: i=1; a=rsa-sha256; t=1793711082; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=cH64I3HYKwXkyDHsGMQ08l/OCv9IcVronFRoMHJmLjsCUMLPgeR0slE5LZPuBOGW27/prbUmS9JPhyftHq8Kh1g/toGrkpdwyi/gApWtuenRWMT4GbS2rsTZ7o/mliy4ToZJf/GGPymSEfdOFeFTtcvEMWut3Wxa1CX/m542krw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793711082; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
-	bh=sdEbF/CdcFTeewgIOfs6NnkfjTHWigrh08gtk/yhio4=; 
-	b=URt9ABoH8lXbOV+Dr5/eiBlcYncKy1wGqRMwEjMEhAlL2b9enS3vcSs0fkW3FsOJ1zUVAVJus7Yyd89F5P70OqpgXtD53B16cuiPLuCJLpf56M5cmWON2DwnDwimn2NSmrfemzsO+QjHJrfM8ch3ogoteObSJzzQSkxRhoNebhU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=TDNlPvDdR52Uynh5TxQXKHhjrfjeJn5CX+S6g8Jyg4tPpnIjEuGOxOtA2kzpcysfvE/P8x3TLbV6a1nsJKMrc3/QTO00V6dXopO7/eO67fy1YNSXl0lVT25i1u0lvUdSj3n1+M5s33Ed7TCZdUd5d9/lv2b8rtPKo94z0HZxDYQ=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=sdEbF/CdcFTeewgIOfs6NnkfjTHWigrh08gtk/yhio4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793711079043560.9418675221888;
-	Tue, 3 Nov 2026 05:04:39 -0800 (PST)
-Message-ID: <2e3ca852-03c1-4825-87ea-0a3decad8d6c@collabora.com>
-Date: Tue, 3 Nov 2026 14:04:34 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=m3dbao5eqjbpjn4c5zvdmpwkue.protonmail2 header.b=QppwjcFV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=m3dbao5eqjbpjn4c5zvdmpwkue.protonmail2; t=1793711481;
+	x=1793970681; bh=GOKsbDtDMpLKuY94AjQAd4iI/SAWCxZ3mt5FXi/9IzE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=QppwjcFVQL5uNTXVhWlkpvpjq7trgBbe9+FZRpgLNJjI6/EKRPUCg3+VzXgDyufa6
+	 0qkoAiFiyncBSWnxoGqkCzD+UWaf/9+5Lk9TFaHxq93VAxV+cigCrZG9vMSt2oFT6L
+	 7ekpnDKpRk/RLVSkugBxA2klRjNh+dKo6Ib1qxxf+W2ekqvjc5BTiHECg54CdNqCtl
+	 adklQuOvA3Kat5ddEsE4tw5H71yIUpedUiItiFlfFlnytexLQ98NHXP+PVC8vU/aR8
+	 ImmutLCANzj2OTbGDbtaYsLxwgdLlv7DzbX2WJ8tmDxdx/Jg7g7rW+b2RFmt5t3Mak
+	 6xJhJ5zqqRhww==
+Date: Tue, 03 Nov 2026 13:11:17 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+From: Ruslan Bay <ruslanbey@proton.me>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, Antti Laakso <antti.laakso@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: [RFC PATCH v2 06/12] media: ipu6: Add firmware-specific ISYS response dispatch
+Message-ID: <8dzvpQw1Qcj-U8CEIX1-iETX2LanOAo5QmezUspiK4MPmSaHbdzzREKSo_EUw1WX2Tje7SBTeEg0x8bYxn6BeCAAzAiqgSCDMeGPRh7htTc=@proton.me>
+In-Reply-To: <auj6TaUQ3A-2P3D3@kekkonen.localdomain>
+References: <B4M1vUVEJG-bpgpO3B_4JKq2KUnJn56WFxEbA8byH4SjqblOQWrnG-O2WAzY-PnwccdL03yZzjS8VfD1CsZ-FFyQXbrpN3eB1K13Cp_o_Ok=@proton.me> <auj6TaUQ3A-2P3D3@kekkonen.localdomain>
+Feedback-ID: 183606634:user:proton
+X-Pm-Message-ID: 5638183b960f101fd65bb00c97b3eb80e4a6abd4
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,130 +64,215 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/6] media: rockchip: rkcif: mask MIPI interrupts when
- powered
-To: Daniel Golle <daniel@makrotopia.org>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Hans Verkuil <hverkuil+cisco@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <cover.1793702189.git.daniel@makrotopia.org>
- <24332831989fde000959b3d3037333f511b95ece.1793702189.git.daniel@makrotopia.org>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <24332831989fde000959b3d3037333f511b95ece.1793702189.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Daniel,
+Hi Sakari,
 
-Thanks for the patch.
+On Monday, November 2nd, 2026 at 10:02 PM, Sakari Ailus <sakari.ailus@linux=
+.intel.com> wrote:
 
-On 11/3/26 11:45, Daniel Golle wrote:
-> The MIPI interrupt enable register comes out of every reset with all
-> 27 sources enabled. Of those only the frame end bits are handled, so
+> Hi Ruslan,
+>=20
+> On Sat, Oct 31, 2026 at 12:34:43PM +0000, Ruslan Bay wrote:
+> > Route ISYS response dequeueing through firmware-specific operations
+> > while keeping response handling shared.
+> >
+> > Allow the common handler to skip message-buffer release when required
+> > by the firmware's buffer ownership rules.
+> >
+> > Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
+> > ---
+> >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 55 +++++++++++++--------
+> >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h |  4 +-
+> >  drivers/media/pci/intel/ipu6/ipu6-isys.h    |  1 +
+> >  3 files changed, 39 insertions(+), 21 deletions(-)
+> >
+> > diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/medi=
+a/pci/intel/ipu6/ipu6-fw-isys.c
+> > index 56bb67869bd..c6066e37ef5 100644
+> > --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> > +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> > @@ -531,20 +531,17 @@ static u32 resp_type_to_index(int type)
+> >  =09return  ARRAY_SIZE(fw_msg) - 1;
+> >  }
+> >
+> > -int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+> > +void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
+> > +=09=09=09       struct ipu6_fw_isys_resp_info_abi *resp,
+> > +=09=09=09       bool release_msg_buf)
+>=20
+> Could the message buffer be released by the caller instead?
+>=20
 
-That seems highly unusual. How did you analyze this behavior? Feel free
-to throw any patch over the fence that reproduces/displays it.
+Thanks, I'll move message-buffer release to the firmware-specific
+caller and remove the flag from the common handler.
 
-> the line stays asserted at about a thousand interrupts per second
-> while the block is powered. The kernel then reports the interrupt as
-> unhandled and disables it, after which frame completion only happens
-> from the spurious interrupt poll. The poll can also call the handler
-> while the block is clock gated.
+> >  {
+> >  =09struct ipu6_isys *isys =3D ipu6_bus_get_drvdata(adev);
+> > -=09struct ipu6_fw_isys_resp_info_abi *resp;
+> >  =09struct ipu6_isys_stream *stream;
+> >  =09struct ipu6_isys_csi2 *csi2 =3D NULL;
+> >  =09struct isys_fw_msgs *isys_fw_msg =3D NULL;
+> >  =09u32 index;
+> >  =09u64 ts;
+> >
+> > -=09resp =3D ipu6_fw_isys_get_resp(isys);
+> > -=09if (!resp)
+> > -=09=09return 1;
+> > -
+> >  =09ts =3D (u64)resp->timestamp[1] << 32 | resp->timestamp[0];
+> >
+> >  =09index =3D resp_type_to_index(resp->type);
+> > @@ -580,7 +577,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+> >  =09}
+> >  =09stream->error =3D resp->error_info.error;
+> >
+> > -=09csi2 =3D ipu6_isys_subdev_to_csi2(stream->asd);
+> > +=09if (stream->asd)
+> > +=09=09csi2 =3D ipu6_isys_subdev_to_csi2(stream->asd);
+>=20
+> If stream->asd =3D=3D NULL, what can we do here? Isn't that an error btw.=
+? Can
+> it happen? I'd add at least dev_err_once() or something. But this change
+> still appears to be worth a separate patch.
+>=20
+
+Sorry about that. The check is unnecessary, I'll drop it from the patch.
+
+> >
+> >  =09switch (resp->type) {
+> >  =09case IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE:
+> > @@ -606,16 +604,17 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *ade=
+v)
+> >  =09=09 * firmware only release the capture message until software
+> >  =09=09 * get pin_data_ready event
+> >  =09=09 */
+> > -=09=09if (!resp->buf_id) {
+> > -=09=09=09dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
+> > -=09=09=09=09 resp->stream_handle);
+> > -=09=09=09goto leave;
+> > -=09=09}
+> > -
+> > -=09=09isys_fw_msg =3D container_of((void *)(uintptr_t)resp->buf_id,
+> > -=09=09=09=09=09   struct isys_fw_msgs, dummy);
+> > +=09=09if (release_msg_buf) {
+> > +=09=09=09if (!resp->buf_id) {
+> > +=09=09=09=09dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
+> > +=09=09=09=09=09 resp->stream_handle);
+> > +=09=09=09=09goto leave;
+> > +=09=09=09}
+> >
+> > -=09=09ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
+> > +=09=09=09isys_fw_msg =3D container_of((void *)(uintptr_t)resp->buf_id,
+> > +=09=09=09=09=09=09   struct isys_fw_msgs, dummy);
+> > +=09=09=09ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
+> > +=09=09}
+> >  =09=09if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
+> >  =09=09    stream->output_pins_queue[resp->pin_id])
+> >  =09=09=09ipu6_isys_queue_buf_ready(stream, resp);
+> > @@ -633,8 +632,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+> >  =09case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE:
+> >  =09=09break;
+> >  =09case IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF:
+> > -
+> > -=09=09ipu6_isys_csi2_sof_event_by_stream(stream);
+> > +=09=09if (csi2)
+> > +=09=09=09ipu6_isys_csi2_sof_event_by_stream(stream);
+> >  =09=09stream->seq[stream->seq_index].sequence =3D
+> >  =09=09=09atomic_read(&stream->sequence) - 1;
+> >  =09=09stream->seq[stream->seq_index].timestamp =3D ts;
+> > @@ -646,7 +645,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+> >  =09=09=09% IPU6_ISYS_MAX_PARALLEL_SOF;
+> >  =09=09break;
+> >  =09case IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF:
+> > -=09=09ipu6_isys_csi2_eof_event_by_stream(stream);
+> > +=09=09if (csi2)
+> > +=09=09=09ipu6_isys_csi2_eof_event_by_stream(stream);
+> >  =09=09dev_dbg(&adev->auxdev.dev,
+> >  =09=09=09"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
+> >  =09=09=09resp->stream_handle,
+> > @@ -661,7 +661,21 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev=
+)
+> >  =09}
+> >
+> >  leave:
+> > +=09return;
+>=20
+> No point to have a label just for this.
+>=20
+
+Thanks, I will remove the label.
+
+> > +}
+> > +
+> > +static int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+> > +{
+> > +=09struct ipu6_isys *isys =3D ipu6_bus_get_drvdata(adev);
+> > +=09struct ipu6_fw_isys_resp_info_abi *resp;
+> > +
+> > +=09resp =3D ipu6_fw_isys_get_resp(isys);
+> > +=09if (!resp)
+> > +=09=09return 1;
+> > +
+> > +=09ipu6_isys_handle_response(adev, resp, true);
+> >  =09ipu6_fw_isys_put_resp(isys);
+> > +
+> >  =09return 0;
+> >  }
+> >
+> > @@ -742,7 +756,7 @@ irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *a=
+dev)
+> >
+> >  =09=09writel(0, base + IPU6_REG_ISYS_UNISPART_SW_IRQ_REG);
+> >
+> > -=09=09if (!ipu6_isys_isr_one(adev))
+> > +=09=09if (!adev->auxdrv_data->fw_ops->isr_one(adev))
+> >  =09=09=09status_sw =3D IPU6_ISYS_UNISPART_IRQ_SW;
+> >  =09=09else
+> >  =09=09=09status_sw =3D 0;
+> > @@ -958,6 +972,7 @@ static void ipu6_fw_isys_prepare_buf_set(struct isy=
+s_fw_msgs *msg,
+> >  const struct ipu6_fw_isys_ops ipu6_fw_isys_ops =3D {
+> >  =09.init =3D ipu6_fw_isys_init,
+> >  =09.close =3D ipu6_fw_isys_close,
+> > +=09.isr_one =3D ipu6_isys_isr_one,
+> >  =09.cleanup =3D ipu6_fw_isys_cleanup,
+> >  =09.prepare_stream_cfg =3D ipu6_fw_isys_prepare_stream_cfg,
+> >  =09.prepare_buf_set =3D ipu6_fw_isys_prepare_buf_set,
+> > diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/medi=
+a/pci/intel/ipu6/ipu6-fw-isys.h
+> > index 2a679d99596..498cb7f0691 100644
+> > --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+> > +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+> > @@ -562,7 +562,9 @@ struct ipu6_fw_proxy_send_queue_token {
+> >  int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys, unsigned int=
+ req_id,
+> >  =09=09=09=09  unsigned int index, unsigned int offset,
+> >  =09=09=09=09  u32 value);
+> > -int ipu6_isys_isr_one(struct ipu6_bus_device *adev);
+> > +void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
+> > +=09=09=09       struct ipu6_fw_isys_resp_info_abi *resp,
+> > +=09=09=09       bool release_msg_buf);
+> >  irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev);
+> >
+> >  #endif
+> > diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/p=
+ci/intel/ipu6/ipu6-isys.h
+> > index f4d00f763eb..86b1ab681e3 100644
+> > --- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> > +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+> > @@ -167,6 +167,7 @@ struct isys_fw_msgs {
+> >  struct ipu6_fw_isys_ops {
+> >  =09int (*init)(struct ipu6_isys *isys, unsigned int num_streams);
+> >  =09int (*close)(struct ipu6_isys *isys);
+> > +=09int (*isr_one)(struct ipu6_bus_device *adev);
+> >  =09int (*send_cmd)(struct ipu6_isys *isys,
+> >  =09=09=09const unsigned int stream_handle,
+> >  =09=09=09void *cpu_mapped_buf,
+>=20
+> --
+> Kind regards,
+>=20
+> Sakari Ailus
 > 
-> Clear the enable register and the status bits after the block has been
-> reset and clocked, and after the reset in runtime suspend. Treat any
-> status bit that the handler has read and cleared as handled.
-
-Can we configure the interrupt in rkcif_mipi_start_streaming instead?
-This feels a bit more natural IMHO.
-
-Best regards,
-Michael
-
-
-> 
-> Assisted-by: LLM
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
-> ---
->  .../rockchip/rkcif/rkcif-capture-mipi.c       | 19 +++++++++++++++++++
->  .../rockchip/rkcif/rkcif-capture-mipi.h       |  2 ++
->  .../media/platform/rockchip/rkcif/rkcif-dev.c |  3 +++
->  3 files changed, 24 insertions(+)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> index bc9518f8db507..686b995525b9b 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> @@ -810,6 +810,23 @@ static void rkcif_mipi_set_crop(struct rkcif_stream *stream, u16 left, u16 top)
->  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CROP_START, val);
->  }
->  
-> +void rkcif_mipi_irq_mask(struct rkcif_device *rkcif)
-> +{
-> +	if (!rkcif->match_data->mipi)
-> +		return;
-> +
-> +	for (unsigned int i = 0; i < rkcif->match_data->mipi->mipi_num; i++) {
-> +		struct rkcif_interface *interface =
-> +			&rkcif->interfaces[RKCIF_MIPI_BASE + i];
-> +
-> +		if (!interface->rkcif)
-> +			continue;
-> +
-> +		rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, 0);
-> +		rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, ~0);
-> +	}
-> +}
-> +
->  irqreturn_t rkcif_mipi_isr(int irq, void *ctx)
->  {
->  	struct device *dev = ctx;
-> @@ -823,6 +840,8 @@ irqreturn_t rkcif_mipi_isr(int irq, void *ctx)
->  
->  		intstat = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
->  		rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, intstat);
-> +		if (intstat)
-> +			ret = IRQ_HANDLED;
->  
->  		for (unsigned int j = 0; j < interface->streams_num; j++) {
->  			struct rkcif_stream *stream = &interface->streams[j];
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
-> index 7edaca44f653c..167b43756929b 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
-> @@ -21,4 +21,6 @@ void rkcif_mipi_unregister(struct rkcif_device *rkcif);
->  
->  irqreturn_t rkcif_mipi_isr(int irq, void *ctx);
->  
-> +void rkcif_mipi_irq_mask(struct rkcif_device *rkcif);
-> +
->  #endif
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-> index be3a174b9aab0..fbc8ed78d99ea 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-> @@ -281,6 +281,7 @@ static int rkcif_runtime_suspend(struct device *dev)
->  	reset_control_assert(rkcif->reset);
->  	udelay(5);
->  	reset_control_deassert(rkcif->reset);
-> +	rkcif_mipi_irq_mask(rkcif);
->  
->  	clk_bulk_disable_unprepare(rkcif->clks_num, rkcif->clks);
->  
-> @@ -298,6 +299,8 @@ static int rkcif_runtime_resume(struct device *dev)
->  		return ret;
->  	}
->  
-> +	rkcif_mipi_irq_mask(rkcif);
-> +
->  	return 0;
->  }
->  
-
