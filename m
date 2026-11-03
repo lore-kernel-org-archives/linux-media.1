@@ -1,60 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793740276;
-	b=qN6KrMDdEXr1HeCE7bwbgZqpL7V1EJMtAGcKJw4vg+lA0Ef1MjFRX65EyXfA2bDSEHAU
-	 DYUhPX4W6NueZjKTlXCiRrdo/crVrrp39t+O0YB18YQRrYI27lZI+NOQIudo/nceiQbus
-	 ZDf17+6TBPdlhMTpBFsVr9z+TxXBxtyNqpQvoYpWzgzejWv0J51MXMD4pQYhgBwTPraU2
-	 Pnv2KgT7nUtpUNhIkh8I53efFpdnZUuEfWMPf6Wtfz655jLzpR+0Yqu3Y1Gde3u8BhBwX
-	 8kfXX4v0U8xgbtN+tKxnNC8yoBlelx8nz4NGCTtJLz528AvNP35ouxpPNiFAvIub1kg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793740276;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eJJVuhl4n2+xTwsYuhQYz93TuoaKy2ORnidb9QdBqIg=;
-	b=cr3NZyzMNKXR8WVAz2dsCspfRpikFrQc6JjgGAJu40k8Kvuo8bX5U5oPSeChd62XnQxm
-	 x+CJLosq1awua0oGg8xBUum/VeeYvIZSspFNJHJXBMDX5ajj8QlxnlRzj9gem9MXguoSo
-	 TgruOaALUPepmzqrGWiRHRa++ht9kzalLYDWqVrgOgL8cPXqpuzTjHbvj03CbxJMxwWtr
-	 htZaJbz5ht7skSJHhjJf0E96eIkLEiORYm5YAUNQY7m3/ZFLTrFIga1COaVC43UcJf9tB
-	 BxRxX5R3jgWLfEXwvdQcX7CJw+Gm1kfnqUG0ZOZp6SETbFrzXgVug1rd/80OkIQspdQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ajLJqRlM;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.63
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793741225;
+	b=Y4gIa0eWYbBELjGt9weNLXaQozrRrn2mHDjaabUqBPKyQiaJf59x0jZ9AaEVXKawkXxc
+	 DKEzaRcaAtdoab45wW9IqTNJQd7jr+90p8a5pqXnMxRjG3mU8QPvItmjIvPxLBEJki9Au
+	 /QGTcoepCOk1QFvwEvFD8kX0CjITYAblWAzIGasFJxmTNB9GOJgMbEqLZfVnTNN/CyBbp
+	 sZ1MG0OXAuqdKGxf3GfcOAznC5TvQ7r0XhUC02UzYiYUZ5GSpa5xFomEaMiECUx7EYHu3
+	 pufBdTq8kE/NXhLd/Zcs1Q1iYhiqtxZGb15So4gHaIy3A8EAVfZqgtEZ1ZMkbXvNbag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793741225;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=htzvAMiU2FhngqwtGPbOr1GhKE6efX+L5FgMwLwRxfc=;
+	b=rXY6XbH2q/RZ91t0tSVGoBJf31HO8whDbrMolT7DaDtfPUUWpby9ChhBXDnxPQTNoN/J
+	 P86LQoVYaXVm17FZHVExeoxM0KhzGkamvqDUF8OL8R2Sfkh+4oyCpt8TZEKlMB138IAG2
+	 RJ2QSbxwydobYH72I5yYQJEE9He7+e5vwevj5ejK2IRTBEm7pa2v0JYZKZUpqJYriy8EE
+	 8xpGDPSUOGzRNnORTXUjAl0kWwEaRBuOgYQW8erm5Z3wcCJAQy0e9R1MqrlwM4S8ysgM0
+	 tCkWCdDPYHjIzwdc2+RNQAhV9T3l7POxFjzDsDIn4Jh6xOz1xpnFhJ4AhWzKoiEhd/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=j8RFXFuc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.63
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011063.outbound.protection.outlook.com [52.101.65.63])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F49606D812
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 21:11:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F49606D812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBBB606A31B;
+	Tue,  3 Nov 2026 21:27:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CBBB606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=ajLJqRlM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793740273; x=1793999473;
-	bh=eJJVuhl4n2+xTwsYuhQYz93TuoaKy2ORnidb9QdBqIg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ajLJqRlMzQWPFv1FVIbHdsMCVI3czS7uTg4II/ArVNpeP4F5BwOp16HRLuyqZuqN9
-	 IkD539Zo47bBCI04uuHw7Hi4AnT1e/H870Ocid4RMK58S6cmJD/pppOcdavnaZKlOY
-	 9Q1wX31IyhTZs977oD81YBHOY812V5tHOOFTqv0FfWhDtjnnoKtb40kIUYozo/xvPb
-	 puijTcM143gnt+HC+nnwDfNxkv1aRk2Qs1w707hhE5xdb63dfwuYSNnYqY2CZUL59c
-	 jlboMkKy4tLhAAhXFggD7phRKKcixMrhBaopexITc8NRyzmnGTy4QZzUTpjUnuByNK
-	 3HpVC8cpNdGng==
-Date: Tue, 03 Nov 2026 21:11:07 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>, stable@vger.kernel.org
-Subject: [PATCH v2 08/11] media: intel/ipu6: return an error from ipu6_dma_map_sg() on failure
-Message-ID: <20261103211031.1573726-9-valerii.sokolov@pm.me>
-In-Reply-To: <20261103211031.1573726-1-valerii.sokolov@pm.me>
-References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
-Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: 118b9f70d4215e105e5af749043bcafe1eb3a6a1
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=j8RFXFuc
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y9R9rfwEurkvcttF9s635SWDhUKeJj/GQhFkB7kxkv5mefaDC2uRHCfS8i5I5/J1/2i5Be3wKhXoBNh2dpe1/J+lS4KBZhWAQKXtZorD4VHU3rEzqqQGxltbrQl+CKpZkl+oauWF76oAko1BfA1J8NIDAkFvauqCYIRKHRIgUsCpIekuvjtq3H+RK3lJMamaFUU4VCnahk+nriT/IZwilBv7ky8z+Ue+52cOlw0Ez29UmfuttjCd0AzgfWVRxY09bZMygdw4ZiXTlpp7kNsW/BjK+RCLX7Ur0w14KzXU4AUijWy1XBRrATTZ3wGwwfAGHSMCzQO+k5mDZZfksj8/5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=htzvAMiU2FhngqwtGPbOr1GhKE6efX+L5FgMwLwRxfc=;
+ b=p3ysl1ktOZAb+ZVBvGICeeiMGXmOosF3Vqag2aar0x8pTJKyDSNKQsa9e4Hte6HauQDNLJdBqewLlJu1WPNxW+f1MwE8Ky07BpMdfthkb9av7C53Vpg0vP2RLxRmm4DB3N9AjRMtWh1RkGP41wbYPo438aW55viRqvM55S8Jr3ATiF3vAaOr+fcix75VooN/kWV+8lQgyvCY4AUsKD0uW3d1MqTCszznmP98E0JfOJhuNkHSsxTcz/qRM9i7EIm9LqIV2f7XLisCZGNSnVaTiTIDhjhXt422oMEwrOz4FmeOsXGo90vODO0x0QTUsbN2DDwlOYdZOr4tJxX9W+Xa4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=htzvAMiU2FhngqwtGPbOr1GhKE6efX+L5FgMwLwRxfc=;
+ b=j8RFXFuc9fuhhxe2uvJXAl/D5/PHzUthpCWGQAhXr6MfwaTDIy0Q0G7woazR6ZzJHgc0jplp96hbLIRR/Lx5yDI8130DUqwIRFcJC6uU9KqfTjGUGjY7WVC/uNwrCLkyKB8wGJ4dS4Ej0m/J5SHX8zGSmGxx6jmhe3ziM5/C6j7yt8o/IBVuKl8TMM2DkOH5wCBw7LEzkwsaAO/YSLoGwibI3c587m0ZmxlWvZ5JcHcnKTyrLN/LND9Gnl2IUSgz83rHDDdVQHwKHiEqFIJpTJbjU8SOtSl8zJe9ENzpn3jjsI8B7IIrfl+AwgGTA2CdYralBixCtOq2onlk+P4TUw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by MI7PR04MB364121.eurprd04.prod.outlook.com (2603:10a6:290:100::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 21:27:01 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 21:27:01 +0000
+From: Frank.Li@oss.nxp.com
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	linux-renesas-soc@vger.kernel.org (open list:RENESAS R-CAR I2C DRIVERS),
+	linux-i2c@vger.kernel.org (open list:I2C SUBSYSTEM HOST DRIVERS),
+	linux-kernel@vger.kernel.org (open list),
+	linux-media@vger.kernel.org (open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
+	dri-devel@lists.freedesktop.org (open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
+	linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b)
+Cc: imx@lists.linux.dev,
+	vkoul@kernel.org,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 1/1] i2c: use dmaengine_get_dma_device() instead of chan->device->dev
+Date: Tue,  3 Nov 2026 16:26:54 -0500
+Message-ID: <20261103212655.1774644-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH8P220CA0010.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:345::11) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,68 +107,128 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|MI7PR04MB364121:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5306a812-083d-4c6f-70c3-08df39f13305
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|19092799006|23010399003|18002099003|261102123227099003|56012099006|10067099003|261009221227099003|261009223027099003|921020|261022105027099003|261021121427099003|261021123027099003|11063799006|261028144727099003|261026121527099003|261026140227099003;
+X-Microsoft-Antispam-Message-Info:
+	fw0mIinos2Ko2bamA9L3VcnaJSuoz4xNrODuQBF7owYsgjbvuV0PFRRuSCXmBy9WBaS+kA9fjqp18W4ZHcoY5YDQ9N3/FpBbHuE8GI6n9vhLsydSRQU66g5xC2MNbhcoEMs2auh8T0TQHgSjmDT1MlbME+cUQDFJQrhHoh+vDapZ4WR4EF70aKcj6oagh/EoHP1pzDMTGAL9TkuT50nY7DCj0mmSFMBKOsrpvuObeor5+x+PwbwWBQfq1k85onuOEFgdHt6eA+4MBmQZO81ohukVyR7ZGPdofgUEtMBiChsds3I+Zqu4qe4Wn/ejhcB9/5aZe2kjEtgayw3tfeBo/QuxdKVFAzS1TO4Veehb9garIgAFz5rL+l8+8Z8DqXLcS8ng6bnGBYptUtlwj+mOzyZq7DxuVI7dYZUPdhEzqXWPITjU8bAKbp2UxgaK6RVbH/AJjtmqQFtNWIL0t62u0LjadS7icIeQOvEOv3sE9N7g6VlzdAFUTqQCkUCUI8HyjyntWcozlMb1w9X3jzSQB1FBgvTjEF5nNYPRqBu1DtKZOPm77vAnho0t3Be5bNW5f2HaTFIR1g9mZTpc/UQc0V7SKAX6kFa3gXNWQbjMlEAR7gZyGmIj3B/1/pQFo2KcIwK7PHCBWppAWjRZxAX3/hoFg5Qps61eEzFkbUPb6qeLeY7agdUjNu2laP9RJnpyIMIoXcbVrs/H4ERMmCElxg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(19092799006)(23010399003)(18002099003)(261102123227099003)(56012099006)(10067099003)(261009221227099003)(261009223027099003)(921020)(261022105027099003)(261021121427099003)(261021123027099003)(11063799006)(261028144727099003)(261026121527099003)(261026140227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?zxdy4r5leuO7PQuRWrRkmmil6Jned7lgJ7SOT5sE1mEUAYrVZuhyNvd/LWC0?=
+ =?us-ascii?Q?2vhxcFxYjg7snl1W60HuIxLaY3CJhLs4gYdd1mHys1XElYPLPaPM1HBy0Dze?=
+ =?us-ascii?Q?74WwVoBfF3hMJqBI9UDT4al7VhfjAE9Deitk1NKuF0kFFu4asG/Etd0BvA1G?=
+ =?us-ascii?Q?wkw2HQLOh/NGgMt2oW+XF0VuR1X+xIOdgHJPVQQPj+iZNOwvL4vozYdo5uVB?=
+ =?us-ascii?Q?4ocbrpRwY+I9USdSh5DbVQbvpRxHVHEakCdMTUrZj7g0gPkgK2uf9d0HouIk?=
+ =?us-ascii?Q?jOE2578aIoO758f3m0qhXy97R1bpu1SR9KAHoVtXtJJYtVGWVyntlrZojKnn?=
+ =?us-ascii?Q?H6p3f7l/zb/zorsXkyfQg2p6tB3313r153zvHIwgj09cBhuf2bmgEc1qXoes?=
+ =?us-ascii?Q?9AgBZmCuqR6Eg8Q7zMgbcOAL6suynfbKi4Tw8RoctjDImf4Vz208TaUC6mDB?=
+ =?us-ascii?Q?DCfLONsEBddBbUafgCteoEjriJCFAoxbSJ97Vss2MJw8i1UYBsGZOybPy21H?=
+ =?us-ascii?Q?zV17S/x08N9xqdy0boejiXijVMjEWYJzqBzqrzuVttepWh8kqtZ4OTwcKXLG?=
+ =?us-ascii?Q?SFNaWrHVql1ewnaj/esV6qqN4yI0d7Jp2QSfblZ5m8jt0/JlDYXGZzVBmLYl?=
+ =?us-ascii?Q?KnH2je/WIZby0Q6yfGr1Asv6edW/tH6rDC3Rx7i3RdyPP13EeBqjIE10XtHx?=
+ =?us-ascii?Q?jo2Z7cfEOVv9Rm/axz3EZE6YB/3584UtZi+Jrnc5qAHYKN8IKZfHKGcI8N/b?=
+ =?us-ascii?Q?ctbeVfEsEgtGZh/5+83cRaU5kU9sLJqyPCHeY8xWYalT/bvtHwqbVcBJppsh?=
+ =?us-ascii?Q?DK1727P2NV9DC8MUQot+74ZuG/I3SaLT6v75xf+aQveSBtXONwd8B8F5p2ax?=
+ =?us-ascii?Q?UYOpqWxNsm7FIcY+DJobuB7Gl0W1MZiTqECvcayeu8JC3U5bo8yp8TGNk+Gu?=
+ =?us-ascii?Q?WuFIKfQ0zBaDqDfB6kFL7vKrND/EodB5XlU32D21GnZa4mIDO/CjopQO+A0r?=
+ =?us-ascii?Q?tN9SDHc8HsWfPQtCxLHn91MfZIwPQzp8hlSbQLmSRROccazq0BFjxhPnA/lj?=
+ =?us-ascii?Q?86CtfADF1b4XlEesFBw+GlvRgvQMvXQGc6dgoG4Vb0M7HjhzIMy18HKrP2Cg?=
+ =?us-ascii?Q?WrC23g9xjm6Z9Oed3AEEZUkhyvEX8pwqKXmpwPdXgUKV12cqw1+yoWTMwthT?=
+ =?us-ascii?Q?7OBwfmtRZFc950ARR7vP//8f4HgLehl8JY4FYXaA8jfBBQcndaryPH8iYNAz?=
+ =?us-ascii?Q?PQ04N0Uuc15U7EremWHOtFyA3Bus9/2dApxVpaQUWnvoj3hRLI24wXPaP6R0?=
+ =?us-ascii?Q?V/kruUYCOVGdqmf+P6wuVzB2iGznnRIxw1FKjjGUprqURtbGCOdFOI8Yymrd?=
+ =?us-ascii?Q?vLMQ792TaUlSrQcunYNFIl2rWqn6W0DAGKjNbAN3c1DDUjflaxaRhPxS9TN3?=
+ =?us-ascii?Q?CQE9onKR/xJz1POGZdzvINI4IrMh/bDrqB8TZFvtmgxFn2t6MBammO4wv2BZ?=
+ =?us-ascii?Q?0kdhg5/SfPCRKmqEC6bdVF8YXP1htwobBAxqQXyxjW9qCfAa6HwBdm7LVp/p?=
+ =?us-ascii?Q?nxprBM9Dg4FeC/QZ5BAuWACScQRDeTohu/Ysx5IHFEhbpmC+/BKpHjmdskdC?=
+ =?us-ascii?Q?it+XB0WY+q9LxNxAaJcxjAdYSWcjl2jdxQ2arh/htOkG3+qyafS1yTUPalU/?=
+ =?us-ascii?Q?S20vXYC8gubug17u3M7yn8lKN2QmcCsVzTdhqyAKu2C4ULlnPenaZWJbJkty?=
+ =?us-ascii?Q?hScB4ji+z5g00cZZwOdnzebqakUHU0OObRMQIaYEJYWZSGUf9/Dn?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5306a812-083d-4c6f-70c3-08df39f13305
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 21:27:01.6419
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: g5Ecp2IQOAyl2M9NqwTWJmxVG4Bvjte+Tdy0uylXQ27/012QWNzY0YnT5m5rvfajGCAO3FpVXYUvZ+VaMIEixpTmRd2PvGVd3fu2c4WQrP7l7nkHPb4UHYUlq1HEtSnS
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI7PR04MB364121
 
-ipu6_dma_map_sg() returns negative error codes (-EFAULT, -ENOMEM) on its
-early failure paths, and ipu6_dma_map_sgtable() only treats negative
-return values as errors. However, when ipu6_mmu_map() fails in the loop,
-ipu6_dma_map_sg() returns 0 instead of the negative error code from
-ipu6_mmu_map(). As a result, ipu6_dma_map_sgtable() sets sgt->nents to 0
-and returns success, and callers such as ipu6_isys_buf_init() and
-ipu6_map_fw_region() go on to hand the hardware an address that is not
-mapped in the IPU MMU.
+From: Frank Li <Frank.Li@nxp.com>
 
-Return the negative error code from ipu6_mmu_map() when mapping fails in
-ipu6_dma_map_sg().
+Replace direct dma_chan::device::dev access with the proper
+dmaengine_get_dma_device() for consumer API.
 
-Fixes: daabc5c64703 ("media: ipu6: not override the dma_ops of device in dr=
-iver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+chan->device->dev is not always the device used for DMA mapping.  Some DMA
+engines support per-channel IOMMU mappings, so different channels may use
+different DMA devices.  dmaengine_get_dma_device() returns the correct
+device for each channel.
+
+This also prepares for making the DMA engine provider data structures
+private.  DMA consumers should not access DMA engine internals directly.
+
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
 ---
-Changes in v2:
-- Return the negative error code from ipu6_dma_map_sg() instead of
-  checking for 0 in ipu6_dma_map_sgtable() (Sakari Ailus).
+ drivers/i2c/busses/i2c-rcar.c      | 6 +++---
+ drivers/i2c/busses/i2c-sh_mobile.c | 6 +++---
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
- drivers/media/pci/intel/ipu6/ipu6-dma.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/in=
-tel/ipu6/ipu6-dma.c
-index a923a1e4bd..91c3c97838 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
-@@ -392,7 +392,7 @@ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct=
- scatterlist *sglist,
- =09struct iova *iova;
- =09size_t npages =3D 0;
- =09unsigned long iova_addr;
--=09int i;
-+=09int i, ret;
-=20
- =09for_each_sg(sglist, sg, nents, i) {
- =09=09if (sg->offset) {
-@@ -422,7 +422,6 @@ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct=
- scatterlist *sglist,
- =09iova_addr =3D iova->pfn_lo;
- =09for_each_sg(sglist, sg, nents, i) {
- =09=09phys_addr_t iova_pa;
--=09=09int ret;
-=20
- =09=09iova_pa =3D PFN_PHYS(iova_addr);
- =09=09dev_dbg(dev, "mapping entry %d: iova %pap phy %pap size %d\n",
-@@ -449,7 +448,7 @@ int ipu6_dma_map_sg(struct ipu6_bus_device *sys, struct=
- scatterlist *sglist,
- =09else
- =09=09__free_iova(&mmu->dmap->iovad, iova);
-=20
--=09return 0;
-+=09return ret;
- }
- EXPORT_SYMBOL_NS_GPL(ipu6_dma_map_sg, "INTEL_IPU6");
-=20
---=20
-2.56.0
-
+diff --git a/drivers/i2c/busses/i2c-rcar.c b/drivers/i2c/busses/i2c-rcar.c
+index 755064804cb21..86b1df3a56c4d 100644
+--- a/drivers/i2c/busses/i2c-rcar.c
++++ b/drivers/i2c/busses/i2c-rcar.c
+@@ -455,7 +455,7 @@ static void rcar_i2c_cleanup_dma(struct rcar_i2c_priv *priv, bool terminate)
+ 	if (terminate)
+ 		dmaengine_terminate_sync(chan);
+ 
+-	dma_unmap_single(chan->device->dev, sg_dma_address(&priv->sg),
++	dma_unmap_single(dmaengine_get_dma_device(chan), sg_dma_address(&priv->sg),
+ 			 sg_dma_len(&priv->sg), priv->dma_direction);
+ 
+ 	/* Gen3+ can only do one RXDMA per transfer and we just completed it */
+@@ -511,8 +511,8 @@ static bool rcar_i2c_dma(struct rcar_i2c_priv *priv)
+ 		len = priv->msg->len - 1;
+ 	}
+ 
+-	dma_addr = dma_map_single(chan->device->dev, buf, len, dir);
+-	if (dma_mapping_error(chan->device->dev, dma_addr)) {
++	dma_addr = dma_map_single(dmaengine_get_dma_device(chan), buf, len, dir);
++	if (dma_mapping_error(dmaengine_get_dma_device(chan), dma_addr)) {
+ 		dev_dbg(dev, "dma map failed, using PIO\n");
+ 		return false;
+ 	}
+diff --git a/drivers/i2c/busses/i2c-sh_mobile.c b/drivers/i2c/busses/i2c-sh_mobile.c
+index 3a55f803e4f15..023813c2f7809 100644
+--- a/drivers/i2c/busses/i2c-sh_mobile.c
++++ b/drivers/i2c/busses/i2c-sh_mobile.c
+@@ -452,7 +452,7 @@ static void sh_mobile_i2c_cleanup_dma(struct sh_mobile_i2c_data *pd, bool termin
+ 	if (terminate)
+ 		dmaengine_terminate_sync(chan);
+ 
+-	dma_unmap_single(chan->device->dev, sg_dma_address(&pd->sg),
++	dma_unmap_single(dmaengine_get_dma_device(chan), sg_dma_address(&pd->sg),
+ 			 pd->msg->len, pd->dma_direction);
+ 
+ 	pd->dma_direction = DMA_NONE;
+@@ -526,8 +526,8 @@ static void sh_mobile_i2c_xfer_dma(struct sh_mobile_i2c_data *pd)
+ 	if (IS_ERR(chan))
+ 		return;
+ 
+-	dma_addr = dma_map_single(chan->device->dev, pd->dma_buf, pd->msg->len, dir);
+-	if (dma_mapping_error(chan->device->dev, dma_addr)) {
++	dma_addr = dma_map_single(dmaengine_get_dma_device(chan), pd->dma_buf, pd->msg->len, dir);
++	if (dma_mapping_error(dmaengine_get_dma_device(chan), dma_addr)) {
+ 		dev_dbg(pd->dev, "dma map failed, using PIO\n");
+ 		return;
+ 	}
+-- 
+2.43.0
 
