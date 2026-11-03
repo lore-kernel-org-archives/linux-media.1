@@ -1,111 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793720669;
-	b=O8a2O+9ur35bD2WBbndE5EuFpMjNY3wFQN280pyruV5NtOSuDS5JVDX2qFVGbaY3S/e5
-	 PvJDmPGq3e9ua+BU3klYGm1hBDb7Aale+aNCW9RhL3N4ck2k9oCo+oDRuZGoKJlmZBJQW
-	 uDfEiHvhf36vBl4ltcjPg7iJ1Xkaz+DgKJGj8Nj5OrqmkljF19vggomYgzs+9NRPiofMN
-	 XQFwXmrEd6T0Go+Lp2tzXNbIJa3pPyrLRFTwocxjDpgDzWUZsNou3WgOO+z6eXDy3/yPC
-	 P7iSmbFeSXjYbd97Mk/uN9XbNUQhMVJSpyL8TqWCBIKz/NTcRf9Af299FRkJLsalvlQ==
+	t=1793721203;
+	b=xeQZyMQVAkemIBFWT429iYfYH1OKludZwqOLFiiFyFv9cndmTRPjUPQOw5tpEMCOFIeQ
+	 9H6oskxG2xLTmvc+18GX5TyDiA1BIEsOVJaEYYMI664D1HqER34v9k1OAu3yTfS88rLzk
+	 wEFTOrKAO1arPasinx7yshpxk+MhA5WXkA8oECKK6AZxbcajBVP26VHBbav+U7KGE/2JB
+	 9Hoks20Maf8CqRAj1ldO+3RGSnjKFajr6yoXOmPPyTTzejrCiqJnveOzx5qxDMO+iGnGc
+	 aKukEb97TOBE+VvQ5TaK8zvFI7YvWuup2UWVBG2aBI50nw9RGlKanuAW5YbUKV2wSEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793720669;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793721203;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=nLhbzQhcrJcE5zHgH9QEWsAoAStLTeamvslZak3IipI=;
-	b=o9Z4L8lbeSiH+ck73O8fo5BhHEA7bHp0PT5o3k/D5crjISmCZBY3t/wJA4WPHKTKx7WY
-	 RL444lDkU0w9QGmt0dZ/B1eYWHVeP731LsI1OjzwFsJ52hPpq13xSxfzYKq8pHrVDXUot
-	 u1JG3TWpuSY/RcF+92T0Iy47Kvv4Y8uI6Kdz8tN5Og8d3wYegqqS9HbxXfGyyKyFd8KNL
-	 Qn4R1+r2IWqgxC0vmUbvIxdHZDUx9dPCu794jzj9eVovNszTaC74drFxpuXH2ERH7NAqj
-	 DgpRwRaMnHGAitlAclLBPQTM35RgfR2j+A8GrwYZ0uY+LS3n/0NslWt7hWbAePrxgOw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+	b=qEebKNZUnNL0vmzJqbHf8rOwLi73UqZ3L896x0BZkS3ezdflvkw9vzPTiFhPCKUrBBhX
+	 rDkV3SFVIy4W//KgETYwyf9yFw9mw+iKlWMqGZHolJOUndbAnif+cOvLMApfZ5Q3J4BO1
+	 hqwlyXVULli0NjWYoY4s/R6YPLpT+9qFQ0ZJ2Ii54TBsSE79y3FDN4z4h8eSSrXor8FZe
+	 /W/15yvYNwPBIJLxmhK8zr0chd7h2ZC8wPgSJz/66XnWCeOhTw1f/yFmULmapk6vqphgv
+	 Rd5eQ8Sbk7AqrI5uEhKguMlyx7LT9Mvjqf8036Qxe/cIX5I7kc8yABzeSKcXTQIB+kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=U2sluQDB;
-	arc=none smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tSNX67su;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C016606A32D
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 15:44:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C016606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DB6606A327
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 15:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5DB6606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=U2sluQDB
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-713e6ecf595so826028eaf.0
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 07:44:28 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tSNX67su
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a56e05568aso17936455e9.1
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 07:53:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793720667; x=1794325467; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nLhbzQhcrJcE5zHgH9QEWsAoAStLTeamvslZak3IipI=;
-        b=U2sluQDB45SVmfoOc5qsQjR9RgmMInyalxugOfxiQwTg4CNO50voTBmbiMbyBrob5i
-         UGZo5Tg9e7cgytcq6XmIoO6Ppot0iazwvAeGcdLdoSXCUuzGhlXUuowIrLoyuIYt9hKh
-         PA/Ly/oDiLRgehx+21oqo+ss8GOrM5rQgA0dMdp4IDEvKI+bPpKUjwKGBbpY5dMsXTYT
-         Gi9U19MQUj3T54TLGA0U6eqD3z6kVEb5v+ZggNzQJLaOlAEltw+NFUrzOkQL00++H2VK
-         vwcsRd8AO6GxQA+NQT4iNCNT8e1RjjLz5tfnf0p2afVr7EwJfnDwPeh5gsrQZe//PjS6
-         w/PQ==
+        d=gmail.com; s=20260707; t=1793721201; x=1794326001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+        b=tSNX67subyw79uMOg4DSMsKrL4qoZR3fWMirU+8bRpPuHGhaWmjkMuROfHKcpYZP3e
+         oE4uUjh/767qBQ9+CO+ovt8otMG8ZjjJjjDA/hN7HWBE6LZ9/1w9/VFAs6dCeyFyMaDa
+         NejxEV3MAUgDZ2M/wOqitCqlG2nrLA8PhVVvV4hoKsuwwlbGHsRqCj23u6ZCywCohzp5
+         rQ6BKIgKdt7sQYmxWVQTA6CFM4OPVOfdtnBAKEJKQW52gE8VLax0Q2iVSto6qbfaFaCi
+         qnHpuYQYpLZm1l8fo9nwOiSFp4GOOlMyMyIzvBZgk/gTIMMG3alnfapmXv7+KJOB3EHH
+         Gw6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793720667; x=1794325467;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nLhbzQhcrJcE5zHgH9QEWsAoAStLTeamvslZak3IipI=;
-        b=KZJnaimKaz5kVQ2S1gJDy14ACQv8SDINs6XgkPx4A5QEK1WMA3QYyExzoOdcF4gJgd
-         zySHLQNiJNXg1sfR11s+938YBUYYi7Scex0aUes6XRtJ8auZwSjdWwIPx8fa0cbXsNgr
-         CEiCfm1RvJ///IXphrK+740l/vYbEg3B45hO6emOCKCthS7GfZNMBLdWvowmNhyoL7h5
-         yjM6+yuiZsr14OtLLCvSUh4hgDJW7OqEGZbDlomFQkkIS3z5+WlVMsx3WT2nRqgnu56Y
-         dXMBeqMlHTRxBI3if+1oViPoBuRezvi/Wqitqa24wfRGvOkCOF0DuCPJB5BEN2dA7poa
-         gr1A==
-X-Gm-Message-State: APuU4Z82lRh4zW1+WeYRZhGTID3rYwAQ1KNwZBCraNj5QzAJ0Fy25RAw
-	MS7o22dxylmPdZ5dJyk/e+Clla+A72AUkmqdn6denXb10biB5L8sNey4DrH9ARlevLc=
-X-Gm-Gg: AYBFou32Vy8V+KtJSRzgeOfR7g4mngdlN/le9bg+m99j0JNxRPlGkMZ2Q7Irqkqob2B
-	z9qgPN/2KGxG4tKCvht5ZaASTqRtueP3TSZ1IHSifH2X5F2ujngrTVOf2jtdY7edHDy8EzVNUmG
-	TsOlTpQt55SfKRvk/uT6iHIgMSsZyjlKRbR/WkD8wxqblY/MSHGk38q2nqOrkOr4a/V3h9oYLtH
-	urL3ES00/qlD/sCs0PACB836LiOx+AsNesbJqchsldd/Z9dx2EFF9IMHJeS05KWm0geN01ULCaa
-	Uez46s5er/TaBiFMKhY3DKUZ4fA00eN6+dBmtgLIFQKV5JjbzrqaUneX/oDCxzPyOM5d//VXf0N
-	ZdTJcoGJINb6T52A3JHKemdkzfvqLnHLN+QESRe9Tgv7ICQSfNE7HT12wWkZK/WJpkNaOatUE+R
-	8CZNDtrCUdcFwMx9oEKp/iD1Ik78ZJ7U4kOqTc486FztmhLgg4W0LvIbisyYxCaHYN0HzPKUjrk
-	GBqRD+zgCFtg1uLOY0IexJPIgciD06Vzr84UCi5GIEVsh7pt4/0pMcyu3oneF1uSZIW/8mnHPNa
-	CXaUp0/+ybzb6NDpog0Zb1R0yHa5LRnkF4DS4+ffZZu47YjogW5S8Hw=
-X-Received: by 2002:a05:6820:1396:b0:715:21d1:b87 with SMTP id 006d021491bc7-71521d11e77mr2519618eaf.0.1793720667310;
-        Tue, 03 Nov 2026 07:44:27 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-714f2a84854sm11673087eaf.2.2026.11.03.07.44.25
+        d=1e100.net; s=20260707; t=1793721201; x=1794326001;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=anB0zTq8jJujneJmcQG5UHQs5K86qJzq/JkXXdegQ0Y=;
+        b=ZG31wrVP17+pkBS+DvyAgrEosLVxFMOMAiJpGJdFJ+/c+5M5MkzedBYPnLY/qOpJwn
+         Abgcr1AIivxoq4QThd4pa8k3Z1Bmuh1CFQit+pzMbvrkYmhXbr4fKp7rzX8YXxSwIx1i
+         A1fDQg6N9+HEg42kN/BRfu6YXRPr+p4hfqGb7Kun0ZUo9lIFU17jSIjfYAVc81sLRbgW
+         Qx8t/Ab4DovT3dgQISgBEudGwvRLXge28bolPI+Z9EjVV1x95LWT3RLzRSYWuhNQcNOe
+         N/13VjVkvvrd6zXGZk06v6pbRci5XZB3hqqPj3StGsWyW5/sOzDdHVnuN0oe2FBxd5B/
+         4/ig==
+X-Forwarded-Encrypted: i=1; AKwUvBxcfght+8J3TZDggayoSNJHbq9ytV/iv1smwDXmPTmdkkyBEYg53bIALGpeW1Khgst7Trgq9o+uGA5MjQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8df0n88/5WswLciWXSWJ46ECS3li4CR//iH/RVasapUwRxQQus
+	qfBZ7IIKP1aMUgFH96FSEMwYf9VBuoUxbb00037WoZDMGUsfuaOsKfd3
+X-Gm-Gg: AYBFou3OPWzpczz0JylPgNBa7Mq4ZzP9c7AjrMkWL+dyEIaQDzH2IrW9GEgiFpGSlIT
+	l0f1iFI4V4dKSg/mGwfqmj2kK9bg3ZhZsULLbxzrSoU0tzV8JLeFofq4cGu8HTR3pNEJaqM+aOh
+	UCbsKN+A3BOdTrx1U3OI/GMQWv/nKzI3x1ihIGplX9Qhow7KdKjqjJV+rWNJi7yZj9sdNSS36mq
+	Bhbfbpk/6I7oSeL98k/RiqWl4a4ZS6lsSHB7w9ESfHFyTQ6H1KpJNvouyA92pxPv+gKM0JMEq1b
+	ObLh9sdhTMXaZmsObPJVa1N1Bnb2p69y/3FIXsSRuQaybXy0A3xlGV6XMzd4QoJEnTNt43H7H8G
+	p8AznOQJWcL+OzQkIRCj4DQBcqdHeJzD+3jhRbLXiqGu9GyoTePKozJYxp7DwAj9kH97vL31Vtu
+	HzKGGuDA9LKmeKgmoo9bKJjQy5K399V/qv+a0FtYn8USaOVtSJS3VvDLyrMjTBiD1qNnGciUkdD
+	ppIR4SuSaDqWsSvrKj9KJlzQZgfcwbGC7YFSdl9EY++K9zU/ELH9U31w/TrHFJP1c/4xTgphjRV
+	BTu6ddc6BUh7ouO9VDdCgR5emoqA/w0/x1YkH+25X0hZDqBxpymPipqpFW7caE8x6hQzenV8
+X-Received: by 2002:a7b:ce0d:0:b0:4a1:715d:1913 with SMTP id 5b1f17b1804b1-4ac177538c5mr237110155e9.1.1793721200982;
+        Tue, 03 Nov 2026 07:53:20 -0800 (PST)
+Received: from Termis-ROG-FLOW-Z13 ([2001:16a2:4495:e600:1209:ec98:a2b4:9c5a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a879f401sm63777815e9.5.2026.11.03.07.53.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 07:44:26 -0800 (PST)
-Message-ID: <116d7e6546741c73235006a0d3515d313a12c275.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: mtk-vcodec: vdec_vp8_if: guard list_first_entry
- on empty fb node pool
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Li Ximo <lixicaicai@gmail.com>, Tiffany Lin <tiffany.lin@mediatek.com>, 
- Andrew-CT Chen <andrew-ct.chen@mediatek.com>, Yunfei Dong
- <yunfei.dong@mediatek.com>, Mauro Carvalho Chehab	 <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Wang Haoran
-	 <haoranwangsec@gmail.com>
-Date: Tue, 03 Nov 2026 10:44:24 -0500
-In-Reply-To: <20261023075633.3662574-1-lixicaicai@gmail.com>
-References: <20261023075633.3662574-1-lixicaicai@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-uJ4gl++ULVroAHyp7KGb"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        Tue, 03 Nov 2026 07:53:20 -0800 (PST)
+From: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+To: Mario Limonciello <superm1@kernel.org>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bin Du <bin.du@amd.com>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>,
+	Benjamin Chan <benjamin.chan@amd.com>,
+	King Li <King.Li@amd.com>,
+	Caspar Adriani <caspar.adriani@proton.me>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Arec Kao <arec.kao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Seifelden Abdelmonem <saif.elden.hatim@gmail.com>
+Subject: [RFC PATCH 0/3] GZ302 rear camera (OMNI13B1, OV13B10) board data
+Date: Tue,  3 Nov 2026 18:53:10 +0300
+Message-ID: <20261103155313.114347-1-saif.elden.hatim@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,119 +112,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+This series is NOT meant to be merged yet. It puts the board data of
+the rear camera of the ASUS ROG Flow Z13 (GZ302EA) into patches, so the
+sensor can be enabled once the ISP firmware supports it. In the v6
+thread of the ISP4 driver [1], Mario noted that OMNI13B1 would need a
+new amdgpu entry and the matching GPIO tables; this is that data, plus
+the board configuration and a small sensor-driver change.
+
+Caspar Adriani already posted an OMNI13B1 amdgpu/amd_isp4 patch in
+his RFC [3] and dropped it after Pratap's reply [2]; credit for the
+first posting goes to him. This series covers the sensor reset GPIO,
+the 24 MHz clock and four lanes in the graph, and an I2C ID table for
+ov13b10, and lists where every value comes from (below).
+
+Why not for merging: with isp_4_1_1.bin from linux-firmware,
+SET_STREAM_CONFIG fails with error 6 (UNSUPPORTED_SENSOR) for this
+sensor, as Pratap explained in [2]. Merging patch 3 would make every
+GZ302 show a camera that cannot stream. The stock linux-firmware image
+does not start this sensor; on my machine the camera runs with ISP
+firmware and sensor setup data from my own Windows driver
+installation, read from the Windows partition of that machine. I do
+not redistribute any of it.
+
+The values and where they come from:
+
+- ACPI _HID OMNI13B1: \_SB.CAMB in an SSDT (confirmed).
+- I2C address 0x10: the sensor answers there; the _DSM returns the
+  same value (confirmed).
+- Sensor clock 24 MHz: the rate declared for the OV05C10 platform
+  (assumed).
+- Four CSI-2 lanes at 560 MHz: the ov13b10 full-resolution mode
+  (assumed).
+- Sensor reset, amdisp-pinctrl GPIO 0, active low: tested on the GZ302
+  (confirmed).
+- enable_isp, AMDI0030:00 pin 85: copied from OMNI5C10 (unconfirmed).
+  The capture driver needs it to probe, no ACPI device claims the pin,
+  and the ISP also boots with it left undriven.
+
+Bin, Pratap: the firmware sets up the sensor clock and link, so could
+you confirm the clock rate, the link frequency and whether pin 85 is
+needed on this board?
+
+Sensor model: as Bin and Pratap explained, on Linux the ISP firmware
+controls the sensor, and the reference ov05c10 sensor is not bound by
+a host driver. Patches 2 and 3 fit that model. Patch 1 and the 24 MHz
+dependency below only matter if a host sensor driver is used, which
+is how my out-of-tree setup starts the sensor. Which model will the
+sensor-agnostic driver use for OV13B10? If it is firmware-only, patch
+1 can be dropped.
+
+Dependencies before this can be merged:
+- ISP firmware that supports the OV13B10 on this platform.
+- With a host sensor driver only: 24 MHz support in ov13b10, which
+  accepts only a 19.2 MHz external clock today.
+- Patch 3 needs patch 2: the ISP setup in amdgpu uses the software
+  node that amd_isp4 attaches to the ACPI device, as for OMNI5C10.
+
+Patch 2 copies the software-node graph of the OV05C10 entry. If a
+shared graph builder is preferred, I am happy to rework it that way.
+
+Patches 1 and 2 have no user-visible effect on their own; patch 3 is
+the one that makes amdgpu create the ISP for this board.
+
+Testing: built with W=1 (clang) on next-20261026. Not runtime-tested
+in this form. The same graph, I2C address and reset GPIO work out of
+tree on the GZ302: the board configuration in a patched amd_isp4
+module, the reset GPIO registered from there, and an ACPI override
+that lets the stock amdgpu find the sensor. There the clock is still
+declared as 19.2 MHz and the sensor driver is adapted to 24 MHz. That
+out-of-tree code is in a repository I can share on request. I can
+test patches and firmware on the GZ302 at any time.
+
+Related: two isp4 driver fixes found on this machine were sent to
+linux-media separately [4] and have been reviewed by Bin and Pratap,
+and the GZ302 bring-up is discussed in [3].
+
+AI use: Claude (Claude Code) helped me write these patches and the
+changelogs from the out-of-tree code, and run the checks. I reviewed
+everything.
+
+[1] https://lore.kernel.org/all/3a671359-b05a-4d58-84ca-f29385088e5c@kernel.org/
+[2] https://lore.kernel.org/all/ea758386-13b0-4667-8eca-9aa4efefe92b@amd.com/
+[3] https://lore.kernel.org/all/lWYl1YJwDSh-q2Ew2f8b0BweQ4V-SUnPMSMurU5gT1LkqVdrmWFunj0sSgjC7m66bORBAD_jRCFTt1_ZOkotOMukY46rI4ayYbIfPQq4E9U=@proton.me/
+[4] https://lore.kernel.org/all/20261026182442.229869-1-saif.elden.hatim@gmail.com/
+
+Regards,
+Seifelden
+
+Seifelden Abdelmonem (3):
+  media: i2c: ov13b10: add an I2C device ID table
+  platform/x86: amd_isp4: add the OV13B10 (OMNI13B1) board configuration
+  drm/amdgpu: add the OMNI13B1 (OV13B10) ISP sensor
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c |   1 +
+ drivers/gpu/drm/amd/amdgpu/isp_v4_1_1.c  |  13 ++-
+ drivers/media/i2c/ov13b10.c              |   7 ++
+ drivers/platform/x86/amd/amd_isp4.c      | 127 +++++++++++++++++++++++
+ 4 files changed, 147 insertions(+), 1 deletion(-)
 
 
---=-uJ4gl++ULVroAHyp7KGb
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+base-commit: f1ac44c32cba88ad65dcecd4a279661d14e93651
+-- 
+2.56.0
 
-Le vendredi 23 octobre 2026 =C3=A0 15:56 +0800, Li Ximo a =C3=A9crit=C2=A0:
-> From: Wang Haoran <haoranwangsec@gmail.com>
-
-Concistency comment, use "media: mediatek: vcodec:" subject prefix.
-
->=20
-> list_first_entry() does not return NULL on an empty list; it returns a
-> wild pointer computed by container_of() on the list head, and
-> dereferencing it corrupts memory. vdec_vp8_if.c has three unguarded
-> list_first_entry() calls on inst->available_fb_node_list: two in
-> vp8_dec_finish() (one unconditional, one on the show_frame path) and
-> one in add_fb_to_free_list(). The pool holds a fixed number of nodes
-> (VP8_MAX_FRM_BUF_NODE_NUM =3D 10) prefilled by init_list(), nodes leave
-> the pool on every successful decode (two per show_frame decode and via
-> the vpu error / resolution-change paths), and they are returned to the
-> pool only through the userspace-driven get_disp_fb()/get_free_fb()
-> calls -- which themselves use list_first_entry_or_null(), i.e. the
-> driver already treats the pool as exhaustible on the return path but
-> not on the take paths. If the VPU firmware keeps reporting a stale or
-> zero prev_y_dma, or if userspace decodes more frames than it
-> reclaims, the pool is exhausted and the next list_first_entry()
-> returns a wild pointer into struct vdec_vp8_inst, after which
-> node->fb =3D ... and list_move_tail() perform an in-structure
-> out-of-bounds write and list corruption. This was found by code
-> audit; we do not have a reproducer on real hardware.
->=20
-> Fix this by switching the three take sites to
-> list_first_entry_or_null() and bailing out when the pool is empty,
-> matching the existing style of get_disp_fb()/get_free_fb() in the same
-> file. On exhaustion vp8_dec_finish() now logs an error and stops
-> tracking the frame instead of corrupting memory, and
-> add_fb_to_free_list() simply drops the buffer.
-
-Can you reduce this in your next version. Please start with stating what yo=
-u
-fix, such as "Fix possible null derefence", drop the "possible" if you can
-actually reproduce. And then explain if needed. This iteration is just too =
-much
-and to hard to parse (in comparison to the actual code change).
-
->=20
-> Reported-by: Wang Haoran <haoranwangsec@gmail.com>
-> Reported-by: Li Ximo <lixicaicai@gmail.com>
-> Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
-> ---
->  .../vcodec/decoder/vdec/vdec_vp8_if.c         | 22 ++++++++++++++-----
->  1 file changed, 16 insertions(+), 6 deletions(-)
->=20
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8=
-_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
-> index fd15d462b..ba34c71f7 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp8_if.c
-> @@ -308,15 +308,23 @@ static void vp8_dec_finish(struct vdec_vp8_inst *in=
-st)
->  	}
-> =20
->  	/* available_fb_node_list -> fb_use_list */
-> -	node =3D list_first_entry(&inst->available_fb_node_list,
-> -				struct vdec_fb_node, list);
-> +	node =3D list_first_entry_or_null(&inst->available_fb_node_list,
-> +					struct vdec_fb_node, list);
-> +	if (!node) {
-> +		mtk_vdec_err(inst->ctx, "no available fb node");
-> +		return;
-> +	}
->  	node->fb =3D inst->cur_fb;
->  	list_move_tail(&node->list, &inst->fb_use_list);
-> =20
->  	/* available_fb_node_list -> fb_disp_list */
->  	if (inst->vsi->dec.show_frame) {
-> -		node =3D list_first_entry(&inst->available_fb_node_list,
-> -					struct vdec_fb_node, list);
-> +		node =3D list_first_entry_or_null(&inst->available_fb_node_list,
-> +						struct vdec_fb_node, list);
-> +		if (!node) {
-> +			mtk_vdec_err(inst->ctx, "no available fb node");
-> +			return;
-> +		}
->  		node->fb =3D inst->cur_fb;
->  		list_move_tail(&node->list, &inst->fb_disp_list);
->  	}
-> @@ -352,8 +360,10 @@ static void add_fb_to_free_list(struct vdec_vp8_inst=
- *inst, void *fb)
->  	struct vdec_fb_node *node;
-> =20
->  	if (fb) {
-> -		node =3D list_first_entry(&inst->available_fb_node_list,
-> -					struct vdec_fb_node, list);
-> +		node =3D list_first_entry_or_null(&inst->available_fb_node_list,
-> +						struct vdec_fb_node, list);
-> +		if (!node)
-> +			return;
->  		node->fb =3D fb;
->  		list_move_tail(&node->list, &inst->fb_free_list);
->  	}
-
---=-uJ4gl++ULVroAHyp7KGb
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauoBWAAKCRDZQZRRKWBy
-9K1XAP9+wProaPl5Sh+BN2YDmMIpmtLgJeDUNc+Rd5rSiobFQwD/eerhOiLxNmww
-zCdHfDHNqNRcRBpUTRv0WffZh2CZIwg=
-=n6je
------END PGP SIGNATURE-----
-
---=-uJ4gl++ULVroAHyp7KGb--
