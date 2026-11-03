@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703324;
-	b=s06P+ytzbN5kfgWP7G4YnTlHRhuRMVLN/fWwo4xqXDIZZpx8jIiUlCoRsgw3Ej9S4vYJ
-	 d1UCrMN8sEc1Q/oQzrIAhLChgjoAJhI5jYFs0wHzDdQrBw4gr714bROcuzu8t5GMKv1az
-	 9fUCzuLVc6+0DWNDXYwbrwziidfqdxGYp84IWudiqZBdwqtlef3+cCp/aJxi5QUhkPxUE
-	 Rh4bJBkG2JOqYCYWyDzTqwBlz1I/CdoTgx8B2nBtJxCnYyCGx+N0evotLIxNHoKvnk0GF
-	 T4rNW63Y2x0wdB6p7pMKhlSOS8cotNzXbMoJgGJhPIvTlWpW4SLj2wySszsd6p6+Qrg==
+	t=1793703372;
+	b=I0EnxJFrUAhY5V3xODcF/VwC2bgGyy1kSNtEFiEzLNPBLYUs7uAjvRrt+qIoD/RdGwhe
+	 PN+BZrD14cYduvgkuFXBxHiTOMVEafxJjp0w/R5Fj2bZ79OSQ6d3N1sTWtkIo9hs8MzFw
+	 InFM9cbKGg2pNZpTxhWk7syDmtIEvB8RuBpkBUot10KVnqtWa95vVbaC3Ahjk95de3PxC
+	 TqykjCiN20kzTfHXu9muvqNL17CoAl7YoiYb8K//XBTKLuRtzPYc0RAZSPBon/tdB342E
+	 BWhPMiSe33lZ6svswLIrtNJpOqBxI1wn8eRWwCQxXONTn8BsOz2PjN46iBQVbxtZYmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703324;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=u3cLj5oN/VZ0ZNxbSXI8g2cl/Xh+rzyKi2IZeHfI1Hc=;
-	b=r2W6RLUgns9QGWc28EFNojJHgyG31P67zlC6QxWJwdvF2KqIGygDcgdeZ0KymOUnxmer
-	 qJKR02u3LeNTvYIKk7X70Qt0JETX+Dxxe9rSM1zmrwgvMODIeNrt3OGiWli7gW0wL65lg
-	 0Hg4b8HM5JRJeQ0E2sMD8vLvUb+4dwK8Kqx/pYy8fRTyR99zUbBhDz+dW57xEMxEo2aa+
-	 6IetaksfQ9SKOngxLNS24qcOmRHFkB0QpTPTNbPsl3PmoAEOvNDi6GofOBAL0thY5QZG+
-	 DoLITRtPu4xORHtHmj1tVmkEDe1gxxf9RANoFojwijSa/PWZhu4a6V6jYw7CCUP5qLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793703372;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer;
+	bh=xSD7cxthB9W0KI/LsHWzLh21tuW/dkbAwJgVNf3RpSU=;
+	b=PiR/Ypjje/Elx5beB/INUuvGzEs9ooktSPDQmx33WF5LQqsBsrJcvh0hjCY+6SPFTS6r
+	 dqBqvyL/QroYbFE36tDdJLl8qG8fSve5CJvJHpkVzF2aHg1b5IpeQQ2Q29ltbeekd73pw
+	 DN8SBg+RZb5odDHpI5x9cTJ6M+klAImnqgfaFGP2JQ9UKZlL66i/xx5RVVGfazfvZwYox
+	 G5zbbOm/LQ/lw7fjnsd2J2vidrlaqWzoM0cZmW+Md6z3FYCS+AjG2Vig7ydEnrhkKuxwO
+	 6IITymN31YBqFGB+WZ6jQ70gC8RdtIJEqTf19iHB+ZIwwWxILqAZl7x7ASgL8nuT+PQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q7+sAeHy;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CMshHRoQ;
+	arc=none smtp.remote-ip=209.85.167.49
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03A9606D809;
-	Tue,  3 Nov 2026 10:55:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D03A9606D809
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCDA606EEAD
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 10:56:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BCDA606EEAD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Q7+sAeHy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793703324; x=1825239324;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zlZAkh1fUKEzetjxu/VNbWuP8t3+57w9dqjd0ryW8yY=;
-  b=Q7+sAeHyt7kkxZEYIiu513DlJmseQmOtuHoKzHYbluQA02UoY9olFOu/
-   f+BdHfZmWZwVrzavu5vvUIp2yhbVDecxz1QbIKyx39T2meWtcJ4hhz+j+
-   IsmMeBSSe7viDk/LxMUkyaC32cCG4HNYXHb204OXwtxX/PJer/Sp46qZN
-   hJnMpr8XlMUXuxzKAj84Va5oktDZAMEeGtccPL0WTKXLw8BTbiS9pm96a
-   suj+th06S1pZmRyAOHTUvPlzWUe9psv1du9qPaWM6JPFYKdnbYR+BP29K
-   cpbhwd4+16OI2l4QhdH6d5lHMwrq8tkNyFWfFmAD7tiznn4bosypEJs5y
-   g==;
-X-CSE-ConnectionGUID: fB7vy+gdSdGHiiat4LMEig==
-X-CSE-MsgGUID: QZ+pxtITQ3m2bW1jB9GROw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2301013"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2301013"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:55:23 -0800
-X-CSE-ConnectionGUID: 46CalhT3TQ+EBH80tcOG+Q==
-X-CSE-MsgGUID: QZxCu3gBRxCB1e+dzUPh2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6450346"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.154])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 02:55:21 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5F50B121B74;
-	Tue, 03 Nov 2026 12:55:30 +0200 (EET)
-Date: Tue, 3 Nov 2026 12:55:30 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: Hans Verkuil <hans@jjverkuil.nl>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] media: i2c: vd55g1: Mark the AE lock and bias
- controls inactive in manual mode
-Message-ID: <aum9ooVly1Oq3phM@kekkonen.localdomain>
-References: <20261101195006.220657-1-fernandorimoli11@gmail.com>
- <20261101195006.220657-2-fernandorimoli11@gmail.com>
- <auh9SHrLKHTjENwY@kekkonen.localdomain>
- <20261103104959.52785-1-fernandorimoli11@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CMshHRoQ
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bfc9154ceaso3221930e87.2
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 02:56:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1793703371; x=1794308171; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xSD7cxthB9W0KI/LsHWzLh21tuW/dkbAwJgVNf3RpSU=;
+        b=CMshHRoQ9LA4EEdoYu9Y+zoBFGOFRgQcTHYuyrnsAZKZYPEWCpOESF/AL1aDG/CfTs
+         vkSiQc360/qvZc6nKAo7LoaKhZmtPp9S1JBC+FslRc9n6m5ZIjNR9ihE3gwrQ4x3wMjm
+         1V19ifHiEk4sWrAPU6zhVEZ//ylGrLSgAUvjQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793703371; x=1794308171;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xSD7cxthB9W0KI/LsHWzLh21tuW/dkbAwJgVNf3RpSU=;
+        b=WPnXdBoqY5WCS2igJN/GDdifgf1p2o2E7ITtXeUcx9Jd4zjiK97hVtE7kz3JlvHYcB
+         S0FtFSIs0EluSxOP3pfp0qelf2Ym+VXuPORuxqcu6XC0bK3g2Y4SgPSknNAz0SkEVKah
+         ImK+1+Iu7lxJEhIG2oG6KQKZFY1CPpR3GEqX1ejeOEDL3sUoZgiK6Yu/32pnU/KpA10/
+         VLxAqsvteNeKY4C8NQmqJ+gykrFGD3gcrvvsszaS32d+1PvzPy5WGLzcgCaOOIdsFDM7
+         13qqLgUCLXYrPMQRZFvmHxkevmZXZgt0ttSZCsKBmb8ZI2hserO19ej+1M4s7vQMhccL
+         9+Kg==
+X-Gm-Message-State: APuU4Z9E3Uftz44MOoK+ZYTKhTw28Hwd17zwN/kc6BStSvTMgIyjxOgQ
+	ntAs5II3aMv7Z+FKowdv5I9Ue2UhBMFovfq+VAX4s00J1gZ9OdoMW069tCbHBcOTNA==
+X-Gm-Gg: AYBFou2XqB/KSeReW7Swz9hPEdOHJwfxKxmXNNqNYtFzaJspZPenyM38/BlSk5PiA44
+	nfnMQkRCTj50E+CZ6Z1QSVGBj5x0zcyhuXpFQsmrq9SezxN1SoWOpTlVMbZMtW1f5YHUM873Qhs
+	EH+a2FoI+sQgaB2XAFeM99kWKxZIuNRW6+xb/2A7tNaHDESZ2tDkDvHl96Rhvv18iQi0r1hAyl3
+	tfdJCAuysoCbquhGcMpZjnpUQ5o/AQ0ibDf9PYZprlLD4O89MV9FvQvMaVkwfaKbq1l19+fJvrs
+	oa6jrjfZGSTpqEuC5TUMPjUhO9IoouZJ/3zNICSWGPoY5AqG/rCATq+Q71vi++aHA9kpVm9H9ow
+	dgZF0i2h6GAIJf+VJ8/Co4sHH6ZVWarJMXEeXLUYYXqPCVAErkuUGcoe1eCLnWF4Bjw/cJJdUHO
+	eQomoHH21vZ3xq2nrUS9qUdVJ8OOcyXX7rSD7dZigNe6poE4p62VSanhOPBzBuLmmJr6dL6UVX6
+	sKfsS8Nnzas0eq/un5rwzwhUMPS9KjHdTsClDL6B/eKPalGp5gXZWCE65C2Ta7AmzrDKfhmQDSw
+	BOBC6mI+/DMGXVR46L+szuUYnAqHtzhm6jD22hrprttoufihE3TjyaZDMsk5jU3YwVQAQSU4EWl
+	qaLVl9+AcuNs=
+X-Received: by 2002:a05:6512:398c:b0:5ba:3300:d521 with SMTP id 2adb3069b0e04-5bfd957f357mr3782618e87.41.1793703370702;
+        Tue, 03 Nov 2026 02:56:10 -0800 (PST)
+Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe0754779sm2103257e87.82.2026.11.03.02.56.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 02:56:10 -0800 (PST)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 03 Nov 2026 10:56:08 +0000
+Subject: [PATCH v2 1/2] media: videobuf2: publish buffers in bufs_bitmap
+ under mmap_lock
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,39 +89,222 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103104959.52785-1-fernandorimoli11@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
+References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
+In-Reply-To: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
+To: Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-Hi Fernando,
+vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
+To keep vb2_mmap() safe, newly allocated buffers must not become visible
+in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
+held.
 
-On Tue, Nov 03, 2026 at 10:49:58AM +0000, Fernando Rimoli wrote:
-> Hi Sakari,
-> 
-> On Mon, Nov 02, 2026 at 02:08:40PM +0200, Sakari Ailus wrote:
-> > I don't think grabbing a control is a bug as such; it's normal that if
-> > exposure is set to auto, you can't access the manual exposure controls.
-> 
-> For that case the framework itself uses inactive rather than grabbed:
-> v4l2_ctrl_auto_cluster() sets V4L2_CTRL_FLAG_INACTIVE on the manual
-> controls while the cluster is in auto, and vd55g1 already uses it for
-> its exposure cluster. The AE lock and bias are the mirror image,
-> auto-only controls in manual mode, so this patch makes them follow the
-> same rule.
-> 
-> That also matches the flag descriptions in vidioc-queryctrl.rst: grabbed
-> is "temporarily unchangeable, for example because another application
-> took over control of the respective resource", inactive is "not
-> applicable to the current configuration".
-> 
-> vd56g3 has the same two __v4l2_ctrl_grab() calls. If this goes in, I can
-> send the same change for it.
+Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
+memory is allocated and without holding q->mmap_lock. As a result:
 
-Right, indeed that sounds reasonable. The drivers that grab controls today
-do it for the duration of streaming so the use case is a little bit
-different.
+- A concurrent mmap() can find a half-initialized buffer, and if buffer
+  allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
+  without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
+- If fewer buffers are allocated than requested, they are already
+  counted as active in q->bufs_bitmap before .queue_setup() checks
+  whether the smaller count is acceptable.
+
+Fix this by keeping new buffers only in q->bufs[] during allocation and
+setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
+and .queue_setup() succeed, and let __vb2_queue_free() read q->bufs[]
+directly when cleaning up unexposed buffers.
+
+Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+ drivers/media/common/videobuf2/videobuf2-core.c | 66 +++++++++++++++++++++----
+ include/media/videobuf2-core.h                  |  8 +--
+ 2 files changed, 61 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index b0a6084f1757..70ef38c3d16a 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -431,6 +431,9 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
+  * @q:	pointer to &struct vb2_queue with videobuf2 queue.
+  * @vb:	pointer to &struct vb2_buffer to be added to the queue.
+  * @index: index where add vb2_buffer in the queue
++ *
++ * The buffer is stored in @q->bufs[] but remains invisible to vb2_get_buffer()
++ * until published with vb2_queue_publish_buffers().
+  */
+ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
+ {
+@@ -439,7 +442,31 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
+ 	q->bufs[index] = vb;
+ 	vb->index = index;
+ 	vb->vb2_queue = q;
+-	set_bit(index, q->bufs_bitmap);
++}
++
++/**
++ * vb2_queue_publish_buffers() - publish buffers staged by __vb2_queue_alloc()
++ * @q:		pointer to &struct vb2_queue with videobuf2 queue.
++ * @start:	index of the first buffer to publish.
++ * @count:	number of buffers to publish.
++ *
++ * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
++ * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
++ * them visible to vb2_get_buffer().
++ */
++static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
++				      unsigned int count)
++{
++	unsigned int i;
++
++	lockdep_assert_held(&q->mmap_lock);
++
++	for (i = start; i < start + count; i++) {
++		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
++			    test_bit(i, q->bufs_bitmap)))
++			continue;
++		set_bit(i, q->bufs_bitmap);
++	}
+ }
+ 
+ /**
+@@ -460,6 +487,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
+  * @first_index: index of the first created buffer, all newly allocated buffers
+  *		 have indices in the range [first_index..first_index+count-1]
+  *
++ * The allocated buffers are stored in q->bufs[] but not published in
++ * q->bufs_bitmap: the caller must either publish them with
++ * vb2_queue_publish_buffers() or free them with __vb2_queue_free(), both under
++ * q->mmap_lock.
++ *
+  * Returns the number of buffers successfully allocated.
+  */
+ static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
+@@ -562,7 +594,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+ 	struct vb2_buffer *vb;
+ 
+ 	for (i = start; i < start + count; i++) {
+-		vb = vb2_get_buffer(q, i);
++		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
++		vb = q->bufs[i];
+ 		if (!vb)
+ 			continue;
+ 
+@@ -580,6 +613,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
+  * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
+  * related information, if no buffers are left return the queue to an
+  * uninitialized state. Might be called even if the queue has already been freed.
++ *
++ * Buffers are looked up directly in q->bufs[] instead of through
++ * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
++ * never published in q->bufs_bitmap (because a later .queue_setup() call
++ * rejected the allocated number of buffers) are freed as well.
+  */
+ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
+ {
+@@ -587,9 +625,13 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+ 
+ 	lockdep_assert_held(&q->mmap_lock);
+ 
++	/* q->bufs is NULL until vb2_core_allocated_buffers_storage() runs */
++	if (!q->bufs)
++		return;
++
+ 	/* Call driver-provided cleanup function for each buffer, if provided */
+ 	for (i = start; i < start + count; i++) {
+-		struct vb2_buffer *vb = vb2_get_buffer(q, i);
++		struct vb2_buffer *vb = q->bufs[i];
+ 
+ 		if (vb && vb->planes[0].mem_priv)
+ 			call_void_vb_qop(vb, buf_cleanup, vb);
+@@ -624,7 +666,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+ 		q->cnt_unprepare_streaming = 0;
+ 	}
+ 	for (i = start; i < start + count; i++) {
+-		struct vb2_buffer *vb = vb2_get_buffer(q, i);
++		struct vb2_buffer *vb = q->bufs[i];
+ 		bool unbalanced;
+ 
+ 		if (!vb)
+@@ -676,7 +718,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
+ 
+ 	/* Free vb2 buffers */
+ 	for (i = start; i < start + count; i++) {
+-		struct vb2_buffer *vb = vb2_get_buffer(q, i);
++		struct vb2_buffer *vb = q->bufs[i];
+ 
+ 		if (!vb)
+ 			continue;
+@@ -1000,14 +1042,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
+ 
+ 	if (ret < 0) {
+ 		/*
+-		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+-		 * from already queued buffers and it will reset q->memory to
++		 * Note: the buffers allocated by __vb2_queue_alloc() were never
++		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
++		 * straight from q->bufs[] and resets q->memory to
+ 		 * VB2_MEMORY_UNKNOWN.
+ 		 */
+ 		__vb2_queue_free(q, first_index, allocated_buffers);
+ 		mutex_unlock(&q->mmap_lock);
+ 		return ret;
+ 	}
++	vb2_queue_publish_buffers(q, first_index, allocated_buffers);
+ 	mutex_unlock(&q->mmap_lock);
+ 
+ 	/*
+@@ -1125,14 +1169,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
+ 
+ 	if (ret < 0) {
+ 		/*
+-		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
+-		 * from already queued buffers and it will reset q->memory to
+-		 * VB2_MEMORY_UNKNOWN.
++		 * Note: the buffers allocated by __vb2_queue_alloc() were never
++		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
++		 * straight from q->bufs[] and resets q->memory to
++		 * VB2_MEMORY_UNKNOWN if no buffers are left.
+ 		 */
+ 		__vb2_queue_free(q, *first_index, allocated_buffers);
+ 		mutex_unlock(&q->mmap_lock);
+ 		return -ENOMEM;
+ 	}
++	vb2_queue_publish_buffers(q, *first_index, allocated_buffers);
+ 	mutex_unlock(&q->mmap_lock);
+ 
+ 	/*
+diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
+index 4b4f4c15c53a..2e93e6985d5f 100644
+--- a/include/media/videobuf2-core.h
++++ b/include/media/videobuf2-core.h
+@@ -564,9 +564,11 @@ struct vb2_buf_ops {
+  * @mmap_lock:	private mutex used when buffers are allocated/freed/mmapped
+  * @memory:	current memory type used
+  * @dma_dir:	DMA mapping direction.
+- * @bufs:	videobuf2 buffer structures. If it is non-NULL then
+- *		bufs_bitmap is also non-NULL.
+- * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
++ * @bufs:	videobuf2 buffer structures. Must be accessed with
++ *		vb2_get_buffer(), as an allocated buffer cannot be used
++ *		until it is published.
++ * @bufs_bitmap: bitmap tracking published buffers. Bits are set and cleared
++ *		under @mmap_lock.
+  * @max_num_buffers: upper limit of number of allocated/used buffers.
+  *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
+  *		     for backward compatibility.
 
 -- 
-Regards,
+2.56.0.385.gac671c819a-goog
 
-Sakari Ailus
