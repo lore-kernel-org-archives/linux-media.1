@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793673053;
-	b=BnwVw1EZn7z2t1n0WwKAZridoRJFHUD6JUy7+24bNw7pswLjTCIH73TwxL4vSeG+iQGq
-	 V0TX4mjWDkaLj9p+Wt0ajDyKk17EMvi88XMBt+tvf0hmikmOcixuPjcpEUfUuM2mGnaNf
-	 8nimsqNW/VshfWKuj8/6OI6MiWkv/BxSieSAiBOqC2uLxEtGF2nQMHcon5V1Rk0yifjqf
-	 DXmJTg1h7hgrEjb4e/0kzu6DFpY13jHVTl7qcXUtFF36YQliQiV6GjA12dH1EeQdGnni5
-	 LLX+dFdQukW0vQETkNZxCJO20ZSPSawoy6NXUZXP2HVzKSw3pGzMrcfg5OQcmEbv62Q==
+	t=1793673626;
+	b=h751HJFZkrpmfuK02fyXBcREqSiCo8jmuqQEmyGMm6HmBeQsWLJwsRiZ+41GIvKvnAsw
+	 ynl0Rmd3sCFZUVUkD3E3NJb5uykoDTjcKuhHFeYNxDM+Keg/vBgvmQfJg6+sa4t3J8eiv
+	 1tBuXCZWgOpwxEDAALdVkd1gp7WQj6nCJsBHb5dVJPQPg4K0QBDgK7qM2p3GC+vdURNyP
+	 NtfpuQj+4qqStaNR9ouzuqfcFUz0vH+fJXNVaDDh8iD1WqMrC3ysziDypcgV51OgyXT/R
+	 tqR+MYC4AFRd+jhxNcM4gey9L+SN8v0yNkp2CpfZs6sCxv4jl35jIRTpbOVi5gtofkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793673053;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673626;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
 	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=7H7f2+sbvco+m727gcYXPh56BlLVYSp/7lO7c/5FC7c=;
-	b=YbcQIOoiXCby978evqcQVuz7/VvcQJKoPveeJzCX4Awy04ys8MqW1eReYIPCHU7QDyPf
-	 dMUbGVSDVBVqir1x+TUM4/xo0U9KVbSveI7srdshPvg7svCVCdTWtOfjNcSnT6sP/hvy+
-	 6QSsAw8HjrEsoZ4DoDHhnMPvvB/am6b4lRijqf9B2K7d3Yq85xOnNFJ6Unr6Joec8bsXi
-	 7//l/aqZ3AtAhIAkZKlHZfwAj2mNs5210YAddY6A5RE1QBjx9a8eBZ0OLsU0I2Nga8v7H
-	 9ycmKlnJ4d9aqEfq3bEqmJ5P4St/BQuA5iA9tAqUVQhD5STm5/B587yxh6N9g3gxAMw==
+	bh=CTXFRAlDdP0mqd78M1HJAOng8psZxu116N3LePnYueQ=;
+	b=JEK4Rsgc9ZuaG1PW9o6SwQ7rEhtik9QQiMe2u65iWwIrM57fgmvny8sNCDqbnci5QTDc
+	 t5HRqosVTy8JOaACzj/n0ewVnWeapnH+D8KjRARLzhuPlShFZIm740kQiZ81T8TUc6KJY
+	 f1EuWbO20xx77IcjkaKlUeD+YXY32GAYo7czLWKoQAl9baGMgEeRxa0KW879BWPlBEbbQ
+	 VwOdb9Wi99Oeedf2tZ8gwzfp+mgzizr/e1V6BreKTXtC5rZg6VHgq+uLCYZVriGuT5Oam
+	 4IDYi5SxwySSfKU8nRPKisNxaRF1ajz06fFysNR29Jxx2sdXuMuMFwxL0GvLolU7Ehw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ndufresne.ca;
 	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qxWI18yA;
-	arc=none smtp.remote-ip=209.85.222.172
-Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hfVeo0UG;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F409F606A326
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 02:30:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F409F606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B3F606A324
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 02:40:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27B3F606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qxWI18yA
-Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e6eb77f0bso358746685a.3
-        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 18:30:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=hfVeo0UG
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-930c0f9c1b1so380498385a.1
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 18:40:25 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793673052; x=1794277852; darn=vger.kernel.org;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793673625; x=1794278425; darn=vger.kernel.org;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7H7f2+sbvco+m727gcYXPh56BlLVYSp/7lO7c/5FC7c=;
-        b=qxWI18yAQF/7ypbC/cjrf7UhPNBt5hiGjrXaKC07xrDOTAGD+oNMaPO9o1FiV2cGHt
-         lhvtLYIfIcNwql6S5LAgOvCAWS0ZRBu709hwdzHogI6+KpUyDGFOQDhZfjYR1487GunG
-         rNNvIgRw2MAVZss29ozZDUTqwoClA3QJuQEr3tpFoQzyOc9S9p9IqnvZunmlJBEuKXIq
-         7e44cd94OrEEoI5pVUXZhBNRzsHP9Wm27/NtoydkEbCsvQ35nMPicwQ46Jwci5If6wMW
-         Jcy6T5XQx4t3ZM9oWsU6UoSskWMhmRbLBLFKJ8Qqwnn9Y4ly1NUbSTd9XhVcofs8Gf/K
-         z6yA==
+        bh=CTXFRAlDdP0mqd78M1HJAOng8psZxu116N3LePnYueQ=;
+        b=hfVeo0UGQ4On6bcCdQge5BLOJPHiTVzsJsVBBwHHld8ZBSwcx0IxHhPCfl6U+kdGQ/
+         c64jDb+xQvD834Kpjw/wpSIPnPWAd1T9iaP/U0eShhcLHAt9D+3np6BLvhk99m1H/Op8
+         EjAjdl9n8oNIWYmI7ify7GPi2/Gd21/kxZA4adkBBPUUe0xBkAS4Te8Z9ob1VIlNudPA
+         SopWN0sKZm8oDUArunJcBONRSwg/xShumldK34p6V49ZfVqxKWvRJmsfwDUzBqsebBhO
+         f/J5nZ1ZSxczOzCdnM3ToyPJBYg49cKXNqzFffQXR2kGS6meYWJKhF/ZaZI9wfiqoAVE
+         qG/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793673052; x=1794277852;
+        d=1e100.net; s=20260707; t=1793673625; x=1794278425;
         h=mime-version:user-agent:content-type:autocrypt:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7H7f2+sbvco+m727gcYXPh56BlLVYSp/7lO7c/5FC7c=;
-        b=Q5MraLbThGM91vsawFoqiopQAI3s561+4ETCBaLdyLU89u9xNGaC0yhUAMydbDjQEj
-         PxojHVcBwDlN39Lm9TGxXaCaBPHaS9ZRniyGRhP7sW2ebqLY/Jh1CBqXa0wTLkWc5mSL
-         vcL6Y6pn7P+2Ui3sq8O93aco+0Mp8G0RtAVs/aTkAZr/mBdr4kA22c1mmpmDKaqvaYXl
-         sbFOuSRRhilx/P5jm4v8RuiSmEIS1bj4XYoLideuf2JwYrKPUwRxBhk+GglmSwk23hlo
-         W9juac5olGfEI+dY1GNzsuEP0CoCxFUYFiUOUrCCFbYEVNY+7qae16Mwl2uGN93e6OQ2
-         bonA==
-X-Gm-Message-State: AFq9FYLux8d26OUDU6ru97h9oOKrgEXTdz+yW8hD+0T6aQBv7TNu5vfG
-	+W+i34o9bLFg+oCelW9FyxbodafeFkClDFyLGj6RU95n0COmf/fQ7kjAChIZggyKx/KA/cGGec/
-	CYVyF
-X-Gm-Gg: AYBFou2hS4zae66XVx3hRYBZmbtZxJbQ/NLh2fHQjfnUyQddSb3B3NkbFZBVjH5pYsX
-	nTaPuPKoCeWpCRQRTX1eYN0/fj9iqCl3wa/rqqJe6HwAwEBWXeAMMT9OXqbg4WV3E9LFBiiod+j
-	C7X77bTFJ7C4JxNYlr0QdzC4UtR+lkJaP1B91EJDNJqqzhOmBl60WHZdHeZJhZf/Oi0mAB63Oar
-	Y4H9bEl3r+l1k5mUDIEVyY1mLDvXxcvYbw1+9HcazEdLBLGkmerJ5CaRmqMKhHUTEQOg3WOpUDq
-	6mpLOqAOEnBGWAJQv047kkCAtaJu7PpDOicIkuPtFAzTrBx1m4u692eIJ189ow5WXaOfle0GraQ
-	USfeOtmqpd/t1kLJCBt1+qsWOz47l8YVsDPKoBfx5KcSm0V5EfRzxk1X7gz+rQjVYhXTSa7t4HD
-	lWNSCGC8ZxmDryRP3KR6HCMPVnwxARHYCIlITHHYAYE+B6OXxJ2VodKDaZYcLfZvGse8/1Lepxp
-	mYZc7qABfSLXZHB1/Cmafji6gg+p7UXkHvZCVpPsfJeNMn2YsDEqc2QX1rm/Ko29OTEmu9/Cdcd
-	zjMN+4JWqoqfEJWHi5Xxze4AIQD3NQ4GgdlQAlUWZ+uuaHTx15QADt4=
-X-Received: by 2002:a05:620a:84c4:b0:93f:211b:a88 with SMTP id af79cd13be357-94421712a75mr1959639885a.14.1793673051964;
-        Mon, 02 Nov 2026 18:30:51 -0800 (PST)
+        bh=CTXFRAlDdP0mqd78M1HJAOng8psZxu116N3LePnYueQ=;
+        b=OyXm3Z7iXmy+O3fAhxvz37/RyrAjXp1BZHEjRTd7qC8+xCXSWw4WKr0sS1S7NeY3IR
+         9ZtURju0xqbELFGjAFhg3DNV+oX7KN/dcQHmnejd1SNAMfV3xvdg+nVZrwi6fmVpkZQZ
+         oylA6bQdjU2Ucmx0UTGlYHs5YBzh1hpzLZ3i68IH/YO1j3jfEA9AztWZCbE1k1JdDvqE
+         ncUxwKlMO/AIvLi6P/bWbj0yczrrqltyFmhesbIqpLlEZqIDPXtbnTu1RmxwULbubTlJ
+         DX9iWR7MTR3cFsobvFGckNQ+pqV2aPvurdCLHgcNoVZ2IZfTKrZDTRh1SvFsbT4c9gTv
+         Q1JQ==
+X-Gm-Message-State: AFq9FYJ/MrkglTbfvkXpweWedr0IyqxRl6FyWEYObs3QoODjjA1dbmLh
+	jbX3Dvvv4+lPXDRMQ+oe+tlXhktjDbXu/EnktZ2ETl7RGAcAzwZyG9QiwnTZwK7QsJg=
+X-Gm-Gg: AYBFou0xqgXg+n3rMgVGXHeiM0H0wBTRcWRzmiKghBwoKAFJEjTjNyPFreiSWRLYBQn
+	Zfzy7GKVd2ZLvzdRBI6FlTwRoGsyP7rUayr2FIhQevpRca2GmjSZYnZePJUlPnj8A2Rjn9R/803
+	1eNYdQ2KRlgkJdrdS26tVHgBeEii74Tl4j7crgO1rVjP0w1Hgi0jWuJghubho8l3URbpFZE0/8E
+	UmDIdC8z96EQkmQi0me9TsO/IyAOqqdje/vxCCnjcWxbCHNaQXq4sollo6zce9ftD3MA59YjpqE
+	wbWMmhO6FvVx9kcvYKb4zlrKZRzK2Qr5LjH81fufsLM6R8OifASXjlZoc3U4mibGrKIieVaYz/a
+	9L+8vG9sDD0ll26WC+XkvJDHgI87qOLupBDUV8iTQ4hbdLbGkYIFPHvAiTPB0i9xIX9lvFo8Ylw
+	V8WElySogWqYAFbVc7LMQaUzziqCpV+xo5UZ2m+Vv2BQWrD0ss5H/7Wtai58ujybyUnAcs0lfih
+	QCNcY90TUnhLPFWx6lfia3DGu3DwqlMEzMePFTUsIDmNlM879eR130Olfh1N5MlzHtCdQaF1KZV
+	5+3A0BhkDyqSPPuAGCWHpkvz+M4qw7ncRww1B77K04vNBIUr7fUof1A=
+X-Received: by 2002:a05:620a:1d01:b0:943:e9a0:e1b1 with SMTP id af79cd13be357-944214cb815mr1872793285a.3.1793673625030;
+        Mon, 02 Nov 2026 18:40:25 -0800 (PST)
 Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425ae7f53sm964496885a.41.2026.11.02.18.30.50
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94424e79d0bsm970668385a.0.2026.11.02.18.40.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 18:30:51 -0800 (PST)
-Message-ID: <69827153a6b0f3b863ebd764645efe0dc2fda6b9.camel@ndufresne.ca>
-Subject: Re: [PATCH v2 1/3] media: v4l2-common: add V4L2_PIX_FMT_Y10 to
- v4l2_format_info
+        Mon, 02 Nov 2026 18:40:23 -0800 (PST)
+Message-ID: <9fe913fc3f750462a4655d51fa1a2f110a02ea18.camel@ndufresne.ca>
+Subject: Re: [PATCH] Documentation: media: Document impact of errors on
+ buffer fields
 From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Quentin Schulz <foss+kernel@0leil.net>, Mauro Carvalho Chehab	
- <mchehab@kernel.org>, Mehdi Djait <mehdi.djait@linux.intel.com>, Michael
- Riesch	 <michael.riesch@collabora.com>, Heiko Stuebner <heiko@sntech.de>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Quentin Schulz <quentin.schulz@cherry.de>
-Date: Mon, 02 Nov 2026 21:30:49 -0500
-In-Reply-To: <20261102-v4l-y8-y10-csi-vicap-v2-1-0a4149d96dae@cherry.de>
-References: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
-	 <20261102-v4l-y8-y10-csi-vicap-v2-1-0a4149d96dae@cherry.de>
+To: Sakari Ailus <sakari.ailus@iki.fi>, Laurent Pinchart
+	 <laurent.pinchart@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+  Hans Verkuil <hans@jjverkuil.nl>, Jacopo Mondi
+ <jacopo.mondi@ideasonboard.com>
+Date: Mon, 02 Nov 2026 21:40:22 -0500
+In-Reply-To: <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
+References: <20261030103815.3098340-1-laurent.pinchart@ideasonboard.com>
+	 <auR63iwOm_mih97K@valkosipuli.retiisi.eu>
+	 <20261030140958.GB3109745@killaraus.ideasonboard.com>
+	 <auUepevHsfBZB2nV@valkosipuli.retiisi.eu>
 Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -108,7 +107,7 @@ Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
  ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-PyPL7slarfAow59TTGqi"
+	protocol="application/pgp-signature"; boundary="=-EXrAhi3yIS3d2L8gm34d"
 User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -121,32 +120,92 @@ Precedence: list
 MIME-Version: 1.0
 
 
---=-PyPL7slarfAow59TTGqi
+--=-EXrAhi3yIS3d2L8gm34d
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 02 novembre 2026 =C3=A0 21:22 +0100, Quentin Schulz a =C3=A9crit=
-=C2=A0:
-> From: Quentin Schulz <quentin.schulz@cherry.de>
+Le samedi 31 octobre 2026 =C3=A0 00:48 +0200, Sakari Ailus a =C3=A9crit=C2=
+=A0:
+> Hi Laurent,
 >=20
-> Add Y10 format to the v4l2_format_info table.
+> On Fri, Oct 30, 2026 at 04:09:58PM +0200, Laurent Pinchart wrote:
+> > Hi Sakari,
+> >=20
+> > On Fri, Oct 30, 2026 at 01:09:18PM +0200, Sakari Ailus wrote:
+> > > On Fri, Oct 30, 2026 at 12:38:15PM +0200, Laurent Pinchart wrote:
+> > > > When an error occurs related to a captured buffer, hardware can pro=
+duce
+> > > > less data than expected (or no data at all), and timestamps may be
+> > > > unreliable or unavailable if the device uses hardware timestamping.
+> > > > Document this in the description of the V4L2_BUF_FLAG_ERROR flag.
+> > > >=20
+> > > > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> > > > ---
+> > > > I've posted a corresponding fix to v4l2-compliance in [1] to relax =
+the
+> > > > bytesused and timestamp checks.
+> > > >=20
+> > > > [1] https://lore.kernel.org/linux-media/20261030103717.3098080-1-la=
+urent.pinchart@ideasonboard.com
+> > > > ---
+> > > >  Documentation/userspace-api/media/v4l/buffer.rst | 5 +++++
+> > > >  1 file changed, 5 insertions(+)
+> > > >=20
+> > > > diff --git a/Documentation/userspace-api/media/v4l/buffer.rst b/Doc=
+umentation/userspace-api/media/v4l/buffer.rst
+> > > > index 94dc2719e907..5a7a1511cee7 100644
+> > > > --- a/Documentation/userspace-api/media/v4l/buffer.rst
+> > > > +++ b/Documentation/userspace-api/media/v4l/buffer.rst
+> > > > @@ -503,6 +503,11 @@ Buffer Flags
+> > > >  	streaming may continue as normal and the buffer may be reused
+> > > >  	normally. Drivers set this flag when the ``VIDIOC_DQBUF`` ioctl i=
+s
+> > > >  	called.
+> > > > +
+> > > > +	Depending on the type of error, the buffer may contain less or no
+> > > > +	data. In such cases the ``bytesused`` field can be lower than exp=
+ected,
+> > > > +	including being zero. The ``timestamp`` field may also be zero or=
+ be
+> > > > +	otherwise unreliable.
+> > >=20
+> > > Could we say that if bytesused field is non-zero, then there is a
+> > > timestamp, but when bytesused is zero, there's no data and probably n=
+o
+> > > expectation of a valid timestamp either?
+> >=20
+> > How about this?
+> >=20
+> > 	Depending on the type of error, the buffer may contain less data than
+> > 	expected, or no data at all. The ``bytesused`` field reflects that
+> > 	situation. When ``bytesused`` is zero, the ``timestamp`` field may be
+> > 	unreliable and may be zero.
 >=20
-> Co-developed-by: Michael Riesch <michael.riesch@collabora.com>
-> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
-> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+> Looks good to me.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Since its not specified, have you asked yourself if this is CAPTURE device
+behaviour, or if you do believe this should be true for all type of devices=
+ ?
 
---=-PyPL7slarfAow59TTGqi
+I've had recent discussion for M2M in regard to CAPTURE buffer ERROR. The A=
+PI
+has a gap and we don't know if we should complete a capture buffer when an
+OUTPUT buffer triggered an error. If the timestamp copy should be honoured =
+and
+what the byeused size should be and mean.
+
+Nicolas
+
+--=-EXrAhi3yIS3d2L8gm34d
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaulHWQAKCRDZQZRRKWBy
-9PIyAQCt+smxAv2SEhjb0K1aod+ajV5VdSqoZA6d/mIWZv+ihQD/UjLohcJqLbkz
-k6t3aQWhYB2RTbM8wRfVMsnXdYFJ5QM=
-=W+rh
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaulJlgAKCRDZQZRRKWBy
+9GCMAQC+8P5jC6mwEzwN8iv842be5roGrs60jeQSGKZgLZFJIAEA0NChh3PuwcC9
+7Nhn83XNtgIH9Qv0h9FAEgIQ6DpsyQU=
+=qxL/
 -----END PGP SIGNATURE-----
 
---=-PyPL7slarfAow59TTGqi--
+--=-EXrAhi3yIS3d2L8gm34d--
