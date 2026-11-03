@@ -1,56 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793722553;
-	b=hMYXVNIIk85Z8mpBRKrYlS7/Gt6Z8wpbuPGVX/bnWu1CTJsYK9QWhMZQ9JW5p9Q4Fw0z
-	 m8QzQjz63EmXQhZqP13x6s7EO8o8O+Imec2o46tGnKIfLwGFUC4RMsJfOn7K3l2tRzEHa
-	 Hx18Ltu8nqpkce7luYmVxl5JhQSqwUtAICTnDZjS+JHwTW2dh3y4ZdxM/OIhP6iULYfWz
-	 L4lB2wxS+afWvtAHVqPzFCQpuVj+/MFCTgXTLqH0WLY+0jnk9aVd0KcRcIoZ+AnTrLiFu
-	 leyRyBIwN9irgFrPDGBoToJQ9/EDRIH4YmQdcVQ0tloVrf6Lu3XDqYVuCRu2Z0kl5/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793722553;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=fBOjexThyqX9vtjFuxgIxqfaXQ1kHhMRsue68ZUwUxM=;
-	b=2XGPso0cjJPkC3Bslm0Hm7r5THYwOUe6Kw5pMWRBbAsjGEwTJTBNKmd2VQrfkOEDeCDg
-	 38pTY4X5yqv3sJdH6xrVHP1b6oq9ApzzgcGY2PUZFGLeH/CMWnWSfLGRBd/4ga/n3kDkb
-	 SJXri3H90/6zTgG1aR0KqNk8v/wafbiLHsz85guMh+4xCef4zNlXu+gvCqbeJkS4HHzm3
-	 9kPiHoZF0/3NNNkWhEXDKDKdaZ8IKU1UJ1nXSA6pg0BCWFe8f8F695FMucbW7TiTSqkkv
-	 NVoweIijRd2IJQxfBu9WENJ5wzmdS7jRcByRV7k3PVtLeRV+MjqHgqZXeVPWaQJQFtQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C23C606A337;
-	Tue,  3 Nov 2026 16:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C23C606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793723062;
+	b=eFDSXZbMgFYJuFEnk8aYqdjvlpL9WZHFphSlZlU7aP6fwQyrGr8ZZncZxiJvRLXGKuIR
+	 fIow9WXq0A02O+3Dk3BDlE3bTHllhnRy2YjmIdveWr6bD55Ud4bHzpKvMsiTx1zwYCEZl
+	 T2gctBSRbNrhIAh2a8cYFGvpwL7A+NPW27YUzKTYzgy130cncRsJ5YNbRPeHPsuKfFlLL
+	 LzmxVDNhMTW1ptyZdOdYQQ9wHhk0oNOczUMLeuewrSHk7m9qGxpRoKZKMih3R5jKiNN+M
+	 VZ8xnUXKtepavU/l1css1z+6ErYmMTFdtiCHsJZ1pQeIT3IvEyHxqXMi4ugejgUlSzg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723062;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+	b=yVKnUdzFBBzxtTSiTBczm1IDNNc0OqK6bAv7LF11LckRJNOLrIPwNBpNzwdm+hya48PA
+	 iAnrQ0O5bSJ46hMg07L8ifWTuNuxG7DtnF4hbljgOzVNIsyruyP2sItIfC6cI6QzcBddq
+	 A4eRHlnRhR1rOVvNiM8jccfIe1uxsv+Uq5Hm/vbarnaaaePI3ItVTToobBnxFN/nL2E5t
+	 aZaTFHpRuNfnxG5o4/kxb0eoR21QrcApqjOMFN1n73DXF1XYD+l59fj8TV5boO/O4SekT
+	 PdFN7nY1E8WAy4Gg4noW8Pk4OlMkt3P4XqvIbOkzx01IVxDOnzJCKyd2uUDdHkA8AZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gyQwWXPa;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF856606A332
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 16:24:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF856606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=gyQwWXPa
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a018493d57so70545e9.0
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 08:24:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793723060; cv=none;
+        d=google.com; s=arc-20260327;
+        b=rAa5jP7ZpiebETiab5mlF9dIK62O9YBqVMUwB5mcC8fX2BXY339hm7VXPBrr/OPoW3
+         nVkkPzrrqOoByCmGv6VX59mZWYqWmM4nG+gx4UBhzoXZmA3sA7Fpd9kEgs4plAQBeG2V
+         PxN/NG9H4xkD+vz5qq999e2J1yKkv/8WFG1Cqi0+a5MzJ19f+jKglk4WDXLdv9pcrW1X
+         +/ZYAp2FkSTs2xucbBuIf5h4ypnDb7wxjzyH2XEUbu6LPXfmi/Ea7hrLsgCXCCPnEGku
+         sLOElFgrXAAc2pdYCv5mmPz2whbrPrBhW81cqmRyu0DL2js/SmyHZpz4MublGHCInQWM
+         x9nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+        fh=Hzfn6sPaDaVFrX90JmSDO1BjXxQ4N76xIwxGMRssfUw=;
+        b=rFIlpHDl9//FBFFhdORXwl2pHQk2bmuCBFMGhMQoWLGiwYC2OirEiSRc5ScCLu0Qv+
+         MYg/cgc3Byw/t0zkiFtbiqxzwdGNmqCZi6U91Q7STwdwIK/tO+RydlIgfM1aPcdKc27n
+         mcqaM27DGVuv54NkAttlOO9iMfk425ZAF8zemMOnkJmZ3QA8ieZoTQpO+eQo1zW6jBNv
+         dxZEOlMQaAM7RWEMNFKalBKMVUmVvXTuQrf9KtDlXflZCQr0RB89aVRjDDgiE/YxgV9h
+         0buauK/rX65uBJnu3p5bc0pL7QtsRu58FJV/t34Fh5ukY4iDGhQv6SZck3VL1zASZDmD
+         8Rsw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=fBOjexThyq
-	X9vtjFuxgIxqfaXQ1kHhMRsue68ZUwUxM=; b=Mk0X8iK7Q/bzmKdIlSyyDSaCww
-	Fg6vO8MBm5MCKVjJD6la264JbwDjaYsrulWX+zLSWvQ/D0kLb/bMMZ5Riv+nreLM
-	zJr7KvrdmHzzg79oGPd5sMbbzc3f5Eu2WgR/Zsaku/xsvluSYmDMrZFg3ESIKHEl
-	9MDUTVd63SEoDZkmU=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.43])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkC2_gOtCOpqMa8fAQ--.34019S2;
-	Wed, 04 Nov 2026 00:15:42 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v4] media: gspca: don't complete buffers before streaming has started
-Date: Wed,  4 Nov 2026 00:15:40 +0800
-Message-Id: <20261103161540.23947-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=google.com; s=20260707; t=1793723060; x=1794327860; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+        b=gyQwWXPakqNPqfLYpECPqP6kIovu0Rno6xf9dsy6UzX8gWi245sCaxZa/cASDVGW+J
+         u0Sphg57Zh/hS9iwpMru/kTgY4p2YWrbrjOSDbwjweKZa/kzCWwdk3quGrintQuo4Taw
+         bm7ZbWvvsGfiz/7tjXeFRZGCOUT7z2vERL07JW7OAhvGY7E9CwOF8ORk5D3Ni6GSO4p5
+         QsJkYuDyBI5XRQqzd2SuOJkRpwJvbqNF5yHEXrGOJk994AEhZtn+eXpBlmtZxeAJ5jJT
+         VQgPhac+bIdKj/k/+OPjoAWglWwq+xHwqmEvt06Rve98YDSDzI77rOQtSJ7coUAYHNjw
+         JaXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793723060; x=1794327860;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nWaM2FkmdisC7Xf7y0ibO+gkIMg0c2qSBatZ5U8CyUE=;
+        b=jugIZ93/qoBY3Rn8R4Y/0gKsMiEy0hI9+ixi0ZrTO6AmyKIBsUtCxvWV3jcoOFNsRF
+         1kzE10NhpGLc+7SkrC4D8wivTKzibgGL4Mqvvkqv+yoRndlPFRz8/nFAXfwpRPv4BhSu
+         tkCzKhurOjhy45vJgRE4KEl/6jHEs0xb05BJEFDHU+C2gAZZPSTfob79NduoedkdSFaO
+         mDklwKf5OInTvQs7xSDs8lqGoEqEYF+F8TIbyYjRErGHGQVvZJgDpIMMYjxOF62feky/
+         5/vvsc+wcSB9jUtkPGou+KQznpH5cpbP3PH/ESKaZLVZwVBrpXwoKauu1k1zFFHgxSq2
+         RbdA==
+X-Forwarded-Encrypted: i=1; AKwUvBydz3wOHTSg+huTirOgiy5qWVirXCOQ1tP7v7pK93LdhD3hOeX9USuiLoCcpiKjI5zSWodoVSpbmSu88g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Ce3aedfvkQ92WeT7kzlVMOpsiC+P2SBYwgfJI0AXsMovtZAB2
+	ehsOUlug12jwjh4S8kNaa0Q2X6nPHlymjXiDkeZxnyPAsdPUWKHkF4tGo3Z6Ps5+/NtK8bnnEOA
+	Kz3U6f90xnRCQ0XTAtA3T4hmojbcLOmJiHbMNrUAa
+X-Gm-Gg: AYBFou1JMa5K7DvfF9M8p/NqgZGttC+1O1g543qAObAmQvJmmKD3ak3bOlUfLTrtE/F
+	7QFu9zB4veULA+j1uekVegX7QPWmB45NFE4SULtEG9FlPmywNjoUZldzc9Rgjn67M0S4MRHF3+Y
+	2ziTyTU1zAZ+5wio5zE0ks8oZ3J+tPCgRnEDTASi+ELWCxYu3Gf3HtJGdf3yw6403yWeawO8h9n
+	nzka64ryMNNJL9T/mrOMJYW6MlPhpVNgj12FBQmXsWi4/1TB06ecQrFQVRBC/twQ/4+09/9O/dI
+	eXU4ph+wgPtZflmYmHjsfH2v9SXKAxGb+AQBF9+DVyj7pXbAYUrhMngeizFve1A83srPdv8tuNR
+	xH1nzUOWL8BYgpeL8y5TwIXIdnp+vDZ6AgJYhWb5FHsVWfqAd8+1jujyiJg8JcpD2TpAUXRJc2l
+	SxKRu7GYAhm+H+14CbaJKAaWU=
+X-Received: by 2002:a05:600d:848e:10b0:4a1:eb11:489d with SMTP id
+ 5b1f17b1804b1-4b2e3792525mr718955e9.16.1793723059760; Tue, 03 Nov 2026
+ 08:24:19 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,261 +105,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkC2_gOtCOpqMa8fAQ--.34019S2
-X-Coremail-Antispam: 1UD129KBjvJXoWfJrWxAF1xtryrAr18uFW3ZFb_yoWDAF4UpF
-	Z3Kay5tayDJr1kCr4UXw1DGF1fua1kJ3y7CrWSkwn3Ar4UXF98ZFyFqry8Gr47ArZFvw4r
-	Jw1UGrWUCws7XaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9m14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IE
-	rcIFxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_JwCF04k20xvY0x0EwIxGrwCFx2
-	IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
-	6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
-	AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
-	s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
-	0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUzT5dUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2rp+0MMQQAAs4
+References: <20261103155459.534792-1-sashal@kernel.org>
+In-Reply-To: <20261103155459.534792-1-sashal@kernel.org>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Tue, 3 Nov 2026 08:24:06 -0800
+X-Gm-Features: AclHuK_dqXVxHCWjDX7Q7eybw3sAcf-f-Ua-B2wyA1INBKZKvcYJncwSGXQwV3g
+Message-ID: <CABdmKX10Ykk8qhZt9GjEm_vWz4Fx_WGjpvQLeSbohu4O2_8h9A@mail.gmail.com>
+Subject: Re: [PATCH] selftests: dmabuf-heaps: print size_t with %zu
+To: Sasha Levin <sashal@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, Shuah Khan <shuah@kernel.org>, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-gspca enables the data transfers before it knows whether start_streaming()
-will succeed: gspca_init_transfer() sets gspca_dev->streaming before the
-URBs are submitted, so an URB that has already been submitted can complete
-and gspca_frame_add() can hand its buffer to videobuf2 while the remaining
-URBs are still being submitted.
+On Tue, Nov 3, 2026 at 7:55=E2=80=AFAM Sasha Levin <sashal@kernel.org> wrot=
+e:
+>
+> On 32-bit architectures size_t is an unsigned int, and printing it with
+> %ld warns:
+>
+>   dmabuf-heap.c:215:43: warning: format '%ld' expects argument of type 'l=
+ong int', but argument 2 has type 'size_t' {aka 'unsigned int'} [-Wformat=
+=3D]
+>
+> Use %zu.
+>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-When one of those submissions fails, gspca_start_streaming() returns the
-buffers that are still queued to vb2 in QUEUED state, but the buffer that
-has already been completed is no longer on the driver's queue, and
-vb2_buffer_done() cannot take it back (it only accepts active buffers).
-vb2_start_streaming() then warns because the driver left a buffer on the
-done list although it failed to start:
-
- ------------[ cut here ]------------
- WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1821 at vb2_start_streaming+0x312/0x680
- ...
- Call Trace:
-  <TASK>
-  vb2_core_streamon+0x285/0x470
-  __vb2_init_fileio+0xdc1/0x1120
-  __vb2_perform_fileio+0xa7a/0x15e0
-  vb2_fop_read+0x219/0x3e0
-  v4l2_read+0x1fc/0x320
-  vfs_read+0x1d9/0x980
-  ksys_read+0x111/0x210
- ...
- gspca_main: set alt 0 err -19
- gspca_main: usb_submit_urb alt 1 err -2
-
-This was observed on a camera whose USB configuration was changed from
-userspace while a read() was starting the stream: the endpoint is removed,
-so usb_submit_urb() fails with -ENOENT, and the driver is unbound.
-
-Do not hand a buffer to videobuf2 before the transfers are set up.  A frame
-that completes earlier is moved from the queue of free buffers to a pending
-list, and is given to videobuf2 only once gspca_init_transfer() reports
-success.  A failing start_streaming() therefore always leaves the done list
-empty, while the frame is not lost either: the subdrivers that restart
-their transfer from the frame completion callback (sq930x, se401) keep
-working when the very first frame completes inside that window.  When the
-start fails, the pending frames are put back on the driver's queue and
-gspca_start_streaming() returns them in QUEUED state with the others.
-
-The frame has to be taken out of the queue of free buffers: it is that
-queue's first entry, so the next frame would take the same buffer and
-overwrite the completed one, which would then never reach videobuf2.
-
-The state of the frame being received is now also reset when a lower
-alternate setting is retried, so that the packets of the retried transfer
-cannot be appended to a frame left over from the previous one.
-
-A driver side flag is needed because videobuf2 sets q->streaming before
-calling start_streaming() when VIDIOC_STREAMON comes in with fewer buffers
-queued than min_queued_buffers, and start_streaming() is then called later
-from vb2_core_qbuf(), with the first URBs possibly already completed.  The
-flag is cleared when gspca_init_transfer() starts rather than when the
-stream is stopped: gspca_suspend() does not go through gspca_stream_off(),
-and gspca_resume() calls gspca_init_transfer() directly.
-
-Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-Changes in v4:
-- Move the frames that complete before the transfers are set up to a separate
-  pending list.  Leaving them in the queue of free buffers, as v3 did, did
-  not protect them: the completed frame was still that queue's first entry,
-  so the next FIRST_PACKET took the same buffer and overwrote the frame,
-  which was then never handed to videobuf2.  The subdrivers that send
-  FIRST_PACKET right after LAST_PACKET (etoms, ov519, konica, nw80x) hit
-  that on every start.
-- Put the pending frames back on the queue in gspca_return_all_buffers(), so
-  a failed start still returns every buffer to videobuf2.
- drivers/media/usb/gspca/gspca.c | 58 ++++++++++++++++++++++++++++++---
- drivers/media/usb/gspca/gspca.h |  2 ++
- 2 files changed, 55 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..1232f5d10bae 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -392,7 +392,7 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
- 	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
- 
- 	if (packet_type == FIRST_PACKET) {
--		/* if there is no queued buffer, discard the whole frame */
-+		/* If there is no queued buffer, discard the whole frame */
- 		if (!buf) {
- 			gspca_dev->last_packet_type = DISCARD_PACKET;
- 			gspca_dev->sequence++;
-@@ -439,11 +439,10 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
- 	 * next first packet, wake up the application and advance
- 	 * in the queue */
- 	if (packet_type == LAST_PACKET) {
-+		bool ready;
-+
- 		if (gspca_dev->image_len > gspca_dev->pixfmt.sizeimage)
- 			gspca_dev->image_len = gspca_dev->pixfmt.sizeimage;
--		spin_lock_irqsave(&gspca_dev->qlock, flags);
--		list_del(&buf->list);
--		spin_unlock_irqrestore(&gspca_dev->qlock, flags);
- 		buf->vb.vb2_buf.timestamp = ktime_get_ns();
- 		vb2_set_plane_payload(&buf->vb.vb2_buf, 0,
- 				      gspca_dev->image_len);
-@@ -451,7 +450,25 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
- 		buf->vb.field = V4L2_FIELD_NONE;
- 		gspca_dbg(gspca_dev, D_FRAM, "frame complete len:%d\n",
- 			  gspca_dev->image_len);
--		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-+		/*
-+		 * The frame can complete before gspca_init_transfer() has set
-+		 * up all the transfers: the first URB can complete while the
-+		 * others are still being submitted, and a submission can then
-+		 * fail.  Videobuf2 requires that start_streaming() leaves its
-+		 * done list empty in that case, and a completed buffer cannot
-+		 * be taken back, so the frame is only released to videobuf2
-+		 * once the transfers are known to be set up.  Until then it is
-+		 * parked on the pending list, out of reach of the next frame.
-+		 */
-+		spin_lock_irqsave(&gspca_dev->qlock, flags);
-+		ready = gspca_dev->streaming_ready;
-+		if (ready)
-+			list_del(&buf->list);
-+		else
-+			list_move_tail(&buf->list, &gspca_dev->pending);
-+		spin_unlock_irqrestore(&gspca_dev->qlock, flags);
-+		if (ready)
-+			vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
- 		gspca_dev->image = NULL;
- 		gspca_dev->image_len = 0;
- 	}
-@@ -732,6 +749,7 @@ static int create_urbs(struct gspca_dev *gspca_dev,
- static void gspca_stream_off(struct gspca_dev *gspca_dev)
- {
- 	gspca_dev->streaming = false;
-+	gspca_dev->streaming_ready = false;
- 	gspca_dev->usb_err = 0;
- 	if (gspca_dev->sd_desc->stopN)
- 		gspca_dev->sd_desc->stopN(gspca_dev);
-@@ -745,6 +763,26 @@ static void gspca_stream_off(struct gspca_dev *gspca_dev)
- 	gspca_dbg(gspca_dev, D_STREAM, "stream off OK\n");
- }
- 
-+/*
-+ * The transfers are set up: from now on the frames are handed to videobuf2
-+ * as soon as they are complete.  Release the ones that completed while the
-+ * URBs were being submitted, they could not be completed earlier because
-+ * start_streaming() could still have failed.
-+ */
-+static void gspca_flush_pending_frames(struct gspca_dev *gspca_dev)
-+{
-+	struct gspca_buffer *buf, *node;
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&gspca_dev->qlock, flags);
-+	gspca_dev->streaming_ready = true;
-+	list_for_each_entry_safe(buf, node, &gspca_dev->pending, list) {
-+		list_del(&buf->list);
-+		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
-+	}
-+	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
-+}
-+
- /*
-  * start the USB transfer
-  */
-@@ -760,6 +798,7 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
- 	gspca_dev->image = NULL;
- 	gspca_dev->image_len = 0;
- 	gspca_dev->last_packet_type = DISCARD_PACKET;
-+	gspca_dev->streaming_ready = false;
- 
- 	gspca_dev->usb_err = 0;
- 
-@@ -870,6 +909,10 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
- 		/* the bandwidth is not wide enough
- 		 * negotiate or try a lower alternate setting */
- retry:
-+		/* the frame of the previous transfer is lost */
-+		gspca_dev->image = NULL;
-+		gspca_dev->image_len = 0;
-+		gspca_dev->last_packet_type = DISCARD_PACKET;
- 		gspca_err(gspca_dev, "alt %d - bandwidth not wide enough, trying again\n",
- 			  alt);
- 		msleep(20);	/* wait for kill complete */
-@@ -887,6 +930,8 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
- 		}
- 	}
- out:
-+	if (ret >= 0)
-+		gspca_flush_pending_frames(gspca_dev);
- 	gspca_input_create_urb(gspca_dev);
- 	return ret;
- }
-@@ -1338,6 +1383,8 @@ static void gspca_return_all_buffers(struct gspca_dev *gspca_dev,
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&gspca_dev->qlock, flags);
-+	/* the frames that never reached videobuf2 are still queued */
-+	list_splice_init(&gspca_dev->pending, &gspca_dev->buf_list);
- 	list_for_each_entry_safe(buf, node, &gspca_dev->buf_list, list) {
- 		vb2_buffer_done(&buf->vb.vb2_buf, state);
- 		list_del(&buf->list);
-@@ -1518,6 +1565,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
- 	gspca_dev->vdev.queue = q;
- 
- 	INIT_LIST_HEAD(&gspca_dev->buf_list);
-+	INIT_LIST_HEAD(&gspca_dev->pending);
- 	spin_lock_init(&gspca_dev->qlock);
- 
- 	/* configure the subdriver and initialize the USB device */
-diff --git a/drivers/media/usb/gspca/gspca.h b/drivers/media/usb/gspca/gspca.h
-index a6554d5e9e1a..93f304787cd4 100644
---- a/drivers/media/usb/gspca/gspca.h
-+++ b/drivers/media/usb/gspca/gspca.h
-@@ -187,6 +187,7 @@ struct gspca_dev {
- 	__u8 last_packet_type;
- 	__s8 empty_packet;		/* if (-1) don't check empty packets */
- 	bool streaming;
-+	bool streaming_ready;		/* buffers can be completed */
- 
- 	__u8 curr_mode;			/* current camera mode */
- 	struct v4l2_pix_format pixfmt;	/* current mode parameters */
-@@ -196,6 +197,7 @@ struct gspca_dev {
- 
- 	spinlock_t qlock;
- 	struct list_head buf_list;
-+	struct list_head pending;	/* completed, not given to videobuf2 yet */
- 
- 	wait_queue_head_t wq;		/* wait queue */
- 	struct mutex usb_lock;		/* usb exchange protection */
--- 
-2.34.1
-
+Reviewed-by: T.J. Mercier <tjmercier@google.com>
