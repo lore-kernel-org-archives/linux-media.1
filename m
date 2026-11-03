@@ -1,110 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793717690;
-	b=GwgGpsThCWBvfZEgrCwVwbaI2aXdP794KHHaPTSNlzgJYVlasOK065HCOmls1RdSXp7d
-	 g95RuSLIpkAr2sl+NkUSgao7biFZQz7QFspT/0pOBjjMGK0hPF0DtdQ9QiPnUSxy6JaCi
-	 Wf/2jXZ9Kj1bHnzlJbHbOKwWdJm8Z74W0uZxU8z7IGrjKUsH4dr3lEmpznLqEudsLUlKQ
-	 azvaYeVnR8YR8RvztWvoHEC0sjWlh2zgfkFuz0n+asaT/V54BZlOuE0io4VJRXBx3qVqF
-	 NZ1n0K6co4eU93RT4y2YiyI0wlbBnYq2aTWHaFLuFbIUQB9bYGDwjsU+75shd75UmsA==
+	t=1793717764;
+	b=xTQ1+G64w76a7c6UMeHFj6wQA2PrcK1hR4GOpOD/3BkTw1lUIew548bONru3Jhi03m42
+	 2a7n853+3brKMG3SEDqfbbq+WFlnKnGtXklM2Hy8y3AT9vOTDGhaAFZLTCUTl4mvzNPiv
+	 i2xuF+P55bnPuZ/xXO4JyZvFhr0Tm1+FaZNXfUr12jwpK83Rd2Et16mt2xjFwQ7MbOxR6
+	 s9Fi41z0XlqYL3rAHtdQL5kGgmLVGUrcS5mtZkOsdqHA/bhUplBMP+zsSqNIcLxXLXkn+
+	 i7ovHWbCKpkbru9bwtVnSrNQ+1u7Fbz7r/TGA9zouUs/1U9GmUZTegD77+uWKEYGCqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793717690;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793717764;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
 	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=XwK7pIFH2QUcKHLvESz9ooBqZDoO68FmReNGUgwY1OU=;
-	b=H0iBZwCYNI3BOYvfUNcVxdSQwoYslPv52DUcRVCOwu7haCiCJeqyu+WcqdHNYJmCioHo
-	 e5QKSkbRt9KsOLoXsMDbT/HavHBeiHyhX64BsfJ7FbZmrXBsKB3nRwud1LK61M9wGncVX
-	 SX0G+7LYP7SMYfBwCut+nhr7SMJbtjrznmghW8SQe3BILu68HS+rFi9YV6PGZ1PA0AkQ1
-	 SB7xBV1dpYjU/m4xBPdMjG4e66HPboNU5QQ4XQhvv3RFwlRDT63gzSAfMcNXC1Zu7rLBd
-	 qq7UaCXNBaz+XEI/dPlMZhcQScXep50KzEqMAJkuIFZmQQcnqmwilzlZZy+jnEgOyig==
+	 Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=r0MLslcRaVR+y08vybby+evo8uaedpmNYYxLzSURObI=;
+	b=YXFOxzepWbGTIx0QdHO8evTn9ocxlHL918eAMdEo4Z5Uz6u7iTTiDRDwnDCPGgqLldJC
+	 jo9GUuPuojnCW/NIdkA+xMsBiX/EDMkFNZQ49ldUQB4xGNHsTvPVDluYdcmyjmhv90wsc
+	 xUmAhaVBGv+6YbkHh/UnNh6ikiHtFoq/TIYdLUOQbL0+v296YQ2jsal3rWAyegvZyRgcI
+	 mt+MXCL5834BcYSvaoH61Fh5Z2NAIeEP+84LQqRVK9GEyiCTww79AK6a2NTQiUEQjFvNz
+	 NsZXwmheFSVohg7we3qddXv3yTEp8k5keJbBeYx+OFox4PPq5ARSHH3CkDE5ecK3I1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FYstDD7F;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Y2rJTuhh;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TM6hIRfr;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OIFbCP7v;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91259606D2DC
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 14:54:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91259606D2DC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6F2606A32F
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 14:56:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D6F2606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FYstDD7F;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Y2rJTuhh
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EA2rQ2727910
-	for <linux-media@vger.kernel.org>; Tue, 3 Nov 2026 14:54:48 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TM6hIRfr;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OIFbCP7v
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3E9paX4103883
+	for <linux-media@vger.kernel.org>; Tue, 3 Nov 2026 14:56:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XwK7pIFH2QUcKHLvESz9ooBqZDoO68FmReNGUgwY1OU=; b=FYstDD7Fm+ZmzrwA
-	Pu9d48BKgdzgeQAnuyKjmn2S7WTwGtgCj6D7Gam+7IB3rC8SHUttz9ymcaNsND+E
-	m6FoGS8slbo5RUiPvdLF6pdgI7YxeUONRxzvnre+eiVq9+/dhKxpyC4O7cHB4SN0
-	e8aH3uIJW+g7AXM+63TkJnKeYalm/Jub+LD1rPbagvmPiHDGtxtB4PqSQeSo4CUF
-	74qWk3Uco0nh+E96o7aAteljnRmxCFhFMrlLwEIPAdP8cefmC7S77GP9STWUTYwH
-	tV7Kjd0U57xVYxZ7gUDOuBho2rTSMpmojx4YbkQld7qfW+9j2UJ8kJXYdcV2LonX
-	VSySxA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqh2bg72m-1
+	r0MLslcRaVR+y08vybby+evo8uaedpmNYYxLzSURObI=; b=TM6hIRfr+c/uxFYR
+	r6BtgLVoczAGacQ6rc3UU1p7SeqBpRZrrX3XzChgqPitaKhFS+6q5NkEUiSAxohh
+	a2jPBbqapF4IlC2kcoay4ioR+AQDCS67m65T52MVr9+L/tuZITO86PIzJ3/rrKrL
+	Sffhp7tOvwK7k0ygGN9CCNUKRsDBdapjkMVYMteHW7KiyjGBHtB/A2UJPF8zShIc
+	ulNEqStQAxKvIWUOPckSsHqReglRQXQPcA4rNtmfQoDLdwVrH3MxAJhb2yDHURGG
+	eZJdq9t77ub9gsHEEBcz+1lDBXNIOq6gw+dE+P3G5/m6ELLbV0Gl48E7g32DE0nt
+	Vox3CA==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq76dapg3-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 14:54:48 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e49a1d3b1so1011649585a.2
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 06:54:48 -0800 (PST)
+	for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 14:56:03 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f5844cb60so159694985a.0
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 06:56:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793717688; x=1794322488; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793717762; x=1794322562; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XwK7pIFH2QUcKHLvESz9ooBqZDoO68FmReNGUgwY1OU=;
-        b=Y2rJTuhhHdP6B/kNIbOSrtQYY3fNKgWop2McoL0NeWRg8ZtboyPK4SbLey4cdOjfen
-         P7pauTi9YCE5ijP5qdUstDrjW7Muw2RXHFoq3UkU2gE9RmKuoEceVg6vNw9LFqw5PMPl
-         oee+cvm/AjBTZBKkH02BqTyaBuDTT5yu3JVuGAH5hu5K0PNIMXOTc7YVqtgyVqI6T1OY
-         TPFpXs9T2YaAJKbU49alF7TiQaDIAWnK+zxSox/ODxBMWQ6u4scOUaHyFunGA6/FJzTM
-         BFfAhIYwM39l0jDTTazH1yTomPvsxmW1ToX1jTcGrMY7V6JmUasS7+GmO2dlxp2AVzWG
-         CUnQ==
+        bh=r0MLslcRaVR+y08vybby+evo8uaedpmNYYxLzSURObI=;
+        b=OIFbCP7vZVCsWUYVs5a7Rbh8o68XgRfUp6VHS3ugWnV4sNmo3n0tibO/UAAcWu51E7
+         vfbowJ59uL7VUBnHforACTblK7/NpoaB6L28VYlZV4ALlQKCndvkj1uOtIR05VG26sxU
+         BndZGnHtanQKnveVRqYbN7+Y2Q/uUdduUsmFSkvzu0oBYHrk13umoea01FzJt/njfD9V
+         VJDJrmtdgsxYvP07uYdyc2sw/2i1X1O5mmNBQAapLo02h2oYggpje5DYBi9bDvrgMapY
+         Nidh7tKuzYgNX48PjFjWjjoLsLVRiifbJZsSzs5FB7bicEJr7oz/5bS7Ft9hgTQCXyzU
+         vAxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793717688; x=1794322488;
+        d=1e100.net; s=20260707; t=1793717762; x=1794322562;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XwK7pIFH2QUcKHLvESz9ooBqZDoO68FmReNGUgwY1OU=;
-        b=2N/HIvOtn5ui+htwiS0WI0ZpWG24HF01kMroubDiV2zTPAVQr+uyDclVcjwVnv0Lz/
-         t69Tiz5g33IsulneDYGZm4tMaBO7CK3KaVXF1S3zo5E/eD95CsgCDglLOZzYxaoDPWqT
-         EcyTXbLYT9Ki5DmKz/1tPF9Suvy7mFMfY4R/0OAZzNIFEjr2wVxejc9U3yyUrnHLfV5R
-         njiS5tRHSpZttJ8MDBxm3tbj0ovWi1WwtcS/ILoAhTaRD+eu0eS/lvEL9yWNa2+lpcSb
-         njkNvsKyoynHdZm+FLxfw4snwiEP4MrWbv8GbsYBJcXNZvZpj2EJctPMML34J9cr7L9k
-         dMsg==
-X-Gm-Message-State: APuU4Z892nSEgujDU5wp2lTZHxKzbximmbgh8y5TEiJAO2Xyr44FUSps
-	q0gBnSocenlcUff+JF+o7l8YZZ4j/a55yctqXmaxrXbtye+sN/FKXxZ4cyqCcOKWmWfbAQZcjVO
-	zzX/X65r7iIAyRlgBrFOi7QGFn2aQjMxmVF4EhoRBFjBk+KayzmMTWs3WvwulFm/S/w==
-X-Gm-Gg: AYBFou1UeJw6LmTPiphXnuDzErUtEGDWhNTB8dGwIRHY4mll2BFRiCbdt6BgkfoBe8f
-	BBwbIFEuccGszQ6JdO0Y3zxV4kZoDb4vZETy8FsEvom/dEaswDs/rV4HaSg5+p2mDq+Sz7ko+Wb
-	pCH5jrU5HzLqfuk3D/Zbk1BEU+A9kiNu8a9QXd89ekAVa1lSZbOMYRQfikpjXy9opmlgddiHwmR
-	fYRXwYU+8ZURy7neMQnFZfj3hy85VYty7V9uwoCkt3c4e4Gt7WClsHdlXnCwb5zFL3EbdIbGotB
-	YbruGZXVHOatKij/nZJDwYo4ofB7kI0b9mIIFhX9CDo0qXgrjhy/41p9JKuXS1fASu+LDQG+d7u
-	8Ty9SHzCS/4UCQQsN9O8b2xDqOa+uQzLNxFTgQR6iU9sVlwcSzL/FP2D86NPFoVXG+S7M17VxpA
-	eCBY4kBY/CbeQA
-X-Received: by 2002:a05:620a:84c4:b0:93e:66e6:fa4 with SMTP id af79cd13be357-94421712a8dmr2083493585a.16.1793717687679;
-        Tue, 03 Nov 2026 06:54:47 -0800 (PST)
-X-Received: by 2002:a05:620a:84c4:b0:93e:66e6:fa4 with SMTP id af79cd13be357-94421712a8dmr2083490385a.16.1793717687198;
-        Tue, 03 Nov 2026 06:54:47 -0800 (PST)
+        bh=r0MLslcRaVR+y08vybby+evo8uaedpmNYYxLzSURObI=;
+        b=KfoIc83vJDM+o6yRYtB5lqXaJe6VkiGkXmtWHkk2o0yZch1JGihjY4lxAeGC3xEAu9
+         pfRgT4YK4ODTpjzJS+6PHJvkto/X0wdNIQW0L3apyGLWL4VRVsVtt/1AeYP88dOnB2Gs
+         R2tJQDYaaWp09vonHZbcFU+PIslBgpMxEOa+I1dSQB1qNJSZtnct7gvj/5vE/xFj9+oW
+         qIwtovzb7MAFR6unlFr6XtqCDtMV9EcqYGt5yjcLNbpHuaYelPSDftUM73k7zLOst4N0
+         hM5bMwhrmLkQe3ZJz26G3jmCcMROl4/6z9dA7SK8Wn2zmFCRcWbD0N/XpMZWIqh7ojUJ
+         ylVA==
+X-Gm-Message-State: APuU4Z8w8BN984o6A0VU4vYJJapPbmFsH/IFQMchYvJTRg2NZqfEmtC6
+	zDjFsdDqzp0N287ey2VPmmXYcQ7qOwjwsfR1hCnc2uweUOo0AlWBm3EjjJvdmgItwe2ejIzIohN
+	DTu6SIRTiiusDoDFO5b9s5/yRRhZ4f/h2YxQ0dca+4IqA2RxffUbNKKiQ2oT6vWlTZg==
+X-Gm-Gg: AYBFou0F/5WjlDFuooJh/u7twc1aHz68hYfuqBlS7MAICQxWakKZXqeMW6qM5IS5pcg
+	dbm5UCiVwzBcxL6ZEAdLoReM3JmOZ/exk8AA9DYd2pyps5dBM4b34g81r8wTjXQk2odiTkZi8R1
+	KF4wlIZ0Qyu/XC78XM6FWgDEvVe95uUj2GOR8DjSsZmEVc4FBl6f+36yw+8AtVtYK3acAydBWm5
+	071o7YkMvr+tu+FG1Rw28juaeOaZNHaCTUH0UrA8LkgH8BE0dph+6hDhqyJk4dYAPU4Msz5SPDm
+	szAzvfttlY95Ecth00Zba9mdSeiuTCdm7CWCmOgULeN00iYUBRIZ8ktPJ3t7won12yiNVpq+DEQ
+	l5BRzOQmvsfA7pvZA0Jr6vVNre7qnG4fFUNeCX0wPN3yvx6sno8zHAmzOfM5KjuaGLFfGlW8dKt
+	5cAVN5wEJ7qU8V
+X-Received: by 2002:a05:620a:7111:b0:945:af5d:287b with SMTP id af79cd13be357-945af5d28eamr1141881385a.30.1793717761909;
+        Tue, 03 Nov 2026 06:56:01 -0800 (PST)
+X-Received: by 2002:a05:620a:7111:b0:945:af5d:287b with SMTP id af79cd13be357-945af5d28eamr1141874385a.30.1793717761156;
+        Tue, 03 Nov 2026 06:56:01 -0800 (PST)
 Received: from [192.168.25.64] ([94.155.124.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2aae24b32sm60341055e9.12.2026.11.03.06.54.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a82cf248sm94424885e9.2.2026.11.03.06.55.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 06:54:46 -0800 (PST)
-Message-ID: <5df59181-cb60-4e07-bb4a-6f3ae994798a@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 16:54:44 +0200
+        Tue, 03 Nov 2026 06:56:00 -0800 (PST)
+Message-ID: <129fa3d9-c60a-4777-a4ce-763b37147d49@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 16:55:58 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,121 +115,142 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/9] media: qcom: camss: Introduce SOF sequence
- tracking
-To: Bryan O'Donoghue <bod@kernel.org>, bryan.odonoghue@linaro.org,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261102-v4l2-frame-sync-v2-0-25cbed7a772f@kernel.org>
- <20261102-v4l2-frame-sync-v2-2-25cbed7a772f@kernel.org>
- <MPrRsE5vvB26tbMAT443IrH7Zr_tyIPaFwvQfnZj5TJUaM5uN8MyHB6kU6Y7rW92Sy35A5GfNcv95YOt-4YUNw==@protonmail.internalid>
- <8196a664-f73b-4da1-aea0-0ea49676a4eb@oss.qualcomm.com>
- <7f3e822e-3749-41c5-8390-e6d74b203927@kernel.org>
- <36008be9-2b25-4f04-995e-f90e2547f7f2@oss.qualcomm.com>
- <JG_h5JjMWB6vy7eR2AS1dqGGrNxZZgcte904oblinYLOAtSNIAdesLgsGrFpYyxekmZ1_FdEON9Uoua7GmkX-g==@protonmail.internalid>
- <d3a7c0c2-f5dc-47da-8466-d0b77aae9b9b@oss.qualcomm.com>
- <57a326a1-81f8-437e-bd4f-25f79e0cd1cf@kernel.org>
- <RTmFZ9s8mJZID5gOqlgbB25-7YXOW69IODnJ0a0or3wLgu64MW13ZzPvahHElFCxst_XHlTf_TwVJOotEJRzwQ==@protonmail.internalid>
- <d4d0161f-37d1-4b93-8b54-202e691d66b7@oss.qualcomm.com>
- <2cfa4a92-2be2-4f13-84bf-ecac133b525f@kernel.org>
+Subject: Re: [PATCH 02/16] media: v4l2-device: Add struct v4l2_device.flags
+To: Dan Scally <dan.scally@ideasonboard.com>,
+        Nicolas Dufresne <nicolas@ndufresne.ca>,
+        Tomasz Figa <tfiga@chromium.org>,
+        Marek Szyprowski <m.szyprowski@samsung.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Dafna Hirschfeld <dafna@fastmail.com>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org
+References: <20261103-rkisp1-suspend-and-resume-v1-0-08f863b6fdc5@ideasonboard.com>
+ <20261103-rkisp1-suspend-and-resume-v1-2-08f863b6fdc5@ideasonboard.com>
+ <25952c4c-36db-4361-9ab6-0ca1b1f960bf@oss.qualcomm.com>
+ <3478043661b8d89ba5089f56383926785570b7b3.camel@ndufresne.ca>
+ <d78d7ee3-0c48-484a-a5b0-9ba44ebf9171@ideasonboard.com>
 Content-Language: en-US
 From: "Gjorgji Rosikopulos (Consultant)"
  <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <2cfa4a92-2be2-4f13-84bf-ecac133b525f@kernel.org>
+In-Reply-To: <d78d7ee3-0c48-484a-a5b0-9ba44ebf9171@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX5dYALizqV8Lo
- v9Pu82zUNKkIXpuBwCXMR7EB9oPwf/xMGnFnayDVzyDPjtf4JmmJoAlRZuSgL8jnq6CmH5qvNo4
- Ih0ikuMnYKhbMVhKBhZ+KUSY4iZxqU4=
-X-Authority-Analysis: v=2.4 cv=Xs1vqlF9 c=1 sm=1 tr=0 ts=6ae9f5b8 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
+X-Authority-Analysis: v=2.4 cv=KJTPn1Fo c=1 sm=1 tr=0 ts=6ae9f603 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=TiwfKaYzfpL80q5XJR0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: vy6yOUHUmYxpIbPmwp15m1j4ul4AqnaW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX6FE7rYgnlpUV
- GKhDUiWCtUdMm78S5kuswUCBnIC1Hq3dvZIw4X8Zi6SF9C/1YJiHRzsKjVNEPKmxphagvF+9iNS
- MV3QnDbRXUmHTKaysGxdVWx2RkAoNrX3iapNqHbIiwcrzUNOtoPTqQ89TAvhNFb+gbycoVIXRSg
- L9iXqUi5UaIBQ7NhzzEJ5624vASTGDG1YNtsuG3BH5+tLfzvOBO+ZvAgK+mTdDbfzAut4/jxzGp
- 6UBzSkq6m8MB4GXo/OlxtjjC44Xt6EVDHa5Y3TStDbB/uDeeVMTvF9kZbalVQ7pbXKjeJ7m+4yn
- GB9AAsAYJtNUxt08+O796+OVxiCh63O2zEHkTcBQDkUQxrbAP/6isyf605rdAwK6kxvHfqqi52a
- bTyQ6ekD6WLRZojBA0LMdKDX916QKgeE85Tj669ehp7wq9PNWS0krQIfaQFZ+vTvgGyLBcp2Tq2
- obSz7XX6EVCRuUD/N0A==
-X-Proofpoint-GUID: vy6yOUHUmYxpIbPmwp15m1j4ul4AqnaW
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=JfrnYn6hAAAA:8 a=P1BnusSwAAAA:8 a=flDrH1Uj0cnjou7IHcYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=1CNFftbPRP8L7MoqJWF3:22
+ a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX9xxJ8gCl5WFC
+ /MukU2f6+dLKIa9FOE3C0E4VnyTXIAMLfhlCS9UiC8I5nX5d9zCW1HuHwNHiDV+9sH85AlEBjL3
+ ZbmQQy4ujKKtsvZyX4/mmia1QNmKnQw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA1OSBTYWx0ZWRfX0GtjDoljj9ky
+ H3HfDlJyDVcrHrx+JgyNRfCAT//trDre+Fi/cP5ZKBNyC2W6Hrq2Xy9+3+Tssywv4lbCpasejWk
+ NhlU2bNweSeQlPrF4UNt5d5DnSC23yCdsMZg8Sb437yMVz6n0LdM0VsRwYcr+Efl0JzQVxEzoQz
+ ZIbGpmPeD6MYE2rO85/rSF0LDHI/ho0XkyxHnvyMsqHs8MBv7JHXt9hjFiXDufz24TziSp+ip9H
+ Acpv32FNEvYiKpE8t6QkgqAYQQupfBhQ1JqN3IK4Bnw6mnAVlvPvS1dJGLLY8pX1NN16I4N8Sqo
+ 849w4oBhCVqzyNwf6RPENh9EfEZu+FJlzjqMRscMNCEaYhNiVdoyDEORcquRzLLhwHsseabZyuG
+ TcI9HJW1jF0C42D3K022B0XeRo0hVwx9SYihRRc+ZcWeDclTUQsp+Z0WKJZghKjZYWvhEddjUyr
+ rMPhoUCXTVAo2ddtB5Q==
+X-Proofpoint-GUID: g_Hs7rIOk8z1RxoHYbGbBJV-6dhS-X0V
+X-Proofpoint-ORIG-GUID: g_Hs7rIOk8z1RxoHYbGbBJV-6dhS-X0V
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0
- bulkscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030059
+ clxscore=1015 impostorscore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 phishscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030059
 
 
 
-On 11/3/2026 4:39 PM, Bryan O'Donoghue wrote:
-> On 03/11/2026 14:35, Gjorgji Rosikopulos (Consultant) wrote:
->> Hi Bryan,
->>
->> On 11/3/2026 3:27 PM, Bryan O'Donoghue wrote:
->>> On 03/11/2026 13:13, Gjorgji Rosikopulos (Consultant) wrote:
->>>>>> More than that though, there is in-fact a VFE specific SOF/EOF and EPOCH
->>>>>> event but these require the CSID feeding a frame into the VFE pipeline
->>>>>> and the VFE moving through its own state-machine to process that frame.
->>>>>>
->>>>>> So they are separate signals and separate logical events representing
->>>>>> different things with different timings in hardware, meaning different
->>>>>> things to userspace.
->>>>> Well that make sense i agree that it make sense to be part of the csid
->>>>> but it should be documented somewhere, maybe proper thing to do is update
->>>>> the comment in videodev2.h and update the documentation for camss driver.
->>>> Just an proposal if it is decided the id to be used, it make sense to contain
->>>> stream_id. Then userspace based on the stream routing can map SOF
->>>> for the stream of interest. But the API for retrieving stream_id is still
->>>> experimental and i am not sure if will be well accepted.
->>>>
->>> Ah yes right I didn't really grok your point about .id = <integer> yes I
->>> agree with you, the assignment of port/line number should be dropped and
->>> left @ 0 - also what is the point of stuffing the line id into the .id
->>> field is not warranted.
+On 11/3/2026 4:42 PM, Dan Scally wrote:
+> Hi both
+> 
+> On 03/11/2026 13:51, Nicolas Dufresne wrote:
+>> Le mardi 03 novembre 2026 à 10:09 +0200, Gjorgji Rosikopulos (Consultant) a
+>> écrit :
+>>> Hi Daniel,
 >>>
->>> Agreed, that's a mistake.
->> Maybe this is a good point to raise. My concern is with the multistream patches:
->> the id field is also used when subscribing to an event,  so it would be useful
->> for userspace to identify which SOF it receives in a GMSL use case.
+>>> On 11/3/2026 9:40 AM, Daniel Scally wrote:
+>>>> Add a flags field to struct v4l2_device, along with a single flag
+>>>> value that is designed to tell v4l2-async in which direction data
+>>>> flows for this v4l2 device so that it knows how to set up device
+>>>> links between subdevices connected using the async APIs.
+>>>>
+>>>> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+>>>> ---
+>>>>   include/media/v4l2-device.h | 7 +++++++
+>>>>   1 file changed, 7 insertions(+)
+>>>>
+>>>> diff --git a/include/media/v4l2-device.h b/include/media/v4l2-device.h
+>>>> index 25f69b1b8db03d077f7570471d5c6910fcafe110..9b17916d63641ba637cf8c37aa925749bd4e2134 100644
+>>>> --- a/include/media/v4l2-device.h
+>>>> +++ b/include/media/v4l2-device.h
+>>>> @@ -15,6 +15,9 @@
+>>>>   
+>>>>   struct v4l2_ctrl_handler;
+>>>>   
+>>>> +/* Set this flag if this V4L2 device is an "output" rather than an "input". */
+>>>> +#define V4L2_DEVICE_FL_IS_OUTPUT			BIT(0)
+>>>
+>>> Just for the clarification do we change the meaning of output->capture to input->output?
+>>> I know that output is confusing for everyone including me but somehow i get used to it.
+>>> However to clarify what this means will be helpful :-)
 >>
->> We can leave the id as 0 for this series, but I think we should discuss how to
->> handle cases where two different cameras arrive on the same PHY over different
->> virtual channels—for example, one using RDI0 and the other RDI1.
->> For sure what is currently missing  in stream_api support is the events and
->> how they can be adopted to be per stream/streams.
->>
->> I hope that clarifies my intent—I’m not looking to hold up the series...
+>> I agree this is confusing. To avoid all the legacy, we could use PRODUCER /
+>> CONSUMER, or does anyone has a better idea?
 > 
-> Off the top of my head VC kind of makes sense here.
-> 
-> OTOH it probably makes more sense - the VC differentiator in the VFE 
-> delivering the data but I think we end up debating if the SOF triggered 
-> in that VFE is the VFE SOF (yes) or he CSID (no) and if the VFE SOF 
-> really transmits any real data user-space cares about...
-> 
-> Leaving this series @ 0 is compliant with existing stuff elsewhere and 
-> lets us reason about the multi-stream stuff separately and potentially 
-> as you say addressing a gap in what's upstream for multi-stream right now.
+> I have no better ideas - naming things was never my strong suit - so happy to use PRODUCER / CONSUMER.
 
-Yes i agree lets move the discussion of multi-stream support series 
-where maybe it belongs, i am re-basing them right now most probably i will
-re-base on top of this series as well.
-
-I just want to add that we need to avoid sending multiple SOF's to userspace
-with ID'0 when multiple RDI's are enabled in parallel. Or at least to have
-explanation in the commit message that is expected behavior until we agree
-out the multi-stream frame sync events.
+PRODUCER / CONSUMER looks good to me as well.
 
 ~Gjorgji
 
+> 
+> Thanks
+> Dan
+> 
+>>
+>> Nicolas
+>>
+>>>
+>>> ~Gjorgji
+>>>
+>>>> +
+>>>>   /**
+>>>>    * struct v4l2_device - main struct to for V4L2 device drivers
+>>>>    *
+>>>> @@ -30,6 +33,9 @@ struct v4l2_ctrl_handler;
+>>>>    * @ref: Keep track of the references to this struct.
+>>>>    * @release: Release function that is called when the ref count
+>>>>    *	goes to 0.
+>>>> + * @flags: device flags. Can be:
+>>>> + *   %V4L2_DEVICE_FL_IS_OUTPUT - Set this flag if this V4L2 device is an
+>>>> + *   "output" rather than an "input"
+>>>>    *
+>>>>    * Each instance of a V4L2 device should create the v4l2_device struct,
+>>>>    * either stand-alone or embedded in a larger struct.
+>>>> @@ -54,6 +60,7 @@ struct v4l2_device {
+>>>>   	struct v4l2_prio_state prio;
+>>>>   	struct kref ref;
+>>>>   	void (*release)(struct v4l2_device *v4l2_dev);
+>>>> +	u32 flags;
+>>>>   };
+>>>>   
+>>>>   /**
+>>>>
+>>>
+>>>
+>>> _______________________________________________
+>>> Linux-rockchip mailing list
+>>> Linux-rockchip@lists.infradead.org
+>>> http://lists.infradead.org/mailman/listinfo/linux-rockchip
+> 
 
