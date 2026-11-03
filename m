@@ -1,121 +1,120 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793743834;
-	b=WI+PdW+UASLi8HmTpH89JNSfel+WEivbgx32TNQRbEbVQ41voCfUKpAaHqJWuMLqz6ai
-	 fokvLCHyYHy8niGn39KBjS8RWiP2T008ildACYKUKowRKf6aKXLpB9SBMYyOdv9Fdi+3j
-	 t93g+RmsGhOGyfbtQhfOk5FjPhtuPn6iHNyw3jY+Lo3snYZ8nRd5rY+M27Nx4yVcyJCWG
-	 TeLcwg7xaxzknyyZ/5sGrcqdBFrUgFGkwXJwU51MywsNnOSQbVsiEouFZazuLBJ/EsNhS
-	 W60E299+jq4JPR6FL1Hcdj1eYR/u/F64Vc7zJ6etthuyxXFNkabp5MN2GvuvR+L6Kaw==
+	t=1793744079;
+	b=UJaZja1dG0Nd67lQpsoZFNFll0XDYdgpeu1eq/m+LXqmzIDpCAVYhuEKhWPaEddRAo3f
+	 BaiZgDTrcuLN0fpfpHtpHPMU1EOOBUWZqezc7SXf7+91oOlOmLXZUmhD0qRJ5iK33vG77
+	 aqIDaZ9xzfB73kHn0FbIhH7vA4f9I6LwFi3qyh/B8x5FhyZ4YhAN/cFpt0kxu+BSWtrzT
+	 brGJUnVPdM5solGZJQ3TEBVk6Lj7SdDrxUXvoNWffbDwA7PND0B9rLRDZZlL8/1qaJoy6
+	 WQp4y2s8NRJZrNHT8cb/Ynr9jRSrzAzncr9SYbqmRvgCgs2THNyqp4GpBj3kRZ4XtVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793743834;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=+9tAxkmKybALjlGE9yfaUABOJm4ISE4wUDWniSYnmUA=;
-	b=PQdlM4DRIbwxi86n7r1QPq1Rn03oIt7Y9Geb8kbU3CWfy4IP1d3iGh2xNrgZ2Lg6PMfM
-	 v4uPVB+37kbNZwOAIi7l1ZjHlNL9DZYCwyHOMI/qTYqRn9Z9b8ASBeM8KLTx3YOLWu765
-	 auzPOe2c3A2hLBsv2SrDnGu4Zjl74OO7PgR1+QucTcVFhbA7zSvvTxTqMofSJirSSjBti
-	 r7XQOJnKk7riropNrp8vHJAixx6xVIEPEQnC2etE616pw5o+8gBlSVYqWLo+5ToVABOgd
-	 PmV3wQOcrw81ILDMjS1/0H8Omt/+xlPnMkdCaQAbC0MwDor+IqZbBFbShulNrrpt50g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793744079;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=0whMpu3SwCyyOwYZZQpnCeH3x7hbfijj32FSntRg5eg=;
+	b=mzpPw4NiAGqOsHubL7boZVX5eGZmAaarkIM4kBu6xpWb3QPWbVpHT1/Y47ZVHvpKjXas
+	 q7MBe5PrLkVg8ysk4BW/gu98NXa09AutrHgiS1fTFdAwzElnmsyt5oRbenlx3BPc+Fnq8
+	 71Jb0MH47MBn8/nH8W+WyAUH3VN5fo1SFxIhN4gKgvS3N1rmLC64DpxTKeRDaKIL0UFA7
+	 vP56/muX+Ej8gFHHAre3jRLySsdb8eltuCuxf80XCUSG9oNrL4t0F6z8rHWX2X0h2ZxDZ
+	 CiMmwPFoXKtrmrs4ZLt8efLABo7Rf45Y7GbbsneFgAEZX14EsLBj1isbGX/TNU+l8vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cS1Avnsl;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TMmSckmd;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=S+wRv2wK;
+	arc=none smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37677606D808
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 22:10:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37677606D808
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4E5606A326
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 22:14:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA4E5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cS1Avnsl;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TMmSckmd
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3LKnGR3065534
-	for <linux-media@vger.kernel.org>; Tue, 3 Nov 2026 22:10:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=+9tAxkmKybA
-	LjlGE9yfaUABOJm4ISE4wUDWniSYnmUA=; b=cS1Avnsla3yN3HhkWdS+CODOWbk
-	IlQu0eRx+V4fe0l1AgiHbbqSQ/xxilssFMxGWnWgL2A23yWGteylTPmtDfH5cyhT
-	FCQZcW1q0mYODPOjzIjH0HH4Wq65DJQRMMhX37qTH67ifReNzD7eD/8m641H4iNq
-	GAhrV/FqvBYU5lDk1nPJxZ/cu6gOP6hA+ry5Dv4JOvpvXlfPz+llX/OWfcW4ILO4
-	tP33WdWfIjNLSy6Z/HUmQch+unSjJkidySq6y7+rGQyYz1t7NXAZ6m2m4d3FYNWZ
-	nbwCdhmUJCARtxFQLPHOP/HosCmklBB8YlGskG3CzzubmjNHaz8l4z2NXiw==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hqh2bt0ja-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 22:10:32 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-147be78cd56so381645c88.1
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 14:10:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=S+wRv2wK
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-54465f79af8so164531cf.0
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 14:14:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793743832; x=1794348632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+9tAxkmKybALjlGE9yfaUABOJm4ISE4wUDWniSYnmUA=;
-        b=TMmSckmd9QQzL5o8Ny4UcJqYsEtlTekETrdMSXVY4kPnnbL79RT4sfAGZKt9cbFrp8
-         So1o/iaZwk63Ea63FmKhNXZHF3F4zZkHH/S1Z04f+VAxaixfaI3aE+wialuLaxnygAB5
-         /Ry/QU9h/yIO5j6m0VbiwTQViFjztcYWnv6WlZVFwT0f7regaRJe+iNBJHpF+NvXweO8
-         6bUo/VHl5bRdYIItxp9oCAHcQZVgh7qUhgwaoU6khxyCDUyRhqdQh6FzNRfBH1/4sqBc
-         JKrwLd3u9zGmN7/YMOi7zuejDU2FDaS6L40yE7HRS1vM2Y0ccaxlL9Dasg0Tjd0i9NfB
-         BBfA==
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793744077; x=1794348877; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0whMpu3SwCyyOwYZZQpnCeH3x7hbfijj32FSntRg5eg=;
+        b=S+wRv2wK1q+ylMssFA8QEQJbCrILnVnOTvEbUvFi2wtCpN2XJC/RHGpvN6sCyZjVMl
+         gcojuE3280oN1+PAwH+r10TvObtAUJhCxnHEarRySD29DR1V/P06L98L7at8YnclsVQd
+         UbDY8pG7lEXqe5/rb9EADlFAzzW1qe2F/EXr6AQDjGUS01HfEKW3TFpVHaNyjAGzPJ9r
+         5BCzQf0BrggGkIQ4hWOOKKJlW3oJ5k5FYg9xPKmwP0ohO7Wj1oMZVE7eugD6AVsNQZ3W
+         w1WVO0hYf1RNuiSzYTdiYB2/IRjqSsjHrQQNMMU33RRrJEmNPQEI0/P6Q1w1SDBPiXrw
+         Eukw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793743832; x=1794348632;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+9tAxkmKybALjlGE9yfaUABOJm4ISE4wUDWniSYnmUA=;
-        b=VC9E3qL6/H6d23/eX3umECjohWOEA9HTcBo4AoVx/Dyb5ODwL11DB81y/4KhOjL5ro
-         6KfyTCP/kiAkhNJSSDw2C9DcQ2b6zFDhmv12VxZCSRK16B0nO3srfX+cKS6RmoQCPRih
-         Pocl3//KjaRmS9wFx0CKcRDSR4svBwA4YAKdnJH5j0+Z2DfAKNBaC1ZUOCdXeYkIqX07
-         GtkOzUqrqD8PBdrhMuxH/1Zs6G1UQVt/RLQQaH6mFjPIETCkqRvDud9/mMASAX6pnHUY
-         BKX3lK9wEA0rYp4Dl85Y8iSUKUKiVjtiL2nOJAlvRQLM6QLUnHRc4D/P0sTsoSPXwkpM
-         kAQQ==
-X-Forwarded-Encrypted: i=1; AKwUvByNveD9jLwJz3eoLWphIVL1s9g/Pku7Wxak2eMktBM86UCQGS+lFxKGt5mMlQaZJcNzri4Q4kJ1M6NbzA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/dBTchrfv281qxPixykzZIptOMUY7KANNTSe3hbsFo7gb/iA0k
-	/cUDhr+xg361pAh7I7EjLN+UW6edu2YhsYQsmovUcYyGzv3PQ+mTUB5NJ12D9esCmxHaMcvWQ/s
-	zUnAHgbRV2B1BLBdHQke4QknZMfEfewgl/oJziqxrh/RIpa/xCLXxnGzOMwoK7eI0aQ==
-X-Gm-Gg: AYBFou3lyMr7mc1BWTuCHyohq3rf6CgJQRlxraqV6ZW1IoLlARv+LI6hAAfBAzFDoaP
-	HlX9DawBOo7Dm/BsksOzfAbnOvYKb9HZGVJrkssG8Ws4l4q3dt2Sd4//WAQ5ov84xkMh7ofkrxe
-	CsYxxiGXwoQDQeNyaiDZpnFKyP9QwhRYIWcJRqoZOteTukS8NNwa4pQx/WQmB+vqCACUSv53Ybr
-	i/+GDdqKV5qVlPWxOmxC66s9ONGUYNt4ejCizmtz27tTFBQvQkhB+ZW2DQrStWMHvAc4FJvoIXu
-	ljivJkYEVqrZk7L53ckHNF/OSOvWg+CB66WUl5NSY9SOdhyB0rRIBXxGU5lvA+B1hfGm+uY33TQ
-	8serFLnlcjPSvVTOMgbIfjSoXNb0N4I2jP+TwSbge75FTqc1Auxta2lCYyKo9FH9I77j3POEsdl
-	nivoTgzwNXk4KM6hinR/7F9KdeY8Tc
-X-Received: by 2002:a05:7022:2522:b0:1a9:c9fe:12c7 with SMTP id a92af1059eb24-1ac5bbb4b85mr28440950c88.9.1793743831599;
-        Tue, 03 Nov 2026 14:10:31 -0800 (PST)
-X-Received: by 2002:a05:7022:2522:b0:1a9:c9fe:12c7 with SMTP id a92af1059eb24-1ac5bbb4b85mr28440910c88.9.1793743831041;
-        Tue, 03 Nov 2026 14:10:31 -0800 (PST)
-Received: from hu-aarunnan-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm2137312c88.15.2026.11.03.14.10.29
+        d=1e100.net; s=20260707; t=1793744077; x=1794348877;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0whMpu3SwCyyOwYZZQpnCeH3x7hbfijj32FSntRg5eg=;
+        b=cNPcY8BCDLFKGYrqgAa5mknkBa28FDKpLjB6Ze1AfUppzTrYBC23OKkeYoMhoyytOS
+         04sWO8PPixT6S8kcH4c8DFu6T/mfcjbNaf4zhYSfIi0iZZwUEo+cuF7D1E/xgHvK5IRY
+         1FrPVaLAcDE3sBMTnnOQZf1aSEl0wLKd1u3W2dic6v6fsLg0wiBuBCPlzjPz6G4VGdcN
+         o871PTU1QS5T6bpiBJY20xu/VsbbqHJaDUtnSufNv6SfQeVrWZ+w6kr+/tcgA++DEyh5
+         Yee9jc3lTItQdfCAN7kHk+OFWcEOznE650dO2E+lhOYmTAAuUs0RoxR+pDEaTzx9HS20
+         6QQA==
+X-Gm-Message-State: APuU4Z/uqoT4YNSJAhX/BV17MxVYZEwjrus4fVhHM9+j2J5XIyLe7rId
+	ElSY24xrRDiqsdKgPgFRpU4OE6rnwLRB4hdbH9PrmRf8a3unheBLlrGGjf2GKrRC65I=
+X-Gm-Gg: AYBFou3v517wm2r6IKDA5Bl8VdVVIaSraO9ygWmb+81ZG9BKZV5eAEDzDoP0w/d+N4w
+	CUXhH3KSq96lnybPoXEpVopQwNl4wW+PHonYGejc2yjJZfeIgbweFqhy5m2V0KuyJI7+bCh3sGE
+	ymWm19Xli+5xpJ17KPypbYjerkfoCVs8nKdSC7qIdUZVjnNEL0XZSXCEynofAShJ0pZOHdXPWYq
+	BWA7WLbO/TDaGAAnaLAKoqkPHl3ZoJlnUFKAl+Kd+KH7QIXhIqy5d19cjJpBDMkv3c206mjiru/
+	GvGhRSxN3y1nUXByhOLUM8CuCYgEnT7DP5BTKjg5JNnOGJuYO397rcQjQrGopwjwMRSejrYiATh
+	juH5F/gA/7+kfrgQwujPp65HIKDegEeIj22vwW2lOlzrvwP9IIcSSrCxknTi4ZB6LjfAikpKa6s
+	UjVCPyuV6AqpcsdODrj6rHL44YFb4xM594iXvHOZTrxx0cO/1L+pn4ViMRWCPihvc+Av/98AzPK
+	8ckGVCMYoVR8yfEUS0fOp2bHaU55DfhWV6qv4pOZUNzeAjj0JhOiVQfvcBKrqAftIyRy5Nsb0mt
+	wtiN7mDeXerugGAdsawMUkpA493M28krADoiZCNZIFhpYAbG4x6ESpUGRd6jlKOfDxAwspT1m0y
+	C
+X-Received: by 2002:a05:622a:58f:b0:532:b3ce:f38 with SMTP id d75a77b69052e-542b3e691femr241721551cf.4.1793744076882;
+        Tue, 03 Nov 2026 14:14:36 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54b1086db63sm7077331cf.11.2026.11.03.14.14.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 14:10:30 -0800 (PST)
-From: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        gjorgji.rosikopulos@oss.qualcomm.com,
-        hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
-        jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] arm64: dts: qcom: monaco: add CSI2 PHY common-phy providers
-Date: Tue,  3 Nov 2026 14:10:25 -0800
-Message-Id: <20261103221026.3662383-3-anusha.nandi@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261103221026.3662383-1-anusha.nandi@oss.qualcomm.com>
-References: <20261103221026.3662383-1-anusha.nandi@oss.qualcomm.com>
+        Tue, 03 Nov 2026 14:14:36 -0800 (PST)
+Message-ID: <3d6f4b59b49112b4c93fed08f7a85601458dc9b7.camel@ndufresne.ca>
+Subject: Re: [PATCH 4/5] media: iris: Preserve timestamps on error buffers
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Xilin Wu
+ <sophon@radxa.com>,  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,  Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans
+ Verkuil	 <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dragon@radxa.com, Chris Obbard	
+ <chris.obbard@oss.qualcomm.com>, Deepak Sikri <sikrid@qti.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Loic Minier
+ <loic.minier@oss.qualcomm.com>, Jason Pettit	
+ <jason.pettit@oss.qualcomm.com>
+Date: Tue, 03 Nov 2026 17:14:33 -0500
+In-Reply-To: <fcdc09bb-7f70-443c-942c-81f50a695aee@linaro.org>
+References: <20261029-iris-va-fixes-v1-0-44a2783f782b@radxa.com>
+	 <9YPKYT3Qcls0jbUWdxOqIWNLjQSGexDoWWE3PUBiJS3UpxTN9rFeicV5aeaeTDyrXqw8emy9LBK0hkxmeEqthw==@protonmail.internalid>
+	 <20261029-iris-va-fixes-v1-4-44a2783f782b@radxa.com>
+	 <fcdc09bb-7f70-443c-942c-81f50a695aee@linaro.org>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-WL5Tl81B56C34oK9WNj2"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -125,177 +124,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA4OCBTYWx0ZWRfXz+v4x0FOIrVe
- x0As7Tu2Grm9/F2jr3Rk3MVesCQdKO6KIOWgXTPME7cCv0kzuCe5hCvikWCM9U06DJR+RSssZTP
- 1HAayz43NZl3WRn79yKzw2uaOZBxFZw=
-X-Authority-Analysis: v=2.4 cv=AKV9GsJK c=1 sm=1 tr=0 ts=6aea5bd8 cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=n2D47ajo8674fvOcmZAA:9 a=Kq8ClHjjuc5pcCNDwlU0:22
-X-Proofpoint-ORIG-GUID: SfJAZRB6Npi1CYglm-VrQXyGV5bNilA5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA4OCBTYWx0ZWRfX/PUjT73yPVox
- X2+pKwSiGsTExYaxxhGAInDWe+BokqOhUDl52vpdmNQP1/g5n5jebmMnO3RYRZ7Fho27a3XypUN
- DSInBctXIJsM1vm/BywA6IYACZ9B5WCfbCFcutBkQsXGnYuHJqXktGK+iHXH8z0GkXzvBH8g/6i
- ibaje9KKffNDyPrSNy2M/IdHFI25JG+VXV+HBCCk3tJxF5/n+2RH1mc/9WPmezilI0GzAJw8YGN
- TFxEVoA9vBYmBq/jHWTvOqZnz26CWtlZ5lGA5OjYu41kXOGgBs065ehFTa+P78VW67S7BrogozK
- rAvdnB6SUh7dlQnvAfQ3ygoqrckK/1HVAAGtPvvQK5n/KcLI2364zBWgFfAUe5VPPvwyizOBXq+
- LdC6+lLT3f99a/ZKAYPj4am3pdrONkRrjD9KICdU8NwrsSl4259zHJ67l8gEvC8C+fh5qJJQaOK
- /PYcIUa1gjZnwfxSc/w==
-X-Proofpoint-GUID: SfJAZRB6Npi1CYglm-VrQXyGV5bNilA5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_05,2026-11-03_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0
- phishscore=0 spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030088
 
-Expose the three QCS8300 CSIPHYs as standalone
-qcom,qcs8300-csi2-phy generic-PHY provider nodes (csiphy0..2) at their
-existing register addresses, each with its own OF graph (port@0
-sensor-facing, port@1 CAMSS-facing) so camss_detect_legacy_phy() picks
-the non-legacy path once a board wires a sensor through one of them.
-The camss node's own reg-names/clocks/interrupts for the CSIPHYs are
-unchanged, so boards that don't use a provider still get the legacy
-binding.
 
-The provider nodes are disabled by default; a board or camera overlay
-enables the one(s) it uses.
+--=-WL5Tl81B56C34oK9WNj2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
-Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/monaco.dtsi | 114 +++++++++++++++++++++++++++
- 1 file changed, 114 insertions(+)
+Le mardi 03 novembre 2026 =C3=A0 22:57 +0100, Bryan O'Donoghue a =C3=A9crit=
+=C2=A0:
+> On 29/10/2026 04:58, Xilin Wu wrote:
+> > Clearing timestamps on error buffers prevents clients such as libva-v4l=
+2
+> > from identifying the failed picture and can cause synchronization timeo=
+uts.
+> >=20
+> > Preserve the firmware-provided timestamp when returning an error buffer=
+.
+> >=20
+> > Fixes: b791dcfcba3a ("media: iris: Add handling for corrupt and drop fr=
+ames")
+> > Signed-off-by: Xilin Wu <sophon@radxa.com>
+> > ---
+> >   drivers/media/platform/qcom/iris/iris_buffer.c | 3 ++-
+> >   1 file changed, 2 insertions(+), 1 deletion(-)
+> >=20
+> > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/m=
+edia/platform/qcom/iris/iris_buffer.c
+> > index eb8de60c1177..f790483d13d4 100644
+> > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > @@ -899,7 +899,8 @@ int iris_vb2_buffer_done(struct iris_inst *inst, st=
+ruct iris_buffer *buf)
+> >   	if (buf->flags & V4L2_BUF_FLAG_ERROR) {
+> >   		state =3D VB2_BUF_STATE_ERROR;
+> >   		vb2_set_plane_payload(vb2, 0, 0);
+> > -		vb2->timestamp =3D 0;
+> > +		/* Allow userspace to associate the error with the input frame. */
+> > +		vb2->timestamp =3D buf->timestamp;
+> >   		v4l2_m2m_buf_done(vbuf, state);
+> >   		return 0;
+> >   	}
+> >=20
+> > --
+> > 2.56.0
+> >=20
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/qcom/monaco.dtsi
-index 35fbee63d4c6..9585bc723fc4 100644
---- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-+++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-@@ -5577,6 +5577,120 @@ cci2_i2c1: i2c-bus@1 {
- 			};
- 		};
- 
-+		csiphy0: phy@ac9c000 {
-+			compatible = "qcom,qcs8300-csi2-phy";
-+			reg = <0x0 0x0ac9c000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
-+				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "csiphy_rx";
-+
-+			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy1: phy@ac9e000 {
-+			compatible = "qcom,qcs8300-csi2-phy";
-+			reg = <0x0 0x0ac9e000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
-+				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "csiphy_rx";
-+
-+			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy2: phy@aca0000 {
-+			compatible = "qcom,qcs8300-csi2-phy";
-+			reg = <0x0 0x0aca0000 0x0 0x2000>;
-+
-+			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
-+				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
-+				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>;
-+			clock-names = "core",
-+				      "timer",
-+				      "csiphy_rx";
-+
-+			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
-+
-+			operating-points-v2 = <&csiphy_opp_table>;
-+
-+			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
-+			power-domain-names = "top";
-+
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				port@0 {
-+					reg = <0>;
-+				};
-+
-+				port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		csiphy_opp_table: opp-table-csiphy {
-+			compatible = "operating-points-v2";
-+
-+			opp-300000000 {
-+				opp-hz = /bits/ 64 <300000000>;
-+			};
-+
-+			opp-400000000 {
-+				opp-hz = /bits/ 64 <400000000>;
-+			};
-+		};
-+
- 		camss: isp@ac78000 {
- 			compatible = "qcom,qcs8300-camss";
- 
--- 
-2.34.1
+I'm generally ok with the change, not that I think libva-v4l2 is a good ide=
+a,
+but we should not intentionally make userspace life difficult. Userspace sh=
+ould
+not though assume that every OUTPUT buffer in error will generate an CAPTUR=
+E
+buffer with error and copied timestamp, this would be completely off spec.
 
+Nicolas
+
+--=-WL5Tl81B56C34oK9WNj2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaupcyQAKCRDZQZRRKWBy
+9Ka1AP0R8nbzNuhXJb3kDXY4TjuPqdCINWuaAR03XI+T3+Rj4wEA8JM/izovKNbb
+aWez0IzFR/4tzcgFC0vw+v6Xqr69dgA=
+=gql0
+-----END PGP SIGNATURE-----
+
+--=-WL5Tl81B56C34oK9WNj2--
