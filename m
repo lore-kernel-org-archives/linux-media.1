@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702745;
-	b=40UJofjRO57XCYb1sLZ7WazdndXyrV0zUi9kOnMX+DAZoNBHgyKxywV24MLsivwudM2s
-	 5mM7cHIDH153zykE6SGZViYPMgljXdq0tUsQr0jsM/9WjP1FATfAj6Qm1FChdPidA5Vbp
-	 oEXm7vRobRvzg+6L9XRSeySTdi0dGj18sAIF9oaq3x/cpTwTIG7JiPYjWUjY17/9Mlhug
-	 hIIlUL2aRjuyuFC2eu4oOFiaOSp2gSWqtZom8IbOmQDbmm7ZENBPBkpnUrR/kpPO4OZBi
-	 t4AC9a25gO0HhwW6xitqP0FY8UOsnSzuV3ArRIZ/qHBwiPLPDUUHPkMpOkkmqrsxvIg==
+	t=1793702764;
+	b=A7QFjuKi0gmkDaSYOjG72wd7VEDc4nZnDznlfz1VVpTfV6PVEepey+1k6l1p+zPWeXaF
+	 MP6/zUzY6n67OBrwSUABPERxqRNPhEaPJb6NXPLVnXl+6OsoDfYJEqi9O1jizb99CXcK4
+	 96anmMtKa3uMQ2u5JUo3A33HAPugBe5Xbxh/+l8wgsf0CaLx+K6rw/WXb5ZwzxgQAxE7b
+	 WbPSxgqqK0KzRjKTQVdV+WCH2XO94WNtkpy/wFBE+MTYwBEVlAphr34BhM2+oEB4LjHcS
+	 mkchX40/evpjbQQIOTByoDrGPpN2lFeHtuBEsuC/D2RQC75vUt1SbFiDXr3B1GY/frg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702764;
 	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:References:
 	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VZW5A/9IXSg0XusU+xisBXwWnIzUkmQpU2C4w+l5Rqw=;
-	b=jM3cP6Gu8XQze/aB0m8jw/oEp2eJEV0yNlXn2dO9VACcSbwCDV3F04QjRaMA9Q40TU71
-	 d8TU5TAo4UqfGo+vWYG42ivWFJDiYzjHi/bSVvWbPnrY0So/8ha8GCG23wK0lOzGRWJ8e
-	 ZL57OvDw5cmP170jOfSPxhSsqmcTRiXZhUygBOLaAWRBSOu8aNEZ6QyC6Nrj4Vezu4x1g
-	 Q8ZUWBqQhMCeSgFX09sgCK4isA/9gxraW7LVHGOiYrZ4djaqjV0m2NVFj1j10B7JMNpJ3
-	 mpOtzx5yn3KC6Lx8PIqS+ZTmXNzwJ4bsXeXsua+6gf883pdH5oyb5GLsv3SABffIhYA==
+	bh=wQSfiK91Fsk7qULgyQvRfhlINcQSjFPu59hso23LCk0=;
+	b=du4Kh67zcGH64EkWhGL8LwUiE++mbrFrD3tId0FrYeIPFVZyJT1sxeb0f1CVaI+TJfsf
+	 eiMfoyvVGp6mvXU81F2D6Y22TGPNRV0HH2ovFOYQwe95XyPNbFn84XS9DLCNM1wihYNFM
+	 IHdxU9fMyUyww2UHPZJU1FQJ4g6ReJWS5Z0DTBpQlS+b0uEC7U9jDuIrDHEZzvnx3jARn
+	 fj6rg2ALphwcAeXb4/7jFIYJhGi6uD1Tq0frvkOchVEcgNF5JwORECJul+sVuepFIC56g
+	 ZR8JnN+5KTxIQwhymd7Ekmh/QMpUZwXKPtLXQcgnWiPp58sPD7oeSQQlJTHpKzJJoXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=makrotopia.org;
 	spf=pass smtp.mailfrom=makrotopia.org;
@@ -24,18 +24,18 @@ Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA1C6070A81;
-	Tue,  3 Nov 2026 10:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDA1C6070A81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828506072BC8;
+	Tue,  3 Nov 2026 10:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 828506072BC8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
 Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
 	 (Exim 4.100.1)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1xOC1K-00000000321-0DsA;
-	Tue, 03 Nov 2026 10:45:38 +0000
-Date: Tue, 3 Nov 2026 10:45:35 +0000
+	id 1xOC1c-0000000032v-1Srt;
+	Tue, 03 Nov 2026 10:45:56 +0000
+Date: Tue, 3 Nov 2026 10:45:53 +0000
 From: Daniel Golle <daniel@makrotopia.org>
 To: Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Michael Riesch <michael.riesch@collabora.com>,
@@ -46,8 +46,8 @@ To: Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 3/6] media: rockchip: rkcif: count the MIPI capture errors
-Message-ID: <bf877ac0f299655334549304b14fe9fb78d281ef.1793702189.git.daniel@makrotopia.org>
+Subject: [PATCH 6/6] media: synopsys: csi2rx: handle the error interrupts
+Message-ID: <cc10d5865e0685d07305490e25bd425eadd43582.1793702189.git.daniel@makrotopia.org>
 References: <cover.1793702189.git.daniel@makrotopia.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -62,307 +62,236 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <cover.1793702189.git.daniel@makrotopia.org>
 
-The VICAP MIPI block flags DMA FIFO overflows, a bandwidth shortage and
-an RX FIFO overflow in its interrupt status, but the driver never
-enables these sources and clears the status bits unread, so a capture
-that loses data does so silently.
+The receiver reports lost synchronisation, frame boundary and sequence
+errors, CRC and ECC results and unknown data types in two clear-on-read
+registers with an interrupt line each. The driver masks all of them, so
+a link that drops packets, and with them image lines, leaves no trace.
 
-Enable the error sources while a stream runs on the interface, count
-every class in a debugfs directory named after the interface and warn
-with the raw status under a rate limit. The RK3588 lays out the error
-bits differently and adds a per-ID size error; both layouts follow the
-vendor driver.
+Request the err1 and err2 interrupts where the firmware names them,
+unmask the sources while the receiver runs, count each class in debugfs
+and warn with the raw registers under a rate limit. The unrecognised
+data type source stays masked as in the vendor driver. The masks are
+written again in the runtime resume, which resets the block.
 
 Assisted-by: LLM
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
- .../rockchip/rkcif/rkcif-capture-mipi.c       | 94 +++++++++++++++++++
- .../platform/rockchip/rkcif/rkcif-common.h    | 12 +++
- .../media/platform/rockchip/rkcif/rkcif-dev.c |  5 +
- .../platform/rockchip/rkcif/rkcif-regs.h      |  2 +
- 4 files changed, 113 insertions(+)
+ .../media/platform/synopsys/dw-mipi-csi2rx.c  | 125 +++++++++++++++++-
+ 1 file changed, 120 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-index 53cfd37bf02bd..af0134e6c4c67 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-@@ -7,6 +7,7 @@
-  * Copyright (C) 2025 Collabora, Ltd.
-  */
+diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+index 41e48365167e5..ae895a18f7966 100644
+--- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
++++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+@@ -9,7 +9,9 @@
  
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
 +#include <linux/debugfs.h>
- #include <linux/interrupt.h>
+ #include <linux/delay.h>
++#include <linux/interrupt.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
+@@ -54,6 +56,18 @@
  
- #include <media/mipi-csi2.h>
-@@ -44,6 +45,35 @@
+ #define IPI_MEM_FLUSH_AUTO		BIT(8)
  
- #define RKCIF_MIPI_INT_FRAME0_END(id) BIT(8 + (id) * 2 + 0)
- #define RKCIF_MIPI_INT_FRAME1_END(id) BIT(8 + (id) * 2 + 1)
-+#define RKCIF_MIPI_INT_ALL_END GENMASK(15, 8)
++#define ERR1_PHY_SOT_SYNC GENMASK(3, 0)
++#define ERR1_FRAME_BOUNDARY GENMASK(7, 4)
++#define ERR1_FRAME_SEQUENCE GENMASK(11, 8)
++#define ERR1_FRAME_DATA GENMASK(15, 12)
++#define ERR1_CRC GENMASK(28, 24)
 +
-+#define RK3568_MIPI_INT_DMA_Y_FIFO_OVERFLOW BIT(16)
-+#define RK3568_MIPI_INT_DMA_UV_FIFO_OVERFLOW BIT(17)
-+#define RK3568_MIPI_INT_CONFIG_FIFO_OVERFLOW BIT(18)
-+#define RK3568_MIPI_INT_BANDWIDTH_LACK BIT(19)
-+#define RK3568_MIPI_INT_RX_FIFO_OVERFLOW BIT(20)
++#define ERR2_PHY_ESCAPE GENMASK(3, 0)
++#define ERR2_PHY_SOT GENMASK(7, 4)
++#define ERR2_ECC_CORRECTED GENMASK(11, 8)
++#define ERR2_DATA_TYPE GENMASK(15, 12)
++#define ERR2_PHY_CODE BIT(24)
 +
-+#define RK3588_MIPI_INT_DMA_Y_FIFO_OVERFLOW BIT(16)
-+#define RK3588_MIPI_INT_DMA_UV_FIFO_OVERFLOW BIT(17)
-+#define RK3588_MIPI_INT_BANDWIDTH_LACK BIT(18)
-+#define RK3588_MIPI_INT_RX_FIFO_OVERFLOW BIT(19)
-+#define RK3588_MIPI_INT_SIZE_ERROR GENMASK(27, 24)
-+
-+static const struct rkcif_mipi_error rk3568_mipi_errors[] = {
-+	{ RK3568_MIPI_INT_DMA_Y_FIFO_OVERFLOW, "dma_y_fifo_overflow" },
-+	{ RK3568_MIPI_INT_DMA_UV_FIFO_OVERFLOW, "dma_uv_fifo_overflow" },
-+	{ RK3568_MIPI_INT_CONFIG_FIFO_OVERFLOW, "config_fifo_overflow" },
-+	{ RK3568_MIPI_INT_BANDWIDTH_LACK, "bandwidth_lack" },
-+	{ RK3568_MIPI_INT_RX_FIFO_OVERFLOW, "rx_fifo_overflow" },
-+};
-+
-+static const struct rkcif_mipi_error rk3588_mipi_errors[] = {
-+	{ RK3588_MIPI_INT_DMA_Y_FIFO_OVERFLOW, "dma_y_fifo_overflow" },
-+	{ RK3588_MIPI_INT_DMA_UV_FIFO_OVERFLOW, "dma_uv_fifo_overflow" },
-+	{ RK3588_MIPI_INT_BANDWIDTH_LACK, "bandwidth_lack" },
-+	{ RK3588_MIPI_INT_RX_FIFO_OVERFLOW, "rx_fifo_overflow" },
-+	{ RK3588_MIPI_INT_SIZE_ERROR, "size_error" },
-+};
- 
- static const struct rkcif_output_fmt mipi_out_fmts[] = {
- 	/* YUV formats */
-@@ -420,10 +450,14 @@ rkcif_rk3568_mipi_ctrl0(struct rkcif_stream *stream,
- const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
- 	.mipi_num = 1,
- 	.mipi_ctrl0 = rkcif_rk3568_mipi_ctrl0,
-+	.errors = rk3568_mipi_errors,
-+	.errors_num = ARRAY_SIZE(rk3568_mipi_errors),
- 	.regs = {
- 		[RKCIF_MIPI_CTRL] = 0x20,
- 		[RKCIF_MIPI_INTEN] = 0xa4,
- 		[RKCIF_MIPI_INTSTAT] = 0xa8,
-+		[RKCIF_MIPI_LINE_CNT_ID0_1] = 0xb4,
-+		[RKCIF_MIPI_LINE_CNT_ID2_3] = 0xb8,
- 	},
- 	.regs_id = {
- 		[RKCIF_ID0] = {
-@@ -531,10 +565,14 @@ rkcif_rk3588_mipi_ctrl0(struct rkcif_stream *stream,
- const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
- 	.mipi_num = 6,
- 	.mipi_ctrl0 = rkcif_rk3588_mipi_ctrl0,
-+	.errors = rk3588_mipi_errors,
-+	.errors_num = ARRAY_SIZE(rk3588_mipi_errors),
- 	.regs = {
- 		[RKCIF_MIPI_CTRL] = 0x20,
- 		[RKCIF_MIPI_INTEN] = 0x74,
- 		[RKCIF_MIPI_INTSTAT] = 0x78,
-+		[RKCIF_MIPI_LINE_CNT_ID0_1] = 0x84,
-+		[RKCIF_MIPI_LINE_CNT_ID2_3] = 0x88,
- 	},
- 	.regs_id = {
- 		[RKCIF_ID0] = {
-@@ -699,6 +737,53 @@ rkcif_mipi_stream_read(struct rkcif_stream *stream, unsigned int index)
- 	return readl(stream->rkcif->base_addr + addr);
- }
- 
-+static u32 rkcif_mipi_error_mask(struct rkcif_interface *interface)
-+{
-+	const struct rkcif_mipi_match_data *match_data =
-+		interface->rkcif->match_data->mipi;
-+	unsigned int i;
-+	u32 mask = 0;
-+
-+	for (i = 0; i < match_data->errors_num; i++)
-+		mask |= match_data->errors[i].mask;
-+
-+	return mask;
-+}
-+
-+static void rkcif_mipi_handle_errors(struct rkcif_interface *interface,
-+				     u32 intstat)
-+{
-+	const struct rkcif_mipi_match_data *match_data =
-+		interface->rkcif->match_data->mipi;
-+	unsigned int i;
-+
-+	intstat &= rkcif_mipi_error_mask(interface);
-+	if (!intstat)
-+		return;
-+
-+	for (i = 0; i < match_data->errors_num; i++)
-+		if (intstat & match_data->errors[i].mask)
-+			interface->error_count[i]++;
-+
-+	dev_warn_ratelimited(interface->rkcif->dev, "%s: capture errors %#x\n",
-+			     interface->sd.name, intstat);
-+}
-+
-+static void rkcif_mipi_debugfs_init(struct rkcif_interface *interface)
-+{
-+	const struct rkcif_mipi_match_data *match_data =
-+		interface->rkcif->match_data->mipi;
-+	struct dentry *parent = interface->rkcif->debugfs_dir;
-+	unsigned int i;
-+
-+	interface->debugfs_dir = debugfs_create_dir(interface->sd.name, parent);
-+
-+	for (i = 0; i < match_data->errors_num; i++)
-+		debugfs_create_ulong(match_data->errors[i].name, 0444,
-+				     interface->debugfs_dir,
-+				     &interface->error_count[i]);
-+}
-+
- static void rkcif_mipi_queue_buffer(struct rkcif_stream *stream,
- 				    unsigned int index)
- {
-@@ -742,6 +827,7 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
- 
- 	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
- 	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
-+	int_mask |= rkcif_mipi_error_mask(interface);
- 
- 	spin_lock_irqsave(&interface->irq_lock, flags);
- 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
-@@ -785,6 +871,8 @@ static void rkcif_mipi_stop_streaming(struct rkcif_stream *stream)
- 	spin_lock_irqsave(&interface->irq_lock, flags);
- 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
- 	int_temp &= ~int_mask;
-+	if (!(int_temp & RKCIF_MIPI_INT_ALL_END))
-+		int_temp &= ~rkcif_mipi_error_mask(interface);
- 	rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, int_temp);
- 
- 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
-@@ -836,6 +924,8 @@ irqreturn_t rkcif_mipi_isr(int irq, void *ctx)
- 		if (intstat)
- 			ret = IRQ_HANDLED;
- 
-+		rkcif_mipi_handle_errors(interface, intstat);
-+
- 		for (unsigned int j = 0; j < interface->streams_num; j++) {
- 			struct rkcif_stream *stream = &interface->streams[j];
- 
-@@ -879,6 +969,8 @@ int rkcif_mipi_register(struct rkcif_device *rkcif)
- 		if (ret)
- 			continue;
- 
-+		rkcif_mipi_debugfs_init(interface);
-+
- 		for (unsigned int j = 0; j < RKCIF_ID_MAX; j++) {
- 			struct rkcif_stream *stream = &interface->streams[j];
- 
-@@ -906,6 +998,7 @@ int rkcif_mipi_register(struct rkcif_device *rkcif)
- 		for (unsigned int j = 0; j < interface->streams_num; j++)
- 			rkcif_stream_unregister(&interface->streams[j]);
- 
-+		debugfs_remove_recursive(interface->debugfs_dir);
- 		rkcif_interface_unregister(interface);
- 	}
- 	return ret;
-@@ -923,6 +1016,7 @@ void rkcif_mipi_unregister(struct rkcif_device *rkcif)
- 		for (unsigned int j = 0; j < interface->streams_num; j++)
- 			rkcif_stream_unregister(&interface->streams[j]);
- 
-+		debugfs_remove_recursive(interface->debugfs_dir);
- 		rkcif_interface_unregister(interface);
- 	}
- }
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-index 16a5ecb25c2fb..13708435dd432 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-@@ -28,6 +28,7 @@
- 
- #define RKCIF_DRIVER_NAME "rockchip-cif"
- #define RKCIF_CLK_MAX	  5
-+#define RKCIF_MIPI_ERRORS_MAX 5
- 
- enum rkcif_format_type {
- 	RKCIF_FMT_TYPE_INVALID,
-@@ -198,18 +199,28 @@ struct rkcif_interface {
- 		struct rkcif_dvp dvp;
- 	};
- 
-+	struct dentry *debugfs_dir;
-+	unsigned long error_count[RKCIF_MIPI_ERRORS_MAX];
-+
- 	/* interrupt enable and status are shared by the streams of a block */
- 	spinlock_t irq_lock;
- 
- 	void (*set_crop)(struct rkcif_stream *stream, u16 left, u16 top);
+ enum dw_mipi_csi2rx_regs_index {
+ 	DW_MIPI_CSI2RX_N_LANES,
+ 	DW_MIPI_CSI2RX_RESETN,
+@@ -100,6 +114,25 @@ struct dw_mipi_csi2rx_format {
+ 	u8 csi_dt;
  };
  
-+struct rkcif_mipi_error {
++struct dw_mipi_csi2rx_error {
++	enum dw_mipi_csi2rx_regs_index reg;
 +	u32 mask;
 +	const char *name;
 +};
 +
- struct rkcif_mipi_match_data {
- 	unsigned int mipi_num;
- 	unsigned int regs[RKCIF_MIPI_REGISTER_MAX];
- 	unsigned int regs_id[RKCIF_ID_MAX][RKCIF_MIPI_ID_REGISTER_MAX];
- 	u32 (*mipi_ctrl0)(struct rkcif_stream *stream,
- 			  const struct rkcif_output_fmt *active_out_fmt);
-+	const struct rkcif_mipi_error *errors;
-+	unsigned int errors_num;
- 	struct {
- 		unsigned int offset;
- 	} blocks[RKCIF_MIPI_MAX - RKCIF_MIPI_BASE];
-@@ -248,6 +259,7 @@ struct rkcif_device {
- 	struct media_device media_dev;
- 	struct v4l2_device v4l2_dev;
- 	struct v4l2_async_notifier notifier;
-+	struct dentry *debugfs_dir;
- };
- 
- #endif
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-index fbc8ed78d99ea..630a5ccf59c11 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-@@ -10,6 +10,7 @@
-  */
- 
- #include <linux/clk.h>
-+#include <linux/debugfs.h>
- #include <linux/delay.h>
- #include <linux/interrupt.h>
- #include <linux/mfd/syscon.h>
-@@ -231,6 +232,8 @@ static int rkcif_probe(struct platform_device *pdev)
- 	v4l2_async_nf_init(&rkcif->notifier, &rkcif->v4l2_dev);
- 	rkcif->notifier.ops = &rkcif_notifier_ops;
- 
-+	rkcif->debugfs_dir = debugfs_create_dir(dev_name(dev), NULL);
++static const struct dw_mipi_csi2rx_error dw_mipi_csi2rx_errors[] = {
++	{ DW_MIPI_CSI2RX_ERR1, ERR1_PHY_SOT_SYNC, "phy_sot_sync" },
++	{ DW_MIPI_CSI2RX_ERR1, ERR1_FRAME_BOUNDARY, "frame_boundary" },
++	{ DW_MIPI_CSI2RX_ERR1, ERR1_FRAME_SEQUENCE, "frame_sequence" },
++	{ DW_MIPI_CSI2RX_ERR1, ERR1_FRAME_DATA, "frame_data" },
++	{ DW_MIPI_CSI2RX_ERR1, ERR1_CRC, "crc" },
++	{ DW_MIPI_CSI2RX_ERR2, ERR2_PHY_ESCAPE, "phy_escape" },
++	{ DW_MIPI_CSI2RX_ERR2, ERR2_PHY_SOT, "phy_sot" },
++	{ DW_MIPI_CSI2RX_ERR2, ERR2_ECC_CORRECTED, "ecc_corrected" },
++	{ DW_MIPI_CSI2RX_ERR2, ERR2_DATA_TYPE, "data_type" },
++	{ DW_MIPI_CSI2RX_ERR2, ERR2_PHY_CODE, "phy_code" },
++};
 +
- 	ret = rkcif_register(rkcif);
- 	if (ret) {
- 		dev_err(dev, "failed to register media entities: %d\n", ret);
-@@ -246,6 +249,7 @@ static int rkcif_probe(struct platform_device *pdev)
- err_rkcif_unregister:
- 	rkcif_unregister(rkcif);
- err_notifier_cleanup:
-+	debugfs_remove_recursive(rkcif->debugfs_dir);
- 	v4l2_async_nf_cleanup(&rkcif->notifier);
- 	media_device_unregister(&rkcif->media_dev);
- err_v4l2_dev_unregister:
-@@ -262,6 +266,7 @@ static void rkcif_remove(struct platform_device *pdev)
+ struct dw_mipi_csi2rx_device {
+ 	struct device *dev;
  
- 	v4l2_async_nf_unregister(&rkcif->notifier);
- 	rkcif_unregister(rkcif);
-+	debugfs_remove_recursive(rkcif->debugfs_dir);
- 	v4l2_async_nf_cleanup(&rkcif->notifier);
- 	media_device_unregister(&rkcif->media_dev);
- 	v4l2_device_unregister(&rkcif->v4l2_dev);
-diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-index 3cf7ee19de300..92da7497b902a 100644
---- a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-+++ b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
-@@ -132,6 +132,8 @@ enum rkcif_mipi_register_index {
- 	RKCIF_MIPI_CTRL,
- 	RKCIF_MIPI_INTEN,
- 	RKCIF_MIPI_INTSTAT,
-+	RKCIF_MIPI_LINE_CNT_ID0_1,
-+	RKCIF_MIPI_LINE_CNT_ID2_3,
- 	RKCIF_MIPI_REGISTER_MAX
- };
+@@ -108,6 +141,9 @@ struct dw_mipi_csi2rx_device {
+ 	unsigned int clks_num;
+ 	struct phy *phy;
+ 	struct reset_control *reset;
++	bool err_irqs;
++	struct dentry *debugfs_dir;
++	unsigned long error_count[ARRAY_SIZE(dw_mipi_csi2rx_errors)];
+ 
+ 	const struct dw_mipi_csi2rx_format *formats;
+ 	unsigned int formats_num;
+@@ -343,6 +379,76 @@ static inline u32 dw_mipi_csi2rx_read(struct dw_mipi_csi2rx_device *csi2,
+ 	return readl(dw_mipi_csi2rx_get_regaddr(csi2, index));
+ }
+ 
++static void dw_mipi_csi2rx_mask_errors(struct dw_mipi_csi2rx_device *csi2,
++				       u32 msk1, u32 msk2)
++{
++	if (dw_mipi_csi2rx_has_reg(csi2, DW_MIPI_CSI2RX_MSK1))
++		dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_MSK1, msk1);
++
++	if (dw_mipi_csi2rx_has_reg(csi2, DW_MIPI_CSI2RX_MSK2))
++		dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_MSK2, msk2);
++}
++
++static irqreturn_t dw_mipi_csi2rx_err_isr(int irq, void *ctx)
++{
++	struct dw_mipi_csi2rx_device *csi2 = ctx;
++	const struct dw_mipi_csi2rx_error *error;
++	unsigned int i;
++	u32 err[2];
++
++	err[0] = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_ERR1);
++	err[1] = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_ERR2);
++	if (!err[0] && !err[1])
++		return IRQ_NONE;
++
++	for (i = 0; i < ARRAY_SIZE(dw_mipi_csi2rx_errors); i++) {
++		error = &dw_mipi_csi2rx_errors[i];
++		if (err[error->reg - DW_MIPI_CSI2RX_ERR1] & error->mask)
++			csi2->error_count[i]++;
++	}
++
++	dev_warn_ratelimited(csi2->dev, "link errors %#x %#x\n", err[0],
++			     err[1]);
++
++	return IRQ_HANDLED;
++}
++
++static int dw_mipi_csi2rx_request_irqs(struct dw_mipi_csi2rx_device *csi2,
++				       struct platform_device *pdev)
++{
++	static const char *const names[] = { "err1", "err2" };
++	unsigned int i;
++	int irq, ret;
++
++	for (i = 0; i < ARRAY_SIZE(names); i++) {
++		irq = platform_get_irq_byname_optional(pdev, names[i]);
++		if (irq == -ENXIO)
++			continue;
++		if (irq < 0)
++			return irq;
++
++		ret = devm_request_irq(&pdev->dev, irq, dw_mipi_csi2rx_err_isr,
++				       0, dev_name(&pdev->dev), csi2);
++		if (ret)
++			return ret;
++
++		csi2->err_irqs = true;
++	}
++
++	return 0;
++}
++
++static void dw_mipi_csi2rx_debugfs_init(struct dw_mipi_csi2rx_device *csi2)
++{
++	unsigned int i;
++
++	csi2->debugfs_dir = debugfs_create_dir(dev_name(csi2->dev), NULL);
++
++	for (i = 0; i < ARRAY_SIZE(dw_mipi_csi2rx_errors); i++)
++		debugfs_create_ulong(dw_mipi_csi2rx_errors[i].name, 0444,
++				     csi2->debugfs_dir, &csi2->error_count[i]);
++}
++
+ static const struct dw_mipi_csi2rx_format *
+ dw_mipi_csi2rx_find_format(struct dw_mipi_csi2rx_device *csi2, u32 mbus_code)
+ {
+@@ -425,6 +531,9 @@ static int dw_mipi_csi2rx_start(struct dw_mipi_csi2rx_device *csi2)
+ 	if (csi2->drvdata->dphy_deassert_reset)
+ 		csi2->drvdata->dphy_deassert_reset(csi2);
+ 
++	if (csi2->err_irqs)
++		dw_mipi_csi2rx_mask_errors(csi2, 0, ERR2_DATA_TYPE);
++
+ 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_RESETN, 1);
+ 
+ 	if (csi2->drvdata->ipi_enable)
+@@ -439,11 +548,7 @@ static void dw_mipi_csi2rx_stop(struct dw_mipi_csi2rx_device *csi2)
+ 
+ 	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_RESETN, 0);
+ 
+-	if (dw_mipi_csi2rx_has_reg(csi2, DW_MIPI_CSI2RX_MSK1))
+-		dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_MSK1, ~0);
+-
+-	if (dw_mipi_csi2rx_has_reg(csi2, DW_MIPI_CSI2RX_MSK2))
+-		dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_MSK2, ~0);
++	dw_mipi_csi2rx_mask_errors(csi2, ~0, ~0);
+ }
+ 
+ static const struct media_entity_operations dw_mipi_csi2rx_media_ops = {
+@@ -985,6 +1090,10 @@ static int dw_mipi_csi2rx_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(csi2->reset),
+ 				     "failed to get reset\n");
+ 
++	ret = dw_mipi_csi2rx_request_irqs(csi2, pdev);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to request irqs\n");
++
+ 	csi2->formats = formats;
+ 	csi2->formats_num = ARRAY_SIZE(formats);
+ 
+@@ -997,6 +1106,8 @@ static int dw_mipi_csi2rx_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, ret,
+ 				     "failed to initialize MIPI CSI-2 PHY\n");
+ 
++	dw_mipi_csi2rx_debugfs_init(csi2);
++
+ 	ret = dw_mipi_csi2rx_register(csi2);
+ 	if (ret)
+ 		goto err_phy_exit;
+@@ -1004,6 +1115,7 @@ static int dw_mipi_csi2rx_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ err_phy_exit:
++	debugfs_remove_recursive(csi2->debugfs_dir);
+ 	phy_exit(csi2->phy);
+ 
+ 	return ret;
+@@ -1014,6 +1126,7 @@ static void dw_mipi_csi2rx_remove(struct platform_device *pdev)
+ 	struct dw_mipi_csi2rx_device *csi2 = platform_get_drvdata(pdev);
+ 
+ 	dw_mipi_csi2rx_unregister(csi2);
++	debugfs_remove_recursive(csi2->debugfs_dir);
+ 	phy_exit(csi2->phy);
+ }
+ 
+@@ -1041,6 +1154,8 @@ static int dw_mipi_csi2rx_runtime_resume(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	dw_mipi_csi2rx_mask_errors(csi2, ~0, ~0);
++
+ 	return 0;
+ }
  
 -- 
 2.56.0
