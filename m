@@ -1,85 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735617;
-	b=QTx9PmsPhgeIgUgJlq5i/BHHrbcjZ7kqukNDgWcUkx5ZwjtXCqD2raOivP4uJqrFD/z4
-	 XYJjEQ4bSSGZWnLlykPcYMex6qTQB2FOpjFjRhw5bDCq2LjslMQgfquqdBUwS7orfePYf
-	 tUFnKiuatS+GapreE2ZDWqeEJcgFkjRZPkt8xh31DGpZsdQk+XA1FufG2L/sCwMCRaFvJ
-	 DHVHlOUWmpWBUO7Ri42vxvy1iM7KMz7TemDEmXtXyvq+3q5xelUVqdZmuTyNKxAkVcu9M
-	 cAK/Wg0jCshIrSwNdy3P8j6hmMRyM6nm3dxBzo+xDMYypKUdq1uivb3iEnEiMFQsntg==
+	t=1793735896;
+	b=0PjJNIhKZPdDswgemUDsUR/sLUmpwXGtnAnLIFRcxOdkYm6aqN0FJAuzEuJ1G+IroKW9
+	 VS82tk5vqpdXNdYT+BJ2Zj7H08BQl56pL5WDWElB8eTYWIMX7nHvPG07YX2PMX2A4vGJC
+	 5wWIVsxwkPlFPaIPyFQc/vmyGsmuG0GxFQ9kWMoqZz+/x6dyElHdEGVM+gmLYWXtfundp
+	 dawS52/TPUufPIyQYJlCWjXVctarwOaRTFLAPxjoQSqDmaBVYWiZ5zoRw/KiLTD1wgNPt
+	 aMlKogJ4+ildPml2M9Q1aLu7qdhQ2QjSclkC4wUQ3QIi9rVE2rneo1B2PtbFPUnO8gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735617;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=V3TlmWmJ2YZrUh4OcA1KwreSIqG5atldvCO/yL+C7r8=;
-	b=rINwTeUrTTS13Hz4RtuyzO2FYJSei5iMe/91rB8ZVbpu1d7hU50WbJYZWwEVZEbK6SXH
-	 s4gq0mXLGFWr0nnNlC5X+ENzG5picUDgCYTkAPUrpFIlBzssz8VQGW9kdiYbJoSgl602C
-	 QghbJWcqXeWxFgDSrYJqUA31V33ADu7NE4bElBuh8pbVpu16IlCb2ZxH0HFkNDq/PcMWR
-	 1N/WvyoFwNpW+I3bEhgRoqzDF0akoU6OMCW22LrAePdUc3fpi+Zr3XnQVj+9rARhWCZxA
-	 RmmqX9qDPgmoP1d573Pe1ZZVGu8SwpX7GfaQnB7hn8PgxVCjsRHubK1OHV+jpCMO4ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793735896;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=MiR7v8ogyBE3UAdwdGXynAVIr+KTNViJqowNL7iiLKg=;
+	b=pB82gibDYI9yHscN//TA0vj+31rgprvkotvti58log3SpZHhPv8I41JCwn+DzRem5B24
+	 kwuVR0Nw5HAirXJbO0ZDUC+OXVWA8pAjDj46dfkyanMtybCS8dHeBJQNASEgfQB2NoKY6
+	 YJdqZEnmiZsH0BhY1b1d3Pc5OZym/vwkCAlxei/DkUSviTQQmEeetZY3URfWqwYQ00a+Q
+	 3ZDC72SwLIXmDOtXrJhQlwWHsXXJ9X5RdNVqJ320Cb+yZoWx6ivMRa/s5wLALLiblRHkm
+	 OWhJQMvAjLjyzxKe/RF3IhgCLeYGwyNVEP3ffxt+U647sKhnrnhM58KTCzEJRQck7Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XveJbBtg;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KnbFhjVx;
+	arc=none smtp.remote-ip=209.85.219.50
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E43606A33F
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 19:53:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E43606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FCB606A32D
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 19:58:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4FCB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XveJbBtg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793735617; x=1825271617;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3YtjttFALIBSr9m4nsZO4vm3FbQTmGb4u2NX2Hs8Tjo=;
-  b=XveJbBtgWt/R/6xTCV+pnQQHdSLHA4fX1/qctB/ohKlDmZGmge2DQKIJ
-   xjikabZ9j9N6If8mald4KZ61w28R9tjaiNjYxeNk+VVetn1GGygh8sLEg
-   osYpK82bAXGJtXo9dV04+rQrO8rGQWxSWg29rgrQSxVoKaXglFbYwNbzM
-   H3L0WdSrzidecqrXT+7AZiQhnbJFfuAo49Me+Lu+Hte8AmXJP53TVEPCz
-   w9iievKL27rRydP2T86D7TJ3IiSIe18M/Vga6F3w0oPdzYWIPubueVK6o
-   X+XVSuM+OMx5L3/h5pnNvwTlGYODwb0tp0HuGSP917/tP45IyA3/3m6Yj
-   w==;
-X-CSE-ConnectionGUID: CT+JUgQURze9ANJiZ1GfVg==
-X-CSE-MsgGUID: 6KPJwlXSRIyHClwWKO4AzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2487113"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2487113"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 11:53:36 -0800
-X-CSE-ConnectionGUID: FgQ2ecu6SNmOO8A3vp2f0A==
-X-CSE-MsgGUID: ELNai9BSQTWS8KU1WjeA4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6842541"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 11:53:34 -0800
-Date: Tue, 3 Nov 2026 21:53:30 +0200
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH v2 03/12] media: ipu6: Add IPU4P buttress support
-Message-ID: <auo7uhyMyAAunZ0v@ashevche-desk.local>
-References: <dxiseBxpo43MCJmKSifa4B3wCb7LUo8rIpVr0mGqSQ3iY_uJubyeh5YTLLMkcwddOe1imYnPpQdC5Cjy-_8zCU1_rbfqaQF2hnx4YkX2Mzw=@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KnbFhjVx
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91c9cfd8b1bso385896d6.1
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 11:58:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793735895; x=1794340695; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MiR7v8ogyBE3UAdwdGXynAVIr+KTNViJqowNL7iiLKg=;
+        b=KnbFhjVxnKHdStdOB0RR8+yGHHTGAo0xP4Ie6yFcgdPwTJ9TNh9LB48mFnv8Oj5ziV
+         wAFtekhaCs35AWjoXHt4KiMN+GRkbl/FzbuxJhbW1jiz14OtlQ2FFJxkn2yIEXkeKmWD
+         mfGN2dKO3tV375Eh+YW1W5THtchWxdumgyRak1t3tXW2sM5XMOI7oGfWC5b6CeLYfgtr
+         NIt/U4TQOtHalxLg7RcqdoaQVceF3qa92p/1Kxg1RexhoXtncXv2m35A7tx4kibwv5Bz
+         OyMdGs1/0jz3CghYeN/iWzeWD9C4rWu6EEt25rQQzY5LeA6SjFPNWnJIoSruUnvY4C0j
+         uzVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793735895; x=1794340695;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MiR7v8ogyBE3UAdwdGXynAVIr+KTNViJqowNL7iiLKg=;
+        b=VI91E3jc6cy70u8pAO/J85PCae4WHOvwNkrBpiF8tjBmMdw/cXDfbr9ze2M/QEeCyc
+         X4GJAkj3FKB8MezZFpdrvqqmi16fhFil6smiH4m0SYeCPOzJVLgYs1H8MNlXIzO9ZwSj
+         OUz2DpiaTbSgqHA4HeitEn6eOlYzytRELg/1+R6MXlyLZ8CKhAcFlZXeQwa5KZVxFz4j
+         7orrT5IDyRw/BNGpbjxlxFls5WlGqhhMqHYy9QYuEpBOczQgxskJIbSKInVjuedV0/Kj
+         w/hnsbdVKP51xJHse2kjJEmTeeXsz6OwiU5ES92HS4cp3iZbjPeBXcWIAKrHMQEK2+ZW
+         UdqQ==
+X-Gm-Message-State: APuU4Z9qt/3hZGljKzPNgZzvLEQoUmvV8BEl3h7NLOIycFudt2AshjSo
+	CUT7a9eeqMD8G3QdonWIodiKGBB90rjRQDbJkiSUIlPouMoVC6FLcO+BV+dF0Vr1qhY=
+X-Gm-Gg: AYBFou2+zMaEaahIqEV8FpCty88GLedcDsx/F0Uhq4KKrcf1sp+a6Py5L9oi899Wp1U
+	xVykLRbuOois2emmdkM73yVQRpISFLYTJPshm4uXiD34+zbN4JKUG6xfkkGa/3dewFKCZsGCdnN
+	pW2hOJnFv7lI+oZgnj+Cu+iNuXbFAF3VlBGDgUIKGINC1c4X6iydnOU2/2IXp9Vy03WkP4spgC+
+	JDh/mxbm7TZ6u4XmcVbZrpLaM0XhANCEqVLuH0df9yUqkMx5YdMEzdY0DOYiJ4q3+JrVfRdT8Zj
+	ge4x4rKL5hSKp53/UB0MDLsDf/YxwDP9I1ESULl/Cp1ErpQxLJbgmBK9gnBDVfTaW7W8lZDJRGD
+	ZF2b1UJtizQGJyEke2Y8XzN5ug1VF/z7bsqagOsA8fwhVLz87Q66Yxdpn9bmso+KawzKPestCT6
+	yJGjiwJ80d1392IQufFLRQTD7hRauBTDrlfjrHftXYYpEAcqqKFKn1RATrbefRzoItVAiV+kd69
+	10FhVNSEI4BjS9N8as2DVKFK1pSaq/8n9jX3cpAKQ3c+XRiIk5hdF0I9V8nD4cxPJ+d9dtqGx0h
+	A9pTfSV80pijL9FVSdAeaxBlmTi4aq2RuY2r0SK5BtK6vvSZ0hWT6Os=
+X-Received: by 2002:a05:620a:3705:b0:93f:19fe:e6ca with SMTP id af79cd13be357-94421745e9bmr2481703885a.43.1793735894598;
+        Tue, 03 Nov 2026 11:58:14 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d48648e3sm14608285a.35.2026.11.03.11.58.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 11:58:13 -0800 (PST)
+Message-ID: <30feb9f9c859c39a8e5e5fc5aba7fcb0f20cc820.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Tristan Madani <tristmd@gmail.com>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+Date: Tue, 03 Nov 2026 14:58:12 -0500
+In-Reply-To: <20261024205711.4041369-1-tristmd@gmail.com>
+References: <20261024205711.4041369-1-tristmd@gmail.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-m6t4otkvc0ZAfwx/Sa22"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,93 +113,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dxiseBxpo43MCJmKSifa4B3wCb7LUo8rIpVr0mGqSQ3iY_uJubyeh5YTLLMkcwddOe1imYnPpQdC5Cjy-_8zCU1_rbfqaQF2hnx4YkX2Mzw=@proton.me>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Oct 31, 2026 at 12:31:28PM +0000, Ruslan Bay wrote:
-> IPU4P uses different power-state fields and frequency-control layouts
-> from IPU6, and has a different bootloader status register.
-> 
-> Add IPU4P-specific power management and firmware authentication
-> handling.
 
-...
+--=-m6t4otkvc0ZAfwx/Sa22
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> +static int __ipu4p_power(struct device *dev,
-> +			 const struct ipu6_buttress_ctrl *ctrl, bool on)
-> +{
-> +	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
-> +	u32 pwr_sts, val;
-> +	int ret;
+Le samedi 24 octobre 2026 =C3=A0 20:57 +0000, Tristan Madani a =C3=A9crit=
+=C2=A0:
+> From: Tristan Madani <tristan@talencesecurity.com>
+>=20
+> v4l2_m2m_release() frees the m2m_dev struct without cancelling
+> m2m_dev->job_work.  If a device operation schedules work via
+> v4l2_m2m_try_schedule() and the driver tears down the m2m context
+> concurrently, the work fires on freed memory.
 
-> +	if (!on) {
+How did you tested this ?
 
-Use positive conditional.
-
-> +		val = 0;
-> +		pwr_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
-> +	} else {
-
-> +		val = BUTTRESS_FREQ_CTL_START;
-
-Just duplicate and unite under the branch
-
-> +		if (ctrl->subsys_id == IPU_ISYS) {
-> +			val |= FIELD_PREP(IPU4P_BUTTRESS_IS_FREQ_CTL_RATIO_MASK,
-> +					  ctrl->ratio);
-> +			val |= FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK,
-> +					  ctrl->qos_floor);
-
-			val = FIELD_PREP(IPU4P_BUTTRESS_IS_FREQ_CTL_RATIO_MASK,
-					 ctrl->ratio) |
-			      FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK,
-					 ctrl->qos_floor) |
-			      BUTTRESS_FREQ_CTL_START;
-
-> +		} else {
-> +			val |= FIELD_PREP(IPU4P_BUTTRESS_PS_FREQ_CTL_RATIO_MASK,
-> +					  ctrl->ratio);
-> +			val |= IPU4P_BUTTRESS_PS_FREQ_CTL_OVRD;
-
-Ditto.
-
-In this way it's easier to see what exactly is put into val without browsing
-the code.
-
-> +		}
-> +
-> +		pwr_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
-> +	}
-> +
-> +	writel(val, isp->base + ctrl->freq_ctl);
-> +
-> +	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
-> +				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
-> +				 100, BUTTRESS_POWER_TIMEOUT_US);
-> +	if (ret)
-> +		dev_err(&isp->pdev->dev,
-> +			"Change power status timeout with 0x%x\n", val);
-> +
-> +	return ret;
-> +}
-
-...
-
-> int ipu6_buttress_authenticate(struct ipu6_device *isp)
+>=20
+> Add cancel_work_sync() before the kfree in v4l2_m2m_release().
+>=20
+> Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framewo=
+rk for videobuf")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> ---
+>  drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-=
+core/v4l2-mem2mem.c
+> index a65cbb124cfe0..311e2e08d066d 100644
+> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
+> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> @@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
+> =20
+>  void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
 >  {
->  	struct ipu6_buttress *b = &isp->buttress;
->  	struct ipu6_psys_pdata *psys_pdata;
-> +	void __iomem *base;
->  	u32 data, mask, done, fail;
->  	int ret;
+> +	cancel_work_sync(&m2m_dev->job_work);
 
-Reversed xmas tree order.
+Seems quite insufficient if you compare with the actual implementation in
+v4l2_m2m_cancel_job(). Is it really possible to call this without having
+released (closed) all the context first ?
 
--- 
-With Best Regards,
-Andy Shevchenko
+Nicolas
 
+>  	kfree(m2m_dev);
+>  }
+>  EXPORT_SYMBOL_GPL(v4l2_m2m_release);
 
+--=-m6t4otkvc0ZAfwx/Sa22
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauo81AAKCRDZQZRRKWBy
+9DboAQD+g0qmmTqL10aTTYNwr7O71NtKH/nesIag4peMvjYksAEA89aQb5aBypy+
+2Lk0A0j1TWtGJ6Yo5ZLVnzWHxCy2hAE=
+=e7sF
+-----END PGP SIGNATURE-----
+
+--=-m6t4otkvc0ZAfwx/Sa22--
