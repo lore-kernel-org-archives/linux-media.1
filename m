@@ -1,54 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793726324;
-	b=wBKtQSng3bibs6qs5++v83Xs1tuDR7es2WLFCbNUi8JCbXqQ+En7loIixKq715SrzR2n
-	 HtY7N2hBQFw+oGyDJpszHquNqvCIi6w4ZYmP8EoDnzAVxXsCC12xBTkui3Rr4VXBUCl10
-	 4w3FPnCpSe2+eysTf4JClU8YU0MWCthJWIE/KG/zQVY+KOHomQpOpIJiZ2ON8d6QwU3nj
-	 +urgyxVdj5+0gtZlpUQkRuWNpseojfLwAsGDB+YAVWS+cMjCK59HQGQLGrVJ0fyUna1ma
-	 oYTMXaMaTHnpnhwoykYZFVp+tKZEQrJ9IFLkROZeouuNqfm2TuBEB0YKHmV/VcHh14A==
+	t=1793727535;
+	b=IaKUAflR4fpyjDsNoPCrYzzplRfUl63FPwVT9TWsDkjPo5VHBsxP+hzTXBYlJs/yNAFX
+	 Gkh1L38zBVgL1xL/OApWRWyjnUapQvIRvidKGFE+orAbl1LY3Hbr4ffmx5xCo9E4o2iz7
+	 qTp0UDk2yN9vt/6V+L3gfl2iYOBOfeF21p8lcPNVM4Vj4m/qO210qgLkJu2zqUESTAfra
+	 KUPmmnCX6u5QalgrlTp4DqdMBkeK+5KjkD7qqBHvNGW2b7BwCKgg1UBOdOsFYAuXAYbLJ
+	 lMjwPRp+qkGeOoygR7/Ft0mhYEzP7nN2i2v6CNtWpG96qw1Prf0ROn9mKaEjysGWZcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793726324;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=TeA352CE/Q6hbfepH2zVQnAzyCdZWYcC8v7Bk29Y9r4=;
-	b=pRjf72hPxv7h07uGSwNOwWCXbdHOANM2JIh4+7mHekjFIlHOE9Ce/aP3icsnNCIAPk0g
-	 ZC+OnnR4jX9NQEVsERNZPUidAUVbQFvRt7AnXX86Y51Fw2dX+5/i3QdAITVOKjCBdt+mu
-	 6xo7eUcNoI6a9LLFLLz94mEpiKGoF828sXV/NIs9Go35mWtA7Tpy6gx2A24jQFfqUbLJH
-	 fJxMOkA6viMvOAO9oyUoTlx18708b8Z7PSSr9KEcPv3U+/ormUK61aHWmibnkHyN3RKqK
-	 jQQIHQxGFJ0qlx922G2ZADraLbudAocbTeNEBaOGpaZ4DIIGQ+gzFONbLbUhuIjCFug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793727535;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:From:
+	 To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=OkwjQcrA+9UHu8UElL0k3VjIuq9juyNW3QXudrampI4=;
+	b=zmDelGb8I5oCwXAyvqXA+8aEuZUegNs9mKhPcizrwyY1HADds04sLaqxBgFLeChtXjum
+	 Wal3E76zLjXMqZnThEqpdkYnnxOItJ/eIf0oBj2FvwbPoDyhAiWsH2vzcFk1biM/8YU6C
+	 N3jxyFeMGulDDKIB+qVh7QcjHtComF3UTAf/iyE7kjQK66SRoYJ2i9QXwC8vjTc7iB06f
+	 kiKJmZ2PtdhVlLKrhVoNBeKqEOIKykMJOgZ76f/EJzM9g9Zl52EsEpIoQIys9XdrrQ4K0
+	 R4I0mD2j1cmFd2VI0gxchPgzhyusc2eh6Psmopnqwo3Rto6q2KNMA9NpH1gUvPe0tRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=stu.shzu.edu.cn;
-	spf=none smtp.mailfrom=stu.shzu.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DBA1606A32D;
-	Tue,  3 Nov 2026 17:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DBA1606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.shzu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stu.shzu.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.shzu.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=TeA352CE/Q6hbfepH2zVQnAzyCdZWYcC8v
-	7Bk29Y9r4=; b=bJaC1QJn5q0/V0DOZF1qVenAP9xYvFS5D8CK0v3Norkq+RF3ij
-	9M2jZV6XK32v50NsFkGaUUp6O62nEifj6li/PDvO3Ff8woqOzXFBXpCla0+Jn2vy
-	H50b8rRkBmtRp+iv3vXfsF8H70nl0CcLpT481BVbDSV13dG1QiMyToIrU=
-Received: from kernel-build.. (unknown [124.119.50.14])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkD2+fxpF+pqV5MfAQ--.29090S3;
-	Wed, 04 Nov 2026 01:18:39 +0800 (CST)
-From: Wang Xiong <20221010117@stu.shzu.edu.cn>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] media: gspca: konica: skip button release after input disconnect
-Date: Tue,  3 Nov 2026 17:18:31 +0000
-Message-ID: <20261103171833.6136-2-20221010117@stu.shzu.edu.cn>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261103171833.6136-1-20221010117@stu.shzu.edu.cn>
-References: <20261103171833.6136-1-20221010117@stu.shzu.edu.cn>
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D2F606A324
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 17:38:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26D2F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso44862615e9.3
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 09:38:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793727533; x=1794332333;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OkwjQcrA+9UHu8UElL0k3VjIuq9juyNW3QXudrampI4=;
+        b=TGU774FG/ZJB5kMefw8GJRQpGrZRukzBVOGIxshn0VO7bHK2j9a9KBqmsPlFnvLJz/
+         oN+DYtaSaE5EmY6EiUsfDTpBjHYjHmzGQ+Tjc9b5ZaPnoWlzCQ1p5WZS0iniOvI7dWUa
+         D0tlsDD9QJG9adho+JhxUNn9civzFmHRKoozKxVScAqyKn2qrtkhXMX0OH22YYv2JOh8
+         1jnrZciM8kLx2wbMRB32owLqUlsZ2b6tqOvI4OXNigpwi1TCxNx4lO1TxwjHl+kl+TJY
+         fm/c/bFlcpjGZwQAiB/xblikiWFjvMOccZfjOaPJPyfDVX4640ihllf36Zxz9DCaaSuC
+         whHA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrJDEF7Bc/SWEjVM+H43i/x4XeCFurmlrUNm+zw+ekqlNJ0ABa1nj2Ggi0xEavoIECkz84VUlgIb9ZNA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cnge2YNnloloaalB76pl0PJp7UdmU60XAye4FAC+rXPZMr9P5
+	BT5fflPgKtJKXbHmKBvrKN+QZR6UHaSDbjNxNn/MtlChf/coL+Y53DE=
+X-Gm-Gg: AYBFou0pXwmEiGYOpXHsSY9uceMf0Gr1rytYrjIp84p5h4xBuC1cWB1caoAYAV/2drG
+	X1doNQRk0BTxS5h77/azxZA8pAhJk1eHfqWagCM8Y82FR4Jlvg8sXEH8Jnzu5EmSoz09ZvwhwIv
+	d62WtRvZgRu8krlanLXIswPIEvM+JG7qIPzm6fkNPYiHP9/+u2umGaC4qZiPPi6udOOEV8Wzzb+
+	0w2ahp2zrOuy3oIVXeYUqmgFkWxQL/EBLdAYpgI6quQ0oJF72NSyeTldrhZVtVlur5GjleYuV7O
+	l0GH8CGLBo1XanW577tt8IIofH0thwDPz7pTuhuvYFXAZ08K6vAb20XuNnLNvA4Eb6dFNRdWCXD
+	xJmuDP+vpVFnHBpkqjQ545DstSy7LNT9TkERZlvIpirLH3fI0NFXWzY4YCUWVEPCtHS3w/OdJP5
+	VN2Xj9HJCXZUN6xtL2457T2ODIlohhenXI6QGDvFek6Jq3Lr8nrcFqNR4DUsS4cmpZCBuaHEGX/
+	9X8nxlXzNUETSVIuk46Gy+cd2KG91cFrBIq1eL/RsOdOCL/+XbkPNNtiHBQJrb2w7GqzBZemSC9
+	pxy4ogiueVrhY4zHplGI2USmR0UbSGlJtcBVLFU=
+X-Received: by 2002:a05:600c:1f93:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4ac17ffa050mr328285605e9.22.1793727533176;
+        Tue, 03 Nov 2026 09:38:53 -0800 (PST)
+Received: from [127.0.1.1] (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ad414e298bsm173637775e9.2.2026.11.03.09.38.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 09:38:52 -0800 (PST)
+Message-ID: <6aea1c2c.950cae81.3a8700.c477@mx.google.com>
+Date: Tue, 03 Nov 2026 09:38:52 -0800 (PST)
+From: D. Manresa <dmanresa@gmail.com>
+To: sakari.ailus@linux.intel.com, hansg@kernel.org
+Cc: dan.scally@ideasonboard.com, mchehab@kernel.org, brgl@kernel.org,
+ toorandom@gmail.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/2] media: ipu-bridge: survive module unload and reuse
+ the software nodes on rebind
+In-Reply-To: <20261026082549.662885-1-dmanresa@gmail.com>
+References: <20261026082549.662885-1-dmanresa@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,68 +86,20 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkD2+fxpF+pqV5MfAQ--.29090S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr43ury5KF4fCw1fArWUArb_yoW8AF1rpa
-	93Aay8J34fKF1DCa1qvFyUW3W5Ka93Z3y5Jry3K34fZF13uFyDAFZ5ta4jgrW7J393Aw4I
-	vr4DXFZ8CF4qvw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPjb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Jrv_JF4l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY
-	1x0267AKxVWUJVW8JwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv04
-	87Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280
-	aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkIecxEwV
-	AFwVW8MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
-	wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc4
-	0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
-	xVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
-	1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUxGQDUUUU
-	U
-X-CM-SenderInfo: qsqsjiyqrqiiux6v33wovk63oohg3hdfq/1tbiAQUGCWrp+NUZaQAAsV
 
-gspca_disconnect() clears input_dev and unregisters the input device
-after killing the transfer URBs.  An open video file can outlive that
-disconnect, and its final close can still call sd_stopN().
+Please drop 2/2. Bart's driver core fix [1] removes the imbalance that
+2/2 compensates for, so on top of it 2/2 leaks a reference instead of
+saving one. 1/2 is independent of that and still stands on its own.
 
-If the snapshot button was pressed when the device was disconnected,
-sd_stopN() passes the cleared pointer to input_report_key().  An
-archived KASAN report shows a NULL read in input_event() from this
-Konica stop callback.
+For whoever picks this up later: the rebind failure 2/2 was aimed at is
+still there with [1] applied. ipu_bridge_init() only unregisters its
+IPU HID node on its error path, and ipu6_pci_remove() does not tear the
+bridge down, so a PCI remove/rescan leaves the node registered and the
+next probe fails -EEXIST. Measured on a Surface Pro 7+ on 7.3 + [1].
 
-Report the release only while an input device is registered.  Clear
-snapshot_pressed in either case so the state does not survive the
-stopped stream.  This addresses the input event access; the separate
-USB parent lifetime problem is not changed here.
+The machine that produced the IPU6 numbers in this thread leaves my
+hands at the end of the year and I have no other IPU6, so please do
+not wait on me for retests.
 
-Tool disclosure: OpenAI Codex assisted with static analysis, the code
-change and this message.  It was asked to check archived Konica USB
-disconnect reports and prepare a minimal lifecycle fix.
-
-Signed-off-by: Wang Xiong <20221010117@stu.shzu.edu.cn>
----
- drivers/media/usb/gspca/konica.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/konica.c b/drivers/media/usb/gspca/konica.c
-index 53db9a289..017266d73 100644
---- a/drivers/media/usb/gspca/konica.c
-+++ b/drivers/media/usb/gspca/konica.c
-@@ -242,11 +242,11 @@ static void sd_stopN(struct gspca_dev *gspca_dev)
- #if IS_ENABLED(CONFIG_INPUT)
- 	/* Don't keep the button in the pressed state "forever" if it was
- 	   pressed when streaming is stopped */
--	if (sd->snapshot_pressed) {
-+	if (sd->snapshot_pressed && gspca_dev->input_dev) {
- 		input_report_key(gspca_dev->input_dev, KEY_CAMERA, 0);
- 		input_sync(gspca_dev->input_dev);
--		sd->snapshot_pressed = 0;
- 	}
-+	sd->snapshot_pressed = 0;
- #endif
- }
- 
--- 
-2.47.3
-
+[1] https://lore.kernel.org/all/20261023-swnode-dev-notify-balance-v2-0-948d9=
+20a79f6@oss.qualcomm.com/
