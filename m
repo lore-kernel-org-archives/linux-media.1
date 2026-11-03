@@ -1,60 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.99
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793711484;
-	b=t6ogUw9C2jX6VurG7ig16i8ntB4f27mLEfMgftSSl55X3NlyafRsaJz5SZvXyxo2hJg0
-	 NefZFrbFLwa3Ne+vqdzRvUoRHKcXAXaWrXQeUyQddF88HxMMstVlEXV00hN4wfb+mEQdl
-	 MIwjkMJfAX2ELhpcczBO+pcxdDjwQ2ZUjmDlezrXYvtqxeAIA4fdtB8bZmF7OfAn+gtFi
-	 9NMvVkZUv5nTgAsA57FHDumoAiTXnsjUk+jmef9ldgcZP5M0QhDjveDUMRVcF04A1odo6
-	 1qWQf3YPd/3UhIDu7PeCwd33wyC1Ua0N3dw1hj3FLrnZltchHztgKmHKUYBJxMRNg+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793711484;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GOKsbDtDMpLKuY94AjQAd4iI/SAWCxZ3mt5FXi/9IzE=;
-	b=mYBJVq2yjygbC1ncbgcjdvy4tNiat8QDHDRSbnNzHDhAHV74UzjeEaHs9oSHAz99cV4G
-	 3qayXlWGIlJgyw71ojRjNR+6XI6YEgw6EW1KEW4fIZRVQcsECNhxQoHSuEV3sXZImVgpJ
-	 cuQX/vtmYJDH4R/3+/1CQ/95pHHbA0jGG2PoloPPCfDJUqPaehFJZ/sTJ6FHJU/oAOyNW
-	 FmS0irfpzrABQfenGqVMsSfkJ/QXaBNwbKc+dMEcNQ/4b2Np4/AFL8eNF0UtiGSos/70b
-	 lTBcEWjLUo74cwHe3gFirzaB0HsjsoRNoZV1Rc+GZQmJAQJMWQx5lpYs23/7rCdKTBg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=proton.me;
-	spf=pass smtp.mailfrom=proton.me;
-	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=m3dbao5eqjbpjn4c5zvdmpwkue.protonmail2 header.b=QppwjcFV;
-	arc=none smtp.remote-ip=79.135.106.99
-Received: from mail-10699.protonmail.ch (mail-10699.protonmail.ch [79.135.106.99])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793711586;
+	b=AB0CyOhcDtl52JL8BskAie+0UHII/cxh4gMFDJMZhRR+72aFC81fPDRxmxCiIOO7+xnS
+	 MhP5hIuXR73G65A/2yOOhFbpJq7GcNQJ06yf7sG0uVVHxiOBTe60/SwGR1odOR3VHbBTm
+	 pKJPDDUoboFa91OF4loncAhOv2gz0YYHLHuRl6v+6IlJNwomIGZZXq/wavmg8ByqKyZ3V
+	 wXalgrUIX4a44C+keS35rHdUkRIp18WcQOaz1yKkmxHEDJSIQSY7nGtZyJ+xx81LGbZfU
+	 NMYWTclEE4Dx/p0XDiVlge26O1unKcmBD3XN93cISItvfzxJGfiI/3exO1y+UjaXh+g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793711586;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
+	b=Zt94Z3MJnMMct/4H8g9KMdT58gx2beG/qbJABt4mzQXMV7wSHvLFdZCvdmswJ5b/s7q8
+	 GZgwdxEko6JpMWJyvf0a6UXBAbrZwMysUBcFaf67+GCQQwqZ3Ngxj4vcUoUGMcNK2DHSv
+	 2mqBQ5OvJL5naWrdd2cQCcwTdfaY9g2zFG2ym7YQvmmteKwcayUkoN+NQqVF7PMuv7X1g
+	 KlfAjF4Z8QlOBlSzn4C4e5UDRWQTyMVOwHkHEBquldPGbQnl3XE99drb6dlPg5uO0iIHf
+	 GMxSY8Y5iZZIBO++SRSzZGxIG1Zyk7X2CiOgrr+cgWdSRD6MrRabL2tua86FtLTFhBA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=raspberrypi.com;
+	spf=pass smtp.mailfrom=raspberrypi.com;
+	dkim=pass header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=W+TZGI5v;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.172
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E05B606EE8D
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 13:11:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E05B606EE8D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C1C606A32C
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 13:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C1C606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=m3dbao5eqjbpjn4c5zvdmpwkue.protonmail2 header.b=QppwjcFV
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=m3dbao5eqjbpjn4c5zvdmpwkue.protonmail2; t=1793711481;
-	x=1793970681; bh=GOKsbDtDMpLKuY94AjQAd4iI/SAWCxZ3mt5FXi/9IzE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=QppwjcFVQL5uNTXVhWlkpvpjq7trgBbe9+FZRpgLNJjI6/EKRPUCg3+VzXgDyufa6
-	 0qkoAiFiyncBSWnxoGqkCzD+UWaf/9+5Lk9TFaHxq93VAxV+cigCrZG9vMSt2oFT6L
-	 7ekpnDKpRk/RLVSkugBxA2klRjNh+dKo6Ib1qxxf+W2ekqvjc5BTiHECg54CdNqCtl
-	 adklQuOvA3Kat5ddEsE4tw5H71yIUpedUiItiFlfFlnytexLQ98NHXP+PVC8vU/aR8
-	 ImmutLCANzj2OTbGDbtaYsLxwgdLlv7DzbX2WJ8tmDxdx/Jg7g7rW+b2RFmt5t3Mak
-	 6xJhJ5zqqRhww==
-Date: Tue, 03 Nov 2026 13:11:17 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-From: Ruslan Bay <ruslanbey@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, Antti Laakso <antti.laakso@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH v2 06/12] media: ipu6: Add firmware-specific ISYS response dispatch
-Message-ID: <8dzvpQw1Qcj-U8CEIX1-iETX2LanOAo5QmezUspiK4MPmSaHbdzzREKSo_EUw1WX2Tje7SBTeEg0x8bYxn6BeCAAzAiqgSCDMeGPRh7htTc=@proton.me>
-In-Reply-To: <auj6TaUQ3A-2P3D3@kekkonen.localdomain>
-References: <B4M1vUVEJG-bpgpO3B_4JKq2KUnJn56WFxEbA8byH4SjqblOQWrnG-O2WAzY-PnwccdL03yZzjS8VfD1CsZ-FFyQXbrpN3eB1K13Cp_o_Ok=@proton.me> <auj6TaUQ3A-2P3D3@kekkonen.localdomain>
-Feedback-ID: 183606634:user:proton
-X-Pm-Message-ID: 5638183b960f101fd65bb00c97b3eb80e4a6abd4
+	dkim=pass (2048-bit key, unprotected) header.d=raspberrypi.com header.i=@raspberrypi.com header.a=rsa-sha256 header.s=google header.b=W+TZGI5v
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-5366ae57896so49809241cf.3
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 05:13:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793711584; cv=none;
+        d=google.com; s=arc-20260327;
+        b=daQceaZjUXWvYZ//sWsPJ6TpOXTIbdivbjPkCMr+qdFgKXwyzH1dz1mxZYm3TU0bSQ
+         tOMmrHofVCdSRwC3eFZcaa962WmmP2q8PQNri2jICgYFJgYz/GhjZZKhplPXwvqZaHoi
+         DA3yZUQWxKABu0S7smNMz4LZeUexDq8m25sl1x88j2gSL+0r/jCHi83eC6uyu02h/TTe
+         ob/RTFAu114NQMLr0ptizoob784LQ4jtZqQIH1LyZyuyC1cuTLJr47BzjeR2K2nE8aZr
+         BXtoQQfhmH3LeM+hHS7azyUAYCi4+rvF5lUqbjfBvzA09rwXldbCqUyad9Hl2oGdlZGw
+         +MdQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
+        fh=EMwoIPxQhbJESTWXSjb+pfAw7BofnWbZULvadBdTgbU=;
+        b=bb0edPTY5DhMZA09VRyu9R4CLtNL/WIZak6SXfm+Wpcf3JfzBIK6Yck7g47gfgS5dC
+         e4kZqYugBvtRDQ/atrvyValC5BhWQn56C/oasLqoJEi/q+sNCkAqOvMremdH8ib/cJGv
+         Pb1Iq70vt/XwYbSBZ2OtMvkRC+M1/cbLeNX6UxUAEj1QLre/BdSlyi5qAn4F+ErhKEBY
+         hqy/pm7ZnAKGo4y4BnBUwsMjT5cWkC4UHHrY1QVZU9ujLlWzfer613fWEgcA8p774X3g
+         kiMuFGf3R5ams3jQngxp/ZNsvyoDQr414bTiLzpVbyUFLBBHlJ5nzxhz66DbxnycXN9q
+         O85Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1793711584; x=1794316384; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
+        b=W+TZGI5vLZXS0ByWo7DtIogkI6pO7pSJS/mY2Op4FSwOnPnLqmEGO+y6kOFNySoVff
+         6hzsskAUEV6VDlUWfR9bYxw8QZM8cCzHsT6sxhQLK3GtsHrT27uc9P8PNgWo3nRz9Rli
+         HIWb83bZK0sNcMTKdLCrQPGxcHWj1Pu2RhR4sUN5Euqvc4Vd7p5l2lyAaqch0aCoonU0
+         L1eDkE4A2mvK3YBkVnKVeHMNo2LYu6yeSydKtS2NuDXkOlQ6vxusVvHbVq2S50rmMYJc
+         GP27XI1ctLPE51XTb9JsiHKBcofQ3pZ1yk6wDAB+gWti3tIfEFGO5kH2zkgNeehKBaq9
+         Ssyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793711584; x=1794316384;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2icZ8zL6TGgUUS3K4DQzo0gf6WlRsL/AWMLzp7VQAlY=;
+        b=J4jpspAkUVIPSvOO2oqjX2xYi9qYMEicfGKtXku/mGbwZaS+AX5nZLZSLlEh2wAg1u
+         3gUi0dR4l7gkl0Fv90cxEcvNpR7ZNc/Z/w9Gt+eha45yZKkj24azhg6y2KhSojqUQgSg
+         2ZbcLmd+/lqZaWWT8c9d/TWZY1SPtx6V36jfP0TQ2br7UiNQjZjnP1sqAhEs57zw3PJh
+         PslHXQ1NH8dQYQsRr6LseD4BBfXyxlxGtQx9WcGjF3xdlYC9CcbNkuuESTVqKIkeZtQR
+         33QJxyFM6KrzNJGh+bxjubI1MUzhLILIUe51XDpZIZCvJ61w/xV8Vm1TA94PFyFX0Bjo
+         A+qA==
+X-Gm-Message-State: APuU4Z++z5SBKdOZYXCrHzllvmbQ1Jbn/kzpxQEb2cddit5aL4kSzfaC
+	rOdvZg3rRJeUsNzf2yAUy39svZXq68VxKW+fXjeuB2qDIq6vgyf7maGJKa/lVSsl+6PMC2ai0mS
+	0B7vkrZxpBDGIynHR7ZUkEiZMK0v5Bmf+iWJuMarctg==
+X-Gm-Gg: AYBFou3mqP3T6RpNgq09J9HUGibWk3vfAP0TDIp0We/1KKSreOUvJiNpgae7g/lKhwg
+	fyoCBUOO5oZSWv8QIXDhgEtDrLNoVJ4qUq1DP9LS8r7kBEAK36o6A4KGSvmWzrUnqJxUejABzfe
+	symtlOHZrGmc2uwOzSBZCcOcdqVVDQ46xS/XiIS6BdhqzlhYO3G3fRZJYR1WK2RiZBat0QjT7wY
+	46fd65+SAhKXWi1FmkDCEVKCVV/W/NI7NwbooIssmkVox+flnHSnaaOnxy+8M/yX0AOKlf9fUHq
+	HzWZBFMTjIvlnzcKIZyJmc3v+34ro+b+Wf4czLGEJyb3IjoruLJaexQNDnLvkkJm8epP0opJFYA
+	lEl5+B3skXxBESO25P6iMQ91j1i6SUssd4pEMqh8YcQ+IcPPb1PNAi7d+wnFCxRrkRWCcDvBIJO
+	1z588s2d5B+jCPRiU1bERYVWigRsd2pPnRSsCGyKxHplV3KbqfLh6gDw==
+X-Received: by 2002:a05:622a:5a07:b0:536:6902:db00 with SMTP id
+ d75a77b69052e-542b85e857bmr221971131cf.68.1793711584049; Tue, 03 Nov 2026
+ 05:13:04 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,215 +103,106 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20261028112154.855185-1-antoine.pichot@gmail.com>
+ <20261028112154.855185-2-antoine.pichot@gmail.com> <CAPY8ntArdj338V8bcSxrmwKQecy-pAcCXMbkWy=qLckX=hawNQ@mail.gmail.com>
+ <20261030142624.2235132-1-antoine.pichot@gmail.com>
+In-Reply-To: <20261030142624.2235132-1-antoine.pichot@gmail.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 3 Nov 2026 13:12:46 +0000
+X-Gm-Features: AclHuK_U5ble2WiVXLRC50tmd_2p41MtkynfG8ykA1QxyOsNrA5P6PF3v1U1_cE
+Message-ID: <CAPY8ntCtf5ksaZdbuRYxTt5xaKvRcMHH2H_Z3fZxBG_c1m-2tg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/9] media: i2c: ov7251: Use in-range PLL1 dividers for
+ the 319.2 MHz link
+To: Antoine Pichot <antoine.pichot@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	mchehab@kernel.org, hansg@kernel.org, andriy.shevchenko@linux.intel.com, 
+	dan.scally@ideasonboard.com, djrscally@gmail.com, dmanresa@gmail.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Sakari,
+Hi Antoine
 
-On Monday, November 2nd, 2026 at 10:02 PM, Sakari Ailus <sakari.ailus@linux=
-.intel.com> wrote:
+On Fri, 30 Oct 2026 at 14:26, Antoine Pichot <antoine.pichot@gmail.com> wrote:
+>
+> Hi Dave,
+>
+> On Thu, Oct 29, 2026 at 07:06:31PM +0000, Dave Stevenson wrote:
+> > I have a 24MHz module and had tested with it, which you'd acknowledged
+> > in the previous sentence.
+>
+> You are right, sorry. v3 replaces that sentence: the 24 MHz tables are
+> left to a separate change, with your measurement cited.
+>
+> > I've pushed where I am to
+> > https://github.com/6by9/linux/tree/rpi-7.3.y-ov7251. Patch "media:
+> > ov7251: Add support for a 400MHz link freq" fixes up all the 24MHz PLL
+> > settings. I've also done the conversion to use the V4L2 CCI library.
+>
+> Thanks. For v3 I am taking your "Move the common registers into the
+> global init table" as patch 7, under your authorship, in place of my
+> strobe-register patch: the strobe registers now sit in
+> ov7251_global_init_setting, which answers your question on 5/7 of v1.
 
-> Hi Ruslan,
->=20
-> On Sat, Oct 31, 2026 at 12:34:43PM +0000, Ruslan Bay wrote:
-> > Route ISYS response dequeueing through firmware-specific operations
-> > while keeping response handling shared.
-> >
-> > Allow the common handler to skip message-buffer release when required
-> > by the firmware's buffer ownership rules.
-> >
-> > Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
-> > ---
-> >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 55 +++++++++++++--------
-> >  drivers/media/pci/intel/ipu6/ipu6-fw-isys.h |  4 +-
-> >  drivers/media/pci/intel/ipu6/ipu6-isys.h    |  1 +
-> >  3 files changed, 39 insertions(+), 21 deletions(-)
-> >
-> > diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/medi=
-a/pci/intel/ipu6/ipu6-fw-isys.c
-> > index 56bb67869bd..c6066e37ef5 100644
-> > --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> > +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> > @@ -531,20 +531,17 @@ static u32 resp_type_to_index(int type)
-> >  =09return  ARRAY_SIZE(fw_msg) - 1;
-> >  }
-> >
-> > -int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
-> > +void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
-> > +=09=09=09       struct ipu6_fw_isys_resp_info_abi *resp,
-> > +=09=09=09       bool release_msg_buf)
->=20
-> Could the message buffer be released by the caller instead?
->=20
+All good with me.
 
-Thanks, I'll move message-buffer release to the firmware-specific
-caller and remove the flag from the common handler.
+> The move has two side effects on the bus, both in the commit message:
+>
+> - The common registers are written at power-on instead of at every
+>   stream start, so a restart within the runtime PM autosuspend delay
+>   skips them. The datasheet allows it (table 2-8: software standby
+>   keeps the register values).
+> - Register 0x3820 holds 0x40 while the sensor streams, where it held
+>   0x00 before. The flip control writes back the value probe cached,
+>   and probe now caches it after the init table has written 0x40, not
+>   right after the reset when it read 0x00. I poked the old value in
+>   during a lit stream: brightness, picture, orientation and frame
+>   rate did not change.
+>
+> Tested on the Book 2 against v2: the clock, timing, PLL, flip and
+> strobe registers read back while streaming at 30, 60 and 90 fps are
+> identical apart from 0x3820. On a sensor kept powered, a restart and
+> mode switches from 30 to 90, to 60 and back to 30 fps give a correct
+> first frame every time, at 90.45, 60.15 and 30.0 fps.
 
-> >  {
-> >  =09struct ipu6_isys *isys =3D ipu6_bus_get_drvdata(adev);
-> > -=09struct ipu6_fw_isys_resp_info_abi *resp;
-> >  =09struct ipu6_isys_stream *stream;
-> >  =09struct ipu6_isys_csi2 *csi2 =3D NULL;
-> >  =09struct isys_fw_msgs *isys_fw_msg =3D NULL;
-> >  =09u32 index;
-> >  =09u64 ts;
-> >
-> > -=09resp =3D ipu6_fw_isys_get_resp(isys);
-> > -=09if (!resp)
-> > -=09=09return 1;
-> > -
-> >  =09ts =3D (u64)resp->timestamp[1] << 32 | resp->timestamp[0];
-> >
-> >  =09index =3D resp_type_to_index(resp->type);
-> > @@ -580,7 +577,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
-> >  =09}
-> >  =09stream->error =3D resp->error_info.error;
-> >
-> > -=09csi2 =3D ipu6_isys_subdev_to_csi2(stream->asd);
-> > +=09if (stream->asd)
-> > +=09=09csi2 =3D ipu6_isys_subdev_to_csi2(stream->asd);
->=20
-> If stream->asd =3D=3D NULL, what can we do here? Isn't that an error btw.=
-? Can
-> it happen? I'd add at least dev_err_once() or something. But this change
-> still appears to be worth a separate patch.
->=20
+That all sounds good.
+I hadn't noticed that the common registers were written from power on,
+so thanks for checking it. It's generally when there are multiple
+resolutions supported that using the reset at the start of the common
+registers is of most use.
 
-Sorry about that. The check is unnecessary, I'll drop it from the patch.
+> The rest of your branch (400 MHz, CCI, HBLANK and MIN_HTS, the
+> optional enable GPIO, the gain rename, the VBLANK minimum) I leave to
+> you as you offered, to keep v3 to the fixes and the IR camera. I can
+> test them on the Book 2 (19.2 MHz, 319.2 MHz link) when you post them.
 
-> >
-> >  =09switch (resp->type) {
-> >  =09case IPU6_FW_ISYS_RESP_TYPE_STREAM_OPEN_DONE:
-> > @@ -606,16 +604,17 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *ade=
-v)
-> >  =09=09 * firmware only release the capture message until software
-> >  =09=09 * get pin_data_ready event
-> >  =09=09 */
-> > -=09=09if (!resp->buf_id) {
-> > -=09=09=09dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
-> > -=09=09=09=09 resp->stream_handle);
-> > -=09=09=09goto leave;
-> > -=09=09}
-> > -
-> > -=09=09isys_fw_msg =3D container_of((void *)(uintptr_t)resp->buf_id,
-> > -=09=09=09=09=09   struct isys_fw_msgs, dummy);
-> > +=09=09if (release_msg_buf) {
-> > +=09=09=09if (!resp->buf_id) {
-> > +=09=09=09=09dev_warn(&adev->auxdev.dev, "%d: Invalid buf ID\n",
-> > +=09=09=09=09=09 resp->stream_handle);
-> > +=09=09=09=09goto leave;
-> > +=09=09=09}
-> >
-> > -=09=09ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
-> > +=09=09=09isys_fw_msg =3D container_of((void *)(uintptr_t)resp->buf_id,
-> > +=09=09=09=09=09=09   struct isys_fw_msgs, dummy);
-> > +=09=09=09ipu6_put_fw_msg_buf(ipu6_bus_get_drvdata(adev), isys_fw_msg);
-> > +=09=09}
-> >  =09=09if (resp->pin_id < IPU6_ISYS_OUTPUT_PINS &&
-> >  =09=09    stream->output_pins_queue[resp->pin_id])
-> >  =09=09=09ipu6_isys_queue_buf_ready(stream, resp);
-> > @@ -633,8 +632,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
-> >  =09case IPU6_FW_ISYS_RESP_TYPE_STREAM_CAPTURE_DONE:
-> >  =09=09break;
-> >  =09case IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF:
-> > -
-> > -=09=09ipu6_isys_csi2_sof_event_by_stream(stream);
-> > +=09=09if (csi2)
-> > +=09=09=09ipu6_isys_csi2_sof_event_by_stream(stream);
-> >  =09=09stream->seq[stream->seq_index].sequence =3D
-> >  =09=09=09atomic_read(&stream->sequence) - 1;
-> >  =09=09stream->seq[stream->seq_index].timestamp =3D ts;
-> > @@ -646,7 +645,8 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
-> >  =09=09=09% IPU6_ISYS_MAX_PARALLEL_SOF;
-> >  =09=09break;
-> >  =09case IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF:
-> > -=09=09ipu6_isys_csi2_eof_event_by_stream(stream);
-> > +=09=09if (csi2)
-> > +=09=09=09ipu6_isys_csi2_eof_event_by_stream(stream);
-> >  =09=09dev_dbg(&adev->auxdev.dev,
-> >  =09=09=09"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
-> >  =09=09=09resp->stream_handle,
-> > @@ -661,7 +661,21 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev=
-)
-> >  =09}
-> >
-> >  leave:
-> > +=09return;
->=20
-> No point to have a label just for this.
->=20
+That's fine with me. I'll leave doing any further work until your
+patches land, as the CCI change is tiresome to handle conflicts with.
 
-Thanks, I will remove the label.
+> Two things for that:
+>
+> - A data point for the VBLANK minimum. A sweep on the Book 2 in the
+>   30 fps mode (exposure 400, gain 16, 20 frames per value) gives
+>   normal frames down to 41, white frames from 40 to 26 and frames
+>   rolled sideways from 25 to 16, both without CSI-2 errors, CRC
+>   errors from 13 and a stalled receiver at 10. The same boundary as
+>   on your Pi.
 
-> > +}
-> > +
-> > +static int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
-> > +{
-> > +=09struct ipu6_isys *isys =3D ipu6_bus_get_drvdata(adev);
-> > +=09struct ipu6_fw_isys_resp_info_abi *resp;
-> > +
-> > +=09resp =3D ipu6_fw_isys_get_resp(isys);
-> > +=09if (!resp)
-> > +=09=09return 1;
-> > +
-> > +=09ipu6_isys_handle_response(adev, resp, true);
-> >  =09ipu6_fw_isys_put_resp(isys);
-> > +
-> >  =09return 0;
-> >  }
-> >
-> > @@ -742,7 +756,7 @@ irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *a=
-dev)
-> >
-> >  =09=09writel(0, base + IPU6_REG_ISYS_UNISPART_SW_IRQ_REG);
-> >
-> > -=09=09if (!ipu6_isys_isr_one(adev))
-> > +=09=09if (!adev->auxdrv_data->fw_ops->isr_one(adev))
-> >  =09=09=09status_sw =3D IPU6_ISYS_UNISPART_IRQ_SW;
-> >  =09=09else
-> >  =09=09=09status_sw =3D 0;
-> > @@ -958,6 +972,7 @@ static void ipu6_fw_isys_prepare_buf_set(struct isy=
-s_fw_msgs *msg,
-> >  const struct ipu6_fw_isys_ops ipu6_fw_isys_ops =3D {
-> >  =09.init =3D ipu6_fw_isys_init,
-> >  =09.close =3D ipu6_fw_isys_close,
-> > +=09.isr_one =3D ipu6_isys_isr_one,
-> >  =09.cleanup =3D ipu6_fw_isys_cleanup,
-> >  =09.prepare_stream_cfg =3D ipu6_fw_isys_prepare_stream_cfg,
-> >  =09.prepare_buf_set =3D ipu6_fw_isys_prepare_buf_set,
-> > diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/medi=
-a/pci/intel/ipu6/ipu6-fw-isys.h
-> > index 2a679d99596..498cb7f0691 100644
-> > --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-> > +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-> > @@ -562,7 +562,9 @@ struct ipu6_fw_proxy_send_queue_token {
-> >  int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys, unsigned int=
- req_id,
-> >  =09=09=09=09  unsigned int index, unsigned int offset,
-> >  =09=09=09=09  u32 value);
-> > -int ipu6_isys_isr_one(struct ipu6_bus_device *adev);
-> > +void ipu6_isys_handle_response(struct ipu6_bus_device *adev,
-> > +=09=09=09       struct ipu6_fw_isys_resp_info_abi *resp,
-> > +=09=09=09       bool release_msg_buf);
-> >  irqreturn_t ipu6_isys_isr(struct ipu6_bus_device *adev);
-> >
-> >  #endif
-> > diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/p=
-ci/intel/ipu6/ipu6-isys.h
-> > index f4d00f763eb..86b1ab681e3 100644
-> > --- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
-> > +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
-> > @@ -167,6 +167,7 @@ struct isys_fw_msgs {
-> >  struct ipu6_fw_isys_ops {
-> >  =09int (*init)(struct ipu6_isys *isys, unsigned int num_streams);
-> >  =09int (*close)(struct ipu6_isys *isys);
-> > +=09int (*isr_one)(struct ipu6_bus_device *adev);
-> >  =09int (*send_cmd)(struct ipu6_isys *isys,
-> >  =09=09=09const unsigned int stream_handle,
-> >  =09=09=09void *cpu_mapped_buf,
->=20
-> --
-> Kind regards,
->=20
-> Sakari Ailus
-> 
+Great. I was expecting it to be down to timing within the pixel array
+rather than the MIPI configuration, and too few blanking lines results
+in things going awry. I'm happy to hear that it does the same for you.
+
+> - At the tip of the branch (fde519da0503, "media: ov7251: Reduce
+>   OV7251_TIMING_MIN_HTS"), unless I misread it, ov7251_set_vflip()
+>   writes OV7251_TIMING_FORMAT2 (0x3821) rather than 0x3820, probe
+>   stores the 0x3821 read in timing_format1 rather than
+>   timing_format2, and the return value of devm_cci_regmap_init_i2c()
+>   is not checked. In case it helps before you post.
+
+Doh, too much copy/paste. Thanks for picking it up.
+That error is actually in "media: ov7251: Convert to use V4L2 CCI
+library". I've updated my local branch, but not repushed.
+
+  Dave
+
+> Thanks,
+> Antoine
