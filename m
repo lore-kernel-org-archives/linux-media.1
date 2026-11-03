@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701608;
-	b=rkWRM3FJkdz3Dh/TuNKzmNmd7GyGXWYhQ2bn/GcX+Kug14tEdQdmNDrb2jaXjTuhKwPv
-	 U2eDOBOAyPPK7JvKmG5EZPTBkZfxR1F00QNvKvVSHjdRxDNDJrEFEhLqIKkl+UhcZtHkm
-	 cGI+e1XimuzyjMd6xN8e4P4DKOSmcTv+Z68xjXsWR7iaxp86kjwqq4LbgH4pPUGyStUjc
-	 0SJrPd7G3kF+XyuRDpzsRlK8IhMtNq1YAFO14n3QzXdcOD/Ikt6flzhb1FoNY+XXNljlq
-	 7N5x2n1SXcNsjFBQ3085fEAIbWiTXam0h2WDrf8l+pohYi2JjSFz6Yf9LSQ5+bzxnQg==
+	t=1793701622;
+	b=x2uTThTmlxpnuA1hFGrBLe8NSBbvaBdfGMUNRPaLHYQXKgCsMhES1MdN87QUjdbuOIr7
+	 SYE7GHv3X7V1N03J/VMTi8SfPF86edEb0jnuh5Wbave1WW0x9tb9/L/hjoz4zNgscmYmr
+	 XRug+RFqppl0VBZpWuUKxU9SWe8fcY/oMy9BoRHILOmx3qMJFmSE8Rv2XJQDsIFgVnyNe
+	 EpTzvwXb05BwwtoZ+izwOd8SVh2cb/QAx/4OrjP1G7FOqqWPvlnvp59sZXRAq48np42Qd
+	 tdijn+DhZ/OffGEVgRw9CA4EoO6HaRKH3HhKuECFTZ46lmk2GGwp4g5Y6HuvouwwzFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701608;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701622;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=mh8rt69uVGWEk6uWexYeiT3eBD3jutwzkgfGqG2cZjk=;
-	b=Uve3VkuT/vFJa91ZbTnOF7QViVs8T/Uo9nGYP/Ki/8awCCuNsrPgRixl81ZhFzKKeF4K
-	 WV7t3RiLGDT+44NTfDYEqTxjmgwjumboM8HP2axGnAScJCdSlb/Xyji4a9K9xFW4lODCf
-	 zzbT1LkEl+h9tkqKLhyXCXkPl29SU2hdnvUj3tUH2bjJsvQyxfjdUjq1XS1L9Hjw3y+ty
-	 nDKNU46opjt2Xk/QNW8PaTYfecxyO4i8m4s0JWJftaYc1vvI0NtCJgffucy4/3BEquJIb
-	 yVa5/6RQXhjFTtd0mO0tbDev9HPqRkN2gvfC/8tP93YA6OHk1er7XRXpadRUV4nJJkA==
+	bh=Kscpnze2DihFqQD9KJv4DVZc3CpyOiRtlqpKtxfOoeA=;
+	b=IjCCY2Dq74ajfM9dKciiYSyWK2C/H7idEwALjp84s8ZYLwCSNz9yt08o4B/pP4J8zScI
+	 BP9hsBDZlxvKUUY/vRt0mc+gahaLheA6DTn7v1MhKIfWJpaujzG1TWF8jzNd0xdMKq26k
+	 Xs7xSVyb/KdAVPxOPm0AtuLkcSwZVO3d66We4W0Ig+KHOoqCS2I9VI/pFeg6Jj4c07OSZ
+	 YToZc7WMe8f/1/7wxsA5Hb9o+Z57kATBwd4MCpmTojMTWMj8QrFGTrobNdMQ6TspTt7kn
+	 QfDW6dGkEXVfu3PBz/iYEDKYCh7skIS8dscYEy41tgA2fiaAa2nZHQ7unkiJFT9wxVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzT1jeAs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XS1GXljn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBA660711C9;
-	Tue,  3 Nov 2026 10:26:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E6860850A0;
+	Tue,  3 Nov 2026 10:27:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzT1jeAs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7F61F000C1;
-	Tue,  3 Nov 2026 10:26:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XS1GXljn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2FA61F0093A;
+	Tue,  3 Nov 2026 10:27:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701607;
-	bh=mh8rt69uVGWEk6uWexYeiT3eBD3jutwzkgfGqG2cZjk=;
+	s=k20260515; t=1793701622;
+	bh=Kscpnze2DihFqQD9KJv4DVZc3CpyOiRtlqpKtxfOoeA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UzT1jeAsUM7d5M2D7w1HsM2VkaMnz8fOp/0fKEJlQj82DnbVW3NNj7B+QklIUIOTj
-	 bKwThRxnXyQL2BKaSXqeWJPhFIAYmCaAnYzEVEgXChQDLcOhkSgfA3cKakAdhpl6WP
-	 bvRfUtfGsnu2l6FhGr6gE78CxQH/xqofEJqlS1xhI7wNkzatTVUvzl2f9KUDKBQXj8
-	 7ug5wa5kyr9ONeSENr0kbKcHluQ5H5SzIzL2Pz4Qk6uQN2fIlhmsf0RdPbInrRmItH
-	 QrmgfyZC0ox4Ksv+oicTaaV8zMmkFozKNKBFV+kR0qRMy2592fLsgKUqj2h2kHzsar
-	 OlZuUuIm+C9nw==
-Date: Tue, 3 Nov 2026 11:26:45 +0100
+	b=XS1GXljnAKfkvxZdnKyj+KiEIT7Ry0hKN51P6osuui0Nfbax0JhpvujzaC+DzNu3F
+	 EP3E1Jx8Z27pbx1ni92MuctOFf0VWtom7xBbAoMvZhTEBidkSeFaOeMfIHNWB38PTY
+	 dWWlsMDdYNuX3CrI2Ta5ZZM8RWW6FnItzUy9IWYpqd3lXtA+5kkXsXOKucVl8STtR6
+	 ARFwoz794BQvF3RAemMvsEYRDx4hdFU52smlLqIRlTmEH8jOuo4utpdQl+2U1brOUE
+	 KluSSN5cfUNBzgizZc8Kt0Ud9J2OibSlfrEf3WweEqxmmYzdxfXf9zsx9Ju+B9RIrO
+	 srZYTA7r4yTXg==
+Date: Tue, 3 Nov 2026 11:27:00 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
-Subject: Re: [PATCH] media: cx231xx: free the rc device if IR client creation
- fails
-Message-ID: <20261103-meerkat-of-unmatched-unity-fb507a@quoll>
-References: <20261103094623.1289509-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: radio-isa: Unregister v4l2 device on probe failure
+Message-ID: <20261103-aromatic-strategic-mastiff-e62aa3@quoll>
+References: <20261103094618.1289428-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,30 +58,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094623.1289509-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094618.1289428-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:23 +0000, Wentao Liang wrote:
-> cx231xx_ir_init() allocates an rc device and hands it to the
-> ir-kbd-i2c driver through the I2C board info.  It then ignores the
-> return value of i2c_new_client_device().
+On Tue, 03 Nov 2026 09:46:18 +0000, Wentao Liang wrote:
+> radio_isa_common_probe() registers the v4l2 device with
+> v4l2_device_register(), which takes a reference on the parent device. If
+> creating the controls, calling the driver's init callback, setting up the
+> controls or registering the video device fails, the error path frees the
+> control handler, releases the I/O region and frees the card, but never
+> calls v4l2_device_unregister(). The reference on the parent device is
+> leaked, and radio_isa_common_remove() does not run after a failed probe
+> to release it later.
 > 
-> If the client cannot be created, ir-kbd-i2c is never probed and its
-> remove callback, which owns and frees the rc device, never runs.  The
-> allocation is therefore leaked.  In addition, the error pointer is left
-> in dev->ir_i2c_client, which cx231xx_ir_exit() later passes to
-> i2c_unregister_device().
+> Unregister the v4l2 device in the error path before releasing the I/O
+> region.
 > 
-> Check for an error pointer, free the rc device, clear the client pointer
-> and return the error.
-> 
-> Fixes: 141bb0dc2d0a ("[media] cx231xx: Fix i2c support at cx231xx-input")
+> Fixes: 137c579c12bb ("[media] radio-isa: add framework for ISA radio drivers")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/usb/cx231xx/cx231xx-input.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  drivers/media/radio/radio-isa.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
