@@ -1,85 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793732779;
-	b=l/lWCrOZWhEgcIia3dmJsYGpQ7MaxoaB1g7YPT3i5iANlhYYzC+Md9mulWJREwYE7EGo
-	 5oAgaah/hPAzScbiqEWjYJUddfnFrySbI4HhdK9+fQ/MKUjhdLhLlqYSLZ2sMiC+EeU2N
-	 ZvHdS8g+dtGxxP/K+5PKdfZ/j641oxaAqH9H+jtPrX/CwvjutCoToxPPoEEwYa5WsEMlt
-	 Aymt9v9Tjk2PwFBm+GQpwpXsb02F9jmCm0ubZeJaLeoLmtxpNYM7k6xcrVEjEN+oWLq1j
-	 kJNM4I5sQK7WnKsB539MQKp1vBDEmPQBEBGNrVRmbHBNJD4AyQX9sgLoGu88F++joyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793732779;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=mepq/9HOnRKlNWuEdT3dEMebWpW+8umN+H0oHwSQITA=;
-	b=PL8CVxxucdsF3Uxh/MLcef26Ap4w5jYV7ptamtivA3gTBNWF+7HYqnodP26hN7i4CE4e
-	 TQ9WZDe7HXsUEpIZ0qTek7Q5STffRQEq0WqaXZ2CawQxjmT76dhxeb+IeMKnRVnb9BZPh
-	 Vo62UeFEcqgTACxSt9tsn6X29G3xGt3NLlFHALv+qXWyW6tGZBUNvNK1FOXLWxOOG3HEE
-	 4hU4EWNysQxuS0aIMmSSbrWee5vuFqiqyzWNpDfnPPblb8vLsWvyPxyQ56Nk36ibAUyyd
-	 S1ZmPArdlZ9S0UnodmMv6kI4sn3Mwtwbm7uruByNB+Iw52wSGx0pdKPkPvHNEPwwpew==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Uv0lpvOJ;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.63
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793732845;
+	b=RO8BMLWgg4hIbCg293RoI8cUOIxR0hB3Ong02AAzu6gjcyg2RxPiAGPRozZoavMdDUdR
+	 7/8njDTHTPq8A7TZdhtxrXppj2PtH/7bqP8v8xc+Uc5rnKZJ4XkzLbAeZ4UQHz9UpALcj
+	 Ke5/26/TzRfxc148s7ZhwT0oyhr+tkd7I/5H6XUvH0uXhbHw7TJiWbKlgX/tX8CV2aSiI
+	 1V3z0WBjog1FV4fYi89N+T+NWodSTseSWLMwG8VlwUllrs4tPsUwDcG6uOLdmlFUGsWlV
+	 Iq7DjWShU46hVsdoeeuEdGU2m+11eB0/OUzdB7HiwjHUSVvH6GlSlk50thweW8vzxFQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793732845;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=NJJk0yXPX/jYm1loT9nY8Ht5KjY9UAo07LSBBxUi8QA=;
+	b=GfYTbFzNV1FSR5VYa7Xmcdi7IpOGVeTgNbaAk5V7r5DyERLWjsfu7+lI5VCCVRXVclP2
+	 7FZJ0ZLJLvsXD3AM9c8B5/H3ns6l/QiEMePfpnMDnLOPT1X5+I26upZB0sqZM3djHkEPS
+	 S4sCqt+RuXfO+DBXvyIbNIBpKgYMLsSoE6lkMEIpL8RFGv8r9leijJeyVKhvezRccv+AU
+	 I/ZE9CMQfthpIOM8+Hgh1Bb5oNjOYS/WZcgRerFsWOXUPNRoHKffHYEBBLTYwkYaMeQIm
+	 6N7NV57J43aXrGu3xoIkrXsLtcwSETuv49FzV0Xw/adxk51Yl5FQ3fRqckFoSNxIxFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4mHmUoiS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.63
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012063.outbound.protection.outlook.com [52.101.53.63])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E4B606A31B
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 19:06:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8E4B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AF2606A324;
+	Tue,  3 Nov 2026 19:07:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89AF2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Uv0lpvOJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793732778; x=1825268778;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wsOOlq3BWtgLhLDp4qy2mxGvX73ZuxPLLmYBmkqob+Y=;
-  b=Uv0lpvOJu6yU4gLMGkUEo8GMFxibGtN0XO1fu+eYukaal5QcVzxi0LMI
-   +QzcsE3hjWi8SwkYOrt1op+GYbEmktGU8LEpWGiAjE0W66+IGohsUv8kx
-   ktQTXAjBHG4CbVEeEjF61UjPhYssqF5ZaCfYG9Onvl400UircJpESwtbg
-   5dzpN8SKIcTWAX8Yn5JaezdLetbl7ZnoOvilPtHU7UEnMc/32SJUK0JWT
-   5KSwf9syTtUIAzzkKVmjwxPJv7qObgbOe5Tq8zh0q3d6ooxN8Ik/nAI5C
-   4aFZ0/RpjwNryYDCZFOg7bEiT6e7ap4/AvVQGRIv5Z4Cos6+kq7TAF/+M
-   w==;
-X-CSE-ConnectionGUID: 0+bofVUySTyLJIJFsLqwMw==
-X-CSE-MsgGUID: JJEUwXk+Q/i7N5rwdwvTvQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2353018"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2353018"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 11:06:18 -0800
-X-CSE-ConnectionGUID: gr0m0/ztR5SuF1QjCltAEg==
-X-CSE-MsgGUID: lIAM95LoSNWG5QmYhkqQWw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6354602"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.108])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 11:06:16 -0800
-Date: Tue, 3 Nov 2026 21:06:13 +0200
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH v2 10/12] media: ipu6: Add IPU4P CSI PHY driver
-Message-ID: <auowpWOZpBtJxsEA@ashevche-desk.local>
-References: <gFA4p9lGPPkGxkbDnbfblvYfNhZOjJLgwimit_oxwNrKdJ7bITmNPWCXOoNN_KHKD3EqjISrPd4NS4VqchOpYZNHqsiE_0UxIbGTs7rUAyo=@proton.me>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4mHmUoiS
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OV4qfbBB2bzkrbpLeP8t/DEZLPyQmIcQmHfZ7DPEpgu/MGX94hvegqOP3nOSVMptYziHN4vQoe5n8Lz1REZox96JF1grLrDiTfPOVQxBK+R+6EYkY2AsjkbtdC8CysaPxHGEu6ZNBJj0bMWdDpzxSjBvrZ3eLHb1LOOGEK8qu0GRcoDFCirwfoYutcUTosfaOipLWu6tG4YG33Zp3laLMtubatDjs/i/581DFNDbLZwl2Ntv6obFPzEqxFPJBqzJxP/hfDqgVLxWE4Sj20ODYSP6XVZ2xPeCXjcPpEFe+5xdkS27H0XwkvIijdHggy6uZrF4oWcA07TlJn3HfC7UDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NJJk0yXPX/jYm1loT9nY8Ht5KjY9UAo07LSBBxUi8QA=;
+ b=nhjDCUtaARG8pYK5L9nPU8se2HwOgZsWpilU6f03CY7AgbdYSCKsBYDw/Sss/045Kh2D4/3BhNGulaYkTKxO8osA8MMR+n8OnlTpTSfTG6h82CPOKLSGWY9BC1/dEt9JLEATwq2NNBdteqJoD5ohBrGpsyGBwr97XV03h+D4HRc1CpP/CZqAy9uB7qcvTwljJuYEqvlmPKyGqsOnGC/GC2HcXzrVa/G5UjnHwNhtXPDKO1Tv7vxHjH6CCTRHIw4B8iDr30tjD+f5wwoD893iw07xzp5Av7jKb8UXTGPKCC1fwO8RZbal/wLH7vww5ToA8VHWCEbolFtM0/9VjjH0kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NJJk0yXPX/jYm1loT9nY8Ht5KjY9UAo07LSBBxUi8QA=;
+ b=4mHmUoiSRNvOfTm03ttk3Zc7g/B5M0e3ZWi/m+aZ6JIzi2g0aAztrmErri2neW/E5W4mEQ3c6kl5Wyf5tTHhq58ZN9NnIKnv+mAZe/joUavx3dwMnYFERL3e7thVPxbACDNNaaVY9uSf0WS5iGzspdh7mvkNDBXcYQx/PUWFaSc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com (2603:10b6:408:188::15)
+ by CYYPR12MB8871.namprd12.prod.outlook.com (2603:10b6:930:c2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 19:05:20 +0000
+Received: from LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02]) by LV8PR12MB9133.namprd12.prod.outlook.com
+ ([fe80::d29f:9915:159b:b02%4]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
+ 19:05:20 +0000
+Message-ID: <c653b237-c67f-4332-8a3f-364773366dfe@amd.com>
+Date: Tue, 3 Nov 2026 14:05:18 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] media: amd: isp4: hold buf_list_lock while sending
+ buffers at stream start
+To: Seifelden Abdelmonem <saif.elden.hatim@gmail.com>,
+ Nirujogi Pratap <pratap.nirujogi@amd.com>
+Cc: Bin Du <bin.du@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Sultan Alsawaf <sultan@kerneltoast.com>,
+ Benjamin Chan <benjamin.chan@amd.com>, King Li <King.Li@amd.com>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261026182442.229869-1-saif.elden.hatim@gmail.com>
+ <20261026182442.229869-2-saif.elden.hatim@gmail.com>
+ <bef07925-6a2e-48a1-a72a-127b390705d5@amd.com>
+ <20261103150312.52812-1-saif.elden.hatim@gmail.com>
+Content-Language: en-GB
+From: "Nirujogi, Pratap" <pnirujog@amd.com>
+In-Reply-To: <20261103150312.52812-1-saif.elden.hatim@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT3PR01CA0072.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:84::35) To LV8PR12MB9133.namprd12.prod.outlook.com
+ (2603:10b6:408:188::15)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -89,157 +104,136 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <gFA4p9lGPPkGxkbDnbfblvYfNhZOjJLgwimit_oxwNrKdJ7bITmNPWCXOoNN_KHKD3EqjISrPd4NS4VqchOpYZNHqsiE_0UxIbGTs7rUAyo=@proton.me>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9133:EE_|CYYPR12MB8871:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59ac25db-6996-4b45-77f2-08df39dd6774
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|18002099003|261102123227099003|22082099003|56012099006|4143699003|5023799004|261022105027099003|261026121527099003|261021121427099003|261022075727099003|261026140227099003|261009223027099003|261028144727099003|11063799006|260925021911599003|260925022911599003|261021123027099003|260925021311599003;
+X-Microsoft-Antispam-Message-Info:
+	l4G50FsbMktgewU1uFF0yqS6VV6NxPv/9DuIpMM+AMvf/TSDWxYMaBhnU4T05+jliDJT/CwwZOCwIp3XW84GgkKosfdWSo08ooSpdT0SZdorM13r3R5YivNTwVOg+XlxjoIK9jgGfBUC8o83D8EDtYxQ13K5hEVcrOY7pE7x2hNubWjYcNmo/Q4KZGwk1TIJ2fpUm7U9VAQSOrdnAEotMLtFrh+HnxyHlYTBxIXTvZMdm2Z19gihwN1Avc/hpEVH0NHiufZQeMrJHeRXEYFKmb+CkKk5H2ITTOvGr7bGtSgxqqtDIP+/9p9oqh3FtvwcLW5CVrxh+qJC2ep9HFWmq6mlWKpai15CKei+99wMZDLOyzsBjbWKNCGuRQb18l/phzTJm2UGuEqNM8jHWp63P24pbQ3HFjw0P2JkQJ8XMvTI+ojIhwcBjlj8wmMg8xm4V8uuhQQrF6lhFTocMFDYGL2tMYlVbYS34zmcLGom771FQChRpHoLjux29GcWJXuUFCkAiaOUR6//yuJp8H23WZRXBbv11Tln17ouwLnEOY//vz2h+EhGAb09QFnN4sKbbrqMNNUkFzS+5f8Xz5bOHrA/RhXjH3fbQnLLjayiLpDPHsf1Fq0neu3Bj9xvCJvGlbiPp5gN0nmSE61AVHf7stCF/clcP5CHuViFz5JQP00=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9133.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(18002099003)(261102123227099003)(22082099003)(56012099006)(4143699003)(5023799004)(261022105027099003)(261026121527099003)(261021121427099003)(261022075727099003)(261026140227099003)(261009223027099003)(261028144727099003)(11063799006)(260925021911599003)(260925022911599003)(261021123027099003)(260925021311599003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ck9hZGVya2pPRDBDa3hwSU15NXIvZjluWEdoWTZBbFhGR0ZvU3FXS2RUNzlU?=
+ =?utf-8?B?M1dqWE5Mdkl6T0hXdUc1VXZYTkxnZXVCdlVRMWIxalZKTThXQTNTU1p3RmJD?=
+ =?utf-8?B?MnROMzNkalo3NkJHdmRua1l1UDNOeEo5NEE3M1hTMkhVdjZFdno3K0RobmZ5?=
+ =?utf-8?B?YkJoUkFlN2FxRTBiZTJSaE1NYkdmTlVPY2t0QnlIT2JhdUJiUUw5TlRvM1A1?=
+ =?utf-8?B?YkR3N01lajYzTDF4OHBFVUdSb2VLWVNNVFpGT0dFOGE0aEVEeFNDSWV4SFR5?=
+ =?utf-8?B?aEtEc1NUR3J5N3N2YXhCNlFKV0luUlJQYVBvbCtnQmhQcGFaZ2xXenZzY0gv?=
+ =?utf-8?B?R3NBNGxlaUhUZDVmQkd0eVg0MzdQY0JWSHZja25zdkFVYjRmN1krL0NOcjBi?=
+ =?utf-8?B?NVdyWHQvVDFXdUpDWDNsZTFLWGZkeWdHUjVHRVc2YWhzQ010Mk1leFgvTXpy?=
+ =?utf-8?B?RVRKOCtQT0VmWHNjc1ZUQ0NIZzNZWGJmbTZLWGtNb2VxV2xRTFA3Q2Y1ZjFu?=
+ =?utf-8?B?cTNPN3lDWmtYSVo0K2xZeWNpRlIxS1BrSktRMnI2ZC9ReCtNZ0ZMaUY2SFJM?=
+ =?utf-8?B?NEtDNlNjNjduOWUxdmQrZU1wbmtDSENIbVVFVCtTOHZxb1FGenNqYVQ2dzJk?=
+ =?utf-8?B?b0pqNy95WE9CSDJ3WjBNY3BVcHVRLzJibXVLWlczOTVlZExxWkpsNCsyQzEw?=
+ =?utf-8?B?TlBIWjVUbWNMd3dtdTV4cE93N2p5ZGVJNUliZjVHcVVlODc0bis0TlNVU2NT?=
+ =?utf-8?B?WGt0M0w1Qzh5R0lkdVdOc2MySk5zai9MTzRIYWs2NFZQUlNZRHNSdWsySnJ6?=
+ =?utf-8?B?ZEV5R1V5Yk9zSlBjN2RwRC9DVTI0ZUh5cTREOVNoVUVmUnZIL2ZEZzRhcXlB?=
+ =?utf-8?B?SWNyQ0lhOThYUUhMZ3Q1b1E1UC91ZXB4ZUc1U1RNb2E1NnRlKzk1eGw2TkxF?=
+ =?utf-8?B?RVZMZTRSYllsdXhhdGEzajNmLzFYQXRUdWJIVnMzOFp5Q3JKbldIZWxuSm8y?=
+ =?utf-8?B?N1pMWXZXYmxmWkVzcTNoeEZ1R25zaVp6aWtCWWRMUlE1Ty9OeEhRVVVtT0xC?=
+ =?utf-8?B?MkJ4alVJeTlUektzRmkwcmNVUmM4REpvU1JKSjdEVDFZMUswSEdRZURLSDJ0?=
+ =?utf-8?B?K1oydG5BTVY1d3ZMdFprVmxQNGN5M21XN2ppR1JtTXJLRnFKbkhVV2orOWcv?=
+ =?utf-8?B?YWRnOGUxVWFNNnZ6SWJWVitQZTU5c3BXQ1k5RVhTMW5iSG5TWkJrdGJ4VTZG?=
+ =?utf-8?B?RE5tRFMyaGtUL1ZYUlZENVo1NmFWcE5Zc3RWVFBqbUswTkxaWDlWVnFRcEhW?=
+ =?utf-8?B?aTNOMHlPcHlscWtRWjBGdHI0c0JLN2xwLzJhWkxPNzVsU0JuZmlFQlN3cU5D?=
+ =?utf-8?B?dXZKN1FMVXhpcHMrTTlPdlZhLytMWmhlMVpsUWNuQzV0R0kwK2lBejBLVnZn?=
+ =?utf-8?B?WUJFNFd5NHdyWmZlMlg2SjVyZUtob01EekgzWTh4ek5TbWdYOTRCclZSZXFV?=
+ =?utf-8?B?YzBKaWRVdGcwclFzb2krTVo0aDFDWVpwcXZ4T1ZUeDVDQWY1VU9Ud3gvN3Vw?=
+ =?utf-8?B?cndub011Y1ByYjZBQU9reVhTclI5dVl6SEw0ekVmRXE5MEFrb0hwRXFub1VM?=
+ =?utf-8?B?eXVhdWEvT0k4aXJZMElvSi9IbVJQVnF0VnJEL05icUtHTENTM05BOUxmYlVO?=
+ =?utf-8?B?OHgrVGVVd2J4akNGSy84L0Jsc3N6Y1F0dktHVEI4VEVYMm44Y0hNTThtOGZR?=
+ =?utf-8?B?c0RncmVzbWJKU2d3YnFGckJmYkNiVVVGNk5uMHRQMlRZTE5JTzhvZWVVUUwr?=
+ =?utf-8?B?TEhEd3RnaTRRUUdqeGJKRjVzQU1DTnZXeHJEelljZElGWEJieHl5d04xbGI1?=
+ =?utf-8?B?VXdKTWVJK082YXVLWmdxUEhlbmRsTHRqNWFTcHkxUjBMVEZEMFVtbGpFbGxp?=
+ =?utf-8?B?Snd4RU5QYXhndnpvQmFVSHVMRlpsbnp5dUo0ZXlTZ0krUlExUmtoTy8wUUQz?=
+ =?utf-8?B?YVNzalZOV1lvaUQyb2MyVVp3ZE80bzUybEdGOHpSUnJFb2FxTWFPalFycFkv?=
+ =?utf-8?B?M01aTi9Dcy95Z3N5S2pTdzRZTFdLZjdNRy9HR0YvUXUrT1VOcG1FdDBqNEov?=
+ =?utf-8?B?SlpOa1dLZUJaMFo5MkZmQUg0TjcyOFNKTzhFWVFpNnZyNFRNdWt5V29xZXdF?=
+ =?utf-8?B?UVZlc0U2TURQZWdJeUkyZUcyN1E3Y20rR250dXdadTBQenVGT2pYNTF2a09w?=
+ =?utf-8?B?TjB1MEs0bXJiZllBMkx0a0hQbkN2eFU3bGsyNVR5UWc1TU5xSlgwVkNTNXpp?=
+ =?utf-8?B?RmdvNUQxS1RiU2RKQjk4ZTh6UmhZK24xOFBaMzJIOTFiTE5vVXVLdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59ac25db-6996-4b45-77f2-08df39dd6774
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9133.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 19:05:19.9274
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9IX8oTUHezxloSHjVhyE5c98WQXsxIcatj+fQcP8jE0Z10thE0A5wRRZOsoGlIlVwEF24/Cwi5njVUCxV6TgUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8871
 
-On Sat, Oct 31, 2026 at 12:37:45PM +0000, Ruslan Bay wrote:
-> Add IPU4P-specific CSI PHY initialization and power management.
+Hi Seifelden,
+
+On 11/3/2026 10:02 AM, Seifelden Abdelmonem wrote:
+> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
 > 
-> Configure the PHY building blocks during ISYS resume, and handle
-> receiver lane timing and CSI error interrupts when streaming.
+> 
+> Hello Pratap,
+> 
+> On Mon, Nov 2, 2026, Nirujogi, Pratap wrote:
+>> I’m curious about the sequence you are using to reproduce this issue.
+>> Would you mind sharing the details of the sequence and steps involved?
+> 
+> Thanks for the review. Nothing special on the userspace side, just a
+> plain capture; the exact command from that run was:
+> 
+>    timeout 8s v4l2-ctl -d /dev/video0 \
+>        --set-fmt-video=width=1920,height=1080,pixelformat=NV12 \
+>        --stream-mmap=4 --stream-count=30 --stream-to=out.nv12 \
+>        --stream-poll
+> 
+> The oops happened inside VIDIOC_STREAMON, before the first frame
+> reached v4l2-ctl.
+> 
+> What made it hit was an out-of-tree change on my side: the sensor was
+> started from inside isp4sd_ioc_send_img_buf(), right after
+> START_STREAM was queued with the fourth buffer, and that path had about
+> a second of debug sleeps in it. By the time the call returned, the
+> firmware had already completed that buffer and
+> isp4vid_handle_frame_done() had removed it from buf_list, so the walk
+> followed the poisoned next pointer. With the stock driver the window
+> is tiny, which fits it never showing up in your tests.
+> 
+> To make it reproducible without the debug sleeps, I put an msleep(500)
+> after each isp4sd_ioc_send_img_buf() call in the start_streaming loop:
+> 
+>          list_for_each_entry(isp4vid_buf, &isp_vdev->buf_list, list) {
+>                  isp4sd_ioc_send_img_buf(isp_vdev->isp_sdev,
+>                                          &isp4vid_buf->img_buf);
+>                  msleep(500);
+>          }
+> 
+> and ran the same command again (my out-of-tree sensor start was still
+> there, the debug sleeps were not):
+> 
+> - unpatched loop: the same oops (GPF in
+>    isp4if_alloc_buffer_node+0x37, RBX/RSI dead0000000000b8), 500 ms
+>    after the call that queued START_STREAM;
+> - with this patch: the capture completes (30 frames), no oops.
+> 
+> I'd expect the same msleep() to reproduce it on the HP ZBook.
+> 
+Thanks for the detailed explanation, that clarifies why the issue
+hasn't shown up with the stock driver in our testing.
 
-...
+I can reproduce the same oops on the HP ZBook with msleep(500) added
+after each isp4sd_ioc_send_img_buf() call in the start_streaming loop,
+and with this patch applied the capture completes without issues.
 
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/errno.h>
-> +#include <linux/io.h>
-> +#include <linux/types.h>
+Tested-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
+Reviewed-by: Pratap Nirujogi <pratap.nirujogi@amd.com>
 
-> +static void ipu4p_isys_configure_phy_bb(struct ipu6_device *isp,
-> +					const struct ipu4p_phy_bb_config *config)
-> +{
-> +	void __iomem *base = isp->base;
-> +	u32 value;
-> +
-> +	value = readl(base + IPU4P_BUTTRESS_REG_CPHYX_DLL_OVRD(config->bb));
+Thanks,
+Pratap
 
-> +	value &= ~GENMASK(6, 1);
 
-Useless duplication.
-
-> +	value |= FIELD_PREP(GENMASK(6, 1), config->crc) | BIT(0);
-
-You want FIELD_MODIFY().
-
-> +	writel(value, base + IPU4P_BUTTRESS_REG_CPHYX_DLL_OVRD(config->bb));
-> +
-> +	value = readl(base + IPU4P_BUTTRESS_REG_DPHYX_DLL_OVRD(config->bb));
-> +	value &= ~GENMASK(6, 1);
-> +	value |= FIELD_PREP(GENMASK(6, 1), config->drc) | BIT(0);
-
-Ditto.
-
-> +	writel(value, base + IPU4P_BUTTRESS_REG_DPHYX_DLL_OVRD(config->bb));
-> +
-> +	value = config->afe | FIELD_PREP(GENMASK(30, 29), 2);
-> +	writel(value, base + IPU4P_BUTTRESS_REG_BBX_AFE_CONFIG(config->bb));
-> +}
-
-...
-
-> +{
-> +	void __iomem *base = isys->pdata->base;
-> +	u32 offset = ipu4p_isys_csi_irq_ctrl_base(port);
-> +	u32 offset0 = ipu4p_isys_csi_irq_ctrl0_base(port);
-> +	u32 mask = IPU4P_ISYS_CSI_ERROR_MASK;
-> +
-> +	writel(IPU4P_ISYS_CSI_IRQ_ACTIVE,
-> +	       base + offset);
-
-Perfectly a single line.
-
-> +	writel(0, base + offset + IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET);
-> +	writel(0xffffffff, base + offset + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
-> +	writel(IPU4P_ISYS_CSI_IRQ_ACTIVE,
-> +	       base + offset + IPU4P_ISYS_IRQ_MASK_OFFSET);
-> +	writel(IPU4P_ISYS_CSI_IRQ_ACTIVE,
-> +	       base + offset + IPU4P_ISYS_IRQ_ENABLE_OFFSET);
-> +
-> +	writel(mask, base + offset0);
-> +	writel(0, base + offset0 + IPU4P_ISYS_IRQ_LEVEL_NOT_PULSE_OFFSET);
-> +	writel(0xffffffff, base + offset0 + IPU4P_ISYS_IRQ_CLEAR_OFFSET);
-> +	writel(mask, base + offset0 + IPU4P_ISYS_IRQ_MASK_OFFSET);
-> +	writel(mask, base + offset0 + IPU4P_ISYS_IRQ_ENABLE_OFFSET);
-> +}
-
-...
-
-> +/* PHY settings persist until ISYS is power-cycled. */
-> +int ipu4p_isys_phy_set_power(struct ipu6_isys *isys,
-> +			     struct ipu6_isys_csi2_config *cfg,
-> +			     const struct ipu6_isys_csi2_timing *timing,
-> +			     bool on)
-> +{
-> +	struct ipu6_isys_csi2 *csi2;
-> +	void __iomem *base;
-> +	u32 value;
-> +
-> +	if (!cfg || cfg->port >= isys->pdata->ipdata->csi2.nports)
-> +		return -EINVAL;
-> +
-> +	csi2 = &isys->csi2[cfg->port];
-> +	base = csi2->base;
-> +
-> +	if (!on) {
-> +		value = readl(base + IPU4P_CSI2_RX_CONFIG);
-> +		value &= ~(IPU4P_CSI2_RX_CONFIG_DISABLE_BYTE_CLK_GATING |
-> +			   IPU4P_CSI2_RX_CONFIG_RELEASE_LP11);
-> +		writel(value, base + IPU4P_CSI2_RX_CONFIG);
-> +		writel(0, base + IPU4P_CSI2_RX_ENABLE);
-> +
-> +		ipu4p_isys_csi_irq_disable(isys, cfg->port);
-> +
-> +		return 0;
-> +	}
-> +
-> +	if (cfg->nlanes != 1 && cfg->nlanes != 2 && cfg->nlanes != 4)
-> +		return -EINVAL;
-> +
-> +	if (csi2->phy_mode != PHY_MODE_DPHY)
-> +		return -EOPNOTSUPP;
-> +
-> +	if (!timing)
-> +		return -EINVAL;
-> +
-> +	writel(timing->ctermen, base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_CLANE);
-> +	writel(timing->csettle, base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_CLANE);
-> +
-> +	for (unsigned int lane = 0; lane < cfg->nlanes; lane++) {
-> +		writel(timing->dtermen,
-> +		       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(lane));
-> +		writel(timing->dsettle,
-> +		       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_DLANE(lane));
-> +	}
-> +
-> +	value = readl(base + IPU4P_CSI2_RX_CONFIG);
-> +	value |= IPU4P_CSI2_RX_CONFIG_DISABLE_BYTE_CLK_GATING |
-> +		 IPU4P_CSI2_RX_CONFIG_RELEASE_LP11;
-
-The same bit combination is used twice. Perhaps a helper macro?
-
-> +	writel(value, base + IPU4P_CSI2_RX_CONFIG);
-> +
-> +	writel(cfg->nlanes, base + IPU4P_CSI2_RX_NOF_ENABLED_LANES);
-> +	writel(0, base + IPU4P_CSI2_RX_ENABLE);
-> +
-> +	ipu4p_isys_csi_irq_enable(isys, cfg->port);
-> +
-> +	writel(IPU4P_CSI2_RX_ENABLE_ENABLE,
-> +	       base + IPU4P_CSI2_RX_ENABLE);
-
-One line.
-
-> +	return 0;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> Regards,
+> 
+> Seifelden
 
