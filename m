@@ -1,58 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793692482;
-	b=LpHyhqjZVXrqq9rNArpTMj4gjKkVhY+fyALG7fXXKaYfeuiu/ur6pdIcevJ4T6GLH95G
-	 YY7pO21Umqea4rnMNfdt2fjHZUQozfDYhX2lIVoydXHkfMH+HnHi+lCk6fTFr+/oOZ9Sq
-	 x68popb4H7vSJbLmphBTpzg6vMOxMF46Ljo4vJjT2lDfPbJtVwpNsLww45dvekyDKgtHX
-	 mT5CbksFLLrjp1f0MR32TiLKdpDXYdQscoC4Qq8y+JteJ6E6qVUxdQ39NEkpx2JTch9Ne
-	 pSDwVL1rFqzvEc/k4X+Z6FST+sKbEF5IFDw/cbHUJniMniP+EWrMbKQp9GUhvmRZt9A==
+	t=1793693400;
+	b=wISa2h55ZtctWHbkBp9759M48i5WFdixs+9ijNgOxUiWdhy3EMdN2iRcnZH1k32jeR5f
+	 TnZ55t2sd+DQC0wz4jt4WZuhj6zqhORwj3BMWYRz+KKfJN71eFdACUrR2qMUxDKpLlK2B
+	 azFs4W4Kd0pSzxa6EVna3m3aL4FFn1l5xKFXFUV1lqq2pV1mbZgq6M1fKVM7LnwM30oDu
+	 zfTy87uU73WfqzWaAbeusBBcUiPBuUygXTKk97Swfv2TDtMW7DtHQzfPLzNQ+YvT4JvQR
+	 Eb39w/mga9ajTtE7rAKDYi+CsXKXrIsplPZqVj2MOWixmj4FKxVJm9ofr8JUUb1spOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793692482;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=3AVUzai6kUvRwEMdGkNO6IDLtw6WkIQXLNpWFxmybmw=;
-	b=OPQeqAC+63P3VNV1o972EHspb+3JQSFRlevzsE5p9uMphp2N2mzs13fKO+ZZYY5BUis3
-	 IJCdMIfyGxyNmw5wn+Rla3+QoQQ1Mb2dwt3GN0PElS+v3zy/s8l/OawaDX3HLpLYVSjJD
-	 6lElEZO0C1lGzTrSlO4Y8aORn2/AJepsLuVhU8fp2ERH1aOv6URxIAN4YJppQjzn3wWAo
-	 Sg3wTFWmZrcss37vYI5UHdVQWVHosrSW0D+1DLMRgTeIwlSC1aPplygpBWgKj6CCLMI9M
-	 lNPWYoX/jCYHygbVRV7v8xkSkasDR5HPqcVi2YikbV0EtllCdVDfCj/8lZ2+ch4cLQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693400;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Gm-Message-State:X-Gm-Gg:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=odAVPr4oB61PcSl1pou9FnZOPHlwMEJDC6odo0jXzVk=;
+	b=dvHo36RibF3sqLi1+gltuKwBIfnnEbN7d2PsEb7VpyMlUEZmcPz32ijcNLq9zZLac8eF
+	 RHCyqeH4L65eNrJNHUVhL+8B6h0bjunx7wof0JhL3WYP8A6+c0+Lx5CtzjphQeG6MFFIw
+	 pPOh6FpcAj6sX+4rIHRsa2U0L1EgpUU+FZ/9Oloe+sK7SpklVsMjWuIEdR37pU1qOtHyf
+	 D2sQn44UWoLaJuklu5pepkWa6vDt1NUcobn4nv2fLjAVOSa4OABE7UdhWg/Q3jGSngCmf
+	 Uf8XoJp2y1HWL4tfi9/VDJ/amXwT3nBWPC59y52HJXLZqMPoxbmEdrhlSaEczJx5wqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 989CF606A329;
-	Tue,  3 Nov 2026 07:54:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 989CF606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RKxmNm5D;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eaNU2SII;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42CD606EE83
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 08:09:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B42CD606EE83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=RKxmNm5D;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eaNU2SII
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A32BtsI2106680
+	for <linux-media@vger.kernel.org>; Tue, 3 Nov 2026 08:09:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	odAVPr4oB61PcSl1pou9FnZOPHlwMEJDC6odo0jXzVk=; b=RKxmNm5DxoxoiGgT
+	B3sbHr2wgzNR+8A41QXJGvh6YVGXLlmdXeTKcmoPev4Y3tnsICOkZJCO7slNxxF3
+	JGrRG4DIt2DEYS8UVlVYDSiIFua7z/h0x2UUOx0h1xfrrc+NPVsFRS8W6v1+0IlR
+	lqKXuDxIt2RNL2y2wXVUrfcLa4eqQ+GUPJzomtp6gTtKdBKnAMcaW6prXij698An
+	uDuhHYYY3MooCRv8rS+hveYAE1mC8MlPFrN+VQnQAf27WkhU6kYOGb8sKvwY+k44
+	/8Q7yGIJenTqzwwtGETnW7nNc9dsZq7YkXCAzyeS0metK73TtIU4z8i+6XyXtYoU
+	nA/Zhg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq6m996k1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 08:09:58 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f5844cb60so94326285a.0
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 00:09:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=3AVUzai6kUvRwEMdGkNO6IDLtw6WkIQXLN
-	pWFxmybmw=; b=xIZ7SuypzZlMlV2ZQO/8x2Nj3/RmX3pYxH5lGv0+Ex0drpWa9e
-	8WoiIeL1tmA7Q+jFR629zDf5bOBrH3O4zrKuE+jbSYF9LnZKtoaBFa7IlclhAId0
-	YxuCdKfycPSq9b6mKs/cKhiQ6z7igOGoOg2DXBAwLjOJ++/mOQ3xsDIY8=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkB2fP8sk+lqE0IdAQ--.49868S3;
-	Tue, 03 Nov 2026 15:54:26 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Subject: [PATCH v5 1/3] media: dvb-core: fix use-after-free in dvb_remove_device()
-Date: Tue,  3 Nov 2026 15:54:18 +0800
-Message-Id: <20261103075420.7772-2-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261103075420.7772-1-25031212351@stu.xidian.edu.cn>
-References: <20261103075420.7772-1-25031212351@stu.xidian.edu.cn>
+        d=oss.qualcomm.com; s=google; t=1793693398; x=1794298198; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=odAVPr4oB61PcSl1pou9FnZOPHlwMEJDC6odo0jXzVk=;
+        b=eaNU2SIIPi5Irzp+reC0VjAegjXrODPudxL3HmAzr+zBer1LwYTDFYBu1AHx2SlpPw
+         tmZbx1ABzjpfYGQJifjd3trstckm2MBHSAO5FfAdN7iT/h9W/5GYHnTb4tv6nVIUkOJe
+         lhgIpT6ed2RRSxkSX47e1zPl99Yf+OlkC/uTETVx9wdc/99sapDwB4X8QIEwHpUGMQzV
+         JBe94H1hN3+PzrrJvpIzTksLJx2kN11WywnusJzv8XmVxAqnsn7FBNjPOSwowAsEwBCs
+         kBGq5Fk2bMhn4jH183VIIRquxsRKxv3QHablQJxXKCVYdoIgQYv5wh3CIe7jUZhlYcH8
+         pOuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793693398; x=1794298198;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=odAVPr4oB61PcSl1pou9FnZOPHlwMEJDC6odo0jXzVk=;
+        b=wZiaeoZ9rsnH2Q5ujKSO6IsfTH94vOwJBaNU8enPT9hfLKAAb3VSLB9tdIa51lIWY1
+         fccd1cR50TydMkCAf10ekBxKk+ZAWFQ5/dWdD4ywx3H3/gm2X144WAgtFaB5OOrolyZq
+         4P9Ja+pLqRemaO8/JdQV3hoPGMG0ohwQYHiaVRg3WEW23Jsyo7nflJ4RRRkBe/GqZOvq
+         qTVEESYHJ9ThdHmkGk52wU5aJ6W9/gKbs4LckOea0A+mAoCGALL2WvlflpJ0jUtTDN6t
+         VxzFMGDi58+thAAbDd6PwozhW2T20v2vZ1SLNjCNvsQGo6vbMmjX8EN9bik7WKu30VRi
+         ++hw==
+X-Gm-Message-State: APuU4Z/lAdGfqAFU5bTgr2f1cXSccIE+BLfi5mvWlP1bOK+F0dbfnbm6
+	fUBxnIkPlmJ0z78hdGh57sgPfpwOsIESjx039LjOUDssGB7TVC/7BOgGbV5dFM30hHHzNtJsjwZ
+	rZbvRCxrIyV2Pmed+bshxouJwkS8DldGVODxoWNtCbrPMoP9yikpdBu6aLplT/yVODA==
+X-Gm-Gg: AYBFou1Yyd1uDyYsj1R15/PpJfklR36uN/BuxSBd3nyiaErR7p0zeV0RFmf2oir1HsQ
+	LD18XbQYU4hTlJ+xsINSzaO2EuMO6hyAhGrcKh7bksCxUijufwwwO1Nel9/EGcwVMXmTVgnwRRa
+	h4pLZ2JqjN/SxRU/xE2P/abnujI0eruegv3rz7PzAvEWjrs01trIsPB1ZakaMS2YmhubXWgGyY8
+	qKsebO3IM6IB84DBhCyFfS+iw13hHRvJLF2Z5yrRHcasIxzfJI5B/cM27KxzWvm4sW9omepfXVa
+	posYQbdLuHJ4bVdm+8sEHacWPc6UT7qVIDQqZY2qxl6X2au8jUAMMl1ueb+V1pAPtcdOLC6KPkB
+	EdYSEgJ0UX+BSbn72nEakFzCf/JcRHZU2JQJHCfDvS0u9MGDz1zVQovl/iYMzBYesnXCkqpZYHD
+	xSHbc9J0tegsqq
+X-Received: by 2002:a05:620a:4405:b0:93f:31f0:6a77 with SMTP id af79cd13be357-94413358cf9mr2305348085a.11.1793693397716;
+        Tue, 03 Nov 2026 00:09:57 -0800 (PST)
+X-Received: by 2002:a05:620a:4405:b0:93f:31f0:6a77 with SMTP id af79cd13be357-94413358cf9mr2305346385a.11.1793693397285;
+        Tue, 03 Nov 2026 00:09:57 -0800 (PST)
+Received: from [192.168.25.64] ([94.155.124.210])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0a66caefsm259580725e9.5.2026.11.03.00.09.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 00:09:56 -0800 (PST)
+Message-ID: <25952c4c-36db-4361-9ab6-0ca1b1f960bf@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 10:09:54 +0200
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,151 +114,106 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkB2fP8sk+lqE0IdAQ--.49868S3
-X-Coremail-Antispam: 1UD129KBjvJXoW3AF18tr1DGry3tr47AFy7Jrb_yoW7Aw13pF
-	Z8Wa45KrWq9r4xWr4UAF1jvF95Cr1Sy34rCrWSkrn7KF43JFyIyrZ5ta4UJa13A397AFyU
-	XFW7Jr1kW3yUCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmC14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
-	M2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64
-	kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVW8JVWxJwAm
-	72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYx
-	C7MxkF7I0En4kS14v26r126r1DMxkIecxEwVAFwVW8CwCF04k20xvY0x0EwIxGrwCFx2Iq
-	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
-	106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
-	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7
-	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
-	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUF2NNUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUGD2rop1WenQAAs+
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/16] media: v4l2-device: Add struct v4l2_device.flags
+To: Daniel Scally <dan.scally@ideasonboard.com>,
+        Tomasz Figa <tfiga@chromium.org>,
+        Marek Szyprowski
+ <m.szyprowski@samsung.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Dafna Hirschfeld <dafna@fastmail.com>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Heiko Stuebner <heiko@sntech.de>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org
+References: <20261103-rkisp1-suspend-and-resume-v1-0-08f863b6fdc5@ideasonboard.com>
+ <20261103-rkisp1-suspend-and-resume-v1-2-08f863b6fdc5@ideasonboard.com>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <20261103-rkisp1-suspend-and-resume-v1-2-08f863b6fdc5@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: okULEouzipw4my-6fYSqxsaiHDfk9dqk
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDAzMiBTYWx0ZWRfX/E57CXyJI+b5
+ 36XRBNULt1WDXgpc2lok+83w25g/aC3D/u6ZMpFboKfvfOHq2NmaAjTnHuxHz/9wvkp/G7o1+21
+ rFFbuAiu9efyWc1mm6oyXcX/TLAkjAM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAzMiBTYWx0ZWRfX7YXos7G3iAIy
+ eRBWpfAsfsqsJIMfSm/1GHDlqreyU56o4VGfOTjsTj4AHSLdUzNn3F2BXCQJ7oULjU6OIC8neNn
+ 6ticIWWRacLD2qsYCwif6OuBl4A3zUN3m2S/yM3cLz2xji68A9FCFP1Q9yQNnRqCUOLAXjgLM5d
+ TIVfsrrdu0YUtA6DeUc6EFGYBOWJGhpW+U/CoBejyN2BmzZZ6dOnMWBkP9CSr8TDeuvJMUhHA0T
+ 8NzQ5Ht0Lf+EXzmUSG5J/+68JHQaZiGIGdb9ART0naoRUjLBOz5hOt+0kqTUVWUyyz9tog8mKSL
+ p8yx73OJu3edwDwIOIzSR97OOcg6hX2790hxjpTvbO6m104qJuHn/F+ZUHG28axaeq2q7KLVzuq
+ Gx2o6j5lyqAUoNoI98lGcWYDgdj44EX2QMmlIyYAG5R64NWrjZUx8NAf1tZvpv1jmfQT+dCfp4t
+ JRMue40ZRNcYVlIhnMQ==
+X-Authority-Analysis: v=2.4 cv=C7B8WgP+ c=1 sm=1 tr=0 ts=6ae996d6 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=eGCDHFSXubCXFTSSGhjuOA==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=P1BnusSwAAAA:8 a=ZPX-x_UpDkASuRsfLV0A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-ORIG-GUID: okULEouzipw4my-6fYSqxsaiHDfk9dqk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_01,2026-11-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
+ impostorscore=0 phishscore=0 priorityscore=1501 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611030032
 
-dvb_remove_device() clears dvb_minors[] and drops the minors-table
-reference while holding minor_rwsem, but then keeps using "dvbdev":
+Hi Daniel,
 
-	down_write(&minor_rwsem);
-	dvb_minors[dvbdev->minor] = NULL;
-	dvb_device_put(dvbdev);          /* may kfree(dvbdev) */
-	up_write(&minor_rwsem);
+On 11/3/2026 9:40 AM, Daniel Scally wrote:
+> Add a flags field to struct v4l2_device, along with a single flag
+> value that is designed to tell v4l2-async in which direction data
+> flows for this v4l2 device so that it knows how to set up device
+> links between subdevices connected using the async APIs.
+> 
+> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+> ---
+>  include/media/v4l2-device.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/include/media/v4l2-device.h b/include/media/v4l2-device.h
+> index 25f69b1b8db03d077f7570471d5c6910fcafe110..9b17916d63641ba637cf8c37aa925749bd4e2134 100644
+> --- a/include/media/v4l2-device.h
+> +++ b/include/media/v4l2-device.h
+> @@ -15,6 +15,9 @@
+>  
+>  struct v4l2_ctrl_handler;
+>  
+> +/* Set this flag if this V4L2 device is an "output" rather than an "input". */
+> +#define V4L2_DEVICE_FL_IS_OUTPUT			BIT(0)
 
-	dvb_media_device_free(dvbdev);
-	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
-	list_del(&dvbdev->list_head);
+Just for the clarification do we change the meaning of output->capture to input->output?
+I know that output is confusing for everyone including me but somehow i get used to it.
+However to clarify what this means will be helpful :-)
 
-If the put() happens to drop the last reference, the remaining three
-statements are use-after-free.  KASAN reports the read of dvbdev->minor
-inside device_destroy(), and the list_del() then writes list poison
-into the freed object.
+~Gjorgji
 
-The reference accounting itself is fine: dvb_unregister_device()
-pairs the put() with its own one for the caller, and direct callers
-such as dvb_unregister_frontend() and dvb_ca_en50221_release() rely
-on dvb_remove_device() consuming the minors-table reference only.
-The problem is the ordering, so move the put() after the last use of
-the object.  The entry is already gone from dvb_minors[], hence no
-concurrent open() can acquire a new reference in between.
-
-dvb_register_device() has the mirror problem.  It fills in
-dvb_minors[minor] before calling dvb_register_media_device() and
-device_create(), and when one of them fails it frees the object and
-the file operations:
-
-	dvbdev->minor = minor;
-	dvb_minors[minor] = dvb_device_get(dvbdev);
-	up_write(&minor_rwsem);
-	ret = dvb_register_media_device(...);       /* may fail */
-	if (ret) { ...; kfree(dvbdev); }            /* entry stays */
-	clsdev = device_create(...);                /* may fail */
-	if (IS_ERR(clsdev)) { ...; kfree(dvbdev); } /* entry stays */
-
-An open() that arrives in that window follows the array entry, takes
-a reference of its own and runs the file operations of a device whose
-registration has not completed, while the error path frees the object
-under it and the caller frees the private data behind it.  The array
-entry is left behind as well, pointing at freed memory.
-
-The minor number only has to be handed out once, and that is already
-guaranteed by dvbdev_register_lock, which is held for the whole
-function.  Filling in dvb_minors[] is what makes the device reachable,
-so do that last: pick the minor as before, but publish the entry only
-after dvb_register_media_device() and device_create() have succeeded.
-Since nothing can have looked the device up, the error paths keep
-releasing it with a plain kfree(), exactly as they do now, instead of
-unpublishing an entry and dropping references that were never taken.
-
-A devtmpfs or udev open() that arrives between device_create() and the
-publication finds dvb_minors[minor] still empty and gets -ENODEV, the
-same answer it gets for a minor that does not exist yet.  Closing that
-window would require holding minor_rwsem across device_create(), which
-would serialize every DVB open() against the uevent handling of the
-new node; the window is a few instructions wide and userspace retries.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/media/dvb-core/dvbdev.c | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d329502a..ef88a6395442 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -545,7 +545,6 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 	}
- 
- 	dvbdev->minor = minor;
--	dvb_minors[minor] = dvb_device_get(dvbdev);
- 	up_write(&minor_rwsem);
- 	ret = dvb_register_media_device(dvbdev, type, minor, demux_sink_pads);
- 	if (ret) {
-@@ -583,6 +582,18 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
- 		return PTR_ERR(clsdev);
- 	}
- 
-+	/*
-+	 * dvb_minors[] is what dvb_device_open() follows, so fill it in
-+	 * only now that dvb_register_media_device() and device_create()
-+	 * have succeeded: an entry that is reachable while those can still
-+	 * fail would let a concurrent open() take a reference of its own to
-+	 * the object the error paths are about to free, together with the
-+	 * private data behind it.
-+	 */
-+	down_write(&minor_rwsem);
-+	dvb_minors[minor] = dvb_device_get(dvbdev);
-+	up_write(&minor_rwsem);
-+
- 	dprintk("DVB: register adapter%d/%s%d @ minor: %i (0x%02x)\n",
- 		adap->num, dnames[type], id, minor, minor);
- 
-@@ -598,7 +609,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
- 
- 	down_write(&minor_rwsem);
- 	dvb_minors[dvbdev->minor] = NULL;
--	dvb_device_put(dvbdev);
- 	up_write(&minor_rwsem);
- 
- 	dvb_media_device_free(dvbdev);
-@@ -606,6 +616,13 @@ void dvb_remove_device(struct dvb_device *dvbdev)
- 	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
- 
- 	list_del(&dvbdev->list_head);
-+
-+	/*
-+	 * Drop the minors-table reference only after the last use of the
-+	 * object above: should this be the last reference, freeing it any
-+	 * earlier would turn those statements into a use-after-free.
-+	 */
-+	dvb_device_put(dvbdev);
- }
- EXPORT_SYMBOL(dvb_remove_device);
- 
--- 
-2.34.1
+> +
+>  /**
+>   * struct v4l2_device - main struct to for V4L2 device drivers
+>   *
+> @@ -30,6 +33,9 @@ struct v4l2_ctrl_handler;
+>   * @ref: Keep track of the references to this struct.
+>   * @release: Release function that is called when the ref count
+>   *	goes to 0.
+> + * @flags: device flags. Can be:
+> + *   %V4L2_DEVICE_FL_IS_OUTPUT - Set this flag if this V4L2 device is an
+> + *   "output" rather than an "input"
+>   *
+>   * Each instance of a V4L2 device should create the v4l2_device struct,
+>   * either stand-alone or embedded in a larger struct.
+> @@ -54,6 +60,7 @@ struct v4l2_device {
+>  	struct v4l2_prio_state prio;
+>  	struct kref ref;
+>  	void (*release)(struct v4l2_device *v4l2_dev);
+> +	u32 flags;
+>  };
+>  
+>  /**
+> 
 
