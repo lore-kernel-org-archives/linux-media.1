@@ -1,95 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.7
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793701875;
-	b=XjxNaElHNoBCwiSpjW75mQ4nyVSn32zJenK89/S1jisJsFRT1Zo9Uectu0z3AJhOw4Zh
-	 qq2GEmjD+W0/tCZjo0YbJ+eLLkP/rEcBXcHKWUKeYxxuyhl6JGq9YsYg5mjOus854eUuf
-	 Q8dipc0+5N7/hqDC+s56bYn/yyv1GfI0BnGDk6JGE7XcJS6pjRU2TF9NCKFuCMAVc1d40
-	 q3RDiwpZ2VJneC1EKTu4DGS5sf1D0Y+kdk/ppJlrYI6qc644X54R4QT5oKlxc2raUskQ4
-	 0GX8CDihD6fhsY0KOkk/tCPZQUqgugO2h5/bqt76FNjFFEQQ9U1IB1j6CV/w8XsUF2g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701875;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6jbRVEY8lVic6z/S/KWcFb1KfQpVA2gN6dYHkNDnKrg=;
-	b=fJpCywIQ53hXj46htM2f9ZIHLKdB/jBnP34wUGltneS9/SWFO6teR8EbTe8wyhxLSiWl
-	 WaqKm2IGr+Qx+EilMP0STqJx1/6V4H5Py9vsKZe4XWTEp20XQf88zgN+yQ9pZrmh+djIw
-	 3ItT4a4Tc4dojl70fnfazxtfNhCmJwpKuy8keaJuRUj1SZJQDnDppTLewYcHq0DRmDuMj
-	 Zkq7lhi7UvCznLT33DPafvybB/T/MytDKbY0CdgiiHGbyuf6+dNH8KZoBdIBDXjO6hVQd
-	 C6uKJs3Gav/JxQN/Y0NuKTa6s/KnMxpNrvBlXy5sXJg+pwTwxKyOk6ycL9SKpn2OL/A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cherry.de;
-	spf=pass smtp.mailfrom=cherry.de;
-	dkim=pass header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=m93Qiko6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.7
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013007.outbound.protection.outlook.com [52.101.83.7])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793701977;
+	b=Gnigbyat8Hl6xrwRnG981rtAEmkh8ISda9nW4vdFcv6qD8mJ8IbxM6KV3Ts4iAncEpLq
+	 RFQ1pX0wjLI9KmovqjMEf/u5uUDbB6si/UHmNhVSi1oFv9zUkD73wEptBKJF+291j+VXr
+	 bGZ3/nM7oMSWhmlDXOuPyCfHTUO+6k4OB1F9PP4idQpclSSGkiZlj++CMAjR5z3u3WclY
+	 hnzjqJTqPi+BiMDEuYEbPdI78eJNzwOTRlhM1enrspBPXgAQgw67y0udiK8VyqdVfmAOd
+	 s8ZgTpFE2nsmKc7lAtLWxUzxqVURZlAYz66ZWwqVg2HU1LG+4rfSr/GZjAX7Tkqj1cg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701977;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=x+3g/2mTyBRtfyMD++fMo+Sl/wDkNbI3U1BEdaNY8aw=;
+	b=geqafFP5AuRLFm7qZQ4p2PwghbSHhv6pnkiPSOc95FcQZyT3Psec+4dylfcLw/xP4J/2
+	 W1kFfEHaXCDTI8KNBPponiieU2rA/p7MXa/iPHrOfftPi9Po3Fw0fG7bOhRiJItcwN3rp
+	 4PNXyI5TXhpXWKT1q9JhdVStD5EmWdlWH8J93PY7lgClajCj/EsOqMM2nXl1g0+i/EAws
+	 KH2hzdk3NLS6jc/kSLiwVYrKFVOqKeAD3OrUfr5MF2qDmK1WCHcAevIfhrYc5fHEW7MhG
+	 kf86rJ8qvLhE6YNmuHyJALtx9Oi3/gkUprYcY4bYKb1d161OHVarI0Resq1WCerZ3Kw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=INbhnWRK;
+	arc=none smtp.remote-ip=185.70.43.102
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0899606A337
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 10:31:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0899606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cherry.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherry.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C628F606D811
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 10:32:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C628F606D811
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cherry.de header.i=@cherry.de header.a=rsa-sha256 header.s=selector1 header.b=m93Qiko6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VOsnAkerTkFHpjyI9wXXPnB++mtJgNoiJoqi4rux2ZK5PlFf4FGmHZTlkdQykI0D/Zj/anJz/3wpLl2owlNzG5OakY9PVdCrN5NaKPJ6R1J/wTVlRu3jEs/IkwvAKs7qNskDy/Qbr5R5UZ4q03DextbdafWwFvmc6ns7ixWQlDaBegaeKbtROiX3wfJdK60/bBMzfWFQIwhEhUpEwb9QSkvJg05sVTZQ4p3NjgUJk70RIepOHJrO59mZ8v7KnWFyxVpjVy1xxnzPKAmFtFXPYzqHqdvMPWj/76WwGJhOZDItivZOQyb+6VKB0Cq39NCYJRWo03V9Yys0jRfBrsbzaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6jbRVEY8lVic6z/S/KWcFb1KfQpVA2gN6dYHkNDnKrg=;
- b=LBRLErZmw2YQfRC/w3l1UNpzgSj4SDpA6AH7R4CM5T02ZaLrFuAwddfv/pvJ4yyBnN9l94PvxUF0vT/QO36/6x35Mv9LaUHELDltq1bu8RS9pzjKAo0GIbzVRY756xQc8wd8yfnyCHIGnScrKNN7H819c+Spn0TemlgBQAMILQ0roIkIGFFG6kp6UPc3cyBz5Y5XC6YXcYVvrRX92NfnNP84DJVenyMAnxi77QPWJcc3XASrRN9zMmNmRjp6K+zoxQ+P2DcazP0q5yidNVVMG/Lg93zd6lbyDvHUYxl8SkTocZu7v+gaqhwybqC6oMilLys+vtf75wE9jbV8/EBuKw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=cherry.de; dmarc=pass action=none header.from=cherry.de;
- dkim=pass header.d=cherry.de; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cherry.de;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6jbRVEY8lVic6z/S/KWcFb1KfQpVA2gN6dYHkNDnKrg=;
- b=m93Qiko6kSwR5LXyHKRcd4akdPRE0DNDD4LMHNsWNImJW7N105rrXJE19l8heFJWMGwD9/dpNpc5l7tecuIlMTQG6PXQlUnaUzHm6o0i1KpVjXF67fXkYn2GmPx0UPUb0mgeaTUmEygPbVKPAMa72eNtBxgm9aGUGlOzwGnq8bo=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=cherry.de;
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com (2603:10a6:102:4ab::7)
- by PAXPR04MB9253.eurprd04.prod.outlook.com (2603:10a6:102:2bd::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
- 2026 10:31:07 +0000
-Received: from PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d]) by PA3PR04MB11153.eurprd04.prod.outlook.com
- ([fe80::6b02:c0eb:95a4:3c3d%5]) with mapi id 15.21.0569.011; Tue, 3 Nov 2026
- 10:31:07 +0000
-Message-ID: <c9e7fae9-56d8-45c1-8383-73e19c9cf296@cherry.de>
-Date: Tue, 3 Nov 2026 11:31:06 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/5] media: i2c: ov5675: Make room for checking for
- multiple input frequencies
-To: Heiko Stuebner <heiko@sntech.de>, sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
- Heiko Stuebner <heiko.stuebner@cherry.de>
-References: <20261026101646.2450051-1-heiko@sntech.de>
- <20261026101646.2450051-4-heiko@sntech.de>
-Content-Language: en-US
-From: Quentin Schulz <quentin.schulz@cherry.de>
-In-Reply-To: <20261026101646.2450051-4-heiko@sntech.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0185.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a4::18) To PA3PR04MB11153.eurprd04.prod.outlook.com
- (2603:10a6:102:4ab::7)
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=INbhnWRK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1793701974; x=1793961174;
+	bh=x+3g/2mTyBRtfyMD++fMo+Sl/wDkNbI3U1BEdaNY8aw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=INbhnWRKGaTANqlclc4yMocKNvXRaTrblCW0SFw32HUjPzVim1Y564ubR8zNLoog/
+	 B40HaSo5HWvYD1Y3suTS5LhUR+KQBsHR7xJSniUmao9I2D4x06YcWdt2oqHYvUVZaD
+	 W5yXTQ0/HrgBcv2SB3426FggrMlvdwTGEvAQCdi9UVDnncwcQcs0vFiSQoe0JbO3MK
+	 X/u4ARQhjoGogpal2mKlumoJAyw5MZWPLyFuRp7t1UWbqvzwsYWWdfkHyF+UahRUBm
+	 oN1Po1ITNTHei2A3n3waYv34X2i0pPxCu2zhxiAjZzO+XUgNmKo0KQk/pMT7h7AlQZ
+	 JpWNpZVIUysSw==
+Date: Tue, 03 Nov 2026 10:32:51 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, George Neacsu <geocausa@gmail.com>, Hao Yao <hao.yao@intel.com>, Fernando Rimoli <fernandorimoli11@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/4] dt-bindings: media: i2c: st,vd55g1: Add ST VD55G0
+Message-ID: <20261103103235.94397-2-lsa.uz@pm.me>
+In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
+References: <20261103103235.94397-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: a299268a7b54c60b9b1496298ec22c4e134592fe
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,148 +64,92 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA3PR04MB11153:EE_|PAXPR04MB9253:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9145f9fc-d072-41ac-fb38-08df399591ff
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|56012099006|261102123227099003|10067099003|261009223027099003|261021121427099003|261021123027099003|4143699003|11063799006|261026121527099003;
-X-Microsoft-Antispam-Message-Info:
-	guzSRLsTmvPmu68W5JekTIupMupYNSsXJxCZBfdV8TexHoAkk7t3fFXWyHJ7XL8GNu9+lqK5gCZh2oUe6hD5u5momtrWL6c9hqZBJehLH1SCVlkzblwmxRfCjfZmo2yOuJ+zyKuNKx3iP1f1B6W6xbKTkcMVU65jUto9V58mv+1axZ1F4KdXJXAnUEj1tn+KflZkfvdG4MuKrKNxbtJQ/27o2JQvGMx+dg2XbVoOj4xhAxJGz5q1tviZeDmWJkrrIq1TFgXG27U83N6XaSyPMIIZ45tIixBoMDiuzeX2sgqOK6oV1LjmXOy20CNh40W57YWG6JfNaR0W1hvZI6kxQqCSXchKJ7xLVA6WEeAzowA50RnIwxjOuGA/wTH0dUmzcctNNndZ8A0jlum5fWiYbMrIBmrCegWWoc5nBHeit01Tbp/fc2zRd2Ngxz9MBqcv0g9aONy67dB0lcMqyc8IL8+RdDVnIyba8SXb1+DyradvVgH5J8M3H80zttYNZC13okwwwCNWcs/U8uL4UmsjbBrTV5cmE2QJk+pCNl2XjdDRQW3HYhdnnwYUk3cGLWPF2Og5EDbKcE8i9BM/u3Fo3bEtBBcNdWWwPUIXN5yxXrUIXv5FYXz987UooxEnv8LMx/b4JYEQEipRIEeZ0DQqAn2M85y+/kmc4XIbK6s6Eco=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA3PR04MB11153.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(261102123227099003)(10067099003)(261009223027099003)(261021121427099003)(261021123027099003)(4143699003)(11063799006)(261026121527099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UFlXblRod3BwcmhidHZ6elBESUlIQUxvRCtVQVd2NWo4bDdBRCtaZzRIZzdn?=
- =?utf-8?B?bkNOWS9RWi8vbm9iclBmZHZYMFgrUnhpQkh0a2ROTmZidnNjRFRwK3RiTks1?=
- =?utf-8?B?Ry9rMzF3cytuWm0xZnFXRkk2aWR1a3ZEZ0hDUmFLL0hpc2svWSt1ckQrNFN4?=
- =?utf-8?B?dkpZTDhQOHpuM213WXEzYlVCTFE1ME50V2N1Zk1qWGxxSUpXRUVDNkYrQmNy?=
- =?utf-8?B?WUhDV0MvYnk4WXVMOERUVGVrRVY4eFltNVFPYUVIRHduSnVLbmZtOThJOG81?=
- =?utf-8?B?ckljYXlBbkNwV2pueklhUkxuQkMxTFQremJVZW5jS1RGSWszYW5qZ0JGNFow?=
- =?utf-8?B?Q3d6N3dwMzdRclQycS9FeWNXWUgvMlhQdDM4S1lEOVF4QTcvTWpCTkhhUVBJ?=
- =?utf-8?B?RktPSkl5SXc2b2JjQlBNdVRSeHpOWVJqRDNJdnBTajVRd1Y0QzhLenRmdWhs?=
- =?utf-8?B?TFBuT1IrV0FzdGJzM2U4T284V1c3dWZQeUVOWlZ2cWFZdlVUWjRZQ1RvWG1r?=
- =?utf-8?B?T25sM2dEdmZrVWh6YkdMZjRkK1JraHhFVTg5NFJDb21SdmU1VW1pLzY1NWZ2?=
- =?utf-8?B?dzg5Qjg1K05ZT05iSE1pdGtFd1VwejhCajY2a21SZ2l0UHltSm1zbTNzSWs3?=
- =?utf-8?B?Z1RHUTJiZ0k2bm92MkhkdEdCL3dzcVJidHF3QmhWUHlJVm1uOXo0eHVoTU5V?=
- =?utf-8?B?Z0s2VkVHWEV4ckFmbm15THc3NkswU2drbGplR2ZydnhGL3RJMnVvWEdzY2lz?=
- =?utf-8?B?RFJRYkVOMGgxWi9BSUpoSkl5UHUzaEtKUkJ3OEVuVDk3VkxnUThuQ0FIVnc5?=
- =?utf-8?B?eldaa2NkcEFrK0RvT21SRG16dHVoMTZBd3ErWmdDTHQ5blNyVjNpTmpvdkRB?=
- =?utf-8?B?MzgzcXNmVXpucGZlRHhjUEYxNzd5V3pGdi92Q2ZUZThTK2ZZalRrcWZPMlZN?=
- =?utf-8?B?TFNZc2JleDh5MkpZNnQ0OHhiWEZOWFUwcnBsWE9MejBHQlVkY2tFNGphNkpH?=
- =?utf-8?B?Uy9iSzRGamEzalM3Z0NHaGVZK1dwMjFVZ1FkR0k2SytUM1lST0xNanlNZkY3?=
- =?utf-8?B?SSt2RmRxTFZyWDA2d1I5bmpRakxJbUZJd2ZBdUlQRUp0L0NZOHBHbDVyS3JS?=
- =?utf-8?B?elpJajhwQzRCbm81TTdkSlE0Wno3TmJHMGkwTU5SaTNRVnpNYkRnS3VmRFBR?=
- =?utf-8?B?SUZsODgzUVJNSlFzcGJtQkU4dU82eElKZkI0dDRZSnJTWmVtcVFsLzhpNVUx?=
- =?utf-8?B?UFRwejlZK2VXNWhoNHlnTnFtU3FYcU03S2s3L0FaWGUwMGhYQzFTVittRnBY?=
- =?utf-8?B?Q1c2cUM2T3U2aU5XU2xsWG1xa01Fb0k1ZFQyM2tQNFJvVWdQek9MK2RoekZs?=
- =?utf-8?B?K3NlT25QRmVLdURqaWNGVVo1cFdkMWdKdGczcWxQbXpwVk5pYW5kVUZteGtj?=
- =?utf-8?B?WjRVb0F4MURhTll4cjh6WWdqYUkrUVNGMnBrTjlJMXdCdStsSDRUWWRXWGhu?=
- =?utf-8?B?c2wvZVMxbEtuOHdYVjNQMXhCV0JVSzZhUlNpQXlITlZwREVEQWl4R1RKd1Aw?=
- =?utf-8?B?QW1yQUNEV2RVU2R4Yk1FQmx3OTdiUTQ0L25QOW8wNFRUWUpIVTNDMWt1L2pi?=
- =?utf-8?B?QXFtZHc1QlhSRDVvdlFpbWI2VTF1c3JveUp0ckthV3BySXBiVThKVUV5Q1Mx?=
- =?utf-8?B?ZXkyVnNOL3ZpdWNLcVAxVDN3RFQzaUc5elVuVDFFS1U0SGY1cjhHTkhRTEtF?=
- =?utf-8?B?ak92VVNDNHVrMDNCOElmYlpJS2RTTVhqSERVL0lkbVVjeFpXQis5NzJWTlVn?=
- =?utf-8?B?SzN4dzZjV3A0a0JONmFDYW1uZWxGdlpIajU1N2o5RUc0OTFqY1N6NjVGTWg1?=
- =?utf-8?B?UENscVZDaWhnN01WQU5DVlh2bGJ1V25GSlIzNlJKNDlncVZpeWE0Yk9PNjNo?=
- =?utf-8?B?RnBIbGR5Rmtsd2VWTkd2SXpVb0tvd0R6TWRDVXJmR3FlQ1RJWGsyZXcwa25j?=
- =?utf-8?B?N3pHejNzamNnQmlxK0VBTk9IUDhXOGlTWVF4U0w2S0VjUEQ5MGJZM0pvSzl3?=
- =?utf-8?B?cU5Kb2tDVGUwR1RFMXllUzJpckVHaXR4UjE2cVVWS1dwRFhvYVFjcngrUmZx?=
- =?utf-8?B?cnJpdDZTR2lpRU9xQmJCTmtYZXN1NDZYd2FpOTU0VC9weU1YQmFSclFjL0ZT?=
- =?utf-8?B?Nm1OVFlQVCtEYnpkemFNSHkzeEhMSE5LbGpydHZVSWUwOFBJSVdVUm9LZjds?=
- =?utf-8?B?OWJZOUFBUDV5VWlmQUI5T05FRVZFOU9QU3NFVVhQZEI4QUxIcTFmRHkrMHNv?=
- =?utf-8?B?K2QrcmQwaURkalNBaUxFVGozN2hVVkEwWmViM1pSRWFFcHNIZ0cwdz09?=
-X-OriginatorOrg: cherry.de
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9145f9fc-d072-41ac-fb38-08df399591ff
-X-MS-Exchange-CrossTenant-AuthSource: PA3PR04MB11153.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 10:31:07.3913
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 5e0e1b52-21b5-4e7b-83bb-514ec460677e
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dYoe/Gx0UsPwzjDDRZhYVTuflWbI22vgZ5ONTODFjAfm6Id84ata6J6qQqVbRJXyavRYAaibrexKrwN8BeV0iDXITb9IqE3HOezfxMoWgu8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9253
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Heiko,
+The VD55G0 is a monochrome global shutter sensor with a 644x604 active
+array, sending over a single MIPI CSI-2 lane, with the same supplies,
+reset and strobe GPIOs as the VD55G1. Its MIPI rate runs from 750 to
+1200 Mbps (UM2829, 13.1), so its link frequency starts at 375 MHz, and
+its I2C address is set in its NVM rather than fixed.
 
-On 10/26/26 11:16 AM, Heiko Stuebner wrote:
-> From: Heiko Stuebner <heiko.stuebner@cherry.de>
-> 
-> Right now the driver only allows the single 19.2MHz input clock, but we
-> want to support multiple ones in the future. So as a first step, adapt
-> the frequency check to handle a list of supported frequencies.
-> 
-> Signed-off-by: Heiko Stuebner <heiko.stuebner@cherry.de>
-> ---
->   drivers/media/i2c/ov5675.c | 26 +++++++++++++++++++++-----
->   1 file changed, 21 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov5675.c b/drivers/media/i2c/ov5675.c
-> index f6fea59c08ea..1a0ee12912ca 100644
-> --- a/drivers/media/i2c/ov5675.c
-> +++ b/drivers/media/i2c/ov5675.c
-> @@ -21,7 +21,6 @@
->   
->   #define OV5675_LINK_FREQ_450MHZ		450000000ULL
->   #define OV5675_SCLK			90000000LL
-> -#define OV5675_XVCLK_19_2		19200000
->   #define OV5675_DATA_LANES		2
->   #define OV5675_RGB_DEPTH		10
->   
-> @@ -132,6 +131,17 @@ struct ov5675_mode {
->   	const struct ov5675_reg_list reg_list;
->   };
->   
-> +/* Clock rate */
-> +
-> +enum xvclk_rate {
-> +	OV5675_XVCLK_19_2,
-> +	OV5675_NUM_SUPPORTED_RATES
-> +};
-> +
-> +static const unsigned long supported_xvclk_rates[] = {
-> +	[OV5675_XVCLK_19_2] = 19200000,
-> +};
-> +
->   static const struct ov5675_reg mipi_data_rate_900mbps[] = {
->   	{0x0300, 0x04},
->   	{0x0302, 0x8d},
-> @@ -500,6 +510,7 @@ struct ov5675 {
->   	struct media_pad pad;
->   	struct v4l2_ctrl_handler ctrl_handler;
->   	struct clk *xvclk;
-> +	unsigned long xvclk_rate;
+allOf moves below required to carry the if/then for that minimum.
 
-Why this new member in the struct? You don't seem to be using it, in 
-this patch or later.
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+v2: the VD55G0 joins this file instead of a st,vd55g0.yaml of its own,
+with allOf below required for the if/then, as Krzysztof pointed to. It
+is Peter Marshall's 01/11 and 02/11 of his vd55g1 v2 squashed, as
+Krzysztof asked there, with the VD55G0's description added:
+https://lore.kernel.org/all/20260918221705.323510-3-pm@petermarshall.ca/
 
-I think you meant to declare pll_config_index instead
+ .../bindings/media/i2c/st,vd55g1.yaml         | 27 ++++++++++++++++---
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
->   	struct gpio_desc *reset_gpio;
->   	struct regulator_bulk_data supplies[OV5675_NUM_SUPPLIES];
->   
-> @@ -1195,7 +1206,6 @@ static int ov5675_get_hwcfg(struct ov5675 *ov5675)
->   	struct v4l2_fwnode_endpoint bus_cfg = {
->   		.bus_type = V4L2_MBUS_CSI2_DPHY
->   	};
-> -	unsigned long xvclk_rate;
->   	int ret;
->   	unsigned int i, j;
->   
-> @@ -1216,10 +1226,16 @@ static int ov5675_get_hwcfg(struct ov5675 *ov5675)
->   		goto check_hwcfg_error;
->   	}
->   
-> -	xvclk_rate = clk_get_rate(ov5675->xvclk);
-> -	if (xvclk_rate != OV5675_XVCLK_19_2) {
-> +	ov5675->xvclk_rate = clk_get_rate(ov5675->xvclk);
-> +
-> +	for (i = 0; i < ARRAY_SIZE(supported_xvclk_rates); i++) {
-> +		if (ov5675->xvclk_rate == supported_xvclk_rates[i])
+diff --git a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml b/D=
+ocumentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+index dfd87beba06..0245673d105 100644
+--- a/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+@@ -16,21 +16,23 @@ description: |-
+  array size of 804H x 704V. It is programmable through I2C interface. The =
+I2C
+  address is fixed to 0x10.
+=20
++ The VD55G0 is a monochrome global shutter image sensor with an active arr=
+ay
++ size of 644H x 604V, programmable through I2C at an address set in its NV=
+M.
++
+  Image data is sent through MIPI CSI-2, which is configured as only 1 data
+  lane. The sensor provides 4 GPIOS that can be used for external LED signa=
+l
+  (synchronized with sensor integration periods).
+=20
+-allOf:
+-  - $ref: /schemas/media/video-interface-devices.yaml#
+-
+ properties:
+   compatible:
+     enum:
++      - st,vd55g0
+       - st,vd55g1
+       - st,vd55g4
+       - st,vd65g4
+     description:
+-      VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a color o=
+ne.
++      VD55G0, VD55G1 and VD55G4 are monochrome variants, while VD65G4 is a
++      color one.
+=20
+   reg:
+     maxItems: 1
+@@ -101,6 +103,23 @@ required:
+   - reset-gpios
+   - port
+=20
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,vd55g0
++    then:
++      properties:
++        port:
++          properties:
++            endpoint:
++              properties:
++                link-frequencies:
++                  items:
++                    minimum: 375000000
++
+ unevaluatedProperties: false
+=20
+ examples:
+--=20
+2.54.0
 
-and set it here, like in patch 4?
 
-Cheers,
-Quentin
