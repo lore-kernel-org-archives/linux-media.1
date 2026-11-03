@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701605;
-	b=ycN6MjWLZ16Hzr+aBG2Cro1GZXZOSg7sw8fxj/LUWppLsYec7E2xYNRiRbG00ACMewII
-	 JL0yUSgntMfPVO182JuaWAiMeA9Ojj7DPeY3t8mAqULQCHD8qqpoTNpNzwzSMDtZ27YJh
-	 JQ0AMSF3iOrjW+OsJOX+eojYwgE2hOowcaLrVeJrbYqr7HMZgF83LmmZgkqEa1Lw0NBTG
-	 Hc570EiERiMnfhaqFhZ+Ft3WD3uyzlS53jOkNS8oUPqvlsdl6qB9yKlRQ4On+SROuzJem
-	 jpqTAYZu6X4SEWTo+92kj2xcIdfjoG9kit5hZXExXqcU2ww5Zk237pCZqot+/ESm6wA==
+	t=1793701616;
+	b=EWRVqzYmhX4doLqyrQjUp+h0hZGCnCYGvFMQA4kOxGTOw6l+4llUXw7TREU5HAneBdnx
+	 f5hesDHpeZlHczM3f1yfLWYdntPAQDIHBXL6kE0khD23I9PpUI3T4/QsqmtQqQbOCejre
+	 vnLvDpQDC/VI9yeqy32COTByiHvFJzOpC48434kudEzTFXr66MFszhKAPx/SenRhcSSpz
+	 jgREy4rMecIurpJGKygMHLjX8Or7iBpwWy0+Xoee5pxBwYok49FIPaUj45eJbbYqUzoci
+	 unHpCy/8TD7QnLiIBE8RTyKRrfjonhfDx3+l4Rix/38DK37BU9ae8MjCNI1qO7m+Hog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701605;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701616;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=VmxLDo/TdeVfYhwrkZhELn8JbsYNyhoY5uMZbWl0UJU=;
-	b=qxSS018f+l9dcvtW3EiOpKNmOjduggrgD+lXHRl0juAo0itgRZNMbRCqjrpZ/dJRFF7h
-	 qtBsOXPKNmQED45ubHCwi7IXjbChD2HD8AVHLj7sKsq+/jcmZmc6JcTSZ4r829EzyyeFA
-	 HH0496Q7OaVsSz+8wHQRR8z2yAU1WGk6daXe92MkeeEviKk92W2+95tZzq9vSMA+wzqSs
-	 1rBkxZTpwbjydb11g5R4JF51ocbp6OwTNTyql84jf8e7OF1ewYnz6EPd0csoU+umwagY4
-	 BKWRAZ/HY5ool4eAo63bhnXIPpRLhniCecfUhTfB976oFhKo72LjPi5ukAWw1t3755Q==
+	bh=vF8xG9Wg0/iR0LYUbbIhgD9MY7+21+7qiT7sQpnMXI8=;
+	b=d+cUViFGs93QHMRwWLIkKWmr5gjA523S0plBw23dBJstdW4X9qZFwQhxSIpmMyF1RYim
+	 qdXKIWGtGx8GcZ8qiC/TzbdG+VzZBRlVUX9X15SL9whCVJAvarMKhZxuZ/j+eR5m9iNiP
+	 6VTriROCJ9fLznG55vv8f2ncql6G9c4oUjjk3Lmy7DXnyQGsr2G+SLjoTwfVydFruJCf6
+	 rN8osM6axMIqsJ1QxRC6nRMrsIKS2gPw6IsP264E7NiX58c/3ziHzKjM2ovg4A+c0Wrwl
+	 3ZSbggY7Vz/FoMzFM0DzhknR3c6FJsJHqZW4Xpoq9tge6bjtyOK9UWwIuZ8IlNngETA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1unw18q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgGIuc3i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7075606BF93;
-	Tue,  3 Nov 2026 10:26:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCA1606C580;
+	Tue,  3 Nov 2026 10:26:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1unw18q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDD1D1F000C1;
-	Tue,  3 Nov 2026 10:26:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AgGIuc3i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B98A1F00919;
+	Tue,  3 Nov 2026 10:26:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701604;
-	bh=VmxLDo/TdeVfYhwrkZhELn8JbsYNyhoY5uMZbWl0UJU=;
+	s=k20260515; t=1793701616;
+	bh=vF8xG9Wg0/iR0LYUbbIhgD9MY7+21+7qiT7sQpnMXI8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=P1unw18qbzpVpfhRt9DNcaH68tl2s/dZgfDRh2EYDPuBnyt6R4+FvZeBmZ0HtnlfS
-	 zpfnYtjmHywf8ZEQecRratEo31K+jAKoq+/qICv7VhEAWxkDLXQxgUWkEgWkm+Y3wh
-	 v1bsOseS7FpaCpivKHdhoGeMUrzKrDROI0ENsMmnmYx4nIlijYb1VDbu0ZZbJO1Qeo
-	 NbcZ588Vvj3PagiUwvlSmbadlXQqbho3V5isW/Xt5NE+ec0ztcNDUErL6t7L9VWNDz
-	 xqca4Z5lTIDJpvpAVN/mKcHydJ5NRa6+idVWEjn6RLu9cjZt7WNzZ5RzI0JxRrqXsT
-	 sTk0yjTbbDlXA==
-Date: Tue, 3 Nov 2026 11:26:42 +0100
+	b=AgGIuc3i/+pEZMq8Ko91aA5O3SOhC42Fu/wTLmdPjmQWZKruH/btztx6oYySW/I1E
+	 dPqizGAIInK3ymc/fa7u93E38cbR93+Z6Ar7k1Yas2EE44BW46sESs8AzjtvodKU7p
+	 TfBqBXMjj12KDWMnYZQF8IgIQAnj3BGQPUZCnwAweYmWpwd+FNHC9DsiS3Ou4Q5dms
+	 AayCEZnMuqJbcWWmhEB+y6MJok5KTbnFfuilA96pwxF0bDaYOyibDJdyvfMnq/TCM2
+	 v5CLb0WmpgrufPTbYiGDLWP2/gdDh3lb1BTzDZw+CNp9KqkYZ2VOg9+t75Eua3PP7I
+	 GdKWemYdsJeZQ==
+Date: Tue, 3 Nov 2026 11:26:54 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: stable@vger.kernel.org, linux-media@vger.kernel.org, 
-	Michael Krufky <mkrufky@linuxtv.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: cxusb: fix URB leak on start-streaming error
-Message-ID: <20261103-heavy-tangible-axolotl-a26ea7@quoll>
-References: <20261103094624.1289527-1-vulab@iscas.ac.cn>
+Cc: Peter Griffin <peter.griffin@linaro.org>, linux-media@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: exynos4-is: Free control handler if fimc-lite
+ subdev init fails
+Message-ID: <20261103-macho-determined-woodlouse-b1ba77@quoll>
+References: <20261103094617.1289377-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,29 +61,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094624.1289527-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094617.1289377-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:24 +0000, Wentao Liang wrote:
-> When the allocation of a stream buffer fails while fewer than two URBs
-> have been allocated, the error path jumps to ret_freeab.  That label
-> only releases the shared auxiliary buffer, so the URBs and their
-> transfer buffers already stored in cxdev->streamurbs[] are left behind.
+On Tue, 03 Nov 2026 09:46:17 +0000, Wentao Liang wrote:
+> fimc_lite_create_capture_subdev() initializes fimc->ctrl_handler and adds
+> a control to it. If the control cannot be created, handler->error is set
+> and the function returns after cleaning up the media entity only. The
+> control handler still owns the memory allocated for its buckets and for
+> any control created before the failure, and fimc_lite_probe() does not
+> call fimc_lite_unregister_capture_subdev() on this error, so that memory
+> is leaked.
 > 
-> At least one URB can be allocated on this path, and vb2 does not call
-> stop_streaming after start_streaming fails, so nothing else releases
-> them.
+> Free the control handler before returning the error.
 > 
-> Jump to ret_freeu instead, which frees the URBs before releasing the
-> auxiliary buffer.  It is also safe when no URB has been allocated yet.
-> 
-> Fixes: e478d4054054 ("media: cxusb: add analog mode support for Medion MD95700")
+> Fixes: 4af813108b88 ("[media] s5p-fimc: Add support for Exynos4x12 FIMC-LITE")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/usb/dvb-usb/cxusb-analog.c | 4 +---
->  1 file changed, 1 insertion(+), 3 deletions(-)
+>  drivers/media/platform/samsung/exynos4-is/fimc-lite.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
