@@ -1,54 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691643;
-	b=m2w17Fj2Ia+USMNqvsNqXBdybUfDtAR1PNlDrx6V3R1TqnGA8Gf6DjsaahA6csin9b8x
-	 RWByYunsazwjhuxm9fdbEuFZKyiXoV1H971qZXTfH59KgJaa57DxZprUwYfeD2Sq7KpTE
-	 JnHudUW8F3b5H9fR28yc730e6sBnrXpF6O85eWYmORPfyzc09RY6F7HMPPajIhPov6dul
-	 w+pIUfZk7+KEExWdA0pksFPwrmAYLKOlvLzVjC/IYx6isLVB9ayOGN6zw2qjkSYVS1+nb
-	 EnfPZN9Sh2EaXhwN/hxRI1sdbhRvw88bzwBz+rjwPiRA6cER5Ot/Ya9InTUE2XagdXg==
+	t=1793691671;
+	b=fTV/gtttVnZmzJ0yT04cJUoWG86uvt/B5pT943ormRc4bdHEJhhvbX3F5KzEuno6q+kS
+	 LX0/ERFNEtHuJezMl1Hi0uxz0Pb387NfNxZyB6btXeJhEQRq7XW96ix2rPEOepIdXD/Q9
+	 /gzTyidJkAdIKV1h7Tuz99OTaV/avF7WdSO3Lhebz0xa1QYCcBDWd5muxcKfB18Sas+QN
+	 XKCiEe2FMYBe3G7yxwDCvRTYO3PY+cDFUr+ow72jymXzOveptbWDGM8W1QMwXdy/Wc+hD
+	 HnLqhwt1qblWFTvQd5xaRPm3iTlycoh9xvei3q5O8aH2iu1dQm0zaDRBNWmXkcXWtvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691643;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0uC1lw4qr5rkQj5pdgH8BUM79En1tPMCwDHsh7HKEYI=;
-	b=RidG9mcEqzw2y4HD5Sm0MVyDxFLL0EFJ84yLVuLiRjM7jmJVYboDLHOJ2P2e68VREzLP
-	 RBAbg2sGjT3Sjoedd8W4UcjD2zi5s/CZwZFzGEx5t9ImCgqkcxNs9S7ail+ogfBJqlcfi
-	 cUqneWiz6W6NXYBn4wasqffPuKRPm8E30IflbtCfWaLuwWrzqK3e4pLk6JTWcK+Pf1nJu
-	 q9PBxlhRiWu9Ruy4TolBb0VM0YR2IK1jPOyg+LmjA35vggPgNIOUoJv/51ZKYv7DLd4Kv
-	 tqBil3TsoKiLi9xL1Urhoyve0lDcdTlfhFJyM4jy4mD2apEjlIdOkM2LWWzmSeZ2vhQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691671;
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=frMHu3ArlvkBOnWP/keZoceUz9LRRAU7jpoSl2mvnaY=;
+	b=vI2jrHTKeV+AVFoGAvUKvPazMlNaA9l8DDWps51oAFz5rdZCDppXxMmyhUR/ijbx3g3G
+	 jul6/60K6nJGiAkTbtmJuupdL56Dghb9fUF7UoGS287C5AEqHMQIpMgv4cUtFZhj60tnI
+	 mAaSu8M5EiVy2fwARcKX9yGwhu8eLDN9Zhu9Wq3a+XoLLDcBAbYE4UCU+oIRhy3RH5wxK
+	 ogouu9TAbQo66UTn37y1Kwl68lOY//d+nGUvIFtEY8AdbQuu6XMrBcAVgF7RRiineCpfn
+	 0+YqvGMic1IF6udyEDI501vKtIxIRUODluVn2Wb/M/9TUYvxXzFIh8CD+tfrYcWOnNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbZFgDaY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=uyhcxzty;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16781606A32D
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F4E606A32C
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:41:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4F4E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NbZFgDaY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0651F00A02;
-	Tue,  3 Nov 2026 07:40:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793691642;
-	bh=0uC1lw4qr5rkQj5pdgH8BUM79En1tPMCwDHsh7HKEYI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NbZFgDaYblxoncw7GZCgAgcdTGR9tuzthhNgyced6kjtT+9BOeWz2Km9HF7YvdfBZ
-	 vp/eGfsR9GJlMOKzBSVc/WsJIna4YeUouY7fntPuszMtCV0A5sbxs5dc27sdAVo4bB
-	 OW2f33tkcbDnQZAqkVt1vT2gpfoSgI6rnGsYW7lpmwWlWGbH22YyUgR/0kM9XiSGAO
-	 AGukes2pLmAwNWGQfLZVXvUgJ5vjL82DDLt3NVs6ZsA/gZOWtSnn4IZOR2mQcF6UYp
-	 Nk9ICqJEmhEBfcvmWkzIqY7BOHSQNnYa25Yl+nvNbGtTEqiYmHMRos+sMsN0C48RnH
-	 pw7PtHXOiPqow==
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv2 13/13] Documentation: media: document cec_phys_addr_invalidate
-Date: Tue,  3 Nov 2026 08:32:04 +0100
-Message-ID: <bb29997e210d7b5d513c711437194ffaea6f4b3d.1793691124.git.hverkuil+cisco@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1793691124.git.hverkuil+cisco@kernel.org>
-References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=uyhcxzty
+Received: from [127.0.1.1] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 32DD7B2D;
+	Tue,  3 Nov 2026 08:38:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793691531;
+	bh=2iD2OpFFxVgyeniQYanpyS5ujA1TBGPZtPUEu8qYJlk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=uyhcxztyCOqtev49qyfmS+zxtgG8LC+w1bGCxNwDBgvV37iDXwvEpL9BClKKWQWf5
+	 9JoZiqmk+yuEy5OChiJJZrXFVS6GrtyK/aXKVKg2mgwoTDv78kx7fVgE7HKJZSaadA
+	 RL9T5VYoee3mXTYWnq9qiU4oL31Y1xp3BaIneFVM=
+From: Daniel Scally <dan.scally@ideasonboard.com>
+Date: Tue, 03 Nov 2026 07:40:37 +0000
+Subject: [PATCH 01/16] media: videobuf2: Set start_streaming_called after
+ it's called
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,44 +56,77 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261103-rkisp1-suspend-and-resume-v1-1-08f863b6fdc5@ideasonboard.com>
+References: <20261103-rkisp1-suspend-and-resume-v1-0-08f863b6fdc5@ideasonboard.com>
+In-Reply-To: <20261103-rkisp1-suspend-and-resume-v1-0-08f863b6fdc5@ideasonboard.com>
+To: Tomasz Figa <tfiga@chromium.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dafna Hirschfeld <dafna@fastmail.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Heiko Stuebner <heiko@sntech.de>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Daniel Scally <dan.scally@ideasonboard.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1516;
+ i=dan.scally@ideasonboard.com; h=from:subject:message-id;
+ bh=2iD2OpFFxVgyeniQYanpyS5ujA1TBGPZtPUEu8qYJlk=;
+ b=owEBbQKS/ZANAwAKAchJV3psRXUyAcsmYgBq6ZAOqeOuK8zS6V3SewhBjDn2A5tdxBAowBqhw
+ ZTTb0SYn7uJAjMEAAEKAB0WIQQqyuwyDnZdb+mxmm/ISVd6bEV1MgUCaumQDgAKCRDISVd6bEV1
+ Ms4UD/43vAH9nzPwZLX/ijN6oVIEIckGROVUrtaYS945uE6wswPQAVGtVX0viRtIxa5mpy3sqDK
+ 0BF9M4qrO7MHjvGVZXr6ckltne0F+qhCm06/uyVRWZLKe4ftg0YWbWUfX1wKUepakVIAzFP1LWi
+ M9ZoSuu61fD97Y8Fpb5241j2yL8v+VDKJjCW8ZgZVn8hGU6YSiUxbhKMVVPJ2Usdugwx52/P/2k
+ +5OsgcbNpkzWOZ/Dm1pcUZQneynvtpzY6wEXBzg/F6kW2WO6UCas/4PQuzlnoYaUWiKey9ZPZtt
+ LxEH/a6UHNX8rPN5S0KZ0lHknYuB/tmgbJYHCNuAT0pzjosLfcVJqtLmNrssjjjuo7qlv2SNk4E
+ 2SPrMCCRKOiFc+HiJREX+LgNxthgYXKpsTRDp1CursKRo+FJdNsS8xoznumF73y7fksGtb2iLOU
+ ivlqNru/MhV0l+/07LeMWxu1gpy953ukxELRlJmh82jUK61BIPJ8Q+yH+EYPWe/NF/6zV3Qo7yz
+ OoG0Q3jiabix+m7d/FLbjUwWCpLPhxS/JhVg0XPUUT6bI7suQQXELtvm7gaUT4dXr//9cylFIiZ
+ Hym0AZEilzBFgxyXuAEBMlrMxbm/UTG2vbR8NxyR13EM4PM6uAfUpW4IpnPndtKKVgCdL6/mWpX
+ wuW7vM39SHREB7A==
+X-Developer-Key: i=dan.scally@ideasonboard.com; a=openpgp;
+ fpr=EEC699ACA1B7CB5D31330C0BBD501C2A3546CCF6
 
-This function was not document, add it. Also clarify
-cec_adap_s_phys_addr, explaining that the PA comes from the EDID.
+Currently videobuf2 sets start_streaming_called immediately before it
+actually calls that operation in the queue's driver. We want to be
+able to check in a runtime_resume callback whether a queue is already
+streaming or not, but most .start_streaming() operations will call
+pm_runtime_resume() themselves to guarantee that the hardware is
+active. Setting start_streaming_called before it is actually called
+therefore means we can't use vb2_start_streaming_called() to make
+that check.
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Instead, set start_streaming_called = 1 after actually calling the
+operation, and only if it's successful.
+
+Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
 ---
- Documentation/driver-api/media/cec-core.rst | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/media/common/videobuf2/videobuf2-core.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/driver-api/media/cec-core.rst b/Documentation/driver-api/media/cec-core.rst
-index f1ffdec388f3..10927833992c 100644
---- a/Documentation/driver-api/media/cec-core.rst
-+++ b/Documentation/driver-api/media/cec-core.rst
-@@ -437,7 +437,8 @@ transmitted, otherwise just queue it and return.
- .. c:function::
-    void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block);
+diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
+index b0a6084f175733ddd0d8d399538f949266c8966d..cb4b5e818553a8007d000147843778e72d3753e7 100644
+--- a/drivers/media/common/videobuf2/videobuf2-core.c
++++ b/drivers/media/common/videobuf2/videobuf2-core.c
+@@ -1779,11 +1779,12 @@ static int vb2_start_streaming(struct vb2_queue *q)
+ 		__enqueue_in_driver(vb);
  
--Change the physical address. This function will set adap->phys_addr and
-+Change the physical address. Use cec_s_phys_addr() to set the Physical Address
-+as read from an EDID. This function will set adap->phys_addr and
- send an event if it has changed. If cec_s_log_addrs() has been called and
- the physical address has become valid, then the CEC framework will start
- claiming the logical addresses. If block is true, then this function won't
-@@ -449,6 +450,13 @@ then the CEC adapter will be disabled. If you change a valid physical address
- to another valid physical address, then this function will first set the
- address to CEC_PHYS_ADDR_INVALID before enabling the new physical address.
+ 	/* Tell the driver to start streaming */
+-	q->start_streaming_called = 1;
+ 	ret = call_qop(q, start_streaming, q,
+ 		       atomic_read(&q->owned_by_drv_count));
+-	if (!ret)
++	if (!ret) {
++		q->start_streaming_called = 1;
+ 		return 0;
++	}
  
-+.. c:function::
-+   void cec_phys_addr_invalidate(struct cec_adapter *adap);
-+
-+Invalidates the Physical Address when the EDID was lost, e.g. if the HDMI
-+cable was unplugged. Do not use this to report an invalid Physical Address
-+that you read from an EDID, use cec_s_phys_addr() for that.
-+
- .. c:function::
-    void cec_s_phys_addr_from_edid(struct cec_adapter *adap, \
- 				  const struct edid *edid);
+ 	q->start_streaming_called = 0;
+ 
+
 -- 
-2.53.0
+2.43.0
 
