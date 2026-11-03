@@ -1,65 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793669686;
-	b=PbrDIXSC6X7jsC1tDWM4wLTVNdrloyZyhOUF2+1fYOj+JA4jxsooNYOXCL9QNZIBAQop
-	 KiQ7uZQXQTtVdvbQCCgJrwXD4Gq2btst53gk4j3PDVHY/63nqWsflA4ezVv2edV/2uWgO
-	 tUpIi74lmbm6wMe5I5wkiMqUkM4KkSRb2lnqvpwF9WNUbEYS2jFesBQdnsk1E2KYLCjy7
-	 6hdACiQxE3U8eUvMEnp6xaS5hlmM6I4Z5ItJfD8O6GpfYnCtJTDdpKXlgdJU3U1A7rUtD
-	 7D1WQnNzo727+cTcnPizo8ZwehbHVs8IVNcLdKICxU7Qmo8IMJ7c7hefxvGRwHyk8EA==
+	t=1793673053;
+	b=BnwVw1EZn7z2t1n0WwKAZridoRJFHUD6JUy7+24bNw7pswLjTCIH73TwxL4vSeG+iQGq
+	 V0TX4mjWDkaLj9p+Wt0ajDyKk17EMvi88XMBt+tvf0hmikmOcixuPjcpEUfUuM2mGnaNf
+	 8nimsqNW/VshfWKuj8/6OI6MiWkv/BxSieSAiBOqC2uLxEtGF2nQMHcon5V1Rk0yifjqf
+	 DXmJTg1h7hgrEjb4e/0kzu6DFpY13jHVTl7qcXUtFF36YQliQiV6GjA12dH1EeQdGnni5
+	 LLX+dFdQukW0vQETkNZxCJO20ZSPSawoy6NXUZXP2HVzKSw3pGzMrcfg5OQcmEbv62Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793669686;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gVDlJuxO1aJ29OkzZ0LvZrlNFA/4PNrvnmKFmGqNW1Y=;
-	b=2bjbgTqCMWmGSkzqA4Xe4Ejw4sQr6+SVy5TTQAEle2HDwz7S6HAKyvMDRNmZr/0rU4IH
-	 xdY5j+kPbI1nB1L3mRku70pxe0c+zialVBJoc9PEIdqKMLAVbDmncniKy1jlAS0d5Eg8k
-	 7+wMj+Q0+qF77rETSIrxrWb5JRpoMgT1V5FfxLzfw5GFAEl4Co1oFhUMWgQewi+DHRqyk
-	 DpJAuArCNXtqAupscsEHGp+6TyCnuvjvvckaQ1OzN1wjlhVRYqB8A2gr9tvBV9v/cvXoa
-	 u8ponYPlIDFQlXVjFffq1AHDBeKxouiLhiuIVHtVOiwMIf+xJw21Uu+LvGfjz5fBElQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793673053;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=7H7f2+sbvco+m727gcYXPh56BlLVYSp/7lO7c/5FC7c=;
+	b=YbcQIOoiXCby978evqcQVuz7/VvcQJKoPveeJzCX4Awy04ys8MqW1eReYIPCHU7QDyPf
+	 dMUbGVSDVBVqir1x+TUM4/xo0U9KVbSveI7srdshPvg7svCVCdTWtOfjNcSnT6sP/hvy+
+	 6QSsAw8HjrEsoZ4DoDHhnMPvvB/am6b4lRijqf9B2K7d3Yq85xOnNFJ6Unr6Joec8bsXi
+	 7//l/aqZ3AtAhIAkZKlHZfwAj2mNs5210YAddY6A5RE1QBjx9a8eBZ0OLsU0I2Nga8v7H
+	 9ycmKlnJ4d9aqEfq3bEqmJ5P4St/BQuA5iA9tAqUVQhD5STm5/B587yxh6N9g3gxAMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Joc1Ic7l;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4747C606A324;
-	Tue,  3 Nov 2026 01:34:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4747C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=ndufresne.ca;
+	spf=pass smtp.mailfrom=ndufresne.ca;
+	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qxWI18yA;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F409F606A326
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 02:30:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F409F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=Joc1Ic7l
+	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=qxWI18yA
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93e6eb77f0bso358746685a.3
+        for <linux-media@vger.kernel.org>; Mon, 02 Nov 2026 18:30:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=Joc1Ic7l/b0pV1nB1uVV3Mux1NmYTD7WsI3korK0fF0ss8byrtsUz5i8IpljRJPNkMyw751m4ltRT
-	 Q0kb8LRyq/hVXOVM01p2Sfv/d+Ix5E520VCsucV74tv/A0OnSeIx3+e0MFPCrRltJ2pViR9hAQeqYN
-	 igCzJi4hWStKCDQY=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ae93a32ed0-68e8b;
-	Tue, 03 Nov 2026 09:34:43 +0800 (CST)
-X-RM-TRANSID:2ee16ae93a32ed0-68e8b
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from DESKTOP-3K8GUTQ (unknown[223.108.79.98])
-	by rmsmtp-syy-appsvr05-12005 (RichMail) with SMTP id 2ee56ae93a31df2-e4dfc;
-	Tue, 03 Nov 2026 09:34:42 +0800 (CST)
-X-RM-TRANSID:2ee56ae93a31df2-e4dfc
-From: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-To: Jean-Christophe Trotin <jean-christophe.trotin@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Subject: [PATCH] media: sti: hva: Remove bogus mutex_unlock() in hva_hw_get_ip_version()
-Date: Tue,  3 Nov 2026 09:34:40 +0800
-Message-ID: <20261103013440.1138-1-laixiangwu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793673052; x=1794277852; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7H7f2+sbvco+m727gcYXPh56BlLVYSp/7lO7c/5FC7c=;
+        b=qxWI18yAQF/7ypbC/cjrf7UhPNBt5hiGjrXaKC07xrDOTAGD+oNMaPO9o1FiV2cGHt
+         lhvtLYIfIcNwql6S5LAgOvCAWS0ZRBu709hwdzHogI6+KpUyDGFOQDhZfjYR1487GunG
+         rNNvIgRw2MAVZss29ozZDUTqwoClA3QJuQEr3tpFoQzyOc9S9p9IqnvZunmlJBEuKXIq
+         7e44cd94OrEEoI5pVUXZhBNRzsHP9Wm27/NtoydkEbCsvQ35nMPicwQ46Jwci5If6wMW
+         Jcy6T5XQx4t3ZM9oWsU6UoSskWMhmRbLBLFKJ8Qqwnn9Y4ly1NUbSTd9XhVcofs8Gf/K
+         z6yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793673052; x=1794277852;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7H7f2+sbvco+m727gcYXPh56BlLVYSp/7lO7c/5FC7c=;
+        b=Q5MraLbThGM91vsawFoqiopQAI3s561+4ETCBaLdyLU89u9xNGaC0yhUAMydbDjQEj
+         PxojHVcBwDlN39Lm9TGxXaCaBPHaS9ZRniyGRhP7sW2ebqLY/Jh1CBqXa0wTLkWc5mSL
+         vcL6Y6pn7P+2Ui3sq8O93aco+0Mp8G0RtAVs/aTkAZr/mBdr4kA22c1mmpmDKaqvaYXl
+         sbFOuSRRhilx/P5jm4v8RuiSmEIS1bj4XYoLideuf2JwYrKPUwRxBhk+GglmSwk23hlo
+         W9juac5olGfEI+dY1GNzsuEP0CoCxFUYFiUOUrCCFbYEVNY+7qae16Mwl2uGN93e6OQ2
+         bonA==
+X-Gm-Message-State: AFq9FYLux8d26OUDU6ru97h9oOKrgEXTdz+yW8hD+0T6aQBv7TNu5vfG
+	+W+i34o9bLFg+oCelW9FyxbodafeFkClDFyLGj6RU95n0COmf/fQ7kjAChIZggyKx/KA/cGGec/
+	CYVyF
+X-Gm-Gg: AYBFou2hS4zae66XVx3hRYBZmbtZxJbQ/NLh2fHQjfnUyQddSb3B3NkbFZBVjH5pYsX
+	nTaPuPKoCeWpCRQRTX1eYN0/fj9iqCl3wa/rqqJe6HwAwEBWXeAMMT9OXqbg4WV3E9LFBiiod+j
+	C7X77bTFJ7C4JxNYlr0QdzC4UtR+lkJaP1B91EJDNJqqzhOmBl60WHZdHeZJhZf/Oi0mAB63Oar
+	Y4H9bEl3r+l1k5mUDIEVyY1mLDvXxcvYbw1+9HcazEdLBLGkmerJ5CaRmqMKhHUTEQOg3WOpUDq
+	6mpLOqAOEnBGWAJQv047kkCAtaJu7PpDOicIkuPtFAzTrBx1m4u692eIJ189ow5WXaOfle0GraQ
+	USfeOtmqpd/t1kLJCBt1+qsWOz47l8YVsDPKoBfx5KcSm0V5EfRzxk1X7gz+rQjVYhXTSa7t4HD
+	lWNSCGC8ZxmDryRP3KR6HCMPVnwxARHYCIlITHHYAYE+B6OXxJ2VodKDaZYcLfZvGse8/1Lepxp
+	mYZc7qABfSLXZHB1/Cmafji6gg+p7UXkHvZCVpPsfJeNMn2YsDEqc2QX1rm/Ko29OTEmu9/Cdcd
+	zjMN+4JWqoqfEJWHi5Xxze4AIQD3NQ4GgdlQAlUWZ+uuaHTx15QADt4=
+X-Received: by 2002:a05:620a:84c4:b0:93f:211b:a88 with SMTP id af79cd13be357-94421712a75mr1959639885a.14.1793673051964;
+        Mon, 02 Nov 2026 18:30:51 -0800 (PST)
+Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425ae7f53sm964496885a.41.2026.11.02.18.30.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 18:30:51 -0800 (PST)
+Message-ID: <69827153a6b0f3b863ebd764645efe0dc2fda6b9.camel@ndufresne.ca>
+Subject: Re: [PATCH v2 1/3] media: v4l2-common: add V4L2_PIX_FMT_Y10 to
+ v4l2_format_info
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Quentin Schulz <foss+kernel@0leil.net>, Mauro Carvalho Chehab	
+ <mchehab@kernel.org>, Mehdi Djait <mehdi.djait@linux.intel.com>, Michael
+ Riesch	 <michael.riesch@collabora.com>, Heiko Stuebner <heiko@sntech.de>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+Date: Mon, 02 Nov 2026 21:30:49 -0500
+In-Reply-To: <20261102-v4l-y8-y10-csi-vicap-v2-1-0a4149d96dae@cherry.de>
+References: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
+	 <20261102-v4l-y8-y10-csi-vicap-v2-1-0a4149d96dae@cherry.de>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-PyPL7slarfAow59TTGqi"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -69,36 +119,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-When runtime resume fails, hva_hw_get_ip_version() calls
-mutex_unlock() on hva->protect_mutex before returning.  The only
-caller of this function is hva_hw_probe(), which does not hold
-protect_mutex at that point, so the error path unlocks a mutex that
-was never locked.
-
-The line appears to be copied from the encode path in
-hva_hw_execute_cmds(), which does run under protect_mutex.  Remove
-it so that a failed runtime resume returns without corrupting the
-mutex state.
-
-Fixes: 57b2c0628b60 ("[media] st-hva: multi-format video encoder V4L2 driver")
-Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
----
- drivers/media/platform/st/sti/hva/hva-hw.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/media/platform/st/sti/hva/hva-hw.c b/drivers/media/platform/st/sti/hva/hva-hw.c
-index fcb18fb52..bd33d8dab 100644
---- a/drivers/media/platform/st/sti/hva/hva-hw.c
-+++ b/drivers/media/platform/st/sti/hva/hva-hw.c
-@@ -271,7 +271,6 @@ static unsigned long int hva_hw_get_ip_version(struct hva_dev *hva)
- 
- 	if (pm_runtime_resume_and_get(dev) < 0) {
- 		dev_err(dev, "%s     failed to get pm_runtime\n", HVA_PREFIX);
--		mutex_unlock(&hva->protect_mutex);
- 		return -EFAULT;
- 	}
- 
 
 
+--=-PyPL7slarfAow59TTGqi
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le lundi 02 novembre 2026 =C3=A0 21:22 +0100, Quentin Schulz a =C3=A9crit=
+=C2=A0:
+> From: Quentin Schulz <quentin.schulz@cherry.de>
+>=20
+> Add Y10 format to the v4l2_format_info table.
+>=20
+> Co-developed-by: Michael Riesch <michael.riesch@collabora.com>
+> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
+> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+
+--=-PyPL7slarfAow59TTGqi
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaulHWQAKCRDZQZRRKWBy
+9PIyAQCt+smxAv2SEhjb0K1aod+ajV5VdSqoZA6d/mIWZv+ihQD/UjLohcJqLbkz
+k6t3aQWhYB2RTbM8wRfVMsnXdYFJ5QM=
+=W+rh
+-----END PGP SIGNATURE-----
+
+--=-PyPL7slarfAow59TTGqi--
