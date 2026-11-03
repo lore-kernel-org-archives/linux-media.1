@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697423;
-	b=2uiPluJ2kqErY3bT9t0+Bg0m5wlP8kH18QHPf8nJqsoTCgHkKtIw/HXe7NFi024Hp4dy
-	 ljhtmqpxQMbY/mmmmgnnXhZ6q4AQqZFmPg71+uMOgCWSwdc8VONthOJ9jQ8k4F5ni0BPG
-	 5waWqzoEbI+jBJNZWm//vfzXeOgppQ0f2EOGU38KwqMxSQWlxmdA2AmHWf5Mhu9Fz0+EX
-	 ryGN2dmCayXlr2GeZ4Xt32rNvlwUvQvI2Dc+PHRpvzpaqVSmfSVUTgLJdeSa23sOwTA71
-	 g19s+bXmAdalOw0s3vjiDmGtkrY6YPMzDgNCUg83JCcviRmbFKoctD4i8hDbfnuR0GQ==
+	t=1793697629;
+	b=e5N7nMsPQfI5TWX3c09XSPgfw0uww1uEbAMEyaFR5YQrchR8cu8yRXEk2P/20VBCYzx1
+	 J9SPpPm3bN4Mabse5TRG6LJFR9fSleq+02Poil0VWd6RfO04cTFFwbA56FRFBAGELcd37
+	 j3FnaNnaosy3enyHSpD/ibfF2uJ0OEv5aGCMg9OF9HCcEQW9Hmh4TW9hJqQKs7daT4d8J
+	 wEMO2V5JW1+4TKjaJ5FeYMRijKDo/XMy+w2k0qFQwLnn8ytRt9TDrfpX7Na8BqYOvCZx7
+	 y0rDZkU/VhwcFzuhRSuycG1pJjM1CAMcl4avndBS0GDT3C7SsqEX53VRZtkn1z5BRqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697423;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697629;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=w2H8MyAJaO3E0Y/5RKb2VsySWe5qpJSMhyxRnp7Mk58=;
-	b=ZXnQ3TfiaVGI7MDa8bAYc5aIb8Zib8VCpD07nXIE23mB1dFx3hG7sTep3q9imrz8Gg5Z
-	 gORsojk/TsaV7gupxTaH5A15ZQcDWmS5D2OnOPzNWCwEU4zujivybVEWwec+2vpGk0bSk
-	 oeXTVUwObSQTbU4lIdw9kRmxUlkxmL/Rr8yGA1HsVxflLLioNeCeTPlolXE3xwgbeP5Uh
-	 PiVWAs7nRAbLCQKzxPqjks1dyYMmsY3LO3otd5IJ08GteT7s1EnM3o/QC8JfJ8iLTnJ8w
-	 BX42u9cEieC7MdR8nJyjyMAV0wrvDzDe479JWmbKQ6LB32HHHk1Qy1kw3XTg4H9CfTg==
+	bh=1tqvaqHenFdcgDHRxJta7jeIL0w1Mmy5PiJM9ERLW0I=;
+	b=FnXzxSOS6NOqMNA85xb0BePEHnJ0QgCMiMzOnia/vgtOalYq+Wm29DbkXEEnmKNnuUXa
+	 n3dQZgznLSAf9S9LfA+ytIYbpBwuICZAW6FvXl0U/9wnITsmnVYrmIb80p/TxhLS9j1Oz
+	 +NRnNWP2vjwOg+cwDZmZWfYL0H8eWJx81xkFAwM4Wtjo4BSCEUq00ev4Eyuy1yTW17R21
+	 jQThjqOD5IqeWEK422a0Y1QSYlqqLmGYshFxBNL/l1Yqr4hEYahzbMTaAImdRrBxDH8U8
+	 mYKLyLWcr3GTc+DexC3NKBO8to6pblvQudbU7cJilQ7XwdAjQ0su/hc1XQt3l+9fVxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADG+UeTy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxBVUFdV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE30606A324;
-	Tue,  3 Nov 2026 09:17:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A202606A32C;
+	Tue,  3 Nov 2026 09:20:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ADG+UeTy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A50B1F000C1;
-	Tue,  3 Nov 2026 09:16:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CxBVUFdV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6733F1F00919;
+	Tue,  3 Nov 2026 09:20:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697422;
-	bh=w2H8MyAJaO3E0Y/5RKb2VsySWe5qpJSMhyxRnp7Mk58=;
+	s=k20260515; t=1793697629;
+	bh=1tqvaqHenFdcgDHRxJta7jeIL0w1Mmy5PiJM9ERLW0I=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ADG+UeTyNPhwM/GZoqzHgTDZJCfYwjqY8aScLzrXTC/0s0ss/4SAuLUDPAP5HH303
-	 dYmwK3Q0nGyYjdiEnQ45vz2CqcEM67GAq8IitvWL+d3dfW5kgLN9Y8bHjd/t5/RWSQ
-	 B58dn4Cggzc9fR8cKFAhIiyWM5JbgjMaHzIifneEdttGUVMfZ0zWbyb4r3tJRVqe/q
-	 FA8MQnHKpSpjDHn+1Mvzoa0Og/MbX2hfDEEapi1XaPCPIoAusN59GaxzjY13PTmEDg
-	 9YsD00rebhNrwdNmZrPCVTvCVrffRHamO5ikUsJ0WacKDTBpH5PAd1KxtyVYt+bbYR
-	 2hOSBSBPQt/Dg==
-Message-ID: <9ad64922-e6f3-49fe-9715-3efba48a8677@kernel.org>
-Date: Tue, 3 Nov 2026 10:16:56 +0100
+	b=CxBVUFdVcowZGC9ZiGvZBE9MKPekYGLPYU7+UYY56LTIwl8w2MMGwXuG6lcTFavrx
+	 Z8jYG37uGiRnjwNbE05XAMkL6K6uHlrrKmk9uWiUVaxsG2rfHMQWib11pB0VcPN64D
+	 T4HjAEbKRF9QBg+5md77PIFRSbbwq6HCbAUWBNGB4XdyxfjoavltWxi3fNmkV6eES5
+	 fTE0ViT49sjYIOaDYsxggzLCS5OhMvTEdTXcXko2ys6oOauvA4zYpjiDk/1qqu0mR0
+	 p3VDaNmJfTHAh2SJH8KwrvpMOFv76fkKgETDzQApC/Omgb+M5q96ORQN71tM2cWLoL
+	 f1LshRWM0Q6yA==
+Message-ID: <aa876a31-0790-41af-a3fe-d552a39ff022@kernel.org>
+Date: Tue, 3 Nov 2026 10:20:26 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,17 +52,11 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: exynos4-is: Release clocks if enabling the bus
- clock fails
-To: Wentao Liang <vulab@iscas.ac.cn>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+Subject: Re: [PATCH] media: saa7146: hexium_orion: Unwind failed attachment
+To: Wentao Liang <vulab@iscas.ac.cn>, hverkuil@kernel.org, mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-References: <20261103090653.1208652-1-vulab@iscas.ac.cn>
+References: <20261103083738.1180466-1-vulab@iscas.ac.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -108,23 +102,33 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103090653.1208652-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103083738.1180466-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 10:06, Wentao Liang wrote:
-> fimc_clk_get() acquires and prepares all of the FIMC clocks.  If the
-> subsequent clk_set_rate() or clk_enable() call on the bus clock fails,
-> fimc_probe() returns immediately without calling fimc_clk_put(), leaking
-> the clock references and leaving the clocks prepared.
+On 03/11/2026 09:37, Wentao Liang wrote:
+> hexium_probe() registers an I2C adapter and stores the allocated private
+> data in dev->ext_priv. If hexium_attach() then fails to initialize the VV
+> layer or register the video device, the core frees its own resources
+> without calling the extension's detach callback.
 > 
-> Jump to a common cleanup label that releases the clocks on both failures.
+> Release the I2C adapter and private data on both attachment failures, and
+> release the VV layer when video registration fails after successful VV
+> initialization. Clear the private pointer and return the actual video
+> registration error. This follows the cleanup already used for video
+> registration failure by the sibling Hexium Gemini driver.
 > 
-> Fixes: b71b56b264ae ("[media] s5p-fimc: Check return value of clk_enable/clk_set_rate")
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 
-You just don't bother to read replies, right?
+So I sent you bunch of messages in between your spamming spree and you
+just ignore them.
+
+That's just bot spamming us.
+
+NAK
+
 
 Best regards,
 Krzysztof
