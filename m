@@ -1,53 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.79.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793674956;
-	b=uT3Uuok54A5/hFpJMbPJXKbZ9lfxKeWqChQzaQaNAkCjmuvicIWU7Gqimj0KoOdxEP0c
-	 +9vZ2W0XZZzET/G4BVEzeBlJskwTuD18QNK58bhi3Q80RczcmzXTABWjV7lJD9DmyZEoM
-	 3Fr6wLi2cYBwq8IK5bwLj9pOq2E2tMdIr5uhg84LShC0F5vZJKpJhCTL3k8SSzkwGCQTv
-	 oMgravQ+vPe2R3zG92+e8hx+qfPyTuefn/lzmGDZF2iHjrzHVtw5/FPz4cRylCiaelni8
-	 XpDVdPC5GThsMhAYkf4W63pwB7vBLW27Rsl7lZEYkirKvjtQBd36qtEbSGX+PQQFcog==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793674956;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 mail-alias-created-date:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
-	 X-Proofpoint-Spam-Details-Enc:X-JNJ;
-	bh=+MqhGtpViVg1xzaxLuI/LRkFUg+bXq2WVpjSwh8nGUU=;
-	b=f1oHXVdOCGM44q4woET+N95meo1ST4LPGq2+kk2NWp3KMD654RdRLLSHxnDy8T5Gpsdi
-	 jTks6EzLidpYbXRcBizn1O/vKSuEx3+hFI02SsPK5xhkGLZ3J9/pwhwBAv6m6QmgLaLSk
-	 Ud2Gs+99kOsh0synnZS+dC3uvE6wmMJRqmKNj727V6MD2HMHVxngPd8Jb9byHUgR9MCFE
-	 RcFENukRzcedTaEHIGwKFg7DthvqoF5uRnJnZWqUxo9nLD7aHGilFWiqUwJmoBAyzvu5u
-	 kFWJ6+n3qToFh6o/IA5wyFiGkVX1NrYSpfzmKHgnkYQ/jfDCV+6wf0f37a/6vQFMKIQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jayd.ml;
-	spf=pass smtp.mailfrom=jayd.ml;
-	dkim=pass header.d=jayd.ml header.i=@jayd.ml header.a=rsa-sha256 header.s=sig1 header.b=MrjiSkRd;
-	arc=none smtp.remote-ip=57.103.79.12
-Received: from outbound.st.icloud.com (st-2005a-snip4-10.eps.apple.com [57.103.79.12])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793675112;
+	b=hBxO9mYG4MvOtfq0SJzZn+gLR3RsJHwQuXSXcVEqaw3WCEf/v63Jyfreiuqu2e52agHq
+	 o+/eORNHst7Tuj/FsJsxa6Rx945FowGLdHzeaLDRBxTdXGNjK5Cnu6EYxkWF5vBRYD1h9
+	 xPQvAY2PosMiHWEDscUo7C+D22K3PYmnC7R/eIEnNwzBSbuR6uYeH2AoJ+h5oum7r/LSI
+	 uqo6euthl6T8M9A7WUnx8cA+VVeR2YUVUTBswkz+4lB1Qr0Q10XkZZh2vZHS6VDnVAjsn
+	 pwQ3obKYyCkF26lJbssIjuzO6TcEuBUZKR1+D2veKf60BRa71zSf85jxyNEFkJ+YU6A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793675112;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DQjU/S5g8Ho1dah4744Lu00Cj1BTCyWDAlxZF9GRNVU=;
+	b=AyIY+zIyrmbMOR2iU52SD/UAqyrpF60uO2zGOGttzoq56Xx//bEPoIvgTtiXPoaIonih
+	 bFF6CxF8R/NY2ptBPLW/bj17pq0lYwEa+1QVVE2FAQPZV4BqB54Cn8HezIfkfeTIZvkwN
+	 FvV4A8N47KoQb1rQCg6MENI38NgsLArI6p3HFWSviXbt45hocFaYlYeIug2N9aR8plvyo
+	 iauAtM8aovAMVXXl/p8xkoDCsnBpqEINVNRA2lPYCn6uA7nrTjmzo6mMkUGCDq89Z9Rgc
+	 x0cKtl8M5FqlG7J0WutguiBL4Bun2cTQecJ0nrS9dzdA1BIvTHs62zs2zmX24VWCnKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw5McCUh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11888606A324;
+	Tue,  3 Nov 2026 03:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uw5McCUh
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793675111;
+	b=O5A39a9/XWUVt5YRLX3Ra2BRRzyIYnkEOi6F0J4LerkpEbCjWO7SaU8m6+2t2wxzKTmC
+	 MDyCVb7vb5FtJWYWjQP0BDDiUnmsdw2GKbx834K/i2qjtvSSbg3m/yuDmLYud8Q4ll9p5
+	 aO3CEXfP9OwY70Gm61nPkxvOtBBuIAovL90xzls80PJMQY/7VMydtrVWknJaMSB9MuwoE
+	 i8+E2tozmLOuui2mAAZ8gr60FXa4kqUZbBmsgQguX5L8tVmxsDVAobBlDIDv9xjBhkfbL
+	 WMgzs81TzWECZRGOR0sNg9zCmiI5BLQNhXeXY51BjGNagK5Yq8Yy9UFQe+q703x9ZaQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793675111;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=DQjU/S5g8Ho1dah4744Lu00Cj1BTCyWDAlxZF9GRNVU=;
+	b=wTdZ25TNFzpfKZyTSX62i4qiwxxllXInRMSG96/5Wr78INsgwf1ZinTJzi+CkvK5dNqn
+	 fILjqxnOeR0doHgyPhsqLN1NTgJ4gx/7fM64TQu/Ut1sQ+FHQsI9+iI+Qqy1Eewqanhxy
+	 kDQwUHN7vAZHfcGejnqUyZbgsEnxNngBXAqvoN7GpwCyHVsCtslg8xyIC8qVY5drc4doA
+	 pqtwKyrkh/tdInblhlyq6niUKpD/EJsVfSq30P2IZX8mV2RoQ+ROHh8GdDC6v/ue+EEmU
+	 3udi8ckt7beORTsUG60Y/PdGspd3J+ycaP/PVvHngUUvQaYzER0fgU0tiCDiwzgTYTg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29043606A327
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 03:02:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29043606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jayd.ml
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jayd.ml
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jayd.ml header.i=@jayd.ml header.a=rsa-sha256 header.s=sig1 header.b=MrjiSkRd
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPS id 8408B180028A;
-	Tue, 03 Nov 2026 03:02:30 +0000 (UTC)
-X-ICL-RepId: 01a19f5b-b973-7459-92ee-1f2fc5187f59
-X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQpAHVoHRQBEDFYCXAVLVxQEFVYtXQpLFBcVX01RDw8aWAFXQ1oHEgJaRQFdFwNXHFZFXBhDCV0FVxwdHkNFWxNVF0YJGQhdHRkIRx8KMANCDlYDQwdFAC0ZHFdQXQpLFBcVX01aAlZNBR1WWVVcAUldVQUOUggfRApJVUAOX1dAFBoGWAYIAUUAG1dUAStYEUAcHQBbVRIEQAhWUFQeQQRWFWwJWAZTGVc=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jayd.ml; s=sig1; t=1793674955; x=1825210955; bh=+MqhGtpViVg1xzaxLuI/LRkFUg+bXq2WVpjSwh8nGUU=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=MrjiSkRdTR2a9gR/ZDFpMwHHbxe3u4yn0RCxO1H66YyDhHKVGMHS4hZMlxR6ij5+XIHfEvqh03KSpKK1assYO+4fKHduLHo8m6LkNHh1VYIyacah3OzfVpFS5GoLHYpZ1ziucp4MOjeI3I35uDUGK0eSafDCdHJgdCHIX/tFkW2KoWTpCzsLluobthwuVZ0hzzxzxWG620eTbI6NUi4PI8/6wS+uTOuonwaosqEXaLkUI8nDSeyGyY3UjAesGvNDToXIIhQTjN/fpUPq3oEGe8f6zaNyxZ8Th+nIFxaiEi2g2pvq7BBKYxpPLMHF9x89YM6hnTNcsT39FRr63Tfx1A==
-mail-alias-created-date: 1679885584335
-Received: from [10.0.0.239] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-1 (Postfix) with ESMTPSA id 8D4F9180010E;
-	Tue, 03 Nov 2026 03:02:28 +0000 (UTC)
-Message-ID: <ee4b739d-6cec-431f-94e0-b551c359cd96@jayd.ml>
-Date: Mon, 2 Nov 2026 20:02:26 -0700
+	by smtp.kernel.org (Postfix) with ESMTPS id 223981F000C1;
+	Tue,  3 Nov 2026 03:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793675111;
+	bh=DQjU/S5g8Ho1dah4744Lu00Cj1BTCyWDAlxZF9GRNVU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Uw5McCUhTVdI18V5hjKYFg1RLytH9rnbEhvhTbnH13UXI5xrak+5D4XhgSlEDRTFD
+	 XfpV+319Tz/azCmoBcqap/Eqvd5gUqTm28QFGbf7fXlfVhC0rX7elBv8CkyMpPkkQU
+	 mr3wXM8HiUcOQ7ud7FxG63ocs3K68zRlyVK8leJqv0aWDenK6DtB8txRxCgFUgliHT
+	 mEvMEutO1T089R09LJjStGh82ehGdTh9SBKNASRJfiSdmyeYsMtRP5UO35ZDzX1Iq2
+	 dsrSO7LFiAsIHE93M6Ku8eEtrEtefEHx/yFrlAZ5pVBizfA+RK2MwgHO+4z7EkXpiM
+	 MozHIJQuKUV4Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 872EB4676A;
+	Tue,  3 Nov 2026 03:05:10 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Tue, 03 Nov 2026 11:05:04 +0800
+Subject: [PATCH v2 1/5] media: i2c: it6625: keep the configured DV timings
+ on 5V changes
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -57,83 +83,85 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/msm: fix dma-buf sharing on targets without
- per-process pgtables
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Antonino Maniscalco <antomani103@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
-Content-Language: en-US
-From: Jayden Milne <me@jayd.ml>
-In-Reply-To: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
-X-Proofpoint-ORIG-GUID: niJ2699BYEKqgQlCKqK9f6z576FoJaAe
-X-Authority-Info-Out: v=2.4 cv=GtFPO01C c=1 sm=1 tr=0 ts=6ae94ec9
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=MKtGQD3n3ToA:10
- a=1oJP67jkp3AA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Vbwzbr4kkUF1MwGzt2IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDAxMSBTYWx0ZWRfXw8lKd21h0iM8
- P+SL2ke+6JVzuscwgbjvHpG9kMhpz+bA2LaK2zgVLJ5QZNglJyIGpnSewl2lzyIiWavm4YFGZ1s
- YD5l0UdmsI7p/ljU1vWeW71rS/ZRcQaxpK98yvNvamcPRIXNDUSR/KXOA8YqT8myS7S6ed6XOaD
- vtDsd595K3jw/PL2yS6p1UIcnv9FYIwG6LMkBrqrDZ+gVINId063Jxkg21kdnuNBdUb8wGq1a/4
- V9YsLJU1rQXhyvb41WeKJIfJUQkqP152IpbzNVsrOCuFS5wsfv4SfCkknkRc2kYAGCoG5Mg7MhB
- aHaXzIwCyNb+r6/JU2wa4RE5HE9qWNp8pviP/M0T+lmDLYwJv64mKcbA6Z8HXc=
-X-JNJ: AAAAAAABdGY6uQq64stNARv7bdWI5eEOuuhXlsdMJGdckKk7f5MFVbUA8Wx1+ShZy7/0mY
- ZsZEVdX5xoEBYoJR4CYnfOqtWPWPKMf0WsumXTABzn+Dd4qm9NIr8WlaCOlhDPp93siPhY
- wvAWoQRLrYB+x9LzU8PF+gx5cAmTZWlJPB4JM2hpVty28WuvCxw7kOa4+lXyXjmIxkVjQT
- Odn/uZWztUNNkSZfHFz+C3S+e6aledGV94ilOEj++Ch/JV8UNSsMpHHe+ysnKnrv5BBE0C
- 4klNVW0VVqn67f05xuMGypSbZXi0yzCjj4tykP3hW2cRr0FA/sMDZBTpsdLDH+k/IuSvzk
- V2fqDt6t9QXFR5VOUAP4k1G0ER+U8kklvp7dnQNzz3pjoV9p4N70JSiqtFby8vq3kJbxms
- gMWvrNBNdKHsIrZ9lybAqD9j2AQUQjIho/haQTal6UHPbrPUzubvsF3pzU2GuOrza22irc
- D9WwDbQ+qdhbE7C4fxnkGaunpxgIQD1cHm6jibRo7R4yWCNsIvlSZO/xKOiGoXopVqagg9
- WKNEPmFJReIMA1MQa6lFGrb5cYsaYyMZhvN/61HYDYJYyrm3+t/whn/secPMEgAsPULA1S
- tfXtIcH6304lj8y5BcYdA/8RX2LWeO2BWArkCh6ECq7hkiyiIpvogQVaEeWfu9uyXQrz4R
- wYD4QZ1qkfp9GBcQ8ANaufoVlhbZdbkTUEnkGJYLWHSlbe5ANcJnEsxiKgf1Nb0G5YUQ52
- a1ubEp2/z61WYOKSbmv5+MF2UQK9+qkTiL+xqtqA2EY2sm3tzqzb9aRoc4XTY1Xg0rYcHa
- /JEephlCSF0Z9cfeb+WEhBILV5EOVMipNaKgIHbmkBZFqH2VKLpbAtXqLTgDZDUYf5pNCq
- FKlhuOGQ9LdvPAZ9vVASD9YnQDCeDekvZZVDzc+ROTpfdrZJJmB1nhuS+qxv25udDbhpRB
- EKMVZ8Ko9PL8jPxVDcSenpZwLwDRN64mEnxzA7rYFjPhXf5yMTEfn/mzjn+I0Dvv/Dv6sQ
- YrqneArkzbRlsJEComYTmi+MrXB9QqO8U6Y73r4TMs2q10yyzTncVk+hgxJF4tRLx+o5gd
- icRy3oMHh36LCSYIMHvMCqR38NpjgvJzIsTLSxWnE6NNhD7n1n9vOfbyjFjDt+XDx2THA7
- dAi/tzeiyOs0bz7T/v6vaZORvvLzuI7zaeDo4qEfDt7vJf+Nob3JmlIjmZjGTgKt4dB1c0
- qUcQH6QRwh8EjfqUs9kvc8Zd1InkyWN5G2P2YZSU2Si3wageDxfsqZQ3tE9Ce00r5KrqDx
- 5uf1cYC62mZgUIur+GdzR6RC0O+SD+Y0Q3KxrwRXjZbyMNdTm13gIe+9fthG/CdcbwnUuF
- 0/luFqkMQGpp97uGf4AKeKvIZ36IeEAJDfrRew5xglsuxn+wcyUtMhgEUriK6wriyc3BqW
- iH4Km4lkyhzohgXGJmz2+N7rFvIGk/rBbP2JSW7zBWZRQz1F6G86UWgvYz43qLNNZSYAJ/
- 3cYk9Ej8MYXXa30SasWR/E49nkUw3+FAweX3zhrCskvoXmVw7g==
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261103-upstream-it6625-dv-timings-fix-v2-1-127b879da6d3@ite.com.tw>
+References: <20261103-upstream-it6625-dv-timings-fix-v2-0-127b879da6d3@ite.com.tw>
+In-Reply-To: <20261103-upstream-it6625-dv-timings-fix-v2-0-127b879da6d3@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793675109; l=2144;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=3ZezbE3ShwPRXZEsZJrVxC9cFwTipGhMEOkTq8PHQxs=;
+ b=rbiAQDKxA8AtSDIGxjWg0dA99WGO94lcvZoaYeDf3viebEQV4X/eIatXAq5aX9K4IBFS5L5vy
+ v3+nX40WuYpAAE3NDGAQ/kph1ORrbwElw8vr0nDvY3SDxzzKRSpCBYL
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
+Content-Transfer-Encoding: 7bit
 
-On Sat, Aug 22, 2026 at 11:48:57AM +0300, Dmitry Baryshkov wrote:
-> Targets without per-process pgtables -- everything pre-a6xx, plus
-> a6xx parts where split pagetables are unavailable -- hand every DRM
-> file the GPU's global VM.  The rest of the driver still treats a
-> context VM as private to that context, so closing a handle tears down
-> mappings other files are still using, and frees the iova for
-> immediate reuse.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-I tested this series on a530 (Samsung Galaxy Tab S3, APQ8096) on v7.3.1
-and v6.19.5 (with some backporting).
+Every change of the HDMI 5V state cleared the configured DV timings and
+set the ACTIVE pad format to 0x0. Both stayed that way after the input
+came back, until userspace set the timings again, so G_DV_TIMINGS and
+the pad format no longer reflected what had been configured.
 
-When I was bringing up v6.19.5 KWin would reliably trigger TRANSLATION
-read faults when rotating the screen with the lock screen up - 1800
-observed over 8 rotations. After the series the same test gave no faults
-on v6.19.5 or v7.3.1.
+The V4L2 API says receivers must not change the configured timings on
+their own when the input changes; that is left to the application.
+Userspace still learns about signal loss from the
+V4L2_CID_DV_RX_POWER_PRESENT control and its event, from
+QUERY_DV_TIMINGS returning -ENOLINK, and from the source-change event.
+None of these depended on clearing the timings.
 
-I didn't re-test v7.3.1 without the series - if that would help, I can
-set it up.
+Drop the clear from the 5V interrupt handler, together with
+it6625_clear_timings(), which has no other user.
 
-Tested-by: Jayden Milne <linux@jayd.ml> # a530
+Fixes: 142e5f00bd57 ("media: i2c: add driver for ITE IT6625/IT6626")
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+ drivers/media/i2c/it6625.c | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index b74df9dbf8c2cab7461c69bc0f926141ed7a506c..0d3bc83e4e865e55bb9940c7e958b85eedf9869a 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -1192,26 +1192,11 @@ static void it6625_fill_timings_format(const struct v4l2_dv_timings *timings,
+ 		     V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
+ }
+ 
+-static void it6625_clear_timings(struct it6625 *it6625)
+-{
+-	struct v4l2_subdev *sd = &it6625->sd;
+-	struct v4l2_subdev_state *state = v4l2_subdev_lock_and_get_active_state(sd);
+-	struct v4l2_mbus_framefmt *fmt = v4l2_subdev_state_get_format(state, 0);
+-
+-	scoped_guard(mutex, &it6625->it6625_lock) {
+-		memset(&it6625->timings, 0, sizeof(it6625->timings));
+-		it6625_fill_timings_format(&it6625->timings, fmt);
+-	}
+-
+-	v4l2_subdev_unlock_state(state);
+-}
+-
+ static void it6625_irq_hdmi_5v_change(struct it6625 *it6625)
+ {
+ 	struct v4l2_subdev *sd = &it6625->sd;
+ 	int ret;
+ 
+-	it6625_clear_timings(it6625);
+ 	ret = it6625_v4l2_sd_ctrl_update(sd);
+ 	if (ret)
+ 		dev_err(it6625->dev, "%s: failed to update controls: %d", __func__, ret);
+
+-- 
+2.34.1
+
+
