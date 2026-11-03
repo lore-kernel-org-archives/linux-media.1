@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691634;
-	b=KSBWMFA7a0fB9ZmyCRu0FzuOxYHxYLhM0H8tmROkYvXf/CKJKeHQTkht25jN1wb7+43s
-	 bY5ppoQGabShT2stBWPT/70pfTYNajt8wkcoSCw2UDR6HQd2pgMos+KyEP5N5TvumyNwI
-	 5YBJndQ5vmFnwuDscxjj0NKBKLQcs6oSpemztz+TiOIU8m5eIIrWmwglIfjO8VcWshhdt
-	 W7GoLhfO0P2E/y/WkExeLQYaiEfdFKY5rvPzb5ZQLCDg0jTczqtZNBZywPMUSg8aNYXLL
-	 CL1YMtz8VTx4x8Ijz/6CuDN5eaOsJYFaGv4TXZ1VzBZtMw61AJ4nRZQ543korP4S9Kw==
+	t=1793691629;
+	b=A4NUvKuc5JUqWkWIvmCOUtT4EVLzWHhMceKdjR35KZ/AdMxKsJtWLaUIOoEJ2UsLI5Ca
+	 5Sfvx0LCsCtKFoedd4CLajfs4yJh1IT9b6/K8q2TZ3fqzgBHx6qevIiazghT2OfnS5P2k
+	 /62oSCKxxZkZSdmTpKzlB0SfO4QEqY9i5NoufYSIWmyBu+gKqX/uit2yP1kt/ffEtGrG9
+	 NexYcf4o/9f0dPVEQG9lZZNaPT2qR6jRV9G+dnS1OByXfc8hhXhNksLAqKJHJKPbHmKSp
+	 PvbhqoxuJ/Q9CH/atLNboKzIyQnxnUMtHgQS900dEVS5S+V8XWGMkCl9zaImYeMSmZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691629;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=q5D6NcSVIATB1SU1kSC859+uaa0n8diQ4fmz2USuJuI=;
-	b=1lun5S72HrUg4zfwkaff7aYG1rXsW7MfHgLH1SNx4LH0KOxPbxLZ7xEIeqObdiKxdyR7
-	 6UaSJMAdMl6Gk+MNycFmjd3bEvsO2A86B4siUR9KQJn9sNlsOcBWEWoKL2kfHwFHxTrlz
-	 uQ9XNr8aI11ov4yx+7fdcWFukoVgH2k3iGSvZeWwwCmAhyJJaIBEFMPkMf6gLX+qm/ZeJ
-	 QM0icHRhEkBXaFskcF8OOW12BMvDLllvfU29V8WpFVd6vg62ODm2axVdirDx50BA/bJ1k
-	 GHMbjfhyuWz+fzouxOkRb6uQsV0oGBywBJsCZ0BXku9XJldtja6SjLFBUoyiTAvBKkw==
+	bh=uSesaCAY+uIr3oSTEUZtMDZF+TzayUSuf5NedXKeA8o=;
+	b=3HSDfBPtzOxrtdWH0MNsM5lKSm2feWNwEsh8t+lXHsg/Qs5g3370ymIzsV9LznjV/AYH
+	 MVuE1Z+9jUkZOpsU4dCxSUTkh5Jok1ny0WpTvEANjjQLrf3C7nA0+cbC154pMl1MHJgpf
+	 vLsIkmDCkcLD59q1rBfiiWrrbwD9GK546DIfialGY0mL4xdjNcZXU1EVAyf7KeeioxnSi
+	 AQ/VlWc7kqkujRG70DlUZjVTdjgCwIKvma8S1fIpMk8BoAszbPOVm7ISZrfMHnZ4QvzCU
+	 qrAX4RYIzhTMJcl8t8/2ZDpA+VoP0efyTT30PEPG+cEuX7dP2lys5O+s0wrmJDjvQnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1LWu+O4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwLeFBYG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57E39606A329
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C42606A32D
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1LWu+O4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8618F1F00A1B;
-	Tue,  3 Nov 2026 07:40:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RwLeFBYG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 036D91F00A15;
+	Tue,  3 Nov 2026 07:40:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793691633;
-	bh=q5D6NcSVIATB1SU1kSC859+uaa0n8diQ4fmz2USuJuI=;
+	s=k20260515; t=1793691629;
+	bh=uSesaCAY+uIr3oSTEUZtMDZF+TzayUSuf5NedXKeA8o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i1LWu+O4FR9gejshqQx8l6/Ks4sd1Sn1/foX7xym52VWCWYgkt0Bp09ZhX/L06n/K
-	 NaFm1MhYvKUMcTHLbdHrm6rDjcqAF2d2R52SyYGThYl9F1fLgTKta4fBHsmRvWxRoC
-	 lnA+/2+M6tVf/RZp9Z4X0cZ/mIq6uiI5u4BJM/66D7d9ayieyEtDLAZPGq2L7fncon
-	 wju4r7HoyHYyIhlvyK0oBMMowPRs9ELzib4TVPMQl5Pnt6yJw1heZDQ/QanPOcBdrp
-	 9mOS6lX12OTgLzfCnWk4M/UZqIe2DKJ3YYGdDNRKNo3BjS8eGuFlds83zW1svyuFV6
-	 lUQMlm3kHayUA==
+	b=RwLeFBYGtodHHrUssFLZPMfSjbxexqX/akQK/ibN7zo66jtcJ1GYgcnYbq2UHB1fD
+	 F5miYHH/RxHnYb6E99o7GMS1gBbe3wlwFBJhJ2kRBaXbdk1pYXXBYMvp1ym3ki1cm1
+	 BV14JoD0CK1z12X00cuEaxaQpkuWR2KyoIiFXyQwm8swztCf+oE8Z1eRoAE4hNc0yi
+	 68KvlLOVv+R9CbiIsYmlkkqgsD/jhJ7RQheJhhmjAdhevG2q++lecKR7qLmPFAxgKT
+	 P8qYmZ7ecfxh+elPTxTSXGZxa8dartsUBVm3A9oNU7WIAPC+Yb+moq6CKCV5qHQxJj
+	 DvG/mCaaPPiVQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv2 07/13] media: uapi: cec.h: add CEC_CAP_HAS_EDID_PRESENT/CEC_LOG_ADDRS_FL_EDID_PRESENT
-Date: Tue,  3 Nov 2026 08:31:58 +0100
-Message-ID: <b168e5e844ef01f26cbf5aaba92761823df83ff1.1793691124.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv2 04/13] media: i2c: adv7511-v4l2: call cec_s_phys_addr only if EDID is present
+Date: Tue,  3 Nov 2026 08:31:55 +0100
+Message-ID: <96a98136443ef4d8b2f5ba0cf5c9c15be03e7015.1793691124.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793691124.git.hverkuil+cisco@kernel.org>
 References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
@@ -60,68 +60,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a capability and a new flag that is used to indicate if an
-EDID is present.
+If an EDID is present, then call cec_s_phys_addr. If not, then
+call cec_phys_addr_invalidate. This helps the CEC framework differentiate
+between CEC_PHYS_ADDR_INVALID due to no EDID, or due to an EDID without
+a Physical Address.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- include/uapi/linux/cec.h | 28 +++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ drivers/media/i2c/adv7511-v4l2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/uapi/linux/cec.h b/include/uapi/linux/cec.h
-index fdfc97a6e4ec..8f7c7a4cb505 100644
---- a/include/uapi/linux/cec.h
-+++ b/include/uapi/linux/cec.h
-@@ -325,27 +325,27 @@ static inline int cec_is_unconfigured(__u16 log_addr_mask)
- #define CEC_MODE_FOLLOWER_MSK		0xf0
- 
- /* Userspace has to configure the physical address */
--#define CEC_CAP_PHYS_ADDR	(1 << 0)
-+#define CEC_CAP_PHYS_ADDR		(1 << 0)
- /* Userspace has to configure the logical addresses */
--#define CEC_CAP_LOG_ADDRS	(1 << 1)
-+#define CEC_CAP_LOG_ADDRS		(1 << 1)
- /* Userspace can transmit messages (and thus become follower as well) */
--#define CEC_CAP_TRANSMIT	(1 << 2)
--/*
-- * Passthrough all messages instead of processing them.
-- */
--#define CEC_CAP_PASSTHROUGH	(1 << 3)
-+#define CEC_CAP_TRANSMIT		(1 << 2)
-+/* Passthrough all messages instead of processing them. */
-+#define CEC_CAP_PASSTHROUGH		(1 << 3)
- /* Supports remote control */
--#define CEC_CAP_RC		(1 << 4)
-+#define CEC_CAP_RC			(1 << 4)
- /* Hardware can monitor all messages, not just directed and broadcast. */
--#define CEC_CAP_MONITOR_ALL	(1 << 5)
-+#define CEC_CAP_MONITOR_ALL		(1 << 5)
- /* Hardware can use CEC only if the HDMI HPD pin is high. */
--#define CEC_CAP_NEEDS_HPD	(1 << 6)
-+#define CEC_CAP_NEEDS_HPD		(1 << 6)
- /* Hardware can monitor CEC pin transitions */
--#define CEC_CAP_MONITOR_PIN	(1 << 7)
-+#define CEC_CAP_MONITOR_PIN		(1 << 7)
- /* CEC_ADAP_G_CONNECTOR_INFO is available */
--#define CEC_CAP_CONNECTOR_INFO	(1 << 8)
-+#define CEC_CAP_CONNECTOR_INFO		(1 << 8)
- /* CEC_MSG_FL_REPLY_VENDOR_ID is available */
--#define CEC_CAP_REPLY_VENDOR_ID	(1 << 9)
-+#define CEC_CAP_REPLY_VENDOR_ID		(1 << 9)
-+/* CEC_LOG_ADDRS_FL_EDID_PRESENT is available */
-+#define CEC_CAP_HAS_EDID_PRESENT	(1 << 10)
- 
- /**
-  * struct cec_caps - CEC capabilities structure.
-@@ -405,6 +405,8 @@ struct cec_log_addrs {
- #define CEC_LOG_ADDRS_FL_CDC_ONLY		(1 << 2)
- /* Configuration failed */
- #define CEC_LOG_ADDRS_FL_CONFIG_FAILED		(1 << 3)
-+/* EDID is present */
-+#define CEC_LOG_ADDRS_FL_EDID_PRESENT		(1 << 4)
- 
- /**
-  * struct cec_drm_connector_info - tells which drm connector is
+diff --git a/drivers/media/i2c/adv7511-v4l2.c b/drivers/media/i2c/adv7511-v4l2.c
+index 27e0e2c31dbd..1cc87049c6be 100644
+--- a/drivers/media/i2c/adv7511-v4l2.c
++++ b/drivers/media/i2c/adv7511-v4l2.c
+@@ -1466,7 +1466,7 @@ static void adv7511_notify_no_edid(struct v4l2_subdev *sd)
+ 	ed.present = false;
+ 	ed.segment = adv7511_rd(sd, 0xc4);
+ 	ed.phys_addr = CEC_PHYS_ADDR_INVALID;
+-	cec_s_phys_addr(state->cec_adap, ed.phys_addr, false);
++	cec_phys_addr_invalidate(state->cec_adap);
+ 	v4l2_subdev_notify(sd, ADV7511_EDID_DETECT, (void *)&ed);
+ 	v4l2_ctrl_s_ctrl(state->have_edid0_ctrl, 0x0);
+ }
 -- 
 2.53.0
 
