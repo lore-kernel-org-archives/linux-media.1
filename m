@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793691637;
-	b=38FwaPjEKvioz3qBx34aDVvsemSDsv7ZgABe0wmmxso0D6MvGpu5lUdYrywoltIzrU2V
-	 62jiV8zX347kjWfZYRrIV8G6f/Zowo49VMEOCA93k7Z9fIOq+R71e5x6xRhpOiWyk+SJJ
-	 axmTBOMpSepEWy0NeNVBWC48h8xMPZt3Z8qBKBlAo70r2zqm98yMearzhXrA3Ti/LFUvW
-	 SXH7SZWF7vzxJ+vs7x78af0iZBwcpmv0HWuCS5cy3u5jdA1ucRDJu8H2jPHqUM0dnVdXy
-	 5z3Q1m52UUVVQTcJ0KsGbZBC+0qksAKUBY0pXBz5MEL2/uf06hpqoG7uHTx2lbM+U3Q==
+	t=1793691638;
+	b=XXLh5+i+9fPdkrLiBlbl3zRX/rPlxtTctXD1QYk05oj21m7ruOHa4OLDTwwpqbJGTjb/
+	 XcKiKZEmpVw/xOMGrtK/j5jJ9Umg89zjPAAYP6FO/OfYmeCdo6o0GnvMdAm72wYwVxEpn
+	 fqWBAn04dCHGLT1LTcsqocHiaRO/he9BrKRGAS5u/KVy0tggxcS8MxFS3XOFiXvyKQzxP
+	 Se7jwWt95EKewiDxlx+dWNk96Rx4vtnfLEnppP3WUNAsgw8Rjko3EwbSs9TR2x0xLGise
+	 cZ7TZtXghOd/sYzl9D28G3BPM8p3dTDsbe/AfHG/HBG+Pvwf/NmfmD9VZrdQ1BvCqDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793691637;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793691638;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DLE/sb7lVTmv9xmV+XIXDmW3NyBtzBPjeaLdqPrAlgc=;
-	b=2G3SXHG/po05R2JyKDd3Al4DiNO2kxMSX642eJj84dKgo7qy7XLPl8taZNvszix3CGXr
-	 C0i4fBJ8w+MoZob0QHNMahDLgd02yyDT1jgXJm9v6mHoQfJxE+YGp4P7++YP3ouyoP6in
-	 McQoxEcbn0+FoaZ9lnYOoBE/k0jdKmaIld0FwTUH1ihJZsN5ufU0SW/qHORfsoBC8sf/M
-	 nF6CUDEyw/Sw4aSDMTvcpDxMw0P1Rct4CIp4kGcA/ZvdtEtmGFOBGXPojbRRhuaoUbCQs
-	 HT7NkTUTciDmyU4TwLBfo9t+WTDyigO3/9bJcwY8r6nDhUU6vLKXHUUc0V2bjTejHFg==
+	bh=Rabuf4op/XN5NP6YCfyGe/a7zJ5w3jeN4Y6eXAm5e00=;
+	b=mLdkaFlzFQ6dPMFDD7Q4K9kh4Vav0W3QRzULwi7o8/m+pe0D7A9w7zqi5OKkhMD0w+E6
+	 6FRMNO8vMsPxM5kx+T3ozhQAGXT1b+i4WexH298/kOC5TIbrZk7qQ5tSbTBxdhOqCpIhk
+	 p6B+yBlllkrgjScRli1qwkres8eLzRTiMQekcXsw6+LNGnQCohAaXfiWWk4uGFgz8FQiu
+	 08SRWEjRvEImj0kKAEfIryrPfoz+4tPLImg4cCj5cdYx8k0QuCSYi4u2wHiZ16OZRx0Ay
+	 hNqz/fIHa1non7AxXYg0P+sm7CTdmZfQSOz+IymQl3eKsrcJZbLTTeUge1rTzIQRRrg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZL8NHHM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBAEV328;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9FBB606A339
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95696606D808
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 07:40:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZL8NHHM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1241F00A26;
-	Tue,  3 Nov 2026 07:40:35 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VBAEV328
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 130571F00919;
+	Tue,  3 Nov 2026 07:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793691636;
-	bh=DLE/sb7lVTmv9xmV+XIXDmW3NyBtzBPjeaLdqPrAlgc=;
+	s=k20260515; t=1793691638;
+	bh=Rabuf4op/XN5NP6YCfyGe/a7zJ5w3jeN4Y6eXAm5e00=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WZL8NHHM2PEpHYaePV1OWOGQRx3XABT+8Ju4bELjIJDMreFIIZkhMiWl9pR4wxQ1P
-	 iN/eOgSIdnz5y3hOTfh2/6SwBdNuzLrs75j4KxH0alC8KHoHFMo9R1A2TYgyRotVrm
-	 TpIgf3EZfB+r9TKaSTQdvx0tswTMURKxEYYhmm5qOUtxzW7oCj0JBK2xatmLky85r8
-	 eNc+UHyAyppuNkBoy6LA/wPsoQA8qRW4XMHoY7y8lvHktvRYJPfPPOskt8WhicPRDK
-	 eyIA9Uh+EVbsQGOk8frfoNUqb66A2b9xXIR0ti+PTWMavYwW20TFSQtt5LC1VLAhU3
-	 u/HZclDAZ6TEw==
+	b=VBAEV3282+sZdY2DagnFYdB0oW4fOavxYu5Ke68Lc+DqHiPFhZkcAwAcm7M6zQxcB
+	 CS+pn8paSOakv3GMSxphVlvKEgxJM6ApSNu/w8fWtsBbgYSBVcxnC/pAioUumwaJsV
+	 OyPkADf/yU4QXsgaKo6/Xmc1cG+oqKw36xXSJUqG0/d9pqFRkJDb3yAAQRl/ZlkpRz
+	 wBBciqGmnksAFd4bMfMEJgBIwy+2cBm2encUeIeo/8M8waVyLeYrO528Sh+k4aJjlt
+	 2tNWP+GQAwcAA/j8U9bvmnAjpJhEpFuMx8FLIqvCGT9QnpPFi1/MUsoSezX4/xCyzy
+	 xLz9Ric/He58w==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv2 09/13] media: cec: core: add support for EDID_PRESENT
-Date: Tue,  3 Nov 2026 08:32:00 +0100
-Message-ID: <3a270f7742aaeadc15bceb727b8d8415caad9c76.1793691124.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv2 10/13] media: uapi: cec.h: add CEC_EVENT_FL_STATE_EDID_PRESENT flag
+Date: Tue,  3 Nov 2026 08:32:01 +0100
+Message-ID: <215493fe7ce132b19dc109f0fa83d3bd2c081d2b.1793691124.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793691124.git.hverkuil+cisco@kernel.org>
 References: <cover.1793691124.git.hverkuil+cisco@kernel.org>
@@ -60,227 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There can be two reasons for the CEC Physical Address to be invalid:
-either there is no EDID, or there is an EDID, but it does not contain
-a Physical Address, or the Physical Address is set to f.f.f.f in the EDID.
-
-For debugging it is very useful to know why the PA is invalid.
-
-Add support for reporting this to userspace by changing the behavior of
-two CEC functions: cec_s_phys_addr is called with the PA read from the
-EDID (or CEC_PHYS_ADDR_INVALID if the EDID has no PA or the PA is f.f.f.f),
-and cec_phys_addr_invalidate is only called if the HPD goes low, so the
-EDID is gone.
-
-The first function sets the new CEC_LOG_ADDRS_FL_EDID_PRESENT flag, and
-the second function removes it.
+The CEC_EVENT_FL_STATE_EDID_PRESENT will report whether the EDID is
+present or not.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- drivers/media/cec/core/cec-adap.c | 49 ++++++++++++++++++++++++++-----
- drivers/media/cec/core/cec-api.c  |  3 +-
- drivers/media/cec/core/cec-core.c |  4 ++-
- drivers/media/cec/core/cec-priv.h |  3 +-
- include/media/cec.h               | 27 +++++++++--------
- 5 files changed, 63 insertions(+), 23 deletions(-)
+ include/uapi/linux/cec.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
-index ee8a200b9803..1a7b79916e47 100644
---- a/drivers/media/cec/core/cec-adap.c
-+++ b/drivers/media/cec/core/cec-adap.c
-@@ -1727,18 +1727,35 @@ int cec_adap_enable(struct cec_adapter *adap)
-  *
-  * This function is called with adap->lock held.
-  */
--void __cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block)
-+void __cec_s_phys_addr(struct cec_adapter *adap, bool edid_present,
-+		       u16 phys_addr, bool block)
- {
- 	bool becomes_invalid = phys_addr == CEC_PHYS_ADDR_INVALID;
- 	bool is_invalid = adap->phys_addr == CEC_PHYS_ADDR_INVALID;
-+	bool edid_was_present =
-+		adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT;
+diff --git a/include/uapi/linux/cec.h b/include/uapi/linux/cec.h
+index 8f7c7a4cb505..8324d208c1d5 100644
+--- a/include/uapi/linux/cec.h
++++ b/include/uapi/linux/cec.h
+@@ -455,6 +455,7 @@ struct cec_connector_info {
  
--	if (phys_addr == adap->phys_addr)
--		return;
-+	if (adap->capabilities & CEC_CAP_HAS_EDID_PRESENT) {
-+		if (edid_present)
-+			adap->log_addrs.flags |= CEC_LOG_ADDRS_FL_EDID_PRESENT;
-+		else
-+			adap->log_addrs.flags &= ~CEC_LOG_ADDRS_FL_EDID_PRESENT;
-+	} else {
-+		edid_present = false;
-+	}
- 	if (!becomes_invalid && adap->devnode.unregistered)
- 		return;
-+	if (phys_addr == adap->phys_addr) {
-+		if (edid_was_present != edid_present) {
-+			dprintk(1, "EDID is %spresent\n",
-+				edid_present ? "" : "not ");
-+			cec_post_state_event(adap);
-+		}
-+		return;
-+	}
+ #define CEC_EVENT_FL_INITIAL_STATE	(1 << 0)
+ #define CEC_EVENT_FL_DROPPED_EVENTS	(1 << 1)
++#define CEC_EVENT_FL_STATE_EDID_PRESENT	(1 << 2)
  
--	dprintk(1, "new physical address %x.%x.%x.%x\n",
--		cec_phys_addr_exp(phys_addr));
-+	dprintk(1, "new physical address %x.%x.%x.%x, EDID is %spresent\n",
-+		cec_phys_addr_exp(phys_addr), edid_present ? "" : "not ");
- 	if (becomes_invalid || !is_invalid) {
- 		adap->phys_addr = CEC_PHYS_ADDR_INVALID;
- 		cec_adap_unconfigure(adap);
-@@ -1767,11 +1784,22 @@ void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block)
- 		return;
- 
- 	mutex_lock(&adap->lock);
--	__cec_s_phys_addr(adap, phys_addr, block);
-+	__cec_s_phys_addr(adap, true, phys_addr, block);
- 	mutex_unlock(&adap->lock);
- }
- EXPORT_SYMBOL_GPL(cec_s_phys_addr);
- 
-+void cec_phys_addr_invalidate(struct cec_adapter *adap)
-+{
-+	if (IS_ERR_OR_NULL(adap))
-+		return;
-+
-+	mutex_lock(&adap->lock);
-+	__cec_s_phys_addr(adap, false, CEC_PHYS_ADDR_INVALID, false);
-+	mutex_unlock(&adap->lock);
-+}
-+EXPORT_SYMBOL_GPL(cec_phys_addr_invalidate);
-+
- /*
-  * Note: In the drm subsystem, prefer calling (if possible):
-  *
-@@ -1782,10 +1810,15 @@ void cec_s_phys_addr_from_edid(struct cec_adapter *adap,
- {
- 	u16 pa = CEC_PHYS_ADDR_INVALID;
- 
-+	if (IS_ERR_OR_NULL(adap))
-+		return;
-+
- 	if (edid && edid->extensions)
- 		pa = cec_get_edid_phys_addr((const u8 *)edid,
- 				EDID_LENGTH * (edid->extensions + 1), NULL);
--	cec_s_phys_addr(adap, pa, false);
-+	mutex_lock(&adap->lock);
-+	__cec_s_phys_addr(adap, edid, pa, false);
-+	mutex_unlock(&adap->lock);
- }
- EXPORT_SYMBOL_GPL(cec_s_phys_addr_from_edid);
- 
-@@ -1969,6 +2002,8 @@ int __cec_s_log_addrs(struct cec_adapter *adap,
- 	}
- 
- 	log_addrs->log_addr_mask = adap->log_addrs.log_addr_mask;
-+	log_addrs->flags |=
-+		adap->log_addrs.flags & CEC_LOG_ADDRS_FL_EDID_PRESENT;
- 	adap->log_addrs = *log_addrs;
- 	err = cec_adap_enable(adap);
- 	if (!err && adap->phys_addr != CEC_PHYS_ADDR_INVALID)
-diff --git a/drivers/media/cec/core/cec-api.c b/drivers/media/cec/core/cec-api.c
-index a491d7fc8a71..1ba080d5a123 100644
---- a/drivers/media/cec/core/cec-api.c
-+++ b/drivers/media/cec/core/cec-api.c
-@@ -136,7 +136,8 @@ static long cec_adap_s_phys_addr(struct cec_adapter *adap, struct cec_fh *fh,
- 	if (cec_is_busy(adap, fh))
- 		err = -EBUSY;
- 	else
--		__cec_s_phys_addr(adap, phys_addr, block);
-+		__cec_s_phys_addr(adap, phys_addr != CEC_PHYS_ADDR_INVALID,
-+				  phys_addr, block);
- 	mutex_unlock(&adap->lock);
- 	return err;
- }
-diff --git a/drivers/media/cec/core/cec-core.c b/drivers/media/cec/core/cec-core.c
-index 230f8a413e74..9767f7c55b46 100644
---- a/drivers/media/cec/core/cec-core.c
-+++ b/drivers/media/cec/core/cec-core.c
-@@ -178,7 +178,7 @@ static void cec_devnode_unregister(struct cec_adapter *adap)
- 	mutex_unlock(&devnode->lock);
- 
- 	mutex_lock(&adap->lock);
--	__cec_s_phys_addr(adap, CEC_PHYS_ADDR_INVALID, false);
-+	__cec_s_phys_addr(adap, false, CEC_PHYS_ADDR_INVALID, false);
- 	__cec_s_log_addrs(adap, NULL, false);
- 	// Disable the adapter (since adap->devnode.unregistered is true)
- 	cec_adap_enable(adap);
-@@ -279,6 +279,8 @@ struct cec_adapter *cec_allocate_adapter(const struct cec_adap_ops *ops,
- 	adap->log_addrs.cec_version = CEC_OP_CEC_VERSION_2_0;
- 	adap->log_addrs.vendor_id = CEC_VENDOR_ID_NONE;
- 	adap->capabilities = caps | CEC_CAP_REPLY_VENDOR_ID;
-+	if (!(caps & CEC_CAP_PHYS_ADDR))
-+		adap->capabilities |= CEC_CAP_HAS_EDID_PRESENT;
- 	if (debug_phys_addr)
- 		adap->capabilities |= CEC_CAP_PHYS_ADDR;
- 	adap->needs_hpd = caps & CEC_CAP_NEEDS_HPD;
-diff --git a/drivers/media/cec/core/cec-priv.h b/drivers/media/cec/core/cec-priv.h
-index ce42a37c4ac0..8ccf9ac868ba 100644
---- a/drivers/media/cec/core/cec-priv.h
-+++ b/drivers/media/cec/core/cec-priv.h
-@@ -46,7 +46,8 @@ void cec_monitor_pin_cnt_dec(struct cec_adapter *adap);
- int cec_adap_status(struct seq_file *file, void *priv);
- int cec_thread_func(void *_adap);
- int cec_adap_enable(struct cec_adapter *adap);
--void __cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block);
-+void __cec_s_phys_addr(struct cec_adapter *adap, bool edid_present,
-+		       u16 phys_addr, bool block);
- int __cec_s_log_addrs(struct cec_adapter *adap,
- 		      struct cec_log_addrs *log_addrs, bool block);
- int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
-diff --git a/include/media/cec.h b/include/media/cec.h
-index 4c8b0950b377..bfdc2987f7b1 100644
---- a/include/media/cec.h
-+++ b/include/media/cec.h
-@@ -381,6 +381,16 @@ void cec_s_conn_info(struct cec_adapter *adap,
- int cec_transmit_msg(struct cec_adapter *adap, struct cec_msg *msg,
- 		     bool block);
- 
-+/**
-+ * cec_phys_addr_invalidate() - set the physical address to INVALID
-+ *
-+ * @adap:	the CEC adapter
-+ *
-+ * This is a simple helper function to invalidate the physical
-+ * address when the EDID is lost.
-+ */
-+void cec_phys_addr_invalidate(struct cec_adapter *adap);
-+
- /* Called by the adapter */
- void cec_transmit_done_ts(struct cec_adapter *adap, u8 status,
- 			  u8 arb_lost_cnt, u8 nack_cnt, u8 low_drive_cnt,
-@@ -491,6 +501,10 @@ static inline void cec_s_phys_addr_from_edid(struct cec_adapter *adap,
- {
- }
- 
-+static inline void cec_phys_addr_invalidate(struct cec_adapter *adap)
-+{
-+}
-+
- static inline u16 cec_get_edid_phys_addr(const u8 *edid, unsigned int size,
- 					 unsigned int *offset)
- {
-@@ -513,19 +527,6 @@ cec_fill_conn_info_from_drm(struct cec_connector_info *conn_info,
- 
- #endif
- 
--/**
-- * cec_phys_addr_invalidate() - set the physical address to INVALID
-- *
-- * @adap:	the CEC adapter
-- *
-- * This is a simple helper function to invalidate the physical
-- * address.
-- */
--static inline void cec_phys_addr_invalidate(struct cec_adapter *adap)
--{
--	cec_s_phys_addr(adap, CEC_PHYS_ADDR_INVALID, false);
--}
--
  /**
-  * cec_get_edid_spa_location() - find location of the Source Physical Address
-  *
+  * struct cec_event_state_change - used when the CEC adapter changes state.
 -- 
 2.53.0
 
