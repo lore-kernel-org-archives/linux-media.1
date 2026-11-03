@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793719974;
-	b=umOSJoTB/w6f459M8BOsJURdTRwA/Qg2zDV1F2mrOQqp/rj40/Tqm5kMjdXZpDY0stxc
-	 aowdmdq4UlL62vszCZNuxCa1O6JtqN70Qq+3sLvXUcjEjdesK6T+v1mkU2zSQFDN0lW1S
-	 zR80nXT/EPgcBSc3YqIXkMFWhOKx/CoJXP18nXLNKjm4bPe5W5SjDg6CshbbygnwY6bH1
-	 z6U2ae4gWgwteQ5cmOMGXTznnMU2u+U1IEC4Z6NbU6u+OvGjM800X9fulMuXC8fjJ7muX
-	 hiKA+aydMtbKo/a4qX1of8IdwQIyy9SN5QmAopMMMyMMRCN8FUPZUISEGFIusGbrdtQ==
+	t=1793719953;
+	b=isDmBWaYTBxuTIr9jrJyVN4glsvje7knXCiiHFhaMiY9olua1zQIQ1IRZv499DyFhYJt
+	 9RfLk4x4vWbUTaIc3xQkNVsCOvzhUll4cZ00z7lIQAa3rEubgW0wBSMpfQ6w+gv8c3/mH
+	 iCriBHXBElvVAmNas5A3mE5dB/blxwEzmmaSKkM9qCXM77EO6xTlkzCwoLOguzE+X/hsP
+	 QTfLy0TKzOMKn56kbyn08aVuuKELmrN2NGDHFzJvkgPV7a0N1zwxtAKSffYgc/fV1jG0F
+	 454efVgjGmb3M6gveJ3OmKEHE+z+jQ1pfStgV+czP5SUc8TZr8NoJ6ZCadf4uWnpUig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793719974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793719953;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jvXZgZKQOD3OX+L2W5SOQ7Mfgo1KYf6m5NuhnlIPKN0=;
-	b=Sd5u+ELxjhB0ZxmI99h6EsM/5H/rLP1AEehyFR7atXkpYNVyHAmKf1rttYcgdBEn4I1R
-	 T23GMLU+wScTkXpBtP6S9abZuhhD+I9Y3PCv9ovI/eo1yj72hqfUOuB0HHa8rqHF6g354
-	 inNu/jWJMbvq7jrtvJqNTUbGsixl9SrYjjSE7G9hbyNvBuluXbeRf6rU1WDfhSJecEAZa
-	 dHvE2RzG8UvV8J1MnmkWRVbynMI5JeUd+L4xNmu8PtOcTHnLavhnyXzzVn6TZVJGaQp+N
-	 gIbTcW55rq/58Rhx+8OH0wIEk5Cfy7iF2/i1LtTM36KVBjKgj44Zt2eNvGdGuXiMofg==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=VyeiR5vnw71KrKc2dGrrliTZpBidJK/i1XEfJAb6e3g=;
+	b=Ail2V5oPfFesm605JyhIBdl9S1L1Ruq/zcNgehafd48aRpTF8kb2bV9lxOIt6hlD7nG8
+	 fix/q//zFP5qkpqdzMcLspPdBXewG9P508nyP2/U7heXSVNkNDOSrCgllrgdlUIjXm3vV
+	 zSDDnu2FNNeJGyF6M+j5DYUjQsW6gcHtzfVCyUDQpfK4JBzvj78BdKjkyBHAImh9EVoBr
+	 dxqLpko2Q3C8JsZQBJuH7wHNshSx3O1m1jxsYwXe+YTy+zgI0NZ5+mCm4Fi7jaylbugoR
+	 N/NJESMgOQQ0gARP5+PIWROykUQOUs3IbnmPhhQRQgzd8MI4nYLexJdbyCU5DBScTdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu9CuajT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pq5TULc5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196FE606D83E;
-	Tue,  3 Nov 2026 15:32:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1571606A324;
+	Tue,  3 Nov 2026 15:32:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lu9CuajT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9BD11F00A18;
-	Tue,  3 Nov 2026 15:32:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pq5TULc5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5321F000C1;
+	Tue,  3 Nov 2026 15:32:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793719973;
-	bh=jvXZgZKQOD3OX+L2W5SOQ7Mfgo1KYf6m5NuhnlIPKN0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lu9CuajTh6T+e139vMNYDhrcFDnkSxFm7I+Ts+as5e9pJXizpM/gM6VrE3rH1NcXN
-	 BMJtlRpKdDkvjB1gFTUXQT9wwdtw8pJJd6HnV7pS97U95iUZNRs0zgr3VQsXiSiVs0
-	 P6SK+1kpW2ARpsHQHZjEllG5JRbgBqxLwdM0MwcTroGpapmv2bLQ1h0zfCfaj8KAzT
-	 rhPrE4yl/zDbpXvEdOj1aszkN2QLtu/8EVEFNQOjD6tditj3WAemYuL4DZ4+5xluFQ
-	 JFenDPQHFjGOjdYJPP6LbpNHaj8XkoPvsSheLVT/WLex+2YpMrkye4x8+RBZWdAEFh
-	 CJ+7P38SNm2tg==
+	s=k20260515; t=1793719952;
+	bh=VyeiR5vnw71KrKc2dGrrliTZpBidJK/i1XEfJAb6e3g=;
+	h=From:To:Cc:Subject:Date;
+	b=Pq5TULc5Z+s0xoKNjOnTxsWIe9aBmcz/nGPtud3kgt1buEe/bnaodo7vMpSF+ajAS
+	 vJClZT9gyXL3ybxShcQZDd0tN5Z9z3jzu0+LaXspRSF3W/7lEjYsVTyNBLw0dEHws+
+	 opru8B2PtDBGX5LaKO93Hx+d1H8DpzvfinC24vXhHYQaxFno92hYnsZdPo0mCtwGMB
+	 BjXC5oCowfypwUpQ0oQZPAjb2f72lwbvHU7PLQS4kMFdrhthyVxXaqpE7rTD6ugGqm
+	 lZ2+ClMGcd59/k6JFkmNCQSN0glHSmKbPtvHm4qBuowk1X3WYHjJfkOYXGAAsz1JnO
+	 dZw7Yfd3t28MQ==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -63,12 +63,10 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	rust-for-linux@vger.kernel.org
-Subject: [RFC PATCH v7 4/8] rust: DmaFence: Replace call_rcu() with synchronize_rcu()
-Date: Tue,  3 Nov 2026 16:31:34 +0100
-Message-ID: <20261103153138.1087330-6-phasta@kernel.org>
+Subject: [RFC PATCH v7 0/8] rust: Add drm::JobQueue
+Date: Tue,  3 Nov 2026 16:31:30 +0100
+Message-ID: <20261103153138.1087330-2-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103153138.1087330-2-phasta@kernel.org>
-References: <20261103153138.1087330-2-phasta@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -78,205 +76,235 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The C dma_fence contract demands that a fence's data disappears no
-earlier than 1 RCU grace period after the DriverFence was signaled.
+I really hoped that I could present you guys with a v1 today, but, of
+course, I discovered an issue that was overlooked over the last months.
+See below.
 
-So far, we achieved this with dropping the DriverFence's data in a
-deferred manner with a manual, raw binding call to call_rcu().
+tl;dr: If JQ1 has dependencies on JQ2, and JQ2 dies, then we also need
+to inform JQ1 somehow and act accordingly (teardown).
 
-However, this call_rcu() does not solve one problem: It is conceivable
-that some driver data must not drop in atomic context; but call_rcu()'s
-payload *can* be executed in atomic context.
+We need to discuss the desirable solution for that problem, thus I'm
+requesting comments by you guys and remain on RFC for now.
 
-Moreover, the current developments in drm::JobQueue, where a DriverFence
-is always coupled 1:1 with a Job, allows for dropping job and fence
-through a work item.
+Based on drm-rust-next plus ScopedWork by Danilo & Alice [1] and my
+lock-error-fix [2]. My branch with a minimalist tester (my old tester updated
+by Gary) can be found here [3].
 
-The undesirable blocking behavior of synchronize_rcu() would, thus, not
-be annoying any thread anymore. The direct users of DmaFence could
-achieve the same by dropping their DriverFences through work items.
+[1] https://lore.kernel.org/rust-for-linux/20261020-rust-workqueue-v3-0-ea7c74d02068@google.com/
+[2] https://lore.kernel.org/rust-for-linux/20261022160725.2215244-2-phasta@kernel.org/
+[3] https://gitlab.freedesktop.org/pstanner/linux-drm-work/-/tree/jobqueue-jobqueue-rfc-v7-2?ref_type=heads
 
-The only conceivable other solution, queue_rcu_work(), would, for many
-users, schedule a work_item from another work_item, which seems
-undesirable.
+Changes in v7:
+  - Unfortunately, I discovered a design question that we completely
+    overlooked so far: If a "neighboring" JQ dies, its fences get
+    signaled with an error – but the callbacks registered on a fence
+    don't query that error, leading to UB by that GPU ring relying on
+    the work being done. Thus:
+      - Always inform about errors in
+	FenceCallbackRegistration::on_signal() about errors.
+      - Similarly, replace Fence::is_signaled(). It's a useless function.
+	You *must* query whether a fence got signaled *successfully*.
+      - !!! RFC: Add a JobQueueOps::kill() to tell the driver to tear this
+	JQ down.
+  - Add ID accessors for FenceCtx and JQ.
+  - By Gary: Working self references + PinInit. Kudos to Gary!
+      - Among the many changes that he did is a portation to a new
+	minimalist list-type, since the default list collides with
+	self-references.
 
-Additionally, using the existing synchronize_rcu() abstraction has the
-advantage of us getting rid of a raw bindings call.
+Changes in v6:
+  - Rework DmaFence so you can signal fences without dropping them
+    (since we'd have to drop in atomic context otherwise)
+  - Use synchronize_rcu() for fence dropping for now – with a fast path
+    optimization! – instead of call_rcu() because the latter can run in
+    atomic context.
+  - Add DropWorker for JobQueue which drops jobs and their fences in
+    process context.
+  - Rework locking design: All JQ API functions can be invoked without
+    any driver locks. run_job() is not executed with the JQ lock held,
+    thus the driver can sleep.
+  - Add a seqno based approach to catch potential races with the
+    unlocked call to run_job().
+  - Redesign JobQueue::complete_jobs_up_to_seqno() so that by default
+    jobs are completed with status == Ok(()). This is done because it
+    makes the race-catcher above easier to implement (otherwise we'd
+    have to carry the last error around, and if we ever implement batch
+    submissions we'd need a list of errors).
+  - Since our design assumption is that users will always close their
+    ring and drop their JQ if anything goes wrong on the ring, just
+    provide one function that signals with an error on teardown:
+    JobQueue::teardown().
+  - Move the work items out of the locked JobQueueInner, since the work
+    queue lock already synchronizes everything. The
+    Revocable<JobQueueInner> needs to stay, however, so that the
+    SubmitWorker can be safely cancelled on JQ::drop().
+  - Fix various logical bugs that I found (code is unfortunately still
+    untested).
+  - Extend documentation significantly.
+  - Formatting.
 
-Replace DriverFence::drop()'s call_rcu() with synchronize_rcu().
+Changes in v5:
+  - Add back the Revocable<JobQueueInner…> from my earliest RFCs. Reason
+    is still the same: JQ dropping while dependency fences signal could
+    deadlock. Similarly, this solves a dependency kicking of the work
+    item again while drop() is running.
+  - Do not call run_job() with a lock held, since run_job() might sleep.
+    AFAICS, this also makes the proposed XArray solution impossible and
+    demands that we use a list.
+  - Re-add the earlier credit-count-system, so that run_job() is
+    infallible. Simplifies the design quite a bit. (Danilo)
+  - Drop jobs in a deferred manner through the work item so that job
+    payload data can do atomic-hostile stuff.
+  - Because of the point above, I suggest that we stop dropping a
+    DriverFence on signal (Danilo's and my idea). It has no real
+    advantage, and getting rid of it allows for better controlling what
+    drops when through JobQueue. For fence it's only relevant that there
+    is an RCU grace period, thus:
+  - Replace DriverFence::drop()'s call_rcu() with synchronize_rcu(). We
+    would, therefore, demand that everyone who's got a problem with the
+    delay drops via work item.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- rust/kernel/dma_buf/dma_fence.rs | 101 ++++++++-----------------------
- 1 file changed, 24 insertions(+), 77 deletions(-)
+This can still not be tested as I'm blocked by pin-init vs self-ref.
+Just FYI.
 
-diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index c04b68fe67fe..d26cf9e8e4b1 100644
---- a/rust/kernel/dma_buf/dma_fence.rs
-+++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -42,7 +42,7 @@
-             Atomic,
-             Relaxed, //
-         },
--        rcu::rcu_barrier, //
-+        rcu::synchronize_rcu, //
-     }, //
- };
- 
-@@ -65,7 +65,7 @@ pub struct FenceContext<T: FenceContextOps + Send + Sync> {
-     /// The sequence number for the next fence created.
-     seqno: Atomic<u64>,
-     // The name parameters can be accessed by the dma_fence backend_ops. UAF
--    // errors are prevented by the `call_rcu()` in `drop_driver_fence_data()`.
-+    // errors are prevented by `synchronize_rcu()`.
-     /// The name of the driver this FenceContext's fences belong to.
-     driver_name: CString,
-     /// The name of the timeline this FenceContext's fences belong to.
-@@ -149,15 +149,11 @@ fn next_seqno(&self) -> u64 {
-     ///
-     /// This is needed because many times, creation of a [`DriverFence`] must not
-     /// fail, and allocating might deadlock in some situations.
--    ///
--    /// The `data` you pass here must not perform any operations that are illegal
--    /// in atomic context in its [`Drop`] implementation.
-     pub fn new_fence_allocation(
-         &self,
-         data: T::FenceDataType,
-     ) -> Result<DriverFenceAllocation<'_, T>> {
-         let fence_data = DriverFenceData {
--            rcu_head: Default::default(),
-             // `inner` remains uninitialized until a `DriverFence` takes over.
-             inner: Fence {
-                 inner: Opaque::uninit(),
-@@ -243,15 +239,10 @@ fn drop(self: Pin<&mut Self>) {
-             panic!("Forgotten fences in FenceContext.");
-         }
- 
--        // Ensure that the driver cannot unload while there are still dma_fence
--        // callbacks running. At the same time, the RCU barrier addresses the
--        // problem inherited by the C backend, in which backend ops callbacks
--        // might be accessing the fence while it is being signaled (or shortly
--        // after). This could cause UAF access on the fence context's
--        // `fctx.driver_name` and `fctx.timeline_name`.
--        //
--        // Wait for the RCU callbacks in `DriverFence::drop`.
--        rcu_barrier();
-+        // If a DriverFence signals without doing a synchronize_rcu(), and a
-+        // fctx drops immediately afterwards, then backend_ops still accessing
-+        // the fctx might run into UAF if we don't wait for them here.
-+        synchronize_rcu();
-     }
- }
- 
-@@ -615,12 +606,9 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
-     // necessary so that the C backend can free the allocation (coming from our
-     // Rust code) with kfree_rcu().
-     inner: Fence,
--    /// Callback head for dropping this in a deferred manner through RCU.
--    rcu_head: bindings::callback_head,
-     /// Reference to access the FenceContext.
-     fctx: &'a FenceContext<T>,
--    /// The API user's data. It is essential that the data only performs
--    /// operations legal in atomic context in its [`Drop`] implementation.
-+    /// The API user's data.
-     #[pin]
-     data: T::FenceDataType,
- }
-@@ -955,15 +943,15 @@ fn drop(&mut self) {
-         // dma_fence_is_signaled_locked() because the C backend wants to get rid
-         // of the latter.
- 
--        // SAFETY: `guard` is valid until the `call_rcu()` below.
-+        // SAFETY: `guard` is valid.
-         let signaled: bool = unsafe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
-         if !signaled {
-             pr_err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
--            // SAFETY: `guard` is valid until the `call_rcu()` below. The fence
--            // must not have been signaled yet, which we check directly above.
-+            // SAFETY: `guard` is valid. The fence must not have been signaled
-+            // yet, which we check directly above.
-             unsafe { bindings::dma_fence_set_error(guard.as_raw(), ECANCELED.to_errno()) };
--            // SAFETY: `guard` is valid until the `call_rcu()` below. The lock
--            // must be held, which we acquired above.
-+            // SAFETY: `guard` is valid. The lock must be held, which we
-+            // acquired above.
-             unsafe { bindings::dma_fence_signal_locked(guard.as_raw()) };
- 
-             // SAFETY: `self.data` is valid because `self` is valid.
-@@ -988,59 +976,18 @@ fn drop(&mut self) {
-             return;
-         }
- 
--        // SAFETY: Valid because `self` is valid.
--        let rcu_head_ptr = unsafe { &raw mut (*self.data.as_ptr()).rcu_head };
-+        // Make sure none of the fence backend_ops can access fence-data anymore.
-+        //
-+        // TODO:
-+        // This would not be necessary if the C dma_fence backend were using a
-+        // spinlock to properly synchronize its signaled state. Fix it in C and
-+        // then remove synchronize_rcu().
-+        synchronize_rcu();
- 
--        // SAFETY: `call_rcu()` is always safe to be called. `rcu_head_ptr` was
--        // created validly above. The module must perform a `synchronize_rcu()`
--        // or `rcu_barrier()` call to guard against module unload.
--        unsafe { bindings::call_rcu(rcu_head_ptr, Some(drop_driver_fence_data::<T>)) };
-+        // SAFETY: Valid because `self` is valid.
-+        unsafe { drop_in_place(&raw mut self.data) };
-+
-+        // SAFETY: The `synchronize_rcu()` above ensures all accessors are gone.
-+        unsafe { bindings::dma_fence_put(self.as_raw()) };
-     }
- }
--
--// TODO:
--// The entire call_rcu() mechanism in the drop above and the code below would be
--// unnecessary if C's dma_fence_signal() could be reworked in a way that after it
--// ran, the caller knows that no fence_ops callbacks can be running anymore.
--// In other words, if the dma_fence backend would use its spinlock for full
--// synchronization.
--//
--// Then we could move the drop_in_place() and dma_fence_put() upwards into the
--// drop() implementation and call it a day.
--
--/// Finally really drop this `DriverFence<T>`
--///
--/// # Safety
--///
--/// `head` references the `rcu_head` field of an `DriverFenceData<T>`. All
--/// accessors to that `DriverFenceData<T>` must be gone by now. This must be
--/// ensured by signalling the associated `DriverFence<T>` and then waiting
--/// for a grace period until calling this function here.
--unsafe extern "C" fn drop_driver_fence_data<T: Send + Sync + FenceContextOps>(
--    head: *mut bindings::callback_head,
--) {
--    // SAFETY: Caller provides a pointer to the `rcu_head` field of a `DriverFenceData<C>`.
--    let fence_data = unsafe { container_of!(head, DriverFenceData<'_, T>, rcu_head) };
--
--    // SAFETY: `fence_data` was created validly above. All the fence's data will
--    // only drop below, but the raw pointer to the raw C `dma_fence` remains
--    // valid because the reference count is only decremented at the end of the
--    // function.
--    let fence = unsafe { (*fence_data).inner.inner.get() };
--
--    // SAFETY: `fence_data` was created validly above. The user has already
--    // dropped the only conventional accessor to the user data, the `DriverFence`,
--    // one grace period ago. All accessors are gone now.
--    unsafe { drop_in_place(&raw mut (*fence_data).data) };
--
--    // The inner `Fence` explicitly does not get dropped because there may be
--    // many more users / consumers, each holding their own reference.
--
--    // SAFETY: Once a `DriverFence` is initialized, the inner `fence` is valid
--    // and initialized. It is valid until the refcount drops to 0, which can
--    // earliest happen once we drop the `DriverFence`'s reference here.
--    unsafe { bindings::dma_fence_put(fence) };
--
--    // The actual memory the data associated with a `DriverFence` lives in
--    // gets freed by the C dma_fence backend once the fence's refcount reaches 0.
--}
+I would appreciate confirmation of these following thoughts on locking
+design:
+
+1.
+I believe that callers of jq.new_job() and jq.submit_job() do not need
+an outer serialization mutex. Reason is that JQ serializes with its
+internal lock. Sequence numbers cannot take over older seqnos because it
+is submit_job() who sets the seqno.
+
+2.
+I, furthermore, believe that a driver will not need to hold a
+driver-lock while calling jq.complete_jobs_up_to_seqno().
+
+IOW, I am suggesting that a driver can always safely use JQ without an
+outer lock, and actually *should* do so to avoid potential locking
+issues.
+
+Reason:
+
+let driver_stuff = foo.lock();
+let current_gpu_seqno = driver_stuff.get_seqno();
+drop(driver_stuff);
+jq.complete_jobs_up_to_seqno(current_gpu_seqno);
+
+Thus, I believe that it is OK for me to take the JQ lock in
+jq.complete_jobs_up_to_seqno().
+
+Please correct me if I'm missing something.
+
+Should I be wrong and a lock inversion could occur, then we could
+hypothetically add a fence Signaler object, with which we could signal
+fences with a different lock. Similar to how drm_sched does it with the
+hardware_fence.
+
+
+Regards
+P.
+
+
+====
+
+Cover letter from v4:
+
+As the commit messages and code comments detail, progressing JobQueue is
+currently somewhat blocked because of an issue with self-referential
+PinInit, which Gary generously offered to investigate.
+
+This code compiles, but the example does not because of the
+aformentioned issue. Nevertheless, I wanted to provide another RFC here
+so that we can move our discussions forward in the meantime, especially
+since very much about JobQueue has changed.
+
+Our, now upstreamed, DmaFence abstractions informed some of the notable
+changes in JobQueue. Most notably, JobQueue now owns the FenceContext,
+Jobs are created on the queue and own the DriverFence. Jobs, again, are
+owned by the JobQueue. We hope to enforce correct behavior that way,
+having FenceContext, JobQueue and firmware ring all correspond with each
+other 1:1:1.
+
+I suspect that a potential deadlock on JQ drop still exists. I
+previously solved that with Revocable, which I tend to think will also
+be the way to go here.
+
+(One very great news btw is that we almost magically solved a number of
+issues with the new DmaFence design – in combination with this JobQueue
+design, for the first time it would be possible to fully support the
+dma_fence backend_ops. The driver-unload-problem previously had most
+users use intermediate fences, like the drm_sched_fence, which means
+that callbacks, e.g. from userspace, could not be passed through to the
+driver. Now, with FenceContextOps <-> JobQueueOps, we can theoretically
+support all of them)
+
+The differences between this draft and Daniel / Tyr's prototype which
+probably are most noteworthy are the different lock design
+("Philipp"-JobQueue has one big lock, wheres Tyr-JobQueue has 2, 3 if
+you count the XArray lock) and the used data structure.
+
+The presented solution uses lists over XArray because:
+  1. XArray is semantically more complex and has an additional lock.
+  2. An Xarray-as-ringbuffer needs own algorithms for index tracking,
+     wrapp around etc. With list you enqueue into a waiting list, and
+     for running you move into the running_list.
+  3. The memory reservations we need for pre-allocating everything for
+     our job-submission path are solved in one go with list, because a
+     job simply contains a list head.
+  4. Most notably, it is unclear how XArray behaves for ever-increasing
+     indices with a sliding window, whereas the list semantic is well
+     understood and deterministic.
+
+I obviously don't claim to own all the wisdom in that regard; it's just
+that I still propose this solution because these arguments make me
+believe that it is the right one.
+
+Since all the list handling is done with iterators, there is currently
+no unsafe needed.
+
+
+I hope we can discuss many things here before we, hopefully soon, can
+address the lifetime issue and move to a v1.
+
+
+This is based on drm-rust-next (10a6623a24a8), plus Danilo's ScopedWork
+[1] and my patches [2][3] regarding 'static and lock errors.
+
+Regards,
+Philipp
+
+[1] https://lore.kernel.org/rust-for-linux/20260807165252.3849875-1-dakr@kernel.org/
+[2] https://lore.kernel.org/rust-for-linux/20260922083631.444614-2-phasta@kernel.org/
+[3] https://lore.kernel.org/rust-for-linux/20260924085523.2620704-2-phasta@kernel.org/
+
+Gary Guo (1):
+  samples: rust: Add JobQueue Tester
+
+Philipp Stanner (7):
+  rust: DmaFence: Implement Deref for FenceContext
+  rust: DmaFence: Add ID accessor for fctx
+  rust: DmaFence: Don't drop on signal
+  rust: DmaFence: Replace call_rcu() with synchronize_rcu()
+  rust: DmaFence: Replace is_signaled() with status()
+  rust: DmaFence: Tell results in signaling callbacks
+  rust: drm: Add JobQueue
+
+ rust/helpers/dma_fence.c             |   4 +-
+ rust/kernel/dma_buf/dma_fence.rs     | 225 ++++----
+ rust/kernel/dma_buf/mod.rs           |   3 +-
+ rust/kernel/drm/job_queue.rs         | 826 +++++++++++++++++++++++++++
+ rust/kernel/drm/mod.rs               |   4 +
+ samples/rust/Kconfig                 |  11 +
+ samples/rust/Makefile                |   1 +
+ samples/rust/rust_jobqueue_tester.rs | 242 ++++++++
+ 8 files changed, 1195 insertions(+), 121 deletions(-)
+ create mode 100644 rust/kernel/drm/job_queue.rs
+ create mode 100644 samples/rust/rust_jobqueue_tester.rs
+
 -- 
 2.56.0
 
