@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.102
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793739758;
-	b=M9vlsXFnWdlnEQO49bs02MXxr7TiDUY1Mk4hbTqAs/q4i0zm2r5xdMNLgr7Vhto6n0Wm
-	 Qt685Vvfd10hPfVKxp2o4DBb/XiL+B6H6W5xUj8Mt5ZJwSVOOGba/+qtrs9dEUkOOetR/
-	 /VQzyK0IRTr3QAn+pXkPcTqFcUT8k8zwSQt3XZiYgs7xDPjEyhSDrE607F4Sf6h5V8wvw
-	 jUD54I8eTGBVGB39IU4bSJw+82/cA6WA0/I1pwwmT21bbwxktXyOuKAc7F09fqSUIYIS8
-	 L1eajaU0r5ye9VzpldUYZWw9A6IvdjPiTCpBBsfqxhTuLfShyJWSzl4nx4mdPM7YaSQ==
+	t=1793740253;
+	b=UW+XlHugOopDbvwEqOBjWWH0fm2JAD2jmpidhkYALnDJqRKIc78Yp8wOKYPrRjXx2dJQ
+	 DNBvlJCFX9TUgOWCoEpWFTL4Z2TBXXCK6kc9/O+iGZ7x0wOmMD5MC61bX74mYc0hwEqgR
+	 gejWjCIk3qYthAw2vNYc/THjBLwVe9CIGPL4xZnG06QxfhHHaWphfmqBIov9zN0exXw/U
+	 KausH+zGFfra8ifqgXelbFwHp5sLUTszi5POySUfoxYIL79YlUKXesIEOSNtKIMuQokxh
+	 9EPjfeP4mGjogIxEm+wad5uAEr5QXoch440Wie20m66XMckuESZa1mV1rI82ZfPgGRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793739758;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793740253;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=7W6iJ4PEM/6oQdg3L8UO1TyccjQBYc6ORMBc+BFA3GM=;
-	b=YGMDZbteFV+IDzWSgOBGQsj8GrdGM0+DNUFRst/OignujmhRENnRjDSOGFLmth1ygRDY
-	 lv/MWQCLPlt9OI546oUvutxjJHB2VEdyvWjgDR6v7hqiT4uQ6V1sdT6YeBkUkAD6vC5bM
-	 wK2Td/Mnr89Aze6f7rLzNTOwI689S3u3tLVMgFpgNCgrgtsRPdhLPaFePygJTaMasV0u0
-	 M58ieWYAPPnANRg8hWbh8bJgtolLFZEwPvaRNVnhwPmRrypf+p2cNTvRU9qHI0Zif2kKC
-	 NoO/3me9M1bQ0x/HowoXosDajznuXxjbtEa0W6wCkxZm704eHGU3tCtVA+mMGKxSvoA==
+	bh=kMBTU/GrRL9u82HP8tmbPAJZU3W55pRZ2D4029sk+gg=;
+	b=xDP31qvENp7fn2yQb2lLsFYOCAKpdRtUWEFc2bKyR3xzfduRm6CB3zxXLKuGJj+cl2IL
+	 4qVA0ElBMYTikP90W87m0b4nIhcbWnVVNEna9TiB5p1Tx99iReYc0+iFTBsT0H+JDDrGX
+	 H2t9eSZFReI3jAJ5UY/1Whwmiazb7j8QcpfzLwj8TdPRBi4buEMGVtymjCZ3/FfkdZvva
+	 Hz8myoSQj6+YUMfksPxDulV3yxUbbs8suZYAYSbEjXJr8ak1U7on+suKhJ1dFrZJ3KfJ+
+	 Xdiho6JewR7kPEGJg5YrXo2BKQsqnY9mWUXcJze5ZNB2KcJEX1zW+Lf0zJ/Ohe8TVjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=pm.me;
 	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=CndBKG1K;
-	arc=none smtp.remote-ip=185.70.43.101
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=IlCl6Rgb;
+	arc=none smtp.remote-ip=185.70.43.102
+Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6A0606A31B
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 21:02:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D6A0606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDFC606A33C
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 21:10:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EDFC606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=CndBKG1K
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=IlCl6Rgb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793739753; x=1793998953;
-	bh=7W6iJ4PEM/6oQdg3L8UO1TyccjQBYc6ORMBc+BFA3GM=;
+	s=protonmail3; t=1793740248; x=1793999448;
+	bh=kMBTU/GrRL9u82HP8tmbPAJZU3W55pRZ2D4029sk+gg=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=CndBKG1K5X5IMPct6PIuPrD5aCGMpSP3clItMgDTnuyNJAHpk/youBP4ZSsXebws3
-	 Lh9pOlxeEDdic7EGWGoLiT9+13OAc7BQvM8h626ZX5xvCuVXUv36mXpIQlXQkpp9W6
-	 UE9VA0+OnaX0bTtV3T+KyAsz4v8BQCL4bqHaU9VYdOvh4a0wAOrDYnYC0c5+9oPa60
-	 m4+3E7Et40Q+XRgGjZN1yyMM/yRtDCzoC7wlBqpbzw/nU9SQ0LZ7qZ6Y3sVJddvj9u
-	 9ZWVHGEwEzVE+vED9rkn49l166wxrz4BMJhEXtV5OMx4EU5/L4C4LJLxJsHcbW0ikD
-	 SUoCxAJV47niQ==
-Date: Tue, 03 Nov 2026 21:02:25 +0000
+	b=IlCl6RgbwTpV84AJ+VLPutt1MjXsAxM3ceeFycs+X8GAcO2UE38fOsZCbjjVYIaYE
+	 hr6newf+/uraY+z6Gckta2rSCpYzl3U7jtDhhZ6pnoW1+EOFRux9RwAGqHlaRehw5y
+	 niUqQpfxMxk41EwAgl51HdkHj5EInD22Iy58KABiFtrXpli8xb6KIFDpqkjCNg/8eS
+	 hHHSZgBXCrZUaCFTlDlw/PB4nW7rMQNU6GeqmjxTAT5rmvoL3gPCWZ/6ykTwduLzm6
+	 72CxizTax6WU7GE5ttly2Kl7l8s0AMXPExa4/CO3bs9BXVFRbnPw3M8Tw2lwB3zeSD
+	 Yx/EprOluTiEQ==
+Date: Tue, 03 Nov 2026 21:10:44 +0000
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 From: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Valerii Sokolov <valerii.sokolov@pm.me>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 08/11] media: intel/ipu6: return an error from ipu6_dma_map_sgtable() on failure
-Message-ID: <20261103210132.1568564-1-valerii.sokolov@pm.me>
-In-Reply-To: <auUeDraiy9tu1NDg@kekkonen.localdomain>
-References: <20261023195446.22578-1-valerii.sokolov@pm.me> <20261023195446.22578-9-valerii.sokolov@pm.me> <auUeDraiy9tu1NDg@kekkonen.localdomain>
+Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>, Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>, Antti Laakso <antti.laakso@linux.intel.com>, Sarang Sapre <sarang.sapre@intel.com>, Divyamani Tripathi <divyamani.tripathi@intel.com>, Manik Bajpai <manik.bajpai@intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Valerii Sokolov <valerii.sokolov@pm.me>
+Subject: [PATCH v2 02/11] media: intel/ipu6: fix firmware message buffer leak on send failure
+Message-ID: <20261103211031.1573726-3-valerii.sokolov@pm.me>
+In-Reply-To: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
 Feedback-ID: 17117034:user:proton
-X-Pm-Message-ID: 694b43e680177d713e0be172ce3a76568143e461
+X-Pm-Message-ID: 12a5c87fa3478f5ff65f7829ec21d6d07c3e4a59
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,37 +67,67 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
+ipu6_get_fw_msg_buf() moves a message buffer from isys->framebuflist to
+isys->framebuflist_fw. Buffers carrying a frame capture command are
+returned to the free pool when the firmware reports
+IPU6_FW_ISYS_RESP_TYPE_PIN_DATA_READY for them.
 
-On Sat, Oct 31, 2026 at 12:45:34AM +0200, Sakari Ailus wrote:
-> Hi Valerii,
->=20
-> Thank you for the set. These are really nice fixes!
->=20
-> On Fri, Oct 23, 2026 at 07:55:58PM +0000, Valerii Sokolov wrote:
-> > @@ -459,8 +459,8 @@ int ipu6_dma_map_sgtable(struct ipu6_bus_device *sy=
-s, struct sg_table *sgt,
-> >  =09int nents;
-> > =20
-> >  =09nents =3D ipu6_dma_map_sg(sys, sgt->sgl, sgt->nents, dir, attrs);
-> > -=09if (nents < 0)
-> > -=09=09return nents;
-> > +=09if (nents <=3D 0)
-> > +=09=09return nents < 0 ? nents : -ENOMEM;
->=20
-> I think this has been written as-is since the thinking has been a negativ=
-e
-> error code is returned on error. So I'd fix this on ipu6_dma_map_sg() sid=
-e
-> instead.
->=20
-> dma_map_sg() returns 0 on error (which is probably the source of this
-> discrepancy) but I don't think we need to align the error codes to that.
+If sending the command fails, in ipu6_isys_start_stream_firmware() via
+fw_ops->stream_start() or in buf_queue() via fw_ops->stream_capture(),
+the firmware never sees it: both the IPU6 and the IPU7 send paths return
+an error before committing a queue token. No PIN_DATA_READY response
+will ever arrive, so the buffer stays on framebuflist_fw until
+ipu6_cleanup_fw_msg_bufs() reclaims it on the next runtime resume, and
+ipu6_get_fw_msg_buf() has to allocate new buffers in the meantime.
 
-Good point -- ipu6_dma_map_sg() already returns -EFAULT and -ENOMEM on
-its earlier error paths. I have updated patch 8/11 to propagate the
-negative error code from ipu6_mmu_map() in ipu6_dma_map_sg() for v2.
+Return the buffer to the free pool when sending the command fails.
 
-Best regards,
-Valerii
+Buffers whose command was sent, but whose stream start then timed out or
+failed, are deliberately left alone: the firmware may still own them,
+and they are reclaimed on the next runtime resume.
+
+Fixes: 3c1dfb5a69cf ("media: intel/ipu6: input system video nodes and buffe=
+r queues")
+Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+---
+ drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 4 +++-
+ drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 1 +
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media=
+/pci/intel/ipu6/ipu6-isys-queue.c
+index 23d00e1f89..7a38feb911 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+@@ -359,8 +359,10 @@ static void buf_queue(struct vb2_buffer *vb)
+ =09ipu6_isys_buffer_list_queue(&bl, IPU6_ISYS_BUFFER_LIST_FL_ACTIVE, 0);
+=20
+ =09ret =3D fw_ops->stream_capture(stream->isys, stream->stream_handle, msg=
+);
+-=09if (ret < 0)
++=09if (ret < 0) {
+ =09=09dev_err(dev, "send stream capture failed\n");
++=09=09ipu6_put_fw_msg_buf(stream->isys, msg);
++=09}
+=20
+ out:
+ =09mutex_unlock(&stream->mutex);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media=
+/pci/intel/ipu6/ipu6-isys-video.c
+index f394e78db6..c7e2dc1311 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -538,6 +538,7 @@ int ipu6_isys_start_stream_firmware(struct ipu6_isys_st=
+ream *stream,
+ =09=09=09=09   capture);
+ =09if (ret < 0) {
+ =09=09dev_err(dev, "can't start streaming (%d)\n", ret);
++=09=09ipu6_put_fw_msg_buf(stream->isys, msg);
+ =09=09goto out_stream_close;
+ =09}
+=20
+--=20
+2.56.0
+
 
