@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793701611;
-	b=XZbetodK2JkyX3+g8S8gQXk8VKhBtyL6CszgGwRyxPuF9gwSMsIEnr+CLCWpgboC8hDC
-	 YYG5ShIoe1d9sWTiMe/GoX1SkxeMepZ8GS/goYT43ptcRwwJQou3gegr93DIG1YW2AtZn
-	 W49mKVHZHvZdoC8FE+o7aiNIUSv5ZKMXlU/X+3zwrhzTA3SXI3YnnPipn/qBAWT0Exi34
-	 t3dxCYIX6gtnsNgsL8su07P+5QtvLzpykc4f+HO+lrEOyzyvbZkoU/5QCVUR8D9qP8KoL
-	 Eb2PSkQwaM2hoee6UHXfTyMbZBzhnIsKItbKcq3HQYvUP0LhH454HyOqFNGYOhyZvgA==
+	t=1793701614;
+	b=o4rllJVTAHg/TWfWmvV8FIXLmdI279Civ3yODH5hSfvQ5O6zd8GZQvHqSEYuur4YAo9d
+	 1AWLMkfrTVuwKtNSZ/ZJXMk8IUJYLsVH4hWBCiCjhftLYZKd1bSEzb+EfVoXC2+D3zMpE
+	 nSxkMAstGpHO+6/Hjhi4BBoa1nZR97P5Ps8mL51BXtrhzR4vcWMfdI1XzkDVCNpbCvaKh
+	 VayFf251VJ28xSKETFX6/gPrZUFmm9F3UPrj9q42g9XlFdXQfnlNnKp1HcS1qWCDNshi3
+	 dhGCTG6uxW6aDmUR0Y/ceOoLIStyWoFhd+H+G0B7G0cnKrdkFbeWK8wO4Bc5TSgoQ6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793701611;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793701614;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
-	b=D1rRtjTg/QG/kZMlW9d3ygUfNvOA55wX1HXftx9JxV+wRSES2EaIhFE3sjVP2BD+Pnlj
-	 7HP/grgbOJ9Bo8YPzNfrX2MJal9aWgvCzGtwcESVLUp17FWsd+ysAeuEQYrjSOzOSuW5S
-	 AyjqnvBYed4O77+nPVtGuOPYBQWut5E46LwmJTWOSzAi6PhMKnwUQajg60AFYKtNoQT6C
-	 uFRf3VWUMPMp6Bem3uJPusXpi1rY7UQ77z6TN3TpGwXeFSLtiWaF0GE7GPAyI2pF10PH+
-	 LwApG9Xy9N0Kabh5CuWzuXsEuNqkkxSu5gTK6RXQJJhPu1RB0IswVwYOOHL5hQxlVuA==
+	bh=pAA2pPk+afBztX5eNyJacgXN6L4iMe5ZdmO4GlWGlOU=;
+	b=Xai6eoxqr3WDqV44SOZ5w/WesbVALQIgpWNE2VsmT63QDc9V2XoiAdwAo2BLr13wSPI+
+	 wFbS91aKwb8a2ol4vJgm4prQtMl15XATITx5haqAdggoQq5COPbCmWIHm6DGhLfs2iCkC
+	 omenk1nZfZpOSSXNTh7lMKIaBbuawsJ+EfafZJk+di/hw5nBSsEVcPXwX3yjjcL0MsTcH
+	 n7FB0T8cwFFY8CZlUbflySRkNjC5MS88AClvBZsUMLzDAualay4e3cQxV9DUOdCG5LSKi
+	 4h7P8PK6RaMJupn0aImzKNHgBggvaX0Ti3PmUV1xI409CEQCQgkENgee90sJBLIjLkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="gj7/7uaW";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdbV8+Lk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F4C606FAC1;
-	Tue,  3 Nov 2026 10:26:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044E56085094;
+	Tue,  3 Nov 2026 10:26:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gj7/7uaW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E8941F000C1;
-	Tue,  3 Nov 2026 10:26:49 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PdbV8+Lk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 065061F000C1;
+	Tue,  3 Nov 2026 10:26:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793701610;
-	bh=R9XeDdNG3SfD34Ot+GAcgU3Z6g81VFnBLXSrMlwBreg=;
+	s=k20260515; t=1793701613;
+	bh=pAA2pPk+afBztX5eNyJacgXN6L4iMe5ZdmO4GlWGlOU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gj7/7uaWPD8l6WCj0nkt/dxqvS9SCyLl9TTQbG6hPZEVvTZ5+7uEmWYcgQJ5VNW61
-	 SFuhU2qByE2lKcYuC9ggyHv94fyQv1Id3fNfwGTC5pJIHDQ4kAWNm1hq+YRueNuW18
-	 o62P3bhO4pwqnKEaIO1omu8NR6FFii2r1WSUKURfTr4FEE+IVgiXjkkGoOXQ+daLxZ
-	 lmMZ9M96hfu5PwTjnR2zxMcf47/LpDluWegzpGbV3fcPARsJmh51jtuBIzYjW8/Z6l
-	 1KKvF5Hw5S0frWh36GQhe7TKp9GY8ihe3Vf4QZlh3eGV8gwn7DqTjJSxH8kvKmgOdx
-	 ZnI/XJh5NZ6Ag==
-Date: Tue, 3 Nov 2026 11:26:48 +0100
+	b=PdbV8+LkbSU0dBkU1ZEx1iP3GlillZG6aeaMT6VSaHcbzQpSOSkC6XkvQJq/TmdLy
+	 z4KfogUMmWjvp4mRp8xHY+UYPnBQFTaQmcnnf++zBmGO/i13DuoTvO6Noi2TCjNQU1
+	 LmcIUFajyT9ohOYAOe30dAWlD/M23NRd5OTwuBh3Q2zMpMDZpJeWdmixm0tEuqaMYV
+	 HgsIWb3zvOR6PXu/iS6BWk8YPYYMijIiQrY0MpCletZ++IX1/w0EkKcgzAPcSi/XDz
+	 GHvJSjlY6Hb+gZcC3gKXPdbDXVJ4j23LSn8liychsSMw6/8iM5xKiYdZnYDN+y5HEc
+	 vLrNTGBudp4wQ==
+Date: Tue, 3 Nov 2026 11:26:51 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, Devarsh Thakkar <devarsht@ti.com>, 
-	linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: imagination: Release m2m device on probe failure
-Message-ID: <20261103-tiny-centipede-of-fragrance-a21f0f@quoll>
-References: <20261103094617.1289402-1-vulab@iscas.ac.cn>
+Cc: stable@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH] media: radio-sf16fmr2: Unregister v4l2 device on probe
+ failure
+Message-ID: <20261103-rapid-awesome-crocodile-2df15e@quoll>
+References: <20261103094620.1289464-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,28 +59,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103094617.1289402-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103094620.1289464-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 09:46:17 +0000, Wentao Liang wrote:
-> e5010_probe() initializes the mem2mem device after registering the v4l2
-> device. When mapping the "core" or "mmu" register region, requesting the
-> IRQ or getting the clock fails, the error path jumps to the
-> fail_after_v4l2_register label, which only unregisters the v4l2 device.
-> The v4l2_m2m_dev allocated by v4l2_m2m_init() is not released, so it
-> leaks on these probe failures.
+On Tue, 03 Nov 2026 09:46:20 +0000, Wentao Liang wrote:
+> fmr2_probe() registers the v4l2 device and then initializes the TEA575x
+> tuner. If snd_tea575x_init() fails, the error path only releases the I/O
+> region and returns -ENODEV. v4l2_device_register() takes a reference on
+> the parent device which has to be dropped with v4l2_device_unregister(),
+> but the callers of fmr2_probe() only kfree() the card. The reference is
+> therefore never released, and the v4l2 device stays registered after a
+> failed probe.
 > 
-> Release the m2m device from that label as well, so that every error path
-> taken after v4l2_m2m_init() succeeds frees it. v4l2_m2m_release() accepts
-> a NULL pointer, so the v4l2_m2m_init() failure path is unaffected.
+> Call v4l2_device_unregister() before releasing the I/O region.
 > 
-> Fixes: a1e294045885 ("media: imagination: Add E5010 JPEG Encoder driver")
+> Fixes: d4ecc83b79cc ("[media] tea575x-tuner: update to latest V4L2 framework requirements")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/platform/imagination/e5010-jpeg-enc.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
+>  drivers/media/radio/radio-sf16fmr2.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
