@@ -1,109 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793735896;
-	b=0PjJNIhKZPdDswgemUDsUR/sLUmpwXGtnAnLIFRcxOdkYm6aqN0FJAuzEuJ1G+IroKW9
-	 VS82tk5vqpdXNdYT+BJ2Zj7H08BQl56pL5WDWElB8eTYWIMX7nHvPG07YX2PMX2A4vGJC
-	 5wWIVsxwkPlFPaIPyFQc/vmyGsmuG0GxFQ9kWMoqZz+/x6dyElHdEGVM+gmLYWXtfundp
-	 dawS52/TPUufPIyQYJlCWjXVctarwOaRTFLAPxjoQSqDmaBVYWiZ5zoRw/KiLTD1wgNPt
-	 aMlKogJ4+ildPml2M9Q1aLu7qdhQ2QjSclkC4wUQ3QIi9rVE2rneo1B2PtbFPUnO8gQ==
+	t=1793736170;
+	b=Gx+ztujDeE/JDSXt2NbrU/AjORj+bzCkL7I6cdVz1FotV1Ew4S1w57ov5MvfvIsVfhDy
+	 yq2EVqRkBbARuBjDOFzm4aasAPr0eXKUVIs29GKcKvB+kr0OrQeheOrVOcK0GFZyKLjW/
+	 umEReNa8b8nNupHdvW/JuRhcP3SQtzov5g9URkl5nRebFYa/sdU2nmwZ4mpJeV3g4C4Hh
+	 TlEl9SpjBUrJeS6QajQEv1a+1glHEUBu6pDjFMgki70jlm9t1cz+fNhStayfv7O6i7lDq
+	 gDLTHIu34OOUjtZBwcZ+mpI0bc9tKUND7Wu0R25vciYtCAxeY0wEo+x3kKNfvSWuIgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793735896;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793736170;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=MiR7v8ogyBE3UAdwdGXynAVIr+KTNViJqowNL7iiLKg=;
-	b=pB82gibDYI9yHscN//TA0vj+31rgprvkotvti58log3SpZHhPv8I41JCwn+DzRem5B24
-	 kwuVR0Nw5HAirXJbO0ZDUC+OXVWA8pAjDj46dfkyanMtybCS8dHeBJQNASEgfQB2NoKY6
-	 YJdqZEnmiZsH0BhY1b1d3Pc5OZym/vwkCAlxei/DkUSviTQQmEeetZY3URfWqwYQ00a+Q
-	 3ZDC72SwLIXmDOtXrJhQlwWHsXXJ9X5RdNVqJ320Cb+yZoWx6ivMRa/s5wLALLiblRHkm
-	 OWhJQMvAjLjyzxKe/RF3IhgCLeYGwyNVEP3ffxt+U647sKhnrnhM58KTCzEJRQck7Iw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+	b=kIct74gkKU+JgRgWc2zuLC4NTYrGOzWIiahfkssawAhmmXXEn6FcKFfVW7EJ0s+L5pG4
+	 okTjNUPnLZlhxsWPyNkQZr8F1g36UiEMGsPlIO50CTxVvJWDNOodN+lovyfhQdE8zi6Ab
+	 Z+ZdxsxmzumBbB72xaF10KhRgwm9taNnknxk7hyFbBLOsJEg0Cz9HVaYKxZg6FicGv8Rz
+	 N8ZMfqAVJTTbSNGNwYW4+yb7JZf0NPuUtXwlWq0hrFP/WFu8e7N3npulUelclXD9OZrAd
+	 SaCc0YmLxWNkTYaf7SxcTOYftK3HfvY3LuQ66xKR8cVcYPhIDedi65siB5NsjspWOMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ndufresne.ca;
-	spf=pass smtp.mailfrom=ndufresne.ca;
-	dkim=pass header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KnbFhjVx;
-	arc=none smtp.remote-ip=209.85.219.50
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FCB606A32D
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 19:58:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4FCB606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E58606A326
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 20:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67E58606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ndufresne-ca.20260707.gappssmtp.com header.i=@ndufresne-ca.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=KnbFhjVx
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-91c9cfd8b1bso385896d6.1
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 11:58:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IMIi0lcw
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so9195c88.1
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 12:02:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20260707.gappssmtp.com; s=20260707; t=1793735895; x=1794340695; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MiR7v8ogyBE3UAdwdGXynAVIr+KTNViJqowNL7iiLKg=;
-        b=KnbFhjVxnKHdStdOB0RR8+yGHHTGAo0xP4Ie6yFcgdPwTJ9TNh9LB48mFnv8Oj5ziV
-         wAFtekhaCs35AWjoXHt4KiMN+GRkbl/FzbuxJhbW1jiz14OtlQ2FFJxkn2yIEXkeKmWD
-         mfGN2dKO3tV375Eh+YW1W5THtchWxdumgyRak1t3tXW2sM5XMOI7oGfWC5b6CeLYfgtr
-         NIt/U4TQOtHalxLg7RcqdoaQVceF3qa92p/1Kxg1RexhoXtncXv2m35A7tx4kibwv5Bz
-         OyMdGs1/0jz3CghYeN/iWzeWD9C4rWu6EEt25rQQzY5LeA6SjFPNWnJIoSruUnvY4C0j
-         uzVg==
+        d=gmail.com; s=20260707; t=1793736169; x=1794340969; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+        b=IMIi0lcwaYilC5g2AlqhKWWjrMWQI4GWC1wHHyUcDpYA1VjjA4rZg3G+gu57oNMOCZ
+         L23NEy0TVcXP4YI1f+xhLBvS8of/B9gD0ufgA4ol5QccJXY/IKAyxwxW0v1ZQYETWjiK
+         ojoSDEtrxPvKTpqjodA3bCsDUGX8abgkkPcq81ePRT2sGTN4kvqA2Ua/M4SbUQnLJU13
+         Z7rJNCZtrHSERcXqY4QGnwmQw7yD+02JcTAyDYA7N3y/yxwO8Uit/YpCSSyN1HOvd0Cg
+         Cs86vphKnq5f+5fpNxuDZKqAalCt+UDoE53lGErEjhtsm8O2ltiV1Ze7Ww8LfDV9Jfn/
+         sSfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793735895; x=1794340695;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MiR7v8ogyBE3UAdwdGXynAVIr+KTNViJqowNL7iiLKg=;
-        b=VI91E3jc6cy70u8pAO/J85PCae4WHOvwNkrBpiF8tjBmMdw/cXDfbr9ze2M/QEeCyc
-         X4GJAkj3FKB8MezZFpdrvqqmi16fhFil6smiH4m0SYeCPOzJVLgYs1H8MNlXIzO9ZwSj
-         OUz2DpiaTbSgqHA4HeitEn6eOlYzytRELg/1+R6MXlyLZ8CKhAcFlZXeQwa5KZVxFz4j
-         7orrT5IDyRw/BNGpbjxlxFls5WlGqhhMqHYy9QYuEpBOczQgxskJIbSKInVjuedV0/Kj
-         w/hnsbdVKP51xJHse2kjJEmTeeXsz6OwiU5ES92HS4cp3iZbjPeBXcWIAKrHMQEK2+ZW
-         UdqQ==
-X-Gm-Message-State: APuU4Z9qt/3hZGljKzPNgZzvLEQoUmvV8BEl3h7NLOIycFudt2AshjSo
-	CUT7a9eeqMD8G3QdonWIodiKGBB90rjRQDbJkiSUIlPouMoVC6FLcO+BV+dF0Vr1qhY=
-X-Gm-Gg: AYBFou2+zMaEaahIqEV8FpCty88GLedcDsx/F0Uhq4KKrcf1sp+a6Py5L9oi899Wp1U
-	xVykLRbuOois2emmdkM73yVQRpISFLYTJPshm4uXiD34+zbN4JKUG6xfkkGa/3dewFKCZsGCdnN
-	pW2hOJnFv7lI+oZgnj+Cu+iNuXbFAF3VlBGDgUIKGINC1c4X6iydnOU2/2IXp9Vy03WkP4spgC+
-	JDh/mxbm7TZ6u4XmcVbZrpLaM0XhANCEqVLuH0df9yUqkMx5YdMEzdY0DOYiJ4q3+JrVfRdT8Zj
-	ge4x4rKL5hSKp53/UB0MDLsDf/YxwDP9I1ESULl/Cp1ErpQxLJbgmBK9gnBDVfTaW7W8lZDJRGD
-	ZF2b1UJtizQGJyEke2Y8XzN5ug1VF/z7bsqagOsA8fwhVLz87Q66Yxdpn9bmso+KawzKPestCT6
-	yJGjiwJ80d1392IQufFLRQTD7hRauBTDrlfjrHftXYYpEAcqqKFKn1RATrbefRzoItVAiV+kd69
-	10FhVNSEI4BjS9N8as2DVKFK1pSaq/8n9jX3cpAKQ3c+XRiIk5hdF0I9V8nD4cxPJ+d9dtqGx0h
-	A9pTfSV80pijL9FVSdAeaxBlmTi4aq2RuY2r0SK5BtK6vvSZ0hWT6Os=
-X-Received: by 2002:a05:620a:3705:b0:93f:19fe:e6ca with SMTP id af79cd13be357-94421745e9bmr2481703885a.43.1793735894598;
-        Tue, 03 Nov 2026 11:58:14 -0800 (PST)
-Received: from ?IPv6:2606:6d00:11:bf53::5ac? ([2606:6d00:11:bf53::5ac])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-945d48648e3sm14608285a.35.2026.11.03.11.58.13
+        d=1e100.net; s=20260707; t=1793736169; x=1794340969;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W6MyHwL7B3SoONoncqtzm1bWHnLuer4VwDXGWEqRj0A=;
+        b=ousbgrT5Lvvr5dG/KSE/jyygn0MvI0La1WpeTdYpo0Mz1qFwm0vKYXon6WHc2IGai9
+         3JOer39uh1E+nwaVqFI0rP4OO60ylT32xXGclAx1DgXYH7DnaP8W+89quFVd24fmVXZT
+         PzNvNsaxnGFPmPOdivJhrEXWdzwQDsWCR+z9SM224qb73nboxUh9rjc6YHOdQuOUs4gh
+         sEggmNjY44L+T5QZgWkhoAZJlUMNctDtxbyLxqnRnETYn51EjZEZdLT1rC49BrTmzFy4
+         nTEiG/9WrsAuqqRwbDN48FPEZu9iA+VeY1kP32zSGEhsNFdq5IJ5yzGEX7/WEpWaWpye
+         mR1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBztglsUTiWbBnZFm/4PmU/hYCSU5Kcki+K9vrIVRnmQH283+9fA40jB/8uzttZle/dv7JNjP3ZqNcyU4g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/D8FidfMgBY44U5frtWtVLlF0faGEEAtG4tT612tMQjKxtrqUg
+	UwrSqKAH6KS3cgtkVvTYIsrOpqrVoZJacYXv7+TpG/bIfj5Yx3KLfn1H
+X-Gm-Gg: AYBFou3BGSkx5S9+LrYF4wjzWWEf0uKNNRKAqhC1Qr+QiupSmbf15vzN3RWeWV8Wo58
+	hKwWDN2Xj4uo9IIfb3AZ7zHDZt65HKmZe92i3/vW0RvjIInILqxdwI6nR46JCXtQ03ScvHKLvau
+	YPkaARCoUzyXy0n0P1LOeez9Nyg0Pp0VclVyWtl5lwMogT7MYbUhZOxh6RrOS4HAd0MOB+YhRNH
+	nDxyYrBLVLyjXtvxI16w3SRwFUZYX+nZki8VC8MO0vqwEai2TDn16Ajw85K6i7soYSLd68UEk8k
+	M0wBiQ6xi7Xi7pgpJASy35wipLY2/ZDg7gXCNI0XMXGwKtvV6llBN2EjsSaT9n43UcuX6rJeiKW
+	ru20MX889AU+leJxq5tCZq4yk+fhCPXHhUYTgjgFH4Oa1oUiQrJhPjDKLfzGeLgxg7P75i0/kHJ
+	OpoRaaaAFnI4fyNOp91So0Gj3DqI22WYqjtIpI23MCApDKz5cCufiPMVm3JxH+Zk9xUmSZ4ee6j
+	2CZraiPj0w1N5CDu/3dToOAGG1XuEZC52Xpvm17f3QMtzTNvEB8XmabTQXc7rbknmR6pUpkdPK9
+	tD8neOxVovFOksX74cYdMOX25FXUD8Iib9bz94TkiTLQvpzWwgKRqCRQyryJJdHKFnA=
+X-Received: by 2002:a05:7022:eb44:10b0:186:5b49:90d8 with SMTP id a92af1059eb24-1ac5782fd31mr22158852c88.4.1793736169213;
+        Tue, 03 Nov 2026 12:02:49 -0800 (PST)
+Received: from arpith-debian ([2402:3a80:449:13bc:6d9f:f092:24ee:20f6])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c4706bsm1395865c88.15.2026.11.03.12.02.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 11:58:13 -0800 (PST)
-Message-ID: <30feb9f9c859c39a8e5e5fc5aba7fcb0f20cc820.camel@ndufresne.ca>
-Subject: Re: [PATCH] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Tristan Madani <tristmd@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-Date: Tue, 03 Nov 2026 14:58:12 -0500
-In-Reply-To: <20261024205711.4041369-1-tristmd@gmail.com>
-References: <20261024205711.4041369-1-tristmd@gmail.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-m6t4otkvc0ZAfwx/Sa22"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+        Tue, 03 Nov 2026 12:02:42 -0800 (PST)
+From: Arpith Alexander <arpith99@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Lixu Zhang <lixu.zhang@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Jake Steinman <j@metarealtyinc.ca>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arpith Alexander <arpith99@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: ivsc: csi: Add sensor node in bound callback
+Date: Wed,  4 Nov 2026 01:32:26 +0530
+Message-ID: <20261103200226.100989-1-arpith99@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -113,65 +101,97 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+The IPU6 ISYS creates sub-device nodes in its bound and complete
+callbacks. A sensor behind the IVSC is bound by the IVSC's own notifier,
+after the ISYS's bound callback has already run for the IVSC, and
+mei_csi_notify_bound() doesn't create a node. Unless another device
+binds to the ISYS afterwards, the sensor's node is therefore only
+created by the ISYS's complete callback, which runs once every sensor in
+the graph is bound.
 
---=-m6t4otkvc0ZAfwx/Sa22
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Commit 4fdb0342f05e ("media: ipu-bridge: Add Himax HM1092 IR sensor") added
+the HM1092 to the ipu-bridge list. The HM1092 has no driver in mainline
+yet, so it never binds and the complete callback never runs. The OV02C10
+behind the IVSC therefore never gets a sub-device node.
 
-Le samedi 24 octobre 2026 =C3=A0 20:57 +0000, Tristan Madani a =C3=A9crit=
-=C2=A0:
-> From: Tristan Madani <tristan@talencesecurity.com>
->=20
-> v4l2_m2m_release() frees the m2m_dev struct without cancelling
-> m2m_dev->job_work.  If a device operation schedules work via
-> v4l2_m2m_try_schedule() and the driver tears down the m2m context
-> concurrently, the work fires on freed memory.
+On a Dell XPS 13 9340, libcamera then fails with:
 
-How did you tested this ?
+'ov02c10 3-0036': Failed to open V4L2 device '': No such file or directory
+No valid pipeline for sensor 'ov02c10 3-0036', skipping
 
->=20
-> Add cancel_work_sync() before the kfree in v4l2_m2m_release().
->=20
-> Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framewo=
-rk for videobuf")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-=
-core/v4l2-mem2mem.c
-> index a65cbb124cfe0..311e2e08d066d 100644
-> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-> @@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
-> =20
->  void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
->  {
-> +	cancel_work_sync(&m2m_dev->job_work);
+Register the sub-device nodes in mei_csi_notify_bound() as well, so that
+the sensor's node is created as soon as it binds. If the complete callback
+runs later, v4l2_device_register_subdev_nodes() skips sub-devices that
+already have a node.
 
-Seems quite insufficient if you compare with the actual implementation in
-v4l2_m2m_cancel_job(). Is it really possible to call this without having
-released (closed) all the context first ?
+Commit 7456b40bc992 ("media: i2c: cvs: Add sensor node in bound callback")
+is the CVS equivalent of this IVSC fix.
 
-Nicolas
+Fixes: 29006e196a56 ("media: pci: intel: ivsc: Add CSI submodule")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arpith Alexander <arpith99@gmail.com>
+---
+Tested on a Dell XPS 13 9340 (Meteor Lake IPU6, OV02C10 behind the
+IVSC) with v7.4-rc1. ipu-bridge connects both sensors ("Connected 2
+cameras"), the HM1092 has no driver and doesn't bind, and the OV02C10
+now gets its sub-device node. libcamera finds the camera and streams at
+30 fps (cam -c 1 -C10). The camera last worked on v7.2.
 
->  	kfree(m2m_dev);
->  }
->  EXPORT_SYMBOL_GPL(v4l2_m2m_release);
+The test kernel also had my two other v7.4-rc1 fixes for this laptop:
+https://lore.kernel.org/linux-spi/20261103131435.21838-1-arpith99@gmail.com/
+https://lore.kernel.org/linux-media/20261103163814.96980-1-arpith99@gmail.com/
 
---=-m6t4otkvc0ZAfwx/Sa22
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+Unlike a revert of commit 4fdb0342f05e, this keeps the HM1092 entry for
+the pending driver, and it also covers kernels built without that driver
+once it is merged.
 
------BEGIN PGP SIGNATURE-----
+ drivers/media/pci/intel/ivsc/mei_csi.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauo81AAKCRDZQZRRKWBy
-9DboAQD+g0qmmTqL10aTTYNwr7O71NtKH/nesIag4peMvjYksAEA89aQb5aBypy+
-2Lk0A0j1TWtGJ6Yo5ZLVnzWHxCy2hAE=
-=e7sF
------END PGP SIGNATURE-----
+diff --git a/drivers/media/pci/intel/ivsc/mei_csi.c b/drivers/media/pci/intel/ivsc/mei_csi.c
+index 005b1414a252..f9513cffaacd 100644
+--- a/drivers/media/pci/intel/ivsc/mei_csi.c
++++ b/drivers/media/pci/intel/ivsc/mei_csi.c
+@@ -29,6 +29,7 @@
+ #include <media/ipu-bridge.h>
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
+ #include <media/v4l2-subdev.h>
+ 
+@@ -513,7 +514,7 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 				struct v4l2_async_connection *asd)
+ {
+ 	struct mei_csi *csi = notifier_to_csi(notifier);
+-	int pad;
++	int pad, ret;
+ 
+ 	pad = media_entity_get_fwnode_pad(&subdev->entity, asd->match.fwnode,
+ 					  MEDIA_PAD_FL_SOURCE);
+@@ -522,10 +523,14 @@ static int mei_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 
+ 	csi->remote = &subdev->entity.pads[pad];
+ 
+-	return media_create_pad_link(&subdev->entity, pad,
+-				     &csi->subdev.entity, CSI_PAD_SINK,
+-				     MEDIA_LNK_FL_ENABLED |
+-				     MEDIA_LNK_FL_IMMUTABLE);
++	ret = media_create_pad_link(&subdev->entity, pad,
++				    &csi->subdev.entity, CSI_PAD_SINK,
++				    MEDIA_LNK_FL_ENABLED |
++				    MEDIA_LNK_FL_IMMUTABLE);
++	if (ret)
++		return ret;
++
++	return v4l2_device_register_subdev_nodes(subdev->v4l2_dev);
+ }
+ 
+ static void mei_csi_notify_unbind(struct v4l2_async_notifier *notifier,
 
---=-m6t4otkvc0ZAfwx/Sa22--
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.55.0
+
