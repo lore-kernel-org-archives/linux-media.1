@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.12
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793713180;
-	b=p6xv3pW+F5XSH8jJa00mFzQvFJT5e2SWgffT+lkBvIsPWMCLx+VgxkMeCKIKZ3UqxNm8
-	 limDaiESwcpaWb1N8Svkx+4kHdKZdWBj6844fwb5aGwi9rmyZS7VNFppoToZWmVLFt+OC
-	 H5RLmD7l4iLfqiEtsq0/7ItiPGlRmztyjZXVdwxc3Vbd5gGN9zd9ATSxlrZCOSjLl9oyM
-	 Pm78Kf0C1e4WcJyGLdAWFP/b6n8vgh0AXlnGhqqx5AfnRf3PfjxXkXDXbkWZS7q/ufrdQ
-	 nDWY9jtcyIBwcK4mBp7yUPH3OxJfZbravmOPPh7kZfQ1hfkvPF8WoD4WyUpKVQVel/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793713180;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=eCTQKqZQWEhJr5ICgztXNdT6Rk+XZuJPxbHYVLLd/5E=;
-	b=bttHR0FvfOJJn29lWQlE5V3LZersEo27PLLQl4b6s+JIoI03/7sTCEsNlqhhBdR8wfSz
-	 qip8eJvZU9Hfk2rBBI6gCa0gDbs+sGqSFWeiGK0Dyu1TXaTa3aZV1GGLHzGmLSLKzb+R6
-	 ebvRS41x1v298/oRvZHzbml1ZO+ixi3AbjT6EkJ8X7gXd2MtsS7DW9Oc73Tq5yvHH4udJ
-	 4FrqCynT0V0w0ScqpcBwFfqP1Wo1eRb0w4VXlJzF289toLTZ8S1gLpoWgtGAbadtkHAsc
-	 OqyclzWjGhW9T57/EHEn1m6ansygrM/KmEDDiTcKrqbYpgx18ZiSY+CgnB8jF+MhTUw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NwczvEWg;
-	arc=none smtp.remote-ip=210.118.77.12
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793713623;
+	b=rWPjgR1WGQIMmgO14IoCuZT3hA7kkrewt2zi/zzcikZZJDO0EEpoAdAXcKg+ce4GtmRO
+	 jxNLiyLoSD1G1Xp9UNkX05otgGLEbIkumyXK+xai8okiJg6GL6fb3sQxPxgWOd76ad63l
+	 2h1ijuaeA8bSVeIC+SltPvz/LEuohcBvICTCMkd/QU4YWga6yLqaF2HdTd5d22GS3rM1I
+	 OPjby3zJn95ZNw0F44eIp6L5QBxJLGk8teLm+3N1BxztmhPSBh6F/CeIkja9GsTqSJFS1
+	 eUC8zBVvI3ylibTv5tjhubZGHGQOM6WUg3cc/m77IMZd3DyrG1UqLNMvMXumluu4LCg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793713623;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+	b=hQC1bIVZTnS3yb47HfJ9NkWSj8lRli6zmyPyz4WT2S4Xkpaq2WH9ZArzeG/H5urDNzQg
+	 VeC+qWPUgcXsAw2duAXJQRnRCtHmfyH6yEQeMjDRrHQUOobbTpztW8tObLK6cotl46NY0
+	 m7n9OniUTbZOkvY7oBZAjTxb26Q8HxBxQaFSzU3YVQ5W1BgZ5wBKRgcT+KQ2X+g80k8NC
+	 avszTKXBERYGNjEZFuDeEWjEz7kr/rsATpxj63lptzoMwrOmJoin6fDo/JOxNf59/QW45
+	 pnzIJRYIfswAaKaGID7RCPOMiZgkk+eDZoBxodAM6OHJjBKzZOVEBgj2DvGJRhH4WqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lqI2hhZx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC12606A32F
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 13:39:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FC12606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF065606A327
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 13:47:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF065606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=NwczvEWg
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261103133937euoutp02061a51ec79c015a108673836a79c3cc1~kjKGvnv-R0465704657euoutp02L
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 13:39:37 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261103133937euoutp02061a51ec79c015a108673836a79c3cc1~kjKGvnv-R0465704657euoutp02L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793713177;
-	bh=eCTQKqZQWEhJr5ICgztXNdT6Rk+XZuJPxbHYVLLd/5E=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=NwczvEWg3h0EtY/vIPvzciqgQbv8MOKNlT3KPlILdtOv5PhcYZd4sQdZTJqm2mCYH
-	 G+mKQqVNx6l9+X2sXCvX/Cm27hWdaW2Q1EwShLkvfzmDccOI6gWuyvx+ivJZwB38K2
-	 9oxaQrw3BPuYITRmERc/7+NCCSA1T6+KoMI7L858=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103133937eucas1p17f7def2c1abc7cc44f548598b73cad6e~kjKGYKMeo1065010650eucas1p1h;
-	Tue,  3 Nov 2026 13:39:37 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103133936eusmtip1a2fd8fb8ca124bf3d332e4cf67d02b17~kjKFyMPSj2503025030eusmtip1R;
-	Tue,  3 Nov 2026 13:39:36 +0000 (GMT)
-Message-ID: <c1caf0c5-d82e-44c1-9d0f-934008f4febd@samsung.com>
-Date: Tue, 3 Nov 2026 14:39:36 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lqI2hhZx
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4d870d54so2544936f8f.2
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 05:47:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793713621; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SuLvWlNUBQymAnsc2qIfhyrGzxB5PCCdUKGVkGlQ73k8tEJ9uvjZkNcB66PF6OP1uW
+         i0gkgqI699ZAagjrQVQl5CqmaQGNRRNp9Q6UTWi6sArMbuqSgv58CQKXDdoqsUTEHctN
+         QIU/avjHtoYGIadrEw3OVnnGlSeQGvcMAjwI4IESzRbFdBCs2Uy3EV7xvroayqJnfE6H
+         vBtMBDrCggq046CxhH2ZPsBJ0jF7SJdD9pEGEmcOS/WRNNczC/KPk+WJ0wvdbgGSIh9t
+         DOIg1rsoOnFE26A0ALEefT0wxnb7SMUI6OL0dhflgez6lH3j86CwUrKYyS1vfx4o6nuq
+         nMUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+        fh=E41cRGZJBgO+gUlJE3W++rCmt4pE074zcVLa0Me4xX8=;
+        b=PN2mxTqlGdyLZfSAtT+F6FMRaMl9Vg/D2KW7Klt16hhdlEDQgRc3TZ31IHRM9UOrh2
+         dkeEgghR6KQNNLq45gfFubz51qEFCyEZIW3c6/IG2i07VAKrCfcVGAt2nUqTqO1lv7Dk
+         LQBoajzZzgiBfPM3OoXJqWqQRrf1Zl+rP9XLPiArY1E7qhgP//NEPDzqU8cInO/hURJq
+         WwXFqTX/+PPz00PlCrXw4pAJ+FqUhjP7rCh00fcwDy252DnJcxQ7W6OYv5zDFhdgfMD8
+         a1IByhq9FLJ8dMujszxYHUNoN15jkLCmu9oygDmeRCLaPEupnNQR7y/ZmgyKNDKK9/ZV
+         39KA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793713621; x=1794318421; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+        b=lqI2hhZxOjAyL5r3Pfj2A3k2A5QawkqpHiXRPUZAJOD0I/jRvSQK6C+lsOItFISTf/
+         sMFPMc17ZRm5yHuSaBLRkyuQ3CaS/lC56i73OUiGW8vpkqyjK3KjRQGGaKGMP5t+A6dz
+         4GvtLK8siLTaI866PLVrLnohJaOiVZtiDE/VxY4ZvP1SLlwFrsM0Ho0kkiUZGBFVv0Ee
+         K3KzOIrfOrJnuGRlDvo24CB8siaEKaHFuBrn2FEtuK+YD5dUMQyn+BvkHPp1+FgQelF+
+         HW4hxvirnsJ0RBm7qZMwiAwaKEszspX+Ejg2uP5yrtLrHDQjMKjN41FVK8XDrWMxzXcE
+         xuwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793713621; x=1794318421;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=La9vG3Mj+mF1A1DWo8VhGSu4l9YLa9wPpX/8B3aLPII=;
+        b=eIIjv9pZuWYn14tXBo+6KYTb4jwMx94tXkHWyS8uvhUGlhdRHZRmeLkG4ZPdIBwNnr
+         NH78NPsCCVtBazOfQS7WHQN/bu+ByM6ZWB7UDTtDFEYoqg4yyMtDn6aW2CppOOQoIR3y
+         rty0qLNm7/DzFJoD//+oQnBOwIRGaJnzxzaWIu6gCn1GJJSHSgM5wMc4PDj+fC6zWfwl
+         nHiO6OvcI5hzp4e8+/UkfgYBh2mXwh/MyKCODNjl522lHb6mWAUDx49iiTwCm1ASxuZH
+         5OTul9K0lITXG4Vec0mKM07Tf4hsJUtZDdYZ711Mx7losRe88uA9DS10yK1xeO31oHgC
+         E+Jg==
+X-Forwarded-Encrypted: i=1; AKwUvBxmk+LMrueFm2o0LubPK1NfGm7krxTb9JMwe25zGGCMhepRZ/Shjcj0nAjD2CJ4joo7Tlwy9hdEfCb43Q==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/4vseuH/3SDeiNHJ4A3FHJ/B2KDtf5Eu7h+aljzjHEipKZxQK4
+	mJ66LDbYnpmYacA6YJsTUtdQT/dbYRNzi1H97AQy4NGscwMfU6mA7TsrXFdgDTMpV+4KHuFrBPP
+	Q/EmuHQvieQitXEMa96tcdIfv+7/kJXru8ykms/4=
+X-Gm-Gg: AYBFou0UfQvY68b1+uvn+t7w8u1Xq+1MP91+JGJ8IAixvaHkjAv/VlW2r647ovIdKYA
+	0l3VQUiCCn7AkDECsdlGssai1teUtAlldLOZTbo2uZ6SW13vjKaJZDrshe44xkXBjGA8kXZAQ7s
+	LKqhWcwHV51r5uf5LJZIoCDzidpDFqdwghhg52zGaigDFDsvIjHemVZsMFMAKPZj8SqtJGh4ezc
+	vvHIrMRu9wSaoZSS0ITCP1zfHZYIJClMSuJKgulCNogRqefyr4Ep8H90QxqKqXjjuzAMsTHVPaY
+	4QeM32E8EM1k4RqfL6Ymn53YTnYybJ0BROjmGUVWqTSScp4prn8s0c2eI/EzGMmcGUyu1CAogeA
+	fUOVLSJEUOI9bxgg5Gv0ID8wg1ICeN+K2wbFRdhqtWToGeQI+RqF/LPzAHRW7FzgJKJb68rYJWb
+	9zoowj/agQzbXXMr1Vk9/yaJ7bw4g4bonUlk9hpRAnsOFsL3wJx7ydv+41
+X-Received: by 2002:a05:6000:2f84:b0:48e:e98:8b64 with SMTP id
+ ffacd0b85a97d-48e6e2eb232mr28145688f8f.19.1793713621222; Tue, 03 Nov 2026
+ 05:47:01 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,99 +105,252 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 2/2] media: videobuf2: order buffer initialization
- before bufs_bitmap publication
-To: Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa
-	<tfiga@chromium.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans
-	Verkuil <hverkuil@kernel.org>, Benjamin Gaignard
-	<benjamin.gaignard@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261103-vb2-mmap_lock-v2-2-054e11dcd013@chromium.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261103133937eucas1p17f7def2c1abc7cc44f548598b73cad6e
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261103105616eucas1p212ea654a93c4754fcc58bf449a2e58b4
-X-EPHeader: CA
-X-CMS-RootMailID: 20261103105616eucas1p212ea654a93c4754fcc58bf449a2e58b4
-References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
-	<CGME20261103105616eucas1p212ea654a93c4754fcc58bf449a2e58b4@eucas1p2.samsung.com>
-	<20261103-vb2-mmap_lock-v2-2-054e11dcd013@chromium.org>
+References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org> <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org>
+In-Reply-To: <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Tue, 3 Nov 2026 13:46:34 +0000
+X-Gm-Features: AclHuK_bXy2F5RYTq_Hmfm6bUMMn_NX9bzMEbVYq6-tx7g9y72NhS57yx-JuKls
+Message-ID: <CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com>
+Subject: Re: [PATCH RFC v5 7/7] media: mali-c55: Sequence resets explicitly
+To: Linus Walleij <linusw@kernel.org>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 03.11.2026 11:56, Ricardo Ribalda wrote:
-> Stateless mem2mem decoders call vb2_find_buffer() -> vb2_get_buffer()
-> from .device_run() without holding q->lock or q->mmap_lock, which can
-> run concurrently with VIDIOC_CREATE_BUFS on a streaming queue.
+Hi Linus,
+
+Thank you for the patch.
+
+On Tue, Oct 27, 2026 at 4:25=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
 >
-> Both set_bit() and test_bit() are unordered, and mutex_lock(&q->mmap_lock)
-> is only an acquire barrier. On weakly-ordered architectures such as
-> arm64, a lockless vb2_get_buffer() caller can observe a newly set bit in
-> q->bufs_bitmap before the kzalloc() zeroing, buffer initialization, and
-> q->bufs[] pointer store performed by __vb2_queue_alloc() become visible.
+> Reporters avoid a register-access hang on RZ/V2H by swapping the first
+> and third clock and reset identifiers in the ISP node. Test the reset
+> ordering from that configuration without changing the DT assignments.
 >
-> Pair smp_mb__before_atomic() in vb2_queue_publish_buffers() with
-> test_bit_acquire() in vb2_get_buffer() so that any reader observing a
-> set bit in q->bufs_bitmap also sees a fully initialized vb2_buffer.
+> Acquire vresetn, aresetn and hresetn individually by name, retaining thei=
+r
+> optional shared semantics. Deassert them in that order and assert them
+> in reverse order. With the current RZ/V2H DT, this deasserts 0xd3, 0xd1
+> and 0xd2 and asserts 0xd2, 0xd1 and 0xd3. These are the orders produced
+> by the bulk helpers with the reported working DT swap, since bulk
+> reset deassertion traverses its array backwards.
 >
-> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-
-
-Can't we use ordinary locking instead of those memory barriers and relying
-on not-always-atomic bit operations? For me this looks like over-optimization,
-taking into account that those operations are not on the critical path nor
-anyhow time-comparable with filling the whole buffer with image data.
-
-
+> Preserve the bulk helpers' error rollback. A shared reset increments its
+> deassert count before invoking the provider, so a failed deassertion
+> must also be balanced when unwinding.
+>
+> This RFC tests the driver's request order, not simultaneous hardware
+> reset transitions. The IVC can already hold shared resets deasserted.
+> The report changed clocks and resets together, so this ordering still
+> needs target hardware testing.
+>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 > ---
->  drivers/media/common/videobuf2/videobuf2-core.c | 8 ++++++++
->  include/media/videobuf2-core.h                  | 6 +++++-
->  2 files changed, 13 insertions(+), 1 deletion(-)
+>  .../media/platform/arm/mali-c55/mali-c55-common.h  |  6 +-
+>  .../media/platform/arm/mali-c55/mali-c55-core.c    | 75 ++++++++++++++++=
+------
+>  2 files changed, 60 insertions(+), 21 deletions(-)
 >
-> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-> index 70ef38c3d16a..d0dd4b22b646 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> @@ -461,6 +461,14 @@ static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
->  
->  	lockdep_assert_held(&q->mmap_lock);
->  
-> +	/*
-> +	 * Order the buffer initialization and the q->bufs[] stores done by
-> +	 * __vb2_queue_alloc() before the bits that publish them. Pairs with
-> +	 * test_bit_acquire() in vb2_get_buffer(), which is also called
-> +	 * without q->lock or q->mmap_lock held, e.g. by vb2_find_buffer()
-> +	 * from a mem2mem .device_run().
-> +	 */
-> +	smp_mb__before_atomic();
->  	for (i = start; i < start + count; i++) {
->  		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
->  			    test_bit(i, q->bufs_bitmap)))
-> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-> index 2e93e6985d5f..20b961da21e0 100644
-> --- a/include/media/videobuf2-core.h
-> +++ b/include/media/videobuf2-core.h
-> @@ -1288,7 +1288,11 @@ static inline struct vb2_buffer *vb2_get_buffer(struct vb2_queue *q,
->  	if (index >= q->max_num_buffers)
->  		return NULL;
->  
-> -	if (test_bit(index, q->bufs_bitmap))
-> +	/*
-> +	 * A set bit guarantees that the buffer is fully initialized, pairs
-> +	 * with smp_mb__before_atomic() in vb2_queue_publish_buffers().
-> +	 */
-> +	if (test_bit_acquire(index, q->bufs_bitmap))
->  		return q->bufs[index];
->  	return NULL;
->  }
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-common.h b/driv=
+ers/media/platform/arm/mali-c55/mali-c55-common.h
+> index b1ac50d6b30e..f2cd4d4ef472 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-common.h
+> @@ -38,8 +38,6 @@
 >
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+>  #define MALI_C55_DEFAULT_MEDIA_BUS_FMT MEDIA_BUS_FMT_RGB121212_1X36
+>
+> -#define MALI_C55_NUM_RESETS            3
+> -
+>  struct device;
+>  struct mali_c55;
+>  struct mali_c55_cap_dev;
+> @@ -239,7 +237,9 @@ struct mali_c55 {
+>         struct clk *hclk;
+>         struct clk *aclk;
+>         struct clk *vclk;
+> -       struct reset_control_bulk_data resets[MALI_C55_NUM_RESETS];
+> +       struct reset_control *vresetn;
+> +       struct reset_control *aresetn;
+> +       struct reset_control *hresetn;
+>         int irqnum;
+>
+>         u16 capabilities;
+> diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/driver=
+s/media/platform/arm/mali-c55/mali-c55-core.c
+> index 0caef871cad4..47e26d85784e 100644
+> --- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> +++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
+> @@ -64,12 +64,6 @@ static const unsigned int config_space_addrs[] =3D {
+>         [MALI_C55_CONFIG_PONG] =3D 0x22b2c,
+>  };
+>
+> -static const char * const mali_c55_reset_names[MALI_C55_NUM_RESETS] =3D =
+{
+> -       "vresetn",
+> -       "aresetn",
+> -       "hresetn",
+> -};
+> -
+I tested on the RZ/V2H EVK with the clocks and DT left untouched,
+changing only the reset order.
 
+The hang comes from the reset assert order in __mali_c55_power_off().
+Asserting vresetn (the ISP core reset per the RZ/V2H manual) before
+hresetn/aresetn wedges the ISP. The next power-on then stalls on its
+first register access. The deassert order doesn't matter.
+
+Asserting h->a->v (deasserting v->a->h) passes repeated runtime-PM
+cycles and also works with the IVC enabled. So 7/7 gives the right
+reset sequence, 6/7 isn't needed for this, and the existing DT mapping
+(0xd3 =3D vresetn =3D ISP core reset) is correct.
+
+A smaller alternative keeps the bulk API and only reorders the names:
+
++/*
++ * The reset bulk API asserts the resets in array order and deasserts them=
+ in
++ * reverse order. The video core reset (vresetn) must be asserted last, af=
+ter
++ * the register (hresetn) and AXI (aresetn) interface resets. Otherwise th=
+e
++ * ISP can be left in a state where the first register access after the ne=
+xt
++ * power-on stalls the bus.
++ */
+ static const char * const mali_c55_reset_names[MALI_C55_NUM_RESETS] =3D {
+-       "vresetn",
+-       "aresetn",
+        "hresetn",
++       "aresetn",
++       "vresetn",
+ };
+
+Cheers,
+Prabhakar
+
+>  /*
+>   * System IO
+>   *
+> @@ -661,7 +655,27 @@ static int mali_c55_init_context(struct mali_c55 *ma=
+li_c55,
+>
+>  static void __mali_c55_power_off(struct mali_c55 *mali_c55)
+>  {
+> -       reset_control_bulk_assert(ARRAY_SIZE(mali_c55->resets), mali_c55-=
+>resets);
+> +       int ret;
+> +
+> +       ret =3D reset_control_assert(mali_c55->hresetn);
+> +       if (ret)
+> +               goto disable_clocks;
+> +
+> +       ret =3D reset_control_assert(mali_c55->aresetn);
+> +       if (ret)
+> +               goto err_deassert_hresetn;
+> +
+> +       ret =3D reset_control_assert(mali_c55->vresetn);
+> +       if (ret)
+> +               goto err_deassert_aresetn;
+> +
+> +       goto disable_clocks;
+> +
+> +err_deassert_aresetn:
+> +       reset_control_deassert(mali_c55->aresetn);
+> +err_deassert_hresetn:
+> +       reset_control_deassert(mali_c55->hresetn);
+> +disable_clocks:
+>         clk_disable_unprepare(mali_c55->vclk);
+>         clk_disable_unprepare(mali_c55->aclk);
+>         clk_disable_unprepare(mali_c55->hclk);
+> @@ -702,11 +716,23 @@ static int __mali_c55_power_on(struct mali_c55 *mal=
+i_c55)
+>                 goto err_disable_aclk;
+>         }
+>
+> -       ret =3D reset_control_bulk_deassert(ARRAY_SIZE(mali_c55->resets),
+> -                                         mali_c55->resets);
+> +       /* Release video, AXI and register interface resets in that order=
+. */
+> +       ret =3D reset_control_deassert(mali_c55->vresetn);
+>         if (ret) {
+> -               dev_err(mali_c55->dev, "failed to deassert resets\n");
+> -               goto err_disable_vclk;
+> +               dev_err(mali_c55->dev, "failed to deassert vresetn\n");
+> +               goto err_assert_vresetn;
+> +       }
+> +
+> +       ret =3D reset_control_deassert(mali_c55->aresetn);
+> +       if (ret) {
+> +               dev_err(mali_c55->dev, "failed to deassert aresetn\n");
+> +               goto err_assert_aresetn;
+> +       }
+> +
+> +       ret =3D reset_control_deassert(mali_c55->hresetn);
+> +       if (ret) {
+> +               dev_err(mali_c55->dev, "failed to deassert hresetn\n");
+> +               goto err_assert_hresetn;
+>         }
+>
+>         /* Use "software only" context management. */
+> @@ -741,7 +767,13 @@ static int __mali_c55_power_on(struct mali_c55 *mali=
+_c55)
+>
+>         return 0;
+>
+> -err_disable_vclk:
+> +       /* A shared reset takes a reference before calling its provider. =
+*/
+> +err_assert_hresetn:
+> +       reset_control_assert(mali_c55->hresetn);
+> +err_assert_aresetn:
+> +       reset_control_assert(mali_c55->aresetn);
+> +err_assert_vresetn:
+> +       reset_control_assert(mali_c55->vresetn);
+>         clk_disable_unprepare(mali_c55->vclk);
+>  err_disable_aclk:
+>         clk_disable_unprepare(mali_c55->aclk);
+> @@ -818,13 +850,20 @@ static int mali_c55_probe(struct platform_device *p=
+dev)
+>                 return dev_err_probe(dev, PTR_ERR(mali_c55->vclk),
+>                                      "failed to acquire vclk\n");
+>
+> -       for (unsigned int i =3D 0; i < ARRAY_SIZE(mali_c55_reset_names); =
+i++)
+> -               mali_c55->resets[i].id =3D mali_c55_reset_names[i];
+> +       mali_c55->vresetn =3D devm_reset_control_get_optional_shared(dev,=
+ "vresetn");
+> +       if (IS_ERR(mali_c55->vresetn))
+> +               return dev_err_probe(dev, PTR_ERR(mali_c55->vresetn),
+> +                                    "failed to acquire vresetn\n");
+>
+> -       ret =3D devm_reset_control_bulk_get_optional_shared(dev,
+> -                       ARRAY_SIZE(mali_c55_reset_names), mali_c55->reset=
+s);
+> -       if (ret)
+> -               return dev_err_probe(dev, ret, "failed to acquire resets\=
+n");
+> +       mali_c55->aresetn =3D devm_reset_control_get_optional_shared(dev,=
+ "aresetn");
+> +       if (IS_ERR(mali_c55->aresetn))
+> +               return dev_err_probe(dev, PTR_ERR(mali_c55->aresetn),
+> +                                    "failed to acquire aresetn\n");
+> +
+> +       mali_c55->hresetn =3D devm_reset_control_get_optional_shared(dev,=
+ "hresetn");
+> +       if (IS_ERR(mali_c55->hresetn))
+> +               return dev_err_probe(dev, PTR_ERR(mali_c55->hresetn),
+> +                                    "failed to acquire hresetn\n");
+>
+>         of_reserved_mem_device_init(dev);
+>         vb2_dma_contig_set_max_seg_size(dev, UINT_MAX);
+>
+> --
+> 2.56.0
+>
+>
