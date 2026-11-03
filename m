@@ -1,60 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723214;
-	b=NG7bAhFIWoLzHCYFdZrxzmfGUeORLXEoCa4WnAm1EqmePe7xI1j6UEbA+WsDN5NF6dMH
-	 vVdxZCFA/2YHqP+rLsv6pmX+f2H9/QM7PQNff2i2IcaARZ9Ck5G0yKSi05GQYA5MuxKqj
-	 ApdV7iaNdnUKKzFOIscB9ku+HXnUonCEQmBmzIcoMza3+ZxBP+rBdnbd2Ivi6/gF0fumi
-	 oZUIEHRF2fAeuTUCReIvwVkCl1nGMNdtQ/nuCriRQKiGcyB3f+sl8XBo/hVgHKUXyhxZY
-	 9qX4M/QDFRW8yx+6o0FWDoTtP/Rrz1njcGe2VQpalvrz+SUN17RKXs5QSNKCs4yIQLA==
+	t=1793723915;
+	b=gQ8vaIttEDI9g93i6iHtpifJItiuWWQ1JdDiSwQC/vx3XxniDRzCEDyczN8gT3Ms4ljL
+	 qgYbseJv05Ai6pl6dhBkZMFQGmLUOnjnAQjMqrQ+PUFjcVI6V9w/LHdtvfhXN5/1cWrS3
+	 U+x/XVpeHXoCnbQJfniaq0SSiaal26+cpOkCukestnPakwPmiZ87sXESOb1qEPzuR91cK
+	 8xhziYudMKXgt0ZkjqTjQJTC/hUm74ibQxxv5YeYhpEv0F6QyrijQdFYoPZ1p9S26mId7
+	 eWNkPYXfwAAxsFgkCzwnvJ7LnIkqACQBJvssPwhTvCPdv/F8k4TGGRuIitAsUaCqBvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723214;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 Content-Language:From:In-Reply-To:Content-Transfer-Encoding:
-	 X-CMS-MailID:X-Msg-Generator:Content-Type:X-RootMTR:X-EPHeader:
-	 X-CMS-RootMailID:References;
-	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
-	b=RCAAQMsHNtsrp0I0wMEZa2WPqQbFzrnhAvuF/LB2BbFtIakZOrmsH/NdJy1JUs+JpguW
-	 swbxxAS2hZjoWfKbTfymv3Mwnmmd+zlJz6veD6IcJ+v9ang+gOBvlHxC5fhKCJBmEwBYX
-	 rFWpTCAIekFzcTMgYowl9f8YojwnO5/cw6AtVoPX+655quaOYEm5HbFXrrgtcC9gytJFi
-	 YdguYoDhFZZvKHMezAyElpWxp/8Z9IrgD3uKCAWmjicC08uoO1IkMT4+BDBNKYEVYc2OT
-	 q6Md9OFoLKkuJni7uHUanvOBHg4Awv2R2bYYqaIMnEuvX/S3mI+m1lFEtTqNL4wsEQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793723915;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=w6Fqdp6/PUxQDxS0m+JBmY/nceWZDOAC7M2eIuiqIFA=;
+	b=TJFTpjQJqwcmhVGJ1gJrCzPgBY4zXJx+QfJADReceyKI9/sJsnYeQ0J7HDKoXVw0eaWB
+	 OnkYDR25PFiVX58TkETbMtfdXQA39Pvm4jOnQJ18TMvwZeR7vBFOZbzpJ02O6tY8Gm3Ui
+	 XKPusvwJUyGOr4zcL32pXAtrPgbrr/h3IH9fR4YDNNrJrkduUxbKbZF2q3pSJF5dwqzQm
+	 w5zEob7GsR9xHNLG3yiprBIcUOo9l4VF6qK/fW10wKHoWk/+k9y2+JcEJ0yBSUh6PSibC
+	 IEswVz6SuuuRQshAPRo2MRJJ6m3RciCTVSx4gZBLXPV1zH4XMu6Vtu8KxewC0YrvOEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt;
-	arc=none smtp.remote-ip=210.118.77.11
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nRCbTsFa;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918E6606D81B
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 16:26:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 918E6606D81B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2B46082BDC
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 16:38:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC2B46082BDC
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=Vo2qH0rt
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261103162650euoutp01c7d5a8f592b11ff93f68d2524ec6023f~klcGrNmYD2246322463euoutp01R
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 16:26:50 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261103162650euoutp01c7d5a8f592b11ff93f68d2524ec6023f~klcGrNmYD2246322463euoutp01R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1793723210;
-	bh=YVSDIrIIzR9VS4mWTO/q1Mp+Me/njugHvJ+exw7MsBc=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Vo2qH0rtUulQjTrvDSQeJ3FpQ5/0v4yjObZmApKDrtovCvqGFLsds5v4aD5h7yjGw
-	 wCypu29RbvmDDkS2f66RSUdwWk03EBJ1dibVH/lGC+fCL5SjE8eE49epyXQaLhhvqV
-	 doLOZNNKtAG8LABMwmRcRzAYnQajLB12K4sfollI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8~klcFy-Wv13209832098eucas1p29;
-	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261103162649eusmtip1b9257770e9aa42f127e639da49ee93ae~klcFXrMLm2977329773eusmtip1Q;
-	Tue,  3 Nov 2026 16:26:49 +0000 (GMT)
-Message-ID: <d495affe-2501-4a82-9798-aa4b279a0cba@samsung.com>
-Date: Tue, 3 Nov 2026 17:26:48 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nRCbTsFa
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso7323393eec.0
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 08:38:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793723914; x=1794328714; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w6Fqdp6/PUxQDxS0m+JBmY/nceWZDOAC7M2eIuiqIFA=;
+        b=nRCbTsFaD7OM8zXTqBqhbT9Z9VMiXVdc+mCNlaYpWnmvIYn/8iOs029tKfUyGbsCYX
+         ZbwixDVd7M7F/xVppowGYAqsQq9mMw8W41WuBapO84qmyrsOecFuEB9slI2VYgEBKnPK
+         H6RLT1NR75itzIHKf56twiQCF/f8bvnPp4L80ZWwCRUzF50zQOeb+URbNHozfn7yoJrp
+         OfVrXw7B+NzhrAB/c6Hn/lEKSuV5dT60YnDo1sP2Hub4L1xbMxYSrkbXsfkGoNNKLJnz
+         fN9CoPMT0pp275pAMnMcGyObwJ5G3iUZLPUaDwJzb2XlNCb48vckaxma6GlUKicOBRMS
+         xJWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793723914; x=1794328714;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w6Fqdp6/PUxQDxS0m+JBmY/nceWZDOAC7M2eIuiqIFA=;
+        b=rcdQY5uOP16QlORQlSUP+imTL4iJAARl6lZmRfAP7pXiiWHTEHwYgFUFL0jodhtwn6
+         3wX5zQQMB3K68SRaCGhAFf+aIwNy0tZsxnya3ZmsKvsYqGkgCbpRt8KMlCVGF47gqGNt
+         tH8uInR+6WGDIkMkeVpQvNVS2mreB8fdz5112gbIPi5g/KoFGs6nYM1XEUJxcnDITUuV
+         qfJ0mM/dzpDtIskyw7ZJfPH0j4R/IpKztXDl/jPyjr2jnKchSV8jtDEJpPG+5cdRwEvq
+         MFkgFPK44aXjaDIef6LOxhbHlAQIEwLeY2h/qQPTCgqYeqZzg2h/6Jv3yPPi6gSfSH+x
+         Ggqw==
+X-Forwarded-Encrypted: i=1; AKwUvBxAKnpPf13MT86atXggQsUni4a9+mhOgIzeTqXCuSqUem90KQGF8eOtt9qTb+eAE1N9jOYSv0T5Pa+gJw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8klRTb8oeZ1qeFKBUmcx1TTwyzZfSdb2Epr5kBxs5fR30+7ai4
+	xqu6tc7jiybzitBkssthKvttbs9iHsS4R5cNOIP+cKhpDP1AwJ/s1cWd
+X-Gm-Gg: AYBFou2KgA+ZqghHvSlCyqZVS6wkv4d9PdP0rqI0lmHRHZb3ts9iQToJZAZzBjH5Txb
+	4YiN1BmWNs5OYGDy/Klac7qfHSYPDjce5YG+/xklyHnJ3RpP7vGkWvahtFV5/2hG84Wa5HVBa7/
+	xPONM2Hg+oaaiTtgpReLMytNObAm8HIDL0RM5R1s2ZHYmYo1WkQXVdrWOzV1zbpdISWNf62sCIm
+	y9v4r8NgoK8viJ+/l9M26PFUPURAKTvR5WDD/kNXfIhe7aVgUK14zHjYgAt16jgpysJTdJCqJ7v
+	ZW8oJwWFzKM1jDIng3aUG/Z0rSUY7xYaya4C0NIufEbNi8nVZ4newIe5r6KJlUPexRdFcafjieC
+	0wJYFGeURJIPNiCbkqcHE5NIaePorwHDC6ue8aNSRRIlLL09OIm5smCvtsaso0Fg3XkSKbGoiPE
+	dYA/ed+UILIO7by4aLZJNzHM2mT1YIsRPyy4xtn0Dh0F1hOHt32/F6C7Hf4PHC0OZtJbRdQGTq2
+	C3VjGZTy9+vL/QXJTTvII9Y08//IWRIZuwG17BBu3iTv/qxiAQhoxNYWVvXDTFmYX5le12YrOTI
+	OxigA1ggjkXg4a3jSQG+dFkVyE2/uofOFmvkKM3j+oDiMLOh/vZlDRCI/Pzshj3C8Q==
+X-Received: by 2002:a05:693c:6092:b0:35e:5ca:e0df with SMTP id 5a478bee46e88-36a424609c2mr24955730eec.35.1793723913578;
+        Tue, 03 Nov 2026 08:38:33 -0800 (PST)
+Received: from arpith-debian ([2402:3a80:40d:48cf:34b0:c816:2853:c60c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429018casm43671843eec.14.2026.11.03.08.38.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 08:38:32 -0800 (PST)
+From: Arpith Alexander <arpith99@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	sarang.sapre@intel.com,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Manik Bajpai <manik.bajpai@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arpith Alexander <arpith99@gmail.com>
+Subject: [PATCH] media: ipu6: Check firmware is started before close
+Date: Tue,  3 Nov 2026 22:08:14 +0530
+Message-ID: <20261103163814.96980-1-arpith99@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,246 +100,89 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2 1/2] media: videobuf2: publish buffers in bufs_bitmap
- under mmap_lock
-To: Ricardo Ribalda <ribalda@chromium.org>, Tomasz Figa
-	<tfiga@chromium.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans
-	Verkuil <hverkuil@kernel.org>, Benjamin Gaignard
-	<benjamin.gaignard@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261103162649eucas1p2160b4c61bbe857eb702337e35ad8b2e8
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
-X-EPHeader: CA
-X-CMS-RootMailID: 20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96
-References: <20261103-vb2-mmap_lock-v2-0-054e11dcd013@chromium.org>
-	<CGME20261103105616eucas1p17559c1ea1dd190d5516ac1be2a88bf96@eucas1p1.samsung.com>
-	<20261103-vb2-mmap_lock-v2-1-054e11dcd013@chromium.org>
+Content-Transfer-Encoding: 8bit
 
-On 03.11.2026 11:56, Ricardo Ribalda wrote:
-> vb2_mmap() only takes q->mmap_lock, not the main queue lock (q->lock).
-> To keep vb2_mmap() safe, newly allocated buffers must not become visible
-> in vb2_get_buffer() until they are fully initialized and q->mmap_lock is
-> held.
->
-> Commit a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-> started setting q->bufs_bitmap inside __vb2_queue_alloc() before buffer
-> memory is allocated and without holding q->mmap_lock. As a result:
->
-> - A concurrent mmap() can find a half-initialized buffer, and if buffer
->   allocation or .buf_init() fails, __vb2_queue_alloc() frees that buffer
->   without holding q->mmap_lock, causing a use-after-free in vb2_mmap().
-> - If fewer buffers are allocated than requested, they are already
->   counted as active in q->bufs_bitmap before .queue_setup() checks
->   whether the smaller count is acceptable.
->
-> Fix this by keeping new buffers only in q->bufs[] during allocation and
-> setting their bits in q->bufs_bitmap under q->mmap_lock once allocation
-> and .queue_setup() succeed, and let __vb2_queue_free() read q->bufs[]
-> directly when cleaning up unexposed buffers.
->
-> Fixes: a286b0837e13 ("media: core: Add bitmap manage bufs array entries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Commit 70e3fac3ec78 ("media: ipu6: Move firmware init/cleanup to RPM
+callbacks") moved firmware start to RPM resume and firmware close to RPM
+suspend. The suspend callback closes the firmware unconditionally.
 
-One minor issue below, besides that is look fine.
+ipu6_pci_probe() wakes the PSYS. The PSYS's parent is the ISYS, so the
+PM core wakes the ISYS first. At that point the ISYS driver isn't bound
+yet, as isys_probe() returns -EPROBE_DEFER until the PCI probe has
+finished. isys_runtime_pm_resume() is therefore not called and no
+firmware is started.
 
-Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
+The PSYS is released with pm_runtime_put(), so the ISYS is only
+suspended asynchronously, and the driver core's pm_runtime_barrier()
+cancels a pending suspend request before probe. The ISYS can therefore
+still be runtime active when its driver binds, although its runtime
+resume callback has never run. The next runtime suspend, such as the one
+the driver core requests after probe, makes isys_runtime_pm_suspend()
+close the firmware, and ipu6_fw_com_close() dereferences the NULL
+isys->fwctx. On a Dell XPS 13 9340 this oopsed during boot:
 
+BUG: kernel NULL pointer dereference, address: 000000000000004c
+Workqueue: pm pm_runtime_work
+RIP: 0010:ipu6_fw_com_close+0x9/0x50 [intel_ipu6]
+Call Trace:
+  ipu6_fw_isys_close+0x29/0x90 [intel_ipu6_isys]
+  isys_runtime_pm_suspend+0x4c/0xf0 [intel_ipu6_isys]
+  bus_pm_runtime_suspend+0x12/0x40 [intel_ipu6]
+  rpm_callback+0x5e/0x80
+  rpm_suspend+0xe7/0x620
+  pm_runtime_work+0x98/0xb0
 
-> ---
->  drivers/media/common/videobuf2/videobuf2-core.c | 66 +++++++++++++++++++++----
->  include/media/videobuf2-core.h                  |  8 +--
->  2 files changed, 61 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-> index b0a6084f1757..70ef38c3d16a 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> @@ -431,6 +431,9 @@ static void init_buffer_cache_hints(struct vb2_queue *q, struct vb2_buffer *vb)
->   * @q:	pointer to &struct vb2_queue with videobuf2 queue.
->   * @vb:	pointer to &struct vb2_buffer to be added to the queue.
->   * @index: index where add vb2_buffer in the queue
-> + *
-> + * The buffer is stored in @q->bufs[] but remains invisible to vb2_get_buffer()
-> + * until published with vb2_queue_publish_buffers().
->   */
->  static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, unsigned int index)
->  {
-> @@ -439,7 +442,31 @@ static void vb2_queue_add_buffer(struct vb2_queue *q, struct vb2_buffer *vb, uns
->  	q->bufs[index] = vb;
->  	vb->index = index;
->  	vb->vb2_queue = q;
-> -	set_bit(index, q->bufs_bitmap);
-> +}
-> +
-> +/**
-> + * vb2_queue_publish_buffers() - publish buffers staged by __vb2_queue_alloc()
-> + * @q:		pointer to &struct vb2_queue with videobuf2 queue.
-> + * @start:	index of the first buffer to publish.
-> + * @count:	number of buffers to publish.
-> + *
-> + * Set the @q->bufs_bitmap bits of the @count fully initialized buffers that
-> + * __vb2_queue_alloc() stored in @q->bufs[] starting at @start, which makes
-> + * them visible to vb2_get_buffer().
-> + */
-> +static void vb2_queue_publish_buffers(struct vb2_queue *q, unsigned int start,
-> +				      unsigned int count)
-> +{
-> +	unsigned int i;
-> +
-> +	lockdep_assert_held(&q->mmap_lock);
-> +
-> +	for (i = start; i < start + count; i++) {
-> +		if (WARN_ON(i >= q->max_num_buffers || !q->bufs[i] ||
-> +			    test_bit(i, q->bufs_bitmap)))
-> +			continue;
-> +		set_bit(i, q->bufs_bitmap);
-> +	}
->  }
->  
->  /**
-> @@ -460,6 +487,11 @@ static void vb2_queue_remove_buffer(struct vb2_buffer *vb)
->   * @first_index: index of the first created buffer, all newly allocated buffers
->   *		 have indices in the range [first_index..first_index+count-1]
->   *
-> + * The allocated buffers are stored in q->bufs[] but not published in
-> + * q->bufs_bitmap: the caller must either publish them with
-> + * vb2_queue_publish_buffers() or free them with __vb2_queue_free(), both under
-> + * q->mmap_lock.
-> + *
->   * Returns the number of buffers successfully allocated.
->   */
->  static int __vb2_queue_alloc(struct vb2_queue *q, enum vb2_memory memory,
-> @@ -562,7 +594,8 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
->  	struct vb2_buffer *vb;
->  
->  	for (i = start; i < start + count; i++) {
-> -		vb = vb2_get_buffer(q, i);
-> +		/* See __vb2_queue_free() for why vb2_get_buffer() isn't used */
-> +		vb = q->bufs[i];
->  		if (!vb)
->  			continue;
->  
-> @@ -580,6 +613,11 @@ static void __vb2_free_mem(struct vb2_queue *q, unsigned int start, unsigned int
->   * __vb2_queue_free() - free @count buffers from @start index of the queue - video memory and
->   * related information, if no buffers are left return the queue to an
->   * uninitialized state. Might be called even if the queue has already been freed.
-> + *
-> + * Buffers are looked up directly in q->bufs[] instead of through
-> + * vb2_get_buffer() so that buffers staged by __vb2_queue_alloc() that were
-> + * never published in q->bufs_bitmap (because a later .queue_setup() call
-> + * rejected the allocated number of buffers) are freed as well.
->   */
->  static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned int count)
->  {
-> @@ -587,9 +625,13 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
->  
->  	lockdep_assert_held(&q->mmap_lock);
->  
-> +	/* q->bufs is NULL until vb2_core_allocated_buffers_storage() runs */
-> +	if (!q->bufs)
-> +		return;
-> +
->  	/* Call driver-provided cleanup function for each buffer, if provided */
->  	for (i = start; i < start + count; i++) {
-> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-> +		struct vb2_buffer *vb = q->bufs[i];
->  
->  		if (vb && vb->planes[0].mem_priv)
->  			call_void_vb_qop(vb, buf_cleanup, vb);
-> @@ -624,7 +666,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
->  		q->cnt_unprepare_streaming = 0;
->  	}
->  	for (i = start; i < start + count; i++) {
-> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-> +		struct vb2_buffer *vb = q->bufs[i];
->  		bool unbalanced;
->  
->  		if (!vb)
-> @@ -676,7 +718,7 @@ static void __vb2_queue_free(struct vb2_queue *q, unsigned int start, unsigned i
->  
->  	/* Free vb2 buffers */
->  	for (i = start; i < start + count; i++) {
-> -		struct vb2_buffer *vb = vb2_get_buffer(q, i);
-> +		struct vb2_buffer *vb = q->bufs[i];
->  
->  		if (!vb)
->  			continue;
-> @@ -1000,14 +1042,16 @@ int vb2_core_reqbufs(struct vb2_queue *q, enum vb2_memory memory,
->  
->  	if (ret < 0) {
->  		/*
-> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
-> -		 * from already queued buffers and it will reset q->memory to
-> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
-> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
-> +		 * straight from q->bufs[] and resets q->memory to
->  		 * VB2_MEMORY_UNKNOWN.
->  		 */
->  		__vb2_queue_free(q, first_index, allocated_buffers);
->  		mutex_unlock(&q->mmap_lock);
->  		return ret;
->  	}
-> +	vb2_queue_publish_buffers(q, first_index, allocated_buffers);
->  	mutex_unlock(&q->mmap_lock);
->  
->  	/*
-> @@ -1125,14 +1169,16 @@ int vb2_core_create_bufs(struct vb2_queue *q, enum vb2_memory memory,
->  
->  	if (ret < 0) {
->  		/*
-> -		 * Note: __vb2_queue_free() will subtract 'allocated_buffers'
-> -		 * from already queued buffers and it will reset q->memory to
-> -		 * VB2_MEMORY_UNKNOWN.
-> +		 * Note: the buffers allocated by __vb2_queue_alloc() were never
-> +		 * published in q->bufs_bitmap, __vb2_queue_free() frees them
-> +		 * straight from q->bufs[] and resets q->memory to
-> +		 * VB2_MEMORY_UNKNOWN if no buffers are left.
->  		 */
->  		__vb2_queue_free(q, *first_index, allocated_buffers);
->  		mutex_unlock(&q->mmap_lock);
->  		return -ENOMEM;
->  	}
-> +	vb2_queue_publish_buffers(q, *first_index, allocated_buffers);
->  	mutex_unlock(&q->mmap_lock);
->  
->  	/*
-> diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-> index 4b4f4c15c53a..2e93e6985d5f 100644
-> --- a/include/media/videobuf2-core.h
-> +++ b/include/media/videobuf2-core.h
-> @@ -564,9 +564,11 @@ struct vb2_buf_ops {
->   * @mmap_lock:	private mutex used when buffers are allocated/freed/mmapped
->   * @memory:	current memory type used
->   * @dma_dir:	DMA mapping direction.
-> - * @bufs:	videobuf2 buffer structures. If it is non-NULL then
-> - *		bufs_bitmap is also non-NULL.
-> - * @bufs_bitmap: bitmap tracking whether each bufs[] entry is used
-> + * @bufs:	videobuf2 buffer structures. Must be accessed with
-> + *		vb2_get_buffer(), as an allocated buffer cannot be used
-> + *		until it is published.
+Only close the firmware if it was started, i.e. when isys->fwctx is set.
+The check for a failed close is unchanged. A runtime suspend without a
+preceding resume then does what the suspend callback did before that
+commit.
 
+Fixes: 70e3fac3ec78 ("media: ipu6: Move firmware init/cleanup to RPM callbacks")
+Signed-off-by: Arpith Alexander <arpith99@gmail.com>
+---
+Tested on the XPS 13 9340 (Meteor Lake): no oops on the tested boots
+(the unpatched kernel oopsed on its one boot that probed the IPU6, three
+boots with this patch didn't), the ISYS runtime suspends when idle and
+resumes for streaming, and the camera works.
 
-"Drivers must access it through vb2_get_buffer()", otherwise You risk getting
-tons of poor-LLM generated patches fixing vb2-core to use vb2_get_buffer()
-instead of poking q->bufs[].
+This only fixes the suspend path. The ISYS being runtime active without
+isys_runtime_pm_resume() having run also affects anything else that
+relies on the runtime PM status before the first suspend, e.g. starting
+a stream, or ipu6_isys_isr(), which v7.3 guarded with isys->power.
+Making the runtime PM state consistent when the driver binds would cover
+those as well.
 
-> + * @bufs_bitmap: bitmap tracking published buffers. Bits are set and cleared
-> + *		under @mmap_lock.
->   * @max_num_buffers: upper limit of number of allocated/used buffers.
->   *		     If set to 0 v4l2 core will change it VB2_MAX_FRAME
->   *		     for backward compatibility.
->
-Best regards
+ drivers/media/pci/intel/ipu6/ipu6-isys.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index 094a98e31c06..9c3818c904cd 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -821,10 +821,18 @@ static int isys_runtime_pm_suspend(struct device *dev)
+ 	struct ipu6_device *isp = adev->isp;
+ 	int ret = 0;
+ 
+-	isys->adev->auxdrv_data->fw_ops->close(isys);
++	/*
++	 * The ISYS may have been runtime resumed as the parent of the PSYS
++	 * before this driver was bound. isys_runtime_pm_resume() hasn't run
++	 * then, and there is no firmware to close.
++	 */
+ 	if (isys->fwctx) {
+-		dev_warn(&isys->adev->auxdev.dev, "failed to close fw isys\n");
+-		ret = -EIO;
++		isys->adev->auxdrv_data->fw_ops->close(isys);
++		if (isys->fwctx) {
++			dev_warn(&isys->adev->auxdev.dev,
++				 "failed to close fw isys\n");
++			ret = -EIO;
++		}
+ 	}
+ 
+ 	mutex_lock(&isys->mutex);
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.55.0
 
