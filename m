@@ -1,52 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702470;
-	b=rS1LIym2PYJr+3ix/bwX1yWjDpi83WJURq0EIkxkgmemLtJ8aCTJliZJMhJVU14VdjkB
-	 cl+Pt3oAjtKFJczgrQGdN3UlPrViz7bRLDpWwnGfrxE+9/otaT1gLGN2koIFIdIXrbxmR
-	 5XpDUOAkw2+swkIk8y5yuU2En2FvmUEiD+3Uu9gy/GgnbgTjsnRqZgGltGYdKs8qcqlGl
-	 akceKFykSMuAo2WsFm1OvY7aOo0dZO6ywRyNpYzUMlkJ51Gt+mVsXCSFqbE+gO4qeK8AK
-	 uGmcS0gJusNfWFz5ftas4mcGYAFo/lPsI9CCMpWxS+3SdlLTvE5rlQ9jZbZQNOu+sfA==
+	t=1793702739;
+	b=roMuZYV9UTXxO16KciCcSGrf5pebJekIAbLwk4aIH/VWIJj/jC6Mjby+hokkiNAdjZFN
+	 Y3R56WoUySVuuGRtSDlT2QjVnoCVlt65CMrFT6i0Froo1N4EFXxYKAEokabMG/9Y+Ylm+
+	 e4CW/IoLp+6FMGrWVtp4YiDaQXNvt2f0kPoU1gR96inWmYCUtcKaTqwp6fZTpy9lEyWoc
+	 Oo5WRKwznx1rg/kMWvOpjrDN2hGNVYdW1PC1WjaDxQQDS5oBpzaxVBMCmuI3Rrv191W8x
+	 Z0W0vthTtf6M4GqtkN+27D7We3PXRn7uxSD01qvuK6xBPTzpi8Fc/7q3m05Ny9/f6LA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702470;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=2ZChROafYGqElVUd4oASxYtU7K3gh3Nswh9EtnpMFEw=;
-	b=M77NK3c2CNjLVX8UELcI95bR62qiHOj4OiLWX1ot8zd7hkzeILFVmoceCnE0CD8oMlLK
-	 ooG9oBroEiBRrPAxXqF2UFK7dIRMuYtYTH8TATKwG2lCAmOhyVfQcVS66gzhLgjh+OMe8
-	 9GKUJYO0/NfLlLwlAMXZVwB/4NcybjOVqeilj5ZmGXXHKLkj4s/emKokWeosBzGhlHdoR
-	 GiU/Hiwrzfvjcudz0QTLrW/0LzdPGEeqUPA0s7mZ/ZFFo4TbgjVAkkPcEcbjt+jTtGS2s
-	 jJBkmg6/LdXfD/YYUI+n7w85QuEgwkTZANJQ4331UXLqI0MRLqVOVGNHm5dne5morwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702739;
+	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=huomXK9SMndISLTL5gBVcSuerv7DR74V+Dr7Q6zCtnc=;
+	b=bgvhVnOXvx8Ft415CtLKsPhJHlEHvhlvSAM98XMRKSPXiKgdLyb4KgFslioqU+oiMfVc
+	 kN6KHbEXhl70dnPR0YkZn//FxqrQkN+RRRlEfasWVx/UlNm6RYPWt7W5mQYturrS++SaI
+	 fGbi6AF/F0lsXK0K47np3c6BofC4lR+W+FZ395kkXrOcyai38LoGcxU/DELbBUCt1imAC
+	 2lY9WFVJlyA/Ze0R+gkBXtA31NL5hXHiON7rgFvN4W8crfgKndJzjO85MEYyK9U5ao+fM
+	 PhKBU2AJjY8Frz/sTg60I5XpiXjQJja0/CPtdeP1zBOwccqigmxibtwgN6W1eIENWmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNi7+NKi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=makrotopia.org;
+	spf=pass smtp.mailfrom=makrotopia.org;
+	arc=none smtp.remote-ip=185.142.180.65
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965E16082BF4;
-	Tue,  3 Nov 2026 10:41:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNi7+NKi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F371F00919;
-	Tue,  3 Nov 2026 10:41:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793702470;
-	bh=2ZChROafYGqElVUd4oASxYtU7K3gh3Nswh9EtnpMFEw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DNi7+NKi5mqwTRs7wbCDFlBB32pwn0Zp8J2ZkOcIMYJi4eFXeiLDwB/1ze8ZMMfsc
-	 Ky/qOhent2cDlgDpDPq+E5PVY5FhIXibKfYrhBOwa0Kgmf1ZO/WeQ4X5KVoSEhjpnQ
-	 RsiGQ/Nmrop0L/X3n06UuKP5TP0EnJAWdZ2sIPRjhBt9mUjZOuERbbzoVa9vxA7SWP
-	 aXLiK6X24wEcQ1dtfzFGY3hDsm4OaPVyE53Q1MSdAhlEU1SJxwRBW0hDFdxFZdNIPP
-	 nZGom5Rrz1a2gg3VfBTr3aG8gJtz6o4kQtxOvB9HZiozu76zNzTRbtQFQno2zov5Jb
-	 NZo8DZmTdrYsg==
-Date: Tue, 3 Nov 2026 11:41:07 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>
-Subject: Re: [PATCH] media: cec: extron: release the v4l2 device on disconnect
-Message-ID: <20261103-screeching-llama-of-action-dbde2b@quoll>
-References: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD7CE606C58D;
+	Tue,  3 Nov 2026 10:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD7CE606C58D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100.1)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1xOC1E-0000000031r-0auF;
+	Tue, 03 Nov 2026 10:45:32 +0000
+Date: Tue, 3 Nov 2026 10:45:29 +0000
+From: Daniel Golle <daniel@makrotopia.org>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 2/6] media: rockchip: rkcif: fix the MIPI stop path locking
+Message-ID: <744eeec346f96d580a9215c657951f5a737e734e.1793702189.git.daniel@makrotopia.org>
+References: <cover.1793702189.git.daniel@makrotopia.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -56,69 +58,133 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103102850.1340434-1-vulab@iscas.ac.cn>
+In-Reply-To: <cover.1793702189.git.daniel@makrotopia.org>
 
+rkcif_mipi_stop_streaming() takes the subdev state mutex, and the
+interrupt handler calls it at the frame end that completes a stop. A
+mutex taken in hard interrupt context sleeps when it is contended, and
+CONFIG_DEBUG_ATOMIC_SLEEP reports the call on every stream stop. The
+state itself is not read on either path; the lock serialises the
+read-modify-write of the interrupt enable and status registers, which
+the streams of a MIPI block share.
 
-On Tue, 03 Nov 2026 10:28:50 +0000, Wentao Liang wrote:
-> extron_connect() registers a v4l2 device, which takes a reference on
-> the underlying serio device. extron_disconnect() never unregisters it,
-> so the reference is never dropped. The extron structure allocated in
-> extron_connect() is not freed either.
-> 
-> Unregister the v4l2 device and free the structure at the end of
-> extron_disconnect(), mirroring the error path in extron_connect().
-> 
-> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+Guard those registers with a spinlock per interface, taken with
+interrupts disabled, so that the handler and the process context paths
+exclude each other, and leave the subdev state alone.
 
+Fixes: 1f2353f5a1af ("media: rockchip: rkcif: add support for rk3568 vicap mipi capture")
+Assisted-by: LLM
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+ .../rockchip/rkcif/rkcif-capture-mipi.c       | 24 +++++++------------
+ .../platform/rockchip/rkcif/rkcif-common.h    |  3 +++
+ 2 files changed, 12 insertions(+), 15 deletions(-)
 
-
-Multiple things here:
-1. Your team ignored completely previous feedback. Multiple times.
-
-2. You use multiple identities with this email address, thus I doubt that we
-   speak with an actual person.
-
-3. Your bot does not even bother running checkpatch, right?
-
-4. Nothing of this was reproduced nor tested.
-
-5. Finally, the same feedback:
-You sent multiple independent patches, to multiple independent
-subsystems. The amount of these patches clearly suggest this was
-AI generated and most likely not tested.
-
-More importantly, you sent all this work without properly organizing
-relevant patches into patchsets. This makes reviewing difficult
-and might cause multiple reviewers to address the same issue.
-Replying to the entire set is impossible and requires handling each
-patch independently, instead of applying or discarding the set.
-Maintainers also won't see the bigger picture of your work. Quite
-worrying.
-
-This is on the verge of hostile patch: bomb us with so many
-contributions, we won't be able to handle them in efficient manner,
-like responding ONCE to ask you to slow down.  Considering all this
-is untested and LLM generated, I have even more doubts whether this
-should be considered for review.
-
-Please read kernel documentation BEFORE posting more work. It will
-explain you how to identify subsystems, how to organize your work per
-subsystem (so a patchset grouping multiple patches with a short cover
-letter), how to document the issue discovery method and what was
-or was not tested.
-
-Best regards,
-Krzysztof
-
-
-
-
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+index 686b995525b9b..53cfd37bf02bd 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+@@ -721,17 +721,14 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	struct rkcif_interface *interface = stream->interface;
+ 	const struct rkcif_output_fmt *active_out_fmt;
+ 	const struct rkcif_mipi_match_data *match_data;
+-	struct v4l2_subdev_state *state;
+ 	u32 ctrl0 = 0, ctrl1 = 0, int_temp = 0, int_mask = 0, vlw = 0;
++	unsigned long flags;
+ 	u16 height, width;
+-	int ret = -EINVAL;
+-
+-	state = v4l2_subdev_lock_and_get_active_state(&interface->sd);
+ 
+ 	active_out_fmt = rkcif_stream_find_output_fmt(stream, false,
+ 						      stream->pix.pixelformat);
+ 	if (!active_out_fmt)
+-		goto out;
++		return -EINVAL;
+ 
+ 	height = stream->pix.height;
+ 	width = stream->pix.width;
+@@ -746,6 +743,7 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
+ 	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
+ 
++	spin_lock_irqsave(&interface->irq_lock, flags);
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
+ 	int_temp |= int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, int_temp);
+@@ -753,6 +751,7 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
+ 	int_temp &= ~int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, int_temp);
++	spin_unlock_irqrestore(&interface->irq_lock, flags);
+ 
+ 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME0_VLW_Y, vlw);
+ 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME1_VLW_Y, vlw);
+@@ -769,26 +768,21 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+ 	 */
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_CTRL, RK3588_MIPI_CTRL_CAP_EN);
+ 
+-	ret = 0;
+-
+-out:
+-	v4l2_subdev_unlock_state(state);
+-	return ret;
++	return 0;
+ }
+ 
+ static void rkcif_mipi_stop_streaming(struct rkcif_stream *stream)
+ {
+ 	struct rkcif_interface *interface = stream->interface;
+-	struct v4l2_subdev_state *state;
+ 	u32 int_temp = 0, int_mask = 0;
+-
+-	state = v4l2_subdev_lock_and_get_active_state(&interface->sd);
++	unsigned long flags;
+ 
+ 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, 0);
+ 
+ 	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
+ 	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
+ 
++	spin_lock_irqsave(&interface->irq_lock, flags);
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTEN);
+ 	int_temp &= ~int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, int_temp);
+@@ -796,10 +790,9 @@ static void rkcif_mipi_stop_streaming(struct rkcif_stream *stream)
+ 	int_temp = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
+ 	int_temp &= ~int_mask;
+ 	rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, int_temp);
++	spin_unlock_irqrestore(&interface->irq_lock, flags);
+ 
+ 	stream->stopping = false;
+-
+-	v4l2_subdev_unlock_state(state);
+ }
+ 
+ static void rkcif_mipi_set_crop(struct rkcif_stream *stream, u16 left, u16 top)
+@@ -881,6 +874,7 @@ int rkcif_mipi_register(struct rkcif_device *rkcif)
+ 		interface->in_fmts_num = ARRAY_SIZE(mipi_in_fmts);
+ 		interface->set_crop = rkcif_mipi_set_crop;
+ 		interface->streams_num = 0;
++		spin_lock_init(&interface->irq_lock);
+ 		ret = rkcif_interface_register(rkcif, interface);
+ 		if (ret)
+ 			continue;
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+index 4d9211ba9bda8..16a5ecb25c2fb 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+@@ -198,6 +198,9 @@ struct rkcif_interface {
+ 		struct rkcif_dvp dvp;
+ 	};
+ 
++	/* interrupt enable and status are shared by the streams of a block */
++	spinlock_t irq_lock;
++
+ 	void (*set_crop)(struct rkcif_stream *stream, u16 left, u16 top);
+ };
+ 
+-- 
+2.56.0
