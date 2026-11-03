@@ -1,80 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793694669;
-	b=CQ52j8+e75EWESoyVLjxRq+p3k55uk+FtliKAeKDO2nCkdWUzAmTs1hyKOFHDNzi+Yad
-	 QJ5z+ElN3GMvCYfD8M/Dtv9+coNQKdZqOF20SccsLAV4tHz9v3HutKXlHK8XTEhiIwTyX
-	 HFzO1EVHCm9TRnoUV8HVbhQwzR1DXXDGnVk4EvtoMJcCVXJ3KRexCGirJBHk2IrEXLd2x
-	 gJHx0F78F2tYbAHnmuJuCmqPWYq7XO7425O+34YbTe7dIspSM7a4XxlmWiLuAffXPqS3U
-	 /lTIiqe4DnzGyukk8r1pKTaZLjTxIFMo2RleY70Rx+WeRsR2uOoJi9ERGzqENlR59og==
+	t=1793694687;
+	b=KA5UWERiOnBJ7Fn9fUuqN40ctkh64iKEEpEPeYK5GrPbpOu9LeEWPvi5RCT4Km82KnZ6
+	 WWYUgI+/JtScGlFwl65pPYq3kGbA9RodT63cbW7gfNm6UorxEEaXUtJrFZLB5jB70cLx6
+	 1mfNpmepGmyP+vRUnxCNrezztiCxqoTWw0teJ2X2mMiUUUgPdCTqqe6BKsaWlFYGzgTON
+	 RNEGVm5zxQlA/uqo8m3TrAD8qkIZeSSHDdZwBQggKWWaJi84CaJFit6fgPszIgXa65Ck/
+	 pVL0bSJtJ2hR/3vtmxc9rcelzhF65NTC54kr30UT/kdeZiTLmwdAMzrSGOMnzv2r+dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793694669;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=iXAsA4acO94QS42kh3VYh4FOfBVOAs2xWKCo/zdX/J4=;
-	b=x8q1RL80Fz933JezgVHM77tRYzHlmPUbsAT1m065hLxlfzorsLo5BJpahaU/jRUl75Ff
-	 dJ+oTIHx61kMXzWvcphVoeyJUwa9+gvf/3qf3Z0fWqVj/w4E+W2K28XlcIWftAmz9LJmn
-	 Ja61+1NwRyc5XUeiXQNUhus2cvfLJ7hy/0/lE9lmEMQGJgHG2CQB3M9IXkodkCJu7eJtp
-	 UUJPaXcHgZqVlEmtBbATWXoYxwTiG5cigFwsnYJnaCES/TRI60QwncXgqlpG7A9dgOzvk
-	 HdrqksWkvjoG3JzUGzHcewxo7hWBAV2rWV1SAkor1XpozaVArSIg1Jp4LTgsdS96k1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793694687;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=N/32RpzipPksbyw7hpLe9vuq9er5JHhLwdofJhL7vbs=;
+	b=gnwvFiSoLfPxNFUE5d+8rsWAC6yigGzqL4lV3c+yaKcPwDFBoRw5R3K3RtMQFuoIrz5/
+	 vAqiZQMGxqvO4WXcWsymLIhNfk+NCIoJ+0H9gkmmhT0pEgeVOI0xV0Ii0lBLsyl3HcgVn
+	 1Hyi34AoQjugTm+WvO6+S4kAN6QIwfLL4IgeVo2CK9Sv7C8TuIasHHPjBuvHaXpDgn8Au
+	 8zipVLI0m/NNkV+DwoTbwYZF63cIkn8FLTzPGWTGLNrRHzekApzCWxnobMMubuaZ61p3I
+	 p1++PB7NjvX/Q7V5JS/31eR0pZevi2YOISXxQaxgRpAYVu1XDOTkR5ydHdIHskCu53Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfJFTLxv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2120606A94B;
-	Tue,  3 Nov 2026 08:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AfJFTLxv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC5C1F00A1A;
-	Tue,  3 Nov 2026 08:31:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793694668;
-	bh=iXAsA4acO94QS42kh3VYh4FOfBVOAs2xWKCo/zdX/J4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AfJFTLxv6XhNPeP+XU/3K26Ttx5SBjOD0VWiWhdh2E3RF2CVpx6ZyEMFkZTSpl8IS
-	 oHqoL2iIKv5Bjo39aHYJS7sOa9JPrAVz4rHP0yAs4gy8Z8RHKKrLBYq/j3AJrVMpsR
-	 SK2klYssy3QMXxXUwQ4NuRdvVu5M2E17NgR1qPiCierIxmHRyq+FP0G7HMgpLk0frp
-	 dNv3TTIGS4yFUYvsOFassbUl7FaWW9+fMtwjunxj9riq1eZWhj30aV/H1dat1d/mxK
-	 N6N2UJpgKsFFOHIj91AY6ycQ8GU1vTxQcGq9w+HYJsz5w8yYHkSrYSLoADodnHptuh
-	 BrzUohD/WNbsw==
-From: Leon Romanovsky <leon@kernel.org>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
-	=?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-Cc: linux-pci@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBD26082BFA;
+	Tue,  3 Nov 2026 08:31:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEBD26082BFA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAC3xZbbm+lqfHc6AA--.1447S2;
+	Tue, 03 Nov 2026 16:31:23 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org,
-	kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v12 18/19] PCI/P2PDMA: Evaluate the ATS path for clients with ATS enabled
-Date: Tue,  3 Nov 2026 10:29:57 +0200
-Message-ID: <20261103-fix-p2p-acs-v4-0-v12-18-912101f93517@nvidia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
-References: <20261103-fix-p2p-acs-v4-0-v12-0-912101f93517@nvidia.com>
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: cx25821: Free controls even if the video device was not registered
+Date: Tue,  3 Nov 2026 08:31:32 +0000
+Message-Id: <20261103083132.1171874-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -84,212 +52,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAC3xZbbm+lqfHc6AA--.1447S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1xGFW3uw1xKr43Gry3urg_yoW8Cr1Upa
+	90ga45AFWkJFWYqa18C3W8Kas8J3Z3Xw48CFWDCwnrJwnxG34Sgr4Fqa45GrW5JrWI9F4j
+	qr1Yvw4UuF1rZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUXID
+	7UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMAA2rpWfX8iQAAsD
 
-From: Leon Romanovsky <leonro@nvidia.com>
+cx25821_video_register() initializes a capture channel's control handler
+before setting up its queue and registering its video device. A failure
+in control creation, handler setup, queue initialization or video device
+registration reaches fail_unreg, which includes the current channel.
 
-P2PDMA assumes every client issues Untranslated Requests. A device with
-ATS enabled may translate any address it is handed, including a bus
-address, and Translation Blocking can reject its Translated Requests on
-a route the Untranslated answer called usable.
+However, cx25821_video_unregister() only frees the handler if the video
+device was successfully registered. The current channel's controls are
+therefore leaked on those failures.
 
-Unless the client declared per-mapping ATS, take the Address Type from
-its ATS Enable bit. Never hand such a client bus addresses: only an IOVA
-survives translation, and whatever it issues untranslated goes through
-the host bridge, whose route must therefore be usable. Apply this after
-the topology-only cache, and in pci_p2pdma_distance_many() too, so that
-provider selection agrees with the mapping.
+Keep video unregistration conditional, but free the control handler
+unconditionally. v4l2_ctrl_handler_free() safely handles the zeroed
+handlers of channels that do not have controls.
 
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+Fixes: f8d7ee70919d ("[media] cx25821: convert to the control framework")
+Cc: stable@vger.kernel.org
+Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- Documentation/driver-api/pci/p2pdma.rst |  8 +++
- drivers/pci/p2pdma.c                    | 92 ++++++++++++++++++++++++++++++---
- 2 files changed, 93 insertions(+), 7 deletions(-)
+ drivers/media/pci/cx25821/cx25821-video.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
-index 05f896a0814b..c004b6dc028f 100644
---- a/Documentation/driver-api/pci/p2pdma.rst
-+++ b/Documentation/driver-api/pci/p2pdma.rst
-@@ -62,6 +62,14 @@ P2PDMA therefore decides each class of traffic separately, and
- ``pci_p2pdma_map_type()`` answers for the one a DMA mapping is built for:
- strictly ordered Requests carrying an Untranslated address.
- 
-+The PCIe ATS Enable bit covers the whole device, and most devices translate
-+any address they are handed once it is set. Unless a driver has declared with
-+``pcim_p2pdma_set_ats_per_mapping()`` that its device chooses ATS per mapping,
-+that bit decides which Address Type P2PDMA assumes, and a client with ATS
-+enabled is never handed a bus address, which it would translate as though it
-+were an IOVA. Its Translated Requests may still route directly, but anything
-+it issues untranslated reaches the host bridge, so that route has to work too.
-+
- The two directions are decided independently. Translation Blocking (TB),
- Direct Translated P2P (DT), Request Redirect (RR) and Egress Control (EC) on
- the Requester-side port decide the Request:
-diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-index 144314ab5fae..a81cd37a1834 100644
---- a/drivers/pci/p2pdma.c
-+++ b/drivers/pci/p2pdma.c
-@@ -1448,6 +1448,59 @@ calc_map_type_and_dist(struct pci_dev *provider, struct pci_dev *client,
- }
- EXPORT_SYMBOL_IF_KUNIT(calc_map_type_and_dist);
- 
-+static unsigned int pci_p2pdma_client_tlp_flags(struct pci_dev *client,
-+						unsigned int tlp_flags)
-+{
-+	if (client->ats_enabled)
-+		return tlp_flags | PCI_P2PDMA_TLP_TRANSLATED;
-+
-+	return tlp_flags & ~PCI_P2PDMA_TLP_TRANSLATED;
-+}
-+
-+/*
-+ * A client that translates every address it is handed cannot be handed a bus
-+ * address, which it would translate as though it were an IOVA. Its Translated
-+ * Requests may still route directly, but a Request it issues without a
-+ * translation carries the IOVA to the host bridge, so that route has to work
-+ * as well.
-+ *
-+ * Take the Address Type from @tlp_flags rather than reading the ATS Enable
-+ * bit again, so the policy and the class it applies to always agree.
-+ */
-+static enum pci_p2pdma_map_type
-+pci_p2pdma_client_map_type(struct pci_dev *provider, struct pci_dev *client,
-+			   bool per_mapping, unsigned int tlp_flags,
-+			   enum pci_p2pdma_map_type type)
-+{
-+	if (per_mapping || !(tlp_flags & PCI_P2PDMA_TLP_TRANSLATED) ||
-+	    type != PCI_P2PDMA_MAP_BUS_ADDR)
-+		return type;
-+
-+	pci_dbg(client,
-+		"P2PDMA ACS: provider=%s bus address withheld; ATS is enabled for the whole client\n",
-+		 pci_name(provider));
-+
-+	if (cpu_supports_p2pdma() ||
-+	    host_bridge_whitelist(provider, client, false))
-+		return PCI_P2PDMA_MAP_THRU_HOST_BRIDGE;
-+
-+	return PCI_P2PDMA_MAP_NOT_SUPPORTED;
-+}
-+
-+/* Whether the driver of @client called pcim_p2pdma_set_ats_per_mapping(). */
-+static bool pci_p2pdma_client_per_mapping(struct pci_dev *client)
-+{
-+	struct pci_p2pdma *p2pdma;
-+	bool per_mapping;
-+
-+	rcu_read_lock();
-+	p2pdma = rcu_dereference(client->p2pdma);
-+	per_mapping = p2pdma && p2pdma->ats_per_mapping;
-+	rcu_read_unlock();
-+
-+	return per_mapping;
-+}
-+
- /**
-  * pci_p2pdma_distance_many - Determine the cumulative distance between
-  *	a p2pdma provider and the clients in use.
-@@ -1463,15 +1516,19 @@ EXPORT_SYMBOL_IF_KUNIT(calc_map_type_and_dist);
-  *
-  * "compatible" means the provider and the clients are either all behind
-  * the same PCI root port or the host bridges connected to each of the devices
-- * are listed in the 'pci_p2pdma_whitelist'.
-+ * are listed in the 'pci_p2pdma_whitelist'. Each client is judged the way
-+ * pci_p2pdma_map_type() maps it, so one with ATS enabled for the whole device
-+ * also needs a host bridge that supports peer-to-peer DMA.
-  */
- int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
- 			     int num_clients, bool verbose)
+diff --git a/drivers/media/pci/cx25821/cx25821-video.c b/drivers/media/pci/cx25821/cx25821-video.c
+index 84aa1209e717..84aa7efc50d5 100644
+--- a/drivers/media/pci/cx25821/cx25821-video.c
++++ b/drivers/media/pci/cx25821/cx25821-video.c
+@@ -656,10 +656,9 @@ void cx25821_video_unregister(struct cx25821_dev *dev, int chan_num)
  {
--	enum pci_p2pdma_map_type map;
-+	enum pci_p2pdma_map_type map, type;
- 	bool not_supported = false;
- 	struct pci_dev *pci_client;
-+	unsigned int tlp_flags;
- 	int total_dist = 0;
-+	bool per_mapping;
- 	int i, distance;
+ 	cx_clear(PCI_INT_MSK, 1);
  
- 	if (num_clients == 0)
-@@ -1486,8 +1543,18 @@ int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
- 			return -1;
- 		}
- 
--		map = calc_map_type_and_dist(provider, pci_client, &distance, 0,
--					     verbose);
-+		per_mapping = pci_p2pdma_client_per_mapping(pci_client);
-+		tlp_flags = per_mapping ? 0 :
-+			    pci_p2pdma_client_tlp_flags(pci_client, 0);
-+		type = calc_map_type_and_dist(provider, pci_client, &distance,
-+					      tlp_flags, verbose);
-+		map = pci_p2pdma_client_map_type(provider, pci_client,
-+						 per_mapping, tlp_flags, type);
-+		if (verbose && map != type &&
-+		    map == PCI_P2PDMA_MAP_NOT_SUPPORTED)
-+			pci_warn(pci_client,
-+				 "cannot be used for peer-to-peer DMA with %s: ATS is enabled for the whole device and the host bridge is not whitelisted\n",
-+				 pci_name(provider));
- 
- 		pci_dev_put(pci_client);
- 
-@@ -1794,6 +1861,11 @@ EXPORT_SYMBOL_GPL(pcim_p2pdma_set_ats_per_mapping);
-  * ACS routes a peer-to-peer transaction by the attributes its TLPs carry, so
-  * the answer depends on @tlp_flags. A caller that passes flags its traffic
-  * does not match gets a mapping the fabric will not deliver.
-+ *
-+ * Only a client whose driver called pcim_p2pdma_set_ats_per_mapping() takes
-+ * the Address Type from @tlp_flags. For any other client its ATS Enable bit
-+ * decides, and a client that translates every address it is handed never gets
-+ * %PCI_P2PDMA_MAP_BUS_ADDR.
-  */
- static enum pci_p2pdma_map_type
- pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
-@@ -1805,6 +1877,7 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 	struct pci_p2pdma *p2pdma;
- 	struct pci_dev *client;
- 	bool provider_state;
-+	bool per_mapping;
- 	int dist;
- 
- 	if (!pdev->p2pdma) {
-@@ -1822,6 +1895,9 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 
- 	client = to_pci_dev(dev);
- 	cache_index = map_types_idx(client);
-+	per_mapping = pci_p2pdma_client_per_mapping(client);
-+	if (!per_mapping)
-+		tlp_flags = pci_p2pdma_client_tlp_flags(client, tlp_flags);
- 
- 	rcu_read_lock();
- 	p2pdma = rcu_dereference(pdev->p2pdma);
-@@ -1838,10 +1914,11 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
- 		 pci_p2pdma_map_type_name(type), type, provider_state);
- 
- 	if (type == PCI_P2PDMA_MAP_UNKNOWN)
--		return calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
-+		type = calc_map_type_and_dist(pdev, client, &dist, tlp_flags,
- 					      true);
- 
--	return type;
-+	return pci_p2pdma_client_map_type(pdev, client, per_mapping, tlp_flags,
-+					  type);
+-	if (video_is_registered(&dev->channels[chan_num].vdev)) {
++	if (video_is_registered(&dev->channels[chan_num].vdev))
+ 		video_unregister_device(&dev->channels[chan_num].vdev);
+-		v4l2_ctrl_handler_free(&dev->channels[chan_num].hdl);
+-	}
++	v4l2_ctrl_handler_free(&dev->channels[chan_num].hdl);
  }
  
- /**
-@@ -1850,7 +1927,8 @@ pci_p2pdma_map_type_tlp(struct p2pdma_provider *provider, struct device *dev,
-  * @dev: Client device that initiates the transfer
-  *
-  * Same as pci_p2pdma_map_type_tlp() for a client issuing strictly ordered
-- * Requests that carry an Untranslated address.
-+ * Requests. Their Address Type is Untranslated unless the client enables ATS
-+ * for the whole device.
-  */
- enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
- 					     struct device *dev)
-
+ int cx25821_video_register(struct cx25821_dev *dev)
 -- 
-2.56.0
+2.34.1
 
