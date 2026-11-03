@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793693440;
-	b=hHGXLAGsy4TowHUtpdVlDaADggrngPej6Bc+JsmmIeDymkRRNO+zumUstNue+T9uk+nK
-	 Joxj2JyXrmcu4INfOuGvL9ShJdFXtstAO1JueBSjR/C+WGaiZ/ZQBAp/qv6H1Ch7Jmf0q
-	 TRTQaCqghlwUrS8o43yOwLCGSdeDbWy0BYLEgYdvf1ZST8uGheaCbKvwwUotqnfxmQLE3
-	 Zs80jbdXF9ZFsoQtIlxsU/zBHhWZgwSm7ivjup4g8jdVtXOnpaCmrmtYkIB0thbcwVXb+
-	 G6KlFmOeDKwx6W+sojderA7zfsQVjUXWwyJd0svc2ChAPUwnw8HG4juUm3ZpqV+ECYg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793693440;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=KhCQsbEtDHVWIosXzD12/AzO9JwD6rO3/xpeBtsKprU=;
-	b=H9rpf2B44WUyjSUgNjfe44mD/NYCL/fHr/u0FtaP+7qhBkq9LN49ZRlm/ydGz//e5IIQ
-	 eOaL7d461uOEXGl19s22RVmsh1v6FQmM236jZ7sN2GDoaCFf2b7U0w2jyHu5tzrEgxdqa
-	 8qYbFAY3R+JejzRfsRKiPz9z4OYyiFS5B3KIJT9nPKC5RjwWAuLTu6wMnCfARoYLXtZpu
-	 XZLWm8vcuruKP3Z4DzS/fnyUvk9K2WTwd9xz4m8djO80xS5HnYY5a6szO/WRiMf/mEzPL
-	 ZeJUSIRFjskIf6H28htmMojHI9fMM6UKK52YEoOIA+4klOddlZE74TnqzaGXWf/XGFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A4FF5606A324;
-	Tue,  3 Nov 2026 08:10:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4FF5606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=KhCQsbEtDH
-	VWIosXzD12/AzO9JwD6rO3/xpeBtsKprU=; b=AoXN4BrFWrDvFXF5wQpB7ULUCF
-	+E9dKXtLfx/kdMuTaUWOj24QMAxE9a6WRJFcLB60jAO04S6lRe770DkHIh6JPgqz
-	Ujb+eSbb3jrQgOkBuOZdRfs4DS2y/tPmWfu8+oYsjlqEdxeG+bhrfLkX7ptHjBUq
-	krtBTgIZqgGd02RNc=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.101])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2OP7vlulqoKgdAQ--.33754S2;
-	Tue, 03 Nov 2026 16:10:24 +0800 (CST)
-From: 25031212351@stu.xidian.edu.cn
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans de Goede <hansg@kernel.org>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] media: gspca: don't complete buffers before streaming has started
-Date: Tue,  3 Nov 2026 16:10:22 +0800
-Message-Id: <20261103081022.27105-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793693923;
+	b=zoOI6oBhPIIVrWUSpWxroUAEz69H0A1i0jsugwv6q8SZWsF0+wiPSgyq8c+kr11JDExY
+	 CJMHN4l14SomQAjmf0ubL925+DvZuKsFCDTFKHsL8pUy3asHm//kyrXyIcWEBRJmeuTLP
+	 ABWhJM3OdEJKRz9OZlIQu2haWXW5fAhlwxoCK+pkk6EA0QKQJWmn805HxXyX+EPCJUBCq
+	 cR2xfZPZSjjWhSOI9EeSF+LSLbhKpq/kGLoqzTrIlHaEREfjMyXo6BTY/2MV6pp4UNetj
+	 vFsx65z/8eTcabW1C6YblA1pqclVikk2vt7tMiEdCFac65y6qk2yk36IGJmI7HQWGsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793693923;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
+	b=iz8rTIKYGwmmVlOsCy0zmzert9meCbHP3FoIshQnIoROUs+2eNnEr1XyguwIf214pCbV
+	 ybCUvUcI9YcwH6LgCTWWdbS8+CF3UTSsxuHR4NH+dR5riT3IB0fY4cfBcQqcF9evh9UwS
+	 5QceLVZG+RhTrPM/RGcLnjnvjpvVfFERGoaqg0b7bru2tC0kJBZFCF9neFalr2zML9QUf
+	 yMCKocALUHwMz0feB9vEne5AQ9lRxlLPgYmJDl2z34ij+Yzb5DvQAvAac64zsnCFUTCmC
+	 P6IkwUFc6whiV9ulWXOIZD6NeQUQsKbQSoOIcxLHYNZCXOVSQodpidudTmNinfDnczQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ke+2cvUZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.15
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED9C606A324;
+	Tue,  3 Nov 2026 08:18:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CED9C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Ke+2cvUZ
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LgXckiBNrh/rSUABJZkl22OcjDROF3RLtP9TvSOpAI1svmzOzcuc5ksEnXDbCaU1x+w8yGxpKfMqNMEnlA2kdOAOJOaRSXHm4mMf9scLkYcVn5XbbMmSdG5bli7fyy5XLjKrEsyeSTloekV98SooZdXJEVOB7JmRqnhNezxcFSbcq8OoPTFq+F1czXo5m26IQaYUi1EIjXCRLrq3czA7f0Sq/tALtd8JSp68GQz2QqW9nCgeuDlV42g/hh/S/QlBsJ4xweVKkE1opKzDKEcocfToRUPdwD/VJ3+RmkIIUOw/4R17+RX45DQluCBdnuMSQG2HeZZoZ/jBTaj9QoIWXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
+ b=EJjKGjx+Q8giMhiDlP3FZ3E/j3fGLdNiGHcgD1DAQAcLFMmSXmMKny2qP7vbgH79atvJPn3QufqOcxH3qkKBBXAll1dIkaelFb0TAwof0ksvcxUo9UoDjk3whKhVGxfpmejnvjpA0tyCgDYPWRB8HLmnrGAhysIe/jjcVYkUPRgc2nprmyMGjn0yc4ztUyc8LWOGq2BmXKc7VCFqYJk31ayyQrLg+rE7OkD60FB+5loUB07WbxQ2A14tjTXaqaSFBv/zCpWnwaTPbFuGbFGjmkTRPRKXd+Ek3SuOPDjsDHGT9cyL0ljqteGwYxv90wnW4CwjIQytxl+wVns2cTbs1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1x/lI9NulMOsOkA9APYNVNt8I1sryCaBQizYfOuaPko=;
+ b=Ke+2cvUZGaK53907gym+PcKeCFLGkayJ35am+453JrHdZNnm/KpD4twjtLILD3oDZa05Vh7CGFgG1lJjmW6ppx7qfjsI12QweFQ1w17966gE5LhNdRJhDH4UMlehukNFsAQuzWG0+qNtnyqPl2Rj8jp3gt4NIlK9YWg523GWopQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA1PR12MB7520.namprd12.prod.outlook.com (2603:10b6:208:42f::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Tue, 3 Nov
+ 2026 08:18:26 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.007; Tue, 3 Nov 2026
+ 08:18:26 +0000
+Message-ID: <37102f95-d316-41b9-85c2-0f56051ff0a5@amd.com>
+Date: Tue, 3 Nov 2026 09:18:21 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Release input fences in the unwrap merge order
+ test
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, phasta@kernel.org, sumit.semwal@linaro.org,
+ linux-kernel@vger.kernel.org, Greg KH <gregkh@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+References: <20261103064457.1056056-1-vulab@iscas.ac.cn>
+ <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261103-spiritual-archetypal-jellyfish-2f8fdd@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0358.namprd13.prod.outlook.com
+ (2603:10b6:208:2c6::33) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,154 +100,143 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkD2OP7vlulqoKgdAQ--.33754S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3GF17CF43XF47Gw4ktF47Jwb_yoW7CF1xpF
-	Z3KayFy398Jr4kCrsrXwnxGa4fGayxJ3y7KrWSgwn5Ars8AF90vFyrtr48KFy7CrZFvFW0
-	qFn8G3yDCw4IqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUm014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAac4AC62xK8xCEY4vEwIxC4wAac4AC6xC2jxv24VCSYI8q64vIFxWle2I262IY
-	c4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI
-	0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY
-	0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14
-	v26r1q6r43MxkIecxEwVAFwVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWU
-	JVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67
-	kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY
-	6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0x
-	vEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVj
-	vjDU0xZFpf9x0JU4GQgUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUGD2roqcKe4gAAsb
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB7520:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea9c48d5-ff06-4926-c6d4-08df398308b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261026140227099003|261026121527099003|261028144727099003|5023799004|4143699003|11063799006|56012099006|22082099003|18002099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	88uF/k4YfScG+pEfhix2XDrMUa3UtBQAldjCYFcs3oAsLOGauWZqrkdEAjaa6k/Y2BYDW4LI4lJlkz4yuJiRkmKhd5rst26ieZX5LuWvCMfWGv6CTO2SroT2lytuOzaxPbiErLHlMgir6dmDGN8GVF1vVrSmMjetH0dnIGEWnaQ48M9Rg7r/ioZcD5poZjQ8Qip/aA94/ZyGogeBwbiXOPH2cUTis0brVyV0su1E5SMUH5ydHuVKmkmmAxfa/gNp7g+gjKuHGAwOZE9dDo924HJociqzsTb10oRs+lQzZ6btOxhc78hV52WiUm2TW8MehUOctIWWzW7k0srQBp3SBcJXoCaJZwlu35UJI8+pT4kvH+rvXsjSzX45vD14w3n/2wmEzQ8sgpM+DPDLXaYyZ9wkl1kjatz90XvRHZLpWyKpdoxVDYc1CxhyEzp5Gbv393y0g7vtui3xxWwPjkTzUkLuJUjQpTWbabTufzWptB/0IAlbcjd5yw1V/4sdpNBz2Er2YJoM4LxCHHPAoD2SPaGArJzMlIUpy8EFhzSrRXuGSVuNpYNiDS67ijdKOcimBFMq0Pu0a/A/jb6LzXQprCOxiSk+ZoCWz4HHKyGWXunyzFix4ssTtxbFnFLon3U9xDdPiiktsAoWGyYoBf5bsF27xh9WwJPgiDndEShOOsc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026140227099003)(261026121527099003)(261028144727099003)(5023799004)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TVczNDNmaUQ5bHhMZkpDbVo1R05RdS9Ebk9Sa3lDcmdVTlJCTzBVUDlTV0hz?=
+ =?utf-8?B?SGtadlFjby82WW1ndFlGMmNCcko4cjBCVm1rT01vOGpIeUJhL1RSNVhScGMy?=
+ =?utf-8?B?U1dHVGxkNDhrc1NQbi9iUWlZcGNhQW11NFVvSk44NE9yanBsS1BFQytheFly?=
+ =?utf-8?B?bFNERGwzbG9mOGpRZFIrU2hqN0xvVCtTS25PckdCYVZzMEQ1REF3cUZsbE9L?=
+ =?utf-8?B?ekk5Wnc4S0ZQN1puc0xZQUVZZ2dZdzZmVkNtZDVHKytUNXVtb0FtbVZPVTgy?=
+ =?utf-8?B?SDYzaFRveENxM0xkM1c4dmk2SXc0d0hHWTlySE55UkxDcElrWnBzeGR3S1Rx?=
+ =?utf-8?B?bURkOENnSUZrRWc2cGRzVEpoNjdQSkZZNEtPRVIxa0lLTkpsbXcxWDlLVHRy?=
+ =?utf-8?B?aTBhVEF6S2c5YVNKcnJuQ3U1Vm9ENVR1bnBRblZCVEhFcTBLcmpOTkVFOEVZ?=
+ =?utf-8?B?Vi9SWkp1V01aMEQwazREQms3QTlBdVZkbjhTWHU0dFU1QjBaQ0RTalVUT2FL?=
+ =?utf-8?B?Q1lzSThIQ2tncCtmZUlGNFFDcUtuaHRNZUN3eVl4d00zbWNJL3NCNmNCK3RQ?=
+ =?utf-8?B?engzL3hxTkVQcWJSTnplRFFTVDc4YTB1cW82UGdqWXhZbjR4emJmeE1GWmgx?=
+ =?utf-8?B?TjdNT2NWYmNueDltNC8zRG92Mzkxd1c5ZWU0V2RQMGFJNGJ0bXFKR3JpQURW?=
+ =?utf-8?B?K2thdWFoTlVxbDA5T1NjaHFrcXN0N1A4b1ZBZzVvUXBUSlg1R0tiWFZGY0RH?=
+ =?utf-8?B?bWsxcUZTWW91b0s5aHJVaEJLZU5XTnYrdklPT0lqdFF2aFYzZmplVFBpL3lR?=
+ =?utf-8?B?a1dPMVllQllNeG5ENTMrYk9TZE9vWjJiSXI0TWNnZXd6RnhZWjZzciszQmFK?=
+ =?utf-8?B?M0cwWG93YmNIUGlBMnRSK0NPbFQrZ1RZaHJlSkhoUzJXNTBUTG5GSG03NkNj?=
+ =?utf-8?B?dkpTd1BjWFdQekNKajlaL1JXVndWejFGK0ZXOEI3MldaQXBxNVJlUlBnMGxp?=
+ =?utf-8?B?c1ZiSHZWazEwZUFaRUUxcWR4ajhKZ0NKeW9uL1Uvd2NVVk1FRlV3UktITkJS?=
+ =?utf-8?B?dm5vK3licEdqTGlrVWx2a0pYQ1VkN09lSU0wL0Q5SXFuTDY4Rm9xL3dEWUJt?=
+ =?utf-8?B?SEU2SHYwNWRhR3hjV3Z0Sm45bnk0dHgzUXJoVU5FcXdYTVB2Tmx6Z3E1YXlF?=
+ =?utf-8?B?ZEFmRm9aajk4K05WaklsTm9SWmFYM1dpM0VhVGNBQ0Evc2VjbTZQK3p6L0NW?=
+ =?utf-8?B?cFJVcS9ORXhYMmtodElxZ21sUFZ2REhIZjZ2SDZjcUNrSGZod0FveHYrUXMr?=
+ =?utf-8?B?QS9hUlZWVDJVcmVmV3JDUFpoYnNLMmlCNGI5dm5Tbkh3bmNFQVljQWphWG94?=
+ =?utf-8?B?b3N2a1NMZHkxZkkvSFhSbmUreDNkRnBKRzQwVktvVWFjWEZoU0dFRGU0QUFk?=
+ =?utf-8?B?OXpGWXhyMjFIQ0dJeUpQampld2hNMDNrQUN1ZjcwdlREOXpFazR2c05vT2Jw?=
+ =?utf-8?B?S011ZmNyM2NFRnoybFVON3pvcVhtTXVyUmVvMUFUazlYaUs2c3lUQkNwc3ho?=
+ =?utf-8?B?N3lpQWJBcTJKZExESDBQUVNLdTE4Tmcra0Y4bUsxYzlNOG9qN3J6T0FYWlVu?=
+ =?utf-8?B?bS96N1JhOGM1RnIvNmtCWEtBZlEzSmh4M3gvNG5Na3ZDOTArem9keHJTOWdB?=
+ =?utf-8?B?VmxKNGxTK1k4YzQwbXlia0hRMktITU9zeFVSakpXb1FNdW50dmpkdWF0alU3?=
+ =?utf-8?B?U1k4ODMrZk91RHExZnhKUUdTamdTVnNjc2JUbm1jSEJnWUpUcitzbDZwNkcv?=
+ =?utf-8?B?eDJiOGdOVmtLdERzQjJnKzRmOVpTK1luL1F4NzYxMGFjdkRMYWtJbHRHQUhz?=
+ =?utf-8?B?L0VEU3RzY2w0bkZndHhRb3ZWend4SmNHMVhiSTFBRGFJcU14d3U0ZW9HcjR5?=
+ =?utf-8?B?YkZISmN6bGFFWGJaK2VqclZZbGt0RW92YmZnL1h0OS9HVktGNEJ5dzkwZmpo?=
+ =?utf-8?B?NzA3ZnczNm4wbjRtL2pqYjRiK2dDV0Vxb3UzOHErNUVIaFJrbWxHSkZQdnZX?=
+ =?utf-8?B?Uy9kTjJtcDdLc3VvUm1kVTV6WUJRaEIxU0NzVEpxYXhxOXpDUVdxNVJSUE9i?=
+ =?utf-8?B?NnZPSXM4Zi9vajdCbGVpUDkxT0VnZmpjOW9maXFsaFk4NkFxZzliTGVldXdO?=
+ =?utf-8?B?b1JpRGxrSCtUMXRsSytYazh0WjdsUFJYOE9WbGNSZy9wV0RNa0dnSGloOWNY?=
+ =?utf-8?B?UktoSnkyR0ViaGFtR0hYUXY1UElDK2FMcHF0TWxBaTNjL2V3QVRZSFMrcHNX?=
+ =?utf-8?Q?7ihPavzuGCh2BLIqAA?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea9c48d5-ff06-4926-c6d4-08df398308b7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2026 08:18:26.1000
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uVPUND940ovrVOkO9+EBH8HzHYAFX/nUyOF4BNWhADDDULsxeN0E+EfFCsgCgCG2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7520
 
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+On 11/3/26 08:27, Krzysztof Kozlowski wrote:
+> 
+> On Tue, 03 Nov 2026 06:44:57 +0000, Wentao Liang wrote:
+>> The merge order test creates an array and a chain as inputs to
+>> dma_fence_unwrap_merge(). The merge takes references to the underlying
+>> fences but does not consume the input containers. The success path only
+>> puts the merged result, leaking both the input array and the outer chain,
+>> which owns the inner chain.
+>>
+>> Put the outer chain after checking the merged result and fall through to
+>> the existing array cleanup on success as well as failure.
+>>
+>> The dma-buf-fence-unwrap KUnit suite passes all 11 tests under UML.
+>>
 
-gspca enables the data transfers before it knows whether start_streaming()
-will succeed: gspca_init_transfer() sets gspca_dev->streaming before the
-URBs are submitted, so an URB that has already been submitted can complete
-and gspca_frame_add() can hand its buffer to videobuf2 while the remaining
-URBs are still being submitted.
+>> Fixes: b1cce631e61f ("dma-buf: add selftest for fence order after merge")
+>> Cc: stable@vger.kernel.org
 
-When one of those submissions fails, gspca_start_streaming() returns the
-buffers that are still queued to vb2 in QUEUED state, but the buffer that
-has already been completed is no longer on the driver's queue, and
-vb2_buffer_done() cannot take it back (it only accepts active buffers).
-vb2_start_streaming() then warns because the driver left a buffer on the
-done list although it failed to start:
+Completely agree to what Krzysztof wrote below, but additionally a <256 byte memory leak in a non-production unit test is not something I would consider relevant for backporting.
 
- ------------[ cut here ]------------
- WARNING: drivers/media/common/videobuf2/videobuf2-core.c:1821 at vb2_start_streaming+0x312/0x680
- ...
- Call Trace:
-  <TASK>
-  vb2_core_streamon+0x285/0x470
-  __vb2_init_fileio+0xdc1/0x1120
-  __vb2_perform_fileio+0xa7a/0x15e0
-  vb2_fop_read+0x219/0x3e0
-  v4l2_read+0x1fc/0x320
-  vfs_read+0x1d9/0x980
-  ksys_read+0x111/0x210
- ...
- gspca_main: set alt 0 err -19
- gspca_main: usb_submit_urb alt 1 err -2
+Unless Greg or Sasha have different opinions please don't automatically send everything with CC stable@vger.kernel.org.
 
-This was observed on a camera whose USB configuration was changed from
-userspace while a read() was starting the stream: the endpoint is removed,
-so usb_submit_urb() fails with -ENOENT, and the driver is unbound.
+Regards,
+Christian.
 
-Do not complete buffers before the transfers are fully set up.  A new
-streaming_ready flag is set at the end of gspca_init_transfer() only when
-it succeeded, so a failing start_streaming() always leaves the done list
-empty.  Frames that arrive before that are dropped, just like frames that
-arrive when no buffer is queued; the window lasts only as long as the
-remaining URBs are still being submitted.
-
-vb2_is_streaming() cannot be used for this check: videobuf2 sets
-q->streaming before calling start_streaming() when VIDIOC_STREAMON comes in
-with fewer buffers queued than min_queued_buffers, and start_streaming() is
-then called later from vb2_core_qbuf().
-
-Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-Changes in v2:
- - Do not gate the completion on vb2_is_streaming(): videobuf2 sets
-   q->streaming before calling start_streaming() when VIDIOC_STREAMON is
-   issued with fewer buffers queued than min_queued_buffers, so that call
-   site was still reachable and the warning could still be triggered.
-   Track in the driver whether gspca_init_transfer() has finished setting
-   up the transfers instead.
-
- drivers/media/usb/gspca/gspca.c | 23 +++++++++++++++++++++--
- drivers/media/usb/gspca/gspca.h |  1 +
- 2 files changed, 22 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..3f5ece57d66a 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -392,8 +392,23 @@ void gspca_frame_add(struct gspca_dev *gspca_dev,
- 	spin_unlock_irqrestore(&gspca_dev->qlock, flags);
- 
- 	if (packet_type == FIRST_PACKET) {
--		/* if there is no queued buffer, discard the whole frame */
--		if (!buf) {
-+		/*
-+		 * If there is no queued buffer, discard the whole frame.
-+		 *
-+		 * Frames are also discarded until gspca_init_transfer() has
-+		 * set up the transfers: the first URB can complete while the
-+		 * others are still being submitted, and if a submission then
-+		 * fails, start_streaming() must leave vb2's done list empty.
-+		 * A completed buffer cannot be taken back, so frames that
-+		 * run into that window are dropped.
-+		 *
-+		 * vb2_is_streaming() cannot be used for this: videobuf2 sets
-+		 * q->streaming before calling start_streaming() when
-+		 * VIDIOC_STREAMON comes in with fewer buffers queued than
-+		 * min_queued_buffers, and start_streaming() is only called
-+		 * later from vb2_core_qbuf().
-+		 */
-+		if (!buf || !gspca_dev->streaming_ready) {
- 			gspca_dev->last_packet_type = DISCARD_PACKET;
- 			gspca_dev->sequence++;
- 			return;
-@@ -732,6 +747,7 @@ static int create_urbs(struct gspca_dev *gspca_dev,
- static void gspca_stream_off(struct gspca_dev *gspca_dev)
- {
- 	gspca_dev->streaming = false;
-+	gspca_dev->streaming_ready = false;
- 	gspca_dev->usb_err = 0;
- 	if (gspca_dev->sd_desc->stopN)
- 		gspca_dev->sd_desc->stopN(gspca_dev);
-@@ -887,6 +903,9 @@ static int gspca_init_transfer(struct gspca_dev *gspca_dev)
- 		}
- 	}
- out:
-+	/* the transfers are set up now, buffers may be completed */
-+	if (!ret)
-+		gspca_dev->streaming_ready = true;
- 	gspca_input_create_urb(gspca_dev);
- 	return ret;
- }
-diff --git a/drivers/media/usb/gspca/gspca.h b/drivers/media/usb/gspca/gspca.h
-index a6554d5e9e1a..3e0b9e27f4b1 100644
---- a/drivers/media/usb/gspca/gspca.h
-+++ b/drivers/media/usb/gspca/gspca.h
-@@ -187,6 +187,7 @@ struct gspca_dev {
- 	__u8 last_packet_type;
- 	__s8 empty_packet;		/* if (-1) don't check empty packets */
- 	bool streaming;
-+	bool streaming_ready;		/* buffers can be completed */
- 
- 	__u8 curr_mode;			/* current camera mode */
- 	struct v4l2_pix_format pixfmt;	/* current mode parameters */
--- 
-2.34.1
+>> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+>> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+>> ---
+>>  drivers/dma-buf/st-dma-fence-unwrap.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+> 
+> 
+> 
+> Multiple things here:
+> 1. Your team ignored completely previous feedback. Multiple times.
+> 
+> 2. You use multiple identities with this email, thus I doubt
+>    that we speak with an actual person.
+> 
+> 3. Your bot does not even bother running checkpatch, right?
+> 
+> 4. Nothing of this was reproduced nor tested.
+> 
+> 5. Finally, the same feedback:
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
+> 
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
+> 
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
+> 
+> Please read kernel documentation BEFORE posting more work. It will
+> explain you how to identify subsystems, how to organize your work per
+> subsystem (so a patchset grouping multiple patches with a short cover
+> letter), how to document usage of LLM and what you should not do
+> if this was posted in a good faith.
+> 
+> Best regards,
+> Krzysztof
+> 
+> 
+> 
+> 
 
