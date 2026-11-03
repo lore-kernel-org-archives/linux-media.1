@@ -1,21 +1,21 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.142.180.65
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793702734;
-	b=DCbgQ1ZncGLYB9ykZJqjlSq+NlybMO7DXzTDGWp5mrxEqXRE6TGJc7DLnkQzZRfFRvzB
-	 DFUIfYR7Pf01Qq3dPqhWu4I2XPhVG2WurXOfzlBwzy5RrTz++VBgKD52hdZfoCw0/+f89
-	 jgHU2uzdO2LsWzwpUgosl1ZsyT3iwIBgHdnzlGFK/ABSgPjeBuNlI1vEvus7CGBgilGWA
-	 dAnn2HUtHzr+iCVk0MCiNXGebOQmBqr+faNyXuy1AxYNG268FhOCySDACUaKlCeZf4Zxf
-	 UAPVRKcQrLZxrExDEowlZS6gZrUF8GPHDGLZHtSBNtJzaBYeFJj72tPSFnzqHxaiRtA==
+	t=1793702739;
+	b=dh+CAgysxTLilMeihwiATsP7QYPfvqj8ItABCumAnvWLpTzE2l/sQK/MVEI5Sam+zVSb
+	 nawW7CXMoStIOKqavTZlfvMKjJnPOZRo4KAXuTV3skxmWVAiOdr0RoZKoz3tEr2GlmHjc
+	 iyWwqPVR78uRcJ8G/kPDDQ0GlXnXe9Rg+1wcyd2UJiiR/FQA5FWBPux76gvc6UYFgTXXY
+	 /Hcfl/F6IWvTuTnWJYNDPX26EpvSwVzhLbZ/dfsVr2Utt2ca0S+GVSjVh+wr0ZfCUuTsd
+	 9F7scj+PKFJ1ut6DUxZ0Qci1l8igakuQEsrenuDs8fmIwGEVeun7DZaeoBAdyLVdmLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793702734;
-	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Disposition;
-	bh=Su5YfHlkFKwF5IMTLoK4Wp+REOU33DRF84x4yOhnrOs=;
-	b=BLpuE15SifqkDNeyyqHt5U3m/RC7JBT/QBfNiERJC48kWNTuqep0h9GQyYb0uDMJxjYo
-	 uNysS1nq9XO7UvdHiWpNkMUxewXWQCcZgSWauerdsRvnysId1bPTFeOlgAv0GUZbPiv6X
-	 ecl+qpBlHWzhMDzwz2djM6Jmr1JJJ7mChE7tdpjtaHADZv2rc0pdE01keNobpgcCx9vXA
-	 5sel1waZrxn67SaV/yFoh/2CY0yjeBx/syAAOcV6J1qx4KtCn6J3+XH62wmlqNKN+OAm3
-	 qCzSxaWsaoZGqbuM+A2AhIDwe1aa1+fJqWJ+fJCWLXGAyvVbCPMlwOJh1JfiE28K2TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793702739;
+	h=DMARC-Filter:Received:Date:From:To:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nN4tCDxNLeRU5R4W+fMv3UuvdUzisOZ7ub+YA8VErpM=;
+	b=HnLviIJRerhzhv008Jo9yheJYYVJMDLl1yNmgglMDVEaj9YT5sMk4NH6EC0zfRu0DFem
+	 YNTZHbVGwynUJy094fMTgtfv1VbW4aoiYVR89dtuKe63pNKo4vBd6PnKyTf73HW2gXVaA
+	 abOTuub97tFgf6YJfkXRvXtzTbmHd7b3P4x0uSQharDsFGesmyYCAQg03xvAQ/PR10/r1
+	 mDOn7RhHB0EShHlVYJnKBt7NNvrH5zNAEJ76B0JP23gORN18oHBjPXsiDV0xfKlTgElBz
+	 Qk0i+OX5LzXduBVQK5YCeS+3OWI+AwziLbd4GNx43luG2sxLIRNt9AsK4in6rF66+vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=makrotopia.org;
 	spf=pass smtp.mailfrom=makrotopia.org;
@@ -24,18 +24,18 @@ Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09018606C5A4;
-	Tue,  3 Nov 2026 10:45:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09018606C5A4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E4F606C5AE;
+	Tue,  3 Nov 2026 10:45:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73E4F606C5AE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
 Received: from local
 	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
 	 (Exim 4.100.1)
 	(envelope-from <daniel@makrotopia.org>)
-	id 1xOC11-0000000031e-18mG;
-	Tue, 03 Nov 2026 10:45:19 +0000
-Date: Tue, 3 Nov 2026 10:45:12 +0000
+	id 1xOC18-0000000031h-0D0e;
+	Tue, 03 Nov 2026 10:45:26 +0000
+Date: Tue, 3 Nov 2026 10:45:23 +0000
 From: Daniel Golle <daniel@makrotopia.org>
 To: Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Michael Riesch <michael.riesch@collabora.com>,
@@ -46,8 +46,9 @@ To: Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 0/6] media: rockchip: rkcif: recover from a lost MIPI line
-Message-ID: <cover.1793702189.git.daniel@makrotopia.org>
+Subject: [PATCH 1/6] media: rockchip: rkcif: mask MIPI interrupts when powered
+Message-ID: <24332831989fde000959b3d3037333f511b95ece.1793702189.git.daniel@makrotopia.org>
+References: <cover.1793702189.git.daniel@makrotopia.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,58 +60,96 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <cover.1793702189.git.daniel@makrotopia.org>
 
-The VICAP MIPI DMA ends a frame after the configured number of lines
-and the sensor frame start does not reset that count. A line dropped on
-the CSI-2 link therefore leaves every later buffer composed of the tail
-of one frame and the head of the next, with the Bayer phase flipped
-when the offset is odd, until the capture is restarted. This was seen
-on an RV1126 (same VICAP MIPI block as the RK3568) with an IMX415 after
-a night of streaming, and it can be provoked at will by shortening the
-D-PHY settle time for a second.
+The MIPI interrupt enable register comes out of every reset with all
+27 sources enabled. Of those only the frame end bits are handled, so
+the line stays asserted at about a thousand interrupts per second
+while the block is powered. The kernel then reports the interrupt as
+unhandled and disables it, after which frame completion only happens
+from the spurious interrupt poll. The poll can also call the handler
+while the block is clock gated.
 
-The series makes the capture notice the slip and recover, and makes
-the two blocks involved report what they see:
+Clear the enable register and the status bits after the block has been
+reset and clocked, and after the reset in runtime suspend. Treat any
+status bit that the handler has read and cleared as handled.
 
-- patch 1 masks the MIPI interrupt sources that come out of reset
-  enabled, which otherwise keep the line asserted until the kernel
-  disables the interrupt;
-- patch 2 replaces the subdev state mutex taken on the stop path, which
-  the interrupt handler calls, with a spinlock around the shared
-  interrupt registers;
-- patch 3 enables and counts the VICAP error interrupts in debugfs;
-- patch 4 reads the line counter at every frame start and restarts the
-  stream through the existing stop and start paths once two frames in
-  a row show an offset, as the runtime suspend in between is what
-  resets the counter;
-- patch 5 programs the DMA write priority the vendor driver uses;
-- patch 6 lets the Synopsys CSI-2 receiver request its err1 and err2
-  interrupts and count the error classes in debugfs.
+Assisted-by: LLM
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+ .../rockchip/rkcif/rkcif-capture-mipi.c       | 19 +++++++++++++++++++
+ .../rockchip/rkcif/rkcif-capture-mipi.h       |  2 ++
+ .../media/platform/rockchip/rkcif/rkcif-dev.c |  3 +++
+ 3 files changed, 24 insertions(+)
 
-Tested on an RV1126 board (vendor DT, rkcif and dw-mipi-csi2rx with
-local RV1126 compatibles) with the fault injection described in patch
-4; the RK3568 and RK3588 register layouts for the error bits and the
-line counter come from the vendor kernel and are untested here.
-
-Daniel Golle (6):
-  media: rockchip: rkcif: mask MIPI interrupts when powered
-  media: rockchip: rkcif: fix the MIPI stop path locking
-  media: rockchip: rkcif: count the MIPI capture errors
-  media: rockchip: rkcif: restart the MIPI DMA when it slips
-  media: rockchip: rkcif: raise the MIPI DMA write priority
-  media: synopsys: csi2rx: handle the error interrupts
-
- .../rockchip/rkcif/rkcif-capture-mipi.c       | 210 ++++++++++++++++--
- .../rockchip/rkcif/rkcif-capture-mipi.h       |   2 +
- .../platform/rockchip/rkcif/rkcif-common.h    |  23 ++
- .../media/platform/rockchip/rkcif/rkcif-dev.c |   8 +
- .../platform/rockchip/rkcif/rkcif-regs.h      |   2 +
- .../platform/rockchip/rkcif/rkcif-stream.c    |  64 ++++++
- .../platform/rockchip/rkcif/rkcif-stream.h    |   2 +
- .../media/platform/synopsys/dw-mipi-csi2rx.c  | 125 ++++++++++-
- 8 files changed, 409 insertions(+), 27 deletions(-)
-
-
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+index bc9518f8db507..686b995525b9b 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+@@ -810,6 +810,23 @@ static void rkcif_mipi_set_crop(struct rkcif_stream *stream, u16 left, u16 top)
+ 	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CROP_START, val);
+ }
+ 
++void rkcif_mipi_irq_mask(struct rkcif_device *rkcif)
++{
++	if (!rkcif->match_data->mipi)
++		return;
++
++	for (unsigned int i = 0; i < rkcif->match_data->mipi->mipi_num; i++) {
++		struct rkcif_interface *interface =
++			&rkcif->interfaces[RKCIF_MIPI_BASE + i];
++
++		if (!interface->rkcif)
++			continue;
++
++		rkcif_mipi_write(interface, RKCIF_MIPI_INTEN, 0);
++		rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, ~0);
++	}
++}
++
+ irqreturn_t rkcif_mipi_isr(int irq, void *ctx)
+ {
+ 	struct device *dev = ctx;
+@@ -823,6 +840,8 @@ irqreturn_t rkcif_mipi_isr(int irq, void *ctx)
+ 
+ 		intstat = rkcif_mipi_read(interface, RKCIF_MIPI_INTSTAT);
+ 		rkcif_mipi_write(interface, RKCIF_MIPI_INTSTAT, intstat);
++		if (intstat)
++			ret = IRQ_HANDLED;
+ 
+ 		for (unsigned int j = 0; j < interface->streams_num; j++) {
+ 			struct rkcif_stream *stream = &interface->streams[j];
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
+index 7edaca44f653c..167b43756929b 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.h
+@@ -21,4 +21,6 @@ void rkcif_mipi_unregister(struct rkcif_device *rkcif);
+ 
+ irqreturn_t rkcif_mipi_isr(int irq, void *ctx);
+ 
++void rkcif_mipi_irq_mask(struct rkcif_device *rkcif);
++
+ #endif
+diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+index be3a174b9aab0..fbc8ed78d99ea 100644
+--- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
++++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+@@ -281,6 +281,7 @@ static int rkcif_runtime_suspend(struct device *dev)
+ 	reset_control_assert(rkcif->reset);
+ 	udelay(5);
+ 	reset_control_deassert(rkcif->reset);
++	rkcif_mipi_irq_mask(rkcif);
+ 
+ 	clk_bulk_disable_unprepare(rkcif->clks_num, rkcif->clks);
+ 
+@@ -298,6 +299,8 @@ static int rkcif_runtime_resume(struct device *dev)
+ 		return ret;
+ 	}
+ 
++	rkcif_mipi_irq_mask(rkcif);
++
+ 	return 0;
+ }
+ 
 -- 
 2.56.0
