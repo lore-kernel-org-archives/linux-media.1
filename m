@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793697694;
-	b=Cl1wQnl1sa+rtP0VT2gq1hQKtdZU0rQyvvts0KQN2MLUPlN2aI/9/orHdehN8v5MNaIx
-	 VrOcI6+sapRWkJQAsGGDHuFBGih0goJyP+pbyoNBNKRhDtxlh0o86Pa9LJlr4Gx1wG9Wo
-	 PKeKpjwg7+gE1ROIKThz6PA4EAxhTVReMOtnt+r8IzXpaYo678S9zsHwJEyh4i+OCnACQ
-	 WMpkIXiyO+E+oEahby2RdkyciorW58naipwJ8AChTJvm/puRtaugg8/FREVuEG8xleTxS
-	 O+yZr0Q3BPalHvp+BG87R0JNWukVdPBHDwo1uccdzaHkuwuw8Ztm0uiZw9PcNYWVzqQ==
+	t=1793697708;
+	b=gJ8LcOa7CxdWr6c/+FFclI90Kgq6xM3dnptoyUdliObZeZOJfX45vLnfViu+WdIdxzMp
+	 mL69vkWuPs1AwU6f3quXil1xzuV9q1TBXMynxNUkrKdx7uai+aUE81ryImchqvCX5ujrz
+	 nhdsXXFuGlwb64+c3AcInvMIy2tXwlSBTbfzUkP9waQpqeRU9WUwF6ezNkXUFqiYWONwx
+	 qYHCsEjPbxpTKemLaBNgqoeH8ql0gljpVl1MHpwtrSk3JEaMIsyUjp7YJ65YlqkDobSPJ
+	 ggGd0fCUNRsPCUcBtvZanWhVU0TCpZluOBZrQpRUwbeVrURoUOuEu4zj125ExzAyKUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793697694;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793697708;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=r/BYfi44pWt5omLrxYHtr+zgS/ql3OzU/W5sAwqn8fY=;
-	b=1NWGayySrdA3FuDfMiLKqVYGFAL6eocJy0Df1fLmOI1GQyPqb5kC3daROgFiUByOLgJZ
-	 1nqwZt0B9RLWJoBE/3SwasT10Knnkesjb3qaVE9bugj0GkhWhogz3a17CL8S5opls1OCm
-	 quxNRGuoZrIvHKv2rxcxqoQnm9NWXTQZUN36KoiJDZqvFWCX1Uu2B7bnQjUfyR1yaS5NS
-	 TCmFxRvpVCu0588o8qF2stbNovLBnh7RY3l1ncBH2w0UoajIqOHE0QCxiR3Vt8Wgnrap8
-	 UeVD8ZrUUxPC7vtOpZSRHR8kXBGENarUgZCoH8tzOvgmcCNwgmBBkZejoKzIqZCWYBw==
+	bh=Nl8vNU0L6hN5oGlwxYaKhQs3x0kx11JFhc47Zg4ZFSU=;
+	b=ERBcFH9E1q8sV4P1JZpyfHe7rrHz4YbcbLpndj5NsH5S2Wqv+F+4IFmryUYpJCV0wCCb
+	 uClsE6dd9tZ87hHjETlotvOZTlrfcPhPM+bVNJcMG2FyX5F8cyZxnaiuHO8m5CwZOeEVP
+	 SU3HyS5nH04B7h1tSUScaBdskUAwHfkd2Wa8SXUxL/Jm303WyejIkVx8RBnOE8exPxPd3
+	 PeIJBTYlWwpruOLAL8fo1Or5Tor12d41BLkwmGKAdqE2Nh8eHWF+32Sanze9nkIn7to93
+	 Q27/9CakrisqGrpb72a4JPKy5oXynGGNC30RJv288ZML2RumcYhhqXx1EGsBJS1S4bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFwHWBRn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvreDjF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAB5606D837;
-	Tue,  3 Nov 2026 09:21:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B1E6082BE5;
+	Tue,  3 Nov 2026 09:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OFwHWBRn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14AE31F00A15;
-	Tue,  3 Nov 2026 09:21:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WcvreDjF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A451F00A1A;
+	Tue,  3 Nov 2026 09:21:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793697694;
-	bh=r/BYfi44pWt5omLrxYHtr+zgS/ql3OzU/W5sAwqn8fY=;
+	s=k20260515; t=1793697707;
+	bh=Nl8vNU0L6hN5oGlwxYaKhQs3x0kx11JFhc47Zg4ZFSU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OFwHWBRnr5xy89CQpN+MpgeqDnw74EZd4qe77AQfSfa7m9+z/Mo5xVEELrXgTwA7S
-	 TOJtcsxsEuomj/GbPGaIAj0mv6AVUsWsq/0tHCwYqvk9cvAVEL2wpaUiuYhQZJdDAr
-	 h4dIyBRX19u9g6UYDtfiqp43zc64QlgaQAHUxV0Bkg5ORfNPF2A3dxaeqwPnZHdizk
-	 d8e1SChQ/RWF6U0MH2VOJqg6BTzDXC4XYLLJQ94prI1rpZdsM3U8TdaFm81KcCfxoz
-	 7BRGt8cwu5hTAhPAX2J1AGHV/0kCg3j4YsOGc32zzLmMU5MF+0+3fEml1H2FNNpPMp
-	 MjRSCPXmaX/kg==
-Date: Tue, 3 Nov 2026 10:21:31 +0100
+	b=WcvreDjFEuUKl5HrFulwynlRAPT4P+qsjQEMm/JKfkcD2XGe8HydVS6jgO9GCMAFs
+	 BJErznURg5nIw4IgipGyr7ZGXDSkP1CDgsw/ifZzhea0swOADiDI6CG1GD4hQg/vhZ
+	 Ugf2BP+F4mSa8eOL6CX6hxlpG1VG0KSdvS4j/AB7l0ZGOHyE9XnNChcHLxT3CXmZ6l
+	 juyXJOS0Xibbo/iJjR2xgeesO5c5e2rtyGf9QIfT6sUmX0yrXUuf9xWbakkTqep5Uq
+	 4S/nORjhIvHPSIGx0s9m0QpFIXRtCVdElpe7M75PfqLGKzwMPmRNhwcUAxmuUqpKGb
+	 TZoiVn1eCLunA==
+Date: Tue, 3 Nov 2026 10:21:44 +0100
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	linux-media@vger.kernel.org, nas.chung@chipsnmedia.com, jackson.lee@chipsnmedia.com, 
-	mchehab@kernel.org
-Subject: Re: [PATCH] media: chips-media: wave5: Release m2m devices if video
- registration fails
-Message-ID: <20261103-important-platypus-of-wholeness-5fdac7@quoll>
-References: <20261103083250.1174880-1-vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	stable@vger.kernel.org, sakari.ailus@linux.intel.com, mchehab@kernel.org, 
+	vladimir.zapolskiy@linaro.org
+Subject: Re: [PATCH] media: i2c: og0ve1b: Free controls when control creation
+ fails
+Message-ID: <20261103-viridian-rat-of-exercise-e8eaa3@quoll>
+References: <20261103082513.1162639-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -60,28 +60,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261103083250.1174880-1-vulab@iscas.ac.cn>
+In-Reply-To: <20261103082513.1162639-1-vulab@iscas.ac.cn>
 
 
-On Tue, 03 Nov 2026 08:32:50 +0000, Wentao Liang wrote:
-> The encoder and decoder registration helpers allocate a v4l2_m2m_dev
-> before registering their video device. When video_register_device()
-> fails, both helpers return without releasing the m2m device. The probe
-> error path only unregisters codecs that were successfully registered,
-> so it does not call the failing codec's unregister helper either.
+On Tue, 03 Nov 2026 08:25:13 +0000, Wentao Liang wrote:
+> If a control cannot be created, og0ve1b_init_controls() returns the
+> handler error directly, skipping the cleanup used by its later failures.
+> The probe caller then powers the sensor off without freeing the control
+> handler, leaking controls that were successfully created before the
+> failure and the handler's allocation.
 > 
-> Release the m2m device before returning the registration error and clear
-> its pointer. This balances v4l2_m2m_init() for both codecs without
-> unregistering a video device whose registration failed.
+> Save the error and use the existing handler cleanup path. Preserve the
+> original error before v4l2_ctrl_handler_free() resets the handler.
 > 
-> Fixes: 9707a6254a8a ("media: chips-media: wave5: Add the v4l2 layer")
+> Fixes: 25bf2e1925c9 ("media: i2c: Add OmniVision OG0VE1B camera sensor")
 > Cc: stable@vger.kernel.org
 > Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/media/platform/chips-media/wave5/wave5-vpu-dec.c | 5 ++++-
->  drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c | 5 ++++-
->  2 files changed, 8 insertions(+), 2 deletions(-)
+>  drivers/media/i2c/og0ve1b.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
 > 
 
 
