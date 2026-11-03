@@ -1,79 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793703692;
-	b=OBmRIY8FyWoe/OYTOXEkdJK50sJMMixmjvb0PZWolTEXv/ZwbaAzImiQGzNeSrA1tVRD
-	 A1mQCgaRG2h+8Q88EItrcKD3LBY7O6K81sjCOvRcUNVoF/PSBILG2zWJJ+k6kp7pgE6BI
-	 zLvxy4wXjZiZaV4K1PL08aVJmVCM1yVD5/2tyPTV4XFmDv7bNRqXvdUgIjmgcJ2WWw8V1
-	 +YE9qhCkiZOAkITko0PcZndZKOrKmJYRxsbmPjT+gz1esdv1GoqMeJFYFKP3fzWrdCV5H
-	 NXdrG3h9M6gqvfRHE722s1oQaYiR6EdyIoky3E+SXueaaLAAGJN9Yce17nxqi2iXP0Q==
+	t=1793704251;
+	b=YQoFmEKX3wtHyxnZsnDgNDDebhLplnYtEnvuaGXdWabGwiQV0BaC6iBcFgp0J9iYW0v4
+	 k9grtfUVE3d00SWE3Ptd4TR9n2BJM194SCoBLuvs32+DZjMQMw/rTr4D5fOF0O0nsrc1W
+	 uXWfICLE4Opjqy4/FQ68PoVzu5qcg80/E2HUPoKcQelGgGWQ2ZDXhycpDbf4mnE9PODtP
+	 bzLwY213VTVveig2495pyFqrOd1OWhTCE/uckeLd2ivj3hCVk5x2rL1PEn0nRC1WZzBaE
+	 aUNIBESzg3ccYZ4kqmc2DKYygYWwM/DDWehd05KaM9tud0uHPejrulvoclosloaECHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793703692;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=8a26RZ//Qtg7PWOhT+gYNdz+nzXL3hIE2ryE6muV1To=;
-	b=iKIgzP65eRh5mwtfTrilANAy1V2QVY0/BYxmO2kITI0BcjQw32CiMobYZsGAE2MkNhQ1
-	 HC9aKGL6QWSnhhPExQedUDffFyFlmF3D/+6q1drYGVJk9toSvMqdiV5cdlks0smLBYYrN
-	 Ul+CX/n2YkHmct04WqLnMy6OQZ/C0DHKv2tbwgOWmd9JM6tPaLWtsctI1s8bLnPTzI5t8
-	 2WYtTpF7YHFkVCTBPfIX/sVHexFN102IaYucb914dABsuzH1mETxR9akG6UH3UU5nYuAJ
-	 p29gajaSDwm7XMMyYE+nBqCX/nUDHsmOHVPi+OKh0eu792OnQ09RSzhdmXpWmXdf64w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793704251;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
+	b=e68/fIJle3SqJsqkLUne70GrJZ0yQw/TzdxCWIes5N1QC9UVpwIVGaPpsMyttuS4VwWg
+	 rLKCi5a61mPiahSiFjVhcgWFDstka1+n3MD3O26ElJlaKAArJpYj47KIjpRmht7+cWTgc
+	 zOSFSMZ/IW6VtYnA3W3io7unGFpEUtWjllswFBMIi3EiTT5clXdUuw3jw9WcsWKVIg/83
+	 c/hnKPfvDOMLRPZ+gfIcnWYOFtgH3vDckCHZ3hzgNmLtVHT9KxS0RE1SF3M40u1y7LfId
+	 Hy04GhYjuxVeDdWMfOK/2DkCBvyZ8SUAb2w0bPzVmsdOhfx10p1pXhk1E63Ds0uN7WQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jz5uDUgG;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25A2606A806;
-	Tue,  3 Nov 2026 11:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A25A2606A806
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8060E60A2606;
+	Tue,  3 Nov 2026 11:10:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jz5uDUgG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793703692; x=1825239692;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=isPyd43z5OJvaqRmypRcgJb/3JEcg26FGP9GNU8Jnxg=;
-  b=Jz5uDUgGDHIzX9TQrFvoLaebBVS82yikNne56wDNoWQnd/Na88JViFoh
-   Gc70svTFs1z/RyNEN9ya/JXPyYteKsNaAzZUiubz9WAzldkgrnJsbmYFp
-   i56MfnPVCZ+82+oZf6uQy1zwPEX0f6NaNBmiPS3rCMWfwsvOm8WZzT0Xh
-   y9albzXQ4zD8bXchacEwgCbPeMwGmswdWgxS3oV0H2v0XlNFbbhiwXoCt
-   CNLKYEJNCgV+chJR9P5+YQmTDm7Ji34zIrPZM3UA9BWtqSeScJdSeRnul
-   6gC8uuMbPuHQsCO0fH5BSCunwL8Ra1WkUsFLzd/mWOJ45l/LTq/bZXfEd
-   g==;
-X-CSE-ConnectionGUID: CT+6oFjbQGKdN4WB8LbxMw==
-X-CSE-MsgGUID: oXTR7PGlRXuWb4Ubx2u2hw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2435497"
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="2435497"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:01:31 -0800
-X-CSE-ConnectionGUID: /lpbiyi9SyyhftS+tJ0+Pg==
-X-CSE-MsgGUID: DTOZTd/bRieydkAcc32OPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,193,1787036400"; 
-   d="scan'208";a="6720677"
-Received: from slindbla-desk.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.245.174])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Nov 2026 03:01:28 -0800
-Date: Tue, 3 Nov 2026 12:01:19 +0100
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Quentin Schulz <foss+kernel@0leil.net>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Michael Riesch <michael.riesch@collabora.com>, Heiko Stuebner <heiko@sntech.de>, 
-	Bryan O'Donoghue <bod@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: Re: [PATCH v2 3/3] media: synopsys: csi2rx: add support for Y8 and
- Y10 bus formats
-Message-ID: <aum-yLwvGgNiTmP5@mdjait-mobl>
-References: <20261102-v4l-y8-y10-csi-vicap-v2-0-0a4149d96dae@cherry.de>
- <20261102-v4l-y8-y10-csi-vicap-v2-3-0a4149d96dae@cherry.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJ1UAi9m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 916191F00A15;
+	Tue,  3 Nov 2026 11:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793704251;
+	bh=Yc/4P7ec9sPrnhW8lkXuZcqIhw+ZPNV2m2TwlrjiYjg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XJ1UAi9mpNneNpGrFngBKLnAAQoITDGDRX7v4IG7AZyyyfA42cWofmwPqt48E9T0a
+	 PLFWJv1Fu0Cs/qHNcyuY/WlX0vNKRz+zKevKXBB8/nqvidQOt5fEhxt61ey9kRtpNM
+	 2SL4Q6Ie2OlnP8ByQ02yVZGsVN2w18YJ4bSSsDV+HMKrIXWAVRSN7S90a6SIYd+1qj
+	 NwOFh35Q51WmE8OnvtWaKpggB4ojxT4poaHyuP3bdr7nQVvOkJQvkhPh2pgfXZl9C6
+	 YxHUylOq3PVySM5dT05rNQPguMH/gTn/GskVIXQy96v2f0HuaiDxMYWZQg26+342Lj
+	 14i5bqImHsfYQ==
+Date: Tue, 3 Nov 2026 12:10:48 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH] media: cec: extron: release the v4l2 device on disconnect
+Message-ID: <20261103-crystal-auburn-bug-b75e9e@quoll>
+References: <20261103102850.1340434-1-vulab@iscas.ac.cn>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,25 +56,67 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261102-v4l-y8-y10-csi-vicap-v2-3-0a4149d96dae@cherry.de>
+In-Reply-To: <20261103102850.1340434-1-vulab@iscas.ac.cn>
 
-Hello Quentin,
 
-Thank you for the patch!
-
-On Mon, Nov 02, 2026 at 09:22:44PM +0100, Quentin Schulz wrote:
-> From: Quentin Schulz <quentin.schulz@cherry.de>
+On Tue, 03 Nov 2026 10:28:50 +0000, Wentao Liang wrote:
+> extron_connect() registers a v4l2 device, which takes a reference on
+> the underlying serio device. extron_disconnect() never unregisters it,
+> so the reference is never dropped. The extron structure allocated in
+> extron_connect() is not freed either.
 > 
-> The OV9282 camera sensor driver can output in those two formats, but the
-> CSI2 RX controller driver didn't advertise support for them yet.
+> Unregister the v4l2 device and free the structure at the end of
+> extron_disconnect(), mirroring the error path in extron_connect().
 > 
-> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
-> Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
+> Fixes: 056f2821b631 ("media: cec: extron-da-hd-4k-plus: add the Extron DA HD 4K Plus CEC driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  .../media/cec/usb/extron-da-hd-4k-plus/extron-da-hd-4k-plus.c   | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
 
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Multiple things here:
+1. Your team ignored completely previous feedback. Multiple times.
 
---
-Kind Regards,
-Mehdi Djait 
+2. You use multiple identities with this email address, thus I doubt that we
+   speak with an actual person.
+
+3. Your bot does not even bother running checkpatch, right?
+
+4. Nothing of this was reproduced nor tested.
+
+5. Finally, the same feedback:
+You sent multiple independent patches, to multiple independent
+subsystems. The amount of these patches clearly suggest this was
+AI generated and most likely not tested.
+
+More importantly, you sent all this work without properly organizing
+relevant patches into patchsets. This makes reviewing difficult
+and might cause multiple reviewers to address the same issue.
+Replying to the entire set is impossible and requires handling each
+patch independently, instead of applying or discarding the set.
+Maintainers also won't see the bigger picture of your work. Quite
+worrying.
+
+This is on the verge of hostile patch: bomb us with so many
+contributions, we won't be able to handle them in efficient manner,
+like responding ONCE to ask you to slow down.  Considering all this
+is untested and LLM generated, I have even more doubts whether this
+should be considered for review.
+
+Please read kernel documentation BEFORE posting more work. It will
+explain you how to identify subsystems, how to organize your work per
+subsystem (so a patchset grouping multiple patches with a short cover
+letter), how to document the issue discovery method and what was
+or was not tested.
+
+Best regards,
+Krzysztof
+
+
+
+
