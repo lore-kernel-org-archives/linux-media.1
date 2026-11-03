@@ -1,112 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793724462;
-	b=J0pzzCcK8OjWKESP8Hqj/0EUFcwtFHPlAw6ngMmeMGho6lbN4TIDdKqwhe30/sDCNOyW
-	 q9uwH8Ko+BymB5oUovT44dX3UBqmig1Ntz3gL+s9I02uZkpcFBMkhCrzp5s3qLbaIbuRA
-	 DHQ5/QbOxX2VuPqaVQcSWHiguIy9dGmZ90hYGSNd+HH9XmyRT0UCokEB9Qoy6o+oWy+oK
-	 DiN/Nv+oZp/yRCYpB62CvVfsWJ82i5gDFBx2010UjKiwWL7cm+IlQjq36+CSaK4Swv/Yj
-	 grlWSp0Xfj1NF79d8v8MjkB8KPtHQ3+UQ/Oc+NfVGNsG5jCP0I473e2gZslxNtYpxSQ==
+	t=1793725372;
+	b=KwZduwc33pGUHQyRpz8Y/Sl39eS3Ch7wklnmbkY6+R20uP0pzyGvMsGR9U4goe/Iqrfa
+	 +z6sEBOoEFrtp+gNWqpszgPsnw7aRNX5/EWgw4BykWt4MFD9ILnj0tfcW/scTGaIwcB8C
+	 QseBFxxuUFoX1HymX0M2pCgCEBeUCUXHJjMFacZ6+wqI7hcZ0hni4q80j9MyVGF9lU+rD
+	 wuwgk8MoBINpJJMPg7UFTSY7N9PUL6YMn8GWFpKnNX1ErnuB2YfyGzIj51bUJflHlYgU5
+	 ArjikDOGYBaTWhx5AZO/dJ0wpH2+GJc5vnoxoHfHDjkTM/hwxfngIyrThOP4JeD7dRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793724462;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=;
-	b=vVqxbQFcVJvb9qeJzEJqfAVeyP3mzxFAS2BOZodQrepTqCIqpWp9wNoAyfkMs72UcRG/
-	 2imEbJxvUy8TOjREzQKdYpkgvmwb3wRtid8Plq2nHKa8ZFirt0r0K7W1Q6SuPaF+nuySK
-	 YHG1Pz6N9XQFSgoCKId7fzFezpTWrJACHiOYp4OZp1jqoHXezlVfGpi7CS/uVBnckUDIJ
-	 WtVj8sOGPl6jpqENjEwEwoXycKzNNvHNXE7NPMDFZLbretNxkHp9anh8UPLAhAVvX4kzU
-	 i7E3e32G/aCh5wQLFu7YIijbtEWm3seCC29odHI0VH04MbuTFmYxGkfkQMqJF65uAbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793725372;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=52xK7NB04mNolNPDCC39n7+kwz3kbfpLQusqgrq+0Ao=;
+	b=2UoLUfxuqZ/vbSfmOXrYyGwzqe46Vl1dsqW/kSP90i+s2D0k9ppqa7ncuyOAgvn6+Ylc
+	 AG5WS3IzOuMLY6X9DfAVnH1rTMYKjEyrRJa+/cBJmW3K6uUmyfWwroMJj57Tf1hFD4Hpt
+	 nc1+erQDwvltEj+VC6Kw/onwnGfQ/GBjEhQxfTvlp9LKtUXMhdGcSon1mBydKIT7n8kgk
+	 BU0etcywqbqSFEjQMAuY/LMaKFKfpQ0lsyQjFcRknT87L69EFpHb+4JRdsA2cHw4ge56S
+	 h9T52AHxpyUmLcO45hD6rGYSPJNkuVPvvBFjP5O7xm+4MbD9Y8AyTfbg/JijObqZjEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bhn+6NiQ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GustMljW;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MJPlYex+;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC78606A32E
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 16:47:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFC78606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A09606A327
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 17:02:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94A09606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bhn+6NiQ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GustMljW
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EA3Js3657791
-	for <linux-media@vger.kernel.org>; Tue, 3 Nov 2026 16:47:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=; b=bhn+6NiQkuOQKXG6
-	XR2m53GsSTThmw+w27tl/BJmR4EFjS0irkF/k1h+e1fkw3OdIxc71YE3cT04Wnq5
-	VLq5MfNX2Zogbp1rCP23LJcEhL0EYKx+1dg75LRngxkznojXxPkX9Ig6KJ4cvH5y
-	CtETC/QVuj6CgNZt779t3+4DCN11aPXiv5ofMqy4ZZb/PPvQTC/ym35f16EOivP1
-	d32nmGAA7DwvnGJmjnDZKSyU6jcP8Mr3liGyA04Hpw5fJaJXGObmClAcSKhSDdfd
-	at+XJYYh9vg48qwb/U9YL8+VIUsDNHoX+q7yFDTZTFZWzUnlzhIdPuDcwHfNLbFe
-	OiKh0Q==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq94ctsdb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 16:47:40 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a086f5d91aso5649931b3a.1
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 08:47:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793724460; x=1794329260; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=;
-        b=GustMljW74EyHYAGxYnZJlmz7VB6Z7HF6zWtTvun2Jan967g7FZKW+2SDHqbJnm7iY
-         V2wG7rQpR75Et+VAP9DAfCP0cBX3XEH49+ro+fYD9u2SSewjW4hffIUe47m+ujzsq5Gz
-         ROEjh6qyBbbEOLAcobLucguM4gaDJjITG/fReHcbEWYnFSo17nuW8VqgPy82rq+KCuvW
-         uAj76L10GqPKH9lK5uV9rfm6Kx7NIux3rkW7bG1pu70mQiNEnXcA9VBFjyLnQ2xGZeIw
-         jlfTSCe3d/h8M88U4Yozk7tqhJjasfsK0k+XPljafncPrK6FA0T5RZPAEKWN1qCDqGsv
-         CTQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793724460; x=1794329260;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=;
-        b=AbrtUHNNCCc9BeBe79Y3NyMKcnWfWBUILNJvLPS/gen9J2s0J5JI/2vNdvczk04QLv
-         KkbUnPskemdh+Yf/UGGDcR1LNtSDodHEzk+YwH7i8s7jKcpxD67RphGpE2Ri5t4+bdKc
-         Gavl3W4jwrWnx2JRvR2EBuXPN/4HNtxacjGt0tWiX+Hs5j1ykoemYBsOK/tqICHxgvyc
-         +qFKeS6rjQcqffSYM2WOcNgQjLGxSyOlYeTnggX3sGEnIt7uyNBhRE6dNalwZ05yxqWd
-         c2CRMOuui1II1jG/LmLugfk/9Z0CTZ0pkuZuyY365lz97SMiVXa9j4cz6ILQXUVSz4Je
-         /4Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8FNf6rt7FmhpdSVY8r5HNIE8YWOB4qrUcaGRrZY6lgGqbEurNK94e2qhXbycG1gnX0sDfHQWK4e9b2g==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9R2pYOzUbrpo/e+mSUWIl+tBG13xSa+OdJw4sKnj5SEK8mVDc/
-	aSOFAw4cSXzvvtLQ/GiXHiHauwK6Q/AZL05Xg2Amb4uaUq27iznaedfXy3OKC1jCy/VdxVMlN+q
-	/uNOQ9OWMSZJedFAE9dnOdabY+sTM7aslNtb9pAq97yRMv468vPh4FHcyjXBdP3wGeA==
-X-Gm-Gg: AYBFou2EHhGVkjKm8e3XB+XDOI1/hw3sot1rrv1qs0CfVHNV52fNGfpnFvQzyG1ZJ+/
-	eDmR8fJH7/YbywDvYSv1XiFLQbHk5ShCW81ro7K6R8dbnCr4gGBcGz7z5cBPAVzJZa+yETpCIyg
-	ob6Ox//vGZK3CFe0tvSu1fXQBkhVXuOnFTTWf4OTarCGVmu7rI9TUeVt37GHYk6YewJwRH7qf5S
-	Q+bYnMoa246HFJL3wUTBiOzdH5m/3O+v8mGj5eEXtugqBK/LbW3WcSIr7dFOF+MgHMwF86JzjbY
-	/oB3AHQP5Q9s/fMEfmDBpbnJuZfhLtnKJampPNP00jXL+ehP9sY8smk/ncL8e9BQvoKtBnfOYxd
-	U3r1hv7+N6mIlJMvd9sFYX624q0ZGjzgnjdv0gqxpa907VUpY45VQZ6flkSyQUUp2AUNmf3VKup
-	lG
-X-Received: by 2002:a05:6a20:9145:b0:3e2:1160:6d20 with SMTP id adf61e73a8af0-3e928a80f31mr13008342637.3.1793724459801;
-        Tue, 03 Nov 2026 08:47:39 -0800 (PST)
-X-Received: by 2002:a05:6a20:9145:b0:3e2:1160:6d20 with SMTP id adf61e73a8af0-3e928a80f31mr13008297637.3.1793724459204;
-        Tue, 03 Nov 2026 08:47:39 -0800 (PST)
-Received: from [192.168.1.10] ([115.98.177.53])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada3d3603sm3400303b3a.37.2026.11.03.08.47.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 08:47:38 -0800 (PST)
-Message-ID: <ef38c950-5fa4-4b57-b97c-8f306b2295e9@oss.qualcomm.com>
-Date: Tue, 3 Nov 2026 22:17:29 +0530
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=MJPlYex+
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F165BC;
+	Tue,  3 Nov 2026 18:00:31 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793725231;
+	bh=A6obJZZta6E1OekhE9aXtMecDxGPKWNSTu2IvnivtSQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MJPlYex+4z2SjIh/V8BR6Voqv1LjuDOKzdSCRItwyAW+BjAZluZH4sOsi/NHsknOB
+	 3bMiWSr9OuyIr7ea2gPv2Agy93GPmJsRm0s3iyC3j4OyDUpCc4e4iN0NaVG7mudKvU
+	 gGOqRUl/mv0gxJnGfW2zzLKrab55zrLy4HMlvbSU=
+Date: Tue, 3 Nov 2026 19:02:47 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Dan Scally <dan.scally@ideasonboard.com>
+Cc: Nicolas Dufresne <nicolas@ndufresne.ca>,
+	"Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dafna Hirschfeld <dafna@fastmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 02/16] media: v4l2-device: Add struct v4l2_device.flags
+Message-ID: <20261103170247.GA3716866@killaraus.ideasonboard.com>
+References: <20261103-rkisp1-suspend-and-resume-v1-0-08f863b6fdc5@ideasonboard.com>
+ <20261103-rkisp1-suspend-and-resume-v1-2-08f863b6fdc5@ideasonboard.com>
+ <25952c4c-36db-4361-9ab6-0ca1b1f960bf@oss.qualcomm.com>
+ <3478043661b8d89ba5089f56383926785570b7b3.camel@ndufresne.ca>
+ <d78d7ee3-0c48-484a-a5b0-9ba44ebf9171@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -116,82 +72,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 8/9] arm64: dts: qcom: shikra: Add OPE node
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-hardening@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261102-camss-isp-ope-v12-0-702254689feb@oss.qualcomm.com>
- <20261102-camss-isp-ope-v12-8-702254689feb@oss.qualcomm.com>
- <bac09735-4136-442c-9208-556568d39967@oss.qualcomm.com>
- <zymjeclhd2ezemd6jeujtsu4y3gb26gi2v4vd3gmi7diuaa23m@aqr4blf32t5b>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <zymjeclhd2ezemd6jeujtsu4y3gb26gi2v4vd3gmi7diuaa23m@aqr4blf32t5b>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=O+KsLx9W c=1 sm=1 tr=0 ts=6aea102c cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=iaXPdgsK/hfklW56b25dCw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=DwxOReZszbjtibhM6OkA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-ORIG-GUID: olWXagjFgbDphWwBGQ_x_h61Y7iasCcd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA2NiBTYWx0ZWRfX9ZyddKPLXnvQ
- 9NQWX/OPENOhAEaHngwPjjJvXwEnO0Bk9wHDcW8kTe9Ho7ExYP6I51Lusg9BL3MkE0zVWYZxI7b
- iK5JAN3nqjjXJiaoN+ug6sKLGDrKQMwLwiW+44UMREVfcoFCWLGc1hz9f7d8BCugb+QJC/fbFr/
- ZGEWYvRIBsm449sz64mmyBNn72oK1CP8GOkFoO1BZJ/seN1UUKL6vlncFZrd9rQ2SDEac0pi8q9
- f9f27arbvLUMgnWmaucFCJR7sQjzQoztQsciEN5DSOgWzvmcUlI0xRhsmvuE7qZc2VWgLGLOQmh
- 9kyDirn+8UNhsWGs5MtvheC8ikmUTC1vXCB/AthHN9+xf7CLrz4OfIPydCflu+YY1t/dEzw7DsE
- 5zoPZajVJ8v8Dol0wEWOJy9Ch6pQwoXfB29Qwhm7gdMTWGsR2vKWjMlZAm9D/goIQQ/Ts346kGN
- Zjs37R3Ws1jEdYq2A8Q==
-X-Proofpoint-GUID: olWXagjFgbDphWwBGQ_x_h61Y7iasCcd
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA2NiBTYWx0ZWRfX+NzlWaWXlp8z
- nV3V0+bmdyLh6YJz7AV0E7oMn/nSCOXr8/xa6S8FxafAVMRTPbi0FuYUfO0Pf1lYv9/8nAY6S0E
- abxQWPJFqRYCuw/NljKYZjdFtpYt7tY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611030066
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d78d7ee3-0c48-484a-a5b0-9ba44ebf9171@ideasonboard.com>
 
+On Tue, Nov 03, 2026 at 02:42:30PM +0000, Daniel Scally wrote:
+> On 03/11/2026 13:51, Nicolas Dufresne wrote:
+> > Le mardi 03 novembre 2026 à 10:09 +0200, Gjorgji Rosikopulos (Consultant) a
+> > écrit :
+> >> On 11/3/2026 9:40 AM, Daniel Scally wrote:
+> >>> Add a flags field to struct v4l2_device, along with a single flag
+> >>> value that is designed to tell v4l2-async in which direction data
+> >>> flows for this v4l2 device so that it knows how to set up device
+> >>> links between subdevices connected using the async APIs.
+> >>>
+> >>> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+> >>> ---
+> >>>   include/media/v4l2-device.h | 7 +++++++
+> >>>   1 file changed, 7 insertions(+)
+> >>>
+> >>> diff --git a/include/media/v4l2-device.h b/include/media/v4l2-device.h
+> >>> index 25f69b1b8db03d077f7570471d5c6910fcafe110..9b17916d63641ba637cf8c37aa925749bd4e2134 100644
+> >>> --- a/include/media/v4l2-device.h
+> >>> +++ b/include/media/v4l2-device.h
+> >>> @@ -15,6 +15,9 @@
+> >>>   
+> >>>   struct v4l2_ctrl_handler;
+> >>>   
+> >>> +/* Set this flag if this V4L2 device is an "output" rather than an "input". */
+> >>> +#define V4L2_DEVICE_FL_IS_OUTPUT			BIT(0)
+> >>
+> >> Just for the clarification do we change the meaning of output->capture to input->output?
+> >> I know that output is confusing for everyone including me but somehow i get used to it.
+> >> However to clarify what this means will be helpful :-)
+> > 
+> > I agree this is confusing. To avoid all the legacy, we could use PRODUCER /
+> > CONSUMER, or does anyone has a better idea?
+> 
+> I have no better ideas - naming things was never my strong suit - so
+> happy to use PRODUCER / CONSUMER.
 
+How do you deal with memory-to-memory devices that are both consumers
+and producers ?
 
-On 03-11-2026 19:03, Abel Vesa wrote:
->>> OPE is a memory-to-memory block with no board-level dependencies, so
->>> the node is left enabled for all Shikra boards.
->>>
->>> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
->>> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
->>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
->> Tested-By: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> #Shikra CQM
-> This tag will probably not be picked up by b4 and it will probably confuse
-> some of the scripts maintainers use. It needs to be "Tested-by:".
-
-Thanks for pointing this out, sorry for the typo.
-
-Please use:
-Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Shikra CQM
+> >>> +
+> >>>   /**
+> >>>    * struct v4l2_device - main struct to for V4L2 device drivers
+> >>>    *
+> >>> @@ -30,6 +33,9 @@ struct v4l2_ctrl_handler;
+> >>>    * @ref: Keep track of the references to this struct.
+> >>>    * @release: Release function that is called when the ref count
+> >>>    *	goes to 0.
+> >>> + * @flags: device flags. Can be:
+> >>> + *   %V4L2_DEVICE_FL_IS_OUTPUT - Set this flag if this V4L2 device is an
+> >>> + *   "output" rather than an "input"
+> >>>    *
+> >>>    * Each instance of a V4L2 device should create the v4l2_device struct,
+> >>>    * either stand-alone or embedded in a larger struct.
+> >>> @@ -54,6 +60,7 @@ struct v4l2_device {
+> >>>   	struct v4l2_prio_state prio;
+> >>>   	struct kref ref;
+> >>>   	void (*release)(struct v4l2_device *v4l2_dev);
+> >>> +	u32 flags;
+> >>>   };
+> >>>   
+> >>>   /**
 
 -- 
 Regards,
-Nihal Kumar Gupta
 
+Laurent Pinchart
