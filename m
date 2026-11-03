@@ -1,96 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793723915;
-	b=gQ8vaIttEDI9g93i6iHtpifJItiuWWQ1JdDiSwQC/vx3XxniDRzCEDyczN8gT3Ms4ljL
-	 qgYbseJv05Ai6pl6dhBkZMFQGmLUOnjnAQjMqrQ+PUFjcVI6V9w/LHdtvfhXN5/1cWrS3
-	 U+x/XVpeHXoCnbQJfniaq0SSiaal26+cpOkCukestnPakwPmiZ87sXESOb1qEPzuR91cK
-	 8xhziYudMKXgt0ZkjqTjQJTC/hUm74ibQxxv5YeYhpEv0F6QyrijQdFYoPZ1p9S26mId7
-	 eWNkPYXfwAAxsFgkCzwnvJ7LnIkqACQBJvssPwhTvCPdv/F8k4TGGRuIitAsUaCqBvQ==
+	t=1793724462;
+	b=J0pzzCcK8OjWKESP8Hqj/0EUFcwtFHPlAw6ngMmeMGho6lbN4TIDdKqwhe30/sDCNOyW
+	 q9uwH8Ko+BymB5oUovT44dX3UBqmig1Ntz3gL+s9I02uZkpcFBMkhCrzp5s3qLbaIbuRA
+	 DHQ5/QbOxX2VuPqaVQcSWHiguIy9dGmZ90hYGSNd+HH9XmyRT0UCokEB9Qoy6o+oWy+oK
+	 DiN/Nv+oZp/yRCYpB62CvVfsWJ82i5gDFBx2010UjKiwWL7cm+IlQjq36+CSaK4Swv/Yj
+	 grlWSp0Xfj1NF79d8v8MjkB8KPtHQ3+UQ/Oc+NfVGNsG5jCP0I473e2gZslxNtYpxSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793723915;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=w6Fqdp6/PUxQDxS0m+JBmY/nceWZDOAC7M2eIuiqIFA=;
-	b=TJFTpjQJqwcmhVGJ1gJrCzPgBY4zXJx+QfJADReceyKI9/sJsnYeQ0J7HDKoXVw0eaWB
-	 OnkYDR25PFiVX58TkETbMtfdXQA39Pvm4jOnQJ18TMvwZeR7vBFOZbzpJ02O6tY8Gm3Ui
-	 XKPusvwJUyGOr4zcL32pXAtrPgbrr/h3IH9fR4YDNNrJrkduUxbKbZF2q3pSJF5dwqzQm
-	 w5zEob7GsR9xHNLG3yiprBIcUOo9l4VF6qK/fW10wKHoWk/+k9y2+JcEJ0yBSUh6PSibC
-	 IEswVz6SuuuRQshAPRo2MRJJ6m3RciCTVSx4gZBLXPV1zH4XMu6Vtu8KxewC0YrvOEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793724462;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=;
+	b=vVqxbQFcVJvb9qeJzEJqfAVeyP3mzxFAS2BOZodQrepTqCIqpWp9wNoAyfkMs72UcRG/
+	 2imEbJxvUy8TOjREzQKdYpkgvmwb3wRtid8Plq2nHKa8ZFirt0r0K7W1Q6SuPaF+nuySK
+	 YHG1Pz6N9XQFSgoCKId7fzFezpTWrJACHiOYp4OZp1jqoHXezlVfGpi7CS/uVBnckUDIJ
+	 WtVj8sOGPl6jpqENjEwEwoXycKzNNvHNXE7NPMDFZLbretNxkHp9anh8UPLAhAVvX4kzU
+	 i7E3e32G/aCh5wQLFu7YIijbtEWm3seCC29odHI0VH04MbuTFmYxGkfkQMqJF65uAbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nRCbTsFa;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bhn+6NiQ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GustMljW;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2B46082BDC
-	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 16:38:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC2B46082BDC
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC78606A32E
+	for <linux-media@vger.kernel.org>; Tue,  3 Nov 2026 16:47:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFC78606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nRCbTsFa
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso7323393eec.0
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 08:38:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=bhn+6NiQ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=GustMljW
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A3EA3Js3657791
+	for <linux-media@vger.kernel.org>; Tue, 3 Nov 2026 16:47:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=; b=bhn+6NiQkuOQKXG6
+	XR2m53GsSTThmw+w27tl/BJmR4EFjS0irkF/k1h+e1fkw3OdIxc71YE3cT04Wnq5
+	VLq5MfNX2Zogbp1rCP23LJcEhL0EYKx+1dg75LRngxkznojXxPkX9Ig6KJ4cvH5y
+	CtETC/QVuj6CgNZt779t3+4DCN11aPXiv5ofMqy4ZZb/PPvQTC/ym35f16EOivP1
+	d32nmGAA7DwvnGJmjnDZKSyU6jcP8Mr3liGyA04Hpw5fJaJXGObmClAcSKhSDdfd
+	at+XJYYh9vg48qwb/U9YL8+VIUsDNHoX+q7yFDTZTFZWzUnlzhIdPuDcwHfNLbFe
+	OiKh0Q==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hq94ctsdb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 16:47:40 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a086f5d91aso5649931b3a.1
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 08:47:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793723914; x=1794328714; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=w6Fqdp6/PUxQDxS0m+JBmY/nceWZDOAC7M2eIuiqIFA=;
-        b=nRCbTsFaD7OM8zXTqBqhbT9Z9VMiXVdc+mCNlaYpWnmvIYn/8iOs029tKfUyGbsCYX
-         ZbwixDVd7M7F/xVppowGYAqsQq9mMw8W41WuBapO84qmyrsOecFuEB9slI2VYgEBKnPK
-         H6RLT1NR75itzIHKf56twiQCF/f8bvnPp4L80ZWwCRUzF50zQOeb+URbNHozfn7yoJrp
-         OfVrXw7B+NzhrAB/c6Hn/lEKSuV5dT60YnDo1sP2Hub4L1xbMxYSrkbXsfkGoNNKLJnz
-         fN9CoPMT0pp275pAMnMcGyObwJ5G3iUZLPUaDwJzb2XlNCb48vckaxma6GlUKicOBRMS
-         xJWA==
+        d=oss.qualcomm.com; s=google; t=1793724460; x=1794329260; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=;
+        b=GustMljW74EyHYAGxYnZJlmz7VB6Z7HF6zWtTvun2Jan967g7FZKW+2SDHqbJnm7iY
+         V2wG7rQpR75Et+VAP9DAfCP0cBX3XEH49+ro+fYD9u2SSewjW4hffIUe47m+ujzsq5Gz
+         ROEjh6qyBbbEOLAcobLucguM4gaDJjITG/fReHcbEWYnFSo17nuW8VqgPy82rq+KCuvW
+         uAj76L10GqPKH9lK5uV9rfm6Kx7NIux3rkW7bG1pu70mQiNEnXcA9VBFjyLnQ2xGZeIw
+         jlfTSCe3d/h8M88U4Yozk7tqhJjasfsK0k+XPljafncPrK6FA0T5RZPAEKWN1qCDqGsv
+         CTQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793723914; x=1794328714;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793724460; x=1794329260;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w6Fqdp6/PUxQDxS0m+JBmY/nceWZDOAC7M2eIuiqIFA=;
-        b=rcdQY5uOP16QlORQlSUP+imTL4iJAARl6lZmRfAP7pXiiWHTEHwYgFUFL0jodhtwn6
-         3wX5zQQMB3K68SRaCGhAFf+aIwNy0tZsxnya3ZmsKvsYqGkgCbpRt8KMlCVGF47gqGNt
-         tH8uInR+6WGDIkMkeVpQvNVS2mreB8fdz5112gbIPi5g/KoFGs6nYM1XEUJxcnDITUuV
-         qfJ0mM/dzpDtIskyw7ZJfPH0j4R/IpKztXDl/jPyjr2jnKchSV8jtDEJpPG+5cdRwEvq
-         MFkgFPK44aXjaDIef6LOxhbHlAQIEwLeY2h/qQPTCgqYeqZzg2h/6Jv3yPPi6gSfSH+x
-         Ggqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxAKnpPf13MT86atXggQsUni4a9+mhOgIzeTqXCuSqUem90KQGF8eOtt9qTb+eAE1N9jOYSv0T5Pa+gJw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8klRTb8oeZ1qeFKBUmcx1TTwyzZfSdb2Epr5kBxs5fR30+7ai4
-	xqu6tc7jiybzitBkssthKvttbs9iHsS4R5cNOIP+cKhpDP1AwJ/s1cWd
-X-Gm-Gg: AYBFou2KgA+ZqghHvSlCyqZVS6wkv4d9PdP0rqI0lmHRHZb3ts9iQToJZAZzBjH5Txb
-	4YiN1BmWNs5OYGDy/Klac7qfHSYPDjce5YG+/xklyHnJ3RpP7vGkWvahtFV5/2hG84Wa5HVBa7/
-	xPONM2Hg+oaaiTtgpReLMytNObAm8HIDL0RM5R1s2ZHYmYo1WkQXVdrWOzV1zbpdISWNf62sCIm
-	y9v4r8NgoK8viJ+/l9M26PFUPURAKTvR5WDD/kNXfIhe7aVgUK14zHjYgAt16jgpysJTdJCqJ7v
-	ZW8oJwWFzKM1jDIng3aUG/Z0rSUY7xYaya4C0NIufEbNi8nVZ4newIe5r6KJlUPexRdFcafjieC
-	0wJYFGeURJIPNiCbkqcHE5NIaePorwHDC6ue8aNSRRIlLL09OIm5smCvtsaso0Fg3XkSKbGoiPE
-	dYA/ed+UILIO7by4aLZJNzHM2mT1YIsRPyy4xtn0Dh0F1hOHt32/F6C7Hf4PHC0OZtJbRdQGTq2
-	C3VjGZTy9+vL/QXJTTvII9Y08//IWRIZuwG17BBu3iTv/qxiAQhoxNYWVvXDTFmYX5le12YrOTI
-	OxigA1ggjkXg4a3jSQG+dFkVyE2/uofOFmvkKM3j+oDiMLOh/vZlDRCI/Pzshj3C8Q==
-X-Received: by 2002:a05:693c:6092:b0:35e:5ca:e0df with SMTP id 5a478bee46e88-36a424609c2mr24955730eec.35.1793723913578;
-        Tue, 03 Nov 2026 08:38:33 -0800 (PST)
-Received: from arpith-debian ([2402:3a80:40d:48cf:34b0:c816:2853:c60c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429018casm43671843eec.14.2026.11.03.08.38.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 08:38:32 -0800 (PST)
-From: Arpith Alexander <arpith99@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
-	sarang.sapre@intel.com,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Arpith Alexander <arpith99@gmail.com>
-Subject: [PATCH] media: ipu6: Check firmware is started before close
-Date: Tue,  3 Nov 2026 22:08:14 +0530
-Message-ID: <20261103163814.96980-1-arpith99@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=Paahz2cu5Q9vlGBYGrknkFs8wYwBWIJPZ66Zms3vNmU=;
+        b=AbrtUHNNCCc9BeBe79Y3NyMKcnWfWBUILNJvLPS/gen9J2s0J5JI/2vNdvczk04QLv
+         KkbUnPskemdh+Yf/UGGDcR1LNtSDodHEzk+YwH7i8s7jKcpxD67RphGpE2Ri5t4+bdKc
+         Gavl3W4jwrWnx2JRvR2EBuXPN/4HNtxacjGt0tWiX+Hs5j1ykoemYBsOK/tqICHxgvyc
+         +qFKeS6rjQcqffSYM2WOcNgQjLGxSyOlYeTnggX3sGEnIt7uyNBhRE6dNalwZ05yxqWd
+         c2CRMOuui1II1jG/LmLugfk/9Z0CTZ0pkuZuyY365lz97SMiVXa9j4cz6ILQXUVSz4Je
+         /4Fw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8FNf6rt7FmhpdSVY8r5HNIE8YWOB4qrUcaGRrZY6lgGqbEurNK94e2qhXbycG1gnX0sDfHQWK4e9b2g==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9R2pYOzUbrpo/e+mSUWIl+tBG13xSa+OdJw4sKnj5SEK8mVDc/
+	aSOFAw4cSXzvvtLQ/GiXHiHauwK6Q/AZL05Xg2Amb4uaUq27iznaedfXy3OKC1jCy/VdxVMlN+q
+	/uNOQ9OWMSZJedFAE9dnOdabY+sTM7aslNtb9pAq97yRMv468vPh4FHcyjXBdP3wGeA==
+X-Gm-Gg: AYBFou2EHhGVkjKm8e3XB+XDOI1/hw3sot1rrv1qs0CfVHNV52fNGfpnFvQzyG1ZJ+/
+	eDmR8fJH7/YbywDvYSv1XiFLQbHk5ShCW81ro7K6R8dbnCr4gGBcGz7z5cBPAVzJZa+yETpCIyg
+	ob6Ox//vGZK3CFe0tvSu1fXQBkhVXuOnFTTWf4OTarCGVmu7rI9TUeVt37GHYk6YewJwRH7qf5S
+	Q+bYnMoa246HFJL3wUTBiOzdH5m/3O+v8mGj5eEXtugqBK/LbW3WcSIr7dFOF+MgHMwF86JzjbY
+	/oB3AHQP5Q9s/fMEfmDBpbnJuZfhLtnKJampPNP00jXL+ehP9sY8smk/ncL8e9BQvoKtBnfOYxd
+	U3r1hv7+N6mIlJMvd9sFYX624q0ZGjzgnjdv0gqxpa907VUpY45VQZ6flkSyQUUp2AUNmf3VKup
+	lG
+X-Received: by 2002:a05:6a20:9145:b0:3e2:1160:6d20 with SMTP id adf61e73a8af0-3e928a80f31mr13008342637.3.1793724459801;
+        Tue, 03 Nov 2026 08:47:39 -0800 (PST)
+X-Received: by 2002:a05:6a20:9145:b0:3e2:1160:6d20 with SMTP id adf61e73a8af0-3e928a80f31mr13008297637.3.1793724459204;
+        Tue, 03 Nov 2026 08:47:39 -0800 (PST)
+Received: from [192.168.1.10] ([115.98.177.53])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada3d3603sm3400303b3a.37.2026.11.03.08.47.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 03 Nov 2026 08:47:38 -0800 (PST)
+Message-ID: <ef38c950-5fa4-4b57-b97c-8f306b2295e9@oss.qualcomm.com>
+Date: Tue, 3 Nov 2026 22:17:29 +0530
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,89 +116,82 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v12 8/9] arm64: dts: qcom: shikra: Add OPE node
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-hardening@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-camss-isp-ope-v12-0-702254689feb@oss.qualcomm.com>
+ <20261102-camss-isp-ope-v12-8-702254689feb@oss.qualcomm.com>
+ <bac09735-4136-442c-9208-556568d39967@oss.qualcomm.com>
+ <zymjeclhd2ezemd6jeujtsu4y3gb26gi2v4vd3gmi7diuaa23m@aqr4blf32t5b>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <zymjeclhd2ezemd6jeujtsu4y3gb26gi2v4vd3gmi7diuaa23m@aqr4blf32t5b>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=O+KsLx9W c=1 sm=1 tr=0 ts=6aea102c cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=iaXPdgsK/hfklW56b25dCw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=DwxOReZszbjtibhM6OkA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-ORIG-GUID: olWXagjFgbDphWwBGQ_x_h61Y7iasCcd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAzMDA2NiBTYWx0ZWRfX9ZyddKPLXnvQ
+ 9NQWX/OPENOhAEaHngwPjjJvXwEnO0Bk9wHDcW8kTe9Ho7ExYP6I51Lusg9BL3MkE0zVWYZxI7b
+ iK5JAN3nqjjXJiaoN+ug6sKLGDrKQMwLwiW+44UMREVfcoFCWLGc1hz9f7d8BCugb+QJC/fbFr/
+ ZGEWYvRIBsm449sz64mmyBNn72oK1CP8GOkFoO1BZJ/seN1UUKL6vlncFZrd9rQ2SDEac0pi8q9
+ f9f27arbvLUMgnWmaucFCJR7sQjzQoztQsciEN5DSOgWzvmcUlI0xRhsmvuE7qZc2VWgLGLOQmh
+ 9kyDirn+8UNhsWGs5MtvheC8ikmUTC1vXCB/AthHN9+xf7CLrz4OfIPydCflu+YY1t/dEzw7DsE
+ 5zoPZajVJ8v8Dol0wEWOJy9Ch6pQwoXfB29Qwhm7gdMTWGsR2vKWjMlZAm9D/goIQQ/Ts346kGN
+ Zjs37R3Ws1jEdYq2A8Q==
+X-Proofpoint-GUID: olWXagjFgbDphWwBGQ_x_h61Y7iasCcd
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAzMDA2NiBTYWx0ZWRfX+NzlWaWXlp8z
+ nV3V0+bmdyLh6YJz7AV0E7oMn/nSCOXr8/xa6S8FxafAVMRTPbi0FuYUfO0Pf1lYv9/8nAY6S0E
+ abxQWPJFqRYCuw/NljKYZjdFtpYt7tY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-03_03,2026-11-03_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611030066
 
-Commit 70e3fac3ec78 ("media: ipu6: Move firmware init/cleanup to RPM
-callbacks") moved firmware start to RPM resume and firmware close to RPM
-suspend. The suspend callback closes the firmware unconditionally.
 
-ipu6_pci_probe() wakes the PSYS. The PSYS's parent is the ISYS, so the
-PM core wakes the ISYS first. At that point the ISYS driver isn't bound
-yet, as isys_probe() returns -EPROBE_DEFER until the PCI probe has
-finished. isys_runtime_pm_resume() is therefore not called and no
-firmware is started.
 
-The PSYS is released with pm_runtime_put(), so the ISYS is only
-suspended asynchronously, and the driver core's pm_runtime_barrier()
-cancels a pending suspend request before probe. The ISYS can therefore
-still be runtime active when its driver binds, although its runtime
-resume callback has never run. The next runtime suspend, such as the one
-the driver core requests after probe, makes isys_runtime_pm_suspend()
-close the firmware, and ipu6_fw_com_close() dereferences the NULL
-isys->fwctx. On a Dell XPS 13 9340 this oopsed during boot:
+On 03-11-2026 19:03, Abel Vesa wrote:
+>>> OPE is a memory-to-memory block with no board-level dependencies, so
+>>> the node is left enabled for all Shikra boards.
+>>>
+>>> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+>>> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>>> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+>> Tested-By: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> #Shikra CQM
+> This tag will probably not be picked up by b4 and it will probably confuse
+> some of the scripts maintainers use. It needs to be "Tested-by:".
 
-BUG: kernel NULL pointer dereference, address: 000000000000004c
-Workqueue: pm pm_runtime_work
-RIP: 0010:ipu6_fw_com_close+0x9/0x50 [intel_ipu6]
-Call Trace:
-  ipu6_fw_isys_close+0x29/0x90 [intel_ipu6_isys]
-  isys_runtime_pm_suspend+0x4c/0xf0 [intel_ipu6_isys]
-  bus_pm_runtime_suspend+0x12/0x40 [intel_ipu6]
-  rpm_callback+0x5e/0x80
-  rpm_suspend+0xe7/0x620
-  pm_runtime_work+0x98/0xb0
+Thanks for pointing this out, sorry for the typo.
 
-Only close the firmware if it was started, i.e. when isys->fwctx is set.
-The check for a failed close is unchanged. A runtime suspend without a
-preceding resume then does what the suspend callback did before that
-commit.
+Please use:
+Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Shikra CQM
 
-Fixes: 70e3fac3ec78 ("media: ipu6: Move firmware init/cleanup to RPM callbacks")
-Signed-off-by: Arpith Alexander <arpith99@gmail.com>
----
-Tested on the XPS 13 9340 (Meteor Lake): no oops on the tested boots
-(the unpatched kernel oopsed on its one boot that probed the IPU6, three
-boots with this patch didn't), the ISYS runtime suspends when idle and
-resumes for streaming, and the camera works.
-
-This only fixes the suspend path. The ISYS being runtime active without
-isys_runtime_pm_resume() having run also affects anything else that
-relies on the runtime PM status before the first suspend, e.g. starting
-a stream, or ipu6_isys_isr(), which v7.3 guarded with isys->power.
-Making the runtime PM state consistent when the driver binds would cover
-those as well.
-
- drivers/media/pci/intel/ipu6/ipu6-isys.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 094a98e31c06..9c3818c904cd 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -821,10 +821,18 @@ static int isys_runtime_pm_suspend(struct device *dev)
- 	struct ipu6_device *isp = adev->isp;
- 	int ret = 0;
- 
--	isys->adev->auxdrv_data->fw_ops->close(isys);
-+	/*
-+	 * The ISYS may have been runtime resumed as the parent of the PSYS
-+	 * before this driver was bound. isys_runtime_pm_resume() hasn't run
-+	 * then, and there is no firmware to close.
-+	 */
- 	if (isys->fwctx) {
--		dev_warn(&isys->adev->auxdev.dev, "failed to close fw isys\n");
--		ret = -EIO;
-+		isys->adev->auxdrv_data->fw_ops->close(isys);
-+		if (isys->fwctx) {
-+			dev_warn(&isys->adev->auxdev.dev,
-+				 "failed to close fw isys\n");
-+			ret = -EIO;
-+		}
- 	}
- 
- 	mutex_lock(&isys->mutex);
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.55.0
+Regards,
+Nihal Kumar Gupta
 
