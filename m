@@ -1,86 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799327;
-	b=O0ERtw7pEcpyOTM8O/zoQgb9VhCeUBfcDUQS8lDC+DliJk+iPBqEpy0MtUAOHuB9EZCV
-	 0f6EwN7yBP9Hp3Dl2FFevkXGP7Z/zVSLi10BjXiMuSHgkC1x+EmGfVTA4XiSTtr9I1XiK
-	 wL1l2Ua74pgCy+prR4kZJ0v6ImMr/4Z8TP26JOtgbc4dG06GgqpGYLemltsuxgIp37bsp
-	 fUQtBtLlVLTGp9LQRdlJKtU8taF9m1NmtxVazgrY43FxrVxy8A57OnraQXJDD05/Vy8L1
-	 lz8m3o8vLAsFz7dZ6J36sQz6QqW2FwCUXDEuj+aAPJR6eULC2NQ+jbcJlxsM8kyNmaw==
+	t=1793799590;
+	b=XxL1AtbhTW+Lnlbs4BrP6ibR1K6p8uNSW3VGOxEZkCrgZweND237CX9OhIsNho8CdvFv
+	 ss/U/HQGhx86Je6G7oFzD8ZZU8uKDH90W1QQtLoFvcaCZRuYqyABdnr3mz+jeXovzmPua
+	 2z9xydfvogxDJpNanEoUzHMfB3ifyZpO9kzcgJrgb8T0mhwGPCsFZe9CxdkULfICvF9RA
+	 9Ca809NRf6SiKymPIb6wTy3gEOarbV+TVP7negTZvPRqSiRWCtYFTfPKMV9oY1S5HBSD9
+	 J4ONciDh2BJLD8V36wXoMrCSXrmC7uk8yPP21+4Ry9ZXBSdSMZ85IEvq0LVyhYbubBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799327;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=bcVTjcoUuDJ00d+ZrLupJl8lYibYslwMamSO7+IhYGk=;
-	b=CscqF+8EwJT0hNqRZ5WAezjp25uU77s3QERVPluDtS4v7YPG/7QrYjP7gvv33Zsh17r/
-	 i8z3NIko0AX7xkN+yCYU2firSxhxKx077J03Hnbt06IzwrDsaYxBppvHQtcgYBM/q6Vqa
-	 1kmQXLbDqAizRQwLXdKxheHX02fGvil++GvOzNN6KaP5Ta0jdZKjwWB7nH4DanaraPopW
-	 ev9ZiRBRAh6hqkqrPgXLOAGnEFzae7272UJWMUZjsLrGEDrFNhzkFwmjgsaL2/e/KNK45
-	 T3yBAmbYCKcgQ1JioT4YjcCEMrfou0KdoLI5R2YtBCbE9rg46TOWvauQCeawDNtjMNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799590;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=BQjfl9RbsQNCX6Q2tebtsFt2Sfsx0gARntz1N98irG4=;
+	b=r4sBItYJviMuR+LEf/YRrPRR8LfguxAhYsGBrTfDjSNAjxDWTtIGNlRxj4ixeVO7ksE5
+	 3Adx6WgU4eO88zy3kiDH22+Xy5j7Bv51ucLSFOdoM+lqhr9oj7hqW/b66m2gsIbuscN0L
+	 L/tzh0G9N3WOcw/XQvgxS6sWUp1BCa1G9RLO2f0UyrD6fNmajCiHtnyP7piHGlI5g1+Tj
+	 Xn/cwXk9yjlnZznatW4jBx9iQ0YBxo5MWKruE2LHxHDjHplawH0yXtNsjCY4+Qp6gSI9v
+	 wBynJf0tzdzbfoUIxMYyAIzQQjWSqHy4DZjWg6zkqpUfx+XloZA6iwNeGfv3ranSB9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LlYpn60K;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gMpi7Hxv;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E588606A330;
-	Wed,  4 Nov 2026 13:35:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E588606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19412606A335;
+	Wed,  4 Nov 2026 13:39:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19412606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LlYpn60K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793799327; x=1825335327;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6VvQvS8yHC7ZYvx7BpzBaw+xd0bVq75tP+dfZH+tEUU=;
-  b=LlYpn60KWP+HRSiunYDDs37Q3QZ0eG9HZkXPe1n+nkGSDxvi1g21QCq0
-   mOnvdYBXdKT0iZ/CwLqFHrVwm4JnsLGY4W3kJslilIWf6NF20qy/BxB6j
-   p8dIsyUXcHMJuZ4AJBzfag4riTj/DWkLqwH5iWxukDN6djW6o7Wj7Mm+U
-   bl2V6Zoapi9B4Sonqk77zZrxNy7VkxPEsjdrTFe3OISJ/bUscv/jSrzXQ
-   wJjZHMRYEwg6WPzryxaN4uIfTEDnFqcO6LMJBKOwBLpcJOGmpgYm/YpAY
-   lJdK/iqCxgyOHlspzHyvaTUaLe1cU+UPWLfDJE7b9n1qDHhgcR4R3KrZC
-   A==;
-X-CSE-ConnectionGUID: CengWsgSSFaYut0KNM8zLQ==
-X-CSE-MsgGUID: NSegXEIoSRujVXnaTqIDIw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2460442"
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="2460442"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:35:26 -0800
-X-CSE-ConnectionGUID: T1C8mLIpSUKvYrW72HHCOQ==
-X-CSE-MsgGUID: EMU1ZmYdROakGetFActrcQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
-   d="scan'208";a="7060961"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.19])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:35:24 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 7B664121BB0;
-	Wed, 04 Nov 2026 15:35:33 +0200 (EET)
-Date: Wed, 4 Nov 2026 15:35:33 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Valerii Sokolov <valerii.sokolov@pm.me>
-Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
-	Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sarang Sapre <sarang.sapre@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=gMpi7Hxv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793799588;
+	bh=V67Q77CGcmmhluyCdITvTP/daZaV9aa0SNLMpSDUB14=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=gMpi7HxvGNnS3RfmQYk99UkzPCIhWUG0SC25A5cE8Jw8XYyolGTrKWGQ1utvNLjbz
+	 vh0Nq6jP2mqcmh8OfvtAssNHHSD49aWhHlBqaSaknqLtElA8Hovfs/PFQSIFcSLVqg
+	 8VB6bxtyIqUhrmQefwbnJiyMKBxhfCnlCJ+t45RUB7gGo/5sDQfkT78jKtSns7QcTO
+	 MBEOzmrjFtbaNvzk4/r0aPQZqaB3fLoWUmsk7GF3ATv4Vwg7Jo5Sw1aP2kQuCHYDvV
+	 0F1Xg40TJIR+wYkhhuB6zV6s89v65DKtfMwgWn2S2+NKX+wX5F5a2ID0TbAblBpgDz
+	 4IOwXStK9xbkg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1F6A717E0400;
+	Wed, 04 Nov 2026 14:39:47 +0100 (CET)
+Message-ID: <35f68881d65e0bb60cb4c6f25c027164f09b926f.camel@collabora.com>
+Subject: Re: [PATCH] media: v4l2-mem2mem: cancel job work before freeing
+ m2m_dev
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Yaohan Li <shunsheng1218@gmail.com>, mchehab@kernel.org
+Cc: hverkuil+cisco@kernel.org, Frank.Li@nxp.com, ming.qian@oss.nxp.com, 
+	dmantipov@yandex.ru, 121811682@qq.com, ezequiel@vanguardiasur.com.ar, 
 	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 11/11] media: intel/ipu6: fix EOF sequence logging in
- ipu6_isys_isr_one()
-Message-ID: <aus0pXClb3bGAV_7@kekkonen.localdomain>
-References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
- <20261103211031.1573726-12-valerii.sokolov@pm.me>
+Date: Wed, 04 Nov 2026 08:39:46 -0500
+In-Reply-To: <179378585020.73536.6089775766038265997@gmail.com>
+References: <179378585020.73536.6089775766038265997@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-apRvdK517pKNxu0RZtNR"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,56 +87,75 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261103211031.1573726-12-valerii.sokolov@pm.me>
 
-Hi Valerii,
 
-On Tue, Nov 03, 2026 at 09:11:21PM +0000, Valerii Sokolov wrote:
-> When handling IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF in ipu6_isys_isr_one(),
-> stream->seq[stream->seq_index] is populated with the current sequence
-> (atomic_read(&stream->sequence) - 1) and stream->seq_index is immediately
-> advanced to the next ring buffer slot.
-> 
-> Subsequently, when IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF arrives, logging
-> stream->seq[stream->seq_index].sequence reads the next slot in the ring
-> buffer rather than the slot written at SOF (logging a stale sequence
-> number from IPU6_ISYS_MAX_PARALLEL_SOF - 1 frames ago, or 0 on the first
-> frame).
-> 
-> Read atomic_read(&stream->sequence) - 1 directly so the EOF debug message
-> logs the current frame sequence number matching SOF.
-> 
-> Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
-> Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
-> Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
+--=-apRvdK517pKNxu0RZtNR
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Le mercredi 04 novembre 2026 =C3=A0 17:50 +0800, Yaohan Li a =C3=A9crit=C2=
+=A0:
+> v4l2_m2m_release() frees the mem2mem device without draining its
+> embedded job_work. A job completion can queue the work while device
+> removal runs, leaving the worker to access a freed m2m_dev.
+>=20
+> Cancel and wait for job_work before freeing the device. This ensures
+> that a previously queued or running job worker has completed before
+> the memory backing it is released.
+>=20
+> The use-after-free was reproduced with an in-tree V4L2 test driver
+> under KASAN during stream teardown and device unbind; the same
+> injected scheduling sequence completed without the report after the
+> change.
+>=20
+> Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in =
+v4l2_m2m_job_finish")
+> Assisted-by: ZCode:GLM-4
+> Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+
+
+Please, check the mailing list before sending patches, there is a v2 of thi=
+s
+change already. Its as simple as adding this step to your prompt really.
+
+Nicolas
+
 > ---
->  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> index 5d95fb9234..ad08506b32 100644
-> --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-> @@ -651,7 +651,7 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
->  		dev_dbg(&adev->auxdev.dev,
->  			"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
->  			resp->stream_handle,
-> -			stream->seq[stream->seq_index].sequence, ts);
-> +			atomic_read(&stream->sequence) - 1, ts);
+>  drivers/media/v4l2-core/v4l2-mem2mem.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-=
+core/v4l2-mem2mem.c
+> index a65cbb124cfe0..c4756e7bb1fb2 100644
+> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
+> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> @@ -1207,6 +1207,12 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
+> =20
+>  void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
+>  {
+> +	/*
+> +	 * job_work is embedded in m2m_dev and is re-queued unconditionally
+> +	 * whenever a job finishes; wait for it before freeing the device.
+> +	 */
+> +	cancel_work_sync(&m2m_dev->job_work);
+> +
+>  	kfree(m2m_dev);
+>  }
+>  EXPORT_SYMBOL_GPL(v4l2_m2m_release);
 
-Except for this one.
+--=-apRvdK517pKNxu0RZtNR
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-The IPU firmware works based on timestamps and you could obtain the
-sequence based on the timestamp but I don't think it's worth it here. I'd
-just omit printing the sequence number which is unreliable.
+-----BEGIN PGP SIGNATURE-----
 
->  		break;
->  	case IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
->  		break;
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaus1ogAKCRDZQZRRKWBy
+9GOkAQDd5F64T/LasnglxdTcjF2oGICHm/sFtkKS1ELEO8OhiQD/ZALowBKRMgFh
+GjpfLHRMeIuxUvJ6idz9YLa0Lyn1Qg8=
+=hxbH
+-----END PGP SIGNATURE-----
 
--- 
-Regards,
-
-Sakari Ailus
+--=-apRvdK517pKNxu0RZtNR--
