@@ -1,90 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.190
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793754465;
-	b=DmC5rNe/8mD5yMybhSeCis6DIvJxhQkXBr9WnYIZu8Hje3OZZIJvHVSMaQOEjfu3Z28x
-	 OJwziQiD35WqHD2UpV5VvACvHF9cpYGkZvJ3i+fWNfG6YN9MnrgUyGu+xn8PYL9/joLPN
-	 ChoXceiL1ImPV95JT3tv9ywknU2lxF5PkOqh8dvNSdps50G44RZD8ztkv6woymLNleqza
-	 dmYZjgSP60JzPg99xcj9rPzpR4bSdsYDLIeb4LalADpWaGm85vLoAUipsmZhRIGXPXihs
-	 jmpbzrSpCH1XWAQ2BVlMGBWnQ3rdzOQSHxbz/uOVeuLudYzj4/atGJTp2p61IuI14uw==
+	t=1793754692;
+	b=sz20IsO8FJbCdiUy4o1enKLsgmhCoIoEYNkUhlmjvCASVkKeTvGIxbawa0c13SXWRbJv
+	 cwDhSb4+tjtOJ6TZrfMJDSufCqLqmQdaDwAQVWyvnPbJgUg5vYWLTey5UWCAJdrvciFzY
+	 kQfg4K9KCgjUJT2yH8CdOa5m9zr0QlJ94H4m+VpBKPVZ2S2LsQmnCE1kZhiFLYPjM/UQw
+	 kWVBBtqfNOgsd7olAE2FztN5wzxygBW8jNLQyPD8nQp95O2rH5o4p09dkRO16x6fYuA4R
+	 BKOPNeSm7NCFNlea8efK1P9GlYo7nA5E6IHxEDOzoLA/fLJ0n/ojGK0JKo9xOKEofBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793754465;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793754692;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=IkoTUr12d3aBSwhfLu9j73ajMyz1vUUn+p4JbB9hc1c=;
-	b=AiGM7QQ+belurALuiiFnAg+ZoyU0wxFE2V9MPZ4sf3d/Xq+F21foCv4O/6Og3aVPEffV
-	 i3ce3YdIUBQqNo7VjM4VBHQ0Y4KgvMRxYmpkKr8DvMWRtoEAm4Oc7/4T37ZcjNJWaTX50
-	 8h9zzRJ3ZmScbNEQX8rcCzl9dXlHoofPyf/KdjkHbWd1a2Hfz1/KZ0YDYY8uRd5CF/aeL
-	 rVn+uz0+vDWl+L5lLiI2RyyehBrJYDfDpFjYtpcylxJZBV8NsoZyU4u6uXT3IvWK/RW5E
-	 30Qd6Ri6JTfXwgQQ1bh+e08UJpdK3ui1QFvUmjLi74367uf06C5tTFpd80/92tkLrcA==
+	bh=sIQ9+UAP+T9i5P1ER9oC9FsDhW/tA+9UYBuAznrvwXw=;
+	b=jCW5Fv2OeTEoX2/mbsi0apHXfk8P4+LCmTfGxIG40DoWalpakLV4v0yiOwdMIbA8s/Wd
+	 VUrcSuhmBiuDS6Jj9LWj1aX+A7n1i0/PvmwCQwlyd0BbUJzGbakkv8MVHXsC70QnxAz56
+	 XqhSZZAC5hs5lDTHhhGGa0UILit99y5JtcqOZuZoS30j2+VQL7hQ9jFUccCLXgI/Tzi9Z
+	 PTQoOXiB86jmi+S3gALDattdpDGzGTAa6l9V+ZhSIY0FfkGRMV5F3INJK6FIWHiO6KWfW
+	 IIV9Cot7+KT12AJJj6gmgcsj05icmAOSVBExp5u9zVmuO3UBXqp/lgoX9YX2OyeEsoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x74JWfN5;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XckCDUo3;
+	arc=none smtp.remote-ip=203.205.221.190
+Received: from out203-205-221-190.mail.qq.com (out203-205-221-190.mail.qq.com [203.205.221.190])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DE7606A32C
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 01:07:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17DE7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28F4606A330;
+	Wed,  4 Nov 2026 01:11:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B28F4606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x74JWfN5
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so533305e9.0
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 17:07:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793754463; x=1794359263; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IkoTUr12d3aBSwhfLu9j73ajMyz1vUUn+p4JbB9hc1c=;
-        b=x74JWfN5h8ikXShPfz4EZ8TGJByCm/kix2rdXXQg+GWssuw/Jmx8f+11kO1OJKvkQx
-         P6ptJKKG3pnuMuTPYPcUvf1vPG25sSvkhfc4LHjL9sVd1CfzGwxcVL5dcm/LvNH2jPOL
-         /AmWRtRIk6qpwVompzpiz+IrXvZnsuZmuCwNb0pk6Qy8S5ozLPrPqFYDC967eEUffyHu
-         TMGNHaORHxAaDKrpKfY1cTVaY3znb8Q4iEu/WK/SdK0X2Q87qsT6/fNNLkq0dyJVJDO2
-         HW1tUYmxA9m/cy3GF94xTfSR2hUQYr+M/OuLs19JAv21wQZ/wtY2qI6cL5BGRn5xqyAZ
-         tVhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793754463; x=1794359263;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IkoTUr12d3aBSwhfLu9j73ajMyz1vUUn+p4JbB9hc1c=;
-        b=w1AGVqO6R8hnqMo73jY4DA5qMmea5Lh6mvjyCXLlyx1lYoNlZXtKW8eRGdfCBzac3P
-         zEc4bIDQ+9iAzIBFTAVNqKUXyHtZBOEkPMk6HVitTFI0nHhiLVcilXg/VcwIG/skLnmH
-         c4segVrTovjokt7VHTOQvreHT75jW1b+Js/8PthymbQ246Yb0qyGwjD2gkm6zIIHw6C+
-         1c5lxXboZbEqBAf8OqIX4W90Sq5GfVMcUz3qbc5jFwucfYFjz2s6FgxoRcsmzYbp+24C
-         SVs+NzhD1NMvZkx/Nfqdrkb/oQKsDpqoaob+Wqk76vIs/09L7J+Iw8Lr3IFk6YtOmubD
-         JDtg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5dQTiy8C1VizfMTOpQaCmySJWJX2SMNWe62vE07wcvDuh0RYzpXBC88wSGUk/Jx2VZA/AZg68lG/KiA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/3Xsmqeb5GAOjv5As4PAUs8Djllg7o+osXn9kBNOygAGD81vWA
-	bYsfHzDJxpwEfoFrbwzk4VfswoykqDNIKXmqq0H9bT+ydg4gIjW6e5jOfK1GVw==
-X-Gm-Gg: AYBFou0ysxerMRbDFnYq0XJmkpSxLqjCzd4X/pBarY2hRAksvsu9g91etcEsWzws2QX
-	pNzi2zUPVtiEkB1ByByA6cSUUlWPd4t41hjzDjzGTAEgn75+rj5JF8B3NZ2bUnz52riOpwQRpnB
-	0Yb/z5imOKiGXOR1+nUQ8276GJYnbpP5OkDYoRkaUxdbF3izIqdXHHXj23Iy7H/131GYqhtdLM5
-	myKuMRR2BYSDtIoy8piWVZAQbSXBij/spH/kU4IoGefi6Bj6E/rcie5qs5HSMO/wpHRZ7PN72vv
-	nOOPjUJPO5wn0LEUb9VDncVIzi5KT3Vx1vu3jm+zsNSKVo3kC7HJ4GiZLDfz0Et+SRhnJskKuJk
-	eMqaLJreAsOgZe6y83rzzmpQhakiqZFnAD+Gm2vxU9xMc75gl4XTnoIwh7Mi6RFKEPYsP3V7PWC
-	z16sPKoKtUS7nBGLH2OxT2kQu6mXA+VrahhhEKlKu+mbeXZVy2RHrJvEdoPCVJuHRfrxMYBa7XW
-	xc4pr8cjakzKjQdwi06ROdE3fk2+cZCTNdOjjLv76Ufa71DH/NEMXwTFXtg4fi+V6QWGsxW4Q2W
-	R+l83cPHP+DHPiDhXsCfzoQ7kqSxdHZtmcPD1z/NgTrMFls8L310K+yievgpT4IgtJjKhiaCwkO
-	JZ3pM+AtThDoNpvhFq9Mu8U/tBLtoXApKTRvR1B71BBY6MxYyNsC620sYBIC0ZuvpPu+EZ2jwHJ
-	EBBQ==
-X-Received: by 2002:a05:600c:4f0f:b0:4b3:ad9d:e21 with SMTP id 5b1f17b1804b1-4b3ad9d0e48mr50657685e9.12.1793754463523;
-        Tue, 03 Nov 2026 17:07:43 -0800 (PST)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2ab00ff3dsm181749615e9.14.2026.11.03.17.07.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 17:07:37 -0800 (PST)
-Message-ID: <50be53a4-0136-4c8e-97bc-2cdc1caf76fd@gmail.com>
-Date: Wed, 4 Nov 2026 01:07:35 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XckCDUo3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793754663; bh=sIQ9+UAP+T9i5P1ER9oC9FsDhW/tA+9UYBuAznrvwXw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XckCDUo3yevlPgQZKZGLFP0ktoVcY1X1OO7DUGF5fH/TcPtUM3MDwg8iNR6Xdc8tN
+	 H30nbe0vpm1lRvHuOc9rz6UZiIKfZoLSLEYT7VE+oSsIgtcG/q2WTfrLBZrPE99BOW
+	 GFcsxqfEAuGkp+NfkDO9KZxGDD4noWRUTR3fABqw=
+Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 2C01F473; Wed, 04 Nov 2026 09:11:00 +0800
+X-QQ-mid: xmsmtpt1793754660t6g1vg8yd
+Message-ID: <tencent_C589954C94BAFF49A7B030C93F367DE1620A@qq.com>
+X-QQ-XMAILINFO: OVFdYp27KdlJbqk+LlwmVUQ2KYjzJKcNjveD1idqoyeT5DW3IAOGicR+nP7chw
+	 OGDMxNHly0X8F9qsbll4+hZpUxXxIjnneYuBD/PdVifo60Uav4qGqcahzuejhaXpFX+E3Hyfd2jl
+	 814pBevHYKOMfqgQgLA9Q52F4nCvSFkdTO4iSV8cKPwnFKJ8zSZ99VVFSl4F1fCXxu+BohL9rG0/
+	 LHwfF/O6ACbX0VhJFIMoLl3G+6YhRnJYkQsB7+0dLU9NT/ZVu+uNmtffnsf5YtVNk6bVSyo8sG3F
+	 oczUR4mapS0DDgF8N57+SikUiuEFqn+EpyJOC1g/KSM75DKAwIHFPCsGpY3etss1D2lhOtdjVAaS
+	 xzlHIuz29apKrDQJgHcISEEcY6KBMxNvZ8Zu5440tyL2/vpv0wJ61GnJUJAxtWZIVzojnMJ7LQiB
+	 7A9vdqIwavb3iQODrY+eu3JmRwrvevRxHwUP9Uoujfyv7u15hBoWLE6DnIqQMOQiqRRKCHGE4ERD
+	 36PJtayXbR9wJcRnhson4pyI+AoWz3+s1Z1kcI5CA1dP0irFdLev9ApobDjMOyZVe6aih7SWxOkj
+	 YFEIb2HUE2J0YlUrBsLNaATIm+7bKsN+Wu8QFzBko+GToD256CxlhFiCtRFtDE5fxXojPeYz6LL8
+	 G7IaSBD2fpRHnYqM5VNaGShxV2AAZncohiPygpm8xdwU8yAc8Q5UHEZJap36dn74KPkYhRZZUpeE
+	 AWkU/ng54TMRFKaCutqcB94CThjcdzFJSabbn/DKox/BYjNeUyY4ySLvKtg42zcdNCMVx85MdPQE
+	 Cuw+bpm12t/iH/XKWJyidOB5c1rTLzFJixBy7mhCzmM9vm4Yrg4QCuRh3Z4RptGhctSjkwR+bNca
+	 XVn36BQFK6UQVD5SbVfiQPhteRM8XMjphlygFJ2Bjes3cUh49CS+pNfLd5FWTd7YgDkwDM69avYy
+	 b7i6dwsi1CgMpBa60loHrjB+451MIgLwZ5XaCJhK2K4o4cgFJjDvMROWuPKtvxKw9Auhp9HuJ/sV
+	 C4f4wRuwZQYhtVzr5cBJNfTgQshfA=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Shuai Liu <847807867@qq.com>
+To: linux-media@vger.kernel.org
+Cc: bryan.odonoghue@linaro.org,
+	vladimir.zapolskiy@linaro.org,
+	mchehab@kernel.org,
+	manivannan.sadhasivam@oss.qualcomm.com,
+	loic.poulain@oss.qualcomm.com,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] media: qcom: camss: select GENERIC_PHY_MIPI_DPHY
+Date: Wed,  4 Nov 2026 09:11:00 +0800
+X-OQ-MSGID: <20261104011100.384923-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <aa7b58df-a7df-4d33-b2a5-9cc760dd9ed5@linaro.org>
+References: <aa7b58df-a7df-4d33-b2a5-9cc760dd9ed5@linaro.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -94,42 +84,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/5] allow dma-buf-io ctx reuse across files
-To: linux-block@vger.kernel.org, io-uring@vger.kernel.org
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- linux-fsdevel@vger.kernel.org, Nitesh Shetty <nj.shetty@samsung.com>,
- Kanchan Joshi <joshi.k@samsung.com>, Anuj Gupta <anuj20.g@samsung.com>
-References: <cover.1793751001.git.asml.silence@gmail.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <cover.1793751001.git.asml.silence@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 00:18, Pavel Begunkov wrote:
-> Currently, dma-buf maps can only be used by the file they were
-> registered with. This means that we can't open a new file, even if it
-> comes from the same subsystem and point to the same block device and
-> use it with an old dma-buf registration. That would be too restrictive
-> for upcoming filsystem support, so lift it now and allow reusing
-> contexts between files pointing to the same NVMe, even if they refer
-> to different partitions.
-> 
-> To do that, we add a tag representing for each file, save it from
-> the file passed during registration and use it to reject files
-> which tags don't match it. Tags are set by subsystems creating
-> files, should be unique and represent the instance of the
-> subsystem.
+Commit 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API
+devices") added a call to phy_mipi_dphy_get_default_config_for_hsclk()
+in camss-csiphy.c but did not select GENERIC_PHY_MIPI_DPHY, the
+invisible bool gating phy-core-mipi-dphy.c where that helper lives.
 
-Fwiw, sashiko raised good points, I'll need to address
-them in v2.
+With CONFIG_VIDEO_QCOM_CAMSS=y and no other driver pulling in
+GENERIC_PHY_MIPI_DPHY, the build fails at link time:
 
+  camss-csiphy.c:(.text+0x51d): undefined reference to
+  `phy_mipi_dphy_get_default_config_for_hsclk'
+
+Select GENERIC_PHY_MIPI_DPHY and drop the explicit "select GENERIC_PHY",
+which is redundant as GENERIC_PHY_MIPI_DPHY selects GENERIC_PHY
+transitively (drivers/phy/Kconfig). This matches the other MIPI D-PHY
+consumers such as rkisp1, mali-c55 and sun6i-mipi-csi2.
+
+Fixes: 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API devices")
+Signed-off-by: Shuai Liu <847807867@qq.com>
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+---
+Changes in v3:
+ - collect Reviewed-by tag
+
+Changes in v2:
+ - drop the redundant "select GENERIC_PHY", as suggested by Loic
+   Poulain; GENERIC_PHY_MIPI_DPHY selects it transitively
+---
+ drivers/media/platform/qcom/camss/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
+index b51745c942c9..e0cef2cdd0a1 100644
+--- a/drivers/media/platform/qcom/camss/Kconfig
++++ b/drivers/media/platform/qcom/camss/Kconfig
+@@ -7,5 +7,5 @@ config VIDEO_QCOM_CAMSS
+ 	select VIDEO_V4L2_SUBDEV_API
+ 	select VIDEOBUF2_DMA_SG
+ 	select V4L2_FWNODE
+-	select GENERIC_PHY
++	select GENERIC_PHY_MIPI_DPHY
+ 	imply PHY_QCOM_MIPI_CSI2
 -- 
-Pavel Begunkov
+2.43.0
 
