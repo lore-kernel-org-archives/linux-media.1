@@ -1,95 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793770090;
-	b=Wua/PMFUob3mYLb5t+SuSY/YXmN/kmhpkYv1qOlckC0xuLzmmgdCo5f3tuE4ODEF7d35
-	 ErBHUp7nigR7yKIsNQkZk4a4AyCPAktyqTo15B6MIXdn4ejy9NermDFT20u3KOdAS+KJP
-	 pPhURcOXtuAVclApGwUtdO1xfQ6TdjMyxC8S3/9iCpnbjlnovBki0BSsMmdZpwpssiVq/
-	 7zZvRtOSPIcyi1hmpLUxVEagoL/dDegL+dV7Bij0os17rmjtS1JEVnbrNQJGNTCwTj7ja
-	 6U76tEvq9RIu6cBVvcG/IzZ9cuMFtBZBF5QVQWxLPwop0CdTNk39HMcXQRkjBmhbwpQ==
+	t=1793772151;
+	b=DvSbTNCekkhkNZwv9ofQFrPV2/bwJEBIjiL5izCFuSbYuPaXp5M6FYIxl0zVjUPng1AL
+	 9YyJwNO4ooURVkmIOo9LjQeTDLle3/mH0tbMF7H+dtKyRpq8CMg9tsh79F/yy0fZ0eitD
+	 fVlCNV903FMhgug76BQ+sNx1hX1VoiCKbgdAg9FQmP+6A1EQrLm/92vjfk+PC08vFsmQu
+	 K2YJEKCKRYaV5CXx6KwwF7ZunMm1WB02H7//TNEVcMk/tsLbpoVTCN9V4cq34Uz/E3Ggt
+	 pWA8ZO5ehxIMdhZs4BdtUkdQVqLbLklAzy5p7oErz0Jd9TbyesuKk1UACSjDg4HRHFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793770090;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
-	b=m76eHb5m9nCxLq97wAdJ+w7duLSb2oxiZh02KVjD9JEFy0SH45O945UVcnnndiiz5SxL
-	 6AsT0pCtgWWzLUWJ5qQgADSwE9HIFPj6wCbQLBkET5ki0pX3YsmKy6W/DfRSH+t1G1sie
-	 Pkz8+FKcMwbUl+zRVjMZFMyROsrhcQKxbzC6IGhFyWEgDS9+dBoyyLE8UokkhWNO6c2YL
-	 hgoTcsRT5oZKD5s9mXNcdqWoNpt7jNTr6mOg1VvPq2CM8iOTkY/6rWkrdad8dl4M5M8Zj
-	 BZXzQhg4ZCOI9x+RY5nV3h7fPKtrEZU1EPkld2Q1aLG/2pBJrjbYwTwjn8/1k/JnIxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793772151;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=uOLB12MQyjEBV9DH0Gm1V/oqPC1Qg/RHhTnpXOkgJ+0=;
+	b=A2FPDFTsPLVpvtSScWUUs5slia4fUWDVZVJQc7XTKdi1BYZBajrspxexMc31Mx1N2cQm
+	 allGmptekswri8pzOYW7Ge5jEYGS4LmJ3F0pKxrlzoxwBQyDjG75+L65KOILk4yjeIjP1
+	 YJTK9R7i2OANaPowpFLxw4gZtBiw9tLAZZZ5B9fNnyotEXMwmgMPBqG/n4FozM8a2v3OP
+	 bwJNuu9dITrB25gyCFunodV8t8XJsFKA3mLCAqzXdoKYg0aE2FL61SyDT4eYFykhJkn8p
+	 cclDWBCvp+PyIsce3ZlKZfDNmPqGnkFp9k+sBgpYFJ/PZXiLZ9pAhb3tjsUlzWP5hXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oAnu04eU;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=CSNdwhbz;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70239606A328
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 05:28:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70239606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC426606A31B
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 06:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC426606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oAnu04eU
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48afcd7ba9bso140002f8f.3
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 21:28:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793770087; x=1794374887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
-        b=oAnu04eU+s3LGkUx1jwkqz7Twro5AjH5asleqtuon57Etq/k0ktcWSor0iWMB0/l3m
-         fJ9E75NjnOf3htVo3Mixg2r95tpRcUZ5aPiupyVY7H+nuJbKLr3nB/AZ/LcopLRhFPTk
-         l4/oooMuHStQY89DRz/4dC3LlbRlJPq9rY9ijo4IpoVZaKejlzAD6U7ZtMgLUYlakxe3
-         JkFzpM+ndtOyjIsFDAWfOKQwsMqXL6lKHnRkqr/MeoRMW9UfqANYsTNdFdQBR2k7Ex6A
-         VJ2jwbWIaT46VKs4uL6gotYb4fngQ1RtXzxNxYKkb97QymYrMszkXGOYcYCrIZdchKaN
-         Wypg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793770087; x=1794374887;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=irQAokomBOrEvq1E25b1/yaWaEKJedcNM9avak0rsxM=;
-        b=EWvVTqlibjMehIfdPIACbG+V3LT/xGFXSsvnoCVLF4ckRYbj1wiNR/8ph4LBINXS71
-         kJs4EYHxtcm1sFIOravrPinBxKaP/ctpx8eQRNbepWnjvZ1BmLDqZZ5lNbmEv5mdXUns
-         jqMZ8S3PhRonmR2Cy+wexmfypL9RsC3/p1kf8JCFIE7qABH3YLT4DVHVolo5Q89UiGl7
-         DVMHKvgzrs2GuNpj7SQ+Vb91kPzBakKOuWVUkZeYRXQtlgGEyWRhzMAepRNm2dWJ3Vfq
-         s2+RFs7LpHBGh8tPE54jYLDooJRhGjhYPZnfuAwdyNESlxEKDuiTJ4vkrQgYAFVgDpKK
-         gMAw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Z3U5hMKHBEZueNHc//2/qnUALdegFjk5S5GJCm2l/lWVw2idIvjh0XxblbxsZp9XBOurC4P1rZmsmQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+mLduqRxAU9SMnf/pNXiY3h4y8s2xZpp/CwpjVN61HQbmvc0Ar
-	DOMVyjCiGCnfdoy94jk6WCvjMjMPbqYVOwpCGNA+mbEbbx8luGehHBa2
-X-Gm-Gg: AYBFou3EDw8ZgES6O+q2Xr7WRWzXEYqvLBIwvnQvdR9afFfCUFtqLKWlKjS6HjTWK2r
-	mT6Jc4ACAignVfPyQnjCy63Y3rOXrewDQnBTFASSffMzYs8qcWeSiAqbdD1xxG6fQLH9D1t43QO
-	XUOKypcOL/8bnMnCQrN+znppjNNjUYDS+U3/ifR9I2Lc3IfirxE8mvbZ5gUT1Kuky2DXttSbXK6
-	y3d+uX8zLVVe/0jX4fp5CEdAj2qGpISpySHyxSDd5R9pghYEXmgPlDZHMr/c26dUAkBGogg/dtl
-	SD9Z3phXATZW+SZ6Av3sGjjNVLgTXnclbQHpjWAZPk8eUEvA8B9rDopEuwH+eR/VBScRWCZc0t8
-	QTP4xMvTyLOGBdLUQaU8GFK+5bPdFX9lpSlpzntIaNBqQAFlmRPc1jxFsUOCsJaXtg8Dl67wIOU
-	6iYCjEWixbYAWG0V1hUKJcdoE9l6jfG9hFfvUb7G6ogoGbErjNt28Dp5Zk8yyATOT4Bf3R/g57S
-	CWYO8h+fbUjQp2CqxW6BS1n45drqv2Or8hJp7EVMuFyU4pDiivqac/0yJZ+29hM39pQ4MZjn6wV
-	eF9omdn7NrUOOsZU0/X0530D7nNTmqkh8JErbMwpCJztZ04alvWFMItBw5cZU+ZYiuTJQPFG8N0
-	rT3/1lw==
-X-Received: by 2002:a05:6000:4301:b0:48d:ff0d:cfa5 with SMTP id ffacd0b85a97d-48e6e50049emr34787634f8f.47.1793770087179;
-        Tue, 03 Nov 2026 21:28:07 -0800 (PST)
-Received: from recorder.play.pl ([2a02:a31a:a1b6:b080:1f0e:f037:ff95:4265])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed92a753sm1917062f8f.45.2026.11.03.21.28.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 21:28:06 -0800 (PST)
-From: Greg Sikorski <sikorski.grzegorz@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	"Jiangong . Han" <jiangong.han@windriver.com>,
-	linux-kernel@vger.kernel.org,
-	Greg Sikorski <sikorski.grzegorz@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: em28xx: fix NULL pointer dereference on disconnect of dual-TS devices
-Date: Wed,  4 Nov 2026 06:28:00 +0100
-Message-ID: <20261104052800.44551-1-sikorski.grzegorz@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=CSNdwhbz
+Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 772AF9A4;
+	Wed,  4 Nov 2026 07:00:08 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793772008;
+	bh=Cnk96OCgnbj2Jb0Ey9mMBCeUlpoB5lqKL9eKvdYZpBc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=CSNdwhbzGIbmccGm+jIIqMaxYtk/maosg2+ij+ZsyqD1sZrWQPeLrz9CGWIx97l65
+	 OtECVjfGHMYCjcDS3hzLlPySkizx5TiYpSzXT8M+SL4wFPzhNBdVfSlLeATje+IADg
+	 Qmn8RqtWkoOJ7WWpHHFjtc24tcQvuW429wkPcIC4=
+Date: Wed, 4 Nov 2026 08:02:24 +0200
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Ruslan Bay <ruslanbey@proton.me>
+Cc: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Andreas Helbech Kleist <andreaskleist@gmail.com>,
+	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
+	"tfiga@chromium.org" <tfiga@chromium.org>,
+	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
+	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
+	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
+	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
+	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: [RFC PATCH v2 00/12] media: ipu6: Add support for IPU4P hardware
+Message-ID: <20261104060224.GC3619815@killaraus.ideasonboard.com>
+References: <2MQDQgaaKZ4HAu3U6zhMj_Muf_H8tsVGLh_CSXM_kxcTL51pE14U9-brGqLYwPPJfDXHog_jWWWOTgToPYLMVZN-KW80t9sDIlEw1uwg-FA=@proton.me>
+ <auj3IU5FC2lejqa7@kekkonen.localdomain>
+ <aDZJlXzfVn1R7UC47TgI2YbHkd7cFWAqFk62vFouazo-xyzLXPnqKoZ_fWP6DX2YrCNI5F0hmapeic6LiKHdlluFARAsH_MTybxQjkIov6E=@proton.me>
+ <auopqnqgOTY2x7No@ashevche-desk.local>
+ <Nd0nHHFZe3yDdCr1d8dOPvVmpKnjbnhqj5AEGS0D9e_n8RhsX9cMsB56L9Fob8IFYJvjkZptYaa7KROk_dMxIP_5LROFdhoaEJTAaUa5kqc=@proton.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,71 +75,94 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <Nd0nHHFZe3yDdCr1d8dOPvVmpKnjbnhqj5AEGS0D9e_n8RhsX9cMsB56L9Fob8IFYJvjkZptYaa7KROk_dMxIP_5LROFdhoaEJTAaUa5kqc=@proton.me>
 
-Commit 826915b6b65e ("media: em28xx: fix use-after-free of
-dev_next->devlist on disconnect") made em28xx_close_extension() unlink
-dev->dev_next->devlist from em28xx_devlist. On a regular dual-TS board
-(e.g. Hauppauge WinTV-dualHD, 2040:8265) the secondary device is never
-added to that list: em28xx_duplicate_dev() kmemdup()s the primary device
-during probe, before request_modules() -> em28xx_init_extension() links
-the primary one, so dev_next->devlist is { NULL, NULL }. With
-CONFIG_LIST_HARDENED the inlined list_del() validity check dereferences
-the NULL prev pointer and every disconnect oopses in usb_hub_wq with
-em28xx_devlist_mutex held; the device never re-enumerates and the USB hub
-thread stays stuck until reboot:
+On Wed, Nov 04, 2026 at 12:40:17AM +0000, Ruslan Bay wrote:
+> 
+> I sent the email in a hurry from my phone and forgot to check the
+> line length. If that's the issue, fair enough.
+> 
+> Now, about doing something...
+> 
+> I'm genuinely trying to keep this discussion constructive. But if you wanna
+> go there... as someone who owns an Intel-based device (and, unfortunately,
+> is also an Intel shareholder), I have a few things to say.
+> 
+> IPU4 has been around for 10 years, yet Intel engineers never made a serious
+> effort to get the driver upstream. Instead, the driver was renamed and sold
+> to their managers as a new IPU6, even though it shares more than 85% of
+> its codebase with IPU4. Then the same approach seemed to be repeated with
+> IPU7 - the existing IPU6 driver was renamed and even managed to make it into
+> staging.
+> 
+> I understand that this makes internal KPIs look better: more lines of code,
+> new repositories. But it also makes it unnecessarily difficult for
+> third-party developers to understand, maintain, and contribute to these
+> drivers.
+> 
+> And this isn't an Intel-specific problem. Qualcomm, MediaTek, and other
+> vendors have similar issues. They announce a new product, I get excited
+> about it, and then I wait a year or more for proper mainline support.
+> By that point, I'm already over it. Why would I buy hardware that doesn't
+> properly run the software I use? Why would I buy an outdated device
+> that's going to be abandoned by its manufacturer after 3–4 years?
+> 
+> I understand that Intel sells hardware, and that releasing a new socket
+> every year forces customers to buy new motherboards with more Intel chips
+> on them. But customers aren't stupid. We care about long-term support,
+> compatibility, and whether the hardware we buy will actually work with the
+> software we use. This is one of the reasons Intel is losing customers to
+> AMD. And I can assure you that the next device I buy isn't going to be
+> Intel-based. It's probably not even going to be a PC.
+> 
+> I spent my own time getting the abandoned downstream IPU4 driver to work with
+> recent kernels. Now I'm trying to make it more upstream-friendly, hoping
+> that one day I'll be able to run a mainline kernel on my 7(!)-year-old tablet.
+> I guess something about that upsets you.
+> 
+> For full disclosure this email is AI-generated.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  Workqueue: usb_hub_wq hub_event
-  RIP: 0010:em28xx_close_extension+0x80/0x130 [em28xx]
-  Call Trace:
-   em28xx_usb_disconnect.cold+0x87/0xed [em28xx]
-   usb_unbind_interface+0x9b/0x2c0
-   ...
-   usb_disconnect+0xe7/0x300
-   hub_port_connect+0x7f/0x930
+Ruslan, if you can't even be bothered to write this e-mail yourself and
+instead delegate conveying feeling to a machine, I don't think you can
+expect much. The ipu6 isn't my driver, so it's not my call, but if it
+was me I would just plainly reject this very rude behaviour and the
+whole series. Supporting your hardware is no justification for such
+behaviour.
 
-Initialise the list head in em28xx_init_dev(), which runs for both
-devices (for the secondary one after the kmemdup()), and unlink both
-entries with list_del_init(). That is correct whether or not dev_next was
-ever linked, so the use-after-free fixed by 826915b6b65e stays fixed.
+> On Tuesday, November 3rd, 2026 at 7:36 PM, andriy.shevchenko@linux.intel.com wrote:
+> > On Tue, Nov 03, 2026 at 12:36:26PM +0000, Ruslan Bay wrote:
+> > > On Monday, November 2nd, 2026 at 9:48 PM, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> > > > On Sat, Oct 31, 2026 at 12:18:19PM +0000, Ruslan Bay wrote:
+> > > > > This series adds IPU4P support to the upstream IPU6/IPU7 driver.
+> > > > > The IPU4 family includes IPU4 (Apollo Lake) and IPU4P (Ice Lake);
+> > > > > this series supports IPU4P only.
+> > > > >
+> > > > > Most of the groundwork was done by Antti Laakso in the IPU7 support
+> > > > > series [1]. I added the IPU4P-specific parts, using Intel's downstream
+> > > > > driver as a reference [2]. The code mostly generated using AI.
+> > > > >
+> > > > > Image capture was tested on a Surface Pro 7 (i5-1035G4) with
+> > > > > both the front OV5693 and rear OV8865 cameras. Test logs: [3]
+> > > > >
+> > > > > Thanks to the linux-surface community and the libcamera developers for
+> > > > > testing the downstream driver and sharing their findings.
+> > > >
+> > > > Please use git send-email to send further versions of the set if any --
+> > > > threading is broken in this version. No need to send a new version just for
+> > > > that though.
+> > >
+> > > Thank you for taking your personal time to review the series.
+> > >
+> > > I'll address your feedback, send the updated series to the linux-surface project for testing, and then post a non-RFC version upstream. I'll use git send-email for the upstream posting to preserve the thread.
+> > 
+> > Have you written this reply with AI assistance? This promise already is broken
+> > as I pointed out to the very same issue in RFC v1. I highly recommend to reduce
+> > AI usage and start doing something.
 
-Fixes: 826915b6b65e ("media: em28xx: fix use-after-free of dev_next->devlist on disconnect")
-Cc: stable@vger.kernel.org
-
-Signed-off-by: Greg Sikorski <sikorski.grzegorz@gmail.com>
----
- drivers/media/usb/em28xx/em28xx-cards.c | 1 +
- drivers/media/usb/em28xx/em28xx-core.c  | 4 ++--
- 2 files changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
-index 8440eafad..4d2ea2e27 100644
---- a/drivers/media/usb/em28xx/em28xx-cards.c
-+++ b/drivers/media/usb/em28xx/em28xx-cards.c
-@@ -3845,6 +3845,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
- 	const char *chip_name = NULL;
- 
- 	dev->intf = intf;
-+	INIT_LIST_HEAD(&dev->devlist);
- 	mutex_init(&dev->ctrl_urb_lock);
- 	spin_lock_init(&dev->slock);
- 
-diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
-index 62a1c25a2..ab1e1e18b 100644
---- a/drivers/media/usb/em28xx/em28xx-core.c
-+++ b/drivers/media/usb/em28xx/em28xx-core.c
-@@ -1263,8 +1263,8 @@ void em28xx_close_extension(struct em28xx *dev)
- 		}
- 	}
- 	if (dev->dev_next)
--		list_del(&dev->dev_next->devlist);
--	list_del(&dev->devlist);
-+		list_del_init(&dev->dev_next->devlist);
-+	list_del_init(&dev->devlist);
- 	mutex_unlock(&em28xx_devlist_mutex);
- }
- 
 -- 
-2.53.0
+Regards,
 
+Laurent Pinchart
