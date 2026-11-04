@@ -1,86 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809038;
-	b=uH60rChPLku5Ei0kJx2EYJgcCxKxJdON0zGP3j3yWCqIkcXcpJPpmbcAb000G0OVueA1
-	 YAtV/eQAoCrVpcuHk1s7fK/xGY6vBqRASY/CKWwWCsp3ib0k4r9NAVFASTTSS/hZxxt59
-	 XsGxk8y/FKO3NROQpfOJTvP7S80MVkWBdQB1oWVU5hlPZbJHKgOd6OdddgkVXPVVjpjgP
-	 GQhUGAYAIvZztJBo6cWWjGgoaFSP1E/SphVv9jrkm5Pt92yJRnCQIMsgHf8Y+eXxtCPCj
-	 BVdcKx8D4vErEvlzknZReDbBTOUAhNF2eOrUbmheJivUGuWOGmoDthe+dqa9wzsp9vQ==
+	t=1793809448;
+	b=hpj2TMPHo4n/v64WE2qVGGicDsEvv7kX17q3/Bmn53Z1qzGw5ntrPSU4+hbxzH5FVF1T
+	 bEmF6CkS4riscI/BLlV45sJ6YoE9aPjQzECUS2TSGXhdOHv9QSkiAIjJUqHdw/tosMPOH
+	 bkmv2N0OV3fpw62Y0EWsAVMs62syfiPT0ELdLBKJROzCVeilQqc+MlY2B72Xs/ZDpdG4C
+	 cWS6fbU+6TnNKaCH/RlaAB+t2CDZNOER4ZtmV6QVQaF+s/NjpSDsxP3jSkxveNNcj8dHV
+	 6LHiuJf8sSxL5tFD5LX2KFBvf/2kGMgeSWA1bM/CFS0XBqGK9F41xBs//KXyhalrRfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809038;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=WGjQzXDbihJeW6cw6LNSbBuxJDvDK/XLahSbUoADWnY=;
-	b=V9+I/WYJA52KNQJKFQW5Kf9Ho3DKVioHQpiJVRj3dTFQ3VIYPFaudqSB7vs+pzMsp7xf
-	 915TQELvjGtmgFPer4z0ZHuJYKxkI8fqv2N+s+dcyOTBpvRngZ1C5xz/F0JQgJBTLWyUF
-	 8MUeBtJaC87QjN0hZH6CaZmDIZImRAyBi9GUiHcW7agdIPsph70LE36R1ebWjMon5/Wve
-	 jpyNHf9S9o622F6+RFm7X55wRCByMXiuuSuGR9S3wvjEwxMisFWi7EcUsnJoCIGkrBDUl
-	 HF879kUV6Ae3HqyB5bxdUoUyZkruFawOaWKA/F8yBGJEARqXBA1458r2MLUdHa7DdfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809448;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=8yMCvYeghmYZPA3TkxIffw8/jGubs8fIzlV+8czvpCA=;
+	b=hX8xGJ87d+aew6rSbhKCbVeU0pGAUngIXJHbhkrykfvuDCOTHrEZCdt0U7+bQrs6W3WS
+	 yNbWwBTLJpSzO7+Yv/x+A2PqwbVfjEoZnIRNZpgGZpBp1v0L17AhyVEt2izRqh58okJeJ
+	 KaVuwFtNEOdu64qg7aHc5o3ZQP4PpoKhJbbnuAAo9+H7HMeqkX90KEp6MvUNyCJMQLQQo
+	 m9fJiEycthCSSb8qB92y8VqCSSfhkSo8AXtwH4M5I+lweJy3HNM+jc6zgos0cJTAU3yos
+	 EhW3L77/FMVMDvGLcvvNsRflr8/Qkj054y1eILMWt4KdMlhvVlGMI2SyaWbxwIaU4+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=raiqF4yg;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="r/K7kW5K";
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF3B606A32F
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 16:17:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8DF3B606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB33E606A32C;
+	Wed,  4 Nov 2026 16:24:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB33E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=raiqF4yg
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a214c5c4c0so8189255e9.3
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 08:17:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793809036; x=1794413836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WGjQzXDbihJeW6cw6LNSbBuxJDvDK/XLahSbUoADWnY=;
-        b=raiqF4ygK5JlaCGtO2waCV60lOHlih3bqY/lQOUAr5R3FP/h9GqOq9C9WlKrIiK43p
-         DXycWEIoorIOR+t0tgYbutbTXDTie3myKpP4X/w5OiftollhGD7cR4paG4TEfRddYHv9
-         XXIbRBhINwHfyoqGWrS9Vzfs//UNKLRrC2EWrOL2dcp4OVQSaWoaQWAwyz+o/PMv2ir3
-         pSHwmu64dQI8dodQraZsnCHpfI8Iyysr7ciYmkqsXNvK50Z6BrjiHgO/cUi37Am3CwGN
-         HUsYStNjCWrLTzU8jLkNGuDqPZI8Oqq2d/qm61DK56PrvpeVwwMhLbF+GHtnzFmAgAvJ
-         M9HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793809036; x=1794413836;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WGjQzXDbihJeW6cw6LNSbBuxJDvDK/XLahSbUoADWnY=;
-        b=AkMBeq2IvjgztpKVSi/I3xZf3MrEfpDiXMkonfcJDbXck57Nw+EY5Kxj/zUJUYspG0
-         qhykBFVAyD7m/lBOjd8ZdbbKHMcwsjJ9vpHdv4H4j65TdEzVvdZ4xVhJUZl5zQhpmckw
-         BxFNaR7IEspUJCS8XqjsIoNVtXlwZ0SaSkCnulqLXSE+37GRczFQZyh/V37vLOOvv2zs
-         HV1KOcJTVc0ezFMwXaLnnJFwCBuGioTShdGighkCRucM8JpxFPXsf2yONNIWouHDz+Tj
-         sEviq5Y+25v1WRWnCBIGE54oJt80Z30PaMXENbmhTvyosL06VeTIEMCBPtBUBM5Uu1bR
-         TQtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwwV9/dkMXN7vApiorMrNn65aEHDNkjo99KwmQFbSFCbcz3cAVFA+Sji9nTEGJA0IgbS7yxh6vWQqQmbg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/1MaDdQRVeWRl9kke3DGVBin6roil+ACy70FYyPIK5+1ac5JXm
-	oszYMdP9OXJfIrNI1Kbh/Nk/6opxejUT2jwizRRP59Cag6TB3enOtdP95rR0Jlr1gQE=
-X-Gm-Gg: AYBFou0+1ICCABZ3ElmDl10qzONn6SD0VtkfKt2EzXQMAgnnuvkJjkYjmCEAhRa+UO5
-	0vCNHq11sC9iz/IoLjAE41esfE98RBgX6Pnl3eND6hFgPB4L90Jqlnx1U3qekMrWwPMxpJ+3Mnd
-	xNLh4qoGBkv2rt4pCn9Zp/FP0oItNohcxnUMprHyeQHE0Ed7fVJV7KtkMmI4w1rKiUniPu1cYXW
-	CtSSmdHAx3FUseWHU/aV9tlLqsSdUvuuUQCxLIdtruY8NSE1E6CdQAkA49cK8DDPRbbCtbOKLMc
-	T+gWMwyUv+CDSECsDpOdj+EvOvEi4Z3I/9UPbDqN6b65AXYjNn/+9g2r0lwKpS6GAXJz0UhUmcd
-	Nfdqif6mmIO+mqD2GTIwekcQ6a42Y1pV1NO9Nk2NWXYmnw84QhMPc2RicmJ2bW/x/xuIiuHtXgQ
-	VYzIch02+vL9BCedZlvSN1TgbqYuq65ocxWxZQzYZcPJ479g06UvmKr8j079l+FBNa8Q0eAKdg5
-	ohWf93rJg7DobTZ/FEpdqifa99PR3B7GpM8QXj94lSLb0jIyi60Ky+xqVodYuGU3hLvDB6qqilC
-	UqD9hk+7g5xxmV6GG7ZI+XIpb+9OUj6oLSjZPG2CjB0=
-X-Received: by 2002:a05:600c:5295:b0:4a1:e92b:ae4a with SMTP id 5b1f17b1804b1-4b3c3545146mr75677375e9.21.1793809035955;
-        Wed, 04 Nov 2026 08:17:15 -0800 (PST)
-Received: from [192.168.0.167] ([109.76.163.117])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a9faff90sm169274795e9.5.2026.11.04.08.17.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 08:17:15 -0800 (PST)
-Message-ID: <7acf1f64-a2ac-411d-a235-69ea52231623@linaro.org>
-Date: Wed, 4 Nov 2026 16:17:13 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=r/K7kW5K
+Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BC42C4DC;
+	Wed,  4 Nov 2026 17:21:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793809307;
+	bh=GdIuvaxUvWhoJU/w/vWgBMZrzMuLhEaSuLfiGH2sLkU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=r/K7kW5KiYEp9y9wOYKdtSRQ4by97MqGLfkx9aviIaNEUy4Dp/2lrAdJxHyhIy8+y
+	 1o39aKfeBdk6OkvgXjhGucLTu0S9XBelREZZcZ6PQKW1fJZHYL9I+vT8cGhPRB472p
+	 /UFKSdXJ9Phv8ew01QDF/BdY+OQ+OJzsCDxxVAQ0=
+Message-ID: <6a86cb84-c4b4-44b3-9977-12ac1dc8505c@ideasonboard.com>
+Date: Wed, 4 Nov 2026 16:24:01 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,68 +55,154 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/5] media: qcom: camss: Add support for Hawi
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+Subject: Re: [PATCH 0/7] Introduce v4l2-isp reset buffers
+To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+ Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>, linux-i2c@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org
-References: <20261030-hawi-maili-camss-v3-0-9742bca8cef2@oss.qualcomm.com>
- <fFfGGWaoXA-LdO6s8Xh_kQWQfncXe9YNdpcj2yNkphWHAR_V69LdLOcuhXPsbg8dEUSN4j4yygq4wPre5cz79w==@protonmail.internalid>
- <20261030-hawi-maili-camss-v3-5-9742bca8cef2@oss.qualcomm.com>
- <5817be6b-7180-407b-acb5-8c5fdef4edfb@kernel.org>
- <73b1f591-69cf-471b-9763-a0b719c74501@oss.qualcomm.com>
- <fac8cd6d-c3f7-4ed3-b0d4-7cb8a7a6f451@linaro.org>
- <d92a8aaa-5cef-4416-b1c9-46ecfc6b2745@oss.qualcomm.com>
- <CAFEp6-3ka3ZKzCoLQ5BNv0YR+yhYXVRwV6G6rM8Lx_9hZ0RqVw@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <CAFEp6-3ka3ZKzCoLQ5BNv0YR+yhYXVRwV6G6rM8Lx_9hZ0RqVw@mail.gmail.com>
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
+ Dafna Hirschfeld <dafna@fastmail.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261104-v4l2-isp-resume-v1-0-06aeb8cf2940@ideasonboard.com>
+ <20261104142302.GK1959885@ragnatech.se>
+Content-Language: en-US
+From: Dan Scally <dan.scally@ideasonboard.com>
+In-Reply-To: <20261104142302.GK1959885@ragnatech.se>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/11/2026 16:11, Loic Poulain wrote:
->>> We have a series from Antans to address this though.
->>>
->>> We should list the clocks the SoC supports not constrain that list for
->>> one specific sensor on a test-case.
->>>
->>> ---
->>> bod
->> Good to know that Antans has a series addressing this. I agree that we
->> should list all the clock rates supported by the SoC rather than
->> constraining them for a specific sensor.
->>
->> One additional concern: if the clock selection logic still always picks
->> freq[0], listing a lower rate first could leave CAMSS unable to work
->> properly with sensors that need higher bandwidth.
->>
->> Could you please share the link to the series? I'll rebase the next
->> revision on top of it.
-> I don't think Atanas' series targets the CSID clocks, only the VFE
-> clocks. Ideally, we should make similar changes for the CSID clocks as
-> well, but for now they are not being considered here.
+Hi Niklas - thanks for commenting
+
+On 04/11/2026 14:23, Niklas Söderlund wrote:
+> Hi Daniel,
 > 
-> Perhaps add a few comments documenting the supported rates and use a
-> single rate for the time being. Once the CSID clock changes land, we
-> should be able to revisit and adapt this accordingly?
+> On 2026-11-04 12:28:15 +0000, Daniel Scally wrote:
+>> The V4L2 generic ISP parameters buffers described in
+>> Documentation/driver-api/media/v4l2-isp.rst has a problem in that if
+>> a driver using the parameters format is running a stream and the
+>> device is suspended to RAM and later resumed, userspace will not tend
+>> to reconfigure it with _all_ of the possible parameter blocks. The
+>> format allows only a subset to be populated into the buffer queued to
+>> the driver and this is the common practice in libcamera. The effect
+>> will be that a resumed device will have lost any configuration that
+>> tends to be sent only a single time at the start of a stream, for
+>> example lens shading table settings.
+>>
+>> This series performs some preliminary cleanup and then adds the "reset
+>> buffer" concept to v4l2-isp. This is a mechanism through which user
+>> space can flag a struct v4l2_isp_block_header.flags as needing to be
+>> reapplied on device reset, such that the v4l2-isp framework will store
+>> that block into a buffer allocated for the purpose when it validates
+>> the block.
+>>
+>> The last patch in the series updates the rkisp1 driver to use the
+>> v4l2-isp reset buffer to reapply that saved configuration on resume.
+>>
+>> An alternative approach might simply be to store the "last seen" copy
+>> of any block in the reset buffer - this would be a simple change.
+>> That implies a lot more processing on the majority of frames, as we'll
+>> then always copy at least something, but it reduces the risk of losing
+>> a setting. That amount of processing each frame seems very undesirable
+>> to me though, particularly given the scene will presumably have changed
+>> after resume and so the settings like AWB gains that are applied for
+>> most frames are probably out of date anyway. On the other hand we may
+>> end up flagging a lot of blocks, as there's parameters that might be
+>> changed mid-stream (like gamma) but would not be so regularly changed
+>> that we could just rely on them being sent naturally on resume, so a
+>> third approach might be to invert the meaning of the flag and store
+>> any block that _isn't_ flagged as _not_ needing to be reapplied.
+> 
+> Is there any reason not saving and restoring all relevant ISP registers
+> directly in the suspend() / resume () callbacks? AFIK this is what most
+> drivers do here and it's not clear to me why this would not work here?
 
-Its the same principle though.
+I don't see any reason that would not work, and maybe I overthought this indeed. This method does 
+still seem to have some advantages to me though; it means we can easily reuse the existing function 
+in the driver that applies the parameters to the hardware, which should make adding suspend() and 
+resume() support for a driver that uses the extensible parameters much simpler. If we were to read 
+the settings from the ISP registers and store them in suspend() instead of doing it this way I think 
+I'd still want to re-use the normal "write-params-buffer-to-hardware" function (for example 
+rkisp1_ext_params_config() in the rkisp1 driver) to avoid the risk of ending up with differences 
+between how the parameters were applied on resume() and on the normal handling of a parameters 
+buffer from userspace, so I think that we would end up populating a struct v4l2_isp_params_buffer 
+that was stored in the device's driver_data struct anyway - the difference would be that we'd have 
+to build it in suspend() for each ISP driver instead of having the core handle it in the course of 
+normal operation. I could knock up an example for the rkisp1 of creating that buffer in suspend() to 
+see how it looks perhaps?
 
-I don't think there's a valid case to exclude clock-rates purely because 
-one sensor requires the higher rate and we aren't willing to do the work 
-to make the clocks smarter.
+The "reset buffer" idea also means that if we extend the parameters buffer for an ISP with more 
+blocks in the future there's no extra work to do in the suspend() and resume() callbacks for them - 
+as long as userspace flagged the new block then they would just be reapplied "for free".
 
----
-bod
+Thanks
+Dan
+
+> 
+>>
+>> I'm open to opinions on how best to set the balance!
+>>
+>> Please note that the changes for the C3 and Dreamchip are only compile
+>> tested.
+>>
+>> Thanks
+>> Dan
+>>
+>> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+>> ---
+>> Daniel Scally (7):
+>>        media: rppx1: Drop max_size param from rppx1_params()
+>>        media: v4l2-isp: Hold v4l2-isp data in central struct
+>>        media: v4l2-isp: Update users to initialise and validate new struct
+>>        media: v4l2-isp: Use centrally-held data in framework
+>>        media: v4l2-isp: Add v4l2_isp_params_for_each_block()
+>>        media: v4l2-isp: Introduce "reset buffer" concept
+>>        media: rkisp1: Re-apply v4l2-isp reset buffer on resume
+>>
+>>   Documentation/userspace-api/media/v4l/v4l2-isp.rst |  19 ++++
+>>   .../media/platform/amlogic/c3/isp/c3-isp-common.h  |   2 +
+>>   .../media/platform/amlogic/c3/isp/c3-isp-params.c  |  28 +++--
+>>   .../media/platform/arm/mali-c55/mali-c55-common.h  |   1 +
+>>   .../media/platform/arm/mali-c55/mali-c55-params.c  |  28 ++---
+>>   .../media/platform/dreamchip/rppx1/rpp_params.c    |  30 +++--
+>>   drivers/media/platform/dreamchip/rppx1/rppx1.c     |   8 ++
+>>   drivers/media/platform/dreamchip/rppx1/rppx1.h     |   5 +
+>>   drivers/media/platform/renesas/rcar-isp/core-io.c  |   3 +-
+>>   .../media/platform/rockchip/rkisp1/rkisp1-common.h |   3 +
+>>   .../media/platform/rockchip/rkisp1/rkisp1-params.c |  61 ++++++----
+>>   drivers/media/v4l2-core/v4l2-isp.c                 | 126 +++++++++++++++++++--
+>>   include/media/rppx1.h                              |   2 +-
+>>   include/media/v4l2-isp.h                           | 109 ++++++++++++++----
+>>   include/uapi/linux/media/v4l2-isp.h                |   1 +
+>>   15 files changed, 331 insertions(+), 95 deletions(-)
+>> ---
+>> base-commit: 00178eda305a332f302882849ff7374d4169be8b
+>> change-id: 20261030-v4l2-isp-resume-41fad731df28
+>> prerequisite-change-id: 20261028-rkisp1-suspend-and-resume-7d4f388a9a61:v1
+>> prerequisite-patch-id: 8f6b499ef7898229c5b02e987822dd676a0cfd74
+>> prerequisite-patch-id: 56d0852983c6f46537c03ca3bec71e0ce4046431
+>> prerequisite-patch-id: 0b9edd21d24a25c620792dfa692d91346ceccdde
+>> prerequisite-patch-id: 3b9425028cd62b60b3dc3dbd2fc3b5a8912a1fb4
+>> prerequisite-patch-id: 771f986e2754383e7b5a920b25bf1609dc96f0b4
+>> prerequisite-patch-id: 79c95d6375d662a4f75cccd8650b3fab05e4e66c
+>> prerequisite-patch-id: e2ff2463db4934e707afbf0a239270d26dbf8189
+>> prerequisite-patch-id: 5a923b7606f7cc60fd6b75be2d73231470043bcb
+>> prerequisite-patch-id: fb80748a1a24316cdd77481b60936f716fd0aa71
+>> prerequisite-patch-id: 1450f7d1f4b1a41e7ce65ea6d2fbd450d3a198ad
+>> prerequisite-patch-id: d1d2ba9927536b110f7fbc0c68698d08afb74c27
+>> prerequisite-patch-id: c2ae6f91cb9662307f90070523945ee03a79c4c3
+>> prerequisite-patch-id: 87b425bde44fe889367a93302629dc011a3ec88a
+>> prerequisite-patch-id: 25e4c9ee767dc61406adcf1e1463796a79832795
+>> prerequisite-patch-id: 82388f762700dbcf39fdc43e6ba56c1feb55733a
+>> prerequisite-patch-id: a4ad2fb2c7f8659c6d9bdcd9718a7ee69f124838
+>>
+>> Best regards,
+>> -- 
+>> Daniel Scally <dan.scally@ideasonboard.com>
+>>
+> 
+
