@@ -1,86 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793799301;
-	b=zh0NJG7CkpLJmQSOvX8FsmkN7iSMotOe0IKkxGphC0zebaZtJwKdjdAkz80oQYvQxShY
-	 3CM3BQ9lHzDQC+F5F4QWdiTyQkfRp0ByfWQ7B73CLlX0c4rNV4hUj/rTPkP82RgNkZH3p
-	 QD5qj8UsIhMualO33s25GYnSDQyICWR8H7Kr1iwVKufgg3LcHxNnH6Hqj2z48Xq3KjrpR
-	 oEK/PTaAtom9WDQ+3oA/6d2Ebj6V75J5MU3GpuVTs+BKbQAdHtFXwvO3BvbVJsp5ZgfAl
-	 bHr/OoGyNeiiib1CMbYKQPCOmUmv5Qw+5amM+aNQvR9daYeStnYQMRIWGNMalavz8Pg==
+	t=1793799327;
+	b=O0ERtw7pEcpyOTM8O/zoQgb9VhCeUBfcDUQS8lDC+DliJk+iPBqEpy0MtUAOHuB9EZCV
+	 0f6EwN7yBP9Hp3Dl2FFevkXGP7Z/zVSLi10BjXiMuSHgkC1x+EmGfVTA4XiSTtr9I1XiK
+	 wL1l2Ua74pgCy+prR4kZJ0v6ImMr/4Z8TP26JOtgbc4dG06GgqpGYLemltsuxgIp37bsp
+	 fUQtBtLlVLTGp9LQRdlJKtU8taF9m1NmtxVazgrY43FxrVxy8A57OnraQXJDD05/Vy8L1
+	 lz8m3o8vLAsFz7dZ6J36sQz6QqW2FwCUXDEuj+aAPJR6eULC2NQ+jbcJlxsM8kyNmaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793799301;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=IgL8bbbD5PBuVHx0MhUlHNvCk4KSHKYvUVpt2RQ9QAk=;
-	b=K0oF9MqmNjpeutxyP4+uZcq+FrgObNGYHbftWd2S+Fo1VYD5lFQ1SE+9r3q6Aj1zDHrW
-	 V+SN5zQ1VtVFkWuo6oBAjrO8ylgNnqpxq2gubSpq7MlNolTfz0xhuPU0Ymnw0JuEckA8r
-	 egOBdwzHasatwLH7keoZAvXmGAQDPV/8RYweqrIiZy23t63BwvFWPfQfi+GH4gt0enp3F
-	 pHy6zigjcU5g6ZVd3ZuQuCdpaBFDRJwJG38Rk/twmP1umQIwnU8vss5bzqywkJjtQy1+h
-	 6xU3chzyfqbjTGJk9G0Q1xoqMWIODcnjNKNKO1k62BUVIehzOOF6gZXHu8k+nmoJ/HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793799327;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=bcVTjcoUuDJ00d+ZrLupJl8lYibYslwMamSO7+IhYGk=;
+	b=CscqF+8EwJT0hNqRZ5WAezjp25uU77s3QERVPluDtS4v7YPG/7QrYjP7gvv33Zsh17r/
+	 i8z3NIko0AX7xkN+yCYU2firSxhxKx077J03Hnbt06IzwrDsaYxBppvHQtcgYBM/q6Vqa
+	 1kmQXLbDqAizRQwLXdKxheHX02fGvil++GvOzNN6KaP5Ta0jdZKjwWB7nH4DanaraPopW
+	 ev9ZiRBRAh6hqkqrPgXLOAGnEFzae7272UJWMUZjsLrGEDrFNhzkFwmjgsaL2/e/KNK45
+	 T3yBAmbYCKcgQ1JioT4YjcCEMrfou0KdoLI5R2YtBCbE9rg46TOWvauQCeawDNtjMNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KIrJ95ZN;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LlYpn60K;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 982FA606A31B;
-	Wed,  4 Nov 2026 13:35:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 982FA606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E588606A330;
+	Wed,  4 Nov 2026 13:35:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E588606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=KIrJ95ZN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793799298;
-	bh=K4WRmMcozdlmKCpBfUDKJDyfirNWgMEqUfaXcX01+Ck=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=KIrJ95ZNpBYRh5QBfOQ0+BBXOCSnHvrzRI0hhjUocS5n7v939rXfiCeZ072sf0NTd
-	 8zV9WMEzxR2aW1OhrMUxZn6BOZe1Rezl+5YsXwU81FF8OIyGEPrX9J81zueXHpIUJb
-	 IpdFIiP8j024oHzBlG62kkY5gb+q2ey798s7N3lsd+Ove2ST7gFRh8GtibFmWGOBz1
-	 tt+6H653mDg10w1XILDWZhzOZNAJfbeqrSn4mFvLwD09s1ipohxkFrVXovnd7+2dme
-	 UaPAj7KHvzMte9CL8mpqVAq16GLV+Fzu7h1hg2Jm2CV9woOB3iCH8rFQikRxWWiXsZ
-	 BkQ2ca+xy/PkA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C07717E0269;
-	Wed, 04 Nov 2026 14:34:57 +0100 (CET)
-Message-ID: <920015edaef1c92d0b22b9f0eb1a47006f901800.camel@collabora.com>
-Subject: Re: [PATCH] media: verisilicon: postproc: fix the G1 input height
- extension
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: shomenkow@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Hugues Fruchet <hugues.fruchet@foss.st.com>, Heiko
- Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, 	stable@vger.kernel.org
-Date: Wed, 04 Nov 2026 08:34:55 -0500
-In-Reply-To: <20261104-b4-hantro-pp-v1-1-1d75e9b225f8@gmail.com>
-References: <20261104-b4-hantro-pp-v1-1-1d75e9b225f8@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-KPft1s7sKlSpjBko+t3L"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=LlYpn60K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793799327; x=1825335327;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6VvQvS8yHC7ZYvx7BpzBaw+xd0bVq75tP+dfZH+tEUU=;
+  b=LlYpn60KWP+HRSiunYDDs37Q3QZ0eG9HZkXPe1n+nkGSDxvi1g21QCq0
+   mOnvdYBXdKT0iZ/CwLqFHrVwm4JnsLGY4W3kJslilIWf6NF20qy/BxB6j
+   p8dIsyUXcHMJuZ4AJBzfag4riTj/DWkLqwH5iWxukDN6djW6o7Wj7Mm+U
+   bl2V6Zoapi9B4Sonqk77zZrxNy7VkxPEsjdrTFe3OISJ/bUscv/jSrzXQ
+   wJjZHMRYEwg6WPzryxaN4uIfTEDnFqcO6LMJBKOwBLpcJOGmpgYm/YpAY
+   lJdK/iqCxgyOHlspzHyvaTUaLe1cU+UPWLfDJE7b9n1qDHhgcR4R3KrZC
+   A==;
+X-CSE-ConnectionGUID: CengWsgSSFaYut0KNM8zLQ==
+X-CSE-MsgGUID: NSegXEIoSRujVXnaTqIDIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2460442"
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="2460442"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:35:26 -0800
+X-CSE-ConnectionGUID: T1C8mLIpSUKvYrW72HHCOQ==
+X-CSE-MsgGUID: EMU1ZmYdROakGetFActrcQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,195,1787036400"; 
+   d="scan'208";a="7060961"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.19])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 05:35:24 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 7B664121BB0;
+	Wed, 04 Nov 2026 15:35:33 +0200 (EET)
+Date: Wed, 4 Nov 2026 15:35:33 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Valerii Sokolov <valerii.sokolov@pm.me>
+Cc: Bingbu Cao <bingbu.cao@intel.com>, Tianshu Qiu <tian.shu.qiu@intel.com>,
+	Stanislaw Gruszka <stanislaw.gruszka@linux.intel.com>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Sarang Sapre <sarang.sapre@intel.com>,
+	Divyamani Tripathi <divyamani.tripathi@intel.com>,
+	Manik Bajpai <manik.bajpai@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 11/11] media: intel/ipu6: fix EOF sequence logging in
+ ipu6_isys_isr_one()
+Message-ID: <aus0pXClb3bGAV_7@kekkonen.localdomain>
+References: <20261103211031.1573726-1-valerii.sokolov@pm.me>
+ <20261103211031.1573726-12-valerii.sokolov@pm.me>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,81 +90,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261103211031.1573726-12-valerii.sokolov@pm.me>
 
+Hi Valerii,
 
---=-KPft1s7sKlSpjBko+t3L
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le mercredi 04 novembre 2026 =C3=A0 14:27 +0300, Sergei Khomenkov via B4 Re=
-lay a
-=C3=A9crit=C2=A0:
-> From: Sergei Khomenkov <shomenkow@gmail.com>
->=20
-> The G1 post-processor takes its input size in macroblocks: the low
-> bits in swreg72, the high bits in swreg92 (bits 28:26 for bits 11:9
-> of the width, bits 31:29 for bits 10:8 of the height). This is the
-> VDPU1 layout in Rockchip's MPP library, whose JPEG decoder writes the
-> height extension as ((height / 16) & 0x700) >> 8.
->=20
-> hantro_postproc_g1_enable() computes the width extension that way but
-> writes the height extension as MB_HEIGHT(height >> 8), shifting lines
-> instead of macroblocks. Every input of 256 to 4080 lines gets an
-> extension of 1 instead of 0, so the post-processor is told it has 256
-> more macroblock rows than it has: 286 instead of 30 for 480 lines,
-> 301 instead of 45 for 720 and 324 instead of 68 for 1080. Inputs
-> below 256 lines are not affected.
->=20
-> Shift the macroblock count, as is done for the width.
->=20
-> The problem was found with an LLM coding assistant while porting
-> mainline Linux to a Rockchip RK3026 board; the assistant also drafted
-> this change. Tested on that board (G1, ID 0x6731), decoding H.264
-> (640x480, 854x480, 1280x720) and VP8 (640x480, 1280x720) to YUYV
-> through the post-processor, 241 frames, against a software conversion
-> of the decoder's NV12 output. Without this change only the 4 VP8 key
-> frames match: a few pixels at the bottom left of the last macroblock
-> row differ from run to run, and VP8 inter frames propagate them. With
-> it all 241 frames match. 320x240 is correct either way.
->=20
-> Fixes: 3f6702e1be8a ("media: verisilicon: postproc: 4K support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
+On Tue, Nov 03, 2026 at 09:11:21PM +0000, Valerii Sokolov wrote:
+> When handling IPU6_FW_ISYS_RESP_TYPE_FRAME_SOF in ipu6_isys_isr_one(),
+> stream->seq[stream->seq_index] is populated with the current sequence
+> (atomic_read(&stream->sequence) - 1) and stream->seq_index is immediately
+> advanced to the next ring buffer slot.
+> 
+> Subsequently, when IPU6_FW_ISYS_RESP_TYPE_FRAME_EOF arrives, logging
+> stream->seq[stream->seq_index].sequence reads the next slot in the ring
+> buffer rather than the slot written at SOF (logging a stale sequence
+> number from IPU6_ISYS_MAX_PARALLEL_SOF - 1 frames ago, or 0 on the first
+> frame).
+> 
+> Read atomic_read(&stream->sequence) - 1 directly so the EOF debug message
+> logs the current frame sequence number matching SOF.
+> 
+> Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
+> Reviewed-by: Antti Laakso <antti.laakso@linux.intel.com>
+> Signed-off-by: Valerii Sokolov <valerii.sokolov@pm.me>
 > ---
->  drivers/media/platform/verisilicon/hantro_postproc.c | 2 +-
+>  drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 2 +-
 >  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_postproc.c b/drive=
-rs/media/platform/verisilicon/hantro_postproc.c
-> index e94d1ba5ef10..ecc6b3137eb0 100644
-> --- a/drivers/media/platform/verisilicon/hantro_postproc.c
-> +++ b/drivers/media/platform/verisilicon/hantro_postproc.c
-> @@ -106,7 +106,7 @@ static void hantro_postproc_g1_enable(struct hantro_c=
-tx *ctx)
->  	HANTRO_PP_REG_WRITE(vpu, orig_width, MB_WIDTH(ctx->dst_fmt.width));
->  	HANTRO_PP_REG_WRITE(vpu, display_width, ctx->dst_fmt.width);
->  	HANTRO_PP_REG_WRITE(vpu, input_width_ext, MB_WIDTH(ctx->dst_fmt.width) =
->> 9);
-> -	HANTRO_PP_REG_WRITE(vpu, input_height_ext, MB_HEIGHT(ctx->dst_fmt.heigh=
-t >> 8));
-> +	HANTRO_PP_REG_WRITE(vpu, input_height_ext, MB_HEIGHT(ctx->dst_fmt.heigh=
-t) >> 8);
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> index 5d95fb9234..ad08506b32 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+> @@ -651,7 +651,7 @@ int ipu6_isys_isr_one(struct ipu6_bus_device *adev)
+>  		dev_dbg(&adev->auxdev.dev,
+>  			"eof: handle %d: (index %u), timestamp 0x%16.16llx\n",
+>  			resp->stream_handle,
+> -			stream->seq[stream->seq_index].sequence, ts);
+> +			atomic_read(&stream->sequence) - 1, ts);
 
-Good catch.
+Except for this one.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+The IPU firmware works based on timestamps and you could obtain the
+sequence based on the timestamp but I don't think it's worth it here. I'd
+just omit printing the sequence number which is unreliable.
 
---=-KPft1s7sKlSpjBko+t3L
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+>  		break;
+>  	case IPU6_FW_ISYS_RESP_TYPE_STATS_DATA_READY:
+>  		break;
 
------BEGIN PGP SIGNATURE-----
+-- 
+Regards,
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaus0fwAKCRDZQZRRKWBy
-9H3BAQCWA7Qn33zc8a1P66WNwL1GB7N5NWBBSVTGnj8uRpY0awD+INx3885oUsh6
-2rMww8Wio+s/sOVlScbF+QSL6a6ELwA=
-=uHJb
------END PGP SIGNATURE-----
-
---=-KPft1s7sKlSpjBko+t3L--
+Sakari Ailus
