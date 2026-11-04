@@ -1,80 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.190
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793754692;
-	b=sz20IsO8FJbCdiUy4o1enKLsgmhCoIoEYNkUhlmjvCASVkKeTvGIxbawa0c13SXWRbJv
-	 cwDhSb4+tjtOJ6TZrfMJDSufCqLqmQdaDwAQVWyvnPbJgUg5vYWLTey5UWCAJdrvciFzY
-	 kQfg4K9KCgjUJT2yH8CdOa5m9zr0QlJ94H4m+VpBKPVZ2S2LsQmnCE1kZhiFLYPjM/UQw
-	 kWVBBtqfNOgsd7olAE2FztN5wzxygBW8jNLQyPD8nQp95O2rH5o4p09dkRO16x6fYuA4R
-	 BKOPNeSm7NCFNlea8efK1P9GlYo7nA5E6IHxEDOzoLA/fLJ0n/ojGK0JKo9xOKEofBw==
+	t=1793756574;
+	b=UIDBEIXhWyXR0xx398sYn5/Y7oaDuGZgO5ZH2NFX3aAU9cPcMNqFOXjoNUGxZs9DY4hQ
+	 tS1zD+lPJ6A28lhxNnvY6bhc9G+0d5yorDPp/o1bXldsfCVoKFxZIMagOrIKdvJMdszHx
+	 woBI0kXkZ0+fhIDxJJFLYr3JDUUKUT156xaJnrUybAt+WaEyNcM59nO7eikXEUyPyeaQm
+	 Zjn/8Lpm6RGgxr1j8LeC5AzHbU0XKFrnDuwiCm1bFAdVbt+P9rsQzwwhXWUJ+6FhBxnaE
+	 r+6IRMGmtjpxk2K78NHrRJ1kGwHHBtPgmDzhlBlZ9MHoK9A0Iq2BwVQkKV8UlglEXGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793754692;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sIQ9+UAP+T9i5P1ER9oC9FsDhW/tA+9UYBuAznrvwXw=;
-	b=jCW5Fv2OeTEoX2/mbsi0apHXfk8P4+LCmTfGxIG40DoWalpakLV4v0yiOwdMIbA8s/Wd
-	 VUrcSuhmBiuDS6Jj9LWj1aX+A7n1i0/PvmwCQwlyd0BbUJzGbakkv8MVHXsC70QnxAz56
-	 XqhSZZAC5hs5lDTHhhGGa0UILit99y5JtcqOZuZoS30j2+VQL7hQ9jFUccCLXgI/Tzi9Z
-	 PTQoOXiB86jmi+S3gALDattdpDGzGTAa6l9V+ZhSIY0FfkGRMV5F3INJK6FIWHiO6KWfW
-	 IIV9Cot7+KT12AJJj6gmgcsj05icmAOSVBExp5u9zVmuO3UBXqp/lgoX9YX2OyeEsoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793756574;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+	b=2S+KZfKASXRLePyiUJmgbjQyko+0DfUII0yK+G2706ZhUejVpK+AUB75UrqDXUksIVzW
+	 5scrrhWE2hUyaBk+H3WH1fDFxyxObtDUc644xdt+fxRSpwg7UU2Ai8v0Pm2tYhd/2uqDj
+	 b5sXQMs04zyPx9vi9vsp+4xc/U92qJq8/INlBpQ2cc53IzlDCR83YGPRysxZcqFcdk3/O
+	 MX24k29OLy0E6vjCcDiipanuu+JQ9OQquKx8+akmANX7KWmP6gI3MJ8mBJHNw78e34DVn
+	 X83YI2a6bSS8uRi2MsoswnOljs8ebixkFvLBpQxuP1QKvOSUZktrbm99WB45GdN/5Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XckCDUo3;
-	arc=none smtp.remote-ip=203.205.221.190
-Received: from out203-205-221-190.mail.qq.com (out203-205-221-190.mail.qq.com [203.205.221.190])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28F4606A330;
-	Wed,  4 Nov 2026 01:11:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B28F4606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40BD606A333
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 01:42:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40BD606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XckCDUo3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793754663; bh=sIQ9+UAP+T9i5P1ER9oC9FsDhW/tA+9UYBuAznrvwXw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XckCDUo3yevlPgQZKZGLFP0ktoVcY1X1OO7DUGF5fH/TcPtUM3MDwg8iNR6Xdc8tN
-	 H30nbe0vpm1lRvHuOc9rz6UZiIKfZoLSLEYT7VE+oSsIgtcG/q2WTfrLBZrPE99BOW
-	 GFcsxqfEAuGkp+NfkDO9KZxGDD4noWRUTR3fABqw=
-Received: from shuai-VMware-Virtual-Platform.. ([218.28.192.28])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 2C01F473; Wed, 04 Nov 2026 09:11:00 +0800
-X-QQ-mid: xmsmtpt1793754660t6g1vg8yd
-Message-ID: <tencent_C589954C94BAFF49A7B030C93F367DE1620A@qq.com>
-X-QQ-XMAILINFO: OVFdYp27KdlJbqk+LlwmVUQ2KYjzJKcNjveD1idqoyeT5DW3IAOGicR+nP7chw
-	 OGDMxNHly0X8F9qsbll4+hZpUxXxIjnneYuBD/PdVifo60Uav4qGqcahzuejhaXpFX+E3Hyfd2jl
-	 814pBevHYKOMfqgQgLA9Q52F4nCvSFkdTO4iSV8cKPwnFKJ8zSZ99VVFSl4F1fCXxu+BohL9rG0/
-	 LHwfF/O6ACbX0VhJFIMoLl3G+6YhRnJYkQsB7+0dLU9NT/ZVu+uNmtffnsf5YtVNk6bVSyo8sG3F
-	 oczUR4mapS0DDgF8N57+SikUiuEFqn+EpyJOC1g/KSM75DKAwIHFPCsGpY3etss1D2lhOtdjVAaS
-	 xzlHIuz29apKrDQJgHcISEEcY6KBMxNvZ8Zu5440tyL2/vpv0wJ61GnJUJAxtWZIVzojnMJ7LQiB
-	 7A9vdqIwavb3iQODrY+eu3JmRwrvevRxHwUP9Uoujfyv7u15hBoWLE6DnIqQMOQiqRRKCHGE4ERD
-	 36PJtayXbR9wJcRnhson4pyI+AoWz3+s1Z1kcI5CA1dP0irFdLev9ApobDjMOyZVe6aih7SWxOkj
-	 YFEIb2HUE2J0YlUrBsLNaATIm+7bKsN+Wu8QFzBko+GToD256CxlhFiCtRFtDE5fxXojPeYz6LL8
-	 G7IaSBD2fpRHnYqM5VNaGShxV2AAZncohiPygpm8xdwU8yAc8Q5UHEZJap36dn74KPkYhRZZUpeE
-	 AWkU/ng54TMRFKaCutqcB94CThjcdzFJSabbn/DKox/BYjNeUyY4ySLvKtg42zcdNCMVx85MdPQE
-	 Cuw+bpm12t/iH/XKWJyidOB5c1rTLzFJixBy7mhCzmM9vm4Yrg4QCuRh3Z4RptGhctSjkwR+bNca
-	 XVn36BQFK6UQVD5SbVfiQPhteRM8XMjphlygFJ2Bjes3cUh49CS+pNfLd5FWTd7YgDkwDM69avYy
-	 b7i6dwsi1CgMpBa60loHrjB+451MIgLwZ5XaCJhK2K4o4cgFJjDvMROWuPKtvxKw9Auhp9HuJ/sV
-	 C4f4wRuwZQYhtVzr5cBJNfTgQshfA=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Shuai Liu <847807867@qq.com>
-To: linux-media@vger.kernel.org
-Cc: bryan.odonoghue@linaro.org,
-	vladimir.zapolskiy@linaro.org,
-	mchehab@kernel.org,
-	manivannan.sadhasivam@oss.qualcomm.com,
-	loic.poulain@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] media: qcom: camss: select GENERIC_PHY_MIPI_DPHY
-Date: Wed,  4 Nov 2026 09:11:00 +0800
-X-OQ-MSGID: <20261104011100.384923-1-847807867@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <aa7b58df-a7df-4d33-b2a5-9cc760dd9ed5@linaro.org>
-References: <aa7b58df-a7df-4d33-b2a5-9cc760dd9ed5@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so869865e9.1
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 17:42:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793756572; x=1794361372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+        b=ZnZ5cWJ+ytnymUUDiWLTVDB8LUTx11Pe67lDgEa6UTMikuPe68RtvMTSngvvG/kQTZ
+         zDW+WxILFmp5F9KDBr8bZ75Du8TzTPUcpFIzuzO1RlOJ4dCf1JMNDKjZXKeuCni92DH8
+         LV2A8/2ZiAOjNVuhXVEhHVa75+tQ4F/OWopgV+krqItDpK5BawAZn5fHh8JXk7wgQZGC
+         eUqFXjsoN77aU5Y6b6d/3e68Dyj3/lYlCdkhISVvTHfvZz5OaaEkExil5VEyLaShdqGu
+         GC+wwPZbki+kaZLg3qz1MoSCl8tEssvKKP92k7ba8KFQhfKls9TS1+HIul+I1aSQ7plR
+         YOsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793756572; x=1794361372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
+        b=fVwAvNfysZ1wiTihT3G7znHv7tHWxQ0dzJoSvoQBxczp7csO0qfLqYws9gpvK8lspj
+         7iDMNT0NMhH0GUOCAveimu9T39gl4CTaYb3eWDZAOlM3Ju92iJuX9q0G9RshUSz3HUJV
+         M9XElNsvKD5nEpBcQJpxXVsFJ/J0WajrksQQI3i0ABhuenHFX/HEqppAKKeqtZ9jWZcp
+         pHrD9b6Ndj0DRE7zYy4ndS1Uk0/aR6NfVo0qnvQNGMTygMltpK0jQrnKK+41NFP0qtF7
+         4H9NPp6C1QLuKoo7Q7Nrvr4e1+p0KFNirk08CneLc/YbKsjhgsow1iKYTKUZC7gNcyJH
+         dVSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFZ/oB+9JcyCqyX7ahYa3A26X/rm5Ww4qz3fttK5KxG/oVYxd5F0SvsAf0psY6FLOm6hO/PxUceHCvKg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Hk4e7k/DtYb9VlKfsP8fhfEO0uvC+KJbf8wtyvv7A5XQJ5Lc8
+	H4GTsv8I1hVn/zfmXHp8TWpImKLRgCMMqLdQGPgBgXzCWZ7fns0zMiU=
+X-Gm-Gg: AYBFou0OXiukdB9ryzOnyXVImeA6KDFYbxF9twoX41AFJhC6lwuI6xQCPXtZslt8oNL
+	iyDDmQ9l7sU+InJAE4Cqh9tlpfY4s5KlhUBdxyHoCGvTbjLt3uFhda/Qv4bfWv36B9ge9rRXQKc
+	EDWwsUgRPQxqjRNo2b8f0BCTMRqJ735YDqtzaoK2QytCCStcPIDLypNIy7Uu44HrFacowaa8k6i
+	/jPQPrKByaUZa/C7MfTrTGoUz6G0xFT/44MJ3ONWQWiWg1A7h+3asCZmC/fhmgDtKlVmd9oU1Yp
+	NjaYd2wlRX++yqk+8PVvyEATKE4yb+XUtdIc0yVZaB3eSe+ibJgD1hocAunXzUmKllsIhjpmyEK
+	C5msBNYB4mZMH5OF7KA1RAmy77zctr980cStyzmJ/2/FqGA7CgpwCKAfugwJ0OHiksKP3l6yMgf
+	VRTyxbQof/0OSVzm75KX7W/GGXAzT6SYfMxv81rnUPVjBkCP8dwqIUhdvhVWoRYjiqbBSRT+4Fc
+	ICP3fxBj8qvdqPDBQQy8Di/ZOWzdz1dX3ePYOjUbyJx2hrEO52DB+eUlcL/pHDJe2qXG+paxmaV
+	nkrQyPP4C4s=
+X-Received: by 2002:a05:600c:4ece:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4ac169d7e39mr333856735e9.5.1793756572002;
+        Tue, 03 Nov 2026 17:42:52 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb5196esm885532f8f.58.2026.11.03.17.42.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 03 Nov 2026 17:42:50 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
+Date: Wed,  4 Nov 2026 01:42:48 +0000
+Message-ID: <20261104014248.3761373-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -86,47 +101,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API
-devices") added a call to phy_mipi_dphy_get_default_config_for_hsclk()
-in camss-csiphy.c but did not select GENERIC_PHY_MIPI_DPHY, the
-invisible bool gating phy-core-mipi-dphy.c where that helper lives.
+v4l2_m2m_release() frees the m2m_dev struct without cancelling
+m2m_dev->job_work.  When a job finishes, v4l2_m2m_schedule_next_job()
+calls schedule_work() to queue the next run.  If the driver tears down
+concurrently, v4l2_m2m_ctx_release() invokes v4l2_m2m_cancel_job() which
+handles per-context state (TRANS_RUNNING, TRANS_QUEUED) but does not
+drain the device-level job_work.  A pending work item can then fire after
+kfree and access freed memory.
 
-With CONFIG_VIDEO_QCOM_CAMSS=y and no other driver pulling in
-GENERIC_PHY_MIPI_DPHY, the build fails at link time:
+Add cancel_work_sync() before the kfree in v4l2_m2m_release() to ensure
+the work item is drained.
 
-  camss-csiphy.c:(.text+0x51d): undefined reference to
-  `phy_mipi_dphy_get_default_config_for_hsclk'
-
-Select GENERIC_PHY_MIPI_DPHY and drop the explicit "select GENERIC_PHY",
-which is redundant as GENERIC_PHY_MIPI_DPHY selects GENERIC_PHY
-transitively (drivers/phy/Kconfig). This matches the other MIPI D-PHY
-consumers such as rkisp1, mali-c55 and sun6i-mipi-csi2.
-
-Fixes: 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API devices")
-Signed-off-by: Shuai Liu <847807867@qq.com>
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framework for videobuf")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
-Changes in v3:
- - collect Reviewed-by tag
-
 Changes in v2:
- - drop the redundant "select GENERIC_PHY", as suggested by Loic
-   Poulain; GENERIC_PHY_MIPI_DPHY selects it transitively
----
- drivers/media/platform/qcom/camss/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+- Expanded commit message to clarify that cancel_work_sync() complements
+  the per-context v4l2_m2m_cancel_job(), which handles TRANS_RUNNING and
+  TRANS_QUEUED flags but does not drain the device-level work item
+  (Nicolas Dufresne)
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index b51745c942c9..e0cef2cdd0a1 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -7,5 +7,5 @@ config VIDEO_QCOM_CAMSS
- 	select VIDEO_V4L2_SUBDEV_API
- 	select VIDEOBUF2_DMA_SG
- 	select V4L2_FWNODE
--	select GENERIC_PHY
-+	select GENERIC_PHY_MIPI_DPHY
- 	imply PHY_QCOM_MIPI_CSI2
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index a65cbb124cfe0..311e2e08d066d 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
+ 
+ void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
+ {
++	cancel_work_sync(&m2m_dev->job_work);
+ 	kfree(m2m_dev);
+ }
+ EXPORT_SYMBOL_GPL(v4l2_m2m_release);
 -- 
-2.43.0
+2.47.3
 
