@@ -1,89 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793784641;
-	b=Nq2kqT2Rp+IK+LoJNRzdEhnTP9gCTasINFgdjpfhD4SKNVI7P9FlkVW/bPUFe2uMWoP3
-	 Wa66YNzxFuUx2/RLFTuARpwuMNhzGVytoQonHGBIhWIaKoE/QLpuAOr25+921v2141RN2
-	 CG/gt1ezIaywN661zUjbbEv7JvQGkqYDUEf/rrT+VcvU2dpdmL9063nWeqzboBzG256us
-	 AD7mmz8BPkyLQn/kOW/wLj3tGYT+ba2MKULXaDRiVCZOUxc3r56n9LnE25+913fpULjUz
-	 W9ciUS7gFbDE5rc3vaM/xtVkrXmv79Yr1eogkNDuO6EygXQXoiyJnQ0QTJsBSdtCNHg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793784641;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:Message-ID:To:Cc;
-	bh=TNqBnIapzJjAfwRgHqXenkycVjQfCh4gehzS433iHnc=;
-	b=BHo6A5BNKfOzkxCUuaQwbSkqax+XlFQVe99oCpHrVF2y2/hxGy1TyNpDqp71HkBvXNPS
-	 sF3MQb/Y3/lP2o5X0vDJ0jZKpmWgeJXK0BjIVX+Sw4S6pEr9vs/lTNCfFnTzOx73PratW
-	 1uYp7BaGZfaYwU7NrXIbzO6fyssX9+qNztYAUfANgXA8HZYUeelleOBSa81XKlIb0LHKJ
-	 5LzjeDzeZa5xsrL/N6fvXjr1wGXZYeK6TNaprpOmPF8khP2H9/Kjup0lwMo+V0sYect9I
-	 XojrnqBw8tAjf+F8zih8o1IXcLm1RQn6XG6/kiak+OhhE6RXM/OFq1Vc71GPy1ZAyTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0JefbuDH;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793785379;
+	b=KnNFU8sGCMpMEaPjfttt5Qtba3aHNm8v0RWba1iS9OvtcXLiws6+5wFPlnNdU3a68fHS
+	 Ofi41TCiLv0DzYPyKMb8iLsbnXgRiv+snnYV3SVjcOoZkAZvsMeK9aTt3DfFOVIlXsPUK
+	 hVRLWVLrujFlnP/iNK+MQTy8dviB+dse4sck/+1f32UcSjaE6WYT4CSksGmqnvtJBahzZ
+	 SKfX2QKlXnODTFSK3SV73qKrKuaDD85c1EpLX3G+JgJi/k/2D6jiWxR2UL7pC7vBX+Pms
+	 e1OxZ4JW4emeI82VJpLEjxCNoETjH0K/HRu8tXz4Q2b4xiaMq3Pbo51ojYcDyBttF6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785379;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Grixy0cTS0vlLMwQkhkeijFfOSG9PrTaZP+CZ7u6Ojs=;
+	b=bFKcpA7OcXHfCoFpYsNZmqV6nYjF2LIHgZUnS+3djZENumCvkjifSmlYndqJ5Y0gDdRM
+	 +CMlIDU3GKGaWHsjak1RqwSDLNV7hDYaoCH/pI7IqDM3QWrqf4NfHlnd/Q38AXFylg3YA
+	 SAQq/o2562NW1eaCqPXtT5FERU8GrfjVnqrgsfzXx5rzg9bWoXvXBfPZbcYkWbGNtXZbi
+	 1O/o8JJKT7SBsviKcfiY1p3nEAOA2stffpKpdCQG/s6ngdpMCgovRpxbcqMK7utpOgnqo
+	 fPJmvIqIrCh0MnbuQW1VkXwXu6Jt2wtJdEtQqNRo84l4Fh8jZ/WvliriDrRnbAxiwfw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6X2DAUL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8502D606A33D;
+	Wed,  4 Nov 2026 09:42:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W6X2DAUL
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793785379;
+	b=Km6GG3Oc5M2aswEfdxmOBXiRa7mS/wAEPlEI2W1ciAe0/d1LaYMrj2qmDpfrklEneVYl
+	 xS7bEVY9eeN9O/0sVjSheGBnwICY8Z3bbfJBFoWLCdd8Xtt2yUSQbQmnjX1yex6i1LHfL
+	 4OA/2U/VppjyUobqp56P6NteOhkQ5xMMnsu08gWT3Fy/yuMtlxOGuu7lgjzYenOMjEeWJ
+	 29cD1YzsoVWJ4GEjinQSMuYZuONDW9MsmwrmL0WWkYDn1rYyeHVBxlOWduAoArppNQv+z
+	 Z9QfbaOyqXtDVENzwYv3WKd00Y3EMUDf5E9YDwotfYKsSKea24DeHmNGDblDj4T/jKA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793785379;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Grixy0cTS0vlLMwQkhkeijFfOSG9PrTaZP+CZ7u6Ojs=;
+	b=SMshQU6o86cP6kH41qFUL4CbkEuTwirWYgStxxyd7H1EZoQng8kHMQrDm/URkEcHELGk
+	 VIE5ZxxALGMjWZ1NscDcBOExJ4Ru4iheFrZgc2a82AXN4PtqyagBtbZzf9snOtxcIULgU
+	 yk1cp8Pu/bGHu/OmWeClkXdRMJlWmFrQTIez/nuUNnXQeo77zrfyzThXImr1Sfk5mfnMB
+	 Q9WhyF/3Y28g9hZW/+i3vBgbbV1LTNs7GUWQOIMY0hAGGjyDkOFkVnfnoLURgGHxG8e3e
+	 iPt9VmHH52YaVpcQ3rLfAoiHdEWIpm30A4X1rXhUPldktYEe3ibQL67JQ1cVf6gDuZw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFE6B606A326
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 09:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFE6B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0JefbuDH
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a058f74a54so166123b3a.1
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 01:30:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793784640; x=1794389440; darn=vger.kernel.org;
-        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TNqBnIapzJjAfwRgHqXenkycVjQfCh4gehzS433iHnc=;
-        b=0JefbuDHERZRP7xP8TRinKu6X8xQf3vPYYx84GG5FFvy4Qc6nuQtpVdjvFue/UCSJG
-         1gBso0GLP70pEG0K1vO169WFr+TvKOvT29JdNKseB65ThhLVzrBfj0/mBsdf5fktv9h0
-         17SQBxtbLCkLWOG4vlmC+5tRjP6F+dsYRWY9keglWmb1e9ZJMxri9yAC7wn6KkJLEDYL
-         2d/DZqs/IRy/M+K7wM6tHpAkaB2E1DkM8CB39Ug3ZuCzxUpuWrX2/zLuaJ8uOPFABk8x
-         TK8HHQfDurd3VnbJPTVUsg/kZoi/gmPYMuxuxXnk8JPsA+SCGXr0HysSJ6Nk3kSX2nt7
-         TuQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793784640; x=1794389440;
-        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TNqBnIapzJjAfwRgHqXenkycVjQfCh4gehzS433iHnc=;
-        b=v6uNEXdjFA9voUSWp9CLKaH6JQ5hH78q1MDrqhLZlYferFCs3QWHzm1jtHwOqUt2PC
-         Dcn6n4RRXQusogQULJIhAzvNi96oQbXnRFofDGzm+RdgiUKvbwmZvpVR4fNXHaoEtVIn
-         YIXb/YZL5Zl0TMY7eQHGK31UDAYLLT8rQUxlmvnkS3c0Iaa0kHvhtCpGN4Oigi60yweh
-         g+rSC2blo0LVX2DMGb61e7LdFDQGqO1CSSTGaUP81DlLW8Y49kHw6f3oE8mQFUrkFvJA
-         j6Fj1hES+vsEXNrKr3/zI3u2Q2fKalb4Km3xeLzSmXUL0G9ZdajnPI/pnIpTMLAsROb+
-         JNiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwzz5N9q9EW0T59hQgfQ83ItFNe2otUq9h4kVli4suiiVrG8JtTVf9hTlxUaDYpJt3Ga4PeQPpWIVCohg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pHn8/alFlCxLaIeNYEE/7dvg6+RTlzMHbWVaT9cLQdw+eHlMr
-	WFpOhTTGubcqTCB9fqRGS5kluTEnlwawckF3V4D4eTxXT0UintdLAlWm
-X-Gm-Gg: AYBFou1MNtMfPgaTp9N9fLFg3rhaXoyMZJb/FYWgL4uHN4y+8gCo5Xw319XU3ZATuQr
-	j+RcKWbqRiiPrNOYzJ8Jg3I38KfhtVLnBCA/EboApABKOHIXBMY994TN+u/NV503U0+odpfGEVl
-	00K2VXD2c8LX3DMzK/xek/gYQiovkIFxb46sO/jS+PH7CQlxEtWvsUfzEYuK0tZxjmJsoLzzH8A
-	mwBtpUTezbXXandCyQuF4p84tEFhyvHo0bnizLUEzF/GjY+H8JJemprAuAbup2O+9xUpBS43uMV
-	qZp2C6Nfs/qSLk3bgy0rERspK7+G5bXnJZU8zKgruLVXKeHOzsQjBY7j+lyI+5Igd2f68tfMT/+
-	pwtUpxQNT600nZk8rcPmOki7SiBadWDbfZbBmROi9WfxtVOplHGMjDkP2VOcJfjUSxdoSsbf4Lc
-	JVT61vUWlxKfHWfQ2pbFHBgAqCrRf1Emw6VzbMjIsHq5vYmsoI2txoCctE98XNaP2PY+MFEVrOr
-	nrY3o+nnbP4/7nMAuKvmoallrLuxXNFUiWlTnMXf0npmbxxnEWR9B56SRvbFz/fQPLkGc2JqgwF
-	NyBcBwNqmw2Q5VDAujRfSmgRnjOQMGYVAm6scYb3dAGI0LRT4Nk52YmcIeQADnmQY94=
-X-Received: by 2002:a05:6a00:4b4f:b0:8a0:7c97:52a1 with SMTP id d2e1a72fcca58-8a9bffd5de5mr13214765b3a.48.1793784639737;
-        Wed, 04 Nov 2026 01:30:39 -0800 (PST)
-Received: from [127.0.1.1] ([23.247.137.158])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8b09b5698a2sm690547b3a.35.2026.11.04.01.30.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 01:30:39 -0800 (PST)
-From: Yaohan Li <shunsheng1218@gmail.com>
-Date: Wed, 04 Nov 2026 17:30:22 +0800
-Subject: [PATCH] media: v4l2-mem2mem: wait for the job-finish scheduling tail
-Message-ID: <179378462223.70003.3811321311940400468@gmail.com>
-To: mchehab@kernel.org
-Cc: hverkuil+cisco@kernel.org, Frank.Li@nxp.com, ming.qian@oss.nxp.com,
- nicolas.dufresne@collabora.com, dmantipov@yandex.ru, 121811682@qq.com,
- ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
+	by smtp.kernel.org (Postfix) with ESMTPS id 794881F00A15;
+	Wed,  4 Nov 2026 09:42:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793785379;
+	bh=Grixy0cTS0vlLMwQkhkeijFfOSG9PrTaZP+CZ7u6Ojs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=W6X2DAULTi/eEJJYK/a6KsOUlSYFsgw4VYiNG6zUjjNk/0BQOxjaMK3KuXENQZBbM
+	 TzUpo9nqUX8brQcvhygkhxbgXtd+pTMen93k5MLtTg49sYNHfaRNs1EyfmepG3ZIfu
+	 Rsjbd+bz6xGh+IH3bK3ping5DfA6xTM67FFfIWrc+EJS8/yasL0HVKwYwqjOUMy4rJ
+	 keue7qQXM/nwJ5g7XSlhRR6Ds2Uzl8rTR41RmK5R84NXRYpaqEIcf/auaZ7t5NT5kL
+	 ZmWfWNNvg2bbVJHMjzbl5xof5d5LXEHUu/OVfClSMoLq/KiQt1mDcQYpmYvCcUTNnU
+	 XHxEdmqET8WSw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DC60B46D74;
+	Wed,  4 Nov 2026 09:42:56 +0000 (UTC)
+From: Babis Danias via B4 Relay <devnull+b.danias.tutamail.com@kernel.org>
+Date: Wed, 04 Nov 2026 11:42:47 +0200
+Subject: [PATCH 1/3] media: i2c: ov8856: Don't power off a suspended sensor
+ in remove()
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,111 +82,91 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261104-ov8856-pm-fixes-v1-1-1958b730ce66@tutamail.com>
+References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
+In-Reply-To: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Serin Yeh <serin.yeh@intel.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Babis Danias <b.danias@tutamail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793785376; l=2491;
+ i=b.danias@tutamail.com; s=20261103; h=from:subject:message-id;
+ bh=L0hpfrqG49Zm1CXdfuZ2hjqTYWvnPHNuq5J1KgmEnBA=;
+ b=whLpfC3mk7QF56y/tO7n53TWmypmoddnNr//nUy7Vk5xStgGCQKpq2iywsz20FCe+5nGDbu6b
+ 77a8xYa2RBnCJPK36i9i8SWexnpI6fc40W+Q8obPu8DlrBA0b10/cp7
+X-Developer-Key: i=b.danias@tutamail.com; a=ed25519;
+ pk=6DWeigdk0D3JwBjwvmxo9RW8cG8S1Eku42cb9PP+ghk=
+X-Endpoint-Received: by B4 Relay for b.danias@tutamail.com/20261103 with
+ auth_id=1406
+X-Original-From: Babis Danias <b.danias@tutamail.com>
+Reply-To: b.danias@tutamail.com
+Content-Transfer-Encoding: 7bit
 
-The job-finish path clears TRANS_RUNNING and TRANS_QUEUED before its
-follow-up scheduling tail has finished using the mem2mem context.
-If release races with that tail, v4l2_m2m_cancel_job() can observe no
-running or queued job and allow the context to be freed while the tail
-still accesses it.
+From: Babis Danias <b.danias@tutamail.com>
 
-Track the scheduling tail with a completion and wait for it in the
-cancellation path. Start the completion in the done state so contexts
-that never ran a job do not wait indefinitely, reinitialize it when a
-scheduling tail begins, and complete it after the tail finishes.
+ov8856_remove() calls ov8856_power_off() unconditionally. The sensor is
+normally runtime-suspended by then, so its regulators and clock get
+disabled a second time. On every unbind, the regulator core refuses the
+extra disable with an "unbalanced disables" warning, and the clock
+framework warns that the clock is already disabled and unprepared.
 
-The original race was reproduced as a KASAN use-after-free in the
-common mem2mem code using the in-tree vicodec test driver and targeted
-timing injection.
+For the clock this is more than a warning: the clock framework keeps
+one enable count per clock, shared by all its consumers. Where sensors
+share a clock, such as the TPS68470 clock that int3472 hands to every
+sensor behind it, the extra disable can stop the clock under another
+sensor that is streaming.
 
-Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in v4l2_m2m_job_finish")
-Assisted-by: ZCode:GLM-4
-Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
+This has been the case on devicetree systems since the power handling
+was added. Since commit 609a71568664 ("media: i2c: ov8856 : remove ACPI
+node bypass mechanism"), it happens on ACPI systems too. Seen on a Dell
+Latitude 7320 Detachable (rear OV8856 behind a TPS68470) when unbinding
+the driver:
+
+  [  220.072107] unbalanced disables for CORE
+  [  220.072109] WARNING: drivers/regulator/core.c:3262 at _regulator_disable+0xc3/0x150, CPU#2: tee/8667
+  [  220.072825] tps68470-clk already disabled
+  [  220.072828] WARNING: drivers/clk/clk.c:1188 at clk_core_disable+0x82/0x140, CPU#2: tee/8667
+  [  220.073620] tps68470-clk already unprepared
+  [  220.073623] WARNING: drivers/clk/clk.c:1047 at clk_core_unprepare+0x1cf/0x200, CPU#2: tee/8667
+
+Power the sensor off only if it isn't runtime-suspended, then mark it
+suspended, as other sensor drivers such as ov5675 do.
+
+The problem was found, and this patch written, with the help of an AI
+coding assistant (Claude Opus 5.5). See the cover letter for details.
+
+Fixes: 0c2c7a1e0d69 ("media: ov8856: Add devicetree support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Babis Danias <b.danias@tutamail.com>
 ---
- drivers/media/v4l2-core/v4l2-mem2mem.c | 27 ++++++++++++++++++++++++++
- include/media/v4l2-mem2mem.h           |  3 ++-
- 2 files changed, 29 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ov8856.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe0..7637a876bb8c3 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -439,6 +439,13 @@ static void v4l2_m2m_cancel_job(struct v4l2_m2m_ctx *m2m_ctx)
- 		/* Do nothing, was not on queue/running */
- 		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
- 	}
-+
-+	/*
-+	 * A job-finish tail may still walk this instance after
-+	 * TRANS_RUNNING was cleared; wait for it to finish so the caller
-+	 * can safely release the instance.
-+	 */
-+	wait_for_completion(&m2m_ctx->scheduling_done);
+diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+index 42c4b9c4e..988ce0310 100644
+--- a/drivers/media/i2c/ov8856.c
++++ b/drivers/media/i2c/ov8856.c
+@@ -2367,7 +2367,9 @@ static void ov8856_remove(struct i2c_client *client)
+ 	pm_runtime_disable(ov8856->dev);
+ 	mutex_destroy(&ov8856->mutex);
+ 
+-	ov8856_power_off(ov8856->dev);
++	if (!pm_runtime_status_suspended(ov8856->dev))
++		ov8856_power_off(ov8856->dev);
++	pm_runtime_set_suspended(ov8856->dev);
  }
  
- /*
-@@ -460,6 +467,14 @@ static void v4l2_m2m_schedule_next_job(struct v4l2_m2m_dev *m2m_dev,
- 	 * but the job must be run in non-atomic context.
- 	 */
- 	schedule_work(&m2m_dev->job_work);
-+
-+	/*
-+	 * Signal that the scheduling tail is done. complete_all is
-+	 * atomic: once called, all current and future waiters are
-+	 * released, with no lock-free condition window as with
-+	 * wait_event() + a flag bit.
-+	 */
-+	complete_all(&m2m_ctx->scheduling_done);
- }
- 
- /*
-@@ -476,7 +491,14 @@ static bool _v4l2_m2m_job_finish(struct v4l2_m2m_dev *m2m_dev,
- 
- 	list_del(&m2m_dev->curr_ctx->queue);
- 	m2m_dev->curr_ctx->job_flags &= ~(TRANS_QUEUED | TRANS_RUNNING);
-+	/*
-+	 * The follow-up scheduling of the same instance still walks it
-+	 * after the lock is dropped; re-arm the completion so that
-+	 * v4l2_m2m_cancel_job() waits for the tail to finish before
-+	 * releasing the instance.
-+	 */
- 	wake_up(&m2m_dev->curr_ctx->finished);
-+	reinit_completion(&m2m_dev->curr_ctx->scheduling_done);
- 	m2m_dev->curr_ctx = NULL;
- 	return true;
- }
-@@ -1245,6 +1267,11 @@ struct v4l2_m2m_ctx *v4l2_m2m_ctx_init(struct v4l2_m2m_dev *m2m_dev,
- 	m2m_ctx->priv = drv_priv;
- 	m2m_ctx->m2m_dev = m2m_dev;
- 	init_waitqueue_head(&m2m_ctx->finished);
-+	init_completion(&m2m_ctx->scheduling_done);
-+	/* Start as done: a context that never runs a job must not block
-+	 * in v4l2_m2m_cancel_job(). reinit_completion() below re-arms it
-+	 * each time a scheduling tail actually starts. */
-+	complete_all(&m2m_ctx->scheduling_done);
- 
- 	out_q_ctx = &m2m_ctx->out_q_ctx;
- 	cap_q_ctx = &m2m_ctx->cap_q_ctx;
-diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
-index 31de25d792b98..89c8f10de67c7 100644
---- a/include/media/v4l2-mem2mem.h
-+++ b/include/media/v4l2-mem2mem.h
-@@ -95,7 +95,7 @@ struct v4l2_m2m_queue_ctx {
-  * @out_q_ctx: Output (input from memory) queue context
-  * @queue: List of memory to memory contexts
-  * @job_flags: Job queue flags, used internally by v4l2-mem2mem.c:
-- *		%TRANS_QUEUED, %TRANS_RUNNING and %TRANS_ABORT.
-+ *		%TRANS_QUEUED, %TRANS_RUNNING, %TRANS_ABORT and %TRANS_SCHEDULING.
-  * @finished: Wait queue used to signalize when a job queue finished.
-  * @priv: Instance private data
-  *
-@@ -125,6 +125,7 @@ struct v4l2_m2m_ctx {
- 	struct list_head		queue;
- 	unsigned long			job_flags;
- 	wait_queue_head_t		finished;
-+	struct completion		scheduling_done;
- 
- 	void				*priv;
- };
+ static int ov8856_probe(struct i2c_client *client)
+
 -- 
-2.34.1
+2.56.0
+
 
