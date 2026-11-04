@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793759626;
-	b=YjdZEnyhH2RAaRYG3fPSnyuSqXjVJ/SJ33r67YadaBXRkAhsRj0YeqNDq8ta4uIagSgV
-	 pbcD6iptxMz3UlwdC8+gY3WPhFoYHyYEVS3qNb07szJW48nIi6lpT7G0RxZzM83uutZra
-	 wtyGggg4EFVgv30ahV/tGbtG2KK7veSlO4OfkHg5mD1an76yWpA7aFnq4nehTaLOTnHLu
-	 LQWuVS2c/+uiXKgDCZnW4sIVLIPEdndXHjItO+plWPzLKNP4VenHd24LryMmesX7kJTWF
-	 eNC8BxjGLI66OcQ/4mG4EbjCrL6aE1JDpIBPWI4LthujDZez0ljPf+bwkEB8Pw+iUaQ==
+	t=1793759819;
+	b=PpvgCYv+2ebz3FKa5VeaqATr5z5fOulPg00FtgRKNTmT0ODe0055JsDu9ZKbA76vxpw4
+	 nomuuYkl6mDDT7nG3bc/1roDoGHsWhRoOxfk7mXULbFNk4KO0/lqUzp9WwCD3lbG0hG4p
+	 KPvfszXZO+GcfEw0BMp8RfbVvD54rb/30fnrqA+ItK2v+DSc9t2v1iGo0V4Jw7e3ianfT
+	 tPUKsBuxj8XldK87CqSxqGCAjLAADBf4lX616WD1grS2L4IEZNlCxsj2Sr0JDnZQtSiM8
+	 2PGKcjflPD6XE1yaXWgC0cxQ5YOoBzqASeftK3U12KQe3UwRM5kmAgIAG/wZpd/XBow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793759626;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=C93F15dXYgg+A5lW50QDJhX5ONKlj8WJyTaRPVwgx90=;
-	b=wdcODQ4FFn0WkjSA7XgxYyM5LkwPY3Xp9nl80pH3YkhZlK7kTinA+lzaEScN7fwDMcZ2
-	 RY18meKZYTPQJi3SN4W+UTI3j+5XO8+gjstA0rYGajKSEpVfyXFriTfzGeyaSKs0gYC0O
-	 2NvU5LBersk/FWwxfSmaR1xWWPQ91Gd2INXkz3gtCeilNhY8SlJ22hqlVp5RBrlF6CteD
-	 xCRijJz96XlPnqo+YJYWTk3cpKbhmO+Yo7inTOoXIDwWaXpRCpu2wphjUFLAE/jJjtEWD
-	 YOnbTPqLuv/BpXqoPXFiN9EuXnBu0zUzzHxd9gihkqz3tKiwSfbIXMhxGxC6OnlKueA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793759819;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
+	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=e/08WZ+ldn9sCIKHO0pN4HbAw+pyxJgudHgZhSYps94=;
+	b=UDhI7EGa/fUqCbsP4hObusBxQ4tNA0cES+/V67LzGhXKEACWRnLpV/IoFrQnNgvMaEc0
+	 xNtATVAefU7Yq0C4q/UnJq33IWJh8yQiYeVPGAOjdulVyRsZG28bHZtkP3mc7t/YXQlHP
+	 SoLVdej7Vv142XFF69yCylp12sjwMmlN/mSNKPgrHiFfe5h+6V3Y9ES9uTMXWBKlBXzoY
+	 +TPepg90Pn+8DGwZDgFhmW6wBbja8LWbAN92zb7Tqdf4ilEAiyqSUsVJazpr7hMYpxi1C
+	 DZwPxmG/39AHLWgOJxKTRYgJOjjwrvDo5VL7TqCOQnFVrnrdxj95FEih4Ce4AD57bDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N2p90eA+;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74E53606A326;
-	Wed,  4 Nov 2026 02:33:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74E53606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=N2p90eA+
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5367d0737;
-	Wed, 4 Nov 2026 10:33:36 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6CA606A31B;
+	Wed,  4 Nov 2026 02:36:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE6CA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jK8hz217Jz22V1;
+	Wed, 04 Nov 2026 10:36:51 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: "Daniel W . S . Almeida" <dwlsalmeida@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: drxd: Fix potential firmware copy leak on release
-Date: Wed,  4 Nov 2026 10:33:35 +0800
-Message-ID: <20261104-db9e3c75b3-media-drxd-1@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	linux-kernel@vger.kernel.org,
+	syzbot+e9ce4d4ff55ba65e3980@syzkaller.appspotmail.com,
+	zhangdaolong <dlzhangak@isoftstone.com>
+Subject: [PATCH] media: vidtv: fix NULL pointer dereference in vidtv_s302m_encode
+Date: Wed,  4 Nov 2026 10:36:50 +0800
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,46 +59,87 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1a4679c0c03a1kunmf01a1af116369e
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHx8eVhoaHU8YT04fTBhMH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0hKTE
-	1DVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=N2p90eA+8M2KPkafsbZLGJCqN9e7xuCvep7SzcO41KLlxG+NgGELv7CndUw+zB4oMsktEXoRRlbn3AVdLOWLfQ7zVxxvXXrUwe1XrR050yIhV9e6qe6v93qEK0AEjjZnJZZ0A6pD60qYdMJEp5uEEJvY0xjz+5gDOh66CXSyzHs=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=C93F15dXYgg+A5lW50QDJhX5ONKlj8WJyTaRPVwgx90=;
-	h=date:mime-version:subject:message-id:from;
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Wed, 04 Nov 2026 10:36:51 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AEA9A43.000 by FangMail milter!
+X-FangMail-Envelope: 1793759811/4jK8hz217Jz22V1/6AEA9A43.000/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1793759811.6AEA9A43.000
+X-FangMail-Outinfo: 1793759811/6AEA9A43.000/4jK8hz217Jz22V1/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1793759814.6AEA9A43.000.4jK8hz217Jz22V1@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AEA9A43.000/4jK8hz217Jz22V1
 
-load_firmware() copies the firmware into a separately allocated
-buffer. drxd_release() only frees the frontend state, losing the
-pointer to this copy. Free the microcode before freeing the state.
+vidtv_s302m_access_unit_init() can return NULL on memory allocation
+failure, but vidtv_s302m_alloc_au() does not check for this. When
+e->access_units is NULL and the encoder is not synchronized with a video
+encoder, vidtv_s302m_encode() unconditionally dereferences
+e->access_units, leading to a general protection fault / NULL pointer
+dereference.
 
-This issue was found by our static analysis tool under development.
+Change vidtv_s302m_alloc_au() to return an error code on allocation
+failure, cleaning up any partially allocated access units, and check its
+return value in vidtv_s302m_encode().
 
-Fixes: 8f19f27e3e0e ("[media] drxd: move firmware to binary blob")
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Fixes: f90cf6079bf6 ("media: vidtv: add a bridge driver")
+Reported-by: syzbot+e9ce4d4ff55ba65e3980@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e9ce4d4ff55ba65e3980
+Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
 ---
-Build-tested the changed object with x86_64 GCC W=1, using defconfig
-with the driver dependencies enabled. No hardware/kernel runtime test or full linked-kernel
-build.
-OpenAI Codex assisted with source review, patch implementation and
-commit-message drafting. The submitter has reviewed the changes.
+ drivers/media/test-drivers/vidtv/vidtv_s302m.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
- drivers/media/dvb-frontends/drxd_hard.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/dvb-frontends/drxd_hard.c b/drivers/media/dvb-frontends/drxd_hard.c
-index 4d673a108f61..a9e3e43c5b43 100644
---- a/drivers/media/dvb-frontends/drxd_hard.c
-+++ b/drivers/media/dvb-frontends/drxd_hard.c
-@@ -2870,6 +2870,7 @@ static void drxd_release(struct dvb_frontend *fe)
- {
- 	struct drxd_state *state = fe->demodulator_priv;
- 
-+	kfree(state->microcode);
- 	kfree(state);
+diff --git a/drivers/media/test-drivers/vidtv/vidtv_s302m.c b/drivers/media/test-drivers/vidtv/vidtv_s302m.c
+index 3c08e442b2d1..83cac8464a4a 100644
+--- a/drivers/media/test-drivers/vidtv/vidtv_s302m.c
++++ b/drivers/media/test-drivers/vidtv/vidtv_s302m.c
+@@ -176,7 +176,7 @@ static void vidtv_s302m_access_unit_destroy(struct vidtv_encoder *e)
+ 	e->access_units = NULL;
  }
  
+-static void vidtv_s302m_alloc_au(struct vidtv_encoder *e)
++static int vidtv_s302m_alloc_au(struct vidtv_encoder *e)
+ {
+ 	struct vidtv_access_unit *sync_au = NULL;
+ 	struct vidtv_access_unit *temp = NULL;
+@@ -186,16 +186,25 @@ static void vidtv_s302m_alloc_au(struct vidtv_encoder *e)
+ 
+ 		while (sync_au) {
+ 			temp = vidtv_s302m_access_unit_init(e->access_units);
++			if (!temp) {
++				vidtv_s302m_access_unit_destroy(e);
++				return -ENOMEM;
++			}
++
+ 			if (!e->access_units)
+ 				e->access_units = temp;
+ 
+ 			sync_au = sync_au->next;
+ 		}
+ 
+-		return;
++		return 0;
+ 	}
+ 
+ 	e->access_units = vidtv_s302m_access_unit_init(NULL);
++	if (!e->access_units)
++		return -ENOMEM;
++
++	return 0;
+ }
+ 
+ static void
+@@ -405,7 +414,8 @@ static void *vidtv_s302m_encode(struct vidtv_encoder *e)
+ 	 */
+ 
+ 	vidtv_s302m_access_unit_destroy(e);
+-	vidtv_s302m_alloc_au(e);
++	if (vidtv_s302m_alloc_au(e))
++		return NULL;
+ 
+ 	if (e->sync && e->sync->is_video_encoder) {
+ 		vidtv_s302m_compute_sample_count_from_video(e);
+-- 
+2.48.1
 
-base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
