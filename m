@@ -1,91 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793782817;
-	b=ZIsoKBr3OgKCS7msWQm9zrtWBbrzKqOelrskekCvvR6+LnNQdR1EAiYo2ubW5SIOozjn
-	 0KZ1hpWdOalf8aitHSmjKkivVcAQOwIMZS0e+DB5PhmI3hWZV+YZX/FuN/i7ot33NazQh
-	 wFiPtjpm2XT/zmqZjjUJwjzKqH4Zox33O0qeffuBmaL3JsUajA7l2NxtwMfapaorMl3MQ
-	 +Gds8Sa9gPyLydTw9XngizcDgAY+u/m6KZM0KDvTJuUTjlLUO9DkkxAXk/fI62yJUU1wH
-	 FHaoaWAkehuLemat/jQuQwWzmLkuYSrnxeFWf3pO4joLBJHLSbVK4grfw4sF16EUHtw==
+	t=1793782971;
+	b=CHuYdjL4z5ojiaaevVFTdvMqxhYQzP7ZbFnVGcyNVltnPQhckpWE0G+B0R+6Cxsbw5pl
+	 08XujMCjiPmIE3Aijp4VeTr1chnwBXq9GBEKk65S7zGFHPmShzsDnB6jkCWpSymDTKaMT
+	 kGcFXH2FJx136qR7796GhgTxa4FRYMTKyQdaRyvGzozMo/v880E+EbdDsMB1/UwqRjI7g
+	 PNCFDN+SruSL0BFsGbfPrKWCfG/1bK/1i17kr4P6pcwl1oT6UPIDJ9euenxKwgZr6KCPE
+	 sugmHHO5HZAcjhdm4tSS/bWOkUl6cwyxIqmbR7kjNo9ABWbRykGd6qBPhNQjxUAnDiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793782817;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=c1mWAReIxkzAkfPbreyykThnZ8GC+YiVWeAMp/vbi/Y=;
-	b=aZST9gUyCm7afOue3oBfzZunm3qa9YE2Y8+p+PpOTtY0SVHFGmlm9gC1TV83cJtKQGNp
-	 DMJJaYXle8LhIvtlzdUF6bgvQJE4dlmWKJSopXjE/P7wF/XuVPnDxQMfg3oW4r9RPV/fR
-	 5EqJy8oajdfMAlqgCYgWZ83zCKtdcs5idjQLx5V4sA8nRJagIUiIZtLzjHUEnKgp1Z6ol
-	 t/PdzxFg6lLiDoaEM3xIUsUdZH5/9HLLk5/nxwvVSHwY4DK7j395D5mD6rkorhC6xiWHD
-	 NyFbYFUG5kqKC2looI1OpwiahaHtehXKUVzw+uTKVIUG6QBNsshgM4tbJlwCAwnLtzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793782971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=dqcRixLJmkkcy3eiIFpsvvSqFHhQ30OHANn9yneJXuM=;
+	b=EplX6M+/L50UzYKfhLGThRFZ8hs//X83+rkV6FAXna4CgMFs7RF+s1tFokcSGnFlhW7r
+	 UC8MT8Lw+fWkZtG+mR/hHgguLl7AwQuabLNyVfcmLA26c55AUGILbqju57wG31TSzbhSq
+	 dAvy21kcYx9bJpm1b9DPf2Qh2uMEneX2d6ExUtOyPYGr7SOmld036qb0BHct0IiCrA0p0
+	 yGGngMvXwBAOaExx/e3+yDxSn1DrkUWX6YCxRxmU20/eQ1KIxYjKwnkyyCOMyw6KXPkSR
+	 5pMYlJbQtWqMutwLTxIdK7GaxofQ74S/2jaQsCeJM0tL3vYk+h9rRSismAPlDBhWCQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bc1OeJc1;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sdHj2hcj;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67337606D804
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 09:00:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67337606D804
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B4B9606EE93
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 09:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B4B9606EE93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Bc1OeJc1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793782816; x=1825318816;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=2Vk+rNbh99pI8mbEh+IBqi4OWFKMHYLhyd+nA+FqEgU=;
-  b=Bc1OeJc1atO9i20Fnli2YG0Loh2V6YsjmNZAyfdpKP0WXcawzOKgUgHi
-   4rtTa841gw2zpD2B7G4eF/RENhbm0Eto1/cODYyCiVquRbYyiIENZcjpb
-   Uqm/E+LqEjyYTXzlwNcU+R/pjoZA8IomLA1UzgogurNfHidBfXEhQkowx
-   gA3w+z5BKkhxVs78dp0sVwmoJ635VxG/xIYW7XD8mCCt5P3ceKSAoPthQ
-   jim44B5acUNDOlVKyiCe+SQW+BDEJTa7S2hG/MNwHvbSNrjuCpu/semOP
-   0Q+tqFd7nZBiLuFWWopTsLfa3X97d80YdV7hd0LjIOw4bqje2W0pSVAQM
-   g==;
-X-CSE-ConnectionGUID: L1OqKbb4TEiWozUIg2jePA==
-X-CSE-MsgGUID: X8tcXIRJQqmYKo1kA5zviQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2411514"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2411514"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 01:00:16 -0800
-X-CSE-ConnectionGUID: 0bjVK6p6R3a1k7XXVvHkNw==
-X-CSE-MsgGUID: dpYvwBtaQ4G5kX2q4i8Nng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="6795068"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.19])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 01:00:13 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 68EC711F83D;
-	Wed, 04 Nov 2026 11:00:22 +0200 (EET)
-Date: Wed, 4 Nov 2026 11:00:22 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-Cc: Ruslan Bay <ruslanbey@proton.me>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH v2 01/12] media: ipu6: Add IPU4P hardware
- identification
-Message-ID: <aur0JgcxAVg6ip-h@kekkonen.localdomain>
-References: <gq0RPklnWwh54C8bfSPed_4KhUyWsFte_HBmLeiQM49u4LWoUOGyWTNqEQc9WDnHekSmgDrVtHXOJ12brO7eZdIXH7yUJzjGR1V2axZumGY=@proton.me>
- <auouu3gvbMTNIwvv@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sdHj2hcj
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-36661f953e4so557890eec.1
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 01:02:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793782965; x=1794387765; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dqcRixLJmkkcy3eiIFpsvvSqFHhQ30OHANn9yneJXuM=;
+        b=sdHj2hcjewu/pJjLV1f5snSmqxrqj5pa+YnHcZCyKRhPc2yThYFp9l4BVSfBQBWT1O
+         oYH+RsVaoYO3KDk6sK28SloHyXxEvzVOtW7kkmZTJL6D0y+rlZTeS17A/tkKe2LRTjeq
+         NjtxLteDJw25juRUYKsPtM8v1im0cqA2Qronv0T568l6Y5RfM/zqWe/65FZkPRB+Ok5p
+         9twJOwmuZ+YTQwBDUl2Bshvh1461x1DDHOO88x4VarTg/p5irmBSzP2TN8o01mhrhR7e
+         Fp3t5N9bm0GoApWLiXZCuCNKHhDQY/7EI5yf+bclgTcgtaNwkY359quU6U4thsbTZmgI
+         hZTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793782965; x=1794387765;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dqcRixLJmkkcy3eiIFpsvvSqFHhQ30OHANn9yneJXuM=;
+        b=ygIwmmpo/ftJ/GI1J1CGBOYcdOWuRZbPcMRQsl2nXNCa2V2Cjajvox+A6J2OYhd8ah
+         a/2VpdtZ+Jt7oLIVmtTFWuzaXbkMGuqmMYl5RLgwaXjsSBjK7uDS+iLZIA6WHVADv4A6
+         /Zcmc0p93X7RfZYzqoFqoqi7dvwZe96SVeP85quPpoj0kmNVW5x5sIJM2jSPVTHrAzfa
+         /iyf8aVcmbfaicdDn00WRfS2yEWYz6AcpYhqsuyJ6eNcTWktfApb57gYVQm3LNFFHIqR
+         S3yI6EU+t3QaV9uBCex/05IsvdvKSsYDKq0866wkZDS0977l5pzdYz56y+o4NT0aCr8t
+         g4Kw==
+X-Gm-Message-State: APuU4Z+j29WudakrC/PynAavFugZ9DbWwWG8DB+Dp0gTANAyzQgD7gMd
+	sZoVwM0YBeLQwM/8qRwFPp+wMtYR7aYQz2kNynew3NqhSncVRP5hUNob
+X-Gm-Gg: AYBFou2JFHmhfhexPD6GUrIaSEER+Q9CPDO5e24A/QriUSAp9V04ji7yUk/8e4sT4dd
+	pFT6czIDn28NG1KOD6eSxZVIQ7BQ7/ikTN/BRW+2XRd0rD77mRBuz3bZrMfn20LyA/dwiW8Si5f
+	v6uLoakTXD0nLkb0X5ccGACyc6es8NTKa4BRawaEy2+vIJhPw7J/vih8tjTfoVxT/aVc38dWeds
+	qgWCuExpf9M2e92I5gUEPEGB87+e5TursvrRXSygV9cmOuy+LUkEBkzdQrTDY72kjr54BCElDau
+	P1WAswVKxCBQ3tS8q5s3C295y80lZmPG7uBo/REELpTww5iCtb4xend8AWn5JpBEc+o+wEVdbEO
+	nJfF+zSJJ8ZfKkU7vURNwAQNcW2ER/LOjxfdrsnYK597e1hLZ8tYShmwAso+B4VebuKfwrxQ7aY
+	7WTkuRzDxKfPsUzR6md9SKW9AKROzRMriqUQulLxU3+fQ1I5IBfdauRt+W6HYd+Kjn/R9xc3BpX
+	FXfYp+djb6Osb52QYL7wNgyGYLGaHk693rZxK5uy0/9kGpblW3R7/KRCJCh2QZ/vthQ+eS4M3/s
+	FfuBydIly+AFIBSMVjLWO3E2y5faun+VOQbUKbkBwguyDZBj8/WTPfMUKG8=
+X-Received: by 2002:a05:7300:c00f:10b0:36a:1470:da0e with SMTP id 5a478bee46e88-36a423bececmr28116053eec.29.1793782964775;
+        Wed, 04 Nov 2026 01:02:44 -0800 (PST)
+Received: from homik.search.charter.net ([2603:8002:ad40:56f0:37bc:b892:b6fa:fd6e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca39c5f0csm5182375eec.29.2026.11.04.01.02.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:02:44 -0800 (PST)
+From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	kees@kernel.org,
+	justinstitt@google.com,
+	morbo@google.com,
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Subject: [PATCH] media: siano: Replace strlcat() with snprintf() in sms_ir_init()
+Date: Wed,  4 Nov 2026 01:02:39 -0800
+Message-ID: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -95,24 +97,37 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auouu3gvbMTNIwvv@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-Hi Andy,
+In preparation for removing the deprecated strlcat() API[1],
+replace the strscpy() and strlcat() calls with a single snprintf()
+call to construct the IR device path.
 
-On Tue, Nov 03, 2026 at 08:58:03PM +0200, andriy.shevchenko@linux.intel.com wrote:
-> On Sat, Oct 31, 2026 at 12:26:23PM +0000, Ruslan Bay wrote:
-> > Add IPU_VERSION_4P and IS_IPU4P() to identify IPU4P hardware.
-> > Place IPU4P at BIT(0), shifting the existing version flags up one bit.
-> 
-> Is Kaby Lake IPU v3 or v4?
+Both the source and destination buffers have the same capacity,
+and the return values are unused. This preserves the resulting
+string, including truncation behavior.
 
-Kaby lake has IPU 3, but the CSI-2 receiver is different (CIO2) and
-unrelated to the IPU. Also the firmware interface is different enough to
-warrant writing a new driver (ipu3-imgu in staging).
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+---
+ drivers/media/common/siano/smsir.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/siano/smsir.c
+index 283770d583d5..636ff228108b 100644
+--- a/drivers/media/common/siano/smsir.c
++++ b/drivers/media/common/siano/smsir.c
+@@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
+ 	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+ 		 "SMS IR (%s)", sms_get_board(board_id)->name);
+ 
+-	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
+-	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
++	snprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
++		 "%s/ir0", coredev->devpath);
+ 
+ 	dev->device_name = coredev->ir.name;
+ 	dev->input_phys = coredev->ir.phys;
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
