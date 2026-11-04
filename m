@@ -1,98 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793818778;
-	b=jNFTNkbxJ1yM2QBu+s/2draLuaNUU6PrinzDaJ+DcKapbOEADCOWrJgYZho78oVWO6iq
-	 dm9xntheAT7roLh3W7nC1Vw8FB1ZzfydYdg0CCqmaSTjI3Q9vaDysobwccnssRMuIq2sx
-	 uQG1Esc30FSrZy9nP+BBvldX5LCY/LgLrQGNW22s+2nRxvc8oIx7Sxn7H1z4caKSqRE+1
-	 NZOB+LFT6XJysKEUBuJZuT9x2Ntjam5+YddYP6CEaDZA39vJiVs55mxt0ZJHBeJoMnhd8
-	 95ioFSclNUtW0VjEx2G0AEIJ313g4qYWVlSzD6YcFkUzGWvE7KuQ9PbGfeB0e5B1yIQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793818778;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=R3r6XsLge/zZ3OKpgQUjrLyEgNz14EMMNXZOviFfiAM=;
-	b=W3Rnks/3at2yYINYC0f8ILXxpqvHBlGz3/uCvgb5sCPrerBqaASk/ronBKFsmHkWsVzi
-	 DyBGoOjHafIirEuLT/oLkk0wYe08GHvXp7hwlMAht9fZuzqo43Qweu5dzb2ggJ1ObHZp8
-	 I+FOvDI1o0MSUjzad6XJ9IVYj+TQW4oo3s1SM3w2Jqg7owj3IeFJpWZ0/sJnYtjVEoM+M
-	 gCTL68NaZ0MdyVghINiiLgt+jTUg++Mbl8kzjRY6BT7feyTNdzsuoxpQotMD/ELtghk5j
-	 JpylOd6XJzzc8fGDDPXBPNuLlVBmTzUXFV1PUtFrKJr+S4QhOef6iCMCIETzYZnWFwg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="lr/ELXGO";
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793818846;
+	b=hICGVi7gGpNMBgnCiutQj4jixcjQ4NhOJ1CNqD4jRwDayi7GBWkXBFzXVGJRDqmr8ffl
+	 cZVnKmp5IikNwx4Z0jM/6CzVXdmnpWVOI66arex/MvqS2VxTb1UhBvgF9lHFL/ktErHcX
+	 tFME6l7wv/iXgIFvf+1MdJZGSgm8JtLLTMLPrB1PnjR/JigcuCPhSXesAnWaaLadD8oIS
+	 6kXWuPcQLjpaCrOcFHM4uKSZGNqK199lQBpDi6OcLpQ5ZTNOUCypQ9U2Ec4sY+m3zMjiJ
+	 NtO3D7Z+35ciTism5P8kd6myF4r/tVreP6U0+86bUJXbJSPe9/Sq2VrnhhTtKAsC2hw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793818846;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=;
+	b=lH1T5Y6KtXq+iHWuEEr35UNorv/PGOaUjPVS4s7SB42Jrx6f1nYTP9yQo75Gsx5ZTbOl
+	 5HlanMQ58y4jN+4DtUnNnsmIOl8pvlBqFLC8vrwZMy9ezAeVYyd7+wLO7d39gXCC0Z9Dy
+	 la2JJnT4Yusl9PJUNwm14wuOL7lYSs4VjaT8MAX9Rt3u+wZgJWb4oaqediuRdOX3aVUwL
+	 08T5R92z0JOEc1T4Kua3nQHsgjabppHNx8CHj0V028ZhgutAnWX904IybtQ2pTw+hIhWT
+	 maGhEtpj8Y66OfDVObRrrE3nY4wS9H5bnCvroD/Akcg2TleCwz6JLRsWOnFp3Pj94OA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E962606D822
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 18:59:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E962606D822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B18B7606A32E;
+	Wed,  4 Nov 2026 19:00:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B18B7606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lr/ELXGO
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso7271565e9.2
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 10:59:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793818776; x=1794423576; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R3r6XsLge/zZ3OKpgQUjrLyEgNz14EMMNXZOviFfiAM=;
-        b=lr/ELXGOAjrtNQ2piNiebm448JLxZFs3NW41gkD+9o25m/qDzbazqA1e33FD+d4Bdo
-         Hzf/vDuocch2IoFrUfuWpYmoju7yM4HntqnzQ2h7WurL8TVUqMIdRk+tLS1ctQW9YpB3
-         qq8MbaH9dOos9MNq76/4mBI+XJ0f7xCSjfa4UG/k+9szR09e3FoSYHeOdnnxA8MhcZew
-         x0x5JoM/OYIDsk3+pluU+HmDAL+PJNqKi5t6UFuWN0yBLoK6GBEaYPMEHrZYnyyPVd0q
-         MEYBzjn4JBA38t6KzASwMV2Uv5VQR7+/PV1HIMOVdTCdoMZtDXrNNdd1xtAWWMV+qjbJ
-         8Tbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793818776; x=1794423576;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R3r6XsLge/zZ3OKpgQUjrLyEgNz14EMMNXZOviFfiAM=;
-        b=EcSkjSumDnE9QGbv3cehysuf8ikACkMyOelZyCED+trRt3SmsbRTIhvHX/nSUFqqey
-         BI6N1lRGwWXDx1M0yQI9109IH4Z2zcXeT9DVMot40AyZt8zORWUPPyzvXVjGVzvMWZbg
-         E1qyQyx4sX/C1yEqSooHrxG1aK4QLZHsZRLDuT0ixsGdESuEvSuILM8gtwfDDFLouiVf
-         VCNluBO5NzoOdFAG96VzdjWI0UCWsoll1FLn/ZMTNTv3pIJ1fePC2ZZQMcKN2Kecbhmo
-         dyVLCXvvk1Pr+fw7qWx5JdVRP28Y/wFB0ju+c80cs05gpATa6fJeGJCcl02wjZGjzIRQ
-         iA8w==
-X-Gm-Message-State: APuU4Z/FdubX+zluNmPbFB/bvaBbIPQZP6zuu0ojaAY+6Ye54UFKSUMb
-	eND1Jg3Zq3aMNleLnIWw4isXIIxBIoIz03znnphcUTLXTmL+pm7vIpet
-X-Gm-Gg: AYBFou2RS6hmpZOsEtFKqjHYe+srgHTBVKwg0F7zsPExiZ/OIvb5DWqDrZIh99yGi5P
-	bcldTy9gBDbtXfRPqtKEdnw0b2mE9ov4Zqq4C5v8ALV/wQzq100+g6zO0flnI01wln8Zwcz7y9K
-	7V4FdWvy+otEZgQMlgixL6wbw9GrUZ+Z4F70mXSYXmYGpL2AW8EdhoR6mGenHA1ZRJJVOvk22Ll
-	hsXKwv3+klJv6Hy3BSU9GMdXHWsnu6kaHywurYiLgqCVW14STkCMkwk5uXKPz4TYUSJcrdhaSzr
-	qYwN97C4RsPicnVVKKLCjOZlgnueDVseKJhMLJTW5pz4YR/6CnLU4j2mclALiuO2b8rmbOCgDI3
-	IONS+qFU7YwOr8GFMdgDmnA1QzqwVZa1J3HqMhsOTtZA09XMeCHIQ35KiKNUmQ2bsCpdAsWJirA
-	upCRWjrrwhIkp2mJbu1peQ+ATKVo3uyGy4byxXq/YpsTY3EDrvf5ULldJ5t34THFzc/aQA8Cc5p
-	BBAJ25I8b75DbyWvbFCXIYJskUnWEwtiZ3RqdmaY+Mr/SniYv8cdg+L2+xLLix/8dHW3NDiv96b
-	G5zXFoFmahJDthDvU36CCu5QSZkBHaf94gZblIwKJeSZoGJy+dYaeSJ2brzr6Y6z8K9IKWzB8FQ
-	zdIiTcE5IsT/OBdYl95AABrVUGU4jmdxkBRtAQwgxC3ntg7HdBlRZP6cloy073awmy/LexzWSM6
-	O6SFyV8hMAsNshcTnLFSYsvbUx0u0as3ji+zSwtvyg4oeF0WXcO54ptwG0kxCZlBFnPVxkgYHtR
-	PCfXM3xthbLEDQ/8+5D2mu9e5VvCOyY52utVtK5Uh1q
-X-Received: by 2002:a05:600c:a00b:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ac1765d8abmr383629925e9.22.1793818776367;
-        Wed, 04 Nov 2026 10:59:36 -0800 (PST)
-Received: from jernej-laptop (APN-122-103-30-gprs.simobil.net. [46.122.103.30])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba207sm3598795e9.10.2026.11.04.10.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 10:59:35 -0800 (PST)
-From: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH] media: sun8i-di: Don't sleep while waiting for coefficient access
-Date: Wed,  4 Nov 2026 19:59:30 +0100
-Message-ID: <20261104185930.885203-1-jernej.skrabec@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dOrhpNMv
+ARC-Seal: i=1; a=rsa-sha256; t=1793818793; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=J5Nk2Imxaf8oS1qWOaYZ/5p36mXDAYuXtOJxtp/dopGz+YZql+vQvYrpX8mB7IauHA4Xk8YQi1qu+PaPR6mB24yVfAOhT6/bxucXIyTgAr5kbwboEEEoK0r/KXXOvBMiOSZV7ITsCmtFClDMxvvdkx5UHygUVxFFFyU3jHRL1IQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793818793; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; 
+	b=IIHGp0XFAy4EBAI1xAOPiJGJtjBnAKa1DW4/mE+dskb/wg6rrm+SQ1O2NbrAIvdInYgZaN69e6gP4ugz8c37N7g/budnSoj0+vfCaDRddEsiHdsgyTHEUdlWXBny9WMxT0bGPo7exVlXSK9F2A5uzCRCit861dBAtMweU4FMdr4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+	dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=dOrhpNMv1PBqHvf04rmXTIspsXaESd9P7WOVtnMpEGyERmcXNvYese409KE9Zwza09rugcliorGeDQvjrr3MppjkVnftXWuVC1JjjPXfqzc8ZfT1DRcgWJ3GieaTP0rd+PN8zqGyAj7OxYG6dJ7ZZp98FLi16P60Y7MDl9lIIto=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=VzZMLJITLVDB0A5Z42maKwswLtuUp4zeciOTqXGQ8aA=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 179381879157175.33447173328659;
+	Wed, 4 Nov 2026 10:59:51 -0800 (PST)
+Message-ID: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+Date: Wed, 4 Nov 2026 19:59:43 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -102,38 +58,73 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+Content-Language: en-US, de-DE, en-GB
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-deinterlace_irq() calls deinterlace_device_run() to start processing
-the second field, so it runs in hard interrupt context. However,
-deinterlace_device_run() waits for coefficient access with
-readl_poll_timeout(), which may sleep.
+Nice, very happy to see the series!
 
-Use readl_poll_timeout_atomic() instead.
+On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> The comment describing the QC10C buffer layout calls it a compressed
+> P010. It is not:
 
-Fixes: a4260ea49547 ("media: sun4i: Add H3 deinterlace driver")
-Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
----
- drivers/media/platform/sunxi/sun8i-di/sun8i-di.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+If I'm not mistaken the display engine / the DRM side (including Mesa) 
+describes it as P010+QCOM_COMPRESSED as well, and so does my pending 
+Gstreamer MR [1] . So if we can't pretend that QC10C == 
+P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that 
+up everywhere etc. OTOH if we want to keep the DRM side as is, then the 
+comment should reflect that, IMO.
 
-diff --git a/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c b/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c
-index 65bc426e5aac..bb90e0efa4d1 100644
---- a/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c
-+++ b/drivers/media/platform/sunxi/sun8i-di/sun8i-di.c
-@@ -163,8 +163,8 @@ static void deinterlace_device_run(void *priv)
- 	/* neutral filter coefficients */
- 	deinterlace_set_bits(dev, DEINTERLACE_FRM_CTRL,
- 			     DEINTERLACE_FRM_CTRL_COEF_ACCESS);
--	readl_poll_timeout(dev->base + DEINTERLACE_STATUS, val,
--			   val & DEINTERLACE_STATUS_COEF_STATUS, 2, 40);
-+	readl_poll_timeout_atomic(dev->base + DEINTERLACE_STATUS, val,
-+				  val & DEINTERLACE_STATUS_COEF_STATUS, 2, 40);
- 
- 	for (i = 0; i < 32; i++) {
- 		deinterlace_write(dev, DEINTERLACE_CH0_HORZ_COEF0 + i * 4,
+Best regards,
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.43.0
+Robert
 
+1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
+
+> P010 stores each sample in 16 bits, QC10C packs three
+> 10-bit samples in each 32-bit word, which is what the stride computed
+> below (width * 4 / 3) assumes. Name the format correctly.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+> index eb8de60c1177..ec2bf2a2d953 100644
+> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
+>   
+>   /*
+>    * QC10C:
+> - * UBWC-compressed format for P010.
+> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
+>    * Contains 4 planes in the following order -
+>    * (A) Y_Meta_Plane
+>    * (B) Y_UBWC_Plane
+>
