@@ -1,88 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793800836;
-	b=LQFZsAwRB/HFS9JsFjHi7/mimmS5/KvsWXBnc5AEr+bhuWwI7i24c2Tp0+f0AalRVpzJ
-	 cP+XjKKeQkUovxHaU0gxqCZHUmWtOLMqR+OXHBwmjCmP4it6FjEkeP29oH7Tzpxw3kU5T
-	 i9Lk6iyu1OW4VBSADtR/yo1cwMousxc/Hs9Z4BV8+HghAL8Hq0C6zrC4jUXTdQ3TZRCfr
-	 OzIuO4fSti4K3g3L2pLCq4eBLANCGmakX2BqU+oPiT2V5vhH9W00upl4L1cB65Gd8Vsdp
-	 ReqD/aKuQAaLAnAMsZuyLAR8K7RlKARyChDPYw6Ub0R4kyo+XtICRwCrTIKyI2yuSfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793800836;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=yLSW/CJ9qOILUYlmIBoazTCqPoZKnrkzdeQbNG8MlDc=;
-	b=Jqz+NZpUgW7tiiDxMNZLWwCf/rvgojSpc8M2QVttNDU/6x+rfZEJ9IT+Fgl+OOhmHeeJ
-	 ivWOdeqUmlpDrghIcxdQ7CELwVgW/MMv+fOaYUZw6RCFSlxOYuwmp3SAe4NazYTfmilba
-	 0xibTtvhpHHZW0Ux7a/IG48BPQAn149w17Amsa3ac59LNJ80oVo9dyFwLA6k1iQek2P7+
-	 dwX1vqJcFdqN3lSWpQOMM0N/DynCSq1IYoZWB/YAmQ3JXi1Dt5aQr7Ckz44LoMP1qhrOO
-	 ppfkdisUnn0y6uwaYQkhXZ9oCeoBqFCuq5D1vy6U3fFlaJtEf0vA22k6umRDzZkpgpA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nhmHfB9B;
-	arc=none smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793801543;
+	b=xMJlgzF6isE6XMhh1hwywm/XnU4iE/EB7nwagcN3J/axHCQXCXIX4SUeHZUsGIkWhKt1
+	 o7qmw4DKAx3cetgehFyPk3vRKAS7TgqSi4Y+fe3hSWycvuYmVXL1yHSj60gjHtLC0hurb
+	 uqcBTLzmS4PxNTcsCirJTYIx5uD676JWFa9ihOrojxHe3K9Z6BxEoM7EwVkyOIZPf6yBA
+	 HigW1281S1m7Veblx9mO9RNDli4mVi7+pFHue8fMIaZvHxR3ncB7kABkmhkdhky/uBtPW
+	 N07q350wyg3bzA95b3dHO6fZjjRs1iGGxGSZ/yfVRzxIGhHVdsZnnV/X8gOBmv4g0cw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801543;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=qt8pYHnyAZsiOolx0cEcvSp4N3W6vYqWJkMHRpqOlXc=;
+	b=4y7deYml1yd+l5/YI/rORm2AYxBjpPwLqFq23KO6UiLlBpjj3FF7Zle+WB44UL8hiruq
+	 mxgLyEwy9Nr34qHvwjtRxMcj36OkoOWoVFqlfwDrwR/jY/acrACjVBkPcjDEvZf77bgan
+	 vEYqfoReEfHp9bvFMO5A4pr+stFnCoiO7ltGHvYJEiJAaWEvDJv+TY/E292uEJAh4fsX1
+	 45EILPk6fEAOo8/iHoGTwh/ME698LFwqii5ZRUe2QxWPe1J6nr0nKnPlpKlIsZHHMw5eN
+	 fSdLk7y7rizO8jxRD3wXsVRHeV5juF4VPPQKmzNCfACH5NhaVHmGno9fSRRv3X7fpHQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fj2rZQhy;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CB9606A32F
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 14:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37CB9606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA175606A335;
+	Wed,  4 Nov 2026 14:12:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA175606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=nhmHfB9B
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5be3dd6f636so49339e87.1
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 06:00:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793800834; x=1794405634; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yLSW/CJ9qOILUYlmIBoazTCqPoZKnrkzdeQbNG8MlDc=;
-        b=nhmHfB9BA7eipvNVWaA2Gte+/EuT7A9kKbfv57jnv9GerCXmy2xu/MiC3444R8X/zL
-         CWlcE5Y/QVXtSZlg5l/Qkov43ieQyjwX7fZLfJOppIyIcH7rMTg9fTXrNFUYQ2jZCgd0
-         CaOs4V31RbJAEB45XReNIgWcEuqqO3nOF14L/+wmihvANf1K5c4b2HyUU19Vq40riAtw
-         r8QW0tK/PhteMxYNJiZ8B34VzNedlLYAoqCSJ/ES9FIzNBs/a78POzFCXD2rRDYZwRy9
-         JLRaIl8bY9XxzhRieqfVYt1PN7AkG80gBzTracYK7Seu3BT147aL1kky2JHChH7CwXf+
-         RKFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793800834; x=1794405634;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yLSW/CJ9qOILUYlmIBoazTCqPoZKnrkzdeQbNG8MlDc=;
-        b=ubcyHtr5e2rz6YfPU2QM5nVIwC7y/1iZBKRFDy0UbsfmpHlMa2Kv79u/7MLmAlTjDu
-         3B0uQwyl4592A5/bjiXP/FE/6BfAJM9NotKap78DKqCy2Pen/32OoU1nBy2eMXF/Bza0
-         ph/3+ngWY0OZ4rvgIdGRVAKvk0TJo0eM86VbjOcfOmR+BCqxTsIUv1WcwJbO0r2jsv6q
-         qlTd3qHCNBqaWWcBlD9VSCAbWU7jBAvLIjEkl+qimtZKqdnNjip0HWynNTfVrVFkvXHJ
-         8acu1wYhorwOWKJtKIuU/7onvqk92ICympvjk4mKoD7H/O2K7So4bGoXlsB2diKTcijR
-         LSOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxS7JI5jV7pKMnE264tEejAC1H4YZyLvGuYVIQka51guYCQA8bUtsYsDJoUx6iWAztyxzRJ6+WCnvaOlw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/S9ptzbtKPST0Wp4nJY8beY/x4sj0F7lWs8R6XcSbH5q/9PSLT
-	VuoleXrpp7y2W/g3S78zlLx99hZZPL8mKz5c6H45ajZl4MKFxRHqdG8xpVUtZidIZqVaj3nPb5Q
-	1FfEGJlo=
-X-Gm-Gg: AYBFou3L9OqsBQYydFBR5Y3tuH6I1mCsvNXLsSQliky4ovgTQu2u+xr0VV6VU/PAwNj
-	EC3c+HNKBGfFd0R2qbn/ma4qgbNbLZMcyyXK8g/khrB70gQfqAGTLRlesRb6rp6xmVcZjCWpcx6
-	mQPx71lOGfTcf+GcRQRQH3i+jkb5XSapmOKxCI8kNvI3yqlAv/AzK17dhN3nWCkObFM4hziibiM
-	wgBI/+fHemsUOtflxBgnmUk70gsNh8jUjf9iwO0W8xIGUbjpJVQIdS1fQxKGvr2pMuV8x7Yi8kk
-	zUt38W9otNoQ866S1SqJw8nQOo7Rt1NHMIAg+vJuEF+crfXJ4dY2urDPkFJweROu30J6MKBbSxe
-	4N+gqIfwAMWTIYAQ2QCgYJKQMixzs5p3Zh5b+/vXNQs333za/thE0TOoPo8i5QDviPt1sT0NJUb
-	y/HXuJUazbh9NmGmvOxhhp99JiPAtOXHm+4Ylw/+VraFg5a5vnDONFAyx6cFbqwP3Nyq8roypGZ
-	/q6QHe/GVgFqc2aEwNwynDMmU/P637BFZXSpzZUM/wly/PAbXbmJG2oghldHtTaHXYQqbfr81Cn
-	JXjRxkrM8865tQqupudoUeTagXlYSYSb/3WowHMc++URzY78WJEqDJ9dlK1t6w6htXW7pq2XZNn
-	RiIvwKg==
-X-Received: by 2002:a2e:9592:0:b0:3a7:7ce9:7530 with SMTP id 38308e7fff4ca-3acb7a59280mr29824581fa.2.1793800834086;
-        Wed, 04 Nov 2026 06:00:34 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6bec70sm4550261fa.13.2026.11.04.06.00.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 04 Nov 2026 06:00:33 -0800 (PST)
-Message-ID: <48f56fbe-9db3-46b7-96ed-a6e3b535c0a9@linaro.org>
-Date: Wed, 4 Nov 2026 16:00:32 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=fj2rZQhy
+ARC-Seal: i=1; a=rsa-sha256; t=1793801495; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=gpQx703hJQlp5rl0ZOVzEgqbS5E0x99CANbAmQSF3a2Iit6649AW2SOps7qWpQLEEPNrM6fYlmuiQKDBQAblmayjyxGTq4WU9fKjwTqoxTZTR246fDW1ob+AZtYmh7L4L+wOuwfOO/LmotfnUmtybErLzZJx2BLMPLr+5+p/vDE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793801495; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=qt8pYHnyAZsiOolx0cEcvSp4N3W6vYqWJkMHRpqOlXc=; 
+	b=TGKc1rCzQ1GDRG4g9rOzIdpTo7WGlX+ledGN2lLQklwuNfZc475xRBV1nAgYnbCXuu8HhXzaytHUbQ64RpPb8k85+Ys8HiOmYOSP/6Adoj8R50bTfnIFGNBH9cwgUvOq4HUdn7/j1tuJ9zQLo2O+GKeVvaqTpDRxiO3ncevpHsM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=fj2rZQhyPJLdwKUfVjmn6zqd/uKdqw4eje2Zj9dh+IcuSu6VI/YkM3jritetmyGtuti/xFllyo9k8VO4aEuHhkmGuCAkiAPPp2DKiq8tDKDp8rujbsQsL4GxiMqDZ50SOeyizgAhVGoqQXsC9opprvJOEak4HR6v6plx5ZUCKis=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=qt8pYHnyAZsiOolx0cEcvSp4N3W6vYqWJkMHRpqOlXc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801491817146.82438902791648;
+	Wed, 4 Nov 2026 06:11:31 -0800 (PST)
+Message-ID: <657ea8a3-2cfd-4c90-b672-84c78acee181@collabora.com>
+Date: Wed, 4 Nov 2026 17:11:25 +0300
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,53 +59,85 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: qcom: camss: Change CSIPHY device name from "csiX"
- to "csiphyX"
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Frank Li <Frank.Li@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20261104130014.681769-1-vladimir.zapolskiy@linaro.org>
- <4e7f2f2d-7c2c-4dc0-8488-6ba71f4b886b@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <4e7f2f2d-7c2c-4dc0-8488-6ba71f4b886b@linaro.org>
+Subject: Re: [PATCH v3 02/10] media: synopsys: hdmirx: add media device
+ infrastructure
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
+ Shreeya Patel <shreeya.patel@collabora.com>
+Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, kernel@collabora.com,
+ linux-kernel@vger.kernel.org
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-2-71a11a2e3e76@pengutronix.de>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <20261005-hdmirx-media-v3-2-71a11a2e3e76@pengutronix.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 11/4/26 15:46, Bryan O'Donoghue wrote:
-> On 04/11/2026 13:00, Vladimir Zapolskiy wrote:
->> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
->> index f99eea2ef228..dcc005674d8a 100644
->> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
->> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
->> @@ -839,7 +839,7 @@ int msm_csiphy_subdev_init(struct camss *camss, u8 port)
->>    	csiphy->id = res->csiphy.id;
->>    	csiphy->res = &res->csiphy;
->>    
->> -	snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", csiphy->id);
->> +	snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csiphy%d", csiphy->id);
->>    
->>    	return 0;
->>    
->> -- 2.53.0
+On 10/5/26 16:28, Sascha Hauer wrote:
+> From: Gerald Loacker <gerald.loacker@wolfvision.net>
 > 
-> I'm 99% sure this is a change that was made @ Frank Li's behest i.e.
-> that csi0 is how most other systems do it (true afair) instead of csiphy0.
+> Initialize the media device to enable integration with HDMI bridge
+> devices in the video capture pipeline. This provides the foundation
+> for representing the hardware topology through the media controller
+> framework.
+> 
+> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
+> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+> ---
+>   drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index bc541431638e7..8b04c84be75ec 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> @@ -31,6 +31,7 @@
+>   #include <linux/workqueue.h>
+>   
+>   #include <media/cec.h>
+> +#include <media/media-device.h>
+>   #include <media/v4l2-common.h>
+>   #include <media/v4l2-ctrls.h>
+>   #include <media/v4l2-device.h>
+> @@ -123,6 +124,7 @@ struct snps_hdmirx_dev {
+>   	struct device *dev;
+>   	struct hdmirx_stream stream;
+>   	struct v4l2_device v4l2_dev;
+> +	struct media_device mdev;
+>   	struct v4l2_ctrl_handler hdl;
+>   	struct v4l2_ctrl *detect_tx_5v_ctrl;
+>   	struct v4l2_ctrl *rgb_range;
+> @@ -2649,6 +2651,7 @@ static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
+>   		container_of(v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
+>   
+>   	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+> +	media_device_cleanup(&hdmirx_dev->mdev);
+>   	kfree(hdmirx_dev);
+>   }
+>   
+> @@ -2751,6 +2754,11 @@ static int hdmirx_probe(struct platform_device *pdev)
+>   		goto err_pm;
+>   	}
+>   
+> +	hdmirx_dev->mdev.dev = dev;
+> +	strscpy(hdmirx_dev->mdev.model, "snps-hdmirx", sizeof(hdmirx_dev->mdev.model));
+> +	media_device_init(&hdmirx_dev->mdev);
+> +	hdmirx_dev->v4l2_dev.mdev = &hdmirx_dev->mdev;
+> +
+>   	stream = &hdmirx_dev->stream;
+>   	stream->hdmirx_dev = hdmirx_dev;
+>   	ret = hdmirx_register_stream_vdev(stream);
 > 
 
-Let's review the discussion, please provide the link to it for further analysis.
-
-v12 has "csiphy%d":
-* https://lore.kernel.org/all/20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org/
-
-Can't find a request to change the name from Frank's comment to the change:
-* https://lore.kernel.org/all/ak_HfEIpXj6Aky9c@lizhi-Precision-Tower-5810/
-
-v13 changed the name to "csi%d":
-* https://lore.kernel.org/linux-arm-msm/20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org/
-
-The reason for the change or even the change itself is not in the v13 changelog.
+Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
 -- 
-Best wishes,
-Vladimir
+Best regards,
+Dmitry
