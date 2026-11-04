@@ -1,124 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787570;
-	b=LfJ8Hw4hLt2wGwcf1PtFR7FWs+vnmVyMQyfMcEaV6tFrN4bG13gapSaReP5oAeppkZYO
-	 Z7R3kf+9nizyvU83I382IC4LLbninW2B2LnuZOrzCmDODywL1JwAacKtVumCzI1QpJ7ff
-	 CMhmnw3LcjouqHTgxry9+5eCrzPndDy6eX7oZB7rkL+tCY30MvWjY9DLVmuVxQ3+5qEcO
-	 AvgcFOVsNwwh6Re6BksnT8VMOX6wzq71CQShG43GNo1tUg2sHOTz21tuBtCCz9rT+Twi2
-	 Zh/pxNHo3pliVe7hTxtjbceJQf5243cqiSc49oSujfFiip/EUOM4OkT1f178HiHj+wg==
+	t=1793790578;
+	b=w78JfFrAfFYG9CPt24WNgA0UPc2N8Z0BlCVB6johOHqFxU1xzdr2AwumvtrxJxC/2pJd
+	 +2on2/KOetiSBL2r/bvfIMR7B2L4cfDtzv4mLbyKtoLiHQknOOuyLXpYHGXDR9I5BLqzu
+	 AX/cxi4ANuGUQeou/3YpiecoE0RNPl8kv5Rik50jDRWEkgY+f7EFDp+0IBn/+gwGqQgwd
+	 k/HItoDMYe1F+2LjKNkcF7Y/MIiNWY3zeckEskHJ2Na1x6Pto+lsguUiUP/NPn98vMmqV
+	 0up79f+JNxKE4w/sEI8zNchZS3QZkkor8SY1yfEqoxPSLyZICNEZwZHzCWk0tcPt+OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787570;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=xhG1kWg9FHuiWew+KueUeuR06Nlit/JCOLdWRAh8Vu0=;
-	b=d2bpjzgeG36oRIeKLMmHH2B/DcvKTbOQwiR/v1PRZCS2auV8pJxV9mTdw70vCdA8HeVV
-	 I+aMNnO3xM3ibskbLmqp8ddp7c5SOllTZU/kkZ7+A1xVS3CFaYp2bsUjhwnZc01Y1d+e6
-	 P09dQ5EgYDJ8TdCY/85GgVV7AJJ43L9lp/XVY4teoX8gMDYqEgxgXjZ0oanaHWQZSsMps
-	 Yt0+vYDEIv0W2rmUXPAA0mayEgjnkHjsCibsh4suzSjJ9QBIviNtdoSGIlk9Avk128O8a
-	 Fq2FFmO0GTfJPg2dWpPq2iX3ky5iSyRGzrazNmq0vXgCNvo9g1vLI+5wxgmH7SO5MMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793790578;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Developer-Signature:X-Developer-Key:X-Scanned-By;
+	bh=y/j5QPLW6jpzCD3GV5JpZq3Ngo4fRQoXZZ90Dm8OkWQ=;
+	b=28gMNlQWXa7WWEFaDVjeAlpxDeC4UJ6IDirXO2jWQFQAx2NfAAexobFaLkBklrgglxbo
+	 d1oELJwxm97otni2kweXapADlENhxTorN6bABGU560Cu0Oa96SlI0jD9LvXUdKlsVcGaG
+	 digXZmVXxdio+IriaklbCPOo5/AkJgIFovU3VIXBsHUiUiUsh8do3RaKiODzbIDi1w1T9
+	 /nfjqBCihZHSNGMv0MO0BaPBjIIkUHmCtNUS2NDAfVSqPm3FxHwLB+nRAmFrbwZu8TnSs
+	 CZFRLAZVKm02mGtlqHcPUjL22cblkAOZmOkYO0to2TXIVXvfwM1VYiwunjEb3wV5ETg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ragnatech.se;
-	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=KmUf3TwT;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YpSZPlhU;
-	arc=none smtp.remote-ip=103.168.172.149
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UtfNtUVo;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BD8606A326
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 10:19:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0BD8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D474606A32E
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 11:09:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D474606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=KmUf3TwT;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YpSZPlhU
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 391A6EC0252
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 05:19:29 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 05:19:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793787569;
-	 x=1793873969; bh=xhG1kWg9FHuiWew+KueUeuR06Nlit/JCOLdWRAh8Vu0=; b=
-	KmUf3TwTU145VAutAsAGFFKsw4dsRPnjyCCKezJamzZyyneN6NEVTRdz/xKCuHgB
-	O9mLcGaRrdRdWi5gMcZqZUpO4hGSxgBSoqOMnkEqdTe5JkJD3ZSBMuf/A69DJcuh
-	EJknqxNBwcp8DFCaoKRF1y1iSsExE7AakCKpUecehdy7A8aybxwUccveSgapubQG
-	WNb/ueDxbUbyi1OAVhT03q7MEwYEw6M4f43F6hxx1yFgdOKsb9ido2kAk36MoS38
-	Y5RLCA/CeW3SroFG2xmGszJOEMF4TGO7STgCS4t6E3JsdAGN2FlUG4278rbYITUo
-	oBaIz0n+sp2sBx4z6xoBNw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793787569; x=
-	1793873969; bh=xhG1kWg9FHuiWew+KueUeuR06Nlit/JCOLdWRAh8Vu0=; b=Y
-	pSZPlhUbs87j+GAJgSNzf3v0WwriJzVT1AFM8riWNWS0dfY/MTmZO+8a3s1zOFrO
-	5Fr+eeYI0GFTeiZvjpY2oSeaQeErPOO03VSKSrQ3weKTzKu5EN03aH9PQzYycAaD
-	LhvrIoYjkC2q1+3i8c5k+phyveZfpi2mDa1GI9/IAipKj9xTBvb+I3wRVDV4ScJ5
-	r95VYs1SYRlU65gX5NCbCG7nWB9vccKoiNwzcEYP1fxMxa6uVmtHSfsJ3H6X8TYD
-	vt4/HkWylb+elHwyozJkqn+avLMHKpUyTd6JWrEUkx+hfNy7IBZOX/+6xv659cSq
-	i2l9sAg+UwGWjkleVFK6A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793787569; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm2:rsa-sha256:FAKHLVO90msV057jxlnYUBuZTYmyu2+1EXD0R1B/ML+EHTA
-	nNJUgI/Sq7RiQ5wnjUWiRJO5Y2JHs1JRjKbjtNJTpLA2Y+0KyIe9MSDXipQ5UcwL
-	5SZj7QD50pUez3WX9pl5OKYtKVj5MvgkH+Bls6/r2OeD9iPrt7bay8YX+DP/Svmy
-	T7h5OZLp79YTalxV09b6wnZ8ntOEFzVyx3tzqp4k1U295aO728hMj9/bh+b0HbQ0
-	oXzNwC/SZzDBJrAP8YoHhJS1DrSAukqvVyp7deGv/RXiVTgsqrsU6P7Z4ByYqkA3
-	ITV4yR6pA6ENBP96GXAI0AQ+unYFOBDNFIQq6dw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:LbRTBXbfilP10S+efDESyPr/5ll5nQrh2EYPjkkyBBY=:hpj8Ab5Pcg/91wuX5zWer7gpJSrv9ZtvGWDD4YeDtfk=;
-X-ME-Sender: <xms:sAbraoFWx_DknU7_FChzoUQrNNDPDXkCgzXjynDdtKh67nS6qiFlwQ>
-    <xme:sAbraqoqcR2Tnwxee94NrmaCPhIC3yn0ejXpD8TogcrgHM8ns1HBZ4ld9JJCUEWpR
-    VluPOyIFWy6-PZawQhLmZaUayZoElb0_2ckp7waNGjBpoS39NJDHQ>
-X-ME-Received: <xmr:sAbrapa1sVwSFPScE67aMDxPMiDvXEDR4jSEgVvhQUu-YoZK84u94imrxWwsDQkPz18sqZxbhy2abAzxZwj3TFVhzlkvhg4>
-X-ME-Proxy-Cause: dmFkZTFd4Vrpjb6vo7D4/IUyjIi6AQ8ZKH6jR8IUydUpaF7oGZ2hRyYcnY1EPpvSVhoS+c
-    Xw5yPXnDirq8kU7rhakUDLtPpO7qZryGfreitZHeLzxGlnPBep/VfEkOVV6G7FAA2C26jt
-    vF03gyZu/s3hX18HUni2unBry6zLiJ4J5Vx5MeD9CidaSIKjRmvORfYJ7XMfbZksbPdRgo
-    GqSaMMcS2LAgOyEl08dYqtguI/Q5B2dseeZ3WkFj84j3TrLLxfwr4IvfD63epMqL9Bk27g
-    kJQykXZ4Gv90N7KQL5VVB8sh46xytwMm9Fx0WiNBVxMubio/1OR/8ZKlvzVOTgQ3A8JGDq
-    zQUCdoWx1ev3fG+llFU45zaHUgD0mdeehxndjceIjJF0ijX+r7j4DV2Cti4CSwrnvf3DeO
-    /dZim0Ui7DYiAkFm6OhueXd2ZpP3+ZWafqpOYEg9gv6iMisusxu9Yz35DS3FD1Ngosq+a2
-    PgpttjLq3gNqX7Oh52aDXqa2ZmawN8djcBlpntrPJWkdiPBmt5dw3I3+c2zrpICLGnIPzD
-    EHxDeR9tewKzeI9qfbyuIAcfRAUZe4CNCkQ7OiP1pdS5Tw8MbHMNgEzqxeEXE4FSCk/Wam
-    Sx8216S5itL1ZEg9hBQgE8aMcTKgNSSCAKt8yZ6bPNvxy9YbeEIulYSsCg3g
-X-ME-Proxy: <xmx:sAbrarUzRyru2rMsFs22TtkaMvZrxh065tFnQwxtK24axdsYKFLMeA>
-    <xmx:sAbraq8YqqdCf_--fhOqbi4w2tdjxMjq9D20IrADalUMrt3jsa6wgA>
-    <xmx:sAbras_Au7c0yKR6Esc1nI6xbhFYFGtyasrqVWDDaUPybB4ETjD1Dw>
-    <xmx:sAbraiTuQha7rFHiEYQRsdWxslDJcKlEj9yoYSQ6qReN5AHLrzC2jw>
-    <xmx:sQbrarXyuKCawD_yCQ9KY4GcfBqGbiMYMXPG_Vo8hYpD0ogzZaj3eQhL>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 05:19:28 -0500 (EST)
-Date: Wed, 4 Nov 2026 11:19:26 +0100
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: rppx1: Update shadowed registers
-Message-ID: <20261104101926.GI1959885@ragnatech.se>
-References: <20261027174014.315061-1-barnabas.pocze+renesas@ideasonboard.com>
- <20261027174014.315061-2-barnabas.pocze+renesas@ideasonboard.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UtfNtUVo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793790576;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=y/j5QPLW6jpzCD3GV5JpZq3Ngo4fRQoXZZ90Dm8OkWQ=;
+	b=UtfNtUVoyBpbKwmTPvZcL0Elfq6Jx3BZFKISmGOEkAeD5l4G1xvC5uKhQDT/OUGqljaetQ
+	nBU6ffqbdLLrytwApuUoZQkgkzSLqj5SP25HP1ok35ve7gOmybbytcS0oywgQHUVdYxuWO
+	thwGIoHcCbZVPlQqjb3abG2mOWd2EjE=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-47-95zgtnEUO52YN059qEpIoQ-1; Wed,
+ 04 Nov 2026 06:09:30 -0500
+X-MC-Unique: 95zgtnEUO52YN059qEpIoQ-1
+X-Mimecast-MFC-AGG-ID: 95zgtnEUO52YN059qEpIoQ_1793790566
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 8E1CA1956088;
+	Wed,  4 Nov 2026 11:09:24 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 27CE0195608D;
+	Wed,  4 Nov 2026 11:09:14 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH v4 0/8] memcg: dma-buf cgroup accounting and charge
+ transfer
+Date: Wed, 04 Nov 2026 12:09:09 +0100
+Message-Id: <20261104-v2_20230123_tjmercier_google_com-v4-0-1819a017000b@redhat.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -128,77 +73,186 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261027174014.315061-2-barnabas.pocze+renesas@ideasonboard.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43N0YrCMBAF0F+RPBvJTNK0+uR/iJQ6mbRZViNpC
+ buU/rtRlkXZh/Vt7lw4dxYjp8Cj2K1mkTiHMcRLCWa9EjR0l55lcCULVGhVpRqZsS23VoC6nT7
+ OnChwavsY+09uKZ6lN8aTP4GttBKFuSb24esxcTiWPIRxiun7sZjh/v3BAf/HM0glrUZbKyBtt
+ 7BP7IZu2pRS3PWMvyIohDdELCJ7y4zONVTRH1E/i/Uboi5i3TgkQ6fGmvpFXJblBjmZGH11AQA
+ A
+X-Change-ID: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+ =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ Christian Brauner <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+ James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>, 
+ Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>, 
+ =?utf-8?q?Ondrej_Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-mm@kvack.org, linux-security-module@vger.kernel.org, 
+ selinux@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ op-tee@lists.trustedfirmware.org, Albert Esteve <aesteve@redhat.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793790554; l=7204;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=X4BZFXAHZjeZ5G+n6xJuzSu1l1U0TCSBOdNO5egLRKM=;
+ b=Km+AqlhWRTv/KXXv4GRbT2llTohKS+mIBYai0uvK0MKieulAtBqFdb+ot4kS5rHtLOoLqnwgW
+ ykX9usEkQGUD0PWls5MHmfgY0UQayrDXDRMYunnztg3zl598W8CS8z6
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Hi Barnabás,
+Shared-memory allocator services (e.g., Android's gralloc)
+allocate dma-bufs on behalf of client processes in different
+cgroups. Today those allocations are charged to the allocator's
+own cgroup, leaving client cgroups with no visibility into their
+actual memory consumption and defeating resource limits.
 
-Thanks for your work.
+This series adds memory cgroup accounting for dma-buf allocations,
+building on T.J. Mercier's earlier series [1] and incorporating
+feedback from previous versions and LPC discussions [2].
 
-On 2026-10-27 18:40:14 +0100, Barnabás Pőcze wrote:
-> Certain registers are shadowed and changes to those must be explicly
-> applied. Updating the shadowed registers after a frame is complete can
-> be done by writing `RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD` to the
-> `RPPX1_RPP_HDR_UPD_REG` register.
-> 
-> This is already done in `rppx1_start()`, but this auto-update feature
-> is documented as "self reset at picture end". Therefore setting it
-> at start will only auto-update the registers once, after the first
-> frame.
-> 
-> For example, this causes that the LSC module cannot be toggled after
-> the first frame. This behaviour can be tested by reading the first
-> bit of `LSC_STATUS_REG`, which will show the same value after the
-> first frame regardless of what was last written to `LSC_CTRL_REG`.
-> 
-> Fix this by unconditionall triggering an auto-update when a parameter
-> buffer is processed in `rppx1_params()`.
-> 
-> Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
+Patch 1 introduces the MEMCG_DMABUF stat and reserve/cancel
+and uncharge helpers in mm/memcontrol.c
 
-Looks good.
+Patch 2 wires up the charging policy: dma_buf_export() stores
+exp_info.memcg and updates the stat, a new charge_fd field in
+DMA_HEAP_IOCTL_ALLOC accepts a pidfd or cgroupfd to identify
+the target cgroup, and __GFP_ACCOUNT is removed from system-heap
+allocations to avoid double counting.
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Patch 3 adds DMA_BUF_IOCTL_XFER_CHARGE, a general ioctl on any
+dma-buf fd to transfer charges post-allocation. This covers the
+double-hop allocator case (SurfaceFlinger -> gralloc -> kernel)
+and works for buffers from any exporter (DRM, V4L2, etc.). Charging
+is gated by dmabuf->memcg being set at export time, ensuring that
+transfer is only applied for buffers backed by system memory where
+size reflects actual bytes. If the receiving cgroup lacks capacity
+for the charge, the ioctl returns -ENOMEM and the original charge
+is preserved.
 
-> ---
->  drivers/media/platform/dreamchip/rppx1/rpp_params.c | 3 +++
->  drivers/media/platform/dreamchip/rppx1/rppx1.c      | 3 ---
->  2 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> index a75a27a8afd09..cbc9847ba5be6 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> @@ -110,6 +110,9 @@ int rppx1_params(struct rppx1 *rpp, struct vb2_buffer *vb, size_t max_size,
->  		}
->  	}
->  
-> +	/* Trigger update of shadowed registers after frame is done. */
-> +	write(priv, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
-> +
->  	return 0;
->  }
->  EXPORT_SYMBOL_GPL(rppx1_params);
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.c b/drivers/media/platform/dreamchip/rppx1/rppx1.c
-> index c03dd061783a5..a3c923a57d922 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rppx1.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1.c
-> @@ -257,9 +257,6 @@ int rppx1_start(struct rppx1 *rpp,
->  	/* Immediate commit update for shadows. */
->  	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_CFG_UPD);
->  
-> -	/* Then for operation update shadows with picture synchronization. */
-> -	rppx1_write(rpp, RPPX1_RPP_HDR_UPD_REG, RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD);
-> -
->  	/* Clear any pending interrupts. */
->  	rppx1_interrupt(rpp, NULL);
->  
-> -- 
-> 2.56.0
-> 
+Patches 4-7 add access control for cross-cgroup charging. Letting
+userspace decide who to charge needs to be a privileged operation
+because it has material impact on OOM decission and resource limits.
+We gate it via LSM hooks for the two charge_fd flavours:
+security_dma_buf_charge_task() gates the pidfd path (target
+identified by task credentials) and security_dma_buf_charge_cgroup()
+gates the cgroupfd path (target identified by cgroup directory label),
+with SELinux implementations under a dma_buf object class.
 
+Patch 8 adds selftests.
+
+Known limitations:
+
+- Single-owner model: a dma-buf carries one memcg charge regardless
+  of how many processes share it.
+- Only memcg accounting. CMA heaps would additionally need dmem
+  controller integration.
+- If a transfer of an uncharged buffer fails, the buffer remains
+  charged to the original cgroup. The allocator (userspace) is
+  expected to handle this (retry, free, ...).
+- The LSM hooks are intentionally narrow. Broader cgroup access controls
+  (e.g. for the memfd/kexec handover case [2]) could be a separate effort
+  reusing the same pattern.
+- Only system heap sets exp_info.memcg today. Other exporters
+  (DRM, V4L2, etc.) can opt in by setting it, but are not
+  covered by this series.
+- Related to the above: lazy backing-store allocation is not supported.
+  This can be extended later, e.g., by adding a flag on the dma-buf
+  struct for explicitly marking when memory is committed.
+
+[1] https://lore.kernel.org/cgroups/20230109213809.418135-1-tjmercier@google.com/
+[2] https://lpc.events/event/20/contributions/2416/
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Changes in v4:
+- Remove memcg_account flag; exp_info.memcg != NULL is the opt-in
+- Centralize memcg bookkeeping in dma_buf_export()
+- Drop mem_cgroup_commit_dmabuf()
+- Make mem_cgroup_transfer_charge() generic (not dma-buf specific)
+- Add EXPORT_SYMBOL_GPL for reserve/cancel (system_heap is tristate)
+- Reorder: move xfer ioctl before LSM patches
+- Serialize dmabuf->memcg updates with the dma-buf resv lock instead of cmpxchg
+- Link to v3: https://lore.kernel.org/r/20261027-v2_20230123_tjmercier_google_com-v3-0-78d2c4cb8647@redhat.com
+
+Changes in v3:
+- Split mem_cgroup_charge_dmabuf() into reserve/commit/cancel three-phase API
+- Extract mem_cgroup_get_from_fd() helper shared by allocate and xfer paths
+- Rename __padding to flags in struct dma_buf_transfer_charge
+- Fix UAF race: move mod_memcg_state() before cmpxchg in transfer
+- Add memcg_account opt-in flag; xfer returns -EOPNOTSUPP if unset
+- Wrap dma_buf_charge_cgroup hook in #ifdef CONFIG_CGROUPS
+- Fix TOCTOU in SELinux charge_cgroup xattr length handling
+- Link to v2: https://lore.kernel.org/r/20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com
+
+Changes in v2:
+- Move charge_pid_fd to charge_fd, accepting cgroupfd in addition
+  to pidfd per Christian König.
+- New DMA_BUF_IOCTL_XFER_CHARGE ioctl for post-allocation charge
+  transfer on any dma-buf, not just dma-heap buffers per Christian König
+  and T.J. Mercier.
+- Moved __GFP_ACCOUNT removal to patch 1 per Barry Song.
+- dma-buf charge/uncharge helpers take struct dma_buf * directly
+  to avoid the need for caller to manage size calculations.
+- Added test_xfer_charge_cgroupfd_self to dmabuf-heap selftests.
+- Added LSM and SELinux hooks for cgroupfd-based charging.
+- Rebased to v7.3-rc7.
+- Link to v1: https://lore.kernel.org/r/20260512-v2_20230123_tjmercier_google_com-v1-0-6326701c3691@redhat.com
+
+---
+Albert Esteve (7):
+      dma-heap: charge dma-buf memory via explicit memcg
+      dma-buf: transfer memcg charges via DMA_BUF_IOCTL_XFER_CHARGE
+      security: dma-buf: Add dma_buf_charge_task LSM hook
+      security: dma-buf: Add dma_buf_charge_cgroup LSM hook
+      selinux: Restrict cross-cgroup dma-buf charging
+      selinux: Restrict dma-buf direct cgroup charging
+      selftests/dmabuf-heaps: Add dma-buf memcg accounting tests
+
+T.J. Mercier (1):
+      memcg: Add MEMCG_DMABUF accounting infrastructure
+
+ Documentation/admin-guide/cgroup-v2.rst            |   5 +
+ drivers/dma-buf/dma-buf.c                          |  50 ++++
+ drivers/dma-buf/dma-heap.c                         |  28 +-
+ drivers/dma-buf/heaps/cma_heap.c                   |   3 +-
+ drivers/dma-buf/heaps/system_heap.c                |  21 +-
+ drivers/tee/tee_heap.c                             |   3 +-
+ include/linux/dma-buf.h                            |   9 +
+ include/linux/dma-heap.h                           |   3 +-
+ include/linux/lsm_hook_defs.h                      |   4 +
+ include/linux/memcontrol.h                         |  47 ++++
+ include/linux/security.h                           |  18 ++
+ include/uapi/linux/dma-buf.h                       |  26 ++
+ include/uapi/linux/dma-heap.h                      |   7 +
+ mm/memcontrol.c                                    | 176 +++++++++++++
+ security/security.c                                |  34 +++
+ security/selinux/hooks.c                           |  44 ++++
+ security/selinux/include/classmap.h                |   1 +
+ tools/testing/selftests/cgroup/Makefile            |   2 +-
+ tools/testing/selftests/cgroup/test_memcontrol.c   | 290 ++++++++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/config        |   1 +
+ tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 227 +++++++++++++++-
+ tools/testing/selftests/dmabuf-heaps/vmtest.sh     | 226 ++++++++++++++++
+ 22 files changed, 1210 insertions(+), 15 deletions(-)
+---
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+change-id: 20260508-v2_20230123_tjmercier_google_com-f44fcfb16530
+
+Best regards,
 -- 
-Kind Regards,
-Niklas Söderlund
+Albert Esteve <aesteve@redhat.com>
+
