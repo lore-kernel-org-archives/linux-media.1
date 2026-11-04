@@ -1,68 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793812454;
-	b=5J+U+E6XBrVbppxWIdcU1lUousvXIVYmn1vfPfwkju+FHQ/y+hMu35iQ16Zm9TqhtrhS
-	 FJy5Woodi4jnY7VuWMRFJM4Z/Kz1p3OsOOVil8rzYIfcT9sf8mKhjmPEjXmewRETcRvIW
-	 tL+nBwTBtR8FKMzTeqBnYU2eSMSuDCUEkNckj9g2bzwWt71p5odXmeA8d81P5m3BK8Bc7
-	 zTel3PTtAwgRu0vZBwpD8XhBL+IeQUFdFHDEQCQyD7gcumAc1UAqY29XPm0dsnGyxJ5qg
-	 8+MfRqyleTXZtTy2tWbexw5Mggn9U0e5EQdJt1vhCI8pHJq2+KohazjgroRDhrSosyQ==
+	t=1793813596;
+	b=xi+6CgOuJcigi5G05aT9Uis/kNKNQjyoyhovkg/4L3nz8Tvrkt5BJEaALwtGVczorZ7v
+	 2V4ac0E8O84fjT5+rKHTbRagP+CC+MRmh2NQOs19iGBaRiPP8EDwzuJi0IOAQ3jr/x4rH
+	 KKvD+xdwXwgyJgYhLEtUfzSKfQIvLO+QdkHJIdMXmxwhO4i4Q7an7kjTBehyO1laC+UBT
+	 WqGe7bl3cwg05hZcL6KMWPEB0YaXBmkyQ1h/VAYU+UJ1SruMUwBVV//PRFC7GVHGZbl+t
+	 IprC3/ZzQV6UYe4D+LnodivMB/kXLM7D0kQFs2yMtQCwEAY2/OE7mql1p7uEb1iayEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793812454;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yRj5WHRR9aenXyRIm39ayvCyj4WS0PCwSsf2eEii3y4=;
-	b=Og/655bErGQA6K7cY9zjPg78G50LlM65hJO3gWic0La/83JmrG3kfB5qM1bh1jVEfcZl
-	 XK0Wr3oTrpMxeXk7STsK1juGabOgIIFQMT9Me1pKs2uJKtwEmPVt1rEGhU1R4/X4eXEG8
-	 kaeTpw40XqIyQ4qdY5TAJUMNICV7kQJBd5LGfpo5SMQP4zXlukwEXE//G4IZ/fEH91ziO
-	 RGu+FTvfBYGLtWk01hhbnLvsTvpo8MEX/vvAbtyVWPcDveqtPlWuJZ4hW7uaCYqpd903Z
-	 o/0ykeexjLU7e1+Zhr+uYrul23C9Jaz8obfEag6juAKjYF8N92oZ3Lt9VjTKjbOccfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793813596;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
+	bh=gnhT14pGuY7+Q85NvUB4EwpTqtsL/nIK1hYQceAmQ6E=;
+	b=FI3KVl5CA0JFuEMAaxjxFULM7vcsIDB0SnnOZX1CBqdoXZMWDWLUS5CGq9SxxoTWSHea
+	 jHOqRdA1WVm9u7igcbWNIISvqnaLHkYtH3rBjroxTP3I6bas/FQ+jfm4apOq5D3C4Ao8j
+	 8RaWyV/RmgphOW8Z9EgdrKKpYz90+jwrWUiocDkLY1ByyTqXu8NK8IR/+ZtDD0ZhnyIe/
+	 VlrbcYxaWHfaKRcfr5axYdgAjC1xw/xLv9xBm4wLgMWTMhjP/vC63Qk5Im4GVN+5gPHKb
+	 7MSR+zuALT0NVz9glw2PdBias64s1QVqeVdqISR2m6Lfl67AbVHg6c32MRoZx0d1aTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MegOdnKy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kpvFanhs;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076D0606A333;
-	Wed,  4 Nov 2026 17:14:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEDE606A33A;
+	Wed,  4 Nov 2026 17:33:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FEDE606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MegOdnKy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8F31F00A02;
-	Wed,  4 Nov 2026 17:14:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793812453;
-	bh=yRj5WHRR9aenXyRIm39ayvCyj4WS0PCwSsf2eEii3y4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=MegOdnKydykexyvjNSUghj/PsKL4AWwXsoL9hALI5tejJXpkO/xsHyu21RDFBo2Ap
-	 g/+z8Huc0yO/L+WHUj72LxQyh5okcc08FsQ10yoO3Px95mA6OktbE6mnVmy/4Cky1L
-	 aAF3DhJr/zKFC01irxMQjmK7n4EaAXSBeDxvk2tN51bMgRg8z2vFkBPB4ub/+Cnthi
-	 lzwlssUrRXqQCCtsPPsnFsuZZ46nLtg4wdEFrdJo+zgdmcl6ju7ExhulS8CBIQJ2xD
-	 Pru/TDbrbCwwj2+/8zZEQZ3tL9L52LeO+6dA4kUjeOk+LIGxfJct3Kt33lcTF9zMcj
-	 /Z/vjBicYWD7Q==
-Date: Wed, 4 Nov 2026 11:14:12 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, iommu@lists.linux.dev,
-	Tushar Dave <tdave@nvidia.com>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-rdma@vger.kernel.org, kvm@vger.kernel.org,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jens Axboe <axboe@kernel.dk>, Alex Williamson <alex@shazbot.org>,
-	Ankit Agrawal <ankita@nvidia.com>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH v12 00/19] PCI/P2PDMA: Route peer-to-peer DMA by TLP class
-Message-ID: <20261104171412.GA1247928@bhelgaas>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kpvFanhs
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKXbC3lF5zMlZK;
+	Wed, 04 Nov 2026 18:33:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793813591;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=gnhT14pGuY7+Q85NvUB4EwpTqtsL/nIK1hYQceAmQ6E=;
+	b=kpvFanhsq/QMSmhppRuZGwuvVJPe0Cv9BiaXGITx9b2PgJbgPW0TENTrJsGFQe8qf7pn5z
+	LF/dn3UBy5dJ8jz1toMQCUOhbyiUeMk0zw/UHDnqeuU/S59xdtd5Ccu/eZ4f5HkNGOSGRO
+	csYwokl+v4vNJC8NH/aIlwad5KFWu3U67f5nH9oc/FwR/AB+1LSxObjaJpeYD0KxCAwIjB
+	Er4zw28F+Dw0zQ+GAdXOlhi0bTlDanPpN4SGdJ5i5N9/ONMGgFBH3K8VP4SgpAf+bfrm2/
+	mRtz9W6/5C3sOATtFszqyHzWkZRpr3rX8szZtgKqr4Hp7xH6/DypKOj4BkimPw==
+From: Gabriele Gamba <gabriele.gamba@mailbox.org>
+To: Lukas Larson <lukaslarson@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dan Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Gabriele Gamba <gabriele.gamba@mailbox.org>
+Subject: Re: [PATCH] media: ipu-bridge: Add upside-down sensor quirk for Dell 16 Premium DA16250
+Date: Wed,  4 Nov 2026 18:32:51 +0100
+Message-ID: <20261104173251.61910-1-gabriele.gamba@mailbox.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260331190145.11592-1-lukaslarson@gmail.com>
+References: <20260331190145.11592-1-lukaslarson@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -72,64 +75,27 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261104084328.GP264423@unreal>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 3dbb15a1879ac26e7a5
+X-MBO-RS-META: i9e6jtdbj46jrrc48kkhuzxdfu1pm8jt
 
-On Wed, Nov 04, 2026 at 10:43:28AM +0200, Leon Romanovsky wrote:
-> On Tue, Nov 03, 2026 at 05:37:42PM -0600, Bjorn Helgaas wrote:
-> > On Tue, Nov 03, 2026 at 10:29:39AM +0200, Leon Romanovsky wrote:
-> > > PCI P2PDMA applies Request and Completion Redirect throughout
-> > > both paths.  This misclassifies asymmetric and nested switches,
-> > > and reports one answer for every kind of TLP.
-> > > 
-> > > Three ACS controls act on TLP attributes the Requester chooses
-> > > rather than on the topology: Translation Blocking and Direct
-> > > Translated P2P act on a Request's Address Type, and Completion
-> > > Redirect skips Completions carrying Relaxed Ordering.
-> > > 
-> > > Evaluate each direction at the path divergence, decide every
-> > > class from the one walk, and treat a client with ATS enabled as
-> > > translating unless its driver declares per-mapping ATS.
-> > > 
-> > > This completes the P2PDMA side; dma-buf and mlx5 follow
-> > > separately.
-> > 
-> > Is there a one- or two-sentence explainer of why we want this?
-> > I'm thinking in terms of what Linus will want in the merge
-> > request: a fix for something that's broken or some new
-> > functionality.  It sounds like this is solving a problem, but I
-> > don't know enough to translate the nitty-gritty details to the
-> > higher-level user-visible problem or feature.
-> 
-> Not AI; these are my own words with grammar fixes from AI:
-> 
-> "The existing implementation of PCI peer-to-peer assumed that all
-> PCI TLPs were the same: ordered and carrying untranslated addresses.
-> It did not account for the variety of traffic types defined by the
-> PCI specification. As a result, only simple systems supported
-> peer-to-peer transfers in the upstream kernel; real-world systems
-> required out-of-tree patches and careful platform design.
+Hi,
 
-Can we be any more specific?  E.g., what makes real-world systems
-different from simple ones?  What does careful platform design mean?
-Something about ordering beyond what PCIe requires?
+I can confirm this on a second unit. My Dell 16 Premium reports
+"Dell 16 Premium DA16250" as DMI product name; without this entry the
+OV02C10 image is upside down, with it the orientation is correct
+(tested on 7.2.11).
 
-ACS P2P Completion Redirect affects Relaxed Ordering (RO) Completions.
-Translation Blocking and Direct Translated P2P affect Requests with
-Translated addresses.
+Mainline currently handles only the "XPS 16 (Dell 16 Premium) DA16250"
+spelling. The 14" model is already listed under both names
+("XPS 14 (Dell 14 Premium) DA14250" and "Dell 14 Premium DA14250"),
+so this patch completes the pair for the 16".
 
-So I assume the existing P2P implementation breaks somehow when RO or
-Translated addresses are used?  How does it break?
+Tested-by: Gabriele Gamba <gabriele.gamba@mailbox.org>
 
-> The new code will allow peer-to-peer transfers between any two
-> devices, for all types of PCI traffic, as long as the PCI path
-> between them supports peer-to-peer.
-> 
-> This paves the way for PCI peer-to-peer support in VMs, which the
-> upstream kernel does not currently support."
-> 
-> BTW:
-> 1. The patch "PCI/P2PDMA: Document the TLP attribute assumptions"
->    attempts to explain the current situation.
-> 2. The change is too large to present as a fix.
+I sent the same change independently on 26 October
+(<20261026095326.21615-1-gabriele.gamba@mailbox.org>); please disregard
+mine in favour of this one.
+
+Thanks,
+Gabriele
