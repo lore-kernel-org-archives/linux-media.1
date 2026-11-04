@@ -1,50 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793809448;
-	b=hpj2TMPHo4n/v64WE2qVGGicDsEvv7kX17q3/Bmn53Z1qzGw5ntrPSU4+hbxzH5FVF1T
-	 bEmF6CkS4riscI/BLlV45sJ6YoE9aPjQzECUS2TSGXhdOHv9QSkiAIjJUqHdw/tosMPOH
-	 bkmv2N0OV3fpw62Y0EWsAVMs62syfiPT0ELdLBKJROzCVeilQqc+MlY2B72Xs/ZDpdG4C
-	 cWS6fbU+6TnNKaCH/RlaAB+t2CDZNOER4ZtmV6QVQaF+s/NjpSDsxP3jSkxveNNcj8dHV
-	 6LHiuJf8sSxL5tFD5LX2KFBvf/2kGMgeSWA1bM/CFS0XBqGK9F41xBs//KXyhalrRfg==
+	t=1793809523;
+	b=Ao3JLdjoG9VeNb0rFKAzPloZQYWNlAnekCtnz9iyjP6KXEFZ1zuGMa47JGCcYATpYIQE
+	 bC3eKkqms/oMoLilWOV4k1r7nCnVI07dLlDMWl0K5fYSEQW+RgAwwXvXhBOLolzAqCqbs
+	 Aepqmo5+JyE4X7jRyCxSuS6QpV8XQECss3rSLxvk0Um2ySZj1Cji8VNI8cmzKYwTqoIdX
+	 w8ymb9Kyrv0hgpQ5DMKuvL58VXZFoie4s1dNPiJIxfUy7Qri80cfr1xodfWI1DRMKuUyp
+	 or1xvD4xeT8rJDZzG9+4g762TARp6vO8xlnGtPyVNvb7qBsm7kjj9owH+hnyxYfdp1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793809448;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=8yMCvYeghmYZPA3TkxIffw8/jGubs8fIzlV+8czvpCA=;
-	b=hX8xGJ87d+aew6rSbhKCbVeU0pGAUngIXJHbhkrykfvuDCOTHrEZCdt0U7+bQrs6W3WS
-	 yNbWwBTLJpSzO7+Yv/x+A2PqwbVfjEoZnIRNZpgGZpBp1v0L17AhyVEt2izRqh58okJeJ
-	 KaVuwFtNEOdu64qg7aHc5o3ZQP4PpoKhJbbnuAAo9+H7HMeqkX90KEp6MvUNyCJMQLQQo
-	 m9fJiEycthCSSb8qB92y8VqCSSfhkSo8AXtwH4M5I+lweJy3HNM+jc6zgos0cJTAU3yos
-	 EhW3L77/FMVMDvGLcvvNsRflr8/Qkj054y1eILMWt4KdMlhvVlGMI2SyaWbxwIaU4+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793809523;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=x484ZhrTGAE9p1E5ENgypW6izGXfAInwMb522CXH0/M=;
+	b=EMNObHwdSsZ91VgZ7B9wZGg7H8EVj/SIGpQhOjZXxlRwFg2n6ssVVioSBD+I4IFnCIAT
+	 XM70UhXf7WXucmODNB7Uv6BPwRTsBvS5uIPBL43U8SZ9V4zdd9W0Jyszq8DW3QAqMbWxL
+	 7yAp69FSQb/JwjRUgt3RJQS88sYO6PSbtkpPV/xLxrkN2/iY2wqZQ5VJ0ixKoPGLgZF73
+	 c53gyiIAQpOYL+IUN0rc/viJ7p/kSQ4NARRaeAc52DEOnlfqgMAKTQloi9cx2VggAZWic
+	 PRAMkD9o8Gj4FcGLJAHW3DjHNl1PkBh1n0uCsQil0ngeOTsqvnQCSgab5S6MQbxBB6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b="r/K7kW5K";
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Cnisikzh;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB33E606A32C;
-	Wed,  4 Nov 2026 16:24:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB33E606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F5D5606A32E
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 16:25:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F5D5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=r/K7kW5K
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BC42C4DC;
-	Wed,  4 Nov 2026 17:21:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793809307;
-	bh=GdIuvaxUvWhoJU/w/vWgBMZrzMuLhEaSuLfiGH2sLkU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=r/K7kW5KiYEp9y9wOYKdtSRQ4by97MqGLfkx9aviIaNEUy4Dp/2lrAdJxHyhIy8+y
-	 1o39aKfeBdk6OkvgXjhGucLTu0S9XBelREZZcZ6PQKW1fJZHYL9I+vT8cGhPRB472p
-	 /UFKSdXJ9Phv8ew01QDF/BdY+OQ+OJzsCDxxVAQ0=
-Message-ID: <6a86cb84-c4b4-44b3-9977-12ac1dc8505c@ideasonboard.com>
-Date: Wed, 4 Nov 2026 16:24:01 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Cnisikzh
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so867181f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 08:25:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793809521; x=1794414321; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x484ZhrTGAE9p1E5ENgypW6izGXfAInwMb522CXH0/M=;
+        b=CnisikzhUtdcZehzae5PTqWUH4SNGsg3CZIUq/Yg7q11AUdGbPmoiMfk7sjq8o8ylz
+         ssHaxohl1993Hoc7DDJeaZJezYFjI0hnM69yt6WJltYauCuQpfE17YTGl36XcTGIrrAP
+         kvbFhRkb3A9kfJaQUljAn8Ioha6HlS3DEE7nULd6mYvXsZrUaiYk1HE9802EAGsS7YOf
+         JxFoSs17scZ+GvYbC76yaX035A+qcw42oXH+3pF8eqf1mOJAfVQfuBbdX0gwG/RlzQbD
+         uYrjzR2q5eP0KIdLguF8TUFXnWtd1+aVngqZ4kSgkcVYXCw+3bJH6s4byVJfWU3ZhFo4
+         UHzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793809521; x=1794414321;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x484ZhrTGAE9p1E5ENgypW6izGXfAInwMb522CXH0/M=;
+        b=GMewdZE4hIVOIp9HabnfcqkIGFgdBOvydEofxGyTYSWxq3lbsTCUstHbNZ8rmK/yfH
+         zotqxkQHdBOixUBBW5FZ/pQXG10HicPplkQMlpTVL5RvJMUTHVZWBdA4+nXqBmMj+A46
+         zSZxUtf87zC6uUfnEIUk+AlHYif5JgzuMinnvjFTpXFvt9qlmV2evVeNI/BBw9mdgWNz
+         6AuJSqOmGkbzmcRhaAdUHqn3WnyR21Ire72RcEmkG9lxyyTiKA0QLLEaNc79aH4sAz4A
+         YufV6V9yYBg+ZDPdKZ4Mi28jBDT36gmrbdb1Vs9DdKr+DKMdLumZU36k//d0a+HaWnuk
+         B+Ig==
+X-Forwarded-Encrypted: i=1; AKwUvByZpLCLg4vwvWM2qVfoYTSdHOwQR2OQqwqFCBB50MaIqesQSxaujsT/k7BWsCOdVMNufTE8MBqGBFop/A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SXLVOjPbc7o42OG4UoxxJtnzTHEi8IHNQ6EBSnhRNkE9gE9k9
+	nAa56taMgRNY5q+M/ai1wQjd9RJFWciLT+YTwPznYGVS+5ApqN6XV3wfx6nX+3O6B5reV+PnOh/
+	DNXa3C1o=
+X-Gm-Gg: AYBFou3Ho3tGr9XiaL1HoeUSZzHGxIJDvW32hZmH9LZDig6w9XFFMLdaNjDd0v5xY9e
+	jMzuP7/to/o/+jS7IkVCDQpHGtuFv6rdXz3eKoV8b3WWmtJaQqppnLlrdUlEdkLJGlv3BsJ+xkE
+	48i80f5IOKOuJ/jN5fG39iUaMYIdwjWzDU+FuQQxQ0cvGDcYwKTiadTesQIn+dU8qRCpIt1yKlM
+	6mAEfux/OoIyZ0tsDYdMr/4s3xgrntzcras7v0lQpziIqQO274TvVhrzg6q5iu9FwGLH2LjqexS
+	eKNwhsdkoV0v7GACYu9NfI8gSloFvNLh/lvOtKUCds/rI1feMtIJ7jWs0ozOMM+CY5RsPqUoWeJ
+	BskvBPtGi/nVZGPkCUsEP5qwP79ox4T5Zm8xsc7y6dePD4wvMsdgXFt6RjxvakD1TFChkMQwMia
+	Nygca/gEv1vtCHQ5ZeLBYNlNIVUHS+daQuRfjKeMLl23IimNB7qob1sEeMb+ptIV0Ly3A+1SA9t
+	QpG2antEd2le69DAAkRgwnJ56+My5UiF90MuY6VgNQ7UP6ibSRpmk6b/BLS+3BglqYozTRHz2DK
+	eOsZxyfHzjveMfyRZpQvgp6fTF56nUr/AStXvj+QkQ==
+X-Received: by 2002:a5d:588c:0:b0:48e:3d2:44b1 with SMTP id ffacd0b85a97d-48e6e510f87mr35082049f8f.52.1793809521503;
+        Wed, 04 Nov 2026 08:25:21 -0800 (PST)
+Received: from [192.168.0.167] ([109.76.163.117])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea181079sm5151097f8f.8.2026.11.04.08.25.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 04 Nov 2026 08:25:20 -0800 (PST)
+Message-ID: <d24e1238-c366-4963-8cbf-d40487e4b3c8@linaro.org>
+Date: Wed, 4 Nov 2026 16:25:20 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -55,154 +92,64 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] Introduce v4l2-isp reset buffers
-To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
- Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Keke Li <keke.li@amlogic.com>,
- Dafna Hirschfeld <dafna@fastmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261104-v4l2-isp-resume-v1-0-06aeb8cf2940@ideasonboard.com>
- <20261104142302.GK1959885@ragnatech.se>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20261104142302.GK1959885@ragnatech.se>
+Subject: Re: [PATCH] media: qcom: camss: Change CSIPHY device name from "csiX"
+ to "csiphyX"
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Frank Li <Frank.Li@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20261104130014.681769-1-vladimir.zapolskiy@linaro.org>
+ <4e7f2f2d-7c2c-4dc0-8488-6ba71f4b886b@linaro.org>
+ <48f56fbe-9db3-46b7-96ed-a6e3b535c0a9@linaro.org>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <48f56fbe-9db3-46b7-96ed-a6e3b535c0a9@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Niklas - thanks for commenting
-
-On 04/11/2026 14:23, Niklas Söderlund wrote:
-> Hi Daniel,
-> 
-> On 2026-11-04 12:28:15 +0000, Daniel Scally wrote:
->> The V4L2 generic ISP parameters buffers described in
->> Documentation/driver-api/media/v4l2-isp.rst has a problem in that if
->> a driver using the parameters format is running a stream and the
->> device is suspended to RAM and later resumed, userspace will not tend
->> to reconfigure it with _all_ of the possible parameter blocks. The
->> format allows only a subset to be populated into the buffer queued to
->> the driver and this is the common practice in libcamera. The effect
->> will be that a resumed device will have lost any configuration that
->> tends to be sent only a single time at the start of a stream, for
->> example lens shading table settings.
+On 04/11/2026 14:00, Vladimir Zapolskiy wrote:
+> On 11/4/26 15:46, Bryan O'Donoghue wrote:
+>> On 04/11/2026 13:00, Vladimir Zapolskiy wrote:
+>>> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/ 
+>>> drivers/media/platform/qcom/camss/camss-csiphy.c
+>>> index f99eea2ef228..dcc005674d8a 100644
+>>> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
+>>> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+>>> @@ -839,7 +839,7 @@ int msm_csiphy_subdev_init(struct camss *camss, 
+>>> u8 port)
+>>>        csiphy->id = res->csiphy.id;
+>>>        csiphy->res = &res->csiphy;
+>>> -    snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csi%d", 
+>>> csiphy->id);
+>>> +    snprintf(csiphy->name, ARRAY_SIZE(csiphy->name), "csiphy%d", 
+>>> csiphy->id);
+>>>        return 0;
+>>> -- 2.53.0
 >>
->> This series performs some preliminary cleanup and then adds the "reset
->> buffer" concept to v4l2-isp. This is a mechanism through which user
->> space can flag a struct v4l2_isp_block_header.flags as needing to be
->> reapplied on device reset, such that the v4l2-isp framework will store
->> that block into a buffer allocated for the purpose when it validates
->> the block.
->>
->> The last patch in the series updates the rkisp1 driver to use the
->> v4l2-isp reset buffer to reapply that saved configuration on resume.
->>
->> An alternative approach might simply be to store the "last seen" copy
->> of any block in the reset buffer - this would be a simple change.
->> That implies a lot more processing on the majority of frames, as we'll
->> then always copy at least something, but it reduces the risk of losing
->> a setting. That amount of processing each frame seems very undesirable
->> to me though, particularly given the scene will presumably have changed
->> after resume and so the settings like AWB gains that are applied for
->> most frames are probably out of date anyway. On the other hand we may
->> end up flagging a lot of blocks, as there's parameters that might be
->> changed mid-stream (like gamma) but would not be so regularly changed
->> that we could just rely on them being sent naturally on resume, so a
->> third approach might be to invert the meaning of the flag and store
->> any block that _isn't_ flagged as _not_ needing to be reapplied.
-> 
-> Is there any reason not saving and restoring all relevant ISP registers
-> directly in the suspend() / resume () callbacks? AFIK this is what most
-> drivers do here and it's not clear to me why this would not work here?
-
-I don't see any reason that would not work, and maybe I overthought this indeed. This method does 
-still seem to have some advantages to me though; it means we can easily reuse the existing function 
-in the driver that applies the parameters to the hardware, which should make adding suspend() and 
-resume() support for a driver that uses the extensible parameters much simpler. If we were to read 
-the settings from the ISP registers and store them in suspend() instead of doing it this way I think 
-I'd still want to re-use the normal "write-params-buffer-to-hardware" function (for example 
-rkisp1_ext_params_config() in the rkisp1 driver) to avoid the risk of ending up with differences 
-between how the parameters were applied on resume() and on the normal handling of a parameters 
-buffer from userspace, so I think that we would end up populating a struct v4l2_isp_params_buffer 
-that was stored in the device's driver_data struct anyway - the difference would be that we'd have 
-to build it in suspend() for each ISP driver instead of having the core handle it in the course of 
-normal operation. I could knock up an example for the rkisp1 of creating that buffer in suspend() to 
-see how it looks perhaps?
-
-The "reset buffer" idea also means that if we extend the parameters buffer for an ISP with more 
-blocks in the future there's no extra work to do in the suspend() and resume() callbacks for them - 
-as long as userspace flagged the new block then they would just be reapplied "for free".
-
-Thanks
-Dan
-
-> 
->>
->> I'm open to opinions on how best to set the balance!
->>
->> Please note that the changes for the C3 and Dreamchip are only compile
->> tested.
->>
->> Thanks
->> Dan
->>
->> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
->> ---
->> Daniel Scally (7):
->>        media: rppx1: Drop max_size param from rppx1_params()
->>        media: v4l2-isp: Hold v4l2-isp data in central struct
->>        media: v4l2-isp: Update users to initialise and validate new struct
->>        media: v4l2-isp: Use centrally-held data in framework
->>        media: v4l2-isp: Add v4l2_isp_params_for_each_block()
->>        media: v4l2-isp: Introduce "reset buffer" concept
->>        media: rkisp1: Re-apply v4l2-isp reset buffer on resume
->>
->>   Documentation/userspace-api/media/v4l/v4l2-isp.rst |  19 ++++
->>   .../media/platform/amlogic/c3/isp/c3-isp-common.h  |   2 +
->>   .../media/platform/amlogic/c3/isp/c3-isp-params.c  |  28 +++--
->>   .../media/platform/arm/mali-c55/mali-c55-common.h  |   1 +
->>   .../media/platform/arm/mali-c55/mali-c55-params.c  |  28 ++---
->>   .../media/platform/dreamchip/rppx1/rpp_params.c    |  30 +++--
->>   drivers/media/platform/dreamchip/rppx1/rppx1.c     |   8 ++
->>   drivers/media/platform/dreamchip/rppx1/rppx1.h     |   5 +
->>   drivers/media/platform/renesas/rcar-isp/core-io.c  |   3 +-
->>   .../media/platform/rockchip/rkisp1/rkisp1-common.h |   3 +
->>   .../media/platform/rockchip/rkisp1/rkisp1-params.c |  61 ++++++----
->>   drivers/media/v4l2-core/v4l2-isp.c                 | 126 +++++++++++++++++++--
->>   include/media/rppx1.h                              |   2 +-
->>   include/media/v4l2-isp.h                           | 109 ++++++++++++++----
->>   include/uapi/linux/media/v4l2-isp.h                |   1 +
->>   15 files changed, 331 insertions(+), 95 deletions(-)
->> ---
->> base-commit: 00178eda305a332f302882849ff7374d4169be8b
->> change-id: 20261030-v4l2-isp-resume-41fad731df28
->> prerequisite-change-id: 20261028-rkisp1-suspend-and-resume-7d4f388a9a61:v1
->> prerequisite-patch-id: 8f6b499ef7898229c5b02e987822dd676a0cfd74
->> prerequisite-patch-id: 56d0852983c6f46537c03ca3bec71e0ce4046431
->> prerequisite-patch-id: 0b9edd21d24a25c620792dfa692d91346ceccdde
->> prerequisite-patch-id: 3b9425028cd62b60b3dc3dbd2fc3b5a8912a1fb4
->> prerequisite-patch-id: 771f986e2754383e7b5a920b25bf1609dc96f0b4
->> prerequisite-patch-id: 79c95d6375d662a4f75cccd8650b3fab05e4e66c
->> prerequisite-patch-id: e2ff2463db4934e707afbf0a239270d26dbf8189
->> prerequisite-patch-id: 5a923b7606f7cc60fd6b75be2d73231470043bcb
->> prerequisite-patch-id: fb80748a1a24316cdd77481b60936f716fd0aa71
->> prerequisite-patch-id: 1450f7d1f4b1a41e7ce65ea6d2fbd450d3a198ad
->> prerequisite-patch-id: d1d2ba9927536b110f7fbc0c68698d08afb74c27
->> prerequisite-patch-id: c2ae6f91cb9662307f90070523945ee03a79c4c3
->> prerequisite-patch-id: 87b425bde44fe889367a93302629dc011a3ec88a
->> prerequisite-patch-id: 25e4c9ee767dc61406adcf1e1463796a79832795
->> prerequisite-patch-id: 82388f762700dbcf39fdc43e6ba56c1feb55733a
->> prerequisite-patch-id: a4ad2fb2c7f8659c6d9bdcd9718a7ee69f124838
->>
->> Best regards,
->> -- 
->> Daniel Scally <dan.scally@ideasonboard.com>
+>> I'm 99% sure this is a change that was made @ Frank Li's behest i.e.
+>> that csi0 is how most other systems do it (true afair) instead of 
+>> csiphy0.
 >>
 > 
+> Let's review the discussion, please provide the link to it for further 
+> analysis.
+> 
+> v12 has "csiphy%d":
+> * https://lore.kernel.org/all/20260708-b4-linux-next-25-03-13-dtsi- 
+> x1e80100-camss-v12-0-f8588da41f16@linaro.org/
+> 
+> Can't find a request to change the name from Frank's comment to the change:
+> * https://lore.kernel.org/all/ak_HfEIpXj6Aky9c@lizhi-Precision-Tower-5810/
+> 
+> v13 changed the name to "csi%d":
+> * https://lore.kernel.org/linux-arm-msm/20260728-b4-linux-next-25-03-13- 
+> dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org/
+> 
+> The reason for the change or even the change itself is not in the v13 
+> changelog.
+> 
 
+Since that change never got though, actually I agree csiphy is more 
+consistent with the current naming convention.
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
