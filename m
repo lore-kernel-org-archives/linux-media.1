@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793791631;
-	b=RyvLtgT0ISji6osEcLk0/xojDz6iDjqGTc2b8zCiOHF2VR8gNM/gvzXcCSBhsPtHYAtT
-	 j/HU/iaLCLmx4aHRifj5kh8br8HOpTBZe0CrJWV13G4YoENeNZRT7uvCwwBH3a5hoTdQe
-	 G372YjXQScy89USWnyRjA73Ck6XqNxSXQKo5D+qtbOlSmx98GUavfYEyplwnXAsvtSnkR
-	 CsAxJResa/8QDGakFF7uSEv135lHxSIrCOut0z5a6JEoSDYyQoLXbYxxENR9i5fiC2CEx
-	 4eO9Mi+b1knz6V3uXBKUCPL6DJ6nfGGbK0P0DXu7o7vxcbjIH6il6pSshqJCNJowzEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793791631;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b+y4IkZXYphyR8+FcqEg70ydvc5HKxWDbnCN06U52Lo=;
-	b=2ziVODq8oXTP5zEmDFyDJrE1BshWL8JP3HAJy9YLc3gVcrK+vbI7dCbwd/KJyM7CwUAq
-	 l4moqIH2bb0UgUkG8F+K4dA7+huPTOwBnMmKF7cPrsCr1711fws8ZaJMa0LfkYmrfsuLZ
-	 QUvFowzjEjOBP5p0B6ZyzqjJhiPaeIcGmPmDYa314GdM7Oc8y5528xH3N4E2sRQxQd6gg
-	 8sqnq676/5agFZuPdthTU2fvuE8EgTbt17KsE9I5qNkv9kAZHOjD3qHz4GzSyY9UKvG22
-	 LT1k50pGLUScdMHzFTHXOFcpu52+IDAaQ0NNp2EaI8rsEK54DMD+mr5mz75MpQzSgog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjkuVR+j;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793791768;
+	b=gIIYPhlHRkHKk1l3bbByZ/BW7xDomjasdK/UAM+FCw5ERE78SJITXynGZ8BlP6zfTROf
+	 XvSRpJuC+u+/FmFQAe+8+KIGAnvfsKZQWUFDCAtLHULelGSR2XDZGY9ZD5Xw40QZsx1jI
+	 YESABY4Fzl14eB5/KpGkCZeHs4WN/+I+0P4QOr4fDAJ83FqTKHDJ+PZGgRtVy4lF4tLxR
+	 rCClsd0spzDNX12CdvOyaJPYorUu4OKFpyuVy/m/1wbo1dJLB8DP4LdC5ouYwVbAT0LYE
+	 9aWvD/UboAX/60OJ3VAny/fOJHhExuCAcauxx/UKgpm5vxalI4bK6ACsO24mwWBK5dA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793791768;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Btdf0uqMiUKY16BRcSVyrMGCAxEDA4RyrShdMRLVVN0=;
+	b=XCrWrrY48yJff+rS+8t1i5UeppZCZQ21Ilu9KBrKB4jftZChpqc7JQo4nSz9dooSE0iy
+	 15yhJyHgaV0MlZ8VoH+tTk+pN+t5dOxa3J1nZ+KW+fcBe44ftHBv66XHYK68lKUlQa3lv
+	 yJWFHy4iIAcjYI3lCbIi/AB6otpx8GFOE1pM50c5/3I6pGKkEvrsnKRqK6gS/UUHCZADR
+	 qa1a+nRjePUlMebXRn9YBZYRQZSyuLstn+nrfOL3k0OT7+sGyEzqsnNnm+z6/r5X8c7Tu
+	 HGjec1kxH9O/0juTLkXc6vPUuJIc1p07nygFcNQznJgpfxMoZiX45w0Gbl4GDdpLIfQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZ5Sy4BS;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6568D606A326;
-	Wed,  4 Nov 2026 11:27:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBE0606A32F;
+	Wed,  4 Nov 2026 11:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XjkuVR+j
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793791631;
-	b=m4OCFbiOwDjIsTeKhcnTITQoqoDe94mHmyisxH7qJJtzYR+CAHxprni7QabynEF9ZV1q
-	 fwWwmJwlBHeqgM1+4U45Zveb8vbxmoXFponTu/nC2EqQO+vnoFcACawddosDbn83cclC+
-	 h6Q15gSJYbWnqEBac3wVrWLd0888liWGOZyW6QADpK+IAd3C6JE9FCiLgG3E7D4VbknQW
-	 sYAr/V6RaJB5zauKCPHvp805PjTUwcbZNNPf95Mm41k4mkOngIXOuJ7qMw2cQ+lE7h7sO
-	 thhkLlrpMprL8RX1N+VpYNz53jqCI0GMFfHZt91Ol0MVXWkkZ1WaC43b2PtOm1AuwTA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793791631;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b+y4IkZXYphyR8+FcqEg70ydvc5HKxWDbnCN06U52Lo=;
-	b=Sa86C4jm+6zaqw6jceiQfeTg88M1Phpn6vabj1DJmwGSCIGa1Tr+I64XUc05NkXbcDY9
-	 4w+esLE9dJuE7zHrLl2rVLHtMMQpWR2ARwXpa1Ncv/N0Yym1HBsvfjrSPPhY2e7ndtSse
-	 gVAtpZacmQtxkYGnJT/pDVaKdR0nVV7BjV9a2nKoJp5su1jzhoytrS7pWfpJeUb0ESOtN
-	 57yr5tpHeM+PvUNPXMMGUheLAEAqEA21dCYwVX3AKxYNTZq1/Cr2RnAE0AwCXqyPWthAB
-	 /Xz5nSeMC6/Ubv5v5OHB1cG3Bnuy9LrWFEOTaqB2zpgXQDvKDih33JfHFfr46EIqyMQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 77CE51F000C1;
-	Wed,  4 Nov 2026 11:27:10 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dZ5Sy4BS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 951931F00A16;
+	Wed,  4 Nov 2026 11:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793791630;
-	bh=b+y4IkZXYphyR8+FcqEg70ydvc5HKxWDbnCN06U52Lo=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=XjkuVR+jLud123a4yrwSosXs1CNpQ0DbUIUT7A2/vJJ0NDuz9h7tvxCnSWj5MVdqr
-	 wiY2DfEGi89iqHVD0td/YFyaTIYvs13eQgn5NW3ToAhhZYYuQDa9snI0Ba+7mlE5ra
-	 RbYstGtwpVV9LVwqK/wAtQhDit9Mb0yD7ydL4x91UwAXANln+sKrkAb2qglPbY+m25
-	 PR5sY8oJcNUv4bozzuOhHTXfHeHRQXt4Z6wJvmYHRMQxmZ5k8cBZ2yCehyfowD4MdM
-	 hz3UvBp0fn4jGD0DmnsDZ5gPWYzKJstf/5fovLTyZAityVnqG4PVCUTeeg/2oyb87E
-	 HaWnRv2nie3fw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E7BE146DE2;
-	Wed,  4 Nov 2026 11:27:09 +0000 (UTC)
-From: Sergei Khomenkov via B4 Relay <devnull+shomenkow.gmail.com@kernel.org>
-Date: Wed, 04 Nov 2026 14:27:00 +0300
-Subject: [PATCH] media: verisilicon: postproc: fix the G1 input height
- extension
+	s=k20260515; t=1793791768;
+	bh=Btdf0uqMiUKY16BRcSVyrMGCAxEDA4RyrShdMRLVVN0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dZ5Sy4BSYu7R9+UVp1mhpTolnmh4Q/e+aziPeaIKS2CBRIvQCrz8OkzFENwVenppn
+	 OeqXwHjEUHoZATk3hN32IfeAdfiNqQlGz/M9gJ6ogOJJ/jJacTiCh+Mgky37BCpF7U
+	 DfBNkvqtJshG/s0wE2uv9W0LZTQwXaqz2q5DOzlfaBJWUIm8anSG+kwPoVwFKvdyDN
+	 TF+upsvAoNE38tch5WTFZQDAjplf+pkWzqLmx+N5HWmuvEyKWpzkr8+FvLINGti51F
+	 FcGyqmAhXgQAkGU9CekWFvMVovs9Xfba/OjX2eD7vGbAG2r6eayK4edCTfZcWsidUC
+	 GcbTj394uABuQ==
+Message-ID: <803d16ba-49c9-404c-8973-e4d4dc02b1e3@kernel.org>
+Date: Wed, 4 Nov 2026 11:29:23 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,91 +51,291 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-b4-hantro-pp-v1-1-1d75e9b225f8@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvyJ7bqEtkeor0SFrq72oaEQg/j3pO
- AMzGRJH4QSTyhD5kSTeVaBGwXat7mSUvTJ0bWeIWo1WY/V39BgC0sZkzTCSNj3UJEQ+5P1381L
- KB/YdnS5eAAAA
-X-Change-ID: 20261104-b4-hantro-pp-1ce1b6891463
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Hugues Fruchet <hugues.fruchet@foss.st.com>, 
- Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Sergei Khomenkov <shomenkow@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793791629; l=2696;
- i=shomenkow@gmail.com; s=20261104; h=from:subject:message-id;
- bh=6KMLDE6dsLI68WIn7HDBXCi9zZIMm6q13VtI26jCIEQ=;
- b=GW+Um0KlDUSjAUHiJBO3u19Fpg5eM42bH6xinnVwJ65mnTUtQeE34SUyzblxmnVX92v/MDvJv
- BdzIUwJKlk3CrSB3jJg0tsT7D0ZdZJCL/g6cBPYs7j7XbbeP0rkvNZF
-X-Developer-Key: i=shomenkow@gmail.com; a=ed25519;
- pk=FwuHDVe7aiISDMLmQEcMC+RflEIJ6kEp/ekwznWXmI8=
-X-Endpoint-Received: by B4 Relay for shomenkow@gmail.com/20261104 with
- auth_id=1409
-X-Original-From: Sergei Khomenkov <shomenkow@gmail.com>
-Reply-To: shomenkow@gmail.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom: Add common qcom,csi2-phy
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
+ <Qxjw6nqG8e0t_jwSz4HC1rrgZrHc2wUez5PQn28lbXlvMq_V4_RSjlzhsFu_8OgE-pmS_GkXKICn0ObgJWomzg==@protonmail.internalid>
+ <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Sergei Khomenkov <shomenkow@gmail.com>
+On 03/11/2026 21:41, Anusha Arun Nandi wrote:
+> SA8775P, QCS8300 and SC7280 CSI2 PHYs are bit-for-bit identical in
+> devicetree shape (ports, bus-type, data-lanes, operating-points-v2,
+> clocks, single "top" power-domain, vdda-phy/vdda-pll supplies).
+> 
+> Describe all three with a single qcom,csi2-phy.yaml and a compatible
+> oneOf, rather than one standalone schema per SoC. QCS8300 is further
+> required to be paired with a qcom,sa8775p-csi2-phy fallback
+> compatible, the same way other Qualcomm bindings express full
+> hardware compatibility between two SoCs (see qcom,qusb2-phy.yaml);
+> this lets the driver bind QCS8300 nodes via its qcom,sa8775p-csi2-phy
+> match entry rather than carrying a duplicate one.
+> 
+> qcom,x1e80100-csi2-phy.yaml is a separate PHY with a different shape
+> (3 clocks, 3 power-domains, different supply names, DPHY split-mode
+> support) and is left untouched.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
+> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+> ---
+>   .../bindings/phy/qcom,csi2-phy.yaml           | 176 ++++++++++++++++++
+>   1 file changed, 176 insertions(+)
+>   create mode 100644 Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
+> new file mode 100644
+> index 000000000000..5d25547528bd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,csi2-phy.yaml
+> @@ -0,0 +1,176 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +# Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved.
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,csi2-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm CSI2 PHY
+> +
+> +maintainers:
+> +  - Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
+> +
+> +description:
+> +  Qualcomm MIPI CSI2 D-PHY. Connects MIPI CSI2 sensors to Qualcomm's Camera
+> +  CSI Decoder.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - enum:
+> +          - qcom,sa8775p-csi2-phy
+> +          - qcom,sc7280-csi2-phy
+> +      - items:
+> +          - enum:
+> +              - qcom,qcs8300-csi2-phy
+> +          - const: qcom,sa8775p-csi2-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 2
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: timer
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  operating-points-v2: true
+> +
+> +  opp-table:
+> +    type: object
+> +
+> +  power-domains:
+> +    items:
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: top
+> +
+> +  vdda-phy-supply:
+> +    description: Phandle to PHY supply.
+> +
+> +  vdda-pll-supply:
+> +    description: Phandle to PLL supply.
 
-The G1 post-processor takes its input size in macroblocks: the low
-bits in swreg72, the high bits in swreg92 (bits 28:26 for bits 11:9
-of the width, bits 31:29 for bits 10:8 of the height). This is the
-VDPU1 layout in Rockchip's MPP library, whose JPEG decoder writes the
-height extension as ((height / 16) & 0x700) >> 8.
+Why are we departing from vdda-0p9-supply and vdda-1p2-supply ?
 
-hantro_postproc_g1_enable() computes the width extension that way but
-writes the height extension as MB_HEIGHT(height >> 8), shifting lines
-instead of macroblocks. Every input of 256 to 4080 lines gets an
-extension of 1 instead of 0, so the post-processor is told it has 256
-more macroblock rows than it has: 286 instead of 30 for 480 lines,
-301 instead of 45 for 720 and 324 instead of 68 for 1080. Inputs
-below 256 lines are not affected.
+Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
 
-Shift the macroblock count, as is done for the width.
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description:
+> +          Sensor input. A single sensor is described by a single endpoint
+> +          with one to four data lanes, numbered 1-4. The clock lane is
+> +          position 0.
 
-The problem was found with an LLM coding assistant while porting
-mainline Linux to a Rockchip RK3026 board; the assistant also drafted
-this change. Tested on that board (G1, ID 0x6731), decoding H.264
-(640x480, 854x480, 1280x720) and VP8 (640x480, 1280x720) to YUYV
-through the post-processor, 241 frames, against a software conversion
-of the decoder's NV12 output. Without this change only the 4 VP8 key
-frames match: a few pixels at the bottom left of the last macroblock
-row differ from run to run, and VP8 inter frames propagate them. With
-it all 241 frames match. 320x240 is correct either way.
+Since you've cloned and owned the yaml - you've also dropped the 
+description of DPHY split mode.
 
-Fixes: 3f6702e1be8a ("media: verisilicon: postproc: 4K support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
----
- drivers/media/platform/verisilicon/hantro_postproc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> +
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +                default: 4
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  minimum: 1
+> +                  maximum: 4
+> +                description:
+> +                  Data lane positions following this endpoint's clock
+> +                  lane. Positions are a per-port logical numbering, not
+> +                  package pad or ball positions.
+> +
+> +            required:
+> +              - data-lanes
+> +              - remote-endpoint
 
-diff --git a/drivers/media/platform/verisilicon/hantro_postproc.c b/drivers/media/platform/verisilicon/hantro_postproc.c
-index e94d1ba5ef10..ecc6b3137eb0 100644
---- a/drivers/media/platform/verisilicon/hantro_postproc.c
-+++ b/drivers/media/platform/verisilicon/hantro_postproc.c
-@@ -106,7 +106,7 @@ static void hantro_postproc_g1_enable(struct hantro_ctx *ctx)
- 	HANTRO_PP_REG_WRITE(vpu, orig_width, MB_WIDTH(ctx->dst_fmt.width));
- 	HANTRO_PP_REG_WRITE(vpu, display_width, ctx->dst_fmt.width);
- 	HANTRO_PP_REG_WRITE(vpu, input_width_ext, MB_WIDTH(ctx->dst_fmt.width) >> 9);
--	HANTRO_PP_REG_WRITE(vpu, input_height_ext, MB_HEIGHT(ctx->dst_fmt.height >> 8));
-+	HANTRO_PP_REG_WRITE(vpu, input_height_ext, MB_HEIGHT(ctx->dst_fmt.height) >> 8);
- }
- 
- static int down_scale_factor(struct hantro_ctx *ctx)
+And then you've dropped the DPHY split mode defintion
 
----
-base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
-change-id: 20261104-b4-hantro-pp-1ce1b6891463
+NAK
 
-Best regards,
--- 
-Sergei Khomenkov <shomenkow@gmail.com>
+Please either clone and own the whole DPHY split-mode circus or just 
+modify the existing definition to include your new stuff.
 
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Output to the CAMSS CSID controller.
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - operating-points-v2
+> +  - power-domains
+> +  - power-domain-names
+> +  - vdda-phy-supply
+> +  - vdda-pll-supply
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,sa8775p-camcc.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/media/video-interfaces.h>
+> +
+> +    phy@ac9c000 {
+> +        compatible = "qcom,sa8775p-csi2-phy";
+> +        reg = <0x0ac9c000 0x2000>;
+> +
+> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
+> +        clock-names = "core",
+> +                      "timer";
+> +
+> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +        operating-points-v2 = <&csiphy_opp_table>;
+> +
+> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
+> +        power-domain-names = "top";
+> +
+> +        vdda-phy-supply = <&vreg_l4a>;
+> +        vdda-pll-supply = <&vreg_l1c>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                csiphy0_in: endpoint {
+> +                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +                    data-lanes = <1 2 3 4>;
+> +                    remote-endpoint = <&sensor_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +                csiphy0_out: endpoint {
+> +                    remote-endpoint = <&csid_in>;
+> +                };
+> +            };
+> +        };
+> +
+> +        csiphy_opp_table: opp-table {
+> +            compatible = "operating-points-v2";
+> +
+> +            opp-300000000 {
+> +                opp-hz = /bits/ 64 <300000000>;
+> +            };
+> +        };
+> +    };
+> --
+> 2.34.1
 
