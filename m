@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793775937;
-	b=oX+Ha2/BaXSfWtl4DkK2RHQbDIzVgXHMcJ8i4+JWdunDfV+8trjoKN6LrJ6Z3ySy8qKN
-	 Df/QQ/sa8KCQunT5Us792OHSkGxIDQDNGRZ7to99/5Ph0ZiQ835cCRuhtwD/jMzKuZKxt
-	 2id+0aesEO/Ym6aBf4Y3Y0prhNMu+EAyVDe0ByJFsbrYU0DNuYNcAzKyuu7yR29COIEn6
-	 FSgN6SW9mK6UPiT3+sN2AftmkI4B9EJf4NZCBQoSWrKlId5Y/OZ9owxuOGJ7ciOsWOa6x
-	 eY0NveNBawe2YRdO/patE6ti5hbSZAaNmJSp9JSQAAbnOr3HcPBdQuHa7pr3jPAMNNg==
+	t=1793775997;
+	b=mysiEyp0hEsSL+46dJtxjXcq9gVJE82sFx3Fn6IDy3W8rHEP83aQHG+2prerR++4/Z6D
+	 XRR/hbuFuv0xyQSJ5m8SSJjpynPx/3tdP422x/fyPB0KG775TYtUTHWFydObtQobiTUT5
+	 IgJmIUzCHoULPJiI8gsYOqnomY8Oh0Kly9A440ZbwJEKQLMcYuNUJL87yE/uR4k13vMsa
+	 mGYaYnRKq3wwpsg9nYbLA9UqR/Rq3emJO8DnwwljtMsW0jUYTrYdA74xW+pp9xw8YlvEk
+	 jz1Nrh7io8uillxWVxCygTb1aj2Xxl8hefvYUTyOA1h/tzeaQsMhNgAEjLwZPtI4DgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793775937;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775997;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=i7gGN6qKp1qfdQhQXG8DxbwzMK2glOScLUQMtxcIIpY=;
-	b=th5k9qPji6oFk8++u9jUwCk58YN6lRzAcFlvhBJzrxQWxSmK7qJZmB6Y0IIuV1xXWXMO
-	 4RNHY9oNH7G3PaJ82ZAWiSC6ZN9CPu36TBOCItsiOqJ6x02tHvhD9mA7tlk0lrRp1hYeP
-	 LuhteOGCWixwpufPl/5edcgEszshcVbhhxZjfUNi8mMoNuDI09OHlq6NdAGLSiVVg8lIO
-	 KvZgPpuj0kOyCockUKHuAgGn7+TLsCt2+0MdxqVvayQwTLm/vMXgbI1R5ebzAMpesMWLG
-	 2FkiT/KoJ9PsfKjFokwEB5jLRkVVGtA7HOGvQ9nuwa4PsPH/Ie2FcE0M3g/eHZsZRNw==
+	bh=oZ4eIQgNg851HiC1LhwvokflDAaGaokZHAdBUHZGe30=;
+	b=FRZPGpWoGAAq/+qEl0xLEgpLmDkJUU4HU7iGxjV8nWUA5Cgq6Mh1Ptq6ozyHZ6B62BHX
+	 Q79i9buHQhYLMDUk/+8DeJVmVCqmI1Xz+NmlsKV229WYztFl1wmDiSILrVsErAWf7QMWZ
+	 RHxR90dF7lwZB2hSFlxwvZ3sFpJouzsG28o3DPJTHC86oWz9UodFTwHth4eMs3QyZqewV
+	 dq6IVPVUirXub1WDIa5D6vyihEjeJPR5tjruTmmaCmpjr8nscCHonpvw9gYjQNMDumWyH
+	 oRnCDrZ5AU/F8Z7doZT0s67Nt+lrvfpyTP5OCPmfeWhjxVq1IWztddeQBJRQbDQteaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLnDZLMi;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UvT5gpdu;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B190606A31B;
-	Wed,  4 Nov 2026 07:05:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86919606A31B;
+	Wed,  4 Nov 2026 07:06:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLnDZLMi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B50B81F0093A;
-	Wed,  4 Nov 2026 07:05:32 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UvT5gpdu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8436F1F000C1;
+	Wed,  4 Nov 2026 07:06:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793775936;
-	bh=i7gGN6qKp1qfdQhQXG8DxbwzMK2glOScLUQMtxcIIpY=;
+	s=k20260515; t=1793775997;
+	bh=oZ4eIQgNg851HiC1LhwvokflDAaGaokZHAdBUHZGe30=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RLnDZLMiiz4kkM9A9pJovDqU+VLzQjOA9MMX4iCEyFYC9s1UDheI5+/G1gVJmSSC9
-	 Yg3LrSbRVs0/JqxBTl5nK4LcVRggqFeOvfzBsLWI3DbIEu4Mqj8xDyGjAzJvMyeQZe
-	 QLr62LmCbEepEx4wAdyPYbhMHX8mCfxFOR0H7Jagk6w0EJDxFl1lNq5TTBAayGkEqw
-	 zAjk8wktfpd69upnEEgHlNRy4oAmNJPXuj5smhwTbRToLWMS7bkwhZzPKuhZ6/uQ2P
-	 dHhhrpnYiI547Dk+dcp5uAmXvxjziUqoJPSx9odmZhoOH2C5onhtoDdBPMSNzDmPBI
-	 g0MNkUIKyJ4jg==
-Message-ID: <f319ba87-5569-4323-ae4c-3f9f34a9a3c1@kernel.org>
-Date: Wed, 4 Nov 2026 08:05:30 +0100
+	b=UvT5gpduUQKVZ800CmfMM+07oDYD2bgft81mhxQAPxi2siw4JpGseHEbSwbP2LCE2
+	 /pYKuepHMpNfOyqpMP4TyeDywh8AEbrhWfLIoFLGCnwIMzMN2xBNXzv/z2jMT7A3MI
+	 QUo+clMjOFRZMrFFGp2syiZKG7VAndCJpHoHe08RZVlN27t1WQXlFOHVzXW7EPolr2
+	 AykHmdd5Q6qHGKYMOgi7Nys93pAdtUwjOZ7KD9F6rYtdeTqNGVUZvhpv/UVRfqcjzt
+	 B3QnVxcQ71b+npOrmuVMN5+p9uU2D8swChKvxz53zirGbDNj2KxVXLewyWRFeD1rpe
+	 nD8rAZ10GmQWQ==
+Message-ID: <a103b49e-e13f-4c70-b9a0-261534cfef79@kernel.org>
+Date: Wed, 4 Nov 2026 08:06:31 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,7 +52,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom: Add common qcom,csi2-phy
+Subject: Re: [PATCH v2 2/5] phy: qcom-mipi-csi2: Make timer and OPP clock
+ names configurable
 To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
  Bryan O'Donoghue <bod@kernel.org>
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
@@ -63,7 +64,7 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
  linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
- <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+ <20261103214105.3605181-3-anusha.nandi@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -109,53 +110,23 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+In-Reply-To: <20261103214105.3605181-3-anusha.nandi@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03/11/2026 22:41, Anusha Arun Nandi wrote:
-> SA8775P, QCS8300 and SC7280 CSI2 PHYs are bit-for-bit identical in
-> devicetree shape (ports, bus-type, data-lanes, operating-points-v2,
-> clocks, single "top" power-domain, vdda-phy/vdda-pll supplies).
+> The timer-clock lookup in phy_qcom_mipi_csi2_probe() and the OPP
+> clkname passed to devm_pm_opp_set_clkname() were both hardcoded
+> string literals sized to x1e80100 ("timer"/"core"). Add
+> timer_clk_name/opp_clk_name to struct mipi_csi2phy_soc_cfg so each
+> SoC can declare its own clock-name strings instead.
 > 
-> Describe all three with a single qcom,csi2-phy.yaml and a compatible
-> oneOf, rather than one standalone schema per SoC. QCS8300 is further
-> required to be paired with a qcom,sa8775p-csi2-phy fallback
-> compatible, the same way other Qualcomm bindings express full
-> hardware compatibility between two SoCs (see qcom,qusb2-phy.yaml);
-> this lets the driver bind QCS8300 nodes via its qcom,sa8775p-csi2-phy
-> match entry rather than carrying a duplicate one.
-> 
-> qcom,x1e80100-csi2-phy.yaml is a separate PHY with a different shape
-> (3 clocks, 3 power-domains, different supply names, DPHY split-mode
-> support) and is left untouched.
+> x1e80100's soc_cfg now declares "timer"/"core" explicitly; no
+> behaviour change.
 > 
 > Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
 
-How is it possible? There was no such patch, this is basically v1.
-
-If this is v2, please provide changelog and lore links pointing to the
-review.
-
-> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
-
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
-
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
-
-Please kindly resend and include all necessary To/Cc entries.
+Where did it happen?
 
 Best regards,
 Krzysztof
