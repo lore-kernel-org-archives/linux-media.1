@@ -1,63 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793830074;
-	b=5eov9eUhXHQl/WtXMOGRvob/Q88xpOuKCFfHPeqakteUHrmmJJagaG0T/3EprN4xFzic
-	 2RoGcNIgj50WoqmFVl/U2N/iQkXnCV3AZJ1e8v6cWh94dBECeOLpHfJA+IKzpX04P9SYh
-	 jov4Gp1F+gmCLFdogNE7Soe1O7vB2BRrmN9VC16983QvNJYuJnft/LljZRIbEXqhrVK0Q
-	 BMWc2q/D4de8SvCtZA37IUHMLcrg9VDASrXvPTHf6mripuMC/krdBZ5LxGvXST8Dnaqe5
-	 oyNwICM2KvjQigmrhyc/I6WiXV+pWMZbsd5dFtntYNqwuCkYk818DUg3w0H4TPSekbA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793830074;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=O/IT5ea1TA/ia5Q4Lx4AEa3ZripMAx4uDfLdMDe4DOA=;
-	b=3BY3Sc72DtXRP7wzwXatKlXIgKF6TOBVxOs8xdHi8+TPRL8c/gfWcNot59uwQV9MBDqu
-	 972BmqBzrHb6I3x/XgltsuVzfKq/+UfM5fJWdHU1vp2DjBGGl9pTwOu6GE4Nl5zDJSLMV
-	 Ome4NO19aqVYTJGs7OFgOKHgts43ASLV8TyAIvjxUO4/YRpe2/UVBQdpl3GgMUU/NNtxL
-	 aIVNOie2vr5R1rizjm5O4zpomtQZfCPK7dZyiEh+JSNy5nR9HzaI3vNcFkxRLg6Fj9dL3
-	 t9cID9rn1eMu4iDBbtugINl5hRQrm+ciLC2baj0s4PPk/z6Bn5rRr4meqw8tIXEJFFg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AIMEKbtm;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793830320;
+	b=5at0Pn2j25iOuHg5RD/xhZQuAei97IBZZe8PjzU5zUYBN+kK3lX7We4INiqWYUxFXK2j
+	 yI6Oseo1ePz5Yym8LA/gL/8axTXNM5PbWb5VGLMt2fasuKJu9ykfhhuB5/hDGtNs3TOmf
+	 IzcZ3nbkDH1hgxMx5viltQ/UneYxjnxZJHFj7xgyqCtXbksmgJ1981C1pfTEGt3+r7PPv
+	 omp2xkE2haXYXoM9alVTx5VBro3U2gPi4t8MQ+HGhG+od08bgrrTHflRK4gPwigNwdqQh
+	 JaINvKOu+0rOneQDJdpqKCpGTUqD6vXwhs6csueJBih1iJANdQRtCUpA32VE9Fzt9Fw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793830320;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+	b=vvxl6i6AsqVm9p3y5v8GEckjN/vs14WVxHH4wHP3MgRTdCURkhIJlOf24HWCFr9cNNZI
+	 heFxQ+hBfG6HpR+9ORfsgWlG3iYljk6N3bqz87O1fpV78CKP9XRYPi3Ci3MdtvcS9yCwM
+	 osZZLdvvXT/y4/RR6gJd0cry1xMrf5ySBTdCvY844uyBxzYk9w5VSZX1y+j9Z/aiaexMB
+	 Dx5rfZgT8mewAXPLa3ANUkoJ7yRgvgq7HpGgUHyfd90Nh+mvNo7inDlw/H8N4Awc5264I
+	 6I4KLgQOEDARdbBwgyQBTML/qaYdBcOfoRDGzF066qX4xrRO3Zj48wLZZ7iv/FTDKow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h70xA2I1;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QnfmsgFU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB7A606A33A;
-	Wed,  4 Nov 2026 22:07:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEB7A606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EDBA606A33B
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 22:11:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EDBA606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=AIMEKbtm
-Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6AA8A4DC;
-	Wed,  4 Nov 2026 23:05:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793829932;
-	bh=VsQbt41fXOSapnTdVwtRZ3JINszuqwA4hU6clBhdmuw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AIMEKbtm20BUbEoUXyY6OV4BR4JVvpQfnRX1Bqy5nWkGpYEUGkXUCHwXYjKZ0LJku
-	 6pUuETM1WKlWgnMNypC3c94I0BNOx73CwxmqmySYIY/mZ3XigcBMoDEFhibUC7UOND
-	 epjNrjHMG7bnd+3lfY1lXTrX3Sx4FqFBGCcTKn/U=
-Date: Thu, 5 Nov 2026 00:07:49 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Chad Aldreda <ca@modelmiser.com>
-Cc: linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	driver-core@lists.linux.dev, linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Nick Faro <yux50000@hotmail.com>
-Subject: Re: [RFC PATCH 0/4] devres: warn about managed memory still held by
- open files at unbind
-Message-ID: <20261104220749.GA3976471@killaraus.ideasonboard.com>
-References: <20261104215546.3990950-1-ca@modelmiser.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=h70xA2I1;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QnfmsgFU
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4IccJX2286041
+	for <linux-media@vger.kernel.org>; Wed, 4 Nov 2026 22:11:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=; b=h7
+	0xA2I1xOUhDBkTTwFd3Y2vgiA3FBpt8z0GVTxo5Z80TEHVxaIdPqt50JXBrFoFw4
+	+YhsMcPobW7taryWOxNEkhkusXUyIv4SOjBq9JwJDKMCvlJn3eDTdFUDIJp+seHH
+	jzBPDEV+a+yyLz//eNdZ4wO2XNMroQjPZv3WVbXlqyUC+osDrBP9moQwgu2eVOw/
+	ji1SVFa4f1GADGy9FBZ9eSxZnZqopFznMAfgIC7XF4Ms/Pl05P1aiZO1Byqr6UVW
+	4X7RSomoUm0190v1+hFRbfa7JT9g1w43gABb6WtelVG7zjGzyyqaD/+I6+kg4oL9
+	5BAC0jq6OgjIJ4SGlCpQ==
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hra5tgt9m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 22:11:58 +0000 (GMT)
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-702a3e438dbso1346523eaf.0
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 14:11:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793830316; cv=none;
+        d=google.com; s=arc-20260327;
+        b=E3Wa+gSDOy9+qVEGvkmv3Uc/m+O1VVQGrvtCho3ylm0cFyjRH2JVaqXd/dBe9qDmp4
+         9mVgxKxeuD2vUOqzR0rWzR8WxmxrvtnIbPSj6V8chOW3Ea/hiM8sg17YAF0ZCz10m2Ys
+         pgmJrORl/zTImt736M/HI/7VPZ2BEHNoMMEvcL36IrUIUKWPYJBydhabJ1xrJX0kl9sf
+         p5Cf2Nzqrs2tSbE0mRpLDQ3Tq/uokAUmobAw8r0jjrHOc2UfXbMmZtzwLdvwv0+rXs+Q
+         qEf+FVzhr89RMP9g7ZFosCcSTlkHI5OUn7T8QA4cBHprMAHK1glVCSr6GLW+Fx4LhuJp
+         aqBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+        fh=yBrWJW4OA84n6h9WRubqZ9Sbxfq794ei/CSmBYQaQKM=;
+        b=gQUh6V+sMvBaycsu1M0PV12ec4LnAK5aLnTm5MmIVF9yZ/zMB4+a+nkgwjAbNqS2Qr
+         vkPNVG0dlBxtCJeyM2AhfHYXMvLPogmZ1u9n27LvCRkIdpEQmqypw/QNBpWTHt/pcpGt
+         yZSgsN+EgKCPI9tVKh3tz8VujsdLIRQdvIVRhO+47/qXWkumhAatj5aEAPBpxd5V9w+e
+         Q4Ty1VHkXmtikR9jpaze9thiyh0TejDeMP7TfGDNnNUIVB3ieNq3V7Gm3tAbFwLP6R6K
+         Eu6AQ1JJoY44Lyt5D9t6PsccK057aVoqOPDejcHF1VVpK7unSH/YXbmP/8lGWns32Nob
+         ubUA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793830316; x=1794435116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+        b=QnfmsgFUjMlff8nr6ZBqL6J3ZKh1gtmaQQ/Is1qws8uLXJ8fGrbnlyPy4U1EbYGCAj
+         OZaxUKJsfq4UA3rObUonLn2IT8zEZm5h8QxSSydV3VGOU+NGhkmM86/rbiP8z4F4JoLf
+         UoomRDMUhmr3c2cySC1AkVfa0oSBXevqQs1aqdoMWuPMnVINlVjI23IiNetm9YUw3Qx+
+         eSrKeb0q2W41OkyZbg/lLhqYJUYV40UDJi01R8nyhNoXp9PRqflppKXIRTtG2QQcKaGw
+         3iKKSmosibd1vrc27DQvu1onA11STrMBl9TaFyiWKJxq2yxbhjpZc0GWZF8I94YhEDDd
+         WBog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793830316; x=1794435116;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eiT1btz924HjQNzzWl70B3xvzB6Cqt62IjRgfUiOL4Y=;
+        b=Fk+6mC3z+dHuVFtYmtnDIV8v4KHnCE9oICj1YaC4upiQv3xkgQbn/T8o/wpWZVUtux
+         95hufmJUbR1yVkDQCaK6rVA0Pc0GW61brQl10ZR/MTYXVnyJM7PHFAYI3wUhH6KB5Gi2
+         vZi6lWETrp6AjXR7w+aWdKrpzTj30VtrMsthN8xoFA7U13K5HMK2yjS1l5//rhh8fyMG
+         jPF4x9k4sb4Y529HlM9whbLLVqWubg5UCEDEi3xoWbFOJBGbNWYV6/LiJZCwGIBmqoKI
+         HDLWIDBDM9TM/mn91dtavMrV6Ad7+/F5+cKzldYcEdsIUWCLUD2oZN48kGC7aWC0LGw7
+         TOfw==
+X-Forwarded-Encrypted: i=1; AKwUvBw7qFelSp7gBXEtDCeesOT/Hcd5tGa033soQWGzF3K2ctBVrTGFXyuyaOdz/6I07es/BhX/6lj78vOt+Q==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+e8D1LZ6UreK9gSS9DuWf1yW7va0VkIGSYbSnL2oMfdpt6q6bB
+	n6yw2iIsEdXtKfi2hg/Ifl7j/CJTSJkk7YroTai6oaF09K845XQDkuk4JA/GV481fvnPTJJ91f6
+	4/UqBUG6av8eRgtkp8RT6MijzP6keyVTyfAEbZyHsWIDl3fJdjnmNRHIZ2/k9uF205xvjnqL15w
+	5Qg/pwAF9Cg/mhRX+OiZCThtBrQDocAGURd8sQg0yy
+X-Gm-Gg: AYBFou3g+J6JxvhMoRR/osWZGYEKktRySOJEl5R6WoqsPZDFA2qHNCbEtpBMec8EYD7
+	qNnJA8rGXssMDqyQxtcau2nl2CIid+igNQI80xm0Izkt83QrG4v4jH+Ps1NeeAXht1vZGUSNLxh
+	uRbCA6rTyXooAq6e2J0Z7dj0PLndiWL+SPWzApb5XMQgwpPFoe3JqioNgeFWujNPzxAcWPvwtDt
+	oRLR8PwUSIjWKpRT0ebZg==
+X-Received: by 2002:a05:6820:168c:b0:702:efc4:807d with SMTP id 006d021491bc7-714f29eed8dmr10906942eaf.49.1793830315874;
+        Wed, 04 Nov 2026 14:11:55 -0800 (PST)
+X-Received: by 2002:a05:6820:168c:b0:702:efc4:807d with SMTP id
+ 006d021491bc7-714f29eed8dmr10906914eaf.49.1793830315450; Wed, 04 Nov 2026
+ 14:11:55 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,157 +128,120 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261104215546.3990950-1-ca@modelmiser.com>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com> <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+In-Reply-To: <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 4 Nov 2026 14:11:42 -0800
+X-Gm-Features: AclHuK-PejnPAeVcWn1rFgQSugIaafHtbuWuLOPuri8tnD2WASiqu_5BlPlNCuI
+Message-ID: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: Robert Mader <robert.mader@collabora.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+        Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA4OCBTYWx0ZWRfXyFFdpD3bVru8
+ t+wRksodomQXb9OB+v5WC2JkHLfXOwMpmaG3giw+sp7+EubgqWO/9h5rCV2lmIeH7zJbTj/7koT
+ oXGtIw9fLI+kPSGe7KEgQj2uPAin4P0=
+X-Proofpoint-ORIG-GUID: xo3F3u1_D_KSrW7VO1oUNHJKls6AIxZx
+X-Authority-Analysis: v=2.4 cv=P/6vFSAu c=1 sm=1 tr=0 ts=6aebadae cx=c_pps
+ a=wURt19dY5n+H4uQbQt9s7g==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=e5mUnYsNAAAA:8 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8
+ a=guYwWtrNydk0MfZTwrkA:9 a=QEXdDO2ut3YA:10 a=-UhsvdU3ccFDOXFxFb4l:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-GUID: xo3F3u1_D_KSrW7VO1oUNHJKls6AIxZx
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA4OCBTYWx0ZWRfX6q/yQTKr5LMs
+ hulDzpo8+MKzDNag9h8oSO939wgYd5k/JD3rJ0gIZrGBetEwmpVulOaahCwFGsy8c+vtIHU8fWd
+ fPl7Wlpm/8vCxmXA6CTdxfDSDbSuZAftvGpAjHLWwRLyVYIPk2mwTtmUxFvxfqjTnuXZ5XkHKI0
+ UBldZNSODlAmYoJGhnp4CKxeA1MyUnp46JW6Rdi4ifB5fdy41cTW3Qtxd+JGGnEKoVm6HycbEB3
+ rcj/GA1hX5OQrxj1HL4C+MWOuST5Wih4jBNaYwZ0pbsHKUlOfJynS27PzpPSs/tgd/bHl9K1mIi
+ 5HDy0/w8V/w9UAJdgUcDyLWjUTC6FSM/Pujzl2HzuFXMVRcmFrKjHFyyYbKes6my9HzcPfbcOLc
+ tkhoz9x5MCOMwUT2uinEac98oJgNOgdlIQ07gSyuQ+3n3nPxmybg4PhW+oIFU2SDNBewxbKqhNk
+ G8KzlPSXRldRG+2C90g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 impostorscore=0
+ suspectscore=0 adultscore=0 bulkscore=0 malwarescore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611040088
 
-On Wed, Nov 04, 2026 at 09:55:50PM +0000, Chad Aldreda wrote:
-> Driver state that an open file can reach, such as a struct cdev,
-> video_device or miscdevice embedded in it, must not be devm memory: the
-> file outlives the unbind, and the next operation on it, typically close(),
-> is a use-after-free. This keeps being fixed one driver at a time: commit
-> 44f3468a0aef ("gpio: sloppy-logic-analyzer: fix use-after-free via debugfs
-> trigger on unbind") this summer, a debugfs write racing unbind on devm
-> private data; commit 7d6358ab0286 ("media: cx231xx: fix devres lifetime")
-> in March, one of a sweep of the related wrong-device lifetime. In 7.4-rc1
-> cx231xx still has the shape: its state, with four video_devices and its
-> mutex embedded, is devm_kzalloc()'d against the USB interface, and
-> disconnect defers release to close() while devres frees the state at
-> unbind; a fix is under review ("[PATCH 0/6] media: cx231xx: make USB
-> disconnect teardown safe", Nick Faro, linux-media, 2026-08-27, changes
-> requested). xilinx_hwicap embeds its struct cdev in devm memory the same
-> way.
-> 
-> This series adds CONFIG_DEBUG_DEVRES_REFS, a runtime debug check rather
-> than a static rule. From device_unbind_cleanup(), before
-> devres_release_all(), it snapshots the device's managed allocations, walks
-> every task's fd table once, and WARNs when an open file still points into
-> an allocation about to be freed, through file->private_data, the inode's
-> i_private, the inode's cdev for a character device, or an object a
-> subsystem names through a small hook. Such a pointer dangles once release
-> runs; it is a use-after-free if anything dereferences it afterwards, which
-> for private_data is any operation, for a cdev its release on close, and
-> for a debugfs file a new open or an unguarded release. A hit on a live
-> debugfs file is decided after release instead, because many drivers remove
-> their debugfs files through a devres action; debugfs_file_revoked() and
-> debugfs_file_release_safe() (patch 1, inert until patch 2 adds the Kconfig
-> symbol) tell the check whether debugfs has cut the file off and whether
-> its release can still reach the data.
-> 
-> The walks run on a kernel thread the unbinding task waits for, and no file
-> reference is kept across release. A reference the walk holds becomes the
-> last one if the owner closes the file meanwhile; dropped from a user task
-> its release would be queued behind unbind, where a devres action that
-> waits for the close (snd_card_free()) deadlocks; dropped from a kernel
-> thread it goes to the delayed-fput work. What remains, and I would like
-> your view on it (question 5): that work drains one global list
-> last-in-first-out with all its runs serialized, so a release there that
-> needs a lock unbind holds (a usbfs close takes the USB parent lock a USB
-> interface unbind holds) stalls every later delayed close, including one
-> such an action is waiting for; without this option that close would have
-> run from its owner's task work. The cross-vendor review this went through
-> found the first of these.
-> 
-> Subsystems whose files do not reach the driver object through those
-> pointers register the hook, keyed on their file_operations; V4L2 is the
-> first (patch 3), naming the video_device; its drvdata is not named, since
-> reaching it means dereferencing a video_device that may already be freed.
-> The hook is a workaround. The cdev route catches a struct cdev embedded in
-> managed memory (an open file pins the cdev's kobject, so inode->i_cdev is
-> still there at unbind) but not these: V4L2's cdev is a separate
-> cdev_alloc() with no kobject parent, and misc's is one shared cdev, so
-> neither leads to the driver's allocation. Parenting V4L2's cdev to the
-> video device, as mc-devnode and cec do with cdev_device_add(), would make
-> the cdev hold the device whose release deletes the cdev; that is a
-> media-core change with regression risk, not something a debug option
-> should carry. A DRM hook is deferred: devm_drm_dev_alloc() memory is
-> kzalloc()'d, so the expected yield is low.
-> 
-> Testing, one boot of an x86 KVM guest with KASAN, on the development
-> branch (identical to this series except for two extra test vehicles): the
-> test driver in patch 4 (a devm-backed misc node, a devm-embedded cdev
-> node, a refcounted control node and a devres-removed debugfs file) and a
-> cx231xx-shaped V4L2 vehicle WARN once per dangling allocation before the
-> unbind returns (two for the test driver, one for the V4L2 vehicle), after
-> which KASAN reports use-after-frees on close of the misc and cdev nodes
-> and, for the V4L2 vehicle, 38 reports across a read, an ioctl and close;
-> the gpio sloppy logic analyzer, instantiated through a fake-gpiochip glue
-> module and unbound with four debugfs files held open, produces four info
-> lines and no WARN, its reads return -EIO and nothing fires on close;
-> vivid, as a negative control, is silent. The V4L2 vehicle and the glue are
-> in the branch below, not in the series. Also compiled: the option off;
-> DEBUG_FS=n; VIDEO_DEV=m with DEVM_REFS_TEST=m (videodev.ko and the test
-> module through modpost); W=1 clean on devres.o, dd.o, v4l2-dev.o,
-> debugfs/file.o and the test driver. Only the all-builtin configuration was
-> booted. Not exercised: the two phase-2 WARN branches (a removed but
-> unguarded, or a still-live, debugfs file) and the no-memory fallback.
-> 
-> Limitations, also in the Kconfig help: only files in task fd tables are
-> seen; the check finds pointers that are dangling at that moment, not
-> teardown races, nor whether a debugfs removal action ran before or after
-> the free; a managed allocation whose release waits for its files to close
-> first (an ALSA card) is not about to be freed, so a hit on it is a false
-> positive; and the walk is linear in threads times fd tables and costs
-> every unbind and failed probe (not deferral).
-> 
-> Questions for review:
->  1. Is driver core the right home for this, or should it be
->     per-subsystem (misc, V4L2) with no generic walk?
->  2. Is a hook keyed on file_operations acceptable, or should the
->     answer for V4L2 be the cdev_device_add() conversion despite its
->     risk?
->  3. Is the info/WARN split for removed-and-guarded versus unguarded
->     debugfs files the right call?
->  4. Should the test be a module plus a tools/testing/selftests script
->     rather than a module alone? The check needs fds held in a task fd
->     table across the unbind, which KUnit cannot do naturally.
->  5. The walk must hold a reference on each file it inspects, so a
->     racing close can make it the last holder; routing that release
->     through the delayed-fput worker avoids the task-work deadlock but
->     leaves the serialized-worker case above. Is that acceptable for a
->     debug option, or is there a way to look at a file's pointers
->     without the walk ever owning the last reference?
-> 
-> Per Documentation/process/generated-content.rst: the code, the test
-> vehicles and the first drafts of these messages were written with Claude
-> (Anthropic) under my direction, from prompts that specified the mechanism,
-> the call site, the lock context and the debugfs handling; the series was
-> then revised through repeated model-assisted review passes against the
-> kernel source, including one by reviewers from three other model families,
-> with the fixes mine to judge. I have read and can answer for every line.
-> Where I most expect to be wrong is in the Kconfig's list of limitations
-> and in the choice to put the hook in driver core at all.
+On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@collabor=
+a.com> wrote:
+>
+> Nice, very happy to see the series!
+>
+> On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > The comment describing the QC10C buffer layout calls it a compressed
+> > P010. It is not:
+>
+> If I'm not mistaken the display engine / the DRM side (including Mesa)
+> describes it as P010+QCOM_COMPRESSED as well, and so does my pending
+> Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that
+> up everywhere etc. OTOH if we want to keep the DRM side as is, then the
+> comment should reflect that, IMO.
 
-Are you really expecting anyone to read all that ?
+IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
+as distinct formats, both with and without UBWC.  I'm not sure if the
+same is true on video side but P010+UBWC was never exposed, or if it
+truely only supports linear P010 and UBWC TP10.
 
-If you feel this is an important issue, ditch your LLM and try again,
-this time understanding what you're doing.
+BR,
+-R
 
-> This series: https://github.com/modelmiser/linux/tree/devres-refs-v1
-> Development history (incl. the two extra vehicles and the review fix
-> batches): https://github.com/modelmiser/linux/tree/devres-refs-dev
-> Guest harness, its logs, and the review record:
-> https://github.com/modelmiser/devres-refs-support
-> 
-> linux-media is Cc'd on the whole series because the hook API exists
-> for V4L2; linux-doc on patch 2 for devres.rst.
-> 
->  .../driver-api/driver-model/devres.rst        |  18 +
->  drivers/base/Kconfig                          |  64 ++
->  drivers/base/base.h                           |  38 +
->  drivers/base/dd.c                             |  14 +-
->  drivers/base/devres.c                         | 667 ++++++++++++++++++
->  drivers/base/test/Kconfig                     |  15 +
->  drivers/base/test/Makefile                    |   2 +
->  drivers/base/test/devm_refs_test.c            | 323 +++++++++
->  drivers/media/v4l2-core/v4l2-dev.c            |  31 +
->  fs/debugfs/file.c                             | 112 +++
->  include/linux/debugfs.h                       |  29 +
->  include/linux/device/devres.h                 |  58 ++
->  12 files changed, 1367 insertions(+), 4 deletions(-)
->  create mode 100644 drivers/base/test/devm_refs_test.c
-
--- 
-Regards,
-
-Laurent Pinchart
+> Best regards,
+>
+> Robert
+>
+> 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/81=
+95
+>
+> > P010 stores each sample in 16 bits, QC10C packs three
+> > 10-bit samples in each 32-bit word, which is what the stride computed
+> > below (width * 4 / 3) assumes. Name the format correctly.
+> >
+> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > ---
+> >   drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/m=
+edia/platform/qcom/iris/iris_buffer.c
+> > index eb8de60c1177..ec2bf2a2d953 100644
+> > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_i=
+nst *inst)
+> >
+> >   /*
+> >    * QC10C:
+> > - * UBWC-compressed format for P010.
+> > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in=
+ 32 bits.
+> >    * Contains 4 planes in the following order -
+> >    * (A) Y_Meta_Plane
+> >    * (B) Y_UBWC_Plane
+> >
