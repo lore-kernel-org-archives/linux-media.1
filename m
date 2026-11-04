@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801564;
-	b=DiWmu1vOcxB0EsdMvdYle7LJmRtjF2pc8dE/iXreI3RUJ+SpLEcXTIIyLfjKTar3xlKr
-	 yup8tuGVa7njxzq5Uk/NpLMMzpU46YYd7dZI4+oM0jNrBVIFsprE/+hdHWrr51XmRUIhU
-	 FsMKrEAIpNrZwEl/KXxpru9NlCvAl20XV2D5K+iuJvP3M6STorH+Jf2b18OKPry1Qy1bv
-	 JuQID7WX6Tj8wg22OR8NfQPvHemIVrLNOFWt6gR02kWc89xi+9shb/Lj0TK/wBisLs/6p
-	 g4gqQpVp0Ne98Ph76+9DWDwcL+xIgK1mtzkGo65R68a6ll9m9Iq5zqF4ghbXdufgYgQ==
+	t=1793801574;
+	b=Oy9ApPbV7dbgkWvCCxmPepuv6TZwPIcnp6A09dmmEJtvaRsPZbqec2rSOunB1VlQqU+O
+	 eSLDnmLrdf6Fgz+0Pi5NBC57ehKav+Emf4gKudbqbGJJ7w+hmCRxQr/NDEj4uNwUmThcg
+	 S4kCfGsc92R15bSRtp6CpjzM1o6HsExToPeZ1u24pZpDloQQLRy5yZwR6s8ktmsh1Ghs7
+	 kkKJEtQte+AUbhkoqlXNBRFCluRY73JUy5G6w3hSAzxROMbdj+UtLEzZ/sAwYMpFPIDRh
+	 Wbmr0poQz3LdOI9b3vkWfegR/HmbBldUPBRxaLWjGzOdABrWBbIEfG2sq7EXBzkVXiw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801564;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801574;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
 	bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=;
-	b=3dlWoPTLKNRIYDgZaU2L9YJhVWSP1zerGqlpR0tpy7L5NgUIRIT0GCGmMcWip7I9T6Zb
-	 VUZLy4i1Xcv67Exjvu+LFKWc9FRJcYyJJafOzh1GZDq4R1VwUZ5CC1rtD8pTdIdGCowwk
-	 nAshxSMUK/UvkqquTjZ6wJU/5oilx81QlvZLzsuoMJpA5OeUkL00COpTVnqYexM66YU8D
-	 DC3XbAAZ5f7uxuS+n5V1UyTawNljAwGSEUX3WDhUczna/tqf0ZhY1X/BDLqHO7cy8hhWD
-	 RX27vdRFUtlFkItectNHPH2PnHWxUC2FpYL4SIuZgMt4a0pFS/BUK9Fqp/n8I1wTiNg==
+	b=Lxeyuz5zCptzVQM4rxyAojRka2AucpinjiKA07VUZWgn302Hq9POXHutZn3XmSOz7eBf
+	 vz+88yPggNZLsVbOY00V+6xHRYwiP8PutbZjq32anT+6Z6HkMg2BAp2lDJfcJ941l+q30
+	 rpsuczJdUB6DzVYJ1ZP47GpZYnPs7huDIp5BxIdsGT4Lt/pw9j9q5BQVB2d2kKgBBqyGY
+	 np0VsIfUOyPmFb9T0skUragqebt9391+Ti3HkgxcW+l17RReXkprelN6OIklYjK3fPtua
+	 8MTAMWyQ7h9wQxjLj+QNTt+9kab52D3aqv9PfqWLdDhbuW1dgnG+XoKmjtjiA+vUaBQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Y27fbood;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=a7FPeDjI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A63E606D805;
-	Wed,  4 Nov 2026 14:12:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A63E606D805
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24DB7606D806;
+	Wed,  4 Nov 2026 14:12:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24DB7606D806
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Y27fbood
-ARC-Seal: i=1; a=rsa-sha256; t=1793801520; cv=none; 
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=a7FPeDjI
+ARC-Seal: i=1; a=rsa-sha256; t=1793801529; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=bQYKs196rSiPGxQeYxLhdcR4wUIngL0f/yXgK54vvVTSezep/ONBq+joeSwvY0aIN6IHtfUdz7QiaVQ1/6fx8Fsr2YMeveTe3TdAMNTw7+DYXD3Rf8LGV3zlvPMeCOnPg59TvNsVRychFnZ766sq1LdaWmnj+EXrRhwqaxAYAoY=
+	b=ZyX5f1Cf89wW5Edr4lHQERX2kboXpsu/rNHYZt0q/9uLiyiHZ7QWaVBoxDgdjPV5OHHWTMNVw9a1C0UzavY8RNQn5MDlSMB9RaF0oviDt+5kHSYBj2k4hKcg93xbQyBEFINRWnyIGkdxqLZ/0fMPKtefBbjuZnr7NzZlP/iM5mk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801520; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	t=1793801529; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
 	bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=; 
-	b=Ed3ivu8n0G9LKn/VaFdEtkANv7oOLCWpocC2DzEOf13hHdq5lb6kne5LrTCAkMuANzOfUgRq+Kty7l+2hwGoxyqBEwb9qPymzj2KYBOsZpP1cdq1nQ2WmDRaOjuqe15wbNsk/+8j7VGzLDadjNr8nra0wFyZFfhFvmISmPSGX7U=
+	b=BGfeg2Tby8KRAu8gYrjpPJ5rNrjcsZ0M0jzXUgrSmTiXgF5UBqRCFMr6ql5moxkGZAG1Rabl2VmQ80dTnkmlu3mx6j0YJVqQxe2rEUGQX2E0rUfN8ZoexAR9T9Tls+uE5gES09cWwWJvL2z+XRK6qjWk7z/RNAJ+zA414f7xUtQ=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
 	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=Y27fbood1Jniyv7xBGuSLZuTGoPm6SRJ4zpj1RRiD0UfziWrPP8e8/47iJjN3ThiwN6jtIIc6pDWkx57crt/DrtgvUUADfKjKrAVJCQTB+OggOpxRgV6AcDAaG4JwQzzGgd0c/dDYa09v9gK+7W91u0oTuZNQp2pIwhhPXfbmpA=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793801515774141.0800348467958;
-	Wed, 4 Nov 2026 06:11:55 -0800 (PST)
-Message-ID: <ef957061-9f29-48c2-9b23-8764a65d7989@collabora.com>
-Date: Wed, 4 Nov 2026 17:11:52 +0300
+DKIM-Signature: a=rsa-sha256; b=a7FPeDjIAd+oqfNMJ45F8q+IAzBsU+e7s8ymZ1Kgdq/a62ZQ01GkAyAsnFEnacs+UNWwXtFLAnlYORzOY6q5MOJTvZyYQ1M2VszAi0qE8qveT5HNsGlR8Ge8+9liZVd8SVX4oJ3QvnA2Y8T57skQ7w5cmVypM+8qIeKLtDsk6w4=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=38VA2H8qePqwIYJK9Lv4rw/Z1vAKKdfl7oNR3G6+SJI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801527817488.62799176614215;
+	Wed, 4 Nov 2026 06:12:07 -0800 (PST)
+Message-ID: <73c78fe7-8772-4b9c-a4b0-685e26a57a61@collabora.com>
+Date: Wed, 4 Nov 2026 17:12:02 +0300
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
