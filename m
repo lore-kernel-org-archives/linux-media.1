@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793776131;
-	b=tPdI02Lt5hlRut5hYlaHJO6jVtEHeY4sCvBfRBn2zFhjuRhPY7hVezsp6dXFF6kNkajp
-	 1Rf2T5Da9rWuffy9RL9wA1Y2fCJo1f2QjzaDuMbX87B7Rhn9D0qoVpOOJDYtKwvPVBMIp
-	 cfAuRdSqmZC/4AD9KyckzeP5qqnWu4Eh0YFYQyv0Rg16bzSNXMcAIQgWD2bJQ4iecIlmJ
-	 iZuZMIbqvpo0zUbQ03JLIAoz3CUcawBZ4CoJvI0sEK4JSA2Qs5NTzO3VP3s0ltzfMth4f
-	 dthyVdmqajvYdohgmNn2sfBdQ3n1eWCmLNvSrwhDbQx8Bg7bTRKoz+WqxbfgaVSvduQ==
+	t=1793776867;
+	b=t9aRMgO8zJkXWNObosXOGT4F2QUQzCRbRcdRRL2z9JMFoyGfg8muMsPbbhrtdD/Zt04R
+	 R0sTZULYPM66lfCvZDJZKGucoM/0s76diVx0YBejryPwkae8RgBKtz1XZZlmGkLSlX099
+	 TnInN5iSVs+3nA0gCzbuHtdD5IZ0kJ9Bo1cUNvoSHtnTjQk2fTwoD1ypA/DmoPXkoi4KC
+	 fzoomPwnG93MCMY6xQq8V1w9W1qHGUfSkiaD7Or9GE26SNvmddp/K+vUxaOB2BmU+Y0Qa
+	 HOes8uKtb8plUab64VGwxNucFHq1K2XFR4muEA/gV5ApV6mRYg7QQYf0pHEywhMUrpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793776131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793776867;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=QsSFH7hGiuSzZGPVmFIBDjkzqluGUsOda7H/G10ICiY=;
-	b=2ysbJtFYjqkl0X0mA4O9vN0K0c3i21qAwcsB67PGuyG2o8TUTuvr30K+3fhbj+F65M4L
-	 XXc39/R86XdLCKBzW0ojXBx1WDrm/K0ch6l7IhQs633bnIs4rkKagpNZcisTF/mJIPYmc
-	 QNKvuQkPEkoGQTADd4tRGWkplJETRx4iF6zk8X15O7XkMNWxCZUnZ0xH0v5fekCsUGNk8
-	 AgseagxFtsXEX30vCwjdtdpAuQeylNZNEB6glNtBWPPL3KwLjFJ49sZWRgt34VkvjAdQF
-	 F5ZT8pvjvxPgBDr8of3KcQvlPOwf/cqhNgebMYi5Cf15S1X9pIwO8XYRI8hNmQ/M26Q==
+	bh=L0psWKRkASGm46CunD1oZXPWrrP9V2HqWj0pDQuxulg=;
+	b=5tjs0GM8EuIIBLRCddlxqM+1Xw5I2AeafhSEJLGk54XcESEzEhPSromehDnoWW0q74OM
+	 Uk64Tm6smQgQPTxceM6LMzELzz9ygEY2OKAwS0tL3sI0N6EHJXqB498HpQRcKsMYog0+u
+	 3q712RVorSuRz7ZN3Iqjcv4qY0gdYciyh9uIR5bOkbTRq3J8dB92RsvX8WHXRp1gV7lQ6
+	 qfYk9TdBUcitmPYCfYHlIroI2WmqFeT1HF/X76lE5kGG360TQdg613pskRtDvs1YVQ06r
+	 uTflRo04YfImjurXbsWk/g0AyLDhMfW+zVCpNgAIHq3b7d7uil3wLEt/JfJuuVEQhvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NyEOmjqt;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9RCxh64;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53BA0606A31B;
-	Wed,  4 Nov 2026 07:08:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6842606A328;
+	Wed,  4 Nov 2026 07:21:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NyEOmjqt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A635F1F000C1;
-	Wed,  4 Nov 2026 07:08:46 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k9RCxh64
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0CD91F000C1;
+	Wed,  4 Nov 2026 07:21:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793776130;
-	bh=QsSFH7hGiuSzZGPVmFIBDjkzqluGUsOda7H/G10ICiY=;
+	s=k20260515; t=1793776866;
+	bh=L0psWKRkASGm46CunD1oZXPWrrP9V2HqWj0pDQuxulg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NyEOmjqt1rNJyWVzwGjQM4IVVBfqDx5AjMC/PZmIgzCgVoYJDnsnLt4Zo25hKmdYT
-	 8lLkSD8lsPnf1ZQypLx6YechdbjHwM0TVEKHUSp3Bco8XrssEFAtafjh1970/ZX/Un
-	 0dHcrNz19U6xQWfut5dl09jDKroXL+a9kWAV4PUoDwE4hOatHaS6V17zQ0/9duIhKl
-	 hrWuAqFyGByDKSSJJW73dV5tW4OVV5SonrDv7UFCCv3iI7llecBUdk06X7mD8Ikhq+
-	 jWc1Is+iUYmQJV+wMhipUfroaPt2IJCAgHXhAkN/zwbWgTYezAWvK1AmZunh09zbgi
-	 WhDS+0naDLahg==
-Message-ID: <fe8bfa99-3fbb-4634-b99b-a36c2f8b35e5@kernel.org>
-Date: Wed, 4 Nov 2026 08:08:43 +0100
+	b=k9RCxh64i0WDXkNSfepE9eHTvVOorBjZpHTpacgODRluwSmtEoFSbunhpgyG54Q5U
+	 mFsURCkoO62yW411T+TN8trzrlaoZUQ/EuAkCXyQNfnmofEyAxEKcnTamRK07ss6Mh
+	 DNCJVniW1Ru1rLQCXMaG40FfpVrqIPyacSxEWoQUijK+HJJKXmPZ40iPFV/hqx172h
+	 q1aCqrVggefYeB57vDP91mLheS14+HwgsALAp/Bgn+830h7DScDGOA7Rlut8QMmLr2
+	 j+NVbh/fxdcDRqe+kZLyX9gsTHyMzaaempaf07LzQxCg00NdX5W/o9+nM8eLsk5V7y
+	 o2ht7P4ZCwZfw==
+Message-ID: <cf62f2f9-08e1-4f0c-820f-5e129e4c7de0@kernel.org>
+Date: Wed, 4 Nov 2026 08:21:00 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,19 +52,17 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] phy: qcom-mipi-csi2: Make timer and OPP clock
- names configurable
-To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- gjorgji.rosikopulos@oss.qualcomm.com,
- hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
- jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
- <20261103214105.3605181-3-anusha.nandi@oss.qualcomm.com>
+Subject: Re: [PATCH] media: exynos4-is: Free the control handler if
+ fimc_ctrls_create() fails
+To: Wentao Liang <vulab@iscas.ac.cn>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261103094612.1289226-1-vulab@iscas.ac.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -110,23 +108,28 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261103214105.3605181-3-anusha.nandi@oss.qualcomm.com>
+In-Reply-To: <20261103094612.1289226-1-vulab@iscas.ac.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/11/2026 22:41, Anusha Arun Nandi wrote:
-> The timer-clock lookup in phy_qcom_mipi_csi2_probe() and the OPP
-> clkname passed to devm_pm_opp_set_clkname() were both hardcoded
-> string literals sized to x1e80100 ("timer"/"core"). Add
-> timer_clk_name/opp_clk_name to struct mipi_csi2phy_soc_cfg so each
-> SoC can declare its own clock-name strings instead.
+On 03/11/2026 10:46, Wentao Liang wrote:
+> v4l2_ctrl_handler_init() allocates the handler's bucket array, and each
+> subsequent v4l2_ctrl_new_std() call allocates a control.  When one of
+> those calls fails it only records the error in handler->error.
+> fimc_ctrls_create() returns that error with ctrls->ready left false, so
+> neither caller calls fimc_ctrls_delete(), and that function would not
+> free the handler in that state anyway.  The bucket array and the
+> controls created so far are leaked.
+> 
+> Free the handler before returning the error.
+> 
+> Fixes: 9448ab7dec30 ("[media] s5p-fimc: Add color effect control")
+> Cc: stable@vger.kernel.org
+> Assisted-by: DeepSeek-V4.1-Flash and OpenAI Codex
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-
-But they do not declare different names and they must NOT declare
-different names.
-
-This commit is completely pointless. What's more: you do not explain WHY
-you are doing this in the first place.
+This is another posting of bot ignoring feedback and probably
+introducing vilnerabilities hidden in big spam posting.
 
 Best regards,
 Krzysztof
