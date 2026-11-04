@@ -1,86 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793781290;
-	b=MkAaobdx+jGIKxg1pDNiUqZiDEn22Um5wDnnmVRto99DA/9gV2MO1CEGKX36Lp3bvKbz
-	 MihsX87gee34VV0VgzPXrfpIHqbSwerbpw4JTr3WH4nCRTVfFA6l0RRCtG07bfxfEeOMG
-	 0HVxw4G5k1cUzfueMlaO3fmd4YBaHzLgHqNESzJ/tIo9zMDnYcTWpALjJkYIRNWG0mLCa
-	 K7pM4l7+DUwu4G2K3kfOO+tVFAgDjY2mpPxIswtz90/sy38KVqWbe4JJdnFrZTJTKdx4+
-	 8DxTRXTEzccz0cl3g/vx7nudngaKlicuH1GCmB4xWMQ04kEz92SgXVa71r0oOPeCBIg==
+	t=1793781721;
+	b=fx/YlPGf7uZs8xU3UQ9CNdeq+1LZlubNNkgX0LQikLiiHnbaGr+cXCgDeoO8CNsnHPxb
+	 MHOAY3ZbViyz9erHpijmmINC5ynQEK04K+4+g0CJPC4++as8+TJw+W8MGS2Sb6Ku4p5/f
+	 oN7moNW1cFiEI8emeATvHJuhpmx0JuJmkSO3Lc4xB0tQVp+oyQFMIU2yseuFwRaCvEYaU
+	 zNlQQBC/eiuhdf4+LxHbA1O1Gtpg1rQQwe6F1PItq2JI+CnSRJhNmfAQ5Ih27GdL8Ul7V
+	 CrrPLqfO8tHmy3fsq+PI3N47zROtMUHGffZuPQkUBUwNks4R4UgxvZAFGsonuGdIM7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793781290;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=5v7+Bu/EskBD82YGCglivtDPgpPKKLB0vpYam9HeN3k=;
-	b=5ku/ge1PcUjZIxZkOg4v08fASaJ3EN3l2kvnu4VchY1KoTZmG/UA/Yk85vjz7J2e8qYw
-	 QiM45lSdz0AJq7J8XuPX8g7irWo9LX8WTvNXDjPz19fqScHA88qhiQtwHWn5ryTFa7esO
-	 9y7eTeVpgNRs3W4nqczpg88Wo6r/IAviXJ0SEvZ4ZttwxMI0z2T4XYC0oxlyKRMRciL6h
-	 AdydujVlLalSrFeRSV//x6/GBZ1Yx8IcGMbRKUH2McyqdU3G0QG3W0EAnmb6fgRv+9dLG
-	 TUTqEx0xHbmirRJM1+Zq67pKfXHUZHgFoGpyyMcDv09HDeaod4Ei8gsa8FUBqNMOQxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793781721;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=6TALtB+99lw/ARPvnVNmv+T1dMrR3PeZsEge0aWRtII=;
+	b=CTMPRXZEt0ywASRSH9zTUDoPsPDMyV4lymJsSceRq+umWgBOIpr+h3JcrfAIRFU1GHiJ
+	 gaZdpEBZq4q9agUSsSPUMWlUkFbmODhbW5XPcx32KugNzH1HJoFOi7EI10E6NZdwtme5b
+	 JwwVNUImprxdMSruAM6OvGVYs7nwELdB6qyc6JjJwHpLI1kyUCL8WyaWSz+3SpJGmQhht
+	 NtpOX3cTprgexAWJlvplB/MeGglKtBcc0NjmwMl/OX+St6BDJwyohEWmEZruzHXiG2LBP
+	 cVUgduWh0KcjDHk+R2Rr14u6Nt1SFgoT9fIwjHHqMa1fWjMzIF5FU1mW5HdbiQbEPHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W7UGyZHs;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=tQv2OO4B;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CA0606A32C
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 08:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1CA0606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5DEC606A330;
+	Wed,  4 Nov 2026 08:41:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5DEC606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=W7UGyZHs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793781289; x=1825317289;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=agjIw00ZTp0oYszm8Lq9XP1CiuXKSA/mG60ROXjOWSA=;
-  b=W7UGyZHs6VvRb2cuwHQs0FdeCv21HGgdZLnimwJPq+UiL+RypdYrANXl
-   KAJF6nxBdch+Vhz0Q8TT1N5qRwzUjTC7ofibGJkEkgC2kjt5OPAt9bh84
-   b0Atght9XVA+/TUXQXK/tVuk/3Z8nhPSiI7HO1v+wlbkkhsZjJqpVbn0n
-   oE2FWedQlO5AYulGfWy73W12psfeE0rbpb0LPLAu4jE1g7//e82iubYAj
-   KM7moEMfJE+bPQwv+juv3lJZG3/qZf37LO0/wXO/CkI9UlxIXf9m9FvJn
-   XW5rQ5erldT+1hAvDN3PsMLm8YQm6tJGBeJ53ZZ5K4r/ST9jDji55PsIr
-   Q==;
-X-CSE-ConnectionGUID: Q9lAcChYTbGYoA9uQbdAqA==
-X-CSE-MsgGUID: rogXFf8kRV2rgcjceshtDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11955"; a="2535414"
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="2535414"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:34:46 -0800
-X-CSE-ConnectionGUID: GHyj5HxSQ4CGURPj502+/A==
-X-CSE-MsgGUID: a78ScOo6SNGUTdJjGUWlIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,194,1787036400"; 
-   d="scan'208";a="7022188"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Nov 2026 00:34:42 -0800
-Date: Wed, 4 Nov 2026 10:34:39 +0200
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-To: Ruslan Bay <ruslanbey@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: Re: [RFC PATCH v2 11/12] media: ipu6: Fix Surface Pro 7 CSI-2
- capture timing
-Message-ID: <auruH91t-VVZY-vq@ashevche-desk.local>
-References: <ElC-F7kGAuGuGMVkVhXXoaOAwPg9xWLwWxnihXLHEfX1R_urhMZo3nI7oN2CzRMAeZOGpussj-09mGxFf_7md1p-WPNW_H5WlmSIffLkZpU=@proton.me>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=tQv2OO4B
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jKJp64C6Jz8vmm;
+	Wed, 04 Nov 2026 09:41:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793781710; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6TALtB+99lw/ARPvnVNmv+T1dMrR3PeZsEge0aWRtII=;
+	b=tQv2OO4BpsXbn/HRi+pbIvy7AgddDYrTzr+gyOXH8aSjGh6czmSN/H0JYZf9QcaWOJlf4r
+	khOcpWP5XY8XgStDuLfTAxk+6e2FtYm9DBfdDQpUILbBjPQIV28PlRh2wFNMiM7ZfU6n7U
+	H9Bt85dnzFeMLmPNH+WNAXL91iGIRbk8bccrxXGIb98r5Vo8WMcJuFcvJfLWc1i0TdaR6u
+	WeqJSBfrvCP6gQkMhw8Jw75QY5haF6Aft4UGHQ66mqJWPXNLd/ZHJTFDia6jAkCBqIdAqQ
+	CzT7RoX+Xyfbml1oOeJXfQp6ViMf8Wv9fa74nGhEuGVsiL7DtuJtZKyt1RSLGA==
+Message-ID: <54d07bbd9e5dbadf4e63c81b88f8d0b41cbb5cf8.camel@mailbox.org>
+Subject: Re: [RFC PATCH v7 8/8] samples: rust: Add JobQueue Tester
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Younes Akhouayri <git@younes.io>, Philipp Stanner <phasta@kernel.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Alice Ryhl	 <aliceryhl@google.com>, Miguel Ojeda
+ <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Daniel
+ Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, David Airlie	
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin	
+ <tvrtko.ursulin@igalia.com>, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org
+Date: Wed, 04 Nov 2026 09:41:47 +0100
+In-Reply-To: <kw-1793744821.998563484-558346-1@younes.io>
+References: <20261103153138.1087330-2-phasta@kernel.org>
+	 <20261103153138.1087330-10-phasta@kernel.org>
+	 <kw-1793744821.998563484-558346-1@younes.io>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,104 +88,54 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ElC-F7kGAuGuGMVkVhXXoaOAwPg9xWLwWxnihXLHEfX1R_urhMZo3nI7oN2CzRMAeZOGpussj-09mGxFf_7md1p-WPNW_H5WlmSIffLkZpU=@proton.me>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MBO-RS-ID: 5e1c944c929fa6f27a5
+X-MBO-RS-META: bh8krqkmfn87qwbdxw6c1k48d14wme86
 
-On Sat, Oct 31, 2026 at 12:38:34PM +0000, Ruslan Bay wrote:
-> The calculated D-PHY timing causes capture errors on the Surface
-> Pro 7 front camera.
-> 
-> A shifted data-lane timing was observed on a Windows system and
-> reverse-engineered from its camera driver. Apply the resulting
-> 1269-tick value to both lanes on IPU4P CSI-2 port 2.
-> 
-> Keep the existing timing path for other configurations.
-> 
-> Tested on Microsoft Surface Pro 7 with the OV5693 front camera.
-
-> The Co-developed-by tags will be updated with the contributors' actual
-> names and email addresses in the final patchset.
-
-Please do it now.
-
-> Co-developed-by: supermepsipax <supermepsipax@github>
-> Co-developed-by: thisiscamk <thisiscamk@github>
-> Co-developed-by: ConsultingFuture4200 <ConsultingFuture4200@github>
-> Co-developed-by: georgemihaila <georgemihaila@github>
-
-All Co-developed-by should be accompanied with the respective SoB tags.
-
-> 
-
-No blank line in the tag block.
-
-> Signed-off-by: Ruslan Bay <ruslanbey@proton.me>
-> ---
-
-...
-
-> int ipu4p_isys_phy_set_power(struct ipu6_isys *isys,
-
->  			     bool on)
->  {
->  	struct ipu6_isys_csi2 *csi2;
-> +	const struct dmi_system_id *dmi_id;
-> +	const struct ipu4p_csi2_timing_quirk *quirk;
->  	void __iomem *base;
->  	u32 value;
-
-Keep reversed xmas tree order.
-
-...
-
-> -	writel(timing->ctermen, base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_CLANE);
-> -	writel(timing->csettle, base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_CLANE);
-> -
-> -	for (unsigned int lane = 0; lane < cfg->nlanes; lane++) {
-> -		writel(timing->dtermen,
-> -		       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(lane));
-> -		writel(timing->dsettle,
-> -		       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_DLANE(lane));
-> +	dmi_id = dmi_first_match(ipu4p_csi2_timing_quirks);
-> +	quirk = dmi_id ? dmi_id->driver_data : NULL;
-
-> +
-
-No blank line here as the below is coupled with the above.
-
-> +	if (quirk && cfg->port == quirk->port &&
-> +	    cfg->nlanes == quirk->nlanes) {
-> +		for (unsigned int lane = 0; lane < cfg->nlanes; lane++)
-> +			writel(quirk->data_ticks,
-> +			       base +
-> +			       IPU4P_CSI2_RX_DLY_CNT_SHIFTED_DATA_TICKS(lane));
-> +
-> +		dev_dbg(&isys->adev->auxdev.dev,
-> +			"using Surface Pro 7 shifted timing for CSI-2 port %u, %u lanes\n",
-> +			cfg->port, cfg->nlanes);
-> +	} else {
-
-> +		writel(timing->ctermen,
-> +		       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_CLANE);
-> +		writel(timing->csettle,
-> +		       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_CLANE);
-> +
-> +		for (unsigned int lane = 0; lane < cfg->nlanes; lane++) {
-> +			writel(timing->dtermen,
-> +			       base + IPU4P_CSI2_RX_DLY_CNT_TERMEN_DLANE(lane));
-> +			writel(timing->dsettle,
-> +			       base + IPU4P_CSI2_RX_DLY_CNT_SETTLE_DLANE(lane));
-> +		}
-
-Add a preparatory patch that moves this code to the helper function.
-
->  	}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+T24gVHVlLCAyMDI2LTExLTAzIGF0IDIyOjI3ICswMDAwLCBZb3VuZXMgQWtob3VheXJpIHdyb3Rl
+Ogo+IE9uIFR1ZSwgMyBOb3YgMjAyNiAxNjozMTozOCArMDEwMCwgUGhpbGlwcCBTdGFubmVyIHdy
+b3RlOgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHJvcChqcSk7IC8vIFJlbGVhc2UgbG9j
+ay4KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFQ6OnJ1bl9qb2Iod29yay5mY3R4LCBydW5u
+YWJsZV9qb2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEgPSB3b3JrLmlubmVyLmxv
+Y2soKTsgLy8gUmV0YWtlIGxvY2suCj4gPiArCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAv
+LyBydW5fam9iKCkgYWJvdmUgbmVlZHMgdG8gYmUgY2FsbGVkIHdpdGhvdXQgbG9jayBwcm90ZWN0
+aW9uLiBUaHVzLAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLy8gaXQgaXMgcG9zc2libGUg
+dGhhdCB0aGUgZHJpdmVyIGluc3RydWN0ZWQgY29tcGxldGlvbiByaWdodCBiZWZvcmUKPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIHdlIGNvdWxkIHJlLXRha2UgdGhlIGxvY2suCj4gPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiBqcS5sYXN0X2NvbXBsZXRlZCA+PSBzZXFubyB7Cj4g
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZlbmNlLnNpZ25hbChPaygoKSkpOwo+
+ID4gKwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvLyBEcm9wIGhlcmUgZGly
+ZWN0bHkgaWYgcG9zc2libGUuIE90aGVyd2lzZSwgbGV0IHRoZSBEcm9wV29ya2VyCj4gPiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8vIHRha2UgY2FyZSBvZiBpdC4KPiA+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgY29yZTo6bWVtOjpuZWVkc19kcm9wOjo8VDo6
+Sm9iRGF0YVR5cGU+KCkgewo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGpxLmRyb3BfbGlzdC5wdXNoX2JhY2soam9iKTsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgfQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfSBlbHNlIHsKPiA+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAganEucnVubmluZ19qb2JzLnB1c2hfYmFjayhq
+b2IpOwo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+IAo+IEhpIFBoaWxpcCwKCkhlbGxv
+LAoKPiAKPiBJcyB0aGVyZSBhIHJlYXNvbiB0aGUgY3JlZGl0cyBhcmUgbWVhbnQgdG8gc3RheSBj
+b25zdW1lZCBoZXJlLCBvciBzaG91bGQKPiB0aGlzIGJyYW5jaCBkbwo+IAo+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgICpqcS5hc19tdXQoKS5wcm9qZWN0KCkuY2FwYWNpdHkgKz0gdTY0
+Ojpmcm9tKGpvYi5jb3N0KTsKPiAKPiBhcyB3ZWxsPwoKTm9wZSwgdGhhdCdzIHNpbXBseSBhIGJ1
+Zy4gV2VsbCBzZWVuLiBUaGlzIFJGQyBoYXMgb25seSBzZWVuIGJhc2ljCnRlc3Rpbmcgc28gZmFy
+LCBiZWNhdXNlIHdlIHN0aWxsIGhhdmUgdG8gc29sdmUgc29tZSBxdWl0ZSBncm91bmQgbGF5aW5n
+CmRlc2lnbiBxdWVzdGlvbnMgKHNlZSBjb3Zlci1sZXR0ZXIpLiBBbHNvIHRoZSBjcmVkaXQtY291
+bnQgc3lzdGVtIHdhcwpyZS1hZGRlZCByZWxhdGl2ZWx5IHJlY2VudGx5LgoKTmV2ZXJ0aGVsZXNz
+LCBmaXhlZCB0aGlzIG9uZSBsb2NhbGx5LCB0aGFua3MgZm9yIHBvaW50aW5nIGl0IG91dAoKPiAK
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbGFzdF9jb21wbGV0ZWQ6IDAsCj4g
+Cj4gRmVuY2VDb250ZXh0OjpuZXcoaW5pdGlhbF9zZXFubywgLi4uKSBoYW5kcyBvdXQgaW5pdGlh
+bF9zZXFubyBhcyB0aGUgZmlyc3QKPiBmZW5jZSBzZXFubywgYW5kIGJvdGggdGhlIGRvYyBleGFt
+cGxlIGFuZCB0aGUgdGVzdGVyIHBhc3MgMC4gRm9yIHRoYXQgZmlyc3QKPiBqb2IgdGhlIGNoZWNr
+IGFib3ZlIGJlY29tZXMgYDAgPj0gMGAsIHNvIHRoZSB3b3JrZXIgc2lnbmFscyB0aGUgZmVuY2Ug
+T2sKPiByaWdodCBhZnRlciBydW5fam9iKCkgcmV0dXJucywgd2hpbGUgdGhlIGhhcmR3YXJlIGlz
+IHN0aWxsIHdvcmtpbmcgb24gaXQuCj4gCj4gU2hvdWxkIGxhc3RfY29tcGxldGVkIHN0YXJ0IGF0
+IGluaXRpYWxfc2Vxbm8ud3JhcHBpbmdfc3ViKDEpLCBvciBpcwo+IGluaXRpYWxfc2Vxbm8gPj0g
+MSBhbiBpbnRlbmRlZCByZXF1aXJlbWVudCB0aGF0IGp1c3QgbmVlZHMgZG9jdW1lbnRpbmc/CgpU
+eXBpY2FsbHkgdGhlIGRyaXZlcnMgd2lsbCB3YW50IHRvIHBhc3MgMSBhcyBpbml0aWFsIHNlcXVl
+bmNlIG51bWJlciwKYmVjYXVzZSB0aGV5IGhhdmUgdGhlIHNhbWUgcHJvYmxlbSB5b3UncmUgZGVz
+Y3JpYmluZywganVzdCBvbiB0aGUKaGFyZHdhcmU6IGl0J3MgaW5pdGlhbGl6ZWQgdG8gMCwgc28g
+dGhlIGZpcnN0IGpvYiB3b3VsZCBiZSBzdWNjZXNzZnVsCmltbWVkaWF0ZWx5LiBTbyB0aGV5IHdh
+bm5hIHN0YXJ0IGF0IDEuCgpOb3Qgc3VyZSBob3cgd2Ugc2hvdWxkIGJlc3QgYWRkcmVzcyB0aGlz
+LgoKQERhbmllbCwgbWF5YmUgd2UgY2FuIGp1c3QgcmVtb3ZlIGBpbml0aWFsX3NlcW5vYCBhbmQg
+YWx3YXlzIHN0YXJ0IGF0CjE/IEknbSBub3Qgc3VyZS4KClRoeCBmb3IgdGhlIHJldmlldywKClAu
+Cg==
 
