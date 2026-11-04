@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793823804;
-	b=4ov20g6bXstaF7uQA8m++8DcRwO9PAbHOa+ck5arwA3xm7XHbxT90g4+0qv5LAwBqCUz
-	 wrh6jgz4tQf+poMc32i8NXyBXrwPHopGbw7sB3Ln1TsvjXbn9m++F2ytPr1D11F/DvcHM
-	 XJk8PGxJ+62/7J9CAdeKmYfxvOPvhhHgx0/eEfDdAfeUKrQpKndsSDF6l1O2/Wu/rTrtp
-	 iXHEBQ7ANFl+46PVfFV4CK4dJVpWvsUwbF1GbyfocUHg7Sd17yswB7dzoFYnLKtqEIryP
-	 brMdyKVy5iYpZ1aRMP7+pGe8le8skv+F2QbOWlUZswLzHA7J+cMgh7Xh1f76YHyvmbg==
+	t=1793823806;
+	b=wO/LDt15NogVBfdcGoTscH2BneuiBfhgKtyzhQtlSlG6cm4+35SD5UNJ2EK9fHljUHep
+	 rs2KP1BE28qwURy6Yplc6Xyq986f2SQnkc58Bajjxxq/NgoPwTrAEC3Pdk2llr2cfdD6o
+	 82kHCGww5HjHRk8zdA5GkJhtLol7C1atXqwmd10WkfUeG/9kIReihWTJxmUTs3yhTsekK
+	 cwZwgvvGAVyEIf5RNp6uLl+NGm1OFii6Sa8F657HjGADpmASS7IYeZwHVpwLE9i6Vo21m
+	 Yy9JWo0QvIVzukH/2oCxTFHdRT8MwOukiOONct7I0LqNeyvSjvmnxyJdHc/rl8Z9RVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793823804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793823806;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aBaDIUYvApa045EP5EUWzH/DfONwjW0SyQDKAQn1bhg=;
-	b=svQsrYBzKU8X8zO+eOZ3VQX66nSXmIUmz5qMzzoRv0B67drkOTumg6zj0gnj9kuFA5DV
-	 vN+GMIUY2JjECXtCpIJhQLkBCNy3BU/ai/lJRTJMj2fgNE0StQe4djHOBnnyl8Ty//6/Y
-	 1cVwtAoHctLHmZkMXpj/1xqYkTnPg2PBNKghnCsVgwc2DmN7oGsE+Tm3xW5qfv0HKtWCF
-	 kbNzw2LKkb3eGXCD42jIbDvSktUiTir0e4OG34IJftso3CG5Jim9qa1Mp/w5tbC4BLhFg
-	 nYOxBO5PE3Qm60H5YM1+xKsWx+3xKxbOvnB9sh+GsVpRwh5ovKiRSCw++/B5K1ho87g==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0j93TeNA9tJq3iswKqqlnki/W9UfBZdAqtf2r5wDRjA=;
+	b=G5GQwJTJ+eVEkkkyfLlClgfX9lUQTKRf3/6neuw3TbhqKp+Eu6GnkQwQjs1ohiJiWTT7
+	 O0eFfdUA1cE9kGKi6w0mYV/04Xddz3IalZKHdocll1D537XwDBM2kS4ygwvsh5Bur7bq2
+	 tO3Jog2S72PaXUgwOpldI7+CxNRXfMINRJ8GlkK1ixMSkregVDa98UJ40YUGq3J6GSiXe
+	 rI1gX3B3Va4XhspajvCFNhmFVWWK99XHLJJMYFoIne4M1kk8VQjGt8AJz8htUWqrXcATm
+	 /8S6jjr2YHEmRjPoHjlTXebCLolaeqKKVkfUYAkgzrPM2cqTdhOXEnBo+iPyhzlgJRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=fatecpompeia.edu.br;
 	spf=none smtp.mailfrom=fatecpompeia.edu.br;
-	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A66QhM04;
-	arc=none smtp.remote-ip=209.85.128.177
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	dkim=pass header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=j+TomhfB;
+	arc=none smtp.remote-ip=74.125.224.50
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F19607074F
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 20:23:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F19607074F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E465E6070308
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 20:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E465E6070308
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fatecpompeia.edu.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=A66QhM04
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8b0d63f60bcso16654357b3.3
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 12:23:23 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=fatecpompeia-edu-br.20260707.gappssmtp.com header.i=@fatecpompeia-edu-br.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=j+TomhfB
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-67999045530so1142495d50.1
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 12:23:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1793823803; x=1794428603; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aBaDIUYvApa045EP5EUWzH/DfONwjW0SyQDKAQn1bhg=;
-        b=A66QhM04t4FenUCvKRhts3PJR61qzN8QlzfKvK4IBROw9wS24YksaUjfEdMBe8FqW+
-         wS6Sif4uUh/bEKoDRw22/BJP/CQPyL1+ZrfKS2l8Q037dioQzuwnVYVxMqs8qB1u/0I9
-         cEcH26rwUcsw6uLnHl5JQaGJMAMqtxfVr492VK5yTGKML1/z/ytFb95oCdGa+oMKDQ5J
-         kkddE7Kq5YvVSAGaP3kE8nTH/Qz423bq8F2ll9ZQYv8P4mWDkh44HEasJtlHWgBlbN78
-         8ZGRbfXB3m1pnf1KQlezFPiYSBZ1REzruVAnyu6OYpdQYi+RiHNR/ADuag1/Atn05BXY
-         cfhw==
+        d=fatecpompeia-edu-br.20260707.gappssmtp.com; s=20260707; t=1793823800; x=1794428600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0j93TeNA9tJq3iswKqqlnki/W9UfBZdAqtf2r5wDRjA=;
+        b=j+TomhfBAaKVUi75g2hFwXy80DA2hHOKpyyOCjlerB6w7qOvX0K82SYVW0B1OMQZQk
+         4seWrqB4v/ga4ZVzEqiXjHqfcj3Tt8FT1j5OQpFmImIc7Jjd/Zx14xvGqsYLYWpHFmFR
+         zF1go7sn4Y+Z2dk9BNECnIQhpT6792Q2s8qaSasJbUOL+r9wQ2vur6h9ODHcyEw7hBNR
+         xeg3VA8opyCHP208kGs8krToRuYv/U7XZ3Ur681J/lhP3TPzszA87EbuaQSof/gvftqB
+         I7CzXRiJi+zGOObGPW+zsQIBYKS4voMPgePcXQQdoqhwCO+tI78RqQfozDv+1qiTvyYd
+         eddQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793823803; x=1794428603;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aBaDIUYvApa045EP5EUWzH/DfONwjW0SyQDKAQn1bhg=;
-        b=y1MVYg4c94xiecG9i0g/fzO4Yo9yhu1Wn+qyTx232AoNLxqQh0/tvepUbVs7eafjlb
-         wJDNhcxcox2XMBl/NhvQDb1RNwvePk1qQFahPZ1OodvYlhsXcwPirTff9d5HEkUqHMw2
-         ueIXNSyBMMyv1VIrB+0mJIVm1xF3MbOQsZzBGkBoHu919qXq6uAn3vdD/xxIQ7jhOME/
-         g7nkEpFrn9Pp0bOHHtjAAXN1MXWq7u82aoThL6NKvLTl2+zZHXu3d98Tk7IOcsgabaJ3
-         SXFVAH9pa3GDRm4ct/mybqenc0HnspMbKQlZcPcz4nmPntkDxyvduufi7RCmpTgr0F0g
-         EUgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwRteAR9dt2iIND/wUi4zzrTmL6oieF9MDPJZQKSBa5z+E8lbQhHQTfZ2MjCNbDYWjCsIvRK2M8KFZzAg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LIb/aQyNFD2miEc4b8/4BpehvpK+V+tJAB3IvX4Z4ApT54KYn
-	OY5B+eCvf+og86+bMZBdxpJ0TAh/7ZJT5w5ReblwVLgEAYHDDZ9c4v2WHnEKzk3Wvy8=
-X-Gm-Gg: AYBFou1dVLON/QXlAq0vYb4pSqZkB+ZS7apmX7d7UKyTfwqTNvWGo37hpNCrvfIGYe/
-	H0DgToXk4Sv7yCwbh5qCAz2dQVVrUdjoKAU4RxMAoQRCqvjJZ5ZqqxoqNRvg0xDLz5r6c+uBH9P
-	P8S5/L/zj99UqtvV59NxB+4i+rOck0VX/EN9TrI+5DX3561CM5CKCtMe7Ne5B4rNtWqK+wFzrwD
-	Eh88lUYhqoA2vhkKsyaQgz+OSxgCQ+MH8mHCWsM7XsL/w5q7avcpBJjt0XTo2qG11hSYWzf/O59
-	5LFk8m2b4tokr9pGhu9WzMli+K/ZYQ4zHMARIpQ52sYEUhqYzdfvx0eZWU8qtnwZ3nuet6RU1Rp
-	vbmpRScy88Kz5NKqDpM69gdrJwOjoBNmvZ3zrhYLhkQ5+CUyn5TfjapWC41uPAy8t7/AP6Dx8Pm
-	4LSdPuARZ0pixTjB+Cq/dEvsWPAFbKIz+iXBKetUt+kLUlvHNJoOkPrCHlPsPxSj7zEDdxeV1nL
-	CJxCmMM3NMoc+JwpriiNB3APNEhlM9P0mIDA6QtUKCvcN8MUyoF9BWqc7z91O3W0RPff0dNkXkS
-	nsskQZ2y92Rxm+AK/z4IPX4vagDAb8nQUS32R789uw3J5oL0Ix9N4mn6r3pri5GoNAo78u8DnQN
-	em4s=
-X-Received: by 2002:a05:690e:400d:b0:679:94f9:5e7c with SMTP id 956f58d0204a3-67bd9cd336dmr3823187d50.69.1793823802601;
-        Wed, 04 Nov 2026 12:23:22 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793823800; x=1794428600;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0j93TeNA9tJq3iswKqqlnki/W9UfBZdAqtf2r5wDRjA=;
+        b=nYrbZICh5+CtxK0o1QH9qE1vdk90zzMytEldy49qfvXZ61U8iXYPqnHcRgAyK8aCYO
+         SOkh27BvuWAl5qmPSP1eATwXmfqQl9dCLhZHmQZ2ERfp3TW0XekWYfoMzD6HlaYZ+aA+
+         9+Jad2MOtdmlFWGCfItxBgr3iIgDJnTO2m8OYxLD+Wjhh77dbmzPQvFH7prG+nd95UiT
+         +NazAd98+CDa+/yZcLgUnv3IyJeJtL4hFC7JkZRJ8mbQNtfBubi16OqEvxb4G0h8BJQg
+         Ix4gGqOzqUKkJnGUx7OWp9q0RddDj3FZPpN/AEL+Z8qJ+5X7GZkXIMiZ5xGaDUMns5oD
+         7ihg==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ4PHJMBLd+9CvMsXAsFNTD+dzEF+VUsetUfwOe71t2fcTvxc48v6M/s55bitMgthWVo+sE5EQMBwvqg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z89PZwRc73SL/NV+L8jW4qsITskRrhS2cNim6Fr+VjYPnQSKWSp
+	DRFWEEJL0G9Yg/zVQUGmR6x8rcvkbUtNt9fcnpqMG+a2ii1BP4ytmJJn/KooEnULlCw=
+X-Gm-Gg: AYBFou36vlmakm0YMB/dvtgfbZXqOf6SvvcDBWRs/UZ3JK2P119ZqVN+mvsQOKA7O4F
+	uRGEfiwxq4TJPLPtRykPXSU4h3N3CnbvDeMSzHTcx4JEvHnyWejEYSAaFPoD95MXZX/0L7rxqH9
+	A6jD/geK5SolGXZ/hWG7yH4wvlsSDfCVglE1jp1oD54i8MYqV3PyQvJtOnnDbkmV4JQtD9urHzc
+	u10Yh7zt/7vDu277ri00/k5OGKMqtEOS70gYXUIOK939rsf0SVLNRUO/7RCNn7wvCwly1SPj1cw
+	MYmQn7atsiZ4GDw9R/Z4BUYXyr9jiJSjc2e3dAQ2vT3iH9yQg1KK6ODS1ewSnh0Wmn1w7K9R6XC
+	Pnkd8OFGRk3yk0z6rjSoDJHMsljhXetdWng2TFHFNWLNu7dAPnSLbY+zgyaKeBsdp4RQ7LDxnbB
+	QlTGsOAUtAOFElp5Xirr30gLCM+O4ZnN+KQjZsLzFB4M2Z9bmJc1gh/I1DMraKhb64Duve8AEpa
+	5/hxGcDwhyFh5SPOAwS48+cwlmJ2bS+xftGXWwDMZS5rma+laxsDIaof2zXpgQ3lrYNBpMjCITh
+	/Z+DtNGpFaGUhS4ZUOXQRUXIcI2aj6AyTP7oPZe3wFnxmMv64wYBqzuGuMe4roFteG4Puq8z1SZ
+	p4pI=
+X-Received: by 2002:a05:690e:1686:b0:67b:e1e4:6766 with SMTP id 956f58d0204a3-67be1e46985mr3226996d50.108.1793823799719;
+        Wed, 04 Nov 2026 12:23:19 -0800 (PST)
 Received: from localhost.localdomain ([104.28.244.23])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bf91b6e7dsm1298292d50.13.2026.11.04.12.23.20
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67bf91b6e7dsm1298292d50.13.2026.11.04.12.23.17
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 04 Nov 2026 12:23:22 -0800 (PST)
+        Wed, 04 Nov 2026 12:23:19 -0800 (PST)
 From: Allan Siriani <allan@fatecpompeia.edu.br>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -87,12 +86,10 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
 	linux-media@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/4] media: qcom: camss: use contiguous buffers when there is no IOMMU
-Date: Wed,  4 Nov 2026 17:23:10 -0300
-Message-Id: <20261104202313.72494-2-allan@fatecpompeia.edu.br>
+Subject: [PATCH 0/4] media: qcom: camss: fixes for SoCs without IOMMU, RDI and CSID1 streaming
+Date: Wed,  4 Nov 2026 17:23:09 -0300
+Message-Id: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
-References: <20261104202313.72494-1-allan@fatecpompeia.edu.br>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,146 +101,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The VFE write masters are programmed with a single base address per plane
-and then write the whole plane from there. video_buf_init() takes that
-address from sg_dma_address() of the first scatterlist entry of a
-vb2_dma_sg buffer, which is only correct when the whole buffer is mapped
-as one contiguous range in the device address space.
+These fixes came out of bringing up the CAMSS on MSM8226 (Moto G 2013,
+"falcon", MT9M114 front camera on RDI), where the CAMSS is not behind an
+IOMMU. The MSM8226 support itself will be sent separately; the problems
+fixed here are generic.
 
-That holds when the CAMSS is behind an IOMMU, but not on SoCs where it is
-not, such as MSM8226: there vb2_dma_sg allocates scattered pages, the
-write master runs past the first segment and the frame lands in memory
-that belongs to someone else, which quickly brings the system down.
+1. The write masters take one base address per plane, but the buffers
+   come from vb2_dma_sg and only the first scatterlist entry is used.
+   Without an IOMMU the buffer is physically scattered and the frame is
+   written over unrelated memory: on a 1280x960 RAW10 capture only the
+   first 656 lines (the first 1 MiB segment) land in the buffer, and the
+   device reboots within a few frames. Use vb2_dma_contig when the device is not IOMMU mapped, and
+   refuse non contiguous DMA mappings on the vb2_dma_sg path.
 
-When the CAMSS device is not IOMMU mapped, use vb2_dma_contig instead,
-which allocates physically contiguous (CMA) buffers and checks that
-imported USERPTR/DMABUF buffers are contiguous. Keep vb2_dma_sg when there
-is an IOMMU, but refuse a buffer whose DMA segments are not contiguous
-instead of handing a partial mapping to the hardware.
+2. In frame based (RDI) mode the VFE 4.1 write master buffer size is
+   never programmed. Program WR_BUFFER_CFG as the downstream driver does.
 
-Signed-off-by: Allan Siriani <allan@fatecpompeia.edu.br>
----
+3. video_stop_streaming() bails out on -ENOIOCTLCMD from a subdev
+   without .s_stream() (e.g. the MT9M114 pixel array), leaving the
+   pipeline started and the buffers with the driver: vb2 WARNs and the
+   next STREAMON / "media-ctl -r" fail with -EBUSY.
+
+4. csid_set_power() powers up the VFE of the same index as the CSID,
+   and fails with -EINVAL when there is none. On MSM8916/MSM8226 (two
+   CSIDs, one VFE behind the ISPIF) streaming from CSID1 fails with
+   "Failed to power up pipeline: -22". Skip the VFE power up there.
+
+Build tested (W=1) on next-20261104 for ARM with COMPILE_TEST.
+
+Runtime tested on the MSM8226 (Moto G 2013) with the same changes applied
+to a 6.16 based kernel, not yet on linux-next: on the rear AR0543 (RAW10
+1280x960, CSIPHY0) every buffer gets exactly sizeimage bytes and nothing
+past it, and STREAMOFF/STREAMON and "media-ctl -r" work repeatedly. On the
+front MT9M114 (UYVY) the first frame after STREAMON can still run 128
+bytes past sizeimage (one burst); later frames are exact. Patch 1 alone
+already stops the memory corruption.
+
+Allan Siriani (4):
+  media: qcom: camss: use contiguous buffers when there is no IOMMU
+  media: qcom: camss: vfe-4-1: program the RDI write master buffer size
+  media: qcom: camss: always stop the pipeline in stop_streaming
+  media: qcom: camss: do not fail CSID power up without a matching VFE
+
  drivers/media/platform/qcom/camss/Kconfig     |  1 +
- .../media/platform/qcom/camss/camss-video.c   | 64 +++++++++++++++++--
- 2 files changed, 58 insertions(+), 7 deletions(-)
+ .../media/platform/qcom/camss/camss-vfe-4-1.c | 34 +++++++-
+ .../media/platform/qcom/camss/camss-vfe-4-7.c |  3 +-
+ .../media/platform/qcom/camss/camss-vfe-4-8.c |  3 +-
+ .../platform/qcom/camss/camss-vfe-gen1.c      |  5 +-
+ .../platform/qcom/camss/camss-vfe-gen1.h      |  3 +-
+ .../media/platform/qcom/camss/camss-video.c   | 78 ++++++++++++++++---
+ drivers/media/platform/qcom/camss/camss.c     | 17 ++--
+ 8 files changed, 115 insertions(+), 29 deletions(-)
 
-diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
-index b51745c94..3d3555b55 100644
---- a/drivers/media/platform/qcom/camss/Kconfig
-+++ b/drivers/media/platform/qcom/camss/Kconfig
-@@ -5,6 +5,7 @@ config VIDEO_QCOM_CAMSS
- 	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
- 	select MEDIA_CONTROLLER
- 	select VIDEO_V4L2_SUBDEV_API
-+	select VIDEOBUF2_DMA_CONTIG
- 	select VIDEOBUF2_DMA_SG
- 	select V4L2_FWNODE
- 	select GENERIC_PHY
-diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
-index 0852eb6f1..2c15546c8 100644
---- a/drivers/media/platform/qcom/camss/camss-video.c
-+++ b/drivers/media/platform/qcom/camss/camss-video.c
-@@ -7,12 +7,14 @@
-  * Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
-  * Copyright (C) 2015-2018 Linaro Ltd.
-  */
-+#include <linux/device.h>
- #include <linux/slab.h>
- #include <media/media-entity.h>
- #include <media/v4l2-dev.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-ioctl.h>
- #include <media/v4l2-mc.h>
-+#include <media/videobuf2-dma-contig.h>
- #include <media/videobuf2-dma-sg.h>
- 
- #include "camss-video.h"
-@@ -146,6 +148,48 @@ static int video_queue_setup(struct vb2_queue *q,
- 	return 0;
- }
- 
-+/*
-+ * The VFE write masters take a single base address per plane and write the
-+ * whole plane from there, so every plane must be contiguous in the device
-+ * address space. Without an IOMMU the buffers come from vb2_dma_contig, which
-+ * guarantees that. With an IOMMU the scatterlist mapping may still be split
-+ * in several DMA segments (max_seg_size): accept it only when the segments
-+ * follow each other in the IOVA space.
-+ */
-+static int video_buf_plane_addr(struct camss_video *video,
-+				struct vb2_buffer *vb, unsigned int plane,
-+				dma_addr_t *addr)
-+{
-+	struct scatterlist *sg;
-+	struct sg_table *sgt;
-+	dma_addr_t next;
-+	unsigned int i;
-+
-+	if (video->vb2_q.mem_ops == &vb2_dma_contig_memops) {
-+		*addr = vb2_dma_contig_plane_dma_addr(vb, plane);
-+		return 0;
-+	}
-+
-+	sgt = vb2_dma_sg_plane_desc(vb, plane);
-+	if (!sgt || !sgt->nents)
-+		return -EFAULT;
-+
-+	next = sg_dma_address(sgt->sgl);
-+	for_each_sgtable_dma_sg(sgt, sg, i) {
-+		if (sg_dma_address(sg) != next) {
-+			dev_err(video->camss->dev,
-+				"Plane %u is not contiguous in DMA space\n",
-+				plane);
-+			return -EINVAL;
-+		}
-+		next += sg_dma_len(sg);
-+	}
-+
-+	*addr = sg_dma_address(sgt->sgl);
-+
-+	return 0;
-+}
-+
- static int video_buf_init(struct vb2_buffer *vb)
- {
- 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
-@@ -154,15 +198,13 @@ static int video_buf_init(struct vb2_buffer *vb)
- 						   vb);
- 	const struct v4l2_pix_format_mplane *format =
- 						&video->active_fmt.fmt.pix_mp;
--	struct sg_table *sgt;
- 	unsigned int i;
-+	int ret;
- 
- 	for (i = 0; i < format->num_planes; i++) {
--		sgt = vb2_dma_sg_plane_desc(vb, i);
--		if (!sgt)
--			return -EFAULT;
--
--		buffer->addr[i] = sg_dma_address(sgt->sgl);
-+		ret = video_buf_plane_addr(video, vb, i, &buffer->addr[i]);
-+		if (ret < 0)
-+			return ret;
- 	}
- 
- 	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
-@@ -699,7 +741,15 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
- 
- 	q = &video->vb2_q;
- 	q->drv_priv = video;
--	q->mem_ops = &vb2_dma_sg_memops;
-+	/*
-+	 * Without an IOMMU a scatter-gather buffer is physically scattered and
-+	 * the write masters, which only take a base address, would run past
-+	 * its first segment. Use physically contiguous (CMA) buffers instead.
-+	 */
-+	if (device_iommu_mapped(video->camss->dev))
-+		q->mem_ops = &vb2_dma_sg_memops;
-+	else
-+		q->mem_ops = &vb2_dma_contig_memops;
- 	q->ops = &msm_video_vb2_q_ops;
- 	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
- 	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
+
+base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
 -- 
 2.43.0
 
