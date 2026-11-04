@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793829368;
-	b=Oe8grUGVlyBtTuAZWeRD6zeooL8X3LaWISmbOAR4yBFBWM6LUZYTQhafh0VQIRAcisdI
-	 BbgkmwJrwfx5gmE617WtMEXnfISXEpBl2stUaLbpX2fOh1jwha5eR+uK67uoHZoYRG6uf
-	 gUtilbPgQS+2ekqXN3FbuRwX3do4dglZTLYyXdBxGarnoFXCHVGjs+wj3Ydt9MrlhkEzh
-	 F2maxHfa1DLr45AKxmwhEnmS3d+p8strd9u9V8JO1PwONDGOa07YDCwVsIqDDhUqqHI7l
-	 B52VPnAvoiShYVHPp60RmRp5HXCuTP6pV32L8IR745S/KnPX7APvLy1wHRh4jb0DAOA==
+	t=1793829659;
+	b=vqrx26lTokEvJ6SgfUyJf4Iu+vZzjr8c3NPaB/U4UJ+qys+Y4ZN7pWWlfpIynE5hNs50
+	 DfLwKvUxuTMdseS+2KP76ssrZg9BYrZ1LC4FJN1cswYCN13MMLyPv8GlJri5s22eksT/T
+	 ugQHBrwrvSxZI2VskGW81gp6hTy29R0VQ9FaHtDfkGWwn6UH8HoSgd+yqx7xLy5liu0YB
+	 W1tgLUMlG8Gt0+cTUMLx59aLvT4W7wrXsQKzPjyHDUrx7rUCEIsuqHwv8ZtUrXj181Gxz
+	 TyK80sq3jHnRzyP00HmO0CX27+lxhu3wnRSmLLmwbsb2gfi0DUvuMxDzjxNfnFUPTTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793829368;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793829659;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=D/YsceI1ZD4wK28mfxd3WkKTnNLn9kRMNBo92okJVB8=;
-	b=FC/dtLYO3eptQCz3PIGzZyngfbG/C9ykTz6UQtdaF94UX/iem41zKdU634jBWTFqi87D
-	 rIkua4dytHRxRQTEIUm/SMv2w34yuPxze8UgVZpGh2pzASnBDbsJDcy5QR6S4yNEM2Af7
-	 9/hE82TL8znZ/4oqGDq6x06qJNkbDlmWzBKgrtniIM1KCHnwA9vyuNI0MF8PW9UPmJ2Cf
-	 9foucqsMGMH+pRrVxbaKcmLiGfS9RCGP20w3yB5jFMWWucolbiNyAxCjZnSa9V4qhQ5+P
-	 ljDITZnIJvlEaTHuazIB+fYeReZqwaWXk7jdp6oHhFfq3Ohp0WdiWkzS7r4NJybfZjA==
+	bh=Eg+9+oeU9+jU9RyDJcEVZIb1X8FilkqhAFwEKY4Lpi8=;
+	b=1BOCHZ4fHqCBGnqlhIGgeclgUFD7E8FkkUPqaCIJ5bmGrlcP8mxnfEF5fB8QP+7Jt23v
+	 d8B4lALSjTxc0lh322sY/nvKXaLnolIxaoRl9KsTOUuHxjqdL6yi4fpETPv/jva38sL+M
+	 zsTdjjWY0fKTsyiqno0mZwi4z0ipVGVnWI++YM1xQFaRR81c1I8hMYHwckCEjPTDantlS
+	 DN9zbn4l/ookBPl2BVVpShSU8JkNwXRynUYyDekThiozzTD7K5VhL5+vSr5Zo9wpb5+Ib
+	 k4hoRo4bVXGXZmrsizT5sk5cSXoYyM5UoA+l5ReLmtaxJfMdNBIk1Ak9o0phHWQl0+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=modelmiser.com;
 	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=XthgSATK;
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=mCTD2QBK;
+	arc=none smtp.remote-ip=109.224.244.21
+Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3247760BF2EE
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 21:56:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3247760BF2EE
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F5F606B2F8;
+	Wed,  4 Nov 2026 22:00:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F5F606B2F8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=XthgSATK
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=mCTD2QBK
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1793829363; x=1794088563;
-	bh=D/YsceI1ZD4wK28mfxd3WkKTnNLn9kRMNBo92okJVB8=;
+	s=protonmail; t=1793829656; x=1794088856;
+	bh=Eg+9+oeU9+jU9RyDJcEVZIb1X8FilkqhAFwEKY4Lpi8=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=XthgSATKLNfTYP2fx7+VGsIARJIst1MFW/Dfx2t0HwW+OYEXShIuD9XQBFLhIk7ar
-	 GIohrMMj990TKfIy5EcvKYpTLJziMrXVqBzstLjzDb+2KWSDxXcHpXGkWNF73rX4NF
-	 yftMowtzGw77Dt1mQdfeu3KmIUnVeeb2EQOkjQYRCMLr7q/uobSrOSU6tTvRbV7lKI
-	 NIjbuWn9+BQqmO6jSU07bFo7u+3kzDrY6TkUMMZsVRisOXgch2jMYp6PlArzFyRVQz
-	 7qPJsROsMVGwqLUEW94S2+zYWksCZqr1GXhu6of3p1xcSbqZf2b42R9I5moJjfLT7Y
-	 Sqk0VQgKywjwg==
-Date: Wed, 04 Nov 2026 21:55:58 +0000
+	b=mCTD2QBKtCGQJtBJAkcbPXIrrZbdfugo1UVrZdSfKYt9ImLRuQqPyTr+q0ck3eQX5
+	 Wtq7nSpt0C0QUWVDxzuiAwzmT12wR017Z9NKDRsKrykTXdVJHNs5UuJ5cnF4cW/tbb
+	 Kz8psi6cjpjzMaxfDanC52zf0o2AW69L1mNwgS/Jono4miQF4qw1mzu9ri2xYcTyfJ
+	 mrEBh89JhytWt0nP14Ofpl5m+j8vKGvpw29SlpikNhZBTNOtltTYJKxlEuCzHp5r1+
+	 sagT2Smsp6ZITQNshyFLTQe4LfJGOF9E1/K1WX+VSN6VkCy0KRk1Sc3dnOj6sqPmoL
+	 2r8aS80tRgjiA==
+Date: Wed, 04 Nov 2026 22:00:52 +0000
 To: linux-kernel@vger.kernel.org
 From: Chad Aldreda <ca@modelmiser.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, driver-core@lists.linux.dev, linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Nick Faro <yux50000@hotmail.com>
-Subject: [RFC PATCH 1/4] debugfs: add debugfs_file_revoked() for debugging aids
-Message-ID: <20261104215546.3990950-2-ca@modelmiser.com>
+Subject: [RFC PATCH 3/4] media: v4l2-dev: name the video_device behind an open file for DEBUG_DEVRES_REFS
+Message-ID: <20261104220041.3994559-2-ca@modelmiser.com>
 In-Reply-To: <20261104215546.3990950-1-ca@modelmiser.com>
 References: <20261104215546.3990950-1-ca@modelmiser.com>
 Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: f98c9a637ac96e17d79d9b3452736028913ef461
+X-Pm-Message-ID: a81056a207e7e65d520d4940c4814eb046736413
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,214 +67,96 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-A debugging aid that finds a stale pointer behind an open debugfs file
-needs to know whether debugfs itself has already cut that file off from
-its driver, and if so which release callback close() will still run.
-That knowledge is debugfs-internal: the proxy file_operations
-identities, the removal state of the dentry, and which of debugfs's own
-_unsafe helpers take the removal guard or copy their data at open.
+An open V4L2 file points at a per-open v4l2_fh, and the driver state,
+with its video_device embedded, is reachable only through
+video_devdata(). The DEBUG_DEVRES_REFS check therefore cannot see the
+most common shape of the bug it looks for, a video_device embedded in
+devm memory, without help.
 
-Add debugfs_file_revoked(), built only with CONFIG_DEBUG_DEVRES_REFS
-(added by the next patch, its only user) and not exported, since that
-user is built in. It returns true for a removed file created through
-the full proxy, the short proxy, or one of debugfs's guarded helpers
-(the DEFINE_DEBUGFS_ATTRIBUTE() family, blobs, bools, strings) or one
-that copies its data at open (u32 arrays), and hands back the
-file_operations whose release callback will still run. A file created
-with an _unsafe variant and the driver's own file_operations gets no
-guard from debugfs, and the function returns false for it.
+Register a devres_open_file_hook on v4l2_fops that names
+video_devdata(file), a lookup in video_devices[] that does not touch the
+video_device itself. The driver state behind video_get_drvdata() is not
+named: reaching it means dereferencing the video_device, which may sit
+in managed memory already freed by an earlier unbind, the very thing
+the check reports. The hook object is defined unconditionally and the
+registration calls are stubs when the option is off. It is registered
+last in videodev_init(), so no failure can leave it registered, and
+unregistered first in videodev_exit(); a walk in progress pins the
+module.
+
+Parenting the V4L2 cdev to the video device with cdev_device_add(), as
+mc-devnode and cec do, so that a generic kobject route could be used
+instead, was considered and rejected: V4L2 deletes its cdev from the
+device's own release callback, and a parent link would make the cdev
+hold the device and the device wait for the cdev. For V4L2 that is a
+media-core change with regression risk, not something a debug option
+should carry.
 
 Written with Claude (Anthropic) under my direction; see the cover letter
 for the disclosure required by Documentation/process/generated-content.rst.
 
 Signed-off-by: Chad Aldreda <ca@modelmiser.com>
 ---
- fs/debugfs/file.c       | 112 ++++++++++++++++++++++++++++++++++++++++
- include/linux/debugfs.h |  29 +++++++++++
- 2 files changed, 141 insertions(+)
+ drivers/media/v4l2-core/v4l2-dev.c | 31 ++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-diff --git a/fs/debugfs/file.c b/fs/debugfs/file.c
-index 170feb7531..1673fd7e2e 100644
---- a/fs/debugfs/file.c
-+++ b/fs/debugfs/file.c
-@@ -11,6 +11,7 @@
-=20
- #include <linux/module.h>
- #include <linux/fs.h>
-+#include <linux/magic.h>
- #include <linux/seq_file.h>
- #include <linux/pagemap.h>
- #include <linux/debugfs.h>
-@@ -1373,3 +1374,114 @@ void debugfs_create_devm_seqfile(struct device *dev=
-, const char *name,
- =09=09=09    &debugfs_devm_entry_ops);
- }
- EXPORT_SYMBOL_GPL(debugfs_create_devm_seqfile);
-+
-+#ifdef CONFIG_DEBUG_DEVRES_REFS
+diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v=
+4l2-dev.c
+index fd267fb749..fe617dbb97 100644
+--- a/drivers/media/v4l2-core/v4l2-dev.c
++++ b/drivers/media/v4l2-core/v4l2-dev.c
+@@ -1235,6 +1235,32 @@ EXPORT_SYMBOL_GPL(video_device_pipeline);
+ /*
+  *=09Initialise video for linux
+  */
 +/*
-+ * debugfs's own file_operations for _unsafe files on which nothing after
-+ * open can reach the driver's data: either every operation takes the
-+ * removal guard (debugfs_file_get()), or the data is copied at open.
++ * For CONFIG_DEBUG_DEVRES_REFS: an open V4L2 file keeps its struct
++ * video_device alive via video_get(), and reaches it only through
++ * video_devdata(), a lookup in video_devices[] that does not touch the
++ * video_device itself. The driver's state behind video_get_drvdata() is
++ * not named: reaching it means dereferencing the video_device, which
++ * may itself sit in managed memory already freed by an earlier unbind.
++ * Defined unconditionally; the registration calls are stubs when the
++ * option is off.
 + */
-+static bool debugfs_unsafe_fops_safe_after_removal(const struct file_opera=
-tions *fops)
++static const void *v4l2_devres_open_file_holder(struct file *file,
++=09=09=09=09=09=09unsigned int idx,
++=09=09=09=09=09=09const char **what)
 +{
-+=09if (fops =3D=3D &fops_blob || fops =3D=3D &fops_str ||
-+=09    fops =3D=3D &fops_bool || fops =3D=3D &fops_bool_ro || fops =3D=3D =
-&fops_bool_wo)
-+=09=09return true;
-+=09if (fops =3D=3D &u32_array_fops)=09/* copies the array at open */
-+=09=09return true;
-+=09/*
-+=09 * DEFINE_DEBUGFS_ATTRIBUTE(): read/write go through
-+=09 * debugfs_file_get(), release only frees the simple_attr, and the
-+=09 * macro sets no other operation at all.
-+=09 */
-+=09return fops->read =3D=3D debugfs_attr_read &&
-+=09       (fops->write =3D=3D debugfs_attr_write ||
-+=09=09fops->write =3D=3D debugfs_attr_write_signed) &&
-+=09       fops->release =3D=3D simple_attr_release &&
-+=09       !fops->llseek && !fops->read_iter && !fops->write_iter &&
-+=09       !fops->iopoll && !fops->iterate_shared && !fops->poll &&
-+=09       !fops->unlocked_ioctl && !fops->compat_ioctl && !fops->mmap &&
-+=09       !fops->mmap_prepare && !fops->flush && !fops->fsync &&
-+=09       !fops->fasync && !fops->lock && !fops->get_unmapped_area &&
-+=09       !fops->check_flags && !fops->flock && !fops->splice_write &&
-+=09       !fops->splice_read && !fops->splice_eof && !fops->setlease &&
-+=09       !fops->fallocate && !fops->show_fdinfo &&
-+=09       !fops->copy_file_range && !fops->remap_file_range &&
-+=09       !fops->fadvise && !fops->uring_cmd && !fops->uring_cmd_iopoll &&
-+#ifndef CONFIG_MMU
-+=09       !fops->mmap_capabilities &&
-+#endif
-+=09       !fops->init_dma_buf_io_ctx && !fops->fop_flags;
-+=09/* Keep in step with struct file_operations in include/linux/fs.h. */
++=09if (idx)
++=09=09return NULL;
++=09*what =3D "video_devdata";
++=09return video_devdata(file);
 +}
 +
-+/**
-+ * debugfs_file_release_safe - will close() of a removed file leave the
-+ *                             driver's data alone?
-+ * @fops: the file_operations debugfs_file_revoked() handed back, or NULL
-+ *
-+ * Return: true if @fops has no release callback, or one of the generic
-+ * ones that only free what open() allocated (seq_file, simple_attr, u32
-+ * array). A driver's own release may dereference i_private or
-+ * private_data; full_proxy_release() documents that it must not, but
-+ * nothing enforces it.
-+ */
-+bool debugfs_file_release_safe(const struct file_operations *fops)
-+{
-+=09if (!fops || !fops->release)
-+=09=09return true;
-+=09return fops->release =3D=3D single_release ||
-+=09       fops->release =3D=3D seq_release ||
-+=09       fops->release =3D=3D simple_attr_release ||
-+=09       fops->release =3D=3D u32_array_release;
-+}
++static struct devres_open_file_hook v4l2_devres_open_file_hook =3D {
++=09.fops =3D &v4l2_fops,
++=09.owner =3D THIS_MODULE,
++=09.holder =3D v4l2_devres_open_file_holder,
++};
 +
-+/**
-+ * debugfs_file_revoked - has debugfs cut @file off from its driver?
-+ * @file: an open file, held by the caller
-+ * @real_fops: set to the file_operations close() will still consult, or
-+ *             NULL for a short-fops proxy; callers must still test
-+ *             ->release, which may be NULL
-+ *
-+ * For debugging aids that find a stale pointer behind an open debugfs fil=
-e
-+ * after the file was removed; not for use elsewhere.
-+ *
-+ * Return: true if @file is a removed debugfs file on which no further
-+ * operation can reach the driver's data: one created through the full
-+ * proxy (debugfs_create_file() and the helpers built on it), on which
-+ * read/write/llseek/ioctl fail with -EIO and poll reports EPOLLHUP (see
-+ * __debugfs_file_get()); or one of
-+ * the _unsafe files whose read/write callbacks are debugfs's own guarded
-+ * ones (the DEFINE_DEBUGFS_ATTRIBUTE() family, blobs, bools, strings) or
-+ * which copy their data at open (u32 arrays). close() still runs the real
-+ * release callback on such a file, through full_proxy_release() for
-+ * proxied files and directly otherwise, so @real_fops names it. A file
-+ * created with an _unsafe variant and the driver's own file_operations
-+ * gets no guard from debugfs, and this returns false.
-+ */
-+bool debugfs_file_revoked(const struct file *file,
-+=09=09=09  const struct file_operations **real_fops)
-+{
-+=09const struct debugfs_fsdata *fsd;
-+
-+=09*real_fops =3D NULL;
-+
-+=09if (!d_unlinked(file->f_path.dentry))
-+=09=09return false;
-+
-+=09if (file->f_op =3D=3D &debugfs_full_proxy_file_operations) {
-+=09=09/* Populated by full_proxy_open_regular(), pinned by the file. */
-+=09=09fsd =3D READ_ONCE(file->f_path.dentry->d_fsdata);
-+=09=09if (fsd)
-+=09=09=09*real_fops =3D fsd->real_fops;
-+=09=09return true;
-+=09}
-+=09if (file->f_op =3D=3D &debugfs_full_short_proxy_file_operations)
-+=09=09return true;=09/* short fops: no release callback at all */
-+=09if (file_inode(file)->i_sb->s_magic =3D=3D DEBUGFS_MAGIC &&
-+=09    debugfs_unsafe_fops_safe_after_removal(file->f_op)) {
-+=09=09*real_fops =3D file->f_op;
-+=09=09return true;
-+=09}
-+=09return false;
-+}
-+#endif /* CONFIG_DEBUG_DEVRES_REFS */
-diff --git a/include/linux/debugfs.h b/include/linux/debugfs.h
-index 4177c47382..b2a63037d5 100644
---- a/include/linux/debugfs.h
-+++ b/include/linux/debugfs.h
-@@ -166,6 +166,23 @@ void *debugfs_get_aux(const struct file *file);
-=20
- int debugfs_file_get(struct dentry *dentry);
- void debugfs_file_put(struct dentry *dentry);
-+#ifdef CONFIG_DEBUG_DEVRES_REFS
-+bool debugfs_file_revoked(const struct file *file,
-+=09=09=09  const struct file_operations **real_fops);
-+bool debugfs_file_release_safe(const struct file_operations *fops);
-+#else
-+static inline bool debugfs_file_revoked(const struct file *file,
-+=09=09=09=09=09const struct file_operations **real_fops)
-+{
-+=09*real_fops =3D NULL;
-+=09return false;
-+}
-+
-+static inline bool debugfs_file_release_safe(const struct file_operations =
-*fops)
-+{
-+=09return true;
-+}
-+#endif
-=20
- ssize_t debugfs_attr_read(struct file *file, char __user *buf,
- =09=09=09size_t len, loff_t *ppos);
-@@ -336,6 +353,18 @@ static inline int debugfs_file_get(struct dentry *dent=
-ry)
- static inline void debugfs_file_put(struct dentry *dentry)
- { }
-=20
-+static inline bool debugfs_file_revoked(const struct file *file,
-+=09=09=09=09=09const struct file_operations **real_fops)
-+{
-+=09*real_fops =3D NULL;
-+=09return false;
-+}
-+
-+static inline bool debugfs_file_release_safe(const struct file_operations =
-*fops)
-+{
-+=09return true;
-+}
-+
- static inline ssize_t debugfs_attr_read(struct file *file, char __user *bu=
-f,
- =09=09=09=09=09size_t len, loff_t *ppos)
+ static int __init videodev_init(void)
  {
+ =09dev_t dev =3D MKDEV(VIDEO_MAJOR, 0);
+@@ -1255,6 +1281,9 @@ static int __init videodev_init(void)
+ =09=09return -EIO;
+ =09}
+=20
++=09/* Last, so no failure above can leave the hook registered. */
++=09WARN_ON(devres_register_open_file_hook(&v4l2_devres_open_file_hook));
++
+ =09return 0;
+ }
+=20
+@@ -1262,6 +1291,8 @@ static void __exit videodev_exit(void)
+ {
+ =09dev_t dev =3D MKDEV(VIDEO_MAJOR, 0);
+=20
++=09devres_unregister_open_file_hook(&v4l2_devres_open_file_hook);
++
+ =09class_unregister(&video_class);
+ =09unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
+ =09debugfs_remove_recursive(v4l2_debugfs_root_dir);
 --=20
 2.43.0
 
