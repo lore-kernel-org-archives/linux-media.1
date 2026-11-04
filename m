@@ -1,87 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.31
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793752129;
-	b=sdKPsnDPSYAYLszSSk4/OCfXPg34qwSl676lVLpoiGOejRh9IA+ZhFqVmTY5LElJCjYM
-	 wPHI1puLwdNL9YyZZx8knCUwNaHFOcXMVrz+M+tYLOK5QW6lZFKktGgDInon41v7fenPn
-	 YRElaJBR7rGdfXNnf0mrEyzNzike11ij8Z5Vtvkl4Sw6IvVCX7e62kfVOMk5LsY6Cn4vM
-	 HIJZcCfYMmq8Fxes2oJfuRS2S413XjqQTkojGweIrQOhKoy92XCgg7Ta5qVzH/OEHLMXT
-	 vooqADzYf1EEGIsIGh8Y7nlcA8fohJRKmsCJirVFQtRPZjta6f+m/r7P1Cape7a2oQw==
+	t=1793752825;
+	b=ljzVSk0qjagGhpzBrP5bUwWe15nkSHxvFXCWSDamXhUfARRVv6IR6e0jOskYNW1lN5S4
+	 uhwPDHO8PCu39QsoOYDl1uci3ZCB6IKWOUTparRVyVwDkgZ1xNUNjNKzRkwmlH7qF1uWO
+	 J59/euP633g6XzuyO018cig9b3ZnXjq/+8L6MRQeUd4o4bZxpXJr+N5nZljZbC3bZdXun
+	 q9xlYlWohygfpWIQYs7LMcMLAezfQHRJGtZIQR6b8KN9VMkpkTgyUQBUXjewDiooWgFds
+	 eINmcXgtbF2+q1HAcxtX1feEn2RMzDltfZSTmuV88XQtu/6TwV3EUGLxBa4KEJBzqJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793752129;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=l+pZpw28pRWWLva2b/PbSoVbdDZfr3/Ztz0YUdBIjWs=;
-	b=D4u3kQZg0mNKPekZP3HqN55TTslmYPsIeqJkSpWpPuuaooVC5J2MzX3/fajZItApyx7d
-	 NP73Wgz4EmnNVf59UtmAuIy2iZhdFtrc2DDVD4l78bCotmc1GqI80920GGkUaJ/GlBP8J
-	 KcQzi9cEykAhxTnDxr58UbhoH81Vfk5OPxQi3kjSIe+s3xMEoxgCuX/aaKrd12FyfyyAn
-	 846BzJrcbNKn/i5cXUv3YcRfUVz9eYln817zZJi+SaELJHHBWUTUYDVOGhHpjiHYsBJxv
-	 806T3afuR2GolEtqjIK+uj4gSU27/kdYK/Otbx6JyUHBBNoImAIMjUmNIB/S+KpLR5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793752825;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=apT3fSc1fVUWiPe70VQ+zFiN7yIPCcZ9r7xA0IOgOTw=;
+	b=MEUyo6u3O2ZFWSh+bk7BquXN4jHavGTOSQAQ9c7QeU7jcLyPfr8vmTN87QQcyEzsX/+G
+	 JlzDKSohXemEYR3PeIJOXmMeaqpeYLDYPG4hyEuYVkThdBqNiRIsUNiUCfTUxpBj9KX/j
+	 awjaBTQQFp06tfg2B+6+q1WGAtZDjPENw5y1D9BKKRXHqRoPNmxpaENQ8mTU5G9C0R2+k
+	 EfVUW6u/82uWzgHyF38BkZutORidWaV8qJy2R64Y2erGlXvgs6tbdOVW638MX2AyH49BF
+	 hkgdRyl/vsz3HGDqo4cfEFSlpzmT0LBtFnCda4JEDfY2JwdJv9KBTvRtEdeJuHlxVMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TGsmBkKL;
-	arc=none smtp.remote-ip=209.85.208.179
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=7i7vobjaaje3rm3y6w62rvo22a.protonmail2 header.b=hnVpGubG;
+	arc=none smtp.remote-ip=109.224.244.31
+Received: from mail-24431.protonmail.ch (mail-24431.protonmail.ch [109.224.244.31])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E2B606A326
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 00:28:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6E2B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0F1606A31B
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 00:40:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB0F1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TGsmBkKL
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3ab35a9d9ceso458831fa.3
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 16:28:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793752127; x=1794356927; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=l+pZpw28pRWWLva2b/PbSoVbdDZfr3/Ztz0YUdBIjWs=;
-        b=TGsmBkKLz1TDbJ3HJ/Y+7unQZOZXwF6ZCda4Iz+qLp+2tMQzBg5Zu9A3hs4Phqsr30
-         E6BE1XqfjyioV0JC9dsqwTYQPD9UvuiLKiJVUQmfWORbP3nyv5W+7DcI1aUbl8L8RU0V
-         SZybREBo7gKJXMceRZRrrkDIemqSjb+6pH4pMrMngl6oOeiAS96qG6IRT9LoHb2Vd5y1
-         GjE9A8+OVpBTCQVff5YIYms+ehQaZ9uXtUUm+INf3unP5YPr4ZwbEQTVrnd2cUhTC+Q4
-         S+jZFPWmds8hCqNOsBSSi3UQ/x1nJrdDw0m4cl42pSxZDQKj3jlscyuOewDEjo9q8W9t
-         aLMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793752127; x=1794356927;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l+pZpw28pRWWLva2b/PbSoVbdDZfr3/Ztz0YUdBIjWs=;
-        b=sMlUnlj8sOemaPIi6ivTCGOHUTpWSBRGHjZ72BRV3CAh/3xcuQwa3FvIl9NSGVlqNH
-         K5C3wMX91Ol4NJNCBdP+UK+vcQAOkvAWHGQlJanC+jjJ9TqxeQrfaafyW1K7WMxCbLBV
-         f9G9irHj+FaMJ4UfbjVf/b/vWwu6UdmcSAakZieePUPWx7qsjMod4WvW//BfKouWpEkn
-         hykns9TtUZyQ2N0OdgNpamL2JyZh37dJYuWqkD7+7RsiwXlZ7Eo71oEm3stkddhrMUKY
-         ktSvAwf6GSyhil4g1+P3w9LpFnoqrGgDJImKZJG7F4LwkxHbQfyUSWMEnouRaDM4jbPc
-         EInw==
-X-Forwarded-Encrypted: i=1; AKwUvBzYpqVajjp0rghVLb35DnH+c3emuf43jhPe8w1l/6QLPJjYPrGU48DJia9BbdzOfg8VOjzbq0KNxlBk+A==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/i2KChmAMntJn4vYiihJgej/KphfaeJNYRlb8JNOsoWjx+YwLN
-	DXa/3nEqa+fkokPAtOfNi/Qdk+If+T9Z1siE8Z6CAPtvPi12FwDegk7ZKIM5qikvIYg=
-X-Gm-Gg: AYBFou1w0trgbXBJB+ldZ783P0z9GttFYnv6d9JX/kXRJUXLl02/s7qOfnKLNqDgYzC
-	3uvGQGH5aTKGFYya9C/+oceqEk4js1MkPxdIdrl48vD5PMoUhMSYdPriF7Yh3BM9DkluIZAAlFZ
-	V5pV4n79ts8KbfvpWf2QiAKeSiztchGTHx1djJmq2M808PJ38nlxsFcOXK5b/1DRrCfGXQbA29k
-	0qXJwK/hBDQbLXrCBtk6eX5Lhd8Y3vgKoh9tjCUawWj8KDL40JTYMu46C63KuZGmuq0e4S/gWed
-	HCC7ArjGdWNu8i4GcQU4FWIMXx6Qjte/2iyihWLa2H0e4qYRKD43taP662NSsUqV6MTGU3cpw2w
-	8EO+zFVvS6r+LVHDjzDV176swpjWf3B0mWAiaW3EC04xtKMsBlcAkDjsXkE0V2Yc93wNwmppuGE
-	awxLjlg5YQCk9y6PaCO5nyxlb4JTqjyrihhIe4F2Ha3U8VDPJkdyJtMyEbjk0xhHIvULwEMAIaN
-	F0s3j4whf+4weKl1NRS4PrNqnOj67VJ1O5kjfJZyO9H2xlppW7ItRJwwzrRc0j+9YJ76Kt50JHc
-	gzarWRhVhQREA9/DtGOlZEt0n2zuQo1r3Y5Hi+47vedJq+O6bzLQkIyFOpzNGPZMivtyZFvqdfP
-	appMyqw==
-X-Received: by 2002:a05:6512:4041:b0:5bf:ce24:38c8 with SMTP id 2adb3069b0e04-5bfd95add38mr4540761e87.4.1793752126952;
-        Tue, 03 Nov 2026 16:28:46 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bff38d11dasm142334e87.74.2026.11.03.16.28.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 03 Nov 2026 16:28:46 -0800 (PST)
-Message-ID: <aa7b58df-a7df-4d33-b2a5-9cc760dd9ed5@linaro.org>
-Date: Wed, 4 Nov 2026 02:28:23 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=7i7vobjaaje3rm3y6w62rvo22a.protonmail2 header.b=hnVpGubG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=7i7vobjaaje3rm3y6w62rvo22a.protonmail2; t=1793752821;
+	x=1794012021; bh=apT3fSc1fVUWiPe70VQ+zFiN7yIPCcZ9r7xA0IOgOTw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=hnVpGubGwB3s9Ai8xTlqDJVo6emFnzFJI7jtt8kxo/Y8GGjJpAnSGb71ktf7kTEYb
+	 csL8XG9mGdUOMPrvVc45KxqJdeQJUc/fB+9Wg7MkPsoS5sjJzmiL1nhhAQrzX/qLA5
+	 yQNg6rl2wLfSdEh6Bb0pXc9WvcWEqiQxLpMSe4vae40fRmtMuECcUcFEU4ROHM19q0
+	 +5uXHWpR6TtUKQ4qoIE8KSqMR+e/MuNK1magxJwu3MnP43qd6eKgYoF1n+Sdca+TOb
+	 LnNlKQM43KkZtOhQDv3wckjMj5SWssAQjbWnD12iDN0H0HWE0g884LZw4bPXViaExs
+	 wiCxxCJEbEH7g==
+Date: Wed, 04 Nov 2026 00:40:17 +0000
+To: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
+From: Ruslan Bay <ruslanbey@proton.me>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, Antti Laakso <antti.laakso@linux.intel.com>, Ricardo Ribalda <ribalda@chromium.org>, Andreas Helbech Kleist <andreaskleist@gmail.com>, "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>, "tfiga@chromium.org" <tfiga@chromium.org>, "senozhatsky@chromium.org" <senozhatsky@chromium.org>, "claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>, "tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>, "kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
+Subject: Re: [RFC PATCH v2 00/12] media: ipu6: Add support for IPU4P hardware
+Message-ID: <Nd0nHHFZe3yDdCr1d8dOPvVmpKnjbnhqj5AEGS0D9e_n8RhsX9cMsB56L9Fob8IFYJvjkZptYaa7KROk_dMxIP_5LROFdhoaEJTAaUa5kqc=@proton.me>
+In-Reply-To: <auopqnqgOTY2x7No@ashevche-desk.local>
+References: <2MQDQgaaKZ4HAu3U6zhMj_Muf_H8tsVGLh_CSXM_kxcTL51pE14U9-brGqLYwPPJfDXHog_jWWWOTgToPYLMVZN-KW80t9sDIlEw1uwg-FA=@proton.me> <auj3IU5FC2lejqa7@kekkonen.localdomain> <aDZJlXzfVn1R7UC47TgI2YbHkd7cFWAqFk62vFouazo-xyzLXPnqKoZ_fWP6DX2YrCNI5F0hmapeic6LiKHdlluFARAsH_MTybxQjkIov6E=@proton.me> <auopqnqgOTY2x7No@ashevche-desk.local>
+Feedback-ID: 183606634:user:proton
+X-Pm-Message-ID: 3344764cbd12523396b2a9602a9c7d069e115325
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -91,41 +64,105 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: qcom: camss: select GENERIC_PHY_MIPI_DPHY
-To: Shuai Liu <847807867@qq.com>, linux-media@vger.kernel.org
-Cc: bryan.odonoghue@linaro.org, mchehab@kernel.org,
- manivannan.sadhasivam@oss.qualcomm.com, loic.poulain@oss.qualcomm.com,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <tencent_0D164F79882608DC3FB1B70913F736690207@qq.com>
- <tencent_964D3CB9DF49E7B244CADB34F5E05A8BE10A@qq.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <tencent_964D3CB9DF49E7B244CADB34F5E05A8BE10A@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 11/2/26 11:20, Shuai Liu wrote:
-> Commit 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API
-> devices") added a call to phy_mipi_dphy_get_default_config_for_hsclk()
-> in camss-csiphy.c but did not select GENERIC_PHY_MIPI_DPHY, the
-> invisible bool gating phy-core-mipi-dphy.c where that helper lives.
-> 
-> With CONFIG_VIDEO_QCOM_CAMSS=y and no other driver pulling in
-> GENERIC_PHY_MIPI_DPHY, the build fails at link time:
-> 
->    camss-csiphy.c:(.text+0x51d): undefined reference to
->    `phy_mipi_dphy_get_default_config_for_hsclk'
-> 
-> Select GENERIC_PHY_MIPI_DPHY and drop the explicit "select GENERIC_PHY",
-> which is redundant as GENERIC_PHY_MIPI_DPHY selects GENERIC_PHY
-> transitively (drivers/phy/Kconfig). This matches the other MIPI D-PHY
-> consumers such as rkisp1, mali-c55 and sun6i-mipi-csi2.
-> 
-> Fixes: 0ee6c8a921b1 ("media: qcom: camss: Add support for PHY API devices")
-> Signed-off-by: Shuai Liu <847807867@qq.com>
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+I sent the email in a hurry from my phone and forgot to check the
+line length. If that's the issue, fair enough.
 
--- 
-Best wishes,
-Vladimir
+Now, about doing something...
+
+I'm genuinely trying to keep this discussion constructive. But if you wanna
+go there... as someone who owns an Intel-based device (and, unfortunately,
+is also an Intel shareholder), I have a few things to say.
+
+IPU4 has been around for 10 years, yet Intel engineers never made a serious
+effort to get the driver upstream. Instead, the driver was renamed and sold
+to their managers as a new IPU6, even though it shares more than 85% of
+its codebase with IPU4. Then the same approach seemed to be repeated with
+IPU7 - the existing IPU6 driver was renamed and even managed to make it int=
+o
+staging.
+
+I understand that this makes internal KPIs look better: more lines of code,
+new repositories. But it also makes it unnecessarily difficult for
+third-party developers to understand, maintain, and contribute to these
+drivers.
+
+And this isn't an Intel-specific problem. Qualcomm, MediaTek, and other
+vendors have similar issues. They announce a new product, I get excited
+about it, and then I wait a year or more for proper mainline support.
+By that point, I'm already over it. Why would I buy hardware that doesn't
+properly run the software I use? Why would I buy an outdated device
+that's going to be abandoned by its manufacturer after 3=E2=80=934 years?
+
+I understand that Intel sells hardware, and that releasing a new socket
+every year forces customers to buy new motherboards with more Intel chips
+on them. But customers aren't stupid. We care about long-term support,
+compatibility, and whether the hardware we buy will actually work with the
+software we use. This is one of the reasons Intel is losing customers to
+AMD. And I can assure you that the next device I buy isn't going to be
+Intel-based. It's probably not even going to be a PC.
+
+I spent my own time getting the abandoned downstream IPU4 driver to work wi=
+th
+recent kernels. Now I'm trying to make it more upstream-friendly, hoping
+that one day I'll be able to run a mainline kernel on my 7(!)-year-old tabl=
+et.
+I guess something about that upsets you.
+
+For full disclosure this email is AI-generated.
+
+
+
+
+
+
+On Tuesday, November 3rd, 2026 at 7:36 PM, andriy.shevchenko@linux.intel.co=
+m <andriy.shevchenko@linux.intel.com> wrote:
+
+> On Tue, Nov 03, 2026 at 12:36:26PM +0000, Ruslan Bay wrote:
+> > On Monday, November 2nd, 2026 at 9:48 PM, Sakari Ailus <sakari.ailus@li=
+nux.intel.com> wrote:
+> > > On Sat, Oct 31, 2026 at 12:18:19PM +0000, Ruslan Bay wrote:
+> > > > This series adds IPU4P support to the upstream IPU6/IPU7 driver.
+> > > > The IPU4 family includes IPU4 (Apollo Lake) and IPU4P (Ice Lake);
+> > > > this series supports IPU4P only.
+> > > >
+> > > > Most of the groundwork was done by Antti Laakso in the IPU7 support
+> > > > series [1]. I added the IPU4P-specific parts, using Intel's downstr=
+eam
+> > > > driver as a reference [2]. The code mostly generated using AI.
+> > > >
+> > > > Image capture was tested on a Surface Pro 7 (i5-1035G4) with
+> > > > both the front OV5693 and rear OV8865 cameras. Test logs: [3]
+> > > >
+> > > > Thanks to the linux-surface community and the libcamera developers =
+for
+> > > > testing the downstream driver and sharing their findings.
+> > >
+> > > Please use git send-email to send further versions of the set if any =
+--
+> > > threading is broken in this version. No need to send a new version ju=
+st for
+> > > that though.
+> >
+> > Thank you for taking your personal time to review the series.
+> >
+> > I'll address your feedback, send the updated series to the linux-surfac=
+e project for testing, and then post a non-RFC version upstream. I'll use g=
+it send-email for the upstream posting to preserve the thread.
+>=20
+> Have you written this reply with AI assistance? This promise already is b=
+roken
+> as I pointed out to the very same issue in RFC v1. I highly recommend to =
+reduce
+> AI usage and start doing something.
+>=20
+> --
+> With Best Regards,
+> Andy Shevchenko
+>=20
+>=20
+> 
