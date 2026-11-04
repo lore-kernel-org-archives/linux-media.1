@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793751553;
-	b=SnJfgsujpWr8sJQh5UAEC2CJ7BdAUAoWbWB67j62up2B6tyvmYCJbC9mJpFb/GppK7Mf
-	 c6QL7J4bj82fW6myFAd4AhVCcjN3ZxMwbyg9CL3R5olNfdxjJUV9fge7CsqcAMKy3i/cd
-	 a1mPTSrCrRkbppgLPpQ/3rX/f34mDrWCoBy+3EnADiORKkEVY9UlCpx0jXlNyESqqxVu2
-	 RRiSY69OpXxGh24sOi2GjB3A/4n5Ngqt0a7HdL5igkoKmFUQXmyOiZhXDrS+pfQtkeL79
-	 tN1+zXva2hPGuTujFAMU3p//fNxjI8HQ/uQ3HXer3h5GoLAXfqGiuv+0tVFDLnDYSpg==
+	t=1793751557;
+	b=V6/Ye9iuapI6P+eFgk37EZn1MxFsQBN3T09KFabZpkR767jR60oI8HT3TtRGJzVXip8t
+	 jwq6bfGRiDVp4Ic2v3rFjZ9G7wMPKdvq7sYeLBJMhrnDQQ6JnrUq5NTpG1+lrv13tJ1vZ
+	 xh6taxjVnw67c/D2QvcbOaXThx5A1o8Mt0VBLG5HVSeOnMUJ0WzMIrni24gky8OsGVsCV
+	 KZd3tcW58aOSOmIX6YmSDPnGyFOAbrhOtrQB666tsPm6wW9fHdcHkwQtHyVxlm67OjRyI
+	 oMC4Nkdi/uHTdSqphJiYwMG/CZ1IXjTLc9iB+VvrW6Uiz/vgS55UngqOMqt0elWPbCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793751553;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793751557;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xkQ2a4rr4OfVHQ6kuJzVvVdC31NeQtZjjZjX0zJeTWI=;
-	b=KE7QeYss2KWighCy5iAPiMMjVrN/fghEJdP92gHGFib8hHaqjakDU6sBSLe0dB121O7h
-	 sAMCbLf5pD7/rz5+xxqoEC2Lbg6hlFMZE21hCTwf/SOfaGkaLVleKTRxmFwWJDNstCJPw
-	 RkQr2NXfx/0bfUm6V28yoeqtLtfT45uoW+i7hbeb2j+DonJ2edfs/D5mKp1K9hBbUxIqu
-	 /dza0tmIjZ7K1FWspYHihqp/LtS93m0BxvytimGn9/5QncIkUwfz4mJow5d4XeiKurWGr
-	 y83zBCtFmp+6R5j113904KqvB/4c2qrISUkXQcfeEsBUVFQUWGnsb1V7vwnzKTKnh1g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=hxI6oNEf2EvFWjGeDFQYrrcpmAnzoeBTieQsEmlXNt0=;
+	b=IDoFltXGWzGMmySg77DkUdwS1Q94S86sO/pCY5QGnGCZsQsB9sQaflWO9AnfDbIHcUc6
+	 43xAHm4gfIyuAI3I9EQShnb2IQzIyilOKZCnYZDFNwDKXunFvNQYKFAs5mcZyJgvhbN18
+	 u97jiKE3517qgo9TlLm8tSVi3ruGfLAnxlapiha4ZyMJlhG3WUEtpIGgHtvKo5DkgiwAX
+	 LsMuekPImmoiyJIfPfFFXjl141t48iVgQW19ZS9jiEMAbIL131TwgYNwj9X5hvJI/BkIB
+	 ggjhkjPyimjbTpeDQQ+WmBQ1bKiVDsGRCx5y5R9Mk//g9oyTu1M0r1zBWp8q0yx/elw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nua3l3Lz;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tRuoCViD;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66431606A328
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 00:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66431606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD21E606A32C
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 00:19:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD21E606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nua3l3Lz
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a5720b0a57so7885795e9.0
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 16:19:13 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tRuoCViD
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e20ed3b9dso106026f8f.2
+        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 16:19:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793751552; x=1794356352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xkQ2a4rr4OfVHQ6kuJzVvVdC31NeQtZjjZjX0zJeTWI=;
-        b=nua3l3LzXH5sC9A6SJ9iKsthhz+gzmmes08RfX+Km6fub4LXy2WKga81YLv/KZCWh8
-         aXCZIIS81A56KCQkdxYaQNk5KHgirFO47zSnsfkrTpI8Z2AFJ47Q48Yw6MG+mXUKNu9J
-         7EYoJk7ILdJjyCu6Aejpdt5y38qkkDrNjk4xAeA3yIuYCixIdbBtd+K62+4bta72poy4
-         GWeWprgrZ9BdD55agKUAF1VFYRsPQrgK703f6xRrYn6zCVxoijW2mmd95cLOAZyFHT7F
-         WT9RigCUK7rGvk9in63j78CQ5ytxfWfGFNCbaMfe6VQIjtgNRpE7kyEJsYjkXjeukJ30
-         Lm2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793751552; x=1794356352;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793751555; x=1794356355; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xkQ2a4rr4OfVHQ6kuJzVvVdC31NeQtZjjZjX0zJeTWI=;
-        b=EhRRnDtKUw8mnpJHuKpdJNyzzXxKp8BIfQf9EgTdWZC1VxKYdT9iAl9WDFMJQXxtEF
-         VSyLzShRY96mSnT1vEcOUql70kXy9CwbSW2TV5CUfSDFlSMfbO88ZJ/FLHavlDbT41/h
-         K40IX2BSlT1ZJV0kv0nP1FN/rx1BHX0bg1R7NXtYQH+4E6XtgFqwUDWEapqdVphOv7tu
-         59JU0VHXEMkXKFNi2B+c8fyvDA8oJbyBHwEuLAeB3sgpUmeNZifQUC2kEalqjxrh2jUX
-         3LRPHKzqXo+xnKn/ARuXo8tNeB8XuIQHfL+4aOy9I4Iql0446CaVtZ/TihklSYft829D
-         6d1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxdZsBGAN6ZBskpGlQvc3OUCZ3q6MmC3mZh5SJmF0Wqk7dhVMHi0BpDsrCxAAsEllUeBUD/ciVtAbpavw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9FQQmw1d22s4Oa+9kj9nVBmB/th+eQMdVeZWEcJiKu3kXuxYvi
-	6iOZbHqHTJOQkCaIlkWF53TdHsxRGZfFJGnelMN9cIKVptSSchq3vlO6
-X-Gm-Gg: AYBFou0O5vUu9hANsuapcZfsYI5gr12lvvILGNdie0rwUfndM94MJCqemBb0MB2HoJv
-	zM1mXUObVpN5rwOZDaqFrFC03/wY2/SrU84f/izM60ZlOeMN03yg4q/OO9m1T5MhRTgJ5Ty0PU4
-	LZQ8Lt6eF2LE/I8vN/tzVzIQ7f+ERpcN7CSpm2kW8JsNh08Gojhe8sK3dLu0Ac19KwTQld4kDAp
-	PUgkG45o429x/DzPl8wNYa9xt4VLw7zSIXDpW5HC6Oiqv6xm3TLw8DoNuGIvu2YkdkWhh/kcHUr
-	QSmCm9Yuia/c1QLS9iLVfp9KVhYnT6caLRwlVupdzoTEokNac5xjWrhbXONN0oqE0efCpS+7fxz
-	aYj8U9ukL8iVoACn7xBpVwM7jxeLlKHE/cMjTuQsjAX1vBfC6puzsOo9/Pxka6rU6mphWUVR4is
-	AXRLB2eKBHpQrOenuaetoSDWQY54b38OnmnWtZqQIji2SnqwNLR77OvXHYknAD7Ts53GtolZVx2
-	LNvBA4DjkcdGje4lK4sDYzmfmB1xxwCCum/gj2KxkqMony5QAT+sk1CMLnSGg3K69iC3hOiTpJG
-	qTAdhRiq/JBfadymFOgtkGLhE+aKt/Y+GaYoJH4Z78uloNMIgOp/u/UgcuSxYB2fVlA2DTrLVel
-	Jsav7Gk3AhRaMno1Gr0hW81WtFcL9cTKC
-X-Received: by 2002:a05:6000:3101:b0:48f:bbb5:61c2 with SMTP id ffacd0b85a97d-48fbbb563a3mr6701949f8f.4.1793751551597;
-        Tue, 03 Nov 2026 16:19:11 -0800 (PST)
+        bh=hxI6oNEf2EvFWjGeDFQYrrcpmAnzoeBTieQsEmlXNt0=;
+        b=tRuoCViDiz1iXYAGfLXl4R7y+RpayZrjfUA/EIamwmY7fg2tTWVGnvqmEJ6GzuXb0n
+         L9q8v7usrCBqH5nyZDGX3z5SVn8+UF5iEWXHYkpiDZZkH6OMnjwQ1ejQfNwV7dFEy5jR
+         DSP46baP6aBJKObk8ZJZHOyfFAhX8L5VsVcCNcqNk/mFdWI5qCvSP6bBvypVKaDv4xi/
+         8c6dTf5zVxiHwLo6vGHS2EpUHkAVNBNV783B22uCwCuIUaqIQOFbFClcmBQ+gvX4CByQ
+         U8Cb/QdTzUTQVtsrQ+rA+9i1ftqGQQFxCenLkBm5DlCh+HED1O+6CcYoZVfCg0pv/4IE
+         DN4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793751555; x=1794356355;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hxI6oNEf2EvFWjGeDFQYrrcpmAnzoeBTieQsEmlXNt0=;
+        b=j/HeAHYUBQzDArHX/VCco49HBRPldFnC4gQXiFOimjBv+SeBq2s62KxXksNrXd6NRI
+         NcMArtZ1OmY3fSXMwvtqe26Q96/Mn8lYS0HW8EnOEZvSuQKywgNWLX5ems5oS7SukOvt
+         kmrZYHOrFAHNn4BqRAaIhSXInoQWzqTDN8xLaVYaSzflpCfi5DES7aEvjvUpTx4TG34A
+         etm5jpBfo44HD3BfwsoLILqcrJG0IH8yH/v5GpKSoJ/4iyKlpWR22xQuIReQKXDiO2XY
+         KvXUeiJIgjGPaqgWwMZgTmJhXl45q01nlCYu/yDbfiEOKiFdIvFxAxdYt0vUy3z81Qlo
+         Q5cg==
+X-Forwarded-Encrypted: i=1; AKwUvBxs1JSTNoL2qEcAJqrS63x1C4Ss0A+PJxf9DXR6yGMdAGF0Qd/eO+6noGuwg450u6zxTON+E6oGQeOscQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z89j+k14uRr8f14Hvcs1ZffRCfPRSA8RutzihzFKGnBsGgU9mjc
+	k71q32XAXVCv207BiAiL/Hq3iVDNKDrybOVgEBJ3FVFoFcuChgKtXoUF
+X-Gm-Gg: AYBFou1oY/o3qbaMjr5dlHWmpqD7aJH0lpkJG7kVP+q+x15Fh9MVeARwRwoNNuD5AYY
+	P5mDTj4eaC5KYLRdu1E0JPeLSNy4sgrx147nXTV6iijMYFc2YGuJTzGtE7tmOLlzfXrT0XRwt4H
+	8CINoKoTc0Z7zFxAHWDwZin5ONEju4LBPhDdnzPWReOX0QeuU3L8TpvGB5Zi88o4KX9cziv3JF/
+	Ryd43uu0blmv53Aq3fTOl0Y8Z98ial6obJPECzeVs2+Z4jZ3BR2q0V6JIBzgdbGmty4FrOQtyn/
+	q7mOch7XEOjgKgczszhnThEiTxREQfzK53GuPG5ixDYk80ONJ5cOybB4Fq1YSNay1Ioe70P8Bk/
+	0X/TKTL/rEgX6nS58z5TGwg+6sBoAMyNP/ZpzMFZO3RqJ9RpKc7D0FskmHcb54fIfNV5MMX8d6y
+	kmGFqItBHrxQNqsfTSyMMxO3WX0xZ4WKk0/9zKIHP6L/fgf2XaQ0gLUbXTGTL+hzAd/eJWLaBbU
+	BlAMvJUqdjqAMAZLdz01FeW4pPeVrV2ict88Tziu1FGz2m5beKn1xsSxZrM/1hWPNZc9ZfSaT2h
+	r1qA7ZNImyp8ANPxw2snYWbfVZ2z1Pp3qLqvOQSVwhqLl6Ypst54td7bk//7DeIsnFGAaCs4CkU
+	8u+2N6P4nO5YesVy7VpsvMxnd3G6K0oM=
+X-Received: by 2002:a05:6000:4027:b0:48d:fbdd:4132 with SMTP id ffacd0b85a97d-48e6e4f540bmr31194343f8f.18.1793751555202;
+        Tue, 03 Nov 2026 16:19:15 -0800 (PST)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda1fb0esm676676f8f.49.2026.11.03.16.19.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feda1fb0esm676676f8f.49.2026.11.03.16.19.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 16:19:09 -0800 (PST)
+        Tue, 03 Nov 2026 16:19:13 -0800 (PST)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: linux-block@vger.kernel.org,
 	io-uring@vger.kernel.org
@@ -96,10 +97,12 @@ Cc: Sumit Semwal <sumit.semwal@linaro.org>,
 	Nitesh Shetty <nj.shetty@samsung.com>,
 	Kanchan Joshi <joshi.k@samsung.com>,
 	Anuj Gupta <anuj20.g@samsung.com>
-Subject: [PATCH 0/5] allow dma-buf-io ctx reuse across files
-Date: Wed,  4 Nov 2026 00:18:56 +0000
-Message-ID: <cover.1793751001.git.asml.silence@gmail.com>
+Subject: [PATCH 1/5] dma-buf-io: add tags for sharing ctx b/w files
+Date: Wed,  4 Nov 2026 00:18:57 +0000
+Message-ID: <9fc301319428c6c47fa183ff90d60abcca8ea63b.1793751001.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <cover.1793751001.git.asml.silence@gmail.com>
+References: <cover.1793751001.git.asml.silence@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -111,35 +114,103 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently, dma-buf maps can only be used by the file they were
-registered with. This means that we can't open a new file, even if it
-comes from the same subsystem and point to the same block device and
-use it with an old dma-buf registration. That would be too restrictive
-for upcoming filsystem support, so lift it now and allow reusing
-contexts between files pointing to the same NVMe, even if they refer
-to different partitions.
+Currently, it's only allowed to pass a ctx to the file it was registered
+with, which is enforced on the io_uring side. Going forward we want to
+support filesystems and not just block device files, and it'd be too
+limiting.
 
-To do that, we add a tag representing for each file, save it from
-the file passed during registration and use it to reject files
-which tags don't match it. Tags are set by subsystems creating
-files, should be unique and represent the instance of the
-subsystem.
+Add a dma-buf-io tag to all files. We're going to save a tag of the file
+passed during registration and later use to reject files which tags
+don't match. A tag should be set for a file by the importer subsystem
+implementing ->init_dma_buf_io_ctx on creation and should be unique for
+this instance of the subsystem. For simplicity, we're going to use
+pointers for which we're going to use pointers, e.g. gendisk for block
+files and superblock for filesystems.
 
-Pavel Begunkov (5):
-  dma-buf-io: add tags for sharing ctx b/w files
-  block: set dma-buf-io tag to block files
-  io_uring: add data to dma-buf convertion helpers
-  io_uring/dma-buf: switch to tag file filtering
-  io_uring/dma-buf: get rid of struct io_buf_dma
+This patch adds a new field in struct file to keep a tag, but it can be
+then be switched to a new f_op method.
 
- block/fops.c                 |  1 +
+Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+---
  drivers/dma-buf/dma-buf-io.c |  3 +++
  include/linux/dma-buf-io.h   | 22 ++++++++++++++++++++++
  include/linux/fs.h           |  6 ++++++
- io_uring/dma-buf.c           | 19 +++++--------------
- io_uring/dma-buf.h           | 24 ++++++++++++++----------
- 6 files changed, 51 insertions(+), 24 deletions(-)
+ 3 files changed, 31 insertions(+)
 
+diff --git a/drivers/dma-buf/dma-buf-io.c b/drivers/dma-buf/dma-buf-io.c
+index 8440151de860..60dc58fc0c23 100644
+--- a/drivers/dma-buf/dma-buf-io.c
++++ b/drivers/dma-buf/dma-buf-io.c
+@@ -166,12 +166,15 @@ int dma_buf_io_ctx_create(struct file *file,
+ 
+ 	if (!file->f_op->init_dma_buf_io_ctx)
+ 		return -EOPNOTSUPP;
++	if (WARN_ON(!file->f_dma_io_tag))
++		return -EFAULT;
+ 
+ 	ctx = kzalloc_obj(*ctx);
+ 	if (!ctx)
+ 		return -ENOMEM;
+ 	ctx->dir = dir;
+ 	ctx->dmabuf = dmabuf;
++	ctx->importer_tag = file->f_dma_io_tag;
+ 	get_dma_buf(dmabuf);
+ 
+ 	ret = file->f_op->init_dma_buf_io_ctx(file, ctx);
+diff --git a/include/linux/dma-buf-io.h b/include/linux/dma-buf-io.h
+index d9f27650a851..299edf0baaf3 100644
+--- a/include/linux/dma-buf-io.h
++++ b/include/linux/dma-buf-io.h
+@@ -48,10 +48,32 @@ struct dma_buf_io_ctx {
+ 	enum dma_data_direction			dir;
+ 	bool					is_dead;
+ 
++	/*
++	 * Tags represent an instance of the subsystem the dma-buf I/O
++	 * context is bound to, the set of underlying devices and subsystem
++	 * specific map / context structure representations. Remember the
++	 * registration file's tag (see struct file::f_dma_io_tag) and use
++	 * it to filter out files that don't share it.
++	 */
++	unsigned long				importer_tag;
++
+ 	void					*dev_priv;
+ 	const struct dma_buf_io_ops		*dev_ops;
+ };
+ 
++/**
++ * dma_buf_io_file_compatible - Check compatibility b/w context and file.
++ * @ctx:	[in]	dma-buf I/O context
++ * @file:	[in]	file
++ *
++ * Returns true if the context can be used to issue I/O to the given file.
++ */
++static inline bool dma_buf_io_file_compatible(const struct dma_buf_io_ctx *ctx,
++					      const struct file *file)
++{
++	return file->f_dma_io_tag == ctx->importer_tag;
++}
++
+ int dma_buf_io_ctx_create(struct file *file,
+ 			   struct dma_buf *dmabuf,
+ 			   enum dma_data_direction dir,
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index 99caef43ff3c..a9bb63cf6f9d 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -1293,6 +1293,12 @@ struct file {
+ 		freeptr_t		f_freeptr;
+ 	};
+ 	file_ref_t			f_ref;
++
++	/*
++	 * A tag representing the underlying subsystem for dma-buf I/O.
++	 * See struct dma_buf_io_ctx::importer_tag.
++	 */
++	unsigned long			f_dma_io_tag;
+ 	/* --- cacheline 3 boundary (192 bytes) --- */
+ } __randomize_layout
+   __attribute__((aligned(4)));	/* lest something weird decides that 2 is OK */
 -- 
 2.54.0
 
