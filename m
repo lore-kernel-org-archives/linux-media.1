@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801588;
-	b=n/e1Rvf+e9Tq3R5+fddTSKZArY9XuDB1IZjWfJNpWkkCBnHl81qL6aLtQU5Tj4vhbOnj
-	 OyWxaD0MAmlfKrxQPIO+2pgXdsYeKVIZmwoEdOB6NxxtxAT+bmPgv6JCNcHa2VtWezCCo
-	 so6PzBzym++ajsf0CCmcwbOY8fjUwm/NyA+UMBQ1k6GaiBkLinubSup59xcWOR378XguU
-	 h+NR9z1jHk+KLmUcwrmVtsF59QZ0H3m1FJBn0WajoZt74IbflCrChxeOShIi0x8UwrPnL
-	 nLmJnnEzXp35aH7P+L7l5S9ljhQsWUCgeoJzJiQbZWSw96DihRkVl2rgJbJSrQ4IFWw==
+	t=1793801602;
+	b=Rguo4FdfvvxuGoM5wqZcjjx1+3h0fMtoSu1awVwdyDzYOZ+HPSuKB+qTEwA+Vl8Q79cZ
+	 3CSe9iAzGaIpq5NOw8r1bPXGQEfBmFABYCUdOrajIICFTs7o3eks71mBwL30GJBvUS677
+	 823cL+2MTX1KelNy6Hfp04Mj/emlbu8vNJYK+CFLXwuHtq0bCb9rBiTRlt7tzaUexg4i8
+	 wg9aKtThCiIldjbxKUIR+U4hElXLCm/eFWaLXSdZl4oLObnwn7hFA8poqIOkLkqi1Rz6E
+	 D1KgEkd7P8IX7d0R7NYr3nDq3LP1ydcWZ71PkBScoCdziz2Ta/GKCwzucCxqtjCsDYQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801588;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793801602;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
 	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=7gYZ+EiHzdZ0kEX5Acc8nrWgIeWvJewVbncRfE2fPPI=;
-	b=DEXPSR5gBiDPhGwRt2zn8UjBDPGfoOZya2fy1lmJq5iz/LVkj1R0jinNKQLQYbmxip5k
-	 eW3TjMCz4+Ek286cKZkORjwt0VgTSsTtfBevmeF3E1K0Dd136g2tk0Ph8dos7fjtwzwOy
-	 VmTVXFwmcX42b7I1+aJQde43z/KDqK/yqW+eku9l43swSZMw/VxPAcbUXpA+B03oIrog4
-	 7CLv0d1fU/mQMMTCl0XasU5heMq+P9NYXQ3yKON26R692vEqatHS5eTBVilzQBV6kNtI9
-	 l4s89RgLqWxbC1A4zneFMq39QoOqQvwh3JcYUiMnqUzm5x8XeO1nBxwKiX9sgYl0twA==
+	bh=OK43RD7KB8YCCbSj8Xdu8lG0LPOf9mPvhkSzEL014WQ=;
+	b=XLgyAr9FQN2HlR9GheCqAr6UMS00b65f1kyTcFQUIeUxGg5iCfH/yPA5EuMW7U7PbAAm
+	 b2cbnI/0NpydlAE9KPSz7GYgO5CERFiU/lypQELNWiAVfk/1mOYiq6ByqmtVwGqpBjeGv
+	 5Mv5ZzwC9M6dqdRX9i+OEdwa/TxvnxylhuGfXUJeW3RvdkaeWhyNo4/ePNyes8ih/VC8B
+	 hGvp3gaN9Db/nRIHs7eyCw/oH7VQJH2reWRuehXYDjWuAaKW8SFBaNEtHaE7JNsOFeEFA
+	 XZgO+/TKHm6eEcv8w+oqf3HfGSmVdhVG3pOtTDSjjuuIXEwFtNe7391m5bNn67L515Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=XxGgyVo6;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=PLyT1GCY;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0394606A33C;
-	Wed,  4 Nov 2026 14:13:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0394606A33C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B957606D824;
+	Wed,  4 Nov 2026 14:13:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B957606D824
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=XxGgyVo6
-ARC-Seal: i=1; a=rsa-sha256; t=1793801539; cv=none; 
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=PLyT1GCY
+ARC-Seal: i=1; a=rsa-sha256; t=1793801560; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=fAL2jrSe7HaEC2dQAFelqZk8zmqDyYl9W8ooaM9ZVqdOomxmWyM+QMR5d2czVvIKTcovFg3vLqxNsmStW+MUbpPHuFHc4kJTO3WQ6ShxSk6CEM7CiUt91zpDYFM24dp8jotJTUbCy0qGpE4IyOXNbNWlTfR6zvZUQiRFIiXR9rc=
+	b=eBBIFyGc4iaIfE6XS/9kQmuDtfY2z4LQlkj8tlu6SHMwtx44/R1Q2d/FlOe1xndGPf2oByWf4UkwVv29Wb+fI8hMyEnrTRNm2jSN/TYcpZXMeNeSWFscmyWLFYeM1ep7wkETZ2Br1g6kIKGC+F2UDphcNZM3+6lcCM3ig6+Wa1c=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801539; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=7gYZ+EiHzdZ0kEX5Acc8nrWgIeWvJewVbncRfE2fPPI=; 
-	b=D66XhaxnLm8DMxTzEZY1kPgmVAMh+Q5kix6hz/S7JYO0YizDaj3V4a4cxDGnvAZnS5QQTswS2QHVqJDpVYVhUzKUuUxOP6f5PxX5oWzcfX2WX/FFKkKZh0nJGS9czuxO9jYmOdMVCdNPtfjaclQpGuf5GgxWx69AgK3RC8b3w/0=
+	t=1793801560; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=OK43RD7KB8YCCbSj8Xdu8lG0LPOf9mPvhkSzEL014WQ=; 
+	b=DYSnAXXSyePjdLO0FiX+T99c64tPOU2O8D3QepW7Yp5VWhV8qcpIRPrErdg9hOvGysnKXREqaXI5hR4G+ZtIEdYoHdXjDnTO7D4jPug4hUNOqDpftwR/XrRnDGzj+tGbkZU2d4eJLk4/Qd2bipkJTqkUFmKEpwdf2JGAcNTiBy8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
 	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=XxGgyVo66FaCUkaW62/wNs7neFIe5KF7QGLd8kwQwjK6EX8BWL8TJap9urEBlLGCL6BAqfYygz7CoPkY0hyVh2i2QrVR3Mtu7zAr8SylZfqwbbToTsI1ZGJ/H+NnLYt5U24vXhEkk8DhojAcv2m/n/b39CJFfAYsiT+Ro+ia3lg=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=7gYZ+EiHzdZ0kEX5Acc8nrWgIeWvJewVbncRfE2fPPI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179380153634836.9526638878134;
-	Wed, 4 Nov 2026 06:12:16 -0800 (PST)
-Message-ID: <7a1868dc-0bd7-4f5e-a6bd-6f7d06420ddb@collabora.com>
-Date: Wed, 4 Nov 2026 17:12:12 +0300
+DKIM-Signature: a=rsa-sha256; b=PLyT1GCYmJe4RNsWqhJ4WrKcdMUMVroxB21Mw8puLCcwVYQIGZTe9VCfQ3z+kmqacxUrc2LKczphm1iwOawOv/6U2xDG6rJmxGUz3z7YFvBLsmWpWUb/sZnoWMrAVxrY4xR4fB3ZTjjKt7zt+EYzrlCA3JvTGcTgSdqcoVCyPto=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=OK43RD7KB8YCCbSj8Xdu8lG0LPOf9mPvhkSzEL014WQ=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793801556572164.68419808829083;
+	Wed, 4 Nov 2026 06:12:36 -0800 (PST)
+Message-ID: <fe1c9fc6-53b8-461c-a183-411e4bc85eea@collabora.com>
+Date: Wed, 4 Nov 2026 17:12:31 +0300
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,8 +59,8 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/10] media: synopsys: hdmirx: add async subdevice
- support
+Subject: Re: [PATCH v3 06/10] media: synopsys: hdmirx: give the signal lock
+ wait a real timeout
 To: Sascha Hauer <s.hauer@pengutronix.de>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -72,10 +72,10 @@ Cc: Gerald Loacker <gerald.loacker@wolfvision.net>,
  devicetree@vger.kernel.org, kernel@collabora.com,
  linux-kernel@vger.kernel.org
 References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-5-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-6-71a11a2e3e76@pengutronix.de>
 Content-Language: en-US
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20261005-hdmirx-media-v3-5-71a11a2e3e76@pengutronix.de>
+In-Reply-To: <20261005-hdmirx-media-v3-6-71a11a2e3e76@pengutronix.de>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
@@ -83,217 +83,98 @@ X-ZohoMailClient: External
 On 10/5/26 16:28, Sascha Hauer wrote:
 > From: Gerald Loacker <gerald.loacker@wolfvision.net>
 > 
-> Add V4L2 async notifier support to enable dynamic binding of connected
-> subdevices in the video pipeline. The driver parses device-tree endpoints
-> to discover and register video bridge subdevices.
+> hdmirx_wait_signal_lock() bounded itself by a count of 300 iterations.
+> How long that came to depended on the debounce inside
+> tx_5v_power_present(), which the loop calls once per iteration and which
+> sleeps about 7ms of it, so the effective timeout was around two seconds
+> by accident rather than by design.
 > 
-> When a subdevice is bound, a media link is created between its output pad
-> and the HDMI RX sink pad. Subdevice nodes are registered once binding
-> completes, making them accessible from userspace.
+> That accident is about to go away. A later patch in this series takes the
+> 5V state from an upstream subdev where the board has no hpd-gpios, which
+> leaves tx_5v_power_present() a plain read of a flag costing microseconds.
+> The same 300 iterations would then be over in a few milliseconds and the
+> wait would give up almost immediately.
 > 
-> If no endpoint is defined in the device tree, the driver operates in
-> standalone mode and registers its subdevice nodes directly, maintaining
-> backward compatibility with simpler configurations.
+> Poll on a fixed 10ms interval against an explicit three second deadline.
+> Check the deadline after the 5V test so a disconnect is still reported as
+> -ENOLINK rather than a timeout, and report the timeout as -ETIMEDOUT; the
+> sole caller only tests for non-zero, so neither is a change in behaviour.
 > 
-> The notifier itself is unregistered on the way out whether or not a
-> subdevice ever bound. Only v4l2_async_nf_unregister() takes the notifier
-> off the global list, so cleaning up without it would leave an entry
-> pointing into memory devres is about to free. Both calls are no-ops when
-> there was no endpoint to watch.
-> 
-> Ask the bound subdevice which of its pads faces us rather than assuming
-> the second one. media_create_pad_link() warns and fails on an index the
-> entity does not have, which a bridge with a single pad would hit.
-> 
-> V4L2_ASYNC has to be selected now that the driver calls the notifier
-> helpers. v4l2-async.h has no stubs for them, and nothing else the driver
-> already selects pulls the symbol in.
-> 
-> The media device is already registered when the subdevice binds, so
-> userspace can be walking the graph under graph_mutex while the link is
-> added. media_create_pad_link() does not take the lock itself; take it
-> around the call.
-> 
-> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
 > Assisted-by: LLM
+> Signed-off-by: Gerald Loacker <gerald.loacker@wolfvision.net>
 > Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 > ---
->   drivers/media/platform/synopsys/hdmirx/Kconfig     |  1 +
->   .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 92 +++++++++++++++++++++-
->   2 files changed, 92 insertions(+), 1 deletion(-)
+>   .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 40 +++++++++++++++-------
+>   1 file changed, 28 insertions(+), 12 deletions(-)
 > 
-> diff --git a/drivers/media/platform/synopsys/hdmirx/Kconfig b/drivers/media/platform/synopsys/hdmirx/Kconfig
-> index 4321f985f6320..598c303eba8d0 100644
-> --- a/drivers/media/platform/synopsys/hdmirx/Kconfig
-> +++ b/drivers/media/platform/synopsys/hdmirx/Kconfig
-> @@ -5,6 +5,7 @@ config VIDEO_SYNOPSYS_HDMIRX
->   	depends on ARCH_ROCKCHIP || COMPILE_TEST
->   	depends on VIDEO_DEV
->   	select MEDIA_CONTROLLER
-> +	select V4L2_ASYNC
->   	select VIDEO_V4L2_SUBDEV_API
->   	select VIDEOBUF2_DMA_CONTIG
->   	select CEC_CORE
 > diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> index 9891e0f3874ea..6231bb28616c1 100644
+> index 6231bb28616c1..a28eb86e0b83c 100644
 > --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
 > +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
-> @@ -20,6 +20,7 @@
->   #include <linux/math64.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
-> +#include <linux/of_graph.h>
->   #include <linux/of_platform.h>
->   #include <linux/of_reserved_mem.h>
->   #include <linux/pinctrl/consumer.h>
-> @@ -32,12 +33,14 @@
->   
->   #include <media/cec.h>
->   #include <media/media-device.h>
-> +#include <media/v4l2-async.h>
->   #include <media/v4l2-common.h>
->   #include <media/v4l2-ctrls.h>
->   #include <media/v4l2-device.h>
->   #include <media/v4l2-dv-timings.h>
->   #include <media/v4l2-event.h>
->   #include <media/v4l2-fh.h>
-> +#include <media/v4l2-fwnode.h>
->   #include <media/v4l2-ioctl.h>
->   #include <media/videobuf2-dma-contig.h>
->   #include <media/videobuf2-v4l2.h>
-> @@ -126,6 +129,7 @@ struct snps_hdmirx_dev {
->   	struct v4l2_device v4l2_dev;
->   	struct media_device mdev;
->   	struct media_pad pad;
-> +	struct v4l2_async_notifier notifier;
->   	struct v4l2_ctrl_handler hdl;
->   	struct v4l2_ctrl *detect_tx_5v_ctrl;
->   	struct v4l2_ctrl *rgb_range;
-> @@ -2656,6 +2660,50 @@ static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
->   	kfree(hdmirx_dev);
+> @@ -2129,13 +2129,25 @@ static irqreturn_t hdmirx_dma_irq_handler(int irq, void *dev_id)
+>   	return IRQ_HANDLED;
 >   }
 >   
-> +static int hdmirx_fwnode_bound(struct v4l2_async_notifier *notifier,
-> +			       struct v4l2_subdev *subdev,
-> +			       struct v4l2_async_connection *asc)
-> +{
-> +	struct snps_hdmirx_dev *hdmirx_dev =
-> +		container_of(notifier, struct snps_hdmirx_dev, notifier);
-> +	int source_pad;
-> +	int ret;
-> +
-> +	source_pad = media_entity_get_fwnode_pad(&subdev->entity,
-> +						 asc->match.fwnode,
-> +						 MEDIA_PAD_FL_SOURCE);
-> +	if (source_pad < 0) {
-> +		dev_err(hdmirx_dev->dev, "%s has no source pad for %pfw: %d\n",
-> +			subdev->name, asc->match.fwnode, source_pad);
-> +		return source_pad;
-> +	}
-> +
-> +	mutex_lock(&hdmirx_dev->mdev.graph_mutex);
-> +	ret = media_create_pad_link(&subdev->entity, source_pad,
-> +				    &hdmirx_dev->stream.vdev.entity, 0,
-> +				    MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE);
-> +	mutex_unlock(&hdmirx_dev->mdev.graph_mutex);
-> +	if (ret) {
-> +		dev_err(hdmirx_dev->dev, "Failed to create media link: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int hdmirx_fwnode_complete(struct v4l2_async_notifier *notifier)
-> +{
-> +	struct snps_hdmirx_dev *hdmirx_dev =
-> +		container_of(notifier, struct snps_hdmirx_dev, notifier);
-> +
-> +	return v4l2_device_register_subdev_nodes(&hdmirx_dev->v4l2_dev);
-> +}
-> +
-> +static const struct v4l2_async_notifier_operations hdmirx_async_ops = {
-> +	.bound = hdmirx_fwnode_bound,
-> +	.complete = hdmirx_fwnode_complete,
-> +};
-> +
->   static int hdmirx_probe(struct platform_device *pdev)
+> +/*
+> + * Wait for the HDMI signal to lock: TMDS clock detection and ratio
+> + * configuration, then PHY and CMU lock, then DMA lock.
+> + *
+> + * The wait used to be bounded by a count of 300 iterations. What that came
+> + * to in wall clock time was decided by the debounce inside
+> + * tx_5v_power_present(), which is called once per iteration and sleeps
+> + * about 7ms of it, so the real timeout was an accident of how 5V happens to
+> + * be sensed. Poll on a fixed interval against an explicit deadline instead.
+> + */
+>   static int hdmirx_wait_signal_lock(struct snps_hdmirx_dev *hdmirx_dev)
 >   {
->   	struct snps_hdmirx_dev *hdmirx_dev;
-> @@ -2663,6 +2711,8 @@ static int hdmirx_probe(struct platform_device *pdev)
->   	struct v4l2_ctrl_handler *hdl;
->   	struct hdmirx_stream *stream;
->   	struct v4l2_device *v4l2_dev;
-> +	struct device_node *ep_node;
-> +	struct v4l2_async_connection *asc;
->   	int ret;
+>   	struct v4l2_device *v4l2_dev = &hdmirx_dev->v4l2_dev;
+>   	u32 mu_status, scdc_status, dma_st10, cmu_st;
+> -	u32 i;
+> +	unsigned long timeout;
+> +
+> +	timeout = jiffies + msecs_to_jiffies(3000);
 >   
->   	hdmirx_dev = kzalloc_obj(*hdmirx_dev);
-> @@ -2782,9 +2832,38 @@ static int hdmirx_probe(struct platform_device *pdev)
->   		goto err_unreg_video_dev;
+> -	for (i = 0; i < 300; i++) {
+> +	for (;;) {
+>   		mu_status = hdmirx_readl(hdmirx_dev, MAINUNIT_STATUS);
+>   		scdc_status = hdmirx_readl(hdmirx_dev, SCDC_REGBANK_STATUS3);
+>   		dma_st10 = hdmirx_readl(hdmirx_dev, DMA_STATUS10);
+> @@ -2149,21 +2161,25 @@ static int hdmirx_wait_signal_lock(struct snps_hdmirx_dev *hdmirx_dev)
+>   		if (!tx_5v_power_present(hdmirx_dev)) {
+>   			v4l2_dbg(1, debug, v4l2_dev,
+>   				 "%s: HDMI pull out, return\n", __func__);
+> -			return -1;
+> +			return -ENOLINK;
+>   		}
+>   
+> -		hdmirx_tmds_clk_ratio_config(hdmirx_dev);
+> -	}
+> +		if (time_after(jiffies, timeout)) {
+> +			v4l2_err(v4l2_dev,
+> +				 "%s: signal not lock, tmds_clk_ratio:%d\n",
+> +				 __func__, hdmirx_dev->tmds_clk_ratio);
+> +			v4l2_err(v4l2_dev,
+> +				 "%s: mu_st:%#x, scdc_st:%#x, dma_st10:%#x, cmu_st:%#x\n",
+> +				 __func__, mu_status, scdc_status, dma_st10,
+> +				 cmu_st);
+> +			return -ETIMEDOUT;
+> +		}
+>   
+> -	if (i == 300) {
+> -		v4l2_err(v4l2_dev, "%s: signal not lock, tmds_clk_ratio:%d\n",
+> -			 __func__, hdmirx_dev->tmds_clk_ratio);
+> -		v4l2_err(v4l2_dev, "%s: mu_st:%#x, scdc_st:%#x, dma_st10:%#x\n",
+> -			 __func__, mu_status, scdc_status, dma_st10);
+> -		return -1;
+> +		hdmirx_tmds_clk_ratio_config(hdmirx_dev);
+> +		usleep_range(10000, 11000);
 >   	}
 >   
-> +	ep_node = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
-> +	if (ep_node) {
-> +		v4l2_async_nf_init(&hdmirx_dev->notifier, &hdmirx_dev->v4l2_dev);
-> +		hdmirx_dev->notifier.ops = &hdmirx_async_ops;
-> +
-> +		asc = v4l2_async_nf_add_fwnode_remote(&hdmirx_dev->notifier,
-> +						      of_fwnode_handle(ep_node),
-> +						      struct v4l2_async_connection);
-> +		of_node_put(ep_node);
-> +
-> +		if (IS_ERR(asc)) {
-> +			ret = PTR_ERR(asc);
-> +			dev_err_probe(dev, ret, "Failed to add remote fwnode\n");
-> +			goto err_unreg_media;
-> +		}
-> +
-> +		ret = v4l2_async_nf_register(&hdmirx_dev->notifier);
-> +		if (ret) {
-> +			dev_err_probe(dev, ret, "Failed to register async notifier\n");
-> +			goto err_cleanup_notifier;
-> +		}
-> +	} else {
-> +		ret = v4l2_device_register_subdev_nodes(&hdmirx_dev->v4l2_dev);
-> +		if (ret) {
-> +			dev_err_probe(dev, ret, "Failed to register subdev nodes\n");
-> +			goto err_unreg_media;
-> +		}
-> +	}
-> +
->   	ret = hdmirx_register_cec(hdmirx_dev, pdev);
->   	if (ret)
-> -		goto err_unreg_media;
-> +		goto err_unreg_notifier;
+> -	v4l2_dbg(1, debug, v4l2_dev, "%s: signal lock ok, i:%d\n", __func__, i);
+> +	v4l2_dbg(1, debug, v4l2_dev, "%s: signal lock ok\n", __func__);
+>   	hdmirx_writel(hdmirx_dev, GLOBAL_SWRESET_REQUEST, DATAPATH_SWRESETREQ);
 >   
->   	hdmirx_load_default_edid(hdmirx_dev);
->   
-> @@ -2799,6 +2878,10 @@ static int hdmirx_probe(struct platform_device *pdev)
->   
->   	return 0;
->   
-> +err_unreg_notifier:
-> +	v4l2_async_nf_unregister(&hdmirx_dev->notifier);
-> +err_cleanup_notifier:
-> +	v4l2_async_nf_cleanup(&hdmirx_dev->notifier);
->   err_unreg_media:
->   	media_device_unregister(&hdmirx_dev->mdev);
->   err_unreg_video_dev:
-> @@ -2833,6 +2916,13 @@ static void hdmirx_remove(struct platform_device *pdev)
->   
->   	hdmirx_disable_irq(dev);
->   
-> +	/*
-> +	 * Both are no-ops when there was no endpoint to watch: the notifier is
-> +	 * zeroed and neither v4l2_dev nor waiting_list is set.
-> +	 */
-> +	v4l2_async_nf_unregister(&hdmirx_dev->notifier);
-> +	v4l2_async_nf_cleanup(&hdmirx_dev->notifier);
-> +
->   	media_device_unregister(&hdmirx_dev->mdev);
->   
->   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+>   	reinit_completion(&hdmirx_dev->avi_pkt_rcv);
 > 
 
 Acked-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
