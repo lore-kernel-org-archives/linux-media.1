@@ -1,124 +1,123 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793787414;
-	b=0Ra34nPoz9Vqza8z9y20aHo1qvlVXPG02gpfpfu3Wn2VSGVMvREE4WLwWorKzAactCM7
-	 hS+5I/KwFWVnpZd85KlYG8Hx2k8GLRsW+e145KgCqmRVSkYgE5CPGQ7T9x8XS18UfMSG8
-	 NSNq/Qh5bIlvjQimZ2+6rwI95tdHlgvMWzj8dbv+sjpJiR7j8kOk2hBACxQWQEpB/CKOw
-	 viB+S7cLt7Zyhfp04jbil6zCCuckhgUxfXhAO7RxF7Jnxe8+fhc86ldieA/Uwj9rKmKVy
-	 ZGvv/Abno1ZQWWUJ5+V5Pblj9ZDb6X9ISmriVBoFtBIjKuPRcwz4Jt3hrhxd6CWL7Ag==
+	t=1793787467;
+	b=Ygfw1WCO8LMXSXgPbZPzl5hEZsQ4hro47NhPgYAqYkNnlo5Tal3qpgaK17T20v3Xui1X
+	 OeprIbtk/nflmwYoPBbJCQYEd+LwKoBMLvtLOmbfn9os+WKca+tG9zEETLv5mu1hGdwpc
+	 D8Abh8rwMUCDkuqcLnXo3Odyq7H6+vVJo70PmiXD6bGuKeEgb5m+r8pKTFNWEneyOBuSt
+	 dUb0FAzsExvx7O/R7BKlZs4G4an7nLS94E1SHAm08fwdq1CYNvO+sIToZrxKn6r8Ks1w9
+	 pGxonc2tsde+FtkzpeRhYNaEd9agJdCnSgSV6PfbcRD31gcdiYQN1kbmPRb7jRCvwyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793787414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793787467;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
 	 In-Reply-To;
-	bh=MO9dn/rUlk47gF3Nf/n7DAOpGwajqFtl3TFgElSqhts=;
-	b=1jPvKtSKdbXyPCCuZpk8Nm+hD+OGlOqdale6vIDxdiDurawXLw9BCNApVUZ8rQZmKQiC
-	 0HyeN/JkWBpd8Mwt6AQ24NmQwBGlwqLfbIfAQncuBr/7x/Idr8LSWCPLqksm63bxtXbfH
-	 02oAv7XmLQHlKrGNctF5HFlktsjY7KuZSGoQi6bDEdm0WbtPbUBj7pug5u/EQQT7RfhQP
-	 +TG7ZjkfoowwM0OqbS2mGVCaRKm1lnFNtsCS3qTt+42un25Z5RP7O7GtAI2MbCzS4TVqI
-	 4mmnCY4OrkncoCbnKU+UrJBEo0cFRiLZBxzjuSRuc5HuAHqbodWRYI3wJf8p52Itx0Q==
+	bh=1XGxknx38iita4aBuirFY7cY1mNxkLKIbhA7esm2VOI=;
+	b=PloC4LfA6W0lO9PmtVdCe1z9Gfxy5rFohjrXbIGF2m1YSNXQ7CxwlOm3wuoFPjFydd1o
+	 ZDz/qNosRMdGeKD9OnzBaNzfShlHtBE1XSxoyTMlmzxJCyEkb0CDS9goacV7Cawpbm9RY
+	 CLm5d1HQKy84SIS7uh0a0N8VSK7w+E25U1e1Z7zgUphj9geljYZxhl4d2PU1ajSkurdZb
+	 h9Ty5KndVBHfUBq7tRLHC+Bx1APxzj0OBA+igX6bNBy2zlgzk8XvFq9EQF7PnNGnk4WPK
+	 qpCQN59V63qjcCOB9ruBKp7PelwJl8xnr6U9w7KPGfNN2t6k5LL0yUetI3gBoOLga+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=ragnatech.se;
 	spf=pass smtp.mailfrom=ragnatech.se;
-	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=FJnh91su;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="dF/nXN9j";
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=dtGvfkq1;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rloca6vs;
 	arc=none smtp.remote-ip=103.168.172.149
 Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328E1606A32E
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 10:16:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 328E1606A32E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96902606A334
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 10:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96902606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=FJnh91su;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=dF/nXN9j
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 5BC80EC024A
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 05:16:52 -0500 (EST)
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=dtGvfkq1;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=rloca6vs
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.phl.internal (Postfix) with ESMTP id D0477EC0242
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 05:17:45 -0500 (EST)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 04 Nov 2026 05:16:52 -0500
+  by phl-compute-05.internal (MEProxy); Wed, 04 Nov 2026 05:17:45 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
 	cc:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793787412;
-	 x=1793873812; bh=MO9dn/rUlk47gF3Nf/n7DAOpGwajqFtl3TFgElSqhts=; b=
-	FJnh91suDiJmhOJmQSc3/OEnW6fHhJb0vw2PfnzQQBczxKLdlS+wgYRVKCRaQ/pF
-	WRHPDDJaRIZqw+d7PLkb5XQWuFD08MiHLZKrUUWt+nypgBj+aTtO4r2ssDIeIKUs
-	lB3tI0ihG0P2nuCpeyXz/KsHOfDU5whYb/zOx7q4ThEBmz6+j+6skjo4Qhhi+XAk
-	LEdHCPDRHTrJza5kALtS1Ne2pdDplth91yPnEVZu7u4qScWjh56QSaO3DUpZRhzc
-	KCmtkzfS4po38Ugl8OqV3WfP9RcXmvZMTj5gQymMR/RLwsmRnROeH1QtzjWQcdeO
-	jTd1SLH33TuvUr5zck8p4g==
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793787465;
+	 x=1793873865; bh=1XGxknx38iita4aBuirFY7cY1mNxkLKIbhA7esm2VOI=; b=
+	dtGvfkq14t6Jyae47FPeup11jSOx2R8vG5ciclGpn3TDA3pYvCf5tLVkipk4y6D+
+	9s09Zs1+/bY6zYjLTth1c0igMdhzT1v1v4imueZvq2GHHF+nzEm1KFuXcMiS7DuI
+	4qZSEKju0FL+44yq/UYe+4mFhkhAGVMATTVKiSY1/YEOWtwlflSgat34+LPjgNgI
+	XnpMhC2lHSqkfhimuvr49Ez8ywpfBQN7EBPlDy/xN/g20G0rwyREp8JMkvZxT2IB
+	CGhPcAGES/zAPleSU3O/CwS8CwgqwGM5KfcZ17TlsV+aPNve86ni45H/1fHuYlUo
+	vOBSGpMwH/js8bmDjjAnWg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793787412; x=
-	1793873812; bh=MO9dn/rUlk47gF3Nf/n7DAOpGwajqFtl3TFgElSqhts=; b=d
-	F/nXN9jCLxkwU81hXH9v8FMHt0IpvJ+pRZuSImozus0r9bpo3gBnRulyOMc+4YSV
-	13kIIRoCzF3/9xrKLBPEEbN7CNQPM4u/bdQPpL4yxgiR2HJ9/45gKmSr88HqXWMe
-	ay0EaT5v9mIA6GVDRPv3RJHHPCDMHShYl5WxiWhDmDW2ORz1ASPqWNvFszE1yNig
-	eoRalOc3B2T7sK3VNypvAqcCQF5Tz+pVCpWe45Je74QjH4UcIF2Jvs7iQRoZQ3yR
-	uayD8qLenN3xenD/aC4VtLGGb3V8Uru1dv0X1SdY7jUV2fXBwmVv1RKdn+tWERAl
-	DTJJmTwDRhb8c4q9fAnbA==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793787465; x=
+	1793873865; bh=1XGxknx38iita4aBuirFY7cY1mNxkLKIbhA7esm2VOI=; b=r
+	loca6vsIyobcFXkCyJESlDxZSBEyZwVTHdL1EVYveyzSk5j3K6T6PXrz2yUjgl8p
+	cbXBbFQRLWt9wefyarmhC1v9zs675zhQHxI9BQUZtNQMncfs+RtwajzTO40yFEC/
+	/elxaqGArwK/uLnt8t3/KbEoqN4Reotv8BAWuQ/fq7KFoTvKeDeyQjboPMOJXUM0
+	ZZDQ3HSFozCj1G3W1Nf/pT5vPykp2udHyHDn9fS2k2vckw2nXJGdqOHacGgb5p6w
+	+mERucQ+/YoKYxhCSlzPTrFxJEXyE3tFqcoNFk8HbmCdP+Y99TkyOCBnFX5c3xab
+	UO1swtGasDctANuBJpc8Q==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793787412; d=ragnatech.se;
+DKIM2-Signature: i=1; m=1; t=1793787465; d=ragnatech.se;
 	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
 	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
-	s=fm2:rsa-sha256:KGDMuppSk9Djmk2BDDMLMZPgwn9dLi2UOUmVnx6a7a1wSS1
-	UhzEYXK89qrEN86HJiglXrD9Jozwpb5fVVTws1wplcJPXu3s7HCfL/0JwEb7AUNb
-	X9BPxNnh5f9grEPu0nBsz46/OZSGUwPqaUiSAQTqSkQFHhfD5+B8y62P3V0HIBrl
-	v5jKBmAocr8kJkCmwcVdJtASenJhzeisqJ1D3d2kJ3AyoTzeM5Z5xhfI727mKaXN
-	PFJr9032Vob51Sz+31Qws6xm5eE/UMeHTn0VqBiGBBrTaQnPbnh9vmLNpR1uO3QC
-	8NsogO7apgOUxmrleSL9eIGwpAZAi1U46m0qdGQ==;
+	s=fm2:rsa-sha256:VqDiswVrrAl3eAd17Ug+Mbue4A/lL4Q6hUE3FecAHvly7E9
+	9QX8UBtx22AUjnFvRLy9PoHW2YaXCDKr7/mggkHNEdqojHYDljvvt2oe87baKv9e
+	x9yPsFEp7IWxEmYNvz3Bd7YNlvL9ZZBhrxbhvLLlo2WC8acforafhYaikvUlnA26
+	TGMclrzltW9SH8znPCKpSbvGlFHq7ZnWF0jG3Jp1PgDMul9On6oZxddNQt7h/6VL
+	e+pWJU65QW8fWFWvdGJI9HmaPDwe/Vu7/xEBU7337aTVWqZ6JXCVS8HbZ288MGcG
+	5bpiRJpVR0uhTigwp/ffsRQkywTkFr2LY5Fc6AQ==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=mi-m=1; hc=13;
 	hn=cc,content-disposition,content-transfer-encoding,
 	content-type,date,feedback-id,from,in-reply-to,message-id,
 	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:3LPYuJLsUoS91hAT9vk34McE1bJaeBU0GjedpB3nOk8=:L5AIcWmMt3Gsmkh3kQe+DL+Z66pgue3rpXSc0DDW9NI=;
-X-ME-Sender: <xms:EwbramIWNDqLJ29m-QXIClUOPTBy7BouFNfw8fXsekazowNwdBaefA>
-    <xme:EwbrancDjxYSKxcSjSj9MU6h-SxqOFwxDjScNc535bPETn_vM5HxtDKweIkJo6EjH
-    RMJgHBCmF8formS4JbXaZrQgZi47GoA9sfb92G6cYvJARkAQ4goZnU>
-X-ME-Received: <xmr:Ewbrat8yK-KprZDWgvtlJ6RZHpAMQXr9h6O_Z6PFk1AsRG9aXiiAmxRzgMCIp1YZjH4wymypZzA82qx9T9_63oDl4yFfxYI>
+Message-Instance: m=1; h=sha256:tt/DLq1Auh3JBvYHYHfmKYS59MBl5mGxCRZ9q1vWP/4=:gk/MiHGm+xWFv64u3rGl0I56A6sXbFfljZw7K7+QOkM=;
+X-ME-Sender: <xms:SQbranxYoXKALuGVMgcOSckJO0uQhO91yT6RcNRRXnSInPc7zfkcXg>
+    <xme:SQbraomEb8JySX5jt8Pyl8a57xvwnfHRL8Px4bKr0q_pUwDZPZa9ojV_HHRLFIPvN
+    wgrjo7w4e26dB0DX1QpSuCWNKJY1o6ZqGqfhipK--otfo9r7XgJ6nc>
+X-ME-Received: <xmr:SQbraolTUF3Cmwd5qFFN8a99r0kbaYJ_TW97PmpoNNjJyPRhmEuKX_Ev8002SbpfIivx51TPNVprm_-3Ojdb82rjNmgKvmY>
 X-ME-Proxy-Cause: dmFkZTFfm/RC6/6LU9GkNORhYSSmMT3EckT7JuaOFqfDQ1/yLI3YXgEgonEql4M3a2BcaU
     WxbThdnRZ/ZMQDBurAa0vmp9QukznxvoFlRefxakUqPBswYCe3AFYaxwLds0bhMOJ9fq+1
     QfeWyUHd02BQWbEzGnkg5HnI88w9QLV2SyyNXOWESABBoMP7PJ0W7IL0TJRptSt0qwvU3x
     2bTHEylJp1h015pk9q+EHDcdI9KkDsZySIT8wupNWgQXEOOeskGRxWNva/ESy92q/JDFeg
-    hg5vHQCLSKq1SrmyOqAjoxuJJKZxdOQeK/gysQiPhhc+WG74mspG6p19bCq2eszJHCK8UM
-    L7M9ueS/PKyO2EJL6xxOgn67TCRg18p39SvePWTPEWHeER6lAXTVXfSRAeH6nOwe5CJPej
-    9FEiMwUhM7kB77lt6dkKB+FooLBbIPFcP4REs2+lk7kZ+Pb/Hf9YtAxlyvAK+NzjztWYbJ
-    NDZA3xU7ptx9+5H8sHV5HrqE3Jy2HiF6uJNZ7DOibkO4FibetQIU9nmTj+VQs/ExuiEAau
-    Grrlxa1P0mcwJsN6xoldTcFVq4zOrZATTLK5O7caLef1QgUwl0Bpy9cF1Gw4ad8BuW7bgZ
-    PNNbI80xBT+ZcaOELoNyYDFFeLoJ9LnNq0TCaJHcip021tIsoJtwbWITwlFQ
-X-ME-Proxy: <xmx:Ewbrasoh3fL8B8x_vox8bcqWio1b6zDnfz-2RfiMIIC3DBN_oJP0-g>
-    <xmx:EwbraqBVw3TFmLyXSuagzVcEUNCbtfqjZ2dIr1Oz9QmtGCi4EYw3Mg>
-    <xmx:Ewbramw5Z-QRqhJ-Z8miebLzX9e8JMIkukcLYk47plI94uvgwzyV0w>
-    <xmx:Ewbrav1WXoBcO4DYhDz68CSYSUZjNfNfuKMaKSo7Ob8G0qoNt4TDfg>
-    <xmx:FAbralYRHt2m7ve3H_3rI0B90c4flHVL1MNt0QLjY-jt2DTs8SnN4lnv>
+    hg5vHQCLSKq1SrmyOqAjoxuJJKZxdOQeK/gysQiPhhc+WG74mspG6p19bCq2eszJHCK8La
+    RT3xWqpaGLwQjWAuR3i6CuTlQsr2jcfkH77icaCmKzog0A3RqiSp/PKldmHRvomEmfl8c8
+    bSzpfB4z1/1H52IuJiAX7XL0o7BG+QSIeboOkA6bYwZNnWidtXUA3hOfS9GTd64IsKw+xh
+    MVVlH5rph5W8exzB5/gPqyoiUQVl2DAwenuifV+a3pVQa/VxG7wv3Oqzy4zF6/lsJ6fCUG
+    vFwnNiSAS+s7g62//WvBTlo7XZrlLdKNZjz8VDFjnRUKK/DcFrWdw3rv0KgrwWUfcfWOvM
+    R4i9h9RRrWjmeqAmVclfgKCM4ZVp1LF3r/LG8tW20U4TqGSNFCAIbU4Rfahg
+X-ME-Proxy: <xmx:SQbraizGvEX5pEdzvO-jel2qfPVEeqHYKgGuMSNyNXooPQ1_ON9uSA>
+    <xmx:SQbralpfBDLLv57N9Fw1OpwUDvDsdqAz2MpdQrc0zAAnGpqFocuhWQ>
+    <xmx:SQbrap55TSttyiTf6LGmplFTgbN_Cdzt7eLwH-qU4sOkD0hXNrbzNA>
+    <xmx:SQbrakeYLBgdagy6xB2YKEB_oo7Gz8fjzC-FPdDJtGOHIdl_kGTE2Q>
+    <xmx:SQbravBidOoEfZjKmy7l8_JpGaUMYKixvm8tIr2SzoPUM5U1AgZvvHLv>
 Feedback-ID: i80c9496c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 4 Nov 2026 05:16:51 -0500 (EST)
-Date: Wed, 4 Nov 2026 11:16:46 +0100
+ 4 Nov 2026 05:17:45 -0500 (EST)
+Date: Wed, 4 Nov 2026 11:17:43 +0100
 From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
 To: =?utf-8?Q?Barnab=C3=A1s_P=C5=91cze?= <barnabas.pocze+renesas@ideasonboard.com>
 Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
 	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1] media: rppx1: hist: Adjust configured
- LAST_MEAS_LINE
-Message-ID: <20261104101646.GG1959885@ragnatech.se>
-References: <20261026145223.729289-1-barnabas.pocze+renesas@ideasonboard.com>
+Subject: Re: [PATCH v2 1/2] media: rppx1: Move register definitions to header
+Message-ID: <20261104101743.GH1959885@ragnatech.se>
+References: <20261027174014.315061-1-barnabas.pocze+renesas@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -131,56 +130,231 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261026145223.729289-1-barnabas.pocze+renesas@ideasonboard.com>
+In-Reply-To: <20261027174014.315061-1-barnabas.pocze+renesas@ideasonboard.com>
 
 Hi Barnabás,
 
-Thanks for your work.
+Thanks for your patch.
 
-On 2026-10-26 15:52:23 +0100, Barnabás Pőcze wrote:
-> The `LAST_MEAS_LINE` parameter determines at the end of which line the
-> interrupt is generated. The documentation states that it is usually
-> configured to the last line of the measurement window.
-> 
-> Currently it is programmed such that there is a margin of 2 lines after
-> the last measured line. This is more than what is required by the
-> documentation. So change it to the documentation suggested value.
-> 
-> Note, that this is in contrast to the "exm" module, where the last line
-> needs a margin of two lines on account of the division that is carried
-> out when calculating the average.
+On 2026-10-27 18:40:13 +0100, Barnabás Pőcze wrote:
+> Some definitions will be subsequently used outside of `rppx1.c`,
+> so move the register definitions into `rppx1.h`.
 > 
 > Signed-off-by: Barnabás Pőcze <barnabas.pocze+renesas@ideasonboard.com>
-> ---
-> 
-> While this has worked in my testing, I'm sending this as an RFC because I'm
-> not sure if this is maybe a copy-paste issue from the "exm" module or if
-> someone has noticed scenarios where reality contradicts the documentation.
-
-I have re-checked the documentation and my notes, and most likely this 
-is a copy-paste issue from the exm module. Thanks for fixing this. I 
-have ran this thru my CI on SparrowHawk and no regressions detected.
 
 Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-> 
 > ---
->  drivers/media/platform/dreamchip/rppx1/rppx1_hist.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../media/platform/dreamchip/rppx1/rppx1.c    | 92 -------------------
+>  .../media/platform/dreamchip/rppx1/rppx1.h    | 92 +++++++++++++++++++
+>  2 files changed, 92 insertions(+), 92 deletions(-)
 > 
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_hist.c b/drivers/media/platform/dreamchip/rppx1/rppx1_hist.c
-> index 8fe8cbbc85df7..af82f31e4c86c 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rppx1_hist.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1_hist.c
-> @@ -128,7 +128,7 @@ static int rppx1_hist_fill_params(struct rpp_module *mod,
->  	 * Set last measurement line for ready interrupt. Ignore the value
->  	 * from the parameters as it is only useful for fast-channel switching.
->  	 */
-> -	write(priv, mod->base + HIST_LAST_MEAS_LINE_REG, v_offs + v_size + 1);
-> +	write(priv, mod->base + HIST_LAST_MEAS_LINE_REG, v_offs + v_size - 1);
+> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.c b/drivers/media/platform/dreamchip/rppx1/rppx1.c
+> index c502be7979146..c03dd061783a5 100644
+> --- a/drivers/media/platform/dreamchip/rppx1/rppx1.c
+> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1.c
+> @@ -14,98 +14,6 @@
 >  
->  	/* Set measurement window weights. */
->  	write(priv, mod->base + HIST_WEIGHT_00TO30_REG,
+>  #include "rppx1.h"
+>  
+> -/* RPP_HDR Base Addresses */
+> -#define RPPX1_HDRREGS_BASE			0x0000
+> -#define RPPX1_HDR_IRQ_BASE			0x0200
+> -#define RPPX1_RPP_OUT_BASE			0x0800
+> -#define RPPX1_RPP_RMAP_BASE			0x0c00
+> -#define RPPX1_RPP_RMAP_MEAS_BASE		0x1000
+> -#define RPPX1_RPP_MAIN_PRE1_BASE		0x2000
+> -#define RPPX1_RPP_MAIN_PRE2_BASE		0x4000
+> -#define RPPX1_RPP_MAIN_POST_BASE		0xa000
+> -#define RPPX1_RPP_MVOUT_BASE			0xc000
+> -#define RPPX1_RPP_FUSA_BASE			0xf000
+> -
+> -#define RPPX1_RPP_HDRREGS_VERSION_REG		(RPPX1_HDRREGS_BASE + 0x0000)
+> -
+> -#define RPPX1_RPP_HDR_UPD_REG			(RPPX1_HDRREGS_BASE + 0x0004)
+> -#define RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD	BIT(1)
+> -#define RPPX1_RPP_HDR_UPD_REGS_CFG_UPD		BIT(0)
+> -
+> -#define RPPX1_RESERVED_3_REG			(RPPX1_HDRREGS_BASE + 0x0008)
+> -
+> -#define RPPX1_RPP_HDR_INFORM_ENABLE_REG		(RPPX1_HDRREGS_BASE + 0x000c)
+> -#define RPPX1_RPP_HDR_INFORM_ENABLE_ENABLE	1
+> -#define RPPX1_RPP_HDR_INFORM_ENABLE_DISABLE	0
+> -
+> -#define RPPX1_RPP_HDR_OUT_IF_ON_REG		(RPPX1_HDRREGS_BASE + 0x0010)
+> -#define RPPX1_RPP_HDR_OUT_IF_OFF_REG		(RPPX1_HDRREGS_BASE + 0x0014)
+> -
+> -#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_REG	(RPPX1_HDRREGS_BASE + 0x0018)
+> -#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_ENABLE	1
+> -#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_DISABLE	0
+> -
+> -#define RPPX1_RPP_ISM				(RPPX1_HDR_IRQ_BASE + 0x00)
+> -#define RPPX1_RPP_RIS				(RPPX1_HDR_IRQ_BASE + 0x04)
+> -#define RPPX1_RPP_MIS				(RPPX1_HDR_IRQ_BASE + 0x08)
+> -#define RPPX1_RPP_ISC				(RPPX1_HDR_IRQ_BASE + 0x0c)
+> -
+> -/* RPP_OUT/MV_OUT Pipelines - Base Addresses */
+> -#define RPPX1_GAMMA_OUT_BASE			0x0000 /* HV, MV */
+> -#define RPPX1_IS_BASE				0x00c0 /* HV, MV */
+> -#define RPPX1_CSM_BASE				0x0100 /* HV, MV */
+> -#define RPPX1_OUT_IF_BASE			0x0200 /* HV, MV */
+> -#define RPPX1_RPP_OUTREGS_BASE			0x02c0 /* HV, MV */
+> -#define RPPX1_LUV_BASE				0x0300 /* MV */
+> -
+> -/* PRE1/PRE2/POST Pipelines - Base Addresses */
+> -#define RPPX1_ACQ_BASE				0x0080 /* PRE1, PRE2 */
+> -#define RPPX1_BLS_BASE				0x0100 /* PRE1, PRE2 */
+> -#define RPPX1_GAMMA_IN_BASE			0x0200 /* PRE1, PRE2 */
+> -#define RPPX1_LSC_BASE				0x0400 /* PRE1, PRE2 */
+> -#define RPPX1_AWB_GAIN_BASE			0x0500 /* PRE1, PRE2, POST */
+> -#define RPPX1_DPCC_BASE				0x0600 /* PRE1, PRE2 */
+> -#define RPPX1_DPF_BASE				0x0700 /* PRE1, PRE2 */
+> -#define RPPX1_FILT_BASE				0x0800 /* POST */
+> -#define RPPX1_CAC_BASE				0x0880 /* POST */
+> -#define RPPX1_CCOR_BASE				0x0900 /* POST */
+> -#define RPPX1_HIST_BASE				0x0a00 /* PRE1, PRE2, POST */
+> -#define RPPX1_HIST256_BASE			0x0b00 /* PRE1 */
+> -#define RPPX1_EXM_BASE				0x0c00 /* PRE1, PRE2 */
+> -#define RPPX1_LTM_BASE				0x1000 /* POST */
+> -#define RPPX1_LTM_MEAS_BASE			0x1200 /* POST */
+> -#define RPPX1_WBMEAS_BASE			0x1700 /* POST */
+> -#define RPPX1_BDRGB_BASE			0x1800 /* POST */
+> -#define RPPX1_SHRP_BASE				0x1a00 /* POST */
+> -
+> -/* Functional Safety Module Base Addresses */
+> -#define RPPX1_FMU_BASE				0x0100
+> -
+> -#define RPPX1_RPP_HDR_FMU_FSM_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x00)
+> -#define RPPX1_RPP_HDR_FMU_FSM_FSM_IRQM_FAULT	BIT(23)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE2_SIZE_FAULT	BIT(20)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE2_TIME_FAULT	BIT(19)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE1_SIZE_FAULT	BIT(18)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE1_TIME_FAULT	BIT(17)
+> -#define RPPX1_RPP_HDR_FMU_FSM_SIZE_FAULT	BIT(16)
+> -#define RPPX1_RPP_HDR_FMU_FSM_TIME_FAULT	BIT(15)
+> -#define RPPX1_RPP_HDR_FMU_FSM_MV_OUT_SIZE_FAULT	BIT(14)
+> -#define RPPX1_RPP_HDR_FMU_FSM_MV_OUT_TIME_FAULT	BIT(13)
+> -#define RPPX1_RPP_HDR_FMU_FSM_HV_OUT_SIZE_FAULT	BIT(12)
+> -#define RPPX1_RPP_HDR_FMU_FSM_HV_OUT_TIME_FAULT	BIT(11)
+> -#define RPPX1_RPP_HDR_FMU_FSM_MV_OUT_SIZE_ERR	BIT(10)
+> -#define RPPX1_RPP_HDR_FMU_FSM_IS_OUT_SIZE_ERR	BIT(9)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE2_FIFO_OVFLW	BIT(7)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE1_FIFO_OVFLW	BIT(6)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE1_INFORM_SIZE	BIT(5)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE1_OUTFORM_SIZE	BIT(4)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE2_INFORM_SIZE	BIT(3)
+> -#define RPPX1_RPP_HDR_FMU_FSM_PRE2_OUTFORM_SIZE	BIT(2)
+> -
+> -#define RPPX1_RPP_HDR_FMU_RFS_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x04)
+> -#define RPPX1_RPP_HDR_FMU_MFS_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x08)
+> -#define RPPX1_RPP_HDR_FMU_FSC_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x0c)
+> -
+>  void rppx1_write(struct rppx1 *rpp, u32 offset, u32 value)
+>  {
+>  	iowrite32(value, rpp->base + offset);
+> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1.h b/drivers/media/platform/dreamchip/rppx1/rppx1.h
+> index 3bf3955afbaed..825499f8f709c 100644
+> --- a/drivers/media/platform/dreamchip/rppx1/rppx1.h
+> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1.h
+> @@ -13,6 +13,98 @@
+>  
+>  #include "rpp_module.h"
+>  
+> +/* RPP_HDR Base Addresses */
+> +#define RPPX1_HDRREGS_BASE			0x0000
+> +#define RPPX1_HDR_IRQ_BASE			0x0200
+> +#define RPPX1_RPP_OUT_BASE			0x0800
+> +#define RPPX1_RPP_RMAP_BASE			0x0c00
+> +#define RPPX1_RPP_RMAP_MEAS_BASE		0x1000
+> +#define RPPX1_RPP_MAIN_PRE1_BASE		0x2000
+> +#define RPPX1_RPP_MAIN_PRE2_BASE		0x4000
+> +#define RPPX1_RPP_MAIN_POST_BASE		0xa000
+> +#define RPPX1_RPP_MVOUT_BASE			0xc000
+> +#define RPPX1_RPP_FUSA_BASE			0xf000
+> +
+> +#define RPPX1_RPP_HDRREGS_VERSION_REG          (RPPX1_HDRREGS_BASE + 0x0000)
+> +
+> +#define RPPX1_RPP_HDR_UPD_REG                  (RPPX1_HDRREGS_BASE + 0x0004)
+> +#define RPPX1_RPP_HDR_UPD_REGS_GEN_CFG_UPD     BIT(1)
+> +#define RPPX1_RPP_HDR_UPD_REGS_CFG_UPD         BIT(0)
+> +
+> +#define RPPX1_RESERVED_3_REG                   (RPPX1_HDRREGS_BASE + 0x0008)
+> +
+> +#define RPPX1_RPP_HDR_INFORM_ENABLE_REG                (RPPX1_HDRREGS_BASE + 0x000c)
+> +#define RPPX1_RPP_HDR_INFORM_ENABLE_ENABLE     1
+> +#define RPPX1_RPP_HDR_INFORM_ENABLE_DISABLE    0
+> +
+> +#define RPPX1_RPP_HDR_OUT_IF_ON_REG            (RPPX1_HDRREGS_BASE + 0x0010)
+> +#define RPPX1_RPP_HDR_OUT_IF_OFF_REG           (RPPX1_HDRREGS_BASE + 0x0014)
+> +
+> +#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_REG     (RPPX1_HDRREGS_BASE + 0x0018)
+> +#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_ENABLE  1
+> +#define RPPX1_RPP_HDR_SAFETY_ACCESS_PROTECTION_DISABLE 0
+> +
+> +#define RPPX1_RPP_ISM                          (RPPX1_HDR_IRQ_BASE + 0x00)
+> +#define RPPX1_RPP_RIS                          (RPPX1_HDR_IRQ_BASE + 0x04)
+> +#define RPPX1_RPP_MIS                          (RPPX1_HDR_IRQ_BASE + 0x08)
+> +#define RPPX1_RPP_ISC                          (RPPX1_HDR_IRQ_BASE + 0x0c)
+> +
+> +/* RPP_OUT/MV_OUT Pipelines - Base Addresses */
+> +#define RPPX1_GAMMA_OUT_BASE			0x0000 /* HV, MV */
+> +#define RPPX1_IS_BASE				0x00c0 /* HV, MV */
+> +#define RPPX1_CSM_BASE				0x0100 /* HV, MV */
+> +#define RPPX1_OUT_IF_BASE			0x0200 /* HV, MV */
+> +#define RPPX1_RPP_OUTREGS_BASE			0x02c0 /* HV, MV */
+> +#define RPPX1_LUV_BASE				0x0300 /* MV */
+> +
+> +/* PRE1/PRE2/POST Pipelines - Base Addresses */
+> +#define RPPX1_ACQ_BASE				0x0080 /* PRE1, PRE2 */
+> +#define RPPX1_BLS_BASE				0x0100 /* PRE1, PRE2 */
+> +#define RPPX1_GAMMA_IN_BASE			0x0200 /* PRE1, PRE2 */
+> +#define RPPX1_LSC_BASE				0x0400 /* PRE1, PRE2 */
+> +#define RPPX1_AWB_GAIN_BASE			0x0500 /* PRE1, PRE2, POST */
+> +#define RPPX1_DPCC_BASE				0x0600 /* PRE1, PRE2 */
+> +#define RPPX1_DPF_BASE				0x0700 /* PRE1, PRE2 */
+> +#define RPPX1_FILT_BASE				0x0800 /* POST */
+> +#define RPPX1_CAC_BASE				0x0880 /* POST */
+> +#define RPPX1_CCOR_BASE				0x0900 /* POST */
+> +#define RPPX1_HIST_BASE				0x0a00 /* PRE1, PRE2, POST */
+> +#define RPPX1_HIST256_BASE			0x0b00 /* PRE1 */
+> +#define RPPX1_EXM_BASE				0x0c00 /* PRE1, PRE2 */
+> +#define RPPX1_LTM_BASE				0x1000 /* POST */
+> +#define RPPX1_LTM_MEAS_BASE			0x1200 /* POST */
+> +#define RPPX1_WBMEAS_BASE			0x1700 /* POST */
+> +#define RPPX1_BDRGB_BASE			0x1800 /* POST */
+> +#define RPPX1_SHRP_BASE				0x1a00 /* POST */
+> +
+> +/* Functional Safety Module Base Addresses */
+> +#define RPPX1_FMU_BASE				0x0100
+> +
+> +#define RPPX1_RPP_HDR_FMU_FSM_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x00)
+> +#define RPPX1_RPP_HDR_FMU_FSM_FSM_IRQM_FAULT	BIT(23)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE2_SIZE_FAULT	BIT(20)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE2_TIME_FAULT	BIT(19)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE1_SIZE_FAULT	BIT(18)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE1_TIME_FAULT	BIT(17)
+> +#define RPPX1_RPP_HDR_FMU_FSM_SIZE_FAULT	BIT(16)
+> +#define RPPX1_RPP_HDR_FMU_FSM_TIME_FAULT	BIT(15)
+> +#define RPPX1_RPP_HDR_FMU_FSM_MV_OUT_SIZE_FAULT	BIT(14)
+> +#define RPPX1_RPP_HDR_FMU_FSM_MV_OUT_TIME_FAULT	BIT(13)
+> +#define RPPX1_RPP_HDR_FMU_FSM_HV_OUT_SIZE_FAULT	BIT(12)
+> +#define RPPX1_RPP_HDR_FMU_FSM_HV_OUT_TIME_FAULT	BIT(11)
+> +#define RPPX1_RPP_HDR_FMU_FSM_MV_OUT_SIZE_ERR	BIT(10)
+> +#define RPPX1_RPP_HDR_FMU_FSM_IS_OUT_SIZE_ERR	BIT(9)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE2_FIFO_OVFLW	BIT(7)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE1_FIFO_OVFLW	BIT(6)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE1_INFORM_SIZE	BIT(5)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE1_OUTFORM_SIZE	BIT(4)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE2_INFORM_SIZE	BIT(3)
+> +#define RPPX1_RPP_HDR_FMU_FSM_PRE2_OUTFORM_SIZE	BIT(2)
+> +
+> +#define RPPX1_RPP_HDR_FMU_RFS_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x04)
+> +#define RPPX1_RPP_HDR_FMU_MFS_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x08)
+> +#define RPPX1_RPP_HDR_FMU_FSC_REG		(RPPX1_RPP_FUSA_BASE + RPPX1_FMU_BASE + 0x0c)
+> +
+>  #define RPPX1_IRQ_ID_256HIST			BIT(27)
+>  #define RPPX1_IRQ_ID_PRE2_DPCC			BIT(25)
+>  #define RPPX1_IRQ_ID_PRE1_DPCC			BIT(24)
 > -- 
 > 2.56.0
 > 
