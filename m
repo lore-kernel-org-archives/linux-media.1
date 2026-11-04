@@ -1,89 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.130.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793831373;
-	b=hcoWKUsbInoTxzOb/F9tWAK1WsxbduZsmmnTPU0QQ3jJXCxhgDxURc1mWcK1Q6Fegrf5
-	 gA3I44pyVKvjpiiIxmyc3fOcFNzYjOeSv6L0yUwwQChTucwXWyhYLqgRbd4G23es7pese
-	 mIvZ+4Ad46lifICmX8SHQ/pKt1E1kOjC0Rz2xCu6xoDWILORDGWRusYzc/6kN/euICc/N
-	 rZHu1ZzgmyG8P+/JYUy0IDDMSjgES0HxoxyP5LOa06JxkIIwlO7sBCj6m9Ork5ZbHKp0Y
-	 4F3wakIWp6vlw+/EgvLGa5lejNiU1EyGAUF+gOaJ3BODFDWso9Dx3RvP1dgtUStLYxA==
+	t=1793831519;
+	b=Mzp5YsZdEDedsOsXY8CYPLa3L1s63GwsNFtxXCs46TUOoB0D+MXCtzyKgzgBCdfqcLiM
+	 SZJpI0lKhvkxUri4p1ysVguwjh6rcIY7vSYltiX+umfw3fqaVnr8NDLg8u2/j3UUKGBGJ
+	 ygCIAKSGqkD70V0Np6DU5Cz9m7EFkOedAQrP8WztARB55GDfilXst7iJ45bFJOi5cpcLh
+	 bk64LTezcxjjBUpAYvZqWP4DJPRrz/rAuJoMHI7v/ugijOj+mzcLLob1D/CuLs3rdQb0h
+	 XTwNXqOSRJJqTuGqw7tE6faHM7RrUSG+Ba6ATdngWDc3oBEX0UUFw+P1/QIZh+Ej4pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793831373;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding:References;
-	bh=bBojCw3PGWuhixTVRZwWSNFJr20HWw9KtfyittN+QcQ=;
-	b=RqYEXmf4fzdEHo2el8OQfV+Fzg6AYJ6mKVX7u9huO8Hbt/yjCZs3X/Wl8e5T/a02nZvR
-	 0dppcRvJz14bcZSBh8otO3IuII8dqSq7HEQ1yQ8DCgCtuOjL4KG11xtdxuUIOE0oJeZK9
-	 bNgnVwI/GWdfYSK6FsyCV2FVUHZn6t6kJOt6CDU9oFr0qLQI7ccH8xvt1GFxT8CXSasNY
-	 4V2YmrKVzkwKUARD6tS5unrE3pt3iiSx4hA5GHGoSdilYw4QouMz49iGsPwZMyH4lm2tL
-	 hFSnxXGkwk/W4AnAH0DJ2KclGyupRHLYVJkMZhx9y5nBa5V0pVT6LiUmpO7KEl3hzAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793831519;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=g+xepbYobvw5vKQfFSSpaPgM/Qgx4foGgeCYPy3uXXM=;
+	b=BPgG4g2PlLa5l3r4SDU6CzXtzRBih8rM7Y0L5SWGp4yZrBEgxqHiCwTeIBtL9aYM+74E
+	 2OZxOqz3lr0gIo4KHE7e3By1Sq9nLwEymfZjsezmgfpjp1p+x2LzJBtOKCnNNAt4LgaEU
+	 U4B/rx0hpNVtJSnlz6H1IyYermD7WeO+RAObYNp+YOYbklOg6ey9iRVfkvPLhGFDeazk5
+	 w9cq1crSh7OT0XhO1Q79kB6xUYjoqQlUmRDl5/Re+dXsHTKowJNdh6DSZ9bsQco4QGY+A
+	 A3nwK4e+g29o+HxqlKWMdZEcb0YMykyIjRUF9BL8kJ10fk149pbz6NJHMRcaZBSt6GQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RXcpHjsG;
-	arc=none smtp.remote-ip=74.6.130.41
-Received: from sonic308-2.consmr.mail.bf2.yahoo.com (sonic308-2.consmr.mail.bf2.yahoo.com [74.6.130.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=Om1sDMvd;
+	arc=none smtp.remote-ip=185.70.43.17
+Received: from mail-4317.protonmail.ch (mail-4317.protonmail.ch [185.70.43.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A017606AB13
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 22:29:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A017606AB13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5595606D834
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 22:31:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5595606D834
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=RXcpHjsG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793831371; bh=bBojCw3PGWuhixTVRZwWSNFJr20HWw9KtfyittN+QcQ=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=RXcpHjsG6efaiIcOe8MOvjhuQjnVmBM7sKLoUbU7Z3c+novs8Lt7nO4Ju+WyV0E3u3Wanmk4gN+Vke8sz+spnva23LW+n1Tb640G5k0POEqpMk4wg64GKfvKZJwqnrDVw0MTBgAkR73FmQtg2ciMVUzAcWOzSMvn3mY2X/VTRIvtTEPInVQ7TYia/dtlIKQsclljiyxATX08SpLv6ax1d0qaBCaBjtImjH8mNNYG2/JHX/IxZe2xi9sETvp17DK68l4aTpwX6orV3xTVfccjjkEvQKNeIuffYkLTG8gQhxpCiZMlTE9D9Si0IuOtAtT+fuCYw9tYHfGtixsFgOW98Q==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793831371; bh=pZNVIUeMCnItnC8EBiXQoMOiWVfpPAFkMEev/pf4Jiw=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=Eq7xpukqBHd3Kfgb/sRmQaAjT62j7EMlCoeIUb3VNIhM38jeiQz1PT/Fnr5Cq3ULWAwmRz60knvFfPbDhN22X8fYIlBgw4dM2zlyhYaPHBmDu7UbrDnPnTEQXHb5xARl73V9TwYS3vYF2LdB/2dFzuZeEo+LqUyS5+XgbO0OX/Q1/nR5az3R0O+bEgYahD3198+VbGybh2Hmwlvhvm/qS27LrwQ8VSsG+/O1yTeM6Wdzg6K2afnNNl+tKAlZowqXvZvUEKliToFRBOumB8TqvpXy4PlCwEWyCFTFSHRum8x3cVqL81JM1j+n/FPLOX+r2DofweZ1pe0Rg0Cg40kjGA==
-X-YMail-OSG: QFXUqrYVM1mUq8W9BIgFLrYzJSR9rwz7atsrpjHKvvQwadU6N1aNmvV63nKfuYG
- QeLoQUfoxXNwBRYi5l0KGHEBsnIBJXTXiGcOBY5cEk.bdhnmRNoykl7KBV2JJxtqR8QlYt21CQW1
- _69nZ.z6LrVN5_o1lbKrHdrFVZqAI2im34HLtFBMniSG_1xfCvQNxYyYy7BBK0lZjJ5KjAgoEczk
- AK5oPWH1FA96AhT5nQO9Qn6_S1vtZ3dxMODSxvw31iHnsoNHi72.r6gkrcNd5D24sqJZLAZHVofc
- YizJzvg14B948M9LvO0vjdl_5tWo8mmbycNMeUsKPwGQCManAuizkSjwcGWO5qD_E.LcCiupOY6I
- EUhSjMSgbtXo3pppxdZ6rn8a476tKA5.34Wu10vb1pMPURuzBmrBJG1TRU6LLdXs474r1WxMC3_1
- GFank42qCDHXyxb127E4R5uIIdi4Pq5BY7FjNUPNNBbFuSkm0EtcgW33SQA.54OywTp1vOxb1W9.
- Lb0yLfmSyX2PnUcJiCAOsWrLKeM34_lQs.JwGNP90Je7JYzsho9uWo0aMNRVU9o91WD_tI.HPybd
- nsimhFIYhHg1tFkBYfPr_sdiAyT4oi4ocd_rG9m5torbpcIChdauYHk63Ys8Jdu6iPW8_8sk495p
- hkqtiQuph7XQD55.KoP.insYNXqPLpbqOGFYtra_UfUjDk4JYIoLqGu6dl_bqqOYaPiD0VKUbQWN
- bRCTUmtozwBObe6vNVtuHGs5cKf4KL_HHJXKjp.VeO6TJ2zdYBzT58NH0RO5SBdmIbDD44oODctP
- 7p8ggBjMZfr90jfXEc7EYhbhZSf59C4DEmLC.GTDqBEGFcVMH_zisJ2_6RMFZJTs1HXoJhvYs7iR
- BqywzJuGEdSlZPC0I9UsE3Q6.rlz4cs6SspEvo1KaMv1bnvNHHYlQ7pFFhbVEab3xsVY_Et87dc4
- vWH.3pI2ndOOLPnReVBbbc3Vx74ev_eRjCfemkJywftvXlbg5ALGoD9.FDHb5Plc411B7W9ID9Uk
- sKzsROuJYQWHY7cNNypTedFavN_TZwsjoiLDrOHxggCCWS00RWT6fnqnS24kIm6bTaXimS8i4N8w
- UpvPT4kudmjvvn6qhusWfvlMQs_B0v8JuJgTeGbOm7SNwCH2jmCoIJ6CZ8wbUpRcAPcKado1lJEt
- lMnSwtvHwKlA73ck8nSAH19JujhKSufYWGZfczPVT58Yq88ThF79eNXiRkNmaBJX3BYJD4AwIVZR
- hDRsM8LpTzMhr6ch92AURMMwJNlVX_SqWSzwoZnzo5wLm5uOvby3q90NP3VZqTii7G6Iw_tlsw2h
- yg.Zp02TCyatq1nthX1uYxj18pENmdK0tFxGWyMcQ5UvfNCrXp9MFcmWVPTqwyTWADuoeTv9up1z
- .ei_RgoJlzk1j29CK2D3Sw5s7_j748JpCg68Yo4i_K5FS7rAudb4eveqSvLO0eXRcG0b4WCpqZIC
- 1vR6dhvff95gnGwzbIs4uyFUUyAiz1GWwhooDJeykkGyQbanjKIB0uO5R5lerI6p3B1dBXsAFZrP
- joH4jYhkyXA4HOamWfK2RfDgm1ClWgLUumWLtlvsZ8jp5JTCSWUtAz9yZS._epdDCl6cEzaMn6fc
- YG9i90pZt0vDRyfkwoApK77cm7UsyEcev3xaZnkcVvld5o4gjLm1SB5aG7g7HqLu2jUo2a5K8K.C
- xPgWyfPHSwqEvphc5bufZ86l1gBFzXPprg.qC8sPm9yZMgYK1eMjyybxyVDK4y39AQ6Thfz77vRR
- dmHeAEbwdsuiBRibBpRYK5QqQL2aV4PZ3OL9tJe94H8BpZ.YLMguCGrdKGZF5N931NsAKXpzbfV7
- TZ90Untumg0QbrA3I77PaBZlHf1uhUSxYRVPNk7otMMIQ0QuCFjQ5MDaSTTrZdFo8kFZ3bBrIiAY
- XIvaDlZIcLMLG4TUb6ODxFMr_15isPb_yISiIcQtxlWJGF7IKaazS2vfOWc4mbnMWZwyiZ.4GOxC
- 27qlB_t2f994f1Z6KTIc29x1gxzQPIASgNbBbwF63Qc774jE8CtbRf0TeUZ_Qj0mDDWvU7PziChe
- PyUlSqIfdot5DdCWUz_u3bAeDRRI9c1XYoqIDhKrAMndHhd1XXvFVt38.mHVFsPZDh7mWzDAcYYI
- ZV4eVPU_gxlgTSkK5jBtuK9qPlHmfQnxAHKzt_6ffMhWiAF3y813o1IrTRF6QO.n6ALk8lcSZzap
- 57YmNHDpWkkciw9dGd_vI4SmMpDvFvwH9_sILsW5DMlOkodHChvN99_XZMjfOIvEi7gMBP9YyrRH
- HPY5K1KI.CWuhK9YvJFS0tnMqp1YP5yT4dGvVkGM9Alnq
-X-Sonic-MF: <laurian.iacob@yahoo.com>
-X-Sonic-ID: a09a1010-862c-499e-aa65-927325cbad5c
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic308.consmr.mail.bf2.yahoo.com with HTTP; Wed, 4 Nov 2026 22:29:31 +0000
-Received: by hermes--production-ir2-5dd9bf4598-ztwl7 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 3b8d832006b22c7ea24550ecffa8253d;
-          Wed, 04 Nov 2026 22:29:27 +0000 (UTC)
-From: Laurian Iacob <laurian.iacob@yahoo.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Laurian Iacob <laurian.iacob@yahoo.com>
-Subject: [PATCH] media: staging/ipu7: use guard(mutex) and simplify retry loop in buttress
-Date: Thu,  5 Nov 2026 00:28:32 +0200
-Message-ID: <20261104222832.32471-1-laurian.iacob@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=Om1sDMvd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1793831516; x=1794090716;
+	bh=g+xepbYobvw5vKQfFSSpaPgM/Qgx4foGgeCYPy3uXXM=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Om1sDMvdnViXTsZYDcTxREC2MSvjcqffLmLktP3mFc49/W4dOs9UywhKqyn0IJZZa
+	 d6VBQ0/A+DBI/udbEK+VPjg+43bw4NEkbvuU5YSGZztrIWStb6uryl0XOtrdyZPPiT
+	 Js/LnMp00sNg0jHa1rNeCHL+MRENNZQquAxlzqfsyxIKnFxdMVY4hP2w7DcKPmIkau
+	 FKUn1yKNgRObjgBCAhMsnqTX5CaGX6eFmQnsLx7OF3CtFzUkWQU15eNIaawDd+T3aj
+	 LeTFJnDlY2Iob7yZi7elSlPsu0G2dOjoqrYwupLz2Ex0rf2xeB6O5U8d8XLfcRcR6a
+	 Rk6+6TSiahAVA==
+Date: Wed, 04 Nov 2026 22:31:51 +0000
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: linux-kernel@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>, driver-core@lists.linux.dev, linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Nick Faro <yux50000@hotmail.com>
+Subject: Re: [RFC PATCH 0/4] devres: warn about managed memory still held by open files at unbind
+Message-ID: <20261104223146.4012287-1-ca@modelmiser.com>
+In-Reply-To: <20261104220749.GA3976471@killaraus.ideasonboard.com>
+References: <20261104215546.3990950-1-ca@modelmiser.com> <20261104220749.GA3976471@killaraus.ideasonboard.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: bece6ae7414fb4b7eace742cfa8974844978129a
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -93,171 +64,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261104222832.32471-1-laurian.iacob.ref@yahoo.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Use scope-based guard(mutex) from linux/cleanup.h in
-ipu_buttress_ipc_send_msg() and ipu_buttress_authenticate() to simplify
-error handling and remove redundant goto unlock paths.
+> Are you really expecting anyone to read all that ?
 
-Additionally, replace the backward goto retry label in
-ipu_buttress_ipc_send_msg() with a standard for (;;) loop to improve
-control flow readability.
+Fair enough. The short version:
 
-Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
----
- drivers/staging/media/ipu7/ipu7-buttress.c | 56 ++++++++++------------
- 1 file changed, 26 insertions(+), 30 deletions(-)
+A struct cdev, miscdevice or video_device embedded in devm_kzalloc()'d
+driver state outlives the unbind through any open file, and the next
+operation on that file, usually close(), is a use-after-free. It keeps
+getting fixed one driver at a time (44f3468a0aef, 7d6358ab0286), and
+cx231xx in 7.4-rc1 still has the shape.
 
-diff --git a/drivers/staging/media/ipu7/ipu7-buttress.c b/drivers/staging/media/ipu7/ipu7-buttress.c
-index 40c6c8473357..7ec8290c4432 100644
---- a/drivers/staging/media/ipu7/ipu7-buttress.c
-+++ b/drivers/staging/media/ipu7/ipu7-buttress.c
-@@ -6,6 +6,7 @@
- #include <asm/cpu_device_id.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/dma-mapping.h>
-@@ -229,39 +230,39 @@ static int ipu_buttress_ipc_send_msg(struct ipu7_device *isp,
- 	u32 val;
- 	int ret;
- 
--	mutex_lock(&b->ipc_mutex);
-+	guard(mutex)(&b->ipc_mutex);
- 
- 	ret = ipu_buttress_ipc_validity_open(isp, ipc);
- 	if (ret) {
- 		dev_err(dev, "IPC validity open failed\n");
--		goto out;
-+		return ret;
- 	}
- 
- 	tx_timeout_jiffies = msecs_to_jiffies(BUTTRESS_IPC_TX_TIMEOUT_MS);
- 	rx_timeout_jiffies = msecs_to_jiffies(BUTTRESS_IPC_RX_TIMEOUT_MS);
- 
--try:
--	reinit_completion(&ipc->send_complete);
--	if (msg->require_resp)
--		reinit_completion(&ipc->recv_complete);
-+	for (;;) {
-+		reinit_completion(&ipc->send_complete);
-+		if (msg->require_resp)
-+			reinit_completion(&ipc->recv_complete);
- 
--	dev_dbg(dev, "IPC command: 0x%x\n", msg->cmd);
--	writel(msg->cmd, isp->base + ipc->data0_out);
--	val = BUTTRESS_IU2CSEDB0_BUSY | msg->cmd_size;
--	writel(val, isp->base + ipc->db0_out);
-+		dev_dbg(dev, "IPC command: 0x%x\n", msg->cmd);
-+		writel(msg->cmd, isp->base + ipc->data0_out);
-+		val = BUTTRESS_IU2CSEDB0_BUSY | msg->cmd_size;
-+		writel(val, isp->base + ipc->db0_out);
- 
--	tout = wait_for_completion_timeout(&ipc->send_complete,
--					   tx_timeout_jiffies);
--	if (!tout) {
-+		tout = wait_for_completion_timeout(&ipc->send_complete,
-+						   tx_timeout_jiffies);
-+		if (tout)
-+			break;
- 		dev_err(dev, "send IPC response timeout\n");
--		if (!retry--) {
-+		if (retry-- == 0) {
- 			ret = -ETIMEDOUT;
- 			goto out;
- 		}
- 
- 		/* Try again if CSE is not responding on first try */
- 		writel(0, isp->base + ipc->db0_out);
--		goto try;
- 	}
- 
- 	if (!msg->require_resp) {
-@@ -852,11 +853,11 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 		return 0;
- 	}
- 
--	mutex_lock(&b->auth_mutex);
-+	guard(mutex)(&b->auth_mutex);
- 
- 	if (ipu_buttress_auth_done(isp)) {
- 		ret = 0;
--		goto out_unlock;
-+		return 0;
- 	}
- 
- 	/*
-@@ -879,7 +880,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				    BUTTRESS_CSE2IUDATA0_IPC_BOOT_LOAD_DONE);
- 	if (ret) {
- 		dev_err(dev, "CSE boot_load failed\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	mask = BUTTRESS_SECURITY_CTL_FW_SETUP_MASK;
-@@ -891,13 +892,12 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(dev, "CSE boot_load timeout\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	if ((data & mask) == fail) {
- 		dev_err(dev, "CSE auth failed\n");
--		ret = -EINVAL;
--		goto out_unlock;
-+		return -EINVAL;
- 	}
- 
- 	ret = readl_poll_timeout(isp->base + BOOTLOADER_STATUS_OFFSET,
-@@ -905,7 +905,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(dev, "Unexpected magic number 0x%x\n", data);
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	/*
-@@ -919,7 +919,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				    BUTTRESS_CSE2IUDATA0_IPC_AUTH_RUN_DONE);
- 	if (ret) {
- 		dev_err(dev, "CSE authenticate_run failed\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	done = BUTTRESS_SECURITY_CTL_AUTH_DONE;
-@@ -929,21 +929,17 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				 BUTTRESS_CSE_AUTHENTICATE_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(dev, "CSE authenticate timeout\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	if ((data & mask) == fail) {
- 		dev_err(dev, "CSE boot_load failed\n");
--		ret = -EINVAL;
--		goto out_unlock;
-+		return -EINVAL;
- 	}
- 
- 	dev_info(dev, "CSE authenticate_run done\n");
- 
--out_unlock:
--	mutex_unlock(&b->auth_mutex);
--
--	return ret;
-+	return 0;
- }
- 
- static int ipu_buttress_send_tsc_request(struct ipu7_device *isp)
--- 
-2.43.0
+CONFIG_DEBUG_DEVRES_REFS, off by default: in device_unbind_cleanup(),
+before devres_release_all(), walk every task's fd table once and WARN
+when a file's private_data, i_private or i_cdev, or an object a
+subsystem names (patch 3: V4L2's video_device), points into an
+allocation about to be freed. A debugfs file still live during the walk
+is judged after release, since drivers often remove those through a
+devres action. Cost: one walk per unbind or failed probe.
+
+Patch 4 is a test driver: unbind with its nodes open gives two WARNs,
+and KASAN then reports the use-after-frees on close. vivid, as a
+control, is silent.
+
+The open problem (question 5 in the cover): the walk holds a reference
+on each file it inspects, so a racing close can leave it the last
+holder. It runs on a kthread so that release goes to delayed_fput
+rather than task work queued behind the unbind, but the delayed-fput
+worker is serialized, so a release there that needs a lock unbind
+holds stalls the ones behind it.
 
