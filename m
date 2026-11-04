@@ -1,54 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793801956;
-	b=xl8ac4drzou9ANdZvtSlyT3RZeA5iF0H0YxY8aQuSNkZEsde2lty32kQ9AeiukrXfTNw
-	 ulIIiws8X/OV1LQpOvm2VV4Hi01kNStPXwPLpdlCxZ6OcED+XJdIavVB7YGVsQuIPEt8H
-	 Cy3v5a5jsLUNuL/F/FimA43z4+3IVIYpKb1j4+UsGW2e7FHuq0Dcqj7HT5KP2Jb9145wD
-	 RcYMeO5wBsG7q9r+ES3dsbyvMBF7ruzYKKtk/QDrfVRSgExc2C8fDYUb/jI2sgosEtk5A
-	 igtXC3wEKj/uQutD6y5uSIYcX5H9vun6AvujCh5/d9ddFfvL2pGa9Tp/8mrn/JhTYBw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793801956;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=;
-	b=5o6m4yUvRoPLPHuqi4hLPEYGWmE5aUc7c73YC9Vv9Xk+lHpd6ZI7VVKZWh4ji/+Y/EfI
-	 zRhElWcd1DY7u2lbNYiFfFWHan7Hk4DwLkoQ5s34jbRLT2GS0Uc3yfSnQl79WJx35/MYN
-	 wi7wO1XwrtPrMknSLOTYtWgAaM1vzS1dTQpw5xJdZFue2HxCrcbIeyQQlc90IUvdhq1NJ
-	 66ISlW5x4Fr2Olbb5CiJrjecQ0tFh+nR8uoTpdIqDG336vyNnQUnDJLCJH8w9ZaOLTzMp
-	 3g7KB7dDmvhjmP7eA1qEeS8Pb3UKkDB3wgW3zf1M7314sm5xpJBKc6Ur0SJCfN5qeFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.158
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793802189;
+	b=hrFtMT/lpKLTzAEDUMwcPdhmyU0V14hnPl+M7Bm0tEGyg8GurqfnFbF0UEUVG2fhRWOA
+	 DGhr/yiYK1GnaDMDxjhoS6TCaUVAuVxAxC95xID22ltiBUnnHIQwDSsV2Du6aFZMryuRI
+	 Git2gsEqkfyEvss+6d2w8FvhGPmJOpLrumf9j9AlO8lTlTejuTbGwd1wRkZuuLx6SJDLd
+	 yU21v+LJrseR72bNLVtOfbCggCm09Xfby9qyZwxMNlUfI4WgZvX858yq25rnGY/fp1vKH
+	 bOxw+6xnGWzm1kUm4ttGi5gzRlzr6opHWt1lt/vNnhltB3rdMcy53OzK1J4EYP74y4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793802189;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=wZ3DRmkWaygrCw95oypD39+/CKzDxSTN6BAmdjxj1PI=;
+	b=03kk6laf1f7rA6mWoVTaPOBQThL4VjXNL8TybH5MH5Ah3kdkhHKN0iRJBUp0iCQEfqks
+	 EV54OAZtX3k0DEOSrXE6nCvXAAU+NO4/7HS1YD+H1Txcjw4On8hvOsukyxG5cOJLmwt6O
+	 wL3AsAvsI1fR2ftcvAFwPhad7sEcPDngjICn3SK1QR9atv+758KcWwkVEZKJMYF4rNo7p
+	 E4IvEcU0i8+b75UADutAqWFt27bNktRZYaMbL++eTiKSpVJh+tAE+Y6CYzRbPUd08oCoz
+	 6xoHvzR1n92DI1HvNUzGluEJHka5V4p1mjsLLhf99Zcr3fFyir3Gt/B2q6HBYixt7XA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=ragnatech.se;
+	spf=pass smtp.mailfrom=ragnatech.se;
+	dkim=pass header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=MWLtuwuu;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=D+5OHO+Z;
+	arc=none smtp.remote-ip=202.12.124.158
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC96B606A31B;
-	Wed,  4 Nov 2026 14:19:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC96B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA8E606A31B
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 14:23:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CA8E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=d5kQAnW4
-ARC-Seal: i=1; a=rsa-sha256; t=1793801923; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=DBVfeNLfXabUNMkp7xC611fcDiXKusM2FO/lvSYIBEVfX5vEOlG99/wAEPA2nn1CmXMhxquDhJ/w5GiywA6nmhAZAQ9qR7kF6ZMUae4yoaMtdtjL/LGafcmjiO9taQ12h2QoIBl8gE01pgR0qC7/J9C60lBls5dFPBBjTHoReTc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793801923; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; 
-	b=WxF7Md9n/6T9oMxYLFDsCmJnDW/IVHf1shql+aBVA+9q2NfoaI/L64IpgZYtqsbS4nQtM+ZrIZCIztHXGJb13T0oOh68+mJYaFG71d450cuEDwWUOjOtOyPApLWKQN5hcHlBesm+jTEPcMIJCXvZ8vOMh2TWSDVOzaxvNU8s+Mc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
-	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=d5kQAnW4pZPZT28S914Jp3/gQri6eNKfx76LfGqS26FI8NDKAKizKE03J94JN31BLLMGtJqpZ4NljQxcfbqngsOJCZWEN3Rorwv+kFPTrd3s+wdboiqeHH4x75d872lLsCLbIpGrxdV42MtiOzOwR2Nn548ghSLKKgX/gyLo3cw=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=q2BqXdx+EdHeRHslloG+Jxr0IRjuPUfBGuAn6TTKiaI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793801921669437.63445022416045;
-	Wed, 4 Nov 2026 06:18:41 -0800 (PST)
-Message-ID: <17cb2a11-9c9d-43c9-889e-8581522c7a74@collabora.com>
-Date: Wed, 4 Nov 2026 17:18:36 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=ragnatech.se header.i=@ragnatech.se header.a=rsa-sha256 header.s=fm2 header.b=MWLtuwuu;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=D+5OHO+Z
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 51FCE7A0194
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 09:23:07 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Wed, 04 Nov 2026 09:23:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793802185;
+	 x=1793888585; bh=wZ3DRmkWaygrCw95oypD39+/CKzDxSTN6BAmdjxj1PI=; b=
+	MWLtuwuu0wnyjYpIp54smeZq7WcRSqXglLa8THDdAN9Ds1ri6Igg+IPfAg8lrtwz
+	syBtZSJk5c2jI71W+YagrodTBD6u2PzCOYVw3U3bGZT7Jv1UBp0AbI5e5HVSIvO0
+	FJaWMCYf2DPVIFqNofJhO/AjsLy9rtDwKKe/GW1RC4wxdzYG6geoobbf/Oe+aaVZ
+	H23oTkWWZmRbqp/HWhC0QpezPB3X9EBoIwTekTn4kvvHResFgZe0b9jSCWj7BOUh
+	InXDW6GEn3gPRfDq/ZpjsZl927g1CW68XpSCkxAHcnKr4CdrdjaLgzrb06Qu7e5F
+	s0K8MFO13/15DzQawNbpFA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1793802185; x=
+	1793888585; bh=wZ3DRmkWaygrCw95oypD39+/CKzDxSTN6BAmdjxj1PI=; b=D
+	+5OHO+Zo7roGHU8xsWDxiv+wOBv7dQQitozCCJW/17gC4G5SE1+TBqiXTk9QgJO0
+	tapcjj2a3SB9eI6nDQukrl1kqh6s7K9pArxrHYatfC/NSoHW2yH6c4uMqwQKAJoQ
+	/PD9hGU5YNBYbtwVhgYyCo2AiAOz0gsugDeEgrNeHqDzxGP60Jt3TTVTkYUQTLyT
+	PrRL7uIX8B3ig6dL7fTsTshvuDJO7VMw3MGcgiD236T0m48t+kIw8cTFOVXsFkda
+	1nXYdQ8Q7B2Ot1Kb6dN0dvDBKhOHYa0yQ3rrIXDvJXLOEg6tVQ7zse3eMzhYGyUa
+	thjARxKERbx2ljJ+Y3GKQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793802185; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
+	rt=PGxpbnV4LW1lZGlhQHZnZXIua2VybmVsLm9yZz4=;
+	s=fm2:rsa-sha256:Pt2aZ1EtN00U0LAJOCL6wSzlQ7tMFpSBKupeNuu4FCIDhpP
+	GbeVvMoXoPcfIV9X9BZWJbEdVDB1rcNI4JSqMHk0Y4FTwz2F2qTfai3+lQORBeWB
+	VObG1R88WLJkNnbPL92UTbZQa3KP5/PnG+8AZ5EQf4YDzRUVndu5XJhwxngNiEDQ
+	RHVF36xCg3BTqMzoMCDb5mxY5+EDTUGdxKUWcbFM+dDO6OprHPIy3zbHneYgy2HU
+	39pqJb47yIPLpArU9PzwGiAKwwkSNFo2/BNJQoZK5bVxkS24BO+fskZSHU3/BSg9
+	RZfMIYrU45asghfXeohGQf+ALSpZjMCuEUKTAfw==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:8WiOfuZyMdap+bE48SVdsCssOjsRm1RgtdPkx6M+cZc=:3dKkUVLANeDhIDjo92f1TgMhswlkcL7fJFLihtnLb64=;
+X-ME-Sender: <xms:yD_raojYF3IyExQ-LjzAu8nfHElZKaRYXc_38-x5nLQbbD9ILo-vjg>
+    <xme:yD_rahfVu8FDSYOdoMrU4E-ZWf_i4AQNWICPNr_snBlI4NYPDiWGCUHjtMxxRIjWm
+    omvq0Wp9uk-D2McUuuMo7vfmVWcfghMSo3VTTdCj0XeIaH1qytLJR4>
+X-ME-Received: <xmr:yD_rav3UgwI2n1R5uQgrMn8BWX-h1WtTNICkspWZCQb63v4K1pJRoPdedDec5nEfRlEPTklLbHTD8nwRcAZKLL_fbGeJtlQ>
+X-ME-Proxy-Cause: dmFkZTEo1+WJsU4C+3nNiXfFO8SI/WuAp2HlmE9Ie61JliHIvX6Ui2NijT+UPECYV7P9wZ
+    xk47MtoDmoxkGIougV8QR/uK4i1WE9zO3Nw4ZMD5zce8v+BFodocnhpXB5g0wehRzQid49
+    EJr+qfgq38hgeWjHslRVK5RqlghPLSxV6ASMX864XEgLeOwO3NErmY+HjgtqRN1slSDhkS
+    cI2Tfet0cQgfDpxvE6LJkjJ/XGLBYUo8DK7GOOKZdr+sK61a/S9pvdi0niS/ELLM7rsX4c
+    V/vYP9GQNT4I9qQi73IIJb81AZELdlZw3x2TpB/luLNbNug+TfMu/Kxy2Iz+byXDmU9rUK
+    6j6XLOATrryMHg0iU3Nbby5DGUvfQZRJw7NG4i35oAlblzCyfAGv0JSdk8XPKcFQH2zoGm
+    jsjNywbiU3dxeXIJD21bJPCozkEANJOXEWi1Ek0coPSpDmz1f7uWe/rzVDmyk+gLxr3oQs
+    HjVQikGEU5ny3+8iFMHdxKLssOGpYwRltQ3M54StYYzO2RQu7nE+oCqJsxvfaH34oeUqTY
+    NkIfzTPv5Bdjt6jy+W9VbhVtlSOz1sOJGi//s5vTSkKtUkFAyZdGDz6jKdAnH8h+k0xWl4
+    eFuK/68kN0PsjEwTavY10UvFgn+FvV5yaNVLQm7Lh3kobJXIkckqKIOaE0Qw
+X-ME-Proxy: <xmx:yD_ralrNSpmY6UHe6-d5yYhr4D0nJySoZBKlrqriQAlqMOzl3BXvIw>
+    <xmx:yD_ravhV--6M9cOyi2NsUjFOlKKdh26bZaYmNFvo9imb4PPcFnnScQ>
+    <xmx:yD_rahnKk5RSII8E9JV0YCmarLnq_AyAywuXB4iotmyEea7T1OCsvg>
+    <xmx:yD_raooK3RtjX7GDLuo4BqmBXZSDLgpGZNwPloVr2nEhLSrKPqOlzg>
+    <xmx:yT_ramiihEUsoZLwtfFpUQbyWdCIVIEbImImt0rRrugz4sr4dc5mngvf>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 4 Nov 2026 09:23:04 -0500 (EST)
+Date: Wed, 4 Nov 2026 15:23:02 +0100
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Keke Li <keke.li@amlogic.com>,
+	Dafna Hirschfeld <dafna@fastmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 0/7] Introduce v4l2-isp reset buffers
+Message-ID: <20261104142302.GK1959885@ragnatech.se>
+References: <20261104-v4l2-isp-resume-v1-0-06aeb8cf2940@ideasonboard.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,85 +136,115 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
- when the last user is gone
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>,
- Shreeya Patel <shreeya.patel@collabora.com>,
- Gerald Loacker <gerald.loacker@wolfvision.net>,
- Lucas Sinn <lucas.sinn@wolfvision.net>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
- <647b6128-2bd1-40cb-86bb-d36e84378d93@collabora.com>
- <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
-Content-Language: en-US
-From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <5b3592b1-74b4-43e6-96e8-a600b6fa991c@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261104-v4l2-isp-resume-v1-0-06aeb8cf2940@ideasonboard.com>
 
-On 10/16/26 14:06, Sascha Hauer wrote:
-> Hi Dmitry,
-> 
-> On 2026-10-07 14:20, Dmitry Osipenko wrote:
->> On 10/5/26 16:28, Sascha Hauer wrote:
->>> @@ -2792,16 +2807,13 @@ static void hdmirx_remove(struct platform_device *pdev)
->>>   	hdmirx_disable_irq(dev);
->>>   
->>>   	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
->>> -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
->>>   	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
->>>   
->>> -	/* touched by hdmirx_disable()->hdmirx_plugout() */
->>> -	hdmirx_dev->rgb_range = NULL;
->>> -	hdmirx_dev->content_type = NULL;
->>> -
->>>   	hdmirx_disable(dev);
->>>   
->>>   	reset_control_bulk_assert(HDMIRX_NUM_RST, hdmirx_dev->resets);
->>> +
->>> +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
->>>   }
->>
->> This is uncommon v4l driver removal pattern, I suspect it's either not
->> correct or needs to be fixed in the core code.
-> 
-> The pattern looks uncommon because many drivers in the tree are affected
-> by the same issue ;)
-> 
-> Just like many other drivers the hdmirx embeds a struct v4l2_device in
-> its private data struct which is allocated with devm_*, thus freed
-> during driver removal. With an opened file descriptor the video_device
-> outlives the driver removal, and v4l2_release(), called on
-> the last file descriptors close then references the already freed memory
-> via vdev->v4l2_dev
-> 
-> This is a long standing problem. See [1] for example for an attempt to
-> fix it in the core. It seems consencsus at that time was that it must be
-> fixed in the drivers which is what this patch does for the hdmirx.
-> 
-> [1] https://lore.kernel.org/all/20240610100530.1107771-1-sakari.ailus@linux.intel.com/
-> 
->>
->> What is the user-visible or sanitizer-visible problem? How to reproduce it?
-> 
-> It can be reproduced with Kasan on affected drivers, below on the hdmirx
-> driver, but it should be reproducible like this on hantro and others as
-> well.
-> ...
-Thanks, the patches are good to me (tested on 5b with no problems found) 
-apart from this one that feels like it's not a proper solution.
+Hi Daniel,
 
-Will be good to have input from the v4l core maintainers, or have this 
-fix made separately from the series to not hold rest of the patches.
+On 2026-11-04 12:28:15 +0000, Daniel Scally wrote:
+> The V4L2 generic ISP parameters buffers described in
+> Documentation/driver-api/media/v4l2-isp.rst has a problem in that if
+> a driver using the parameters format is running a stream and the
+> device is suspended to RAM and later resumed, userspace will not tend
+> to reconfigure it with _all_ of the possible parameter blocks. The
+> format allows only a subset to be populated into the buffer queued to
+> the driver and this is the common practice in libcamera. The effect
+> will be that a resumed device will have lost any configuration that
+> tends to be sent only a single time at the start of a stream, for
+> example lens shading table settings.
+> 
+> This series performs some preliminary cleanup and then adds the "reset
+> buffer" concept to v4l2-isp. This is a mechanism through which user
+> space can flag a struct v4l2_isp_block_header.flags as needing to be
+> reapplied on device reset, such that the v4l2-isp framework will store
+> that block into a buffer allocated for the purpose when it validates
+> the block. 
+> 
+> The last patch in the series updates the rkisp1 driver to use the
+> v4l2-isp reset buffer to reapply that saved configuration on resume.
+> 
+> An alternative approach might simply be to store the "last seen" copy
+> of any block in the reset buffer - this would be a simple change.
+> That implies a lot more processing on the majority of frames, as we'll
+> then always copy at least something, but it reduces the risk of losing
+> a setting. That amount of processing each frame seems very undesirable
+> to me though, particularly given the scene will presumably have changed
+> after resume and so the settings like AWB gains that are applied for
+> most frames are probably out of date anyway. On the other hand we may
+> end up flagging a lot of blocks, as there's parameters that might be
+> changed mid-stream (like gamma) but would not be so regularly changed
+> that we could just rely on them being sent naturally on resume, so a
+> third approach might be to invert the meaning of the flag and store
+> any block that _isn't_ flagged as _not_ needing to be reapplied.
+
+Is there any reason not saving and restoring all relevant ISP registers 
+directly in the suspend() / resume () callbacks? AFIK this is what most 
+drivers do here and it's not clear to me why this would not work here?
+
+> 
+> I'm open to opinions on how best to set the balance!
+> 
+> Please note that the changes for the C3 and Dreamchip are only compile
+> tested.
+> 
+> Thanks
+> Dan
+> 
+> Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+> ---
+> Daniel Scally (7):
+>       media: rppx1: Drop max_size param from rppx1_params()
+>       media: v4l2-isp: Hold v4l2-isp data in central struct
+>       media: v4l2-isp: Update users to initialise and validate new struct
+>       media: v4l2-isp: Use centrally-held data in framework
+>       media: v4l2-isp: Add v4l2_isp_params_for_each_block()
+>       media: v4l2-isp: Introduce "reset buffer" concept
+>       media: rkisp1: Re-apply v4l2-isp reset buffer on resume
+> 
+>  Documentation/userspace-api/media/v4l/v4l2-isp.rst |  19 ++++
+>  .../media/platform/amlogic/c3/isp/c3-isp-common.h  |   2 +
+>  .../media/platform/amlogic/c3/isp/c3-isp-params.c  |  28 +++--
+>  .../media/platform/arm/mali-c55/mali-c55-common.h  |   1 +
+>  .../media/platform/arm/mali-c55/mali-c55-params.c  |  28 ++---
+>  .../media/platform/dreamchip/rppx1/rpp_params.c    |  30 +++--
+>  drivers/media/platform/dreamchip/rppx1/rppx1.c     |   8 ++
+>  drivers/media/platform/dreamchip/rppx1/rppx1.h     |   5 +
+>  drivers/media/platform/renesas/rcar-isp/core-io.c  |   3 +-
+>  .../media/platform/rockchip/rkisp1/rkisp1-common.h |   3 +
+>  .../media/platform/rockchip/rkisp1/rkisp1-params.c |  61 ++++++----
+>  drivers/media/v4l2-core/v4l2-isp.c                 | 126 +++++++++++++++++++--
+>  include/media/rppx1.h                              |   2 +-
+>  include/media/v4l2-isp.h                           | 109 ++++++++++++++----
+>  include/uapi/linux/media/v4l2-isp.h                |   1 +
+>  15 files changed, 331 insertions(+), 95 deletions(-)
+> ---
+> base-commit: 00178eda305a332f302882849ff7374d4169be8b
+> change-id: 20261030-v4l2-isp-resume-41fad731df28
+> prerequisite-change-id: 20261028-rkisp1-suspend-and-resume-7d4f388a9a61:v1
+> prerequisite-patch-id: 8f6b499ef7898229c5b02e987822dd676a0cfd74
+> prerequisite-patch-id: 56d0852983c6f46537c03ca3bec71e0ce4046431
+> prerequisite-patch-id: 0b9edd21d24a25c620792dfa692d91346ceccdde
+> prerequisite-patch-id: 3b9425028cd62b60b3dc3dbd2fc3b5a8912a1fb4
+> prerequisite-patch-id: 771f986e2754383e7b5a920b25bf1609dc96f0b4
+> prerequisite-patch-id: 79c95d6375d662a4f75cccd8650b3fab05e4e66c
+> prerequisite-patch-id: e2ff2463db4934e707afbf0a239270d26dbf8189
+> prerequisite-patch-id: 5a923b7606f7cc60fd6b75be2d73231470043bcb
+> prerequisite-patch-id: fb80748a1a24316cdd77481b60936f716fd0aa71
+> prerequisite-patch-id: 1450f7d1f4b1a41e7ce65ea6d2fbd450d3a198ad
+> prerequisite-patch-id: d1d2ba9927536b110f7fbc0c68698d08afb74c27
+> prerequisite-patch-id: c2ae6f91cb9662307f90070523945ee03a79c4c3
+> prerequisite-patch-id: 87b425bde44fe889367a93302629dc011a3ec88a
+> prerequisite-patch-id: 25e4c9ee767dc61406adcf1e1463796a79832795
+> prerequisite-patch-id: 82388f762700dbcf39fdc43e6ba56c1feb55733a
+> prerequisite-patch-id: a4ad2fb2c7f8659c6d9bdcd9718a7ee69f124838
+> 
+> Best regards,
+> -- 
+> Daniel Scally <dan.scally@ideasonboard.com>
+> 
 
 -- 
-Best regards,
-Dmitry
+Kind Regards,
+Niklas Söderlund
