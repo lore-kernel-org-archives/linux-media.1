@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793774316;
-	b=YOdZSH8WIU911SJlSeUrEAHo8JeWQhysvqZpnLuyj0i4AqfrGQR8r3wjcIJ0ZUEnFWq+
-	 yB6mBGzzpRpCEWy1TVeFKcxTmmAOvQZ15ahA9ykh/xFuCKeamE3n85lzIclZmUZsIcWkK
-	 Teu6Yuvj9YJLUu+s5M9KjDNxgbYxOyB41HbK9oRmia4d/1jAHhBYMfE9/hNt58LvbXJ5R
-	 w2fo/VrdfOPk6DW0WOc6nvNRs0UrlXFNqT2juJBTyTpOvGEj+yU3Wox7HCgcC7AWRQodn
-	 YZZuv/y7Df2ExNTWvQKo/p54MTa82fBKyBam1nPOI+dzgqmms9HNKSxrqUI4PN7aF0Q==
+	t=1793775937;
+	b=oX+Ha2/BaXSfWtl4DkK2RHQbDIzVgXHMcJ8i4+JWdunDfV+8trjoKN6LrJ6Z3ySy8qKN
+	 Df/QQ/sa8KCQunT5Us792OHSkGxIDQDNGRZ7to99/5Ph0ZiQ835cCRuhtwD/jMzKuZKxt
+	 2id+0aesEO/Ym6aBf4Y3Y0prhNMu+EAyVDe0ByJFsbrYU0DNuYNcAzKyuu7yR29COIEn6
+	 FSgN6SW9mK6UPiT3+sN2AftmkI4B9EJf4NZCBQoSWrKlId5Y/OZ9owxuOGJ7ciOsWOa6x
+	 eY0NveNBawe2YRdO/patE6ti5hbSZAaNmJSp9JSQAAbnOr3HcPBdQuHa7pr3jPAMNNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793774316;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=BqJvBGEmlOEUiMEuSomhKkkIhAEsRGhylpEaf3nKmLw=;
-	b=cVjpChHDiiuVQmhRnghGWjCWT7Xe+COjTHBU6I2HNg2hrPp4Q3cdfuoE2PXtDUsQpoCx
-	 GIsaigvxr7LEAazEPC67nYLvLOhuJEgEVGhlZZKCGKvx3ibhMl3No8+WtjCGKtJfqrvZc
-	 TPbjZNt9IF0A+sJXU7LEEjpaM8rubja9LqCnOo3IjxNIDuK9RSdwVDBj2wbGSqcYNKh1J
-	 fAuIGDrTT72ed9pwYwy+JTt9AF+UOUzncNZFPyyQCTAug+qq5PH7wYHwNRdRFXQNUMScG
-	 dQkfMs2Rpmjd4MeqcaicAbx3FgsJpNLGI+AUbdyKO+IF02tqfyfrBYjEhkNw/RLS19A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793775937;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=i7gGN6qKp1qfdQhQXG8DxbwzMK2glOScLUQMtxcIIpY=;
+	b=th5k9qPji6oFk8++u9jUwCk58YN6lRzAcFlvhBJzrxQWxSmK7qJZmB6Y0IIuV1xXWXMO
+	 4RNHY9oNH7G3PaJ82ZAWiSC6ZN9CPu36TBOCItsiOqJ6x02tHvhD9mA7tlk0lrRp1hYeP
+	 LuhteOGCWixwpufPl/5edcgEszshcVbhhxZjfUNi8mMoNuDI09OHlq6NdAGLSiVVg8lIO
+	 KvZgPpuj0kOyCockUKHuAgGn7+TLsCt2+0MdxqVvayQwTLm/vMXgbI1R5ebzAMpesMWLG
+	 2FkiT/KoJ9PsfKjFokwEB5jLRkVVGtA7HOGvQ9nuwa4PsPH/Ie2FcE0M3g/eHZsZRNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLnDZLMi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C09606A326
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 06:38:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10C09606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-540537f959fso576308b6e.0
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 22:38:35 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793774315; x=1794379115;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BqJvBGEmlOEUiMEuSomhKkkIhAEsRGhylpEaf3nKmLw=;
-        b=CVh+i9D9+54j+fBwYpaf+wPi9mTNSpCXmHWDsyCtIRjodgvKVR+xLdFHPbWH23/+c7
-         OwEw/WQQNFaviZSj2NRIX2pxKhY25GXO9vheJ9D3axVX26WNKPQDblzkhexPHTOQ6RXb
-         l0CUSmgpEmsH9NGKJo4lebXoyccVVturp03rgEorNiYPU/Dhi8OHrMfYNsw9SBlzjCq5
-         esBwq7VtlG0GjSRFHmtH/CBYrDf61FuTQ85bK4But+jSS7J3vb1m9qEidNm4IcIynnCh
-         g0zY07krsdBENN84oJ8nG5moigOa1yuKPe6sxQcEBHbB+N+Qcrh6NLc1g2i2xLmx8aq+
-         ogAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLvjUY7ZtID59463Awyik/DL3dna8pN49AyBQv+PJ/5uA0t5MwnMSYdVaKMGHBAEepd/bMqO9FPIv3wg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8IwXc+43sVde13hPCjFgup3dMnBcjFG8A+kniC8Ox4xQZBaWHO
-	eH+D/RFG6P1J+bi3Jba4nevgytEm1nmXbhxAErplfMsDUH8c1YmaEIgGWH61NjMbeoExWacDCky
-	Plun7Kvr+DHl6oKRY3Vxvh5aQN7p4Ld4NBrJAfTrPgLjttd/UupyWrfcmkPY=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B190606A31B;
+	Wed,  4 Nov 2026 07:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RLnDZLMi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B50B81F0093A;
+	Wed,  4 Nov 2026 07:05:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793775936;
+	bh=i7gGN6qKp1qfdQhQXG8DxbwzMK2glOScLUQMtxcIIpY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RLnDZLMiiz4kkM9A9pJovDqU+VLzQjOA9MMX4iCEyFYC9s1UDheI5+/G1gVJmSSC9
+	 Yg3LrSbRVs0/JqxBTl5nK4LcVRggqFeOvfzBsLWI3DbIEu4Mqj8xDyGjAzJvMyeQZe
+	 QLr62LmCbEepEx4wAdyPYbhMHX8mCfxFOR0H7Jagk6w0EJDxFl1lNq5TTBAayGkEqw
+	 zAjk8wktfpd69upnEEgHlNRy4oAmNJPXuj5smhwTbRToLWMS7bkwhZzPKuhZ6/uQ2P
+	 dHhhrpnYiI547Dk+dcp5uAmXvxjziUqoJPSx9odmZhoOH2C5onhtoDdBPMSNzDmPBI
+	 g0MNkUIKyJ4jg==
+Message-ID: <f319ba87-5569-4323-ae4c-3f9f34a9a3c1@kernel.org>
+Date: Wed, 4 Nov 2026 08:05:30 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,126 +51,111 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:14d3:b0:4e6:cc78:edc1 with SMTP id
- 5614622812f47-5640dd5fcffmr11061613b6e.42.1793774315044; Tue, 03 Nov 2026
- 22:38:35 -0800 (PST)
-Date: Tue, 03 Nov 2026 22:38:35 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
-Subject: [syzbot] [media?] [dri?] kernel BUG in sync_timeline_signal
-From: syzbot <syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com>
-To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] dt-bindings: phy: qcom: Add common qcom,csi2-phy
+To: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ gjorgji.rosikopulos@oss.qualcomm.com,
+ hariram.purushothaman@oss.qualcomm.com, akapatra@quicinc.com,
+ jigarkumar.zala@oss.qualcomm.com, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261103214105.3605181-1-anusha.nandi@oss.qualcomm.com>
+ <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261103214105.3605181-2-anusha.nandi@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 03/11/2026 22:41, Anusha Arun Nandi wrote:
+> SA8775P, QCS8300 and SC7280 CSI2 PHYs are bit-for-bit identical in
+> devicetree shape (ports, bus-type, data-lanes, operating-points-v2,
+> clocks, single "top" power-domain, vdda-phy/vdda-pll supplies).
+> 
+> Describe all three with a single qcom,csi2-phy.yaml and a compatible
+> oneOf, rather than one standalone schema per SoC. QCS8300 is further
+> required to be paired with a qcom,sa8775p-csi2-phy fallback
+> compatible, the same way other Qualcomm bindings express full
+> hardware compatibility between two SoCs (see qcom,qusb2-phy.yaml);
+> this lets the driver bind QCS8300 nodes via its qcom,sa8775p-csi2-phy
+> match entry rather than carrying a duplicate one.
+> 
+> qcom,x1e80100-csi2-phy.yaml is a separate PHY with a different shape
+> (3 clocks, 3 power-domains, different supply names, DPHY split-mode
+> support) and is left untouched.
+> 
+> Reviewed-by: Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>
 
-syzbot found the following issue on:
+How is it possible? There was no such patch, this is basically v1.
 
-HEAD commit:    6628e7d4c6b2 Linux 7.4-rc1
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=13fa63f1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=1d2c97eac7d33533
-dashboard link: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=134d2959580000
+If this is v2, please provide changelog and lore links pointing to the
+review.
 
-AI-generated root cause summary:
-In drivers/dma-buf/sw_sync.c, a race condition exists between dma_fence_put()
-and sync_timeline_signal(). When the last reference to a sync_pt fence is
-dropped, its refcount reaches 0 before dma_fence_release() ->
-timeline_fence_release() acquires obj->lock to remove the sync_pt from
-obj->pt_list. If sync_timeline_signal() runs concurrently under obj->lock, it
-iterates obj->pt_list and calls dma_fence_get() on the fence whose refcount is
-already 0, violating refcount invariants and causing a use-after-free / refcount
-addition-on-0 kernel crash.
+> Signed-off-by: Anusha Arun Nandi <anusha.nandi@oss.qualcomm.com>
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=cba1a1f459230395a076
+Please use scripts/get_maintainers.pl to get a list of necessary people
+and lists to CC. It might happen, that command when run on an older
+kernel, gives you outdated entries. Therefore please be sure you base
+your patches on recent Linux kernel.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+people, so fix your workflow. Tools might also fail if you work on some
+ancient tree (don't, instead use mainline) or work on fork of kernel
+(don't, instead use mainline). Just use b4 and everything should be
+fine, although remember about `b4 prep --auto-to-cc` if you added new
+patches to the patchset.
 
-refcount_t: addition on 0; use-after-free.
-------------[ cut here ]------------
-kernel BUG at lib/refcount.c:34!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 1 UID: 0 PID: 6018 Comm: syz-executor369 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
-RIP: 0010:refcount_warn_saturate.cold+0x12/0x14 lib/refcount.c:34
-Code: 89 ea be 01 00 00 00 48 c7 c7 40 c1 c3 90 e8 0a 5a 01 00 e9 72 e3 02 04 e8 c0 54 d7 00 48 c7 c7 a0 4a 81 8c e8 04 85 eb ff 90 <0f> 0b e8 ac 54 d7 00 48 c7 c7 40 4b 81 8c e8 f0 84 eb ff 90 0f 0b
-RSP: 0018:ffffc90003e57cb8 EFLAGS: 00010086
-RAX: 000000000000002a RBX: ffff88802d271570 RCX: 0000000000000000
-RDX: 000000000000002a RSI: ffffffff81ebf219 RDI: fffff520007caf88
-RBP: 0000000000000002 R08: 0000000000000000 R09: 0000000000000000
-R10: ffffc90003e57a7f R11: 0000000000000001 R12: 0000000000000000
-R13: dffffc0000000000 R14: ffff88802d271300 R15: ffffc90003e57d18
-FS:  00007f83e74d26c0(0000) GS:ffff88812257d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f83e75a93c8 CR3: 00000000357c8000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __refcount_add include/linux/refcount.h:289 [inline]
- __refcount_inc include/linux/refcount.h:366 [inline]
- refcount_inc include/linux/refcount.h:383 [inline]
- kref_get include/linux/kref.h:45 [inline]
- dma_fence_get include/linux/dma-fence.h:323 [inline]
- sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
- sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
- sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f83e7507d5b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007f83e74d2100 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f83e7507d5b
-RDX: 00007f83e74d2170 RSI: 0000000040045701 RDI: 0000000000000003
-RBP: 00000000000003d0 R08: 0000000000000000 R09: 00007f83e74d26c0
-R10: 0000000000000008 R11: 0000000000000246 R12: 00007f83e74d2170
-R13: 00000000000000f3 R14: 00007ffcce841440 R15: 00007ffcce841528
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:refcount_warn_saturate.cold+0x12/0x14 lib/refcount.c:34
-Code: 89 ea be 01 00 00 00 48 c7 c7 40 c1 c3 90 e8 0a 5a 01 00 e9 72 e3 02 04 e8 c0 54 d7 00 48 c7 c7 a0 4a 81 8c e8 04 85 eb ff 90 <0f> 0b e8 ac 54 d7 00 48 c7 c7 40 4b 81 8c e8 f0 84 eb ff 90 0f 0b
-RSP: 0018:ffffc90003e57cb8 EFLAGS: 00010086
-RAX: 000000000000002a RBX: ffff88802d271570 RCX: 0000000000000000
-RDX: 000000000000002a RSI: ffffffff81ebf219 RDI: fffff520007caf88
-RBP: 0000000000000002 R08: 0000000000000000 R09: 0000000000000000
-R10: ffffc90003e57a7f R11: 0000000000000001 R12: 0000000000000000
-R13: dffffc0000000000 R14: ffff88802d271300 R15: ffffc90003e57d18
-FS:  00007f83e74d26c0(0000) GS:ffff88812257d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f83e75a93c8 CR3: 00000000357c8000 CR4: 00000000003526f0
+You missed at least devicetree list (maybe more), so this won't be
+tested by automated tooling. Performing review on untested code might be
+a waste of time.
 
+Please kindly resend and include all necessary To/Cc entries.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best regards,
+Krzysztof
