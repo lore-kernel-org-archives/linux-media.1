@@ -1,79 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793785379;
-	b=dcpL3MWeuzOS8LZ1gDZVikwIXAcHofUtB++Bz/htDDs9cpz/PYKy/rnSVgwUa2D76IRS
-	 nQRIluR66xZ+kAz15sQNx0jJBWNoCu3cBi+3FhN9EDFJsZBNEKRgFDyOKr/SUM6+EemSH
-	 2alKq6SEqrDCIIQEV1u1hBsXaojI5CwxUAfkOd/IXS8yBvUp9ciuGhHAjTbfr5D0bwmi3
-	 OH5u8/Oa0XOB0UvdXdssgFbjDU2Ot4E6GIVC2QWHgQQjLDMcHDMMGWtPjfpOyPWqkwPms
-	 w0mTJYCjtw0r3uniFihVam/7QwD85bj4PWM8HJlAq06650u2KsLY27HcpfrRhgP93tw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793785379;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
-	b=0TjnscymCigAWs2FrElIPtJqOrEeT8pKkOGBw0uY0KxZmM9W3X7iXIdswXVkfZ/Dn6cO
-	 Qo4jinP9afu7abWtwK+LXniW3CtmJck07hOMsIQf4sztsAUmctUy18n9OHiPtJEY6hzaF
-	 Oy4hWdpF8uXivcNRA/21ySOnk1gG7HOj17DFGDA5JY0EsgRNVg+3mFEneY9DIAqo7CSkc
-	 VqjiQkBh6mna1v7Km/LQTN+K9MNTLpPGHacUg57m9AyxtLxYJ9gavJorT58lAd6PTafw/
-	 MsAkSqS3fwBsdFHIy/cFVOsl8N90vAiJ74XKOd8FElKE8/BUeyHqb9x/TwVS5t4nRYg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YyOU2HOu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE8F606A32D;
-	Wed,  4 Nov 2026 09:42:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YyOU2HOu
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793785378;
-	b=0f/RMo1CuCXB0nldvUsfiJ2C39ZsLz8PyO0X21Ojh9GIgqbWSTdoRBPDSW+TdzjBJakp
-	 bGhbcPJ2DrEGcKIzfq9t5vimmQi2eOg9FNaUar9Yrl3asj70G/nTyq9py9ADmrufHy6PG
-	 gJlECU60cAEW81hSGxOYXI6n8sywHXnyRcA+HG/WxfYS1bVw90gWAGvv9xaKE3RXT4AMl
-	 a4K3cOFsAQstKAP2UqOg9pWbzYIEcpikpDmycVnRjQrWCU7bl5UinO0gH+iTcVKHuVmra
-	 zOL13sUOwmlnrMyu/gbbHD40Ek8XZAPTB8NoR3oDLXQCAvCyoZa8DSZsHqdytzPy48A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793785378;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
-	b=SSJ0lfMsgoNfkOv0sz8h3FXcb4NKpEWR7mq4oTsxNXAYWW5fRXameS+b8yUwK3s+MHvc
-	 k0Gv1P9K0U2SjjeM12r2WCaLMH7yFVvnqPDF6bqCSKTRX+Ri7cMmLDn3prLCCxlcZY7Yr
-	 RVuQrPt7WFAY7EbOio72TfxRqbXHYD00ynPdYrfWMg0Ra3WCq56brh2gdkYPHYVTeLsHW
-	 cyShmZF/Evt+63uooOd2Ojfgc0EqKcBThdSGwgTDTZlO+vSjp33E4pinY24E7zBahOQSK
-	 zojNopBNO5eMKpKFlcGWzp//YBcYHU/ESPwWLTGzzrgEKEGHj9npyn0Osm0aWqdfs9A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793785866;
+	b=bzFVLeHpPT/PSL0wESlUEvuQguuCKE2w//63RojmPMxdjdvvkWpLqPB25rYToOLhJ2zZ
+	 Vb/qkNUMGilkPotAQaJ+biJvPFpag6E4H4pJ0EYAP7WcF4vPfwUFwqHHfpzdv2A5WiVT9
+	 K71UbiLIaNHDjRT6t98TysRXSLu9+48HI0cYXmFFvgDmw7TopuOzxyV65AE2vg82O7hBM
+	 duPTs4YBtMtfzdfBhXsPhjDzDbGaNwB0sV2fJJ2hCBghGZGvZlvkQHIEcjfUtnwWiODIL
+	 ZbEL7VCO44obccXdvlVyNSSNI2W59+yvzhNZq2f1/iSkb7brujv0nI7QGIngOITF4lA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793785866;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:Message-ID:To:Cc;
+	bh=iMXe8C7daPiBSG8ju/PNDegLRf9dJOdMxFUB3wDGg24=;
+	b=S9xDvvrt9tZvXnXJfxAmUpg14wN2OOhLAaZ6vSTqeuhEB+biQ4jsoFzzcM1ucrch2Afc
+	 I0QmFeZcs8dc95V/TZWOR4X4ftQxBupcccOshf6YsOTGbrANhxJVJ5cKLCjCbEHs/Lcqx
+	 UW6FsxSGMq6/XAZJ39uGIX4DZu3GQqLJGoeuok8QcClcma/tdDm8o0Idt2LSzXKLd7EJI
+	 viEW5cnkGJYqIWO0be6Lc8JF2MBdnw1LWnIFq28ssbv5lOOKmjLOZWC1opsIs4bhqnVPo
+	 dwSdK7PQS5lKztuPjRq6Be5tOmk7lPgL1CgaXEU7KANGemHNYuL8pgNP/yu0XKz3pnw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A4id2crq;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 7B6CE1F00A16;
-	Wed,  4 Nov 2026 09:42:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793785378;
-	bh=ezPYznbslsnAcqfprTwt3BpYe5eDIl6ErFqG/k3BNSs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=YyOU2HOuWxksK/VM+JYCjj8GgC3NmpSgveHx8Z++PFBGD/Po7FJpIeCAxuda8Y8rR
-	 35U3IuccZD0lKEi2qoJbyJm9GMhb1USbfYWosGBb8jiTT+LL7qgiEPN+3sXqnawKpP
-	 xjb2qu2HRuaxityzZcwy/z7lX917C8tSLUEYxEJ0JOwpCH45QBdvcUvEqhWYpS1qiQ
-	 fsh7wsPU0IWTNqm5vEuqhDDmtwWp9vY7LgaY5fJfqL3QM7TKE6SDdIy1+cG0J7OHt2
-	 e2LHmifGNd6hrV9wOTx1Ti4vPC1zMybXgTOFmrax/yEl7/8HoYjmgLWoya00u8WuaR
-	 E3JIn+uewxAdw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 03E9646D85;
-	Wed,  4 Nov 2026 09:42:57 +0000 (UTC)
-From: Babis Danias via B4 Relay <devnull+b.danias.tutamail.com@kernel.org>
-Date: Wed, 04 Nov 2026 11:42:49 +0200
-Subject: [PATCH 3/3] media: i2c: ov8856: Power off the sensor during system
- suspend
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD79606A31B
+	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 09:51:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AD79606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A4id2crq
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-353804b591eso922622eec.0
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 01:51:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793785866; x=1794390666; darn=vger.kernel.org;
+        h=cc:to:message-id:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iMXe8C7daPiBSG8ju/PNDegLRf9dJOdMxFUB3wDGg24=;
+        b=A4id2crq9enniV0UEe3S9PcM2zqBBo9lolzKRqBxWkkFhSroIRB6fWgZVTnteGNHNi
+         ozVKgo3tKzysoauI2Zxv8cbyxMiSRMwC1xJkBIG5DSJpuumzxgrUXlgD3i+y+dKkiSha
+         pjY+4g62GUY1yiupYvzTn95vOFslgSEVVQMgULbGCYoiLBeZwSwU34HebA9vZ7WYAGcu
+         LvC5cO3kx0Tn52MIdi0YOE1ess7iztzEDapLM017J9LZMaAQARbFyJe4Nqua/sDOkZ/u
+         TVc54KPqUdu/ES3sPg9KOA5K+VxecyTwyXdYvYMiMB9u0XTY2fk+NZZsBOexV/gM1v4U
+         TfUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793785866; x=1794390666;
+        h=cc:to:message-id:subject:date:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iMXe8C7daPiBSG8ju/PNDegLRf9dJOdMxFUB3wDGg24=;
+        b=BzmoBUCachdprea1hwrhQoblsxIHVELp3yQStjgto588V7+HE4sFY3PVRIAv4qVj+m
+         y5UZ6QyUvBzYbMZsPS4vClLb50xDIgHHqtikBfDLy5aatgSMR+MzAraRK8CmjX6e7FFJ
+         Zpmrg7DYtM2Zis4YRjo2pFkVH4wL3kvcBWw9bud9RnFA3q3aU5xnni9efO3P1akdxGXR
+         KkJvPipuSI+9yjwJfhiyFCBVEAa3SNFbFAWpcBY6jbP/wTmrzx0kS3dNX+kNpjYD1OWU
+         lRDrz30sqEdCo6zKdsPC7NU/tuS7S79J9GAFYUMPHmpWsL1ffznNBC2I45FcVM8vbj/D
+         yA3Q==
+X-Forwarded-Encrypted: i=1; AKwUvByhatN9083t4cACZOY1CNs2PZnJe2ep7oSGqf250FC3h9gBepBn9jK3yYdcQWreiZPYfjpvC7R9JMMCQw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/CTSkc7ZG/h3IXe3d7yk61L1GpPwjE3iB5UmtaT07MhXplxTGY
+	Vv3XyT339c0nqSBHUhBCRHrioD1gIbyFbGyZfoGNMs6iVDQfPjK/x+Cp
+X-Gm-Gg: AYBFou1Oat+sduvdWioaml+jnYad1prD0wHu80dV2XTd3Qj6A+VzyXLlcGd+mtAg878
+	HG62oof5fYKAZ72Ahgp2RD/dAOhUoKNEBpCTXLBoxo1cGQiqOQxoAf7JV+NAO/xzLCxDUGCLdnf
+	XN36cV+x8ovBTOnHriY+Cl0Z3c58xNEgIadIxPZzZHnwMS+ByObxWZ6AJemvF6q+eF6qbfm7i0F
+	B3DYx2Zx8BaplmQymIubueShxHps1SRPqWtSAIQovOnCW/AGh2ZRckJB+EpC5AoBOwUEXZoKOOq
+	iP9r8nqbmmMNKuYQgdn/6Byv4qhSxes6y6GfACAEXvXMFHIrH+1apnnqMzv4/bCP+8D26uK+kOQ
+	WwrmB3DKBCizo0Kz3u4mPwS4If9dcvSnexUkQXsvBsUJggEylXZHKwfbtEfxSpw00r4N2l1iZrn
+	x40RaAfE0WnfPl2F93Wyggys1DVUmVX4FA9wFGLA8xkP6GRI97R9voomjsqp1gYtpK9dohmbpGL
+	W5bLiQW0FTWu0GHShGqV6ypXjTGBMN9WGVxBH4evP1V+XxD+gCirGs0DleMarPcJLLGiu4wCF7n
+	q1CkfruiYK2kqExllpdgfZ6CDJgudFlkOGlrx7nm0zWpsYI0h3ocIZx4e+cjf6N4yLU=
+X-Received: by 2002:a05:7022:b047:20b0:16d:dd5c:4261 with SMTP id a92af1059eb24-1ac5e6f4e87mr24922994c88.46.1793785865246;
+        Wed, 04 Nov 2026 01:51:05 -0800 (PST)
+Received: from [127.0.1.1] ([23.247.137.158])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b245c463e9sm6536137c88.14.2026.11.04.01.51.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 04 Nov 2026 01:51:04 -0800 (PST)
+From: Yaohan Li <shunsheng1218@gmail.com>
+Date: Wed, 04 Nov 2026 17:50:50 +0800
+Subject: [PATCH] media: v4l2-mem2mem: cancel job work before freeing m2m_dev
+Message-ID: <179378585020.73536.6089775766038265997@gmail.com>
+To: mchehab@kernel.org
+Cc: hverkuil+cisco@kernel.org, nicolas.dufresne@collabora.com,
+ Frank.Li@nxp.com, ming.qian@oss.nxp.com, dmantipov@yandex.ru,
+ 121811682@qq.com, ezequiel@vanguardiasur.com.ar, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,100 +92,44 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261104-ov8856-pm-fixes-v1-3-1958b730ce66@tutamail.com>
-References: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
-In-Reply-To: <20261104-ov8856-pm-fixes-v1-0-1958b730ce66@tutamail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Serin Yeh <serin.yeh@intel.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Robert Foss <rfoss@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Babis Danias <b.danias@tutamail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793785376; l=2806;
- i=b.danias@tutamail.com; s=20261103; h=from:subject:message-id;
- bh=D6TzCaSHwO5sxfGpSVeAfyeQYpOZbznZnsTWQvfOylA=;
- b=RaX+DSEFW0zQSOLC+4Irzx1Rw9oIY89rIlVs810BM1jeOii2AqSXcbpcaJcKLy6AviB3b1Sd5
- ItiBQ2Jm82EA5myR/D/Lq7D0r/+A5uGsqms2TaXMz1eXkbmzvbn04JC
-X-Developer-Key: i=b.danias@tutamail.com; a=ed25519;
- pk=6DWeigdk0D3JwBjwvmxo9RW8cG8S1Eku42cb9PP+ghk=
-X-Endpoint-Received: by B4 Relay for b.danias@tutamail.com/20261103 with
- auth_id=1406
-X-Original-From: Babis Danias <b.danias@tutamail.com>
-Reply-To: b.danias@tutamail.com
-Content-Transfer-Encoding: 7bit
 
-From: Babis Danias <b.danias@tutamail.com>
+v4l2_m2m_release() frees the mem2mem device without draining its
+embedded job_work. A job completion can queue the work while device
+removal runs, leaving the worker to access a freed m2m_dev.
 
-On a Dell Latitude 7320 Detachable, the rear OV8856 stays powered for
-the whole of s2idle once the dw9714 VCM driver is bound, even with the
-camera idle. Tracing a 20 second suspend shows the sensor's clock and
-regulators enabled about 0.5 s after "PM: suspend entry", and disabled
-only just before "PM: suspend exit". Without the VCM driver bound, they
-stay off.
+Cancel and wait for job_work before freeing the device. This ensures
+that a previously queued or running job worker has completed before
+the memory backing it is released.
 
-ipu-bridge links the VCM to the sensor with a runtime PM device link,
-which makes the sensor a supplier of the VCM. The dw9714 driver has
-system sleep callbacks, so the VCM can't use direct-complete, and
-dpm_clear_superiors_direct_complete() then clears direct_complete for
-the sensor as well. The sensor goes through the full system suspend
-path, where acpi_subsys_suspend() runtime-resumes it before calling the
-driver's suspend callback. But ov8856 has had no system sleep callbacks
-since commit 19ae6ba57f88 ("media: i2c: ov8856: Drop system suspend and
-resume handlers"), so nothing powers the sensor off again.
+The use-after-free was reproduced with an in-tree V4L2 test driver
+under KASAN during stream teardown and device unbind; the same
+injected scheduling sequence completed without the report after the
+change.
 
-This matters since commit 609a71568664 ("media: i2c: ov8856 : remove
-ACPI node bypass mechanism") made the runtime PM callbacks control the
-sensor's power on ACPI systems.
-
-Use DEFINE_RUNTIME_DEV_PM_OPS(), so that pm_runtime_force_suspend()
-powers the sensor off during system suspend, and
-pm_runtime_force_resume() powers it on again only if it was in use. With
-this, the sensor is off for the whole suspend. It is still powered up
-for a few milliseconds at suspend entry, by acpi_subsys_suspend().
-
-The problem was found, and this patch written, with the help of an AI
-coding assistant (Claude Opus 5.5). See the cover letter for details.
-
-Fixes: 609a71568664 ("media: i2c: ov8856 : remove ACPI node bypass mechanism")
-Cc: stable@vger.kernel.org
-Signed-off-by: Babis Danias <b.danias@tutamail.com>
+Fixes: cbd9463da1b12 ("media: v4l2-mem2mem: Avoid calling .device_run in v4l2_m2m_job_finish")
+Assisted-by: ZCode:GLM-4
+Signed-off-by: Yaohan Li <shunsheng1218@gmail.com>
 ---
- drivers/media/i2c/ov8856.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
-index f9bcdd412..848e981ff 100644
---- a/drivers/media/i2c/ov8856.c
-+++ b/drivers/media/i2c/ov8856.c
-@@ -2462,9 +2462,8 @@ static int ov8856_probe(struct i2c_client *client)
- 	return ret;
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index a65cbb124cfe0..c4756e7bb1fb2 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -1207,6 +1207,12 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
+ 
+ void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
+ {
++	/*
++	 * job_work is embedded in m2m_dev and is re-queued unconditionally
++	 * whenever a job finishes; wait for it before freeing the device.
++	 */
++	cancel_work_sync(&m2m_dev->job_work);
++
+ 	kfree(m2m_dev);
  }
- 
--static const struct dev_pm_ops ov8856_pm_ops = {
--	SET_RUNTIME_PM_OPS(ov8856_power_off, ov8856_power_on, NULL)
--};
-+static DEFINE_RUNTIME_DEV_PM_OPS(ov8856_pm_ops, ov8856_power_off,
-+				 ov8856_power_on, NULL);
- 
- #ifdef CONFIG_ACPI
- static const struct acpi_device_id ov8856_acpi_ids[] = {
-@@ -2484,7 +2483,7 @@ MODULE_DEVICE_TABLE(of, ov8856_of_match);
- static struct i2c_driver ov8856_i2c_driver = {
- 	.driver = {
- 		.name = "ov8856",
--		.pm = &ov8856_pm_ops,
-+		.pm = pm_ptr(&ov8856_pm_ops),
- 		.acpi_match_table = ACPI_PTR(ov8856_acpi_ids),
- 		.of_match_table = ov8856_of_match,
- 	},
-
+ EXPORT_SYMBOL_GPL(v4l2_m2m_release);
 -- 
-2.56.0
-
+2.34.1
 
