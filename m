@@ -1,113 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793810199;
-	b=LMoCMyM/WHDp4azaiWfqWRB0daRD8bmZs+EdOOMUni7MlMvOSuBK2KX3B78bK1+/H8vs
-	 c5+VIacq8kj/iBzJKHsFi0M4D47SK7p2hERhRva2UU2npx3VAmKBiH6URcR/PMqBbnVnc
-	 wiXiO2eTICguueaW+DPoCxLIwgb/Kh2Ly+4NrZ+csfTYuYYuS/b9gTm/ibrKniHgADkDs
-	 vPaWWaVGa5zmEzHc6LY9XtMG7SGy5zgOMfKGdjA5xbilZDKwPAGcTz76TxDLzWK/gRFLP
-	 89g2QEaWQjpx/vFiuLPTuvfdx306Z0FvBMvWCayk0ytJUkOWsF4Y3YPay28gAr1hWGQ==
+	t=1793810815;
+	b=Fg+YmWJv87sHppjSfk2sG1uck4veFtD0vu/2gkM5MyLBPdjXkMjhwcSVp7morXkDVlhm
+	 rG1X7QGFcuNKgI4LWoYYd+3Xluoy9PpF9PV7HNE4/CnXPPESWqyseyxmxc6FaINcY4mq2
+	 ivbNCZd6vA81nruiMQ2+HdvFtoCSQ0y9NskAUy7/7YYSquw+7RnYYdd97Tac5Bc+8a+gN
+	 JvSYRMKZ9ZwdU+qs6T1ORAYKAWyddlmw6vXzjrH3avvZjQeKs305Avh+8GUov268MBnGA
+	 1yGqk1d+XyE31Zy7MKUGPDAygSPt0D9H6nYQzX0kG5AjaU1Hh/ZZy48tGwFdvq+DuVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793810199;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=hmnctkQOqSlcJNDZpI/f3GW8bFHAo86SA9tyubOGVL4=;
-	b=Gxh6/Oke2fzpgLqccUnyAuZ8LiXCwVGlGxLWI4fjr1pwyfTDu37WQ68pcy/41q8B0Lda
-	 4VJM7/WDIjNAcdHAaQYx21jZCw+3Jdr4XPZwDrIBN5RrpSeF0F9DOrTfy7nKfq0RtTto+
-	 258SoAl/hmUGD3nxmZpPPWxi+eoJnf2RkQhzo5wDWVIV5h13VDiqVw9Kyb8BmBt61eiTB
-	 ECDy3nXGRqy357jA5QnY/3Hj2ImjmhgtBpycCyHn4p6+Si6JwFlcVOU+3i/Zka8/fr4cE
-	 b5EwwD1/DOxpPfHzYDyeiTHnh7aIwZm5YvTCixFLUrVIO9AAy6YxZHLlQCkgUB3g28g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793810815;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mrj1RHzBr9lFPxEPcZNWDZfBeJOGthj8B3nIsgiRgYA=;
+	b=RYTyWW9zzE2frnSIsCIRWQkoWijA6uqUgl5uqlWCc7IGeVtsdFOxx6HZpNgHxuVwUjpa
+	 2yd6d4tPkQBUJSb2VkxzGbqpNDHi6Y4DRd46niyslIALyQIUsDH5atx+Jc4Ex2LVxcali
+	 P6s4VVhQOWIXpHPOS5eNkUzVQgeWL1k+9lCizFQwvsbzDobDdZqNTrJPfV082hPYJRiSA
+	 B5MGt3MZ+Jmk6CCmua+PmEaMYKsVubqDUyyTvp4fqjSdjlgqQdlpPKky5bxHmzoyp0G/9
+	 rRADLdtXckK8Jjk6EyKLoilTyCtx8eQ8Z9LOFQ9NVSddfej+ke5ozBc1z1ltTrNkCZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="m56zB3s/";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z9uMX0Jx;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiYFumdX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876F56082BD6
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 16:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 876F56082BD6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1820606EEAC;
+	Wed,  4 Nov 2026 16:46:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=m56zB3s/;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Z9uMX0Jx
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A4Fj8mQ1692528
-	for <linux-media@vger.kernel.org>; Wed, 4 Nov 2026 16:36:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hmnctkQOqSlcJNDZpI/f3GW8bFHAo86SA9tyubOGVL4=; b=m56zB3s/GIp3aK0n
-	HaOL6N2dPtpScSklVRfq9cXQe975Jw+9JBLeOADAB/o6/nr9F6EJTopuRgBAPjCe
-	tdkz3U0smPlO22yX/+m4I6JhV4B0cS4fkfqZhuzA3wgSvvCK2zGCEQL4Rjs4gMj8
-	jlL49/lEn9HIbmPJtRqUgb06IOm51xD2F7YPgp00E7AOqHhKzuKDfNraC59xwzA+
-	4jLg/U9mAoDV0jhnc3lb1UhLdF4G2j5hlboqFB8WIb6orMaTyOGopcNTKdFCl5vg
-	/eOv7WhMjImyRztmxOd5Xx26P9xoSOpSGTxrFe76rfffZccFsje2m+Ra+poM9tCV
-	ykdizA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hr6br0jk7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 16:36:37 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-944101e6367so140945285a.1
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 08:36:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793810197; x=1794414997; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hmnctkQOqSlcJNDZpI/f3GW8bFHAo86SA9tyubOGVL4=;
-        b=Z9uMX0JxiyPoPUjERrk1Dr2WXSk+N4Tubi0bsIavDOKnE93SOWI/S0v1+AQUp3I26F
-         +wWdr0HUf6NsQzA73kXcbaYqTsz7Hex87kpMoKz68O2ksF2tVi5RhOfvJ+zDn1bt4oVD
-         9EmqntknpBjTbx5DqXW0oDJyKeVGLZFlkrEFpc/7cCxlDIbVWX/6LhaZFr5o7UNmzjux
-         q0GAXoil3eHJVh8avln7iND+QR6hgcukL1cjXj5D90t4tn1mNjQClzChPZTkOowjd4yU
-         uc2wWjCED5YjoQy6lW+x6wqXoMSjlrxv810JeE6GvXwtcsYhLLFS3EY0vAlqPUociUpl
-         3FMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793810197; x=1794414997;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hmnctkQOqSlcJNDZpI/f3GW8bFHAo86SA9tyubOGVL4=;
-        b=AbMIIOE6Vd6FEca0W6qInzcuCnaOLdtOdbGmQns7pHSxwhE4wQGRD6KVUFNTN+D7nC
-         /cBbcDUmtJ6bcftLLpdGnwuOVICt21fguqHXKG1BQOK4gpaVSAKKDJPXUd/E6uNTc9yL
-         DjFQz0DlDzLqJ9/js3/6+PMhKh4LPh8b7q8ZwQPqhqxQEXmumFNPN0D+7C4uotZv8mme
-         oWpZJCckSAW2Dj3N7RREj7Ecbn/GoxLvyPkcUsIOnJ/U/j7h2+5SXN78bABWOrrd2rm9
-         BWnU8WGi9ey2400aXlBmIzFbxkv466C1fnaoSSrmV4dCM3vt3IWnuEvwaOlGt8A3gBcj
-         585A==
-X-Forwarded-Encrypted: i=1; AKwUvBxh8Th2KmXchIw7O/XGa7irHmsIF4r4KZ5xmdxKRhxgPqW8in55N+lVgXa3lnqm36REAbjpQBF2vPNNYQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z88+NJQXcaamNr0weGH/eJF/jNKMqr5jyj8auv1uU5LhhPQe0VM
-	Xfck9UWNydYum6oR9gTQg2eUj8ARQEDni3MX54+J3uP5gKSfJ0I9BbcoyMDYVuNRiC0MtbnJxv4
-	GgOD5J6vTtob0GLTMDjOvYeroDAXBo6+Y2lXLu/YyBFQMSF+D3Sts4oLo88cpXJqRAA==
-X-Gm-Gg: AYBFou2Ixgqv2pmTRsuDScX2KwqX57xDKbUyFRca8gchRNQ3ViWpe/zbOtWxgw2Ri/s
-	QQ8voRPTRTUq4YDB9tKv9ny40wGHoJBgOMcBS/BHUJgKv0qXa++AvQo1c+FOsqpHIpKXAPm0MA4
-	E3pS1t0SDI50xGQ0z3iwL7A8NDmhMRDuh729dvt1AQKOY8VgxJYeArRCzi/fKR/eBOdaOlsMXIQ
-	m5wN3J8toTAyyJj9+AsfWo2bW1WLEe5+nLUywV+WOjeok4T0UJEZT2SnBMT3w9VoX9UAUyLk350
-	cheh+gRJyVvAgdLk/fyH8UAVHgi56dB79XE87PGiRBwvbhormNF+LK5eRL/Zs2p9gWkibJ7+unP
-	acprgjBK2N3wwpXuwwU5L2x/oX7JFo48VzEiBbfrTQd3/cSNAO2KSaSkbnUdoDSz6L4MR7lgI+v
-	HhvudPCCttjJiY8YrWROQxMhJZAl+I5o/+uprac0wKdqSzwXRshMvlQt73/Q6OnQ==
-X-Received: by 2002:a05:620a:410f:b0:93e:53db:d59e with SMTP id af79cd13be357-9441338b4cfmr3099620485a.23.1793810196561;
-        Wed, 04 Nov 2026 08:36:36 -0800 (PST)
-X-Received: by 2002:a05:620a:410f:b0:93e:53db:d59e with SMTP id af79cd13be357-9441338b4cfmr3099612885a.23.1793810196023;
-        Wed, 04 Nov 2026 08:36:36 -0800 (PST)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acdc6bed64sm5267191fa.7.2026.11.04.08.36.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 08:36:34 -0800 (PST)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 04 Nov 2026 18:36:09 +0200
-Subject: [PATCH 5/7] media: docs: pixfmt-reserved: describe the QC08C and
- QC10C layout
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JiYFumdX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0AAF1F00A16;
+	Wed,  4 Nov 2026 16:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793810814;
+	bh=mrj1RHzBr9lFPxEPcZNWDZfBeJOGthj8B3nIsgiRgYA=;
+	h=From:To:Cc:Subject:Date;
+	b=JiYFumdX1kW2MrKZksZooxbQY6RBIzupSHXG+La1/uDEn14++2uJp9HpNG70MMBlD
+	 h8PrFbaBOav3/rqvgLc0fc7BPqmE+v77ICnKYtkVcP4uqLqMN4xW8IAHdSFn3ws1gy
+	 e0OvsfLMh/c2+lmvyZtvI3JiIdUPmxb0wgheKaONGmNuE4ynMtUIiyEMN+FDRjEwO9
+	 R5wUcO3fEKraXYRjIEtnjGhNn3g4qOiXXHYMM/YYLMFlK02+31mt4VAX7+y080F/jb
+	 dyBxHIgATgN19yINWuhIjkzj2UooK+L6Sn8CN4bOGmVHNJTlm3xKEz6JjITGuYc7+R
+	 IgSswZF3IyLug==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: linux-coco@lists.linux.dev
+Cc: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Radu Rendec <radu@rendec.net>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-media@vger.kernel.org,
+	linux-mm@kvack.org,
+	kvmarm@lists.linux.dev,
+	patches@lists.linux.dev
+Subject: [PATCH v9 00/14] coco: guest: Add a shared-granule allocator for host-shared memory
+Date: Wed,  4 Nov 2026 22:15:41 +0530
+Message-ID: <20261104164555.3555725-1-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -117,167 +115,261 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261104-ubwc-format-docs-v1-5-389044012b4e@oss.qualcomm.com>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
-In-Reply-To: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
-        Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Robert Mader <robert.mader@collabora.com>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5263;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=1OfyeKpg9SI28jpOvwv81zI2qbKFoyNRZrDSfeIXOIQ=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBq618FUrwLTtJam1l5ngbz7ZqLghcNF67hlfAGQ
- LmaO//9uzCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCautfBQAKCRCLPIo+Aiko
- 1SqdB/48JOwOXGgB6EFrl/RBSNn5kwXfc2kHX+HSIMrob0xEG2LypCY5LwWmH9Uo7hJqHSk9Aj3
- QsRKbRqbqKuCM6z1nu03b7x+L7lj5Yi2uhYzFhQQF60hLQZya5qkEzUImUCXCQCzc17cT6yGpa1
- SU1yDT65cBLQ9YV1qFJ2J3mN2ruVM8wMjItAjpXGxFGXKTVnENuvgnH7VQpL5sltFYpuER2A2iW
- wwx79ASinjlez0l+Ev5y2ZCFlzT7uGzSc63iuJVMVxmXCxoDSXi3lPbrqRwep85zsYY085f6jkA
- ONgoRUTxdwBGgJzKLTP1Ar7z7G1QBIvrkv0OsB57uZqrbyiy
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX2rAyU3eg6SjY
- eX7enuWIQNLSAUgL5ac5W2vLHJiUgjxgkwh3QxKQEB4dxLuMWIl54W15mufZ2G52f2YXjzIZpnf
- 56eTNknJKw+UoZwjfN+QhQQaMbxtvur1ofm8j8Bn4WWGnzro9sxTJ0evYRT99PJAVMCM0VpelUS
- SYDWitqttOqWq2Bppvhpd0YfYlZrHMgbs9zMYKhzhP9nBYxEWBJdwnD/0t0OKS3bFHKIlstzPcU
- UsIPxF4mMwGQlH7cqMmvJ8TGPj1UtMrssN/VxHLLR2kMRj1s/kjeF+/J96RQD/azulfckYVkq4Q
- weS2jdU0SX7Bzy/ecrck2loQ/vrbFcI266wqzGFAIXeDymp2cvr7JpNtko0ZpwYNEf6chsJHdVb
- i+CqQcm+HZzYENnSNDoa8eIwCWN5UwMXNS+VAK/uzevhH6QVx4WyOfkyQyUJ5DW+1bwyGSB8Mag
- T5Dtr16BRzqYcQ2DXzw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA0MDA2NiBTYWx0ZWRfX2/Q1ssacQ2Pc
- SuT9VIadA/rZFKBIVrfMsolEX886qBzwCi8lCf/6x1ENvt/QoSBzEJ7/Gzo8+ogLU/4o8jBZXfq
- pxTwHMAI/w8sWbdnWCfrHSolZknFC6g=
-X-Proofpoint-GUID: PEYOPWao7WpGt_73Ai7k_jCrT1aPGZU2
-X-Proofpoint-ORIG-GUID: PEYOPWao7WpGt_73Ai7k_jCrT1aPGZU2
-X-Authority-Analysis: v=2.4 cv=futJ914f c=1 sm=1 tr=0 ts=6aeb5f15 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=Eh1Ucz_HWyYK4_jupWgA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-04_05,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 lowpriorityscore=0 malwarescore=0
- clxscore=1015 suspectscore=0 bulkscore=0 spamscore=0 impostorscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611040066
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-QC08C and QC10C are documented as opaque formats with four planes, or
-eight for interlaced video. Neither is true for the drivers: Venus and
-Iris use a single memory plane, nothing produces interlaced buffers, and
-the display controller and the GPU import these buffers, so the layout
-is part of the contract between them.
 
-Describe the sections of the buffer, their order, strides, line counts
-and alignment. The compressed contents stay opaque, they depend on the
-UBWC configuration of the platform.
+This series tightens the alignment requirements for buffers that are shared
+between confidential-computing guests and the host, and adds a common
+allocator for host-shared memory.
 
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- .../userspace-api/media/v4l/pixfmt-reserved.rst    | 63 ++++++++++++++++++----
- 1 file changed, 54 insertions(+), 9 deletions(-)
+When a guest runs with private memory, buffers shared with the hypervisor
+are not only accessed by the guest. They are also accessed by the host
+kernel, and the host may manage the corresponding shared/private state at a
+granularity larger than the guest page size.
 
-diff --git a/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst b/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
-index 1cf6c59f4bc4..3ff6499970e1 100644
---- a/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
-+++ b/Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
-@@ -245,20 +245,65 @@ please make a proposal on the linux-media mailing list.
-       - ``V4L2_PIX_FMT_QC08C``
-       - 'QC08C'
-       - Compressed Macro-tile 8-Bit YUV420 format used by Qualcomm platforms.
--        It is an opaque intermediate format. The used compression is lossless
--        and it is used by various multimedia hardware blocks like GPU, display
--        controllers, ISP and video accelerators.
--        It contains four planes for progressive video and eight planes for
--        interlaced video.
-+        This is NV12 compressed with Universal Bandwidth Compression (UBWC),
-+        a lossless compression used by the video accelerators, GPU, display
-+        controller and camera. The compressed contents depend on the UBWC
-+        version and memory configuration of the platform and are only meant
-+        to be accessed by the hardware; the layout of the buffer is defined
-+        below.
-+
-+        The format uses a single memory plane that holds four sections in
-+        this order: Y metadata, Y data, CbCr metadata and CbCr data. Each
-+        section starts at the beginning of the previous section plus its
-+        size, which is rounded up to a multiple of 4096 bytes. The metadata
-+        holds one byte for each tile of the data. ``bytesperline`` is the
-+        stride of the Y and CbCr data. For a ``width`` x ``height`` buffer,
-+        with the CbCr plane being ``DIV_ROUND_UP(width, 2)`` x
-+        ``DIV_ROUND_UP(height, 2)`` samples:
-+
-+        - Y data: stride ``ALIGN(width, 128)`` bytes,
-+          ``ALIGN(height, 32)`` lines.
-+        - CbCr data: stride ``ALIGN(width, 128)`` bytes,
-+          ``ALIGN(DIV_ROUND_UP(height, 2), 32)`` lines.
-+        - Y metadata: 32x8 pixel tiles, stride
-+          ``ALIGN(DIV_ROUND_UP(width, 32), 64)`` bytes,
-+          ``ALIGN(DIV_ROUND_UP(height, 8), 16)`` lines.
-+        - CbCr metadata: 16x8 sample tiles, stride
-+          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(width, 2), 16), 64)`` bytes,
-+          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(height, 2), 8), 16)`` lines.
-+
-+        ``sizeimage`` may be larger than the sum of the sections.
-+        The same layout is described by ``DRM_FORMAT_NV12`` with the
-+        ``DRM_FORMAT_MOD_QCOM_COMPRESSED`` modifier, with both DRM planes
-+        referring to the same buffer and the Y metadata at ``offsets[0]``.
-     * .. _V4L2-PIX-FMT-QC10C:
- 
-       - ``V4L2_PIX_FMT_QC10C``
-       - 'QC10C'
-       - Compressed Macro-tile 10-Bit YUV420 format used by Qualcomm platforms.
--        It is an opaque intermediate format. The used compression is lossless
--        and it is used by various multimedia hardware blocks like GPU, display
--        controllers, ISP and video accelerators.
--        It contains four planes for progressive video.
-+        This is the TP10 format, YUV420 with three 10-bit samples tightly
-+        packed in each 32-bit word, in both the Y plane and the interleaved
-+        CbCr plane, compressed with UBWC as described for
-+        ``V4L2_PIX_FMT_QC08C``. Each 192 samples of a line take 256 bytes.
-+
-+        The format uses a single memory plane with the same four sections as
-+        ``V4L2_PIX_FMT_QC08C``. ``bytesperline`` is the stride of the Y and
-+        CbCr data. For a ``width`` x ``height`` buffer:
-+
-+        - Y data: stride ``DIV_ROUND_UP(width, 192) * 256`` bytes,
-+          ``ALIGN(height, 16)`` lines.
-+        - CbCr data: stride ``DIV_ROUND_UP(width, 192) * 256`` bytes,
-+          ``ALIGN(DIV_ROUND_UP(height, 2), 16)`` lines.
-+        - Y metadata: 48x4 pixel tiles, stride
-+          ``ALIGN(DIV_ROUND_UP(width, 48), 64)`` bytes,
-+          ``ALIGN(DIV_ROUND_UP(height, 4), 16)`` lines.
-+        - CbCr metadata: 24x4 sample tiles, stride
-+          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(width, 2), 24), 64)`` bytes,
-+          ``ALIGN(DIV_ROUND_UP(DIV_ROUND_UP(height, 2), 4), 16)`` lines.
-+
-+        ``sizeimage`` may be larger than the sum of the sections. There is
-+        no DRM equivalent: ``DRM_FORMAT_P010`` with the
-+        ``DRM_FORMAT_MOD_QCOM_COMPRESSED`` modifier stores 16-bit samples.
-     * .. _V4L2-PIX-FMT-AJPG:
- 
-       - ``V4L2_PIX_FMT_AJPG``
+Architectures such as Arm can detect incorrect accesses to Realm physical
+address space PFNs through GPC faults. However, relying on that as the only
+line of defence is fragile and can still lead to kernel crashes. The risk
+is especially visible for shared buffers that are later mmapped into
+userspace, such as guest_memfd or dma-buf backed allocations. Once
+userspace can access the mapping, the kernel cannot guarantee that
+applications will only touch the intended 4K region rather than the whole
+host page mapped into their address space. Those userspace addresses may
+also be passed back into the kernel and accessed through the linear map,
+resulting in a GPC fault.
 
+To avoid this, host-shared buffers must satisfy two constraints:
+
+  - the address must be aligned to the CoCo shared-granule size
+  - the size must be a multiple of that granule size
+
+The series adds a common CoCo shared-memory layer for enforcing these
+constraints. It provides shared-granule geometry and range-validation
+helpers, byte-oriented private/shared transition helpers, and
+alloc_cc_shared_pages(). The allocator rounds a request to the architecture
+shared granule, allocates suitably aligned contiguous pages, transitions
+the complete allocation to shared state, and returns the transitioned size
+alongside the page.
+
+The corresponding free helper restores the complete allocation to private
+state before returning it to the buddy allocator. If private state cannot
+be restored safely, the allocation is deliberately leaked rather than
+returning potentially shared memory for unrelated use.
+
+The series also makes zeroing part of private-to-shared transitions, with
+each architecture clearing memory at the appropriate point. Callers must
+therefore initialize shared buffers after the transition; existing contents
+are not preserved.
+
+The shared-granule size defaults to PAGE_SIZE and can be overridden by an
+architecture. The arm64 CCA changes to discover the host's IPA state change
+alignment are not included in this series.
+
+GIC ITS command queues and tables and the dma-buf system_cc_shared heap
+use the common allocator. DMA direct, atomic DMA pools and SWIOTLB retain
+their allocation paths and use the common layout or transition helpers.
+Restricted DMA pools are checked for shared-granule alignment.
+
+Hyper-V users of set_memory_encrypted() and set_memory_decrypted() are not
+changed by this series. Those paths are not currently used by the arm64 CCA
+code path, and therefore are not part of the arm64 CCA IPA state change
+alignment problem addressed here.
+
+The series also preallocates GIC ITS VPE L1 tables so shared-memory
+transitions are performed in a context that may sleep.
+
+Notes:
+* I have not added explicit MAINTAINERS entries for mm/cc_shared.c and
+  include/linux/cc_shared.h, as I am unsure whether we need a separate section
+  for common CoCo-related files. I will add the entries based on feedback.
+* Codex assisted with implementation, review and series organization.
+
+Changes from v8:
+https://lore.kernel.org/all/20260924100529.1398790-1-aneesh.kumar@kernel.org
+* Rebase onto the 7.4-rc1
+* Move TDX and AMD (including SEV-SNP) zeroing to their finish callbacks
+  so private-to-shared transitions clear the final shared mapping.
+* Clear __GFP_MOVABLE for shared allocations, which cannot be migrated.
+* Resolve NUMA_NO_NODE in the common ITS allocation helper to preserve
+  placement for all ITS callers.
+* Stop SWIOTLB allocation retries when the reduced pool would fall below
+  the shared granule size, avoiding an allocation retry loop.
+
+Changes from v7:
+https://lore.kernel.org/all/20260921144847.501151-1-aneesh.kumar@kernel.org
+* Add the following new patches:
+  * "irqchip/gic-v3-its: Preallocate VPE L1 tables"
+  * "mm: Assert CoCo shared allocations may sleep"
+  * "mm: Zero memory during shared memory transitions"
+* Drop the arm64 RHI and shared granule size patches so that the series can
+  be rebased on top of upstream to enable Shashiko review.
+
+Changes from v6:
+https://lore.kernel.org/all/20260904103452.1197239-1-aneesh.kumar@kernel.org
+* Add a common allocator and geometry/transition helpers for CoCo host-shared
+  memory.
+* Convert GIC ITS, dma-direct, atomic DMA pools, and the dma-buf
+  system_cc_shared heap to the common allocator.
+* Limit dma-buf scatterlist entries to the requested buffer size so rounded
+  backing is not exposed to importers.
+
+Changes from v5:
+https://lore.kernel.org/all/20260706060432.1375570-1-aneesh.kumar@kernel.org
+* Rebased to latest kernel
+* Drop patch arm64: realm: Move Realm memory encryption ops to RSI code
+
+Changes from v4:
+https://lore.kernel.org/all/20260427063108.909019-1-aneesh.kumar@kernel.org
+* Rename the helpers to use CoCo terminology
+  (mem_cc_shared_granule_size() / mem_cc_align_to_shared_granule() instead of
+  mem_decrypt_granule_size() / mem_decrypt_align()).
+* Use __DMA_ATTR_ALLOC_CC_SHARED to pass CoCo shared allocation requirements
+  down to CMA-based allocation helpers.
+* Add validation for restricted DMA pools to reject pools that are not aligned
+  to the shared granule size.
+* Add dma-buf system heap handling for cc-shared buffers.
+* Split the previous combined DMA/SWIOTLB/ITS change into smaller subsystem
+  patches covering ITS, DMA direct, SWIOTLB, restricted DMA pools, dma-buf
+  system heap, and arm64 Realm support.
+* Rework arm64 Realm support by moving Realm memory encryption ops into RSI
+  code and exposing the CCA shared granule size through arm64_mem_crypt_ops.
+
+Changes from v3:
+https://lore.kernel.org/all/20260309102625.2315725-1-aneesh.kumar@kernel.org
+* Fix build error reported by kernel test robot <lkp@intel.com>
+
+Changes from v2:
+https://lore.kernel.org/all/20251221160920.297689-1-aneesh.kumar@kernel.org
+* Rebase to latest kernel
+* Consider swiotlb always decrypted and don't align when allocating from swiotlb.
+
+Changes from v1:
+* Rename the helper to mem_encrypt_align
+* Improve the commit message
+* Handle DMA allocations from contiguous memory
+* Handle DMA allocations from the pool
+* swiotlb is still considered unencrypted. Support for an encrypted swiotlb pool
+  is left as TODO and is independent of this series.
+
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joerg Roedel (AMD) <joro@8bytes.org>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Steven Price <steven.price@arm.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+Cc: Brian Starkey <Brian.Starkey@arm.com>
+Cc: John Stultz <jstultz@google.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Radu Rendec <radu@rendec.net>
+Cc: "T.J. Mercier" <tjmercier@google.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Christophe Leroy (CS GROUP) <chleroy@kernel.org>
+Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org
+Cc: H. Peter Anvin <hpa@zytor.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: K. Y. Srinivasan <kys@microsoft.com>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>
+Cc: Wei Liu <wei.liu@kernel.org>
+Cc: Dexuan Cui <decui@microsoft.com>
+Cc: Long Li <longli@microsoft.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Vitaly Kuznetsov <vkuznets@redhat.com>
+Cc: Andy Lutomirski <luto@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: iommu@lists.linux.dev
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-mm@kvack.org
+Cc: kvmarm@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: patches@lists.linux.dev
+
+
+Aneesh Kumar K.V (Arm) (14):
+  mm: Add an allocator for CoCo shared memory
+  mm: Zero memory during shared memory transitions
+  irqchip/gic-v3-its: Resolve the default NUMA node explicitly
+  irqchip/gic-v3-its: Allocate shared tables using CoCo shared memory
+    allocator
+  dma-contiguous: Derive shared alignment from DMA attributes
+  dma-pool: Allocate CoCo atomic pools using CoCo shared memory
+    allocator
+  dma-direct: Align CoCo shared DMA allocations to the shared granule
+    size
+  swiotlb: Align shared IO TLB pools to the shared granule size
+  swiotlb: Reject misaligned restricted DMA pools for CoCo guests
+  dma-buf: system_heap: Limit scatterlist entries to the buffer size
+  dma-buf: system_heap: Allocate shared buffers using CoCo shared memory
+    allocator
+  swiotlb: Make rounded shared pool capacity allocatable
+  mm: Assert CoCo shared allocations may sleep
+  irqchip/gic-v3-its: Preallocate VPE L1 tables
+
+ arch/arm/mm/dma-mapping.c                     |   5 +-
+ arch/powerpc/platforms/pseries/svm.c          |   2 +
+ arch/s390/mm/init.c                           |   3 +
+ arch/x86/coco/tdx/tdx.c                       |   3 +
+ arch/x86/hyperv/hv_init.c                     |   6 +-
+ arch/x86/hyperv/ivm.c                         |   4 +
+ arch/x86/kernel/kvmclock.c                    |   6 +-
+ arch/x86/mm/mem_encrypt_amd.c                 |   4 +
+ drivers/dma-buf/heaps/system_heap.c           | 128 +++++-----
+ drivers/firmware/arm_rmm/rsi.c                |   4 +
+ drivers/hv/connection.c                       |  41 ++-
+ drivers/hv/hv.c                               |  11 +-
+ drivers/hv/hv_common.c                        |   2 -
+ drivers/iommu/dma-iommu.c                     |   2 +-
+ drivers/irqchip/irq-gic-v3-its.c              | 152 +++++++++---
+ drivers/irqchip/irq-gic-v3.c                  |   4 +-
+ drivers/virt/coco/pkvm-guest/arm-pkvm-guest.c |   3 +
+ include/linux/cc_shared.h                     |  39 +++
+ include/linux/dma-map-ops.h                   |   9 +-
+ include/linux/irqchip/arm-gic-v3.h            |   3 +-
+ kernel/dma/contiguous.c                       |  41 ++-
+ kernel/dma/direct.c                           |  73 ++++--
+ kernel/dma/ops_helpers.c                      |   2 +-
+ kernel/dma/pool.c                             |  27 +-
+ kernel/dma/swiotlb.c                          |  87 +++++--
+ kernel/kexec_file.c                           |   3 +-
+ mm/Makefile                                   |   1 +
+ mm/cc_shared.c                                | 233 ++++++++++++++++++
+ 28 files changed, 693 insertions(+), 205 deletions(-)
+ create mode 100644 include/linux/cc_shared.h
+ create mode 100644 mm/cc_shared.c
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+prerequisite-patch-id: 1d4a2fa9dc0f4b560e55f419d23835f0a9fbe485
 -- 
-2.47.3
+2.43.0
 
