@@ -1,95 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793756574;
-	b=UIDBEIXhWyXR0xx398sYn5/Y7oaDuGZgO5ZH2NFX3aAU9cPcMNqFOXjoNUGxZs9DY4hQ
-	 tS1zD+lPJ6A28lhxNnvY6bhc9G+0d5yorDPp/o1bXldsfCVoKFxZIMagOrIKdvJMdszHx
-	 woBI0kXkZ0+fhIDxJJFLYr3JDUUKUT156xaJnrUybAt+WaEyNcM59nO7eikXEUyPyeaQm
-	 Zjn/8Lpm6RGgxr1j8LeC5AzHbU0XKFrnDuwiCm1bFAdVbt+P9rsQzwwhXWUJ+6FhBxnaE
-	 r+6IRMGmtjpxk2K78NHrRJ1kGwHHBtPgmDzhlBlZ9MHoK9A0Iq2BwVQkKV8UlglEXGA==
+	t=1793758919;
+	b=iqBqnI0LWYALEWieMAbnkErdtTcXuktK2pI++pz7lQexZeFTb+YsqlCXKwj41H0NkOG3
+	 xqyhuwdWD89dW35/PoSrKowUXXWe833UnT5G0c0OPAYoDtOH/XJeIHZVnABcb9sGPQWa0
+	 +UacMLoGAzhPJkSnG2bHiLFd6lZxtRl0twcs+NugaP7gCbG7jgbAkjVo7qPx7qgSuQQWX
+	 BUetDEFV1CoCcReX5w4cv30R5mOlnzLZGPGCNC+DiH8SsuCzIrlNU53MRrLW4OJ/vkvuJ
+	 2x7jBmcMrHNaMcyCD0U6biZfrmwedd2HVcxOMgo2t6lFjmtY/f+eMbKln9z6VrU1KJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793756574;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
-	b=2S+KZfKASXRLePyiUJmgbjQyko+0DfUII0yK+G2706ZhUejVpK+AUB75UrqDXUksIVzW
-	 5scrrhWE2hUyaBk+H3WH1fDFxyxObtDUc644xdt+fxRSpwg7UU2Ai8v0Pm2tYhd/2uqDj
-	 b5sXQMs04zyPx9vi9vsp+4xc/U92qJq8/INlBpQ2cc53IzlDCR83YGPRysxZcqFcdk3/O
-	 MX24k29OLy0E6vjCcDiipanuu+JQ9OQquKx8+akmANX7KWmP6gI3MJ8mBJHNw78e34DVn
-	 X83YI2a6bSS8uRi2MsoswnOljs8ebixkFvLBpQxuP1QKvOSUZktrbm99WB45GdN/5Gw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793758919;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=u4yw3l82lo/qw9Xch78qs4CtwiYh979ZqWvUHiECqdA=;
+	b=O806GRzwx9DeZ8L14CHsGpCbl2RAiekEu32PMKXKfHvT5RRgWarQ0INabzfL4aIuPHDV
+	 r1HQEqcg4OyktLicLPlcHJsNlNMU3YuFbjm1bHhjJ3XoyEO4JsQ9yC/2iNNdbArEFX4xc
+	 Wn/d1yBlmkM0liBwgk1sMhrgfYI5KHSud4uGN4jy3Czi36KOJZWQFHWwuNs7AakeneQ+y
+	 /0YYDVsdjagJtDfqMpflFvJ8RFJvrUee74flSW1pYCs+6kKMOf4lWmYIEc2yZyIG9hlOI
+	 Vl1hYeBvOZXx5FXgyXsKkWgQsOCFi+0ncvP28qTAKkMNACwHa/vI4eCSNMx9IiiryVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40BD606A333
-	for <linux-media@vger.kernel.org>; Wed,  4 Nov 2026 01:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40BD606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZnZ5cWJ+
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so869865e9.1
-        for <linux-media@vger.kernel.org>; Tue, 03 Nov 2026 17:42:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793756572; x=1794361372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
-        b=ZnZ5cWJ+ytnymUUDiWLTVDB8LUTx11Pe67lDgEa6UTMikuPe68RtvMTSngvvG/kQTZ
-         zDW+WxILFmp5F9KDBr8bZ75Du8TzTPUcpFIzuzO1RlOJ4dCf1JMNDKjZXKeuCni92DH8
-         LV2A8/2ZiAOjNVuhXVEhHVa75+tQ4F/OWopgV+krqItDpK5BawAZn5fHh8JXk7wgQZGC
-         eUqFXjsoN77aU5Y6b6d/3e68Dyj3/lYlCdkhISVvTHfvZz5OaaEkExil5VEyLaShdqGu
-         GC+wwPZbki+kaZLg3qz1MoSCl8tEssvKKP92k7ba8KFQhfKls9TS1+HIul+I1aSQ7plR
-         YOsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793756572; x=1794361372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=04qjylQiRjUxab0wFGioKpg+XzQ+3wNYfPCFHSRebIg=;
-        b=fVwAvNfysZ1wiTihT3G7znHv7tHWxQ0dzJoSvoQBxczp7csO0qfLqYws9gpvK8lspj
-         7iDMNT0NMhH0GUOCAveimu9T39gl4CTaYb3eWDZAOlM3Ju92iJuX9q0G9RshUSz3HUJV
-         M9XElNsvKD5nEpBcQJpxXVsFJ/J0WajrksQQI3i0ABhuenHFX/HEqppAKKeqtZ9jWZcp
-         pHrD9b6Ndj0DRE7zYy4ndS1Uk0/aR6NfVo0qnvQNGMTygMltpK0jQrnKK+41NFP0qtF7
-         4H9NPp6C1QLuKoo7Q7Nrvr4e1+p0KFNirk08CneLc/YbKsjhgsow1iKYTKUZC7gNcyJH
-         dVSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFZ/oB+9JcyCqyX7ahYa3A26X/rm5Ww4qz3fttK5KxG/oVYxd5F0SvsAf0psY6FLOm6hO/PxUceHCvKg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Hk4e7k/DtYb9VlKfsP8fhfEO0uvC+KJbf8wtyvv7A5XQJ5Lc8
-	H4GTsv8I1hVn/zfmXHp8TWpImKLRgCMMqLdQGPgBgXzCWZ7fns0zMiU=
-X-Gm-Gg: AYBFou0OXiukdB9ryzOnyXVImeA6KDFYbxF9twoX41AFJhC6lwuI6xQCPXtZslt8oNL
-	iyDDmQ9l7sU+InJAE4Cqh9tlpfY4s5KlhUBdxyHoCGvTbjLt3uFhda/Qv4bfWv36B9ge9rRXQKc
-	EDWwsUgRPQxqjRNo2b8f0BCTMRqJ735YDqtzaoK2QytCCStcPIDLypNIy7Uu44HrFacowaa8k6i
-	/jPQPrKByaUZa/C7MfTrTGoUz6G0xFT/44MJ3ONWQWiWg1A7h+3asCZmC/fhmgDtKlVmd9oU1Yp
-	NjaYd2wlRX++yqk+8PVvyEATKE4yb+XUtdIc0yVZaB3eSe+ibJgD1hocAunXzUmKllsIhjpmyEK
-	C5msBNYB4mZMH5OF7KA1RAmy77zctr980cStyzmJ/2/FqGA7CgpwCKAfugwJ0OHiksKP3l6yMgf
-	VRTyxbQof/0OSVzm75KX7W/GGXAzT6SYfMxv81rnUPVjBkCP8dwqIUhdvhVWoRYjiqbBSRT+4Fc
-	ICP3fxBj8qvdqPDBQQy8Di/ZOWzdz1dX3ePYOjUbyJx2hrEO52DB+eUlcL/pHDJe2qXG+paxmaV
-	nkrQyPP4C4s=
-X-Received: by 2002:a05:600c:4ece:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4ac169d7e39mr333856735e9.5.1793756572002;
-        Tue, 03 Nov 2026 17:42:52 -0800 (PST)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48feeb5196esm885532f8f.58.2026.11.03.17.42.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 03 Nov 2026 17:42:50 -0800 (PST)
-From: Tristan Madani <tristmd@gmail.com>
-X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	stable@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CD5606A326;
+	Wed,  4 Nov 2026 02:21:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51CD5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7eb6f7e8d7f611f19a56ed5b684f684d-20261104
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e6526285-5a69-4b83-abb3-10aa8636b0be,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:7db8b62,CLOUDID:d7bc93536e094912c4711bd5aaf8c940,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:5,IP
+	:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,
+	LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7eb6f7e8d7f611f19a56ed5b684f684d-20261104
+X-User: chenchangcheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <chenchangcheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 103575154; Wed, 04 Nov 2026 10:21:51 +0800
+From: Chen Changcheng <chenchangcheng@kylinos.cn>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 media] media: v4l2-mem2mem: cancel job_work in v4l2_m2m_release
-Date: Wed,  4 Nov 2026 01:42:48 +0000
-Message-ID: <20261104014248.3761373-1-tristan@talencesecurity.com>
-X-Mailer: git-send-email 2.47.3
+	Chen Changcheng <chenchangcheng@kylinos.cn>
+Subject: [PATCH] media: uvcvideo: Fail probe when no video device is registered
+Date: Wed,  4 Nov 2026 10:21:46 +0800
+Message-Id: <20261104022146.42954-1-chenchangcheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -101,42 +72,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v4l2_m2m_release() frees the m2m_dev struct without cancelling
-m2m_dev->job_work.  When a job finishes, v4l2_m2m_schedule_next_job()
-calls schedule_work() to queue the next run.  If the driver tears down
-concurrently, v4l2_m2m_ctx_release() invokes v4l2_m2m_cancel_job() which
-handles per-context state (TRANS_RUNNING, TRANS_QUEUED) but does not
-drain the device-level job_work.  A pending work item can then fire after
-kfree and access freed memory.
+When a UVC device is unbound while userspace still holds the video
+device open, the VS interface claims are released only after the last
+file descriptor is closed.  Rebinding before that fails to claim the VS
+interfaces, leaving the VC interface bound without a usable video
+device:
 
-Add cancel_work_sync() before the kfree in v4l2_m2m_release() to ensure
-the work item is drained.
+  [ 3229.189556] uvcvideo: Probing generic UVC device 1
+  [ 3229.190496] uvcvideo: device 2 interface 1 is already claimed
+  ...
+  [ 3229.193758] uvcvideo: Scanning UVC chain: OT 4 <- XU 3 <- PU 2 <- IT 1
+  [ 3229.193766] uvcvideo: Found a valid video chain (1 -> 4).
+  [ 3229.193771] usb 9-1: No streaming interface found for terminal 4.
 
-Fixes: 7f98639def42 ("V4L/DVB: add memory-to-memory device helper framework for videobuf")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Check after registering all video chains that at least one video device
+was registered, and fail the probe with -ENODEV otherwise.
+
+Devices with no usable streaming interface at all will now also stay
+unbound instead of being bound without any video device.
+
+Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
 ---
-Changes in v2:
-- Expanded commit message to clarify that cancel_work_sync() complements
-  the per-context v4l2_m2m_cancel_job(), which handles TRANS_RUNNING and
-  TRANS_QUEUED flags but does not drain the device-level work item
-  (Nicolas Dufresne)
+ drivers/media/usb/uvc/uvc_driver.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
- drivers/media/v4l2-core/v4l2-mem2mem.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe0..311e2e08d066d 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -1207,6 +1207,7 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_init);
- 
- void v4l2_m2m_release(struct v4l2_m2m_dev *m2m_dev)
- {
-+	cancel_work_sync(&m2m_dev->job_work);
- 	kfree(m2m_dev);
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..0943db4eae07 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -2156,6 +2156,19 @@ static int uvc_register_terms(struct uvc_device *dev,
+ 	return 0;
  }
- EXPORT_SYMBOL_GPL(v4l2_m2m_release);
+ 
++static int uvc_has_video_node(struct uvc_device *dev)
++{
++	struct uvc_streaming *stream;
++
++	list_for_each_entry(stream, &dev->streams, list)
++		if (video_is_registered(&stream->queue.vdev))
++			return 0;
++
++	dev_info(&dev->intf->dev,
++		 "No usable streaming interface found\n");
++	return -ENODEV;
++}
++
+ static int uvc_register_chains(struct uvc_device *dev)
+ {
+ 	struct uvc_video_chain *chain;
+@@ -2174,7 +2187,7 @@ static int uvc_register_chains(struct uvc_device *dev)
+ #endif
+ 	}
+ 
+-	return 0;
++	return uvc_has_video_node(dev);
+ }
+ 
+ /* ------------------------------------------------------------------------
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
 -- 
-2.47.3
+2.25.1
 
