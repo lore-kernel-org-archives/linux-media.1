@@ -1,94 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.135.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793866572;
-	b=DlzAVh+W7JSBhBkiY8slaCu9ulZPVPT32OLzqN78tP2jf8Zi0zxDpcVG+B9fRZfI9Lk+
-	 h7kGsqzJePl5g15xDQIfc8soCYrX4pRRu1iYthrPOqPbIsBOzbDi3QnJD4whIeWFa5rCE
-	 5ntqsgWjmbKpOgoTN+yowrvKRwemRwGkBEXhiDpeb+Kl+aant6oxXL85fHii3SvNv3dzn
-	 ObZryk6qOQZwpfz0AqllBZ9l/RzTAdFLNW+UXrpbNoVRM87VLw1kbS3gijEZ/V+DEVnTS
-	 X6HzADox1c6R5lfsf18Qxqqc8ZSBEmulZzBfywDNBq7l8fgVGNUABgfxM9w9FouSXgg==
+	t=1793868326;
+	b=I7hfkOOCt74qfI1/McY6j3+//RC8COX9lMBN9LnLxBrjTLXm4xKKoGWH/jYQEEyiMnoO
+	 76NTlmczh73nv30ZiaVU1NUVheSf9baR36WaX6W7lu8dO0/0OU18SF11Z7cmXcrMg1ThC
+	 fR1M4Ax/Ua/uCMhVAVRRqKK+mUcDre03IgXvh2OupBjxlMhFN4JfehUAMP14gSBqwi/g6
+	 2VSNKjpFg5We+bEyyZjJKRA8/RTDnCMkMFvhYCymrXvsEGjm93MPGqFrlJjqV5cbQE66k
+	 sFdsjEUqcyMkb29o8BLzGjCZnvRrAJoE9eePczHSQGGVDFQQGa6hBTXNY2FzK8WUvrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793866572;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793868326;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ANne3oQ9yRwjrrK3povzRK6vY+FXA04MFtOh+xV0MyM=;
-	b=V2ZzyyDI+ILAr8XkwKKUyjZ08qQNCafErJy0z4bN4/TPVXDjfODyXrc8vBpxUQQeBScG
-	 CkHsdv1XfgP+S2+6drBw+EvApwzsCop0cuJtGxrvFQac79D5spuLBDk5ktxbFOMxOTbji
-	 1Yiqz+Tsth3MmndBiuqgqyMp++HzsnlBAPbng/9e7CDu4QcF1PsdpNamWq3Ao6E+frfU1
-	 qceyboJadbca/tgZGdGibFuTCV1VYPvA7mbFW8vNIuZUR46xk+NZoW9RDURK1ONlrp7U2
-	 k+32sZwuU0SIo2ZL4vHEmIUvOn1Ox2FtN/rHrhSDM+0M/NB+91PoiRSmYZKC7vQbqdg==
+	bh=pDxvxLItiSCdu3fsI80x3ws6o0fFDQAmdzilH9mdUKE=;
+	b=C+VgpFBBxXpsofEwURKZ8FPZ394g1WE2d+zlosbEhyuAV/cp3qVEqF57rmAyI807mZtW
+	 RnpQU51IjcIJE31+JAzeuYv0JVedH0JPRLB0eq+hf8mBYIAG4YWGSj7aWyqPfUurg5mdO
+	 9L/7bmwY5NV5Hwtyb/QcUPGGIYCJjF28lfztdV6ZcsYht58/REoA7zAtN/M+MdKwYyonN
+	 p88B0sDoErC3JCnfqD1yNbaLmeuiPnyX0uKk/zsGl+90jDBnjrob0zPjl8/coq5xljlU3
+	 kb9Jv1POc40Sq0J8msz3kr6URkk2Zfe4Fvqx2xkXRpjJF85NZWoihB9ozMbW4+zERRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=j7b768T2;
-	arc=none smtp.remote-ip=74.6.135.123
-Received: from sonic310-13.consmr.mail.bf2.yahoo.com (sonic310-13.consmr.mail.bf2.yahoo.com [74.6.135.123])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M1RJiphd;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C12AC606A328
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 08:16:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C12AC606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF52606A32D
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 08:45:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BF52606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=j7b768T2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793866570; bh=ANne3oQ9yRwjrrK3povzRK6vY+FXA04MFtOh+xV0MyM=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=j7b768T26eOf/ABKGJn6piAYkwEKeAQCPJTXOhB2mH18eG3xLk8OeFDhBHg3EhD1lzBN9dtWRBBE8Gyn2IoAweaRWf6xl2rqzy015jYjpX4wBI/RURW3J+6HcYJVLMUxMfGkw9GfCwWIlXOvqeAjyDNuNcHlQ1fYcNtOOMFsYOaO3d4xrrYVdhUFDgErhHACIBp0GNEF20ng4d0zudkPy9nMO5R+hSkC5ifPWkhik/2Z0m/3Jwwe1Iwip6FHzNdiA9eoTSQKffmip3OzHUKeuB92w780EkirNNLLLCKRqgOaUWY6IbFe+b0appmlRufoiRIYZHoGCaa7Oc1jW5+A1Q==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1793866570; bh=nu0YeT/UpV6Td/gqiGTBT8pGQ1cLZA8zmKTJwTCVYer=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=oYk8WOTZR5Cby3Pi7a06eOo+0f0NkCS/feM2Rz2/8nRCMeZ8B8F9IliGPkVWMIe5vmMIFDromxx/CPA6jz4sQo3s6qAx1/bkl2us1RUl1Urp9/CQrQH/06U4fU25csIOhsSojLdjqDGxUi/zg/AE6ppdiVkP/2U+C1ioICoQccXIwJ8LTDAY89/NcnvwxSokpnVUOxyC9EZbZSSo8jT5e8xewk9XTOjKpsEvM+MMzhmjs/4gzydePJ633m30njZwTykB9y2B5z5/eMWgT6Z+DwjZS1qx9VEfPeILBNk2UlfR5ks7DeWgrOmIQPWtft+aN/4QLL47LRywS7tw/eGLww==
-X-YMail-OSG: IMvZnDMVM1m98Jpi6GZf59UYveuCH_D61lxbkPa0c8rxOWPpOeEXZXU.OhN.bdn
- tggm_z73ebwLYViiKSPJEPBBaAQkebUpepf654FvgUC3AgeiwhReqqIShro03qH96OR3sVD2UEUk
- RH8ps1czr7WMTatuvWOoZ5iWAwZj7ewXh9bF028nV4SyHzgo7h0PG2IeD4j3SAHdNwXLjWXDU8o8
- zyXFDoiFWx_YxfMb7xR78M7lM8tu8kckItah3RoyGp7zA.67NMWWY4TrG_eke3pl4DatTqjwLppC
- P0C6DD5U6gQirRehO8cZlp49_eMbCyfZ911wINM0HrwamRwKOeWl3fX0tdb9TDh64uV3JdgbBSoQ
- x9qXeNXIP6iRRAiVOZRG9eDa7BFHDZ7KEpbSdR5GPOBF9dnozvvsv59EALLuw4.AkLeN50IX4Pw0
- B0.22lopitE.ySkuPbZvczda3lMYf5FJwIRb5ZwQf2umJmVAkF5RqRUbcKta8qSSYH6bvAdNkWr4
- X4CvfDZ7FxJqWJGD4K.fXWT._TEUHugjfTpDWRbEdRt_AXwjpzYpdV3HruD05tCmvQIl75_9bjMT
- yqYH.3mWUxjcyor8axsFaHMwTLL9qhCGEdlAB.QdToEOQXH3rW.JCNKVvYR_SpkCaXiS2ab2VJsg
- 0iuudEdvHg1M94gJjtwUlPuGu0_AZItCSm6coBKPR6uVGYo3mCXwPM67.9hEXKbs1aWZG5ttAjQR
- buWmwnEetAr.LNi7oBdI3W9bgz6QRnykCrg3Qk.NAS1Yu8TMixRLNGLAZEGWZnaMD3SIQfWsFITv
- SvbF8BsCt8QvRTVHaaSN.VSQqSghFYfseelje77DNst4SFCM6u9O78wA_QUfsIwa78_QI_wQTdLh
- o.So35pejdUfFTViqkD7lynbQIdVgIQgXziItoGMgRpk5njqY6s9ue7mW5RQBN52rGChK2JTz1C0
- MUeCYtY_86CQ_c0fku7DmiOs5BOYwhEH7DqiTiMcUsr5Vy11zbA0pWP58Mkp2MbSEhLrDluCLjLO
- ti2UCJpoWeYa.rkTTLu0lk4LWG5bs387KeMSyReDhEY0AxOonFdpu0BRVnbokxVrLkQkLXWZauRs
- S_0OSpqzg2q8cU05KtAY7.lqJy8Qp7q8OwtQMoC2edrPRxvzixhoI6OmW0uXWf2QLCmIUe2wlED_
- lWfvjCisvzCS7_L1pJ9wRcVH6RWck6jULb1XWIZpm5CQyUqRpuuKonz48cHTm9KPC0o2UlWIAjKD
- H5ACpMY1TZYtBAfItnT5UuiSEgy4.A..96Bg5gV7G9J55qdFXbYAZKoy0QPaC.6oY2MLhdyKkgMm
- 5ZBOaC.D1AX6IgVWFHIVDMzcbntUx7Es4hK.T62Veslokk3r_Pt.2jffk2GwIMopEtevDcrUpkT4
- oxXIwbB1jbkzQgpw3Yext04zZRSovlhG3aiShfCosMBJrpSCBYx9PdZf_IH0.zIuPU1LTUv0Sh5J
- RwyPzmQBru3AnbXWtfDGXhNtgs9EUSLrL_e6a04kinD4me382A_6krIM_rt54n3UYeeauM3Q94Dx
- si1dEh9.maCSa3J7t4HxUYwHTPZsl1RSoXnV2rzLcSnEOSV7c8WIZiwSXaOpyjE23yKyvuQB4m.m
- 5egpio2TsCoqTG5l6tNqoayWgqL_VnahKZK49PAk3SSbKAMedoxjlecbtqTx2XOrKEQ4mkWxWS4m
- 5nzIbRNT1Dw2SM3inG9ZiWvxxgwcG.ijeGjzeuaveQ2G.8QUgzE3gMm2sr3MXK9MiOVHFEije3mK
- 4L9.CqhayAZJw86Wt23AlRBxXtochzXyIYzbC4rJOFk79MdBPywheqDCY_qKcvPCyFz9MNWy33gM
- KZOxqfa0Ebe4tQ5sgTRHLkQc_ohYnbZ04xBQxL_SopoW45OIefENtGXroBlw1a00a7pf9K_Ta2OM
- js559gguVf.sHrpdPBTAlGpC0LgT7QzZLGnPIp7z7LDEfFS9X4YR92SSOfCBxJmdKqyOVq5FQ9GW
- o26BwFuNWgdIEQc0SeoHOavE2JMPOJc55tys9uzPeKwBEEn9xjiuM61lXEyl2x2AUrb7rS6pkMgF
- BvtaXeupJuiwQ4GlxvgZbp0FV_m1vwBBtEZAbAFxsCkKuZ0s6lUfRPzKhFO57SsnYPbttpyobB3p
- aKvyDx5KTi7GQyonrkxL3YcBZyhrA8LOT86K7cDsp1fYR5d9U.mtwImCraib5wdmjH64_ByMIScm
- 6v0uUJEtKbEW2XGnj.EhrWQNU0_l9XSsrTUrRqNQ.S0qloYbeGhtKIU0l0dDIo1ZxnrY1GU99W0v
- iEd110yQGHS7uVm1jsyGLcJs0TRh656pIqtXAqq7N5fZQWelZEfacL2rU3UbC_UnUjY1uiS8._cS
- g1zeM1bWz66Jeygx8_9RNkg--
-X-Sonic-MF: <laurian.iacob@yahoo.com>
-X-Sonic-ID: e6f65b28-fd81-483e-8822-4724472c6c6f
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.bf2.yahoo.com with HTTP; Thu, 5 Nov 2026 08:16:10 +0000
-Received: by hermes--production-ir2-5dd9bf4598-bbdwl (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID dcdd974f457abf0f44c6466242e2692e;
-          Thu, 05 Nov 2026 08:16:08 +0000 (UTC)
-From: Laurian Iacob <laurian.iacob@yahoo.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=M1RJiphd
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso4371467eec.0
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 00:45:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793868325; x=1794473125; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pDxvxLItiSCdu3fsI80x3ws6o0fFDQAmdzilH9mdUKE=;
+        b=M1RJiphdP5y2FZbyx2CNnpLv/K9/cAK8GR5d8bYeBrKMIDmoTfDJJeGZnzw+tVC5xQ
+         1ZZGNtTPK/XFASEbop+aorrpFgFX4Q2qDaQ7t1Gyen02THreJFYumzcDDPlxx+nkkj89
+         E30GXCGyLYhsf6xNp45WsQMe/7xUXKb2OMTfnjutGIRwrOtkKjF6st4haBTOrqENBXAx
+         Ef6wqpr+NOjcfUXB+zVEtW/WRdOIe9uIiU0K7HfCrw26xxLMyzj3M/hSWYfzQmTsloyU
+         gOw3WENlqj9wqK1JFswlbk+T8P9l1+ifdGWYSj9XQfIOAsnaXJIldEWmJ6cCT4lstkFV
+         zbMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793868325; x=1794473125;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pDxvxLItiSCdu3fsI80x3ws6o0fFDQAmdzilH9mdUKE=;
+        b=QY2cy6cFFmMMPQOw74K4eJgZbcFhsqUx8bx02TmhPUXxR2FfRN1uvqQDMPotjEGLzU
+         y7HojNtCyEsaXDhpNkhhMnci/n0nFoTCXwSt/c1ghYGLSk4bzcmrG30yTu+oJUkQcMT9
+         a9qsI6WYpxhfegATxenG6tbNtLoXyXMKJBzCIHJjTw0GFhmF0tmUEXN4YojPA3ZhB4xM
+         UImWBAV00SV3peuRBr/R++zRpBYgK/97sB5czn3HKe9Wlwdc6jnxJ5W8yuU6OxcYUH+d
+         /Kym6+zMGJiS5bUqV3JNi5lQOBCJw6caBtCHaGPQYRXZKWeYNMmUjtEjDhFGs4wDnLBd
+         eeNg==
+X-Forwarded-Encrypted: i=1; AKwUvBx6zhySShsMb/AABBtkujcWqEMrlHTbgmT6hB1OyRtBfV16k18DEJ0qSTYB25hru+gwsGaOCWkS3XyOwg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/7nqM8yEfFFtbr5nKP29mIThXwiU3AbXmvYyFR6bnVNfL6wlc
+	c9yhrHX4VAmQL975DZRp4EP/icGDdrisCDde8DaFiMwBTF3mi0CQnEeA
+X-Gm-Gg: AYBFou35LM52M8qRoYqtKXlyExxD6r/iRQGHEapaUL5SFezgmcZScU5VitVHs6ZLw51
+	haKyqFBy4EgOuolnLM8gTNXDNCtKSUXK8WaHwdx4aqa/PrAYEuK+ZpPVXyB8L4QCPWR5aSsX7VA
+	1JL4Z9r6+e5vW5BEWQJoSoMgNw3/X6i/uSFSw2CsGICb96bnv6rkXbVa0N9hKH7R70mZwen36Pw
+	2lMTJz+7kNLjbjWJZ52n7GffSmEhGIDg+9v0o2UO3FfHqrWyQaO93XXekBW+5H0sj03lhIwqa+p
+	0wsA7wpwBohEkt+hYXM/ENSfdzIrU4uwUlffsFmGQDoF7hRR39loQggJljDre9Xw9iZ45sqUxwX
+	9ObR2NtnQtqeQSSfoJ3yFvKy8zVLQM4smNL9k2vt/ygvLHqWfEOnazDcsYrHMNcKGHPhu7A4Acu
+	QMTxMG8YqnvF9I9Zy3aeSgygQvFy1m296SH+ANTp1YiUtBwzdEZWc2+jgSqL5IEbzob1QoS93Q9
+	y6zJpdTP4F85Xj08GJtYMMhzAncfgEwxU5k1prZYRG7aItUIO8WYqQhUIrk3EJ8ebquOtOiG9hR
+	gW70LIyVfUztVVA9dYPI+5Vg8zpt5+oN07rAeb8Eb3KcvLF7pmsL66XE/A==
+X-Received: by 2002:a05:693c:6393:20b0:369:f291:49da with SMTP id 5a478bee46e88-36a4243f71emr27802086eec.40.1793868324397;
+        Thu, 05 Nov 2026 00:45:24 -0800 (PST)
+Received: from homik.search.charter.net ([2603:8002:ad40:56f0:ea48:d21a:2ee:9ca2])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36ca3788bffsm14468573eec.1.2026.11.05.00.45.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 00:45:23 -0800 (PST)
+From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+To: nicolas.dufresne@collabora.com,
+	benjamin.gaignard@collabora.com,
+	p.zabel@pengutronix.de
+Cc: mchehab@kernel.org,
 	linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
+	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Laurian Iacob <laurian.iacob@yahoo.com>
-Subject: [PATCH v2] media: staging/ipu7: use guard(mutex) in ipu7-buttress.c
-Date: Thu,  5 Nov 2026 10:15:57 +0200
-Message-ID: <20261105081558.6254-1-laurian.iacob@yahoo.com>
+	linux-hardening@vger.kernel.org,
+	kees@kernel.org,
+	justinstitt@google.com,
+	morbo@google.com,
+	Mariia Nikitash <nikitash.mariiaw@gmail.com>
+Subject: [PATCH] media: verisilicon: Replace strlcat() with seq_buf
+Date: Thu,  5 Nov 2026 00:45:18 -0800
+Message-ID: <20261105084518.386234-1-nikitash.mariiaw@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261104222832.32471-1-laurian.iacob@yahoo.com>
-References: <20261104222832.32471-1-laurian.iacob@yahoo.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,287 +105,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use scope-based guard(mutex) from linux/cleanup.h across
-ipu7-buttress.c to simplify error handling, remove redundant goto
-unlock labels, and ensure consistent mutex locking across all helper
-functions.
+In preparation for removing the deprecated strlcat() API[1], replace
+the strscpy() and strlcat() calls with seq_buf operations when
+constructing Hantro video device names.
 
-Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
+This preserves the resulting strings, including truncation
+when the compatible string and suffix exceed the destination
+buffer's capacity.
+
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>
 ---
-Changes in v2:
-- Restore the 'try:' label in ipu_buttress_ipc_send_msg() (Dan Carpenter)
-- Remove leftover mutex_unlock() in ipu_buttress_ipc_send_msg() and dead
-  'ret = 0' in ipu_buttress_authenticate() (Dan Carpenter)
-- Convert remaining mutexes in ipu7-buttress.c to guard(mutex)
+ drivers/media/platform/verisilicon/hantro_drv.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
- drivers/staging/media/ipu7/ipu7-buttress.c | 75 +++++++++-------------
- 1 file changed, 29 insertions(+), 46 deletions(-)
-
-diff --git a/drivers/staging/media/ipu7/ipu7-buttress.c b/drivers/staging/media/ipu7/ipu7-buttress.c
-index 40c6c8473357..e79bdb742210 100644
---- a/drivers/staging/media/ipu7/ipu7-buttress.c
-+++ b/drivers/staging/media/ipu7/ipu7-buttress.c
-@@ -6,6 +6,7 @@
- #include <asm/cpu_device_id.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/dma-mapping.h>
-@@ -76,7 +77,7 @@ int ipu_buttress_ipc_reset(struct ipu7_device *isp,
- 		return 0;
- 	}
- 
--	mutex_lock(&b->ipc_mutex);
-+	guard(mutex)(&b->ipc_mutex);
- 
- 	/* Clear-by-1 CSR (all bits), corresponding internal states. */
- 	val = readl(isp->base + ipc->csr_in);
-@@ -155,7 +156,6 @@ int ipu_buttress_ipc_reset(struct ipu7_device *isp,
- 					"RST_PHASE2 retry csr_in = %x\n", val);
- 				break;
- 			}
--			mutex_unlock(&b->ipc_mutex);
- 			return 0;
- 		case QUERY:
- 			/*
-@@ -173,7 +173,6 @@ int ipu_buttress_ipc_reset(struct ipu7_device *isp,
- 		}
- 	} while (retries--);
- 
--	mutex_unlock(&b->ipc_mutex);
- 	dev_err(dev, "Timed out while waiting for CSE\n");
- 
- 	return -ETIMEDOUT;
-@@ -229,12 +228,12 @@ static int ipu_buttress_ipc_send_msg(struct ipu7_device *isp,
- 	u32 val;
+diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+index 26e5d5547466..2bfcd45cc55e 100644
+--- a/drivers/media/platform/verisilicon/hantro_drv.c
++++ b/drivers/media/platform/verisilicon/hantro_drv.c
+@@ -17,6 +17,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
++#include <linux/seq_buf.h>
+ #include <linux/slab.h>
+ #include <linux/videodev2.h>
+ #include <linux/workqueue.h>
+@@ -883,6 +884,7 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+ 	const struct of_device_id *match;
+ 	struct hantro_func *func;
+ 	struct video_device *vfd;
++	struct seq_buf s;
  	int ret;
  
--	mutex_lock(&b->ipc_mutex);
-+	guard(mutex)(&b->ipc_mutex);
- 
- 	ret = ipu_buttress_ipc_validity_open(isp, ipc);
- 	if (ret) {
- 		dev_err(dev, "IPC validity open failed\n");
--		goto out;
-+		return ret;
- 	}
- 
- 	tx_timeout_jiffies = msecs_to_jiffies(BUTTRESS_IPC_TX_TIMEOUT_MS);
-@@ -296,7 +295,6 @@ static int ipu_buttress_ipc_send_msg(struct ipu7_device *isp,
- 
- out:
- 	ipu_buttress_ipc_validity_close(isp, ipc);
--	mutex_unlock(&b->ipc_mutex);
- 
- 	return ret;
- }
-@@ -527,13 +525,13 @@ static int ipu7_buttress_powerup(struct device *dev,
- 	if (!ctrl)
- 		return 0;
- 
--	mutex_lock(&isp->buttress.power_mutex);
-+	guard(mutex)(&isp->buttress.power_mutex);
- 
- 	exp_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
- 	if (ctrl->subsys_id == IPU_IS) {
- 		ret = isys_d2d_power(dev, true);
- 		if (ret)
--			goto out_power;
-+			return ret;
- 		isys_nde_control(dev, true);
- 	}
- 
-@@ -560,7 +558,7 @@ static int ipu7_buttress_powerup(struct device *dev,
- 	if (ret) {
- 		dev_err(dev, "%s power up timeout with status: 0x%x\n",
- 			ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
--		goto out_power;
-+		return ret;
- 	}
- 
- 	dev_dbg(dev, "%s power up successfully. status: 0x%x\n",
-@@ -571,10 +569,7 @@ static int ipu7_buttress_powerup(struct device *dev,
- 	val &= ~ctrl->ovrd_clk;
- 	writel(val, isp->base + BUTTRESS_REG_SLEEP_LEVEL_CFG);
- 
--out_power:
--	mutex_unlock(&isp->buttress.power_mutex);
--
--	return ret;
-+	return 0;
- }
- 
- static int ipu7_buttress_powerdown(struct device *dev,
-@@ -587,7 +582,7 @@ static int ipu7_buttress_powerdown(struct device *dev,
- 	if (!ctrl)
- 		return 0;
- 
--	mutex_lock(&isp->buttress.power_mutex);
-+	guard(mutex)(&isp->buttress.power_mutex);
- 
- 	exp_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
- 	val = 0x8U << ctrl->ratio_shift;
-@@ -601,20 +596,18 @@ static int ipu7_buttress_powerdown(struct device *dev,
- 	if (ret) {
- 		dev_err(dev, "%s power down timeout with status: 0x%x\n",
- 			ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
--		goto out_power;
-+		return ret;
- 	}
- 
- 	dev_dbg(dev, "%s power down successfully. status: 0x%x\n",
- 		ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
--out_power:
--	if (ctrl->subsys_id == IPU_IS && !ret) {
+ 	match = of_match_node(of_hantro_match, vpu->dev->of_node);
+@@ -902,9 +904,12 @@ static int hantro_add_func(struct hantro_dev *vpu, unsigned int funcid)
+ 	vfd->vfl_dir = VFL_DIR_M2M;
+ 	vfd->device_caps = V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_M2M_MPLANE;
+ 	vfd->ioctl_ops = &hantro_ioctl_ops;
+-	strscpy(vfd->name, match->compatible, sizeof(vfd->name));
+-	strlcat(vfd->name, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
+-		"-enc" : "-dec", sizeof(vfd->name));
 +
-+	if (ctrl->subsys_id == IPU_IS) {
- 		isys_d2d_power(dev, false);
- 		isys_nde_control(dev, false);
- 	}
++	seq_buf_init(&s, vfd->name, sizeof(vfd->name));
++	seq_buf_puts(&s, match->compatible);
++	seq_buf_puts(&s, funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER ?
++			"-enc" : "-dec");
++	seq_buf_terminate(&s);
  
--	mutex_unlock(&isp->buttress.power_mutex);
--
--	return ret;
-+	return 0;
- }
- 
- static int ipu8_buttress_powerup(struct device *dev,
-@@ -628,12 +621,12 @@ static int ipu8_buttress_powerup(struct device *dev,
- 	if (!ctrl)
- 		return 0;
- 
--	mutex_lock(&isp->buttress.power_mutex);
-+	guard(mutex)(&isp->buttress.power_mutex);
- 	exp_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
- 	if (ctrl->subsys_id == IPU_IS) {
- 		ret = isys_d2d_power(dev, true);
- 		if (ret)
--			goto out_power;
-+			return ret;
- 		isys_nde_control(dev, true);
- 	}
- 
-@@ -658,15 +651,13 @@ static int ipu8_buttress_powerup(struct device *dev,
- 	if (ret) {
- 		dev_err(dev, "%s power up timeout with status: 0x%x\n",
- 			ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
--		goto out_power;
-+		return ret;
- 	}
- 
- 	dev_dbg(dev, "%s power up successfully. status: 0x%x\n",
- 		ctrl->subsys_id == IPU_IS ? "IS" : "PS", val);
--out_power:
--	mutex_unlock(&isp->buttress.power_mutex);
- 
--	return ret;
-+	return 0;
- }
- 
- static int ipu8_buttress_powerdown(struct device *dev,
-@@ -679,7 +670,7 @@ static int ipu8_buttress_powerdown(struct device *dev,
- 	if (!ctrl)
- 		return 0;
- 
--	mutex_lock(&isp->buttress.power_mutex);
-+	guard(mutex)(&isp->buttress.power_mutex);
- 	exp_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
- 
- 	if (ctrl->subsys_id == IPU_PS)
-@@ -712,7 +703,6 @@ static int ipu8_buttress_powerdown(struct device *dev,
- 		if (val & ctrl->own_clk_ack)
- 			writel(0, isp->base + BUTTRESS_REG_PS_PLL_ENABLE);
- 	}
--	mutex_unlock(&isp->buttress.power_mutex);
- 
- 	return ret;
- }
-@@ -852,12 +842,10 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 		return 0;
- 	}
- 
--	mutex_lock(&b->auth_mutex);
-+	guard(mutex)(&b->auth_mutex);
- 
--	if (ipu_buttress_auth_done(isp)) {
--		ret = 0;
--		goto out_unlock;
--	}
-+	if (ipu_buttress_auth_done(isp))
-+		return 0;
- 
- 	/*
- 	 * BUTTRESS_REG_FW_SOURCE_BASE needs to be set with FW CPD
-@@ -879,7 +867,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				    BUTTRESS_CSE2IUDATA0_IPC_BOOT_LOAD_DONE);
- 	if (ret) {
- 		dev_err(dev, "CSE boot_load failed\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	mask = BUTTRESS_SECURITY_CTL_FW_SETUP_MASK;
-@@ -891,13 +879,12 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(dev, "CSE boot_load timeout\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	if ((data & mask) == fail) {
- 		dev_err(dev, "CSE auth failed\n");
--		ret = -EINVAL;
--		goto out_unlock;
-+		return -EINVAL;
- 	}
- 
- 	ret = readl_poll_timeout(isp->base + BOOTLOADER_STATUS_OFFSET,
-@@ -905,7 +892,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(dev, "Unexpected magic number 0x%x\n", data);
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	/*
-@@ -919,7 +906,7 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				    BUTTRESS_CSE2IUDATA0_IPC_AUTH_RUN_DONE);
- 	if (ret) {
- 		dev_err(dev, "CSE authenticate_run failed\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	done = BUTTRESS_SECURITY_CTL_AUTH_DONE;
-@@ -929,21 +916,17 @@ int ipu_buttress_authenticate(struct ipu7_device *isp)
- 				 BUTTRESS_CSE_AUTHENTICATE_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(dev, "CSE authenticate timeout\n");
--		goto out_unlock;
-+		return ret;
- 	}
- 
- 	if ((data & mask) == fail) {
- 		dev_err(dev, "CSE boot_load failed\n");
--		ret = -EINVAL;
--		goto out_unlock;
-+		return -EINVAL;
- 	}
- 
- 	dev_info(dev, "CSE authenticate_run done\n");
- 
--out_unlock:
--	mutex_unlock(&b->auth_mutex);
--
--	return ret;
-+	return 0;
- }
- 
- static int ipu_buttress_send_tsc_request(struct ipu7_device *isp)
+ 	if (funcid == MEDIA_ENT_F_PROC_VIDEO_ENCODER) {
+ 		vpu->encoder = func;
 -- 
 2.43.0
 
