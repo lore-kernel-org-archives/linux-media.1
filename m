@@ -1,57 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863636;
-	b=FOGHs5H8yEPnEfK4LAm5IicmW0mQ4vH0qVrObFXGebG4bERf7OtSdQLTQwqoclBt/Vwl
-	 4lT/h8FwVcNT1E1jeEUsMbPctIeb5lQOLe5rdDIpgO/VfE7UNLKodYNiKfQBAw6oY8SVT
-	 cUcVTnD+lwHZGytV+K2bblZe7wwpoPo3YsPxqcDaibQ0IlwY0xJ13iDhqrmzbmeey23gn
-	 ysmWU8o8o7XIdVbaap+a56szGboxnh9eGj50Hnp9BIETEAbsW4yx1KMMbzL/pNmd0gTl8
-	 ApEFNDXcno6aS/bdeDkaI79Rv4Lq4rlz8u5nx5wREl3HqWaqC4pXS7I7g8BpZNEG6fw==
+	t=1793863638;
+	b=UoVj3h3DpsNVKab0MltHNamylwiRWQy9YULq4rkz2edx3OKxgRr8bgFFLHO1eahtYbIi
+	 uKbOFlHbkR746wR11VeWhMOQdoQEpR3uzanWvaNyprlhceL28j4+OWHq5zSJLvIZ+Pv4Z
+	 9V82QvJFWzOAczogMRIDvNqeFyFTPxErLm3VpbMl7zWWCerQYFbOoLVpfPEFQf7/Qa1DD
+	 dagk/1Z36hpz3h/h4JZw05Gp+IUCAq53ck1QIj77TOiUhbqDbS1fLzvmyAMeG0R1W+uYo
+	 Yvb2AlMsfaB9ALl27rFObo4TUroxC/VB1wujvSnMZlEGHhDVrAWch80SFHNfAd/UOWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863638;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HoQSRqfIYqOgLi8XZHfv0mjjaYOJ1yDtBes6djU885c=;
-	b=l6dXyYeQZhgIuK1pF1EvxstrA0xEZCDAObGp1QlOyJeWGVSF2bxHrTAwhcskvpBFp5UM
-	 QMJy5sOUG1tCEFkP+B7zXdqcrr/GwhDLFAYqD6XZKJiZ4KbLlL7/udxb6l4NM3UluXc6O
-	 DJ06JfeQe0JOYPR3nurUuPpUntEDjSb9AZyfpJ130TmpjnC2UflmYjyRbi9EPQx0+U1+t
-	 sTSsT6/mjSaIcVzp+yE6U2+Bk6yfEtWhsRGDO+j3mLJ6j+btr0tDchHmFY+ysWsTTmyDn
-	 xqflgoWpWy89C8e/z+hhpubpdE3vjmVlMGx/ymYJ+iRq4EzOBBemyEg0CQnv+kX/Zng==
+	bh=hsvuX03A9C+AkXZjmOY18e9qNzuQ4IJcqnpDipEwUsY=;
+	b=zUg9CadI5OTIIVGBuwwZRQH09v6lM+GC+eYti5azPn/nT2vwKIDgNbeyWS15xS5OQ2Xj
+	 rM91PyUyoTV7rmrDjMZWwrEjHFwH78dhcFWrQL8BNo+Jcz+QZ6S18luKhqD7nXgbMcfqQ
+	 LYuoAiv5+y1WIfJVychRwhwyyIOBvXUmd22ugzuC60GFph/yMN2RpV2VRndbzaMzkuckN
+	 zT7Dwo8dZ7A8iv3wE2mf3m2fPmbiPPadIf/lMAjPWJFBcp5BhILUMCfl5U+qCRU3IsW5M
+	 7SR7PvR+763mbmGLSCwDxyFNAv1a3b7eW+1uRH1RbSUWZLCZbiCwNL2uBIZSicmOiYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CW03zdj8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVPq3Fu3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B2C0606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:27:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109C0606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:27:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CW03zdj8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C2E1F00A15;
-	Thu,  5 Nov 2026 07:27:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVPq3Fu3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B7F51F00919;
+	Thu,  5 Nov 2026 07:27:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793863636;
-	bh=HoQSRqfIYqOgLi8XZHfv0mjjaYOJ1yDtBes6djU885c=;
+	s=k20260515; t=1793863637;
+	bh=hsvuX03A9C+AkXZjmOY18e9qNzuQ4IJcqnpDipEwUsY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CW03zdj8MeEJIWWk1xlof4nIHkkGPw1ul6DVk4+mqlHQ/GKPe+u9wFStzAJaWXXlK
-	 mLLFTPBkyxYd+nG2eztJhQPDf8CD/3do7DMqJUEVIv+OwseNXvaTJCfc0nsl+mmn7l
-	 Ob0ZjL4WJ7sKnDtxd4uZk+caYGmykcogtO85X5H8dT4PwVYU22z1IVoKzevyJy38OX
-	 PZ8m1VB7klgLjqzOYgsTt3RLdPBJSJw67OIfgRFvPcy/Sa1qOLN2AfV1HK5XfSsJxS
-	 j9H/apafPegn7I/sWd7NuWJpPKqIKOnAT3KnwiWIV/rNxnpoStS7DnFHzSVE2Vvgq5
-	 Kmh7i+i1d2mRQ==
+	b=YVPq3Fu3+3koKoCZNAKG8DGFYt/fjbRgd9yflXi76ay/AkeP4cMYWMnHpu7XQqgTi
+	 U7h8IHTvPDdsiB82wunjxG7+bN9p24qhOl7COkbXE0dms5mwLuQBDzAtx1EneupdCP
+	 njzICyG/KcAboZJkhWuVr5CiIjdGZ9Eapy9w5AE2L0pYQ3u9SSKPCn7gYz5sxbHDD3
+	 a79e4DoP+KK2sNxKVYyl+036jlQn8DhpCHVhQHdbs+o7McVjAb2flXaF/A5Q0gByZr
+	 gmuYWzIroxARAkqbigttMO/DxnvwSoMmly7JX4mssE79UGUEBRwReERv6GwZ4j3iB8
+	 48mIXn1OFKwWQ==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maxime Ripard <mripard@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Inki Dae <inki.dae@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>
-Subject: [PATCHv3 02/13] gpu: drm: exynos: call cec_notifier_phys_addr_invalidate if no HPD
-Date: Thu,  5 Nov 2026 08:22:16 +0100
-Message-ID: <5ee88620981fe6e99d6a512c6d7491093f3da2ae.1793863347.git.hverkuil+cisco@kernel.org>
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCHv3 03/13] gpu: drm: omapdrm: call cec_s_phys_addr only if HPD is present
+Date: Thu,  5 Nov 2026 08:22:17 +0100
+Message-ID: <cd7cc227615fdf4b17e6f0eba13417ade7a8237d.1793863347.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793863347.git.hverkuil+cisco@kernel.org>
 References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
@@ -66,38 +62,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If a HPD is present, then call cec_notifier_set_phys_addr. If not, then
-call cec_notifier_phys_addr_invalidate. This helps the CEC framework
-differentiate between CEC_PHYS_ADDR_INVALID due to no Hotplug Detect, or
-due to an EDID without a Physical Address.
+If a HPD is present, then call cec_s_phys_addr. If not, then
+call cec_phys_addr_invalidate. This helps the CEC framework differentiate
+between CEC_PHYS_ADDR_INVALID due to no Hotplug Detect, or due to an EDID
+without a Physical Address.
 
-This driver is one of the few that was using cec_notifier_set_phys_addr
-on disconnect instead of cec_notifier_phys_addr_invalidate.
+This driver is one of the few that was doing this inconsistently.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Inki Dae <inki.dae@samsung.com>
-Cc: Kyungmin Park <kyungmin.park@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/exynos/exynos_hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/omapdrm/dss/hdmi4.c     | 7 +++----
+ drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c | 5 +++++
+ drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h | 5 +++++
+ 3 files changed, 13 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
-index 055dc04f9b3e..d03f4e531e05 100644
---- a/drivers/gpu/drm/exynos/exynos_hdmi.c
-+++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
-@@ -857,7 +857,7 @@ static enum drm_connector_status hdmi_detect(struct drm_connector *connector,
- 	if (gpiod_get_value(hdata->hpd_gpio))
- 		return connector_status_connected;
+diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+index bd6c4d2dcdc8..056bede2ec8a 100644
+--- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
++++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+@@ -439,7 +439,7 @@ static void hdmi4_bridge_hpd_notify(struct drm_bridge *bridge,
+ 		if (hdmi_runtime_get(hdmi))
+ 			return;
  
--	cec_notifier_set_phys_addr(hdata->notifier, CEC_PHYS_ADDR_INVALID);
-+	cec_notifier_phys_addr_invalidate(hdata->notifier);
- 	return connector_status_disconnected;
+-		hdmi4_cec_set_phys_addr(&hdmi->core, CEC_PHYS_ADDR_INVALID);
++		hdmi4_cec_phys_addr_invalidate(&hdmi->core);
+ 		hdmi_runtime_put(hdmi);
+ 	}
+ }
+@@ -487,12 +487,11 @@ static const struct drm_edid *hdmi4_bridge_edid_read(struct drm_bridge *bridge,
+ 		unsigned int len = (edid->extensions + 1) * EDID_LENGTH;
+ 
+ 		cec_addr = cec_get_edid_phys_addr((u8 *)edid, len, NULL);
++		hdmi4_cec_set_phys_addr(&hdmi->core, cec_addr);
+ 	} else {
+-		cec_addr = CEC_PHYS_ADDR_INVALID;
++		hdmi4_cec_phys_addr_invalidate(&hdmi->core);
+ 	}
+ 
+-	hdmi4_cec_set_phys_addr(&hdmi->core, cec_addr);
+-
+ 	if (need_enable)
+ 		hdmi4_core_disable(&hdmi->core);
+ 
+diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
+index 852987e67e40..60d0d85dccad 100644
+--- a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
++++ b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.c
+@@ -322,6 +322,11 @@ void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa)
+ 	cec_s_phys_addr(core->adap, pa, false);
  }
  
++void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core)
++{
++	cec_phys_addr_invalidate(core->adap);
++}
++
+ int hdmi4_cec_init(struct platform_device *pdev, struct hdmi_core_data *core,
+ 		  struct hdmi_wp_data *wp)
+ {
+diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
+index 1ca5b5ca8a99..234690dd3a1e 100644
+--- a/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
++++ b/drivers/gpu/drm/omapdrm/dss/hdmi4_cec.h
+@@ -15,6 +15,7 @@ struct platform_device;
+ /* HDMI CEC funcs */
+ #ifdef CONFIG_OMAP4_DSS_HDMI_CEC
+ void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa);
++void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core);
+ void hdmi4_cec_irq(struct hdmi_core_data *core);
+ int hdmi4_cec_init(struct platform_device *pdev, struct hdmi_core_data *core,
+ 		  struct hdmi_wp_data *wp);
+@@ -24,6 +25,10 @@ static inline void hdmi4_cec_set_phys_addr(struct hdmi_core_data *core, u16 pa)
+ {
+ }
+ 
++static inline void hdmi4_cec_phys_addr_invalidate(struct hdmi_core_data *core)
++{
++}
++
+ static inline void hdmi4_cec_irq(struct hdmi_core_data *core)
+ {
+ }
 -- 
 2.53.0
 
