@@ -1,83 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839754;
-	b=1DOP5ZMuUVCDotKBWNChYahp5DmwdkwGQiD6Wch86CPKSsVLIuQZ5/i6IrrIXfjoVb9F
-	 YWvt4/ToB0ZDqv3JFaMUWR5e/33B8p3jZtHoKcWa7cRvBRocX5u3ZTZNuv7gghwavbg3Q
-	 GhYNPt+/Cj5MpTaJWMdaCXP1reEWQMMvJa+WDhWOKCuc1WJbetCPDpdjK+wDzrqD8QOw3
-	 Jb3g4mid9IUlsdMxt+wzZaTPnDN9Hljh1+JEOLmN7zdVvRL3o4hph4fgHyoc1d9jL5WrY
-	 b2E96A1YvgopC4TbMHlmOvn/BBr1oLUVKi+Jt2uYmjBwZ1ZM+UDUTPv64nhTrxjL69A==
+	t=1793839756;
+	b=DDWXUkSR9KJQEvnkmPPbtMjy1vMk6tqRZEVX1+Mx3qebEColeogiIA8E2fHMzvU27FGB
+	 9/VbLb+Yu8Kxb7gQy11mv45NhhEjC1QoULC1ZnuazEZyh41hA6N03nfZyCFOczevk8wHo
+	 R5p674/wUxMSDwowwqFym7Gvm9YLcrQeuspPfMEym8TnMgoD565tGG9T3Rpbx5jDLiBFm
+	 GpGvbjTQwg4tvTDCVe72uF8cYx/2HZLsgEzDz6O2Bm3Ja1vPJ7uY50T+i/Qw2GNvVPZB4
+	 hIPazzgeJZ/loRbKmUYSg9KWVHcXXyyfJo1k6aKwmaCYHvJ4qdUAkApajp+Lk/4sMGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839754;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839756;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=MYen1YTQsDdR/9JTwR/ybtMw+fvAq2BkPeg4p2KLUP4=;
-	b=YO2K14R63Y4slTY791+PQHdtaFopek8gv0vREna8ah9yObiD+qXYr+AsSgKg35mDpXB4
-	 7GQ75NtkaOQpqwb2MSGnVD8tvJ5U4LA/I4c4kstQtfpAjC865eaZuhEYNmcrk1ZcYkbSf
-	 uZqUnloXSL/Tqf1Cqsa/WyZ9jNqaPrOA4mVLyK0BDn7RZKlgCCkCppb80ZAfDH81w6AvF
-	 qAwNdLnKAMDoIfG7WKJcO18wz1sdXK23L0XaavRDKf1r8UFXGotwpYnwuXQJ0vOL+BO36
-	 BaRuM4e17dmEky16GgMLgTF3SjmiSVyCGq49eb5rEWwQPL/OchGg2GzGksiVLUzj/Ww==
+	bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
+	b=s9HMQAjzvWCzK1PwwRcZhOvn2G2+a9EZ4aPMXxJukprKcPURIml44/MNMqhjfLLZ25Bj
+	 OcsPYHwbO7xA+MrFRlJ1zJWJDL0e9GfM3BIJ2TQRfQOzMO4BSSJoimkJtuoD7SAFZG1K7
+	 FWEmB4LaD6X8NQLiJ7HbjnDRITko7UMjcDTEPoOKyGyEzKD5gtGE5FG9qPC203V+amZsw
+	 BgP9DUzWSKzLFJMtDD7lKsflRsY0pulUmu0Eus61gfjgLRvH8aSmPhKaCN+VovGXMxOcv
+	 +Hbxav0nwV3VocTeRoZARWmHFeHaO8hPpGTLY7MNsLIA/Pxs/Kzt1trDF43y8LaCRBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="I4p+bz4/";
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a;
 	arc=none smtp.remote-ip=209.85.128.43
 Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD7D606A33A
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 00:49:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CD7D606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1163E606A33F
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 00:49:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1163E606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I4p+bz4/
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so7969505e9.1
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 16:49:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so15168255e9.3
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 16:49:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793839753; x=1794444553; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793839754; x=1794444554; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MYen1YTQsDdR/9JTwR/ybtMw+fvAq2BkPeg4p2KLUP4=;
-        b=I4p+bz4/gtEkR+QrPBIILqzuan5ppgMtFSE8APUYLhuk8DqdE2/nTtc6Wq2E/h1DVX
-         38J9DaCSUXElcHw8u+j2+m9S9ct00z5WTexOM+XLMb3Sk95f3VjVRzBWF84p66KR9ai9
-         YHbRIyFzTSZrp7ehJfeOChGcZ4rOe+ZE0/TLw8E9VQVCP8n0eZc0wOH/Ryvvp3pDRwDI
-         XDU5w6Rp1bpvB4HBpA8JElJl6S/FJUhJTRxztOIPWm8Q5DbSScgyNUDL/Ufdhd++5CvA
-         SzwyyNZzH+V/FJ9MOx5JJq6aXTtgB0mfVmvyzxeevPW9GhDqEVioFPMPTjDZu4lKNQOZ
-         v7Lw==
+        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
+        b=jSyi771aSl1Rx4d1iTMMy3LLn2WobFNClF7Q1jPZHE35svH+Jbwk210AN47Q0QgFmf
+         v1iILxJ9rIsDPBJx08DuZvs9EIvPWwS3vS6Gu2GpdwsIyZWm1t6KYXQ/Gz7caJgQQ+Eu
+         +XkJaUkzQ3HcYhk9t8vR1Gu8cKoJ5/LUzhhwHHLkRPmHJTHrcfe+XG/Vx7515l+X2EtW
+         OcW5VZ1a5WMrFgX8e+KntpjbaTPnjdUC3bH68LgZkEZDPDMcjtUrfxOC8dJGc52w1XtV
+         n+0PBCqYiqPuOsokZsH/7HIBO86FPRYzLwbnrr4dyjWIInPpFANRcdTdih4prlSqG+CP
+         e4ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839753; x=1794444553;
+        d=1e100.net; s=20260707; t=1793839754; x=1794444554;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MYen1YTQsDdR/9JTwR/ybtMw+fvAq2BkPeg4p2KLUP4=;
-        b=G9Uyozdgw+GSBYLX89gZcBVVYYCo8aCTV8CJLm7noWB7BfG18jVmGRe+5y3PI9f8fI
-         gm7hIGLDCAK+v5rC1NE5F5s2WCBeuh7mQQnQ1H7hTjR8MAgo6cDexVqufIDY7w45nO1T
-         GzukSv9gFGVzTIYUopiSqgiC2dw8b29rFdKQQ5mRmrfHSfha9Pdjkz1lRuL4QrC6hcGN
-         q1BtgeMu7m5v4CuFqjDONWJLEqF9DTWKZc4CQA2fc297rM4glUQ1fFrCGNGtVJK7jFy6
-         JlUePfmmNW/pavFMvx++Zv+m4Uw09GWfzztJYoQghKlDPvHZD2p9LZTnbHYk51W8LPF5
-         1b1g==
-X-Forwarded-Encrypted: i=1; AKwUvBwYQDyiRIp2EDZlmv6kB2+5ZKtfAyg4znLUcuAToEsTEWtRO30zWxOBTP+yXIo8MOWZhCNeHAFtOji4nA==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ZqHdEQE5fWXOHgZY59iOu2Srs6TVhTXLPFKz7ai0NVpgF+TFz
-	JKsjlXsH/p1mJiEAu90ojd4qHrXyItrM3Zh+rIW6RZnEpgrINhdBpTyUrLBs6w==
-X-Gm-Gg: AYBFou0Rhct6QH4GZXdF4HvSS81SNRIXKoo8XY4CHHaCYKF6jXwqAQKOOgVROlVH2OM
-	VZ/zBPmPBexVwnauFCW6zhrvsQlcAe8VVIlj/j+Yi2Wj19zJD94Gv1kA+8hH3ffry0DvnFDp0bL
-	ExoGlFvT3mefhxtw7O2QQk72W41D/H6nQzhFMVWm+q88ucjbkTuCCkrQuTTWCaUoL3/ve4cJB3z
-	aOiQUlWH4f16nw0+iY2RVTeReVRfmQmLT4Ou3v8noEhbN2EG0PSuaL2IPy7TVkSTH2V9KrO+Xf3
-	KvUF9XCBNBaoEXAZGvRC+KxBpN/UCwSr/RHljUrDDIoqDUiLPvmge0Kc4cytl+oaH+OifhwxHuE
-	5zSJnPNp/rF/2KS0Xi6eG29G6UZsylXKFL4+EnSrUlbyg0kijo8iDp/EB94KiFZbt4ncGQ3sq/y
-	zH7/1RWiG4Jplj06ajdE4nV5HUi4k4BBp45L+oE9dOl4vqPevxe3C4Dr7CSafFNgB9szf52cA5W
-	T5bV/WtEHFrdPxg1BAmDCOSn1K7SSzv4ltcogqMh7afI3FN8iUM2ADmfk+54o7jl8TJDsGir1uo
-	Jl6TpzC/mDu+OQahRvge0XA30y/3C0PiNuI96Qt86xk/djQjevY33s9S1zBOhVw=
-X-Received: by 2002:a05:600c:8b06:b0:4a2:d:5ccc with SMTP id 5b1f17b1804b1-4ac17b2bc63mr400176825e9.10.1793839752477;
-        Wed, 04 Nov 2026 16:49:12 -0800 (PST)
+        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
+        b=JcJScHP2Ow7JDHJLUc1mQdxEzZ9dtJi3I374SpSSC40Nrdi35js2XDdII33xvlz8r2
+         XLunqc/XDo28fc1j+CFlNtrSFBOvCq5xiFneiPnXOl5I6oyjHK9GJTmjfxbK8v8DZDDU
+         PCJLZEjmlRYfBADvLnAvWsGTWEayk7WcXqWzGYzV/X5VR1KlJvDU8GN/5EV16gJ46iV6
+         dMZFQxyq0NqvG2Cnhtsoqn1xm5b0Wot662Rf39RdIJixem8aIPettQdKfs1PEocOQkIA
+         0exs2S9iBT0hjgIR79REdTg+9auuWCBx+T99/jG4lppdIXbKCKoNMAnWyrwmmyqkfvsT
+         OPYQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB561MBCFoErZGdu5HAqKUPayUhdr6QZ6G2hFl0GWBz3rtdwLtIlwQ10i53glIyBIyOrzzOlq8aQx9nQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z965DYsXnFwIWUR7mL0H6UQj7BZxAXvt9DAS/lLMsnWVctchYPm
+	BDV1Shlqz9rND6hTT00a+WEgYyzubcLOt1t/XvfcaLzX4Mg8MQdm2YcL
+X-Gm-Gg: AYBFou2u8H0kGz5V/QhtJ1A0oWCc04jsUTfsaKQgmQ2ADqmlthBP6mXWAVBQzGVUorE
+	6MCzSZHFWguG5PI74N9N71XkOTvgwMoYedGPSLE0z1cbcQ1iw5MxZghjuvl974qmfi4sd+7QP/X
+	uebxIgoZ1L6OG1fTINiAbPVk8mEn1PstP1/aM3iiS9ybYGcZrxcRyYjuqLNkLD4mejP69qyVMqW
+	x6078ixFoxOAQanWHYt341j3fFz1DWjT+wk18vR8tb662owvt19rJVqZhAcs+ZlxNBiHw5AAFAK
+	8zPoZTpZFu6eLQ7lBTxuiFAV9348xGH2IBbAYFu8R28WF2OxXj0vFLp2TpHWf0yjjCMns4fsy1X
+	9qfMX6lNbZDrU5tgokQuEt6crQ/II4hyhco+N1knfcTSNyQGI+udwF7ccg5sFCkYiPF/iM5sv2S
+	tSKleYY8YHwnxvd9v651b3NGg2GArDWNFtPNM8Qx2yjVBYnDk58uS7hQSAmx99swa9XSB2y/9MF
+	w/QioZpET1CaCntqxLhAFY0K5FQfBCF9t7cr+veDgcs7jcJt1qQYWX2Tz8KKvc7plNLC0nAMF+H
+	L+BKbcz5a05E19l0ItZwxsUHQS4CLXYMk8WulfjI5DFuTucTojiTIC7KsEgI2hdd+YrQZxOs6Qg
+	VBokIp+ML7A==
+X-Received: by 2002:a05:600c:6087:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4ac1765ce52mr372660305e9.20.1793839754380;
+        Wed, 04 Nov 2026 16:49:14 -0800 (PST)
 Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm21341515e9.9.2026.11.04.16.49.11
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm21341515e9.9.2026.11.04.16.49.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 16:49:11 -0800 (PST)
+        Wed, 04 Nov 2026 16:49:13 -0800 (PST)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
 To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
 	Sylvain Petinot <sylvain.petinot@foss.st.com>
@@ -86,10 +87,11 @@ Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
 	Hans Verkuil <hans@jjverkuil.nl>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/2] media: i2c: vd55g1: Mark the AE lock and bias controls inactive in manual mode
-Date: Thu,  5 Nov 2026 00:49:04 +0000
-Message-ID: <20261105004907.150545-2-fernandorimoli11@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v3 2/2] media: i2c: vd55g1: Use the control handler lock for the subdev state
+Date: Thu,  5 Nov 2026 00:49:05 +0000
+Message-ID: <20261105004907.150545-3-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261105004907.150545-1-fernandorimoli11@gmail.com>
 References: <20261105004907.150545-1-fernandorimoli11@gmail.com>
@@ -104,44 +106,154 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In manual exposure mode the auto exposure lock and bias controls have
-no effect, and the driver marks them grabbed. The grabbed flag means a
-control is temporarily locked, for instance while streaming, so
-v4l2-compliance fails on it while the sensor is idle:
+vd55g1_subdev_init() sets sd.state_lock to ctrl_handler.lock before the
+control handler is initialised, while the pointer is still NULL, so the
+subdev state gets a mutex of its own. vd55g1_s_ctrl() under
+VIDIOC_S_CTRL, and __v4l2_ctrl_modify_range() and
+__v4l2_ctrl_handler_setup() under set_fmt and enable_streams, then run
+without the lock they assert, and format and control changes can race.
 
-  fail: v4l2-test-controls.cpp(134): GRABBED flag set
-  test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: FAIL
-  test VIDIOC_QUERYCTRL: FAIL
+Initialise the controls first and finalise last. The blanking ranges
+depend on the format, so set them, and the default frame length, once
+the active state exists. vd55g1_grab_ctrls() now runs with the lock
+held, so use __v4l2_ctrl_grab().
 
-A control that does not apply to the current configuration is what the
-inactive flag is for. Use v4l2_ctrl_activate() instead.
+With the control handler set, v4l2_subdev_init_finalize() also enables
+control events, which v4l2-compliance reported missing.
 
-Setting the controls in manual mode now stores the value rather than
-returning -EBUSY. That has no effect on the sensor:
-vd55g1_lock_exposure() writes only in auto mode, and the bias sets the
-auto exposure target, which the sensor uses only once auto exposure
-resumes.
-
+Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
+Cc: stable@vger.kernel.org
 Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
 ---
- drivers/media/i2c/vd55g1.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/i2c/vd55g1.c | 61 +++++++++++++++++++++-----------------
+ 1 file changed, 33 insertions(+), 28 deletions(-)
 
 diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index e3939bb..69ffb3a 100644
+index 69ffb3a..9f737ea 100644
 --- a/drivers/media/i2c/vd55g1.c
 +++ b/drivers/media/i2c/vd55g1.c
-@@ -1503,8 +1503,8 @@ static int vd55g1_s_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_EXPOSURE_AUTO:
- 		is_auto = (ctrl->val == V4L2_EXPOSURE_AUTO);
--		__v4l2_ctrl_grab(sensor->ae_lock_ctrl, !is_auto);
--		__v4l2_ctrl_grab(sensor->ae_bias_ctrl, !is_auto);
-+		v4l2_ctrl_activate(sensor->ae_lock_ctrl, is_auto);
-+		v4l2_ctrl_activate(sensor->ae_bias_ctrl, is_auto);
- 		break;
- 	case V4L2_CID_HDR_SENSOR_MODE:
- 		/* Discriminate if the userspace changed the control value */
+@@ -1113,10 +1113,10 @@ static int vd55g1_ro_ctrls_setup(struct vd55g1 *sensor, struct v4l2_rect *crop)
+ static void vd55g1_grab_ctrls(struct vd55g1 *sensor, bool enable)
+ {
+ 	/* These settings cannot change during stream */
+-	v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
+-	v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
+-	v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
+-	v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
++	__v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
+ }
+ 
+ static int vd55g1_enable_streams(struct v4l2_subdev *sd,
+@@ -1580,14 +1580,6 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+ 	struct v4l2_ctrl_handler *hdl = &sensor->ctrl_handler;
+ 	struct v4l2_ctrl *ctrl;
+ 	struct v4l2_fwnode_device_properties fwnode_props;
+-	struct vd55g1_vblank_limits vblank;
+-	unsigned int hblank;
+-	struct v4l2_subdev_state *state =
+-		v4l2_subdev_lock_and_get_active_state(&sensor->sd);
+-	struct v4l2_rect *crop =
+-		v4l2_subdev_state_get_crop(state, 0);
+-	struct v4l2_mbus_framefmt *format =
+-		v4l2_subdev_state_get_format(state, 0);
+ 	int ret;
+ 
+ 	v4l2_ctrl_handler_init(hdl, 16);
+@@ -1645,15 +1637,13 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+ 					     V4L2_CID_HDR_SENSOR_MODE,
+ 					     ARRAY_SIZE(vd55g1_hdr_menu) - 1, 0,
+ 					     VD55G1_NO_HDR, vd55g1_hdr_menu);
+-	hblank = vd55g1_get_hblank_min(sensor, format, crop);
++	/* Placeholder ranges, set from the format in vd55g1_subdev_init() */
+ 	sensor->hblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_HBLANK,
+-						hblank, hblank, 1, hblank);
++						1, 1, 1, 1);
+ 	if (sensor->hblank_ctrl)
+ 		sensor->hblank_ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+-	vd55g1_get_vblank_limits(sensor, crop, &vblank);
+ 	sensor->vblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_VBLANK,
+-						vblank.min, vblank.max,
+-						1, vblank.def);
++						1, 1, 1, 1);
+ 
+ 	/* Additional controls based on device tree properties */
+ 	if (sensor->ext_leds_mask) {
+@@ -1673,12 +1663,11 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
+ 		goto free_ctrls;
+ 
+ 	sensor->sd.ctrl_handler = hdl;
+-	goto unlock_state;
++
++	return 0;
+ 
+ free_ctrls:
+ 	v4l2_ctrl_handler_free(hdl);
+-unlock_state:
+-	v4l2_subdev_unlock_state(state);
+ 	return ret;
+ }
+ 
+@@ -1915,6 +1904,9 @@ static int vd55g1_parse_dt(struct vd55g1 *sensor)
+ 
+ static int vd55g1_subdev_init(struct vd55g1 *sensor)
+ {
++	struct v4l2_subdev_state *state;
++	struct v4l2_mbus_framefmt *format;
++	struct v4l2_rect *crop;
+ 	int ret;
+ 
+ 	/* Init sub device */
+@@ -1930,6 +1922,14 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
+ 		return ret;
+ 	}
+ 
++	ret = vd55g1_init_ctrls(sensor);
++	if (ret) {
++		dev_err(sensor->dev, "Controls initialization failed %d\n",
++			ret);
++		goto err_media;
++	}
++
++	/* The state shares the control handler lock, so finalize last */
+ 	sensor->sd.state_lock = sensor->ctrl_handler.lock;
+ 	ret = v4l2_subdev_init_finalize(&sensor->sd);
+ 	if (ret) {
+@@ -1937,19 +1937,24 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
+ 		goto err_ctrls;
+ 	}
+ 
+-	/*
+-	 * Initialize controls after v4l2_subdev_init_finalize() to make sure
+-	 * active state is set
+-	 */
+-	ret = vd55g1_init_ctrls(sensor);
++	/* Set the format dependent ranges and the default frame length */
++	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
++	format = v4l2_subdev_state_get_format(state, 0);
++	crop = v4l2_subdev_state_get_crop(state, 0);
++	ret = vd55g1_new_format_change_controls(sensor, format, crop);
++	if (!ret)
++		ret = __v4l2_ctrl_s_ctrl(sensor->vblank_ctrl,
++					 sensor->vblank_ctrl->default_value);
++	v4l2_subdev_unlock_state(state);
+ 	if (ret) {
+-		dev_err(sensor->dev, "Controls initialization failed %d\n",
+-			ret);
+-		goto err_media;
++		dev_err(sensor->dev, "Controls update failed %d\n", ret);
++		goto err_state;
+ 	}
+ 
+ 	return 0;
+ 
++err_state:
++	v4l2_subdev_cleanup(&sensor->sd);
+ err_ctrls:
+ 	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
+ 
 -- 
 2.43.0
 
