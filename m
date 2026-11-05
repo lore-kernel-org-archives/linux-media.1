@@ -1,95 +1,163 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793878418;
-	b=AB+YyBsuqjWmxZBcZvGLSHm0Xbyia7ixYnZN/MIEEAaMSrvwnYf24WAVxNOVjHgmzUTm
-	 hLNxZkL1jWFTlqhkSgL3McTE1gvAtYdGV4XJirxV9yVVFgI8916QEsRraJ+zFQYqK3xdw
-	 0BOV58RnhMYL+OzdW8raEdNhah3zzY82AJU+rfBPzMsWXNw9dWjbGKraALhyir5ZF4cAw
-	 8e/Rdc1uTowmClxZZNJT+qi9ZPk+mBCXtiN2h43TFTkoNdxX6hJJwPgXDboiS5phg+K4G
-	 0J3fyyGDb+JtWM8qP4hYugBEVKp/zN4KAeVLjzbf72rkoCokp2RphP02bc9MiS4tKrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793878418;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=rKHcQJkp+AYBaYt8c9Hl8GhuRZeCaAxlB11XwO+LzR8=;
-	b=hTVvE347+2wYMrIG9hiS5jciskdDPD5D2n2O94Zl6s+xt2qjD+bYU495ikdxNnADNzaW
-	 4bJcInknVGbfG4rnOZXF49NivCqolX8Q2nzW2MCLhTQOvS/JqOd5CxwUhIque4HFakDGq
-	 c/ZOgzPF0mE6r5cSVRDeQbajqcH1R2H1xeCM5oM4RgK2PZgw9qFzrI1atSxVBA9n+wp08
-	 LDW0xYfmiS3Wr6t36xm0Neq0YsbDBzKOz966mVpwt7LfJAnlyu3YgOTedtlFPS6D2512m
-	 klWJ6GJybOcC1hLZcM+iioxVN6mA4ejxGLTrL0iO1GcKCr6fJ2zH4iWwXGozHPNWdqA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0a6oXuic;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.44
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010044.outbound.protection.outlook.com [52.101.85.44])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793878765;
+	b=A9LtQ4Ktwt2EGvE3xsxl5agqQ3u4iIwf5+xawugwZiqN8Ll5bldYPuiDPotqKG2ddfyU
+	 Hhsi1OnGyU5pAZu9UZIwiv5yl9JWEdwXdAtjbLMMcl8KG3cefmcOGIzbbtmyhH7rlluIs
+	 FdKO03LmXxuUU5BD8tSUTbHO8ghhUsrbRZtV88Qs4sXYZ1x2YDxkHDrSIs7DFvANdNy36
+	 6g4VN6zw2aQOf9bGU5dB85tN0lg18bIR/p8k+N95bitwjU1o7I+5cGem7JsdrmPTodd2A
+	 RItnVJWJDUDUHs3kxuhhJdEwMBOyy12tYw7d3rnL8t9b6jsk4QfXvGI3ctOCstnq4ZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878765;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nBYw1ywhOZ/qkhjAQYbGVUhl6PlTBeWYLHkpD07E2JA=;
+	b=ZflwMk+sdBPrF63QOORw7QYqKoYK1lzgosYKRwdHfKpDLfEDdY64kz5fZLIiPi7P/9Vb
+	 w3g49sPoea6+4ret6++MnrQZRQ85w3a8Xx9BSh8jvJjWkhI7gps8aKkFW0mwPFEQ26NPN
+	 YJifX0gW7YMi4Ot73YEdbITChlOvLxpePri6z4LvfB2IQMlkU8uZBXW/u7BLtE7j+V3vw
+	 vmher1z3G9k9sY+RZtVDrrZjc6XEafTiMDGvhLjM3DTHYTMVD09B1ck8Umu0jV9nva5kN
+	 8GjZ0UGp6dlLhEuz31FI4EFrejyXUvweLTFUuqIloRxt19DNbjaGoJHe+m0eRlzh2vQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zg+N9Od5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7B1606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 11:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A7B1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F13606A326;
+	Thu,  5 Nov 2026 11:39:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=0a6oXuic
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fkgi31bhnPgMA44qVcXg3/VEeXzAh4VGyft5JZftORGW8i9vU5cJZbPGoRZWWSFTGwXqI02dGJSzjfPdEB9S1JMVY4ZvKzN5LgyL0iTya2ub+jpu5ZMothqOtEXuB4oF8SNEuy5HDt2xrpwxA/vXRlsZFceyOUUz23PkHldT2kfRXByMznsavBGbemip+rOG1S7Q6wQrSy8wzVSymjj7ScxbbG61PEg2/TcyH0ixdzHV5SXUMKEFJwn9exTNptUU1iO3o7eohLmDts+0HpJhUIx3fvHum3/BEITnF2HgCMRmiRE5PW9sWtdV5P8Rjf2U6pbnNeDj13dnlpkOYgymBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rKHcQJkp+AYBaYt8c9Hl8GhuRZeCaAxlB11XwO+LzR8=;
- b=NVqI31E8x0qd7FhSJ5I9iXO15lajCD/KAepGOnXO1PuL5q9FkwXSGD0OwYpCHWEm8YDOujBe7p0CLcSmzvXUJ9Kukp+KDlacfey0yPT319Wo3WZ955sTpyWOiJjeJKBudQiVPSxf8QUndKKGlvyTIJfADcj/Xd20Mb9+JZYTe0B2E9a4LFGGfJxk9ft5C+qtThQGM8uAg2l4nP8NjPg9ZjVny6cuwYenPxCip7IgsSRzdmEj0TUH3G0GWrKCaV0dSRTCxEoNvNs2e4mkNjdJ/d2jhoZyWDmkf2wS5/0WLXv1ammrnHwCB/AKjJfBBeREMZfgg1mMPygZwnBne9jDZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rKHcQJkp+AYBaYt8c9Hl8GhuRZeCaAxlB11XwO+LzR8=;
- b=0a6oXuicDTzNQIYJPlo9NxuX/Z5wCr0CxBXMpbCl3MbBI4zWX5MftmFlYn3BS8n7rCFpMPWcW7L3BzYJOGMmkOXpaZNyob0RM/UNrc8p2l3DBMNNLt95DOsmrsyYd0UmKIK9vGcqQca2Djo5b8nm8N6/vDTUfmot+YROIkxz65s=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB5768.namprd12.prod.outlook.com (2603:10b6:8:77::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Thu, 5 Nov
- 2026 11:33:34 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
- 11:33:34 +0000
-Message-ID: <e70e62f1-08bc-42cd-9cf8-62ce54cc8be6@amd.com>
-Date: Thu, 5 Nov 2026 12:33:30 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf/sw_sync: Avoid taking references to released
- fences
-To: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com>,
- sumit.semwal@linaro.org, phasta@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, syzkaller-bugs@googlegroups.com,
- syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
-References: <CADZg-m3A_i_X0L-UBi=eMEx7RzhR_sqU5NVLrQ75JJdR=2ASKQ@mail.gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <CADZg-m3A_i_X0L-UBi=eMEx7RzhR_sqU5NVLrQ75JJdR=2ASKQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN9PR03CA0433.namprd03.prod.outlook.com
- (2603:10b6:408:113::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zg+N9Od5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 511611F000C1;
+	Thu,  5 Nov 2026 11:39:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793878764;
+	bh=nBYw1ywhOZ/qkhjAQYbGVUhl6PlTBeWYLHkpD07E2JA=;
+	h=From:To:Cc:Subject:Date;
+	b=Zg+N9Od5zSsBpPaBLRFCUpb24UpOsG40XB2g0jmYK6PIQt6/NgQ6o2D2xIuTzZ/Yk
+	 n6qi1h1mcFVesVxnhwbMsmTUH1QB6RESQX4KKKY9qM5V5a1Qt34ympeOCATm10u+Qb
+	 KsD8LoDt+yYWFple6BRBYHS00aQXSP21UQIPEWU+iZu0aTrXsVViG1oSfnzN4lbid7
+	 +NtTSPHgZdaPtu4vtc2CGV3LS2PrgEkos8Ndw3PblxkRKOpgx3J0ri4gsEugrTYfHe
+	 7DmN1Y0bubaFVVlSZVlcXHAXCWDlBUlRQw5uW10GtWu6zcyakaDEKVloKzQiGJGquJ
+	 mxbW2ns2oLR1g==
+From: Philipp Stanner <phasta@kernel.org>
+To: Min Ma <mamin506@gmail.com>,
+	Lizhi Hou <lizhi.hou@amd.com>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Karol Wachowski <karol.wachowski@linux.intel.com>,
+	Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Felix Kuehling <Felix.Kuehling@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Russell King <linux+etnaviv@armlinux.org.uk>,
+	Christian Gmeiner <christian.gmeiner@gmail.com>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	Alessio Belle <alessio.belle@imgtec.com>,
+	Luigi Santivetti <luigi.santivetti@imgtec.com>,
+	Qiang Yu <yuq825@gmail.com>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	=?UTF-8?q?Adri=C3=A1n=20Larumbe?= <adrian.larumbe@collabora.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Natalie Vock <nat@pixelcluster.dev>,
+	Arun Pravin <arunpravin.paneerselvam@amd.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Melissa Wen <mwen@igalia.com>,
+	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>,
+	Chia-I Wu <olvaffe@gmail.com>,
+	Zack Rusin <zack.rusin@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Neill Kapron <nkapron@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Sunil Khatri <sunil.khatri@amd.com>,
+	Prike Liang <Prike.Liang@amd.com>,
+	Vitaly Prosyak <vitaly.prosyak@amd.com>,
+	Jesse Zhang <Jesse.Zhang@amd.com>,
+	=?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+	Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	David Rosca <david.rosca@amd.com>,
+	Marco Crivellari <marco.crivellari@suse.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Andi Shyti <andi.shyti@linux.intel.com>,
+	Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	=?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Sam Day <me@samcday.com>,
+	Gabriel Prostitis <prostitisgabriel@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	amd-gfx@lists.freedesktop.org,
+	etnaviv@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	imagination@lists.freedesktop.org,
+	lima@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	rust-for-linux@vger.kernel.or
+Subject: [PATCH 0/3] dma-buf: dma-fence: Remove dma_fence_init64()
+Date: Thu,  5 Nov 2026 12:35:27 +0100
+Message-ID: <20261105113529.1989375-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,123 +167,90 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5768:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0df37a57-645e-431a-f5a1-08df3b30a038
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|6133799003|10067099003|22082099003|18002099003|261102123227099003|13003099007|261009223027099003|261028144727099003|261022105027099003|11063799006|56012099006|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info:
-	8+S1rOB1/KD4WXTAZKwX/74fOOrRce/NNJytYlD/NnkAfEr4KL4NkHrF8LiO79L629+aWU0yqfsA4rlg6O3gp3nsIaTtBgvNdG4ES6b5xClvfNQU0bwauYGwLJdL28stC6y44boxg4771XdYQOyzRKy7LuokFdSXxA3ZQVgCx0y6quPaUanFrQ/a3Hd03iqKlEEN2P3uTvyc6c8ici48l0+15Ina2sOGn7Myxwg/HnhMj8XqOdr5u4jFy1YsxjhePugW6UMj9y4/t0/f48VkRe+beYiiUqcLjIxvIxLtR/shYjvD7Jvf1Dcuenbg2dwOfv6Hn/5wXnc01ym4P70w0xmbr2rDWTn0GyF8gX+VkE4VSaMBfFZHpmtvSNnv3SKXyEjiLs4FD4W3Cg+LP1KK1IQPj+GU/tJkgFw2NPUSjLyjYFDsO8MDWcOtv7Et0p0gG83DWPxfuiLR9v2IggIEJOBhQwmxZhm48oRbofzym+v5d23RO6ihoFjAP4lN4eSOeO70Op87SScKQSkhuP2+lff2XFHHKy0QjPMY8YfELQTPhJQSN+1gpsmZFj+EwPEUag3A2k9oYraHLAdnVonWF0pZbzT8iwK1Eil14n6DrP0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(261102123227099003)(13003099007)(261009223027099003)(261028144727099003)(261022105027099003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022075727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VjNERC84WEl5T3BsODJidWVCT2k5cUlUaGVuSVBUS0oyeCs5cCt6dThxNnhx?=
- =?utf-8?B?cGZGU0hXcTBBK0hLczdDSXNXMDNtL2lJU05sRzdyYXpEcVExYVNVWUxnV2cw?=
- =?utf-8?B?SHQvUnNIb29ROVBaL3MwZW8vcEJyVnlEZ0pOTGtKa2lxZjFNblBsWmVITVNr?=
- =?utf-8?B?Myt5VnFjZ2hnZzVwc1RnZGFrN2RJZVFNbkh5N3hxcGd6SUFzMEp3dVEvV3Vk?=
- =?utf-8?B?NGRScVlEd2FEdko3NkVpTGw5N2NNN3dqRThHMDYza0VqZE0rb1locVRHVDF2?=
- =?utf-8?B?TmgraDRITm5ZN1lNSjJMQlZUSzhwVWc5dGdydW0xdlJGbkh6MjVvNDlERXNm?=
- =?utf-8?B?OHJnc3ZHaW5MUUpBYXZXTDYrVC8zVFRzK3VsR2FPWXdhOHNBUHVhaXJteVdC?=
- =?utf-8?B?WEE0cTZlVnJnVHdmZDlpM1pjckZIZTRxWmhKKzArWnRJTjRUcms2dm16Z280?=
- =?utf-8?B?eWVha2IxcTRqOG5WSjVXSE9FK1c4MERJYlZ2bVl4R1BqWGpKcG5jNDNrQnlX?=
- =?utf-8?B?OVFnbHdKTFJZb21KaFo5YmtCem9PNktZdVd5eUF1MlJ5WjNhTENvTExBV1Bq?=
- =?utf-8?B?ZHJHTUxJcXNoQWpwYkpDT2VNQ3EwdTRaYmlCVzJUa1JTZGxtczE1TVdocENW?=
- =?utf-8?B?WCtnV1FTR1AzcE00a1ZJMzU2bjBnQi9nNHRMWkZhU0lFa05FVERZRmVtSlJt?=
- =?utf-8?B?WWZJeFBqenVVMHNKR0RlU2tnaENmWlk5clV2aituK2E1dUtPMDJQcENQeUJM?=
- =?utf-8?B?eHJOUDVGVmZoMDMvcDZwRzRlVzVmMnZoUm9Jb3RiZnE4SWQwODA5Nk9lcG9M?=
- =?utf-8?B?anpDK2dSeDh4VGR6OEVVTTkyb0hKc2tTR2lDSkwyUm5UQ1NHV0FvclIzVjF3?=
- =?utf-8?B?VS9lU2M0MXJ5d0RQYUNDVHlGQTNaWXNNak9FWnhMRldoQ2tWcEZJRjB5Tm44?=
- =?utf-8?B?bjJLcUNINE1Qa3Z5b0w1TXUxNUlRVklQTzJDWVlHS1B0c2tNekdpSGtQQlFX?=
- =?utf-8?B?SzFEWnJyaDgrakcweXQ5TGMzSWh3VTVBdUdERU1aaXZab0ZIUWtxZzBPRzZ4?=
- =?utf-8?B?WWlFTTRUd0RVL2ZNeno2UjdnVUdacmRnbVE2TkhPeTM4REFzME55d0w4V2FF?=
- =?utf-8?B?QkRFQVUyM25xTjBwa1g1OGx0eHhmbmhYNUt4aVBiV0xkekZraEltN0FhMXVE?=
- =?utf-8?B?cDlyVUxoY1dpT1AzUmZiNC9JNVNES2pRSlFBWDdWSmZ0Z2NESngxQXlZeXlU?=
- =?utf-8?B?cXBrRWF6OFJmVXdpTThLLzVZK2NGQndOUDlUbktPZVNGQ0FXdE83NGIrdUtK?=
- =?utf-8?B?WGtGbjVITGxOTGVSaGZiV1JGK0pHM1lacjE2Y0Z2MlNvVGlIVFN0VGN5anV0?=
- =?utf-8?B?Y3BaMHVKQzdLUkNWQkYxb0hmVUQvSnVPQWl3c2hvdmluNVkvblJpVEFSeFh3?=
- =?utf-8?B?Rmh3WWErTFlsdzh2dWc2NUU0bTFjYWVBUzhMSE52aTQzdzNFMnYvNW1JUVRF?=
- =?utf-8?B?bnlaWWEwUHQxd1JQeEsxR0JhakZGZjJ1WE1IK0pUUVh3d0RDZ29XYlI0bzFy?=
- =?utf-8?B?MzJWakQ2L09ERDZuTmVOMTFQUlhVNThWOEdoU0FqR2pUUEc5U2ExT1RRcjRt?=
- =?utf-8?B?c1dwa2toNERobmoyWlowbU5uYWxicmNLQW8raXpvTXUvR1BPQWJMdmhBVFhy?=
- =?utf-8?B?bklmbnRyYjQ0YnlRbGROTUd1a29rOE8zbHNkRU1Xd01XVGozNmlMS3hhVk9n?=
- =?utf-8?B?bnlPTmJBK2NGMUVCbmJIMUVZZnJFL2Nqa3A4T2FwN2l5ZXJzL3d3QUtLdTdh?=
- =?utf-8?B?cy9UL2tQbzV0cHk1TTVrTlNZcExsNDNOYmg2T3JCL3I4bVdpL29tWGtacWYx?=
- =?utf-8?B?UzM2MEJHa01QRm9KZ1lYT1ZLTnQ2MndDd1F4TWVBVzNacFh1UlU0SzBWY0pY?=
- =?utf-8?B?WEpvcDg2SUV1L0lQYUNCR1UzTW9jc0JIVkNEM2JGR3BjZGxBQWh5Q1ZLUWZB?=
- =?utf-8?B?WmM0a055MC9GWUNvOXR5bzRMSytGMmhIVytZV2VQQmMzWGVtRVgremh6ZmM3?=
- =?utf-8?B?R3ZBUUlpUHJNYTRYdkVlZ2NJaVIvNFlJZStDTXB6SUxwL21vTWJSZ014VVJ6?=
- =?utf-8?B?Q21TcWtLQWFqQVNQTm44K28wYkx4QnhyWVMrZ3dSWmprelJsemVBSXg1Qzdj?=
- =?utf-8?B?NzBSS0R0cjJhZUpqcE5RTEcvbGZxY3ZacGlnNk9EcEN6L1NkN0FmNFJ3a3A4?=
- =?utf-8?B?TkxlMFBjV0NWU0JaWHhNVHFSTlc2aDIza3UzNU5nOGZMT29rTVhRK3J6dldJ?=
- =?utf-8?Q?Ieu4VkavW5DRQve0fI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0df37a57-645e-431a-f5a1-08df3b30a038
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 11:33:34.4168
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fwAD0r9NyzQKR4synhv7+gEcu/pkCKBFqi1p1l7e07lTwXd3TN/Z2ZJyVABL0Ctm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5768
+Content-Transfer-Encoding: 8bit
 
-On 11/4/26 23:18, Kirtikumar Anandrao Ramchandani wrote:
-> The last dma_fence_put() can drop a sync point's reference count to
-> zero before timeline_fence_release() acquires the timeline lock to
-> remove it from pt_list. If sync_timeline_signal() acquires the lock in
-> that window, dma_fence_get() attempts to increment a zero reference
-> count and triggers a refcount warning.
-> 
-> Use dma_fence_get_rcu() to acquire the temporary signaling reference
-> only if the fence is still referenced, as sync_pt_create() already
-> does when looking up an existing point. Skip a point whose reference
-> count has reached zero: its release callback will remove it from the
-> list and tree once the timeline lock is released.
-> 
+We recently had a discussion about reworking dma_fence init to close a
+race-window [1].
 
-> The timeline lock prevents the release callback from removing or
-> freeing a listed point during this check. For a live point, retain the
-> temporary reference until after dropping the lock, preserving the
-> protection against recursive locking from signaling callbacks.
+The community agreement seems to have been that we can get rid of
+dma_fence_init64(), so let's do that already. In the meantime we can
+continue our discussions regarding the race in [1].
 
-Please add this explanation as code comment to the patch.
+This also touches the Rust dma_fence, which actually should use 64-bit
+seqnos (was forgotten so far). Rust fence has no users currently, so
+needs no backporting, so I would like to address that in a distinct
+patch.
 
-> 
-> Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
+Tested on Nouveau with and without the SEQNO64 flag. Nouveau also uses
+the USER flag, so I hope we're fine.
 
-Drop that here. SW_SYNC is a unit testing functionality which can intentionally crash the kernel.
 
-You get literally tons of warnings and a tainted kernel when it is enabled/used. So bugs like those are generally not backported.
+P.
 
-Apart from that the patch looks good to me,
-Christian.
+[1] https://lore.kernel.org/dri-devel/20261029095542.1526750-3-phasta@kernel.org/
 
-> Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com <mailto:syzbot%2Bcba1a1f459230395a076@syzkaller.appspotmail.com>
-> Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076 <https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076>
-> Signed-off-by: Kirtikumar Anandrao Ramchandani <kirtiar15502@gmail.com <mailto:kirtiar15502@gmail.com>>
-> ---
-> 
->  drivers/dma-buf/sw_sync.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-> index 8df20b0218a9..7f1eadee4cdf 100644
-> --- a/drivers/dma-buf/sw_sync.c
-> +++ b/drivers/dma-buf/sw_sync.c
-> @@ -221,7 +221,8 @@
->                 if (!timeline_fence_signaled(&pt->base))
->                         break;
-> 
-> -               dma_fence_get(&pt->base);
-> +               if (!dma_fence_get_rcu(&pt->base))
-> +                       continue;
-> 
->                 list_move_tail(&pt->link, &signalled);
->                 rb_erase(&pt->node, &obj->pt_tree);
-> 
-> base-commit: 05441d697f7f9a927264f4058cbbc6a03dfcac9d
+
+Philipp Stanner (3):
+  dma-buf: dma-fence: Add flags parameter to dma_fence_init()
+  dma-buf: Port users of dma_fence_init64()
+  dma-buf: dma-fence: Remove dma_fence_init64()
+
+ drivers/accel/amdxdna/amdxdna_ctx.c           |  2 +-
+ drivers/accel/ethosu/ethosu_job.c             |  2 +-
+ drivers/accel/ivpu/ivpu_job.c                 |  2 +-
+ drivers/accel/rocket/rocket_job.c             |  2 +-
+ drivers/dma-buf/dma-fence-array.c             |  2 +-
+ drivers/dma-buf/dma-fence-chain.c             |  4 +-
+ drivers/dma-buf/dma-fence.c                   | 58 +++++++++----------
+ drivers/dma-buf/st-dma-fence-chain.c          |  2 +-
+ drivers/dma-buf/st-dma-fence-unwrap.c         |  2 +-
+ drivers/dma-buf/st-dma-fence.c                |  2 +-
+ drivers/dma-buf/st-dma-resv.c                 |  2 +-
+ drivers/dma-buf/sw_sync.c                     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  2 +-
+ .../drm/amd/amdgpu/amdgpu_eviction_fence.c    |  7 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   |  5 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_tlb_fence.c  |  5 +-
+ drivers/gpu/drm/drm_crtc.c                    |  2 +-
+ drivers/gpu/drm/drm_writeback.c               |  2 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c         |  2 +-
+ drivers/gpu/drm/i915/gem/i915_gem_ttm_move.c  |  2 +-
+ drivers/gpu/drm/i915/i915_request.c           |  2 +-
+ drivers/gpu/drm/i915/i915_sw_fence_work.c     |  2 +-
+ drivers/gpu/drm/i915/i915_vma_resource.c      |  2 +-
+ .../gpu/drm/i915/selftests/i915_sw_fence.c    |  2 +-
+ drivers/gpu/drm/imagination/pvr_ccb.c         |  2 +-
+ drivers/gpu/drm/imagination/pvr_queue.c       |  2 +-
+ drivers/gpu/drm/lima/lima_sched.c             |  2 +-
+ drivers/gpu/drm/msm/msm_fence.c               |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_fence.c       |  4 +-
+ drivers/gpu/drm/panfrost/panfrost_job.c       |  2 +-
+ drivers/gpu/drm/panthor/panthor_sched.c       |  2 +-
+ drivers/gpu/drm/qxl/qxl_release.c             |  2 +-
+ drivers/gpu/drm/radeon/radeon_fence.c         |  2 +-
+ drivers/gpu/drm/scheduler/sched_fence.c       |  4 +-
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |  2 +-
+ drivers/gpu/drm/ttm/tests/ttm_bo_test.c       |  2 +-
+ .../gpu/drm/ttm/tests/ttm_bo_validate_test.c  |  2 +-
+ drivers/gpu/drm/v3d/v3d_fence.c               |  2 +-
+ drivers/gpu/drm/vc4/vc4_gem.c                 |  2 +-
+ drivers/gpu/drm/vgem/vgem_fence.c             |  2 +-
+ drivers/gpu/drm/virtio/virtgpu_fence.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_hw_fence.c              |  2 +-
+ drivers/gpu/drm/xe/xe_oa.c                    |  2 +-
+ drivers/gpu/drm/xe/xe_preempt_fence.c         |  2 +-
+ drivers/gpu/drm/xe/xe_tlb_inval.c             |  2 +-
+ drivers/gpu/host1x/fence.c                    |  2 +-
+ drivers/iio/industrialio-buffer.c             |  2 +-
+ drivers/usb/gadget/function/f_fs.c            |  2 +-
+ include/linux/dma-fence.h                     | 14 +++--
+ rust/kernel/dma_buf/dma_fence.rs              |  2 +-
+ 52 files changed, 95 insertions(+), 94 deletions(-)
+
+
+base-commit: 8258a37702b9b9cf27f5c0ea07625e3e6bd74f5a
+-- 
+2.56.0
 
