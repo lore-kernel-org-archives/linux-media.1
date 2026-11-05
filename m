@@ -1,63 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793873441;
-	b=DsP/IDgFIK147CUypGEfEWFAsClDjpQ1ceyNXuHLkShQE8XND7P0ue+KuzXrG/RFyvdP
-	 15ZewAHrU+atSCm7Lyu7JnT5m6ysl+nrNBHik1bLMPtbXKIV0LBPCbv9NbAGVjahpItPa
-	 1MVbq48DxVLCgyavsg4W2uk9YK7i2YZkZ2sholHL6seVp4Ojbv9HZQ++uOueixpHY7FkU
-	 PqrrnM+cnXEsdxGf/YKzvCimPtnaNJXDR3YUTT7PD+6os/i5bLJf+SVYiVniljYjJ15Ef
-	 8umDnwSf7+IyUJ2Ylrlm64gDXwQmasjXjixJyi5vo3gHtqPKbnfvNXq5E9lawwd/rvw==
+	t=1793873483;
+	b=msSY6PhD3AFC2cIvMMMP2YsOKLux2JbyjuF10yrtB2muNg90qRpKoLIxwGkKtrS03xyR
+	 g8iiQL6t68weQD16tLxBjHIEUWK+70diTPtPHtFvVHK+72ZgrKoGOEvbMTba5HST+C7j8
+	 ZgZgTYrA7TIU11ZzO2mAcQZ6DT6WzaG/whjfZ3qBJwTcyjfzC51zBRr9WYsWgNDfksIc0
+	 vlhLHS714NFo2QXSmJ73KlsYMmXQfp+FydTqEjzw68ZMja3vAmcJe+mpVU7qXLwb6y3EE
+	 +Dm8bR3a1GybojqppKOuNDVTVJmbVMUZ5nbrBTmD5kXYOEKDW2FG0lZlabaNQeSsvpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793873441;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=VISxwQyrQTqbIZfR1K/ooQnU7ixN3hi1RiWSCsvjQSA=;
-	b=iUhMsPxEYe/z8dpffLy36fgwvx9D1jzVGstPoDy9NpjkAStpc1k7iMwfqirBEuoCqPlJ
-	 DawXPWScBdjw5+QtsGGbPhqFRBdBaG4mpEd94kXKoyrcJE2mwhj+x7+g84JmXl10y/ZaJ
-	 srEIuHQCJTlKZ8RtP1KGy02LxQzJfyE5s8ww3EpoRVAG+j2Bz2y1jkQfDm+BSiXIi4A4u
-	 +yqtARFx7Cvue4TN25WpT5BmLFFpMRfU462SOdyyY17KwRiMd76VrKGbKIbdUXAylDJ5v
-	 u8DFfLmUWI3nBm9AtSPf/XIHz59e7Coscu+rnc9mHVNMH0vHSRsuzDaTunJkID231tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793873483;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=wsdgcA9vaCSEKoIEPaFm6fxJFmWhFKqHok8lRNdUQUA=;
+	b=cyvkpEJMLo+6Di/bINV+Y+Ac9yfhV8HxJlUzPFtSlpfRdNMG9xUU86rDNAnjQIU0FciL
+	 01abU0uQC7PfOERo1UVgoO/amucHt9MDVWc8THiWXpwoBqHf1E1xw750/Th23yUj84hJw
+	 DxLaFvjfCnaaGeXxhCoy/4fRijzgX0QVOQZ3yjwcCu4SxTRygkF2l6ctKLehx+Mxb09L4
+	 EtlQSMYq1AWtRCkQr4CZT9+k4YwRfoSnD4ACV5Gwt5c/sSH7nhwY1+reLaERXy1zFNXNd
+	 eoYPygiU/pBQOhJE+ysb/ITqZ5sl0A7voBPWJIupc8DMUF/jW+9xeEC3ublsjDK46Xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=IZUKvrFB;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b7XnIbvf;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673B5606AA6E;
-	Thu,  5 Nov 2026 10:10:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 673B5606AA6E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 365DF606AA67;
+	Thu,  5 Nov 2026 10:11:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 365DF606AA67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=IZUKvrFB
-Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 323A9ABF;
-	Thu,  5 Nov 2026 11:08:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1793873298;
-	bh=VISxwQyrQTqbIZfR1K/ooQnU7ixN3hi1RiWSCsvjQSA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IZUKvrFBYrLvbjPv77meOLR6Em6f7zU6Jc7jF295Ty7uvyyjOENSyBgyFWbvOtNSR
-	 SNJU7PXQC/KMbhQD6ppcQDN4Jp5hZo0vCMPHkc+2sjliIkW7OLYBocwpsQuWp+uZFH
-	 liEFjA38q+DWfAE9UmUIKCy2/oOAkASj7BbjlUrk=
-Date: Thu, 5 Nov 2026 11:10:33 +0100
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH RFC v5 7/7] media: mali-c55: Sequence resets explicitly
-Message-ID: <auxUgg0PP9xXqA68@zed>
-References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
- <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org>
- <CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com>
- <CAD++jLn_3X65zu8q-DfWbn4xjyPrSfp5BVH4SO96XCxmegcvXg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=b7XnIbvf
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793873483; x=1825409483;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cweAt+G5hJEjWG5u8FMoAhY7j0vIg+95aauQT9On/go=;
+  b=b7XnIbvfFrumMlxZVIQGa3cV2wlRuH2Ozed5ydAaS8e8ijBfNWseXQHJ
+   G6wLViIBvuvvxOjFyb2DJnyx1c77L9iCzXx0aP6+/kK+aVMidtGls6Byd
+   L1/oWrrI0QlDXUVrug7yXO8fjU4oQN8RNDgDPsOBl00NUa6mOFNLv5OZY
+   xiFtccthzTCn6CQJPrxViKyj4Y4D4kjABmJ0rGGZjixGd0uSXw2/TwYqC
+   JqPU5XOLAfAwgILqCaRt6fhpOP4e2OPfmDdNmcI7CpT6A2fDjtZI82uKJ
+   1E+whCOVpe+JJGK4zKMgFD4NWfKpfbzc0LAFW6bWpSw9f2QkAggmEIrwI
+   g==;
+X-CSE-ConnectionGUID: 9OlYFWRnTly0KFOcCAlwSA==
+X-CSE-MsgGUID: HoEMZxlkQwCh8sW3qXW/WA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2673920"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2673920"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:11:23 -0800
+X-CSE-ConnectionGUID: +GylQFaiR6qSOiSg1gzRGg==
+X-CSE-MsgGUID: c5UrPFLITOWTTwaBoDkmmw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7084246"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.182])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 02:11:22 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id F18C5121B97;
+	Thu, 05 Nov 2026 12:11:31 +0200 (EET)
+Date: Thu, 5 Nov 2026 12:11:31 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Laurian Iacob <laurian.iacob@yahoo.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: staging/ipu7: use guard(mutex) and simplify retry
+ loop in buttress
+Message-ID: <auxWU5QgfZ8hrSAH@kekkonen.localdomain>
+References: <20261104222832.32471-1-laurian.iacob.ref@yahoo.com>
+ <20261104222832.32471-1-laurian.iacob@yahoo.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -67,57 +86,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLn_3X65zu8q-DfWbn4xjyPrSfp5BVH4SO96XCxmegcvXg@mail.gmail.com>
+In-Reply-To: <20261104222832.32471-1-laurian.iacob@yahoo.com>
 
-Hi Linus
+Hi Laurian,
 
-On Thu, Nov 05, 2026 at 09:58:09AM +0100, Linus Walleij wrote:
-> Hi Prabhakar,
->
-> thanks a lot for your help!
->
-> On Tue, Nov 3, 2026 at 2:47 PM Lad, Prabhakar
-> <prabhakar.csengg@gmail.com> wrote:
->
-> > I tested on the RZ/V2H EVK with the clocks and DT left untouched,
-> > changing only the reset order.
-> >
-> > The hang comes from the reset assert order in __mali_c55_power_off().
-> > Asserting vresetn (the ISP core reset per the RZ/V2H manual) before
-> > hresetn/aresetn wedges the ISP. The next power-on then stalls on its
-> > first register access. The deassert order doesn't matter.
->
-> OK I will drop the clock patch and keep this one.
->
-> > Asserting h->a->v (deasserting v->a->h) passes repeated runtime-PM
-> > cycles and also works with the IVC enabled. So 7/7 gives the right
-> > reset sequence, 6/7 isn't needed for this, and the existing DT mapping
-> > (0xd3 = vresetn = ISP core reset) is correct.
->
-> So this is a Tested-by for this patch?
->
-> > A smaller alternative keeps the bulk API and only reorders the names:
->
-> I guess that works, but I'm not sure the reset bulk API in the
-> kernel guarantees any order, so we better keep this patch as-is if
+On Thu, Nov 05, 2026 at 12:28:32AM +0200, Laurian Iacob wrote:
+> Use scope-based guard(mutex) from linux/cleanup.h in
+> ipu_buttress_ipc_send_msg() and ipu_buttress_authenticate() to simplify
+> error handling and remove redundant goto unlock paths.
+> 
+> Additionally, replace the backward goto retry label in
+> ipu_buttress_ipc_send_msg() with a standard for (;;) loop to improve
+> control flow readability.
+> 
+> Signed-off-by: Laurian Iacob <laurian.iacob@yahoo.com>
 
-I was under the same impression as I have memories of quite some
-conversations around this and I recall a workqueue was used to
-schedule bulk reset operations.
+Thanks for the patch.
 
-Now that I re-looked at the implementation of
-reset_control_bulk_deassert() and its history I don't see any trace of
-it and the documentation says
+Unfortunately the ipu7 staging driver will be removed soon, therefore it's
+a target of fixes only.
 
- * Deassert the reset lines for all provided reset controls, in reverse order.
+-- 
+Kind regards,
 
-Was I hallucinating when I first suggested no ordering was guaranteed ?
-
-
-> it works so we explicitly show users that this is critical.
->
-> Yours,
-> Linus Walleij
+Sakari Ailus
