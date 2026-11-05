@@ -1,75 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793877684;
-	b=kR2Nuy48SUlPhEOeFfdYvg3M6V1kaW+kxKZXtyJuHgximEv09RSguTMWMgb4d5PDS+1a
-	 7CnCkP2t2gHIAlV0AQTlX44gnDrZ2zgD9S5ePEmuQDfUzc6PlfLrS2Lq5jldqvksacSr7
-	 eJzkdPM6AuAGnX8vzvbjxeX6hlKp+tcphavaKLeIjgkv4wdw6NrPtKsnMqaF5WV6ltyqk
-	 PGGltqeS4Z6PcecYFztmqtPH9K+u+7ObrFTnCUSxKVNmoTHSkTQXvBv5B3Sl2ADx1bMRt
-	 HPFadjxWTB7lssIIljet2n0xOXSv/v4s5+NJFLR85Ln4MzHba5Jpfdjr9rIF7JHmJ8Q==
+	t=1793878353;
+	b=MNz6IbYwHa6Tplw/Lyh8A5BIx+A0oGPj5u/mMUTDqhoIBJJzOOGEq8t1T1f7DFWFZoXm
+	 htQptPxb0RMyr9J732P7LWwjAki7YsDEjN53Z/8IYY5HmVuS5pOsEFbfLFV11CdWdQaFp
+	 DcKoGXx5lSKKm3JEOhx+gYIwrnaYJqyXYwLKllhkMWLvM9CMBsvveuRcMaX3WjhUmcd42
+	 pxcgAIoLsH8INiLa9Nk8qFBcVWqkkH2GME8WRRBN3V3UMY2Rb5VG01PY6ctQksXetzGB8
+	 5JFKxiGzV0ZIGXQXyJRd59QZ6EqayzxJMjicg/YNHysY2Kosb7yCDoKPUM78TxRBwIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793877684;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=XdbzovvwSk99PZMKZkCbqK04cZmQqVMPaRpFbjr+z+4=;
-	b=XNuFZ8z94VnHkTKzr8VzSqISTW/5TGtvfOrF0O5mgi0oUu7Db6Ybe+VivwWlvMkNeiWD
-	 zekOarh+R4Mmk4ZEtP9NIoScLB/LjxNc9lLeF4/o/a9PKKUPWNtgatFSM9ifIzfP2ziXb
-	 DsWsrNJF5XTkXNSD2hKjoLO6XC9SF7PE0VwdCD8ZPO9ey9YaGKdeexra9qM8Un5Ql0eDi
-	 t/U14t6Gqf/aZZCX2wLFjdXs7M6VOvnS/gl61mo06tN5UNP4PLmF8V/CCjO6GxeUkG3Ep
-	 FFctM7aG/Kb5FS0iti4DbhCz3wgDlB40BN/oYzig32O3kXWsnUPGsOyFttNNi1iLn1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793878353;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Hv/YqhUcbRh9eWhND1HEmPv7Wx8/p/XxUOLWb+cXlc0=;
+	b=O5dsQIovfsItxU6NpS/arEkTxrrS2pppMeAUR8JYiWqp72nuQ9jAZeePQqSO1nTYz9CA
+	 usyy/HHaQtpA77IU4s1/XX6vW975Sjod2ETU2FWqqlFGsvk1tjdbxApAsHqTnrdAD4mB4
+	 E2Y9rLicGnEIZ4/EjKNH20LcX/GyEhi82xEsfdjrrsybXvazzVkt2i8Ij9LfD0TM8fkUQ
+	 VH1tNN5NCMpPnJXaOpxicmubdNFsHkNohtZPEvl6ioKneEByuGVquo6js7puc9opDdC1k
+	 gnv3JU8VT+XUfau5+GZdNauf61pLONnBHrWg0aMsVgaVuGWFpnztbUc+eWKF8YXCkzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=njV8wLyt;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gCzhsiwh;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE8C606A328;
-	Thu,  5 Nov 2026 11:21:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EE8C606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 411EA606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 11:32:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 411EA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=njV8wLyt
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jL0HY4Pn5zKqL9;
-	Thu, 05 Nov 2026 12:21:13 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793877673; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XdbzovvwSk99PZMKZkCbqK04cZmQqVMPaRpFbjr+z+4=;
-	b=njV8wLytjMNaeOBEinOo3eTUdTYGUYGxJJuPikjp8AuFNCTh+p4NMVS02uF9AeZ7qmoGH/
-	bTTP7agcl8lOUxOgxdG654aWWSKJYyEOe7p6SzErFH3FtECEFwGqNty1pPHTwrwFuRbiTZ
-	oJXY028uxUPvNmv/2knxNEvKz6A78/KYpNNLPqJQdKzio868XCwHRpZsmKq8tefdSaLh8/
-	ccBezvXKfsAecZixVKex0CC+7hbIGIqoR+yIoMISS4W8mbZnUjI7rTWa1C5LH2ci0zhuPi
-	0xlK5jSBOjb7oBe6UyFEdODW3l20lYyyzc58VI60mLerRDCFj0fVKS2prKRJ+Q==
-Message-ID: <32c82270b2ad0d10546af6f13daad9d01b55d234.camel@mailbox.org>
-Subject: Re: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence
- reference counts
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Edward Adam Davis <eadavis@sina.com>
-Cc: media-ci@linuxtv.org, sashiko-reviews@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
-	robin.clark@oss.qualcomm.com
-Date: Thu, 05 Nov 2026 12:21:12 +0100
-In-Reply-To: <20261105093546.61098-1-eadavis@sina.com>
-References: <75367a9a19c1e9a007422e0a1b8ed0acaca2492a.camel@mailbox.org>
-	 <20261105093546.61098-1-eadavis@sina.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gCzhsiwh
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-49231763f81so14044f8f.1
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 03:32:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793878350; x=1794483150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Hv/YqhUcbRh9eWhND1HEmPv7Wx8/p/XxUOLWb+cXlc0=;
+        b=gCzhsiwh+9TzJMsLX87aGG0KzgXUNwVed4ZEt2dCuLs93W8hNgD2S6kh7CnhDWk6th
+         c+/CJBoTDuiXWkKZxA4OBTMoAeBM651auVk8jLmD9tODmsIIGa0CQHfpUvEnJniX60g3
+         4eaKVYlIIWc+97nFpdoSr0V/kz9Rm5Q7npP/adX545XmrufV/7p+1FuacB+TRxp2iMHo
+         eDELcu9+7/fRm0sCUWh7ZPZLywlbhqt1WfY5cSBiksN56N+g2mjgxr04UtSMjA94pZc/
+         ICfzzuVeqGRiu8Qzh/bnysZ8Ri9wHCdM8ME6YT9AM3k6WjIOmMWucFGBt5fCrYaVafip
+         KyHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793878350; x=1794483150;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hv/YqhUcbRh9eWhND1HEmPv7Wx8/p/XxUOLWb+cXlc0=;
+        b=bndb0ECAsO2GlV0OU0UNYp1XwQhfE7OMle9opHt/CxAJO2CBjot8HFz3CQdWn5/U0Y
+         W21J0zPgMWjYR03mk9GJVt8oztucHAD4Xp6NdjJubeQERUKbMgN2wFvQwd+RXVvSSk6S
+         TizYkVNInXbFd6byVfXDiXx1uxHwFwFtHVFlD5XkV2Hk+LMyOQwsNKinysEK5+u+OA1Q
+         HUbKLogHJdSiMFuupBJlKbABkQeIsoS5waIUsHYdck4emUKP4yfBUA6t30CTifakedkq
+         pmjniaYEbR4dbXx07AnJmhFlLRNphnW6b7qF3R1grREkD0TkhGgssraiB6EzFhGDD/i+
+         BaEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAc5Q7eZneGqyv9ouB3e2uVSrrQNS7HZ2AbR4CNvw6E11yJdzDAfy0wGxjooABoOTxRVih0e9725OQ8A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EzNUvF7B8vJpikVSz00wNnkXGx5aXF6XR0hCKzex0nvspcjoH
+	PQpOs3ItDFFIh2h0tAeEXi0Dsex7eygUCPeNiLRSYOGp0ro7DY8VZjZu
+X-Gm-Gg: AYBFou0GaQyn9pEA7TTLPPH2187KegeVNWwPilLHM6yykl+RRElhk+2hGuQI4DU0Y8U
+	5h8YliltFgXB3GIcRGJHjhei3DaqDzF0GUfunwyHnofaJiVkZy7rUPR1api/oNxI6en4aDN2GKS
+	eODL0igWy7/ORTgJdYaZRhu3RVy75V4g+vpW0U5etxLOr/wt174CNdqBWkcFkUrP7pgbGwaTz6Z
+	BzbmtxqarnuqKVbb+pnLudDxfQrNiz5zCo1zrjQ3taxDybSDnCnwjxQbnJ9fnb6xoSAWNdEgZ1U
+	3g/Yad9DmDtOl+0IXH518BA/LHQAgXOmscr/5B09/wJmMaq5TCXxdkfrVyjXACSBa0wTHreFNvx
+	iIeNsKvWyfMRqX4GJ74T4kD+i4/67vDIAAOzr9gKPwBjYaB5Ha+j2ltXKRX3sNmgXUPMCguzX1T
+	fI3o46pHwOwqAoHp+33PWpCW3Ac82Mv1UlXLOThs8wZ8LEAX4W0vPUivAv2uIcQVfGc2t1Yv5Pc
+	dWLNa1SUdD8IoyXmArZJRE6XYZcYc6Q9uxsdOrxcjCWozcvjzSBfvIQrwutyLNKYk80L0ky577b
+	veJrf55BRHfUMXF0FtMjOKiy4IRFHo2WXAsI2Iuhio4MiAyL2dOSsAD5R7UXaarN
+X-Received: by 2002:a05:6000:46ca:b0:48e:679a:4aeb with SMTP id ffacd0b85a97d-48e6e2bcda2mr28288827f8f.3.1793878350394;
+        Thu, 05 Nov 2026 03:32:30 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fece99a5dsm9469614f8f.21.2026.11.05.03.32.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 03:32:30 -0800 (PST)
+Date: Thu, 5 Nov 2026 11:32:29 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Mariia Nikitash <nikitash.mariiaw@gmail.com>, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org, kees@kernel.org, justinstitt@google.com,
+ morbo@google.com
+Subject: Re: [PATCH] media: siano: Replace strlcat() with snprintf() in
+ sms_ir_init()
+Message-ID: <20261105113229.4126d872@pumpkin>
+In-Reply-To: <ausVkYs1-3rJ5Fj0@devuan>
+References: <20261104090239.311074-1-nikitash.mariiaw@gmail.com>
+	<ausVkYs1-3rJ5Fj0@devuan>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -79,67 +102,68 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: diqbmt5rucdqa356ab5fw9o9ka4mcgmi
-X-MBO-RS-ID: 3579bb5641e3cc744d5
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, 2026-11-05 at 17:35 +0800, Edward Adam Davis wrote:
-> On Thu, 05 Nov 2026 08:49:49 +0100, Philipp Stanner wrote:
-> > >=20
-> > > =C2=A0drivers/dma-buf/sw_sync.c | 6 +++++-
-> > > =C2=A01 file changed, 5 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
-> > > index 8df20b0218a9..261bc98b1ed6 100644
-> > > --- a/drivers/dma-buf/sw_sync.c
-> > > +++ b/drivers/dma-buf/sw_sync.c
-> > > @@ -221,7 +221,11 @@ static void sync_timeline_signal(struct sync_tim=
-eline *obj, unsigned int inc)
-> > > =C2=A0		if (!timeline_fence_signaled(&pt->base))
-> > > =C2=A0			break;
-> > > =C2=A0
-> > > -		dma_fence_get(&pt->base);
-> > > +		if (!dma_fence_get_rcu(&pt->base)) {
-> >=20
-> > You must hold the rcu_read_lock() while doing that, don't you?
-> dma_fence_get_rcu() is simply a wrapper around kref_get_unless_zero(),
-> it has nothing to do with RCU. For instance, the use of dma_fence_get_rcu=
-()
-> within sync_pt_create(), as seen in the SW_SYNC_IOC_CREATE_FENCE code pat=
-h
-> does not require an RCU lock.
+On Wed, 4 Nov 2026 12:25:17 +0100
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-How come the function you're using here literally says in its docu that
-you need RCU?
+> Hi Mariia,
+> 
+> > Date: 2026-11-04 01:02:39-0800
+> > From: Mariia Nikitash <nikitash.mariiaw@gmail.com>
+> >
+> > In preparation for removing the deprecated strlcat() API[1],
+> > replace the strscpy() and strlcat() calls with a single snprintf()
+> > call to construct the IR device path.
+> > 
+> > Both the source and destination buffers have the same capacity,  
+> 
+> The line above seems irrelevant, and potentially confusing.
+> The size of the input is not important, because since we're appending
+> stuff after it, truncation may actually happen.
 
-/**
- * dma_fence_get_rcu - get a fence from a dma_resv_list with
- *                     rcu read lock
- * @fence: fence to increase refcount of
- *
- * Function returns NULL if no refcount could be obtained, or the fence.
- */
-static inline struct dma_fence *dma_fence_get_rcu(struct dma_fence *fence)
-{
-	if (kref_get_unless_zero(&fence->refcount))
-		return fence;
-	else
-		return NULL;
-}
+And gcc's stupid format overflow check is going to complain.
 
+David
 
-The rcu_read_lock() protects your kref_get_unless_zero() from running
-into UAF if refcount =3D=3D 0.
+> 
+> > and the return values are unused. This preserves the resulting
+> > string, including truncation behavior.
+> > 
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Mariia Nikitash <nikitash.mariiaw@gmail.com>  
+> 
+> Except for the small comment above,
+> 
+> Reviewed-by: Alejandro Colomar <alx@kernel.org>
+> 
+> 
+> Cheers,
+> Alex
+> 
+> > ---
+> >  drivers/media/common/siano/smsir.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/media/common/siano/smsir.c b/drivers/media/common/siano/smsir.c
+> > index 283770d583d5..636ff228108b 100644
+> > --- a/drivers/media/common/siano/smsir.c
+> > +++ b/drivers/media/common/siano/smsir.c
+> > @@ -55,8 +55,8 @@ int sms_ir_init(struct smscore_device_t *coredev)
+> >  	snprintf(coredev->ir.name, sizeof(coredev->ir.name),
+> >  		 "SMS IR (%s)", sms_get_board(board_id)->name);
+> >  
+> > -	strscpy(coredev->ir.phys, coredev->devpath, sizeof(coredev->ir.phys));
+> > -	strlcat(coredev->ir.phys, "/ir0", sizeof(coredev->ir.phys));
+> > +	snprintf(coredev->ir.phys, sizeof(coredev->ir.phys),
+> > +		 "%s/ir0", coredev->devpath);
+> >  
+> >  	dev->device_name = coredev->ir.name;
+> >  	dev->input_phys = coredev->ir.phys;
+> > -- 
+> > 2.43.0
+> > 
+> >   
+> 
 
-That's why dma_fence_free() uses kfree_rcu(). Your read-side-lock
-prevents kfree() from running so that you can safely read the refcount
-=3D=3D 0 from memory.
-
-If we think about it, having kref_get_unless_zero() without RCU doesn't
-even make sense, because refcount =3D=3D 0 must mean that the object is now
-supposed to be freed. That's the point of refcounting.
-
-Or am I missing something?
-
->=20
-
-P.
