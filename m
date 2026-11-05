@@ -1,54 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793910825;
-	b=pqXA+NbVAImq7zTjJRFErkrGulGL2e9lKXKND3ePHBEUSVFBosnJV1wgUkt/7SLPR1af
-	 UzbP8gp9y8ce+4Z2H4dxOgBQOLK+Dg3ahxuLmLWGZ+biw5xQ/L61tjbg/UHENeKxrpVco
-	 eryVvpf55a0Z0SyFNSX3I7y0SUJnV7dc6Pb6wOcBko4ItRSojuU9nFVssysJt90p4AIzQ
-	 pB3rVm2I/ioYx3/KVSebEcH+t2yVEvv1+cFljbUj4u1jDZ9B+g3zuK3KVyfhd2wbUYYoK
-	 GXvdGQpG5ZtX2vtLcfBrU3lduzWldwt1OyCghzBM+wn1yfdZbxBfuW5WmfwsMA+l/Og==
+	t=1793910902;
+	b=fH3v0cV6Ei/H+KE504Sh2U8UdIK8Tj8NacoCLV4VxWyqQyTe1Ilt4IT4NUE0ALnr/VhI
+	 26VamimsnhGvWtVQMZZjafRciT+iOdLrH0oKQbd5J8qUv4yOAYlhZI4o2+42VYsFbEgnK
+	 xK38ha3ZVs+CKBSwZBAAURr4jb9GuqZsvnWD2Z06lgTPdxm5Xv+Sn7MHV0zcFLPgVdhms
+	 Af0jrzv0f4ijajmhxfopZg6hwg9pBcGKeHgTCHTiTcTgNUWld+m00izYkGMPrjGYomCfU
+	 kJwDzD9xSpQmZP//2PC4wcH3BkT/dCyF7fwgl4rOVPnaRXeXLOxZK99yzomsYfa+k+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793910825;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=AooaoAilJ+hgjnSAd1rqqNaAAjXN6UUVw/jzA7syHSc=;
-	b=MwJA1QNtW66mbfvnpAUbzWMuL2ZZ9ssxkNuUnKXx/x5z6o0jbMXxsksiVi464Om51lVm
-	 e4Z5gjgBWNjg/PMhTpP6m7IVO+i1vo8pRb8eX0FdmvatuFM8+FEuv+NKdFGqlRevf9HIP
-	 4Irqn5Lbf5L35HrPEVm+emwfssFtohITrus+HF5tuVTO6+JWPLvdZcIeCnMDUDGwHmsQ8
-	 Q5UG12IYfNDDNdFsKIUpDDv6H528XoPlPYrSxs5Xh1+EpQ9VbxPkiSglcbvWbJWJ3p1ww
-	 zbePr7cABl8ENYuekRlxZN1fpE79GCT7Ag+dVKh4EtJSmNaJKqmouEOtWwg/RaMmvpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793910902;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=4F9MHnqST47YQc4LXUV+dglq2kAxezHjpsSBrJmZWJ0=;
+	b=MCTdWQNp8Ae1fVcCnU7id4mMOvx5rnkX3H1jcmhSVr2wVMGQCW6Cu6BvmymnbWEqUqpt
+	 nV/NcIywjVYGMXmZiM8ZMeLOOwp8ibFW1APwWKDJRAJmJvxjmUSpKMR96IOivF8tmdc6N
+	 C6jyAaJsCsrYrFt6+7bM4dFgRjhYAQwyoFLsfqDpKG35U0LaKJ+f4TrdwU92s/brHSZwE
+	 UscMiqevHB4bxpjPg/DllvCyrlgnrz6/1lx0QwZEyYeHKm52W9dUs2vKSEjUpbU++G1YV
+	 7bQl3ES3h4rWgoKEUmxbUvinBBOAMEQKbIVrcfkLFm86keipgXF2Ea7jTilSUovbn5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=CchIVmcO;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18BAC606A32D
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 20:33:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18BAC606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f8281066c4so2863407b6e.2
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 12:33:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793910824; x=1794515624;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AooaoAilJ+hgjnSAd1rqqNaAAjXN6UUVw/jzA7syHSc=;
-        b=bcUUTt96CVcq37mjSgBK7YAYMuNr41+NkuCYQMlmkkw5CNiWMN6kKgd1oJWyWPePi4
-         N1MEOXLIwgRrg9ic9UBOYFKFGEhi25BdSld7xbaVValOj4t+EZ8eOtGb7AmJTfv8HmwZ
-         Q8S19HV++DN0uZe5fJnCTZEYWq83rP6ZQxZOODIBegT4wbfp0v5P/505kFXuWxCUqzfY
-         C/i7Q1y6ZeMWA4KS5u3fJqVfeB19CHRwPOceSIjUfgs8Z9Df3mtnvc65XaBrLCKfnn+m
-         ZI6P8EO4o3rprREbKlVHFx/tTZy6c0Xnde77ESnHHZTbzTEdnZPl0oiILFfQnoY4SIWy
-         QS9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwvN5zeTodFslanpTDoYr6tnMCzRXieyP+74EFg6YBC5WKKjgsDRkzlI0DLdhiLezyN//Ii4kZL9zRCwQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z81E9PQ9xFobIJfdbxQpfq5zfhUl0C4SIzqYWl8MV8MCohQk5hs
-	c2ZlwWTWQ2jbHyQEheTSpfUBNB+toB17vzodofD8bAOHA0+esTktyybzB4Kk4p4ZYh8n0Pb4ZFe
-	BPrpc9GYy6buRqDmkAIVYcgaGgb0UN3C6fmK5uW0/PzUlLBVuJK1J6Aqg7Qk=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2402D606D81C;
+	Thu,  5 Nov 2026 20:35:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2402D606D81C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=CchIVmcO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793910900;
+	bh=Ad8kNBn6ea1rKcLdBncWP4sS0P7ZVgqFIjqnM+Vx+ew=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=CchIVmcO/I2BEc1zHQQHdUlGXs2hDmLp3A9nIXFKvYUqsc5LnY4FB8yD4tn1F1Jba
+	 rF6t5/LJLeMmxopc24UIVLoM+EnIQyaKFy/F+1TV/lMZCvSxyx5GO1oxO6MxrO0ovg
+	 BHEn3GfsZZXasg8YL5Imv0cvxKIPjlEXgtnAS7Xa5vxGioj0gN9CLsfokGvh9Cqzhm
+	 eOyuC1r0Hp7/1hs+uW9EAhBxZazo5BwlSWBZdek5+uAcCCcNlLS/eCA1+b7qJN3565
+	 //C5BPKMQCPeB6cx1vqAEI5FvrQ3Jtan+zCOekVV9M5JLgbkGzvEQfRCKvUUscLBro
+	 4kNgcevghwpYg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 67A0217E0048;
+	Thu, 05 Nov 2026 21:34:57 +0100 (CET)
+Message-ID: <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Robert Mader <robert.mader@collabora.com>, rob.clark@oss.qualcomm.com
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov	
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang	
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten	
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, Bryan
+ O'Donoghue <bod@kernel.org>, Stanimir Varbanov	
+ <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, Jordan Crouse <jordan@cosmicpenguin.net>, 
+	linux-media@vger.kernel.org, Vikash Garodia
+ <vikash.garodia@oss.qualcomm.com>,  Dikshita Agarwal
+ <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Date: Thu, 05 Nov 2026 15:34:55 -0500
+In-Reply-To: <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+	 <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+	 <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+	 <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-USq9votTJRjBAWEZ+O+5"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,48 +102,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:4f61:b0:4c4:a240:9c3a with SMTP id
- 5614622812f47-567e0993ebcmr356219b6e.4.1793910824203; Thu, 05 Nov 2026
- 12:33:44 -0800 (PST)
-Date: Thu, 05 Nov 2026 12:33:44 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aece828.ae8774f5.3905c1.0000.GAE@google.com>
-Subject: [syzbot] Monthly greybus report (Nov 2026)
-From: syzbot <syzbot+list4050b078885043dc999b@syzkaller.appspotmail.com>
-To: greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com
+
+
+--=-USq9votTJRjBAWEZ+O+5
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello greybus maintainers/developers,
+Le jeudi 05 novembre 2026 =C3=A0 13:35 +0100, Robert Mader a =C3=A9crit=C2=
+=A0:
+> On 04.11.26 23:11, Rob Clark wrote:
+> > On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@coll=
+abora.com> wrote:
+> > > Nice, very happy to see the series!
+> > >=20
+> > > On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > > > The comment describing the QC10C buffer layout calls it a compresse=
+d
+> > > > P010. It is not:
+> > > If I'm not mistaken the display engine / the DRM side (including Mesa=
+)
+> > > describes it as P010+QCOM_COMPRESSED as well, and so does my pending
+> > > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> > > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire t=
+hat
+> > > up everywhere etc. OTOH if we want to keep the DRM side as is, then t=
+he
+> > > comment should reflect that, IMO.
+> > IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
+> > as distinct formats, both with and without UBWC.  I'm not sure if the
+> > same is true on video side but P010+UBWC was never exposed, or if it
+> > truely only supports linear P010 and UBWC TP10.
+>=20
+> Oh, do I understand you correctly that the P010+UBWC implementation is=
+=20
+> not compatible with QC10C, meaning on the GPU side (Mesa and display) we=
+=20
+> don't yet have any support for QC10C exposed to userspace? If that's so=
+=20
+> then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
+>=20
+> On the plus side - this would allow us to make the format single plane,=
+=20
+> matching what we get on the V4L2 side.
 
-This is a 31-day syzbot report for the greybus subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/greybus
+Since its single plane, we should aim for a variation of
+DRM_FORMAT_YUV420_10BIT. Similar to YUV420_10BIT, there is no obvious linea=
+r
+single plane packing for that, it would only be there to support the
+compression. Or maybe this one is abstract enough to be used anyway?
 
-During the period, 3 new issues were detected and 0 were fixed.
-In total, 4 issues are still open.
+Nicolas
 
-Some of the still happening issues:
+>=20
+> >=20
+> > BR,
+> > -R
+> >=20
+> > > Best regards,
+> > >=20
+> > > Robert
+> > >=20
+> > > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_request=
+s/8195
+> > >=20
+> > > > P010 stores each sample in 16 bits, QC10C packs three
+> > > > 10-bit samples in each 32-bit word, which is what the stride comput=
+ed
+> > > > below (width * 4 / 3) assumes. Name the format correctly.
+> > > >=20
+> > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > > > ---
+> > > >    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> > > >    1 file changed, 1 insertion(+), 1 deletion(-)
+> > > >=20
+> > > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drive=
+rs/media/platform/qcom/iris/iris_buffer.c
+> > > > index eb8de60c1177..ec2bf2a2d953 100644
+> > > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct ir=
+is_inst *inst)
+> > > >=20
+> > > >    /*
+> > > >     * QC10C:
+> > > > - * UBWC-compressed format for P010.
+> > > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packe=
+d in 32 bits.
+> > > >     * Contains 4 planes in the following order -
+> > > >     * (A) Y_Meta_Plane
+> > > >     * (B) Y_UBWC_Plane
+> > > >=20
 
-Ref Crashes Repro Title
-<1> 233     Yes   KASAN: slab-out-of-bounds Write in gb_operation_message_alloc
-                  https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
-<2> 119     Yes   WARNING: ODEBUG bug in gb_operation_put
-                  https://syzkaller.appspot.com/bug?extid=61464b62b688791cc24c
-<3> 40      Yes   WARNING: ODEBUG bug in gb_operation_sync_timeout
-                  https://syzkaller.appspot.com/bug?extid=a2e50fb40695811c2dab
+--=-USq9votTJRjBAWEZ+O+5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+-----BEGIN PGP SIGNATURE-----
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauzobwAKCRDZQZRRKWBy
+9BDSAP9cXKQq7K5F0gKq47dzESPiGmNAJzGtw7IvXvIhKR3EMgD/fzhUWIDpE+6R
+qCrrzw8kwI/MdOykqk/E/2StgcPFaQM=
+=TeMi
+-----END PGP SIGNATURE-----
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
-
-You may send multiple commands in a single email message.
+--=-USq9votTJRjBAWEZ+O+5--
