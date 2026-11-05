@@ -1,55 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863655;
-	b=BGBR0fJP6jeq2vdtujLRZphSZmpsQieSs16Nsxrih9asOtkr9UgRB7FivLakA9Csc2mQ
-	 JgPNlmF0YgAE5ZIuiLfY3VUQfzLehN8+nMdTKODQk/xvCsdvUpYRlZCiFeUPUWvhsr2Gp
-	 3RppjGsXmeI+t7pLTIEV6POcfyPRFwF3JPpnKcFYE/R8KjjsKgwB5+HSvwBCOfHrVSzZL
-	 pB7RUWDxgXt9LCQKda3c7jiKIAzK7LjO1BFiMaZItURTbpW7ZMrpFHW4fRI6cgoVMCi7J
-	 lVFniSK3DjiBLYhdXHiwpQs7OYr3NRE7YMKr0nzaIlGKBHRzfOZ3L45BJlOs1q1jsxg==
+	t=1793863688;
+	b=v1HkKD+3skEHFI9G+bGn3z+xBWoh/fpCrQudPExmNQeoosEw7hdTjwpeA23T+sR40D/T
+	 b+7tZTzPXLAZXYD/hNwJqI93aiJR7bTE+s5yDNDRGK5tjNXQOFaC5v60+jyZ5vnEg8UrN
+	 ODL2OVlMxzQkvVcbR6kTVMSOrBURaUQQXxZCCD+ligUmEd4IUg3D4GcG9FsjFE0AoMZQm
+	 4jIcqJkABNedZLrteaULXs5YyritujBX7Vs1ba0btySrwWSmqYj8e3p1DpqIKmhlKvtjH
+	 loKyEg/b7xb+3JhIROMlyuvVAixS16hYsjHnDK3/QUzrPjTiMusAWndXPdCqdKHkS3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863655;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0uC1lw4qr5rkQj5pdgH8BUM79En1tPMCwDHsh7HKEYI=;
-	b=lIwG41wOAQeZQtMXR2rBeWM1Fw61ATkUbGr8SbMycz9HmQhuXDN9GrwZbObVU5IKTUnZ
-	 yYeaPKeJWtZZnN+5tAnDoiJztI3YJWXfFLEdUiy0I29GyTQ4Fehq4e7DgZ35lNv84oczd
-	 5HkUpes1T1IH+fa0do+imn0rt5ybzRe2if3XsMSX6MkdV5YwTlYoFwUd1Agb+rBJ5xu/S
-	 k9w2zygLrAVcb+syhhRoHn5UsX493cRolc34yK53zy4vXzSv0JLOapRVMUhOSo8onNMcQ
-	 DNLxMCTM0Qz8BP6hVlJQz+QhnjrczHGVMDlzrGsBfa+8XCyNgCZkokNUi48n/nGfPRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863688;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kF2hDrewQsyD9J4TNFGEBvdbMzNahMtd12kZQCaQeSU=;
+	b=Qf+gd4UZNOl4+jtQQBf28KqgPw3U9yb5xhhNjomXvsVtASbaS4ZpErv2L9wTTQDcuPpN
+	 WYYk+u/Fk3cPVWz46Kaf1h3/eF1melJHxEO9wK95jGhNWK6FyWLMtUVXKrSMq/WjhrZ4l
+	 fpu+UyyBdBKlZIyaDRb5s+fIl/j+9u5NkhI+zWkjDQCmFx2HpGzK83POg6HjLeTrVkhrx
+	 GNSJXpIqt/DqAGzCfU2CaMP2CLGt5STYL0BkP5IlXlUZt6xcZb34jJBiD5yP/vtkDd4aB
+	 YWt1nyH26Q4uf9OFLBUWqzQrLnCo2JPLDxz5vfq7sWTiMF3i6E1U+ISjnazeToFu/TA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mdezJJ/1";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mc9L5L3h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096FE606A329
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:27:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68A5606A31B
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:28:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mdezJJ/1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24DA1F000C1;
-	Thu,  5 Nov 2026 07:27:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mc9L5L3h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97951F000C1;
+	Thu,  5 Nov 2026 07:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793863654;
-	bh=0uC1lw4qr5rkQj5pdgH8BUM79En1tPMCwDHsh7HKEYI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mdezJJ/1/LD4WSb1FM7EtL6dQsGocjEwRqdDvbf2ZtPgsa95F08XN6FJmVaVq5Uf0
-	 heMz0q8X/VJsNb0toW8sJAAhjuOj/8C4pAO0/sZCd3J0iWOYlfaMp1YLXI4z6bN8N5
-	 kZEiiFPp0K9qXwun/6jM4u+x1t6ZjekMzcx0UbFTEjtqiQm3WDdrKCzu1xLwZ1nI4W
-	 XCEjiynp9PhtT0ARbeenQii5Ni1D2GUsym9CujOf6/6bWKG0+Q6cPF/ak5dd1RZZmV
-	 h1+Jynq86mpEbThUF4m1QsTz9q/8MoqYxEcUSZhPHzHeqT4E45tGEyMC8kaYujil3h
-	 TX0FSENSHdYUw==
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-To: linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org,
-	Maxime Ripard <mripard@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv3 13/13] Documentation: media: document cec_phys_addr_invalidate
-Date: Thu,  5 Nov 2026 08:22:27 +0100
-Message-ID: <728f2d90942941cdf349f4ac39f16d512ba690c9.1793863347.git.hverkuil+cisco@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1793863347.git.hverkuil+cisco@kernel.org>
-References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
+	s=k20260515; t=1793863687;
+	bh=kF2hDrewQsyD9J4TNFGEBvdbMzNahMtd12kZQCaQeSU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Mc9L5L3hQ04Pjz1ygvxp/958vCABPw6C+l+1s54Xp2osMZM0PNx2TYrUaEJWxpzz6
+	 1iv059mDmGwcvUsoKBz4AzqGVFeVLf89W4G/P5Rphm8GYurY3dcKulJQ/+AR/SjCm5
+	 ecTK7wqI9/N4/90GctQo8QUzaOTxT8YgI3aTd7qutZNC5F35IfJ4GAoYt+3M70oTk3
+	 MlzR9DdiNIGfChqE8FYDhskORSzv5B55OfFZYM4H0On+KJNLD2zkI6irYwDqZzBOZU
+	 /Pn8IwrvpAv914AKL8/Vb+dbqFoc6cXvWmHw9PIrAsJIEEykHMe2czULjzUQG/jJpP
+	 WQSN0EPwwDZYQ==
+Message-ID: <17b8e90d-dae7-48bf-aabe-eeb30aa7a735@kernel.org>
+Date: Thu, 5 Nov 2026 08:28:02 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -59,44 +51,85 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCHv3 02/13] gpu: drm: exynos: call
+ cec_notifier_phys_addr_invalidate if no HPD
+To: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
+ Inki Dae <inki.dae@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
+ <5ee88620981fe6e99d6a512c6d7491093f3da2ae.1793863347.git.hverkuil+cisco@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <5ee88620981fe6e99d6a512c6d7491093f3da2ae.1793863347.git.hverkuil+cisco@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This function was not document, add it. Also clarify
-cec_adap_s_phys_addr, explaining that the PA comes from the EDID.
+On 05/11/2026 08:22, Hans Verkuil wrote:
+> If a HPD is present, then call cec_notifier_set_phys_addr. If not, then
+> call cec_notifier_phys_addr_invalidate. This helps the CEC framework
+> differentiate between CEC_PHYS_ADDR_INVALID due to no Hotplug Detect, or
+> due to an EDID without a Physical Address.
+> 
+> This driver is one of the few that was using cec_notifier_set_phys_addr
+> on disconnect instead of cec_notifier_phys_addr_invalidate.
+> 
+> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+> Cc: Inki Dae <inki.dae@samsung.com>
+> Cc: Kyungmin Park <kyungmin.park@samsung.com>
+> Cc: Krzysztof Kozlowski <krzk@kernel.org>
+> Cc: Peter Griffin <peter.griffin@linaro.org>
+> Cc: Alim Akhtar <alim.akhtar@samsung.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> ---
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
----
- Documentation/driver-api/media/cec-core.rst | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/driver-api/media/cec-core.rst b/Documentation/driver-api/media/cec-core.rst
-index f1ffdec388f3..10927833992c 100644
---- a/Documentation/driver-api/media/cec-core.rst
-+++ b/Documentation/driver-api/media/cec-core.rst
-@@ -437,7 +437,8 @@ transmitted, otherwise just queue it and return.
- .. c:function::
-    void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block);
- 
--Change the physical address. This function will set adap->phys_addr and
-+Change the physical address. Use cec_s_phys_addr() to set the Physical Address
-+as read from an EDID. This function will set adap->phys_addr and
- send an event if it has changed. If cec_s_log_addrs() has been called and
- the physical address has become valid, then the CEC framework will start
- claiming the logical addresses. If block is true, then this function won't
-@@ -449,6 +450,13 @@ then the CEC adapter will be disabled. If you change a valid physical address
- to another valid physical address, then this function will first set the
- address to CEC_PHYS_ADDR_INVALID before enabling the new physical address.
- 
-+.. c:function::
-+   void cec_phys_addr_invalidate(struct cec_adapter *adap);
-+
-+Invalidates the Physical Address when the EDID was lost, e.g. if the HDMI
-+cable was unplugged. Do not use this to report an invalid Physical Address
-+that you read from an EDID, use cec_s_phys_addr() for that.
-+
- .. c:function::
-    void cec_s_phys_addr_from_edid(struct cec_adapter *adap, \
- 				  const struct edid *edid);
--- 
-2.53.0
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
+Best regards,
+Krzysztof
