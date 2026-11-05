@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879175;
-	b=c1AtUMeU/+ynkmQHjXKjKMdJnBd0aEfmlqOKSUlqBpAJPzsDosJR0W+N5IefODyfwisd
-	 N94wRLACxr0BMDgCchqx001//rtrHpgp3f4HDpcdATPknqHOFgw0tpZ6eG6oS6rE9onmJ
-	 CwfhyuSHfwOxlWYG1doD0Dc1VhxwC26qMVbji9URNSdo8wHGZV7cTfQ2tTVSMv38YJ45k
-	 EmDJkGPIHNyOgsKdaHy/b/AGtOnITlGBT7hTxlVhBTI+Dpca4ZwUtI1N3Po2wdTkIMdr0
-	 YHU5njqfj1p6Yax07C7o7ZODuugSV9vkcGKZbTV3knzs4djVuvZAlF+MGgRmo2GIoMQ==
+	t=1793880223;
+	b=NFFmtWYnYUA6szOoKisBYA2IRzcPT9CsdE6v1E0XFnPA4f308t2NznNwFWblhfIOQeL5
+	 kHr4VPDyM8+jPh7LKIFaZKboAEMrQCYUYztNHGWVmTqXJWn39cDbuGKt8OnihgFle8Vo+
+	 X0ftKdPeU7Xb+tKIRPMia3DTaFBZZOuKsqfO2cmoyqYVGfskIt6+H2H7taApyp16G3TZz
+	 ppcyFOLkwYO7wm7XjpYYMgOMiVvAeGsLMzRxp9uZo3nWwfOz6+2LPYCV0O0/9L370gB1l
+	 sd6dzTM5UP8j+lu7Ove7luvGVwaOCflNedNWF8aZTGnV8eBoQxySdBT+BPClceFBWNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879175;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=NSKZa4ye0LkUdsLkrm7Rm28ju04K47Dqy5NWckuPC+k=;
-	b=R0yY+SVlwjdrCDEsst5tyGGxcK8n0tyifo0hPlKMsrW9sKam2+uNK7ypZoT1X6WYxQAF
-	 0/YeYXDDQXXqJI9qsI+S324AN55LsIuhfcoVw0/DUcZ872KcqUuMQEVPFxRSoWdP/pWpP
-	 bN/EdOx8W2mMZTiFkL8kzUlhEOVy4+tmHVZKffoQRYzhWYfM74i2pmQZL5LkK6NUBIkUS
-	 VlGKRnZwc63FfDzAlZApSF7VO3+ntHTKJ+BFFldTuf7ULHEl/jWKD2qDuFNIyCEGe88YA
-	 49rRnzIZXqHKcHkusKb3gkESlrqs/ian2s+jCmFMwbAtsq0dxY3CTy9TdshSIaYIRwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793880223;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=WGS1mz0b8oFaWIqUZVZWSLYtt5loWQVV/ILwaxsjzyE=;
+	b=PdWNbQwNR178sX1QSJdx3wkwPpOCKq4tAzZEFDTQ45i++W0y8O/1IGcA6UCsz7Yw/PTg
+	 Xb4JnH4Xj/rF9cSjFHFNP2+0U/V1hxueP1hzfJMSirjBidTDRGl31KauT2YXgGQEydzG0
+	 wJFCxwH1ojBNvjmsGTdxydZEp7IClB3ezsQuRM36jGzjitVqzZcmaF323TR89jn4zo8JC
+	 ZWVmWlggpHLSLpo9tWfj/Ys7vJZJZC8KsZkMnk2Sb9Oxs3aDvheXZCD3auGtIqpQci6or
+	 0NQ1LJBZEX1chFw1IXmSS0HygI5Vw2KBoViwXFIdCSN4ArrTr96/ottUB2tSwr60FzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjSyHRul;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8524606A929;
-	Thu,  5 Nov 2026 11:46:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8524606A929
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995EA606A32E;
+	Thu,  5 Nov 2026 12:03:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793879173; x=1825415173;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OCg2W30o8vQ8OO1s+xdsqkrOdBHhLk2OtMes1baq76c=;
-  b=Sr4C7iZ9s0umWaZx9amVQ2t0Hc2an7JmRL1z8Optpa67ofauSGIpe3ij
-   qkVWRnYSJRCPGXp/+XenM5QQ1M/XH0zWeEy2GPz7nCOjsP7POvqPBIYx2
-   wZt6aoawM7ppPcsrMdchyCvF72M0fLIMsn4tvncGWIq9A3pq9PI4IU+AL
-   HeNUTYbNmCg0q9RJ5HOKC5PYlhhKWqMhzwnhy1iWGavcLgHxW9z+k5aJo
-   1qVIHAPO742jKJUsmjxV8iUQi1jjc8OZft383EO7Xs0blEVXN5+C3OUb3
-   Ob6BJ12bZALuCQPxF4byOt8XOT6BNEkVmlQ3Df3PrDnpKzy3ik/rAt4Vk
-   Q==;
-X-CSE-ConnectionGUID: ikH6ayYAS56OD+IhwId09g==
-X-CSE-MsgGUID: RodlU/yTR8aEHagp006/nA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2548016"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2548016"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:12 -0800
-X-CSE-ConnectionGUID: Vdd75W6xS4i/w10gfKSiGA==
-X-CSE-MsgGUID: DBVu0q0gTD6lwwwebdsT1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="7113980"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:10 -0800
-Date: Thu, 5 Nov 2026 13:46:07 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Gobi Durairaj <gobidurairaj@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: atomisp: fix block comment style in sh_css_sp.c
-Message-ID: <auxsf6qUD4XeAV2D@ashevche-desk.local>
-References: <20261105064312.360626-1-gobidurairaj@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bjSyHRul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7F11F000C1;
+	Thu,  5 Nov 2026 12:03:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793880223;
+	bh=WGS1mz0b8oFaWIqUZVZWSLYtt5loWQVV/ILwaxsjzyE=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=bjSyHRulyxZsUrZW8blMgIH4KygL0S78OcETdG+T0UH+XIoDXwOQndon4ggfhHqky
+	 /AncCoTir7BBXGVEAUIb+JGNqxMjcNFQIjIwnSfOWccYHS/fgLDfwViD1r13wUjDrV
+	 MZLfQeYjrF1aZJN4hn1JMSsfY0LXkaLoNbuOmYHjXhnPa9gsxX5VBfi6Alod64HGbw
+	 cPQCm263HqhzEf5d9+8opd+tu4OVeojhFHgmFbFYU2EBYY4220w+1mllTfmzNa3meY
+	 sGk/dytjZY5tdAUPxDQZzwNYj51ydLZGwX3cqVYcUVO4JfmXJpem/xwFxpwAPAZngj
+	 O8bTVHk64of+A==
+Date: Thu, 05 Nov 2026 06:03:41 -0600
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -83,25 +51,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261105064312.360626-1-gobidurairaj@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, stable@vger.kernel.org, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+In-Reply-To: <20261105-b4-dw9800k_cleanup-v3-1-6850ee6a5a5a@fairphone.com>
+References: <20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com>
+ <20261105-b4-dw9800k_cleanup-v3-1-6850ee6a5a5a@fairphone.com>
+Message-Id: <179388014029.1297019.12610765343474899975.robh@kernel.org>
+Subject: Re: [PATCH v3 1/3] dt-bindings: media: i2c: dw9800: Redocument
+ DW9800K
 
-On Thu, Nov 05, 2026 at 12:13:12PM +0530, Gobi Durairaj wrote:
-> Convert block comments to the preferred kernel style with a leading
-> "*" on each line and the closing "*/" on its own line, as reported
-> by checkpatch.
 
-If Sakari wants to take it...
-This type of changes to this driver are not appreciated at this moment, sorry.
-I can point to the success story in case you want to continue with this driver
+On Thu, 05 Nov 2026 11:29:00 +0100, Griffin Kroah-Hartman wrote:
+> The DW9800K's properties are too different to justify sharing the same
+> bindings file as the dw9719, Create a separate bindings documentation
+> for the Dongwoon Anatech DW9800K with its updated properties.
+> 
+> More specifically:
+> 
+> The DW9800K did not share the SAC1 and SAC6 modes
+> that the DW9719 used.
+> 
+> Description of vcm-prescale does not match the calculations labeled in
+> the DW9800K datasheet for how clock diving rate is computed.
+> 
+> New property timing-control introduced to offer more fine-tuned dividing
+> options available to the DW9800K.
+> 
+> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+> ---
+>  .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+>  .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+>  2 files changed, 91 insertions(+), 1 deletion(-)
+> 
 
-https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurares@gmail.com/
+My bot found errors running 'make dt_binding_check' on your patch:
 
--- 
-With Best Regards,
-Andy Shevchenko
+yamllint warnings/errors:
 
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.example.dtb: actuator@c (dongwoon,dw9800k): 'dongwoon,vcm-presc' does not match any of the regexes: '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9800k.yaml
+Documentation/devicetree/bindings/media/i2c/dongwoon,dw9800k.example.dtb: actuator@c (dongwoon,dw9800k): dongwoon,vcm-presc: b'\x00\x00\x00\x00' is not of type 'object', 'integer', 'array', 'boolean', 'null'
+	from schema $id: http://devicetree.org/schemas/dt-core.yaml
+
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20261105-b4-dw9800k_cleanup-v3-1-6850ee6a5a5a@fairphone.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
