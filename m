@@ -1,92 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793861873;
-	b=VEs8qbOFfX5maPgHM1jYqcBUPqiSNl6lYU39Csb4Yhgi+OqPpw4BYBQk47z1/QKCoTto
-	 KQDFWOaCCQWM0+A4WA0vIpPBBeDFC/byrJi05srGrkCiVuJbBzmN+6S9fAt3hHnp7cDDm
-	 mPu3k4CsQNpdhKIEgiYzqVPXYJonQM+JrQ9FJBQyfJIxbWAw8iH0F4yXt9n1nNunH0X/A
-	 IQh2BrfnEFE/jon6eWdQvUGLPbiirVUoWsj/JPcMDQLaNx68j0rjFNoEDSWSa+6qwZigU
-	 DSnIFBjH6Z5+rkymSYkQFqEHzh6b2mXRZG10u7F54E2i5BrGFfdXr+0kgEVP4lcGOdA==
+	t=1793862078;
+	b=TlXzOJw/u36c38W2CAVCUtve75HMADvMp62xMXrVOxFL2+uU1253m4aduSs2NOl7DrUn
+	 UWbH+CSY1wyhTGcblr4HNBsNxCZytEd7fbf+XW3VRJ+W7n76rlajuIMnlbcVD1IZCpvsv
+	 FKdGpzwK3aSj3fczSXuigPd+mj5Zj7UCi+FRQtE9qYTMdia+7egnXqxFr65ulEFwOWS9/
+	 SPfTmECNyN0Ky5u82VEQ9eRVtaz4APMQfJLLHVmQt9HC0LfHjtVEJRcPlT6zOhKa5pJjk
+	 ripNCiQWUG5eShWQ2gQygcbPZyUC3m3a9QJH+/dLugzS3ripkLK0mpzwja+XpzMwT7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793861873;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793862078;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6hwSEt9NR4XCAdutgyCrDTEIinZfZHUBtwMhgIOAkGk=;
-	b=kfJUFQv0e1UfEWSWE2IrhZbrkngIbIRvU6DXQhp1aFpOlv40ieOt6agH8xbis81Sbnff
-	 BpBmeotKmGXsS3M6B8Q0Kwh8HU6ZQE0wcEfdNwdqmYADZcPISkuNxu7qzNcGRy/TD3sjy
-	 Ja7R77h9AwjlmiCSxdRRnGYJzZPkeG0XdPOJHLnjXYn6jXDUWNp3Ng1qF73lgNexPxhAK
-	 kTC7Ac0rQRkJhVChqYRTKZ473xCRW5WcTyHdmNIgzrWJlvOpGUKSYDO7FaW+i7w3V4XGO
-	 9Y6+i8GwyMCaIlzy7HXx5PwmLacQ1oTpZiPD5vLVsVNidrfoDfDehhNKB20y5HTq3Dw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SvleQPQxuspsOfczyKT3no41nY6ahcqtcV2ZKq+gdBc=;
+	b=Rlr91NlIzZJP/jWklqcFF6MAMV0syPNu9FM7QhigpJGNusk4kEkdxj/dpHDo259OzQOF
+	 m1IWw5ZPgpP1gjhU0M2KU5h+6iX0yg4iZ6bUtl8+U98v/DF5vitbXYcIbtUjmvdtTvx7d
+	 VKssuI6DHhgiwldcLiGdQ+Et8goC6zPo3ckww4nfIrc7/oi6bC5f4P5flWnKBB1ybEFLs
+	 qFApeKRD+1AfOMeCHHL92tIXIMrVsViNjrDEjQ2EwLuyjsg+85oP5g2V7EZaSIMdRD8w0
+	 ha1RhjbjbnMWUXu9ZU8PXxkhQehKakv1cAwoDsnfnNJjGH/YH/6iq9G7e57j9AfynXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w53KNXqT;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cBVGU0ye;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5B5606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 06:57:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A5B5606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E97606A329
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:01:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E97606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=w53KNXqT
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a06e79e152so926361b3a.0
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 22:57:52 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cBVGU0ye
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so14642405e9.1
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 23:01:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793861872; x=1794466672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6hwSEt9NR4XCAdutgyCrDTEIinZfZHUBtwMhgIOAkGk=;
-        b=w53KNXqTSxpG9KIbuNF7y8eO65nqBB1x8uGYhoEV6mJ5FaEXb2jhxCO3I6Pu4YAljA
-         f32GdRMMfAz6NQAGle60snYmqEeFvqTyTgGJ1Fc2ru4uGMr/XYGwqd0KnrrgL+CHqydJ
-         quF1ZJjACvPR0jhw53RMAa/LcVHLkKs5G0Eg48C8z+XNvDbanMNqVeEbS3l5K7qP3c7L
-         Ggq5le7p5czWt4evISjmcbBiNshO32bSbGO4xnmimVXGdE1irdB4bSHLrVjzqE0se9Vi
-         GUEaFsRj8J9ifE+/YGb+LN4q0lZx310/ic5ABMOuXHpp5qm05pNE1FlwnycRJo2vNUxm
-         WX+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793861872; x=1794466672;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793862076; x=1794466876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6hwSEt9NR4XCAdutgyCrDTEIinZfZHUBtwMhgIOAkGk=;
-        b=0Ing+LpZhhj5h56bTnPulEp4KuOdBbXclH55ldlXMlAkHNYe91PVEU+xKVdm3jsxhX
-         WwFvX6tCZdJMxoBcwJhPU5G+4T1HiMvMax3ajJYZWjEiqvBxIJRS7kMq3j6dXBZQrXED
-         oHshGF3qtG+OQxQoF75ErpaiwmJW24l2ZcUENOSqDURslWFeLf9pujoQoCCE/bSw4G1C
-         NkwV0HAnn84vugv9zlxXOIJ74PG2HOTfXUYR8DGfObDQsuROJ+vwHB/bOI07eGFE63QA
-         gcpAZLcIR59DhZUKGy3cOpYOViR83lEmTSsvue8pBBb7gry4Fn60hIkmdCZ5aLdBQ/He
-         zi9w==
-X-Forwarded-Encrypted: i=1; AKwUvBws+hF1xTXsey9b2783LxV7nf3lMjeD9U3V1Fohh4PfYQFAmxctYBcomYaElHvnjikG0njwvndedXixsw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9njjLbWXzDoHKT+pKEWOO8GEhnXi8kXLif5Yhus1Z1oDIVzH/b
-	BqIgXCKVFLo9qyyYGjTCHWLtKU4fgbTILqiZSmK0oFeMiJvMG6wSQUZy
-X-Gm-Gg: AYBFou2HJn2hos76IpNQB0nunUnMuO1H4iapngFE1Wxi/ulUGU5fg97E4ONPhSTjRaw
-	h6lGba0hOKq0vOr9fNuTMVrDPWreTRciNG70+TnaoOey5dEfnSkdSC7M8tK2LKtxhHOrOhA0Rb9
-	3ZwIT1d7Ntgpjv1+L0Hx9juhSvxxg2Dg4yIHAzs1rVhbYWoaRSc9zlDCVZWpDjolXlJMlEjpw7q
-	Ys5vTVsXIv3hjUZjIeVUfPrruC6IxKifre+NPE+VyWZlAXT+jYh1n9/eB5z7zyDD2VYR2M4hUis
-	1l4UzN/9Ikbhh6t9XiX+53FQRFksENI1mNtr4t32grZOSXeiKtv74zHroVNBt/kokyI0XvwWujY
-	xnvIMx6w5YrL2iyMzopfpMtvsnOP7S3uk7xMoUT6LmQgQHvq4c5Rz0rm8DDAEXdRA5FdhWwXw1c
-	2OpDMdG2YdUn6xSYBQNTk5jMf3r/1F9IM6jB9nYxxhM4N1s8B1UVKPjQYs6Pux0xID2vrhVLUSS
-	NZJ0L19G2ENEhwBqNraTMvASVsuJbI/BexpjU5hXivvRKOTHD/hKfJVr/HwwRncBTC+GOSTNM8d
-	pPaCOryyThLTp/DUlzn8lTdslOlRCPcKiZoLH1uNq9SaEJXH
-X-Received: by 2002:a05:6a21:8281:b0:3e0:df81:23ef with SMTP id adf61e73a8af0-3e928aab8cfmr15657881637.74.1793861872246;
-        Wed, 04 Nov 2026 22:57:52 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb469a8e97sm1832513a12.29.2026.11.04.22.57.49
+        bh=SvleQPQxuspsOfczyKT3no41nY6ahcqtcV2ZKq+gdBc=;
+        b=cBVGU0ye0km98YY6rzSibqk+YOAsqmuO4VwxQySr2PTZe6uVSSv5E5s4Xm6GbHnTCi
+         3N8J66tfTEzlqxB8nVaqFyFM11xBt9AMdClhypKG0mArGQ1WDLqGPIpyqvvaBIAGdM4Z
+         annPeaQAcJa+XU/dJ/6003fAQXMqUWBHADzYS7pmBzA42kZ5eveMdGXdtTruvtOzHjRq
+         qF4/cJs/+hpO33mcZ+IcCgO2llfdn0ndXRV/V6Yz1XKVXltUg0pWfUkC3TeOx5YPGuDK
+         mUS1Fx/NKBJfh8us92VTcA8YEnNxgFtNkeURSpjm9UugHdoTQemevikE6GVo3ydLCenD
+         HBgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793862076; x=1794466876;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SvleQPQxuspsOfczyKT3no41nY6ahcqtcV2ZKq+gdBc=;
+        b=gQJ5veMbWNvFqfARswxi1NDxRlQ3hHWoMMrOzyyfqDMwvHKJjfZmDwC2N6CCMQwfDA
+         Zkl+mFfPOaB/8aORWSXLMs6+kGQHrCyMvhOPLxVZXNqO7eiCgXsfBMvQFAFnJjVsWF+5
+         zoSr7kltZCWy6jNQkgtxVND4E3JwN3G94r2OS/zxteIcVilNBuBlPvxXVJoB+m8qS+6U
+         WrPELJfckgjvZKfmZ2mejdiDhbSBw8xmajKYoKXhBchHeHFBsTNIkv4ozTtgvSgDz143
+         4xPZ47mKX544IqF64ZLJGvr0eMox3p0uDITrM5jBlBDHIYBu2wJk+yqVI247wrvh6s0P
+         172g==
+X-Forwarded-Encrypted: i=1; AKwUvBzNbvSkVetSg+tuATT4gZpsmCyjStDWHssNIbQc0dGh3jKMNAvnAOPAdpsIleNIEL31aGJ0LNFhhAEBaA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xh/YVpQwJ47aPpkenE+kWtJEHlxFQca/SJm7WYP4YaKdr4hDB
+	LqSCBgeaZR5Qt+vT2KyZibaxI/w2rwn+48jDYw9ER17i0Pf+6Yf7JXmH
+X-Gm-Gg: AYBFou0CQPlcx/n1c+loE571aRVeHrp/ZxJL7GdiecQCz2QFiNFvbtS094ncZVmaCRZ
+	cxEy6upmttY/Vk7/c5BG7YMP53YcE8QhZfC5jOn6MpMv2EGaY/EhqPsGtjD/oSxkHyrRExM8mkt
+	YLDvCNrhSNbWRRsLzpfsaEITbZzBSpD+n0HSgpqrZ+4OuyEJYvZgzJXi+emk73nqEyieDPhAyuj
+	hDIsfC/7aEpGjhRGgbiDrjtlPbA5BsYju9hUofpkdqGtmDnh26H1A9X9LYvoYMdIYhExC9TDgZ2
+	nw8oQTBQcYygrX1sfVZr8XHLqpNyKhB2PUx9dekV+rZareb62Pj4PeSdoVT/nFGo1l8WenRPEKG
+	ZnwIl/8NF0IlA8cXGCpIyIEAduw8uvPwt2I1+2YBo/iCMnxMRtLGDIBDCSb8iff01u+h5pgLiBg
+	bIWboCntUJoUcmTvST8c8RQq8PxKKrw6bq8Zmkyme/IV2nborRkiMDrI0UPQZcb3cjaw/0A5SNP
+	1kWjbBqUo58fnD5+N2vFATvJeVvOz7v238dJKsUYupcO09J+KY8wvxvsVM5DXNKG3lmyvdYsuOP
+	mnG4lRuRIQ0RYWnPJB6BrBrUjZk+n90JqzlRUADDRgjIIheNkEjslGjiY0agJlw+HCdKfuDHiND
+	BBDxi0w==
+X-Received: by 2002:a05:600c:6095:b0:4a0:1b21:2628 with SMTP id 5b1f17b1804b1-4ac18b7e1c1mr359585225e9.23.1793862075779;
+        Wed, 04 Nov 2026 23:01:15 -0800 (PST)
+Received: from recorder.play.pl ([2a02:a31a:a1b6:b080:23ca:4af6:2cc9:8091])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm40116155e9.9.2026.11.04.23.01.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 22:57:51 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
+        Wed, 04 Nov 2026 23:01:15 -0800 (PST)
+From: Greg Sikorski <sikorski.grzegorz@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	"Jiangong . Han" <jiangong.han@windriver.com>,
 	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] media: gspca: etoms: bound device-provided length in sd_pkt_scan
-Date: Thu,  5 Nov 2026 15:57:28 +0900
-Message-ID: <20261105065728.1351098-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Greg Sikorski <sikorski.grzegorz@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: em28xx: fix NULL pointer dereference on disconnect of dual-TS devices
+Date: Thu,  5 Nov 2026 08:01:10 +0100
+Message-ID: <20261105070110.122371-1-sikorski.grzegorz@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261104052800.44551-1-sikorski.grzegorz@gmail.com>
+References: <20261104052800.44551-1-sikorski.grzegorz@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -98,100 +104,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-etoms sd_pkt_scan() is the gspca pkt_scan callback, invoked from the isoc
-URB completion (fill_frame() in gspca.c) with (gspca_dev, data, len) where
-data points into the URB coherent transfer buffer at this packet's slot and
-len is iso_frame_desc[i].actual_length, i.e. the number of bytes the device
-actually sent in that isoc packet.
+Commit 826915b6b65e ("media: em28xx: fix use-after-free of
+dev_next->devlist on disconnect") made em28xx_close_extension() unlink
+dev->dev_next->devlist from em28xx_devlist. On a regular dual-TS board
+(e.g. Hauppauge WinTV-dualHD, 2040:8265) the secondary device is never
+added to that list: em28xx_duplicate_dev() kmemdup()s the primary device
+during probe, before request_modules() -> em28xx_init_extension() links
+the primary one, so dev_next->devlist is { NULL, NULL }. With
+CONFIG_LIST_HARDENED the inlined list_del() validity check dereferences
+the NULL prev pointer and every disconnect oopses in usb_hub_wq with
+em28xx_devlist_mutex held; the device never re-enumerates and the USB hub
+thread stays stuck until reboot:
 
-The subdriver overwrites the real packet length with a value taken straight
-from the first two device-supplied header bytes:
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  Workqueue: usb_hub_wq hub_event
+  RIP: 0010:em28xx_close_extension+0x80/0x130 [em28xx]
+  Call Trace:
+   em28xx_usb_disconnect.cold+0x87/0xed [em28xx]
+   usb_unbind_interface+0x9b/0x2c0
+   ...
+   usb_disconnect+0xe7/0x300
+   hub_port_connect+0x7f/0x930
 
-	len = (int)(((data[0] & 0xc0) << 2) | data[1]);	/* 0 .. 1023 */
+Initialise the list head in em28xx_init_dev(), which runs for both
+devices (for the secondary one after the kmemdup()), and unlink both
+entries with list_del_init(). That is correct whether or not dev_next was
+ever linked, so the use-after-free fixed by that commit stays fixed.
 
-and then hands that count to gspca_frame_add() for a header packet
-(data += 30) or an inter packet (data += 8):
-
-	gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
-	...
-	gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
-
-gspca_frame_add() only bounds the *destination* frame
-(image_len + len > PAGE_ALIGN(sizeimage) -> discard); it applies no bound to
-the *source*, doing memcpy(image + image_len, data, len) directly. Nothing
-clamps the device-declared length against the bytes actually present in the
-packet slot.
-
-The isoc transfer buffer is usb_alloc_coherent(psize * npkt) where psize is
-the device's reported wMaxPacketSize and npkt defaults to 32; this driver
-sets neither cam.npkt nor pkt_size, so both derive from the device. A
-malicious camera can declare a small wMaxPacketSize and send a short packet
-in the last slot while setting the header bytes to request len up to 1023.
-gspca_frame_add() then reads up to ~1023 bytes starting at data+8 (or
-data+30) -- past actual_length, past the packet slot, and past the end of
-the transfer-buffer allocation -- and copies that adjacent kernel memory
-into the vb2 video frame, which is handed to userspace: an out-of-bounds
-read / kernel information leak reachable by plugging in a crafted USB
-webcam.
-
-A 1-byte over-read of data[1] also occurs when a 1-byte packet is delivered
-(fill_frame() only drops zero-length packets).
-
-Keep the real packet length, reject runt packets, and clamp the
-device-declared length to the bytes remaining after the header offset
-before passing it to gspca_frame_add().
-
-Found by code review; not reproduced (no device/USB-redir setup on hand).
-
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Fixes: 826915b6b65e ("media: em28xx: fix use-after-free of dev_next->devlist on disconnect")
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Sikorski <sikorski.grzegorz@gmail.com>
 ---
- drivers/media/usb/gspca/etoms.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+v2: refer to the fixed commit without a bare sha1 in the last paragraph
+    (checkpatch: GIT_COMMIT_ID); no code change.
 
-diff --git a/drivers/media/usb/gspca/etoms.c b/drivers/media/usb/gspca/etoms.c
---- a/drivers/media/usb/gspca/etoms.c
-+++ b/drivers/media/usb/gspca/etoms.c
-@@ -659,24 +659,37 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
- 			u8 *data,			/* isoc packet */
- 			int len)			/* iso packet length */
- {
- 	int seqframe;
-+	int datalen;
+ drivers/media/usb/em28xx/em28xx-cards.c | 1 +
+ drivers/media/usb/em28xx/em28xx-core.c  | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-+	if (len < 2)			/* need the 2-byte packet header */
-+		return;
- 	seqframe = data[0] & 0x3f;
--	len = (int) (((data[0] & 0xc0) << 2) | data[1]);
-+	datalen = (int) (((data[0] & 0xc0) << 2) | data[1]);
- 	if (seqframe == 0x3f) {
- 		gspca_dbg(gspca_dev, D_FRAM,
--			  "header packet found datalength %d !!\n", len);
-+			  "header packet found datalength %d !!\n", datalen);
-+		if (len < 30)
-+			return;
- 		gspca_dbg(gspca_dev, D_FRAM, "G %d R %d G %d B %d",
- 			  data[2], data[3], data[4], data[5]);
- 		data += 30;
--		/* don't change datalength as the chips provided it */
-+		len -= 30;
-+		/* the chip-provided length must not exceed the packet */
-+		if (datalen > len)
-+			datalen = len;
- 		gspca_frame_add(gspca_dev, LAST_PACKET, NULL, 0);
--		gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
-+		gspca_frame_add(gspca_dev, FIRST_PACKET, data, datalen);
- 		return;
+diff --git a/drivers/media/usb/em28xx/em28xx-cards.c b/drivers/media/usb/em28xx/em28xx-cards.c
+index 8440eafad..4d2ea2e27 100644
+--- a/drivers/media/usb/em28xx/em28xx-cards.c
++++ b/drivers/media/usb/em28xx/em28xx-cards.c
+@@ -3845,6 +3845,7 @@ static int em28xx_init_dev(struct em28xx *dev, struct usb_device *udev,
+ 	const char *chip_name = NULL;
+ 
+ 	dev->intf = intf;
++	INIT_LIST_HEAD(&dev->devlist);
+ 	mutex_init(&dev->ctrl_urb_lock);
+ 	spin_lock_init(&dev->slock);
+ 
+diff --git a/drivers/media/usb/em28xx/em28xx-core.c b/drivers/media/usb/em28xx/em28xx-core.c
+index 62a1c25a2..ab1e1e18b 100644
+--- a/drivers/media/usb/em28xx/em28xx-core.c
++++ b/drivers/media/usb/em28xx/em28xx-core.c
+@@ -1263,8 +1263,8 @@ void em28xx_close_extension(struct em28xx *dev)
+ 		}
  	}
--	if (len) {
-+	if (datalen) {
-+		if (len < 8)
-+			return;
- 		data += 8;
--		gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
-+		len -= 8;
-+		if (datalen > len)
-+			datalen = len;
-+		gspca_frame_add(gspca_dev, INTER_PACKET, data, datalen);
- 	} else {			/* Drop Packet */
- 		gspca_dev->last_packet_type = DISCARD_PACKET;
- 	}
+ 	if (dev->dev_next)
+-		list_del(&dev->dev_next->devlist);
+-	list_del(&dev->devlist);
++		list_del_init(&dev->dev_next->devlist);
++	list_del_init(&dev->devlist);
+ 	mutex_unlock(&em28xx_devlist_mutex);
+ }
+ 
+-- 
+2.53.0
+
