@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.92.124.110
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906469;
-	b=PsEuO+/paaZC1t9MXEe3d/zaIVeuyqXWLM04F1pFhmCK8i1cVObaToDubJroNkjgJ22W
-	 TckrGvrOaK8yi1mPl4lqY71m+IHFWvOnU9ufMbbkdOW+3LGJVYq1Zz+neAO3kOifGkIjm
-	 FBcGibIOFux8bHCVxjFqdfyfTaSvSLapnOb+Ig6wzHxrTQY3/51IA12uezV4xVzbWovy8
-	 fEkKH99FBdOQLnGWGxCA1n2eQAK9FdI68cJZ5g0dZL1JGIy4k+OkR3mIkOGMWMgb8QtD+
-	 NE91XbZwn2UA7VBFh5+4Rx0BvTrxX1ysm9UKor27db1Ka5JyzwWQeC8ZgpV87iXV1sw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906469;
-	h=DMARC-Filter:X-mail-filterd:Received:X-mail-filterd:X-lpn-mailing:
-	 X-lpn-spamrating:X-lpn-spamlevel:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 DKIM-Signature;
-	bh=7dNl1xdn5NlUfVmAHxn9dZ0wQPKkP1wek6kXrOOUYS4=;
-	b=CbEpbtLBMPnRTtiF5NX2Hz144ZYt2i98vufrFOU5dE9+Dr7LQgwyEZxZRffUuRZo/F/x
-	 laTb08I3nPavsj5hAlSN/HoxoVw7qXgMxlzx8PqPryiStcjOFpk0PgXZtHg/ogyGRCYeb
-	 BDVI95yMswUAmXBIhrS/g/95zTS8smJw3G1HrdK6kLjkWctpT0WqLhjDEFyJT2GNDdwOt
-	 7FUMzJWsylSR4OlG3j4JDuxBkN7/9LA0OxsEdYWAGIaJV2IgDesYz7WFCi10ekAyNyBJL
-	 3aYn9Bxm6Xq5ar5atA9ir2niYaZKIk9QLJ+egKJ+ugrUUZKSO5tsha7/mb/2nCm9oNA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=laposte.net;
-	spf=pass smtp.mailfrom=laposte.net;
-	dkim=pass header.d=laposte.net header.i=@laposte.net header.a=rsa-sha256 header.s=lpn-wlmd header.b=loSG7rQt;
-	arc=none smtp.remote-ip=160.92.124.110
-Received: from smtp-outgoing-2003.laposte.net (smtp-outgoing-2003.laposte.net [160.92.124.110])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.66
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793908009;
+	b=jbuMI18ckptiv3j2jZUXRNJoN2dhH+oLD6BJ67kL/CVCk11rxUw2IKG+8pLgAs0oeXv6
+	 UIN7iHHDjiutgzGQoaCZrYQIGTQEmCN+Jb3zYWasKPvu2Ru1eKEJY+jZ7sPvAG9G9u0r3
+	 5AuO2Yu1zusL4Ho6TwN05HyOm1f9DuCEFZz+f8OKpg3EkxBYo5l5bT1/LuCZFqTuNlPc6
+	 J2shtwAKWWYjmbosdkiPDE+av5L7nRWzgiWCVvp0AQQlnDJKLgkmW3AWNHxM+Ehyndx98
+	 vaf0i64reofDuA7NaBdxP8ss8G0rrq9KhB51J7ECfcJ1IpngzYXXRdXjLotwC24wJCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793908009;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=7qV+qG2P/2xQUq4MFTcMN5GMPRS+8RNIWid36GKJIwg=;
+	b=pFlluVnZcHOax4VXHm5nKAKWpTQjImwWgogXEBN43DnXujIW81mT+WbDdxtZTAVmvDR8
+	 efRraBEbcM8frB9TYiW4PGP0khmES9asyg4ksN3tPxHIzXxPi7dJjgbBgPDkbdDwjac2J
+	 JQz7IaFlB1uvzXzuNxuiaKO3+9yCsKFvctZyn3X5hnP6WKfvgeNpQ9ll3DFCujoiaWqIT
+	 eTMjhveLr2dWQWXYYQ1JBgL+0r47KeSuS7Dbv0803xn8lORi//7lwYrhpkFZxwCpSrkyp
+	 h7CIKuOcTuVGBVFxe795JjxQ19648oh6qcHABgdMp/4W6FBwTwlSufDAlrYa7rfVvPQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AwE2mz8D;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.66
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012066.outbound.protection.outlook.com [52.101.66.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1910606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 19:21:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1910606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laposte.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FD5606A329;
+	Thu,  5 Nov 2026 19:46:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73FD5606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=laposte.net header.i=@laposte.net header.a=rsa-sha256 header.s=lpn-wlmd header.b=loSG7rQt
-X-mail-filterd: {"version":"1.9.7","queueID":"4jLBx525p4z16Hmf","contextId":
- "ba9da2f8-147a-4edf-b301-8e15cdb59711"}
-Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
-	by mlpnf0105.laposte.net (SMTP Server) with ESMTP id 4jLBx525p4z16Hmf;
-	Thu,  5 Nov 2026 20:20:57 +0100 (CET)
-X-mail-filterd: {"version":"1.9.7","queueID":"4jLBx447kbz16Hmd","contextId":
- "504bbaaa-893a-455b-989a-e55294e901fb"}
-X-lpn-mailing: LEGIT
-X-lpn-spamrating: 36
-X-lpn-spamlevel: not-spam
-Received: from [10.188.175.39] (238.178.71.37.rev.sfr.net [37.71.178.238])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mlpnf0105.laposte.net (SMTP Server) with ESMTPSA id 4jLBx447kbz16Hmd;
-	Thu,  5 Nov 2026 20:20:56 +0100 (CET)
-Message-ID: <5bb49b41-368c-4889-9f56-9a477e85694f@laposte.net>
-Date: Thu, 5 Nov 2026 20:20:56 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=AwE2mz8D
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ILfWj/iGHD90Z1fvcQ8WBriqQnEL22sEJ1T/IQCoBG/OIzi2pWShMLJg7i50eUDQeNYvTnGc50EMWQ3zHOceN0fROFXgN8FzDr+a62pAW/hZPXU1OzP8MLPwpgPzF27GQa/9hem737oMPVXyufdeYj9C6dszOgeN/6/GO0RHqYFiZXsMOv9BZHB4VehLqDneIyLDQ6atngMBjpsFsQm6x3n79ca7un6+gsFSETNMINSOfb+6SSV+bUKvF3DABABztTHUKp+NzLMvsg1hW2cglpSLVt+r/rWAdP6uCUmK8mGnLq3/OGZbdzzdhIyd7Zf0tL1gbvxutgkDnTxl7eqGxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7qV+qG2P/2xQUq4MFTcMN5GMPRS+8RNIWid36GKJIwg=;
+ b=tIs+SIi9wSreFriLgqsN0r4JUSWyaZiWumYuE5jwYTRkXsI8akTIFQmsNtAohdaf9XaU8f/dFQNDCpXnIYsMK4HX9hUiiQcdY5iShGtn8A/tWbYBeVFHxfxYKTBH9YNbupYdRZej/wJgH8CFOlvdEe29U+ivakbMVKn0rlEwzv6bl/sbDc0KSaj0JTXY3mhYZpOIbuMDYkgaWJZzZx7HRtL8iGM5Sig0mYa95ebECHpFobUykQ5f+kEyrZ8Fqn4TKpFlPYOfiOAewEa/IFbRX5HqBpreX5+Agh7TLh2zvW33g1SW3jiAbcfcAmiBL5wltrk7U/E1DODSwhfhPlPCkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7qV+qG2P/2xQUq4MFTcMN5GMPRS+8RNIWid36GKJIwg=;
+ b=AwE2mz8DaL53ebJzLnEnW0zQtXn6YmnsA2QQCoKPhCiihxdAJsNEUgD5jk15GFT1iEOmjygFAqqC/zvCkKr/+8oyoxfwA3rV8dJ6YjZjdiFoe4bMerY5axT2invivrHmYR2dvgetXrLduU9NHdtk3D08dCE6e3GOxHhItEMDhJ38T2WbeysQsxolnUAztv8/mNex8MyoNV7qg/7T5QSjjzORoml3SbPafaDiTabyuXvaJtqwehX+SoHaPbrO5uA+neT3zwp0LmF4TfcGivTkN78h/GN0axODRY30tkUvVDjXCC0eMOV++l6NqaE9L4SFOaqjpLzrJDD7mLfRnGEruQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ (2603:10a6:20b:75e::21) by MMZPR04MB483805.eurprd04.prod.outlook.com
+ (2603:10a6:190:45::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.10; Thu, 5 Nov
+ 2026 19:46:45 +0000
+Received: from AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06]) by AMBPR04MB12445.eurprd04.prod.outlook.com
+ ([fe80::ba23:1fa4:ce58:ff06%3]) with mapi id 15.21.0592.009; Thu, 5 Nov 2026
+ 19:46:45 +0000
+Date: Thu, 5 Nov 2026 14:46:36 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Michael Riesch <michael.riesch@collabora.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev
+Subject: Re: [PATCH v2] media: synopsys: dw-mipi-csi2rx: Fix DPHY testclr
+ reset sequence
+Message-ID: <auzdHJFvi0Nmf0-E@lizhi-Precision-Tower-5810>
+References: <20261023-dw-csi2rx-v2-1-fae30f4c5359@oss.nxp.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023-dw-csi2rx-v2-1-fae30f4c5359@oss.nxp.com>
+X-ClientProxiedBy: PH7P223CA0026.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:510:338::31) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -62,186 +102,123 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors
- on Intel IPU6/IPU7
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Hans de Goede <johannes.goede@oss.qualcomm.com>,
- Milan Zamazal <mzamazal@redhat.com>, Sakari Ailus <sakari.ailus@iki.fi>,
- Robert Mader <robert.mader@collabora.com>,
- libcamera-devel@lists.libcamera.org, linux-media@vger.kernel.org
-References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net>
- <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com>
- <20261101164311.GA3368923@killaraus.ideasonboard.com>
- <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net>
- <20261101195019.220940-1-fernandorimoli11@gmail.com>
- <6cfa9260-b48d-484e-9c88-b75feb0392f9@laposte.net>
- <20261105004652.147540-1-fernandorimoli11@gmail.com>
-Content-Language: fr
-From: Alain Cousinie <alain.cousinie@laposte.net>
-In-Reply-To: <20261105004652.147540-1-fernandorimoli11@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd; t=1793906460; bh=0i042QAtwP4Qdkve9fr0e5g+1AlzLJH9UF4UX4Mdb7s=; h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:Content-Transfer-Encoding; b=loSG7rQtkyV2c43Vmten7VzcZzOQGFYTQQsiwt8il1/YDNrssh2ExkXGZl5uI+HDSutpu3crNAbz4R5zrcLqmILwvHcDUuyiOLjxB0VASPPS2xrNjT5rdyjCFLVPfOjVvhFU5yuk5p0LnBqiyPs9OkH6rM1YeVoUSZe7HnHTFjE0Br2jzm6CKcxLX4JMlF9eQcHqp72QGbzmd+gW9iTIjNabqU0BDIl1+blgVJDTajykEJeC5QhACuP8NFDmk+71E2lM4e+z2uINiBygOMFOKnSgHiKQ18FFegifpb93SijlaVrWFeWUVUMcg4rfNZ6ZFTZDooK+VfCsoIPDXQN+Cw==;
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMBPR04MB12445:EE_|MMZPR04MB483805:EE_
+X-MS-Office365-Filtering-Correlation-Id: 180eebe6-9df2-4af1-b7fd-08df3b75856e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|19092799006|11063799006|56012099006|261021123027099003|261022105027099003|261022075727099003|261009223027099003|261021121427099003|261102123227099003|261028144727099003|261026140227099003|261026121527099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	MBQ6O7vRck5uzcC0BYmTQ2Jvz0hhs6UEqsK2IuwF4EE49ASxhIwciFWCfxzX7bDR5lHOGNRMGkXCMNKZChmHp/CGyZKrHpvuRygixRmXpGnIeAtRdP0lqTpAss5cjlzdesDYy6T/LePjBM4+l6LI8sEoFTY/9NwCdr9stSaYz3+FUYOeh+c+t0M5aBJIMX2HX0zwHoxhTUrMIM9+C27Fr+WAwfj4RbGmR8eSsQhk75ZxYsdDyxOodq/xLNIMld/JY/C2Oan+RiBIbDOaxjbxHwASyPXyIEIHvybUAHKbadr5pz4sqbvao8WIjKPmTVa888YKaRfNqDqyl2HenyJ1CBCz3pq1rmN5Z04tHw30eCqXc3iDx9jZiFbgMgqjMuaxQ4uT2BL+DBYFQjlyC2ClV0YTXeuq6zuNmwa7dI6HobhKSuEXpYfMzhjxzm1drNyMWgYb7eICaL8U7/2P6eg0FPpO1quD60rRGzMlTa23+l4KS7NWVlTqK2cUkxeXqcZ5uTX9XwAx+j/zKlXtPQgZYGOhD3aLBffotEaKKifrVkpr9/TMLu+cd/ep97RTjbB0sAFUrFBtMF640qL9y0v1oVSuvzH9c2HW2D4Ghp0oucovhMNwSHMBg9U9W4pledCH
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AMBPR04MB12445.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(19092799006)(11063799006)(56012099006)(261021123027099003)(261022105027099003)(261022075727099003)(261009223027099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026140227099003)(261026121527099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?itRb8Dn4ziNn9cYjZEGyqkvujhva6+PEfk+1CahtzitmcxLIsFvjs97IhrF9?=
+ =?us-ascii?Q?4tPjIg8OtDmSmGpaRLw7DiVUdLtDO1rAQZcGloMwRiZzjT++g9afpd/S5qPn?=
+ =?us-ascii?Q?ryTdfGUaFqkz9+cGDFu0aAIJrY1NAbVUzO3jympJJPbG5E2hOmSXy97pMklx?=
+ =?us-ascii?Q?a+Fgz+LYHZIEaz77zAh0ISNKHBE99UABS1wcJLNlRQeBpclmpDuEEL/slRLc?=
+ =?us-ascii?Q?MRXiVX1ybdum9ezOZTKan1sH6XQi3RSNJpinIpPaivbS22Q6kDtYjrAAB/et?=
+ =?us-ascii?Q?U4LnmA8k6T2YQKQztVVe+mfoLpCjmjH/lXuARWi7k7Z1hc/yZatLBS0ABAwk?=
+ =?us-ascii?Q?Ly/e+60dlklpQWtHQoG3FHknrTAKx/Toy+fmlfJHJCNZK5+ajfr4quh1frOX?=
+ =?us-ascii?Q?Rs4JD3Zrxz6HZESZdbWryDKZlgZq0/kSdxvMO7G9MNVegu4QbW7hdIr66K1M?=
+ =?us-ascii?Q?VgqJ24sYdCJyMzMGRYajkWF1IvNBsJkH4+976diJ24KdiVLVzcYVXE99cMBr?=
+ =?us-ascii?Q?wAkSXl2///cY73Ff+STiM9kwbfNCif9JnvxeNiJEGaq2E8aBK5N+yB7uYz8l?=
+ =?us-ascii?Q?QcUbSpQ9nIZ5MLI4LoCACLT87WlxArDg7GRg7/GdslNhrHaZvnhYjUUnlcim?=
+ =?us-ascii?Q?Mp5nSsGNvU8OBdA3Vf0YwxA8cS+W5TD/MEUhI3+8YLKqLaBsTV8TqGly0UDj?=
+ =?us-ascii?Q?I+1noAnwr8K8tWVfdaIpol4FJ3IuJ/sd32yxy8S6JyeL19MDqH3k5hKpdxth?=
+ =?us-ascii?Q?hAsTP9cqANc/wE6fDKPehP4UjgZAZTECztD/7VDPUBvDWuYNJ5kZNxeNWfRO?=
+ =?us-ascii?Q?e/E7OSJVTSu4IVMPpfJ17x1AGaifjFVO6v+lnhdEjWYkJeaewBozlRw0vSlZ?=
+ =?us-ascii?Q?YVvOpPqU2a8ZoNUlXzbG45WKQVtkQtFTG78U5wy2UH9O4sjollVoXRe23xzE?=
+ =?us-ascii?Q?bqhMAtSus4Ixo76zSGb0Y6u4ITdlbsWN4EHR1wUKYijcnxWPW/OvrYmkLyJY?=
+ =?us-ascii?Q?/Pt4bzgGrg15O6jS9UrNI+V+hZM6cVEspmMAkg17RSSpMInj1jqb01zGfP3u?=
+ =?us-ascii?Q?AW4d4zIEzvGHOudgVHAebQ/rMeY8VvO51iDgEDQD2s7/eDajEUf1tbfjEbM4?=
+ =?us-ascii?Q?jqS3zvjaOt87fa5siSwEUKkVPGFQc9b4schFPDN8TZLUxMbz9kosqZvukJIU?=
+ =?us-ascii?Q?pY4bjpXE+zAtnqodxwREulfPSWJ9PBAqGWVBS29eK2n7ajBTk3pbZHL2KdNK?=
+ =?us-ascii?Q?Fb6WJIPQbs5GxbAFjaNqQdqZPBfoLbRUhtwXJauyc63qEn8AJSgg5Ft2TgNW?=
+ =?us-ascii?Q?yKRjLiTPREjys+d9Do2znMCRQZZSXdxeFoX3LWLmG7xMcJO9ITgr7ObPNYTI?=
+ =?us-ascii?Q?RwyJQBcvH8CXDGVktVxfdIoDHyBkdZ+wu5OKLLPuMfyem6jZDtkP+M9wHjOb?=
+ =?us-ascii?Q?FDsbBjMAAESKxK7eqEnjyuP5+jxBPGo1Rlke1Yqe4/JkCM9y7vSiWBuM93S4?=
+ =?us-ascii?Q?2yE7chQpYCsBNV3oYFtR7eKza+6bU3mN+Muby/SyVhJD8KBbQXdjqTEv+s/z?=
+ =?us-ascii?Q?B9gw/nh+nU2wksGHWoMBCUYCS9JRZMe2BumYFUZaGLTAduutD9/nWWZk2/ta?=
+ =?us-ascii?Q?RXiGI7v/VuiWf3ZglAv7nRM3y3uTFVrLVD01HBV/S1sV7la2Eqaai9C5rrTS?=
+ =?us-ascii?Q?au4GTNO5lLq3p8M5E2CneniNxCpldV+cn+CKOkBeRj8y80hzTX9j38bxrbqS?=
+ =?us-ascii?Q?5PEMIA53R2ArxAOcrT3ub3N44pDXGUL6ecBgrfCXsHfVYvOHM2n7?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 180eebe6-9df2-4af1-b7fd-08df3b75856e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2026 19:46:44.9924
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6/bTPOPD8mGD7vSa98MOFG34ykctTuXo1xT1WrOkUyOxu7VUrJOrsfS7RioJ4SjuQSZKJM8cVcDfq5N681N/EXX39CFtdPZn+AltSnyMHWpR05fCrOGKBxk4cJx90llD
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MMZPR04MB483805
 
-Le 05/11/2026 =C3=A0 01:46, Fernando Rimoli a =C3=A9crit=C2=A0:
-> Hi Alain,
->=20
->> I am using an HP Spectre with an Intel i7-155H processor.
->> The camera relies on IPU6 and uses the `og0va1b` sensor,
->=20
-> So Meteor Lake, which also answers Sakari's question about the system.
->=20
->> I modified the driver to include the ACPI entry `IPU_SENSOR_CONFIG("OV=
-TI00AB", 1, 500000000)`
->> and adjusted the frame rate to 240 fps for a 640x480 resolution.
->=20
-> Your failing run changes several things, the link frequency, the
-> frame rate and the formats. The stock ipu6-isys already offers R10_CSI2=
-P
-> for a Y10_1X10 bus. That is what I used, with an unmodified isys, so
-> nothing needs adding for that. Does R10_CSI2P at 640x480 still time out
-> at the driver's 60 fps, with only your bridge entry? If it works there,
-> the stall comes with the rate or link frequency, not the stride.
->=20
-> Fernando
+On Fri, Oct 23, 2026 at 02:49:41PM +0800, Guoniu Zhou wrote:
+> The Synopsys DPHY datasheet recommends applying a testclr pulse at
+> first power-up to reset the PHY configuration to its default values
+> before any test control register is programmed.
+>
+> The existing code deasserts testclr first and then asserts it, which
+> is the reverse of the sequence recommended by the DPHY documentation.
+>
+> Generate the required TESTCLR pulse by asserting TESTCLR, waiting
+> for the required pulse width, and then deasserting it.
+>
+> Fixes: ec40b431f0ab ("media: synopsys: csi2rx: add i.MX93 support")
+> Acked-by: Michael Riesch <michael.riesch@collabora.com>
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
 
-Hi Fernando,
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Thank you for your feedback. I have re-tested everything using a clean,=20
-standard compilation (-O2) to eliminate any compiler-induced optimization=
-=20
-side effects.=20
-
-Furthermore, I have reverted all my frame rate and link frequency modific=
-ations=20
-to stick to the driver's stock 60 fps. My only active kernel patches now =
-are the=20
-ACPI match in the driver and the bridge entry itself (480 MHz), as shown =
-in the=20
-diff below.
-
-The results remain exactly the same: packed mode systematically stalls an=
-d=20
-triggers DMA timeouts, while unpacked mode works flawlessly.=20
-
-To toggle between packed and unpacked modes during my tests, I simply inv=
-erted=20
-the conditional check in libcamera's pipeline validator (simple.cpp):
-
---- a/src/libcamera/pipeline/simple/simple.cpp
-+++ b/src/libcamera/pipeline/simple/simple.cpp
-@@ -1262,7 +1262,7 @@ CameraConfiguration::Status SimpleCameraConfigurati=
-on::validate()
-                    captureSize.width >=3D maxRawStreamSize.width &&
-                    captureSize.height >=3D maxRawStreamSize.height) {
-                        if (!pipeConfig_ || captureSize < pipeConfig_->ca=
-ptureSize ||
--                           (captureSize <=3D pipeConfig_->captureSize &&=
- !curCfgPacked && !newCfgPacked)) // alcousin
-+                           (captureSize <=3D pipeConfig_->captureSize &&=
- !curCfgPacked && newCfgPacked)) // alcousin
-
-By default, libcamera picks the packed configuration, which causes the ca=
-mera=20
-to stall immediately=E2=80=94this is precisely why I initially reached ou=
-t to Hans.
-
-Here is the dmesg log from the failing packed run (default libcamera beha=
-vior):
-
-[   86.809872] og0ve1b i2c-OVTI00AB:00: supply avdd not found, using dumm=
-y regulator
-[   86.809908] og0ve1b i2c-OVTI00AB:00: supply dovdd not found, using dum=
-my regulator
-[   86.809915] og0ve1b i2c-OVTI00AB:00: supply dvdd not found, using dumm=
-y regulator
-[  199.217293] intel_ipu6_isys.isys intel_ipu6.isys.40: stream stop time =
-out
-[  201.233140] intel_ipu6_isys.isys intel_ipu6.isys.40: stream close time=
- out
-[  201.233411] intel_ipu6_isys.isys intel_ipu6.isys.40: buffer list not e=
-mpty, needs isys reset
-
-As discussed, the 640x480 resolution in 10-bit packed format (R10_CSI2P /=
- Y10_1X10)=20
-produces exactly 800 bytes per line (640 * 10 / 8). Since 800 is not a mu=
-ltiple of 64=20
-(800 / 64 =3D 12.5), the IPU6 ISYS DMA engine fails to align the burst tr=
-ansfers. This=20
-locks up the internal hardware queue, forcing the "needs isys reset" stat=
-e.
-
-Conversely, forcing the unpacked format through the libcamera hack yields=
- 1280=20
-bytes per line (640 * 2). Because 1280 is perfectly aligned on a 64-byte =
-boundary=20
-(1280 / 64 =3D 20), streaming functions flawlessly.
-
-This rules out the frame rate or link frequency, proving that the stall i=
-s=20
-fundamentally a hardware-level stride alignment issue on Intel IPU6, and =
-it=20
-validates your recent patch proposal to disable packed mono for VGA senso=
-rs on this platform.
-
-Here is the exact patch applied to my kernel tree for this test:
-
-diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-index e7cd0f72f3e5..7983288a32c1 100644
---- a/drivers/media/i2c/og0ve1b.c
-+++ b/drivers/media/i2c/og0ve1b.c
-@@ -980,8 +980,11 @@ static int og0ve1b_probe(struct i2c_client *client)
-=20
-        og0ve1b->dev =3D &client->dev;
-        og0ve1b->data =3D i2c_get_match_data(client);
--       if (!og0ve1b->data)
--               return -ENODEV;
-+        if (!og0ve1b->data) {
-+                og0ve1b->data =3D device_get_match_data(&client->dev);
-+                if (!og0ve1b->data)
-+                        return -ENODEV;
-+        }
-=20
-        v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
-        v4l2_i2c_subdev_set_name(&og0ve1b->sd, client,
-@@ -1116,6 +1119,13 @@ static const struct dev_pm_ops og0ve1b_pm_ops =3D =
-{
-        SET_RUNTIME_PM_OPS(og0ve1b_power_off, og0ve1b_power_on, NULL)
- };
-=20
-+#ifdef CONFIG_ACPI
-+static const struct acpi_device_id og0ve1b_acpi_ids[] =3D {
-+        {"OVTI00AB", (uintptr_t)&og0va1b_data},
-+        { /* sentinel */ }
-+};
-+#endif
-+
- static const struct of_device_id og0ve1b_of_match[] =3D {
-        { .compatible =3D "ovti,og0va1b", .data =3D &og0va1b_data },
-        { .compatible =3D "ovti,og0ve1b", .data =3D &og0ve1b_data },
-@@ -1128,6 +1138,7 @@ static struct i2c_driver og0ve1b_i2c_driver =3D {
-                .name =3D "og0ve1b",
-                .pm =3D &og0ve1b_pm_ops,
-                .of_match_table =3D og0ve1b_of_match,
-+                .acpi_match_table =3D ACPI_PTR(og0ve1b_acpi_ids),
-        },
-        .probe =3D og0ve1b_probe,
-        .remove =3D og0ve1b_remove,
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/int=
-el/ipu-bridge.c
-index 3739c4a2a8c4..8f3a5eaea00d 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -90,6 +90,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
-sors[] =3D {
-        IPU_SENSOR_CONFIG("INT3537", 1, 437000000),
-        /* Lontium lt6911uxe */
-        IPU_SENSOR_CONFIG("INTC10C5", 0),
-+       /* Omnivision OG0VA1B */
-+       IPU_SENSOR_CONFIG("OVTI00AB", 1, 480000000),
-
-Best regards,
-Alain
-
+> Changes in v2:
+> - Keep the readback before ndelay(15) to flush the posted write.
+> - Collect Acked-by tag.
+> - Link to v1: https://lore.kernel.org/r/20261020-dw-csi2rx-v1-1-c58a2e5cd43d@oss.nxp.com
+> ---
+>  drivers/media/platform/synopsys/dw-mipi-csi2rx.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> index b7247d597c9c..23fb4188e755 100644
+> --- a/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> +++ b/drivers/media/platform/synopsys/dw-mipi-csi2rx.c
+> @@ -830,18 +830,22 @@ static void imx93_csi2rx_dphy_assert_reset(struct dw_mipi_csi2rx_device *csi2)
+>  {
+>  	u32 val;
+>
+> -	/* Release Synopsys DPHY test codes from reset */
+> +	/* Put PHY in shutdown mode for configuration */
+>  	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_DPHY_RSTZ, 0);
+>  	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_SHUTDOWNZ, 0);
+>
+> +	/*
+> +	 * Apply testclr pulse to load analog programmability defaults
+> +	 * and release the test interface for configuration.
+> +	 */
+>  	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
+> -	val &= ~DPHY_TEST_CTRL0_TEST_CLR;
+> +	val |= DPHY_TEST_CTRL0_TEST_CLR;
+>  	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0, val);
+>
+>  	val = dw_mipi_csi2rx_read(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0);
+>  	/* Wait for at least 15ns */
+>  	ndelay(15);
+> -	val |= DPHY_TEST_CTRL0_TEST_CLR;
+> +	val &= ~DPHY_TEST_CTRL0_TEST_CLR;
+>  	dw_mipi_csi2rx_write(csi2, DW_MIPI_CSI2RX_PHY_TST_CTRL0, val);
+>  }
+>
+>
+> ---
+> base-commit: d7e7bca7169873b46e857c025c10f3336c1258d8
+> change-id: 20261020-dw-csi2rx-6225697f45bb
+>
+> Best regards,
+> --
+> Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+>
