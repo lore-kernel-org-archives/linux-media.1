@@ -1,77 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.183.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793853679;
-	b=3MoF60atvkp2rdPidp7aVh7W5WkA07UzMWkIyrB2Vgz++jo2xQZByGlixP45XORpZ4SA
-	 4Ca2Z28LkjBNxCbL05nP+LjKdI2+BFIlPlEld4pPqAILv30855vhHXWTIIpNbR3FNn9ua
-	 OR82Hqo7DGrIJSGFfLxDl4tFB0KyII+73fEnjt1oyb6pmUFrKglXD6M2SiwVGURv4cec2
-	 zC+0uF0DGuTnWmNRvOwhqjHls1c6QY85gqz/6WtcADFbLe78XGEnAswzpyYUpwWYUSDT2
-	 zqzKYuv/ySUxqkZqSvNnb94jSKhktptKN9VAEpDJoedGBNMfLK4JoVTODtHUbdqk2Kg==
+	t=1793856440;
+	b=pfo6tmF8SOjK23HCneuqVlgofGtr6tHMfJx+RLgGk+lWbD3F5mV9RWRtSr21oJN0l9mh
+	 0o5hb8Ltwmzi/dqI3nbVmXIaoyflZ53MwLVfgG7k7ZFZFPI6HUN1n4t0zkomsCb7OdaWA
+	 C/rMRVyG3bLvgykWfbTpjUQSSEB8ybU66MArbu9Uc8J/4AmWPS2ZAC8LHcsheU/SP8WVG
+	 hOpFhZ09nL6gaooImETit2Jph9HD7lPOiZmjPXqhyHsjj0t3Ba2TO1EKvlkGvDbujhtB8
+	 0EzDKCEI/ZBTDUT2SdavgtZqS+bxiW7jnj4iimH0Pgx193MtLN4+z19NRlQPGaCBJUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793853679;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:References:Content-Language:From:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Reinject:
-	 X-Sony-BusinessRelay-GUID:X-Proofpoint-Virus-Version:
-	 X-Sony-EdgeRelay-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Sony-Outbound-GUID:X-Proofpoint-Virus-Version;
-	bh=CEkGvy3aLrxRjLGdl8tfvu1ARW7upt4AeWpWqbv3z/w=;
-	b=C1uv+PKasxErl0YcsXAVVabxe9qdiWvQIqTchp8ILy+IuwPepU5x3wrlU8ai+vOadMLH
-	 qhbbr9eT1ELsttHYRIBPV+nQ0x+46FwJRB6fvFTdHVMitnMp6J/rG3KGlRTOexBZRVGn/
-	 EaEK3KB6FekzWtm1AliwtmFS2l3SgBSAD1ksQUSquvfHoxihIO0bHmGfuSwQ9fj15iSEu
-	 0xcnvyXfzBW9/ZDRBCPd9PEqJgp5ShGVGQNKvRiPE/XLBtHAniHdWGvoR4DsmUfjUOXCP
-	 lHYCvVLlWvF5MROvJQzCxcew6iGL1s3NcYX+7zSB+Wu9+M7UXCD1awbVKSGCT0NyBkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793856440;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9Daa3FHwpcJFP597PrdbQcKKPLxvw3pFmtT+70N8AzY=;
+	b=a7SKncN93M7Zsr1r5y5CQzR6jPIQFBIqpIYHs7Ow/glzKJN+V8wMy/wAqgCluGTp8INv
+	 WYBgteal5XZ+iETIJfptUgn4rLCBTM/J+uP/GBMlBNu3fLZr9uq4LT4h2rHApigBv8I/M
+	 3LnHl9nhnH5XW+8QG5JI6tz9tcjrhSrECdKyaKx+taf+I0wVZoOxGrGL9VJwuYdYCBOlq
+	 U3dDEezYZgTyM3bU47iBATz5elunSAsgfdb9CusKqMp4PmbudhJrgxlJNZOIn4k4xYyVB
+	 i8GEsUnaPW3bKV9rQzBRMlQXt3f751wRD9VUNAJwFHdJtPoGdrR6YvujHB5MBB9bSUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sony.com;
-	spf=pass smtp.mailfrom=sony.com;
-	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=fq7og1EW;
-	arc=none smtp.remote-ip=185.132.183.11
-Received: from mx07-001d1705.pphosted.com (mx07-001d1705.pphosted.com [185.132.183.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=XMr3VomP;
+	arc=none smtp.remote-ip=61.135.153.170
+Received: from smtp153-170.sina.com.cn (smtp153-170.sina.com.cn [61.135.153.170])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4D76082BC5;
-	Thu,  5 Nov 2026 04:41:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B4D76082BC5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD89606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 05:27:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CBD89606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=p1 header.b=fq7og1EW
-Received: from pps.filterd (m0209328.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A50nVid1016127;
-	Thu, 5 Nov 2026 04:40:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=p1; bh=CEkGvy3
-	aLrxRjLGdl8tfvu1ARW7upt4AeWpWqbv3z/w=; b=fq7og1EWFwS2tdP+kAw0gCO
-	qhEwXgxhadkeHvq8Ihg7I56wT21B3hH5EylqCn/89vYaFp4pBq6mcJL0AxHLtPJi
-	57+PGKG96bZeZnq8TziCKgT0ZGdqY/BQJ/uEKiyJJKFJ4hePeLWWF1xGMWRULU8Q
-	iK5/uJfnbbKsOQyFTGl1TqH+ZQYY5RE220qL1Najr5DSfytrHZGPpJ6VHrDSC/UY
-	bHP6Rm7HqIft7WE6hZ00a9IUSeQaQmmuKFFqhsuS0BmmVpWi5KPcKzcCfWVoR/+F
-	aInfX4hWj/WOSPcVSK9W68mT0myEaqlQXDWjpchdLTxKEb8IXr6T1uNh+Z00d6g=
-	=
-Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4hn9gg6d2d-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
-	Thu, 05 Nov 2026 04:40:50 +0000 (GMT)
-Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A54SYk83638969;
-	Thu, 5 Nov 2026 04:40:48 GMT
-Received: from sgppsba03v.s.gdce.sony.com.sg ([146.215.113.220])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9dh1q57-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 05 Nov 2026 04:40:48 +0000 (GMT)
-Received: from pps.filterd (SGPPSBA03v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBA03v.s.gdce.sony.com.sg (8.18.1.11/8.18.1.11) with ESMTP id 6A54W6El1849964;
-	Thu, 5 Nov 2026 04:40:47 GMT
-Received: from [43.3.252.132] ([146.215.113.251])
-	by SGPPSBA03v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4hn9djmvgc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT);
-	Thu, 05 Nov 2026 04:40:47 +0000 (GMT)
-Message-ID: <8d0a7e8a-f8f5-4896-b2e2-2f42f1e5897c@sony.com>
-Date: Thu, 5 Nov 2026 13:40:45 +0900
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=XMr3VomP
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793856435;
+	bh=9Daa3FHwpcJFP597PrdbQcKKPLxvw3pFmtT+70N8AzY=;
+	h=From:Subject:Date:Message-ID;
+	b=XMr3VomPfWVSYGGwbDWZZBz21tXIkoTErDKgYCWNBe2eLpCKduqlXZ8jIEVl8d/b/
+	 hPeJUQL1WXqJFoMKSS1lS8jGuvVzPhRgK/Ebs1I8bmO0lQ5iqi3r+im0J3+PWCxvb6
+	 OEWHosfk4YB6M09hgHaQZBCe6zYaC2wyqONtAQs0=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.231.89])
+	by sina.com (10.54.253.34) with ESMTP
+	id 6AEC13AC0000536E; Thu, 5 Nov 2026 13:27:10 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 6849496291662
+X-SMAIL-UIID: F141B9CBB75B49DAB820F25088968A10-20261105-132710-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: sashiko-bot@kernel.org
+Cc: media-ci@linuxtv.org,
+	sashiko-reviews@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	phasta@kernel.org,
+	robin.clark@oss.qualcomm.com
+Subject: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence reference counts
+Date: Thu,  5 Nov 2026 13:27:07 +0800
+Message-ID: <20261105052707.55911-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <sashiko-outbox-198550@kernel.org>
+References: <sashiko-outbox-198550@kernel.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -81,81 +77,58 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
-To: Conor Dooley <conor@kernel.org>, sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org,
-        laurent.pinchart@ideasonboard.com, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-        jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-        Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-        Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-References: <20261029050002.3880-1-lachlan.michael@sony.com>
- <20261029050002.3880-2-lachlan.michael@sony.com>
- <20261029-distress-stimulant-cd5bb18f5ae8@spud>
-Content-Language: en-US
-From: Lachlan Michael <Lachlan.Michael@sony.com>
-Organization: Sony Semiconductor Solutions Corporation
-In-Reply-To: <20261029-distress-stimulant-cd5bb18f5ae8@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Sony-BusinessRelay-GUID: Z7YAkeai05ddJsO0Mm1AR6NGAsst_H7c
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
-X-Sony-EdgeRelay-GUID: C4xOC7c57qqHBZJODKPno-vOV6sTDYs9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDAxOCBTYWx0ZWRfX/1iVh4q3VmC5
- Ht8QB0QZYAgtemnpSZlDVv3gj66FJb6CyXw9nrUXefbG6CNqXmfL/uGDmkmdt45HEytuI18hOta
- B2aZjMGRmh358MWn9m+mt4jP7qtO41y646bQVdhqB33CMgOa/bEevFrU3LYHbcTjkv4B19Plk4Q
- XQTc5HYy+0uP3NAq6dm+voNPvAxYV2orhNQlbTk2dNU6W/gDs74TIgeDVcy3Rlpz5y23d2x5/DW
- YEVx4s7xCeugDrRlL/IsiOC+Lmt3pDtln1P0O6yrrA5H62xJ86qjJBFSda/baVBRXB3c89Y6eZi
- +hB22CwM45na3QgJsyHdLRBgT4WN4b7xMykr6dHj2o0VbGcUBGBN9VNxS9EYpyRRqzpK69Xr8i+
- bFQ19hu+iYDL+v+GpFXBF9jK2k5GdCftc26cPTmI812c9nqOpxAFWAnD5uJ9r2fproRipptnq5t
- hMFJBP8n+BuenVRF3Ug==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDAxOCBTYWx0ZWRfX/3FoIYbIeZa9
- l6QdFy9ztWXt6j9cBn/VucEjnI2gFSrqT0IQT7zL+LTs9oW0WYbD9pAlDSv0KuEHAm7JnWGSyIt
- S5ogkYgA7UHRdBFHwsvkrf2GGV83KmtV/amZWSJM8+SWbKP6pEl4
-X-Authority-Analysis: v=2.4 cv=Z5t5j3RA c=1 sm=1 tr=0 ts=6aec08d2 cx=c_pps
- a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=KAb5x4SsHD3PzxGk7EmX:22 a=jHItnBwsj8f3cr25iGAb:22 a=VwQbUJbxAAAA:8
- a=P1BnusSwAAAA:8 a=XYAwZIGsAAAA:8 a=yb2DqlCEcBRr1FvsFXUA:9 a=QEXdDO2ut3YA:10
- a=D0XLA9XvdZm18NrgonBM:22 a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
-X-Proofpoint-ORIG-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
-X-Sony-Outbound-GUID: wf49VU1VyvftWfC5nZpDDQW5N8MIxx7x
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-05_01,2026-11-04_01,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 
-On 10/30/2026 3:41 AM, Conor Dooley wrote:
-> On Thu, Oct 29, 2026 at 02:00:01PM +0900, Lachlan Michael wrote:
->> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
->> with a MIPI CSI-2 output interface, supporting RAW10 and RAW12 output
->> over 2 or 4 data lanes.
->>
->> Add device tree bindings for the sensor.
->>
->> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->> Acked-by: Conor Dooley <conor@kernel.org>
-> 
-> This is not the tag I provided, I never provide tags using this email
-> address. Tags must be used without modification.
-> https://lore.kernel.org/all/20260828-hedging-olive-eaea0b4027a0@spud/
-Conor, my bad. I honestly missed that the mail address was different.
-I understand that it is important that review work is attributed to the 
-correct person and organization.
+There is a race condition between closing a sync file and the SW_SYNC_IOC_INC
+operation on a sync obj. When a fence is created via SW_SYNC_IOC_CREATE_FENCE,
+its reference count is initialized to 1. When the sync file is closed, the
+fence's reference count drops to 0. A race occurs if SW_SYNC_IOC_INC accesses
+the fence whose ref count has already reached 0 before dma_fence_release()
+calls timeline_fence_release() to erase the corresponding pt_tree node from
+the sync object, potentially hitting:
 
-Sakari,do you have further comments on the current v6 IMX908 driver?
-If so, I will fix this issue in a v7.
-If not, can you attribute to Conor correctly when picking up the patches?
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+refcount_t: addition on 0; use-after-free.
+------------[ cut here ]------------
+kernel BUG at lib/refcount.c:34!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ kref_get include/linux/kref.h:45 [inline]
+ dma_fence_get include/linux/dma-fence.h:323 [inline]
+ sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
+ sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
+ sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
 
-Best Regards,
+Use dma_fence_get_rcu() to replace dma_get_fence(), if fence reference
+count is 0 then do like timeline fence release things: remove pt link
+and erase pt node.
 
-Lachlan
+Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
+Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+---
+v1 -> v2: use dma_fence_get_rcu() and remove link & erase pt node
+
+ drivers/dma-buf/sw_sync.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b0218a9..261bc98b1ed6 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -221,7 +221,11 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
+ 		if (!timeline_fence_signaled(&pt->base))
+ 			break;
+ 
+-		dma_fence_get(&pt->base);
++		if (!dma_fence_get_rcu(&pt->base)) {
++			list_del_init(&pt->link);
++			rb_erase(&pt->node, &obj->pt_tree);
++			continue;
++		}
+ 
+ 		list_move_tail(&pt->link, &signalled);
+ 		rb_erase(&pt->node, &obj->pt_tree);
+-- 
+2.43.0
+
