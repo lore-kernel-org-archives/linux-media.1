@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863647;
-	b=3VlXUH63RDcWY96pTIuTi9n6YrnhcI48Gwlo1p6vTPRbPcQxjMTmqRj8/QAV5IdtM5eR
-	 4+iCH9ydsYA0/7A9xvkWoNZIfC2J2l4buhOSeQtRaVyHHmFx0kgAfzgzOMMxnx9o49hhQ
-	 5HOpepwGCoFFz6NCTir7tdh0CP2pRj/dluCczPLtDQv99oRi7lpKn6v+i6V95uawFcWk8
-	 V5qesTMBVkUKmXK/yIDd1i6Io0ZzzVUA2ik8g72hqTIg69V0L4Fw3S98a/npO2a78Ljtt
-	 O8qCDCPJnWkAq1888K4eyTggDzeumo1BkPDJzn5BlrLsUgONHRmcQpslGzMl0NROn7Q==
+	t=1793863648;
+	b=NLyeJ8HbFKXJKkh7fr05lVjUG5RAPOj0srHZ20DHWMmUTqsKnsyQGyGl+rIC/M4iWFb7
+	 BNSGEWEjfj+U4xFAyb2ED1aIZJWD7h0DgKJ6qiZRCC4Xpt3Y6K/gdT6KLiDm5FtElnmgM
+	 YD9LG5nvk7Yry0I0BttRAVSqOg1Fs28Fo18a8ce8qSFL790IJ1BjBA9nwZp6sj17P+1JE
+	 eYh7ORwQ2fhHYY687OdmYKvalJqlXPWSdTuQW0llf8bWgbZcPvufzcwvbA46fAE0HeeuT
+	 BpzxNO06Oluga1jDJYVNq3fcz8QckYG1hRGgyL7qwCrWSTtUTRfgGxY6siTUDRoU1iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863647;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863648;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cJ+jyiHcrkuFKlcBlqPpHulH/buCVf33DuiMRw6GxEY=;
-	b=bnNWiFGkWF33ZtAbEeHbjFZhwbGfJ3xg7QHh1mUyMyihxmaeNNsVD6rr64h57sk9kRiQ
-	 rbUEldcw0/Zo62VG5oTRWgdG1WoEEI9MYO+dldIOpXgAxkfX8HrrMYnEPqNZXH2LUXFd+
-	 6J47iNcqt5/KdAv/+yhIgpBa1pC7ZHlM1VP6tOBYii5af73SdxBCRhQ3qx6cbbAK7IEhx
-	 tL1fhwsvOdTiuwcHFIOfUze/b7uqjUryiu2OBjGvelby3tBp/1leRpEc3Nzh7TmOtLxBf
-	 Zrn5k9w5HlOqdqiQJL+nov2HhdAAjXIX0GEkNV7yf5GPw9a4XMRerC4oQCTcjVWTr8Q==
+	bh=RlACA9MD4T67LKgEBcMZ7tpcjd9NPKYk1vwV9d8Vfp4=;
+	b=UYhhexbs5YJF19ywzFn3AsdociTCULuqQhGuDwXt7fJax3EsD4BuRrqxvwmshYsDyXl2
+	 0cDH1Eh+tVCFxpgSVluknbN2YRYbhUut3+au+KsgOqjtELYRgAgoq1z566VTH1JTvKauG
+	 ktzPmzypbRQ4tZPnWh84swcRRSV21UEB9OfYZLS+9AL+LUU5RlPGeFELlsMwPVPy5cXUz
+	 NorJDUoGLEidl1mLfQGmmOvq7jUgRAYwW9X7iF2DAlVc9zNEwTYqKpj8n8QbjmXAAmklH
+	 Gi0m80kfc4X2pNfA3KWeKZBl50HVRFu8YhUj5YinSvoMcBZIs3dBxeVp3uds9zKXW+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zq/vSxMb";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDZ81ODR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0445606A326
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8A1606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq/vSxMb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271FE1F000C1;
-	Thu,  5 Nov 2026 07:27:24 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDZ81ODR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D062C1F00919;
+	Thu,  5 Nov 2026 07:27:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793863646;
-	bh=cJ+jyiHcrkuFKlcBlqPpHulH/buCVf33DuiMRw6GxEY=;
+	s=k20260515; t=1793863648;
+	bh=RlACA9MD4T67LKgEBcMZ7tpcjd9NPKYk1vwV9d8Vfp4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zq/vSxMbHBQBXSIwnBd04Nw6Y4nK8LkwbGrlWmnvYvgQxL/ge1URqfMVAcMtJ+x+o
-	 xOhDLTSoW7tpKpWzohoT+9cF7CaW9DWDBRyJMe3A5jbI5Nbpc+Oa0G69FUIrCnkHPH
-	 mHBVaqCiPEJygCCIcL7EFfterSoloX2A1SI0XrvbIGn0hjuVImaZPEpgoIDw6vRQi+
-	 HhjDqkUo1inUMUepqpmQqLolk/expJFQUmBQe5gzfOKZM6wxakH4sYhoX4h6GW1SMJ
-	 EmTu4RnpE2ULVZLBYCAUNztL56E8eycBTQQGCAOTwiKJCCLSgWlB4M0V8jeFunZxNX
-	 T9NytCNV402kw==
+	b=ZDZ81ODRhqOjGZtD1mJgP5IRR630t9gleJ5cJpKb5QBOsJuyM7rfJAjmvj7VL3CjN
+	 TtdkYYd8iAeIxFwNrnEsDqLiFjdBEEldJpwoTAU/oOVQ2lK6q4hotMnhzrOnfHFujR
+	 9bVk9g9zRt0toLiWmuS7HU+FJwjxLIpxBuk/N2rEMuBQF0Oc5f+JOx6jKsJO86oi9+
+	 kojMz0p0dbQQs67tduYCpLbfWKCIiUDq7aVrHNpe6VLJ+NZld4uSf5k+oVitSRvg/I
+	 YKsGPG8prHDvEDVoczV8MToR1HosU3q5bAFQczYG87BoU/r3rvwTG7EcZxPjVSa4nO
+	 Lk0yKwX4itQNw==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maxime Ripard <mripard@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv3 08/13] Documentation: media: document HPD_PRESENT cap and flag.
-Date: Thu,  5 Nov 2026 08:22:22 +0100
-Message-ID: <e98308c0db382c09ce698b34ca54f798ab0e3557.1793863347.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv3 09/13] media: cec: core: add support for HPD_PRESENT
+Date: Thu,  5 Nov 2026 08:22:23 +0100
+Message-ID: <ae93656d52c429861504836a10c07b9eac3cd470.1793863347.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793863347.git.hverkuil+cisco@kernel.org>
 References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
@@ -61,56 +61,227 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document CEC_CAP_HAS_HPD_PRESENT and CEC_LOG_ADDRS_FL_HPD_PRESENT.
+There can be two reasons for the CEC Physical Address to be invalid:
+either there is no HPD, or there is an EDID, but it does not contain
+a Physical Address, or the Physical Address is set to f.f.f.f in the EDID.
+
+For debugging it is very useful to know why the PA is invalid.
+
+Add support for reporting this to userspace by changing the behavior of
+two CEC functions: cec_s_phys_addr is called with the PA read from the
+EDID (or CEC_PHYS_ADDR_INVALID if the EDID has no PA or the PA is f.f.f.f),
+and cec_phys_addr_invalidate is only called if the HPD goes low, so the
+EDID is gone.
+
+The first function sets the new CEC_LOG_ADDRS_FL_HPD_PRESENT flag, and
+the second function removes it.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- .../userspace-api/media/cec/cec-ioc-adap-g-caps.rst    | 10 ++++++++++
- .../media/cec/cec-ioc-adap-g-log-addrs.rst             | 10 ++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/media/cec/core/cec-adap.c | 49 ++++++++++++++++++++++++++-----
+ drivers/media/cec/core/cec-api.c  |  3 +-
+ drivers/media/cec/core/cec-core.c |  4 ++-
+ drivers/media/cec/core/cec-priv.h |  3 +-
+ include/media/cec.h               | 27 +++++++++--------
+ 5 files changed, 63 insertions(+), 23 deletions(-)
 
-diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-index 1d5248979a6d..bf734cbee0dd 100644
---- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-+++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
-@@ -143,6 +143,16 @@ returns the information to the application. The ioctl never fails.
-       - 0x00000200
-       - If this capability is set, then
-         :ref:`CEC_MSG_FL_REPLY_VENDOR_ID <cec-msg-flags>` can be used.
-+    * .. _`CEC-CAP-HAS-HPD-PRESENT`:
+diff --git a/drivers/media/cec/core/cec-adap.c b/drivers/media/cec/core/cec-adap.c
+index ee8a200b9803..55b2e711fe77 100644
+--- a/drivers/media/cec/core/cec-adap.c
++++ b/drivers/media/cec/core/cec-adap.c
+@@ -1727,18 +1727,35 @@ int cec_adap_enable(struct cec_adapter *adap)
+  *
+  * This function is called with adap->lock held.
+  */
+-void __cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block)
++void __cec_s_phys_addr(struct cec_adapter *adap, bool hpd_present,
++		       u16 phys_addr, bool block)
+ {
+ 	bool becomes_invalid = phys_addr == CEC_PHYS_ADDR_INVALID;
+ 	bool is_invalid = adap->phys_addr == CEC_PHYS_ADDR_INVALID;
++	bool hpd_was_present =
++		adap->log_addrs.flags & CEC_LOG_ADDRS_FL_HPD_PRESENT;
+ 
+-	if (phys_addr == adap->phys_addr)
+-		return;
++	if (adap->capabilities & CEC_CAP_HAS_HPD_PRESENT) {
++		if (hpd_present)
++			adap->log_addrs.flags |= CEC_LOG_ADDRS_FL_HPD_PRESENT;
++		else
++			adap->log_addrs.flags &= ~CEC_LOG_ADDRS_FL_HPD_PRESENT;
++	} else {
++		hpd_present = false;
++	}
+ 	if (!becomes_invalid && adap->devnode.unregistered)
+ 		return;
++	if (phys_addr == adap->phys_addr) {
++		if (hpd_was_present != hpd_present) {
++			dprintk(1, "HPD is %spresent\n",
++				hpd_present ? "" : "not ");
++			cec_post_state_event(adap);
++		}
++		return;
++	}
+ 
+-	dprintk(1, "new physical address %x.%x.%x.%x\n",
+-		cec_phys_addr_exp(phys_addr));
++	dprintk(1, "new physical address %x.%x.%x.%x, HPD is %spresent\n",
++		cec_phys_addr_exp(phys_addr), hpd_present ? "" : "not ");
+ 	if (becomes_invalid || !is_invalid) {
+ 		adap->phys_addr = CEC_PHYS_ADDR_INVALID;
+ 		cec_adap_unconfigure(adap);
+@@ -1767,11 +1784,22 @@ void cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block)
+ 		return;
+ 
+ 	mutex_lock(&adap->lock);
+-	__cec_s_phys_addr(adap, phys_addr, block);
++	__cec_s_phys_addr(adap, true, phys_addr, block);
+ 	mutex_unlock(&adap->lock);
+ }
+ EXPORT_SYMBOL_GPL(cec_s_phys_addr);
+ 
++void cec_phys_addr_invalidate(struct cec_adapter *adap)
++{
++	if (IS_ERR_OR_NULL(adap))
++		return;
 +
-+      - ``CEC_CAP_HAS_HPD_PRESENT``
-+      - 0x00000400
-+      - If this capability is set, then
-+        :ref:`CEC_LOG_ADDRS_FL_HPD_PRESENT <cec-log-addrs-flags>` is valid.
-+	This makes it possible to tell apart the case where the Physical Address
-+	is f.f.f.f because no HPD (Hotplug Detect) is present, and the case
-+	where it is f.f.f.f because the EDID does not provide a valid Physical
-+	Address.
- 
- Return Value
- ============
-diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
-index 8397bf573798..e37898750ab5 100644
---- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
-+++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
-@@ -192,6 +192,16 @@ logical address types are already defined will return with error ``EBUSY``.
-       - If this flag is set, then the CEC device failed to claim a free logical
-         address and is in the unconfigured state. This can never happen if
- 	``CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK`` was set as well.
-+    * .. _`CEC-LOG-ADDRS-FL-HPD-PRESENT`:
++	mutex_lock(&adap->lock);
++	__cec_s_phys_addr(adap, false, CEC_PHYS_ADDR_INVALID, false);
++	mutex_unlock(&adap->lock);
++}
++EXPORT_SYMBOL_GPL(cec_phys_addr_invalidate);
 +
-+      - ``CEC_LOG_ADDRS_FL_HPD_PRESENT``
-+      - 16
-+      - If this flag is set, then the HPD (Hotplug Detect) is present. This
-+	 helps tell apart the case where the Physical Address is f.f.f.f
-+	 because no HPD is present, and the case where it is f.f.f.f because the
-+	 EDID does not provide a valid Physical Address. This flag can only be
-+	 used if ``CEC_CAP_HAS_HPD_PRESENT`` is set in the adapter
-+	 capabilities.
+ /*
+  * Note: In the drm subsystem, prefer calling (if possible):
+  *
+@@ -1782,10 +1810,15 @@ void cec_s_phys_addr_from_edid(struct cec_adapter *adap,
+ {
+ 	u16 pa = CEC_PHYS_ADDR_INVALID;
  
- .. tabularcolumns:: |p{7.8cm}|p{1.0cm}|p{8.5cm}|
++	if (IS_ERR_OR_NULL(adap))
++		return;
++
+ 	if (edid && edid->extensions)
+ 		pa = cec_get_edid_phys_addr((const u8 *)edid,
+ 				EDID_LENGTH * (edid->extensions + 1), NULL);
+-	cec_s_phys_addr(adap, pa, false);
++	mutex_lock(&adap->lock);
++	__cec_s_phys_addr(adap, edid, pa, false);
++	mutex_unlock(&adap->lock);
+ }
+ EXPORT_SYMBOL_GPL(cec_s_phys_addr_from_edid);
  
+@@ -1969,6 +2002,8 @@ int __cec_s_log_addrs(struct cec_adapter *adap,
+ 	}
+ 
+ 	log_addrs->log_addr_mask = adap->log_addrs.log_addr_mask;
++	log_addrs->flags |=
++		adap->log_addrs.flags & CEC_LOG_ADDRS_FL_HPD_PRESENT;
+ 	adap->log_addrs = *log_addrs;
+ 	err = cec_adap_enable(adap);
+ 	if (!err && adap->phys_addr != CEC_PHYS_ADDR_INVALID)
+diff --git a/drivers/media/cec/core/cec-api.c b/drivers/media/cec/core/cec-api.c
+index a491d7fc8a71..1ba080d5a123 100644
+--- a/drivers/media/cec/core/cec-api.c
++++ b/drivers/media/cec/core/cec-api.c
+@@ -136,7 +136,8 @@ static long cec_adap_s_phys_addr(struct cec_adapter *adap, struct cec_fh *fh,
+ 	if (cec_is_busy(adap, fh))
+ 		err = -EBUSY;
+ 	else
+-		__cec_s_phys_addr(adap, phys_addr, block);
++		__cec_s_phys_addr(adap, phys_addr != CEC_PHYS_ADDR_INVALID,
++				  phys_addr, block);
+ 	mutex_unlock(&adap->lock);
+ 	return err;
+ }
+diff --git a/drivers/media/cec/core/cec-core.c b/drivers/media/cec/core/cec-core.c
+index 230f8a413e74..49589e71d240 100644
+--- a/drivers/media/cec/core/cec-core.c
++++ b/drivers/media/cec/core/cec-core.c
+@@ -178,7 +178,7 @@ static void cec_devnode_unregister(struct cec_adapter *adap)
+ 	mutex_unlock(&devnode->lock);
+ 
+ 	mutex_lock(&adap->lock);
+-	__cec_s_phys_addr(adap, CEC_PHYS_ADDR_INVALID, false);
++	__cec_s_phys_addr(adap, false, CEC_PHYS_ADDR_INVALID, false);
+ 	__cec_s_log_addrs(adap, NULL, false);
+ 	// Disable the adapter (since adap->devnode.unregistered is true)
+ 	cec_adap_enable(adap);
+@@ -279,6 +279,8 @@ struct cec_adapter *cec_allocate_adapter(const struct cec_adap_ops *ops,
+ 	adap->log_addrs.cec_version = CEC_OP_CEC_VERSION_2_0;
+ 	adap->log_addrs.vendor_id = CEC_VENDOR_ID_NONE;
+ 	adap->capabilities = caps | CEC_CAP_REPLY_VENDOR_ID;
++	if (!(caps & CEC_CAP_PHYS_ADDR))
++		adap->capabilities |= CEC_CAP_HAS_HPD_PRESENT;
+ 	if (debug_phys_addr)
+ 		adap->capabilities |= CEC_CAP_PHYS_ADDR;
+ 	adap->needs_hpd = caps & CEC_CAP_NEEDS_HPD;
+diff --git a/drivers/media/cec/core/cec-priv.h b/drivers/media/cec/core/cec-priv.h
+index ce42a37c4ac0..c16792a30752 100644
+--- a/drivers/media/cec/core/cec-priv.h
++++ b/drivers/media/cec/core/cec-priv.h
+@@ -46,7 +46,8 @@ void cec_monitor_pin_cnt_dec(struct cec_adapter *adap);
+ int cec_adap_status(struct seq_file *file, void *priv);
+ int cec_thread_func(void *_adap);
+ int cec_adap_enable(struct cec_adapter *adap);
+-void __cec_s_phys_addr(struct cec_adapter *adap, u16 phys_addr, bool block);
++void __cec_s_phys_addr(struct cec_adapter *adap, bool hpd_present,
++		       u16 phys_addr, bool block);
+ int __cec_s_log_addrs(struct cec_adapter *adap,
+ 		      struct cec_log_addrs *log_addrs, bool block);
+ int cec_transmit_msg_fh(struct cec_adapter *adap, struct cec_msg *msg,
+diff --git a/include/media/cec.h b/include/media/cec.h
+index 4c8b0950b377..7bb9ada696ca 100644
+--- a/include/media/cec.h
++++ b/include/media/cec.h
+@@ -381,6 +381,16 @@ void cec_s_conn_info(struct cec_adapter *adap,
+ int cec_transmit_msg(struct cec_adapter *adap, struct cec_msg *msg,
+ 		     bool block);
+ 
++/**
++ * cec_phys_addr_invalidate() - set the physical address to INVALID
++ *
++ * @adap:	the CEC adapter
++ *
++ * This is a simple helper function to invalidate the physical
++ * address when the HPD is lost.
++ */
++void cec_phys_addr_invalidate(struct cec_adapter *adap);
++
+ /* Called by the adapter */
+ void cec_transmit_done_ts(struct cec_adapter *adap, u8 status,
+ 			  u8 arb_lost_cnt, u8 nack_cnt, u8 low_drive_cnt,
+@@ -491,6 +501,10 @@ static inline void cec_s_phys_addr_from_edid(struct cec_adapter *adap,
+ {
+ }
+ 
++static inline void cec_phys_addr_invalidate(struct cec_adapter *adap)
++{
++}
++
+ static inline u16 cec_get_edid_phys_addr(const u8 *edid, unsigned int size,
+ 					 unsigned int *offset)
+ {
+@@ -513,19 +527,6 @@ cec_fill_conn_info_from_drm(struct cec_connector_info *conn_info,
+ 
+ #endif
+ 
+-/**
+- * cec_phys_addr_invalidate() - set the physical address to INVALID
+- *
+- * @adap:	the CEC adapter
+- *
+- * This is a simple helper function to invalidate the physical
+- * address.
+- */
+-static inline void cec_phys_addr_invalidate(struct cec_adapter *adap)
+-{
+-	cec_s_phys_addr(adap, CEC_PHYS_ADDR_INVALID, false);
+-}
+-
+ /**
+  * cec_get_edid_spa_location() - find location of the Source Physical Address
+  *
 -- 
 2.53.0
 
