@@ -1,84 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793885053;
-	b=jqsgAMuofVRCxWa7m6PTsL7UUkulafa4jIIKTDo/b46bwLmiK+q672ycN2NJNaVvaAJs
-	 g85w0E1LXgd7uhuMcOBCuhOL5d7qDi9DgK4sLJ0Dca5YSyVMIcM6BwwrasW+fhKLOdlNK
-	 jAFvKKefQ+Dm2yMJ0iDdj9jdku8m4AztTNQg1ULUnclziZls6wbNcwDxGMkWfzA+GTshu
-	 DiICDzgWOepGNeTmyP4saakEl+Op4bv3IIqyFqrKwm9y4d6I4/b8vYHFcMQFMyhDhLtJr
-	 3MgAYZLByIOuh9giTnVcEUWc23YCUs48QexjuVJyQ19kEHhWfkTaNZ9DXJX958Vp/rA==
+	t=1793886750;
+	b=2ZjNB08+WtFr6naGAJpquAtZC/JRX6P4E3j3RmOGHjiT5xNi00nnkBSuf/OpJEvTdDfE
+	 iNqrE4m1VSRO1M+I9biSxXyTIMS40ykLNjReB7oaY0UCJLikc2eV+TZfY6GYjPsYkz/fg
+	 avtZbwM20W7KpzebsK2PYzon2RQIIQYN7DzHkCadvvdC3q8pxCCRMq127ev8E/eMVIeqM
+	 UkMHjgUNwBia8p0PyQkdPP+IsM0y0TkiVSu3qje6Tki+JEFYdTmkfsIrHFazMHE2DylbC
+	 zozSHrHkIWY0F5BvUeaqNL0VvJIKfD7mlDawdmWRYCMNWD6xOrYAdq1QKj5utLPB/4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793885053;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=cr7b357bQF9gcmhhu+T4xYlpo1IDNyxkNJbpgvGxS7k=;
-	b=WC+IwIPPh/3T3Ki44sWaozuRXYPRDajAznQa226JhsNuPnjXb7Z27npYFT52uxO+n0S9
-	 dTMibUVgsef1fZV7LWlViZ/De8eaPoIyN9niTvuxGcjc0HVIIMALUF8wXobQMBgcIEgaI
-	 pbH8V4v8f8OIkJaEftPX6n3raB3FowIinB3ZmCswoJycdc3T1f93Vit2ZYI/Gt7PeKXqG
-	 yf8DySk8B92Ph31leupBiikujX6poyw2YlLh2U+EGRpAy+WmfREP1qZ+SuzLigoa1yw5c
-	 hK6lTui9tpccLNTUMKJa7lQWC/bgX7EBO1OMLTLR6n0oiPaHjz9scNP9vuy02na3MWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793886750;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JeahCgBrqhQ8oPAtWJnblBFX1NrAxRVlymvspDmA96g=;
+	b=qcuiK9lD3Pe6gBXriPIYLjluldNdPhjiheSKCkpVNDm2pspex0nc/d148x6ZECq4OVKd
+	 tnmHLsx2nR4FcVP/Vn6YJ2GJmE/XRWxYNTA3GwuQ4pSf1zGxioXl+d8jcKuLDQvHbxfie
+	 6gGQarMx1O/FPah8iwtWKQ80i0RxBWIJyder7M/51du42rpI2kcrK+YwH7ADSfgFkZSbt
+	 BT+vH/kqNwPrPN4Fl1grkFp12D9q2DJA7+dzXLN9kSsFAu+JugR+w5dXbQ8NaeLqleeq/
+	 +sc930jvmUsyYcjqIfBA4v8D5WyBh7hDGqnDCP8XKW0f+tQlGT7pmIQzjGg0VW4j9zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qd0I7Vod;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys5A0nML;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23528606A328;
-	Thu,  5 Nov 2026 13:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23528606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB94606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 13:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=qd0I7Vod
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jL31M2Q9yzKp4M;
-	Thu, 05 Nov 2026 14:24:07 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793885047; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cr7b357bQF9gcmhhu+T4xYlpo1IDNyxkNJbpgvGxS7k=;
-	b=qd0I7VodEh/YGmDacD0GpRjBefhw/+7TY4fYCETDCELlDau43W4Iv1ZAtJX5YQM/vD7F/t
-	Io2f6fgGc/1F5ghEf/MwbMRYSvhnO23qAWB8qco1mS8wiPuKLqck7hVRtAjv9KvLCpRwsN
-	5BDGlkKRIyCWuqV/u+BODFeuOQ9d5alieCuk/+Y6suKKqh7/GA3zAEMoUY4UorCuzThBnx
-	RAoCZP1x6JKpPOjnRBqcV4hJHO2lbA1oGvP5u59rPEgEaDAqhk/4utGymk+LRznEokAtCo
-	zHJ1rjx+Yg28UFnUB1y5TF6dTQ9YwzaheqekvhLUbhZMsDBU6ghGaQzycEEhCw==
-Message-ID: <2fa6e631e133acfc7e7de1b287c8b3983168b1c6.camel@mailbox.org>
-Subject: Re: [PATCH 1/3] dma-buf: dma-fence: Add flags parameter to
- dma_fence_init()
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Philipp Stanner
- <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
-	etnaviv@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	imagination@lists.freedesktop.org, lima@lists.freedesktop.org, 
-	linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
-	nouveau@lists.freedesktop.org, virtualization@lists.linux.dev, 
-	spice-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	linux-tegra@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-usb@vger.kernel.org
-Date: Thu, 05 Nov 2026 14:24:04 +0100
-In-Reply-To: <b8179edb-bc59-49af-b8d0-f62e39752f3a@ursulin.net>
-References: <20261105113529.1989375-2-phasta@kernel.org>
-	 <20261105113529.1989375-3-phasta@kernel.org>
-	 <2f377d0f-2760-4465-ac68-b62210b33bd6@ursulin.net>
-	 <005b77fd-5bd2-4ae5-a0c0-cff3f1f6c680@amd.com>
-	 <b8179edb-bc59-49af-b8d0-f62e39752f3a@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ys5A0nML
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9A871F00A18
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 13:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793886749;
+	bh=JeahCgBrqhQ8oPAtWJnblBFX1NrAxRVlymvspDmA96g=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Ys5A0nMLDZtcc2L4EmxW5mFU4qrY0ip3kpiKLblrYSYJaq70vYZP5oERDrKuMwxnk
+	 uJUxriEtqugBLdHD8i5MvFdIMUfvSrU68tpbl6bmfIlifR3ZqLtQ9X6CMra4KXRpNt
+	 PlMAWdXOJ0Hla7ZUpwjGVvaR9k0TmY0n/gqV04gEDvna+HkADy1p5ZRaBgq1QgJZfp
+	 6BlJ8sgOVzxs7RtKSofDyOm4CnGiEo4X/EiJXROq/ABYOozmwtKRViqcQ7WJAxyoNX
+	 EuoP8TyEjZCECXWlPkcF5bcsks0D7RXDeBIgS9Xpqr88zPEX8TgHpt8RZ3uC7H7N4S
+	 q+4AbZqy+r1xw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5bfc2ae6e9dso1510297e87.0
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 05:52:29 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBzybOaEGpUpg5ewsiheV6d4VkF9gi3i373HeO1HQSwae+1F2LTm3AGC/6fYmBRe5A3xDrKZIbIOHQuVpw==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Jbp1V2GpjDRc49vjYKSZz5BrbHgxThx+1az4gaHe05CG9bQ92
+	Q+kPxAlpqG14iQH0ruWVi0QMEe7Zb8PesJZH/5VUBTlzZ6k3TFjYg2wrQiYdHQIsp1HPCIRLYA3
+	RbSFbSyaY/ZiMv5a2m7/1d6IcpVJQr9o=
+X-Received: by 2002:a05:6512:4286:b0:5c0:165:16c3 with SMTP id
+ 2adb3069b0e04-5c001651b15mr124760e87.64.1793886748448; Thu, 05 Nov 2026
+ 05:52:28 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -88,38 +59,75 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: bba065728d0df46fffa
-X-MBO-RS-META: 6r63pcufosrhwuio4jrkztwnqgi8ttuw
+References: <20261027-mali-c55-renesas-dts-v5-0-51bbb43969c1@kernel.org>
+ <20261027-mali-c55-renesas-dts-v5-7-51bbb43969c1@kernel.org>
+ <CA+V-a8vEub2y2gvXp8jkjVHOGuj1Eqkbq75t8Nezz95iidtL3Q@mail.gmail.com>
+ <CAD++jLn_3X65zu8q-DfWbn4xjyPrSfp5BVH4SO96XCxmegcvXg@mail.gmail.com> <auxUgg0PP9xXqA68@zed>
+In-Reply-To: <auxUgg0PP9xXqA68@zed>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 5 Nov 2026 14:52:14 +0100
+X-Gmail-Original-Message-ID: <CAD++jLnHymVvk1i1o0vC1PBguQ_-Cpc4tCH4P2ztn8cF7G-izw@mail.gmail.com>
+X-Gm-Features: AclHuK9aWghSgGPgEAyeqdT4fh_Hp97d1wLRufm5X27_o_R8h01yfuAkz9ZEscE
+Message-ID: <CAD++jLnHymVvk1i1o0vC1PBguQ_-Cpc4tCH4P2ztn8cF7G-izw@mail.gmail.com>
+Subject: Re: [PATCH RFC v5 7/7] media: mali-c55: Sequence resets explicitly
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-11-05 at 12:51 +0000, Tvrtko Ursulin wrote:
-> On 05/11/2026 12:35, Christian K=C3=B6nig wrote:
-> > Well one advantage of the Linux kernel is to avoid such wrappers. I
-> > think having more than one function for the same thing basically
-> > just adds more confusion.
->=20
-> Sure we can churn if we really want. But as 99% of callers will be=20
-> passing 0 it's not even very readable. Another option is variadic like=
-=20
-> kmalloc_objs so flags can be optional. Anyway, for consideration only.
+On Thu, Nov 5, 2026 at 11:10=E2=80=AFAM Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
+> On Thu, Nov 05, 2026 at 09:58:09AM +0100, Linus Walleij wrote:
+> > Hi Prabhakar,
+> >
+> > thanks a lot for your help!
+> >
+> > On Tue, Nov 3, 2026 at 2:47=E2=80=AFPM Lad, Prabhakar
+> > <prabhakar.csengg@gmail.com> wrote:
+> >
+> > > I tested on the RZ/V2H EVK with the clocks and DT left untouched,
+> > > changing only the reset order.
+> > >
+> > > The hang comes from the reset assert order in __mali_c55_power_off().
+> > > Asserting vresetn (the ISP core reset per the RZ/V2H manual) before
+> > > hresetn/aresetn wedges the ISP. The next power-on then stalls on its
+> > > first register access. The deassert order doesn't matter.
+> >
+> > OK I will drop the clock patch and keep this one.
+> >
+> > > Asserting h->a->v (deasserting v->a->h) passes repeated runtime-PM
+> > > cycles and also works with the IVC enabled. So 7/7 gives the right
+> > > reset sequence, 6/7 isn't needed for this, and the existing DT mappin=
+g
+> > > (0xd3 =3D vresetn =3D ISP core reset) is correct.
+> >
+> > So this is a Tested-by for this patch?
+> >
+> > > A smaller alternative keeps the bulk API and only reorders the names:
+> >
+> > I guess that works, but I'm not sure the reset bulk API in the
+> > kernel guarantees any order, so we better keep this patch as-is if
+>
+> I was under the same impression as I have memories of quite some
+> conversations around this and I recall a workqueue was used to
+> schedule bulk reset operations.
+>
+> Now that I re-looked at the implementation of
+> reset_control_bulk_deassert() and its history I don't see any trace of
+> it and the documentation says
+>
+>  * Deassert the reset lines for all provided reset controls, in reverse o=
+rder.
+>
+> Was I hallucinating when I first suggested no ordering was guaranteed ?
 
+No idea... Lad showed me it is guaranteed so I sent a considerably
+less intrusive patch now, check it out!
 
-It has the advantage of forcing the reader to think about whether he
-wants 64-bit sequence numbers or not. In Rust-fence, for example, we
-completely overlooked that for months:
-
-https://lore.kernel.org/rust-for-linux/20261023175750.2979015-2-phasta@kern=
-el.org/
-
-
-Besides unused flags fields are quite common in APIs. As I state in the
-description, this is also for future extensions, see my race-flag (if
-accepted) as one potential example.
-
-It could also be used for canonically setting the user-flags, which
-users currently do with a manual set_bit(NR, &fence.base.flags;
-
-So I think it's safe to say that it's the right thing for long-term
-reduction of churn and maintainability.
-
-
-P.
+Yours,
+Linus Walleij
