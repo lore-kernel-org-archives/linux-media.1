@@ -1,66 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793906354;
-	b=Xv/JDTIO2Ws/019Wwi/hS4QC8T37LEFr/sfWxfEf3XZkydZjptXk442gjZaJk6/YV43f
-	 CLRrlJeoToFqKLBZfJmmu77EROzWwCQobBh8hgY1lq4lFDblfyw6eBb7n9I1mSsSkS39B
-	 pq3v6m00BZMeCQ2Qz1dMWVksBRj+DcqeaR1gxPqguSnVzj73QK3xedpANcPZOTUMGapdB
-	 8B656MYr9gikTacvHKa4naw5jyeWuZZu9DnGkSC6Bqdp5FHn9E6JslGLUIN8Y8iibevrj
-	 ecMVwAemokS0v6x+m/vdyDcYQJY0WFNfUUa8sOj+1HLQLkHUUg/1bD4UpebI+/RkSAQ==
+	t=1793906350;
+	b=l8gFmpjm5UbrYEtPNZD8FaNAPtutcQ6EYGDxYpHwJF5te60BwqQe6LMvbX5zRZIlHr3x
+	 HTTuuFokexTJ/dcRG+D5bpGuaVqBVdw746bEr4TkNBUVkjddBC6ap3hu9LnnJEn+V99Yc
+	 OC+tRCEaDPGQ7qUzpXo/FLGCOZNdo4QS1W60CZDXOlzTlcv83USUzZ05Leyc6xfN3Eu0j
+	 OMggIve1dILxpC9UZuUKVGki72pqZvWqzFBOi5J1wtuPDVPWUYjodhDFZiF4F87dnbTA0
+	 rYzmXdIjILTo04auSH+F2ZJETZvX+DshX+AWEU4b0aSCDOAUZbVuHQ4L8exsrubToGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793906354;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793906350;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:References:
 	 X-Mailer:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:
 	 MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=FOJbl8BO95im62DOG6agEqaoWrcZD8bJl1ZvYV/eIRw=;
-	b=rda3Ax7zhzjWzLWeL3SHPmqXpkQauB43EDDYSPKXVUgQ2wC2q8qJYDx+u1HYbofPqNO6
-	 ++L5ur51dowkWXY0vg8vMFaZVjDgDQy4buw3wVBU7blbDNW8eJEAMd3EbDnVXTJCR+Hcg
-	 16yD1rV7Ti3BzbmQeM2c3Sfy9vPn8WvMIDSP3FlHSv+VTTNFAS5z5zdB0nT6qthsle0wR
-	 nZrn2eGd8+D6Kg4Ot1XEACfxJu5+4u05QFf/9TnPwpuYBatfNYnXkTs/NLpis+1B1kd1n
-	 UvUyMnzz7+qMzlTwtJu8cQDynCNAQhHr0jy2+OCDxuI5YWDbBqTjzrTe9DTJOtXQ++w==
+	bh=pl9YdTHjzstFUBIDQ8J3EXU+mFNbe168ZQZfU2wMuBw=;
+	b=NYLJtODMcyLLVlPZ88FlInipOp+UFPoQZPOOjvKHdDMKYmP4YXvoF9DC9zknI90f3rp/
+	 CVjqXarwSga64Bh+0ZT+4Px8C5MxtKNy628jfA/rHnXW2jkH8/pCpd86S8XPlzXpLOVaB
+	 iZbAIv6xFdz/FNxC0s+73x/NNnBJ91T8sNclggOnO0d2AprvxSTHZP6/+xsnMSwoa0PAH
+	 lCStW0NQ+uwH782JvcbJevYwivTK6lpRTPadQpF6aqjt0tYGoXkMdkoxSvW+xN4dF1C3q
+	 qI3PMNE4JCzukLQCr8BHdcMfNtG0niALPyrC4tNR32RDFUXkbbKCLt4qhz2DVhLwwgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fqwqf.xyz;
 	spf=pass smtp.mailfrom=send.fqwqf.xyz;
-	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=RkTx8lp9;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Act2Ps+u;
-	arc=none smtp.remote-ip=23.251.234.50
-Received: from e234-50.smtp-out.ap-northeast-1.amazonses.com (e234-50.smtp-out.ap-northeast-1.amazonses.com [23.251.234.50])
+	dkim=pass header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=SKcdGcue;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b="Sp4/guqN";
+	arc=none smtp.remote-ip=23.251.234.55
+Received: from e234-55.smtp-out.ap-northeast-1.amazonses.com (e234-55.smtp-out.ap-northeast-1.amazonses.com [23.251.234.55])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B10606A32D
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 19:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9B10606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA78A606D810;
+	Thu,  5 Nov 2026 19:19:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA78A606D810
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=RkTx8lp9;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Act2Ps+u
+	dkim=pass (1024-bit key, unprotected) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.a=rsa-sha256 header.s=resend header.b=SKcdGcue;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=Sp4/guqN
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1793906353;
+	d=fqwqf.xyz; t=1793906349;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=hbAA1tC9xIBP6Lh1fJ8x8vijjAijX30HS/nt2gBNXvw=;
-	b=RkTx8lp9107GTL3Pl1F2wRvayPtvOu3HHXYeuDXkJ5ofggvCr8S/7FfoG3xhE3jY
-	XalmCQL9sIuvaBrXjRjltYcFViakzkl+dnf6Lu0NrEHtOgDCuiw88vWSOKkYQP2ALD/
-	jwyOGkPbglrdqgDC1YzyblpDVKVsJXsRmhQyEev4=
+	bh=3a2TKKu6c488cLrk+vcl0HofWRPkemnN04CQHxiDno0=;
+	b=SKcdGcuepwvngqsgSoaGpbShB52xUs5KCnngDi3HlsTevSrUzttAkSwwzxAIn7vC
+	knUzOSPTtJ7ctlYUd1HjuOKTLwkbgOWS3iiGoRYUoZO2+LN7B4UXF7sHi037JbgiorU
+	iSyLwgG/bcZ76lfKZln5vDReHqw9mKPuBTzKjjI4=
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906353;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793906349;
 	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=hbAA1tC9xIBP6Lh1fJ8x8vijjAijX30HS/nt2gBNXvw=;
-	b=Act2Ps+u2cbhflwZy4AWFm1OAawjjO7C42Njoy1/8pgpg1uU9o6sVhzIA4d2v0Nu
-	jfrGDlxb/1XP+UPYTVMHSLP58K8xuGE+MbmUu1+HIc1qPEgxDmtb9HmejAdBCG7nCKF
-	VMVBCyTtUC/AMXmSwac8RRCmdjiGSjLvxBJv2aXc=
-In-Reply-To: <20261103103235.94397-3-lsa.uz@pm.me>
-References: <20261103103235.94397-3-lsa.uz@pm.me>
+	bh=3a2TKKu6c488cLrk+vcl0HofWRPkemnN04CQHxiDno0=;
+	b=Sp4/guqNOezlkOeBBq+FekxGvteZOXi3rbxsYxhhUzY+6zSedYeFdRCjV/e5WFma
+	+itVfomaxqBteLNIfh0vWhnkPwpnkvWL4yAmcQU1rifO7xv50udrwBYbM8oM8dBamEN
+	yxQdi9YNhWgJ6SPlnt+fjH6XRe7ski2457TXwKrc=
+In-Reply-To: <791c7eed-f0c2-47c3-9595-77be72f29771@kernel.org>
+References: <791c7eed-f0c2-47c3-9595-77be72f29771@kernel.org>
 X-Mailer: git-send-email 2.53.0
 From: Jizhou Tong <fqwqf@fqwqf.xyz>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: sakari.ailus@linux.intel.com, benjamin.mugnier@foss.st.com, 
-	sylvain.petinot@foss.st.com, hansg@kernel.org, mchehab@kernel.org, 
-	linux-media@vger.kernel.org
-Subject: [PATCH] media: i2c: vd55g0: register through the sensor helper
-Message-ID: <010601a1ad26a461-7000cf48-b14a-45dc-b2bf-7b3fd5d81aef-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: 7bit
-Date: Thu, 5 Nov 2026 19:19:13 +0000
+To: Bryan O'Donoghue <bod@kernel.org>
+Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org
+Subject: [RFC PATCH] phy: qcom-mipi-csi2: clamp the programmed settle count
+ to six
+Message-ID: <010601a1ad2694f9-a9be628a-40db-4074-b0bd-1fce00cdb65f-000000@ap-northeast-1.amazonses.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 5 Nov 2026 19:19:09 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -72,49 +72,95 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.11.05-23.251.234.50
+X-SES-Outgoing: 2026.11.05-23.251.234.55
 
-The plain async subdevice registration function does not acquire the
-privacy LED described by firmware. Consequently, a board can provide
-leds and led-names = "privacy" without the V4L2 streaming helpers ever
-being able to switch that indicator on.
+The settle helper returns zero for intervals no greater than the
+six-tick hardware offset. lanes_enable() then rejects the configuration.
+For slightly larger intervals it can program a count between one and
+five. Bryan requested a minimum programmed count of six instead of
+rejecting the zero-count case.
 
-Use v4l2_async_register_subdev_sensor() to acquire the privacy LED and
-register the sensor's firmware associations. The helper releases its
-resources on registration failure, and v4l2_async_unregister_subdev()
-already releases them on removal.
+Keep the six-tick offset separate from that=
+ minimum: first calculate the
+rounded interval in ticks, then return six =
+when subtracting the offset
+would yield less than six. Check before =
+subtracting to avoid underflow
+for intervals shorter than the offset.
 
+Link: https://lore.kernel.org/all/791c7eed-f0c2-47c3-9595-77be72f29771@kern=
+el.org/
 Signed-off-by: Jizhou Tong <fqwqf@fqwqf.xyz>
 ---
-Hi Sergey,
+Hi Bryan,
 
-While preparing to test your driver on the Surface Laptop 7, I noticed
-that the registration path skips privacy LED acquisition. My board
-describes a white camera indicator through leds/led-names. This increment
-is against v2 2/4 and is separate from the three v3 updates you described
-in your November 3 follow-up.
+This implements the minimum you described in the October 19 reply,
+separately from the rounding patch. I have interpreted six as the minimum
+programmed register value, after subtracting the existing six-tick offset.
+Please confirm that this is the intended hardware policy.
 
-The driver builds with W=1 on ARM64 after adapting the two unused
-client-info parameters and their internal call to my older local V4L2
-pad API. That compatibility change is not part of this patch. I have
-not run this standalone driver on the hardware yet.
+For example, the rounded interval of six ticks at link_freq=3D600000000 Hz
+and timer_clk_rate=3D66666666 Hz previously returned zero and failed lane
+enable. It now programs six. Intervals of twelve ticks also program six;
+thirteen ticks program seven. The offset itself is unchanged.
 
- drivers/media/i2c/vd55g0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This is based on the accepted rounding RFC v3 [1]. The ARM64 W=3D1 object
+build and 20,571 ASan/UBSan actual-helper cases pass. The previous helper
+fails the minimum-count checks. No hardware test of the new floor is
+claimed, and it is not installed in my running kernel.
 
-diff --git a/drivers/media/i2c/vd55g0.c b/drivers/media/i2c/vd55g0.c
-index 3b51a87e74..298fdc1b3d 100644
---- a/drivers/media/i2c/vd55g0.c
-+++ b/drivers/media/i2c/vd55g0.c
-@@ -2350,7 +2350,7 @@ static int vd55g0_probe(struct i2c_client *client)
- 	pm_runtime_set_active(dev);
- 	pm_runtime_enable(dev);
- 
--	ret = v4l2_async_register_subdev(&sensor->sd);
-+	ret = v4l2_async_register_subdev_sensor(&sensor->sd);
- 	if (ret) {
- 		dev_err(&client->dev, "async subdev register failed %d\n", ret);
- 		goto error_pm_runtime;
--- 
+[1] https://lore.kernel.org/all/010601a154d848df-37257f7a-0553-43ed-93c2-4f=
+cc5b690d14-000000@ap-northeast-1.amazonses.com/
+
+base-commit: =
+d7e7bca7169873b46e857c025c10f3336c1258d8
+prerequisite-patch-id: =
+1f072b82125ac6272dc2a011688afc6cabb0f99c
+
+ drivers/phy/qualcomm/phy-qcom-mi=
+pi-csi2-3ph-dphy.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 =
+deletions(-)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy=
+.c b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+index f07699ba1f..dd70f29669 100644
+--- a/drivers/phy/qualcomm/phy-qcom-mip=
+i-csi2-3ph-dphy.c
++++ b/drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c
+@@ -223,19 +223,20 @@ static u8 phy_qcom_mipi_csi2_settle_cnt_calc(s64 =
+link_freq, u32 timer_clk_rate)
+ {
+ 	u32 timer_period_ps;
+ 	u64 t_hs_settle_ps;
+-	u8 settle_cnt;
++	u64 settle_ticks;
+=20
+ 	/* Round the complete 6 * UI term up, avoiding an intermediate truncation=
+. */
+ 	t_hs_settle_ps =3D 85000 + DIV64_U64_ROUND_UP(3 * PSEC_PER_SEC, =
+link_freq);
+=20
+ 	timer_period_ps =3D div_u64(PSEC_PER_SEC, =
+timer_clk_rate);
+=20
+-	if (div_u64(t_hs_settle_ps, timer_period_ps) < 6)
+-		return 0;
++	settle_ticks =3D DIV_U64_ROUND_UP(t_hs_settle_ps, =
+timer_period_ps);
+=20
+-	settle_cnt =3D DIV_U64_ROUND_UP(t_hs_settle_ps, =
+timer_period_ps) - 6;
++	/* The programmed counter has a minimum of six, in =
+addition to its offset. */
++	if (settle_ticks < 12)
++		return 6;
+=20
+-	return settle_cnt;
++	return settle_ticks - 6;
+ }
+=20
+ static void
+--=20
 2.53.0
 
