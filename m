@@ -1,93 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793876860;
-	b=XW9YV/TIE15YHBQyBHBpnV/BT+06ghnovv+RJuPN6akV01ThPr1cDyHvXWQ0y6ITg9ip
-	 zu0irwNFFsxOJJzUpqubi42iy2trCl++ne7Es8o8E/hhkX7T1IystSscpVhRGzse7mXNz
-	 bIcgxOwm/9RV0MZUDF0Ulf00WCAG4FWMu8gR35f6HBZuyZ5mDyer73citUPCQESazGJYE
-	 o3U5DoWhhw83uzXACwiMm6zmRa3GW0QPksCoOh/5nwKZxJwhem13SRF/p7cRE/7kcD2j1
-	 GvJg0GkvHBwEOOGE+8mCW9XsIu/tGGUvPPaBeLOxngmIQg6tSB5JWTyBpfYoIJu1jrQ==
+	t=1793876991;
+	b=HaFaEGCZUmc2pId1XTqGh15kfAfL6bbg8Kf/sHbnCWIQBH+M698Oj1VY9kB2JNaoPXzY
+	 hCMjcZb4/cTSyci0xc8U9FwCu5a+SGmCinL3ayLPeO5MhJr1m6sd3MyKKj6hhN2qfwj5c
+	 2s77EWSbfs52ibW8esjOeZBceE42bnL7jLGHU+B0x/NBDs2is/8V4UVqi1soZkku7TFBP
+	 zv/nKAavlofy6JFsvEwrChB+sMJ/boJYmgq2JJw9YJFihnkzE4SchrkF2zcOTLBoRAegs
+	 RkrZQRikL0bvRo7WctiGFLhTqEvIGHFBGbjYVXvKlAyqRh+nHV+1/5MXY+h0/W6Ct7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793876860;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
-	b=iI5lyYftUvkv/83Up03nt37Z/eviqht2K6+KL20wHXLz9FXcBFiUo9ey8BP8x/cEyo0y
-	 YLJM7d6EBYprnX2dY9b7Ib5wU7vNU4t2wExprV9GDrSkAhPtMV0YAw56H/N3GFReWxb3Y
-	 MB2euPe7wTnION9vhibI2Hg/V6hBTqVNIp5l7v+/+xjZPearYokuPBR1NQIn18C0vOxXE
-	 0xwT8z+pMCQtDu9Oi9jujuIz6MPnWLbYeEEzXNMTaskHF0v6mTwy9qQ2p3LKAKXJj8x37
-	 +ofrFMZGZMDjnawp8z9zTzzQ2bP+cog5cgA9nH6k0xBgqpACnZaEDRtqVAYOZIPj5Ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793876991;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=BR00Dpxko6WL7FYEXY9i3C8lkNmUwrkbEGiJyBaasfE=;
+	b=k5i7ABLY8pulQGM0qTwzlf1j4qAOrq4gl5K1nqjfHP+EbupWo7/Lw16ywiTDGk8/gFrZ
+	 b1yAuejxkalqBnuP4UgWiPXuAfX0e6nmuOmM/GiE+udJlZ4/hiM6IwcD7DRaYXKYqE97B
+	 lvMHCHwE+RZn9e65dn4roLnTaeS2++XhniW+VglAMBePpsruGK6QhxPQfqvnGB41lN5z1
+	 0f8NOZZMY07/xwsFujBtRQbd4dfQFvptie6+n9EaIzInigpmOYGUSemgFoszPOjr8Gtse
+	 bVqlBOrXBH04RNWOYpPa6h9z8kz5Douj+b1IN1QufX6PLHS4bumyTJfzCOAkQPfEspA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ecay6QKq;
-	arc=none smtp.remote-ip=209.85.161.51
-Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com [209.85.161.51])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E8F606D807
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 11:07:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47E8F606D807
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ecay6QKq
-Received: by mail-oo1-f51.google.com with SMTP id 006d021491bc7-6b19e291cc6so1521165eaf.2
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 03:07:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793876859; x=1794481659; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
-        b=Ecay6QKqhC6kn7BuWoVPzwDa/Eckq99O7ro3UbYoxGCM6JrjmZh1sue+JID8GmV9mP
-         /neJ6klECd5nqtefqWVE6DQIwbnDKKI1BQapmlzgEOZ7i0Dfn1OVesrQW28eW9l7Lz9p
-         8B4e//IMa9OsNdf82XOECh8rDMyLi9+Hx6bEWeRdHigY/6J3g6q6xdp3M7RRKkbgw+5i
-         wJH5yt9ZBBr3xmPwILd+0KWAmBALLz/AeLPrrKBCvcJzWlRlz2gWDtk5IuzOOyzuM+S4
-         yKHIrvVpI0//PEFMiDXQ9Vn63rwREWvrRbUU3cTyL39ET8mghl9DmUrdNTQGUlWQYcTF
-         qFvw==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C01606A33B
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 11:09:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99C01606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-547ae874949so2453996b6e.2
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 03:09:50 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793876859; x=1794481659;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6X/RUIiQQa87xx60aQjdp21uP+BGANbNQttC7WmkNww=;
-        b=Jz6SopPujGBV+wJA3Uqv3ipLJcNPD9w8U0YeW1T7SSZ3moFe34Y4Y9v62uF8sl2O5w
-         1KnsMFiy7wAkXLnqRs3NtKzyWOPWX97VevKeEVdNzU0IM3w3fJ5q+Cj2KF/jieswn7yO
-         cGnrwHZTd+5FgGbdS2o+By043PpRCNx4yDhtgCDBYtyz9mIvPsZrFQ0zAXjxMsCZNAoP
-         xCmcsmjHY2SHnt/sbNjGbwczJ9yLIxw7DE0nIEmHHDvgMhTImNKnBlenXILxf1bcaVeR
-         LDXt3NaKiAapcQXwNzLlFMvG80vISMv3H3ey+QvmB0MtKq61pc3+aQlF51+bFYV4ybLg
-         6VQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzhDPvxCuT8NSmOxhqkyCeb/qUBfCYSkRgTRzQUmZqPiDSIQ/176CAb6nTsHWmvGgJlTtfEjf0img5Oyw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8SqWGXEjbWDiQR62QHLqThMcHGeGfFTFL6XvIhQhwKW9LBPVY1
-	8gzzStKHsBoIur59LGbKi9NX0NQzjKuntaqrTFDcUdWvrliq+nJzNYK9
-X-Gm-Gg: AYBFou1RKe3t70vXKSTF+uREn5pRuLLRYyqruJTv/kQ0EU1KcDHW6MWb/FJpTRvc4v/
-	ULsCt7/RJQjSd6ZY6LVtrpHdgxIqcUlFJnQfvfv7yps9nb3aM49qQxObKdPXXgZS3YFzL1lDdYK
-	bV4PhyE42VKf1ePVV+L7hIPi95yhFeL9q3ylH0CyIn6ffaJEjDdo4PT4GgH+q6+3MbuYBXsj0KF
-	jN0Je/4unjcfxiD+ECOWSB0IqLocr2BMlP+3tafAmLbKrBXwNYz6MSElt387nnDQ2VCIMFcnZiH
-	VYdib5Ve1Esys5tIXi2fyf18ED8D7uiEGQffxl/8qn88vlGxmNuYbmCAz0H/Ej57WR/ZKvKKOFB
-	ENMd9aT4T8qZblkdS22Hash9OetCrXbzG6p5m8ywPh6aYcMQXhZ3lUuTPkkUOvRxv2rBfGb16RS
-	A7BKR20HKBW95kH5NCXoxl5lMahSKbes0PWVnNzsTd2i0Oesl+Shxht6sbVJS7HpEm4AnXRrxnd
-	EDJc4igSlI84fbACSyk7etMI9AaNUN31ZLsqBJj4O6r/lqs2z+PSsh2WjKYIkNthKTt8VLDtFTk
-	0IhPh+A2jJ5ddyfsWTeoXD2gDPBPbZVhqoKzyWXMDtHtl1QZ
-X-Received: by 2002:a05:6820:1344:b0:716:b573:bc42 with SMTP id 006d021491bc7-716b573cc2cmr4325326eaf.52.1793876859099;
-        Thu, 05 Nov 2026 03:07:39 -0800 (PST)
-Received: from kiss ([2602:feda:30:ae86:2cf:9dff:feba:f25b])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-716c134ff86sm3843725eaf.14.2026.11.05.03.07.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 03:07:38 -0800 (PST)
-From: ZhangDM-520 <jixianqiang1540@gmail.com>
-To: Cosmin Tanislav <cosmin.tanislav@analog.com>
-Cc: Julien Massot <julien.massot@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ZhangDM-520 <jixianqiang1540@gmail.com>
-Subject: [PATCH] media: i2c: max96717: fix bitfield overflow in pinconf setter
-Date: Thu,  5 Nov 2026 19:07:21 +0800
-Message-ID: <20261105110721.1701499-1-jixianqiang1540@gmail.com>
-X-Mailer: git-send-email 2.56.0.341.gebdc087dc9
+        d=1e100.net; s=20260707; t=1793876989; x=1794481789;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BR00Dpxko6WL7FYEXY9i3C8lkNmUwrkbEGiJyBaasfE=;
+        b=guKoBqEuEcxPY1lF/kvFkgOOO8wDGeO0VuLr9PBiJKYYZ4TW+1wW8qVFuEomUlSVRW
+         I27rSktLa/a+KSLnMY6SJ1sI2XKXQnfmE0rekNJo57WJKpC4SF0YNICaqkt0u1LPZVJj
+         IPjDrL3gs5M8B1edYTz7rUeqAAmYxvlr1Y350kWzD8JrDWOVp3qUoVI1NDrm1iEsrS0c
+         unDUf2rGarm/c/9t6OzIk5E5dwF28dDVSbViZDMoUiY7YWBcN6U6bejbNLQkl9bDg7ht
+         DdFJ/L9CEwbEZCx1YBpDbtWrc4HcF5a2THx4ZbxTRvRrzOCzhmM7r3+V5cAVX7fKw4sc
+         FAOQ==
+X-Forwarded-Encrypted: i=1; AKwUvByN6NhuPj+AmBzCuk3g91BGSZuebi5cXrcpvlSKCvA4/8Q0CxBBBSesGvg1ylSL21SXXrPiqnEgijK0tA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+bDdLxtQ8xSgU3dbeZCHD74Y1bJQrC+W5NgBEgRqSV7xvICUVN
+	gimEz2s/SZWEj7I/sNdNgLpIPpYjNzH4aiaao/INZKjBfrxB76lxh73FHURTG80MD1kBlHUTEl6
+	Dt7M5wcCWpH8vvza2YjghwrcxulgVqOq/J5708CoeF3ATPIWx/ABmWu4RijE=
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -97,89 +58,211 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:120a:b0:55b:ea1c:3ce8 with SMTP id
+ 5614622812f47-5640def172emr13317976b6e.21.1793876989635; Thu, 05 Nov 2026
+ 03:09:49 -0800 (PST)
+Date: Thu, 05 Nov 2026 03:09:49 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6aec63fd.5f5735a5.290c1c.0002.GAE@google.com>
+Subject: [syzbot] [greybus?] [usb?] KASAN: slab-out-of-bounds Read in gb_svc_request_handler
+From: syzbot <syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com>
+To: elder@kernel.org, gregkh@linuxfoundation.org, greybus-dev@lists.linaro.org, 
+	johan@kernel.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, linux-usb@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-max96717_conf_pin_config_set_one() inverted the single-bit enable value
-with a bitwise NOT, so disabling a pin passed ~en_val to field_prep().
-For a one-bit field that value is 0xfffffffe or 0xffffffff, which no
-longer fits the mask:
+Hello,
 
-  field_prep: value too large for the field
+syzbot found the following issue on:
 
-The runtime shift masks the high bits, so a plain build is fine. Once
-max96717_get_pin_config_reg() is inlined and both mask and en_val are
-constant folded - which ThinLTO with an AutoFDO profile does - the
-__BF_FIELD_CHECK_MASK() assertion in include/linux/bitfield.h fires and
-the build dies in ld.lld:
+HEAD commit:    6628e7d4c6b2 Linux 7.4-rc1
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+console output: https://syzkaller.appspot.com/x/log.txt?x=1308eadd580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f9bf69220d319004
+dashboard link: https://syzkaller.appspot.com/bug?extid=693652ded53d3eb9cb91
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17bebe69580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12c1344e580000
 
-  ld.lld: error: call to __compiletime_assert_550 marked
-        "dontcall-error": field_prep: value too large for the field
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/d415be35d54e/disk-6628e7d4.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/69e49385122b/vmlinux-6628e7d4.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/51be81fff25f/bzImage-6628e7d4.xz
 
-Use logical NOT instead. All masks reaching this branch are single-bit
-(GPIO_OUT_DIS, TX_EN, RX_EN, GPIO_OUT, TX_COMP_EN, RES_CFG), so the
-resulting field value is identical at runtime and fits the field at
-compile time.
+AI-generated root cause summary:
+In drivers/greybus/operation.c, gb_connection_recv() verifies that the received
+buffer length is at least sizeof(header) and that size >= msg_size, but fails to
+check whether msg_size (from header.size) is at least sizeof(header). When an
+incoming message has header.size < sizeof(struct gb_operation_msg_hdr),
+gb_operation_create_incoming() computes request_size = size - sizeof(struct
+gb_operation_msg_hdr), causing an unsigned size_t underflow to SIZE_MAX. While
+gb_operation_message_alloc() wraps the allocation size back to the short
+msg_size (allocating e.g. 7 bytes), gb_operation_message_init() sets
+payload_size to SIZE_MAX and sets payload to header + 1 (offset 8, past the end
+of the buffer). Consequently, request handlers like gb_svc_version_request()
+pass the payload_size validation and perform out-of-bounds heap reads on
+op->request->payload.
 
-Fixes: ea15bcd94f0f ("media: i2c: maxim-serdes: add MAX96717 driver")
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=693652ded53d3eb9cb91
 
-Signed-off-by: ZhangDM-520 <jixianqiang1540@gmail.com>
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+693652ded53d3eb9cb91@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-out-of-bounds in gb_svc_version_request drivers/greybus/svc.c:658 [inline]
+BUG: KASAN: slab-out-of-bounds in gb_svc_request_handler+0x10de/0x1250 drivers/greybus/svc.c:1271
+Read of size 1 at addr ffff888104ad2108 by task kworker/u8:0/12
+
+CPU: 0 UID: 0 PID: 12 Comm: kworker/u8:0 Not tainted syzkaller #0 PREEMPT(lazy) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Workqueue: greybus1:0 gb_operation_work
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ gb_svc_version_request drivers/greybus/svc.c:658 [inline]
+ gb_svc_request_handler+0x10de/0x1250 drivers/greybus/svc.c:1271
+ gb_operation_request_handle drivers/greybus/operation.c:243 [inline]
+ gb_operation_work+0xb7/0x990 drivers/greybus/operation.c:280
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+ process_scheduled_works kernel/workqueue.c:3578 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 0:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x8f/0xa0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __do_kmalloc_node mm/slub.c:5531 [inline]
+ __kmalloc_noprof+0x315/0x7e0 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ gb_operation_message_alloc+0x9b/0x2c0 drivers/greybus/operation.c:380
+ gb_operation_create_common+0x9f/0x710 drivers/greybus/operation.c:532
+ gb_operation_create_incoming drivers/greybus/operation.c:644 [inline]
+ gb_connection_recv_request drivers/greybus/operation.c:926 [inline]
+ gb_connection_recv+0x1dc/0x1050 drivers/greybus/operation.c:1063
+ greybus_data_rcvd+0x244/0x600 drivers/greybus/connection.c:89
+ cport_in_callback+0x1fb/0x280 drivers/greybus/es2.c:840
+ __usb_hcd_giveback_urb+0x38e/0x610 drivers/usb/core/hcd.c:1657
+ usb_hcd_giveback_urb+0x3ca/0x4a0 drivers/usb/core/hcd.c:1741
+ dummy_timer+0xdb5/0x3840 drivers/usb/gadget/udc/dummy_hcd.c:2051
+ __run_hrtimer kernel/time/hrtimer.c:2079 [inline]
+ __hrtimer_run_queues+0x448/0x9a0 kernel/time/hrtimer.c:2136
+ hrtimer_run_softirq+0x1ca/0x360 kernel/time/hrtimer.c:2153
+ handle_softirqs+0x209/0xa00 kernel/softirq.c:669
+ __do_softirq kernel/softirq.c:703 [inline]
+ invoke_softirq kernel/softirq.c:542 [inline]
+ __irq_exit_rcu+0x17a/0x220 kernel/softirq.c:786
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:809
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x8f/0xb0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+
+The buggy address belongs to the object at ffff888104ad2100
+ which belongs to the cache kmalloc-8 of size 8
+The buggy address is located 1 bytes to the right of
+ allocated 7-byte region [ffff888104ad2100, ffff888104ad2107)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888104ad2600 pfn:0x104ad2
+flags: 0x200000000000200(workingset|node=0|zone=2)
+page_type: f5(slab)
+raw: 0200000000000200 ffff888100041500 ffffea00040eb410 ffffea000403ef50
+raw: ffff888104ad2600 000000000080007a 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 5446373684
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1856
+ prep_new_page mm/page_alloc.c:1864 [inline]
+ get_page_from_freelist+0xf4b/0x3440 mm/page_alloc.c:3935
+ __alloc_frozen_pages_noprof+0x299/0x2d50 mm/page_alloc.c:5444
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab mm/slub.c:3499 [inline]
+ new_slab+0xb1/0x6d0 mm/slub.c:3550
+ refill_objects+0xe3/0x410 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x35e/0x650 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __do_kmalloc_node mm/slub.c:5530 [inline]
+ __kmalloc_noprof+0x617/0x7e0 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ acpi_ns_internalize_name+0x161/0x2e0 drivers/acpi/acpica/nsutils.c:331
+ acpi_ns_get_node_unlocked+0x18c/0x500 drivers/acpi/acpica/nsutils.c:666
+ acpi_ns_get_node+0x6c/0xf0 drivers/acpi/acpica/nsutils.c:726
+ acpi_ns_evaluate+0xb01/0x1670 drivers/acpi/acpica/nseval.c:62
+ acpi_ut_evaluate_object+0xf7/0x610 drivers/acpi/acpica/uteval.c:60
+ acpi_ut_execute_power_methods+0x1f9/0x3c0 drivers/acpi/acpica/uteval.c:288
+ acpi_get_object_info+0xa43/0xbe0 drivers/acpi/acpica/nsxfname.c:366
+ acpi_set_pnp_ids drivers/acpi/scan.c:1405 [inline]
+ acpi_init_device_object+0xc12/0x1a90 drivers/acpi/scan.c:1827
+ acpi_add_single_object+0xe8/0x1a10 drivers/acpi/scan.c:1877
+page last free pid 1 tgid 1 ts 5222696283 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1403 [inline]
+ __free_frozen_pages+0x714/0xfc0 mm/page_alloc.c:2954
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
+ kasan_quarantine_remove_cache+0x168/0x190 mm/kasan/quarantine.c:388
+ kmem_cache_shrink+0xd/0x20 mm/slab_common.c:620
+ acpi_os_purge_cache+0x15/0x20 drivers/acpi/osl.c:1622
+ acpi_purge_cached_objects+0xa3/0x140 drivers/acpi/acpica/utxface.c:239
+ acpi_initialize_objects+0x8b/0x100 drivers/acpi/acpica/utxfinit.c:250
+ acpi_bus_init drivers/acpi/bus.c:1381 [inline]
+ acpi_init+0x1b0/0x840 drivers/acpi/bus.c:1471
+ do_one_initcall+0x11c/0x6f0 init/main.c:1419
+ do_initcall_level init/main.c:1481 [inline]
+ do_initcalls init/main.c:1497 [inline]
+ do_basic_setup init/main.c:1517 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1732
+ kernel_init+0x21/0x1e0 init/main.c:1622
+ ret_from_fork+0x69f/0xc90 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff888104ad2000: fa fc fc fc fa fc fc fc fa fc fc fc fa fc fc fc
+ ffff888104ad2080: fa fc fc fc fa fc fc fc fa fc fc fc fa fc fc fc
+>ffff888104ad2100: 07 fc fc fc fa fc fc fc 06 fc fc fc 06 fc fc fc
+                      ^
+ ffff888104ad2180: 06 fc fc fc 06 fc fc fc 06 fc fc fc 06 fc fc fc
+ ffff888104ad2200: 06 fc fc fc 06 fc fc fc fa fc fc fc fa fc fc fc
+==================================================================
+
 
 ---
- drivers/media/i2c/maxim-serdes/max96717.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-The failure needs a profile-guided or IPO build that folds
-max96717_get_pin_config_reg() into its caller; it was hit by a distro kernel
-built with CONFIG_AUTOFDO_CLANG and ThinLTO.
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Reproducer:
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-  make O=/tmp/afdo LLVM=1 defconfig
-  ./scripts/config --file /tmp/afdo/.config \
-	-e MEDIA_SUPPORT -e MEDIA_CAMERA_SUPPORT -e VIDEO_DEV -e I2C -e PINCTRL \
-	-e GENERIC_PINCONF -e GENERIC_PINCTRL_GROUPS -e GENERIC_PINMUX_FUNCTIONS \
-	-e COMMON_CLK -e LTO_CLANG -e LTO_CLANG_THIN -e AUTOFDO_CLANG \
-	-m VIDEO_MAXIM_SERDES -m VIDEO_MAX96717
-  make O=/tmp/afdo LLVM=1 olddefconfig
-  make O=/tmp/afdo LLVM=1 CLANG_AUTOFDO_PROFILE=/path/to/afdo.prof \
-	drivers/media/i2c/maxim-serdes/max96717.o
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-Unpatched:
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-  ld.lld: error: call to __compiletime_assert_NNN marked "dontcall-error": field_prep: value too large for the field
-  make[7]: *** [scripts/Makefile.build:290: drivers/media/i2c/maxim-serdes/max96717.o] Error 1
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-The index in the symbol name depends on the configuration. With this patch the
-object compiles and drivers/media/i2c/maxim-serdes/ links max-serdes.o. The same
-build with CONFIG_AUTOFDO_CLANG=y and no CLANG_AUTOFDO_PROFILE compiles even
-unpatched, which isolates the profile-guarded inlining as the trigger.
-
-The essence, without a profile - the check itself turns the constant into a
-fatal error under both compilers:
-
-  field_prep(BIT(0), ~1U)	-> clang/gcc: "negative width in bit-field"
-  field_prep(BIT(0), !1U)	-> fine
-
-Not tested: hardware, and a GCC LTO build of this driver.
-
-Two other FIELD_PREP() users pass ~value with fields narrower than the value's
-type, drivers/net/ethernet/sunplus/spl2sw_{mac,phy}.c. They are latent for the
-same reason but receive runtime values, so they did not fail here and are not
-touched by this patch.
-
-diff --git a/drivers/media/i2c/maxim-serdes/max96717.c b/drivers/media/i2c/maxim-serdes/max96717.c
-index e004e71cb768..e57dd701017c 100644
---- a/drivers/media/i2c/maxim-serdes/max96717.c
-+++ b/drivers/media/i2c/maxim-serdes/max96717.c
-@@ -604,7 +604,7 @@ static int max96717_conf_pin_config_set_one(struct max96717_priv *priv,
- 	case PIN_CONFIG_OUTPUT_ENABLE:
- 	case PIN_CONFIG_INPUT_ENABLE:
- 	case PIN_CONFIG_LEVEL:
--		val = field_prep(mask, arg ? en_val : ~en_val);
-+		val = field_prep(mask, arg ? en_val : !en_val);
- 
- 		ret = regmap_update_bits(priv->regmap, reg, mask, val);
- 		break;
--- 
-2.56.0.341.gebdc087dc9
-
+If you want to undo deduplication, reply with:
+#syz undup
