@@ -1,95 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793911269;
-	b=wX1/I/6WnKfVU+RmT9zrx6ZurA7KbkvZyyZHOjk+hNq6gINa8In1tuqYlW0sN1oHGzew
-	 NNf9YWrGhpIpxLd5MRCcE9fVz/HAmnX5jBGklqwLK06Q/D4Lpnu9Ogf64Awdt4hEz7daq
-	 84M6em5i/Z5y36Bkmj2E4W1UM4U99wUZdKXtyWwe9LGqoVWeF7c7e4vI9eaFgFU4G7yEm
-	 XiPsfJ5GPlOgKSuEnLv/PRDvgOS4QE5PPO3Tk8U1uLoeGkiwX319X5VD6xpU3tdRd5mQh
-	 H+5b2fuU+/yWMcGd0ROqZqNewCB1tJsX0gg9h+5bRbu7U6MkKuy/0sTvU94PZFgvrhw==
+	t=1793911990;
+	b=ifxLYQzDC1ILUrYbODaSozYgLsCqgE3i/8eoq8JsuY/bIYiQLsxURmi6p6YADXD136gW
+	 TwFD4ou4G8oxro3k9FUqNNGhDV5XveH8dcQw1R0G9CB7DJ7RU2463kbl9i3hlohzL+Ip2
+	 NMJRmORqqdB7iHpONwpIDt/DgW/hqDZUuvaWNownZ0i9Ph8Mu9Qb6GIcd0tJwm6owzl78
+	 Wex/5u/G7iMSXETSUAolq/2Fjea39SkBxEhF57TGLm88kha5t/2yhIZ8QyRlO4UbZgH5z
+	 kKqMzBQHU2RBFi1bi7+Qzz0ttXMV+0tfk0pSE53DlrcWAYd4IHaG3kR0FB8ObKhiESA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911269;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Content-Type;
-	bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
-	b=kMnFn1tODSsCJu6ELfhml8nqBbeQuM+QIzJALKB9hp7mcYGgHi8O1k0cqWtnrFAMGmJ9
-	 MCqDu8w9mV+JtylcVDncjw9FYm1PFtnZbyV/EUmkLJza2sjGj7h795n0pgpKU3Vej/Bar
-	 9EiD5uo4qh08TB8Uh4/M9K7CVVOQohy84OJldFPP+FqPQfo8GrL5ramYTLG+Dyz2l7q7Q
-	 KJqsW7UlQa0WTxRydry8vOBH0buvLFeQrbFWgyg9/EoFtRjU2N9JxTElST+egzQ+gGhSv
-	 YuSXSLF4TQpc0tyThn0A1mivJiiJ4lk7kx8wKzx5VpKSa0llK7fcV8JLeJZ2R5LGRqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911990;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=sX8j+rhapnFRAdikVp9Pz/gF+oALejP+4Db90hXaOAI=;
+	b=paMeepn62zlE4JodfbPygeZeFptlkIBNeivM3JkWa+DX3IQXmhlEemI0DmMce/E2OV+8
+	 ncCnA1dGGkxP3LHGKUAEfLShkv+fQ2LLiTt5ww+iCZocVQvdHac7x9w/AT5RYsJsUKbSp
+	 JGxHbKLEjipEUIo6TcZFKu1dMlC0zqCWEzaTage64MQWP+Y6DP+desjLpcG4gxYHyXmSQ
+	 SxsuFB6j4I3hz9sCSkze/ffLUWzcZg6ctXVJTHgVpEATkOy0/NMR7qk/yPzn7Ipn3tfHv
+	 w3KX+cbTG3063O6xRDq0RNMYrOTMMbRW8QhwkgM1XoPr+9EBJwWIU4yxV6G7YaGL/VA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRy4tFAS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqO43WIr;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DrtOl5XG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4BF606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 20:41:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB4BF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A4D606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 20:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5A4D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRy4tFAS
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36cad25b8b0so3472105eec.1
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 12:41:08 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793911268; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OqO43WIr;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DrtOl5XG
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5HeQWh4075331
+	for <linux-media@vger.kernel.org>; Thu, 5 Nov 2026 20:53:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=sX8j+rhapnFRAdikVp9Pz/gF+oALejP+4Db90hXaOAI=; b=Oq
+	O43WIr6igflvAIkd9ASejt2pm7/Vf9caX5Pk315Bc5ggbNfK9F2LpMRsevBqIwb4
+	hPhmzZAYplsNr3OTmx0bYsmVnISLeK+458SAt6/W1bu4Jz3ROc2RmVBt8UUjiXCQ
+	nZZBOgkiByaNQmV690shz+jF+TDJzxDb27WHOrSkeVYU20FfOPbqFYGYbera5F/5
+	NHF/t/LinRDZ/dBI1uXdtTJ8n0TqT9UcD4ZQLFKVqPGiJ7wC6qhcV8yyDPgKpGqK
+	i1l8ujZZSz8UlmrG/yE3H4ZQwpendLKunNHPd3xPOjL0W9EbmYiIoRz/+OJD0mNt
+	BqMwb9IrwRKk8bdcmrHw==
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrrkdtk64-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 20:53:09 +0000 (GMT)
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1663fb7e005so13570c88.0
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 12:53:09 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793911988; cv=none;
         d=google.com; s=arc-20260327;
-        b=bt92iUYX+Vw94GoUx6s+qfVsh/tgFWXv7S3u4mVJCewmRS2Ysa5e/fyHGrlS6LlUGV
-         AIZezgmgiAKoUNJMnqxPb5I0FqCHlIhS+NPjH/PAb8Hn+a0UestGachnU8bCZcI8DZX7
-         +i80N65kZCiWTUfA16NcjUiU1IgICpyFf7dBqSjI1AEfbkREaw9PorxO6Xr8T9Pjd7Tm
-         KDe5nM7qoYhgv46/U8B3kEkPoczk51mK89jmcEBRqZs8g413bn09IHQegku+IEvyUbuC
-         uO+ZgTZHhZ5LD0Nm65STLNEszT8d+onw5uetrStbdbwt50933dtLSRKqwBa2PJ3Qm+GC
-         anoA==
+        b=HRq7g7ZDXgQ7TZQbhF6vPATXugCD6ONYgKTzzlFch5GYswYsMR2ZBx67oglOpG9tD8
+         qCVzZknLiwM0EHraxGsn0j4AXcyZcBi5n7rWVIiALLMLGcQ1mTgX+CEcLNWK4N7FC7XT
+         sQkCtZjPfvVKtkLsuEjuUetMrOxGAhxuxGzAofBDcMNllv5f7NbHWkyI3CCYWjl+ruzJ
+         CkHfsjC1GIBv6Vxpfrc4WMzKP3G2Y322gv2LNerUPlt6moNXkyzO8wsXhwhcTed6K7k1
+         +82FSUTW1Q0t6GlaEEK2jQ3o1Ixgx3WJGiRBIg/DoyPe1IPB2MDb/BT15v/8zicMrizW
+         N3/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
-        fh=RpYxnnRW5A5FvuL86z7f7YWfE0tvaTrs4Vecbev4fLA=;
-        b=oyKyqaA83OYBReSnwjpN/flUxD/q4+iXmh4HStismHhpBxm49EOjvtL5nA/7GtD5HM
-         tlsOGrmX+ip8TqKtKfCGj+CVW0gm2uZz/84/UlkP73TZ0BDZ8QE56Mo0TS2xE6E5JenZ
-         62L8CkRN6U+H6DwvS5MSZ0E5hQqMuSZhPHqjfDrBlmh7AgJFQtgq2phmTdlRyqkkBpsl
-         XGQqkO99Tv8k26LWZTidOJgMjGzH97lMw3nSh6wx4uTJFFi5OrZ82xBw1dUio/gSyvc/
-         /UJYnyCoRbdzZXypaG0cDzZXp4o9y0a0jrB5HO6iaCcLOFozlV7YqLm0NcrGg5iVJ1v5
-         WoPg==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=sX8j+rhapnFRAdikVp9Pz/gF+oALejP+4Db90hXaOAI=;
+        fh=h3L/W2I72jrtbiBC/ixWhWowJ5cnnZhWT7mZnK6Qp/Q=;
+        b=UBR37v6SVbiGLX0eAxuTDKrMpplAcTu+jKh7l7GniWOCpUsHi7G1wYP1+ri9CAiwuy
+         4bwgzfkydzP2jiRrptafOf1W5HGYjhWm1wSquHMu68MnF019C7MZDAoARyDdtVFIo0Ch
+         dFY3cyl/ig73MN+wkdpKVOLD0NLpAPbYh58q8MXY4ZZtHi3GpzrWNKLUAcCBBwns8QYD
+         gy9kds5axGNcORn/ba1T0RWkYc4Ge+Y9P91gbXz5xg06/VHx2ygYIYpAbUGri9DBB7VS
+         w033hOPshQovLRZgSfzGWgQT1dClY5Cyx5ZLkbNzeCvlTO7g5o5kfmug72vsoybT58/p
+         WoiA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793911268; x=1794516068; darn=vger.kernel.org;
-        h=content-type:to:subject:message-id:date:from:mime-version:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
-        b=sRy4tFASc039OZzymx6zaz/qC3jyaHAFTJ4RdFPGZ1AmMyKor+oqTSdoekQ8qr0Wkx
-         O4SFwdWFfoF2of7WW1UgmCBQl+itDWQf2wCimII1XYlZ809YkQEuTdkwM7ybG5zNnP7O
-         bRtzg+EXOR9Qm3nZ4Z+tZsIfFcqDX1AMPW6Ffr6JBSUBDo9KW11DsSEJn9EM0ZUOLzrm
-         EK8Vin1W4eY592Aq7drO7053lhdUfxGuWgvWd3yZzbkrqfuYgdpX30Ts0+s22REHabrA
-         SPJC4QfBRkfPDiWYD3GB9wsSQ1T46t2W7/fLXieOOJ3zJU2jThdHl+Acs7N5dU118TMu
-         UNZQ==
+        d=oss.qualcomm.com; s=google; t=1793911988; x=1794516788; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sX8j+rhapnFRAdikVp9Pz/gF+oALejP+4Db90hXaOAI=;
+        b=DrtOl5XGOehsOtEvqUC+fj9wHpwuD3InlEwY9TKuYw8BDNviAKmZPoXtRiVuocej5e
+         6oVhKEbGgNHQERcwya/YPvM2pNiDbAuxMHxgDkmBgnbH+7lgPiCvJyYc+rqUhMFeoPJx
+         IJHQEs1nFruweXwP98DK6sGIeArUOO8oMnBaAQkndKR79kJ80HCzBfp35OrkMy457BhI
+         cMoXx40X0p83GP6CZXzRyExOepXkwecFleQNH5n9pWb056k1CI0QLgQSgJju+ZiATEOV
+         ZV7K9c7sZiZZXyYIZNdVP/jLNVuAlXP1m53ni0+JmjSSWzUEVOGtpv4H6M92CtMNoqq8
+         vmDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793911268; x=1794516068;
-        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793911988; x=1794516788;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
-        b=znhRCQrGA6ej0K2H0kkgFX0UFgVE0GK/+KiKdZTI/ekqRCpgiMPokK3ACor0aP1tOA
-         TaWtl0CbYRq9Qm+EX6V535wr64RI104hZmGfWU8dY/NraYGSFMNetkTE6OVVyY68ALSP
-         QrcBr7ZBEcpcWrowTZ9eF16kcSoeKIc69bHuyIU8qGLYothfU67ouBR13ei0cC162d2A
-         jar6q4jDkxVSt0UQsfbVl73WJYj0RbnZ2LK+q179g7LU6i+OIaR1eyS+RzJWkCgx2KJk
-         E3M7zRiyMdbiYvdDgSzUthXdGsfSHHuhKhP/Wbthlh8FYigvOVuY0pPAHqsUeblxCAOT
-         DVHg==
-X-Gm-Message-State: APuU4Z8GPRFCCQn08a88+nE9a/Fj79LA1t/9EGO9lI9zcFXBj8C+PcHK
-	Mae/0pd844LTV79gY8w/rtTAcEr1F4yPrNYLAzDfgvFjKxn9sXxXA3ED8uMs8OqFiX+V5izDPsa
-	A8J9h7n6lUmVsGb8opmtnrumDtxmt4Gxakhirb1Q=
-X-Gm-Gg: AYBFou1kf7bCXMN0vp+Nb0pvcE4+L6MsgRqd+zlktk7UX7sUCkiNnCrUuwcDu7wHY55
-	s4eRWkSxG1M/aOhG1aiiRueys8dS7XzDKNN/HKpPEvmqMSne7gxtq4bIroq3CR4PRalL496g65g
-	OiuKlTc16phQr59azIWR4gRktCH+2JPXFoAurNO9SKN9UQOfwVlMVsbGTPywHolNG5TaOwpZUtO
-	yJQX1mHQtvKLL9y+BvZtXkmMHwEKJK8eVkq1yMGs3Hz2x57XmjctC5MtME9q/WQwN7qiyehR3MK
-	M466BznKEmVTeDa8JH5E978SLOm0Sqwp273aVLie+aJbYtis+O1XmmFJ4+xP4SbgMFRZ4Zalm8R
-	tu+HhEMITZs2pwz92wSBPFp+UQXRxNEXJaPpyhN9npE74zZLl55H8ggvaXWDBVkzLAvE8
-X-Received: by 2002:a05:7301:fc02:b0:369:f05d:6c67 with SMTP id
- 5a478bee46e88-36f75441941mr411950eec.12.1793911266700; Thu, 05 Nov 2026
- 12:41:06 -0800 (PST)
+        bh=sX8j+rhapnFRAdikVp9Pz/gF+oALejP+4Db90hXaOAI=;
+        b=OdaARXQJ6hGCedA68fYL6qRCBXJVCu5Wlcl2ecy8rDj/uQAxhTteG2jWCoV+4AW8ER
+         aOYmTggO2T35WiIhQNE0kOiWGfEK0tdpaFlsE5qh6wJsCpxEP1muUHmSUT06Cm8xFQAz
+         xPocDxhbJfmkeRROGnZ2dhn4+mRs4njzyq6jo0w/iM2bZvd+z87rdfL/IuNKoihGh4+n
+         ssrE6oEqTPaGkpTZqnzAO0cC63ttGqYoXXmHKQZVOZ/3t7v/L/yZ47QTD5FCNW966uDA
+         vbRaU1TCjyvI6cvb9f+WuGtn347RjaQttbqHW9D4Y/yULnhR9yFPYyItsIc3UXwRr0In
+         CBtw==
+X-Forwarded-Encrypted: i=1; AKwUvBzFG8IZP+4RIjA3Ia/lsDtNZqZve3Byt6B60iW/X8wBukPQ4lBemCJlZhBUg7LmO939J4ZBfuvQywQAtQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/SG61sBZRVO/EmDEndTEQbW/52IyGhuzS6YEByspiTnhoxqZmY
+	ysX8D/+eGz+sjXvS4Ibtv8bTKD3eHfJ4MX+e2Mr5xcl4XwPgfonoepxfpJ8+6tW495qGRMg3MMo
+	beNVW1J8rFLJx/uysM8fe1Vr86vkDa3B3vLG9BfaJ/N9MUgrMiz31D1KfhkdGMqA55+jsqrVpc1
+	O4YkH8QRgIaRYPZH6Jx4o0gXDZAqtnXkVuE9ECSkdt
+X-Gm-Gg: AYBFou0P1srfgZd9uGQ8LEY2bTuO+e3/SQ5QHg7RUY10jEeR2RRWEcxnFsfVug3fcej
+	w4Iny5VIzpU6QZIz/dOhFof4TiziNPTzT9iLNOi4RBVtsrdQubzVo/OrJBf059i2ECT32j/Cc+Y
+	YhAGpUmo6EDepzJbsgKKJZ+OW8f+q1aR2nATgNPIzozmAzJIUa+uh21T/1bpMs/s0pG9BBpQbgg
+	XuXywMvlrpHkQ1N3vjx3w==
+X-Received: by 2002:a05:7023:a86:b0:156:6676:d0e2 with SMTP id a92af1059eb24-1b25d2fe849mr303332c88.10.1793911988322;
+        Thu, 05 Nov 2026 12:53:08 -0800 (PST)
+X-Received: by 2002:a05:7023:a86:b0:156:6676:d0e2 with SMTP id
+ a92af1059eb24-1b25d2fe849mr303269c88.10.1793911987586; Thu, 05 Nov 2026
+ 12:53:07 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,74 +128,160 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Crissc Linux <crissc.linux@gmail.com>
-Date: Thu, 5 Nov 2026 21:40:53 +0100
-X-Gm-Features: AclHuK_j8aHkxuw9u8EMHzlMnihJyK8h9-rXgX5Xe1qwuRPGxzRdc2VGyjCRn_I
-Message-ID: <CAH9gcaifYt_Q86iabH4r5u5fyRmWrT_opW20LPiJk-tnPzBR=A@mail.gmail.com>
-Subject: ov5648: support request for ACPI/IPU3 platforms (CHUWI UBook XPro
- rear camera)
-To: linux-media@vger.kernel.org
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+ <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+ <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com> <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+ <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com> <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
+In-Reply-To: <7e8a6645f181c9e8d663eb97bb1f32e3e4fd8c67.camel@collabora.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 12:52:56 -0800
+X-Gm-Features: AclHuK_2VHyuNEs4DZc22sx9QJcK0ltaGhWBXQlToG9hpn9RflPMYR8eoL4qhGs
+Message-ID: <CACSVV03Nz=das+fneMqx9UE1Vzps55=_An-DtmufRTxdhv2idw@mail.gmail.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: Robert Mader <robert.mader@collabora.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=Xd4cX455 c=1 sm=1 tr=0 ts=6aececb5 cx=c_pps
+ a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=e5mUnYsNAAAA:8 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8
+ a=vmm0ZkxeQxYXhTVWvzMA:9 a=QEXdDO2ut3YA:10 a=vBUdepa8ALXHeOFLBtFW:22
+ a=Vxmtnl_E_bksehYqCbjh:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-ORIG-GUID: EWywGGpjMcOHLclxP0EOEnnpynxLdOaZ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA4MyBTYWx0ZWRfXzm5c6YWk4qXN
+ Zvx9w64SEt+M9Y8iw+3v4igxjkvgUwNfaXkWP8JyFtba9K4RX94A5N3nT/GFzzp2BK144tLsANq
+ KuN4dl9SgPf7pmf/jkUOywytxJQo21E=
+X-Proofpoint-GUID: EWywGGpjMcOHLclxP0EOEnnpynxLdOaZ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA4MyBTYWx0ZWRfX2VuvcBTQmNMv
+ UWky8VcdO6g6JwjhmAHbxSmdOrGLHMeuQ8Q9QdNMbLOPilyE4PLOlEBJsTopU/UBFf+OY91D6O3
+ ldAZFMG3IFx0CdrRHOr+41MdiWb/uZzLofpD3mt851IdInSGa+EkXYYUQ1o3XMr3jmzfR391HSc
+ kaUWP8LVud3lhYrKeOjEED3pBV8CtRdkSvEeKW3clrumT55lakEqcFDYLAem/TUXlWRXnoWJWRs
+ HMnvNXC/ANdZWoTIUxOc90FciAxdxyUP4XGCePaSgQsB2WOH4IQF6Q1doJS5Nx4/N/EsRfiNg9T
+ dqrmHAqYsrvojO4myWFiOpsVT2CszLo7Fo8tyvgawUdgY322FgRlWYYnf1NPOeXHb347Hw+wUhM
+ TY7d4C+xngp8bGS1WCwmNkGsQYpD2UYG6BvH+ieY2L8OihafumdVzSrL/61Rv6aYtCWWNwHds8o
+ 43fWhWT/70LlCxCpkDQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_05,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0 spamscore=0
+ clxscore=1015 adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611050083
 
-Hello,
+On Thu, Nov 5, 2026 at 12:35=E2=80=AFPM Nicolas Dufresne
+<nicolas.dufresne@collabora.com> wrote:
+>
+> Le jeudi 05 novembre 2026 =C3=A0 13:35 +0100, Robert Mader a =C3=A9crit :
+> > On 04.11.26 23:11, Rob Clark wrote:
+> > > On Wed, Nov 4, 2026 at 11:00=E2=80=AFAM Robert Mader <robert.mader@co=
+llabora.com> wrote:
+> > > > Nice, very happy to see the series!
+> > > >
+> > > > On 04.11.26 17:36, Dmitry Baryshkov wrote:
+> > > > > The comment describing the QC10C buffer layout calls it a compres=
+sed
+> > > > > P010. It is not:
+> > > > If I'm not mistaken the display engine / the DRM side (including Me=
+sa)
+> > > > describes it as P010+QCOM_COMPRESSED as well, and so does my pendin=
+g
+> > > > Gstreamer MR [1] . So if we can't pretend that QC10C =3D=3D
+> > > > P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire=
+ that
+> > > > up everywhere etc. OTOH if we want to keep the DRM side as is, then=
+ the
+> > > > comment should reflect that, IMO.
+> > > IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
+> > > as distinct formats, both with and without UBWC.  I'm not sure if the
+> > > same is true on video side but P010+UBWC was never exposed, or if it
+> > > truely only supports linear P010 and UBWC TP10.
+> >
+> > Oh, do I understand you correctly that the P010+UBWC implementation is
+> > not compatible with QC10C, meaning on the GPU side (Mesa and display) w=
+e
+> > don't yet have any support for QC10C exposed to userspace? If that's so
+> > then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
+> >
+> > On the plus side - this would allow us to make the format single plane,
+> > matching what we get on the V4L2 side.
+>
+> Since its single plane, we should aim for a variation of
+> DRM_FORMAT_YUV420_10BIT. Similar to YUV420_10BIT, there is no obvious lin=
+ear
+> single plane packing for that, it would only be there to support the
+> compression. Or maybe this one is abstract enough to be used anyway?
 
-Transparency note: I am a user, not a kernel developer. The analysis
-below was done with an AI coding assistant (Claude Code, by Anthropic),
-running on my machine. It read the driver sources and inspected ACPI
-tables, clocks and GPIOs. I haven't verified every technical claim
-myself, so please treat them as leads to confirm. I can run any test or
-command you suggest on the hardware.
+Oh, sorry, maybe I was a bit misleading/unclear.   TP10 is still a
+semi-planar format with a Y and UV plane.  But each of those planes
+combines UBWC metadata and pixel data.
 
-I'd like to report a hardware enablement gap, and I'm offering to test
-patches. The rear camera of the CHUWI UBook XPro (Intel IPU3, Kaby Lake)
-is an OmniVision OV5648, described in ACPI as OVTI5648. It cannot be
-used with current mainline. The front camera (OV2680, OVTI2680) on the
-same machine works fine with Linux 7.0 and libcamera.
+Within each plane, the pixel part of the data combines 3 samples in
+32b (compared to P010 which is a single sample per 16b.  So not quite
+the same thing as DRM_FORMAT_YUV420_10BIT.
 
-What I found, comparing Linux 7.0 with current mainline
-(drivers/media/i2c/ov5648.c and drivers/media/pci/intel/ipu-bridge.c):
+BR,
+-R
 
-1. ipu-bridge has no entry for OVTI5648, so no software node or graph
-   endpoint is created for the sensor. At boot, ipu3-cio2 reports only
-   "Found supported sensor OVTI2680:00" and "Connected 1 cameras".
-
-2. ov5648 has only an OF match table ("ovti,ov5648") and no ACPI match,
-   so it never binds to i2c-OVTI5648:00. The I2C client exists, but no
-   driver is bound to it.
-
-3. ov5648 requires a 24 MHz xvclk (OV5648_XVCLK_RATE), and its PLL
-   configurations are computed for 24 MHz. On this platform, the clock
-   provided by the INT3472 discrete device (INT3472:01, \_SB_.PCI0.DSC0)
-   runs at 19.2 MHz:
-     INT3472:01-clk  19200000 Hz
-   Supporting this would need PLL settings for 19.2 MHz that keep the
-   210/168 MHz link frequencies.
-
-4. For libcamera, the driver lacks V4L2_CID_VBLANK and V4L2_CID_HBLANK
-   (mandatory in libcamera's CameraSensor) and V4L2_CID_ANALOGUE_GAIN.
-   Selection (crop) support would also help.
-
-The ov8865 driver (same original author and structure) received similar
-ACPI/IPU3 enablement work, so it may serve as a model.
-
-Platform details:
-- Machine: CHUWI UBook XPro (CHUWI Innovation And Technology(ShenZhen)co.,Ltd)
-- BIOS: American Megatrends ZW-BI-13-SF133KR300-KB60C-066-E, 11/05/2021
-- IPU3 ImgU [8086:1919], CIO2 [8086:9d32]
-- ACPI: \_SB_.PCI0.LNK0 = OVTI5648 (rear),
-        \_SB_.PCI0.LNK1 = OVTI2680 (front)
-  Both sensors are on i2c-2 (i2c_designware.2, PCI 00:15.2).
-  Power/clock: INT3472 discrete (DSC0 for LNK0, DSC1 for LNK1).
-  INT3472:00 (\_SB_.PCI0.I2C2.PMIC) is disabled (_STA = 0).
-- Kernel: 7.0.0-42-generic (Ubuntu 24.04 HWE). Secure Boot is disabled,
-  so I can load test modules.
-
-The SSDB/lane/link-frequency values are filled at runtime from BIOS NVS
-variables, so I could not read them statically. I can provide them
-(for example with a debug build of ipu-bridge that includes OVTI5648)
-along with a full acpidump on request.
-
-I'm happy to test patches on this hardware.
-
-Thanks,
-Christophe Schleicher
+> Nicolas
+>
+> >
+> > >
+> > > BR,
+> > > -R
+> > >
+> > > > Best regards,
+> > > >
+> > > > Robert
+> > > >
+> > > > 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_reque=
+sts/8195
+> > > >
+> > > > > P010 stores each sample in 16 bits, QC10C packs three
+> > > > > 10-bit samples in each 32-bit word, which is what the stride comp=
+uted
+> > > > > below (width * 4 / 3) assumes. Name the format correctly.
+> > > > >
+> > > > > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.co=
+m>
+> > > > > ---
+> > > > >    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
+> > > > >    1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > >
+> > > > > diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/dri=
+vers/media/platform/qcom/iris/iris_buffer.c
+> > > > > index eb8de60c1177..ec2bf2a2d953 100644
+> > > > > --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+> > > > > @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct =
+iris_inst *inst)
+> > > > >
+> > > > >    /*
+> > > > >     * QC10C:
+> > > > > - * UBWC-compressed format for P010.
+> > > > > + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples pac=
+ked in 32 bits.
+> > > > >     * Contains 4 planes in the following order -
+> > > > >     * (A) Y_Meta_Plane
+> > > > >     * (B) Y_UBWC_Plane
+> > > > >
