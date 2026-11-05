@@ -1,109 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839397;
-	b=H10Y1WR91mQYnxJGZ1ud3m+DDbsvfK3XMzNtO32tm9Qsgjao+fl2lWXE5RmOMOWOHEwD
-	 nqqmHKKutWoNvWJ+OSP0yKMQOIqXIB+Z3gcw453cfrcPbxn7hgCsSnHNyO9RHnJ1P1nDB
-	 r3fGVBAL8r48caAJf2WeNnVlB6Bsb60WDen+M/rw7wIyUxT6/2isAVnbqPpZXIV9l3ssy
-	 dTo/7gpozwpl3VYQ/6op83zdJp51I4uDwEKm/AZWXcQtGtlxV7bdQKE4Y+TymSDUUVtUw
-	 RQbwdpcuo01BGOL9KoFmAPYYi2nyS07J1P1kgXLLN5D5xTqT3q0Xy2kuZRRTiPrDq0g==
+	t=1793839616;
+	b=e37YkwWhVF3LM208jcECQWBQUcgxMNaJL+FFK8hgGuWDvbP8SjMBp6AQoY/nGF0SxOm+
+	 fg94TDoItIc23QVW6s4oQigp8wKw0k7S6ZLyjW08LO8ynXqw7KMvhKcTJZaOPY3aCcKEd
+	 qu4hPpBNgwtHfcTxZ9AIWj+EHvLDXNY+aMNqDRbIxWWALCh1ZvwXLwQ8/KvZWnChWtyDw
+	 fVfHu+yaihFtVDnfEtKDfmbkG6JPuB+JVsMlJpI67ac04Kr+PsTXw1w3ll+931DK8x0YP
+	 5C69gp8Irc1APW5oKOGsekElyfHpEjEoHURB5iN3tR60RSxEan8g665U6awlCSqmlGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793839616;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
-	b=iXdeqc7jsdfSOXD7EeSa0Vbvwsz5W4URl4arVTTZQSNNLWIIovjBrjYVs4bowY4q3pWe
-	 XgtiG83jbWy1hi9OhsgUtircD5giGq0PxxGnCWSLZNeJd5kudZVGgEab61PWBdaUZYSyn
-	 q9y6T3kclZHTqg2SjOh/j8OjTn7Nb1UIIP96nb5XaIFzfR9c/Oax/0Xulmw/r7Srjujvh
-	 XwCj85/XtAi7WEfByo7JhBCq2ITgt/Py/ZPQgo79n61a4wZkolVn5bUKS9Zrdg6lBld+g
-	 /UIgNvgz1Q4MmMQtrKG8g9LBcb6kWBPLqTHvQIL8nsuLOyV4QnFAWtRMl8tAHYS17HQ==
+	bh=+WxtuMhFn4fKtMVidfMWNFojAVD5ABpUs3kttOoaypA=;
+	b=tiuhJZxkE979UFbwOKiW5bENlbmK4Wjo23pRBgmIMcPIpjEbXVhJpUXnDIEhmSG6isbA
+	 RV4/Of5Ic2GTS6q05h1iV6O7+kEObfEoHUr71DjLn7AJM5muekaBPElSZ6O3CRC17jP3/
+	 ND/6DA7bwANffNSgE/0xgnsu2qJ7di/xUnWKHMzlff97wNjNbA+oZgUbBOZj7ML2CBRrN
+	 5phwwRwD/xuJRRpiLDoYFOpmlcX+VXLh1S27QNZCLOZw5cmI6qaFjtfrV4qJdsI1cLbqm
+	 umfOejjQgvVpFrLvnRQQPqVLJ+02/dOsv2rpd9EFlztjX8MDgP7QFFqTrwMfMK0Bk8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHBe0KMV;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mbLrrIey;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F287E606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 00:43:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F287E606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD9C606A332
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 00:46:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD9C606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VHBe0KMV
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so15141485e9.3
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 16:43:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mbLrrIey
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-490c1d337d8so489580f8f.2
+        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 16:46:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793839395; x=1794444195; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793839615; x=1794444415; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
-        b=VHBe0KMV+u5jMRSkLnXNHnK0mTosWLIroj2ejLHi5ZRnZUiscTEHSsspxPZulOp8Gn
-         twYUDF3uIMUTxDhmLF1w6238je3baH01ZhSyQDC6ZmRr4vyT+AB/GjGQg+akFB9mxQio
-         RD6blvWxlg260yKErdKEoqZXyXooOcTCGpAV1Fv2hYh0A1WlqsItwIv5OwI1pjC5B6jn
-         jfczZTroBf0+gHZxte1FnTzXjIiaDirC9Xx9ex0EFXvZVl2crZUSX1XJYZ2cWDaJWRaf
-         oYokvnvRrbkIY0Srp+Kxnsx5LrxlPvUbftXS6lyO4VevEQqFLnFlERvZozojCI3rvulY
-         fKWQ==
+        bh=+WxtuMhFn4fKtMVidfMWNFojAVD5ABpUs3kttOoaypA=;
+        b=mbLrrIeyjOy8ZkhAY/H3SfuKu7+3gc38rCo7WkglM1874pOmtYSwrnutvKEu1jWGIP
+         ooQ1Lbtw3svobw8W/nZ/63lq1WWB25NC36H2pmWOh7eNdiLEXNgIrnlrRu1og9ghYIoe
+         j0nbc9iDb8kbwjCgsaqZKFpQ6Mh8IlVhP8JTTFDHzVHvQ2pewGIHWlxuJwKsFmpEttFC
+         e5S7l+8v9W2N1pud3XwzAO4BZ713vbPpc/iYK6SUZ0mjqCGond2E1+kSNb5IVw9+5D1H
+         TzhhHXa3q5X249ICershaifTwJ3gXPlGqNH9I7aG1dp12S9M3JHmxzEAYYrH16gdqTg2
+         z0fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839395; x=1794444195;
+        d=1e100.net; s=20260707; t=1793839615; x=1794444415;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x2dqwrMB+tnBoA+6+42KIBNT73Z3cpCJD8k5B0qA0aY=;
-        b=gbB9hO7D9OKVIFI3hpSL6xcf5l0scfii2CbTi62dUEu6iKPj+jSGfywq4+S2k7MmsX
-         8ytygc74JMiogLdmWcZ328B2mSdh0d8NIQBIwMLKuAuXniSk3GuyBUNe0HTnLeQuRd20
-         WTrDQXSB/YDlCBGqYePRVZJ7J2O02PG5UxtPNpcHmcES7big2Ktl6AWzA71pfdqaVqTu
-         za1KQhsBIYspx/6RZeae5GCYeScak31WH9Nua/cEYJNnunc/VBx20gLsaeGMRlf5jho3
-         ucsLnaKOLMi7NCkbEYPJp45IE6elnZ78Oyh3lT9Y+RrdeivapJ7IxHTO8EVBWvooMqAV
-         NyuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy5kKvPu1HeiuUZYzbpHyHKyKO7UpicilQE2xa+2OuYOkbyrgdE4KQyJmIqSuCLrSPbh6/w/F6TT+ZW/w==@vger.kernel.org
-X-Gm-Message-State: APuU4Z+D9bipiLAFZgd5ye0QMeG5jOWiVZOsnNGca4uIhu1hw+3h+uyr
-	wWBCXRXiwOx8R9dELRoP+xytzqNvTxZu4k6ccX30Z1g6T/urbQfteBmz
-X-Gm-Gg: AYBFou1yvNZLqtnNA0yTVSrCqZr1cONyuTPbrp0py3BaezavV5AhNhP8kfJrPCvIwY2
-	WpLsVkBofe2M8HpnXCUtLtUN7RlrM7uS4Q6me3WQBtZmrr53CxFmO2GdqzvNJooVKs+VFo7fWAA
-	Bqtq4bvQoeb8e7oa/H3Zxwr6cWSdywym+K+qz+mDn83K46e/D3pBFOHBzJtWfdDdbN/731lfj87
-	7UVTL/+kX2MTdtW7ZnNw7kmF0tKt2xyVH4XtHcgFJTuaBGisPjW1nehhCI9eQMO7Ix8zIwZZFFS
-	jwJk223Dqv+Dj6+5ZF9ihp8vH1tb+9MzH1+hdRO7Ne4u0PUVkg+2Rf0HV4nyIHzlNSXTMBhu6DX
-	aTNthAUFCuXnL9VxmNkVtrEM3DGXvmFbnoVDG+GDhTbqeCcKl7J8e0/jJ6xwnjA2PB0gLE6ilBS
-	mMHDcXIDVuS9HYczgMUXMLJ+mp7KD1H6SHnhmtoSM+zP0CuxSJCD3mZCMCo1N3L8JNLBWIMiU1t
-	cIePtojwfaWBL4UFTHBKHKgWnhP1Fv7Rw/UxAFQiv6rHUwLnYXWslvbO27VHjmzD/17OfHi1nmC
-	IOtqU1GAqrFywB64xuVQ7nNB0ypijKsEEh91DzLmN/fU/YHZH8kKfAJHb/Fq2OVyvaFh4Kv9/xi
-	xG11+rB1/
-X-Received: by 2002:a05:600c:8b2c:b0:4a2:5267:3cd4 with SMTP id 5b1f17b1804b1-4ac151a8c26mr415678795e9.3.1793839395161;
-        Wed, 04 Nov 2026 16:43:15 -0800 (PST)
+        bh=+WxtuMhFn4fKtMVidfMWNFojAVD5ABpUs3kttOoaypA=;
+        b=BOslDmSYs7VkprRqFiJieo1vQO4lty+IMnfqM4uxj0hpocNNGJ3a4F31f/nJ/63Et+
+         2vPVleQ5/PQ2tgIg6g2DIXAKUf37P8rc1zBFkp4aGXiUlKdHN86vbNayzDpqy7b5hfcc
+         RdSvuF2i9V/w+Mw3duw3epdlkTopUuhZ8xaQf1hI2WVdA7SB+jb1AcyrihA0IWCOlS8o
+         dRLmJy8Pi50UpGkA6cAXvwJPaoZTZ1dsLJvAay9nnNaP7/AVcN1LYRyLKfdCM/ALqhFA
+         QUdUP+GiNSTLKheVatXUDnwID7FN4zSEk/ToyMaToelyA5u8TNGzOwIrE0nu2zGy4F0C
+         kJkg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2FCaRiHYlHijNCfPiYb76QqxElxM76qxIE9Abc0MxV0p0nJPbZKKNC6huprDXZmi5PO9EnZfY4HG8wQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+FlmYI7guyC0vmhYI9eV9czV3YX9BKng5752G+oZ/1X6/nVkkt
+	xHnmAcb8PXFVVNJqJSVOt86m5wqymHhvP1+dqRwh1jHt2q1dOeJ+P8yJ
+X-Gm-Gg: AYBFou0lxEFiPhfPz8y/8L2NfgdKwUxmTIn65Drilc+BcAnwG4PuQedQtW3lXZrhwH1
+	t64mz/KOp6jCBAKqF6WcSbxeYu0t+u4S1FQzM0XFnC2YhG8tLAbNhcbvBpPA+TqxmuEhxal+uyz
+	0v6ZUmAnOfi/M+2Z/dgUxgnx6G+rlNTHm3wRFKbdWKj3asmQVy6FsTbVkocrGKqrkeXVmVmX9TU
+	HsoawAfnaXVZbEahJtAl7JupiHb736Xs48F71eVzLE/GeBpVJtNMMVC43Kd1l0gSKQNGCrbH2IY
+	pNStRLYvcZlQpQ52mfnYbfWpHdX2RRGq7PNGyCQ6uE2F+dVVE5wfZhHKnQZdSD6nT6J6IFuBA2O
+	lqFiqxGfzwz76Ue4g/n3GldkHvROXnQDbYp1FewR+j5ZmRsC9I5v82jVVX/dAPTfp+2bU31vsQY
+	meGdnbFAob9MxhFUbOu0ETgjeWgD0nT8nDZkzGWzBt3FrZqbc2q1+5Ymk9k2XZyKfCYRbTFOiC+
+	bBFo0z3ipoTMEoXKWRx55mQiI7eUqz+Px4npkfo4Nzns2MZPYbs9rfuWYHyI4/n+4DLErTQ+NFm
+	9cRUTo9IyPitPiFnSIePDnVXYQXmgt6m1WW+I0iaqvR83CwjaIPDNqUz03tN+z8=
+X-Received: by 2002:a05:6000:4908:b0:48e:7470:9e98 with SMTP id ffacd0b85a97d-48e74709f70mr34301059f8f.39.1793839614802;
+        Wed, 04 Nov 2026 16:46:54 -0800 (PST)
 Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b414b170d0sm62276595e9.1.2026.11.04.16.43.13
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fea180ee1sm7735288f8f.4.2026.11.04.16.46.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 16:43:14 -0800 (PST)
+        Wed, 04 Nov 2026 16:46:54 -0800 (PST)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
+To: Alain Cousinie <alain.cousinie@laposte.net>
 Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Dan Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Peter Marshall <pm@petermarshall.ca>,
-	George Neacsu <geocausa@gmail.com>,
-	Hao Yao <hao.yao@intel.com>,
-	"D. Manresa" <dmanresa@gmail.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] media: Add the ST VD55G0 global shutter sensor
-Date: Thu,  5 Nov 2026 00:43:10 +0000
-Message-ID: <20261105004311.144035-1-fernandorimoli11@gmail.com>
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Milan Zamazal <mzamazal@redhat.com>,
+	Sakari Ailus <sakari.ailus@iki.fi>,
+	Robert Mader <robert.mader@collabora.com>,
+	libcamera-devel@lists.libcamera.org,
+	linux-media@vger.kernel.org
+Subject: Re: libcamera: pipeline: simple: Disable packed mono for VGA sensors on Intel IPU6/IPU7
+Date: Thu,  5 Nov 2026 00:46:51 +0000
+Message-ID: <20261105004652.147540-1-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261103103235.94397-1-lsa.uz@pm.me>
-References: <20261103103235.94397-1-lsa.uz@pm.me>
+In-Reply-To: <6cfa9260-b48d-484e-9c88-b75feb0392f9@laposte.net>
+References: <c218b8a2-9e69-4ef3-b36c-7df7e7637d4d@laposte.net> <3a98bb5e-a4c4-40b7-ad4d-1b251c03b4ff@oss.qualcomm.com> <20261101164311.GA3368923@killaraus.ideasonboard.com> <304e2a5a-f8d8-427d-84f5-b6f4498452df@laposte.net> <20261101195019.220940-1-fernandorimoli11@gmail.com> <6cfa9260-b48d-484e-9c88-b75feb0392f9@laposte.net>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -115,30 +105,21 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Sergey,
+Hi Alain,
 
-On the Surface Pro 9 (Alder Lake, IPU6 8086:465d), on a 6.19-based
-kernel, with 3/4 and 4/4 in the bridge and 2/4 adapted only for 6.19 (no
-v4l2_subdev_client_info argument, and the "dvdd" supply name this tree's
-int3472 uses), plus an int3472 that passes 0 to the clock _DSM as on
-Hao's thread:
+> I am using an HP Spectre with an Intel i7-155H processor.
+> The camera relies on IPU6 and uses the `og0va1b` sensor,
 
- - 4/4 gives the sensor st,leds: led_mode appears without the GPIO 1
-   fallback I used for v1, and at manual exposure 600 and analogue gain
-   8 the frame mean goes from 15.9 with it off to 32.7 with flash;
- - with the clock now at a real 24 MHz and the link at 396 MHz, R8, R10
-   and R10_CSI2P at all four sizes run at 59.14 fps, as the controls
-   give, except R8 at 320x240, which now delivers no frames rather than
-   the third it gave with v1: the IPU6 limit on narrow packed lines from
-   my v1 report;
- - v4l2-compliance 1.26.1 on the subdev passes 44 of 44 in both exposure
-   modes.
+So Meteor Lake, which also answers Sakari's question about the system.
 
-This covers 2/4 to 4/4. I did not test unloading ipu-bridge, since a
-warm reload of the IPU6 needs a cold boot to recover on this machine. If
-v3 changes 2/4 only as in your reply to Sashiko's review, feel free to
-keep the tag.
+> I modified the driver to include the ACPI entry `IPU_SENSOR_CONFIG("OVTI00AB", 1, 500000000)`
+> and adjusted the frame rate to 240 fps for a 640x480 resolution.
 
-Tested-by: Fernando Rimoli <fernandorimoli11@gmail.com> # Surface Pro 9, IPU6
+Your failing run changes several things, the link frequency, the
+frame rate and the formats. The stock ipu6-isys already offers R10_CSI2P
+for a Y10_1X10 bus. That is what I used, with an unmodified isys, so
+nothing needs adding for that. Does R10_CSI2P at 640x480 still time out
+at the driver's 60 fps, with only your bridge entry? If it works there,
+the stall comes with the rate or link frequency, not the stride.
 
 Fernando
