@@ -1,93 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871843;
-	b=Y15nIkEJy7Sm3mdikExTtD5n3X7SrejkXpV1OiDpNLXjX4v1pjXPuZCKoLMyE6Yaby25
-	 ujdfC5cQKja1VQAxWq/DJ88ZSxQvG6IZdc7oYwdSnk2JpskdpSbov8e0SW1GvIx3dFm0R
-	 Q6cclV5yt8uOq29AQKfFVhfNg3Ya9QvKWVrIAWeDRiwRtO5G4xJt+rg+444mWx0lISoen
-	 B9/NvBb0wOmt3YmDUmV30ySNjh/whtddZv6u3G8MQK69kQc3fCmZIsngXTew82ZsFZrlJ
-	 WuRoBHSFWeERsY0nbplor0jy53QpLAJ+OfLBEx3VDbYzqcni3gShRxVhj0lwwDXFuaQ==
+	t=1793871876;
+	b=fI6bXBJaPBYE0i/ePzlCc5xenQC68JIwVzkfRe8ImZmIRky0kaeZE9TKXyjnUP3AxC5J
+	 SJhwKIKbXSUkvW+UNiWUjOmtdgFkQNlBJACmnil+6OfC9S3yZQOkorLAQWgPP0h0Ric+m
+	 6elFiR8+xGzjGI+6opQh5Tkn6ns/1J/tKtU6dyJy5ZJj2wfag/7M2IXna8qhlDDZbaKi0
+	 lj91mwxaYJ2rGRFS+oQ4kBRCa/sxDCwm9vxYbJxWy+i7Vg7VW2XF2QWkB4YhhhtR+FGFR
+	 NValt5U7Dd3z7wyAfWNsXN+WzDKyRZP+t5sX2Q62hgLrsovWLFmTWyH7ZiqQCFjkiuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871843;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Organization:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=K7gLYLDxJaZMxmnJSWmFjJKevtcs1ARX1xQiokE4kfA=;
-	b=zRd+wPqhPyH+6lRtSVSHWdhmV8papKfiZgGGg5skdVJxzGWUcX3bVti/h3bFo1uYZovb
-	 2jmPQF2RIorMtWBkHz1Ooe1XfZH0hYSBXYUKftNf5Epxo2wyskR1GnK4RgqalQ2vdEyqd
-	 zIZLHJT4mHZBCr1uHt/O7jIsxOTlWlvbkdPoZwRYxZFkfHe60KwuiKq5QSlJI91i5dtmR
-	 JvZlmMfKru+zy9tedgqD/FYAXGCjY9bpDrR+NCQ1mAoVf58++/9M+2AH+laLoNqFxrflT
-	 WLQv7SwxkIh8r13YevmlywwsnREi3jEC1P7al08yJuX9dCwl3HcxGV0iUkqKZBnmA8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871876;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=7QhU4psUp36lRhdSvaABTdCrK79wA+X/bI1t7JAA+P4=;
+	b=0vUf/McRas5DEu7yGDF0HFPamInz/0fDa+6pJO39bl0hbR7j8R4HQo7ZV66N+rP3r7Nx
+	 P0fvz91PPCEkpKFh8O/gzYXF9zPx3PvREa/qvfcI7IU66Ky0vHVTE/GqaK66Nl/V4SrVc
+	 eIgSuZGIQkmZUBNN0ltVhGZDE9bBq5StyFzZ5Ayw26euWOR+0pTXpk79TU6s6me0m1PJF
+	 FdjKWjqbN70O7pq1raprKIaKd+MYW68/SJUNve0xymm1mIH7r+PgOiByHI2N6eclbfzea
+	 DiSuDXt/HXPlzvtkhXzgi4n5ufnzVu7ulSCAR87Ln72RJn2S21Xq9YzFVDeoDrR0gKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="N0edd8U/";
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tRkOqEU4;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C4A606D801
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 09:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C4A606D801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0533606A328
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 09:44:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0533606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N0edd8U/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793871843; x=1825407843;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=2HDIt5lWJDuSmCfYb1ZEb+hUs1kS2nrYLiAdUKp3R5o=;
-  b=N0edd8U/hCeFlFzE+oJ1Mjx7riXnFeVaXGwtuhE1qabjhnoRnFlim7vI
-   IsoH69GreIgljjyOwUTm+zsLHkjNXA7uVAtAbmgVuuoECQJnmShxKzkaj
-   kpFqYsRlmkPa0CITRgf3UthRGJyu3bsne8zm/DA+UZuLUTApdp7rO8xV8
-   wLdDakNG2qt5RyjSbEC2K0F2w5lu376Q9foBO902BgKZ2kWPjQka8xeFn
-   yBH0jSiZWE3KBzOczLkyeDy6qYjeLFINXxuE8vO2vJuuy9ldHyxaMiTn0
-   DP8cjnF5/RMUenT2ORt4br7b31a87GU8yj5Ptyp7oMdrTCbdfI95p6pPl
-   w==;
-X-CSE-ConnectionGUID: fQTS0OX+QayUYA20lTwzDg==
-X-CSE-MsgGUID: ulW3RdYPSCq/XNw4K7H90Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2685189"
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="2685189"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:44:02 -0800
-X-CSE-ConnectionGUID: ISDnxJV6TKKaD0lp3Tp7CQ==
-X-CSE-MsgGUID: xPesxnVLSOia8IRJGDcFnw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
-   d="scan'208";a="8730169"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.182])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 01:44:00 -0800
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 71672121B97;
-	Thu, 05 Nov 2026 11:44:10 +0200 (EET)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1xOu0p-0000000DHQW-3Wyw;
-	Thu, 05 Nov 2026 11:44:03 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: andriy.shevchenko@linux.intel.com,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Andreas Helbech Kleist <andreaskleist@gmail.com>,
-	"ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>,
-	"tfiga@chromium.org" <tfiga@chromium.org>,
-	"senozhatsky@chromium.org" <senozhatsky@chromium.org>,
-	"claus.stovgaard@gmail.com" <claus.stovgaard@gmail.com>,
-	"tomi.valkeinen@ideasonboard.com" <tomi.valkeinen@ideasonboard.com>,
-	"kieran.bingham@ideasonboard.com" <kieran.bingham@ideasonboard.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	"johannes.goede@oss.qualcomm.com" <johannes.goede@oss.qualcomm.com>
-Subject: [PATCH 1/1] media: ipu6: Improve Kconfig help text
-Date: Thu,  5 Nov 2026 11:44:03 +0200
-Message-ID: <20261105094403.3165245-1-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=tRkOqEU4
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48b001cd92bso782720f8f.2
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 01:44:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793871874; x=1794476674; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7QhU4psUp36lRhdSvaABTdCrK79wA+X/bI1t7JAA+P4=;
+        b=tRkOqEU4xOzE7XVrSahnzZw+u+Bg+xLCpTkl91fr/FbW0pcnhNr9FAx3T+l1yNJqNY
+         wtu4o+HNeSsr3GQ9Y4PIY2gJ0iNQSyc3FVJoDgC1M37qnJzbxCySN/8cUiR9s2Va+DBk
+         KosHb7H0Cxd5RsHmRdULYyyBcbwoEqsLCzSl0vH+p4RN3/7gmRXOBbwpaAHG0uHWyxcL
+         +MqGCI7/uKRT1akFropCNXnuEd072gwImdusnSv2T2vu1tM8gCeH10HLraP/JALreFzu
+         y1Dy1i3xxfUDA/QuIkMRBtbFdAOM4gqDbju3s3PkxsA4RoiBUjUP+k+eHki80E+TxhiH
+         8KZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793871874; x=1794476674;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7QhU4psUp36lRhdSvaABTdCrK79wA+X/bI1t7JAA+P4=;
+        b=gdp6ewVoyU+8a5oTaVq3kVFKPylpD1bZnC8R/Tv/PMoi49HZ+somWyjCGh2cJK+S7u
+         6kHWx2iHyGZrk82Ow5dUq7TYytVskbEfiRZaF4b2qnW50EOG8GTQR3tsRerXz/HVh1Kf
+         rhPviCm92ROTnc/+uM2YsEMcb4Z0sxvzlr+voeohdMsxx7EOqfJahSbk3XSivYU7MZLC
+         gyNcSOqU2MciE+zt3o/Yv9HPRQgOuuLn4Ug8+0wlNlhLLfgGFXr8K4Rlg2vfgTq3LwEX
+         LPo+lo9Zn6sYcpNQXgKJl5DjB6EQlhVpeV3QtUh7Ar+ZHwJvsXRX9aT6iJtAVFlIpZTx
+         QeUw==
+X-Forwarded-Encrypted: i=1; AKwUvBxpCqfaC+UMyAsI7qcZkkmJu0Z4CKa42tVnXv8fAcRpwGEnqrfQNcV2sqxO1Ceu4I2rMcCxyRPKXgkMDg==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xJeruqdZYsdKK3EH92EJ9BsSpJ36dO6Y3YPzhUElg44bNOvtX
+	aeReSAb9NmMO45L/R0NvirJiOtXLv+nxj4qXOXkE2yd8GrOfTWj0gJRB9k9E5IgYet4=
+X-Gm-Gg: AYBFou16MxCEluC5HpK2D/tv5Ma5ws/BXY31JRT6qO0PKoybBp2jyYzRgNOQLO/RMnC
+	k1hcbOFGYOro0V8sXS3rmgEzhgIIhBMdlGxyJlrRu/tonqmDESUw07j6m6EbYuKUCLByS8/EY7k
+	+70tuzu9Q5Fy/dGp2Fy6UrVlfWH7uId9P3ffflZySSzyDEVX0wvDaOpdwbZsp+dVV24XF4wk+Ed
+	EZykzaqbpWfMhqG9aGneh0L1E+yU9cALWEd29Ifc1GCmYU6mmQprAYt9IJpwZrgh1IaQ6OGAAQm
+	/Cw3kD/5teUCpgxoHxZ5rL6PXSvSbeqG8SxM4Hc1uj6I6/uvARyFVlMBn5GIa1ghoeiKjoLHZZN
+	+u7S7aEH6yg9W7OoSHOSYpHbg747x9UW4KBocWYttSWN/yyXBvx0U/FgYOZgUMWCA/SZ/xgHJ7p
+	ApdzJN2dWjKRd8OZQ/Z9vEoSt34ugjrqRvyL4g+jzDdyFvrXXyC/olhT0PprTNqYfqjQb5TXHPV
+	TGY820an+Ozwo+pNSuUA/e9QE//0znVOilxZWxb4gMIoGJjPvPb98rjqOy6odlECz1bgUlUvEdI
+	camyuYAKPFp4T9WPB7NR3Foy1OWEK1WbVna99zvw
+X-Received: by 2002:a05:6000:2997:10b0:48e:5e63:bd23 with SMTP id ffacd0b85a97d-48e6e2ef96fmr29363335f8f.30.1793871874143;
+        Thu, 05 Nov 2026 01:44:34 -0800 (PST)
+Received: from [192.168.0.167] ([51.37.126.136])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fecac17c1sm8628740f8f.10.2026.11.05.01.44.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 01:44:33 -0800 (PST)
+Message-ID: <a83a948e-3430-4133-ade6-b30045b8b186@linaro.org>
+Date: Thu, 5 Nov 2026 09:44:32 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -97,51 +90,73 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/4] media: qcom: camss: Add support for SM8150
+To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261104-sm8150-v7-4-rc1-camss-v1-3-7a9534a9a22f@andrewgigena.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Add IPU 7.5 to the menu item name and list the supported variants and the
-SoCs they're found in.
+On 04/11/2026 20:54, Andrew Gigena via B4 Relay wrote:
+> The hardware reuses the existing 3-phase 1.0 CSIPHY, Gen2 CSID and
+> VFE 17x implementations; the CSIPHY uses the SC8280XP lane register
+> layout. Add CAMSS_8150 to the version enum and to the shared code
+> paths, then add the per-block clock, regulator, power domain,
+> interrupt and interconnect resources.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+That's odd. sm8150 and sm8250 are proximate both seven nanometers 
+sc8280xp is five nanometers.
+
+PHYs are about converting the analog to the digital domain and so 
+process geometery - ends up making a difference.
+
+You can get the PHY init sequences here:
+
+drivers/media/platform/msm/camera/cam_sensor_module/cam_csiphy/
+├── cam_csiphy_core.c
+├── cam_csiphy_soc.c
+├── cam_csiphy_dev.h
+└── include/
+     ├── cam_csiphy_1_0_hwreg.h    sdm845
+     ├── cam_csiphy_1_1_hwreg.h    sm8150
+     ├── cam_csiphy_1_2_hwreg.h    sm7150
+     └── cam_csiphy_1_2_1_hwreg.h  kona/sm8250
+
+https://git.codelinaro.org/clo/la/platform/vendor/opensource/camera-kernel/-/blob/LA.AU.1.3.7-02900-gen3_gvmgh.0/drivers/cam_sensor_module/cam_csiphy/include/cam_csiphy_1_1_hwreg.h?ref_type=tags
+
+So yeah going by the name that's CSIPHY 1_1 same for sc8280xp and sm8150.
+
+Hmm so much for my understanding of how dependant on process node these 
+sequences really are.. perhaps the PHYs area fully synthesizable in RTL, 
+probably.
+
+Anyway.
+
+The one thing to do here is to please _verify_ what's upstream now 
+against the tag provided there.
+
+If there is a divergence then we need to upstream a 8150 compliant version.
+
+...
+
+Actually its fine, did the verification for you, the 1.1 init sequence 
+as is upstream is fine.
+
+Just please tidy up the ordering of the 8150 switches.
+
 ---
- drivers/media/pci/intel/ipu6/Kconfig | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu6/Kconfig b/drivers/media/pci/intel/ipu6/Kconfig
-index 3d3c7778be38..00e5e4ce7c64 100644
---- a/drivers/media/pci/intel/ipu6/Kconfig
-+++ b/drivers/media/pci/intel/ipu6/Kconfig
-@@ -1,5 +1,5 @@
- config VIDEO_INTEL_IPU6
--	tristate "Intel IPU 6/7/8 driver"
-+	tristate "Intel IPU 6/7/7.5/8 driver"
- 	depends on ACPI || COMPILE_TEST
- 	depends on VIDEO_DEV
- 	depends on X86 && HAS_DMA
-@@ -11,9 +11,18 @@ config VIDEO_INTEL_IPU6
- 	select VIDEOBUF2_DMA_SG
- 	select V4L2_FWNODE
- 	help
--	  This is the driver for 6th, 7th and 8th Gen Intel Image
--	  Processing Units, found in Intel SoCs since Tiger lake and used
--	  for capturing images and video from camera sensors.
-+	  This is the driver for 6th generation and newer Intel IPUs (Image
-+	  Processing Units). The following IPU variants, found in SoCs listed
-+	  below, are supported:
-+
-+	  - IPU 6 (Tiger Lake)
-+	  - IPU 6 SE (Jasper Lake)
-+	  - IPU 6 EP (Alder Lake, Raptor Lake and Meteor Lake)
-+	  - IPU 7 (Lunar Lake)
-+	  - IPU 7.5 (Panther Lake)
-+	  - IPU 8 (Nova Lake)
-+
-+	  Currently the CSI-2 receiver functionality is supported.
- 
- 	  To compile this driver, say Y here! The two modules will be
- 	  called intel_ipu6 and intel_ipu6_isys.
-
-base-commit: 06d48a18b0ef9f24e79a668b4f864734eefd2ba6
--- 
-2.47.3
-
+bod
