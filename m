@@ -1,96 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793871233;
-	b=ydsrf+cAsI20fF97icEIhN97ITICl3wu2IMY6YaBnofSDD1Mi0YEJZbpryZ85s5sIJRJ
-	 PEh6zu0FZZqrQlDiPMLioaauSdfdKJC84fEaDc1YvoNCG4jUBZTcVwV/OqoOhrbEGZO/B
-	 d0A1kSGkKdSF0pm4+Gk/dxw6rLQFqef0lmcgA9NivHvREbYUycRSasTeYSUsahHtzA/Se
-	 dFuPteu+GyZDVrUbgQZD8rvuMvUWCgq3zhi/M5gFpwCZaMW/bAaxdAmKY+fW8k3jkTNbB
-	 0hD2KMFejqSP5tYD3F8fcWJKiONmiy4qyfRwKtrY/A5xZml8vw0qaxFqWLRULhbhcuw==
+	t=1793871363;
+	b=3Ocs+2e9/33WJ1fMfA02L2Ww43NhvShqNKpBQKPUliOEIfvSSNJtnNZtDHyTQFYPTkDe
+	 kT4Ixw/vHO03xXrZv4sLwOYG4GA277MvyLZpEGvzj6lnMqoYw1ocCgJMoOxylYjJsW9qi
+	 Ui+JVquvtEzCErG9xfp013tX2VD9+cqq+MyGYBip2IIZpvq90PYEdCciL+ShHFmXgmt2e
+	 zS3eb/Zxfl+CXDWTAD3wOC9UsukaVjDBFTaAtp8z34yBvXWelDRN9oTSOPKB+DBJboNZV
+	 CemT4FkbA+sTc1pCU5jOWFdSoQgN5QHmazkVKKwiEbPykL3CthN6NfKnqXwoFJ+AfBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793871233;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=YyMbqjO+UegeRmy6DgvDbjX/Wf0GYEt6KMjPad/OgWY=;
-	b=yVZG6XwZnXjZC4Uv0V2rZiM8SYIGvHMpPEhwpGhAbe6U7wnlgWhvTZvyfSNoDUT2laj7
-	 Zp9hxaobonc8GGCSPx7/HtjaqpPAzmYCcAq5Rnb/zYbXxn0lgwGjgZZ73vcQ7o1r1dqKQ
-	 Hctpbd2C1j5Og1qQ4+BcQAvF2jhz9I2RTt5lXvYIt5JonpjnDHDsuOM3b2VuXqaa6s66g
-	 zK0mSfrTs+PIEcg96aBv/0deZc7OQt0PwC5tiBdL1ms7SjV/lNUXKpzT1W0bEl6ZhAmgw
-	 1B3f+NFFs/yDXmRRHk2jGrLS22FcldnEXOdHzAARstHrMpeq9F8eZXpWkSeIQgKBtRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793871363;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Rn4PUmQlghV6bDqelAkHDxWUrP063U3OOv3SoBPx5ys=;
+	b=LLGHQJiwP8mid3/rH7MUIPVF8rSmw7s9YpWheCAn2aqx/eSJtoQSFPeFQ6Gsbj8KMQji
+	 lvaThq2QWXZ2x8t7WuQqbXM0b6oh0CAL2BAsJPD9nAFSzusLEANcuKjQeRdBSIcjmh9/M
+	 uCV/v5PxFnnvUk9gmqrfxoTM7KX80VkD+71wKaybsxQwj/a54vnl4S2CQlG0ynUJ2Vno4
+	 0VGKNeSzmCjCcl4v+4OgvhmvHPpeOIrpihD0xlsoF6nBD3Q3VBMS3VbI0EIlyORNMAtd4
+	 uOmWke5sZbuuxTSKWP/0Cz0KQmvGPCeReqV0W3v9iHX0yn3QbNuo8/ttl4in6VKSt6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VKlITHYj;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=KcLs0iio;
+	arc=none smtp.remote-ip=61.135.153.163
+Received: from smtp153-163.sina.com.cn (smtp153-163.sina.com.cn [61.135.153.163])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45E9606A335
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 09:33:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C45E9606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43239606A330
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 09:35:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43239606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VKlITHYj
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-490d59c3edaso281349f8f.1
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 01:33:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793871231; x=1794476031; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YyMbqjO+UegeRmy6DgvDbjX/Wf0GYEt6KMjPad/OgWY=;
-        b=VKlITHYjn4rMf67yDTvYadu+rZm8xzOxTpN/TKthk0zOHL/e42TxxIyfWJ+mrpRVje
-         em3H8WxTWiSWlO4HBekqBRgX65X+rwMCQMmIxTclo9MWBMTf4kMog/FCNKUiesviV253
-         CjpIQk2pjFgXRBqAG2C3RUiKwaI95B4CdJa0hcpTZflS7BDnNRxUyDkw8b+NY9r+/u4z
-         8DFepbhDHZy1IvarML+OXYTqK+i4+Ebj5ZWraY9YUG44As4V9SgVZJsYZG4syTTwBCbO
-         3L6rPolPJ8RBsfbZVyTf0AWeCL6BUF/FJv3sWfAYZwB2N5J8UoDRnOl/C+Rr7QPwIbMk
-         izKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793871231; x=1794476031;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YyMbqjO+UegeRmy6DgvDbjX/Wf0GYEt6KMjPad/OgWY=;
-        b=SZ5sCqc21tc9V1ohckyD7Tn9GKe1CFZV42LB6Cs8h0EbO9PfgrDIGTQD/DOn3pWkOw
-         vYjnbKJof5EvN+Am7gB4OKOZ5DdFnHTnW+KNW94uiQ6VtO8iV4ZCb8YvUck0b4H9z0Pq
-         0f947lD8Pu+d1NXu36JUxgmLcZMBO/Q8e7Z5cjAvZQrNg0w33F7xD8/BXWhGSO88n1y+
-         WQiB43Gz7ow0uZ/9Prt0Pq6CNk9EGvc9W7T7A6+n3F5/BcrU5QcsdCE58mnsu/wiuI7r
-         DQYu29f3MQJTspEjcfM5e8GD4jLroOy4kgcI0LPo5qAwJ9hliHGrxgIMY9PgUrmQCF3O
-         yV9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxBkZ9U69SddB+Nxi8ogyTGfLupLgzDQ+PbY2eFk0hHZuczzSbObI8nsSszHWGNAKCWNdSko/MrzILR1w==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8/sa3YluUzzbeRDJtKhn310kP+4DI0oPo0lT4I7T+duE1uVERK
-	wAXXHbp7/lD6mLOlPAIyY1zOKBDwpjT/BeXLc7wHrLEtwO7YzUE7BeKe
-X-Gm-Gg: AYBFou2cbjZRSKXt/FFSybreH86IvnIHbcOb0WjbgvCnEgoW8xu0Ce5wENWcFYdgfgl
-	sVuRc3+mz/S6nYWXfBeQR3mQNlC7drENhtrUx/kSDvQTd1o0lc3cWZAoB2cq72ZKsoTnXNiPcL5
-	QYapvOhL7aABX+hxz4m9DKDtnGvShAAqPcY1Z84z1JTjFMam0BKDYqMkaUiTIEcyWqPfvVRM//X
-	yX1Px3v5q0dO12z3jKNLgpe5dDrcTBdePE0YG/zbU0fPbTA1rA/2BvR5ZoY8QDfIus3npRjMuka
-	4J5ICUul49DOmNhRMnfIf/HkKbI94w6pEoIX7VdaBune7FcEi0ScjQqzKML4WwmdAoFevQBuXIH
-	U7L+ArnPfhgk/z18NaRGFtbjArHOmNmXK1euUQbUaojty9youfBCOhUdHgoU+JlS50HbTz3TSiB
-	+UU4YWTouwmh1Vzi307NEkNLVK3KlFJIsEVol+V/6C360hcda1ifcI4tTrtjoHbRfvhb0OVmOAD
-	5Y8z+ojazt7o7BYbf7Cr97OSDaPJPeiMkXac/BKZi4OnTv00uo20xp+/62TSFSiAxt0L+XunjFo
-	4y3G1PDTt2+FL9bI/KXB7bhPoZL653tjEuo5Axg=
-X-Received: by 2002:a05:6000:41f0:b0:48e:6625:4190 with SMTP id ffacd0b85a97d-4911906d39fmr3386070f8f.7.1793871230914;
-        Thu, 05 Nov 2026 01:33:50 -0800 (PST)
-Received: from foxbook (bfg124.neoplus.adsl.tpnet.pl. [83.28.44.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fec8d88e1sm8999211f8f.15.2026.11.05.01.33.50
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Thu, 05 Nov 2026 01:33:50 -0800 (PST)
-Date: Thu, 5 Nov 2026 10:33:47 +0100
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Hans de Goede <hansg@kernel.org>
-Cc: Kuangyi Chiang <ki.chiang65@gmail.com>,
- laurent.pinchart@ideasonboard.com, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Add UVC_QUIRK_CTL_MSG_DELAY_1M for HIK
- camera
-Message-ID: <20261105103347.4983b901.michal.pecio@gmail.com>
-In-Reply-To: <7c254ab7-579e-4c17-80fb-596e6fdd29a9@kernel.org>
-References: <20261029033106.7374-1-ki.chiang65@gmail.com>
-	<7c254ab7-579e-4c17-80fb-596e6fdd29a9@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=KcLs0iio
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793871358;
+	bh=Rn4PUmQlghV6bDqelAkHDxWUrP063U3OOv3SoBPx5ys=;
+	h=From:Subject:Date:Message-ID;
+	b=KcLs0iiodI2RnTvLzypYnmnrFyndxVrqRDFEGdgvEXoxL50HLTVfVn1eRvXFhR4na
+	 0HD8jZqzYyiU6cP1qwtLwp4j02OAGotyZ90lRLYGR16bvcVWuq/mGgQuQoL+HavZkF
+	 IgrJgqINwypU19BtHr9+1bHb9qPHg7NHh3GJ71kM=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.231.89])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AEC4DF20000355A; Thu, 5 Nov 2026 17:35:49 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 212874456816
+X-SMAIL-UIID: A9199AE68AA0430E97AE7DDE3DE72AD8-20261105-173549-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: phasta@mailbox.org
+Cc: media-ci@linuxtv.org,
+	sashiko-reviews@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	phasta@kernel.org,
+	robin.clark@oss.qualcomm.com
+Subject: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence reference counts
+Date: Thu,  5 Nov 2026 17:35:46 +0800
+Message-ID: <20261105093546.61098-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <75367a9a19c1e9a007422e0a1b8ed0acaca2492a.camel@mailbox.org>
+References: <75367a9a19c1e9a007422e0a1b8ed0acaca2492a.camel@mailbox.org>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -100,33 +77,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Hans,
-
-Kuangyi Chiang has also reported this to linux-usb and linked here.
-
-On Thu, 29 Oct 2026 13:46:04 +0100, Hans de Goede wrote:
-> Is this a USB-2.0 camera connected to a XHCI controller ?
+On Thu, 05 Nov 2026 08:49:49 +0100, Philipp Stanner wrote:
+> > 
+> >  drivers/dma-buf/sw_sync.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+> > index 8df20b0218a9..261bc98b1ed6 100644
+> > --- a/drivers/dma-buf/sw_sync.c
+> > +++ b/drivers/dma-buf/sw_sync.c
+> > @@ -221,7 +221,11 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
+> >  		if (!timeline_fence_signaled(&pt->base))
+> >  			break;
+> >  
+> > -		dma_fence_get(&pt->base);
+> > +		if (!dma_fence_get_rcu(&pt->base)) {
 > 
-> And if yes, how old is this camera model ?
+> You must hold the rcu_read_lock() while doing that, don't you?
+dma_fence_get_rcu() is simply a wrapper around kref_get_unless_zero(),
+it has nothing to do with RCU. For instance, the use of dma_fence_get_rcu()
+within sync_pt_create(), as seen in the SW_SYNC_IOC_CREATE_FENCE code path
+does not require an RCU lock.
 > 
-> The reason why I'm asking this is because the EHCI USB-2.0 controller
-> interface causes a natural delay between consecutive ctrl commands
-> queued one by one till the start of the next USB frrame, so they get
-> spaced 1 ms apart.
+> This probably works "by coincidence" since the surrounding spinlock
+> also disables preemption, like the rcu lock does.
 > 
-> Where as the modern XHCI controller interface will put these
-> back-to-back on the USB bus. We've seen some issues with (older) USB
-> devices before where they needed some delay because they were
-> originally only validated with EHCI controllers and the hw/ff assumes
-> it will get some "breathing space" between control messages.
+> That spinlock, why can't it guard the dma_fence reference? Doesn't obj-
+> >pt_list hold its own reference?
+This is neither a coincidence nor related to any outer spinlock.
+The comments I included in my patch provide a complete explanation of
+the fence's reference counting, from the moment of its creation to its
+final destruction.
 
-Are you sure that this wasn't possible with EHCI at all?
-
-What sort of devices were affected? A bit surprising to see that there
-is apparently no quirk for a known issue.
-
-Regards,
-Michal
+BR,
+Edward
