@@ -1,47 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793894056;
-	b=u/m6P7/DheBXPf0+nwrCXHU0Cz1QhA4qM693X3XhsLyrhYEsVEgUMRkss/91HRqEBpSQ
-	 kc/Ii/ul+Y/OTKm5sHIx5sJxe8TAG1IbUOyDTkQBdrnUJgRQiiwCe3eQMYHNSb7dJo42K
-	 iHEa8XndozscO7EdCYv/dpyJxOpcwWCRRGApdfLuBAlwGeAm1xMXe7jI+tjrGFV12Ft7S
-	 9bakripF4Qxni8G7TcqWU4w0P38H3JCkctgCO31fIOgYuAb3ItFG2YmCRqFBcLZ7AMRtj
-	 p9mgGsLov8TeHCml/7pl5/lh6+0CxX4wQHfwQU5AND+Q7TfaVQZzGnogIEs5y7fwjZw==
+	t=1793894802;
+	b=vDKUURiU1NBX9ABJ9pbzjmIadYYGtF/ZymxDCwULk7yIpdlYTIqGNe6cuchw9q7sBRWp
+	 0E3EzIOLgu375t8tvhMKvJfk+lCmyjDKxCZ7b3+m09YxW4SgiwqhYyQ3/eFqVN394os4+
+	 /mKLHzhUop20If357mvK7+2KwuyQAqd6oi8YaJLzCPjrqN1tTZ41JCAsACYWynCzlCTVZ
+	 fxQgnFMaw8z991aXZF1w6gdNg5sooWquSLZQpskZgoD1uHuKVTvvNNnp7EzC+6BvkJbiv
+	 Udz+bGsMBs6ssgH6DOBWLbngw31w+YY1pDWIVSnWFbKco5bs+ejK/s55Is8XBYTUImA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793894056;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Qx04Fn5WCCUloxDGXEqPfWbEyZHIMrkGFVFAAcnvj1E=;
-	b=BZxuFbygl7aEY+fT9YQnvk6s2F+tLBDNA7oex1M+BLtbZz52hq2hdcFS0Ky0s7VFEJy/
-	 ZMRzYgAsSc6VVTqv1HFrG5aG8tlqFSLpUasOvQMDvVz2wm/TFeWoC1fk6ASrajB/+OQnN
-	 uDw/78jpOBJCI1n4xS+9OXQPpfh5lF27jGFjzSYSaWpSZyfw64ay4Mg3y/Yno2GgaOa9P
-	 YU6BpRJaz9q3Slnup9uDTdJ9/XO2Q3th4ltjKoz80oE1335A598CaFMSY5NWBR6Cpnsnm
-	 LjC1o7zfwec2mK4wKj1yh3KY1FrBWY3wGmpfILQ02uwmJ+OG8/CQjjyswb+BUAbwCfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894802;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
+	b=G4923GPXVrnm8MD/mZ+N2+xAUZ9wG1q70UhLy2U7Qxc68C++wvG9CZChfdh8Qju2HW2f
+	 eebD6+aG113LybnEewZoa8z4Rc8tPTI+Bodr1vZMjXHttiq1BWy4ryBUWToDm6UHK6g/o
+	 86pLhY/Uw6lc+4c7/sqXvDnH3nJsT8rJE1Xk39UolRXZw+lTlpq+x7a0SOaUEbGiwB2E1
+	 WcJqE7cHi41SP816nwAFS3oAtuOtpPvOUJi1u09C10hr/qOezdxPCuFWuqQVEGy7g/0Cq
+	 grWSVa6lEPBjM+Jn2Tdn7sunuD2oiiiG1CW2MTK5j43wn0CQxRdN/vCfF/PUS0ha1jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDbY6ecL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b="bZN/dLgT";
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF12606BEB3;
-	Thu,  5 Nov 2026 15:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65034606BEA9
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 16:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65034606BEA9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDbY6ecL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215C11F00919;
-	Thu,  5 Nov 2026 15:54:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793894056;
-	bh=Qx04Fn5WCCUloxDGXEqPfWbEyZHIMrkGFVFAAcnvj1E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FDbY6ecLi6mWL7FJRAbLrcM5KnAZ/8AO2YmGzmgM9tRu3xfgC1hqenhOxLYPMppzU
-	 RBtd8et/HLr1iC1EljSG1gqA6qqAffYRAQWOpO5LhWqPrhWDOfo1hv5JtBorkS3oiW
-	 IK8J9HmOVZ78eiUwoXzVMdTCufp3o/v0Ck/UHDWlEyFVr4auBLcoVgAAWEeHwa2PII
-	 nnBY0oMzO/kzNov6xN/g91eNuK6SWRU1lEOSZJarBuYx4np3FunuLl4Ay5BAG5tXj/
-	 PgdoITEzcLRV8qGuGrtg6t7SvtTXGBDf27lSFvGGMXw4GccsDCt6xCClzErPkJyh3Z
-	 yUpm42boZzeQw==
-Message-ID: <ef332a20-1ac8-4d48-a959-46564b2bac42@kernel.org>
-Date: Thu, 5 Nov 2026 15:54:11 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=bZN/dLgT
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a215e64962so19690705e9.1
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 08:06:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793894801; x=1794499601; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
+        b=bZN/dLgTnwp3fVVxvRKU30Fx8i1rNQrjZjCQICPIYUDtFBMcNfXrz13yJLAP/Lag7D
+         sM0fRylYUGUx9byUV6VmGokaPZhUs1RL/o8x9cHERoSkp8m9dTLG9eFqZ3F8ua3kIZyA
+         TqnkIpYWzGYjtTVpFhrd+2emTG9VOHrEHirJ0Yho04oZsBkZ/DTQCOn7Lszf9NUQwu6H
+         K/FxM9ySoLX8UhIFXx0oegPlstft3EhkIbYx82ggNtGeybiohK0FmIIhOtDrx4ugzrvw
+         g1854rsGGOmmgAbre2IlSyJOs4ShUKOOsyUcBB5YaTwIv1sShYNju1wnbnu+h6QcV0rf
+         56XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793894801; x=1794499601;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oc104d8dubVkVVOeovNlpZRvCxc8r/7mBsga0gOA0Zc=;
+        b=2ARrhgIAqzoznovoNRzsqImBsKKWHDRBCpQJWhRtTvhbqEvZBiVMpv8ExXfPoGYZX1
+         UyzrUsrHoXzSjBl8PyKB35oZA/Hq/iCK2HW+BbmyAX5qAUKjFWS0B3sakoVCxcWgFr3M
+         KnkuuKABamdXlDLxHskf411xaKheM1l0bRd/e8TGZMHgWyHSDE1LGwRT/jB2WMO0spSq
+         eviimou1BRQyXcN+ONil71SzSK3jQsk1nLO9sBSd+DLtwO1UIAfrrzCQ6wc94jg8mReI
+         N49oYi5bTBwjdGjeyXP16t0vgqrfgNHetZEMLFRObcjGEIsI1JBC+CZzuX+voFvwTPJt
+         RQ0g==
+X-Gm-Message-State: APuU4Z+sTwz3kFNaetRGIvWt7HULtTdV/ySibqmfVRT22TI0+ZMOvxhv
+	aTATdxAQ1rzHnvCGGfw7mUTLUwWLiFVv/l0rzGJFEKyhW4E/n+GySluEiwLOgiXNLdc=
+X-Gm-Gg: AYBFou2SV2Z8L6PszaQZG0EyihdkuBsMHIfU8RJjLlM66JNVjQ4OFXSlAlMAOgvsVSY
+	I5fO9aM3/D8ARqaTwJ7u9lJYmDVeK2O7JmyIR0QrCQ10czFiZbuNsh1krIho2vwXcB8zQlyaDi/
+	3A/gZ17wThT9wUukKb8Ew24MdtTvWTxif6+pOkS2ym7UsGGFbMyKHi7DIiZWmrpV9tHDllyfFo+
+	T0Ren2pLPpcguv037Rj8987uuku0MXveRsLIazGp5plOFUSmdxvCDOAFLDFyv9DCI7MeDwT80mG
+	8I/6ILs1EH3tIf3lXWXRm1UkJbYMF9EpiIOds0m2ccMqCx9cZpio0E9f30+qaGrg5LnHNhGpDmx
+	WrhlRsYrGbBxpyfkO+jCYMEbju8IMnPqap5KYuagNii3wxy7Ft8iky6Y3eef1iDtP99zaKJ/TRB
+	LpO6qtCtEaJWxyIxG6P7tljzei1J8zVPx45y22Fee7nUTTgjd1fKAOI4CaQXdbXg71z8MUVylZ8
+	4mPSZvUnYTZ7xvGWgilKzzXNICLCUbRyi4NxbRiwx2V5jTPNdMZ5ALlSYxRsqG+dF+zJXVWTAW6
+	xDIEiElEz9cOkdvnoxaJ7XivJw8NmJarUytjt3JT
+X-Received: by 2002:a05:600c:c088:b0:4ac:da92:2bd4 with SMTP id 5b1f17b1804b1-4acda922e24mr314506055e9.1.1793894800616;
+        Thu, 05 Nov 2026 08:06:40 -0800 (PST)
+Received: from [192.168.0.167] ([51.37.126.136])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b56f0237aesm77536955e9.9.2026.11.05.08.06.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 05 Nov 2026 08:06:39 -0800 (PST)
+Message-ID: <770ddb46-2f4a-4eab-9ce0-fa537860c310@linaro.org>
+Date: Thu, 5 Nov 2026 16:06:38 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,107 +90,126 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
- indices for ports
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
- <20261104-real-nebulous-ostrich-017e92@quoll>
- <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
- <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
- <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
- <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
- <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
- <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
- <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
- <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
- <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
- <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org>
- <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com>
- <NUja4NZnMkyTt6MD1zxOgyvaVUt4kYTyCBsAGVgEHmlKx1cF07IBzdof-mwD3kOQTYcrpu40iXn_2lIcTiHuww==@protonmail.internalid>
- <4d656385-fd3b-426d-b326-b1d20ba1e2d7@linaro.org>
-From: Bryan O'Donoghue <bod@kernel.org>
+Subject: Re: [PATCH] media: qcom: camss: Use contiguous DMA buffers
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Todor Tomov
+ <todor.too@gmail.com>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Allan Siriani <allan@fatecpompeia.edu.br>
+References: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <4d656385-fd3b-426d-b326-b1d20ba1e2d7@linaro.org>
+In-Reply-To: <20261105-camss-fix-dma-v1-1-74e9ec56e518@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 05/11/2026 15:39, Vladimir Zapolskiy wrote:
->> Today, the Glymur bindings define DT ports { 0, 1, 3 } to map to PHY
->> indices { 0, 1, 4 }. One could argue that this is already an
->> established convention, as it is documented in the bindings. However,
->> it is somewhat confusing.
->>
-> I believe it should be fine to have incontiguous port indices, because
-> there is no need to link unused phys to CAMSS on any particular board,
-> therefore there will be unavoidable "holes", and this can be set right
-> in the documentation of CSIPHY to CAMSS connection.
+On 05/11/2026 15:08, Loic Poulain wrote:
+> The VFE write masters are programmed with a single base address per
+> plane and then write the whole plane from there. video_buf_init() took
+> that address from sg_dma_address() of the first scatterlist entry of a
+> vb2_dma_sg buffer, which is only correct when the whole plane is mapped
+> as one contiguous range in the device address space.
 > 
-> --
-> Best wishes,
-> Vladimir
+> Neither the driver nor the hardware can handle a plane split across
+> several DMA segments, so scatter-gather buffers were never really
+> supported here. The issue stayed dormant because vb2_dma_sg gives no
+> IOVA contiguity guarantee but still tries hard to keep the number of
+> segments low, and with an IOMMU dma_map_sgtable() usually maps the
+> whole table into a single IOVA range. The mapping therefore almost
+> always came back contiguous in the device address space, so reading
+> only the first entry happened to work.
+> 
+> Where that does not hold, the write master runs past the first segment
+> and writes the rest of the frame into memory belonging to someone else.
+> 
+> This recently surfaced as patch proposals enforcing contiguity in
+> camss itself, walking the scatterlist to verify that the DMA segments
+> follow each other, which amounts to re-implementing what the dma-contig
+> framework already provides.
+> 
+> Use vb2_dma_contig instead. It guarantees that each plane is mapped as
+> a single contiguous range in the device address space, one IOVA range
+> when an IOMMU is present, physically contiguous memory when there is
+> none.
+> 
+> Fixes: 0ac2586c410f ("media: camss: Add files which handle the video device nodes")
+> Reported-by: Allan Siriani <allan@fatecpompeia.edu.br>
+> Link: https://lore.kernel.org/all/20261104202313.72494-2-allan@fatecpompeia.edu.br/
+> ---
 
-I mean the port numbers currently mean absolutely nothing with 
-standalone PHYs so in that sense I agree.
+I'll fix this
 
-OTOH since the numbers mean nothing - they should probably be linear, 
-it's just confusing to have non-linear port numbering.
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/camss/Kconfig       |  2 +-
+>   drivers/media/platform/qcom/camss/camss-video.c | 14 ++++----------
+>   2 files changed, 5 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/platform/qcom/camss/Kconfig
+> index b51745c942c9fd71a95d09993213bde4b7e877e2..e1967bc20cf03ea1b0b159c5175294eeb40fe1c1 100644
+> --- a/drivers/media/platform/qcom/camss/Kconfig
+> +++ b/drivers/media/platform/qcom/camss/Kconfig
+> @@ -5,7 +5,7 @@ config VIDEO_QCOM_CAMSS
+>   	depends on (ARCH_QCOM && IOMMU_DMA) || COMPILE_TEST
+>   	select MEDIA_CONTROLLER
+>   	select VIDEO_V4L2_SUBDEV_API
+> -	select VIDEOBUF2_DMA_SG
+> +	select VIDEOBUF2_DMA_CONTIG
+>   	select V4L2_FWNODE
+>   	select GENERIC_PHY
+>   	imply PHY_QCOM_MIPI_CSI2
+> diff --git a/drivers/media/platform/qcom/camss/camss-video.c b/drivers/media/platform/qcom/camss/camss-video.c
+> index 0852eb6f13154cfae7147ce39d22de64d14a5cba..5de6ff5ecc76a2863e536fca1c40ae6b2de6dc0c 100644
+> --- a/drivers/media/platform/qcom/camss/camss-video.c
+> +++ b/drivers/media/platform/qcom/camss/camss-video.c
+> @@ -13,7 +13,7 @@
+>   #include <media/v4l2-device.h>
+>   #include <media/v4l2-ioctl.h>
+>   #include <media/v4l2-mc.h>
+> -#include <media/videobuf2-dma-sg.h>
+> +#include <media/videobuf2-dma-contig.h>
+>   
+>   #include "camss-video.h"
+>   #include "camss.h"
+> @@ -154,16 +154,10 @@ static int video_buf_init(struct vb2_buffer *vb)
+>   						   vb);
+>   	const struct v4l2_pix_format_mplane *format =
+>   						&video->active_fmt.fmt.pix_mp;
+> -	struct sg_table *sgt;
+>   	unsigned int i;
+>   
+> -	for (i = 0; i < format->num_planes; i++) {
+> -		sgt = vb2_dma_sg_plane_desc(vb, i);
+> -		if (!sgt)
+> -			return -EFAULT;
+> -
+> -		buffer->addr[i] = sg_dma_address(sgt->sgl);
+> -	}
 
-For legacy PHYs numbering ports after the PHYs is something we inherited 
-and worked with. For the new scheme it serves no purpose.
+I hadn't even realised this existed, ick.
 
----
-bod
+> +	for (i = 0; i < format->num_planes; i++)
+> +		buffer->addr[i] = vb2_dma_contig_plane_dma_addr(vb, i);
+>   
+>   	if (format->pixelformat == V4L2_PIX_FMT_NV12 ||
+>   			format->pixelformat == V4L2_PIX_FMT_NV21 ||
+> @@ -699,7 +693,7 @@ int msm_video_register(struct camss_video *video, struct v4l2_device *v4l2_dev,
+>   
+>   	q = &video->vb2_q;
+>   	q->drv_priv = video;
+> -	q->mem_ops = &vb2_dma_sg_memops;
+> +	q->mem_ops = &vb2_dma_contig_memops;
+>   	q->ops = &msm_video_vb2_q_ops;
+>   	q->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+>   	q->io_modes = VB2_DMABUF | VB2_MMAP | VB2_READ;
+> 
+> ---
+> base-commit: 8b7179210b22f8e48a82c5ceacb9d56a9c4cfec4
+> change-id: 20261105-camss-fix-dma-c32288664dd2
+> 
+> Best regards,
+
+LGTM
+
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
