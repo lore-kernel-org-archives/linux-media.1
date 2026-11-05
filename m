@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863645;
-	b=So4REYvtZOlsPyms8yGFhhjI1D2ywbT3/pTMRlZgbXejBXLGXqXKcbYROfg0c44CIC4r
-	 UFt9ibbSg9P70cdzWmPj0mXZ8FvJj7JWMcjsBzVW2WmlaKXFglKpJsgaShGMRruAc17Rx
-	 Q4ly8wGN/LxAef6eV5lUDksihskGTI1+7noXQ99GR9pK0pddQSX6tDnumP/YVrbcIg1Wv
-	 j8ouEpWCRZo2+fuodlzTB+LFfgBr0HifMBV9LESwfJ8NqHaIhX1ApI8WDiwgDT16El7jv
-	 wbCvVU2g4RopeR2L6pKYzhiXj+TDds+MU1s2qCyqXv6Xx1A4Gj+QF0AMUAsSjJjZDcw==
+	t=1793863647;
+	b=3VlXUH63RDcWY96pTIuTi9n6YrnhcI48Gwlo1p6vTPRbPcQxjMTmqRj8/QAV5IdtM5eR
+	 4+iCH9ydsYA0/7A9xvkWoNZIfC2J2l4buhOSeQtRaVyHHmFx0kgAfzgzOMMxnx9o49hhQ
+	 5HOpepwGCoFFz6NCTir7tdh0CP2pRj/dluCczPLtDQv99oRi7lpKn6v+i6V95uawFcWk8
+	 V5qesTMBVkUKmXK/yIDd1i6Io0ZzzVUA2ik8g72hqTIg69V0L4Fw3S98a/npO2a78Ljtt
+	 O8qCDCPJnWkAq1888K4eyTggDzeumo1BkPDJzn5BlrLsUgONHRmcQpslGzMl0NROn7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863645;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793863647;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1wL2C8lLkT2+LNaIQ0sG3zz4OSwom1IYWg/GVJ3Rsjs=;
-	b=O2tRLocy7Ll/B+McymBxlgkba/FpLXg23pJadpr4euYQs+0Rqh5HotuVXj8izR5md9+c
-	 N26Jef38QU5pBIHO6VqaksNtpew3fQVf9iNM6pQkK1zq7s99iGgsvMgY5WfJik2jSkhV9
-	 +XFlomIClgLKuUUd/5PN8hSj0CowawBzCEEbT1WboBx//Y4QLh4Qd/9wcmx1YPudRCtpV
-	 s9iA7vYbIdF6wxnKmrwpEc0AMQfH9phtHTWD7dsCBtiTPbGqbXgW2aiC1YbBd1EXEoFoR
-	 hZggt375x4+q8rZFuk8fvTkz/JL99dc20N791cptYfKBQAbvhjUw2llHqeHWThdyVGQ==
+	bh=cJ+jyiHcrkuFKlcBlqPpHulH/buCVf33DuiMRw6GxEY=;
+	b=bnNWiFGkWF33ZtAbEeHbjFZhwbGfJ3xg7QHh1mUyMyihxmaeNNsVD6rr64h57sk9kRiQ
+	 rbUEldcw0/Zo62VG5oTRWgdG1WoEEI9MYO+dldIOpXgAxkfX8HrrMYnEPqNZXH2LUXFd+
+	 6J47iNcqt5/KdAv/+yhIgpBa1pC7ZHlM1VP6tOBYii5af73SdxBCRhQ3qx6cbbAK7IEhx
+	 tL1fhwsvOdTiuwcHFIOfUze/b7uqjUryiu2OBjGvelby3tBp/1leRpEc3Nzh7TmOtLxBf
+	 Zrn5k9w5HlOqdqiQJL+nov2HhdAAjXIX0GEkNV7yf5GPw9a4XMRerC4oQCTcjVWTr8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anMOUYEj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Zq/vSxMb";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1F3606A332
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0445606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:27:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=anMOUYEj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7113A1F00A16;
-	Thu,  5 Nov 2026 07:27:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zq/vSxMb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271FE1F000C1;
+	Thu,  5 Nov 2026 07:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793863644;
-	bh=1wL2C8lLkT2+LNaIQ0sG3zz4OSwom1IYWg/GVJ3Rsjs=;
+	s=k20260515; t=1793863646;
+	bh=cJ+jyiHcrkuFKlcBlqPpHulH/buCVf33DuiMRw6GxEY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=anMOUYEjDqyCyFniCG9cJM6i2vG+DE7K40WUD1RHxdEbeIdDpX6zMnJXE3JNeBW0A
-	 scNeWoYAnA76WTreg3BgziqInSBuzQGFCnCnMxLGAqQsyyXQLKmqYGyjQVQJ/fQFJm
-	 cc7R4TOtrTtMVgi15g3ar+cZVUaVpBnx6zhsyYG7Z9rb3uGmnO7rZ6QA9UR3yeBPr+
-	 /rde+o5B/BiEE6CBXfXNwsZZpxzEDsFehVWGeQTVj1jONO8w3tP9LN2gdZR/T3s+60
-	 Q3FmgrVEJWnzl4sMisShf4gd/jsnRLCuj7Ia8vZHYvUVNGZKbudsFpYVl39ZoyrqUP
-	 jlmzN6AHaqUWQ==
+	b=Zq/vSxMbHBQBXSIwnBd04Nw6Y4nK8LkwbGrlWmnvYvgQxL/ge1URqfMVAcMtJ+x+o
+	 xOhDLTSoW7tpKpWzohoT+9cF7CaW9DWDBRyJMe3A5jbI5Nbpc+Oa0G69FUIrCnkHPH
+	 mHBVaqCiPEJygCCIcL7EFfterSoloX2A1SI0XrvbIGn0hjuVImaZPEpgoIDw6vRQi+
+	 HhjDqkUo1inUMUepqpmQqLolk/expJFQUmBQe5gzfOKZM6wxakH4sYhoX4h6GW1SMJ
+	 EmTu4RnpE2ULVZLBYCAUNztL56E8eycBTQQGCAOTwiKJCCLSgWlB4M0V8jeFunZxNX
+	 T9NytCNV402kw==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org,
 	Maxime Ripard <mripard@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: [PATCHv3 07/13] media: uapi: cec.h: add CEC_CAP_HAS_HPD_PRESENT/CEC_LOG_ADDRS_FL_HPD_PRESENT
-Date: Thu,  5 Nov 2026 08:22:21 +0100
-Message-ID: <4cd2dd652db11b7410a6f9608c5c15bef45f5df5.1793863347.git.hverkuil+cisco@kernel.org>
+Subject: [PATCHv3 08/13] Documentation: media: document HPD_PRESENT cap and flag.
+Date: Thu,  5 Nov 2026 08:22:22 +0100
+Message-ID: <e98308c0db382c09ce698b34ca54f798ab0e3557.1793863347.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793863347.git.hverkuil+cisco@kernel.org>
 References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
@@ -61,68 +61,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a capability and a new flag that is used to indicate if a
-HPD is present.
+Document CEC_CAP_HAS_HPD_PRESENT and CEC_LOG_ADDRS_FL_HPD_PRESENT.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 ---
- include/uapi/linux/cec.h | 28 +++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ .../userspace-api/media/cec/cec-ioc-adap-g-caps.rst    | 10 ++++++++++
+ .../media/cec/cec-ioc-adap-g-log-addrs.rst             | 10 ++++++++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/include/uapi/linux/cec.h b/include/uapi/linux/cec.h
-index fdfc97a6e4ec..b1b5f4748583 100644
---- a/include/uapi/linux/cec.h
-+++ b/include/uapi/linux/cec.h
-@@ -325,27 +325,27 @@ static inline int cec_is_unconfigured(__u16 log_addr_mask)
- #define CEC_MODE_FOLLOWER_MSK		0xf0
+diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
+index 1d5248979a6d..bf734cbee0dd 100644
+--- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
++++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-caps.rst
+@@ -143,6 +143,16 @@ returns the information to the application. The ioctl never fails.
+       - 0x00000200
+       - If this capability is set, then
+         :ref:`CEC_MSG_FL_REPLY_VENDOR_ID <cec-msg-flags>` can be used.
++    * .. _`CEC-CAP-HAS-HPD-PRESENT`:
++
++      - ``CEC_CAP_HAS_HPD_PRESENT``
++      - 0x00000400
++      - If this capability is set, then
++        :ref:`CEC_LOG_ADDRS_FL_HPD_PRESENT <cec-log-addrs-flags>` is valid.
++	This makes it possible to tell apart the case where the Physical Address
++	is f.f.f.f because no HPD (Hotplug Detect) is present, and the case
++	where it is f.f.f.f because the EDID does not provide a valid Physical
++	Address.
  
- /* Userspace has to configure the physical address */
--#define CEC_CAP_PHYS_ADDR	(1 << 0)
-+#define CEC_CAP_PHYS_ADDR		(1 << 0)
- /* Userspace has to configure the logical addresses */
--#define CEC_CAP_LOG_ADDRS	(1 << 1)
-+#define CEC_CAP_LOG_ADDRS		(1 << 1)
- /* Userspace can transmit messages (and thus become follower as well) */
--#define CEC_CAP_TRANSMIT	(1 << 2)
--/*
-- * Passthrough all messages instead of processing them.
-- */
--#define CEC_CAP_PASSTHROUGH	(1 << 3)
-+#define CEC_CAP_TRANSMIT		(1 << 2)
-+/* Passthrough all messages instead of processing them. */
-+#define CEC_CAP_PASSTHROUGH		(1 << 3)
- /* Supports remote control */
--#define CEC_CAP_RC		(1 << 4)
-+#define CEC_CAP_RC			(1 << 4)
- /* Hardware can monitor all messages, not just directed and broadcast. */
--#define CEC_CAP_MONITOR_ALL	(1 << 5)
-+#define CEC_CAP_MONITOR_ALL		(1 << 5)
- /* Hardware can use CEC only if the HDMI HPD pin is high. */
--#define CEC_CAP_NEEDS_HPD	(1 << 6)
-+#define CEC_CAP_NEEDS_HPD		(1 << 6)
- /* Hardware can monitor CEC pin transitions */
--#define CEC_CAP_MONITOR_PIN	(1 << 7)
-+#define CEC_CAP_MONITOR_PIN		(1 << 7)
- /* CEC_ADAP_G_CONNECTOR_INFO is available */
--#define CEC_CAP_CONNECTOR_INFO	(1 << 8)
-+#define CEC_CAP_CONNECTOR_INFO		(1 << 8)
- /* CEC_MSG_FL_REPLY_VENDOR_ID is available */
--#define CEC_CAP_REPLY_VENDOR_ID	(1 << 9)
-+#define CEC_CAP_REPLY_VENDOR_ID		(1 << 9)
-+/* CEC_LOG_ADDRS_FL_HPD_PRESENT is available */
-+#define CEC_CAP_HAS_HPD_PRESENT	(1 << 10)
+ Return Value
+ ============
+diff --git a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
+index 8397bf573798..e37898750ab5 100644
+--- a/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
++++ b/Documentation/userspace-api/media/cec/cec-ioc-adap-g-log-addrs.rst
+@@ -192,6 +192,16 @@ logical address types are already defined will return with error ``EBUSY``.
+       - If this flag is set, then the CEC device failed to claim a free logical
+         address and is in the unconfigured state. This can never happen if
+ 	``CEC_LOG_ADDRS_FL_ALLOW_UNREG_FALLBACK`` was set as well.
++    * .. _`CEC-LOG-ADDRS-FL-HPD-PRESENT`:
++
++      - ``CEC_LOG_ADDRS_FL_HPD_PRESENT``
++      - 16
++      - If this flag is set, then the HPD (Hotplug Detect) is present. This
++	 helps tell apart the case where the Physical Address is f.f.f.f
++	 because no HPD is present, and the case where it is f.f.f.f because the
++	 EDID does not provide a valid Physical Address. This flag can only be
++	 used if ``CEC_CAP_HAS_HPD_PRESENT`` is set in the adapter
++	 capabilities.
  
- /**
-  * struct cec_caps - CEC capabilities structure.
-@@ -405,6 +405,8 @@ struct cec_log_addrs {
- #define CEC_LOG_ADDRS_FL_CDC_ONLY		(1 << 2)
- /* Configuration failed */
- #define CEC_LOG_ADDRS_FL_CONFIG_FAILED		(1 << 3)
-+/* EDID is present */
-+#define CEC_LOG_ADDRS_FL_HPD_PRESENT		(1 << 4)
+ .. tabularcolumns:: |p{7.8cm}|p{1.0cm}|p{8.5cm}|
  
- /**
-  * struct cec_drm_connector_info - tells which drm connector is
 -- 
 2.53.0
 
