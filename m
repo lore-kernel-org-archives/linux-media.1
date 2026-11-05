@@ -1,100 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.87.157.213
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793839756;
-	b=DDWXUkSR9KJQEvnkmPPbtMjy1vMk6tqRZEVX1+Mx3qebEColeogiIA8E2fHMzvU27FGB
-	 9/VbLb+Yu8Kxb7gQy11mv45NhhEjC1QoULC1ZnuazEZyh41hA6N03nfZyCFOczevk8wHo
-	 R5p674/wUxMSDwowwqFym7Gvm9YLcrQeuspPfMEym8TnMgoD565tGG9T3Rpbx5jDLiBFm
-	 GpGvbjTQwg4tvTDCVe72uF8cYx/2HZLsgEzDz6O2Bm3Ja1vPJ7uY50T+i/Qw2GNvVPZB4
-	 hIPazzgeJZ/loRbKmUYSg9KWVHcXXyyfJo1k6aKwmaCYHvJ4qdUAkApajp+Lk/4sMGg==
+	t=1793843476;
+	b=wC0ug/6kQNt3hq3SwHpHTIHAsm+bUfCKxxXZ5HIv8ED7P6Y0tUOhw2I5TX8lNseAApkC
+	 cYVkIIC/cynNithgidIUlxxNKibb2M+TX3zQPltBxyNwF5v0wWwm8wKFI5pvQpqYsvOX8
+	 Y1cYM7iYTYjttrdkVN74WpkS7xjTKgxuZ1uuFGu3BPMHp2Dr8M5+RjW4ob+GHpSpYN13N
+	 rHBziW8jsyEgGNQynOPGAgaw8fyB0bS/T3F9sGDNi0beliubORmSqY6m6rrzaRidqQcKL
+	 tC50ag3/+lDcpTtBjLIAhNMPceTj8euYC5XDNL1ZbbbfEULPjnVFAALQT41w/VTUG2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793839756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
-	b=s9HMQAjzvWCzK1PwwRcZhOvn2G2+a9EZ4aPMXxJukprKcPURIml44/MNMqhjfLLZ25Bj
-	 OcsPYHwbO7xA+MrFRlJ1zJWJDL0e9GfM3BIJ2TQRfQOzMO4BSSJoimkJtuoD7SAFZG1K7
-	 FWEmB4LaD6X8NQLiJ7HbjnDRITko7UMjcDTEPoOKyGyEzKD5gtGE5FG9qPC203V+amZsw
-	 BgP9DUzWSKzLFJMtDD7lKsflRsY0pulUmu0Eus61gfjgLRvH8aSmPhKaCN+VovGXMxOcv
-	 +Hbxav0nwV3VocTeRoZARWmHFeHaO8hPpGTLY7MNsLIA/Pxs/Kzt1trDF43y8LaCRBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793843476;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-originating-ip:x-tm-snts-smtp:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-MAIL;
+	bh=LbT+cDt3x5H3RSlP6PJ6sjoErQEa3773tcGsgbYPWQg=;
+	b=JnGWYFuU2UJUyB7F9/r6UZFX7dmP/d1c+ly0uAOJPRA0z3aamrijRM+GGKjm9VT2wFXX
+	 vL2pR4MBUeQqnQxNByYLEIsYcz1H0Zr9zTl2m532wtEnF0zk5b97DJZAIy6i7LlDl3vfR
+	 N3AnLrddVVhDNJ/7LhgzDtDXvWiVGq+vCWDA5Xwdd2GqDuRlQfNgUNwX7IT8MHnz/0TIR
+	 utaTf7260EbV41BLn8aX1RGPkNeh40Je57QZMKBc6k1eOZbisV75yBskDY3eFqlaksdCt
+	 uGjs6m/vBICz7NjxIaIYcIsCyrBQ7mrsjANg0WWpLWCgGNqT6fPp25qfunrkFnWhBIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ite.com.tw;
+	spf=pass smtp.mailfrom=ite.com.tw;
+	dkim=pass header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GSTl0NbS;
+	arc=none smtp.remote-ip=219.87.157.213
+Received: from ironport.ite.com.tw (unknown [219.87.157.213])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1163E606A33F
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 00:49:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1163E606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B542606A31B;
+	Thu,  5 Nov 2026 01:51:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B542606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jSyi771a
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so15168255e9.3
-        for <linux-media@vger.kernel.org>; Wed, 04 Nov 2026 16:49:15 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ite.com.tw header.i=@ite.com.tw header.a=rsa-sha256 header.s=dkim header.b=GSTl0NbS
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793839754; x=1794444554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
-        b=jSyi771aSl1Rx4d1iTMMy3LLn2WobFNClF7Q1jPZHE35svH+Jbwk210AN47Q0QgFmf
-         v1iILxJ9rIsDPBJx08DuZvs9EIvPWwS3vS6Gu2GpdwsIyZWm1t6KYXQ/Gz7caJgQQ+Eu
-         +XkJaUkzQ3HcYhk9t8vR1Gu8cKoJ5/LUzhhwHHLkRPmHJTHrcfe+XG/Vx7515l+X2EtW
-         OcW5VZ1a5WMrFgX8e+KntpjbaTPnjdUC3bH68LgZkEZDPDMcjtUrfxOC8dJGc52w1XtV
-         n+0PBCqYiqPuOsokZsH/7HIBO86FPRYzLwbnrr4dyjWIInPpFANRcdTdih4prlSqG+CP
-         e4ag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793839754; x=1794444554;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CpS7GLzyshZWps/kEoS9IRvjJQudydLT99khEiIz7VU=;
-        b=JcJScHP2Ow7JDHJLUc1mQdxEzZ9dtJi3I374SpSSC40Nrdi35js2XDdII33xvlz8r2
-         XLunqc/XDo28fc1j+CFlNtrSFBOvCq5xiFneiPnXOl5I6oyjHK9GJTmjfxbK8v8DZDDU
-         PCJLZEjmlRYfBADvLnAvWsGTWEayk7WcXqWzGYzV/X5VR1KlJvDU8GN/5EV16gJ46iV6
-         dMZFQxyq0NqvG2Cnhtsoqn1xm5b0Wot662Rf39RdIJixem8aIPettQdKfs1PEocOQkIA
-         0exs2S9iBT0hjgIR79REdTg+9auuWCBx+T99/jG4lppdIXbKCKoNMAnWyrwmmyqkfvsT
-         OPYQ==
-X-Forwarded-Encrypted: i=1; AKwUvByB561MBCFoErZGdu5HAqKUPayUhdr6QZ6G2hFl0GWBz3rtdwLtIlwQ10i53glIyBIyOrzzOlq8aQx9nQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z965DYsXnFwIWUR7mL0H6UQj7BZxAXvt9DAS/lLMsnWVctchYPm
-	BDV1Shlqz9rND6hTT00a+WEgYyzubcLOt1t/XvfcaLzX4Mg8MQdm2YcL
-X-Gm-Gg: AYBFou2u8H0kGz5V/QhtJ1A0oWCc04jsUTfsaKQgmQ2ADqmlthBP6mXWAVBQzGVUorE
-	6MCzSZHFWguG5PI74N9N71XkOTvgwMoYedGPSLE0z1cbcQ1iw5MxZghjuvl974qmfi4sd+7QP/X
-	uebxIgoZ1L6OG1fTINiAbPVk8mEn1PstP1/aM3iiS9ybYGcZrxcRyYjuqLNkLD4mejP69qyVMqW
-	x6078ixFoxOAQanWHYt341j3fFz1DWjT+wk18vR8tb662owvt19rJVqZhAcs+ZlxNBiHw5AAFAK
-	8zPoZTpZFu6eLQ7lBTxuiFAV9348xGH2IBbAYFu8R28WF2OxXj0vFLp2TpHWf0yjjCMns4fsy1X
-	9qfMX6lNbZDrU5tgokQuEt6crQ/II4hyhco+N1knfcTSNyQGI+udwF7ccg5sFCkYiPF/iM5sv2S
-	tSKleYY8YHwnxvd9v651b3NGg2GArDWNFtPNM8Qx2yjVBYnDk58uS7hQSAmx99swa9XSB2y/9MF
-	w/QioZpET1CaCntqxLhAFY0K5FQfBCF9t7cr+veDgcs7jcJt1qQYWX2Tz8KKvc7plNLC0nAMF+H
-	L+BKbcz5a05E19l0ItZwxsUHQS4CLXYMk8WulfjI5DFuTucTojiTIC7KsEgI2hdd+YrQZxOs6Qg
-	VBokIp+ML7A==
-X-Received: by 2002:a05:600c:6087:b0:4a1:fe26:24f0 with SMTP id 5b1f17b1804b1-4ac1765ce52mr372660305e9.20.1793839754380;
-        Wed, 04 Nov 2026 16:49:14 -0800 (PST)
-Received: from raviolimobile.tail5f26fd.ts.net ([84.70.180.170])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b572bba0f3sm21341515e9.9.2026.11.04.16.49.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 04 Nov 2026 16:49:13 -0800 (PST)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hans@jjverkuil.nl>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] media: i2c: vd55g1: Use the control handler lock for the subdev state
-Date: Thu,  5 Nov 2026 00:49:05 +0000
-Message-ID: <20261105004907.150545-3-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105004907.150545-1-fernandorimoli11@gmail.com>
-References: <20261105004907.150545-1-fernandorimoli11@gmail.com>
+  d=ite.com.tw; s=dkim;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=LbT+cDt3x5H3RSlP6PJ6sjoErQEa3773tcGsgbYPWQg=;
+  b=GSTl0NbSoL/bHoZShCiPCDOG4zpZkxuRpvMHuPrnq3vYGbDmrRHWjqKq
+   eafc1tcP4CaV4ozd+rkW6ADyXAwYksMlN87/bKH65qbI5g8vGbpTfj6Yq
+   CxIa8UrxdVGWiJnsKyrnxR+hMxl3I3/YQmkT8A7Obt2T99RzoJnQdQfH6
+   MVzNTTxfuZ6ZTYQsqURR55dFI7yLiHkqnfo/oO8XMqykRhn2cTa9PCDVt
+   mc8540/jQb4136i20P2YT01bdcZrEXQfhXSfyQ85xF5VYoSZZZvJHZot0
+   Rx09yeqSfqN5O8wrdq2dVTJ7wO/1C0FcukJxV9rvaYCybfS2+Gt+VeMQA
+   w==;
+X-CSE-ConnectionGUID: Ho0X/4iXTfe1+B0p127BJw==
+X-CSE-MsgGUID: bvNrJYKpQJudTrTDXMPhAQ==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 05 Nov 2026 09:51:04 +0800
+Received: from tpemail1.internal.ite.com.tw (TPEMAIL1.internal.ite.com.tw [192.168.15.58])
+	by mse.ite.com.tw with ESMTP id 6A51owQl083341;
+	Thu, 5 Nov 2026 09:50:58 +0800 (+08)
+	(envelope-from Hermes.Wu@ite.com.tw)
+Received: from TPEMAIL1.internal.ite.com.tw (192.168.15.58) by
+ TPEMAIL1.internal.ite.com.tw (192.168.15.58) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 5 Nov 2026 09:50:57 +0800
+Received: from TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291]) by
+ TPEMAIL1.internal.ite.com.tw ([fe80::63c1:9095:c5a6:3291%3]) with mapi id
+ 15.02.2562.046; Thu, 5 Nov 2026 09:50:57 +0800
+From: <Hermes.Wu@ite.com.tw>
+To: <krzk@kernel.org>
+CC: <mchehab@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <hverkuil+cisco@kernel.org>,
+        <linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <broonie@kernel.org>,
+        <lgirdwood@gmail.com>, <linux-sound@vger.kernel.org>,
+        <linux-api@vger.kernel.org>
+Subject: RE: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
+ properties
+Thread-Topic: [PATCH 1/5] dt-bindings: media: ite,it6625: add audio DAI
+ properties
+Thread-Index: AQHdbGgxolHeqP/vkkmm0FEYfk19CbcetuOg
+Date: Thu, 5 Nov 2026 01:50:57 +0000
+Message-ID: <01818606697f4504b67d6f461d04ae57@ite.com.tw>
+References: <20261103-upstream-it6625-alsa-i2s-v1-0-bb91e2879b01@ite.com.tw>
+ <20261103-upstream-it6625-alsa-i2s-v1-1-bb91e2879b01@ite.com.tw>
+ <20261104-sparkling-icy-hound-fd0dac@quoll>
+In-Reply-To: <20261104-sparkling-icy-hound-fd0dac@quoll>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-tm-snts-smtp: 0A64C475197B0BD3ADEB90642EE49E854F58658056F55C1F726BA9C9AD51143C2002:8
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -104,156 +97,33 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MAIL:mse.ite.com.tw 6A51owQl083341
 
-vd55g1_subdev_init() sets sd.state_lock to ctrl_handler.lock before the
-control handler is initialised, while the pointer is still NULL, so the
-subdev state gets a mutex of its own. vd55g1_s_ctrl() under
-VIDIOC_S_CTRL, and __v4l2_ctrl_modify_range() and
-__v4l2_ctrl_handler_setup() under set_fmt and enable_streams, then run
-without the lock they assert, and format and control changes can race.
-
-Initialise the controls first and finalise last. The blanking ranges
-depend on the format, so set them, and the default frame length, once
-the active state exists. vd55g1_grab_ctrls() now runs with the lock
-held, so use __v4l2_ctrl_grab().
-
-With the control handler set, v4l2_subdev_init_finalize() also enables
-control events, which v4l2-compliance reported missing.
-
-Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
----
- drivers/media/i2c/vd55g1.c | 61 +++++++++++++++++++++-----------------
- 1 file changed, 33 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index 69ffb3a..9f737ea 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -1113,10 +1113,10 @@ static int vd55g1_ro_ctrls_setup(struct vd55g1 *sensor, struct v4l2_rect *crop)
- static void vd55g1_grab_ctrls(struct vd55g1 *sensor, bool enable)
- {
- 	/* These settings cannot change during stream */
--	v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
--	v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
--	v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
--	v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->hflip_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->vflip_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->patgen_ctrl, enable);
-+	__v4l2_ctrl_grab(sensor->hdr_ctrl, enable);
- }
- 
- static int vd55g1_enable_streams(struct v4l2_subdev *sd,
-@@ -1580,14 +1580,6 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
- 	struct v4l2_ctrl_handler *hdl = &sensor->ctrl_handler;
- 	struct v4l2_ctrl *ctrl;
- 	struct v4l2_fwnode_device_properties fwnode_props;
--	struct vd55g1_vblank_limits vblank;
--	unsigned int hblank;
--	struct v4l2_subdev_state *state =
--		v4l2_subdev_lock_and_get_active_state(&sensor->sd);
--	struct v4l2_rect *crop =
--		v4l2_subdev_state_get_crop(state, 0);
--	struct v4l2_mbus_framefmt *format =
--		v4l2_subdev_state_get_format(state, 0);
- 	int ret;
- 
- 	v4l2_ctrl_handler_init(hdl, 16);
-@@ -1645,15 +1637,13 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
- 					     V4L2_CID_HDR_SENSOR_MODE,
- 					     ARRAY_SIZE(vd55g1_hdr_menu) - 1, 0,
- 					     VD55G1_NO_HDR, vd55g1_hdr_menu);
--	hblank = vd55g1_get_hblank_min(sensor, format, crop);
-+	/* Placeholder ranges, set from the format in vd55g1_subdev_init() */
- 	sensor->hblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_HBLANK,
--						hblank, hblank, 1, hblank);
-+						1, 1, 1, 1);
- 	if (sensor->hblank_ctrl)
- 		sensor->hblank_ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
--	vd55g1_get_vblank_limits(sensor, crop, &vblank);
- 	sensor->vblank_ctrl = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_VBLANK,
--						vblank.min, vblank.max,
--						1, vblank.def);
-+						1, 1, 1, 1);
- 
- 	/* Additional controls based on device tree properties */
- 	if (sensor->ext_leds_mask) {
-@@ -1673,12 +1663,11 @@ static int vd55g1_init_ctrls(struct vd55g1 *sensor)
- 		goto free_ctrls;
- 
- 	sensor->sd.ctrl_handler = hdl;
--	goto unlock_state;
-+
-+	return 0;
- 
- free_ctrls:
- 	v4l2_ctrl_handler_free(hdl);
--unlock_state:
--	v4l2_subdev_unlock_state(state);
- 	return ret;
- }
- 
-@@ -1915,6 +1904,9 @@ static int vd55g1_parse_dt(struct vd55g1 *sensor)
- 
- static int vd55g1_subdev_init(struct vd55g1 *sensor)
- {
-+	struct v4l2_subdev_state *state;
-+	struct v4l2_mbus_framefmt *format;
-+	struct v4l2_rect *crop;
- 	int ret;
- 
- 	/* Init sub device */
-@@ -1930,6 +1922,14 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
- 		return ret;
- 	}
- 
-+	ret = vd55g1_init_ctrls(sensor);
-+	if (ret) {
-+		dev_err(sensor->dev, "Controls initialization failed %d\n",
-+			ret);
-+		goto err_media;
-+	}
-+
-+	/* The state shares the control handler lock, so finalize last */
- 	sensor->sd.state_lock = sensor->ctrl_handler.lock;
- 	ret = v4l2_subdev_init_finalize(&sensor->sd);
- 	if (ret) {
-@@ -1937,19 +1937,24 @@ static int vd55g1_subdev_init(struct vd55g1 *sensor)
- 		goto err_ctrls;
- 	}
- 
--	/*
--	 * Initialize controls after v4l2_subdev_init_finalize() to make sure
--	 * active state is set
--	 */
--	ret = vd55g1_init_ctrls(sensor);
-+	/* Set the format dependent ranges and the default frame length */
-+	state = v4l2_subdev_lock_and_get_active_state(&sensor->sd);
-+	format = v4l2_subdev_state_get_format(state, 0);
-+	crop = v4l2_subdev_state_get_crop(state, 0);
-+	ret = vd55g1_new_format_change_controls(sensor, format, crop);
-+	if (!ret)
-+		ret = __v4l2_ctrl_s_ctrl(sensor->vblank_ctrl,
-+					 sensor->vblank_ctrl->default_value);
-+	v4l2_subdev_unlock_state(state);
- 	if (ret) {
--		dev_err(sensor->dev, "Controls initialization failed %d\n",
--			ret);
--		goto err_media;
-+		dev_err(sensor->dev, "Controls update failed %d\n", ret);
-+		goto err_state;
- 	}
- 
- 	return 0;
- 
-+err_state:
-+	v4l2_subdev_cleanup(&sensor->sd);
- err_ctrls:
- 	v4l2_ctrl_handler_free(sensor->sd.ctrl_handler);
- 
--- 
-2.43.0
-
+SGkgS3J6eXN6dG9mDQo+DQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj5Gcm9tOiBLcnp5
+c3p0b2YgS296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+IA0KPlNlbnQ6IFdlZG5lc2RheSwgTm92
+ZW1iZXIgNCwgMjAyNiAxMDoyNCBQTQ0KPlRvOiBIZXJtZXMgV3UgKOWQs+S9s+WujykgPEhlcm1l
+cy5XdUBpdGUuY29tLnR3Pg0KPkNjOiBNYXVybyBDYXJ2YWxobyBDaGVoYWIgPG1jaGVoYWJAa2Vy
+bmVsLm9yZz47IFJvYiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+OyBLcnp5c3p0b2YgS296bG93
+c2tpIDxrcnprK2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5v
+cmc+OyBIYW5zIFZlcmt1aWwgPGh2ZXJrdWlsK2Npc2NvQGtlcm5lbC5vcmc+OyBsaW51eC1tZWRp
+YUB2Z2VyLmtlcm5lbC5vcmc7IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnOyBsaW51eC1rZXJu
+ZWxAdmdlci5rZXJuZWwub3JnOyBNYXJrIEJyb3duIDxicm9vbmllQGtlcm5lbC5vcmc+OyBMaWFt
+IEdpcmR3b29kIDxsZ2lyZHdvb2RAZ21haWwuY29tPjsgbGludXgtc291bmRAdmdlci5rZXJuZWwu
+b3JnOyBsaW51eC1hcGlAdmdlci5rZXJuZWwub3JnDQo+U3ViamVjdDogUmU6IFtQQVRDSCAxLzVd
+IGR0LWJpbmRpbmdzOiBtZWRpYTogaXRlLGl0NjYyNTogYWRkIGF1ZGlvIERBSSBwcm9wZXJ0aWVz
+DQo+DQo+T24gVHVlLCBOb3YgMDMsIDIwMjYgYXQgMDI6NTA6MTlQTSArMDgwMCwgSGVybWVzIFd1
+IHdyb3RlOg0KPj4gSVQ2NjI1IGFuZCBJVDY2MjYgZGVjb2RlIHRoZSBIRE1JIGF1ZGlvIHN0cmVh
+bSBhbmQgb3V0cHV0IGl0IG9uIGFuIEkyUyANCj4+IGludGVyZmFjZSwgZHJpdmluZyB0aGUgYml0
+IGFuZCBmcmFtZSBjbG9ja3MgdGhlbXNlbHZlcy4gVGhlIGJyaWRnZSBoYXMgDQo+PiB1cCB0byBl
+aWdodCBJMlMgZGF0YSBwaW5zLg0KPj4gDQo+PiBBZGQgJyNzb3VuZC1kYWktY2VsbHMnIHNvIHRo
+ZSBicmlkZ2UgY2FuIGJlIHJlZmVyZW5jZWQgYXMgYW4gYXVkaW8gDQo+PiBjb2RlYyBEQUksIGFu
+ZCAnaXRlLGkycy1kYXRhLWxhbmVzJyB0byBkZXNjcmliZSB3aGljaCBkYXRhIHBpbnMgYXJlIA0K
+Pj4gY29ubmVjdGVkIHRvIHRoZSBhdWRpbyByZWNlaXZlciwgaW4gSERNSSBjaGFubmVsLXBhaXIg
+b3JkZXIuIFdpdGhvdXQgDQo+PiB0aGUgcHJvcGVydHkgb25seSBTRDAgaXMgY29ubmVjdGVkLg0K
+Pj4gDQo+PiBTaWduZWQtb2ZmLWJ5OiBIZXJtZXMgV3UgPEhlcm1lcy53dUBpdGUuY29tLnR3Pg0K
+Pj4gLS0tDQo+PiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWVkaWEvaTJjL2l0ZSxpdDY2MjUu
+eWFtbCAgfCAyMyANCj4+ICsrKysrKysrKysrKysrKysrKysrKy0NCj4+ICAxIGZpbGUgY2hhbmdl
+ZCwgMjIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPlJldmlld2VkLWJ5OiBLcnp5
+c3p0b2YgS296bG93c2tpIDxrcnp5c3p0b2Yua296bG93c2tpQG9zcy5xdWFsY29tbS5jb20+DQoN
+ClRoYW5rcyBmb3IgeW91ciByZXZpZXcuDQoNCj5CZXN0IHJlZ2FyZHMsDQo+S3J6eXN6dG9mDQo+
+DQo+DQo=
