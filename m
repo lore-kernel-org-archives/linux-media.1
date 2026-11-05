@@ -1,71 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.75.78.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793879106;
-	b=m+Yk5tkrizMFY1eFnN1Qvse4H6AsAsI/Jg8c0cweBy/lpu0J2SrmVKifsZF9v+5Hijx6
-	 pRwRDEttE2Xyh5X/51QEukILzbN/xkGhrF0E5iKUg97qCSSWTW+MU6v/2Cwl4SdK+fSgq
-	 A1Owsxeoh5KpY2VNIa6bzFMNH7uZDJMUKpTdBJMe0r4Itd1ibYca4F84+4Bp1Kaudn4RQ
-	 j8AemYuAmPGXiqci+mcMONlW/KtKFeIFgXldlQSNIAVCci5yRIv+tB0tXUi62eagvy1E6
-	 GNHjIl82aRCxmMHeL7go+enrYeJyDOuLjuhZ2kZQ1vl1f3ojHc9t6KoIOmwq2+eGZ1Q==
+	t=1793879175;
+	b=c1AtUMeU/+ynkmQHjXKjKMdJnBd0aEfmlqOKSUlqBpAJPzsDosJR0W+N5IefODyfwisd
+	 N94wRLACxr0BMDgCchqx001//rtrHpgp3f4HDpcdATPknqHOFgw0tpZ6eG6oS6rE9onmJ
+	 CwfhyuSHfwOxlWYG1doD0Dc1VhxwC26qMVbji9URNSdo8wHGZV7cTfQ2tTVSMv38YJ45k
+	 EmDJkGPIHNyOgsKdaHy/b/AGtOnITlGBT7hTxlVhBTI+Dpca4ZwUtI1N3Po2wdTkIMdr0
+	 YHU5njqfj1p6Yax07C7o7ZODuugSV9vkcGKZbTV3knzs4djVuvZAlF+MGgRmo2GIoMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793879106;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=i8H/4A+NpWNejlaYSVmvui2hqc5UYcenejqPfVH/uLA=;
-	b=RSoWOOVj5TpSPKnkQzABlEYdR0OQMpzzIyyDvW/SWV4/2DxFVysn+EGIClLGigzSMcxc
-	 ZGbfsJp0p8/Ma2LSMCY9r0Ptl41bJjjMXcLR4iIrndyjM/cQzq2+sELoveWNvJVDz9Phd
-	 TAby42PmHK+kaZs47vN8lU1zU4xwAqUz0G4okf9QKMR2xRqREsKhiy6gafTPdK9UeOoHR
-	 KByzKBQXYdRxm7BYCK16nDccvzBNaAuMDN8RJ8InC2CbkCjLuWfksS0Updh2xjhwc5xEk
-	 i93/G7q25f8UERUHPHfdUFV+tvfws/h9jt0Og+vye3gmB2YX+KjqGAx4bnT6qEui9mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793879175;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=NSKZa4ye0LkUdsLkrm7Rm28ju04K47Dqy5NWckuPC+k=;
+	b=R0yY+SVlwjdrCDEsst5tyGGxcK8n0tyifo0hPlKMsrW9sKam2+uNK7ypZoT1X6WYxQAF
+	 0/YeYXDDQXXqJI9qsI+S324AN55LsIuhfcoVw0/DUcZ872KcqUuMQEVPFxRSoWdP/pWpP
+	 bN/EdOx8W2mMZTiFkL8kzUlhEOVy4+tmHVZKffoQRYzhWYfM74i2pmQZL5LkK6NUBIkUS
+	 VlGKRnZwc63FfDzAlZApSF7VO3+ntHTKJ+BFFldTuf7ULHEl/jWKD2qDuFNIyCEGe88YA
+	 49rRnzIZXqHKcHkusKb3gkESlrqs/ian2s+jCmFMwbAtsq0dxY3CTy9TdshSIaYIRwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=seznam.cz;
-	spf=pass smtp.mailfrom=seznam.cz;
-	dkim=pass header.d=seznam.cz header.i=@seznam.cz header.a=rsa-sha256 header.s=szn1 header.b=ahFMKcth;
-	arc=none smtp.remote-ip=77.75.78.125
-Received: from mxs.seznam.cz (mxs.seznam.cz [77.75.78.125])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE61606EE86;
-	Thu,  5 Nov 2026 11:45:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CE61606EE86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seznam.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seznam.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8524606A929;
+	Thu,  5 Nov 2026 11:46:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8524606A929
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=seznam.cz header.i=@seznam.cz header.a=rsa-sha256 header.s=szn1 header.b=ahFMKcth
-Received: from email.seznam.cz
-	by smtpc-mxs-78c5bf57f5-q6hrm
-	(smtpc-mxs-78c5bf57f5-q6hrm [2a02:598:128:8a00::1000:82d])
-	id 58e7d2749fe5e98d5bb85c78;
-	Thu, 05 Nov 2026 12:44:35 +0100 (CET)
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=seznam.cz; s=szn1;
-	t=1793879075; bh=i8H/4A+NpWNejlaYSVmvui2hqc5UYcenejqPfVH/uLA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	b=ahFMKcthEDtAgJPSnyPys3xR4BcW7wUXhAzs4/uetLhEdkuQ9S55WKcwZE/Awi6wu
-	 v+kEftf49oKqxDymUIOC+1zvSZyKUFQp/QNB+0g2RVTXRxlFtL0+91VX/5A2IF7L2L
-	 rFP1UG3EU+77Dy1NOXWCAt0yv7XRO75Hr95ysRXYYxpsIM1P+aErV5RCv4i08VneQ8
-	 CYeTCEyuxTAu8kUgMJQHuHp/WF1goQp7Io3cM0gOfUuyG3S41mVct40H0bs1VTnrjq
-	 sKOGm2dm1nosbS+GNHYpXscRh02UgM9F8lwPWWW+D4XDt0Y4wcMYPA54yt48CIJk8t
-	 cjUswKXBBS0dQ==
-Received: from fedora (wireless-86-50-140-68.open.aalto.fi [86.50.140.68])
-	by smtpd-relay-64b59866d6-9bkzr (szn-email-smtpd/2.0.93) with ESMTPA
-	id 77f62920-fde5-4993-acf0-3f016c0e4f99;
-	Thu, 05 Nov 2026 12:43:36 +0100
-From: =?UTF-8?q?Marek=20Konr=C3=A1d?= <konrad.marek@seznam.cz>
-To: linux-media@vger.kernel.org
-Cc: =?UTF-8?q?Marek=20Konr=C3=A1d?= <konrad.marek@seznam.cz>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Antti Laakso <antti.laakso@linux.intel.com>,
-	"Sapre, Sarang" <sarang.sapre@intel.com>,
-	Divyamani Tripathi <divyamani.tripathi@intel.com>,
-	Manik Bajpai <manik.bajpai@intel.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Sr4C7iZ9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793879173; x=1825415173;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=OCg2W30o8vQ8OO1s+xdsqkrOdBHhLk2OtMes1baq76c=;
+  b=Sr4C7iZ9s0umWaZx9amVQ2t0Hc2an7JmRL1z8Optpa67ofauSGIpe3ij
+   qkVWRnYSJRCPGXp/+XenM5QQ1M/XH0zWeEy2GPz7nCOjsP7POvqPBIYx2
+   wZt6aoawM7ppPcsrMdchyCvF72M0fLIMsn4tvncGWIq9A3pq9PI4IU+AL
+   HeNUTYbNmCg0q9RJ5HOKC5PYlhhKWqMhzwnhy1iWGavcLgHxW9z+k5aJo
+   1qVIHAPO742jKJUsmjxV8iUQi1jjc8OZft383EO7Xs0blEVXN5+C3OUb3
+   Ob6BJ12bZALuCQPxF4byOt8XOT6BNEkVmlQ3Df3PrDnpKzy3ik/rAt4Vk
+   Q==;
+X-CSE-ConnectionGUID: ikH6ayYAS56OD+IhwId09g==
+X-CSE-MsgGUID: RodlU/yTR8aEHagp006/nA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11956"; a="2548016"
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="2548016"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:12 -0800
+X-CSE-ConnectionGUID: Vdd75W6xS4i/w10gfKSiGA==
+X-CSE-MsgGUID: DBVu0q0gTD6lwwwebdsT1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,197,1787036400"; 
+   d="scan'208";a="7113980"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.144])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Nov 2026 03:46:10 -0800
+Date: Thu, 5 Nov 2026 13:46:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Gobi Durairaj <gobidurairaj@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: ipu6: Fix ISYS runtime PM race during probe
-Date: Thu,  5 Nov 2026 13:43:09 +0200
-Message-ID: <20261105114311.49242-1-konrad.marek@seznam.cz>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH] media: atomisp: fix block comment style in sh_css_sp.c
+Message-ID: <auxsf6qUD4XeAV2D@ashevche-desk.local>
+References: <20261105064312.360626-1-gobidurairaj@gmail.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -75,56 +83,25 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261105064312.360626-1-gobidurairaj@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-ISYS and PSYS are auxiliary devices and PSYS is a child of ISYS.  In
-ipu6_pci_probe(), resuming PSYS to initialise the MMU and authenticate the
-firmware also resumes the ISYS parent.  However, ISYS probe has been
-deferred until bus_ready_to_probe is set, so ISYS is marked RPM_ACTIVE
-without its runtime_resume callback having run.
+On Thu, Nov 05, 2026 at 12:13:12PM +0530, Gobi Durairaj wrote:
+> Convert block comments to the preferred kernel style with a leading
+> "*" on each line and the closing "*/" on its own line, as reported
+> by checkpatch.
 
-The driver then drops the PSYS reference using pm_runtime_put(), which only
-schedules the idle transition asynchronously.  When PSYS finally suspends,
-the runtime PM core queues an idle request for ISYS as well.  This request
-can run after the deferred ISYS probe has published dev->driver but before
-isys_probe() has called dev_set_drvdata(), making isys_runtime_pm_suspend()
-dereference a NULL isys pointer:
+If Sakari wants to take it...
+This type of changes to this driver are not appreciated at this moment, sorry.
+I can point to the success story in case you want to continue with this driver
 
-  BUG: kernel NULL pointer dereference, address: 000000000000031c
-  ...
-  isys_runtime_pm_suspend
-  bus_pm_runtime_suspend
-  rpm_callback
-  rpm_suspend
-  pm_runtime_work
+https://lore.kernel.org/linux-media/20261027230807.2407261-1-vladurares@gmail.com/
 
-Make both runtime PM transitions synchronous and complete them before
-bus_ready_to_probe is set.  pm_runtime_put_sync() waits for PSYS to be
-suspended, dropping the active child count of ISYS.  pm_runtime_suspend()
-then suspends ISYS while its driver is still unbound, so no suspend
-callback can run during the probe.  The first real runtime resume happens
-later, when the driver data is available.
-
-Signed-off-by: Marek Konrád <konrad.marek@seznam.cz>
----
- drivers/media/pci/intel/ipu6/ipu6.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index cdf812c02960..905b03b7e76d 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -827,7 +827,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	}
- 
- 	ipu6_mmu_hw_cleanup(isp->psys->mmu);
--	pm_runtime_put(&isp->psys->auxdev.dev);
-+	pm_runtime_put_sync(&isp->psys->auxdev.dev);
-+	pm_runtime_suspend(&isp->isys->auxdev.dev);
- 
- 	/* Configure the arbitration mechanisms for VC requests */
- 	ipu6_configure_vc_mechanism(isp);
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
 
