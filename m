@@ -1,95 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793911118;
-	b=KRuaclQfOug43AXJBmsYlEIJh2DOJafbx9YvsMiF+bz4Cd27K5rhVRvCfzuDE68Gu0zT
-	 3LIHgMTVcq7mYuXU8vDYZIJmj3IW2Da8tEdd6JGwdCisqpsJgj2b/YgPTGdmmP6xa4+D8
-	 PTdBOdr2qO6kSFyy4OpA0cC6xuQukXo4oEftriGmRv8qd9ayiYl6rHLBlfNdCXiTxbuef
-	 JnSHsGLr2I6tzc03QDOsgm1Ple4wHLXlsN7a3uPE1oMzvkmQ8mIwGDcnmvuVY8vc+bCbG
-	 aoBiruvhuLtB2RNhMGphYMa7qByncWkXFN36bTp/t9BPEivku2j7zhF28FV/IJ5Zkfg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793911118;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=uTr78+EKJ80AgjhlhFA6vfRiNhSENpgMW7TPBkAYpjk=;
-	b=g1CVf76jNXEFB8FRv+uUI0dspR9bofTAbV8WhVCxdWvT+GA6E8f+ooUab6/dNqsoZBSJ
-	 I6MZt/0PvVm9UygDVkzLOjQ/tBmE1jzIHwHeHBOhTS5JCgRsEbrM7mt7RjChrV06dgIKa
-	 jyM0MPa2ESqBBAEwP9rhBu4X4jkW3/B7gtpUHkt5rcbhAiG3MqVKf9eyO9sIUUJvojOUr
-	 eZudG3yfywYXgxxGpgdW288Ac5i5E2JdEkmnXY64rwz3nkCOAsE087BE8AcfXpASCy5U6
-	 53qvZmLF3Cv3SNuG2/JOW4ck2/YQNAkvTEXPwowbyIow92JNhu6WwRD8cbQcxfsHMEQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AVBUpvPH;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793911269;
+	b=wX1/I/6WnKfVU+RmT9zrx6ZurA7KbkvZyyZHOjk+hNq6gINa8In1tuqYlW0sN1oHGzew
+	 NNf9YWrGhpIpxLd5MRCcE9fVz/HAmnX5jBGklqwLK06Q/D4Lpnu9Ogf64Awdt4hEz7daq
+	 84M6em5i/Z5y36Bkmj2E4W1UM4U99wUZdKXtyWwe9LGqoVWeF7c7e4vI9eaFgFU4G7yEm
+	 XiPsfJ5GPlOgKSuEnLv/PRDvgOS4QE5PPO3Tk8U1uLoeGkiwX319X5VD6xpU3tdRd5mQh
+	 H+5b2fuU+/yWMcGd0ROqZqNewCB1tJsX0gg9h+5bRbu7U6MkKuy/0sTvU94PZFgvrhw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793911269;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Content-Type;
+	bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
+	b=kMnFn1tODSsCJu6ELfhml8nqBbeQuM+QIzJALKB9hp7mcYGgHi8O1k0cqWtnrFAMGmJ9
+	 MCqDu8w9mV+JtylcVDncjw9FYm1PFtnZbyV/EUmkLJza2sjGj7h795n0pgpKU3Vej/Bar
+	 9EiD5uo4qh08TB8Uh4/M9K7CVVOQohy84OJldFPP+FqPQfo8GrL5ramYTLG+Dyz2l7q7Q
+	 KJqsW7UlQa0WTxRydry8vOBH0buvLFeQrbFWgyg9/EoFtRjU2N9JxTElST+egzQ+gGhSv
+	 YuSXSLF4TQpc0tyThn0A1mivJiiJ4lk7kx8wKzx5VpKSa0llK7fcV8JLeJZ2R5LGRqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRy4tFAS;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0CB606D80D;
-	Thu,  5 Nov 2026 20:38:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E0CB606D80D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4BF606A31B
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 20:41:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB4BF606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AVBUpvPH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793911115;
-	bh=t/CjJ+IUebv6B033LwItLXGrv/vuUzLu/02JkclzEvI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=AVBUpvPHZKwHj/ytZ+1TS3ayvA2OpuZA65Op+hTIIWM9CXc5P8WVQ0dmEVp7ecWcc
-	 xU4aOuPXnJe00aDxMBbJSLdqksCqvJyvDRnrDNlhXqQiQXw17oc6ZsxCvbj/dbPreT
-	 2u4XaBoM/XTGbEMEC4VjJAbpF/vL4m+lGqcfFNUwgmyCrlX2ug31jdlal8nJ7LVloy
-	 P0n1QPzPhv7Z07yn1UeNvrERI5x1V3Nukfqew5Yjm/cOaipTMkA57FdAsHbD5PJsZ8
-	 2bF1J3HQmfTYFYSDS6SvA76haTfOtorcyNDuEUDVV9UNpGoOK+fiMYCfSAaYGNf9Aa
-	 Glv7sfFdCGj0g==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D47D617E0564;
-	Thu, 05 Nov 2026 21:38:32 +0100 (CET)
-Message-ID: <82fa1dfc4266df67adedbb28ec04b6fe9f36ef1a.camel@collabora.com>
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Rob Clark	
- <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Sean Paul	 <sean@poorly.run>, Marijn Suijten
- <marijn.suijten@somainline.org>, David Airlie	 <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Mauro Carvalho Chehab	 <mchehab@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Bryan
- O'Donoghue <bod@kernel.org>,  Stanimir Varbanov
- <stanimir.varbanov@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, Jordan
- Crouse	 <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org, Vikash
- Garodia	 <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
- <dikshita.agarwal@oss.qualcomm.com>, Robert Mader
- <robert.mader@collabora.com>,  Neil Armstrong <neil.armstrong@linaro.org>
-Date: Thu, 05 Nov 2026 15:38:30 -0500
-In-Reply-To: <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
-	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-LymubVZJ2QNPf2r3KP/2"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRy4tFAS
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-36cad25b8b0so3472105eec.1
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 12:41:08 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793911268; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bt92iUYX+Vw94GoUx6s+qfVsh/tgFWXv7S3u4mVJCewmRS2Ysa5e/fyHGrlS6LlUGV
+         AIZezgmgiAKoUNJMnqxPb5I0FqCHlIhS+NPjH/PAb8Hn+a0UestGachnU8bCZcI8DZX7
+         +i80N65kZCiWTUfA16NcjUiU1IgICpyFf7dBqSjI1AEfbkREaw9PorxO6Xr8T9Pjd7Tm
+         KDe5nM7qoYhgv46/U8B3kEkPoczk51mK89jmcEBRqZs8g413bn09IHQegku+IEvyUbuC
+         uO+ZgTZHhZ5LD0Nm65STLNEszT8d+onw5uetrStbdbwt50933dtLSRKqwBa2PJ3Qm+GC
+         anoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
+        fh=RpYxnnRW5A5FvuL86z7f7YWfE0tvaTrs4Vecbev4fLA=;
+        b=oyKyqaA83OYBReSnwjpN/flUxD/q4+iXmh4HStismHhpBxm49EOjvtL5nA/7GtD5HM
+         tlsOGrmX+ip8TqKtKfCGj+CVW0gm2uZz/84/UlkP73TZ0BDZ8QE56Mo0TS2xE6E5JenZ
+         62L8CkRN6U+H6DwvS5MSZ0E5hQqMuSZhPHqjfDrBlmh7AgJFQtgq2phmTdlRyqkkBpsl
+         XGQqkO99Tv8k26LWZTidOJgMjGzH97lMw3nSh6wx4uTJFFi5OrZ82xBw1dUio/gSyvc/
+         /UJYnyCoRbdzZXypaG0cDzZXp4o9y0a0jrB5HO6iaCcLOFozlV7YqLm0NcrGg5iVJ1v5
+         WoPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793911268; x=1794516068; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
+        b=sRy4tFASc039OZzymx6zaz/qC3jyaHAFTJ4RdFPGZ1AmMyKor+oqTSdoekQ8qr0Wkx
+         O4SFwdWFfoF2of7WW1UgmCBQl+itDWQf2wCimII1XYlZ809YkQEuTdkwM7ybG5zNnP7O
+         bRtzg+EXOR9Qm3nZ4Z+tZsIfFcqDX1AMPW6Ffr6JBSUBDo9KW11DsSEJn9EM0ZUOLzrm
+         EK8Vin1W4eY592Aq7drO7053lhdUfxGuWgvWd3yZzbkrqfuYgdpX30Ts0+s22REHabrA
+         SPJC4QfBRkfPDiWYD3GB9wsSQ1T46t2W7/fLXieOOJ3zJU2jThdHl+Acs7N5dU118TMu
+         UNZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793911268; x=1794516068;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fjvd7G1M4kYC5N1HFg2u1AmIMrhzwo399bxrYq5ey1Q=;
+        b=znhRCQrGA6ej0K2H0kkgFX0UFgVE0GK/+KiKdZTI/ekqRCpgiMPokK3ACor0aP1tOA
+         TaWtl0CbYRq9Qm+EX6V535wr64RI104hZmGfWU8dY/NraYGSFMNetkTE6OVVyY68ALSP
+         QrcBr7ZBEcpcWrowTZ9eF16kcSoeKIc69bHuyIU8qGLYothfU67ouBR13ei0cC162d2A
+         jar6q4jDkxVSt0UQsfbVl73WJYj0RbnZ2LK+q179g7LU6i+OIaR1eyS+RzJWkCgx2KJk
+         E3M7zRiyMdbiYvdDgSzUthXdGsfSHHuhKhP/Wbthlh8FYigvOVuY0pPAHqsUeblxCAOT
+         DVHg==
+X-Gm-Message-State: APuU4Z8GPRFCCQn08a88+nE9a/Fj79LA1t/9EGO9lI9zcFXBj8C+PcHK
+	Mae/0pd844LTV79gY8w/rtTAcEr1F4yPrNYLAzDfgvFjKxn9sXxXA3ED8uMs8OqFiX+V5izDPsa
+	A8J9h7n6lUmVsGb8opmtnrumDtxmt4Gxakhirb1Q=
+X-Gm-Gg: AYBFou1kf7bCXMN0vp+Nb0pvcE4+L6MsgRqd+zlktk7UX7sUCkiNnCrUuwcDu7wHY55
+	s4eRWkSxG1M/aOhG1aiiRueys8dS7XzDKNN/HKpPEvmqMSne7gxtq4bIroq3CR4PRalL496g65g
+	OiuKlTc16phQr59azIWR4gRktCH+2JPXFoAurNO9SKN9UQOfwVlMVsbGTPywHolNG5TaOwpZUtO
+	yJQX1mHQtvKLL9y+BvZtXkmMHwEKJK8eVkq1yMGs3Hz2x57XmjctC5MtME9q/WQwN7qiyehR3MK
+	M466BznKEmVTeDa8JH5E978SLOm0Sqwp273aVLie+aJbYtis+O1XmmFJ4+xP4SbgMFRZ4Zalm8R
+	tu+HhEMITZs2pwz92wSBPFp+UQXRxNEXJaPpyhN9npE74zZLl55H8ggvaXWDBVkzLAvE8
+X-Received: by 2002:a05:7301:fc02:b0:369:f05d:6c67 with SMTP id
+ 5a478bee46e88-36f75441941mr411950eec.12.1793911266700; Thu, 05 Nov 2026
+ 12:41:06 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,61 +99,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
-
---=-LymubVZJ2QNPf2r3KP/2
+From: Crissc Linux <crissc.linux@gmail.com>
+Date: Thu, 5 Nov 2026 21:40:53 +0100
+X-Gm-Features: AclHuK_j8aHkxuw9u8EMHzlMnihJyK8h9-rXgX5Xe1qwuRPGxzRdc2VGyjCRn_I
+Message-ID: <CAH9gcaifYt_Q86iabH4r5u5fyRmWrT_opW20LPiJk-tnPzBR=A@mail.gmail.com>
+Subject: ov5648: support request for ACPI/IPU3 platforms (CHUWI UBook XPro
+ rear camera)
+To: linux-media@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Hello,
 
-Le mercredi 04 novembre 2026 =C3=A0 18:36 +0200, Dmitry Baryshkov a =C3=A9c=
-rit=C2=A0:
-> The comment describing the QC10C buffer layout calls it a compressed
-> P010. It is not: P010 stores each sample in 16 bits, QC10C packs three
-> 10-bit samples in each 32-bit word, which is what the stride computed
-> below (width * 4 / 3) assumes. Name the format correctly.
+Transparency note: I am a user, not a kernel developer. The analysis
+below was done with an AI coding assistant (Claude Code, by Anthropic),
+running on my machine. It read the driver sources and inspected ACPI
+tables, clocks and GPIOs. I haven't verified every technical claim
+myself, so please treat them as leads to confirm. I can run any test or
+command you suggest on the hardware.
 
-Keeping this separate from other thread. Maybe we should upfront tell what =
-is
-the DRM_fourcc + DRM_modifier pair in the doc [0].
+I'd like to report a hardware enablement gap, and I'm offering to test
+patches. The rear camera of the CHUWI UBook XPro (Intel IPU3, Kaby Lake)
+is an OmniVision OV5648, described in ACPI as OVTI5648. It cannot be
+used with current mainline. The front camera (OV2680, OVTI2680) on the
+same machine works fine with Linux 7.0 and libcamera.
 
-[0] Documentation/userspace-api/media/v4l/pixfmt-reserved.rst
+What I found, comparing Linux 7.0 with current mainline
+(drivers/media/i2c/ov5648.c and drivers/media/pci/intel/ipu-bridge.c):
 
->=20
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/med=
-ia/platform/qcom/iris/iris_buffer.c
-> index eb8de60c1177..ec2bf2a2d953 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_ins=
-t *inst)
-> =20
->  /*
->   * QC10C:
-> - * UBWC-compressed format for P010.
-> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 3=
-2 bits.
->   * Contains 4 planes in the following order -
->   * (A) Y_Meta_Plane
->   * (B) Y_UBWC_Plane
+1. ipu-bridge has no entry for OVTI5648, so no software node or graph
+   endpoint is created for the sensor. At boot, ipu3-cio2 reports only
+   "Found supported sensor OVTI2680:00" and "Connected 1 cameras".
 
---=-LymubVZJ2QNPf2r3KP/2
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+2. ov5648 has only an OF match table ("ovti,ov5648") and no ACPI match,
+   so it never binds to i2c-OVTI5648:00. The I2C client exists, but no
+   driver is bound to it.
 
------BEGIN PGP SIGNATURE-----
+3. ov5648 requires a 24 MHz xvclk (OV5648_XVCLK_RATE), and its PLL
+   configurations are computed for 24 MHz. On this platform, the clock
+   provided by the INT3472 discrete device (INT3472:01, \_SB_.PCI0.DSC0)
+   runs at 19.2 MHz:
+     INT3472:01-clk  19200000 Hz
+   Supporting this would need PLL settings for 19.2 MHz that keep the
+   210/168 MHz link frequencies.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCauzpRwAKCRDZQZRRKWBy
-9FREAP97K/llp0NFKyiM1vwAUNCmqH/X1ZCUVUjiGzy3bNhP8wD/TCIxVNuxPMf0
-xajQ5EFkK431/9CU1cU4Esnav+NcOAc=
-=zlIn
------END PGP SIGNATURE-----
+4. For libcamera, the driver lacks V4L2_CID_VBLANK and V4L2_CID_HBLANK
+   (mandatory in libcamera's CameraSensor) and V4L2_CID_ANALOGUE_GAIN.
+   Selection (crop) support would also help.
 
---=-LymubVZJ2QNPf2r3KP/2--
+The ov8865 driver (same original author and structure) received similar
+ACPI/IPU3 enablement work, so it may serve as a model.
+
+Platform details:
+- Machine: CHUWI UBook XPro (CHUWI Innovation And Technology(ShenZhen)co.,Ltd)
+- BIOS: American Megatrends ZW-BI-13-SF133KR300-KB60C-066-E, 11/05/2021
+- IPU3 ImgU [8086:1919], CIO2 [8086:9d32]
+- ACPI: \_SB_.PCI0.LNK0 = OVTI5648 (rear),
+        \_SB_.PCI0.LNK1 = OVTI2680 (front)
+  Both sensors are on i2c-2 (i2c_designware.2, PCI 00:15.2).
+  Power/clock: INT3472 discrete (DSC0 for LNK0, DSC1 for LNK1).
+  INT3472:00 (\_SB_.PCI0.I2C2.PMIC) is disabled (_STA = 0).
+- Kernel: 7.0.0-42-generic (Ubuntu 24.04 HWE). Secure Boot is disabled,
+  so I can load test modules.
+
+The SSDB/lane/link-frequency values are filled at runtime from BIOS NVS
+variables, so I could not read them statically. I can provide them
+(for example with a debug build of ipu-bridge that includes OVTI5648)
+along with a full acpidump on request.
+
+I'm happy to test patches on this hardware.
+
+Thanks,
+Christophe Schleicher
