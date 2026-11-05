@@ -1,50 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=141.105.120.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793895464;
-	b=jVBseSMhjr8qFgPmY64zdJtK60nuBDUfwvXN2kSSKAR9BwbZZEMfBTnPY7+1yeXSaspW
-	 C6dWJGIDvL6v7i24gHqR58npbnUxnystMFaJqNDCBB196zxTBkyjuQ7sBcF+wn5Ca/zvA
-	 SB7T9pHkrPyGIuVyrmT4S5hJ+z9qbgmWlRmYJG3OFuaHJnt3dfQy/sfGB77YDY8omVP99
-	 DHdeFi73y3gPEXByii0r7Av2Ji2e8TGp6jqvLJfzjMYKFtaN+/Xv6AMJ7TxgYOJOYHkoD
-	 OjBizPJD949BNPrsVyeTwmMkEGt2YUSIg3okZNkFgnco5tpvLbom47392Ie/U7f73Ig==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793895464;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=45BMwDl5+k3yl6C4+VgHK+KgYa2hgKR/ezUXr9zZDnA=;
-	b=3G9WY1krc3MNMOsr0w+tRpr3PGUE0M5fQ/V9kim14yKG80FTz7DD49qF37GIU3x1TOMs
-	 /FqcQ8gE0IAJzZ5mStcOnRpOMcdjWS6NVq7qnYeSmF0Cjs1JlIOwX0mdj0W52ITnj4tR5
-	 2wl0DAPeQMq83OQsWYEYxK91P9ZFgiYEFyOgo56TxehG935gjtSMAoAvvuCH9o/4XepLT
-	 uc0lnLg6qpXoODKJAJ9J5tpbXZLS7SDTCnXdnGDqPjoiLuj7nyJZrLE5eJ2dZZEFYIryi
-	 HjChBXUO2n/xx2giwDCYN/7SA4/rZjKwJv2DoEEu1TNduLsJFahSn6qrmzKAr9Fk4zw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lankhorst.se;
-	spf=pass smtp.mailfrom=lankhorst.se;
-	dkim=pass header.d=lankhorst.se header.i=@lankhorst.se header.a=rsa-sha256 header.s=default header.b=LiGqdCVf;
-	arc=none smtp.remote-ip=141.105.120.124
-Received: from lankhorst.se (unknown [141.105.120.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793895499;
+	b=vNeOnlUIIFM9oOoONrfU4lV2AkcxjK+MSNNp17yeb/urXRu1AKtKz0tzBHK7TOBK3M/b
+	 YVjB0sxOo/Z6WEdjiQPEiIDZGDx7GkLwDIHs0SwK4NdLbi+FxBTgpyB2URy93kiAHJDOV
+	 wUd/CrkrIIiqaSUQkRxW1eiMv3ZEp1FCSA8Mre5IscDntWCejCh1sL3nYl3pMFVrGCpQP
+	 ikVP6ciT8dk+iW+woIcBWPsaUlLMt/nF2db1LzzUr2jHhftEHSFbilvkQ741bsPn6QiKv
+	 vCzatOnG8wySYMtp+85wnO/6bMFgnLffgwc+33ZKBXN47VD66DfI4ApdWhTgNeUbPUA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793895499;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=LRHcpy+QuInZ54+gLRy6pbFgX/XCoJIbTY8h+vC2X0E=;
+	b=0rNqoQugWR6PcRK5mJJT4j3jRBwohZ4qv6kXDm/4DUVy65yCz/tRD0IrEkpUz6NWvMPN
+	 qvGRuwhfO4e5WbAupvDzvrz27P3yy4nxuwy7YiXsOvv8dZlgtGeXTeeVd16zwDkdGc6JL
+	 GcJ48RXBkL7mVq2cJDmpZTkxtIZSn3bYrQKUupkb4SdHQHKcdFGo3S9vUtDuCPfhonnwd
+	 nQExXIePFKLAxMxbUsm3M4lSzrcpPEO0J7xOQl/9Ic6huOKa2ao5pQaXZisDStMMW4FSy
+	 BcXk/ND/lUSgZhH+GkDSLWPUS9FnERhq6PPedfXUImE3jtAH4CdzAt1gdsoCPF2g+Qw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TJ5E9oPf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JLPOlPCd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BFA606A33D;
-	Thu,  5 Nov 2026 16:17:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BFA606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lankhorst.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lankhorst.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E1BA606EE9B
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 16:18:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E1BA606EE9B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.a=rsa-sha256 header.s=default header.b=LiGqdCVf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
-	s=default; t=1793895455;
-	bh=sQcybDD0TFEKFGLjkC5J5HLRe1kKfr3bprl/6+1sRdw=;
-	h=Date:Subject:To:References:From:In-Reply-To:From;
-	b=LiGqdCVf46YxCnpoQZd83wAPplv4qbvls59YegWhExqo9VqC+Ps5ldIWkOn2agoZP
-	 ZMXQqyPn8v2JWb0WVUOzST3N2QAj7aURdKGa3qhzvlROGXU7vrnoHvPVIRF7IdHuzO
-	 +viukXbom4levRafdMCl/BqMKYR+tPU/xqK5AyRuJ+eup24NxbiNpf3j79O9RtGKCO
-	 0P7KMFS8NmhaQAo2WDpHO+KxUzysVOYFtZ7TWVbD+xjHO/kqCG/4ebx50Fg3qVHL78
-	 Hs0qZ5TwA7BG5c/HOGZG/mICcNXwtsmVDrm1fjfMqu0fD8ZO/+rDxUFBYgH0KNP3dL
-	 MszzCu1UAZKkg==
-Message-ID: <1a573649-adb5-43c7-93e5-c691af670ab5@lankhorst.se>
-Date: Thu, 5 Nov 2026 17:18:31 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TJ5E9oPf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JLPOlPCd
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A5EQHsY1630961
+	for <linux-media@vger.kernel.org>; Thu, 5 Nov 2026 16:18:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LRHcpy+QuInZ54+gLRy6pbFgX/XCoJIbTY8h+vC2X0E=; b=TJ5E9oPfEBfB/Uap
+	OuMLttHgoJ+Ljst9nb794fGPdkaPnHil3RfUJcmQvkWZSdqnuC9jeImWBkK/H0v5
+	KBldy6ubniZQcXsBd9AK7iC3WEOr4dOLVhm0Z4fG4SIbBuKbiMBrO+0WbSbx9vPc
+	a+G8Ecljd4M0CkHKJW54TQYVbtdoXJL2dc+0dxz76RuCwN0k1uGRZ33XrMxhJUSV
+	TrX4X0vpYEitqqlmkeAwy8btJ/eQI/bZlMRhlURrEgFkNKpKRuEpXEX743unYEnz
+	eygLe3trZZQ/pV0ZfXAugabZdM2QQSvm4QQSZRA1RtJhGZx0Vi1m1sk4jMj0+tmA
+	0uPIUg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hrkaqargm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 16:18:13 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f13c143c8so393455085a.3
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 08:18:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793895493; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h+iTJaGsXYgA1mjac02BtOFo9s4KoGeLp0/Q5F1HrrXj0bJdWa5WB7cLntNBRV21SW
+         SB+15N3xAcqrdZUp6FeRbFV3mNBMH7tFVTf8bJyCvYNF1eea1YeP19Rs67A9GbkLwmKe
+         FBnz2lAFDxbq26PbTclW9oGXq9+U/tiZID+aSqYfgOjDSZvfLTYkJzoDDuPLVU7M6Vvq
+         bug44nukl5cgFlOqXscDtl5Tx3w6SHRrTzbUr+mUH0/Wp+rRwwJwSVJJp0K1chzEK62L
+         ylZNbQNoGQ5cVFEkHIqqLSOL+LbcQWMRPxPrpv4pKX1LZo21xE/Il2Ec0GxgVw1SFcT8
+         XDcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LRHcpy+QuInZ54+gLRy6pbFgX/XCoJIbTY8h+vC2X0E=;
+        fh=ycSlgZfzT9uWh0o+Qx2vMShYCYIGHL4aTL/4LSkgPWs=;
+        b=OgSxGQj+pP9oF8wDiaWyne7VtI+kzq/JpZl8YYlEkzukYJJdEyBqedV7a06augdfIy
+         2M4zH07345Wj/g/CKTFqnGLLf+dL8ewMrFR62DvVRSfBeaNtbfCp+sv15rRm7OApRgAa
+         61XWNuUrXIIot9BJD9/7fzoiwNHzvv1AzZQzAwkt2Qw7+ELaiIsIFQUX+pcPuuiTFyRs
+         6gtMRbMYb1rnHaLgxEsrUfyXlo64KU/oDHFg1EWgRk9/dvADgRvUFviCQdlY+fksBX8/
+         SuCrLRURKwYG9fmKjXCk8qIk9Dd1Z8HeWhDo01rWQ1cmDNH5OM4vrSPHd4J2KE0iHudl
+         Ml+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793895493; x=1794500293; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LRHcpy+QuInZ54+gLRy6pbFgX/XCoJIbTY8h+vC2X0E=;
+        b=JLPOlPCdzYubN8z7qVwXFTQGG5r5+xKrIwkM8eMRTowP5H8ztJrITKjOY9se70m2Vk
+         MSslQG5WG9qvjY991+X8yuBrTSwG4FMYpxtB/MJRDOQ7HI1Q4oAn+4/IpGDaQajdRbWA
+         drcflPaHwSOBGGHxakEtmgb3h7OZwsp0VOFvEC+o0eVqqO/pNcjIkrbwxx3OI7JzEzEk
+         4eJ7ZpjNHQLSa67JYjdwJE+guQU9HzRP5SzmtxPM1f7XxUU4/Tq+J5oe+MgnhGI9NbqX
+         qkGbjRExbRzB70l9PccFUsHdnky1YHkx8Y64Vo4zFIhvaXgTp9Yf7+/MHeu1GMPSf7iw
+         bfxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793895493; x=1794500293;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LRHcpy+QuInZ54+gLRy6pbFgX/XCoJIbTY8h+vC2X0E=;
+        b=0UOXevp+yWFbn9x+BVWGFv31po8TDbinwaFPGGSLtsP+Ul18XnKh02L+kReJA7N+U6
+         j67jGMhFIwxSF7B0THoxRd6OolxvxkaITXZXG0vmKv29o8IXZsZMpd4G1p9G3t12mXkO
+         CCtnLhrIA8pDVH4FUhX8AKaPGXte7sCrQs/Uf7THhbzH/D3E4aePeZ3uhCS1gkVj4AII
+         cXnW+FrheU6hzW7MCfjVRB7uDYjpJxRecHS0JYzgU6vCWst/xNQrYDLIVkAyo9kUEbUB
+         /o9l1wHjLvqY8CDyHxhAeaWpn1vK2FzDKGgRX928ESZqU3HFd83pr88IZCAzNj6+/jnC
+         hNeA==
+X-Forwarded-Encrypted: i=1; AKwUvByRNEvB+kB/n9GPufIOuiwabX/t1pcY6otmC2pWkWfY/FPyWx/7ey8ejHiW9F1UflLSZEtsDc1QAJawUA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z/hWGVpiyCAMllji4qEumRH9/XI1lusVNjEWoFyV8lvCehSp4gF
+	kLvO3UySrPxUMMyN4isp8QRPKJ4JgFmM94xiHshbn4+Vd5ONNK5vAVfX3znEwh5W+kd8gPuqx65
+	WyrKRjnzXFyugoHDxXu5A6MfINR1p67Gk9p7/DgmLt4WuPAsT0e/+P1xJXsvP6H/hPuAnzt+95k
+	1ZyzGVp2uYQLemXdCrR4UnqhUCn1ZvSFV2IGf/QsNN
+X-Gm-Gg: AYBFou3RjTl1y30t/q/v6YOH7l8u1Z8Rj+t1uHVMXu3k5zqmzoDdc/xSYgTf6cjRBba
+	pa26FlexX78QUJQnkypREPphta/s3Rcch6M3WnBDpRPHbmcWonXND1zoB5iOSd0ahefhWoGsrGF
+	ESNmtcOmrXxo4n8OJZyrl4Dt0B3oYQ4KO57+3DNvt3+TWzgHHsGaaLHI0Eg+SSkrzoZeAdXYU+s
+	JabRmc3vzbeG61UR2b0ETfNuAp26UNAN5NWJ5mmBrxG+YoOX7QznbBBCcwmKa4yGN5TI5AQX/U=
+X-Received: by 2002:a05:620a:3183:b0:93f:26e7:844 with SMTP id af79cd13be357-944217942dfmr3213719785a.55.1793895492368;
+        Thu, 05 Nov 2026 08:18:12 -0800 (PST)
+X-Received: by 2002:a05:620a:3183:b0:93f:26e7:844 with SMTP id
+ af79cd13be357-944217942dfmr3213713185a.55.1793895491627; Thu, 05 Nov 2026
+ 08:18:11 -0800 (PST)
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,284 +128,146 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/23] DMA-buf mapping types
-To: Alistair Popple <apopple@nvidia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Matthew Brost <matthew.brost@intel.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Xu Yilun <yilun.xu@linux.intel.com>,
- Karl Mehltretter <kmehltretter@gmail.com>,
- Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- iommu@lists.linux.dev, Keith Busch <kbusch@kernel.org>,
- Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
- Sagi Grimberg <sagi@grimberg.me>, linux-nvme@lists.infradead.org,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Mina Almasry <almasrymina@google.com>,
- netdev@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
- zhipingz@meta.com, treding@nvidia.com, jhubbard@nvidia.com,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>
-References: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <20261105-dma_mapping_type_v4-v2-0-78b8dc9ae80a@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll> <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org> <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+ <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org> <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
+ <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org> <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+ <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org> <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
+ <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org> <qKk3s6LA2dFNbAVvrsOlf17dn6zizSiyVMf1rJNQOvkvLGxswT_81cDlITq0atMX71Sw0VZu6u9WHK0fS1bzIQ==@protonmail.internalid>
+ <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com> <3df59469-e665-4901-b4b4-512604194ddd@kernel.org>
+In-Reply-To: <3df59469-e665-4901-b4b4-512604194ddd@kernel.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 5 Nov 2026 17:18:00 +0100
+X-Gm-Features: AclHuK8YSQ-kFGWQeNw5tClylojuV0W0oBaKhzme8TxRz7tVIdZ33iLLr-iQkJ0
+Message-ID: <CAFEp6-0keBgVWbBPCghkxMQAQeLeOHW8By7sQrqhjSGtJaZmEw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: "Bryan O'Donoghue" <bod@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: mqH7vmfn2Cavc7hIN9S1oO9zwC9OqDAE
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTA1MDA2NCBTYWx0ZWRfX/XpsoCapPtld
+ RL3hoL2Auh7QO2mXlT467Hdpebq/7VuEdUsDdbf+eM4fzctX+4912gzuEy9q9D+J/vlLxrdJKON
+ fMYBRDzy0Z1XTnRWCV9iT5d792H30qU=
+X-Proofpoint-ORIG-GUID: mqH7vmfn2Cavc7hIN9S1oO9zwC9OqDAE
+X-Authority-Analysis: v=2.4 cv=OZoNnRTY c=1 sm=1 tr=0 ts=6aecac45 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8 a=oudGAjWChX48PZ3fjK8A:9
+ a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTA1MDA2NCBTYWx0ZWRfX+9HuxU0aPfsA
+ fnT/a1m7f5dDVpjldBwqzfSBF5Zy2ecjRH+xAY/FfF7BxWJS0cWGFR1RSLgQ+ZNcGEgy5flrqE+
+ nFeZdhT3+rFSj4L3cg4rdc9vyzMMB/ibF+ohXF0nSzo+2+ovvRXtEh9hBMMV5NtHoNxAuJeM0P0
+ HUN+ZesL5LpbF9ThWon47pZoagOTrGDkjG/3FPUbPN2bXD4AWN2Fhp0BeX9QnaPuOq+vLGeLE20
+ MaEc4XN8fOQOv5iXuVDiJQB5sYq80sLBP34buZkEBfa7VRTXttwbwTeQM0FzYnObxMwSowohmEY
+ qa5zO1Bh1ZFMYqiIJ0G8ueBjHzUzrppkTjUhuJ+R0WCb9cTdWPGp+FdjyPDhXAN3A1vkOXGwGDb
+ 43NdadjLSi1J4so29Uom1Dpqorajov7AHI+LsNPTZtcbVeDTXhtVTjCTldP6g8PCS/MmeMF+PoX
+ TnOK2cAv0zcrtChs6lQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-05_04,2026-11-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 bulkscore=0 clxscore=1015 malwarescore=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611050064
 
-For the whole series:
+On Thu, Nov 5, 2026 at 4:46=E2=80=AFPM Bryan O'Donoghue <bod@kernel.org> wr=
+ote:
+>
+> On 05/11/2026 14:01, Loic Poulain wrote:
+> >>> The CSIPHYs are connected to the CAMSS input ports, which can then be
+> >>> multiplexed and routed to different CSIDs. The mux identifies its PHY
+> >>> inputs using the hardware PHY IDs, so the CSIPHY4 is identified as th=
+e
+> >>> CAMSS PHY4 input. In this configuration, PHY2 and PHY3 inputs are not
+> >>> connected.
+> >> I could not find that information in Glymur HPG, but maybe I looked
+> >> wrong. CSID Wrapper lists CSID 0-2, not 0, 1 and 4, but again maybe I =
+am
+> >> looking at wrong device description/interface...
+> > Yes, there are three CSIDs (CSID0-2) and two CSID_LITEs
+> > (CSID_LITE0-1). These blocks select the PHY source to be routed by
+> > programming their PHY ID (PHY ID =3D PHY index + 1), as defined by the
+> > PHY_NUM_SEL field in CSI2_RX_CFG0.
+> >
+> > If the CAMSS port ID matches the PHY index, the port ID can be used
+> > directly as a routing reference, which keeps the implementation
+> > straightforward.
+> >
+> > Alternatively, exposing logical port IDs such as { 0, 1, 2 } also
+> > makes sense. In that case, the driver would simply maintain an
+> > internal mapping table, for example mapping DT/logical ports { 0, 1, 2
+> > } to PHY indices { 0, 1, 4 }.
+>
+> The media-graph informs which PHY connects to which CSID. The
+> port-number in the DT really only identifies the fact a PHY input exists
+> - it should be considered a mux in front of the set of CSIDs with the
+> media-graph being the route.
+>
+> Since the route is runtime selectable, the media-graph is the boss, not D=
+T.
+>
+> You can try this on any CAMSS device right now, PHYs connect
+> independently to CSI decoders.
+>
+> PHY_NUM_SEL is derived in the driver, not taken directly from the port
+> number: the port indexes csiphy_res[] and csiphy_res[port].csiphy.id is
+> the hardware PHY index, e.g. port@3 on x1e is CSIPHY4.
+>
+> More work should be done to represent the fact-of-life - the mux. This
+> was discussed extensively in the standalone PHY series.
+>
+> The ports being numbered with the PHYs was a consequence of the PHYs
+> living inside the CAMSS node - which we have the opportunity now to
+> break with and should.
+>
+> Port number in DT should just be a linear 0-X for the number of PHY
+> inputs. Which CSI decoder that port routes to is still a runtime selectio=
+n.
 
-Acked-by: Maarten Lankhorst <dev@lankhorst.se>
+I think we're all aligned on that. Point was not about describing the
+runtime muxing or routing to the CSID, but rather about describing the
+CAMSS PHY input ID/link, which corresponds to the input of the CAMSS
+block (MUX input).
 
-Great to see the non-sgt mapping types finally being a first class option in dma-buf.
+So yes, we could argue that the port ID itself has no inherent
+meaning, but it acquires meaning through the convention we define,
+since we still need a way to map DT ports to CAMSS input IDs. What is
+really changing here is the convention used to describe that mapping.
+So, for Hamoa, ports { 0, 1, 2, 3 } would map to CAMSS PHY inputs { 0,
+1, 2, 4 }, while for Glymur, ports { 0, 1, 2 } would map to CAMSS PHY
+inputs { 0, 1, 4 }.
 
-On 11/5/26 07:40, Alistair Popple wrote:
-> This is v2 of the DMA-buf mapping types series [1]. It keeps the framework
-> and the SGT conversions from the RFC but defers the final mapping type
-> selection until the first pin/map of the buffer.
->
-> At pin/map the exporter chooses one of the types matched, taking the other
-> attachments and the buffer's placement into account. That choice is held by the
-> core until the exporter explicitly invalidates the attachment. This ensures
-> unmap/remap cannot cause buffer movement and ping/pong.
->
-> Future work will build on top of this series to add an iommufd importer type
-> per the plan in [2], separate out PCIe P2P as its own mapping type and convert
-> XGMI to an exclusive mapping type.
->
-> Why mapping types
-> -----------------
->
-> Since its introduction, DMA-buf has only supported using scatterlist for
-> the exporter and importer to exchange address information.  This is not
-> sufficient for all use cases as dma_addr_t is a very specific and limited
-> type that should not be abused for things unrelated to the DMA API.
->
-> There are several motivations for addressing this now:
->  1) VFIO to IOMMUFD and KVM requires a physical address, not a dma_addr_t
->     scatterlist, it cannot be represented in the scatterlist structure
->  2) xe vGPU requires the host driver to accept a DMABUF from VFIO of its
->     own VF and convert it into an internal VRAM address on the PF
->  3) We are starting to look at replacement datastructures for
->     scatterlist
->  4) Ideas around UALink/etc are suggesting not using the DMA API
->  5) Private interconnects, such as XGMI, are forced to work around this using
->     driver-specific hacks.
->
-> None of these can be achieved using scatterlist. This series introduces a
-> "mapping type" mechanism allowing dma-buf to negotiate compatibility between
-> different types and support alternate mapping options. See the description of
-> patch 2 for more details.
->
-> Selecting mapping type
-> ----------------------
->
-> Importers and exporters list possible mapping types with the exporter
-> responsible for selecting the final type at pin/map time under the dma_resv
-> lock. A matching phase at attachment time eliminates types which statically
-> cannot be supported for a given exporter/importer.
->
-> This was done in response to review comments on the RFC. Karl found that the
-> RFC's match callback ran on an uninitialised attachment [3]. Christian noted
-> that the final decision has to be made under the dma_resv lock before a
-> mapping is created, not at attach [4], and Thomas proposed the three steps
-> followed here: agree the possible types at attach, select at map, hold the
-> selection until invalidate_mappings() [5]. Christian also noted that remaps
-> must not change type or placement as that makes buffers ping/pong [6].
->
-> The dma-buf core enforces that last point by calling select_mapping() only on
-> the first pin/map after attach or after an invalidate. The pin/map type can
-> therefore only change once the exporter has explicitly invalidated the mapping.
->
-> Future work
-> -----------
->
-> This series stops at the SGT type so that the framework and the
-> attach/pin/map contract can be reviewed on their own. I already have
-> proof-of-concept conversions of both PCIe P2P (building on Thomas's work [7])
-> and XGMI to separate mapping types. If those would be helpful for reviewing
-> this series let me know and I will post them.
->
-> Alternatively this series could be split up with patches 1-9 & 22-23 adding the
-> general framework and the rest adding the conversions later.
->
-> Further work, per [2], is an iommufd importer type to replace the private
-> vfio/iommufd interface and allow other DMA-bufs to be imported into iommufd.
->
-> Testing
-> -------
->
-> - KUnit dma-buf-mapping suite (patches 22 and 23) passes.
-> - Every patch compile-tested with a config enabling all converted drivers.
->
-> Changes since v1 [9]
-> --------------------
->
-> - Rebased onto v7.4-rc1. The rename also covers the new nvme-pci DMA-buf
->   importer and devmem's switch to pinning. xe's dynamic-debug knob for the
->   p2pdma distance check (3bc497a40178) is dropped, since the check is now
->   done by the core at match time, and amdgpu's PREEMPT-domain import
->   decision (78cdd96ab497) asks the negotiated match set instead of
->   attach->peer2peer.
-> - The dma_buf_map_attachment()/dma_buf_unmap_attachment() rename is now the
->   first patch, squashed into one, and uses the shorter dma_buf_map_sgt() and
->   dma_buf_unmap_sgt() names (Christian [9]).
-> - Dropped dma_buf_mapping_attach() and the dma_buf_sgt_attach() /
->   dma_buf_sgt_dynamic_attach() renames. Importers that support more than
->   the SGT type list them in a static dma_buf_attach_ops
->   ->supported_mapping_types table. The importing device is passed to the
->   mapping types through the match arguments rather than stored in each
->   entry. dma_buf_attach() and dma_buf_dynamic_attach() are unchanged for
->   everyone else (Christian [9]).
-> - The selected type is an index into the attachment's match set, read
->   through dma_buf_attach_map_type(), instead of a copy in attach->map_type.
->   finish_match() fills the match set entry directly and select_mapping()
->   returns the index.
-> - A failed pin or map only undoes a selection it made itself, so a map
->   failing under a held pin keeps the pinned type and a failed first pin
->   leaves the attachment unselected; KUnit tests for both (Karl [10]).
-> - dma_buf_match_mapping() returns -EOPNOTSUPP when the two sides have no
->   type in common, keeping -EINVAL for an empty list, which restores the
->   error xe's own tests expect (Sashiko).
-> - New DMA_SGT_EXPORTER_REQUIRES_P2P flavour that requires a P2P capable
->   importer without a pci_p2pdma_distance() check at match time, used by
->   vfio and uverbs so iommufd's non-PCI device can still attach and so no
->   pci_dev is dereferenced outside the dma_resv lock (Sashiko).
-> - The SGT P2P distance check is quiet, as it was in xe and amdgpu before
->   the conversion (Sashiko).
-> - Fixed a NULL importer_ops dereference in dma_buf_dynamic_attach() and the
->   NULL check order in dma_buf_unmap_sgt() (Sashiko).
-> - Signed-off-by added to every patch (Jason). Patch 4 is now authored by me
->   with Jason as co-developer, as little of the original remains.
-> - Not addressed: the Tegra fault with CONFIG_DMABUF_DEBUG that Karl
->   reported [12] is a pre-existing Tegra bug being fixed separately.
->
-> Changes since RFC v1 [1]
-> ------------------------
->
-> - Dropped the PAL type and its vfio/iommufd users (RFC 21-25).
-> - Rebased onto v7.3-rc5: move_notify is now invalidate_mappings,
->   CONFIG_DMABUF_MOVE_NOTIFY is gone, new amdxdna/panfrost/panthor
->   exporters converted, kzalloc_obj().
-> - Patch 1 records the whole match set in a fixed-size array in the
->   attachment; patch 3 initialises the attachment before match_mapping()
->   (Karl); patch 15 holds a pci_dev reference instead of asserting the resv
->   lock (Baolu).
-> - New patches 5, 6 and 7: exporter selection at pin/map with core-enforced
->   stickiness, match set queries, and dma_buf_mapping_map()/unmap().
-> - xe and amdgpu conversions written against the final API; amdgpu's XGMI
->   override rewrites the recorded match set entry.
-> - New patch 26 with KUnit tests for the selection contract.
->
-> [1] https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
-> [2] https://lore.kernel.org/all/20260422150000.GK3199414@nvidia.com/
-> [3] https://lore.kernel.org/all/20261016202653.97339-1-kmehltretter@gmail.com/
-> [4] https://lore.kernel.org/all/d08a26ed-ded7-4447-bf7b-88597ee7df0e@amd.com/
-> [5] https://lore.kernel.org/all/8d4cb20b70ac4c3f36d8d631769757158af2ac8e.camel@linux.intel.com/
-> [6] https://lore.kernel.org/all/7b4dc988-5dbd-40e4-b17a-47b6eaf4bf81@amd.com/
-> [7] https://gitlab.freedesktop.org/thomash/xe-vibe/-/commit/7452df0fc858a7dc5ccac0e2037852cb7ab64d61
-> [8] https://lore.kernel.org/all/20261026053623.202642-1-apopple@nvidia.com/
-> [9] https://lore.kernel.org/all/3151a820-c583-4968-8440-673a9e390446@amd.com/
-> [10] https://lore.kernel.org/all/7193d384-5e28-4f85-8004-1dc9318d5c1c@amd.com/
-> [11] https://lore.kernel.org/all/at8IQZ34wkHQ_5PL@gmail.com/
-> [12] https://lore.kernel.org/all/auAIO0y09SXk34CN@gmail.com/
->
-> ---
-> Alistair Popple (5):
->       dma-buf: Negotiate the mapping type in dma_buf_dynamic_attach()
->       dma-buf: Let the exporter select mapping type at pin/map
->       dma-buf: Add match set queries for exporter placement decisions
->       dma-buf: Add dma_buf_mapping_map() returning a type-tagged mapping
->       dma-buf: Add kunit tests for mapping type selection
->
-> Jason Gunthorpe (18):
->       treewide: Rename dma_buf_(un)map_attachment() to dma_buf_(un)map_sgt()
->       dma-buf: Introduce DMA-buf mapping types
->       dma-buf: Add the SGT DMA mapping type
->       dma-buf: Route SGT related actions through the attachment's mapping type
->       dma-buf: Allow single exporter drivers to avoid the match_mapping function
->       drm: Check the SGT ops for drm_gem_map_dma_buf()
->       dma-buf: Convert all the simple exporters to use SGT mapping type
->       drm/vmwgfx: Use match_mapping instead of dummy calls
->       accel/habanalabs: Use the SGT_P2P mapping type
->       drm/xe/dma-buf: Use the SGT mapping type
->       drm/amdgpu: Use the SGT mapping type
->       vfio/pci: Change the DMA-buf exporter to use mapping_type
->       RDMA/uverbs: Use the SGT_P2P mapping type
->       dma-buf: Update dma_buf_phys_vec_to_sgt() to use the SGT mapping type
->       iio: buffer: convert to use the SGT mapping type
->       functionfs: convert to use the SGT mapping type
->       dma-buf: Remove unused SGT stuff from the common structures
->       dma-buf: Add kunit tests for mapping type
->
->  drivers/accel/amdxdna/amdxdna_cbuf.c               |   8 +-
->  drivers/accel/amdxdna/amdxdna_gem.c                |  11 +-
->  drivers/accel/amdxdna/amdxdna_ubuf.c               |   8 +-
->  drivers/accel/habanalabs/common/memory.c           |  54 +-
->  drivers/accel/ivpu/ivpu_gem.c                      |   6 +-
->  drivers/accel/ivpu/ivpu_gem_userptr.c              |  11 +-
->  drivers/accel/qaic/qaic_data.c                     |   6 +-
->  drivers/dma-buf/Makefile                           |   1 +
->  drivers/dma-buf/dma-buf-mapping.c                  | 291 ++++++-
->  drivers/dma-buf/dma-buf.c                          | 266 ++++--
->  drivers/dma-buf/heaps/cma_heap.c                   |  12 +-
->  drivers/dma-buf/heaps/system_heap.c                |  13 +-
->  drivers/dma-buf/st-dma-mapping.c                   | 896 +++++++++++++++++++++
->  drivers/dma-buf/udmabuf.c                          |   8 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c        | 136 ++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |   4 +-
->  drivers/gpu/drm/armada/armada_gem.c                |  28 +-
->  drivers/gpu/drm/drm_prime.c                        |  28 +-
->  drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c         |  16 +-
->  drivers/gpu/drm/i915/gem/i915_gem_object.c         |   2 +-
->  .../gpu/drm/i915/gem/selftests/i915_gem_dmabuf.c   |   4 +-
->  drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c   |   8 +-
->  drivers/gpu/drm/msm/msm_gem_prime.c                |   7 +-
->  drivers/gpu/drm/omapdrm/omap_gem_dmabuf.c          |   9 +-
->  drivers/gpu/drm/panfrost/panfrost_gem.c            |  13 +-
->  drivers/gpu/drm/panthor/panthor_gem.c              |  11 +-
->  drivers/gpu/drm/tegra/gem.c                        |  26 +-
->  drivers/gpu/drm/virtio/virtgpu_prime.c             |  19 +-
->  drivers/gpu/drm/vmwgfx/vmwgfx_prime.c              |  32 +-
->  drivers/gpu/drm/xe/xe_bo.c                         |  16 +-
->  drivers/gpu/drm/xe/xe_dma_buf.c                    |  79 +-
->  drivers/iio/industrialio-buffer.c                  |  13 +-
->  drivers/infiniband/core/umem_dmabuf.c              |   8 +-
->  drivers/infiniband/core/uverbs_std_types_dmabuf.c  |  30 +-
->  drivers/iommu/iommufd/selftest.c                   |  18 +-
->  drivers/media/common/videobuf2/videobuf2-core.c    |   2 +-
->  .../media/common/videobuf2/videobuf2-dma-contig.c  |  23 +-
->  drivers/media/common/videobuf2/videobuf2-dma-sg.c  |  18 +-
->  drivers/media/common/videobuf2/videobuf2-vmalloc.c |  13 +-
->  .../media/platform/nvidia/tegra-vde/dmabuf-cache.c |   6 +-
->  drivers/misc/fastrpc.c                             |  18 +-
->  drivers/nvme/host/pci-dmabuf.c                     |   6 +-
->  drivers/tee/tee_heap.c                             |  13 +-
->  drivers/usb/gadget/function/f_fs.c                 |   9 +-
->  drivers/vfio/pci/vfio_pci_dmabuf.c                 |  26 +-
->  drivers/xen/gntdev-dmabuf.c                        |  27 +-
->  include/linux/dma-buf-mapping.h                    | 420 ++++++++++
->  include/linux/dma-buf.h                            | 234 ++++--
->  include/trace/events/dma_buf.h                     |   2 +-
->  io_uring/zcrx.c                                    |   6 +-
->  net/core/devmem.c                                  |   8 +-
->  samples/vfio-mdev/mbochs.c                         |  10 +-
->  sound/soc/fsl/fsl_asrc_m2m.c                       |  12 +-
->  53 files changed, 2415 insertions(+), 536 deletions(-)
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261105-dma_mapping_type_v4-f71180b977e8
->
-> Best regards,
-> --  
-> Alistair Popple <apopple@nvidia.com>
->
+If you look at the mdss_mdp ports in glymur.dtsi, you'll notice that
+the ports are associated with their corresponding INTF numbers, and
+interfaces that are not present are simply omitted. As a result, the
+port numbering contains holes, for example {0, 4, 5, 6}.
 
+>
+> Honestly I don=E2=80=99t see much value in continuing to treat port numbe=
+rs as
+> hardware mappings in DT now that standalone PHYs have landed.
+
+As long as it is clearly documented in the binding, that should be
+fine. We will need to introduce a mapping table for platforms that do
+not expose the legacy PHY numbering, or otherwise derive the
+corresponding information from 'somewhere'.
+
+Regards,
+Loic
