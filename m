@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793882152;
-	b=scnOO2Jys6ScQLcsWkTT9TuY4Dz9fWe/Guhz7wa/8+JdCJyNDPA26rxZv+t3xB5NjBS3
-	 R7HErE1UH5wIEBhIlItjR/XYmBuYsjO+sNjy5Q7a/AH/CTodna2buxtMhpsOnAL3kP0uw
-	 Zb/nyehsbNnv04G0VA39acvjsYfLHKiNGDJDMENG+2+BgrFcxOtdNjmDOghQtoaxplWcA
-	 OwjW3CiJBkO8fi2+NLQfqy7RRpZJGTZuh8LnepQOpwMioujn9PrFjn0KkxnYaM7NA7G/f
-	 5rEO46DTHOtTE7SH+781xkQaq0tLq7Ns2Nes//4u5dfhUee4MhsOtmAhfQSH3mZu02g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793882152;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=;
-	b=F9Vb17iU4ChWG0uYIk4WjeQQmLZsEtTYvaMSOR8dr/3VVg+QuHXJe4yJ7xos6kpssmpG
-	 DwDVdx46ZGgiPIJmOsQ5qU3NBwZeY6NmtbLQHsqb+QFMV98l9qwTobWXnqeohQCmHLaG3
-	 uDo8jmJ/fA7geP4TWmkwPflNKdT4Cm1jACeugUshoEGuLTp4RuJaC+VDtLQ/AMfOELxHo
-	 a52dvHBlIUvsfn5GD7h8Lu/cJKpHoD/uYiWK1BnZDviwqYZ5DeIEvv3kM+ta7QwyQidTo
-	 VI0rOA/TiHFQlTfpJKnDpdvCpKqGftwfSmgvtokaKX0WOR4STSSktT0txX1h2Fck1qw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DWG3eOkk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.11
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793882247;
+	b=sgzhAdEHr8oFBAYa+EuPpJ9JMFCzbk2rlWuTLAOcalpZoyq95vpb3Z6azi0nf91VpRmJ
+	 KIFpNen+8oN6V7UtPSHTAfbYFGJAHZeKb5cxSuJxS61wCx5ubM1rSE15GtTDQKCbevtwY
+	 IdDUDW3GLazjzNb/y33WjnqUSyiZYewkWinC9daQjLKNrgpdrdt8KfYk/X3IrISQvH/lJ
+	 iPHtnhU311RRVmsXUEi7IlQJv/CMLnTapOVI85ykB0SlrpVw7rFD4t9VrC/45OVWYeJL/
+	 rW4HWxX4jGalrTFpdjWvps1QwzhsCtlnmJchCgmRY5iLY1Vjx/u60xDKolhNUJJg1FA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793882247;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=K5laUMU2KJoz9qNykR8nk12tulWxuY+wCYFSFpscv3s=;
+	b=on35yQ5YJaLXB1i/XTPL3hVnEErLWKFQH0Z9gRZMYDkDBVAiiwJM+0rN/hNd2vSMpvxj
+	 TsnNqjlByUkdhKbwaLJGkJJODkO9D6b9WytgKu+XnXLtwS8969No/Xy1lrtaW9RGO7iKY
+	 XOZkiptPhOvBQoqwvZvW9/YLVs9fgKiwIt0b7Qc8KuBbeznX1h9HUEi2OwxQDtOYQFCtH
+	 yD6HhBZ2rJdRk6T8FvWyzw7bwi1ttjqL4U5Xwh0yRyN1GLZNWrDTGFvC3pKC/dJcR4IGD
+	 Dfcs+a0tkR57Dv5AepsLfxemO7Cj+CTgZ0Gosg/FNM/JxdYRFB/Z+M4+juvh9I9eyig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=OPxGq7ra;
+	arc=none smtp.remote-ip=202.108.3.20
+Received: from r3-20.sinamail.sina.com.cn (r3-20.sinamail.sina.com.cn [202.108.3.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C31606A339;
-	Thu,  5 Nov 2026 12:35:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93C31606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A06D606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 12:37:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A06D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=DWG3eOkk
-ARC-Seal: i=1; a=rsa-sha256; t=1793882120; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Uz72HdtyQIk/Jx/Kx8+D2p3/h8mj8zQG1p/ZQuEx9Ctu6YFaXmhXgaXvD47v/+AGyMuZ+RkOBb0E0AvGZaA2WygzN9avwB4BL1P5OioIxd7DOJ89ec+DFgnWaDaRj0NXgLWVoNDvqWYI2hycGqNTGDB7WrXm4dJDq6qflVkfFcw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793882120; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=; 
-	b=Al46/yeMX1achccMCKjlLVt9UmEm8U+GMthh3oAN/pCjATJZtUwKPzEFu4wYehVzHWTgea6wUaQYkG2HRT4aIMBffLRrOBZd2unFe7wFruujnLcH2c3e1i5Uhl//DhtBnT61p8OVKTWFTrImdel0o7NbJkuRJ/3311CnOrsMWRU=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=robert.mader@collabora.com;
-	dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=DWG3eOkkBDYLa23q1FTMIv8iDNe2lcBQrIYi3DJlWMUK6rZMToWXUvzV6DDZmDFj4XbepNLaJuzRoZRs2fLxMLJpROXUNSPiw0A7a4GmA6TbD0nE+6poAsud1nqIH1mvJW1c/sFBLkKI/Ha6VcNAUzeq58X6WG+xosGKqmA+Yd8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=LZXnIiN3GUw0Ikz0T3gPaUwpFENf1XFb2KeDlcXczwg=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793882118217571.0019856779174;
-	Thu, 5 Nov 2026 04:35:18 -0800 (PST)
-Message-ID: <7b4d3a85-6aea-4b96-a4d0-c2f16e488ad9@collabora.com>
-Date: Thu, 5 Nov 2026 13:35:10 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=OPxGq7ra
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793882244;
+	bh=K5laUMU2KJoz9qNykR8nk12tulWxuY+wCYFSFpscv3s=;
+	h=From:Subject:Date:Message-ID;
+	b=OPxGq7ra+rTPMeikfbRXigGd9JLrR8d1k1XPnB3B02JXKdssWhKsTBZfq379DHCqJ
+	 iTm54D6WJJ96aXuMrF2BDoWymA8a4j+zf+EgCk21jGtJ1GeO3qt8pcUAWAlZk0PttI
+	 iAVlMKOQt4lq+R9waqetgAaM9il/zIMWku9JhFfA=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.231.89])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AEC787D000079EE; Thu, 5 Nov 2026 20:37:20 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 8249174456693
+X-SMAIL-UIID: A4384A86C4F04932A99FAA12BF8C2C2B-20261105-203720-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: christian.koenig@amd.com
+Cc: media-ci@linuxtv.org,
+	sashiko-reviews@lists.linux.dev,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	sumit.semwal@linaro.org,
+	phasta@kernel.org,
+	robin.clark@oss.qualcomm.com
+Subject: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence reference counts
+Date: Thu,  5 Nov 2026 20:37:13 +0800
+Message-ID: <20261105123717.66572-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <ad203438-ddbe-4445-bb3e-9632e738c1a5@amd.com>
+References: <ad203438-ddbe-4445-bb3e-9632e738c1a5@amd.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -58,100 +77,75 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
-To: rob.clark@oss.qualcomm.com
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Bryan O'Donoghue <bod@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jordan Crouse <jordan@cosmicpenguin.net>, linux-media@vger.kernel.org,
- Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
- <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
- <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
- <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 04.11.26 23:11, Rob Clark wrote:
-> On Wed, Nov 4, 2026 at 11:00 AM Robert Mader <robert.mader@collabora.com> wrote:
->> Nice, very happy to see the series!
->>
->> On 04.11.26 17:36, Dmitry Baryshkov wrote:
->>> The comment describing the QC10C buffer layout calls it a compressed
->>> P010. It is not:
->> If I'm not mistaken the display engine / the DRM side (including Mesa)
->> describes it as P010+QCOM_COMPRESSED as well, and so does my pending
->> Gstreamer MR [1] . So if we can't pretend that QC10C ==
->> P010+QCOM_COMPRESSED, then we probably need a DRM_FORMAT_TP10, wire that
->> up everywhere etc. OTOH if we want to keep the DRM side as is, then the
->> comment should reflect that, IMO.
-> IMHO we need DRM_FORMAT_TP10.. on the GPU side, we have TP10 and P010
-> as distinct formats, both with and without UBWC.  I'm not sure if the
-> same is true on video side but P010+UBWC was never exposed, or if it
-> truely only supports linear P010 and UBWC TP10.
+On Thu, 5 Nov 2026 11:03:10 +0100, Christian König wrote:
+> > There is a race condition between closing a sync file and the SW_SYNC_IOC_INC
+> > operation on a sync obj. When a fence is created via SW_SYNC_IOC_CREATE_FENCE,
+> > its reference count is initialized to 1. When the sync file is closed, the
+> > fence's reference count drops to 0. A race occurs if SW_SYNC_IOC_INC accesses
+> > the fence whose ref count has already reached 0 before dma_fence_release()
+> > calls timeline_fence_release() to erase the corresponding pt_tree node from
+> > the sync object, potentially hitting:
+> >
+> > refcount_t: addition on 0; use-after-free.
+> > ------------[ cut here ]------------
+> > kernel BUG at lib/refcount.c:34!
+> > Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+> > Call Trace:
+> >  kref_get include/linux/kref.h:45 [inline]
+> >  dma_fence_get include/linux/dma-fence.h:323 [inline]
+> >  sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
+> >  sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
+> >  sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
+> >
+> > Use dma_fence_get_rcu() to replace dma_get_fence(), if fence reference
+> > count is 0 then do like timeline fence release things: remove pt link
+> > and erase pt node.
+> >
+> > Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
+> 
+> Please completely drop that. This is not something which has any justification to be backported.
+OK.
+> 
+> > Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+> > Signed-off-by: Edward Adam Davis <eadavis@sina.com>
+> > ---
+> > v1 -> v2: use dma_fence_get_rcu() and remove link & erase pt node
+> >
+> >  drivers/dma-buf/sw_sync.c | 6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+> > index 8df20b0218a9..261bc98b1ed6 100644
+> > --- a/drivers/dma-buf/sw_sync.c
+> > +++ b/drivers/dma-buf/sw_sync.c
+> > @@ -221,7 +221,11 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
+> >                 if (!timeline_fence_signaled(&pt->base))
+> >                         break;
+> >
+> > -               dma_fence_get(&pt->base);
+> > +               if (!dma_fence_get_rcu(&pt->base)) {
+> 
+> Well that is at least better than before but still needs a code comment explaining why this is possible without holding the RCU read side lock.
+> 
+> Something like /* It's possible to race with timeline_fence_release() here */.
+> 
+> > +                       list_del_init(&pt->link);
+> > +                       rb_erase(&pt->node, &obj->pt_tree);
+> 
+> What happens is that you race with timeline_fence_release(), so that here is superfluous and potentially even harmful.
+timeline_fence_release() and sync_timeline_signal() are synchronized using
+the same spinlock(timeline obj->lock is same as fence->extern_lock), so
+there is no race condition between them. Instead, a race condition exists
+between sync_timeline_signal() and sync_file_release(), which causes the
+fence reference count to drop to zero prematurely.
 
-Oh, do I understand you correctly that the P010+UBWC implementation is 
-not compatible with QC10C, meaning on the GPU side (Mesa and display) we 
-don't yet have any support for QC10C exposed to userspace? If that's so 
-then we don't have a choice but to introduce DRM_FORMAT_TP10 I guess?
+By removing the link and re-initializing it here, list_empty(&pt->link) will
+evaluate to true when the spinlock is acquired within timeline_fence_release(),
+preventing the redundant execution of the link-removal and node-erase operation.
 
-On the plus side - this would allow us to make the format single plane, 
-matching what we get on the V4L2 side.
-
->
-> BR,
-> -R
->
->> Best regards,
->>
->> Robert
->>
->> 1: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/8195
->>
->>> P010 stores each sample in 16 bits, QC10C packs three
->>> 10-bit samples in each 32-bit word, which is what the stride computed
->>> below (width * 4 / 3) assumes. Name the format correctly.
->>>
->>> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->>> ---
->>>    drivers/media/platform/qcom/iris/iris_buffer.c | 2 +-
->>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
->>> index eb8de60c1177..ec2bf2a2d953 100644
->>> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
->>> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
->>> @@ -266,7 +266,7 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
->>>
->>>    /*
->>>     * QC10C:
->>> - * UBWC-compressed format for P010.
->>> + * UBWC-compressed TP10, YUV 4:2:0 with three 10 bit samples packed in 32 bits.
->>>     * Contains 4 planes in the following order -
->>>     * (A) Y_Meta_Plane
->>>     * (B) Y_UBWC_Plane
->>>
--- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
-
+BR,
+Edward
