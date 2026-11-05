@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793874781;
-	b=N2Ou1optLXgjmcgReNL12Ncywe3Uvyp6gdMpeAJJaO6d1dbQr54X5VLk7BIy0s+qllDt
-	 Q71fe3vhzlRui087QWD0+32rkfewlUjuElOWyzb44q2n8inGhzc5gblPoYzpTK6q6l2ZU
-	 RiLnQ4pos0V+eowTnM/JGyfDik/9kNQsxk2lJuo8DsH57kU9n9OByx0Y+UVkYv79w5S+W
-	 bM3wJqOOvZQ6QFP5ElKLTc/uVt0op567gKP+GtWxOJfVc/gMJmKB8B/aMqB5rRKIcKT6/
-	 0t7qAHt3ZqZ7zq4MgBxWwZn48GbgTsJEj1d3mEzdrXhBlu6UZSwo4E5ApPZZeCpWTsQ==
+	t=1793875527;
+	b=AYcHK61l9EOM53SyXxNzU8fPsy0clYs6n3cPL6aZeH/rEb/Z+4cjcgOhfYpayYwQuin/
+	 dBTmaIjIqsOusqgFZuIgYACbSWxC7B3XEgwKtx+WTrvcVhPz7r/60CDE+CVmGsiVUq1mN
+	 NqFaICbo7zASWN+nS/3yF7ZkOs1RMTP9osU4Qu2ifryu8H9EqDq2NPiR4+k7iWYIg96dg
+	 7LGTO4ZTLV/CRDwors1afrcSCjBFx2MHQW0vvC8NTpznxRqanfDyxxcHctnmQRs5migkG
+	 +zOqZo43b2p8YGaSiI1SWXvBVuXu2CS0ZOMC2n443S9BWlUi4M4szvnSlGwAj+wjBAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793874781;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
-	b=IKn4tG1Nc8JyNXTHeAE0QbYYCf51ahZcGgpPpSBK7oUsyrRlLTfEHEQMHpoDk0TqxxsE
-	 ybTcRzosUN4CT5UJHfeE1zDPOlosSWtKLc1WgTjYdlgpAKxfUtbku5er8HvFjIz0pDdQ5
-	 4DG/s0FUDz8GyVKMAUYPUmowyfaToIOp/2Tv7elpjkcD5IFdfU3CZQMUsIz/cL9nkLaHP
-	 yGL6bYBvGY5a48i7ewj3Ro6qpgW8DjBa5C4fmK7AzUNbpOndCUrcKPzt7Mf5jREK+oAgc
-	 OoCnZQfvKOTOae812dabsNmWBFxoBNSb8V9+sI24RrCtY7Fn9XtSip4JGBQ92llY6zA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875527;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=/7kPsLdKWImOygAQHRfPLIzErUc4FD4p3YlvTemSyDA=;
+	b=Kio83LS08QmD/enOL0WF+UzGqwRSPSTYpM1WHgiOaqMpHCN9EMb5/e32veT8CTegvml2
+	 MlE9KnLBZ8v0pqz6ZKJKpbYRdmW9jQbDf6Tft+saqcfbnamF6A3KQaPJ3JwW4brlqD3Hx
+	 4ajexo255zeXI+ZABLkBi2sH3u84ob+GoeiNgzLrfUD5MT9mQhgXzKjdhh+yrjfXqfhOn
+	 +9l7m0FXGDXGOs6/Z1D/iYxlFjgorBRGxilUSZ6f8x5xiCxJ0YQhefo3fM1qBCIPIOa0+
+	 jUMa7FS8eQgNCAl8lVqoGTdX9QDy4uEoPnXZbmu2w8tP3lmjFfNSVM6ZFhCqriza2sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PiyCf7pv;
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYvB+Jx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21228606A326
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 10:33:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21228606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7DC606A32E;
+	Thu,  5 Nov 2026 10:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PiyCf7pv
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-886e61fa30fso799454b3a.1
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 02:33:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793874780; x=1794479580; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
-        b=PiyCf7pvWgT8fxkMzrWLrIH3dgWUniFK7soH84AMstFJO8rYlWAtORcQBiHnBLeWPs
-         NNiNzOZ90aMMgi1JGENjNURKZuSo7+lErbIWOjc5muIfBSs844BTQkHcWxt2sjSVemLv
-         b3jJ5uCjGu0G2T/wb9Wa+QFDYelGltdYmY5h4VRnuOMkrCPEzjrBCAm6MIBGdkmt19UQ
-         LvVCLVo9liYpYgh+TQc2q0TU6SDfDG1kqIqXyyJCrWt+Btx9S/nfuS5iOpyT3aungVc7
-         6GLIY8/kha3rjXXouZf+UbCmMRwFLQVjIb12RlcJnnxROwl0eYmuG9QNAQBaNeHrjgzR
-         tYKw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793874780; x=1794479580;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v0rbKVQ49enEBCt7tCDTAR+n/t5wNOavw3KdPMopqog=;
-        b=WUGClRnINRGbpamlZvpMJJw0+8xGbVkC8zdkrO0p4jHRtvv63dKFTmGs6oOItOCxIT
-         TzdZP9nN7xJmsDkMUCyjA/xWbjRVWCekNfOdj19qWoO4xeaUfelkWiC/j+SZepuu+JUh
-         yU9nteIOME7Yo9eutsqhNsI/OdH+ZtNUJWckJO+8gtVRPsSqwbzb+DWpS0+TmISRh4/M
-         BNfM5LuTQG2Mb0fcJUjBi5CvJxblvlM1JBRfCrPYk4IO5ThQuqQr35zOzpo/6XrL/ij6
-         AL2dqKm0kLsa4a5fUuNaly0jkwHFajHRXCcl9PkPezkSQVRCEIdIXoDfhzRANiUqGG8e
-         vZeg==
-X-Forwarded-Encrypted: i=1; AKwUvByEFQ3dBZrfths9loDt279tK3mpPtwpBUrRHnf3J/xR6uKZWq9kl93Ojv60BodfDbU1yeT9FfxYAQrZPQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/X0kLwr+X3d6A9aqFU12tzq0gioD8bwZkh9BcVRhAvdywi7oLr
-	kIpHZM6hZY3r/S2onsikipd4WNkOboojRfZ/L8E95IAewLTZU2zMoIvM
-X-Gm-Gg: AYBFou3K0Bq52M+47HalyLixFdzgzGQBvGe3Ot8u3FMaFmOVLaAcaOZKXmFK+NS+PFc
-	7CTlbCMoiXgi2kVDvOR1Jr2tPs6/derPYsccfJUjTyGnGzt0ZP6OTZ6fJwATYMUoL+aCCtfQh2+
-	k5owEWckamk7+nz3BbhdicrfkSc4DNXi719AJ18jR0rY9JzflWGoVeD4pR73k7HENyuvob0blVI
-	RJPPqRPXz5p3iKXtEfti4i6vTdpmUmPnfHiIwhaq8M3iyolszJhFjemxIfZwxl6AgQmqPUh36qW
-	nPZV2+r/oyxPdpdRtk7P8HtVRWT9p4vCbiMgV0+r55FL1DdaF3imjyJv38y3DTvxeGIiF3u/r0I
-	X9BOswBWu5BZZN1eA1ARpjq3qACkTR9r0Ww3PxAWfSNMV16fQYOKffX5GFk0eUtch81BbxUh0np
-	OGcl8kaSYp5j/LhF6WZ0OuWgkFn9uyfc/UiPWImv+vyw8Zxo9RGp9iJ52ohrgJDjoO4nWPqf0kd
-	9Jp/BoUiaRN8a0Dzk1xXfXwbUAvaO4yCTT4Yiz0YSyPiSlEp1xikr2VvjyL/JlPb7JETctBw/bX
-	LCmUpMRPLEgLf/RCZb2e7t3a5YHbR5VGutXZvJLCkASi6bQp
-X-Received: by 2002:a05:6a21:3b49:b0:3e2:aaf9:3a17 with SMTP id adf61e73a8af0-3e92895901fmr13076159637.25.1793874780263;
-        Thu, 05 Nov 2026 02:33:00 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb5d66a91csm450865a12.3.2026.11.05.02.32.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 02:32:59 -0800 (PST)
-From: hyunjungg <hj351016@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v2] media: gspca: etoms: bound device-provided length in sd_pkt_scan
-Date: Thu,  5 Nov 2026 19:32:45 +0900
-Message-ID: <20261105103245.1436719-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261105065728.1351098-1-hj351016@gmail.com>
-References: <20261105065728.1351098-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYvB+Jx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D871F000C1;
+	Thu,  5 Nov 2026 10:45:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793875526;
+	bh=/7kPsLdKWImOygAQHRfPLIzErUc4FD4p3YlvTemSyDA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZRYvB+JxvgceA4WuJqnxKivzalazLs8cV5MCDQEZHyTWSwDtMp/GdnwJ4nSgZ7xiJ
+	 vzu32sFGeKA0W4nptaQpCVbtBH1ZBM81d67Q31G1K63oZRkhtFfYEeSnukX5WhPYco
+	 dyC6xKJMxCqBJ7i2yalOSLfn35rFX8jJKULpeSwhHY4mBDjKtSoGuRa09iJ7FUUQWy
+	 nNmuU28m6xKGAYf2779U196aobPsD+HR0caIjW/dXHfmUhBh/tUi9cCP1FKgoi06oL
+	 F9b2AD5J6ztrWb8lhLeZIkhRpFxBHTYdx7066ba3jsqa+t+PGT4RtuJNf9ApSjn6Iw
+	 7bOpcdu63SMqA==
+Message-ID: <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
+Date: Thu, 5 Nov 2026 11:45:19 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -99,107 +51,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
+ <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+ <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
+ <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
+ <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Hyunjung Ko <hj351016@gmail.com>
+On 05/11/2026 10:53, Loic Poulain wrote:
+> So some chipsets share the same IP blocks, with some block/phy
+> instances disabled. As a result, we need to decide whether we're
+> numbering based on active instances or on the actual hardware instance
+> index/offset. If we use active-instance numbering, then yes, it should
+> be @2 (CSIPHY4 being the third active instance). Alternatively, if the
+> port numbering is intended to reflect the hardware instance offset,
+> matching the register prop, then @4 would be more appropriate. It also
+> has the advantage of directly identifying the underlying hardware
+> instance, without requiring any additional driver-side mapping. In any
+> case, @3 is incorrect.
+> 
+> That said, since the bindings have already been merged in its current
+> form, we'll need to preserve backward compatibility when addressing
+> this.
 
-etoms sd_pkt_scan() is the gspca pkt_scan callback, invoked from the isoc
-URB completion (fill_frame() in gspca.c) with (gspca_dev, data, len) where
-data points into the URB coherent transfer buffer at this packet's slot and
-len is iso_frame_desc[i].actual_length, i.e. the number of bytes the device
-actually sent in that isoc packet.
+This is the input port to camss, so how is it called in camss, not the
+csi phy?
 
-The subdriver overwrites the real packet length with a value taken straight
-from the first two device-supplied header bytes:
 
-	len = (int)(((data[0] & 0xc0) << 2) | data[1]);	/* 0 .. 1023 */
-
-and then hands that count to gspca_frame_add() for a header packet
-(data += 30) or an inter packet (data += 8):
-
-	gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
-	...
-	gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
-
-gspca_frame_add() only bounds the *destination* frame (image_len + len >
-PAGE_ALIGN(sizeimage) -> discard); it applies no bound to the *source*,
-doing memcpy(image + image_len, data, len) directly. Nothing clamps the
-device-declared length against the bytes actually present in the packet
-slot.
-
-The isoc transfer buffer is usb_alloc_coherent(psize * npkt) where psize is
-the device's reported wMaxPacketSize and npkt defaults to 32; this driver
-sets neither cam.npkt nor pkt_size, so both derive from the device. A
-malicious camera can declare a small wMaxPacketSize and send a short packet
-in the last slot while setting the header bytes to request len up to 1023.
-gspca_frame_add() then reads up to ~1023 bytes starting at data+8 (or
-data+30) -- past actual_length, past the packet slot, and past the end of
-the transfer-buffer allocation -- and copies that adjacent kernel memory
-into the vb2 video frame, which is handed to userspace: an out-of-bounds
-read / kernel information leak reachable by plugging in a crafted USB
-webcam.
-
-A 1-byte over-read of data[1] also occurs when a 1-byte packet is delivered
-(fill_frame() only drops zero-length packets).
-
-Keep the real packet length, reject runt packets, and clamp the
-device-declared length to the bytes remaining after the header offset
-before passing it to gspca_frame_add().
-
-Found by code review; not reproduced (no device/USB-redir setup on hand).
-
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-v2: wrap a commit-log line to <=75 cols and drop the space after the
-    (int) cast, per the media-ci checkpatch report. No functional change.
-
- drivers/media/usb/gspca/etoms.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/usb/gspca/etoms.c b/drivers/media/usb/gspca/etoms.c
---- a/drivers/media/usb/gspca/etoms.c
-+++ b/drivers/media/usb/gspca/etoms.c
-@@ -659,24 +659,37 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
- 			u8 *data,			/* isoc packet */
- 			int len)			/* iso packet length */
- {
- 	int seqframe;
-+	int datalen;
-
-+	if (len < 2)			/* need the 2-byte packet header */
-+		return;
- 	seqframe = data[0] & 0x3f;
--	len = (int) (((data[0] & 0xc0) << 2) | data[1]);
-+	datalen = (int)(((data[0] & 0xc0) << 2) | data[1]);
- 	if (seqframe == 0x3f) {
- 		gspca_dbg(gspca_dev, D_FRAM,
--			  "header packet found datalength %d !!\n", len);
-+			  "header packet found datalength %d !!\n", datalen);
-+		if (len < 30)
-+			return;
- 		gspca_dbg(gspca_dev, D_FRAM, "G %d R %d G %d B %d",
- 			  data[2], data[3], data[4], data[5]);
- 		data += 30;
--		/* don't change datalength as the chips provided it */
-+		len -= 30;
-+		/* the chip-provided length must not exceed the packet */
-+		if (datalen > len)
-+			datalen = len;
- 		gspca_frame_add(gspca_dev, LAST_PACKET, NULL, 0);
--		gspca_frame_add(gspca_dev, FIRST_PACKET, data, len);
-+		gspca_frame_add(gspca_dev, FIRST_PACKET, data, datalen);
- 		return;
- 	}
--	if (len) {
-+	if (datalen) {
-+		if (len < 8)
-+			return;
- 		data += 8;
--		gspca_frame_add(gspca_dev, INTER_PACKET, data, len);
-+		len -= 8;
-+		if (datalen > len)
-+			datalen = len;
-+		gspca_frame_add(gspca_dev, INTER_PACKET, data, datalen);
- 	} else {			/* Drop Packet */
- 		gspca_dev->last_packet_type = DISCARD_PACKET;
- 	}
+Best regards,
+Krzysztof
