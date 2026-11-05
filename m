@@ -1,46 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793864536;
-	b=C4Nh+clDvyQ37HbBqxOqI3WoqgG+lE2u5EpcUB54FGiDwREMWqNqPibpEmI+Kcjb8hBv
-	 b/NkhL0RZ27A12vu8sru+9IHoTKCDBSAmSafQfFcayIcnA98o8ZhAgoQFqJ3LcmYzLgMw
-	 lalfXvnxoDTHDSaG9hS5oM7CPdokDnnVxDrAuPuhUkGfDIyNo1MfLdDhSn6uAoz0JnO0P
-	 RsTLbLtFpAKanMa6cb30CJNBfFx8THye6IyE5oUwDuJuQovmNkqmcJZCLiuFFXU3iGTA8
-	 wNLZNx7EfqKeRfek2Btv9yQu1WPtGw3XdniG8/g1E25S8k0dcM6sgjWvXNmhm5Cfdcg==
+	t=1793864997;
+	b=frTYz+AnR0BRYt6OvF14L1EGsrefcIOrmHAXEWLXYtsG8hTEYNXWoAdjK8YiENCmMA3z
+	 FVLzMv77G0EoFxdbYunk/tSCsmK1iE2IWNvJfiLt5tZv++L0HMTqreDGtZFR/ekdKa8HE
+	 yFFo32iVSh18HU5xCd59TlhHmhzDIsykwS8rvRw47hrzgo8QhR74XVHtYnVAYVfiGAaFh
+	 MhO54/1LN5mSMvY7C8f08KCdUpWHiJtglrQItJLkk/lpzrSp7sCyUOFkH4tIBaiAUR7e4
+	 Zi0KWMFHhf8yUK4bEIn51aGpRfNXTmwYOfgrJO9LlXA5niTv3NNi0ZaSSFkM+rkoUXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793864536;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:From:
-	 Content-Language:Subject:To:Content-Type:Content-Transfer-Encoding;
-	bh=5rkehESqt4Gbf8rmnlvZJwiEWx3j9j/Ih3CxjQQRStQ=;
-	b=C+yYXUteIBl6jOevGXjzRijhlv/70l7BZl72FT6MsSuC/dSqvrsp74x5VtoMdJFT0/gI
-	 7C8g8awMgFdY1VZS0g4jYgyV9LnDYkB5en9dfCDumhOgCiQF7EdWPx7tVSvnSxWvZx2lG
-	 bEnlolXjJRJAzoS8H0i3CWiw8h5/6pmWY9fl5vo7J9tycfwkuVJ+2gtrUoGvF8ZigINPk
-	 cGuJyRqQhFSYlPcPIVg2bp4loaROWobhoha2+DhTmoHf3eL3eW52IWPHlTde8kAYJqfB6
-	 keHjJfuLPSHXahj6N//jXYXl09YDe4EK7f/gtMW2qAmYN6CXzEBv7mWz2w2azvHiAUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864997;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=WZ2kHCM2Jt6bsHOY5bYOgrVnEII8MD5ukPE+LJNqpAM=;
+	b=2NPprkXlu7a2nzhuR5pM1JwgaUNl9pPefnoqoZMia7jwX3fOPtABMXR+NeD9O6o57cJN
+	 e52YKxX9I1ocqCIO/osq1FLeCvJtEnBeiarZ1pt8mP1+/Ph6Q3affo/1skdmfNmnLp55Q
+	 4JYvUxSdwjkeOHrU8mh3+Y5tPRIfUdJDSxoxUzGzfFgwJgIweG44JMorVrdtG8yXznUE5
+	 pvpabNAzVmKAeBNQrZzSsy6v3Phyp6PuW4VemQ4PF1uO51hVpY1YpPCQ7Z1yq6qTzTgq/
+	 /vddC61spqrsfnZmSh3OVK2L41SJk3it9i+Bnkmtf7paYqotA19clHp79j56TqUw22Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBrrmjeZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=g9gLx1Dy;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2F6606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:42:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB24F606A326;
+	Thu,  5 Nov 2026 07:49:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB24F606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DBrrmjeZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B671F000C1
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:42:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793864535;
-	bh=5rkehESqt4Gbf8rmnlvZJwiEWx3j9j/Ih3CxjQQRStQ=;
-	h=Date:From:Subject:To;
-	b=DBrrmjeZ6GWBQZatqyWXBdnh7Y3MZsoa8YzeBGsNVDBYiSigiGfmKy1gmr9eeZeff
-	 5xGISgnnrwEds3kUl3JF5PcfagxJOwV7nMYaEypaCdYG+K3oIXDYGPFFNJYaTolbRa
-	 PAo22ZTkUixGGpfwxRZYV4SC8H1ukLH/mmoJXvofnUx0K1nvf1cQ5gOusTYN8YnhTV
-	 nnjyeoTS2vzygTUIkuof2l83wEhcdZ1zPBee6Id4pmPFcbVs92kIVH7saD6LW3VZM6
-	 fF3m9mHGEO2GT4mswfChlJTcWXFNr5QmiXsqsu5CPQ1aWOsSCCRD9nNggqi47kldTu
-	 +Yd+wW6vcS+Qw==
-Message-ID: <4f9493ba-70b1-4a13-9212-a4b41aaa3111@kernel.org>
-Date: Thu, 5 Nov 2026 08:42:13 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=g9gLx1Dy
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jKvbh1xmfzMldS;
+	Thu, 05 Nov 2026 08:49:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1793864992; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WZ2kHCM2Jt6bsHOY5bYOgrVnEII8MD5ukPE+LJNqpAM=;
+	b=g9gLx1Dy/UmZT+wWDLx/UUol8BGKhKqP836HjBAy23wKN+/aIjqsd9MFsy8LXpfpfoSgfX
+	PV4EzolsAi8i8jXa2ORU7oDv1cBhe6FaOUnEeu6ld35q+wHfKAh2cucG1QUZzV8A1B0mq1
+	q/l9kgx+ohjjg0DFuUz1P9GzHZ9i/E0pm8nQhFAqWubU/8q4KuhI5zLgulWsbwlYMOj05Z
+	TJGpUo7i2vanTYHm1xaLfbm/OuHJqwOqGoT/8eNIqIchYGrS4Ys31Xv2zb6gB+//1f1tbW
+	4UhBB2yfDNxfidYMx77BblxdIz5/vFk1+dzWPM/uLXcOUF5oSyi6pbMo1/YCKw==
+Message-ID: <75367a9a19c1e9a007422e0a1b8ed0acaca2492a.camel@mailbox.org>
+Subject: Re: [PATCH v2] dma-buf/sw_sync: Optimize the retrieval of fence
+ reference counts
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Edward Adam Davis <eadavis@sina.com>, sashiko-bot@kernel.org
+Cc: media-ci@linuxtv.org, sashiko-reviews@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org, 
+	robin.clark@oss.qualcomm.com
+Date: Thu, 05 Nov 2026 08:49:49 +0100
+In-Reply-To: <20261105052707.55911-1-eadavis@sina.com>
+References: <sashiko-outbox-198550@kernel.org>
+	 <20261105052707.55911-1-eadavis@sina.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -50,98 +79,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Content-Language: en-US, nl
-Subject: [PATCH] cec-ctl/compliance: support new HPD_PRESENT feature
-To: Linux Media Mailing List <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 138597b0ebf596f7525
+X-MBO-RS-META: grptiyux6188h3jp9sca11gsrqamht4e
 
-Support the new CAP, LOG_ADDRS and EVENT flags signaling the
-presence of the HPD.
+On Thu, 2026-11-05 at 13:27 +0800, Edward Adam Davis wrote:
+> ---
+> v1 -> v2: use dma_fence_get_rcu() and remove link & erase pt node
 
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
----
-The patch add support to v4l-utils for the new HPD_PRESENT CEC feature
-from this patch series:
+Ideally, one avoids sending new versions within 24 hours :)
 
-https://patchwork.linuxtv.org/project/linux-media/list/?series=33337
----
- utils/cec-compliance/cec-test-adapter.cpp |  3 ++-
- utils/cec-ctl/cec-ctl.cpp                 | 12 ++++++++----
- utils/libcecutil/cec-info.cpp             |  4 ++++
- 3 files changed, 14 insertions(+), 5 deletions(-)
+>=20
+> =C2=A0drivers/dma-buf/sw_sync.c | 6 +++++-
+> =C2=A01 file changed, 5 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+> index 8df20b0218a9..261bc98b1ed6 100644
+> --- a/drivers/dma-buf/sw_sync.c
+> +++ b/drivers/dma-buf/sw_sync.c
+> @@ -221,7 +221,11 @@ static void sync_timeline_signal(struct sync_timelin=
+e *obj, unsigned int inc)
+> =C2=A0		if (!timeline_fence_signaled(&pt->base))
+> =C2=A0			break;
+> =C2=A0
+> -		dma_fence_get(&pt->base);
+> +		if (!dma_fence_get_rcu(&pt->base)) {
 
-diff --git a/utils/cec-compliance/cec-test-adapter.cpp b/utils/cec-compliance/cec-test-adapter.cpp
-index eb00d6ac..af76cf5e 100644
---- a/utils/cec-compliance/cec-test-adapter.cpp
-+++ b/utils/cec-compliance/cec-test-adapter.cpp
-@@ -74,7 +74,8 @@ static int testDQEvent(struct node *node)
- 	memset(&ev, 0xff, sizeof(ev));
- 	fail_on_test(doioctl(node, CEC_DQEVENT, &ev));
- 	fail_on_test(!(ev.flags & CEC_EVENT_FL_INITIAL_STATE));
--	fail_on_test(ev.flags & ~CEC_EVENT_FL_INITIAL_STATE);
-+	fail_on_test(ev.flags & ~(CEC_EVENT_FL_INITIAL_STATE |
-+				  CEC_EVENT_FL_STATE_HPD_PRESENT));
- 	fail_on_test(ev.ts == 0 || ev.ts == ~0ULL);
- 	fail_on_test(ev.event != CEC_EVENT_STATE_CHANGE);
- 	fail_on_test(ev.state_change.log_addr_mask == 0xffff);
-diff --git a/utils/cec-ctl/cec-ctl.cpp b/utils/cec-ctl/cec-ctl.cpp
-index 82094665..05e09444 100644
---- a/utils/cec-ctl/cec-ctl.cpp
-+++ b/utils/cec-ctl/cec-ctl.cpp
-@@ -511,6 +511,8 @@ static void log_event(struct cec_event &ev, bool show, bool pin_logging = false)
- {
- 	bool is_high = ev.event == CEC_EVENT_PIN_CEC_HIGH;
- 	bool is_initial = ev.flags & CEC_EVENT_FL_INITIAL_STATE;
-+	const char *edid = (ev.flags & CEC_EVENT_FL_STATE_HPD_PRESENT) ?
-+		", HPD: Present" : "";
- 	__u16 pa;
+You must hold the rcu_read_lock() while doing that, don't you?
 
- 	if (ev.event != CEC_EVENT_PIN_CEC_LOW && ev.event != CEC_EVENT_PIN_CEC_HIGH &&
-@@ -535,13 +537,15 @@ static void log_event(struct cec_event &ev, bool show, bool pin_logging = false)
- 	case CEC_EVENT_STATE_CHANGE:
- 		pa = ev.state_change.phys_addr;
- 		if (show && pin_logging)
--			printf("Event: State Change: PA: %x.%x.%x.%x, LA mask: 0x%04x\n",
--			       cec_phys_addr_exp(pa), ev.state_change.log_addr_mask);
-+			printf("Event: State Change: PA: %x.%x.%x.%x, LA mask: 0x%04x%s\n",
-+			       cec_phys_addr_exp(pa), ev.state_change.log_addr_mask,
-+			       edid);
- 		else if (show)
--			printf("Event: State Change: PA: %x.%x.%x.%x, LA mask: 0x%04x, Conn Info: %s\n",
-+			printf("Event: State Change: PA: %x.%x.%x.%x, LA mask: 0x%04x, Conn Info: %s%s\n",
- 			       cec_phys_addr_exp(pa),
- 			       ev.state_change.log_addr_mask,
--			       ev.state_change.have_conn_info ? "yes" : "no");
-+			       ev.state_change.have_conn_info ? "yes" : "no",
-+			       edid);
- 		break;
- 	case CEC_EVENT_LOST_MSGS:
- 		if (show)
-diff --git a/utils/libcecutil/cec-info.cpp b/utils/libcecutil/cec-info.cpp
-index 0b0d56b9..06a4d7ad 100644
---- a/utils/libcecutil/cec-info.cpp
-+++ b/utils/libcecutil/cec-info.cpp
-@@ -66,6 +66,8 @@ static std::string caps2s(unsigned caps)
- 		s += "\t\tConnector Info\n";
- 	if (caps & CEC_CAP_REPLY_VENDOR_ID)
- 		s += "\t\tReply Vendor ID\n";
-+	if (caps & CEC_CAP_HAS_HPD_PRESENT)
-+		s += "\t\tHas HPD Present\n";
- 	return s;
- }
+This probably works "by coincidence" since the surrounding spinlock
+also disables preemption, like the rcu lock does.
 
-@@ -85,6 +87,8 @@ static std::string laflags2s(unsigned flags)
- 		s += "CDC-Only, ";
- 	if (flags & CEC_LOG_ADDRS_FL_CONFIG_FAILED)
- 		s += "Config-Failed, ";
-+	if (flags & CEC_LOG_ADDRS_FL_HPD_PRESENT)
-+		s += "HPD-Present, ";
- 	if (s.length() > 2)
- 		s.erase(s.length() - 2, 2);
- 	return s + ")";
--- 
-2.53.0
+That spinlock, why can't it guard the dma_fence reference? Doesn't obj-
+>pt_list hold its own reference?
 
+
+
+P.
