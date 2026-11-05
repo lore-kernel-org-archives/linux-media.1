@@ -1,60 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793909133;
-	b=YOuqqPeigTlvc2RvPpzQKPcr8uGj3IDFUQJGMpN7igSniYd/i+jOhN6CTKcKtb+x1FjJ
-	 mOPy1gHCeJuTRWBh5DjK29mez/GLQypd87A86OGOqhVfdRa5p7oAYtkAKkGl+/XCKP7J2
-	 HW/bsHhnHdynl7suxY8U+FkbSmwAZoVHBCaZFdhlxIa1hqvAUssKiZorclPRHFMlLgF3a
-	 QDzCFsrQ1AaqXacVXZxQ3GLUvf9bd5MRE5rJzbOtnQKIE5mpPoeASFemBPi6H1VryTnVB
-	 oMSTD4fszFODfKJ+facmD5PiaMc2ndThNkjC0I5YxfHBk7ZE9Zcy/eZyBRWshpgawkw==
+	t=1793909235;
+	b=ZoRnb8Pj6uRAnAgJAbj+wX1YWBVLVZc9ijbwILpX7L+9lC9nbegmvrk1rE3xt1N43tfl
+	 AIs1AbGwnkPkISnVeLCOI/rJKBPe8R3alWC2hPhSe9qr+oPztnkbCaq5aOD55v9nmTeN6
+	 FsUWe1Cu2mUOjNjw0Qewe7jSnsKQwhYog9rCD6niRo3SBAmi+ztS1bvl9uNxlKASfA3pe
+	 WSQYF2cdwb1ki3ovmDcCr3f08rKJvfdYcKJONtDPXt9+jV+o8WPFHqPpy3in0mBPg8Vai
+	 mVnjs6iXqELyRludSorDKdTVTkKEuHmwwBtkCus2O5GK5/Z59RvggokGRk2e/yueiyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793909133;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=aTkxU8li+gjGMoUJnuExfidrv0CihguNgyumwpUW3zU=;
-	b=xmqN4MbBGe3kBqR/TWs/1jl9spGw1nR5fDN9WYH6/2GSsYdejjL3Z8J1MjAYDMIY7cZZ
-	 pu3EMsP/8iDz3HMSq61jCYMWS3SIynwPE8ZMvFVkJY8aTwOH4FW/NPVp4iWmDrZ0mUuui
-	 y6GSskq8eWpu5UAqkPJu9tIRH2eYy/69fwwNjW0Sfpsis3O03pLgyarFzuJ9vsiP+AfRg
-	 3REVwSEzABlfEYlm44R1XD2v0RCWnDYg/1/9p5T5zPTn7TwhPdgmz4E6NLiOFh9I7KTj3
-	 vpItpBchj+AxcRVRBc1a1EcZ7SA8HuwH2PL4khAdcvaFwoCETy9UBtPR09lw6QyUGcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793909235;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dCmDJGQnLkybuK/FNJb9oTUo/DUbc0oZdDzO8vpbYhI=;
+	b=nTY9Uhd4EXKKXJaydfGZWO9fA4CLbqZdJDwX+K3g52FGToIYCTA2j9GuiW8Xt5Kr6xTh
+	 vkz0XOl21+5UEQuVLKMWfU/FnGIzWrtziB2pgcqpt64egEYql5sRHtgb7/1Ns5TWqBA30
+	 oOcNjJjxlbo+9Cl/V9rebjkc17ktaQwPsp50GrVk32P9Ey+UnX4IDweRSkc/W5A9w+YYX
+	 VfgvxVKMe3QQDjLNR4VRzC2wswU4uVMxGC+/p3fNuQqKkvS5UDV+CBJl4q+vjsC6E2pjx
+	 W4/3Me7fj3Oi3voF5pyNlmFo0vacqrQjehtO/zqWa0ZSn53pHhTCUtVYOXt3NQHatgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="DmQ49Rs/";
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NdL4j/Sf";
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A082A606A326
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 20:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A082A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7B3606D812
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 20:07:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA7B3606D812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=DmQ49Rs/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1793909130; x=1794168330;
-	bh=aTkxU8li+gjGMoUJnuExfidrv0CihguNgyumwpUW3zU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=DmQ49Rs/pFiBP+JjIvwxMVg9p5aeG/NnFsuTFnoWNvyibvqIi49S4izdTYyJ3BjEV
-	 biGSnfWtJkITH9119c6KVkjh5ZMza78lmgTWbVP1kftJxx+VXa3KbWV7llSFIPYPtF
-	 uR0QZ6yEP5LgtY0+kIcGnVGdJt1QKpljLqt0hO4f1dXmEpGQ9CYIQCYQyLXTmiSQIx
-	 WDVruhqGxstKCIAbZanzFV1Km9eVT9/Ard/NVGDsjXtm8C+mWKslxF9pXDLsNbfulK
-	 hIwBXXYvor9l8EgfMk48lYU104BOKrcCyjjOEreCRy+b1e4zvt0LIOHZL+j0Ego/MZ
-	 yhr5fy084JxtQ==
-Date: Thu, 05 Nov 2026 20:05:22 +0000
-To: Jizhou Tong <fqwqf@fqwqf.xyz>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: vd55g0: register through the sensor helper
-Message-ID: <20261105200516.68263-1-lsa.uz@pm.me>
-In-Reply-To: <010601a1ad26a461-7000cf48-b14a-45dc-b2bf-7b3fd5d81aef-000000@ap-northeast-1.amazonses.com>
-References: <20261103103235.94397-3-lsa.uz@pm.me> <010601a1ad26a461-7000cf48-b14a-45dc-b2bf-7b3fd5d81aef-000000@ap-northeast-1.amazonses.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 92eca1a32871f044103ac3776dbc62a43b11f351
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NdL4j/Sf
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a210470b49so17793795e9.2
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 12:07:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793909233; x=1794514033; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dCmDJGQnLkybuK/FNJb9oTUo/DUbc0oZdDzO8vpbYhI=;
+        b=NdL4j/Sf2euHzhcOElIVGfgvu2LhDvenH5bjqq2qaHGaLaIrdyqsOm9TpNX6ft8WhM
+         8NKw4opLm/USQ/0OAmiYO/NLb42AVD0JtX68uwzpOHYajR8dsA3ekVp/nvz2T+mFA+Q+
+         EoQzAuYrldZcrCCfET5NNuGy3OQ2/6TjKivZN5TAdW7jsmy1T1OQnWV1y7wTr59/qosA
+         I8syR2ByaOSihh+UAI31e5TJPH58LGuTTt+qckBr1oAntXuGGIGWmYSPzdkGui4QHCFf
+         a1G4ifcX9f0eILhcRlA/hA5aE9cn18E/zl3GBXib0bSdw0fw2XZQVPSa3AYLsKr1xHsK
+         Yknw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793909233; x=1794514033;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dCmDJGQnLkybuK/FNJb9oTUo/DUbc0oZdDzO8vpbYhI=;
+        b=oAmDpFP33dEdf7bddRddZAJPY/sZkVZvUfIiFJhzmfsa+4o6sdC3Wvajtk7o9qO16T
+         3PnQkt44M21bOD8qAesxvygjSVRDbORxLBZMwQMo0Mcx8AeP96UYXrqUpngCW6hS4UCJ
+         sLXQ5ubte6nLL9MIj5WiQyP7AvOgzY2fZPQNHVabXUkdP5W8ZWSCJh+W6OcM8vc/fhM8
+         je7HqrrqmCxpkudD0/+kN7uVajv4Rk6ZWCjKFWnFbdpTQvhWRc6t3z5WnMWGTh8Le0Cx
+         zjwsi/Wx12MSWMYgj10ocmoBTs5Bbk4sOteSCWa+s1L8i1PQxwbhGatqaV84Dj6G3uVm
+         NlVg==
+X-Forwarded-Encrypted: i=1; AKwUvBw99kwTmXjaHOteb2maBxfNRqAzvJ6bKHl4nXTgwHBAy4ei4gTzMZTBDE5O3ygtghScInZA4UEyz3rCGA==@vger.kernel.org
+X-Gm-Message-State: APuU4Z9OoVoX9z0UlD+A1OLVBc2PMzT74Ajdqzg/Z4VqALqboJoOUHja
+	l4NAeydZ2bCuFKNMwCw5HCKlxs5toSGwzyBajohbjLly1do3vouY22dL
+X-Gm-Gg: AYBFou1bhwPa569fFz647dszKQz/FmKFGWAC0DLP1N+wl6dpdQRnx3Go1H8WzmGU5Nw
+	dQb4ofwU7OeDYSwnwFivAYraf/ZcD6CKY4VUmZ325K6SpL7qlkv/jsQvSI5gp3ATWHkJ/8bUntQ
+	6k4MPPTWOLMhthxsiOeOpIc7fnZx2ES7G3638oM8FN0J1A0b5jro9QjDInMYcqTYdFE8/5297He
+	poTW+07GvTZo6Phf8GMCg4sYywltxuR4chaFZ/OeoZO24obP4ffyvLwjBpc/NdGqJWWK6Fp2z4t
+	YT/VcwOH6YE0D8YcWrlHc79q49I9bCNiBOMliNKiJq/265uMdkLPpGJQhlq/zazJubw4LEcW6Nb
+	RisHJIpsYtqrIs1twiXjk9CsTpmFoPpTmVRWiX5B6SNZ1Yynht9U1/jQDXptyZVswMGn2UFbyVK
+	XdMZLWIy1JFSq3/wxgZXMk95pJNq7qDU5qjftKKp+8/h/q5JJJgMaWNggAGjRa9qJUR14bDYg6G
+	qV1mtFMY/ddxWF2wpADhm46wtbdIFIR11kyuZfrZz3etZEqeQovHF8kDUspALoUekpTwqjt5PYg
+	mQj06ztTKsmOFGnki9hLiRSj1bAEOABPQDVxTWcQu1MlF2YQgkJVfd4u0h0=
+X-Received: by 2002:a05:600c:1d26:b0:49f:fd40:80fa with SMTP id 5b1f17b1804b1-4b6dff86444mr3062505e9.34.1793909232668;
+        Thu, 05 Nov 2026 12:07:12 -0800 (PST)
+Received: from antoniarch (78-212-29-45.subs.proxad.net. [78.212.29.45])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b433ebd278sm131671835e9.3.2026.11.05.12.07.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 12:07:12 -0800 (PST)
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: vigneshr@ti.com,
+	andi.shyti@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	aaro.koskinen@iki.fi,
+	andreas@kemnade.info,
+	khilman@baylibre.com,
+	rogerq@kernel.org,
+	tony@atomide.com,
+	jmkrzyszt@gmail.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	phasta@kernel.org
+Cc: linux-omap@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	Antoni Pokusinski <apokusinski01@gmail.com>
+Subject: [PATCH 0/3] i2c: omap: add support for DMA
+Date: Thu,  5 Nov 2026 21:05:51 +0100
+Message-ID: <20261105200556.34240-2-apokusinski01@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -64,22 +113,28 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Jizhou,
+Hello,
+This patchset introduces support for the TX & RX DMA transfers in the
+am335x/omap I2C controller. I tested this implementation on AM335x 
+(Beaglebone Black) and things seem to work fine.
 
-Thanks, you are right, and the Surface Pro 11 needs it too: its INT3472
-describes a privacy LED for the IR sensor, and with v2 an IR stream left
-it off. With your change on top of the fixes for Sashiko's review, on
-7.4-rc1 with KASAN and lockdep on:
+Kind regards,
+Antoni Pokusinski
 
-- the sensor holds the LED once bound; it is on while streaming and off
-  after;
-- unbinding releases it, and binding takes it again;
-- v4l2-compliance passes 46 of 46.
+Antoni Pokusinski (3):
+  dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
+  ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
+  i2c: omap: add DMA support
 
-I will fold it into v3 2/4, with credit in the changelog.
+ .../devicetree/bindings/i2c/ti,omap4-i2c.yaml |  12 +
+ arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi      |   4 +
+ drivers/i2c/busses/i2c-omap.c                 | 291 +++++++++++++++++-
+ 3 files changed, 303 insertions(+), 4 deletions(-)
 
-Sergey
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+-- 
+2.56.0
 
