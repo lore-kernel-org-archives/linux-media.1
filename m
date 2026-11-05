@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793893578;
-	b=TWab8cBhA2s2MixW0APr8vSyIMForwgM2YTl49I263tX8+VT9Apbfzq7f83XaWgXOD5e
-	 J5rciWBvCxauagU8cEtbVKA4Mg87yCp7htsJ+Je6e8TPeXx6sNoR/5T+3CAAEbhV4Q025
-	 Gruqx/30q0ttqieeA9/lkqxkLpFGzbMMo9fcaectSBH6WiA+fkoA0zM+/QHn6KVyxp/PJ
-	 eWf7JUx45xMj5pjEjlNckCaxmGz8/sEHzmbUK8SPLlyYkialKgWWQb7L+bCeHFrEHf2MD
-	 q193FHJFu9+rsOT4liJFH3Xe5WvqyenPk7x0kvgQ/vwAHMKuQJ/JAavxRIjEU8thNUg==
+	t=1793894056;
+	b=u/m6P7/DheBXPf0+nwrCXHU0Cz1QhA4qM693X3XhsLyrhYEsVEgUMRkss/91HRqEBpSQ
+	 kc/Ii/ul+Y/OTKm5sHIx5sJxe8TAG1IbUOyDTkQBdrnUJgRQiiwCe3eQMYHNSb7dJo42K
+	 iHEa8XndozscO7EdCYv/dpyJxOpcwWCRRGApdfLuBAlwGeAm1xMXe7jI+tjrGFV12Ft7S
+	 9bakripF4Qxni8G7TcqWU4w0P38H3JCkctgCO31fIOgYuAb3ItFG2YmCRqFBcLZ7AMRtj
+	 p9mgGsLov8TeHCml/7pl5/lh6+0CxX4wQHfwQU5AND+Q7TfaVQZzGnogIEs5y7fwjZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793893578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793894056;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=0/qr3c1AK2Tepy8EGz4Od2AYxn0rh20DABwNQF9edZ0=;
-	b=R/r9NOM/xywxmdh85tcd8vuYqe5njNyUy1mA6NycJuXNMAJ5x+4pg245omKxg2uF8MsX
-	 3Aa2U8XerZIkLNRHqB5iL1HeFZAWSQW8S6yDfUnMBACqmE+UWqZKRx7vzXPo4ZASa2aZX
-	 6asPs8Mf7CbEJypkZlbW768frl42cegFjpaIa4ZXilwqDgcbOgZCxi+z8phwtQTj+mfYY
-	 3LKuJmPyb+I/9q2asoF49S8WXecl05QK5jx90xkmuVXSnDJDpPe4s6aUoSvxuCfjT8Lsl
-	 S6pLSWe79etAQUTBFI5v/xnW56aSQsGffDj0ToI4ArlseWoJHeNdEfgSDR/7lroE/yQ==
+	bh=Qx04Fn5WCCUloxDGXEqPfWbEyZHIMrkGFVFAAcnvj1E=;
+	b=BZxuFbygl7aEY+fT9YQnvk6s2F+tLBDNA7oex1M+BLtbZz52hq2hdcFS0Ky0s7VFEJy/
+	 ZMRzYgAsSc6VVTqv1HFrG5aG8tlqFSLpUasOvQMDvVz2wm/TFeWoC1fk6ASrajB/+OQnN
+	 uDw/78jpOBJCI1n4xS+9OXQPpfh5lF27jGFjzSYSaWpSZyfw64ay4Mg3y/Yno2GgaOa9P
+	 YU6BpRJaz9q3Slnup9uDTdJ9/XO2Q3th4ltjKoz80oE1335A598CaFMSY5NWBR6Cpnsnm
+	 LjC1o7zfwec2mK4wKj1yh3KY1FrBWY3wGmpfILQ02uwmJ+OG8/CQjjyswb+BUAbwCfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddDktyz0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDbY6ecL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC0F606A332;
-	Thu,  5 Nov 2026 15:46:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF12606BEB3;
+	Thu,  5 Nov 2026 15:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ddDktyz0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577C21F000C1;
-	Thu,  5 Nov 2026 15:46:14 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDbY6ecL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215C11F00919;
+	Thu,  5 Nov 2026 15:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793893578;
-	bh=0/qr3c1AK2Tepy8EGz4Od2AYxn0rh20DABwNQF9edZ0=;
+	s=k20260515; t=1793894056;
+	bh=Qx04Fn5WCCUloxDGXEqPfWbEyZHIMrkGFVFAAcnvj1E=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ddDktyz0itKAhRuKPWwjmk5eRxPR4DfDxSQBq7PNer7dvt80IQf3AVH+fQTXnsQdm
-	 lg21Dnq8z9J8UGJ70T/tMMOmYWbwmj1PqxNyiclrlk/1UxJAzfF0fPRuzsTD24VSY+
-	 bx8kYUzjuuAkuiu8TD/aFO+xouTiV5tbHxiZ/N0Uysax0JQCxNPYmxCSXANiYTeHth
-	 W6C4Pc/wUjqx+G0aS4dmmeZ5JWsqlAX2QJHq8zf4hehluDnqzkNN8WDzdUOzbzmcpt
-	 ZSkZcgnCTxdL2eC4AzwNSIZVIEVh34/6QZ8qCQdNG6FUOFZ8Dtt1LZSINH+8Jp03QQ
-	 HcurQHc+7iQzg==
-Message-ID: <3df59469-e665-4901-b4b4-512604194ddd@kernel.org>
-Date: Thu, 5 Nov 2026 15:46:12 +0000
+	b=FDbY6ecLi6mWL7FJRAbLrcM5KnAZ/8AO2YmGzmgM9tRu3xfgC1hqenhOxLYPMppzU
+	 RBtd8et/HLr1iC1EljSG1gqA6qqAffYRAQWOpO5LhWqPrhWDOfo1hv5JtBorkS3oiW
+	 IK8J9HmOVZ78eiUwoXzVMdTCufp3o/v0Ck/UHDWlEyFVr4auBLcoVgAAWEeHwa2PII
+	 nnBY0oMzO/kzNov6xN/g91eNuK6SWRU1lEOSZJarBuYx4np3FunuLl4Ay5BAG5tXj/
+	 PgdoITEzcLRV8qGuGrtg6t7SvtTXGBDf27lSFvGGMXw4GccsDCt6xCClzErPkJyh3Z
+	 yUpm42boZzeQw==
+Message-ID: <ef332a20-1ac8-4d48-a959-46564b2bac42@kernel.org>
+Date: Thu, 5 Nov 2026 15:54:11 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -54,10 +54,10 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
  indices for ports
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
  Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -78,8 +78,9 @@ References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
  <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
  <CAFEp6-1fSPP41cVFmu8=0z2xibDpHuH5Lxrw7W_rvnt+Fw9EpA@mail.gmail.com>
  <62fba00d-831c-44cc-8d3e-083a95abfbe8@kernel.org>
- <qKk3s6LA2dFNbAVvrsOlf17dn6zizSiyVMf1rJNQOvkvLGxswT_81cDlITq0atMX71Sw0VZu6u9WHK0fS1bzIQ==@protonmail.internalid>
  <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com>
+ <NUja4NZnMkyTt6MD1zxOgyvaVUt4kYTyCBsAGVgEHmlKx1cF07IBzdof-mwD3kOQTYcrpu40iXn_2lIcTiHuww==@protonmail.internalid>
+ <4d656385-fd3b-426d-b326-b1d20ba1e2d7@linaro.org>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -125,59 +126,33 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <CAFEp6-2_opRq3pj6S=2nDFxXBv0waeyGBKSxp3t8OOe6vvKcoQ@mail.gmail.com>
+In-Reply-To: <4d656385-fd3b-426d-b326-b1d20ba1e2d7@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 05/11/2026 14:01, Loic Poulain wrote:
->>> The CSIPHYs are connected to the CAMSS input ports, which can then be
->>> multiplexed and routed to different CSIDs. The mux identifies its PHY
->>> inputs using the hardware PHY IDs, so the CSIPHY4 is identified as the
->>> CAMSS PHY4 input. In this configuration, PHY2 and PHY3 inputs are not
->>> connected.
->> I could not find that information in Glymur HPG, but maybe I looked
->> wrong. CSID Wrapper lists CSID 0-2, not 0, 1 and 4, but again maybe I am
->> looking at wrong device description/interface...
-> Yes, there are three CSIDs (CSID0-2) and two CSID_LITEs
-> (CSID_LITE0-1). These blocks select the PHY source to be routed by
-> programming their PHY ID (PHY ID = PHY index + 1), as defined by the
-> PHY_NUM_SEL field in CSI2_RX_CFG0.
+On 05/11/2026 15:39, Vladimir Zapolskiy wrote:
+>> Today, the Glymur bindings define DT ports { 0, 1, 3 } to map to PHY
+>> indices { 0, 1, 4 }. One could argue that this is already an
+>> established convention, as it is documented in the bindings. However,
+>> it is somewhat confusing.
+>>
+> I believe it should be fine to have incontiguous port indices, because
+> there is no need to link unused phys to CAMSS on any particular board,
+> therefore there will be unavoidable "holes", and this can be set right
+> in the documentation of CSIPHY to CAMSS connection.
 > 
-> If the CAMSS port ID matches the PHY index, the port ID can be used
-> directly as a routing reference, which keeps the implementation
-> straightforward.
-> 
-> Alternatively, exposing logical port IDs such as { 0, 1, 2 } also
-> makes sense. In that case, the driver would simply maintain an
-> internal mapping table, for example mapping DT/logical ports { 0, 1, 2
-> } to PHY indices { 0, 1, 4 }.
+> --
+> Best wishes,
+> Vladimir
 
-The media-graph informs which PHY connects to which CSID. The 
-port-number in the DT really only identifies the fact a PHY input exists 
-- it should be considered a mux in front of the set of CSIDs with the 
-media-graph being the route.
+I mean the port numbers currently mean absolutely nothing with 
+standalone PHYs so in that sense I agree.
 
-Since the route is runtime selectable, the media-graph is the boss, not DT.
+OTOH since the numbers mean nothing - they should probably be linear, 
+it's just confusing to have non-linear port numbering.
 
-You can try this on any CAMSS device right now, PHYs connect 
-independently to CSI decoders.
-
-PHY_NUM_SEL is derived in the driver, not taken directly from the port 
-number: the port indexes csiphy_res[] and csiphy_res[port].csiphy.id is 
-the hardware PHY index, e.g. port@3 on x1e is CSIPHY4.
-
-More work should be done to represent the fact-of-life - the mux. This 
-was discussed extensively in the standalone PHY series.
-
-The ports being numbered with the PHYs was a consequence of the PHYs 
-living inside the CAMSS node - which we have the opportunity now to 
-break with and should.
-
-Port number in DT should just be a linear 0-X for the number of PHY 
-inputs. Which CSI decoder that port routes to is still a runtime selection.
-
-Honestly I don’t see much value in continuing to treat port numbers as 
-hardware mappings in DT now that standalone PHYs have landed.
+For legacy PHYs numbering ports after the PHYs is something we inherited 
+and worked with. For the new scheme it serves no purpose.
 
 ---
 bod
