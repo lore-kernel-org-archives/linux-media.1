@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793920591;
-	b=jj2puTdh0ylxTDh9zeCAFTbe6Ax26J8xEENa3ipSAEzrLcfnpmPBEHaALjxPs2p2oxAD
-	 hkPASDphTRo6OD5HvH4aJMKaq8e82AIIKhC8C7epjBSFLlZS+uXhFezA8o79UUoO+N3Uf
-	 a6vxclz/Jpw17HJCeFnIEJMCDiY013SWKTGB/rrFUXaIJ/2JGy2TXM2APUvFgpKTugu1j
-	 unHpFJo8peRwNDSP8FrJOuF2h/NhXZPj+dmLVEK/dH4v0WVCyyw1106bHj0OJpBSAACB0
-	 Iqc1iDzmwUjxILWPPTz0supF8rhwTEA4nVD1VJee3IhdVCuPRgfjP6Fu9qNax9Om1ww==
+	t=1793921016;
+	b=qs7EQ3FkZMMCr268DW+ZSKYYO3LwW5LvZO0Sq3pF4z7N3JQlJUuSezRciS+I7ZarjluN
+	 kbDbbYdxUyrvgOm3UvEEL1P4rqIpp5mXy/h7XC8bhv9SrHvxTjXG/JkSK/iKMXB9BsnlV
+	 swUTFuHUkCoB6QrP1LpLDn1/t/WsQrqiNVyrAW7Eh+L/+l3RqILYh33GAJjvdduqC2Pjb
+	 82QZnTzYFXrn6YA/TsjMegPotvqnoPLncqN/OFQzioRc3T1WgswUc5wrvsDD7xIY8hcHc
+	 mS3lu7i8jP7cBqnGU/K3Zj0A2uqdU7B8CG4HFxbxD3gR6NeFGQgS3v+AfBTRDd9/kOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793920591;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793921016;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=eW3ue9WLZfBB2HPCyt9e+mQsboV2j3UFlOqWCXb+McI=;
-	b=VE7lfn6ASnJeZAb6QYFvgtEejM4MvE30t0jV7BZvP75WUkA7dBVfqx1tJQlcTW6kEVPy
-	 P4fZl6oUG562NKnpP7ZrpMrUoidSxWi0uPDJYnQkreP1pRQMxWfIMHozW/AlAPHBrQ14I
-	 nqWX+J2/17UTy82K+ysmwb9ZqLUJw3SH92oMPq7PEOOJ4ssCiKcpOWrPLxmJzBCJUeE2L
-	 1gT8uck4mY66CbgOzPWSlvvHk7CRrqZaSO16roAe3TecyAaVT2CVUP6EdZsQnhcqpz+N6
-	 ga2SBhEWmwYLMPZreNr/YK8UAnBNDdL07mGgGzPDPomCdv7uM3sGM+P8etlleFPzzeA==
+	bh=++VDHdPlpTNkCnA4mn1+LWZP5PXeiA0pzKCa5Fy4gJ4=;
+	b=J1lyYlZS0G9a48qGo65DRJvTHjm7UH2mc9x3vkdmbR4/HQipF02H/5uxxrH2YQJ41xAw
+	 07FpM/DCSAm9MniyGn7ZHCBZwSaiKkySjiXVzsw8JX78wWzMQPF82ibN1paLiTsk0HcV1
+	 J2XxOLmwZWFSsOerFjVDpgwgGpjNHTiL+i6CZ7cKJAc8pcRbxSa2YCo76JpKc65UY6XOD
+	 MV6yy1t4LUmR2oNuim2NAY62xoUvX5HIgxwog1/EUtOH/TYMA7g2JvcEYCYD1dzo47aqx
+	 qlye7ZQ5CaaaV+IwaMKgFPHbOOgpuKmrB7EPcjb6AoTRdkpeNw/fvPWxOtMEbRnll7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s4VJzlrs;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwEhz+cv;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8D7606A328
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 23:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F8D7606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248FF606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 23:23:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 248FF606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s4VJzlrs
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so551315e9.0
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 15:16:31 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lwEhz+cv
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3b0b6cae44aso17369a91.1
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 15:23:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793920590; x=1794525390; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793921014; x=1794525814; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eW3ue9WLZfBB2HPCyt9e+mQsboV2j3UFlOqWCXb+McI=;
-        b=s4VJzlrsSrvhPA/OLDwHmfM65D8hpBx2G4WNsRKMxZ+ZY820YJI1Z32gaxweC6e8IU
-         X68dtLL2dLclHFTTfap514rxVB6ftpIMGLLmCj9LuSGqL5fxpWOaVCFhWTzKeFdXT9fC
-         j4jxggOlfBbuoaob57s9Qejz/kaEnDdGfSxb/ug2WKLfg9ttXMFQ3hhituCXeHT3k87Z
-         hna3yQLk5H4A1fVEAbCyoJbh9nEdFc/m2pRbJtxi7b1C68u+Vk1dBlBzsDsb+shJDNJx
-         vROOKbncRp1L+RMVcJDaje+aYufY/CXrbT5q4eotN0ZMteOcY/NV2qc1sLfN8IGXs/jG
-         Tv+A==
+        bh=++VDHdPlpTNkCnA4mn1+LWZP5PXeiA0pzKCa5Fy4gJ4=;
+        b=lwEhz+cvmKxY+3AyfjBFSx/KuYZciYjwvWqjEpzgONTUQWMMjbGXC/myBcx3WrAci4
+         DtXOMPIC6dCJaB14U+9KcT9yJs0B7ZFFnphmYMcJWbL7twfS9T50PtRp3phmaMufiDMH
+         LLXdGtnC1zZRoprf7APyggElz6MRxkd/Hjfdu1dNfFnsuN4uStAr2OXt07yUsndQmNfd
+         cQdtVjcYaZ1yPYsLhs0uHEDpJPZFbaE7HN4iuOPQGgorBhUUYthJKnA7G4osbEDGv9uu
+         AoQfQrf75KCp4agb0EQ1ZrQDa1YoC+Tq3PjJ49lJxpaSjJy0xPn/s+4ap6/3x8DGBZ3H
+         lP6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793920590; x=1794525390;
+        d=1e100.net; s=20260707; t=1793921014; x=1794525814;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eW3ue9WLZfBB2HPCyt9e+mQsboV2j3UFlOqWCXb+McI=;
-        b=JsgGc/a+PwyRLR6z+xcwvLWx0oCM/4ql+fa7qkZxZ3KzfTrSFBVj5qnPT4WKvnG6pB
-         CSINoAYRp3DCEEjyZFNcXurt/1mUXt2plb1SafygV2WM/9dMawOmmdAgDQKcHZaA6veY
-         VUdnT476rworVw6SLT/9MuhuRJLnb7KofeWTcGi+kZ8bc3NiKrf6QexWyU275fNuPkgi
-         xZadQkCnnLIL9Z/0Kx/F28aVgu9w4QS9iB9WhzPaR13ojUD4RIeWFBqTnsPyRxc6W/Ow
-         YiGfGKhmLK5KprvftTBm03GB4G/Z4A6ilhCt9omvL7YYCMgMWBQFyBzaNhLoVyoCdjii
-         scBA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVydzzaYI0nWBFYn0IO0VIQfuV0WL4mv3rmOxPpTR8S6JFiipkLSjtPWAifrjM0pZBbRO9d99+oP9bfg==@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BO4kELz8aqIQVWpQkgmDV+e5/KdulXMtnJONeTX6cGKoKE+/u
-	hX6omZfOqQvtOtXpHvrbcx52IGWq/HEdIgmt110udB6evGbBInouvFMO
-X-Gm-Gg: AYBFou1e9CeVoSXnebl50WDajvdRBBF78YwNxkMMOscmXypZafEQL/TD7vbg0iVdzQV
-	TZ1zAKrKJmsoFKsHRPyXg62UjglYLAhM2OTJWd1FT0PsPI9m7/olXIJhL68lnzt9YnP0tVXeqQg
-	ny9Ga4NjV7SKyXoN0age76Sn5rv656S2QDdJ9yFvuuV2SgyHmJDrS6/77LyAZVud6fUllNiPSSF
-	/MKPp5tbttsGudRpBgbTox/FmeDvBwhmkWOcw3kxH45hCaQmJ1g8RALtbNSpe3w/vDlDgwSmr3u
-	QvJ5SVEopMCJG76nu+lJebHE7uNsDYh0kyGNM+LVpKtj04RZPkKbGSZcY3xz/jVPCyeEnosUL1y
-	+SQ9wiogPF51Tu4ghiZ9LWvI0QEceIlZ7OnvS8TpHYgDnj/vvQUjkA2HSJrnvy0IoR6dukiOv/I
-	D1UlMesQq+GikWoqTjzLPlOvv4b7ySyrcs9KwZyHEsaSjpkBqL5MLCE6Fxtehku8pcMT/2mmmPC
-	ZqULhgxQ4eavp174LxiqmmKbbkVmAeynjDntQVgA0ejbjtIcUY/9WJ7nUgAEIRvGLKTvca9U970
-	H1A+oCzI2zW+4Ya0aWNtMkyRldY7APf49FSE2mQDxnBJSLonuv6vqRhpufhZO1hnIPTSpPD/T9a
-	jPqIvI1qvJbr2nLXlKetEnLwt7dua/cmul/I=
-X-Received: by 2002:a05:600d:82f2:b0:4a3:7344:13b4 with SMTP id 5b1f17b1804b1-4b6df3fd27dmr10978655e9.14.1793920589397;
-        Thu, 05 Nov 2026 15:16:29 -0800 (PST)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b6e24012c3sm10754385e9.13.2026.11.05.15.16.28
+        bh=++VDHdPlpTNkCnA4mn1+LWZP5PXeiA0pzKCa5Fy4gJ4=;
+        b=ZOYO7+TcybyYtZG8pQu3Pya/ZPC/nC1yUYsdk0S4BLPgxyQj0OIJO7a1kiIXPvAzwl
+         dTTDKnXsHsaUiWPh/4AoPE9Tta8TFSN6FVmHhzq9pWtL+g+Bn9SQBzOnvcxHeKYPPF0Z
+         BvPvXl47n7tYGm+nZaVynyhkLhswFEk0E1DxUn52SdlBUXNGfV4qFwnzQR2ZgmJHZ2ht
+         4+OIYMnh3sze1LEHvn3QiBJmcb8jrUw0tRsWokuKQ9eJNpcNkHa3zUsZgItGktoKuUSM
+         KhyibztYNgAoXHgJy/q3PD6676ni3u5WuqU2KdP6z2/2kaY+vDhBqKG/24vQ0qZ57Z5V
+         O66g==
+X-Forwarded-Encrypted: i=1; AKwUvBzTtdCEyA48AVTPOje7lkF99p2QPawrN+WpwST6iouKJkZUAhID4BXjkF+YoPr/EV7Z+0Gh+BfSU8jIpQ==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8ycjJtysVs1FxG2YrIcwZu9DtqjLYn8wjlDJHXPaTqb4GGMHM
+	INgJ1D4YmJjy4Yr9pSRk4HCq9N0ualNF3IpEVnHiDYlDEb6wJ6u8dby2
+X-Gm-Gg: AYBFou0UbO94tiADSBhJj+6Oh2y6xLNk9YgwZ4d/PA2duSKO85kJymUiBdAZalf0RNz
+	xG7FCppmJe2cxjRn71/9m7T1NZiqcPYQlO3e9Rxei94L3GBZP73c5H5KslTSw32FtykIOFktaGc
+	zNiZ4boSiqebCMNXqgroxr7wiJ2kOqv2OCgWQ554bcXpDuRdTrDUf1o8ePdt8dNsGm1sygkKU8U
+	NvllIODjj7c0SLyGIgDh+1Uh9iGoEs1sxOuR/4H36tpZdPcvnbWZLTGbh7lXkA0RQfkhLR9Dw35
+	UuaGywbJ8HJbGU0/WhLRk4sYNh/7rvuEVMVQuAmK4aTlSgCTZvXRMJ52re0+laMymDb7ulJCL6Q
+	v4kDx8pIV8IrGLX8asEwfjcemPzq6J0xSdxQTmgpNO4TLUDPl559JXH4g/apbH8UFVH3SldKSzI
+	Hr+MMIY6mfdcboshaysYnCfNM06IX9DpaOpA7Aw0H2PY1GVYFmp9SkOLDfRP8vdc53VVMPDoO1m
+	FBmTP/l5aQ+NUuopIzAaC6Jc0VKjqNMfSZcaZ9ZQYjyPDd2+kWaItAwtmjszRlvQvp4M5HhYgrt
+	o2mOULhENFrC0IT07sx/+ZuQQIBCtOqhEQBwCM8SenqAOlRIISlNQcvfuY4wTsC5JXdhdLbm9+S
+	0m5Ypt4Q=
+X-Received: by 2002:a17:90b:2590:b0:3a0:c1b1:45fb with SMTP id 98e67ed59e1d1-3b0db014274mr896768a91.0.1793921014532;
+        Thu, 05 Nov 2026 15:23:34 -0800 (PST)
+Received: from FAIZEL-KB.. ([2001:569:5b64:e100:f564:53e0:ae9d:9600])
+        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3b0b323cd3csm5317297a91.3.2026.11.05.15.23.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 05 Nov 2026 15:16:28 -0800 (PST)
-From: David Carlier <devnexen@gmail.com>
-To: jacopo.mondi@ideasonboard.com,
-	dan.scally@ideasonboard.com
-Cc: nayden.kanchev@arm.com,
-	mchehab@kernel.org,
-	hverkuil+cisco@kernel.org,
-	linusw@kernel.org,
+        Thu, 05 Nov 2026 15:23:33 -0800 (PST)
+From: Faizel K B <faizel.kb@gmail.com>
+To: Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Michael Riesch <michael.riesch@collabora.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
 	linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>
-Subject: [PATCH v2] media: mali-c55: Require an enabled link to start a video node
-Date: Thu,  5 Nov 2026 23:15:59 +0000
-Message-ID: <20261105231626.7152-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	libcamera-devel@lists.libcamera.org,
+	Robert Mader <robert.mader@collabora.com>,
+	Faizel K B <faizel.kb@gmail.com>
+Subject: [PATCH 0/2] media: rockchip: rkcif: ENUM_FMT and bytesperline fixes
+Date: Thu,  5 Nov 2026 16:23:08 -0700
+Message-ID: <20261105232310.385463-1-faizel.kb@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -103,68 +105,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mali_c55_pipeline_ready() skips queues whose link is disabled, but such
-a queue can still start streaming on its own, as the video node pads
-lack MEDIA_PAD_FL_MUST_CONNECT. Stopping it later sees a ready pipeline
-and disables the ISP under the connected queues still capturing.
+This series fixes two issues in the rkcif MIPI capture path, found while
+using the libcamera simple pipeline handler with a Sony IMX415 on a
+Radxa ROCK 5B+ (RK3588).
 
-Mark the video node pads MUST_CONNECT so that starting a disconnected
-node fails with -ENOLINK.
+Patch 1 makes VIDIOC_ENUM_FMT honour the mbus_code field, as required
+for V4L2_CAP_IO_MC devices. Without it, userspace can select a pixel
+format that doesn't match the media bus format, e.g. a different Bayer
+order, and the captured images have wrong colours.
 
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
-Changes in v2:
-- Add missing Signed-off-by.
-- Cc stable, as d5f281f3dd29 is in the stable tree.
+Patch 2 aligns bytesperline to 8 bytes, as required by the MIPI DMA,
+and honours a larger value requested by userspace. This allows the
+capture buffers to be imported as DMA-BUFs by the libcamera GPU
+software ISP on Panfrost, which needs a 64-byte stride alignment,
+instead of copying every frame.
 
-Build tested only (W=1, checkpatch --strict clean). Not tested on
-hardware; the disconnected-node STREAMON/STREAMOFF sequence is from
-code reading.
- drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 2 +-
- drivers/media/platform/arm/mali-c55/mali-c55-params.c  | 2 +-
- drivers/media/platform/arm/mali-c55/mali-c55-stats.c   | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+Tested on ROCK 5B+ with IMX415 (SGBRG10, 3864x2192): correct colours
+without any userspace workaround, and a stride of 7936 bytes accepted
+and used for zero-copy import. The corresponding libcamera change is
+under review at:
+https://patchwork.libcamera.org/patch/28662/
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-index ff01553026fb..2dbce550d089 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-@@ -855,7 +855,7 @@ static int mali_c55_register_cap_dev(struct mali_c55 *mali_c55,
- 		goto err_destroy_mutex;
- 	}
- 
--	cap_dev->pad.flags = MEDIA_PAD_FL_SINK;
-+	cap_dev->pad.flags = MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
- 	ret = media_entity_pads_init(&cap_dev->vdev.entity, 1, &cap_dev->pad);
- 	if (ret)
- 		goto err_destroy_mutex;
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-params.c b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-index 16e895e3488e..0888dc4a340e 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-params.c
-@@ -1014,7 +1014,7 @@ int mali_c55_register_params(struct mali_c55 *mali_c55)
- 	INIT_LIST_HEAD(&params->buffers.queue);
- 	spin_lock_init(&params->buffers.lock);
- 
--	params->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	params->pad.flags = MEDIA_PAD_FL_SOURCE | MEDIA_PAD_FL_MUST_CONNECT;
- 	ret = media_entity_pads_init(&params->vdev.entity, 1, &params->pad);
- 	if (ret)
- 		goto err_destroy_mutex;
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-index a9c28b090b2a..a9172781925c 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-stats.c
-@@ -275,7 +275,7 @@ int mali_c55_register_stats(struct mali_c55 *mali_c55)
- 	INIT_LIST_HEAD(&stats->buffers.queue);
- 	spin_lock_init(&stats->buffers.lock);
- 
--	stats->pad.flags = MEDIA_PAD_FL_SINK;
-+	stats->pad.flags = MEDIA_PAD_FL_SINK | MEDIA_PAD_FL_MUST_CONNECT;
- 	ret = media_entity_pads_init(&stats->vdev.entity, 1, &stats->pad);
- 	if (ret)
- 		goto err_destroy_mutex;
+Faizel K B (2):
+  media: rockchip: rkcif: Filter enumerated formats by media bus code
+  media: rockchip: rkcif: Honour the requested bytesperline on MIPI
+
+ .../platform/rockchip/rkcif/rkcif-stream.c    | 37 ++++++++++++++++---
+ 1 file changed, 32 insertions(+), 5 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.55.0
+2.43.0
 
