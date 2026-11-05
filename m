@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793863688;
-	b=v1HkKD+3skEHFI9G+bGn3z+xBWoh/fpCrQudPExmNQeoosEw7hdTjwpeA23T+sR40D/T
-	 b+7tZTzPXLAZXYD/hNwJqI93aiJR7bTE+s5yDNDRGK5tjNXQOFaC5v60+jyZ5vnEg8UrN
-	 ODL2OVlMxzQkvVcbR6kTVMSOrBURaUQQXxZCCD+ligUmEd4IUg3D4GcG9FsjFE0AoMZQm
-	 4jIcqJkABNedZLrteaULXs5YyritujBX7Vs1ba0btySrwWSmqYj8e3p1DpqIKmhlKvtjH
-	 loKyEg/b7xb+3JhIROMlyuvVAixS16hYsjHnDK3/QUzrPjTiMusAWndXPdCqdKHkS3Q==
+	t=1793864038;
+	b=yaGj1I8aLr0h96JZ/8TRGSmwMjSbZnt959T9hv5APffKNyG9LGjYBvSmNdoe/BAx5i2s
+	 A0uQGnn1JQ7W7/0n7STzI08z1utjjRs1eHKnOTxu3zjk64V0TeDU/n2uyO5qslGBW1OR9
+	 JiaIh7w7Veliq3aFF5MjAL9QMgOLSf3khQE27iuk7fvV39d+hey6sdvQBGA2lOvj6i+vy
+	 W6aCNPBeYySuMTLJlDBa+pkEmL+hNkt9rY0OjeqiCfS+KPMPT8L2LnJcuR2KENi5x3aZd
+	 J4y08Fro7BDhtDwl7KyGF8+9bttcJgJ1lAEigZ2hl0TRRx5Anjhe3r82s94y7szB9oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793863688;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793864038;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=kF2hDrewQsyD9J4TNFGEBvdbMzNahMtd12kZQCaQeSU=;
-	b=Qf+gd4UZNOl4+jtQQBf28KqgPw3U9yb5xhhNjomXvsVtASbaS4ZpErv2L9wTTQDcuPpN
-	 WYYk+u/Fk3cPVWz46Kaf1h3/eF1melJHxEO9wK95jGhNWK6FyWLMtUVXKrSMq/WjhrZ4l
-	 fpu+UyyBdBKlZIyaDRb5s+fIl/j+9u5NkhI+zWkjDQCmFx2HpGzK83POg6HjLeTrVkhrx
-	 GNSJXpIqt/DqAGzCfU2CaMP2CLGt5STYL0BkP5IlXlUZt6xcZb34jJBiD5yP/vtkDd4aB
-	 YWt1nyH26Q4uf9OFLBUWqzQrLnCo2JPLDxz5vfq7sWTiMF3i6E1U+ISjnazeToFu/TA==
+	bh=B19nIV9K0xEPo2iAEcn8v899eLpDp0L1RtVwQuDIX0w=;
+	b=1Z3xgZMFH+Ut9Bzd498+tZkeYJ94+nA9pSQ6RqwGFdiF8/SgwwZj+FaAhwFOC3Ke/iBh
+	 zawDyjEN+IAy/2RHFpHSzqSiby1Hxofjme6Wl2JNjge+AQ+MzLZhAiJe636K3ZeDDzrHd
+	 i1chA1gNB5mYc1rqh4bKGoN2RH8+BGMV6v898TT34YuIEiamW9ITUFSR6JB1ngFZXOTd4
+	 bq0jraCWyiSsomEblzMCsFy9qm19HGXrm/YxY/cxSy60QLNt8HmYQr4EmBjsecTPryhcO
+	 b00kJ+jTbqDRQN+1vwVBs/Ys5jYRYU/aVpiCAA2N3eHFxp3SjMyyUDCLSfFAV65yT3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mc9L5L3h;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+QIpQec;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68A5606A31B
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 07:28:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29A9606A31B;
+	Thu,  5 Nov 2026 07:33:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mc9L5L3h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97951F000C1;
-	Thu,  5 Nov 2026 07:28:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j+QIpQec
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E8421F000C1;
+	Thu,  5 Nov 2026 07:33:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793863687;
-	bh=kF2hDrewQsyD9J4TNFGEBvdbMzNahMtd12kZQCaQeSU=;
+	s=k20260515; t=1793864037;
+	bh=B19nIV9K0xEPo2iAEcn8v899eLpDp0L1RtVwQuDIX0w=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Mc9L5L3hQ04Pjz1ygvxp/958vCABPw6C+l+1s54Xp2osMZM0PNx2TYrUaEJWxpzz6
-	 1iv059mDmGwcvUsoKBz4AzqGVFeVLf89W4G/P5Rphm8GYurY3dcKulJQ/+AR/SjCm5
-	 ecTK7wqI9/N4/90GctQo8QUzaOTxT8YgI3aTd7qutZNC5F35IfJ4GAoYt+3M70oTk3
-	 MlzR9DdiNIGfChqE8FYDhskORSzv5B55OfFZYM4H0On+KJNLD2zkI6irYwDqZzBOZU
-	 /Pn8IwrvpAv914AKL8/Vb+dbqFoc6cXvWmHw9PIrAsJIEEykHMe2czULjzUQG/jJpP
-	 WQSN0EPwwDZYQ==
-Message-ID: <17b8e90d-dae7-48bf-aabe-eeb30aa7a735@kernel.org>
-Date: Thu, 5 Nov 2026 08:28:02 +0100
+	b=j+QIpQecQ5scdMWhDQu5H5cjFkYW1MIwRBJeMnGKJTsS+H/k2I2HWpq2y9BTXjb6n
+	 9Zxw1cx/GxsXgWdBLDt3IeN3m64YlI3WtR3zOUYue3FtH0pkzQj9u4KQ4R0B028fVS
+	 EAgh6sd5IymsR8cNOzKS0JuF5IIcde2Jb2Kj/R/aP1UTiT5sl6UKoZwW/IQOoMwuJH
+	 jodr3XIinMzVMgn2KuKvGnrDXqJCpABQBGA6Sl0uDJiAyq+SPb/7JEUzoLv/kCvyaR
+	 lYG4zgmphBViQ2tqbwAYyaofMaD3LsShDY1BMxl2lMHIYCQJ0inKFQdwyT05yVzrhJ
+	 TF+RRa2S4menQ==
+Message-ID: <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
+Date: Thu, 5 Nov 2026 08:33:49 +0100
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -52,15 +52,25 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv3 02/13] gpu: drm: exynos: call
- cec_notifier_phys_addr_invalidate if no HPD
-To: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Inki Dae <inki.dae@samsung.com>, Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-References: <cover.1793863347.git.hverkuil+cisco@kernel.org>
- <5ee88620981fe6e99d6a512c6d7491093f3da2ae.1793863347.git.hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
+ indices for ports
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
+ <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
+ <20261104-real-nebulous-ostrich-017e92@quoll>
+ <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
+ <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
+ <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -106,30 +116,35 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <5ee88620981fe6e99d6a512c6d7491093f3da2ae.1793863347.git.hverkuil+cisco@kernel.org>
+In-Reply-To: <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 05/11/2026 08:22, Hans Verkuil wrote:
-> If a HPD is present, then call cec_notifier_set_phys_addr. If not, then
-> call cec_notifier_phys_addr_invalidate. This helps the CEC framework
-> differentiate between CEC_PHYS_ADDR_INVALID due to no Hotplug Detect, or
-> due to an EDID without a Physical Address.
+On 05/11/2026 06:32, Nihal Kumar Gupta wrote:
+>>
+>> What is the problem exactly you are solving?
+>>
 > 
-> This driver is one of the few that was using cec_notifier_set_phys_addr
-> on disconnect instead of cec_notifier_phys_addr_invalidate.
+> The problem is that CSIPHY4 is connected to CAMSS interface 4, so the
+> graph should describe it as port@4, not port@2.
+
+Nothing like this is explained in commit msg.
+
 > 
-> Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-> Cc: Inki Dae <inki.dae@samsung.com>
-> Cc: Kyungmin Park <kyungmin.park@samsung.com>
-> Cc: Krzysztof Kozlowski <krzk@kernel.org>
-> Cc: Peter Griffin <peter.griffin@linaro.org>
-> Cc: Alim Akhtar <alim.akhtar@samsung.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> ---
+> The previous port@3 description only worked through the X1E80100 resource
+> table indirection:
+> 
+>   port@3 -> csiphy_res[3] -> .csiphy.id = 4 -> CSID selects CSIPHY4
+> 
+> New standalone PHY path:
+>   port@4 -> no csiphy_res[] lookup -> port number is id 4 -> CSID selects CSIPHY4
 
+Then this breaks existing users, no? Anyway, what stops you from having
+there proper mapping?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Did you find any existing practice of numbering ports logical numbering
+in this device, but some other logic coming from datasheet? Where?
+
 
 Best regards,
 Krzysztof
