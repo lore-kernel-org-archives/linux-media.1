@@ -1,78 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793845216;
-	b=J94fVs1i1U9KxBXP8dOeHmk61c94o958sPR/687yZ3R/2ltF3gbYdeL8QCp/Gf6yDvPD
-	 82FLlUenPddBodVs+bfyr/dEkkMH4yEN4kKO8V74SI4TByi8Zd154+mi5jdK2v+a4Pkys
-	 x3WBnf5fHvKMjV9kYlyraO0woLVkIrmR0BHtOx0O76Kt2GIXlJxzvjc0IXGyXHQzdWj+X
-	 lcsozkEtPywCytRjUyrNzi745rpS/+L5GSjePKicv1Yg45DeVj9Eolw2Zii+7E9Fh6JyX
-	 eqbvW9PnW0Rm/USWPLbE92xVc+Kjmhu76jgEoeCPcoUzcXwbRQGHPF12f45Kfs2TRsg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793845216;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
-	b=UG53Iglkk46Qw6rQaPiz6S6sPoLdO9ih73KAuZ5LoyVWcpP2uk0ej0hg/1SR7zum/31u
-	 HNoTA59YFAA6qsMM9V1luVsnkDPNP7XWlPeN8lKFk1QiUADjHtDD5WwfskrpiH2FBLF7X
-	 EfXcovLGOQ8Q3YPH26HV7bB+2RfdZ+fyzfb/kbdbDkT+MEa3qoKiliN7A5IExCghJ9jnR
-	 Qk4Dh63DJ1WZCaQUsqw+USrhqpk6JR1ebQnhe8cJL8x6YwYpudnO2NtRbRaV0DX43jCSU
-	 q5cbUFLs27ipr6EXYEqinen9o5xr6GGU2X05vdj+Pg3URT94lSsqkD81JfqSEXXmgoA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QX+kFSxb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793852107;
+	b=eX3UYN0Syj+75LtPbeTnMJrZ+aWZOZHKExPQOxgYl1xjMiVy3cDajue0TxT40RX2clQw
+	 y0UnAEw5zf/oC4IGPxQw6G9BI+Z7bj8psu6weaOACLjanzxE+0+YehPcL7PAuk4PFMVk+
+	 F8/ghwiRMqY/UNXPZ5zF3EknB+qt0WmxdkCzktGB8IQ+K7UkaMYvQpspXQxnr5t+LN/ZM
+	 ssK+LlplteB4UWZzsKLHuobImnNOgbUzQP7jI14FoAGtS5ELtkCsn1XZztguExjtaHs1A
+	 UuzscLqwripsL30E3T6goZY+lAHTMIJTQJx+x+cb7+D6wvs7gaKtIvQe6ZUamDC3JDQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793852107;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=I70JP2SqokASsJErmH/yPweM9if0dk4HKlTSDOwI09E=;
+	b=b/9Szr2ytlqNRj9T1tNKAeixs24QP4RLxBS0Mux6d2UAMK3b5qtEHRlhrnqrsksPVCEk
+	 Y2cIjbxcvaJnvApjLx2AaJJJcMq0EJ4hTftyqQO3eBhwJqpF07xD6DW3J92bstwLVBYVO
+	 Z+MivgTIhRAQPzLV1Bhy3IhV0h3B2/iepodxPSPq22IPjsvWLlH0mKwHZS6jH/keK0Pqk
+	 1gLaUCF/FUOe9OVIn/YhU1NuVqBVLSlmMTRXgSKea4h9Qtf8n4Cx5f8DoSa3CBHQkQ5Kx
+	 svxxroeF3OtX7z5gPo8Lv4jY1nwo15szGE/eGuDnnnClHAc3G1FBlpILrmSpN+WXmKQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dd+wWpym;
+	arc=none smtp.remote-ip=202.108.3.19
+Received: from r3-19.sinamail.sina.com.cn (r3-19.sinamail.sina.com.cn [202.108.3.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96B5606A326;
-	Thu,  5 Nov 2026 02:20:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34421606A326
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 04:15:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34421606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QX+kFSxb
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793845215;
-	b=wa39GSSEHDrQh51DulpZO3AcaGlIm6UQVEFZHA2m60dO3N2cw5mx9a3QXFDKK4MNzC+r
-	 DmDsQA+ybtvb1AFvTUE3ucS/WwyoFui1/w6DRdYyB1LXE1KHX0HUXtWRhg3gwQxWTHTlQ
-	 ZSYK3Hz8jQDj+sTOiBy26prhnUZbr7nQrEvZfFuQV/0/lkC8dVyWDJiz97kGkxbrhBRca
-	 1ZB05rhIIH3DNUvkpA1XvTyP/s7XHxoj58M4O974HK2xpPinTCanwRHAIaPfr8yOnelJr
-	 UEBx/ODOXV1tCx30bAw0S/bTZA3BG3/sndScsNj6Qh/a0WhKS7+V4xseIxagRNVmpMw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793845215;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
-	b=3Ljcki+gtj4FA54QAX1OZOAG8Xt1GhzlMPVRjOPAkRTZgPOM4OmsMDbHQLtBYzZZBhuz
-	 0niMsjGUzLc8AEXAdMhGDLzGZ8eH3urCdDx4T3R9TKGXhO1H66cqFKz2g0Iz79JWB45ry
-	 Wo+4jfjHjintRkGHjAXdJuSms8i532L+TflXG1hVGjWfueRGoa0ee6UEDf7pHTzIykD28
-	 RBbkswO7cbPER7Btqo5mSkYR3Htt5DIhcLbWHEZgqPxZfmxKQD3zrnvHQDrunkB+QlxIX
-	 tUTgc8taTOJN27zzNGkAQRiK2sT4Dq25vZz3IyV7Qc/XlIZp6J0iq7kgmoSCXZZVyMQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C83A71F000C1;
-	Thu,  5 Nov 2026 02:20:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793845215;
-	bh=kwyi3xE5HC3vx77XwDaZCAD8Ng4RkB7EcEx9n2x6K5M=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=QX+kFSxbvbL/8znyFYE1ufYSB99g5nhhkfX2u0ZztIjDiZrARWuoZPo4pv6qSiZc/
-	 6MZGjVMd7DZjfYdadU+RrD3oX+PC0mAZJf/3BnA9+fCSKZDXdguL+5Sb+8pML2kqc4
-	 tQ+JKvvmhaFVDQnEnidFVlkJ5EEYKDwCfgUT1oUZiJJJHCFU4G1W/XlrNOEM8SKqKI
-	 x4GaCIxCAgVeoSsHq79g39XrySaEU6kcgheFLRtoLCZj7bjj2uxF8Q2tyti37o0+2m
-	 RprO0TgierTfHKjPNf5n4Kd2yr9wo0oQ65jvlXg2fND1kLR5iFcq+wZyJvSP0ykgnN
-	 Hqu8yy3dw0H8g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2A88C4701A;
-	Thu,  5 Nov 2026 02:20:14 +0000 (UTC)
-From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
-Date: Thu, 05 Nov 2026 02:20:14 +0000
-Subject: [PATCH] media: dvb-core: fix use-after-free in dvb_remove_device()
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=dd+wWpym
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793852105;
+	bh=I70JP2SqokASsJErmH/yPweM9if0dk4HKlTSDOwI09E=;
+	h=From:Subject:Date:Message-ID;
+	b=dd+wWpymyVzAKs5EMjriS7Jh5yDuTr7q4O0W4UF+OQjv396SfE/ydTdq52cSCWyh+
+	 HSLA6ocKfsWPVzuI8HlmZWj4+QyfnfE5ePYgVKoLxcgJHX828MdTK1NdVqLstLbiCl
+	 3vnfZrrfVso/9sV2nlJZZW3hoZa7dQ+QLqdpO/Vo=
+X-SMAIL-HELO: lxu-pcd
+Received: from unknown (HELO lxu-pcd)([111.198.231.89])
+	by sina.com (10.54.253.32) with ESMTP
+	id 6AEC02B6000003F6; Thu, 5 Nov 2026 12:14:48 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 6194074457038
+X-SMAIL-UIID: 9A5FDA986C1D4943BA931602A231C7D6-20261105-121448-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	sumit.semwal@linaro.org,
+	christian.koenig@amd.com,
+	phasta@kernel.org,
+	robin.clark@oss.qualcomm.com
+Subject: [PATCH] dma-buf/sw_sync: Optimize the retrieval of fence reference counts
+Date: Thu,  5 Nov 2026 12:14:46 +0800
+Message-ID: <20261105041446.51979-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
+References: <6aead2eb.3c6f2eba.20048d.0000.GAE@google.com>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -82,97 +75,69 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261105-dvb-remove-device-uaf-v1-1-a9e091d7c9ae@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAN3n62oC/x2MOwqAMBAFryJbu+CqsfAqYhGTp27hhwSDIN7dY
- DkwMw9FBEWkvngoIGnUY88gZUFutfsCVp+Z6qruRCrDPk0csB0J7LPvwJed2cI2rTSdM2Iot2f
- ArPf/Hcb3/QDZT06qZwAAAA==
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com, 
- stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793845213; l=2266;
- i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
- bh=prLpSJVWNrnZT55RbJ2w1/TI1YO7NXSCENMkRGHUepw=;
- b=zCVEFfk4tLNKrt4gCOPsh3ztTBXtUF35/c3pdzSfvAzgmMIih85IFQxlWBVrgTs/tGl0aN+ib
- ICsbECE8OH3CIWpJSE7Z0yTVnIqb9SBOurvdMKsOf9AFWkgpphJRgci
-X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
- pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
-X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
- auth_id=1371
-X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Reply-To: joasantonio108@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+There is a race condition between closing a sync file and the SW_SYNC_IOC_INC
+operation on a sync obj. When a fence is created via SW_SYNC_IOC_CREATE_FENCE,
+its reference count is initialized to 1. When the sync file is closed, the
+fence's reference count drops to 0. A race occurs if SW_SYNC_IOC_INC accesses
+the fence whose ref count has already reached 0 before dma_fence_release()
+calls timeline_fence_release() to erase the corresponding pt_tree node from
+the sync object, potentially hitting:
 
-dvb_remove_device() calls dvb_device_put() while still holding and
-using the dvb_device pointer.  If the put drops the last reference,
-dvb_free_device() kfrees the struct, and the subsequent calls to
-dvb_media_device_free(), device_destroy(), and list_del() all operate
-on freed memory.
+refcount_t: addition on 0; use-after-free.
+------------[ cut here ]------------
+kernel BUG at lib/refcount.c:34!
+Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+Call Trace:
+ kref_get include/linux/kref.h:45 [inline]
+ dma_fence_get include/linux/dma-fence.h:323 [inline]
+ sync_timeline_signal+0x6d9/0x8a0 drivers/dma-buf/sw_sync.c:224
+ sw_sync_ioctl_inc drivers/dma-buf/sw_sync.c:405 [inline]
+ sw_sync_ioctl+0x7b4/0x13f0 drivers/dma-buf/sw_sync.c:470
 
-The syzbot KASAN report shows the freed kmalloc-256 object being read
-at dvb_media_device_free()+0x3a, which dereferences dvbdev->entity
-(dvbdev.c:210) after dvb_device_put() in dvb_remove_device() already
-freed it via dvb_free_device().
+Use kref_get_unless_zero() to optimize dma_get_fence(), in order to avoid
+acquiring an object with a reference count of 0.
 
-Fix by saving the minor number before releasing the reference and
-moving dvb_device_put() to after all accesses to the dvb_device
-struct.  This ensures the device remains valid for the entire cleanup
-sequence regardless of the reference count.
-
-Found by LLM-assisted code review of syzbot-reported crash patterns.
-
-Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Fixes: e531fdb5cd5e ("dma-buf/sw_sync: Avoid recursive lock during fence signal")
+Reported-by: syzbot+cba1a1f459230395a076@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=cba1a1f459230395a076
+Signed-off-by: Edward Adam Davis <eadavis@sina.com>
 ---
- drivers/media/dvb-core/dvbdev.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/dma-buf/sw_sync.c | 3 ++-
+ include/linux/dma-fence.h | 5 +++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d3295..b2beacbab 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -593,19 +593,22 @@ EXPORT_SYMBOL(dvb_register_device);
+diff --git a/drivers/dma-buf/sw_sync.c b/drivers/dma-buf/sw_sync.c
+index 8df20b0218a9..ad60ad5e5cd9 100644
+--- a/drivers/dma-buf/sw_sync.c
++++ b/drivers/dma-buf/sw_sync.c
+@@ -221,7 +221,8 @@ static void sync_timeline_signal(struct sync_timeline *obj, unsigned int inc)
+ 		if (!timeline_fence_signaled(&pt->base))
+ 			break;
  
- void dvb_remove_device(struct dvb_device *dvbdev)
+-		dma_fence_get(&pt->base);
++		if (!dma_fence_get(&pt->base))
++			continue;
+ 
+ 		list_move_tail(&pt->link, &signalled);
+ 		rb_erase(&pt->node, &obj->pt_tree);
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..4d885c8e1d4f 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -320,8 +320,9 @@ static inline void dma_fence_put(struct dma_fence *fence)
+ static inline struct dma_fence *dma_fence_get(struct dma_fence *fence)
  {
-+	int minor;
-+
- 	if (!dvbdev)
- 		return;
- 
-+	minor = dvbdev->minor;
-+
- 	down_write(&minor_rwsem);
--	dvb_minors[dvbdev->minor] = NULL;
--	dvb_device_put(dvbdev);
-+	dvb_minors[minor] = NULL;
- 	up_write(&minor_rwsem);
- 
- 	dvb_media_device_free(dvbdev);
--
--	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
--
-+	device_destroy(dvb_class, MKDEV(DVB_MAJOR, minor));
- 	list_del(&dvbdev->list_head);
-+
-+	dvb_device_put(dvbdev);
+ 	if (fence)
+-		kref_get(&fence->refcount);
+-	return fence;
++		if (kref_get_unless_zero(&fence->refcount))
++			return fence;
++	return NULL;
  }
- EXPORT_SYMBOL(dvb_remove_device);
  
-
----
-base-commit: ebcf66fba448879076bfdd1018ac5cda37b912bf
-change-id: 20261105-dvb-remove-device-uaf-aea34136c515
-
-Best regards,
+ /**
 -- 
-Joas Antonio dos Santos <joasantonio108@gmail.com>
-
+2.43.0
 
