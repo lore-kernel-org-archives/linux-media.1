@@ -1,86 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793872043;
-	b=Yg5qN+A3X5z5wGuQ0w/EKd1mlK4m+MK418RlTaN6mc2aCqlqCRBBvyZ0dq03k8sYAW1B
-	 Gwfdvsv2E1bVqPSnhByqppSfr76BwB8kt4QKlOsuNV551zNOxNTFVjaYPIRYJzucKs3cU
-	 sThzJQVwaMLdOTXjnL2dZ8dxtr6wsa0+3Uj6FIOZqWxpQ5p1Y/BSuv3i63FSuGSSkYaMI
-	 wkOv//baClU36+BuDB2HApIIG64SzLRZrRNjKyYGfDu0U4NV2SmY65m+0HLpbN3RNRZjt
-	 JnSJyRx1mt0phgSLinXQsRTHXZz5wA78tDWh/cn2rMB+5iFAlBosBGMjrn2d3MpVhxA==
+	t=1793872195;
+	b=WEk95kOgNmWd/MwB1m8ra4iG2A4qwoLJzlO9iEOvHTAL05Dma93zMdNEAwrtNOnf9cJh
+	 Z8/rTlCJFRuvje33T/lygwUKb+b3A3Zw5EkIqyYLnuepNYmgz1slESfqxuRqzGjATOZ4G
+	 j2zDs9clMT4/a73u5pFQzbcGO04waQTKVQIfVOfztGrzGXZIdwwblF1NzassUe52ElJjx
+	 YhVvv5QIRnqE3M8tykgccM42Rec171GUhIMfjxgn3gj0h7psZSo3FmWBMWQ/Bjkz0R7y4
+	 8ZjcLi3SO5ouI83OJKCrcpIMsrx9jeWtQ7lu7UAoC9TuKSwew2F1QWHOXeHgElPY+og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793872043;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=jyLL8ZmxrAARfweF0V8YGIXZS1Pegf4tg2ZATRaSJHc=;
-	b=IlE1Bb6l5ssoiJAzMmpFgrJJnzaHFXMlgm9baiINZekPnyNlW3EBLa7VVsHxv3fU6lYT
-	 TJrOdMEy75SFdJMOXMfU52prPxcDbfUhLdLRgvc58ggRgsNQ48sJAMwe/004JPtkU615s
-	 C3OXOmZSWeZuD3ZM5RCqTx0JyMdPd57xTWyOAEBRIb576e/KfYkG85wzeCEXqdQhL8xdP
-	 SAqQ6jzMyHIUm3I1aMf1jlgAyvKflUMkLpMvTNbZ8az4BewrP6YWyqCQHDpEZM/9SOTV5
-	 vMqSoHe3oxQs26CfqYZVnwJZzv7ZjtZuwrzp+ZnkyN3nx+FJx/2vIE8xmQ1Q+YHYk8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793872195;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
+	 Date:Message-ID:MIME-Version:Content-Type;
+	bh=EINLgEiBManmYGrhkPGQnJDaa1YpkyEztcgozaDIs8s=;
+	b=x1aeoO5bw/OzTWFdLWHzrYHEc122DdJQggWo1qIvMAs3sefsT9BUwXAzDafkPhbc8YwE
+	 RzDagnrbhJM+6nhtm8HRu0Yv9yYca5aK1SNFVfMMsIoM/B0nRw3ySltV3pXm6JDKHNMWL
+	 LLMwcppuBNxIRdqkyVNNersTs/nvIUwe4EUSvJnLQLP5QxSWTrh6R7EujUalNDEQvarFJ
+	 +s+FyaTpNUHSvrywBWWPk9TWTx1VRcOI1ZDmdamWzR7PMlCnt29K6AWC3oXXhsNj0pyfs
+	 tbCiHbyjiKMO6WNze03Z3UJxnIn0zBWH5NFWVbOBj/qdMRYyihyE8G4QWYCPGSmj4Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RASG78SQ;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVBkL2kD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A33C606A331
-	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 09:47:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A33C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3F6606EE86
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 09:49:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=RASG78SQ
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a208d93758so18465505e9.3
-        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 01:47:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793872041; x=1794476841; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jyLL8ZmxrAARfweF0V8YGIXZS1Pegf4tg2ZATRaSJHc=;
-        b=RASG78SQJZb7zly3rDtTUgyOxzbegHId3oxXTHrgcPPTO7wKUsm28sWnWodJU6lGHj
-         Xl4lgSwi6T8p8iO48+EYJyut2DlkqBgDidTj54wXHNwFYg81frFZE8Q7apcHbehGyfUA
-         oEBrf2dIpQtOCwWHURtTzf2Dzmg0FgcsA/tVffLX9VOTMSbrVTczidrPCVBSUmPfF8xr
-         VdCf7x+UzAcuXIV8ZgZ7/IHSey42eTXQt/qVDbQZL/NKaCBoqsLCKXtWNZ4qjue5YjS9
-         3KNNVGfvWsr5ovwtxywRvbMkqZpXcjcM2JDvQJQyfSpzT0jiqJ0bYD4srOLe6uto7P4W
-         fyiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793872041; x=1794476841;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jyLL8ZmxrAARfweF0V8YGIXZS1Pegf4tg2ZATRaSJHc=;
-        b=qfkldOOc6tOgfwX/VrF+vOf3H+XKQH5v5QFCjV15HeAuaJdqZjjdlnPNnLKoKj5ajE
-         G6XD1vTN6d0FQr1HCj+P5TixA7H11xY0ffiYXL7EU8/2efgmxIXs5ctKHjUObRGX+52L
-         pwdSIhPmyCEFJC7+u6rc57unUzK+Vr9Zw/Zfj6lN5uy3kNpt+ZdxK9Dev8OIQXKGVx7D
-         nd5AW1N4yPxeuOVueNGxz6dDLYQ10+NNI7bWYVuUIP2tH123Mlk8io2VLINIyeg/L/F7
-         xrH5Ka5QwhbfwnNsFKfIJ7Sq+hkxJ9pGURYQF+6IE3nLYvBP7t4nLDAWjHBpBsVX/GBp
-         oD+g==
-X-Forwarded-Encrypted: i=1; AKwUvByMSCqtKA8hIonyTM0FEu1U6QFTqq1hM8lg7cLFf05NQY9MInKDiEkjVOADBvSLD4+f1RbbVdUPe1bEbQ==@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hjUvFnVea7IjEeyswS6Yh+W6NPDPOBMPAB6fs1w6JIaanrfFa
-	Hmk67K6MYt3jaSly4GQpZprqcxeQgi1W1WDumVo5imQ05bwS4j4pE2v2z494ft4NjsM=
-X-Gm-Gg: AYBFou1OdkxI0Z1o1Bg7EbH1zXlffL+DDrzEkJj35Q4gdzVwecqcvP4C3GQG7xHEsH/
-	+SCKvcm/MKs8z5ZObUcoPX3AFGdOskbW1ld7AFeLd2eJcpYuxP8thRWhH7rL/q7XBZmR3g/2Sj6
-	VbZMMwXzsjHS36+DirHFeoG4tNkruBKXVuYdJupM5G5hyIy571jt+UkAGnR4PWZybC77aI/uAS4
-	WKvIeQXqKlL2tSU4JrGO7VwQX/M8Bk7Etgk07DomUJ+i43aOXBUxQCetOIVlleEebAK1a25yr3N
-	6p39GSCK3ncOM37uDboneoWmFMkwvoazWUTLa8uRFeuATkoNlMrmQxjhEuezEguXQcOtaEq+Q15
-	WQyxDCTB1Px0jCPQrttiTQpQxe5bHpE66eQ2fY1eQFl6NfpYBCso+8WMgdrBo/z5C2ZySsVfaiY
-	VZ/a4u9Cni1QFbu+eux+cjQqGoVPFmzm6zCEPqkGYvWm6SjZk5ogMSt9THSe0kqwX2pdnOEDb5x
-	mnTJPpJGocqM5idAtHj6ZlhdRUOVCSFJkoRgQ6jLVwW+zi1gb7KP2EUOEcvPSNc+K/iido/yxSu
-	Y++pJoec3YrFr/Iq4ePnq0pYGn6yWl175PL4/nn5
-X-Received: by 2002:a05:600c:4f86:b0:4a7:669c:c988 with SMTP id 5b1f17b1804b1-4ac18b7df2cmr429163325e9.23.1793872041405;
-        Thu, 05 Nov 2026 01:47:21 -0800 (PST)
-Received: from [192.168.0.167] ([51.37.126.136])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48fed45d71dsm8886594f8f.36.2026.11.05.01.47.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 05 Nov 2026 01:47:20 -0800 (PST)
-Message-ID: <5ba03b8e-1d51-4e66-a802-37e63814f5d5@linaro.org>
-Date: Thu, 5 Nov 2026 09:47:19 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVBkL2kD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD481F000C1;
+	Thu,  5 Nov 2026 09:49:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793872195;
+	bh=EINLgEiBManmYGrhkPGQnJDaa1YpkyEztcgozaDIs8s=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=dVBkL2kDEfHn2Ru4e/lxGbrYBD0vRikutKA+nSar7m3UccMlIl75YukuK9XsjKret
+	 61HfPYQH/J809V1llfKhPxgtzEdzHKLyA/8g7V66eWtAfpczG9iI8pESxf2tLlv2ft
+	 r1x9+ruQftZwBOrAfsB0Aj24tl9Ep4cJPlEXnLdOTRTr2PyULEKsnKR/dt0ux/EA7a
+	 a2lYGYagDLhZcVA2XR8YlXOCbJeE0bCNS8ipOD9+QJuLf/Un+nlYysNVZb8DeAAjAD
+	 rQZHoQWYQFDtXBHSf0RCbd1vK8QAMWLmP0QY+xRgzF3Twg5T6V497vPsNWvRTkcMbe
+	 bOFR2vMkK7OAA==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: linux-media@vger.kernel.org
+Subject: Re: [yavta] [PATCH] COPYING.GPL: Fix license text to match gnu.org
+In-Reply-To: <20261104232353.GC3862409@killaraus.ideasonboard.com>
+References: <20261104155613.764306-1-mkorpershoek@kernel.org>
+ <20261104232353.GC3862409@killaraus.ideasonboard.com>
+Date: Thu, 05 Nov 2026 10:49:52 +0100
+Message-ID: <xhkdbqzgzwqtb.fsf@mkorpers-koolstof.csb>
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -90,79 +57,134 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: media: qcom,sm8150-camss: Add SM8150
- CAMSS
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
- <20261104-sm8150-v7-4-rc1-camss-v1-2-7a9534a9a22f@andrewgigena.dev>
- <904675e8-701d-4fd6-b418-6c0dcc9288b9@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <904675e8-701d-4fd6-b418-6c0dcc9288b9@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 04/11/2026 23:16, Vladimir Zapolskiy wrote:
->> +maintainers:
->> +  - Andrew Gigena <mail@andrewgigena.dev>
->> +
->> +description: |
->> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,sm8150-camss
->> +
->> +  clocks:
->> +    minItems: 42
->> +    maxItems: 42
->> +
->> +  clock-names:
->> +    items:
->> +      - const: camnoc_axi
->> +      - const: camnoc_axi_src
->> +      - const: cpas_ahb
->> +      - const: cphy_rx_src
->> +      - const: csiphy0
->> +      - const: csiphy0_timer
->> +      - const: csiphy0_timer_src
->> +      - const: csiphy1
->> +      - const: csiphy1_timer
->> +      - const: csiphy1_timer_src
->> +      - const: csiphy2
->> +      - const: csiphy2_timer
->> +      - const: csiphy2_timer_src
->> +      - const: csiphy3
->> +      - const: csiphy3_timer
->> +      - const: csiphy3_timer_src
-> 
-> Please switch to the new model of describing and exploiting
-> the stand-alone CSI2 PHY devices.
-> 
-> Any CAMSS drivers based on the legacy description of CSIPHYs
-> should not be accepted into the upstream.
+On Thu, Nov 05, 2026 at 01:23, Laurent Pinchart <laurent.pinchart@ideasonboard.com> wrote:
 
-I mean we are just adding a new define for a SoC here - not a new init 
-sequence.
+> Hi Mattijs,
+>
+> Thank you for the patch.
+>
+> On Wed, Nov 04, 2026 at 04:56:13PM +0100, Mattijs Korpershoek wrote:
+>> When packing this for fedora, rpmlint complains about the license:
+>> 
+>>   yavta.x86_64: E: incorrect-fsf-address /usr/share/licenses/yavta/COPYING.GPL
+>> 
+>> Update the license file with the new address. This has been generated
+>> with the following command:
+>> 
+>> $ wget https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt \
+>>        -O COPYING.GPL
+>
+> It matches, so
+>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>
+> I wonder however what's supposed to be the canonical source of the GPL
+> text. libcamera uses the reuse tool to check for license compliance, and
+> using "reuse download --all" in yavta gives me a license text that is
+> formatted quite differently. Looking at
+> https://spdx.org/licenses/GPL-2.0-or-later.html, the license still
+> mentions the FSF postal address in the preamble.
+>
+> What does rmplint consider as the canonical source of the license text ?
 
-We could move all of sc8280xp, sm8150 and sm8250 to a new driver 
-topology but, I don't think that's a reasonable ask for a small change 
-like this from a new contributor.
+I don't think they have a canonical source of license text.
 
-Certainly would welcome the transition given above as a defined and neat 
-series but, I don't think there's a need for that to include this SoC in 
-100% existing infrastructure.
+The rpmlint code and it maintains a denylist of "invalid addresses" in
+the form of a regex (fsf_wrong_address_regex):
+https://github.com/rpm-software-management/rpmlint/blob/main/rpmlint/checks/FilesCheck.py#L21
 
----
-bod
+The denylist matches which is why we get the error.
+Since the FSF is remote-office now, rpmlint has a commit that adds
+Franklin Street to the denylist:
+https://github.com/rpm-software-management/rpmlint/commit/4535df1d7378866ca407e7c65ca33f9bafe4cdf0
+
+This is confirmed by the FSF website:
+https://www.fsf.org/about/contact/
+
+So using a web link seems appropriate to me.
+
+>
+>> Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+>> ---
+>>  COPYING.GPL | 23 +++++++++++------------
+>>  1 file changed, 11 insertions(+), 12 deletions(-)
+>> 
+>> diff --git a/COPYING.GPL b/COPYING.GPL
+>> index d511905c1647..9efa6fbc9628 100644
+>> --- a/COPYING.GPL
+>> +++ b/COPYING.GPL
+>> @@ -1,12 +1,12 @@
+>> -		    GNU GENERAL PUBLIC LICENSE
+>> -		       Version 2, June 1991
+>> +                    GNU GENERAL PUBLIC LICENSE
+>> +                       Version 2, June 1991
+>>  
+>>   Copyright (C) 1989, 1991 Free Software Foundation, Inc.,
+>> - 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+>> + <https://fsf.org/>
+>>   Everyone is permitted to copy and distribute verbatim copies
+>>   of this license document, but changing it is not allowed.
+>>  
+>> -			    Preamble
+>> +                            Preamble
+>>  
+>>    The licenses for most software are designed to take away your
+>>  freedom to share and change it.  By contrast, the GNU General Public
+>> @@ -56,7 +56,7 @@ patent must be licensed for everyone's free use or not licensed at all.
+>>    The precise terms and conditions for copying, distribution and
+>>  modification follow.
+>>  
+>> -		    GNU GENERAL PUBLIC LICENSE
+>> +                    GNU GENERAL PUBLIC LICENSE
+>>     TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+>>  
+>>    0. This License applies to any program or other work which contains
+>> @@ -255,7 +255,7 @@ make exceptions for this.  Our decision will be guided by the two goals
+>>  of preserving the free status of all derivatives of our free software and
+>>  of promoting the sharing and reuse of software generally.
+>>  
+>> -			    NO WARRANTY
+>> +                            NO WARRANTY
+>>  
+>>    11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+>>  FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
+>> @@ -277,9 +277,9 @@ YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER
+>>  PROGRAMS), EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE
+>>  POSSIBILITY OF SUCH DAMAGES.
+>>  
+>> -		     END OF TERMS AND CONDITIONS
+>> +                     END OF TERMS AND CONDITIONS
+>>  
+>> -	    How to Apply These Terms to Your New Programs
+>> +            How to Apply These Terms to Your New Programs
+>>  
+>>    If you develop a new program, and you want it to be of the greatest
+>>  possible use to the public, the best way to achieve this is to make it
+>> @@ -304,8 +304,7 @@ the "copyright" line and a pointer to where the full notice is found.
+>>      GNU General Public License for more details.
+>>  
+>>      You should have received a copy of the GNU General Public License along
+>> -    with this program; if not, write to the Free Software Foundation, Inc.,
+>> -    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+>> +    with this program; if not, see <https://www.gnu.org/licenses/>.
+>>  
+>>  Also add information on how to contact you by electronic and paper mail.
+>>  
+>> @@ -329,8 +328,8 @@ necessary.  Here is a sample; alter the names:
+>>    Yoyodyne, Inc., hereby disclaims all copyright interest in the program
+>>    `Gnomovision' (which makes passes at compilers) written by James Hacker.
+>>  
+>> -  <signature of Ty Coon>, 1 April 1989
+>> -  Ty Coon, President of Vice
+>> +  <signature of Moe Ghoul>, 1 April 1989
+>> +  Moe Ghoul, President of Vice
+>>  
+>>  This General Public License does not permit incorporating your program into
+>>  proprietary programs.  If your program is a subroutine library, you may
+>
+> -- 
+> Regards,
+>
+> Laurent Pinchart
