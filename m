@@ -1,47 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793875527;
-	b=AYcHK61l9EOM53SyXxNzU8fPsy0clYs6n3cPL6aZeH/rEb/Z+4cjcgOhfYpayYwQuin/
-	 dBTmaIjIqsOusqgFZuIgYACbSWxC7B3XEgwKtx+WTrvcVhPz7r/60CDE+CVmGsiVUq1mN
-	 NqFaICbo7zASWN+nS/3yF7ZkOs1RMTP9osU4Qu2ifryu8H9EqDq2NPiR4+k7iWYIg96dg
-	 7LGTO4ZTLV/CRDwors1afrcSCjBFx2MHQW0vvC8NTpznxRqanfDyxxcHctnmQRs5migkG
-	 +zOqZo43b2p8YGaSiI1SWXvBVuXu2CS0ZOMC2n443S9BWlUi4M4szvnSlGwAj+wjBAw==
+	t=1793875914;
+	b=d14GoYZrvrdYphrzkO9E0MI7iPQr4M8dpKrz/9q22+CFsOqOOGb5IdkjKKK66S0an6VJ
+	 9EkS7BuDszWNof1dKccrXYmJrjDuQKioySiHTBkM8qEkVoU9MeeNzvPPy45k+erV+VF44
+	 z7sjBUAQpdzNRfFpG57gdjrlBLTNx9DdxMWJtLZ9F16gO2pOabkL8THM5ouManwp/d9KM
+	 vP6Of0Ii0hdnRV8Y7bju7CmJDryMP2+i1pbse8YYAlXE8jkW9rtgebVUYkQl77S/njDV+
+	 2uToD+aEGyvSrTiWtq7dzk2iyNNG/IwyDp1x7JtlVVeIjsf04e9LnaHYT3ZG78wxs+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793875527;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/7kPsLdKWImOygAQHRfPLIzErUc4FD4p3YlvTemSyDA=;
-	b=Kio83LS08QmD/enOL0WF+UzGqwRSPSTYpM1WHgiOaqMpHCN9EMb5/e32veT8CTegvml2
-	 MlE9KnLBZ8v0pqz6ZKJKpbYRdmW9jQbDf6Tft+saqcfbnamF6A3KQaPJ3JwW4brlqD3Hx
-	 4ajexo255zeXI+ZABLkBi2sH3u84ob+GoeiNgzLrfUD5MT9mQhgXzKjdhh+yrjfXqfhOn
-	 +9l7m0FXGDXGOs6/Z1D/iYxlFjgorBRGxilUSZ6f8x5xiCxJ0YQhefo3fM1qBCIPIOa0+
-	 jUMa7FS8eQgNCAl8lVqoGTdX9QDy4uEoPnXZbmu2w8tP3lmjFfNSVM6ZFhCqriza2sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793875914;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Rno+ABKVoCHjtYqyaujA/hiDFnvF78Jd9s6HELBuDFU=;
+	b=Aw5hOG4P0uHxZSC1RkaVbgriTC3PMtAuCwyLLLFLE1VFQoIEafjsXW9qBv5Y2P8b8As1
+	 VDkqvHWwz5ro9W6VuvqK9de84MnMpFYuatgd5NQrRpDOlQJz87QiNVL7a4v5/qNDYhL0z
+	 rW6RJu28c1nVr1TgD92EulaDlnGg0rRrK0MHpetJeN9cTtfdkaAtxzrWpkr8i2Gf83JPg
+	 /+14kvDEG+gA+nk8uPbd45SzCcwyxyBjlyQmtgfFNj8rB/np5nqmhDvV8E9IZ8/AjzrtY
+	 vSzsZtM2vAUNf7HpKaUzpsQloQT+OnNJ/TlRahhdSDegzBZw8BrSuVkX+KOG/82H4jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYvB+Jx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WwflIkof;
+	arc=none smtp.remote-ip=209.85.215.172
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A7DC606A32E;
-	Thu,  5 Nov 2026 10:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BFE9606A328
+	for <linux-media@vger.kernel.org>; Thu,  5 Nov 2026 10:51:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BFE9606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZRYvB+Jx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D871F000C1;
-	Thu,  5 Nov 2026 10:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793875526;
-	bh=/7kPsLdKWImOygAQHRfPLIzErUc4FD4p3YlvTemSyDA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZRYvB+JxvgceA4WuJqnxKivzalazLs8cV5MCDQEZHyTWSwDtMp/GdnwJ4nSgZ7xiJ
-	 vzu32sFGeKA0W4nptaQpCVbtBH1ZBM81d67Q31G1K63oZRkhtFfYEeSnukX5WhPYco
-	 dyC6xKJMxCqBJ7i2yalOSLfn35rFX8jJKULpeSwhHY4mBDjKtSoGuRa09iJ7FUUQWy
-	 nNmuU28m6xKGAYf2779U196aobPsD+HR0caIjW/dXHfmUhBh/tUi9cCP1FKgoi06oL
-	 F9b2AD5J6ztrWb8lhLeZIkhRpFxBHTYdx7066ba3jsqa+t+PGT4RtuJNf9ApSjn6Iw
-	 7bOpcdu63SMqA==
-Message-ID: <1db9bf48-01d8-44fe-8dd2-7a3c84ecc556@kernel.org>
-Date: Thu, 5 Nov 2026 11:45:19 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WwflIkof
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cdab938dc83so756840a12.3
+        for <linux-media@vger.kernel.org>; Thu, 05 Nov 2026 02:51:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793875914; x=1794480714; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rno+ABKVoCHjtYqyaujA/hiDFnvF78Jd9s6HELBuDFU=;
+        b=WwflIkofOYTZE8YbyzmanHfUgdq+9tDgbdm42MZGM9d0xsLQD9m8OTQ2m5vpUtLY6A
+         JpJw/oa0SAH+q9pSL3RmlLTHm5ad9cnIWZpYxRPKp2CYfV6dposlRI6mq2xzLKhQqcnV
+         DaOm3RCxzY1A9C8E2KXCc6xLkdwYTyTPwCuefxOsouGF/pGplcvdDfv/8bExeiazmkb6
+         OU0dl4ZnpdJmwg6RgbmsHZHCnrlqSzKrJRcFjiY+dyKA/QoycIhAtyHjw50SEKR+D9+C
+         9LPHetngvd4hZUNpfjsJG6cptQTfmFZq8NRgT0Mj5ri02jKVDoCxS4h7tlyc2DGSL5v5
+         ivIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793875914; x=1794480714;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rno+ABKVoCHjtYqyaujA/hiDFnvF78Jd9s6HELBuDFU=;
+        b=ShUEBggitg2oZBm9toRcV4i4Z0Z6zevOXjvRUFbxNjWsITxKwND6/7/jV3XfXASOKj
+         iP4R53KolimUPTMwjGls5uuKXklKPyon7D5ngGUyNHzcZqeXkYh8e53qfvFt0sWvGtmP
+         B+00rO8H7AIYKghorx3RJX0K8qC0Qva+rFq/dMtUHh76y79Lw8+ppl949SlYzmXo7Raz
+         /kueYtxPmBQt6i7P8p2LcciDwnLY7Mdj0yaRzRgXjH+y0Mn8yEwPnsI4c+IA7gRTZwqn
+         AlVgrYV8ebVczYBUCrI+hjOdUCFpC/G0OfovRJ1/t3JSNcLToQOocicqZ50Ue5PhvnVD
+         zpmg==
+X-Forwarded-Encrypted: i=1; AKwUvByp2TIMQb6CmJABJMtSEmgzrZB0u8GATQw2hLXUzvK9B6QiJLptFYYw7Swj0CkUj73zABiZAhAa7UILng==@vger.kernel.org
+X-Gm-Message-State: APuU4Z8871oBPcMAxa/W8eXOEdYUYLxo0dxpXA4mXpgUYhRr0EmW3VhY
+	xEEPYK5kD4TRY4tOTDPDjVEKHcFkUjVUBhh7X9nUro3Je1lRlw81K6pyQu9iSHFs
+X-Gm-Gg: AYBFou2i9aNB6nI7bgiRJt+dh4yI70fsCUL106JSv/17RLG1YLFN+qbh86kYZ3vxqOO
+	GSfJXO0CGI3M3uV0fFpuZpXgwf5Gm+Q05Dtei7XuRKvRRP4K4nqTQ861Zxm8jTkbttzeIBJfEAk
+	dIN/lXnYkeR+jbdiziqiE4+U1RiGNC/KAXXHzpqzBHOAXrJor5QV7n1zgpDXLBqA/O0hmXzlAel
+	pobBM+YbHG2kAFkDSq394ndgUoJnRwgsIXNOu/PDvJgRFKqWGh0/7MJxy58C0BSSPY7HIcZSRfh
+	Zfiefl9ODYF0okQiTJY7jtoMQc/JEXpGfoLCnwFmLVw7pxG7UIN/ZLAt0nDchFc9TUqrOZLrEl6
+	/+obp+THArs4rV4BM7uo1AahcSdC2bIOxzj6PIh8YO2K9HWWNsnSKXwB/DM0Dnbwpez1R9QKnC4
+	EhPQYGeAtW/crhdqpjeFTSTUFeGxZApjSpZqHJADRKWick6hTZwl9tQCDp8ORpHSyGNWTFNG9xn
+	Kngm2kW5biBEUuOYLp/djuh3xX8+1GDa+gEr/Y4K5UpnClyaSeKLu3xFbBfnWTd39mZqDg2GCWv
+	zzdOwctST7WAS1YK54LWNBERBiOxgZGUAcMKu/aMJnldhZzl
+X-Received: by 2002:a17:903:4683:b0:2dd:b837:48f7 with SMTP id d9443c01a7336-2eb3649f118mr178999575ad.25.1793875913587;
+        Thu, 05 Nov 2026 02:51:53 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ed090e515bsm15755525ad.42.2026.11.05.02.51.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 05 Nov 2026 02:51:53 -0800 (PST)
+From: hyunjungg <hj351016@gmail.com>
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] media: gspca: tv8532: bound packet length before frame_add
+Date: Thu,  5 Nov 2026 19:51:40 +0900
+Message-ID: <20261105105140.1446192-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -51,98 +96,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,glymur-camss: Use CSIPHY
- indices for ports
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20261102-glymur_camss-v1-0-fcb619fc7319@oss.qualcomm.com>
- <20261102-glymur_camss-v1-1-fcb619fc7319@oss.qualcomm.com>
- <20261104-real-nebulous-ostrich-017e92@quoll>
- <72064a9a-1b2e-4c24-99e2-2cc15a8dd7f1@oss.qualcomm.com>
- <a2d3190f-bfd1-4548-aba9-a186cfea878b@kernel.org>
- <c5af7192-c923-4fbc-bbfc-7f03e310fddb@oss.qualcomm.com>
- <fc9acaf2-f214-434e-bbe1-88e8e1af7683@kernel.org>
- <539842db-c672-4549-b861-4a6f3be47556@oss.qualcomm.com>
- <d586b7b3-675d-48a8-b0d4-564e571ef69f@kernel.org>
- <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAFEp6-25QrLAF=-KgGJ-rC9pDpGa2YgoQAMKxU-FoByu2CJpMw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/11/2026 10:53, Loic Poulain wrote:
-> So some chipsets share the same IP blocks, with some block/phy
-> instances disabled. As a result, we need to decide whether we're
-> numbering based on active instances or on the actual hardware instance
-> index/offset. If we use active-instance numbering, then yes, it should
-> be @2 (CSIPHY4 being the third active instance). Alternatively, if the
-> port numbering is intended to reflect the hardware instance offset,
-> matching the register prop, then @4 would be more appropriate. It also
-> has the advantage of directly identifying the underlying hardware
-> instance, without requiring any additional driver-side mapping. In any
-> case, @3 is incorrect.
-> 
-> That said, since the bindings have already been merged in its current
-> form, we'll need to preserve backward compatibility when addressing
-> this.
+From: Hyunjung Ko <hj351016@gmail.com>
 
-This is the input port to camss, so how is it called in camss, not the
-csi phy?
+sd_pkt_scan() in the tv8532 sub-driver hands the two image lines of a
+packet to gspca_frame_add() using gspca_dev->pixfmt.width as the copy
+length, without ever looking at the actual length (len) of the received
+isoc/bulk packet:
 
+	gspca_frame_add(gspca_dev, packet_type0,
+			data + 2, gspca_dev->pixfmt.width);
+	gspca_frame_add(gspca_dev, packet_type1,
+			data + gspca_dev->pixfmt.width + 5,
+			gspca_dev->pixfmt.width);
 
-Best regards,
-Krzysztof
+gspca_frame_add() only bounds the destination frame buffer; it copies
+'len' bytes from the source 'data' unchecked. 'data' points into the URB
+transfer buffer at iso_frame_desc[i].offset, and the isoc completion
+(fill_frame()) forwards whatever actual_length the device reported (it
+drops only zero-length packets). A camera -- or an emulated /
+USB-redirected device -- that sends a packet shorter than 2 * width + 5
+bytes (709 bytes in the 352x288 mode) therefore makes the parser read up
+to that many bytes from the transfer buffer, past the data actually
+received for the packet. Those bytes are emitted into the userspace
+video frame, disclosing stale transfer-buffer contents; for a packet
+positioned at the end of the coherent URB buffer the over-read may also
+reach past the allocation, depending on the endpoint's packet geometry.
+
+Reject packets too short to contain the two lines the parser
+unconditionally copies. A short packet makes the current frame
+incomplete, which gspca already discards; the stream resynchronises at
+the next frame boundary.
+
+Found by code review of the sd_pkt_scan() idiom shared across the gspca
+sub-drivers. Not reproduced (no hardware); analysis only.
+
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/media/usb/gspca/tv8532.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/media/usb/gspca/tv8532.c b/drivers/media/usb/gspca/tv8532.c
+--- a/drivers/media/usb/gspca/tv8532.c
++++ b/drivers/media/usb/gspca/tv8532.c
+@@ -251,6 +251,16 @@ static void sd_pkt_scan(struct gspca_dev *gspca_dev,
+ 	struct sd *sd = (struct sd *) gspca_dev;
+ 	int packet_type0, packet_type1;
+
++	/*
++	 * Both gspca_frame_add() calls below read pixfmt.width bytes from
++	 * the packet without consulting len, the last one starting at
++	 * data + width + 5.  Drop packets that are too short to hold both
++	 * lines, otherwise the device can make us read past the end of the
++	 * received URB data.
++	 */
++	if (len < 2 * gspca_dev->pixfmt.width + 5)
++		return;
++
+ 	packet_type0 = packet_type1 = INTER_PACKET;
+ 	if (gspca_dev->empty_packet) {
+ 		gspca_dev->empty_packet = 0;
