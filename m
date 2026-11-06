@@ -1,70 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793990820;
-	b=w6Qe/RqQsO7tBDlDAQVJ9Jqjwe3HgYogLzjIMkXm7iAFqkrf8KSSzRebd67w6lCDeu/L
-	 CIcRrTd4kvVOBQVsjbzYQppH2XVniHFZ4BTVcEdfR8a+LF3r7Fzjxqzng0eYhFELelW0D
-	 0QS6hrzmRqUFLUCeoOkTOEROK/VQhOqI9dCjG3Wzf3C03i6p2F7ii+cxbC5l8vjwQwMgm
-	 bZbt1YUvQIOAtq/ggzTUnW0ctJjg0OnL/fyLGg288oCS7/NJh4SHlNBq5t7ljYnMpZ1Q7
-	 8lGEpKYSzOVxdC2v2Z4qsq8gsN3gJX7eOzMnQAqDMLtk1fZHYEXOwE6601VFUc7znrg==
+	t=1793991959;
+	b=jLWmqzyTLTZ2Ncb8+qqTL3MMKGPEVKB3y4+rVrvRI5/1fj2U/NJyoAS/pGQUhREDQLQw
+	 z4S/8Sb/CZ0HOV+rZvPrXhx8rgRG2+WGvp+7tBJFSCvUJYoh/MrEjAQxfPClLnRl2iTfS
+	 6VvgsvnwU/AqG72dRoThjvLo9jV93SGLq6nIT+K3LpDeCoxkpljo+g8kWKipXSsfPJTbo
+	 1NrkBKu+DUDs49c3A0BBE3zMothAcJOEysYaApP3CxgvB1FcVcCdyr9rpXXqr4T2xO6bY
+	 kD4AlKYfgcZ+ezpLR1N1ZeOHQo9XqxW2xAzHFt5SIz1UojgjBcZA779dJ4vdxxzo7eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793990820;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793991959;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
 	 User-Agent:MIME-Version;
-	bh=IbXzqyxSm5OYs/s5DOQyoAHjzCFXjGWNDVZqwAmgRdM=;
-	b=jaEscsvttndBkhuRBmX+jeYN4DfZeAyZES91AqnVn9+EfopcVZKmyuRUhHkl5X0/qCB3
-	 Zpaa3kXT5gcGlrp3dRhLWwe83eozF8wjEt9s9EUmJ7GtHnqkfpjsJ74Y3JGggyU3PllkJ
-	 yPj4HqCraILXGDpxfbsyBSj3FbC93caA2aBKVv2pBhFeMxePzGniAznW4OLgRHNtLpE+K
-	 pssETd97l6qsFFSJciP+BldWnS2MingRHiDU/oXTXbEjDzam1Rjk3zavwoq3V+yNSFP14
-	 b7xsFDTggxsX/Ki83LLb6mIlQIkdWuvbhwZLwze/mKeFKkBO6Gc9Lp+8xoQ/t/DHXDA==
+	bh=6LdXT14KOb6OCBtyF62RqXz9icJXVGvFn0shQuZytOU=;
+	b=NAvLHghpuX34Qk1OYb3gqxxV87GbhNiYh++MHRoUQVKUo/BTzCGsv0z8GrI0oL9jQJBR
+	 OFpJIqhc3lSsdbmfNfa9ITWQZAs4zWs163OejcZ1r4uAVx0HAe3ZQVUE2qYRC2AK89aQr
+	 ZLdWrc3/G5nr9bPYerVp+FeeQn4f5LPHm+CGJFuCf8kcJMEO66VOrZtukbCnJjpIa7rOG
+	 5CDHCZ0OO6UwS2x4AK6VN9kcQdx/V7yppU5TJg/cpPTmTZvM8k9vBuI1UArNI4d5thS49
+	 S4RxZJi2VsUUTJGgJ/byAotBHijqc0a926mqd9E9y7oRv2m3x7HQjoE+bIUT6dHdiig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=collabora.com;
 	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHxxqxVH;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="m/rwaVYR";
 	arc=none smtp.remote-ip=148.251.105.195
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8464606A326;
-	Fri,  6 Nov 2026 18:46:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8464606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F111606A326;
+	Fri,  6 Nov 2026 19:05:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F111606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=EHxxqxVH
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m/rwaVYR
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793990817;
-	bh=AXNSwoBw2GbAU/e+ejl9vrSOwtrW/+8L9JrQpY7FGwM=;
+	s=mail; t=1793991956;
+	bh=6LdXT14KOb6OCBtyF62RqXz9icJXVGvFn0shQuZytOU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=EHxxqxVHQ0EtHX+a2YfN1caR5z8H7FhejrVf/QyFlS7buHIK/BD7AM66/1lg43cCi
-	 9g3RJHOWMKMdMiHE1MRQbH9S3h7SkdxW3TxhDkyZ+4lHG+1xKth7H622qZCIV6A3Y9
-	 TWWTq2STKY27tjJe2pYmulSaV1E8deG9a3NLHFcD3XoHBmnHi5R0JpJtVhb+D7haPE
-	 KyC93i+76kZWBuIsqUBZlNvOAo7HAOwu9/XjVGa7OjfCoec976ntb/fDiIocNXA/hC
-	 8jWbL20j3b7yK7fUPvTBT/rs85CActjByxc3l4aPO+4lU6ujH2i81HCgvrLY7mUAMp
-	 2trNI0oQMpwmw==
+	b=m/rwaVYRyrhwiNzeDi/swPJtjeqJ6hzjz0zmjSpsv68KvWhW1dawlq7AtTJYMd2jO
+	 etDDXsOvYgoLbBFBtIuPEb+bHOXR8pFXqcyt5fHe4h9942XugEr6BUfACFw1ESD4Yv
+	 k87VluyvP3L0x9Fgpx0yzDJ/fVpqjzUT6ct7PU9CznK3Udf8lfhsWTeKoWtWfva9nz
+	 CaprmoSJvrXOPOk0SVzCGZTjbs27J5XpWj61DAYWuJzqtd+dtlvMFePjxuLiLC1o41
+	 ompPNeaZPvJLVwyfROMxEea2+WvzxpbUpEJmmpyJQpAm/cQNARuB4ZOdnDh0xBO49X
+	 9QqxIOIGV6KbQ==
 Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 34B8E17E02E6;
-	Fri, 06 Nov 2026 19:46:56 +0100 (CET)
-Message-ID: <0597b71f39fd945d531d3e996d982d5d3a3b9a28.camel@collabora.com>
-Subject: Re: [PATCH] media: verisilicon: suspend the device before
- unregistering it on remove
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A66E617E0411;
+	Fri, 06 Nov 2026 20:05:53 +0100 (CET)
+Message-ID: <2e69b386374ae46177a2fd975814a31e4016c3d9.camel@collabora.com>
+Subject: Re: [PATCH 7/7] media: qcom: iris: describe QC10C as TP10
 From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: shomenkow@gmail.com, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
-	 <hverkuil+cisco@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Frank Li
-	 <Frank.Li@nxp.com>, Tharit Tangkijwanichakul <tharitt97@gmail.com>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Fri, 06 Nov 2026 13:46:54 -0500
-In-Reply-To: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
-References: <20261106-hantro-remove-v1-1-d0a4678886d7@gmail.com>
+To: rob.clark@oss.qualcomm.com
+Cc: Robert Mader <robert.mader@collabora.com>, Dmitry Baryshkov	
+ <dmitry.baryshkov@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
+ <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,  Marijn Suijten
+ <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>,  Mauro Carvalho Chehab	 <mchehab@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Bryan
+ O'Donoghue <bod@kernel.org>,  Stanimir Varbanov
+ <stanimir.varbanov@linaro.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 	freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Jordan Crouse	 <jordan@cosmicpenguin.net>,
+ linux-media@vger.kernel.org, Vikash Garodia	
+ <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal	
+ <dikshita.agarwal@oss.qualcomm.com>, Neil Armstrong
+ <neil.armstrong@linaro.org>
+Date: Fri, 06 Nov 2026 14:05:51 -0500
+In-Reply-To: <CACSVV013piWuVo87SuAGK+j9i+rj4cHGiOTX9kznE4ROJup0Hw@mail.gmail.com>
+References: <20261104-ubwc-format-docs-v1-0-389044012b4e@oss.qualcomm.com>
+	 <20261104-ubwc-format-docs-v1-7-389044012b4e@oss.qualcomm.com>
+	 <86b801ce-a56c-4ff8-8915-9be369fc0ce8@collabora.com>
+	 <CACSVV02t9=tm2qyG531f8Ne90ADAb1_ZDDGEg7PwDmoEvGxPrQ@mail.gmail.com>
+	 <062fe7dca00f77dac05197552d22897b28dc2143.camel@collabora.com>
+	 <CACSVV013piWuVo87SuAGK+j9i+rj4cHGiOTX9kznE4ROJup0Hw@mail.gmail.com>
 Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
  /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
@@ -80,7 +93,7 @@ Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
  bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
 Organization: Collabora Canada
 Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-D7LaB+tVG7NkjSos0gfW"
+	protocol="application/pgp-signature"; boundary="=-XurZlOBuCgoi/+wYTJZt"
 User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -92,116 +105,85 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
---=-D7LaB+tVG7NkjSos0gfW
+--=-XurZlOBuCgoi/+wYTJZt
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le vendredi 06 novembre 2026 =C3=A0 12:04 +0300, Sergei Khomenkov via B4 Re=
-lay a =C3=A9crit=C2=A0:
-> From: Sergei Khomenkov <shomenkow@gmail.com>
->=20
-> The clocks are enabled and disabled by the runtime PM callbacks.
-> hantro_remove() calls v4l2_device_unregister() and clk_bulk_unprepare()
-> first and only then pm_runtime_dont_use_autosuspend(), which suspends
-> an active device right away. By then v4l2_device_unregister() has
-> cleared the driver data (it points to the v4l2_device, the first member
-> of struct hantro_dev), so hantro_runtime_suspend() dereferences NULL.
->=20
-> The device is always active at that point: the driver core resumes it
-> before calling remove(), and its put only starts the 100 ms autosuspend
-> timer. So every unbind and every module unload, with or without a
-> decode before it, gives an "Unpreparing enabled" warning for each clock
-> and then that oops.
->=20
-> Stop runtime PM before the unregister and the unprepare. If runtime PM
-> is forbidden through sysfs (power/control set to "on"), the device is
-> still active after that, so disable its clocks and mark it suspended by
-> hand.
->=20
-> The probe error path unwinds in the same order. It can only hit this if
-> a job runs between the encoder node registration and a later probe
-> failure, so it is left for a follow-up.
->=20
-> Found with an LLM coding assistant while porting mainline Linux to a
-> Rockchip RK3026 board (G1, ID 0x6731); the assistant also drafted this
-> change. Tested on that board. Without this change, unloading the idle
-> module (runtime status "suspended") gives the warnings and the oops.
-> With it, the idle module unloads with no warning or oops, and so it does
-> right after an H.264 or VP8 decode with the autosuspend delay raised to
-> 10 s through sysfs; the clock enable and prepare counts are back to
-> their values before the load. The same holds with power/control set to
-> "on", over three load, decode and unload cycles on one boot. kmemleak
-> reports nothing after five load, decode and unload cycles. Built with
-> W=3D1 with and without CONFIG_PM. Not tested on other SoCs or with a
-> power domain.
->=20
-> Fixes: 556ab0b2741d ("media: hantro: release runtime resources when devic=
-e_run fails")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sergei Khomenkov <shomenkow@gmail.com>
-> ---
->  drivers/media/platform/verisilicon/hantro_drv.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 26e5d5547466..8af47375d471 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -1286,10 +1286,16 @@ static void hantro_remove(struct platform_device =
-*pdev)
->  =09hantro_remove_enc_func(vpu);
->  =09media_device_cleanup(&vpu->mdev);
->  =09v4l2_m2m_put(vpu->m2m_dev);
-> -=09v4l2_device_unregister(&vpu->v4l2_dev);
-> -=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
-> +=09/* Suspend first: v4l2_device_unregister() clears the driver data. */
->  =09pm_runtime_dont_use_autosuspend(vpu->dev);
->  =09pm_runtime_disable(vpu->dev);
-> +=09/* Runtime PM forbidden through sysfs: the device is still active. */
-> +=09if (IS_ENABLED(CONFIG_PM) && !pm_runtime_status_suspended(vpu->dev)) =
-{
-> +=09=09clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-> +=09=09pm_runtime_set_suspended(vpu->dev);
-> +=09}
-> +=09v4l2_device_unregister(&vpu->v4l2_dev);
+Hi Rob,
 
-To be verified, but its not entirely logical here. My impression was that y=
-ou
-want to unregister the dev entry sooner, so that it prevent newly open, and=
- turn
-existing fh into a mode where all ioctl will fail.
+Le jeudi 05 novembre 2026 =C3=A0 13:07 -0800, Rob Clark a =C3=A9crit=C2=A0:
+> On the v4l2 side, I'm not sure.=C2=A0 But it is also not clear to me if t=
+he
+> viddec hw (iris) supports all four combinations of P010/TP10 vs
+> linear/UBWC.=C2=A0 I guess there is already some fourcc translation neede=
+d
+> between v4l2 and drm, so maybe it is ok to stick with QC10C on the
+> v4l2 side?
 
-Can you do some extra code inspection and report why you strictly need to m=
-odify
-the clock states before you unregister the device?
+Commenting on this aspect specially, and Dmitry is really going in the righ=
+t
+direction, V4L2_PIX_FMT_QC08C and 4L2_PIX_FMT_QC10C was under specified, an=
+d so
+the implementation didn't have anything to be verified against. Just descri=
+bing
+what the format is and what kind of alignment is needed is a great start. T=
+he
+stride is not being used in practice by the importers (gpu and display), an=
+d I
+think we can turn that to our advantage.
 
-p.s. are you sure outside of test build, that PM can be disabled on any of =
-the
-platform hantro driver runs ?
+What I lately ask, is to just directly document for V4L2 users which
+fourcc+modifier should this v4l2 format map to. How many planes are expecte=
+d to
+be exposed, etc. When I naively asked, I thought the answer would have been
+unique and well known, but we uncovered issues. This comes from a simple ta=
+sk,
+that we must do for every V4L2 format in GStreamer, which is to map the
+format/modifier pair to its DRM format, as GStreamer negotiate DMABuf with =
+DRM
+formats these days. Whatever we tried, either failed to import in the GPU, =
+or
+failed in the display controller, due to interoperability issue, miss-
+interpretation.
 
-> +=09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
->  =09reset_control_assert(vpu->resets);
->  }
-> =20
->=20
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261106-hantro-remove-9afbc9b601f9
->=20
-> Best regards,
+On your proposal, I'd like to highlight that NV12/TP10 usage is quite broke=
+n
+(though its fine if we have to live with that for backward compat, we'll co=
+de
+the exception).
 
---=-D7LaB+tVG7NkjSos0gfW
+We commonly deduce the number of planes (or I should say the number of stri=
+des
+and offsets needed) from the base format. These two have 2 planes, but the =
+new
+doc states QC compressed has one plane. Same discussion happened with Arm a=
+nd
+Amlogic Frame Buffer Compression. They both are single plane, and for that
+reason DRM_FORMAT_YUV420_8BIT and DRM_FORMAT_YUV420_10BIT got introduced. T=
+hese
+don't have a linear representation, they reflect the depth, the subsampling=
+ and
+are specified as single plane (single stride). The stride in AFBC is still
+allowed, to avoid forcing the width to be a padded width. The importers sho=
+uld
+walk backward the stride to find the padded width. QC compressed importer
+currently ignores the stride completely, so you have to have the padded wid=
+th.
+
+hope this helps,
+Nicolas
+
+--=-XurZlOBuCgoi/+wYTJZt
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4gngAKCRDZQZRRKWBy
-9A1zAP9MpJ+F0o5A79QzOhzIbsdNn7TU7y95lV+5Pb9oH23ggwD8D2oEfq81udRJ
-AuUaySnqy+2aQaaqKRwnykGec2GDBwg=
-=zRXU
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCau4lDwAKCRDZQZRRKWBy
+9B09AQCiNR+l/1e2VeNu+RNjbJP0jSKScgnUcsZqLFd8m2lwlQEAgTgIn5070Dvr
+MBTt0SmP8C/5crzqIXMK409biSzy3gQ=
+=mcCx
 -----END PGP SIGNATURE-----
 
---=-D7LaB+tVG7NkjSos0gfW--
+--=-XurZlOBuCgoi/+wYTJZt--
