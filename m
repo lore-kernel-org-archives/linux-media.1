@@ -1,87 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793964021;
-	b=dK/N2c61HS6sS+DzVt0vc7sQxoI5nT6/0vXoz0u4+2Ks2thxmuzISFZgkkNF+gIsMluK
-	 gB00mgdCo0Z5cHoRTT+esKIsS285oEjviXffKOcMzp77Jv3N91gyU7povRdYK4LdRIh3u
-	 7O/WW3byI6CkoaH6tcEk6jASPI4VOI4Xue2b03TNVe4PPQ5FevrV2t8Jjh507T/bs59ig
-	 LGWFYu59HI8f3s3cxXRDLbJO1UgDeidnTWsV+9KY2BURQdRjxpDfoHJiu2yPgiMBlXtFO
-	 SMUu3CRROdF/udV7NdUxvBCLpX2+e1wjqz2s/L0hILLEI93qj7+3RiiPpSubRqld1tA==
+	t=1793964269;
+	b=fYsVNXuo03vml5lMcP8dXUQAJeiu3dRAFlpFTQJkpxiKTqUV18t/dKh+IldKlnidZNFj
+	 MJ3jqz0fYf+2kJVaHPRGPkjCWsA5Q4Eb2a2WDURvOu2C8x0pQ2lFwmro3eqTvGoyBhmFS
+	 YxXjrZvKSBrQa+Fn8nj/ymqEoafTKhqj2H7gEhwSNAnnSIOxh1LEHU15WbewBJryHe3KH
+	 hztPjZJ+Ybd4mV6R3oI2h6PK36TmFkgyA4IBcIebcj3lF8JtPmZtYU31gXh7tECNImHR8
+	 f/fHAjmmjz2FRcGwlBcivMnB78tYnABsYZxX78U2KYOmZlHQvaj2klBtSpT0DIDJXEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793964021;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793964269;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QF85CmmgfQB0K98VDXkXqbQirpwlNX5Roqb9EMySWGw=;
-	b=4mK+easLQ6pdd6uO7xi+8iDbLoj3gtI9h3ja2zBVoMShdv+DddNrxupjtJ2JPLN08eP2
-	 aoZWWEu7t/Y+dht0xWz3/8rbY4Rx2YMQ5N8q96AfUl06wKatn1S9NYUBpWHh9pDhaSM6i
-	 JiuPYqAsMW06Gs8CJ0C/KkGf1KVBzvrBYKdQDbriKdFHuBzwxQ1rnmWWvPvWi7Cm/wNdK
-	 7Nl/ocwwY3FCNvjZCeWn849NjPS320q0OSkTYubLGN10hhyMdFhEwEzTTzqi2G16Bdaxa
-	 9hLCC1hDkyROtfvM6EeXh8F/ijH20D6WWzBQEM/lXPSrhLBcdtV6hmOnGYWm8KcoQgw==
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=WwjQyPIcMFf7inP5N0uSPmx3oh6JUfGi06PvuPXoUmM=;
+	b=ol3Ib0lUBgUJAI/5dq5dc+pZR+LH7xBHX3rsuytVLjWyDi7iDljW374mPt08QPsIT8pA
+	 UCLUEgAlflexG9Kikjw4W2ZCZA+w0Rie51SBhgYXaUfQ70OYwMqwdWThFcbFLGKT3HHmd
+	 +/rRafJgU962P6pMCKpkiHqM+vBboAVP17MRLUcdUfZ3Nk5HhmE5DFO51T+4kQvVVCa0l
+	 Epw/d1NiG759n/NV2OOZi1f9eFIiLNwkIlD3zXu4B4HXcPn0PMetWWdKBUIbJjNnOulCM
+	 IjrNzbajlwvNW56fIf8aOp8uJoHutcyiM3YnyXgDi5C+O/2H5UOg11qh71mlfjFKGdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUFumtMK;
-	arc=none smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=W7IAD3j7;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1B9606A32F
-	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 11:20:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E1B9606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FBB606A32D
+	for <linux-media@vger.kernel.org>; Fri,  6 Nov 2026 11:24:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0FBB606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=DUFumtMK
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab1cb6eb70so549091fa.1
-        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 03:20:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=W7IAD3j7
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso4095295e9.0
+        for <linux-media@vger.kernel.org>; Fri, 06 Nov 2026 03:24:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793964019; x=1794568819; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QF85CmmgfQB0K98VDXkXqbQirpwlNX5Roqb9EMySWGw=;
-        b=DUFumtMK1phvIfSGAyjvBixjvVUbWj1LhChEW4qMThx2dH1KWLjydGDlGxwzpHi34F
-         ydA4JtviInKqlL9MBEr4abhaPmqh35/Uak9OQijt/vKOoxpyIl7pLa4orHyfSO4vuI8h
-         SglDNnGd8ZUztb4n0NY4SsyAZ9xEeS9rvIb8Uji0t3mFVucpO92chNyBayYeqhSZXz7f
-         pju8gY1T4R95xWyHa0+c6Mq3d7+y2EYrsAokrF5RWngcDjic2+Aau7B9OAqIXzMIdHn4
-         4rVW8y1o56QVlQPc1f89iBiWKmHxDUxq16YvDKR0r+xTHHx+sXdDVn4V3wvaoTs7a4WC
-         gHvA==
+        d=linaro.org; s=google; t=1793964267; x=1794569067; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WwjQyPIcMFf7inP5N0uSPmx3oh6JUfGi06PvuPXoUmM=;
+        b=W7IAD3j7PaGIDf/91PYdduPoopl0Q9ouvdY8e0OR047v2ydGBma50bpSXkBEDgiY+F
+         5mQuqBExoEcIOhhqpi8MF/uGL1PVDtpHhPzeeI6iRe+aouiY5xYpVbqhyraynWZ9wdnK
+         4AX1q5fpb5JivZx6yqIXU7uJ7FG7Lzj6bdQwou6uHde8yxu7rxwOqf60SWh4R1tfjQFL
+         BTT4WF3Ab6pTw/xFW0rPqX5NGng2RDBa+uLSyavxZ7J5UFgnob1Dge//nFNmZCb6uBYW
+         yvu0krcLOcah4SZExnmyIBhpDNDH1mmz7cVcy+54rbY0P43O8Y4PZ5xT+SZiPyxzhTBN
+         GA4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793964019; x=1794568819;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QF85CmmgfQB0K98VDXkXqbQirpwlNX5Roqb9EMySWGw=;
-        b=nlwZQVRr2xk/wFRKcQSMYG6a5Xcravrkz/X5S9fBy6yyEMxvfeGCCkhoMom1m0BkUr
-         z9UBDZYNEAkQCAaikfl1igjNduWf9e38rAWjP/tudx+tQNktJ9tRL2oVPjK5ftwGXkBV
-         9dBSXpQ8rvYZxvb2Kbfh92SYesQZ84xjLDf4EEkhe1s9N9LWFdhC18uBqWcBbe6SX8rP
-         GfGZlruYbWEVxP4XE+SptszAXGPWnt72iD1TLZluDHxOrwaKdfbucrP+DrQWhHbZ+uMb
-         OA52KNBEU7XcCXAg3lq6a/VW0hHMgTYOJWqzoY9qEw7aDpwWj5qSCtLveqPS+aksU61g
-         afOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGXQ4Ixbjo3eulP/qKxpH0QB8yPZ2jXgCAW2dEvSJ7ZMhdd/2MMV6j5vqZeMG2hRNe3E78FgxWU/rxNw==@vger.kernel.org
-X-Gm-Message-State: APuU4Z/eaD7MqGbtBrQTP5dQZd2I+hjtcz6B8ETO8q3cAwe+pdaJBzMP
-	Q1iFPOpSrGygkkVI/OQqu+N7A9D0h/tYQ9hY8wemtBmcFUmqXQ3lHNf31rSFGo/HwSo=
-X-Gm-Gg: AYBFou19OYWC64qq0K1xU65bGw3uoTPDJdQLYsjzbcfK0w8ZKRCf9pYYrHuaNm5WKfv
-	Ssv9GNNC+8ZMIxsLoUCGfr4JnzrFXtSlIOgQwoWqiPl3LzGb0NOSyTTh6xM7I/WvEyhyRhqueL2
-	W5+tfDxiMbTa37koqx/BdU+kVGqMXsopBpfw+LUN8bdZv5VMLVaJbuvL0TMFbw4WH4gplWN+PRB
-	pu3h0fe7Y6oQBkKueVX1KrcEoxKkH+Whe0Audvn6FGgLkqQCD68F16DQ6T5wgPTDtYG/4Niwhnn
-	39SP+6QtpmiderdHH2HFKA826H0rlVzHg9FGEVvq3CE+5AIo/AA+D4m9EkTeOfvg+Z8yb7/lIWT
-	pH1YD+g0nfRqSuB+T5Qi5OiIwOmb7klnspTKc+gEcjY4S1HP3ML9PZHLFB+gxDCOVqDF9C4RZBD
-	ocM2YMX7RqBd5r6E/0ZSGwofkXps+kJYci+Z510ftqjaLS/ynTko2cA/U2Zelcrs4EGdGfT8Srf
-	6XNAZejpqOmPUvaM3/daVcv+Nx/eTHQmwFkM8iWaJZ/NAFK4KiYRxDG6f+P8a2KWKDFq8ZSLmbl
-	hv6qopCX/srvRiZjzu13eov1hliOib8uDMnuMjdvQFvlgQMxenN/yRvNn38hugCkp7AVZMSApSc
-	6oJveaw==
-X-Received: by 2002:a05:651c:a201:20b0:3ab:1864:5004 with SMTP id 38308e7fff4ca-3acf36dacb5mr4022961fa.0.1793964018157;
-        Fri, 06 Nov 2026 03:20:18 -0800 (PST)
-Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acf5facfe9sm2950231fa.21.2026.11.06.03.20.16
+        d=1e100.net; s=20260707; t=1793964267; x=1794569067;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WwjQyPIcMFf7inP5N0uSPmx3oh6JUfGi06PvuPXoUmM=;
+        b=iArify0aIR8V+/dDni8A2qRMBPa2YArDerz68a1pAiB/p0xTXaTsUEjyrnkQHp/MoQ
+         RJhaLquzilJNQ+Vuy0/9ZKSuqRkEGzCaZUJMi75hVGudNjCv0U4bgBqavJvzmLfGsRuk
+         gEd7oLO570jbKeYBpXug1mO8xV360dJJy4n8D4WW1fxyAAesg0O/iMdc0YJLGElanGfS
+         gBSF+Jsmwj8+KE2rwJfeM/l5XhVEcU8KMexfA7cImfT7fewHrUTzB2DeAsgSBb0aBJJM
+         0GkyR8y1YPIQ0Fw1LEYH5ISF3wha1WIMt9v1V09bRRholXMlMDoSXcUSXCDoXdIgEuOV
+         VBqw==
+X-Forwarded-Encrypted: i=1; AKwUvBysV/tmOPv70tpnEUSbyp0PoaJ1jpSMZc+Q1F+o6zPWa8RIt5GaJwBzgPsEMslLxan0/1OYvTN5f1Hv1A==@vger.kernel.org
+X-Gm-Message-State: APuU4Z+y+c7hoTH6vNh0e6pbS60LFWtQA4tYzi/Wg5elfvxFNyKmMljy
+	1Pfog9n91wOHxyIV+oRYWfGAk5xfOncfFnwAzdGbt+1Htsximo2MS4YiYw/Mm6HZXIE=
+X-Gm-Gg: AYBFou0uIv6TLwg4zugzIKa4vcQu20ADQiASSp5itByJ97onxcUW7mu63bt3DiALepU
+	elE7SwlBoVktcu4RTjqCSQ+iaguLR+zn5xc/9JLq+JCsdn33hIHtEOSLUkgQJu0K6piM3zUhn+7
+	04WWAcFHTi5twVvN5wc/hsiMGeCwrJtoB+wRCXLjGHoztl2boFsAo0c+ThUPDePMzUH0wmQ1CuV
+	DfiIsWj4rguuORFv7LV+ppw0aUcbYvaz234PxohQ3lq89j/i2C3D7ettJkJPviPfPqzJEecu9iD
+	l8Gt1ouInWNIlLpVVxnGRkiDHrxIhnMSID4vBO6GQqBxuE46q/yXB+0O555J0krpaJrryyccZac
+	cuh2TMjpkWfZ0I3bRNO/3X0n5IDKlZJcVVQhKbY4ZIjzRcJNojzU9CCOCgKIuh+pvvlDaWNkeDi
+	6jbGuzu1UAc4ASqvF9WRcQLLvwxA4lS84mTc8+yT0vLf2eKQhWc/SW2huuEYM77VNTxz0pkdLZi
+	48MbVLJof9Yc+6Oeii1RL7a/eXpCZF6/y9RQDj0AEpuncuII1gQtIbPiJm13SN50RY+35JOmq8B
+	kG3xhWwpGYzhmUoapWgawaUYQ6+EyB/Be0577IKarA==
+X-Received: by 2002:a05:600c:4443:b0:4a5:a5ca:de1d with SMTP id 5b1f17b1804b1-4b6e091e588mr38640345e9.30.1793964266527;
+        Fri, 06 Nov 2026 03:24:26 -0800 (PST)
+Received: from [192.168.0.167] ([109.77.115.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b741cdd8d7sm27597265e9.1.2026.11.06.03.24.25
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 06 Nov 2026 03:20:17 -0800 (PST)
-Message-ID: <540014fb-d271-4e20-9a3c-3f2fb66723ce@linaro.org>
-Date: Fri, 6 Nov 2026 13:20:16 +0200
+        Fri, 06 Nov 2026 03:24:25 -0800 (PST)
+Message-ID: <1fd0e1a9-ef5a-4fb8-8c55-556b62b73ace@linaro.org>
+Date: Fri, 6 Nov 2026 11:24:24 +0000
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Post: <mailto:linux-media@vger.kernel.org>
@@ -92,95 +91,79 @@ List-Owner: <mailto:linux-media+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sm8150-camss: Add SM8150
+Subject: Re: [PATCH 2/4] dt-bindings: media: qcom,sm8150-camss: Add SM8150
  CAMSS
-To: mail@andrewgigena.dev, Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+To: Andrew Gigena <mail@andrewgigena.dev>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Robert Foss
+ <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org
-References: <20261106-sm8150-v7.4-rc1-camss-v2-0-39ee37787b00@andrewgigena.dev>
- <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20261106-sm8150-v7.4-rc1-camss-v2-2-39ee37787b00@andrewgigena.dev>
+References: <20261104-sm8150-v7-4-rc1-camss-v1-0-7a9534a9a22f@andrewgigena.dev>
+ <20261104-sm8150-v7-4-rc1-camss-v1-2-7a9534a9a22f@andrewgigena.dev>
+ <904675e8-701d-4fd6-b418-6c0dcc9288b9@linaro.org>
+ <5ba03b8e-1d51-4e66-a802-37e63814f5d5@linaro.org>
+ <CANn8UmccjAh7PiLpbGHrhDR4yn=w6uiDYU01aoZvBs-tGkgNsQ@mail.gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <CANn8UmccjAh7PiLpbGHrhDR4yn=w6uiDYU01aoZvBs-tGkgNsQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Andrew.
-
-On 11/6/26 05:24, Andrew Gigena via B4 Relay wrote:
-> From: Andrew Gigena <mail@andrewgigena.dev>
+On 06/11/2026 03:06, Andrew Gigena wrote:
+> Hi Vladimir, Bryan,
 > 
-> Document the Qualcomm SM8150 Camera Subsystem. The IP integrates four
-> CSIPHY, four CSID (two full and two lite), two VFE and two VFE-Lite
-> instances, with 27 clocks, 12 interrupts, eight IOMMU streams, four
-> interconnect paths and three power domains.
+> Thank you both for the review and for taking the time to explain the
+> direction.
 > 
-> SM8150 has a different register layout, clock tree and power domain
-> topology from SM8250, so describe it in a dedicated schema instead of
-> using qcom,sm8250-camss as a fallback.
+> Vladimir: I understand your point about the stand-alone CSI2 PHY model,
+> and I agree that is where CAMSS should go. I hope this series does not
+> give the impression of entrenching the legacy description; that is not
+> my intention. My concern is that I don't think I can do the PHY-API
+> conversion properly within this series: as far as I can see,
+> qcom-mipi-csi2 currently only carries the x1e80100/glymur
+> configuration and no upstream DTS uses the PHY-API path yet to take as
+> a reference point.
+> Converting SM8150 would also affect the other CAMSS SoCs that
+> still use the legacy description, so it looks like a separate and
+> larger piece of work.
 > 
-> Signed-off-by: Andrew Gigena <mail@andrewgigena.dev>
-> ---
->   .../bindings/media/qcom,sm8150-camss.yaml          | 412 +++++++++++++++++++++
->   1 file changed, 412 insertions(+)
+> If I'm missing something, or if there is an existing branch or series I
+> should base that work on, I would be grateful for a pointer. I would
+> also be glad to help with the conversion as a follow-up if that is the
+> preferred path.
 > 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> new file mode 100644
-> index 000000000000..26f8939001df
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8150-camss.yaml
-> @@ -0,0 +1,412 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/qcom,sm8150-camss.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SM8150 Camera Subsystem (CAMSS)
-> +
-> +maintainers:
-> +  - Andrew Gigena <mail@andrewgigena.dev>
-> +
-> +description: |
-> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sm8150-camss
-> +
-> +  clocks:
-> +    minItems: 27
-> +    maxItems: 27
-> +
-> +  clock-names:
-> +    items:
-> +      - const: camnoc_axi
-> +      - const: cpas_ahb
-> +      - const: csiphy0
-> +      - const: csiphy0_timer
-> +      - const: csiphy1
-> +      - const: csiphy1_timer
-> +      - const: csiphy2
-> +      - const: csiphy2_timer
-> +      - const: csiphy3
-> +      - const: csiphy3_timer
+> Bryan: as the CAMSS maintainer, could you let me know what you would
+> like me to do for this series? I am happy to keep the legacy CSIPHY
+> description for now and follow up with the PHY-API conversion, or to
+> fold it into this series if you think that is the right thing. I will
+> follow your guidance.
+> 
+> This is my first submission, so I appreciate the patience.
+> 
+> In the meantime, I will send v2 with the review fixes so the series
+> does not stall.
+> 
+> Thanks,
 
-I ask you to switch to the new CSI2 PHY driver, please exclude these I/O
-spaces from the CAMSS container device.
+A) No top posting pretty please with sugar on top.
 
-It makes no sense to deal with all-phy-combined supplies and the multitude
-of other solved problems.
+B) Since we are reusing an existing PHY init sequence there is no need
+    to port all of that stuff into drivers/phy right now
 
-The cost of changing the device to exploit the new CSIPHY driver is
-close to zero.
+There are several complexities involved in porting existing bindings a 
+new topology whilst supporting the old.
 
--- 
-Best wishes,
-Vladimir
+TBH adding a single new enum to a switch is a much better immediate outcome.
+
+Happy to take a SoC enablement now and work-up the switch of older 
+binginds to new over time.
+
+---
+bod
